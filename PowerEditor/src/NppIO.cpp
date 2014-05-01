@@ -66,7 +66,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     }
 
     BufferID test = MainFileManager->getBufferFromName(fileName2Find);
-    if (test != BUFFER_INVALID)
+    if (test != BUFFER_INVALID && !isSnapshotMode)
     {
         //switchToFile(test);
         //Dont switch, not responsibility of doOpen, but of caller

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-	Esperantigo de Notepad++
-	2010, Francesco Costanzo: invincibile(ĉe)users.sourceforge.net
-	Lasta ĝisdatigo: la 23an de oktobro 2013
+	Francesco Costanzo: invincibile(ĉe)users.sourceforge.net
+	Unua traduko: decembro 2010 (v5.8.6) - unua publikigo: v5.8.7
+	Lasta ĝisdatigo: la 23an de aprilo 2014
 	Korajn dankojn al tiuj, kiuj konigis rimarkojn kaj erarojn.
-
-	Por pli da informoj, bvl. vidi sube; por kontakti min
-	*********** La plej grava afero: BONAN LABORADON KUN NP++! :) ***********
+	Pli da informoj ĉe la fino de la dokumento
+	*********** BONAN LABORADON KUN NP++! :) ***********
 -->
 <NotepadPlus>
 	<Native-Langue name="Esperanto" filename="esperanto.xml" >
@@ -29,6 +28,9 @@
 
 				<!-- Subĉefaj menuoj -->
 				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Malfermu aktualan dosierujon"/>
+					<Item subMenuId="file-closeMore" name="Fermu ..."/>
+					<Item subMenuId="file-recentFiles" name="PLU (Plej Laste Uzitaj)"/>
 					<Item subMenuId="edit-copyToClipboard"  name="Kopiu en la tondejon"/>
 					<Item subMenuId="edit-indent" name="Krommarĝeno"/>
 					<Item subMenuId="edit-convertCaseTo" name="Uskleco"/>
@@ -74,9 +76,15 @@
 				<Commands>
 					<Item id="41001" name="&amp;Nova"/>
 					<Item id="41002" name="&amp;Malfermu..."/>
+					<Item id="41019" name="Esplorilo"/>
+					<Item id="41020" name="cmd.exe"/>
+
 					<Item id="41003" name="Fermu"/>
 					<Item id="41004" name="Fermu &amp;ĉiujn dokumentojn"/>
 					<Item id="41005" name="Fermu ĉiujn dokumentojn KROM tiu ĉi"/>
+					<Item id="41009" name="Fermu ĉiujn maldekstre"/>
+					<Item id="41018" name="Fermu ĉiujn dekstre"/>
+
 					<Item id="41006" name="Kon&amp;servu"/>
 					<Item id="41007" name="Kons&amp;ervu ĉiujn"/>
 					<Item id="41008" name="Konservu &amp;kiel..."/>
@@ -145,6 +153,9 @@
 					<Item id="42056" name="Forigu maplenajn liniojn (kun nevideblaj signoj)"/>
 					<Item id="42057" name="Aldonu malplenan linion sur tiu ĉi"/>
 					<Item id="42058" name="Aldonu malplenan linion sub tiu ĉi"/>
+					<!--dividiloj necesaj-->
+					<Item id="42059" name="Ordigu liniojn kreske"/>
+					<Item id="42060" name="Ordigu liniojn malkreske"/>
 
 					<Item id="43001" name="&amp;Serĉu..."/>
 					<Item id="43002" name="Serĉu la sekva&amp;ntan"/>
@@ -282,6 +293,8 @@
 					<Item id="50000" name="Kompletigu funkcion"/>
 					<Item id="50001" name="Kompletigu vorton"/>
 					<Item id="50002" name="Kompletigu parametrojn de funkcio"/>
+
+					<Item id="50006" name="Kompletigu vojon"/><!--dividiloj necesaj -->
 					<Item id="44042" name="Kaŝu la liniojn kun elektaĵo"/>
 					<Item id="42040" name="Malfermu ĉiujn plejlaste uzitajn dosierojn"/>
 					<Item id="42041" name="Forgesu la liston de plejlaste uzitaj dosieroj"/>
@@ -309,8 +322,8 @@
 					<Item CMID="14" name="Deloku al nova ekzemplo de Notepad++"/>
 					<Item CMID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
 					<Item CMID="16" name="Relegu"/>
-					<Item CMID="17" name="Malfermu ĉiujn maldekstre"/>
-					<Item CMID="18" name="Malfermu ĉiujn dekstre"/>
+					<Item CMID="17" name="Fermu ĉiujn maldekstre"/>
+					<Item CMID="18" name="Fermu ĉiujn dekstre"/>
 			</TabBar>
 		</Menu>
 
@@ -349,7 +362,7 @@
 				<Item id="1659" name="En kaŝitaj dosierujoj"/>
 				<Item id="1624" name="Serĉmaniero"/>
 				<Item id="1625" name="Normala"/>
-				<Item id="1626" name="Larĝa (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Speciala (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Anstataŭigu en la dosieroj"/>
 				<Item id="1661" name="Ujo de la aktiva dosiero"/>
 				<Item id="1641" name="Serĉu ĉiujn en la aktiva dosiero"/>
@@ -467,13 +480,13 @@
 					<Item id="21102" name="Stildefino"/>
 					<Item id="21105" name="Dokumentaro:"/>
 					<Item id="21104" name="Dumtempa dokumentretejo:"/>
-					<Item id="21106" name="Faldu kompacte (faldu ankaŭ malplenajn liniojn)"/>
+					<Item id="21106" name="Faldu kompakte (faldu ankaŭ malplenajn liniojn)"/>
 					<Item id="21220" name="Faldu en kodo, 1 stilo:"/>
 					<Item id="21224" name="Malfermu:"/>
 					<Item id="21225" name="Meza:"/>
 					<Item id="21226" name="Fermu:"/>
-					<Item id="21227" name="Stildefino"/>
-					<Item id="21320" name="Folding in code 2 style (separators needed):"/>
+					<Item id="21227" name="Stildefino"/> <!--dividiloj necesaj-->
+					<Item id="21320" name="Foldado en codo, 2a stilo (dividiloj necesaj):"/>
 					<Item id="21324" name="Malfermu:"/>
 					<Item id="21325" name="Meza:"/>
 					<Item id="21326" name="Fermu:"/>
@@ -543,7 +556,7 @@
 					<Item id="24101" name="Stilo de operatoroj"/>
 					<Item id="24113" name="Stildefino"/>
 					<Item id="24116" name="Operatoroj 1"/>
-					<Item id="24117" name="Operatoroj 2 (separators required)"/>
+					<Item id="24117" name="Operatoroj 2 (dividiloj necesaj)"/>
 					<Item id="24201" name="Stilo de limmarko 1"/>
 					<Item id="24220" name="Malfermu:"/>
 					<Item id="24221" name="Kodŝanĝa signo:"/>
@@ -615,6 +628,7 @@
 
 					<Item id="6125" name="Panelo de malfermitaj dosieroj"/>
 					<Item id="6126" name="Montru"/>
+					<Item id="6127" name="Dosiersufiksoj NE en sia kolumno"/>
 				</Global>
 				<Scintillas title="Redaktado">
 					<Item id="6216" name="Agordoj pri tajpmontrilo"/>
@@ -640,7 +654,7 @@
 					<Item id="6207" name="Montru legosignojn"/>
 					<Item id="6208" name="Montru kolumnlimon"/>
 					<Item id="6209" name="Nombro de kolumnoj: "/>
-
+					<Item id="6234" name="Malŝaltu specialan rulumadon (se vi havas problemojn kun tuŝplato)"/>
 					<Item id="6211" name="Agordoj pri kolumnlimo"/>
 					<Item id="6212" name="Linia maniero"/>
 					<Item id="6213" name="Fona maniero"/>
@@ -751,6 +765,8 @@
 					<Item id="6330" name="Evid. regionojn kun komentoj/php/asp"/>
 
 					<Item id="6331" name="Montru nur dosiernomon en titola breto"/>
+                    <Item id="6332" name="Uskleca kongruo"/>
+                    <Item id="6333" name="Inteligenta evidentigo"/>
 					<Item id="6114" name="Ŝaltu"/>
 					<Item id="6115" name="Aŭtomata krommarĝeno"/>
 					<Item id="6117" name="Ordigu laŭ lasta uzo"/>
@@ -761,7 +777,7 @@
 					<Item id="6801" name="Sekurkopio"/>
 					<Item id="6315" name="Nenia sekurkopio"/>
 					<Item id="6316" name="Simpla sekurkopio"/>
-					<Item id="6317" name="Nova sekurkopio je ĉiu konservo"/>
+					<Item id="6317" name="Nova kopio je ĉiu konservo"/>
 					<Item id="6804" name="Elektu dosierujon por sekurkopioj:"/>
 					<Item id="6803" name="Dosierujo:"/>
 				</Backup>
@@ -783,13 +799,15 @@
 					<Item id="6863" name="Kongrua duopo 2:"/>
 					<Item id="6866" name="Kongrua duopo 3:"/>
 				</AutoCompletion>
-				<Multi-instance title = "Pluraj ekzemploj">
+
+				<MultiInstance title = "Plurekzempleco">
 					<Item id = "6151" name = "Agordoj de plurekzempla maniero"/>
 					<Item id = "6152" name = "Malfermu seancon en nova ekzemplo de Notepadu++"/>
 					<Item id = "6153" name = "Ĉiam en plurekzempla maniero"/>
 					<Item id = "6154" name = "Defaŭlte (unu ekzemplo)"/>
-					<Item id = "6155" name = "* Modifo de ĉi agordoj postulos restartigon de Notepadu++"/>
-				</Multi-instance>
+					<Item id="6155" name = "* Modifo de ĉi agordoj postulos restartigon de Notepad++"/>
+				</MultiInstance>
+
 				<Delimiter title = "Limmarkoj">
 					<Item id = "6251" name = "Elekto de teksto limmarkita (Ctrl + duobla musklako)"/>
 					<Item id = "6252" name = "Malf."/>

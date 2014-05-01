@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- last change: 20 Feb 2014 by Ondřej Müller (mullero@email.cz)
-	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
+	- last change: 25 Apr 2014 by Ondřej Müller (mullero@email.cz)
+	- all Czech translations at: http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.5.4">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -272,6 +272,8 @@
 					<Item id = "47006" name = "Aktualizovat Notepad++"/> 
 					<Item id = "47007" name = "Wiki FAQ"/> 
 					<Item id = "47008" name = "Obsah nápovědy"/>
+					<Item id = "47009" name = "Nastavit aktualizaci proxy-serveru ..." />
+                    <Item id = "47010" name = "Parametry příkazové řádky" />
 					<Item id = "48005" name = "Importovat plugin(y) ..."/>
 					<Item id = "48006" name = "Importovat styl(y) ..."/>
 					<Item id = "48009" name = "Asociace klávesových zkratek..."/>
@@ -793,13 +795,19 @@
 					<Item id = "6332" name = "Rozlišovat malá a VELKÁ písmena"/>
 					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
 				</MISC>
-				<Backup title = "Zalohování">
+				<Backup title = "Zálohování">
+					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
 					<Item id = "6801" name = "Zálohování"/>
+					<Item id = "6803" name = "Adresář:"/>
+					<Item id = "6804" name = "Uživatelský adresář pro zálohy"/>
+					<Item id = "6817" name = "Body obnovení a periodické zálohování"/>
+					<Item id = "6309" name = "Zapamatovat aktuální relaci pro spuštění příště"/>
+					<Item id = "6818" name = "Aktivovat ukládání bodů pro obnovení relace a periodické zálohování"/>
+					<Item id = "6819" name = "Zálohovat každých"/>
+					<Item id = "6821" name = "sekund"/>
 					<Item id = "6315" name = "Vypnuto"/>
 					<Item id = "6316" name = "Základní zálohování"/>
 					<Item id = "6317" name = "Zálohování s hlášeními"/>
-					<Item id = "6804" name = "Uživatelský adresář pro zálohy"/>
-					<Item id = "6803" name = "Adresář:"/>
 				</Backup>
 				<AutoCompletion title = "Automat. dokončování">
 					<Item id = "6807" name = "Automatické dokončování"/>

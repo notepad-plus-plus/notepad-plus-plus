@@ -1,3 +1,8 @@
+Notepad++ v6.6.1 bug fixes:
+
+1.  Fix Notepad++ hanging issue while saving a large file if session snapshot feature is on.
+
+
 Notepad++ v6.6 new features and bug fixes:
 
 1.  Add session snapshot and periodic backup feature.

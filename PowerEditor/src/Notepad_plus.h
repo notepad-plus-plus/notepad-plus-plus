@@ -198,6 +198,7 @@ class FunctionListPanel;
 class Notepad_plus {
 
 friend class Notepad_plus_Window;
+friend class FileManager;
 
 public:
 	Notepad_plus();
@@ -332,7 +333,6 @@ private:
     ScintillaEditView _mainEditView;
 	ScintillaEditView _invisibleEditView;	//for searches
 	ScintillaEditView _fileEditView;		//for FileManager
-
     ScintillaEditView *_pEditView;
 	ScintillaEditView *_pNonEditView;
 

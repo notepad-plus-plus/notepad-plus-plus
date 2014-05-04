@@ -659,7 +659,6 @@ bool FileManager::backupCurrentBuffer()
 				::ResetEvent(writeEvent);
 			}
 
-
 			UniMode mode = buffer->getUnicodeMode();
 			if (mode == uniCookie)
 				mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
@@ -709,10 +708,8 @@ bool FileManager::backupCurrentBuffer()
 			FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
 			if (fp)
 			{
-				_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
-
-				int lengthDoc = _pscratchTilla->getCurrentDocLen();
-				char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
+				int lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
+				char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
 				size_t items_written = 0;
 				if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 				{
@@ -744,15 +741,16 @@ bool FileManager::backupCurrentBuffer()
 				// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
 				if(items_written == 1) // backup file has been saved
 				{
-					_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 					buffer->setModifiedStatus(false);
 					result = true;	//all done
-
-					::SetEvent(writeEvent);
 				}
 			}
 			// set to signaled state
-			::SetEvent(writeEvent);
+			if (::SetEvent(writeEvent) == NULL)
+			{
+				printStr(TEXT("oups!"));
+			}
+			// printStr(TEXT("Event released!"));
 			::CloseHandle(writeEvent);
 		}
 		else // buffer dirty but unmodified
@@ -794,7 +792,7 @@ bool FileManager::deleteCurrentBufferBackup()
 		// no thread yet, create a event with non-signaled, to block all threads
 		writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
 	}
-	else 
+	else
 	{
 		if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
 		{
@@ -833,7 +831,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
 	}
 	else 
-	{
+	{		//printStr(TEXT("Locked. I wait."));
 		if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
 		{
 			// problem!!!

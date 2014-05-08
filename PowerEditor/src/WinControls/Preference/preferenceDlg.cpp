@@ -2175,7 +2175,7 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		case WM_INITDIALOG :
 		{
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REMEMBERSESSION, BM_SETCHECK, nppGUI._rememberLastSession, 0);
-			bool snapshotCheck = nppGUI._rememberLastSession && nppGUI._isSnapshotMode;
+			bool snapshotCheck = nppGUI._rememberLastSession && nppGUI.isSnapshotMode();
 			::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_RESTORESESSION_CHECK, BM_SETCHECK, snapshotCheck?BST_CHECKED:BST_UNCHECKED, 0);
 			int periodicBackupInSec = nppGUI._snapshotBackupTiming/1000;
 			::SetDlgItemInt(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, periodicBackupInSec, FALSE);

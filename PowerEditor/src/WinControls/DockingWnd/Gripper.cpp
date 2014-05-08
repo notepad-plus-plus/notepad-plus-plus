@@ -265,18 +265,18 @@ void Gripper::create()
         DWORD dwError = ::GetLastError();
         TCHAR  str[128];
         ::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
-        ::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed"), MB_OK | MB_ICONERROR);
+        ::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed on Gripper::create()"), MB_OK | MB_ICONERROR);
     }
 
 	if (ver < WV_VISTA)
 	{
-		hookKeyboard = ::SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)hookProcKeyboard, _hInst, 0);
+		hookKeyboard = ::SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)hookProcKeyboard, _hInst, ::GetCurrentThreadId());
 		if (!hookKeyboard)
 		{
 			DWORD dwError = ::GetLastError();
 			TCHAR  str[128];
 			::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
-			::MessageBox(NULL, str, TEXT("SetWindowsHookEx(KEYBOARD) failed"), MB_OK | MB_ICONERROR);
+			::MessageBox(NULL, str, TEXT("SetWindowsHookEx(KEYBOARD) failed on Gripper::create()"), MB_OK | MB_ICONERROR);
 		}
 	}
 //  Removed regarding W9x systems

@@ -160,7 +160,7 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 				DWORD dwError = ::GetLastError();
 				TCHAR  str[128];
 				::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
-				::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed"), MB_OK | MB_ICONERROR);
+				::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed on runProc"), MB_OK | MB_ICONERROR);
 			}
 			else
 			{

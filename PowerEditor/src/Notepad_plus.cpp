@@ -3207,7 +3207,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 {
 	//scnN.nmhdr.code = NPPN_DOCSWITCHINGOFF;		//superseeded by NPPN_BUFFERACTIVATED
 
-	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 	if (isSnapshotMode)
 	{
 		// Before switching off, synchronize backup file
@@ -4472,7 +4472,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				if (doCloseOrNot(buffer->getFullPathName()) == IDNO)
 				{
 					//close in both views, doing current view last since that has to remain opened
-					bool isSnapshotMode = nppGUI._isSnapshotMode;
+					bool isSnapshotMode = nppGUI.isSnapshotMode();
 					doClose(buffer->getID(), otherView(), isSnapshotMode);
 					doClose(buffer->getID(), currentView(), isSnapshotMode);
 				}
@@ -5769,7 +5769,7 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 
 		::Sleep(timer);
 
-		isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+		isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 		if (!isSnapshotMode)
 			break;
 

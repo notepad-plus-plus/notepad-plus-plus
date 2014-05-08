@@ -597,7 +597,7 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		viewToClose = curView;
 	//first check amount of documents, we dont want the view to hide if we closed a secondary doc with primary being empty
 	//int nrDocs = _pDocTab->nbItem();
-	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 	doClose(bufferID, viewToClose, isSnapshotMode);
 	return true;
 }
@@ -733,7 +733,7 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 	}
 
 	// Now we close.
-	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 	for(std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex) {
 		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView(), isSnapshotMode);
 	}
@@ -826,7 +826,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		}
 	}
 
-	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 	//Then start closing, inactive view first so the active is left open
     if (bothActive())
     {	//first close all docs in non-current view, which gets closed automatically
@@ -1059,7 +1059,7 @@ bool Notepad_plus::fileDelete(BufferID id)
 				MB_OK);
 			return false;
 		}
-		bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+		bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 		doClose(bufferID, MAIN_VIEW, isSnapshotMode);
 		doClose(bufferID, SUB_VIEW, isSnapshotMode);
 		return true;
@@ -1118,6 +1118,15 @@ bool Notepad_plus::isFileSession(const TCHAR * filename) {
 		}
 	}
 	return false;
+}
+
+void Notepad_plus::loadLastSession()
+{
+	NppParameters *nppParams = NppParameters::getInstance();
+	const NppGUI & nppGui = nppParams->getNppGUI();
+	Session lastSession = nppParams->getSession();
+	bool isSnapshotMode = nppGui.isSnapshotMode();
+    loadSession(lastSession, isSnapshotMode);
 }
 
 bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)

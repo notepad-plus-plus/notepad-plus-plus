@@ -815,12 +815,7 @@ struct NppGUI
 	generic_string _themeName;
 	MultiInstSetting _multiInstSetting;
 	bool _fileSwitcherWithoutExtColumn;
-	/*
-	bool isSnapshotMode() const {return _isSnapshotMode;};
-	void setBackupMode(bool doBackup) {_isSnapshotMode = doBackup;};
-	size_t getBackupTiming() const {return _snapshotBackupTiming;};
-	void setBackupTiming(size_t timing) {_snapshotBackupTiming = timing;}; 
-	*/
+	bool isSnapshotMode() const {return _isSnapshotMode && _rememberLastSession;};
 	bool _isSnapshotMode;
 	size_t _snapshotBackupTiming;
 };

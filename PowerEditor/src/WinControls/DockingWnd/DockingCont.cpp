@@ -301,7 +301,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 					DWORD dwError = ::GetLastError();
 					TCHAR  str[128];
 					::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
-					::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed"), MB_OK | MB_ICONERROR);
+					::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed on runProcCaption"), MB_OK | MB_ICONERROR);
 				}
 				::RedrawWindow(hwnd, NULL, NULL, TRUE);
 			}

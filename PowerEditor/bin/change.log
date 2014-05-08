@@ -1,10 +1,10 @@
-Notepad++ v6.6.1 bug fixes:
+Notepad++ v6.6.2 bug fixes:
+1.  Fix session snapshot enabled issue even "remember current session" option is disabled.
 
+Notepad++ v6.6.1 bug fixes:
 1.  Fix Notepad++ hanging issue while saving a large file if session snapshot feature is on.
 
-
 Notepad++ v6.6 new features and bug fixes:
-
 1.  Add session snapshot and periodic backup feature.
 2.  Fix RTL/LTR command making mirrored text bug.
 3.  Make auto-detect character encoding optional.

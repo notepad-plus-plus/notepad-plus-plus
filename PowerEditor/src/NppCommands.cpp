@@ -118,7 +118,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_CLOSEALL:
 		{
-			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 			fileCloseAll(isSnapshotMode, false);
             checkDocState();
 			break;

@@ -289,12 +289,7 @@ public:
 	bool addCurrentMacro();
 	void macroPlayback(Macro);
     
-    void loadLastSession(){
-    	Session lastSession = (NppParameters::getInstance())->getSession();
-		bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
-	    loadSession(lastSession, isSnapshotMode);
-    };
-
+    void loadLastSession();
 	bool loadSession(Session & session, bool isSnapshotMode = false);
 	
 	void notifyBufferChanged(Buffer * buffer, int mask);

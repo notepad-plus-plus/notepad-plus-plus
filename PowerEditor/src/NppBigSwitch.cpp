@@ -1419,7 +1419,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
                 if (_pTrayIco)
                     _pTrayIco->doTrayIcon(REMOVE);
 
-				bool isSnapshotMode = pNppParam->getNppGUI()._isSnapshotMode;
+				bool isSnapshotMode = pNppParam->getNppGUI().isSnapshotMode();
 				if (isSnapshotMode)
 					MainFileManager->backupCurrentBuffer();
 

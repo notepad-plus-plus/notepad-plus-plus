@@ -223,7 +223,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		::MessageBoxA(NULL, dest, "", MB_OK);
 	}
 
-	bool isSnapshotMode = nppGUI._isSnapshotMode;
+	bool isSnapshotMode = nppGUI.isSnapshotMode();
 	if (isSnapshotMode)
 	{
 		_notepad_plus_plus_core.checkModifiedDocument();

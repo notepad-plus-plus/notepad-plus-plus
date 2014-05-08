@@ -628,6 +628,49 @@ bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)
 	return true;
 }
 
+
+/*
+Specs and Algorithm of session snapshot & periodic backup system:
+Notepad++ quits without asking for saving unsaved file.
+It restores all the unsaved files and document as the states they left. 
+
+For existing file (c:\tmp\foo.h)
+	- Open  
+	In the next session, Notepad++
+	1. load backup\FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776) if exist, otherwise load FILENAME (c:\tmp\foo.h).
+	2. if backup\FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776) is loaded, set it dirty (red).
+	3. if backup\FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776) is loaded, last modif timestamp of FILENAME (c:\tmp\foo.h), compare with tracked timestamp (in session.xml).
+	4. in the case of unequal result, tell user the FILENAME (c:\tmp\foo.h) was modified. ask user if he want to reload FILENAME(c:\tmp\foo.h)
+
+	- Editing
+	when a file starts being modified, a file will be created with name: FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776)
+	the Buffer object will associate with this FILENAME@CREATION_TIMESTAMP file (backup\foo.h@198776).
+	1. sync: (each 3-5 second) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notificatin).
+	2. sync: each save file, or close file, the backup file will be deleted (if buffer is not dirty).
+	3. before switch off to another tab (or close files on exit), check 1 & 2 (sync with backup).
+
+	- Close
+	In the current session, Notepad++ 
+	1. track FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776) if exist (in session.xml).
+	2. track last modified timestamp of FILENAME (c:\tmp\foo.h) if FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776) was tracked  (in session.xml).
+
+For untitled document (new  4)
+	- Open
+	In the next session, Notepad++
+	1. open file UNTITLED_NAME@CREATION_TIMESTAMP (backup\new  4@198776)
+	2. set label as UNTITLED_NAME (new  4) and disk icon as red.
+ 
+	- Editing
+	when a untitled document starts being modified, a backup file will be created with name: UNTITLED_NAME@CREATION_TIMESTAMP (backup\new  4@198776)
+	the Buffer object will associate with this UNTITLED_NAME@CREATION_TIMESTAMP file (backup\new  4@198776).
+	1. sync: (each 3-5 second) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notificatin).
+	2. sync: if untitled document is saved, or closed, the backup file will be deleted.
+	3. before switch off to another tab (or close documents on exit), check 1 & 2 (sync with backup).
+
+	- CLOSE
+	In the current session, Notepad++ 
+	1. track UNTITLED_NAME@CREATION_TIMESTAMP (backup\new  4@198776) in session.xml.
+*/
 bool FileManager::backupCurrentBuffer()
 {
 	Buffer * buffer = _pNotepadPlus->getCurrentBuffer();

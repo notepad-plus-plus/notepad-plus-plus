@@ -132,7 +132,7 @@ RECT TaskList::adjustSize()
 
 	reSizeTo(_rc);
 	winVer ver = (NppParameters::getInstance())->getWinVersion();
-	_rc.bottom += ver <= WV_XP?xpBottomMarge:w7BottomMarge;
+	_rc.bottom += (ver <= WV_XP && ver != WV_UNKNOWN)?xpBottomMarge:w7BottomMarge;
 	return _rc;
 }
 

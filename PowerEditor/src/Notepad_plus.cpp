@@ -155,7 +155,8 @@ Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(N
 
 	// Determine if user is administrator.
 	BOOL is_admin;
-	if(NppParameters::getInstance()->getWinVersion() >= WV_VISTA)
+	winVer ver = NppParameters::getInstance()->getWinVersion();
+	if (ver >= WV_VISTA || ver == WV_UNKNOWN)
 	{
 		SID_IDENTIFIER_AUTHORITY NtAuthority = SECURITY_NT_AUTHORITY;
 		PSID AdministratorsGroup;

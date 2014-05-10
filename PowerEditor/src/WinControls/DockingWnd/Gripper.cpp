@@ -258,7 +258,7 @@ void Gripper::create()
 	::SetWindowPos(_pCont->getHSelf(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 	::SetCapture(_hSelf);
 	winVer ver = (NppParameters::getInstance())->getWinVersion();
-	hookMouse = ::SetWindowsHookEx(ver >= WV_W2K?WH_MOUSE_LL:WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, 0);
+	hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, 0);
 
     if (!hookMouse)
     {
@@ -268,9 +268,9 @@ void Gripper::create()
         ::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed on Gripper::create()"), MB_OK | MB_ICONERROR);
     }
 
-	if (ver < WV_VISTA)
+	if (ver != WV_UNKNOWN && ver < WV_VISTA)
 	{
-		hookKeyboard = ::SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)hookProcKeyboard, _hInst, ::GetCurrentThreadId());
+		hookKeyboard = ::SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC)hookProcKeyboard, _hInst, 0);
 		if (!hookKeyboard)
 		{
 			DWORD dwError = ::GetLastError();

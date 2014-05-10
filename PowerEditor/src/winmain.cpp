@@ -390,14 +390,14 @@ DEVOMER*/
 
 		// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA messages to this process (or window)
 		// This allows opening new files to already opened elevated Notepad++ process via explorer context menu.
-		if(pNppParameters->getWinVersion() >= WV_VISTA)
+		winVer ver = pNppParameters->getWinVersion();
+		if (ver >= WV_VISTA || ver == WV_UNKNOWN)
 		{
 			HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
 			if (hDll)
 			{
 				// According to MSDN ChangeWindowMessageFilter may not be supported in future versions of Windows, 
 				// that is why we use ChangeWindowMessageFilterEx if it is available (windows version >= Win7).
-
 				if(pNppParameters->getWinVersion() == WV_VISTA)
 				{
 					typedef BOOL (WINAPI *MESSAGEFILTERFUNC)(UINT message,DWORD dwFlag);
@@ -425,23 +425,19 @@ DEVOMER*/
 			}
 		}
 
-		bool unicodeSupported = pNppParameters->getWinVersion() >= WV_NT;
 		bool going = true;
 		while (going)
 		{
-			going = (unicodeSupported?(::GetMessageW(&msg, NULL, 0, 0)):(::GetMessageA(&msg, NULL, 0, 0))) != 0;
+			going = ::GetMessageW(&msg, NULL, 0, 0) != 0;
 			if (going)
 			{
 				// if the message doesn't belong to the notepad_plus_plus's dialog
-				if (!notepad_plus_plus.isDlgsMsg(&msg, unicodeSupported))
+				if (!notepad_plus_plus.isDlgsMsg(&msg))
 				{
 					if (::TranslateAccelerator(notepad_plus_plus.getHSelf(), notepad_plus_plus.getAccTable(), &msg) == 0)
 					{
 						::TranslateMessage(&msg);
-						if (unicodeSupported)
-							::DispatchMessageW(&msg);
-						else
-							::DispatchMessage(&msg);
+						::DispatchMessageW(&msg);
 					}
 				}
 			}

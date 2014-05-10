@@ -232,11 +232,11 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 }
 
-bool Notepad_plus_Window::isDlgsMsg(MSG *msg, bool unicodeSupported) const 
+bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const 
 {
 	for (size_t i = 0, len = _notepad_plus_plus_core._hModelessDlgs.size(); i < len; ++i)
 	{
-		if (unicodeSupported?(::IsDialogMessageW(_notepad_plus_plus_core._hModelessDlgs[i], msg)):(::IsDialogMessageA(_notepad_plus_plus_core._hModelessDlgs[i], msg)))
+		if (::IsDialogMessageW(_notepad_plus_plus_core._hModelessDlgs[i], msg))
 			return true;
 	}
 	return false;

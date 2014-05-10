@@ -63,14 +63,13 @@ public:
 	Notepad_plus_Window() {};
 	void init(HINSTANCE, HWND, const TCHAR *cmdLine, CmdLineParams *cmdLineParams);
 
-	bool isDlgsMsg(MSG *msg, bool unicodeSupported) const;
+	bool isDlgsMsg(MSG *msg) const;
 	
-	HACCEL getAccTable() const{
+	HACCEL getAccTable() const {
 		return _notepad_plus_plus_core.getAccTable();
 	};
 	
-	bool emergency(generic_string emergencySavedDir)
-	{
+	bool emergency(generic_string emergencySavedDir) {
 		return _notepad_plus_plus_core.emergency(emergencySavedDir);
 	};
 

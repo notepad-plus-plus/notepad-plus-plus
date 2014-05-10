@@ -84,8 +84,7 @@ BOOL CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 #ifndef WH_MOUSE_LL
 #define WH_MOUSE_LL 14
 #endif
-			winVer ver = (NppParameters::getInstance())->getWinVersion();
-			_hHooker = ::SetWindowsHookEx(ver >= WV_W2K?WH_MOUSE_LL:WH_MOUSE, (HOOKPROC)hookProc, _hInst, 0);
+			_hHooker = ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProc, _hInst, 0);
 			hook = _hHooker;
 			return FALSE;
 		}

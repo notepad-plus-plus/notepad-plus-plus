@@ -567,11 +567,17 @@ winVer getWindowsVersion()
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
-
+	//printInt(osvi.dwMajorVersion);
+	//printInt(osvi.dwMinorVersion);
    switch (osvi.dwPlatformId)
    {
 		case VER_PLATFORM_WIN32_NT:
 		{
+			if ( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3 )
+			{
+				return WV_WIN81;
+			}
+
 			if ( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2 )
 			{
 				return WV_WIN8;

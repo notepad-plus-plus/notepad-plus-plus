@@ -3057,6 +3057,9 @@ int Notepad_plus::switchEditViewTo(int gid)
 		_pDocMap->initWrapMap();
 	}
 
+	// Before switching off, synchronize backup file
+	MainFileManager->backupCurrentBuffer();
+
 	notifyBufferActivated(_pEditView->getCurrentBufferID(), currentView());
 	return oldView;
 }

@@ -976,10 +976,21 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		if (isCopy)
 		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			
+
+			/* for saveAs it's not necessary since this action is for the "current" directory, so we let manage in SAVEPOINTREACHED event 
+			generic_string backupFilePath = buffer->getBackupFileName();
+			if (backupFilePath != TEXT(""))
+			{
+				// delete backup file
+				generic_string file2Delete = buffer->getBackupFileName();
+				buffer->setBackupFileName(TEXT(""));
+				::DeleteFile(file2Delete.c_str());
+			}
+			*/
+
 			// set to signaled state
 			::SetEvent(writeEvent);
-			::CloseHandle(writeEvent);
+			::CloseHandle(writeEvent);			
 			return true;	//all done
 		}
 
@@ -990,6 +1001,15 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
 		//_pscratchTilla->markSavedLines();
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+
+		generic_string backupFilePath = buffer->getBackupFileName();
+		if (backupFilePath != TEXT(""))
+		{
+			// delete backup file
+			generic_string file2Delete = buffer->getBackupFileName();
+			buffer->setBackupFileName(TEXT(""));
+			::DeleteFile(file2Delete.c_str());
+		}
 
 		// set to signaled state
 		::SetEvent(writeEvent);
@@ -1130,9 +1150,9 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 		_pscratchTilla->execute(SCI_SETREADONLY, false);
 	}
 	_pscratchTilla->execute(SCI_CLEARALL);
-#ifdef UNICODE
+
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-#endif
+
 	if (language < L_EXTERNAL)
 	{
 		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
@@ -1141,11 +1161,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	{
 		int id = language - L_EXTERNAL;
 		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
-#ifdef UNICODE
 		const char *pName = wmc->wchar2char(name, CP_ACP);
-#else
-		const char *pName = name;
-#endif
 		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)pName);
 	}
 

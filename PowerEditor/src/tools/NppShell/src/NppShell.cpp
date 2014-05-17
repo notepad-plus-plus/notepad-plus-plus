@@ -955,8 +955,11 @@ void InvalidateIcon(HICON * iconSmall, HICON * iconLarge) {
 STDMETHODIMP CShellExt::InvokeNPP(HWND /*hParent*/, LPCSTR /*pszWorkingDir*/, LPCSTR /*pszCmd*/, LPCSTR /*pszParam*/, int iShowCmd) {
 	TCHAR szFilename[MAX_PATH];
 	TCHAR szCustom[MAX_PATH];
+	TCHAR szNotepadExecutableFilename[3 * MAX_PATH]; // Should be able to contain szFilename plus szCustom plus some additional characters.
 	LPTSTR pszCommand;
 	size_t bytesRequired = 1;
+
+	memset(szNotepadExecutableFilename, 0, sizeof(TCHAR) * 3 * MAX_PATH);
 
 	TCHAR szKeyTemp[MAX_PATH + GUID_STRING_SIZE];
 	DWORD regSize = 0;
@@ -1002,46 +1005,61 @@ STDMETHODIMP CShellExt::InvokeNPP(HWND /*hParent*/, LPCSTR /*pszWorkingDir*/, LP
 	regSize = (DWORD)MAX_PATH*sizeof(TCHAR);
 	result = RegQueryValueEx(settingKey, TEXT("Path"), NULL, NULL, (LPBYTE)(szFilename), &regSize);
 	szFilename[MAX_PATH-1] = 0;
-	lstrcat(pszCommand, TEXT("\""));
-	lstrcat(pszCommand, szFilename);
-	lstrcat(pszCommand, TEXT("\""));
+	lstrcat(szNotepadExecutableFilename, TEXT("\""));
+	lstrcat(szNotepadExecutableFilename, szFilename);
+	lstrcat(szNotepadExecutableFilename, TEXT("\""));
 	result = RegQueryValueEx(settingKey, TEXT("Custom"), NULL, NULL, (LPBYTE)(szCustom), &pathSize);
 	if (result == ERROR_SUCCESS) {
-		lstrcat(pszCommand, TEXT(" "));
-		lstrcat(pszCommand, szCustom);
+		lstrcat(szNotepadExecutableFilename, TEXT(" "));
+		lstrcat(szNotepadExecutableFilename, szCustom);
 	}
 	RegCloseKey(settingKey);
 
-	for (UINT i = 0; i < m_cbFiles; i++) {
-		DragQueryFile((HDROP)m_stgMedium.hGlobal, i, szFilename, MAX_PATH);
-		lstrcat(pszCommand, TEXT(" \""));
-		lstrcat(pszCommand, szFilename);
-		lstrcat(pszCommand, TEXT("\""));
-	}
+	// We have to open the files in batches. A command on the command-line can be at most
+	// 2048 characters in XP and 32768 characters in Win7. In the degenerate case where all
+	// paths are of length MAX_PATH, we can open at most x files at once, where:
+	// 260 * (x + 2) = 2048 or 32768 <=> x = 5 or x = 124.
+	// Note the +2 to account for the path to notepad++.exe.
+	// http://stackoverflow.com/questions/3205027/maximum-length-of-command-line-string
 
-	STARTUPINFO si;
-	PROCESS_INFORMATION pi;
-	ZeroMemory(&si, sizeof(si));
-	si.cb = sizeof(si);
-	si.dwFlags = STARTF_USESHOWWINDOW;
-	si.wShowWindow = (WORD)iShowCmd;	//SW_RESTORE;
-	if (!CreateProcess (NULL, pszCommand, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
-		DWORD errorCode = GetLastError();
-		if (errorCode == ERROR_ELEVATION_REQUIRED) {	//Fallback to shellexecute
-			CoInitializeEx(NULL, 0);
-			HINSTANCE execVal = ShellExecute(NULL, TEXT("runas"), pszCommand, NULL, NULL, iShowCmd);
-			CoUninitialize();
-			if (execVal <= (HINSTANCE)32) {
+	const UINT kiBatchSize = m_winVer > WINVER_XP ? 100 : 4;
+
+	UINT iFileIndex = 0;
+	while(iFileIndex < m_cbFiles) {
+		memset(pszCommand, 0, bytesRequired);
+		lstrcat(pszCommand, szNotepadExecutableFilename);
+		for (UINT iBatchSizeCounter = 0; iFileIndex < m_cbFiles && iBatchSizeCounter < kiBatchSize; iBatchSizeCounter++) {
+			DragQueryFile((HDROP)m_stgMedium.hGlobal, iFileIndex, szFilename, MAX_PATH);
+			lstrcat(pszCommand, TEXT(" \""));
+			lstrcat(pszCommand, szFilename);
+			lstrcat(pszCommand, TEXT("\""));
+			iFileIndex++;
+		}
+
+		STARTUPINFO si;
+		PROCESS_INFORMATION pi;
+		ZeroMemory(&si, sizeof(si));
+		si.cb = sizeof(si);
+		si.dwFlags = STARTF_USESHOWWINDOW;
+		si.wShowWindow = (WORD)iShowCmd;	//SW_RESTORE;
+		if (!CreateProcess (NULL, pszCommand, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
+			DWORD errorCode = GetLastError();
+			if (errorCode == ERROR_ELEVATION_REQUIRED) {	//Fallback to shellexecute
+				CoInitializeEx(NULL, 0);
+				HINSTANCE execVal = ShellExecute(NULL, TEXT("runas"), pszCommand, NULL, NULL, iShowCmd);
+				CoUninitialize();
+				if (execVal <= (HINSTANCE)32) {
+					TCHAR * message = new TCHAR[512+bytesRequired];
+					wsprintf(message, TEXT("ShellExecute failed (%d): Is this command correct?\r\n%s"), execVal, pszCommand);
+					MsgBoxError(message);
+					delete [] message;
+				}
+			} else {
 				TCHAR * message = new TCHAR[512+bytesRequired];
-				wsprintf(message, TEXT("ShellExecute failed (%d): Is this command correct?\r\n%s"), execVal, pszCommand);
+				wsprintf(message, TEXT("Error in CreateProcess (%d): Is this command correct?\r\n%s"), errorCode, pszCommand);
 				MsgBoxError(message);
 				delete [] message;
 			}
-		} else {
-			TCHAR * message = new TCHAR[512+bytesRequired];
-			wsprintf(message, TEXT("Error in CreateProcess (%d): Is this command correct?\r\n%s"), errorCode, pszCommand);
-			MsgBoxError(message);
-			delete [] message;
 		}
 	}
 

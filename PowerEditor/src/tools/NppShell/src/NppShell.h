@@ -17,6 +17,7 @@
 #include <shlwapi.h>
 
 #define WINVER_VISTA 0x600
+#define WINVER_XP	 0x0501
 
 //This is not ideal, but missing from current mingw
 #ifndef ERROR_ELEVATION_REQUIRED

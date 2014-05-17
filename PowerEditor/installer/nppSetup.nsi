@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.6.2"
+!define APPVERSION "6.6.3"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 62
+!define VERSION_MINOR 63
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -606,6 +606,10 @@ Section -"Notepad++" mainSection
 		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
 		Delete "$INSTDIR\NppShell_04.dll"
 		
+	IfFileExists "$INSTDIR\NppShell_05.dll" 0 +3
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
+		Delete "$INSTDIR\NppShell_05.dll"
+		
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1
@@ -635,12 +639,12 @@ Section "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	${If} ${RunningX64}
-		File /oname=$INSTDIR\NppShell_05.dll "..\bin\NppShell64_05.dll"
+		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
 	${Else}
-		File "..\bin\NppShell_05.dll"
+		File "..\bin\NppShell_06.dll"
 	${EndIf}
 	
-	Exec 'regsvr32 /s "$INSTDIR\NppShell_05.dll"'
+	Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
 SectionEnd
 
 SectionGroup "Auto-completion Files" autoCompletionComponent
@@ -1768,11 +1772,13 @@ Section un.explorerContextMenu
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
+	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_06.dll"'
 	Delete "$INSTDIR\NppShell_01.dll"
 	Delete "$INSTDIR\NppShell_02.dll"
 	Delete "$INSTDIR\NppShell_03.dll"
 	Delete "$INSTDIR\NppShell_04.dll"
 	Delete "$INSTDIR\NppShell_05.dll"
+	Delete "$INSTDIR\NppShell_06.dll"
 SectionEnd
 
 Section un.UnregisterFileExt

@@ -474,7 +474,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
                     CmdLineParams *cmdLineParam = (CmdLineParams *)pCopyData->lpData;
 					pNppParam->setCmdlineParam(*cmdLineParam);
-                    _rememberThisSession = !cmdLineParam->_isNoSession;
+					NppGUI nppGui = (NppGUI)pNppParam->getNppGUI();
+					nppGui._isCmdlineNosessionActivated = cmdLineParam->_isNoSession;
 					break;
 				}
 
@@ -530,7 +531,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_SAVECURRENTSESSION:
 		{
 			NppParameters *nppParam = NppParameters::getInstance();
-			if (nppParam->getNppGUI()._rememberLastSession && _rememberThisSession)
+			const NppGUI nppGui = nppParam->getNppGUI();
+
+			if (nppGui._rememberLastSession && !nppGui._isCmdlineNosessionActivated)
 			{
 				Session currentSession;
 				getCurrentOpenedFiles(currentSession, true);
@@ -1472,7 +1475,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			    saveUserDefineLangs();
 			    saveShortcuts();
-			    if (nppgui._rememberLastSession && _rememberThisSession)
+			    if (nppgui._rememberLastSession && !nppgui._isCmdlineNosessionActivated)
 				    saveSession(currentSession);
 
                 //Sends WM_DESTROY, Notepad++ will end

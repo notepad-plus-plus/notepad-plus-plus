@@ -422,8 +422,6 @@ private:
 
 	vector<pair<int, int> > _hideLinesMarks;
 	StyleArray _hotspotStyles;
-    bool _rememberThisSession; // always true. except -nosession is indicated on the launch time
-
 
 	AnsiCharPanel *_pAnsiCharPanel;
 	ClipboardHistoryPanel *_pClipboardHistoryPanel;

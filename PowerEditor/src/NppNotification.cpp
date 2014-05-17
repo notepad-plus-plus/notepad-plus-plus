@@ -109,16 +109,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			bool isDirty = notification->nmhdr.code == SCN_SAVEPOINTLEFT;
 			buf->setDirty(isDirty);
-
-			if (notification->nmhdr.code == SCN_SAVEPOINTREACHED)
-			{
-				bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
-				if (isSnapshotMode)
-				{
-					MainFileManager->backupCurrentBuffer();
-				}
-			}
-
 			break; 
 		}
 

@@ -63,7 +63,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
 
 	NppParameters *pNppParams = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParams->getNppGUI();
+	NppGUI & nppGUI = (NppGUI &)pNppParams->getNppGUI();
 
 	if (cmdLineParams->_isNoPlugin)
 		_notepad_plus_plus_core._pluginsManager.disable();
@@ -131,7 +131,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	{
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
 	}
-    _notepad_plus_plus_core._rememberThisSession = !cmdLineParams->_isNoSession;
+
+	nppGUI._isCmdlineNosessionActivated = cmdLineParams->_isNoSession;
 	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
 	{
 		_notepad_plus_plus_core.loadLastSession();

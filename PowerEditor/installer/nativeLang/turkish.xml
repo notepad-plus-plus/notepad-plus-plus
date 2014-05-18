@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="Windows-1254" ?>
 <NotepadPlus><!-- Çeviri: Emrah Güzeltaş | emrahguzeltas@gmail.com -->
-	<Native-Langue name="Turkish" filename="turkish.xml" version="6.5.4">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="6.6">
 		<Menu>
 			<Main>
                 <!-- Ana Menü Yazıları -->
 				<Entries>
 					<Item menuId="file" name="&amp;Dosya"/>
 					<Item menuId="edit" name="Dü&amp;zen"/>
-					<Item menuId="search" name="&amp;Ara"/>
+					<Item menuId="search" name="&amp;Arama"/>
 					<Item menuId="view" name="&amp;Görünüm"/>
 					<Item menuId="encoding" name="&amp;Kodlama"/>
 					<Item menuId="language" name="Di&amp;l"/>
@@ -210,7 +210,7 @@
                     <Item id="44031" name="Geçerli düzeyi genişlet"/>
 					<Item id="44049" name="Özet..."/>
                     <Item id="44080" name="Belge Haritası"/>
-                    <Item id="44084" name="İşlev Listesi"/>
+                    <Item id="44084" name="Fonksiyon Listesi"/>
 					<Item id="44086" name="1. sekme"/>
                     <Item id="44087" name="2. sekme"/>
                     <Item id="44088" name="3. sekme"/>
@@ -270,9 +270,9 @@
                     <Item id="48011" name="Tercihler…"/>
                     <Item id="49000" name="Çalıştı&amp;r…"/>
 					
-					<Item id="50000" name="İşlevi tamamla"/>
+					<Item id="50000" name="Fonksiyonu tamamla"/>
                     <Item id="50001" name="Kelimeyi tamamla"/>
-                    <Item id="50002" name="İşlev parametre ipuçları"/>
+                    <Item id="50002" name="Fonksiyon parametre ipuçları"/>
 					<Item id="50006" name="Yolu tamamla"/>
                     <Item id="44042" name="Satırları gizle"/>
                     <Item id="42040" name="Son kullanılan dosyaların tümünü aç"/>
@@ -336,7 +336,7 @@
 			 	<Item id="1635" name="Tüm açık belgelerde değiştir"/>
 			 	<Item id="1636" name="Tüm açık belgelerde bul"/>
 			 	<Item id="1637" name="Dosyalarda Bul"/>
-			 	<Item id="1654" name="Süzgeçler:"/>
+			 	<Item id="1654" name="Filtreler:"/>
 			 	<Item id="1655" name="Dizin:"/>
 			 	<Item id="1656" name="Tümünü bul"/>
 			 	<Item id="1658" name="Tüm alt klasörlerde"/>
@@ -621,7 +621,7 @@
 					<Item id="6207" name="Yer imlerini görüntüle"/>
 					<Item id="6208" name="Dikey kenarlıkları göster"/>
 					<Item id="6209" name="Sütun sayısı:"/>
-					<Item id="6234" name="Gelişmiş kaydırma özelliği devre dışı
+					<Item id="6234" name="Gelişmiş kaydırmayı devre dışı bırak
 (dokunmatik yüzeyinizde sorun varsa)"/>
 					
 					<Item id="6211" name="Dikey kenarlık ayarları"/>
@@ -714,6 +714,8 @@
                 </RecentFilesHistory>
 				
 				<Backup title="Yedekleme">
+					<Item id="6309" name="Sonraki açılışta geçerli oturumu hatırla"/>
+					
                     <Item id="6801" name="Yedekleme"/>
                     <Item id="6315" name="Hiçbiri"/>
                     <Item id="6316" name="Basit yedekleme"/>
@@ -725,13 +727,13 @@
                 <AutoCompletion title="Otomatik Tamamlama">
                     <Item id="6807" name="Otomatik tamamlama"/>
                     <Item id="6808" name="Yazarken otomatik tamamlamayı etkinleştir"/>
-                    <Item id="6809" name="İşlev tamamlama"/>
-                    <Item id="6810" name="Kelime tamamlama"/>
-					<Item id="6816" name="İşlev ve kelime tamamlama"/>
+                    <Item id="6809" name="Fonksiyonu tamamla"/>
+                    <Item id="6810" name="Kelimeyi tamamla"/>
+					<Item id="6816" name="Fonksiyonu ve kelimeyi tamamla"/>
                     <Item id="6811" name="Başlangıç"/>
                     <Item id="6813" name=". karakter"/>
                     <Item id="6814" name="Geçerli değer: 1 - 9"/>
-                    <Item id="6815" name="Yazarken işlev parametre ipuçlarını göster"/>
+                    <Item id="6815" name="Yazarken fonksiyon parametre ipuçlarını göster"/>
                     <Item id="6851" name="Otomatik ekleme"/>
                     <Item id="6857" name="html/xml kptma etkti"/>
                     <Item id="6858" name="Aç"/>
@@ -759,7 +761,6 @@
 				<MISC title="Karışık">
 					<Item id="6307" name="Etkin"/>
 					<Item id="6308" name="Sistem tepsisine küçült"/>
-					<Item id="6309" name="Sonraki açılışta geçerli oturumu hatırla"/>
 					<Item id="6312" name="Dosya durumunu otomatik algılama"/>
 					<Item id="6313" name="Sessizce güncelle"/>
 					<Item id="6318" name="Tıklanabilir bağlantı ayarları"/>
@@ -777,6 +778,7 @@
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
 					<Item id="6332" name="Büyük küçük harf eşleştir"/>
                     <Item id="6333" name="Akıllı vurgulama"/>
+					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
 					<Item id="6114" name="Etkin"/>
 					<Item id="6115" name="Otomatik girinti"/>
 					<Item id="6117" name="MRU (en son kullanılan) davranışı etkin"/>
@@ -844,7 +846,7 @@
 			<PanelTitle name="Belge Haritası"/>
         </DocumentMap>
         <FunctionList>
-			<PanelTitle name="İşlev Listesi"/>
+			<PanelTitle name="Fonksiyon Listesi"/>
 			<SortTip name="Sırala" />
 			<ReloadTip name="Yeniden yükle" />
         </FunctionList>

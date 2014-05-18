@@ -592,7 +592,7 @@
                     
                     <Item id="6121" name=" Barra de Menus "/>
                     <Item id="6122" name="Ocultar (utilizar Alt ou F10 para alternar)"/>
-                    <Item id="6123" name=" Localização "/>
+                    <Item id="6123" name=" Idioma "/>
 					
 					<Item id="6125" name="Painel Lista Documento"/>
                     <Item id="6126" name="Mostrar"/>
@@ -620,7 +620,9 @@
 					<Item id="6206" name="Mostrar número das linhas"/>
                     <Item id="6207" name="Mostrar marcadores"/>
                     <Item id="6208" name="Mostrar margem vertical"/>
-                    <Item id="6209" name="Número das colunas: "/>                    
+                    <Item id="6209" name="Número das colunas: "/>
+					<Item id="6234" name="Desativar a função de deslocamento avançada
+(se tiver problemas com o painel tátil)"/>                    
 					
                     <Item id="6211" name=" Definições da Margem Vertical "/>
                     <Item id="6212" name="Modo da linha"/>
@@ -712,6 +714,8 @@
                 </RecentFilesHistory>
 				
 				<Backup title="Cópia de Segurança">
+				<Item id="6309" name="Lembrar a sessão atual para a próxima execução"/>
+					
 					<Item id="6801" name=" Cópia de Segurança "/>
 					<Item id="6315" name="Nenhuma"/>
                     <Item id="6316" name="Cópia de Segurança Simples"/>
@@ -774,6 +778,7 @@
 					<Item id="6331" name="Só mostrar o nome do ficheiro na Barra do Título"/>                    
 					<Item id="6332" name="Corresponder MAI/MIN"/>
                     <Item id="6333" name="Realce Inteligente"/>
+					<Item id="6334" name="Detetar automaticamente a codificação de caráter"/>
 					<Item id="6114" name="Ativar"/>
                     <Item id="6115" name="Indentação Automática"/>
                     <Item id="6117" name="Ativar comportamento MRU"/>
@@ -834,6 +839,7 @@
         <AsciiInsertion>
 			<PanelTitle name="Painel de Inserção ASCII"/>
 			<ColumnVal name="Valor"/>
+			<ColumnHex name="Hex"/>
 			<ColumnChar name="Caráter"/>
         </AsciiInsertion>
         <DocumentMap>

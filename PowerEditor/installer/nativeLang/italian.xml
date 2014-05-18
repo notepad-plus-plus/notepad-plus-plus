@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 6.6RC
-	Last modified Wed, March 9th, 2014 by Luca Leonardi.
+	Italian translation for Notepad++ 6.6.1
+	Last modified Wed, May 6th, 2014 by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -736,14 +736,15 @@
 					<Item id = "6728" name = "Intestazione E Piè Di Pagina" />
                 </Print>
                 <Backup title = "Backup">
-					<Item id = "6817" name = "Snapshot e Backup Periodico" />
-					<Item id = "6818" name = "Abilita" />
+					<Item id = "6817" name = "Snapshot Sessione e Backup Periodico" />
+					<Item id = "6309" name = "Ricorda sessione corrente al prossimo avvio" />
+					<Item id = "6818" name = "Abilita snapshot di sessione e backup periodici" />
 					<Item id = "6819" name = "Backup ogni" />
 					<Item id = "6821" name = "secondi" />
 				
 					<Item id = "6801" name = "Backup Al Salvataggio" />
 					<Item id = "6803" name = "Cartella:" />
-					<Item id = "6804" name = "Cartella di backup personalizzata:" />
+					<Item id = "6219" name = "Cartella di backup personalizzata:" />
 					<Item id = "6315" name = "Nessuno" />
 					<Item id = "6316" name = "Backup semplice" />
 					<Item id = "6317" name = "Backup dettagliato" />
@@ -808,7 +809,7 @@
 					<Item id = "6115" name = "Indentazione automatica" />
 					<Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
 					<Item id = "6331" name = "Mostra solo nome file nella barra del titolo" />
-					<Item id = "6309" name = "Ricorda la sessione corrente al prossimo avvio" />
+                    <Item id = "6335" name = "Backslash è il carattere di escape in SQL" />
                     
 					<Item id = "6322" name = "Est. file di sessione:" />
 					

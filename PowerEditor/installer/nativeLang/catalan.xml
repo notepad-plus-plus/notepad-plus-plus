@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
 Catalan translation
-for Notepad++ 6.5.4
-Updated 25.02.2014
+for Notepad++ 6.6.1
+Updated 07.05.2014
 By Hiro5 [groccat at gmail]
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="6.5.4">
+	<Native-Langue name="Català" filename="catalan.xml" version="6.6.1">
 		<Menu>
 			<Main>
 				<Entries>
@@ -60,7 +60,7 @@ By Hiro5 [groccat at gmail]
 					<Item subMenuId="encoding-japanese" name="&amp;Japonès"/>
 					<Item subMenuId="encoding-korean" name="C&amp;oreà"/>
 					<Item subMenuId="encoding-northEuropean" name="Europeu del &amp;nord"/>
-					<Item subMenuId="encoding-thai" name="&amp;Tai"/>
+					<Item subMenuId="encoding-thai" name="&amp;Tailandès"/>
 					<Item subMenuId="encoding-turkish" name="T&amp;urc"/>
 					<Item subMenuId="encoding-westernEuropean" name="Europeu occidenta&amp;l"/>
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamita"/>
@@ -141,7 +141,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="42048" name="&amp;Copia contingut binari"/>
 					<Item id="42049" name="&amp;Talla contingut binari"/>
 					<Item id="42050" name="&amp;Enganxa contingut binari"/>
-					<Item id="42037" name="&amp;Mode de columna..."/>
+					<Item id="42037" name="Consell del &amp;mode de columna..."/>
 					<Item id="42034" name="&amp;Insereix en columna..."/>
 					<Item id="42051" name="P&amp;anell d'inserció de caràcters"/>
 					<Item id="42052" name="&amp;Historial del porta-retalls"/>
@@ -266,7 +266,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="46019" name="MS INI (arxiu)"/>
 					<Item id="46015" name="MS-DOS (estil)"/>
 					<Item id="46016" name="Normal (document de text)"/>
-					<Item id="46017" name="RC (Arxiu de recurs)"/>
+					<Item id="46017" name="RC (arxiu de recursos)"/>
 					<Item id="46080" name="D&amp;efinit per l'usuari"/>
 					<Item id="46150" name="Definiu el llenguatge..."/>
 					<Item id="48011" name="&amp;Preferències..."/>
@@ -284,6 +284,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="49000" name="&amp;Executa..."/>
 					<Item id="48017" name="&amp;Modifica tecla de drecera/Esborra ordre..."/>
 					<Item id="47008" name="&amp;Ajuda..."/>
+					<Item id="47010" name="Ús en &amp;línia d'ordres"/>
 					<Item id="47001" name="Web de &amp;Notepad++"/>
 					<Item id="47002" name="Pàgina del &amp;projecte Notepad++"/>
 					<Item id="47003" name="Np&amp;Wiki++ (Ajuda en línia)"/>
@@ -430,7 +431,7 @@ By Hiro5 [groccat at gmail]
 				<Item id="20009" name="Ext.:"/>
 				<Item id="20002" name="Canvia el nom"/>
 				<Item id="20004" name="Esborra"/>
-				<Item id="24001" name="Activa caràcter d'escapament:"/>
+				<Item id="24001" name="Activa caràcter d'escapada:"/>
 				<StylerDialog title="Diàleg d'estil">
 					<Item id="25030" name="Opcions de lletra:"/>
 					<Item id="25031" name="Nom:"/>
@@ -599,7 +600,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="6104" name="Icones grans"/>
 					<Item id="6105" name="Icones estàndard"/>
 					<Item id="6121" name="Barra de menú"/>
-					<Item id="6122" name="Amaga (pitgeu Alt o F10 per accedir)"/>
+					<Item id="6122" name="Amaga barra de menú (pitgeu Alt o F10 per accedir)"/>
 					<Item id="6111" name="Mostra barra d'estat"/>
 					<Item id="6125" name="Panell de documents"/>
 					<Item id="6126" name="Mostra"/>
@@ -642,10 +643,10 @@ By Hiro5 [groccat at gmail]
 					<Item id="6206" name="Mostra el número de línia al marge"/>
 					<Item id="6207" name="Mostra les marques de línia al marge"/>
 					<Item id="6214" name="Activa el realçament de la línia actual"/>
-					<Item id="6234" name="Desactiva el desplaçament avançat(si teniu problemes amb el touchpad)"/>
+					<Item id="6234" name="Desactiva el desplaçament avançat(si teniu problemes amb un touchpad)"/>
 				</Scintillas>
-				<NewDoc title="Nou document">
-					<Item id="6419" name="Nou document"/>
+				<NewDoc title="Document nou">
+					<Item id="6419" name="Document nou"/>
 					<Item id="6401" name="Salt de línia"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
@@ -679,7 +680,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="4010" name="Ext. registrades:"/>
 				</FileAssoc>
 				<LangMenu title="Llenguatge">
-					<Item id="6508" name="Menú del Llenguatge"/>
+					<Item id="6508" name="Menú de Llenguatge"/>
 					<Item id="6507" name="Compacta el menú de Llenguatge"/>
 					<Item id="6505" name="Ítems disponibles"/>
 					<Item id="6506" name="Ítems no disponibles"/>
@@ -720,11 +721,16 @@ By Hiro5 [groccat at gmail]
 					<Item id="6727" name=" "/>
 				</Print>
 				<Backup title="Còpia de seguretat">
-					<Item id="6801" name="Còpia de seguretat"/>
+					<Item id="6817" name="Captura de sessió periòdica"/>
+					<Item id="6309" name="Recorda la sessió actual per l'inici següent"/>
+					<Item id="6818" name="Activa la captura de sessió periòdica"/>
+					<Item id="6819" name="Captura cada"/>
+					<Item id="6821" name="segons"/>
+					<Item id="6801" name="Còpia de seguretat en desar"/>
 					<Item id="6315" name="Cap"/>
 					<Item id="6316" name="Còpia de seg. simple"/>
 					<Item id="6317" name="Còpia de seg. complexa"/>
-					<Item id="6804" name="Directori per a les còpies de seguretat"/>
+					<Item id="6219" name="Directori personalitzat per a les còpies de seguretat"/>
 					<Item id="6803" name="Directori:"/>
 				</Backup>
 				<AutoCompletion title="Autocompleció">
@@ -766,9 +772,11 @@ By Hiro5 [groccat at gmail]
 					<Item id="6326" name="Activa"/>
 					<Item id="6332" name="El ressaltat distingeix majúscules"/>
 					<Item id="6323" name="Actualitza Notepad++ automàticament"/>
+					<Item id="6334" name="Autodetecta codificació de caràcters"/>
 					<Item id="6115" name="Sagnat automàtic"/>
 					<Item id="6308" name="Minimitza a la safata del sistema"/>
 					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
+					<Item id="6335" name="La barra inversa \ és el caràcter d'escapada de l'SQL"/>
 					<Item id="6309" name="Recorda la sessió actual per la propera execució"/>
 					<Item id="6318" name="Configuració dels enllaços clicables"/>
 					<Item id="6319" name="Habilita"/>
@@ -782,6 +790,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="6328" name="Destaca els atributs de les par. clau"/>
 					<Item id="6330" name="Destaca la zona php/asp/comentari"/>
 					<Item id="6322" name="Ext. del fitxer de sessió:"/>
+					<Item id="6334" name="Autodetecta codificació de caràcters"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Executa una macro diverses vegades">
@@ -825,7 +834,7 @@ By Hiro5 [groccat at gmail]
 			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
 			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.Segur que voleu obrir-los?"/>
-			<ColumnModeTip title="Consell de mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»o «Alt+Maj.+Fletxes del teclat»per canviar al mode de columna." />
+			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»o «Alt+Maj.+Fletxes del teclat»per canviar al mode de columna." />
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del porta-retalls"/>
@@ -838,6 +847,7 @@ By Hiro5 [groccat at gmail]
 		<AsciiInsertion>
 			<PanelTitle name="Panell d'inserció ASCII"/>
 			<ColumnVal name="Valor"/>
+			<ColumnHex name="Hex"/>
 			<ColumnChar name="Caràcter"/>
 		</AsciiInsertion>
 		<DocumentMap>

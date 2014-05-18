@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <!--
-Suomenkielinen lokalisointi Notepad++ 6.5.1 / Finnish localization
-Viimeisin muokkaaja: Teijo, 04-11-2013 22:20
+Suomenkielinen lokalisointi Notepad++ 6.5.5 / Finnish localization
+Viimeisin muokkaaja: Teijo, 07-03-2014 20:45
 Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen fred.thomas-50ch75r@yopmail.com
 Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 *** Send new updates to the author of Notepad++ (don.h@free.fr) ***
@@ -27,7 +27,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+				        <Item subMenuId="file-openFolder" name="Avaa kansio"/>
 					<Item subMenuId="file-recentFiles" name="Viimeisimmät tiedostot"/>
+					<Item subMenuId="file-closeMore" name="Sulje useita" />
 					<Item subMenuId="edit-copyToClipboard" name="Kopioi leikepöydälle"/>
 					<Item subMenuId="edit-indent" name="Sisennys"/>
 					<Item subMenuId="edit-convertCaseTo" name="Kirjainkoon muunnos"/>
@@ -66,7 +68,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
                     			<Item subMenuId="encoding-westernEuropean" name="Länsimainen"/>
                     			<Item subMenuId="encoding-vietnamese" name="Vietnamilainen"/>
                     			<Item subMenuId="settings-import" name="Tuonti" />
-                    			<Item subMenuId="file-closeMore" name="Sulje useita" />
+
 					<Item subMenuId="view-tab" name="Välilehdet" />						
 								
 				</SubEntries>
@@ -94,7 +96,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="41015" name="Tallenna k&amp;opio..."/>
 					<Item id="41016" name="&amp;Poista tiedosto"/>
 					<Item id="41017" name="&amp;Nimeä uudelleen"/>
-					<Item id="41018" name="Sulje kaikki oikeanpuoleiset"  />	
+					<Item id="41018" name="Sulje kaikki oikeanpuoleiset"  />
+					<Item id="41019" name="Resurssienhallinnassa"/>
+					<Item id="41020" name="Komentokehotteessa"/>
 					<Item id="42001" name="&amp;Leikkaa"/>
 					<Item id="42002" name="&amp;Kopioi"/>
 					<Item id="42003" name="K&amp;umoa"/>
@@ -152,7 +156,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="42055" name="Poista tyhjät rivit" />
 					<Item id="42056" name="Poista tyhjät rivit (Myös välilyöntejä sisältävät)" />
 					<Item id="42057" name="Lisää tyhjä rivi nykyisen yläpuolelle" />
-					<Item id="42058" name="Lisää tyhjä rivi nykyisen alapuolelle" />			
+					<Item id="42058" name="Lisää tyhjä rivi nykyisen alapuolelle" />
+					<Item id="42059" name="Lajittele rivit nousevasti"/>
+					<Item id="42060" name="Lajittele rivit laskevasti"/>
 					<Item id="43001" name="&amp;Etsi..."/>
 					<Item id="43002" name="Etsi &amp;seuraava"/>
 					<Item id="43003" name="Korvaa..."/>
@@ -300,7 +306,10 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item CMID="15" name="Avaa uudessa istunnossa"/>
 					<Item CMID="16" name="Avaa" />
 					<Item CMID="17" name="Sulje kaikki vasemmanpuoleiset" />
-					<Item CMID="18" name="Sulje kaikki oikeanpuoleiset"  />		
+					<Item CMID="18" name="Sulje kaikki oikeanpuoleiset"  />	
+					<Item CMID="19" name="Avaa kansio resurssienhallinnassa"/>
+					<Item CMID="20" name="Avaa kansio komentokehotteessa"/>
+					
 			</TabBar>
 		</Menu>
 		<Dialog>
@@ -628,6 +637,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="6229" name="Tasattu"/>
 					<Item id="6230" name="Sisennetty"/>
 					<Item id="6231" name="Reunaleveys"/> 
+					<Item id="6234" name="Poista rullausominaisuudet käytöstä (Mikäli on ongelmia hiirilevyn kanssa)"/> 					
 				</Scintillas>
 				<NewDoc title="Uudet tiedostot">
 					<Item id="6401" name="Muoto"/>
@@ -751,7 +761,8 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="6811" name="Alkaen"/>
 					<Item id="6813" name=":stä merkistä"/>
 					<Item id="6814" name="Kelpaavat arvot: 1 - 9"/>
-					<Item id="6815" name="Näytä funktioiden parametrivihjeet"/> 
+					<Item id="6815" name="Näytä funktioiden parametrivihjeet"/>
+					<Item id="6816" name="Täydennä funktio &amp;ja sana"/>					
 					<Item id="6851" name="Automaattinen lisäys"/>
 					<Item id="6857" name=" html/xml loppu"/>
 					<Item id="6858" name="Alkaa"/>

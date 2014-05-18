@@ -2,7 +2,7 @@
 <!--
 	Francesco Costanzo: invincibile(ĉe)users.sourceforge.net
 	Unua traduko: decembro 2010 (v5.8.6) - unua publikigo: v5.8.7
-	Lasta ĝisdatigo: la 23an de aprilo 2014
+	Lasta ĝisdatigo: la 9an de majo 2014, v6.6.2
 	Korajn dankojn al tiuj, kiuj konigis rimarkojn kaj erarojn.
 	Pli da informoj ĉe la fino de la dokumento
 	*********** BONAN LABORADON KUN NP++! :) ***********
@@ -46,9 +46,9 @@
 					<Item subMenuId="search-jumpDown" name="Saltu suben"/>
 					<Item subMenuId="search-bookmark" name="Legosignoj"/>
 					<Item subMenuId="view-showSymbol"  name="Montru signojn..."/>
-					<Item subMenuId="view-zoom"  name="Zomo (tekstogrando)"/>
+					<Item subMenuId="view-zoom"  name="Zomo (tekstogrando)..."/>
 					<Item subMenuId="view-moveCloneDocument"  name="Deloku/Montru la aktivan dokumenton..."/> <!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja, bazita sur PIV) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ŝanĝi lokon al io; do openoffice eraras(?) -->
-					<Item subMenuId="view-tab" name="Langeto"/>
+					<Item subMenuId="view-tab" name="Langeto..."/>
 					<Item subMenuId="view-collapseLevel" name="[-] Faldu blokojn je nivelo..."/>
 					<Item subMenuId="view-uncollapseLevel" name="[+]Malfaldu blokojn je nivelo..."/>
 					<Item subMenuId="view-project" name="Projektoj"/>
@@ -242,7 +242,7 @@
 					<Item id="44035" name="Sinkronigu vertikalan rulumadon"/>
 					<Item id="44036" name="Sinkronigu horizontalan rulumadon"/>
 					<Item id="44041" name="Montru linifinajn signojn"/>
-					<Item id="44072" name="Al la alia vido"/>
+					<Item id="44072" name="Fokuso al la alia vido"/>
 					<Item id="44081" name="Projektpanelo 1"/>
 					<Item id="44082" name="Projektpanelo 2"/>
 					<Item id="44083" name="Projektpanelo 3"/>
@@ -277,6 +277,7 @@
 					<Item id="47006" name="Ĝisdatigo de Notepad++"/>
 					<Item id="47008" name="Loka helpo"/>
 					<Item id="47009" name="Agordu ĝisdatiga prokurilo..."/>
+                    <Item id="47010" name="Argumentoj de komandlinio" />
 					<Item id="48005" name="Importu kromaĵo(j)n..."/>
 					<Item id="48006" name="Importu etoso(j)n..."/>
 					<Item id="48018" name="Modifu kuntekstan menuon..."/>
@@ -321,7 +322,7 @@
 					<Item CMID="13" name="Purigu la indikilon de nurlego"/>
 					<Item CMID="14" name="Deloku al nova ekzemplo de Notepad++"/>
 					<Item CMID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
-					<Item CMID="16" name="Relegu"/>
+					<Item CMID="16" name="Reŝargu"/>
 					<Item CMID="17" name="Fermu ĉiujn maldekstre"/>
 					<Item CMID="18" name="Fermu ĉiujn dekstre"/>
 			</TabBar>
@@ -480,22 +481,23 @@
 					<Item id="21102" name="Stildefino"/>
 					<Item id="21105" name="Dokumentaro:"/>
 					<Item id="21104" name="Dumtempa dokumentretejo:"/>
-					<Item id="21106" name="Faldu kompakte (faldu ankaŭ malplenajn liniojn)"/>
-					<Item id="21220" name="Faldu en kodo, 1 stilo:"/>
+					<Item id="21106" name="Faldado kompakta (ankaŭ malplenaj linioj)"/>
+					<Item id="21220" name="Faldado en kodo, 1a stilo:"/>
 					<Item id="21224" name="Malfermu:"/>
 					<Item id="21225" name="Meza:"/>
 					<Item id="21226" name="Fermu:"/>
-					<Item id="21227" name="Stildefino"/> <!--dividiloj necesaj-->
-					<Item id="21320" name="Foldado en codo, 2a stilo (dividiloj necesaj):"/>
+					<Item id="21320" name="Faldado en kodo, 2a stilo (dividiloj necesaj):"/>
 					<Item id="21324" name="Malfermu:"/>
 					<Item id="21325" name="Meza:"/>
 					<Item id="21326" name="Fermu:"/>
+					<Item id="21127" name="Stildefino"/>
+					<Item id="21227" name="Stildefino"/>
 					<Item id="21327" name="Stildefino"/>
-					<Item id="21420" name="Folding in comment style:"/>
+					<Item id="21427" name="Stildefino"/>
+					<Item id="21420" name="Stilo de faldado por komentoj:"/>
 					<Item id="21424" name="Malfermu:"/>
 					<Item id="21425" name="Meza:"/>
 					<Item id="21426" name="Fermu:"/>
-					<Item id="21127" name="Stildefino"/>
 				</Folder>
 				<Keywords title="Ŝlosilvortaro">
 					<Item id="22101" name="1-a aro"/>
@@ -601,7 +603,7 @@
 				<Item id="24001" name="Ŝaltu kodŝanĝan signon:"/> <!--enable escape character -->
 			</UserDefine>
 			<Preference title="Agordoj">
-				<Item id="6001" name="Fermu"/>
+				<Item id="6001" name="Bone"/>
 				<Global title="Ĝeneralaĵoj">
 					<Item id="6101" name="Ilobreto"/>
 					<Item id="6102" name="Kaŝu"/>
@@ -628,7 +630,7 @@
 
 					<Item id="6125" name="Panelo de malfermitaj dosieroj"/>
 					<Item id="6126" name="Montru"/>
-					<Item id="6127" name="Dosiersufiksoj NE en sia kolumno"/>
+					<Item id="6127" name="Sen kolumno de dosiersufiksoj"/>
 				</Global>
 				<Scintillas title="Redaktado">
 					<Item id="6216" name="Agordoj pri tajpmontrilo"/>
@@ -767,19 +769,28 @@
 					<Item id="6331" name="Montru nur dosiernomon en titola breto"/>
                     <Item id="6332" name="Uskleca kongruo"/>
                     <Item id="6333" name="Inteligenta evidentigo"/>
+                    <Item id="6334" name="Aŭtomata rekono de signarkodo"/>
+                    <Item id="6335" name="Malsuprenstreko estas kodŝanĝa signo de SQL"/> FCO -->
 					<Item id="6114" name="Ŝaltu"/>
 					<Item id="6115" name="Aŭtomata krommarĝeno"/>
 					<Item id="6117" name="Ordigu laŭ lasta uzo"/>
 
 				</MISC>
 
-				<Backup title="Sekurkopioj">
-					<Item id="6801" name="Sekurkopio"/>
+				<Backup title="Sekurkopiado">
+					<Item id="6817" name="Perioda sekurkopiado kaj Ekkonservado" />
+                    <Item id="6309" name="Memoru la seancdosierojn por estonta lanĉo"/>
+					<Item id="6818" name="Ŝaltu sekurkopiadon" />
+					<Item id="6819" name="... ĉiun" />
+					<Item id="6821" name="-an sekundon" />
+
+					<Item id="6801" name="Sekurkopiado"/>
 					<Item id="6315" name="Nenia sekurkopio"/>
 					<Item id="6316" name="Simpla sekurkopio"/>
 					<Item id="6317" name="Nova kopio je ĉiu konservo"/>
 					<Item id="6804" name="Elektu dosierujon por sekurkopioj:"/>
 					<Item id="6803" name="Dosierujo:"/>
+					<Item id="6219" name="Dosierujo de sekurkopioj"/>
 				</Backup>
 
 				<AutoCompletion title="Vortkompletigo">

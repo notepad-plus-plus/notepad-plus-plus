@@ -157,6 +157,7 @@
 					<Item id="43051" name="Quitar líneas no marcadas"/>
 					<Item id="43050" name="Invertir marcas"/>
 					<Item id="43052" name="Encontrar caracteres tipo..."/>
+					<Item id="43053" name="Seleccionar todo lo que coincida"/>
 					<Item id="43009" name="Ir al delimitador simétrico"/>
 					<Item id="43010" name="Encontrar anterior"/>
 					<Item id="43011" name="&amp;Búsqueda incremental"/>

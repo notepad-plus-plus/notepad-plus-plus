@@ -1422,11 +1422,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
                 if (_pTrayIco)
                     _pTrayIco->doTrayIcon(REMOVE);
 
-				bool isSnapshotMode = pNppParam->getNppGUI().isSnapshotMode();
+			    const NppGUI & nppgui = pNppParam->getNppGUI();
+				
+				bool isSnapshotMode = nppgui.isSnapshotMode();
 				if (isSnapshotMode)
 					MainFileManager->backupCurrentBuffer();
 
-			    const NppGUI & nppgui = pNppParam->getNppGUI();
 			    Session currentSession;
 			    if (nppgui._rememberLastSession) 
 			    {
@@ -1462,21 +1463,37 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			    scnN.nmhdr.idFrom = 0;
 			    _pluginsManager.notify(&scnN);
 
-				//
-				// saving config.xml
-				//
 			    saveFindHistory(); //writeFindHistory
 			    _lastRecentFileList.saveLRFL(); //writeRecentFileHistorySettings, writeHistory
 			    saveScintillaParams(); //writeScintillaParams
 			    saveGUIParams(); //writeGUIParams
 				saveProjectPanelsParams(); //writeProjectPanelsSettings
+				//
+				// saving config.xml
+				//
 				pNppParam->saveConfig_xml();
-
-
+				
+				//
+				// saving userDefineLang.xml
+				//
 			    saveUserDefineLangs();
+				
+				//
+				// saving shortcuts.xml
+				//
 			    saveShortcuts();
+
+				//
+				// saving session.xml
+				//
 			    if (nppgui._rememberLastSession && !nppgui._isCmdlineNosessionActivated)
 				    saveSession(currentSession);
+
+				// write settings on cloud if enabled
+				if (nppgui._cloudChoice == dropbox)
+				{
+					pNppParam->writeSettingsFilesOnCloud(dropbox);
+				}
 
                 //Sends WM_DESTROY, Notepad++ will end
 				if(Message == WM_CLOSE)

@@ -103,6 +103,7 @@ enum ChangeDetect {cdDisabled=0, cdEnabled=1, cdAutoUpdate=2, cdGo2end=3, cdAuto
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
 enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};
 enum MultiInstSetting {monoInst = 0, multiInstOnSession = 1, multiInst = 2};
+enum CloudChoice {noCloud = 0, dropbox = 1, oneDrive = 2, googleDrive = 3};
 
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
@@ -123,6 +124,11 @@ const int COPYDATA_FILENAMESW = 2;
 #define DECSEP_DOT      0
 #define DECSEP_COMMA    1
 #define DECSEP_BOTH     2
+
+
+#define DROPBOX_AVAILABLE 1
+#define ONEDRIVE_AVAILABLE 2
+#define GOOGLEDRIVE_AVAILABLE 4
 
 const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
@@ -711,7 +717,7 @@ struct NppGUI
 			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _disableSmartHiliteTmp(false), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true), _enableHiliteNonHTMLZone(false),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _isCmdlineNosessionActivated(false), _detectEncoding(true), _backup(bak_none), _useDir(false), _backupDir(TEXT("")),\
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
-			   _autocStatus(autoc_both), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")),\
+			   _autocStatus(autoc_both), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _cloudChoice(noCloud), _availableClouds(0),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _enableMultiSelection(false), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false),\
 			   _smartHiliteCaseSensitive(false), _leftmostDelimiter('('), _rightmostDelimiter(')'), _delimiterSelectionOnEntireDocument(false), _multiInstSetting(monoInst),\
 			   _fileSwitcherWithoutExtColumn(false), _isSnapshotMode(true), _snapshotBackupTiming(7000), _backSlashIsEscapeCharacterForSql(true) {
@@ -819,6 +825,8 @@ struct NppGUI
 	bool isSnapshotMode() const {return _isSnapshotMode && _rememberLastSession && !_isCmdlineNosessionActivated;};
 	bool _isSnapshotMode;
 	size_t _snapshotBackupTiming;
+	CloudChoice _cloudChoice; // this option will never be read/written from/to config.xml
+	unsigned char _availableClouds; // this option will never be read/written from/to config.xml
 };
 
 struct ScintillaViewParams
@@ -1200,6 +1208,8 @@ public:
 	bool reloadLang();
 	bool reloadStylers(TCHAR *stylePath = NULL);
     void destroyInstance();
+	generic_string getCloudSettingsPath(const generic_string & cloudChoicePath);
+	generic_string getSettingsFolder();
 
 	bool _isTaskListRBUTTONUP_Active;
 	int L_END;
@@ -1538,6 +1548,8 @@ public:
 		return _userPath;
 	};
 
+	void writeSettingsFilesOnCloud(CloudChoice choice);
+	
 	DPIManager _dpiManager;
 
 private:

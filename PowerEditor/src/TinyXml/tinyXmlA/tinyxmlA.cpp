@@ -825,6 +825,18 @@ bool TiXmlDocumentA::SaveFile( const char * filename ) const
 	}
 	return false;
 }
+bool TiXmlDocumentA::SaveUnicodeFilePath( const TCHAR* filename ) const
+{
+	// The old c stuff lives on...
+	FILE* fp = generic_fopen( filename, TEXT("w") );
+	if ( fp )
+	{
+		Print( fp, 0 );
+		fclose( fp );
+		return true;
+	}
+	return false;
+}
 
 
 TiXmlNodeA* TiXmlDocumentA::Clone() const

@@ -36,6 +36,9 @@ FunctionParsersManager::~FunctionParsersManager()
 	{
 		delete _parsers[i];
 	}
+
+	if (_pXmlFuncListDoc)
+		delete _pXmlFuncListDoc;
 }
 
 bool FunctionParsersManager::init(generic_string xmlPath, ScintillaEditView ** ppEditView)
@@ -149,6 +152,13 @@ bool FunctionParsersManager::getUnitPaserParameters(TiXmlNode *functionParser, g
 	return true;
 }
 
+void FunctionParsersManager::writeFunctionListXml(const TCHAR *destFoder) const 
+{
+	generic_string dest = destFoder;
+	PathAppend(dest, TEXT("functionList.xml"));
+	if (_pXmlFuncListDoc)
+		_pXmlFuncListDoc->SaveFile(dest.c_str());
+}
 
 bool FunctionParsersManager::getFuncListFromXmlTree()
 {

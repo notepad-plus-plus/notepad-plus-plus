@@ -135,6 +135,7 @@ public:
 	~FunctionParsersManager();
 	bool init(generic_string xmlPath, ScintillaEditView ** ppEditView);
 	bool parse(std::vector<foundInfo> & foundInfos, const AssociationInfo & assoInfo);
+	void writeFunctionListXml(const TCHAR *destFoder) const;
 	
 private:
 	ScintillaEditView **_ppEditView;

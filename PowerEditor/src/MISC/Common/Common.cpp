@@ -43,6 +43,34 @@ void printStr(const TCHAR *str2print)
 	::MessageBox(NULL, str2print, TEXT(""), MB_OK);
 };
 
+std::string getFileContent(const TCHAR *file2read)
+{
+	const size_t blockSize = 256;
+	char data[blockSize];
+	FILE *fp = generic_fopen(file2read, TEXT("rb"));
+
+	_fseeki64 (fp , 0 , SEEK_END);
+	unsigned __int64 fileSize =_ftelli64(fp);
+	rewind(fp);
+
+	size_t lenFile = fread(data, 1, blockSize, fp);
+	fclose(fp);
+	if (lenFile <= 0) return ""; 
+	if (fileSize >= blockSize)
+		data[blockSize-1] = '\0';
+	else
+		data[fileSize] = '\0';
+	return data;
+}
+
+void writeFileContent(const TCHAR *file2write, const char *content2write)
+{	
+	FILE *f = generic_fopen(file2write, TEXT("w+"));
+	fwrite(content2write, sizeof(content2write[0]), strlen(content2write), f);
+	fflush(f);
+	fclose(f);
+}
+
 void writeLog(const TCHAR *logFileName, const char *log2write)
 {	
 	FILE *f = generic_fopen(logFileName, TEXT("a+"));

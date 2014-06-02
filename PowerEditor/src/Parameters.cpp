@@ -798,6 +798,69 @@ bool NppParameters::reloadLang()
 	return loadOkay;
 }
 
+generic_string NppParameters::getCloudSettingsPath(const generic_string & cloudChoicePath)
+{
+	// check if dropbox is present
+	generic_string cloudSettingsPath = TEXT("");
+	ITEMIDLIST *pidl;
+	SHGetSpecialFolderLocation(NULL, CSIDL_PROFILE, &pidl);
+	TCHAR tmp[MAX_PATH];
+	SHGetPathFromIDList(pidl, tmp);
+	
+	cloudSettingsPath = tmp;
+	PathAppend(cloudSettingsPath, TEXT("Dropbox"));
+	if (PathFileExists(cloudSettingsPath.c_str()))
+		_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
+	
+	if (!PathFileExists(cloudChoicePath.c_str()))
+		return TEXT("");
+
+	// Read cloud choice
+	std::string cloudChoice = getFileContent(cloudChoicePath.c_str());
+
+
+	if (cloudChoice == "dropbox" && _nppGUI._availableClouds & DROPBOX_AVAILABLE)
+	{
+		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
+
+		// The folder %userprofile%\Dropbox\Notepad++ should exist.
+		// if it doesn't, it means this folder was removed by user, we create it anyway
+		if (!PathFileExists(cloudSettingsPath.c_str()))
+		{
+			::CreateDirectory(cloudSettingsPath.c_str(), NULL);
+		}
+		_nppGUI._cloudChoice = dropbox;
+	}
+	else if (cloudChoice == "oneDrive")
+	{
+		_nppGUI._cloudChoice = oneDrive;
+	}
+	else if (cloudChoice == "googleDrive")
+	{
+		_nppGUI._cloudChoice = googleDrive;
+	}
+	return cloudSettingsPath;
+}
+
+generic_string NppParameters::getSettingsFolder()
+{
+	generic_string settingsFolderPath;
+	if (_isLocal)
+	{
+		return _nppPath;
+	}
+	else
+	{
+		ITEMIDLIST *pidl;
+		SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+		TCHAR tmp[MAX_PATH];
+		SHGetPathFromIDList(pidl, tmp);
+		generic_string settingsFolderPath = tmp;
+		PathAppend(settingsFolderPath, TEXT("Notepad++"));
+		return settingsFolderPath;
+	}
+}
+
 bool NppParameters::load()
 {
 	L_END = L_EXTERNAL;
@@ -811,25 +874,25 @@ bool NppParameters::load()
 	// Test if localConf.xml exist
 	_isLocal = (PathFileExists(localConfPath.c_str()) == TRUE);
 
-    // Under vista and windows 7, the usage of doLocalConf.xml is not allowed
-    // if Notepad++ is installed in "program files" directory, because of UAC
-    if (_isLocal)
-    {
-        // We check if OS is Vista or above
-        if (_winVersion >= WV_VISTA)
-        {
-            ITEMIDLIST *pidl;
-		    SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
-		    TCHAR progPath[MAX_PATH];
-		    SHGetPathFromIDList(pidl, progPath);
-            TCHAR nppDirLocation[MAX_PATH];
-            lstrcpy(nppDirLocation, _nppPath.c_str());
-            ::PathRemoveFileSpec(nppDirLocation);
+	// Under vista and windows 7, the usage of doLocalConf.xml is not allowed
+	// if Notepad++ is installed in "program files" directory, because of UAC
+	if (_isLocal)
+	{
+		// We check if OS is Vista or greater version
+		if (_winVersion >= WV_VISTA)
+		{
+			ITEMIDLIST *pidl;
+			SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
+			TCHAR progPath[MAX_PATH];
+			SHGetPathFromIDList(pidl, progPath);
+			TCHAR nppDirLocation[MAX_PATH];
+			lstrcpy(nppDirLocation, _nppPath.c_str());
+			::PathRemoveFileSpec(nppDirLocation);
             	
-            if  (lstrcmp(progPath, nppDirLocation) == 0)
-                _isLocal = false;
-        }
-    }
+			if  (lstrcmp(progPath, nppDirLocation) == 0)
+				_isLocal = false;
+		}
+	}
 
 	if (_isLocal)
 	{
@@ -851,6 +914,21 @@ bool NppParameters::load()
 			::CreateDirectory(_userPath.c_str(), NULL);
 		}
 	}
+
+	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
+
+	// Detection cloud settings
+	//bool isCloud = false;
+	generic_string cloudChoicePath = _userPath;
+	cloudChoicePath += TEXT("\\cloud\\choice");
+	
+	generic_string cloudPath = getCloudSettingsPath(cloudChoicePath);
+	if (cloudPath != TEXT(""))
+	{
+		_userPath = cloudPath;
+	}
+	//}
+
 
 	//-------------------------------------//
 	// Transparent function for w2k and xp //
@@ -1115,7 +1193,7 @@ bool NppParameters::load()
 	//----------------------------//
 	// session.xml : for per user //
 	//----------------------------//
-	_sessionPath = _userPath;
+	
 	PathAppend(_sessionPath, TEXT("session.xml"));
 
 	// Don't load session.xml if not required in order to speed up!!
@@ -2276,6 +2354,109 @@ LangType NppParameters::getLangFromExt(const TCHAR *ext)
 	}
 	return L_TEXT;
 }
+
+void NppParameters::writeSettingsFilesOnCloud(CloudChoice choice)
+{
+	generic_string cloudSettingsPath;
+
+	if (choice == dropbox)
+	{
+		cloudSettingsPath = TEXT("");
+		ITEMIDLIST *pidl;
+		SHGetSpecialFolderLocation(NULL, CSIDL_PROFILE, &pidl);
+		TCHAR tmp[MAX_PATH];
+		SHGetPathFromIDList(pidl, tmp);
+		
+		cloudSettingsPath = tmp;
+		PathAppend(cloudSettingsPath, TEXT("Dropbox"));
+		if (!::PathFileExists(cloudSettingsPath.c_str()))
+			return;
+		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
+		if (!::PathFileExists(cloudSettingsPath.c_str()))
+		{
+			::CreateDirectory(cloudSettingsPath.c_str(), NULL);
+		}
+	}
+	else
+	{
+		return;
+	}
+	
+	// config.xml
+	generic_string cloudConfigPath = cloudSettingsPath;
+	PathAppend(cloudConfigPath, TEXT("config.xml"));
+	if (!::PathFileExists(cloudConfigPath.c_str()) && _pXmlUserDoc)
+	{
+		_pXmlUserDoc->SaveFile(cloudConfigPath.c_str());
+	}
+
+	// stylers.xml
+	generic_string cloudStylersPath = cloudSettingsPath;
+	PathAppend(cloudStylersPath, TEXT("stylers.xml"));
+	if (!::PathFileExists(cloudStylersPath.c_str()) && _pXmlUserStylerDoc)
+	{
+		_pXmlUserStylerDoc->SaveFile(cloudStylersPath.c_str());
+	}
+
+	// langs.xml
+	generic_string cloudLangsPath = cloudSettingsPath;
+	PathAppend(cloudLangsPath, TEXT("langs.xml"));
+	if (!::PathFileExists(cloudLangsPath.c_str()) && _pXmlUserDoc)
+	{
+		_pXmlDoc->SaveFile(cloudLangsPath.c_str());
+	}
+/*
+	// session.xml: Session stock the absolute file path, it should never be on cloud
+	generic_string cloudSessionPath = cloudSettingsPath;
+	PathAppend(cloudSessionPath, TEXT("session.xml"));
+	if (!::PathFileExists(cloudSessionPath.c_str()) && _pXmlSessionDoc)
+	{
+		_pXmlSessionDoc->SaveFile(cloudSessionPath.c_str());
+	}
+*/
+	// userDefineLang.xml
+	generic_string cloudUserLangsPath = cloudSettingsPath;
+	PathAppend(cloudUserLangsPath, TEXT("userDefineLang.xml"));
+	if (!::PathFileExists(cloudUserLangsPath.c_str()) && _pXmlUserLangDoc)
+	{
+		_pXmlUserLangDoc->SaveFile(cloudUserLangsPath.c_str());
+	}
+
+	// shortcuts.xml
+	generic_string cloudShortcutsPath = cloudSettingsPath;
+	PathAppend(cloudShortcutsPath, TEXT("shortcuts.xml"));
+	if (!::PathFileExists(cloudShortcutsPath.c_str()) && _pXmlShortcutDoc)
+	{
+		_pXmlShortcutDoc->SaveFile(cloudShortcutsPath.c_str());
+	}
+
+	// contextMenu.xml
+	generic_string cloudContextMenuPath = cloudSettingsPath;
+	PathAppend(cloudContextMenuPath, TEXT("contextMenu.xml"));
+	if (!::PathFileExists(cloudContextMenuPath.c_str()) && _pXmlContextMenuDocA)
+	{
+		_pXmlContextMenuDocA->SaveUnicodeFilePath(cloudContextMenuPath.c_str());
+	}
+
+	// nativeLang.xml
+	generic_string cloudNativeLangPath = cloudSettingsPath;
+	PathAppend(cloudNativeLangPath, TEXT("nativeLang.xml"));
+	if (!::PathFileExists(cloudNativeLangPath.c_str()) && _pXmlNativeLangDocA)
+	{
+		_pXmlNativeLangDocA->SaveUnicodeFilePath(cloudNativeLangPath.c_str());
+	}
+	
+	/*
+	// functionList.xml
+	generic_string cloudFunctionListPath = cloudSettingsPath;
+	PathAppend(cloudFunctionListPath, TEXT("functionList.xml"));
+	if (!::PathFileExists(cloudFunctionListPath.c_str()))
+	{
+
+	}
+	*/
+}
+
 
 void NppParameters::writeUserDefinedLang()
 {

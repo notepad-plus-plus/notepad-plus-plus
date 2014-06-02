@@ -139,6 +139,10 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_delimiterSettingsDlg.init(_hInst, _hSelf);
 			_delimiterSettingsDlg.create(IDD_PREFERENCE_DELIMITERSETTINGS_BOX, false, false);
 
+			_settingsOnCloudDlg.init(_hInst, _hSelf);
+			_settingsOnCloudDlg.create(IDD_PREFERENCE_SETTINGSONCLOUD_BOX, false, false);
+
+
 			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("General"), TEXT("Global")));
 			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Editing"), TEXT("Scintillas")));
 			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document"), TEXT("NewDoc")));
@@ -152,6 +156,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_wVector.push_back(DlgInfo(&_autoCompletionDlg, TEXT("Auto-Completion"), TEXT("AutoCompletion")));
 			_wVector.push_back(DlgInfo(&_multiInstDlg, TEXT("Multi-Instance"), TEXT("MultiInstance")));
 			_wVector.push_back(DlgInfo(&_delimiterSettingsDlg, TEXT("Delimiter"), TEXT("Delimiter")));
+			_wVector.push_back(DlgInfo(&_settingsOnCloudDlg, TEXT("Cloud"), TEXT("Cloud")));
 			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC."), TEXT("MISC")));
 
 
@@ -177,6 +182,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_autoCompletionDlg.reSizeTo(rc);
 			_multiInstDlg.reSizeTo(rc);
 			_delimiterSettingsDlg.reSizeTo(rc);
+			_settingsOnCloudDlg.reSizeTo(rc);
 
 			NppParameters *pNppParam = NppParameters::getInstance();
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
@@ -2780,3 +2786,85 @@ BOOL CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPA
 
 	return FALSE;
 }
+
+BOOL CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+{
+	NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+	switch (Message) 
+	{
+		case WM_INITDIALOG :
+		{
+			CloudChoice cloudChoice = nppGUI._cloudChoice;
+			::SendDlgItemMessage(_hSelf, IDD_SETTINGSONCLOUD_DROPBOX_CHECK, BM_SETCHECK, cloudChoice == dropbox?BST_CHECKED:BST_UNCHECKED, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDD_SETTINGSONCLOUD_DROPBOX_CHECK), (nppGUI._availableClouds & DROPBOX_AVAILABLE) != 0);
+		}
+		break;
+
+		case WM_COMMAND : 
+		{
+			switch (wParam)
+			{
+				case IDD_SETTINGSONCLOUD_DROPBOX_CHECK :
+				{
+					nppGUI._cloudChoice = isCheckedOrNot(IDD_SETTINGSONCLOUD_DROPBOX_CHECK)?dropbox:noCloud;
+					if (nppGUI._cloudChoice == dropbox)
+					{
+						setCloudChoice("dropbox");
+						/*
+						// files on cloud can never be erased or modified while setting cloud
+						if (!hasSettingsFilesInDropBox())
+						{
+							// it's the first time to set Notepad++ settings on cloud
+							changeSettingsFilesPath();
+
+						}
+						else
+						{
+							// Notepad++ settings are already on cloud
+							askForRestarting();
+						}
+						*/
+					}
+					else
+					{
+						removeCloudChoice();
+						//changeSettingsFilesPath();
+					}
+				}
+				break;
+
+				default :
+					return FALSE;
+			}
+		}
+		break;
+	}
+	return FALSE;
+}
+
+void SettingsOnCloudDlg::setCloudChoice(const char *choice)
+{
+	generic_string cloudChoicePath = (NppParameters::getInstance())->getSettingsFolder();
+	cloudChoicePath += TEXT("\\cloud\\");
+
+	if (!PathFileExists(cloudChoicePath.c_str()))
+	{
+		::CreateDirectory(cloudChoicePath.c_str(), NULL);
+	}
+	cloudChoicePath += TEXT("choice");
+	writeFileContent(cloudChoicePath.c_str(), choice);
+
+}
+
+void SettingsOnCloudDlg::removeCloudChoice()
+{
+	generic_string cloudChoicePath = (NppParameters::getInstance())->getSettingsFolder();
+	//NppParameters *nppParams = ;
+
+	cloudChoicePath += TEXT("\\cloud\\choice");
+	if (PathFileExists(cloudChoicePath.c_str()))
+	{
+		::DeleteFile(cloudChoicePath.c_str());
+	}
+}
+

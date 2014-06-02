@@ -2795,6 +2795,12 @@ BOOL CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 		case WM_INITDIALOG :
 		{
 			CloudChoice cloudChoice = nppGUI._cloudChoice;
+			initialCloudChoice = nppGUI._cloudChoice;
+/*
+			COLORREF bgColor = getCtrlBgColor(_hSelf);
+			SetTextColor(hdcStatic, RGB(255, 0, 0));
+			SetBkColor(hdcStatic, RGB(GetRValue(bgColor) - 30, GetGValue(bgColor) - 30, GetBValue(bgColor) - 30));
+*/
 			::SendDlgItemMessage(_hSelf, IDD_SETTINGSONCLOUD_DROPBOX_CHECK, BM_SETCHECK, cloudChoice == dropbox?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDD_SETTINGSONCLOUD_DROPBOX_CHECK), (nppGUI._availableClouds & DROPBOX_AVAILABLE) != 0);
 		}
@@ -2810,26 +2816,13 @@ BOOL CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 					if (nppGUI._cloudChoice == dropbox)
 					{
 						setCloudChoice("dropbox");
-						/*
-						// files on cloud can never be erased or modified while setting cloud
-						if (!hasSettingsFilesInDropBox())
-						{
-							// it's the first time to set Notepad++ settings on cloud
-							changeSettingsFilesPath();
-
-						}
-						else
-						{
-							// Notepad++ settings are already on cloud
-							askForRestarting();
-						}
-						*/
 					}
 					else
 					{
 						removeCloudChoice();
-						//changeSettingsFilesPath();
 					}
+					generic_string message = initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 				}
 				break;
 

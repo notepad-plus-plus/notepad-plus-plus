@@ -62,7 +62,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize,
 		// otherwise this window will hide some parts of 2 windows
 		splitterContainerClass.hbrBackground = NULL; 
 		splitterContainerClass.lpszMenuName = NULL;
-		splitterContainerClass.lpszClassName = SPC_CLASS_NAME;//_className;
+		splitterContainerClass.lpszClassName = SPC_CLASS_NAME;
 
 		if (!::RegisterClass(&splitterContainerClass))
 		{

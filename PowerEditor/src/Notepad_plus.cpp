@@ -5243,7 +5243,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 199;
+const int nbQuote = 208;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5422,6 +5422,15 @@ Quote quotes[nbQuote] = {
 {"Anonymous #144", "I don't want to sound like a badass but...\nI eject my USB drive without removing it safely."},
 {"Anonymous #145", "feet  (noun)\na device used for finding legos in the dark"},
 {"Anonymous #146", "Buy a sheep\nName it \"Relation\"\nNow you have a Relationsheep\n"},
+{"Anonymous #147", "Just love programmers' \"your mom jokes\":\nIf your mom were a collection class, her insert method would be public."},
+{"Anonymous #148", "UNIX command line Russian roulette:\n[ $[ $RANDOM % 6 ] == 0 ] && rm -rf /* || echo *Click*"},
+{"Anonymous #149", "unzip, strip, top, less, touch, finger, grep, mount, fsck, more, yes, fsck, fsck, fsck, umount, sleep.\n\nNo, it's not porn. It's Unix."},
+{"Anonymous #150", "To understand what recursion is, you must first understand recursion."},
+{"Anonymous #151", "Q: What's the object-oriented way to become wealthy?\nA: Inheritance."},
+{"Anonymous #152", "A SQL query goes into a bar, walks up to two tables and asks, \"Can I join you?\""},
+{"Anonymous #153", "You are not fat, you are just more visible."},
+{"Anonymous #154", "Minimalist\n (.   .)\n  )   (\n (  Y  )\nASCII Art"},
+{"Mary Oliver", "Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift."},
 {"Floor", "If you fall, I will be there."},
 {"Simon Amstell", "If you have some problem in your life and need to deal with it, then use religion, that's fine.\nI use Google."},
 {"James Bond", "James, James Bond."},

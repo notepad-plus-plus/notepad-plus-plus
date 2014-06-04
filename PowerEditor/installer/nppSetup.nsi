@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.6.3"
+!define APPVERSION "6.6.4"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 63
+!define VERSION_MINOR 64
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -541,12 +541,12 @@ Section -"Notepad++" mainSection
 		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
 		
 	IfFileExists "$INSTDIR\plugins\QuickText.UNI.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\n\QuickText.UNI.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the stability issue,$\nQuickText.UNI.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\QuickText.UNI.dll" "$INSTDIR\plugins\disabled\QuickText.UNI.dll"
 		Delete "$INSTDIR\plugins\QuickText.UNI.dll"
 
 	IfFileExists "$INSTDIR\plugins\AHKExternalLexer.dll" 0 +4
-		MessageBox MB_OK "Due to the compability issue,$\n\AHKExternalLexer.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the compability issue,$\nAHKExternalLexer.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\AHKExternalLexer.dll" "$INSTDIR\plugins\disabled\AHKExternalLexer.dll"
 		Delete "$INSTDIR\plugins\AHKExternalLexer.dll"
 
@@ -577,9 +577,14 @@ Section -"Notepad++" mainSection
 		Delete "$INSTDIR\plugins\PreviewHTML.dll"
 		
 	IfFileExists "$INSTDIR\plugins\nppRegEx.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nppRegEx.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the stability issue,$\nnppRegEx.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\nppRegEx.dll" "$INSTDIR\plugins\disabled\nppRegEx.dll"
 		Delete "$INSTDIR\plugins\nppRegEx.dll"
+		
+	IfFileExists "$INSTDIR\plugins\AutoSaveU.dll" 0 +4
+		MessageBox MB_OK "Due to the stability issue,$\nAutoSaveU.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\AutoSaveU.dll" "$INSTDIR\plugins\disabled\AutoSaveU.dll"
+		Delete "$INSTDIR\plugins\AutoSaveU.dll"
 		
     ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3

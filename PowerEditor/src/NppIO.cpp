@@ -619,7 +619,28 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		{
 			if (isSnapshotMode)
 			{
-			
+				if (buf->getBackupFileName() == TEXT("") || !::PathFileExists(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
+				{
+					// warning user and save it if user want it.
+					activateBuffer(id, MAIN_VIEW);
+					if(!activateBuffer(id, SUB_VIEW))
+						switchEditViewTo(MAIN_VIEW);
+	
+					TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you wan to save file \"%s\" ?");
+					TCHAR phrase[512];
+					wsprintf(phrase, pattern, buf->getFullPathName());
+					int res = doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+					//int res = doSaveOrNot(buf->getFullPathName());
+					if (res == IDYES) 
+					{
+						if (!fileSave(id))
+							return false;	//abort entire procedure
+					} 
+					else if (res == IDCANCEL) 
+					{
+						return false;
+					}
+				}
 			}
 			else
 			{
@@ -635,7 +656,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				} 
 				else if (res == IDCANCEL) 
 				{
-						return false;
+					return false;
 				}
 			}
 		}
@@ -652,7 +673,27 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		{
 			if (isSnapshotMode)
 			{
-				
+				if (buf->getBackupFileName() == TEXT("") || !::PathFileExists(buf->getBackupFileName().c_str())) //backup file has been deleted from outside
+				{
+					// warning user and save it if user want it.
+					activateBuffer(id, SUB_VIEW);
+					switchEditViewTo(SUB_VIEW);
+	
+					TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you wan to save file \"%s\" ?");
+					TCHAR phrase[512];
+					wsprintf(phrase, pattern, buf->getFullPathName());
+					int res = doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+					//int res = doSaveOrNot(buf->getFullPathName());
+					if (res == IDYES) 
+					{
+						if (!fileSave(id))
+							return false;	//abort entire procedure
+					} 
+					else if (res == IDCANCEL) 
+					{
+						return false;
+					}
+				}
 			}
 			else
 			{

@@ -742,11 +742,18 @@ bool FileManager::backupCurrentBuffer()
 				// Session changes, save it
 				hasModifForSession = true;
 			}
-			
 
 			TCHAR fullpath[MAX_PATH];
 			::GetFullPathName(backupFilePath.c_str(), MAX_PATH, fullpath, NULL);
 			::GetLongPathName(fullpath, fullpath, MAX_PATH);
+			
+			// Make sure the backup file is not read only
+			DWORD dwFileAttribs = ::GetFileAttributes(fullpath);
+			if (dwFileAttribs & FILE_ATTRIBUTE_READONLY) // if file is read only, remove read only attribute
+			{
+				dwFileAttribs ^= FILE_ATTRIBUTE_READONLY; 
+				::SetFileAttributes(fullpath, dwFileAttribs);
+			}
 
 			FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
 			if (fp)

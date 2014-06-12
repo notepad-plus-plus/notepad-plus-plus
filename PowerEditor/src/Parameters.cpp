@@ -33,6 +33,12 @@
 #include "keys.h"
 #include "localization.h"
 #include "UserDefineDialog.h"
+#include <fstream>
+
+#ifndef json_included
+#define json_included
+#include "jsoncpp\include\json\json.h"
+#endif
 
 struct WinMenuKeyDefinition {	//more or less matches accelerator table definition, easy copy/paste
 	//const TCHAR * name;	//name retrieved from menu?
@@ -798,29 +804,64 @@ bool NppParameters::reloadLang()
 	return loadOkay;
 }
 
+
 generic_string NppParameters::getCloudSettingsPath(const generic_string & cloudChoicePath)
 {
-	// check if dropbox is present
 	generic_string cloudSettingsPath = TEXT("");
+
+	// check if dropbox is present
+	generic_string settingsPath4dropbox = TEXT("");
+
 	ITEMIDLIST *pidl;
-	SHGetSpecialFolderLocation(NULL, CSIDL_PROFILE, &pidl);
+	SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
 	TCHAR tmp[MAX_PATH];
 	SHGetPathFromIDList(pidl, tmp);
-	
-	cloudSettingsPath = tmp;
-	PathAppend(cloudSettingsPath, TEXT("Dropbox"));
-	if (PathFileExists(cloudSettingsPath.c_str()))
-		_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
-	
-	if (!PathFileExists(cloudChoicePath.c_str()))
-		return TEXT("");
+	generic_string dropboxInfoJson = tmp;
 
-	// Read cloud choice
-	std::string cloudChoice = getFileContent(cloudChoicePath.c_str());
+	PathAppend(dropboxInfoJson, TEXT("Dropbox\\info.json"));
 
-
-	if (cloudChoice == "dropbox" && _nppGUI._availableClouds & DROPBOX_AVAILABLE)
+	if (::PathFileExists(dropboxInfoJson.c_str()))
 	{
+		std::ifstream ifs(dropboxInfoJson.c_str(), std::ifstream::binary);
+
+		Json::Value root;
+		Json::Reader reader;
+
+		bool parsingSuccessful = reader.parse(ifs, root);
+
+		if (parsingSuccessful)
+		{
+			Json::Value personalRoot = root.get("personal", 0);
+			std::string pathVal = personalRoot.get("path", "").asString();
+
+			const size_t maxLen = 2048;
+			wchar_t dest[maxLen];
+			mbstowcs(dest, pathVal.c_str(), maxLen);
+			if (::PathFileExists(dest))
+			{
+				settingsPath4dropbox = dest;
+				_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
+			}
+		}
+	}
+
+	// TODO: check if google drive is present
+	generic_string settingsPath4GoogleDrive = TEXT("");
+
+	// TODO: check if one drive is present
+	generic_string settingsPath4OneDrive = TEXT("");
+
+	std::string cloudChoice = "";
+	// cloudChoicePath doesn't exist, just quit
+	if (::PathFileExists(cloudChoicePath.c_str()))
+	{
+		// Read cloud choice
+		cloudChoice = getFileContent(cloudChoicePath.c_str());
+	}
+
+	if (cloudChoice == "dropbox" && (_nppGUI._availableClouds & DROPBOX_AVAILABLE))
+	{
+		cloudSettingsPath = settingsPath4dropbox;
 		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
 
 		// The folder %userprofile%\Dropbox\Notepad++ should exist.
@@ -834,10 +875,14 @@ generic_string NppParameters::getCloudSettingsPath(const generic_string & cloudC
 	else if (cloudChoice == "oneDrive")
 	{
 		_nppGUI._cloudChoice = oneDrive;
+		cloudSettingsPath = settingsPath4OneDrive;
+		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
 	}
 	else if (cloudChoice == "googleDrive")
 	{
 		_nppGUI._cloudChoice = googleDrive;
+		cloudSettingsPath = settingsPath4GoogleDrive;
+		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
 	}
 	return cloudSettingsPath;
 }

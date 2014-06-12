@@ -36,6 +36,7 @@
 #include "documentMap.h"
 #include "functionListPanel.h"
 
+
 void Notepad_plus::macroPlayback(Macro macro)
 {
 	_pEditView->execute(SCI_BEGINUNDOACTION);

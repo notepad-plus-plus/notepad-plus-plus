@@ -68,7 +68,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/fixed:no"
-				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib $(InputDir)..\src\jsoncpp\build\vs71\debug\lib_json\json_vc71_libmtd.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/notepadPlus_Debug.exe"
 				Version="1.0"
@@ -163,7 +163,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib $(InputDir)..\src\jsoncpp\build\vs71\release\lib_json\json_vc71_libmt.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/notepad++.exe"
 				Version="1.0"

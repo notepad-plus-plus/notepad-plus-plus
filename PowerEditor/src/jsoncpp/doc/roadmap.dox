@@ -1,0 +1,32 @@
+/*! \page roadmap JsonCpp roadmap
+  \section ms_release Makes JsonCpp ready for release
+  - Build system clean-up:
+	- Fix build on Windows (shared-library build is broken)
+	- Add enable/disable flag for static and shared library build
+	- Enhance help
+  - Platform portability check: (Notes: was ok on last check)
+	- linux/gcc, 
+	- solaris/cc, 
+	- windows/msvc678, 
+	- aix/vacpp
+  - Add JsonCpp version to header as numeric for use in preprocessor test
+  - Remove buggy experimental hash stuff
+  - Release on sourceforge download
+  \section ms_strict Adds a strict mode to reader/parser
+	Strict JSON support as specific in RFC 4627 (http://www.ietf.org/rfc/rfc4627.txt?number=4627).
+	- Enforce only object or array as root element
+	- Disable comment support
+    - Get jsonchecker failing tests to pass in strict mode
+  \section ms_separation Expose json reader/writer API that do not impose using Json::Value.
+	Some typical use-case involve an application specific structure to/from a JSON document.
+    - Event base parser to allow unserializing a Json document directly in datastructure instead of
+      using the intermediate Json::Value.
+    - "Stream" based parser to serialized a Json document without using Json::Value as input.
+	- Performance oriented parser/writer:
+		- Provides an event based parser. Should allow pulling & skipping events for ease of use.
+		- Provides a JSON document builder: fast only.
+  \section ms_perfo Performance tuning
+    - Provides support for static property name definition avoiding allocation
+    - Static property dictionnary can be provided to JSON reader
+    - Performance scenario & benchmarking
+*/

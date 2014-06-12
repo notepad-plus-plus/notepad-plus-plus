@@ -1,0 +1,10 @@
+Import( 'env_testing buildUnitTests' )
+
+buildUnitTests( env_testing, Split( """
+    main.cpp
+    jsontest.cpp
+     """ ),
+    'test_lib_json' )
+
+# For 'check' to work, 'libs' must be built first.
+env_testing.Depends('test_lib_json', '#libs')

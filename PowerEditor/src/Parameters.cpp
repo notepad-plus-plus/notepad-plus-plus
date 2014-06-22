@@ -805,7 +805,7 @@ bool NppParameters::reloadLang()
 }
 
 
-generic_string NppParameters::getCloudSettingsPath(const generic_string & cloudChoicePath)
+generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 {
 	generic_string cloudSettingsPath = TEXT("");
 
@@ -851,15 +851,8 @@ generic_string NppParameters::getCloudSettingsPath(const generic_string & cloudC
 	// TODO: check if one drive is present
 	generic_string settingsPath4OneDrive = TEXT("");
 
-	std::string cloudChoice = "";
-	// cloudChoicePath doesn't exist, just quit
-	if (::PathFileExists(cloudChoicePath.c_str()))
-	{
-		// Read cloud choice
-		cloudChoice = getFileContent(cloudChoicePath.c_str());
-	}
 
-	if (cloudChoice == "dropbox" && (_nppGUI._availableClouds & DROPBOX_AVAILABLE))
+	if (cloudChoice == dropbox && (_nppGUI._availableClouds & DROPBOX_AVAILABLE))
 	{
 		cloudSettingsPath = settingsPath4dropbox;
 		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
@@ -872,18 +865,21 @@ generic_string NppParameters::getCloudSettingsPath(const generic_string & cloudC
 		}
 		_nppGUI._cloudChoice = dropbox;
 	}
-	else if (cloudChoice == "oneDrive")
+	else if (cloudChoice == oneDrive)
 	{
 		_nppGUI._cloudChoice = oneDrive;
 		cloudSettingsPath = settingsPath4OneDrive;
 		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
 	}
-	else if (cloudChoice == "googleDrive")
+	else if (cloudChoice == googleDrive)
 	{
 		_nppGUI._cloudChoice = googleDrive;
 		cloudSettingsPath = settingsPath4GoogleDrive;
 		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
 	}
+	//else if (cloudChoice == noCloud)
+	//	cloudSettingsPath is always empty
+
 	return cloudSettingsPath;
 }
 
@@ -967,7 +963,27 @@ bool NppParameters::load()
 	generic_string cloudChoicePath = _userPath;
 	cloudChoicePath += TEXT("\\cloud\\choice");
 	
-	generic_string cloudPath = getCloudSettingsPath(cloudChoicePath);
+	CloudChoice cloudChoice = noCloud;
+	// cloudChoicePath doesn't exist, just quit
+	if (::PathFileExists(cloudChoicePath.c_str()))
+	{
+		// Read cloud choice
+		std::string cloudChoiceStr = getFileContent(cloudChoicePath.c_str());
+		if (cloudChoiceStr == "dropbox")
+		{
+			cloudChoice = dropbox;
+		}
+		else if (cloudChoiceStr == "oneDrive")
+		{
+			cloudChoice = oneDrive;
+		}
+		else if (cloudChoiceStr == "googleDrive")
+		{
+			cloudChoice = googleDrive;
+		}
+	}
+
+	generic_string cloudPath = getCloudSettingsPath(cloudChoice);
 	if (cloudPath != TEXT(""))
 	{
 		_userPath = cloudPath;
@@ -2400,29 +2416,10 @@ LangType NppParameters::getLangFromExt(const TCHAR *ext)
 	return L_TEXT;
 }
 
-void NppParameters::writeSettingsFilesOnCloud(CloudChoice choice)
+void NppParameters::writeSettingsFilesOnCloudForThe1stTime(CloudChoice choice)
 {
-	generic_string cloudSettingsPath;
-
-	if (choice == dropbox)
-	{
-		cloudSettingsPath = TEXT("");
-		ITEMIDLIST *pidl;
-		SHGetSpecialFolderLocation(NULL, CSIDL_PROFILE, &pidl);
-		TCHAR tmp[MAX_PATH];
-		SHGetPathFromIDList(pidl, tmp);
-		
-		cloudSettingsPath = tmp;
-		PathAppend(cloudSettingsPath, TEXT("Dropbox"));
-		if (!::PathFileExists(cloudSettingsPath.c_str()))
-			return;
-		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
-		if (!::PathFileExists(cloudSettingsPath.c_str()))
-		{
-			::CreateDirectory(cloudSettingsPath.c_str(), NULL);
-		}
-	}
-	else
+	generic_string cloudSettingsPath = getCloudSettingsPath(choice);
+	if (cloudSettingsPath == TEXT(""))
 	{
 		return;
 	}

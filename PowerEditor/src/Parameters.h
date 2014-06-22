@@ -1208,7 +1208,7 @@ public:
 	bool reloadLang();
 	bool reloadStylers(TCHAR *stylePath = NULL);
     void destroyInstance();
-	generic_string getCloudSettingsPath(const generic_string & cloudChoicePath);
+	generic_string getCloudSettingsPath(CloudChoice cloudChoice);
 	generic_string getSettingsFolder();
 
 	bool _isTaskListRBUTTONUP_Active;
@@ -1548,7 +1548,7 @@ public:
 		return _userPath;
 	};
 
-	void writeSettingsFilesOnCloud(CloudChoice choice);
+	void writeSettingsFilesOnCloudForThe1stTime(CloudChoice choice);
 	
 	DPIManager _dpiManager;
 

@@ -1489,10 +1489,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			    if (nppgui._rememberLastSession && !nppgui._isCmdlineNosessionActivated)
 				    saveSession(currentSession);
 
-				// write settings on cloud if enabled
-				if (nppgui._cloudChoice == dropbox)
+				// write settings on cloud if enabled, if the settings files don't exist
+				if (nppgui._cloudChoice != noCloud)
 				{
-					pNppParam->writeSettingsFilesOnCloud(dropbox);
+					pNppParam->writeSettingsFilesOnCloudForThe1stTime(nppgui._cloudChoice);
 				}
 
                 //Sends WM_DESTROY, Notepad++ will end

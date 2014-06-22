@@ -2800,14 +2800,21 @@ BOOL CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 		case WM_INITDIALOG :
 		{
 			CloudChoice cloudChoice = nppGUI._cloudChoice;
-			initialCloudChoice = nppGUI._cloudChoice;
+			_initialCloudChoice = nppGUI._cloudChoice;
 /*
 			COLORREF bgColor = getCtrlBgColor(_hSelf);
 			SetTextColor(hdcStatic, RGB(255, 0, 0));
 			SetBkColor(hdcStatic, RGB(GetRValue(bgColor) - 30, GetGValue(bgColor) - 30, GetBValue(bgColor) - 30));
 */
-			::SendDlgItemMessage(_hSelf, IDD_SETTINGSONCLOUD_DROPBOX_CHECK, BM_SETCHECK, cloudChoice == dropbox?BST_CHECKED:BST_UNCHECKED, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDD_SETTINGSONCLOUD_DROPBOX_CHECK), (nppGUI._availableClouds & DROPBOX_AVAILABLE) != 0);
+			::SendDlgItemMessage(_hSelf, IDC_NOCLOUD_RADIO, BM_SETCHECK, cloudChoice == noCloud?BST_CHECKED:BST_UNCHECKED, 0);
+
+			::SendDlgItemMessage(_hSelf, IDC_DROPBOX_RADIO, BM_SETCHECK, cloudChoice == dropbox?BST_CHECKED:BST_UNCHECKED, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_DROPBOX_RADIO), (nppGUI._availableClouds & DROPBOX_AVAILABLE) != 0);
+
+			::SendDlgItemMessage(_hSelf, IDC_ONEDRIVE_RADIO, BM_SETCHECK, cloudChoice == oneDrive?BST_CHECKED:BST_UNCHECKED, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_ONEDRIVE_RADIO), (nppGUI._availableClouds & ONEDRIVE_AVAILABLE) != 0);
+
+
 		}
 		break;
 
@@ -2815,24 +2822,39 @@ BOOL CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 		{
 			switch (wParam)
 			{
-				case IDD_SETTINGSONCLOUD_DROPBOX_CHECK :
+				case IDC_NOCLOUD_RADIO :
 				{
-					nppGUI._cloudChoice = isCheckedOrNot(IDD_SETTINGSONCLOUD_DROPBOX_CHECK)?dropbox:noCloud;
-					if (nppGUI._cloudChoice == dropbox)
-					{
-						setCloudChoice("dropbox");
-					}
-					else
-					{
-						removeCloudChoice();
-					}
-					generic_string message = initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
+					nppGUI._cloudChoice = noCloud;
+					removeCloudChoice();
+					
+					generic_string message = _initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+				}
+				break;
+
+				case IDC_DROPBOX_RADIO :
+				{
+					nppGUI._cloudChoice = dropbox;
+					setCloudChoice("dropbox");
+
+					generic_string message = _initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+				}
+				break;
+
+				case IDC_ONEDRIVE_RADIO :
+				{
+					nppGUI._cloudChoice = oneDrive;
+					setCloudChoice("oneDrive");
+
+					generic_string message = _initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 				}
 				break;
 
 				default :
 					return FALSE;
+					
 			}
 		}
 		break;

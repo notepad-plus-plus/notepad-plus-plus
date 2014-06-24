@@ -1,7 +1,7 @@
-Notepad++ v6.6.4 bug fixes:
-1.  New feature: Settings on cloud - dropbox.
-2.  Add backup path info for session snapshot & periodic backup feature.
+Notepad++ v6.6.7 new feature and bug fixes:
 
+1.  Settings on cloud - OneDrive.
+2.  Fix the crash issue on start up for some context.
 
 
 Included plugins:

@@ -805,7 +805,7 @@ bool NppParameters::reloadLang()
 }
 
 /*
-Spec for settings on cloud (dropbox, drive...)
+Spec for settings on cloud (dropbox, oneDrive and googleDrive)
     ON LOAD:
     1. if doLocalConf.xml, check nppInstalled/cloud/choice
     2. check the validity of 3 cloud and get the npp_cloud_folder according the choice.
@@ -850,34 +850,36 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	generic_string dropboxInfoJson = tmp;
 
 	PathAppend(dropboxInfoJson, TEXT("Dropbox\\info.json"));
-
-	if (::PathFileExists(dropboxInfoJson.c_str()))
-	{
-		std::ifstream ifs(dropboxInfoJson.c_str(), std::ifstream::binary);
-
-		Json::Value root;
-		Json::Reader reader;
-
-		bool parsingSuccessful = reader.parse(ifs, root);
-
-		if (parsingSuccessful)
+	try {
+		if (::PathFileExists(dropboxInfoJson.c_str()))
 		{
-			Json::Value personalRoot = root.get("personal", 0);
-			std::string pathVal = personalRoot.get("path", "").asString();
+			std::ifstream ifs(dropboxInfoJson.c_str(), std::ifstream::binary);
 
-			const size_t maxLen = 2048;
-			wchar_t dest[maxLen];
-			mbstowcs(dest, pathVal.c_str(), maxLen);
-			if (::PathFileExists(dest))
+			Json::Value root;
+			Json::Reader reader;
+
+			bool parsingSuccessful = reader.parse(ifs, root);
+			if (parsingSuccessful)
 			{
-				settingsPath4dropbox = dest;
-				_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
+				Json::Value personalRoot = root.get("personal", 0);
+				std::string pathVal = personalRoot.get("path", "").asString();
+
+				const size_t maxLen = 2048;
+				wchar_t dest[maxLen];
+				mbstowcs(dest, pathVal.c_str(), maxLen);
+				if (::PathFileExists(dest))
+				{
+					settingsPath4dropbox = dest;
+					_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
+				}
 			}
 		}
+	} catch (...) {
+		//printStr(TEXT("JsonCpp exception captured"));
 	}
 
 	//
-	// TODO: check if one drive is present
+	// TODO: check if OneDrive is present
 	//
 
 	// Get value from registry
@@ -914,7 +916,7 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 		cloudSettingsPath = settingsPath4dropbox;
 		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
 
-		// The folder %userprofile%\Dropbox\Notepad++ should exist.
+		// The folder cloud_folder\Notepad++ should exist.
 		// if it doesn't, it means this folder was removed by user, we create it anyway
 		if (!PathFileExists(cloudSettingsPath.c_str()))
 		{

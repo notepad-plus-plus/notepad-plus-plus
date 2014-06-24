@@ -804,12 +804,43 @@ bool NppParameters::reloadLang()
 	return loadOkay;
 }
 
+/*
+Spec for settings on cloud (dropbox, drive...)
+    ON LOAD:
+    1. if doLocalConf.xml, check nppInstalled/cloud/choice
+    2. check the validity of 3 cloud and get the npp_cloud_folder according the choice.
+    3. Set npp_cloud_folder as user_dir.
+    
+    Attention: settings files in cloud_folder should never be removed or erased.
+    
+    ON SET:
+    1. write "dropbox", "oneDrive" or "googleDrive" in nppInstalled/cloud/choice file, if choice file doesn't exist, create it.
+    2. ask user to restart Notepad++
+    3. if no settings files in npp_cloud_folder , write settings before exiting.
+
+    ON UNSET:
+    1. remove nppInstalled/cloud/choice file
+    2. ask user to restart Notepad++
+   
+   Here are the list of xml settings used by Notepad++:
+   1. config.xml: saveed on exit
+   2. stylers.xml: saved on modified
+   3. langs.xml: no save
+   4. session.xml: saveed on exit or : all the time, if session snapshot is enabled.
+   5. shortcuts.xml: saveed on exit
+   6. userDefineLang.xml: saveed on exit
+   7. functionlist.xml: no save
+   8. contextMenu.xml: no save
+   9. nativeLang.xml: no save
+*/
 
 generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 {
 	generic_string cloudSettingsPath = TEXT("");
-
+	
+	//
 	// check if dropbox is present
+	//
 	generic_string settingsPath4dropbox = TEXT("");
 
 	ITEMIDLIST *pidl;
@@ -845,11 +876,37 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 		}
 	}
 
+	//
+	// TODO: check if one drive is present
+	//
+
+	// Get value from registry
+	generic_string settingsPath4OneDrive = TEXT("");
+	HKEY hKey;
+	LRESULT res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\SkyDrive"), 0, KEY_READ, &hKey);
+	if (res != ERROR_SUCCESS)
+	{
+		res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SkyDrive"), 0, KEY_READ, &hKey);
+	}
+
+	if (res == ERROR_SUCCESS)
+	{
+		TCHAR valData[MAX_PATH];
+		int valDataLen = MAX_PATH * sizeof(TCHAR);
+		int valType;
+		::RegQueryValueEx(hKey, TEXT("UserFolder"), NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
+
+		if (::PathFileExists(valData))
+		{
+			settingsPath4OneDrive = valData;
+			_nppGUI._availableClouds |= ONEDRIVE_AVAILABLE;
+		}
+		::RegCloseKey(hKey);
+	}
+
 	// TODO: check if google drive is present
 	generic_string settingsPath4GoogleDrive = TEXT("");
 
-	// TODO: check if one drive is present
-	generic_string settingsPath4OneDrive = TEXT("");
 
 
 	if (cloudChoice == dropbox && (_nppGUI._availableClouds & DROPBOX_AVAILABLE))
@@ -870,12 +927,24 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 		_nppGUI._cloudChoice = oneDrive;
 		cloudSettingsPath = settingsPath4OneDrive;
 		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
+
+		if (!PathFileExists(cloudSettingsPath.c_str()))
+		{
+			::CreateDirectory(cloudSettingsPath.c_str(), NULL);
+		}
+		_nppGUI._cloudChoice = oneDrive;
 	}
 	else if (cloudChoice == googleDrive)
 	{
 		_nppGUI._cloudChoice = googleDrive;
 		cloudSettingsPath = settingsPath4GoogleDrive;
 		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
+		
+		if (!PathFileExists(cloudSettingsPath.c_str()))
+		{
+			::CreateDirectory(cloudSettingsPath.c_str(), NULL);
+		}
+		_nppGUI._cloudChoice = googleDrive;
 	}
 	//else if (cloudChoice == noCloud)
 	//	cloudSettingsPath is always empty
@@ -984,7 +1053,7 @@ bool NppParameters::load()
 	}
 
 	generic_string cloudPath = getCloudSettingsPath(cloudChoice);
-	if (cloudPath != TEXT(""))
+	if (cloudPath != TEXT("") && ::PathFileExists(cloudPath.c_str()))
 	{
 		_userPath = cloudPath;
 	}

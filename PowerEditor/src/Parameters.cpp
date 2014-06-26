@@ -885,10 +885,10 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	// Get value from registry
 	generic_string settingsPath4OneDrive = TEXT("");
 	HKEY hKey;
-	LRESULT res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\SkyDrive"), 0, KEY_READ, &hKey);
+	LRESULT res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SkyDrive"), 0, KEY_READ, &hKey);
 	if (res != ERROR_SUCCESS)
 	{
-		res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SkyDrive"), 0, KEY_READ, &hKey);
+		res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\SkyDrive"), 0, KEY_READ, &hKey);
 	}
 
 	if (res == ERROR_SUCCESS)

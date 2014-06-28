@@ -33,12 +33,6 @@
 #include "keys.h"
 #include "localization.h"
 #include "UserDefineDialog.h"
-#include <fstream>
-
-#ifndef json_included
-#define json_included
-#include "jsoncpp\include\json\json.h"
-#endif
 
 struct WinMenuKeyDefinition {	//more or less matches accelerator table definition, easy copy/paste
 	//const TCHAR * name;	//name retrieved from menu?
@@ -804,6 +798,91 @@ bool NppParameters::reloadLang()
 	return loadOkay;
 }
 
+size_t getAsciiLenFromBase64Len(size_t base64StrLen)
+{
+	if (base64StrLen % 4) return 0;
+	return  base64StrLen - base64StrLen / 4;
+}
+
+int base64ToAscii(char *dest, const char *base64Str)
+{
+	int base64IndexArray[123] =\
+	{\
+	-1, -1, -1, -1, -1, -1, -1, -1,\
+	-1, -1, -1, -1, -1, -1, -1, -1,\
+	-1, -1, -1, -1, -1, -1, -1, -1,\
+	-1, -1, -1, -1, -1, -1, -1, -1,\
+	-1, -1, -1, -1, -1, -1, -1, -1,\
+	-1, -1, -1, 62, -1, -1, -1, 63,\
+	52, 53, 54, 55 ,56, 57, 58, 59,\
+	60, 61, -1, -1, -1, -1, -1, -1,\
+	-1,  0,  1,  2,  3,  4,  5,  6,\
+	 7,  8,  9, 10, 11, 12, 13, 14,\
+	15, 16, 17, 18, 19, 20, 21, 22,\
+	23, 24, 25, -1, -1, -1, -1 ,-1,\
+	-1, 26, 27, 28, 29, 30, 31, 32,\
+	33, 34, 35, 36, 37, 38, 39, 40,\
+	41, 42, 43, 44, 45, 46, 47, 48,\
+	49, 50, 51\
+	};
+
+	size_t b64StrLen = strlen(base64Str);	
+	size_t nbLoop = b64StrLen / 4;
+
+	size_t i = 0;
+	int k = 0;
+
+	enum {b64_just, b64_1padded, b64_2padded} padd = b64_just;
+	for ( ; i < nbLoop ; i++)
+	{
+		size_t j = i * 4;
+		UCHAR uc0, uc1, uc2, uc3, p0, p1;
+
+		uc0 = (UCHAR)base64IndexArray[base64Str[j]];
+		uc1 = (UCHAR)base64IndexArray[base64Str[j+1]];
+		uc2 = (UCHAR)base64IndexArray[base64Str[j+2]];
+		uc3 = (UCHAR)base64IndexArray[base64Str[j+3]];
+
+		if ((uc0 == -1) || (uc1 == -1) || (uc2 == -1) || (uc3 == -1))
+			return -1;
+
+		if (base64Str[j+2] == '=') // && (uc3 == '=')
+		{
+			uc2 = uc3 = 0;
+			padd = b64_2padded;
+		}
+		else if (base64Str[j+3] == '=')
+		{
+			uc3 = 0;
+			padd = b64_1padded;
+		}
+		p0 = uc0 << 2;
+		p1 = uc1 << 2;
+		p1 >>= 6;
+		dest[k++] = p0 | p1;
+
+		p0 = uc1 << 4;
+		p1 = uc2 << 2;
+		p1 >>= 4;
+		dest[k++] = p0 | p1;
+
+		p0 = uc2 << 6;
+		p1 = uc3;
+		dest[k++] = p0 | p1;
+	}
+
+	//dest[k] = '\0';
+	if (padd == b64_1padded)
+	//	dest[k-1] = '\0';
+		return k-1;
+	else if (padd == b64_2padded)
+	//	dest[k-2] = '\0';
+		return k-2;
+
+	return k;
+}
+
+
 /*
 Spec for settings on cloud (dropbox, oneDrive and googleDrive)
     ON LOAD:
@@ -847,31 +926,46 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
 	TCHAR tmp[MAX_PATH];
 	SHGetPathFromIDList(pidl, tmp);
-	generic_string dropboxInfoJson = tmp;
+	generic_string dropboxInfoDB = tmp;
 
-	PathAppend(dropboxInfoJson, TEXT("Dropbox\\info.json"));
+	PathAppend(dropboxInfoDB, TEXT("Dropbox\\host.db"));
 	try {
-		if (::PathFileExists(dropboxInfoJson.c_str()))
+		if (::PathFileExists(dropboxInfoDB.c_str()))
 		{
-			std::ifstream ifs(dropboxInfoJson.c_str(), std::ifstream::binary);
-
-			Json::Value root;
-			Json::Reader reader;
-
-			bool parsingSuccessful = reader.parse(ifs, root);
-			if (parsingSuccessful)
+			// get whole content
+			std::string content = getFileContent(dropboxInfoDB.c_str());
+			if (content != "")
 			{
-				Json::Value personalRoot = root.get("personal", 0);
-				std::string pathVal = personalRoot.get("path", "").asString();
-
-				const size_t maxLen = 2048;
-				wchar_t dest[maxLen];
-				mbstowcs(dest, pathVal.c_str(), maxLen);
-				if (::PathFileExists(dest))
+				// get the second line
+				const char *pB64 = content.c_str();
+				for (size_t i = 0; i < content.length(); ++i)
 				{
-					settingsPath4dropbox = dest;
-					_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
+					++pB64;
+					if (*pB64 == '\n')
+					{
+						++pB64;
+						break;
+					}
 				}
+
+				// decode base64
+				size_t b64Len = strlen(pB64);
+				size_t asciiLen = getAsciiLenFromBase64Len(b64Len);
+				char * pAsciiText = new char[asciiLen + 1];
+				int len = base64ToAscii(pAsciiText, pB64);
+				if (len)
+				{
+					//::MessageBoxA(NULL, pAsciiText, "", MB_OK);
+					const size_t maxLen = 2048;
+					wchar_t dest[maxLen];
+					mbstowcs(dest, pAsciiText, maxLen);
+					if (::PathFileExists(dest))
+					{
+						settingsPath4dropbox = dest;
+						_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
+					}
+				}
+				delete [] pAsciiText;
 			}
 		}
 	} catch (...) {

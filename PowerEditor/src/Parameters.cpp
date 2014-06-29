@@ -33,6 +33,7 @@
 #include "keys.h"
 #include "localization.h"
 #include "UserDefineDialog.h"
+#include "../src/sqlite/sqlite3.h"
 
 struct WinMenuKeyDefinition {	//more or less matches accelerator table definition, easy copy/paste
 	//const TCHAR * name;	//name retrieved from menu?
@@ -1000,10 +1001,54 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 		::RegCloseKey(hKey);
 	}
 
+	//
 	// TODO: check if google drive is present
+	//
+	ITEMIDLIST *pidl2;
+	SHGetSpecialFolderLocation(NULL, CSIDL_LOCAL_APPDATA, &pidl2);
+	TCHAR tmp2[MAX_PATH];
+	SHGetPathFromIDList(pidl2, tmp2);
+	generic_string googleDriveInfoDB = tmp2;
+
+	PathAppend(googleDriveInfoDB, TEXT("Google\\Drive\\sync_config.db"));
+
 	generic_string settingsPath4GoogleDrive = TEXT("");
+/*
+	try {
+		sqlite3 *handle;
+		sqlite3_stmt *stmt;
 
+		// try to create the database. If it doesnt exist, it would be created
+		// pass a pointer to the pointer to sqlite3, in short sqlite3**
+		int retval = sqlite3_open("sampledb.sqlite3", &handle);
+		// If connection failed, handle returns NULL
+		if (retval)
+		{
+			char query[] = "select * from data where entry_key='local_sync_root_path')";
 
+			retval = sqlite3_prepare_v2(handle, query, -1, &stmt, 0); //sqlite3_prepare_v2() interfaces use UTF-8
+			if(retval)
+			{
+				// fetch a row’s status
+				retval = sqlite3_step(stmt);
+
+				if (retval == SQLITE_ROW) 
+				{
+					int bytes;
+					const unsigned char * text;
+					bytes = sqlite3_column_bytes(stmt, 0);
+					text  = sqlite3_column_text (stmt, 0);
+					printf ("%d: %s\n", row, text);
+				}
+			}
+
+			sqlite3_close(handle);
+		}
+		
+	} catch(...) {
+		// Do nothing
+	}
+*/
 
 	if (cloudChoice == dropbox && (_nppGUI._availableClouds & DROPBOX_AVAILABLE))
 	{

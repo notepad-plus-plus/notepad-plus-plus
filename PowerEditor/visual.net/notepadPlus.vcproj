@@ -549,6 +549,15 @@
 				RelativePath="..\src\sqlite\sqlite3.c"
 				>
 				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						WarningLevel="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Unicode Release|Win32"
 					>
 					<Tool

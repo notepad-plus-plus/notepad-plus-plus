@@ -1013,42 +1013,52 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	PathAppend(googleDriveInfoDB, TEXT("Google\\Drive\\sync_config.db"));
 
 	generic_string settingsPath4GoogleDrive = TEXT("");
-/*
-	try {
-		sqlite3 *handle;
-		sqlite3_stmt *stmt;
 
-		// try to create the database. If it doesnt exist, it would be created
-		// pass a pointer to the pointer to sqlite3, in short sqlite3**
-		int retval = sqlite3_open("sampledb.sqlite3", &handle);
-		// If connection failed, handle returns NULL
-		if (retval)
-		{
-			char query[] = "select * from data where entry_key='local_sync_root_path')";
+	if (::PathFileExists(googleDriveInfoDB.c_str()))
+	{
+		try {
+			sqlite3 *handle;
+			sqlite3_stmt *stmt;
 
-			retval = sqlite3_prepare_v2(handle, query, -1, &stmt, 0); //sqlite3_prepare_v2() interfaces use UTF-8
-			if(retval)
+			// try to create the database. If it doesnt exist, it would be created
+			// pass a pointer to the pointer to sqlite3, in short sqlite3**
+			char dest[MAX_PATH];
+			wcstombs(dest, googleDriveInfoDB.c_str(), sizeof(dest));
+			int retval = sqlite3_open(dest, &handle);
+
+			// If connection failed, handle returns NULL
+			if (retval ==  SQLITE_OK)
 			{
-				// fetch a row’s status
-				retval = sqlite3_step(stmt);
+				char query[] = "select * from data where entry_key='local_sync_root_path'";
 
-				if (retval == SQLITE_ROW) 
+				retval = sqlite3_prepare_v2(handle, query, -1, &stmt, 0); //sqlite3_prepare_v2() interfaces use UTF-8
+				if (retval == SQLITE_OK)
 				{
-					int bytes;
-					const unsigned char * text;
-					bytes = sqlite3_column_bytes(stmt, 0);
-					text  = sqlite3_column_text (stmt, 0);
-					printf ("%d: %s\n", row, text);
-				}
-			}
+					// fetch a row’s status
+					retval = sqlite3_step(stmt);
 
-			sqlite3_close(handle);
+					if (retval == SQLITE_ROW) 
+					{
+						const unsigned char *text;
+						text = sqlite3_column_text(stmt, 2);
+
+						const size_t maxLen = 2048;
+						wchar_t googleFolder[maxLen];
+						mbstowcs(googleFolder, (char *)(text + 4), maxLen);
+						if (::PathFileExists(googleFolder))
+						{
+							settingsPath4GoogleDrive = googleFolder;
+							_nppGUI._availableClouds |= GOOGLEDRIVE_AVAILABLE;
+						}
+					}
+				}
+				sqlite3_close(handle);
+			}
+			
+		} catch(...) {
+			// Do nothing
 		}
-		
-	} catch(...) {
-		// Do nothing
 	}
-*/
 
 	if (cloudChoice == dropbox && (_nppGUI._availableClouds & DROPBOX_AVAILABLE))
 	{

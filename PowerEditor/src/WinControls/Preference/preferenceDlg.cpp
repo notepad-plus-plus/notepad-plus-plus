@@ -2814,6 +2814,8 @@ BOOL CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			::SendDlgItemMessage(_hSelf, IDC_ONEDRIVE_RADIO, BM_SETCHECK, cloudChoice == oneDrive?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_ONEDRIVE_RADIO), (nppGUI._availableClouds & ONEDRIVE_AVAILABLE) != 0);
 
+			::SendDlgItemMessage(_hSelf, IDC_GOOGLEDRIVE_RADIO, BM_SETCHECK, cloudChoice == googleDrive?BST_CHECKED:BST_UNCHECKED, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_GOOGLEDRIVE_RADIO), (nppGUI._availableClouds & GOOGLEDRIVE_AVAILABLE) != 0);
 
 		}
 		break;
@@ -2846,6 +2848,16 @@ BOOL CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 				{
 					nppGUI._cloudChoice = oneDrive;
 					setCloudChoice("oneDrive");
+
+					generic_string message = _initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+				}
+				break;
+
+				case IDC_GOOGLEDRIVE_RADIO :
+				{
+					nppGUI._cloudChoice = googleDrive;
+					setCloudChoice("googleDrive");
 
 					generic_string message = _initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());

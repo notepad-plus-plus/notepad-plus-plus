@@ -68,16 +68,17 @@ public:
 
 class ClipboardHistoryPanel : public DockingDlgInterface {
 public:
-	ClipboardHistoryPanel(): DockingDlgInterface(IDD_CLIPBOARDHISTORY_PANEL), _ppEditView(NULL), _hwndNextCbViewer(NULL) {};
+	ClipboardHistoryPanel(): DockingDlgInterface(IDD_CLIPBOARDHISTORY_PANEL), _ppEditView(NULL), _hwndNextCbViewer(NULL), _lbBgColor(-1), _lbFgColor(-1) {};
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
 	};
-
+/*
     virtual void display(bool toShow = true) const {
         DockingDlgInterface::display(toShow);
     };
+*/
 
     void setParent(HWND parent2set){
         _hParent = parent2set;
@@ -88,6 +89,15 @@ public:
 	void addToClipboadHistory(ClipboardData cbd);
 	int getClipboardDataIndex(ClipboardData cbd);
 
+	virtual void setBackgroundColor(COLORREF bgColour) {
+		_lbBgColor = bgColour;
+    };
+	virtual void setForegroundColor(COLORREF fgColour) {
+		_lbFgColor = fgColour;
+    };
+
+	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
+
 protected:
 	virtual BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -95,5 +105,8 @@ private:
 	ScintillaEditView **_ppEditView;
 	std::vector<ClipboardData> _clipboardDataVector;
 	HWND _hwndNextCbViewer;
+	int _lbBgColor;
+	int _lbFgColor;
+
 };
 #endif // CLIPBOARDHISTORYPANEL_H

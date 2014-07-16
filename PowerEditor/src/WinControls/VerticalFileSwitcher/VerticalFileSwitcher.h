@@ -95,6 +95,14 @@ public:
 		_fileListView.reload();
 	};
 
+	virtual void setBackgroundColor(COLORREF bgColour) {
+		_fileListView.setBackgroundColor(bgColour);
+    };
+
+	virtual void setForegroundColor(COLORREF fgColour) {
+		_fileListView.setForegroundColor(fgColour);
+    };
+
 protected:
 	virtual BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 

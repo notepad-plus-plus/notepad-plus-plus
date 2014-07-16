@@ -299,6 +299,7 @@ public :
 	void execSavedCommand(int cmd, int intValue, generic_string stringValue);
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
 
+
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void addText2Combo(const TCHAR * txt2add, HWND comboID, bool isUTF8 = false);

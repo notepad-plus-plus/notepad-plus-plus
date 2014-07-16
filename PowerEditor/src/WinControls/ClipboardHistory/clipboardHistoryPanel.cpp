@@ -31,11 +31,9 @@
 #include "ScintillaEditView.h"
 #include "clipboardFormats.h"
 
-#ifdef UNICODE
+
 #define CLIPBOARD_TEXTFORMAT CF_UNICODETEXT
-#else
-#define CLIPBOARD_TEXTFORMAT CF_TEXT
-#endif
+#define MAX_DISPLAY_LENGTH 64
 
 ClipboardData ClipboardHistoryPanel::getClipboadData()
 {
@@ -174,9 +172,26 @@ void ClipboardHistoryPanel::addToClipboadHistory(ClipboardData cbd)
 	}
 	_clipboardDataVector.insert(_clipboardDataVector.begin(), cbd);
 
-	StringArray sa(cbd, 64);
+	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
 	TCHAR *displayStr = (TCHAR *)sa.getPointer();
 	::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_INSERTSTRING, 0, (LPARAM)displayStr);
+}
+
+
+void ClipboardHistoryPanel::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
+{
+	//printStr(TEXT("OK"));
+	COLORREF fgColor = _lbFgColor == -1?black:_lbFgColor; // fg black by default
+	COLORREF bgColor = _lbBgColor == -1?white:_lbBgColor; // bg white by default
+		
+	StringArray sa(_clipboardDataVector[lpDrawItemStruct->itemID], MAX_DISPLAY_LENGTH);
+	TCHAR *ptStr = (TCHAR *)sa.getPointer();
+
+	//printStr(ptStr);
+	::SetTextColor(lpDrawItemStruct->hDC, fgColor);
+	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
+	
+	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &(lpDrawItemStruct->rcItem), DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 }
 
 BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -221,7 +236,6 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 						int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
 						if (i != LB_ERR)
 						{
-#ifdef UNICODE
 							int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 							if (codepage == -1)
 							{
@@ -242,14 +256,6 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), (LPARAM)c);
 							(*_ppEditView)->getFocus();
 							delete [] c;
-							
-#else
-							ByteArray ba(_clipboardDataVector[i]);
-							char *str = (char *)ba.getPointer();
-							(*_ppEditView)->execute(SCI_REPLACESEL, 0, (LPARAM)"");
-							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(str), (LPARAM)str);
-							(*_ppEditView)->getFocus();
-#endif
 						}
 					}
 					return TRUE;
@@ -277,9 +283,21 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			break;
 		}
 */
+		case WM_CTLCOLORLISTBOX:
+		{
+			if (_lbBgColor != -1)
+				return (LRESULT)::CreateSolidBrush((COLORREF)_lbBgColor);
+			break;
+		}
 
+		case WM_DRAWITEM:
+		{
+			drawItem((DRAWITEMSTRUCT *)lParam);
+			break;
+		}
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
     }
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
+

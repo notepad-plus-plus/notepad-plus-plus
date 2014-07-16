@@ -1090,9 +1090,6 @@ struct FindHistory {
 	bool _isFolderFollowDoc;
 };
 
-
-#ifdef UNICODE
-
 class LocalizationSwitcher {
 friend class NppParameters;
 public :
@@ -1133,7 +1130,6 @@ private :
 	wstring _nativeLangPath;
     string _fileName;
 };
-#endif
 
 class ThemeSwitcher {
 friend class NppParameters;
@@ -1507,16 +1503,13 @@ public:
 	bool _isFindReplacing; // an on the fly variable for find/replace functions
 	void safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection);
 	
-
-#ifdef UNICODE
 	LocalizationSwitcher & getLocalizationSwitcher() {
 		return _localizationSwitcher;
 	};
-#endif
+
 	ThemeSwitcher & getThemeSwitcher() {
 		return _themeSwitcher;
 	};
-
 
     vector<generic_string> & getBlackList() {return _blacklist;};
     bool isInBlackList(TCHAR *fn) {
@@ -1549,7 +1542,23 @@ public:
 	};
 
 	void writeSettingsFilesOnCloudForThe1stTime(CloudChoice choice);
-	
+
+	COLORREF getCurrentDefaultBgColor() const {
+		return _currentDefaultBgColor;
+	};
+
+	COLORREF getCurrentDefaultFgColor() const {
+		return _currentDefaultFgColor;
+	};
+
+	void setCurrentDefaultBgColor(COLORREF c) {
+		_currentDefaultBgColor = c;
+	};
+
+	void setCurrentDefaultFgColor(COLORREF c) {
+		_currentDefaultFgColor = c;
+	};
+
 	DPIManager _dpiManager;
 
 private:
@@ -1650,6 +1659,9 @@ private:
 	winVer _winVersion;
 
 	NativeLangSpeaker *_pNativeLangSpeaker;
+
+	COLORREF _currentDefaultBgColor;
+	COLORREF _currentDefaultFgColor;
 
 	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *, int, LPARAM lParam) {
 		vector<generic_string> *pStrVect = (vector<generic_string> *)lParam;

@@ -49,11 +49,11 @@ public:
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
 	};
-
+/*
     virtual void display(bool toShow = true) const {
         DockingDlgInterface::display(toShow);
     };
-
+*/
     void setParent(HWND parent2set){
         _hParent = parent2set;
     };
@@ -61,6 +61,14 @@ public:
 	void switchEncoding();
 	void insertChar(unsigned char char2insert) const;
 
+	virtual void setBackgroundColor(int bgColour) const {
+		ListView_SetBkColor(_listView.getHSelf(), bgColour);
+		ListView_SetTextBkColor(_listView.getHSelf(), bgColour);
+    };
+	virtual void setForegroundColor(int fgColour) const {
+		ListView_SetTextColor(_listView.getHSelf(), fgColour);
+    };
+	
 protected:
 	virtual BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 

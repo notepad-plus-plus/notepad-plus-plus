@@ -654,12 +654,25 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		default :                        // hide & undocked
 			break;
     }
-    		// UserDefine Dialog
-	
+    
+	//
+	// Menu & toolbar for UserDefine Dialog
+	//
 	checkMenuItem(IDM_LANG_USER_DLG, uddShow);
 	_toolBar.setCheck(IDM_LANG_USER_DLG, uddShow);
 
-	//launch the plugin dlg memorized at the last session
+	//
+	// Initialize the default forground & background color
+	//
+	StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
+	int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
+	Style & style = globalStyles.getStyler(i);
+	(NppParameters::getInstance())->setCurrentDefaultFgColor(style._fgColor);
+	(NppParameters::getInstance())->setCurrentDefaultBgColor(style._bgColor);
+
+	//
+	// launch the plugin dlg memorized at the last session
+	//
 	DockingManagerData &dmd = nppGUI._dockingData;
 
 	_dockingManager.setDockedContSize(CONT_LEFT  , nppGUI._dockingData._leftWidth);
@@ -5026,7 +5039,14 @@ void Notepad_plus::launchClipboardHistoryPanel()
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+
+		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
+		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
+
+		_pClipboardHistoryPanel->setBackgroundColor(bgColor);
+		_pClipboardHistoryPanel->setForegroundColor(fgColor);
 	}
+
 	_pClipboardHistoryPanel->display();
 }
 
@@ -5061,6 +5081,12 @@ void Notepad_plus::launchFileSwitcherPanel()
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		
+		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
+		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
+
+		_pFileSwitcherPanel->setBackgroundColor(bgColor);
+		_pFileSwitcherPanel->setForegroundColor(fgColor);
 	}
 	_pFileSwitcherPanel->display();
 }
@@ -5096,7 +5122,14 @@ void Notepad_plus::launchAnsiCharPanel()
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		
+		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
+		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
+
+		_pAnsiCharPanel->setBackgroundColor(bgColor);
+		_pAnsiCharPanel->setForegroundColor(fgColor);
 	}
+
 	_pAnsiCharPanel->display();
 }
 
@@ -5136,6 +5169,12 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 			data.pszName = title;
 		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+
+		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
+		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
+
+		(*pProjPanel)->setBackgroundColor(bgColor);
+		(*pProjPanel)->setForegroundColor(fgColor);
 	}
 	(*pProjPanel)->display();
 }
@@ -5217,9 +5256,16 @@ void Notepad_plus::launchFunctionList()
 		}
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
+		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
+
+		_pFuncList->setBackgroundColor(bgColor);
+		_pFuncList->setForegroundColor(fgColor);
 	}
+	
 	_pFuncList->display();
 	_pFuncList->reload();
+
 	_pEditView->getFocus();
 }
 

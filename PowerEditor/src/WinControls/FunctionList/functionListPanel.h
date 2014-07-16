@@ -102,6 +102,13 @@ public:
         DockingDlgInterface::display(toShow);
     };
 
+	virtual void setBackgroundColor(COLORREF bgColour) {
+		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
+    };
+	virtual void setForegroundColor(COLORREF fgColour) {
+		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
+    };
+
     void setParent(HWND parent2set){
         _hParent = parent2set;
     };
@@ -116,7 +123,7 @@ public:
 	void searchFuncAndSwitchView();
 
 protected:
-	virtual BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	HWND _hToolbarMenu;

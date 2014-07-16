@@ -71,6 +71,15 @@ public:
 	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const;
 	void reload();
 
+	void setBackgroundColor(COLORREF bgColour) {
+		ListView_SetBkColor(_hSelf, bgColour);
+		ListView_SetTextBkColor(_hSelf, bgColour);
+    };
+
+	void setForegroundColor(COLORREF fgColour) {
+		ListView_SetTextColor(_hSelf, fgColour);
+    };
+
 protected:
 	HIMAGELIST _hImaLst;
 	WNDPROC _defaultProc;

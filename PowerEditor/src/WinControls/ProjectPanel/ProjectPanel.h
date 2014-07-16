@@ -103,6 +103,13 @@ public:
 	};
 	void checkIfNeedSave(const TCHAR *title);
 
+	virtual void setBackgroundColor(COLORREF bgColour) {
+		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
+    };
+	virtual void setForegroundColor(COLORREF fgColour) {
+		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
+    };
+
 protected:
 	TreeView _treeView;
 	HIMAGELIST _hImaLst;

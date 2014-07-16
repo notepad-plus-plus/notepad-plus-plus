@@ -395,6 +395,15 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// VOID NPPM_DOCSWITCHERDISABLECOLUMN(0, BOOL disableOrNot)
 	// Disable or enable extension column of doc switcher
 
+	#define NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR    (NPPMSG + 90)
+	// INT NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR(0, 0)
+	// Return: current editor default foreground color. You should convert the returned value in COLORREF
+
+	#define NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR    (NPPMSG + 91)
+	// INT NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR(0, 0)
+	// Return: current editor default background color. You should convert the returned value in COLORREF
+
+
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)

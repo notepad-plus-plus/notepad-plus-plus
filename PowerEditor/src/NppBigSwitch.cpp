@@ -31,8 +31,12 @@
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
 #include "ShortcutMapper.h"
+#include "ansiCharPanel.h"
+#include "clipboardHistoryPanel.h"
 #include "VerticalFileSwitcher.h"
+#include "ProjectPanel.h"
 #include "documentMap.h"
+#include "functionListPanel.h"
 
 #define WM_DPICHANGED 0x02E0
 
@@ -1401,6 +1405,54 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			drawTabbarColoursFromStylerArray();
 
+			// Update default fg/bg colors in Parameters for both internal/plugins docking dialog
+			StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
+			int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
+			Style & style = globalStyles.getStyler(i);
+			(NppParameters::getInstance())->setCurrentDefaultFgColor(style._fgColor);
+			(NppParameters::getInstance())->setCurrentDefaultBgColor(style._bgColor);
+
+			// Set default fg/bg colors on internal docking dialog
+			if (_pFuncList)
+			{
+				_pFuncList->setBackgroundColor(style._bgColor);
+				_pFuncList->setForegroundColor(style._fgColor);
+			}
+
+			if (_pAnsiCharPanel)
+			{
+				_pAnsiCharPanel->setBackgroundColor(style._bgColor);
+				_pAnsiCharPanel->setForegroundColor(style._fgColor);
+			}
+
+			if (_pFileSwitcherPanel)
+			{
+				_pFileSwitcherPanel->setBackgroundColor(style._bgColor);
+				_pFileSwitcherPanel->setForegroundColor(style._fgColor);
+			}
+
+			if (_pClipboardHistoryPanel)
+			{
+				_pClipboardHistoryPanel->setBackgroundColor(style._bgColor);
+				_pClipboardHistoryPanel->setForegroundColor(style._fgColor);
+			}
+
+			if (_pProjectPanel_1)
+			{
+				_pProjectPanel_1->setBackgroundColor(style._bgColor);
+				_pProjectPanel_1->setForegroundColor(style._fgColor);
+			}
+			if (_pProjectPanel_2)
+			{
+				_pProjectPanel_2->setBackgroundColor(style._bgColor);
+				_pProjectPanel_2->setForegroundColor(style._fgColor);
+			}
+			if (_pProjectPanel_3)
+			{
+				_pProjectPanel_3->setBackgroundColor(style._bgColor);
+				_pProjectPanel_3->setForegroundColor(style._fgColor);
+			}
+
 			// Notify plugins of update to styles xml
 			SCNotification scnN;
 			scnN.nmhdr.code = NPPN_WORDSTYLESUPDATED;
@@ -1905,6 +1957,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			// else nothing to do
 			return TRUE;
+		}
+
+		case NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR:
+		case NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR:
+		{
+			return (Message == NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR?(NppParameters::getInstance())->getCurrentDefaultFgColor():(NppParameters::getInstance())->getCurrentDefaultBgColor());
+			/*
+			StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
+			int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
+			Style & style = globalStyles.getStyler(i);
+			return (Message == NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR?style._fgColor:style._bgColor);
+			*/
 		}
 
 		case NPPM_SHOWDOCSWITCHER:

@@ -64,9 +64,11 @@ public:
 	virtual void setBackgroundColor(int bgColour) const {
 		ListView_SetBkColor(_listView.getHSelf(), bgColour);
 		ListView_SetTextBkColor(_listView.getHSelf(), bgColour);
+		_listView.redraw(true);
     };
 	virtual void setForegroundColor(int fgColour) const {
 		ListView_SetTextColor(_listView.getHSelf(), fgColour);
+		_listView.redraw(true);
     };
 	
 protected:

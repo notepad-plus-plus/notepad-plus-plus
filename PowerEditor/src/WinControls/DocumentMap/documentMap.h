@@ -112,6 +112,8 @@ public:
 		_vzDlg.display();
     };
 
+	virtual void redraw(bool forceUpdate = false) const;
+
     void setParent(HWND parent2set){
         _hParent = parent2set;
     };
@@ -128,7 +130,7 @@ public:
 	void doMove();
 	void fold(int line, bool foldOrNot);
 	void foldAll(bool mode);
-	void setSyntaxLiliting();
+	void setSyntaxHiliting();
 
 protected:
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

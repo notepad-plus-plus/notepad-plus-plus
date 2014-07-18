@@ -74,10 +74,12 @@ public:
 	void setBackgroundColor(COLORREF bgColour) {
 		ListView_SetBkColor(_hSelf, bgColour);
 		ListView_SetTextBkColor(_hSelf, bgColour);
+		redraw(true);
     };
 
 	void setForegroundColor(COLORREF fgColour) {
 		ListView_SetTextColor(_hSelf, fgColour);
+		redraw(true);
     };
 
 protected:

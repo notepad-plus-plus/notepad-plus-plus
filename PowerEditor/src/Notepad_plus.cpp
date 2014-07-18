@@ -4631,7 +4631,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 	{
 		_pDocMap->reloadMap();
-		_pDocMap->setSyntaxLiliting();
+		_pDocMap->setSyntaxHiliting();
 	}
 
 	if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())

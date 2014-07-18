@@ -35,7 +35,6 @@ void DocumentMap::reloadMap()
 {
 	if (_pScintillaEditView && _ppEditView)
 	{
-		
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
 		_pScintillaEditView->execute(SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
 
@@ -61,7 +60,7 @@ void DocumentMap::reloadMap()
 	}
 }
 
-void DocumentMap::setSyntaxLiliting()
+void DocumentMap::setSyntaxHiliting()
 {
 	Buffer *buf = _pScintillaEditView->getCurrentBuffer();
 	_pScintillaEditView->defineDocType(buf->getLangType());
@@ -253,6 +252,10 @@ void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 	scrollMap();
 }
 
+void DocumentMap::redraw(bool) const
+{
+	_pScintillaEditView->execute(SCI_COLOURISE, 0, -1);
+}
 
 BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -275,7 +278,7 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			_vzDlg.doDialog();
 			(NppParameters::getInstance())->SetTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
 
-			setSyntaxLiliting();
+			setSyntaxHiliting();
 			
 			_pScintillaEditView->showMargin(0, false);
 			_pScintillaEditView->showMargin(1, false);
@@ -319,7 +322,7 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 				{
 					_vzDlg.display();
 					reloadMap();
-					setSyntaxLiliting();
+					setSyntaxHiliting();
 					return TRUE;
 				}
 

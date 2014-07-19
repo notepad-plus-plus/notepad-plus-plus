@@ -2095,7 +2095,6 @@ void ScintillaEditView::performGlobalStyles()
 		activeFoldFgColor = style._fgColor;
 	}
 
-
 	ScintillaViewParams & svp = (ScintillaViewParams &)_pParameter->getSVP();
 	for (int j = 0 ; j < NB_FOLDER_STATE ; ++j)
 		defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[svp._folderStyle][j], foldfgColor, foldbgColor, activeFoldFgColor);
@@ -2748,13 +2747,6 @@ void ScintillaEditView::hideLines() {
 	}
 
 	_currentBuffer->setHideLineChanged(true, startLine-1);
-}
-
-void ScintillaEditView::setHiLiteResultWords(const TCHAR *keywords)
-{
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	const char * word2search = wmc->wchar2char(keywords, CP_ACP);
-	setKeywords(L_SEARCHRESULT, word2search, 0);
 }
 
 bool ScintillaEditView::markerMarginClick(int lineNumber) {

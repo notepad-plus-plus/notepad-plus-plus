@@ -1415,47 +1415,47 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			(NppParameters::getInstance())->setCurrentDefaultBgColor(style._bgColor);
 
 			// Set default fg/bg colors on internal docking dialog
-			if (_pFuncList && _pFuncList->isCreated() && _pFuncList->isVisible())
+			if (_pFuncList)
 			{
 				_pFuncList->setBackgroundColor(style._bgColor);
 				_pFuncList->setForegroundColor(style._fgColor);
 			}
 
-			if (_pAnsiCharPanel && _pAnsiCharPanel->isCreated() && _pAnsiCharPanel->isVisible())
+			if (_pAnsiCharPanel)
 			{
 				_pAnsiCharPanel->setBackgroundColor(style._bgColor);
 				_pAnsiCharPanel->setForegroundColor(style._fgColor);
 			}
 
-			if (_pFileSwitcherPanel && _pFileSwitcherPanel->isCreated() && _pFileSwitcherPanel->isVisible())
+			if (_pFileSwitcherPanel)
 			{
 				_pFileSwitcherPanel->setBackgroundColor(style._bgColor);
 				_pFileSwitcherPanel->setForegroundColor(style._fgColor);
 			}
 
-			if (_pClipboardHistoryPanel && _pClipboardHistoryPanel->isCreated() && _pClipboardHistoryPanel->isVisible())
+			if (_pClipboardHistoryPanel)
 			{
 				_pClipboardHistoryPanel->setBackgroundColor(style._bgColor);
 				_pClipboardHistoryPanel->setForegroundColor(style._fgColor);
 				_pClipboardHistoryPanel->redraw(true);
 			}
 
-			if (_pProjectPanel_1 && _pProjectPanel_1->isCreated() && _pProjectPanel_1->isVisible())
+			if (_pProjectPanel_1)
 			{
 				_pProjectPanel_1->setBackgroundColor(style._bgColor);
 				_pProjectPanel_1->setForegroundColor(style._fgColor);
 			}
-			if (_pProjectPanel_2 && _pProjectPanel_2->isCreated() && _pProjectPanel_2->isVisible())
+			if (_pProjectPanel_2)
 			{
 				_pProjectPanel_2->setBackgroundColor(style._bgColor);
 				_pProjectPanel_2->setForegroundColor(style._fgColor);
 			}
-			if (_pProjectPanel_3 && _pProjectPanel_3->isCreated() && _pProjectPanel_3->isVisible())
+			if (_pProjectPanel_3)
 			{
 				_pProjectPanel_3->setBackgroundColor(style._bgColor);
 				_pProjectPanel_3->setForegroundColor(style._fgColor);
 			}
-			if (_pDocMap && _pDocMap->isCreated() && _pDocMap->isVisible())
+			if (_pDocMap)
 			{
 				_pDocMap->setSyntaxHiliting();
 			}

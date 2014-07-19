@@ -618,7 +618,7 @@ public:
 		previousSelRange = currentSelRange;
 		return false;
 	};
-	void setHiLiteResultWords(const TCHAR *keywords);
+
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);

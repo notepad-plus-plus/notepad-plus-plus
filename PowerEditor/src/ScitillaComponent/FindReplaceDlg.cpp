@@ -2528,8 +2528,19 @@ void Finder::setFinderStyle()
 			_scintView.execute(SCI_SETCARETLINEBACK, style._bgColor);
 		}
 	}
-
 	_scintView.setSearchResultLexer();
+	
+	// Override foreground & background colour by default foreground & background coulour
+	StyleArray & stylers = _scintView._pParameter->getMiscStylerArray();
+    int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
+    if (iStyleDefault != -1)
+    {
+        Style & styleDefault = stylers.getStyler(iStyleDefault);
+	    _scintView.setStyle(styleDefault);
+		_scintView.execute(SCI_STYLESETFORE, SCE_SEARCHRESULT_DEFAULT, styleDefault._fgColor);
+		_scintView.execute(SCI_STYLESETBACK, SCE_SEARCHRESULT_DEFAULT, styleDefault._bgColor);
+    }
+
 	_scintView.execute(SCI_COLOURISE, 0, -1);
 }
 

@@ -4552,10 +4552,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._fileSwitcherWithoutExtColumn = true;
 			}
 
-			optName = element->Attribute(TEXT("backSlashIsEscapeCharacterForSql"));
-			if (optName && !lstrcmp(optName, TEXT("yes"))) 
+			const TCHAR * optNameBackSlashEscape = element->Attribute(TEXT("backSlashIsEscapeCharacterForSql"));
+			if (optNameBackSlashEscape && !lstrcmp(optNameBackSlashEscape, TEXT("no"))) 
 			{
-				_nppGUI._backSlashIsEscapeCharacterForSql = true;
+				_nppGUI._backSlashIsEscapeCharacterForSql = false;
 			}
 		}
 	}
@@ -5297,8 +5297,8 @@ bool NppParameters::writeGUIParams()
 			const TCHAR * pStr = _nppGUI._fileSwitcherWithoutExtColumn?TEXT("yes"):TEXT("no");
 			element->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), pStr);
 			
-			pStr = _nppGUI._backSlashIsEscapeCharacterForSql?TEXT("yes"):TEXT("no");
-			element->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), pStr);
+			const TCHAR * pStrBackSlashEscape = _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no");
+			element->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), pStrBackSlashEscape);
 		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
 		{

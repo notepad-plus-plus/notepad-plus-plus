@@ -702,7 +702,6 @@ Installation:
             <WordsStyle name="COMMENT" styleID="12" fgColor="2a390e" bgColor="6c7d51" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="searchResult" desc="Search result" ext="">
-            <WordsStyle name="Default" styleID="0" fgColor="f2c476" bgColor="6c7d51" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="Search Header" styleID="1" fgColor="efc53d" bgColor="6c7d51" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="File Header" styleID="2" fgColor="a32129" bgColor="6c7d51" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="Line Number" styleID="3" fgColor="2a390e" bgColor="6c7d51" fontName="" fontStyle="0" fontSize="" />

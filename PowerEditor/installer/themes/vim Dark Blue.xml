@@ -690,7 +690,6 @@
             <WordsStyle name="ERROR" styleID="8" fgColor="FF0000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="searchResult" desc="Search result" ext="">
-            <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SELECTED LINE" styleID="6" fgColor="FFFF80" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="HEARDER" styleID="1" fgColor="008000" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

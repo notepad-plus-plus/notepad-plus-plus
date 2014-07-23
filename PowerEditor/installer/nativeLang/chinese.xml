@@ -266,6 +266,7 @@
                     <Item id="47006" name="升級 Notepad++"/>
                     <Item id="47008" name="全攻略秘籍"/>
                     <Item id="47009" name="設定更新程式代理伺服器..."/>
+					<Item id="47010" name="指令列參數..."/>
                     <Item id="48005" name="匯入外掛模組..."/>
                     <Item id="48006" name="匯入主題面板..."/>
                     <Item id="48018" name="編輯彈跳選單"/>
@@ -604,6 +605,7 @@
 
                     <Item id="6125" name="開啟文件列表"/>
                     <Item id="6126" name="啟動"/>
+					<Item id="6127" name="隱藏副檔名排序列"/>
                 </Global>
                 <Scintillas title="編輯區">
                     <Item id="6216" name="游標設定"/>
@@ -719,6 +721,11 @@
                 </RecentFilesHistory>
                 
                 <Backup title="備份">
+					<Item id="6817" name="檔案組群快照和定期備份"/>
+					<Item id="6818" name="啟動檔案組群快照和定期備份"/>
+					<Item id="6819" name="每"/>
+					<Item id="6821" name="秒"/>
+					<Item id="6822" name="定期備份在："/>
 					<Item id="6309" name="記憶此次開啟文件"/>
                     <Item id="6801" name="備份"/>
                     <Item id="6315" name="否"/>
@@ -760,6 +767,16 @@
                     <Item id="6255" name="結束"/>
                     <Item id="6256" name="允許數行字串選取"/>
                 </Delimiter>
+				
+				<Cloud title="雲端">
+                    <Item id="6262" name="雲端上儲存讀取設定"/>
+                    <Item id="6263" name="晴朗無雲"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                </Cloud>
+				
                 <MISC title="其他">
                     <Item id="6307" name="啟動"/>
                     <Item id="6308" name="縮小到系統框"/>
@@ -782,6 +799,7 @@
                     <Item id="6332" name="區別大小寫"/>
                     <Item id="6333" name="字慧高亮度顯示"/>
 					<Item id="6334" name="自動檢測字符編碼"/>
+					<Item id="6335" name="視反斜標號為 SQL 轉義字符"/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6115" name="自動縮排"/>
                     <Item id="6117" name="開啟 MRU (Most Recently Used) 功能"/>

@@ -276,6 +276,7 @@
                     <Item id="47006" name="Mettre à jour Notepad++"/>
                     <Item id="47008" name="Aide"/>
                     <Item id="47009" name="Paramétrer le Proxy d'Updater..."/>
+					<Item id="47010" name="Arguments de la Ligne de Commande..."/>
                     <Item id="48005" name="Importer un complément..."/>
                     <Item id="48006" name="Importer un thème..."/>
                     <Item id="48009" name="Raccourcis clavier..."/>
@@ -618,6 +619,7 @@
                     <Item id="6123" name="Langue"/>
                     <Item id="6125" name="Commutateur de documents"/>
                     <Item id="6126" name="Montrer"/>
+                    <Item id="6127" name="Désactiver la colonne d'extension"/>
                 </Global>
                 <Scintillas title="Zones d'édition">
                     <Item id="6201" name="Contrôle de repli de bloc"/>
@@ -733,6 +735,11 @@
                 </RecentFilesHistory>
                 
                 <Backup title="Sauvegarde">
+					<Item id="6817" name="Instantané de la session et sauvegarde periodique"/>
+					<Item id="6818" name="Activer instantané de la session et sauvegarde periodique"/>
+					<Item id="6819" name="Sauvegarder toutes les"/>
+					<Item id="6821" name="secondes"/>
+					<Item id="6822" name="dans le dossier"/>
 					<Item id="6309" name="Mémoriser la session actuelle"/>
                     <Item id="6315" name="Aucune"/>
                     <Item id="6316" name="Simple"/>
@@ -774,6 +781,16 @@
                     <Item id="6255" name="Fin"/>
                     <Item id="6256" name="Sur plusieurs lignes"/>
                 </Delimiter>
+				
+				<Cloud title="Cloud">
+                    <Item id="6262" name="Sauvegarder les paramètres dans le cloud"/>
+                    <Item id="6263" name="Local"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                </Cloud>
+				
                 <MISC title="Divers">
                     <Item id="6114" name="Activer"/>
                     <Item id="6115" name="Indentation automatique"/>
@@ -802,6 +819,7 @@
                     <Item id="6332" name="Case sensible"/>
                     <Item id="6333" name="Sélectionner et montrer tout"/>
 					<Item id="6334" name="Détecter l'encodage automatiquement"/>
+					<Item id="6335" name="Backslash : caractère d'échappement pour SQL"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">

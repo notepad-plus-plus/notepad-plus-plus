@@ -831,7 +831,7 @@ BEGIN
     POPUP "&?"
     BEGIN
         MENUITEM "Help Contents",              IDM_HELP
-        MENUITEM "Command Line Arguments",      IDM_CMDLINEARGUMENTS
+        MENUITEM "Command Line Arguments...",      IDM_CMDLINEARGUMENTS
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE

@@ -255,6 +255,7 @@
 					<Item id="46150" name="Define your language..."/>
                     <Item id="46080" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++..."/>
+                    <Item id="47010" name="Command Line Arguments..."/>
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ Project Page"/>
                     <Item id="47003" name="Online Documentation"/>
@@ -596,6 +597,7 @@
 					
 					<Item id="6125" name="Document List Panel"/>
                     <Item id="6126" name="Show"/>
+                    <Item id="6127" name="Disable extension column"/>
                 </Global>
                 <Scintillas title="Editing">
                     <Item id="6216" name="Caret Settings"/>
@@ -714,8 +716,12 @@
                 </RecentFilesHistory>
 
                 <Backup title="Backup">
+					<Item id="6817" name="Session snapshot and periodic backup"/>
+					<Item id="6818" name="Enable session snapshot and periodic backup"/>
+					<Item id="6819" name="Backup in every"/>
+					<Item id="6821" name="seconds"/>
+					<Item id="6822" name="Backup path:"/>
 					<Item id="6309" name="Remember current session for next launch"/>
-					
                     <Item id="6801" name="Backup"/>
                     <Item id="6315" name="None"/>
                     <Item id="6316" name="Simple backup"/>
@@ -757,7 +763,16 @@
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>
                 </Delimiter>
-                
+				
+                 <Cloud title="Cloud">
+                    <Item id="6262" name="Settings on cloud"/>
+                    <Item id="6263" name="No Cloud"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                </Cloud>
+				
                 <MISC title="MISC.">
                     <Item id="6307" name="Enable"/>
                     <Item id="6308" name="Minimize to system tray"/>
@@ -779,6 +794,7 @@
                     <Item id="6332" name="Match case"/>
                     <Item id="6333" name="Smart Highlighting"/>
 					<Item id="6334" name="Autodetect character encoding"/>
+					<Item id="6335" name="Treat backslash as escape character for SQL"/>
                     <Item id="6114" name="Enable"/>
                     <Item id="6115" name="Auto-indent"/>
                     <Item id="6117" name="Enable MRU behaviour"/>

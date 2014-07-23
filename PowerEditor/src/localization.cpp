@@ -813,6 +813,13 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(TEXT("Delimiter"), nameW);
 	}
 
+	changeDlgLang(preference._settingsOnCloudDlg.getHSelf(), "Cloud", titre);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("Cloud"), nameW);
+	}
+
 	preference.setListSelection(currentSel);
 }
 

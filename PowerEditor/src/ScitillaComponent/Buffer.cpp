@@ -538,6 +538,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
             buf->setUnicodeMode(uniCookie);
 			buf->setFormat(format);
 		}
+
 		//determine buffer properties
 		++_nextBufferID;
 		return id;

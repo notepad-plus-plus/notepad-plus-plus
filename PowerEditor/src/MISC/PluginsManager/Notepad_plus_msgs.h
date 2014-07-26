@@ -531,9 +531,14 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 		#define DOCSTAUS_READONLY 1
 		#define DOCSTAUS_BUFFERDIRTY 2
 
-	#define NPPN_DOCORDERCHANGED (NPPN_FIRST + 16)  // To notify plugins that document order is changed
+	#define NPPN_DOCORDERCHANGED (NPPN_FIRST + 17)  // To notify plugins that document order is changed
 	//scnNotification->nmhdr.code = NPPN_DOCORDERCHANGED;
 	//scnNotification->nmhdr.hwndFrom = newIndex;
+	//scnNotification->nmhdr.idFrom = BufferID;
+
+	#define NPPN_SNAPSHOTDIRTYFILELOADED (NPPN_FIRST + 18)  // To notify plugins that a snapshot dirty file is loaded on startup
+	//scnNotification->nmhdr.code = NPPN_SNAPSHOTDIRTYFILELOADED;
+	//scnNotification->nmhdr.hwndFrom = NULL;
 	//scnNotification->nmhdr.idFrom = BufferID;
 
 #endif //NOTEPAD_PLUS_MSGS_H

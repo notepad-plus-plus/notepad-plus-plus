@@ -154,6 +154,20 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 	if (isSnapshotMode)
 	{
 		buffer = MainFileManager->loadFile(longFileName, NULL, encoding, backupFileName, fileNameTimestamp);
+
+		if (buffer != BUFFER_INVALID)
+		{
+			bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
+			if (isSnapshotMode)
+			{
+				// To notify plugins that a snapshot dirty file is loaded on startup
+				SCNotification scnN;
+				scnN.nmhdr.hwndFrom = 0;
+				scnN.nmhdr.idFrom = (uptr_t)buffer;
+				scnN.nmhdr.code = NPPN_SNAPSHOTDIRTYFILELOADED;
+				_pluginsManager.notify(&scnN);
+			}
+		}
 	}
 	else
 	{

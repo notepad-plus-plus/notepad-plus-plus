@@ -2322,6 +2322,10 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));
+			if (_pDocMap)
+			{
+				_pDocMap->setSyntaxHiliting();
+			}
 		}
         break;
 

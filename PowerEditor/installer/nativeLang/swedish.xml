@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="6.5.4">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="6.6.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -302,14 +302,14 @@
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleMark="Markera">
-				<Item id="1" name="Sök nästa" />
+				<Item id="1" name="Sök &amp;nästa" />
 				<Item id="2" name="Stäng" />
-				<Item id="1603" name="Sök hela ord" />
-				<Item id="1604" name="Matcha små/stora bokstäver" />
-				<Item id="1605" name="Reguljärt uttryck" />
-				<Item id="1606" name="Loopa" />
-				<Item id="1608" name="Ersätt" />
-				<Item id="1609" name="Ersätt alla" />
+				<Item id="1603" name="Sök &amp;hela ord" />
+				<Item id="1604" name="&amp;Matcha små/stora bokstäver" />
+				<Item id="1605" name="&amp;Reguljärt uttryck" />
+				<Item id="1606" name="&amp;Loopa" />
+				<Item id="1608" name="&amp;Ersätt" />
+				<Item id="1609" name="Ersätt &amp;alla" />
 				<Item id="1611" name="Ersätt med..." />
 				<Item id="1612" name="Upp" />
 				<Item id="1613" name="Ner" />
@@ -321,9 +321,9 @@
 				<Item id="1620" name="Sök efter:" />
 				<Item id="1621" name="Sök" />
 				<Item id="1624" name="Sökläge" />
-				<Item id="1625" name="Normal" />
-				<Item id="1626" name="Utökat (\n, \r, \t, \0, \x...)" />
-				<Item id="1632" name="I markering" />
+				<Item id="1625" name="N&amp;ormal" />
+				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)" />
+				<Item id="1632" name="I mar&amp;kering" />
 				<Item id="1633" name="Rensa" />
 				<Item id="1635" name="Ersätt i öppnade filer" />
 				<Item id="1636" name="Sök i öppnade filer" />
@@ -591,6 +591,7 @@
 					<Item id="6123" name="Språk" />
 					<Item id="6125" name="Växla dokument" />
 					<Item id="6126" name="Visa" />
+					<Item id="6127" name="Inaktivera filändelsekolumn" />
 				</Global>
 				<Scintillas title="Redigera komponenter">
 					<Item id="6201" name="Mappliststil" />
@@ -702,7 +703,6 @@
 					<Item id="6117" name="Tillämpa senast använd-beteende (MRU)" />
 					<Item id="6307" name="Aktivera" />
 					<Item id="6308" name="Minimera till meddelandefältet" />
-					<Item id="6309" name="Kom ihåg nuvarande session vid nästa körning" />
 					<Item id="6312" name="Automatisk avkänning av filstatus" />
 					<Item id="6313" name="Tyst uppdatering" />
 					<Item id="6318" name="Inställningar för klickbara länkar" />
@@ -720,14 +720,22 @@
 					<Item id="6331" name="Visa endast filnamn i titelrad" />
 					<Item id="6332" name="Matcha skiftläge" />
 					<Item id="6333" name="Smarta markeringar" />					
+					<Item id="6334" name="Automatisk igenkänning av teckenkodning" />
+					<Item id="6335" name="Behandla backslash som escape-tecken för SQL" />						
 				</MISC>
 				<Backup title="Säkerhetskopiering">
+					<Item id="6309" name="Kom ihåg nuvarande session vid nästa körning" />
 					<Item id="6315" name="Ingen" />
 					<Item id="6316" name="Enkel" />
 					<Item id="6317" name="Detaljerad" />
 					<Item id="6801" name="Säkerhetskopiering" />
 					<Item id="6803" name="Mapp:" />
 					<Item id="6804" name="Egen mapp för säkerhetskopiering" />
+					<Item id="6817" name="Spara session och regelbunden säkerhetskopiering" />
+					<Item id="6818" name="Aktivera spara session och regelbunden säkerhetskopiering" />
+					<Item id="6819" name="Säkerhetskopiera var" />
+					<Item id="6821" name="sekund" />
+					<Item id="6822" name="Sökväg:" />
 				</Backup>
 				<AutoCompletion title="Auto-komplettering"> 
 					<Item id="6807" name="Automatisk komplettering" />
@@ -760,6 +768,13 @@
 					<Item id="6255" name="Slut"/>
 					<Item id="6256" name="Tillåt på flera rader"/>
 				</Delimiter>
+				<Cloud title="Moln">
+					<Item id="6262" name="Inställning för moln"/>
+					<Item id="6263" name="Inget moln"/>
+					<Item id="6264" name="Dropbox"/>
+					<Item id="6265" name="OneDrive"/>
+					<Item id="6266" name="Google Drive"/>
+				</Cloud>
 			</Preference>
 			<MultiMacro title="Kör ett makro flera gånger">
 				<Item id="1" name="Kör" />

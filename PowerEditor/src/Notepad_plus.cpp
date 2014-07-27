@@ -5358,7 +5358,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #33", "Programmer - an organism that turns coffee into software."},
 {"Anonymous #34", "It's not a bug - it's an undocumented feature."},
 {"Anonymous #35", "Should array index start at 0 or 1?\nMy compromised solution is 0.5"},
-{"Anonymous #36", "Every single time when I'm about to hug someone extremely sexy, I hit the miror."},
+{"Anonymous #36", "Every single time when I'm about to hug someone extremely sexy, I hit the mirror."},
 {"Anonymous #37", "My software never has bugs. It just develops random features."},
 {"Anonymous #38", "LISP = Lots of Irritating Silly Parentheses."},
 {"Anonymous #39", "Perl, the only language that looks the same before and after RSA encryption."},

@@ -672,10 +672,10 @@
                     <Item id="6508" name="程序语言菜单" />
                 </LangMenu>
                 
-                <TabSettings title="选项卡设置">
-                    <Item id="6301" name="选项卡设置" />
-                    <Item id="6302" name="使用空格替换" />
-                    <Item id="6303" name="选项卡大小:" />
+                <TabSettings title="制表符设置">
+                    <Item id="6301" name="制表符设置" />
+                    <Item id="6302" name="转换为空格" />
+                    <Item id="6303" name="制表符宽度:" />
                     <Item id="6510" name="使用默认值" />
                 </TabSettings>
                 

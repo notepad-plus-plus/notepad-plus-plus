@@ -43,8 +43,8 @@
 class ColourPopup : public Window
 {
 public :
-    ColourPopup() : Window(), isColourChooserLaunched(false) {};
-	ColourPopup(COLORREF defaultColor) : Window(), isColourChooserLaunched(false), _colour(defaultColor) {};
+    ColourPopup() : Window()/*, isColourChooserLaunched(false)*/ {};
+	ColourPopup(COLORREF defaultColor) : Window(), /* isColourChooserLaunched(false), */ _colour(defaultColor) {};
 	~ColourPopup(){};
 	
 	bool isCreated() const {
@@ -62,12 +62,17 @@ public :
     virtual void destroy() {
 	    ::DestroyWindow(_hSelf);
 	};
+
+	void setColour(COLORREF c) {
+        _colour = c;
+    };
+
     COLORREF getSelColour(){return _colour;};
 
 private :
 	RECT _rc;
     COLORREF _colour;
-	bool isColourChooserLaunched;
+	//bool isColourChooserLaunched;
 
 	static BOOL CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

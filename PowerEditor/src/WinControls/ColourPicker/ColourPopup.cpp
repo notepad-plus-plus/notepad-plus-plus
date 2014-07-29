@@ -181,7 +181,7 @@ BOOL CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
             {
                 case IDOK :
 			    {
-					isColourChooserLaunched = true;
+					//isColourChooserLaunched = true;
 					CHOOSECOLOR cc;                 // common dialog box structure 
 					static COLORREF acrCustClr[16] = {
 						RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),\
@@ -232,7 +232,7 @@ BOOL CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 		case WM_ACTIVATE :
         {
 			if (LOWORD(wParam) == WA_INACTIVE)
-				if (!isColourChooserLaunched)
+				//if (!isColourChooserLaunched)
 					::SendMessage(_hParent, WM_PICKUP_CANCEL, 0, 0);
 			return TRUE;
 		}

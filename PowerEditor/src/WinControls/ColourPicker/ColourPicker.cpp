@@ -130,6 +130,7 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{
+				_pColourPopup->setColour(_currentColour);
 				_pColourPopup->doDialog(p);
 				_pColourPopup->display(true);
 			}

@@ -52,7 +52,7 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	NppParameters *pNppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
 	_format = ndds._format;
-	_unicodeMode = ndds._encoding;
+	_unicodeMode = ndds._unicodeMode;
 	_encoding = ndds._codepage;
 	if (_encoding != -1)
 		_unicodeMode = uniCookie;
@@ -500,7 +500,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		// restore the encoding (ANSI based) while opening the existing file
 		NppParameters *pNppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
-		buf->setUnicodeMode(ndds._encoding);
+		buf->setUnicodeMode(ndds._unicodeMode);
 		buf->setEncoding(-1);
 
 		if (encoding == -1)

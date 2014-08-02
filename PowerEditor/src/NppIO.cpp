@@ -97,6 +97,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     }
 
     bool globbing = wcsrchr(longFileName, TCHAR('*')) || wcsrchr(longFileName, TCHAR('?'));
+	bool isOpenningNewEmptyFile = false;
 
 	if (!isSnapshotMode) // if not backup mode, or backupfile path is invalid
 	{
@@ -116,6 +117,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 					if (res)
 					{
 						isCreateFileSuccessful = true;
+						isOpenningNewEmptyFile = true;
 					}
 					else
 					{
@@ -147,7 +149,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 
     if (encoding == -1)
     {
-        encoding = getHtmlXmlEncoding(longFileName);
+		encoding = getHtmlXmlEncoding(longFileName);
     }
    
 	BufferID buffer;
@@ -179,9 +181,20 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
         _isFileOpening = true;
 
         Buffer * buf = MainFileManager->getBufferByID(buffer);
+
         // if file is read only, we set the view read only
         if (isReadOnly)
             buf->setUserReadOnly(true);
+
+		// if it's a new created file, then use new file default settings
+		if (isOpenningNewEmptyFile)
+		{
+			const NewDocDefaultSettings & ndds = (NppParameters::getInstance()->getNppGUI()).getNewDocDefaultSettings();
+			buf->setEncoding(ndds._codepage);
+			buf->setFormat(ndds._format);
+			buf->setUnicodeMode(ndds._unicodeMode);
+			buf->setLangType(ndds._lang);
+		}
 
         // Notify plugins that current file is about to open
         scnN.nmhdr.code = NPPN_FILEBEFOREOPEN;

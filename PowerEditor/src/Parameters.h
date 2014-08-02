@@ -521,11 +521,11 @@ private :
 struct NewDocDefaultSettings 
 {
 	formatType _format;
-	UniMode _encoding;
+	UniMode _unicodeMode;
 	bool _openAnsiAsUtf8;
 	LangType _lang;
 	int _codepage; // -1 when not using
-	NewDocDefaultSettings():_format(WIN_FORMAT), _encoding(uniCookie), _openAnsiAsUtf8(true), _lang(L_TEXT), _codepage(-1){};
+	NewDocDefaultSettings():_format(WIN_FORMAT), _unicodeMode(uniCookie), _openAnsiAsUtf8(true), _lang(L_TEXT), _codepage(-1){};
 };
 
 struct LangMenuItem {

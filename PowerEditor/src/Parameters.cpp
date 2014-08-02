@@ -4096,7 +4096,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._newDocDefaultSettings._format = (formatType)i;
 
 			if (element->Attribute(TEXT("encoding"), &i))
-				_nppGUI._newDocDefaultSettings._encoding = (UniMode)i;
+				_nppGUI._newDocDefaultSettings._unicodeMode = (UniMode)i;
 
 			if (element->Attribute(TEXT("lang"), &i))
 				_nppGUI._newDocDefaultSettings._lang = (LangType)i;
@@ -5152,7 +5152,7 @@ bool NppParameters::writeGUIParams()
 		else if (!lstrcmp(nm, TEXT("NewDocDefaultSettings")))
 		{
 			element->SetAttribute(TEXT("format"), _nppGUI._newDocDefaultSettings._format);
-			element->SetAttribute(TEXT("encoding"), _nppGUI._newDocDefaultSettings._encoding);
+			element->SetAttribute(TEXT("encoding"), _nppGUI._newDocDefaultSettings._unicodeMode);
 			element->SetAttribute(TEXT("lang"), _nppGUI._newDocDefaultSettings._lang);
 			element->SetAttribute(TEXT("codepage"), _nppGUI._newDocDefaultSettings._codepage);
 			element->SetAttribute(TEXT("openAnsiAsUTF8"), _nppGUI._newDocDefaultSettings._openAnsiAsUtf8?TEXT("yes"):TEXT("no"));
@@ -5428,7 +5428,7 @@ bool NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("NewDocDefaultSettings"));
 		GUIConfigElement->SetAttribute(TEXT("format"), _nppGUI._newDocDefaultSettings._format);
-		GUIConfigElement->SetAttribute(TEXT("encoding"), _nppGUI._newDocDefaultSettings._encoding);
+		GUIConfigElement->SetAttribute(TEXT("encoding"), _nppGUI._newDocDefaultSettings._unicodeMode);
 		GUIConfigElement->SetAttribute(TEXT("lang"), _nppGUI._newDocDefaultSettings._lang);
 		GUIConfigElement->SetAttribute(TEXT("codepage"), _nppGUI._newDocDefaultSettings._codepage);
 		GUIConfigElement->SetAttribute(TEXT("openAnsiAsUTF8"), _nppGUI._newDocDefaultSettings._openAnsiAsUtf8?TEXT("yes"):TEXT("no"));

@@ -121,7 +121,7 @@ bool Icon::readICO(TCHAR* filename)
 	_entries = new ICONDIRENTRY[count()];
 	if(!ReadFile( hFile, _entries, sizeof(*_entries)*count(), &dwBytesRead, NULL )) { _tprintf(_T("Error reading file '%s'\n"), filename); return false; }
 	// Read images
-	_imagesData=new LPBYTE[count()]; memset(_imagesData, sizeof(LPBYTE)*count(), 0);
+	_imagesData=new LPBYTE[count()]; memset(_imagesData, 0, sizeof(LPBYTE)*count());
 	for(int i=0; i<count(); ++i)
 	{
 		IFDEBUG( _tprintf(_T("%d: offset=%d, size=%d\n"), i, _entries[i].dwImageOffset, _entries[i].dwBytesInRes); )
@@ -211,9 +211,12 @@ bool Icon::writeToEXE(TCHAR* lpFileName, LPCTSTR lpResName, UINT resLangId)
 #undef _myWrite
 
 	// Replace icon group
-	if(!UpdateResource(hUpdate, RT_GROUP_ICON, lpResName, resLangId, resData, cbRes)) { _tprintf(_T("Unable to update icon group\n")); delete resData; return false; }
+	if(!UpdateResource(hUpdate, RT_GROUP_ICON, lpResName, resLangId, resData, cbRes)) 
+	{
+		_tprintf(_T("Unable to update icon group\n")); delete[] resData; return false;
+	}
 	IFDEBUG( _tprintf(_T("Updated group %d (lang %d)\n"), lpResName, resLangId); )
-	delete resData;
+	delete [] resData;
 	}
 
 	// Replace/add icons

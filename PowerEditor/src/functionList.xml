@@ -74,16 +74,16 @@ http://notepad-plus-plus.org/features/function-list.html
 			</parser>
 
 			<parser id="java" displayName="Java" commentExpr="((/\*.*?\*)/|(//.**$))">
-				<classRange mainExpr="^[\t ]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(class|enum|interface|@interface)\s+\w+(<\s*\w+(,\s*\w+)*\s*>)?(\s+extends\s+\w+)?(\s+implements\s+\w+(,\s*\w+)*)?\s*\{" openSymbole="\{" closeSymbole="\}">
+				<classRange mainExpr="^[\t ]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(class|enum|interface|@interface)\s+\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?(\s+extends\s+\w+)?(\s+implements\s+\w+(,\s*\w+)*)?\s*\{" openSymbole="\{" closeSymbole="\}">
 					<className>
-						<nameExpr expr="(class|enum|interface|@interface)\s+\w+(<\s*\w+(,\s*\w+)*\s*>)?"></nameExpr>
-						<nameExpr expr="\s+\w+(<\s*\w+(,\s*\w+)*\s*>)?"></nameExpr>
-						<nameExpr expr="\w+(<\s*\w+(,\s*\w+)*\s*>)?"></nameExpr>
+						<nameExpr expr="(class|enum|interface|@interface)\s+\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?"></nameExpr>
+						<nameExpr expr="\s+\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?"></nameExpr>
+						<nameExpr expr="\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?"></nameExpr>
 					</className>
-					<function mainExpr="^[\t ]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(\w*(\[\s*])*\s+)?(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(<\s*\w+(,\s*\w+)*\s*>)?\s*\([^\)\(]*\)(\s+throws\s+\w+)?\s*\{">
+					<function mainExpr="^[\t ]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(\w*(\[\s*])*\s+)?(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?\s*\([^\)\(]*\)(\s+throws\s+\w+)?\s*\{">
 						<functionName>
-							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(<\s*\w+(,\s*\w+)*\s*>)?\s*\("></funcNameExpr>
-							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(<\s*\w+(,\s*\w+)*\s*>)?"></funcNameExpr>
+							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?\s*\("></funcNameExpr>
+							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?"></funcNameExpr>
 						</functionName>
 					</function>
 				</classRange>
@@ -160,7 +160,7 @@ http://notepad-plus-plus.org/features/function-list.html
 			</parser>
 			
 			<parser id="perl_function" displayName="Perl">
-				<function mainExpr="^[\s]*(?<!#)[\s]*sub[\s]+[\w]+[\s]*\(?[^\)\(]*\)?[\n\s]*\{" displayMode="$className->$functionName">
+				<function mainExpr="^[\s]*(?&lt;!#)[\s]*sub[\s]+[\w]+[\s]*\(?[^\)\(]*\)?[\n\s]*\{" displayMode="$className->$functionName">
 					<functionName>
 						<nameExpr expr="(sub[\s]+)?\K[\w]+"/>
 					</functionName>

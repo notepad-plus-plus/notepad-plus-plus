@@ -429,7 +429,7 @@ void FunctionListPanel::notified(LPNMHDR notification)
 BOOL FunctionListPanel::setTreeViewImageList(int root_id, int node_id, int leaf_id)
 {
 	HBITMAP hbmp;
-
+	COLORREF maskColour = RGB(192, 192, 192);
 	const int nbBitmaps = 3;
 
 	// Creation of image list
@@ -440,19 +440,19 @@ BOOL FunctionListPanel::setTreeViewImageList(int root_id, int node_id, int leaf_
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hTreeViewImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hTreeViewImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(node_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hTreeViewImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hTreeViewImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(leaf_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hTreeViewImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hTreeViewImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	if (ImageList_GetImageCount(_hTreeViewImaLst) < nbBitmaps)

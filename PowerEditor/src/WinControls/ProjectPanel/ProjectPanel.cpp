@@ -257,7 +257,7 @@ void ProjectPanel::initMenus()
 BOOL ProjectPanel::setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id) 
 {
 	HBITMAP hbmp;
-
+	COLORREF maskColour = RGB(192, 192, 192);
 	const int nbBitmaps = 7;
 
 	// Creation of image list
@@ -268,43 +268,43 @@ BOOL ProjectPanel::setImageList(int root_clean_id, int root_dirty_id, int projec
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_clean_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_dirty_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(project_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_node_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(closed_node_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(leaf_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(ivalid_leaf_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
 	if (ImageList_GetImageCount(_hImaLst) < nbBitmaps)

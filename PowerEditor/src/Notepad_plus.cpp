@@ -5289,7 +5289,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 203;
+const int nbQuote = 204;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5401,7 +5401,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #77", "Governments are like diapers.\nThey should be changed often, and for the same reason."},
 {"Anonymous #78", "If you expect the world to be fair with you because you are fair, you're fooling yourself.\nThat's like expecting the lion not to eat you because you didn't eat him."},
 {"Anonymous #79", "I'm a creationist.\nI believe man create God."},
-//{"Anonymous #80", ""},
+{"Anonymous #80", "Let's eat kids.\nLet's eat, kids.\n\nUse a comma.\nSave lives."},
 {"Anonymous #81", "A male engineering student was crossing a road one day when a frog called out to him and said, \"If you kiss me, I'll turn into a beautiful princess.\" He bent over, picked up the frog, and put it in his pocket.\n\nThe frog spoke up again and said, \"If you kiss me and turn me back into a beautiful princess, I will stay with you for one week.\" The engineering student took the frog out of his pocket, smiled at it; and returned it to his pocket.\n\nThe frog then cried out, \"If you kiss me and turn me back into a princess, I'll stay with you and do ANYTHING you want.\" Again the boy took the frog out, smiled at it, and put it back into his pocket.\n\nFinally, the frog asked, \"What is the matter? I've told you I'm a beautiful princess, that I'll stay with you for a week and do anything you want. Why won't you kiss me?\" The boy said, \"Look I'm an engineer. I don't have time for a girlfriend, but a talking frog is cool.\"\n"},
 //{"Anonymous #82", ""},
 {"Anonymous #83", "Copy from one, it's plagiarism.\nCopy from two, it's research."},

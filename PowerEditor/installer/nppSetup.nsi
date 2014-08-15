@@ -908,6 +908,9 @@ SectionGroup "Localization" localization
 	Section /o "Greek" greek
 		CopyFiles "$TEMP\nppLocalization\greek.xml" "$INSTDIR\localization\greek.xml"
 	SectionEnd
+	Section /o "Gujarati" gujarati
+		CopyFiles "$TEMP\nppLocalization\gujarati.xml" "$INSTDIR\localization\gujarati.xml"
+	SectionEnd
 	Section /o "Hebrew" hebrew
 		CopyFiles "$TEMP\nppLocalization\hebrew.xml" "$INSTDIR\localization\hebrew.xml"
 	SectionEnd
@@ -1615,6 +1618,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.greek
 		Delete "$INSTDIR\localization\greek.xml"
+	SectionEnd
+	Section un.gujarati
+		Delete "$INSTDIR\localization\gujarati.xml"
 	SectionEnd
 	Section un.hebrew
 		Delete "$INSTDIR\localization\hebrew.xml"

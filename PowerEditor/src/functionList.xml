@@ -27,6 +27,7 @@ http://notepad-plus-plus.org/features/function-list.html
 			<association langID="13" id="ini_section"/>
 			<association langID="19" id="js_function"/>
 			<association langID="21" id="perl_function"/>
+			<association langID="22" id="python_function"/>
 			<association langID="26" id="bash_function"/>
 			<association langID="28" id="nsis_syntax"/>
 		<!--
@@ -160,7 +161,7 @@ http://notepad-plus-plus.org/features/function-list.html
 			</parser>
 			
 			<parser id="perl_function" displayName="Perl">
-				<function mainExpr="^[\s]*(?&lt;!#)[\s]*sub[\s]+[\w]+[\s]*\(?[^\)\(]*\)?[\n\s]*\{" displayMode="$className->$functionName">
+				<function mainExpr="^[\s]*(?&lt;!#)[\s]*sub[\s]+[\w]+[\s]*\(?[^\)\(]*?\)?[\n\s]*\{" displayMode="$className->$functionName">
 					<functionName>
 						<nameExpr expr="(sub[\s]+)?\K[\w]+"/>
 					</functionName>
@@ -209,6 +210,23 @@ http://notepad-plus-plus.org/features/function-list.html
 					displayMode="$functionName">
 					<functionName>
 						<nameExpr expr="[^{]*"/>
+					</functionName>
+				</function>
+			</parser>
+			<parser id="python_function" displayName="Python class" commentExpr="(#.*?$|'''.*?('''|\Z))">
+				<classRange mainExpr="(?&lt;=^class ).*?(?=\n\S|\Z)">
+					<className>
+						<nameExpr expr="\w+(?=[\(|:])"/>
+					</className>
+					<function mainExpr="(?&lt;=def ).+?(?=:)">
+						<functionName>
+							<funcNameExpr expr=".*"/>
+						</functionName>
+					</function>
+				</classRange>
+				<function mainExpr="(?&lt;=def ).+?(?=:)">
+					<functionName>
+						<funcNameExpr expr=".*"/>
 					</functionName>
 				</function>
 			</parser>

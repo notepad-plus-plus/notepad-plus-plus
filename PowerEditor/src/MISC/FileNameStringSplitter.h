@@ -93,7 +93,9 @@ public :
 		}
 	};
 	
-	const TCHAR * getFileName(int index) const {
+	const TCHAR * getFileName(size_t index) const {
+		if (index >= _fileNames.size())
+			return NULL;
 		return _fileNames[index].c_str();
 	};
 	

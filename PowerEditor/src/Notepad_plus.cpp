@@ -135,14 +135,13 @@ Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(N
 
 	TiXmlDocumentA *nativeLangDocRootA = (NppParameters::getInstance())->getNativeLangA();
     _nativeLangSpeaker.init(nativeLangDocRootA);
-#ifdef UNICODE
+
 	LocalizationSwitcher & localizationSwitcher = (NppParameters::getInstance())->getLocalizationSwitcher();
     const char *fn = _nativeLangSpeaker.getFileName();
     if (fn)
     {
         localizationSwitcher.setFileName(fn);
     }
-#endif
 
 	(NppParameters::getInstance())->setNativeLangSpeaker(&_nativeLangSpeaker);
 
@@ -4671,6 +4670,8 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 	for (int i = 0, len = fnss.size(); i < len ; ++i)
 	{
 		pFn = fnss.getFileName(i);
+		if (!pFn) return;
+
 		BufferID bufID = doOpen(pFn, recursive, readOnly);
 		if (bufID == BUFFER_INVALID)	//cannot open file
 			continue;
@@ -5289,7 +5290,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 204;
+const int nbQuote = 197;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5346,12 +5347,12 @@ Quote quotes[nbQuote] = {
 {"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
 {"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},
 {"Anonymous #23", "Everybody talks about leaving a better planet for the children.\nWhy nobody tries to leave better children to the planet?"},
-{"Anonymous #24", "I'm not saying I hate her.\nI just hope she gets fingered by wolverine"},
+//{"Anonymous #24", ""},
 {"Anonymous #25", "In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
 {"Anonymous #26", "I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one."},
-{"Anonymous #27", "I'm no gynecologist, but I know a cunt when I see one."},
+//{"Anonymous #27", ""},
 {"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 (seven ate nine) while 6 and 9 were flirting."},
-{"Anonymous #29", "The reason women will never be the ones to propose is\nbecause as soon as she gets on her knees,\nhe will start unzipping."},
+//{"Anonymous #29", ""},
 {"Anonymous #30", "Why do Java developers wear glasses?\nBecause they don't C#."},
 {"Anonymous #31", "A baby's laughter is one of the most beautiful sounds you will ever hear. Unless it's 3 AM. And you're home alone. And you don't have a baby."},
 {"Anonymous #32", "Two bytes meet. The first byte asks, \"You look terrible. Are you OK?\"\nThe second byte replies, \"No, just feeling a bit off.\""},
@@ -5405,7 +5406,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #81", "A male engineering student was crossing a road one day when a frog called out to him and said, \"If you kiss me, I'll turn into a beautiful princess.\" He bent over, picked up the frog, and put it in his pocket.\n\nThe frog spoke up again and said, \"If you kiss me and turn me back into a beautiful princess, I will stay with you for one week.\" The engineering student took the frog out of his pocket, smiled at it; and returned it to his pocket.\n\nThe frog then cried out, \"If you kiss me and turn me back into a princess, I'll stay with you and do ANYTHING you want.\" Again the boy took the frog out, smiled at it, and put it back into his pocket.\n\nFinally, the frog asked, \"What is the matter? I've told you I'm a beautiful princess, that I'll stay with you for a week and do anything you want. Why won't you kiss me?\" The boy said, \"Look I'm an engineer. I don't have time for a girlfriend, but a talking frog is cool.\"\n"},
 //{"Anonymous #82", ""},
 {"Anonymous #83", "Copy from one, it's plagiarism.\nCopy from two, it's research."},
-{"Anonymous #84", "If you love something, let it go. If it comes back to you, its yours forever.\nIf it doesn't, you hunt that bitch down and kill her."},
+//{"Anonymous #84", ""},
 {"Anonymous #85", "Race, religion, ethnic pride and nationalism etc... does nothing but teach you how to hate people that you've never met."},
 {"Anonymous #86", "Farts are just the ghosts of the things we eat."},
 {"Anonymous #87", "I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word."},
@@ -5430,7 +5431,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #106", "When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car."},
 {"Anonymous #107", "Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is."},
 {"Anonymous #108", "I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard"},
-{"Anonymous #109", "If you ever wanna know what a woman's mind feels like?\nImagine a browser with 2857 tabs open, all the time."},
+//{"Anonymous #109", ""},
 {"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems."},
 {"Anonymous #111", "I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul."},
 {"Anonymous #112", "#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}"},
@@ -5492,9 +5493,7 @@ Quote quotes[nbQuote] = {
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 {"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company)\nto shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
-{"Motherf*cker", "Thousands of my potential children died on your mother's face last night."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
-{"Confucius", "It's good to meet girl in park.\nBut better to park meat in girl."},
 {"Mark Twain", "Censorship is telling a man he can't have a steak just because a baby can't chew it."},
 {"Friedrich Nietzsche", "There is not enough love and goodness in the world to permit giving any of it away to imaginary beings."},
 {"Dhalsim", "Pain is a state of mind and I don't mind your pain."},
@@ -5624,7 +5623,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 	//writeLog(TEXT("c:\\tmp\\log.txt"), "\n\n\n\n");
 	const char * quoter = ((TextPlayerParams *)params)->_quoter;
 	string quoter_str = quoter;
-	int pos = quoter_str.find("Anonymous");
+	size_t pos = quoter_str.find("Anonymous");
 	if (pos == string::npos)
 	{
 		::SendMessage(curScintilla, SCI_APPENDTEXT, 3, (LPARAM)"\n- ");

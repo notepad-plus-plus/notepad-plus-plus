@@ -3554,7 +3554,10 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		size_t linebufferSize = lineEnd - lineStart + 2;
 		TCHAR* linebuf = new TCHAR[linebufferSize];
 
-        lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
+		Lang *lang = _pEditView->getCurrentBuffer()->getCurrentLang();
+		bool isFortran = lang == NULL?false:lang->_langID == L_FORTRAN;
+		if (!isFortran)
+			lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
 		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);
 
         generic_string linebufStr = linebuf;

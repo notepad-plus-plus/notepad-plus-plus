@@ -5346,7 +5346,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #17", "All you need is love,\nall you want is sex,\nall you have is porn.\n"},
 {"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
 {"Anonymous #19", "F_CK: All I need is U."},
-{"Anonymous #20", "Never make eye contact when eating a banana."},
+{"Anonymous #20", "Never make eye contact while eating a banana."},
 {"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
 {"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},
 {"Anonymous #23", "Everybody talks about leaving a better planet for the children.\nWhy nobody tries to leave better children to the planet?"},

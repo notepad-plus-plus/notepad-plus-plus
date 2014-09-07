@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 6.6.1
-	Last modified Wed, May 6th, 2014 by Luca Leonardi.
+	Italian translation for Notepad++ 6.6.8
+	Last modified Wed, August 1st, 2014 by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -280,7 +280,7 @@
 					<Item id = "47006" name = "Aggiorna Notepad++" />
 					<Item id = "47008" name = "Guida..." />
                     <Item id = "47009" name = "Imposta proxy aggiornamento..." />
-                    <Item id = "47010" name = "Argomenti riga di comando" />
+                    <Item id = "47010" name = "Argomenti riga di comando..." />
 					
                     <Item id = "48005" name = "Importa plugin..." />
 					<Item id = "48006" name = "Importa tema..." />
@@ -741,8 +741,9 @@
 					<Item id = "6818" name = "Abilita snapshot di sessione e backup periodici" />
 					<Item id = "6819" name = "Backup ogni" />
 					<Item id = "6821" name = "secondi" />
+					<Item id = "6822" name = "Cartella backup:" />
 				
-					<Item id = "6801" name = "Backup Al Salvataggio" />
+					<Item id = "6801" name = "Backup" />
 					<Item id = "6803" name = "Cartella:" />
 					<Item id = "6219" name = "Cartella di backup personalizzata:" />
 					<Item id = "6315" name = "Nessuno" />
@@ -782,6 +783,14 @@
                     <Item id = "6257" name = "bla bla bla bla bla bla" />
                     <Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla" />
                 </Delimiter>
+                <Cloud title = "Cloud">
+                    <Item id = "6262" name = "Impostazioni Sul Cluod" />
+                    <Item id = "6263" name = "Nessun servizio cloud" />
+                    <Item id = "6264" name = "Dropbox" />
+                    <Item id = "6265" name = "OneDrive" />
+                    <Item id = "6266" name = "Google Drive" />
+                    <!--Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." /-->
+                </Cloud>
 				<MISC title = "Varie">
 					<Item id = "6324" name = "Cambia Documento (Ctrl+TAB)" />
 					<Item id = "6114" name = "Abilita" />

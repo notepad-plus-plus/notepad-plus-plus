@@ -203,7 +203,7 @@
 					<Item id="43053" name="Select All Between Matching Braces"/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Ḍfes iḥedran merra"/>
-                    <Item id="44011" name="User-Defined Dialogue..."/>
+					<Item id="44011" name="User-Defined Dialogue..."/>
                     <Item id="44019" name="Beqqeḍ iskilen merra"/>
                     <Item id="44020" name="Beqqeḍ amnir n usiẓi"/>
                     <Item id="44022" name="Wrap"/>
@@ -316,7 +316,7 @@
                 <Item id="1606" name="Wrap aroun&amp;d"/>
                 <Item id="1612" name="Uksawen"/>
                 <Item id="1613" name="Uksar"/>
-                <Item id="1614" name="Count"/>
+                <Item id="1614" name="Siḍen"/>
                 <Item id="1615" name="Af-d kulec"/>
                 <Item id="1616" name="Creḍ ijerrieḍn"/>
                 <Item id="1617" name="Style found token"/>
@@ -376,6 +376,7 @@
                     <Item id="2207" name="Ini n ugilal"/>
                     <Item id="2208" name="Isem n tsefsit :"/>
                     <Item id="2209" name="Tiddi n tsefsit:"/>
+			<Item id="2211" name="-- Style:"/>
                     <Item id="2212" name="Colour Style"/>
                     <Item id="2213" name="Tasefsit"/>
                     <Item id="2214" name="Default ext.:"/>
@@ -386,16 +387,17 @@
                     <Item id="2225" name="Tameslayt:"/>
                     <Item id="2226" name="Snes aɣawas amezwaru ajemmal"/>
                     <Item id="2227" name="Snes agilal ajemmal"/>
-                    <Item id="2228" name="Snes taseftit tajemmalt"/>
-                    <Item id="2229" name="Snes tiddi n tseftit tajemmalt"/>
-                    <Item id="2230" name="Snes aɣanib n tseftit tazurant ajemmal"/>
-                    <Item id="2231" name="Snes aɣanib n tseftit imalen ajemmal"/>
-                    <Item id="2232" name="Snes aɣanib n tseftit yederrern ajemmal"/>
+                    <Item id="2228" name="Snes tasefsit tajemmalt"/>
+                    <Item id="2229" name="Snes tiddi n tsefsit tajemmalt"/>
+                    <Item id="2230" name="Snes aɣanib n tsefsit tazurant ajemmal"/>
+                    <Item id="2231" name="Snes aɣanib n tsefsit imalen ajemmal"/>
+                    <Item id="2232" name="Snes aɣanib n tsefsit yederrern ajemmal"/>
                 </SubDialog>                
                 
             </StyleConfig>
             
             <UserDefine title="User-Defined">
+		<Item id="20001" name="Dock"/>
                 <Item id="20002" name="Beddel isem"/>
                 <Item id="20003" name="Amaynut..."/>
                 <Item id="20004" name="Kkes"/>
@@ -407,7 +409,7 @@
                 <Item id="20015" name="Kter..."/>
                 <Item id="20016" name="Sifeḍ..."/>
 				<StylerDialog title="Styler Dialog">
-                    <Item id="25030" name="Tixṭiriyin n tseftit:"/>
+                    <Item id="25030" name="Tixṭiriyin n tsefsit:"/>
 					<Item id="25006" name="Ini n uɣawas amezwaru"/>
 					<Item id="25007" name="Ini n ugilal"/>
 					<Item id="25031" name="Isem :"/>
@@ -416,14 +418,14 @@
 					<Item id="25002" name="Tira imalen"/>
 					<Item id="25003" name="Underline"/>
 					<Item id="25029" name="Nesting:"/>
-					<Item id="25008" name="Delimiter 1"/>
-					<Item id="25009" name="Delimiter 2"/>
-					<Item id="25010" name="Delimiter 3"/>
-					<Item id="25011" name="Delimiter 4"/>
-					<Item id="25012" name="Delimiter 5"/>
-					<Item id="25013" name="Delimiter 6"/>
-					<Item id="25014" name="Delimiter 7"/>
-					<Item id="25015" name="Delimiter 8"/>
+					<Item id="25008" name="Anabraz 1"/>
+					<Item id="25009" name="Anabraz 2"/>
+					<Item id="25010" name="Anabraz 3"/>
+					<Item id="25011" name="Anabraz 4"/>
+					<Item id="25012" name="Anabraz 5"/>
+					<Item id="25013" name="Anabraz 6"/>
+					<Item id="25014" name="Anabraz 7"/>
+					<Item id="25015" name="Anabraz 8"/>
 					<Item id="25018" name="Keyword 1"/>
 					<Item id="25019" name="Keyword 2"/>
 					<Item id="25020" name="Keyword 3"/>
@@ -439,39 +441,127 @@
 					<Item id="25028" name="Imḍanen"/>
                 </StylerDialog>
                 <Folder title="Folder &amp;&amp; Default">
-                    <Item id="21101" name="Default Style Settings"/>
-                    <Item id="21201" name="Folder Open Keywords Settings"/>
-                    <Item id="21301" name="Folder Close Keywords Settings"/>
+                    <Item id="21101" name="Aɣbalu s lexṣas"/>
+                    <Item id="21102" name="Styler"/>
+                    <Item id="21105" name="Tumlin:"/>
+                    <Item id="21104" name="Temporary doc site:"/>
+                    <Item id="21106" name="Fold compact (fold empty lines too)"/>
+					<Item id="21220" name="Folding in code 1 style:"/>
+					<Item id="21224" name="Ldi:"/>
+                    <Item id="21225" name="Middle:"/>
+                    <Item id="21226" name="Mdel:"/>
+                    <Item id="21227" name="Styler"/>
+					<Item id="21320" name="Folding in code 2 style (separators needed):"/>
+					<Item id="21324" name="Ldi:"/>
+                    <Item id="21325" name="Middle:"/>
+                    <Item id="21326" name="Mdel:"/>
+                    <Item id="21327" name="Styler"/>
+                    <Item id="21420" name="Folding in comment style:"/>
+                    <Item id="21424" name="Ldi:"/>
+                    <Item id="21425" name="Middle:"/>
+                    <Item id="21426" name="Mdel:"/>
+                    <Item id="21127" name="Styler"/>
                 </Folder>
                 <Keywords title="Keywords Lists">
-                    <Item id="22101" name="1st Group"/>
-                    <Item id="22201" name="2nd Group"/>
-                    <Item id="22301" name="3rd Group"/>
-                    <Item id="22401" name="4th Group"/>
-                    <Item id="22113" name="Prefix mode"/>
-                    <Item id="22213" name="Prefix mode"/>
-                    <Item id="22313" name="Prefix mode"/>
-                    <Item id="22413" name="Prefix mode"/>
+                    <Item id="22101" name="Agraw 1u"/>
+                    <Item id="22201" name="Agraw 2w"/>
+                    <Item id="22301" name="Agraw 3w"/>
+                    <Item id="22401" name="Agraw 4w"/>
+                    <Item id="22451" name="Agraw 5w"/>
+                    <Item id="22501" name="Agraw 6w"/>
+                    <Item id="22551" name="Agraw 7w"/>
+                    <Item id="22601" name="Agraw 8w"/>
+                    <Item id="22121" name="Prefix mode"/>
+                    <Item id="22221" name="Prefix mode"/>
+                    <Item id="22321" name="Prefix mode"/>
+                    <Item id="22421" name="Prefix mode"/>
+                    <Item id="22471" name="Prefix mode"/>
+                    <Item id="22521" name="Prefix mode"/>
+                    <Item id="22571" name="Prefix mode"/>
+                    <Item id="22621" name="Prefix mode"/>
+					<Item id="22122" name="Styler"/>
+                    <Item id="22222" name="Styler"/>
+                    <Item id="22322" name="Styler"/>
+                    <Item id="22422" name="Styler"/>
+                    <Item id="22472" name="Styler"/>
+                    <Item id="22522" name="Styler"/>
+                    <Item id="22572" name="Styler"/>
+                    <Item id="22622" name="Styler"/>
                 </Keywords>
                 <Comment title="Comment &amp;&amp; Number">
-                    <Item id="23301" name="Comment Line"/>
-                    <Item id="23101" name="Comment Block"/>
-                    <Item id="23113" name="Comment open:"/>
-                    <Item id="23115" name="Comment close:"/>
-                    <Item id="23116" name="Treat keyword as symbol"/>
-                    <Item id="23117" name="Treat keywords as symbols"/>
-                    <Item id="23201" name="Uṭṭun :"/>
+                   <Item id="23003" name="Line comment position"/>
+                    <Item id="23004" name="Allow anywhere"/>
+                    <Item id="23005" name="Force at beginning of line"/>
+                    <Item id="23006" name="Allow preceeding whitespace"/>
+                    <Item id="23001" name="Allow folding of comments"/>
+                    <Item id="23326" name="Styler"/>
+                    <Item id="23323" name="Ldi"/>
+                    <Item id="23324" name="Continue character"/>
+                    <Item id="23325" name="Mdel"/>
+                    <Item id="23301" name="Comment line style"/>
+                    <Item id="23124" name="Styler"/>
+                    <Item id="23122" name="Ldi"/>
+                    <Item id="23123" name="Mdel"/>
+                    <Item id="23101" name="Comment style"/>
+                    <Item id="23201" name="Number style"/>
+                    <Item id="23220" name="Styler"/>
+                    <Item id="23230" name="Prefix 1"/>
+                    <Item id="23232" name="Prefix 2"/>
+                    <Item id="23234" name="Extras 1"/>
+                    <Item id="23236" name="Extras 2"/>
+                    <Item id="23238" name="Suffix 1"/>
+                    <Item id="23240" name="Suffix 2"/>
+                    <Item id="23242" name="Range:"/>
+                    <Item id="23244" name="Decimal separator"/>
+                    <Item id="23245" name="Dot"/>
+                    <Item id="23246" name="Comma"/>
+                    <Item id="23247" name="Both"/>
                 </Comment>
-                <Operator title="Operators">
-                    <Item id="24107" name="Operator"/>
-                    <Item id="24103" name="Available symbols"/>
-                    <Item id="24101" name="Activated operators"/>
-                    <Item id="24201" name="Delimiter 1"/>
-                    <Item id="24211" name="Boundary open:"/>
-                    <Item id="24214" name="Boundary close:"/>
-                    <Item id="24301" name="Delimiter 2"/>
-                    <Item id="24311" name="Boundary open:"/>
-                    <Item id="24314" name="Boundary close:"/>
+                <Operator title="Operators &amp;&amp; Delimiter">
+                    <Item id="24101" name="Operators style"/>
+					<Item id="24113" name="Styler"/>
+					<Item id="24116" name="Operators 1"/>
+					<Item id="24117" name="Operators 2 (separators required)"/>
+                    <Item id="24201" name="Anabraz aɣanib 1"/>
+					<Item id="24220" name="Ldi:"/>
+                    <Item id="24221" name="asekkil n usenser:"/>
+                    <Item id="24222" name="Mdel:"/>
+                    <Item id="24223" name="Styler"/>
+                    <Item id="24301" name="Anabraz aɣanib 2"/>
+					<Item id="24320" name="Open:"/>
+                    <Item id="24321" name="asekkil n usenser:"/>
+                    <Item id="24322" name="Mdel:"/>
+                    <Item id="24323" name="Styler"/>
+                    <Item id="24401" name="Anabraz aɣanib 3"/>
+					<Item id="24420" name="Ldi:"/>
+                    <Item id="24421" name="asekkil n usenser:"/>
+                    <Item id="24422" name="Mdel:"/>
+                    <Item id="24423" name="Styler"/>
+                    <Item id="24451" name="Anabraz aɣanib 4"/>
+					<Item id="24470" name="Ldi:"/>
+                    <Item id="24471" name="asekkil n usenser:"/>
+                    <Item id="24472" name="Ldi:"/>
+                    <Item id="24473" name="Styler"/>
+                    <Item id="24501" name="Anabraz aɣanib 5"/>
+					<Item id="24520" name="Ldi:"/>
+                    <Item id="24521" name="asekkil n usenser:"/>
+                    <Item id="24522" name="Mdel:"/>
+                    <Item id="24523" name="Styler"/>
+                    <Item id="24551" name="Anabraz aɣanib 6"/>
+					<Item id="24570" name="Ldi:"/>
+                    <Item id="24571" name="asekkil n usenser:"/>
+                    <Item id="24572" name="Mdel:"/>
+                    <Item id="24573" name="Styler"/>
+                    <Item id="24601" name="Anabraz aɣanib 7"/>
+					<Item id="24620" name="Ldi:"/>
+                    <Item id="24621" name="asekkil n usenser:"/>
+                    <Item id="24622" name="Mdel:"/>
+                    <Item id="24623" name="Styler"/>
+                    <Item id="24651" name="Anabraz aɣanib 8"/>
+					<Item id="24670" name="Ldi:"/>
+                    <Item id="24671" name="asekkil n usenser:"/>
+                    <Item id="24672" name="Mdel:"/>
+                    <Item id="24673" name="Styler"/>
                 </Operator>
                 <Item id="24001" name="Enable escape character:"/>
             </UserDefine>
@@ -500,12 +590,15 @@
                     <Item id="6121" name="Tafggagt n wumuɣen"/>
                     <Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="Localization"/>
+					
+					<Item id="6125" name="Document List Panel"/>
+                    <Item id="6126" name="Show"/>
                 </Global>
                 <Scintillas title="Taẓrigt">
                     <Item id="6216" name="Caret Settings"/>
                     <Item id="6217" name="Tehr :"/>
                     <Item id="6219" name="Blink Rate:"/>
-                    <Item id="6221" name="F"/>
+            <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
                     <Item id="6224" name="Multi-Editing Settings"/>
                     <Item id="6225" name="Enable (Ctrl+Mouse click/selection)"/>
@@ -517,7 +610,7 @@
                     <Item id="6226" name="None"/>
                     
                     <Item id="6227" name="Line Wrap"/>
-                    <Item id="6228" name="Default"/>
+					<Item id="6228" name="Default"/>
                     <Item id="6229" name="Aligned"/>
                     <Item id="6230" name="Asiẓi"/>
                     
@@ -526,10 +619,13 @@
                     <Item id="6208" name="Show vertical edge"/>
                     <Item id="6209" name="Number of columns: "/>
                     
-                    <Item id="6211" name="Vertical Edge Settings"/>
-                    <Item id="6212" name="Line mode"/>
-                    <Item id="6213" name="Background mode"/>
-                    <Item id="6214" name="Enable current line highlighting"/>
+					<Item id="6211" name="Vertical Edge Settings"/>
+					<Item id="6212" name="Line mode"/>
+					<Item id="6213" name="Background mode"/>
+					<Item id="6214" name="Enable current line highlighting"/>
+			
+					<Item id="6234" name="Disable advanced scrolling feature
+					(if you have touchpad problem)"/>
                 </Scintillas>
                 <NewDoc title="New Document/Default Directory">
                     <Item id="6401" name="Format"/>
@@ -543,26 +639,35 @@
                     <Item id="6409" name="UCS-2 Big Endian"/>
                     <Item id="6410" name="UCS-2 Little Endian"/>
                     <Item id="6411" name="Default language:"/>
-                    <Item id="6413" name="Default Directory (Open/Save)"/>
-                    <Item id="6414" name="Follow current document"/>
-                    <Item id="6415" name="Remember last used directory"/>
+                    
                     <Item id="6419" name="Zzmam amaynut"/>
                     <Item id="6420" name="Apply to opened ANSI files"/>
                 </NewDoc>
+				
+				 <DefaultDir title="Default Directory">
+                    <Item id="6413" name="Default Directory (Open/Save)"/>
+                    <Item id="6414" name="Follow current document"/>
+                    <Item id="6415" name="Remember last used directory"/>
+                </DefaultDir>
+				
                 <FileAssoc title="File Association">
                     <Item id="4009" name="Supported exts:"/>
                     <Item id="4010" name="Registered exts:"/>
                 </FileAssoc>
-                <LangMenu title="Tirigliwin">
-                    <Item id="6301" name="Tirigliwin"/>
-                    <Item id="6302" name="Replace by space"/>
-                    <Item id="6303" name="Tab size: "/>
+                <LangMenu title="Language Menu">
                     <Item id="6505" name="Available items"/>
                     <Item id="6506" name="Disabled items"/>
                     <Item id="6507" name="Make language menu compact"/>
                     <Item id="6508" name="Language Menu"/>
-                    <Item id="6510" name="Use default value"/>
                 </LangMenu>
+				
+				<TabSettings title="Tab Settings">
+                    <Item id="6301" name="Tab Settings"/>
+                    <Item id="6302" name="Replace by space"/>
+                    <Item id="6303" name="Tab size: "/>
+                    <Item id="6510" name="Use default value"/>
+                </TabSettings>
+				
                 <Print title="Asiggez">
                     <Item id="6601" name="Ẓreg uṭṭunen n ijerriḍen"/>
                     <Item id="6602" name="Tixṭiriyin n yini"/>
@@ -589,15 +694,72 @@
                     <Item id="6722" name="ɣer yefus"/>
                     <Item id="6723" name="Rnu"/>
                     <Item id="6725" name="Variable:"/>
+					<Item id="6727" name="Here display your variable settings"/>
                     <Item id="6728" name="Header and Footer"/>
                 </Print>
+				<RecentFilesHistory title="Recent Files History">
+                    <Item id="6304" name="Recent Files History"/>
+                    <Item id="6306" name="Max. number of entries:"/>
+                    <Item id="6305" name="Don't check at launch time"/>
+                    <Item id="6429" name="Display"/>
+                    <Item id="6424" name="In Submenu"/>
+                    <Item id="6425" name="Only File Name"/>
+                    <Item id="6426" name="Full File Name Path"/>
+                    <Item id="6427" name="Customize Maximum Length:"/>
+                </RecentFilesHistory>
+				
+				 <Backup title="Backup">
+					<Item id="6309" name="Remember current session for next launch"/>
+					
+                    <Item id="6801" name="Backup"/>
+                    <Item id="6315" name="None"/>
+                    <Item id="6316" name="Simple backup"/>
+                    <Item id="6317" name="Verbose backup"/>
+                    <Item id="6804" name="Custom Backup Directory"/>
+                    <Item id="6803" name="Directory:"/>
+                </Backup>
+				
+				 <AutoCompletion title="Auto-Completion">
+                    <Item id="6807" name="Auto-Completion"/>
+                    <Item id="6808" name="Enable auto-completion on each input"/>
+                    <Item id="6809" name="Function completion"/>
+                    <Item id="6810" name="Word completion"/>
+					<Item id="6816" name="Function and word completion"/>
+                    <Item id="6811" name="From"/>
+                    <Item id="6813" name="th character"/>
+                    <Item id="6814" name="Valid value: 1 - 9"/>
+                    <Item id="6815" name="Function parameters hint on input"/>
+                    <Item id="6851" name="Auto-Insert"/>
+                    <Item id="6857" name=" html/xml close tag"/>
+                    <Item id="6858" name="Open"/>
+                    <Item id="6859" name="Close"/>
+                    <Item id="6860" name="Matched pair 1:"/>
+                    <Item id="6863" name="Matched pair 2:"/>
+                    <Item id="6866" name="Matched pair 3:"/>
+                </AutoCompletion>
+                
+				 <MultiInstance title="Multi-Instance">
+                    <Item id="6151" name="Multi-instance settings"/>
+                    <Item id="6152" name="Open session in a new instance of Notepad++"/>
+                    <Item id="6153" name="Always in multi-instance mode"/>
+                    <Item id="6154" name="Default (mono-instance)"/>
+                    <Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+                </MultiInstance>
+                
+                <Delimiter title="Delimiter">
+                    <Item id="6251" name="Delimiter selection settings (Ctrl + Mouse double click)"/>
+                    <Item id="6252" name="Open"/>
+                    <Item id="6255" name="Close"/>
+                    <Item id="6256" name="Allow on several lines"/>
+                </Delimiter>
+				
                 <MISC title="MISC.">
                     <Item id="6304" name="Recent Files History"/>
                     <Item id="6305" name="Don't check at launch time"/>
-                    <Item id="6306" name="Max. number of entries:"/>
+                    
                     <Item id="6307" name="Enable"/>
                     <Item id="6308" name="Minimize to system tray"/>
-                    <Item id="6309" name="Remember current session for next launch"/>
+                    
                     <Item id="6312" name="File Status Auto-Detection"/>
                     <Item id="6313" name="Update silently"/>
                     <Item id="6318" name="Clickable Link Settings"/>
@@ -614,27 +776,16 @@
                     <Item id="6330" name="Highlight comment/php/asp zone"/>
                     
                     <Item id="6331" name="Show only filename in title bar"/>
+					<Item id="6332" name="Match case"/>
+                    <Item id="6333" name="Smart Highlighting"/>
+					<Item id="6334" name="Autodetect character encoding"/>
+					
                     <Item id="6114" name="Enable"/>
                     <Item id="6115" name="Auto-indent"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
                     
                 </MISC>
-                <Backup title="Backup/Auto-Completion">
-                    <Item id="6801" name="Aḥraz"/>
-                    <Item id="6315" name="Ulac"/>
-                    <Item id="6316" name="Afraray"/>
-                    <Item id="6317" name="Verbose backup"/>
-                    <Item id="6804" name="Custom Backup Directory"/>
-                    <Item id="6803" name="Akaram:"/>
-                    <Item id="6807" name="Auto-Completion"/>
-                    <Item id="6808" name="Enable auto-completion on each input"/>
-                    <Item id="6809" name="Function completion"/>
-                    <Item id="6810" name="Word completion"/>
-                    <Item id="6811" name="Si"/>
-                    <Item id="6813" name="th character"/>
-                    <Item id="6814" name="Valid value: 1 - 9"/>
-                    <Item id="6815" name="Function parameters hint on input"/>
-                </Backup>
+               
             </Preference>
             <MultiMacro title="Selkem a Macro atas n tikkal">
                 <Item id="1" name="Selkem"/>
@@ -666,11 +817,11 @@
                 <Item id="2" name="Semmet"/>
             </ColumnEditor>
         </Dialog>
-        <MessageBox>
+       <MessageBox>
             <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
             <NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
             <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-            <LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
@@ -680,7 +831,31 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
         </MessageBox>
-        <ProjectManager>
+		
+		<ClipboardHistory>
+			<PanelTitle name="Clipboard History"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+			<PanelTitle name="Doc Switcher"/>
+			<ColumnName name="Name"/>
+			<ColumnExt name="Ext."/>
+        </DocSwitcher>
+        <AsciiInsertion>
+			<PanelTitle name="ASCII Insertion Panel"/>
+			<ColumnVal name="Value"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Character"/>
+        </AsciiInsertion>
+        <DocumentMap>
+			<PanelTitle name="Document Map"/>
+        </DocumentMap>
+        <FunctionList>
+			<PanelTitle name="Function List"/>
+			<SortTip name="Sort" />
+			<ReloadTip name="Reload" />
+        </FunctionList>
+      		
+		<ProjectManager>
             <PanelTitle name="Asenfar"/>
             <WorkspaceRootName name="Workspace"/>
             <NewProjectName name="Isem n usenfar"/>
@@ -717,8 +892,8 @@
                     <Item id="3118" name="Mutti d asawen"/>
                     <Item id="3119" name="Mutti d aksar"/>
                 </FolderMenu>
-                <FileMenu>
-                    <Item id="3111" name="Beddel isem "/>
+                 <FileMenu>
+                    <Item id="3111" name="Beddel isem"/>
                     <Item id="3115" name="Kkes"/>
                     <Item id="3116" name="Beddel abrid n ufaylu"/>
                     <Item id="3118" name="Mutti d asawen"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <!--
-Suomenkielinen lokalisointi Notepad++ 6.5.5 / Finnish localization
-Viimeisin muokkaaja: Teijo, 07-03-2014 20:45
+Suomenkielinen lokalisointi Notepad++ 6.6.8 / Finnish localization
+Viimeisin muokkaaja: Teijo, 03-08-2014 23:30
 Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen fred.thomas-50ch75r@yopmail.com
 Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 *** Send new updates to the author of Notepad++ (don.h@free.fr) ***
@@ -272,6 +272,8 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="47005" name="Lataa liitännäisiä"/>
 					<Item id="47006" name="Ohjelman päivitys"/>
 					<Item id="47008" name="Ohje (englanninkielinen)"/>
+					<Item id="47009" name="Päivitysten välityspalvelin..."/>
+					<Item id="47010" name="Komentoriviparametrit..."/>					
 					<Item id="48005" name="Tuo &amp;liitännäisiä.."/>
 					<Item id="48006" name="Tuo &amp;teemoja..."/>
 					<Item id="48009" name="Pikanäppäimet"/>
@@ -586,7 +588,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 			</UserDefine>
 			<Preference title="Asetukset">
 				<Item id="6001" name="&amp;Sulje" />
-				<Global title="Yleisasetukset">
+				<Global title="Yleiset">
 					<Item id="6101" name="Työkalurivi"/>
 					<Item id="6102" name="Piilotettu"/>
 					<Item id="6103" name="Pienet kuvakkeet"/>
@@ -608,6 +610,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="6123" name="Käyttöliittymän kieli"/>
     					<Item id="6125" name="Dokumenttiluettelo"/>
     					<Item id="6126" name="Näytä"/>
+					<Item id="6127" name="Piilota päätesarake"/>	
 				</Global>
 				<Scintillas title="Muokkaus">
 					<Item id="6201" name="Laajennusmerkki"/>
@@ -743,15 +746,23 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="6330" name="Korosta php/asp-alueet"/>
 					<Item id="6331" name="Näytä otsikkopalkissa vain tiedostonimi"/>
 					<Item id="6332" name="Huomioi kirjainkoko"/>
-					<Item id="6333" name="Älykäs korostus"/>				
+					<Item id="6333" name="Älykäs korostus"/>	
+					<Item id="6334" name="Tunnista merkistökoodaus"/>
+					<Item id="6335" name="Käytä takakenoa SQL:n lopetusmerkkinä"/>
 				</MISC>
 				<Backup title="Varmuuskopiointi">
+					<Item id="6309" name="Muista istunto seuraavalla kerralla"/>
 					<Item id="6315" name="Ei mitään"/>
 					<Item id="6316" name="Yksinkertainen"/>
 					<Item id="6317" name="Monisanainen"/>
 					<Item id="6801" name="Varmuuskopio"/>
 					<Item id="6803" name="Kansio:"/>
-					<Item id="6804" name="Käytä varmuuskopiointiin mukautettua kansiota"/>
+					<Item id="6804" name="Mukautettu sijainti"/>
+					<Item id="6817" name="Istuntokaappaus ja säännöllinen varmuuskopiointi"/>
+					<Item id="6818" name="Käytä istuntokaappausta ja säännöllistä varmuuskopiointia"/>
+					<Item id="6819" name="Kopiointiväli"/>
+					<Item id="6821" name="sekuntia"/>
+					<Item id="6822" name="Sijainti:"/>
 				</Backup>
 				<AutoCompletion title="Automaattitäydennys"> 
 					<Item id="6807" name="Automaattinen täydennys"/>
@@ -784,8 +795,15 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="6152" name="Avaa istunto uudessa esiintymässä"/>
 					<Item id="6153" name="Salli monta sovellusesiintymää"/>
 					<Item id="6154" name="Oletus (Vain yksi sovellusesiintymä)"/>
-					<Item id="6155" name="* Asetusmuutos vaatii ohjelman uudelleenkäynnistyksen"/>
+					<Item id="6155" name="Asetusmuutos vaatii ohjelman uudelleenkäynnistyksen"/>
 				</MultiInstance>
+				<Cloud title="Pilvipalvelut">
+					<Item id="6262" name="Pilvipalvelu"/>
+					<Item id="6263" name="Ei käytössä"/>
+					<Item id="6264" name="Dropbox"/>
+					<Item id="6265" name="OneDrive"/>
+					<Item id="6266" name="Google Drive"/>
+				</Cloud>				
 			</Preference>
 			<MultiMacro title="Toista makron suoritusta">
 				<Item id="1" name="Suorita"/>

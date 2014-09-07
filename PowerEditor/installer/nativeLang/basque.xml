@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <NotepadPlus>
-	<Native-Langue name="Basque" filename="basque.xml" >
+	<Native-Langue name="Basque" filename="basque.xml" version="6.6.8">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -20,6 +20,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+					<Item subMenuId="file-openFolder" name="Ireki Eduki Agiritegia"/>
 					<Item subMenuId="file-closeMore" name="Itxi Gehiago"/>  
  		            <Item subMenuId="file-recentFiles" name="Berrikiko Agiriak"/>  
                     <Item subMenuId="edit-copyToClipboard"  name="Kopiat&amp;u Gakora"/>
@@ -67,6 +68,8 @@
                 <Commands>
                     <Item id="41001" name="&amp;Berria"/>
                     <Item id="41002" name="&amp;Ireki"/>
+					<Item id="41019" name="Esploratzailea"/>
+                    <Item id="41020" name="cmd-a"/>
                     <Item id="41003" name="It&amp;xi"/>
                     <Item id="41004" name="I&amp;txi Denak"/>
                     <Item id="41005" name="Itxi De&amp;nak hau EZIK"/>
@@ -258,6 +261,7 @@
                     <Item id="47005" name="Lortu &amp;Plugin Gehiago"/>
                     <Item id="47006" name="Eg&amp;uneratu Notepad++"/>
                     <Item id="47008" name="Laguntza Edukiak"/>
+					<Item id="47010" name="Komando Lerro Argumentuak..."/>
                     <Item id="48005" name="Inportatu &amp;Plugina(k) ..."/>
                     <Item id="48006" name="Inportatu &amp;Gaia(k) ..."/>
                     <Item id="48009" name="Lastertekla &amp;Mapatzailea..."/>
@@ -291,12 +295,16 @@
                     <Item CMID="8" name="Gakoratu Agirizena"/>
                     <Item CMID="9" name="Gakoratu Oraingo Zuz. Helburua"/>
                     <Item CMID="10" name="Aldatu Izena"/>
-                    <Item CMID="11" name="Mugitu Birziklapen Bin-ra"/>
+                    <Item CMID="11" name="Mugitu Birziklapen Ontzira"/>
                     <Item CMID="12" name="Irakurtzeko-Bakarrik"/>
                     <Item CMID="13" name="Garbitu Irakurtzeko-Bakarrik Ikurra"/>
                     <Item CMID="14" name="Mugitu Eskabide Berrira"/>
                     <Item CMID="15" name="Ireki Eskabide Berrian"/>
 					<Item CMID="16" name="Birgeratu"/>					
+					<Item CMID="17" name="Itxi Ezkerreko denak"/>
+                    <Item CMID="18" name="Itxi Eskuineko denak"/>
+                    <Item CMID="19" name="Ireki Eduki Agiritegia Esploratzailean"/>
+                    <Item CMID="20" name="Ireki Eduki Agiritegia cmd-an"/>
             </TabBar>
         </Menu>
         
@@ -305,8 +313,8 @@
                 <Item id="1" name="Bilatu H&amp;urrengoa"/>
                 <Item id="2" name="It&amp;xi"/>
                 <Item id="1620" name="Zer bilatu:"/>
-                <Item id="1603" name="Bat dator &amp;hitz osoa bakarrik"/>
-                <Item id="1604" name="Hizki &amp;larriak eta xeheak"/>
+                <Item id="1603" name="Bat dator hitz o&amp;soa bakarrik"/>
+                <Item id="1604" name="Bereizi hizki &amp;larri-xeheak"/>
                 <Item id="1605" name="Adierazpen &amp;arrunta"/>
                 <Item id="1606" name="Ingura&amp;tu"/>
                 <Item id="1608" name="&amp;Ordeztu"/>
@@ -315,16 +323,16 @@
                 <Item id="1612" name="&amp;Gora"/>
                 <Item id="1613" name="&amp;Behera"/>
                 <Item id="1614" name="&amp;Zenbatu"/>
-                <Item id="1615" name="Bilatu Denak "/>
-                <Item id="1616" name="Markatu lerroa"/>
+                <Item id="1615" name="&amp;Bilatu Denak "/>
+                <Item id="1616" name="&amp;Markatu lerroa"/>
                 <Item id="1617" name="Estilo bilaketa lagina"/>
                 <Item id="1618" name="Garbitu bilaketa bakoitzean"/>
 				<Item id="1620" name="Zer bilatu:"/>
                 <Item id="1621" name="Norabidea"/>
 			 	<Item id="1623" name="Gardentasuna"/>
 			 	<Item id="1624" name="Bilaketa modua"/>
-			 	<Item id="1625" name="Nor&amp;mala"/>				
-			 	<Item id="1626" name="H&amp;edatuta (\n, \r, \t, \0, \x...)"/>
+			 	<Item id="1625" name="&amp;Arrunta"/>				
+			 	<Item id="1626" name="H&amp;edatua (\n, \r, \t, \0, \x...)"/>
 			 	<Item id="1632" name="Aukeran"/>
 			 	<Item id="1633" name="&amp;Garbitu"/>
 			 	<Item id="1635" name="Ordeztu Denak &amp;Irekitako Agiri Guztietan"/>
@@ -445,8 +453,8 @@
                     <Item id="25025" name="Gakohitza 8"/>
                     <Item id="25016" name="Aipamena"/>
                     <Item id="25017" name="Aipatu lerroa"/>
-                    <Item id="25026" name="Operatzailea 1"/>
-                    <Item id="25027" name="Operatzailea 2"/>
+                    <Item id="25026" name="Eragilea 1"/>
+                    <Item id="25027" name="Eragilea 2"/>
                     <Item id="25028" name="Zenbakiak"/>
                 </StylerDialog>
                 <Folder title="Agiritegia eta Berezkoa">
@@ -619,6 +627,7 @@
 					<Item id="6123" name="Hizkuntza"/>
                     <Item id="6125" name="Agiri Aldatzailea"/> 
                     <Item id="6126" name="Erakutsi"/>
+					<Item id="6127" name="Ezgaitu luzapen zutabea"/>
 				</Global>                     
                 <Scintillas title="Editatu">  
                     <Item id="6201" name="Agiritegi Bazter Estiloa"/>
@@ -646,6 +655,7 @@
                     <Item id="6228" name="Berezkoa"/>
                     <Item id="6229" name="Lerrokatuta"/>
                     <Item id="6230" name="Elkarmarratuta"/>
+					<Item id="6234" name="Ezgaitu irristatze aurreratu ezaugarria (ikutpanel arazoak badituzu)"/>
                 </Scintillas>                 
 				<NewDoc title="Agiri Berria/Berezko Zuzenbidea">
 					<Item id="6401" name="Heuskarria"/>
@@ -680,7 +690,7 @@
                     <Item id="6303" name="Hegats neurria: "/>
                     <Item id="6505" name="Gai eskuragarriak"/>
                     <Item id="6506" name="Ezgaitu gaiak"/>
-                    <Item id="6507" name="Egin hizkuntz menua trinkoa"/>
+                    <Item id="6507" name="Egin hizkuntza menua trinkoa"/>
                     <Item id="6508" name="Hizkuntza Menua"/>
                     <Item id="6510" name="Erabili berezko balioa"/>				
                 </LangMenu>                   
@@ -726,12 +736,17 @@
                </RecentFilesHistory>
  		  
  		        <Backup title="Backup">  
- 		            <Item id="6801" name="Babeskopia"/>  
+ 		            <Item id="6801" name="Babeskopia"/>
+					<Item id="6803" name="Zuzenbidea:"/>  
+					<Item id="6804" name="Norbere Babeskopia Zuzenbidea"/>  
  		            <Item id="6315" name="Ezer ez"/>  
- 		            <Item id="6316" name="Babeskopia Arrunta"/>  
- 		            <Item id="6317" name="Babeskopia Berritsua"/>  
- 		            <Item id="6804" name="Norbere Babeskopia Zuzenbidea"/>  
- 		            <Item id="6803" name="Zuzenbidea:"/>  
+ 		            <Item id="6316" name="Babeskopia Arrunta"/> 
+					<Item id="6317" name="Babeskopia Berritsua"/>  
+					<Item id="6817" name="Saio berehalakoa eta aldizkako babeskopia"/>  
+ 		            <Item id="6818" name="Gaitu saio berehalakoa eta aldizkako babeskopia"/>  
+ 		            <Item id="6819" name="Babeskopia epea"/>  
+ 		            <Item id="6821" name="segundu"/>  
+ 		            <Item id="6822" name="Babeskopia helburua:"/> 					
  		        </Backup>  
                 		                 
  		        <AutoCompletion title="Berez-Osaketa">  
@@ -743,6 +758,7 @@
  		            <Item id="6813" name=".garren hizkia"/>  
  		            <Item id="6814" name="Baliozko Balioa: 1 - 9"/>  
  		            <Item id="6815" name="Eginkizun parametro iradokizuna sarreran"/>  
+					<Item id="6816" name="Eginkizun eta hitz osaketa"/>
  		            <Item id="6851" name="Berez-Txertatu"/>  
  		            <Item id="6857" name=" html/xml etiketa itxia"/>  
  		            <Item id="6858" name="Ireki"/>  
@@ -757,7 +773,7 @@
  		            <Item id="6152" name="Ireki saio Notepad++ eskabide berri batean"/>  
  		            <Item id="6153" name="Betik eskabide-anitz moduan"/>  
  		            <Item id="6154" name="Berezkoa (eskabide-bakarra)"/>  
- 		            <Item id="6155" name="* Ezarpen honen aldaketa Notepad++ berrabiaraztea behar du"/>  
+ 		            <Item id="6155" name="* Ezarpen honen aldaketak Notepad++ berrabiaraztea behar du"/>  
  		        </MultiInstance>  
  		                  
  		        <Delimiter title="Mugatzilea">  
@@ -766,6 +782,14 @@
  		            <Item id="6255" name="Itxi"/>  
  		            <Item id="6256" name="Ahalbidetu lerro ugaritan"/>  
  		        </Delimiter>  
+				<Cloud title="Hodeia">  
+ 		                    <Item id="6262" name="Hodeiko ezarpenak"/>  
+ 		                    <Item id="6263" name="Hodeirik Ez"/>  
+ 		                    <Item id="6264" name="Dropbox"/>  
+ 		                    <Item id="6265" name="OneDrive"/>  
+ 		                    <Item id="6266" name="Google Drive"/>  
+ 		                    <!--Item id="6261" name="Mesedez berrabiarazi Notepad++ eragina izateko."/-->  
+ 		        </Cloud>  
  		                  
 				<MISC title="Askotarikoa">    
 					<Item id="6304" name="Historia Agiri Ezarpena"/>
@@ -793,7 +817,9 @@
                     <Item id="6330" name="Nabarmendu aipamena/php/asp gunea"/>
                     <Item id="6331" name="Erakutsi agirizena bakarrik izenburu-barran"/>	 
                     <Item id="6332" name="Nabarmendu hizki xehe-larri artean"/>
-                    <Item id="6333" name="Nabarmentze Adimentsua"/>					
+                    <Item id="6333" name="Nabarmentze Adimentsua"/>
+					<Item id="6334" name="Berez-atzeman hizki kodeaketa"/> 
+ 		            <Item id="6335" name="Tratatu ezkerbarra irten hizki bezala SQL hizki-koderako"/>					
                                              
                 </MISC>                       
 				
@@ -807,12 +833,12 @@
 				<Item id="8006" name="Makroa ekiteko:"/>
 				
             </MultiMacro>                     
-			<Window title="Lehioak">          
-                <Item id="1" name="Eragin"/>  
-                <Item id="2" name="Ongi"/>    
-                <Item id="7002" name="Gorde"/>
-                <Item id="7003" name="Itxi lehioa(k)"/>
-                <Item id="7004" name="Antolatu hegatsak"/>
+			<Window title="Leihoak">          
+                <Item id="1" name="&amp;Eragin"/>  
+                <Item id="2" name="&amp;Ongi"/>    
+                <Item id="7002" name="&amp;Gorde"/>
+                <Item id="7003" name="It&amp;xi leihoa(k)"/>
+                <Item id="7004" name="&amp;Antola hegatsak"/>
             </Window>                         
 			<ColumnEditor title="Zutabe Editatzailea">
                 <Item id="2023" name="Txertatzeko idazkia"/>
@@ -823,8 +849,8 @@
                 <Item id="2032" name="Heuskarria"/>
                 <Item id="2024" name="Ham"/>  
                 <Item id="2025" name="Zor"/>  
-                <Item id="2026" name="Sei"/>  
-                <Item id="2027" name="Bin"/>  
+                <Item id="2026" name="HSei"/>  
+                <Item id="2027" name="Bit"/>  
 				<Item id="1" name="Ongi"/>    
 				<Item id="2" name="Ezeztatu"/>
             </ColumnEditor>                   

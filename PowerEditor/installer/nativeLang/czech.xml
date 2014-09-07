@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- last change: 25 Apr 2014 by Ondřej Müller (mullero@email.cz)
+	- last change: 29 Jul 2014 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.6">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -769,14 +769,10 @@
                 </RecentFilesHistory>
 				<MISC title = "Různé">
 					<Item id = "6114" name = "Povolit přepínání"/>
-					<Item id = "6115" name = "Autom. odsazování"/>
+					<Item id = "6115" name = "Automatické odsazování"/>
 					<Item id = "6117" name = "Povolit MRU (nedávno použité)"/>
-					<Item id = "6304" name = "Nastavení historie otevíraných souborů"/>
-					<Item id = "6305" name = "Nekontrolovat při startu"/>
-					<Item id = "6306" name = "Max. počet zapamatov. souborů:"/>
 					<Item id = "6307" name = "Povolit"/>
 					<Item id = "6308" name = "Minimalizovat do oznamovací oblasti"/>
-					<Item id = "6309" name = "Zapamatovat si aktuální relaci pro příští spuštění"/>
 					<Item id = "6312" name = "Automatická detekce stavu souboru"/>
 					<Item id = "6313" name = "Aktualizovat skrytě"/>
 					<Item id = "6318" name = "Nastavení hyperlinků"/>
@@ -794,20 +790,23 @@
 					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
 					<Item id = "6332" name = "Rozlišovat malá a VELKÁ písmena"/>
 					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
+					<Item id = "6334" name = "Automatická detekce kódóvání znaků"/>
+					<Item id = "6335" name = "Zpětné lomítko je escape znak pro SQL"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
+					<Item id = "6309" name = "Zapamatovat aktuální relaci pro spuštění příště"/>
+					<Item id = "6315" name = "Vypnuto"/>
+					<Item id = "6316" name = "Základní zálohování"/>
+					<Item id = "6317" name = "Zálohování s hlášeními"/>
 					<Item id = "6801" name = "Zálohování"/>
 					<Item id = "6803" name = "Adresář:"/>
 					<Item id = "6804" name = "Uživatelský adresář pro zálohy"/>
 					<Item id = "6817" name = "Body obnovení a periodické zálohování"/>
-					<Item id = "6309" name = "Zapamatovat aktuální relaci pro spuštění příště"/>
 					<Item id = "6818" name = "Aktivovat ukládání bodů pro obnovení relace a periodické zálohování"/>
 					<Item id = "6819" name = "Zálohovat každých"/>
 					<Item id = "6821" name = "sekund"/>
-					<Item id = "6315" name = "Vypnuto"/>
-					<Item id = "6316" name = "Základní zálohování"/>
-					<Item id = "6317" name = "Zálohování s hlášeními"/>
+					<Item id = "6822" name = "Cesta k zálohám:"/> 
 				</Backup>
 				<AutoCompletion title = "Automat. dokončování">
 					<Item id = "6807" name = "Automatické dokončování"/>
@@ -842,6 +841,14 @@
                     <Item id = "6257" name = "bla bla bla bla bla bla"/>
                     <Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
                 </Delimiter>
+                <Cloud title = "Cloud (i-úložišťě)">
+				    <!--Item id="6261" name="Pro aktivaci změn prosím restartujte Notepad++."/-->
+                    <Item id = "6262" name = "Nastavení internetového úložišťě"/>
+                    <Item id = "6263" name = "bez cloudu"/>
+                    <Item id = "6264" name = "DropBox"/>
+                    <Item id = "6265" name = "OneDrive"/>
+					<Item id = "6266" name = "GoogleDrive"/>
+                </Cloud>
 			</Preference>
 			
 			<MultiMacro title = "Spustit makro vícekrát">

@@ -251,9 +251,10 @@
 					<Item id="46150" name="Definir idioma..."/>
 					<Item id="46080" name="Definido por el usuario"/>
 					<Item id="47000" name="Acerca de Notepad++..."/>
-					<Item id="47001" name="Web de Notepad++"/>
+					<Item id="47010" name="Elementos de linea de comando..."/>
+					<Item id="47001" name="Notepad++ Home"/>
 					<Item id="47002" name="Web del proyecto Notepad++"/>
-					<Item id="47003" name="NpWiki++ (Ayuda en línea)"/>
+					<Item id="47003" name="Ayuda en línea"/>
 					<Item id="47004" name="Foro"/>
 					<Item id="47005" name="Descargar más plugins"/>
 					<Item id="47006" name="Actualizar Notepad++"/>
@@ -581,6 +582,7 @@
 					<Item id="6123" name="Localización"/>
 					<Item id="6125" name="Panel lista de documentos"/>
 					<Item id="6126" name="Mostrar"/>
+					<Item id="6127" name="Desactivar columna de extensión"/>
 				</Global>
 				<Scintillas title="Edición">
 					<Item id="6216" name="Configuración del cursor"/>
@@ -604,7 +606,7 @@
 					<Item id="6207" name="Mostrar marcadores"/>
 					<Item id="6208" name="Mostrar límite vertical"/>
 					<Item id="6209" name="Número de columnas: "/>
-					<Item id="6234" name="Deshabilitar función scroll
+					<Item id="6234" name="Desactivar función scroll avanzado
 (si tiene problemas con pantalla táctil)"/>
 					<Item id="6211" name="Límite vertical"/>
 					<Item id="6212" name="Modo lineal"/>
@@ -687,12 +689,18 @@
 					<Item id="6426" name="Ruta completa archivo"/>
 					<Item id="6427" name="Ajustar longitud máxima:"/>
 				</RecentFilesHistory>
-				<Backup title="Copia de seguridad/Autocompletar">
-					<Item id="6801" name="Copia de seguridad"/>
-					<Item id="6315" name="No hacer"/>
-					<Item id="6316" name="Copia simple"/>
-					<Item id="6317" name="Copia detallada"/>
-					<Item id="6804" name="Carpeta para copia de seguridad personalizada"/>
+				<Backup title="Backup">
+					<Item id="6817" name="Vista de sesión y backup periódico"/>
+					<Item id="6818" name="Activar ista de sesión y backup periódico"/>
+					<Item id="6819" name="Backup cada"/>
+					<Item id="6821" name="segundos"/>
+					<Item id="6822" name="Ruta de backup:"/>
+					<Item id="6309" name="Recordar la sesión corriente al iniciar la siguiente"/>
+					<Item id="6801" name="Backup"/>
+					<Item id="6315" name="Ninguno"/>
+					<Item id="6316" name="Simple"/>
+					<Item id="6317" name="Detallado"/>
+					<Item id="6804" name="Carpeta de backup"/>
 					<Item id="6803" name="Carpeta:"/>
 				</Backup>
 				<Autorellenado title="Auto-rellenado">
@@ -726,10 +734,17 @@
 					<Item id="6255" name="Cerrar"/>
 					<Item id="6256" name="Permitir varias líneas"/>
 				</Delimiter>
+				<Cloud title="Cloud">
+					<Item id="6262" name="Ajustes de nube"/>
+					<Item id="6263" name="Sin nube"/>
+					<Item id="6264" name="Dropbox"/>
+					<Item id="6265" name="OneDrive"/>
+					<Item id="6266" name="Google Drive"/>
+					<!--Item id="6261" name="Reinicie Notepad++ para activar los cambios."/-->
+				</Cloud>
 				<MISC title="MISC.">
 					<Item id="6307" name="Permitir"/>
 					<Item id="6308" name="Minimizar a la bandeja del sistema"/>
-					<Item id="6309" name="Recordar la sesión corriente"/>
 					<Item id="6312" name="Auto-detectar estado del archivo"/>
 					<Item id="6313" name="Actualizar sin notificar"/>
 					<Item id="6318" name="Ajustes de enlace clic"/>
@@ -748,8 +763,9 @@
 					<Item id="6332" name="Ajustar tamaño"/>
 					<Item id="6333" name="Resaltado inteligente"/>
 					<Item id="6334" name="Detección de codificación automática"/>
+					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
 					<Item id="6114" name="Activar"/>
-					<Item id="6115" name="Auto-márgen"/>
+					<Item id="6115" name="Auto-margen"/>
 					<Item id="6117" name="Permitir MRU"/>
 				</MISC>
 			</Preference>

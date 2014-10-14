@@ -545,6 +545,8 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
+#pragma warning(disable : 4996)
+
 winVer getWindowsVersion()
 {
 	OSVERSIONINFOEX osvi;

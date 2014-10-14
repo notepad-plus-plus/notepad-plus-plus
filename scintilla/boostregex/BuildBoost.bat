@@ -232,6 +232,8 @@ ECHO Use:
 ECHO   --toolset msvc-8.0     for Visual studio 2005
 ECHO   --toolset msvc-9.0     for Visual Studio 2008
 ECHO   --toolset msvc-10.0    for Visual Studio 2010
+ECHO   --toolset msvc-11.0    for Visual Studio 2012
+ECHO   --toolset msvc-12.0    for Visual Studio 2013
 ECHO.
 ECHO.
 ECHO e.g.  To build with boost in d:\libs\boost_1_48_0 with Visual Studio 2008

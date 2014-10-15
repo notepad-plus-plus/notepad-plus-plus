@@ -1424,6 +1424,10 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 		hideView(otherView());
 	else if (canHideView(currentView()))
 		hideView(currentView());
+
+	if (_pFileSwitcherPanel)
+		_pFileSwitcherPanel->reload();
+
 	return allSessionFilesLoaded;
 }
 

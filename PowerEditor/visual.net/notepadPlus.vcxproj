@@ -74,7 +74,7 @@
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
-      <OutputFile>$(OutDir)notepadPlus_Debug.exe</OutputFile>
+      <OutputFile>$(OutDir)notepad++.exe</OutputFile>
       <Version>1.0</Version>
       <TypeLibraryFile>/TLBID</TypeLibraryFile>
       <TypeLibraryResourceID>5</TypeLibraryResourceID>

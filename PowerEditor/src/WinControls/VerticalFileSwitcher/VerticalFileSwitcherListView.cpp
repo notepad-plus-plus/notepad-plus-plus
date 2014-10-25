@@ -72,7 +72,6 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_INFOTIP);
 	ListView_SetItemCountEx(_hSelf, 50, LVSICF_NOSCROLL);
 	ListView_SetImageList(_hSelf, _hImaLst, LVSIL_SMALL);
-	ListView_SetItemState(_hSelf, 0, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
 }
 
 void VerticalFileSwitcherListView::destroy()
@@ -141,6 +140,7 @@ void VerticalFileSwitcherListView::initList()
 			ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(fileNameStatus._fn.c_str()));
 		}
 	}
+	ListView_SetItemState(_hSelf, taskListInfo._currentIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 }
 
 void VerticalFileSwitcherListView::reload()
@@ -243,11 +243,7 @@ void VerticalFileSwitcherListView::activateItem(int bufferID, int iView)
 	for (int i = 0; i < nbItem; ++i)
 		ListView_SetItemState(_hSelf, i, 0, LVIS_FOCUSED|LVIS_SELECTED);
 
-	int i = find(bufferID, iView);
-	if (i == -1)
-	{
-		newItem(bufferID, iView);
-	}
+	int i = newItem(bufferID, iView);
 	ListView_SetItemState(_hSelf, i, LVIS_FOCUSED|LVIS_SELECTED, LVIS_FOCUSED|LVIS_SELECTED);
 }
 

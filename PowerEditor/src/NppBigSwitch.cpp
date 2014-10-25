@@ -747,8 +747,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			getTaskListInfo(tli);
 
 			if (lParam != 0)
+			{
+				for (int idx = 0; idx < (int)tli->_tlfsLst.size(); ++idx)
+				{
+					if (tli->_tlfsLst[idx]._iView == currentView() &&
+						tli->_tlfsLst[idx]._docIndex == _pDocTab->getCurrentTabIndex())
+					{
+						tli->_currentIndex = idx;
+						break;
+					}
+				}
 				return TRUE;
-
+			}
 			if (NppParameters::getInstance()->getNppGUI()._styleMRU)
 			{
 				tli->_currentIndex = 0;

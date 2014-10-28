@@ -3017,18 +3017,28 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 		}
 		else
 		{
-			int toActivate = 0;
-			//activate next doc, otherwise prev if not possible
-			if (active == tabToClose->nbItem() - 1) //prev
-			{
-				toActivate = active - 1;
+			BufferID bufferToActivate = NULL;
+			if (NppParameters::getInstance()->getNppGUI()._styleMRU) // If Most-Recently-Used mode:
+			{	// Activate Most-Recently-Used doc:
+				TaskListInfo taskListInfo;
+				::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, (WPARAM)&taskListInfo, 0);
+				bufferToActivate = static_cast<BufferID>(taskListInfo._tlfsLst[1]._bufID);
 			}
 			else
-			{
-				toActivate = active;	//activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
+			{	// Activate next doc, otherwise previous if not possible:
+				int toActivate = 0;
+				if (active == tabToClose->nbItem() - 1) // If last doc:
+				{
+					toActivate = active - 1; // Activate previous doc.
+				}
+				else
+				{
+					toActivate = active + 1; // Activate next doc.
+				}
+				bufferToActivate = tabToClose->getBufferByIndex(toActivate);
 			}
-			tabToClose->deletItemAt((size_t)index);	//delete first
-			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);	//then activate. The prevent jumpy tab behaviour
+			tabToClose->deletItemAt((size_t)index);     //delete first
+			activateBuffer(bufferToActivate, whichOne); //then activate. The prevent jumpy tab behaviour
 		}
 	}
 	else 

@@ -118,6 +118,7 @@ WinMenuKeyDefinition winKeyDefs[] = {
 	{VK_K,		IDM_EDIT_BLOCK_COMMENT_SET,			true,  false, false, NULL},
 	{VK_K,		IDM_EDIT_BLOCK_UNCOMMENT,			true,  false, true,  NULL},
 	{VK_Q,		IDM_EDIT_STREAM_COMMENT, 			true,  false, true,  NULL},
+	{VK_NULL,	IDM_EDIT_STREAM_UNCOMMENT,			false, false, false, NULL},
 	{VK_SPACE,	IDM_EDIT_AUTOCOMPLETE,				true,  false, false, NULL},
 	{VK_SPACE,	IDM_EDIT_AUTOCOMPLETE_PATH,			true,  true, false, NULL},
 	{VK_RETURN,	IDM_EDIT_AUTOCOMPLETE_CURRENTFILE,	true,  false, false, NULL},

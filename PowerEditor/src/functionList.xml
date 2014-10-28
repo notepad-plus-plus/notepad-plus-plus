@@ -21,6 +21,7 @@ http://notepad-plus-plus.org/features/function-list.html
 			<association langID="1" id="php_function"/>
 			<association langID="2" id="c_function"/>
 			<association langID="3" id="c_cpp_function"/>
+			<association langID="4" id="cs_function"/>
 			<association langID="6" id="java"/>
 			<association langID="9" id="xml_node"/>
 			<association langID="12" id="batch_label"/>
@@ -231,6 +232,28 @@ http://notepad-plus-plus.org/features/function-list.html
 				</function>
 			</parser>
 			
+			<parser id="cs_function" displayName="C# Class" commentExpr="((/\*.*?\*)/|(//.*?$))">
+				<classRange
+					mainExpr="^[\t ]*((public|protected|private|internal)[\s]+)?([\w]+[\s]*)?(class|struct|interface)[\t ]+[^\{]+\{"
+					openSymbole = "\{"
+					closeSymbole = "\}"
+					displayMode="node">
+					<className>
+						<nameExpr expr="(class|struct|interface)[\t ]+[\w]+"/>
+						<nameExpr expr="[\t ]+[\w]+"/>
+						<nameExpr expr="[\w]+"/>
+					</className>
+					<function
+						mainExpr="^[^\S\r\n]*(?&lt;modifier1&gt;(?:public|protected|internal|private)\s*)?(?&lt;modifier2&gt;(?:new|static|virtual|sealed|override|abstract|extern)\s*)?(partial\s*)?(?&lt;type&gt;(?!(return|if|else))\w+(?&lt;genericType&gt;&lt;[\w,\s&lt;&gt;]+&gt;)?\s+)(?&lt;name&gt;\w+(?&lt;genericNameType&gt;&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)\((?&lt;params&gt;[\w\s,&lt;&gt;\[\]\:=\.]*)\)(?&lt;ctorChain&gt;\s*\:\s*(?:base|this)\s*\((?&lt;ctorParams&gt;[\w\s,&lt;&gt;\[\]\:=\.]*)\))?[\w\s&lt;&gt;\:,\(\)\[\]]*(?:\{|;)">
+						<functionName>
+							<funcNameExpr expr="(\w+(&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)\("/>
+							<funcNameExpr expr="(\w+(&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)"/>
+						</functionName>
+					</function>
+				</classRange>
+				<function mainExpr="">
+				</function>
+			</parser>
 		</parsers>
 	</functionList>
 </NotepadPlus>

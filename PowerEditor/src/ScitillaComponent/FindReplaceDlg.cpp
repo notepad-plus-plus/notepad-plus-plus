@@ -2537,6 +2537,25 @@ void Finder::setFinderStyle()
     {
         Style & styleDefault = stylers.getStyler(iStyleDefault);
 	    _scintView.setStyle(styleDefault);
+
+		GlobalOverride & go = _scintView._pParameter->getGlobalOverrideStyle();
+		if (go.isEnable())
+		{
+			int iGlobalOverride = stylers.getStylerIndexByName(TEXT("Global override"));
+			if (iGlobalOverride != -1)
+			{
+				Style & styleGlobalOverride = stylers.getStyler(iGlobalOverride);
+				if (go.enableFg)
+				{
+					styleDefault._fgColor = styleGlobalOverride._fgColor;
+				}
+				if (go.enableBg)
+				{
+					styleDefault._bgColor = styleGlobalOverride._bgColor;
+				}
+			}
+		}
+
 		_scintView.execute(SCI_STYLESETFORE, SCE_SEARCHRESULT_DEFAULT, styleDefault._fgColor);
 		_scintView.execute(SCI_STYLESETBACK, SCE_SEARCHRESULT_DEFAULT, styleDefault._bgColor);
     }

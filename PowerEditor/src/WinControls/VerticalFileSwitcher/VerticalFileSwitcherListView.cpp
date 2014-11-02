@@ -103,10 +103,19 @@ void VerticalFileSwitcherListView::initList()
 
 	NppParameters *nppParams = NppParameters::getInstance();
 	NativeLangSpeaker *pNativeSpeaker = nppParams->getNativeLangSpeaker();
-	generic_string nameStr = pNativeSpeaker->getAttrNameStr(TEXT("Name"), FS_ROOTNODE, FS_CLMNNAME);
-	insertColumn(nameStr.c_str(), 150, 0);
-
+	
 	bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
+	
+	RECT rc;
+	::GetClientRect(_hParent, &rc);
+	int totalWidth = rc.right - rc.left;
+
+	generic_string nameStr = pNativeSpeaker->getAttrNameStr(TEXT("Name"), FS_ROOTNODE, FS_CLMNNAME);
+	
+	//insertColumn(nameStr.c_str(), 150, 0);
+	insertColumn(nameStr.c_str(), (isExtColumn ? totalWidth - 50 : totalWidth), 0);
+
+	//bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
 		generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
@@ -332,6 +341,21 @@ void VerticalFileSwitcherListView::insertColumn(const TCHAR *name, int width, in
 	lvColumn.cx = width;
 	lvColumn.pszText = (TCHAR *)name;
 	ListView_InsertColumn(_hSelf, index, &lvColumn);
+}
+
+void VerticalFileSwitcherListView::resizeColumns(int totalWidth)
+{
+	NppParameters *nppParams = NppParameters::getInstance();
+	bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
+	if (isExtColumn)
+	{
+		ListView_SetColumnWidth(_hSelf, 0, totalWidth - 50);
+		ListView_SetColumnWidth(_hSelf, 1, 50);
+	}
+	else
+	{
+		ListView_SetColumnWidth(_hSelf, 0, totalWidth);
+	}
 }
 
 std::vector<SwitcherFileInfo> VerticalFileSwitcherListView::getSelectedFiles(bool reverse) const

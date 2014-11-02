@@ -61,6 +61,7 @@ public:
 	generic_string getFullFilePath(size_t i) const;
 	
 	void insertColumn(const TCHAR *name, int width, int index);
+	void resizeColumns(int totalWidth);
 	void deleteColumn(size_t i) {
 		ListView_DeleteColumn(_hSelf, i);
 	};

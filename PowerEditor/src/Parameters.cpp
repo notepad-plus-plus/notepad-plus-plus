@@ -1562,6 +1562,7 @@ void NppParameters::destroyInstance()
 		delete _pXmlBlacklistDoc;
 
 	delete _pSelf;
+	_pSelf = NULL;
 }
 
 void NppParameters::setFontList(HWND hWnd)

@@ -5835,13 +5835,21 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 	bool isSnapshotMode = true;
 	while (isSnapshotMode)
 	{
-		size_t timer = NppParameters::getInstance()->getNppGUI()._snapshotBackupTiming;
+		NppParameters *nppParam = NppParameters::getInstance();
+		if (!nppParam)
+			return FALSE;
+
+		size_t timer = nppParam->getNppGUI()._snapshotBackupTiming;
 		if (timer < 1000)
 			timer = 1000;
 
 		::Sleep(timer);
 
-		isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+		nppParam = NppParameters::getInstance();
+		if (!nppParam)
+			return FALSE;
+
+		isSnapshotMode = nppParam->getNppGUI().isSnapshotMode();
 		if (!isSnapshotMode)
 			break;
 

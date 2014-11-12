@@ -653,7 +653,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 					if(!activateBuffer(id, SUB_VIEW))
 						switchEditViewTo(MAIN_VIEW);
 	
-					TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you wan to save file \"%s\" ?");
+					TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"%s\" ?");
 					TCHAR phrase[512];
 					wsprintf(phrase, pattern, buf->getFullPathName());
 					int res = doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
@@ -706,7 +706,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 					activateBuffer(id, SUB_VIEW);
 					switchEditViewTo(SUB_VIEW);
 	
-					TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you wan to save file \"%s\" ?");
+					TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"%s\" ?");
 					TCHAR phrase[512];
 					wsprintf(phrase, pattern, buf->getFullPathName());
 					int res = doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);

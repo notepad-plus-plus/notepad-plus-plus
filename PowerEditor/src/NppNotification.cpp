@@ -452,7 +452,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		const NppGUI & nppGui = NppParameters::getInstance()->getNppGUI();
 		bool indentMaintain = nppGui._maitainIndent;
 		if (indentMaintain)
-			MaintainIndentation(static_cast<TCHAR>(notification->ch));
+			maintainIndentation(static_cast<TCHAR>(notification->ch));
 		
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		

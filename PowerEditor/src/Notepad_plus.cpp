@@ -2269,27 +2269,138 @@ void Notepad_plus::addHotSpot()
 	_pEditView->execute(SCI_SETSTYLING, 0, 0);
 }
 
-
-void Notepad_plus::MaintainIndentation(TCHAR ch)
+bool Notepad_plus::isConditionExprLine(int lineNumber)
 {
+	if (lineNumber < 0 || lineNumber > _pEditView->execute(SCI_GETLINECOUNT))
+		return false;
+
+	int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
+	int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
+	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
+	_pEditView->execute(SCI_SETTARGETSTART, startPos);
+	_pEditView->execute(SCI_SETTARGETEND, endPos);
+
+	/*
+	LangType type = _pEditView->getCurrentBuffer()->getLangType();
+
+	if (type == L_HTML || type == L_PHP || type == L_ASP || type == L_JSP)
+		mask = INDIC2_MASK;
+	else if (type == L_PS)
+		mask = 16;
+	*/
+	const char ifExpr[] = "";
+	const char elseExpr[] = "";
+	const char forLoopExpr[] = "";
+	const char whileLoopExpr[] = "";
+
+	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(ifExpr), (LPARAM)ifExpr);
+	if (posFound != -1 && posFound != -2)
+	{
+		//int start = int(_pEditView->execute(SCI_GETTARGETSTART));
+		int end = int(_pEditView->execute(SCI_GETTARGETEND));
+		if (end == endPos)
+			return true;
+	}
+	
+	posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(elseExpr), (LPARAM)elseExpr);
+	if (posFound != -1 && posFound != -2)
+	{
+		int end = int(_pEditView->execute(SCI_GETTARGETEND));
+		if (end == endPos)
+			return true;
+	}
+
+	posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(forLoopExpr), (LPARAM)forLoopExpr);
+	if (posFound != -1 && posFound != -2)
+	{
+		int end = int(_pEditView->execute(SCI_GETTARGETEND));
+		if (end == endPos)
+			return true;
+	}
+
+	posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(whileLoopExpr), (LPARAM)whileLoopExpr);
+	if (posFound != -1 && posFound != -2)
+	{
+		int end = int(_pEditView->execute(SCI_GETTARGETEND));
+		if (end == endPos)
+			return true;
+	}	
+	return false;
+}
+
+void Notepad_plus::maintainIndentation(TCHAR ch)
+{
+	/*
 	int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
 	int curLine = int(_pEditView->getCurrentLineNumber());
-	int lastLine = curLine - 1;
+	int prevLine = curLine - 1;
 	int indentAmount = 0;
 
 	if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 	        (eolMode == SC_EOL_CR && ch == '\r'))
 	{
-		while (lastLine >= 0 && _pEditView->getLineLength(lastLine) == 0)
-			lastLine--;
+		// Search the non-empty previous line
+		while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+			prevLine--;
 
-		if (lastLine >= 0) {
-			indentAmount = _pEditView->getLineIndent(lastLine);
+		if (prevLine >= 0) {
+			indentAmount = _pEditView->getLineIndent(prevLine);
 		}
 		if (indentAmount > 0) {
 			_pEditView->setLineIndent(curLine, indentAmount);
 		}
 	}
+	*/
+	int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
+	int curLine = int(_pEditView->getCurrentLineNumber());
+	int prevLine = curLine - 1;
+	int indentAmountPrevLine = 0;
+
+	if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+		(eolMode == SC_EOL_CR && ch == '\r'))
+	{
+		// Search the non-empty previous line
+		while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+			prevLine--;
+		
+		// Get previous line's Indent
+		if (prevLine >= 0)
+		{
+			indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+		}
+
+		// get previous char from current line
+		int prevPos = _pEditView->execute(SCI_GETCURRENTPOS) - (eolMode == SC_EOL_CRLF ? 3 : 2);
+		UCHAR prevChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, prevPos);
+		int tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
+
+		if (prevChar == '{')// && c++ java, c# js php)
+		{
+			int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+			UCHAR nextChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, curPos);
+			if (nextChar == '}')
+			{
+				_pEditView->execute(SCI_INSERTTEXT, _pEditView->execute(SCI_GETCURRENTPOS), (LPARAM)"\r\n");
+				_pEditView->setLineIndent(curLine + 1, indentAmountPrevLine);
+			}
+			_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
+		}
+		else if (isConditionExprLine(prevLine))
+		{
+			_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
+		}
+		else
+		{
+			if (indentAmountPrevLine > 0)
+			{
+				if (prevLine > 0 && isConditionExprLine(prevLine - 1))
+					_pEditView->setLineIndent(curLine, indentAmountPrevLine - tabWidth);
+				else
+					_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			}
+		}
+	}
+
 }
 
 void Notepad_plus::specialCmd(int id)

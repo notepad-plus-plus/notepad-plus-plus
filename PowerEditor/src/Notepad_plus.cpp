@@ -2288,21 +2288,9 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 	else if (type == L_PS)
 		mask = 16;
 	*/
-	const char ifExpr[] = "";
-	const char elseExpr[] = "";
-	const char forLoopExpr[] = "";
-	const char whileLoopExpr[] = "";
+	const char ifElseForWhileExpr[] = "((else[ \t]+)?if|for|while)[ \t]*[(].*[)][ \t]*|else[ \t]*";
 
-	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(ifExpr), (LPARAM)ifExpr);
-	if (posFound != -1 && posFound != -2)
-	{
-		//int start = int(_pEditView->execute(SCI_GETTARGETSTART));
-		int end = int(_pEditView->execute(SCI_GETTARGETEND));
-		if (end == endPos)
-			return true;
-	}
-	
-	posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(elseExpr), (LPARAM)elseExpr);
+	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(ifElseForWhileExpr), (LPARAM)ifElseForWhileExpr);
 	if (posFound != -1 && posFound != -2)
 	{
 		int end = int(_pEditView->execute(SCI_GETTARGETEND));
@@ -2310,21 +2298,6 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 			return true;
 	}
 
-	posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(forLoopExpr), (LPARAM)forLoopExpr);
-	if (posFound != -1 && posFound != -2)
-	{
-		int end = int(_pEditView->execute(SCI_GETTARGETEND));
-		if (end == endPos)
-			return true;
-	}
-
-	posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(whileLoopExpr), (LPARAM)whileLoopExpr);
-	if (posFound != -1 && posFound != -2)
-	{
-		int end = int(_pEditView->execute(SCI_GETTARGETEND));
-		if (end == endPos)
-			return true;
-	}	
 	return false;
 }
 

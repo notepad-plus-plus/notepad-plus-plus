@@ -2303,31 +2303,11 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 
 void Notepad_plus::maintainIndentation(TCHAR ch)
 {
-	/*
-	int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
-	int curLine = int(_pEditView->getCurrentLineNumber());
-	int prevLine = curLine - 1;
-	int indentAmount = 0;
-
-	if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
-	        (eolMode == SC_EOL_CR && ch == '\r'))
-	{
-		// Search the non-empty previous line
-		while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
-			prevLine--;
-
-		if (prevLine >= 0) {
-			indentAmount = _pEditView->getLineIndent(prevLine);
-		}
-		if (indentAmount > 0) {
-			_pEditView->setLineIndent(curLine, indentAmount);
-		}
-	}
-	*/
 	int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
 	int curLine = int(_pEditView->getCurrentLineNumber());
 	int prevLine = curLine - 1;
 	int indentAmountPrevLine = 0;
+	int tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
 
 	if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 		(eolMode == SC_EOL_CR && ch == '\r'))
@@ -2345,7 +2325,6 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 		// get previous char from current line
 		int prevPos = _pEditView->execute(SCI_GETCURRENTPOS) - (eolMode == SC_EOL_CRLF ? 3 : 2);
 		UCHAR prevChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, prevPos);
-		int tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
 
 		if (prevChar == '{')// && c++ java, c# js php)
 		{
@@ -2373,7 +2352,62 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			}
 		}
 	}
+	else if (ch == '{')
+	{
+		// if no character in front of {, aligned with prev line's indentation
+		int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, curLine);
+		int endPos = _pEditView->execute(SCI_GETCURRENTPOS);
 
+		for (int i = endPos - 2; i > 0 && i > startPos; --i)
+		{
+			UCHAR aChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, i);
+			if (aChar != ' ' && aChar != '\t')
+				return;
+		}
+
+		// Search the non-empty previous line
+		while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+			prevLine--;
+
+		// Get previous line's Indent
+		if (prevLine >= 0)
+		{
+			indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+		}
+		_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+	}
+	else if (ch == '}')
+	{
+		// Look backward for the pair {
+		int startPos = _pEditView->execute(SCI_GETCURRENTPOS);
+		int endPos = 0;
+		_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
+		_pEditView->execute(SCI_SETTARGETSTART, startPos);
+		_pEditView->execute(SCI_SETTARGETEND, endPos);
+
+		const char expr[] = "{";
+
+		int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(expr), (LPARAM)expr);
+
+		// if no { found, do nothing
+		if (posFound == -1 || posFound == -2)
+			return;
+
+		// if { is in the same line, do nothing
+		int matchedPairLine = _pEditView->execute(SCI_LINEFROMPOSITION, posFound);
+		if (matchedPairLine == curLine)
+			return;
+
+		// { is in another line, get its indentation
+		indentAmountPrevLine = _pEditView->getLineIndent(matchedPairLine);
+
+		// aligned } indent with {
+		_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+
+		// indent lines from { to }
+		for (int i = matchedPairLine + 1; i < curLine; ++i)
+			_pEditView->setLineIndent(i, indentAmountPrevLine + tabWidth);
+	}
 }
 
 void Notepad_plus::specialCmd(int id)

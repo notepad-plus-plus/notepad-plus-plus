@@ -2325,17 +2325,21 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 		// get previous char from current line
 		int prevPos = _pEditView->execute(SCI_GETCURRENTPOS) - (eolMode == SC_EOL_CRLF ? 3 : 2);
 		UCHAR prevChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, prevPos);
+		int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+		UCHAR nextChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, curPos);
 
 		if (prevChar == '{')// && c++ java, c# js php)
 		{
-			int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-			UCHAR nextChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, curPos);
 			if (nextChar == '}')
 			{
 				_pEditView->execute(SCI_INSERTTEXT, _pEditView->execute(SCI_GETCURRENTPOS), (LPARAM)"\r\n");
 				_pEditView->setLineIndent(curLine + 1, indentAmountPrevLine);
 			}
 			_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
+		}
+		else if (nextChar == '{')
+		{
+			_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 		}
 		else if (isConditionExprLine(prevLine))
 		{

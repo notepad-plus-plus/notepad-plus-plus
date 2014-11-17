@@ -2280,14 +2280,6 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 	_pEditView->execute(SCI_SETTARGETSTART, startPos);
 	_pEditView->execute(SCI_SETTARGETEND, endPos);
 
-	/*
-	LangType type = _pEditView->getCurrentBuffer()->getLangType();
-
-	if (type == L_HTML || type == L_PHP || type == L_ASP || type == L_JSP)
-		mask = INDIC2_MASK;
-	else if (type == L_PS)
-		mask = 16;
-	*/
 	const char ifElseForWhileExpr[] = "((else[ \t]+)?if|for|while)[ \t]*[(].*[)][ \t]*|else[ \t]*";
 
 	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(ifElseForWhileExpr), (LPARAM)ifElseForWhileExpr);
@@ -2301,6 +2293,36 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 	return false;
 }
 
+int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol)
+{
+	if (startPos == endPos)
+		return -1;
+
+	int balance = 0;
+
+	if (startPos > endPos) // backward
+	{
+		for (size_t i = startPos; i > endPos; --i)
+		{
+			char aChar = (char)_pEditView->execute(SCI_GETCHARAT, i);
+			if (aChar == targetSymbol)
+			{
+				if (balance == 0)
+					return i;
+				--balance;
+			}
+			else if (aChar == matchedSymbol)
+			{
+				++balance;
+			}
+		}
+	}
+	else // forward - TODO
+	{
+	}
+	return -1;
+}
+
 void Notepad_plus::maintainIndentation(TCHAR ch)
 {
 	int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
@@ -2309,108 +2331,131 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	int indentAmountPrevLine = 0;
 	int tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
 
-	if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
-		(eolMode == SC_EOL_CR && ch == '\r'))
+	LangType type = _pEditView->getCurrentBuffer()->getLangType();
+
+	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
+		type == L_PHP || type == L_JS || type == L_JSP)
 	{
-		// Search the non-empty previous line
-		while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
-			prevLine--;
-		
-		// Get previous line's Indent
-		if (prevLine >= 0)
+		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+			(eolMode == SC_EOL_CR && ch == '\r'))
 		{
-			indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
-		}
+			// Search the non-empty previous line
+			while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+				prevLine--;
 
-		// get previous char from current line
-		int prevPos = _pEditView->execute(SCI_GETCURRENTPOS) - (eolMode == SC_EOL_CRLF ? 3 : 2);
-		UCHAR prevChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, prevPos);
-		int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-		UCHAR nextChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, curPos);
-
-		if (prevChar == '{')// && c++ java, c# js php)
-		{
-			if (nextChar == '}')
+			// Get previous line's Indent
+			if (prevLine >= 0)
 			{
-				_pEditView->execute(SCI_INSERTTEXT, _pEditView->execute(SCI_GETCURRENTPOS), (LPARAM)"\r\n");
-				_pEditView->setLineIndent(curLine + 1, indentAmountPrevLine);
+				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
 			}
-			_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
+
+			// get previous char from current line
+			int prevPos = _pEditView->execute(SCI_GETCURRENTPOS) - (eolMode == SC_EOL_CRLF ? 3 : 2);
+			UCHAR prevChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, prevPos);
+			int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+			UCHAR nextChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, curPos);
+
+			if (prevChar == '{')// && c++ java, c# js php)
+			{
+				if (nextChar == '}')
+				{
+					_pEditView->execute(SCI_INSERTTEXT, _pEditView->execute(SCI_GETCURRENTPOS), (LPARAM)"\r\n");
+					_pEditView->setLineIndent(curLine + 1, indentAmountPrevLine);
+				}
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
+			}
+			else if (nextChar == '{')
+			{
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			}
+			else if (isConditionExprLine(prevLine))
+			{
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
+			}
+			else
+			{
+				if (indentAmountPrevLine > 0)
+				{
+					if (prevLine > 0 && isConditionExprLine(prevLine - 1))
+						_pEditView->setLineIndent(curLine, indentAmountPrevLine - tabWidth);
+					else
+						_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+				}
+			}
 		}
-		else if (nextChar == '{')
+		else if (ch == '{')
 		{
+			// if no character in front of {, aligned with prev line's indentation
+			int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, curLine);
+			int endPos = _pEditView->execute(SCI_GETCURRENTPOS);
+
+			for (int i = endPos - 2; i > 0 && i > startPos; --i)
+			{
+				UCHAR aChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, i);
+				if (aChar != ' ' && aChar != '\t')
+					return;
+			}
+
+			// Search the non-empty previous line
+			while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+				prevLine--;
+
+			// Get previous line's Indent
+			if (prevLine >= 0)
+			{
+				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+			}
 			_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 		}
-		else if (isConditionExprLine(prevLine))
+		else if (ch == '}')
 		{
-			_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
+			// Look backward for the pair {
+			int startPos = _pEditView->execute(SCI_GETCURRENTPOS);
+			if (startPos != 0)
+				startPos -= 1;
+			int posFound = findMachedBracePos(startPos - 1, 0, '{', '}');
+
+			// if no { found, do nothing
+			if (posFound == -1)
+				return;
+
+			// if { is in the same line, do nothing
+			int matchedPairLine = _pEditView->execute(SCI_LINEFROMPOSITION, posFound);
+			if (matchedPairLine == curLine)
+				return;
+
+			// { is in another line, get its indentation
+			indentAmountPrevLine = _pEditView->getLineIndent(matchedPairLine);
+
+			// aligned } indent with {
+			_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+
+			/*
+			// indent lines from { to }
+			for (int i = matchedPairLine + 1; i < curLine; ++i)
+				_pEditView->setLineIndent(i, indentAmountPrevLine + tabWidth);
+			*/
 		}
-		else
+	}
+	else // Basic indentation mode
+	{
+		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+			(eolMode == SC_EOL_CR && ch == '\r'))
 		{
+			// Search the non-empty previous line
+			while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
+				prevLine--;
+
+			if (prevLine >= 0)
+			{
+				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+			}
+
 			if (indentAmountPrevLine > 0)
 			{
-				if (prevLine > 0 && isConditionExprLine(prevLine - 1))
-					_pEditView->setLineIndent(curLine, indentAmountPrevLine - tabWidth);
-				else
-					_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 			}
 		}
-	}
-	else if (ch == '{')
-	{
-		// if no character in front of {, aligned with prev line's indentation
-		int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, curLine);
-		int endPos = _pEditView->execute(SCI_GETCURRENTPOS);
-
-		for (int i = endPos - 2; i > 0 && i > startPos; --i)
-		{
-			UCHAR aChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, i);
-			if (aChar != ' ' && aChar != '\t')
-				return;
-		}
-
-		// Search the non-empty previous line
-		while (prevLine >= 0 && _pEditView->getLineLength(prevLine) == 0)
-			prevLine--;
-
-		// Get previous line's Indent
-		if (prevLine >= 0)
-		{
-			indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
-		}
-		_pEditView->setLineIndent(curLine, indentAmountPrevLine);
-	}
-	else if (ch == '}')
-	{
-		// Look backward for the pair {
-		int startPos = _pEditView->execute(SCI_GETCURRENTPOS);
-		int endPos = 0;
-		_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
-		_pEditView->execute(SCI_SETTARGETSTART, startPos);
-		_pEditView->execute(SCI_SETTARGETEND, endPos);
-
-		const char expr[] = "{";
-
-		int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(expr), (LPARAM)expr);
-
-		// if no { found, do nothing
-		if (posFound == -1 || posFound == -2)
-			return;
-
-		// if { is in the same line, do nothing
-		int matchedPairLine = _pEditView->execute(SCI_LINEFROMPOSITION, posFound);
-		if (matchedPairLine == curLine)
-			return;
-
-		// { is in another line, get its indentation
-		indentAmountPrevLine = _pEditView->getLineIndent(matchedPairLine);
-
-		// aligned } indent with {
-		_pEditView->setLineIndent(curLine, indentAmountPrevLine);
-
-		// indent lines from { to }
-		for (int i = matchedPairLine + 1; i < curLine; ++i)
-			_pEditView->setLineIndent(i, indentAmountPrevLine + tabWidth);
 	}
 }
 

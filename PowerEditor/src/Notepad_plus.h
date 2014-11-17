@@ -522,6 +522,7 @@ private:
 	};
 
 	bool isConditionExprLine(int lineNumber);
+	int findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
 	void maintainIndentation(TCHAR ch);
 	
 	void addHotSpot();

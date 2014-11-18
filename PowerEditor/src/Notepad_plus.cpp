@@ -2302,7 +2302,7 @@ int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char target
 
 	if (startPos > endPos) // backward
 	{
-		for (size_t i = startPos; i > endPos; --i)
+		for (size_t i = startPos; i >= endPos; --i)
 		{
 			char aChar = (char)_pEditView->execute(SCI_GETCHARAT, i);
 			if (aChar == targetSymbol)
@@ -2355,7 +2355,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
 			UCHAR nextChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, curPos);
 
-			if (prevChar == '{')// && c++ java, c# js php)
+			if (prevChar == '{')
 			{
 				if (nextChar == '}')
 				{
@@ -2404,8 +2404,27 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			if (prevLine >= 0)
 			{
 				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+
+				int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
+				int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
+				_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
+				_pEditView->execute(SCI_SETTARGETSTART, startPos);
+				_pEditView->execute(SCI_SETTARGETEND, endPos);
+
+				const char braceExpr[] = "[ \t]*\\{.*";
+
+				int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(braceExpr), (LPARAM)braceExpr);
+				if (posFound != -1 && posFound != -2)
+				{
+					int end = int(_pEditView->execute(SCI_GETTARGETEND));
+					if (end == endPos)
+						indentAmountPrevLine += tabWidth;
+				}
 			}
-			_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+
+			if (indentAmountPrevLine)
+				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			
 		}
 		else if (ch == '}')
 		{

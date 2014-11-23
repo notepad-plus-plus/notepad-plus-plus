@@ -429,8 +429,37 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	{
 		case int('('):
 			if (matchedPairConf._doParentheses)
-				matchedChars = ")"; 
+			{
+				matchedChars = ")";
+				_doIgnoreParenthease = true;
+				_parenthesePos = caretPos - 1;
+			}
+
 		break;
+		case int(')') :
+			if (matchedPairConf._doParentheses && _doIgnoreParenthease)
+			{
+				matchedChars = ")";
+				// if current pos is on the same line of _parenthesePos
+				// and current pos > _parenthesePos
+				if (_parenthesePos < caretPos)
+				{
+					// detect if ) is in between ( and )
+					int pos = isInBetween(_parenthesePos, ')', caretPos);
+					if (pos != -1)
+					{
+						_pEditView->execute(SCI_DELETERANGE, pos, 1);
+						_pEditView->execute(SCI_GOTOPOS, pos);
+					}
+				}
+
+				_doIgnoreParenthease = false;
+				_parenthesePos = -1;
+				return;
+			}
+
+			break;
+
 		case int('['):
 			if (matchedPairConf._doBrackets)
 				matchedChars = "]";
@@ -462,6 +491,31 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	if (matchedChars)
 		_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)matchedChars);
 }
+
+int AutoCompletion::isInBetween(int startPos, char endChar, int posToDetect)
+{
+	int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
+	int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
+
+	if (startPosLine != posToDetectLine)
+		return -1;
+
+	int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
+
+	char startChar = (char)_pEditView->execute(SCI_GETCHARAT, startPos);
+
+
+	for (int i = posToDetect; i <= endPos; ++i)
+	{
+		char aChar = (char)_pEditView->execute(SCI_GETCHARAT, i);
+		if (aChar == startChar)
+			return -1;
+		if (aChar == endChar)
+			return i;
+	}
+	return -1;
+}
+
 
 void AutoCompletion::update(int character)
 {

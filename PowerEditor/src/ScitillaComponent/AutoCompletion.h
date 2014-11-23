@@ -79,6 +79,9 @@ private:
 	TiXmlDocument *_pXmlFile;
 	TiXmlElement *_pXmlKeyword;
 
+	bool _doIgnoreParenthease;
+	int _parenthesePos;
+
 	bool _ignoreCase;
 
 	vector<generic_string> _keyWordArray;
@@ -89,6 +92,7 @@ private:
 
 	const TCHAR * getApiFileName();
 	void getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars);
+	int isInBetween(int startPos, char endChar, int posToDetect);
 };
 
 #endif //AUTOCOMPLETION_H

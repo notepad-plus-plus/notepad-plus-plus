@@ -39,21 +39,22 @@
 
 class ScintillaEditView;
 
-struct MachedCharInserted {
+struct MatchedCharInserted {
 	char _c;
 	int _pos;
-	MachedCharInserted(char c, int pos) : _c(c), _pos(pos) {};
+	MatchedCharInserted(char c, int pos) : _c(c), _pos(pos) {};
 };
 
-class InsertedMachedChars {
+class InsertedMatchedChars {
 public:
 	void init(ScintillaEditView * pEditView) { _pEditView = pEditView; };
-	void add(MachedCharInserted mci);
-	bool isEmpty() const { return _insertedMachedChars.size() == 0; };
+	void removeInvalidElements(MatchedCharInserted mci);
+	void add(MatchedCharInserted mci);
+	bool isEmpty() const { return _insertedMatchedChars.size() == 0; };
 	int search(char startChar, char endChar, int posToDetect);
 
 private:
-	std::vector<MachedCharInserted> _insertedMachedChars;
+	std::vector<MatchedCharInserted> _insertedMatchedChars;
 	ScintillaEditView * _pEditView;
 };
 
@@ -65,7 +66,7 @@ public:
 																_curLang(L_TEXT), _pXmlFile(NULL), _keyWordMaxLen(0),
 																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords(TEXT("")) {
 		//Do not load any language yet
-		_insertedMachedChars.init(_pEditView);
+		_insertedMatchedChars.init(_pEditView);
 	};
 
 	~AutoCompletion(){
@@ -98,7 +99,7 @@ private:
 	TiXmlDocument *_pXmlFile;
 	TiXmlElement *_pXmlKeyword;
 
-	InsertedMachedChars _insertedMachedChars;
+	InsertedMatchedChars _insertedMatchedChars;
 
 	bool _ignoreCase;
 

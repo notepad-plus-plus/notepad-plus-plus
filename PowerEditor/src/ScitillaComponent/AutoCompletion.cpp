@@ -402,26 +402,55 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	closeTag[foundTextLen+2] = '\0'; 
 }
 
-void InsertedMachedChars::add(MachedCharInserted mci)
+void InsertedMatchedChars::removeInvalidElements(MatchedCharInserted mci)
 {
-	_insertedMachedChars.push_back(mci);
+	if (mci._c == '\n' || mci._c == '\r') // create a new line, so all matched char are invalidated
+	{
+		_insertedMatchedChars.clear();
+	}
+	else
+	{
+		for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
+		{
+			if (_insertedMatchedChars[i]._pos < mci._pos)
+			{
+				int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, mci._pos);
+				int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
+
+				if (posToDetectLine != startPosLine) //not in the same line
+				{
+					_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
+				}
+			}
+			else // current position is before matchedStartSybol Pos
+			{
+				_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
+			}
+		}
+	}
+}
+
+void InsertedMatchedChars::add(MatchedCharInserted mci)
+{
+	removeInvalidElements(mci);
+	_insertedMatchedChars.push_back(mci);
 }
 
 // if current pos > matchedStartSybol Pos and current pos is on the same line of matchedStartSybolPos, it'll be checked then removed
 // otherwise it is just removed
 // return the pos of matchedEndSybol or -1 if matchedEndSybol not found
-int InsertedMachedChars::search(char startChar, char endChar, int posToDetect)
+int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 {
 	if (isEmpty())
 		return -1;
 	int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
 	
-	for (int i = _insertedMachedChars.size() - 1; i >= 0; --i)
+	for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
 	{
-		if (_insertedMachedChars[i]._pos < posToDetect)
+		if (_insertedMatchedChars[i]._pos < posToDetect)
 		{
 
-			int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMachedChars[i]._pos);
+			int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
 			if (posToDetectLine == startPosLine)
 			{
 				int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
@@ -431,24 +460,24 @@ int InsertedMachedChars::search(char startChar, char endChar, int posToDetect)
 					char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
 					if (aChar == startChar)
 					{
-						_insertedMachedChars.erase(_insertedMachedChars.begin() + i);
+						_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
 						return -1;
 					}
 					if (aChar == endChar) // found it!!!
 					{
-						_insertedMachedChars.erase(_insertedMachedChars.begin() + i);
+						_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
 						return j;
 					}
 				}
 			}
 			else // not in the same line
 			{
-				_insertedMachedChars.erase(_insertedMachedChars.begin() + i);
+				_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
 			}
 		}
 		else // current position is before matchedStartSybol Pos
 		{
-			_insertedMachedChars.erase(_insertedMachedChars.begin() + i);
+			_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
 		}
 	}
 	return -1;
@@ -483,7 +512,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			if (matchedPairConf._doParentheses)
 			{
 				matchedChars = ")";
-				_insertedMachedChars.add(MachedCharInserted(char(character), caretPos - 1));
+				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
 			}
 		break;
 
@@ -491,7 +520,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			if (matchedPairConf._doBrackets)
 			{
 				matchedChars = "]";
-				_insertedMachedChars.add(MachedCharInserted(char(character), caretPos - 1));
+				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
 			}
 		break;
 
@@ -499,7 +528,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			if (matchedPairConf._doCurlyBrackets)
 			{
 				matchedChars = "}";
-				_insertedMachedChars.add(MachedCharInserted(char(character), caretPos - 1));
+				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
 			}
 		break;
 
@@ -525,7 +554,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int(')') :
 		case int(']') :
 		case int('}') :
-			if (matchedPairConf._doParentheses && !_insertedMachedChars.isEmpty())
+			if (matchedPairConf._doParentheses && !_insertedMatchedChars.isEmpty())
 			{
 				char startChar;
 				if (character == int(')'))
@@ -535,7 +564,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 				else // if (character == int('}'))
 					startChar = '{';
 
-				int pos = _insertedMachedChars.search(startChar, char(character), caretPos);
+				int pos = _insertedMatchedChars.search(startChar, char(character), caretPos);
 				if (pos != -1)
 				{
 					_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -544,6 +573,10 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 				return;
 			}
 			break;
+
+		default:
+			if (!_insertedMatchedChars.isEmpty())
+				_insertedMatchedChars.removeInvalidElements(MatchedCharInserted(char(character), caretPos - 1));
 	}
 
 	if (matchedChars)

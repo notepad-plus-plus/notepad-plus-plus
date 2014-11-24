@@ -39,6 +39,24 @@
 
 class ScintillaEditView;
 
+struct MachedCharInserted {
+	char _c;
+	int _pos;
+	MachedCharInserted(char c, int pos) : _c(c), _pos(pos) {};
+};
+
+class InsertedMachedChars {
+public:
+	void init(ScintillaEditView * pEditView) { _pEditView = pEditView; };
+	void add(MachedCharInserted mci);
+	bool isEmpty() const { return _insertedMachedChars.size() == 0; };
+	int search(char startChar, char endChar, int posToDetect);
+
+private:
+	std::vector<MachedCharInserted> _insertedMachedChars;
+	ScintillaEditView * _pEditView;
+};
+
 class AutoCompletion {
 public:
 	enum ActiveCompletion {CompletionNone = 0, CompletionAuto, CompletionWord, CompletionFunc, CompletionPath};
@@ -47,6 +65,7 @@ public:
 																_curLang(L_TEXT), _pXmlFile(NULL), _keyWordMaxLen(0),
 																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords(TEXT("")) {
 		//Do not load any language yet
+		_insertedMachedChars.init(_pEditView);
 	};
 
 	~AutoCompletion(){
@@ -79,8 +98,7 @@ private:
 	TiXmlDocument *_pXmlFile;
 	TiXmlElement *_pXmlKeyword;
 
-	bool _doIgnoreParenthease;
-	int _parenthesePos;
+	InsertedMachedChars _insertedMachedChars;
 
 	bool _ignoreCase;
 
@@ -92,7 +110,6 @@ private:
 
 	const TCHAR * getApiFileName();
 	void getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars);
-	int isInBetween(int startPos, char endChar, int posToDetect);
 };
 
 #endif //AUTOCOMPLETION_H

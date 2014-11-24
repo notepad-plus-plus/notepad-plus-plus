@@ -402,6 +402,58 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	closeTag[foundTextLen+2] = '\0'; 
 }
 
+void InsertedMachedChars::add(MachedCharInserted mci)
+{
+	_insertedMachedChars.push_back(mci);
+}
+
+// if current pos > matchedStartSybol Pos and current pos is on the same line of matchedStartSybolPos, it'll be checked then removed
+// otherwise it is just removed
+// return the pos of matchedEndSybol or -1 if matchedEndSybol not found
+int InsertedMachedChars::search(char startChar, char endChar, int posToDetect)
+{
+	if (isEmpty())
+		return -1;
+	int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
+	
+	for (int i = _insertedMachedChars.size() - 1; i >= 0; --i)
+	{
+		if (_insertedMachedChars[i]._pos < posToDetect)
+		{
+
+			int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMachedChars[i]._pos);
+			if (posToDetectLine == startPosLine)
+			{
+				int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
+
+				for (int j = posToDetect; j <= endPos; ++j)
+				{
+					char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
+					if (aChar == startChar)
+					{
+						_insertedMachedChars.erase(_insertedMachedChars.begin() + i);
+						return -1;
+					}
+					if (aChar == endChar) // found it!!!
+					{
+						_insertedMachedChars.erase(_insertedMachedChars.begin() + i);
+						return j;
+					}
+				}
+			}
+			else // not in the same line
+			{
+				_insertedMachedChars.erase(_insertedMachedChars.begin() + i);
+			}
+		}
+		else // current position is before matchedStartSybol Pos
+		{
+			_insertedMachedChars.erase(_insertedMachedChars.begin() + i);
+		}
+	}
+	return -1;
+}
+
 void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & matchedPairConf)
 {
 	const vector< pair<char, char> > & matchedPairs = matchedPairConf._matchedPairs;
@@ -421,7 +473,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	}
 
 	// if there's no user defined matched pair found, continue to check notepad++'s one
-
+	
 	const size_t closeTagLen = 256;
 	char closeTag[closeTagLen];
 	closeTag[0] = '\0';
@@ -431,43 +483,26 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			if (matchedPairConf._doParentheses)
 			{
 				matchedChars = ")";
-				_doIgnoreParenthease = true;
-				_parenthesePos = caretPos - 1;
+				_insertedMachedChars.add(MachedCharInserted(char(character), caretPos - 1));
 			}
-
 		break;
-		case int(')') :
-			if (matchedPairConf._doParentheses && _doIgnoreParenthease)
-			{
-				matchedChars = ")";
-				// if current pos is on the same line of _parenthesePos
-				// and current pos > _parenthesePos
-				if (_parenthesePos < caretPos)
-				{
-					// detect if ) is in between ( and )
-					int pos = isInBetween(_parenthesePos, ')', caretPos);
-					if (pos != -1)
-					{
-						_pEditView->execute(SCI_DELETERANGE, pos, 1);
-						_pEditView->execute(SCI_GOTOPOS, pos);
-					}
-				}
-
-				_doIgnoreParenthease = false;
-				_parenthesePos = -1;
-				return;
-			}
-
-			break;
 
 		case int('['):
 			if (matchedPairConf._doBrackets)
+			{
 				matchedChars = "]";
+				_insertedMachedChars.add(MachedCharInserted(char(character), caretPos - 1));
+			}
 		break;
+
 		case int('{'):
 			if (matchedPairConf._doCurlyBrackets)
+			{
 				matchedChars = "}";
+				_insertedMachedChars.add(MachedCharInserted(char(character), caretPos - 1));
+			}
 		break;
+
 		case int('"'):
 			if (matchedPairConf._doDoubleQuotes)
 				matchedChars = "\"";
@@ -486,34 +521,33 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			}
 		}
 		break;
+
+		case int(')') :
+		case int(']') :
+		case int('}') :
+			if (matchedPairConf._doParentheses && !_insertedMachedChars.isEmpty())
+			{
+				char startChar;
+				if (character == int(')'))
+					startChar = '(';
+				else if (character == int(']'))
+					startChar = '[';
+				else // if (character == int('}'))
+					startChar = '{';
+
+				int pos = _insertedMachedChars.search(startChar, char(character), caretPos);
+				if (pos != -1)
+				{
+					_pEditView->execute(SCI_DELETERANGE, pos, 1);
+					_pEditView->execute(SCI_GOTOPOS, pos);
+				}
+				return;
+			}
+			break;
 	}
 
 	if (matchedChars)
 		_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)matchedChars);
-}
-
-int AutoCompletion::isInBetween(int startPos, char endChar, int posToDetect)
-{
-	int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
-	int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
-
-	if (startPosLine != posToDetectLine)
-		return -1;
-
-	int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
-
-	char startChar = (char)_pEditView->execute(SCI_GETCHARAT, startPos);
-
-
-	for (int i = posToDetect; i <= endPos; ++i)
-	{
-		char aChar = (char)_pEditView->execute(SCI_GETCHARAT, i);
-		if (aChar == startChar)
-			return -1;
-		if (aChar == endChar)
-			return i;
-	}
-	return -1;
 }
 
 

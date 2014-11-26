@@ -2302,7 +2302,7 @@ int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char target
 
 	if (startPos > endPos) // backward
 	{
-		for (size_t i = startPos; i >= endPos; --i)
+		for (int i = startPos; i >= int(endPos); --i)
 		{
 			char aChar = (char)_pEditView->execute(SCI_GETCHARAT, i);
 			if (aChar == targetSymbol)

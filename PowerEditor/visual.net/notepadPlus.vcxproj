@@ -489,7 +489,6 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
     <ClInclude Include="..\src\WinControls\ProjectPanel\ProjectPanel_rc.h" />
     <ClInclude Include="..\src\MISC\RegExt\regExtDlg.h" />
     <ClInclude Include="..\src\MISC\RegExt\regExtDlgRc.h" />
-    <ClInclude Include="..\src\WinControls\Preference\resource.h" />
     <ClInclude Include="..\src\resource.h" />
     <ClInclude Include="..\src\WinControls\StaticDialog\RunDlg\RunDlg.h" />
     <ClInclude Include="..\src\WinControls\shortcut\RunMacroDlg.h" />

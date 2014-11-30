@@ -505,7 +505,7 @@ BEGIN
         MENUITEM "Text Direction LTR",                  IDM_EDIT_LTR
     END
 
-    POPUP "Encoding"
+    POPUP "E&ncoding"
     BEGIN
         MENUITEM "Encode in ANSI",                    IDM_FORMAT_ANSI
         MENUITEM "Encode in UTF-8 without BOM",       IDM_FORMAT_AS_UTF_8
@@ -814,7 +814,7 @@ BEGIN
         MENUITEM "Edit Popup ContextMenu",      IDM_SETTING_EDITCONTEXTMENU
     END
 
-    POPUP "Macro"
+    POPUP "&Macro"
     BEGIN
         MENUITEM "Start Re&cording",                   IDM_MACRO_STARTRECORDINGMACRO
         MENUITEM "S&top Recording",                    IDM_MACRO_STOPRECORDINGMACRO
@@ -823,7 +823,7 @@ BEGIN
         MENUITEM "&Run a Macro Multiple Times...",     IDM_MACRO_RUNMULTIMACRODLG
     END
 
-    POPUP "Run"
+    POPUP "&Run"
     BEGIN
         MENUITEM "&Run...",    IDM_EXECUTE
     END

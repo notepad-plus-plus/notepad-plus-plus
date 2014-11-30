@@ -840,7 +840,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Do you want to save the current project?"), TEXT(""), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Do you want to save the current project?"), TEXT("New Workspace"), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
 				{
 					if (!saveWorkSpace())
@@ -908,7 +908,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Do you want to save the current project?"), TEXT(""), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Do you want to save the current project?"), TEXT("Open Workspace"), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
 				{
 					if (!saveWorkSpace())
@@ -931,7 +931,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			{
 				if (!openWorkSpace(fn))
 				{
-					::MessageBox(_hSelf, TEXT("Opening Workspace failed.\rIt seems the file to open is not valid project file."), TEXT("Open Workspace"), MB_OK);
+					::MessageBox(_hSelf, TEXT("The workspace could not be opened.\rIt seems the file to open is not a valid project file."), TEXT("Open Workspace"), MB_OK);
 					return;
 				}
 			}
@@ -942,7 +942,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Reload will discard all modification.\rDo you want to continue?"), TEXT(""), MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Reloading will discard all modifications.\rDo you want to continue?"), TEXT("Reload Workspace"), MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
 				{
 					// Do nothing
@@ -959,7 +959,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			}
 			else
 			{
-				::MessageBox(_hSelf, TEXT("Can not find file to reload"), TEXT(""), MB_OK | MB_ICONEXCLAMATION | MB_APPLMODAL);
+				::MessageBox(_hSelf, TEXT("Cannot find the file to reload."), TEXT("Reload Workspace"), MB_OK | MB_ICONEXCLAMATION | MB_APPLMODAL);
 			}
 		}
 		break;
@@ -981,8 +981,8 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 			if (_treeView.getChildFrom(hTreeItem) != NULL)
 			{
-				TCHAR str2display[MAX_PATH] = TEXT("All the sub-items will be removed.\rAre you sure to remove this folder from the project?");
-				if (::MessageBox(_hSelf, str2display, TEXT("Remove folder from projet"), MB_YESNO) == IDYES)
+				TCHAR str2display[MAX_PATH] = TEXT("All the sub-items will be removed.\rAre you sure you want to remove this folder from the project?");
+				if (::MessageBox(_hSelf, str2display, TEXT("Remove folder from project"), MB_YESNO) == IDYES)
 				{
 					_treeView.removeItem(hTreeItem);
 					setWorkSpaceDirty(true);
@@ -1002,8 +1002,8 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			HTREEITEM parent = _treeView.getParent(hTreeItem);
 
-			TCHAR str2display[MAX_PATH] = TEXT("Are you sure to remove this file from the project?");
-			if (::MessageBox(_hSelf, str2display, TEXT("Remove file from projet"), MB_YESNO) == IDYES)
+			TCHAR str2display[MAX_PATH] = TEXT("Are you sure you want to remove this file from the project?");
+			if (::MessageBox(_hSelf, str2display, TEXT("Remove file from project"), MB_YESNO) == IDYES)
 			{
 				_treeView.removeItem(hTreeItem);
 				setWorkSpaceDirty(true);

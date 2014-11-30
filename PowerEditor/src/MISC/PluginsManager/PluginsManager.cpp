@@ -340,7 +340,7 @@ HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 {
 	if (hasPlugins())
 	{
-		const TCHAR *nom_menu = (menuName && menuName[0])?menuName:TEXT("Plugins");
+		const TCHAR *nom_menu = (menuName && menuName[0])?menuName:TEXT("&Plugins");
 
         if (!_hPluginsMenu)
         {

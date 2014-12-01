@@ -2131,12 +2131,18 @@ void Notepad_plus::command(int id)
 				}
 				else if (iQuote == -2)
 				{
-					showAllQuotes();
+					generic_string noEasterEggsPath((NppParameters::getInstance())->getNppPath());
+					noEasterEggsPath.append(TEXT("\\noEasterEggs.xml"));
+					if (!::PathFileExists(noEasterEggsPath.c_str()))
+						showAllQuotes();
 					return;
 				}
 				if (iQuote != -1)
 				{
-					showQuoteFromIndex(iQuote);
+					generic_string noEasterEggsPath((NppParameters::getInstance())->getNppPath());
+					noEasterEggsPath.append(TEXT("\\noEasterEggs.xml"));
+					if (!::PathFileExists(noEasterEggsPath.c_str()))
+						showQuoteFromIndex(iQuote);
 					return;
 				}	
 			}

@@ -2422,8 +2422,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				}
 			}
 
-			if (indentAmountPrevLine)
-				_pEditView->setLineIndent(curLine, indentAmountPrevLine);
+			_pEditView->setLineIndent(curLine, indentAmountPrevLine);
 			
 		}
 		else if (ch == '}')

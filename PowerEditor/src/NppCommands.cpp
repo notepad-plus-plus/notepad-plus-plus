@@ -2386,8 +2386,11 @@ void Notepad_plus::command(int id)
 			long exStyle = ::GetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE);
 			exStyle = (id == IDM_EDIT_RTL)?exStyle|WS_EX_LAYOUTRTL:exStyle&(~WS_EX_LAYOUTRTL);
 			::SetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE, exStyle);
-			BufferID buf = _pEditView->getCurrentBufferID();
-			doReload(buf, buf->isDirty());
+
+			// Wrap then !wrap to fix problem of mirror characters
+			bool isWraped = _pEditView->isWrap();
+			_pEditView->wrap(!isWraped);
+			_pEditView->wrap(isWraped);
 		}
 		break;
 

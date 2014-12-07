@@ -89,7 +89,16 @@ void DocumentMap::initWrapMap()
 		::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, rect.right - rect.left, rect.bottom-rect.top, TRUE);
 		_pScintillaEditView->wrap(false);
 		_pScintillaEditView->redraw(true);
+
+		bool isRTL = (*_ppEditView)->isTextDirectionRTL();
+		if (_pScintillaEditView->isTextDirectionRTL() != isRTL)
+			_pScintillaEditView->changeTextDirection(isRTL);
 	}
+}
+
+void DocumentMap::changeTextDirection(bool isRTL)
+{
+	_pScintillaEditView->changeTextDirection(isRTL);
 }
 
 /*

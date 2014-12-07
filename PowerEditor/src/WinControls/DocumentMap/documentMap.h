@@ -131,6 +131,7 @@ public:
 	void fold(int line, bool foldOrNot);
 	void foldAll(bool mode);
 	void setSyntaxHiliting();
+	void changeTextDirection(bool isRTL);
 
 protected:
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

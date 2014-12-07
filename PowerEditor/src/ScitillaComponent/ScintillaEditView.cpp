@@ -3081,6 +3081,18 @@ void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine, bool isRe
 		quickSortLines(pivotIndex + 1, toLine, isReverse);
 }
 
+bool ScintillaEditView::isTextDirectionRTL() const
+{
+	long exStyle = ::GetWindowLongPtr(_hSelf, GWL_EXSTYLE);
+	return (exStyle & WS_EX_LAYOUTRTL) != 0;
+}
+
+void ScintillaEditView::changeTextDirection(bool isRTL)
+{
+	long exStyle = ::GetWindowLongPtr(_hSelf, GWL_EXSTYLE);
+	exStyle = isRTL ? exStyle | WS_EX_LAYOUTRTL : exStyle&(~WS_EX_LAYOUTRTL);
+	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
+}
 
 bool ScintillaEditView::swapLines(size_t line1, size_t line2)
 {

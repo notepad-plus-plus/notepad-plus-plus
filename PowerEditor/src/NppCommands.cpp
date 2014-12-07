@@ -2383,14 +2383,16 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_RTL :
 		case IDM_EDIT_LTR :
 		{
-			long exStyle = ::GetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE);
-			exStyle = (id == IDM_EDIT_RTL)?exStyle|WS_EX_LAYOUTRTL:exStyle&(~WS_EX_LAYOUTRTL);
-			::SetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE, exStyle);
+			_pEditView->changeTextDirection(id == IDM_EDIT_RTL);
 
 			// Wrap then !wrap to fix problem of mirror characters
 			bool isWraped = _pEditView->isWrap();
 			_pEditView->wrap(!isWraped);
 			_pEditView->wrap(isWraped);
+			if (_pDocMap)
+			{
+				_pDocMap->changeTextDirection(id == IDM_EDIT_RTL);
+			}
 		}
 		break;
 

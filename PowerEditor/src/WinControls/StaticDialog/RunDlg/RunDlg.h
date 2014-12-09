@@ -18,7 +18,7 @@
 #ifndef RUN_DLG_H
 #define RUN_DLG_H
 
-#include <Oleacc.h>
+#include <oleacc.h>
 #include "Common.h"
 
 #ifndef RUN_DLG_RC_H

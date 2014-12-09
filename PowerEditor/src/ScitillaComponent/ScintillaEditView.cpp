@@ -30,7 +30,7 @@
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "Sorters.h"
-#include "TCHAR.h"
+#include "tchar.h"
 #include <memory>
 
 using namespace std;

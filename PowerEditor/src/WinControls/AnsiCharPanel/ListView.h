@@ -29,7 +29,7 @@
 #ifndef LISTVIEW_H
 #define LISTVIEW_H
 
-#include "window.h"
+#include "Window.h"
 #include "Common.h"
 
 class ListView : public Window

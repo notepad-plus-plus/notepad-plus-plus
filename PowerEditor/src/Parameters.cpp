@@ -27,7 +27,7 @@
 
 #include <time.h>
 #include <shlwapi.h>
-#include <Shlobj.h>
+#include <shlobj.h>
 #include "Parameters.h"
 #include "FileDialog.h"
 #include "ScintillaEditView.h"

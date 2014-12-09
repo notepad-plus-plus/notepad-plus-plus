@@ -27,7 +27,7 @@
 
 
 #include "FindCharsInRange.h"
-#include "FindCharsInRange_rc.h"
+#include "findCharsInRange_rc.h"
 
 INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {

@@ -30,7 +30,7 @@
 
 #include <windows.h>
 #include <commctrl.h>
-#include "window.h"
+#include "Window.h"
 #include "Common.h"
 
 struct TreeStateNode {

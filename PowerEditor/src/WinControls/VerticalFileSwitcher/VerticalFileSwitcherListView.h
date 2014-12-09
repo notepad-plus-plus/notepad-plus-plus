@@ -29,7 +29,7 @@
 #ifndef VERTICALFILESWITCHERLISTVIEW_H
 #define VERTICALFILESWITCHERLISTVIEW_H
 
-#include "window.h"
+#include "Window.h"
 #include "TaskListDlg.h"
 
 class Buffer;

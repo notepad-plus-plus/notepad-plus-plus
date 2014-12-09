@@ -10,7 +10,7 @@ Add WM_MOUSEWHEEL, WM_LBUTTONDBLCLK and WM_RBUTTONUP events
 Modified by Don HO <don.h@free.fr>
 */
 
-#include "babygrid.h"
+#include "BabyGrid.h"
 #include "Parameters.h"
 
 #define MAX_GRIDS 20

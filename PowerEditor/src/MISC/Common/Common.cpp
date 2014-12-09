@@ -28,7 +28,7 @@
 
 #include <algorithm>
 #include <shlwapi.h>
-#include <Shlobj.h>
+#include <shlobj.h>
 #include <uxtheme.h>
 #include "StaticDialog.h"
 

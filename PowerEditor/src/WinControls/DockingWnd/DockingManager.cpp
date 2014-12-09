@@ -31,7 +31,7 @@
 #include "DockingSplitter.h"
 #include "DockingCont.h"
 #include "Gripper.h"
-#include "parameters.h"
+#include "Parameters.h"
 
 using namespace std;
 

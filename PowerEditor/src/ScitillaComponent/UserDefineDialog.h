@@ -50,7 +50,7 @@ static int max(int a, int b) {
 };
 #endif //__GNUC__
 #include "tchar.h"
-#include "scilexer.h"
+#include "SciLexer.h"
 #include <unordered_map>
 
 class ScintillaEditView;

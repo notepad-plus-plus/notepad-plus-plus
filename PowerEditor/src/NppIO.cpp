@@ -33,7 +33,7 @@
 #include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
-#include <TCHAR.h>
+#include <tchar.h>
 
 using namespace std;
 

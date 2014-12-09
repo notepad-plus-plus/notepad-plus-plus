@@ -322,6 +322,13 @@ public :
 	generic_string getBackupFileName() const {return _backupFileName;};
 	void setBackupFileName(generic_string fileName) {_backupFileName = fileName;};
 	time_t getLastModifiedTimestamp() const {return _timeStamp;};
+	bool isLoadedDirty() const {
+		return _isLoadedDirty;
+	};
+
+	void setLoadedDirty(bool val) {
+		_isLoadedDirty = val;
+	};
 
 private :
 	FileManager * _pManager;
@@ -350,7 +357,7 @@ private :
 	//Environment properties
 	DocFileStatus _currentStatus;
 	time_t _timeStamp; // 0 if it's a new doc
-	//time_t _backupModifiedTimeStamp; // 0 if backup file is not created
+	
 	bool _isFileReadOnly;
 	generic_string _fullPathName;
 	TCHAR * _fileName;	//points to filename part in _fullPathName
@@ -362,6 +369,7 @@ private :
 	// For backup system
 	generic_string _backupFileName; // default: ""
 	bool _isModified; // default: false
+	bool _isLoadedDirty; // default: false
 
 	void updateTimeStamp();
 

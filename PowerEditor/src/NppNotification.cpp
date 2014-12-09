@@ -94,20 +94,36 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				//Done by invisibleEditView?
 				BufferID id = BUFFER_INVALID;
-				if (notification->nmhdr.hwndFrom == _invisibleEditView.getHSelf()) {
+				if (notification->nmhdr.hwndFrom == _invisibleEditView.getHSelf()) 
+				{
 					id = MainFileManager->getBufferFromDocument(_invisibleEditView.execute(SCI_GETDOCPOINTER));
-				} else if (notification->nmhdr.hwndFrom == _fileEditView.getHSelf()) {
+				}
+				else if (notification->nmhdr.hwndFrom == _fileEditView.getHSelf())
+				{
 					id = MainFileManager->getBufferFromDocument(_fileEditView.execute(SCI_GETDOCPOINTER));
-				} else {
+				}
+				else 
+				{
 					break;	//wrong scintilla
 				}
-				if (id != BUFFER_INVALID) {
+
+				if (id != BUFFER_INVALID)
+				{
 					buf = MainFileManager->getBufferByID(id);
-				} else {
+				}
+				else
+				{
 					break;
 				}
 			}
 			bool isDirty = notification->nmhdr.code == SCN_SAVEPOINTLEFT;
+			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+			if (isSnapshotMode && !isDirty)
+			{
+				bool canUndo = _pEditView->execute(SCI_CANUNDO) == TRUE;
+				if (!canUndo && buf->isLoadedDirty())
+					isDirty = true;
+			}
 			buf->setDirty(isDirty);
 			break; 
 		}

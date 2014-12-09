@@ -168,6 +168,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 				scnN.nmhdr.idFrom = (uptr_t)buffer;
 				scnN.nmhdr.code = NPPN_SNAPSHOTDIRTYFILELOADED;
 				_pluginsManager.notify(&scnN);
+
+				buffer->setLoadedDirty(true);
 			}
 		}
 	}

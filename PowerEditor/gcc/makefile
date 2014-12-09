@@ -210,13 +210,19 @@ OBJS			= $(OBJ_NPP) $(OBJS_WIN) $(OBJS_UCHARDET) $(OBJS_TIXML) $(OBJS_SQLITE) $(
 SRC_RES			= ./resources.rc
 OBJ_RES			= $(patsubst %.rc,%.res,$(SRC_RES))
 
+ifeq ($(OS),Windows_NT)
+CROSS_COMPILE =
+else
+CROSS_COMPILE ?= i686-w64-mingw32-
+endif
+
 # Parameters
 INCLUDESPECIAL	= -include./include/various.h
 #    Comment this out for ANSI build
 UNICODE         = -DUNICODE -D_UNICODE
 
-CXX				= g++
-CC				= gcc
+CXX				= $(CROSS_COMPILE)g++
+CC				= $(CROSS_COMPILE)gcc
 #CXXFLAGS		= -O2 $(INCLUDESPECIAL)
 CXXFLAGS		= $(INCLUDESPECIAL) -DTIXML_USE_STL -DTIXMLA_USE_STL $(UNICODE)
 CFLAGS			= $(INCLUDESPECIAL) -DTIXML_USE_STL -DTIXMLA_USE_STL $(UNICODE)
@@ -224,7 +230,7 @@ INCLUDES		= $(patsubst %,-I%,$(DIRS)) -I./include
 LDFLAGS			= -Wl,--subsystem,windows
 LIBS			= -lcomdlg32 -lcomctl32 -lgdi32 -lole32 -loleacc -lshell32 -lshlwapi
 
-RC				= windres
+RC				= $(CROSS_COMPILE)windres
 
 OUT_NPP			= NotepadPP.exe
 

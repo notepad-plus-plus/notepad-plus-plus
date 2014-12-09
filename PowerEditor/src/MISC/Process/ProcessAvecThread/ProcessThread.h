@@ -97,4 +97,4 @@ protected:
 	}
 };
 
-#endif PROCESS_THREAD_H
+#endif //PROCESS_THREAD_H

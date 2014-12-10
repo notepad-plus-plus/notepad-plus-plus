@@ -3104,7 +3104,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 {
 	const TCHAR * udlVersion = _userLangArray[_nbUserLang - 1]->_udlVersion.c_str();
 	const TCHAR * keywordsName = nullptr;
-	TCHAR *kwl = nullptr;
+	const TCHAR *kwl = nullptr;
 	int id = -1;
 
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("Keywords"));

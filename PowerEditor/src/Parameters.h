@@ -1051,15 +1051,15 @@ public :
     LocalizationSwitcher() : _fileName("") {};
 
 	struct LocalizationDefinition {
-		wchar_t *_langName;
-		wchar_t *_xmlFileName;
+		const wchar_t *_langName;
+		const wchar_t *_xmlFileName;
 	};
 
 	bool addLanguageFromXml(std::wstring xmlFullPath);
 	std::wstring getLangFromXmlFileName(const wchar_t *fn) const;
 
 	std::wstring getXmlFilePathFromLangName(const wchar_t *langName) const;
-	bool switchToLang(wchar_t *lang2switch) const;
+	bool switchToLang(const wchar_t *lang2switch) const;
 
 	size_t size() const {
 		return _localizationList.size();

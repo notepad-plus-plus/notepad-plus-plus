@@ -2950,7 +2950,7 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
 {
 	static TCHAR findCount[128] = TEXT("");
-	static TCHAR *findStatus[] = { findCount, // FSFound
+	static const TCHAR *findStatus[] = { findCount, // FSFound
 	                               TEXT("Phrase not found"), //FSNotFound
 	                               TEXT("Reached top of page, continued from bottom"), // FSTopReached
 	                               TEXT("Reached end of page, continued from top")}; // FSEndReached

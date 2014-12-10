@@ -128,7 +128,7 @@ void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
 	::SendMessage(_hSelf, TCM_GETITEM, getCurrentTabIndex(), reinterpret_cast<LPARAM>(&tci));
 }
 
-void TabBar::setFont(TCHAR *fontName, size_t fontSize)
+void TabBar::setFont(const TCHAR *fontName, size_t fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);

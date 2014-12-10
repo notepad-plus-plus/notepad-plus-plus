@@ -2359,7 +2359,7 @@ void Notepad_plus::command(int id)
 				{
 					if (_nativeLangSpeaker.getLangEncoding() == NPP_CP_BIG5)
 					{
-						char *authorName = "«J¤µ§^";
+						const char *authorName = "«J¤µ§^";
 						HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
 
 						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();

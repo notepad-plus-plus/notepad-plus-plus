@@ -1139,7 +1139,7 @@ public :
 		_list.push_back(std::pair<generic_string, bool>(fn, isInBL));
     };
 private :
-	std::vector<std::pair<generic_string, bool>>_list;
+	std::vector<std::pair<generic_string, bool> >_list;
 };
 
 const int NB_LANG = 80;

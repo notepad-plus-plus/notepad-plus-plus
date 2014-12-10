@@ -133,7 +133,7 @@ public:
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
 		// Note that empty lines are filtered out and added back manually to the output at the end.
-		std::vector<std::pair<size_t, T_Num>> nonEmptyInputAsNumbers;
+		std::vector<std::pair<size_t, T_Num> > nonEmptyInputAsNumbers;
 		std::vector<generic_string> empties;
 		nonEmptyInputAsNumbers.reserve(lines.size());
 		for (size_t lineIndex = 0; lineIndex < lines.size(); ++lineIndex)

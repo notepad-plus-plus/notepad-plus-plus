@@ -46,3 +46,6 @@ static inline int min(unsigned int a, unsigned int b) {
 
 //Missing unicode CRT funcs
 //double _wtof(const wchar_t * string);
+
+// from MinGW include/driverspecs.h
+#define __inout

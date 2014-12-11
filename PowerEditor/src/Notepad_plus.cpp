@@ -4639,6 +4639,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	if (mask & BufferChangeStatus)
 	{	//reload etc
 		bool didDialog = false;
+		bool doCloseDoc = false;
 		switch(buffer->getStatus())
 		{
 			case DOC_UNNAMED: 	//nothing todo
@@ -4683,7 +4684,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 				activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
 				didDialog = true;
-				if (doCloseOrNot(buffer->getFullPathName()) == IDNO)
+				doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
+				if (doCloseDoc)
 				{
 					//close in both views, doing current view last since that has to remain opened
 					bool isSnapshotMode = nppGUI.isSnapshotMode();
@@ -4701,6 +4703,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
 			if (::IsIconic(_pPublicInterface->getHSelf()))
 				::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
+
+			if (doCloseDoc) // buffer has been deleted, cannot (and no need to) go on
+				return;
 		}
 	}
 

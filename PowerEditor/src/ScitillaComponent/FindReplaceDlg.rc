@@ -87,7 +87,7 @@ BEGIN
 	CONTROL         "&. matches newline",IDREDOTMATCHNL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,93,167,67,9
 END
 
-IDB_INCREMENTAL_BG          BITMAP                  "..\\icons\\incrementalBg.bmp"
+IDB_INCREMENTAL_BG          BITMAP                  "../icons/incrementalBg.bmp"
 
 IDD_INCREMENT_FIND DIALOGEX 0, 0, 400, 20
 STYLE DS_SYSMODAL | DS_CONTROL | DS_FIXEDSYS | WS_CHILD | WS_CLIPCHILDREN

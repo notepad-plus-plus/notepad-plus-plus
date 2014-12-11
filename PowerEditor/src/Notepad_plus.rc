@@ -361,8 +361,8 @@ BEGIN
         MENUITEM "Previous Search Result",      IDM_SEARCH_GOTOPREVFOUND
         MENUITEM "&Go to...",                   IDM_SEARCH_GOTOLINE
         MENUITEM "Go to Matching Brace",        IDM_SEARCH_GOTOMATCHINGBRACE
-		MENUITEM "Select All Between Matching Braces" IDM_SEARCH_SELECTMATCHINGBRACES
-		MENUITEM "Mar&k..."                     IDM_SEARCH_MARK
+        MENUITEM "Select All Between Matching Braces", IDM_SEARCH_SELECTMATCHINGBRACES
+        MENUITEM "Mar&k...",                    IDM_SEARCH_MARK
         MENUITEM SEPARATOR
 
         POPUP "Mark All"
@@ -450,18 +450,18 @@ BEGIN
 		
 		POPUP "Tab"
 		BEGIN
-			MENUITEM "1st Tab"					IDM_VIEW_TAB1
-			MENUITEM "2nd Tab"					IDM_VIEW_TAB2
-			MENUITEM "3rd Tab"					IDM_VIEW_TAB3
-			MENUITEM "4th Tab"					IDM_VIEW_TAB4
-			MENUITEM "5th Tab"					IDM_VIEW_TAB5
-			MENUITEM "6th Tab"					IDM_VIEW_TAB6
-			MENUITEM "7th Tab"					IDM_VIEW_TAB7
-			MENUITEM "8th Tab"					IDM_VIEW_TAB8
-			MENUITEM "9th Tab"					IDM_VIEW_TAB9
+			MENUITEM "1st Tab",					IDM_VIEW_TAB1
+			MENUITEM "2nd Tab",					IDM_VIEW_TAB2
+			MENUITEM "3rd Tab",					IDM_VIEW_TAB3
+			MENUITEM "4th Tab",					IDM_VIEW_TAB4
+			MENUITEM "5th Tab",					IDM_VIEW_TAB5
+			MENUITEM "6th Tab",					IDM_VIEW_TAB6
+			MENUITEM "7th Tab",					IDM_VIEW_TAB7
+			MENUITEM "8th Tab",					IDM_VIEW_TAB8
+			MENUITEM "9th Tab",					IDM_VIEW_TAB9
 			MENUITEM SEPARATOR
-			MENUITEM "Next Tab"					IDM_VIEW_TAB_NEXT
-			MENUITEM "Previous Tab"				IDM_VIEW_TAB_PREV
+			MENUITEM "Next Tab",				IDM_VIEW_TAB_NEXT
+			MENUITEM "Previous Tab",			IDM_VIEW_TAB_PREV
 		END
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW

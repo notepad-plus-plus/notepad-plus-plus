@@ -31,7 +31,7 @@
 #include "Scintilla.h"
 
 // Don't change the order
-EncodingUnit encodings[] = {
+static EncodingUnit encodings[] = {
     {1250,  "windows-1250"},                                                                    //IDM_FORMAT_WIN_1250
     {1251,  "windows-1251"},                                                                    //IDM_FORMAT_WIN_1251
     {1252,  "windows-1252"},                                                                    //IDM_FORMAT_WIN_1252

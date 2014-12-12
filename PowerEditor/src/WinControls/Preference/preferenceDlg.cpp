@@ -44,7 +44,7 @@ const int BORDERWIDTH_INTERVAL = 1;
 
 // This int encoding array is built from "EncodingUnit encodings[]" (see EncodingMapper.cpp)
 // And DefaultNewDocDlg will use "int encoding array" to get more info from "EncodingUnit encodings[]"
-int encodings[] = {
+static int encodings[] = {
 	1250, 
 	1251, 
 	1252, 

@@ -41,8 +41,8 @@ static inline int min(unsigned int a, unsigned int b) {
 }
 
 //__try and __except dont work in gcc, so heres some defines to take em out
-#define __try
-#define __except(x)	if(false)
+#define __try		try
+#define __except(x)	catch(...)
 
 //Missing unicode CRT funcs
 //double _wtof(const wchar_t * string);

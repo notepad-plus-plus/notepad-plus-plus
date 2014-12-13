@@ -460,7 +460,7 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier) {
 BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
 	bool ownDoc = false;
-	if (doc == NULL) 
+	if (doc == NULL)
 	{
 		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);
 		ownDoc = true;
@@ -800,7 +800,7 @@ bool FileManager::backupCurrentBuffer()
 				}
 			}
 			// set to signaled state
-			if (::SetEvent(writeEvent) == NULL)
+			if (!::SetEvent(writeEvent))
 			{
 				printStr(TEXT("oups!"));
 			}

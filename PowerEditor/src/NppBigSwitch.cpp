@@ -1080,7 +1080,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_CREATESCINTILLAHANDLE :
 		{
-			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?_pPublicInterface->getHSelf():(HWND)lParam));
+			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == 0?_pPublicInterface->getHSelf():(HWND)lParam));
 		}
 
 		case NPPM_INTERNAL_GETSCINTEDTVIEW:

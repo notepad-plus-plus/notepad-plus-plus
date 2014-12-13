@@ -210,6 +210,10 @@ OBJS			= $(OBJ_NPP) $(OBJS_WIN) $(OBJS_UCHARDET) $(OBJS_TIXML) $(OBJS_SQLITE) $(
 SRC_RES			= ./resources.rc
 OBJ_RES			= $(patsubst %.rc,%.res,$(SRC_RES))
 
+# XML config files
+SRC_XMLCFG		= $(addprefix $(NPP_DIR)/,config.model.xml langs.model.xml stylers.model.xml shortcuts.xml functionList.xml contextMenu.xml)
+DST_XMLCFG		= $(subst $(NPP_DIR),../bin,$(SRC_XMLCFG))
+
 ifeq ($(OS),Windows_NT)
 ifdef ComSpec
 SHELL = $(ComSpec)
@@ -220,10 +224,12 @@ endif
 CROSS_COMPILE =
 DIRSEP = \\
 RM = del
+CP = copy /Y
 else
 CROSS_COMPILE ?= i686-w64-mingw32-
 DIRSEP = /
 RM = rm -f
+CP = cp
 endif
 
 # Parameters
@@ -246,7 +252,7 @@ OUT_NPP			= NotepadPP.exe
 
 EXEC			= ../bin/$(OUT_NPP)
 
-all: NotepadPP
+all: NotepadPP xmlcfg
 
 # Main Notepad++ rule
 NotepadPP: $(OBJS) $(OBJ_RES)
@@ -264,8 +270,14 @@ NotepadPPUnicode: $(OBJS) $(OBJ_RES)
 %.res: %.rc
 	$(RC) $(INCLUDES) $(UNICODE) --input=$< --output=$@ --input-format=rc --output-format=coff
 
+xmlcfg: $(DST_XMLCFG)
+
+$(DST_XMLCFG): $(dir $(firstword $(DST_XMLCFG)))%.xml: $(dir $(firstword $(SRC_XMLCFG)))%.xml
+	$(CP) $(subst /,$(DIRSEP),$< $@)
+
 # Cleanup
 clean:
 	-@$(RM) $(subst /,$(DIRSEP),$(OBJS) $(OBJ_RES))
+	-@$(RM) $(subst /,$(DIRSEP),$(DST_XMLCFG))
 
 .PHONY: all clean NotepadPP NotepadPPUnicode

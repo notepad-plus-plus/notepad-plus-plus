@@ -175,7 +175,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 	BufferID buffer;
 	if (isSnapshotMode)
 	{
-		buffer = MainFileManager->loadFile(longFileName, NULL, encoding, backupFileName, fileNameTimestamp);
+		buffer = MainFileManager->loadFile(longFileName, 0, encoding, backupFileName, fileNameTimestamp);
 
 		if (buffer != BUFFER_INVALID)
 		{
@@ -195,7 +195,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 	}
 	else
 	{
-		buffer = MainFileManager->loadFile(longFileName, NULL, encoding);
+		buffer = MainFileManager->loadFile(longFileName, 0, encoding);
 	}
 
     if (buffer != BUFFER_INVALID)

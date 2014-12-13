@@ -916,7 +916,7 @@ bool FileManager::backupCurrentBuffer()
 				}
 			}
 			// set to signaled state
-			if (::SetEvent(writeEvent) == NULL)
+			if (!::SetEvent(writeEvent))
 			{
 				printStr(TEXT("oups!"));
 			}

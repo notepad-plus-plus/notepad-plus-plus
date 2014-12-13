@@ -205,14 +205,14 @@ void Utf8_16_Read::determineEncoding()
 		m_nSkip = 3;
 	}
 	// try to detect UTF-16 little-endian without BOM
-	else if (m_nLen > 1 && m_nLen % 2 == 0 && m_pBuf[0] != NULL && m_pBuf[1] == NULL && IsTextUnicode(m_pBuf, m_nLen, &uniTest))
+	else if (m_nLen > 1 && m_nLen % 2 == 0 && m_pBuf[0] != 0 && m_pBuf[1] == 0 && IsTextUnicode(m_pBuf, m_nLen, &uniTest))
 	{
 		m_eEncoding = uni16LE_NoBOM;
 		m_nSkip = 0;
 	}
 	/* UTF-16 big-endian without BOM detection is taken away scince this detection is very week
     // try to detect UTF-16 big-endian without BOM
-    else if (m_nLen > 1 && m_pBuf[0] == NULL && m_pBuf[1] != NULL)
+    else if (m_nLen > 1 && m_pBuf[0] == 0 && m_pBuf[1] != 0)
 	{
 		m_eEncoding = uni16BE_NoBOM;
 		m_nSkip = 0;

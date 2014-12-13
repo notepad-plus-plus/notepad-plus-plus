@@ -256,7 +256,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
     SCNotification scnN;
     scnN.nmhdr.code = NPPN_FILEBEFORELOAD;
     scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-    scnN.nmhdr.idFrom = NULL;
+    scnN.nmhdr.idFrom = 0;
     _pluginsManager.notify(&scnN);
 
     if (encoding == -1)

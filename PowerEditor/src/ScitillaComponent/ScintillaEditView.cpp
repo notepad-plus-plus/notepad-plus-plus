@@ -142,6 +142,9 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("javascript.js"), TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JAVASCRIPT,	SCLEX_CPP },
 {TEXT("fortran77"),		TEXT("Fortran fixed form"),	TEXT("Fortran fixed form source file"),					L_FORTRAN_77,	SCLEX_F77},
 {TEXT("baanc"),			TEXT("BaanC"),				TEXT("BaanC File"),										L_BAANC,		SCLEX_BAAN },
+{TEXT("srec"),			TEXT("S-Record"),			TEXT("Motorola S-Record binary data"),					L_SREC,			SCLEX_SREC},
+{TEXT("ihex"),			TEXT("Intel HEX"),			TEXT("Intel HEX binary data"),							L_IHEX,			SCLEX_IHEX},
+{TEXT("tehex"),			TEXT("Tektronix extended HEX"),	TEXT("Tektronix extended HEX binary data"),			L_TEHEX,		SCLEX_TEHEX},
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -1571,6 +1574,15 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_BAANC:
 			setBaanCLexer(); break;
+
+		case L_SREC :
+			setSrecLexer(); break;
+
+		case L_IHEX :
+			setIHexLexer(); break;
+
+		case L_TEHEX :
+			setTEHexLexer(); break;
 
 		case L_TEXT :
 		default :

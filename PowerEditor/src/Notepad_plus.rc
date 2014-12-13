@@ -693,6 +693,7 @@ BEGIN
         MENUITEM "HTML",                    IDM_LANG_HTML
 		MENUITEM "INI file",                IDM_LANG_INI
         MENUITEM "Inno Setup",              IDM_LANG_INNO
+        MENUITEM "Intel HEX",               IDM_LANG_IHEX
         MENUITEM "Java",                    IDM_LANG_JAVA
         MENUITEM "JavaScript",              IDM_LANG_JS
 		MENUITEM "JSON",                    IDM_LANG_JSON
@@ -720,7 +721,9 @@ BEGIN
         MENUITEM "Scheme",                  IDM_LANG_SCHEME
         MENUITEM "Smalltalk",               IDM_LANG_SMALLTALK
         MENUITEM "SQL",                     IDM_LANG_SQL
+        MENUITEM "S-Record",                IDM_LANG_SREC
         MENUITEM "TCL",                     IDM_LANG_TCL
+        MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
         MENUITEM "TeX",                     IDM_LANG_TEX
         MENUITEM "Visual Basic",            IDM_LANG_VB
         MENUITEM "VHDL",                    IDM_LANG_VHDL
@@ -778,6 +781,7 @@ BEGIN
 	BEGIN
 		MENUITEM "INI file",              IDM_LANG_INI
 		MENUITEM "Inno Setup",            IDM_LANG_INNO
+		MENUITEM "Intel HEX",             IDM_LANG_IHEX
 	END
     POPUP "J"
     BEGIN
@@ -826,10 +830,12 @@ BEGIN
         MENUITEM "Scheme",                IDM_LANG_SCHEME
         MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
         MENUITEM "SQL",                   IDM_LANG_SQL
+        MENUITEM "S-Record",              IDM_LANG_SREC
     END
     POPUP "T"
     BEGIN
         MENUITEM "TCL",                   IDM_LANG_TCL
+        MENUITEM "Tektronix extended HEX",IDM_LANG_TEHEX
         MENUITEM "TeX",                   IDM_LANG_TEX
     END
     POPUP "V"

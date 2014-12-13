@@ -2837,6 +2837,12 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_COFFEESCRIPT;
 		case IDM_LANG_BAANC:
 			return L_BAANC;
+		case IDM_LANG_SREC :
+            return L_SREC;
+		case IDM_LANG_IHEX :
+            return L_IHEX;
+		case IDM_LANG_TEHEX :
+            return L_TEHEX;
 
 		case IDM_LANG_USER :
             return L_USER;

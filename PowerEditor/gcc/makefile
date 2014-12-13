@@ -199,9 +199,19 @@ SRC_RES			= ./resources.rc
 OBJ_RES			= $(patsubst %.rc,%.res,$(SRC_RES))
 
 ifeq ($(OS),Windows_NT)
+ifdef ComSpec
+SHELL = $(ComSpec)
+else
+SHELL = cmd.exe
+endif
+
 CROSS_COMPILE =
+DIRSEP = \\
+RM = del
 else
 CROSS_COMPILE ?= i686-w64-mingw32-
+DIRSEP = /
+RM = rm -f
 endif
 
 # Parameters
@@ -239,4 +249,6 @@ NotepadPPUnicode: $(OBJS) $(OBJ_RES)
 
 # Cleanup
 clean:
-	@delete.bat
+	-@$(RM) $(subst /,$(DIRSEP),$(OBJS) $(OBJ_RES))
+
+.PHONY: all clean NotepadPP NotepadPPUnicode

@@ -872,6 +872,10 @@ protected:
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("styling.within.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
+	void setSrecLexer() {
+		setLexer(SCLEX_SREC, L_SREC, LIST_NONE);
+	};
+
     //--------------------
 
 	void setSearchResultLexer() {

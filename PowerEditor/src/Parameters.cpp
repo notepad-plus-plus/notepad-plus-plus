@@ -5853,6 +5853,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_BAANC:
 			id = IDM_LANG_BAANC; break;
 
+		case L_SREC :
+			id = IDM_LANG_SREC; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

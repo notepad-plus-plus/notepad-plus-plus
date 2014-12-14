@@ -214,6 +214,8 @@ OBJ_RES			= $(patsubst %.rc,%.res,$(SRC_RES))
 SRC_XMLCFG		= $(addprefix $(NPP_DIR)/,config.model.xml langs.model.xml stylers.model.xml shortcuts.xml functionList.xml contextMenu.xml)
 DST_XMLCFG		= $(subst $(NPP_DIR),../bin,$(SRC_XMLCFG))
 
+DEPS = $(patsubst %.o,%.d,$(OBJS))
+
 ifeq ($(OS),Windows_NT)
 ifdef ComSpec
 SHELL = $(ComSpec)
@@ -254,6 +256,8 @@ EXEC			= ../bin/$(OUT_NPP)
 
 all: NotepadPP xmlcfg
 
+-include $(DEPS)
+
 # Main Notepad++ rule
 NotepadPP: $(OBJS) $(OBJ_RES)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LDFLAGS) $(OBJS) $(OBJ_RES) -o $(EXEC) $(LIBS)
@@ -262,10 +266,10 @@ NotepadPPUnicode: $(OBJS) $(OBJ_RES)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LDFLAGS) $(OBJS) $(OBJ_RES) -o $(EXEC) $(LIBS)
 	
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -MMD -c $< -o $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -MMD -c $< -o $@
 
 %.res: %.rc
 	$(RC) $(INCLUDES) $(UNICODE) --input=$< --output=$@ --input-format=rc --output-format=coff
@@ -279,5 +283,6 @@ $(DST_XMLCFG): $(dir $(firstword $(DST_XMLCFG)))%.xml: $(dir $(firstword $(SRC_X
 clean:
 	-@$(RM) $(subst /,$(DIRSEP),$(OBJS) $(OBJ_RES))
 	-@$(RM) $(subst /,$(DIRSEP),$(DST_XMLCFG))
+	-@$(RM) $(subst /,$(DIRSEP),$(DEPS))
 
 .PHONY: all clean NotepadPP NotepadPPUnicode

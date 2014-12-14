@@ -1,11 +1,19 @@
-Notepad++ v6.6.9 new feature and bug fixes:
+Notepad++ v6.7 new feature and bug fixes:
 
-1.  Fix comment command bug that the comment symbols isn't set on the first column for Fortran.
-2.  Add python parson for function List.
-3.  Make icons' background colour transparent for functionList and projectManager.
-4.  New feature: Apply new file default settings on created new file (opened via command line).
-5.  Fix colour picker' chooser bug which does not work well.
-
+1.  Add Smart Indent feature for php/javascript/c/c++/java/c#/Objective-C.
+2.  Enhance Auto-insert feature for {} [] (): typing and skipping }, ] and ).
+3.  Add new feature of MRU: While current file is closed the previous activated file will be activated.
+4.  Allow users to disable Easter eggs by adding noEasterEggs.xml in Notepad++ installed directory.
+5.  Enhancement: Resize column Name filed correctly while hiding column Ext.
+6.  Fix Global colours not applied to all text of the "Find result" pane.
+7.  Add C# and enhance php parser in Function List.
+8.  Fix document list panel has no selection while start up.
+9.  Fix docSwitcher bug which shows new 0 after loading a session of files.
+10. Fix crash issue on quit Notepad++ while session snapshot period backup feature is on.
+11. Make "Text Direction RTL" command and "Text Direction LTR" command work without reloading file.
+12. Make document map matches the current text direction (RTL/LTR).
+13. Fix a crash issue while the opened document is deleted/moved from outside.
+14. Fix undo actions on unsaved snapshot file removing the dirty state bug.
 
 Included plugins:
 

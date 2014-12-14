@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="6.5.2">
+	<Native-Langue name="Portuguese Portugal" filename="portuguese.xml" version="6.6.9">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -14,7 +14,7 @@
                     <Item menuId="settings" name="Confi&amp;guração"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xecutar"/>
-                    <Item idName="Plugins" name="Plugins"/>
+                    <Item idName="Plugins" name="Plug-ins"/>
                     <Item idName="Window" name="Janela"/>
                 </Entries>             
 				<!-- Sub Menu Entries -->
@@ -255,6 +255,7 @@
 					<Item id="46150" name="Defina o seu idioma ..."/>
 					<Item id="46080" name="Definida pelo Utilizador"/>							
                     <Item id="47000" name="Sobre o Notepad++ ..."/>
+					<Item id="47010" name="Argumentos da Linha de Comando ..."/>
                     <Item id="47001" name="Página da Notepad++"/>
                     <Item id="47002" name="Página do Projeto Notepad++"/>
                     <Item id="47003" name="Documentação na Internet"/>
@@ -345,7 +346,7 @@
 			 	<Item id="1625" name="Normal"/>
 			 	<Item id="1626" name="Estendido (\n, \r, \t, \0, \x ...)"/>
 				<Item id="1660" name="Substituir nos Ficheiros"/>
-                <Item id="1661" name="Acompanhar Documento Atual"/>
+                <Item id="1661" name="Seguir Documento Atual"/>
 			 	<Item id="1641" name="Encontrar Tudo no Documento Atual"/>
 				<Item id="1686" name="Transparência"/>
 				<Item id="1703" name="&amp;. corresponde com a nova linha"/>
@@ -470,10 +471,10 @@
                     <Item id="22201" name="2º Grupo"/>
                     <Item id="22301" name="3º Grupo"/>
                     <Item id="22401" name="4º Grupo"/>
-                    <Item id="22451" name="5 Grupo"/>
-                    <Item id="22501" name="6 Grupo"/>
-                    <Item id="22551" name="7 Grupo"/>
-                    <Item id="22601" name="8 Grupo"/>
+                    <Item id="22451" name="5º Grupo"/>
+                    <Item id="22501" name="6º Grupo"/>
+                    <Item id="22551" name="7º Grupo"/>
+                    <Item id="22601" name="8º Grupo"/>
 					<Item id="22121" name="Modo Prefixo"/>
                     <Item id="22221" name="Modo Prefixo"/>
                     <Item id="22321" name="Modo Prefixo"/>
@@ -596,6 +597,7 @@
 					
 					<Item id="6125" name="Painel Lista Documento"/>
                     <Item id="6126" name="Mostrar"/>
+					<Item id="6127" name="Desativar coluna da extensão"/>
 				</Global>
                 <Scintillas title="Edição">
 					<Item id="6216" name=" Definições do Cursor "/>
@@ -714,8 +716,12 @@
                 </RecentFilesHistory>
 				
 				<Backup title="Cópia de Segurança">
-				<Item id="6309" name="Lembrar a sessão atual para a próxima execução"/>
-					
+					<Item id="6817" name="Captura de ecrã da sessão e cópia periódica"/>
+					<Item id="6818" name="Ativar a Captura de ecrã da sessão e cópia periódica"/>
+					<Item id="6819" name="Efetuar cópia a cada"/>
+					<Item id="6821" name="segundos"/>
+					<Item id="6822" name="Caminho da Cópia:"/>
+					<Item id="6309" name="Lembrar a sessão atual para a próxima execução"/>
 					<Item id="6801" name=" Cópia de Segurança "/>
 					<Item id="6315" name="Nenhuma"/>
                     <Item id="6316" name="Cópia de Segurança Simples"/>
@@ -729,7 +735,8 @@
 	                <Item id="6808" name="Ativar conclusão automática"/>
                     <Item id="6809" name="Completar função"/>
                     <Item id="6810" name="Completar palavra"/>
-                    <Item id="6811" name="Do:"/>
+					<Item id="6816" name="Completar função e palavra"/>
+                    <Item id="6811" name="De:"/>
                     <Item id="6813" name="º. caráter"/>
                     <Item id="6814" name="Valor válido: 1 - 9"/>
                     <Item id="6815" name="Sugerir dicas da função ao escrever"/>
@@ -738,8 +745,8 @@
                     <Item id="6858" name="Abrir"/>
                     <Item id="6859" name="Fechar"/>
                     <Item id="6860" name="Par 1 Correspondido:"/>
-                    <Item id="6863" name="Par 1 Correspondido:"/>
-                    <Item id="6866" name="Par 1 Correspondido:"/>
+                    <Item id="6863" name="Par 2 Correspondido:"/>
+                    <Item id="6866" name="Par 3 Correspondido:"/>
                 </AutoCompletion>
 				
 				<MultiInstance title="Múltiplas Instâncias">
@@ -756,6 +763,15 @@
                     <Item id="6255" name="Fechar"/>
                     <Item id="6256" name="Permitir em várias linhas"/>
 				</Delimiter>
+				
+				<Cloud title="Cloud">
+                    <Item id="6262" name="Definições na nuvem"/>
+                    <Item id="6263" name="Sem Nuvem"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="Por favor, reinicie o Notepad++ para aplicar."/-->
+                </Cloud>
 				
 				<MISC title="Diversos">
 				    <Item id="6307" name="Ativar"/>
@@ -908,7 +924,7 @@ David Cunha <ling.fude@gmail.com>
 10/09/2012
 Luis Neves <luis.a.neves@sapo.pt>
 27/09/2013 (versão 6.4.5)
-11/12/2013 Updated and revised by Manuela Silva (Interpreter/Translator) <manuela.silva@sky.com>
+20/09/2014 (versão 6.6.9) Updated and revised by Manuela Silva (Interpreter/Translator) <manuela.silva@sky.com>
 Tradução de Acordo com o Novo Acordo Ortográfico
 P.F., NÃO ALTEREM A ORDEM PORQUE TORNA-SE MAIS DIFÍCIL A COMPARAÇÃO ENTRE OS FICHEIROS PT E EN
 -->

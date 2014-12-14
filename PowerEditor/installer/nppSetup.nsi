@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.6.9"
+!define APPVERSION "6.7"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 69
+!define VERSION_MINOR 70
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -186,6 +186,9 @@ page Custom ExtraOptions
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
 
+; TODO for optional arg
+;!insertmacro GetParameters
+
 ; Set languages (first is default language)
 ;!insertmacro MUI_LANGUAGE "English"
 !define MUI_LANGDLL_ALLLANGUAGES
@@ -290,6 +293,9 @@ Var noUserDataChecked
 Var allowPluginLoadFromUserDataChecked
 Var isOldIconChecked
 Var createShortcutChecked
+
+; TODO for optional arg
+;Var params
 
 ; The definition of "OnChange" event for checkbox
 Function OnChange_NoUserDataCheckBox
@@ -419,6 +425,17 @@ Section -"Notepad++" mainSection
 		IfFileExists $INSTDIR\allowAppDataPlugins.xml 0 +2
 		Delete $INSTDIR\allowAppDataPlugins.xml
 	${EndIf}
+	
+	
+	; TODO for optional arg
+	;${GetParameters} $params
+	;${GetOptions} $params "/noEasterEggs"  $R0
+ 
+	;IfErrors 0 +2
+	;MessageBox MB_OK "Not found /noEasterEggs" IDOK +2
+	;MessageBox MB_OK "Found /noEasterEggs"
+	
+	
 	
 	SetOutPath "$TEMP\"
 	File "langsModel.xml"
@@ -959,6 +976,9 @@ SectionGroup "Localization" localization
 	Section /o "Malay" malay
 		CopyFiles "$TEMP\nppLocalization\malay.xml" "$INSTDIR\localization\malay.xml"
 	SectionEnd
+	Section /o "Marathi" marathi
+		CopyFiles "$TEMP\nppLocalization\marathi.xml" "$INSTDIR\localization\marathi.xml"
+	SectionEnd
 	Section /o "Mongolian" mongolian
 		CopyFiles "$TEMP\nppLocalization\mongolian.xml" "$INSTDIR\localization\mongolian.xml"
 	SectionEnd
@@ -976,6 +996,9 @@ SectionGroup "Localization" localization
 	SectionEnd
 	Section /o "Portuguese" portuguese
 		CopyFiles "$TEMP\nppLocalization\portuguese.xml" "$INSTDIR\localization\portuguese.xml"
+	SectionEnd
+	Section /o "Kannada" kannada
+		CopyFiles "$TEMP\nppLocalization\kannada.xml" "$INSTDIR\localization\kannada.xml"
 	SectionEnd
 	Section /o "Romanian" romanian
 		CopyFiles "$TEMP\nppLocalization\romanian.xml" "$INSTDIR\localization\romanian.xml"
@@ -1034,20 +1057,20 @@ SectionGroup "Localization" localization
 	Section /o "Ukrainian" ukrainian
 		CopyFiles "$TEMP\nppLocalization\ukrainian.xml" "$INSTDIR\localization\ukrainian.xml"
 	SectionEnd
+	Section /o "Urdu" urdu
+		CopyFiles "$TEMP\nppLocalization\urdu.xml" "$INSTDIR\localization\urdu.xml"
+	SectionEnd
+	Section /o "Uyghur" uyghur
+		CopyFiles "$TEMP\nppLocalization\uyghur.xml" "$INSTDIR\localization\uyghur.xml"
+	SectionEnd
 	Section /o "Uzbek" uzbek
 		CopyFiles "$TEMP\nppLocalization\uzbek.xml" "$INSTDIR\localization\uzbek.xml"
 	SectionEnd
 	Section /o "Uzbek (Cyrillic)" uzbekCyrillic
 		CopyFiles "$TEMP\nppLocalization\uzbekCyrillic.xml" "$INSTDIR\localization\uzbekCyrillic.xml"
 	SectionEnd
-	Section /o "Uyghur" uyghur
-		CopyFiles "$TEMP\nppLocalization\uyghur.xml" "$INSTDIR\localization\uyghur.xml"
-	SectionEnd
 	Section /o "Vietnamese" vietnamese
 		CopyFiles "$TEMP\nppLocalization\vietnamese.xml" "$INSTDIR\localization\vietnamese.xml"
-	SectionEnd
-	Section /o "Marathi" marathi
-		CopyFiles "$TEMP\nppLocalization\marathi.xml" "$INSTDIR\localization\marathi.xml"
 	SectionEnd
 SectionGroupEnd
 
@@ -1673,6 +1696,9 @@ SectionGroup un.localization
 	Section un.malay
 		Delete "$INSTDIR\localization\malay.xml"
 	SectionEnd
+	Section un.marathi
+		Delete "$INSTDIR\localization\marathi.xml"
+	SectionEnd
 	Section un.mongolian
 		Delete "$INSTDIR\localization\mongolian.xml"
 	SectionEnd
@@ -1687,6 +1713,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.polish
 		Delete "$INSTDIR\localization\polish.xml"
+	SectionEnd
+	Section un.kannada
+		Delete "$INSTDIR\localization\kannada.xml"
 	SectionEnd
 	Section un.portuguese
 		Delete "$INSTDIR\localization\portuguese.xml"
@@ -1748,20 +1777,20 @@ SectionGroup un.localization
 	Section un.ukrainian
 		Delete "$INSTDIR\localization\ukrainian.xml"
 	SectionEnd
+	Section un.urdu
+		Delete "$INSTDIR\localization\urdu.xml"
+	SectionEnd
+	Section un.uyghur
+		Delete "$INSTDIR\localization\uyghur.xml"
+	SectionEnd
 	Section un.uzbek
 		Delete "$INSTDIR\localization\uzbek.xml"
 	SectionEnd
 	Section un.uzbekCyrillic
 		Delete "$INSTDIR\localization\uzbekCyrillic.xml"
 	SectionEnd
-	Section un.uyghur
-		Delete "$INSTDIR\localization\uyghur.xml"
-	SectionEnd
 	Section un.vietnamese
 		Delete "$INSTDIR\localization\vietnamese.xml"
-	SectionEnd
-	Section un.marathi
-		Delete "$INSTDIR\localization\marathi.xml"
 	SectionEnd
 
 SectionGroupEnd

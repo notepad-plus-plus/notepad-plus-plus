@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="gb2312"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="6.6.8">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -98,6 +98,7 @@
                     <Item id="42008" name="插入制表符(缩进)" />
                     <Item id="42009" name="删除制表符(退格)" />
                     <Item id="42010" name="复制当前行" />
+                    <Item id="42011" name="调换当前行"/>
                     <Item id="42012" name="分割行" />
                     <Item id="42013" name="合并行" />
                     <Item id="42014" name="上移当前行" />
@@ -152,14 +153,6 @@
                     <Item id="43006" name="下一书签" />
                     <Item id="43007" name="上一书签" />
                     <Item id="43008" name="清除所有书签" />
-                    <Item id="43018" name="剪切书签行" />
-                    <Item id="43019" name="复制书签行" />
-                    <Item id="43020" name="粘贴(替换)书签行" />
-                    <Item id="43021" name="删除书签行" />
-                    <Item id="43051" name="删除未标记行" />
-                    <Item id="43050" name="反向标记书签" />
-                    <Item id="43052" name="查找范围内的字符..." />
-                    <Item id="43053" name="选中所有匹配括号间字符"/>
                     <Item id="43009" name="转到匹配的括号" />
                     <Item id="43010" name="查找上一个" />
                     <Item id="43011" name="增量查找(&amp;I)..." />
@@ -168,6 +161,14 @@
                     <Item id="43015" name="快速查找上一个" />
                     <Item id="43016" name="全部标记" />
                     <Item id="43017" name="全部取消" />
+                    <Item id="43018" name="剪切书签行" />
+                    <Item id="43019" name="复制书签行" />
+                    <Item id="43020" name="粘贴(替换)书签行" />
+                    <Item id="43021" name="删除书签行" />
+                    <Item id="43050" name="反向标记书签" />
+                    <Item id="43051" name="删除未标记行" />
+                    <Item id="43052" name="查找范围内的字符..." />
+                    <Item id="43053" name="选中所有匹配括号间字符"/>
                     <Item id="43022" name="使用格式1" />
                     <Item id="43023" name="清除格式1" />
                     <Item id="43024" name="使用格式2" />
@@ -198,6 +199,7 @@
                     <Item id="43049" name="选定并寻找上一个" />
                     <Item id="44009" name="便签模式" />
                     <Item id="44010" name="折叠所有层次" />
+                    <Item id="44011" name="自定义语法对话框"/>
                     <Item id="44019" name="显示所有字符" />
                     <Item id="44020" name="显示缩进参考线" />
                     <Item id="44022" name="自动换行" />
@@ -209,7 +211,6 @@
                     <Item id="44030" name="折叠当前层次" />
                     <Item id="44031" name="展开当前层次" />
                     <Item id="44049" name="摘要..." />
-                    <Item id="44049" name="概要..." />
                     <Item id="44080" name="文档结构图" />
                     <Item id="44084" name="函数列表" />
                     <Item id="44086" name="标签页1"/>
@@ -263,6 +264,7 @@
                     <Item id="47006" name="升级 Notepad++" />
                     <Item id="47008" name="帮助" />
                     <Item id="47009" name="设置更新代理服务器..." />
+					<Item id="47010" name="指令列参数..."/>
                     <Item id="48005" name="导入插件..." />
                     <Item id="48006" name="导入主题..." />
                     <Item id="48018" name="编辑弹出菜单" />
@@ -309,7 +311,7 @@
         </Menu>
         
         <Dialog>
-            <Find title="" titleFind="查找" titleReplace="替换" titleFindInFiles="文件查找">
+            <Find title="" titleFind="查找" titleReplace="替换" titleFindInFiles="文件查找" titleMark="标记">
                 <Item id="1" name="查找下一个" />
                 <Item id="2" name="取消" />
                 <Item id="1620" name="查找目标 :" />
@@ -472,6 +474,7 @@
                     <Item id="21424" name="开始:" />
                     <Item id="21425" name="中间:" />
                     <Item id="21426" name="结尾:" />
+                    <Item id="21427" name="样式" />
                     <Item id="21127" name="样式" />
                 </Folder>
                 <Keywords title="关键字列表">
@@ -605,6 +608,7 @@
                     
                     <Item id="6125" name="文件列表面板" />
                     <Item id="6126" name="显示" />
+					<Item id="6127" name="隐藏副件名排序列"/>
                 </Global>
                 <Scintillas title="编辑">
                     <Item id="6216" name="插入符设置" />
@@ -630,6 +634,8 @@
                     <Item id="6207" name="显示标签栏" />
                     <Item id="6208" name="显示列边界" />
                     <Item id="6209" name="边界宽度 :" />
+                    <Item id="6234" name="关闭高级卷动功能
+（如果你有触控板的问题）"/>
                     
                     <Item id="6211" name="列边界设置" />
                     <Item id="6212" name="边界线模式" />
@@ -670,6 +676,7 @@
                     <Item id="6506" name="禁用项" />
                     <Item id="6507" name="紧凑语言菜单" />
                     <Item id="6508" name="程序语言菜单" />
+                    <Item id="6510" name="使用默认值" />
                 </LangMenu>
                 
                 <TabSettings title="制表符设置">
@@ -742,6 +749,8 @@
                     <Item id="6331" name="只在标签栏显示文件名" />
                     <Item id="6332" name="区分大小写"/>
                     <Item id="6333" name="智能高亮"/>
+					<Item id="6334" name="自动检测字符编码"/>
+					<Item id="6335" name="视反斜杠为 SQL 转义字符"/>
                     <Item id="6114" name="启用" />
                     <Item id="6115" name="自动缩进" />
                     <Item id="6117" name="启用 MRU (Most Recently Used) 功能" />
@@ -753,12 +762,18 @@
                     <Item id="6317" name="冗余备份" />
                     <Item id="6804" name="使用自定义备份目录" />
                     <Item id="6803" name="目录 :" />
+					<Item id="6817" name="文件组群快照和定期备份"/>
+					<Item id="6818" name="启动文件组群快照和定期备份"/>
+					<Item id="6819" name="每"/>
+					<Item id="6821" name="秒"/>
+					<Item id="6822" name="定期备份在 :"/>
                 </Backup>
                 <AutoCompletion title="自动完成">
                     <Item id="6807" name="自动完成" />
                     <Item id="6808" name="所有输入均启用自动完成" />
                     <Item id="6809" name="函数自动完成" />
                     <Item id="6810" name="单词自动完成" />
+                    <Item id="6816" name="参数与单词"/>
                     <Item id="6811" name="从第" />
                     <Item id="6813" name="个字符开始" />
                     <Item id="6814" name="有效值 : 1 - 9" />
@@ -786,6 +801,16 @@
                     <Item id="6255" name="关闭"/>
                     <Item id="6256" name="允许选取多行"/>
                 </Delimiter>
+                
+				<Cloud title="云端">
+                    <Item id="6262" name="云端设置"/>
+                    <Item id="6263" name="万里无云"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                </Cloud>
+
             </Preference>
             <MultiMacro title="重复运行宏">
                 <Item id="1" name="运行" />

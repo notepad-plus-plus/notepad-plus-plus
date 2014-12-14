@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-        Croatian localization for Notepad++ v.6.5.4
-        Last modified 24. February 2014 by Elvis Gambiraža
+        Croatian localization for Notepad++ v.6.7
+        Last modified 2 November 2014 by Elvis Gambiraža
         Najnoviji prijevod: http://www.pravastvar.com/lokalizacija/
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="6.5.4">
+        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="6.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -279,6 +279,7 @@
                     <Item id="46033" name="Asembler"/>
                     <Item id="46080" name="Korisnički definirano"/>
                     <Item id="47000" name="O programu..."/>
+                    <Item id="47010" name="Argumenti komandne linije..."/>
                     <Item id="47001" name="Web stranica Notepad++"/>
                     <Item id="47002" name="Stranica projekta Notepad++"/>
                     <Item id="47003" name="Online dokumentacija"/>
@@ -682,6 +683,7 @@
                     <Item id="6123" name="Jezik korisničkog sučelja"/>
                     <Item id="6125" name="Promjena dokumenta"/>
                     <Item id="6126" name="Prikaži"/>
+                    <Item id="6127" name="Isključi stupac proširenja"/>
                 </Global>
                 <Scintillas title="Uređivanje komponenti">
                     <Item id="6216" name="Postavke pokazivača"/>
@@ -800,6 +802,12 @@
                 </RecentFilesHistory>
 
                     <Backup title="Sigurnosna kopija">
+                    <Item id="6817" name="Snimke sesije i periodične sigurnosne kopije"/>
+                    <Item id="6818" name="Uključi snimke sesije i periodične sigurnosne kopije"/>
+                    <Item id="6819" name="Sigurnosna kopija svakih"/>
+                    <Item id="6821" name="sekundi"/>
+                    <Item id="6822" name="Put sigurnosne kopije:"/>
+                    <Item id="6309" name="Tekuću sesiju upamti do sljedećeg pokretanja"/>
                     <Item id="6801" name="Sigurnosna kopija"/>
                     <Item id="6315" name="Isključeno"/>
                     <Item id="6316" name="Jednostavno spremanje kopija"/>
@@ -844,10 +852,18 @@
                     <Item id="6258" name="U ime Oca i Sina i Duha Svetoga Enter."/>
                 </Delimiter>
 
+                <Cloud title="Oblak">
+                    <Item id="6262" name="Postavke oblaka"/>
+                    <Item id="6263" name="Nema oblaka"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="Molim restartajte Notepad++ kako bi proradilo."/-->
+                </Cloud>
+
                 <MISC title="Razno">
                     <Item id="6307" name="Uključi"/>
                     <Item id="6308" name="Minimiziraj u paletu sustava"/>
-                    <Item id="6309" name="Tekuću sesiju upamti do sljedećeg pokretanja"/>
                     <Item id="6312" name="Automatsko prepoznavanje stanja datoteke"/>
                     <Item id="6313" name="Tiho ažuriranje"/>
                     <Item id="6314" name="Sigurnosna kopija"/>
@@ -866,6 +882,8 @@
                     <Item id="6331" name="U naslovnoj vrpci prikaži samo naziv datoteke"/>
                     <Item id="6332" name="Razlikuj mala i velika slova"/>
                     <Item id="6333" name="Inteligentno isticanje"/>
+                    <Item id="6334" name="Automatski detektiraj enkoding"/>
+                    <Item id="6335" name="Tretiraj backslash kao escape karakter za SQL"/>
                     <Item id="6114" name="Uključi sklopku"/>
                     <Item id="6115" name="Automatska uvlaka redaka"/>
                     <Item id="6117" name="Koristi povijest dokumenata"/>

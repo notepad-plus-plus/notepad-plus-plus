@@ -245,11 +245,10 @@ all: NotepadPP xmlcfg
 -include $(DEPS)
 
 # Main Notepad++ rule
-NotepadPP: $(OBJS) $(OBJ_RES)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LDFLAGS) $(OBJS) $(OBJ_RES) -o $(EXEC) $(LIBS)
+NotepadPP: $(EXEC)
 
-NotepadPPUnicode: $(OBJS) $(OBJ_RES)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LDFLAGS) $(OBJS) $(OBJ_RES) -o $(EXEC) $(LIBS)
+$(EXEC): $(OBJS) $(OBJ_RES)
+	$(CXX) $(LDFLAGS) $^ $(LIBS) -o $@
 	
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -MMD -c $< -o $@
@@ -268,4 +267,4 @@ clean:
 	-@$(RM) $(subst /,$(DIRSEP),$(DST_XMLCFG))
 	-@$(RM) $(subst /,$(DIRSEP),$(DEPS))
 
-.PHONY: all clean NotepadPP NotepadPPUnicode
+.PHONY: all clean NotepadPP

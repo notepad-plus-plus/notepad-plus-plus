@@ -4667,7 +4667,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
 						break;	//abort
 				}
-
+				// Set _isLoadedDirty false so when the document clean state is reached the icon will be set to blue
+				buffer->setLoadedDirty(false);
 				doReload(buffer->getID(), false);
 				if (mainActive || subActive)
 				{

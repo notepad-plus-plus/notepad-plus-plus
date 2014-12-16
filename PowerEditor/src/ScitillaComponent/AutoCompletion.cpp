@@ -554,16 +554,27 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int(')') :
 		case int(']') :
 		case int('}') :
-			if (matchedPairConf._doParentheses && !_insertedMatchedChars.isEmpty())
+			if (!_insertedMatchedChars.isEmpty())
 			{
 				char startChar;
 				if (character == int(')'))
+				{
+					if (!matchedPairConf._doParentheses)
+						return;
 					startChar = '(';
+				}
 				else if (character == int(']'))
+				{
+					if (!matchedPairConf._doBrackets)
+						return;
 					startChar = '[';
+				}
 				else // if (character == int('}'))
+				{
+					if (!matchedPairConf._doCurlyBrackets)
+						return;
 					startChar = '{';
-
+				}
 				int pos = _insertedMatchedChars.search(startChar, char(character), caretPos);
 				if (pos != -1)
 				{

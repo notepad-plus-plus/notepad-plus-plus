@@ -876,6 +876,10 @@ protected:
 		setLexer(SCLEX_SREC, L_SREC, LIST_NONE);
 	};
 
+	void setIHexLexer() {
+		setLexer(SCLEX_IHEX, L_IHEX, LIST_NONE);
+	};
+
     //--------------------
 
 	void setSearchResultLexer() {

@@ -118,6 +118,7 @@
             <Keywords name="type3">begin break case const continue do downto else end except finally for function if of procedure repeat then to try until uses var while with</Keywords>
             <Keywords name="type4"></Keywords>
         </Language>
+        <Language name="ihex" ext="hex" />
         <Language name="java" ext="java" commentLine="//" commentStart="/*" commentEnd="*/">
             <Keywords name="instre1">instanceof assert if else switch case default break goto return for while do continue new throw throws try catch finally this super extends implements import true false null</Keywords>
             <Keywords name="type1">package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum</Keywords>

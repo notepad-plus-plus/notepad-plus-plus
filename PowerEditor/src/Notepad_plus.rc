@@ -693,6 +693,7 @@ BEGIN
         MENUITEM "HTML",                    IDM_LANG_HTML
 		MENUITEM "INI file",                IDM_LANG_INI
         MENUITEM "Inno Setup",              IDM_LANG_INNO
+        MENUITEM "Intel HEX",               IDM_LANG_IHEX
         MENUITEM "Java",                    IDM_LANG_JAVA
         MENUITEM "JavaScript",              IDM_LANG_JS
 		MENUITEM "JSON",                    IDM_LANG_JSON
@@ -779,6 +780,7 @@ BEGIN
 	BEGIN
 		MENUITEM "INI file",              IDM_LANG_INI
 		MENUITEM "Inno Setup",            IDM_LANG_INNO
+		MENUITEM "Intel HEX",             IDM_LANG_IHEX
 	END
     POPUP "J"
     BEGIN

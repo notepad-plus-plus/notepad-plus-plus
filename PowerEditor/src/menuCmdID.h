@@ -484,6 +484,7 @@
     #define    IDM_LANG_FORTRAN_77         (IDM_LANG + 58)
 	#define    IDM_LANG_BAANC              (IDM_LANG + 59)
     #define    IDM_LANG_SREC               (IDM_LANG + 60)
+    #define    IDM_LANG_IHEX               (IDM_LANG + 61)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 65)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 79)

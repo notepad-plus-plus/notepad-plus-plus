@@ -410,11 +410,19 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			if (wParam == VK_PRIOR || wParam == VK_NEXT)
 			{
 				// find hotspots
+				/*
 				NMHDR nmhdr;
 				nmhdr.code = SCN_PAINTED;
 				nmhdr.hwndFrom = _hSelf;
 				nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
 				::SendMessage(_hParent, WM_NOTIFY, (WPARAM)LINKTRIGGERED, (LPARAM)&nmhdr);
+				*/
+				SCNotification notification = {};
+				notification.nmhdr.code = SCN_PAINTED;
+				notification.nmhdr.hwndFrom = _hSelf;
+				notification.nmhdr.idFrom = ::GetDlgCtrlID(_hSelf);
+				::SendMessage(_hParent, WM_NOTIFY, (WPARAM)LINKTRIGGERED, (LPARAM)&notification);
+
 			}			
 			break;
 		}

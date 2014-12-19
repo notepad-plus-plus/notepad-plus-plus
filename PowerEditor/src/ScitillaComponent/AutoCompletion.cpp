@@ -449,7 +449,6 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 	{
 		if (_insertedMatchedChars[i]._pos < posToDetect)
 		{
-
 			int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
 			if (posToDetectLine == startPosLine)
 			{
@@ -458,15 +457,17 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 				for (int j = posToDetect; j <= endPos; ++j)
 				{
 					char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
-					if (aChar == startChar)
-					{
-						_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
-						return -1;
-					}
+					
 					if (aChar == endChar) // found it!!!
 					{
 						_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
 						return j;
+					}
+
+					if (aChar == startChar) // a new start, stop searching
+					{
+						_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
+						return -1;
 					}
 				}
 			}
@@ -534,12 +535,40 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 		case int('"'):
 			if (matchedPairConf._doDoubleQuotes)
+			{
+				if (!_insertedMatchedChars.isEmpty())
+				{
+					int pos = _insertedMatchedChars.search('"', char(character), caretPos);
+					if (pos != -1)
+					{
+						_pEditView->execute(SCI_DELETERANGE, pos, 1);
+						_pEditView->execute(SCI_GOTOPOS, pos);
+						return;
+					}
+				}
+
 				matchedChars = "\"";
+				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+			}
 		break;
 		case int('\''):
 			if (matchedPairConf._doQuotes)
+			{
+				if (!_insertedMatchedChars.isEmpty())
+				{
+					int pos = _insertedMatchedChars.search('\'', char(character), caretPos);
+					if (pos != -1)
+					{
+						_pEditView->execute(SCI_DELETERANGE, pos, 1);
+						_pEditView->execute(SCI_GOTOPOS, pos);
+						return;
+					}
+				}
 				matchedChars = "'";
+				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+			}
 		break;
+
 		case int('>'):
 		{
 			if (matchedPairConf._doHtmlXmlTag && (_curLang == L_HTML || _curLang == L_XML))
@@ -575,6 +604,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 						return;
 					startChar = '{';
 				}
+
 				int pos = _insertedMatchedChars.search(startChar, char(character), caretPos);
 				if (pos != -1)
 				{

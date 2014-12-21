@@ -3171,12 +3171,12 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 
 bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 {
-	DocTabView * tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
-	ScintillaEditView * viewToClose = (whichOne == MAIN_VIEW)?&_mainEditView:&_subEditView;
+	DocTabView * tabToClose = (whichOne == MAIN_VIEW) ? &_mainDocTab : &_subDocTab;
+	ScintillaEditView * viewToClose = (whichOne == MAIN_VIEW) ? &_mainEditView : &_subEditView;
 
 	//check if buffer exists
 	int index = tabToClose->getIndexByBuffer(id);
-	if (index == -1)	//doesn't exist, done
+	if (index == -1)        //doesn't exist, done
 		return false;
 
 	Buffer * buf = MainFileManager->getBufferByID(id);
@@ -3193,40 +3193,30 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 	int active = tabToClose->getCurrentTabIndex();
 	if (active == index) //need an alternative (close real doc, put empty one back)
 	{
-		if (tabToClose->nbItem() == 1) 	//need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other
+		if (tabToClose->nbItem() == 1)  //need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other
 		{
 			BufferID newID = MainFileManager->newEmptyDocument();
 			MainFileManager->addBufferReference(newID, viewToClose);
-			tabToClose->setBuffer(0, newID);	//can safely use id 0, last (only) tab open
-			activateBuffer(newID, whichOne);	//activate. DocTab already activated but not a problem
+			tabToClose->setBuffer(0, newID);        //can safely use id 0, last (only) tab open
+			activateBuffer(newID, whichOne);        //activate. DocTab already activated but not a problem
 		}
 		else
 		{
-			BufferID bufferToActivate = NULL;
-			if (NppParameters::getInstance()->getNppGUI()._styleMRU) // If Most-Recently-Used mode:
-			{	// Activate Most-Recently-Used doc:
-				TaskListInfo taskListInfo;
-				::SendMessage(_pPublicInterface->getHSelf(), WM_GETTASKLISTINFO, (WPARAM)&taskListInfo, 0);
-				bufferToActivate = static_cast<BufferID>(taskListInfo._tlfsLst[1]._bufID);
+			int toActivate = 0;
+			//activate next doc, otherwise prev if not possible
+			if (active == tabToClose->nbItem() - 1) //prev
+			{
+				toActivate = active - 1;
 			}
 			else
-			{	// Activate next doc, otherwise previous if not possible:
-				int toActivate = 0;
-				if (active == tabToClose->nbItem() - 1) // If last doc:
-				{
-					toActivate = active - 1; // Activate previous doc.
-				}
-				else
-				{
-					toActivate = active + 1; // Activate next doc.
-				}
-				bufferToActivate = tabToClose->getBufferByIndex(toActivate);
+			{
+				toActivate = active;    //activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
 			}
-			tabToClose->deletItemAt((size_t)index);     //delete first
-			activateBuffer(bufferToActivate, whichOne); //then activate. The prevent jumpy tab behaviour
+			tabToClose->deletItemAt((size_t)index); //delete first
+			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);     //then activate. The prevent jumpy tab behaviour
 		}
 	}
-	else 
+	else
 	{
 		tabToClose->deletItemAt((size_t)index);
 	}

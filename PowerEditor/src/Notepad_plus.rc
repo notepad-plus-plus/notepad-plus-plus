@@ -353,6 +353,7 @@ BEGIN
         MENUITEM "&Go to...",                   IDM_SEARCH_GOTOLINE
         MENUITEM "Go to Matching Brace",        IDM_SEARCH_GOTOMATCHINGBRACE
 		MENUITEM "Select All Between Matching Braces" IDM_SEARCH_SELECTMATCHINGBRACES
+		MENUITEM "Mar&k..."                     IDM_SEARCH_MARK
         MENUITEM SEPARATOR
 
         POPUP "Mark All"

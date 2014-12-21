@@ -612,13 +612,22 @@ void Notepad_plus::command(int id)
 
 		case IDM_SEARCH_FIND :
 		case IDM_SEARCH_REPLACE :
+		case IDM_SEARCH_FINDINFILES:
+		case IDM_SEARCH_MARK :
 		{
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
-
-			_findReplaceDlg.doDialog((id == IDM_SEARCH_FIND)?FIND_DLG:REPLACE_DLG, _nativeLangSpeaker.isRTL());
+			
+			DIALOG_TYPE dlgID = FIND_DLG;
+			if (id == IDM_SEARCH_REPLACE)
+				dlgID = REPLACE_DLG;
+			else if (id == IDM_SEARCH_FINDINFILES)
+				dlgID = FINDINFILES_DLG;
+			else if (id == IDM_SEARCH_MARK)
+				dlgID = MARK_DLG;
+			_findReplaceDlg.doDialog(dlgID, _nativeLangSpeaker.isRTL());
 
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str);
@@ -629,19 +638,21 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDM_SEARCH_FINDINFILES :
+		/*
+		case IDM_SEARCH_FINDINFILES:
 		{
 			::SendMessage(_pPublicInterface->getHSelf(), NPPM_LAUNCHFINDINFILESDLG, 0, 0);
 			break;
 		}
+		*/
 		case IDM_SEARCH_FINDINCREMENT :
 		{
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
 
 			_pEditView->getGenericSelectedText(str, strSize, false);
-			if (0!=str[0])         // the selected text is not empty, then use it
-			_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
+			if (0 != str[0])         // the selected text is not empty, then use it
+				_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 
 			_incrementFindDlg.display();
 		}

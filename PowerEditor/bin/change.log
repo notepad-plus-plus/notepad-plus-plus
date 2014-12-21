@@ -1,4 +1,15 @@
-Notepad++ v6.7 new feature and bug fixes:
+Notepad++ v6.7.1 new feature and bug fixes:
+
+1.  Fix crash issue on GotoLine.
+2.  Fix a random crash issue while typing random characters.
+3.  Fix the bug of auto-insert skipping feature that ] and } don't be skipped if "auto-insert ()" is disabled.
+4.  Add new feature: auto-insert skipping character feature works for "" and '' now.
+5.  Fix reloaded file on dirty status issue.
+6.  Add "Mark..." menu command.
+7.  Fix a regression (broken with compare plugin) due to a new feature of MRU in v6.7 (the feature is removed).
+
+
+Notepad++ v6.7 new features and bug fixes:
 
 1.  Add Smart Indent feature for php/javascript/c/c++/java/c#/Objective-C.
 2.  Enhance Auto-insert feature for {} [] (): typing and skipping }, ] and ).

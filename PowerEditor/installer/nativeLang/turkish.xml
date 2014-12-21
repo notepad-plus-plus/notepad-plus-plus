@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1254" ?>
 <NotepadPlus><!-- Çeviri: Emrah Güzeltaş | emrahguzeltas@gmail.com -->
-	<Native-Langue name="Turkish" filename="turkish.xml" version="6.6.9">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="6.7">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Yazıları -->
@@ -15,7 +15,7 @@
 					<Item menuId="macro" name="&amp;Makrolar" />
 					<Item menuId="run" name="&amp;Çalıştır" />
 					<Item idName="Plugins" name="&amp;Eklentiler" />
-					<Item idName="Window" name="&amp;Pencere" />
+					<Item idName="Window" name="&amp;Pencereler" />
 				</Entries>
 				<!-- Alt Menü Yazıları -->
 				<SubEntries>
@@ -123,9 +123,9 @@
 					<Item id="42048" name="İkili İçeriği Kopyala" />
 					<Item id="42049" name="İkili İçeriği Kes" />
 					<Item id="42050" name="İkili İçeriği Yapıştır" />
-					<Item id="42037" name="Sütun Modu" />
+					<Item id="42037" name="Sütun Modu İpuçları" />
 					<Item id="42034" name="Sütun Düzenleyici" />
-					<Item id="42051" name="K&amp;arakter Paneli" />
+					<Item id="42051" name="ASCII K&amp;arakter Paneli" />
 					<Item id="42052" name="&amp;Pano Geçmişi" />
 					<Item id="42025" name="Geçerli Makroyu Kaydet" />
 					<Item id="42026" name="Sağdan Sola Metin Yönü" />
@@ -146,7 +146,7 @@
 					<Item id="42060" name="Satırları Azalan Düzende Sırala" />
 					<Item id="43001" name="&amp;Bul…" />
 					<Item id="43002" name="&amp;Sonrakini Bul" />
-					<Item id="43003" name="&amp;Değiştir" />
+					<Item id="43003" name="&amp;Değiştir…" />
 					<Item id="43004" name="&amp;Git…" />
 					<Item id="43005" name="Yer İmi &amp;Koy/Kaldır" />
 					<Item id="43006" name="Sonraki Yer İmine Git" />
@@ -159,7 +159,7 @@
 					<Item id="43051" name="İşaretlenmemiş Satırları Kaldır" />
 					<Item id="43050" name="Yer İmlerini Ters Çevir" />
 					<Item id="43052" name="Aralıktaki Karakterleri Bul" />
-					<Item id="43053" name="Tüm Eşleşen Kaşlı Ayraçlar Arasında Seç" />
+					<Item id="43053" name="Eşleşen Kaşlı Ayraç ile Arasındakileri Seç" />
 					<Item id="43009" name="Eşleşen Kaşlı Ayraca Git" />
 					<Item id="43010" name="&amp;Öncekini Bul" />
 					<Item id="43011" name="Gelişmiş &amp;Arama" />
@@ -224,7 +224,7 @@
 					<Item id="44096" name="Önceki Sekme" />
 					<Item id="44032" name="Tam Ekran Modunu Aç/Kapat" />
 					<Item id="44033" name="&amp;Varsayılan Yakınlığa Geri Dön" />
-					<Item id="44034" name="Pencereyi Her Zaman Üstte Tut" />
+					<Item id="44034" name="Pencereyi Her Zaman Üstte Göster" />
 					<Item id="44035" name="Eş Zamanlı Dikey Kaydırma" />
 					<Item id="44036" name="Eş Zamanlı Yatay Kaydırma" />
 					<Item id="44041" name="Sözcük Kaydırma Simgesini Göster" />
@@ -234,17 +234,17 @@
 					<Item id="44083" name="Proje Paneli 3" />
 					<Item id="45001" name="Windows Biçimine Dönüştür" />
 					<Item id="45002" name="UNIX Biçimine Dönüştür" />
-					<Item id="45003" name="Mac Biçimine Dönüştür" />
+					<Item id="45003" name="Mac OS Biçimine Dönüştür" />
 					<Item id="45004" name="ANSI ile Kodla" />
 					<Item id="45005" name="UTF-8 ile Kodla" />
-					<Item id="45006" name="UCS-2 Big Endian ile Kodla" />
-					<Item id="45007" name="UCS-2 Little Endian ile Kodla" />
+					<Item id="45006" name="UCS-2 Big-Endian ile Kodla" />
+					<Item id="45007" name="UCS-2 Little-Endian ile Kodla" />
 					<Item id="45008" name="UTF-8 ile BOM Olmadan Kodla" />
 					<Item id="45009" name="ANSI'ye Dönüştür" />
 					<Item id="45010" name="UTF-8'e BOM Olmadan Dönüştür" />
 					<Item id="45011" name="UTF-8'e Dönüştür" />
-					<Item id="45012" name="UCS-2 Big Endian'a Dönüştür" />
-					<Item id="45013" name="UCS-2 Little Endian'a Dönüştür" />
+					<Item id="45012" name="UCS-2 Big-Endian'a Dönüştür" />
+					<Item id="45013" name="UCS-2 Little-Endian'a Dönüştür" />
 					
 					<Item id="10001" name="Diğer Görünüme Taşı" />
 					<Item id="10002" name="Diğer Görünüme Kopyala" />
@@ -295,7 +295,7 @@
 				<Item CMID="7" name="Tam Dosya Yolunu Panoya Kopyala" />
 				<Item CMID="8" name="Dosya Adını Panoya Kopyala" />
 				<Item CMID="9" name="Geçerli Dizin Yolunu Panoya Kopyala" />
-				<Item CMID="10" name="Yeniden Adlanlandır" />
+				<Item CMID="10" name="Yeniden Adlandır" />
 				<Item CMID="11" name="Geri Dönüşüm Kutusu'na Taşı" />
 				<Item CMID="12" name="Salt Okunur Yap" />
 				<Item CMID="13" name="Salt Okunur İşaretini Kaldır" />
@@ -592,7 +592,7 @@
 					<Item id="6120" name="Dikey" />
 					
 					<Item id="6121" name="Menü çubuğu" />
-					<Item id="6122" name="Gizle (Alt veya F10 tuşuyla aç/kapat)" />
+					<Item id="6122" name="Gizle (Alt kullanarak veya F10 tuşuyla aç/kapat)" />
 					<Item id="6123" name="Yerelleştir" />
 					
 					<Item id="6125" name="Belge Listesi Paneli" />
@@ -638,13 +638,13 @@
 					<Item id="6401" name="Biçim" />
 					<Item id="6402" name="Windows" />
 					<Item id="6403" name="UNIX" />
-					<Item id="6404" name="Mac" />
+					<Item id="6404" name="Mac OS" />
 					<Item id="6405" name="Kodlama" />
 					<Item id="6406" name="ANSI" />
 					<Item id="6407" name="BOM olmadan UTF-8" />
 					<Item id="6408" name="UTF-8" />
-					<Item id="6409" name="UCS-2 Big Endian" />
-					<Item id="6410" name="UCS-2 Small Endian" />
+					<Item id="6409" name="UCS-2 Big-Endian" />
+					<Item id="6410" name="UCS-2 Small-Endian" />
 					<Item id="6411" name="Varsayılan dil:" />
 					<Item id="6419" name="Yeni Belge" />
 					<Item id="6420" name="Açılmış ANSI dosyalarına uygula" />
@@ -663,7 +663,7 @@
 				<LangMenu title="Dil Menüsü">
 					<Item id="6505" name="Kullanılabilir öğeler:" />
 					<Item id="6506" name="Devre dışı öğeler:" />
-					<Item id="6507" name="Dil menüsünü yoğun yap" />
+					<Item id="6507" name="Dil menüsünü yoğunlaştır" />
 					<Item id="6508" name="Dil Menüsü" />
 				</LangMenu>
 				
@@ -677,8 +677,8 @@
 				<Print title="Yazdır">
 					<Item id="6601" name="Satır numaralarını yazdır" />
 					<Item id="6602" name="Renk Seçenekleri" />
-					<Item id="6603" name="Göründüğü gibi" />
-					<Item id="6604" name="Ters çevir" />
+					<Item id="6603" name="Göründüğü gibi (WYSIWYG)" />
+					<Item id="6604" name="Renkleri ters çevir" />
 					<Item id="6605" name="Siyah üzerine beyaz" />
 					<Item id="6606" name="Arka plan rengi yok" />
 					<Item id="6607" name="Kenarlık Ayarları (Birim: mm)" />
@@ -689,15 +689,15 @@
 					<Item id="6706" name="Kalın" />
 					<Item id="6707" name="Eğik" />
 					<Item id="6708" name="Üst Bilgi" />
-					<Item id="6709" name="Sol bölüm:" />
-					<Item id="6710" name="Orta bölüm:" />
-					<Item id="6711" name="Sağ bölüm:" />
+					<Item id="6709" name="Sol bölüm" />
+					<Item id="6710" name="Orta bölüm" />
+					<Item id="6711" name="Sağ bölüm" />
 					<Item id="6717" name="Kalın" />
 					<Item id="6718" name="Eğik" />
 					<Item id="6719" name="Alt Bilgi" />
-					<Item id="6720" name="Sol bölüm:" />
-					<Item id="6721" name="Orta bölüm:" />
-					<Item id="6722" name="Sağ bölüm:" />
+					<Item id="6720" name="Sol bölüm" />
+					<Item id="6721" name="Orta bölüm" />
+					<Item id="6722" name="Sağ bölüm" />
 					<Item id="6723" name="Ekle" />
 					<Item id="6725" name="Değişken:" />
 					<Item id="6727" name="Değişken ayarlarınızı burada görüntüleyin" />
@@ -783,7 +783,7 @@
 					<Item id="6319" name="Etkin" />
 					<Item id="6320" name="Alt çizgisiz" />
 					<Item id="6322" name="Oturumun dosya uzantısı:" />
-					<Item id="6323" name="Notepad++ otomatik güncelleştirme etkin" />
+					<Item id="6323" name="Notepad++'ı otomatik güncelle" />
 					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab) " />
 					<Item id="6326" name="Akıllı vurgulama etkin" />
 					<Item id="6329" name="Eşleşen Etiketleri Vurgula" />

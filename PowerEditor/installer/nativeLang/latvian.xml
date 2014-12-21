@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1257" ?>
 <!-- Translated by Arvis Lācis (http://twitter.com/arvislacis) v10.7.8 -->
-<!-- Aditional translations by Kārlis Kalviškis (eko@lanet.lv) 2013.09.09. -->
+<!-- Aditional translations by Kārlis Kalviškis (eko@lanet.lv) 2014.12.16. -->
 <NotepadPlus>
 	<Native-Langue name="Latviešu" filename="latvian.xml" >
 		<Menu>
@@ -8,7 +8,7 @@
 				<!-- Main Menu Entries -->
 				<Entries>
 					<Item menuId="file" name="&amp;Fails"/>
-					<Item menuId="edit" name="&amp;Rediģēt"/>
+					<Item menuId="edit" name="&amp;Labot"/>
 					<Item menuId="search" name="&amp;Meklēt"/>
 					<Item menuId="view" name="&amp;Skats"/>
 					<Item menuId="encoding" name="Ko&amp;dējums"/>
@@ -253,10 +253,11 @@
 					<Item id="10003" name="Pārvietot jaunā instancē (programmā)"/>
 					<Item id="10004" name="Atvērt jaunā instancē (programmā)"/>
 
-					<Item id="46001" name="Stilu konfigurātors..."/>
+					<Item id="46001" name="Stilu izveide..."/>
 					<Item id="46150" name="Izveidot savu valodas aprakstu ..."/>
 					<Item id="46080" name="Lietotāja definēta"/>
 					<Item id="47000" name="Par Notepad++..."/>
+                    <Item id="47010" name="Komandrindas parametri..."/>
 					<Item id="47001" name="Notepad++ mājaslapa"/>
 					<Item id="47002" name="Notepad++ projekta lapa"/>
 					<Item id="47003" name="NpWiki++ (tiešsaistes palīdzība)"/>
@@ -286,27 +287,27 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0" name="Aizvērt"/>
-				<Item CMID="1" name="Aizvērt visus, izņemot šo"/>
-				<Item CMID="2" name="Saglabāt"/>
-				<Item CMID="3" name="Saglabāt kā..."/>
-				<Item CMID="4" name="Drukāt"/>
-				<Item CMID="5" name="Pārvietot citā skatā"/>
-				<Item CMID="6" name="Klonēt citā skatā"/>
-				<Item CMID="7" name="Kopēt starpliktuvē faila pilno atrašanās vietu"/>
-				<Item CMID="8" name="Kopēt starpliktuvē faila nosaukumu"/>
-				<Item CMID="9" name="Kopēt starpliktuvē pašreizējās mapes atrašanās vietu"/>
-				<Item CMID="10" name="Pārdēvēt"/>
-				<Item CMID="11" name="Izdzēst"/>
-				<Item CMID="12" name="Tikai-lasāms"/>
-				<Item CMID="13" name="Notīrīt 'tikai-lasāms' iezīmi"/>
-				<Item CMID="14" name="Pārvietot jaunā instancē (programmā)"/>
-				<Item CMID="15" name="Atvērt jaunā instancē (programmā)"/>
-				<Item CMID="16" name="Ielasīt vēlreiz"/>
-				<Item CMID="17" name="Aizvert tos, kuri pa kreisi"/>
-                <Item CMID="18" name="Aizvērt tos, kuri pa labi"/>
-				<Item CMID="19" name="Atvērt doto direktoriju ar „Windows Explorer”"/>
-				<Item CMID="20" name="Atvērt doto direktoriju ar termināli (komandrindā)"/>
+					<Item CMID="0" name="Aizvērt"/>
+					<Item CMID="1" name="Aizvērt visus, izņemot šo"/>
+					<Item CMID="2" name="Saglabāt"/>
+					<Item CMID="3" name="Saglabāt kā..."/>
+					<Item CMID="4" name="Drukāt"/>
+					<Item CMID="5" name="Pārvietot citā skatā"/>
+					<Item CMID="6" name="Klonēt citā skatā"/>
+					<Item CMID="7" name="Kopēt starpliktuvē faila pilno atrašanās vietu"/>
+					<Item CMID="8" name="Kopēt starpliktuvē faila nosaukumu"/>
+					<Item CMID="9" name="Kopēt starpliktuvē pašreizējās mapes atrašanās vietu"/>
+					<Item CMID="10" name="Pārdēvēt"/>
+					<Item CMID="11" name="Izdzēst"/>
+					<Item CMID="12" name="Tikai-lasāms"/>
+					<Item CMID="13" name="Notīrīt 'tikai-lasāms' iezīmi"/>
+					<Item CMID="14" name="Pārvietot jaunā instancē (programmā)"/>
+					<Item CMID="15" name="Atvērt jaunā instancē (programmā)"/>
+					<Item CMID="16" name="Ielasīt vēlreiz"/>
+					<Item CMID="17" name="Aizvert tos, kuri pa kreisi"/>
+					<Item CMID="18" name="Aizvērt tos, kuri pa labi"/>
+					<Item CMID="19" name="Atvērt doto direktoriju ar „Windows Explorer”"/>
+					<Item CMID="20" name="Atvērt doto direktoriju ar termināli (komandrindā)"/>
 			</TabBar>
 		</Menu>
 
@@ -380,7 +381,7 @@
 				<Item id="1904" name="Saglabāt..."/>
 			</Run>
 
-			<StyleConfig title="Stilu konfigurātors">
+			<StyleConfig title="Stilu izveide">
 				<Item id="1" name="Labi"/>
 				<Item id="2"    name="Atcelt"/>
 				<Item id="2301" name="Saglabāt un aizvērt"/>
@@ -393,6 +394,7 @@
 					<Item id="2207" name="Fona krāsa"/>
 					<Item id="2208" name="Fonts:"/>
 					<Item id="2209" name="Lielums:"/>
+					<Item id="2211" name="Stils:"/>
 					<Item id="2212" name="Krāsas"/>
 					<Item id="2213" name="Simbolu izskats"/>
 					<Item id="2214" name="Noklusētais papl.:"/>
@@ -609,8 +611,9 @@
 					
 					<Item id="6125" name="Failu saraksts"/>
                     <Item id="6126" name="Rādīt"/>
+                    <Item id="6127" name="Paplašinājumus kopā ar vārdu"/>
 				</Global>
-				<Scintillas title="Rediģēšana">
+				<Scintillas title="Labošana">
 					<Item id="6216" name="Kursora iestatījumi"/>
 					<Item id="6217" name="Platums:"/>
 					<Item id="6219" name="Mirgošanas ātrums:"/>
@@ -634,7 +637,9 @@
 					<Item id="6207" name="Rādīt grāmatzīmes"/>
 					<Item id="6208" name="Rādīt vertikālo sleju atzīmi"/>
 					<Item id="6209" name="Sleju skaits:"/>
-
+					<Item id="6234" name="Neizmantot uzlaboto ritināšanu
+(ja skārienlaukums niķojas)"/>
+                    
 					<Item id="6211" name="Vertikālo sleju atzīmju iestatījumi"/>
 					<Item id="6212" name="Rindas režīms"/>
 					<Item id="6213" name="Fona režīms"/>
@@ -724,12 +729,18 @@
 					<Item id="6427" name="Ierobežot redzamo garumu:"/>
 				</RecentFilesHistory>
 
-				<Backup title="Atkopšana">
-					<Item id="6801" name="Atkopšana"/>
-					<Item id="6315" name="Nav"/>
-					<Item id="6316" name="Vienkārša atkopšana"/>
-					<Item id="6317" name="Datētā atkopšana"/>
-					<Item id="6804" name="Pielāgotā atkopšanas mape"/>
+				<Backup title="Dublējums">
+					<Item id="6817" name="Sesijas momentuzņēmums un periodiskais dublējums"/>
+					<Item id="6818" name="Iespējot sesijas momentuzņēmumu un periodisko dublējumu"/>
+					<Item id="6819" name="Dublējums katru"/>
+					<Item id="6821" name="sekundi"/>
+					<Item id="6822" name="Dublējuma mape:"/>
+					<Item id="6309" name="Atsākot darbu atjaunot pašreizējo sesiju"/>
+					<Item id="6801" name="Dublējums"/>
+					<Item id="6315" name="Neveidot"/>
+					<Item id="6316" name="Vienkāršs dublējums"/>
+					<Item id="6317" name="Faila nosaukums ar laiku"/>
+					<Item id="6804" name="Kopēja dublējumu mape"/>
 					<Item id="6803" name="Mape:"/>
 				</Backup>
 
@@ -737,7 +748,8 @@
 					<Item id="6807" name="Automātiskā pabeigšana"/>
 					<Item id="6808" name="Ieslēgt ievades automātisko pabeigšanu"/>
 					<Item id="6809" name="Funkciju pabeigšana"/>
-					<Item id="6810" name="Funkciju pabeigšana"/>
+					<Item id="6810" name="Vārdu pabeigšana"/>
+					<Item id="6816" name="Funkciju un vārdu pabeigšana"/>
 					<Item id="6811" name="No"/>
 					<Item id="6813" name=". rakstzīmes"/>
 					<Item id="6814" name="Pieņemamās vērtības: 1 - 9"/>
@@ -765,7 +777,16 @@
                     <Item id="6255" name="Noslēdz"/>
                     <Item id="6256" name="Iezīmē pa vairākām rindām"/>
                 </Delimiter>
-               
+ 				
+                 <Cloud title="Mākoņošana">
+                    <Item id="6262" name="Mākoņu iestatījumi"/>
+                    <Item id="6263" name="Neizmantot mākoņus"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="Būs spēkā tikai tad, kad tiks aizvērts un par jaunu atvērts Notepad++."/-->
+                </Cloud>
+              
 				<MISC title="Citi">
 					<Item id="6307" name="Ieslēgt"/>
 					<Item id="6308" name="Minimizējot pārvietot sistēmas ikonu joslā"/>
@@ -785,9 +806,11 @@
 					<Item id="6328" name="Izcelta birkas atribūtus"/>
 					<Item id="6330" name="Izcelt komentāru/php/asp zonu"/>
 					<Item id="6331" name="Virsraksta joslā rādīt tikai failu vārdus"/>
-					<Item id="6114" name="Ieslēgt"/>
                     <Item id="6332" name="Ievērot burtu veidu"/>
                     <Item id="6333" name="Gudrā izcelšana"/>
+					<Item id="6334" name="Noteikt teksta kodējumu"/>
+					<Item id="6335" name="Iekļaut SQL valodā otrādo slīpsvītru"/>
+					<Item id="6114" name="Ieslēgt"/>
 					<Item id="6115" name="Automātiska atkāpe"/>
 					<Item id="6117" name="Ieslēgt kārtošanu pēc izmantojuma"/>
 				</MISC>
@@ -840,7 +863,7 @@
 			<PanelTitle name="Starpliktuves vēsture"/>
         </ClipboardHistory>
         <DocSwitcher>
-			<PanelTitle name="Dokumentu maiņa"/>
+			<PanelTitle name="Failu saraksts"/>
 			<ColumnName name="Vārds"/>
 			<ColumnExt name="pap."/>
         </DocSwitcher>

@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.7"
+!define APPVERSION "6.7.1"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 70
+!define VERSION_MINOR 71
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -1072,6 +1072,9 @@ SectionGroup "Localization" localization
 	Section /o "Vietnamese" vietnamese
 		CopyFiles "$TEMP\nppLocalization\vietnamese.xml" "$INSTDIR\localization\vietnamese.xml"
 	SectionEnd
+	Section /o "Welsh" welsh
+		CopyFiles "$TEMP\nppLocalization\welsh.xml" "$INSTDIR\localization\welsh.xml"
+	SectionEnd
 SectionGroupEnd
 
 SectionGroup "Themes" Themes
@@ -1792,7 +1795,9 @@ SectionGroup un.localization
 	Section un.vietnamese
 		Delete "$INSTDIR\localization\vietnamese.xml"
 	SectionEnd
-
+	Section un.welsh
+		Delete "$INSTDIR\localization\welsh.xml"
+	SectionEnd
 SectionGroupEnd
 
 

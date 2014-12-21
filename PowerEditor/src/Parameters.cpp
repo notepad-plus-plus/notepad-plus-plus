@@ -153,6 +153,7 @@ WinMenuKeyDefinition winKeyDefs[] = {
 	{VK_NULL,	IDM_SEARCH_COPYMARKEDLINES, 		false, false, false, NULL},
 	{VK_NULL,	IDM_SEARCH_PASTEMARKEDLINES, 		false, false, false, NULL},
 	{VK_NULL,	IDM_SEARCH_DELETEMARKEDLINES, 		false, false, false, NULL},
+	{VK_NULL,	IDM_SEARCH_MARK,					false, false, false, NULL},
 	{VK_NULL,	IDM_SEARCH_MARKALLEXT1,			    false, false, false, NULL},
 	{VK_NULL,	IDM_SEARCH_MARKALLEXT2,		    	false, false, false, NULL},
 	{VK_NULL,	IDM_SEARCH_MARKALLEXT3,			    false, false, false, NULL},

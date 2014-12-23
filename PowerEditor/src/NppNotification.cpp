@@ -471,8 +471,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			maintainIndentation(static_cast<TCHAR>(notification->ch));
 		
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
-		
-		if (nppGui._matchedPairConf.hasAnyPairsPair())
+		bool isColumnMode = _pEditView->execute(SCI_GETSELECTIONS) > 1; // Multi-Selection || Column mode)
+		if (nppGui._matchedPairConf.hasAnyPairsPair() && !isColumnMode)
 			autoC->insertMatchedChars(notification->ch, nppGui._matchedPairConf);
 		autoC->update(notification->ch);
 

@@ -214,7 +214,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case NPPM_LAUNCHFINDINFILESDLG :
 		{
-/*
+			// Find in files function code should be here due to the number of parameters (2) cannot be passed via WM_COMMAND
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
 
@@ -228,9 +228,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_findReplaceDlg.launchFindInFilesDlg();
 			setFindReplaceFolderFilter((const TCHAR*) wParam, (const TCHAR*) lParam);
 			return TRUE;
-*/
-			return ::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_SEARCH_FINDINFILES, 0);
-			
 		}
 
 		case NPPM_DOOPEN:

@@ -835,6 +835,24 @@ bool FileManager::backupCurrentBuffer()
 	return result;
 }
 
+class EventReset
+{
+public:
+	EventReset(HANDLE h)
+	{
+		_h = h;
+	}
+
+	~EventReset()
+	{
+		::SetEvent(_h);
+		::CloseHandle(_h);
+	}
+
+private:
+	HANDLE _h;
+};
+
 bool FileManager::deleteCurrentBufferBackup()
 {
 	HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
@@ -856,6 +874,8 @@ bool FileManager::deleteCurrentBufferBackup()
 		::ResetEvent(writeEvent);
 	}
 
+	EventReset reset(writeEvent); // Will reset event in destructor.
+
 	Buffer * buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = true;
 	generic_string backupFilePath = buffer->getBackupFileName();
@@ -867,9 +887,7 @@ bool FileManager::deleteCurrentBufferBackup()
 		result = (::DeleteFile(file2Delete.c_str()) != 0);
 	}
 	
-	// set to signaled state
-	::SetEvent(writeEvent);
-	::CloseHandle(writeEvent);
+	// set to signaled state via destructor EventReset.
 	return result;
 }
 
@@ -894,6 +912,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		::ResetEvent(writeEvent);
 	}
 
+	EventReset reset(writeEvent); // Will reset event in destructor.
 	Buffer * buffer = getBufferByID(id);
 	bool isHidden = false;
 	bool isSys = false;
@@ -969,9 +988,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			if(error_msg != NULL)
 				*error_msg = TEXT("Failed to save file.\nNot enough space on disk to save file?");
 		
-			// set to signaled state
-			::SetEvent(writeEvent);
-			::CloseHandle(writeEvent);
+			// set to signaled state via destructor EventReset.
 			return false;
 		}
 
@@ -996,9 +1013,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			}
 			*/
 
-			// set to signaled state
-			::SetEvent(writeEvent);
-			::CloseHandle(writeEvent);			
+			// set to signaled state via destructor EventReset.
 			return true;	//all done
 		}
 
@@ -1019,14 +1034,10 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			::DeleteFile(file2Delete.c_str());
 		}
 
-		// set to signaled state
-		::SetEvent(writeEvent);
-		::CloseHandle(writeEvent);
+		// set to signaled state via destructor EventReset.
 		return true;
 	}
-	// set to signaled state
-	::SetEvent(writeEvent);
-	::CloseHandle(writeEvent);
+	// set to signaled state via destructor EventReset.
 	return false;
 }
 

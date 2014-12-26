@@ -1080,102 +1080,102 @@ SectionGroupEnd
 SectionGroup "Themes" Themes
 	SetOverwrite off
 	Section "Black Board" BlackBoard
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Black board.xml"
 	SectionEnd
 
 	Section "Choco" Choco
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Choco.xml"
 	SectionEnd
 	
 	Section "Hello Kitty" HelloKitty
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Hello Kitty.xml"
 	SectionEnd
 	
 	Section "Mono Industrial" MonoIndustrial
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Mono Industrial.xml"
 	SectionEnd
 	
 	Section "Monokai" Monokai
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Monokai.xml"
 	SectionEnd
 	
 	Section "Obsidian" Obsidian
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\obsidian.xml"
 	SectionEnd
 	
 	Section "Plastic Code Wrap" PlasticCodeWrap
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Plastic Code Wrap.xml"
 	SectionEnd
 	
 	Section "Ruby Blue" RubyBlue
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Ruby Blue.xml"
 	SectionEnd
 	
 	Section "Twilight" Twilight
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Twilight.xml"
 	SectionEnd
 	
 	Section "Vibrant Ink" VibrantInk
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Vibrant Ink.xml"
 	SectionEnd
 	
 	Section "Deep Black" DeepBlack
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Deep Black.xml"
 	SectionEnd
 	
 	Section "vim Dark Blue" vimDarkBlue
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\vim Dark Blue.xml"
 	SectionEnd
 	
 	Section "Bespin" Bespin
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Bespin.xml"
 	SectionEnd
 	
 	Section "Zenburn" Zenburn
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Zenburn.xml"
 	SectionEnd
 
 	Section "Solarized" Solarized
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Solarized.xml"
 	SectionEnd
 
 	Section "Solarized Light" Solarized-light
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Solarized-light.xml"
 	SectionEnd
 	
 	Section "Hot Fudge Sundae" HotFudgeSundae
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\HotFudgeSundae.xml"
 	SectionEnd
 	
 	Section "khaki" khaki
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\khaki.xml"
 	SectionEnd
 
 	Section "Mossy Lawn" MossyLawn
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\MossyLawn.xml"
 	SectionEnd
 	
 	Section "Navajo" Navajo
-		SetOutPath "$INSTDIR\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Navajo.xml"
 	SectionEnd	
 	
@@ -1475,83 +1475,83 @@ SectionGroupEnd
 
 SectionGroup un.Themes
 	Section un.BlackBoard
-		Delete "$INSTDIR\themes\Black board.xml"
+		Delete "$UPDATE_PATH\themes\Black board.xml"
 	SectionEnd
 
 	Section un.Choco
-		Delete "$INSTDIR\themes\Choco.xml"
+		Delete "$UPDATE_PATH\themes\Choco.xml"
 	SectionEnd
 	
 	Section un.HelloKitty
-		Delete "$INSTDIR\themes\Hello Kitty.xml"
+		Delete "$UPDATE_PATH\themes\Hello Kitty.xml"
 	SectionEnd
 	
 	Section un.MonoIndustrial
-		Delete "$INSTDIR\themes\Mono Industrial.xml"
+		Delete "$UPDATE_PATH\themes\Mono Industrial.xml"
 	SectionEnd
 	
 	Section un.Monokai
-		Delete "$INSTDIR\themes\Monokai.xml"
+		Delete "$UPDATE_PATH\themes\Monokai.xml"
 	SectionEnd
 	
 	Section un.Obsidian
-		Delete "$INSTDIR\themes/obsidian.xml"
+		Delete "$UPDATE_PATH\themes/obsidian.xml"
 	SectionEnd
 	
 	Section un.PlasticCodeWrap
-		Delete "$INSTDIR\themes\Plastic Code Wrap.xml"
+		Delete "$UPDATE_PATH\themes\Plastic Code Wrap.xml"
 	SectionEnd
 	
 	Section un.RubyBlue
-		Delete "$INSTDIR\themes\Ruby Blue.xml"
+		Delete "$UPDATE_PATH\themes\Ruby Blue.xml"
 	SectionEnd
 	
 	Section un.Twilight
-		Delete "$INSTDIR\themes\Twilight.xml"
+		Delete "$UPDATE_PATH\themes\Twilight.xml"
 	SectionEnd
 	
 	Section un.VibrantInk
-		Delete "$INSTDIR\themes\Vibrant Ink.xml"
+		Delete "$UPDATE_PATH\themes\Vibrant Ink.xml"
 	SectionEnd
 
 	Section un.DeepBlack
-		Delete "$INSTDIR\themes\Deep Black.xml"
+		Delete "$UPDATE_PATH\themes\Deep Black.xml"
 	SectionEnd
 	
 	Section un.vimDarkBlue
-		Delete "$INSTDIR\themes\vim Dark Blue.xml"
+		Delete "$UPDATE_PATH\themes\vim Dark Blue.xml"
 	SectionEnd
 	
 	Section un.Bespin
-		Delete "$INSTDIR\themes\Bespin.xml"
+		Delete "$UPDATE_PATH\themes\Bespin.xml"
 	SectionEnd
 	
 	Section un.Zenburn
-		Delete "$INSTDIR\themes\Zenburn.xml"
+		Delete "$UPDATE_PATH\themes\Zenburn.xml"
 	SectionEnd
 
 	Section un.Solarized
-		Delete "$INSTDIR\themes\Solarized.xml"
+		Delete "$UPDATE_PATH\themes\Solarized.xml"
 	SectionEnd
 
 	Section un.Solarized-light
-		Delete "$INSTDIR\themes\Solarized-light.xml"
+		Delete "$UPDATE_PATH\themes\Solarized-light.xml"
 	SectionEnd
 	
 	Section un.HotFudgeSundae
-		Delete "$INSTDIR\themes\HotFudgeSundae.xml"
+		Delete "$UPDATE_PATH\themes\HotFudgeSundae.xml"
 	SectionEnd
 
 	Section un.khaki
-		Delete "$INSTDIR\themes\khaki.xml"
+		Delete "$UPDATE_PATH\themes\khaki.xml"
 	SectionEnd
 	
 	Section un.MossyLawn
-		Delete "$INSTDIR\themes\MossyLawn.xml"
+		Delete "$UPDATE_PATH\themes\MossyLawn.xml"
 	SectionEnd
 
 	Section un.Navajo
-		Delete "$INSTDIR\themes\Navajo.xml"
+		Delete "$UPDATE_PATH\themes\Navajo.xml"
 	SectionEnd
 	
 SectionGroupEnd

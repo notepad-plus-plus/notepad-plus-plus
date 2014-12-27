@@ -1085,7 +1085,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
             RECT rc;
             getClientRect(rc);
             rc.top = p.y + 10;
-            rc.bottom -= 100;
+            rc.bottom -= 20;
             _ctrlTab.reSizeTo(rc);
 
             _folderStyleDlg.reSizeTo(rc);

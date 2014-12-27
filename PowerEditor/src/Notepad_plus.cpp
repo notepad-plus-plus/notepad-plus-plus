@@ -665,9 +665,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//
 	StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
 	int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
-	Style & style = globalStyles.getStyler(i);
-	(NppParameters::getInstance())->setCurrentDefaultFgColor(style._fgColor);
-	(NppParameters::getInstance())->setCurrentDefaultBgColor(style._bgColor);
+	if (i != -1)
+	{
+		Style & style = globalStyles.getStyler(i);
+		(NppParameters::getInstance())->setCurrentDefaultFgColor(style._fgColor);
+		(NppParameters::getInstance())->setCurrentDefaultBgColor(style._bgColor);
+	}
 
 	//
 	// launch the plugin dlg memorized at the last session

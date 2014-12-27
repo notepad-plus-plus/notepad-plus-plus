@@ -397,7 +397,14 @@ public:
 	void setNbStyler(int nb) {_nbStyler = nb;};
 
     Style & getStyler(int index) {
-		assert(index != -1);
+		assert(index >= 0 && index < SCE_STYLE_ARRAY_SIZE);
+		/*
+		if (index < 0 || index >= SCE_STYLE_ARRAY_SIZE)
+		{
+			Style s;
+			return s;
+		}
+		*/
 		return _styleArray[index];
 	};
 
@@ -1534,7 +1541,8 @@ public:
 	};
 
 	void saveConfig_xml() {
-		_pXmlUserDoc->SaveFile();
+		if (_pXmlUserDoc)
+			_pXmlUserDoc->SaveFile();
 	};
 
 	generic_string getUserPath() const {

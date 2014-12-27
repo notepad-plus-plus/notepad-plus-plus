@@ -161,7 +161,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	patterns.push_back(TEXT("*.xml"));
 	
 	generic_string nppDir = pNppParams->getNppPath();
-#ifdef UNICODE
+
 	LocalizationSwitcher & localizationSwitcher = pNppParams->getLocalizationSwitcher();
 	wstring localizationDir = nppDir;
 	PathAppend(localizationDir, TEXT("localization\\"));
@@ -171,7 +171,6 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	{
 		localizationSwitcher.addLanguageFromXml(fileNames[i].c_str());
 	}
-#endif
 
 	fileNames.clear();
 	ThemeSwitcher & themeSwitcher = pNppParams->getThemeSwitcher();

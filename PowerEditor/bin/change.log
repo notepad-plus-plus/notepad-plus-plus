@@ -1,3 +1,13 @@
+Notepad++ v6.7.2 enhancements and bug fixes:
+
+1.  Fix the crash issue while config.xml and stylers.xml are not loaded.
+2.  Fix NPPM_LAUNCHFINDINFILESDLG API regression issue.
+3.  Prevent auto-insert of {} [] () "" and '' from inserting in column mode.
+4.  Fix the bug that "Function parameters hint on input" checkbox in preferences dialog is not initialized correctly.
+5.  Fix saving theme modified styles not working problem (Copy theme files in %APPDATA% to avoid UAC problem).
+6.  Improve the usability of User Defined Language dialog: reduce dialog's height.
+
+
 Notepad++ v6.7.1 new feature and bug fixes:
 
 1.  Fix crash issue on GotoLine.

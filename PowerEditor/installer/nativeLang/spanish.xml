@@ -26,8 +26,8 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item subMenuId="file-closeMore" name="Cerrar más"/>
 					<Item subMenuId="file-recentFiles" name="Archivos recientes"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copiar al portapapeles"/>
-					<Item subMenuId="edit-indent" name="Tabulación"/>
-					<Item subMenuId="edit-convertCaseTo" name="Mayúsculas/Minúsculas"/>
+					<Item subMenuId="edit-indent" name="Sangría"/>
+					<Item subMenuId="edit-convertCaseTo" name="MAYÚSCULAS/Minúsculas"/>
 					<Item subMenuId="edit-lineOperations" name="Operaciones con líneas"/>
 					<Item subMenuId="edit-comment" name="Comentarios"/>
 					<Item subMenuId="edit-autorellenado" name="Auto-completar"/>
@@ -74,7 +74,7 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="41003" name="Cerrar"/>
 					<Item id="41004" name="C&amp;errar todas"/>
 					<Item id="41005" name="Cerrar las otras pestañas"/>
-					<Item id="41009" name="&amp;Guardar"/>
+					<Item id="41009" name="&amp;Guardar y cerrar"/>
 					<Item id="41018" name="Cerrar todo a la derecha"/>
 					<Item id="41006" name="&amp;Guardar"/>
 					<Item id="41007" name="Guardar todo"/>
@@ -101,20 +101,20 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="42010" name="Duplicar línea actual"/>
 					<Item id="42012" name="Dividir líneas"/>
 					<Item id="42013" name="Unir líneas"/>
-					<Item id="42014" name="Subir línea corriente"/>
-					<Item id="42015" name="Bajar línea corriente"/>
-					<Item id="42016" name="MAYÚSCULAS"/>
-					<Item id="42017" name="minúsculas"/>
+					<Item id="42014" name="Subir línea actual"/>
+					<Item id="42015" name="Bajar línea actual"/>
+					<Item id="42016" name="Convertir a MAYÚSCULAS"/>
+					<Item id="42017" name="Convertir a minúsculas"/>
 					<Item id="42018" name="&amp;Inicio de grabación"/>
 					<Item id="42019" name="&amp;Fin de grabación"/>
 					<Item id="42021" name="&amp;Reproducir"/>
 					<Item id="42022" name="Des/Comentar"/>
-					<Item id="42023" name="Comentario simple"/>
-					<Item id="42047" name="Espacio > Tabulación"/>
+					<Item id="42023" name="Comentario"/>
+					<Item id="42047" name="Sin comentario"/>
 					<Item id="42024" name="Quitar espacios al final"/>
 					<Item id="42042" name="Cortar espacio al inicio"/>
 					<Item id="42043" name="Cortar espacios al inicio y al final"/>
-					<Item id="42044" name="Fin de linea a espacio"/>
+					<Item id="42044" name="Fin de linea -> espacio"/>
 					<Item id="42045" name="Eliminar espacios innecesarios"/>
 					<Item id="42046" name="TAB a espacio"/>
 					<Item id="42054" name="Espacio a TAB (todo)"/>
@@ -141,8 +141,8 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="42036" name="No comentar"/>
 					<Item id="42055" name="Eliminar líneas vacías"/>
 					<Item id="42056" name="Eliminar líneas vacías (y contenido en blanco)"/>
-					<Item id="42057" name="Insert Blank Line Above Current"/>
-					<Item id="42058" name="Insertar línea en blanco bajo la corriente"/>
+					<Item id="42057" name="Insert línea en blanco encima de la actual"/>
+					<Item id="42058" name="Insertar línea en blanco bajo la actual"/>
 					<Item id="42059" name="Ordenar líneas en sentido ascendente"/>
 					<Item id="42060" name="Ordenar líneas en sentido descendente"/>
 					<Item id="43001" name="&amp;Buscar..."/>
@@ -159,7 +159,7 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="43021" name="Borrar líneas marcadas"/>
 					<Item id="43051" name="Quitar líneas no marcadas"/>
 					<Item id="43050" name="Invertir marcas"/>
-					<Item id="43052" name="Encontrar caracteres tipo..."/>
+					<Item id="43052" name="Encontrar caracteres por tipo..."/>
 					<Item id="43053" name="Seleccionar todo lo que coincida"/>
 					<Item id="43009" name="Ir al delimitador simétrico"/>
 					<Item id="43010" name="Encontrar anterior"/>
@@ -194,7 +194,7 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="43044" name="Encontrar estilo"/>
 					<Item id="43045" name="Ventana de resultados de búsqueda"/>
 					<Item id="43046" name="Resultados de búsqueda siguiente"/>
-					<Item id="43047" name="Resultados de búsqueda previa"/>
+					<Item id="43047" name="Resultados de búsqueda anterior"/>
 					<Item id="43048" name="Seleccionar y encontrar siguiente"/>
 					<Item id="43049" name="Seleccionar y encontrar anterior"/>
 					<Item id="44009" name="Post-It"/>
@@ -210,7 +210,7 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="44030" name="Contraer nivel actual"/>
 					<Item id="44031" name="Expandir nivel actual"/>
 					<Item id="44049" name="Resumen..."/>
-					<Item id="44080" name="Plano del documento"/>
+					<Item id="44080" name="Mapa del documento"/>
 					<Item id="44084" name="Lista de funciones"/>
 					<Item id="44086" name="Pestaña 1"/>
 					<Item id="44087" name="Pestaña 2"/>
@@ -224,12 +224,12 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="44095" name="Pestaña siguiente"/>
 					<Item id="44096" name="Pestaña anterior"/>
 					<Item id="44032" name="Pantalla completa o no"/>
-					<Item id="44033" name="Restaurar zoom por defecto"/>
+					<Item id="44033" name="Restaurar zoom 100%"/>
 					<Item id="44034" name="Siempre visible"/>
 					<Item id="44035" name="Sincronización vertical"/>
 					<Item id="44036" name="Sincronización horizontal"/>
 					<Item id="44041" name="Mostrar símbolo de ajuste"/>
-					<Item id="44072" name="Activar vista principal"/>
+					<Item id="44072" name="Enfocar en otra vista"/>
 					<Item id="44081" name="Panel proyecto 1"/>
 					<Item id="44082" name="Panel proyecto 2"/>
 					<Item id="44083" name="Panel proyecto 3"/>
@@ -254,8 +254,8 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="46150" name="Definir idioma..."/>
 					<Item id="46080" name="Definido por el usuario"/>
 					<Item id="47000" name="Acerca de Notepad++..."/>
-					<Item id="47010" name="Elementos de linea de comando..."/>
-					<Item id="47001" name="Notepad++ Home"/>
+					<Item id="47010" name="Parámetros de linea de comando..."/>
+					<Item id="47001" name="Web de Notepad++"/>
 					<Item id="47002" name="Web del proyecto Notepad++"/>
 					<Item id="47003" name="Ayuda en línea"/>
 					<Item id="47004" name="Foro"/>
@@ -311,7 +311,7 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 				<Item id="2" name="Cerrar"/>
 				<Item id="1620" name="Buscar:"/>
 				<Item id="1603" name="Solo &amp;palabras completas"/>
-				<Item id="1604" name="Coincidir &amp;mayúsculas/minúsculas"/>
+				<Item id="1604" name="Coincidir &amp;MAYÚSCULAS/minúsculas"/>
 				<Item id="1605" name="Expresión &amp;regular"/>
 				<Item id="1606" name="Buscar en todo el d&amp;ocumento"/>
 				<Item id="1612" name="&amp;Arriba"/>
@@ -326,7 +326,7 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 				<Item id="1608" name="&amp;Reemplazar"/>
 				<Item id="1609" name="Reemplazar &amp;todo"/>
 				<Item id="1623" name="Transparencia"/>
-				<Item id="1687" name="Al hacer clic sobre el archivo"/>
+				<Item id="1687" name="Al perder el foco"/>
 				<Item id="1688" name="Siempre"/>
 				<Item id="1632" name="En la selección"/>
 				<Item id="1633" name="Limpiar"/>
@@ -345,16 +345,16 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 				<Item id="1661" name="Seguir archivo actual"/>
 				<Item id="1641" name="Buscar solo en el archivo actual"/>
 				<Item id="1686" name="Transparencia"/>
-				<Item id="1703" name="&amp;. matches newline"/>
+				<Item id="1703" name="&amp;. se ajusta a linea nueva"/>
 			</Find>
 			<GoToLine title="Ir a línea...">
 				<Item id="2007" name="Línea"/>
 				<Item id="2008" name="Desplazamiento"/>
 				<Item id="1" name="&amp;Ir"/>
 				<Item id="2" name="Cancelar"/>
-				<Item id="2004" name="Se encuentra aquí:"/>
-				<Item id="2005" name="Quiere ir a:"/>
-				<Item id="2006" name="No puede ir más allá de:"/>
+				<Item id="2004" name="Línea actual:"/>
+				<Item id="2005" name="Ir a línea:"/>
+				<Item id="2006" name="Última linea:"/>
 			</GoToLine>
 			<Run title="Run...">
 				<Item id="1903" name="Programa a ejecutar"/>
@@ -370,29 +370,29 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 				<SubDialog>
 					<Item id="2204" name="Negrita"/>
 					<Item id="2205" name="Cursiva"/>
-					<Item id="2206" name="Color de tipografía"/>
+					<Item id="2206" name="Color de fuente"/>
 					<Item id="2207" name="Color de fondo"/>
 					<Item id="2208" name="Fuente:"/>
 					<Item id="2209" name="Tamaño:"/>
 					<Item id="2211" name="Estilo:"/>
 					<Item id="2212" name="Color"/>
-					<Item id="2213" name="Tipografía"/>
+					<Item id="2213" name="Tipo de fuente"/>
 					<Item id="2214" name="Ext. predet.:"/>
 					<Item id="2216" name="Ext. usuario:"/>
 					<Item id="2218" name="Subrayado"/>
 					<Item id="2219" name="Palabras clave predeterminadas"/>
 					<Item id="2221" name="Palabras clave definidas por el usuario"/>
 					<Item id="2225" name="Lenguaje:"/>
-					<Item id="2226" name="Habilitar color general de primer plano"/>
-					<Item id="2227" name="Habilitar color general de fondo"/>
-					<Item id="2228" name="Habilitar fuente general"/>
-					<Item id="2229" name="Habilitar tamaño de fuente general"/>
-					<Item id="2230" name="Habilitar fuente general en negrita"/>
-					<Item id="2231" name="Habilitar fuente general en cursiva"/>
-					<Item id="2232" name="Habilitar fuente general en subrayado"/>
+					<Item id="2226" name="Globalizar color de fuentes"/>
+					<Item id="2227" name="Globalizar color de fondo"/>
+					<Item id="2228" name="Globalizar tipo de fuente"/>
+					<Item id="2229" name="Globalizar tamaño de fuente"/>
+					<Item id="2230" name="Globalizar negritas"/>
+					<Item id="2231" name="Globalizar cursivas"/>
+					<Item id="2232" name="Globalizar subrayados"/>
 				</SubDialog>
 			</StyleConfig>
-			<UserDefine title="User-Defined">
+			<UserDefine title="Definido por el Usuario">
 				<Item id="20001" name="Dock"/>
 				<Item id="20002" name="Renombrar"/>
 				<Item id="20003" name="Crear nuevo..."/>
@@ -404,9 +404,9 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 				<Item id="20011" name="Transparencia"/>
 				<Item id="20015" name="Importar..."/>
 				<Item id="20016" name="Exportar..."/>
-				<StylerDialog title="Styler Dialog">
+				<StylerDialog title="Estilos">
 					<Item id="25030" name="Opciones de fuente:"/>
-					<Item id="25006" name="Color primer plano"/>
+					<Item id="25006" name="Color de fuente"/>
 					<Item id="25007" name="Color de fondo"/>
 					<Item id="25031" name="Nombre:"/>
 					<Item id="25032" name="Tamaño:"/>
@@ -436,9 +436,9 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="25027" name="Operador 2"/>
 					<Item id="25028" name="Numeros"/>
 				</StylerDialog>
-				<Folder title="Folder &amp;&amp; Default">
+				<Folder title="Carpeta &amp;&amp; por defecto">
 					<Item id="21101" name="Estilo por defecto"/>
-					<Item id="21201" name="Ajustes apertura archivo"/>
+					<Item id="21201" name="Estilo"/>
 					<Item id="21105" name="Documentación:"/>
 					<Item id="21104" name="Sitio web temporal:"/>
 					<Item id="21106" name="Compactar el relieve (líneas vacías también)"/>
@@ -488,13 +488,13 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="23003" name="Posición de comentario en la línea"/>
 					<Item id="23004" name="Sin límite"/>
 					<Item id="23005" name="Siempre al inicio de línea"/>
-					<Item id="23006" name="Permitir espacio libre anterior"/>
+					<Item id="23006" name="Permitir espacios libres previos"/>
 					<Item id="23001" name="Permitir plegado de comentarios"/>
 					<Item id="23326" name="Estilo"/>
 					<Item id="23323" name="Abrir"/>
 					<Item id="23324" name="Continuación"/>
 					<Item id="23325" name="Cerrar"/>
-					<Item id="23301" name="Estilo línea comentario"/>
+					<Item id="23301" name="Estilo de línea de comentario"/>
 					<Item id="23124" name="Estilo"/>
 					<Item id="23122" name="Abrir"/>
 					<Item id="23123" name="Cerrar"/>
@@ -513,11 +513,11 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="23246" name="Coma"/>
 					<Item id="23247" name="Ambos"/>
 				</Comment>
-				<Operator title="Operadores">
+				<Operator title="Operadores y Delimitadores">
 					<Item id="24101" name="Estilo operadores"/>
 					<Item id="24113" name="Estilo"/>
 					<Item id="24116" name="Operadores 1"/>
-					<Item id="24117" name="Operadores 2 (necesarios separadores)"/>
+					<Item id="24117" name="Operadores 2 (necesita separadores)"/>
 					<Item id="24201" name="Delimitador 1"/>
 					<Item id="24220" name="Abrir:"/>
 					<Item id="24221" name="Escape:"/>
@@ -570,9 +570,9 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="6104" name="Iconos grandes"/>
 					<Item id="6105" name="Iconos predeterminados"/>
 					<Item id="6106" name="Barra de pestañas"/>
-					<Item id="6107" name="Reducir texto"/>
+					<Item id="6107" name="Ajustar texto"/>
 					<Item id="6108" name="Bloquear (impedir arrastrar y soltar)"/>
-					<Item id="6109" name="Oscurecer ventanas inactivas"/>
+					<Item id="6109" name="Oscurecer pestañas inactivas"/>
 					<Item id="6110" name="Mostrar una línea en la pestaña activa"/>
 					<Item id="6111" name="Mostrar barra de estado"/>
 					<Item id="6112" name="Botón de cierre en cada pestaña"/>
@@ -593,24 +593,23 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="6219" name="Frecuencia:"/>
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="L"/>
-					<Item id="6224" name="Multiedición"/>
+					<Item id="6224" name="Multi-Edición"/>
 					<Item id="6225" name="Habilitar (Ctrl. + clic/selección)"/>
-					<Item id="6201" name="Estilo visual de los niveles"/>
+					<Item id="6201" name="Estilo de los niveles"/>
 					<Item id="6202" name="Simple"/>
 					<Item id="6203" name="Flechas"/>
 					<Item id="6204" name="Círculos"/>
 					<Item id="6205" name="Cuadrados"/>
 					<Item id="6226" name="Ninguno"/>
 					<Item id="6227" name="Ajuste de línea"/>
-					<Item id="6228" name="Predetermin."/>
+					<Item id="6228" name="Por defecto"/>
 					<Item id="6229" name="Alineado"/>
-					<Item id="6230" name="Tabulación"/>
+					<Item id="6230" name="Sangría"/>
 					<Item id="6206" name="Mostrar números de línea"/>
 					<Item id="6207" name="Mostrar marcadores"/>
 					<Item id="6208" name="Mostrar límite vertical"/>
 					<Item id="6209" name="Número de columnas: "/>
-					<Item id="6234" name="Desactivar función scroll avanzado
-(si tiene problemas con pantalla táctil)"/>
+					<Item id="6234" name="Desactivar desplazamiento avanzado (si tiene problemas con pantalla táctil)"/>
 					<Item id="6211" name="Límite vertical"/>
 					<Item id="6212" name="Modo lineal"/>
 					<Item id="6213" name="Modo de fondo"/>
@@ -641,19 +640,19 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="4009" name="Ext. soportadas:"/>
 					<Item id="4010" name="Ext. asociadas:"/>
 				</FileAssoc>
-				<LangMenu title="Menú de Lenguaje/Ajustes de pestañas">
+				<LangMenu title="Menú de Lenguaje">
 					<Item id="6505" name="Disponibles"/>
 					<Item id="6506" name="Desactivados"/>
-					<Item id="6507" name="Compactar el menú de Lenguaje"/>
-					<Item id="6508" name="Menú de Lenguaje"/>
+					<Item id="6507" name="Compactar el menú de lenguaje"/>
+					<Item id="6508" name="Menú de lenguaje"/>
 				</LangMenu>
 				<TabSettings title="Ajuste de pestañas">
 					<Item id="6301" name="Ajuste de pestañas"/>
 					<Item id="6302" name="Sustituir por espacio"/>
-					<Item id="6303" name="Tamaño pestaña: "/>
+					<Item id="6303" name="Tamaño: "/>
 					<Item id="6510" name="Usar valor por defecto"/>
 				</TabSettings>
-				<Print title="Imprimir">
+				<Print title="Impresión">
 					<Item id="6601" name="Imprimir número de línea"/>
 					<Item id="6602" name="Opciones de color"/>
 					<Item id="6603" name="Sin modificar"/>
@@ -682,70 +681,70 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="6727" name="Mostrar sus ajustes variables"/>
 					<Item id="6728" name="Cabecera y pie de página"/>
 				</Print>
-				<RecentFilesHistory title="Historial de archivos recientes">
+				<RecentFilesHistory title="Archivos recientes">
 					<Item id="6304" name="Historial de archivos recientes"/>
 					<Item id="6306" name="Máximo núm. entradas:"/>
 					<Item id="6305" name="No comprobar al inicio"/>
 					<Item id="6429" name="Mostrar"/>
-					<Item id="6424" name="en submenú"/>
+					<Item id="6424" name="En submenú"/>
 					<Item id="6425" name="Solo nombre archivo"/>
 					<Item id="6426" name="Ruta completa archivo"/>
-					<Item id="6427" name="Ajustar longitud máxima:"/>
+					<Item id="6427" name="Longitud máxima:"/>
 				</RecentFilesHistory>
 				<Backup title="Backup">
-					<Item id="6817" name="Vista de sesión y backup periódico"/>
-					<Item id="6818" name="Activar ista de sesión y backup periódico"/>
-					<Item id="6819" name="Backup cada"/>
+					<Item id="6817" name="Copias de seguridad y Sesiones"/>
+					<Item id="6818" name="Automatizar Copias de seguridad y Sesiones"/>
+					<Item id="6819" name="Realizar Copias cada"/>
 					<Item id="6821" name="segundos"/>
-					<Item id="6822" name="Ruta de backup:"/>
-					<Item id="6309" name="Recordar la sesión corriente al iniciar la siguiente"/>
-					<Item id="6801" name="Backup"/>
-					<Item id="6315" name="Ninguno"/>
-					<Item id="6316" name="Simple"/>
-					<Item id="6317" name="Detallado"/>
-					<Item id="6804" name="Carpeta de backup"/>
+					<Item id="6822" name="Ruta para las copias:"/>
+					<Item id="6309" name="Recordar la sesión actual en el próximo inicio"/>
+					<Item id="6801" name="Copia de seguridad"/>
+					<Item id="6315" name="No hacer"/>
+					<Item id="6316" name="Copia simple"/>
+					<Item id="6317" name="Copia detallada"/>
+					<Item id="6804" name="Usar esta carpeta para las copias personalizadas"/>
 					<Item id="6803" name="Carpeta:"/>
 				</Backup>
-				<Autorellenado title="Auto-rellenado">
-					<Item id="6807" name="Auto-rellenado"/>
-					<Item id="6808" name="Permitir auto-rellenado siempre"/>
-					<Item id="6809" name="Rellenado de función"/>
-					<Item id="6810" name="Rellenado de palabra"/>
-					<Item id="6816" name="Función y completado de palabra"/>
+				<AutoCompletion title="Auto-completar">
+					<Item id="6807" name="Auto-completar"/>
+					<Item id="6808" name="Permitir Auto-completar siempre"/>
+					<Item id="6809" name="Auto-completar función"/>
+					<Item id="6810" name="Auto-completar palabra"/>
+					<Item id="6816" name="Autocompletado función y palabra"/>
 					<Item id="6811" name="Desde"/>
-					<Item id="6813" name="th carácter"/>
+					<Item id="6813" name="º carácter"/>
 					<Item id="6814" name="Valor válido: 1 - 9"/>
 					<Item id="6815" name="Parámetros de función en entrada"/>
-					<Item id="6851" name="Auto-Insertar"/>
-					<Item id="6857" name="cierre html/xml"/>
+					<Item id="6851" name="Auto-insertar"/>
+					<Item id="6857" name="pestaña de cierre html/xml"/>
 					<Item id="6858" name="Abrir"/>
 					<Item id="6859" name="Cerrar"/>
 					<Item id="6860" name="Par ajustado 1:"/>
 					<Item id="6863" name="Par ajustado 2:"/>
 					<Item id="6866" name="Par ajustado 3:"/>
-				</Autorellenado>
-				<MultiInstance title="Multi-Instance">
+				</AutoCompletion>
+				<MultiInstance title="Multi-Instancia">
 					<Item id="6151" name="Ajustar varias instancias"/>
 					<Item id="6152" name="Abrir sesión en nueva instancia de Notepad++"/>
 					<Item id="6153" name="Usar siempre modo multi instancia"/>
 					<Item id="6154" name="Instancia única por defecto"/>
 					<Item id="6155" name="* La modificación de este ajuste necesita reiniciar Notepad++"/>
 				</MultiInstance>
-				<Delimiter title="Delimiter">
+				<Delimiter title="Delimitador">
 					<Item id="6251" name="Ajustes del delimitador (Ctrl + doble clic)"/>
 					<Item id="6252" name="Abrir"/>
 					<Item id="6255" name="Cerrar"/>
 					<Item id="6256" name="Permitir varias líneas"/>
 				</Delimiter>
-				<Cloud title="Cloud">
+				<Cloud title="Nube">
 					<Item id="6262" name="Ajustes de nube"/>
 					<Item id="6263" name="Sin nube"/>
 					<Item id="6264" name="Dropbox"/>
 					<Item id="6265" name="OneDrive"/>
 					<Item id="6266" name="Google Drive"/>
-					<!--Item id="6261" name="Reinicie Notepad++ para activar los cambios."/-->
+					<Item id="6261" name="Reinicie Notepad++ para activar los cambios."/>
 				</Cloud>
-				<MISC title="MISC.">
+				<MISC title="Otros">
 					<Item id="6307" name="Permitir"/>
 					<Item id="6308" name="Minimizar a la bandeja del sistema"/>
 					<Item id="6312" name="Auto-detectar estado del archivo"/>
@@ -758,17 +757,17 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="6323" name="Actualizar automáticamente Notepad++"/>
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6326" name="Activar resaltado inteligente"/>
-					<Item id="6329" name="Pestañas de activado inteligente"/>
+					<Item id="6329" name="Resaltar Etiquetas"/>
 					<Item id="6327" name="Permitir"/>
-					<Item id="6328" name="Atributos de pestaña inteligente"/>
-					<Item id="6330" name="Zona de comentarios/php/asp"/>
-					<Item id="6331" name="Mostrar solo el nombre en la barra"/>
+					<Item id="6328" name="Resaltar Atributos de Etiquetas"/>
+					<Item id="6330" name="Resaltar comentarios/php/asp"/>
+					<Item id="6331" name="Mostrar solo nombre de archivo en la barra"/>
 					<Item id="6332" name="Ajustar tamaño"/>
-					<Item id="6333" name="Resaltado inteligente"/>
+					<Item id="6333" name="Resaltado Inteligente"/>
 					<Item id="6334" name="Detección de codificación automática"/>
 					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
 					<Item id="6114" name="Activar"/>
-					<Item id="6115" name="Auto-margen"/>
+					<Item id="6115" name="Auto-Sangría"/>
 					<Item id="6117" name="Permitir MRU"/>
 				</MISC>
 			</Preference>
@@ -780,12 +779,12 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 				<Item id="8005" name="veces"/>
 				<Item id="8002" name="Ejecutar hasta el fin del archivo"/>
 			</MultiMacro>
-			<Window title="Windows">
+			<Window title="Ventanas">
 				<Item id="1" name="Activar"/>
 				<Item id="2" name="Aceptar"/>
 				<Item id="7002" name="Guardar"/>
 				<Item id="7003" name="Cerrar ventana(s)"/>
-				<Item id="7004" name="Ejecutar pestañas"/>
+				<Item id="7004" name="Ordenar pestañas"/>
 			</Window>
 			<ColumnEditor title="Editor de columnas">
 				<Item id="2023" name="Texto a insertar"/>
@@ -803,7 +802,7 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Menú de edición del proyecto" message="Editar Menu.xml le permite modificar el menú contextual emergente.\rDeberá reiniciar Notepad++ para que tengan efecto los cambios."/>
+			<ContextMenuXmlEditWarning title="Edición del Menú Contextual" message="Editar contextMenu.xml le permite modificar el menú contextual emergente.\rDeberá reiniciar Notepad++ para que tengan efecto los cambios."/>
 			<NppHelpAbsentWarning title="El archivo no existe" message="\rno existe. Puede descargarlo del sitio web de Notepad++."/>
 			<SaveCurrentModifWarning title="Guardar la modificación" message="Debe guardar la modificación.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>
 			<LoseUndoAbilityWarning title="No podrá deshacer" message="Debe guardar los cambios.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>

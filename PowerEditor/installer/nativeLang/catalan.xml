@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
 Catalan translation
-for Notepad++ 6.6.1
-Updated 07.05.2014
-By Hiro5 [groccat at gmail]
+for Notepad++ 6.7.1
+Updated 23.12.2014
+By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="6.6.1">
+	<Native-Langue name="Català" filename="catalan.xml" version="6.7.1">
 		<Menu>
 			<Main>
 				<Entries>
@@ -163,6 +163,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="43004" name="Vés a la línia o &amp;posició..."/>
 					<Item id="43009" name="Vés a l'altre extrem del &amp;bloc"/>
 					<Item id="43053" name="Selecciona el bloc"/>
+					<Item id="43054" name="Marca..."/>
 					<Item id="43016" name="Marca&amp;-ho tot"/>
 					<Item id="43022" name="Utilitza &amp;1r. estil"/>
 					<Item id="43024" name="Utilitza &amp;2n. estil"/>
@@ -284,7 +285,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="49000" name="&amp;Executa..."/>
 					<Item id="48017" name="&amp;Modifica tecla de drecera/Esborra ordre..."/>
 					<Item id="47008" name="&amp;Ajuda..."/>
-					<Item id="47010" name="Ús en &amp;línia d'ordres"/>
+					<Item id="47010" name="Ús en &amp;línia d'ordres..."/>
 					<Item id="47001" name="Web de &amp;Notepad++"/>
 					<Item id="47002" name="Pàgina del &amp;projecte Notepad++"/>
 					<Item id="47003" name="Np&amp;Wiki++ (Ajuda en línia)"/>
@@ -643,7 +644,8 @@ By Hiro5 [groccat at gmail]
 					<Item id="6206" name="Mostra el número de línia al marge"/>
 					<Item id="6207" name="Mostra les marques de línia al marge"/>
 					<Item id="6214" name="Activa el realçament de la línia actual"/>
-					<Item id="6234" name="Desactiva el desplaçament avançat(si teniu problemes amb un touchpad)"/>
+					<Item id="6234" name="Desactiva el desplaçament avançat
+(si teniu problemes amb un touchpad)"/>
 				</Scintillas>
 				<NewDoc title="Document nou">
 					<Item id="6419" name="Document nou"/>
@@ -694,7 +696,7 @@ By Hiro5 [groccat at gmail]
 				<Print title="Impressió">
 					<Item id="6601" name="Imprimeix número de línia"/>
 					<Item id="6602" name="Opcions de color"/>
-					<Item id="6603" name="WYSIWYG (tal com es veu)"/>
+					<Item id="6603" name="Tal com es veu"/>
 					<Item id="6604" name="Colors invertits"/>
 					<Item id="6605" name="Blanc i negre"/>
 					<Item id="6606" name="Sense color de fons"/>
@@ -721,16 +723,17 @@ By Hiro5 [groccat at gmail]
 					<Item id="6727" name=" "/>
 				</Print>
 				<Backup title="Còpia de seguretat">
-					<Item id="6817" name="Captura de sessió periòdica"/>
+					<Item id="6817" name="Captura de sessió i còpia periòdica"/>
 					<Item id="6309" name="Recorda la sessió actual per l'inici següent"/>
-					<Item id="6818" name="Activa la captura de sessió periòdica"/>
-					<Item id="6819" name="Captura cada"/>
+					<Item id="6818" name="Activa la captura de sessió i còpia periòdica"/>
+					<Item id="6819" name="Copia cada"/>
 					<Item id="6821" name="segons"/>
-					<Item id="6801" name="Còpia de seguretat en desar"/>
-					<Item id="6315" name="Cap"/>
-					<Item id="6316" name="Còpia de seg. simple"/>
-					<Item id="6317" name="Còpia de seg. complexa"/>
-					<Item id="6219" name="Directori personalitzat per a les còpies de seguretat"/>
+					<Item id="6822" name="Directori:"/>
+					<Item id="6801" name="Còpia de seguretat"/>
+					<Item id="6315" name="Cap còpia"/>
+					<Item id="6316" name="Còpia simple"/>
+					<Item id="6317" name="Còpia complexa"/>
+					<Item id="6804" name="Directori de còpia personalitzat"/>
 					<Item id="6803" name="Directori:"/>
 				</Backup>
 				<AutoCompletion title="Autocompleció">
@@ -756,7 +759,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="6152" name="Obre sessió en nova instància de Notepad++"/>
 					<Item id="6153" name="Sempre en mode de múltiples instàncies"/>
 					<Item id="6154" name="Per defecte (una instància)"/>
-					<Item id="6155" name="La modificació d'aquest paràmetre necessita reiniciar Notepad++"/>
+					<Item id="6155" name="La modificació d'aquest paràmetre requereix reiniciar Notepad++"/>
 				</MultiInstance>
 				<Delimiter title="Delimitació">
 					<Item id="6251" name="Opcions de selecció de delimitació (Control + doble clic del ratolí)"/>
@@ -764,6 +767,14 @@ By Hiro5 [groccat at gmail]
 					<Item id="6255" name="Tanca"/>
 					<Item id="6256" name="Permet en diverses línies"/>
 				</Delimiter>
+				<Cloud title="Núvol">
+					<Item id="6262" name="Paràmetres al núvol"/>
+					<Item id="6263" name="Sense núvol"/>
+					<Item id="6264" name="Dropbox"/>  
+					<Item id="6265" name="OneDrive"/>  
+					<Item id="6266" name="Google Drive"/>
+					<!--Item id="6261" name="Reinicieu Notepad++ perquè faci efecte."-->
+				</Cloud>
 				<MISC title="Miscel·lània">
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
 					<Item id="6114" name="Habilita"/>
@@ -776,7 +787,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="6115" name="Sagnat automàtic"/>
 					<Item id="6308" name="Minimitza a la safata del sistema"/>
 					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
-					<Item id="6335" name="La barra inversa \ és el caràcter d'escapada de l'SQL"/>
+					<Item id="6335" name="Tracta \ com a caràcter d'escapada per l'SQL"/>
 					<Item id="6309" name="Recorda la sessió actual per la propera execució"/>
 					<Item id="6318" name="Configuració dels enllaços clicables"/>
 					<Item id="6319" name="Habilita"/>
@@ -824,17 +835,28 @@ By Hiro5 [groccat at gmail]
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a què faci efecte."/>
-			<NppHelpAbsentWarning title="No existeix el fitxer" message="no existeix. El podeu baixar de la web de Notepad++."/>
-			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
-			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
+			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.
+Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a què faci efecte."/>
+			<NppHelpAbsentWarning title="No existeix el fitxer" message="
+no existeix. El podeu baixar de la web de Notepad++."/>
+			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.
+Totes les modificacions desades no es podran desfer.
+
+Voleu continuar?"/>
+			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.
+Totes les modificacions desades no es podran desfer.
+
+Voleu continuar?"/>
 			<CannotMoveDoc title="Mou a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
 			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
 			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
-			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.Segur que voleu obrir-los?"/>
-			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»o «Alt+Maj.+Fletxes del teclat»per canviar al mode de columna." />
+			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.
+Segur que voleu obrir-los?"/>
+			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»
+o «Alt+Maj.+Fletxes del teclat»
+per canviar al mode de columna." />
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del porta-retalls"/>

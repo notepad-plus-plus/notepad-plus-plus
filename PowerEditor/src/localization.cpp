@@ -174,11 +174,11 @@ MenuPosition menuPos[] = {
 	{ 1,  17,  -1,    "edit-blankOperations"},
 	{ 1,  18,  -1,    "edit-pasteSpecial"},
 	
-	{ 2,  17,  -1,    "search-markAll"},
-	{ 2,  18,  -1,    "search-unmarkAll"},
-	{ 2,  19,  -1,    "search-jumpUp"},
-	{ 2,  20,  -1,    "search-jumpDown"},
-	{ 2,  22,  -1,    "search-bookmark"},
+	{ 2,  18,  -1,    "search-markAll"},
+	{ 2,  19,  -1,    "search-unmarkAll"},
+	{ 2,  20,  -1,    "search-jumpUp"},
+	{ 2,  21,  -1,    "search-jumpDown"},
+	{ 2,  23,  -1,    "search-bookmark"},
 	
 	{ 3,   4,  -1,    "view-showSymbol"},
 	{ 3,   5,  -1,    "view-zoom"},

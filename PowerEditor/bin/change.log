@@ -1,3 +1,9 @@
+Notepad++ v6.7.3 bug fixes:
+
+1.  Fix a crash issue for old processors due to SSE2 instruction.
+2.  Fix the regression for the translation: remap the sub-menu entry for the added command "Mark...".
+
+
 Notepad++ v6.7.2 enhancements and bug fixes:
 
 1.  Fix the crash issue while config.xml and stylers.xml are not loaded.

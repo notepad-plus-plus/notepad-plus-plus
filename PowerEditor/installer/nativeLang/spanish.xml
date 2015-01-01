@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="windows-1252"?>
-<!--
+	<!--
 Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com 
--->
+	-->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="6.6.9">
+	<Native-Langue name="Español" filename="spanish.xml" version="6.6.9">>
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

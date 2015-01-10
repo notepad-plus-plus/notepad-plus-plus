@@ -1,46 +1,5 @@
-Notepad++ v6.7.3 bug fixes:
+Notepad++ v6.7.4 Je suis Charlie edition
 
-1.  Fix a crash issue for old processors due to SSE2 instruction.
-2.  Fix the regression for the translation: remap the sub-menu entry for the added command "Mark...".
-
-
-Notepad++ v6.7.2 enhancements and bug fixes:
-
-1.  Fix the crash issue while config.xml and stylers.xml are not loaded.
-2.  Fix NPPM_LAUNCHFINDINFILESDLG API regression issue.
-3.  Prevent auto-insert of {} [] () "" and '' from inserting in column mode.
-4.  Fix the bug that "Function parameters hint on input" checkbox in preferences dialog is not initialized correctly.
-5.  Fix saving theme modified styles not working problem (Copy theme files in %APPDATA% to avoid UAC problem).
-6.  Improve the usability of User Defined Language dialog: reduce dialog's height.
-
-
-Notepad++ v6.7.1 new feature and bug fixes:
-
-1.  Fix crash issue on GotoLine.
-2.  Fix a random crash issue while typing random characters.
-3.  Fix the bug of auto-insert skipping feature that ] and } don't be skipped if "auto-insert ()" is disabled.
-4.  Add new feature: auto-insert skipping character feature works for "" and '' now.
-5.  Fix reloaded file on dirty status issue.
-6.  Add "Mark..." menu command.
-7.  Fix a regression (broken with compare plugin) due to a new feature of MRU in v6.7 (the feature is removed).
-
-
-Notepad++ v6.7 new features and bug fixes:
-
-1.  Add Smart Indent feature for php/javascript/c/c++/java/c#/Objective-C.
-2.  Enhance Auto-insert feature for {} [] (): typing and skipping }, ] and ).
-3.  Add new feature of MRU: While current file is closed the previous activated file will be activated.
-4.  Allow users to disable Easter eggs by adding noEasterEggs.xml in Notepad++ installed directory.
-5.  Enhancement: Resize column Name filed correctly while hiding column Ext.
-6.  Fix Global colours not applied to all text of the "Find result" pane.
-7.  Add C# and enhance php parser in Function List.
-8.  Fix document list panel has no selection while start up.
-9.  Fix docSwitcher bug which shows new 0 after loading a session of files.
-10. Fix crash issue on quit Notepad++ while session snapshot period backup feature is on.
-11. Make "Text Direction RTL" command and "Text Direction LTR" command work without reloading file.
-12. Make document map matches the current text direction (RTL/LTR).
-13. Fix a crash issue while the opened document is deleted/moved from outside.
-14. Fix undo actions on unsaved snapshot file removing the dirty state bug.
 
 Included plugins:
 

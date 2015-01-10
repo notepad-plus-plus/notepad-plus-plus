@@ -29,12 +29,13 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.7.3")
+//#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.7.3")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ Je suis Charlie edition")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("6.73\0")
-#define VERSION_DIGITALVALUE 6, 7, 3, 0
+#define VERSION_VALUE TEXT("6.74\0")
+#define VERSION_DIGITALVALUE 6, 7, 4, 0
 
 #ifndef IDC_STATIC
 #define IDC_STATIC	-1
@@ -42,6 +43,7 @@
 
 #define	IDI_M30ICON				100
 #define	IDI_CHAMELEON			101
+#define	IDI_JESUISCHARLIE		102
 #define IDR_RT_MANIFEST         103
 
 #define	IDI_NEW_OFF_ICON      201

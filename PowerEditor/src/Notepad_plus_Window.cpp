@@ -213,6 +213,17 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	scnN.nmhdr.idFrom = 0;
 	_notepad_plus_plus_core._pluginsManager.notify(&scnN);
 
+	if (cmdLineParams->_easterEggName != TEXT(""))
+	{
+		char dest[MAX_PATH];
+		wcstombs(dest, (cmdLineParams->_easterEggName).c_str(), sizeof(dest));
+		int iQuote = _notepad_plus_plus_core.getQuoteIndexFrom(dest);
+		if (iQuote != -1)
+		{
+			_notepad_plus_plus_core.showQuoteFromIndex(iQuote);
+		}
+	}
+
 	if (cmdLineParams->_showLoadingTime)
 	{
 		time_t timestampEnd = time(NULL);

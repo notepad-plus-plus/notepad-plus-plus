@@ -306,7 +306,8 @@ public:
 		return _pEditView->getCurrentBuffer();
 	};
 	void launchDocumentBackupTask();
-
+	int getQuoteIndexFrom(const char *quoter) const;
+	void showQuoteFromIndex(int index) const;
 	
 private:
 	Notepad_plus_Window *_pPublicInterface;
@@ -625,8 +626,6 @@ private:
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	int getQuoteIndexFrom(const char *quoter) const;
-	void showQuoteFromIndex(int index) const;
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);

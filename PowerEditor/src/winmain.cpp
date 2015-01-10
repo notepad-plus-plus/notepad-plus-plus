@@ -177,6 +177,13 @@ int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePres
 	return generic_atoi(numStr.c_str());
 };
 
+generic_string getEasterEggNameFromParam(ParamVector & params)
+{
+	generic_string EasterEggName;
+	if (!getParamVal('e', params, EasterEggName))
+		return TEXT("");
+	return EasterEggName;
+}
 
 const TCHAR FLAG_MULTI_INSTANCE[] = TEXT("-multiInst");
 const TCHAR FLAG_NO_PLUGIN[] = TEXT("-noPlugin");
@@ -226,6 +233,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
+	cmdLineParams._easterEggName = getEasterEggNameFromParam(params);
 	
 	if (showHelp)
 	{

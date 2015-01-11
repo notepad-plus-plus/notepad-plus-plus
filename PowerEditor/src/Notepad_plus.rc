@@ -723,6 +723,7 @@ BEGIN
         MENUITEM "SQL",                     IDM_LANG_SQL
         MENUITEM "S-Record",                IDM_LANG_SREC
         MENUITEM "TCL",                     IDM_LANG_TCL
+        MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
         MENUITEM "TeX",                     IDM_LANG_TEX
         MENUITEM "Visual Basic",            IDM_LANG_VB
         MENUITEM "VHDL",                    IDM_LANG_VHDL
@@ -834,6 +835,7 @@ BEGIN
     POPUP "T"
     BEGIN
         MENUITEM "TCL",                   IDM_LANG_TCL
+        MENUITEM "Tektronix extended HEX",IDM_LANG_TEHEX
         MENUITEM "TeX",                   IDM_LANG_TEX
     END
     POPUP "V"

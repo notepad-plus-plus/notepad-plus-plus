@@ -880,6 +880,10 @@ protected:
 		setLexer(SCLEX_IHEX, L_IHEX, LIST_NONE);
 	};
 
+	void setTEHexLexer() {
+		setLexer(SCLEX_TEHEX, L_TEHEX, LIST_NONE);
+	};
+
     //--------------------
 
 	void setSearchResultLexer() {

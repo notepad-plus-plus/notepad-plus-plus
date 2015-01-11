@@ -2841,6 +2841,8 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_SREC;
 		case IDM_LANG_IHEX :
             return L_IHEX;
+		case IDM_LANG_TEHEX :
+            return L_TEHEX;
 
 		case IDM_LANG_USER :
             return L_USER;

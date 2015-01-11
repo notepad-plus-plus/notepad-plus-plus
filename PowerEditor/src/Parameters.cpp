@@ -5859,6 +5859,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_IHEX :
 			id = IDM_LANG_IHEX; break;
 
+		case L_TEHEX :
+			id = IDM_LANG_TEHEX; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

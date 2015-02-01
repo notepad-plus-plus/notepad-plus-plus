@@ -5487,7 +5487,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 202;
+const int nbQuote = 203;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5665,7 +5665,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #144", "I don't want to sound like a badass but...\nI eject my USB drive without removing it safely."},
 {"Anonymous #145", "feet  (noun)\na device used for finding legos in the dark"},
 {"Anonymous #146", "Buy a sheep\nName it \"Relation\"\nNow you have a Relationsheep\n"},
-//{"Anonymous #147", ""},
+{"Anonymous #147", "I dig, you dig, we dig,\nhe dig, she dig, they dig...\n\nIt's not a beautiful poem,\nbut it's very deep."},
 {"Anonymous #148", "UNIX command line Russian roulette:\n[ $[ $RANDOM % 6 ] == 0 ] && rm -rf /* || echo *Click*"},
 {"Anonymous #149", "unzip, strip, top, less, touch, finger, grep, mount, fsck, more, yes, fsck, fsck, fsck, umount, sleep.\n\nNo, it's not porn. It's Unix."},
 {"Anonymous #150", "To understand what recursion is, you must first understand recursion."},

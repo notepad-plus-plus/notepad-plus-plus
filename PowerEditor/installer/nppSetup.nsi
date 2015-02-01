@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.7.4"
+!define APPVERSION "6.7.5"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 74
+!define VERSION_MINOR 75
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -150,8 +150,7 @@ FunctionEnd
 
 
 Function LaunchNpp
-  ;Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
-  Exec '"$INSTDIR\notepad++.exe" -e#JeSuisCharlie '
+  Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
 FunctionEnd
 
 ; Modern interface settings

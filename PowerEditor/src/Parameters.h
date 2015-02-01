@@ -1624,7 +1624,6 @@ private:
     vector<generic_string> _blacklist;
     PluginList _pluginList;
 
-	HMODULE _hUser32;
 	HMODULE _hUXTheme;
 
 	WNDPROC _transparentFuncAddr;

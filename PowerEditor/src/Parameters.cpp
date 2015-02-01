@@ -657,7 +657,7 @@ NppParameters::NppParameters() :	_pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 									_nbMaxRecentFile(10), _recentFileCustomLength(RECENTFILES_SHOWFULLPATH),\
 									_putRecentFileInSubMenu(false),	_pXmlShortcutDoc(NULL), _pXmlContextMenuDocA(NULL),\
 									_pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),	_nbUserLang(0), _nbExternalLang(0),\
-									_hUser32(NULL), _hUXTheme(NULL), _transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
+									_hUXTheme(NULL), _transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
 									_pNativeLangSpeaker(NULL), _isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1),\
 									_asNotepadStyle(false), _isFindReplacing(false)
 {
@@ -702,8 +702,6 @@ NppParameters::~NppParameters()
 		delete _LRFileList[i];
 	for (int i = 0 ; i < _nbUserLang ; ++i)
 		delete _userLangArray[i];
-	if (_hUser32)
-		FreeLibrary(_hUser32);
 	if (_hUXTheme)
 		FreeLibrary(_hUXTheme);
 
@@ -1218,9 +1216,9 @@ bool NppParameters::load()
 	//-------------------------------------//
 	// Transparent function for w2k and xp //
 	//-------------------------------------//
-	_hUser32 = ::GetModuleHandle(TEXT("User32"));
-	if (_hUser32)
-		_transparentFuncAddr = (WNDPROC)::GetProcAddress(_hUser32, "SetLayeredWindowAttributes");
+	HMODULE hUser32 = ::GetModuleHandle(TEXT("User32"));
+	if (hUser32)
+		_transparentFuncAddr = (WNDPROC)::GetProcAddress(hUser32, "SetLayeredWindowAttributes");
 	
 	//---------------------------------------------//
 	// Dlg theme texture function for xp and vista //

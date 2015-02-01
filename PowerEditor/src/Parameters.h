@@ -203,9 +203,11 @@ struct CmdLineParams {
 	LangType _langType;
 	generic_string _localizationPath;
 	generic_string _easterEggName;
+	unsigned char _quoteType;
+
 	CmdLineParams() : _isNoPlugin(false), _isReadOnly(false), _isNoSession(false), _isNoTab(false),_showLoadingTime(false),\
         _isPreLaunch(false), _line2go(-1), _column2go(-1), _langType(L_EXTERNAL), _isPointXValid(false), _isPointYValid(false),\
-		_localizationPath(TEXT("")), _easterEggName(TEXT(""))
+		_localizationPath(TEXT("")), _easterEggName(TEXT("")), _quoteType(0)
     {
         _point.x = 0;
         _point.y = 0;

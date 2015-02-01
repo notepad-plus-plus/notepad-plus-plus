@@ -98,6 +98,7 @@ private:
 	static const TCHAR _className[32];
 	bool _isPrelaunch;
 	bool _disablePluginsManager;
+	string _userQuote; // keep the availability of this string for thread using 
 };
 
 #endif //NOTEPAD_PLUS_WINDOW_H

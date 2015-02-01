@@ -5994,6 +5994,7 @@ void Notepad_plus::showAllQuotes() const
 
 }
 
+/*
 void Notepad_plus::showQuoteFromIndex(int index) const
 {
 	if (index < 0 || index >= nbQuote) return;
@@ -6007,6 +6008,27 @@ void Notepad_plus::showQuoteFromIndex(int index) const
 	params._shouldBeTrolling = index < 20;
 	HANDLE hThread = ::CreateThread(NULL, 0, threadTextPlayer, &params, 0, NULL);
     ::CloseHandle(hThread);
+}
+*/
+
+
+void Notepad_plus::showQuoteFromIndex(int index) const
+{
+	if (index < 0 || index >= nbQuote) return;
+	showQuote(quotes[index]._quote, quotes[index]._quoter, index < 20);
+}
+
+void Notepad_plus::showQuote(const char *quote, const char *quoter, bool doTrolling) const
+
+{
+	static TextPlayerParams params;
+	params._nppHandle = Notepad_plus::_pPublicInterface->getHSelf();
+	params._text2display = quote;
+	params._quoter = quoter;
+	params._pCurrentView = _pEditView;
+	params._shouldBeTrolling = doTrolling;
+	HANDLE hThread = ::CreateThread(NULL, 0, threadTextPlayer, &params, 0, NULL);
+	::CloseHandle(hThread);
 }
 
 void Notepad_plus::launchDocumentBackupTask()

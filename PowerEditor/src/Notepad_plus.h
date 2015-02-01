@@ -308,6 +308,7 @@ public:
 	void launchDocumentBackupTask();
 	int getQuoteIndexFrom(const char *quoter) const;
 	void showQuoteFromIndex(int index) const;
+	void showQuote(const char *quote, const char *quoter, bool doTrolling) const;
 	
 private:
 	Notepad_plus_Window *_pPublicInterface;

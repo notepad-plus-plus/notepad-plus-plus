@@ -45,22 +45,65 @@ void printStr(const TCHAR *str2print)
 
 std::string getFileContent(const TCHAR *file2read)
 {
-	const size_t blockSize = 256;
+	const size_t blockSize = 1024;
 	char data[blockSize];
+	std::string wholeFileContent = "";
 	FILE *fp = generic_fopen(file2read, TEXT("rb"));
 
-	_fseeki64 (fp , 0 , SEEK_END);
-	unsigned __int64 fileSize =_ftelli64(fp);
-	rewind(fp);
+	size_t lenFile = 0;
+	do {
+		lenFile = fread(data, 1, blockSize - 1, fp);
+		if (lenFile <= 0) break;
 
-	size_t lenFile = fread(data, 1, blockSize, fp);
+		if (lenFile >= blockSize - 1)
+			data[blockSize - 1] = '\0';
+		else
+			data[lenFile - 1] = '\0';
+
+		wholeFileContent += data;
+
+	} while (lenFile > 0);
+
 	fclose(fp);
-	if (lenFile <= 0) return ""; 
-	if (fileSize >= blockSize)
-		data[blockSize-1] = '\0';
+	return wholeFileContent;
+}
+
+
+char getDriveLetter()
+{
+	char drive = '\0';
+	TCHAR current[MAX_PATH];
+
+	::GetCurrentDirectory(MAX_PATH, current);
+	int driveNbr = ::PathGetDriveNumber(current);
+	if (driveNbr != -1)
+		drive = 'A' + char(driveNbr);
+
+	return drive;
+}
+
+generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
+{
+	generic_string fullFilePathName = TEXT("");
+	TCHAR fullFileName[MAX_PATH];
+	BOOL isRelative = ::PathIsRelative(relativeFilePath);
+
+	if (isRelative)
+	{
+		::GetFullPathName(relativeFilePath, MAX_PATH, fullFileName, NULL);
+		fullFilePathName += fullFileName;
+	}
 	else
-		data[fileSize] = '\0';
-	return data;
+	{
+		if ((relativeFilePath[0] == '\\' && relativeFilePath[1] != '\\') || relativeFilePath[0] == '/')
+		{
+			fullFilePathName += getDriveLetter();
+			fullFilePathName += ':';
+		}
+		fullFilePathName += relativeFilePath;
+	}
+
+	return fullFilePathName;
 }
 
 void writeFileContent(const TCHAR *file2write, const char *content2write)

@@ -35,17 +35,6 @@
 
 typedef std::vector<const TCHAR*> ParamVector;
 
-char getDriveLetter(){
-	char drive = '\0';
-	TCHAR current[MAX_PATH];
-
-	::GetCurrentDirectory(MAX_PATH, current);
-	int driveNbr = ::PathGetDriveNumber(current);
-	if (driveNbr != -1)
-		drive = 'A' + char(driveNbr);
-
-	return drive;
-}
 
 bool checkSingleFile(const TCHAR * commandLine) {
 	TCHAR fullpath[MAX_PATH];
@@ -134,7 +123,8 @@ bool isInList(const TCHAR *token2Find, ParamVector & params) {
 	return false;
 };
 
-bool getParamVal(TCHAR c, ParamVector & params, generic_string & value) {
+bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
+{
 	value = TEXT("");
 	int nrItems = params.size();
 
@@ -143,6 +133,26 @@ bool getParamVal(TCHAR c, ParamVector & params, generic_string & value) {
 		const TCHAR * token = params.at(i);
 		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
 			value = (token+2);
+			params.erase(params.begin() + i);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool getParamValFromString(const TCHAR *str, ParamVector & params, generic_string & value)
+{
+	value = TEXT("");
+	int nrItems = params.size();
+
+	for (int i = 0; i < nrItems; ++i)
+	{
+		const TCHAR * token = params.at(i);
+		generic_string tokenStr = token;
+		int pos = tokenStr.find(str);
+		if (pos != -1 && pos == 0)
+		{
+			value = (token + lstrlen(str));
 			params.erase(params.begin() + i);
 			return true;
 		}
@@ -177,11 +187,36 @@ int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePres
 	return generic_atoi(numStr.c_str());
 };
 
-generic_string getEasterEggNameFromParam(ParamVector & params)
+generic_string getEasterEggNameFromParam(ParamVector & params, unsigned char & type)
 {
 	generic_string EasterEggName;
-	if (!getParamVal('e', params, EasterEggName))
-		return TEXT("");
+	if (!getParamValFromString(TEXT("-qn"), params, EasterEggName))  // get internal easter egg
+	{
+		if (!getParamValFromString(TEXT("-qt"), params, EasterEggName)) // get user quote from cmdline argument
+		{
+			if (!getParamValFromString(TEXT("-qf"), params, EasterEggName)) // get user quote from a content of file
+				return TEXT("");
+			else
+			{
+				EasterEggName = relativeFilePathToFullFilePath(EasterEggName.c_str());
+				type = 2; // quote content in file
+			}
+		}
+		else
+			type = 1; // commandline quote
+	}
+	else
+		type = 0; // easter egg
+
+	generic_string percentTwentyStr = TEXT("%20");
+	generic_string spaceStr = TEXT(" ");
+	size_t start_pos = 0;
+	while ((start_pos = EasterEggName.find(percentTwentyStr, start_pos)) != std::string::npos)
+	{
+		EasterEggName.replace(start_pos, percentTwentyStr.length(), spaceStr);
+		start_pos += spaceStr.length(); // Handles case where 'to' is a substring of 'from'
+	}
+
 	return EasterEggName;
 }
 
@@ -233,7 +268,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
-	cmdLineParams._easterEggName = getEasterEggNameFromParam(params);
+	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
+	
 	
 	if (showHelp)
 	{
@@ -270,7 +306,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
     // tell the running instance the FULL path to the new files to load
 	size_t nrFilesToOpen = params.size();
 	const TCHAR * currentFile;
-	TCHAR fullFileName[MAX_PATH];
 
 	for(size_t i = 0; i < nrFilesToOpen; ++i)
 	{
@@ -278,22 +313,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		if (currentFile[0])
 		{
 			//check if relative or full path. Relative paths dont have a colon for driveletter
-			BOOL isRelative = ::PathIsRelative(currentFile);
+			
 			quotFileName += TEXT("\"");
-			if (isRelative)
-			{
-				::GetFullPathName(currentFile, MAX_PATH, fullFileName, NULL);
-				quotFileName += fullFileName;
-			}
-			else
-			{
-				if ((currentFile[0] == '\\' && currentFile[1] != '\\') || currentFile[0] == '/')
-				{
-					quotFileName += getDriveLetter();
-					quotFileName += ':';
-				}
-				quotFileName += currentFile;
-			}
+			quotFileName += relativeFilePathToFullFilePath(currentFile);
 			quotFileName += TEXT("\" ");
 		}
 	}

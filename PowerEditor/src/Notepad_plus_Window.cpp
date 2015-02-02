@@ -237,9 +237,13 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		{
 			std::string destStr = dest;
 			generic_string fileName(destStr.begin(), destStr.end());
-			_userQuote = getFileContent(fileName.c_str());
-			if (_userQuote != "")
-				_notepad_plus_plus_core.showQuote(_userQuote.c_str(), "Anonymous #999", false);
+
+			if (::PathFileExists(fileName.c_str()))
+			{
+				_userQuote = getFileContent(fileName.c_str());
+				if (_userQuote != "")
+					_notepad_plus_plus_core.showQuote(_userQuote.c_str(), "Anonymous #999", false);
+			}
 		}
 	}
 

@@ -954,21 +954,24 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 				// decode base64
 				size_t b64Len = strlen(pB64);
 				size_t asciiLen = getAsciiLenFromBase64Len(b64Len);
-				char * pAsciiText = new char[asciiLen + 1];
-				int len = base64ToAscii(pAsciiText, pB64);
-				if (len)
+				if (asciiLen)
 				{
-					//::MessageBoxA(NULL, pAsciiText, "", MB_OK);
-					const size_t maxLen = 2048;
-					wchar_t dest[maxLen];
-					mbstowcs(dest, pAsciiText, maxLen);
-					if (::PathFileExists(dest))
+					char * pAsciiText = new char[asciiLen + 1];
+					int len = base64ToAscii(pAsciiText, pB64);
+					if (len)
 					{
-						settingsPath4dropbox = dest;
-						_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
+						//::MessageBoxA(NULL, pAsciiText, "", MB_OK);
+						const size_t maxLen = 2048;
+						wchar_t dest[maxLen];
+						mbstowcs(dest, pAsciiText, maxLen);
+						if (::PathFileExists(dest))
+						{
+							settingsPath4dropbox = dest;
+							_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
+						}
 					}
+					delete[] pAsciiText;
 				}
-				delete [] pAsciiText;
 			}
 		}
 	} catch (...) {

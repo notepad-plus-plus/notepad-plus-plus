@@ -447,38 +447,44 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 	
 	for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
 	{
-		if (_insertedMatchedChars[i]._pos < posToDetect)
+		if (_insertedMatchedChars[i]._c == startChar)
 		{
-			int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
-			if (posToDetectLine == startPosLine)
+			if (_insertedMatchedChars[i]._pos < posToDetect)
 			{
-				int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
-
-				for (int j = posToDetect; j <= endPos; ++j)
+				int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
+				if (posToDetectLine == startPosLine)
 				{
-					char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
-					
-					if (aChar == endChar) // found it!!!
-					{
-						_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
-						return j;
-					}
+					int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
 
-					if (aChar == startChar) // a new start, stop searching
+					for (int j = posToDetect; j <= endPos; ++j)
 					{
-						_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
-						return -1;
+						char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
+
+						if (aChar != ' ') // non space is not allowed
+						{
+
+							if (aChar == endChar) // found it!!!
+							{
+								_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
+								return j;
+							}
+							else // whichever character, stop searching
+							{
+								_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
+								return -1;
+							}
+						}
 					}
 				}
+				else // not in the same line
+				{
+					_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
+				}
 			}
-			else // not in the same line
+			else // current position is before matchedStartSybol Pos
 			{
 				_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
 			}
-		}
-		else // current position is before matchedStartSybol Pos
-		{
-			_insertedMatchedChars.erase(_insertedMatchedChars.begin() + i);
 		}
 	}
 	return -1;

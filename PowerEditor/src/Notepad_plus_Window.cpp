@@ -269,6 +269,9 @@ bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const
 {
 	for (size_t i = 0, len = _notepad_plus_plus_core._hModelessDlgs.size(); i < len; ++i)
 	{
+		if (_notepad_plus_plus_core.processIncrFindAccel(msg))
+			return true;
+
 		if (::IsDialogMessageW(_notepad_plus_plus_core._hModelessDlgs[i], msg))
 			return true;
 	}

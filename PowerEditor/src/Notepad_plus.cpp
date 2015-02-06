@@ -2572,6 +2572,12 @@ void Notepad_plus::specialCmd(int id)
 	}
 }
 
+BOOL Notepad_plus::processIncrFindAccel(MSG *msg) const
+{
+	if (!::IsChild(_incrementFindDlg.getHSelf(), ::GetFocus()))
+		return FALSE;
+	return ::TranslateAccelerator(_incrementFindDlg.getHSelf(), _accelerator.getIncrFindAccTable(), msg);
+}
 
 void Notepad_plus::setLanguage(LangType langType) {
 	//Add logic to prevent changing a language when a document is shared between two views

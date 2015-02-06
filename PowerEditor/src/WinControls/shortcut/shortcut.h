@@ -342,10 +342,12 @@ private :
 class Accelerator { //Handles accelerator keys for Notepad++ menu, including custom commands
 friend class ShortcutMapper;
 public:
-	Accelerator():_hAccelMenu(NULL), _hMenuParent(NULL), _hAccTable(NULL), _pAccelArray(NULL), _nbAccelItems(0){};
-	~Accelerator(){
+	Accelerator() :_hAccelMenu(NULL), _hMenuParent(NULL), _hAccTable(NULL), _hIncFindAccTab(NULL), _pAccelArray(NULL), _nbAccelItems(0){};
+	~Accelerator() {
 		if (_hAccTable)
 			::DestroyAcceleratorTable(_hAccTable);
+		if (_hIncFindAccTab)
+			::DestroyAcceleratorTable(_hIncFindAccTab);
 		if (_pAccelArray)
 			delete [] _pAccelArray;
 	};
@@ -355,6 +357,7 @@ public:
 		updateShortcuts();
 	};
 	HACCEL getAccTable() const {return _hAccTable;};
+	HACCEL getIncrFindAccTable() const { return _hIncFindAccTab; };
 
 	void updateShortcuts();
 	void updateFullMenu();
@@ -363,14 +366,10 @@ private:
 	HMENU _hAccelMenu;
 	HWND _hMenuParent;
 	HACCEL _hAccTable;
+	HACCEL _hIncFindAccTab;
 	ACCEL *_pAccelArray;
 	int _nbAccelItems;
 
-	void reNew() {
-		if(_hAccTable)
-			::DestroyAcceleratorTable(_hAccTable);
-		_hAccTable = ::CreateAcceleratorTable(_pAccelArray, _nbAccelItems);
-	};
 	void updateMenuItemByCommand(CommandShortcut csc);
 };
 

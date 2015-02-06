@@ -35,6 +35,8 @@
 #include "Notepad_plus_Window.h"
 
 #include "keys.h"
+#include <array>
+
 const int KEY_STR_LEN = 16;
 
 struct KeyIDNAME {
@@ -452,6 +454,7 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 // return true if one of CommandShortcuts is deleted. Otherwise false.
 void Accelerator::updateShortcuts() 
 {
+	const std::array<int, 3> IFAccIds = { IDM_SEARCH_FINDNEXT, IDM_SEARCH_FINDPREV, IDM_SEARCH_FINDINCREMENT };
 	NppParameters *pNppParam = NppParameters::getInstance();
 
 	vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
@@ -467,6 +470,7 @@ void Accelerator::updateShortcuts()
 	if (_pAccelArray)
 		delete [] _pAccelArray;
 	_pAccelArray = new ACCEL[nbMenu+nbMacro+nbUserCmd+nbPluginCmd];
+	vector<ACCEL> IFAcc;
 
 	int offset = 0;
 	size_t i = 0;
@@ -476,6 +480,9 @@ void Accelerator::updateShortcuts()
 			_pAccelArray[offset].cmd = (WORD)(shortcuts[i].getID());
 			_pAccelArray[offset].fVirt = shortcuts[i].getAcceleratorModifiers();
 			_pAccelArray[offset].key = shortcuts[i].getKeyCombo()._key;
+			// Special extra handling for shortcuts shared by Incremental Find dialog
+			if (std::find(IFAccIds.begin(), IFAccIds.end(), shortcuts[i].getID()) != IFAccIds.end())
+				IFAcc.push_back(_pAccelArray[offset]);
 			++offset;
 		}
 	}
@@ -510,7 +517,15 @@ void Accelerator::updateShortcuts()
 	_nbAccelItems = offset;
 
 	updateFullMenu();
-	reNew();	//update the table
+	
+	//update the table
+	if (_hAccTable)
+		::DestroyAcceleratorTable(_hAccTable);
+	_hAccTable = ::CreateAcceleratorTable(_pAccelArray, _nbAccelItems);
+	if (_hIncFindAccTab)
+		::DestroyAcceleratorTable(_hIncFindAccTab);
+	_hIncFindAccTab = ::CreateAcceleratorTable(IFAcc.data(), IFAcc.size());
+
 	return;
 }
 

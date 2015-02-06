@@ -2698,7 +2698,7 @@ void FindIncrementDlg::display(bool toShow) const
 	_pRebar->setIDVisible(_rbBand.wID, toShow);
 }
 
-BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -2718,8 +2718,12 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 		case WM_COMMAND : 
 		{
-			bool isUnicode = (*(_pFRDlg->_ppEditView))->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
-			FindStatus findStatus = FSFound;
+			bool updateSearch = false;
+			bool forward = true;
+			bool advance = false;
+			bool updateHiLight = false;
+			bool updateCase = false;
+
 			switch (LOWORD(wParam))
 			{
 				case IDCANCEL :
@@ -2730,85 +2734,77 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					display(false);
 					return TRUE;
 
-				case IDC_INCFINDPREVOK :
-				case IDC_INCFINDNXTOK :
-				case IDOK :
-				{
-					FindOption fo;
-					fo._isWholeWord = false;
-					fo._incrementalType = NextIncremental;
-					fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
-					if (LOWORD(wParam) == IDC_INCFINDPREVOK)
-						fo._whichDirection = DIR_UP;
-					else if (LOWORD(wParam) == IDOK)
+				case IDM_SEARCH_FINDINCREMENT:	// Accel table: Start incremental search
+					// if focus is on a some other control, return it to the edit field
+					if (::GetFocus() != ::GetDlgItem(_hSelf, IDC_INCFINDTEXT))
 					{
-						SHORT nVirtKey = GetKeyState(VK_SHIFT);
-						if (nVirtKey & SHIFTED)
-							fo._whichDirection = DIR_UP;
-					}
-					
-					generic_string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
-					_pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus);
-					setFindStatus(findStatus);
-				}
-				return TRUE;
-
-				case IDC_INCFINDTEXT :
-				{
-					switch(HIWORD(wParam))
-					{
-						case EN_CHANGE :
-						{
-							FindOption fo;
-							fo._isWholeWord = false;
-							fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
-							fo._incrementalType = FirstIncremental;
-							
-							generic_string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
-							_pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus);
-							setFindStatus(findStatus);
-						}
+						::PostMessage(_hSelf, WM_NEXTDLGCTL, (WPARAM)::GetDlgItem(_hSelf, IDC_INCFINDTEXT), TRUE);
 						return TRUE;
-
-						case EN_KILLFOCUS :
-						case EN_SETFOCUS :
-							break;
 					}
-				}
-				return TRUE;
+					// otherwise, repeat the search
+				case IDM_SEARCH_FINDPREV:		// Accel table: find prev
+				case IDM_SEARCH_FINDNEXT:		// Accel table: find next
+				case IDC_INCFINDPREVOK:
+				case IDC_INCFINDNXTOK:
+				case IDOK:
+					updateSearch = true;
+					advance = true;
+					forward = (LOWORD(wParam) == IDC_INCFINDNXTOK) ||
+						(LOWORD(wParam) == IDM_SEARCH_FINDNEXT) ||
+						(LOWORD(wParam) == IDM_SEARCH_FINDINCREMENT) ||
+						((LOWORD(wParam) == IDOK) && !(GetKeyState(VK_SHIFT) & SHIFTED));
+					break;
 
 				case IDC_INCFINDMATCHCASE:
+					updateSearch = true;
+					updateCase = true;
+					updateHiLight = true;
+					break;
+
+				case IDC_INCFINDHILITEALL:
+					updateHiLight = true;
+					break;
+
+				case IDC_INCFINDTEXT:
+					if (HIWORD(wParam) == EN_CHANGE)
 					{
-						FindOption fo;
-						fo._isWholeWord = false;
-					fo._incrementalType = FirstIncremental;
-						fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
-
-						generic_string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
-					bool isFound = _pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus);
-					setFindStatus(findStatus);
-						if (!isFound)
-						{
-							CharacterRange range = (*(_pFRDlg->_ppEditView))->getSelection();
-							(*(_pFRDlg->_ppEditView))->execute(SCI_SETSEL, (WPARAM)-1, range.cpMin);
-						}
-				}
-
-				case IDC_INCFINDHILITEALL :
-				{
-					FindOption fo;
-					fo._isWholeWord = false;
-					fo._incrementalType = FirstIncremental;
-					fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
-
-					generic_string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
-						bool isHiLieAll = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0));
-						if (str2Search == TEXT(""))
-							isHiLieAll = false;
-						markSelectedTextInc(isHiLieAll, &fo);
+						updateSearch = true;
+						break;
 					}
-				return TRUE;
+					// treat other edit notifications as unhandled
+				default:
+					return DefWindowProc(getHSelf(), message, wParam, lParam);
 			}
+			FindOption fo;
+			fo._isWholeWord = false;
+			fo._incrementalType = advance ? NextIncremental : FirstIncremental;
+			fo._whichDirection = forward ? DIR_DOWN : DIR_UP;
+			fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
+
+			bool isUnicode = (*(_pFRDlg->_ppEditView))->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+			generic_string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
+			if (updateSearch)
+			{
+				FindStatus findStatus = FSFound;
+				bool isFound = _pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus);
+				setFindStatus(findStatus);
+				// If case-sensitivity changed (to Match=yes), there may have been a matched selection that
+				// now does not match; so if Not Found, clear selection and put caret at beginning of what was
+				// selected (no change, if there was no selection)
+				if (updateCase && !isFound)
+				{
+					CharacterRange range = (*(_pFRDlg->_ppEditView))->getSelection();
+					(*(_pFRDlg->_ppEditView))->execute(SCI_SETSEL, (WPARAM)-1, range.cpMin);
+				}
+			}
+
+			if (updateHiLight)
+			{
+				bool highlight = !str2Search.empty() &&
+					(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0));
+				markSelectedTextInc(highlight, &fo);
+			}
+			return TRUE;
 		}
 
 		case WM_ERASEBKGND:
@@ -2825,7 +2821,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			break; 
 		}
 	}
-	return FALSE;
+	return DefWindowProc(getHSelf(), message, wParam, lParam);
 }
 
 void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)

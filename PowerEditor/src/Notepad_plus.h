@@ -519,6 +519,8 @@ private:
     void setLanguage(LangType langType);
 	enum LangType menuID2LangType(int cmdID);
 
+	BOOL processIncrFindAccel(MSG *msg) const;
+
 	void checkMenuItem(int itemID, bool willBeChecked) const {
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
 	};

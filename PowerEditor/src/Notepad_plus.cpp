@@ -708,7 +708,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);
 	activateBuffer(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
-	::SetFocus(_mainEditView.getHSelf());
+	//::SetFocus(_mainEditView.getHSelf());
+	_mainEditView.getFocus();
 	return TRUE;
 }
 

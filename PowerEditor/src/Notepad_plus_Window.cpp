@@ -218,7 +218,6 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		char dest[MAX_PATH];
 		wcstombs(dest, (cmdLineParams->_easterEggName).c_str(), sizeof(dest));
 
-
 		//::MessageBoxA(NULL, destStr.c_str(), "", MB_OK);
 		if (cmdLineParams->_quoteType == 0) // Easter Egg Name
 		{

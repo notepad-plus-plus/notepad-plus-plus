@@ -428,7 +428,10 @@ void ReBar::init(HINSTANCE hInst, HWND hPere)
 bool ReBar::addBand(REBARBANDINFO * rBand, bool useID) 
 {
 	if (rBand->fMask & RBBIM_STYLE)
-		rBand->fStyle |= RBBS_GRIPPERALWAYS;
+	{
+		if (!(rBand->fStyle & RBBS_NOGRIPPER))
+			rBand->fStyle |= RBBS_GRIPPERALWAYS;
+	}
 	else
 		rBand->fStyle = RBBS_GRIPPERALWAYS;
 	rBand->fMask |= RBBIM_ID | RBBIM_STYLE;

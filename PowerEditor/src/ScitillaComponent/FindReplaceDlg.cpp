@@ -890,7 +890,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							result = moreInfo;
 						}
 						setStatusbarMessage(result, FSMessage);
-						::SetFocus(_hSelf);
+						//::SetFocus(_hSelf);
+						getFocus();
 					}
 				}
 				return TRUE;
@@ -921,7 +922,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						}
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
 						setStatusbarMessage(result, FSMessage);
-						::SetFocus(_hSelf);
+						//::SetFocus(_hSelf);
+						getFocus();
 					}
 				}
 				return TRUE;
@@ -953,7 +955,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							result = moreInfo;
 						}
 						setStatusbarMessage(result, FSMessage);
-						::SetFocus(_hSelf);
+						//::SetFocus(_hSelf);
+						getFocus();
 					}
 				}
 				return TRUE;
@@ -1279,7 +1282,8 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 				if (!::IsWindowVisible(_hSelf))
 				{
-					::SetFocus((*_ppEditView)->getHSelf());
+					//::SetFocus((*_ppEditView)->getHSelf());
+					(*_ppEditView)->getFocus();
 				}
 				else
 				{
@@ -2720,8 +2724,9 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			{
 				case IDCANCEL :
 					(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
-					::SetFocus((*(_pFRDlg->_ppEditView))->getHSelf());
-
+					//::SetFocus((*(_pFRDlg->_ppEditView))->getHSelf());
+					(*(_pFRDlg->_ppEditView))->getFocus();
+					::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_SETCHECK, BST_UNCHECKED, 0);
 					display(false);
 					return TRUE;
 
@@ -2819,13 +2824,6 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			return (BOOL)lResult;
 			break; 
 		}
-
-		case WM_MOVE:
-		{
-			::InvalidateRect(_hSelf, NULL, TRUE);	//when moving, force background redraw
-			return FALSE;
-			break;
-		}
 	}
 	return FALSE;
 }
@@ -2884,7 +2882,7 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE |
 					  RBBIM_SIZE | RBBIM_ID;
 
-	_rbBand.fStyle		= RBBS_HIDDEN;
+	_rbBand.fStyle = RBBS_HIDDEN | RBBS_NOGRIPPER;
 	_rbBand.hwndChild	= getHSelf();
 	_rbBand.wID			= REBAR_BAR_SEARCH;	//ID REBAR_BAR_SEARCH for search dialog
 	_rbBand.cxMinChild	= 0;

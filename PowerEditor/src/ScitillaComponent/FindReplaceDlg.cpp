@@ -2728,7 +2728,6 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				case IDCANCEL :
 					(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
-					//::SetFocus((*(_pFRDlg->_ppEditView))->getHSelf());
 					(*(_pFRDlg->_ppEditView))->getFocus();
 					::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_SETCHECK, BST_UNCHECKED, 0);
 					display(false);
@@ -2769,6 +2768,8 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					if (HIWORD(wParam) == EN_CHANGE)
 					{
 						updateSearch = true;
+						updateHiLight = isCheckedOrNot(IDC_INCFINDHILITEALL);
+						updateCase = isCheckedOrNot(IDC_INCFINDMATCHCASE);
 						break;
 					}
 					// treat other edit notifications as unhandled

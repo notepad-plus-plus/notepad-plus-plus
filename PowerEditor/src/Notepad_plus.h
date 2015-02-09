@@ -514,7 +514,6 @@ private:
 	void setDisplayFormat(formatType f);
 	int getCmdIDFromEncoding(int encoding) const;
 	void setUniModeText();
-
 	void checkLangsMenu(int id) const ;
     void setLanguage(LangType langType);
 	enum LangType menuID2LangType(int cmdID);

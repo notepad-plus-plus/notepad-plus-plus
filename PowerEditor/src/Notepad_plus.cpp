@@ -2363,7 +2363,15 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				if (nextChar == '}')
 				{
-					_pEditView->execute(SCI_INSERTTEXT, _pEditView->execute(SCI_GETCURRENTPOS), (LPARAM)"\r\n");
+					char *eolChars;
+					if (eolMode == SC_EOL_CRLF)
+						eolChars = "\r\n";
+					else if (eolMode == SC_EOL_LF)
+						eolChars = "\n";
+					else
+						eolChars = "\r";
+
+					_pEditView->execute(SCI_INSERTTEXT, _pEditView->execute(SCI_GETCURRENTPOS), (LPARAM)eolChars);
 					_pEditView->setLineIndent(curLine + 1, indentAmountPrevLine);
 				}
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);

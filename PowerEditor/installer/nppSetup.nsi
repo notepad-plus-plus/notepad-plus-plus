@@ -25,6 +25,14 @@
 ; along with this program; if not, write to the Free Software
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+
+; NSIS includes
+!include "x64.nsh"       ; a few simple macros to handle installations on x64 machines
+!include "MUI.nsh"       ; Modern UI
+!include "nsDialogs.nsh" ; allows creation of custom pages in the installer
+!include "Memento.nsh"   ; remember user selections in the installer across runs
+
+
 ; Define the application name
 !define APPNAME "Notepad++"
 
@@ -34,6 +42,10 @@
 !define VERSION_MINOR 75
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
+
+!define UNINSTALL_REG_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
+!define MEMENTO_REGISTRY_ROOT HKLM
+!define MEMENTO_REGISTRY_KEY ${UNINSTALL_REG_KEY}
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
@@ -154,10 +166,6 @@ Function LaunchNpp
 FunctionEnd
 
 ; Modern interface settings
-!include "MUI.nsh"
-!include "x64.nsh"
-!include "nsDialogs.nsh"
-
 !define MUI_ICON ".\images\npp_inst.ico"
 
 !define MUI_WELCOMEFINISHPAGE_BITMAP ".\images\wizard.bmp"
@@ -242,9 +250,9 @@ page Custom ExtraOptions
   !insertmacro MUI_LANGUAGE "Macedonian"
   !insertmacro MUI_LANGUAGE "Latvian"
   !insertmacro MUI_LANGUAGE "Bosnian"
+  !insertmacro MUI_LANGUAGE "Mongolian"
   
   ;!insertmacro MUI_LANGUAGE "Estonian"
-  ;!insertmacro MUI_LANGUAGE "Mongolian"
   ;!insertmacro MUI_LANGUAGE "Breton"
   ;!insertmacro MUI_LANGUAGE "Icelandic"
   ;!insertmacro MUI_LANGUAGE "Kurdish"
@@ -344,6 +352,12 @@ Function .onInit
 	;Pop $0 ; $0 has '1' if the user closed the splash screen early,
 			; '0' if everything closed normally, and '-1' if some error occurred.
 
+	${MementoSectionRestore}
+
+FunctionEnd
+
+Function .onInstSuccess
+	${MementoSectionSave}
 FunctionEnd
 
 
@@ -395,6 +409,7 @@ LangString langFileName ${LANG_UZBEK} "uzbek.xml"
 LangString langFileName ${LANG_MACEDONIAN} "macedonian.xml"
 LangString langFileName ${LANG_LATVIAN} "Latvian.xml"
 LangString langFileName ${LANG_BOSNIAN} "bosnian.xml"
+LangString langFileName ${LANG_MONGOLIAN} "mongolian.xml"
 
 
 Var UPDATE_PATH
@@ -657,7 +672,7 @@ Section -"Notepad++" mainSection
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
 SectionEnd
 
-Section "Context Menu Entry" explorerContextMenu
+${MementoSection} "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	${If} ${RunningX64}
@@ -667,117 +682,116 @@ Section "Context Menu Entry" explorerContextMenu
 	${EndIf}
 	
 	Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
-SectionEnd
+${MementoSectionEnd}
 
 SectionGroup "Auto-completion Files" autoCompletionComponent
 	SetOverwrite off
 	
-	Section C
+	${MementoSection} "C" C
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\c.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section C++
+	${MementoSection} "C++" C++
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\cpp.xml"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section Java
+	${MementoSection} "Java" Java
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\java.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section C#
+	${MementoSection} "C#" C#
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\cs.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section HTML
+	${MementoSection} "HTML" HTML
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\html.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section RC
+	${MementoSection} "RC" RC
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\rc.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section SQL
+	${MementoSection} "SQL" SQL
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\sql.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section PHP
+	${MementoSection} "PHP" PHP
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\php.xml"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section CSS
+	${MementoSection} "CSS" CSS
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\css.xml"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section VB
+	${MementoSection} "VB" VB
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\vb.xml"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section Perl
+	${MementoSection} "Perl" Perl
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\perl.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section JavaScript
+	${MementoSection} "JavaScript" JavaScript
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\javascript.xml"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section Python
+	${MementoSection} "Python" Python
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\python.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section ActionScript
+	${MementoSection} "ActionScript" ActionScript
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\actionscript.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section LISP
+	${MementoSection} "LISP" LISP
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\lisp.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section VHDL
+	${MementoSection} "VHDL" VHDL
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\vhdl.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section TeX
+	${MementoSection} "TeX" TeX
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\tex.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section DocBook
+	${MementoSection} "DocBook" DocBook
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\xml.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section NSIS
+	${MementoSection} "NSIS" NSIS
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\nsis.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section CMAKE
+	${MementoSection} "CMAKE" CMAKE
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\cmake.xml"
-	SectionEnd
+	${MementoSectionEnd}
 SectionGroupEnd
 
 SectionGroup "Plugins" Plugins
-	
 	SetOverwrite on
 
-	Section "Spell-Checker" DSpellCheck
+	${MementoSection} "Spell-Checker" DSpellCheck
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\DSpellCheck.dll"
@@ -790,9 +804,9 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\Config\Hunspell\en_US.aff"
 		File "..\bin\plugins\Config\Hunspell\en_US.dic"
 		File "..\bin\plugins\Config\Hunspell\README_en_US.txt"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section "Npp FTP" NppFTP
+	${MementoSection} "Npp FTP" NppFTP
 		Delete "$INSTDIR\plugins\NppFTP.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppFTP.dll"
@@ -804,393 +818,392 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\doc\NppFTP\license_ZLIB.txt"
 		File "..\bin\plugins\doc\NppFTP\license_UTCP.htm"
 		File "..\bin\plugins\doc\NppFTP\Readme.txt"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section "NppExport" NppExport
+	${MementoSection} "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section "Plugin Manager" PluginManager
+	${MementoSection} "Plugin Manager" PluginManager
 		Delete "$INSTDIR\plugins\PluginManager.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\PluginManager.dll"
 		SetOutPath "$INSTDIR\updater"
 		File "..\bin\updater\gpup.exe"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Mime Tools" MimeTools
+	${MementoSection} "Mime Tools" MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\mimeTools.dll"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Converter" Converter
+	${MementoSection} "Converter" Converter
 		Delete "$INSTDIR\plugins\NppConverter.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppConverter.dll"
-	SectionEnd
+	${MementoSectionEnd}
 SectionGroupEnd
 
 SectionGroup "Localization" localization
 	SetOverwrite on
-	Section /o "Afrikaans"  afrikaans
+	${MementoUnselectedSection} "Afrikaans" afrikaans
 		CopyFiles "$TEMP\nppLocalization\afrikaans.xml" "$INSTDIR\localization\afrikaans.xml"
-	SectionEnd
-	Section /o "Albanian"  albanian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Albanian" albanian
 		CopyFiles "$TEMP\nppLocalization\albanian.xml" "$INSTDIR\localization\albanian.xml"
-	SectionEnd
-	Section /o "Arabic"  arabic
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Arabic" arabic
 		CopyFiles "$TEMP\nppLocalization\arabic.xml" "$INSTDIR\localization\arabic.xml"
-	SectionEnd
-	Section /o "Aragonese"  aragonese
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Aragonese" aragonese
 		CopyFiles "$TEMP\nppLocalization\aragonese.xml" "$INSTDIR\localization\aragonese.xml"
-	SectionEnd
-	Section /o "Aranese"  aranese
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Aranese" aranese
 		CopyFiles "$TEMP\nppLocalization\aranese.xml" "$INSTDIR\localization\aranese.xml"
-	SectionEnd
-	Section /o "Azerbaijani"  azerbaijani
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Azerbaijani" azerbaijani
 		CopyFiles "$TEMP\nppLocalization\azerbaijani.xml" "$INSTDIR\localization\azerbaijani.xml"
-	SectionEnd
-	Section /o "Basque"  basque
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Basque" basque
 		CopyFiles "$TEMP\nppLocalization\basque.xml" "$INSTDIR\localization\basque.xml"
-	SectionEnd
-	Section /o "Belarusian"  belarusian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Belarusian" belarusian
 		CopyFiles "$TEMP\nppLocalization\belarusian.xml" "$INSTDIR\localization\belarusian.xml"
-	SectionEnd
-	Section /o "Bengali"  bengali
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Bengali" bengali
 		CopyFiles "$TEMP\nppLocalization\bengali.xml" "$INSTDIR\localization\bengali.xml"
-	SectionEnd
-	Section /o "Bosnian"  bosnian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Bosnian" bosnian
 		CopyFiles "$TEMP\nppLocalization\bosnian.xml" "$INSTDIR\localization\bosnian.xml"
-	SectionEnd
-	Section /o "Brazilian Portuguese"  brazilian_portuguese
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Brazilian Portuguese" brazilian_portuguese
 		CopyFiles "$TEMP\nppLocalization\brazilian_portuguese.xml" "$INSTDIR\localization\brazilian_portuguese.xml"
-	SectionEnd
-	Section /o "Bulgarian"  bulgarian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Bulgarian" bulgarian
 		CopyFiles "$TEMP\nppLocalization\bulgarian.xml" "$INSTDIR\localization\bulgarian.xml"
-	SectionEnd
-	Section /o "Catalan"  catalan
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Catalan" catalan
 		CopyFiles "$TEMP\nppLocalization\catalan.xml" "$INSTDIR\localization\catalan.xml"
-	SectionEnd
-	Section /o "Chinese (Traditional)" chineseTraditional
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Chinese (Traditional)" chineseTraditional
 		CopyFiles "$TEMP\nppLocalization\chinese.xml" "$INSTDIR\localization\chinese.xml"
-	SectionEnd
-	Section /o "Chinese (Simplified)"  chineseSimplified
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Chinese (Simplified)" chineseSimplified
 		CopyFiles "$TEMP\nppLocalization\chineseSimplified.xml" "$INSTDIR\localization\chineseSimplified.xml"
-	SectionEnd
-	Section /o "Croatian"  croatian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Croatian" croatian
 		CopyFiles "$TEMP\nppLocalization\croatian.xml" "$INSTDIR\localization\croatian.xml"
-	SectionEnd
-	Section /o "Czech"  czech
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Czech" czech
 		CopyFiles "$TEMP\nppLocalization\czech.xml" "$INSTDIR\localization\czech.xml"
-	SectionEnd
-	Section /o "Danish"  danish
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Danish" danish
 		CopyFiles "$TEMP\nppLocalization\danish.xml" "$INSTDIR\localization\danish.xml"
-	SectionEnd
-	Section /o "Dutch"  dutch
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Dutch" dutch
 		CopyFiles "$TEMP\nppLocalization\dutch.xml" "$INSTDIR\localization\dutch.xml"
-	SectionEnd
-	Section /o "English (Customizable)"  english_customizable
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "English (Customizable)" english_customizable
 		CopyFiles "$TEMP\nppLocalization\english_customizable.xml" "$INSTDIR\localization\english_customizable.xml"
-	SectionEnd
-	Section /o "Esperanto"  esperanto
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Esperanto" esperanto
 		CopyFiles "$TEMP\nppLocalization\esperanto.xml" "$INSTDIR\localization\esperanto.xml"
-	SectionEnd
-	Section /o "Extremaduran"  extremaduran
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Extremaduran" extremaduran
 		CopyFiles "$TEMP\nppLocalization\extremaduran.xml" "$INSTDIR\localization\extremaduran.xml"
-	SectionEnd
-	Section /o "Farsi"  farsi
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Farsi" farsi
 		CopyFiles "$TEMP\nppLocalization\farsi.xml" "$INSTDIR\localization\farsi.xml"
-	SectionEnd
-	Section /o "Finnish"  finnish
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Finnish" finnish
 		CopyFiles "$TEMP\nppLocalization\finnish.xml" "$INSTDIR\localization\finnish.xml"
-	SectionEnd
-	Section /o "Friulian"  friulian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Friulian" friulian
 		CopyFiles "$TEMP\nppLocalization\friulian.xml" "$INSTDIR\localization\friulian.xml"
-	SectionEnd
-	Section /o "French" french 
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "French" french 
 		CopyFiles "$TEMP\nppLocalization\french.xml" "$INSTDIR\localization\french.xml"
-	SectionEnd
-	Section /o "Galician"  galician
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Galician" galician
 		CopyFiles "$TEMP\nppLocalization\galician.xml" "$INSTDIR\localization\galician.xml"
-	SectionEnd
-	Section /o "Georgian"  georgian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Georgian" georgian
 		CopyFiles "$TEMP\nppLocalization\georgian.xml" "$INSTDIR\localization\georgian.xml"
-	SectionEnd
-	Section /o "German" german
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "German" german
 		CopyFiles "$TEMP\nppLocalization\german.xml" "$INSTDIR\localization\german.xml"
-	SectionEnd
-	Section /o "Greek" greek
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Greek" greek
 		CopyFiles "$TEMP\nppLocalization\greek.xml" "$INSTDIR\localization\greek.xml"
-	SectionEnd
-	Section /o "Gujarati" gujarati
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Gujarati" gujarati
 		CopyFiles "$TEMP\nppLocalization\gujarati.xml" "$INSTDIR\localization\gujarati.xml"
-	SectionEnd
-	Section /o "Hebrew" hebrew
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Hebrew" hebrew
 		CopyFiles "$TEMP\nppLocalization\hebrew.xml" "$INSTDIR\localization\hebrew.xml"
-	SectionEnd
-	Section /o "Hindi" hindi
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Hindi" hindi
 		CopyFiles "$TEMP\nppLocalization\hindi.xml" "$INSTDIR\localization\hindi.xml"
-	SectionEnd
-	Section /o "Hungarian" hungarian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Hungarian" hungarian
 		CopyFiles "$TEMP\nppLocalization\hungarian.xml" "$INSTDIR\localization\hungarian.xml"
-	SectionEnd
-	Section /o "Hungarian (ANSI)" hungarianA
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Hungarian (ANSI)" hungarianA
 		CopyFiles "$TEMP\nppLocalization\hungarianA.xml" "$INSTDIR\localization\hungarianA.xml"
-	SectionEnd
-	Section /o "Indonesian" indonesian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Indonesian" indonesian
 		CopyFiles "$TEMP\nppLocalization\indonesian.xml" "$INSTDIR\localization\indonesian.xml"
-	SectionEnd
-	Section /o "Italian" italian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Italian" italian
 		CopyFiles "$TEMP\nppLocalization\italian.xml" "$INSTDIR\localization\italian.xml"
-	SectionEnd
-	Section /o "Japanese" japanese
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Japanese" japanese
 		CopyFiles "$TEMP\nppLocalization\japanese.xml" "$INSTDIR\localization\japanese.xml"
-	SectionEnd
-	Section /o "Kazakh" kazakh
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Kazakh" kazakh
 		CopyFiles "$TEMP\nppLocalization\kazakh.xml" "$INSTDIR\localization\kazakh.xml"
-	SectionEnd
-	Section /o "Korean" korean
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Korean" korean
 		CopyFiles "$TEMP\nppLocalization\korean.xml" "$INSTDIR\localization\korean.xml"
-	SectionEnd
-	Section /o "Kyrgyz" kyrgyz
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Kyrgyz" kyrgyz
 		CopyFiles "$TEMP\nppLocalization\kyrgyz.xml" "$INSTDIR\localization\kyrgyz.xml"
-	SectionEnd
-	Section /o "Latvian" latvian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Latvian" latvian
 		CopyFiles "$TEMP\nppLocalization\latvian.xml" "$INSTDIR\localization\latvian.xml"
-	SectionEnd
-	Section /o "Ligurian" ligurian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Ligurian" ligurian
 		CopyFiles "$TEMP\nppLocalization\ligurian.xml" "$INSTDIR\localization\ligurian.xml"
-	SectionEnd
-	Section /o "Lithuanian" lithuanian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Lithuanian" lithuanian
 		CopyFiles "$TEMP\nppLocalization\lithuanian.xml" "$INSTDIR\localization\lithuanian.xml"
-	SectionEnd
-	Section /o "Luxembourgish" luxembourgish
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Luxembourgish" luxembourgish
 		CopyFiles "$TEMP\nppLocalization\luxembourgish.xml" "$INSTDIR\localization\luxembourgish.xml"
-	SectionEnd
-	Section /o "Macedonian" macedonian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Macedonian" macedonian
 		CopyFiles "$TEMP\nppLocalization\macedonian.xml" "$INSTDIR\localization\macedonian.xml"
-	SectionEnd
-	Section /o "Malay" malay
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Malay" malay
 		CopyFiles "$TEMP\nppLocalization\malay.xml" "$INSTDIR\localization\malay.xml"
-	SectionEnd
-	Section /o "Marathi" marathi
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Marathi" marathi
 		CopyFiles "$TEMP\nppLocalization\marathi.xml" "$INSTDIR\localization\marathi.xml"
-	SectionEnd
-	Section /o "Mongolian" mongolian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Mongolian" mongolian
 		CopyFiles "$TEMP\nppLocalization\mongolian.xml" "$INSTDIR\localization\mongolian.xml"
-	SectionEnd
-	Section /o "Norwegian" norwegian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Norwegian" norwegian
 		CopyFiles "$TEMP\nppLocalization\norwegian.xml" "$INSTDIR\localization\norwegian.xml"
-	SectionEnd
-	Section /o "Nynorsk" nynorsk
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Nynorsk" nynorsk
 		CopyFiles "$TEMP\nppLocalization\nynorsk.xml" "$INSTDIR\localization\nynorsk.xml"
-	SectionEnd
-	Section /o "Occitan" occitan
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Occitan" occitan
 		CopyFiles "$TEMP\nppLocalization\occitan.xml" "$INSTDIR\localization\occitan.xml"
-	SectionEnd
-	Section /o "Polish" polish
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Polish" polish
 		CopyFiles "$TEMP\nppLocalization\polish.xml" "$INSTDIR\localization\polish.xml"
-	SectionEnd
-	Section /o "Portuguese" portuguese
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Portuguese" portuguese
 		CopyFiles "$TEMP\nppLocalization\portuguese.xml" "$INSTDIR\localization\portuguese.xml"
-	SectionEnd
-	Section /o "Kannada" kannada
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Kannada" kannada
 		CopyFiles "$TEMP\nppLocalization\kannada.xml" "$INSTDIR\localization\kannada.xml"
-	SectionEnd
-	Section /o "Romanian" romanian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Romanian" romanian
 		CopyFiles "$TEMP\nppLocalization\romanian.xml" "$INSTDIR\localization\romanian.xml"
-	SectionEnd
-	Section /o "Russian" russian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Russian" russian
 		CopyFiles "$TEMP\nppLocalization\russian.xml" "$INSTDIR\localization\russian.xml"
-	SectionEnd
-	Section /o "Samogitian" samogitian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Samogitian" samogitian
 		CopyFiles "$TEMP\nppLocalization\samogitian.xml" "$INSTDIR\localization\samogitian.xml"
-	SectionEnd
-	Section /o "Sardinian" sardinian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Sardinian" sardinian
 		CopyFiles "$TEMP\nppLocalization\sardinian.xml" "$INSTDIR\localization\sardinian.xml"
-	SectionEnd
-	Section /o "Serbian" serbian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Serbian" serbian
 		CopyFiles "$TEMP\nppLocalization\serbian.xml" "$INSTDIR\localization\serbian.xml"
-	SectionEnd
-	Section /o "Serbian (Cyrillic)" serbianCyrillic
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Serbian (Cyrillic)" serbianCyrillic
 		CopyFiles "$TEMP\nppLocalization\serbianCyrillic.xml" "$INSTDIR\localization\serbianCyrillic.xml"
-	SectionEnd
-	Section /o "Sinhala" sinhala
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Sinhala" sinhala
 		CopyFiles "$TEMP\nppLocalization\sinhala.xml" "$INSTDIR\localization\sinhala.xml"
-	SectionEnd
-	Section /o "Slovak" slovak
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Slovak" slovak
 		CopyFiles "$TEMP\nppLocalization\slovak.xml" "$INSTDIR\localization\slovak.xml"
-	SectionEnd
-	Section /o "Slovak (ANSI)" slovakA
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Slovak (ANSI)" slovakA
 		CopyFiles "$TEMP\nppLocalization\slovakA.xml" "$INSTDIR\localization\slovakA.xml"
-	SectionEnd
-	Section /o "Slovenian" slovenian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Slovenian" slovenian
 		CopyFiles "$TEMP\nppLocalization\slovenian.xml" "$INSTDIR\localization\slovenian.xml"
-	SectionEnd
-	Section /o "Spanish" spanish
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Spanish" spanish
 		CopyFiles "$TEMP\nppLocalization\spanish.xml" "$INSTDIR\localization\spanish.xml"
-	SectionEnd
-	Section /o "Spanish_ar" spanish_ar
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Spanish_ar" spanish_ar
 		CopyFiles "$TEMP\nppLocalization\spanish_ar.xml" "$INSTDIR\localization\spanish_ar.xml"
-	SectionEnd
-	Section /o "Swedish" swedish
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Swedish" swedish
 		CopyFiles "$TEMP\nppLocalization\swedish.xml" "$INSTDIR\localization\swedish.xml"
-	SectionEnd
-	Section /o "Tagalog" tagalog
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Tagalog" tagalog
 		CopyFiles "$TEMP\nppLocalization\tagalog.xml" "$INSTDIR\localization\tagalog.xml"
-	SectionEnd
-	Section /o "Tamil" tamil
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Tamil" tamil
 		CopyFiles "$TEMP\nppLocalization\tamil.xml" "$INSTDIR\localization\tamil.xml"
-	SectionEnd
-	Section /o "Telugu" telugu
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Telugu" telugu
 		CopyFiles "$TEMP\nppLocalization\telugu.xml" "$INSTDIR\localization\telugu.xml"
-	SectionEnd
-	Section /o "Thai" thai
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Thai" thai
 		CopyFiles "$TEMP\nppLocalization\thai.xml" "$INSTDIR\localization\thai.xml"
-	SectionEnd
-	Section /o "Turkish" turkish
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Turkish" turkish
 		CopyFiles "$TEMP\nppLocalization\turkish.xml" "$INSTDIR\localization\turkish.xml"
-	SectionEnd
-	Section /o "Ukrainian" ukrainian
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Ukrainian" ukrainian
 		CopyFiles "$TEMP\nppLocalization\ukrainian.xml" "$INSTDIR\localization\ukrainian.xml"
-	SectionEnd
-	Section /o "Urdu" urdu
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Urdu" urdu
 		CopyFiles "$TEMP\nppLocalization\urdu.xml" "$INSTDIR\localization\urdu.xml"
-	SectionEnd
-	Section /o "Uyghur" uyghur
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Uyghur" uyghur
 		CopyFiles "$TEMP\nppLocalization\uyghur.xml" "$INSTDIR\localization\uyghur.xml"
-	SectionEnd
-	Section /o "Uzbek" uzbek
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Uzbek" uzbek
 		CopyFiles "$TEMP\nppLocalization\uzbek.xml" "$INSTDIR\localization\uzbek.xml"
-	SectionEnd
-	Section /o "Uzbek (Cyrillic)" uzbekCyrillic
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Uzbek (Cyrillic)" uzbekCyrillic
 		CopyFiles "$TEMP\nppLocalization\uzbekCyrillic.xml" "$INSTDIR\localization\uzbekCyrillic.xml"
-	SectionEnd
-	Section /o "Vietnamese" vietnamese
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Vietnamese" vietnamese
 		CopyFiles "$TEMP\nppLocalization\vietnamese.xml" "$INSTDIR\localization\vietnamese.xml"
-	SectionEnd
-	Section /o "Welsh" welsh
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Welsh" welsh
 		CopyFiles "$TEMP\nppLocalization\welsh.xml" "$INSTDIR\localization\welsh.xml"
-	SectionEnd
+	${MementoSectionEnd}
 SectionGroupEnd
 
 SectionGroup "Themes" Themes
 	SetOverwrite off
-	Section "Black Board" BlackBoard
+	${MementoSection} "Black Board" BlackBoard
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Black board.xml"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section "Choco" Choco
+	${MementoSection} "Choco" Choco
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Choco.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Hello Kitty" HelloKitty
+	${MementoSection} "Hello Kitty" HelloKitty
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Hello Kitty.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Mono Industrial" MonoIndustrial
+	${MementoSection} "Mono Industrial" MonoIndustrial
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Mono Industrial.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Monokai" Monokai
+	${MementoSection} "Monokai" Monokai
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Monokai.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Obsidian" Obsidian
+	${MementoSection} "Obsidian" Obsidian
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\obsidian.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Plastic Code Wrap" PlasticCodeWrap
+	${MementoSection} "Plastic Code Wrap" PlasticCodeWrap
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Plastic Code Wrap.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Ruby Blue" RubyBlue
+	${MementoSection} "Ruby Blue" RubyBlue
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Ruby Blue.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Twilight" Twilight
+	${MementoSection} "Twilight" Twilight
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Twilight.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Vibrant Ink" VibrantInk
+	${MementoSection} "Vibrant Ink" VibrantInk
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Vibrant Ink.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Deep Black" DeepBlack
+	${MementoSection} "Deep Black" DeepBlack
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Deep Black.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "vim Dark Blue" vimDarkBlue
+	${MementoSection} "vim Dark Blue" vimDarkBlue
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\vim Dark Blue.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Bespin" Bespin
+	${MementoSection} "Bespin" Bespin
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Bespin.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Zenburn" Zenburn
+	${MementoSection} "Zenburn" Zenburn
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Zenburn.xml"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section "Solarized" Solarized
+	${MementoSection} "Solarized" Solarized
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Solarized.xml"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section "Solarized Light" Solarized-light
+	${MementoSection} "Solarized Light" Solarized-light
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Solarized-light.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Hot Fudge Sundae" HotFudgeSundae
+	${MementoSection} "Hot Fudge Sundae" HotFudgeSundae
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\HotFudgeSundae.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "khaki" khaki
+	${MementoSection} "khaki" khaki
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\khaki.xml"
-	SectionEnd
+	${MementoSectionEnd}
 
-	Section "Mossy Lawn" MossyLawn
+	${MementoSection} "Mossy Lawn" MossyLawn
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\MossyLawn.xml"
-	SectionEnd
+	${MementoSectionEnd}
 	
-	Section "Navajo" Navajo
+	${MementoSection} "Navajo" Navajo
 		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Navajo.xml"
-	SectionEnd	
-	
+	${MementoSectionEnd}
 SectionGroupEnd
 
-Section /o "As default html viewer" htmlViewer
+${MementoUnselectedSection} "As default html viewer" htmlViewer
 	SetOverwrite on
 	SetOutPath "$INSTDIR\"
 	File "..\bin\nppIExplorerShell.exe"
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name" "" "$INSTDIR\nppIExplorerShell.exe"
-SectionEnd
+${MementoSectionEnd}
 
 InstType "Minimalist"
 
-Section "Auto-Updater" AutoUpdater
+${MementoSection} "Auto-Updater" AutoUpdater
 	SetOverwrite on
 	SetOutPath "$INSTDIR\updater"
 	File "..\bin\updater\GUP.exe"
@@ -1199,15 +1212,15 @@ Section "Auto-Updater" AutoUpdater
 	File "..\bin\updater\License.txt"
 	File "..\bin\updater\gpl.txt"
 	File "..\bin\updater\readme.txt"
-SectionEnd
+${MementoSectionEnd}
 
-Section "User Manual" UserManual
+${MementoSection} "User Manual" UserManual
 	SetOverwrite on
 	IfFileExists  "$INSTDIR\NppHelp.chm" 0 +2
 		Delete "$INSTDIR\NppHelp.chm"
 	SetOutPath "$INSTDIR\user.manual"
 	File /r "..\bin\user.manual\"
-SectionEnd
+${MementoSectionEnd}
 
 /*
 Section /o "Create Shortcut on Desktop" 
@@ -1220,6 +1233,8 @@ Section /o "Use the old application icon" getOldIcon
 
 SectionEnd
 */
+
+${MementoSectionDone}
 
 ;--------------------------------
 ;Descriptions
@@ -1245,16 +1260,16 @@ SectionEnd
 Section -FinishSection
 
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "Publisher" "Notepad++ Team"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMajor" "${VERSION_MAJOR}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMinor" "${VERSION_MINOR}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "MajorVersion" "${VERSION_MAJOR}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "MinorVersion" "${VERSION_MINOR}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$INSTDIR\uninstall.exe"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$INSTDIR\notepad++.exe"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "${APPVERSION}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "URLInfoAbout" "${APPWEBSITE}"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME}"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "Publisher" "Notepad++ Team"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "VersionMajor" "${VERSION_MAJOR}"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "VersionMinor" "${VERSION_MINOR}"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MajorVersion" "${VERSION_MAJOR}"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "MinorVersion" "${VERSION_MINOR}"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "UninstallString" "$INSTDIR\uninstall.exe"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayIcon" "$INSTDIR\notepad++.exe"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayVersion" "${APPVERSION}"
+	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "URLInfoAbout" "${APPWEBSITE}"
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 
 SectionEnd
@@ -1894,7 +1909,7 @@ SectionEnd
 
 Section Uninstall
 	;Remove from registry...
-	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
+	DeleteRegKey HKLM "${UNINSTALL_REG_KEY}"
 	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
 	DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
 

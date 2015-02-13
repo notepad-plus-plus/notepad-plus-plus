@@ -3013,15 +3013,10 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		HWND hWin = ::RealChildWindowFromPoint(_pPublicInterface->getHSelf(), p);
 		if (!hWin) return;
 
-		if ((_mainEditView.getHSelf() == hWin) || (_mainDocTab.getHSelf() == hWin))
-			switchEditViewTo(MAIN_VIEW);
-		else if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))
+		if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))
 			switchEditViewTo(SUB_VIEW);
 		else
-		{
-			::SendMessage(hWin, WM_DROPFILES, (WPARAM)hdrop, 0);
-			return;
-		}
+			switchEditViewTo(MAIN_VIEW);
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
 		BufferID lastOpened = BUFFER_INVALID;

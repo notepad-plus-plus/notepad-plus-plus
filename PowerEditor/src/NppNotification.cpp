@@ -486,7 +486,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
 			std::string bufstring;
+
 			unsigned int position_of_click;
+			// For some reason Ctrl+DoubleClick on an empty line means that notification->position == 1.
+			// In that case we use SCI_GETCURRENTPOS to get the position.
+			if (notification->position != -1)
+				position_of_click = notification->position;
+			else
+				position_of_click = int(_pEditView->execute(SCI_GETCURRENTPOS));
 
 			// Anonymous scope to limit use of the buf pointer (much easier to deal with std::string).
 			{
@@ -499,13 +506,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					length = notifyView->execute(SCI_GETLENGTH);
 					buf = new char[length + 1];
 					notifyView->execute(SCI_GETTEXT, (LPARAM)(length + 1), (WPARAM)buf);
-
-					// For some reason Ctrl+DoubleClick on an empty line means that notification->position == 1.
-					// In that case we use SCI_GETCURRENTPOS to get the position.
-					if(notification->position != -1)
-						position_of_click = notification->position;
-					else
-						position_of_click = int(_pEditView->execute(SCI_GETCURRENTPOS));
 				}
 				else
 				{
@@ -516,7 +516,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 					// Compute the position of the click (relative to the beginning of the line).
 					const int line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
-					position_of_click = notification->position - line_position;
+					position_of_click = position_of_click - line_position;
 				}
 
 				bufstring = buf;

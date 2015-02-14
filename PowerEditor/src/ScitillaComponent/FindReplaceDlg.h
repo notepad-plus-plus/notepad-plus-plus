@@ -384,7 +384,7 @@ public :
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, (LPARAM)txt2find);
 	};
 
-	void setFindStatus(FindStatus iStatus);
+	void setFindStatus(FindStatus iStatus, int nbCounted);
 	
 	FindStatus getFindStatus() {
 		return _findStatus;

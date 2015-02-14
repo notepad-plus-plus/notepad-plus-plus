@@ -2788,7 +2788,11 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			{
 				FindStatus findStatus = FSFound;
 				bool isFound = _pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus);
-				setFindStatus(findStatus);
+				
+				fo._str2Search = str2Search;
+				int nbCounted = _pFRDlg->processAll(ProcessCountAll, &fo);
+				setFindStatus(findStatus, nbCounted);
+
 				// If case-sensitivity changed (to Match=yes), there may have been a matched selection that
 				// now does not match; so if Not Found, clear selection and put caret at beginning of what was
 				// selected (no change, if there was no selection)
@@ -2845,12 +2849,20 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 	_pFRDlg->markAllInc(opt);
 }
 
-void FindIncrementDlg::setFindStatus(FindStatus iStatus) 
+void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
 {
-	static TCHAR *findStatus[] = { TEXT(""), // FSFound
+	static TCHAR findCount[128] = TEXT("");
+	static TCHAR *findStatus[] = { findCount, // FSFound
 	                               TEXT("Phrase not found"), //FSNotFound
 	                               TEXT("Reached top of page, continued from bottom"), // FSTopReached
 	                               TEXT("Reached end of page, continued from top")}; // FSEndReached
+	if (nbCounted <= 0)
+		findCount[0] = '\0';
+	else if (nbCounted == 1)
+		wsprintf(findCount, TEXT("%d match."), nbCounted);
+	else
+		wsprintf(findCount, TEXT("%d matches."), nbCounted);
+
 	if (iStatus<0 || iStatus >= sizeof(findStatus)/sizeof(findStatus[0]))
 		return; // out of range
 

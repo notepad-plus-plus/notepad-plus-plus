@@ -2226,22 +2226,13 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               ReturnValue = DLGC_WANTARROWS|DLGC_WANTCHARS|DLGC_DEFPUSHBUTTON;
                  if(wParam == 13)
                      {
-                   //same as arrow down
+					 NotifyCellDbClicked(hWnd, SelfIndex);
                    if(BGHS[SelfIndex].EDITING)
                        {
                         CloseEdit(hWnd,SelfIndex);
                        }
 				   DrawCursor(hWnd,SelfIndex);
-				   BGHS[SelfIndex].cursorrow ++;
-				   if(BGHS[SelfIndex].cursorrow > BGHS[SelfIndex].rows)
-					   {
-						BGHS[SelfIndex].cursorrow = BGHS[SelfIndex].rows;
-					   }
-				   else
-					   {
-						NotifyRowChanged(hWnd,SelfIndex);
-					   }
-				   DrawCursor(hWnd,SelfIndex);
+
                    SetCurrentCellStatus(hWnd,SelfIndex);
 				   SetHomeRow(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
 				   RefreshGrid(hWnd);

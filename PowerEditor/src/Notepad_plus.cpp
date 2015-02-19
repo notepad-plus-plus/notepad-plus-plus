@@ -1420,12 +1420,6 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 	::FindClose(hFile);
 }
 
-DWORD WINAPI AsyncCancelFindInFiles(LPVOID NppHWND)
-{
-	MessageBox((HWND) NULL, TEXT("Searching...\nPress Enter to Cancel"), TEXT("Find In Files"), MB_OK);
-	PostMessage((HWND) NppHWND, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, 0, 0);
-	return 0;
-}
 
 bool Notepad_plus::replaceInFiles()
 {
@@ -1443,7 +1437,6 @@ bool Notepad_plus::replaceInFiles()
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 	Buffer * oldBuf = _invisibleEditView.getCurrentBuffer();	//for manually setting the buffer, so notifications can be handled properly
-	HANDLE CancelThreadHandle = NULL;
 
 	vector<generic_string> patterns2Match;
 	_findReplaceDlg.getPatterns(patterns2Match);
@@ -1456,24 +1449,28 @@ bool Notepad_plus::replaceInFiles()
 
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
-	if (fileNames.size() > 1)
-		CancelThreadHandle = ::CreateThread(NULL, 0, AsyncCancelFindInFiles, _pPublicInterface->getHSelf(), 0, NULL);
+	CProgress progress;
+	size_t filesCount = fileNames.size();
+	size_t filesPerPercent = 1;
 
-	bool dontClose = false;
-	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
+	if (filesCount > 1)
 	{
-		MSG msg;
-		if (PeekMessage(&msg, _pPublicInterface->getHSelf(), NPPM_INTERNAL_CANCEL_FIND_IN_FILES, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, PM_REMOVE)) break;
+		if (filesCount >= 200)
+			filesPerPercent = filesCount / 100;
+		progress.Open(NULL, TEXT("Replace In Files progress..."));
+	}
+
+	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
+	{
+		if (progress.IsCancelled()) break;
+
+		bool closeBuf = false;
 
 		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
-		if (id != BUFFER_INVALID)
-		{
-			dontClose = true;
-		}
-		else
+		if (id == BUFFER_INVALID)
 		{
 			id = MainFileManager->loadFile(fileNames.at(i).c_str());
-			dontClose = false;
+			closeBuf = true;
 		}
 
 		if (id != BUFFER_INVALID)
@@ -1491,13 +1488,17 @@ bool Notepad_plus::replaceInFiles()
 				MainFileManager->saveBuffer(id, pBuf->getFullPathName());
 			}
 
-			if (!dontClose)
+			if (closeBuf)
 				MainFileManager->closeBuffer(id, _pEditView);
+		}
+		if (i == updateOnCount)
+		{
+			updateOnCount += filesPerPercent;
+			progress.SetPercent((i * 100) / filesCount, fileNames.at(i).c_str());
 		}
 	}
 
-	if (CancelThreadHandle)
-		TerminateThread(CancelThreadHandle, 0);
+	progress.Close();
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_invisibleEditView.setCurrentBuffer(oldBuf);
@@ -1525,7 +1526,6 @@ bool Notepad_plus::findInFiles()
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-	HANDLE CancelThreadHandle = NULL;
 
 	vector<generic_string> patterns2Match;
 	_findReplaceDlg.getPatterns(patterns2Match);
@@ -1537,26 +1537,29 @@ bool Notepad_plus::findInFiles()
 	vector<generic_string> fileNames;
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
-	if (fileNames.size() > 1)
-		CancelThreadHandle = ::CreateThread(NULL, 0, AsyncCancelFindInFiles, _pPublicInterface->getHSelf(), 0, NULL);
-
 	_findReplaceDlg.beginNewFilesSearch();
 
-	bool dontClose = false;
-	for (size_t i = 0, len = fileNames.size(); i < len; ++i)
-	{
-		MSG msg;
-		if (PeekMessage(&msg, _pPublicInterface->getHSelf(), NPPM_INTERNAL_CANCEL_FIND_IN_FILES, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, PM_REMOVE)) break;
+	CProgress progress;
+	size_t filesCount = fileNames.size();
+	size_t filesPerPercent = 1;
 
+	if (filesCount > 1)
+	{
+		if (filesCount >= 200)
+			filesPerPercent = filesCount / 100;
+		progress.Open(NULL, TEXT("Find In Files progress..."));
+	}
+
+	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
+	{
+		if (progress.IsCancelled()) break;
+
+		bool closeBuf = false;
 		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
-		if (id != BUFFER_INVALID)
-		{
-			dontClose = true;
-		}
-		else
+		if (id == BUFFER_INVALID)
 		{
 			id = MainFileManager->loadFile(fileNames.at(i).c_str());
-			dontClose = false;
+			closeBuf = true;
 		}
 
 		if (id != BUFFER_INVALID)
@@ -1567,13 +1570,17 @@ bool Notepad_plus::findInFiles()
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, true, fileNames.at(i).c_str());
-			if (!dontClose)
+			if (closeBuf)
 				MainFileManager->closeBuffer(id, _pEditView);
+		}
+		if (i == updateOnCount)
+		{
+			updateOnCount += filesPerPercent;
+			progress.SetPercent((i * 100) / filesCount, fileNames.at(i).c_str());
 		}
 	}
 
-	if (CancelThreadHandle)
-		TerminateThread(CancelThreadHandle, 0);
+	progress.Close();
 
 	_findReplaceDlg.finishFilesSearch(nbTotal);
 

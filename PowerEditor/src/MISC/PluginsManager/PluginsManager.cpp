@@ -400,7 +400,7 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 	}
 }
 
-void PluginsManager::notify(SCNotification *notification)
+void PluginsManager::notify(const SCNotification *notification)
 {
 	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 	{

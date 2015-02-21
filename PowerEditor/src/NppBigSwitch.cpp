@@ -1489,6 +1489,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
             else
             {
+				SCNotification scnN;
+				scnN.nmhdr.code = NPPN_BEFORESHUTDOWN;
+				scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+				scnN.nmhdr.idFrom = 0;
+				_pluginsManager.notify(&scnN);
+
                 if (_pTrayIco)
                     _pTrayIco->doTrayIcon(REMOVE);
 
@@ -1516,6 +1522,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			    if (!allClosed) 
 			    {
 				    //User cancelled the shutdown
+					scnN.nmhdr.code = NPPN_CANCELSHUTDOWN;
+					_pluginsManager.notify(&scnN);
+
 				    return FALSE;
 			    }
 
@@ -1527,10 +1536,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			    if (_configStyleDlg.isCreated() && ::IsWindowVisible(_configStyleDlg.getHSelf()))
 				    _configStyleDlg.restoreGlobalOverrideValues();
 
-			    SCNotification scnN;
 			    scnN.nmhdr.code = NPPN_SHUTDOWN;
-			    scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-			    scnN.nmhdr.idFrom = 0;
 			    _pluginsManager.notify(&scnN);
 
 			    saveFindHistory(); //writeFindHistory

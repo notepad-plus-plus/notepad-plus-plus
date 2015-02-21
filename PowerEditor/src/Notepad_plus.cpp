@@ -4688,6 +4688,12 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			}
 			case DOC_DELETED: 	//ask for keep
 			{
+				SCNotification scnN;
+				scnN.nmhdr.code = NPPN_FILEDELETED;
+				scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+				scnN.nmhdr.idFrom = (uptr_t)buffer->getID();
+				_pluginsManager.notify(&scnN);
+
 				int index = _pDocTab->getIndexByBuffer(buffer->getID());
 				int iView = currentView();
 				if (index == -1)

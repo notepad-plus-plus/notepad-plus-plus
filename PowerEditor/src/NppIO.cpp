@@ -1085,6 +1085,12 @@ bool Notepad_plus::fileRename(BufferID id)
 		bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager->getBufferByID(bufferID);
 
+	SCNotification scnN;
+	scnN.nmhdr.code = NPPN_FILEBEFORERENAME;
+	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+	scnN.nmhdr.idFrom = (uptr_t)bufferID;
+	_pluginsManager.notify(&scnN);
+
 	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
 
     fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
@@ -1093,11 +1099,14 @@ bool Notepad_plus::fileRename(BufferID id)
 	fDlg.setDefFileName(buf->getFileName());
 	TCHAR *pfn = fDlg.doSaveDlg();
 
+	bool success = false;
 	if (pfn)
-	{
-		MainFileManager->moveFile(bufferID, pfn);
-	}
-	return false;
+		success = MainFileManager->moveFile(bufferID, pfn);
+
+	scnN.nmhdr.code = success ? NPPN_FILERENAMED : NPPN_FILERENAMECANCEL;
+	_pluginsManager.notify(&scnN);
+
+	return success;
 }
 
 
@@ -1120,6 +1129,12 @@ bool Notepad_plus::fileDelete(BufferID id)
 
 	if (goAhead)
 	{
+		SCNotification scnN;
+		scnN.nmhdr.code = NPPN_FILEBEFOREDELETE;
+		scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+		scnN.nmhdr.idFrom = (uptr_t)bufferID;
+		_pluginsManager.notify(&scnN);
+
 		if (!MainFileManager->deleteFile(bufferID))
 		{
 			_nativeLangSpeaker.messageBox("DeleteFileFailed",
@@ -1127,11 +1142,20 @@ bool Notepad_plus::fileDelete(BufferID id)
 				TEXT("Delete File failed"),
 				TEXT("Delete File"),
 				MB_OK);
+			
+			scnN.nmhdr.code = NPPN_FILEDELETEFAILED;
+			_pluginsManager.notify(&scnN);
+
 			return false;
 		}
 		bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 		doClose(bufferID, MAIN_VIEW, isSnapshotMode);
 		doClose(bufferID, SUB_VIEW, isSnapshotMode);
+
+		scnN.nmhdr.code = NPPN_FILEDELETED;
+		scnN.nmhdr.idFrom = (uptr_t)-1;
+		_pluginsManager.notify(&scnN);
+
 		return true;
 	}
 	return false;

@@ -541,4 +541,44 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//scnNotification->nmhdr.hwndFrom = NULL;
 	//scnNotification->nmhdr.idFrom = BufferID;
 
+	#define NPPN_BEFORESHUTDOWN (NPPN_FIRST + 19)  // To notify plugins that Npp shutdown has been triggered, files have not been closed yet
+	//scnNotification->nmhdr.code = NPPN_BEFORESHUTDOWN;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = 0;
+
+	#define NPPN_CANCELSHUTDOWN (NPPN_FIRST + 20)  // To notify plugins that Npp shutdown has been cancelled
+	//scnNotification->nmhdr.code = NPPN_CANCELSHUTDOWN;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = 0;
+
+	#define NPPN_FILEBEFORERENAME (NPPN_FIRST + 21)  // To notify plugins that file is to be renamed
+	//scnNotification->nmhdr.code = NPPN_FILEBEFORERENAME;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = BufferID;
+
+	#define NPPN_FILERENAMECANCEL (NPPN_FIRST + 22)  // To notify plugins that file rename has been cancelled
+	//scnNotification->nmhdr.code = NPPN_FILERENAMECANCEL;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = BufferID;
+
+	#define NPPN_FILERENAMED (NPPN_FIRST + 23)  // To notify plugins that file has been renamed
+	//scnNotification->nmhdr.code = NPPN_FILERENAMED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = BufferID;
+
+	#define NPPN_FILEBEFOREDELETE (NPPN_FIRST + 24)  // To notify plugins that file is to be deleted
+	//scnNotification->nmhdr.code = NPPN_FILEBEFOREDELETE;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = BufferID;
+
+	#define NPPN_FILEDELETEFAILED (NPPN_FIRST + 25)  // To notify plugins that file deletion has failed
+	//scnNotification->nmhdr.code = NPPN_FILEDELETEFAILED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = BufferID;
+
+	#define NPPN_FILEDELETED (NPPN_FIRST + 26)  // To notify plugins that file has been deleted
+	//scnNotification->nmhdr.code = NPPN_FILEDELETED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = BufferID;
+
 #endif //NOTEPAD_PLUS_MSGS_H

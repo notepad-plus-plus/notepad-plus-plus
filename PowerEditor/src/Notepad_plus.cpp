@@ -1496,6 +1496,10 @@ bool Notepad_plus::replaceInFiles()
 			updateOnCount += filesPerPercent;
 			progress.SetPercent((i * 100) / filesCount, fileNames.at(i).c_str());
 		}
+		else
+		{
+			progress.SetInfo(fileNames.at(i).c_str());
+		}
 	}
 
 	progress.Close();
@@ -1577,6 +1581,10 @@ bool Notepad_plus::findInFiles()
 		{
 			updateOnCount += filesPerPercent;
 			progress.SetPercent((i * 100) / filesCount, fileNames.at(i).c_str());
+		}
+		else
+		{
+			progress.SetInfo(fileNames.at(i).c_str());
 		}
 	}
 

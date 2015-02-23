@@ -413,6 +413,11 @@ public:
 	HWND Open(HWND hOwner = NULL, const TCHAR* header = NULL);
 	bool IsCancelled() const;
 	void SetPercent(unsigned percent, const TCHAR *fileName) const;
+	void SetInfo(const TCHAR *info) const {
+		if (_hwnd)
+			::SendMessage(_hPText, WM_SETTEXT, 0, (LPARAM)info);
+	};
+
 	void Close();
 
 private:

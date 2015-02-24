@@ -404,21 +404,21 @@ private :
 };
 
 
-class CProgress
+class Progress
 {
 public:
-	CProgress();
-	~CProgress();
+	Progress(HINSTANCE hInst);
+	~Progress();
 
-	HWND Open(HWND hOwner = NULL, const TCHAR* header = NULL);
-	bool IsCancelled() const;
-	void SetPercent(unsigned percent, const TCHAR *fileName) const;
-	void SetInfo(const TCHAR *info) const {
+	HWND open(HWND hOwner = NULL, const TCHAR* header = NULL);
+	bool isCancelled() const;
+	void setPercent(unsigned percent, const TCHAR *fileName) const;
+	void setInfo(const TCHAR *info) const {
 		if (_hwnd)
 			::SendMessage(_hPText, WM_SETTEXT, 0, (LPARAM)info);
 	};
 
-	void Close();
+	void close();
 
 private:
 	static const TCHAR cClassName[];
@@ -429,20 +429,20 @@ private:
 	static const int cBTNwidth;
 	static const int cBTNheight;
 
-	static volatile LONG RefCount;
-	static HINSTANCE HInst;
+	static volatile LONG refCount;
 
 	static DWORD threadFunc(LPVOID data);
 	static LRESULT APIENTRY wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam);
 
 	// Disable copy construction and operator=
-	CProgress(const CProgress&);
-	const CProgress& operator=(const CProgress&);
+	Progress(const Progress&);
+	const Progress& operator=(const Progress&);
 
 	int thread();
 	int createProgressWindow();
 	RECT adjustSizeAndPos(int width, int height);
 
+	HINSTANCE _hInst;
 	volatile HWND _hwnd;
 	HWND _hOwner;
 	TCHAR _header[128];

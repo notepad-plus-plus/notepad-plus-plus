@@ -2903,34 +2903,30 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	_pRebar->setGrayBackground(_rbBand.wID);
 }
 
-const TCHAR CProgress::cClassName[] = TEXT("NppProgressClass");
-const TCHAR CProgress::cDefaultHeader[] = TEXT("Operation progress...");
-const int CProgress::cBackgroundColor = COLOR_3DFACE;
-const int CProgress::cPBwidth = 600;
-const int CProgress::cPBheight = 10;
-const int CProgress::cBTNwidth = 80;
-const int CProgress::cBTNheight = 25;
+const TCHAR Progress::cClassName[] = TEXT("NppProgressClass");
+const TCHAR Progress::cDefaultHeader[] = TEXT("Operation progress...");
+const int Progress::cBackgroundColor = COLOR_3DFACE;
+const int Progress::cPBwidth = 600;
+const int Progress::cPBheight = 10;
+const int Progress::cBTNwidth = 80;
+const int Progress::cBTNheight = 25;
 
 
-volatile LONG CProgress::RefCount = 0;
-HINSTANCE CProgress::HInst = NULL;
+volatile LONG Progress::refCount = 0;
 
 
-CProgress::CProgress() : _hwnd(NULL)
+Progress::Progress(HINSTANCE hInst) : _hwnd(NULL)
 {
-	if (::InterlockedIncrement(&RefCount) == 1)
+	if (::InterlockedIncrement(&refCount) == 1)
 	{
-		::GetModuleHandleEx(
-			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
-			GET_MODULE_HANDLE_EX_FLAG_PIN, cClassName, &HInst);
-
+		_hInst = hInst;
 		WNDCLASSEX wcex;
 
 		::SecureZeroMemory(&wcex, sizeof(wcex));
 		wcex.cbSize = sizeof(wcex);
 		wcex.style = CS_HREDRAW | CS_VREDRAW;
 		wcex.lpfnWndProc = wndProc;
-		wcex.hInstance = HInst;
+		wcex.hInstance = _hInst;
 		wcex.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 		wcex.hbrBackground = ::GetSysColorBrush(cBackgroundColor);
 		wcex.lpszClassName = cClassName;
@@ -2948,16 +2944,16 @@ CProgress::CProgress() : _hwnd(NULL)
 }
 
 
-CProgress::~CProgress()
+Progress::~Progress()
 {
-	Close();
+	close();
 
-	if (::InterlockedDecrement(&RefCount) == 0)
-		::UnregisterClass(cClassName, HInst);
+	if (::InterlockedDecrement(&refCount) == 0)
+		::UnregisterClass(cClassName, _hInst);
 }
 
 
-HWND CProgress::Open(HWND hOwner, const TCHAR* header)
+HWND Progress::open(HWND hOwner, const TCHAR* header)
 {
 	if (_hwnd)
 		return _hwnd;
@@ -2997,7 +2993,7 @@ HWND CProgress::Open(HWND hOwner, const TCHAR* header)
 }
 
 
-bool CProgress::IsCancelled() const
+bool Progress::isCancelled() const
 {
 	if (_hwnd)
 		return (::WaitForSingleObject(_hActiveState, 0) != WAIT_OBJECT_0);
@@ -3005,7 +3001,7 @@ bool CProgress::IsCancelled() const
 }
 
 
-void CProgress::SetPercent(unsigned percent, const TCHAR *fileName) const
+void Progress::setPercent(unsigned percent, const TCHAR *fileName) const
 {
 	if (_hwnd)
 	{
@@ -3015,7 +3011,7 @@ void CProgress::SetPercent(unsigned percent, const TCHAR *fileName) const
 }
 
 
-void CProgress::Close()
+void Progress::close()
 {
 	if (_hwnd)
 	{
@@ -3028,14 +3024,14 @@ void CProgress::Close()
 }
 
 
-DWORD CProgress::threadFunc(LPVOID data)
+DWORD Progress::threadFunc(LPVOID data)
 {
-	CProgress* pw = static_cast<CProgress*>(data);
+	Progress* pw = static_cast<Progress*>(data);
 	return (DWORD)pw->thread();
 }
 
 
-int CProgress::thread()
+int Progress::thread()
 {
 	BOOL r = createProgressWindow();
 	::SetEvent(_hActiveState);
@@ -3054,7 +3050,7 @@ int CProgress::thread()
 }
 
 
-int CProgress::createProgressWindow()
+int Progress::createProgressWindow()
 {
 	DWORD styleEx = WS_EX_OVERLAPPEDWINDOW;
 	if (_hOwner)
@@ -3063,7 +3059,7 @@ int CProgress::createProgressWindow()
 	_hwnd = ::CreateWindowEx(styleEx,
 		cClassName, _header, WS_POPUP | WS_CAPTION,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-		_hOwner, NULL, HInst, (LPVOID)this);
+		_hOwner, NULL, _hInst, (LPVOID)this);
 	if (!_hwnd)
 		return -1;
 
@@ -3080,7 +3076,7 @@ int CProgress::createProgressWindow()
 	_hPText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
 		WS_CHILD | WS_VISIBLE | BS_TEXT,
 		5, 5,
-		width - 10, 20, _hwnd, NULL, HInst, NULL);
+		width - 10, 20, _hwnd, NULL, _hInst, NULL);
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 	if (hf)
 		::SendMessage(_hPText, WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
@@ -3088,13 +3084,13 @@ int CProgress::createProgressWindow()
 	_hPBar = ::CreateWindowEx(0, PROGRESS_CLASS, TEXT("Progress Bar"),
 		WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
 		5, 25, width - 10, cPBheight,
-		_hwnd, NULL, HInst, NULL);
+		_hwnd, NULL, _hInst, NULL);
 	SendMessage(_hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 
 	_hBtn = ::CreateWindowEx(0, TEXT("BUTTON"), TEXT("Cancel"),
 		WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | BS_TEXT,
 		(width - cBTNwidth) / 2, height - cBTNheight - 5,
-		cBTNwidth, cBTNheight, _hwnd, NULL, HInst, NULL);
+		cBTNwidth, cBTNheight, _hwnd, NULL, _hInst, NULL);
 
 	
 	if (hf)
@@ -3107,7 +3103,7 @@ int CProgress::createProgressWindow()
 }
 
 
-RECT CProgress::adjustSizeAndPos(int width, int height)
+RECT Progress::adjustSizeAndPos(int width, int height)
 {
 	RECT win, maxWin;
 
@@ -3148,20 +3144,20 @@ RECT CProgress::adjustSizeAndPos(int width, int height)
 }
 
 
-LRESULT APIENTRY CProgress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
+LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
 {
 	switch (umsg)
 	{
 		case WM_CREATE:
 		{
-			CProgress* pw =(CProgress*)((LPCREATESTRUCT)lparam)->lpCreateParams;
+			Progress* pw =(Progress*)((LPCREATESTRUCT)lparam)->lpCreateParams;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, PtrToUlong(pw));
 			return 0;
 		}
 
 		case WM_SETFOCUS:
 		{
-			CProgress* pw =	reinterpret_cast<CProgress*>(static_cast<LONG_PTR>
+			Progress* pw =	reinterpret_cast<Progress*>(static_cast<LONG_PTR>
 			(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
 			::SetFocus(pw->_hBtn);
 			return 0;
@@ -3170,8 +3166,8 @@ LRESULT APIENTRY CProgress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM 
 		case WM_COMMAND:
 			if (HIWORD(wparam) == BN_CLICKED)
 			{
-				CProgress* pw =
-					reinterpret_cast<CProgress*>(static_cast<LONG_PTR>
+				Progress* pw =
+					reinterpret_cast<Progress*>(static_cast<LONG_PTR>
 					(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
 				::ResetEvent(pw->_hActiveState);
 				::EnableWindow(pw->_hBtn, FALSE);

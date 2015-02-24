@@ -1449,7 +1449,7 @@ bool Notepad_plus::replaceInFiles()
 
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
-	CProgress progress;
+	Progress progress(_pPublicInterface->getHinst());
 	size_t filesCount = fileNames.size();
 	size_t filesPerPercent = 1;
 
@@ -1457,12 +1457,12 @@ bool Notepad_plus::replaceInFiles()
 	{
 		if (filesCount >= 200)
 			filesPerPercent = filesCount / 100;
-		progress.Open(NULL, TEXT("Replace In Files progress..."));
+		progress.open(NULL, TEXT("Replace In Files progress..."));
 	}
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
-		if (progress.IsCancelled()) break;
+		if (progress.isCancelled()) break;
 
 		bool closeBuf = false;
 
@@ -1494,15 +1494,15 @@ bool Notepad_plus::replaceInFiles()
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
-			progress.SetPercent((i * 100) / filesCount, fileNames.at(i).c_str());
+			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
 		}
 		else
 		{
-			progress.SetInfo(fileNames.at(i).c_str());
+			progress.setInfo(fileNames.at(i).c_str());
 		}
 	}
 
-	progress.Close();
+	progress.close();
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_invisibleEditView.setCurrentBuffer(oldBuf);
@@ -1543,7 +1543,8 @@ bool Notepad_plus::findInFiles()
 
 	_findReplaceDlg.beginNewFilesSearch();
 
-	CProgress progress;
+	Progress progress(_pPublicInterface->getHinst());
+
 	size_t filesCount = fileNames.size();
 	size_t filesPerPercent = 1;
 
@@ -1551,12 +1552,12 @@ bool Notepad_plus::findInFiles()
 	{
 		if (filesCount >= 200)
 			filesPerPercent = filesCount / 100;
-		progress.Open(NULL, TEXT("Find In Files progress..."));
+		progress.open(NULL, TEXT("Find In Files progress..."));
 	}
 
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
-		if (progress.IsCancelled()) break;
+		if (progress.isCancelled()) break;
 
 		bool closeBuf = false;
 		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
@@ -1580,15 +1581,15 @@ bool Notepad_plus::findInFiles()
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
-			progress.SetPercent((i * 100) / filesCount, fileNames.at(i).c_str());
+			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
 		}
 		else
 		{
-			progress.SetInfo(fileNames.at(i).c_str());
+			progress.setInfo(fileNames.at(i).c_str());
 		}
 	}
 
-	progress.Close();
+	progress.close();
 
 	_findReplaceDlg.finishFilesSearch(nbTotal);
 

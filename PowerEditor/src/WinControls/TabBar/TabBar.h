@@ -144,7 +144,7 @@ class TabBarPlus : public TabBar
 public :
 
 	TabBarPlus() : TabBar(), _isDragging(false), _tabBarDefaultProc(NULL), _currentHoverTabItem(-1),\
-		_isCloseHover(false), _whichCloseClickDown(-1), _lmbdHit(false) {};
+		_isCloseHover(false), _whichCloseClickDown(-1), _lmbdHit(false), _tooltips(NULL) {};
 	enum tabColourIndex {
 		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
 	};
@@ -154,6 +154,8 @@ public :
     };
 
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false);
+
+	virtual void destroy();
 
     static bool doDragNDropOrNot() {
         return _doDragNDrop;
@@ -234,6 +236,7 @@ protected:
 	bool _isCloseHover;
 	int _whichCloseClickDown;
 	bool _lmbdHit; // Left Mouse Button Down Hit
+	HWND _tooltips;
 
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 

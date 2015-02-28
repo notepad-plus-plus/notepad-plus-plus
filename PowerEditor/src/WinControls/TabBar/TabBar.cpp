@@ -223,6 +223,14 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	}
 }
 
+void TabBarPlus::destroy()
+{
+	TabBar::destroy();
+
+	::DestroyWindow(_tooltips);
+	_tooltips = NULL;
+}
+
 void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditional, bool isMultiLine)
 {
 	Window::init(hInst, parent);
@@ -238,7 +246,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
     int multiLine = isMultiLine?(_isTraditional?TCS_MULTILINE:0):0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
-        TCS_TOOLTIPS | TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
+        TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
 
 	style |= TCS_OWNERDRAWFIXED;
 
@@ -257,6 +265,23 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	{
 		throw std::runtime_error("TabBarPlus::init : CreateWindowEx() function return null");
 	}
+
+	_tooltips = ::CreateWindowEx(
+		0,
+		TOOLTIPS_CLASS,
+		NULL,
+		TTS_ALWAYSTIP | TTS_NOPREFIX,
+		0, 0, 0, 0,
+		_hParent,
+		NULL,
+		_hInst,
+		0);
+	if (!_tooltips)
+	{
+		throw std::runtime_error("TabBarPlus::init : tooltip CreateWindowEx() function return null");
+	}
+	::SendMessage(_hSelf, TCM_SETTOOLTIPS, (WPARAM)_tooltips, 0);
+
 	if (!_isTraditional)
     {
 		if (!_hwndArray[_nbCtrl])
@@ -796,7 +821,26 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			SelectObject(hDC, _hLargeFont);
 	}
 
-	int Flags = DT_SINGLELINE;
+	int Flags = DT_SINGLELINE | DT_NOPREFIX;
+
+	TCHAR decodedLabel[MAX_PATH];
+
+	{
+		const TCHAR* in = label;
+		TCHAR* out = decodedLabel;
+
+		//This code will read in one character at a time and remove every first ampersand(&).
+		//ex. If input "test && test &&& test &&&&" then output will be "test & test && test &&&".
+		//Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
+
+		while (*in != 0)
+		if (*in == '&')
+		while (*(++in) == '&')
+			*out++ = *in;
+		else
+			*out++ = *in++;
+		*out = '\0';
+	}
 
 	if (_drawTabCloseButton)
 	{
@@ -848,7 +892,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			
 		Flags |= DT_BOTTOM;
 	}
-	::DrawText(hDC, label, lstrlen(label), &rect, Flags);
+	::DrawText(hDC, decodedLabel, lstrlen(decodedLabel), &rect, Flags);
 	::RestoreDC(hDC, nSavedDC);
 }
 

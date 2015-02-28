@@ -138,10 +138,34 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 		}
 	}
 
+	//We must make space for the added ampersand characters.
+	TCHAR encodedLabel[2 * MAX_PATH];
+
 	if (mask & BufferChangeFilename)
 	{
 		tie.mask |= TCIF_TEXT;
-		tie.pszText = (TCHAR *)buffer->getFileName();
+		tie.pszText = (TCHAR *)encodedLabel;
+
+		{
+			const TCHAR* in = buffer->getFileName();
+			TCHAR* out = encodedLabel;
+
+			//This code will read in one character at a time and duplicate every first ampersand(&).
+			//ex. If input is "test & test && test &&&" then output will be "test && test &&& test &&&&".
+			//Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
+
+			while (*in != 0)
+			if (*in == '&')
+			{
+				*out++ = '&';
+				*out++ = '&';
+				while (*(++in) == '&')
+					*out++ = '&';
+			}
+			else
+				*out++ = *in++;
+			*out = '\0';
+		}
 	}
 
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));

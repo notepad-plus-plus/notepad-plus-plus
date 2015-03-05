@@ -33,29 +33,30 @@
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [fullFilePathName]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEsterEggName | -qtText | -qfCntentFileName] [filePath]\r\
 \r\
     --help : This help message\r\
     -multiInst : Launch another Notepad++ instance\r\
     -noPlugin : Launch Notepad++ without loading any plugin\r\
-    -l : Launch Notepad++ by applying indicated programming language\r\
-         to the file to open\r\
-    -L : Launch Notepad++ by applying indicated localization\r\
-         langCode is browser language code\r\
-    -n : Launch Notepad++ by scrolling indicated line on the file to open\r\
-    -c : Launch Notepad++ on scrolling indicated column on the file to open\r\
-    -x : Launch Notepad++ by indicating its left side position on the screen\r\
-    -y : Launch Notepad++ by indicating its top position on the screen\r\
-    -nosession : Launch Notepad++ without any session\r\
+    -l : Open filePath by applying indicated programming language\r\
+    -L : Apply indicated localization, langCode is browser language code\r\
+    -n : Scroll to indicated line on filePath\r\
+    -c : Scroll to indicated column on filePath\r\
+    -x : Move Notepad++ to indicated left side position on the screen\r\
+    -y : Move Notepad++ to indicated top position on the screen\r\
+    -nosession : Launch Notepad++ without previous session\r\
     -notabbar : Launch Notepad++ without tabbar\r\
-    -ro : Launch Notepad++ and make the file to open read only\r\
+    -ro : Make the filePath read only\r\
     -systemtray : Launch Notepad++ directly in system tray\r\
     -loadingTime : Display Notepad++ loading time\r\
     -alwaysOnTop : Make Notepad++ always on top\r\
-    -openSession : Open a specific session. fullFilePathName must be a session file\r\
+    -openSession : Open a session. filePath must be a session file\r\
     -r : Open files recursively. This argument will be ignored\r\
-         if fullFilePathName contain no wildcard character\r\
-    fullFilePathName : file or folder name to open (absolute or relative path name)\r\
+         if filePath contain no wildcard character\r\
+    -qn : Launch ghost typing to disply easter egg via its name\r\
+    -qt : Launch ghost typing to display a text via the given text\r\
+    -qf : Launch ghost typing to display a file content via the file path\r\
+    filePath : file or folder name to open (absolute or relative path name)\r\
 ");
 
 class Notepad_plus_Window : public Window {

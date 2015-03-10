@@ -17,7 +17,6 @@
                     <Item idName="Plugins" name="П&amp;лагины"/>
                     <Item idName="Window"  name="Ок&amp;на"/>
                 </Entries>
-
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Открыть папку документа"/>
@@ -198,6 +197,7 @@
                     <Item id="43051" name="Удалить все строки Без Закладки"/>
                     <Item id="43052" name="Найти символы в диапазоне..."/>
 					<Item id="43053" name="Выделить всё между Парных Скобок"/>
+					<Item id="43054" name="Пометки..."/>
                     <Item id="44009" name="Только текст (во всё окно)"/>
                     <Item id="44010" name="Свернуть все блоки"/>
                     <Item id="44012" name="Спрятать Нумерацию Строк"/>

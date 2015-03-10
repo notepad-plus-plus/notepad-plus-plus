@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="Shift_JIS" ?>
 <!--
-    Japanese localization for Notepad++ 6.5
-    Last Update: 2013-11-08
+    Japanese localization for Notepad++ 6.7.3
+    Last Update: 2014-01-03
+    github: https://github.com/hrwatahiki/npp-Japanese-Localization
+    mail: hrwatahiki at gmail.com
 -->
 
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" >
+    <Native-Langue name="Japanese" filename="japanese.xml" version="6.7.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -22,9 +24,11 @@
                     <Item idName="Plugins" name="プラグイン"/>
                     <Item idName="Window" name="ウィンドウ管理"/>
                 </Entries>
-
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item subMenuId="file-openFolder" name="このファイルがあるフォルダーを開く"/>
+                    <Item subMenuId="file-closeMore" name="他のファイルを閉じる"/>
+                    <Item subMenuId="file-recentFiles" name="最近使用したファイル"/>
                     <Item subMenuId="edit-copyToClipboard" name="クリップボードにコピー"/>
                     <Item subMenuId="edit-indent" name="字下げ"/>
                     <Item subMenuId="edit-convertCaseTo" name="文字変換"/>
@@ -42,6 +46,7 @@
                     <Item subMenuId="view-showSymbol" name="制御文字の表示"/>
                     <Item subMenuId="view-zoom" name="ズーム"/>
                     <Item subMenuId="view-moveCloneDocument" name="文書移動/コピー"/>
+                    <Item subMenuId="view-tab"  name="タブ"/>
                     <Item subMenuId="view-collapseLevel" name="指定レベルで畳む"/>
                     <Item subMenuId="view-uncollapseLevel" name="指定レベルで展開"/>
                     <Item subMenuId="view-project" name="プロジェクト"/>
@@ -69,9 +74,13 @@
                 <Commands>
                     <Item id="41001" name="新規作成(&amp;N)	Ctrl+N"/>
                     <Item id="41002" name="開く(&amp;O)	Ctrl+O"/>
+                    <Item id="41019" name="エクスプローラー"/>
+                    <Item id="41020" name="コマンドプロンプト"/>
                     <Item id="41003" name="閉じる	Ctrl+W"/>
                     <Item id="41004" name="すべて閉じる(&amp;L)"/>
                     <Item id="41005" name="現在のドキュメント以外閉じる"/>
+                    <Item id="41009" name="左をすべて閉じる"/>
+                    <Item id="41018" name="右をすべて閉じる"/>
                     <Item id="41006" name="上書き保存(&amp;S)	Ctrl+S"/>
                     <Item id="41007" name="すべて上書き保存(&amp;E)	Ctrl+Shift+S"/>
                     <Item id="41008" name="名前を付けて保存(&amp;A)...	Ctrl+Alt+S"/>
@@ -107,7 +116,7 @@
                     <Item id="42021" name="再生(&amp;P)	Ctrl+Shift+P"/>
                     <Item id="42022" name="行コメント化/解除	Ctrl+Q"/>
                     <Item id="42023" name="ブロックコメント化	Ctrl+Shift+Q"/>
-                    <Item id="42047" name="スペースをタブに"/>
+                    <Item id="42047" name="ブロックコメント解除"/>
                     <Item id="42024" name="行末の空白を削除"/>
                     <Item id="42042" name="行頭の空白を削除"/>
                     <Item id="42043" name="行頭および行末の空白を削除"/>
@@ -116,13 +125,13 @@
                     <Item id="42046" name="タブをスペースに"/>
                     <Item id="42054" name="スペースをタブに(全部)"/>
                     <Item id="42053" name="スペースをタブに(先頭のみ)"/>
-                    <Item id="42038" name="HTMLコンテンツを挿入"/>
-                    <Item id="42039" name="RTFコンテンツを挿入"/>
+                    <Item id="42038" name="HTMLコンテンツを貼り付け"/>
+                    <Item id="42039" name="RTFコンテンツを貼り付け"/>
                     <Item id="42048" name="バイナリコンテンツのコピー"/>
                     <Item id="42049" name="バイナリコンテンツの切り取り"/>
-                    <Item id="42050" name="バイナリコンテンツの挿入"/>
+                    <Item id="42050" name="バイナリコンテンツの貼り付け"/>
                     <Item id="42037" name="矩形モード..."/>
-                    <Item id="42034" name="先頭に文字列を追加...	Alt+C"/>
+                    <Item id="42034" name="矩形編集...	Alt+C"/>
                     <Item id="42051" name="記号パネル"/>
                     <Item id="42052" name="クリップボード履歴"/>
                     <Item id="42025" name="現在記録済みのマクロを保存"/>
@@ -138,7 +147,10 @@
                     <Item id="42036" name="行コメント解除	Ctrl+Shift+K"/>
                     <Item id="42055" name="空行を削除"/>
                     <Item id="42056" name="空行を削除(空白だけの行も)"/>
-
+                    <Item id="42057" name="現在行の上に空行を挿入"/>
+                    <Item id="42058" name="現在行の下に空行を挿入"/>
+                    <Item id="42059" name="昇順で行をソート"/>
+                    <Item id="42060" name="降順で行をソート"/>
                     <Item id="43001" name="検索(&amp;F)...	Ctrl+F"/>
                     <Item id="43002" name="次を検索(&amp;N)	F3"/>
                     <Item id="43003" name="置換...	Ctrl+H"/>
@@ -154,6 +166,7 @@
                     <Item id="43051" name="ブックマークしていない行を削除"/>
                     <Item id="43050" name="ブックマークを反転"/>
                     <Item id="43052" name="範囲の文字を検索..."/>
+                    <Item id="43053" name="対応する括弧内を選択"/>
                     <Item id="43009" name="対応する括弧へジャンプ	Ctrl+B"/>
                     <Item id="43010" name="前を検索	Shift+F3"/>
                     <Item id="43011" name="逐次検索(&amp;I)...	Ctrl+Alt+I"/>
@@ -195,8 +208,8 @@
                     <Item id="44019" name="制御文字をすべて表示"/>
                     <Item id="44020" name="インデントガイドを表示"/>
                     <Item id="44022" name="右端で折り返す"/>
-                    <Item id="44023" name="ズームイン(&amp;I)	Ctrl+Num+"/>
-                    <Item id="44024" name="ズームアウト(&amp;O)	Ctrl+Num-"/>
+                    <Item id="44023" name="ズームイン(&amp;I) Ctrl+マウスホイール上	Ctrl+Num+"/>
+                    <Item id="44024" name="ズームアウト(&amp;O) Ctrl+マウスホイール上	Ctrl+Num-"/>
                     <Item id="44025" name="半角スペースとタブを表示"/>
                     <Item id="44026" name="改行文字を表示"/>
                     <Item id="44029" name="すべて展開する	Alt+Shift+0"/>
@@ -205,6 +218,17 @@
                     <Item id="44049" name="概要..."/>
                     <Item id="44080" name="ドキュメントマップ"/>
                     <Item id="44084" name="関数リスト"/>
+                    <Item id="44086" name="タブ1"/>
+                    <Item id="44087" name="タブ2"/>
+                    <Item id="44088" name="タブ3"/>
+                    <Item id="44089" name="タブ4"/>
+                    <Item id="44090" name="タブ5"/>
+                    <Item id="44091" name="タブ6"/>
+                    <Item id="44092" name="タブ7"/>
+                    <Item id="44093" name="タブ8"/>
+                    <Item id="44094" name="タブ9"/>
+                    <Item id="44095" name="次のタブ"/>
+                    <Item id="44096" name="前のタブ"/>
                     <Item id="44032" name="全画面表示	F11"/>
                     <Item id="44033" name="標準倍率に戻す	Ctrl+/(keypad)"/>
                     <Item id="44034" name="常に手前に表示"/>
@@ -238,6 +262,7 @@
                     <Item id="46150" name="言語を定義..."/>
                     <Item id="46080" name="ユーザ定義"/>
                     <Item id="47000" name="Notepad++について...	F1"/>
+                    <Item id="47010" name="コマンドライン引数..."/>
                     <Item id="47001" name="Notepad++のサイト"/>
                     <Item id="47002" name="Notepad++のプロジェクトページ"/>
                     <Item id="47003" name="オンラインヘルプ"/>
@@ -256,6 +281,7 @@
                     <Item id="50000" name="関数名補完	Ctrl+Space"/>
                     <Item id="50001" name="単語補完	Ctrl+Enter"/>
                     <Item id="50002" name="関数パラメータのヒント	Ctrl+Shift+Space"/>
+                    <Item id="50006" name="パス補完"/>
                     <Item id="44042" name="行を隠す	Alt+H"/>
                     <Item id="42040" name="最近開いたファイルをすべて開く"/>
                     <Item id="42041" name="最近開いたファイルのリストをクリア"/>
@@ -289,7 +315,7 @@
             <TabBar>
                 <Item CMID="0" name="閉じる"/>
                 <Item CMID="1" name="他のタブをすべて閉じる"/>
-                <Item CMID="2" name="上書保存"/>
+                <Item CMID="2" name="上書き保存"/>
                 <Item CMID="3" name="名前を付けて保存..."/>
                 <Item CMID="4" name="印刷"/>
                 <Item CMID="5" name="もう一つのビューへ移動"/>
@@ -306,6 +332,8 @@
                 <Item CMID="16" name="再読み込み"/>
                 <Item CMID="17" name="左をすべて閉じる"/>
                 <Item CMID="18" name="右をすべて閉じる"/>
+                <Item CMID="19" name="このファイルがあるフォルダーをエクスプローラーで開く"/>
+                <Item CMID="20" name="このファイルがあるフォルダーをコマンドプロンプトで開く"/>
             </TabBar>
         </Menu>
 
@@ -351,7 +379,7 @@
                 <Item id="1686" name="透明化"/>
                 <Item id="1703" name="&amp;. は改行に一致する"/>
             </Find>
-            <GoToLine title="指定行へジャンプ">
+            <GoToLine title="指定行へジャンプ...">
                 <Item id="2007" name="行"/>
                 <Item id="2008" name="オフセット"/>
                 <Item id="1" name="ジャンプ(&amp;G)"/>
@@ -511,8 +539,8 @@
                     <Item id="23220" name="スタイラー"/>
                     <Item id="23230" name="前置詞 1"/>
                     <Item id="23232" name="前置詞 2"/>
-                    <Item id="23234" name="Extras 1"/>
-                    <Item id="23236" name="Extras 2"/>
+                    <Item id="23234" name="中身 1"/>
+                    <Item id="23236" name="中身 2"/>
                     <Item id="23238" name="接尾詞 1"/>
                     <Item id="23240" name="接尾詞 2"/>
                     <Item id="23242" name="範囲:"/>
@@ -597,6 +625,7 @@
 
                     <Item id="6125" name="ドキュメント一覧"/>
                     <Item id="6126" name="表示"/>
+                    <Item id="6127" name="拡張子の行を表示しない"/>
                 </Global>
                 <Scintillas title="エディット画面">
                     <Item id="6216" name="キャレット設定"/>
@@ -622,6 +651,8 @@
                     <Item id="6207" name="ブックマークを表示"/>
                     <Item id="6208" name="指定文字数で右端境界を表示"/>
                     <Item id="6209" name="文字数: "/>
+                    <Item id="6234" name="スクロールの拡張機能を無効にする
+(タッチパッドに問題がある場合)"/>
 
                     <Item id="6211" name="右端境界設定"/>
                     <Item id="6212" name="実線で表示"/>
@@ -712,10 +743,67 @@
                     <Item id="6427" name="最大長さ:"/>
                 </RecentFilesHistory>
 
+                <Backup title="自動保存">
+                    <Item id="6817" name="セッションスナップショットと定期的なバックアップ"/>
+                    <Item id="6818" name="セッションスナップショットと定期的なバックアップを有効にする"/>
+                    <Item id="6819" name="バックアップを毎"/>
+                    <Item id="6821" name="秒ごとに行う"/>
+                    <Item id="6822" name="バックアップパス:"/>
+                    <Item id="6309" name="現在のセッションを次回起動時に復元"/>
+                    <Item id="6801" name="自動保存"/>
+                    <Item id="6315" name="なし"/>
+                    <Item id="6316" name="シンプル"/>
+                    <Item id="6317" name="詳細"/>
+                    <Item id="6804" name="バックアップディレクトリの指定"/>
+                    <Item id="6803" name="ディレクトリ:"/>
+                </Backup>
+
+                <AutoCompletion title="入力補完">
+                    <Item id="6807" name="入力補完"/>
+                    <Item id="6808" name="入力の毎に補完を行う"/>
+                    <Item id="6809" name="関数名補完"/>
+                    <Item id="6810" name="単語補完"/>
+					<Item id="6816" name="関数名と単語の補完"/>
+                    <Item id="6811" name=" "/>
+                    <Item id="6813" name="文字目から"/>
+                    <Item id="6814" name="指定可能な値: 1 - 9"/>
+                    <Item id="6815" name="入力時の関数パラメータヒント"/>
+                    <Item id="6851" name="自動挿入"/>
+                    <Item id="6857" name=" html/xmlの閉じるタグ"/>
+                    <Item id="6858" name="開"/>
+                    <Item id="6859" name="閉"/>
+                    <Item id="6860" name="一致させるペア 1:"/>
+                    <Item id="6863" name="一致させるペア 2:"/>
+                    <Item id="6866" name="一致させるペア 3:"/>
+                </AutoCompletion>
+
+                <MultiInstance title="マルチインスタンス">
+                    <Item id="6151" name="マルチインスタンス設定"/>
+                    <Item id="6152" name="セッションをNotepad++の新しいインスタンスで開く"/>
+                    <Item id="6153" name="常にマルチインスタンスモードとする"/>
+                    <Item id="6154" name="デフォルト (1つのインスタンス)"/>
+                    <Item id="6155" name="* この変更を有効にするにはNotepad++の再起動が必要です。"/>
+                </MultiInstance>
+                
+                <Delimiter title="区切り記号">
+                    <Item id="6251" name="区切り記号選択設定 (Ctrl + マウスダブルクリック)"/>
+                    <Item id="6252" name="開"/>
+                    <Item id="6255" name="閉"/>
+                    <Item id="6256" name="複数行を許可する"/>
+                </Delimiter>
+
+                 <Cloud title="クラウド">
+                    <Item id="6262" name="クラウド設定"/>
+                    <Item id="6263" name="クラウドを使用しない"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="この変更を有効にするにはNotepad++の再起動が必要です。"/-->
+                </Cloud>
+
                 <MISC title="その他">
                     <Item id="6307" name="有効"/>
                     <Item id="6308" name="タスクトレイに格納"/>
-                    <Item id="6309" name="現在のセッションを次回起動時に復元"/>
                     <Item id="6312" name="ファイルの状態監視"/>
                     <Item id="6313" name="自動で最新状態に更新"/>
                     <Item id="6318" name="URLリンク設定"/>
@@ -730,33 +818,15 @@
                     <Item id="6327" name="有効"/>
                     <Item id="6328" name="タグの属性を強調する"/>
                     <Item id="6330" name="コメント/PHP/ASP 領域を強調する"/>
-
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
+                    <Item id="6332" name="大文字/小文字を区別"/>
+                    <Item id="6333" name="スマートハイライト"/>
+                    <Item id="6334" name="文字コードを自動判別"/>
+                    <Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
                     <Item id="6114" name="有効"/>
                     <Item id="6115" name="オートインデント"/>
                     <Item id="6117" name="最近使用した順にビューを切り替える"/>
-
                 </MISC>
-
-                <Backup title="自動保存">
-                    <Item id="6801" name="自動保存"/>
-                    <Item id="6315" name="なし"/>
-                    <Item id="6316" name="シンプル"/>
-                    <Item id="6317" name="詳細"/>
-                    <Item id="6804" name="バックアップディレクトリの指定"/>
-                    <Item id="6803" name="ディレクトリ:"/>
-                </Backup>
-
-                <AutoCompletion title="入力補完">
-                    <Item id="6807" name="入力補完"/>
-                    <Item id="6808" name="入力の毎に補完を行う"/>
-                    <Item id="6809" name="関数名補完"/>
-                    <Item id="6810" name="単語補完"/>
-                    <Item id="6811" name=" "/>
-                    <Item id="6813" name="文字目から"/>
-                    <Item id="6814" name="指定可能な値: 1 - 9"/>
-                    <Item id="6815" name="入力時の関数パラメータヒント"/>
-                </AutoCompletion>
 
             </Preference>
             <MultiMacro title="指定マクロを複数回実行">
@@ -774,7 +844,7 @@
                 <Item id="7003" name="ウィンドウを閉じる"/>
                 <Item id="7004" name="タブをソート"/>
             </Window>
-            <ColumnEditor title="先頭に文字列を追加">
+            <ColumnEditor title="矩形編集">
                 <Item id="2023" name="挿入文字列"/>
                 <Item id="2033" name="数字"/>
                 <Item id="2030" name="初期値:"/>
@@ -791,10 +861,10 @@
             </Dialog>
 
         <MessageBox>
-            <ContextMenuXmlEditWarning title="警告: コンテキストメニューの編集" message="contextMenu.xmlを編集することで、Notepad++のポップアップコンテキストを変更できます。 変更を適応するには、contextMenu.xmlの編集後Notepad++を再起動してください。"/>
+            <ContextMenuXmlEditWarning title="警告: コンテキストメニューの編集" message="contextMenu.xmlを編集することで、Notepad++のポップアップコンテキストを変更できます。 変更を適応するには、contextMenu.xmlの編集後、Notepad++を再起動してください。"/>
             <NppHelpAbsentWarning title="警告: ファイルが存在しません" message="ヘルプファイルが存在しません。 Notepad++のサイトからダウンロードしてください。"/>
             <SaveCurrentModifWarning title="警告: 現在の変更を保存" message="現在の変更を保存する必要があります。 保存したすべての変更は取り消すことはできません。 続行しますか?"/>
-            <LoseUndoAbilityWarning title="警告: アンドゥ履歴が失われます" message="現在の変更を保存する必要があります。 保存したすべての変更は取り消すことはできません。 続行しますか?"/>
+            <LoseUndoAbilityWarning title="警告: 元に戻すの履歴が失われます" message="現在の変更を保存する必要があります。 保存したすべての変更は取り消すことはできません。 続行しますか?"/>
             <CannotMoveDoc title="新しいウィンドウに移動" message="ドキュメントが変更されました、保存してやり直してください。"/>
             <DocReloadWarning title="警告: 開き直します" message="変更が失われますが、このドキュメントを本当に開き直しますか?"/>
             <FileLockedWarning title="警告: 保存失敗" message="このファイルを別のプログラムで開いていないか確認してください。"/>
@@ -807,7 +877,28 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルが開かれようとしています。\r本当に開きますか?"/>
         </MessageBox>
-
+        <ClipboardHistory>
+            <PanelTitle name="クリップボード履歴"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+            <PanelTitle name="文書切り替え"/>
+            <ColumnName name="名前"/>
+            <ColumnExt name="拡張子"/>
+        </DocSwitcher>
+        <AsciiInsertion>
+            <PanelTitle name="ASCII文字挿入パネル"/>
+            <ColumnVal name="10進数"/>
+            <ColumnHex name="16進数"/>
+            <ColumnChar name="文字"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="ドキュメントマップ"/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="関数リスト"/>
+            <SortTip name="並び替え" />
+            <ReloadTip name="再読み込み" />
+        </FunctionList>
         <ProjectManager>
             <PanelTitle name="プロジェクト"/>
             <WorkspaceRootName name="ワークスペース"/>

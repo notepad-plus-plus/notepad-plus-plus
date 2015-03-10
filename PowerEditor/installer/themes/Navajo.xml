@@ -5,9 +5,10 @@ Style Name:          Navajo
 Description:         Navajo theme for Notepad++.
                      Based on navajo.vim by R. Edward Ralston
                      Official Navajo home page: http://www.vim.org/scripts/script.php?script_id=190
-Supported languages: All the languages supported by release 5.9.8
+Supported languages: All the languages supported by release 6.7.4
 Created by:          Paul Neubauer (PaulRNeubauer at gmail dot com)
-Last Modified:       7:04 AM 5/29/2012
+Last Modified:       1/14/2015
+                     Added support for CoffeeScript.
 Released:            4/17/2012
 License:             Feel free to modify this theme. 
                      This theme is available under the terms of the Creative Commons
@@ -204,6 +205,28 @@ Installation:
             <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="BCBCBC" bgColor="5F0000" fontName="" fontStyle="3" fontSize="" />
+        </LexerType>
+        <LexerType name="coffeescript" desc="CoffeeScript" ext="">
+            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="870087" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="DEFAULT" styleID="11" fgColor="000000" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="804040" bgColor="BA9C80" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="TYPE WORD" styleID="16" fgColor="1E8B47" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="6" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CHARACTER" styleID="7" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="10" fgColor="010101" bgColor="BA9C80" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="VERBATIM" styleID="13" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="REGEX" styleID="14" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC" styleID="3" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="BCBCBC" bgColor="5F0000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PREDEFINED CONSTANT" styleID="19" fgColor="D92B10" bgColor="BA9C80" fontName="" fontStyle="1" fontSize="" keywordClass="type2" />
+            <WordsStyle name="COMMENT BLOCK" styleID="22" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="VERBOSE REGEX" styleID="23" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="3" fontSize="" />
+            <WordsStyle name="VERBOSE REGEX COMMENT" styleID="24" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="cpp" desc="C++" ext="">
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="870087" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
@@ -700,6 +723,7 @@ Installation:
             <WordsStyle name="COMMENT" styleID="12" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="searchResult" desc="Search result" ext="">
+            <WordsStyle name="Default" styleID="0" fgColor="000000" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="Search Header" styleID="1" fgColor="106060" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="File Header" styleID="2" fgColor="3B4092" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="Line Number" styleID="3" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />

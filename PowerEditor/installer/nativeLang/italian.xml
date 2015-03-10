@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 6.6.8
-	Last modified Wed, August 1st, 2014 by Luca Leonardi.
+	Italian translation for Notepad++ 6.7.3
+	Last modified Wed, January 2nd, 2015 by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -37,7 +37,7 @@
 					<Item subMenuId = "edit-eolConversion" name = "Converti carattere di fine linea" />
 					<Item subMenuId = "edit-blankOperations" name = "Operazioni sugli spazi" />
 					<Item subMenuId = "edit-pasteSpecial" name = "Incolla speciale" />
-					<Item subMenuId = "search-markAll" name = "Segna tutti" />
+					<Item subMenuId = "search-markAll" name = "Marca tutti" />
 					<Item subMenuId = "search-unmarkAll" name = "Rimuovi marcatura" />
 					<Item subMenuId = "search-jumpUp" name = "Salta su" />
 					<Item subMenuId = "search-jumpDown" name = "Salta giù" />
@@ -202,12 +202,13 @@
                     <Item id = "43051" name = "Rimuovi linee non selezionate" />
                     <Item id = "43052" name = "Cerca caratteri..." />
                     <Item id = "43053" name = "Seleziona tutto tra le parentesi corrispondenti" />
+                    <Item id = "43054" name = "Evidenzia..."/>
                     
 					<Item id = "44009" name = "Modalità Post-it" />
                     <Item id = "44010" name = "Comprimi tutte le strutture" />
                     <Item id = "44011" name = "Finestra impostazioni personalizzate..." />
                     <Item id = "44012" name = "Nascondi margine numeri di riga" />
-                    <Item id = "44013" name = "Nacondi margine segnalibri" />
+                    <Item id = "44013" name = "Nascondi margine segnalibri" />
                     <Item id = "44014" name = "Nascondi margine cartella" />
                     <Item id = "44019" name = "Mostra tutti i caratteri" />
                     <Item id = "44020" name = "Mostra guide di indentazione" />

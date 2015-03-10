@@ -146,10 +146,10 @@
 					<Item id="42058" name="Ievietot tukðu rindu aiz dotâs rindas"/>
 					<Item id="42059" name="Kârtot rindas pieaugoðâ secîbâ"/>
 					<Item id="42060" name="Kârtot rindas dilstoðâ secîbâ"/>
-					<Item id="43001" name="&amp;Atrast..."/>
+					<Item id="43001" name="&amp;Atrast ..."/>
 					<Item id="43002" name="Atrast &amp;nâkoðo"/>
-					<Item id="43003" name="Aizstât..."/>
-					<Item id="43004" name="Iet uz..."/>
+					<Item id="43003" name="Aizstât ..."/>
+					<Item id="43004" name="Iet uz ..."/>
 					<Item id="43005" name="Ievietot grâmatzîmi"/>
 					<Item id="43006" name="Nâkoðâ grâmatzîme"/>
 					<Item id="43007" name="Iepriekðçjâ grâmatzîme"/>
@@ -161,7 +161,8 @@
 					<Item id="43051" name="Izmest neatzîmçtâs &amp;rindas"/>
 					<Item id="43050" name="Grâmatzîmes ielikt &amp;otrâdi"/>
 					<Item id="43052" name="Meklçt pçc &amp;koda ..."/>
-                    <Item id="43053" name="Iezîmet visu starp atbilstoðiem atdalîtâjiem"/>
+                    <Item id="43053" name="Iezîmçt visu starp atbilstoðiem atdalîtâjiem"/>
+                    <Item id="43054" name="Izcelt atrasto ..."/>
 					<Item id="43009" name="Iet uz saistîto atdalîtâju"/>
 					<Item id="43010" name="Atrast iepriekðçjo"/>
 					<Item id="43011" name="Ât&amp;râ meklçðana"/>
@@ -312,7 +313,7 @@
 		</Menu>
 
 		<Dialog>
-			<Find title="" titleFind="Atrast" titleReplace="Aizstât" titleFindInFiles="Atrast failos">
+			<Find title="" titleFind="Atrast" titleReplace="Aizstât" titleFindInFiles="Atrast failos" titleMark="Izcelt">
 				<Item id="1"    name="Atrast nâkoðo"/>
 				<Item id="2"    name="Aizvçrt"/>
 				<Item id="1620" name="Ko atrast:"/>

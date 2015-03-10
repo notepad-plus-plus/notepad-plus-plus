@@ -251,8 +251,8 @@ page Custom ExtraOptions
   !insertmacro MUI_LANGUAGE "Latvian"
   !insertmacro MUI_LANGUAGE "Bosnian"
   !insertmacro MUI_LANGUAGE "Mongolian"
+  !insertmacro MUI_LANGUAGE "Estonian"
   
-  ;!insertmacro MUI_LANGUAGE "Estonian"
   ;!insertmacro MUI_LANGUAGE "Breton"
   ;!insertmacro MUI_LANGUAGE "Icelandic"
   ;!insertmacro MUI_LANGUAGE "Kurdish"
@@ -410,6 +410,7 @@ LangString langFileName ${LANG_MACEDONIAN} "macedonian.xml"
 LangString langFileName ${LANG_LATVIAN} "Latvian.xml"
 LangString langFileName ${LANG_BOSNIAN} "bosnian.xml"
 LangString langFileName ${LANG_MONGOLIAN} "mongolian.xml"
+LangString langFileName ${LANG_ESTONIAN} "estonian.xml"
 
 
 Var UPDATE_PATH
@@ -911,6 +912,9 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Esperanto" esperanto
 		CopyFiles "$TEMP\nppLocalization\esperanto.xml" "$INSTDIR\localization\esperanto.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Estonian" estonian
+		CopyFiles "$TEMP\nppLocalization\estonian.xml" "$INSTDIR\localization\estonian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Extremaduran" extremaduran
 		CopyFiles "$TEMP\nppLocalization\extremaduran.xml" "$INSTDIR\localization\extremaduran.xml"
@@ -1635,6 +1639,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.esperanto
 		Delete "$INSTDIR\localization\esperanto.xml"
+	SectionEnd
+	Section un.estonian
+		Delete "$INSTDIR\localization\estonian.xml"
 	SectionEnd
 	Section un.extremaduran
 		Delete "$INSTDIR\localization\extremaduran.xml"

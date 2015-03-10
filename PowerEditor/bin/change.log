@@ -1,12 +1,26 @@
-Notepad++ v6.7.4 Je suis Charlie edition
+Notepad++ v6.7.5 new features and bug-fixes:
+
+1.  Add ghost typing feature: launch Notepad++ with the auto-typing text from command line (via command line with argument -qn, -qt or -qf).
+2.  Fix auto-insert bad behaviour : under some condition typing " or ' makes erase the further " or '.
+3.  Fix the crash issue while user Ctrl + double click on an empty document.
+4.  Fix crash bug on loading dropbox settings.
+5.  Show progress window instead of a static window during FindInFiles and ReplaceInFiles.
+6.  Filename rendered incorrectly on tab bar while it contains '&' character.
+7.  Make highlighting (if enabled) follow typing for Incremental search, and add several Incremental search enhancements.
+8.  Add the followings notifications for plugins : NPPN_BEFORESHUTDOWN NPPN_CANCELSHUTDOWN NPPN_FILEBEFORERENAME NPPN_FILERENAMECANCEL NPPN_FILERENAMED NPPN_FILEBEFOREDELETE NPPN_FILEDELETEFAILED NPPN_FILEDELETED
+9.  Make keystroke ENTER trigger the shortcut editor dialog in Shortcut Mapper.
+10. Allow drop files onto doc switcher and other side panels.
+11. Installer remembers user's choices of last installation.
+12. Fix Auto-indent in new code block not respecting current EOL bug.
+13. Restore focus to editor when a panel is closed.
 
 
 Included plugins:
 
 1.  DSpellCheck v1.2.12
-2.  NppFTP 0.24.1
+2.  NppFTP 0.26.1
 3.  NppExport v0.2.8
-4.  Plugin Manager 1.0.8
+4.  Plugin Manager 1.3.5
 5.  Converter 3.0
 6.  Mime Tool 1.9
 

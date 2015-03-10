@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Big5"?>
 <NotepadPlus>
-    <Native-Langue name="中文繁體" filename="chinese.xml" version="6.6.8">
+    <Native-Langue name="中文繁體" filename="chinese.xml" version="6.7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -160,8 +160,6 @@
                     <Item id="43013" name="搜尋目錄"/>
                     <Item id="43014" name="快速搜查下一個"/>
                     <Item id="43015" name="快速搜查上一個"/>
-                    <Item id="43016" name="顏色標記 "/>
-                    <Item id="43017" name="清除顏色標記"/>
                     <Item id="43018" name="剪下標籤列至剪貼簿"/>
                     <Item id="43019" name="複製標籤列至剪貼簿"/>
                     <Item id="43020" name="貼上剪貼簿內容至標籤列"/>
@@ -325,20 +323,17 @@
                 <Item id="1614" name="計數"/>
                 <Item id="1615" name="搜尋所有"/>
                 <Item id="1616" name="結果於列初標記"/>
-                <Item id="1617" name="結果以顏色標記"/>
                 <Item id="1618" name="清除前次標記"/>
                 <Item id="1621" name="搜尋方向"/>
                 <Item id="1611" name="取代成："/>
                 <Item id="1608" name="取代(&amp;R)"/>
                 <Item id="1609" name="全部取代(&amp;A)"/>
-                <Item id="1623" name="啟動透明功能"/>
                 <Item id="1687" name="當視窗失去焦聚"/>
                 <Item id="1688" name="無條件啟動"/>
                 <Item id="1632" name="選取範圍內"/>
                 <Item id="1633" name="清除"/>
                 <Item id="1635" name="取代所有開啟文件"/>
                 <Item id="1636" name="搜尋所有開啟文件"/>
-                <Item id="1637" name="搜尋目錄"/>
                 <Item id="1654" name="檔案類型："/>
                 <Item id="1655" name="資料夾："/>
                 <Item id="1656" name="全找"/>
@@ -353,6 +348,17 @@
                 <Item id="1686" name="透明度"/>
                 <Item id="1703" name=".符合換行字元(&amp;.)"/>
             </Find>
+            <FindCharsInRange title="在指定範圍內搜尋字元">
+				<Item id="2" name="關閉"/>
+				<Item id="2901" name="非 ASCII 字元 (128-255)"/>
+				<Item id="2902" name="ASCII 字元 (0-127)"/>
+				<Item id="2903" name="自定範圍："/>
+				<Item id="2906" name="上(&amp;U)"/>
+				<Item id="2907" name="下(&amp;D)"/>
+				<Item id="2908" name="搜尋方向"/>
+				<Item id="2909" name="循環(&amp;D)"/>
+				<Item id="2910" name="搜尋"/>
+            </FindCharsInRange>
             <GoToLine title="到那兒去溜搭溜搭">
                 <Item id="2007" name="列數"/>
                 <Item id="2008" name="Offset"/>
@@ -473,7 +479,7 @@
                     <Item id="21424" name="摺疊開啟："/>
                     <Item id="21425" name="中介關鍵字："/>
                     <Item id="21426" name="摺疊封閉："/>
-                    <Item id="21127" name="樣式設定"/>
+                    <Item id="21427" name="樣式設定"/>
                 </Folder>
                 <Keywords title="關鍵字">
                     <Item id="22101" name="第一組群"/>
@@ -599,7 +605,6 @@
                     <Item id="6119" name="複列顯示"/>
                     <Item id="6120" name="垂直顯示"/>
                     
-                    <Item id="6121" name="選單欄"/>
                     <Item id="6122" name="隱藏 (使用 Alt 或 F10 鍵啟用)"/>
                     <Item id="6123" name="語言"/>
 
@@ -672,12 +677,12 @@
                     <Item id="6506" name="隱藏項目"/>
                     <Item id="6507" name="簡化程式語言選單"/>
                     <Item id="6508" name="程式語言選單"/>
-                    <Item id="6510" name="使用內訂值"/>
                 </LangMenu>
                 <TabSettings title="欄標〈Tab〉設定">
                     <Item id="6301" name="欄標〈Tab〉設定"/>
                     <Item id="6302" name="以 space 取代"/>
                     <Item id="6303" name="欄標尺寸："/>
+                    <Item id="6510" name="使用內訂值"/>
                 </TabSettings>
                 <Print title="列印">
                     <Item id="6601" name="列印列數邊行"/>
@@ -782,7 +787,6 @@
                     <Item id="6308" name="縮小到系統框"/>
                     <Item id="6312" name="自動檢視開啟文件狀態"/>
                     <Item id="6313" name="自動更新檔案"/>
-                    <Item id="6314" name="備份"/>
                     <Item id="6325" name="檔案更新後置現行列至最後一列"/>
                     <Item id="6318" name="可點擊連結設定"/>
                     <Item id="6319" name="啟動"/>

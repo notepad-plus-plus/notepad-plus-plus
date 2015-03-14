@@ -339,7 +339,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_BEGINENDSELECT:
 		{
-			::CheckMenuItem(_mainMenuHandle, IDM_EDIT_BEGINENDSELECT, MF_BYCOMMAND | _pEditView->beginEndSelectedIsStarted()?MF_UNCHECKED:MF_CHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_EDIT_BEGINENDSELECT, MF_BYCOMMAND | (_pEditView->beginEndSelectedIsStarted() ? MF_UNCHECKED : MF_CHECKED));
 			_pEditView->beginOrEndSelect();
 		}
 		break;
@@ -1539,7 +1539,7 @@ void Notepad_plus::command(int id)
 				characterNumber += TEXT("\r");
 
 				TCHAR fileLenStr[64];
-				generic_sprintf(fileLenStr, TEXT("%d"), (size_t)fileLen);
+				generic_sprintf(fileLenStr, TEXT("%I64u"), static_cast<UINT64>( fileLen ) );
 				characterNumber += fileLenLabel;
 				characterNumber += fileLenStr;
 				characterNumber += TEXT("\r");
@@ -1580,7 +1580,7 @@ void Notepad_plus::command(int id)
 			characterNumber += nbWordStr;
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbLineStr, TEXT("%d"), nbLine);
+			generic_sprintf(nbLineStr, TEXT("%d"), static_cast<int>( nbLine ) );
 			characterNumber += nbLineLabel;
 			characterNumber += nbLineStr;
 			characterNumber += TEXT("\r");

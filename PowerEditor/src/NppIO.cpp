@@ -37,11 +37,37 @@
 
 BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
-    NppParameters *pNppParam = NppParameters::getInstance();
-    TCHAR longFileName[MAX_PATH];
+ 
+	const rsize_t longFileNameBufferSize = MAX_PATH;
 
-    ::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
-    ::GetLongPathName(longFileName, longFileName, MAX_PATH);
+	//If [GetFullPathName] succeeds, the return value is the length, in TCHARs, of the string copied to lpBuffer, not including the terminating null character.
+	//If the lpBuffer buffer is too small to contain the path, the return value [of GetFullPathName] is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.
+	//If [GetFullPathName] fails for any other reason, the return value is zero.
+
+    NppParameters *pNppParam = NppParameters::getInstance();
+    TCHAR longFileName[longFileNameBufferSize];
+
+    const DWORD getFullPathNameResult = ::GetFullPathName(fileName, longFileNameBufferSize, longFileName, NULL);
+	if ( getFullPathNameResult == 0 )
+	{
+		return BUFFER_INVALID;
+	}
+	if ( getFullPathNameResult > longFileNameBufferSize )
+	{
+		return BUFFER_INVALID;
+	}
+	assert( _tcslen( longFileName ) == getFullPathNameResult );
+
+    const DWORD getLongPathNameResult = ::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
+	if ( getLongPathNameResult == 0 )
+	{
+		return BUFFER_INVALID;
+	}
+	if ( getLongPathNameResult > longFileNameBufferSize )
+	{
+		return BUFFER_INVALID;
+	}
+	assert( _tcslen( longFileName ) == getLongPathNameResult );
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(longFileName)) // UNTITLED

@@ -926,7 +926,13 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	generic_string settingsPath4dropbox = TEXT("");
 
 	ITEMIDLIST *pidl;
-	SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+	static_assert( SUCCEEDED( S_OK ), "bad HRESULT test!" );
+
+	const HRESULT specialFolderLocationResult_1 = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+	if ( !SUCCEEDED( specialFolderLocationResult_1 ) )
+	{
+		return cloudSettingsPath;
+	}
 	TCHAR tmp[MAX_PATH];
 	SHGetPathFromIDList(pidl, tmp);
 	generic_string dropboxInfoDB = tmp;
@@ -1010,7 +1016,11 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	// TODO: check if google drive is present
 	//
 	ITEMIDLIST *pidl2;
-	SHGetSpecialFolderLocation(NULL, CSIDL_LOCAL_APPDATA, &pidl2);
+	const HRESULT specialFolderLocationResult_2 = SHGetSpecialFolderLocation(NULL, CSIDL_LOCAL_APPDATA, &pidl2);
+	if ( !SUCCEEDED( specialFolderLocationResult_2 ) )
+	{
+		return TEXT( "" );
+	}
 	TCHAR tmp2[MAX_PATH];
 	SHGetPathFromIDList(pidl2, tmp2);
 	generic_string googleDriveInfoDB = tmp2;
@@ -1118,7 +1128,12 @@ generic_string NppParameters::getSettingsFolder()
 	else
 	{
 		ITEMIDLIST *pidl;
-		SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+		static_assert( SUCCEEDED( S_OK ), "Bad HRESULT code check!!" );
+		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+		if ( !SUCCEEDED( specialLocationResult ) )
+		{
+			return TEXT( "" );
+		}
 		TCHAR tmp[MAX_PATH];
 		SHGetPathFromIDList(pidl, tmp);
 		generic_string settingsFolderPath = tmp;
@@ -1148,7 +1163,12 @@ bool NppParameters::load()
 		if (_winVersion >= WV_VISTA)
 		{
 			ITEMIDLIST *pidl;
-			SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
+			static_assert( SUCCEEDED( S_OK ), "Bad HRESULT code check!!" );
+			const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
+			if ( !SUCCEEDED( specialLocationResult ) )
+			{
+				return false;
+			}
 			TCHAR progPath[MAX_PATH];
 			SHGetPathFromIDList(pidl, progPath);
 			TCHAR nppDirLocation[MAX_PATH];
@@ -1167,7 +1187,12 @@ bool NppParameters::load()
 	else
 	{
 		ITEMIDLIST *pidl;
-		SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+		static_assert( SUCCEEDED( S_OK ), "Bad HRESULT code check!!" );
+		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+		if ( !SUCCEEDED( specialLocationResult ) )
+		{
+			return false;
+		}
 		TCHAR tmp[MAX_PATH];
 		SHGetPathFromIDList(pidl, tmp);
 		_userPath = tmp;
@@ -2603,6 +2628,11 @@ bool NppParameters::exportUDLToFile(int langIndex2export, generic_string fileNam
 
     bool b = false;
     
+	if ( langIndex2export >= NB_MAX_USER_LANG )
+	{
+		return false;
+	}
+
     insertUserLang2Tree(newRoot2export, _userLangArray[langIndex2export]);
     b = pNewXmlUserLangDoc->SaveFile();
     
@@ -4503,7 +4533,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (path && path[0])
 			{
 				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
-				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, 500);
+				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, MAX_PATH);
 			}
  		}
 		else if (!lstrcmp(nm, TEXT("titleBar")))

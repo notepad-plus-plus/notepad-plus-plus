@@ -190,8 +190,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
 
 				HWND hWinParent = ::GetParent(hWin);
-				TCHAR className[MAX_PATH];
-				::GetClassName(hWinParent,className, sizeof(className));
+				const rsize_t classNameBufferSize = MAX_PATH;
+				TCHAR className[classNameBufferSize];
+				::GetClassName(hWinParent,className, classNameBufferSize);
 				if (lstrcmp(className, _pPublicInterface->getClassName()) == 0 && hWinParent != _pPublicInterface->getHSelf()) // another Notepad++
 				{
 					int index = _pDocTab->getCurrentTabIndex();
@@ -481,7 +482,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_DOUBLECLICK :
 	{
-		if(notification->modifiers == SCMOD_CTRL)
+		if (notification->modifiers == SCMOD_CTRL)
 		{
 			const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
@@ -500,7 +501,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				char *buf;
 				int length;
 				
-				if(nppGUI._delimiterSelectionOnEntireDocument)
+				if (nppGUI._delimiterSelectionOnEntireDocument)
 				{
 					// Get entire document.
 					length = notifyView->execute(SCI_GETLENGTH);
@@ -526,19 +527,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			int leftmost_position = -1;
 			int rightmost_position = -1;
 
-			if(nppGUI._rightmostDelimiter == nppGUI._leftmostDelimiter)
+			if (nppGUI._rightmostDelimiter == nppGUI._leftmostDelimiter)
 			{
 				// If the delimiters are the same (e.g. they are both a quotation mark), choose the ones
 				// which are closest to the clicked position.
-
-				for(unsigned int i = position_of_click; i >= 0; --i)
+				for (int i = position_of_click; i >= 0; --i)
 				{
-					if(bufstring.at(i) == nppGUI._leftmostDelimiter)
+					if (bufstring.at(i) == nppGUI._leftmostDelimiter)
 					{
 						// Respect escaped quotation marks.
-						if(nppGUI._leftmostDelimiter == '"')
+						if (nppGUI._leftmostDelimiter == '"')
 						{
-							if(! (i > 0 && bufstring.at(i - 1) == '\\'))
+							if (! (i > 0 && bufstring.at(i - 1) == '\\'))
 							{
 								leftmost_position = i;
 								break;
@@ -552,18 +552,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					}
 				}
 
-				if(leftmost_position == -1)
+				if (leftmost_position == -1)
 					break;
 
 				// Scan for right delimiter.
-				for(unsigned int i = position_of_click; i < bufstring.length(); ++i)
+				for (unsigned int i = position_of_click; i < bufstring.length(); ++i)
 				{
-					if(bufstring.at(i) == nppGUI._rightmostDelimiter)
+					if (bufstring.at(i) == nppGUI._rightmostDelimiter)
 					{
 						// Respect escaped quotation marks.
-						if(nppGUI._rightmostDelimiter == '"')
+						if (nppGUI._rightmostDelimiter == '"')
 						{
-							if(! (i > 0 && bufstring.at(i - 1) == '\\'))
+							if (! (i > 0 && bufstring.at(i - 1) == '\\'))
 							{
 								rightmost_position = i;
 								break;
@@ -588,11 +588,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				std::stack<unsigned int> leftmost_delimiter_positions;
 
-				for(unsigned int i = 0; i < bufstring.length(); ++i)
+				for (unsigned int i = 0; i < bufstring.length(); ++i)
 				{
-					if(bufstring.at(i) == nppGUI._leftmostDelimiter)
+					if (bufstring.at(i) == nppGUI._leftmostDelimiter)
 						leftmost_delimiter_positions.push(i);
-					else if(bufstring.at(i) == nppGUI._rightmostDelimiter && ! leftmost_delimiter_positions.empty())
+					else if (bufstring.at(i) == nppGUI._rightmostDelimiter && ! leftmost_delimiter_positions.empty())
 					{
 						unsigned int matching_leftmost = leftmost_delimiter_positions.top();
 						leftmost_delimiter_positions.pop();
@@ -602,7 +602,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 						// Note: cast of leftmost_position to unsigned int is safe, since if leftmost_position is not -1 then it is guaranteed to be positive.
 						// If it was possible, leftmost_position and rightmost_position should be of type optional<unsigned int>.
-						if( matching_leftmost <= position_of_click && i >= position_of_click &&  (leftmost_position == -1 ||  matching_leftmost > (unsigned int)leftmost_position) )
+						if ( matching_leftmost <= position_of_click && i >= position_of_click &&  (leftmost_position == -1 ||  matching_leftmost > (unsigned int)leftmost_position) )
 						{
 							leftmost_position = matching_leftmost;
 							rightmost_position = i;
@@ -612,9 +612,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 
 			// Set selection to the position we found (if any).
-			if(rightmost_position != -1 && leftmost_position != -1)
+			if (rightmost_position != -1 && leftmost_position != -1)
 			{
-				if(nppGUI._delimiterSelectionOnEntireDocument)
+				if (nppGUI._delimiterSelectionOnEntireDocument)
 				{
 					notifyView->execute(SCI_SETCURRENTPOS, rightmost_position);
 					notifyView->execute(SCI_SETANCHOR, leftmost_position + 1);

@@ -663,7 +663,7 @@ public:
 
     generic_string toString() { // Return Notepad++ date format : YYYYMMDD
         TCHAR dateStr[8+1];
-        wsprintf(dateStr, TEXT("%04d%02d%02d"), _year, _month, _day);
+        wsprintf(dateStr, TEXT("%04u%02u%02u"), _year, _month, _day);
         return dateStr;
     };
 
@@ -828,6 +828,7 @@ struct NppGUI
 	bool _shortTitlebar;
 
 	OpenSaveDirSetting _openSaveDir;
+	
 	TCHAR _defaultDir[MAX_PATH];
 	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
 	generic_string _themeName;

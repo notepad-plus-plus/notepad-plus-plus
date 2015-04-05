@@ -58,7 +58,7 @@ std::string getFileContent(const TCHAR *file2read)
 		if (lenFile >= blockSize - 1)
 			data[blockSize - 1] = '\0';
 		else
-			data[lenFile - 1] = '\0';
+			data[lenFile] = '\0';
 
 		wholeFileContent += data;
 

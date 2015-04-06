@@ -990,11 +990,11 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 
 	// Get value from registry
 	generic_string settingsPath4OneDrive = TEXT("");
-	HKEY hKey;
-	LRESULT res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SkyDrive"), 0, KEY_READ, &hKey);
+	HKEY hOneDriveKey;
+	LRESULT res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SkyDrive"), 0, KEY_READ, &hOneDriveKey);
 	if (res != ERROR_SUCCESS)
 	{
-		res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\SkyDrive"), 0, KEY_READ, &hKey);
+		res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Microsoft\\SkyDrive"), 0, KEY_READ, &hOneDriveKey);
 	}
 
 	if (res == ERROR_SUCCESS)
@@ -1002,30 +1002,39 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 		TCHAR valData[MAX_PATH];
 		int valDataLen = MAX_PATH * sizeof(TCHAR);
 		int valType;
-		::RegQueryValueEx(hKey, TEXT("UserFolder"), NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
+		::RegQueryValueEx(hOneDriveKey, TEXT("UserFolder"), NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
 
 		if (::PathFileExists(valData))
 		{
 			settingsPath4OneDrive = valData;
 			_nppGUI._availableClouds |= ONEDRIVE_AVAILABLE;
 		}
-		::RegCloseKey(hKey);
+		::RegCloseKey(hOneDriveKey);
 	}
 
 	//
 	// TODO: check if google drive is present
 	//
-	ITEMIDLIST *pidl2;
-	const HRESULT specialFolderLocationResult_2 = SHGetSpecialFolderLocation(NULL, CSIDL_LOCAL_APPDATA, &pidl2);
-	if ( !SUCCEEDED( specialFolderLocationResult_2 ) )
-	{
-		return TEXT( "" );
-	}
-	TCHAR tmp2[MAX_PATH];
-	SHGetPathFromIDList(pidl2, tmp2);
-	generic_string googleDriveInfoDB = tmp2;
+	generic_string googleDriveInfoDB = TEXT("");
 
-	PathAppend(googleDriveInfoDB, TEXT("Google\\Drive\\sync_config.db"));
+	HKEY hGoogleDriveKey;
+	res = ::RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("SOFTWARE\\Google\\Drive"), 0, KEY_READ, &hGoogleDriveKey);
+
+	if (res == ERROR_SUCCESS)
+	{
+		TCHAR valData[MAX_PATH];
+		int valDataLen = MAX_PATH * sizeof(TCHAR);
+		int valType;
+		::RegQueryValueEx(hGoogleDriveKey, TEXT("Path"), NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
+
+		if (::PathFileExists(valData))
+		{
+			googleDriveInfoDB = valData;
+		}
+		::RegCloseKey(hGoogleDriveKey);
+	}
+
+	PathAppend(googleDriveInfoDB, TEXT("\\user_default\\sync_config.db"));
 
 	generic_string settingsPath4GoogleDrive = TEXT("");
 
@@ -1090,7 +1099,6 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	}
 	else if (cloudChoice == oneDrive)
 	{
-		_nppGUI._cloudChoice = oneDrive;
 		cloudSettingsPath = settingsPath4OneDrive;
 		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
 
@@ -1102,7 +1110,6 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	}
 	else if (cloudChoice == googleDrive)
 	{
-		_nppGUI._cloudChoice = googleDrive;
 		cloudSettingsPath = settingsPath4GoogleDrive;
 		PathAppend(cloudSettingsPath, TEXT("Notepad++"));
 		

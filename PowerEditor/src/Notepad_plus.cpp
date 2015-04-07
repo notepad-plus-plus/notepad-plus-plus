@@ -513,7 +513,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	int nbLRFile = pNppParam->getNbLRFile();
 	//int pos = IDM_FILEMENU_LASTONE - IDM_FILE + 1 /* +1 : because of  IDM_FILE_PRINTNOW */;
 
-	_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, IDM_FILEMENU_EXISTCMDPOSITION, pNppParam->putRecentFileInSubMenu());
+	_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, IDM_FILEMENU_EXISTCMDPOSITION, &_accelerator, pNppParam->putRecentFileInSubMenu());
 	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
 	for (int i = 0 ; i < nbLRFile ; ++i)
 	{

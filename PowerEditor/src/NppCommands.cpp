@@ -2368,7 +2368,8 @@ void Notepad_plus::command(int id)
 		}
         break;
 
-		case IDM_OPEN_ALL_RECENT_FILE : {
+		case IDM_OPEN_ALL_RECENT_FILE :
+		{
 			BufferID lastOne = BUFFER_INVALID;
 			int size = _lastRecentFileList.getSize();
 			for (int i = size - 1; i >= 0; i--)
@@ -2377,10 +2378,12 @@ void Notepad_plus::command(int id)
 				if (test != BUFFER_INVALID)
 					lastOne = test;
 			}
-			if (lastOne != BUFFER_INVALID) {
+			if (lastOne != BUFFER_INVALID)
+			{
 				switchToFile(lastOne);
 			}
-			break; }
+			break;
+		}
 
 		case IDM_CLEAN_RECENT_FILE_LIST :
 			_lastRecentFileList.clear();
@@ -2466,11 +2469,26 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_FILE_RESTORELASTCLOSEDFILE:
+		{
+			generic_string lastOpenedFullPath = _lastRecentFileList.getFirstItem();
+			if (lastOpenedFullPath != TEXT(""))
+			{
+				BufferID lastOpened = doOpen(lastOpenedFullPath.c_str());
+				if (lastOpened != BUFFER_INVALID)
+				{
+					switchToFile(lastOpened);
+				}
+			}
+		}
+		break;
+
 		default :
 			if (id > IDM_FILEMENU_LASTONE && id < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1))
 			{
 				BufferID lastOpened = doOpen(_lastRecentFileList.getItem(id).c_str());
-				if (lastOpened != BUFFER_INVALID) {
+				if (lastOpened != BUFFER_INVALID)
+				{
 					switchToFile(lastOpened);
 				}
 			}

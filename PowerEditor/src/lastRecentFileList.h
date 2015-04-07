@@ -43,12 +43,12 @@ typedef std::deque<RecentItem> recentList;
 
 class LastRecentFileList
 {
-public :
+public:
 	LastRecentFileList() : _hasSeparators(false), _size(0), _locked(false) {
 		_userMax = (NppParameters::getInstance())->getNbMaxRecentFile();
 	};
 
-	void initMenu(HMENU hMenu, int idBase, int posBase, bool doSubMenu = false);
+	void initMenu(HMENU hMenu, int idBase, int posBase, Accelerator *accelerator, bool doSubMenu = false);
 	void switchMode();
 	void updateMenu();
 
@@ -69,9 +69,15 @@ public :
 	int getUserMaxNbLRF() const {
 		return _userMax;
 	};
-	
+
 	generic_string & getItem(int id);	//use menu id
 	generic_string & getIndex(int index);	//use menu id
+
+	generic_string getFirstItem() const {
+		if (_lrfl.size() == 0)
+			return TEXT("");
+		return _lrfl.front()._name;
+	};
 
 	void setUserMaxNbLRF(int size);
 
@@ -91,6 +97,7 @@ public :
 
 private:
 	recentList _lrfl;
+	Accelerator *_pAccelerator;
 	int _userMax;
 	int _size;
 	int _nativeLangEncoding;

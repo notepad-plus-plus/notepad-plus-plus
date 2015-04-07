@@ -54,11 +54,14 @@
     #define    IDM_FILE_CLOSEALL_TORIGHT        (IDM_FILE + 18)
     #define    IDM_FILE_OPEN_FOLDER             (IDM_FILE + 19)
     #define    IDM_FILE_OPEN_CMD                (IDM_FILE + 20)
+
 // IMPORTANT: If list above is modified, you have to change the following values:
  
 // To be updated if new menu item(s) is (are) added in menu "File"
     #define    IDM_FILEMENU_LASTONE             IDM_FILE_OPEN_CMD
-	
+// Byond of the last one
+	#define    IDM_FILE_RESTORELASTCLOSEDFILE       (IDM_FILE + 30)
+
 // 0 based position of command "Exit" including the bars in the file menu
 // and without counting "Recent files history" items
 

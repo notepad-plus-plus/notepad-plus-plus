@@ -81,6 +81,8 @@ WinMenuKeyDefinition winKeyDefs[] = {
 	{VK_NULL,	IDM_FILE_PRINTNOW,					false, false, false, NULL},
 	{VK_F4,		IDM_FILE_EXIT,						false, true,  false, NULL},
 
+	{ VK_T,     IDM_FILE_RESTORELASTCLOSEDFILE,		true,  false,  true, NULL},
+
 //	{VK_NULL,	IDM_EDIT_UNDO,		 				false, false, false, NULL},
 //	{VK_NULL,	IDM_EDIT_REDO,		 				false, false, false, NULL},
 //	{VK_NULL,	IDM_EDIT_CUT,		 				false, false, false, NULL},

@@ -1,18 +1,7 @@
-Notepad++ v6.7.5 new features and bug-fixes:
+Notepad++ v6.7.6 new feature and bug-fixes:
 
-1.  Add ghost typing feature: launch Notepad++ with the auto-typing text from command line (via command line with argument -qn, -qt or -qf).
-2.  Fix auto-insert bad behaviour : under some condition typing " or ' makes erase the further " or '.
-3.  Fix the crash issue while user Ctrl + double click on an empty document.
-4.  Fix crash bug on loading dropbox settings.
-5.  Show progress window instead of a static window during FindInFiles and ReplaceInFiles.
-6.  Filename rendered incorrectly on tab bar while it contains '&' character.
-7.  Make highlighting (if enabled) follow typing for Incremental search, and add several Incremental search enhancements.
-8.  Add the followings notifications for plugins : NPPN_BEFORESHUTDOWN NPPN_CANCELSHUTDOWN NPPN_FILEBEFORERENAME NPPN_FILERENAMECANCEL NPPN_FILERENAMED NPPN_FILEBEFOREDELETE NPPN_FILEDELETEFAILED NPPN_FILEDELETED
-9.  Make keystroke ENTER trigger the shortcut editor dialog in Shortcut Mapper.
-10. Allow drop files onto doc switcher and other side panels.
-11. Installer remembers user's choices of last installation.
-12. Fix Auto-indent in new code block not respecting current EOL bug.
-13. Restore focus to editor when a panel is closed.
+1.  Add "Restore last closed file" (Ctrl+Shift+T) feature.
+2.  Fix Setting on Cloud for dropbox and for google drive not working issue. 
 
 
 Included plugins:

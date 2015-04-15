@@ -798,6 +798,15 @@
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 				
+                <Cloud title = "Sky">
+                    <Item id = "6262" name = "Indstillinger i skyen"/>
+                    <Item id = "6263" name = "Ingen sky"/>
+                    <Item id = "6264" name = "Dropbox"/>
+                    <Item id = "6265" name = "OneDrive"/>
+                    <Item id = "6266" name = "Google Drive"/>
+                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                </Cloud>
+				
 				<MISC title = "Diverse">
 					<Item id = "6307" name = "Aktiver"/>
 					<Item id = "6308" name = "Minimer til systembakke"/>

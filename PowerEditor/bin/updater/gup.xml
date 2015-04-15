@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <!--
     Copyright 2007 Don HO <don.h@free.fr>
 	
@@ -16,13 +17,12 @@
     You should have received a copy of the GNU Lesser General Public License
     along with GUP.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<?xml version="1.0" ?>
 <GUPInput>
 	<!-- optional.
 	It's the current version of your program. GUP will add "?version=versionNumber" at the end of InfoUrl.
 	This parameter will be ignored if you pass directly your version number to GUP 
 	-->
-	<Version>4.8.2</Version>
+	<Version>4.6</Version>
 
 	<!-- Mandatory.
 	This is the url (your web application) from where your GUP gets the update information.
@@ -31,6 +31,12 @@
 	-->
 	<!--InfoUrl>http://notepad-plus.sourceforge.net/commun/update/getDownLoadUrl.php</InfoUrl-->
 	<InfoUrl>http://notepad-plus-plus.org/update/getDownloadUrl.php</InfoUrl>
+
+	<!-- optional. 
+	The User-Agent you want to use to download your binary.
+	If this node is absent or empty, then "Generic Updater for Win32" will be used by default.
+	-->
+	<User-agent>Notepad++ Generic Updater</User-agent>
 
 	<!-- optional. 
 	The window class name of program that you want to update.
@@ -44,8 +50,10 @@
 	
 	<!-- Optional.
 	This is the title to display on the messagebox title bar.
+	If extraCmd is set (parameter is presentand the value is not empty), the 3rd button will be appear.
+	extraCmd (with its wParam and lParam) will be sent to the handle of application indicated in ClassName2Close
 	-->
-	<MessageBoxTitle extraCmd="1034" ecWparam="" ecLparam="">Notepad++ update</MessageBoxTitle>
+	<MessageBoxTitle extraCmd="" ecWparam="" ecLparam="">Notepad++ update</MessageBoxTitle>
 
 	<!-- optional. YES by default.
 	This parameter can hide all the network error message. 

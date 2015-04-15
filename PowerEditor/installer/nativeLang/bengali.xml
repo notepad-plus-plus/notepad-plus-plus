@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 	::Arabic language file for Notepad++ ::
 	
@@ -276,7 +276,7 @@
                     <Item id="48006" name="আমদানি (আমদানি) থিম ..."/>
                     <Item id="48018" name="সম্পাদনা করুন পপআপ"/>
                     <Item id="48009" name="শর্টকাট ম্যাপার ..."/>
-                    <Item id="48011" name="পছন্দ..."/>
+                    <Item id="48011" name="পছন্দ ..."/>
                     <Item id="49000" name="&amp;চালান ..."/>
 
                     <Item id="50000" name="সম্পূর্ণ ফাংশন"/>
@@ -710,7 +710,7 @@
 					<Item id="6727" name="এখানে পরিবর্তনশীল সেটিংস দেখান"/>
                     <Item id="6728" name="শিরোলেখ এবং পাদলেখ"/>
                 </Print>
-                    
+				
                 <RecentFilesHistory title="Recent Files History">
                     <Item id="6304" name="বর্তমান ফাইলের ইতিহাস"/>
                     <Item id="6306" name="থেকে সর্বোচ্চ সংখ্যা:"/>

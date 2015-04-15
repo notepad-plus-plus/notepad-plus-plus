@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
-	<!--
-Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com 
-	-->
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="6.6.9">>
+	<Native-Langue name="Español" filename="spanish.xml" version="6.7.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -167,8 +164,6 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="43013" name="Encontrar en archivos"/>
 					<Item id="43014" name="Búsqueda volátil siguiente"/>
 					<Item id="43015" name="Búsqueda volátil anterior"/>
-					<Item id="43016" name="Marcar todo"/>
-					<Item id="43017" name="Desmarcar todo"/>
 					<Item id="43022" name="Aplicar el estilo 1"/>
 					<Item id="43023" name="No aplicar el estilo 1"/>
 					<Item id="43024" name="Aplicar el estilo 2"/>
@@ -250,6 +245,17 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 					<Item id="10002" name="Clonar en otra vista"/>
 					<Item id="10003" name="Mover a una ventana nueva"/>
 					<Item id="10004" name="Abrir en una ventana nueva"/>
+					<Item id="45060" name="Big5 (Traditional)"/>
+					<Item id="45061" name="GB2312 (Simplified)"/>
+					<Item id="45054" name="OEM 861: Islandic"/>
+					<Item id="45057" name="OEM 865: Nordic"/>
+					<Item id="45053" name="OEM 860: Portuguese"/>
+					<Item id="45056" name="OEM 863: French"/>
+					<Item id="46033" name="Assembly"/>
+					<Item id="46019" name="MS INI file"/>
+					<Item id="46015" name="MS-DOS Style"/>
+					<Item id="46016" name="Normal Text"/>
+					<Item id="46017" name="Resource file"/>
 					<Item id="46001" name="Configuración de estilo..."/>
 					<Item id="46150" name="Definir idioma..."/>
 					<Item id="46080" name="Definido por el usuario"/>
@@ -319,7 +325,6 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 				<Item id="1614" name="Contar"/>
 				<Item id="1615" name="Buscar todo"/>
 				<Item id="1616" name="Marcar línea"/>
-				<Item id="1617" name="Marcar lo encontrado"/>
 				<Item id="1618" name="Purgar en cada búsqueda"/>
 				<Item id="1621" name="Dirección"/>
 				<Item id="1611" name="Re&amp;emplazar con:"/>
@@ -332,7 +337,6 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 				<Item id="1633" name="Limpiar"/>
 				<Item id="1635" name="Reemplazar en todos los archivos abiertos"/>
 				<Item id="1636" name="Buscar en todos los archivos abiertos"/>
-				<Item id="1637" name="Buscar en archivos"/>
 				<Item id="1654" name="Filtros:"/>
 				<Item id="1655" name="Carpeta:"/>
 				<Item id="1656" name="Buscar todo"/>
@@ -347,6 +351,17 @@ Please e-mail errors, suggestions etc. to Cannie : cannie(at)terra.com
 				<Item id="1686" name="Transparencia"/>
 				<Item id="1703" name="&amp;. se ajusta a linea nueva"/>
 			</Find>
+            <FindCharsInRange title="Encontrar caracteres en rango...">
+				<Item id="2" name="Cerrar"/>
+				<Item id="2901" name="Caracteres no-ASCII (128-255)"/>
+				<Item id="2902" name="Caracteres ASCII (0-127)"/>
+				<Item id="2903" name="Mi rango:"/>
+				<Item id="2906" name="&amp;Arriba"/>
+				<Item id="2907" name="&amp;Abajo"/>
+				<Item id="2908" name="Dirección"/>
+				<Item id="2909" name="Envolver"/>
+				<Item id="2910" name="Encontrar"/>
+			</FindCharsInRange>
 			<GoToLine title="Ir a línea...">
 				<Item id="2007" name="Línea"/>
 				<Item id="2008" name="Desplazamiento"/>

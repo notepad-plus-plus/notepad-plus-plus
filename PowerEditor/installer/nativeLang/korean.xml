@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="euc-kr"?>
 <NotepadPlus>
-<!--  <localization work version=6.5.3~6.6.9 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com" /> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com" /> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com" /> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com" /> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com" /> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com" /> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com" /> --> 
-<Native-Langue name="한국어" filename="korean.xml" version="6.6.9">
+<!--  <localization work version=6.5.3~6.7.5 name="도움돌" mail= "domddol@gmail.com" /> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com" /> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com" /> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com" /> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com" /> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com" /> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com" /> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com" /> --> 
+<Native-Langue name="한국어" filename="korean.xml" version="6.7.5">
 <Menu>
 <Main>
 <!--  Main Menu Entries --> 
@@ -165,8 +165,6 @@
   <Item id="43013" name="파일에서 찾기" /> 
   <Item id="43014" name="다음 찾기(일시적)" /> 
   <Item id="43015" name="이전 찾기(일시적)" /> 
-  <Item id="43016" name="전체 마크" /> 
-  <Item id="43017" name="전체 마크 해제" /> 
   <Item id="43022" name="1번째 스타일 적용" /> 
   <Item id="43023" name="1번째 스타일 해제" /> 
   <Item id="43024" name="2번째 스타일 적용" /> 
@@ -248,6 +246,17 @@
   <Item id="10002" name="분할 창으로 복제" /> 
   <Item id="10003" name="새 창으로 이동(창 이동)" /> 
   <Item id="10004" name="새 창에서 열기(창 복사)" /> 
+  <Item id="45060" name="Big5 (중국어 번체)"/>
+  <Item id="45061" name="GB2312 (중국어 간체)"/>
+  <Item id="45054" name="OEM 861: 아이슬란드어"/>
+  <Item id="45057" name="OEM 865: 북유럽어"/>
+  <Item id="45053" name="OEM 860: 포르투갈어"/>
+  <Item id="45056" name="OEM 863: 프랑스어"/>
+  <Item id="46033" name="어셈블리"/>
+  <Item id="46019" name="MS INI 파일"/>
+  <Item id="46015" name="MS-DOS 스타일"/>
+  <Item id="46016" name="일반 텍스트"/>
+  <Item id="46017" name="리소스 파일"/>
   <Item id="46001" name="스타일 설정..." /> 
   <Item id="46150" name="언어 정의..." /> 
   <Item id="46080" name="사용자 정의" /> 
@@ -317,20 +326,17 @@
   <Item id="1614" name="일치하는 수" /> 
   <Item id="1615" name="모두 찾기" /> 
   <Item id="1616" name="책갈피 표시" /> 
-  <Item id="1617" name="찾은 내용 표시" /> 
   <Item id="1618" name="찾은 표시 제거" /> 
   <Item id="1621" name="방향" /> 
   <Item id="1611" name="바꿀 내용:" /> 
   <Item id="1608" name="바꾸기(&amp;R)" /> 
   <Item id="1609" name="모두 바꾸기(&amp;A)" /> 
-  <Item id="1623" name="투명도 조절" /> 
   <Item id="1687" name="비활성일 때" /> 
   <Item id="1688" name="항상 투명하게" /> 
   <Item id="1632" name="선택한 영역" /> 
   <Item id="1633" name="지우기" /> 
   <Item id="1635" name="열린 파일 모두 바꾸기" /> 
   <Item id="1636" name="열린 파일 모두 찾기" /> 
-  <Item id="1637" name="파일에서 찾기" /> 
   <Item id="1654" name="필터:" /> 
   <Item id="1655" name="디렉토리:" /> 
   <Item id="1656" name="모두 찾기" /> 
@@ -343,8 +349,19 @@
   <Item id="1661" name="현재와 같은 폴더" /> 
   <Item id="1641" name="현재에서 모두 찾기" /> 
   <Item id="1686" name="투명도" /> 
-  <Item id="1703" name="&amp;. 새로운 줄" /> 
+  <Item id="1703" name="새로운 줄 일치(&amp;.)" /> 
   </Find>
+<FindCharsInRange title="다음 범위에서 문자 찾기...">
+  <Item id="2" name="닫기"/>
+  <Item id="2901" name="Non-ASCII 문자 (128-255)"/>
+  <Item id="2902" name="ASCII 문자 (0-127)"/>
+  <Item id="2903" name="내 범위:"/>
+  <Item id="2906" name="위로(&amp;U)"/>
+  <Item id="2907" name="아래로(&amp;D)"/>
+  <Item id="2908" name="방향"/>
+  <Item id="2909" name="반복(&amp;P)"/>
+  <Item id="2910" name="찾기"/>
+  </FindCharsInRange>
 <GoToLine title="이동...">
   <Item id="2007" name="줄 단위" /> 
   <Item id="2008" name="오프셋" /> 
@@ -454,7 +471,7 @@
   <Item id="21424" name="열기:" /> 
   <Item id="21425" name="중간:" /> 
   <Item id="21426" name="닫기:" /> 
-  <Item id="21127" name="스타일러" /> 
+  <Item id="21427" name="스타일러" /> 
   </Folder>
 <Keywords title="키워드 목록">
   <Item id="22101" name="1번 그룹" /> 
@@ -557,7 +574,6 @@
   <Item id="24672" name="닫기:" /> 
   <Item id="24673" name="스타일러" /> 
   </Operator>
-  <Item id="24001" name="사용할 이스케이프 문자:" /> 
   </UserDefine>
 <Preference title="기본 설정">
   <Item id="6001" name="닫기" /> 
@@ -578,7 +594,6 @@
   <Item id="6118" name="숨기기" /> 
   <Item id="6119" name="여러 줄로 표시" /> 
   <Item id="6120" name="수직 배열" /> 
-  <Item id="6121" name="메뉴 표시 줄" /> 
   <Item id="6122" name="메뉴 숨기기 (Alt 또는 F10키로 전환)" /> 
   <Item id="6123" name="표시 언어" /> 
   <Item id="6125" name="문서 목록 패널" /> 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 6.5.2-->
+	<!-- Updated for ver. 6.7.5-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -269,6 +269,7 @@
 					<Item id = "46150" name = "Definer dit sprog"/>
 					<Item id = "46001" name = "Stilkonfigurator…"/>
 					<Item id = "47000" name = "Om Notepad++…"/>
+                    <Item id = "47010" name = "Kommandolinjeargumenter..."/>
 					<Item id = "47001" name = "Notepad++ Hjem"/>
 					<Item id = "47002" name = "Notepad++ Projektside"/>
 					<Item id = "47003" name = "Online hjælp"/>
@@ -619,6 +620,7 @@
 					<Item id = "6123" name = "Lokalisering"/>
 					<Item id = "6125" name = "Dokumentskifter"/>
 					<Item id = "6126" name = "Vis"/>
+                    <Item id = "6127" name = "Deaktiver ext-kolonne"/>
 
 				</Global>
 				<Scintillas title = "Redigering">
@@ -645,6 +647,8 @@
 					<Item id = "6207" name = "Vis bogmærkemargin"/>
 					<Item id = "6208" name = "Vis lodret kant"/>
 					<Item id = "6209" name = "Antal kolonner: "/>
+                    <Item id = "6234" name = "Deaktiver avanceret rullefunktioner
+(hvis du har problem med touchpad)"/>
 
 					<Item id = "6211" name = "Lodret kantindstilling"/>
 					<Item id = "6212" name = "Linjetilstand"/>
@@ -671,7 +675,7 @@
 				<DefaultDir title="Standardmappe">
                     <Item id = "6413" name = "Standardmappe Åbn/Gem"/>
                     <Item id = "6414" name = "Følg det pågældende dokument"/>
-                    <Item id = "6415" name = "Husk den seneste operationsmappe"/>
+                    <Item id = "6415" name = "Husk den seneste anvendte mappe"/>
                 </DefaultDir>
 				
 				<FileAssoc title = "Filassociation">
@@ -735,6 +739,12 @@
 				</RecentFilesHistory>
 				
 				<Backup title = "Backup">
+                    <Item id = "6817" name = "Øjebliksbillede og periodisk backup"/>
+                    <Item id = "6818" name = "Aktiver øjebliksbillede af session og periodisk backup"/>
+                    <Item id = "6819" name = "Backup hvert"/>
+                    <Item id = "6821" name = "sekund"/>
+                    <Item id = "6822" name = "Backup-sti:"/>
+                    <Item id = "6309" name = "Husk nuværende session til næste start"/>
 					<Item id = "6801" name = "Backup"/>
 					<Item id = "6315" name = "Ingen"/>
 					<Item id = "6316" name = "Enkel backup"/>
@@ -748,6 +758,7 @@
                     <Item id = "6808" name = "Aktiver autofuldførelse for hvert input"/>
                     <Item id = "6809" name = "Funktionfuldførelse"/>
                     <Item id = "6810" name = "Ordfuldførelse"/>
+                    <Item id = "6816" name = "Funktion- og ordfuldførelse"/>
                     <Item id = "6811" name = "Fra"/>
 					<Item id = "6813" name = "tegn"/>
 					<Item id = "6814" name = "Gyldig værdi : 1 - 9"/>
@@ -778,6 +789,15 @@
 					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
 				</Delimiter>
 				
+                <Cloud title = "Sky">
+                    <Item id = "6262" name = "Indstillinger i skyen"/>
+                    <Item id = "6263" name = "Ingen sky"/>
+                    <Item id = "6264" name = "Dropbox"/>
+                    <Item id = "6265" name = "OneDrive"/>
+                    <Item id = "6266" name = "Google Drive"/>
+                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                </Cloud>
+				
 				<MISC title = "Diverse">
 					<Item id = "6307" name = "Aktiver"/>
 					<Item id = "6308" name = "Minimer til systembakke"/>
@@ -798,6 +818,8 @@
 					<Item id = "6331" name = "Vis kun filnavn i titellinjen"/>
 					<Item id = "6332" name = "Fremhævning er versalfølsom"/>
 					<Item id = "6333" name = "Smart fremhævning"/>
+                    <Item id = "6334" name = "Autodetekter tegnsæt"/>
+                    <Item id = "6335" name = "Behandl backslash som escape-tegn for SQL"/>
 					<Item id = "6114" name = "Aktiver"/>
 					<Item id = "6115" name = "Autoindrykning"/>
 					<Item id = "6116" name = "Husk det sidste operationskatalog"/>

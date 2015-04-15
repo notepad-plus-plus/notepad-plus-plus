@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1254" ?>
 <NotepadPlus><!-- Çeviri: Emrah Güzeltaş | emrahguzeltas@gmail.com -->
-	<Native-Langue name="Turkish" filename="turkish.xml" version="6.7">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="6.7.5">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Yazıları -->
@@ -149,8 +149,8 @@
 					<Item id="43003" name="&amp;Değiştir…" />
 					<Item id="43004" name="&amp;Git…" />
 					<Item id="43005" name="Yer İmi &amp;Koy/Kaldır" />
-					<Item id="43006" name="Sonraki Yer İmine Git" />
-					<Item id="43007" name="Önceki Yer İmine Git" />
+					<Item id="43006" name="Sonraki Yer İmi" />
+					<Item id="43007" name="Önceki Yer İmi" />
 					<Item id="43008" name="&amp;Tüm Yer İmlerini Kaldır" />
 					<Item id="43018" name="Yer İmli Satırları Kes" />
 					<Item id="43019" name="Yer İmli Satırları Kopyala" />
@@ -158,7 +158,7 @@
 					<Item id="43021" name="Yer İmli Satırları Sil" />
 					<Item id="43051" name="İşaretlenmemiş Satırları Kaldır" />
 					<Item id="43050" name="Yer İmlerini Ters Çevir" />
-					<Item id="43052" name="Aralıktaki Karakterleri Bul" />
+					<Item id="43052" name="Aralıktaki Karakterleri Bul…" />
 					<Item id="43053" name="Eşleşen Kaşlı Ayraç ile Arasındakileri Seç" />
 					<Item id="43009" name="Eşleşen Kaşlı Ayraca Git" />
 					<Item id="43010" name="&amp;Öncekini Bul" />
@@ -166,8 +166,6 @@
 					<Item id="43013" name="Dosyalarda Bul" />
 					<Item id="43014" name="Sonrakini Bul (Geçici)" />
 					<Item id="43015" name="Öncekini Bul (Geçici)" />
-					<Item id="43016" name="Tümünü İşaretle" />
-					<Item id="43017" name="Tüm İşaretleri Kaldır" />
 					<Item id="43022" name="1. Stili Kullan" />
 					<Item id="43023" name="1. Stili Temizle" />
 					<Item id="43024" name="2. Stili Kullan" />
@@ -251,6 +249,19 @@
 					<Item id="10003" name="Yeni Uygulama Penceresine Taşı" />
 					<Item id="10004" name="Yeni Uygulama Penceresinde Aç" />
 					
+					<Item id="45060" name="Big5 (Geleneksel)"/>
+                    <Item id="45061" name="GB2312 (Sadeleştirilmiş)"/>
+                    <Item id="45054" name="OEM 861: İzlandaca"/>
+                    <Item id="45057" name="OEM 865: İskandinavca"/>
+                    <Item id="45053" name="OEM 860: Portekizce"/>
+                    <Item id="45056" name="OEM 863: Fransızca"/>
+					
+                    <Item id="46033" name="Çevirme (Assembly)"/>
+                    <Item id="46019" name="MS INI Dosyası"/>
+                    <Item id="46015" name="MS-DOS Stili"/>
+                    <Item id="46016" name="Normal Metin"/>
+                    <Item id="46017" name="Kaynak Dosyası"/>
+					
 					<Item id="46001" name="&amp;Stil Yapılandırıcı" />
 					<Item id="46150" name="Dil &amp;Tanımla" />
 					<Item id="46080" name="Tanımlı Dili &amp;Kullan" />
@@ -323,20 +334,17 @@
 				<Item id="1614" name="Say" />
 				<Item id="1615" name="Tümünü &amp;Bul" />
 				<Item id="1616" name="Satırı işaretle" />
-				<Item id="1617" name="Stil belirtecini bul" />
 				<Item id="1618" name="Her arama için temizle" />
 				<Item id="1621" name="Yön" />
 				<Item id="1611" name="De&amp;ğiştir:" />
 				<Item id="1608" name="&amp;Değiştir" />
 				<Item id="1609" name="Tü&amp;münü Değiştir" />
-			 	<Item id="1623" name="Saydamlaştır" />
 			 	<Item id="1687" name="Odak dışındayken" />
 			 	<Item id="1688" name="Her zaman" />
 			 	<Item id="1632" name="Seçildiğinde…" />
 			 	<Item id="1633" name="Temizle" />
 			 	<Item id="1635" name="Tüm Açık Belgelerde Değiştir" />
 			 	<Item id="1636" name="Tüm Açık Belgelerde Bul" />
-			 	<Item id="1637" name="Dosyalarda Bul" />
 			 	<Item id="1654" name="&amp;Filtreler:" />
 			 	<Item id="1655" name="D&amp;izin:" />
 			 	<Item id="1656" name="Tümünü &amp;Bul" />
@@ -351,6 +359,19 @@
 			 	<Item id="1686" name="Saydamlaştır" />
 				<Item id="1703" name="&amp;. yeni satırı eşle" />
 			</Find>
+			
+			<FindCharsInRange title="Aralıktaki Karakterleri Bul…">
+                <Item id="2" name="Kapat"/>
+                <Item id="2901" name="ASCII Karakterler Olmadan (128-255)"/>
+                <Item id="2902" name="ASCII Karakterler (0-127)"/>
+                <Item id="2903" name="Aralık:"/>
+                <Item id="2906" name="&amp;Yukarı"/>
+                <Item id="2907" name="&amp;Aşağı"/>
+                <Item id="2908" name="Yön"/>
+                <Item id="2909" name="Aramayı &amp;sürdür"/>
+                <Item id="2910" name="Bul"/>
+            </FindCharsInRange>
+			
 			<GoToLine title="Git">
 				<Item id="2007" name="Satır" />
 				<Item id="2008" name="Karakter" />
@@ -567,7 +588,6 @@
 						<Item id="24672" name="Kapat:" />
 						<Item id="24673" name="Stilci" />
 					</Operator>
-					<Item id="24001" name="Kaçış karakteri kullan:" />
 			</UserDefine>
 			<Preference title="Tercihler">
 				<Item id="6001" name="Kapat" />
@@ -591,7 +611,6 @@
 					<Item id="6119" name="Çoklu satır" />
 					<Item id="6120" name="Dikey" />
 					
-					<Item id="6121" name="Menü çubuğu" />
 					<Item id="6122" name="Gizle (Alt kullanarak veya F10 tuşuyla aç/kapat)" />
 					<Item id="6123" name="Yerelleştir" />
 					
@@ -824,7 +843,7 @@
 				<Item id="2032" name="Biçim" />
 				<Item id="2024" name="Onluk" />
 				<Item id="2025" name="Sekizlik" />
-				<Item id="2026" name="Onaltılık" />
+				<Item id="2026" name="On Altılık" />
 				<Item id="2027" name="İkili" />
 				<Item id="1" name="Tamam" />
 				<Item id="2" name="İptal" />
@@ -855,7 +874,7 @@
 		<AsciiInsertion>
 			<PanelTitle name="ASCII Ekleme Paneli" />
 			<ColumnVal name="Değer" />
-			<ColumnHex name="Onaltılık" />
+			<ColumnHex name="On Altılık" />
 			<ColumnChar name="Karakter" />
 		</AsciiInsertion>
 		<DocumentMap>

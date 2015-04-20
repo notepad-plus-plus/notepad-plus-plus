@@ -83,9 +83,10 @@
                     <Item id="41012" name="Завантажити сесію..."/>
                     <Item id="41013" name="Зберегти сесію..."/>
                     <Item id="41014" name="Перезавантажити з диску"/>
-					<Item id="41015" name="Зберегти копію як..."/>
+                    <Item id="41015" name="Зберегти копію як..."/>
                     <Item id="41016" name="Вилучити з диска"/>
                     <Item id="41017" name="Перейменувати..."/>
+                    
                     <Item id="42001" name="Ви&amp;різати"/>
                     <Item id="42002" name="&amp;Копіювати"/>
                     <Item id="42003" name="&amp;Скасувати"/>
@@ -93,10 +94,11 @@
                     <Item id="42005" name="&amp;Вставити"/>
                     <Item id="42006" name="Ви&amp;лучити"/>
                     <Item id="42007" name="Ви&amp;брати все"/>
+                    <Item id="42020" name="Begin/End Select"/>
                     <Item id="42008" name="Вставити Tab (Відступ)"/>
                     <Item id="42009" name="Вилучити Tab (Втяжка)"/>
                     <Item id="42010" name="Дублювати рядок"/>
-					<Item id="42012" name="Розбити рядки"/>
+                    <Item id="42012" name="Розбити рядки"/>
                     <Item id="42013" name="Об'єднати рядки"/>
                     <Item id="42014" name="Підняти поточний рядок"/>
                     <Item id="42015" name="Опустити поточний рядок"/>
@@ -107,7 +109,24 @@
                     <Item id="42021" name="Прокрутити &amp;запис"/>
                     <Item id="42022" name="Блоковий коментар"/>
                     <Item id="42023" name="Потоковий коментар"/>
+                    <Item id="42047" name="Block Uncomment"/>
                     <Item id="42024" name="Обрізати пропуски"/>
+                    <Item id="42042" name="Trim Leading Space"/>
+                    <Item id="42043" name="Trim Leading and Trailing Space"/>
+                    <Item id="42044" name="EOL to Space"/>
+                    <Item id="42045" name="Remove Unnecessary Blank and EOL"/>
+                    <Item id="42046" name="TAB to Space"/>
+                    <Item id="42054" name="Space to TAB (All)"/>
+                    <Item id="42053" name="Space to TAB (Leading)"/>
+                    <Item id="42038" name="Paste HTML Content"/>
+                    <Item id="42039" name="Paste RTF Content"/>
+                    <Item id="42048" name="Copy Binary Content"/>
+                    <Item id="42049" name="Cut Binary Content"/>
+                    <Item id="42050" name="Paste Binary Content"/>
+                    <Item id="42037" name="Column Mode..."/>
+                    <Item id="42034" name="Column Editor..."/>
+                    <Item id="42051" name="Character Panel"/>
+                    <Item id="42052" name="Clipboard History"/>
                     <Item id="42025" name="Зберегти запис макро..."/>
                     <Item id="42026" name="Текст справа наліво"/>
                     <Item id="42027" name="Текст зліва направо"/>
@@ -117,10 +136,15 @@
                     <Item id="42031" name="Копіювати шлях до файлу до буферу обміну"/>
                     <Item id="42032" name="Запустити багато разів..."/>
                     <Item id="42033" name="Зняти галочку &quot;Лише читання&quot;"/>
-					<Item id="42035" name="Закоментувати блок"/>
-					<Item id="42036" name="Розкоментувати блок"/>
-					
-					<Item id="43001" name="&amp;Пошук..."/>
+                    <Item id="42035" name="Закоментувати блок"/>
+                    <Item id="42036" name="Розкоментувати блок"/>
+                    <Item id="42055" name="Remove Empty Lines"/>
+                    <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
+                    <Item id="42057" name="Insert Blank Line Above Current"/>
+                    <Item id="42058" name="Insert Blank Line Below Current"/>
+                    <Item id="42059" name="Sort Lines in Ascending Order"/>
+                    <Item id="42060" name="Sort Lines in Descending Order"/>
+                    <Item id="43001" name="&amp;Пошук..."/>
                     <Item id="43002" name="Виконати пошук &amp;далі"/>
                     <Item id="43003" name="Замінити..."/>
                   <Item id="43004" name="Перехід до..."/>

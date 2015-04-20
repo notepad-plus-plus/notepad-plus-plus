@@ -31,19 +31,19 @@
                     <Item subMenuId="edit-eolConversion" name="Конвертація в EOL"/>
                     <Item subMenuId="edit-blankOperations" name="Пусті операції"/>
                     <Item subMenuId="edit-pasteSpecial" name="Спеціальна вставка"/>
-					<Item subMenuId="search-markAll" name="Позначити все"/>
+                    <Item subMenuId="search-markAll" name="Позначити все"/>
                     <Item subMenuId="search-unmarkAll" name="Скасувати позначення всього"/>
                     <Item subMenuId="search-jumpUp" name="Вгору"/>
                     <Item subMenuId="search-jumpDown" name="Вниз"/>
                     <Item subMenuId="search-bookmark" name="Управління закладками"/>
-					<Item subMenuId="view-showSymbol" name="Показувати символи"/>
+                    <Item subMenuId="view-showSymbol" name="Показувати символи"/>
                     <Item subMenuId="view-zoom" name="Масштаб"/>
                     <Item subMenuId="view-moveCloneDocument" name="Дублювати поточний документ"/>
                     <Item subMenuId="view-tab" name="Tab"/>
-					<Item subMenuId="view-collapseLevel" name="Згорнути рівень"/>
+                    <Item subMenuId="view-collapseLevel" name="Згорнути рівень"/>
                     <Item subMenuId="view-uncollapseLevel" name="Розгорнути рівень"/>
                     <Item subMenuId="view-project" name="Проект"/>
-					<Item subMenuId="encoding-characterSets" name="Кодування"/>
+                    <Item subMenuId="encoding-characterSets" name="Кодування"/>
                     <Item subMenuId="encoding-arabic" name="Арабська"/>
                     <Item subMenuId="encoding-baltic" name="Балтійська"/>
                     <Item subMenuId="encoding-celtic" name="Кельтська"/>
@@ -110,23 +110,23 @@
                     <Item id="42022" name="Блоковий коментар"/>
                     <Item id="42023" name="Потоковий коментар"/>
                     <Item id="42047" name="Block Uncomment"/>
-                    <Item id="42024" name="Обрізати пропуски"/>
-                    <Item id="42042" name="Trim Leading Space"/>
-                    <Item id="42043" name="Trim Leading and Trailing Space"/>
+                    <Item id="42024" name="Прибрати пропуски"/>
+                    <Item id="42042" name="Прибрати пропуск на початку"/>
+                    <Item id="42043" name="Прибрати пропуск на початку і в кінці"/>
                     <Item id="42044" name="EOL to Space"/>
                     <Item id="42045" name="Remove Unnecessary Blank and EOL"/>
                     <Item id="42046" name="TAB to Space"/>
                     <Item id="42054" name="Space to TAB (All)"/>
                     <Item id="42053" name="Space to TAB (Leading)"/>
-                    <Item id="42038" name="Paste HTML Content"/>
-                    <Item id="42039" name="Paste RTF Content"/>
-                    <Item id="42048" name="Copy Binary Content"/>
-                    <Item id="42049" name="Cut Binary Content"/>
-                    <Item id="42050" name="Paste Binary Content"/>
+                    <Item id="42038" name="Вставити вміст HTML"/>
+                    <Item id="42039" name="Вставити вміст RTF"/>
+                    <Item id="42048" name="Копіювати бінарний вміст"/>
+                    <Item id="42049" name="Вирізати бінарний вміст"/>
+                    <Item id="42050" name="Вставити бінарний вміст"/>
                     <Item id="42037" name="Column Mode..."/>
                     <Item id="42034" name="Column Editor..."/>
                     <Item id="42051" name="Character Panel"/>
-                    <Item id="42052" name="Clipboard History"/>
+                    <Item id="42052" name="Історія буферу"/>
                     <Item id="42025" name="Зберегти запис макро..."/>
                     <Item id="42026" name="Текст справа наліво"/>
                     <Item id="42027" name="Текст зліва направо"/>
@@ -138,12 +138,12 @@
                     <Item id="42033" name="Зняти галочку &quot;Лише читання&quot;"/>
                     <Item id="42035" name="Закоментувати блок"/>
                     <Item id="42036" name="Розкоментувати блок"/>
-                    <Item id="42055" name="Remove Empty Lines"/>
-                    <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
-                    <Item id="42057" name="Insert Blank Line Above Current"/>
-                    <Item id="42058" name="Insert Blank Line Below Current"/>
-                    <Item id="42059" name="Sort Lines in Ascending Order"/>
-                    <Item id="42060" name="Sort Lines in Descending Order"/>
+                    <Item id="42055" name="Прибрати пусті рядки"/>
+                    <Item id="42056" name="Прибрати пусті рядки (Включно з пустими символами)"/>
+                    <Item id="42057" name="Додати пустий рядок над поточним"/>
+                    <Item id="42058" name="Додати пустий рядок під поточним"/>
+                    <Item id="42059" name="Сортувати рядки за зростанням"/>
+                    <Item id="42060" name="Сортувати рядки за спаданням"/>
                     <Item id="43001" name="&amp;Пошук..."/>
                     <Item id="43002" name="Виконати пошук &amp;далі"/>
                     <Item id="43003" name="Замінити..."/>

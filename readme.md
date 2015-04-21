@@ -18,15 +18,15 @@ SciLexer.dll:
 From version 6.0, SciLexer.dll comes with release contains boost's PCRE (Perl Compatible Regular Expressions) feature.
 Therefore Boost (http://www.boost.org/) is needed to compile Scintilla in order to have PCRE support.
 Here are the instructions to build SciLexer.dll for Notepad++:
-1. Download source code of Boost from Boost site (http://www.boost.org/). v1.55 should be used with VS 2013. Then unzip it. In my case, "boost_1_55_0" is copied in "C:\sources\"
-2. go to Notepad++\trunk\scintilla\boostregex\ then run BuildBoost.bat with your boost path. In my case:
+ 1. Download source code of Boost from Boost site (http://www.boost.org/). v1.55 should be used with VS 2013. Then unzip it. In my case, "boost_1_55_0" is copied in "C:\sources\"
+ 2. Go to Notepad++\trunk\scintilla\boostregex\ then run BuildBoost.bat with your boost path. In my case:
    BuildBoost.bat C:\sources\boost_1_55_0
-3. go in Notepad++\trunk\scintilla\win32\ then run "nmake -f scintilla.mak"
+ 3. Go in Notepad++\trunk\scintilla\win32\ then run "nmake -f scintilla.mak"
 
 You can build SciLexer.dll without Boost, ie. with its default POSIX regular expression support instead boost's PCRE one. It will work with notepad++.exe, however some functionalities in Notepad++ may be broken.
 To build SciLexer.dll without PCRE support:
-1. Go in Notepad++\trunk\scintilla\win32
-2. Run nmake with an option:
+ 1. Go in Notepad++\trunk\scintilla\win32
+ 2. Run nmake with an option:
    nmake NOBOOST=1 -f scintilla.mak
 
 Notepad++ Unicode release binary (notepad++.exe) and Scintilla release binary (SciLexer.dll) will be built in the directories "notepad++\trunk\PowerEditor\bin" and "notepad++\trunk\scintilla\bin" respectively.

@@ -1146,18 +1146,6 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	return FALSE;
 }
 
-generic_string replaceString(generic_string subject, const generic_string& search, const generic_string& replace)
-{
-	size_t pos = 0;
-	while ((pos = subject.find(search, pos)) != std::string::npos)
-	{
-		subject.replace(pos, search.length(), replace);
-		pos += replace.length();
-	}
-	return subject;
-}
-
-
 // return value :
 // true  : the text2find is found
 // false : the text2find is not found
@@ -1287,8 +1275,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			if (NotIncremental == pOptions->_incrementalType) //incremental search doesnt trigger messages
 			{	
 				generic_string msg = TEXT("Find: Can't find the text \"");
-				generic_string txt2find_escaped = replaceString(txt2find, TEXT("&"), TEXT("&&"));
-				msg += txt2find_escaped;
+				msg += stringReplace(txt2find, TEXT("&"), TEXT("&&"));
 				msg += TEXT("\"");
 				setStatusbarMessage(msg, FSNotFound);
 				

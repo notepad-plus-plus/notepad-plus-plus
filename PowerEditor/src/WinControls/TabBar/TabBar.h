@@ -129,7 +129,7 @@ protected:
 
 
 struct CloseButtonZone {
-	CloseButtonZone(): _width(11), _hight(11), _fromTop(5), _fromRight(3){};
+	CloseButtonZone();
 	bool isHit(int x, int y, const RECT & testZone) const;
 	RECT getButtonRectFrom(const RECT & tabItemRect) const;
 

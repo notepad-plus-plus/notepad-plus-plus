@@ -348,8 +348,9 @@ void TabBarPlus::doOwnerDrawTab()
 			::SetWindowLongPtr(_hwndArray[i], GWL_STYLE, style);
 			::InvalidateRect(_hwndArray[i], NULL, TRUE);
 
-			const int base = 6;
-			::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(_drawTabCloseButton?base+3:base, 0));
+			const int paddingSizeDynamicW = NppParameters::getInstance()->_dpiManager.scaleX(6);
+			const int paddingSizePlusClosebuttonDynamicW = NppParameters::getInstance()->_dpiManager.scaleX(9);
+			::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(_drawTabCloseButton ? paddingSizePlusClosebuttonDynamicW : paddingSizeDynamicW, 0));
 		}
 	}
 }
@@ -665,7 +666,6 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (!::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci))) 
 	{
 		::MessageBox(NULL, TEXT("! TCM_GETITEM"), TEXT(""), MB_OK);
-		//return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 	}
 	HDC hDC = pDrawItemStruct->hDC;
 	
@@ -681,16 +681,17 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		if (_drawTopBar)
 		{
 			RECT barRect = rect;
-			
+			int paddingDynamicSix = NppParameters::getInstance()->_dpiManager.scaleX(6);
+			int paddingDynamicTwo = NppParameters::getInstance()->_dpiManager.scaleX(2);
 			if (_isVertical)
 			{
-				barRect.right = barRect.left + 6;
-				rect.left += 2;
+				barRect.right = barRect.left + paddingDynamicSix;
+				rect.left += paddingDynamicTwo;
 			}
 			else
 			{
-				barRect.bottom = barRect.top + 6;
-				rect.top += 2;
+				barRect.bottom = barRect.top + paddingDynamicSix;
+				rect.top += paddingDynamicTwo;
 			}
 
 			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, (LPARAM)_hSelf))
@@ -721,7 +722,6 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		{
 			if (!_isVertical)
 			{
-				//closeButtonRect.top  += 2;
 				closeButtonRect.left -= 2;
 			}
 		}
@@ -729,6 +729,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		{
 			if (_isVertical)
 				closeButtonRect.left += 2;			
+			else
+				closeButtonRect.left += NppParameters::getInstance()->_dpiManager.scaleX(2);
 		}
 
 		
@@ -750,15 +752,17 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		BITMAP bmp;
 		::GetObject(hBmp, sizeof(bmp), &bmp);
 		
+		int bmDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(bmp.bmWidth);
+		int bmDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(bmp.bmHeight);
+
 		if (_isVertical)
-			rect.top = closeButtonRect.top + bmp.bmHeight;		
+			rect.top = closeButtonRect.top + bmDpiDynamicalHeight;
 		else
 			rect.right = closeButtonRect.left;
 
-		int bmDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(bmp.bmWidth);
-		int bmDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(bmp.bmHeight);
+
 		::SelectObject(hdcMemory, hBmp);
-		::BitBlt(hDC, closeButtonRect.left, closeButtonRect.top, bmDpiDynamicalWidth, bmDpiDynamicalHeight, hdcMemory, 0, 0, SRCCOPY);
+		::StretchBlt(hDC, closeButtonRect.left, closeButtonRect.top, bmDpiDynamicalWidth, bmDpiDynamicalHeight, hdcMemory, 0, 0, bmp.bmWidth, bmp.bmHeight, SRCCOPY);
 		::DeleteDC(hdcMemory);
 		::DeleteObject(hBmp);
 	}
@@ -781,13 +785,10 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		RECT & imageRect = info.rcImage;
 		
 		if (_isVertical)
-			xPos = (rect.left + (rect.right - rect.left)/2 + 2) - (imageRect.right - imageRect.left)/2;
+			xPos = (rect.left + (rect.right - rect.left) / 2 + NppParameters::getInstance()->_dpiManager.scaleX(2)) - (imageRect.right - imageRect.left) / 2;
 		else
-			yPos = (rect.top + (rect.bottom - rect.top)/2 + (isSelected?0:2)) - (imageRect.bottom - imageRect.top)/2;
+			yPos = (rect.top + (rect.bottom - rect.top) / 2 + (isSelected ? 0 : NppParameters::getInstance()->_dpiManager.scaleX(2))) - (imageRect.bottom - imageRect.top) / 2;
 
-		if (isSelected)
-			marge = spaceUnit*2;
-		else
 			marge = spaceUnit;
 
 		if (_isVertical)
@@ -861,8 +862,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 		if (_isVertical)
 		{
-			rect.bottom -= 2;
-			rect.left   += ::GetSystemMetrics(SM_CXEDGE) + 4;
+			rect.bottom -= NppParameters::getInstance()->_dpiManager.scaleY(2);
+			rect.left += ::GetSystemMetrics(SM_CXEDGE) + NppParameters::getInstance()->_dpiManager.scaleX(4);
 			rect.top    += (_drawTabCloseButton)?spaceUnit:0;
 
 			Flags |= DT_BOTTOM;
@@ -870,7 +871,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		else
 		{
 			rect.top -= ::GetSystemMetrics(SM_CYEDGE);
-			rect.top += 3;
+			rect.top += NppParameters::getInstance()->_dpiManager.scaleY(3);
 			rect.left += _drawTabCloseButton?spaceUnit:0;
 
 			Flags |= DT_VCENTER;
@@ -881,9 +882,9 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		::SetTextColor(hDC, _inactiveTextColour);
 		if (_isVertical)
 		{
-			rect.top	+= 2;
-			rect.bottom += 4;
-			rect.left   += ::GetSystemMetrics(SM_CXEDGE) + 2;
+			rect.top += NppParameters::getInstance()->_dpiManager.scaleY(2);
+			rect.bottom += NppParameters::getInstance()->_dpiManager.scaleY(4);
+			rect.left += ::GetSystemMetrics(SM_CXEDGE) + NppParameters::getInstance()->_dpiManager.scaleX(2);
 		}
 		else
 		{
@@ -982,6 +983,14 @@ void TabBarPlus::exchangeItemData(POINT point)
 		_isDraggingInside = false;
 	}
 	
+}
+
+CloseButtonZone::CloseButtonZone()
+{
+	_width = NppParameters::getInstance()->_dpiManager.scaleX(11);
+	_hight = NppParameters::getInstance()->_dpiManager.scaleY(11);
+	_fromTop = NppParameters::getInstance()->_dpiManager.scaleY(5);
+	_fromRight = NppParameters::getInstance()->_dpiManager.scaleX(3);
 }
 
 bool CloseButtonZone::isHit(int x, int y, const RECT & testZone) const 

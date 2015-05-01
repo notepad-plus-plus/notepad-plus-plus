@@ -1269,9 +1269,10 @@ void Notepad_plus::command(int id)
 			int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleY(_toReduceTabBar?12:18);
 
 			//Resize the tab height
+			int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(45);
 			int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(_toReduceTabBar?20:25);
-			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
-			TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			_docTabIconList.setIconSize(iconDpiDynamicalSize);
 
 			//change the font
@@ -1297,7 +1298,6 @@ void Notepad_plus::command(int id)
 		{
 			bool isDrag = TabBarPlus::doDragNDropOrNot();
             TabBarPlus::doDragNDrop(!isDrag);
-			//checkMenuItem(IDM_VIEW_LOCKTABBAR, isDrag);
             break;
 		}
 
@@ -1305,7 +1305,6 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_DRAWTABBAR_INACIVETAB:
 		{
 			TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab());
-			//TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab(), _subDocTab.getHSelf());
 			break;
 		}
 		case IDM_VIEW_DRAWTABBAR_TOPBAR:
@@ -1321,8 +1320,9 @@ void Notepad_plus::command(int id)
 			// This part is just for updating (redraw) the tabs
 			{	
 				int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(TabBarPlus::drawTabCloseButton()?21:20);
-				TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
-				TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
+				int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? 60:45);
+				TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+				TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			}
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;

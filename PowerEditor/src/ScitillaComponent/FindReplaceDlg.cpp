@@ -883,7 +883,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						else
 						{
 							TCHAR moreInfo[64];
-							if(nbReplaced <= 1)
+							if(nbReplaced == 1)
 								wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 							else
 								wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
@@ -2120,7 +2120,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					else
 					{
 						TCHAR moreInfo[64];
-						if (nbReplaced == 0 || nbReplaced == 1)
+						if (nbReplaced == 1)
 							wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 						else
 							wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);

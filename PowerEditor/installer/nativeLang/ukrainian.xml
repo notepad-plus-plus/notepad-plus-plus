@@ -31,19 +31,19 @@
                     <Item subMenuId="edit-eolConversion" name="Конвертація в EOL"/>
                     <Item subMenuId="edit-blankOperations" name="Пусті операції"/>
                     <Item subMenuId="edit-pasteSpecial" name="Спеціальна вставка"/>
-					<Item subMenuId="search-markAll" name="Позначити все"/>
+                    <Item subMenuId="search-markAll" name="Позначити все"/>
                     <Item subMenuId="search-unmarkAll" name="Скасувати позначення всього"/>
                     <Item subMenuId="search-jumpUp" name="Вгору"/>
                     <Item subMenuId="search-jumpDown" name="Вниз"/>
                     <Item subMenuId="search-bookmark" name="Управління закладками"/>
-					<Item subMenuId="view-showSymbol" name="Показувати символи"/>
+                    <Item subMenuId="view-showSymbol" name="Показувати символи"/>
                     <Item subMenuId="view-zoom" name="Масштаб"/>
                     <Item subMenuId="view-moveCloneDocument" name="Дублювати поточний документ"/>
                     <Item subMenuId="view-tab" name="Tab"/>
-					<Item subMenuId="view-collapseLevel" name="Згорнути рівень"/>
+                    <Item subMenuId="view-collapseLevel" name="Згорнути рівень"/>
                     <Item subMenuId="view-uncollapseLevel" name="Розгорнути рівень"/>
                     <Item subMenuId="view-project" name="Проект"/>
-					<Item subMenuId="encoding-characterSets" name="Кодування"/>
+                    <Item subMenuId="encoding-characterSets" name="Кодування"/>
                     <Item subMenuId="encoding-arabic" name="Арабська"/>
                     <Item subMenuId="encoding-baltic" name="Балтійська"/>
                     <Item subMenuId="encoding-celtic" name="Кельтська"/>
@@ -68,7 +68,7 @@
                     <Item id="41002" name="&amp;Відкрити"/>
                     <Item id="41019" name="Explorer"/>
                     <Item id="41020" name="cmd"/>
-                    <Item id="41003" name="Close"/>
+                    <Item id="41003" name="Закрити"/>
                     <Item id="41004" name="За&amp;крити все"/>
                     <Item id="41005" name="Закрити все, окрім активного"/>
                     <Item id="41009" name="Закрити все зліва"/>
@@ -83,9 +83,10 @@
                     <Item id="41012" name="Завантажити сесію..."/>
                     <Item id="41013" name="Зберегти сесію..."/>
                     <Item id="41014" name="Перезавантажити з диску"/>
-					<Item id="41015" name="Зберегти копію як..."/>
-                    <Item id="41016" name="Вилучити з диску"/>
+                    <Item id="41015" name="Зберегти копію як..."/>
+                    <Item id="41016" name="Вилучити з диска"/>
                     <Item id="41017" name="Перейменувати..."/>
+                    
                     <Item id="42001" name="Ви&amp;різати"/>
                     <Item id="42002" name="&amp;Копіювати"/>
                     <Item id="42003" name="&amp;Скасувати"/>
@@ -93,10 +94,11 @@
                     <Item id="42005" name="&amp;Вставити"/>
                     <Item id="42006" name="Ви&amp;лучити"/>
                     <Item id="42007" name="Ви&amp;брати все"/>
+                    <Item id="42020" name="Begin/End Select"/>
                     <Item id="42008" name="Вставити Tab (Відступ)"/>
                     <Item id="42009" name="Вилучити Tab (Втяжка)"/>
                     <Item id="42010" name="Дублювати рядок"/>
-					<Item id="42012" name="Розбити рядки"/>
+                    <Item id="42012" name="Розбити рядки"/>
                     <Item id="42013" name="Об'єднати рядки"/>
                     <Item id="42014" name="Підняти поточний рядок"/>
                     <Item id="42015" name="Опустити поточний рядок"/>
@@ -107,7 +109,24 @@
                     <Item id="42021" name="Прокрутити &amp;запис"/>
                     <Item id="42022" name="Блоковий коментар"/>
                     <Item id="42023" name="Потоковий коментар"/>
-                    <Item id="42024" name="Обрізати пропуски"/>
+                    <Item id="42047" name="Block Uncomment"/>
+                    <Item id="42024" name="Прибрати пропуски"/>
+                    <Item id="42042" name="Прибрати пропуск на початку"/>
+                    <Item id="42043" name="Прибрати пропуск на початку і в кінці"/>
+                    <Item id="42044" name="EOL to Space"/>
+                    <Item id="42045" name="Remove Unnecessary Blank and EOL"/>
+                    <Item id="42046" name="TAB to Space"/>
+                    <Item id="42054" name="Space to TAB (All)"/>
+                    <Item id="42053" name="Space to TAB (Leading)"/>
+                    <Item id="42038" name="Вставити вміст HTML"/>
+                    <Item id="42039" name="Вставити вміст RTF"/>
+                    <Item id="42048" name="Копіювати бінарний вміст"/>
+                    <Item id="42049" name="Вирізати бінарний вміст"/>
+                    <Item id="42050" name="Вставити бінарний вміст"/>
+                    <Item id="42037" name="Column Mode..."/>
+                    <Item id="42034" name="Column Editor..."/>
+                    <Item id="42051" name="Character Panel"/>
+                    <Item id="42052" name="Історія буферу"/>
                     <Item id="42025" name="Зберегти запис макро..."/>
                     <Item id="42026" name="Текст справа наліво"/>
                     <Item id="42027" name="Текст зліва направо"/>
@@ -117,10 +136,15 @@
                     <Item id="42031" name="Копіювати шлях до файлу до буферу обміну"/>
                     <Item id="42032" name="Запустити багато разів..."/>
                     <Item id="42033" name="Зняти галочку &quot;Лише читання&quot;"/>
-					<Item id="42035" name="Закоментувати блок"/>
-					<Item id="42036" name="Розкоментувати блок"/>
-					
-					<Item id="43001" name="&amp;Пошук..."/>
+                    <Item id="42035" name="Закоментувати блок"/>
+                    <Item id="42036" name="Розкоментувати блок"/>
+                    <Item id="42055" name="Прибрати пусті рядки"/>
+                    <Item id="42056" name="Прибрати пусті рядки (Включно з пустими символами)"/>
+                    <Item id="42057" name="Додати пустий рядок над поточним"/>
+                    <Item id="42058" name="Додати пустий рядок під поточним"/>
+                    <Item id="42059" name="Сортувати рядки за зростанням"/>
+                    <Item id="42060" name="Сортувати рядки за спаданням"/>
+                    <Item id="43001" name="&amp;Пошук..."/>
                     <Item id="43002" name="Виконати пошук &amp;далі"/>
                     <Item id="43003" name="Замінити..."/>
                   <Item id="43004" name="Перехід до..."/>
@@ -230,7 +254,7 @@
                     <Item id="50001" name="Закінчення слів"/>
                     <Item id="50002" name="Підказка по функціях"/>
                     <Item id="42034" name="Редактор стовпців..."/>
-                    <Item id="44042" name="Заховати рядки"/>
+                    <Item id="44042" name="Сховати рядки"/>
                     <Item id="42040" name="Відкрити всі нещодавні файли"/>
                     <Item id="42041" name="Очистити список нещодавніх файлів"/>
 					<Item id="48016" name="Модиф. гаряч. клавіш/Видалити макро..."/>
@@ -249,7 +273,7 @@
                     <Item CMID="5" name="Відкрити в іншому вікні"/>
                     <Item CMID="6" name="Копіювати в друге вікно"/>
 					<Item CMID="7" name="Повний шлях файлу до Буфера обміну"/>
-					<Item CMID="8" name="Ім'я файлу до Буферу обміну"/>
+					<Item CMID="8" name="Ім'я файлу до Буфера обміну"/>
 					<Item CMID="9" name="Поточний шлях до Буфера обміну"/>
 					<Item CMID="10" name="Перейменувати"/>
 					<Item CMID="11" name="Вилучити"/>

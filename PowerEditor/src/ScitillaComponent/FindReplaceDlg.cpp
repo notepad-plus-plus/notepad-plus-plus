@@ -1275,7 +1275,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			if (NotIncremental == pOptions->_incrementalType) //incremental search doesnt trigger messages
 			{	
 				generic_string msg = TEXT("Find: Can't find the text \"");
-				msg += txt2find;
+				msg += stringReplace(txt2find, TEXT("&"), TEXT("&&"));
 				msg += TEXT("\"");
 				setStatusbarMessage(msg, FSNotFound);
 				

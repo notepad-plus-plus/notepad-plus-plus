@@ -707,3 +707,13 @@ generic_string stringToUpper(generic_string strToConvert)
     return strToConvert;
 }
 
+generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace)
+{
+	size_t pos = 0;
+	while ((pos = subject.find(search, pos)) != std::string::npos)
+	{
+		subject.replace(pos, search.length(), replace);
+		pos += replace.length();
+	}
+	return subject;
+}

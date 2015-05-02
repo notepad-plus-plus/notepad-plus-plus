@@ -883,7 +883,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						else
 						{
 							TCHAR moreInfo[64];
-							if(nbReplaced <= 1)
+							if(nbReplaced == 1)
 								wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 							else
 								wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
@@ -1275,7 +1275,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			if (NotIncremental == pOptions->_incrementalType) //incremental search doesnt trigger messages
 			{	
 				generic_string msg = TEXT("Find: Can't find the text \"");
-				msg += txt2find;
+				msg += stringReplace(txt2find, TEXT("&"), TEXT("&&"));
 				msg += TEXT("\"");
 				setStatusbarMessage(msg, FSNotFound);
 				
@@ -2120,7 +2120,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					else
 					{
 						TCHAR moreInfo[64];
-						if (nbReplaced == 0 || nbReplaced == 1)
+						if (nbReplaced == 1)
 							wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 						else
 							wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);

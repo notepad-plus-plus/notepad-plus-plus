@@ -2154,6 +2154,21 @@ void Notepad_plus::command(int id)
 			switchToFile(bufID);
             break;
         }
+		
+		case IDM_SETTING_EDITSHORTCUTS :
+		{
+			generic_string warning, title;
+			_nativeLangSpeaker.messageBox("ContextMenuXmlEditWarning",
+				_pPublicInterface->getHSelf(),
+				TEXT("Editing shortcuts.xml allows you to modify your Notepad++ shortcut configuration.\rYou have to restart your Notepad++ to take effect after modifying shortcuts.xml."),
+				TEXT("Editing contextMenu"),
+				MB_OK|MB_APPLMODAL);
+		
+			NppParameters *pNppParams = NppParameters::getInstance();
+			BufferID bufID = doOpen((pNppParams->getShortcutsPath()).c_str());
+			switchToFile(bufID);
+			break;
+		}
 
         case IDM_VIEW_GOTO_ANOTHER_VIEW:
             docGotoAnotherEditView(TransferMove);

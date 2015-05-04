@@ -286,6 +286,7 @@
                     <Item id="48005" name="Import Plugin(s) ..."/>
                     <Item id="48006" name="Import Theme(s) ..."/>
                     <Item id="48018" name="Edit Popup ContextMenu"/>
+                    <Item id="48019" name="Edit shortcuts config file"/>
                     <Item id="48009" name="Shortcut Mapper..."/>
                     <Item id="48011" name="Preferences..."/>
                     <Item id="49000" name="&amp;Run..."/>

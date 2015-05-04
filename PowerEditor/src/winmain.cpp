@@ -36,11 +36,7 @@
 typedef std::vector<const TCHAR*> ParamVector;
 
 
-bool checkSingleFile( _In_z_ PCTSTR const commandLine) {
-	const rsize_t strLen = _tcslen( commandLine );
-	if ( strLen == 0 ) {
-		return false;
-		}
+generic_string getFullPathName( _In_z_ PCTSTR const commandLine ) {
 	const rsize_t fullpathBufSize = MAX_PATH;
 	TCHAR fullpath[ fullpathBufSize ] = { 0 };
 
@@ -51,18 +47,42 @@ bool checkSingleFile( _In_z_ PCTSTR const commandLine) {
 	const DWORD fullpathResult = ::GetFullPathName(commandLine, fullpathBufSize, fullpath, NULL);
 	if ( fullpathResult == 0 )
 	{
-		MessageBoxA( NULL, "GetFullPathName failed with some unexpected error!", "checkSingleFile failed!!", MB_OK );
-		MessageBox( NULL, commandLine, TEXT( "path that failed:" ), MB_OK );
-		return false;
+		MessageBoxA( NULL, "GetFullPathName failed with some unexpected error!", "getFullPathName failed!!", MB_OK );
+		throw std::runtime_error( "path that failed:" );
+		return generic_string( );
 	}
 	if ( fullpathResult > fullpathBufSize )
 	{
-		MessageBoxA( NULL, "the buffer passed to GetFullPathName was too small!", "checkSingleFile failed!!", MB_OK );
-		MessageBox( NULL, commandLine, TEXT( "path that failed:" ), MB_OK );
-		return false;
+		const rsize_t sizeNewBuffer = fullpathResult + 1;
+		auto largerBuffer = std::make_unique<TCHAR[ ]>( sizeNewBuffer );
+		
+		
+		const rsize_t bytecountNewBuffer = ( sizeof( largerBuffer[ 0 ] ) * sizeNewBuffer );
+		memset( largerBuffer.get( ), 0, bytecountNewBuffer );
+
+		const DWORD secondFullpathResult = ::GetFullPathName( commandLine, sizeNewBuffer, largerBuffer.get( ), NULL );
+		if ( ( secondFullpathResult > sizeNewBuffer ) || ( secondFullpathResult == 0 ) )
+		{
+			OutputDebugStringA( "crashing & burning! file: `" __FILE__ "` \r\n" );
+			//crash & burn!
+			std::terminate( );
+		}
+		return largerBuffer.get( );
+
+	}
+	return fullpath;
 	}
 
-	if (::PathFileExists(fullpath)) {
+
+bool checkSingleFile( _In_z_ PCTSTR const commandLine) {
+	const rsize_t strLen = _tcslen( commandLine );
+	if ( strLen == 0 ) {
+		return false;
+		}
+
+	generic_string fullpath = getFullPathName( commandLine );
+
+	if (::PathFileExists(fullpath.c_str())) {
 		return true;
 	}
 

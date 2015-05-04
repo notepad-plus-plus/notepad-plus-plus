@@ -242,7 +242,8 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								_babygrid.setText(row, 2, csc.toString().c_str());
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								
+								nppParam->writeShortcuts();
+
 							}
 							break; }
 						case STATE_MACRO: {
@@ -257,7 +258,8 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								
+								nppParam->writeShortcuts();
+
 							}
 							break; }
 						case STATE_USER: {
@@ -273,7 +275,8 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								
+								nppParam->writeShortcuts();
+
 							}
 							break; }
 						case STATE_PLUGIN: {
@@ -289,6 +292,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
+								nppParam->writeShortcuts();
 								unsigned long cmdID = pcsc.getID();
 								ShortcutKey shortcut;
 								shortcut._isAlt = pcsc.getKeyCombo()._isAlt;
@@ -313,6 +317,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 								//Notify current Accelerator class to update key
 								nppParam->getScintillaAccelerator()->updateKeys();
+								nppParam->writeShortcuts();
 							}
 							break; 
 						}
@@ -387,6 +392,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
                         // updateShortcuts() will update all menu item - the menu items will be shifted
 						nppParam->getAccelerator()->updateShortcuts();
+						nppParam->writeShortcuts();
 
                         // All menu items are shifted up. So we delete the last item
                         ::RemoveMenu(hMenu, posBase + nbElem, MF_BYPOSITION);

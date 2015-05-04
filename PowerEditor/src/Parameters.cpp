@@ -2803,6 +2803,15 @@ void NppParameters::writeUserDefinedLang()
 
 void NppParameters::insertCmd(TiXmlNode *shortcutsRoot, const CommandShortcut & cmd)
 {
+	//insert a comment about which command is written in the XML file
+	TiXmlNode *sc2 = shortcutsRoot->InsertEndChild(TiXmlComment());
+	generic_string str = TEXT("");
+
+	str.append(cmd.getName());
+	str.append(TEXT(" - "));
+	str.append(cmd.toString());
+	sc2->ToComment()->SetValue( str );
+
 	const KeyCombo & key = cmd.getKeyCombo();
 	TiXmlNode *sc = shortcutsRoot->InsertEndChild(TiXmlElement(TEXT("Shortcut")));
 	sc->ToElement()->SetAttribute(TEXT("id"), cmd.getID());
@@ -2847,6 +2856,15 @@ void NppParameters::insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & us
 
 void NppParameters::insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd)
 {
+	//insert a comment about which command is written in the XML file
+	TiXmlNode *sc2 = pluginCmdRoot->InsertEndChild(TiXmlComment());
+	generic_string str = TEXT("");
+
+	str.append(TEXT("moduleName="));
+	str.append(pluginCmd.getModuleName());
+	str.append(TEXT(" command="));
+	str.append(pluginCmd.getName());
+	sc2->ToComment()->SetValue( str ) ;
 	const KeyCombo & key = pluginCmd.getKeyCombo();
 	TiXmlNode *pluginCmdNode = pluginCmdRoot->InsertEndChild(TiXmlElement(TEXT("PluginCommand")));
 	pluginCmdNode->ToElement()->SetAttribute(TEXT("moduleName"), pluginCmd.getModuleName());
@@ -2859,6 +2877,18 @@ void NppParameters::insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdSho
 
 void NppParameters::insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap)
 {
+	TiXmlNode * keyComment;
+	keyComment = scintKeyRoot->InsertEndChild(TiXmlComment());
+
+	generic_string strMenuName = TEXT("");
+	strMenuName.append(scintKeyMap.getMenuName());
+	strMenuName.append(TEXT(" - "));
+
+	generic_string str = TEXT("");
+	str.append(strMenuName);
+	str.append(scintKeyMap.toString());
+	keyComment->ToComment()->SetValue(str);
+
 	TiXmlNode *keyRoot = scintKeyRoot->InsertEndChild(TiXmlElement(TEXT("ScintKey")));
 	keyRoot->ToElement()->SetAttribute(TEXT("ScintID"), scintKeyMap.getScintillaKeyID());
 	keyRoot->ToElement()->SetAttribute(TEXT("menuCmdID"), scintKeyMap.getMenuCmdID());
@@ -2873,8 +2903,17 @@ void NppParameters::insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMa
 	//Add additional shortcuts
 	size_t size = scintKeyMap.getSize();
 	if (size > 1) {
+		TiXmlNode * keyNextComment;
 		TiXmlNode * keyNext;
 		for(size_t i = 1; i < size; ++i) {
+			keyNextComment = keyRoot->InsertEndChild(TiXmlComment());
+
+			generic_string str = TEXT("");
+			str.append(strMenuName);
+			str.append(scintKeyMap.toString());
+
+			keyNextComment->ToComment()->SetValue(str);
+
 			keyNext = keyRoot->InsertEndChild(TiXmlElement(TEXT("NextKey")));
 			key = scintKeyMap.getKeyComboByIndex(i);
 			keyNext->ToElement()->SetAttribute(TEXT("Ctrl"), key._isCtrl?TEXT("yes"):TEXT("no"));

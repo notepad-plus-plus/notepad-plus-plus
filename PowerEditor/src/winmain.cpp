@@ -49,9 +49,8 @@ generic_string getFullPathName( _In_z_ PCTSTR const commandLine ) {
 	{
 		MessageBoxA( NULL, "GetFullPathName failed with some unexpected error!", "getFullPathName failed!!", MB_OK );
 		throw std::runtime_error( "path that failed:" );
-		return generic_string( );
 	}
-	if ( fullpathResult > fullpathBufSize )
+	if ( fullpathResult >= fullpathBufSize )
 	{
 		const rsize_t sizeNewBuffer = fullpathResult + 1;
 		auto largerBuffer = std::make_unique<TCHAR[ ]>( sizeNewBuffer );
@@ -61,7 +60,7 @@ generic_string getFullPathName( _In_z_ PCTSTR const commandLine ) {
 		memset( largerBuffer.get( ), 0, bytecountNewBuffer );
 
 		const DWORD secondFullpathResult = ::GetFullPathName( commandLine, sizeNewBuffer, largerBuffer.get( ), NULL );
-		if ( ( secondFullpathResult > sizeNewBuffer ) || ( secondFullpathResult == 0 ) )
+		if ( ( secondFullpathResult >= sizeNewBuffer ) || ( secondFullpathResult == 0 ) )
 		{
 			OutputDebugStringA( "crashing & burning! file: `" __FILE__ "` \r\n" );
 			//crash & burn!

@@ -16,9 +16,9 @@ Double click on `PowerEditor\visual.net\notepadPlus.vcproj` to launch Notepad++ 
 
 SciLexer.dll:
 From version 6.0, SciLexer.dll comes with release contains boost's PCRE (Perl Compatible Regular Expressions) feature.
-Therefore Boost (http://www.boost.org/) is needed to compile Scintilla in order to have PCRE support.
+Therefore [Boost](http://www.boost.org/) is needed to compile Scintilla in order to have PCRE support.
 Here are the instructions to build SciLexer.dll for Notepad++:
- 1. Download source code of Boost from Boost site (http://www.boost.org/). v1.55 should be used with VS 2013. Then unzip it. In my case, "boost_1_55_0" is copied in `C:\sources\`
+ 1. Download the [Boost source code](http://sourceforge.net/projects/boost/files/boost/1.55.0/). v1.55 should be used with VS 2013. Then unzip it. In my case, "boost_1_55_0" is copied in `C:\sources\`
  2. Go to `scintilla\boostregex\` then run BuildBoost.bat with your boost path. In my case: `BuildBoost.bat C:\sources\boost_1_55_0`
  3. Go in `scintilla\win32\` then run `nmake -f scintilla.mak`
 
@@ -31,9 +31,6 @@ Notepad++ Unicode release binary (notepad++.exe) and Scintilla release binary (S
 You have to copy SciLexer.dll in `PowerEditor\bin\` in order to launch notepad++.exe
 
 
-Go to Notepad++ official site for more information:
-http://notepad-plus-plus.org/
+Go to [Notepad++ official site](http://notepad-plus-plus.org/) for more information.
 
-
-Notepad++ team
-http://notepad-plus-plus.org/contributors
+[Notepad++ Contributors](http://notepad-plus-plus.org/contributors)

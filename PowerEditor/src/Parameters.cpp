@@ -1129,7 +1129,6 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 
 generic_string NppParameters::getSettingsFolder()
 {
-	generic_string settingsFolderPath;
 	if (_isLocal)
 	{
 		return _nppPath;
@@ -2910,7 +2909,8 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			(viewElems[k].viewNode->ToElement())->SetAttribute(TEXT("activeIndex"), (int)viewElems[k].activeIndex);
 			vector<sessionFileInfo> & viewSessionFiles = *(viewElems[k].viewFiles);
 
-			for (size_t i = 0, len = viewElems[k].viewFiles->size(); i < len ; ++i)
+			const size_t viewFilesLen = viewElems[ k ].viewFiles->size( );
+			for (size_t i = 0; i < viewFilesLen ; ++i)
 			{
 				TiXmlNode *fileNameNode = viewElems[k].viewNode->InsertEndChild(TiXmlElement(TEXT("File")));
 
@@ -2926,14 +2926,16 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), int(viewSessionFiles[i]._originalFileLastModifTimestamp));
 
-				for (size_t j = 0, len = viewSessionFiles[i]._marks.size() ; j < len ; ++j)
+				const size_t marksLen = viewSessionFiles[ i ]._marks.size( );
+				for (size_t j = 0; j < marksLen; ++j)
 				{
 					size_t markLine = viewSessionFiles[i]._marks[j];
 					TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
 					markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
 				}
-
-				for (size_t j = 0, len = viewSessionFiles[i]._foldStates.size() ; j < len ; ++j)
+				
+				const size_t foldStatesLen = viewSessionFiles[ i ]._foldStates.size( );
+				for (size_t j = 0; j < foldStatesLen; ++j)
 				{
 					size_t foldLine = viewSessionFiles[i]._foldStates[j];
 					TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
@@ -3636,10 +3638,10 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
 					if ((indexName) && (kwVal))
 						keyWords = kwVal->Value();
 
-					int i = getKwClassFromName(indexName);
+					int kwIdx = getKwClassFromName(indexName);
 
-					if (i >= 0 && i <= KEYWORDSET_MAX)
-						_langList[_nbLang]->setWords(keyWords, i);
+					if (kwIdx >= 0 && kwIdx <= KEYWORDSET_MAX)
+						_langList[_nbLang]->setWords(keyWords, kwIdx);
 				}
 				++_nbLang;
 			}
@@ -4193,69 +4195,69 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					g7 = i;
 
 			bool langArray[nbMax];
-			for (int i = 0 ; i < nbMax ; ++i) langArray[i] = false;
+			for (int langArrayIdx = 0 ; langArrayIdx < nbMax ; ++langArrayIdx) langArray[langArrayIdx] = false;
 			
 			UCHAR mask = 1;
-			for (int i = 0 ; i < 8 ; ++i) 
+			for (int k = 0; k < 8; ++k) 
 			{
 				if (mask & g0)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)k));
 				mask <<= 1;
 			}
 
 			mask = 1;
-			for (int i = 8 ; i < 16 ; ++i) 
+			for (int k = 8 ; k < 16 ; ++k) 
 			{
 				if (mask & g1)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)k));
 				mask <<= 1;
 			}
 
 			mask = 1;
-			for (int i = 16 ; i < 24 ; ++i) 
+			for (int k = 16 ; k < 24 ; ++k) 
 			{
 				if (mask & g2)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)k));
 				mask <<= 1;
 			}
 
 			mask = 1;
-			for (int i = 24 ; i < 32 ; ++i) 
+			for (int k = 24 ; k < 32 ; ++k) 
 			{
 				if (mask & g3)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)k));
 				mask <<= 1;
 			}
 
 			mask = 1;
-			for (int i = 32 ; i < 40 ; ++i) 
+			for (int k = 32 ; k < 40 ; ++k) 
 			{
 				if (mask & g4)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)k));
 				mask <<= 1;
 			}
 
 			mask = 1;
-			for (int i = 40 ; i < 48 ; ++i) 
+			for (int k = 40 ; k < 48 ; ++k) 
 			{
 				if (mask & g5)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)k));
 				mask <<= 1;
 			}
 
 			mask = 1;
-			for (int i = 48 ; i < 56 ; ++i) 
+			for (int k = 48 ; k < 56 ; ++k) 
 			{
 				if (mask & g6)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)k));
 				mask <<= 1;
 			}
 
 			mask = 1;
-			for (int i = 56 ; i < 64 ; ++i) 
+			for (int k = 56 ; k < 64 ; ++k) 
 			{
 				if (mask & g7)
-					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)k));
 				mask <<= 1;
 			}
 			
@@ -4583,11 +4585,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		}
         else if (!lstrcmp(nm, TEXT("multiInst")))
 		{
-			int val = 0;
-			element->Attribute(TEXT("setting"), &val);
-			if (val < 0 || val > 2)
-				val = 0;
-			_nppGUI._multiInstSetting = (MultiInstSetting)val;
+			int valSetting = 0;
+			element->Attribute(TEXT("setting"), &valSetting);
+			if (valSetting < 0 || valSetting > 2)
+				valSetting = 0;
+			_nppGUI._multiInstSetting = (MultiInstSetting)valSetting;
 		}
 		else if (!lstrcmp(nm, TEXT("MISC")))
 		{

@@ -665,10 +665,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Initialize the default forground & background color
 	//
 	StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
-	int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
-	if (i != -1)
+	const int stylerIndex = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
+	if (stylerIndex != -1)
 	{
-		Style & style = globalStyles.getStyler(i);
+		Style & style = globalStyles.getStyler(stylerIndex);
 		(NppParameters::getInstance())->setCurrentDefaultFgColor(style._fgColor);
 		(NppParameters::getInstance())->setCurrentDefaultBgColor(style._bgColor);
 	}
@@ -682,8 +682,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_dockingManager.setDockedContSize(CONT_RIGHT , nppGUI._dockingData._rightWidth);
 	_dockingManager.setDockedContSize(CONT_TOP	 , nppGUI._dockingData._topHeight);
 	_dockingManager.setDockedContSize(CONT_BOTTOM, nppGUI._dockingData._bottomHight);
-
-	for (size_t i = 0, len = dmd._pluginDockInfo.size(); i < len ; ++i)
+	const size_t sizePluginDockInfo = dmd._pluginDockInfo.size( );
+	for (size_t i = 0; i < sizePluginDockInfo; ++i)
 	{
 		PluginDlgDockingInfo & pdi = dmd._pluginDockInfo[i];
 		if (pdi._isVisible)
@@ -699,7 +699,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		}
 	}
 
-	for (size_t i = 0, len = dmd._containerTabInfo.size(); i < len; ++i)
+	const size_t sizeContainerTabInfo = dmd._containerTabInfo.size( );
+	for (size_t i = 0; i < sizeContainerTabInfo; ++i)
 	{
 		ContainerTabInfo & cti = dmd._containerTabInfo[i];
 		_dockingManager.setActiveTab(cti._cont, cti._activeTab);

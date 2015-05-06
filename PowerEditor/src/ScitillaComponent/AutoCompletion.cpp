@@ -85,8 +85,8 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	getWordArray(wordArray, beginChars);
 
-
-	for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
+	const size_t keyWordLen = _keyWordArray.size( );
+	for (size_t i = 0; i < keyWordLen; ++i)
 	{
 		if (_keyWordArray[i].find(beginChars) == 0)
 		{
@@ -100,7 +100,8 @@ bool AutoCompletion::showApiAndWordComplete()
 	// Get word list
 	generic_string words(TEXT(""));
 
-	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
+	const size_t wordArrayLen = wordArray.size( );
+	for (size_t i = 0; i < wordArrayLen; ++i)
 	{
 		words += wordArray[i];
 		if (i != wordArray.size()-1)
@@ -339,7 +340,8 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	// Get word list
 	generic_string words(TEXT(""));
 
-	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
+	const size_t wordArrayLen = wordArray.size( );
+	for (size_t i = 0; i < wordArrayLen; ++i)
 	{
 		words += wordArray[i];
 		if (i != wordArray.size()-1)

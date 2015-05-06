@@ -36,6 +36,8 @@ using namespace std;
 
 typedef vector<generic_string> stringVector;
 
+
+#include <PshPack1.h>
 struct OPENFILENAMENPP {
    DWORD        lStructSize;
    HWND         hwndOwner;
@@ -61,6 +63,9 @@ struct OPENFILENAMENPP {
    DWORD        dwReserved;
    DWORD        FlagsEx;
 };
+static_assert( __alignof( OPENFILENAMENPP ) == __alignof( OPENFILENAME ), "Incorrect alignment! FileDialog::doOpenSingleFileDlg may cause a crash!" );
+static_assert( sizeof( OPENFILENAMENPP ) == sizeof( OPENFILENAME ), "Differing sizes! FileDialog::doOpenSingleFileDlg may cause a crash!" );
+#include <PopPack.h>
 
 
 generic_string changeExt(generic_string fn, generic_string ext, bool forceReplaced = true);

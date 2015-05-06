@@ -36,35 +36,22 @@
 typedef std::vector<const TCHAR*> ParamVector;
 
 
-bool checkSingleFile( _In_z_ PCTSTR const commandLine) {
-	const rsize_t strLen = _tcslen( commandLine );
-	if ( strLen == 0 ) {
+bool checkSingleFile(const TCHAR *commandLine)
+{
+	if (!commandLine || lstrlen(commandLine) == 0)
 		return false;
-		}
-	const rsize_t fullpathBufSize = MAX_PATH;
-	TCHAR fullpath[ fullpathBufSize ] = { 0 };
 
-	//If [GetFullPathName] succeeds, the return value is the length, in TCHARs, of the string copied to lpBuffer, not including the terminating null character.
-	//If the lpBuffer buffer is too small to contain the path, the return value [of GetFullPathName] is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.
-	//If [GetFullPathName] fails for any other reason, the return value is zero. To get extended error information, call GetLastError.
+	TCHAR fullpath[MAX_PATH] = {0};
+	const DWORD fullpathResult = ::GetFullPathName(commandLine, MAX_PATH, fullpath, NULL);
 
-	const DWORD fullpathResult = ::GetFullPathName(commandLine, fullpathBufSize, fullpath, NULL);
-	if ( fullpathResult == 0 )
-	{
-		MessageBoxA( NULL, "GetFullPathName failed with some unexpected error!", "checkSingleFile failed!!", MB_OK );
-		MessageBox( NULL, commandLine, TEXT( "path that failed:" ), MB_OK );
+	if (fullpathResult == 0)
 		return false;
-	}
-	if ( fullpathResult > fullpathBufSize )
-	{
-		MessageBoxA( NULL, "the buffer passed to GetFullPathName was too small!", "checkSingleFile failed!!", MB_OK );
-		MessageBox( NULL, commandLine, TEXT( "path that failed:" ), MB_OK );
-		return false;
-	}
 
-	if (::PathFileExists(fullpath)) {
+	if (fullpathResult > MAX_PATH)
+		return false;
+
+	if (::PathFileExists(fullpath)) 
 		return true;
-	}
 
 	return false;
 }

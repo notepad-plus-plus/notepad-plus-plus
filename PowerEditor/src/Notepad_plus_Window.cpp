@@ -59,9 +59,6 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		throw std::runtime_error("Notepad_plus_Window::init : RegisterClass() function failed");
 	}
 
-	RECT workAreaRect;
-	::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
-
 	NppParameters *pNppParams = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI &)pNppParams->getNppGUI();
 

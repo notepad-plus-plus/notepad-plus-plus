@@ -873,10 +873,7 @@ _Ret_z_ std::unique_ptr<_Null_terminated_ char[]> base64ToAscii(_In_z_ _Pre_read
 		p1 = uc1 << 2;
 		p1 >>= 6;
 
-		if (k >= static_cast<int>(bufferLen))
-		{
-			throw std::out_of_range("out of bounds write to dest!");
-		}
+		assert(k < static_cast<int>(bufferLen));
 
 		pAsciiText[k] = p0 | p1;
 		++k;
@@ -884,29 +881,20 @@ _Ret_z_ std::unique_ptr<_Null_terminated_ char[]> base64ToAscii(_In_z_ _Pre_read
 		p0 = uc1 << 4;
 		p1 = uc2 << 2;
 		p1 >>= 4;
-		if (k >= static_cast<int>(bufferLen))
-		{
-			throw std::out_of_range("out of bounds write to dest!");
-		}
+		assert(k < static_cast<int>(bufferLen));
+
 		pAsciiText[k] = p0 | p1;
 		++k;
 
 		p0 = uc2 << 6;
 		p1 = uc3;
-		if (k >= static_cast<int>(bufferLen))
-		{
-			throw std::out_of_range("out of bounds write to dest!");
-		}
+		assert(k < static_cast<int>(bufferLen));
+
 		pAsciiText[k] = p0 | p1;
 		++k;
 	}
+	assert(k < static_cast<int>(bufferLen));
 
-	if (k >= static_cast<int>(bufferLen))
-	{
-		throw std::out_of_range("out of bounds write to dest!");
-	}
-	
-	
 	if (padd == b64_1padded)
 	{
 		pAsciiText[k-1] = '\0';

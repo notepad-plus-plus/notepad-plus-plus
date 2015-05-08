@@ -410,15 +410,43 @@ public:
 	Progress(HINSTANCE hInst);
 	~Progress();
 
-	HWND open(HWND hOwner = NULL, const TCHAR* header = NULL);
-	bool isCancelled() const;
-	void setPercent(unsigned percent, const TCHAR *fileName) const;
-	void setInfo(const TCHAR *info) const {
+	HWND open(HWND hCallerWnd = NULL, const TCHAR* header = NULL);
+	void close();
+
+	bool isCancelled() const
+	{
+		if (_hwnd)
+			return (::WaitForSingleObject(_hActiveState, 0) != WAIT_OBJECT_0);
+		return false;
+	}
+
+	void setPercent(unsigned percent, const TCHAR *fileName) const
+	{
+		if (_hwnd)
+		{
+			::PostMessage(_hPBar, PBM_SETPOS, (WPARAM)percent, 0);
+			::SendMessage(_hPText, WM_SETTEXT, 0, (LPARAM)fileName);
+		}
+	}
+
+	void setInfo(const TCHAR *info) const
+	{
 		if (_hwnd)
 			::SendMessage(_hPText, WM_SETTEXT, 0, (LPARAM)info);
-	};
+	}
 
-	void close();
+	void flushCallerUserInput() const
+	{
+		MSG msg;
+		for (HWND hwnd = _hCallerWnd; hwnd; hwnd = ::GetParent(hwnd))
+		{
+			if (::PeekMessage(&msg, hwnd, 0, 0, PM_QS_INPUT | PM_REMOVE))
+			{
+				while (::PeekMessage(&msg, hwnd, 0, 0, PM_QS_INPUT | PM_REMOVE));
+				::UpdateWindow(hwnd);
+			}
+		}
+	}
 
 private:
 	static const TCHAR cClassName[];
@@ -444,7 +472,7 @@ private:
 
 	HINSTANCE _hInst;
 	volatile HWND _hwnd;
-	HWND _hOwner;
+	HWND _hCallerWnd;
 	TCHAR _header[128];
 	HANDLE _hThread;
 	HANDLE _hActiveState;

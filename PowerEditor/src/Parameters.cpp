@@ -809,9 +809,16 @@ size_t getAsciiLenFromBase64Len(size_t base64StrLen)
 	return  base64StrLen - base64StrLen / 4;
 }
 
-int base64ToAscii(char *dest, const char *base64Str)
+_Ret_z_ std::unique_ptr<_Null_terminated_ char[]> base64ToAscii(_In_z_ _Pre_readable_size_(len) PCSTR base64Str, _In_ const rsize_t len)
 {
-	int base64IndexArray[123] =\
+	const size_t b64Len = len;
+	assert( strlen( base64Str ) == len );
+
+	const size_t asciiLen = getAsciiLenFromBase64Len(b64Len);
+	const rsize_t bufferLen = ( asciiLen + 1 );
+	std::unique_ptr<_Null_terminated_ char[]> pAsciiText = std::make_unique<char[]>(bufferLen);
+
+	const int base64IndexArray[123] =\
 	{\
 	-1, -1, -1, -1, -1, -1, -1, -1,\
 	-1, -1, -1, -1, -1, -1, -1, -1,\
@@ -831,25 +838,26 @@ int base64ToAscii(char *dest, const char *base64Str)
 	49, 50, 51\
 	};
 
-	size_t b64StrLen = strlen(base64Str);	
-	size_t nbLoop = b64StrLen / 4;
+	const size_t b64StrLen = b64Len;
+	const size_t nbLoop = b64StrLen / 4;
 
-	size_t i = 0;
 	int k = 0;
 
 	enum {b64_just, b64_1padded, b64_2padded} padd = b64_just;
-	for ( ; i < nbLoop ; i++)
+	for (size_t i = 0; i < nbLoop ; i++)
 	{
-		size_t j = i * 4;
-		UCHAR uc0, uc1, uc2, uc3, p0, p1;
+		const size_t j = i * 4;
+		UCHAR p0, p1;
 
-		uc0 = (UCHAR)base64IndexArray[base64Str[j]];
-		uc1 = (UCHAR)base64IndexArray[base64Str[j+1]];
-		uc2 = (UCHAR)base64IndexArray[base64Str[j+2]];
-		uc3 = (UCHAR)base64IndexArray[base64Str[j+3]];
+		UCHAR uc0 = static_cast<UCHAR>(base64IndexArray[base64Str[j]]);
+		UCHAR uc1 = static_cast<UCHAR>(base64IndexArray[base64Str[j+1]]);
+		UCHAR uc2 = static_cast<UCHAR>(base64IndexArray[base64Str[j+2]]);
+		UCHAR uc3 = static_cast<UCHAR>(base64IndexArray[base64Str[j+3]]);
 
 		if ((uc0 == -1) || (uc1 == -1) || (uc2 == -1) || (uc3 == -1))
-			return -1;
+		{
+			return pAsciiText;
+		}
 
 		if (base64Str[j+2] == '=') // && (uc3 == '=')
 		{
@@ -864,27 +872,41 @@ int base64ToAscii(char *dest, const char *base64Str)
 		p0 = uc0 << 2;
 		p1 = uc1 << 2;
 		p1 >>= 6;
-		dest[k++] = p0 | p1;
+
+		assert(k < static_cast<int>(bufferLen));
+
+		pAsciiText[k] = p0 | p1;
+		++k;
 
 		p0 = uc1 << 4;
 		p1 = uc2 << 2;
 		p1 >>= 4;
-		dest[k++] = p0 | p1;
+		assert(k < static_cast<int>(bufferLen));
+
+		pAsciiText[k] = p0 | p1;
+		++k;
 
 		p0 = uc2 << 6;
 		p1 = uc3;
-		dest[k++] = p0 | p1;
+		assert(k < static_cast<int>(bufferLen));
+
+		pAsciiText[k] = p0 | p1;
+		++k;
 	}
+	assert(k < static_cast<int>(bufferLen));
 
-	//dest[k] = '\0';
 	if (padd == b64_1padded)
-	//	dest[k-1] = '\0';
-		return k-1;
+	{
+		pAsciiText[k-1] = '\0';
+		return pAsciiText;
+	}
 	else if (padd == b64_2padded)
-	//	dest[k-2] = '\0';
-		return k-2;
-
-	return k;
+	{
+		pAsciiText[k-2] = '\0';
+		return pAsciiText;
+	}
+	pAsciiText[k] = '\0';
+	return pAsciiText;
 }
 
 
@@ -920,12 +942,12 @@ Spec for settings on cloud (dropbox, oneDrive and googleDrive)
 
 generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 {
-	generic_string cloudSettingsPath = TEXT("");
+	std::wstring cloudSettingsPath = TEXT("");
 	
 	//
 	// check if dropbox is present
 	//
-	generic_string settingsPath4dropbox = TEXT("");
+	std::wstring settingsPath4dropbox = TEXT("");
 
 	ITEMIDLIST *pidl;
 	static_assert( SUCCEEDED( S_OK ), "bad HRESULT test!" );
@@ -940,50 +962,33 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	generic_string dropboxInfoDB = tmp;
 
 	PathAppend(dropboxInfoDB, TEXT("Dropbox\\host.db"));
-	try {
-		if (::PathFileExists(dropboxInfoDB.c_str()))
+	if (::PathFileExists(dropboxInfoDB.c_str()))
+	{
+		// get whole content
+		std::string content = getFileContent(dropboxInfoDB.c_str());
+		if (content != "")
 		{
-			// get whole content
-			std::string content = getFileContent(dropboxInfoDB.c_str());
-			if (content != "")
+			rsize_t newLinePos_temp = content.find_first_of('\n', 0);
+			if (newLinePos_temp != std::string::npos)
 			{
-				// get the second line
-				const char *pB64 = content.c_str();
-				for (size_t i = 0; i < content.length(); ++i)
-				{
-					++pB64;
-					if (*pB64 == '\n')
-					{
-						++pB64;
-						break;
-					}
-				}
+				const rsize_t newLinePos = newLinePos_temp + 1;
+				assert(newLinePos >= 0);
+				assert(newLinePos < content.length());
 
-				// decode base64
-				size_t b64Len = strlen(pB64);
-				size_t asciiLen = getAsciiLenFromBase64Len(b64Len);
-				if (asciiLen)
+				PCSTR const secondLine = (content.c_str() + newLinePos);
+				const rsize_t lenSecondLine = (content.length() - newLinePos);
+				auto pAsciiText = base64ToAscii(secondLine, lenSecondLine);
+
+				wchar_t dest[2048u] = {0};
+				mbstowcs_s(NULL, dest, pAsciiText.get(), _TRUNCATE);
+				if (::PathFileExistsW(dest))
 				{
-					char * pAsciiText = new char[asciiLen + 1];
-					int len = base64ToAscii(pAsciiText, pB64);
-					if (len)
-					{
-						//::MessageBoxA(NULL, pAsciiText, "", MB_OK);
-						const size_t maxLen = 2048;
-						wchar_t dest[maxLen];
-						mbstowcs(dest, pAsciiText, maxLen);
-						if (::PathFileExists(dest))
-						{
-							settingsPath4dropbox = dest;
-							_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
-						}
-					}
-					delete[] pAsciiText;
+					settingsPath4dropbox = dest;
+					_nppGUI._availableClouds |= DROPBOX_AVAILABLE;
 				}
 			}
+
 		}
-	} catch (...) {
-		//printStr(TEXT("JsonCpp exception captured"));
 	}
 
 	//
@@ -1052,47 +1057,47 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 
 	if (::PathFileExists(googleDriveInfoDB.c_str()))
 	{
-		try {
-			sqlite3 *handle;
-			sqlite3_stmt *stmt;
+		sqlite3 *handle;
+		sqlite3_stmt *stmt;
 
-			// try to create the database. If it doesnt exist, it would be created
-			// pass a pointer to the pointer to sqlite3, in short sqlite3**
-			char dest[MAX_PATH];
-			wcstombs(dest, googleDriveInfoDB.c_str(), sizeof(dest));
-			int retval = sqlite3_open(dest, &handle);
+		// try to create the database. If it doesnt exist, it would be created
+		// pass a pointer to the pointer to sqlite3, in short sqlite3**
+		char dest[2048u] = { 0 };
+		size_t charsWritten = 0;
+		wcstombs_s(&charsWritten, dest, googleDriveInfoDB.c_str(), _TRUNCATE);
+		assert( strlen( dest ) == charsWritten );
 
-			// If connection failed, handle returns NULL
-			if (retval ==  SQLITE_OK)
+		const int openResult = sqlite3_open(dest, &handle);
+
+		// If connection failed, handle returns NULL
+		if (openResult ==  SQLITE_OK)
+		{
+			const char query[] = "select * from data where entry_key='local_sync_root_path'";
+
+			const int prepareResult = sqlite3_prepare_v2(handle, query, -1, &stmt, 0); //sqlite3_prepare_v2() interfaces use UTF-8
+			if (prepareResult == SQLITE_OK)
 			{
-				char query[] = "select * from data where entry_key='local_sync_root_path'";
+				// fetch a row’s status
+				const int stepResult = sqlite3_step(stmt);
 
-				retval = sqlite3_prepare_v2(handle, query, -1, &stmt, 0); //sqlite3_prepare_v2() interfaces use UTF-8
-				if (retval == SQLITE_OK)
+				if (stepResult == SQLITE_ROW) 
 				{
-					// fetch a row’s status
-					retval = sqlite3_step(stmt);
+						
+					const unsigned char* text = sqlite3_column_text(stmt, 2);
 
-					if (retval == SQLITE_ROW) 
+					const size_t maxLen = 2048;
+					wchar_t googleFolder[maxLen] = { 0 };
+					size_t charsGoogleFolder = 0;
+					mbstowcs_s(&charsGoogleFolder, googleFolder, reinterpret_cast<PCSTR>(text + 4), _TRUNCATE);
+					assert(charsGoogleFolder == wcslen(googleFolder));
+					if (::PathFileExists(googleFolder))
 					{
-						const unsigned char *text;
-						text = sqlite3_column_text(stmt, 2);
-
-						const size_t maxLen = 2048;
-						wchar_t googleFolder[maxLen];
-						mbstowcs(googleFolder, (char *)(text + 4), maxLen);
-						if (::PathFileExists(googleFolder))
-						{
-							settingsPath4GoogleDrive = googleFolder;
-							_nppGUI._availableClouds |= GOOGLEDRIVE_AVAILABLE;
-						}
+						settingsPath4GoogleDrive = googleFolder;
+						_nppGUI._availableClouds |= GOOGLEDRIVE_AVAILABLE;
 					}
 				}
-				sqlite3_close(handle);
 			}
-			
-		} catch(...) {
-			// Do nothing
+			sqlite3_close(handle);
 		}
 	}
 

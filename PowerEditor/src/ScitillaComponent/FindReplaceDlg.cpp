@@ -259,7 +259,7 @@ void FindReplaceDlg::fillFindHistory()
 	fillComboHistory(IDFINDWHAT, findHistory._findHistoryFinds);
 	fillComboHistory(IDREPLACEWITH, findHistory._findHistoryReplaces);
 	fillComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory._findHistoryFilters);
-    fillComboHistory(IDD_FINDINFILES_DIR_COMBO, findHistory._findHistoryPaths);
+	fillComboHistory(IDD_FINDINFILES_DIR_COMBO, findHistory._findHistoryPaths);
 
 	::SendDlgItemMessage(_hSelf, IDWRAP, BM_SETCHECK, findHistory._isWrap, 0);
 	::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, findHistory._isMatchWord, 0);
@@ -270,7 +270,7 @@ void FindReplaceDlg::fillFindHistory()
 
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK, BM_SETCHECK, findHistory._isFifInHiddenFolder, 0);
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecuisive, 0);
-    ::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, BM_SETCHECK, findHistory._isFolderFollowDoc, 0);
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, BM_SETCHECK, findHistory._isFolderFollowDoc, 0);
 
 	::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, findHistory._searchMode == FindHistory::normal, 0);
 	::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, findHistory._searchMode == FindHistory::extended, 0);
@@ -357,17 +357,17 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string
 	int count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
 	count = min(count, maxcount);
 
-    if (count == CB_ERR) return 0;
+	if (count == CB_ERR) return 0;
 
-    if (count)
-        strings.clear();
+	if (count)
+		strings.clear();
 
-    for (int i = 0 ; i < count ; ++i)
+	for (int i = 0 ; i < count ; ++i)
 	{
 		::SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM) text);
-        strings.push_back(generic_string(text));
+		strings.push_back(generic_string(text));
 	}
-    return count;
+	return count;
 }
 
 void FindReplaceDlg::updateCombos()
@@ -640,12 +640,12 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					nbSelected = 0;
 				}
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nbSelected);
-                // uncheck if the control is disable
-                if (!nbSelected)
-                {
+				// uncheck if the control is disable
+				if (!nbSelected)
+				{
 					checkVal = BST_UNCHECKED;
 					_options._isInSelection = false;
-                }
+				}
 				::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, checkVal, 0);
 			}
 			
@@ -730,8 +730,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						setStatusbarMessage(TEXT(""), FSNoMessage);
 						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
- 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-                        combo2ExtendedMode(IDFINDWHAT);
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						combo2ExtendedMode(IDFINDWHAT);
 						_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
 						updateCombo(IDFINDWHAT);
 
@@ -748,7 +748,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-                    combo2ExtendedMode(IDFINDWHAT);
+					combo2ExtendedMode(IDFINDWHAT);
 					_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
 					updateCombo(IDFINDWHAT);
 
@@ -777,9 +777,9 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
 						_options._directory += TEXT("\\");
 
- 					bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+					bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-                   combo2ExtendedMode(IDFINDWHAT);
+				   combo2ExtendedMode(IDFINDWHAT);
 					_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
 					updateCombo(IDFINDWHAT);
 
@@ -1115,17 +1115,17 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				return TRUE;
 
-                case IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK :
+				case IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-                        findHistory._isFolderFollowDoc = isCheckedOrNot(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK);
+						findHistory._isFolderFollowDoc = isCheckedOrNot(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK);
 
-                    if (findHistory._isFolderFollowDoc)
-                    {
-                        NppParameters *pNppParam = NppParameters::getInstance();
-                        const TCHAR * dir = pNppParam->getWorkingDir();
-                        ::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
-                    }
+					if (findHistory._isFolderFollowDoc)
+					{
+						NppParameters *pNppParam = NppParameters::getInstance();
+						const TCHAR * dir = pNppParam->getWorkingDir();
+						::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
+					}
 					
 				}
 				return TRUE;
@@ -1727,10 +1727,10 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 		}	
 		++nbProcessed;
 
-        // After the processing of the last string occurence the search loop should be stopped
-        // This helps to avoid the endless replacement during the EOL ("$") searching
-        if( targetStart + foundTextLen == endRange )
-            break;
+		// After the processing of the last string occurence the search loop should be stopped
+		// This helps to avoid the endless replacement during the EOL ("$") searching
+		if( targetStart + foundTextLen == endRange )
+			break;
 
 		
 		
@@ -1944,7 +1944,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_GOBACK_BUTTON), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);
-    ::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), isEnable?SW_SHOW:SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), isEnable?SW_SHOW:SW_HIDE);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
@@ -2229,7 +2229,7 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 		enableReplaceFunc(whichType == REPLACE_DLG);
 
 	::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
-    display(toShow);
+	display(toShow);
 }
 
 LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -2296,46 +2296,46 @@ void FindReplaceDlg::combo2ExtendedMode(int comboID)
 	
 	generic_string str2transform = getTextFromCombo(hFindCombo);
 		
-    // Count the number of character '\n' and '\r'
-    size_t nbEOL = 0;
-    size_t str2transformLen = lstrlen(str2transform.c_str());
-    for (size_t i = 0 ; i < str2transformLen ; ++i)
-    {
-        if (str2transform[i] == '\r' || str2transform[i] == '\n')
-            ++nbEOL;
-    }
+	// Count the number of character '\n' and '\r'
+	size_t nbEOL = 0;
+	size_t str2transformLen = lstrlen(str2transform.c_str());
+	for (size_t i = 0 ; i < str2transformLen ; ++i)
+	{
+		if (str2transform[i] == '\r' || str2transform[i] == '\n')
+			++nbEOL;
+	}
 
-    if (nbEOL)
-    {
+	if (nbEOL)
+	{
 		TCHAR * newBuffer = new TCHAR[str2transformLen + nbEOL*2 + 1];
-        int j = 0;
-        for (size_t i = 0 ; i < str2transformLen ; ++i)
-        {
-            if (str2transform[i] == '\r')
-            {
-                newBuffer[j++] = '\\';
-                newBuffer[j++] = 'r';
-            }
-            else if (str2transform[i] == '\n')
-            {
-                newBuffer[j++] = '\\';
-                newBuffer[j++] = 'n';
-            }
-            else
-            {
-                newBuffer[j++] = str2transform[i];
-            }
-        }
-        newBuffer[j++] = '\0';
+		int j = 0;
+		for (size_t i = 0 ; i < str2transformLen ; ++i)
+		{
+			if (str2transform[i] == '\r')
+			{
+				newBuffer[j++] = '\\';
+				newBuffer[j++] = 'r';
+			}
+			else if (str2transform[i] == '\n')
+			{
+				newBuffer[j++] = '\\';
+				newBuffer[j++] = 'n';
+			}
+			else
+			{
+				newBuffer[j++] = str2transform[i];
+			}
+		}
+		newBuffer[j++] = '\0';
 		setSearchText(newBuffer);
 
-        _options._searchType = FindExtended;
+		_options._searchType = FindExtended;
 		::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, FALSE, 0);
 		::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, TRUE, 0);
 		::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, FALSE, 0);
 
 		delete [] newBuffer;
-    }
+	}
 }
 
 void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
@@ -2536,10 +2536,10 @@ void Finder::setFinderStyle()
 	
 	// Override foreground & background colour by default foreground & background coulour
 	StyleArray & stylers = _scintView._pParameter->getMiscStylerArray();
-    int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
-    if (iStyleDefault != -1)
-    {
-        Style & styleDefault = stylers.getStyler(iStyleDefault);
+	int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
+	if (iStyleDefault != -1)
+	{
+		Style & styleDefault = stylers.getStyler(iStyleDefault);
 	    _scintView.setStyle(styleDefault);
 
 		GlobalOverride & go = _scintView._pParameter->getGlobalOverrideStyle();
@@ -2562,7 +2562,7 @@ void Finder::setFinderStyle()
 
 		_scintView.execute(SCI_STYLESETFORE, SCE_SEARCHRESULT_DEFAULT, styleDefault._fgColor);
 		_scintView.execute(SCI_STYLESETBACK, SCE_SEARCHRESULT_DEFAULT, styleDefault._bgColor);
-    }
+	}
 
 	_scintView.execute(SCI_COLOURISE, 0, -1);
 }

@@ -1699,6 +1699,17 @@ void ScintillaEditView::getText(char *dest, int start, int end) const
 	execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
 }
 
+generic_string ScintillaEditView::getGenericTextAsString(int start, int end) const
+{
+	assert(end > start);
+	const int bufSize = end - start + 1;
+	_TCHAR *buf = new _TCHAR[bufSize];
+	getGenericText(buf, bufSize, start, end);
+	generic_string text = buf;
+	delete[] buf;
+	return text;
+}
+
 void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, int start, int end) const
 {
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -2900,16 +2911,7 @@ void ScintillaEditView::setTabSettings(Lang *lang)
 
 void ScintillaEditView::insertNewLineAboveCurrentLine()
 {
-	const int eol_mode = int(execute(SCI_GETEOLMODE));
-
-	generic_string newline;
-	if(eol_mode == SC_EOL_CRLF)
-		newline = TEXT("\r\n");
-	else if(eol_mode == SC_EOL_LF)
-		newline = TEXT("\n");
-	else
-		newline = TEXT("\r");
-
+	generic_string newline = getEOLString();
 	const int current_line = getCurrentLineNumber();
 	if(current_line == 0)
 	{
@@ -2918,7 +2920,7 @@ void ScintillaEditView::insertNewLineAboveCurrentLine()
 	}
 	else
 	{
-		const int eol_length = eol_mode == SC_EOL_CRLF ? 2 : 1;
+		const int eol_length = newline.length();
 		const long position = execute(SCI_POSITIONFROMLINE, current_line) - eol_length;
 		insertGenericTextFrom(position, newline.c_str());
 	}
@@ -2928,16 +2930,7 @@ void ScintillaEditView::insertNewLineAboveCurrentLine()
 
 void ScintillaEditView::insertNewLineBelowCurrentLine()
 {
-	const int eol_mode = int(execute(SCI_GETEOLMODE));
-
-	generic_string newline;
-	if(eol_mode == SC_EOL_CRLF)
-		newline = TEXT("\r\n");
-	else if(eol_mode == SC_EOL_LF)
-		newline = TEXT("\n");
-	else
-		newline = TEXT("\r");
-
+	generic_string newline = getEOLString();
 	const int line_count = execute(SCI_GETLINECOUNT);
 	const int current_line = getCurrentLineNumber();
 	if(current_line == line_count - 1)
@@ -2947,146 +2940,37 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	}
 	else
 	{
-		const int eol_length = eol_mode == SC_EOL_CRLF ? 2 : 1;
+		const int eol_length = newline.length();
 		const long position = eol_length + execute(SCI_GETLINEENDPOSITION, current_line);
 		insertGenericTextFrom(position, newline.c_str());
 	}
 	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line + 1));
 }
 
-// Get the first left index, in which the value greater/equal or smaller/equal than pivot's one
-// If not found, then pivot's index will be returned
-size_t ScintillaEditView::getLeftLineIndex(size_t leftIndex, size_t pivotIndex, bool isReverse)
-{
-	size_t i = leftIndex;
-	while (i < pivotIndex)
-	{
-		if (!isReverse)
-		{
-			size_t iLine = getGreaterLineBetween(i, pivotIndex);
-			if (iLine == pivotIndex) // pivotIndex > i
-				++i;
-			else
-				break; // Bingo!
-		}
-		else
-		{
-			size_t iLine = getGreaterLineBetween(i, pivotIndex);
-			if (iLine == pivotIndex) // pivotIndex < i
-				break; // Bingo!
-			else
-				++i;
-		}
-	}
-	return i;
-}
-
-// Get the first right index, in which the value smaller/equal or greater/equal than pivot's one
-// If not found, then pivot's index will be returned
-size_t ScintillaEditView::getRightLineIndex(size_t rightIndex, size_t pivotIndex, bool isReverse)
-{
-	size_t i = rightIndex;
-	while (i > pivotIndex)
-	{
-		if (!isReverse)
-		{
-			size_t iLine = getGreaterLineBetween(i, pivotIndex);
-			if (iLine == i) // pivotIndex > i
-				i--;
-			else
-				break; // Bingo!
-		}
-		else
-		{
-			size_t iLine = getGreaterLineBetween(i, pivotIndex);
-			if (iLine == i) // pivotIndex < i
-				break; // Bingo!
-			else
-				i--;
-		}
-	}
-	return i;
-}
-
-size_t ScintillaEditView::getGreaterLineBetween(size_t l1, size_t l2)
-{
-	int line1Len = execute(SCI_LINELENGTH, l1);
-	int	line2Len = execute(SCI_LINELENGTH, l2); 
-
-	char *line1text = new char[line1Len + 1];
-	char *line2text = new char[line2Len + 1];
-	execute(SCI_GETLINE, l1, (LPARAM)line1text);
-	line1text[line1Len] = '\0';
-	execute(SCI_GETLINE, l2, (LPARAM)line2text);
-	line2text[line2Len] = '\0';
-
-	string s1 = line1text;
-	string s2 = line2text;
-
-	size_t res;
-	if (s1.compare(s2) > 0)
-		res = l1;
-	else
-		res = l2;
-
-	delete[] line1text;
-	delete[] line2text;
-
-	return res;
-}
-
-size_t ScintillaEditView::getRandomPivot(size_t fromLine, size_t toLine)
-{
-	srand((unsigned int)time(NULL));
-	return rand() % (toLine - fromLine) + fromLine;
-}
-
-
-void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine, bool isReverse)
+void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine, bool isDescending)
 {
 	if (fromLine >= toLine)
-		return;
-
-	// choose the pivot
-	size_t pivotIndex = getRandomPivot(fromLine, toLine);
-
-	// comparing right with left
-	size_t leftIndex = fromLine;
-	size_t rightIndex = toLine;
-
-	while (rightIndex > leftIndex)
 	{
-		leftIndex = getLeftLineIndex(leftIndex, pivotIndex, isReverse); // get the first left index, in which the value greater or equal than pivot's one
-		rightIndex = getRightLineIndex(rightIndex, pivotIndex, isReverse); // get the first right index, in which the value smaller or equal than pivot's one
-
-		if ((leftIndex != rightIndex) && swapLines(leftIndex, rightIndex))
-		{
-			if (leftIndex == pivotIndex)
-			{
-				pivotIndex = rightIndex;
-				++leftIndex;
-			}
-			else if (rightIndex == pivotIndex)
-			{
-				pivotIndex = leftIndex;
-				--rightIndex;
-			}
-			else
-			{
-				++leftIndex;
-				--rightIndex;	
-			}
-		}
-		
+		return;
 	}
 
-	// check the left side recursively
-	if (pivotIndex != fromLine)
-		quickSortLines(fromLine, pivotIndex - 1, isReverse);
-
-	// check the right side recursively
-	if (pivotIndex != toLine)
-		quickSortLines(pivotIndex + 1, toLine, isReverse);
+	const int startPos = execute(SCI_POSITIONFROMLINE, fromLine);
+	const int endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
+	const generic_string text = getGenericTextAsString(startPos, endPos);
+	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
+	std::sort(splitText.begin(), splitText.end(), [isDescending](generic_string a, generic_string b)
+	{
+		if (isDescending)
+		{
+			return a.compare(b) > 0;
+		}
+		else
+		{
+			return a.compare(b) < 0;
+		}
+	});
+	const generic_string joined = stringJoin(splitText, getEOLString());
+	replaceTarget(joined.c_str(), startPos, endPos);
 }
 
 bool ScintillaEditView::isTextDirectionRTL() const
@@ -3102,88 +2986,20 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
 }
 
-bool ScintillaEditView::swapLines(size_t line1, size_t line2)
+generic_string ScintillaEditView::getEOLString()
 {
-	size_t lowerLine = line1;
-	size_t higherLine = line2;
-
-	if (lowerLine == higherLine)
-		return false;
-
-	if (line1 > line2)
+	const int eol_mode = int(execute(SCI_GETEOLMODE));
+	string newline;
+	if (eol_mode == SC_EOL_CRLF)
 	{
-		lowerLine = line2;
-		higherLine = line1;
+		return TEXT("\r\n");
 	}
-
-	size_t nbLine = execute(SCI_GETLINECOUNT);
-	if (higherLine + 1 > nbLine)
-		return false;
-
-	bool isLastLine = false;
-	int eol_mode = SC_EOL_CRLF;
-	size_t extraEOLLength = 0;
-	if (higherLine + 1 == nbLine)
+	else if (eol_mode == SC_EOL_LF)
 	{
-		isLastLine = true;
-
-		eol_mode = int(execute(SCI_GETEOLMODE));
-
-		if(eol_mode == SC_EOL_CRLF)
-			extraEOLLength = 2;
-		else if(eol_mode == SC_EOL_LF)
-			extraEOLLength = 1;
-		else // SC_EOL_CR
-			extraEOLLength = 1;
-	}
-
-	int line1Len = execute(SCI_LINELENGTH, lowerLine);
-	int	line2Len = execute(SCI_LINELENGTH, higherLine); 
-
-	char *line1text = new char[line1Len + 1 ];
-	char *line2text = new char[line2Len + 1 + extraEOLLength];
-	execute(SCI_GETLINE, lowerLine, (LPARAM)line1text);
-	line1text[line1Len - extraEOLLength] = '\0';
-	execute(SCI_GETLINE, higherLine, (LPARAM)line2text);
-	if (isLastLine)
-	{
-		if (eol_mode == SC_EOL_CRLF)
-		{
-			line2text[line2Len] = '\r';
-			line2text[line2Len + 1] = '\n';	
-			line2text[line2Len + 2] = '\0';	
-		}
-		else if (eol_mode == SC_EOL_LF)
-		{
-			line2text[line2Len] = '\n';
-			line2text[line2Len + 1] = '\0';
-		}
-		else // SC_EOL_CR
-		{
-			line2text[line2Len] = '\r';
-			line2text[line2Len + 1] = '\0';
-		}
-		
+		return TEXT("\n");
 	}
 	else
-		line2text[line2Len] = '\0';
-
-	size_t posFrom1, posTo1, posFrom2, posTo2;
-	posFrom1 = execute(SCI_POSITIONFROMLINE, lowerLine);
-	posFrom2 = execute(SCI_POSITIONFROMLINE, higherLine);
-	posTo1 = posFrom1 + line1Len;
-	posTo2 = posFrom2 + line2Len;
-
-	execute(SCI_SETTARGETSTART, posFrom2);
-	execute(SCI_SETTARGETEND, posTo2);
-	execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)line1text);
-
-	execute(SCI_SETTARGETSTART, posFrom1);
-	execute(SCI_SETTARGETEND, posTo1);
-	execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)line2text);
-
-	delete[] line1text;
-	delete[] line2text;
-
-	return true;
+	{
+		return TEXT("\r");
+	}
 }

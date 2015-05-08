@@ -928,7 +928,6 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	generic_string settingsPath4dropbox = TEXT("");
 
 	ITEMIDLIST *pidl;
-	static_assert( SUCCEEDED( S_OK ), "bad HRESULT test!" );
 
 	const HRESULT specialFolderLocationResult_1 = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
 	if ( !SUCCEEDED( specialFolderLocationResult_1 ) )
@@ -1137,7 +1136,6 @@ generic_string NppParameters::getSettingsFolder()
 	else
 	{
 		ITEMIDLIST *pidl;
-		static_assert( SUCCEEDED( S_OK ), "Bad HRESULT code check!!" );
 		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
 		if ( !SUCCEEDED( specialLocationResult ) )
 		{
@@ -1172,7 +1170,6 @@ bool NppParameters::load()
 		if (_winVersion >= WV_VISTA)
 		{
 			ITEMIDLIST *pidl;
-			static_assert( SUCCEEDED( S_OK ), "Bad HRESULT code check!!" );
 			const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
 			if ( !SUCCEEDED( specialLocationResult ) )
 			{
@@ -1196,7 +1193,6 @@ bool NppParameters::load()
 	else
 	{
 		ITEMIDLIST *pidl;
-		static_assert( SUCCEEDED( S_OK ), "Bad HRESULT code check!!" );
 		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
 		if ( !SUCCEEDED( specialLocationResult ) )
 		{

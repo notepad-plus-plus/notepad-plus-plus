@@ -3173,6 +3173,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 					(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
 				::ResetEvent(pw->_hActiveState);
 				::EnableWindow(pw->_hBtn, FALSE);
+				pw->setInfo(TEXT("Cancelling operation, please wait..."));
 				return 0;
 			}
 			break;

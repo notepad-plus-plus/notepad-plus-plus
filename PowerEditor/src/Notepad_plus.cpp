@@ -1541,7 +1541,11 @@ bool Notepad_plus::findInFiles()
 	vector<generic_string> fileNames;
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir, &progress);
 
-	if (!progress.isCancelled())
+	if (progress.isCancelled())
+	{
+		nbTotal = -1;
+	}
+	else
 	{
 		size_t filesCount = fileNames.size();
 		size_t filesPerPercent = (filesCount < 200) ? 1 : (filesCount / 100);
@@ -1551,7 +1555,10 @@ bool Notepad_plus::findInFiles()
 		for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 		{
 			if (progress.isCancelled())
+			{
+				nbTotal = -1;
 				break;
+			}
 
 			bool closeBuf = false;
 			BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
@@ -1596,7 +1603,7 @@ bool Notepad_plus::findInFiles()
 	_findReplaceDlg.putFindResult(nbTotal);
 
 	FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
-	if (nbTotal && !findHistory._isDlgAlwaysVisible)
+	if ((nbTotal > 0) && !findHistory._isDlgAlwaysVisible)
 		_findReplaceDlg.display(false);
 
 	return true;
@@ -1648,7 +1655,7 @@ bool Notepad_plus::findInOpenedFiles()
 	_findReplaceDlg.putFindResult(nbTotal);
 
 	FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
-	if (nbTotal && !findHistory._isDlgAlwaysVisible)
+	if ((nbTotal > 0) && !findHistory._isDlgAlwaysVisible)
 		_findReplaceDlg.display(false);
 	return true;
 }
@@ -1679,7 +1686,7 @@ bool Notepad_plus::findInCurrentFile()
 	_findReplaceDlg.putFindResult(nbTotal);
 
 	FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
-	if (nbTotal && !findHistory._isDlgAlwaysVisible)
+	if ((nbTotal > 0) && !findHistory._isDlgAlwaysVisible)
 		_findReplaceDlg.display(false);
 	return true;
 }

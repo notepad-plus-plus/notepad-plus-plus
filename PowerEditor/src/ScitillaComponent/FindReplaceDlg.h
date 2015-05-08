@@ -145,6 +145,7 @@ public:
 	void removeAll();
 	void openAll();
 	void beginNewFilesSearch();
+	void clearFilesSearch();
 	void finishFilesSearch(int count);
 	void gotoNextFoundResult(int direction);
 	void GotoFoundLine();

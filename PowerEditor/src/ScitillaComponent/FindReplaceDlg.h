@@ -309,7 +309,7 @@ protected :
 	// Window procedure for the finder
 	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-    void combo2ExtendedMode(int comboID);
+	void combo2ExtendedMode(int comboID);
 
 private :
 
@@ -360,8 +360,8 @@ private :
 		addText2Combo(getTextFromCombo(hCombo, isUnicode).c_str(), hCombo, isUnicode);
 	};
 	void fillFindHistory();
-    void fillComboHistory(int id, const std::vector<generic_string> & strings);
-    int saveComboHistory(int id, int maxcount, vector<generic_string> & strings);
+	void fillComboHistory(int id, const std::vector<generic_string> & strings);
+	int saveComboHistory(int id, int maxcount, vector<generic_string> & strings);
 	static const int FR_OP_FIND = 1;
 	static const int FR_OP_REPLACE = 2;
 	static const int FR_OP_FIF = 4;

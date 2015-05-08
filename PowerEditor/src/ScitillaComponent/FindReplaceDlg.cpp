@@ -1804,6 +1804,9 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		::UpdateWindow(_hParent);
 		justCreated = true;
 	}
+
+	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
+
 	_pFinder->setFinderStyle();
 
 	if (justCreated)
@@ -1813,8 +1816,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		sprintf(ptrword, "%p", &_pFinder->_MarkingsStruct);
 		_pFinder->_scintView.execute(SCI_SETPROPERTY, (WPARAM)"@MarkingsStruct", (LPARAM)ptrword);
 	}
-	
-	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
 
 	int cmdid = 0;
 	if (op == ALL_OPEN_DOCS)
@@ -1823,24 +1824,34 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		cmdid = WM_FINDINFILES;
 	else if (op == CURRENT_DOC)
 		cmdid = WM_FINDALL_INCURRENTDOC;
-
-	if (!cmdid) return;
+	else
+		return;
 
 	if (::SendMessage(_hParent, cmdid, 0, 0))
 	{
-		if(_findAllResult == 1)
-			wsprintf(_findAllResultStr, TEXT("1 hit"));
-		else
-			wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
-		if (_findAllResult) 
+		if (_findAllResult > 0) 
 		{
+			if (_findAllResult == 1)
+				wsprintf(_findAllResultStr, TEXT("1 hit"));
+			else
+				wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
+
 			focusOnFinder();
 		}
 		else
 		{
-			// Show finder
-			::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
-			getFocus(); // no hits
+			generic_string msg;
+			if (_findAllResult == 0)
+			{
+				msg = TEXT("Find All: Can't find the text \"");
+				msg += getText2search();
+				msg += TEXT("\"");
+			}
+			else
+			{
+				msg = TEXT("Find All: Search cancelled by user");
+			}
+			setStatusbarMessage(msg, FSMessage);
 		}
 	}
 	else // error - search folder doesn't exist
@@ -2492,8 +2503,32 @@ void Finder::beginNewFilesSearch()
 	_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 }
 
+// deletes the results from the last search action
+void Finder::clearFilesSearch()
+{
+	_pMainFoundInfos->clear();
+	_pMainMarkings->clear();
+
+	_pMainFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;
+	_pMainMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
+
+	// delete all results from the beginning to the current position
+	// assumes that the current position is at the beginning of the old search result
+	int endPos = _scintView.execute(SCI_GETCURRENTPOS);
+	_scintView.execute(SCI_SETSEL, 0, endPos);
+	setFinderReadOnly(false);
+	_scintView.execute(SCI_CLEAR);
+	setFinderReadOnly(true);
+}
+
 void Finder::finishFilesSearch(int count)
 {
+	if (count <= 0)
+	{
+		clearFilesSearch();
+		return;
+	}
+
 	std::vector<FoundInfo>* _pOldFoundInfos;
 	std::vector<SearchResultMarking>* _pOldMarkings;
 	_pOldFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;

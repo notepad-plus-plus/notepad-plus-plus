@@ -1756,7 +1756,7 @@ void FindReplaceDlg::replaceAllInOpenedDocs()
 
 void FindReplaceDlg::findAllIn(InWhat op)
 {
-	bool doSetMarkingStruct = false;
+	bool justCreated = false;
 	if (!_pFinder)
 	{
 		_pFinder = new Finder();
@@ -1800,11 +1800,13 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		_pFinder->_scintView.display();
 		_pFinder->display();
-		doSetMarkingStruct = true;
+		::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_pFinder->getHSelf());
+		::UpdateWindow(_hParent);
+		justCreated = true;
 	}
 	_pFinder->setFinderStyle();
 
-	if (doSetMarkingStruct)
+	if (justCreated)
 	{
 		// Send the address of _MarkingsStruct to the lexer
 		char ptrword[sizeof(void*)*2+1];

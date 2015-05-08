@@ -1029,14 +1029,24 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 		int valType;
 		::RegQueryValueEx(hGoogleDriveKey, TEXT("Path"), NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
 
-		if (::PathFileExists(valData))
+		if (::PathFileExists(valData)) // Windows 8
 		{
 			googleDriveInfoDB = valData;
+			PathAppend(googleDriveInfoDB, TEXT("\\user_default\\sync_config.db"));
+		}
+		else // Windows 7 
+		{
+			// try to guess google drive info path
+			ITEMIDLIST *pidl2;
+			SHGetSpecialFolderLocation(NULL, CSIDL_LOCAL_APPDATA, &pidl2);
+			TCHAR tmp2[MAX_PATH];
+			SHGetPathFromIDList(pidl2, tmp2);
+			googleDriveInfoDB = tmp2;
+
+			PathAppend(googleDriveInfoDB, TEXT("Google\\Drive\\sync_config.db"));
 		}
 		::RegCloseKey(hGoogleDriveKey);
 	}
-
-	PathAppend(googleDriveInfoDB, TEXT("\\user_default\\sync_config.db"));
 
 	generic_string settingsPath4GoogleDrive = TEXT("");
 

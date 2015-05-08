@@ -122,10 +122,6 @@ If ErrorLevel 1 PAUSE
 copy /Y "..\bin\updater\gpup.exe" .\zipped.package.release\updater\
 If ErrorLevel 1 PAUSE
 
-rem document
-xcopy /Y /S ..\bin\user.manual\*.* .\zipped.package.release\user.manual\
-If ErrorLevel 1 PAUSE
-
 
 rem localizations
 copy /Y ".\nativeLang\*.xml" .\zipped.package.release\localization\

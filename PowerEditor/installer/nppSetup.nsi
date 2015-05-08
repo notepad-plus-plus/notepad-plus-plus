@@ -179,7 +179,7 @@ FunctionEnd
 
 
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE "..\license.txt"
+!insertmacro MUI_PAGE_LICENSE "..\..\LICENSE"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
 page Custom ExtraOptions
@@ -492,7 +492,7 @@ Section -"Notepad++" mainSection
 	
 	; Set Section Files and Shortcuts
 	SetOverwrite on
-	File "..\license.txt"
+	File "..\..\LICENSE"
 	File "..\bin\SciLexer.dll"
 	File "..\bin\change.log"
 	File "..\bin\notepad++.exe"
@@ -1218,6 +1218,7 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin\updater\readme.txt"
 ${MementoSectionEnd}
 
+/*
 ${MementoSection} "User Manual" UserManual
 	SetOverwrite on
 	IfFileExists  "$INSTDIR\NppHelp.chm" 0 +2
@@ -1225,17 +1226,6 @@ ${MementoSection} "User Manual" UserManual
 	SetOutPath "$INSTDIR\user.manual"
 	File /r "..\bin\user.manual\"
 ${MementoSectionEnd}
-
-/*
-Section /o "Create Shortcut on Desktop" 
-
-	
-SectionEnd
-
-
-Section /o "Use the old application icon" getOldIcon
-
-SectionEnd
 */
 
 ${MementoSectionDone}
@@ -1254,7 +1244,7 @@ ${MementoSectionDone}
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
     !insertmacro MUI_DESCRIPTION_TEXT ${htmlViewer} 'Open the html file in Notepad++ while you choose <view source> from IE.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of Notepad++.'
+    ;!insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of Notepad++.'
     ;!insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add Notepad++ shortcut on your desktop.'
     ;!insertmacro MUI_DESCRIPTION_TEXT ${getOldIcon} "I won't blame you if you want to get the old icon back."
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
@@ -1941,7 +1931,7 @@ Section Uninstall
 	Delete "$INSTDIR\LINEDRAW.TTF"
 	Delete "$INSTDIR\SciLexer.dll"
 	Delete "$INSTDIR\change.log"
-	Delete "$INSTDIR\license.txt"
+	Delete "$INSTDIR\LICENSE"
 
 	Delete "$INSTDIR\notepad++.exe"
 	Delete "$INSTDIR\readme.txt"

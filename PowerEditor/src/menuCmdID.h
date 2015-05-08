@@ -112,8 +112,8 @@
     #define    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK   (IDM_EDIT + 56)
     #define    IDM_EDIT_BLANKLINEABOVECURRENT       (IDM_EDIT + 57)
     #define    IDM_EDIT_BLANKLINEBELOWCURRENT       (IDM_EDIT + 58)
-    #define    IDM_EDIT_SORTLINES                   (IDM_EDIT + 59)
-    #define    IDM_EDIT_SORTLINESREVERSE            (IDM_EDIT + 60)
+    #define    IDM_EDIT_SORTLINES_ASCENDING         (IDM_EDIT + 59)
+    #define    IDM_EDIT_SORTLINES_DESCENDING        (IDM_EDIT + 60)
 
 // Menu macro
     #define    IDM_MACRO_STARTRECORDINGMACRO        (IDM_EDIT + 18)

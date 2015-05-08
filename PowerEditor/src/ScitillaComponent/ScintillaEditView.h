@@ -247,6 +247,7 @@ public:
 	void getText(char *dest, int start, int end) const;
 	void getGenericText(TCHAR *dest, size_t destlen, int start, int end) const;
 	void getGenericText(TCHAR *dest, size_t deslen, int start, int end, int *mstart, int *mend) const;
+	generic_string getGenericTextAsString(int start, int end) const;
 	void insertGenericTextFrom(int position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
@@ -634,8 +635,8 @@ public:
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 	void scrollPosToCenter(int pos);
-	bool swapLines(size_t line1, size_t line2);
-	void quickSortLines(size_t fromLine, size_t toLine, bool isReverse = false);
+	generic_string getEOLString();
+	void quickSortLines(size_t fromLine, size_t toLine, bool isDescending);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
 
@@ -911,12 +912,6 @@ protected:
 
     pair<int, int> getWordRange();
 	bool expandWordSelection();
-
-	// For the quicksort on lines
-	size_t getLeftLineIndex(size_t leftIndex, size_t pivotIndex, bool isReverse);
-	size_t getRightLineIndex(size_t rightIndex, size_t pivotIndex, bool isReverse);
-	size_t getGreaterLineBetween(size_t l1, size_t l2);
-	size_t getRandomPivot(size_t fromLine, size_t toLine);
 };
 
 #endif //SCINTILLA_EDIT_VIEW_H

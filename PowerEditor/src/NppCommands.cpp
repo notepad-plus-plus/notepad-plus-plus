@@ -344,8 +344,8 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_EDIT_SORTLINES:
-		case IDM_EDIT_SORTLINESREVERSE:
+		case IDM_EDIT_SORTLINES_ASCENDING:
+		case IDM_EDIT_SORTLINES_DESCENDING:
 		{
 			// default: no selection
 			size_t fromLine = 0;
@@ -375,7 +375,7 @@ void Notepad_plus::command(int id)
 			}
 
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->quickSortLines(fromLine, toLine, id == IDM_EDIT_SORTLINESREVERSE);
+			_pEditView->quickSortLines(fromLine, toLine, id == IDM_EDIT_SORTLINES_DESCENDING);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 
 			if (hasSelection) // there was 1 selection, so we restore it
@@ -2598,8 +2598,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
 			case IDM_EDIT_BEGINENDSELECT:
-			case IDM_EDIT_SORTLINES:
-			case IDM_EDIT_SORTLINESREVERSE:
+			case IDM_EDIT_SORTLINES_ASCENDING:
+			case IDM_EDIT_SORTLINES_DESCENDING:
 			case IDM_EDIT_BLANKLINEABOVECURRENT:
 			case IDM_EDIT_BLANKLINEBELOWCURRENT:
 			case IDM_VIEW_FULLSCREENTOGGLE :

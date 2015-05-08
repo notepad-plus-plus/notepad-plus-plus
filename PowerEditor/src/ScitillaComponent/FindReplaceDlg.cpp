@@ -3076,7 +3076,7 @@ int Progress::createProgressWindow()
 	height = win.bottom - win.top;
 
 	_hPText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
-		WS_CHILD | WS_VISIBLE | BS_TEXT,
+		WS_CHILD | WS_VISIBLE | BS_TEXT | SS_PATHELLIPSIS,
 		5, 5,
 		width - 10, 20, _hwnd, NULL, _hInst, NULL);
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);

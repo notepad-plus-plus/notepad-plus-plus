@@ -3113,10 +3113,25 @@ int Progress::createProgressWindow()
 
 RECT Progress::adjustSizeAndPos(int width, int height)
 {
-	RECT win, maxWin;
-
+	RECT maxWin;
 	::GetWindowRect(::GetDesktopWindow(), &maxWin);
-	win = maxWin;
+
+	POINT center;
+
+	if (_hCallerWnd)
+	{
+		RECT biasWin;
+		::GetWindowRect(_hCallerWnd, &biasWin);
+		center.x = (biasWin.left + biasWin.right) / 2;
+		center.y = (biasWin.top + biasWin.bottom) / 2;
+	}
+	else
+	{
+		center.x = (maxWin.left + maxWin.right) / 2;
+		center.y = (maxWin.top + maxWin.bottom) / 2;
+	}
+
+	RECT win = maxWin;
 	win.right = win.left + width;
 	win.bottom = win.top + height;
 
@@ -3128,7 +3143,9 @@ RECT Progress::adjustSizeAndPos(int width, int height)
 
 	if (width < maxWin.right - maxWin.left)
 	{
-		win.left = (maxWin.left + maxWin.right - width) / 2;
+		win.left = center.x - width / 2;
+		if (win.left < 0)
+			win.left = 0;
 		win.right = win.left + width;
 	}
 	else
@@ -3137,9 +3154,11 @@ RECT Progress::adjustSizeAndPos(int width, int height)
 		win.right = maxWin.right;
 	}
 
-	if (height < maxWin.right - maxWin.left)
+	if (height < maxWin.bottom - maxWin.top)
 	{
-		win.top = (maxWin.top + maxWin.bottom - height) / 2;
+		win.top = center.y - height / 2;
+		if (win.top < 0)
+			win.top = 0;
 		win.bottom = win.top + height;
 	}
 	else

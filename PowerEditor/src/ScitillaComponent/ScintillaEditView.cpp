@@ -2956,8 +2956,7 @@ void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine, bool isDe
 
 	const int startPos = execute(SCI_POSITIONFROMLINE, fromLine);
 	const int endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
-
-	generic_string text = getGenericTextAsString(startPos, endPos);
+	const generic_string text = getGenericTextAsString(startPos, endPos);
 	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
 	std::sort(splitText.begin(), splitText.end(), [isDescending](generic_string a, generic_string b)
 	{
@@ -2970,7 +2969,7 @@ void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine, bool isDe
 			return a.compare(b) < 0;
 		}
 	});
-	generic_string joined = stringJoin(splitText, getEOLString());
+	const generic_string joined = stringJoin(splitText, getEOLString());
 	replaceTarget(joined.c_str(), startPos, endPos);
 }
 

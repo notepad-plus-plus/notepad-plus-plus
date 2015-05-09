@@ -718,7 +718,7 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 	return subject;
 }
 
-std::vector<generic_string> stringSplit(const generic_string& input, generic_string delimiter)
+std::vector<generic_string> stringSplit(const generic_string& input, const generic_string &delimiter)
 {
 	auto start = 0U;
 	auto end = input.find(delimiter);
@@ -734,7 +734,7 @@ std::vector<generic_string> stringSplit(const generic_string& input, generic_str
 	return output;
 }
 
-generic_string stringJoin(const std::vector<generic_string> &strings, generic_string separator)
+generic_string stringJoin(const std::vector<generic_string> &strings, const generic_string &separator)
 {
 	generic_string joined;
 	size_t length = strings.size();

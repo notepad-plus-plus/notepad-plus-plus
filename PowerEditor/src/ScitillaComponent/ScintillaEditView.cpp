@@ -2958,27 +2958,6 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line + 1));
 }
 
-bool ScintillaEditView::allLinesAreNumeric(size_t fromLine, size_t toLine)
-{
-	const generic_string newLine = getEOLString();
-	for (size_t i = fromLine; i <= toLine; ++i)
-	{
-		try
-		{
-			stoi_CountNewlinesAsMinimum(getLine(i), newLine);
-		}
-		catch (std::invalid_argument&)
-		{
-			return false;
-		}
-		catch (std::out_of_range&)
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
 void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescending)
 {
 	if (fromLine >= toLine)
@@ -3000,16 +2979,15 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescend
 		}
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
-	const bool isNumericSort = allLinesAreNumeric(fromLine, toLine);
-	const generic_string newLine = getEOLString();
-	std::sort(splitText.begin(), splitText.end(), [isDescending, isNumericSort, newLine](generic_string a, generic_string b)
+	const bool isNumericSort = allLinesAreNumericOrEmpty(splitText);
+	std::sort(splitText.begin(), splitText.end(), [isDescending, isNumericSort](generic_string a, generic_string b)
 	{
 		if (isDescending)
 		{
 			if (isNumericSort)
 			{
-				int numA = stoi_CountNewlinesAsMinimum(a, newLine);
-				int numB = stoi_CountNewlinesAsMinimum(b, newLine);
+				int numA = stoi_CountEmptyLinesAsMinimum(a);
+				int numB = stoi_CountEmptyLinesAsMinimum(b);
 				return numA > numB;
 			}
 			else
@@ -3021,8 +2999,8 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescend
 		{
 			if (isNumericSort)
 			{
-				int numA = stoi_CountNewlinesAsMinimum(a, newLine);
-				int numB = stoi_CountNewlinesAsMinimum(b, newLine);
+				int numA = stoi_CountEmptyLinesAsMinimum(a);
+				int numB = stoi_CountEmptyLinesAsMinimum(b);
 				return numA < numB;
 			}
 			else

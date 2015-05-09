@@ -749,9 +749,9 @@ generic_string stringJoin(const std::vector<generic_string> &strings, const gene
 	return joined;
 }
 
-int stoi_CountNewlinesAsMinimum(const generic_string &input, const generic_string &newLine)
+int stoi_CountEmptyLinesAsMinimum(const generic_string &input)
 {
-	if (input.empty() || input == newLine)
+	if (input.empty())
 	{
 		return INT_MIN;
 	}
@@ -759,4 +759,25 @@ int stoi_CountNewlinesAsMinimum(const generic_string &input, const generic_strin
 	{
 		return std::stoi(input);
 	}
+}
+
+bool allLinesAreNumericOrEmpty(const std::vector<generic_string> &lines)
+{
+	const auto endit = lines.end();
+	for (auto it = lines.begin(); it != endit; ++it)
+	{
+		try
+		{
+			stoi_CountEmptyLinesAsMinimum(*it);
+		}
+		catch (std::invalid_argument&)
+		{
+			return false;
+		}
+		catch (std::out_of_range&)
+		{
+			return false;
+		}
+	}
+	return true;
 }

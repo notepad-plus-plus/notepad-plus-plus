@@ -638,7 +638,6 @@ public:
 	void scrollPosToCenter(int pos);
 	generic_string getEOLString();
 	void sortLines(size_t fromLine, size_t toLine, bool isDescending);
-	bool allLinesAreNumeric(size_t fromLine, size_t toLine);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
 

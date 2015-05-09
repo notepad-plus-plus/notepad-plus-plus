@@ -2979,37 +2979,17 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescend
 		}
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
-	const bool isNumericSort = allLinesAreNumericOrEmpty(splitText);
-	std::sort(splitText.begin(), splitText.end(), [isDescending, isNumericSort](generic_string a, generic_string b)
+	const bool isNumericSort = allLinesAreNumeric(splitText);
+	std::vector<generic_string> sortedText;
+	if (isNumericSort)
 	{
-		if (isDescending)
-		{
-			if (isNumericSort)
-			{
-				int numA = stoi_CountEmptyLinesAsMinimum(a);
-				int numB = stoi_CountEmptyLinesAsMinimum(b);
-				return numA > numB;
-			}
-			else
-			{
-				return a.compare(b) > 0;
-			}
-		}
-		else
-		{
-			if (isNumericSort)
-			{
-				int numA = stoi_CountEmptyLinesAsMinimum(a);
-				int numB = stoi_CountEmptyLinesAsMinimum(b);
-				return numA < numB;
-			}
-			else
-			{
-				return a.compare(b) < 0;
-			}
-		}
-	});
-	const generic_string joined = stringJoin(splitText, getEOLString());
+		sortedText = numericSort(splitText, isDescending);
+	}
+	else
+	{
+		sortedText = lexicographicSort(splitText, isDescending);
+	}
+	const generic_string joined = stringJoin(sortedText, getEOLString());
 	if (sortAllLines)
 	{
 		replaceTarget(joined.c_str(), startPos, endPos);

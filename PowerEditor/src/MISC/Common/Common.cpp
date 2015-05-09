@@ -749,11 +749,11 @@ generic_string stringJoin(const std::vector<generic_string> &strings, const gene
 	return joined;
 }
 
-int stoi_CountEmptyLinesAsMinimum(const generic_string &input)
+int stoiStrict(const generic_string &input)
 {
 	if (input.empty())
 	{
-		return INT_MIN;
+		throw std::invalid_argument("Empty input.");
 	}
 	else
 	{
@@ -778,14 +778,14 @@ int stoi_CountEmptyLinesAsMinimum(const generic_string &input)
 	}
 }
 
-bool allLinesAreNumericOrEmpty(const std::vector<generic_string> &lines)
+bool allLinesAreNumeric(const std::vector<generic_string> &lines)
 {
 	const auto endit = lines.end();
 	for (auto it = lines.begin(); it != endit; ++it)
 	{
 		try
 		{
-			stoi_CountEmptyLinesAsMinimum(*it);
+			stoiStrict(*it);
 		}
 		catch (std::invalid_argument&)
 		{
@@ -797,4 +797,50 @@ bool allLinesAreNumericOrEmpty(const std::vector<generic_string> &lines)
 		}
 	}
 	return true;
+}
+
+std::vector<generic_string> lexicographicSort(std::vector<generic_string> input, bool isDescending)
+{
+	std::sort(input.begin(), input.end(), [isDescending](generic_string a, generic_string b)
+	{
+		if (isDescending)
+		{
+			return a.compare(b) > 0;
+		}
+		else
+		{
+			return a.compare(b) < 0;
+		}
+	});
+	return input;
+}
+
+std::vector<generic_string> numericSort(std::vector<generic_string> input, bool isDescending)
+{
+	// Pre-condition: all strings in "input" are convertible to int with stoiStrict.
+	std::vector<int> inputAsInts;
+	std::map<int, generic_string> intToString; // Cache for ints converted to strings.
+	for (auto it = input.begin(); it != input.end(); ++it)
+	{
+		int converted = stoiStrict(*it);
+		inputAsInts.push_back(converted);
+		intToString[converted] = *it;
+	}
+	std::sort(inputAsInts.begin(), inputAsInts.end(), [isDescending](int a, int b)
+	{
+		if (isDescending)
+		{
+			return a > b;
+		}
+		else
+		{
+			return a < b;
+		}
+	});
+	std::vector<generic_string> output;
+	for (auto it = inputAsInts.begin(); it != inputAsInts.end(); ++it)
+	{
+		output.push_back(intToString[*it]);
+	}
+	return output;
 }

@@ -190,7 +190,10 @@ generic_string stringToUpper(generic_string strToConvert);
 generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace);
 std::vector<generic_string> stringSplit(const generic_string& input, const generic_string &delimiter);
 generic_string stringJoin(const std::vector<generic_string> &strings, const generic_string &separator);
-int stoi_CountEmptyLinesAsMinimum(const generic_string &input);
-bool allLinesAreNumericOrEmpty(const std::vector<generic_string> &lines);
+int stoiStrict(const generic_string &input);
+bool allLinesAreNumeric(const std::vector<generic_string> &lines);
+
+std::vector<generic_string> numericSort(std::vector<generic_string> input, bool isDescending);
+std::vector<generic_string> lexicographicSort(std::vector<generic_string> input, bool isDescending);
 
 #endif //M30_IDE_COMMUN_H

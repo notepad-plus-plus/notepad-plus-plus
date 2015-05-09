@@ -2958,6 +2958,16 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescend
 	const int endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
 	const generic_string text = getGenericTextAsString(startPos, endPos);
 	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
+	const size_t lineCount = execute(SCI_GETLINECOUNT);
+	const bool sortAllLines = toLine == lineCount - 1;
+	if (!sortAllLines)
+	{
+		if (splitText.rbegin()->empty())
+		{
+			splitText.pop_back();
+		}
+	}
+	assert(toLine - fromLine + 1 == splitText.size());
 	std::sort(splitText.begin(), splitText.end(), [isDescending](generic_string a, generic_string b)
 	{
 		if (isDescending)
@@ -2970,7 +2980,14 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescend
 		}
 	});
 	const generic_string joined = stringJoin(splitText, getEOLString());
-	replaceTarget(joined.c_str(), startPos, endPos);
+	if (sortAllLines)
+	{
+		replaceTarget(joined.c_str(), startPos, endPos);
+	}
+	else
+	{
+		replaceTarget((joined + getEOLString()).c_str(), startPos, endPos);
+	}
 }
 
 bool ScintillaEditView::isTextDirectionRTL() const

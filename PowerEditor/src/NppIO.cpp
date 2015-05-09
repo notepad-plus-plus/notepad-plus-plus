@@ -131,8 +131,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 				wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
 				if (::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
 				{
-					bool res = MainFileManager->createEmptyFile(longFileName);
-					if (res)
+					const bool createEmptyFileRes = MainFileManager->createEmptyFile(longFileName);
+					if (createEmptyFileRes)
 					{
 						isCreateFileSuccessful = true;
 						isOpenningNewEmptyFile = true;

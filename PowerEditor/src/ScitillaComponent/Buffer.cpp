@@ -508,8 +508,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 			// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
 			if (UnicodeConvertor.getNewBuf()) 
 			{
-				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf());
-				buf->setFormat(format == -1?WIN_FORMAT:(formatType)format);
+				const int EOLformat = getEOLFormatForm(UnicodeConvertor.getNewBuf());
+				buf->setFormat(EOLformat == -1?WIN_FORMAT:(formatType)EOLformat);
 				
 			}
 			else
@@ -567,8 +567,8 @@ bool FileManager::reloadBuffer(BufferID id)
 		{
 			if (UnicodeConvertor.getNewBuf()) 
 			{
-				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf());
-				buf->setFormat(format == -1?WIN_FORMAT:(formatType)format);
+				const int EOLformat = getEOLFormatForm(UnicodeConvertor.getNewBuf());
+				buf->setFormat(EOLformat == -1?WIN_FORMAT:(formatType)EOLformat);
 			}
 			else
 			{

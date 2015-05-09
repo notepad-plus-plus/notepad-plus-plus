@@ -812,9 +812,9 @@ void WordStyleDlg::setVisualFromStyleList()
 		LangType lType = pNppParams->getLangIDFromStr(lexerStyler.getLexerName());
 		if (lType == L_TEXT)
 		{
-			generic_string str = lexerStyler.getLexerName();
-			str += TEXT(" is not defined in NppParameters::getLangIDFromStr()");
-				printStr(str.c_str());
+			generic_string nameStr = lexerStyler.getLexerName();
+			nameStr += TEXT(" is not defined in NppParameters::getLangIDFromStr()");
+				printStr(nameStr.c_str());
 		}
 		const TCHAR *kws = pNppParams->getWordList(lType, style._keywordClass);
 		if (!kws)

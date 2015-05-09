@@ -1703,7 +1703,7 @@ generic_string ScintillaEditView::getGenericTextAsString(int start, int end) con
 {
 	assert(end > start);
 	const int bufSize = end - start + 1;
-	_TCHAR *buf = new _TCHAR[bufSize];
+	TCHAR *buf = new TCHAR[bufSize];
 	getGenericText(buf, bufSize, start, end);
 	generic_string text = buf;
 	delete[] buf;

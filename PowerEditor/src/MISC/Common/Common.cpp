@@ -757,6 +757,23 @@ int stoi_CountEmptyLinesAsMinimum(const generic_string &input)
 	}
 	else
 	{
+		// Check minus characters.
+		const int minuses = std::count(input.begin(), input.end(), TEXT('-'));
+		if (minuses > 1)
+		{
+			throw std::invalid_argument("More than one minus sign.");
+		}
+		else if (minuses == 1 && input[0] != TEXT('-'))
+		{
+			throw std::invalid_argument("Minus sign must be first.");
+		}
+
+		// Check for other characters which are not allowed.
+		if (input.find_first_not_of(TEXT("-0123456789")) != std::string::npos)
+		{
+			throw new std::invalid_argument("Invalid character found.");
+		}
+
 		return std::stoi(input);
 	}
 }

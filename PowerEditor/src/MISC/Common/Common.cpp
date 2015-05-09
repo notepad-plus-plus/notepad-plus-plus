@@ -771,7 +771,7 @@ int stoiStrict(const generic_string &input)
 		// Check for other characters which are not allowed.
 		if (input.find_first_not_of(TEXT("-0123456789")) != std::string::npos)
 		{
-			throw new std::invalid_argument("Invalid character found.");
+			throw std::invalid_argument("Invalid character found.");
 		}
 
 		return std::stoi(input);

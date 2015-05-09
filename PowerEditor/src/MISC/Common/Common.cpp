@@ -748,3 +748,15 @@ generic_string stringJoin(const std::vector<generic_string> &strings, const gene
 	}
 	return joined;
 }
+
+int stoi_CountNewlinesAsMinimum(const generic_string &input, const generic_string &newLine)
+{
+	if (input.empty() || input == newLine)
+	{
+		return INT_MIN;
+	}
+	else
+	{
+		return std::stoi(input);
+	}
+}

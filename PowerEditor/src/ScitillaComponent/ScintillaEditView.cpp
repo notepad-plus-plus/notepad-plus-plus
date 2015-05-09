@@ -2970,8 +2970,8 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescend
 	const generic_string text = getGenericTextAsString(startPos, endPos);
 	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
 	const size_t lineCount = execute(SCI_GETLINECOUNT);
-	const bool sortAllLines = toLine == lineCount - 1;
-	if (!sortAllLines)
+	const bool sortEntireDocument = toLine == lineCount - 1;
+	if (!sortEntireDocument)
 	{
 		if (splitText.rbegin()->empty())
 		{
@@ -2990,7 +2990,7 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescend
 		sortedText = lexicographicSort(splitText, isDescending);
 	}
 	const generic_string joined = stringJoin(sortedText, getEOLString());
-	if (sortAllLines)
+	if (sortEntireDocument)
 	{
 		replaceTarget(joined.c_str(), startPos, endPos);
 	}

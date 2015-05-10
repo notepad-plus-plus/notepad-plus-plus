@@ -718,7 +718,7 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 	return subject;
 }
 
-std::vector<generic_string> stringSplit(const generic_string& input, const generic_string &delimiter)
+std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter)
 {
 	auto start = 0U;
 	auto end = input.find(delimiter);
@@ -734,7 +734,7 @@ std::vector<generic_string> stringSplit(const generic_string& input, const gener
 	return output;
 }
 
-generic_string stringJoin(const std::vector<generic_string> &strings, const generic_string &separator)
+generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator)
 {
 	generic_string joined;
 	size_t length = strings.size();
@@ -749,7 +749,7 @@ generic_string stringJoin(const std::vector<generic_string> &strings, const gene
 	return joined;
 }
 
-int stoiStrict(const generic_string &input)
+int stoiStrict(const generic_string& input)
 {
 	if (input.empty())
 	{
@@ -778,7 +778,7 @@ int stoiStrict(const generic_string &input)
 	}
 }
 
-bool allLinesAreNumeric(const std::vector<generic_string> &lines)
+bool allLinesAreNumeric(const std::vector<generic_string>& lines)
 {
 	const auto endit = lines.end();
 	for (auto it = lines.begin(); it != endit; ++it)

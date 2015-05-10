@@ -780,12 +780,11 @@ int stoiStrict(const generic_string& input)
 
 bool allLinesAreNumeric(const std::vector<generic_string>& lines)
 {
-	const auto endit = lines.end();
-	for (auto it = lines.begin(); it != endit; ++it)
+	for (const generic_string& line : lines)
 	{
 		try
 		{
-			stoiStrict(*it);
+			stoiStrict(line);
 		}
 		catch (std::invalid_argument&)
 		{
@@ -819,9 +818,9 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 {
 	// Pre-condition: all strings in "input" are convertible to int with stoiStrict.
 	std::vector<int> inputAsInts;
-	for (auto it = input.begin(); it != input.end(); ++it)
+	for (const generic_string& line : input)
 	{
-		inputAsInts.push_back(stoiStrict(*it));
+		inputAsInts.push_back(stoiStrict(line));
 	}
 	std::sort(inputAsInts.begin(), inputAsInts.end(), [isDescending](int a, int b)
 	{
@@ -835,9 +834,9 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 		}
 	});
 	std::vector<generic_string> output;
-	for (auto it = inputAsInts.begin(); it != inputAsInts.end(); ++it)
+	for (const int& sortedInt : inputAsInts)
 	{
-		output.push_back(std::to_wstring(*it));
+		output.push_back(std::to_wstring(sortedInt));
 	}
 	return output;
 }

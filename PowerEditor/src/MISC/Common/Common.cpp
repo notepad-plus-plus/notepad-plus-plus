@@ -818,6 +818,7 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 {
 	// Pre-condition: all strings in "input" are convertible to int with stoiStrict.
 	std::vector<int> inputAsInts;
+	inputAsInts.reserve(input.size());
 	for (const generic_string& line : input)
 	{
 		inputAsInts.push_back(stoiStrict(line));
@@ -834,6 +835,7 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 		}
 	});
 	std::vector<generic_string> output;
+	output.reserve(input.size());
 	for (const int& sortedInt : inputAsInts)
 	{
 		output.push_back(std::to_wstring(sortedInt));

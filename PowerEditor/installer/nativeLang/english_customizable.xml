@@ -86,6 +86,7 @@
                     <Item id="41015" name="Save a Copy As..."/>
                     <Item id="41016" name="Delete from Disk"/>
                     <Item id="41017" name="Rename..."/>
+					<Item id="41021" name="Restore Recent Closed File"/>
                     
                     <Item id="42001" name="Cu&amp;t"/>
                     <Item id="42002" name="&amp;Copy"/>

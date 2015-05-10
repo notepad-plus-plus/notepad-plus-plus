@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Big5"?>
 <NotepadPlus>
-    <Native-Langue name="中文繁體" filename="chinese.xml" version="6.7.5">
+    <Native-Langue name="中文繁體" filename="chinese.xml" version="6.7.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -87,6 +87,7 @@
                     <Item id="41015" name="儲存拷貝至..."/>
                     <Item id="41016" name="檔案刪除"/>
                     <Item id="41017" name="檔案重新命名..."/>
+					<Item id="41021" name="恢復最近關閉檔案"/> <!-- ?体中文用軟件轉換為繁體中文，用語可能會不妥當 -->
                     
                     <Item id="42001" name="剪下(&amp;T)"/>
                     <Item id="42002" name="複製(&amp;C)"/>

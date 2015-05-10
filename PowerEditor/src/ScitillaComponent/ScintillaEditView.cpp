@@ -2968,7 +2968,7 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescend
 		}
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
-	const bool isNumericSort = allLinesAreNumeric(splitText);
+	const bool isNumericSort = allLinesAreNumericOrEmpty(splitText);
 	std::vector<generic_string> sortedText;
 	if (isNumericSort)
 	{

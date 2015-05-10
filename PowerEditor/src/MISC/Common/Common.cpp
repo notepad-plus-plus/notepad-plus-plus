@@ -778,13 +778,16 @@ int stoiStrict(const generic_string& input)
 	}
 }
 
-bool allLinesAreNumeric(const std::vector<generic_string>& lines)
+bool allLinesAreNumericOrEmpty(const std::vector<generic_string>& lines)
 {
 	for (const generic_string& line : lines)
 	{
 		try
 		{
-			stoiStrict(line);
+			if (!line.empty())
+			{
+				stoiStrict(line);
+			}
 		}
 		catch (std::invalid_argument&)
 		{
@@ -796,6 +799,18 @@ bool allLinesAreNumeric(const std::vector<generic_string>& lines)
 		}
 	}
 	return true;
+}
+
+std::vector<generic_string> repeatString(const generic_string& text, const size_t count)
+{
+	std::vector<generic_string> output;
+	output.reserve(count);
+	for (size_t i = 0; i < count; ++i)
+	{
+		output.push_back(text);
+	}
+	assert(output.size() == count);
+	return output;
 }
 
 std::vector<generic_string> lexicographicSort(std::vector<generic_string> input, bool isDescending)
@@ -816,14 +831,24 @@ std::vector<generic_string> lexicographicSort(std::vector<generic_string> input,
 
 std::vector<generic_string> numericSort(std::vector<generic_string> input, bool isDescending)
 {
-	// Pre-condition: all strings in "input" are convertible to int with stoiStrict.
-	std::vector<int> inputAsInts;
-	inputAsInts.reserve(input.size());
+	// Pre-condition: all strings in "input" are either empty or convertible to int with stoiStrict.
+	// Note that empty lines are filtered out and added back manually to the output at the end.
+	std::vector<int> nonEmptyinputAsInts;
+	size_t nofEmptyLines = 0;
+	nonEmptyinputAsInts.reserve(input.size());
 	for (const generic_string& line : input)
 	{
-		inputAsInts.push_back(stoiStrict(line));
+		if (line.empty())
+		{
+			++nofEmptyLines;
+		}
+		else
+		{
+			nonEmptyinputAsInts.push_back(stoiStrict(line));
+		}
 	}
-	std::sort(inputAsInts.begin(), inputAsInts.end(), [isDescending](int a, int b)
+	assert(nonEmptyinputAsInts.size() + nofEmptyLines == input.size());
+	std::sort(nonEmptyinputAsInts.begin(), nonEmptyinputAsInts.end(), [isDescending](int a, int b)
 	{
 		if (isDescending)
 		{
@@ -836,9 +861,19 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 	});
 	std::vector<generic_string> output;
 	output.reserve(input.size());
-	for (const int& sortedInt : inputAsInts)
+	const std::vector<generic_string> empties = repeatString(TEXT(""), nofEmptyLines);
+	if (!isDescending)
+	{
+		output.insert(output.end(), empties.begin(), empties.end());
+	}
+	for (const int& sortedInt : nonEmptyinputAsInts)
 	{
 		output.push_back(std::to_wstring(sortedInt));
 	}
+	if (isDescending)
+	{
+		output.insert(output.end(), empties.begin(), empties.end());
+	}
+	assert(output.size() == input.size());
 	return output;
 }

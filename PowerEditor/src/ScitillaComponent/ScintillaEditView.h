@@ -271,7 +271,6 @@ public:
 	void showAutoComletion(int lenEntered, const TCHAR * list);
 	void showCallTip(int startPos, const TCHAR * def);
 	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
-	generic_string getLine(int lineNumber);
 	void addText(int length, const char *buf);
 
 	void insertNewLineAboveCurrentLine();

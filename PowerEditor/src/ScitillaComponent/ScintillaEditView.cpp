@@ -1922,17 +1922,6 @@ void ScintillaEditView::getLine(int lineNumber, TCHAR * line, int lineBufferLen)
 	delete [] lineA;
 }
 
-generic_string ScintillaEditView::getLine(int lineNumber)
-{
-	int lineLen = execute(SCI_LINELENGTH, lineNumber);
-	const int bufSize = 1 + lineLen;
-	_TCHAR *buf = new _TCHAR[bufSize];
-	getLine(lineNumber, buf, bufSize);
-	generic_string text = buf;
-	delete[] buf;
-	return text;
-}
-
 void ScintillaEditView::addText(int length, const char *buf)
 {
 	execute(SCI_ADDTEXT, length, (LPARAM)buf);

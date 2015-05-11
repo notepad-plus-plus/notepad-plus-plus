@@ -190,7 +190,7 @@ generic_string stringToUpper(generic_string strToConvert);
 generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace);
 std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter);
 generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator);
-int stoiStrict(const generic_string& input);
+long long stollStrict(const generic_string& input);
 bool allLinesAreNumericOrEmpty(const std::vector<generic_string>& lines);
 std::vector<generic_string> repeatString(const generic_string& text, const size_t count);
 

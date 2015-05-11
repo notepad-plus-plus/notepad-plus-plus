@@ -749,7 +749,7 @@ generic_string stringJoin(const std::vector<generic_string>& strings, const gene
 	return joined;
 }
 
-int stoiStrict(const generic_string& input)
+long long stollStrict(const generic_string& input)
 {
 	if (input.empty())
 	{
@@ -774,7 +774,7 @@ int stoiStrict(const generic_string& input)
 			throw std::invalid_argument("Invalid character found.");
 		}
 
-		return std::stoi(input);
+		return std::stoll(input);
 	}
 }
 
@@ -786,7 +786,7 @@ bool allLinesAreNumericOrEmpty(const std::vector<generic_string>& lines)
 		{
 			if (!line.empty())
 			{
-				stoiStrict(line);
+				stollStrict(line);
 			}
 		}
 		catch (std::invalid_argument&)
@@ -833,9 +833,9 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 {
 	// Pre-condition: all strings in "input" are either empty or convertible to int with stoiStrict.
 	// Note that empty lines are filtered out and added back manually to the output at the end.
-	std::vector<int> nonEmptyinputAsInts;
+	std::vector<long long> nonEmptyInputAsNumbers;
 	size_t nofEmptyLines = 0;
-	nonEmptyinputAsInts.reserve(input.size());
+	nonEmptyInputAsNumbers.reserve(input.size());
 	for (const generic_string& line : input)
 	{
 		if (line.empty())
@@ -844,11 +844,11 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 		}
 		else
 		{
-			nonEmptyinputAsInts.push_back(stoiStrict(line));
+			nonEmptyInputAsNumbers.push_back(stollStrict(line));
 		}
 	}
 	assert(nonEmptyinputAsInts.size() + nofEmptyLines == input.size());
-	std::sort(nonEmptyinputAsInts.begin(), nonEmptyinputAsInts.end(), [isDescending](int a, int b)
+	std::sort(nonEmptyInputAsNumbers.begin(), nonEmptyInputAsNumbers.end(), [isDescending](long long a, long long b)
 	{
 		if (isDescending)
 		{
@@ -866,9 +866,9 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 	{
 		output.insert(output.end(), empties.begin(), empties.end());
 	}
-	for (const int& sortedInt : nonEmptyinputAsInts)
+	for (const long long& sortedNumber : nonEmptyInputAsNumbers)
 	{
-		output.push_back(std::to_wstring(sortedInt));
+		output.push_back(std::to_wstring(sortedNumber));
 	}
 	if (isDescending)
 	{

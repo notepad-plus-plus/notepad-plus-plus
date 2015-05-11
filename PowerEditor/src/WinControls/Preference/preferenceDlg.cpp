@@ -906,11 +906,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_FILEAUTODETECTION:
 				{
 					bool isChecked = isCheckedOrNot(IDC_CHECK_FILEAUTODETECTION);
-					if (!isChecked)
-					{
-						::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATESILENTLY, BM_SETCHECK, BST_UNCHECKED, 0);
-						::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, BST_UNCHECKED, 0);
-					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), isChecked);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), isChecked);
 

@@ -914,7 +914,23 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), isChecked);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), isChecked);
 
-					nppGUI._fileAutoDetection = isChecked?cdAutoUpdate:cdDisabled;
+					bool isSilent = isCheckedOrNot(IDC_CHECK_UPDATESILENTLY);
+					bool isGo2End = isCheckedOrNot(IDC_CHECK_UPDATEGOTOEOF);
+
+					ChangeDetect cd;
+
+					if (!isChecked)
+						cd = cdDisabled;
+					else if (!isSilent && !isGo2End)
+						cd = cdEnabled;
+					else if (!isSilent && isGo2End)
+						cd = cdGo2end;
+					else if (isSilent && !isGo2End)
+						cd = cdAutoUpdate;
+					else //(isSilent && isGo2End)
+						cd = cdAutoUpdateGo2end;
+
+					nppGUI._fileAutoDetection = cd;
 				}
 				return TRUE;
 

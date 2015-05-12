@@ -880,13 +880,13 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						
 						if (nbReplaced < 0)
 							result = TEXT("Replace All: The regular expression is malformed.");
+						else if (nbReplaced == 1)
+							result = TEXT("Replace All: 1 occurrence was replaced.");
 						else
 						{
 							TCHAR moreInfo[64];
-							if(nbReplaced == 1)
-								wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
-							else
-								wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
+							_sntprintf_s(moreInfo, _countof(moreInfo), _TRUNCATE,
+									TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
 							result = moreInfo;
 						}
 						setStatusbarMessage(result, FSMessage);
@@ -911,13 +911,13 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 						if (nbCounted < 0)
 							result = TEXT("Count: The regular expression to search is malformed.");
+						else if (nbCounted == 1)
+							result = TEXT("Count: 1 match.");
 						else
 						{
-							TCHAR moreInfo[128];
-							if (nbCounted == 1)
-								wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
-							else
-								wsprintf(moreInfo, TEXT("Count: %d matches."), nbCounted);
+							TCHAR moreInfo[64];
+							_sntprintf_s(moreInfo, _countof(moreInfo), _TRUNCATE,
+									TEXT("Count: %d matches."), nbCounted);
 							result = moreInfo;
 						}
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
@@ -945,13 +945,13 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						generic_string result = TEXT("");
 						if (nbMarked < 0)
 							result = TEXT("Mark: The regular expression to search is malformed.");
+						else if (nbMarked == 1)
+							result = TEXT("Mark: 1 match.");
 						else
 						{
-							TCHAR moreInfo[128];
-							if(nbMarked == 1)
-								wsprintf(moreInfo, TEXT("Mark: %d match."), nbMarked);
-							else
-								wsprintf(moreInfo, TEXT("Mark: %d matches."), nbMarked);
+							TCHAR moreInfo[64];
+							_sntprintf_s(moreInfo, _countof(moreInfo), _TRUNCATE,
+									TEXT("Mark: %d matches."), nbMarked);
 							result = moreInfo;
 						}
 						setStatusbarMessage(result, FSMessage);
@@ -1832,9 +1832,10 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		if (_findAllResult > 0) 
 		{
 			if (_findAllResult == 1)
-				wsprintf(_findAllResultStr, TEXT("1 hit"));
+				_tcscpy_s(_findAllResultStr, _countof(_findAllResultStr), TEXT("1 hit"));
 			else
-				wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
+				_sntprintf_s(_findAllResultStr, _countof(_findAllResultStr), _TRUNCATE,
+						TEXT("%d hits"), _findAllResult);
 
 			focusOnFinder();
 		}
@@ -2130,13 +2131,13 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					
 					if (nbReplaced < 0)
 						result = TEXT("Replace All: The regular expression is malformed.");
+					else if (nbReplaced == 1)
+						result = TEXT("Replace All: 1 occurrence was replaced.");
 					else
 					{
 						TCHAR moreInfo[64];
-						if (nbReplaced == 1)
-							wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
-						else
-							wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
+						_sntprintf_s(moreInfo, _countof(moreInfo), _TRUNCATE,
+								TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
 						result = moreInfo;
 					}
 					
@@ -2150,13 +2151,13 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 
 					if (nbCounted < 0)
 						result = TEXT("Count: The regular expression to search is malformed.");
+					else if (nbCounted == 1)
+						result = TEXT("Count: 1 match.");
 					else
 					{
-						TCHAR moreInfo[128];
-						if (nbCounted == 1)
-							wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
-						else
-							wsprintf(moreInfo, TEXT("Count: %d matches."), nbCounted);
+						TCHAR moreInfo[64];
+						_sntprintf_s(moreInfo, _countof(moreInfo), _TRUNCATE,
+								TEXT("Count: %d matches."), nbCounted);
 						result = moreInfo;
 					}
 					setStatusbarMessage(result, FSMessage);
@@ -2170,13 +2171,13 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					generic_string result = TEXT("");
 					if (nbMarked < 0)
 						result = TEXT("Mark: The regular expression to search is malformed.");
+					else if (nbMarked == 1)
+						result = TEXT("1 match.");
 					else
 					{
-						TCHAR moreInfo[128];
-						if (nbMarked <= 1)
-							wsprintf(moreInfo, TEXT("%d match."), nbMarked);
-						else
-							wsprintf(moreInfo, TEXT("%d matches."), nbMarked);
+						TCHAR moreInfo[64];
+						_sntprintf_s(moreInfo, _countof(moreInfo), _TRUNCATE,
+								TEXT("%d matches."), nbMarked);
 						result = moreInfo;
 					}
 					setStatusbarMessage(result, FSMessage);
@@ -2419,10 +2420,10 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 void Finder::addFileHitCount(int count)
 {
 	TCHAR text[20];
-	if(count == 1)
-		wsprintf(text, TEXT(" (1 hit)"));
+	if (count == 1)
+		_tcscpy_s(text, _countof(text), TEXT(" (1 hit)"));
 	else
-		wsprintf(text, TEXT(" (%i hits)"), count);
+		_sntprintf_s(text, _countof(text), _TRUNCATE, TEXT(" (%d hits)"), count);
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text);
 	setFinderReadOnly(true);
@@ -2433,13 +2434,13 @@ void Finder::addSearchHitCount(int count)
 {
 	TCHAR text[50];
 	if(count == 1 && nFoundFiles == 1)
-		wsprintf(text, TEXT(" (1 hit in 1 file)"));
+		_tcscpy_s(text, _countof(text), TEXT(" (1 hit in 1 file)"));
 	else if(count == 1 && nFoundFiles != 1)
-		wsprintf(text, TEXT(" (1 hit in %i files)"), nFoundFiles);
+		_sntprintf_s(text, _countof(text), _TRUNCATE, TEXT(" (1 hit in %d files)"), nFoundFiles);
 	else if(count != 1 && nFoundFiles == 1)
-		wsprintf(text, TEXT(" (%i hits in 1 file)"), count);
-	else if(count != 1 && nFoundFiles != 1)
-		wsprintf(text, TEXT(" (%i hits in %i files)"), count, nFoundFiles);
+		_sntprintf_s(text, _countof(text), _TRUNCATE, TEXT(" (%d hits in 1 file)"), count);
+	else
+		_sntprintf_s(text, _countof(text), _TRUNCATE, TEXT(" (%d hits in %d files)"), count, nFoundFiles);
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text);
 	setFinderReadOnly(true);
@@ -2452,7 +2453,7 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, i
 	generic_string str = TEXT("\tLine ");
 
 	TCHAR lnb[16];
-	wsprintf(lnb, TEXT("%d"), lineNb);
+	_sntprintf_s(lnb, _countof(lnb), _TRUNCATE, TEXT("%d"), lineNb);
 	str += lnb;
 	str += TEXT(": ");
 	mi._start += str.length();
@@ -2888,17 +2889,17 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 
 void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
 {
-	static TCHAR findCount[128] = TEXT("");
+	static TCHAR findCount[32] = TEXT("");
 	static TCHAR *findStatus[] = { findCount, // FSFound
 	                               TEXT("Phrase not found"), //FSNotFound
 	                               TEXT("Reached top of page, continued from bottom"), // FSTopReached
 	                               TEXT("Reached end of page, continued from top")}; // FSEndReached
 	if (nbCounted <= 0)
-		findCount[0] = '\0';
+		findCount[0] = TEXT('\0');
 	else if (nbCounted == 1)
-		wsprintf(findCount, TEXT("%d match."), nbCounted);
+		_tcscpy_s(findCount, _countof(findCount), TEXT("1 match."));
 	else
-		wsprintf(findCount, TEXT("%d matches."), nbCounted);
+		_sntprintf_s(findCount, _countof(findCount), _TRUNCATE, TEXT("%d matches."), nbCounted);
 
 	if (iStatus<0 || iStatus >= sizeof(findStatus)/sizeof(findStatus[0]))
 		return; // out of range

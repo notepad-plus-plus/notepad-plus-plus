@@ -171,18 +171,12 @@ TCHAR * FileDialog::doOpenSingleFileDlg()
 	_ofn.Flags |= OFN_FILEMUSTEXIST;
 
 	TCHAR *fn = NULL;
-	try {
-		fn = ::GetOpenFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
+	fn = ::GetOpenFileName(reinterpret_cast<OPENFILENAME*>(&_ofn))?_fileName:NULL;
 		
-		if (params->getNppGUI()._openSaveDir == dir_last)
-		{
-			::GetCurrentDirectory(MAX_PATH, dir);
-			params->setWorkingDir(dir);
-		}
-	} catch(std::exception e) {
-		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-	} catch(...) {
-		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
+	if (params->getNppGUI()._openSaveDir == dir_last)
+	{
+		::GetCurrentDirectory(MAX_PATH, dir);
+		params->setWorkingDir(dir);
 	}
 
 	::SetCurrentDirectory(dir); 
@@ -252,17 +246,11 @@ TCHAR * FileDialog::doSaveDlg()
 	_ofn.lpfnHook = OFNHookProc;
 
 	TCHAR *fn = NULL;
-	try {
-		fn = ::GetSaveFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
-		if (params->getNppGUI()._openSaveDir == dir_last)
-		{
-			::GetCurrentDirectory(MAX_PATH, dir);
-			params->setWorkingDir(dir);
-		}
-	} catch(std::exception e) {
-		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-	} catch(...) {
-		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
+	fn = ::GetSaveFileName(reinterpret_cast<OPENFILENAME*>(&_ofn))?_fileName:NULL;
+	if (params->getNppGUI()._openSaveDir == dir_last)
+	{
+		::GetCurrentDirectory(MAX_PATH, dir);
+		params->setWorkingDir(dir);
 	}
 
 	::SetCurrentDirectory(dir); 

@@ -1449,8 +1449,8 @@ bool Notepad_plus::replaceInFiles()
 
 	if (!progress.isCancelled())
 	{
-		size_t filesCount = fileNames.size();
-		size_t filesPerPercent = (filesCount < 200) ? 1 : (filesCount / 100);
+		const size_t filesCount = fileNames.size();
+		const size_t filesPerPercent = (filesCount < 200) ? 1 : (filesCount / 100);
 
 		for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 		{
@@ -1547,8 +1547,8 @@ bool Notepad_plus::findInFiles()
 	}
 	else
 	{
-		size_t filesCount = fileNames.size();
-		size_t filesPerPercent = (filesCount < 200) ? 1 : (filesCount / 100);
+		const size_t filesCount = fileNames.size();
+		const size_t filesPerPercent = (filesCount < 200) ? 1 : (filesCount / 100);
 
 		_findReplaceDlg.beginNewFilesSearch();
 

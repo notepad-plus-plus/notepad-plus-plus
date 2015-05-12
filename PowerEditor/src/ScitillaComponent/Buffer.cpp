@@ -1191,10 +1191,15 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 
 	bool success = true;
 	int format = -1;
-	__try {
+	try {
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
 		_pscratchTilla->execute(SCI_ALLOCATE, WPARAM(bufferSizeRequested));
-		if(_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK) throw;
+		const LRESULT status = _pscratchTilla->execute(SCI_GETSTATUS);
+		if (status == SC_STATUS_BADALLOC)
+		{
+			throw std::bad_alloc( );
+		}
+		if( status != SC_STATUS_OK) throw std::exception( "File is too big to be opened by Notepad++" );
 
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
@@ -1254,8 +1259,8 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 			}
 			
 		} while (lenFile > 0);
-	} __except(EXCEPTION_EXECUTE_HANDLER) {  //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
-		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
+	} catch(std::bad_alloc&) {
+		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("Not enough free memory!"), (MB_OK|MB_APPLMODAL));
 		success = false;
 	}
 	

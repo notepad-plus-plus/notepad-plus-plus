@@ -134,7 +134,7 @@ int EncodingMapper::getIndexFromEncoding(int encoding) const
 			break;
 		}
 	}
-	return found?i:-1;
+	return found?static_cast<int>(i):-1;
 }
 
 int EncodingMapper::getEncodingFromString(const char *encodingAlias) const

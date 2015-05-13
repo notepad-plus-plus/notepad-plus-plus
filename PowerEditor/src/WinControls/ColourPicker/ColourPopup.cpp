@@ -217,7 +217,7 @@ BOOL CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
                 {
 			        if (HIWORD(wParam) == LBN_SELCHANGE)
 		            {
-                        int i = ::SendMessage((HWND)lParam, LB_GETCURSEL, 0L, 0L);
+                        LRESULT i = ::SendMessage((HWND)lParam, LB_GETCURSEL, 0L, 0L);
                         _colour = ::SendMessage((HWND)lParam, LB_GETITEMDATA, i, 0L);
 
                         ::SendMessage(_hParent, WM_PICKUP_COLOR, _colour, 0);

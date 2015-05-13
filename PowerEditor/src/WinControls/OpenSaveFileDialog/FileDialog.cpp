@@ -328,7 +328,7 @@ static generic_string addExt(HWND textCtrl, HWND typeCtrl) {
 	TCHAR fn[MAX_PATH];
 	::GetWindowText(textCtrl, fn, MAX_PATH);
 	
-	int i = ::SendMessage(typeCtrl, CB_GETCURSEL, 0, 0);
+	LRESULT i = ::SendMessage(typeCtrl, CB_GETCURSEL, 0, 0);
 
 	int cbTextLen = ::SendMessage(typeCtrl, CB_GETLBTEXTLEN, i, 0);
 	TCHAR * ext = new TCHAR[cbTextLen + 1];

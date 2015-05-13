@@ -247,7 +247,7 @@ public :
     };
 	bool renameDialogTitle(const TCHAR *internalName, const TCHAR *newName);
 	
-	int getListSelectedIndex() const {
+	LRESULT getListSelectedIndex() const {
 		return ::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETCURSEL, 0, 0);
 	};
 	void setListSelection(size_t currentSel) const;

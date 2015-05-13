@@ -114,7 +114,7 @@ public:
 		return _isFloating;
 	}
 
-	INT getElementCnt() {
+	size_t getElementCnt() {
 		return _vTbData.size();
 	}
 
@@ -143,7 +143,7 @@ public:
 	};
 
     virtual void destroy() {
-		for (INT iTb = _vTbData.size(); iTb > 0; iTb--)
+		for (INT_PTR iTb = _vTbData.size(); iTb > 0; iTb--)
 		{
 			delete _vTbData[iTb-1];
 		}

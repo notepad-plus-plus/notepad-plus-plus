@@ -168,7 +168,7 @@ private :
 
 
 	Style & getCurrentStyler() {
-		int styleIndex = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
+		LRESULT styleIndex = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 		if (styleIndex == LB_ERR) styleIndex = 0;
 
         if (_currentLexerIndex == 0)

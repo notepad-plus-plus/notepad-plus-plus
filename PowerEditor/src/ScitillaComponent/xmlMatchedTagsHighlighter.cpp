@@ -567,7 +567,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findText(const 
 	search.lpstrText = const_cast<char *>(text); // Grrrrrr
 	search.chrg.cpMin = start;
 	search.chrg.cpMax = end;
-	int result = _pEditView->execute(SCI_FINDTEXT, flags, reinterpret_cast<LPARAM>(&search));
+	LRESULT result = _pEditView->execute(SCI_FINDTEXT, flags, reinterpret_cast<LPARAM>(&search));
 	if (-1 == result)
 	{
 		returnValue.success = false;
@@ -613,9 +613,9 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 	}
 
 	// Get the original targets and search options to restore after tag matching operation
-	int originalStartPos = _pEditView->execute(SCI_GETTARGETSTART);
-	int originalEndPos = _pEditView->execute(SCI_GETTARGETEND);
-	int originalSearchFlags = _pEditView->execute(SCI_GETSEARCHFLAGS);
+	LRESULT originalStartPos = _pEditView->execute(SCI_GETTARGETSTART);
+	LRESULT originalEndPos = _pEditView->execute(SCI_GETTARGETEND);
+	LRESULT originalSearchFlags = _pEditView->execute(SCI_GETSEARCHFLAGS);
 
 	XmlMatchedTagsPos xmlTags;
 

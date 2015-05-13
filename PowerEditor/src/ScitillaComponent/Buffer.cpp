@@ -429,7 +429,7 @@ int FileManager::getBufferIndexByID(BufferID id) {
 	return -1;
 }
 
-Buffer * FileManager::getBufferByIndex(int index) {
+Buffer * FileManager::getBufferByIndex(size_t index) {
 	return _buffers.at(index);
 }
 

@@ -55,7 +55,7 @@ protected:
 	TOOLINFO	_ti;
 
     static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-        return (((ToolTip *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(Message, wParam, lParam));
+        return (((ToolTip *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(Message, wParam, lParam));
     };
 	LRESULT runProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	void SendHitMessage();

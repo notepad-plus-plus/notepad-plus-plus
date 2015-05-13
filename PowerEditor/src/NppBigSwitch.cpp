@@ -65,7 +65,7 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT Message,
 	switch(Message)
 	{
 		case WM_NCCREATE :	// First message we get the ptr of instantiated object
-							// then stock it into GWL_USERDATA index in order to retrieve afterward
+							// then stock it into GWLP_USERDATA index in order to retrieve afterward
 		{
 			Notepad_plus_Window *pM30ide = (Notepad_plus_Window *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 			pM30ide->_hSelf = hwnd;
@@ -76,7 +76,7 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT Message,
 
 		default :
 		{
-			return ((Notepad_plus_Window *)::GetWindowLongPtr(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
+			return ((Notepad_plus_Window *)::GetWindowLongPtr(hwnd, GWLP_USERDATA))->runProc(hwnd, Message, wParam, lParam);
 		}
 	}
 }

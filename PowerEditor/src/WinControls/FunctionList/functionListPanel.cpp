@@ -572,7 +572,7 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
 			
-			//::GetWindowLongPtr(_hToolbarMenu, GWL_WNDPROC);
+			//::GetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC);
 			oldFunclstToolbarProc = (WNDPROC)::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, (LONG_PTR)funclstToolbarProc);
 			TBBUTTON tbButtons[3];
 

@@ -77,9 +77,9 @@ public:
 	bool setLanguage(LangType language);
 
 	//AutoComplete from the list
-	bool showApiComplete();
+	bool showApiComplete() const;
 	//WordCompletion from the current file
-	bool showWordComplete(bool autoInsert);	//autoInsert true if completion should fill in the word on a single match
+	bool showWordComplete(bool autoInsert) const;	//autoInsert true if completion should fill in the word on a single match
 	// AutoComplete from both the list and the current file
 	bool showApiAndWordComplete();
 	//Parameter display from the list
@@ -90,7 +90,7 @@ public:
 	void insertMatchedChars(int character, const MatchedPairConf & matchedPairConf);
 	void update(int character);
 	void callTipClick(int direction);
-	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos);
+	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos) const;
 
 private:
 	bool _funcCompletionActive;
@@ -110,7 +110,7 @@ private:
 	FunctionCallTip _funcCalltip;
 
 	const TCHAR * getApiFileName();
-	void getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars);
+	void getWordArray(vector<generic_string> & wordArray, const TCHAR *beginChars) const;
 };
 
 #endif //AUTOCOMPLETION_H

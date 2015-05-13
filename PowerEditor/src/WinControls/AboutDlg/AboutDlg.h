@@ -54,20 +54,20 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.")
 
 
 
-class AboutDlg : public StaticDialog
+class AboutDlg final : public StaticDialog
 {
 public :
 	AboutDlg() : StaticDialog() {};
 
 	void doDialog();
 
-    virtual void destroy() {
+    virtual void destroy() override {
         _emailLink.destroy();
         _pageLink.destroy();
     };
 
 protected :
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 
 private :
     URLCtrl _emailLink;

@@ -41,7 +41,7 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 };
 
 
-bool AutoCompletion::showApiComplete()
+bool AutoCompletion::showApiComplete() const
 {
 	if (!_funcCompletionActive)
 		return false;
@@ -114,7 +114,7 @@ bool AutoCompletion::showApiAndWordComplete()
 	return true;
 }
 
-void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
+void AutoCompletion::getWordArray(vector<generic_string> & wordArray, const TCHAR *beginChars) const
 {
 	const size_t bufSize = 256;
 
@@ -304,7 +304,7 @@ void AutoCompletion::showPathCompletion()
 	return;
 }
 
-bool AutoCompletion::showWordComplete(bool autoInsert)
+bool AutoCompletion::showWordComplete(bool autoInsert) const
 {
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
@@ -365,7 +365,7 @@ bool AutoCompletion::showFunctionComplete()
 	return false;
 }
 
-void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos)
+void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos) const
 {
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);

@@ -268,7 +268,7 @@ public:
 	void addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const;
 	int replaceTarget(const TCHAR * str2replace, int fromTargetPos = -1, int toTargetPos = -1) const;
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
-	void showAutoComletion(int lenEntered, const TCHAR * list);
+	void showAutoComletion(int lenEntered, const TCHAR * list) const;
 	void showCallTip(int startPos, const TCHAR * def);
 	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
 	void addText(int length, const char *buf);

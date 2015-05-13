@@ -1895,7 +1895,7 @@ int ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, int fromTargetPo
 	return execute(SCI_REPLACETARGETRE, (WPARAM)-1, (LPARAM)reA);
 }
 
-void ScintillaEditView::showAutoComletion(int lenEntered, const TCHAR * list)
+void ScintillaEditView::showAutoComletion(int lenEntered, const TCHAR * list) const
 {
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 

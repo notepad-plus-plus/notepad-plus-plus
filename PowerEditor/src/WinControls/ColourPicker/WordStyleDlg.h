@@ -67,7 +67,7 @@ private :
 	WNDPROC _oldProc;
 
 	static BOOL CALLBACK staticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
-		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLongPtr(hwnd, GWL_USERDATA));
+		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		return pColourStaticTextHooker->colourStaticProc(hwnd, message, wParam, lParam);
 	}; 
 	BOOL CALLBACK colourStaticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
@@ -168,7 +168,7 @@ private :
 
 
 	Style & getCurrentStyler() {
-		int styleIndex = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
+		LRESULT styleIndex = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 		if (styleIndex == LB_ERR) styleIndex = 0;
 
         if (_currentLexerIndex == 0)

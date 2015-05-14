@@ -720,7 +720,7 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 
 std::vector<generic_string> stringSplit(const generic_string& input, generic_string delimiter)
 {
-	auto start = 0U;
+	size_t start = 0;
 	auto end = input.find(delimiter);
 	std::vector<generic_string> output;
 	const size_t delimiterLength = delimiter.length();

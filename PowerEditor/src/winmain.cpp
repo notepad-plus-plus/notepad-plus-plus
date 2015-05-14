@@ -121,9 +121,9 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 }
 
 bool isInList(const TCHAR *token2Find, ParamVector & params) {
-	int nrItems = params.size();
+	size_t nrItems = params.size();
 
-	for (int i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nrItems; ++i)
 	{
 		if (!lstrcmp(token2Find, params.at(i))) {
 			params.erase(params.begin() + i);
@@ -136,9 +136,9 @@ bool isInList(const TCHAR *token2Find, ParamVector & params) {
 bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 {
 	value = TEXT("");
-	int nrItems = params.size();
+	size_t nrItems = params.size();
 
-	for (int i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nrItems; ++i)
 	{
 		const TCHAR * token = params.at(i);
 		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
@@ -153,9 +153,9 @@ bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 bool getParamValFromString(const TCHAR *str, ParamVector & params, generic_string & value)
 {
 	value = TEXT("");
-	int nrItems = params.size();
+	size_t nrItems = params.size();
 
-	for (int i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nrItems; ++i)
 	{
 		const TCHAR * token = params.at(i);
 		generic_string tokenStr = token;

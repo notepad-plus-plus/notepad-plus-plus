@@ -207,13 +207,13 @@ void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 	int view = tlfs->_iView;
 	int bufferID = (int)tlfs->_bufID;
 	
-	int currentView = ::SendMessage(_hParent, NPPM_GETCURRENTVIEW, 0, 0);
-	int currentBufID = ::SendMessage(_hParent, NPPM_GETCURRENTBUFFERID, 0, 0);
+	LRESULT currentView = ::SendMessage(_hParent, NPPM_GETCURRENTVIEW, 0, 0);
+	LRESULT currentBufID = ::SendMessage(_hParent, NPPM_GETCURRENTBUFFERID, 0, 0);
 
 	if (bufferID == currentBufID && view == currentView)
 		return;
 	
-	int docPosInfo = ::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, bufferID, view);
+	LRESULT docPosInfo = ::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, bufferID, view);
 	int view2set = docPosInfo >> 30;
 	int index2Switch = (docPosInfo << 2) >> 2 ;
 

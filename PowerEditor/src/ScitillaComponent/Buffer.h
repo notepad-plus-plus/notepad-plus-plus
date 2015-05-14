@@ -71,9 +71,9 @@ public:
 	//void activateBuffer(int index);	
 	void checkFilesystemChanges();
 
-	int getNrBuffers() { return _nrBufs; };
+	size_t getNrBuffers() { return _nrBufs; };
 	int getBufferIndexByID(BufferID id);
-	Buffer * getBufferByIndex(int index);	//generates exception if index is invalid
+	Buffer * getBufferByIndex(size_t index);	//generates exception if index is invalid
 	Buffer * getBufferByID(BufferID id) {return (Buffer*)id;}
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);

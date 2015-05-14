@@ -236,7 +236,7 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 				{
 					if (HIWORD(wParam) == LBN_DBLCLK)
 					{
-						int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
+						LRESULT i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
 						if (i != LB_ERR)
 						{
 							int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
@@ -279,7 +279,7 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 		{
 			if (LOWORD(wParam) == VK_RETURN)
 			{
-				int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
+				LRESULT i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
 				printInt(i);
 				return TRUE;
 			}//return TRUE;

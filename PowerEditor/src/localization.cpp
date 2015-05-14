@@ -713,7 +713,7 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 
 void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference) 
 {
-	int currentSel = preference.getListSelectedIndex();
+	INT_PTR currentSel = preference.getListSelectedIndex();
 	changeDlgLang(preference.getHSelf(), "Preference");
 
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();

@@ -114,7 +114,7 @@ public:
 		return _isFloating;
 	}
 
-	INT getElementCnt() {
+	size_t getElementCnt() {
 		return _vTbData.size();
 	}
 
@@ -143,7 +143,7 @@ public:
 	};
 
     virtual void destroy() {
-		for (INT iTb = _vTbData.size(); iTb > 0; iTb--)
+		for (INT_PTR iTb = _vTbData.size(); iTb > 0; iTb--)
 		{
 			delete _vTbData[iTb-1];
 		}
@@ -155,13 +155,13 @@ protected :
 	// Subclassing caption
 	LRESULT runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK wndCaptionProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProcCaption(hwnd, Message, wParam, lParam));
+		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProcCaption(hwnd, Message, wParam, lParam));
 	};
 
 	// Subclassing tab
 	LRESULT runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK wndTabProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProcTab(hwnd, Message, wParam, lParam));
+		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProcTab(hwnd, Message, wParam, lParam));
 	};
 
     virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

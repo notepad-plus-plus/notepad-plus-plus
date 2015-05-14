@@ -77,7 +77,7 @@ BOOL CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARA
 
 		default :
 		{
-			ColourPopup *pColourPopup = reinterpret_cast<ColourPopup *>(::GetWindowLongPtr(hwnd, GWL_USERDATA));
+			ColourPopup *pColourPopup = reinterpret_cast<ColourPopup *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 			if (!pColourPopup)
 				return FALSE;
 			return pColourPopup->run_dlgProc(message, wParam, lParam);
@@ -217,7 +217,7 @@ BOOL CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
                 {
 			        if (HIWORD(wParam) == LBN_SELCHANGE)
 		            {
-                        int i = ::SendMessage((HWND)lParam, LB_GETCURSEL, 0L, 0L);
+                        LRESULT i = ::SendMessage((HWND)lParam, LB_GETCURSEL, 0L, 0L);
                         _colour = ::SendMessage((HWND)lParam, LB_GETITEMDATA, i, 0L);
 
                         ::SendMessage(_hParent, WM_PICKUP_COLOR, _colour, 0);

@@ -1675,13 +1675,13 @@ private:
 	COLORREF _currentDefaultBgColor;
 	COLORREF _currentDefaultFgColor;
 
-	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *, int, LPARAM lParam) {
+	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *, DWORD, LPARAM lParam) {
 		vector<generic_string> *pStrVect = (vector<generic_string> *)lParam;
         size_t vectSize = pStrVect->size();
 
 		//Search through all the fonts, EnumFontFamiliesEx never states anything about order
 		//Start at the end though, that's the most likely place to find a duplicate
-		for(int i = vectSize - 1 ; i >= 0 ; i--) {
+		for(INT_PTR i = vectSize - 1 ; i >= 0 ; i--) {
 			if ( !lstrcmp((*pStrVect)[i].c_str(), (const TCHAR *)lpelfe->elfLogFont.lfFaceName) )
 				return 1;	//we already have seen this typeface, ignore it
 		}

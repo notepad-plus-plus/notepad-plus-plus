@@ -184,7 +184,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		}
 		addInLoadedDlls(pluginFileName);
 		_pluginInfos.push_back(pi);
-        return (_pluginInfos.size() - 1);
+        return (static_cast<int>(_pluginInfos.size()) - 1);
 	} catch(std::exception e) {
 		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
 		return -1;
@@ -307,7 +307,7 @@ void PluginsManager::addInMenuFromPMIndex(int i)
 		
         _pluginsCommands.push_back(PluginCommand(_pluginInfos[i]->_moduleName.c_str(), j, _pluginInfos[i]->_funcItems[j]._pFunc));
 		
-		int cmdID = ID_PLUGINS_CMD + (_pluginsCommands.size() - 1);
+		int cmdID = ID_PLUGINS_CMD + (static_cast<int>(_pluginsCommands.size()) - 1);
 		_pluginInfos[i]->_funcItems[j]._cmdID = cmdID;
 		generic_string itemName = _pluginInfos[i]->_funcItems[j]._itemName;
 
@@ -350,7 +350,7 @@ HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 
 		for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 		{
-            addInMenuFromPMIndex(i);
+            addInMenuFromPMIndex(static_cast<int>(i));
 		}
         return _hPluginsMenu;
 	}
@@ -415,7 +415,7 @@ void PluginsManager::notify(const SCNotification *notification)
 				::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
 			} catch (...) {
 				TCHAR funcInfo[128];
-				generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %d\r notification->nmhdr.idFrom == %d"),\
+				generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %d"),\
 					scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, scNotif.nmhdr.idFrom);
 				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), funcInfo);
 			}

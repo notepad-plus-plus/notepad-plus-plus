@@ -51,7 +51,7 @@ inline static DWORD GetExStyle(HWND hWnd) {
 }
 
 inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
-	DWORD dwStyle = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+	DWORD dwStyle = (DWORD)::GetWindowLongPtr(hWnd, GWL_STYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
 	if(dwStyle == dwNewStyle)
 		return FALSE;
@@ -60,7 +60,7 @@ inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 }
 
 inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
-	DWORD dwStyle = ::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+	DWORD dwStyle = (DWORD)::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
 	if(dwStyle == dwNewStyle)
 		return FALSE;

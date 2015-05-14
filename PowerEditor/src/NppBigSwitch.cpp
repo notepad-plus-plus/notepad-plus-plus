@@ -65,7 +65,7 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT Message,
 	switch(Message)
 	{
 		case WM_NCCREATE :	// First message we get the ptr of instantiated object
-							// then stock it into GWL_USERDATA index in order to retrieve afterward
+							// then stock it into GWLP_USERDATA index in order to retrieve afterward
 		{
 			Notepad_plus_Window *pM30ide = (Notepad_plus_Window *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 			pM30ide->_hSelf = hwnd;
@@ -76,7 +76,7 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT Message,
 
 		default :
 		{
-			return ((Notepad_plus_Window *)::GetWindowLongPtr(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
+			return ((Notepad_plus_Window *)::GetWindowLongPtr(hwnd, GWLP_USERDATA))->runProc(hwnd, Message, wParam, lParam);
 		}
 	}
 }
@@ -149,7 +149,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			//loop through buffers and reset the language (L_USER, TEXT("")) if (L_USER, name)
 			Buffer * buf;
-			for(int i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for(size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
 			{
 				buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && name == buf->getUserDefineLangName())
@@ -168,7 +168,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
 			Buffer * buf;
-			for(int i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for(size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
 			{
 				buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && oldName == buf->getUserDefineLangName())
@@ -719,11 +719,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (!wParam) return 0;
 
 			TCHAR **fileNames = (TCHAR **)wParam;
-			int nbFileNames = lParam;
+			LPARAM nbFileNames = lParam;
 
 			int j = 0;
 			if (Message != NPPM_GETOPENFILENAMESSECOND) {
-				for (int i = 0 ; i < _mainDocTab.nbItem() && j < nbFileNames ; ++i)
+				for (LPARAM i = 0 ; i < _mainDocTab.nbItem() && j < nbFileNames ; ++i)
 				{
 					BufferID id = _mainDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
@@ -731,7 +731,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 			if (Message != NPPM_GETOPENFILENAMESPRIMARY) {
-				for (int i = 0 ; i < _subDocTab.nbItem() && j < nbFileNames ; ++i)
+				for (LPARAM i = 0; i < _subDocTab.nbItem() && j < nbFileNames; ++i)
 				{
 					BufferID id = _subDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
@@ -893,7 +893,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			// convert
 			Utf8_16_Read    UnicodeConvertor;
-			UINT            length  = 0;
+			size_t            length  = 0;
 			char*            buffer  = NULL;
 			ScintillaEditView *pSci;
 

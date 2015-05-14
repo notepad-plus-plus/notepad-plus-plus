@@ -144,6 +144,7 @@ public:
 	void setFinderStyle();
 	void removeAll();
 	void openAll();
+	void copy();
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count);
 	void gotoNextFoundResult(int direction);
@@ -176,6 +177,9 @@ private:
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
 	};
+
+	bool isLineActualSearchResult(int line);
+	generic_string prepareStringForClipboard(generic_string s);
 
 	static FoundInfo EmptyFoundInfo;
 	static SearchResultMarking EmptySearchResultMarking;

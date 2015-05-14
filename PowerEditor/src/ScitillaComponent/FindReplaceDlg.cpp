@@ -2477,6 +2477,75 @@ void Finder::openAll()
 	}
 }
 
+bool Finder::isLineActualSearchResult(int line)
+{
+	const int foldLevel = _scintView.execute(SCI_GETFOLDLEVEL, line) & SC_FOLDLEVELNUMBERMASK;
+	return foldLevel == SC_FOLDLEVELBASE + 3;
+}
+
+generic_string Finder::prepareStringForClipboard(generic_string s)
+{
+	// Input: a string like "\tLine 3: search result".
+	// Output: "search result"
+	s = stringReplace(s, TEXT("\r"), TEXT(""));
+	s = stringReplace(s, TEXT("\n"), TEXT(""));
+	const int firstColon = s.find(TEXT(':'));
+	if (firstColon == std::string::npos)
+	{
+		// Should never happen.
+		assert(false);
+		return s;
+	}
+	else
+	{
+		// Plus 2 in order to deal with ": ".
+		return s.substr(2 + firstColon);
+	}
+}
+
+void Finder::copy()
+{
+	size_t fromLine, toLine;
+	{
+		const int selStart = _scintView.execute(SCI_GETSELECTIONSTART);
+		const int selEnd = _scintView.execute(SCI_GETSELECTIONEND);
+		const bool hasSelection = selStart != selEnd;
+		const pair<int, int> lineRange = _scintView.getSelectionLinesRange();
+		if (hasSelection && lineRange.first != lineRange.second)
+		{
+			fromLine = lineRange.first;
+			toLine = lineRange.second;
+		}
+		else
+		{
+			// Abuse fold levels to find out which lines to copy to clipboard.
+			// We get the current line and then the next line which has a smaller fold level (SCI_GETLASTCHILD).
+			// Then we loop all lines between them and determine which actually contain search results.
+			fromLine = _scintView.getCurrentLineNumber();
+			const int selectedLineFoldLevel = _scintView.execute(SCI_GETFOLDLEVEL, fromLine) & SC_FOLDLEVELNUMBERMASK;
+			toLine = _scintView.execute(SCI_GETLASTCHILD, fromLine, selectedLineFoldLevel);
+		}
+	}
+
+	std::vector<generic_string> lines;
+	for (size_t line = fromLine; line <= toLine; ++line)
+	{
+		if (isLineActualSearchResult(line))
+		{
+			lines.push_back(prepareStringForClipboard(_scintView.getLine(line)));
+		}
+	}
+	const generic_string toClipboard = stringJoin(lines, TEXT("\r\n"));
+	if (!toClipboard.empty())
+	{
+		if (!str2Clipboard(toClipboard.c_str(), _hSelf))
+		{
+			assert(false);
+			::MessageBox(NULL, TEXT("Error placing text in clipboard."), TEXT("Notepad++"), MB_ICONINFORMATION);
+		}
+	}
+}
+
 void Finder::beginNewFilesSearch()
 {
 	//_scintView.execute(SCI_SETLEXER, SCLEX_NULL);
@@ -2587,9 +2656,15 @@ BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					return TRUE;
 				}
 
-				case NPPM_INTERNAL_SCINTILLAFINFERCOPY :
+				case NPPM_INTERNAL_SCINTILLAFINFERCOPYRAW:
 				{
 					_scintView.execute(SCI_COPY);
+					return TRUE;
+				}
+
+				case NPPM_INTERNAL_SCINTILLAFINFERCOPY :
+				{
+					copy();
 					return TRUE;
 				}
 
@@ -2629,7 +2704,8 @@ BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOLLAPSE, TEXT("Collapse all")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERUNCOLLAPSE, TEXT("Uncollapse all")));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOPY, TEXT("Copy")));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOPY, TEXT("Copy (just search results)")));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOPYRAW, TEXT("Copy (with formatting)")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERSELECTALL, TEXT("Select all")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCLEARALL, TEXT("Clear all")));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));

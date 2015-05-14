@@ -748,3 +748,36 @@ generic_string stringJoin(const std::vector<generic_string> &strings, generic_st
 	}
 	return joined;
 }
+
+bool str2Clipboard(const TCHAR *str2cpy, HWND hwnd)
+{
+	if (!str2cpy)
+		return false;
+
+	int len2Allocate = lstrlen(str2cpy) + 1;
+	len2Allocate *= sizeof(TCHAR);
+	unsigned int cilpboardFormat = CF_TEXT;
+
+	cilpboardFormat = CF_UNICODETEXT;
+
+	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, len2Allocate);
+	if (hglbCopy == NULL)
+	{
+		return false;
+	}
+
+	if (!::OpenClipboard(hwnd)) //_pPublicInterface->getHSelf()))
+		return false;
+
+	::EmptyClipboard();
+
+	// Lock the handle and copy the text to the buffer.
+	TCHAR *pStr = (TCHAR *)::GlobalLock(hglbCopy);
+	lstrcpy(pStr, str2cpy);
+	::GlobalUnlock(hglbCopy);
+
+	// Place the handle on the clipboard.
+	::SetClipboardData(cilpboardFormat, hglbCopy);
+	::CloseClipboard();
+	return true;
+}

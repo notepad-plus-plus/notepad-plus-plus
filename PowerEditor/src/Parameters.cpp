@@ -127,8 +127,8 @@ WinMenuKeyDefinition winKeyDefs[] = {
 	{VK_SPACE,	IDM_EDIT_FUNCCALLTIP,				true,  false, true,  NULL},
 	{VK_R,		IDM_EDIT_RTL,						true,  true,  false, NULL},
 	{VK_L,		IDM_EDIT_LTR,						true,  true,  false, NULL},
-	{VK_NULL,	IDM_EDIT_SORTLINES,					false, false, false, NULL},
-	{VK_NULL,	IDM_EDIT_SORTLINESREVERSE,			false, false, false,  NULL},
+	{VK_NULL,	IDM_EDIT_SORTLINES_ASCENDING,		false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_SORTLINES_DESCENDING,		false, false, false,  NULL},
 	{VK_RETURN,	IDM_EDIT_BLANKLINEABOVECURRENT,		true,  true, false, NULL},
 	{VK_RETURN,	IDM_EDIT_BLANKLINEBELOWCURRENT,		true,  true, true,  NULL},
 	{VK_F,		IDM_SEARCH_FIND,					true,  false, false, NULL},
@@ -928,7 +928,6 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 	generic_string settingsPath4dropbox = TEXT("");
 
 	ITEMIDLIST *pidl;
-	static_assert( SUCCEEDED( S_OK ), "bad HRESULT test!" );
 
 	const HRESULT specialFolderLocationResult_1 = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
 	if ( !SUCCEEDED( specialFolderLocationResult_1 ) )
@@ -1029,14 +1028,24 @@ generic_string NppParameters::getCloudSettingsPath(CloudChoice cloudChoice)
 		int valType;
 		::RegQueryValueEx(hGoogleDriveKey, TEXT("Path"), NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
 
-		if (::PathFileExists(valData))
+		if (::PathFileExists(valData)) // Windows 8
 		{
 			googleDriveInfoDB = valData;
+			PathAppend(googleDriveInfoDB, TEXT("\\user_default\\sync_config.db"));
+		}
+		else // Windows 7 
+		{
+			// try to guess google drive info path
+			ITEMIDLIST *pidl2;
+			SHGetSpecialFolderLocation(NULL, CSIDL_LOCAL_APPDATA, &pidl2);
+			TCHAR tmp2[MAX_PATH];
+			SHGetPathFromIDList(pidl2, tmp2);
+			googleDriveInfoDB = tmp2;
+
+			PathAppend(googleDriveInfoDB, TEXT("Google\\Drive\\sync_config.db"));
 		}
 		::RegCloseKey(hGoogleDriveKey);
 	}
-
-	PathAppend(googleDriveInfoDB, TEXT("\\user_default\\sync_config.db"));
 
 	generic_string settingsPath4GoogleDrive = TEXT("");
 
@@ -1137,7 +1146,6 @@ generic_string NppParameters::getSettingsFolder()
 	else
 	{
 		ITEMIDLIST *pidl;
-		static_assert( SUCCEEDED( S_OK ), "Bad HRESULT code check!!" );
 		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
 		if ( !SUCCEEDED( specialLocationResult ) )
 		{
@@ -1172,7 +1180,6 @@ bool NppParameters::load()
 		if (_winVersion >= WV_VISTA)
 		{
 			ITEMIDLIST *pidl;
-			static_assert( SUCCEEDED( S_OK ), "Bad HRESULT code check!!" );
 			const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
 			if ( !SUCCEEDED( specialLocationResult ) )
 			{
@@ -1196,7 +1203,6 @@ bool NppParameters::load()
 	else
 	{
 		ITEMIDLIST *pidl;
-		static_assert( SUCCEEDED( S_OK ), "Bad HRESULT code check!!" );
 		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
 		if ( !SUCCEEDED( specialLocationResult ) )
 		{

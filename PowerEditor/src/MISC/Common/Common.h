@@ -191,6 +191,6 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 std::vector<generic_string> stringSplit(const generic_string& input, generic_string delimiter);
 generic_string stringJoin(const std::vector<generic_string> &strings, generic_string separator);
 
-bool str2Clipboard(const TCHAR *str2cpy, HWND hwnd);
+bool str2Clipboard(const generic_string &str2cpy, HWND hwnd);
 
 #endif //M30_IDE_COMMUN_H

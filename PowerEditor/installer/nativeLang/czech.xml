@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- last change: 29 Jul 2014 by Ondřej Müller (mullero@email.cz)
+	- last change: 28 Apr 2015 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.6.8">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.7.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -89,8 +89,9 @@
 					<Item id = "41017" name = "Přejmenovat..."/>
 					<Item id = "41009" name = "Zavřít vše nalevo"/>
 					<Item id = "41018" name = "Zavřít vše napravo"/>
-					<Item id = "41019" name = "Explorer"/>  		 
-					<Item id = "41020" name = "cmd"/> 
+					<Item id = "41019" name = "Explorer"/>
+					<Item id = "41020" name = "cmd"/>
+					<Item id = "41021" name = "Znovuotevřít aktuálně zavřený soubor"/>
 					<Item id = "42001" name = "Vyjmou&amp;t"/>
 					<Item id = "42002" name = "&amp;Kopírovat"/>
 					<Item id = "42003" name = "&amp;Zpět"/>
@@ -199,6 +200,7 @@
 					<Item id = "43051" name = "Odstranit neoznačené řádky"/>
 					<Item id = "43052" name = "Najít znaky z rozsahu..."/>
 					<Item id = "43053" name = "Vybrat vše mezi souvisejícími závorkami"/>
+					<Item id = "43054" name = "Označit..."/>
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
 					<Item id = "44010" name = "Sbalit vše"/>
 					<Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>
@@ -254,6 +256,12 @@
 					<Item id = "45011" name = "Konvertovat do UTF-8"/>
 					<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
 					<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
+					<Item id = "45060" name = "Big5 (tradiční)"/>
+                    <Item id = "45061" name = "GB2312 (zjednodušená)"/>
+                    <Item id = "45054" name = "OEM 861: Islandština"/>
+                    <Item id = "45057" name = "OEM 865: Skandinávské jazyky"/>
+                    <Item id = "45053" name = "OEM 860: Portugalština"/>
+                    <Item id = "45056" name = "OEM 863: Francoužština"/>
 
 					<Item id = "10001" name = "Přepnout náhled"/>
 					<Item id = "10002" name = "Vytvořit kopii v samostatném náhledu"/>
@@ -261,7 +269,11 @@
 					<Item id = "10004" name = "Otevřít v nové instanci"/>
 
 					<Item id = "46001" name = "Upravit styl..."/>
-					<Item id = "46016" name = "Normální text"/> 
+					<Item id = "46015" name = "MS-DOS styl"/>
+					<Item id = "46016" name = "Normální text"/>
+					<Item id = "46017" name = "Resource soubor"/>
+					<Item id = "46019" name = "MS INI soubor"/>
+					<Item id = "46033" name = "Sestavení"/>
 					<Item id = "46080" name = "Vlastní"/>
 					<Item id = "47000" name = "O Notepadu++	..."/>
 					<Item id = "47001" name = "Notepad++ - domovská stránka"/>
@@ -489,22 +501,22 @@
 					<Item id = "21101" name = "Výchozí nastavení návrhu"/>
 					<Item id = "21104" name = "Prozatímní dokumentace zde: "/>
 					<Item id = "21105" name = "Dokumentace:"/>
-					<Item id = "21102" name = "Styl"/>
+					<Item id = "21102" name = "Návrhář"/>
 					<Item id = "21106" name = "Sbalit do kompaktní formy (i prázdné řádky)"/>
 					<Item id = "21201" name = "Nastavení klíčových slov pro otevření složky"/>
 					<Item id = "21301" name = "Nastavení klíčových slov pro uzavření složky"/>
-					<Item id = "21427" name = "Styl"/>
+					<Item id = "21427" name = "Návrhář"/>
 					<Item id = "21424" name = "Úvod:"/>
 					<Item id = "21425" name = "Prostředek: "/>
 					<Item id = "21426" name = "Konec: "/>
-					<Item id = "21227" name = "Styl"/>
+					<Item id = "21227" name = "Návrhář"/>
 					<Item id = "21224" name = "Úvod: "/>
 					<Item id = "21225" name = "Prostředek: "/>
 					<Item id = "21226" name = "Konec: "/>
 					<Item id = "21420" name = "Sbalení ve stylu komentáře: "/>
 					<Item id = "21220" name = "Sbalení ve stylu kód 1: "/>
 					<Item id = "21320" name = "Sbalení ve stylu kód 2 (oddělovače nezbytné):"/>
-					<Item id = "21327" name = "Styl"/>
+					<Item id = "21327" name = "Návrhář"/>
 					<Item id = "21324" name = "Úvod: "/>
 					<Item id = "21325" name = "Prostředek: "/>
 					<Item id = "21326" name = "Konec: "/>
@@ -518,14 +530,14 @@
 					<Item id = "22501" name = "6. skupina"/>
 					<Item id = "22551" name = "7. skupina"/>
 					<Item id = "22601" name = "8. skupina"/>
-					<Item id = "22122" name = "Styl"/>
-					<Item id = "22222" name = "Styl"/>
-					<Item id = "22322" name = "Styl"/>
-					<Item id = "22422" name = "Styl"/>
-					<Item id = "22472" name = "Styl"/>
-					<Item id = "22522" name = "Styl"/>
-					<Item id = "22572" name = "Styl"/>
-					<Item id = "22622" name = "Styl"/>
+					<Item id = "22122" name = "Návrhář"/>
+					<Item id = "22222" name = "Návrhář"/>
+					<Item id = "22322" name = "Návrhář"/>
+					<Item id = "22422" name = "Návrhář"/>
+					<Item id = "22472" name = "Návrhář"/>
+					<Item id = "22522" name = "Návrhář"/>
+					<Item id = "22572" name = "Návrhář"/>
+					<Item id = "22622" name = "Návrhář"/>
 					<Item id = "22121" name = "Režim s prefixem"/>
 					<Item id = "22221" name = "Režim s prefixem"/>
 					<Item id = "22321" name = "Režim s prefixem"/>
@@ -553,9 +565,9 @@
 					<Item id = "23117" name = "Použít klíčová slova jako symboly"/>
 					<Item id = "23122" name = "Úvodní"/>
 					<Item id = "23123" name = "Koncový"/>
-					<Item id = "23124" name = "Styl"/>
+					<Item id = "23124" name = "Návrhář"/>
 					<Item id = "23201" name = "Číslice"/>
-					<Item id = "23220" name = "Styl"/>
+					<Item id = "23220" name = "Návrhář"/>
 					<Item id = "23221" name = "Prefixy číslic (hex, oct, ...): "/>
 					<Item id = "23223" name = "Symboly rozsahu: "/>
 					<Item id = "23225" name = "Možné přípony pro číslice: "/>
@@ -572,7 +584,7 @@
 					<Item id = "23246" name = "Čárka"/>
 					<Item id = "23247" name = "Oba dva"/>
 					<Item id = "23301" name = "Komentář řádku"/>
-					<Item id = "23326" name = "Styl"/>
+					<Item id = "23326" name = "Návrhář"/>
 					<Item id = "23323" name = "Úvodní"/>
 					<Item id = "23324" name = "Pokračovací znak"/>
 					<Item id = "23325" name = "Koncový"/>
@@ -581,44 +593,44 @@
 				    <Item id = "24101" name = "Aktivované operátory"/>
 					<Item id = "24103" name = "Dostupné operátory"/>
 					<Item id = "24107" name = "Operátor"/>
-					<Item id = "24113" name = "Styl"/>
+					<Item id = "24113" name = "Návrhář"/>
 					<Item id = "24116" name = "Operátor1"/>
 					<Item id = "24117" name = "Operátor2 (oddělovače nezbytné)"/>
 					<Item id = "24201" name = "Oddělovač 1"/>
 					<Item id = "24211" name = "Začátek ohraničení:"/>
 					<Item id = "24214" name = "Ukončení ohraničení:"/>
-					<Item id = "24223" name = "Styl"/>
+					<Item id = "24223" name = "Návrhář"/>
 					<Item id = "24220" name = "Úvod: "/>
 					<Item id = "24221" name = "Oddělovač: "/>
 					<Item id = "24222" name = "Konec: "/>
 					<Item id = "24301" name = "Oddělovač 2"/>
 					<Item id = "24311" name = "Začátek ohraničení:"/>
 					<Item id = "24314" name = "Ukončení ohraničení:"/>
-					<Item id = "24323" name = "Styl"/>
+					<Item id = "24323" name = "Návrhář"/>
 					<Item id = "24320" name = "Úvod: "/>
 					<Item id = "24321" name = "Oddělovač: "/>
 					<Item id = "24322" name = "Konec: "/>
-					<Item id = "24423" name = "Styl"/>
+					<Item id = "24423" name = "Návrhář"/>
 					<Item id = "24420" name = "Úvod: "/>
 					<Item id = "24421" name = "Oddělovač: "/>
 					<Item id = "24422" name = "Konec: "/>
-					<Item id = "24473" name = "Styl"/>
+					<Item id = "24473" name = "Návrhář"/>
 					<Item id = "24470" name = "Úvod: "/>
 					<Item id = "24471" name = "Oddělovač: "/>
 					<Item id = "24472" name = "Konec: "/>
-					<Item id = "24523" name = "Styl"/>
+					<Item id = "24523" name = "Návrhář"/>
 					<Item id = "24520" name = "Úvod: "/>
 					<Item id = "24521" name = "Oddělovač: "/>
 					<Item id = "24522" name = "Konec: "/>
-					<Item id = "24573" name = "Styl"/>
+					<Item id = "24573" name = "Návrhář"/>
 					<Item id = "24570" name = "Úvod: "/>
 					<Item id = "24571" name = "Oddělovač: "/>
 					<Item id = "24572" name = "Konec: "/>
-					<Item id = "24623" name = "Styl"/>
+					<Item id = "24623" name = "Návrhář"/>
 					<Item id = "24620" name = "Úvod: "/>
 					<Item id = "24621" name = "Oddělovač: "/>
 					<Item id = "24622" name = "Konec: "/>
-					<Item id = "24673" name = "Styl"/>
+					<Item id = "24673" name = "Návrhář"/>
 					<Item id = "24670" name = "Úvod: "/>
 					<Item id = "24671" name = "Oddělovač: "/>
 					<Item id = "24672" name = "Konec: "/>

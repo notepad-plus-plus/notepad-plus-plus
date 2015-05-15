@@ -848,7 +848,7 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 			nonEmptyInputAsNumbers.push_back(stollStrict(line));
 		}
 	}
-	assert(nonEmptyinputAsInts.size() + nofEmptyLines == input.size());
+	assert(nonEmptyInputAsNumbers.size() + nofEmptyLines == input.size());
 	std::sort(nonEmptyInputAsNumbers.begin(), nonEmptyInputAsNumbers.end(), [isDescending](long long a, long long b)
 	{
 		if (isDescending)

@@ -661,9 +661,9 @@
 					<Item id="6507" name="Compactar el menú de lenguaje"/>
 					<Item id="6508" name="Menú de lenguaje"/>
 				</LangMenu>
-				<TabSettings title="Ajuste de pestañas">
-					<Item id="6301" name="Ajuste de pestañas"/>
-					<Item id="6302" name="Sustituir por espacio"/>
+				<TabSettings title="Tabuladores">
+					<Item id="6301" name="Tabuladores"/>
+					<Item id="6302" name="Sustituir por espacios"/>
 					<Item id="6303" name="Tamaño: "/>
 					<Item id="6510" name="Usar valor por defecto"/>
 				</TabSettings>

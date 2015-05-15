@@ -44,6 +44,7 @@
 #include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <tchar.h>
 
 // STL Headers
 #include <iostream>
@@ -54,7 +55,8 @@
 #include <map>
 #include <memory>
 #include <algorithm>
-#include <exception>	
+#include <exception>
+#include <stack>
 
 // Windows Header Files
 #include <windows.h>

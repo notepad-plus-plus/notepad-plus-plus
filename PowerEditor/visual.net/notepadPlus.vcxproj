@@ -63,7 +63,7 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>precompiledHeaders.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level4</WarningLevel>
@@ -105,7 +105,7 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>precompiledHeaders.h</PrecompiledHeaderFile>
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -209,7 +209,10 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
     <ClCompile Include="..\src\uchardet\nsUTF8Prober.cpp" />
     <ClCompile Include="..\src\Parameters.cpp" />
     <ClCompile Include="..\src\Misc\PluginsManager\PluginsManager.cpp" />
-    <ClCompile Include="..\src\MISC\Common\precompiledHeaders.cpp" />
+    <ClCompile Include="..\src\MISC\Common\precompiledHeaders.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\src\WinControls\Preference\preferenceDlg.cpp" />
     <ClCompile Include="..\src\ScitillaComponent\Printer.cpp" />
     <ClCompile Include="..\src\MISC\Process\Process.cpp" />

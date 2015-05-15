@@ -2587,9 +2587,9 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 	}
 }
 
-void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int incr, int repeat, const UCHAR format)
+void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int incr, int repeat, UCHAR format)
 {
-	assert(kiRepeat > 0);
+	assert(repeat > 0);
 
 	// 0000 00 00 : Dec BASE_10
 	// 0000 00 01 : Hex BASE_16

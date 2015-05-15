@@ -2587,7 +2587,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 	}
 }
 
-void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const int kiInitial, const int kiIncr, const int kiRepeat, const UCHAR format)
+void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int incr, int repeat, const UCHAR format)
 {
 	assert(kiRepeat > 0);
 
@@ -2619,11 +2619,11 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const int kiInitial
 	// Compute the numbers to be placed at each column.
 	std::vector<int> numbers;
 	{
-		int curNumber = kiInitial;
+		int curNumber = initial;
 		const unsigned int kiMaxSize = cmi.size();
 		while(numbers.size() < kiMaxSize)
 		{
-			for(int i = 0; i < kiRepeat; i++)
+			for(int i = 0; i < repeat; i++)
 			{
 				numbers.push_back(curNumber);
 				if (numbers.size() >= kiMaxSize)
@@ -2631,14 +2631,14 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const int kiInitial
 					break;
 				}
 			}
-			curNumber += kiIncr;
+			curNumber += incr;
 		}
 	}
 
 	assert(numbers.size()> 0);
 
 	const int kibEnd = getNbDigits(*numbers.rbegin(), base);
-	const int kibInit = getNbDigits(kiInitial, base);
+	const int kibInit = getNbDigits(initial, base);
 	const int kib = std::max<int>(kibInit, kibEnd);
 
 	int totalDiff = 0;

@@ -375,7 +375,7 @@ void Notepad_plus::command(int id)
 			}
 
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->quickSortLines(fromLine, toLine, id == IDM_EDIT_SORTLINES_DESCENDING);
+			_pEditView->sortLines(fromLine, toLine, id == IDM_EDIT_SORTLINES_DESCENDING);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 
 			if (hasSelection) // there was 1 selection, so we restore it

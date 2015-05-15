@@ -1703,7 +1703,7 @@ generic_string ScintillaEditView::getGenericTextAsString(int start, int end) con
 {
 	assert(end > start);
 	const int bufSize = end - start + 1;
-	_TCHAR *buf = new _TCHAR[bufSize];
+	TCHAR *buf = new TCHAR[bufSize];
 	getGenericText(buf, bufSize, start, end);
 	generic_string text = buf;
 	delete[] buf;
@@ -2947,7 +2947,7 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line + 1));
 }
 
-void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine, bool isDescending)
+void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescending)
 {
 	if (fromLine >= toLine)
 	{
@@ -2958,19 +2958,35 @@ void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine, bool isDe
 	const int endPos = execute(SCI_POSITIONFROMLINE, toLine) + execute(SCI_LINELENGTH, toLine);
 	const generic_string text = getGenericTextAsString(startPos, endPos);
 	std::vector<generic_string> splitText = stringSplit(text, getEOLString());
-	std::sort(splitText.begin(), splitText.end(), [isDescending](generic_string a, generic_string b)
+	const size_t lineCount = execute(SCI_GETLINECOUNT);
+	const bool sortEntireDocument = toLine == lineCount - 1;
+	if (!sortEntireDocument)
 	{
-		if (isDescending)
+		if (splitText.rbegin()->empty())
 		{
-			return a.compare(b) > 0;
+			splitText.pop_back();
 		}
-		else
-		{
-			return a.compare(b) < 0;
-		}
-	});
-	const generic_string joined = stringJoin(splitText, getEOLString());
-	replaceTarget(joined.c_str(), startPos, endPos);
+	}
+	assert(toLine - fromLine + 1 == splitText.size());
+	const bool isNumericSort = allLinesAreNumericOrEmpty(splitText);
+	std::vector<generic_string> sortedText;
+	if (isNumericSort)
+	{
+		sortedText = numericSort(splitText, isDescending);
+	}
+	else
+	{
+		sortedText = lexicographicSort(splitText, isDescending);
+	}
+	const generic_string joined = stringJoin(sortedText, getEOLString());
+	if (sortEntireDocument)
+	{
+		replaceTarget(joined.c_str(), startPos, endPos);
+	}
+	else
+	{
+		replaceTarget((joined + getEOLString()).c_str(), startPos, endPos);
+	}
 }
 
 bool ScintillaEditView::isTextDirectionRTL() const

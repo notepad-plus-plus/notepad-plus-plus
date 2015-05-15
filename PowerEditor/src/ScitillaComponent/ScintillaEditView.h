@@ -636,7 +636,7 @@ public:
 	};
 	void scrollPosToCenter(int pos);
 	generic_string getEOLString();
-	void quickSortLines(size_t fromLine, size_t toLine, bool isDescending);
+	void sortLines(size_t fromLine, size_t toLine, bool isDescending);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
 

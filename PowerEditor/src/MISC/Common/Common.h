@@ -188,7 +188,13 @@ generic_string PathAppend(generic_string &strDest, const generic_string & str2ap
 COLORREF getCtrlBgColor(HWND hWnd);
 generic_string stringToUpper(generic_string strToConvert);
 generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace);
-std::vector<generic_string> stringSplit(const generic_string& input, generic_string delimiter);
-generic_string stringJoin(const std::vector<generic_string> &strings, generic_string separator);
+std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter);
+generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator);
+long long stollStrict(const generic_string& input);
+bool allLinesAreNumericOrEmpty(const std::vector<generic_string>& lines);
+std::vector<generic_string> repeatString(const generic_string& text, const size_t count);
+
+std::vector<generic_string> numericSort(std::vector<generic_string> input, bool isDescending);
+std::vector<generic_string> lexicographicSort(std::vector<generic_string> input, bool isDescending);
 
 #endif //M30_IDE_COMMUN_H

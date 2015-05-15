@@ -718,7 +718,7 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 	return subject;
 }
 
-std::vector<generic_string> stringSplit(const generic_string& input, generic_string delimiter)
+std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter)
 {
 	auto start = 0U;
 	auto end = input.find(delimiter);
@@ -734,7 +734,7 @@ std::vector<generic_string> stringSplit(const generic_string& input, generic_str
 	return output;
 }
 
-generic_string stringJoin(const std::vector<generic_string> &strings, generic_string separator)
+generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator)
 {
 	generic_string joined;
 	size_t length = strings.size();
@@ -747,4 +747,133 @@ generic_string stringJoin(const std::vector<generic_string> &strings, generic_st
 		}
 	}
 	return joined;
+}
+
+long long stollStrict(const generic_string& input)
+{
+	if (input.empty())
+	{
+		throw std::invalid_argument("Empty input.");
+	}
+	else
+	{
+		// Check minus characters.
+		const int minuses = std::count(input.begin(), input.end(), TEXT('-'));
+		if (minuses > 1)
+		{
+			throw std::invalid_argument("More than one minus sign.");
+		}
+		else if (minuses == 1 && input[0] != TEXT('-'))
+		{
+			throw std::invalid_argument("Minus sign must be first.");
+		}
+
+		// Check for other characters which are not allowed.
+		if (input.find_first_not_of(TEXT("-0123456789")) != std::string::npos)
+		{
+			throw std::invalid_argument("Invalid character found.");
+		}
+
+		return std::stoll(input);
+	}
+}
+
+bool allLinesAreNumericOrEmpty(const std::vector<generic_string>& lines)
+{
+	for (const generic_string& line : lines)
+	{
+		try
+		{
+			if (!line.empty())
+			{
+				stollStrict(line);
+			}
+		}
+		catch (std::invalid_argument&)
+		{
+			return false;
+		}
+		catch (std::out_of_range&)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+std::vector<generic_string> repeatString(const generic_string& text, const size_t count)
+{
+	std::vector<generic_string> output;
+	output.reserve(count);
+	for (size_t i = 0; i < count; ++i)
+	{
+		output.push_back(text);
+	}
+	assert(output.size() == count);
+	return output;
+}
+
+std::vector<generic_string> lexicographicSort(std::vector<generic_string> input, bool isDescending)
+{
+	std::sort(input.begin(), input.end(), [isDescending](generic_string a, generic_string b)
+	{
+		if (isDescending)
+		{
+			return a.compare(b) > 0;
+		}
+		else
+		{
+			return a.compare(b) < 0;
+		}
+	});
+	return input;
+}
+
+std::vector<generic_string> numericSort(std::vector<generic_string> input, bool isDescending)
+{
+	// Pre-condition: all strings in "input" are either empty or convertible to int with stoiStrict.
+	// Note that empty lines are filtered out and added back manually to the output at the end.
+	std::vector<long long> nonEmptyInputAsNumbers;
+	size_t nofEmptyLines = 0;
+	nonEmptyInputAsNumbers.reserve(input.size());
+	for (const generic_string& line : input)
+	{
+		if (line.empty())
+		{
+			++nofEmptyLines;
+		}
+		else
+		{
+			nonEmptyInputAsNumbers.push_back(stollStrict(line));
+		}
+	}
+	assert(nonEmptyinputAsInts.size() + nofEmptyLines == input.size());
+	std::sort(nonEmptyInputAsNumbers.begin(), nonEmptyInputAsNumbers.end(), [isDescending](long long a, long long b)
+	{
+		if (isDescending)
+		{
+			return a > b;
+		}
+		else
+		{
+			return a < b;
+		}
+	});
+	std::vector<generic_string> output;
+	output.reserve(input.size());
+	const std::vector<generic_string> empties = repeatString(TEXT(""), nofEmptyLines);
+	if (!isDescending)
+	{
+		output.insert(output.end(), empties.begin(), empties.end());
+	}
+	for (const long long& sortedNumber : nonEmptyInputAsNumbers)
+	{
+		output.push_back(std::to_wstring(sortedNumber));
+	}
+	if (isDescending)
+	{
+		output.insert(output.end(), empties.begin(), empties.end());
+	}
+	assert(output.size() == input.size());
+	return output;
 }

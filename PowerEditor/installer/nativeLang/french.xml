@@ -78,7 +78,7 @@
                     <Item id="41004" name="Fermer tout"/>
                     <Item id="41005" name="Fermer tout sauf le document actuel"/>
                     <Item id="41009" name="Fermer tout à gauche"/>
-                    <Item id="41018" name="Fermer tout à droit"/>
+                    <Item id="41018" name="Fermer tout à droite"/>
                     <Item id="41006" name="&amp;Enregistrer"/>
                     <Item id="41007" name="En&amp;registrer tout"/>
                     <Item id="41008" name="Enregistrer &amp;sous..."/>

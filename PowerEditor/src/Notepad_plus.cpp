@@ -4118,7 +4118,7 @@ bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 			posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, 0);
 		}
     }
-    int newPos = posEnd + 1;
+    int newPos = posEnd;
     posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
     posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
 

@@ -59,9 +59,6 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		throw std::runtime_error("Notepad_plus_Window::init : RegisterClass() function failed");
 	}
 
-	RECT workAreaRect;
-	::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
-
 	NppParameters *pNppParams = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI &)pNppParams->getNppGUI();
 
@@ -124,7 +121,13 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	
 	if (cmdLineParams->_isNoTab || (nppGUI._tabStatus & TAB_HIDE))
 	{
+		const int tabStatusOld = nppGUI._tabStatus;
 		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
+		if (cmdLineParams->_isNoTab)
+		{
+			// Restore old settings when tab bar has been hidden from tab bar.
+			nppGUI._tabStatus = tabStatusOld;
+		}
 	}
 
 	if (cmdLineParams->_alwaysOnTop)

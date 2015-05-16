@@ -274,8 +274,8 @@ BEGIN
             MENUITEM "Duplicate Current Line",    IDM_EDIT_DUP_LINE
             MENUITEM "Split Lines",               IDM_EDIT_SPLIT_LINES
             MENUITEM "Join Lines",                IDM_EDIT_JOIN_LINES
-            MENUITEM "Sort Lines in Ascending Order",                IDM_EDIT_SORTLINES
-            MENUITEM "Sort Lines in Descending Order",                IDM_EDIT_SORTLINESREVERSE
+            MENUITEM "Sort Lines in Ascending Order",                IDM_EDIT_SORTLINES_ASCENDING
+            MENUITEM "Sort Lines in Descending Order",                IDM_EDIT_SORTLINES_DESCENDING
             MENUITEM "Move Up Current Line",      IDM_EDIT_LINE_UP
             MENUITEM "Move Down Current Line",    IDM_EDIT_LINE_DOWN
 			MENUITEM "Remove Empty Lines",        IDM_EDIT_REMOVEEMPTYLINES

@@ -36,10 +36,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.7.7"
+!define APPVERSION "6.7.8"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 77
+!define VERSION_MINOR 78
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -179,7 +179,7 @@ FunctionEnd
 
 
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE "..\license.txt"
+!insertmacro MUI_PAGE_LICENSE "..\..\LICENSE"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
 page Custom ExtraOptions
@@ -492,7 +492,7 @@ Section -"Notepad++" mainSection
 	
 	; Set Section Files and Shortcuts
 	SetOverwrite on
-	File "..\license.txt"
+	File "..\..\LICENSE"
 	File "..\bin\SciLexer.dll"
 	File "..\bin\change.log"
 	File "..\bin\notepad++.exe"
@@ -1060,6 +1060,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Tagalog" tagalog
 		CopyFiles "$TEMP\nppLocalization\tagalog.xml" "$INSTDIR\localization\tagalog.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Tajik" tajik
+		CopyFiles "$TEMP\nppLocalization\tajikCyrillic.xml" "$INSTDIR\localization\tajikCyrillic.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Tamil" tamil
 		CopyFiles "$TEMP\nppLocalization\tamil.xml" "$INSTDIR\localization\tamil.xml"
 	${MementoSectionEnd}
@@ -1213,11 +1216,12 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin\updater\GUP.exe"
 	File "..\bin\updater\libcurl.dll"
 	File "..\bin\updater\gup.xml"
-	File "..\bin\updater\License.txt"
+	File "..\bin\updater\LICENSE"
 	File "..\bin\updater\gpl.txt"
-	File "..\bin\updater\readme.txt"
+	File "..\bin\updater\README.md"
 ${MementoSectionEnd}
 
+/*
 ${MementoSection} "User Manual" UserManual
 	SetOverwrite on
 	IfFileExists  "$INSTDIR\NppHelp.chm" 0 +2
@@ -1225,17 +1229,6 @@ ${MementoSection} "User Manual" UserManual
 	SetOutPath "$INSTDIR\user.manual"
 	File /r "..\bin\user.manual\"
 ${MementoSectionEnd}
-
-/*
-Section /o "Create Shortcut on Desktop" 
-
-	
-SectionEnd
-
-
-Section /o "Use the old application icon" getOldIcon
-
-SectionEnd
 */
 
 ${MementoSectionDone}
@@ -1254,7 +1247,7 @@ ${MementoSectionDone}
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
     !insertmacro MUI_DESCRIPTION_TEXT ${htmlViewer} 'Open the html file in Notepad++ while you choose <view source> from IE.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of Notepad++.'
+    ;!insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of Notepad++.'
     ;!insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add Notepad++ shortcut on your desktop.'
     ;!insertmacro MUI_DESCRIPTION_TEXT ${getOldIcon} "I won't blame you if you want to get the old icon back."
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
@@ -1787,6 +1780,9 @@ SectionGroup un.localization
 	Section un.tagalog
 		Delete "$INSTDIR\localization\tagalog.xml"
 	SectionEnd
+	Section un.tajik
+		Delete "$INSTDIR\localization\tajikCyrillic.xml"
+	SectionEnd
 	Section un.tamil
 		Delete "$INSTDIR\localization\tamil.xml"
 	SectionEnd
@@ -1833,8 +1829,10 @@ Section un.AutoUpdater
 	Delete "$INSTDIR\updater\libcurl.dll"
 	Delete "$INSTDIR\updater\gup.xml"
 	Delete "$INSTDIR\updater\License.txt"
+	Delete "$INSTDIR\updater\LICENSE"
 	Delete "$INSTDIR\updater\gpl.txt"
 	Delete "$INSTDIR\updater\readme.txt"
+	Delete "$INSTDIR\updater\README.md"
 	Delete "$INSTDIR\updater\getDownLoadUrl.php"
 	RMDir "$INSTDIR\updater\"
 SectionEnd  
@@ -1941,7 +1939,7 @@ Section Uninstall
 	Delete "$INSTDIR\LINEDRAW.TTF"
 	Delete "$INSTDIR\SciLexer.dll"
 	Delete "$INSTDIR\change.log"
-	Delete "$INSTDIR\license.txt"
+	Delete "$INSTDIR\LICENSE"
 
 	Delete "$INSTDIR\notepad++.exe"
 	Delete "$INSTDIR\readme.txt"

@@ -36,10 +36,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.7.7"
+!define APPVERSION "6.7.8"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 77
+!define VERSION_MINOR 78
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -1060,6 +1060,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Tagalog" tagalog
 		CopyFiles "$TEMP\nppLocalization\tagalog.xml" "$INSTDIR\localization\tagalog.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Tajik" tajik
+		CopyFiles "$TEMP\nppLocalization\tajikCyrillic.xml" "$INSTDIR\localization\tajikCyrillic.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Tamil" tamil
 		CopyFiles "$TEMP\nppLocalization\tamil.xml" "$INSTDIR\localization\tamil.xml"
 	${MementoSectionEnd}
@@ -1213,9 +1216,9 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin\updater\GUP.exe"
 	File "..\bin\updater\libcurl.dll"
 	File "..\bin\updater\gup.xml"
-	File "..\bin\updater\License.txt"
+	File "..\bin\updater\LICENSE"
 	File "..\bin\updater\gpl.txt"
-	File "..\bin\updater\readme.txt"
+	File "..\bin\updater\README.md"
 ${MementoSectionEnd}
 
 /*
@@ -1777,6 +1780,9 @@ SectionGroup un.localization
 	Section un.tagalog
 		Delete "$INSTDIR\localization\tagalog.xml"
 	SectionEnd
+	Section un.tajik
+		Delete "$INSTDIR\localization\tajikCyrillic.xml"
+	SectionEnd
 	Section un.tamil
 		Delete "$INSTDIR\localization\tamil.xml"
 	SectionEnd
@@ -1823,8 +1829,10 @@ Section un.AutoUpdater
 	Delete "$INSTDIR\updater\libcurl.dll"
 	Delete "$INSTDIR\updater\gup.xml"
 	Delete "$INSTDIR\updater\License.txt"
+	Delete "$INSTDIR\updater\LICENSE"
 	Delete "$INSTDIR\updater\gpl.txt"
 	Delete "$INSTDIR\updater\readme.txt"
+	Delete "$INSTDIR\updater\README.md"
 	Delete "$INSTDIR\updater\getDownLoadUrl.php"
 	RMDir "$INSTDIR\updater\"
 SectionEnd  

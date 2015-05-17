@@ -197,4 +197,6 @@ std::vector<generic_string> repeatString(const generic_string& text, const size_
 std::vector<generic_string> numericSort(std::vector<generic_string> input, bool isDescending);
 std::vector<generic_string> lexicographicSort(std::vector<generic_string> input, bool isDescending);
 
+bool isLeftOrRightShiftPressed();
+
 #endif //M30_IDE_COMMUN_H

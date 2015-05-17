@@ -877,3 +877,8 @@ std::vector<generic_string> numericSort(std::vector<generic_string> input, bool 
 	assert(output.size() == input.size());
 	return output;
 }
+
+bool isLeftOrRightShiftPressed()
+{
+	return ((GetAsyncKeyState(VK_LSHIFT) & 0x8000) != 0) || ((GetAsyncKeyState(VK_RSHIFT) & 0x8000) != 0);
+}

@@ -762,3 +762,19 @@ generic_string stringTakeWhileAdmissable(const generic_string& input, const gene
 		return input.substr(0, idx);
 	}
 }
+
+double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
+{
+	// Copied from the std::stod implementation but uses _wcstod_l instead of wcstod.
+	const wchar_t* ptr = str.c_str();
+	errno = 0;
+	wchar_t* eptr;
+	double ans = ::_wcstod_l(ptr, &eptr, loc);
+	if (ptr == eptr)
+		throw new std::invalid_argument("invalid stod argument");
+	if (errno == ERANGE)
+		throw new std::out_of_range("stod argument out of range");
+	if (idx != NULL)
+		*idx = (size_t)(eptr - ptr);
+	return ans;
+}

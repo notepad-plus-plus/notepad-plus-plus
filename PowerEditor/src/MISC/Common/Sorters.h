@@ -79,7 +79,15 @@ template<typename T_Num>
 class NumericSorter : public ISorter
 {
 public:
-	NumericSorter(bool isDescending) : ISorter(isDescending) { };
+	NumericSorter(bool isDescending) : ISorter(isDescending)
+	{
+		_usLocale = ::_wcreate_locale(LC_NUMERIC, TEXT("en-US"));
+	};
+
+	~NumericSorter()
+	{
+		::_free_locale(_usLocale);
+	}
 	
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
@@ -151,6 +159,10 @@ protected:
 	// Should convert the input string to a number of the correct type.
 	// If unable to convert, throw either std::invalid_argument or std::out_of_range.
 	virtual T_Num convertStringToNumber(const generic_string& input) = 0;
+
+	// We need a fixed locale so we get the same string-to-double behavior across all computers.
+	// This is the "enUS" locale.
+	_locale_t _usLocale;
 };
 
 // Converts lines to long long before sorting.
@@ -186,7 +198,7 @@ protected:
 
 	double convertStringToNumber(const generic_string& input) override
 	{
-		return std::stod(input);
+		return stodLocale(input, _usLocale);
 	}
 };
 
@@ -204,7 +216,7 @@ protected:
 
 	double convertStringToNumber(const generic_string& input) override
 	{
-		return std::stod(input);
+		return stodLocale(input, _usLocale);
 	}
 };
 

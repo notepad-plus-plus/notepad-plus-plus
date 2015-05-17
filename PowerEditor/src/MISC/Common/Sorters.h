@@ -89,16 +89,17 @@ public:
 		nonEmptyInputAsNumbers.reserve(lines.size());
 		for (size_t lineIndex = 0; lineIndex < lines.size(); ++lineIndex)
 		{
-			generic_string line = prepareStringForConversion(lines[lineIndex]);
-			if (considerStringEmpty(line))
+			const generic_string originalLine = lines[lineIndex];
+			const generic_string preparedLine = prepareStringForConversion(originalLine);
+			if (considerStringEmpty(preparedLine))
 			{
-				empties.push_back(line);
+				empties.push_back(originalLine);
 			}
 			else
 			{
 				try
 				{
-					nonEmptyInputAsNumbers.push_back(make_pair(lineIndex, convertStringToNumber(line)));
+					nonEmptyInputAsNumbers.push_back(make_pair(lineIndex, convertStringToNumber(preparedLine)));
 				}
 				catch (...)
 				{
@@ -161,7 +162,7 @@ public:
 protected:
 	virtual generic_string prepareStringForConversion(const generic_string& input)
 	{
-		return stringTakeWhileAdmissable(input, TEXT(" \t\r\n0123456789"));
+		return stringTakeWhileAdmissable(input, TEXT(" \t\r\n0123456789-"));
 	}
 
 	long long convertStringToNumber(const generic_string& input) override
@@ -179,7 +180,7 @@ public:
 protected:
 	generic_string prepareStringForConversion(const generic_string& input) override
 	{
-		generic_string admissablePart = stringTakeWhileAdmissable(input, TEXT(" \t\r\n0123456789,"));
+		generic_string admissablePart = stringTakeWhileAdmissable(input, TEXT(" \t\r\n0123456789,-"));
 		return stringReplace(admissablePart, TEXT(","), TEXT("."));
 	}
 
@@ -198,7 +199,7 @@ public:
 protected:
 	generic_string prepareStringForConversion(const generic_string& input) override
 	{
-		return stringTakeWhileAdmissable(input, TEXT(" \t\r\n0123456789."));
+		return stringTakeWhileAdmissable(input, TEXT(" \t\r\n0123456789.-"));
 	}
 
 	double convertStringToNumber(const generic_string& input) override

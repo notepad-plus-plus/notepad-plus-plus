@@ -1071,7 +1071,7 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 	return defaultStr;
 }
 
-int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *defaultMessage, TCHAR *defaultTitle, int msgBoxType, int intInfo, TCHAR *strInfo)
+int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *defaultMessage, const TCHAR *defaultTitle, int msgBoxType, int intInfo, const TCHAR *strInfo)
 {
 	generic_string msg, title;
 	size_t index;

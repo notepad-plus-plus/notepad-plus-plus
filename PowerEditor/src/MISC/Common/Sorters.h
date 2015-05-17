@@ -42,10 +42,7 @@ protected:
 	}
 
 public:
-	ISorter(bool isDescending)
-	{
-		_isDescending = isDescending;
-	};
+	ISorter(bool isDescending) : _isDescending(isDescending) { };
 	virtual ~ISorter() { };
 	virtual std::vector<generic_string> sort(std::vector<generic_string> lines) = 0;
 };

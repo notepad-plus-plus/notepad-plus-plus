@@ -35,6 +35,7 @@
 #include "VerticalFileSwitcher.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "Sorters.h"
 
 
 void Notepad_plus::macroPlayback(Macro macro)
@@ -344,8 +345,14 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_EDIT_SORTLINES_ASCENDING:
-		case IDM_EDIT_SORTLINES_DESCENDING:
+		case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING:
+		case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING:
+		case IDM_EDIT_SORTLINES_INTEGER_ASCENDING:
+		case IDM_EDIT_SORTLINES_INTEGER_DESCENDING:
+		case IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING:
+		case IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING:
+		case IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING:
+		case IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING:
 		{
 			// default: no selection
 			size_t fromLine = 0;
@@ -374,8 +381,44 @@ void Notepad_plus::command(int id)
 				toLine = lineRange.second;
 			}
 
+			bool isDescending = id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING ||
+								id == IDM_EDIT_SORTLINES_INTEGER_DESCENDING ||
+								id == IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING ||
+								id == IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->sortLines(fromLine, toLine, id == IDM_EDIT_SORTLINES_DESCENDING);
+			std::unique_ptr<ISorter> pSorter;
+			if (id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING || id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING)
+			{
+				pSorter = std::unique_ptr<ISorter>(new LexicographicSorter(isDescending));
+			}
+			else if (id == IDM_EDIT_SORTLINES_INTEGER_DESCENDING || id == IDM_EDIT_SORTLINES_INTEGER_ASCENDING)
+			{
+				pSorter = std::unique_ptr<ISorter>(new IntegerSorter(isDescending));
+			}
+			else if (id == IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING || id == IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING)
+			{
+				pSorter = std::unique_ptr<ISorter>(new DecimalCommaSorter(isDescending));
+			}
+			else
+			{
+				pSorter = std::unique_ptr<ISorter>(new DecimalDotSorter(isDescending));
+			}
+			try
+			{
+				_pEditView->sortLines(fromLine, toLine, pSorter.get());
+			}
+			catch (size_t& failedLineIndex)
+			{
+				generic_string lineNo = std::to_wstring(1 + fromLine + failedLineIndex);
+				_nativeLangSpeaker.messageBox("SortingError",
+					_pPublicInterface->getHSelf(),
+					TEXT("Unable to perform numeric sort due to line $STR_REPLACE$."),
+					TEXT("Sorting Error"),
+					MB_OK | MB_ICONINFORMATION | MB_APPLMODAL,
+					0,
+					lineNo.c_str()); // We don't use intInfo since it would require casting size_t -> int.
+			}
 			_pEditView->execute(SCI_ENDUNDOACTION);
 
 			if (hasSelection) // there was 1 selection, so we restore it
@@ -2598,8 +2641,14 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
 			case IDM_EDIT_BEGINENDSELECT:
-			case IDM_EDIT_SORTLINES_ASCENDING:
-			case IDM_EDIT_SORTLINES_DESCENDING:
+			case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING:
+			case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING:
+			case IDM_EDIT_SORTLINES_INTEGER_ASCENDING:
+			case IDM_EDIT_SORTLINES_INTEGER_DESCENDING:
+			case IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING:
+			case IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING:
+			case IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING:
+			case IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING:
 			case IDM_EDIT_BLANKLINEABOVECURRENT:
 			case IDM_EDIT_BLANKLINEBELOWCURRENT:
 			case IDM_VIEW_FULLSCREENTOGGLE :

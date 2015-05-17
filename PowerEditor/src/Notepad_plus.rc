@@ -274,8 +274,29 @@ BEGIN
             MENUITEM "Duplicate Current Line",    IDM_EDIT_DUP_LINE
             MENUITEM "Split Lines",               IDM_EDIT_SPLIT_LINES
             MENUITEM "Join Lines",                IDM_EDIT_JOIN_LINES
-            MENUITEM "Sort Lines in Ascending Order",                IDM_EDIT_SORTLINES_ASCENDING
-            MENUITEM "Sort Lines in Descending Order",                IDM_EDIT_SORTLINES_DESCENDING
+			POPUP "Sort Lines"
+			BEGIN
+				POPUP "Lexicographic"
+				BEGIN
+					MENUITEM "Ascending", IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING
+					MENUITEM "Descending", IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING
+				END
+				POPUP "Integer"
+				BEGIN
+					MENUITEM "Ascending", IDM_EDIT_SORTLINES_INTEGER_ASCENDING
+					MENUITEM "Descending", IDM_EDIT_SORTLINES_INTEGER_DESCENDING
+				END
+				POPUP "Decimal (comma)"
+				BEGIN
+					MENUITEM "Ascending", IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING
+					MENUITEM "Descending", IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING
+				END
+				POPUP "Decimal (dot)"
+				BEGIN
+					MENUITEM "Ascending", IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING
+					MENUITEM "Descending", IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING
+				END
+			END
             MENUITEM "Move Up Current Line",      IDM_EDIT_LINE_UP
             MENUITEM "Move Down Current Line",    IDM_EDIT_LINE_DOWN
 			MENUITEM "Remove Empty Lines",        IDM_EDIT_REMOVEEMPTYLINES

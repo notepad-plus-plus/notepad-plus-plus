@@ -29,6 +29,7 @@
 #include "precompiledHeaders.h"
 #include "ScintillaEditView.h"
 #include "Parameters.h"
+#include "Sorters.h"
 #include "TCHAR.h"
 
 
@@ -2947,7 +2948,7 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line + 1));
 }
 
-void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescending)
+void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, ISorter *pSort)
 {
 	if (fromLine >= toLine)
 	{
@@ -2968,23 +2969,16 @@ void ScintillaEditView::sortLines(size_t fromLine, size_t toLine, bool isDescend
 		}
 	}
 	assert(toLine - fromLine + 1 == splitText.size());
-	const bool isNumericSort = allLinesAreNumericOrEmpty(splitText);
-	std::vector<generic_string> sortedText;
-	if (isNumericSort)
-	{
-		sortedText = numericSort(splitText, isDescending);
-	}
-	else
-	{
-		sortedText = lexicographicSort(splitText, isDescending);
-	}
+	const std::vector<generic_string> sortedText = pSort->sort(splitText);
 	const generic_string joined = stringJoin(sortedText, getEOLString());
 	if (sortEntireDocument)
 	{
+		assert(joined.length() == text.length());
 		replaceTarget(joined.c_str(), startPos, endPos);
 	}
 	else
 	{
+		assert(joined.length() + getEOLString().length() == text.length());
 		replaceTarget((joined + getEOLString()).c_str(), startPos, endPos);
 	}
 }

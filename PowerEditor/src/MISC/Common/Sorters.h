@@ -71,7 +71,8 @@ public:
 	}
 };
 
-// Convert each line to a number (somehow - see stringToNumber) and then sort.
+// Convert each line to a number and then sort.
+// The conversion must be implemented in classes which inherit from this, see prepareStringForConversion and convertStringToNumber.
 template<typename T_Num>
 class NumericSorter : public ISorter
 {

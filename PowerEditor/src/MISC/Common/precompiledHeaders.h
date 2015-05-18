@@ -44,6 +44,8 @@
 #include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <stddef.h>
+#include <assert.h>
 #include <tchar.h>
 
 // STL Headers
@@ -56,6 +58,7 @@
 #include <memory>
 #include <algorithm>
 #include <exception>
+#include <locale>
 #include <stack>
 
 // Windows Header Files
@@ -67,6 +70,8 @@
 #include <Oleacc.h>
 #include <dbghelp.h>
 #include <eh.h>
+#include <windowsx.h>
+#include <shellapi.h>
 
 #ifdef UNICODE
 #include <wchar.h>

@@ -66,7 +66,7 @@
 #include <Oleacc.h>
 
 #pragma warning(push)
-#pragma warning(disable: 4091)
+#pragma warning(disable: 4091) // 'keyword' : ignored on left of 'type' when no variable is declared
 #include <dbghelp.h>
 #pragma warning(pop)
 #include <eh.h>

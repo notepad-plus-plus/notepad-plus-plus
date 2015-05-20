@@ -132,9 +132,9 @@ public:
 		{
 			output.insert(output.end(), empties.begin(), empties.end());
 		}
-		for (const std::pair<size_t, T_Num>& sortedNumber : nonEmptyInputAsNumbers)
+		for (auto it = nonEmptyInputAsNumbers.begin(); it != nonEmptyInputAsNumbers.end(); ++it)
 		{
-			output.push_back(lines[sortedNumber.first]);
+			output.push_back(lines[it->first]);
 		}
 		if (isDescending())
 		{

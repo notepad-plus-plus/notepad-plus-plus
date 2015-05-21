@@ -34,6 +34,7 @@ class ISorter
 {
 private:
 	bool _isDescending;
+	size_t _fromColumn, _toColumn;
 
 protected:
 	bool isDescending() const
@@ -41,8 +42,28 @@ protected:
 		return _isDescending;
 	}
 
+	generic_string getSortKey(const generic_string& input)
+	{
+		if (isSortingSpecificColumns())
+		{
+			return input.substr(_fromColumn, 1 + _toColumn - _fromColumn);
+		}
+		else
+		{
+			return input;
+		}
+	}
+
+	bool isSortingSpecificColumns()
+	{
+		return _fromColumn != 0 && _toColumn != 0;
+	}
+
 public:
-	ISorter(bool isDescending) : _isDescending(isDescending) { };
+	ISorter(bool isDescending, size_t fromColumn, size_t toColumn) : _isDescending(isDescending), _fromColumn(fromColumn), _toColumn(toColumn)
+	{
+		assert(_fromColumn <= _toColumn);
+	};
 	virtual ~ISorter() { };
 	virtual std::vector<generic_string> sort(std::vector<generic_string> lines) = 0;
 };
@@ -51,22 +72,42 @@ public:
 class LexicographicSorter : public ISorter
 {
 public:
-	LexicographicSorter(bool isDescending) : ISorter(isDescending) { };
+	LexicographicSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn) { };
 	
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override
 	{
-		const bool descending = isDescending();
-		std::sort(lines.begin(), lines.end(), [descending](generic_string a, generic_string b)
+		// Note that both branches here are equivalent in the sense that they give always give the same answer.
+		// However, if we are *not* sorting specific columns, then we get a 40% speed improvement by not calling
+		// getSortKey() so many times.
+		if (isSortingSpecificColumns())
 		{
-			if (descending)
+			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
 			{
-				return a.compare(b) > 0;
-			}
-			else
+				if (isDescending())
+				{
+					return getSortKey(a).compare(getSortKey(b)) > 0;
+					
+				}
+				else
+				{
+					return getSortKey(a).compare(getSortKey(b)) < 0;
+				}
+			});
+		}
+		else
+		{
+			std::sort(lines.begin(), lines.end(), [this](generic_string a, generic_string b)
 			{
-				return a.compare(b) < 0;
-			}
-		});
+				if (isDescending())
+				{
+					return a.compare(b) > 0;
+				}
+				else
+				{
+					return a.compare(b) < 0;
+				}
+			});
+		}
 		return lines;
 	}
 };
@@ -77,7 +118,7 @@ template<typename T_Num>
 class NumericSorter : public ISorter
 {
 public:
-	NumericSorter(bool isDescending) : ISorter(isDescending)
+	NumericSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn)
 	{
 		_usLocale = ::_wcreate_locale(LC_NUMERIC, TEXT("en-US"));
 	};
@@ -167,12 +208,12 @@ protected:
 class IntegerSorter : public NumericSorter<long long>
 {
 public:
-	IntegerSorter(bool isDescending) : NumericSorter<long long>(isDescending) { };
+	IntegerSorter(bool isDescending, size_t fromColumn, size_t toColumn) : NumericSorter<long long>(isDescending, fromColumn, toColumn) { };
 
 protected:
 	virtual generic_string prepareStringForConversion(const generic_string& input)
 	{
-		return stringTakeWhileAdmissable(input, TEXT(" \t\r\n0123456789-"));
+		return stringTakeWhileAdmissable(getSortKey(input), TEXT(" \t\r\n0123456789-"));
 	}
 
 	long long convertStringToNumber(const generic_string& input) override
@@ -185,12 +226,12 @@ protected:
 class DecimalCommaSorter : public NumericSorter<double>
 {
 public:
-	DecimalCommaSorter(bool isDescending) : NumericSorter<double>(isDescending) { };
+	DecimalCommaSorter(bool isDescending, size_t fromColumn, size_t toColumn) : NumericSorter<double>(isDescending, fromColumn, toColumn) { };
 
 protected:
 	generic_string prepareStringForConversion(const generic_string& input) override
 	{
-		generic_string admissablePart = stringTakeWhileAdmissable(input, TEXT(" \t\r\n0123456789,-"));
+		generic_string admissablePart = stringTakeWhileAdmissable(getSortKey(input), TEXT(" \t\r\n0123456789,-"));
 		return stringReplace(admissablePart, TEXT(","), TEXT("."));
 	}
 
@@ -204,12 +245,12 @@ protected:
 class DecimalDotSorter : public NumericSorter<double>
 {
 public:
-	DecimalDotSorter(bool isDescending) : NumericSorter<double>(isDescending) { };
+	DecimalDotSorter(bool isDescending, size_t fromColumn, size_t toColumn) : NumericSorter<double>(isDescending, fromColumn, toColumn) { };
 
 protected:
 	generic_string prepareStringForConversion(const generic_string& input) override
 	{
-		return stringTakeWhileAdmissable(input, TEXT(" \t\r\n0123456789.-"));
+		return stringTakeWhileAdmissable(getSortKey(input), TEXT(" \t\r\n0123456789.-"));
 	}
 
 	double convertStringToNumber(const generic_string& input) override

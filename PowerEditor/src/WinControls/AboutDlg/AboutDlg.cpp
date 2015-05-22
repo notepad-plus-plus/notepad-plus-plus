@@ -58,13 +58,10 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
             _emailLink.init(_hInst, _hSelf);
 			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("mailto:don.h@free.fr"));
-			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("http://notepad-plus-plus.org/contributors"));
+			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/contributors"));
 
             _pageLink.init(_hInst, _hSelf);
-            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("http://notepad-plus-plus.org/"));
-
-			//_onLineHelp.init(_hInst, _hSelf);
-            //_onLineHelp.create(::GetDlgItem(_hSelf, IDC_ONLINEHELP_ADDR), TEXT("http://notepad-plus.sourceforge.net/uk/generalFAQ.php"));
+            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/"));
 
 			getClientRect(_rc);
 

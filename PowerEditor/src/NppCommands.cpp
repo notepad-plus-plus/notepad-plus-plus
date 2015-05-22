@@ -2197,12 +2197,12 @@ void Notepad_plus::command(int id)
 
 		case IDM_HOMESWEETHOME :
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://notepad-plus-plus.org/"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 		case IDM_PROJECTPAGE :
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/projects/notepad-plus/"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("https://github.com/donho/notepad-plus-plus/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
@@ -2233,21 +2233,34 @@ void Notepad_plus::command(int id)
 		case IDM_UPDATE_NPP :
 		case IDM_CONFUPDATERPROXY :
 		{
-			generic_string updaterDir = (NppParameters::getInstance())->getNppPath();
-			PathAppend(updaterDir ,TEXT("updater"));
+			// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
+			winVer ver = NppParameters::getInstance()->getWinVersion();
+			if (ver <= WV_XP)
+			{
+				long res = ::MessageBox(NULL, TEXT("Notepad++ updater is not compatible with XP due to its obsolet security layer.\rDo you want to go to Notepad++ page to download it?"), TEXT("Notepad++ Updater"), MB_OK);
+				if (res == IDYES)
+				{
+					::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/download/"), NULL, NULL, SW_SHOWNORMAL);
+				}
+			}
+			else
+			{
+				generic_string updaterDir = (NppParameters::getInstance())->getNppPath();
+				PathAppend(updaterDir, TEXT("updater"));
 
-			generic_string updaterFullPath = updaterDir;
-			PathAppend(updaterFullPath, TEXT("gup.exe"));
-			
-			generic_string param = TEXT("-verbose -v");
-			param += VERSION_VALUE;
+				generic_string updaterFullPath = updaterDir;
+				PathAppend(updaterFullPath, TEXT("gup.exe"));
 
-			if (id == IDM_CONFUPDATERPROXY)
-				param = TEXT("-options");
+				generic_string param = TEXT("-verbose -v");
+				param += VERSION_VALUE;
 
-			Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
-			
-			updater.run();
+				if (id == IDM_CONFUPDATERPROXY)
+					param = TEXT("-options");
+
+				Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
+
+				updater.run();
+			}
 			break;
 		}
 

@@ -411,7 +411,10 @@ DEVOMER*/
             doUpdate = false;
     }
 
-	if (TheFirstOne && isUpExist && doUpdate)
+	// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
+	winVer ver = pNppParameters->getWinVersion();
+	bool isGtXP = ver > WV_XP;
+	if (TheFirstOne && isUpExist && doUpdate && isGtXP)
 	{
 		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
 		updater.run();
@@ -430,7 +433,6 @@ DEVOMER*/
 
 		// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA messages to this process (or window)
 		// This allows opening new files to already opened elevated Notepad++ process via explorer context menu.
-		winVer ver = pNppParameters->getWinVersion();
 		if (ver >= WV_VISTA || ver == WV_UNKNOWN)
 		{
 			HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));

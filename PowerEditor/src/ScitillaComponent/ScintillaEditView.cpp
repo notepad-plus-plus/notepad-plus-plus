@@ -2374,9 +2374,9 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 			for (int j = 0 ; j < nbChar ; ++j)
 			{
 				if (Case == UPPERCASE)
-					destStr[j] = (wchar_t)::CharUpperW((LPWSTR)destStr[j]);
+					destStr[j] = (wchar_t)(UINT_PTR)::CharUpperW((LPWSTR)destStr[j]);
 				else
-					destStr[j] = (wchar_t)::CharLowerW((LPWSTR)destStr[j]);
+					destStr[j] = (wchar_t)(UINT_PTR)::CharLowerW((LPWSTR)destStr[j]);
 			}
 			::WideCharToMultiByte(codepage, 0, destStr, len, srcStr, len, NULL, NULL);
 
@@ -2414,9 +2414,9 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 		for (int i = 0 ; i < nbChar ; ++i)
 		{
 			if (Case == UPPERCASE)
-				selectedStrW[i] = (WCHAR)::CharUpperW((LPWSTR)selectedStrW[i]);
+				selectedStrW[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)selectedStrW[i]);
 			else
-				selectedStrW[i] = (WCHAR)::CharLowerW((LPWSTR)selectedStrW[i]);
+				selectedStrW[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)selectedStrW[i]);
 		}
 		::WideCharToMultiByte(codepage, 0, selectedStrW, strWSize, selectedStr, strSize, NULL, NULL);
 

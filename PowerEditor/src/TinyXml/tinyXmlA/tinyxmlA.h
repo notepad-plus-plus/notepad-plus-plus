@@ -27,6 +27,8 @@ distribution.
 #define TINYXMLA_INCLUDED
 
 #ifdef _MSC_VER
+#pragma warning( push )
+#pragma warning( disable : 4458 ) // declaration of 'parameter' hides class member
 #pragma warning( disable : 4530 )
 #pragma warning( disable : 4786 )
 #endif
@@ -1250,6 +1252,9 @@ private:
 	TiXmlNodeA* node;
 };
 
+#ifdef _MSC_VER
+#pragma warning( pop )
+#endif
 
 #endif
 

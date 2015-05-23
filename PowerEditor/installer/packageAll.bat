@@ -56,7 +56,6 @@ mkdir .\zipped.package.release
 mkdir .\zipped.package.release\updater
 mkdir .\zipped.package.release\localization
 mkdir .\zipped.package.release\themes
-mkdir .\zipped.package.release\user.manual
 mkdir .\zipped.package.release\plugins
 mkdir .\zipped.package.release\plugins\APIs
 mkdir .\zipped.package.release\plugins\Config

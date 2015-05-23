@@ -2208,7 +2208,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_ONLINEHELP:
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://npp-community.tuxfamily.org/"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://docs.notepad-plus-plus.org/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
@@ -2226,7 +2226,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_PLUGINSHOME:
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Plugin_Central"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://docs.notepad-plus-plus.org/index.php/Plugin_Central"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
@@ -2237,7 +2237,7 @@ void Notepad_plus::command(int id)
 			winVer ver = NppParameters::getInstance()->getWinVersion();
 			if (ver <= WV_XP)
 			{
-				long res = ::MessageBox(NULL, TEXT("Notepad++ updater is not compatible with XP due to its obsolet security layer.\rDo you want to go to Notepad++ page to download it?"), TEXT("Notepad++ Updater"), MB_OK);
+				long res = ::MessageBox(NULL, TEXT("Notepad++ updater is not compatible with XP due to the obsolet security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"), TEXT("Notepad++ Updater"), MB_YESNO);
 				if (res == IDYES)
 				{
 					::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/download/"), NULL, NULL, SW_SHOWNORMAL);

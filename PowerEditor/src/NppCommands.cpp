@@ -1019,7 +1019,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_SPLIT_LINES:
 			_pEditView->execute(SCI_TARGETFROMSELECTION);
-			_pEditView->execute(SCI_LINESSPLIT);
+			if (_pEditView->execute(SCI_GETEDGEMODE) == EDGE_NONE)
+				_pEditView->execute(SCI_LINESSPLIT);
+			else
+				_pEditView->execute(SCI_LINESSPLIT, _pEditView->execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM)"P") * _pEditView->execute(SCI_GETEDGECOLUMN));
 			break;
 
 		case IDM_EDIT_JOIN_LINES:

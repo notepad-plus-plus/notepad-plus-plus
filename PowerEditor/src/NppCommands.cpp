@@ -35,6 +35,7 @@
 #include "VerticalFileSwitcher.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "Sorters.h"
 
 
 void Notepad_plus::macroPlayback(Macro macro)
@@ -344,44 +345,106 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_EDIT_SORTLINES_ASCENDING:
-		case IDM_EDIT_SORTLINES_DESCENDING:
+		case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING:
+		case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING:
+		case IDM_EDIT_SORTLINES_INTEGER_ASCENDING:
+		case IDM_EDIT_SORTLINES_INTEGER_DESCENDING:
+		case IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING:
+		case IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING:
+		case IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING:
+		case IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING:
 		{
-			// default: no selection
-			size_t fromLine = 0;
-			size_t toLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+			size_t fromLine = 0, toLine = 0;
+			size_t fromColumn = 0, toColumn = 0;
 
-			// multi-selection is not allowed
-			if (_pEditView->execute(SCI_GETSELECTIONS) > 1) 
-				return;
-
-			// retangle-selection is not allowed
-			if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
-				return;
-
-			int selStart = _pEditView->execute(SCI_GETSELECTIONSTART);
-			int selEnd = _pEditView->execute(SCI_GETSELECTIONEND);
-			bool hasSelection = selStart != selEnd;
-
-			pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
-
-			if (hasSelection)
+			bool hasLineSelection = false;
+			if (_pEditView->execute(SCI_GETSELECTIONS) > 1)
 			{
-				// one single line selection is not allowed
-				if ((lineRange.second - lineRange.first) == 0) 
+				if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
+				{
+					ColumnModeInfos colInfos = _pEditView->getColumnModeSelectInfo();
+					int leftPos = colInfos.begin()->_selLpos;
+					int rightPos = colInfos.rbegin()->_selRpos;
+					int startPos = min(leftPos, rightPos);
+					int endPos = max(leftPos, rightPos);
+					fromLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
+					toLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
+					fromColumn = _pEditView->execute(SCI_GETCOLUMN, leftPos);
+					toColumn = _pEditView->execute(SCI_GETCOLUMN, rightPos);
+				}
+				else
+				{
 					return;
-				fromLine = lineRange.first;
-				toLine = lineRange.second;
+				}
+			}
+			else
+			{
+				int selStart = _pEditView->execute(SCI_GETSELECTIONSTART);
+				int selEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+				hasLineSelection = selStart != selEnd;
+				if (hasLineSelection)
+				{
+					pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
+					// One single line selection is not allowed.
+					if (lineRange.first == lineRange.second)
+					{
+						return;
+					}
+					fromLine = lineRange.first;
+					toLine = lineRange.second;
+				}
+				else
+				{
+					// No selection.
+					fromLine = 0;
+					toLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+				}
 			}
 
+			bool isDescending = id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING ||
+								id == IDM_EDIT_SORTLINES_INTEGER_DESCENDING ||
+								id == IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING ||
+								id == IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING;
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->sortLines(fromLine, toLine, id == IDM_EDIT_SORTLINES_DESCENDING);
+			std::unique_ptr<ISorter> pSorter;
+			if (id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING || id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING)
+			{
+				pSorter = std::unique_ptr<ISorter>(new LexicographicSorter(isDescending, fromColumn, toColumn));
+			}
+			else if (id == IDM_EDIT_SORTLINES_INTEGER_DESCENDING || id == IDM_EDIT_SORTLINES_INTEGER_ASCENDING)
+			{
+				pSorter = std::unique_ptr<ISorter>(new IntegerSorter(isDescending, fromColumn, toColumn));
+			}
+			else if (id == IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING || id == IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING)
+			{
+				pSorter = std::unique_ptr<ISorter>(new DecimalCommaSorter(isDescending, fromColumn, toColumn));
+			}
+			else
+			{
+				pSorter = std::unique_ptr<ISorter>(new DecimalDotSorter(isDescending, fromColumn, toColumn));
+			}
+			try
+			{
+				_pEditView->sortLines(fromLine, toLine, pSorter.get());
+			}
+			catch (size_t& failedLineIndex)
+			{
+				generic_string lineNo = std::to_wstring(1 + fromLine + failedLineIndex);
+				_nativeLangSpeaker.messageBox("SortingError",
+					_pPublicInterface->getHSelf(),
+					TEXT("Unable to perform numeric sort due to line $STR_REPLACE$."),
+					TEXT("Sorting Error"),
+					MB_OK | MB_ICONINFORMATION | MB_APPLMODAL,
+					0,
+					lineNo.c_str()); // We don't use intInfo since it would require casting size_t -> int.
+			}
 			_pEditView->execute(SCI_ENDUNDOACTION);
 
-			if (hasSelection) // there was 1 selection, so we restore it
+			if (hasLineSelection) // there was 1 selection, so we restore it
 			{
-				int posStart = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.first);
-				int posEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, lineRange.second);
+				int posStart = _pEditView->execute(SCI_POSITIONFROMLINE, fromLine);
+				int posEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, toLine);
 				_pEditView->execute(SCI_SETSELECTIONSTART, posStart);
 				_pEditView->execute(SCI_SETSELECTIONEND, posEnd);
 			}
@@ -2614,8 +2677,14 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
 			case IDM_EDIT_BEGINENDSELECT:
-			case IDM_EDIT_SORTLINES_ASCENDING:
-			case IDM_EDIT_SORTLINES_DESCENDING:
+			case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING:
+			case IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING:
+			case IDM_EDIT_SORTLINES_INTEGER_ASCENDING:
+			case IDM_EDIT_SORTLINES_INTEGER_DESCENDING:
+			case IDM_EDIT_SORTLINES_DECIMALCOMMA_ASCENDING:
+			case IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING:
+			case IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING:
+			case IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING:
 			case IDM_EDIT_BLANKLINEABOVECURRENT:
 			case IDM_EDIT_BLANKLINEBELOWCURRENT:
 			case IDM_VIEW_FULLSCREENTOGGLE :

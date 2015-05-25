@@ -294,6 +294,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 
+	_mainEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
+	_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
+
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 

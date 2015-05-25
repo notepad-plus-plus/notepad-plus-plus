@@ -2587,8 +2587,10 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 	}
 }
 
-void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int incr, UCHAR format)
+void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int incr, int repeat, UCHAR format)
 {
+	assert(repeat > 0);
+
 	// 0000 00 00 : Dec BASE_10
 	// 0000 00 01 : Hex BASE_16
 	// 0000 00 10 : Oct BASE_08
@@ -2611,28 +2613,49 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 	else if (f == BASE_02)
 		base = 2;
 
-	int endNumber = initial + incr * (cmi.size() - 1);
-	int nbEnd = getNbDigits(endNumber, base);
-	int nbInit = getNbDigits(initial, base);
-	int nb = max(nbInit, nbEnd);
-
 	const int stringSize = 512;
 	TCHAR str[stringSize];
 
+	// Compute the numbers to be placed at each column.
+	std::vector<int> numbers;
+	{
+		int curNumber = initial;
+		const unsigned int kiMaxSize = cmi.size();
+		while(numbers.size() < kiMaxSize)
+		{
+			for(int i = 0; i < repeat; i++)
+			{
+				numbers.push_back(curNumber);
+				if (numbers.size() >= kiMaxSize)
+				{
+					break;
+				}
+			}
+			curNumber += incr;
+		}
+	}
+
+	assert(numbers.size()> 0);
+
+	const int kibEnd = getNbDigits(*numbers.rbegin(), base);
+	const int kibInit = getNbDigits(initial, base);
+	const int kib = std::max<int>(kibInit, kibEnd);
+
 	int totalDiff = 0;
-	for (size_t i = 0, len = cmi.size() ; i < len ; ++i)
+	const size_t len = cmi.size();
+	for (size_t i = 0 ; i < len ; i++)
 	{
 		if (cmi[i].isValid())
 		{
-			int len2beReplace = cmi[i]._selRpos - cmi[i]._selLpos;
-			int diff = nb - len2beReplace;
+			const int len2beReplaced = cmi[i]._selRpos - cmi[i]._selLpos;
+			const int diff = kib - len2beReplaced;
 
 			cmi[i]._selLpos += totalDiff;
 			cmi[i]._selRpos += totalDiff;
 
-			int2str(str, stringSize, initial, base, nb, isZeroLeading);
+			int2str(str, stringSize, numbers.at(i), base, kib, isZeroLeading);
 
-			bool hasVirtualSpc = cmi[i]._nbVirtualAnchorSpc > 0;
+			const bool hasVirtualSpc = cmi[i]._nbVirtualAnchorSpc > 0;
 			if (hasVirtualSpc) // if virtual space is present, then insert space
 			{
 				for (int j = 0, k = cmi[i]._selLpos; j < cmi[i]._nbVirtualCaretSpc ; ++j, ++k)
@@ -2650,7 +2673,6 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 			const char *strA = wmc->wchar2char(str, cp);
 			execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)strA);
 
-			initial += incr;
 			if (hasVirtualSpc) 
 			{
 				totalDiff += cmi[i]._nbVirtualAnchorSpc + lstrlen(str);

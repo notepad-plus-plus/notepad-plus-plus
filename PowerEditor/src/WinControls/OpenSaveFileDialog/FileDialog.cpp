@@ -172,7 +172,7 @@ TCHAR * FileDialog::doOpenSingleFileDlg()
 
 	TCHAR *fn = NULL;
 	try {
-		fn = ::GetOpenFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
+		fn = ::GetOpenFileName(&_ofn)?_fileName:NULL;
 		
 		if (params->getNppGUI()._openSaveDir == dir_last)
 		{
@@ -201,7 +201,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT;
 
-	BOOL res = ::GetOpenFileName((OPENFILENAME*)&_ofn);
+	BOOL res = ::GetOpenFileName(&_ofn);
 	if (params->getNppGUI()._openSaveDir == dir_last)
 	{
 		::GetCurrentDirectory(MAX_PATH, dir);
@@ -253,7 +253,7 @@ TCHAR * FileDialog::doSaveDlg()
 
 	TCHAR *fn = NULL;
 	try {
-		fn = ::GetSaveFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
+		fn = ::GetSaveFileName(&_ofn)?_fileName:NULL;
 		if (params->getNppGUI()._openSaveDir == dir_last)
 		{
 			::GetCurrentDirectory(MAX_PATH, dir);

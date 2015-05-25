@@ -36,10 +36,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.7.8.1"
+!define APPVERSION "6.7.8.2"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 781
+!define VERSION_MINOR 782
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -618,6 +618,11 @@ Section -"Notepad++" mainSection
 		MessageBox MB_OK "Due to the stability issue,$\nAutoSaveU.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\AutoSaveU.dll" "$INSTDIR\plugins\disabled\AutoSaveU.dll"
 		Delete "$INSTDIR\plugins\AutoSaveU.dll"
+		
+	IfFileExists "$INSTDIR\plugins\NppQCP.dll" 0 +4
+		MessageBox MB_OK "Due to the stability issue,$\nNppQCP.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
+		Delete "$INSTDIR\plugins\NppQCP.dll"
 		
     ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3

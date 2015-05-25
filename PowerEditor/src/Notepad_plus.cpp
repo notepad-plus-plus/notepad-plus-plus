@@ -5550,7 +5550,7 @@ Quote quotes[nbQuote] = {
 {"Darth Vader", "You don't get to 500 million star systems without making a few enemies."},
 {"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
 {"Jean-Claude van Damme", "A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life."},
-{"Michael Feldman", "Java is, in many ways, C++–."},
+{"Michael Feldman", "Java is, in many ways, C++--."},
 {"Don Ho", "Je mange donc je chie."},
 {"Don Ho #2", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
 {"Don Ho #3", "Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street."},

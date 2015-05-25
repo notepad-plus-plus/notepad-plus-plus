@@ -50,7 +50,26 @@ UpgradeLog*.htm
 *.log
 .builds
 *.pidb
-*.log
+PowerEditor/bin/config.xml
+PowerEditor/bin/stylers.xml
+PowerEditor/bin/langs.xml
+PowerEditor/bin/config.model.xml
+PowerEditor/bin/stylers.model.xml
+PowerEditor/bin/langs.model.xml
+PowerEditor/bin/contextMenu.xml
+PowerEditor/bin/nativeLang.xml
+PowerEditor/bin/session.xml
+PowerEditor/bin/functionList.xml
+PowerEditor/bin/shortcuts.xml
+PowerEditor/bin/backup/
+PowerEditor/bin/localization/
+PowerEditor/bin/plugins/
+PowerEditor/installer/build/
+PowerEditor/installer/minimalist/
+PowerEditor/installer/zipped.package.release/
+PowerEditor/visual.net/Unicode Debug/
+PowerEditor/visual.net/Unicode Release/
+PowerEditor/visual.net/notepadPlus.sln
 
 
 #-------------------------------------------------------------------------------

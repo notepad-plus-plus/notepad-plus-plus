@@ -1,4 +1,9 @@
-Notepad++ v6.7.8.1 bug-fixes:
+Notepad++ v6.7.8.2 bug-fix:
+
+1.  Disable Notepad++ updater (WinGup) under XP.
+
+
+Notepad++ v6.7.8.1 bug-fix:
 
 1.  Fix "Missing msvcr120.dll" message error (of WinGup).
 

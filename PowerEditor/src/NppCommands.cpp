@@ -1019,7 +1019,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_SPLIT_LINES:
 			_pEditView->execute(SCI_TARGETFROMSELECTION);
-			_pEditView->execute(SCI_LINESSPLIT);
+			if (_pEditView->execute(SCI_GETEDGEMODE) == EDGE_NONE)
+				_pEditView->execute(SCI_LINESSPLIT);
+			else
+				_pEditView->execute(SCI_LINESSPLIT, _pEditView->execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM)"P") * _pEditView->execute(SCI_GETEDGECOLUMN));
 			break;
 
 		case IDM_EDIT_JOIN_LINES:
@@ -2197,18 +2200,18 @@ void Notepad_plus::command(int id)
 
 		case IDM_HOMESWEETHOME :
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://notepad-plus-plus.org/"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 		case IDM_PROJECTPAGE :
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/projects/notepad-plus/"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("https://github.com/donho/notepad-plus-plus/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
 		case IDM_ONLINEHELP:
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://npp-community.tuxfamily.org/"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://docs.notepad-plus-plus.org/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
@@ -2226,28 +2229,41 @@ void Notepad_plus::command(int id)
 
 		case IDM_PLUGINSHOME:
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Plugin_Central"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://docs.notepad-plus-plus.org/index.php/Plugin_Central"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
 		case IDM_UPDATE_NPP :
 		case IDM_CONFUPDATERPROXY :
 		{
-			generic_string updaterDir = (NppParameters::getInstance())->getNppPath();
-			PathAppend(updaterDir ,TEXT("updater"));
+			// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
+			winVer ver = NppParameters::getInstance()->getWinVersion();
+			if (ver <= WV_XP)
+			{
+				long res = ::MessageBox(NULL, TEXT("Notepad++ updater is not compatible with XP due to the obsolet security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"), TEXT("Notepad++ Updater"), MB_YESNO);
+				if (res == IDYES)
+				{
+					::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/download/"), NULL, NULL, SW_SHOWNORMAL);
+				}
+			}
+			else
+			{
+				generic_string updaterDir = (NppParameters::getInstance())->getNppPath();
+				PathAppend(updaterDir, TEXT("updater"));
 
-			generic_string updaterFullPath = updaterDir;
-			PathAppend(updaterFullPath, TEXT("gup.exe"));
-			
-			generic_string param = TEXT("-verbose -v");
-			param += VERSION_VALUE;
+				generic_string updaterFullPath = updaterDir;
+				PathAppend(updaterFullPath, TEXT("gup.exe"));
 
-			if (id == IDM_CONFUPDATERPROXY)
-				param = TEXT("-options");
+				generic_string param = TEXT("-verbose -v");
+				param += VERSION_VALUE;
 
-			Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
-			
-			updater.run();
+				if (id == IDM_CONFUPDATERPROXY)
+					param = TEXT("-options");
+
+				Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
+
+				updater.run();
+			}
 			break;
 		}
 

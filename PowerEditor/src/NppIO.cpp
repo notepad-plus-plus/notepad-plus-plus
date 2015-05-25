@@ -705,6 +705,10 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				{
 					return false;
 				}
+				else if (res == IDNO && isLeftOrRightShiftPressed())
+				{
+					break;
+				}
 			}
 		}
 	}
@@ -756,7 +760,10 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 				else if (res == IDCANCEL) 
 				{
 					return false;
-					//otherwise continue (IDNO)
+				}
+				else if (res == IDNO && isLeftOrRightShiftPressed())
+				{
+					break;
 				}
 			}
 		}
@@ -816,6 +823,10 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 			else if (res == IDCANCEL)
 			{
 					return false;
+			}
+			else if (res == IDNO && isLeftOrRightShiftPressed())
+			{
+				break;
 			}
 		}
 	}
@@ -884,6 +895,10 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			{
 					return false;
 			}
+			else if (res == IDNO && isLeftOrRightShiftPressed())
+			{
+				break;
+			}
 		}
 	}
 	for(int i = 0; i < _subDocTab.nbItem(); ++i) 
@@ -910,6 +925,10 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			else if (res == IDCANCEL) 
 			{
 					return false;
+			}
+			else if (res == IDNO && isLeftOrRightShiftPressed())
+			{
+				break;
 			}
 		}
 	}

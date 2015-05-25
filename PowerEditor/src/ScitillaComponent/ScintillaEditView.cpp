@@ -1911,6 +1911,15 @@ void ScintillaEditView::showCallTip(int startPos, const TCHAR * def)
 	execute(SCI_CALLTIPSHOW, startPos, LPARAM(defA));
 }
 
+generic_string ScintillaEditView::getLine(int lineNumber)
+{
+	int lineLen = execute(SCI_LINELENGTH, lineNumber);
+	const int bufSize = lineLen;
+	std::unique_ptr<TCHAR[]> buf = std::make_unique<TCHAR[]>(bufSize);
+	getLine(lineNumber, buf.get(), bufSize);
+	return buf.get();
+}
+
 void ScintillaEditView::getLine(int lineNumber, TCHAR * line, int lineBufferLen)
 {
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();

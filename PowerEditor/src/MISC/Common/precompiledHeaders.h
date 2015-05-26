@@ -32,6 +32,7 @@
 // w/o precompiled headers file : 1 minute 55 sec
 
 #define _WIN32_WINNT 0x0501
+#define _CRT_NON_CONFORMING_WCSTOK
 
 // C RunTime Header Files
 #include <stdio.h>
@@ -63,7 +64,11 @@
 #include <shlwapi.h>
 #include <uxtheme.h>
 #include <Oleacc.h>
+
+#pragma warning(push)
+#pragma warning(disable: 4091) // 'keyword' : ignored on left of 'type' when no variable is declared
 #include <dbghelp.h>
+#pragma warning(pop)
 #include <eh.h>
 
 #ifdef UNICODE

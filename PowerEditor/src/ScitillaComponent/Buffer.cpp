@@ -34,6 +34,7 @@
 #include "ScintillaEditView.h"
 #include "EncodingMapper.h"
 #include "uchardet.h"
+#include "LongRunningOperation.h"
 
 FileManager * FileManager::_pSelf = new FileManager();
 
@@ -674,6 +675,8 @@ For untitled document (new  4)
 */
 bool FileManager::backupCurrentBuffer()
 {
+	LongRunningOperation op;
+
 	Buffer * buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = false;
 	bool hasModifForSession = false;

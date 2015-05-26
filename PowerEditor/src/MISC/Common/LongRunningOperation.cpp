@@ -29,7 +29,7 @@
 #include "LongRunningOperation.h"
 #include <mutex>
 
-std::recursive_mutex _operationMutex;
+static std::recursive_mutex _operationMutex;
 
 LongRunningOperation::LongRunningOperation()
 {

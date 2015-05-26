@@ -50,6 +50,8 @@ UpgradeLog*.htm
 *.log
 .builds
 *.pidb
+PowerEditor/bin/notepad++.exe
+PowerEditor/bin/SciLexer.dll
 PowerEditor/bin/config.xml
 PowerEditor/bin/stylers.xml
 PowerEditor/bin/langs.xml

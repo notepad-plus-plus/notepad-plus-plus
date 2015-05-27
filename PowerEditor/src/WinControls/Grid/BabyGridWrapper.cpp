@@ -47,5 +47,5 @@ void BabyGridWrapper::init(HINSTANCE hInst, HWND parent, int id)
 					_hParent,\
 					(HMENU)id,\
 					_hInst,\
-					(LPVOID)/*this*/NULL);
+					/*this*/NULL);
 }

@@ -81,7 +81,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize,
 					_hParent,
 					NULL,
 					_hInst,
-					(LPVOID)this);
+					this);
 
 	if (!_hSelf)
 	{

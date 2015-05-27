@@ -2976,7 +2976,7 @@ HWND Progress::open(HWND hCallerWnd, const TCHAR* header)
 		_tcscpy_s(_header, _countof(_header), cDefaultHeader);
 
 	_hThread = ::CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)threadFunc,
-		(LPVOID)this, 0, NULL);
+		this, 0, NULL);
 	if (!_hThread)
 	{
 		::CloseHandle(_hActiveState);
@@ -3068,7 +3068,7 @@ int Progress::createProgressWindow()
 		WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW | WS_EX_TOPMOST,
 		cClassName, _header, WS_POPUP | WS_CAPTION,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-		NULL, NULL, _hInst, (LPVOID)this);
+		NULL, NULL, _hInst, this);
 	if (!_hwnd)
 		return -1;
 

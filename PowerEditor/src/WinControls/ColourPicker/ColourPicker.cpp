@@ -43,7 +43,7 @@ void ColourPicker::init(HINSTANCE hInst, HWND parent)
 					_hParent,
 					NULL,
 					_hInst,
-					(LPVOID)0);
+					NULL);
 	if (!_hSelf)
 	{
 		throw std::runtime_error("ColourPicker::init : CreateWindowEx() function return null");

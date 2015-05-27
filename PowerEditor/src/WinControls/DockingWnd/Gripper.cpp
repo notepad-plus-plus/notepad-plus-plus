@@ -156,7 +156,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr)
 					NULL,
 					NULL,
 					_hInst,
-					(LPVOID)this);
+					this);
 	hWndServer = _hSelf;
 
 	if (!_hSelf)

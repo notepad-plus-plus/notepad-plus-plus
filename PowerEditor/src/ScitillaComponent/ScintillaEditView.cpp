@@ -258,15 +258,15 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	//Use either Unicode or ANSI setwindowlong, depending on environment
 	if (::IsWindowUnicode(_hSelf))
 	{
-		::SetWindowLongPtrW(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG>(this));
+		::SetWindowLongPtrW(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 		_callWindowProc = CallWindowProcW;
-		_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtrW(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG>(scintillaStatic_Proc)));
+		_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtrW(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(scintillaStatic_Proc)));
 	}
 	else 
 	{
-		::SetWindowLongPtrA(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG>(this));
+		::SetWindowLongPtrA(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 		_callWindowProc = CallWindowProcA;
-		_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtrA(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG>(scintillaStatic_Proc)));
+		_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtrA(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(scintillaStatic_Proc)));
 	}
 
 	//Get the startup document and make a buffer for it so it can be accessed like a file

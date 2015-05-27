@@ -197,6 +197,8 @@ struct LanguageName {
 	int lexerID;
 };
 
+class ISorter;
+
 class ScintillaEditView : public Window
 {
 friend class Finder;
@@ -636,7 +638,7 @@ public:
 	};
 	void scrollPosToCenter(int pos);
 	generic_string getEOLString();
-	void sortLines(size_t fromLine, size_t toLine, bool isDescending);
+	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
 

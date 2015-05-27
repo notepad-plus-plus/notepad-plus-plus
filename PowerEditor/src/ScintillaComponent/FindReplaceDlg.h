@@ -410,15 +410,24 @@ public:
 	Progress(HINSTANCE hInst);
 	~Progress();
 
-	HWND open(HWND hOwner = NULL, const TCHAR* header = NULL);
-	bool isCancelled() const;
-	void setPercent(unsigned percent, const TCHAR *fileName) const;
-	void setInfo(const TCHAR *info) const {
+	HWND open(HWND hCallerWnd = NULL, const TCHAR* header = NULL);
+	void close();
+
+	bool isCancelled() const
+	{
+		if (_hwnd)
+			return (::WaitForSingleObject(_hActiveState, 0) != WAIT_OBJECT_0);
+		return false;
+	}
+
+	void setInfo(const TCHAR *info) const
+	{
 		if (_hwnd)
 			::SendMessage(_hPText, WM_SETTEXT, 0, (LPARAM)info);
-	};
+	}
 
-	void close();
+	void setPercent(unsigned percent, const TCHAR *fileName) const;
+	void flushCallerUserInput() const;
 
 private:
 	static const TCHAR cClassName[];
@@ -444,7 +453,7 @@ private:
 
 	HINSTANCE _hInst;
 	volatile HWND _hwnd;
-	HWND _hOwner;
+	HWND _hCallerWnd;
 	TCHAR _header[128];
 	HANDLE _hThread;
 	HANDLE _hActiveState;

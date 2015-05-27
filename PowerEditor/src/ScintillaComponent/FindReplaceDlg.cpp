@@ -1756,7 +1756,7 @@ void FindReplaceDlg::replaceAllInOpenedDocs()
 
 void FindReplaceDlg::findAllIn(InWhat op)
 {
-	bool doSetMarkingStruct = false;
+	bool justCreated = false;
 	if (!_pFinder)
 	{
 		_pFinder = new Finder();
@@ -1800,11 +1800,13 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		_pFinder->_scintView.display();
 		_pFinder->display();
-		doSetMarkingStruct = true;
+		::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_pFinder->getHSelf());
+		::UpdateWindow(_hParent);
+		justCreated = true;
 	}
 	_pFinder->setFinderStyle();
 
-	if (doSetMarkingStruct)
+	if (justCreated)
 	{
 		// Send the address of _MarkingsStruct to the lexer
 		char ptrword[sizeof(void*)*2+1];
@@ -2915,7 +2917,7 @@ const int Progress::cBTNheight = 25;
 volatile LONG Progress::refCount = 0;
 
 
-Progress::Progress(HINSTANCE hInst) : _hwnd(NULL)
+Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 {
 	if (::InterlockedIncrement(&refCount) == 1)
 	{
@@ -2953,22 +2955,25 @@ Progress::~Progress()
 }
 
 
-HWND Progress::open(HWND hOwner, const TCHAR* header)
+HWND Progress::open(HWND hCallerWnd, const TCHAR* header)
 {
 	if (_hwnd)
 		return _hwnd;
-
-	_hOwner = hOwner;
-
-	if (header)
-		_tcscpy_s(_header, _countof(_header), header);
-	else
-		_tcscpy_s(_header, _countof(_header), cDefaultHeader);
 
 	// Create manually reset non-signaled event
 	_hActiveState = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	if (!_hActiveState)
 		return NULL;
+
+	_hCallerWnd = hCallerWnd;
+
+	for (HWND hwnd = _hCallerWnd; hwnd; hwnd = ::GetParent(hwnd))
+		::UpdateWindow(hwnd);
+
+	if (header)
+		_tcscpy_s(_header, _countof(_header), header);
+	else
+		_tcscpy_s(_header, _countof(_header), cDefaultHeader);
 
 	_hThread = ::CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)threadFunc,
 		(LPVOID)this, 0, NULL);
@@ -2993,24 +2998,6 @@ HWND Progress::open(HWND hOwner, const TCHAR* header)
 }
 
 
-bool Progress::isCancelled() const
-{
-	if (_hwnd)
-		return (::WaitForSingleObject(_hActiveState, 0) != WAIT_OBJECT_0);
-	return false;
-}
-
-
-void Progress::setPercent(unsigned percent, const TCHAR *fileName) const
-{
-	if (_hwnd)
-	{
-		::SendNotifyMessage(_hPBar, PBM_SETPOS, (WPARAM)percent, 0);
-		::SendMessage(_hPText, WM_SETTEXT, 0, (LPARAM)fileName);
-	}
-}
-
-
 void Progress::close()
 {
 	if (_hwnd)
@@ -3018,8 +3005,33 @@ void Progress::close()
 		::SendMessage(_hwnd, WM_CLOSE, 0, 0);
 		_hwnd = NULL;
 		::WaitForSingleObject(_hThread, INFINITE);
+
 		::CloseHandle(_hThread);
 		::CloseHandle(_hActiveState);
+	}
+}
+
+
+void Progress::setPercent(unsigned percent, const TCHAR *fileName) const
+{
+	if (_hwnd)
+	{
+		::PostMessage(_hPBar, PBM_SETPOS, (WPARAM)percent, 0);
+		::SendMessage(_hPText, WM_SETTEXT, 0, (LPARAM)fileName);
+	}
+}
+
+
+void Progress::flushCallerUserInput() const
+{
+	MSG msg;
+	for (HWND hwnd = _hCallerWnd; hwnd; hwnd = ::GetParent(hwnd))
+	{
+		if (::PeekMessage(&msg, hwnd, 0, 0, PM_QS_INPUT | PM_REMOVE))
+		{
+			while (::PeekMessage(&msg, hwnd, 0, 0, PM_QS_INPUT | PM_REMOVE));
+			::UpdateWindow(hwnd);
+		}
 	}
 }
 
@@ -3052,14 +3064,11 @@ int Progress::thread()
 
 int Progress::createProgressWindow()
 {
-	DWORD styleEx = WS_EX_OVERLAPPEDWINDOW;
-	if (_hOwner)
-		styleEx |= WS_EX_TOOLWINDOW;
-
-	_hwnd = ::CreateWindowEx(styleEx,
+	_hwnd = ::CreateWindowEx(
+		WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW | WS_EX_TOPMOST,
 		cClassName, _header, WS_POPUP | WS_CAPTION,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-		_hOwner, NULL, _hInst, (LPVOID)this);
+		NULL, NULL, _hInst, (LPVOID)this);
 	if (!_hwnd)
 		return -1;
 
@@ -3074,7 +3083,7 @@ int Progress::createProgressWindow()
 	height = win.bottom - win.top;
 
 	_hPText = ::CreateWindowEx(0, TEXT("STATIC"), TEXT(""),
-		WS_CHILD | WS_VISIBLE | BS_TEXT,
+		WS_CHILD | WS_VISIBLE | BS_TEXT | SS_PATHELLIPSIS,
 		5, 5,
 		width - 10, 20, _hwnd, NULL, _hInst, NULL);
 	HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
@@ -3092,7 +3101,6 @@ int Progress::createProgressWindow()
 		(width - cBTNwidth) / 2, height - cBTNheight - 5,
 		cBTNwidth, cBTNheight, _hwnd, NULL, _hInst, NULL);
 
-	
 	if (hf)
 		::SendMessage(_hBtn, WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
 
@@ -3105,10 +3113,25 @@ int Progress::createProgressWindow()
 
 RECT Progress::adjustSizeAndPos(int width, int height)
 {
-	RECT win, maxWin;
-
+	RECT maxWin;
 	::GetWindowRect(::GetDesktopWindow(), &maxWin);
-	win = maxWin;
+
+	POINT center;
+
+	if (_hCallerWnd)
+	{
+		RECT biasWin;
+		::GetWindowRect(_hCallerWnd, &biasWin);
+		center.x = (biasWin.left + biasWin.right) / 2;
+		center.y = (biasWin.top + biasWin.bottom) / 2;
+	}
+	else
+	{
+		center.x = (maxWin.left + maxWin.right) / 2;
+		center.y = (maxWin.top + maxWin.bottom) / 2;
+	}
+
+	RECT win = maxWin;
 	win.right = win.left + width;
 	win.bottom = win.top + height;
 
@@ -3120,7 +3143,9 @@ RECT Progress::adjustSizeAndPos(int width, int height)
 
 	if (width < maxWin.right - maxWin.left)
 	{
-		win.left = (maxWin.left + maxWin.right - width) / 2;
+		win.left = center.x - width / 2;
+		if (win.left < 0)
+			win.left = 0;
 		win.right = win.left + width;
 	}
 	else
@@ -3129,9 +3154,11 @@ RECT Progress::adjustSizeAndPos(int width, int height)
 		win.right = maxWin.right;
 	}
 
-	if (height < maxWin.right - maxWin.left)
+	if (height < maxWin.bottom - maxWin.top)
 	{
-		win.top = (maxWin.top + maxWin.bottom - height) / 2;
+		win.top = center.y - height / 2;
+		if (win.top < 0)
+			win.top = 0;
 		win.bottom = win.top + height;
 	}
 	else
@@ -3171,6 +3198,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 					(::GetWindowLongPtr(hwnd, GWLP_USERDATA)));
 				::ResetEvent(pw->_hActiveState);
 				::EnableWindow(pw->_hBtn, FALSE);
+				pw->setInfo(TEXT("Cancelling operation, please wait..."));
 				return 0;
 			}
 			break;

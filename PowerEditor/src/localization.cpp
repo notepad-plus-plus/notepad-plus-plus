@@ -1071,41 +1071,20 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 	return defaultStr;
 }
 
-int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *defaultMessage, TCHAR *defaultTitle, int msgBoxType, int intInfo, TCHAR *strInfo)
+int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *defaultMessage, const TCHAR *defaultTitle, int msgBoxType, int intInfo, const TCHAR *strInfo)
 {
 	generic_string msg, title;
-	size_t index;
-	TCHAR int2Write[256];
-	TCHAR intPlaceHolderSymbol[] = TEXT("$INT_REPLACE$");
-	TCHAR strPlaceHolderSymbol[] = TEXT("$STR_REPLACE$");
-
-	size_t intPlaceHolderLen = lstrlen(intPlaceHolderSymbol);
-	size_t strPlaceHolderLen = lstrlen(strPlaceHolderSymbol);
-
-	generic_sprintf(int2Write, TEXT("%d"), intInfo);
-
 	if (!getMsgBoxLang(msgBoxTagName, title, msg))
 	{
 		title = defaultTitle;
 		msg = defaultMessage;
 	}
-	index = title.find(intPlaceHolderSymbol);
-	if (index != string::npos)
-		title.replace(index, intPlaceHolderLen, int2Write);
-
-	index = msg.find(intPlaceHolderSymbol);
-	if (index != string::npos)
-		msg.replace(index, intPlaceHolderLen, int2Write);
-
+	title = stringReplace(title, TEXT("$INT_REPLACE$"), std::to_wstring(intInfo));
+	msg = stringReplace(msg, TEXT("$INT_REPLACE$"), std::to_wstring(intInfo));
 	if (strInfo)
 	{
-		index = title.find(strPlaceHolderSymbol);
-		if (index != string::npos)
-			title.replace(index, strPlaceHolderLen, strInfo);
-
-		index = msg.find(strPlaceHolderSymbol);
-		if (index != string::npos)
-			msg.replace(index, strPlaceHolderLen, strInfo);
+		title = stringReplace(title, TEXT("$STR_REPLACE$"), strInfo);
+		msg = stringReplace(msg, TEXT("$STR_REPLACE$"), strInfo);
 	}
 	return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
 }

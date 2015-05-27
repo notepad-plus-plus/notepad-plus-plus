@@ -61,7 +61,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
 
 class Notepad_plus_Window : public Window {
 public:
-	Notepad_plus_Window() {};
+	Notepad_plus_Window() : _isPrelaunch(false), _disablePluginsManager(false) {};
 	void init(HINSTANCE, HWND, const TCHAR *cmdLine, CmdLineParams *cmdLineParams);
 
 	bool isDlgsMsg(MSG *msg) const;

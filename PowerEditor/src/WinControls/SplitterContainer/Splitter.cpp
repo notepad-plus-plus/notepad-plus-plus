@@ -194,7 +194,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 				_hParent,
 				NULL,
 				_hInst,
-				(LPVOID)this);
+				this);
 	
 	if (!_hSelf)
 	{

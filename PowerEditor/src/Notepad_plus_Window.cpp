@@ -75,9 +75,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 					_hParent,\
 					NULL,\
 					_hInst,\
-					(LPVOID)this); // pass the ptr of this instantiated object
-                                   // for retrieve it in Notepad_plus_Proc from 
-                                   // the CREATESTRUCT.lpCreateParams afterward.
+					this); // pass the ptr of this instantiated object
+                           // for retrieve it in Notepad_plus_Proc from 
+                           // the CREATESTRUCT.lpCreateParams afterward.
 
 	if (!_hSelf)
 	{

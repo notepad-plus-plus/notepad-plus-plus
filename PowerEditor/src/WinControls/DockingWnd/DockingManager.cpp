@@ -132,7 +132,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 					_hParent,
 					NULL,
 					_hInst,
-					(LPVOID)this);
+					this);
 
 	if (!_hSelf)
 	{

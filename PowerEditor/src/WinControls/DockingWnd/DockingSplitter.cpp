@@ -113,7 +113,7 @@ void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags
 	/* create splitter windows and initialize it */
 	_hSelf = ::CreateWindowEx( 0, wc.lpszClassName, TEXT(""), WS_CHILD | WS_VISIBLE,
 								CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, 
-								_hParent, NULL, _hInst, (LPVOID)this);
+								_hParent, NULL, _hInst, this);
 
 	if (!_hSelf)
 	{

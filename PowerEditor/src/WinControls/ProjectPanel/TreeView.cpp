@@ -45,7 +45,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
                             _hParent, 
                             NULL, 
                             _hInst, 
-                            (LPVOID)0);
+                            NULL);
 
 	TreeView_SetItemHeight(_hSelf, CY_ITEMHEIGHT);
 

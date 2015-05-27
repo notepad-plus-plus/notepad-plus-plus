@@ -161,7 +161,7 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 	return _nbExt;
 }
 
-TCHAR * FileDialog::doOpenSingleFileDlg() 
+_Ret_maybenull_z_ TCHAR* FileDialog::doOpenSingleFileDlg() 
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
@@ -170,19 +170,12 @@ TCHAR * FileDialog::doOpenSingleFileDlg()
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST;
 
-	TCHAR *fn = NULL;
-	try {
-		fn = ::GetOpenFileName(&_ofn)?_fileName:NULL;
+	PTSTR fn = ::GetOpenFileName(&_ofn)?_fileName:NULL;
 		
-		if (params->getNppGUI()._openSaveDir == dir_last)
-		{
-			::GetCurrentDirectory(MAX_PATH, dir);
-			params->setWorkingDir(dir);
-		}
-	} catch(std::exception e) {
-		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-	} catch(...) {
-		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
+	if (params->getNppGUI()._openSaveDir == dir_last)
+	{
+		::GetCurrentDirectory(MAX_PATH, dir);
+		params->setWorkingDir(dir);
 	}
 
 	::SetCurrentDirectory(dir); 

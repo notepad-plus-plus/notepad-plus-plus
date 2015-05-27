@@ -52,7 +52,7 @@ public:
 
 	TCHAR * doSaveDlg();
 	stringVector * doOpenMultiFilesDlg();
-	TCHAR * doOpenSingleFileDlg();
+	_Ret_maybenull_z_ TCHAR * doOpenSingleFileDlg();
 	bool isReadOnly() {return _ofn.Flags & OFN_READONLY;};
     void setExtIndex(int extTypeIndex) {_extTypeIndex = extTypeIndex;};
 
@@ -62,7 +62,7 @@ protected :
     BOOL APIENTRY run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
-	TCHAR _fileName[MAX_PATH*8];
+	_Field_z_ TCHAR _fileName[MAX_PATH*8];
 
 	TCHAR * _fileExt;
 	int _nbCharFileExt;

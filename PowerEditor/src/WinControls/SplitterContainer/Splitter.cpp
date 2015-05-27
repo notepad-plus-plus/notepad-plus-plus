@@ -250,7 +250,7 @@ LRESULT CALLBACK Splitter::staticWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LP
 		}
 		default:
 		{
-			Splitter * pSplitter = (Splitter *)::GetWindowLongPtr(hWnd, GWL_USERDATA);
+			Splitter * pSplitter = (Splitter *)::GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (!pSplitter)
 				return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
 

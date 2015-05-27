@@ -86,7 +86,7 @@ public:
         ::DestroyWindow(_hSelf);
     };
 
-	static const TCHAR * Notepad_plus_Window::getClassName() {
+	static const TCHAR * getClassName() {
 		return _className;
 	};
 	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant

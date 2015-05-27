@@ -315,11 +315,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	generic_string quotFileName = TEXT("");
     // tell the running instance the FULL path to the new files to load
 	size_t nrFilesToOpen = params.size();
-	const TCHAR * currentFile;
 
 	for(size_t i = 0; i < nrFilesToOpen; ++i)
 	{
-		currentFile = params.at(i);
+		const TCHAR * currentFile = params.at(i);
 		if (currentFile[0])
 		{
 			//check if relative or full path. Relative paths dont have a colon for driveletter

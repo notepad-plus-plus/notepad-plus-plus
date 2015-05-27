@@ -222,7 +222,6 @@ static bool getPathsForPathCompletion(generic_string input, generic_string &rawP
 	}
 	else
 	{
-		locale loc;
 		size_t last_occurrence = rawPath.rfind(L"\\");
 		if(last_occurrence == std::string::npos) // No match.
 			return false;
@@ -765,10 +764,10 @@ bool AutoCompletion::setLanguage(LangType language) {
 		//Cache the keywords
 		//Iterate through all keywords
 		TiXmlElement *funcNode = _pXmlKeyword;
-		const TCHAR * name = NULL;
+
 		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
 		{
-			name = funcNode->Attribute(TEXT("name"));
+			const TCHAR *name = funcNode->Attribute(TEXT("name"));
 			if (name)
 			{
 				size_t len = lstrlen(name);

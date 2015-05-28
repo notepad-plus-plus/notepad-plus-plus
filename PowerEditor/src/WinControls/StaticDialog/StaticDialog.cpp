@@ -49,7 +49,8 @@ void StaticDialog::display(bool toShow) const
 	if (toShow) {
 		// If the user has switched from a dual monitor to a single monitor since we last
 		// displayed the dialog, then ensure that it's still visible on the single monitor.
-		RECT workAreaRect, rc;
+		RECT workAreaRect = {0};
+		RECT rc = {0};
 		::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
 		::GetWindowRect(_hSelf, &rc);
 		int newLeft = rc.left;
@@ -77,9 +78,17 @@ HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplat
 {
 	// Get Dlg Template resource
 	HRSRC  hDialogRC = ::FindResource(_hInst, MAKEINTRESOURCE(dialogID), RT_DIALOG);
+	if (!hDialogRC)
+		return NULL;
+
 	HGLOBAL  hDlgTemplate = ::LoadResource(_hInst, hDialogRC);
+	if (!hDlgTemplate)
+		return NULL;
+
 	DLGTEMPLATE *pDlgTemplate = (DLGTEMPLATE *)::LockResource(hDlgTemplate);
-	
+	if (!pDlgTemplate)
+		return NULL;
+
 	// Duplicate Dlg Template resource
 	unsigned long sizeDlg = ::SizeofResource(_hInst, hDialogRC);
 	HGLOBAL hMyDlgTemplate = ::GlobalAlloc(GPTR, sizeDlg);

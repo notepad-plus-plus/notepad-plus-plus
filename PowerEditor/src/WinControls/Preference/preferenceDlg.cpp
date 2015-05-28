@@ -257,7 +257,7 @@ bool PreferenceDlg::renameDialogTitle(const TCHAR *internalName, const TCHAR *ne
 		return false;
 
 	const size_t lenMax = 256;
-	TCHAR oldName[lenMax];
+	TCHAR oldName[lenMax] = {0};
 	size_t txtLen = ::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETTEXTLEN, i, 0);
 	if (txtLen >= lenMax)
 		return false;

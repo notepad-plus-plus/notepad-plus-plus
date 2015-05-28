@@ -129,16 +129,11 @@ BOOL Process::run()
 
 void Process::listenerStdOut()
 {
-	//BOOL Result = 0;
-	//DWORD size = 0;
 	DWORD bytesAvail = 0;
 	BOOL result = 0;
 	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerEvent"));
-	//FILE *fp = NULL;
 
-	int taille = 0;
 	TCHAR bufferOut[MAX_LINE_LENGTH + 1];
-	//TCHAR bufferErr[MAX_LINE_LENGTH + 1];
 
 	int nExitCode = STILL_ACTIVE;
 	
@@ -150,8 +145,7 @@ void Process::listenerStdOut()
 	while (goOn)
 	{ // got data
 		memset(bufferOut,0x00,MAX_LINE_LENGTH + 1); 
-		//memset(bufferErr,0x00,MAX_LINE_LENGTH + 1);
-		taille = sizeof(bufferOut) - sizeof(TCHAR);
+		int taille = sizeof(bufferOut) - sizeof(TCHAR);
 		
 		Sleep(50);
 
@@ -171,7 +165,7 @@ void Process::listenerStdOut()
 				break;
             }
 		}
-		//outbytesRead = strlen(bufferOut);
+
 		bufferOut[outbytesRead] = '\0';
 		generic_string s;
 		s.assign(bufferOut);
@@ -198,19 +192,13 @@ void Process::listenerStdOut()
 
 void Process::listenerStdErr()
 {
-	//BOOL Result = 0;
-	//DWORD size = 0;
 	DWORD bytesAvail = 0;
 	BOOL result = 0;
 	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerStdErrEvent"));
 
 	int taille = 0;
-	//TCHAR bufferOut[MAX_LINE_LENGTH + 1];
 	TCHAR bufferErr[MAX_LINE_LENGTH + 1];
-
 	int nExitCode = STILL_ACTIVE;
-	
-	DWORD errbytesRead;
 
 	::ResumeThread(_hProcessThread);
 
@@ -221,7 +209,7 @@ void Process::listenerStdErr()
 		taille = sizeof(bufferErr) - sizeof(TCHAR);
 
 		Sleep(50);
-
+		DWORD errbytesRead;
 		if (!::PeekNamedPipe(_hPipeErrR, bufferErr, taille, &errbytesRead, &bytesAvail, NULL)) 
 		{
 			bytesAvail = 0;
@@ -238,7 +226,6 @@ void Process::listenerStdErr()
 				break;
             }
 		}
-		//outbytesRead = strlen(bufferOut);
 		bufferErr[errbytesRead] = '\0';
 		generic_string s;
 		s.assign(bufferErr);

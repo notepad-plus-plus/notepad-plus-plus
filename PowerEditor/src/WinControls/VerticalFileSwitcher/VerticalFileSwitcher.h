@@ -104,7 +104,7 @@ public:
     };
 
 protected:
-	virtual BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	VerticalFileSwitcherListView _fileListView;

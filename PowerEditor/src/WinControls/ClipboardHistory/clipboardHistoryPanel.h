@@ -99,7 +99,7 @@ public:
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 
 protected:
-	virtual BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	ScintillaEditView **_ppEditView;

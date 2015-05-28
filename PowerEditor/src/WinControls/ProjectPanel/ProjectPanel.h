@@ -134,7 +134,7 @@ protected:
 	void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);
 	POINT getMenuDisplyPoint(int iButton);
-	virtual BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);

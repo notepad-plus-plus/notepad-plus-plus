@@ -546,7 +546,7 @@ void Accelerator::updateShortcuts()
 		tmpAccelArray[i] = IFAcc[i];
 	}
 	_hIncFindAccTab = ::CreateAcceleratorTable(tmpAccelArray, nb);
-	delete tmpAccelArray;
+	delete [] tmpAccelArray;
 
 	return;
 }

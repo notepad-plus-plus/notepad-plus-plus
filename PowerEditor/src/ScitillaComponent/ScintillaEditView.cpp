@@ -256,7 +256,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	_codepage = ::GetACP();
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-	_callWindowProc = CallWindowProcW;
+	_callWindowProc = CallWindowProc;
 	_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(scintillaStatic_Proc)));
 
 	//Get the startup document and make a buffer for it so it can be accessed like a file

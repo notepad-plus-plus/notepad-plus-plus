@@ -72,7 +72,7 @@ public:
     };
 	
 protected:
-	virtual BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	ScintillaEditView **_ppEditView;

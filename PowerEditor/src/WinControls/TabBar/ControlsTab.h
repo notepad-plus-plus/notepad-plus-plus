@@ -53,7 +53,7 @@ public :
 		_isVertical = isVertical;
 		TabBar::init(hInst, hwnd, false, isTraditional, isMultiLine);
 	};
-	void ControlsTab::createTabs(WindowVector & winVector);
+	void createTabs(WindowVector & winVector);
 
 	void destroy() {
 		TabBar::destroy();

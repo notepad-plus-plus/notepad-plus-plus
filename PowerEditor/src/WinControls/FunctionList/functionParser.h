@@ -37,7 +37,7 @@ struct foundInfo {
 	generic_string _data2;
 	int _pos;
 	int _pos2;
-	//foundInfo(): /*_data(TEXT("")), _data2(TEXT("")), _pos(-1) _pos2(-1) */{};
+	foundInfo(): _data(TEXT("")), _data2(TEXT("")), _pos(-1), _pos2(-1) {};
 };
 
 class FunctionParser {

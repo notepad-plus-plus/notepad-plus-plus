@@ -6166,7 +6166,7 @@ bool Notepad_plus::undoStreamComment()
 
 		//-- First, search all start_comment and end_comment before and after the selectionStart and selectionEnd position.
 		const int iSelStart=0, iSelEnd=1;
-		const size_t N_CMNT = 2
+		const size_t N_CMNT = 2;
 		int posStartCommentBefore[N_CMNT], posEndCommentBefore[N_CMNT], posStartCommentAfter[N_CMNT], posEndCommentAfter[N_CMNT];
 		bool blnStartCommentBefore[N_CMNT], blnEndCommentBefore[N_CMNT], blnStartCommentAfter[N_CMNT], blnEndCommentAfter[N_CMNT];
 		int posStartComment, posEndComment;

@@ -38,13 +38,18 @@
 
 FileManager * FileManager::_pSelf = new FileManager();
 
-const int blockSize = 128 * 1024 + 4;
+static const int blockSize = 128 * 1024 + 4;
 
 // Ordre important!! Ne le changes pas!
 //SC_EOL_CRLF (0), SC_EOL_CR (1), or SC_EOL_LF (2).
 
-const int CR = 0x0D;
-const int LF = 0x0A;
+static const int CR = 0x0D;
+static const int LF = 0x0A;
+
+
+
+
+
 
 Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
 	: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
@@ -480,8 +485,9 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
 
+	char data[blockSize + 8]; // +8 for incomplete multibyte char
 	formatType format;
-	bool res = loadFileData(doc, backupFileName?backupFileName:fullpath, &UnicodeConvertor, L_TEXT, encoding, &format);
+	bool res = loadFileData(doc, backupFileName?backupFileName:fullpath, data, &UnicodeConvertor, L_TEXT, encoding, &format);
 	if (res) 
 	{
 		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -560,14 +566,15 @@ bool FileManager::reloadBuffer(BufferID id)
 	Utf8_16_Read UnicodeConvertor;
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
 	int encoding = buf->getEncoding();
+	char data[blockSize + 8]; // +8 for incomplete multibyte char
 	formatType format;
-	bool res = loadFileData(doc, buf->getFullPathName(), &UnicodeConvertor, buf->getLangType(), encoding, &format);
+	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, buf->getLangType(), encoding, &format);
 	buf->_canNotify = true;
 	if (res) 
 	{
 		if (encoding == -1)
 		{
-			if (UnicodeConvertor.getNewBuf()) 
+			if (nullptr != UnicodeConvertor.getNewBuf()) 
 			{
 				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf());
 				buf->setFormat(format == -1?WIN_FORMAT:(formatType)format);
@@ -1134,10 +1141,9 @@ int FileManager::detectCodepage(char* buf, size_t len)
 	return codepage;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat)
+inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * UnicodeConvertor,
+	LangType language, int & encoding, formatType *pFormat)
 {
-	const int blockSize = 128 * 1024;	//128 kB
-	char data[blockSize+8];
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
 		return false;

@@ -31,7 +31,8 @@ const Utf8_16::utf8 Utf8_16::k_Boms[][3] = {
 
 Utf8_16_Read::Utf8_16_Read() {
 	m_eEncoding		= uni8Bit;
-	m_nBufSize		= 0;
+	m_nAllocatedBufSize = 0;
+	m_nNewBufSize   = 0;
 	m_pNewBuf		= NULL;
 	m_bFirstRead	= true;
 }
@@ -113,10 +114,9 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 	// bugfix by Jens Lorenz
 	static	size_t nSkip = 0;
 
-    size_t  ret = 0;
-    
 	m_pBuf = (ubyte*)buf;
 	m_nLen = len;
+	m_nNewBufSize = 0;
 
 	if (m_bFirstRead == true)
     {
@@ -131,16 +131,16 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
         case uni8Bit:
         case uniCookie: {
             // Do nothing, pass through
-            m_nBufSize = 0;
+			m_nAllocatedBufSize = 0;
             m_pNewBuf = m_pBuf;
-            ret = len;
+			m_nNewBufSize = len;
             break;
         }
         case uniUTF8: {
             // Pass through after BOM
-            m_nBufSize = 0;
+			m_nAllocatedBufSize = 0;
             m_pNewBuf = m_pBuf + nSkip;
-            ret = len - nSkip;
+			m_nNewBufSize = len - nSkip;
             break;
         }    
         case uni16BE_NoBOM:
@@ -149,13 +149,13 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
         case uni16LE: {
             size_t newSize = len + len / 2 + 1;
             
-            if (m_nBufSize != newSize)
+			if (m_nAllocatedBufSize != newSize)
             {
 				if (m_pNewBuf)
 					delete [] m_pNewBuf;
                 m_pNewBuf  = NULL;
                 m_pNewBuf  = new ubyte[newSize];
-                m_nBufSize = newSize;
+				m_nAllocatedBufSize = newSize;
             }
             
             ubyte* pCur = m_pNewBuf;
@@ -166,7 +166,7 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
             {
                 *pCur++ = m_Iter16.get();
             }
-            ret = pCur - m_pNewBuf;
+			m_nNewBufSize = pCur - m_pNewBuf;
             break;
         }
         default:
@@ -176,7 +176,7 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 	// necessary for second calls and more
 	nSkip = 0;
 
-	return ret;
+	return m_nNewBufSize;
 }
 
 

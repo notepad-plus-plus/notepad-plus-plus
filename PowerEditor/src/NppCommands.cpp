@@ -267,6 +267,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_PASTE:
 		{
+			LongRunningOperation op;
 			int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
 			_pEditView->execute(SCI_PASTE);
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
@@ -275,6 +276,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_PASTE_BINARY:
 		{			
+			LongRunningOperation op;
 			if (!IsClipboardFormatAvailable(CF_TEXT))
 				return;
 
@@ -319,6 +321,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_PASTE_AS_RTF:
 		case IDM_EDIT_PASTE_AS_HTML:
 		{
+			LongRunningOperation op;
 			UINT f = RegisterClipboardFormat(id==IDM_EDIT_PASTE_AS_HTML?CF_HTML:CF_RTF);
 
 			if (!IsClipboardFormatAvailable(f)) 

@@ -508,11 +508,10 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		if (encoding == -1)
 		{
 			// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
-			if (UnicodeConvertor.getNewBuf()) 
+			if (nullptr != UnicodeConvertor.getNewBuf()) 
 			{
-				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf());
+				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize());
 				buf->setFormat(format == -1?WIN_FORMAT:(formatType)format);
-				
 			}
 			else
 			{
@@ -569,7 +568,7 @@ bool FileManager::reloadBuffer(BufferID id)
 		{
 			if (UnicodeConvertor.getNewBuf()) 
 			{
-				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf());
+				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize());
 				buf->setFormat(format == -1?WIN_FORMAT:(formatType)format);
 			}
 			else
@@ -1241,7 +1240,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 				}
 
 				if (format == -1)
-					format = getEOLFormatForm(data);
+					format = getEOLFormatForm(data, lenFile);
 			}
 			else
 			{
@@ -1323,14 +1322,15 @@ int FileManager::docLength(Buffer * buffer) const
 	return docLen;
 }
 
-int FileManager::getEOLFormatForm(const char *data) const
+int FileManager::getEOLFormatForm(const char* const data, size_t length) const
 {
-	size_t len = strlen(data);
-	for (size_t i = 0 ; i < len ; i++)
+	assert(data != nullptr && "invalid buffer for getEOLFormatForm()");
+
+	for (size_t i = 0; i != length; ++i)
 	{
 		if (data[i] == CR)
 		{
-			if (i+1 < len &&  data[i+1] == LF)
+			if (i+1 < length && data[i+1] == LF)
 			{
 				return int(WIN_FORMAT);
 			}

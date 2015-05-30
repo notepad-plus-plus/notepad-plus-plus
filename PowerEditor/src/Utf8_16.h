@@ -112,7 +112,8 @@ public:
 	~Utf8_16_Read();
 
 	size_t convert(char* buf, size_t len);
-	char* getNewBuf() { return reinterpret_cast<char *>(m_pNewBuf); }
+	const char* getNewBuf() const { return (const char*) m_pNewBuf; }
+	size_t getNewSize() const { return m_nNewBufSize; }
 
 	UniMode getEncoding() const { return m_eEncoding; }
 	size_t calcCurPos(size_t pos);
@@ -126,7 +127,10 @@ private:
 	UniMode    m_eEncoding;
 	ubyte*          m_pBuf;
 	ubyte*          m_pNewBuf;
-	size_t          m_nBufSize;
+	// size of the new buffer
+	size_t          m_nNewBufSize;
+	// size of the previously allocated buffer (if != 0)
+	size_t          m_nAllocatedBufSize;
 	size_t			m_nSkip;
 	bool            m_bFirstRead;
 	size_t          m_nLen;

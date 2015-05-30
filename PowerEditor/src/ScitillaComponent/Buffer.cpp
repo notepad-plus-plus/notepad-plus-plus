@@ -60,10 +60,11 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	_userLangExt = TEXT("");
 	_fullPathName = TEXT("");
 	_fileName = NULL;
+	_currentStatus = type;
+
 	setFileName(fileName, ndds._lang);
 	updateTimeStamp();
 	checkFileState();
-	_currentStatus = type;
 	_isDirty = false;
 
 	_needLexer = false;	//new buffers do not need lexing, Scintilla takes care of that

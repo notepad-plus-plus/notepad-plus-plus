@@ -440,7 +440,7 @@ private:
 
 	static volatile LONG refCount;
 
-	static DWORD threadFunc(LPVOID data);
+	static DWORD WINAPI threadFunc(LPVOID data);
 	static LRESULT APIENTRY wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam);
 
 	// Disable copy construction and operator=

@@ -2999,8 +2999,7 @@ HWND Progress::open(HWND hCallerWnd, const TCHAR* header)
 	else
 		_tcscpy_s(_header, _countof(_header), cDefaultHeader);
 
-	_hThread = ::CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)threadFunc,
-		(LPVOID)this, 0, NULL);
+	_hThread = ::CreateThread(NULL, 0, threadFunc, this, 0, NULL);
 	if (!_hThread)
 	{
 		::CloseHandle(_hActiveState);

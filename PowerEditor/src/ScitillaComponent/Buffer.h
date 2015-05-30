@@ -104,7 +104,7 @@ public:
 	void destroyInstance() { delete _pSelf; };
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	int docLength(Buffer * buffer) const;
-	int getEOLFormatForm(const char *data) const;
+	int getEOLFormatForm(const char* const data, size_t length) const;
 	size_t nextUntitledNewNumber() const;
 
 private:
@@ -384,6 +384,9 @@ private :
 		if (_canNotify)
 			_pManager->beNotifiedOfBufferChange(this, mask); 
 	};
+
+	Buffer(const Buffer&) { assert(false);  }
+	Buffer& operator = (const Buffer&) { assert(false);  return *this; }
 };
 
 #endif //BUFFER_H

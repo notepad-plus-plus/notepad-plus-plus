@@ -26,41 +26,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef PRINTER_H
-#define PRINTER_H
+#ifndef M30_IDE_LONGRUNNINGOPERATION_h
+#define M30_IDE_LONGRUNNINGOPERATION_h
 
-#ifndef SCINTILLA_EDIT_VIEW_H
-#include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
-
-
-struct NPP_RangeToFormat {
-	HDC hdc;
-	HDC hdcTarget;
-	RECT rc;
-	RECT rcPage;
-	CharacterRange chrg;
-};
-
-class Printer
+class LongRunningOperation
 {
-public :
-	Printer(){};
-	void init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos);
-	size_t doPrint() {
-		if (!::PrintDlg(&_pdlg))
-				return 0;
-
-		return doPrint(true);
-	};
-	size_t doPrint(bool justDoIt);
-
-private :
-	PRINTDLG _pdlg;
-	ScintillaEditView *_pSEView;
-	size_t _startPos;
-	size_t _endPos;
-	size_t _nbPageTotal;
+public:
+	LongRunningOperation();
+	~LongRunningOperation();
 };
 
-#endif //PRINTER_H
+#endif //M30_IDE_LONGRUNNINGOPERATION_h

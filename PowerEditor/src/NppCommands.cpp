@@ -36,6 +36,7 @@
 #include "documentMap.h"
 #include "functionListPanel.h"
 #include "Sorters.h"
+#include "LongRunningOperation.h"
 
 
 void Notepad_plus::macroPlayback(Macro macro)
@@ -178,16 +179,22 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_UNDO:
+		{
+			LongRunningOperation op;
 			_pEditView->execute(WM_UNDO);
 			checkClipboard();
 			checkUndoState();
 			break;
+		}
 
 		case IDM_EDIT_REDO:
+		{
+			LongRunningOperation op;
 			_pEditView->execute(SCI_REDO);
 			checkClipboard();
 			checkUndoState();
 			break;
+		}
 
 		case IDM_EDIT_CUT:
 			_pEditView->execute(WM_CUT);
@@ -260,6 +267,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_PASTE:
 		{
+			LongRunningOperation op;
 			int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
 			_pEditView->execute(SCI_PASTE);
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
@@ -268,6 +276,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_PASTE_BINARY:
 		{			
+			LongRunningOperation op;
 			if (!IsClipboardFormatAvailable(CF_TEXT))
 				return;
 
@@ -312,6 +321,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_PASTE_AS_RTF:
 		case IDM_EDIT_PASTE_AS_HTML:
 		{
+			LongRunningOperation op;
 			UINT f = RegisterClipboardFormat(id==IDM_EDIT_PASTE_AS_HTML?CF_HTML:CF_RTF);
 
 			if (!IsClipboardFormatAvailable(f)) 
@@ -354,6 +364,8 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING:
 		case IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING:
 		{
+			LongRunningOperation op;
+
 			size_t fromLine = 0, toLine = 0;
 			size_t fromColumn = 0, toColumn = 0;
 

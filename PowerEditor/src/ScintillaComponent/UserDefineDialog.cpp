@@ -1561,11 +1561,11 @@ BOOL CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 
             ::SetProp(hwnd, TEXT("Styler dialog prop"), (HANDLE)lParam);
             dlg = (StylerDlg *)::GetProp(hwnd, TEXT("Styler dialog prop"));
-            Style & style = SharedParametersDialog::_pUserLang->_styleArray.getStyler(dlg->stylerIndex);
+            Style & style = SharedParametersDialog::_pUserLang->_styleArray.getStyler(dlg->_stylerIndex);
 
             // move dialog over UDL GUI (position 0,0 of UDL window) so it wouldn't cover the code
             RECT wrc;
-            ::GetWindowRect(dlg->parent, &wrc);
+            ::GetWindowRect(dlg->_parent, &wrc);
             wrc.left = wrc.left < 0 ? 200 : wrc.left;   // if outside of visible area
             wrc.top = wrc.top < 0 ? 200 : wrc.top;
             ::SetWindowPos(hwnd, HWND_TOP, wrc.left, wrc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
@@ -1612,10 +1612,10 @@ BOOL CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             if (style._bgColor == COLORREF(-1))
                 style._bgColor = white;
 
-            dlg->pFgColour->init(dlg->hInst, hwnd);
-            dlg->pFgColour->setColour(style._fgColor);
-            dlg->pBgColour->init(dlg->hInst, hwnd);
-            dlg->pBgColour->setColour(style._bgColor);
+            dlg->_pFgColour->init(dlg->_hInst, hwnd);
+            dlg->_pFgColour->setColour(style._fgColor);
+            dlg->_pBgColour->init(dlg->_hInst, hwnd);
+            dlg->_pBgColour->setColour(style._bgColor);
 
             POINT p1, p2;
             RECT rc1, rc2;
@@ -1635,24 +1635,24 @@ BOOL CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             p1.x += 10; p2.x += 10;
             p1.y -= 6; p2.y -= 6;
 
-            ::MoveWindow(dlg->pFgColour->getHSelf(), p1.x, p1.y, 30, 30, TRUE);
-            ::MoveWindow(dlg->pBgColour->getHSelf(), p2.x, p2.y, 30, 30, TRUE);
+            ::MoveWindow(dlg->_pFgColour->getHSelf(), p1.x, p1.y, 30, 30, TRUE);
+            ::MoveWindow(dlg->_pBgColour->getHSelf(), p2.x, p2.y, 30, 30, TRUE);
 
-            dlg->pFgColour->display();
-            dlg->pBgColour->display();
+            dlg->_pFgColour->display();
+            dlg->_pBgColour->display();
 
             map<int, int>::iterator iter = globalMappper().nestingMapper.begin();
             for (; iter != globalMappper().nestingMapper.end(); ++iter)
             {
                 ::SendDlgItemMessage(hwnd, iter->first, BM_SETCHECK, style._nesting & iter->second, 0);
-                ::EnableWindow(::GetDlgItem(hwnd, iter->first), dlg->enabledNesters & iter->second);
+                ::EnableWindow(::GetDlgItem(hwnd, iter->first), dlg->_enabledNesters & iter->second);
             }
             return TRUE;
         }
 
         case WM_COMMAND :
         {
-            Style & style = SharedParametersDialog::_pUserLang->_styleArray.getStyler(dlg->stylerIndex);
+            Style & style = SharedParametersDialog::_pUserLang->_styleArray.getStyler(dlg->_stylerIndex);
             if (HIWORD(wParam) == CBN_SELCHANGE)
             {
                 int i = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETCURSEL, 0, 0);
@@ -1691,7 +1691,7 @@ BOOL CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             {
                 if (wParam == IDCANCEL)
                 {
-                    style = dlg->initialStyle;
+                    style = dlg->_initialStyle;
 
                     // show changes to user, re-color document
                     if (SharedParametersDialog::_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
@@ -1709,14 +1709,14 @@ BOOL CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     return TRUE;
                 }
 
-                style._fgColor = dlg->pFgColour->getColour();
-                style._bgColor = dlg->pBgColour->getColour();
+                style._fgColor = dlg->_pFgColour->getColour();
+                style._bgColor = dlg->_pBgColour->getColour();
 
-                if (dlg->pFgColour->isEnabled())
+                if (dlg->_pFgColour->isEnabled())
                     style._colorStyle |= COLORSTYLE_FOREGROUND;
                 else
                     style._colorStyle &= ~COLORSTYLE_FOREGROUND;
-                if (dlg->pBgColour->isEnabled())
+                if (dlg->_pBgColour->isEnabled())
                     style._colorStyle |= COLORSTYLE_BACKGROUND;
                 else
                     style._colorStyle &= ~COLORSTYLE_BACKGROUND;

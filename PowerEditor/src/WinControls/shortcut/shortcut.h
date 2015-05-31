@@ -215,7 +215,7 @@ public:
 	};
 
 	KeyCombo getKeyComboByIndex(int index) const;
-	void ScintillaKeyMap::setKeyComboByIndex(int index, KeyCombo combo);
+	void setKeyComboByIndex(int index, KeyCombo combo);
 	void removeKeyComboByIndex(int index);
 	void clearDups() {
 		if (size > 1)

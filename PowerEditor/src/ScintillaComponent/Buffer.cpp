@@ -34,6 +34,7 @@
 #include "ScintillaEditView.h"
 #include "EncodingMapper.h"
 #include "uchardet.h"
+#include "LongRunningOperation.h"
 
 FileManager * FileManager::_pSelf = new FileManager();
 
@@ -60,10 +61,11 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	_userLangExt = TEXT("");
 	_fullPathName = TEXT("");
 	_fileName = NULL;
+	_currentStatus = type;
+
 	setFileName(fileName, ndds._lang);
 	updateTimeStamp();
 	checkFileState();
-	_currentStatus = type;
 	_isDirty = false;
 
 	_needLexer = false;	//new buffers do not need lexing, Scintilla takes care of that
@@ -217,7 +219,7 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 	if (isWow64Off)
 	{
 		pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-		isWow64Off = false;
+		//isWow64Off = false;
 	}
 	return isOK;
 }
@@ -674,6 +676,8 @@ For untitled document (new  4)
 */
 bool FileManager::backupCurrentBuffer()
 {
+	LongRunningOperation op;
+
 	Buffer * buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = false;
 	bool hasModifForSession = false;
@@ -1121,12 +1125,11 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 
 int FileManager::detectCodepage(char* buf, size_t len)
 {
-	int codepage = -1;
 	uchardet_t ud = uchardet_new();
 	uchardet_handle_data(ud, buf, len);
 	uchardet_data_end(ud);
 	const char* cs = uchardet_get_charset(ud);
-	codepage = EncodingMapper::getInstance()->getEncodingFromString(cs);
+	int codepage = EncodingMapper::getInstance()->getEncodingFromString(cs);
 	uchardet_delete(ud);
 	return codepage;
 }
@@ -1203,7 +1206,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 
 		do {
 			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
-			if (lenFile <= 0) break;
+			if (lenFile == 0) break;
 
             // check if file contain any BOM
             if (isFirstTime) 

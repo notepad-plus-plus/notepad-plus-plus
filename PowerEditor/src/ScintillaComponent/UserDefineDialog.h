@@ -279,6 +279,7 @@ protected :
     bool setPropertyByCheck(HWND hwnd, WPARAM id, bool & bool2set);
     virtual void setKeywords2List(int ctrlID) = 0;
 };
+
 class FolderStyleDialog : public SharedParametersDialog
 {
 public:
@@ -292,6 +293,7 @@ private :
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
     URLCtrl _pageLink;
 };
+
 class KeyWordsStyleDialog : public SharedParametersDialog
 {
 public:
@@ -301,6 +303,7 @@ protected :
     BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 };
+
 class CommentStyleDialog : public SharedParametersDialog
 {
 public :
@@ -313,6 +316,7 @@ private :
     void convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const;
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
 };
+
 class SymbolsStyleDialog : public SharedParametersDialog
 {
 public :
@@ -325,6 +329,7 @@ private :
     void convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const;
     void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *prefix) const;
 };
+
 class UserDefineDialog : public SharedParametersDialog
 {
 friend class ScintillaEditView;
@@ -411,6 +416,7 @@ protected :
     void setKeywords2List(int){};
     void updateDlg();
 };
+
 class StringDlg : public StaticDialog
 {
 public :
@@ -434,34 +440,36 @@ private :
     generic_string _static;
     int _txtLen;
 };
+
 class StylerDlg
 {
 public:
     StylerDlg( HINSTANCE hInst, HWND parent, int stylerIndex = 0, int enabledNesters = -1):
-        hInst(hInst), parent(parent), stylerIndex(stylerIndex), enabledNesters(enabledNesters)
-    {
-        pFgColour = new ColourPicker;
-        pBgColour = new ColourPicker;
-        initialStyle = SharedParametersDialog::_pUserLang->_styleArray.getStyler(stylerIndex);
+        _hInst(hInst), _parent(parent), _stylerIndex(stylerIndex), _enabledNesters(enabledNesters) {
+        _pFgColour = new ColourPicker;
+        _pBgColour = new ColourPicker;
+        _initialStyle = SharedParametersDialog::_pUserLang->_styleArray.getStyler(stylerIndex);
     };
-    ~StylerDlg()
-    {
-        pFgColour->destroy();
-        pBgColour->destroy();
-        delete pFgColour;
-        delete pBgColour;
-    }
+
+    ~StylerDlg() {
+        _pFgColour->destroy();
+        _pBgColour->destroy();
+        delete _pFgColour;
+        delete _pBgColour;
+	};
+
     long doDialog() {
-        return long (::DialogBoxParam(hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), parent,  (DLGPROC)dlgProc, (LPARAM)this));
+        return long (::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), _parent,  (DLGPROC)dlgProc, (LPARAM)this));
     };
+
     static BOOL CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 public:
-    HINSTANCE hInst;
-    HWND parent;
-    int stylerIndex;
-    int enabledNesters;
-    ColourPicker * pFgColour;
-    ColourPicker * pBgColour;
-    Style initialStyle;
+    HINSTANCE _hInst;
+    HWND _parent;
+    int _stylerIndex;
+    int _enabledNesters;
+    ColourPicker * _pFgColour;
+    ColourPicker * _pBgColour;
+    Style _initialStyle;
 };
 #endif //USER_DEFINE_H

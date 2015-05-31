@@ -26,41 +26,17 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef PRINTER_H
-#define PRINTER_H
+#include "LongRunningOperation.h"
+#include <mutex>
 
-#ifndef SCINTILLA_EDIT_VIEW_H
-#include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
+static std::recursive_mutex _operationMutex;
 
-
-struct NPP_RangeToFormat {
-	HDC hdc;
-	HDC hdcTarget;
-	RECT rc;
-	RECT rcPage;
-	CharacterRange chrg;
-};
-
-class Printer
+LongRunningOperation::LongRunningOperation()
 {
-public :
-	Printer(){};
-	void init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos);
-	size_t doPrint() {
-		if (!::PrintDlg(&_pdlg))
-				return 0;
+	_operationMutex.lock();
+}
 
-		return doPrint(true);
-	};
-	size_t doPrint(bool justDoIt);
-
-private :
-	PRINTDLG _pdlg;
-	ScintillaEditView *_pSEView;
-	size_t _startPos;
-	size_t _endPos;
-	size_t _nbPageTotal;
-};
-
-#endif //PRINTER_H
+LongRunningOperation::~LongRunningOperation()
+{
+	_operationMutex.unlock();
+}

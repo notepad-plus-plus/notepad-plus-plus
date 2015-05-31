@@ -956,12 +956,12 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 		if (posFound != -1 && posFound != -2)
 		{
             const char *encodingBlockRegExpr = "encoding[ \\t]*=[ \\t]*\"[^\".]+\"";
-            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingBlockRegExpr), (LPARAM)encodingBlockRegExpr);
+            _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingBlockRegExpr), (LPARAM)encodingBlockRegExpr);
 
             const char *encodingRegExpr = "\".+\"";
-            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingRegExpr), (LPARAM)encodingRegExpr);
+            _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingRegExpr), (LPARAM)encodingRegExpr);
 
-			posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingAliasRegExpr), (LPARAM)encodingAliasRegExpr);
+			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingAliasRegExpr), (LPARAM)encodingAliasRegExpr);
 
             startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
 			endPos = int(_invisibleEditView.execute(SCI_GETTARGETEND));
@@ -998,9 +998,9 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 			if (posFound == -1 || posFound == -2)
 				return -1;
 		}
-		posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetBlock), (LPARAM)charsetBlock);
-		posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(intermediaire), (LPARAM)intermediaire);
-		posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingStrRE), (LPARAM)encodingStrRE);
+		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetBlock), (LPARAM)charsetBlock);
+		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(intermediaire), (LPARAM)intermediaire);
+		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingStrRE), (LPARAM)encodingStrRE);
 
         startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
 		endPos = int(_invisibleEditView.execute(SCI_GETTARGETEND));
@@ -6074,7 +6074,8 @@ void Notepad_plus::showQuote(const char *quote, const char *quoter, bool doTroll
 void Notepad_plus::launchDocumentBackupTask()
 {
 	HANDLE hThread = ::CreateThread(NULL, 0, backupDocument, NULL, 0, NULL);
-    ::CloseHandle(hThread);
+	if (hThread)
+		::CloseHandle(hThread);
 }
 
 DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
@@ -6150,7 +6151,6 @@ bool Notepad_plus::undoStreamComment()
 	generic_string white_space(TEXT(" "));
 	int start_comment_length = start_comment.length();
 	int end_comment_length = end_comment.length();
-	int startCommentLength, endCommentLength;
 
 	do { // do as long as stream-comments are within selection
 
@@ -6166,7 +6166,7 @@ bool Notepad_plus::undoStreamComment()
 
 		//-- First, search all start_comment and end_comment before and after the selectionStart and selectionEnd position.
 		const int iSelStart=0, iSelEnd=1;
-		#define N_CMNT 2
+		const size_t N_CMNT = 2;
 		int posStartCommentBefore[N_CMNT], posEndCommentBefore[N_CMNT], posStartCommentAfter[N_CMNT], posEndCommentAfter[N_CMNT];
 		bool blnStartCommentBefore[N_CMNT], blnEndCommentBefore[N_CMNT], blnStartCommentAfter[N_CMNT], blnEndCommentAfter[N_CMNT];
 		int posStartComment, posEndComment;
@@ -6238,8 +6238,8 @@ bool Notepad_plus::undoStreamComment()
 		//-- Ok, there are valid start-comment and valid end-comment around the caret-position.
 		//   Now, un-comment stream-comment:
 		retVal = true;
-		startCommentLength = start_comment_length;
-		endCommentLength = end_comment_length;
+		int startCommentLength = start_comment_length;
+		int endCommentLength = end_comment_length;
 		//-- First delete end-comment, so that posStartCommentBefore does not change!
 		//-- Get character before end-comment to decide, if there is a white character before the end-comment, which will be removed too!
 		_pEditView->getGenericText(charbuf, charbufLen, posEndComment-1, posEndComment);

@@ -306,7 +306,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     if (isWow64Off)
     {
         pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-        isWow64Off = false;
+        //isWow64Off = false;
     }
     return buffer;
 }
@@ -439,7 +439,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		if (isWow64Off)
 		{
 			pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-			isWow64Off = false;
+			//isWow64Off = false;
 		}
 	}
 

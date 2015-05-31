@@ -457,7 +457,7 @@ void Gripper::doTabReordering(POINT pt)
 
 					_iItem	= iItem;
 				}
-				else if ((hTab != _hTab) || (_iItem == -1))
+				else if (_hTab && ((hTab != _hTab) || (_iItem == -1)))
 				{
 					/* test if cusor points after last tab */
 					int		iLastItem	= ::SendMessage(hTab, TCM_GETITEMCOUNT, 0, 0) - 1;
@@ -501,7 +501,7 @@ void Gripper::doTabReordering(POINT pt)
 	}
 
 	/* insert new entry when mouse doesn't point to current hovered tab */
-	if ((_hTab != hTabOld) || (_iItem != iItemOld))
+	if (_hTab && ((_hTab != hTabOld) || (_iItem != iItemOld)))
 	{
 		_tcItem.mask	= TCIF_PARAM | (_hTab == _hTabSource ? TCIF_TEXT : 0);
 		::SendMessage(_hTab, TCM_INSERTITEM, _iItem, (LPARAM)&_tcItem);

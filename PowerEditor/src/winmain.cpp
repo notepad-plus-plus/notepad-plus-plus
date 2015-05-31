@@ -315,11 +315,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	generic_string quotFileName = TEXT("");
     // tell the running instance the FULL path to the new files to load
 	size_t nrFilesToOpen = params.size();
-	const TCHAR * currentFile;
 
 	for(size_t i = 0; i < nrFilesToOpen; ++i)
 	{
-		currentFile = params.at(i);
+		const TCHAR * currentFile = params.at(i);
 		if (currentFile[0])
 		{
 			//check if relative or full path. Relative paths dont have a colon for driveletter
@@ -496,7 +495,7 @@ DEVOMER*/
 	} catch (const Win32Exception & ex) {
 		TCHAR message[1024];	//TODO: sane number
 		wsprintf(message, TEXT("An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n")
-		TEXT("Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%08X"), ex.code(), ex.what(), ex.where());
+		TEXT("Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%08X"), ex.code(), ex.what(), (long)ex.where());
 		::MessageBox(Notepad_plus_Window::gNppHWND, message, TEXT("Win32Exception"), MB_OK | MB_ICONERROR);
 		mdump.writeDump(ex.info());
 		doException(notepad_plus_plus);

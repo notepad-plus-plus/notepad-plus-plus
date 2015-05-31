@@ -678,10 +678,9 @@ void DockingManager::setActiveTab(int iCont, int iItem)
 
 void DockingManager::showDockableDlg(HWND hDlg, BOOL view) 
 {
-	tTbData *pTbData = NULL;
 	for (size_t i = 0, len = _vContainer.size(); i < len; ++i)
 	{
-		pTbData = _vContainer[i]->findToolbarByWnd(hDlg);
+		tTbData *pTbData = _vContainer[i]->findToolbarByWnd(hDlg);
 		if (pTbData != NULL)
 		{
 			_vContainer[i]->showToolbar(pTbData, view);

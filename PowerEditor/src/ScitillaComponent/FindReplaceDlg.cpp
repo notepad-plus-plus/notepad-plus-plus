@@ -31,6 +31,7 @@
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
 #include "UniConversion.h"
+#include "LongRunningOperation.h"
 
 FindOption * FindReplaceDlg::_env;
 FindOption FindReplaceDlg::_options;
@@ -725,6 +726,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDREPLACE :
 				{
+					LongRunningOperation op;
 					if (_currentStatus == REPLACE_DLG)
 					{
 						setStatusbarMessage(TEXT(""), FSNoMessage);
@@ -811,6 +813,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDD_FINDINFILES_REPLACEINFILES :
 				{
+					LongRunningOperation op;
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					const int filterSize = 256;
 					TCHAR filters[filterSize];
@@ -851,6 +854,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDC_REPLACE_OPENEDFILES :
 				{
+					LongRunningOperation op;
 					if (_currentStatus == REPLACE_DLG)
 					{
 						setStatusbarMessage(TEXT(""), FSNoMessage);
@@ -871,6 +875,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDREPLACEALL :
 				{
+					LongRunningOperation op;
 					if (_currentStatus == REPLACE_DLG)
 					{
 						setStatusbarMessage(TEXT(""), FSNoMessage);

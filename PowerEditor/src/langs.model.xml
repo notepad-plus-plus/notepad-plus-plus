@@ -217,7 +217,7 @@
             <Keywords name="type3">std ieee work standard textio std_logic_1164 std_logic_arith std_logic_misc std_logic_signed std_logic_textio std_logic_unsigned numeric_bit numeric_std math_complex math_real vital_primitives vital_timing</Keywords>
             <Keywords name="type4">boolean bit character severity_level integer real time delay_length natural positive string bit_vector file_open_kind file_open_status line text side width std_ulogic std_ulogic_vector std_logic std_logic_vector X01 X01Z UX01 UX01Z unsigned signed</Keywords>
         </Language>
-        <Language name="xml" ext="xml xsml xsl xsd kml wsdl xlf xliff config targets proj csproj vbproj fsproj vcxproj nproj pyproj javaproj wixproj filters settings testsettings ruleset vsmdi" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">
+        <Language name="xml" ext="xml xsml xsl xslt xsd kml wsdl xlf xliff xaml config manifest targets proj csproj vbproj fsproj vcxproj nproj pyproj javaproj wixproj filters settings testsettings ruleset vsmdi svg" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">
         </Language>
         <Language name="yaml" ext="yml" commentLine="#">
         </Language>

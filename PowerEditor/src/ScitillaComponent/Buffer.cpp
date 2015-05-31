@@ -1091,7 +1091,7 @@ BufferID FileManager::newEmptyDocument()
 {
 	generic_string newTitle = UNTITLED_STR;
 	TCHAR nb[10];
-	wsprintf(nb, TEXT(" %d"), nextUntitledNewNumber());
+	wsprintf(nb, TEXT("%d"), nextUntitledNewNumber());
 	newTitle += nb;
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager

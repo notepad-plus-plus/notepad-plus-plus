@@ -34,6 +34,8 @@
 #include "DockingManager.h"
 #include "Parameters.h"
 
+using namespace std;
+
 #ifndef WH_KEYBOARD_LL
 #define WH_KEYBOARD_LL 13
 #endif

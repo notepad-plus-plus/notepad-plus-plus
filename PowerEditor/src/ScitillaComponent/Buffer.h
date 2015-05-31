@@ -348,9 +348,9 @@ private :
 	bool _needLexer;	//initially true
 	//these properties have to be duplicated because of multiple references
 	//All the vectors must have the same size at all times
-	vector< ScintillaEditView * > _referees;
-	vector< Position > _positions;
-	vector< vector<size_t> > _foldStates;
+	std::vector< ScintillaEditView * > _referees;
+	std::vector< Position > _positions;
+	std::vector< std::vector<size_t> > _foldStates;
 
 	//vector< pair<size_t, pair<size_t, bool> > > _linesUndoState;
 

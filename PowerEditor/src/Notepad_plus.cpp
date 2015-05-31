@@ -48,6 +48,8 @@
 #include "documentMap.h"
 #include "functionListPanel.h"
 
+using namespace std;
+
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 #define DIR_LEFT true
 #define DIR_RIGHT false

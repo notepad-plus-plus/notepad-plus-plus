@@ -30,6 +30,8 @@
 #include "functionParser.h"
 #include "boostregexsearch.h"
 
+using namespace std;
+
 FunctionParsersManager::~FunctionParsersManager()
 {
 	for (size_t i = 0, len = _parsers.size(); i < len; ++i)

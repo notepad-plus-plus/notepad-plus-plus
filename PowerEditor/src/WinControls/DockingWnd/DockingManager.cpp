@@ -33,6 +33,7 @@
 #include "Gripper.h"
 #include "parameters.h"
 
+using namespace std;
 
 BOOL DockingManager::_isRegistered = FALSE;
 

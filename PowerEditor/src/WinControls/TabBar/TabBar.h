@@ -41,6 +41,10 @@
 #include "resource.h"
 #endif //RESOURCE_H
 
+#include <windows.h>
+#include <commctrl.h>
+#include "Window.h"
+
 //Notification message
 #define TCN_TABDROPPED (TCN_FIRST - 10)
 #define TCN_TABDROPPEDOUTSIDE (TCN_FIRST - 11)

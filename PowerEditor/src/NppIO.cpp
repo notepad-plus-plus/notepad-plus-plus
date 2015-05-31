@@ -34,6 +34,7 @@
 #include "functionListPanel.h"
 #include <TCHAR.h>
 
+using namespace std;
 
 BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {

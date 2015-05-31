@@ -159,14 +159,14 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core.loadCommandlineParams(cmdLine, cmdLineParams);
     }
 
-	vector<generic_string> fileNames;
-	vector<generic_string> patterns;
+	std::vector<generic_string> fileNames;
+	std::vector<generic_string> patterns;
 	patterns.push_back(TEXT("*.xml"));
 	
 	generic_string nppDir = pNppParams->getNppPath();
 
 	LocalizationSwitcher & localizationSwitcher = pNppParams->getLocalizationSwitcher();
-	wstring localizationDir = nppDir;
+	std::wstring localizationDir = nppDir;
 	PathAppend(localizationDir, TEXT("localization\\"));
 
 	_notepad_plus_plus_core.getMatchedFileNames(localizationDir.c_str(), patterns, fileNames, false, false);

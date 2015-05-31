@@ -29,7 +29,7 @@
 #ifndef __TOOLTIP_H__
 #define __TOOLTIP_H__
 
-using namespace std;
+#include <commctrl.h>
 
 class ToolTip : public Window
 {

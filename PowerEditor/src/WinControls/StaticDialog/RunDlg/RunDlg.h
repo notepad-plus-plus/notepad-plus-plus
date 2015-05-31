@@ -22,8 +22,6 @@
 #include "RunDlg_rc.h"
 #endif //RUN_DLG_RC_H
 
-using namespace std;
-
 #define CURRENTWORD_MAXLENGTH 2048
 
 const TCHAR fullCurrentPath[] = TEXT("FULL_CURRENT_PATH");

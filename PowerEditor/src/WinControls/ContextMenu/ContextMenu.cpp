@@ -26,7 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
 #include "ContextMenu.h"
 
 MenuItemUnit::MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *parentFolderName) : _cmdID(cmdID)
@@ -52,7 +51,7 @@ ContextMenu::~ContextMenu()
 	}
 }
 	
-void ContextMenu::create(HWND hParent, const vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle)
+void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle)
 { 
 	_hParent = hParent;
 	_hMenu = ::CreatePopupMenu();

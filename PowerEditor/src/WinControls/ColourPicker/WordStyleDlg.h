@@ -121,7 +121,7 @@ public :
 	void addLastThemeEntry() {
         NppParameters *nppParamInst = NppParameters::getInstance();
         ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
-        pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
+		std::pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
 	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, (LPARAM)themeInfo.first.c_str());
     };
 

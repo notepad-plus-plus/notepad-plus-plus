@@ -239,7 +239,7 @@ public :
 	};
 	const TCHAR * getDir2Search() const {return _env->_directory.c_str();};
 
-	void getPatterns(vector<generic_string> & patternVect);
+	void getPatterns(std::vector<generic_string> & patternVect);
 
 	void launchFindInFilesDlg() {
 		doDialog(FINDINFILES_DLG);
@@ -361,7 +361,7 @@ private :
 	};
 	void fillFindHistory();
     void fillComboHistory(int id, const std::vector<generic_string> & strings);
-    int saveComboHistory(int id, int maxcount, vector<generic_string> & strings);
+	int saveComboHistory(int id, int maxcount, std::vector<generic_string> & strings);
 	static const int FR_OP_FIND = 1;
 	static const int FR_OP_REPLACE = 2;
 	static const int FR_OP_FIF = 4;

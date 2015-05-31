@@ -34,6 +34,8 @@
 #include "documentMap.h"
 #include <stack>
 
+using namespace std;
+
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
 	//Important, keep track of which element generated the message

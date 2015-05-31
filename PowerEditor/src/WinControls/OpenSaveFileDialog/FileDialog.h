@@ -35,9 +35,7 @@
 const int nbExtMax = 256;
 const int extLenMax = 64;
 
-using namespace std;
-
-typedef vector<generic_string> stringVector;
+typedef std::vector<generic_string> stringVector;
 
 generic_string changeExt(generic_string fn, generic_string ext, bool forceReplaced = true);
 void goToCenter(HWND hwnd);

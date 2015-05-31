@@ -38,6 +38,8 @@
 
 #include <assert.h>
 #include <shlwapi.h>
+#include "Common.h"
+#include "StaticDialog.h"
 
 class DockingDlgInterface : public StaticDialog
 {

@@ -33,6 +33,8 @@
 #include "Parameters.h"
 #endif //PARAMETERS_H
 
+#include <deque>
+
 struct RecentItem {
 	int _id;
 	generic_string _name;

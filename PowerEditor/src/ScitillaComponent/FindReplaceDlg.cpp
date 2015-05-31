@@ -33,6 +33,8 @@
 #include "UniConversion.h"
 #include "LongRunningOperation.h"
 
+using namespace std;
+
 FindOption * FindReplaceDlg::_env;
 FindOption FindReplaceDlg::_options;
 

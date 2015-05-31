@@ -44,8 +44,6 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-using namespace std;
-
 enum toolBarStatusType {/*TB_HIDE, */TB_SMALL, TB_LARGE, TB_STANDARD};
 
 
@@ -124,14 +122,14 @@ private :
 	TBBUTTON *_pTBB;
 	ToolBarIcons _toolBarIcons;
 	toolBarStatusType _state;
-	vector<tDynamicList> _vDynBtnReg;
+	std::vector<tDynamicList> _vDynBtnReg;
 	size_t _nrButtons;
 	size_t _nrDynButtons;
 	size_t _nrTotalButtons;
 	size_t _nrCurrentButtons;
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;
-    vector<iconLocator> _customIconVect;
+    std::vector<iconLocator> _customIconVect;
     TiXmlNode *_toolIcons;
 
 
@@ -173,7 +171,7 @@ public :
 	void setGrayBackground(int id);
 
 private:
-	vector<int> usedIDs;
+	std::vector<int> usedIDs;
 
 	int getNewID();
 	void releaseID(int id);

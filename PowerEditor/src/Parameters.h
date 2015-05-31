@@ -74,8 +74,6 @@
 
 class NativeLangSpeaker;
 
-using namespace std;
-
 const bool POS_VERTICAL = true;
 const bool POS_HORIZOTAL = false;
 
@@ -136,7 +134,7 @@ const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
 const TCHAR allowAppDataPluginsFile[] = TEXT("allowAppDataPlugins.xml");
 const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
 
-void cutString(const TCHAR *str2cut, vector<generic_string> & patternVect);
+void cutString(const TCHAR *str2cut, std::vector<generic_string> & patternVect);
 
 
 struct Position
@@ -162,8 +160,8 @@ struct sessionFileInfo : public Position {
 	
 	generic_string _fileName;
 	generic_string	_langName;
-	vector<size_t> _marks;
-	vector<size_t> _foldStates;
+	std::vector<size_t> _marks;
+	std::vector<size_t> _foldStates;
 	int	_encoding;
 
 	generic_string _backupFilePath;
@@ -176,8 +174,8 @@ struct Session {
 	size_t _activeView;
 	size_t _activeMainIndex;
 	size_t _activeSubIndex;
-	vector<sessionFileInfo> _mainViewFiles;
-	vector<sessionFileInfo> _subViewFiles;
+	std::vector<sessionFileInfo> _mainViewFiles;
+	std::vector<sessionFileInfo> _subViewFiles;
 };
 
 struct CmdLineParams {
@@ -258,9 +256,9 @@ struct DockingManagerData {
 
 	DockingManagerData() : _leftWidth(200), _rightWidth(200), _topHeight(200), _bottomHight(200) {};
 
-	vector<FloatingWindowInfo>		_flaotingWindowInfo;
-	vector<PluginDlgDockingInfo>	_pluginDockInfo;
-	vector<ContainerTabInfo>		_containerTabInfo;
+	std::vector<FloatingWindowInfo>		_flaotingWindowInfo;
+	std::vector<PluginDlgDockingInfo>	_pluginDockInfo;
+	std::vector<ContainerTabInfo>		_containerTabInfo;
 
 	bool getFloatingRCFrom(int floatCont, RECT & rc) {
 		for (size_t i = 0, fwiLen = _flaotingWindowInfo.size(); i < fwiLen; ++i)
@@ -648,8 +646,8 @@ private:
 };
 
 struct MatchedPairConf {
-	vector< pair<char, char> > _matchedPairs;
-	vector< pair<char, char> > _matchedPairsInit; // used only on init
+	std::vector< std::pair<char, char> > _matchedPairs;
+	std::vector< std::pair<char, char> > _matchedPairsInit; // used only on init
 	bool _doHtmlXmlTag;
 	bool _doParentheses;
 	bool _doBrackets;
@@ -739,7 +737,7 @@ struct NppGUI
 	NewDocDefaultSettings _newDocDefaultSettings;
 	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
 	const NewDocDefaultSettings & getNewDocDefaultSettings() const {return _newDocDefaultSettings;};
-	vector<LangMenuItem> _excludedLangList;
+	std::vector<LangMenuItem> _excludedLangList;
 	bool _isLangMenuCompact;
 
 	PrintSettings _printSettings;
@@ -1024,10 +1022,10 @@ struct FindHistory {
 	int _nbMaxFindHistoryFind;
 	int _nbMaxFindHistoryReplace;
 
-    vector<generic_string> _findHistoryPaths;
-	vector<generic_string> _findHistoryFilters;
-	vector<generic_string> _findHistoryFinds;
-	vector<generic_string> _findHistoryReplaces;
+    std::vector<generic_string> _findHistoryPaths;
+	std::vector<generic_string> _findHistoryFilters;
+	std::vector<generic_string> _findHistoryFinds;
+	std::vector<generic_string> _findHistoryReplaces;
 
 	bool _isMatchWord;
 	bool _isMatchCase;
@@ -1057,19 +1055,19 @@ public :
 		wchar_t *_xmlFileName;
 	};
 
-	bool addLanguageFromXml(wstring xmlFullPath);
-	wstring getLangFromXmlFileName(const wchar_t *fn) const;
+	bool addLanguageFromXml(std::wstring xmlFullPath);
+	std::wstring getLangFromXmlFileName(const wchar_t *fn) const;
 
-	wstring getXmlFilePathFromLangName(const wchar_t *langName) const;
+	std::wstring getXmlFilePathFromLangName(const wchar_t *langName) const;
 	bool switchToLang(wchar_t *lang2switch) const;
 
 	size_t size() const {
 		return _localizationList.size();
 	};
 
-	pair<wstring, wstring> getElementFromIndex(size_t index) {
+	std::pair<std::wstring, std::wstring> getElementFromIndex(size_t index) {
 		if (index >= _localizationList.size())
-			return pair<wstring, wstring>(TEXT(""), TEXT(""));
+			return std::pair<std::wstring, std::wstring>(TEXT(""), TEXT(""));
 		return _localizationList[index];
 	};
 
@@ -1078,14 +1076,14 @@ public :
             _fileName = fn;
     };
 
-    string getFileName() const {
+	std::string getFileName() const {
         return _fileName;
     };
 
 private :
-	vector< pair< wstring, wstring > > _localizationList;
-	wstring _nativeLangPath;
-    string _fileName;
+	std::vector< std::pair< std::wstring, std::wstring > > _localizationList;
+	std::wstring _nativeLangPath;
+	std::string _fileName;
 };
 
 class ThemeSwitcher {
@@ -1095,11 +1093,11 @@ public :
 	ThemeSwitcher(){};
 
 	void addThemeFromXml(generic_string xmlFullPath) {
-		_themeList.push_back(pair<generic_string, generic_string>(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath));
+		_themeList.push_back(std::pair<generic_string, generic_string>(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath));
 	};
 
 	void addDefaultThemeFromXml(generic_string xmlFullPath) {
-		_themeList.push_back(pair<generic_string, generic_string>(TEXT("Default (stylers.xml)"), xmlFullPath));
+		_themeList.push_back(std::pair<generic_string, generic_string>(TEXT("Default (stylers.xml)"), xmlFullPath));
 	};
 
 	generic_string getThemeFromXmlFileName(const TCHAR *fn) const;
@@ -1124,24 +1122,24 @@ public :
 	};
 
 	
-	pair<generic_string, generic_string> & getElementFromIndex(size_t index) {
+	std::pair<generic_string, generic_string> & getElementFromIndex(size_t index) {
 		//if (index >= _themeList.size())
 			//return pair<generic_string, generic_string>(TEXT(""), TEXT(""));
 		return _themeList[index];
 	};
 
 private :
-	vector< pair< generic_string, generic_string > > _themeList;
+	std::vector< std::pair< generic_string, generic_string > > _themeList;
 	generic_string _stylesXmlPath;
 };
 
 class PluginList {
 public :
     void add(generic_string fn, bool isInBL){
-        _list.push_back(pair<generic_string, bool>(fn, isInBL));
+		_list.push_back(std::pair<generic_string, bool>(fn, isInBL));
     };
 private :
-    vector<pair<generic_string, bool>>_list;
+	std::vector<std::pair<generic_string, bool>>_list;
 };
 
 const int NB_LANG = 80;
@@ -1278,7 +1276,7 @@ public:
     };
 
 	void setFontList(HWND hWnd);
-	const vector<generic_string> & getFontList() const {return _fontlist;};
+	const std::vector<generic_string> & getFontList() const { return _fontlist; };
 	
 	int getNbUserLang() const {return _nbUserLang;};
 	UserLangContainer & getULCFromIndex(int i) {return *_userLangArray[i];};
@@ -1304,7 +1302,7 @@ public:
 	bool ExternalLangHasRoom() const {return _nbExternalLang < NB_MAX_EXTERNAL_LANG;};
 
 	void getExternalLexerFromXmlTree(TiXmlDocument *doc);
-	vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc;};
+	std::vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc; };
 
 	void writeUserDefinedLang();
 	void writeShortcuts();
@@ -1329,7 +1327,7 @@ public:
 
 		for (int i = 0 ; i < _nbUserLang ; ++i)
 		{
-			vector<generic_string> extVect;
+			std::vector<generic_string> extVect;
 			cutString(_userLangArray[i]->_ext.c_str(), extVect);
 			for (size_t j = 0, len = extVect.size(); j < len; ++j)
 				if (!generic_stricmp(extVect[j].c_str(), ext) || (_tcschr(fullName, '.') && !generic_stricmp(extVect[j].c_str(), fullName)))
@@ -1389,21 +1387,21 @@ public:
 
 	bool isRemappingShortcut() const {return _shortcuts.size() != 0;};
 
-	vector<CommandShortcut> & getUserShortcuts() {return _shortcuts;};
-	vector<int> & getUserModifiedShortcuts() {return _customizedShortcuts;};
+	std::vector<CommandShortcut> & getUserShortcuts() { return _shortcuts; };
+	std::vector<int> & getUserModifiedShortcuts() { return _customizedShortcuts; };
 	void addUserModifiedIndex(int index);
 
-	vector<MacroShortcut> & getMacroList() {return _macros;};
-	vector<UserCommand> & getUserCommandList() {return _userCommands;};
-	vector<PluginCmdShortcut> & getPluginCommandList() {return _pluginCommands;};
-	vector<int> & getPluginModifiedKeyIndices() {return _pluginCustomizedCmds;};
+	std::vector<MacroShortcut> & getMacroList() { return _macros; };
+	std::vector<UserCommand> & getUserCommandList() { return _userCommands; };
+	std::vector<PluginCmdShortcut> & getPluginCommandList() { return _pluginCommands; };
+	std::vector<int> & getPluginModifiedKeyIndices() { return _pluginCustomizedCmds; };
 	void addPluginModifiedIndex(int index);
 
-	vector<ScintillaKeyMap> & getScintillaKeyList() {return _scintillaKeyCommands;};
-	vector<int> & getScintillaModifiedKeyIndices() {return _scintillaModifiedKeyIndices;};
+	std::vector<ScintillaKeyMap> & getScintillaKeyList() { return _scintillaKeyCommands; };
+	std::vector<int> & getScintillaModifiedKeyIndices() { return _scintillaModifiedKeyIndices; };
 	void addScintillaModifiedIndex(int index);
 
-	vector<MenuItemUnit> & getContextMenuItems() {return _contextMenuItems;};
+	std::vector<MenuItemUnit> & getContextMenuItems() { return _contextMenuItems; };
 	const Session & getSession() const {return _session;};
 
 	bool hasCustomContextMenu() const {return !_contextMenuItems.empty();};
@@ -1468,7 +1466,7 @@ public:
 		return _themeSwitcher;
 	};
 
-    vector<generic_string> & getBlackList() {return _blacklist;};
+	std::vector<generic_string> & getBlackList() { return _blacklist; };
     bool isInBlackList(TCHAR *fn) {
         for (size_t i = 0, len = _blacklist.size(); i < len ; ++i)
             if (_blacklist[i] == fn)
@@ -1534,7 +1532,7 @@ private:
 	
 	TiXmlDocumentA *_pXmlNativeLangDocA, *_pXmlContextMenuDocA;
 
-	vector<TiXmlDocument *> _pXmlExternalLexerDoc;
+	std::vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp;
@@ -1566,8 +1564,8 @@ private:
 	LexerStylerArray _lexerStylerArray;
     StyleArray _widgetStyleArray;
 
-	vector<generic_string> _fontlist;
-    vector<generic_string> _blacklist;
+	std::vector<generic_string> _fontlist;
+	std::vector<generic_string> _blacklist;
     PluginList _pluginList;
 
 	HMODULE _hUXTheme;
@@ -1577,15 +1575,15 @@ private:
 	bool _isLocal;
 
 
-	vector<CommandShortcut> _shortcuts;			//main menu shortuts. Static size
-	vector<int> _customizedShortcuts;			//altered main menu shortcuts. Indices static. Needed when saving alterations
-	vector<MacroShortcut> _macros;				//macro shortcuts, dynamic size, defined on loading macros and adding/deleting them
-	vector<UserCommand> _userCommands;			//run shortcuts, dynamic size, defined on loading run commands and adding/deleting them
-	vector<PluginCmdShortcut> _pluginCommands;	//plugin commands, dynamic size, defined on loading plugins
-	vector<int> _pluginCustomizedCmds;			//plugincommands that have been altered. Indices determined after loading ALL plugins. Needed when saving alterations
+	std::vector<CommandShortcut> _shortcuts;			//main menu shortuts. Static size
+	std::vector<int> _customizedShortcuts;			//altered main menu shortcuts. Indices static. Needed when saving alterations
+	std::vector<MacroShortcut> _macros;				//macro shortcuts, dynamic size, defined on loading macros and adding/deleting them
+	std::vector<UserCommand> _userCommands;			//run shortcuts, dynamic size, defined on loading run commands and adding/deleting them
+	std::vector<PluginCmdShortcut> _pluginCommands;	//plugin commands, dynamic size, defined on loading plugins
+	std::vector<int> _pluginCustomizedCmds;			//plugincommands that have been altered. Indices determined after loading ALL plugins. Needed when saving alterations
 
-	vector<ScintillaKeyMap> _scintillaKeyCommands;	//scintilla keycommands. Static size
-	vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations
+	std::vector<ScintillaKeyMap> _scintillaKeyCommands;	//scintilla keycommands. Static size
+	std::vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations
 
 	LocalizationSwitcher _localizationSwitcher;
 	generic_string _startWithLocFileName;
@@ -1593,7 +1591,7 @@ private:
 	ThemeSwitcher _themeSwitcher;
 
 	//vector<generic_string> _noMenuCmdNames;
-	vector<MenuItemUnit> _contextMenuItems;
+	std::vector<MenuItemUnit> _contextMenuItems;
 	Session _session;
 
 	generic_string _shortcutsPath;
@@ -1621,7 +1619,7 @@ private:
 	COLORREF _currentDefaultFgColor;
 
 	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *, int, LPARAM lParam) {
-		vector<generic_string> *pStrVect = (vector<generic_string> *)lParam;
+		std::vector<generic_string> *pStrVect = (std::vector<generic_string> *)lParam;
         size_t vectSize = pStrVect->size();
 
 		//Search through all the fonts, EnumFontFamiliesEx never states anything about order

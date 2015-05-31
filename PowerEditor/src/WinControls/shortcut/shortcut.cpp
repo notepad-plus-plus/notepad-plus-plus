@@ -26,15 +26,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
-
 #include "shortcut.h"
 #include "Parameters.h"
 #include "ScintillaEditView.h"
 #include "resource.h"
 #include "Notepad_plus_Window.h"
-
 #include "keys.h"
+
+using namespace std;
 
 const int KEY_STR_LEN = 16;
 

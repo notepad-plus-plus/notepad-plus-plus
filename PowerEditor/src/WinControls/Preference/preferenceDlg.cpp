@@ -31,6 +31,8 @@
 #include "lesDlgs.h"
 #include "EncodingMapper.h"
 
+using namespace std;
+
 const int BLINKRATE_FASTEST = 50;
 const int BLINKRATE_SLOWEST = 2500;
 const int BLINKRATE_INTERVAL = 50;

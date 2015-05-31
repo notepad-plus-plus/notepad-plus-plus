@@ -33,6 +33,8 @@
 #include "SizeableDlg.h"
 #endif //SIZABLE_DLG_H
 
+#include "Common.h"
+
 class DocTabView;
 class TiXmlNodeA;
 

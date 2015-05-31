@@ -139,7 +139,7 @@ public :
 private :
     LexerStylerArray _lsArray;
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	vector<LangMenuItem> _langList;
+	std::vector<LangMenuItem> _langList;
 };
 
 class TabSettings : public StaticDialog
@@ -168,7 +168,7 @@ public :
 	PrintSettingsDlg():_focusedEditCtrl(0), _selStart(0), _selEnd(0){};
 private :
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	vector<strCouple> varList;
+	std::vector<strCouple> varList;
 	int _focusedEditCtrl;
 	DWORD _selStart;
 	DWORD _selEnd;

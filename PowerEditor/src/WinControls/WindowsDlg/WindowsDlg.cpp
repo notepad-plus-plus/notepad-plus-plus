@@ -26,11 +26,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <functional>
+#include <algorithm>
 #include "WindowsDlg.h"
 #include "WindowsDlgRc.h"
 #include "DocTabView.h"
 #include "EncodingMapper.h"
+
+using namespace std;
 
 #ifndef _countof
 #define _countof(x) (sizeof(x)/sizeof((x)[0]))

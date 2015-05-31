@@ -187,7 +187,7 @@ struct SortInPositionOrder {
 	}
 };
 
-typedef vector<ColumnModeInfo> ColumnModeInfos;
+typedef std::vector<ColumnModeInfo> ColumnModeInfos;
 
 struct LanguageName {
 	const TCHAR * lexerName;
@@ -539,7 +539,7 @@ public:
 	void currentLineUp() const;
 	void currentLineDown() const;
 
-	pair<int, int> getSelectionLinesRange() const;
+	std::pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;
     void currentLinesDown() const;
 
@@ -912,7 +912,7 @@ protected:
 		}
 	};
 
-    pair<int, int> getWordRange();
+	std::pair<int, int> getWordRange();
 	bool expandWordSelection();
 };
 

@@ -38,6 +38,7 @@
 #include "Sorters.h"
 #include "LongRunningOperation.h"
 
+using namespace std;
 
 void Notepad_plus::macroPlayback(Macro macro)
 {

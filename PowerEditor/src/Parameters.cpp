@@ -36,6 +36,8 @@
 #include "UserDefineDialog.h"
 #include "../src/sqlite/sqlite3.h"
 
+using namespace std;
+
 struct WinMenuKeyDefinition {	//more or less matches accelerator table definition, easy copy/paste
 	//const TCHAR * name;	//name retrieved from menu?
 	int vKey;

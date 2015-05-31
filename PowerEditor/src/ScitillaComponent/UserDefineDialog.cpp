@@ -37,6 +37,8 @@
 #include "FileDialog.h"
 #include "Common.h"
 
+using namespace std;
+
 UserLangContainer * SharedParametersDialog::_pUserLang = NULL;
 ScintillaEditView * SharedParametersDialog::_pScintilla = NULL;
 

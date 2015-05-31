@@ -33,6 +33,8 @@
 #include "babygrid.h"
 #endif// BABYGRID_H
 
+#include "Window.h"
+
 class BabyGridWrapper : public Window
 {
 public :

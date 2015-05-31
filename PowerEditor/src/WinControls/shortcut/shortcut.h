@@ -38,8 +38,7 @@
 #endif //SCINTILLA_H
 
 #include "StaticDialog.h"
-
-using namespace std;
+#include "Common.h"
 
 const size_t nameLenMax = 64;
 
@@ -259,7 +258,7 @@ public:
 private:
 	unsigned long _scintillaKeyID;
 	int _menuCmdID;
-	vector<KeyCombo> _keyCombos;
+	std::vector<KeyCombo> _keyCombos;
 	size_t size;
 	void applyToCurrentIndex();
 	void validateDialog();
@@ -298,7 +297,7 @@ struct recordedMacroStep {
 	void PlayBack(Window* pNotepad, ScintillaEditView *pEditView);
 };
 
-typedef vector<recordedMacroStep> Macro;
+typedef std::vector<recordedMacroStep> Macro;
 
 class MacroShortcut : public CommandShortcut {
 friend class NppParameters;
@@ -378,13 +377,13 @@ private:
 class ScintillaAccelerator {	//Handles accelerator keys for scintilla
 public:
 	ScintillaAccelerator() : _nrScintillas(0) {};
-	void init(vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent);
+	void init(std::vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent);
 	void updateKeys();
 	void updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skm);
 private:
 	HMENU _hAccelMenu;
 	HWND _hMenuParent;
-	vector<HWND> _vScintillas;
+	std::vector<HWND> _vScintillas;
 	int _nrScintillas;
 
 	void updateMenuItemByID(ScintillaKeyMap skm, int id);

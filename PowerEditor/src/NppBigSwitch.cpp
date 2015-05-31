@@ -38,6 +38,8 @@
 #include "documentMap.h"
 #include "functionListPanel.h"
 
+using namespace std;
+
 #define WM_DPICHANGED 0x02E0
 
 struct SortTaskListPred

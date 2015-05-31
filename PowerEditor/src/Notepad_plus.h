@@ -296,7 +296,7 @@ public:
 	bool findInFiles();
 	bool replaceInFiles();
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
-	vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
+	std::vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
     int getHtmlXmlEncoding(const TCHAR *fileName) const;
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
@@ -314,7 +314,7 @@ private:
 	Notepad_plus_Window *_pPublicInterface;
     Window *_pMainWindow;
 	DockingManager _dockingManager;
-	vector<int> _internalFuncIDs;
+	std::vector<int> _internalFuncIDs;
 
 	AutoCompletion _autoCompleteMain;
 	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
@@ -358,7 +358,7 @@ private:
 	FindCharsInRangeDlg _findCharsInRangeDlg;
 	
 	// a handle list of all the Notepad++ dialogs
-	vector<HWND> _hModelessDlgs;
+	std::vector<HWND> _hModelessDlgs;
 
 	LastRecentFileList _lastRecentFileList;
 
@@ -422,7 +422,7 @@ private:
 
 	ScintillaCtrls _scintillaCtrls4Plugins;
 
-	vector<pair<int, int> > _hideLinesMarks;
+	std::vector<std::pair<int, int> > _hideLinesMarks;
 	StyleArray _hotspotStyles;
 
 	AnsiCharPanel *_pAnsiCharPanel;
@@ -594,8 +594,8 @@ private:
 	bool findInOpenedFiles();
 	bool findInCurrentFile();
 
-	bool matchInList(const TCHAR *fileName, const vector<generic_string> & patterns);
-	void getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
+	bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
+	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
 
 	void doSynScorll(HWND hW);
 	void setWorkingDir(const TCHAR *dir);

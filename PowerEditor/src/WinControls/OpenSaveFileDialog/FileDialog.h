@@ -29,6 +29,9 @@
 #ifndef FILE_DIALOG_H
 #define FILE_DIALOG_H
 
+#include "Common.h"
+#include "Notepad_plus_msgs.h"
+
 const int nbExtMax = 256;
 const int extLenMax = 64;
 
@@ -72,8 +75,6 @@ private:
 	OPENFILENAME _ofn;
 	winVer _winVersion;
 	
-
-    //TCHAR _extArray[nbExtMax][extLenMax];
     int _nbExt;
     int _extTypeIndex;
     static FileDialog *staticThis;

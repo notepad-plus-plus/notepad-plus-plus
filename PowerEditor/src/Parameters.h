@@ -69,7 +69,7 @@
 #include "dpiManager.h"
 #endif //DPIMANAGER_H
 
-
+#include <assert.h>
 #include <tchar.h>
 
 class NativeLangSpeaker;
@@ -402,13 +402,6 @@ public:
 
     Style & getStyler(int index) {
 		assert(index >= 0 && index < SCE_STYLE_ARRAY_SIZE);
-		/*
-		if (index < 0 || index >= SCE_STYLE_ARRAY_SIZE)
-		{
-			Style s;
-			return s;
-		}
-		*/
 		return _styleArray[index];
 	};
 
@@ -416,7 +409,6 @@ public:
     void addStyler(int styleID, TiXmlNode *styleNode);
 
 	void addStyler(int styleID, const TCHAR *styleName) {
-		//ZeroMemory(&_styleArray[_nbStyler], sizeof(Style));;
 		_styleArray[styleID]._styleID = styleID;
 		_styleArray[styleID]._styleDesc = styleName;
 		_styleArray[styleID]._fgColor = black;
@@ -605,61 +597,14 @@ public:
         _day = day;
     };
     
-    Date(const TCHAR *dateStr) { // timeStr should be Notepad++ date format : YYYYMMDD
-        assert(dateStr);
-        if (lstrlen(dateStr) == 8)
-        {
-            generic_string ds(dateStr);
-            generic_string yyyy(ds, 0, 4);
-            generic_string mm(ds, 4, 2);
-            generic_string dd(ds, 6, 2);
-
-            int y = generic_atoi(yyyy.c_str());
-            int m = generic_atoi(mm.c_str());
-            int d = generic_atoi(dd.c_str());
-
-            if ((y > 0 && y <= 9999) && (m > 0 && m <= 12) && (d > 0 && d <= 31))
-            {
-                _year = y;
-                _month = m;
-                _day = d;
-                return;
-            }
-        }
-        now();
-    };
+    Date(const TCHAR *dateStr);
 
     // The constructor which makes the date of number of days from now
     // nbDaysFromNow could be negative if user want to make a date in the past
     // if the value of nbDaysFromNow is 0 then the date will be now
-    Date(int nbDaysFromNow)
-    {
-        const time_t oneDay = (60 * 60 * 24);
+	Date(int nbDaysFromNow);
 
-        time_t rawtime;
-        tm* timeinfo;
-            
-        time(&rawtime);
-        rawtime += (nbDaysFromNow * oneDay);
-
-        timeinfo = localtime(&rawtime);
-        
-        _year = timeinfo->tm_year+1900;
-        _month = timeinfo->tm_mon+1;
-        _day = timeinfo->tm_mday;
-    }
-
-    void now() {
-        time_t rawtime;
-        tm* timeinfo;
-            
-        time(&rawtime);
-        timeinfo = localtime(&rawtime);
-        
-        _year = timeinfo->tm_year+1900;
-        _month = timeinfo->tm_mon+1;
-        _day = timeinfo->tm_mday;
-    };
+    void now();
 
     generic_string toString() { // Return Notepad++ date format : YYYYMMDD
         TCHAR dateStr[8+1];

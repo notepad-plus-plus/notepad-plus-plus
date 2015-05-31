@@ -29,6 +29,11 @@
 #ifndef M30_IDE_COMMUN_H
 #define M30_IDE_COMMUN_H
 
+#include <vector>
+#include <string>
+
+#include <windows.h>
+
 const bool dirUp = true;
 const bool dirDown = false;
 

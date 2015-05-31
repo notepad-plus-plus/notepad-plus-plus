@@ -29,6 +29,8 @@
 #ifndef IMAGE_LIST_H
 #define IMAGE_LIST_H
 
+#include <commctrl.h>
+
 const int nbMax = 45;
 #define	IDI_SEPARATOR_ICON -1
 

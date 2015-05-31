@@ -37,6 +37,8 @@
 #include "Scintilla.h"
 #endif //SCINTILLA_H
 
+#include "StaticDialog.h"
+
 using namespace std;
 
 const size_t nameLenMax = 64;

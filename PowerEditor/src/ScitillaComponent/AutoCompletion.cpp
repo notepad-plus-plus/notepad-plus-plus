@@ -345,7 +345,6 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 			words += TEXT(" ");
 	}
 
-	// UNICODE TO DO
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());

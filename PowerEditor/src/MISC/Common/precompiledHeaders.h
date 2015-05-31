@@ -70,14 +70,12 @@
 #include <dbghelp.h>
 #pragma warning(pop)
 #include <eh.h>
-
-#ifdef UNICODE
 #include <wchar.h>
-#endif
+
 
 // Notepad++
 #include "Common.h"
 #include "Window.h"
 #include "StaticDialog.h"
 
-#endif PRECOMPILEHEADER_H
+#endif //PRECOMPILEHEADER_H

@@ -33,6 +33,9 @@
 #include "Notepad_plus_msgs.h"
 #endif //NOTEPAD_PLUS_MSGS_H
 
+#include "Window.h"
+#include "ImageListSet.h"
+
 #define REBAR_BAR_TOOLBAR		0
 #define REBAR_BAR_SEARCH		1
 
@@ -44,8 +47,6 @@
 using namespace std;
 
 enum toolBarStatusType {/*TB_HIDE, */TB_SMALL, TB_LARGE, TB_STANDARD};
-
-#include "ImageListSet.h"
 
 
 typedef struct {

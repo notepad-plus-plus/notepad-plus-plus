@@ -1917,7 +1917,7 @@ void ScintillaEditView::showCallTip(int startPos, const TCHAR * def)
 generic_string ScintillaEditView::getLine(int lineNumber)
 {
 	int lineLen = execute(SCI_LINELENGTH, lineNumber);
-	const int bufSize = lineLen;
+	const int bufSize = lineLen + 1;
 	std::unique_ptr<TCHAR[]> buf = std::make_unique<TCHAR[]>(bufSize);
 	getLine(lineNumber, buf.get(), bufSize);
 	return buf.get();
@@ -1928,6 +1928,8 @@ void ScintillaEditView::getLine(int lineNumber, TCHAR * line, int lineBufferLen)
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
 	char *lineA = new char[lineBufferLen];
+	// From Scintilla documentation for SCI_GETLINE: "The buffer is not terminated by a 0 character."
+	memset(lineA, '\0', sizeof(char) * lineBufferLen);
 	execute(SCI_GETLINE, lineNumber, (LPARAM)lineA);
 	const TCHAR *lineW = wmc->char2wchar(lineA, cp);
 	lstrcpyn(line, lineW, lineBufferLen);

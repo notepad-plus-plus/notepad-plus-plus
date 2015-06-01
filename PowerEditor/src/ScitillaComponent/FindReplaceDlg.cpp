@@ -2505,13 +2505,13 @@ void Finder::openAll()
 	}
 }
 
-bool Finder::isLineActualSearchResult(int line)
+bool Finder::isLineActualSearchResult(int line) const
 {
 	const int foldLevel = _scintView.execute(SCI_GETFOLDLEVEL, line) & SC_FOLDLEVELNUMBERMASK;
 	return foldLevel == SC_FOLDLEVELBASE + 3;
 }
 
-generic_string Finder::prepareStringForClipboard(generic_string s)
+generic_string Finder::prepareStringForClipboard(generic_string s) const
 {
 	// Input: a string like "\tLine 3: search result".
 	// Output: "search result"

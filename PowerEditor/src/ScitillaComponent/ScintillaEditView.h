@@ -272,6 +272,7 @@ public:
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
 	void showAutoComletion(int lenEntered, const TCHAR * list);
 	void showCallTip(int startPos, const TCHAR * def);
+	generic_string getLine(int lineNumber);
 	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
 	void addText(int length, const char *buf);
 

@@ -778,3 +778,50 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
 		*idx = (size_t)(eptr - ptr);
 	return ans;
 }
+
+bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
+{
+	int len2Allocate = (str2cpy.size() + 1) * sizeof(TCHAR);
+	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, len2Allocate);
+	if (hglbCopy == NULL)
+	{
+		return false;
+	}
+	if (!::OpenClipboard(hwnd))
+	{
+		::GlobalFree(hglbCopy);
+		::CloseClipboard();
+		return false;
+	}
+	if (!::EmptyClipboard())
+	{
+		::GlobalFree(hglbCopy);
+		::CloseClipboard();
+		return false;
+	}
+	// Lock the handle and copy the text to the buffer.
+	TCHAR *pStr = (TCHAR *)::GlobalLock(hglbCopy);
+	if (pStr == NULL)
+	{
+		::GlobalUnlock(hglbCopy);
+		::GlobalFree(hglbCopy);
+		::CloseClipboard();
+		return false;
+	}
+	_tcscpy_s(pStr, len2Allocate / sizeof(TCHAR), str2cpy.c_str());
+	::GlobalUnlock(hglbCopy);
+	// Place the handle on the clipboard.
+	unsigned int clipBoardFormat = CF_UNICODETEXT;
+	if (::SetClipboardData(clipBoardFormat, hglbCopy) == NULL)
+	{
+		::GlobalUnlock(hglbCopy);
+		::GlobalFree(hglbCopy);
+		::CloseClipboard();
+		return false;
+	}
+	if (!::CloseClipboard())
+	{
+		return false;
+	}
+	return true;
+}

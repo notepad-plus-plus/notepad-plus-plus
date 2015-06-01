@@ -1933,7 +1933,7 @@ void Notepad_plus::copyMarkedLines()
 			globalStr = currentStr;
 		}
 	}
-	str2Cliboard(globalStr.c_str());
+	str2Cliboard(globalStr);
 }
 
 void Notepad_plus::cutMarkedLines()
@@ -1953,7 +1953,7 @@ void Notepad_plus::cutMarkedLines()
 		}
 	}
 	_pEditView->execute(SCI_ENDUNDOACTION);
-	str2Cliboard(globalStr.c_str());
+	str2Cliboard(globalStr);
 }
 
 void Notepad_plus::deleteMarkedLines(bool isMarked)
@@ -4555,37 +4555,9 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 }
 
-bool Notepad_plus::str2Cliboard(const TCHAR *str2cpy)
+bool Notepad_plus::str2Cliboard(const generic_string & str2cpy)
 {
-	if (!str2cpy)
-		return false;
-
-	int len2Allocate = lstrlen(str2cpy) + 1;
-	len2Allocate *= sizeof(TCHAR);
-	unsigned int cilpboardFormat = CF_TEXT;
-
-	cilpboardFormat = CF_UNICODETEXT;
-
-	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, len2Allocate);
-	if (hglbCopy == NULL)
-	{
-		return false;
-	}
-
-	if (!::OpenClipboard(_pPublicInterface->getHSelf()))
-		return false;
-
-	::EmptyClipboard();
-
-	// Lock the handle and copy the text to the buffer.
-	TCHAR *pStr = (TCHAR *)::GlobalLock(hglbCopy);
-	lstrcpy(pStr, str2cpy);
-	::GlobalUnlock(hglbCopy);
-
-	// Place the handle on the clipboard.
-	::SetClipboardData(cilpboardFormat, hglbCopy);
-	::CloseClipboard();
-	return true;
+	return str2Clipboard(str2cpy, _pPublicInterface->getHSelf());
 }
 
 //ONLY CALL IN CASE OF EMERGENCY: EXCEPTION

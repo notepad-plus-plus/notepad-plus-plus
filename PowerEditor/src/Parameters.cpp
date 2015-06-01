@@ -1627,10 +1627,7 @@ void NppParameters::setFontList(HWND hWnd)
 	lf.lfPitchAndFamily = 0;
 	HDC hDC = ::GetDC(hWnd);
 
-	::EnumFontFamiliesEx(hDC, 
-						&lf, 
-						(FONTENUMPROC) EnumFontFamExProc, 
-						(LPARAM) &_fontlist, 0);
+	::EnumFontFamiliesEx(hDC, &lf, EnumFontFamExProc, (LPARAM)&_fontlist, 0);
 }
 
 void NppParameters::getLangKeywordsFromXmlTree()

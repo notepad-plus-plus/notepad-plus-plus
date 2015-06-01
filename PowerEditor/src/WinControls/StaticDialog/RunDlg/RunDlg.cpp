@@ -196,7 +196,7 @@ HINSTANCE Command::run(HWND hWnd)
 	return res;
 }
 
-BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{

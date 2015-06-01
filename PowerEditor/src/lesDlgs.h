@@ -44,7 +44,7 @@ public :
 		void destroy() {};
 
 protected :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
 
 private :
 	int _nbNumber;
@@ -87,7 +87,7 @@ public :
 	    };
 
 protected :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
     int _buttonStatus;
 
 };

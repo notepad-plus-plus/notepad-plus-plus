@@ -120,7 +120,7 @@ private:
 	size_t _nrBufs;
 	int detectCodepage(char* buf, size_t len);
 
-	bool loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat = NULL);
+	bool loadFileData(Document doc, const TCHAR * filename, char* buffer, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat = NULL);
 };
 
 #define MainFileManager FileManager::getInstance()

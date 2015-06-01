@@ -1933,7 +1933,7 @@ void Notepad_plus::copyMarkedLines()
 			globalStr = currentStr;
 		}
 	}
-	str2Cliboard(globalStr.c_str());
+	str2Cliboard(globalStr);
 }
 
 void Notepad_plus::cutMarkedLines()
@@ -1953,7 +1953,7 @@ void Notepad_plus::cutMarkedLines()
 		}
 	}
 	_pEditView->execute(SCI_ENDUNDOACTION);
-	str2Cliboard(globalStr.c_str());
+	str2Cliboard(globalStr);
 }
 
 void Notepad_plus::deleteMarkedLines(bool isMarked)
@@ -4555,7 +4555,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 }
 
-bool Notepad_plus::str2Cliboard(const TCHAR *str2cpy)
+bool Notepad_plus::str2Cliboard(const generic_string & str2cpy)
 {
 	return str2Clipboard(str2cpy, _pPublicInterface->getHSelf());
 }

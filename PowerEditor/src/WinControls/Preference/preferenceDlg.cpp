@@ -25,8 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#include "precompiledHeaders.h"
+#include <shlwapi.h>
+#include <Shlobj.h>
+#include <uxtheme.h>
 #include "preferenceDlg.h"
 #include "lesDlgs.h"
 #include "EncodingMapper.h"

@@ -25,8 +25,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#include "precompiledHeaders.h"
+#include <memory>
+#include <shlwapi.h>
 #include "Notepad_plus_Window.h"
 #include "EncodingMapper.h"
 #include "ShortcutMapper.h"

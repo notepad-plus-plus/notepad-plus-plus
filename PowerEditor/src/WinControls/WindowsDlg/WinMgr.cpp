@@ -8,7 +8,7 @@
 // Theo - Heavily modified to remove MFC dependencies.  
 //        Replaced CWnd*/HWND, CRect/RECT, CSize/SIZE, CPoint/POINT
 
-#include "precompiledHeaders.h"
+
 #include "WinMgr.h"
 
 // Theo - Style Helpers

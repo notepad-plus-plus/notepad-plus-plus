@@ -26,7 +26,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <algorithm>
+#include <shlwapi.h>
+#include <Shlobj.h>
+#include <uxtheme.h>
+#include "StaticDialog.h"
+
+
+
+#include "Common.h"
 #include "../Utf8.h"
 
 WcharMbcsConvertor * WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;

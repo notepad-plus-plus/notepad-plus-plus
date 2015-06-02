@@ -29,7 +29,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <shlwapi.h>
 #include "MiniDumper.h"
 
 LPCTSTR msgTitle = TEXT("Notepad++ crash analysis");

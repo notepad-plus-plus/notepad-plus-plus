@@ -29,17 +29,10 @@
 #ifndef WORD_STYLE_H
 #define WORD_STYLE_H
 
-#ifndef COLOUR_PICKER_H
 #include "ColourPicker.h"
-#endif //COLOUR_PICKER_H
-
-#ifndef WORD_STYLE_DLG_RES_H
 #include "WordStyleDlgRes.h"
-#endif //WORD_STYLE_DLG_RES_H
-
-#ifndef PARAMETERS_H
 #include "Parameters.h"
-#endif //PARAMETERS_H
+
 
 #define WM_UPDATESCINTILLAS			(WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
 

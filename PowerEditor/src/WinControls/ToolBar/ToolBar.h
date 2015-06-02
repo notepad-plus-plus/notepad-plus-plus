@@ -29,11 +29,9 @@
 #ifndef TOOL_BAR_H
 #define TOOL_BAR_H
 
-#ifndef NOTEPAD_PLUS_MSGS_H
-#include "Notepad_plus_msgs.h"
-#endif //NOTEPAD_PLUS_MSGS_H
-
+#include "Common.h"
 #include "Window.h"
+#include "Notepad_plus_msgs.h"
 #include "ImageListSet.h"
 
 #define REBAR_BAR_TOOLBAR		0

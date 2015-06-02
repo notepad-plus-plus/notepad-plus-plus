@@ -16,7 +16,6 @@
 // - Add convert function in Utf8_16_Write
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "precompiledHeaders.h"
 #include "Utf8_16.h"
 
 const Utf8_16::utf8 Utf8_16::k_Boms[][3] = {

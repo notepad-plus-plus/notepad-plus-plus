@@ -59,8 +59,8 @@
 // Windows Header Files
 #include <windows.h>
 #include <commctrl.h>
-#include <Shlobj.h>
 #include <shlwapi.h>
+#include <Shlobj.h>
 #include <uxtheme.h>
 #include <Oleacc.h>
 #include <dbghelp.h>

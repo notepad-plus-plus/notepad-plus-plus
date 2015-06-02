@@ -36,7 +36,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "precompiledHeaders.h"
 #include "nsLatin1Prober.h"
 #include "prmem.h"
 #include <stdio.h>

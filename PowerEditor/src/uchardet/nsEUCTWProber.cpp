@@ -34,7 +34,7 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
-#include "precompiledHeaders.h"
+
 #include "nsEUCTWProber.h"
 
 void  nsEUCTWProber::Reset(void)

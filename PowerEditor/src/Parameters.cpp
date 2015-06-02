@@ -32,8 +32,11 @@
 #include "ScintillaEditView.h"
 #include "keys.h"
 #include "localization.h"
+#include "localizationString.h"
 #include "UserDefineDialog.h"
 #include "../src/sqlite/sqlite3.h"
+
+using namespace std;
 
 struct WinMenuKeyDefinition {	//more or less matches accelerator table definition, easy copy/paste
 	//const TCHAR * name;	//name retrieved from menu?
@@ -496,8 +499,6 @@ static int getKwClassFromName(const TCHAR *str) {
 	return -1;
 };
 
-#ifdef UNICODE
-#include "localizationString.h"
 
 wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) const
 {
@@ -540,8 +541,6 @@ bool LocalizationSwitcher::switchToLang(wchar_t *lang2switch) const
 
 	return ::CopyFileW(langPath.c_str(), _nativeLangPath.c_str(), FALSE) != FALSE;
 }
-
-#endif
 
 
 generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) const
@@ -1843,9 +1842,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 	if (!root) 
 		return false;
 
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-#endif
 
 	TiXmlNodeA *contextMenuRoot = root->FirstChildElement("ScintillaContextMenu");
 	if (contextMenuRoot)
@@ -1859,13 +1856,9 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 
 			generic_string folderName;
 			generic_string displayAs;
-#ifdef UNICODE
 			folderName = folderNameA?wmc->char2wchar(folderNameA, SC_CP_UTF8):TEXT("");
 			displayAs = displayAsA?wmc->char2wchar(displayAsA, SC_CP_UTF8):TEXT("");
-#else
-			folderName = folderNameA?folderNameA:"";
-			displayAs = displayAsA?displayAsA:"";
-#endif
+
 			int id;
 			const char *idStr = (childNode->ToElement())->Attribute("id", &id);
 			if (idStr)
@@ -1879,13 +1872,9 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 
 				generic_string menuEntryName;
 				generic_string menuItemName;
-#ifdef UNICODE
 				menuEntryName = menuEntryNameA?wmc->char2wchar(menuEntryNameA, SC_CP_UTF8):TEXT("");
 				menuItemName = menuItemNameA?wmc->char2wchar(menuItemNameA, SC_CP_UTF8):TEXT("");
-#else
-				menuEntryName = menuEntryNameA?menuEntryNameA:"";
-				menuItemName = menuItemNameA?menuItemNameA:"";
-#endif
+
 				if (menuEntryName != TEXT("") && menuItemName != TEXT(""))
 				{
 					int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
@@ -1949,13 +1938,9 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 
 					generic_string pluginName;
 					generic_string pluginCmdName;
-#ifdef UNICODE
 					pluginName = pluginNameA?wmc->char2wchar(pluginNameA, SC_CP_UTF8):TEXT("");
 					pluginCmdName = pluginCmdNameA?wmc->char2wchar(pluginCmdNameA, SC_CP_UTF8):TEXT("");
-#else
-					pluginName = pluginNameA?pluginNameA:"";
-					pluginCmdName = pluginCmdNameA?pluginCmdNameA:"";
-#endif
+
 					// if plugin menu existing plls the value of PluginEntryName and PluginCommandItemName are valid
 					if (pluginsMenu && pluginName != TEXT("") && pluginCmdName != TEXT(""))
 					{
@@ -3401,28 +3386,28 @@ bool NppParameters::writeProjectPanelsSettings() const
 	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
 	if (!nppRoot) return false;
 	
-	TiXmlNode *projPanelRootNode = nppRoot->FirstChildElement(TEXT("ProjectPanels"));
-	if (projPanelRootNode)
+	TiXmlNode *oldProjPanelRootNode = nppRoot->FirstChildElement(TEXT("ProjectPanels"));
+	if (nullptr != oldProjPanelRootNode)
 	{
 		// Erase the Project Panel root
-		nppRoot->RemoveChild(projPanelRootNode);
+		nppRoot->RemoveChild(oldProjPanelRootNode);
 	}
 
 	// Create the Project Panel root
-	projPanelRootNode = new TiXmlElement(TEXT("ProjectPanels"));
+	TiXmlElement projPanelRootNode{TEXT("ProjectPanels")};
 
 	// Add 3 Project Panel parameters
 	for (int i = 0 ; i < 3 ; ++i)
 	{
-		TiXmlElement projPanelNode(TEXT("ProjectPanel"));
+		TiXmlElement projPanelNode{TEXT("ProjectPanel")};
 		(projPanelNode.ToElement())->SetAttribute(TEXT("id"), i);
 		(projPanelNode.ToElement())->SetAttribute(TEXT("workSpaceFile"), _workSpaceFilePathes[i]);
 
-		(projPanelRootNode->ToElement())->InsertEndChild(projPanelNode);
+		(projPanelRootNode.ToElement())->InsertEndChild(projPanelNode);
 	}
 
 	// (Re)Insert the Project Panel root
-	(nppRoot->ToElement())->InsertEndChild(*projPanelRootNode);
+	(nppRoot->ToElement())->InsertEndChild(projPanelRootNode);
 	return true;
 }
 
@@ -6417,3 +6402,62 @@ void NppParameters::safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirect
 	}
 }
 
+
+Date::Date(const TCHAR *dateStr)
+{ 
+	// timeStr should be Notepad++ date format : YYYYMMDD
+	assert(dateStr);
+	if (lstrlen(dateStr) == 8)
+	{
+		generic_string ds(dateStr);
+		generic_string yyyy(ds, 0, 4);
+		generic_string mm(ds, 4, 2);
+		generic_string dd(ds, 6, 2);
+
+		int y = generic_atoi(yyyy.c_str());
+		int m = generic_atoi(mm.c_str());
+		int d = generic_atoi(dd.c_str());
+
+		if ((y > 0 && y <= 9999) && (m > 0 && m <= 12) && (d > 0 && d <= 31))
+		{
+			_year = y;
+			_month = m;
+			_day = d;
+			return;
+		}
+	}
+	now();
+}
+
+// The constructor which makes the date of number of days from now
+// nbDaysFromNow could be negative if user want to make a date in the past
+// if the value of nbDaysFromNow is 0 then the date will be now
+Date::Date(int nbDaysFromNow)
+{
+	const time_t oneDay = (60 * 60 * 24);
+
+	time_t rawtime;
+	tm* timeinfo;
+
+	time(&rawtime);
+	rawtime += (nbDaysFromNow * oneDay);
+
+	timeinfo = localtime(&rawtime);
+
+	_year = timeinfo->tm_year + 1900;
+	_month = timeinfo->tm_mon + 1;
+	_day = timeinfo->tm_mday;
+}
+
+void Date::now()
+{
+	time_t rawtime;
+	tm* timeinfo;
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	_year = timeinfo->tm_year + 1900;
+	_month = timeinfo->tm_mon + 1;
+	_day = timeinfo->tm_mday;
+}

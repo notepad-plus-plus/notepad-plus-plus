@@ -29,6 +29,9 @@
 #ifndef URLCTRL_INCLUDED
 #define URLCTRL_INCLUDED
 
+#include "Window.h"
+#include "Common.h"
+
 class URLCtrl : public Window {
 public:
     URLCtrl():_hfUnderlined(0),_hCursor(0), _msgDest(NULL), _cmdID(0), _oldproc(NULL), \

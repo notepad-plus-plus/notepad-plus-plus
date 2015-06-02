@@ -36,6 +36,11 @@
 #include "Docking.h"
 #endif //DOCKING_H
 
+#include <assert.h>
+#include <shlwapi.h>
+#include "Common.h"
+#include "StaticDialog.h"
+
 class DockingDlgInterface : public StaticDialog
 {
 public:
@@ -49,7 +54,7 @@ public:
 		StaticDialog::init(hInst, parent);
 		TCHAR temp[MAX_PATH];
 		::GetModuleFileName((HMODULE)hInst, temp, MAX_PATH);
-		_moduleName = PathFindFileName(temp);
+		_moduleName = ::PathFindFileName(temp);
 	};
 
     void create(tTbData * data, bool isRTL = false){

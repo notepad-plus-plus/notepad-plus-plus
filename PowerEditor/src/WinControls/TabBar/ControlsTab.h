@@ -29,9 +29,13 @@
 #ifndef CONTROLS_TAB_H
 #define CONTROLS_TAB_H
 
+
 #ifndef TAB_BAR_H
 #include "TabBar.h"
 #endif //TAB_BAR_H
+
+#include "window.h"
+#include "Common.h"
 
 struct DlgInfo {
     Window *_dlg;

@@ -28,7 +28,10 @@
 #ifndef TREE_VIEW_H
 #define TREE_VIEW_H
 
+#include <windows.h>
+#include <commctrl.h>
 #include "window.h"
+#include "Common.h"
 
 struct TreeStateNode {
 	generic_string _label;

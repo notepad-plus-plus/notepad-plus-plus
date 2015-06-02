@@ -29,6 +29,8 @@
 #ifndef TRAY_ICON_CONTROLER_H
 #define TRAY_ICON_CONTROLER_H
 
+#include <windows.h>
+
 #define ADD     NIM_ADD
 #define REMOVE  NIM_DELETE
 

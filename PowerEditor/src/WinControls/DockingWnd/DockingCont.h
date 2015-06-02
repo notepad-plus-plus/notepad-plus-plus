@@ -37,8 +37,9 @@
 #include "Docking.h"
 #endif //DOCKING_H
 
-
-using namespace std;
+#include <vector>
+#include "StaticDialog.h"
+#include "Common.h"
 
 
 // window styles
@@ -59,8 +60,6 @@ enum eMousePos {
 #define CAPTION_GAP			2
 #define CLOSEBTN_POS_LEFT	3
 #define CLOSEBTN_POS_TOP	3
-
-
 
 
 class DockingCont : public StaticDialog
@@ -102,10 +101,10 @@ public:
 	void setActiveTb(INT iItem);
 	INT getActiveTb();
 	tTbData * getDataOfActiveTb();
-	vector<tTbData *> getDataOfAllTb() {
+	std::vector<tTbData *> getDataOfAllTb() {
 		return _vTbData;
 	};
-	vector<tTbData *> getDataOfVisTb();
+	std::vector<tTbData *> getDataOfVisTb();
 	bool isTbVis(tTbData* data);
 
 	void doDialog(bool willBeShown = true, bool isFloating = false);
@@ -234,7 +233,7 @@ private:
 	eMousePos				_hoverMPos;
 
 	// data of added windows
-	vector<tTbData *>		_vTbData;
+	std::vector<tTbData *>		_vTbData;
 };
 
 

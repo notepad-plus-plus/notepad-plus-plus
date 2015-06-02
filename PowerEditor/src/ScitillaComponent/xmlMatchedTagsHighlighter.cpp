@@ -31,11 +31,10 @@
 // Reverse regex are slow using the new regex engine, and hence cost too much time.
 
 
-#include "precompiledHeaders.h"
 #include "xmlMatchedTagsHighlighter.h"
 #include "ScintillaEditView.h"
 
-
+using namespace std;
 
 vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, int end)
 {

@@ -26,13 +26,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+
 #include "Notepad_plus_Window.h"
 #include "xmlMatchedTagsHighlighter.h"
 #include "VerticalFileSwitcher.h"
 #include "ProjectPanel.h"
 #include "documentMap.h"
 #include <stack>
+
+using namespace std;
 
 BOOL Notepad_plus::notify(SCNotification *notification)
 {

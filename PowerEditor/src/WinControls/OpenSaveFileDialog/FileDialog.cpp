@@ -26,7 +26,8 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <shlwapi.h>
+
 #include "FileDialog.h"
 #include "Parameters.h"
 

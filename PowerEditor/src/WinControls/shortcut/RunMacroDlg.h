@@ -34,7 +34,7 @@
 #include "RunMacroDlg_rc.h"
 #endif //RUN_MACRO_DLG_RC_H
 
-using namespace std;
+#include "StaticDialog.h"
 
 #define RM_CANCEL -1
 #define RM_RUN_MULTI 1

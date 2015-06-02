@@ -26,13 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <iostream>
 #include "ToolTip.h"
 
-
-
 LRESULT CALLBACK dlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-
 
 void ToolTip::init(HINSTANCE hInst, HWND hParent)
 {

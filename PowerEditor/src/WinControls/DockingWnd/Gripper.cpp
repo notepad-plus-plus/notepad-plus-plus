@@ -179,7 +179,7 @@ LRESULT CALLBACK Gripper::staticWinProc(HWND hwnd, UINT message, WPARAM wParam, 
 			return TRUE;
 
 		default :
-			pDlgMoving = (Gripper *)::GetWindowLongPtr(hwnd, GWL_USERDATA);
+			pDlgMoving = (Gripper *)::GetWindowLongPtr(hwnd, GWLP_USERDATA);
 			if (!pDlgMoving)
 				return ::DefWindowProc(hwnd, message, wParam, lParam);
 			return pDlgMoving->runProc(message, wParam, lParam);

@@ -30,6 +30,7 @@
 #define LISTVIEW_H
 
 #include "window.h"
+#include "Common.h"
 
 class ListView : public Window
 {

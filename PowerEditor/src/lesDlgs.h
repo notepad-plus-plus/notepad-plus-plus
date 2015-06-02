@@ -29,6 +29,9 @@
 #ifndef SIZE_DLG_H
 #define SIZE_DLG_H
 
+#include "StaticDialog.h"
+#include "Common.h"
+
 const int DEFAULT_NB_NUMBER = 2;
 class ValueDlg : public StaticDialog
 {

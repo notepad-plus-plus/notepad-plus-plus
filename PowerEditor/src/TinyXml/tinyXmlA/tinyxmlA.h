@@ -56,6 +56,11 @@ distribution.
 	#define TIXMLA_OSTREAM	TiXmlOutStreamA
 #endif
 
+#include <stdio.h>
+#include <assert.h>
+#include <string>
+#include <tchar.h>
+
 class TiXmlDocumentA;
 class TiXmlElementA;
 class TiXmlCommentA;

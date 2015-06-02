@@ -29,6 +29,9 @@
 #ifndef TASKLISTDLG_H
 #define TASKLISTDLG_H
 
+#include "Common.h"
+#include "StaticDialog.h"
+
 #ifndef TASKLISTDLGRC_H
 #include "TaskListDlg_rc.h"
 #endif //TASKLISTDLGRC_H

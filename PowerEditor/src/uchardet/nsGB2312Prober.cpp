@@ -39,7 +39,7 @@
 // 1, kana character (or hankaku?) often have hight frequency of appereance
 // 2, kana character often exist in group
 // 3, certain combination of kana is never used in japanese language
-#include "precompiledHeaders.h"
+
 #include "nsGB2312Prober.h"
 
 void  nsGB18030Prober::Reset(void)

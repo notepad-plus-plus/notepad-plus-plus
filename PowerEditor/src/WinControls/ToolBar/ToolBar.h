@@ -29,9 +29,10 @@
 #ifndef TOOL_BAR_H
 #define TOOL_BAR_H
 
-#ifndef NOTEPAD_PLUS_MSGS_H
+#include "Common.h"
+#include "Window.h"
 #include "Notepad_plus_msgs.h"
-#endif //NOTEPAD_PLUS_MSGS_H
+#include "ImageListSet.h"
 
 #define REBAR_BAR_TOOLBAR		0
 #define REBAR_BAR_SEARCH		1
@@ -41,11 +42,7 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-using namespace std;
-
 enum toolBarStatusType {/*TB_HIDE, */TB_SMALL, TB_LARGE, TB_STANDARD};
-
-#include "ImageListSet.h"
 
 
 typedef struct {
@@ -123,14 +120,14 @@ private :
 	TBBUTTON *_pTBB;
 	ToolBarIcons _toolBarIcons;
 	toolBarStatusType _state;
-	vector<tDynamicList> _vDynBtnReg;
+	std::vector<tDynamicList> _vDynBtnReg;
 	size_t _nrButtons;
 	size_t _nrDynButtons;
 	size_t _nrTotalButtons;
 	size_t _nrCurrentButtons;
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;
-    vector<iconLocator> _customIconVect;
+    std::vector<iconLocator> _customIconVect;
     TiXmlNode *_toolIcons;
 
 
@@ -172,7 +169,7 @@ public :
 	void setGrayBackground(int id);
 
 private:
-	vector<int> usedIDs;
+	std::vector<int> usedIDs;
 
 	int getNewID();
 	void releaseID(int id);

@@ -144,6 +144,7 @@ public:
 	void setFinderStyle();
 	void removeAll();
 	void openAll();
+	void copy();
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count);
 	void gotoNextFoundResult(int direction);
@@ -176,6 +177,9 @@ private:
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
 	};
+
+	bool isLineActualSearchResult(int line) const;
+	generic_string prepareStringForClipboard(generic_string s) const;
 
 	static FoundInfo EmptyFoundInfo;
 	static SearchResultMarking EmptySearchResultMarking;
@@ -239,7 +243,7 @@ public :
 	};
 	const TCHAR * getDir2Search() const {return _env->_directory.c_str();};
 
-	void getPatterns(vector<generic_string> & patternVect);
+	void getPatterns(std::vector<generic_string> & patternVect);
 
 	void launchFindInFilesDlg() {
 		doDialog(FINDINFILES_DLG);
@@ -361,7 +365,7 @@ private :
 	};
 	void fillFindHistory();
     void fillComboHistory(int id, const std::vector<generic_string> & strings);
-    int saveComboHistory(int id, int maxcount, vector<generic_string> & strings);
+	int saveComboHistory(int id, int maxcount, std::vector<generic_string> & strings);
 	static const int FR_OP_FIND = 1;
 	static const int FR_OP_REPLACE = 2;
 	static const int FR_OP_FIF = 4;
@@ -440,7 +444,7 @@ private:
 
 	static volatile LONG refCount;
 
-	static DWORD threadFunc(LPVOID data);
+	static DWORD WINAPI threadFunc(LPVOID data);
 	static LRESULT APIENTRY wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam);
 
 	// Disable copy construction and operator=

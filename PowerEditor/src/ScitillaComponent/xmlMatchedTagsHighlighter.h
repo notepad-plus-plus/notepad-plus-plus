@@ -29,7 +29,8 @@
 #ifndef XMLMATCHEDTAGSHIGHLIGHTER_H
 #define XMLMATCHEDTAGSHIGHLIGHTER_H
 
-using namespace std;
+#include <string>
+#include <vector>
 
 class ScintillaEditView;
 
@@ -68,7 +69,7 @@ private:
 	FindResult findCloseTag(const std::string& tagName, int start, int end);
 	int findCloseAngle(int startPosition, int endPosition);
 	
-	vector< pair<int, int> > getAttributesPos(int start, int end);
+	std::vector< std::pair<int, int> > getAttributesPos(int start, int end);
 	
 };
 

@@ -52,7 +52,7 @@ static int max(int a, int b) {
 #include "tchar.h"
 #include "scilexer.h"
 #include <map>
-using namespace std;
+
 class ScintillaEditView;
 class UserLangContainer;
 struct Style;
@@ -66,18 +66,18 @@ class GlobalMappers
 {
     public:
 
-        map<generic_string, int> keywordIdMapper;
-        map<int, generic_string> keywordNameMapper;
+		std::map<generic_string, int> keywordIdMapper;
+		std::map<int, generic_string> keywordNameMapper;
 
-        map<generic_string, int> styleIdMapper;
-        map<int, generic_string> styleNameMapper;
+		std::map<generic_string, int> styleIdMapper;
+		std::map<int, generic_string> styleNameMapper;
 
-        map<generic_string, int> temp;
-        map<generic_string, int>::iterator iter;
+		std::map<generic_string, int> temp;
+		std::map<generic_string, int>::iterator iter;
 
-        map<int, int> nestingMapper;
-        map<int, int> dialogMapper;
-        map<int, string> setLexerMapper;
+		std::map<int, int> nestingMapper;
+		std::map<int, int> dialogMapper;
+		std::map<int, std::string> setLexerMapper;
 
         // only default constructor is needed
         GlobalMappers()

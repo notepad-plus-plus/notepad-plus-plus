@@ -25,8 +25,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#include "precompiledHeaders.h"
+#include <memory>
+#include <shlwapi.h>
 #include "Notepad_plus_Window.h"
 #include "EncodingMapper.h"
 #include "ShortcutMapper.h"
@@ -38,6 +38,7 @@
 #include "Sorters.h"
 #include "LongRunningOperation.h"
 
+using namespace std;
 
 void Notepad_plus::macroPlayback(Macro macro)
 {
@@ -675,7 +676,7 @@ void Notepad_plus::command(int id)
 			{
 				generic_string dir(buf->getFullPathName());
 				PathRemoveFileSpec(dir);
-				str2Cliboard(dir.c_str());
+				str2Cliboard(dir);
 			}
 			else if (id == IDM_EDIT_FILENAMETOCLIP)
 			{

@@ -29,7 +29,9 @@
 #ifndef __TOOLTIP_H__
 #define __TOOLTIP_H__
 
-using namespace std;
+#include <windows.h>
+#include <commctrl.h>
+#include "Window.h"
 
 class ToolTip : public Window
 {

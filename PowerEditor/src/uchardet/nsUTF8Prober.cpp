@@ -35,7 +35,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "precompiledHeaders.h"
 #include "nsUTF8Prober.h"
 
 void  nsUTF8Prober::Reset(void)

@@ -33,6 +33,9 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
+#include "Window.h"
+#include "Common.h"
+
 class StatusBar : public Window
 {
 public :
@@ -73,18 +76,8 @@ public :
 		return Window::getHeight();
 	};
 
-    bool setText(const TCHAR *str, int whichPart) {
-        if (whichPart > _nbParts) 
-            return false;
-		_lastSetText = str;
-		return (::SendMessage(_hSelf, SB_SETTEXT, whichPart, (LPARAM)_lastSetText.c_str()) == TRUE);
-    };
-
-	bool setOwnerDrawText(const TCHAR *str) {
-		_lastSetText = str;
-		return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, (LPARAM)_lastSetText.c_str()) == TRUE);
-    };
-
+    bool setText(const TCHAR *str, int whichPart);
+	bool setOwnerDrawText(const TCHAR *str);
 	void adjustParts(int clientWidth);
 
 private :

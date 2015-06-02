@@ -35,7 +35,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "precompiledHeaders.h"
 #include "CharDistribution.h"
 
 #include "JISFreq.tab"

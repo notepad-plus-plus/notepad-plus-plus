@@ -25,8 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#include "precompiledHeaders.h"
+#include <time.h>
+#include <shlwapi.h>
+#include <Shlobj.h>
 #include "Parameters.h"
 #include "FileDialog.h"
 #include "ScintillaEditView.h"

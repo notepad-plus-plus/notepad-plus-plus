@@ -18,11 +18,12 @@
 #ifndef RUN_DLG_H
 #define RUN_DLG_H
 
+#include <Oleacc.h>
+#include "Common.h"
+
 #ifndef RUN_DLG_RC_H
 #include "RunDlg_rc.h"
 #endif //RUN_DLG_RC_H
-
-using namespace std;
 
 #define CURRENTWORD_MAXLENGTH 2048
 

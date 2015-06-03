@@ -36,8 +36,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "precompiledHeaders.h"
-
 #include "nscore.h"
 
 #include "nsUniversalDetector.h"

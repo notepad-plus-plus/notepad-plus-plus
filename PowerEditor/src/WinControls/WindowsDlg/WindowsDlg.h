@@ -29,9 +29,8 @@
 #ifndef WINDOWS_DLG_H
 #define WINDOWS_DLG_H
 
-#ifndef SIZABLE_DLG_H
 #include "SizeableDlg.h"
-#endif //SIZABLE_DLG_H
+#include "Common.h"
 
 class DocTabView;
 class TiXmlNodeA;

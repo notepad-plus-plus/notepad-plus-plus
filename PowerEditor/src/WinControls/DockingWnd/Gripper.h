@@ -29,6 +29,10 @@
 #ifndef GRIPPER_H
 #define GRIPPER_H
 
+#include <windows.h>
+#include <commctrl.h>
+#include "Common.h"
+
 #ifndef DOCKING_H
 #include "Docking.h"
 #endif //DOCKING_H

@@ -97,7 +97,7 @@ public:
 		_nppData = nppData;
 	};
 
-    int loadPlugin(const TCHAR *pluginFilePath, vector<generic_string> & dll2Remove);
+    int loadPlugin(const TCHAR *pluginFilePath, std::vector<generic_string> & dll2Remove);
 	bool loadPlugins(const TCHAR *dir = NULL);
 	
     bool unloadPlugin(int index, HWND nppHandle);
@@ -129,9 +129,9 @@ private:
 	NppData _nppData;
 	HMENU _hPluginsMenu;
 
-	vector<PluginInfo *> _pluginInfos;
-	vector<PluginCommand> _pluginsCommands;
-	vector<generic_string> _loadedDlls;
+	std::vector<PluginInfo *> _pluginInfos;
+	std::vector<PluginCommand> _pluginsCommands;
+	std::vector<generic_string> _loadedDlls;
 	bool _isDisabled;
 	IDAllocator _dynamicIDAlloc;
 	IDAllocator _markerAlloc;

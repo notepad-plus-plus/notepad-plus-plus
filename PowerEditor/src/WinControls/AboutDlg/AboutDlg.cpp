@@ -26,7 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+
+#include <Shlobj.h>
+#include <uxtheme.h>
+
 #include "AboutDlg.h"
 #include "Parameters.h"
 
@@ -39,17 +42,11 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
 			generic_string buildTime = TEXT("Build time : ");
 
-#ifdef UNICODE
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			buildTime +=  wmc->char2wchar(__DATE__, CP_ACP);
 			buildTime += TEXT(" - ");
 			buildTime +=  wmc->char2wchar(__TIME__, CP_ACP);
 
-#else
-			buildTime +=  __DATE__;
-			buildTime += TEXT(" - ");
-			buildTime +=  __TIME__;
-#endif
 			::SendMessage(compileDateHandle, WM_SETTEXT, 0, (LPARAM)buildTime.c_str());
 			::EnableWindow(compileDateHandle, FALSE);
 

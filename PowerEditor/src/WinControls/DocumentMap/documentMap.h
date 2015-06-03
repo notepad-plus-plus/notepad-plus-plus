@@ -53,7 +53,7 @@ enum moveMode {
 class ViewZoneDlg : public StaticDialog
 {
 public :
-	ViewZoneDlg() : StaticDialog() {};
+	ViewZoneDlg() : StaticDialog(), _viewZoneCanvas(NULL), _canvasDefaultProc(nullptr), _higherY(0), _lowerY(0) {}
 
 	void doDialog();
 
@@ -63,7 +63,8 @@ public :
 	void drawZone(long hY, long lY) {
 		_higherY = hY;
 		_lowerY = lY;
-		::InvalidateRect(_viewZoneCanvas, NULL, TRUE);
+		if (NULL != _viewZoneCanvas)
+			::InvalidateRect(_viewZoneCanvas, NULL, TRUE);
 	};
 
 	int getViewerHeight() const {

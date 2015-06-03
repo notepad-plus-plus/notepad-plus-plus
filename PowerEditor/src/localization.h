@@ -29,9 +29,9 @@
 #ifndef LOCALIZATION_H
 #define LOCALIZATION_H
 
-#ifndef TINYXMLA_INCLUDED
+#include "Common.h"
 #include "tinyxmlA.h"
-#endif //TINYXMLA_INCLUDED
+
 
 class FindReplaceDlg;
 class PreferenceDlg;

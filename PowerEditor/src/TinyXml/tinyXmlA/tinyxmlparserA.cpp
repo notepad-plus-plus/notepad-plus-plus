@@ -22,7 +22,7 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-#include "precompiledHeaders.h"
+
 #include "tinyxmlA.h"
 
 //#define DEBUG_PARSER

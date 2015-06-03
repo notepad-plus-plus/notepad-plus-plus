@@ -29,7 +29,9 @@
 #ifndef ANSICHARPANEL_H
 #define  ANSICHARPANEL_H
 
-//#include <windows.h>
+#include <windows.h>
+#include <commctrl.h>
+
 #ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
 #endif //DOCKINGDLGINTERFACE_H

@@ -26,8 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef M30_IDE_SORTERS_H
-#define M30_IDE_SORTERS_H
+#ifndef NPP_SORTERS_H
+#define NPP_SORTERS_H
+
+#include <algorithm>
 
 // Base interface for line sorting.
 class ISorter
@@ -259,4 +261,4 @@ protected:
 	}
 };
 
-#endif //M30_IDE_SORTERS_H
+#endif //NPP_SORTERS_H

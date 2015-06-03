@@ -50,13 +50,17 @@ distribution.
 	#define TIXML_STRING	generic_string
 	#define TIXML_ISTREAM	std::basic_istream<TCHAR>
 	#define TIXML_OSTREAM	std::basic_ostream<TCHAR>
-	
-
 #else
 	#include "tinystr.h"
 	#define TIXML_STRING	TiXmlString
 	#define TIXML_OSTREAM	TiXmlOutStream
 #endif
+
+#include <assert.h>
+
+#include <string>
+
+#include "Common.h"
 
 class TiXmlDocument;
 class TiXmlElement;

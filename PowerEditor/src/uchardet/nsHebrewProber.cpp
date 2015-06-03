@@ -35,7 +35,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "precompiledHeaders.h"
 #include "nsHebrewProber.h"
 #include <stdio.h>
 

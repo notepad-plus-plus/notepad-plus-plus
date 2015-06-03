@@ -26,7 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+
 #include "DockingManager.h"
 #include "DockingSplitter.h"
 #include "DockingCont.h"
@@ -44,18 +44,24 @@ static	HHOOK			gWinCallHook = NULL;
 LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 
 // Callback function that handles messages (to test focus)
-LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
-	if (nCode == HC_ACTION && hWndServer) {
+LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam)
+{
+	if (nCode == HC_ACTION && hWndServer)
+	{
 		DockingManager *pDockingManager = (DockingManager *)::GetWindowLongPtr(hWndServer, GWL_USERDATA);
-		if (pDockingManager) {
+		if (pDockingManager)
+		{
 			vector<DockingCont*> & vcontainer = pDockingManager->getContainerInfo();
 			CWPSTRUCT * pCwp = (CWPSTRUCT*)lParam;
-			if (pCwp->message == WM_KILLFOCUS) {
+			if (pCwp->message == WM_KILLFOCUS)
+			{
 				for (int i = 0; i < DOCKCONT_MAX; ++i)
 				{
 					vcontainer[i]->SetActive(FALSE);	//deactivate all containers
 				}
-			} else if (pCwp->message == WM_SETFOCUS) {
+			}
+			else if (pCwp->message == WM_SETFOCUS)
+			{
 				for (int i = 0; i < DOCKCONT_MAX; ++i)
 				{
 					vcontainer[i]->SetActive(IsChild(vcontainer[i]->getHSelf(), pCwp->hwnd));	//activate the container that contains the window with focus, this can be none

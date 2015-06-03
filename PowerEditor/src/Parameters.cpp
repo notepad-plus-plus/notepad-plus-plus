@@ -25,8 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#include "precompiledHeaders.h"
+#include <time.h>
+#include <shlwapi.h>
+#include <Shlobj.h>
 #include "Parameters.h"
 #include "FileDialog.h"
 #include "ScintillaEditView.h"
@@ -3386,28 +3387,28 @@ bool NppParameters::writeProjectPanelsSettings() const
 	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
 	if (!nppRoot) return false;
 	
-	TiXmlNode *projPanelRootNode = nppRoot->FirstChildElement(TEXT("ProjectPanels"));
-	if (projPanelRootNode)
+	TiXmlNode *oldProjPanelRootNode = nppRoot->FirstChildElement(TEXT("ProjectPanels"));
+	if (nullptr != oldProjPanelRootNode)
 	{
 		// Erase the Project Panel root
-		nppRoot->RemoveChild(projPanelRootNode);
+		nppRoot->RemoveChild(oldProjPanelRootNode);
 	}
 
 	// Create the Project Panel root
-	projPanelRootNode = new TiXmlElement(TEXT("ProjectPanels"));
+	TiXmlElement projPanelRootNode{TEXT("ProjectPanels")};
 
 	// Add 3 Project Panel parameters
 	for (int i = 0 ; i < 3 ; ++i)
 	{
-		TiXmlElement projPanelNode(TEXT("ProjectPanel"));
+		TiXmlElement projPanelNode{TEXT("ProjectPanel")};
 		(projPanelNode.ToElement())->SetAttribute(TEXT("id"), i);
 		(projPanelNode.ToElement())->SetAttribute(TEXT("workSpaceFile"), _workSpaceFilePathes[i]);
 
-		(projPanelRootNode->ToElement())->InsertEndChild(projPanelNode);
+		(projPanelRootNode.ToElement())->InsertEndChild(projPanelNode);
 	}
 
 	// (Re)Insert the Project Panel root
-	(nppRoot->ToElement())->InsertEndChild(*projPanelRootNode);
+	(nppRoot->ToElement())->InsertEndChild(projPanelRootNode);
 	return true;
 }
 

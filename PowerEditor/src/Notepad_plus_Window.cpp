@@ -26,7 +26,8 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <time.h>
+#include <shlwapi.h>
 #include "Notepad_plus_Window.h"
 
 const TCHAR Notepad_plus_Window::_className[32] = TEXT("Notepad++");

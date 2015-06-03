@@ -22,7 +22,7 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-#include "precompiledHeaders.h"
+#include <sstream>
 #include "tinyxml.h"
 
 bool TiXmlBase::condenseWhiteSpace = true;

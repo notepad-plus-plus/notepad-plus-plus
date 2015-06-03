@@ -33,6 +33,8 @@
 #include "regExtDlgRc.h"
 #endif //REGEXTDLGRC_H
 
+#include "StaticDialog.h"
+
 const int extNameLen = 32;
 
 class RegExtDlg : public StaticDialog

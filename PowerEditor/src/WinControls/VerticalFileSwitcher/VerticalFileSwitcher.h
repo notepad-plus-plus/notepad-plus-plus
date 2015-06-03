@@ -29,11 +29,7 @@
 #ifndef VERTICALFILESWITCHER_H
 #define  VERTICALFILESWITCHER_H
 
-//#include <windows.h>
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "VerticalFileSwitcher_rc.h"
 #include "VerticalFileSwitcherListView.h"
 

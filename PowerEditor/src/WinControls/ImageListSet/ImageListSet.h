@@ -29,6 +29,8 @@
 #ifndef IMAGE_LIST_H
 #define IMAGE_LIST_H
 
+#include <vector>
+#include <windows.h>
 #include <commctrl.h>
 
 const int nbMax = 45;

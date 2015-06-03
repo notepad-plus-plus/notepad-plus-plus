@@ -35,7 +35,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "precompiledHeaders.h"
+
 #include "nsEscCharsetProber.h"
 #include "nsUniversalDetector.h"
 

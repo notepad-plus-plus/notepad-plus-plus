@@ -29,6 +29,8 @@
 #ifndef DOCKINGSPLITTER_H
 #define DOCKINGSPLITTER_H
 
+#include "Window.h"
+
 #ifndef DOCKING_H
 #include "Docking.h"
 #endif //DOCKING_H

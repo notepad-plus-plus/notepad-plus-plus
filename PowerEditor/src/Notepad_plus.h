@@ -599,7 +599,7 @@ private:
 
 	void doSynScorll(HWND hW);
 	void setWorkingDir(const TCHAR *dir);
-	bool str2Cliboard(const TCHAR *str2cpy);
+	bool str2Cliboard(const generic_string & str2cpy);
 	bool bin2Cliboard(const UCHAR *uchar2cpy, size_t length);
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);

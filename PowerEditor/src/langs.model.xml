@@ -111,7 +111,7 @@
             <Keywords name="type1">package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum</Keywords>
         </Language>
         <Language name="javascript" ext="js jsm" commentLine="//" commentStart="/*" commentEnd="*/">
-            <Keywords name="instre1">abstract boolean break byte case catch char class const continue debugger default delete do double else enum export extends final finally float for function goto if implements import in instanceof int interface long native new package private protected public return short static super switch synchronized this throw throws transient try typeof var void volatile while with true false prototype</Keywords>
+            <Keywords name="instre1">abstract boolean break byte case catch char class const continue debugger default delete do double else enum export extends final finally float for from function goto if implements import in instanceof int interface long native new package private protected public return short static super switch synchronized this throw throws transient try typeof var void volatile while with true false prototype</Keywords>
         </Language>
         <Language name="jsp" ext="jsp" commentLine="//" commentStart="/*" commentEnd="*/"/>
         <Language name="kix" ext="kix" commentLine=";" commentStart="" commentEnd="">

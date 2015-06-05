@@ -37,6 +37,8 @@
 #include "resource.h"
 #endif //RESOURCE_H
 
+#include "Window.h"
+
 #define WM_PICKUP_COLOR (COLOURPOPUP_USER + 1)
 #define WM_PICKUP_CANCEL (COLOURPOPUP_USER + 2)
 

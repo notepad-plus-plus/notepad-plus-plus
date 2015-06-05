@@ -104,7 +104,7 @@ public:
 	void destroyInstance() { delete _pSelf; };
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	int docLength(Buffer * buffer) const;
-	int getEOLFormatForm(const char *data) const;
+	int getEOLFormatForm(const char* const data, size_t length) const;
 	size_t nextUntitledNewNumber() const;
 
 private:
@@ -120,7 +120,7 @@ private:
 	size_t _nrBufs;
 	int detectCodepage(char* buf, size_t len);
 
-	bool loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat = NULL);
+	bool loadFileData(Document doc, const TCHAR * filename, char* buffer, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat = NULL);
 };
 
 #define MainFileManager FileManager::getInstance()
@@ -348,9 +348,9 @@ private :
 	bool _needLexer;	//initially true
 	//these properties have to be duplicated because of multiple references
 	//All the vectors must have the same size at all times
-	vector< ScintillaEditView * > _referees;
-	vector< Position > _positions;
-	vector< vector<size_t> > _foldStates;
+	std::vector< ScintillaEditView * > _referees;
+	std::vector< Position > _positions;
+	std::vector< std::vector<size_t> > _foldStates;
 
 	//vector< pair<size_t, pair<size_t, bool> > > _linesUndoState;
 
@@ -384,6 +384,9 @@ private :
 		if (_canNotify)
 			_pManager->beNotifiedOfBufferChange(this, mask); 
 	};
+
+	Buffer(const Buffer&) { assert(false);  }
+	Buffer& operator = (const Buffer&) { assert(false);  return *this; }
 };
 
 #endif //BUFFER_H

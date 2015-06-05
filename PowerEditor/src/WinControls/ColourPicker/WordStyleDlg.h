@@ -29,17 +29,10 @@
 #ifndef WORD_STYLE_H
 #define WORD_STYLE_H
 
-#ifndef COLOUR_PICKER_H
 #include "ColourPicker.h"
-#endif //COLOUR_PICKER_H
-
-#ifndef WORD_STYLE_DLG_RES_H
 #include "WordStyleDlgRes.h"
-#endif //WORD_STYLE_DLG_RES_H
-
-#ifndef PARAMETERS_H
 #include "Parameters.h"
-#endif //PARAMETERS_H
+
 
 #define WM_UPDATESCINTILLAS			(WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
 
@@ -121,7 +114,7 @@ public :
 	void addLastThemeEntry() {
         NppParameters *nppParamInst = NppParameters::getInstance();
         ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
-        pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
+		std::pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
 	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, (LPARAM)themeInfo.first.c_str());
     };
 

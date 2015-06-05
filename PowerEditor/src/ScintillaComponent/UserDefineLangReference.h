@@ -29,9 +29,7 @@
 #ifndef USER_DEFINE_LANG_REFERENCE_H
 #define USER_DEFINE_LANG_REFERENCE_H
 
-#ifndef SCILEXER_H
 #include "scilexer.h"
-#endif //SCILEXER_H
 
 const int langNameLenMax = 33;
 const int extsLenMax = 256;

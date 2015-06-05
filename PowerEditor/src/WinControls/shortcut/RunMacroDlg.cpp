@@ -27,7 +27,7 @@
 
 // created by Daniel Volk mordorpost@volkarts.com
 
-#include "precompiledHeaders.h"
+
 #include "RunMacroDlg.h"
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
@@ -37,7 +37,7 @@ void RunMacroDlg::initMacroList()
 	if (!isCreated()) return;
 
 	NppParameters *pNppParam = NppParameters::getInstance();
-	vector<MacroShortcut> & macroList = pNppParam->getMacroList();
+	std::vector<MacroShortcut> & macroList = pNppParam->getMacroList();
 
 	::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_RESETCONTENT, 0, 0);
 

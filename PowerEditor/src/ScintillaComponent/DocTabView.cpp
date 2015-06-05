@@ -26,7 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+
 #include "DocTabView.h"
 #include "ScintillaEditView.h"
 

@@ -62,7 +62,7 @@ private:
 	//cache some XML values n stuff
 	TCHAR * _funcName;				//name of function
 	stringVec _retVals;				//vector of overload return values/types
-	vector<stringVec> _overloads;	//vector of overload params (=vector)
+	std::vector<stringVec> _overloads;	//vector of overload params (=vector)
 	stringVec _descriptions;		//vecotr of function descriptions
 	int _currentNrOverloads;		//current amount of overloads
 	int _currentOverload;			//current chosen overload

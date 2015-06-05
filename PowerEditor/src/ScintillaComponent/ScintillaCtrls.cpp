@@ -26,7 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
 #include "ScintillaCtrls.h"
 #include "ScintillaEditView.h"
 
@@ -68,7 +67,7 @@ bool ScintillaCtrls::destroyScintilla(HWND handle2Destroy)
 	_scintVector[i]->destroy();
 	delete _scintVector[i];
 
-	vector<ScintillaEditView *>::iterator it2delete = _scintVector.begin()+ i;
+	std::vector<ScintillaEditView *>::iterator it2delete = _scintVector.begin()+ i;
 	_scintVector.erase(it2delete);
 	return true;
 }

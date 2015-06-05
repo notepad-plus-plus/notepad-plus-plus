@@ -33,6 +33,8 @@
 #include "columnEditor_rc.h"
 #endif //COLUMNEDITOR_RC_H
 
+#include "StaticDialog.h"
+
 class ScintillaEditView;
 
 const bool activeText = true;
@@ -43,12 +45,7 @@ class ColumnEditorDlg : public StaticDialog
 public :
 	ColumnEditorDlg() : StaticDialog() {};
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
-		Window::init(hInst, hPere);
-		if (!ppEditView)
-			throw std::runtime_error("StaticDialog::init : ppEditView is null.");
-		_ppEditView = ppEditView;
-	};
+	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
 	virtual void create(int dialogID, bool isRTL = false) {
 		StaticDialog::create(dialogID, isRTL);

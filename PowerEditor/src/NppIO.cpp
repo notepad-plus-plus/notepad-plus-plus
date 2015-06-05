@@ -26,7 +26,8 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <time.h>
+#include <shlwapi.h>
 #include "Notepad_plus_Window.h"
 #include "FileDialog.h"
 #include "EncodingMapper.h"
@@ -34,6 +35,7 @@
 #include "functionListPanel.h"
 #include <TCHAR.h>
 
+using namespace std;
 
 BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
@@ -58,7 +60,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 	}
 	assert( _tcslen( longFileName ) == getFullPathNameResult );
 	
-	// ignore the returned value of fuction due to win64 redirection system
+	// ignore the returned value of function due to win64 redirection system
 	::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);

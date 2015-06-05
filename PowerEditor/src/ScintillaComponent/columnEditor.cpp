@@ -26,11 +26,21 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <vector>
+#include <algorithm>
+#include <Shlobj.h>
+#include <uxtheme.h>
 #include "columnEditor.h"
 #include "ScintillaEditView.h"
-#include <vector>
 
+
+void ColumnEditorDlg::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) 
+{
+	Window::init(hInst, hPere);
+	if (!ppEditView)
+		throw std::runtime_error("StaticDialog::init : ppEditView is null.");
+	_ppEditView = ppEditView;
+}
 
 void ColumnEditorDlg::display(bool toShow) const 
 {

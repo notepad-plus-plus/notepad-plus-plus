@@ -26,8 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
-
 #include "localization.h"
 #include "UserDefineDialog.h"
 #include "ScintillaEditView.h"
@@ -36,6 +34,8 @@
 #include "Notepad_plus_msgs.h"
 #include "FileDialog.h"
 #include "Common.h"
+
+using namespace std;
 
 UserLangContainer * SharedParametersDialog::_pUserLang = NULL;
 ScintillaEditView * SharedParametersDialog::_pScintilla = NULL;

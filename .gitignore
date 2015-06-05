@@ -74,6 +74,14 @@ PowerEditor/visual.net/Unicode Release/
 PowerEditor/visual.net/notepadPlus.sln
 
 
+# scintilla - generated files
+scintilla/bin/SciLexer.*
+scintilla/bin/Scintilla.*
+scintilla/win32/*.lib
+scintilla/win32/ScintRes.res
+scintilla/boostregex/bin
+scintilla/boostregex/boostpath.mak
+
 #-------------------------------------------------------------------------------
 # Windows
 

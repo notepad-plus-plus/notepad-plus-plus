@@ -26,9 +26,13 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <Shlobj.h>
+#include <shlwapi.h>
+#include <uxtheme.h>
 #include "WordStyleDlg.h"
 #include "ScintillaEditView.h"
+
+using namespace std;
 
 BOOL CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {

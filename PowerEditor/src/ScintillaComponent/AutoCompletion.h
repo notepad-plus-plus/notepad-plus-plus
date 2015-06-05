@@ -103,14 +103,14 @@ private:
 
 	bool _ignoreCase;
 
-	vector<generic_string> _keyWordArray;
+	std::vector<generic_string> _keyWordArray;
 	generic_string _keyWords;
 	size_t _keyWordMaxLen;
 
 	FunctionCallTip _funcCalltip;
 
 	const TCHAR * getApiFileName();
-	void getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars);
+	void getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars);
 };
 
 #endif //AUTOCOMPLETION_H

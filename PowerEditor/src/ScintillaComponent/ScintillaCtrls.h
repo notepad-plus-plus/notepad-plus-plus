@@ -29,6 +29,9 @@
 #ifndef SCINTILLACTRLS_H
 #define SCINTILLACTRLS_H
 
+#include <vector>
+#include <windows.h>
+
 class ScintillaEditView;
 
 class ScintillaCtrls {

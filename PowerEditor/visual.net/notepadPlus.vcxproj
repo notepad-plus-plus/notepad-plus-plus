@@ -66,6 +66,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
@@ -107,6 +108,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -478,7 +480,6 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
     <ClInclude Include="..\src\Parameters.h" />
     <ClInclude Include="..\src\Misc\PluginsManager\PluginInterface.h" />
     <ClInclude Include="..\src\Misc\PluginsManager\PluginsManager.h" />
-    <ClInclude Include="..\src\MISC\Common\precompiledHeaders.h" />
     <ClInclude Include="..\src\WinControls\Preference\preferenceDlg.h" />
     <ClInclude Include="..\src\ScitillaComponent\Printer.h" />
     <ClInclude Include="..\src\uchardet\prmem.h" />

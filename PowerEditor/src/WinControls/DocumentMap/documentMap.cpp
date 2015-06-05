@@ -26,7 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
 #include "documentMap.h"
 #include "ScintillaEditView.h"
 
@@ -440,9 +439,13 @@ BOOL CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
         case WM_INITDIALOG :
 		{
 			_viewZoneCanvas = ::GetDlgItem(_hSelf, IDC_VIEWZONECANVAS);
-			::SetWindowLongPtrW(_viewZoneCanvas, GWL_USERDATA, reinterpret_cast<LONG>(this));
-			_canvasDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_viewZoneCanvas, GWL_WNDPROC, reinterpret_cast<LONG>(canvasStaticProc)));
-			return TRUE;
+			if (NULL != _viewZoneCanvas)
+			{
+				::SetWindowLongPtrW(_viewZoneCanvas, GWL_USERDATA, reinterpret_cast<LONG>(this));
+				_canvasDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_viewZoneCanvas, GWL_WNDPROC, reinterpret_cast<LONG>(canvasStaticProc)));
+				return TRUE;
+			}
+			break;
 		}
 
 		case WM_LBUTTONDOWN:
@@ -466,7 +469,7 @@ BOOL CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 
 		case WM_SIZE:
         {
-			if (_viewZoneCanvas)
+			if (NULL != _viewZoneCanvas)
 			{
 				int width = LOWORD(lParam);
 				int height = HIWORD(lParam);
@@ -479,8 +482,8 @@ BOOL CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 		{
 			//Have to perform the scroll first, because the first/last line do not get updated untill after the scroll has been parsed
 			::SendMessage(_hParent, DOCUMENTMAP_MOUSEWHEEL, wParam, lParam);
+			return TRUE;
 		}
-		return TRUE;
 
 		case WM_DESTROY :
 		{

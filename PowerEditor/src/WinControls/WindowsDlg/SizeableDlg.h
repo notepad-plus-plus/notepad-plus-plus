@@ -37,6 +37,8 @@
 #include "WinMgr.h"
 #endif //WINMGR_H
 
+#include "StaticDialog.h"
+
 class SizeableDlg : public StaticDialog {
 	typedef StaticDialog MyBaseClass;
 public:

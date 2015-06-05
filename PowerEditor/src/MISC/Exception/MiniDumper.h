@@ -32,6 +32,9 @@
 #ifndef MDUMP_H
 #define MDUMP_H
 
+#include <windows.h>
+#include <dbghelp.h>
+
 
 // based on dbghelp.h
 typedef BOOL (WINAPI *MINIDUMPWRITEDUMP)(HANDLE hProcess, DWORD dwPid, HANDLE hFile, MINIDUMP_TYPE DumpType,

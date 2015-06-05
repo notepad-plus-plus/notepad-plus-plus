@@ -60,7 +60,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 	}
 	assert( _tcslen( longFileName ) == getFullPathNameResult );
 	
-	// ignore the returned value of fuction due to win64 redirection system
+	// ignore the returned value of function due to win64 redirection system
 	::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);

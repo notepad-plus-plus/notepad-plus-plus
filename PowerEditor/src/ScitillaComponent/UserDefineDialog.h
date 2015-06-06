@@ -51,7 +51,7 @@ static int max(int a, int b) {
 #endif //__GNUC__
 #include "tchar.h"
 #include "scilexer.h"
-#include <map>
+#include <unordered_map>
 
 class ScintillaEditView;
 class UserLangContainer;
@@ -66,18 +66,18 @@ class GlobalMappers
 {
     public:
 
-		std::map<generic_string, int> keywordIdMapper;
-		std::map<int, generic_string> keywordNameMapper;
+		std::unordered_map<generic_string, int> keywordIdMapper;
+		std::unordered_map<int, generic_string> keywordNameMapper;
 
-		std::map<generic_string, int> styleIdMapper;
-		std::map<int, generic_string> styleNameMapper;
+		std::unordered_map<generic_string, int> styleIdMapper;
+		std::unordered_map<int, generic_string> styleNameMapper;
 
-		std::map<generic_string, int> temp;
-		std::map<generic_string, int>::iterator iter;
+		std::unordered_map<generic_string, int> temp;
+		std::unordered_map<generic_string, int>::iterator iter;
 
-		std::map<int, int> nestingMapper;
-		std::map<int, int> dialogMapper;
-		std::map<int, std::string> setLexerMapper;
+		std::unordered_map<int, int> nestingMapper;
+		std::unordered_map<int, int> dialogMapper;
+		std::unordered_map<int, std::string> setLexerMapper;
 
         // only default constructor is needed
         GlobalMappers()

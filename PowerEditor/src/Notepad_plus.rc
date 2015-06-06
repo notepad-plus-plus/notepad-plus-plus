@@ -195,8 +195,12 @@ IDI_PROJECT_WORKSPACEDIRTY      BITMAP      "icons\\project_work_space_dirty.bmp
 IDI_PROJECT_PROJECT             BITMAP      "icons\\project_root.bmp"
 IDI_PROJECT_FOLDEROPEN          BITMAP      "icons\\project_folder_open.bmp"
 IDI_PROJECT_FOLDERCLOSE         BITMAP      "icons\\project_folder_close.bmp"
+IDI_PROJECT_FOLDERMONITOROPEN   BITMAP      "icons\\project_foldermonitor_open.bmp"
+IDI_PROJECT_FOLDERMONITORCLOSE  BITMAP      "icons\\project_foldermonitor_close.bmp"
+IDI_PROJECT_FOLDERMONITORINVALID  BITMAP    "icons\\project_foldermonitor_invalid.bmp"
 IDI_PROJECT_FILE                BITMAP      "icons\\project_file.bmp"
 IDI_PROJECT_FILEINVALID         BITMAP      "icons\\project_file_invalid.bmp"
+IDI_PROJECT_FILEMONITOR         BITMAP      "icons\\project_filemonitor.bmp"
 
 IDI_FUNCLIST_ROOT               BITMAP      "icons\\project_file.bmp"
 IDI_FUNCLIST_NODE               BITMAP      "icons\\funcList_node.bmp"

@@ -1641,7 +1641,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             dlg->_pFgColour->display();
             dlg->_pBgColour->display();
 
-            map<int, int>::iterator iter = globalMappper().nestingMapper.begin();
+            unordered_map<int, int>::iterator iter = globalMappper().nestingMapper.begin();
             for (; iter != globalMappper().nestingMapper.end(); ++iter)
             {
                 ::SendDlgItemMessage(hwnd, iter->first, BM_SETCHECK, style._nesting & iter->second, 0);
@@ -1730,7 +1730,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
                     style._fontStyle |= FONTSTYLE_UNDERLINE;
 
                 style._nesting = SCE_USER_MASK_NESTING_NONE;
-                map<int, int>::iterator iter = globalMappper().nestingMapper.begin();
+                unordered_map<int, int>::iterator iter = globalMappper().nestingMapper.begin();
                 for (; iter != globalMappper().nestingMapper.end(); ++iter)
                 {
                     if (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, iter->first), BM_GETCHECK, 0, 0))

@@ -275,7 +275,7 @@ protected :
     //Shared data
     static UserLangContainer *_pUserLang;
     static ScintillaEditView *_pScintilla;
-    BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     bool setPropertyByCheck(HWND hwnd, WPARAM id, bool & bool2set);
     virtual void setKeywords2List(int ctrlID) = 0;
 };
@@ -286,7 +286,7 @@ public:
     FolderStyleDialog(): SharedParametersDialog() {};
     void updateDlg();
 protected :
-    BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int ctrlID);
 private :
     void convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const;
@@ -300,7 +300,7 @@ public:
     KeyWordsStyleDialog(): SharedParametersDialog() {};
     void updateDlg();
 protected :
-    BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 };
 
@@ -310,7 +310,7 @@ public :
     CommentStyleDialog(): SharedParametersDialog() {};
     void updateDlg();
 protected :
-    BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 private :
     void convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const;
@@ -323,7 +323,7 @@ public :
     SymbolsStyleDialog(): SharedParametersDialog() {};
     void updateDlg();
 protected :
-    BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int id);
 private :
     void convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *prefix) const;
@@ -390,7 +390,7 @@ public :
         _ctrlTab.renameTab(index, name2set);
     };
 protected :
-    virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+    virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 private :
     ControlsTab _ctrlTab;
     WindowVector _wVector;
@@ -429,11 +429,11 @@ public :
         _txtLen = txtLen;
     };
     long doDialog() {
-        return long(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  (DLGPROC)dlgProc, (LPARAM)this));
+        return long(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, (LPARAM)this));
     };
     virtual void destroy() {};
 protected :
-    BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
 private :
     generic_string _title;
     generic_string _textValue;
@@ -459,10 +459,10 @@ public:
 	};
 
     long doDialog() {
-        return long (::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), _parent,  (DLGPROC)dlgProc, (LPARAM)this));
+        return long (::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), _parent,  dlgProc, (LPARAM)this));
     };
 
-    static BOOL CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+    static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 public:
     HINSTANCE _hInst;
     HWND _parent;

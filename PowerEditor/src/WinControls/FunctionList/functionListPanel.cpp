@@ -501,7 +501,7 @@ void FunctionListPanel::searchFuncAndSwitchView()
 }
 
 static WNDPROC oldFunclstToolbarProc = NULL;
-static BOOL CALLBACK funclstToolbarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK funclstToolbarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
     {
@@ -533,7 +533,7 @@ void FunctionListPanel::setSort(bool isEnabled)
 	::SendMessage(_hToolbarMenu, TB_SETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, (LPARAM)&tbbuttonInfo);
 }
 
-BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {

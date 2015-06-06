@@ -1618,19 +1618,20 @@ private:
 	COLORREF _currentDefaultBgColor;
 	COLORREF _currentDefaultFgColor;
 
-	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *, int, LPARAM lParam) {
-		std::vector<generic_string> *pStrVect = (std::vector<generic_string> *)lParam;
-        size_t vectSize = pStrVect->size();
+	static int CALLBACK EnumFontFamExProc(const LOGFONT* lpelfe, const TEXTMETRIC *, DWORD, LPARAM lParam) {
+		std::vector<generic_string>& strVect = *(std::vector<generic_string> *)lParam;
+		const size_t vectSize = strVect.size();
+		const TCHAR* lfFaceName = ((ENUMLOGFONTEX*)lpelfe)->elfLogFont.lfFaceName;
 
 		//Search through all the fonts, EnumFontFamiliesEx never states anything about order
 		//Start at the end though, that's the most likely place to find a duplicate
 		for(int i = vectSize - 1 ; i >= 0 ; i--) {
-			if ( !lstrcmp((*pStrVect)[i].c_str(), (const TCHAR *)lpelfe->elfLogFont.lfFaceName) )
+			if ( !lstrcmp(strVect[i].c_str(), lfFaceName) )
 				return 1;	//we already have seen this typeface, ignore it
 		}
 		//We can add the font
 		//Add the face name and not the full name, we do not care about any styles
-		pStrVect->push_back((TCHAR *)lpelfe->elfLogFont.lfFaceName);
+		strVect.push_back(lfFaceName);
 		return 1; // I want to get all fonts
 	};
 

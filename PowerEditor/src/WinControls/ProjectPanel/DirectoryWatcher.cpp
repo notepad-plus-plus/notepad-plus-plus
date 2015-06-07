@@ -134,22 +134,6 @@ void DirectoryWatcher::stopThread()
 
 }
 
-// this is the main thread routine to monitor directory changes.
-// Unfortunately, Windows afaik offers no way to monitor a non-existent directory. FindFirstChangeNotification() returns INVALID_HANDLE_VALUE in this case.
-// It might be possible to monitor the next valid parent dir, but this is complicated (even drive letters may be missing).
-// So we choose another way:
-//
-// There are two modes, an existing mode and a non-existing mode.
-//
-// The existing mode waits for either a directory change or the thread stop signal.
-// If it finds a directory change, it informs the tree view about it.
-// It then checks, if the directory has been removed completely, and if so, it switches to non-existing mode.
-// If not, it continues to wait for changes.
-//
-// The non-existing mode waits for 2 seconds for the thread stop signal.
-// If the 2 secs have passed without a stop signal, it checks the existence of the directory. If it now exists, it informs the tree view and switches to existing mode.
-// If it still does not exist, it continues waiting.
-
 int DirectoryWatcher::thread()
 {
 

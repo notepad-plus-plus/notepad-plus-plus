@@ -146,10 +146,9 @@ bool Directory::readLastWriteTime(FILETIME& filetime) const
 		return true;
 	}
 
-	// root directories need a very microsoftoid approach with a "CreateFile" (which does not create a file, but instead opens it) with a gazillion of funny useless parameters
-	// for which you even need "privileges". (Remember, this is not an attempt to do a "format C:" but only to get the LAST WRITE TIME OF A DIRECTORY).
-	// The reason is, that this ingenious company in all of its wisdom does not allow a FindFirstFile on a root directory.
-	// This approach WOULD work for all other directories too, but while the directory is opened, it is also LOCKED, (guess what - FILE_SHARE_DELETE does not work for the directory itself)
+	// root directories need an approach with a "CreateFile"
+	// The reason is, that a FindFirstFile on a root directory is not allowed.
+	// This approach WOULD work for all other directories too, but while the directory is opened, it is also LOCKED, (FILE_SHARE_DELETE does not work for the directory itself)
 	// So, we don't use this for other directories.
 	// A root directory is not often removed; so locking it for a very short period should not be a problem.
 	// The worst thing which could probably happen, is that a "Safe remove hardware" is denied under very awkward circumstances.

@@ -88,9 +88,9 @@ struct SelectionRange {
 
 	SelectionRange() : caret(), anchor() {
 	}
-	SelectionRange(SelectionPosition single) : caret(single), anchor(single) {
+	explicit SelectionRange(SelectionPosition single) : caret(single), anchor(single) {
 	}
-	SelectionRange(int single) : caret(single), anchor(single) {
+	explicit SelectionRange(int single) : caret(single), anchor(single) {
 	}
 	SelectionRange(SelectionPosition caret_, SelectionPosition anchor_) : caret(caret_), anchor(anchor_) {
 	}
@@ -115,6 +115,7 @@ struct SelectionRange {
 		anchor.SetVirtualSpace(0);
 		caret.SetVirtualSpace(0);
 	}
+	void MoveForInsertDelete(bool insertion, int startChange, int length);
 	bool Contains(int pos) const;
 	bool Contains(SelectionPosition sp) const;
 	bool ContainsCharacter(int posCharacter) const;
@@ -156,7 +157,10 @@ public:
 	size_t Main() const;
 	void SetMain(size_t r);
 	SelectionRange &Range(size_t r);
+	const SelectionRange &Range(size_t r) const;
 	SelectionRange &RangeMain();
+	const SelectionRange &RangeMain() const;
+	SelectionPosition Start() const;
 	bool MoveExtends() const;
 	void SetMoveExtends(bool moveExtends_);
 	bool Empty() const;
@@ -167,6 +171,7 @@ public:
 	void SetSelection(SelectionRange range);
 	void AddSelection(SelectionRange range);
 	void AddSelectionWithoutTrim(SelectionRange range);
+	void DropSelection(size_t r);
 	void TentativeSelection(SelectionRange range);
 	void CommitTentative();
 	int CharacterInSelection(int posCharacter) const;

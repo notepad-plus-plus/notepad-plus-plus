@@ -7,6 +7,7 @@
 
 #include <string.h>
 
+#include <vector>
 #include <algorithm>
 
 #include "Platform.h"
@@ -98,7 +99,7 @@ bool MarkerHandleSet::RemoveNumber(int markerNum, bool all) {
 			delete mhn;
 			performedDeletion = true;
 			if (!all)
-				break; 
+				break;
 		} else {
 			pmhn = &((*pmhn)->next);
 		}
@@ -370,9 +371,9 @@ void LineAnnotation::InsertLine(int line) {
 }
 
 void LineAnnotation::RemoveLine(int line) {
-	if (annotations.Length() && (line < annotations.Length())) {
-		delete []annotations[line];
-		annotations.Delete(line);
+	if (annotations.Length() && (line > 0) && (line <= annotations.Length())) {
+		delete []annotations[line-1];
+		annotations.Delete(line-1);
 	}
 }
 
@@ -483,4 +484,73 @@ int LineAnnotation::Lines(int line) const {
 		return reinterpret_cast<AnnotationHeader *>(annotations[line])->lines;
 	else
 		return 0;
+}
+
+LineTabstops::~LineTabstops() {
+	Init();
+}
+
+void LineTabstops::Init() {
+	for (int line = 0; line < tabstops.Length(); line++) {
+		delete tabstops[line];
+	}
+	tabstops.DeleteAll();
+}
+
+void LineTabstops::InsertLine(int line) {
+	if (tabstops.Length()) {
+		tabstops.EnsureLength(line);
+		tabstops.Insert(line, 0);
+	}
+}
+
+void LineTabstops::RemoveLine(int line) {
+	if (tabstops.Length() > line) {
+		delete tabstops[line];
+		tabstops.Delete(line);
+	}
+}
+
+bool LineTabstops::ClearTabstops(int line) {
+	if (line < tabstops.Length()) {
+		TabstopList *tl = tabstops[line];
+		if (tl) {
+			tl->clear();
+			return true;
+		}
+	}
+	return false;
+}
+
+bool LineTabstops::AddTabstop(int line, int x) {
+	tabstops.EnsureLength(line + 1);
+	if (!tabstops[line]) {
+		tabstops[line] = new TabstopList();
+	}
+
+	TabstopList *tl = tabstops[line];
+	if (tl) {
+		// tabstop positions are kept in order - insert in the right place
+		std::vector<int>::iterator it = std::lower_bound(tl->begin(), tl->end(), x);
+		// don't insert duplicates
+		if (it == tl->end() || *it != x) {
+			tl->insert(it, x);
+			return true;
+		}
+	}
+	return false;
+}
+
+int LineTabstops::GetNextTabstop(int line, int x) const {
+	if (line < tabstops.Length()) {
+		TabstopList *tl = tabstops[line];
+		if (tl) {
+			for (size_t i = 0; i < tl->size(); i++) {
+				if ((*tl)[i] > x) {
+					return (*tl)[i];
+				}
+			}
+		}
+	}
+	return 0;
 }

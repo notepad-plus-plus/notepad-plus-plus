@@ -22,7 +22,7 @@
 {
 	// Get the parent's idea of where we should draw
 	NSRect newRect = [super drawingRectForBounds: theRect];
-  
+
 	// When the text field is being edited or selected, we have to turn off the magic because it
   // screws up the configuration of the field editor. We sneak around this by intercepting
   // selectWithFrame and editWithFrame and sneaking a reduced, centered rect in at the last minute.
@@ -30,26 +30,26 @@
 	{
 		// Get our ideal size for current text
 		NSSize textSize = [self cellSizeForBounds: theRect];
-    
+
 		// Center that in the proposed rect
-		float heightDelta = newRect.size.height - textSize.height;	
+		CGFloat heightDelta = newRect.size.height - textSize.height;
 		if (heightDelta > 0)
 		{
 			newRect.size.height -= heightDelta;
 			newRect.origin.y += ceil(heightDelta / 2);
 		}
 	}
-	
+
 	return newRect;
 }
 
 //--------------------------------------------------------------------------------------------------
 
-- (void) selectWithFrame: (NSRect) aRect inView: (NSView*) controlView editor: (NSText*) textObj 
+- (void) selectWithFrame: (NSRect) aRect inView: (NSView*) controlView editor: (NSText*) textObj
                 delegate:(id) anObject start: (NSInteger) selStart length: (NSInteger) selLength
 {
 	aRect = [self drawingRectForBounds: aRect];
-	mIsEditingOrSelecting = YES;	
+	mIsEditingOrSelecting = YES;
 	[super selectWithFrame: aRect
                   inView: controlView
                   editor: textObj
@@ -63,7 +63,7 @@
 
 - (void) editWithFrame: (NSRect) aRect inView: (NSView*) controlView editor: (NSText*) textObj
               delegate: (id) anObject event: (NSEvent*) theEvent
-{	
+{
 	aRect = [self drawingRectForBounds: aRect];
 	mIsEditingOrSelecting = YES;
 	[super editWithFrame: aRect
@@ -86,8 +86,8 @@
   if (self)
   {
     NSBundle* bundle = [NSBundle bundleForClass: [InfoBar class]];
-    
-    NSString* path = [bundle pathForResource: @"info_bar_bg" ofType: @"png" inDirectory: nil];
+
+    NSString* path = [bundle pathForResource: @"info_bar_bg" ofType: @"tiff" inDirectory: nil];
     mBackground = [[NSImage alloc] initWithContentsOfFile: path];
     if (![mBackground isValid])
       NSLog(@"Background image for info bar is invalid.");
@@ -103,12 +103,12 @@
 //--------------------------------------------------------------------------------------------------
 
 /**
- * Called by a connected compontent (usually the info bar) if something changed there.
+ * Called by a connected component (usually the info bar) if something changed there.
  *
  * @param type The type of the notification.
  * @param message Carries the new status message if the type is a status message change.
  * @param location Carries the new location (e.g. caret) if the type is a caret change or similar type.
- * @param location Carries the new zoom value if the type is a zoom change.
+ * @param value Carries the new zoom value if the type is a zoom change.
  */
 - (void) notify: (NotificationType) type message: (NSString*) message location: (NSPoint) location
   value: (float) value
@@ -143,7 +143,7 @@ static NSString *DefaultScaleMenuLabels[] = {
   @"20%", @"30%", @"50%", @"75%", @"100%", @"130%", @"160%", @"200%", @"250%", @"300%"
 };
 static float DefaultScaleMenuFactors[] = {
-  0.2, 0.3, 0.5, 0.75, 1.0, 1.3, 1.6, 2.0, 2.5, 3.0
+  0.2f, 0.3f, 0.5f, 0.75f, 1.0f, 1.3f, 1.6f, 2.0f, 2.5f, 3.0f
 };
 static unsigned DefaultScaleMenuSelectedItemIndex = 4;
 static float BarFontSize = 10.0;
@@ -152,14 +152,14 @@ static float BarFontSize = 10.0;
 {
   // 1) The zoom popup.
   unsigned numberOfDefaultItems = sizeof(DefaultScaleMenuLabels) / sizeof(NSString *);
-  
+
   // Create the popup button.
   mZoomPopup = [[NSPopUpButton allocWithZone:[self zone]] initWithFrame: NSMakeRect(0.0, 0.0, 1.0, 1.0) pullsDown: NO];
-  
+
   // No border or background please.
   [[mZoomPopup cell] setBordered: NO];
   [[mZoomPopup cell] setArrowPosition: NSPopUpArrowAtBottom];
-  
+
   // Fill it.
   for (unsigned count = 0; count < numberOfDefaultItems; count++)
   {
@@ -169,28 +169,28 @@ static float BarFontSize = 10.0;
       [currentItem setRepresentedObject: [NSNumber numberWithFloat: DefaultScaleMenuFactors[count]]];
   }
   [mZoomPopup selectItemAtIndex: DefaultScaleMenuSelectedItemIndex];
-  
+
   // Hook it up.
   [mZoomPopup setTarget: self];
   [mZoomPopup setAction: @selector(zoomItemAction:)];
-  
+
   // Set a suitable font.
   [mZoomPopup setFont: [NSFont menuBarFontOfSize: BarFontSize]];
-  
+
   // Make sure the popup is big enough to fit the cells.
   [mZoomPopup sizeToFit];
-  
+
   // Don't let it become first responder
   [mZoomPopup setRefusesFirstResponder: YES];
-  
+
   // put it in the scrollview.
   [self addSubview: mZoomPopup];
   [mZoomPopup release];
-  
+
   // 2) The caret position label.
   Class oldCellClass = [NSTextField cellClass];
   [NSTextField setCellClass: [VerticallyCenteredTextFieldCell class]];
-  
+
   mCaretPositionLabel = [[NSTextField alloc] initWithFrame: NSMakeRect(0.0, 0.0, 50.0, 1.0)];
   [mCaretPositionLabel setBezeled: NO];
   [mCaretPositionLabel setBordered: NO];
@@ -205,7 +205,7 @@ static float BarFontSize = 10.0;
 
   [self addSubview: mCaretPositionLabel];
   [mCaretPositionLabel release];
-  
+
   // 3) The status text.
   mStatusTextLabel = [[NSTextField alloc] initWithFrame: NSMakeRect(0.0, 0.0, 1.0, 1.0)];
   [mStatusTextLabel setBezeled: NO];
@@ -220,7 +220,7 @@ static float BarFontSize = 10.0;
 
   [self addSubview: mStatusTextLabel];
   [mStatusTextLabel release];
-  
+
   // Restore original cell class so that everything else doesn't get broken
   [NSTextField setCellClass: oldCellClass];
 }
@@ -248,12 +248,12 @@ static float BarFontSize = 10.0;
     [mBackground drawAtPoint: target fromRect: NSZeroRect operation: NSCompositeCopy fraction: 1];
     target.x += mBackground.size.width;
   }
-  
+
   // Draw separator lines between items.
   NSRect verticalLineRect;
-  float component = 190.0 / 255.0;
+  CGFloat component = 190.0 / 255.0;
   NSColor* lineColor = [NSColor colorWithDeviceRed: component green: component blue: component alpha: 1];
-  
+
   if (mDisplayMask & IBShowZoom)
   {
     verticalLineRect = [mZoomPopup frame];
@@ -265,7 +265,7 @@ static float BarFontSize = 10.0;
       NSRectFill(verticalLineRect);
     }
   }
-  
+
   if (mDisplayMask & IBShowCaretPosition)
   {
     verticalLineRect = [mCaretPositionLabel frame];
@@ -301,7 +301,7 @@ static float BarFontSize = 10.0;
 
 - (void) positionSubViews
 {
-  NSRect currentBounds = {0, 0, 0, [self frame].size.height};
+  NSRect currentBounds = {{0, 0}, {0, [self frame].size.height}};
   if (mDisplayMask & IBShowZoom)
   {
     [mZoomPopup setHidden: NO];
@@ -347,7 +347,7 @@ static float BarFontSize = 10.0;
     mDisplayMask = display;
     [self positionSubViews];
     [self needsDisplay];
-  }  
+  }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -358,7 +358,7 @@ static float BarFontSize = 10.0;
 - (void) zoomItemAction: (id) sender
 {
   NSNumber* selectedFactorObject = [[sender selectedCell] representedObject];
-  
+
   if (selectedFactorObject == nil)
   {
     NSLog(@"Scale popup action: setting arbitrary zoom factors is not yet supported.");
@@ -369,9 +369,9 @@ static float BarFontSize = 10.0;
     [self setScaleFactor: [selectedFactorObject floatValue] adjustPopup: NO];
   }
 }
-    
+
 //--------------------------------------------------------------------------------------------------
-    
+
 - (void) setScaleFactor: (float) newScaleFactor adjustPopup: (BOOL) flag
 {
   if (mScaleFactor != newScaleFactor)
@@ -381,7 +381,7 @@ static float BarFontSize = 10.0;
     {
       unsigned count = 0;
       unsigned numberOfDefaultItems = sizeof(DefaultScaleMenuFactors) / sizeof(float);
-      
+
       // We only work with some preset zoom values. If the given value does not correspond
       // to one then show no selection.
       while (count < numberOfDefaultItems && (fabs(newScaleFactor - DefaultScaleMenuFactors[count]) > 0.07))
@@ -391,7 +391,7 @@ static float BarFontSize = 10.0;
       else
       {
         [mZoomPopup selectItemAtIndex: count];
-        
+
         // Set scale factor to found preset value if it comes close.
         mScaleFactor = DefaultScaleMenuFactors[count];
       }
@@ -400,7 +400,7 @@ static float BarFontSize = 10.0;
     {
       // Internally set. Notify owner.
       [mCallback notify: IBNZoomChanged message: nil location: NSZeroPoint value: newScaleFactor];
-    }    
+    }
   }
 }
 
@@ -414,12 +414,12 @@ static float BarFontSize = 10.0;
   // Make the position one-based.
   int newX = (int) position.x + 1;
   int newY = (int) position.y + 1;
-  
+
   if (mCurrentCaretX != newX || mCurrentCaretY != newY)
   {
     mCurrentCaretX = newX;
     mCurrentCaretY = newY;
-    
+
     [mCaretPositionLabel setStringValue: [NSString stringWithFormat: @"%d:%d", newX, newY]];
   }
 }
@@ -427,7 +427,7 @@ static float BarFontSize = 10.0;
 //--------------------------------------------------------------------------------------------------
 
 /**
- * Makes the bar resize to the smallest width that can accomodate the currently enabled items.
+ * Makes the bar resize to the smallest width that can accommodate the currently enabled items.
  */
 - (void) sizeToFit
 {
@@ -435,13 +435,13 @@ static float BarFontSize = 10.0;
   frame.size.width = 0;
   if (mDisplayMask & IBShowZoom)
     frame.size.width += [mZoomPopup frame].size.width;
-  
+
   if (mDisplayMask & IBShowCaretPosition)
     frame.size.width += [mCaretPositionLabel frame].size.width;
-  
+
   if (mDisplayMask & IBShowStatusText)
     frame.size.width += [mStatusTextLabel frame].size.width;
-  
+
   [self setFrame: frame];
 }
 

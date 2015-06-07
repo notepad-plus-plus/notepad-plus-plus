@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-
-from __future__ import with_statement
+# Requires Python 2.7 or later
 
 import io, os, sys, unittest
 

@@ -6,8 +6,8 @@ This is the Lexer for Gui4Cli, included in SciLexer.dll
 
 To add to SciLexer.dll:
 1. Add the values below to INCLUDE\Scintilla.iface
-2. Run the include/HFacer.py script
-3. Run the src/lexGen.py script
+2. Run the scripts/HFacer.py script
+3. Run the scripts/LexGen.py script
 
 val SCE_GC_DEFAULT=0
 val SCE_GC_COMMENTLINE=1
@@ -47,10 +47,6 @@ using namespace Scintilla;
 
 static inline bool IsAWordChar(const int ch) {
 	return (ch < 0x80) && (isalnum(ch) || ch == '.' || ch == '_' || ch =='\\');
-}
-
-static inline bool IsAWordStart(const int ch) {
-	return (ch < 0x80) && (isalnum(ch) || ch == '_' || ch == '.');
 }
 
 inline bool isGCOperator(int ch)

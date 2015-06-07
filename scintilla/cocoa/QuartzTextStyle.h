@@ -61,17 +61,17 @@ public:
 
 	float getAscent() const
 	{
-		return ::CTFontGetAscent(fontRef);
+		return static_cast<float>(::CTFontGetAscent(fontRef));
 	}
 
 	float getDescent() const
 	{
-		return ::CTFontGetDescent(fontRef);
+		return static_cast<float>(::CTFontGetDescent(fontRef));
 	}
 
 	float getLeading() const
 	{
-		return ::CTFontGetLeading(fontRef);
+		return static_cast<float>(::CTFontGetLeading(fontRef));
 	}
 
 	void setFontRef(CTFontRef inRef, int characterSet_)

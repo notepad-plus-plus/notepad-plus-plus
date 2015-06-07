@@ -31,7 +31,6 @@ protected:
 	LexerFunction fnFolder;
 	LexerFactoryFunction fnFactory;
 	const char * const * wordListDescriptions;
-	int styleBits;
 
 public:
 	const char *languageName;
@@ -39,13 +38,11 @@ public:
 		LexerFunction fnLexer_,
 		const char *languageName_=0,
 		LexerFunction fnFolder_=0,
-		const char * const wordListDescriptions_[] = NULL,
-		int styleBits_=5);
+		const char * const wordListDescriptions_[] = NULL);
 	LexerModule(int language_,
 		LexerFactoryFunction fnFactory_,
 		const char *languageName_,
-		const char * const wordListDescriptions_[] = NULL,
-		int styleBits_=8);
+		const char * const wordListDescriptions_[] = NULL);
 	virtual ~LexerModule() {
 	}
 	int GetLanguage() const { return language; }
@@ -53,8 +50,6 @@ public:
 	// -1 is returned if no WordList information is available
 	int GetNumWordLists() const;
 	const char *GetWordListDescription(int index) const;
-
-	int GetStyleBitsNeeded() const;
 
 	ILexer *Create() const;
 
@@ -72,7 +67,12 @@ inline int Maximum(int a, int b) {
 
 // Shut up annoying Visual C++ warnings:
 #ifdef _MSC_VER
-#pragma warning(disable: 4244 4309 4514 4710)
+#pragma warning(disable: 4244 4309 4456 4457)
+#endif
+
+// Turn off shadow warnings for lexers as may be maintained by others
+#if defined(__GNUC__)
+#pragma GCC diagnostic ignored "-Wshadow"
 #endif
 
 #ifdef SCI_NAMESPACE

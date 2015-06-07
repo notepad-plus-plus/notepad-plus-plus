@@ -9,7 +9,7 @@
     <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
     <meta name="Description"
     content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
-    <meta name="Date.Modified" content="20130719" />
+    <meta name="Date.Modified" content="20150526" />
     <style type="text/css">
         #versionlist {
             margin: 0;
@@ -55,8 +55,8 @@
           GTK+, and OS X</font>
         </td>
         <td width="40%" align="right">
-          <font color="#FFCC99" size="3"> Release version 3.3.4<br />
-           Site last modified July 19 2013</font>
+          <font color="#FFCC99" size="3"> Release version 3.5.6<br />
+           Site last modified May 26 2015</font>
         </td>
         <td width="20%">
           &nbsp;
@@ -71,14 +71,14 @@
       </tr>
     </table>
     <ul id="versionlist">
-      <li>Version 3.3.4 better supports Unicode use in lexers.</li>
-      <li>Version 3.3.3 fixes bugs on GTK+.</li>
-      <li>Version 3.3.2 simplifies implementing folding.</li>
-      <li>Version 3.3.1 fixes bugs on Cocoa.</li>
-      <li>Version 3.3.0 should not be used on Cocoa since it contains bugs fixed in 3.3.1.
-      It implements overlay scrollers and kinetic scrolling on Cocoa.
-      Performance improved on GTK+ and Cocoa by performing more work in
-      high-priority idle tasks.</li>
+      <li>Version 3.5.6 fixes a bug with undo on Cocoa that could lose data.</li>
+      <li>Version 3.5.5 improves IME on Qt and fixes minor bugs.</li>
+      <li>Version 3.5.4 improves indicators to be able to change appearance on mouse-over and to use a wide variety of colours together.</li>
+      <li>Version 3.5.3 removes support for Windows 95, 98, and ME.</li>
+      <li>Version 3.5.2 only supports 64-bit builds for OS X 10.7+ Cocoa. Provisional support of C++11 &lt;regex&gt;.</li>
+      <li>Version 3.5.1 fixes minor bugs and includes a lexer for BibTeX.</li>
+      <li>Version 3.5.0 can share space vertically so that extreme ascenders and descenders are not cut off.
+      Separate timers are used to minimize wake ups and thus power use.</li>
     </ul>
     <ul id="menu">
       <li id="remote1"><a href="http://www.scintilla.org/SciTEImage.html">Screenshot</a></li>
@@ -135,7 +135,7 @@ if (!IsRemote()) { //if NOT remote...
     </p>
     <p>
        The source code can be downloaded via Mercurial at the Source Forge
-	<a href="https://sourceforge.net/project/?group_id=2439">Scintilla project page</a>.
+	<a href="http://sourceforge.net/projects/scintilla/">Scintilla project page</a>.
     </p>
     <p>
        <a href="http://www.scintilla.org/ScintillaRelated.html">Related sites.</a>
@@ -154,7 +154,7 @@ if (!IsRemote()) { //if NOT remote...
       <a href="http://groups.google.com/group/scintilla-interest">scintilla-interest</a>
       mailing list,
       which is for discussion of Scintilla and related projects, their bugs and future features.
-      This is a low traffic list, averaging less than 50 messages per week.
+      This is a low traffic list, averaging less than 20 messages per week.
       To avoid spam, only list members can write to the list.
       New versions of Scintilla are announced on scintilla-interest and may also be received by SourceForge
       members by clicking on the Monitor column icon for "scintilla" on
@@ -163,15 +163,15 @@ if (!IsRemote()) { //if NOT remote...
       may receive no response.
       <br />
     </p>
-There is a <a href="https://sourceforge.net/project/?group_id=2439">Scintilla project page</a>
+There is a <a href="http://sourceforge.net/projects/scintilla/">Scintilla project page</a>
 hosted on
 <script type="text/javascript" language="JavaScript">
 <!--
 if (IsRemote()) {
-    document.write('<a href="http://sourceforge.net/projects/scintilla">');
+    document.write('<a href="http://sourceforge.net/projects/scintilla/">');
     document.write('<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2439&amp;type=8" width="80" height="15" alt="Get Scintilla at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a> ');
 } else {
-    document.write('<a href="http://sourceforge.net/projects/scintilla">SourceForge<\/a>');
+    document.write('<a href="http://sourceforge.net/projects/scintilla/">SourceForge<\/a>');
 }
 //-->
 </script>

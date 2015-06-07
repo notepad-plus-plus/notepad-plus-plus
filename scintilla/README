@@ -40,8 +40,8 @@ The current make file only supports static linking between SciTE and Scintilla.
 
 *** Windows version ***
 
-A C++ compiler is required. Visual Studio .NET 2010 is the development system
-used for most development although TDM Mingw32 4.4.1 is also supported.
+A C++ compiler is required. Visual Studio 2010 is the development system
+used for most development although TDM Mingw32 4.7.1 is also supported.
 
 To build Scintilla, make in the scintilla/win32 directory
 		cd scintilla\win32
@@ -54,10 +54,7 @@ To build SciTE, use the makefiles located in the scite/win32 directory
 GCC:		mingw32-make
 VS .NET: 	nmake -f scite.mak
 
-An executable SciTE will now be in scite\bin.
-
-The Visual C++ 6.0 project (.dsp) and make files are no longer supported but are left
-in the download for people that are prepared to update them.
+An executable SciTE will now be in scite/bin.
 
 *** GTK+/Windows version ***
 

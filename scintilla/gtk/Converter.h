@@ -3,6 +3,13 @@
 // Copyright 2004 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
+#ifndef CONVERTER_H
+#define CONVERTER_H
+
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 typedef GIConv ConverterHandle;
 const ConverterHandle iconvhBad = (ConverterHandle)(-1);
 // Since various versions of iconv can not agree on whether the src argument
@@ -44,8 +51,8 @@ public:
 			// Try allowing approximate transliterations
 			if (transliterations) {
 				char fullDest[200];
-				strcpy(fullDest, charSetDestination);
-				strcat(fullDest, "//TRANSLIT");
+				g_strlcpy(fullDest, charSetDestination, sizeof(fullDest));
+				g_strlcat(fullDest, "//TRANSLIT", sizeof(fullDest));
 				OpenHandle(fullDest, charSetSource);
 			}
 			if (!Succeeded()) {
@@ -68,3 +75,9 @@ public:
 		}
 	}
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
+
+#endif

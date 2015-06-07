@@ -34,7 +34,7 @@ newline terminates the initStyle state the lexer should enter its
 default state (or whatever state should follow initStyle).
 
 The keywordlists parameter specifies the keywords that the lexer must
-recognize.  A WordList class object contains methods that make simplify
+recognize.  A WordList class object contains methods that simplify
 the recognition of keywords.  Present lexers use a helper function
 called classifyWordLLL to recognize keywords.  These functions show how
 to use the keywordlists parameter to recognize keywords.  This

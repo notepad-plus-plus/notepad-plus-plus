@@ -113,6 +113,10 @@ public:
 		TreeView_Expand(_hSelf, hItem, TVE_TOGGLE);
 	};
 
+	void cancelEdit() const {
+		TreeView_EndEditLabelNow(_hSelf, TRUE);
+	};
+
 	bool isExpanded(HTREEITEM hItem) const {
 		TVITEM tvItem;
 		tvItem.mask = TVIF_PARAM | TVIF_STATE;

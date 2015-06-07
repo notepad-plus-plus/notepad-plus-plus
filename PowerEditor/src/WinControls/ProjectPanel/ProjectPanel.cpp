@@ -874,7 +874,14 @@ void ProjectPanel::notified(LPNMHDR notification)
 				openSelectFile();
 			}
 			break;
-	
+			case TVN_BEGINLABELEDIT:
+			{
+				LPNMTVDISPINFO tvnotif = (LPNMTVDISPINFO)notification;
+				NodeType nt = getNodeType(tvnotif->item.hItem);
+				if (nt == nodeType_monitorFile || nt == nodeType_monitorFolder || nt == nodeType_monitorFolderRoot)
+					_treeView.cancelEdit();
+			}
+			break;
 			case TVN_ENDLABELEDIT:
 			{
 				LPNMTVDISPINFO tvnotif = (LPNMTVDISPINFO)notification;

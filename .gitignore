@@ -104,3 +104,9 @@ $RECYCLE.BIN/
 *.DS_Store
 *.swp
 *.out
+scintilla/.hgeol
+scintilla/.hgtags
+scintilla/cppcheck.suppress
+scintilla/.hg_archival.txt
+scintilla/.hgignore
+scintilla/bin/__init__.py

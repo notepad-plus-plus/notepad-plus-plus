@@ -27,15 +27,6 @@
 using namespace Scintilla;
 #endif
 
-static inline bool IsAWordChar(int ch) {
-	return (ch < 0x80) && (isalnum(ch) || ch == '.' ||
-		ch == '_' || ch == '?' || ch == '"' || ch == '@' ||
-		ch == '!' || ch == '[' || ch == ']' || ch == '/' ||
-		ch == '+' || ch == '-' || ch == '*' || ch == '<' ||
-		ch == '>' || ch == '=' || ch == ';' || ch == '(' ||
-		ch == ')' );
-}
-
 static inline bool IsAWordStart(int ch) {
 	return (ch < 0x80) && (isalnum(ch) || ch == '_' || ch == '.');
 }
@@ -123,29 +114,29 @@ static void ColouriseForthDoc(unsigned int startPos, int length, int initStyle, 
 					(sc.atLineStart || IsASpaceChar(sc.chPrev)) &&
 					(sc.atLineEnd   || IsASpaceChar(sc.chNext))) {
 				sc.SetState(SCE_FORTH_COMMENT_ML);
-			} else if (	(sc.ch == '$' && (isascii(sc.chNext) && isxdigit(sc.chNext))) ) {
+			} else if (	(sc.ch == '$' && (IsASCII(sc.chNext) && isxdigit(sc.chNext))) ) {
 				// number starting with $ is a hex number
 				sc.SetState(SCE_FORTH_NUMBER);
-				while(sc.More() && isascii(sc.chNext) && isxdigit(sc.chNext))
+				while(sc.More() && IsASCII(sc.chNext) && isxdigit(sc.chNext))
 					sc.Forward();
-			} else if ( (sc.ch == '%' && (isascii(sc.chNext) && (sc.chNext == '0' || sc.chNext == '1'))) ) {
+			} else if ( (sc.ch == '%' && (IsASCII(sc.chNext) && (sc.chNext == '0' || sc.chNext == '1'))) ) {
 				// number starting with % is binary
 				sc.SetState(SCE_FORTH_NUMBER);
-				while(sc.More() && isascii(sc.chNext) && (sc.chNext == '0' || sc.chNext == '1'))
+				while(sc.More() && IsASCII(sc.chNext) && (sc.chNext == '0' || sc.chNext == '1'))
 					sc.Forward();
-			} else if (	isascii(sc.ch) &&
-						(isxdigit(sc.ch) || ((sc.ch == '.' || sc.ch == '-') && isascii(sc.chNext) && isxdigit(sc.chNext)) )
+			} else if (	IsASCII(sc.ch) &&
+						(isxdigit(sc.ch) || ((sc.ch == '.' || sc.ch == '-') && IsASCII(sc.chNext) && isxdigit(sc.chNext)) )
 					){
 				sc.SetState(SCE_FORTH_NUMBER);
 			} else if (IsAWordStart(sc.ch)) {
 				sc.SetState(SCE_FORTH_IDENTIFIER);
 			} else if (sc.ch == '{') {
 				sc.SetState(SCE_FORTH_LOCALE);
-			} else if (sc.ch == ':' && isascii(sc.chNext) && isspace(sc.chNext)) {
+			} else if (sc.ch == ':' && IsASCII(sc.chNext) && isspace(sc.chNext)) {
 				// highlight word definitions e.g.  : GCD ( n n -- n ) ..... ;
 				//                                  ^ ^^^
 				sc.SetState(SCE_FORTH_DEFWORD);
-				while(sc.More() && isascii(sc.chNext) && isspace(sc.chNext))
+				while(sc.More() && IsASCII(sc.chNext) && isspace(sc.chNext))
 					sc.Forward();
 			} else if (sc.ch == ';' &&
 					(sc.atLineStart || IsASpaceChar(sc.chPrev)) &&

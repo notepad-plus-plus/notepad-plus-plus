@@ -20,7 +20,7 @@ class LexState;
  */
 class ScintillaBase : public Editor {
 	// Private so ScintillaBase objects can not be copied
-	ScintillaBase(const ScintillaBase &);
+	explicit ScintillaBase(const ScintillaBase &);
 	ScintillaBase &operator=(const ScintillaBase &);
 
 protected:
@@ -38,6 +38,8 @@ protected:
 		idcmdSelectAll=16
 	};
 
+	enum { maxLenInputIME = 200 };
+
 	bool displayPopupMenu;
 	Menu popup;
 	AutoComplete ac;
@@ -46,6 +48,7 @@ protected:
 
 	int listType;			///< 0 is an autocomplete list
 	int maxListWidth;		/// Maximum width of list, in average character widths
+	int multiAutoCMode; /// Mode for autocompleting when multiple selections are present
 
 #ifdef SCI_LEXER
 	LexState *DocumentLexState();
@@ -57,9 +60,9 @@ protected:
 	ScintillaBase();
 	virtual ~ScintillaBase();
 	virtual void Initialise() = 0;
-	virtual void Finalise() = 0;
+	virtual void Finalise();
 
-	virtual void AddCharUTF(char *s, unsigned int len, bool treatAsDBCS=false);
+	virtual void AddCharUTF(const char *s, unsigned int len, bool treatAsDBCS=false);
 	void Command(int cmdId);
 	virtual void CancelModes();
 	virtual int KeyCommand(unsigned int iMessage);
@@ -83,6 +86,7 @@ protected:
 	virtual void AddToPopUp(const char *label, int cmd=0, bool enabled=true) = 0;
 	void ContextMenu(Point pt);
 
+	virtual void ButtonDownWithModifiers(Point pt, unsigned int curTime, int modifiers);
 	virtual void ButtonDown(Point pt, unsigned int curTime, bool shift, bool ctrl, bool alt);
 
 	void NotifyStyleToNeeded(int endStyleNeeded);

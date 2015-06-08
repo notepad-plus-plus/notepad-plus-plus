@@ -28,15 +28,15 @@
 @private
   NSImage* mBackground;
   IBDisplay mDisplayMask;
-  
+
   float mScaleFactor;
   NSPopUpButton* mZoomPopup;
-  
+
   int mCurrentCaretX;
   int mCurrentCaretY;
   NSTextField* mCaretPositionLabel;
   NSTextField* mStatusTextLabel;
-  
+
   id <InfoBarCommunicator> mCallback;
 }
 

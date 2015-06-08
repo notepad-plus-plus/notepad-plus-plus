@@ -8,13 +8,17 @@
 #ifndef PARTITIONING_H
 #define PARTITIONING_H
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 /// A split vector of integers with a method for adding a value to all elements
 /// in a range.
 /// Used by the Partitioning class.
 
 class SplitVectorWithRangeAdd : public SplitVector<int> {
 public:
-	SplitVectorWithRangeAdd(int growSize_) {
+	explicit SplitVectorWithRangeAdd(int growSize_) {
 		SetGrowSize(growSize_);
 		ReAllocate(growSize_);
 	}
@@ -84,7 +88,7 @@ private:
 	}
 
 public:
-	Partitioning(int growSize) {
+	explicit Partitioning(int growSize) {
 		Allocate(growSize);
 	}
 
@@ -185,5 +189,10 @@ public:
 		Allocate(growSize);
 	}
 };
+
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif

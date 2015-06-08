@@ -112,6 +112,23 @@ public:
 	int Lines(int line) const;
 };
 
+typedef std::vector<int> TabstopList;
+
+class LineTabstops : public PerLine {
+	SplitVector<TabstopList *> tabstops;
+public:
+	LineTabstops() {
+	}
+	virtual ~LineTabstops();
+	virtual void Init();
+	virtual void InsertLine(int line);
+	virtual void RemoveLine(int line);
+
+	bool ClearTabstops(int line);
+	bool AddTabstop(int line, int x);
+	int GetNextTabstop(int line, int x) const;
+};
+
 #ifdef SCI_NAMESPACE
 }
 #endif

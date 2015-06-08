@@ -1,0 +1,136 @@
+// Define the standard order in which to include header files
+// All platform headers should be included before Scintilla headers
+// and each of these groups are then divided into directory groups.
+
+// C standard library
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <stddef.h>
+#include <stdarg.h>
+#include <time.h>
+#include <math.h>
+#include <assert.h>
+#include <ctype.h>
+#include <limits.h>
+
+// C++ wrappers of C standard library
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cctype>
+#include <cstdio>
+#include <cmath>
+
+// C++ standard library
+#include <stdexcept>
+#include <new>
+#include <string>
+#include <vector>
+#include <deque>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <memory>
+#include <regex>
+
+// GTK+ headers
+#include <glib.h>
+#include <gmodule.h>
+#include <gdk/gdk.h>
+#include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
+
+// Windows headers
+#include <windows.h>
+#include <commctrl.h>
+#include <richedit.h>
+#include <windowsx.h>
+#include <zmouse.h>
+#include <ole2.h>
+#include <d2d1.h>
+#include <dwrite.h>
+
+// Cocoa headers
+#include <Cocoa/Cocoa.h>
+
+// Scintilla headers
+
+// Non-platform-specific headers
+
+// include
+#include "Platform.h"
+
+#include "ILexer.h"
+#include "Scintilla.h"
+#include "ScintillaWidget.h"
+
+#include "SciLexer.h"
+
+// lexlib
+#include "StringCopy.h"
+#include "PropSetSimple.h"
+#include "WordList.h"
+#include "LexAccessor.h"
+#include "Accessor.h"
+#include "StyleContext.h"
+#include "CharacterSet.h"
+#include "CharacterCategory.h"
+#include "LexerModule.h"
+#include "OptionSet.h"
+#include "SparseState.h"
+#include "SubStyles.h"
+#include "LexerBase.h"
+#include "LexerSimple.h"
+#include "LexerNoExceptions.h"
+
+// src
+#include "Catalogue.h"
+
+#include "SplitVector.h"
+#include "Partitioning.h"
+#include "RunStyles.h"
+#include "ContractionState.h"
+#include "CellBuffer.h"
+#include "PerLine.h"
+#include "CallTip.h"
+#include "KeyMap.h"
+#include "Indicator.h"
+#include "XPM.h"
+#include "LineMarker.h"
+#include "Style.h"
+#include "ViewStyle.h"
+#include "CharClassify.h"
+#include "Decoration.h"
+#include "CaseFolder.h"
+#include "Document.h"
+#include "CaseConvert.h"
+#include "UniConversion.h"
+#include "UnicodeFromUTF8.h"
+#include "Selection.h"
+#include "PositionCache.h"
+#include "FontQuality.h"
+#include "EditModel.h"
+#include "MarginView.h"
+#include "EditView.h"
+#include "Editor.h"
+
+#include "AutoComplete.h"
+#include "ScintillaBase.h"
+
+#include "ExternalLexer.h"
+
+// Platform-specific headers
+
+// win32
+#include "PlatWin.h"
+#include "HanjaDic.h"
+
+// gtk
+#include "Converter.h"
+
+// cocoa
+#include "QuartzTextStyle.h"
+#include "QuartzTextStyleAttribute.h"
+#import "InfoBarCommunicator.h"
+#include "InfoBar.h"

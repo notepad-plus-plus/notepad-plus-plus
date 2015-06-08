@@ -8,237 +8,221 @@
 
 #include "SparseState.h"
 
-#include <gtest/gtest.h>
+#include "catch.hpp"
 
 // Test SparseState.
 
-class SparseStateTest : public ::testing::Test {
-protected:
-	virtual void SetUp() {
-		pss = new SparseState<int>();
+TEST_CASE("SparseState") {
+
+	SparseState<int> ss;
+
+	SECTION("IsEmptyInitially") {
+		REQUIRE(0u == ss.size());
+		int val = ss.ValueAt(0);
+		REQUIRE(0 == val);
 	}
 
-	virtual void TearDown() {
-		delete pss;
-		pss = 0;
+	SECTION("SimpleSetAndGet") {
+		ss.Set(0, 22);
+		ss.Set(1, 23);
+		REQUIRE(2u == ss.size());
+		REQUIRE(0 == ss.ValueAt(-1));
+		REQUIRE(22 == ss.ValueAt(0));
+		REQUIRE(23 == ss.ValueAt(1));
+		REQUIRE(23 == ss.ValueAt(2));
 	}
 
-	SparseState<int> *pss;
-};
-
-TEST_F(SparseStateTest, IsEmptyInitially) {
-	EXPECT_EQ(0u, pss->size());
-	int val = pss->ValueAt(0);
-	EXPECT_EQ(0, val);
-}
-
-TEST_F(SparseStateTest, SimpleSetAndGet) {
-	pss->Set(0, 22);
-	pss->Set(1, 23);
-	EXPECT_EQ(2u, pss->size());
-	EXPECT_EQ(0, pss->ValueAt(-1));
-	EXPECT_EQ(22, pss->ValueAt(0));
-	EXPECT_EQ(23, pss->ValueAt(1));
-	EXPECT_EQ(23, pss->ValueAt(2));
-}
-
-TEST_F(SparseStateTest, RetrieveBetween) {
-	pss->Set(0, 10);
-	pss->Set(2, 12);
-	EXPECT_EQ(2u, pss->size());
-	EXPECT_EQ(0, pss->ValueAt(-1));
-	EXPECT_EQ(10, pss->ValueAt(0));
-	EXPECT_EQ(10, pss->ValueAt(1));
-	EXPECT_EQ(12, pss->ValueAt(2));
-}
-
-TEST_F(SparseStateTest, RetrieveBefore) {
-	pss->Set(2, 12);
-	EXPECT_EQ(1u, pss->size());
-	EXPECT_EQ(0, pss->ValueAt(-1));
-	EXPECT_EQ(0, pss->ValueAt(0));
-	EXPECT_EQ(0, pss->ValueAt(1));
-	EXPECT_EQ(12, pss->ValueAt(2));
-}
-
-TEST_F(SparseStateTest, Delete) {
-	pss->Set(0, 30);
-	pss->Set(2, 32);
-	pss->Delete(2);
-	EXPECT_EQ(1u, pss->size());
-	EXPECT_EQ(0, pss->ValueAt(-1));
-	EXPECT_EQ(30, pss->ValueAt(0));
-	EXPECT_EQ(30, pss->ValueAt(1));
-	EXPECT_EQ(30, pss->ValueAt(2));
-}
-
-TEST_F(SparseStateTest, DeleteBetweeen) {
-	pss->Set(0, 30);
-	pss->Set(2, 32);
-	pss->Delete(1);
-	EXPECT_EQ(1u, pss->size());
-	EXPECT_EQ(0, pss->ValueAt(-1));
-	EXPECT_EQ(30, pss->ValueAt(0));
-	EXPECT_EQ(30, pss->ValueAt(1));
-	EXPECT_EQ(30, pss->ValueAt(2));
-}
-
-TEST_F(SparseStateTest, ReplaceLast) {
-	pss->Set(0, 30);
-	pss->Set(2, 31);
-	pss->Set(2, 32);
-	EXPECT_EQ(2u, pss->size());
-	EXPECT_EQ(0, pss->ValueAt(-1));
-	EXPECT_EQ(30, pss->ValueAt(0));
-	EXPECT_EQ(30, pss->ValueAt(1));
-	EXPECT_EQ(32, pss->ValueAt(2));
-	EXPECT_EQ(32, pss->ValueAt(3));
-}
-
-TEST_F(SparseStateTest, OnlyChangeAppended) {
-	pss->Set(0, 30);
-	pss->Set(2, 31);
-	pss->Set(3, 31);
-	EXPECT_EQ(2u, pss->size());
-}
-
-TEST_F(SparseStateTest, MergeBetween) {
-	pss->Set(0, 30);
-	pss->Set(2, 32);
-	pss->Set(4, 34);
-	EXPECT_EQ(3u, pss->size());
-
-	SparseState<int> ssAdditions(3);
-	ssAdditions.Set(4, 34);
-	EXPECT_EQ(1u, ssAdditions.size());
-	bool mergeChanged = pss->Merge(ssAdditions,5);
-	EXPECT_EQ(0, mergeChanged);
-
-	ssAdditions.Set(4, 44);
-	EXPECT_EQ(1u, ssAdditions.size());
-	mergeChanged = pss->Merge(ssAdditions,5);
-	EXPECT_EQ(true, mergeChanged);
-	EXPECT_EQ(3u, pss->size());
-	EXPECT_EQ(44, pss->ValueAt(4));
-}
-
-TEST_F(SparseStateTest, MergeAtExisting) {
-	pss->Set(0, 30);
-	pss->Set(2, 32);
-	pss->Set(4, 34);
-	EXPECT_EQ(3u, pss->size());
-
-	SparseState<int> ssAdditions(4);
-	ssAdditions.Set(4, 34);
-	EXPECT_EQ(1u, ssAdditions.size());
-	bool mergeChanged = pss->Merge(ssAdditions,5);
-	EXPECT_EQ(0, mergeChanged);
-
-	ssAdditions.Set(4, 44);
-	EXPECT_EQ(1u, ssAdditions.size());
-	mergeChanged = pss->Merge(ssAdditions,5);
-	EXPECT_EQ(true, mergeChanged);
-	EXPECT_EQ(3u, pss->size());
-	EXPECT_EQ(44, pss->ValueAt(4));
-}
-
-TEST_F(SparseStateTest, MergeWhichRemoves) {
-	pss->Set(0, 30);
-	pss->Set(2, 32);
-	pss->Set(4, 34);
-	EXPECT_EQ(3u, pss->size());
-
-	SparseState<int> ssAdditions(2);
-	ssAdditions.Set(2, 22);
-	EXPECT_EQ(1u, ssAdditions.size());
-	EXPECT_EQ(22, ssAdditions.ValueAt(2));
-	bool mergeChanged = pss->Merge(ssAdditions,5);
-	EXPECT_EQ(true, mergeChanged);
-	EXPECT_EQ(2u, pss->size());
-	EXPECT_EQ(22, pss->ValueAt(2));
-}
-
-TEST_F(SparseStateTest, MergeIgnoreSome) {
-	pss->Set(0, 30);
-	pss->Set(2, 32);
-	pss->Set(4, 34);
-
-	SparseState<int> ssAdditions(2);
-	ssAdditions.Set(2, 32);
-	bool mergeChanged = pss->Merge(ssAdditions,3);
-
-	EXPECT_EQ(0, mergeChanged);
-	EXPECT_EQ(2u, pss->size());
-	EXPECT_EQ(32, pss->ValueAt(2));
-}
-
-TEST_F(SparseStateTest, MergeIgnoreSomeStart) {
-	pss->Set(0, 30);
-	pss->Set(2, 32);
-	pss->Set(4, 34);
-
-	SparseState<int> ssAdditions(2);
-	ssAdditions.Set(2, 32);
-	bool mergeChanged = pss->Merge(ssAdditions,2);
-
-	EXPECT_EQ(0, mergeChanged);
-	EXPECT_EQ(2u, pss->size());
-	EXPECT_EQ(32, pss->ValueAt(2));
-}
-
-TEST_F(SparseStateTest, MergeIgnoreRepeat) {
-	pss->Set(0, 30);
-	pss->Set(2, 32);
-	pss->Set(4, 34);
-
-	SparseState<int> ssAdditions(5);
-	// Appending same value as at end of pss.
-	ssAdditions.Set(5, 34);
-	bool mergeChanged = pss->Merge(ssAdditions,6);
-
-	EXPECT_EQ(0, mergeChanged);
-	EXPECT_EQ(3u, pss->size());
-	EXPECT_EQ(34, pss->ValueAt(4));
-}
-
-class SparseStateStringTest : public ::testing::Test {
-protected:
-	virtual void SetUp() {
-		pss = new SparseState<std::string>();
+	SECTION("RetrieveBetween") {
+		ss.Set(0, 10);
+		ss.Set(2, 12);
+		REQUIRE(2u == ss.size());
+		REQUIRE(0 == ss.ValueAt(-1));
+		REQUIRE(10 == ss.ValueAt(0));
+		REQUIRE(10 == ss.ValueAt(1));
+		REQUIRE(12 == ss.ValueAt(2));
 	}
 
-	virtual void TearDown() {
-		delete pss;
-		pss = 0;
+	SECTION("RetrieveBefore") {
+		ss.Set(2, 12);
+		REQUIRE(1u == ss.size());
+		REQUIRE(0 == ss.ValueAt(-1));
+		REQUIRE(0 == ss.ValueAt(0));
+		REQUIRE(0 == ss.ValueAt(1));
+		REQUIRE(12 == ss.ValueAt(2));
 	}
 
-	SparseState<std::string> *pss;
-};
+	SECTION("Delete") {
+		ss.Set(0, 30);
+		ss.Set(2, 32);
+		ss.Delete(2);
+		REQUIRE(1u == ss.size());
+		REQUIRE(0 == ss.ValueAt(-1));
+		REQUIRE(30 == ss.ValueAt(0));
+		REQUIRE(30 == ss.ValueAt(1));
+		REQUIRE(30 == ss.ValueAt(2));
+	}
 
-TEST_F(SparseStateStringTest, IsEmptyInitially) {
-	EXPECT_EQ(0u, pss->size());
-	std::string val = pss->ValueAt(0);
-	EXPECT_EQ("", val);
+	SECTION("DeleteBetween") {
+		ss.Set(0, 30);
+		ss.Set(2, 32);
+		ss.Delete(1);
+		REQUIRE(1u == ss.size());
+		REQUIRE(0 == ss.ValueAt(-1));
+		REQUIRE(30 == ss.ValueAt(0));
+		REQUIRE(30 == ss.ValueAt(1));
+		REQUIRE(30 == ss.ValueAt(2));
+	}
+
+	SECTION("ReplaceLast") {
+		ss.Set(0, 30);
+		ss.Set(2, 31);
+		ss.Set(2, 32);
+		REQUIRE(2u == ss.size());
+		REQUIRE(0 == ss.ValueAt(-1));
+		REQUIRE(30 == ss.ValueAt(0));
+		REQUIRE(30 == ss.ValueAt(1));
+		REQUIRE(32 == ss.ValueAt(2));
+		REQUIRE(32 == ss.ValueAt(3));
+	}
+
+	SECTION("OnlyChangeAppended") {
+		ss.Set(0, 30);
+		ss.Set(2, 31);
+		ss.Set(3, 31);
+		REQUIRE(2u == ss.size());
+	}
+
+	SECTION("MergeBetween") {
+		ss.Set(0, 30);
+		ss.Set(2, 32);
+		ss.Set(4, 34);
+		REQUIRE(3u == ss.size());
+
+		SparseState<int> ssAdditions(3);
+		ssAdditions.Set(4, 34);
+		REQUIRE(1u == ssAdditions.size());
+		bool mergeChanged = ss.Merge(ssAdditions,5);
+		REQUIRE(0 == mergeChanged);
+
+		ssAdditions.Set(4, 44);
+		REQUIRE(1u == ssAdditions.size());
+		mergeChanged = ss.Merge(ssAdditions,5);
+		REQUIRE(true == mergeChanged);
+		REQUIRE(3u == ss.size());
+		REQUIRE(44 == ss.ValueAt(4));
+	}
+
+	SECTION("MergeAtExisting") {
+		ss.Set(0, 30);
+		ss.Set(2, 32);
+		ss.Set(4, 34);
+		REQUIRE(3u == ss.size());
+
+		SparseState<int> ssAdditions(4);
+		ssAdditions.Set(4, 34);
+		REQUIRE(1u == ssAdditions.size());
+		bool mergeChanged = ss.Merge(ssAdditions,5);
+		REQUIRE(0 == mergeChanged);
+
+		ssAdditions.Set(4, 44);
+		REQUIRE(1u == ssAdditions.size());
+		mergeChanged = ss.Merge(ssAdditions,5);
+		REQUIRE(true == mergeChanged);
+		REQUIRE(3u == ss.size());
+		REQUIRE(44 == ss.ValueAt(4));
+	}
+
+	SECTION("MergeWhichRemoves") {
+		ss.Set(0, 30);
+		ss.Set(2, 32);
+		ss.Set(4, 34);
+		REQUIRE(3u == ss.size());
+
+		SparseState<int> ssAdditions(2);
+		ssAdditions.Set(2, 22);
+		REQUIRE(1u == ssAdditions.size());
+		REQUIRE(22 == ssAdditions.ValueAt(2));
+		bool mergeChanged = ss.Merge(ssAdditions,5);
+		REQUIRE(true == mergeChanged);
+		REQUIRE(2u == ss.size());
+		REQUIRE(22 == ss.ValueAt(2));
+	}
+
+	SECTION("MergeIgnoreSome") {
+		ss.Set(0, 30);
+		ss.Set(2, 32);
+		ss.Set(4, 34);
+
+		SparseState<int> ssAdditions(2);
+		ssAdditions.Set(2, 32);
+		bool mergeChanged = ss.Merge(ssAdditions,3);
+
+		REQUIRE(0 == mergeChanged);
+		REQUIRE(2u == ss.size());
+		REQUIRE(32 == ss.ValueAt(2));
+	}
+
+	SECTION("MergeIgnoreSomeStart") {
+		ss.Set(0, 30);
+		ss.Set(2, 32);
+		ss.Set(4, 34);
+
+		SparseState<int> ssAdditions(2);
+		ssAdditions.Set(2, 32);
+		bool mergeChanged = ss.Merge(ssAdditions,2);
+
+		REQUIRE(0 == mergeChanged);
+		REQUIRE(2u == ss.size());
+		REQUIRE(32 == ss.ValueAt(2));
+	}
+
+	SECTION("MergeIgnoreRepeat") {
+		ss.Set(0, 30);
+		ss.Set(2, 32);
+		ss.Set(4, 34);
+
+		SparseState<int> ssAdditions(5);
+		// Appending same value as at end of pss.
+		ssAdditions.Set(5, 34);
+		bool mergeChanged = ss.Merge(ssAdditions,6);
+
+		REQUIRE(0 == mergeChanged);
+		REQUIRE(3u == ss.size());
+		REQUIRE(34 == ss.ValueAt(4));
+	}
+
 }
 
-TEST_F(SparseStateStringTest, SimpleSetAndGet) {
-	EXPECT_EQ(0u, pss->size());
-	pss->Set(0, "22");
-	pss->Set(1, "23");
-	EXPECT_EQ(2u, pss->size());
-	EXPECT_EQ("", pss->ValueAt(-1));
-	EXPECT_EQ("22", pss->ValueAt(0));
-	EXPECT_EQ("23", pss->ValueAt(1));
-	EXPECT_EQ("23", pss->ValueAt(2));
-}
+TEST_CASE("SparseStateString") {
 
-TEST_F(SparseStateStringTest, DeleteBetweeen) {
-	pss->Set(0, "30");
-	pss->Set(2, "32");
-	pss->Delete(1);
-	EXPECT_EQ(1u, pss->size());
-	EXPECT_EQ("", pss->ValueAt(-1));
-	EXPECT_EQ("30", pss->ValueAt(0));
-	EXPECT_EQ("30", pss->ValueAt(1));
-	EXPECT_EQ("30", pss->ValueAt(2));
+	SparseState<std::string> ss;
+
+	SECTION("IsEmptyInitially") {
+		REQUIRE(0u == ss.size());
+		std::string val = ss.ValueAt(0);
+		REQUIRE("" == val);
+	}
+
+	SECTION("SimpleSetAndGet") {
+		REQUIRE(0u == ss.size());
+		ss.Set(0, "22");
+		ss.Set(1, "23");
+		REQUIRE(2u == ss.size());
+		REQUIRE("" == ss.ValueAt(-1));
+		REQUIRE("22" == ss.ValueAt(0));
+		REQUIRE("23" == ss.ValueAt(1));
+		REQUIRE("23" == ss.ValueAt(2));
+	}
+
+	SECTION("DeleteBetween") {
+		ss.Set(0, "30");
+		ss.Set(2, "32");
+		ss.Delete(1);
+		REQUIRE(1u == ss.size());
+		REQUIRE("" == ss.ValueAt(-1));
+		REQUIRE("30" == ss.ValueAt(0));
+		REQUIRE("30" == ss.ValueAt(1));
+		REQUIRE("30" == ss.ValueAt(2));
+	}
+
 }

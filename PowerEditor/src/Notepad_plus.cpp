@@ -3169,7 +3169,9 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 				toActivate = active;    //activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
 			}
 			tabToClose->deletItemAt((size_t)index); //delete first
+			_isFolding = true; // So we can ignore events while folding is taking place
 			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);     //then activate. The prevent jumpy tab behaviour
+			_isFolding = false;
 		}
 	}
 	else

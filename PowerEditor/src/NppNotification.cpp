@@ -263,8 +263,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			switchEditViewTo(iView);
 			BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
 			if (bufid != BUFFER_INVALID)
+			{
+				_isFolding = true; // So we can ignore events while folding is taking place
 				activateBuffer(bufid, iView);
-
+				_isFolding = false;
+			}
 			break;
 		}
 

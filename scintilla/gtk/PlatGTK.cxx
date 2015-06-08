@@ -3,9 +3,9 @@
 // Copyright 1998-2004 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <stddef.h>
 #include <math.h>
 
@@ -23,8 +23,9 @@
 
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
-#include "UniConversion.h"
+#include "StringCopy.h"
 #include "XPM.h"
+#include "UniConversion.h"
 
 #if defined(__clang__)
 // Clang 3.0 incorrectly displays  sentinel warnings. Fixed by clang 3.1.
@@ -46,7 +47,9 @@
 #define IS_WIDGET_FOCUSSED(w) (GTK_WIDGET_HAS_FOCUS(w))
 #endif
 
-// The Pango version guard for pango_units_from_double and pango_units_to_double 
+static const double kPi = 3.14159265358979323846;
+
+// The Pango version guard for pango_units_from_double and pango_units_to_double
 // is more complex than simply implementing these here.
 
 static int pangoUnitsFromDouble(double d) {
@@ -224,12 +227,12 @@ Point Point::FromLong(long lpoint) {
 }
 
 static void SetLogFont(LOGFONT &lf, const char *faceName, int characterSet, float size, int weight, bool italic) {
-	memset(&lf, 0, sizeof(lf));
+	lf = LOGFONT();
 	lf.size = size;
 	lf.weight = weight;
 	lf.italic = italic;
 	lf.characterSet = characterSet;
-	strncpy(lf.faceName, faceName, sizeof(lf.faceName) - 1);
+	StringCopy(lf.faceName, faceName);
 }
 
 /**
@@ -251,7 +254,7 @@ class FontCached : Font {
 	int usage;
 	LOGFONT lf;
 	int hash;
-	FontCached(const FontParameters &fp);
+	explicit FontCached(const FontParameters &fp);
 	~FontCached() {}
 	bool SameAs(const FontParameters &fp);
 	virtual void Release();
@@ -337,7 +340,7 @@ void FontCached::ReleaseAll() {
 FontID FontCached::CreateNewFont(const FontParameters &fp) {
 	PangoFontDescription *pfd = pango_font_description_new();
 	if (pfd) {
-		pango_font_description_set_family(pfd, 
+		pango_font_description_set_family(pfd,
 			(fp.faceName[0] == '!') ? fp.faceName+1 : fp.faceName);
 		pango_font_description_set_size(pfd, pangoUnitsFromDouble(fp.size));
 		pango_font_description_set_weight(pfd, static_cast<PangoWeight>(fp.weight));
@@ -524,27 +527,34 @@ void SurfaceImpl::Release() {
 }
 
 bool SurfaceImpl::Initialised() {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 8, 0)
+	if (inited && context) {
+		if (cairo_status(context) == CAIRO_STATUS_SUCCESS) {
+			// Even when status is success, the target surface may have been
+			// finished whch may cause an assertion to fail crashing the application.
+			// The cairo_surface_has_show_text_glyphs call checks the finished flag
+			// and when set, sets the status to CAIRO_STATUS_SURFACE_FINISHED
+			// which leads to warning messages instead of crashes.
+			// Performing the check in this method as it is called rarely and has no
+			// other side effects.
+			cairo_surface_t *psurfContext = cairo_get_target(context);
+			if (psurfContext) {
+				cairo_surface_has_show_text_glyphs(psurfContext);
+			}
+		}
+		return cairo_status(context) == CAIRO_STATUS_SUCCESS;
+	}
+#endif
 	return inited;
 }
 
 void SurfaceImpl::Init(WindowID wid) {
 	Release();
 	PLATFORM_ASSERT(wid);
-#if GTK_CHECK_VERSION(3,0,0)
-	GdkWindow *drawable_ = gtk_widget_get_window(PWidget(wid));
-#else
-	GdkDrawable *drawable_ = GDK_DRAWABLE(PWidget(wid)->window);
-#endif
-	if (drawable_) {
-		context = gdk_cairo_create(drawable_);
-		PLATFORM_ASSERT(context);
-	} else {
-		// Shouldn't happen with valid window but may when calls made before
-		// window completely allocated and mapped.
-		psurf = cairo_image_surface_create(CAIRO_FORMAT_RGB24, 1, 1);
-		context = cairo_create(psurf);
-	}
-	createdGC = true;
+	// if we are only created from a window ID, we can't perform drawing
+	psurf = 0;
+	context = 0;
+	createdGC = false;
 	pcontext = gtk_widget_create_pango_context(PWidget(wid));
 	PLATFORM_ASSERT(pcontext);
 	layout = pango_layout_new(pcontext);
@@ -592,6 +602,7 @@ void SurfaceImpl::InitPixMap(int width, int height, Surface *surface_, WindowID 
 	cairo_set_line_width(context, 1);
 	createdGC = true;
 	inited = true;
+	et = surfImpl->et;
 }
 
 void SurfaceImpl::PenColour(ColourDesired fore) {
@@ -662,9 +673,10 @@ void SurfaceImpl::LineTo(int x_, int y_) {
 
 void SurfaceImpl::Polygon(Point *pts, int npts, ColourDesired fore,
                           ColourDesired back) {
+	PLATFORM_ASSERT(context);
 	PenColour(back);
 	cairo_move_to(context, pts[0].x + 0.5, pts[0].y + 0.5);
-	for (int i = 1;i < npts;i++) {
+	for (int i = 1; i < npts; i++) {
 		cairo_line_to(context, pts[i].x + 0.5, pts[i].y + 0.5);
 	}
 	cairo_close_path(context);
@@ -697,8 +709,9 @@ void SurfaceImpl::FillRectangle(PRectangle rc, ColourDesired back) {
 
 void SurfaceImpl::FillRectangle(PRectangle rc, Surface &surfacePattern) {
 	SurfaceImpl &surfi = static_cast<SurfaceImpl &>(surfacePattern);
-	bool canDraw = surfi.psurf;
+	bool canDraw = surfi.psurf != NULL;
 	if (canDraw) {
+		PLATFORM_ASSERT(context);
 		// Tile pattern over rectangle
 		// Currently assumes 8x8 pattern
 		int widthPat = 8;
@@ -732,14 +745,14 @@ void SurfaceImpl::RoundedRectangle(PRectangle rc, ColourDesired fore, ColourDesi
 		                  Point(rc.left, rc.bottom - 2),
 		                  Point(rc.left, rc.top + 2),
 		              };
-		Polygon(pts, sizeof(pts) / sizeof(pts[0]), fore, back);
+		Polygon(pts, ELEMENTS(pts), fore, back);
 	} else {
 		RectangleDraw(rc, fore, back);
 	}
 }
 
 static void PathRoundRectangle(cairo_t *context, double left, double top, double width, double height, int radius) {
-	double degrees = M_PI / 180.0;
+	double degrees = kPi / 180.0;
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 2, 0)
 	cairo_new_sub_path(context);
@@ -784,6 +797,7 @@ void SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, ColourDesired fi
 }
 
 void SurfaceImpl::DrawRGBAImage(PRectangle rc, int width, int height, const unsigned char *pixelsImage) {
+	PLATFORM_ASSERT(context);
 	if (rc.Width() > width)
 		rc.left += (rc.Width() - width) / 2;
 	rc.right = rc.left + width;
@@ -798,9 +812,9 @@ void SurfaceImpl::DrawRGBAImage(PRectangle rc, int width, int height, const unsi
 #endif
 	int ucs = stride * height;
 	std::vector<unsigned char> image(ucs);
-	for (int y=0; y<height; y++) {
-		for (int x=0; x<width; x++) {
-			unsigned char *pixel = &image[0] + y*stride + x * 4;
+	for (int iy=0; iy<height; iy++) {
+		for (int ix=0; ix<width; ix++) {
+			unsigned char *pixel = &image[0] + iy*stride + ix * 4;
 			unsigned char alpha = pixelsImage[3];
 			pixel[2] = (*pixelsImage++) * alpha / 255;
 			pixel[1] = (*pixelsImage++) * alpha / 255;
@@ -809,18 +823,19 @@ void SurfaceImpl::DrawRGBAImage(PRectangle rc, int width, int height, const unsi
 		}
 	}
 
-	cairo_surface_t *psurf = cairo_image_surface_create_for_data(&image[0], CAIRO_FORMAT_ARGB32, width, height, stride);
-	cairo_set_source_surface(context, psurf, rc.left, rc.top);
+	cairo_surface_t *psurfImage = cairo_image_surface_create_for_data(&image[0], CAIRO_FORMAT_ARGB32, width, height, stride);
+	cairo_set_source_surface(context, psurfImage, rc.left, rc.top);
 	cairo_rectangle(context, rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top);
 	cairo_fill(context);
 
-	cairo_surface_destroy(psurf);
+	cairo_surface_destroy(psurfImage);
 }
 
 void SurfaceImpl::Ellipse(PRectangle rc, ColourDesired fore, ColourDesired back) {
+	PLATFORM_ASSERT(context);
 	PenColour(back);
-	cairo_arc(context, (rc.left + rc.right) / 2 + 0.5, (rc.top + rc.bottom) / 2 + 0.5,
-		Platform::Minimum(rc.Width(), rc.Height()) / 2, 0, 2*M_PI);
+	cairo_arc(context, (rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2,
+		Platform::Minimum(rc.Width(), rc.Height()) / 2, 0, 2*kPi);
 	cairo_fill_preserve(context);
 	PenColour(fore);
 	cairo_stroke(context);
@@ -828,8 +843,9 @@ void SurfaceImpl::Ellipse(PRectangle rc, ColourDesired fore, ColourDesired back)
 
 void SurfaceImpl::Copy(PRectangle rc, Point from, Surface &surfaceSource) {
 	SurfaceImpl &surfi = static_cast<SurfaceImpl &>(surfaceSource);
-	bool canDraw = surfi.psurf;
+	bool canDraw = surfi.psurf != NULL;
 	if (canDraw) {
+		PLATFORM_ASSERT(context);
 		cairo_set_source_surface(context, surfi.psurf,
 			rc.left - from.x, rc.top - from.y);
 		cairo_rectangle(context, rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top);
@@ -840,7 +856,7 @@ void SurfaceImpl::Copy(PRectangle rc, Point from, Surface &surfaceSource) {
 std::string UTF8FromLatin1(const char *s, int len) {
 	std::string utfForm(len*2 + 1, '\0');
 	size_t lenU = 0;
-	for (int i=0;i<len;i++) {
+	for (int i=0; i<len; i++) {
 		unsigned int uch = static_cast<unsigned char>(s[i]);
 		if (uch < 0x80) {
 			utfForm[lenU++] = uch;
@@ -886,18 +902,6 @@ static size_t MultiByteLenFromIconv(const Converter &conv, const char *s, size_t
 		}
 	}
 	return 1;
-}
-
-static size_t UTF8CharLength(const char *s) {
-	const unsigned char *us = reinterpret_cast<const unsigned char *>(s);
-	unsigned char ch = *us;
-	if (ch < 0x80) {
-		return 1;
-	} else if (ch < 0x80 + 0x40 + 0x20) {
-		return 2;
-	} else {
-		return 3;
-	}
 }
 
 void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, XYPOSITION ybase, const char *s, int len,
@@ -946,7 +950,7 @@ void SurfaceImpl::DrawTextClipped(PRectangle rc, Font &font_, XYPOSITION ybase, 
 void SurfaceImpl::DrawTextTransparent(PRectangle rc, Font &font_, XYPOSITION ybase, const char *s, int len,
                                   ColourDesired fore) {
 	// Avoid drawing spaces in transparent mode
-	for (int i=0;i<len;i++) {
+	for (int i=0; i<len; i++) {
 		if (s[i] != ' ') {
 			DrawTextBase(rc, font_, ybase, s, len, fore);
 			return;
@@ -1043,7 +1047,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, XYPOSITION 
 									positions[i++] = iti.position - (places - place) * iti.distance / places;
 									positionsCalculated++;
 								}
-								clusterStart += UTF8CharLength(utfForm.c_str()+clusterStart);
+								clusterStart += UTF8CharLength(static_cast<unsigned char>(utfForm.c_str()[clusterStart]));
 								place++;
 							}
 						}
@@ -1051,8 +1055,10 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, XYPOSITION 
 					}
 				}
 				if (positionsCalculated < 1 ) {
-					// Either Latin1 or DBCS conversion failed so treat as Latin1.
+					// Either 8-bit or DBCS conversion failed so treat as 8-bit.
 					SetConverter(PFont(font_)->characterSet);
+					const bool rtlCheck = PFont(font_)->characterSet == SC_CHARSET_HEBREW ||
+						PFont(font_)->characterSet == SC_CHARSET_ARABIC;
 					std::string utfForm = UTF8FromIconv(conv, s, len);
 					if (utfForm.empty()) {
 						utfForm = UTF8FromLatin1(s, len);
@@ -1060,18 +1066,32 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, XYPOSITION 
 					pango_layout_set_text(layout, utfForm.c_str(), utfForm.length());
 					int i = 0;
 					int clusterStart = 0;
-					// Each Latin1 input character may take 1 or 2 bytes in UTF-8
+					// Each 8-bit input character may take 1 or 2 bytes in UTF-8
 					// and groups of up to 3 may be represented as ligatures.
 					ClusterIterator iti(layout, utfForm.length());
 					while (!iti.finished) {
 						iti.Next();
 						int clusterEnd = iti.curIndex;
 						int ligatureLength = g_utf8_strlen(utfForm.c_str() + clusterStart, clusterEnd - clusterStart);
+						if (rtlCheck && ((clusterEnd <= clusterStart) || (ligatureLength == 0) || (ligatureLength > 3))) {
+							// Something has gone wrong: exit quickly but pretend all the characters are equally spaced:
+							int widthLayout = 0;
+							pango_layout_get_size(layout, &widthLayout, NULL);
+							XYPOSITION widthTotal = doubleFromPangoUnits(widthLayout);
+							for (int bytePos=0; bytePos<lenPositions; bytePos++) {
+								positions[bytePos] = widthTotal / lenPositions * (bytePos + 1);
+							}
+							return;
+						}
 						PLATFORM_ASSERT(ligatureLength > 0 && ligatureLength <= 3);
 						for (int charInLig=0; charInLig<ligatureLength; charInLig++) {
 							positions[i++] = iti.position - (ligatureLength - 1 - charInLig) * iti.distance / ligatureLength;
 						}
 						clusterStart = clusterEnd;
+					}
+					while (i < lenPositions) {
+						// If something failed, fill in rest of the positions
+						positions[i++] = clusterStart;
 					}
 					PLATFORM_ASSERT(i == lenPositions);
 				}
@@ -1182,6 +1202,7 @@ XYPOSITION SurfaceImpl::AverageCharWidth(Font &font_) {
 }
 
 void SurfaceImpl::SetClip(PRectangle rc) {
+	PLATFORM_ASSERT(context);
 	cairo_rectangle(context, rc.left, rc.top, rc.right, rc.bottom);
 	cairo_clip(context);
 }
@@ -1205,9 +1226,20 @@ Surface *Surface::Allocate(int) {
 Window::~Window() {}
 
 void Window::Destroy() {
-	if (wid)
-		gtk_widget_destroy(GTK_WIDGET(wid));
-	wid = 0;
+	if (wid) {
+		ListBox *listbox = dynamic_cast<ListBox*>(this);
+		if (listbox) {
+			gtk_widget_hide(GTK_WIDGET(wid));
+			// clear up window content
+			listbox->Clear();
+			// resize the window to the smallest possible size for it to adapt
+			// to future content
+			gtk_window_resize(GTK_WINDOW(wid), 1, 1);
+		} else {
+			gtk_widget_destroy(GTK_WIDGET(wid));
+		}
+		wid = 0;
+	}
 }
 
 bool Window::HasFocus() {
@@ -1268,7 +1300,7 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 
 	gtk_window_move(GTK_WINDOW(PWidget(wid)), ox, oy);
 
-	gtk_widget_set_size_request(PWidget(wid), sizex, sizey);
+	gtk_window_resize(GTK_WINDOW(wid), sizex, sizey);
 }
 
 PRectangle Window::GetClientPosition() {
@@ -1391,6 +1423,8 @@ enum {
 };
 
 class ListBoxX : public ListBox {
+	WindowID widCached;
+	WindowID frame;
 	WindowID list;
 	WindowID scroller;
 	void *pixhash;
@@ -1403,7 +1437,7 @@ public:
 	CallBackAction doubleClickAction;
 	void *doubleClickActionData;
 
-	ListBoxX() : list(0), scroller(0), pixhash(NULL), pixbuf_renderer(0),
+	ListBoxX() : widCached(0), frame(0), list(0), scroller(0), pixhash(NULL), pixbuf_renderer(0),
 		desiredVisibleRows(5), maxItemCharacters(0),
 		aveCharWidth(1), doubleClickAction(NULL), doubleClickActionData(NULL) {
 	}
@@ -1412,12 +1446,17 @@ public:
 			g_hash_table_foreach((GHashTable *) pixhash, list_image_free, NULL);
 			g_hash_table_destroy((GHashTable *) pixhash);
 		}
+		if (widCached) {
+			gtk_widget_destroy(GTK_WIDGET(widCached));
+			wid = widCached = 0;
+		}
 	}
 	virtual void SetFont(Font &font);
 	virtual void Create(Window &parent, int ctrlID, Point location_, int lineHeight_, bool unicodeMode_, int technology_);
 	virtual void SetAverageCharWidth(int width);
 	virtual void SetVisibleRows(int rows);
 	virtual int GetVisibleRows() const;
+	int GetRowHeight();
 	virtual PRectangle GetDesiredRect();
 	virtual int CaretFromEdge();
 	virtual void Clear();
@@ -1442,6 +1481,50 @@ ListBox *ListBox::Allocate() {
 	ListBoxX *lb = new ListBoxX();
 	return lb;
 }
+
+// SmallScroller, a GtkScrolledWindow that can shrink very small, as
+// gtk_widget_set_size_request() cannot shrink widgets on GTK3
+typedef struct {
+	GtkScrolledWindow parent;
+	/* Workaround ABI issue with Windows GTK2 bundle and GCC > 3.
+	   See http://lists.geany.org/pipermail/devel/2015-April/thread.html#9379
+
+	   GtkScrolledWindow contains a bitfield, and GCC 3.4 and 4.8 don't agree
+	   on the size of the structure (regardless of -mms-bitfields):
+	   - GCC 3.4 has sizeof(GtkScrolledWindow)=88
+	   - GCC 4.8 has sizeof(GtkScrolledWindow)=84
+	   As Windows GTK2 bundle is built with GCC 3, it requires types derived
+	   from GtkScrolledWindow to be at least 88 bytes, which means we need to
+	   add some fake padding to fill in the extra 4 bytes.
+	   There is however no other issue with the layout difference as we never
+	   access any GtkScrolledWindow fields ourselves. */
+	int padding;
+} SmallScroller;
+typedef GtkScrolledWindowClass SmallScrollerClass;
+
+G_DEFINE_TYPE(SmallScroller, small_scroller, GTK_TYPE_SCROLLED_WINDOW)
+
+#if GTK_CHECK_VERSION(3,0,0)
+static void small_scroller_get_preferred_height(GtkWidget *widget, gint *min, gint *nat) {
+	GTK_WIDGET_CLASS(small_scroller_parent_class)->get_preferred_height(widget, min, nat);
+	*min = 1;
+}
+#else
+static void small_scroller_size_request(GtkWidget *widget, GtkRequisition *req) {
+	GTK_WIDGET_CLASS(small_scroller_parent_class)->size_request(widget, req);
+	req->height = 1;
+}
+#endif
+
+static void small_scroller_class_init(SmallScrollerClass *klass) {
+#if GTK_CHECK_VERSION(3,0,0)
+	GTK_WIDGET_CLASS(klass)->get_preferred_height = small_scroller_get_preferred_height;
+#else
+	GTK_WIDGET_CLASS(klass)->size_request = small_scroller_size_request;
+#endif
+}
+
+static void small_scroller_init(SmallScroller *){}
 
 static gboolean ButtonPress(GtkWidget *, GdkEventButton* ev, gpointer p) {
 	try {
@@ -1504,15 +1587,20 @@ static void StyleSet(GtkWidget *w, GtkStyle*, void*) {
 }
 
 void ListBoxX::Create(Window &, int, Point, int, bool, int) {
-	wid = gtk_window_new(GTK_WINDOW_POPUP);
+	if (widCached != 0) {
+		wid = widCached;
+		return;
+	}
 
-	GtkWidget *frame = gtk_frame_new(NULL);
-	gtk_widget_show(frame);
-	gtk_container_add(GTK_CONTAINER(GetID()), frame);
+	wid = widCached = gtk_window_new(GTK_WINDOW_POPUP);
+
+	frame = gtk_frame_new(NULL);
+	gtk_widget_show(PWidget(frame));
+	gtk_container_add(GTK_CONTAINER(GetID()), PWidget(frame));
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_OUT);
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
 
-	scroller = gtk_scrolled_window_new(NULL, NULL);
+	scroller = g_object_new(small_scroller_get_type(), NULL);
 	gtk_container_set_border_width(GTK_CONTAINER(scroller), 0);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroller),
 	                               GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
@@ -1553,12 +1641,11 @@ void ListBoxX::Create(Window &, int, Point, int, bool, int) {
 	if (g_object_class_find_property(G_OBJECT_GET_CLASS(list), "fixed-height-mode"))
 		g_object_set(G_OBJECT(list), "fixed-height-mode", TRUE, NULL);
 
-	GtkWidget *wid = PWidget(list);	// No code inside the G_OBJECT macro
-	gtk_container_add(GTK_CONTAINER(PWidget(scroller)), wid);
-	gtk_widget_show(wid);
-	g_signal_connect(G_OBJECT(wid), "button_press_event",
+	GtkWidget *widget = PWidget(list);	// No code inside the G_OBJECT macro
+	gtk_container_add(GTK_CONTAINER(PWidget(scroller)), widget);
+	gtk_widget_show(widget);
+	g_signal_connect(G_OBJECT(widget), "button_press_event",
 	                   G_CALLBACK(ButtonPress), this);
-	gtk_widget_realize(PWidget(wid));
 }
 
 void ListBoxX::SetFont(Font &scint_font) {
@@ -1585,6 +1672,30 @@ int ListBoxX::GetVisibleRows() const {
 	return desiredVisibleRows;
 }
 
+int ListBoxX::GetRowHeight()
+{
+#if GTK_CHECK_VERSION(3,0,0)
+	// This version sometimes reports erroneous results on GTK2, but the GTK2
+	// version is inaccurate for GTK 3.14.
+	GdkRectangle rect;
+	GtkTreePath *path = gtk_tree_path_new_first();
+	gtk_tree_view_get_background_area(GTK_TREE_VIEW(list), path, NULL, &rect);
+	return rect.height;
+#else
+	int row_height=0;
+	int vertical_separator=0;
+	int expander_size=0;
+	GtkTreeViewColumn *column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
+	gtk_tree_view_column_cell_get_size(column, NULL, NULL, NULL, NULL, &row_height);
+	gtk_widget_style_get(PWidget(list),
+		"vertical-separator", &vertical_separator,
+		"expander-size", &expander_size, NULL);
+	row_height += vertical_separator;
+	row_height = Platform::Maximum(row_height, expander_size);
+	return row_height;
+#endif
+}
+
 PRectangle ListBoxX::GetDesiredRect() {
 	// Before any size allocated pretend its 100 wide so not scrolled
 	PRectangle rc(0, 0, 100, 100);
@@ -1594,53 +1705,63 @@ PRectangle ListBoxX::GetDesiredRect() {
 			rows = desiredVisibleRows;
 
 		GtkRequisition req;
-#if GTK_CHECK_VERSION(3,0,0)
 		// This, apparently unnecessary call, ensures gtk_tree_view_column_cell_get_size
-		// returns reasonable values. 
-		gtk_widget_get_preferred_size(GTK_WIDGET(scroller), NULL, &req);
+		// returns reasonable values.
+#if GTK_CHECK_VERSION(3,0,0)
+		gtk_widget_get_preferred_size(GTK_WIDGET(frame), NULL, &req);
+#else
+		gtk_widget_size_request(GTK_WIDGET(frame), &req);
 #endif
 		int height;
 
 		// First calculate height of the clist for our desired visible
 		// row count otherwise it tries to expand to the total # of rows
 		// Get cell height
-		int row_width=0;
-		int row_height=0;
-		GtkTreeViewColumn * column =
-			gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
-		gtk_tree_view_column_cell_get_size(column, NULL,
-			NULL, NULL, &row_width, &row_height);
+		int row_height = GetRowHeight();
 #if GTK_CHECK_VERSION(3,0,0)
-		GtkStyleContext *styleContextList = gtk_widget_get_style_context(PWidget(list));
-		GtkBorder padding;
-		gtk_style_context_get_padding(styleContextList, GTK_STATE_FLAG_NORMAL, &padding);
+		GtkStyleContext *styleContextFrame = gtk_widget_get_style_context(PWidget(frame));
+		GtkBorder padding, border;
+		gtk_style_context_get_padding(styleContextFrame, GTK_STATE_FLAG_NORMAL, &padding);
+		gtk_style_context_get_border(styleContextFrame, GTK_STATE_FLAG_NORMAL, &border);
 		height = (rows * row_height
 		          + padding.top + padding.bottom
-		          + 2 * (gtk_container_get_border_width(GTK_CONTAINER(PWidget(list))) + 1));
+		          + border.top + border.bottom
+		          + 2 * gtk_container_get_border_width(GTK_CONTAINER(PWidget(list))));
 #else
-		int ythickness = PWidget(list)->style->ythickness;
 		height = (rows * row_height
-		          + 2 * (ythickness
-		                 + GTK_CONTAINER(PWidget(list))->border_width + 1));
+		          + 2 * (PWidget(frame)->style->ythickness
+		                 + GTK_CONTAINER(PWidget(list))->border_width));
 #endif
-		gtk_widget_set_size_request(GTK_WIDGET(PWidget(list)), -1, height);
+		rc.bottom = height;
 
-		// Get the size of the scroller because we set usize on the window
-#if GTK_CHECK_VERSION(3,0,0)
-		gtk_widget_get_preferred_size(GTK_WIDGET(scroller), NULL, &req);
-#else
-		gtk_widget_size_request(GTK_WIDGET(scroller), &req);
-#endif
-		rc.right = req.width;
-		rc.bottom = Platform::Maximum(height, req.height);
-
-		gtk_widget_set_size_request(GTK_WIDGET(list), -1, -1);
 		int width = maxItemCharacters;
 		if (width < 12)
 			width = 12;
 		rc.right = width * (aveCharWidth + aveCharWidth / 3);
-		if (Length() > rows)
-			rc.right = rc.right + 16;
+		// Add horizontal padding and borders
+		int horizontal_separator=0;
+		gtk_widget_style_get(PWidget(list),
+			"horizontal-separator", &horizontal_separator, NULL);
+		rc.right += horizontal_separator;
+#if GTK_CHECK_VERSION(3,0,0)
+		rc.right += (padding.left + padding.right
+		             + border.left + border.right
+		             + 2 * gtk_container_get_border_width(GTK_CONTAINER(PWidget(list))));
+#else
+		rc.right += 2 * (PWidget(frame)->style->xthickness
+		                 + GTK_CONTAINER(PWidget(list))->border_width);
+#endif
+		if (Length() > rows) {
+			// Add the width of the scrollbar
+			GtkWidget *vscrollbar =
+				gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroller));
+#if GTK_CHECK_VERSION(3,0,0)
+			gtk_widget_get_preferred_size(vscrollbar, NULL, &req);
+#else
+			gtk_widget_size_request(vscrollbar, &req);
+#endif
+			rc.right += req.width;
+		}
 	}
 	return rc;
 }
@@ -1752,12 +1873,7 @@ void ListBoxX::Select(int n) {
 							+ adj->lower - adj->page_size / 2;
 #endif
 		// Get cell height
-		int row_width;
-		int row_height;
-		GtkTreeViewColumn * column =
-			gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
-		gtk_tree_view_column_cell_get_size(column, NULL, NULL,
-											NULL, &row_width, &row_height);
+		int row_height = GetRowHeight();
 
 		int rows = Length();
 		if ((rows == 0) || (rows > desiredVisibleRows))
@@ -1785,6 +1901,7 @@ void ListBoxX::Select(int n) {
 }
 
 int ListBoxX::GetSelection() {
+	int index = -1;
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
@@ -1794,9 +1911,10 @@ int ListBoxX::GetSelection() {
 		int *indices = gtk_tree_path_get_indices(path);
 		// Don't free indices.
 		if (indices)
-			return indices[0];
+			index = indices[0];
+		gtk_tree_path_free(path);
 	}
-	return -1;
+	return index;
 }
 
 int ListBoxX::Find(const char *prefix) {
@@ -1828,8 +1946,7 @@ void ListBoxX::GetValue(int n, char *value, int len) {
 		gtk_tree_model_get(model, &iter, TEXT_COLUMN, &text, -1);
 	}
 	if (text && len > 0) {
-		strncpy(value, text, len);
-		value[len - 1] = '\0';
+		g_strlcpy(value, text, len);
 	} else {
 		value[0] = '\0';
 	}
@@ -1961,7 +2078,7 @@ class DynamicLibraryImpl : public DynamicLibrary {
 protected:
 	GModule* m;
 public:
-	DynamicLibraryImpl(const char *modulePath) {
+	explicit DynamicLibraryImpl(const char *modulePath) {
 		m = g_module_open(modulePath, G_MODULE_BIND_LAZY);
 	}
 
@@ -1979,8 +2096,9 @@ public:
 				return static_cast<Function>(fn_address);
 			else
 				return NULL;
-		} else
+		} else {
 			return NULL;
+		}
 	}
 
 	virtual bool IsValid() {
@@ -2139,8 +2257,7 @@ bool Platform::ShowAssertionPopUps(bool assertionPopUps_) {
 
 void Platform::Assert(const char *c, const char *file, int line) {
 	char buffer[2000];
-	sprintf(buffer, "Assertion [%s] failed at %s %d", c, file, line);
-	strcat(buffer, "\r\n");
+	g_snprintf(buffer, sizeof(buffer), "Assertion [%s] failed at %s %d\r\n", c, file, line);
 	Platform::DebugDisplay(buffer);
 	abort();
 }

@@ -152,7 +152,7 @@ public:
 	void DeleteResult();
 
 protected :
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool notify(SCNotification *notification);
 
 private:
@@ -305,7 +305,7 @@ public :
 
 
 protected :
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void addText2Combo(const TCHAR * txt2add, HWND comboID, bool isUTF8 = false);
 	generic_string getTextFromCombo(HWND hCombo, bool isUnicode = false) const;
 	static LONG originalFinderProc;
@@ -403,7 +403,7 @@ private :
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;
 
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);
 };
 

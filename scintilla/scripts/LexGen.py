@@ -10,6 +10,7 @@
 
 from FileGenerator import Regenerate, UpdateLineInFile, ReplaceREInFile
 import ScintillaData
+import HFacer
 
 def UpdateVersionNumbers(sci, root):
     UpdateLineInFile(root + "win32/ScintRes.rc", "#define VERSION_SCINTILLA",
@@ -46,6 +47,8 @@ def RegenerateAll(root):
     Regenerate(root + "win32/scintilla.mak", "#", sci.lexFiles)
 
     UpdateVersionNumbers(sci, root)
+    
+    HFacer.RegenerateAll(root, False)
 
 if __name__=="__main__":
     RegenerateAll("../")

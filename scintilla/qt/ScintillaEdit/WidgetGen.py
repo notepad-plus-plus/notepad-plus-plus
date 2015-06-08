@@ -71,9 +71,13 @@ def checkTypes(name, v):
 def arguments(v, stringResult, options):
 	ret = ""
 	p1Type = cppAlias(v["Param1Type"])
+	if p1Type == "int":
+		p1Type = "sptr_t"
 	if p1Type:
 		ret = ret + p1Type + " " + normalisedName(v["Param1Name"], options)
 	p2Type = cppAlias(v["Param2Type"])
+	if p2Type == "int":
+		p2Type = "sptr_t"
 	if p2Type and not stringResult:
 		if p1Type:
 			ret = ret + ", "
@@ -90,6 +94,8 @@ def printPyFile(f, options):
 				out.append(name + "=" + v["Value"])
 			if feat in ["evt"]:
 				out.append("SCN_" + name.upper() + "=" + v["Value"])
+			if feat in ["fun"]:
+				out.append("SCI_" + name.upper() + "=" + v["Value"])
 	return out
 
 def printHFile(f, options):
@@ -101,7 +107,9 @@ def printHFile(f, options):
 			if feat in ["fun", "get", "set"]:
 				if checkTypes(name, v):
 					constDeclarator = " const" if feat == "get" else ""
-					returnType = cppAlias(v["ReturnType"])
+					returnType = cppAlias(v["ReturnType"])					
+					if returnType == "int":
+						returnType = "sptr_t"
 					stringResult = v["Param2Type"] == "stringresult"
 					if stringResult:
 						returnType = "QByteArray"
@@ -130,6 +138,8 @@ def printCPPFile(f, options):
 					constDeclarator = " const" if feat == "get" else ""
 					featureDefineName = "SCI_" + name.upper()
 					returnType = cppAlias(v["ReturnType"])
+					if returnType == "int":
+						returnType = "sptr_t"
 					stringResult = v["Param2Type"] == "stringresult"
 					if stringResult:
 						returnType = "QByteArray"
@@ -143,7 +153,7 @@ def printCPPFile(f, options):
 					if stringResult:
 						returns += "    " + returnStatement + "TextReturner(" + featureDefineName + ", "
 						if "*" in cppAlias(v["Param1Type"]):
-							returns += "(uptr_t)"
+							returns += "(sptr_t)"
 						if v["Param1Name"]:
 							returns += normalisedName(v["Param1Name"], options)
 						else:
@@ -152,7 +162,7 @@ def printCPPFile(f, options):
 					else:
 						returns += "    " + returnStatement + "send(" + featureDefineName + ", "
 						if "*" in cppAlias(v["Param1Type"]):
-							returns += "(uptr_t)"
+							returns += "(sptr_t)"
 						if v["Param1Name"]:
 							returns += normalisedName(v["Param1Name"], options)
 						else:

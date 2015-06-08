@@ -8,215 +8,207 @@
 
 #include "SplitVector.h"
 
-#include <gtest/gtest.h>
+#include "catch.hpp"
 
 // Test SplitVector.
-
-class SplitVectorTest : public ::testing::Test {
-protected:
-	virtual void SetUp() {
-		psv = new SplitVector<int>;
-	}
-
-	virtual void TearDown() {
-		delete psv;
-		psv = 0;
-	}
-
-	SplitVector<int> *psv;
-};
 
 const int lengthTestArray = 4;
 static const int testArray[4] = {3, 4, 5, 6};
 
-TEST_F(SplitVectorTest, IsEmptyInitially) {
-	EXPECT_EQ(0, psv->Length());
-}
+TEST_CASE("SplitVector") {
 
-TEST_F(SplitVectorTest, InsertOne) {
-	psv->InsertValue(0, 10, 0);
-	psv->Insert(5, 3);
-	EXPECT_EQ(11, psv->Length());
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ((i == 5) ? 3 : 0, psv->ValueAt(i));
+	SplitVector<int> sv;
+
+	SECTION("IsEmptyInitially") {
+		REQUIRE(0 == sv.Length());
 	}
-}
 
-TEST_F(SplitVectorTest, Insertion) {
-	psv->InsertValue(0, 10, 0);
-	EXPECT_EQ(10, psv->Length());
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ(0, psv->ValueAt(i));
-	}
-}
-
-TEST_F(SplitVectorTest, EnsureLength) {
-	psv->EnsureLength(4);
-	EXPECT_EQ(4, psv->Length());
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ(0, psv->ValueAt(i));
-	}
-}
-
-TEST_F(SplitVectorTest, InsertFromArray) {
-	psv->InsertFromArray(0, testArray, 0, lengthTestArray);
-	EXPECT_EQ(lengthTestArray, psv->Length());
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ(i+3, psv->ValueAt(i));
-	}
-}
-
-TEST_F(SplitVectorTest, SetValue) {
-	psv->InsertValue(0, 10, 0);
-	psv->SetValueAt(5, 3);
-	EXPECT_EQ(10, psv->Length());
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ((i == 5) ? 3 : 0, psv->ValueAt(i));
-	}
-	// Move the gap
-	psv->InsertValue(7, 1, 17);
-	EXPECT_EQ(17, psv->ValueAt(7));
-	EXPECT_EQ(0, psv->ValueAt(8));
-	// Set after the gap
-	psv->SetValueAt(8, 19);
-	EXPECT_EQ(19, psv->ValueAt(8));
-}
-
-TEST_F(SplitVectorTest, Indexing) {
-	psv->InsertValue(0, 10, 0);
-	psv->SetValueAt(5, 3);
-	EXPECT_EQ(10, psv->Length());
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ((i == 5) ? 3 : 0, (*psv)[i]);
-	}
-}
-
-TEST_F(SplitVectorTest, Fill) {
-	psv->InsertValue(0, 10, 0);
-	EXPECT_EQ(10, psv->Length());
-	psv->InsertValue(7, 1, 1);
-	EXPECT_EQ(11, psv->Length());
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ((i == 7) ? 1 : 0, psv->ValueAt(i));
-	}
-}
-
-TEST_F(SplitVectorTest, DeleteOne) {
-	psv->InsertFromArray(0, testArray, 0, lengthTestArray);
-	psv->Delete(2);
-	EXPECT_EQ(lengthTestArray-1, psv->Length());
-	EXPECT_EQ(3, (*psv)[0]);
-	EXPECT_EQ(4, (*psv)[1]);
-	EXPECT_EQ(6, (*psv)[2]);
-}
-
-TEST_F(SplitVectorTest, DeleteRange) {
-	psv->InsertValue(0, 10, 0);
-	EXPECT_EQ(10, psv->Length());
-	psv->InsertValue(7, 1, 1);
-	EXPECT_EQ(11, psv->Length());
-	psv->DeleteRange(2, 3);
-	EXPECT_EQ(8, psv->Length());
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ((i == 4) ? 1 : 0, psv->ValueAt(i));
-	}
-}
-
-TEST_F(SplitVectorTest, DeleteAll) {
-	psv->InsertValue(0, 10, 0);
-	psv->InsertValue(7, 1, 1);
-	psv->DeleteRange(2, 3);
-	psv->DeleteAll();
-	EXPECT_EQ(0, psv->Length());
-}
-
-TEST_F(SplitVectorTest, GetRange) {
-	psv->InsertValue(0, 10, 0);
-	psv->InsertValue(7, 1, 1);
-	int retrieveArray[11] = {0};
-	psv->GetRange(retrieveArray, 0, 11);
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ((i==7) ? 1 : 0, retrieveArray[i]);
-	}
-}
-
-TEST_F(SplitVectorTest, GetRangeOverGap) {
-	psv->InsertFromArray(0, testArray, 0, lengthTestArray);
-	EXPECT_EQ(lengthTestArray, psv->Length());
-	int retrieveArray[lengthTestArray] = {0};
-	psv->GetRange(retrieveArray, 0, lengthTestArray);
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ(i+3, retrieveArray[i]);
-	}
-}
-
-TEST_F(SplitVectorTest, ReplaceUp) {
-	// Replace each element by inserting and then deleting the displaced element
-	// This should perform many moves
-	const int testLength=105;
-	psv->EnsureLength(testLength);
-	for (int i=0; i<testLength; i++)
-		psv->SetValueAt(i, i+2);
-	EXPECT_EQ(testLength, psv->Length());
-	for (int i=0; i<psv->Length(); i++) {
-		psv->InsertValue(i, 1, i+9);
-		psv->Delete(i+1);
-	}
-	for (int i=0; i<psv->Length(); i++)
-		EXPECT_EQ(i+9, psv->ValueAt(i));
-}
-
-TEST_F(SplitVectorTest, ReplaceDown) {
-	// From the end, replace each element by inserting and then deleting the displaced element
-	// This should perform many moves
-	const int testLength=24;
-	psv->EnsureLength(testLength);
-	for (int i=0; i<testLength; i++)
-		psv->SetValueAt(i, i+12);
-	EXPECT_EQ(testLength, psv->Length());
-	for (int i=psv->Length()-1; i>=0; i--) {
-		psv->InsertValue(i, 1, i+5);
-		psv->Delete(i+1);
-	}
-	for (int i=0; i<psv->Length(); i++)
-		EXPECT_EQ(i+5, psv->ValueAt(i));
-}
-
-TEST_F(SplitVectorTest, BufferPointer) {
-	psv->InsertFromArray(0, testArray, 0, lengthTestArray);
-	int *retrievePointer = psv->BufferPointer();
-	for (int i=0; i<psv->Length(); i++) {
-		EXPECT_EQ(i+3, retrievePointer[i]);
-	}
-}
-
-TEST_F(SplitVectorTest, DeleteBackAndForth) {
-	psv->InsertValue(0, 10, 87);
-	for (int i=0; i<10; i+=2) {
-		int len = 10 - i;
-		EXPECT_EQ(len, psv->Length());
-		for (int i=0; i<psv->Length(); i++) {
-			EXPECT_EQ(87, psv->ValueAt(i));
+	SECTION("InsertOne") {
+		sv.InsertValue(0, 10, 0);
+		sv.Insert(5, 3);
+		REQUIRE(11 == sv.Length());
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE(((i == 5) ? 3 : 0) == sv.ValueAt(i));
 		}
-		psv->Delete(len-1);
-		psv->Delete(0);
 	}
+
+	SECTION("Insertion") {
+		sv.InsertValue(0, 10, 0);
+		REQUIRE(10 == sv.Length());
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE(0 == sv.ValueAt(i));
+		}
+	}
+
+	SECTION("EnsureLength") {
+		sv.EnsureLength(4);
+		REQUIRE(4 == sv.Length());
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE(0 == sv.ValueAt(i));
+		}
+	}
+
+	SECTION("InsertFromArray") {
+		sv.InsertFromArray(0, testArray, 0, lengthTestArray);
+		REQUIRE(lengthTestArray == sv.Length());
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE((i+3) == sv.ValueAt(i));
+		}
+	}
+
+	SECTION("SetValue") {
+		sv.InsertValue(0, 10, 0);
+		sv.SetValueAt(5, 3);
+		REQUIRE(10 == sv.Length());
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE(((i == 5) ? 3 : 0) == sv.ValueAt(i));
+		}
+		// Move the gap
+		sv.InsertValue(7, 1, 17);
+		REQUIRE(17 == sv.ValueAt(7));
+		REQUIRE(0 == sv.ValueAt(8));
+		// Set after the gap
+		sv.SetValueAt(8, 19);
+		REQUIRE(19 == sv.ValueAt(8));
+	}
+
+	SECTION("Indexing") {
+		sv.InsertValue(0, 10, 0);
+		sv.SetValueAt(5, 3);
+		REQUIRE(10 == sv.Length());
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE(((i == 5) ? 3 : 0) == sv[i]);
+		}
 }
 
-TEST_F(SplitVectorTest, GrowSize) {
-	psv->SetGrowSize(5);
-	EXPECT_EQ(5, psv->GetGrowSize());
-}
+	SECTION("Fill") {
+		sv.InsertValue(0, 10, 0);
+		REQUIRE(10 == sv.Length());
+		sv.InsertValue(7, 1, 1);
+		REQUIRE(11 == sv.Length());
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE(((i == 7) ? 1 : 0) == sv.ValueAt(i));
+		}
+	}
 
-TEST_F(SplitVectorTest, OutsideBounds) {
-	psv->InsertValue(0, 10, 87);
-	EXPECT_EQ(0, psv->ValueAt(-1));
-	EXPECT_EQ(0, psv->ValueAt(10));
+	SECTION("DeleteOne") {
+		sv.InsertFromArray(0, testArray, 0, lengthTestArray);
+		sv.Delete(2);
+		REQUIRE((lengthTestArray-1) == sv.Length());
+		REQUIRE(3 == sv[0]);
+		REQUIRE(4 == sv[1]);
+		REQUIRE(6 == sv[2]);
+	}
 
-	/* Could be a death test as this asserts:
-	psv->SetValueAt(-1,98);
-	psv->SetValueAt(10,99);
-	EXPECT_EQ(0, psv->ValueAt(-1));
-	EXPECT_EQ(0, psv->ValueAt(10));
-	*/
+	SECTION("DeleteRange") {
+		sv.InsertValue(0, 10, 0);
+		REQUIRE(10 == sv.Length());
+		sv.InsertValue(7, 1, 1);
+		REQUIRE(11 == sv.Length());
+		sv.DeleteRange(2, 3);
+		REQUIRE(8 == sv.Length());
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE(((i == 4) ? 1 : 0) == sv.ValueAt(i));
+		}
+	}
+
+	SECTION("DeleteAll") {
+		sv.InsertValue(0, 10, 0);
+		sv.InsertValue(7, 1, 1);
+		sv.DeleteRange(2, 3);
+		sv.DeleteAll();
+		REQUIRE(0 == sv.Length());
+	}
+
+	SECTION("GetRange") {
+		sv.InsertValue(0, 10, 0);
+		sv.InsertValue(7, 1, 1);
+		int retrieveArray[11] = {0};
+		sv.GetRange(retrieveArray, 0, 11);
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE(((i==7) ? 1 : 0) == retrieveArray[i]);
+		}
+	}
+
+	SECTION("GetRangeOverGap") {
+		sv.InsertFromArray(0, testArray, 0, lengthTestArray);
+		REQUIRE(lengthTestArray == sv.Length());
+		int retrieveArray[lengthTestArray] = {0};
+		sv.GetRange(retrieveArray, 0, lengthTestArray);
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE((i+3) == retrieveArray[i]);
+		}
+	}
+
+	SECTION("ReplaceUp") {
+		// Replace each element by inserting and then deleting the displaced element
+		// This should perform many moves
+		const int testLength=105;
+		sv.EnsureLength(testLength);
+		for (int i=0; i<testLength; i++)
+			sv.SetValueAt(i, i+2);
+		REQUIRE(testLength == sv.Length());
+		for (int i=0; i<sv.Length(); i++) {
+			sv.InsertValue(i, 1, i+9);
+			sv.Delete(i+1);
+		}
+		for (int i=0; i<sv.Length(); i++)
+			REQUIRE((i+9) == sv.ValueAt(i));
+	}
+
+	SECTION("ReplaceDown") {
+		// From the end, replace each element by inserting and then deleting the displaced element
+		// This should perform many moves
+		const int testLength=24;
+		sv.EnsureLength(testLength);
+		for (int i=0; i<testLength; i++)
+			sv.SetValueAt(i, i+12);
+		REQUIRE(testLength == sv.Length());
+		for (int i=sv.Length()-1; i>=0; i--) {
+			sv.InsertValue(i, 1, i+5);
+			sv.Delete(i+1);
+		}
+		for (int i=0; i<sv.Length(); i++)
+			REQUIRE((i+5) == sv.ValueAt(i));
+	}
+
+	SECTION("BufferPointer") {
+		sv.InsertFromArray(0, testArray, 0, lengthTestArray);
+		int *retrievePointer = sv.BufferPointer();
+		for (int i=0; i<sv.Length(); i++) {
+			REQUIRE((i+3) == retrievePointer[i]);
+		}
+	}
+
+	SECTION("DeleteBackAndForth") {
+		sv.InsertValue(0, 10, 87);
+		for (int i=0; i<10; i+=2) {
+			int len = 10 - i;
+			REQUIRE(len == sv.Length());
+			for (int i=0; i<sv.Length(); i++) {
+				REQUIRE(87 == sv.ValueAt(i));
+			}
+			sv.Delete(len-1);
+			sv.Delete(0);
+		}
+	}
+
+	SECTION("GrowSize") {
+		sv.SetGrowSize(5);
+		REQUIRE(5 == sv.GetGrowSize());
+	}
+
+	SECTION("OutsideBounds") {
+		sv.InsertValue(0, 10, 87);
+		REQUIRE(0 == sv.ValueAt(-1));
+		REQUIRE(0 == sv.ValueAt(10));
+
+		/* Could be a death test as this asserts:
+		sv.SetValueAt(-1,98);
+		sv.SetValueAt(10,99);
+		REQUIRE(0 == sv.ValueAt(-1));
+		REQUIRE(0 == sv.ValueAt(10));
+		*/
+	}
+
 }

@@ -29,9 +29,7 @@
 #ifndef BUFFER_H
 #define BUFFER_H
 
-#ifndef UTF8_16_H
 #include "Utf8_16.h"
-#endif// UTF8_16_H
 
 class Buffer;
 typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrieved

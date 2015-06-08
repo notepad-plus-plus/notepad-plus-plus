@@ -14,8 +14,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <assert.h>
 #include <ctype.h>
 #include <time.h>
+#include <cmath>
+#include <stdexcept>
 #include <string>
 #include <vector>
 #include <map>
@@ -43,6 +46,9 @@
 #include "Document.h"
 #include "Selection.h"
 #include "PositionCache.h"
+#include "EditModel.h"
+#include "MarginView.h"
+#include "EditView.h"
 #include "Editor.h"
 #include "ScintillaBase.h"
 #include "CaseConvert.h"
@@ -66,7 +72,7 @@ class ScintillaQt : public QObject, public ScintillaBase {
 	Q_OBJECT
 
 public:
-	ScintillaQt(QAbstractScrollArea *parent);
+	explicit ScintillaQt(QAbstractScrollArea *parent);
 	virtual ~ScintillaQt();
 
 signals:
@@ -85,7 +91,6 @@ signals:
 	void command(uptr_t wParam, sptr_t lParam);
 
 private slots:
-	void tick();
 	void onIdle();
 	void execCommand(QAction *action);
 	void SelectionChanged();
@@ -111,7 +116,11 @@ private:
 	virtual void NotifyChange();
 	virtual void NotifyFocus(bool focus);
 	virtual void NotifyParent(SCNotification scn);
-	virtual void SetTicking(bool on);
+	int timers[tickDwell+1];
+	virtual bool FineTickerAvailable();
+	virtual bool FineTickerRunning(TickReason reason);
+	virtual void FineTickerStart(TickReason reason, int millis, int tolerance);
+	virtual void FineTickerCancel(TickReason reason);
 	virtual bool SetIdle(bool on);
 	virtual void SetMouseCapture(bool on);
 	virtual bool HaveMouseCapture();
@@ -128,7 +137,7 @@ private:
 	virtual sptr_t WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 	virtual sptr_t DefWndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 
-	static sptr_t DirectFunction(ScintillaQt *sciThis,
+	static sptr_t DirectFunction(sptr_t ptr,
 				     unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 
 protected:
@@ -139,6 +148,8 @@ protected:
 	void DragMove(const Point &point);
 	void DragLeave();
 	void Drop(const Point &point, const QMimeData *data, bool move);
+
+	void timerEvent(QTimerEvent *event);
 
 private:
 	QAbstractScrollArea *scrollArea;

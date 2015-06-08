@@ -27,15 +27,13 @@ typedef LexerFactoryFunction(EXT_LEXER_DECL *GetLexerFactoryFunction)(unsigned i
 class ExternalLexerModule : public LexerModule {
 protected:
 	GetLexerFactoryFunction fneFactory;
-	char name[100];
+	std::string name;
 public:
 	ExternalLexerModule(int language_, LexerFunction fnLexer_,
 		const char *languageName_=0, LexerFunction fnFolder_=0) :
 		LexerModule(language_, fnLexer_, 0, fnFolder_),
-		fneFactory(0) {
-		strncpy(name, languageName_, sizeof(name));
-		name[sizeof(name)-1] = '\0';
-		languageName = name;
+		fneFactory(0), name(languageName_){
+		languageName = name.c_str();
 	}
 	virtual void SetExternal(GetLexerFactoryFunction fFactory, int index);
 };
@@ -54,7 +52,7 @@ class LexerLibrary {
 	LexerMinder		*last;
 
 public:
-	LexerLibrary(const char *ModuleName);
+	explicit LexerLibrary(const char *ModuleName);
 	~LexerLibrary();
 	void Release();
 

@@ -104,7 +104,7 @@ static void ColouriseInnoDoc(unsigned int startPos, int length, int, WordList *k
 				} else if (ch == '\'') {
 					// Start of a single-quote string
 					state = SCE_INNO_STRING_SINGLE;
-				} else if (isascii(ch) && (isalpha(ch) || (ch == '_'))) {
+				} else if (IsASCII(ch) && (isalpha(ch) || (ch == '_'))) {
 					// Start of an identifier
 					bufferCount = 0;
 					buffer[bufferCount++] = static_cast<char>(tolower(ch));
@@ -123,7 +123,7 @@ static void ColouriseInnoDoc(unsigned int startPos, int length, int, WordList *k
 				break;
 
 			case SCE_INNO_IDENTIFIER:
-				if (isascii(ch) && (isalnum(ch) || (ch == '_'))) {
+				if (IsASCII(ch) && (isalnum(ch) || (ch == '_'))) {
 					buffer[bufferCount++] = static_cast<char>(tolower(ch));
 				} else {
 					state = SCE_INNO_DEFAULT;
@@ -160,7 +160,7 @@ static void ColouriseInnoDoc(unsigned int startPos, int length, int, WordList *k
 					} else {
 						styler.ColourTo(i,SCE_INNO_DEFAULT);
 					}
-				} else if (isascii(ch) && (isalnum(ch) || (ch == '_'))) {
+				} else if (IsASCII(ch) && (isalnum(ch) || (ch == '_'))) {
 					buffer[bufferCount++] = static_cast<char>(tolower(ch));
 				} else {
 					state = SCE_INNO_DEFAULT;
@@ -170,7 +170,7 @@ static void ColouriseInnoDoc(unsigned int startPos, int length, int, WordList *k
 
 			case SCE_INNO_PREPROC:
 				if (isWS || isEOL) {
-					if (isascii(chPrev) && isalpha(chPrev)) {
+					if (IsASCII(chPrev) && isalpha(chPrev)) {
 						state = SCE_INNO_DEFAULT;
 						buffer[bufferCount] = '\0';
 
@@ -185,7 +185,7 @@ static void ColouriseInnoDoc(unsigned int startPos, int length, int, WordList *k
 						chNext = styler[i--];
 						ch = chPrev;
 					}
-				} else if (isascii(ch) && isalpha(ch)) {
+				} else if (IsASCII(ch) && isalpha(ch)) {
 					if (chPrev == '#' || chPrev == ' ' || chPrev == '\t')
 						bufferCount = 0;
 					buffer[bufferCount++] = static_cast<char>(tolower(ch));

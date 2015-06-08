@@ -42,7 +42,7 @@ DWORD colourItems[] = {
 
 void ColourPopup::create(int dialogID) 
 {
-	_hSelf = ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
+	_hSelf = ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent,  dlgProc, (LPARAM)this);
 	
 	if (!_hSelf)
 	{
@@ -52,7 +52,7 @@ void ColourPopup::create(int dialogID)
 	display();
 }
 
-BOOL CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
+INT_PTR CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
 {
 	switch (message) 
 	{

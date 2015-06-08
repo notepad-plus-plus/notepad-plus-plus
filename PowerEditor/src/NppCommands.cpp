@@ -101,7 +101,7 @@ void Notepad_plus::command(int id)
 				if (id == IDM_FILESWITCHER_FILESCLOSEOTHERS)
 				{
 					// Get current buffer and its view
-					_pFileSwitcherPanel->activateItem(int(_pEditView->getCurrentBufferID()), currentView());
+					_pFileSwitcherPanel->activateItem(_pEditView->getCurrentBufferID(), currentView());
 				}
 			}
 			break;

@@ -32,13 +32,16 @@
 #include "window.h"
 #include "TaskListDlg.h"
 
+class Buffer;
+typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrieved
+
 #define SORT_DIRECTION_UP     0
 #define SORT_DIRECTION_DOWN   1
 
 struct SwitcherFileInfo {
-	int _bufID;
+	BufferID _bufID;
 	int _iView;
-	SwitcherFileInfo(int buf, int view): _bufID(buf), _iView(view){};
+	SwitcherFileInfo(BufferID buf, int view) : _bufID(buf), _iView(view){};
 };
 
 class VerticalFileSwitcherListView : public Window
@@ -50,14 +53,14 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst);
 	virtual void destroy();
 	void initList();
-	int getBufferInfoFromIndex(int index, int & view) const;
+	BufferID getBufferInfoFromIndex(int index, int & view) const;
 	void setBgColour(int i) {
 		ListView_SetItemState(_hSelf, i, LVIS_SELECTED|LVIS_FOCUSED, 0xFF);
 	}
-	int newItem(int bufferID, int iView);
-	int closeItem(int bufferID, int iView);
-	void activateItem(int bufferID, int iView);
-	void setItemIconStatus(int bufferID);
+	int newItem(BufferID bufferID, int iView);
+	int closeItem(BufferID bufferID, int iView);
+	void activateItem(BufferID bufferID, int iView);
+	void setItemIconStatus(BufferID bufferID);
 	generic_string getFullFilePath(size_t i) const;
 	
 	void insertColumn(const TCHAR *name, int width, int index);
@@ -92,8 +95,8 @@ protected:
 		return (((VerticalFileSwitcherListView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
 
-	int find(int bufferID, int iView) const;
-	int add(int bufferID, int iView);
+	int find(BufferID bufferID, int iView) const;
+	int add(BufferID bufferID, int iView);
 	void remove(int index);
 	void removeAll();
 };

@@ -9,7 +9,7 @@
 #include "SplitVector.h"
 #include "Partitioning.h"
 
-#include <gtest/gtest.h>
+#include "catch.hpp"
 
 const int growSize = 4;
 
@@ -18,193 +18,165 @@ static const int testArray[lengthTestArray] = {3, 4, 5, 6, 7, 8, 9, 10};
 
 // Test SplitVectorWithRangeAdd.
 
-class SplitVectorWithRangeAddTest : public ::testing::Test {
-protected:
-	virtual void SetUp() {
-		psvwra = new SplitVectorWithRangeAdd(growSize);
+TEST_CASE("SplitVectorWithRangeAdd") {
+
+	SplitVectorWithRangeAdd svwra(growSize);
+
+	SECTION("IsEmptyInitially") {
+		REQUIRE(0 == svwra.Length());
 	}
 
-	virtual void TearDown() {
-		delete psvwra;
-		psvwra = 0;
+	SECTION("IncrementExceptEnds") {
+		svwra.InsertFromArray(0, testArray, 0, lengthTestArray);
+		svwra.RangeAddDelta(1, lengthTestArray-1, 1);
+		for (int i=0; i<svwra.Length(); i++) {
+			if ((i == 0) || (i == lengthTestArray-1))
+				REQUIRE((i+3) == svwra.ValueAt(i));
+			else
+				REQUIRE((i+4) == svwra.ValueAt(i));
+		}
 	}
 
-	SplitVectorWithRangeAdd *psvwra;
-};
-
-TEST_F(SplitVectorWithRangeAddTest, IsEmptyInitially) {
-	EXPECT_EQ(0, psvwra->Length());
-}
-
-TEST_F(SplitVectorWithRangeAddTest, IncrementExceptEnds) {
-	psvwra->InsertFromArray(0, testArray, 0, lengthTestArray);
-	psvwra->RangeAddDelta(1, lengthTestArray-1, 1);
-	for (int i=0; i<psvwra->Length(); i++) {
-		if ((i == 0) || (i == lengthTestArray-1))
-			EXPECT_EQ(i+3, psvwra->ValueAt(i));
-		else
-			EXPECT_EQ(i+4, psvwra->ValueAt(i));
-	}
 }
 
 // Test Partitioning.
 
-class PartitioningTest : public ::testing::Test {
-protected:
-	virtual void SetUp() {
-		pp = new Partitioning(growSize);
+TEST_CASE("Partitioning") {
+
+	Partitioning part(growSize);
+
+	SECTION("IsEmptyInitially") {
+		REQUIRE(1 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(part.Partitions()));
+		REQUIRE(0 == part.PartitionFromPosition(0));
 	}
 
-	virtual void TearDown() {
-		delete pp;
-		pp = 0;
+	SECTION("SimpleInsert") {
+		part.InsertText(0, 1);
+		REQUIRE(1 == part.Partitions());
+		REQUIRE(1 == part.PositionFromPartition(part.Partitions()));
 	}
 
-	Partitioning *pp;
-};
-
-TEST_F(PartitioningTest, IsEmptyInitially) {
-	EXPECT_EQ(1, pp->Partitions());
-	EXPECT_EQ(0, pp->PositionFromPartition(pp->Partitions()));
-	EXPECT_EQ(0, pp->PartitionFromPosition(0));
-}
-
-TEST_F(PartitioningTest, SimpleInsert) {
-	pp->InsertText(0, 1);
-	EXPECT_EQ(1, pp->Partitions());
-	EXPECT_EQ(1, pp->PositionFromPartition(pp->Partitions()));
-}
-
-TEST_F(PartitioningTest, TwoPartitions) {
-	pp->InsertText(0, 2);
-	pp->InsertPartition(1, 1);
-	EXPECT_EQ(2, pp->Partitions());
-	EXPECT_EQ(0, pp->PositionFromPartition(0));
-	EXPECT_EQ(1, pp->PositionFromPartition(1));
-	EXPECT_EQ(2, pp->PositionFromPartition(2));
-}
-
-TEST_F(PartitioningTest, MoveStart) {
-	pp->InsertText(0, 3);
-	pp->InsertPartition(1, 2);
-	pp->SetPartitionStartPosition(1,1);
-	EXPECT_EQ(2, pp->Partitions());
-	EXPECT_EQ(0, pp->PositionFromPartition(0));
-	EXPECT_EQ(1, pp->PositionFromPartition(1));
-	EXPECT_EQ(3, pp->PositionFromPartition(2));
-}
-
-TEST_F(PartitioningTest, InsertAgain) {
-	pp->InsertText(0, 3);
-	pp->InsertPartition(1, 2);
-	pp->InsertText(0,3);
-	pp->InsertText(1,2);
-	EXPECT_EQ(2, pp->Partitions());
-	EXPECT_EQ(0, pp->PositionFromPartition(0));
-	EXPECT_EQ(5, pp->PositionFromPartition(1));
-	EXPECT_EQ(8, pp->PositionFromPartition(2));
-}
-
-TEST_F(PartitioningTest, InsertReversed) {
-	pp->InsertText(0, 3);
-	pp->InsertPartition(1, 2);
-	pp->InsertText(1,2);
-	pp->InsertText(0,3);
-	EXPECT_EQ(2, pp->Partitions());
-	EXPECT_EQ(0, pp->PositionFromPartition(0));
-	EXPECT_EQ(5, pp->PositionFromPartition(1));
-	EXPECT_EQ(8, pp->PositionFromPartition(2));
-}
-
-TEST_F(PartitioningTest, InverseSearch) {
-	pp->InsertText(0, 3);
-	pp->InsertPartition(1, 2);
-	pp->SetPartitionStartPosition(1,1);
-
-	EXPECT_EQ(2, pp->Partitions());
-	EXPECT_EQ(0, pp->PositionFromPartition(0));
-	EXPECT_EQ(1, pp->PositionFromPartition(1));
-	EXPECT_EQ(3, pp->PositionFromPartition(2));
-
-	EXPECT_EQ(0, pp->PartitionFromPosition(0));
-	EXPECT_EQ(1, pp->PartitionFromPosition(1));
-	EXPECT_EQ(1, pp->PartitionFromPosition(2));
-
-	EXPECT_EQ(1, pp->PartitionFromPosition(3));
-}
-
-TEST_F(PartitioningTest, DeletePartition) {
-	pp->InsertText(0, 2);
-	pp->InsertPartition(1, 1);
-	pp->RemovePartition(1);
-	EXPECT_EQ(1, pp->Partitions());
-	EXPECT_EQ(0, pp->PositionFromPartition(0));
-	EXPECT_EQ(2, pp->PositionFromPartition(1));
-}
-
-TEST_F(PartitioningTest, DeleteAll) {
-	pp->InsertText(0, 3);
-	pp->InsertPartition(1, 2);
-	pp->SetPartitionStartPosition(1,1);
-	pp->DeleteAll();
-	// Back to initial state
-	EXPECT_EQ(1, pp->Partitions());
-	EXPECT_EQ(0, pp->PositionFromPartition(pp->Partitions()));
-}
-
-TEST_F(PartitioningTest, TestBackwards) {
-	pp->InsertText(0, 10);
-	pp->InsertPartition(1, 3);
-	pp->InsertPartition(2, 6);
-	pp->InsertPartition(3, 9);
-	pp->InsertText(2,4);
-	pp->InsertText(1,2);
-	pp->InsertText(0,3);
-	EXPECT_EQ(4, pp->Partitions());
-	EXPECT_EQ(0, pp->PositionFromPartition(0));
-	EXPECT_EQ(6, pp->PositionFromPartition(1));
-	EXPECT_EQ(11, pp->PositionFromPartition(2));
-	EXPECT_EQ(18, pp->PositionFromPartition(3));
-	EXPECT_EQ(19, pp->PositionFromPartition(4));
-}
-
-TEST_F(PartitioningTest, TestMany) {
-	// Provoke backstep call
-	pp->InsertText(0, 42);
-	for (int i=0; i<20; i++) {
-		pp->InsertPartition(i+1, (i+1) * 2);
+	SECTION("TwoPartitions") {
+		part.InsertText(0, 2);
+		part.InsertPartition(1, 1);
+		REQUIRE(2 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(1 == part.PositionFromPartition(1));
+		REQUIRE(2 == part.PositionFromPartition(2));
 	}
-	for (int i=20; i>0; i--) {
-		pp->InsertText(i,2);
-	}
-	EXPECT_EQ(21, pp->Partitions());
-	for (int i=1; i<20; i++) {
-		EXPECT_EQ(i*4 - 2, pp->PositionFromPartition(i));
-		EXPECT_EQ(i, pp->PartitionFromPosition(i*4 - 2));
-	}
-	pp->InsertText(19,2);
-	EXPECT_EQ(3, pp->PartitionFromPosition(10));
-	pp->InsertText(0,2);
-	pp->InsertText(0,-2);
-	pp->RemovePartition(1);
-	EXPECT_EQ(0, pp->PositionFromPartition(0));
-	EXPECT_EQ(6, pp->PositionFromPartition(1));
-	EXPECT_EQ(10, pp->PositionFromPartition(2));
-	pp->RemovePartition(10);
-	EXPECT_EQ(46, pp->PositionFromPartition(10));
-	EXPECT_EQ(10, pp->PartitionFromPosition(46));
-	EXPECT_EQ(50, pp->PositionFromPartition(11));
-	EXPECT_EQ(11, pp->PartitionFromPosition(50));
-}
 
-#if !PLAT_WIN
-// Omit death tests on Windows where they trigger a system "unitTest.exe has stopped working" popup.
-TEST_F(PartitioningTest, OutOfRangeDeathTest) {
-	::testing::FLAGS_gtest_death_test_style = "threadsafe";
-	pp->InsertText(0, 2);
-	pp->InsertPartition(1, 1);
-	EXPECT_EQ(2, pp->Partitions());
-	ASSERT_DEATH(pp->PositionFromPartition(-1), "Assertion");
-	ASSERT_DEATH(pp->PositionFromPartition(3), "Assertion");
+	SECTION("MoveStart") {
+		part.InsertText(0, 3);
+		part.InsertPartition(1, 2);
+		part.SetPartitionStartPosition(1,1);
+		REQUIRE(2 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(1 == part.PositionFromPartition(1));
+		REQUIRE(3 == part.PositionFromPartition(2));
+	}
+
+	SECTION("InsertAgain") {
+		part.InsertText(0, 3);
+		part.InsertPartition(1, 2);
+		part.InsertText(0,3);
+		part.InsertText(1,2);
+		REQUIRE(2 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(5 == part.PositionFromPartition(1));
+		REQUIRE(8 == part.PositionFromPartition(2));
+	}
+
+	SECTION("InsertReversed") {
+		part.InsertText(0, 3);
+		part.InsertPartition(1, 2);
+		part.InsertText(1,2);
+		part.InsertText(0,3);
+		REQUIRE(2 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(5 == part.PositionFromPartition(1));
+		REQUIRE(8 == part.PositionFromPartition(2));
+	}
+
+	SECTION("InverseSearch") {
+		part.InsertText(0, 3);
+		part.InsertPartition(1, 2);
+		part.SetPartitionStartPosition(1,1);
+
+		REQUIRE(2 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(1 == part.PositionFromPartition(1));
+		REQUIRE(3 == part.PositionFromPartition(2));
+
+		REQUIRE(0 == part.PartitionFromPosition(0));
+		REQUIRE(1 == part.PartitionFromPosition(1));
+		REQUIRE(1 == part.PartitionFromPosition(2));
+
+		REQUIRE(1 == part.PartitionFromPosition(3));
+	}
+
+	SECTION("DeletePartition") {
+		part.InsertText(0, 2);
+		part.InsertPartition(1, 1);
+		part.RemovePartition(1);
+		REQUIRE(1 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(2 == part.PositionFromPartition(1));
+	}
+
+	SECTION("DeleteAll") {
+		part.InsertText(0, 3);
+		part.InsertPartition(1, 2);
+		part.SetPartitionStartPosition(1,1);
+		part.DeleteAll();
+		// Back to initial state
+		REQUIRE(1 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(part.Partitions()));
+	}
+
+	SECTION("TestBackwards") {
+		part.InsertText(0, 10);
+		part.InsertPartition(1, 3);
+		part.InsertPartition(2, 6);
+		part.InsertPartition(3, 9);
+		part.InsertText(2,4);
+		part.InsertText(1,2);
+		part.InsertText(0,3);
+		REQUIRE(4 == part.Partitions());
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(6 == part.PositionFromPartition(1));
+		REQUIRE(11 == part.PositionFromPartition(2));
+		REQUIRE(18 == part.PositionFromPartition(3));
+		REQUIRE(19 == part.PositionFromPartition(4));
+	}
+
+	SECTION("TestMany") {
+		// Provoke backstep call
+		part.InsertText(0, 42);
+		for (int i=0; i<20; i++) {
+			part.InsertPartition(i+1, (i+1) * 2);
+		}
+		for (int i=20; i>0; i--) {
+			part.InsertText(i,2);
+		}
+		REQUIRE(21 == part.Partitions());
+		for (int i=1; i<20; i++) {
+			REQUIRE((i*4 - 2) == part.PositionFromPartition(i));
+			REQUIRE(i == part.PartitionFromPosition(i*4 - 2));
+		}
+		part.InsertText(19,2);
+		REQUIRE(3 == part.PartitionFromPosition(10));
+		part.InsertText(0,2);
+		part.InsertText(0,-2);
+		part.RemovePartition(1);
+		REQUIRE(0 == part.PositionFromPartition(0));
+		REQUIRE(6 == part.PositionFromPartition(1));
+		REQUIRE(10 == part.PositionFromPartition(2));
+		part.RemovePartition(10);
+		REQUIRE(46 == part.PositionFromPartition(10));
+		REQUIRE(10 == part.PartitionFromPosition(46));
+		REQUIRE(50 == part.PositionFromPartition(11));
+		REQUIRE(11 == part.PartitionFromPosition(50));
+	}
+
 }
-#endif

@@ -43,7 +43,7 @@ class EXPORT_IMPORT_API ScintillaEditBase : public QAbstractScrollArea {
 	Q_OBJECT
 
 public:
-	ScintillaEditBase(QWidget *parent = 0);
+	explicit ScintillaEditBase(QWidget *parent = 0);
 	virtual ~ScintillaEditBase();
 
 	virtual sptr_t send(
@@ -143,6 +143,10 @@ private:
 	QString preeditString;
 
 	int wheelDelta;
+
+	static bool IsHangul(const QChar qchar);
+	void MoveImeCarets(int offset); 
+	void DrawImeIndicator(int indicator, int len);
 };
 
 #ifdef SCI_NAMESPACE

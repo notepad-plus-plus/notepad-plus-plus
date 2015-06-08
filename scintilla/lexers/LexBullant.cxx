@@ -116,7 +116,7 @@ static void ColouriseBullantDoc(unsigned int startPos, int length, int initStyle
 			}
 			blockChange=0;
 */		}
-		if (!(isascii(ch) && isspace(ch)))
+		if (!(IsASCII(ch) && isspace(ch)))
 			visibleChars++;
 
 		if (styler.IsLeadByte(ch)) {

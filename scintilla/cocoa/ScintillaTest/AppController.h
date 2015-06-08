@@ -9,8 +9,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ScintillaView.h"
-#import "InfoBar.h"
+#import "Scintilla/ScintillaView.h"
+#import "Scintilla/InfoBar.h"
 
 @interface AppController : NSObject {
   IBOutlet NSBox *mEditHost;

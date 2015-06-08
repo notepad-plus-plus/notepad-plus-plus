@@ -167,12 +167,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				     (hWin == _pNonEditView->getHSelf())) // In the another view group
 			{
                 docGotoAnotherEditView(isInCtrlStat?TransferClone:TransferMove);
-			}/*
-			else if ((hWin == _pProjectPanel_1->getTreeHandle()))
-			{
-				
-                //printStr(TEXT("IN!!!"));
-			}*/
+			}
 			else
 			{
 				RECT nppZone;
@@ -325,6 +320,26 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				command(IDM_VIEW_SUMMARY);
 			}
+			else if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_TYPE))
+			{
+				POINT p;
+				::GetCursorPos(&p);
+				HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
+				TrackPopupMenu(hLangMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+			}
+			else if (lpnm->dwItemSpec == DWORD(STATUSBAR_EOF_FORMAT))
+			{
+				POINT p;
+				::GetCursorPos(&p);
+				MenuPosition & menuPos = getMenuPosition("edit-eolConversion");
+				HMENU hEditMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
+				if (!hEditMenu)
+					return TRUE;
+				HMENU hEolFormatMenu = ::GetSubMenu(hEditMenu, menuPos._y);
+				if (!hEolFormatMenu)
+					return TRUE;
+				TrackPopupMenu(hEolFormatMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+			}
         }
 		break;
 	}
@@ -342,6 +357,31 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         {
             switchEditViewTo(SUB_VIEW);
         }
+		else if (notification->nmhdr.hwndFrom == _statusBar.getHSelf())  // From Status Bar
+		{
+			LPNMMOUSE lpnm = (LPNMMOUSE)notification;
+			if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_TYPE))
+			{
+				POINT p;
+				::GetCursorPos(&p);
+				HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
+				TrackPopupMenu(hLangMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+			}
+			else if (lpnm->dwItemSpec == DWORD(STATUSBAR_EOF_FORMAT))
+			{
+				POINT p;
+				::GetCursorPos(&p);
+				MenuPosition & menuPos = getMenuPosition("edit-eolConversion");
+				HMENU hEditMenu = ::GetSubMenu(_mainMenuHandle, menuPos._x);
+				if (!hEditMenu)
+					return TRUE;
+				HMENU hEolFormatMenu = ::GetSubMenu(hEditMenu, menuPos._y);
+				if (!hEolFormatMenu)
+					return TRUE;
+				TrackPopupMenu(hEolFormatMenu, 0, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
+			}
+			return TRUE;
+		}
 		else if (_pFileSwitcherPanel && notification->nmhdr.hwndFrom == _pFileSwitcherPanel->getHSelf())
         {
 			// Already switched, so do nothing here.
@@ -361,7 +401,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return TRUE;
 			}
 		}
-		else // From tool bar or Status Bar
+		else // From tool bar
 			return TRUE;
 			//break;
 

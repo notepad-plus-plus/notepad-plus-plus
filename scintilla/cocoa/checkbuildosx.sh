@@ -4,56 +4,58 @@
 cd ../..
 
 # ************************************************************
-# Target 1: build framework and test app with Xcode targetting OS X 10.7
+# Target 1: Unit tests
+
+echo Unit tests
+
+cd scintilla/test/unit
+make clean
+make test
+cd ../../..
+
+# ************************************************************
+# Target 2: build framework and test app with Xcode targetting OS X 10.n with n from 9 to 5
+# Only SDK versions that are installed will be built
 # Clean both then build both -- if perform clean in ScintillaTest, also cleans ScintillaFramework
 # which can cause double build
-cd scintilla/cocoa/ScintillaFramework
-xcodebuild clean
-cd ../ScintillaTest
-xcodebuild clean
-cd ../ScintillaFramework
-xcodebuild -sdk macosx10.7
-cd ../ScintillaTest
-xcodebuild -sdk macosx10.7
-cd ../../..
+
+echo Building Cocoa-native ScintillaFramework and ScintillaTest
+for sdk in macosx10.9 macosx10.8 macosx10.7 macosx10.6 macosx10.5
+do
+    xcodebuild -showsdks | grep $sdk
+    if [ "$(xcodebuild -showsdks | grep $sdk)" != "" ]
+    then
+        echo Building with $sdk
+        cd scintilla/cocoa/ScintillaFramework
+        xcodebuild clean
+        cd ../ScintillaTest
+        xcodebuild clean
+        cd ../ScintillaFramework
+        xcodebuild -sdk $sdk
+        cd ../ScintillaTest
+        xcodebuild -sdk $sdk
+        cd ../../..
+    else
+        echo Warning $sdk not available
+    fi
+done
 
 # ************************************************************
-# Target 2: build framework and test app with Xcode targetting OS X 10.6
-cd scintilla/cocoa/ScintillaFramework
-xcodebuild clean
-cd ../ScintillaTest
-xcodebuild clean
-cd ../ScintillaFramework
-xcodebuild -sdk macosx10.6
-cd ../ScintillaTest
-xcodebuild -sdk macosx10.6
-cd ../../..
-
-# ************************************************************
-# Target 3: build framework and test app with Xcode targetting OS X 10.5
-cd scintilla/cocoa/ScintillaFramework
-xcodebuild clean
-cd ../ScintillaTest
-xcodebuild clean
-cd ../ScintillaFramework
-xcodebuild -sdk macosx10.5
-cd ../ScintillaTest
-xcodebuild -sdk macosx10.5
-cd ../../..
-
-# ************************************************************
-# Target 4: Qt builds
+# Target 3: Qt builds
 # Requires Qt development libraries and qmake to be installed
+
+echo Building Qt and PySide
+
 cd scintilla/qt
 cd ScintillaEditBase
-qmake
+qmake -spec macx-xcode
 xcodebuild clean
 xcodebuild
 cd ..
 
 cd ScintillaEdit
 python WidgetGen.py
-qmake
+qmake -spec macx-xcode
 xcodebuild clean
 xcodebuild
 cd ..
@@ -61,15 +63,4 @@ cd ..
 cd ScintillaEditPy
 python sepbuild.py
 cd ..
-cd ../..
-
-# ************************************************************
-# Target 5: build framework and test app with make
-cd scintilla/cocoa
-
-make -f Framework.mk clean
-make -f Framework.mk all
-
-make -f SciTest.mk all
-
 cd ../..

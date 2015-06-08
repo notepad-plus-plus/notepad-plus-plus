@@ -38,9 +38,9 @@
 #include "Accessor.h"
 #include "StyleContext.h"
 #include "CharacterSet.h"
+#include "CharacterCategory.h"
 #include "LexerModule.h"
 #include "OptionSet.h"
-#include "CharacterCategory.h"
 
 #ifdef SCI_NAMESPACE
 using namespace Scintilla;

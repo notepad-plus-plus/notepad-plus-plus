@@ -10,15 +10,15 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include <algorithm>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "Platform.h"
 
+#include "Scintilla.h"
 #include "CharacterSet.h"
 #include "AutoComplete.h"
-#include "Scintilla.h"
 
 #ifdef SCI_NAMESPACE
 using namespace Scintilla;
@@ -41,8 +41,6 @@ AutoComplete::AutoComplete() :
 	heightLBDefault(100),
 	autoSort(SC_ORDER_PRESORTED) {
 	lb = ListBox::Allocate();
-	stopChars[0] = '\0';
-	fillUpChars[0] = '\0';
 }
 
 AutoComplete::~AutoComplete() {
@@ -71,21 +69,19 @@ void AutoComplete::Start(Window &parent, int ctrlID,
 }
 
 void AutoComplete::SetStopChars(const char *stopChars_) {
-	strncpy(stopChars, stopChars_, sizeof(stopChars));
-	stopChars[sizeof(stopChars) - 1] = '\0';
+	stopChars = stopChars_;
 }
 
 bool AutoComplete::IsStopChar(char ch) {
-	return ch && strchr(stopChars, ch);
+	return ch && (stopChars.find(ch) != std::string::npos);
 }
 
 void AutoComplete::SetFillUpChars(const char *fillUpChars_) {
-	strncpy(fillUpChars, fillUpChars_, sizeof(fillUpChars));
-	fillUpChars[sizeof(fillUpChars) - 1] = '\0';
+	fillUpChars = fillUpChars_;
 }
 
 bool AutoComplete::IsFillUpChar(char ch) {
-	return ch && strchr(fillUpChars, ch);
+	return ch && (fillUpChars.find(ch) != std::string::npos);
 }
 
 void AutoComplete::SetSeparator(char separator_) {
@@ -171,7 +167,9 @@ void AutoComplete::SetList(const char *list) {
 	char item[maxItemLen];
 	for (size_t i = 0; i < sortMatrix.size(); ++i) {
 		int wordLen = IndexSort.indices[sortMatrix[i] * 2 + 2] - IndexSort.indices[sortMatrix[i] * 2];
-		strncpy(item, list + IndexSort.indices[sortMatrix[i] * 2], wordLen);
+		if (wordLen > maxItemLen-2)
+			wordLen = maxItemLen - 2;
+		memcpy(item, list + IndexSort.indices[sortMatrix[i] * 2], wordLen);
 		if ((i+1) == sortMatrix.size()) {
 			// Last item so remove separator if present
 			if ((wordLen > 0) && (item[wordLen-1] == separator))

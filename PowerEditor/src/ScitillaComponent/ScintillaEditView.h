@@ -669,8 +669,8 @@ protected:
 	bool _lineNumbersShown;
 	bool _wrapRestoreNeeded;
 
-	typedef std::map<int, Style> StyleMap;
-	typedef std::map<BufferID, StyleMap*> BufferStyleMap;
+	typedef std::unordered_map<int, Style> StyleMap;
+	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
 	BufferStyleMap _hotspotStyles;
 
 	int _beginSelectPosition;

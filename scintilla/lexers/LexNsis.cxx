@@ -180,6 +180,8 @@ static int classifyWordNsis(unsigned int start, unsigned int end, WordList *keyw
     bUserVars = true;
 
 	char s[100];
+	s[0] = '\0';
+	s[1] = '\0';
 
 	WordList &Functions = *keywordLists[0];
 	WordList &Variables = *keywordLists[1];

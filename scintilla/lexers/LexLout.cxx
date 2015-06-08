@@ -151,7 +151,7 @@ static void FoldLoutDoc(unsigned int startPos, int length, int, WordList *[],
 	char chNext = styler[startPos];
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	int styleNext = styler.StyleAt(startPos);
-	char s[10];
+	char s[10] = "";
 
 	for (unsigned int i = startPos; i < endPos; i++) {
 		char ch = chNext;

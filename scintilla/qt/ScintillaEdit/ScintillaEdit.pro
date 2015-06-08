@@ -11,7 +11,7 @@ TARGET = ScintillaEdit
 TEMPLATE = lib
 CONFIG += lib_bundle
 
-VERSION = 3.3.4
+VERSION = 3.5.6
 
 SOURCES += \
     ScintillaEdit.cpp \
@@ -29,11 +29,14 @@ SOURCES += \
     ../../src/RESearch.cxx \
     ../../src/PositionCache.cxx \
     ../../src/PerLine.cxx \
+    ../../src/MarginView.cxx \
     ../../src/LineMarker.cxx \
     ../../src/KeyMap.cxx \
     ../../src/Indicator.cxx \
     ../../src/ExternalLexer.cxx \
+    ../../src/EditView.cxx \
     ../../src/Editor.cxx \
+    ../../src/EditModel.cxx \
     ../../src/Document.cxx \
     ../../src/Decoration.cxx \
     ../../src/ContractionState.cxx \

@@ -19,6 +19,10 @@ using namespace Scintilla;
 FontAlias::FontAlias() {
 }
 
+FontAlias::FontAlias(const FontAlias &other) : Font() {
+	SetID(other.fid);
+}
+
 FontAlias::~FontAlias() {
 	SetID(0);
 	// ~Font will not release the actual font resource since it is now 0
@@ -159,8 +163,5 @@ void Style::ClearTo(const Style &source) {
 
 void Style::Copy(Font &font_, const FontMeasurements &fm_) {
 	font.MakeAlias(font_);
-#if PLAT_WX
-	font.SetAscent(fm_.ascent);
-#endif
 	(FontMeasurements &)(*this) = fm_;
 }

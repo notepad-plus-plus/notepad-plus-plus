@@ -29,7 +29,7 @@
 #include "FindCharsInRange.h"
 #include "FindCharsInRange_rc.h"
 
-BOOL CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{

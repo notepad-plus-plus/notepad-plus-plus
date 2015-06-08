@@ -385,7 +385,7 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 					base_n_number = false;
 					sc.SetState(SCE_P_NUMBER);
 				}
-			} else if ((isascii(sc.ch) && isoperator(static_cast<char>(sc.ch))) || sc.ch == '`') {
+			} else if ((IsASCII(sc.ch) && isoperator(static_cast<char>(sc.ch))) || sc.ch == '`') {
 				sc.SetState(SCE_P_OPERATOR);
 			} else if (sc.ch == '#') {
 				sc.SetState(sc.chNext == '#' ? SCE_P_COMMENTBLOCK : SCE_P_COMMENTLINE);

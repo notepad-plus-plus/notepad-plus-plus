@@ -45,11 +45,11 @@ int ValueDlg::doDialog(POINT p, bool isRTL)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;
 		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_VALUE_DLG, &pMyDlgTemplate);
-		int result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
+		int result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  dlgProc, (LPARAM)this);
 		::GlobalFree(hMyDlgTemplate);
 		return result;
 	}
-	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_VALUE_DLG), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
+	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_VALUE_DLG), _hParent,  dlgProc, (LPARAM)this);
 }
 
 
@@ -79,7 +79,7 @@ int ValueDlg::reSizeValueBox()
 	return extraSize;
 }
 
-BOOL CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+INT_PTR CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
 {
 	switch (Message)
 	{
@@ -122,7 +122,7 @@ BOOL CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 
 
 
-BOOL CALLBACK ButtonDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+INT_PTR CALLBACK ButtonDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
 {
 	switch (Message)
 	{

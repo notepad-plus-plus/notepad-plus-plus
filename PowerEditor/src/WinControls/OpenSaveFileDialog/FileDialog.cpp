@@ -276,7 +276,7 @@ static WNDPROC oldProc = NULL;
 static generic_string currentExt = TEXT("");
 
 
-static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
     {

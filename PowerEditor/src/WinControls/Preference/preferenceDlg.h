@@ -59,7 +59,7 @@ public :
 	SettingsDlg() {};
 
 private :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 class BarsDlg : public StaticDialog
@@ -67,7 +67,7 @@ class BarsDlg : public StaticDialog
 public :
 	BarsDlg() {};
 private :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 class MarginsDlg : public StaticDialog
@@ -80,7 +80,7 @@ public :
 	
 private :
 	URLCtrl _verticalEdgeLineNbColVal;
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	void initScintParam();
 };
 
@@ -103,7 +103,7 @@ private :
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt);
 	};
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 class DefaultDirectoryDlg : public StaticDialog
@@ -112,7 +112,7 @@ public :
 	DefaultDirectoryDlg() {};
 
 private :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 class RecentFilesHistoryDlg : public StaticDialog
@@ -128,7 +128,7 @@ private :
 	URLCtrl _customLenVal;
 	std::vector<LangID_Name> _langList;
 	void setCustomLen(int val);
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 class LangMenuDlg : public StaticDialog
@@ -138,7 +138,7 @@ public :
 
 private :
     LexerStylerArray _lsArray;
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	std::vector<LangMenuItem> _langList;
 };
 
@@ -152,7 +152,7 @@ public :
 
 private :
     URLCtrl _tabSizeVal;
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 
@@ -167,7 +167,7 @@ class PrintSettingsDlg : public StaticDialog
 public :
 	PrintSettingsDlg():_focusedEditCtrl(0), _selStart(0), _selEnd(0){};
 private :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	std::vector<strCouple> varList;
 	int _focusedEditCtrl;
 	DWORD _selStart;
@@ -180,7 +180,7 @@ public :
 	BackupDlg() {};
 private :
 	void updateBackupGUI();
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 
@@ -190,7 +190,7 @@ public :
 	AutoCompletionDlg() {};
 private :
 	URLCtrl _nbCharVal;
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 class MultiInstDlg : public StaticDialog
@@ -199,7 +199,7 @@ public :
 	MultiInstDlg() {};
 
 private :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 class DelimiterSettingsDlg : public StaticDialog
@@ -208,7 +208,7 @@ public :
 	DelimiterSettingsDlg() {};
 
 private :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	POINT _singleLineModePoint, _multiLineModePoint;
 	RECT _closerRect, _closerLabelRect;
 };
@@ -221,7 +221,7 @@ public :
 private :
 	CloudChoice _initialCloudChoice;
 
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	void setCloudChoice(const char *choice);
 	void removeCloudChoice();
 };
@@ -255,7 +255,7 @@ public :
 	virtual void destroy();
 
 private :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	void makeCategoryList();
 	void showDialogByIndex(int index);
 	//ControlsTab _ctrlTab;

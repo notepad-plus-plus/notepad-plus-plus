@@ -29,10 +29,7 @@
 #ifndef REG_EXT_DLG_H
 #define REG_EXT_DLG_H
 
-#ifndef REGEXTDLGRC_H
 #include "regExtDlgRc.h"
-#endif //REGEXTDLGRC_H
-
 #include "StaticDialog.h"
 
 const int extNameLen = 32;
@@ -48,7 +45,7 @@ public :
 private :
 	bool _isCustomize;
 
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	
 	void getRegisteredExts();
 	void getDefSupportedExts();

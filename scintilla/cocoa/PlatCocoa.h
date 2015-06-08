@@ -7,13 +7,13 @@
 #ifndef PLATCOCOA_H
 #define PLATCOCOA_H
 
-#include <cstring>
-#include <cstdio>
-#include <cstdlib>
-
 #include <assert.h>
 
 #include <sys/time.h>
+
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
 
 #include <Cocoa/Cocoa.h>
 #include "QuartzTextLayout.h"
@@ -50,7 +50,7 @@ private:
   QuartzTextLayout*	textLayout;
   int codePage;
   int verticalDeviceResolution;
-	
+
   /** If the surface is a bitmap context, contains a reference to the bitmap data. */
   uint8_t* bitmapData;
   /** If the surface is a bitmap context, stores the dimensions of the bitmap. */
@@ -98,7 +98,7 @@ public:
   void Copy(PRectangle rc, Scintilla::Point from, Surface &surfaceSource);
   void DrawTextNoClip(PRectangle rc, Font &font_, XYPOSITION ybase, const char *s, int len, ColourDesired fore,
                      ColourDesired back);
-  void DrawTextClipped(PRectangle rc, Font &font_, XYPOSITION ybase, const char *s, int len, ColourDesired fore, 
+  void DrawTextClipped(PRectangle rc, Font &font_, XYPOSITION ybase, const char *s, int len, ColourDesired fore,
                       ColourDesired back);
   void DrawTextTransparent(PRectangle rc, Font &font_, XYPOSITION ybase, const char *s, int len, ColourDesired fore);
   void MeasureWidths(Font &font_, const char *s, int len, XYPOSITION *positions);
@@ -117,7 +117,7 @@ public:
   void SetUnicodeMode(bool unicodeMode_);
   void SetDBCSMode(int codePage_);
 }; // SurfaceImpl class
-  
+
 } // Scintilla namespace
 
 #endif

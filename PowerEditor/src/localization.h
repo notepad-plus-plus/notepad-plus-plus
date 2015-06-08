@@ -38,6 +38,15 @@ class PreferenceDlg;
 class ShortcutMapper;
 class UserDefineDialog;
 
+class MenuPosition {
+public:
+	int _x;
+	int _y;
+	int _z;
+	char _id[64];
+};
+
+
 class NativeLangSpeaker {
 public:
     NativeLangSpeaker():_nativeLangA(NULL), _nativeLangEncoding(CP_ACP), _isRTL(false), _fileName(NULL){};
@@ -83,5 +92,8 @@ private:
     bool _isRTL;
     const char *_fileName;
 };
+
+
+MenuPosition & getMenuPosition(const char *id);
 
 #endif // LOCALIZATION_H

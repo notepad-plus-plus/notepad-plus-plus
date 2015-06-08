@@ -27,7 +27,7 @@ using namespace Scintilla;
 
 static void ClassifyWordSol(unsigned int start, unsigned int end, WordList &keywords, Accessor &styler, char *prevWord)
 {
-    char s[100];
+    char s[100] = "";
     bool wordIsNumber = isdigit(styler[start]) != 0;
     for (unsigned int i = 0; i < end - start + 1 && i < 30; i++)
      {
@@ -127,11 +127,10 @@ static void ColouriseSolDoc(unsigned int startPos, int length, int initStyle,
             }
 	}
 
-	styler.StartAt(startPos, 127);
+	styler.StartAt(startPos);
 
 	WordList &keywords = *keywordlists[0];
 
-	int whingeLevel = styler.GetPropertyInt("tab.timmy.whinge.level");
 	char prevWord[200];
 	prevWord[0] = '\0';
         if (length == 0)  return;
@@ -143,36 +142,8 @@ static void ColouriseSolDoc(unsigned int startPos, int length, int initStyle,
         char chPrev2 = ' ';
         char chNext  = styler[startPos];
 	styler.StartSegment(startPos);
-	bool atStartLine = true;
-	int spaceFlags = 0;
 	for (int i = startPos; i < lengthDoc; i++)
         {
-
-         if (atStartLine)
-         {
-         char chBad = static_cast<char>(64);
-         char chGood = static_cast<char>(0);
-         char chFlags = chGood;
-
-         if (whingeLevel == 1)
-         {
-             chFlags = (spaceFlags & wsInconsistent) ? chBad : chGood;
-         }
-         else if (whingeLevel == 2)
-         {
-             chFlags = (spaceFlags & wsSpaceTab) ? chBad : chGood;
-         }
-         else if (whingeLevel == 3)
-         {
-             chFlags = (spaceFlags & wsSpace) ? chBad : chGood;
-         }
-         else if (whingeLevel == 4)
-         {
-              chFlags = (spaceFlags & wsTab) ? chBad : chGood;
-         }
-         styler.SetFlags(chFlags, static_cast<char>(state));
-         atStartLine = false;
-       }
 
        char ch = chNext;
        chNext = styler.SafeGetCharAt(i + 1);
@@ -185,7 +156,6 @@ static void ColouriseSolDoc(unsigned int startPos, int length, int initStyle,
           {
               styler.ColourTo(i, state);
           }
-          atStartLine = true;
         }
 
         if (styler.IsLeadByte(ch))

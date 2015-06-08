@@ -141,7 +141,7 @@ static void ColouriseLuaDoc(
 					char s[100];
 					while (setWord.Contains(c = sc.GetRelative(ln))) {	// get potential label
 						if (i < 90)
-							s[i++] = c;
+							s[i++] = static_cast<char>(c);
 						ln++;
 					}
 					s[i] = '\0'; int lbl = ln;

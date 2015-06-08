@@ -8,9 +8,9 @@
 #include <vector>
 #include <algorithm>
 
+#include "CaseFolder.h"
 #include "CaseConvert.h"
 #include "UniConversion.h"
-#include "CaseFolder.h"
 
 #ifdef SCI_NAMESPACE
 using namespace Scintilla;

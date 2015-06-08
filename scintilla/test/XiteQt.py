@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Requires Python 2.7 or later
 
 import ctypes, os, sys, unittest
 
@@ -12,7 +13,8 @@ from bin import ScintillaEditPy
 
 scintillaDirectory = ".."
 scintillaIncludeDirectory = os.path.join(scintillaDirectory, "include")
-sys.path.append(scintillaIncludeDirectory)
+scintillaScriptsDirectory = os.path.join(scintillaDirectory, "scripts")
+sys.path.append(scintillaScriptsDirectory)
 import Face
 
 class Form(QDialog):

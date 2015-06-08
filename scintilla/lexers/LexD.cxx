@@ -41,15 +41,15 @@ using namespace Scintilla;
 // Underscore, letter, digit and universal alphas from C99 Appendix D.
 
 static bool IsWordStart(int ch) {
-	return (isascii(ch) && (isalpha(ch) || ch == '_')) || !isascii(ch);
+	return (IsASCII(ch) && (isalpha(ch) || ch == '_')) || !IsASCII(ch);
 }
 
 static bool IsWord(int ch) {
-	return (isascii(ch) && (isalnum(ch) || ch == '_')) || !isascii(ch);
+	return (IsASCII(ch) && (isalnum(ch) || ch == '_')) || !IsASCII(ch);
 }
 
 static bool IsDoxygen(int ch) {
-	if (isascii(ch) && islower(ch))
+	if (IsASCII(ch) && islower(ch))
 		return true;
 	if (ch == '$' || ch == '@' || ch == '\\' ||
 		ch == '&' || ch == '#' || ch == '<' || ch == '>' ||
@@ -267,7 +267,7 @@ void SCI_METHOD LexerD::Lex(unsigned int startPos, int length, int initStyle, ID
 				break;
 			case SCE_D_NUMBER:
 				// We accept almost anything because of hex. and number suffixes
-				if (isascii(sc.ch) && (isalnum(sc.ch) || sc.ch == '_')) {
+				if (IsASCII(sc.ch) && (isalnum(sc.ch) || sc.ch == '_')) {
 					continue;
 				} else if (sc.ch == '.' && sc.chNext != '.' && !numFloat) {
 					// Don't parse 0..2 as number.

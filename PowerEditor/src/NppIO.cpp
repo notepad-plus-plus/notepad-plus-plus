@@ -60,7 +60,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 	}
 	assert( _tcslen( longFileName ) == getFullPathNameResult );
 	
-	// ignore the returned value of fuction due to win64 redirection system
+	// ignore the returned value of function due to win64 redirection system
 	::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
@@ -380,21 +380,105 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 
 	if (!res)
 	{
-		if(error_msg.empty())
+		// try to open Notepad++ in admin mode
+		if (!_isAdministrator)
 		{
-			_nativeLangSpeaker.messageBox("FileLockedWarning",
-			_pPublicInterface->getHSelf(),
-			TEXT("Please check if this file is opened in another program."),
-			TEXT("Save failed"), 
-			MB_OK);
+			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+			if (isSnapshotMode) // if both rememberSession && backup mode are enabled
+			{                   // Open the 2nd Notepad++ instance in Admin mode, then close the 1st instance.
+				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminMode",
+				_pPublicInterface->getHSelf(),
+				TEXT("The file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?"),
+				TEXT("Save failed"),
+				MB_YESNO);
+
+				if (openInAdminModeRes == IDYES)
+				{
+					TCHAR nppFullPath[MAX_PATH];
+					::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+
+					generic_string args = TEXT("-multiInst");
+					size_t res = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), TEXT("runas"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
+
+					// If the function succeeds, it returns a value greater than 32. If the function fails,
+					// it returns an error value that indicates the cause of the failure.
+					// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
+
+					if (res < 32)
+					{
+						_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
+							_pPublicInterface->getHSelf(),
+							TEXT("Notepad++ cannot be opened in Administrator mode."),
+							TEXT("Open in Administrator mode failed"),
+							MB_OK);
+					}
+					else
+					{
+						::SendMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
+					}
+
+				}
+			}
+			else // rememberSession && backup mode are not both enabled
+			{    // open only the file to save in Notepad++ of Administrator mode by keeping the current instance.
+				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminModeWithoutCloseCurrent",
+				_pPublicInterface->getHSelf(),
+				TEXT("The file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?"),
+				TEXT("Save failed"),
+				MB_YESNO);
+
+				if (openInAdminModeRes == IDYES)
+				{
+					TCHAR nppFullPath[MAX_PATH];
+					::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+
+					BufferID bufferID = bufferID = _pEditView->getCurrentBufferID();
+					Buffer * buf = MainFileManager->getBufferByID(bufferID);
+
+					//process the fileNamePath into LRF
+					generic_string fileNamePath = buf->getFullPathName();
+
+					generic_string args = TEXT("-multiInst -nosession ");
+					args += TEXT("\"");
+					args += fileNamePath;
+					args += TEXT("\"");
+					size_t res = (size_t)::ShellExecute(_pPublicInterface->getHSelf(), TEXT("runas"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
+
+					// If the function succeeds, it returns a value greater than 32. If the function fails,
+					// it returns an error value that indicates the cause of the failure.
+					// https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
+
+					if (res < 32)
+					{
+						_nativeLangSpeaker.messageBox("OpenInAdminModeFailed",
+							_pPublicInterface->getHSelf(),
+							TEXT("Notepad++ cannot be opened in Administrator mode."),
+							TEXT("Open in Administrator mode failed"),
+							MB_OK);
+					}
+				}
+			}
+
 		}
 		else
 		{
-			::MessageBox(_pPublicInterface->getHSelf(), error_msg.c_str(), TEXT("Save failed"), MB_OK);
+
+			if (error_msg.empty())
+			{
+				_nativeLangSpeaker.messageBox("FileLockedWarning",
+					_pPublicInterface->getHSelf(),
+					TEXT("Please check if this file is opened in another program."),
+					TEXT("Save failed"),
+					MB_OK);
+			}
+			else
+			{
+				::MessageBox(_pPublicInterface->getHSelf(), error_msg.c_str(), TEXT("Save failed"), MB_OK);
+			}
 		}
 	}
 
-	if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
+	if (res && _pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 	{
 		_pFuncList->reload();
 	}

@@ -40,16 +40,8 @@
 FileManager * FileManager::_pSelf = new FileManager();
 
 static const int blockSize = 128 * 1024 + 4;
-
-// Ordre important!! Ne le changes pas!
-//SC_EOL_CRLF (0), SC_EOL_CR (1), or SC_EOL_LF (2).
-
 static const int CR = 0x0D;
 static const int LF = 0x0A;
-
-
-
-
 
 
 Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED

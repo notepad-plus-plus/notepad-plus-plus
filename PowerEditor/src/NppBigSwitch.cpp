@@ -65,6 +65,9 @@ struct SortTaskListPred
 
 LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
+	if (hwnd == NULL)
+		return FALSE;
+
 	switch(Message)
 	{
 		case WM_NCCREATE :	// First message we get the ptr of instantiated object

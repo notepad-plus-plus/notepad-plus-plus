@@ -197,7 +197,7 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 	pEditView->execute(SCI_SETANCHOR, posStart);	
 }
 
-LONG FindReplaceDlg::originalFinderProc = NULL;
+LONG_PTR FindReplaceDlg::originalFinderProc = NULL;
 
 void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool)
 {	

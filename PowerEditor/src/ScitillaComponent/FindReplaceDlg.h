@@ -308,7 +308,7 @@ protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void addText2Combo(const TCHAR * txt2add, HWND comboID, bool isUTF8 = false);
 	generic_string getTextFromCombo(HWND hCombo, bool isUnicode = false) const;
-	static LONG originalFinderProc;
+	static LONG_PTR originalFinderProc;
 
 	// Window procedure for the finder
 	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);

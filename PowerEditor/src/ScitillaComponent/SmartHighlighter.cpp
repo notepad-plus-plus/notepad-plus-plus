@@ -170,6 +170,7 @@ bool SmartHighlighter::isWordChar(char ch) const
 		case '$':
 		case '"':
 		case '\'':
+		case '`':
 		case '~':
 		case '&':
 		case '{':

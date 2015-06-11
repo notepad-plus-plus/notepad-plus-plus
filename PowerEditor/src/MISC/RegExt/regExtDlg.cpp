@@ -170,7 +170,7 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				{
 					if (i != LB_ERR)
 					{
-						TCHAR itemName[32];
+						TCHAR itemName[32] = { 0 };
 						::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETTEXT, i, (LPARAM)itemName);
 
 						if (!generic_stricmp(defExtArray[nbSupportedLang-1][0], itemName))

@@ -497,7 +497,7 @@ int WordStyleDlg::whichTabColourIndex()
 	int i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return -1;
-	TCHAR styleName[128];
+	TCHAR styleName[128] = { 0 };
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
 
 	if (lstrcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
@@ -724,13 +724,14 @@ void WordStyleDlg::setVisualFromStyleList()
 	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return;
-	TCHAR styleName[64];
+	TCHAR styleName[64] = { 0 };
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
 
-	lstrcat(lstrcat(str, TEXT(" : ")), styleName);
+	_tcscat_s( str, TEXT( " : " ));
+	_tcscat_s(str, styleName);
 
 	// PAD for fix a display glitch
-	lstrcat(str, TEXT("          "));
+	_tcscat_s(str, TEXT("          "));
 	colourHooker.setColour(c);
 	::SetWindowText(_hStyleInfoStaticText, str);
 

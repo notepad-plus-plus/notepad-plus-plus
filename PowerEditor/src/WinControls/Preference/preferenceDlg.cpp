@@ -1326,9 +1326,9 @@ INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 				{
 					case  IDC_OPENSAVEDIR_ALWAYSON_EDIT:
 					{
-						TCHAR inputDir[MAX_PATH];
+						TCHAR inputDir[MAX_PATH] = { 0 };
 						::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT, WM_GETTEXT, MAX_PATH, (LPARAM)inputDir);
-						lstrcpy(nppGUI._defaultDir, inputDir);
+						_tcscpy_s(nppGUI._defaultDir, inputDir);
 						::ExpandEnvironmentStrings(nppGUI._defaultDir, nppGUI._defaultDirExp, 500);
 						pNppParam->setWorkingDir(nppGUI._defaultDirExp);
 						return TRUE;
@@ -2763,14 +2763,14 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, 
 				{
 					case  IDC_EDIT_OPENDELIMITER:
 					{
-						TCHAR opener[2];
+						TCHAR opener[2] = { 0 };
 						::SendDlgItemMessage(_hSelf, IDC_EDIT_OPENDELIMITER, WM_GETTEXT, MAX_PATH, (LPARAM)opener);
 						nppGUI._leftmostDelimiter =  static_cast<char>(opener[0]);
 						return TRUE;
 					}
 					case  IDC_EDIT_CLOSEDELIMITER:
 					{
-						TCHAR closer[2];
+						TCHAR closer[2] = { 0 };
 						::SendDlgItemMessage(_hSelf, IDC_EDIT_CLOSEDELIMITER, WM_GETTEXT, MAX_PATH, (LPARAM)closer);
 						nppGUI._rightmostDelimiter =  static_cast<char>(closer[0]);
 						return TRUE;

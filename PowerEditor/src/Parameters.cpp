@@ -6000,6 +6000,15 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_COFFEESCRIPT :
             id = IDM_LANG_COFFEESCRIPT; break;
 
+		case L_REGISTRY:
+			id = IDM_LANG_REGISTRY; break;
+
+		case L_PO:
+			id = IDM_LANG_PO; break;
+
+		case L_POV:
+			id = IDM_LANG_POV; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

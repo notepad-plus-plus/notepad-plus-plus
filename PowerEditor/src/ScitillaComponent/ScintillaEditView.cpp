@@ -135,6 +135,9 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			SCLEX_R},
 {TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			SCLEX_HTML},
 {TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
+{TEXT("registry"),		TEXT("Registry"),			TEXT("Windows registry file"),							L_REGISTRY,		SCLEX_REGISTRY },
+{TEXT("po"),			TEXT("PO"),					TEXT("PO translation file"),							L_PO,			SCLEX_PO },
+{TEXT("pov"),			TEXT("POV"),				TEXT("POV raytracing file"),							L_POV,			SCLEX_POV },
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -1373,6 +1376,15 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_COFFEESCRIPT :
 			setCoffeeScriptLexer(); break;
+
+		case L_REGISTRY:
+			setRegistryLexer(); break;
+
+		case L_PO:
+			setPOLexer(); break;
+
+		case L_POV:
+			setPOVLexer(); break;
 
 		case L_TEXT :
 		default :

@@ -754,7 +754,7 @@ protected:
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; ++i)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
-		setLexer(SCLEX_TEX, L_TEX, 0);
+		setLexer(SCLEX_TEX, L_TEX, LIST_NONE);
 	};
 
 	void setNsisLexer() {
@@ -864,6 +864,18 @@ protected:
 	
     void setCoffeeScriptLexer() {
 		setLexer(SCLEX_COFFEESCRIPT, L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
+	};
+
+	void setRegistryLexer() {
+		setLexer(SCLEX_REGISTRY, L_REGISTRY, LIST_NONE);
+	};
+
+	void setPOLexer() {
+		setLexer(SCLEX_PO, L_PO, LIST_NONE);
+	};
+
+	void setPOVLexer() {
+		setLexer(SCLEX_POV, L_POV, LIST_NONE);
 	};
 
     //--------------------

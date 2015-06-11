@@ -27,16 +27,17 @@
 
 
 #include "LongRunningOperation.h"
-#include <mutex>
 
-static std::recursive_mutex _operationMutex;
+// Due to retro-compatibility reason (with xp sp2), we use ::CreateMutex() instead of std::recursive_mutex 
+// TODO :  use Windows Mutex to lock/unlock operations
+
 
 LongRunningOperation::LongRunningOperation()
 {
-	_operationMutex.lock();
+	//_operationMutex.lock();
 }
 
 LongRunningOperation::~LongRunningOperation()
 {
-	_operationMutex.unlock();
+	//_operationMutex.unlock();
 }

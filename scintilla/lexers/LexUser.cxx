@@ -635,13 +635,13 @@ static inline void SubGroup(const char * s, vvstring & vec, bool group=false)
     for (unsigned int j=0; j<length+1; ++j)
         temp[j] = 0;
 
-    if (s[0] == '(' && s[1]  == '(')
+    if (length >= 2 && s[0] == '(' && s[1]  == '(')
     {
         i = 2;
         group = true;
     }
 
-    if (s[length-1] == ')' && s[length-2] == ')')
+	if (length >= 2 && s[length - 1] == ')' && s[length - 2] == ')')
         length -= 2;
 
     if (!group && *s)

@@ -193,7 +193,7 @@ TCHAR * FileDialog::doOpenSingleFileDlg()
 
 stringVector * FileDialog::doOpenMultiFilesDlg()
 {
-	TCHAR dir[MAX_PATH];
+	TCHAR dir[MAX_PATH] = { 0 };
 	::GetCurrentDirectory(MAX_PATH, dir);
 	//_ofn.lpstrInitialDir = dir;
 
@@ -212,22 +212,22 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 
 	if (res)
 	{
-		TCHAR fn[MAX_PATH];
+		TCHAR fn[MAX_PATH] = { 0 };
 		TCHAR *pFn = _fileName + lstrlen(_fileName) + 1;
 		if (!(*pFn))
 			_fileNames.push_back(generic_string(_fileName));
 		else
 		{
-			lstrcpy(fn, _fileName);
+			_tcscpy_s(fn, _fileName);
 			if (fn[lstrlen(fn)-1] != '\\')
-				lstrcat(fn, TEXT("\\"));
+				_tcscat_s(fn, TEXT("\\"));
 		}
 		int term = int(lstrlen(fn));
 
 		while (*pFn)
 		{
 			fn[term] = '\0';
-			lstrcat(fn, pFn);
+			_tcscat_s(fn, pFn);
 			_fileNames.push_back(generic_string(fn));
 			pFn += lstrlen(pFn) + 1;
 		}

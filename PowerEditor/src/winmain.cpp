@@ -29,6 +29,7 @@
 #include "Process.h"
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
+#include "LongRunningOperation.h"
 
 typedef std::vector<const TCHAR*> ParamVector;
 
@@ -254,6 +255,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	::CreateMutex(NULL, false, TEXT("nppInstance"));
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
+
+	initializeLongRunninOperationCriticalSection();
 
 	bool isParamePresent;
 	bool showHelp = isInList(FLAG_HELP, params);

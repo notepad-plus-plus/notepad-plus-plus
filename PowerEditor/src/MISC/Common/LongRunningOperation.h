@@ -29,6 +29,8 @@
 #ifndef M30_IDE_LONGRUNNINGOPERATION_h
 #define M30_IDE_LONGRUNNINGOPERATION_h
 
+void initializeLongRunninOperationCriticalSection();
+
 class LongRunningOperation
 {
 public:

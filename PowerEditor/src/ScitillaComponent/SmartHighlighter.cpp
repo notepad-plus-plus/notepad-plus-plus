@@ -56,27 +56,34 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	char * text2Find = new char[textlen];
 	pHighlightView->getSelectedText(text2Find, textlen, false);	//do not expand selection (false)
 
+	
+	//GETWORDCHARS for isQualifiedWord2() and isWordChar2()
+	int listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
+	char *listChar = new char[listCharSize+1];
+	pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar);
+	
 	bool valid = true;
 	//The word has to consist if wordChars only, and the characters before and after something else
-	if (!isQualifiedWord(text2Find))
+	if (!isQualifiedWord(text2Find, listChar))
 		valid = false;
 	else
 	{
 		UCHAR c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMax);
 		if (c)
 		{
-			if (isWordChar(char(c)))
+			if (isWordChar(char(c), listChar))
 				valid = false;
 		}
 		c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMin-1);
 		if (c)
 		{
-			if (isWordChar(char(c)))
+			if (isWordChar(char(c), listChar))
 				valid = false;
 		}
 	}
 	if (!valid) {
 		delete [] text2Find;
+		delete [] listChar;
 		return;
 	}
 
@@ -126,60 +133,28 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	// restore the original targets to avoid conflicts with the search/replace functions
 	pHighlightView->execute(SCI_SETTARGETSTART, originalStartPos);
 	pHighlightView->execute(SCI_SETTARGETEND, originalEndPos);
+	delete [] listChar;
 }
 
-bool SmartHighlighter::isQualifiedWord(const char *str) const
+bool SmartHighlighter::isQualifiedWord(const char *str, char *listChar) const
 {
 	for (size_t i = 0, len = strlen(str) ; i < len ; ++i)
 	{
-		if (!isWordChar(str[i]))
+		if (!isWordChar(str[i], listChar))
 			return false;
 	}
 	return true;
 };
 
-bool SmartHighlighter::isWordChar(char ch) const
+bool SmartHighlighter::isWordChar(char ch, char listChar[]) const
 {
-	if ((UCHAR)ch < 0x20) 
-		return false;
 	
-	switch(ch)
+	for (size_t i = 0, len = strlen(listChar) ; i < len ; ++i)
 	{
-		case ' ':
-		case '	':
-		case '\n':
-		case '\r':
-		case '.':
-		case ',':
-		case '?':
-		case ';':
-		case ':':
-		case '!':
-		case '(':
-		case ')':
-		case '[':
-		case ']':
-		case '+':
-		case '-':
-		case '*':
-		case '/':
-		case '#':
-		case '@':
-		case '^':
-		case '%':
-		case '$':
-		case '"':
-		case '\'':
-		case '~':
-		case '&':
-		case '{':
-		case '}':
-		case '|':
-		case '=':
-		case '<':
-		case '>':
-		case '\\':
-			return false;
+		if (ch == listChar[i])
+		{
+			return true;
+		}
 	}
-	return true;
+	return false;
 };

@@ -27,17 +27,23 @@
 
 
 #include "LongRunningOperation.h"
+#include <Windows.h>
 
-// Due to retro-compatibility reason (with xp sp2), we use ::CreateMutex() instead of std::recursive_mutex 
-// TODO :  use Windows Mutex to lock/unlock operations
+static CRITICAL_SECTION _longRunningOpSection;
 
+void initializeLongRunninOperationCriticalSection()
+{
+	::InitializeCriticalSection(&_longRunningOpSection);
+}
+
+// Due to retro-compatibility reason (with xp sp2), we use Windows' critical section instead of std::recursive_mutex.
 
 LongRunningOperation::LongRunningOperation()
 {
-	//_operationMutex.lock();
+	::EnterCriticalSection(&_longRunningOpSection);
 }
 
 LongRunningOperation::~LongRunningOperation()
 {
-	//_operationMutex.unlock();
+	::LeaveCriticalSection(&_longRunningOpSection);
 }

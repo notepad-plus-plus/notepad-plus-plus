@@ -25,19 +25,24 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
 #include "LongRunningOperation.h"
+#include "mutex.h"
 
-// Due to retro-compatibility reason (with xp sp2), we use ::CreateMutex() instead of std::recursive_mutex 
-// TODO :  use Windows Mutex to lock/unlock operations
+using namespace Yuni;
+
+
 
 
 LongRunningOperation::LongRunningOperation()
 {
-	//_operationMutex.lock();
+	Mutex::ClassLevelLockable<LongRunningOperation>::mutex.lock();
 }
+
 
 LongRunningOperation::~LongRunningOperation()
 {
-	//_operationMutex.unlock();
+	Mutex::ClassLevelLockable<LongRunningOperation>::mutex.unlock();
 }
+
+
+

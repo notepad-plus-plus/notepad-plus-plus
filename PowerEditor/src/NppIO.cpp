@@ -113,6 +113,13 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         return BUFFER_INVALID;
     }
 
+	if (isFileWorkspace(longFileName) && PathFileExists(longFileName))
+	{
+		pNppParam->setWorkSpaceFilePath(0, longFileName);
+		command(IDM_VIEW_PROJECT_PANEL_1);
+		return BUFFER_INVALID;
+	}
+
     bool isWow64Off = false;
     if (!PathFileExists(longFileName))
     {
@@ -1335,6 +1342,29 @@ bool Notepad_plus::isFileSession(const TCHAR * filename) {
 	return false;
 }
 
+bool Notepad_plus::isFileWorkspace(const TCHAR * filename) {
+	// if filename matches the ext of user defined workspace file ext, then it'll be opened as a workspace
+	const TCHAR *definedWorkspaceExt = NppParameters::getInstance()->getNppGUI()._definedWorkspaceExt.c_str();
+	if (*definedWorkspaceExt != '\0')
+	{
+		generic_string fncp = filename;
+		TCHAR *pExt = PathFindExtension(fncp.c_str());
+
+		generic_string usrWorkspaceExt = TEXT("");
+		if (*definedWorkspaceExt != '.')
+		{
+			usrWorkspaceExt += TEXT(".");
+		}
+		usrWorkspaceExt += definedWorkspaceExt;
+
+		if (!generic_stricmp(pExt, usrWorkspaceExt.c_str()))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void Notepad_plus::loadLastSession()
 {
 	NppParameters *nppParams = NppParameters::getInstance();
@@ -1359,11 +1389,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	{
 		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
 
-		if (isFileSession(pFn))
+		if (isFileSession(pFn) || isFileWorkspace(pFn))
 		{
 			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
 			session._mainViewFiles.erase(posIt);
-			continue;	//skip session files, not supporting recursive sessions
+			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
 
 		bool isWow64Off = false;
@@ -1454,10 +1484,10 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	{
 		const TCHAR *pFn = session._subViewFiles[k]._fileName.c_str();
 
-		if (isFileSession(pFn)) {
+		if (isFileSession(pFn) || isFileWorkspace(pFn)) {
 			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
 			session._subViewFiles.erase(posIt);
-			continue;	//skip session files, not supporting recursive sessions
+			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
 
 		bool isWow64Off = false;

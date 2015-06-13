@@ -250,6 +250,7 @@ public:
 	//@}
 
 	bool isFileSession(const TCHAR * filename);
+	bool isFileWorkspace(const TCHAR * filename);
 	void filePrint(bool showDialog);
 	bool saveScintillaParams();
 

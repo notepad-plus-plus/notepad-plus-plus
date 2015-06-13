@@ -4506,6 +4506,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._definedSessionExt = val;
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("workspaceExt")))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				const TCHAR* val = n->Value();
+				val = n->Value();
+				if (val)
+					_nppGUI._definedWorkspaceExt = val;
+			}
+		}
 		else if (!lstrcmp(nm, TEXT("noUpdate")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -4953,6 +4964,7 @@ bool NppParameters::writeGUIParams()
 	bool autocExist = false;
 	bool autocInsetExist = false;
 	bool sessionExtExist = false;
+	bool workspaceExtExist = false;
 	bool noUpdateExist = false;
 	bool menuBarExist = false;
 	bool smartHighLightExist = false;
@@ -5370,6 +5382,15 @@ bool NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
 		}
+		else if (!lstrcmp(nm, TEXT("workspaceExt")))
+		{
+			workspaceExtExist = true;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(_nppGUI._definedWorkspaceExt.c_str());
+			else
+				childNode->InsertEndChild(TiXmlText(_nppGUI._definedWorkspaceExt.c_str()));
+		}
 		else if (!lstrcmp(nm, TEXT("noUpdate")))
 		{
 			noUpdateExist = true;
@@ -5605,6 +5626,13 @@ bool NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("sessionExt"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
+	}
+
+	if (!workspaceExtExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("workspaceExt"));
+		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedWorkspaceExt.c_str()));
 	}
 
 	if (!menuBarExist)

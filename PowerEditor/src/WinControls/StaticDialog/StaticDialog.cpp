@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include "StaticDialog.h"
+#include <cassert>
 
 void StaticDialog::goToCenter()
 {
@@ -77,12 +78,13 @@ void StaticDialog::display(bool toShow) const
 
 HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplate)
 {
+	assert(ppMyDlgTemplate != NULL);
 	// Get Dlg Template resource
-	HRSRC  hDialogRC = ::FindResource(_hInst, MAKEINTRESOURCE(dialogID), RT_DIALOG);
+	HRSRC hDialogRC = ::FindResource(_hInst, MAKEINTRESOURCE(dialogID), RT_DIALOG);
 	if (!hDialogRC)
 		return NULL;
 
-	HGLOBAL  hDlgTemplate = ::LoadResource(_hInst, hDialogRC);
+	HGLOBAL hDlgTemplate = ::LoadResource(_hInst, hDialogRC);
 	if (!hDlgTemplate)
 		return NULL;
 
@@ -91,17 +93,32 @@ HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplat
 		return NULL;
 
 	// Duplicate Dlg Template resource
-	unsigned long sizeDlg = ::SizeofResource(_hInst, hDialogRC);
+	const DWORD sizeDlg = ::SizeofResource(_hInst, hDialogRC);
+	if (sizeDlg == 0)
+		return NULL;
+
 	HGLOBAL hMyDlgTemplate = ::GlobalAlloc(GPTR, sizeDlg);
+	if (!hMyDlgTemplate)
+		return NULL;
+
 	*ppMyDlgTemplate = (DLGTEMPLATE *)::GlobalLock(hMyDlgTemplate);
+	if ((*ppMyDlgTemplate) == NULL)
+	{
+		::GlobalFree( hMyDlgTemplate );
+		return NULL;
+	}
 
 	::memcpy(*ppMyDlgTemplate, pDlgTemplate, sizeDlg);
 	
 	DLGTEMPLATEEX *pMyDlgTemplateEx = (DLGTEMPLATEEX *)*ppMyDlgTemplate;
 	if (pMyDlgTemplateEx->signature == 0xFFFF)
+	{
 		pMyDlgTemplateEx->exStyle |= WS_EX_LAYOUTRTL;
+	}
 	else
+	{
 		(*ppMyDlgTemplate)->dwExtendedStyle |= WS_EX_LAYOUTRTL;
+	}
 
 	return hMyDlgTemplate;
 }

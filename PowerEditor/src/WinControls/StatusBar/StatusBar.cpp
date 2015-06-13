@@ -65,6 +65,10 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 
     // Allocate an array for holding the right edge coordinates.
     _hloc = ::LocalAlloc(LHND, sizeof(int) * _nbParts);
+	if (_hloc == NULL)
+	{
+		throw std::runtime_error( "StatusBar::init : LocalAlloc failed!" );
+	}
     _lpParts = (LPINT)::LocalLock(_hloc);
 
 	RECT rc;

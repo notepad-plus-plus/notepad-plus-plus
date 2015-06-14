@@ -29,7 +29,7 @@
 #ifndef CONTEXTMENU_H
 #define CONTEXTMENU_H
 
-using namespace std;
+#include "Common.h"
 
 struct MenuItemUnit {
 	unsigned long _cmdID;
@@ -46,7 +46,7 @@ public:
 	ContextMenu() : _hParent(NULL), _hMenu(NULL) {};
 	~ContextMenu();
 
-	void create(HWND hParent, const vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle = NULL);
+	void create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle = NULL);
 	bool isCreated() const {return _hMenu != NULL;};
 	
 	void display(const POINT & p) const {
@@ -69,7 +69,7 @@ public:
 private:
 	HWND _hParent;
 	HMENU _hMenu;
-	vector<HMENU> _subMenus;
+	std::vector<HMENU> _subMenus;
 
 };
 

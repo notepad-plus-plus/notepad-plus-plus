@@ -187,7 +187,7 @@ struct SortInPositionOrder {
 	}
 };
 
-typedef vector<ColumnModeInfo> ColumnModeInfos;
+typedef std::vector<ColumnModeInfo> ColumnModeInfos;
 
 struct LanguageName {
 	const TCHAR * lexerName;
@@ -272,6 +272,7 @@ public:
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
 	void showAutoComletion(int lenEntered, const TCHAR * list);
 	void showCallTip(int startPos, const TCHAR * def);
+	generic_string getLine(int lineNumber);
 	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
 	void addText(int length, const char *buf);
 
@@ -539,7 +540,7 @@ public:
 	void currentLineUp() const;
 	void currentLineDown() const;
 
-	pair<int, int> getSelectionLinesRange() const;
+	std::pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;
     void currentLinesDown() const;
 
@@ -668,8 +669,8 @@ protected:
 	bool _lineNumbersShown;
 	bool _wrapRestoreNeeded;
 
-	typedef std::map<int, Style> StyleMap;
-	typedef std::map<BufferID, StyleMap*> BufferStyleMap;
+	typedef std::unordered_map<int, Style> StyleMap;
+	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
 	BufferStyleMap _hotspotStyles;
 
 	int _beginSelectPosition;
@@ -912,7 +913,7 @@ protected:
 		}
 	};
 
-    pair<int, int> getWordRange();
+	std::pair<int, int> getWordRange();
 	bool expandWordSelection();
 };
 

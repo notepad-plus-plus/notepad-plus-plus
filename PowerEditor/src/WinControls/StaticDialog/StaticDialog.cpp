@@ -25,8 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#include "precompiledHeaders.h"
+#include <stdio.h>
+#include <windows.h>
+#include "StaticDialog.h"
 
 void StaticDialog::goToCenter()
 {
@@ -111,11 +112,11 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;
 		HGLOBAL hMyDlgTemplate = makeRTLResource(dialogID, &pMyDlgTemplate);
-		_hSelf = ::CreateDialogIndirectParam(_hInst, pMyDlgTemplate, _hParent, (DLGPROC)dlgProc, (LPARAM)this);
+		_hSelf = ::CreateDialogIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, (LPARAM)this);
 		::GlobalFree(hMyDlgTemplate);
 	}
 	else
-		_hSelf = ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent, (DLGPROC)dlgProc, (LPARAM)this);
+		_hSelf = ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent, dlgProc, (LPARAM)this);
 
 	if (!_hSelf)
 	{
@@ -130,7 +131,7 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 	::SendMessage(msgDestParent?_hParent:(::GetParent(_hParent)), NPPM_MODELESSDIALOG, MODELESSDIALOGADD, (WPARAM)_hSelf);
 }
 
-BOOL CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
+INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
 {
 	switch (message) 
 	{

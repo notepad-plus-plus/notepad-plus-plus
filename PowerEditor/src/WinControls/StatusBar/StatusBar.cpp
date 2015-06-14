@@ -26,7 +26,8 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <windows.h>
+#include <commctrl.h>
 #include "StatusBar.h"
 
 //#define IDC_STATUSBAR 789
@@ -84,4 +85,18 @@ void StatusBar::adjustParts(int clientWidth)
 
     // Tell the status bar to create the window parts.
     ::SendMessage(_hSelf, SB_SETPARTS, (WPARAM)_nbParts, (LPARAM)_lpParts);
+}
+
+bool StatusBar::setText(const TCHAR *str, int whichPart)
+{
+	if (whichPart > _nbParts)
+		return false;
+	_lastSetText = str;
+	return (::SendMessage(_hSelf, SB_SETTEXT, whichPart, (LPARAM)_lastSetText.c_str()) == TRUE);
+}
+
+bool StatusBar::setOwnerDrawText(const TCHAR *str)
+{
+	_lastSetText = str;
+	return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, (LPARAM)_lastSetText.c_str()) == TRUE);
 }

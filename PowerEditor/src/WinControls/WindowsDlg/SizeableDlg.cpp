@@ -26,8 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
-
 #include "WindowsDlg.h"
 #include "WindowsDlgRc.h"
 
@@ -61,7 +59,7 @@ LRESULT SizeableDlg::onWinMgr(WPARAM, LPARAM)
 	return 0;
 }
 
-BOOL CALLBACK SizeableDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK SizeableDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{

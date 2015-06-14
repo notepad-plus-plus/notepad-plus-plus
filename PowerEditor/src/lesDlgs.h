@@ -29,6 +29,9 @@
 #ifndef SIZE_DLG_H
 #define SIZE_DLG_H
 
+#include "StaticDialog.h"
+#include "Common.h"
+
 const int DEFAULT_NB_NUMBER = 2;
 class ValueDlg : public StaticDialog
 {
@@ -44,7 +47,7 @@ public :
 		void destroy() {};
 
 protected :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
 
 private :
 	int _nbNumber;
@@ -87,7 +90,7 @@ public :
 	    };
 
 protected :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
     int _buttonStatus;
 
 };

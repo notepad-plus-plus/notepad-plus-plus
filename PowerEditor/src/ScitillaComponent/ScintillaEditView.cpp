@@ -26,12 +26,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <shlwapi.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "Sorters.h"
 #include "TCHAR.h"
+#include <memory>
 
+using namespace std;
 
 // initialize the static variable
 
@@ -1912,11 +1914,22 @@ void ScintillaEditView::showCallTip(int startPos, const TCHAR * def)
 	execute(SCI_CALLTIPSHOW, startPos, LPARAM(defA));
 }
 
+generic_string ScintillaEditView::getLine(int lineNumber)
+{
+	int lineLen = execute(SCI_LINELENGTH, lineNumber);
+	const int bufSize = lineLen + 1;
+	std::unique_ptr<TCHAR[]> buf = std::make_unique<TCHAR[]>(bufSize);
+	getLine(lineNumber, buf.get(), bufSize);
+	return buf.get();
+}
+
 void ScintillaEditView::getLine(int lineNumber, TCHAR * line, int lineBufferLen)
 {
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
 	char *lineA = new char[lineBufferLen];
+	// From Scintilla documentation for SCI_GETLINE: "The buffer is not terminated by a 0 character."
+	memset(lineA, '\0', sizeof(char) * lineBufferLen);
 	execute(SCI_GETLINE, lineNumber, (LPARAM)lineA);
 	const TCHAR *lineW = wmc->char2wchar(lineA, cp);
 	lstrcpyn(line, lineW, lineBufferLen);

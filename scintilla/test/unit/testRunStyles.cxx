@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include <stdexcept>
+#include <algorithm>
 
 #include "Platform.h"
 
@@ -10,319 +11,311 @@
 #include "Partitioning.h"
 #include "RunStyles.h"
 
-#include <gtest/gtest.h>
+#include "catch.hpp"
 
 // Test RunStyles.
 
-class RunStylesTest : public ::testing::Test {
-protected:
-	virtual void SetUp() {
-		prs = new RunStyles();
+TEST_CASE("RunStyles") {
+
+	RunStyles rs;
+
+	SECTION("IsEmptyInitially") {
+		REQUIRE(0 == rs.Length());
+		REQUIRE(1 == rs.Runs());
 	}
 
-	virtual void TearDown() {
-		delete prs;
-		prs = 0;
+	SECTION("SimpleInsert") {
+		rs.InsertSpace(0, 1);
+		REQUIRE(1 == rs.Length());
+		REQUIRE(1 == rs.Runs());
+		REQUIRE(0 == rs.ValueAt(0));
+		REQUIRE(1 == rs.FindNextChange(0, rs.Length()));
+		REQUIRE(2 == rs.FindNextChange(1, rs.Length()));
 	}
 
-	RunStyles *prs;
-};
+	SECTION("TwoRuns") {
+		rs.InsertSpace(0, 2);
+		REQUIRE(2 == rs.Length());
+		REQUIRE(1 == rs.Runs());
+		rs.SetValueAt(0, 2);
+		REQUIRE(2 == rs.Runs());
+		REQUIRE(2 == rs.ValueAt(0));
+		REQUIRE(0 == rs.ValueAt(1));
+		REQUIRE(1 == rs.FindNextChange(0, rs.Length()));
+		REQUIRE(2 == rs.FindNextChange(1, rs.Length()));
+		REQUIRE(3 == rs.FindNextChange(2, rs.Length()));
+	}
 
-TEST_F(RunStylesTest, IsEmptyInitially) {
-	EXPECT_EQ(0, prs->Length());
-	EXPECT_EQ(1, prs->Runs());
-}
+	SECTION("LongerRuns") {
+		rs.InsertSpace(0, 5);
+		rs.SetValueAt(0, 3);
+		rs.SetValueAt(1, 3);
+		REQUIRE(3 == rs.ValueAt(0));
+		REQUIRE(3 == rs.ValueAt(1));
+		REQUIRE(0 == rs.ValueAt(2));
+		REQUIRE(2 == rs.Runs());
 
-TEST_F(RunStylesTest, SimpleInsert) {
-	prs->InsertSpace(0, 1);
-	EXPECT_EQ(1, prs->Length());
-	EXPECT_EQ(1, prs->Runs());
-	EXPECT_EQ(0, prs->ValueAt(0));
-	EXPECT_EQ(1, prs->FindNextChange(0, prs->Length()));
-	EXPECT_EQ(2, prs->FindNextChange(1, prs->Length()));
-}
+		REQUIRE(0 == rs.StartRun(0));
+		REQUIRE(2 == rs.EndRun(0));
 
-TEST_F(RunStylesTest, TwoRuns) {
-	prs->InsertSpace(0, 2);
-	EXPECT_EQ(2, prs->Length());
-	EXPECT_EQ(1, prs->Runs());
-	prs->SetValueAt(0, 2);
-	EXPECT_EQ(2, prs->Runs());
-	EXPECT_EQ(2, prs->ValueAt(0));
-	EXPECT_EQ(0, prs->ValueAt(1));
-	EXPECT_EQ(1, prs->FindNextChange(0, prs->Length()));
-	EXPECT_EQ(2, prs->FindNextChange(1, prs->Length()));
-	EXPECT_EQ(3, prs->FindNextChange(2, prs->Length()));
-}
+		REQUIRE(0 == rs.StartRun(1));
+		REQUIRE(2 == rs.EndRun(1));
 
-TEST_F(RunStylesTest, LongerRuns) {
-	prs->InsertSpace(0, 5);
-	prs->SetValueAt(0, 3);
-	prs->SetValueAt(1, 3);
-	EXPECT_EQ(3, prs->ValueAt(0));
-	EXPECT_EQ(3, prs->ValueAt(1));
-	EXPECT_EQ(0, prs->ValueAt(2));
-	EXPECT_EQ(2, prs->Runs());
+		REQUIRE(2 == rs.StartRun(2));
+		REQUIRE(5 == rs.EndRun(2));
 
-	EXPECT_EQ(0, prs->StartRun(0));
-	EXPECT_EQ(2, prs->EndRun(0));
+		REQUIRE(2 == rs.StartRun(3));
+		REQUIRE(5 == rs.EndRun(3));
 
-	EXPECT_EQ(0, prs->StartRun(1));
-	EXPECT_EQ(2, prs->EndRun(1));
+		REQUIRE(2 == rs.StartRun(4));
+		REQUIRE(5 == rs.EndRun(4));
 
-	EXPECT_EQ(2, prs->StartRun(2));
-	EXPECT_EQ(5, prs->EndRun(2));
+		// At end
+		REQUIRE(2 == rs.StartRun(5));
+		REQUIRE(5 == rs.EndRun(5));
 
-	EXPECT_EQ(2, prs->StartRun(3));
-	EXPECT_EQ(5, prs->EndRun(3));
+		// After end is same as end
+		REQUIRE(2 == rs.StartRun(6));
+		REQUIRE(5 == rs.EndRun(6));
 
-	EXPECT_EQ(2, prs->StartRun(4));
-	EXPECT_EQ(5, prs->EndRun(4));
+		REQUIRE(2 == rs.FindNextChange(0, rs.Length()));
+		REQUIRE(5 == rs.FindNextChange(2, rs.Length()));
+		REQUIRE(6 == rs.FindNextChange(5, rs.Length()));
+	}
 
-	// At end
-	EXPECT_EQ(2, prs->StartRun(5));
-	EXPECT_EQ(5, prs->EndRun(5));
+	SECTION("FillRange") {
+		rs.InsertSpace(0, 5);
+		int startFill = 1;
+		int lengthFill = 3;
+		REQUIRE(true == rs.FillRange(startFill, 99, lengthFill));
+		REQUIRE(1 == startFill);
+		REQUIRE(3 == lengthFill);
 
-	// After end is same as end
-	EXPECT_EQ(2, prs->StartRun(6));
-	EXPECT_EQ(5, prs->EndRun(6));
+		REQUIRE(0 == rs.ValueAt(0));
+		REQUIRE(99 == rs.ValueAt(1));
+		REQUIRE(99 == rs.ValueAt(2));
+		REQUIRE(99 == rs.ValueAt(3));
+		REQUIRE(0 == rs.ValueAt(4));
 
-	EXPECT_EQ(2, prs->FindNextChange(0, prs->Length()));
-	EXPECT_EQ(5, prs->FindNextChange(2, prs->Length()));
-	EXPECT_EQ(6, prs->FindNextChange(5, prs->Length()));
-}
+		REQUIRE(0 == rs.StartRun(0));
+		REQUIRE(1 == rs.EndRun(0));
 
-TEST_F(RunStylesTest, FillRange) {
-	prs->InsertSpace(0, 5);
-	int startFill = 1;
-	int lengthFill = 3;
-	EXPECT_EQ(true, prs->FillRange(startFill, 99, lengthFill));
-	EXPECT_EQ(1, startFill);
-	EXPECT_EQ(3, lengthFill);
+		REQUIRE(1 == rs.StartRun(1));
+		REQUIRE(4 == rs.EndRun(1));
+	}
 
-	EXPECT_EQ(0, prs->ValueAt(0));
-	EXPECT_EQ(99, prs->ValueAt(1));
-	EXPECT_EQ(99, prs->ValueAt(2));
-	EXPECT_EQ(99, prs->ValueAt(3));
-	EXPECT_EQ(0, prs->ValueAt(4));
+	SECTION("FillRangeAlreadyFilled") {
+		rs.InsertSpace(0, 5);
+		int startFill = 1;
+		int lengthFill = 3;
+		REQUIRE(true == rs.FillRange(startFill, 99, lengthFill));
+		REQUIRE(1 == startFill);
+		REQUIRE(3 == lengthFill);
 
-	EXPECT_EQ(0, prs->StartRun(0));
-	EXPECT_EQ(1, prs->EndRun(0));
+		int startFill2 = 2;
+		int lengthFill2 = 1;
+		// Compiler warnings if 'false' used instead of '0' as expected value:
+		REQUIRE(0 == rs.FillRange(startFill2, 99, lengthFill2));
+		REQUIRE(2 == startFill2);
+		REQUIRE(1 == lengthFill2);
+		REQUIRE(0 == rs.ValueAt(0));
+		REQUIRE(99 == rs.ValueAt(1));
+		REQUIRE(99 == rs.ValueAt(2));
+		REQUIRE(99 == rs.ValueAt(3));
+		REQUIRE(0 == rs.ValueAt(4));
+		REQUIRE(3 == rs.Runs());
+	}
 
-	EXPECT_EQ(1, prs->StartRun(1));
-	EXPECT_EQ(4, prs->EndRun(1));
-}
+	SECTION("FillRangeAlreadyPartFilled") {
+		rs.InsertSpace(0, 5);
+		int startFill = 1;
+		int lengthFill = 2;
+		REQUIRE(true == rs.FillRange(startFill, 99, lengthFill));
+		REQUIRE(1 == startFill);
+		REQUIRE(2 == lengthFill);
 
-TEST_F(RunStylesTest, FillRangeAlreadyFilled) {
-	prs->InsertSpace(0, 5);
-	int startFill = 1;
-	int lengthFill = 3;
-	EXPECT_EQ(true, prs->FillRange(startFill, 99, lengthFill));
-	EXPECT_EQ(1, startFill);
-	EXPECT_EQ(3, lengthFill);
+		int startFill2 = 2;
+		int lengthFill2 = 2;
+		REQUIRE(true == rs.FillRange(startFill2, 99, lengthFill2));
+		REQUIRE(3 == startFill2);
+		REQUIRE(1 == lengthFill2);
+		REQUIRE(3 == rs.Runs());
+	}
 
-	int startFill2 = 2;
-	int lengthFill2 = 1;
-	// Compiler warnings if 'false' used instead of '0' as expected value:
-	EXPECT_EQ(0, prs->FillRange(startFill2, 99, lengthFill2));
-	EXPECT_EQ(2, startFill2);
-	EXPECT_EQ(1, lengthFill2);
-	EXPECT_EQ(0, prs->ValueAt(0));
-	EXPECT_EQ(99, prs->ValueAt(1));
-	EXPECT_EQ(99, prs->ValueAt(2));
-	EXPECT_EQ(99, prs->ValueAt(3));
-	EXPECT_EQ(0, prs->ValueAt(4));
-	EXPECT_EQ(3, prs->Runs());
-}
+	SECTION("DeleteRange") {
+		rs.InsertSpace(0, 5);
+		rs.SetValueAt(0, 3);
+		REQUIRE(2 == rs.Runs());
+		rs.SetValueAt(1, 3);
+		REQUIRE(2 == rs.Runs());
+		rs.DeleteRange(1, 1);
+		REQUIRE(4 == rs.Length());
+		REQUIRE(2 == rs.Runs());
+		REQUIRE(3 == rs.ValueAt(0));
+		REQUIRE(0 == rs.ValueAt(1));
 
-TEST_F(RunStylesTest, FillRangeAlreadyPartFilled) {
-	prs->InsertSpace(0, 5);
-	int startFill = 1;
-	int lengthFill = 2;
-	EXPECT_EQ(true, prs->FillRange(startFill, 99, lengthFill));
-	EXPECT_EQ(1, startFill);
-	EXPECT_EQ(2, lengthFill);
+		REQUIRE(0 == rs.StartRun(0));
+		REQUIRE(1 == rs.EndRun(0));
 
-	int startFill2 = 2;
-	int lengthFill2 = 2;
-	EXPECT_EQ(true, prs->FillRange(startFill2, 99, lengthFill2));
-	EXPECT_EQ(3, startFill2);
-	EXPECT_EQ(1, lengthFill2);
-	EXPECT_EQ(3, prs->Runs());
-}
+		REQUIRE(1 == rs.StartRun(1));
+		REQUIRE(4 == rs.EndRun(1));
 
-TEST_F(RunStylesTest, DeleteRange) {
-	prs->InsertSpace(0, 5);
-	prs->SetValueAt(0, 3);
-	EXPECT_EQ(2, prs->Runs());
-	prs->SetValueAt(1, 3);
-	EXPECT_EQ(2, prs->Runs());
-	prs->DeleteRange(1, 1);
-	EXPECT_EQ(4, prs->Length());
-	EXPECT_EQ(2, prs->Runs());
-	EXPECT_EQ(3, prs->ValueAt(0));
-	EXPECT_EQ(0, prs->ValueAt(1));
+		REQUIRE(1 == rs.StartRun(2));
+		REQUIRE(4 == rs.EndRun(2));
+	}
 
-	EXPECT_EQ(0, prs->StartRun(0));
-	EXPECT_EQ(1, prs->EndRun(0));
+	SECTION("Find") {
+		rs.InsertSpace(0, 5);
+		int startFill = 1;
+		int lengthFill = 3;
+		REQUIRE(true == rs.FillRange(startFill, 99, lengthFill));
+		REQUIRE(1 == startFill);
+		REQUIRE(3 == lengthFill);
 
-	EXPECT_EQ(1, prs->StartRun(1));
-	EXPECT_EQ(4, prs->EndRun(1));
+		REQUIRE(0 == rs.Find(0,0));
+		REQUIRE(1 == rs.Find(99,0));
+		REQUIRE(-1 == rs.Find(3,0));
 
-	EXPECT_EQ(1, prs->StartRun(2));
-	EXPECT_EQ(4, prs->EndRun(2));
-}
+		REQUIRE(4 == rs.Find(0,1));
+		REQUIRE(1 == rs.Find(99,1));
+		REQUIRE(-1 == rs.Find(3,1));
 
-TEST_F(RunStylesTest, Find) {
-	prs->InsertSpace(0, 5);
-	int startFill = 1;
-	int lengthFill = 3;
-	EXPECT_EQ(true, prs->FillRange(startFill, 99, lengthFill));
-	EXPECT_EQ(1, startFill);
-	EXPECT_EQ(3, lengthFill);
+		REQUIRE(4 == rs.Find(0,2));
+		REQUIRE(2 == rs.Find(99,2));
+		REQUIRE(-1 == rs.Find(3, 2));
 
-	EXPECT_EQ(0, prs->Find(0,0));
-	EXPECT_EQ(1, prs->Find(99,0));
-	EXPECT_EQ(-1, prs->Find(3,0));
-	
-	EXPECT_EQ(4, prs->Find(0,1));
-	EXPECT_EQ(1, prs->Find(99,1));
-	EXPECT_EQ(-1, prs->Find(3,1));
-	
-	EXPECT_EQ(4, prs->Find(0,2));
-	EXPECT_EQ(2, prs->Find(99,2));
-	EXPECT_EQ(-1, prs->Find(3,2));
+		REQUIRE(4 == rs.Find(0,4));
+		REQUIRE(-1 == rs.Find(99,4));
+		REQUIRE(-1 == rs.Find(3,4));
 
-	EXPECT_EQ(4, prs->Find(0,4));
-	EXPECT_EQ(-1, prs->Find(99,4));
-	EXPECT_EQ(-1, prs->Find(3,4));
+		REQUIRE(-1 == rs.Find(0,5));
+		REQUIRE(-1 == rs.Find(99,5));
+		REQUIRE(-1 == rs.Find(3,5));
 
-	EXPECT_EQ(-1, prs->Find(0,5));
-	EXPECT_EQ(-1, prs->Find(99,5));
-	EXPECT_EQ(-1, prs->Find(3,5));
+		REQUIRE(-1 == rs.Find(0,6));
+		REQUIRE(-1 == rs.Find(99,6));
+		REQUIRE(-1 == rs.Find(3,6));
+	}
 
-	EXPECT_EQ(-1, prs->Find(0,6));
-	EXPECT_EQ(-1, prs->Find(99,6));
-	EXPECT_EQ(-1, prs->Find(3,6));
-}
+	SECTION("AllSame") {
+		REQUIRE(true == rs.AllSame());
+		rs.InsertSpace(0, 5);
+		REQUIRE(true == rs.AllSame());
+		REQUIRE(0 == rs.AllSameAs(88));
+		REQUIRE(true == rs.AllSameAs(0));
+		int startFill = 1;
+		int lengthFill = 3;
+		REQUIRE(true == rs.FillRange(startFill, 99, lengthFill));
+		REQUIRE(0 == rs.AllSame());
+		REQUIRE(0 == rs.AllSameAs(88));
+		REQUIRE(0 == rs.AllSameAs(0));
+		REQUIRE(true == rs.FillRange(startFill, 0, lengthFill));
+		REQUIRE(true == rs.AllSame());
+		REQUIRE(0 == rs.AllSameAs(88));
+		REQUIRE(true == rs.AllSameAs(0));
+	}
 
-TEST_F(RunStylesTest, AllSame) {
-	EXPECT_EQ(true, prs->AllSame());
-	prs->InsertSpace(0, 5);
-	EXPECT_EQ(true, prs->AllSame());
-	EXPECT_EQ(0, prs->AllSameAs(88));
-	EXPECT_EQ(true, prs->AllSameAs(0));
-	int startFill = 1;
-	int lengthFill = 3;
-	EXPECT_EQ(true, prs->FillRange(startFill, 99, lengthFill));
-	EXPECT_EQ(0, prs->AllSame());
-	EXPECT_EQ(0, prs->AllSameAs(88));
-	EXPECT_EQ(0, prs->AllSameAs(0));
-	EXPECT_EQ(true, prs->FillRange(startFill, 0, lengthFill));
-	EXPECT_EQ(true, prs->AllSame());
-	EXPECT_EQ(0, prs->AllSameAs(88));
-	EXPECT_EQ(true, prs->AllSameAs(0));
-}
+	SECTION("FindWithReversion") {
+		rs.InsertSpace(0, 5);
+		REQUIRE(1 == rs.Runs());
 
-TEST_F(RunStylesTest, FindWithReversion) {
-	prs->InsertSpace(0, 5);
-	EXPECT_EQ(1, prs->Runs());
+		int startFill = 1;
+		int lengthFill = 1;
+		REQUIRE(true == rs.FillRange(startFill, 99, lengthFill));
+		REQUIRE(1 == startFill);
+		REQUIRE(1 == lengthFill);
+		REQUIRE(3 == rs.Runs());
 
-	int startFill = 1;
-	int lengthFill = 1;
-	EXPECT_EQ(true, prs->FillRange(startFill, 99, lengthFill));
-	EXPECT_EQ(1, startFill);
-	EXPECT_EQ(1, lengthFill);
-	EXPECT_EQ(3, prs->Runs());
+		startFill = 2;
+		lengthFill = 1;
+		REQUIRE(true == rs.FillRange(startFill, 99, lengthFill));
+		REQUIRE(2 == startFill);
+		REQUIRE(1 == lengthFill);
+		REQUIRE(3 == rs.Runs());
 
-	startFill = 2;
-	lengthFill = 1;
-	EXPECT_EQ(true, prs->FillRange(startFill, 99, lengthFill));
-	EXPECT_EQ(2, startFill);
-	EXPECT_EQ(1, lengthFill);
-	EXPECT_EQ(3, prs->Runs());
+		startFill = 1;
+		lengthFill = 1;
+		REQUIRE(true == rs.FillRange(startFill, 0, lengthFill));
+		REQUIRE(3 == rs.Runs());
+		REQUIRE(1 == lengthFill);
 
-	startFill = 1;
-	lengthFill = 1;
-	EXPECT_EQ(true, prs->FillRange(startFill, 0, lengthFill));
-	EXPECT_EQ(3, prs->Runs());
-	EXPECT_EQ(1, lengthFill);
+		startFill = 2;
+		lengthFill = 1;
+		REQUIRE(true == rs.FillRange(startFill, 0, lengthFill));
+		REQUIRE(1 == rs.Runs());
+		REQUIRE(1 == lengthFill);
 
-	startFill = 2;
-	lengthFill = 1;
-	EXPECT_EQ(true, prs->FillRange(startFill, 0, lengthFill));
-	EXPECT_EQ(1, prs->Runs());
-	EXPECT_EQ(1, lengthFill);
+		REQUIRE(-1 == rs.Find(0,6));
+	}
 
-	EXPECT_EQ(-1, prs->Find(0,6));
-}
+	SECTION("FinalRunInversion") {
+		REQUIRE(1 == rs.Runs());
+		rs.InsertSpace(0, 1);
+		REQUIRE(1 == rs.Runs());
+		rs.SetValueAt(0, 1);
+		REQUIRE(1 == rs.Runs());
+		rs.InsertSpace(1, 1);
+		REQUIRE(1 == rs.Runs());
+		rs.SetValueAt(1, 1);
+		REQUIRE(1 == rs.Runs());
+		rs.SetValueAt(1, 0);
+		REQUIRE(2 == rs.Runs());
+		rs.SetValueAt(1, 1);
+		REQUIRE(1 == rs.Runs());
+	}
 
-TEST_F(RunStylesTest, FinalRunInversion) {
-	EXPECT_EQ(1, prs->Runs());
-	prs->InsertSpace(0, 1);
-	EXPECT_EQ(1, prs->Runs());
-	prs->SetValueAt(0, 1);
-	EXPECT_EQ(1, prs->Runs());
-	prs->InsertSpace(1, 1);
-	EXPECT_EQ(1, prs->Runs());
-	prs->SetValueAt(1, 1);
-	EXPECT_EQ(1, prs->Runs());
-	prs->SetValueAt(1, 0);
-	EXPECT_EQ(2, prs->Runs());
-	prs->SetValueAt(1, 1);
-	EXPECT_EQ(1, prs->Runs());
-}	
+	SECTION("DeleteAll") {
+		rs.InsertSpace(0, 5);
+		rs.SetValueAt(0, 3);
+		rs.SetValueAt(1, 3);
+		rs.DeleteAll();
+		REQUIRE(0 == rs.Length());
+		REQUIRE(0 == rs.ValueAt(0));
+		REQUIRE(1 == rs.Runs());
+	}
 
-TEST_F(RunStylesTest, DeleteAll) {
-	prs->InsertSpace(0, 5);
-	prs->SetValueAt(0, 3);
-	prs->SetValueAt(1, 3);
-	prs->DeleteAll();
-	EXPECT_EQ(0, prs->Length());
-	EXPECT_EQ(0, prs->ValueAt(0));
-	EXPECT_EQ(1, prs->Runs());
-}
+	SECTION("DeleteSecond") {
+		rs.InsertSpace(0, 3);
+		int startFill = 1;
+		int lengthFill = 1;
+		REQUIRE(true == rs.FillRange(startFill, 99, lengthFill));
+		REQUIRE(3 == rs.Length());
+		REQUIRE(3 == rs.Runs());
+		rs.DeleteRange(1, 1);
+		REQUIRE(2 == rs.Length());
+		REQUIRE(1 == rs.Runs());
+	}
 
-TEST_F(RunStylesTest, DeleteSecond) {
-	prs->InsertSpace(0, 3);
-	int startFill = 1;
-	int lengthFill = 1;
-	EXPECT_EQ(true, prs->FillRange(startFill, 99, lengthFill));
-	EXPECT_EQ(3, prs->Length());
-	EXPECT_EQ(3, prs->Runs());
-	prs->DeleteRange(1, 1);
-	EXPECT_EQ(2, prs->Length());
-	EXPECT_EQ(1, prs->Runs());
-}
+	SECTION("DeleteEndRun") {
+		rs.InsertSpace(0, 2);
+		int startFill = 1;
+		int lengthFill = 1;
+		REQUIRE(true == rs.FillRange(startFill, 99, lengthFill));
+		REQUIRE(2 == rs.Length());
+		REQUIRE(2 == rs.Runs());
+		REQUIRE(0 == rs.StartRun(0));
+		REQUIRE(1 == rs.EndRun(0));
+		REQUIRE(1 == rs.StartRun(1));
+		REQUIRE(2 == rs.EndRun(1));
+		rs.DeleteRange(1, 1);
+		REQUIRE(1 == rs.Length());
+		REQUIRE(1 == rs.Runs());
+		REQUIRE(0 == rs.StartRun(0));
+		REQUIRE(1 == rs.EndRun(0));
+		REQUIRE(0 == rs.StartRun(1));
+		REQUIRE(1 == rs.EndRun(1));
+		rs.Check();
+	}
 
-TEST_F(RunStylesTest, DeleteEndRun) {
-	prs->InsertSpace(0, 2);
-	int startFill = 1;
-	int lengthFill = 1;
-	EXPECT_EQ(true, prs->FillRange(startFill, 99, lengthFill));
-	EXPECT_EQ(2, prs->Length());
-	EXPECT_EQ(2, prs->Runs());
-	EXPECT_EQ(0, prs->StartRun(0));
-	EXPECT_EQ(1, prs->EndRun(0));
-	EXPECT_EQ(1, prs->StartRun(1));
-	EXPECT_EQ(2, prs->EndRun(1));
-	prs->DeleteRange(1, 1);
-	EXPECT_EQ(1, prs->Length());
-	EXPECT_EQ(1, prs->Runs());
-	EXPECT_EQ(0, prs->StartRun(0));
-	EXPECT_EQ(1, prs->EndRun(0));
-	EXPECT_EQ(0, prs->StartRun(1));
-	EXPECT_EQ(1, prs->EndRun(1));
-	prs->Check();
-}
+	SECTION("OutsideBounds") {
+		rs.InsertSpace(0, 1);
+		int startFill = 1;
+		int lengthFill = 1;
+		rs.FillRange(startFill, 99, lengthFill);
+		REQUIRE(1 == rs.Length());
+		REQUIRE(1 == rs.Runs());
+		REQUIRE(0 == rs.StartRun(0));
+		REQUIRE(1 == rs.EndRun(0));
+	}
 
-TEST_F(RunStylesTest, OutsideBounds) {
-	prs->InsertSpace(0, 1);
-	int startFill = 1;
-	int lengthFill = 1;
-	prs->FillRange(startFill, 99, lengthFill);
-	EXPECT_EQ(1, prs->Length());
-	EXPECT_EQ(1, prs->Runs());
-	EXPECT_EQ(0, prs->StartRun(0));
-	EXPECT_EQ(1, prs->EndRun(0));
 }

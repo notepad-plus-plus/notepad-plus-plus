@@ -40,7 +40,7 @@ static bool Is1To9(char ch) {
 }
 
 static bool IsAlphabetic(int ch) {
-	return isascii(ch) && isalpha(ch);
+	return IsASCII(ch) && isalpha(ch);
 }
 
 static inline bool AtEOL(Accessor &styler, unsigned int i) {
@@ -954,15 +954,16 @@ static int RecogniseErrorListLine(const char *lineBuffer, unsigned int lengthLin
 		// Common: <filename>(<line>): warning|error|note|remark|catastrophic|fatal
 		// Common: <filename>(<line>) warning|error|note|remark|catastrophic|fatal
 		// Microsoft: <filename>(<line>,<column>)<message>
-		// CTags: \t<message>
+		// CTags: <identifier>\t<filename>\t<message>
 		// Lua 5 traceback: \t<filename>:<line>:<message>
 		// Lua 5.1: <exe>: <filename>:<line>:<message>
 		bool initialTab = (lineBuffer[0] == '\t');
 		bool initialColonPart = false;
+		bool canBeCtags = !initialTab;	// For ctags must have an identifier with no spaces then a tab
 		enum { stInitial,
 			stGccStart, stGccDigit, stGccColumn, stGcc,
 			stMsStart, stMsDigit, stMsBracket, stMsVc, stMsDigitComma, stMsDotNet,
-			stCtagsStart, stCtagsStartString, stCtagsStringDollar, stCtags,
+			stCtagsStart, stCtagsFile, stCtagsStartString, stCtagsStringDollar, stCtags,
 			stUnrecognized
 		} state = stInitial;
 		for (unsigned int i = 0; i < lengthLine; i++) {
@@ -984,9 +985,11 @@ static int RecogniseErrorListLine(const char *lineBuffer, unsigned int lengthLin
 					// May be Microsoft
 					// Check against '0' often removes phone numbers
 					state = stMsStart;
-				} else if ((ch == '\t') && (!initialTab)) {
+				} else if ((ch == '\t') && canBeCtags) {
 					// May be CTags
 					state = stCtagsStart;
+				} else if (ch == ' ') {
+					canBeCtags = false;
 				}
 			} else if (state == stGccStart) {	// <filename>:
 				state = Is1To9(ch) ? stGccDigit : stUnrecognized;
@@ -1034,8 +1037,9 @@ static int RecogniseErrorListLine(const char *lineBuffer, unsigned int lengthLin
 						!CompareCaseInsensitive(word, "fatal") || !CompareCaseInsensitive(word, "catastrophic") ||
 						!CompareCaseInsensitive(word, "note") || !CompareCaseInsensitive(word, "remark")) {
 						state = stMsVc;
-					} else
+					} else {
 						state = stUnrecognized;
+					}
 				} else {
 					state = stUnrecognized;
 				}
@@ -1047,6 +1051,10 @@ static int RecogniseErrorListLine(const char *lineBuffer, unsigned int lengthLin
 					state = stUnrecognized;
 				}
 			} else if (state == stCtagsStart) {
+				if (ch == '\t') {
+					state = stCtagsFile;
+				}
+			} else if (state == stCtagsFile) {
 				if ((lineBuffer[i - 1] == '\t') &&
 				        ((ch == '/' && chNext == '^') || Is0To9(ch))) {
 					state = stCtags;

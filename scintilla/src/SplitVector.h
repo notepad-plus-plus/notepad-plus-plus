@@ -9,6 +9,10 @@
 #ifndef SPLITVECTOR_H
 #define SPLITVECTOR_H
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 template <typename T>
 class SplitVector {
 protected:
@@ -268,7 +272,7 @@ public:
 				GapTo(position);
 				return body + position + gapLength;
 			} else {
-				return body + position ;
+				return body + position;
 			}
 		} else {
 			return body + position + gapLength;
@@ -276,8 +280,12 @@ public:
 	}
 
 	int GapPosition() const {
-		return part1Length; 
+		return part1Length;
 	}
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif

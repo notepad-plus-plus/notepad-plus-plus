@@ -26,11 +26,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <functional>
+#include <algorithm>
 #include "WindowsDlg.h"
 #include "WindowsDlgRc.h"
 #include "DocTabView.h"
 #include "EncodingMapper.h"
+
+using namespace std;
 
 #ifndef _countof
 #define _countof(x) (sizeof(x)/sizeof((x)[0]))
@@ -215,7 +218,7 @@ void WindowsDlg::init(HINSTANCE hInst, HWND parent)
 	_pTab = NULL;
 }
 
-BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
@@ -415,14 +418,13 @@ void WindowsDlg::updateButtonState()
 int WindowsDlg::doDialog(TiXmlNodeA *dlgNode)
 {
 	_dlgNode = dlgNode;
-	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
+	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent,  dlgProc, (LPARAM)this);
 };
 
 bool WindowsDlg::changeDlgLang()
 {
 	if (!_dlgNode) return false;
 
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	int nativeLangEncoding = CP_ACP;
 	TiXmlDeclarationA *declaration =  _dlgNode->GetDocument()->FirstChild()->ToDeclaration();
@@ -432,18 +434,13 @@ bool WindowsDlg::changeDlgLang()
 		EncodingMapper *em = EncodingMapper::getInstance();
 		nativeLangEncoding = em->getEncodingFromString(encodingStr);
 	}
-#endif
 
 	// Set Title
 	const char *titre = (_dlgNode->ToElement())->Attribute("title");
 	if (titre && titre[0])
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, nativeLangEncoding);
 		::SetWindowText(_hSelf, nameW);
-#else
-		::SetWindowText(_hSelf, titre);
-#endif
 	}
 
 	// Set the text of child control
@@ -460,12 +457,8 @@ bool WindowsDlg::changeDlgLang()
 			HWND hItem = ::GetDlgItem(_hSelf, id);
 			if (hItem)
 			{
-#ifdef UNICODE
 				const wchar_t *nameW = wmc->char2wchar(name, nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
-#else
-				::SetWindowText(hItem, name);
-#endif
 			}
 		}
 	}

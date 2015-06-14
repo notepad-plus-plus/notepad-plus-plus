@@ -3,9 +3,9 @@
 <!-- Email: batagy.ford kukac indamail pont hu -->
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
 <!-- Forum topic: http://sourceforge.net/p/notepad-plus/discussion/558104/thread/50e2045c/ -->
-<!-- For Notepad++ Version 6.7.5, modified 2015.03.11 -->
+<!-- For Notepad++ Version 6.7.7, modified 2015.05.01 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="6.7.5">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="6.7.7">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -303,6 +303,7 @@
                     <Item id="42041" name="Előzmények törlése"/>
                     <Item id="48016" name="Billentyűparancs módosítása / Makró törlése..."/>
                     <Item id="48017" name="Billentyűparancs módosítása / Parancs törlése..."/>
+                    <Item id="41021" name="Utoljára bezárt fájl megnyitása"/>
                 </Commands>
           </Main>
           <Splitter>
@@ -339,7 +340,7 @@
                 <Item id="1620" name="Keresendő:"/>
                 <Item id="1603" name="Csak teljes szóval megegyező találatok"/>
                 <Item id="1604" name="Kis- és nagybetűk megkülönböztetése"/>
-                <Item id="1605" name="Reguláris kifejezéssel"/>
+                <Item id="1605" name="Reguláris kifejezés"/>
                 <Item id="1606" name="Az egész dokumentumban"/>
                 <Item id="1612" name="Vissza"/>
                 <Item id="1613" name="Előre"/>

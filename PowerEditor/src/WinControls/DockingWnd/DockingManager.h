@@ -29,6 +29,11 @@
 #ifndef DOCKINGMANAGER_H
 #define DOCKINGMANAGER_H
 
+#include <vector>
+#include <windows.h>
+#include <commctrl.h>
+#include "Window.h"
+
 #ifndef DOCKINGCONT
 #include "DockingCont.h"
 #endif //DOCKINGCONT
@@ -39,11 +44,8 @@ class DockingSplitter;
 #include "SplitterContainer.h"
 #endif //SPLITTER_CONTAINER_H
 
+
 #define DSPC_CLASS_NAME TEXT("dockingManager")
-
-using namespace std;
-
-
 #define	CONT_MAP_MAX	50
 
 
@@ -83,7 +85,7 @@ public :
 	int  GetContainer(DockingCont* pCont); 
 
 	// get all container in vector
-	vector<DockingCont*> & getContainerInfo() {
+	std::vector<DockingCont*> & getContainerInfo() {
 		return _vContainer;
 	};
 	// get dock data (sized areas)
@@ -124,14 +126,14 @@ private:
 	RECT						_rcWork;
 	RECT						_rect;
 	Window						**_ppMainWindow;
-	vector<HWND>				_vImageList;
+	std::vector<HWND>				_vImageList;
 	HIMAGELIST					_hImageList;
-	vector<DockingCont*>		_vContainer;
+	std::vector<DockingCont*>		_vContainer;
 	tDockMgr					_dockData;
 	static BOOL					_isRegistered;
 	BOOL						_isInitialized;
 	int							_iContMap[CONT_MAP_MAX];
-	vector<DockingSplitter *>	_vSplitter;
+	std::vector<DockingSplitter *>	_vSplitter;
 };
 
 #endif //DOCKINGMANAGER_H

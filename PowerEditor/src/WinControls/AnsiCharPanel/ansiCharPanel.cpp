@@ -26,7 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
 #include "ansiCharPanel.h"
 #include "ScintillaEditView.h"
 
@@ -36,7 +35,7 @@ void AnsiCharPanel::switchEncoding()
 	_listView.resetValues(codepage);
 }
 
-BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {

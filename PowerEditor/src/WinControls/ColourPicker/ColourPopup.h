@@ -37,6 +37,8 @@
 #include "resource.h"
 #endif //RESOURCE_H
 
+#include "Window.h"
+
 #define WM_PICKUP_COLOR (COLOURPOPUP_USER + 1)
 #define WM_PICKUP_CANCEL (COLOURPOPUP_USER + 2)
 
@@ -74,8 +76,8 @@ private :
     COLORREF _colour;
 	//bool isColourChooserLaunched;
 
-	static BOOL CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-	BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 #endif //COLOUR_POPUP_H

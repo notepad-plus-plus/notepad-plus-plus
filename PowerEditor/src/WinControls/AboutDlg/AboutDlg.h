@@ -37,6 +37,8 @@
 #include "resource.h"
 #endif// RESOURCE_H
 
+#include "StaticDialog.h"
+
 #define LICENCE_TXT \
 TEXT("This program is free software; you can redistribute it and/or \
 modify it under the terms of the GNU General Public License \
@@ -67,7 +69,7 @@ public :
     };
 
 protected :
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
     URLCtrl _emailLink;

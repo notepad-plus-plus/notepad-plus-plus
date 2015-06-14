@@ -29,14 +29,23 @@
 #ifndef LOCALIZATION_H
 #define LOCALIZATION_H
 
-#ifndef TINYXMLA_INCLUDED
+#include "Common.h"
 #include "tinyxmlA.h"
-#endif //TINYXMLA_INCLUDED
+
 
 class FindReplaceDlg;
 class PreferenceDlg;
 class ShortcutMapper;
 class UserDefineDialog;
+
+class MenuPosition {
+public:
+	int _x;
+	int _y;
+	int _z;
+	char _id[64];
+};
+
 
 class NativeLangSpeaker {
 public:
@@ -83,5 +92,8 @@ private:
     bool _isRTL;
     const char *_fileName;
 };
+
+
+MenuPosition & getMenuPosition(const char *id);
 
 #endif // LOCALIZATION_H

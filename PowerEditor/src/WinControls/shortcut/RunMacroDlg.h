@@ -34,7 +34,7 @@
 #include "RunMacroDlg_rc.h"
 #endif //RUN_MACRO_DLG_RC_H
 
-using namespace std;
+#include "StaticDialog.h"
 
 #define RM_CANCEL -1
 #define RM_RUN_MULTI 1
@@ -65,7 +65,7 @@ public :
 	int getMacro2Exec() const;
 
 private :
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void check(int);
 
 	int m_Mode;

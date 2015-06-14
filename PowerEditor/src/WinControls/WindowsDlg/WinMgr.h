@@ -14,6 +14,9 @@
 
 #pragma once
 
+#include <assert.h>
+#include <windows.h>
+
 
 const SIZE SIZEZERO = {0, 0};
 const SIZE SIZEMAX = {SHRT_MAX, SHRT_MAX};

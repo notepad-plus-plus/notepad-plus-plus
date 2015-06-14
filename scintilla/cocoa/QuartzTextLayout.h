@@ -20,7 +20,7 @@ class QuartzTextLayout
 {
 public:
     /** Create a text layout for drawing on the specified context. */
-    QuartzTextLayout( CGContextRef context )
+    explicit QuartzTextLayout( CGContextRef context )
     {
 		mString = NULL;
 		mLine = NULL;
@@ -39,7 +39,7 @@ public:
 		{
 			CFRelease(mLine);
 			mLine = NULL;
-		}	
+		}
     }
 
     inline void setText( const UInt8* buffer, size_t byteLength, CFStringEncoding encoding, const QuartzTextStyle& r )
@@ -47,19 +47,19 @@ public:
 		CFStringRef str = CFStringCreateWithBytes( NULL, buffer, byteLength, encoding, false );
         if (!str)
             return;
-		
+
 	        stringLength = CFStringGetLength(str);
 
 		CFMutableDictionaryRef stringAttribs = r.getCTStyle();
-		
+
 		if (mString != NULL)
 			CFRelease(mString);
 		mString = ::CFAttributedStringCreate(NULL, str, stringAttribs);
-		
+
 		if (mLine != NULL)
 			CFRelease(mLine);
 		mLine = ::CTLineCreateWithAttributedString(mString);
-		
+
 		CFRelease( str );
     }
 
@@ -70,28 +70,28 @@ public:
     {
 		if (mLine == NULL)
 			return;
-		
+
 		::CGContextSetTextMatrix(gc, CGAffineTransformMakeScale(1.0, -1.0));
-		
+
 		// Set the text drawing position.
 		::CGContextSetTextPosition(gc, x, y);
-		
+
 		// And finally, draw!
 		::CTLineDraw(mLine, gc);
     }
-	
+
 	float MeasureStringWidth()
-	{		
+	{
 		if (mLine == NULL)
 			return 0.0f;
-		
-		return ::CTLineGetTypographicBounds(mLine, NULL, NULL, NULL);
+
+		return static_cast<float>(::CTLineGetTypographicBounds(mLine, NULL, NULL, NULL));
 	}
-	
+
     CTLineRef getCTLine() {
         return mLine;
     }
-	
+
     CFIndex getStringLength() {
 	    return stringLength;
     }

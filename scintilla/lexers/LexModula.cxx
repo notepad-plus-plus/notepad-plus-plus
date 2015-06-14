@@ -34,7 +34,7 @@ using namespace Scintilla;
 
 #ifdef DEBUG_LEX_MODULA
 #define DEBUG_STATE( p, c )\
-		fprintf( stderr, "Unknown state: currentPos = %d, char = '%c'\n", p, c );
+		fprintf( stderr, "Unknown state: currentPos = %ud, char = '%c'\n", p, c );
 #else
 #define DEBUG_STATE( p, c )
 #endif

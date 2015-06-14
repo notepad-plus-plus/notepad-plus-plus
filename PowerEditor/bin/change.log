@@ -1,23 +1,12 @@
-Notepad++ v6.7.8.2 bug-fix:
+Notepad++ v6.7.9 new features and bug-fix:
 
-1.  Disable Notepad++ updater (WinGup) under XP.
-
-
-Notepad++ v6.7.8.1 bug-fix:
-
-1.  Fix "Missing msvcr120.dll" message error (of WinGup).
-
-
-Notepad++ v6.7.8 new features and bug-fixes:
-
-1.  Fix an annoying regression about message "The buffer passed to GetFullPathName was too small!".
-2.  Update WinGup to version 3.0 which has SSL support and customizable User-Agent.
-3.  Improve sort lines performance greatly.
-4.  Fix tabbar close button usability issue (too small) on a high resolution laptop (Surface Pro 3).
-5.  Fix Settings on cloud - Google drive detection error.
-6.  Hiding tab bar via command line won't make hidden tab setting be saved in the next session.
-7.  Fix a bug of "Jump to next indicator" command.
-8.  Fix "File Status auto-detection" settings bug.
+1.  Upgrade Scintilla to v3.56.
+2.  Add Language and EOL conversion context menu on status bar.
+3.  Enhance sort lines feature: Add lexicographic and numeric (integer and real) sorting with ascending and descending order.
+4.  Add new feature which launches a new instance with administrator privilege to save the protected file.
+5.  Fix the context menu not working problem after doing find in files action.
+6.  Improve copy (to clipboard) in found results panel.
+7.  Improve find in files modal dialog.
 
 
 

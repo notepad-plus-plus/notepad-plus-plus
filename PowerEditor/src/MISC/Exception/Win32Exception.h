@@ -31,6 +31,11 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#ifndef WIN32_EXCEPTION_H
+#define  WIN32_EXCEPTION_H
+
+#include <exception>
+#include <windows.h>
 
 typedef const void* ExceptionAddress; // OK on Win32 platform
 
@@ -69,3 +74,5 @@ private:
 
     friend void Win32Exception::translate(unsigned code, EXCEPTION_POINTERS* info);
 };
+
+#endif // WIN32_EXCEPTION_H

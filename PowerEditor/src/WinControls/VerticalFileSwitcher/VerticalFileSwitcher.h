@@ -29,11 +29,7 @@
 #ifndef VERTICALFILESWITCHER_H
 #define  VERTICALFILESWITCHER_H
 
-//#include <windows.h>
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "VerticalFileSwitcher_rc.h"
 #include "VerticalFileSwitcherListView.h"
 
@@ -104,7 +100,7 @@ public:
     };
 
 protected:
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	VerticalFileSwitcherListView _fileListView;

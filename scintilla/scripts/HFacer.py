@@ -22,11 +22,13 @@ def printLexHFile(f):
 def printHFile(f):
 	out = []
 	previousCategory = ""
+	anyProvisional = False
 	for name in f.order:
 		v = f.features[name]
 		if v["Category"] != "Deprecated":
 			if v["Category"] == "Provisional" and previousCategory != "Provisional":
 				out.append("#ifndef SCI_DISABLE_PROVISIONAL")
+				anyProvisional = True
 			previousCategory = v["Category"]
 			if v["FeatureType"] in ["fun", "get", "set"]:
 				featureDefineName = "SCI_" + name.upper()
@@ -37,14 +39,23 @@ def printHFile(f):
 			elif v["FeatureType"] in ["val"]:
 				if not ("SCE_" in name or "SCLEX_" in name):
 					out.append("#define " + name + " " + v["Value"])
-	out.append("#endif")
+	if anyProvisional:
+		out.append("#endif")
 	return out
 
-f = Face.Face()
-try:
-	f.ReadFromFile("../include/Scintilla.iface")
-	Regenerate("../include/Scintilla.h", "/* ", printHFile(f))
-	Regenerate("../include/SciLexer.h", "/* ", printLexHFile(f))
-	print("Maximum ID is %s" % max([x for x in f.values if int(x) < 3000]))
-except:
-	raise
+def RegenerateAll(root, showMaxID):
+	f = Face.Face()
+	f.ReadFromFile(root + "include/Scintilla.iface")
+	Regenerate(root + "include/Scintilla.h", "/* ", printHFile(f))
+	Regenerate(root + "include/SciLexer.h", "/* ", printLexHFile(f))
+	if showMaxID:
+		valueSet = set(int(x) for x in f.values if int(x) < 3000)
+		maximumID = max(valueSet)
+		print("Maximum ID is %d" % maximumID)
+		#~ valuesUnused = sorted(x for x in range(2001,maximumID) if x not in valueSet)
+		#~ print("\nUnused values")
+		#~ for v in valuesUnused:
+			#~ print(v)
+
+if __name__ == "__main__":
+    RegenerateAll("../", True)

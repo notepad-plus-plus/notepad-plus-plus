@@ -29,6 +29,9 @@
 #ifndef TASKLISTDLG_H
 #define TASKLISTDLG_H
 
+#include "Common.h"
+#include "StaticDialog.h"
+
 #ifndef TASKLISTDLGRC_H
 #include "TaskListDlg_rc.h"
 #endif //TASKLISTDLGRC_H
@@ -82,7 +85,7 @@ public :
 		virtual void destroy() {};
 
 protected :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
 private :
 	TaskList _taskList;

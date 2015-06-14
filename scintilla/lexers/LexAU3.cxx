@@ -87,7 +87,7 @@ static inline bool IsAWordStart(const int ch)
 }
 
 static inline bool IsAOperator(char ch) {
-	if (isascii(ch) && isalnum(ch))
+	if (IsASCII(ch) && isalnum(ch))
 		return false;
 	if (ch == '+' || ch == '-' || ch == '*' || ch == '/' ||
 	    ch == '&' || ch == '^' || ch == '=' || ch == '<' || ch == '>' ||
@@ -228,7 +228,7 @@ static void ColouriseAU3Doc(unsigned int startPos,
 	char si;     // string indicator "=1 '=2
 	char ni;     // Numeric indicator error=9 normal=0 normal+dec=1 hex=2 Enot=3
 	char ci;     // comment indicator 0=not linecomment(;)
-	char s_save[100];
+	char s_save[100] = "";
 	si=0;
 	ni=0;
 	ci=0;

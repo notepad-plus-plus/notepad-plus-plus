@@ -84,6 +84,7 @@
                     <Item id="41016" name="Удалить файл (в корзину)"/>
                     <Item id="41017" name="Переименовать..."/>
                     <Item id="41020" name="Открыть в консоли cmd"/>
+                    <Item id="41021" name="Открыть последний закрытый файл"/>
                     <Item id="41009" name="Закрыть все Слева"/>
                     <Item id="41018" name="Закрыть все Справа"/>
                     <Item id="42001" name="Вырезать"/>
@@ -244,11 +245,11 @@
                     <Item id="45001" name="Преобразовать в Win-формат (CRLF)"/>
                     <Item id="45002" name="Преобразовать в UNIX-формат (LF)"/>
                     <Item id="45003" name="Преобразовать в MAC-формат (CR)"/>
-                    <Item id="45004" name="Кодировать в ANSI"/>
-                    <Item id="45005" name="Кодировать в UTF-8"/>
-                    <Item id="45006" name="Кодировать в UCS-2 Big Endian"/>
-                    <Item id="45007" name="Кодировать в UCS-2 Little Endian"/>
-                    <Item id="45008" name="Кодировать в UTF-8 (без BOM)"/>
+                    <Item id="45004" name="Кодировка в ANSI"/>
+                    <Item id="45005" name="Кодировка в UTF-8"/>
+                    <Item id="45006" name="Кодировка в UCS-2 Big Endian"/>
+                    <Item id="45007" name="Кодировка в UCS-2 Little Endian"/>
+                    <Item id="45008" name="Кодировка в UTF-8 (без BOM)"/>
                     <Item id="45009" name="Преобразовать в ANSI"/>
                     <Item id="45010" name="Преобразовать в UTF-8 без BOM"/>
                     <Item id="45011" name="Преобразовать в UTF-8"/>
@@ -740,11 +741,11 @@
                     <Item id="6333" name="Подсветка совпадающих слов"/>
                     <Item id="6335" name="Обратный слэш это escape символ для SQL"/>
                 </MISC>
-				<MultiInstance title = "Мульти-экземпляр">
-					<Item id = "6151" name = "Настройки Мульти-экземпляра"/>
-					<Item id = "6152" name = "Открывать сессии в новом экземпляре Notepad++"/>
-					<Item id = "6153" name = "Всегда в мильти-экземплярном режиме"/>
-					<Item id = "6154" name = "По умолчанию (моно-экземпляр)"/>
+				<MultiInstance title = "Режим Окон">
+					<Item id = "6151" name = "Режим Открытия Файлов"/>
+					<Item id = "6152" name = "Только сессии открывать в новом окне"/>
+					<Item id = "6153" name = "Каждый файл открывать в новом окне"/>
+					<Item id = "6154" name = "Всё в одном окне (по умолчанию)"/>
 					<Item id = "6155" name = "* Изменения вступят в силу после перезапуска Notepad++"/>
 				</MultiInstance>
 				<Delimiter title = "Разделитель">
@@ -756,7 +757,7 @@
 					<Item id = "6258" name = "бла бла бла бла бла бла бла бла бла бла бла бла"/>
 				</Delimiter>
                  <Cloud title="Облачное Хранение">
-                    <Item id="6262" name="Настройки на Облако"/>
+                    <Item id="6262" name="Настройки Облачного Хранения"/>
                     <Item id="6263" name="Без Облака"/>
                     <Item id="6264" name="Dropbox"/>
                     <Item id="6265" name="OneDrive"/>

@@ -75,6 +75,8 @@ public:
 	virtual int SCI_METHOD AllocateSubStyles(int styleBase, int numberStyles) = 0;
 	virtual int SCI_METHOD SubStylesStart(int styleBase) = 0;
 	virtual int SCI_METHOD SubStylesLength(int styleBase) = 0;
+	virtual int SCI_METHOD StyleFromSubStyle(int subStyle) = 0;
+	virtual int SCI_METHOD PrimaryStyleFromStyle(int style) = 0;
 	virtual void SCI_METHOD FreeSubStyles() = 0;
 	virtual void SCI_METHOD SetIdentifiers(int style, const char *identifiers) = 0;
 	virtual int SCI_METHOD DistanceToSecondaryStyles() = 0;

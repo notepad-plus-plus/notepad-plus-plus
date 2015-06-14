@@ -33,7 +33,7 @@ using namespace Scintilla;
 #define SCE_LISP_MACRO_DISPATCH 31
 
 static inline bool isLispoperator(char ch) {
-	if (isascii(ch) && isalnum(ch))
+	if (IsASCII(ch) && isalnum(ch))
 		return false;
 	if (ch == '\'' || ch == '`' || ch == '(' || ch == ')' || ch == '[' || ch == ']' || ch == '{' || ch == '}')
 		return true;
@@ -41,7 +41,7 @@ static inline bool isLispoperator(char ch) {
 }
 
 static inline bool isLispwordstart(char ch) {
-	return isascii(ch) && ch != ';'  && !isspacechar(ch) && !isLispoperator(ch) &&
+	return IsASCII(ch) && ch != ';'  && !isspacechar(ch) && !isLispoperator(ch) &&
 		ch != '\n' && ch != '\r' &&  ch != '\"';
 }
 
@@ -142,7 +142,7 @@ static void ColouriseLispDoc(unsigned int startPos, int length, int initStyle, W
 				}
 			}
 		} else if (state == SCE_LISP_MACRO_DISPATCH) {
-			if (!(isascii(ch) && isdigit(ch))) {
+			if (!(IsASCII(ch) && isdigit(ch))) {
 				if (ch != 'r' && ch != 'R' && (i - styler.GetStartSegment()) > 1) {
 					state = SCE_LISP_DEFAULT;
 				} else {

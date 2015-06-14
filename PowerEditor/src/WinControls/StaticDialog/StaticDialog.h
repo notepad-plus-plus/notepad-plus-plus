@@ -29,9 +29,8 @@
 #ifndef STATIC_DIALOG_H
 #define STATIC_DIALOG_H
 
-#ifndef NOTEPAD_PLUS_MSGS_H
 #include "Notepad_plus_msgs.h"
-#endif //NOTEPAD_PLUS_MSGS_H
+#include "Window.h"
 
 typedef HRESULT (WINAPI * ETDTProc) (HWND, DWORD);
 
@@ -95,8 +94,8 @@ public :
 
 protected :
 	RECT _rc;
-	static BOOL CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
+	static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) = 0;
 
     void alignWith(HWND handle, HWND handle2Align, PosAlign pos, POINT & point);
 	HGLOBAL makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplate);

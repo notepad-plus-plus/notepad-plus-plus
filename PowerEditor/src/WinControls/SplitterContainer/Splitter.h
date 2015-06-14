@@ -33,6 +33,8 @@
 #include "resource.h"
 #endif //RESOURCE_H
 
+#include "Window.h"
+
 #define SV_HORIZONTAL		0x00000001
 #define SV_VERTICAL			0x00000002
 #define SV_FIXED			0x00000004

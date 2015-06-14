@@ -7,6 +7,8 @@
 
 #ifndef BABYGRID_H
 
+#include <windows.h>
+
 #ifndef RESOURCE_H
 #include "resource.h"
 #endif// RESOURCE_H

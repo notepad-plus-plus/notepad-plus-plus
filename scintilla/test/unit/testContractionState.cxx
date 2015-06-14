@@ -11,138 +11,130 @@
 #include "RunStyles.h"
 #include "ContractionState.h"
 
-#include <gtest/gtest.h>
+#include "catch.hpp"
 
 // Test ContractionState.
 
-class ContractionStateTest : public ::testing::Test {
-protected:
-	virtual void SetUp() {
-		pcs = new ContractionState();
+TEST_CASE("ContractionState") {
+
+	ContractionState cs;
+
+	SECTION("IsEmptyInitially") {
+		REQUIRE(1 == cs.LinesInDoc());
+		REQUIRE(1 == cs.LinesDisplayed());
+		REQUIRE(0 == cs.DisplayFromDoc(0));
+		REQUIRE(0 == cs.DocFromDisplay(0));
 	}
 
-	virtual void TearDown() {
-		delete pcs;
-		pcs = 0;
+	SECTION("OneLine") {
+		cs.InsertLine(0);
+		REQUIRE(2 == cs.LinesInDoc());
+		REQUIRE(2 == cs.LinesDisplayed());
+		REQUIRE(0 == cs.DisplayFromDoc(0));
+		REQUIRE(0 == cs.DocFromDisplay(0));
+		REQUIRE(1 == cs.DisplayFromDoc(1));
+		REQUIRE(1 == cs.DocFromDisplay(1));
 	}
 
-	ContractionState *pcs;
-};
+	SECTION("InsertionThenDeletions") {
+		cs.InsertLines(0,4);
+		cs.DeleteLine(1);
 
-TEST_F(ContractionStateTest, IsEmptyInitially) {
-	EXPECT_EQ(1, pcs->LinesInDoc());
-	EXPECT_EQ(1, pcs->LinesDisplayed());
-	EXPECT_EQ(0, pcs->DisplayFromDoc(0));
-	EXPECT_EQ(0, pcs->DocFromDisplay(0));
-}
+		REQUIRE(4 == cs.LinesInDoc());
+		REQUIRE(4 == cs.LinesDisplayed());
+		for (int l=0;l<4;l++) {
+			REQUIRE(l == cs.DisplayFromDoc(l));
+			REQUIRE(l == cs.DocFromDisplay(l));
+		}
 
-TEST_F(ContractionStateTest, OneLine) {
-	pcs->InsertLine(0);
-	EXPECT_EQ(2, pcs->LinesInDoc());
-	EXPECT_EQ(2, pcs->LinesDisplayed());
-	EXPECT_EQ(0, pcs->DisplayFromDoc(0));
-	EXPECT_EQ(0, pcs->DocFromDisplay(0));
-	EXPECT_EQ(1, pcs->DisplayFromDoc(1));
-	EXPECT_EQ(1, pcs->DocFromDisplay(1));
-}
-
-TEST_F(ContractionStateTest, InsertionThenDeletions) {
-	pcs->InsertLines(0,4);
-	pcs->DeleteLine(1);
-	
-	EXPECT_EQ(4, pcs->LinesInDoc());
-	EXPECT_EQ(4, pcs->LinesDisplayed());
-	for (int l=0;l<4;l++) {
-		EXPECT_EQ(l, pcs->DisplayFromDoc(l));
-		EXPECT_EQ(l, pcs->DocFromDisplay(l));
-	}
-	
-	pcs->DeleteLines(0,2);
-	EXPECT_EQ(2, pcs->LinesInDoc());
-	EXPECT_EQ(2, pcs->LinesDisplayed());
-	for (int l=0;l<2;l++) {
-		EXPECT_EQ(l, pcs->DisplayFromDoc(l));
-		EXPECT_EQ(l, pcs->DocFromDisplay(l));
-	}
-}
-
-TEST_F(ContractionStateTest, ShowHide) {
-	pcs->InsertLines(0,4);
-	EXPECT_EQ(true, pcs->GetVisible(0));
-	EXPECT_EQ(true, pcs->GetVisible(1));
-	EXPECT_EQ(true, pcs->GetVisible(2));
-	EXPECT_EQ(5, pcs->LinesDisplayed());
-
-	pcs->SetVisible(1, 1, false);
-	EXPECT_EQ(true, pcs->GetVisible(0));
-	EXPECT_EQ(0, pcs->GetVisible(1));
-	EXPECT_EQ(true, pcs->GetVisible(2));
-	EXPECT_EQ(4, pcs->LinesDisplayed());
-	EXPECT_EQ(1, pcs->HiddenLines());
-
-	pcs->SetVisible(1, 2, true);
-	for (int l=0;l<4;l++) {
-		EXPECT_EQ(true, pcs->GetVisible(0));
+		cs.DeleteLines(0,2);
+		REQUIRE(2 == cs.LinesInDoc());
+		REQUIRE(2 == cs.LinesDisplayed());
+		for (int l=0;l<2;l++) {
+			REQUIRE(l == cs.DisplayFromDoc(l));
+			REQUIRE(l == cs.DocFromDisplay(l));
+		}
 	}
 
-	pcs->SetVisible(1, 1, false);
-	EXPECT_EQ(0, pcs->GetVisible(1));
-	pcs->ShowAll();
-	for (int l=0;l<4;l++) {
-		EXPECT_EQ(true, pcs->GetVisible(0));
-	}
-	EXPECT_EQ(0, pcs->HiddenLines());
-}
+	SECTION("ShowHide") {
+		cs.InsertLines(0,4);
+		REQUIRE(true == cs.GetVisible(0));
+		REQUIRE(true == cs.GetVisible(1));
+		REQUIRE(true == cs.GetVisible(2));
+		REQUIRE(5 == cs.LinesDisplayed());
 
-TEST_F(ContractionStateTest, Hidden) {
-	pcs->InsertLines(0,1);
-	for (int l=0;l<2;l++) {
-		EXPECT_EQ(true, pcs->GetVisible(0));
-	}
-	EXPECT_EQ(0, pcs->HiddenLines());
+		cs.SetVisible(1, 1, false);
+		REQUIRE(true == cs.GetVisible(0));
+		REQUIRE(0 == cs.GetVisible(1));
+		REQUIRE(true == cs.GetVisible(2));
+		REQUIRE(4 == cs.LinesDisplayed());
+		REQUIRE(1 == cs.HiddenLines());
 
-	pcs->SetVisible(1, 1, false);
-	EXPECT_EQ(true, pcs->GetVisible(0));
-	EXPECT_EQ(0, pcs->GetVisible(1));
-	EXPECT_EQ(1, pcs->HiddenLines());
+		cs.SetVisible(1, 2, true);
+		for (int l=0;l<4;l++) {
+			REQUIRE(true == cs.GetVisible(0));
+		}
 
-	pcs->SetVisible(1, 1, true);
-	for (int l=0;l<2;l++) {
-		EXPECT_EQ(true, pcs->GetVisible(0));
-	}
-	EXPECT_EQ(0, pcs->HiddenLines());
-}
-
-TEST_F(ContractionStateTest, Contracting) {
-	pcs->InsertLines(0,4);
-	for (int l=0;l<4;l++) {
-		EXPECT_EQ(true, pcs->GetExpanded(l));
+		cs.SetVisible(1, 1, false);
+		REQUIRE(0 == cs.GetVisible(1));
+		cs.ShowAll();
+		for (int l=0;l<4;l++) {
+			REQUIRE(true == cs.GetVisible(0));
+		}
+		REQUIRE(0 == cs.HiddenLines());
 	}
 
-	pcs->SetExpanded(2, false);
-	EXPECT_EQ(true, pcs->GetExpanded(1));
-	EXPECT_EQ(0, pcs->GetExpanded(2));
-	EXPECT_EQ(true, pcs->GetExpanded(3));
-	
-	EXPECT_EQ(2, pcs->ContractedNext(0));
-	EXPECT_EQ(2, pcs->ContractedNext(1));
-	EXPECT_EQ(2, pcs->ContractedNext(2));
-	EXPECT_EQ(-1, pcs->ContractedNext(3));
+	SECTION("Hidden") {
+		cs.InsertLines(0,1);
+		for (int l=0;l<2;l++) {
+			REQUIRE(true == cs.GetVisible(0));
+		}
+		REQUIRE(0 == cs.HiddenLines());
 
-	pcs->SetExpanded(2, true);
-	EXPECT_EQ(true, pcs->GetExpanded(1));
-	EXPECT_EQ(true, pcs->GetExpanded(2));
-	EXPECT_EQ(true, pcs->GetExpanded(3));
-}
+		cs.SetVisible(1, 1, false);
+		REQUIRE(true == cs.GetVisible(0));
+		REQUIRE(0 == cs.GetVisible(1));
+		REQUIRE(1 == cs.HiddenLines());
 
-TEST_F(ContractionStateTest, ChangeHeight) {
-	pcs->InsertLines(0,4);
-	for (int l=0;l<4;l++) {
-		EXPECT_EQ(1, pcs->GetHeight(l));
+		cs.SetVisible(1, 1, true);
+		for (int l=0;l<2;l++) {
+			REQUIRE(true == cs.GetVisible(0));
+		}
+		REQUIRE(0 == cs.HiddenLines());
 	}
 
-	pcs->SetHeight(1, 2);
-	EXPECT_EQ(1, pcs->GetHeight(0));
-	EXPECT_EQ(2, pcs->GetHeight(1));
-	EXPECT_EQ(1, pcs->GetHeight(2));
+	SECTION("Contracting") {
+		cs.InsertLines(0,4);
+		for (int l=0;l<4;l++) {
+			REQUIRE(true == cs.GetExpanded(l));
+		}
+
+		cs.SetExpanded(2, false);
+		REQUIRE(true == cs.GetExpanded(1));
+		REQUIRE(0 == cs.GetExpanded(2));
+		REQUIRE(true == cs.GetExpanded(3));
+
+		REQUIRE(2 == cs.ContractedNext(0));
+		REQUIRE(2 == cs.ContractedNext(1));
+		REQUIRE(2 == cs.ContractedNext(2));
+		REQUIRE(-1 == cs.ContractedNext(3));
+
+		cs.SetExpanded(2, true);
+		REQUIRE(true == cs.GetExpanded(1));
+		REQUIRE(true == cs.GetExpanded(2));
+		REQUIRE(true == cs.GetExpanded(3));
+	}
+
+	SECTION("ChangeHeight") {
+		cs.InsertLines(0,4);
+		for (int l=0;l<4;l++) {
+			REQUIRE(1 == cs.GetHeight(l));
+		}
+
+		cs.SetHeight(1, 2);
+		REQUIRE(1 == cs.GetHeight(0));
+		REQUIRE(2 == cs.GetHeight(1));
+		REQUIRE(1 == cs.GetHeight(2));
+	}
+
 }

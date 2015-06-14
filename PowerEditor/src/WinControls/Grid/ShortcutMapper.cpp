@@ -26,10 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
 #include "ShortcutMapper.h"
 #include "Notepad_plus.h"
 
+using namespace std;
 
 void ShortcutMapper::initTabs() {
 	HWND hTab = _hTabCtrl = ::GetDlgItem(_hSelf, IDC_BABYGRID_TABBAR);
@@ -169,7 +169,7 @@ void ShortcutMapper::fillOutBabyGrid()
 	}
 }
 
-BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{

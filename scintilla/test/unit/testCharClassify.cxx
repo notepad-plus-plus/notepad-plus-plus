@@ -8,13 +8,15 @@
 
 #include "CharClassify.h"
 
-#include <gtest/gtest.h>
+#include "catch.hpp"
 
 // Test CharClassify.
 
-class CharClassifyTest : public::testing::Test {
+class CharClassifyTest {
+	// Avoid warnings, private so never called. 
+	CharClassifyTest(const CharClassifyTest &);
 protected:
-	virtual void SetUp() {
+	CharClassifyTest() {
 		pcc = new CharClassify();
 		for (int ch = 0; ch < 256; ch++) {
 			if (ch == '\r' || ch == '\n')
@@ -28,7 +30,7 @@ protected:
 		}
 	}
 
-	virtual void TearDown() {
+	~CharClassifyTest() {
 		delete pcc;
 		pcc = 0;
 	}
@@ -50,16 +52,18 @@ protected:
 	}
 };
 
-TEST_F(CharClassifyTest, Defaults) {
+TEST_CASE_METHOD(CharClassifyTest, "Defaults") {
 	for (int i = 0; i < 256; i++) {
-		EXPECT_EQ(charClass[i], pcc->GetClass(i))
+		if (charClass[i] != pcc->GetClass(i))
+			std::cerr
 			<< "Character " << i
 			<< " should be class " << GetClassName(charClass[i])
-			<< ", but got " << GetClassName(pcc->GetClass(i));
+			<< ", but got " << GetClassName(pcc->GetClass(i)) << std::endl;
+		REQUIRE(charClass[i] == pcc->GetClass(i));
 	}
 }
 
-TEST_F(CharClassifyTest, Custom) {
+TEST_CASE_METHOD(CharClassifyTest, "Custom") {
 	unsigned char buf[2] = {0, 0};
 	for (int i = 0; i < 256; i++) {
 		CharClassify::cc thisClass = CharClassify::cc(i % 4);
@@ -68,14 +72,16 @@ TEST_F(CharClassifyTest, Custom) {
 		charClass[i] = thisClass;
 	}
 	for (int i = 0; i < 256; i++) {
-		EXPECT_EQ(charClass[i], pcc->GetClass(i))
+		if (charClass[i] != pcc->GetClass(i))
+			std::cerr
 			<< "Character " << i
 			<< " should be class " << GetClassName(charClass[i])
-			<< ", but got " << GetClassName(pcc->GetClass(i));
+			<< ", but got " << GetClassName(pcc->GetClass(i)) << std::endl;
+		REQUIRE(charClass[i] == pcc->GetClass(i));
 	}
 }
 
-TEST_F(CharClassifyTest, CharsOfClass) {
+TEST_CASE_METHOD(CharClassifyTest, "CharsOfClass") {
 	unsigned char buf[2] = {0, 0};
 	for (int i = 1; i < 256; i++) {
 		CharClassify::cc thisClass = CharClassify::cc(i % 4);
@@ -86,27 +92,30 @@ TEST_F(CharClassifyTest, CharsOfClass) {
 	for (int classVal = 0; classVal < 4; ++classVal) {
 		CharClassify::cc thisClass = CharClassify::cc(classVal % 4);
 		int size = pcc->GetCharsOfClass(thisClass, NULL);
-		unsigned char* buffer = reinterpret_cast<unsigned char*>(malloc(size + 1));
-		ASSERT_TRUE(buffer);
+		unsigned char* buffer = new unsigned char[size + 1];
 		buffer[size] = '\0';
 		pcc->GetCharsOfClass(thisClass, buffer);
 		for (int i = 1; i < 256; i++) {
 			if (charClass[i] == thisClass) {
-				EXPECT_TRUE(memchr(reinterpret_cast<char*>(buffer), i, size))
+				if (!memchr(reinterpret_cast<char*>(buffer), i, size))
+					std::cerr
 					<< "Character " << i
 					<< " should be class " << GetClassName(thisClass)
 					<< ", but was not in GetCharsOfClass;"
 					<< " it is reported to be "
-					<< GetClassName(pcc->GetClass(i));
+					<< GetClassName(pcc->GetClass(i)) << std::endl;
+				REQUIRE(memchr(reinterpret_cast<char*>(buffer), i, size));
 			} else {
-				EXPECT_FALSE(memchr(reinterpret_cast<char*>(buffer), i, size))
+				if (memchr(reinterpret_cast<char*>(buffer), i, size))
+					std::cerr
 					<< "Character " << i
 					<< " should not be class " << GetClassName(thisClass)
 					<< ", but was in GetCharsOfClass"
 					<< " it is reported to be "
-					<< GetClassName(pcc->GetClass(i));
+					<< GetClassName(pcc->GetClass(i)) << std::endl;
+				REQUIRE_FALSE(memchr(reinterpret_cast<char*>(buffer), i, size));
 			}
 		}
-		free(buffer);
+		delete []buffer;
 	}
 }

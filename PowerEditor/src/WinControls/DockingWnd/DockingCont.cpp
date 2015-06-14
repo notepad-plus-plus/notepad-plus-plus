@@ -25,13 +25,14 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#include "precompiledHeaders.h"
 #include "dockingResource.h"
 #include "DockingCont.h"
 
 #include "SplitterContainer.h"
 #include "ToolTip.h"
 #include "Parameters.h"
+
+using namespace std;
 
 #ifndef WH_MOUSE_LL
 #define WH_MOUSE_LL 14
@@ -899,7 +900,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 //----------------------------------------------
 //    Process function of dialog
 //
-BOOL CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message) 
 	{

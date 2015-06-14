@@ -91,6 +91,20 @@ struct TreeParams {
 	SearchParameters _searchParameters;
 };
 
+class FunctionListPanelData : public TreeViewData {
+public:
+	generic_string _str;
+
+	FunctionListPanelData(const TCHAR* str) : TreeViewData(), _str(str) {}
+	virtual ~FunctionListPanelData() {}
+
+	virtual TreeViewData* clone() const {
+		return new FunctionListPanelData(*this);
+	}
+	virtual generic_string getExtraDataString() const { return _str; } 
+
+};
+
 class FunctionListPanel : public DockingDlgInterface {
 public:
 	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView),

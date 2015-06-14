@@ -5,6 +5,7 @@
 		<KeyWord name="abs" />
 		<KeyWord name="acos" />
 		<KeyWord name="action" />
+		<KeyWord name="addEventListener" />
 		<KeyWord name="alert" />
 		<KeyWord name="align" />
 		<KeyWord name="aLinkcolor" />
@@ -75,6 +76,7 @@
 		<KeyWord name="charCodeAt" />
 		<KeyWord name="Checkbox" />
 		<KeyWord name="checked" />
+		<KeyWord name="childElementCount" />
 		<KeyWord name="childNodes" />
 		<KeyWord name="class" />
 		<KeyWord name="classes" />
@@ -130,6 +132,7 @@
 		<KeyWord name="dir" />
 		<KeyWord name="directories" />
 		<KeyWord name="disableExternalCapture" />
+		<KeyWord name="dispatchEvent" />
 		<KeyWord name="display" />
 		<KeyWord name="do" />
 		<KeyWord name="doctype" />
@@ -169,6 +172,7 @@
 		<KeyWord name="final" />
 		<KeyWord name="finally" />
 		<KeyWord name="find" />
+		<KeyWord name="findAll" />
 		<KeyWord name="firstChild" />
 		<KeyWord name="fixed" />
 		<KeyWord name="float" />
@@ -188,15 +192,24 @@
 		<KeyWord name="Frame" />
 		<KeyWord name="frameElement" />
 		<KeyWord name="frames" />
+		<KeyWord name="from" />
 		<KeyWord name="fromCharCode" />
 		<KeyWord name="Function" />
 		<KeyWord name="function" />
 		<KeyWord name="getAttention" />
+		<KeyWord name="getAttribute" />
+		<KeyWord name="getAttributeNS" />
+		<KeyWord name="getAttributeNode" />
+		<KeyWord name="getAttributeNodeNS" />
+		<KeyWord name="getBoundingClientRect" />
+		<KeyWord name="getClientRects" />
 		<KeyWord name="getDate" />
 		<KeyWord name="getDay" />
 		<KeyWord name="getElementById" />
+		<KeyWord name="getElementsByClassName" />
 		<KeyWord name="getElementsByName" />
 		<KeyWord name="getElementsByTagName" />
+		<KeyWord name="getElementsByTagNameNS" />
 		<KeyWord name="getFullYear" />
 		<KeyWord name="getHours" />
 		<KeyWord name="getMilliseconds" />
@@ -219,6 +232,9 @@
 		<KeyWord name="go" />
 		<KeyWord name="goto" />
 		<KeyWord name="handleEvent" />
+		<KeyWord name="hasAttribute" />
+		<KeyWord name="hasAttributeNS" />
+		<KeyWord name="hasAttributes" />
 		<KeyWord name="hasFocus" />
 		<KeyWord name="hash" />
 		<KeyWord name="height" />
@@ -242,6 +258,7 @@
 		<KeyWord name="index" />
 		<KeyWord name="indexOf" />
 		<KeyWord name="Infinity" />
+		<KeyWord name="innerHTML" />
 		<KeyWord name="innerHeight" />
 		<KeyWord name="innerWidth" />
 		<KeyWord name="input" />
@@ -260,6 +277,7 @@
 		<KeyWord name="join" />
 		<KeyWord name="language" />
 		<KeyWord name="lastChild" />
+		<KeyWord name="lastElementChild" />
 		<KeyWord name="lastIndex" />
 		<KeyWord name="lastIndexOf" />
 		<KeyWord name="lastMatch" />
@@ -271,6 +289,7 @@
 		<KeyWord name="left" />
 		<KeyWord name="leftContext" />
 		<KeyWord name="length" />
+		<KeyWord name="let" />
 		<KeyWord name="lineHeight" />
 		<KeyWord name="link" />
 		<KeyWord name="Link" />
@@ -295,6 +314,8 @@
 		<KeyWord name="margins" />
 		<KeyWord name="marginTop" />
 		<KeyWord name="match" />
+		<KeyWord name="matches" />
+		<KeyWord name="matchesSelector" />
 		<KeyWord name="Math" />
 		<KeyWord name="max" />
 		<KeyWord name="MAX_VALUE" />
@@ -331,6 +352,7 @@
 		<KeyWord name="null" />
 		<KeyWord name="Number" />
 		<KeyWord name="Object" />
+		<KeyWord name="of" />
 		<KeyWord name="offscreenBuffering" />
 		<KeyWord name="onabort" />
 		<KeyWord name="onactivate" />
@@ -403,6 +425,7 @@
 		<KeyWord name="Option" />
 		<KeyWord name="options" />
 		<KeyWord name="oscpu" />
+		<KeyWord name="outerHTML" />
 		<KeyWord name="outerHeight" />
 		<KeyWord name="outerWidth" />
 		<KeyWord name="ownerDocument" />
@@ -468,6 +491,10 @@
 		<KeyWord name="releaseCapture" />
 		<KeyWord name="releaseEvents" />
 		<KeyWord name="reload" />
+		<KeyWord name="removeAttribute" />
+		<KeyWord name="removeAttributeNS" />
+		<KeyWord name="removeAttributeNode" />
+		<KeyWord name="removeEventListener" />
 		<KeyWord name="replace" />
 		<KeyWord name="Reset" />
 		<KeyWord name="reset" />
@@ -492,7 +519,11 @@
 		<KeyWord name="scrollBy" />
 		<KeyWord name="scrollByLines" />
 		<KeyWord name="scrollByPages" />
+		<KeyWord name="scrollHeight" />
+		<KeyWord name="scrollLeft" />
+		<KeyWord name="scrollTop" />
 		<KeyWord name="scrollTo" />
+		<KeyWord name="scrollWidth" />
 		<KeyWord name="scrollX" />
 		<KeyWord name="scrollY" />
 		<KeyWord name="search" />
@@ -505,6 +536,10 @@
 		<KeyWord name="selection" />
 		<KeyWord name="self" />
 		<KeyWord name="setActive" />
+		<KeyWord name="setAttribute" />
+		<KeyWord name="setAttributeNS" />
+		<KeyWord name="setAttributeNode" />
+		<KeyWord name="setAttributeNodeNS" />
 		<KeyWord name="setCursor" />
 		<KeyWord name="setDate" />
 		<KeyWord name="setFullYear" />

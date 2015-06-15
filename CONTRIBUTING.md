@@ -1,85 +1,82 @@
-#Contributing
+# Contributing
 
-Your pull requests are welcome; however, they may not be accepted for various reasons.
+The Notepad++ project welcomes your contributions to the project. However, not all contributions will or can be accepted. Only after careful review and deliberation, will a contribution be accepted.
 
-##Guidelines for pull requests:
+## Guidelines for Pull Requests
+Although not every contribution can be accepted and merged into the Notepad++ project, Following these guidelines can help get your contribution accepted.
 
-1. Respect Notepad++ coding style.
-2. Make a single change per commit.
-3. Make your modification compact - don't reformat source code in your request. It makes code review more difficult.
-4. PR of reformating (changing of ws/TAB, line endings or coding style) of source code won't be accepted. Use issue trackers for your request instead.
-5. Only bug-fix and feature request will be accepted. For the other things, I can run static code analysis tool myself.
+- Respect the Notepad++ coding style.
+- Make a single change per commit.
+- Make your modification compact - don't reformat source code in your request. It makes code review more difficult.
+- Pull requests consisting of reformatting (Changes made to white space, TAB, line endings, or coding style solely for the purpose of style or to increase/decrease readability) of source code will not be accepted. Use the issue tracker for your request instead.
+- Only bug-fix and feature request will be accepted. For everything else, I can run static code analysis tool myself.
 
-In short: The easier the code review is, the better the chance your pull request will get accepted.
+**In short:** The *easier* the code review is, the *better* the chance your pull request or other contribution will be accepted.
 
+## Coding style
 
-##Coding style:
+### General
 
-####GENERAL
+#### Avoid using pointers.
+Avoid using pointers, and prefer references instead. You might need the variable to be assigned a NULL value: in this case the NULL value has semantics and must be checked. Wherever possible, use a SmartPtr instead of old-school pointers.
 
-* Do not use Java-like braces:
+#### Prefer using enumeration for integer constants.
 
-GOOD:
+#### Avoid using new if you can use automatic variable.
+
+#### Don't place any ```using namespace``` directives in headers.
+
+#### Compile time is without incidence. Increasing compile time to reduce execution time is encouraged.
+
+#### Code legibility and length is less important than easy and fast end-user experience.
+
+#### Prefer to prefix increment and decrement operators:
+Increment and decrement operators should be prefixed, rather than postfixed.
+```c
+      ++i
+```
+**over**
+```c
+      i++
+```
+It does not change anything for built-in types, but it should bring consistency
+   
+#### Avoid the use of magic numbers.
+
+**Bad Example:**
+```c
+  while (lifeTheUniverseAndEverything != 42)
+      lifeTheUniverseAndEverything =  buildMorePowerfulComputerForTheAnswer();
+```
+**Good Example:**
+```c
+  if (foo < iCanPushOnTheBigRedButton)
+      startThermoNuclearWar();
+```
+
+### Indention
+
+Code in the Notepad++ project uses the Allman indention style.
+
+#### Do not use Java-like braces:
+
+**Good Example:**
 ```c
   if ()
   {
       // Do something
   }
 ```
-BAD:
+**Bad Example:**
   ```c
   if () {
       // Do something
   }
 ```
-* Use tabs instead of whitespaces (we usually set our editors to 4
-  whitespaces for 1 tab, but the choice is up to you)
+#### Use tabs instead of whitespaces for indentation.
+The collaborators of the project usually set our editors to 4 whitespaces for 1 tab, but the choice is up to you.
 
-
-* Always leave one space before and after binary and ternary operators
-  Only leave one space after semi-colons in "for" statements.
-
-GOOD:
-```c
-  if (10 == a && 42 == b)
-```
-BAD:
-  ```c
-  if (a==10&&b==42)
-```
-GOOD:
-  ```c
-  for (int i = 0; i != 10; ++i)
-  ```
-BAD:
-  ```c
-  for(int i=0;i<10;++i)
-```
-* Keywords are not function calls.
-  Function names are not separated from the first parenthesis:
-
-GOOD:
-```c
-    foo();
-    myObject.foo(24);
-```
-BAD:
-```c
-    foo ();
-```
-* Keywords are separated from the first parenthesis by one space :
-
-GOOD:
-```c
-    if (true)
-    while (true)
-```
-BAD:
-```c
-    if(myCondition)
-```
-
-* Use the following indenting for "switch" statements
+#### Use the following indention style for "switch" control statements.
 ```c
   switch (test)
   {
@@ -93,49 +90,91 @@ BAD:
   } // No semi-colon here
 ```
 
-* Avoid magic numbers
+### Spacing
 
-BAD:
+#### Always insert one space before and after any binary, logical, or ternary operators. 
+
+**Good spacing:**
 ```c
-  while (lifeTheUniverseAndEverything != 42)
-      lifeTheUniverseAndEverything =  buildMorePowerfulComputerForTheAnswer();
+  if (10 == a && 42 == b)
 ```
-GOOD:
+**Bad spacing**
+  ```c
+  if (a==10&&b==42)
+```
+#### Always insert one space after each semi-colon in "for" statements.
+
+**Good spacing:**
+  ```c
+  for (int i = 0; i != 10; ++i)
+  ```
+**Bad spacing:**
+ ```c
+  for(int i=0;i<10;++i)
+```
+
+#### Function names are not to be separated from the parameter list by any whitespace:
+
+**Good spacing**:
 ```c
-  if (foo < I_CAN_PUSH_ON_THE_RED_BUTTON)
-      startThermoNuclearWar();
+    foo();
+    myObject.foo(24);
+```
+**Bad Spacing**
+```c
+    foo ();
+	myObject.foo (24);
+```
+#### Keywords are separated from the first parenthesis by one space:
+Keywords are *not* function calls.
+**Good spacing:**
+```c
+    if (myCondition)
+```
+**Bad spacing**
+```c
+    if(myCondition)
 ```
 
-* Prefer enums for integer constants
+### Naming Conventions
 
+#### Class names should be in PascalCase.
+Every letter in the name is capitalized, including the first letter. No spaces or other separators (such as dashes or underscores) should be used:
 
-
-####NAMING CONVENTIONS
-
-* Classes (camel case) :
-
-GOOD:
+**Good naming:**
 ```c
   class IAmAClass
   {};
 ```
-BAD:
+**Bad naming:**
 ```c
   class iAmClass
   {};
+ ```
+ **OR**
+ ```c
   class I_am_class
   {};
 ```
 
-* methods (camel case + begins with a lower case)
-  method parameters (camel case + begins with a lower case)
+#### Methods or Functions should be in camelCase.
+Every word, expect for the first word, should be capitalized. No spaces or other separators (such as dashes or underscores) should be used:
 
-GOOD:
+**Good naming**:
 ```c
-  void myMethod(uint myVeryLongParameter);
+  void myMethod();
 ```
-* member variables
-  Any member variable name of class/struct should be preceded by an underscore
+
+#### Method or Function parameters should be in camelCase.
+Every word, expect for the first word, should be capitalized. No spaces or other separators (such as dashes or underscores) should be used:
+
+**Good naming:**:
+```c
+ void myMethod(uint myVeryLongParameter);
+ ```
+ 
+#### Any member variable name of class/struct should be preceded by an underscore and in camelCase.
+**Good naming**:
 ```c
   public:
       int _publicAttribute;
@@ -144,56 +183,35 @@ GOOD:
       float _pAccount;
 ```
 	  
-* Always prefer a variable name that describes what the variable is used for
+#### Use descriptive names for variables.
+Always use a variable name that describes what the variable is used for. 
 
-GOOD:
+**Good variable naming:**
 ```c
   if (hours < 24 && minutes < 60 && seconds < 60)
 ```
-BAD:
+**Bad variable naming:**
 ```c
   if (a < 24 && b < 60 && c < 60)
 ```
 
-####COMMENTS
+###Comments
 
-* Use C++ comment line style than c comment style
+#### Use single line comments only.
+Use single line comments only in the project's source code. Use single line comments even if your comment spans for more than one line.
 
-GOOD:
-```
-  // Two lines comment
+**Good comment style:**
+```c
+  // Two line comment
   // Use still C++ comment line style
 ```
-BAD:
-```
+**Bad comment style:**
+```c
   /*
   Please don't piss me off with that
   */
 ```
-
-
-####BEST PRACTICES
-
-* Prefer this form :
+**OR**
 ```c
-      ++i
+ /* or with this. */
 ```
-   to
-```c
-      i++
-```
-   (It does not change anything for builtin types but it would bring consistency)
-
-
-* Avoid using pointers. Prefer references. You might need the variable to
-  be assigned a NULL value: in this case the NULL value has semantics and must
-  be checked. Wherever possible, use a SmartPtr instead of old-school pointers.
-
-* Avoid using new if you can use automatic variable.
-
-* Don't place any "using namespace" directives in headers
-
-* Compile time is without incidence. Increasing compile time to reduce execution
-  time is encouraged.
-
-* Code legibility and length is less important than easy and fast end-user experience.

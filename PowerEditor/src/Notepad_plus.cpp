@@ -2240,7 +2240,7 @@ void Notepad_plus::addHotSpot()
 			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
 			_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
 		}
-		else // generize a new style and add it into a array
+		else // generalize a new style and add it into a array
 		{
 			style_hotspot = idStyle | mask;	// set "hotspot bit"
 			hotspotPairs.push_back(style_hotspot);

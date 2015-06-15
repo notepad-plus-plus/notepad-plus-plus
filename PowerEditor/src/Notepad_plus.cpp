@@ -814,7 +814,7 @@ void Notepad_plus::saveDockingParams()
 	nppGUI._dockingData._topHeight		= _dockingManager.getDockedContSize(CONT_TOP);
 	nppGUI._dockingData._bottomHight	= _dockingManager.getDockedContSize(CONT_BOTTOM);
 
-	// clear the conatainer tab information (active tab)
+	// clear the container tab information (active tab)
 	nppGUI._dockingData._containerTabInfo.clear();
 
 	// create a vector to save the current information

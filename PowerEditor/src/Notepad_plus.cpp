@@ -926,7 +926,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 	if ((langT != L_XML) && (langT != L_HTML))
 		return -1;
 
-	// Get the begining of file data
+	// Get the beginning of file data
 	FILE *f = generic_fopen(fileName, TEXT("rb"));
 	if (!f)
 		return -1;

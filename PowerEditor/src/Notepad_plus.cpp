@@ -667,7 +667,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_toolBar.setCheck(IDM_LANG_USER_DLG, uddShow);
 
 	//
-	// Initialize the default forground & background color
+	// Initialize the default foreground & background color
 	//
 	StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
 	int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);

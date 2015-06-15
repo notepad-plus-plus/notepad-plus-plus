@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 
 <!--
-	German localization for Notepad++ 6.6.7, 
-	last modified 2014-07-01 by Jan Schreiber. 
+	German localization for Notepad++ 6.7.8, 
+	last modified 2015-05-28 by Jan Schreiber. 
 
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net, 
 	or participate in the discussion in the sourceforge forum: 
@@ -103,6 +103,7 @@
 					<Item id="41018" name="Dateien &amp;rechts schließen"/>
 					<Item id="41019" name="E&amp;xplorer"/>
 					<Item id="41020" name="&amp;Kommandozeile"/>
+					<Item id="41021" name="Zuletzt &amp;geschlossene Datei wieder öffnen"/>
 					<Item id="42001" name="Aus&amp;schneiden"/>
 					<Item id="42002" name="&amp;Kopieren"/>
 					<Item id="42003" name="&amp;Rückgängig"/>
@@ -212,6 +213,7 @@
 					<Item id="43051" name="&amp;Zeilen ohne Lesezeichen löschen"/>
 					<Item id="43052" name="Suche nach &amp;Zeichencodes ..."/>
 					<Item id="43053" name="Alles zwische&amp;n Klammern auswählen"/>
+					<Item id="43054" name="Vorkommnisse &amp;markieren ..."/>
 					<Item id="44009" name="&amp;Post-It"/>
 					<Item id="44010" name="Alle Te&amp;xtblöcke schließen"/>
 					<Item id="44011" name="Benutzerdefinierte Spra&amp;che ..."/>
@@ -778,7 +780,7 @@
 					<Item id="6315" name="keine"/>
 					<Item id="6316" name="einfach"/>
 					<Item id="6317" name="erweitert"/>
-					<Item id="6219" name="Verzeichnisangabe für die Sicherheitskopien"/>
+					<Item id="6804" name="Verzeichnisangabe für die Sicherheitskopien"/>
 					<Item id="6803" name="Verzeichnis:"/>
 					<Item id="6817" name="Sitzungen automatisch speichern"/>
 					<Item id="6818" name="Sitzungen zeitgesteuert speichern"/>
@@ -787,13 +789,13 @@
 					<Item id="6822" name="Verzeichnis:"/>
 					<Item id="6309" name="Aktuelle Sitzung für den nächsten Start merken"/>
 				</Backup>
-				<!-- TODO: -->
-				<CloudSettings title="Cloud">
+				<Cloud title="Cloud-Einstellungen">
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
 					<Item id="6263" name="aus"/>
 					<Item id="6264" name="Dropbox"/>
 					<Item id="6265" name="OneDrive"/>
-				</CloudSettings>
+					<Item id="6266" name="Google Drive"/>
+				</Cloud>
 				<AutoCompletion title="Autovervollständigung">
 					<Item id="6807" name="Autovervollständigung"/>
 					<Item id="6808" name="Autovervollständigung aktivieren"/>

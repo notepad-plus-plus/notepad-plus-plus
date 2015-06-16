@@ -30,7 +30,7 @@ Here are the instructions to build SciLexer.dll for Notepad++:
 
 ## To build `SciLexer.dll` *without* boost:
 
-You can build SciLexer.dll without Boost, ie. with its default POSIX regular expression support instead boost's PCRE one. This is useful if you would like to debug Notepad++, but don't have boost.
+You can build SciLexer.dll without Boost, ie. with its default POSIX regular expression support instead of boost's PCRE one. This is useful if you would like to debug Notepad++, but don't have boost.
 
 It will work with notepad++.exe, however some functionalities in Notepad++ may be broken.
 

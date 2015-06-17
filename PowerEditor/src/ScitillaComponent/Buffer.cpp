@@ -1106,7 +1106,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 {
 	generic_string newTitle = UNTITLED_STR;
 	TCHAR nb[10];
-	wsprintf(nb, TEXT(" %d"), 0);
+	wsprintf(nb, TEXT("%d"), 0);
 	newTitle += nb;
 
 	if (!dontRef)

@@ -1618,7 +1618,7 @@ void Notepad_plus::command(int id)
 				characterNumber += TEXT("\r");
 
 				TCHAR fileLenStr[64];
-				generic_sprintf(fileLenStr, _countof(fileLenStr), TEXT("%I64u"), static_cast<UINT64>(fileLen));
+				generic_sprintf(fileLenStr, _countof(fileLenStr), TEXT("%I64u"), static_cast<UINT64>( fileLen ) );
 				characterNumber += fileLenLabel;
 				characterNumber += fileLenStr;
 				characterNumber += TEXT("\r");
@@ -1659,7 +1659,7 @@ void Notepad_plus::command(int id)
 			characterNumber += nbWordStr;
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbLineStr, _countof(nbLineStr), TEXT("%d"), static_cast<int>(nbLine));
+			generic_sprintf(nbLineStr, _countof(nbLineStr), TEXT("%d"), static_cast<int>( nbLine ) );
 			characterNumber += nbLineLabel;
 			characterNumber += nbLineStr;
 			characterNumber += TEXT("\r");

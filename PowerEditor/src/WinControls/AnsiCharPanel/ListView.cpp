@@ -197,8 +197,8 @@ void ListView::setValues(int codepage)
 		item.mask = LVIF_TEXT;
 		TCHAR dec[8];
 		TCHAR hex[8];
-		generic_sprintf(dec, TEXT("%d"), i);
-		generic_sprintf(hex, TEXT("%02X"), i);
+		generic_sprintf(dec, _countof(dec), TEXT("%d"), i);
+		generic_sprintf(hex, _countof(hex), TEXT("%02X"), i);
 		item.pszText = dec;
 		item.iItem = i;
 		item.iSubItem = 0;

@@ -36,10 +36,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.7.8.2"
+!define APPVERSION "6.7.9"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 782
+!define VERSION_MINOR 79
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -1071,6 +1071,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Tamil" tamil
 		CopyFiles "$TEMP\nppLocalization\tamil.xml" "$INSTDIR\localization\tamil.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Tatar" tatar
+		CopyFiles "$TEMP\nppLocalization\tatar.xml" "$INSTDIR\localization\tatar.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Telugu" telugu
 		CopyFiles "$TEMP\nppLocalization\telugu.xml" "$INSTDIR\localization\telugu.xml"
 	${MementoSectionEnd}
@@ -1790,6 +1793,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.tamil
 		Delete "$INSTDIR\localization\tamil.xml"
+	SectionEnd
+	Section un.tatar
+		Delete "$INSTDIR\localization\tatar.xml"
 	SectionEnd
 	Section un.telugu
 		Delete "$INSTDIR\localization\telugu.xml"

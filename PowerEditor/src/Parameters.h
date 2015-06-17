@@ -1694,6 +1694,8 @@ private:
 	void writePrintSetting(TiXmlElement *element);
 	void initMenuKeys();		//initialise menu keys and scintilla keys. Other keys are initialized on their own
 	void initScintillaKeys();	//these functions have to be called first before any modifications are loaded
+	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName); // return -1 if not found
+	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName); // return -1 if not found
 };
 
 #endif //PARAMETERS_H

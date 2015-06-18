@@ -256,6 +256,7 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\MISC\Common\LongRunningOperation.cpp" />
+    <ClCompile Include="..\src\MISC\Common\mutex.cpp" />
     <ClCompile Include="..\src\WinControls\AboutDlg\AboutDlg.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
     <ClCompile Include="..\src\ScitillaComponent\AutoCompletion.cpp" />
@@ -532,6 +533,8 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\MISC\Common\LongRunningOperation.h" />
+    <ClInclude Include="..\src\MISC\Common\mutex.h" />
+    <ClInclude Include="..\src\MISC\Common\mutex.hxx" />
     <ClInclude Include="..\src\ScitillaComponent\resource.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\AboutDlg.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />

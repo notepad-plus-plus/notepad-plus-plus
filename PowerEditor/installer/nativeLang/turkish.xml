@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1254" ?>
 <NotepadPlus><!-- Çeviri: Emrah Güzeltaş | emrahguzeltas@gmail.com -->
-	<Native-Langue name="Turkish" filename="turkish.xml" version="6.7.5">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="6.7.7">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Yazıları -->
@@ -86,6 +86,7 @@
 					<Item id="41015" name="Kopya Olarak Kaydet" />
 					<Item id="41016" name="Diskten Sil" />
 					<Item id="41017" name="Yeniden Adlandır" />
+					<Item id="41021" name="En Son Kapanmış Dosyaları Geri Yükle"/>
 					
 					<Item id="42001" name="K&amp;es" />
 					<Item id="42002" name="&amp;Kopyala" />

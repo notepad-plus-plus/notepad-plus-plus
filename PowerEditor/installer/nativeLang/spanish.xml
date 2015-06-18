@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="6.7.5">
+	<Native-Langue name="Español" filename="spanish.xml" version="6.7.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -85,7 +85,8 @@
 					<Item id="41015" name="Guardar una copia como..."/>
 					<Item id="41016" name="Borrar del disco"/>
 					<Item id="41017" name="Renombrar..."/>
-					<Item id="42001" name="C&amp;ortar"/>
+					<Item id="41021" name="Restaurar archivo cerrado recientemente"/>
+                    <Item id="42001" name="C&amp;ortar"/>
 					<Item id="42002" name="&amp;Copiar"/>
 					<Item id="42003" name="&amp;Deshacer"/>
 					<Item id="42004" name="&amp;Rehacer"/>
@@ -351,7 +352,7 @@
 				<Item id="1686" name="Transparencia"/>
 				<Item id="1703" name="&amp;. se ajusta a linea nueva"/>
 			</Find>
-            <FindCharsInRange title="Encontrar caracteres en rango...">
+			<FindCharsInRange title="Encontrar caracteres en rango...">
 				<Item id="2" name="Cerrar"/>
 				<Item id="2901" name="Caracteres no-ASCII (128-255)"/>
 				<Item id="2902" name="Caracteres ASCII (0-127)"/>

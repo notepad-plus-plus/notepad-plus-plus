@@ -281,7 +281,7 @@ void FunctionListPanel::reload()
 	const TCHAR *fullFilePath = ((*_ppEditView)->getCurrentBuffer())->getFullPathName();
 	if (root)
 	{
-		FunctionListPanelData* data = (FunctionListPanelData*)_treeView.getData(root);
+		FunctionListPanelData* data = reinterpret_cast<FunctionListPanelData*>(_treeView.getData(root));
 		data->_str = fullFilePath;
 
 		TreeParams *previousParams = getFromStateArray(fullFilePath);
@@ -361,7 +361,7 @@ bool FunctionListPanel::openSelection(const TreeView & treeView)
 		return false;
 	}
 
-	FunctionListPanelData* data = (FunctionListPanelData*) tvItem.lParam;
+	FunctionListPanelData* data = reinterpret_cast<FunctionListPanelData*>(tvItem.lParam);
 	int pos = generic_atoi(data->_str.c_str());
 	if (pos == -1)
 		return false;

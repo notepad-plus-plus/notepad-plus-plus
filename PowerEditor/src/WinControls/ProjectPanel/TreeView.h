@@ -37,10 +37,10 @@
 // abstract base class for all data assigned to a tree view item.
 // clone() must always be implemented.
 // getExtraDataString() needs to be implemented, if you use the tree state save/restore functions and has to be something,
-// with whitch the node (together with its label) can be identified.
+// with which the node (together with its label) can be identified.
 class TreeViewData {
 public:
-	virtual ~TreeViewData() {}
+	virtual ~TreeViewData() = default;
 	virtual TreeViewData* clone() const = 0;
 	virtual generic_string getExtraDataString() const { return generic_string(); } 
 };

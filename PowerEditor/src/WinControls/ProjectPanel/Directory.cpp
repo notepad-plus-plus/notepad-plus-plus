@@ -36,7 +36,7 @@ Directory::Directory(bool hideEmptyDirs)
 	_lastWriteTime.dwLowDateTime = 0;
 	_lastWriteTime.dwHighDateTime = 0;
 	enablePrivileges();
-	_filters.push_back(generic_string(TEXT("*.*")));
+	_filters.emplace_back(generic_string(TEXT("*.*")));
 }
 
 Directory::Directory(const generic_string& path, const std::vector<generic_string>& filters, bool hideEmptyDirs, bool autoread)
@@ -71,10 +71,14 @@ bool Directory::read(const generic_string& path, const std::vector<generic_strin
 
 	// then read files, by each filter
 	if (_filters.empty())
+	{
 		append(_path, TEXT("*.*"), false);
+	}
 	else
+	{
 		for (size_t i=0; i<_filters.size(); ++i)
 			append(_path, _filters[i], false);
+	}
 
 
 	readLastWriteTime(_lastWriteTime);
@@ -104,7 +108,7 @@ bool Directory::readIfChanged(bool respectEmptyDirs)
 			return false;
 	}
 
-	Directory cmp(_path,_filters);
+	const Directory cmp(_path,_filters);
 	if (*this != cmp)
 	{
 		*this = cmp;
@@ -119,9 +123,9 @@ void Directory::append(const generic_string& path, const generic_string& filter,
 
 	generic_string searchPath = _path + TEXT("\\") + filter;
 
-	WIN32_FIND_DATAW fd;
+	WIN32_FIND_DATA fd;
 
-	HANDLE hFind = FindFirstFileEx(searchPath.c_str(), FindExInfoBasic, &fd, FindExSearchNameMatch, NULL, FIND_FIRST_EX_LARGE_FETCH);
+	HANDLE hFind = FindFirstFileEx(searchPath.c_str(), FindExInfoBasic, &fd, FindExSearchNameMatch, NULL, 0);
 
 	if (hFind == INVALID_HANDLE_VALUE)
 		return;
@@ -132,7 +136,7 @@ void Directory::append(const generic_string& path, const generic_string& filter,
 	{
 		const generic_string file(fd.cFileName);
 
-		if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+		if ((fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 		{
 			if (file == TEXT(".") || file == TEXT(".."))
 			{
@@ -213,8 +217,8 @@ bool Directory::containsData(const generic_string& path, const generic_string& f
 
 
 	// first step: check only files. If one is found, it contains data.
-	WIN32_FIND_DATAW fd;
-	HANDLE hFind = FindFirstFileEx(searchPath.c_str(), FindExInfoBasic, &fd, FindExSearchNameMatch, NULL, FIND_FIRST_EX_LARGE_FETCH);
+	WIN32_FIND_DATA fd;
+	HANDLE hFind = FindFirstFileEx(searchPath.c_str(), FindExInfoBasic, &fd, FindExSearchNameMatch, NULL, 0);
 
 	if (hFind == INVALID_HANDLE_VALUE)
 		return false;
@@ -223,7 +227,7 @@ bool Directory::containsData(const generic_string& path, const generic_string& f
 	{
 
 		// a directory was found... skip it in this pass
-		if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+		if ((fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 		{
 			if (!FindNextFile(hFind, &fd))
 				return false;
@@ -242,7 +246,7 @@ bool Directory::containsData(const generic_string& path, const generic_string& f
 		FindClose(hFind);
 
 	// no file was found in this directory. Now check the sub directories.
-	hFind = FindFirstFileEx(searchPath.c_str(), FindExInfoBasic, &fd, FindExSearchLimitToDirectories, NULL, FIND_FIRST_EX_LARGE_FETCH);
+	hFind = FindFirstFileEx(searchPath.c_str(), FindExInfoBasic, &fd, FindExSearchLimitToDirectories, NULL, 0);
 
 	if (hFind == INVALID_HANDLE_VALUE)
 		return false;
@@ -251,7 +255,7 @@ bool Directory::containsData(const generic_string& path, const generic_string& f
 	{
 
 		// a directory was found
-		if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+		if ((fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 		{
 			file = fd.cFileName;
 			// skip . and ..
@@ -385,7 +389,7 @@ bool Directory::readLastWriteTime(FILETIME& filetime) const
 
 	generic_string searchPath(_path+TEXT("\\."));
 
-	WIN32_FIND_DATAW fd;
+	WIN32_FIND_DATA fd;
 	HANDLE hFind = FindFirstFile(searchPath.c_str(), &fd);
 
 	if (hFind == INVALID_HANDLE_VALUE)

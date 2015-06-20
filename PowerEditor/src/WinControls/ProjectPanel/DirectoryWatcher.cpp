@@ -63,7 +63,7 @@ void DirectoryWatcher::addOrChangeDir(const generic_string& path, HTREEITEM tree
 
 	// each newly added item gets a forced update message.
 	_forcedUpdateToAdd.insert(treeItem);
-	_dirItemsToAdd.push_back(new InsertStruct(path,treeItem,filters));
+	_dirItemsToAdd.emplace_back(new InsertStruct(path,treeItem,filters));
 }
 
 void DirectoryWatcher::removeDir(HTREEITEM treeItem)

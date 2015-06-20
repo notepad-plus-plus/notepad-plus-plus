@@ -69,115 +69,116 @@
 #define PM_MOVEUPENTRY             TEXT("Move Up\tCtrl+Up")
 #define PM_MOVEDOWNENTRY           TEXT("Move Down\tCtrl+Down")
 
-enum NodeType {
-	nodeType_dummy = -1, nodeType_root = 0, nodeType_project = 1, nodeType_folder = 2, nodeType_file = 3, nodeType_baseDir = 4, nodeType_dir = 5, nodeType_dirFile = 6,
-};
-
 class TiXmlNode;
-
-// ProjectPanelData is stored in the LPARAM of the tree nodes.
-// The data it contains depends on the node type.
-class ProjectPanelData : public TreeViewData {
-public:
-	generic_string _name;
-	generic_string _filePath;
-	generic_string _userLabel;
-	std::vector<generic_string> _filters;
-	NodeType _nodeType;
-	DirectoryWatcher& _directoryWatcher;
-	HTREEITEM _hItem;
-	bool _watch;
-
-	ProjectPanelData(DirectoryWatcher& directoryWatcher, const TCHAR* name, const TCHAR* filePath, NodeType nodeType, const std::vector<generic_string> filters = std::vector<generic_string>()) 
-		: TreeViewData()
-		, _name(name)
-		, _nodeType(nodeType)
-		, _directoryWatcher(directoryWatcher)
-		, _hItem(NULL)
-		, _watch(false)
-		, _filters(filters)
-	{
-		if (filePath != NULL)
-			_filePath = filePath;
-	}
-
-	virtual ~ProjectPanelData() {
-		setItem(NULL);
-	}
-
-	void setItem(HTREEITEM hItem) {
-		if (_hItem && _hItem != hItem && _watch)
-			watchDir(false);
-		_hItem = hItem;
-	}
-
-	bool watchDir(bool watch) {
-		if (_hItem && _watch && !watch)
-			if (_nodeType == nodeType_baseDir || _nodeType == nodeType_dir)
-				_directoryWatcher.removeDir(_hItem);
-
-		_watch = watch;
-		if( !watch)
-			return true;
-
-		if (_hItem)
-			if (watch && (_nodeType == nodeType_baseDir || _nodeType == nodeType_dir))
-				_directoryWatcher.addOrChangeDir(_filePath,_hItem,_filters);
-			else
-				return true;
-
-		return !(_nodeType == nodeType_baseDir || _nodeType == nodeType_dir);
-	}
-
-	bool isWatching() const {
-		return (_nodeType == nodeType_baseDir || _nodeType == nodeType_dir) && _watch;
-	}
-
-	bool isRoot() const {
-		return _nodeType == nodeType_root;
-	}
-	bool isProject() const {
-		return _nodeType == nodeType_project;
-	}
-	bool isFile() const {
-		return _nodeType == nodeType_file;
-	}
-	bool isFolder() const {
-		return _nodeType == nodeType_folder;
-	}
-	bool isDirectoryFile() const {
-		return _nodeType == nodeType_dirFile;
-	}
-	bool isDirectory() const {
-		return _nodeType == nodeType_dir;
-	}
-	bool isBaseDirectory() const {
-		return _nodeType == nodeType_baseDir;
-	}
-	bool isDummy() const {
-		return _nodeType == nodeType_dummy;
-	}
-
-	virtual TreeViewData* clone() const {
-		ProjectPanelData* result = new ProjectPanelData(_directoryWatcher, _name.c_str(), _filePath.c_str(), _nodeType, _filters);
-		result->_userLabel = _userLabel;
-		return result;
-	}
-
-	ProjectPanelData(const ProjectPanelData&) = delete;
-	ProjectPanelData& operator= (const ProjectPanelData&) = delete;
-};
 
 
 
 
 class ProjectPanel : public DockingDlgInterface, public TreeViewListener {
 
+	friend int CALLBACK compareFunc(LPARAM, LPARAM, LPARAM);
+
+	enum NodeType { nodeType_dummy = -1, nodeType_root = 0, nodeType_project = 1, nodeType_folder = 2, nodeType_file = 3, nodeType_baseDir = 4, nodeType_dir = 5, nodeType_dirFile = 6, };
+
+	// private class ProjectPanelData is stored in the LPARAM of the tree nodes.
+	// The data it contains depends on the node type.
+	class ProjectPanelData final : public TreeViewData {
+	public:
+		generic_string _name;
+		generic_string _filePath;
+		generic_string _userLabel;
+		std::vector<generic_string> _filters;
+		NodeType _nodeType;
+		DirectoryWatcher& _directoryWatcher;
+		HTREEITEM _hItem;
+		bool _watch;
+
+		ProjectPanelData(DirectoryWatcher& directoryWatcher, const TCHAR* name, const TCHAR* filePath, NodeType nodeType, const std::vector<generic_string> filters = std::vector<generic_string>()) 
+			: TreeViewData()
+			, _name(name)
+			, _nodeType(nodeType)
+			, _directoryWatcher(directoryWatcher)
+			, _hItem(NULL)
+			, _watch(false)
+			, _filters(filters)
+		{
+			if (filePath != NULL)
+				_filePath = filePath;
+		}
+
+		virtual ~ProjectPanelData() {
+			setItem(NULL);
+		}
+
+		void setItem(HTREEITEM hItem) {
+			if (_hItem && _hItem != hItem && _watch)
+				watchDir(false);
+			_hItem = hItem;
+		}
+
+		bool watchDir(bool watch) {
+			if (_hItem && _watch && !watch)
+				if (_nodeType == nodeType_baseDir || _nodeType == nodeType_dir)
+					_directoryWatcher.removeDir(_hItem);
+
+			_watch = watch;
+			if( !watch)
+				return true;
+
+			if (_hItem)
+				if (watch && (_nodeType == nodeType_baseDir || _nodeType == nodeType_dir))
+					_directoryWatcher.addOrChangeDir(_filePath,_hItem,_filters);
+				else
+					return true;
+
+			return !(_nodeType == nodeType_baseDir || _nodeType == nodeType_dir);
+		}
+
+		bool isWatching() const {
+			return (_nodeType == nodeType_baseDir || _nodeType == nodeType_dir) && _watch;
+		}
+
+		bool isRoot() const {
+			return _nodeType == nodeType_root;
+		}
+		bool isProject() const {
+			return _nodeType == nodeType_project;
+		}
+		bool isFile() const {
+			return _nodeType == nodeType_file;
+		}
+		bool isFolder() const {
+			return _nodeType == nodeType_folder;
+		}
+		bool isDirectoryFile() const {
+			return _nodeType == nodeType_dirFile;
+		}
+		bool isDirectory() const {
+			return _nodeType == nodeType_dir;
+		}
+		bool isBaseDirectory() const {
+			return _nodeType == nodeType_baseDir;
+		}
+		bool isDummy() const {
+			return _nodeType == nodeType_dummy;
+		}
+
+		virtual TreeViewData* clone() const override {
+			ProjectPanelData* result = new ProjectPanelData(_directoryWatcher, _name.c_str(), _filePath.c_str(), _nodeType, _filters);
+			result->_userLabel = _userLabel;
+			return result;
+		}
+
+		ProjectPanelData(const ProjectPanelData&) = delete;
+		ProjectPanelData& operator= (const ProjectPanelData&) = delete;
+	};
+
+
 	// private class TreeUpdaterDirectory:
 	// constructs a directory by the current tree items, which are children of the supplied tree item.
 	// It can then be synchronized with a freshly read Directory by synchronizeTo()
 	// and updates the tree children according to this Directory.
-	class TreeUpdaterDirectory : public Directory {
+	class TreeUpdaterDirectory final : public Directory {
 		ProjectPanel* _projectPanel;
 		TreeView* _treeView;
 		HTREEITEM _hItem;
@@ -189,11 +190,11 @@ class ProjectPanel : public DockingDlgInterface, public TreeViewListener {
 
 	private:
 
-		virtual void onDirAdded(const generic_string& name);
-		virtual void onDirRemoved(const generic_string& name);
-		virtual void onFileAdded(const generic_string& name);
-		virtual void onFileRemoved(const generic_string& name);
-		virtual void onEndSynchronize(const Directory& other);
+		virtual void onDirAdded(const generic_string& name) override;
+		virtual void onDirRemoved(const generic_string& name) override;
+		virtual void onFileAdded(const generic_string& name) override;
+		virtual void onFileRemoved(const generic_string& name) override;
+		virtual void onEndSynchronize(const Directory& other) override;
 
 	};
 	
@@ -220,7 +221,7 @@ public:
 		DockingDlgInterface::init(hInst, hPere);
 	}
 
-    virtual void display(bool toShow = true) const {
+    virtual void display(bool toShow = true) const override {
         DockingDlgInterface::display(toShow);
     };
 
@@ -243,10 +244,10 @@ public:
 	};
 	void checkIfNeedSave(const TCHAR *title);
 
-	virtual void setBackgroundColor(COLORREF bgColour) {
+	virtual void setBackgroundColor(COLORREF bgColour) override {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
     };
-	virtual void setForegroundColor(COLORREF fgColour) {
+	virtual void setForegroundColor(COLORREF fgColour) override {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
     };
 
@@ -293,7 +294,7 @@ protected:
 	void popupMenuCmd(int cmdID);
 	POINT getMenuDisplyPoint(int iButton);
 	const std::vector<generic_string>* getFilters(HTREEITEM hItem);
-	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) override;
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void rebuildDirectoryTree(HTREEITEM hParentItem, const ProjectPanelData& data);
 	void notified(LPNMHDR notification);
@@ -315,13 +316,13 @@ protected:
 	void itemVisibilityChanges(HTREEITEM hItem, bool visible);
 
 	// TreeViewListener
-	virtual void onTreeItemAdded(bool afterClone, HTREEITEM hItem, TreeViewData* newData);
-	virtual void onMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	virtual void onTreeItemAdded(bool afterClone, HTREEITEM hItem, TreeViewData* newData) override;
+	virtual void onMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 	//
 
 };
 
-class FileRelocalizerDlg : public StaticDialog
+class FileRelocalizerDlg final : public StaticDialog
 {
 public :
 	FileRelocalizerDlg() : StaticDialog() {};
@@ -346,7 +347,7 @@ private :
 
 };
 
-class FilterDlg : public StaticDialog
+class FilterDlg final: public StaticDialog
 {
 	std::vector<generic_string> _filters;
 

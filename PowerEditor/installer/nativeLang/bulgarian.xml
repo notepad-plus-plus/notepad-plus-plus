@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last modified:...: 12.06.2015 by RDD
+	Last modified:...: 20.06.2015 by RDD
 	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
 -->
 <NotepadPlus>
@@ -358,6 +358,7 @@
 					<Item id="47006" name="Обновяване на Notepad++"/>
 					<Item id="47009" name="Задаване на прокси за обновяване..."/>
 					<Item id="47000" name="Относно Notepad++..."/>
+					<Item id="47011" name="Поддръжка в реално време"/>
 				<!-- Меню "?" край -->
 					<Item id="43016" name="Маркиране на всичко"/>
 					<Item id="43017" name="Размаркиране на всичко"/>

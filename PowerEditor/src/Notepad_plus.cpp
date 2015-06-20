@@ -667,7 +667,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_toolBar.setCheck(IDM_LANG_USER_DLG, uddShow);
 
 	//
-	// Initialize the default forground & background color
+	// Initialize the default foreground & background color
 	//
 	StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
 	int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
@@ -814,7 +814,7 @@ void Notepad_plus::saveDockingParams()
 	nppGUI._dockingData._topHeight		= _dockingManager.getDockedContSize(CONT_TOP);
 	nppGUI._dockingData._bottomHight	= _dockingManager.getDockedContSize(CONT_BOTTOM);
 
-	// clear the conatainer tab information (active tab)
+	// clear the container tab information (active tab)
 	nppGUI._dockingData._containerTabInfo.clear();
 
 	// create a vector to save the current information
@@ -926,7 +926,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 	if ((langT != L_XML) && (langT != L_HTML))
 		return -1;
 
-	// Get the begining of file data
+	// Get the beginning of file data
 	FILE *f = generic_fopen(fileName, TEXT("rb"));
 	if (!f)
 		return -1;
@@ -2240,7 +2240,7 @@ void Notepad_plus::addHotSpot()
 			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
 			_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
 		}
-		else // generize a new style and add it into a array
+		else // generalize a new style and add it into a array
 		{
 			style_hotspot = idStyle | mask;	// set "hotspot bit"
 			hotspotPairs.push_back(style_hotspot);
@@ -2927,7 +2927,7 @@ size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 		size_t result = 0;
 
 		size_t endpos = _pEditView->execute(SCI_GETLENGTH);
-		unsigned char* buf = (unsigned char*)_pEditView->execute(SCI_GETCHARACTERPOINTER); // Scintilla doc sais the pointer can be invalidated by any other "execute"
+		unsigned char* buf = (unsigned char*)_pEditView->execute(SCI_GETCHARACTERPOINTER); // Scintilla doc said the pointer can be invalidated by any other "execute"
 
 #ifdef _OPENMP // parallel counting of characters with OpenMP
 		if(endpos > 50000) // starting threads takes time; for small files it is better to simply count in one thread
@@ -3442,8 +3442,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 {
-	//scnN.nmhdr.code = NPPN_DOCSWITCHINGOFF;		//superseeded by NPPN_BUFFERACTIVATED
-
 	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 	if (isSnapshotMode)
 	{

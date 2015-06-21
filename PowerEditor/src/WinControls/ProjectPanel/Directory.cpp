@@ -119,7 +119,7 @@ bool Directory::readIfChanged(bool respectEmptyDirs)
 
 void Directory::append(const generic_string& path, const generic_string& filter, bool readDirs)
 {
-	bool readFiles = !readDirs;
+	const bool readFiles = !readDirs;
 
 	generic_string searchPath = _path + TEXT("\\") + filter;
 

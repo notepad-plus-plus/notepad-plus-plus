@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="Shift_JIS" ?>
 <!--
-    Japanese localization for Notepad++ 6.7.3
-    Last Update: 2014-01-03
-    github: https://github.com/hrwatahiki/npp-Japanese-Localization
+    Japanese localization for Notepad++ 6.7.7
+    Last Update: 2015-06-21
+    github(日本語翻訳): https://github.com/hrwatahiki/notepad-plus-plus
     mail: hrwatahiki at gmail.com
 -->
 
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="6.7.3">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="6.7.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -93,6 +93,7 @@
                     <Item id="41015" name="コピーを別名で保存..."/>
                     <Item id="41016" name="ディスクから削除"/>
                     <Item id="41017" name="名前を変更..."/>
+                    <Item id="41021" name="直前に閉じたファイルを開く"/>
 
                     <Item id="42001" name="切り取り(&amp;T)	Ctrl+X"/>
                     <Item id="42002" name="コピー(&amp;C)	Ctrl+C"/>
@@ -165,7 +166,7 @@
                     <Item id="43021" name="ブックマークされている行の削除"/>
                     <Item id="43051" name="ブックマークしていない行を削除"/>
                     <Item id="43050" name="ブックマークを反転"/>
-                    <Item id="43052" name="範囲の文字を検索..."/>
+                    <Item id="43052" name="範囲内の文字を検索..."/>
                     <Item id="43053" name="対応する括弧内を選択"/>
                     <Item id="43009" name="対応する括弧へジャンプ	Ctrl+B"/>
                     <Item id="43010" name="前を検索	Shift+F3"/>
@@ -258,6 +259,19 @@
                     <Item id="10003" name="新しいウィンドウへ移動"/>
                     <Item id="10004" name="新しいウィンドウで開く"/>
 
+                    <Item id="45060" name="Big5 (繁体字)"/>
+                    <Item id="45061" name="GB2312 (簡体字)"/>
+                    <Item id="45054" name="OEM 861: アイスランド語"/>
+                    <Item id="45057" name="OEM 865: ノルウェー語"/>
+                    <Item id="45053" name="OEM 860: ポルトガル語"/>
+                    <Item id="45056" name="OEM 863: フランス語"/>
+
+                    <Item id="46033" name="Assembly"/>
+                    <Item id="46019" name="MS INI file"/>
+                    <Item id="46015" name="MS-DOS Style"/>
+                    <Item id="46016" name="Normal Text"/>
+                    <Item id="46017" name="Resource file"/>
+
                     <Item id="46001" name="スタイル設定..."/>
                     <Item id="46150" name="言語を定義..."/>
                     <Item id="46080" name="ユーザ定義"/>
@@ -308,7 +322,6 @@
                     <Item id="44068" name="レベル8で展開	Alt+Shift+8"/>
                     <!-- not exist in english.xml -->
                 </Commands>
-
             </Main>
             <Splitter>
             </Splitter>
@@ -379,6 +392,19 @@
                 <Item id="1686" name="透明化"/>
                 <Item id="1703" name="&amp;. は改行に一致する"/>
             </Find>
+
+            <FindCharsInRange title="範囲内の文字を検索...">
+                <Item id="2" name="閉じる"/>
+                <Item id="2901" name="ASCIIでない文字 (128-255)"/>
+                <Item id="2902" name="ASCII文字 (0-127)"/>
+                <Item id="2903" name="指定範囲:"/>
+                <Item id="2906" name="上へ(&amp;U)"/>
+                <Item id="2907" name="下へ(&amp;D)"/>
+                <Item id="2908" name="方向"/>
+                <Item id="2909" name=" 回り込み(&amp;p)"/>
+                <Item id="2910" name="検索"/>
+            </FindCharsInRange>
+            
             <GoToLine title="指定行へジャンプ...">
                 <Item id="2007" name="行"/>
                 <Item id="2008" name="オフセット"/>
@@ -827,7 +853,6 @@
                     <Item id="6115" name="オートインデント"/>
                     <Item id="6117" name="最近使用した順にビューを切り替える"/>
                 </MISC>
-
             </Preference>
             <MultiMacro title="指定マクロを複数回実行">
                 <Item id="1" name="実行"/>
@@ -859,7 +884,6 @@
                 <Item id="2" name="キャンセル"/>
             </ColumnEditor>
             </Dialog>
-
         <MessageBox>
             <ContextMenuXmlEditWarning title="警告: コンテキストメニューの編集" message="contextMenu.xmlを編集することで、Notepad++のポップアップコンテキストを変更できます。 変更を適応するには、contextMenu.xmlの編集後、Notepad++を再起動してください。"/>
             <NppHelpAbsentWarning title="警告: ファイルが存在しません" message="ヘルプファイルが存在しません。 Notepad++のサイトからダウンロードしてください。"/>

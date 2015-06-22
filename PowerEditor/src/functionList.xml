@@ -264,24 +264,25 @@ http://notepad-plus-plus.org/features/function-list.html
 			</parser>
 
 			<!-- Variant for COBOL fixed-form reference format -->
-			<parser id="cobol_section_fixed" displayName="COBOL fixed-form reference format">
+			<parser id="cobol_section_fixed" displayName="COBOL fixed-form reference format"
+				commentExpr="(?m-s)(?:^[\d\t ]{6}\*|\*&gt;).*$">
 				<function
-					mainExpr="(?m-s)^.{6}[ D][\t ]{0,3}(?!exit\s)[\w_-]+(\.|((?'seps'([\t ]|\*&gt;.*|([\n\r]+(.{6}([ D]|\*.*)|.{0,6}$)))+)section(\.|((?&seps)(\.|[\w_-]+\.)))))"
+					mainExpr="(?m-s)^.{6}[ D][\t ]{0,3}(?!exit\s)[\w_-]+(\.|((?'seps'([\t ]|([\n\r]+(.{6}[ D]|.{0,6}$)))+)section(\.|(?&seps)(\.|[\w_-]+\.))))"
 					displayMode="$functionName">
 					<functionName>
-						<nameExpr expr="[\w_-]+((?=\.)|((?'seps'([\t ]|\*&gt;.*|([\n\r]+(.{6}([ D]|\*.*)|.{0,6}$)))+)section((?=\.)|(?&seps)((?=\.)|[\w_-]+(?=\.)))))"/>
+						<nameExpr expr="[\w_-]+((?=\.)|((?'seps'([\t ]|([\n\r]+(.{6}[ D]|.{0,6}$)))+)section((?=\.)|(?&seps)((?=\.)|[\w_-]+(?=\.)))))"/>
 					</functionName>
 				</function>
 			</parser>
 
 			<!-- Variant for COBOL free-form reference format -->
-			<parser id="cobol_section_free" displayName="COBOL fixed-form reference format">
-				<!-- Variant without paragraphs (works with comment lines before section header) -->
-                		<function
-					mainExpr="[\s\.](?!exit\s)[\w_-]+\s+section(\s*|(\s+[\w_-]+)?)(?=\.)"
+			<parser id="cobol_section_free" displayName="COBOL fixed-form reference format"
+				commentExpr="(?m-s)(?:\*&gt;).*$">
+				<function
+					mainExpr="(?m-s)(?<=\.)\s*(?!exit\s)[\w_-]+(\s+section(\s*|(\s+[\w_-]+)?))(?=\.)"
 					displayMode="$functionName">
 					<functionName>
-						<nameExpr expr="[\w_-]+\s*section"/>
+						<nameExpr expr="(?m-s)(?<=[\s\.])[\w_-]+(\s*section\s*([\w_-]+)?)?"/>
 					</functionName>
 				</function>
 			</parser>

@@ -248,19 +248,23 @@ TCHAR * FileDialog::doSaveDlg()
 	NppParameters * params = NppParameters::getInstance();
 	_ofn.lpstrInitialDir = params->getWorkingDir();
 
-	NppParameters *pNppParam = NppParameters::getInstance();
-	int index = pNppParam->getFileSaveDlgFilterIndex();
+	//restore persisted filter index 
+	int index = params->getFileSaveDlgFilterIndex();
 
-	if (index != -1)
+	if (_extTypeIndex != -1)
 	{
-		_ofn.nFilterIndex = index;
+		//+1 due to start index of all is 1, zero is reserved for customer mode
+		_ofn.nFilterIndex = _extTypeIndex + 1;
 	}
-	else if (_extTypeIndex != -1)
+	else if (index != -1)
 	{
-		_ofn.nFilterIndex = _extTypeIndex+1;
+		//fallback to last stored file extension as filter
+		_ofn.nFilterIndex = index;
 	}
 	else
 	{
+		//fallback to all
+		//starting with 1, zero is reserved for customer mode
 		_ofn.nFilterIndex = 1;
 	}
 	
@@ -275,8 +279,8 @@ TCHAR * FileDialog::doSaveDlg()
 			params->setWorkingDir(dir);
 		}
 		
-		NppParameters *pNppParam = NppParameters::getInstance();
-		pNppParam->setFileSaveDlgFilterIndex(_ofn.nFilterIndex);
+		//store filter index for the next call to save file dialog 
+		params->setFileSaveDlgFilterIndex(_ofn.nFilterIndex);
 
 	} catch(std::exception e) {
 		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);

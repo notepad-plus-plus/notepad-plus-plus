@@ -37,9 +37,6 @@ const int extLenMax = 64;
 
 typedef std::vector<generic_string> stringVector;
 
-generic_string changeExt(generic_string fn, generic_string ext, bool forceReplaced = true);
-void goToCenter(HWND hwnd);
-
 
 class FileDialog
 {
@@ -56,11 +53,6 @@ public:
 	TCHAR * doOpenSingleFileDlg();
 	bool isReadOnly() {return _ofn.Flags & OFN_READONLY;};
     void setExtIndex(int extTypeIndex) {_extTypeIndex = extTypeIndex;};
-
-	static int _dialogFileBoxId;
-protected :
-    static UINT_PTR CALLBACK OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-    BOOL APIENTRY run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
 	TCHAR _fileName[MAX_PATH*8];

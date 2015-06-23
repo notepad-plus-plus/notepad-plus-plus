@@ -808,8 +808,6 @@ winVer getWindowsVersion()
 
 NppParameters * NppParameters::_pSelf = new NppParameters;
 
-int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
-
 
 
 

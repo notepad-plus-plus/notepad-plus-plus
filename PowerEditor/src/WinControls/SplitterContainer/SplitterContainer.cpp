@@ -127,7 +127,7 @@ LRESULT CALLBACK SplitterContainer::staticWinProc(HWND hwnd, UINT message, WPARA
 			return TRUE;
 
 		default :
-			pSplitterContainer = (SplitterContainer *)::GetWindowLongPtr(hwnd, GWL_USERDATA);
+			pSplitterContainer = (SplitterContainer *)::GetWindowLongPtr(hwnd, GWLP_USERDATA);
 			if (!pSplitterContainer)
 				return ::DefWindowProc(hwnd, message, wParam, lParam);
 			return pSplitterContainer->runProc(message, wParam, lParam);

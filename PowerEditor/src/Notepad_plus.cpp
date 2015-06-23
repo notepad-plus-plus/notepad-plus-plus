@@ -3197,7 +3197,7 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 		activateBuffer(id, whichOne);	//activate. DocTab already activated but not a problem
 		MainFileManager->closeBuffer(idToClose, viewToOpen);	//delete the buffer
 		if (_pFileSwitcherPanel)
-			_pFileSwitcherPanel->closeItem((int)idToClose, whichOne);
+			_pFileSwitcherPanel->closeItem(idToClose, whichOne);
 	}
 	else
 	{
@@ -4728,7 +4728,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	}
 
 	if (_pFileSwitcherPanel)
-		_pFileSwitcherPanel->setItemIconStatus((int)buffer);
+		_pFileSwitcherPanel->setItemIconStatus(buffer);
 
 	if (!mainActive && !subActive)
 	{
@@ -4828,7 +4828,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 
 	if (_pFileSwitcherPanel)
 	{
-		_pFileSwitcherPanel->activateItem((int)bufid, currentView());
+		_pFileSwitcherPanel->activateItem(bufid, currentView());
 	}
 
 	if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())

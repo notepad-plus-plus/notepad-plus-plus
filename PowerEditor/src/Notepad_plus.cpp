@@ -2361,7 +2361,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
-		type == L_PHP || type == L_JS || type == L_JSP)
+		type == L_PHP || type == L_JS || type == L_JSP || type == L_CSS)
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 			(eolMode == SC_EOL_CR && ch == '\r'))

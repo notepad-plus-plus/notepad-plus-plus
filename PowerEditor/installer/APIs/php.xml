@@ -10336,6 +10336,7 @@
 				<Param name="[resource connection]"/>
 			</Overload>
 		</KeyWord>
+		<KeyWord name="php"/>
 		<KeyWord name="phpcredits" func="yes">
 			<Overload retVal="bool">
 				<Param name="[int flag=CREDITS_ALL]"/>

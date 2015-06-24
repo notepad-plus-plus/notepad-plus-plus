@@ -46,7 +46,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 
 
 
-//Here you can find how to use these messages : http://notepad-plus.sourceforge.net/uk/plugins-HOWTO.php 
+//Here you can find how to use these messages : http://docs.notepad-plus-plus.org/index.php/Messages_And_Notifications 
 #define NPPMSG  (WM_USER + 1000)
 
 	#define NPPM_GETCURRENTSCINTILLA  (NPPMSG + 4)
@@ -228,13 +228,13 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// allocate fullFilePath with the return values + 1, then call it again to get  full path file name
 
 	#define NPPM_GETBUFFERIDFROMPOS (NPPMSG + 59)
-	// INT NPPM_GETBUFFERIDFROMPOS(INT index, INT iView)
+	// LRESULT NPPM_GETBUFFERIDFROMPOS(INT index, INT iView)
 	// wParam: Position of document
 	// lParam: View to use, 0 = Main, 1 = Secondary
 	// Returns 0 if invalid
 
 	#define NPPM_GETCURRENTBUFFERID (NPPMSG + 60)
-	// INT NPPM_GETCURRENTBUFFERID(0, 0)
+	// LRESULT NPPM_GETCURRENTBUFFERID(0, 0)
 	// Returns active Buffer
 
 	#define NPPM_RELOADBUFFERID (NPPMSG + 61)

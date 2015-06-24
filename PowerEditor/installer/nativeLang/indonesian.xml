@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
 	<Native-Langue name = "Indonesian" filename="indonesian.xml" >
 		<Menu>
@@ -18,7 +18,7 @@
                     <Item idName="Plugins" name="Plugin"/>
                     <Item idName="Window" name="Jendela"/>
                 </Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard"  name="Salin ke Klipbor"/>
@@ -59,7 +59,7 @@
                     <Item subMenuId="encoding-vietnamese" name="Vietnam"/>
                     <Item subMenuId="settings-import"  name="Impor"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="Baru"/>
@@ -79,7 +79,7 @@
                     <Item id="41015" name="Simpan Salinan Sebagai..."/>
                     <Item id="41016" name="Hapus dari Diska"/>
                     <Item id="41017" name="Namai Ulang..."/>
-                    
+
                     <Item id="42001" name="Potong"/>
                     <Item id="42002" name="Salin"/>
                     <Item id="42003" name="Urung"/>
@@ -92,8 +92,8 @@
                     <Item id="42010" name="Duplikat Baris"/>
                     <Item id="42012" name="Pisah Baris"/>
                     <Item id="42013" name="Gabung Baris"/>
-                    <Item id="42014" name="Naikkan Baris"/>   
-                    <Item id="42015" name="Turunkan Baris"/>   
+                    <Item id="42014" name="Naikkan Baris"/>
+                    <Item id="42015" name="Turunkan Baris"/>
                     <Item id="42016" name="HURUF BESAR"/>
                     <Item id="42017" name="huruf kecil"/>
                     <Item id="42018" name="Mulai Rekam"/>
@@ -119,7 +119,7 @@
                     <Item id="42033" name="Hapus Tanda Hanya-Baca"/>
                     <Item id="42035" name="Komentar Blok"/>
                     <Item id="42036" name="Hapus Komentar Blok"/>
-                    
+
                     <Item id="43001" name="Cari..."/>
                     <Item id="43002" name="Cari Selanjutnya"/>
                     <Item id="43003" name="Ganti..."/>
@@ -190,7 +190,7 @@
                     <Item id="44036" name="Sinkronkan Guliran Horisontal"/>
                     <Item id="44041" name="Tampilkan Simbol Pemutus"/>
                     <Item id="44072" name="Fokus pada Tampilan Lain"/>
-                    
+
                     <Item id="45001" name="Konversi ke Format Windows"/>
                     <Item id="45002" name="Konversi ke Format UNIX"/>
                     <Item id="45003" name="Konversi ke Format MAC"/>
@@ -210,7 +210,7 @@
                     <Item id="10003" name="Pindahkan ke Perwujudan Lain"/>
                     <Item id="10004" name="Buka dalam Perwujudan Baru"/>
 
-                    
+
                     <Item id="46001" name="Konfigurator Gaya..."/>
                     <Item id="46080" name="Definisi-Pengguna"/>
                     <Item id="47000" name="Ihwal Notepad++..."/>
@@ -260,7 +260,7 @@
                     <Item CMID="15" name="Buka dalam Perwujudan Baru"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="Cari" titleReplace="Ganti" titleFindInFiles="Cari dalam Berkas" titleMark="Tanda">
                 <Item id="1"    name="Cari Selanjutnya"/>
@@ -318,11 +318,11 @@
                 <Item id="2"    name="Batal"/>
                 <Item id="1904" name="Simpan..."/>
             </Run>
-            
+
             <StyleConfig title="Konfigurator Gaya">
                 <Item id="2"    name="Batal"/>
                 <Item id="2301" name="Simpan  Tutup"/>
-                <Item id="2303" name="Transparansi"/>		
+                <Item id="2303" name="Transparansi"/>
                 <Item id="2306" name="Pilih tema: "/>
                 <SubDialog>
                 	<Item id="2204" name="Tebal"/>
@@ -346,10 +346,10 @@
                     <Item id="2230" name="Aktifkan gaya huruf tebal global"/>
                     <Item id="2231" name="Aktifkan gaya huruf miring global"/>
                     <Item id="2232" name="Aktifkan gaya huruf garis bawah global"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="User-Defined">
                 <Item id="20002" name="Ganti Nama"/>
                 <Item id="20003" name="Buat Baru..."/>
@@ -415,20 +415,20 @@
                     <Item id="6103" name="Ikon kecil"/>
 	                <Item id="6104" name="Ikon besar"/>
                     <Item id="6105" name="Ikon standar"/>
-                    
+
                     <Item id="6106" name="Bilah Tab"/>
                     <Item id="6107" name="Kecilkan"/>
                     <Item id="6108" name="Kunci (tanpa seret lepas)"/>
                     <Item id="6109" name="Tab nonaktif gelap"/>
                     <Item id="6110" name="Tab aktif berwarna"/>
-                    
+
                     <Item id="6111" name="Tampilkan bilah status"/>
                     <Item id="6112" name="Tampilkan tombol tutup di setiap tab"/>
                     <Item id="6113" name="Klik ganda untuk menutup dokumen"/>
                     <Item id="6118" name="Sembunyikan"/>
                     <Item id="6119" name="Multibaris"/>
                     <Item id="6120" name="Vertikal"/>
-                    
+
                     <Item id="6121" name="Bilah Menu"/>
                     <Item id="6122" name="Sembunyikan (Tukar dengan Alt/F10)"/>
                     <Item id="6123" name="Pelokalan"/>
@@ -447,17 +447,17 @@
 	                <Item id="6204" name="Pohon lingkaran"/>
                     <Item id="6205" name="Pohon kotak"/>
                     <Item id="6226" name="Tidak ada"/>
-					
+
                     <Item id="6227" name="Pemenggalan Baris"/>
                     <Item id="6228" name="Baku"/>
                     <Item id="6229" name="Lurus"/>
                     <Item id="6230" name="Indentasi"/>
-                    
+
                     <Item id="6206" name="Tampilkan nomor baris"/>
                     <Item id="6207" name="Tampilkan tanda"/>
                     <Item id="6208" name="Tampilkan batas vertikal"/>
                     <Item id="6209" name="Jumlah kolom: "/>
-                    
+
                     <Item id="6211" name="Pengaturan Batas Vertikal"/>
                     <Item id="6212" name="Modus baris"/>
                     <Item id="6213" name="Modus latar"/>
@@ -544,12 +544,12 @@
                     <Item id="6327" name="Aktifkan"/>
                     <Item id="6328" name="Sorot atribut tag"/>
                     <Item id="6330" name="Sorot zona komentar/php/asp"/>
-                    
+
                     <Item id="6331" name="Tampilkan nama berkas saja di bilah judul"/>
                     <Item id="6114" name="Aktifkan"/>
                     <Item id="6115" name="Indentasi otomatis"/>
                     <Item id="6117" name="Aktifkan perilaku MRU"/>
-                    
+
                 </MISC>
                 <Backup title="Cadangan/Pelengkapan Otomatis">
                     <Item id="6801" name="Cadangan"/>

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 	::Marathi language file for Notepad++ ::
-	
-	** created By:- Nikhil Tamhankar ** 
+
+	** created By:- Nikhil Tamhankar **
 		Email- iamnik.mailme@gmail.com
-		
+
 -->
 <NotepadPlus>
 	<Native-Langue name="मराठी" filename="marathi.xml">
@@ -24,7 +24,7 @@
                     <Item idName="Plugins" name="प्लगइन्स"/>
                     <Item idName="Window" name="विन्डों"/>
                 </Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard" name="क्लिपबोर्डवर कॉपी"/>
@@ -64,7 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="वियतनाव"/>
                     <Item subMenuId="settings-import" name="आयात"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;नवीन"/>
@@ -84,7 +84,7 @@
                     <Item id="41015" name="प्रतिरूप अस सेव्ह करा..."/>
                     <Item id="41016" name="डिस्क वरून नष्ट करा"/>
                     <Item id="41017" name="नाव बदला..."/>
-                    
+
                     <Item id="42001" name="&amp;कापा (cut)"/>
                     <Item id="42002" name="&amp;कॉपी (copy)"/>
                     <Item id="42003" name="&amp;पूर्ववत करा (Undo)"/>
@@ -97,8 +97,8 @@
                     <Item id="42010" name="सध्याची लाइन डुप्लिकेट करा"/>
                     <Item id="42012" name="लाईन विभाजित करा"/>
                     <Item id="42013" name="लाईन जोड़ा"/>
-                    <Item id="42014" name="सध्याची लाईन वर्ती हलवा"/>   
-                    <Item id="42015" name="सध्याची लाईन खाली हलवा"/>   
+                    <Item id="42014" name="सध्याची लाईन वर्ती हलवा"/>
+                    <Item id="42015" name="सध्याची लाईन खाली हलवा"/>
                     <Item id="42016" name="अपरकेस करा"/>
                     <Item id="42017" name="लोअरकेस करा"/>
                     <Item id="42018" name="&amp;रेकॉर्डिंग प्रारंभ करा"/>
@@ -126,7 +126,7 @@
                     <Item id="42036" name="एकओळ टीका काढा"/>
 					<Item id="42055" name="रिकामे रेषा काढा"/>
                     <Item id="42056" name="रिकामे रेषा काढा (रिकामे असलेले वर्ण)"/>
-                    
+
                     <Item id="43001" name="&amp;शोधा..."/>
                     <Item id="43002" name="&amp;पुढील शोधा"/>
                     <Item id="43003" name="बदला(replace)..."/>
@@ -197,7 +197,7 @@
                     <Item id="44036" name="कआडवा सस्क्रोलिंग सिंक्रोंनाईज़ करा"/>
                     <Item id="44041" name="लपेटा (Wrap) चिन्ह दाखवा"/>
                     <Item id="44072" name="दूसरा व्यू फोकस करा"/>
-                    
+
                     <Item id="45001" name="विंडोज स्वरुपात रुपांतरित करा"/>
                     <Item id="45002" name="उनिक्स स्वरुपात रुपांतरित करा"/>
                     <Item id="45003" name="MAC स्वरुपात रुपांतरित करा"/>
@@ -217,7 +217,7 @@
                     <Item id="10003" name="नविन इन्स्टन्स वर जा"/>
                     <Item id="10004" name="नविन इन्स्टन्स उघडा"/>
 
-                    
+
                     <Item id="46001" name="शैली संरचना..."/>
                     <Item id="46080" name="वापरकर्ता परिभाषित"/>
                     <Item id="47000" name="नोटपैड++ बद्दल..."/>
@@ -267,7 +267,7 @@
                     <Item CMID="15" name="नवीन इन्स्टन्स उघडा"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="शोधा" titleReplace="बदला (replace)" titleFindInFiles="फाईल मे ख़ोजे" titleMark="चिन्हित">
                 <Item id="1" name="पुढील शोधा"/>
@@ -325,11 +325,11 @@
                 <Item id="2" name="रद्द करा"/>
                 <Item id="1904" name="सेव्ह..."/>
             </Run>
-            
+
             <StyleConfig title="शैली व्यूहरचनाकार">
                 <Item id="2" name="रद्द"/>
                 <Item id="2301" name="सेव्ह करा &amp;आणि बंध करा"/>
-                <Item id="2303" name="पारदर्शिता"/>		
+                <Item id="2303" name="पारदर्शिता"/>
                 <Item id="2306" name="थीम पसंद करा: "/>
                 <SubDialog>
                 	<Item id="2204" name="ठळक"/>
@@ -353,8 +353,8 @@
                     <Item id="2230" name="वैश्विक ठळक फ़ॉन्ट शैली सक्रिय करा"/>
                     <Item id="2231" name="वैश्विक इटालिक फ़ॉन्ट शैली सक्रिय करा"/>
                     <Item id="2232" name="वैश्विक अंडरलाइन फ़ॉन्ट शैली सक्रिय करा"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
             <UserDefine title="उपयोक्ता-वर्णनीय">
                 <Item id="20002" name="नाव बदला"/>
@@ -421,20 +421,20 @@
                     <Item id="6103" name="छोटे आइकॉनस"/>
 	                <Item id="6104" name="मोठे आइकॉनस"/>
                     <Item id="6105" name="आदर्श आइकॉन"/>
-                    
+
                     <Item id="6106" name="टॅब बार"/>
                     <Item id="6107" name="कमी करा"/>
                     <Item id="6108" name="लॉक करा (no drag and drop)"/>
                     <Item id="6109" name="निष्क्रिय टैब काळा करा"/>
                     <Item id="6110" name="सक्रिय टॅबचा एक रंगीत पट्टी रेखांकित करा"/>
-                    
+
                     <Item id="6111" name="स्टेटस बार दाखवा"/>
                     <Item id="6112" name="प्रत्येक टैब वर बंध का बटन दाखवा"/>
                     <Item id="6113" name="दस्तऐवज बंद करण्यासाठी डबल क्लिक करा"/>
                     <Item id="6118" name="लपवा"/>
                     <Item id="6119" name="मल्टी-लाईन"/>
                     <Item id="6120" name="उभा (Vertical)"/>
-                    
+
                     <Item id="6121" name="मेन्यू बार"/>
                     <Item id="6122" name="लपवा (टॉगल करण्यासाठी Alt किंवा F10 कळ वापरा)"/>
                     <Item id="6123" name="स्थानिकीकरण"/>
@@ -453,17 +453,17 @@
 	                <Item id="6204" name="सर्कल ट्री"/>
                     <Item id="6205" name="बॉक्स ट्री"/>
                     <Item id="6226" name="काहीही नाही (None)"/>
-					
+
                     <Item id="6227" name="लाईन wrap"/>
                     <Item id="6228" name="मुलभूत (Default) "/>
                     <Item id="6229" name="संरेखित (Aligned)"/>
                     <Item id="6230" name="इंडेंट करा (Indent)"/>
-                    
+
                     <Item id="6206" name="लाईन नंबर दाखवा"/>
                     <Item id="6207" name="बूकमार्क दाखवा"/>
                     <Item id="6208" name="अनुलंब किनारा दर्शवा"/>
                     <Item id="6209" name="कॉलम संख्या: "/>
-                    
+
                     <Item id="6211" name="अनुलंब किनारा संरचना"/>
                     <Item id="6212" name="लाईन मोड"/>
                     <Item id="6213" name="पार्श्वभूमी मोड"/>
@@ -550,12 +550,12 @@
                     <Item id="6327" name="सक्रिय"/>
                     <Item id="6328" name="टैग attributes हाईलाईट करा"/>
                     <Item id="6330" name="comment/php/asp हिस्सा हाईलाईट करा"/>
-                    
+
                     <Item id="6331" name="शीर्षक बार मध्ये फक्त फाइलनाव दर्शवा"/>
                     <Item id="6114" name="सक्रिय"/>
                     <Item id="6115" name="स्वचालित इंडेंट"/>
                     <Item id="6117" name="MRU वर्तणूक सक्रिय करा"/>
-                    
+
                 </MISC>
                 <Backup title="बॅकअप/ऑटो-कम्प्लिशन">
                     <Item id="6801" name="बॅकअप"/>

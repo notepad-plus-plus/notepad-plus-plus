@@ -1832,6 +1832,91 @@ bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plug
 	return getContextMenuFromXmlTree(mainMenuHadle, pluginsMenu);
 }
 
+int NppParameters::getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName)
+{
+	int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
+	for (int i = 0; i < nbMenuEntry; ++i)
+	{
+		TCHAR menuEntryString[64];
+		::GetMenuString(mainMenuHadle, i, menuEntryString, 64, MF_BYPOSITION);
+		if (generic_stricmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
+		{
+			vector< pair<HMENU, int> > parentMenuPos;
+			HMENU topMenu = ::GetSubMenu(mainMenuHadle, i);
+			int maxTopMenuPos = ::GetMenuItemCount(topMenu);
+			HMENU currMenu = topMenu;
+			int currMaxMenuPos = maxTopMenuPos;
+
+			int currMenuPos = 0;
+			bool notFound = false;
+
+			do {
+				if (::GetSubMenu(currMenu, currMenuPos))
+				{
+					//  Go into sub menu
+					parentMenuPos.push_back(::make_pair(currMenu, currMenuPos));
+					currMenu = ::GetSubMenu(currMenu, currMenuPos);
+					currMenuPos = 0;
+					currMaxMenuPos = ::GetMenuItemCount(currMenu);
+				}
+				else
+				{
+					//  Check current menu position.
+					TCHAR cmdStr[256];
+					::GetMenuString(currMenu, currMenuPos, cmdStr, 256, MF_BYPOSITION);
+					if (generic_stricmp(menuItemName.c_str(), purgeMenuItemString(cmdStr).c_str()) == 0)
+					{
+						return ::GetMenuItemID(currMenu, currMenuPos);
+					}
+
+					if ((currMenuPos >= currMaxMenuPos) && (parentMenuPos.size() > 0))
+					{
+						currMenu = parentMenuPos.back().first;
+						currMenuPos = parentMenuPos.back().second;
+						parentMenuPos.pop_back();
+						currMaxMenuPos = ::GetMenuItemCount(currMenu);
+					}
+
+					if ((currMenu == topMenu) && (currMenuPos >= maxTopMenuPos))
+					{
+						notFound = true;
+					}
+					else
+					{
+						++currMenuPos;
+					}
+				}
+			} while (!notFound);
+		}
+	}
+	return -1;
+}
+
+int NppParameters::getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName)
+{
+	int nbPlugins = ::GetMenuItemCount(pluginsMenu);
+	for (int i = 0; i < nbPlugins; ++i)
+	{
+		TCHAR menuItemString[256];
+		::GetMenuString(pluginsMenu, i, menuItemString, 256, MF_BYPOSITION);
+		if (generic_stricmp(pluginName.c_str(), purgeMenuItemString(menuItemString).c_str()) == 0)
+		{
+			HMENU pluginMenu = ::GetSubMenu(pluginsMenu, i);
+			int nbPluginCmd = ::GetMenuItemCount(pluginMenu);
+			for (int j = 0; j < nbPluginCmd; ++j)
+			{
+				TCHAR pluginCmdStr[256];
+				::GetMenuString(pluginMenu, j, pluginCmdStr, 256, MF_BYPOSITION);
+				if (generic_stricmp(pluginCmdName.c_str(), purgeMenuItemString(pluginCmdStr).c_str()) == 0)
+				{
+					return ::GetMenuItemID(pluginMenu, j);
+				}
+			}
+		}
+	}
+	return -1;
+}
+
 bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu)
 {
 	if (!_pXmlContextMenuDocA)
@@ -1875,59 +1960,9 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 
 				if (menuEntryName != TEXT("") && menuItemName != TEXT(""))
 				{
-					int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
-					for (int i = 0 ; i < nbMenuEntry ; ++i)
-					{
-						TCHAR menuEntryString[64];
-						::GetMenuString(mainMenuHadle, i, menuEntryString, 64, MF_BYPOSITION);
-						if (generic_stricmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
-						{
-							vector< pair<HMENU, int> > parentMenuPos;
-							HMENU topMenu = ::GetSubMenu(mainMenuHadle, i);
-							int maxTopMenuPos = ::GetMenuItemCount(topMenu);
-							HMENU currMenu = topMenu;
-							int currMaxMenuPos = maxTopMenuPos;
-
-							int currMenuPos = 0;
-							bool notFound = false;
-
-							do {
-								if ( ::GetSubMenu( currMenu, currMenuPos ) ) {
-									//  Go into sub menu
-									parentMenuPos.push_back( ::make_pair( currMenu, currMenuPos ) );
-									currMenu = ::GetSubMenu( currMenu, currMenuPos );
-									currMenuPos = 0;
-									currMaxMenuPos = ::GetMenuItemCount(currMenu);
-								}
-								else {
-									//  Check current menu position.
-									TCHAR cmdStr[256];
-									::GetMenuString(currMenu, currMenuPos, cmdStr, 256, MF_BYPOSITION);
-									if (generic_stricmp(menuItemName.c_str(), purgeMenuItemString(cmdStr).c_str()) == 0)
-									{
-										int cmdId = ::GetMenuItemID(currMenu, currMenuPos);
-										_contextMenuItems.push_back(MenuItemUnit(cmdId, displayAs.c_str(), folderName.c_str()));
-										break;
-									}
-									
-									if ( ( currMenuPos >= currMaxMenuPos ) && ( parentMenuPos.size() > 0 ) ) {
-										currMenu = parentMenuPos.back().first;
-										currMenuPos = parentMenuPos.back().second;
-										parentMenuPos.pop_back();
-										currMaxMenuPos = ::GetMenuItemCount( currMenu );
-									}
-
-									if ( ( currMenu == topMenu ) && ( currMenuPos >= maxTopMenuPos ) ) {
-										notFound = true;
-									}
-									else {
-										++currMenuPos;
-									}
-								}
-							} while (! notFound );
-							break;
-						}
-					}
+					int cmd = getCmdIdFromMenuEntryItemName(mainMenuHadle, menuEntryName, menuItemName);
+					if (cmd != -1)
+						_contextMenuItems.push_back(MenuItemUnit(cmd, displayAs.c_str(), folderName.c_str()));
 				}
 				else
 				{
@@ -1942,29 +1977,9 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 					// if plugin menu existing plls the value of PluginEntryName and PluginCommandItemName are valid
 					if (pluginsMenu && pluginName != TEXT("") && pluginCmdName != TEXT(""))
 					{
-						int nbPlugins = ::GetMenuItemCount(pluginsMenu);
-						for (int i = 0 ; i < nbPlugins ; ++i)
-						{
-							TCHAR menuItemString[256];
-							::GetMenuString(pluginsMenu, i, menuItemString, 256, MF_BYPOSITION);
-							if (generic_stricmp(pluginName.c_str(), purgeMenuItemString(menuItemString).c_str()) == 0)
-							{
-								HMENU pluginMenu = ::GetSubMenu(pluginsMenu, i);
-								int nbPluginCmd = ::GetMenuItemCount(pluginMenu);
-								for (int j = 0 ; j < nbPluginCmd ; ++j)
-								{
-									TCHAR pluginCmdStr[256];
-									::GetMenuString(pluginMenu, j, pluginCmdStr, 256, MF_BYPOSITION);
-									if (generic_stricmp(pluginCmdName.c_str(), purgeMenuItemString(pluginCmdStr).c_str()) == 0)
-									{
-										int pluginCmdId = ::GetMenuItemID(pluginMenu, j);
-										_contextMenuItems.push_back(MenuItemUnit(pluginCmdId, displayAs.c_str(), folderName.c_str()));
-										break;
-									}
-								}
-								break;
-							}
-						}
+						int pluginCmdId = getPluginCmdIdFromMenuEntryItemName(pluginsMenu, pluginName, pluginCmdName);
+						if (pluginCmdId != -1)
+							_contextMenuItems.push_back(MenuItemUnit(pluginCmdId, displayAs.c_str(), folderName.c_str()));
 					}
 				}
 			}

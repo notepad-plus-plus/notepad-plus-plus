@@ -83,7 +83,7 @@ class NppParameters;
 #define NB_WORD_LIST 4
 #define WORD_LIST_LEN 256
 
-typedef int (* SCINTILLA_FUNC) (void*, int, int, int);
+typedef sptr_t(*SCINTILLA_FUNC) (void *, unsigned int, uptr_t, sptr_t);
 typedef void * SCINTILLA_PTR;
 
 #define WM_DOCK_USERDEFINE_DLG      (SCINTILLA_USER + 1)
@@ -238,7 +238,7 @@ public:
 	virtual void init(HINSTANCE hInst, HWND hPere);
 
 	LRESULT execute(UINT Msg, WPARAM wParam=0, LPARAM lParam=0) const {
-		return _pScintillaFunc(_pScintillaPtr, static_cast<int>(Msg), static_cast<int>(wParam), static_cast<int>(lParam));
+		return _pScintillaFunc(_pScintillaPtr, Msg, wParam, lParam);
 	};
 	
 	void activateBuffer(BufferID buffer);

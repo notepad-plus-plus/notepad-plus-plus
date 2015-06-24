@@ -1745,7 +1745,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                    int j,k,c;
                    TCHAR tbuffer[1000];
                    //it was found, get it
-                   SendMessage(BGHS[SelfIndex].hlist1,LB_GETTEXT,FindResult,(long)lParam);
+                   SendMessage(BGHS[SelfIndex].hlist1,LB_GETTEXT,FindResult,(LPARAM)lParam);
                    lstrcpy(tbuffer,(TCHAR*)lParam);
                    k=lstrlen(tbuffer);
                    c=0;
@@ -3112,7 +3112,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
      if(lbcount < 12)
          {
           //not worth doing binary search, do regular search
-          FindResult = SendMessage(lbhWnd,LB_FINDSTRING,(unsigned int)-1,(LPARAM) searchtext);
+			 FindResult = SendMessage(lbhWnd,LB_FINDSTRING,(unsigned int)-1,(LPARAM) searchtext);
           ReturnValue = FindResult;
           return ReturnValue;
          }

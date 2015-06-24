@@ -25,18 +25,24 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
 #include "LongRunningOperation.h"
-#include <mutex>
+#include "mutex.h"
 
-static std::recursive_mutex _operationMutex;
+using namespace Yuni;
+
+
+
 
 LongRunningOperation::LongRunningOperation()
 {
-	_operationMutex.lock();
+	Mutex::ClassLevelLockable<LongRunningOperation>::mutex.lock();
 }
+
 
 LongRunningOperation::~LongRunningOperation()
 {
-	_operationMutex.unlock();
+	Mutex::ClassLevelLockable<LongRunningOperation>::mutex.unlock();
 }
+
+
+

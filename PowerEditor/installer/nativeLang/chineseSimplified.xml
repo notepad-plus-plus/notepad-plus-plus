@@ -1,811 +1,811 @@
-<?xml version="1.0" encoding="gb2312"?>
+<?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="¼òÌåÖÐÎÄ" filename="chineseSimplified.xml" version="6.7.7">
+    <Native-Langue name="ç®€ä½“ä¸­æ–‡" filename="chineseSimplified.xml" version="6.7.7">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="ÎÄ¼þ(&amp;F)" />
-                    <Item menuId="edit" name="±à¼­(&amp;E)" />
-                    <Item menuId="search" name="ËÑË÷(&amp;S)" />
-                    <Item menuId="view" name="ÊÓÍ¼(&amp;V)" />
-                    <Item menuId="encoding" name="¸ñÊ½(&amp;M)" />
-                    <Item menuId="language" name="ÓïÑÔ(&amp;L)" />
-                    <Item menuId="settings" name="ÉèÖÃ(&amp;T)" />
-                    <Item menuId="macro" name="ºê(&amp;O)" />
-                    <Item menuId="run" name="ÔËÐÐ(&amp;R)" />
-                    <Item idName="Plugins" name="²å¼þ(&amp;P)" />
-                    <Item idName="Window" name="´°¿Ú(&amp;W)" />
+                    <Item menuId="file" name="æ–‡ä»¶(&amp;F)" />
+                    <Item menuId="edit" name="ç¼–è¾‘(&amp;E)" />
+                    <Item menuId="search" name="æœç´¢(&amp;S)" />
+                    <Item menuId="view" name="è§†å›¾(&amp;V)" />
+                    <Item menuId="encoding" name="æ ¼å¼(&amp;M)" />
+                    <Item menuId="language" name="è¯­è¨€(&amp;L)" />
+                    <Item menuId="settings" name="è®¾ç½®(&amp;T)" />
+                    <Item menuId="macro" name="å®(&amp;O)" />
+                    <Item menuId="run" name="è¿è¡Œ(&amp;R)" />
+                    <Item idName="Plugins" name="æ’ä»¶(&amp;P)" />
+                    <Item idName="Window" name="çª—å£(&amp;W)" />
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="´ò¿ªËùÔÚÎÄ¼þ¼Ð"/>
-                    <Item subMenuId="file-closeMore" name="¸ü¶à¹Ø±Õ·½Ê½"/>
-                    <Item subMenuId="file-recentFiles" name="½üÆÚÎÄ¼þ"/>
-                    <Item subMenuId="edit-copyToClipboard" name="¸´ÖÆµ½¼ôÇÐ°å" />
-                    <Item subMenuId="edit-indent" name="Ëõ½ø" />
-                    <Item subMenuId="edit-convertCaseTo" name="×ª»»ÊÓÍ¼" />
-                    <Item subMenuId="edit-lineOperations" name="ÐÐ²Ù×÷" />
-                    <Item subMenuId="edit-comment" name="×¢ÊÍ/È¡Ïû×¢ÊÍ" />
-                    <Item subMenuId="edit-autoCompletion" name="×Ô¶¯Íê³É" />
-                    <Item subMenuId="edit-eolConversion" name="µµ°¸¸ñÊ½×ª»»" />
-                    <Item subMenuId="edit-blankOperations" name="¿Õ°×²Ù×÷" />
-                    <Item subMenuId="edit-pasteSpecial" name="Ñ¡ÔñÐÔÕ³Ìù" />
-                    <Item subMenuId="search-markAll" name="±ê¼ÇËùÓÐ" />
-                    <Item subMenuId="search-unmarkAll" name="Çå³ýÑÕÉ«±ê¼Ç" />
-                    <Item subMenuId="search-jumpUp" name="µ½ÉÏÒ»¸öÑÕÉ«±ê¼Ç" />
-                    <Item subMenuId="search-jumpDown" name="µ½ÏÂÒ»¸öÑÕÉ«±ê¼Ç" />
-                    <Item subMenuId="search-bookmark" name="ÊéÇ©" />
-                    <Item subMenuId="view-showSymbol" name="ÏÔÊ¾·ûºÅ" />
-                    <Item subMenuId="view-zoom" name="Ëõ·Å" />
-                    <Item subMenuId="view-moveCloneDocument" name="ÒÆ¶¯/¸´ÖÆµ±Ç°ÎÄµµ" />
-                    <Item subMenuId="view-tab"  name="±êÇ©Ò³(Tab)"/>
-                    <Item subMenuId="view-collapseLevel" name="ÕÛµþ²ã´Î" />
-                    <Item subMenuId="view-uncollapseLevel" name="Õ¹¿ª²ã´Î" />
-                    <Item subMenuId="view-project" name="¹¤³Ì" />
-                    <Item subMenuId="encoding-characterSets" name="±àÂë×Ö·û¼¯" />
-                    <Item subMenuId="encoding-arabic" name="°¢À­²®ÎÄ" />
-                    <Item subMenuId="encoding-baltic" name="²¨ÂÞµÄÓï" />
-                    <Item subMenuId="encoding-celtic" name="Èû¶ûÌØÎÄ" />
-                    <Item subMenuId="encoding-cyrillic" name="Ë¹À­·òÓï" />
-                    <Item subMenuId="encoding-centralEuropean" name="ÖÐÅ·ÓïÏµ" />
-                    <Item subMenuId="encoding-chinese" name="ÖÐÎÄ" />
-                    <Item subMenuId="encoding-easternEuropean" name="¶«Å·ÓïÏµ" />
-                    <Item subMenuId="encoding-greek" name="Ï£À°ÎÄ" />
-                    <Item subMenuId="encoding-hebrew" name="Ï£²®À´ÎÄ" />
-                    <Item subMenuId="encoding-japanese" name="ÈÕÎÄ" />
-                    <Item subMenuId="encoding-korean" name="º«ÎÄ" />
-                    <Item subMenuId="encoding-northEuropean" name="±±Å·ÓïÏµ" />
-                    <Item subMenuId="encoding-thai" name="Ì©ÎÄ" />
-                    <Item subMenuId="encoding-turkish" name="ÍÁ¶úÆäÓï" />
-                    <Item subMenuId="encoding-westernEuropean" name="Î÷Å·ÓïÏµ" />
-                    <Item subMenuId="encoding-vietnamese" name="Ô½ÄÏÎÄ" />
-                    <Item subMenuId="settings-import" name="µ¼Èë" />
+                    <Item subMenuId="file-openFolder" name="æ‰“å¼€æ‰€åœ¨æ–‡ä»¶å¤¹"/>
+                    <Item subMenuId="file-closeMore" name="æ›´å¤šå…³é—­æ–¹å¼"/>
+                    <Item subMenuId="file-recentFiles" name="è¿‘æœŸæ–‡ä»¶"/>
+                    <Item subMenuId="edit-copyToClipboard" name="å¤åˆ¶åˆ°å‰ªåˆ‡æ¿" />
+                    <Item subMenuId="edit-indent" name="ç¼©è¿›" />
+                    <Item subMenuId="edit-convertCaseTo" name="è½¬æ¢è§†å›¾" />
+                    <Item subMenuId="edit-lineOperations" name="è¡Œæ“ä½œ" />
+                    <Item subMenuId="edit-comment" name="æ³¨é‡Š/å–æ¶ˆæ³¨é‡Š" />
+                    <Item subMenuId="edit-autoCompletion" name="è‡ªåŠ¨å®Œæˆ" />
+                    <Item subMenuId="edit-eolConversion" name="æ¡£æ¡ˆæ ¼å¼è½¬æ¢" />
+                    <Item subMenuId="edit-blankOperations" name="ç©ºç™½æ“ä½œ" />
+                    <Item subMenuId="edit-pasteSpecial" name="é€‰æ‹©æ€§ç²˜è´´" />
+                    <Item subMenuId="search-markAll" name="æ ‡è®°æ‰€æœ‰" />
+                    <Item subMenuId="search-unmarkAll" name="æ¸…é™¤é¢œè‰²æ ‡è®°" />
+                    <Item subMenuId="search-jumpUp" name="åˆ°ä¸Šä¸€ä¸ªé¢œè‰²æ ‡è®°" />
+                    <Item subMenuId="search-jumpDown" name="åˆ°ä¸‹ä¸€ä¸ªé¢œè‰²æ ‡è®°" />
+                    <Item subMenuId="search-bookmark" name="ä¹¦ç­¾" />
+                    <Item subMenuId="view-showSymbol" name="æ˜¾ç¤ºç¬¦å·" />
+                    <Item subMenuId="view-zoom" name="ç¼©æ”¾" />
+                    <Item subMenuId="view-moveCloneDocument" name="ç§»åŠ¨/å¤åˆ¶å½“å‰æ–‡æ¡£" />
+                    <Item subMenuId="view-tab"  name="æ ‡ç­¾é¡µ(Tab)"/>
+                    <Item subMenuId="view-collapseLevel" name="æŠ˜å å±‚æ¬¡" />
+                    <Item subMenuId="view-uncollapseLevel" name="å±•å¼€å±‚æ¬¡" />
+                    <Item subMenuId="view-project" name="å·¥ç¨‹" />
+                    <Item subMenuId="encoding-characterSets" name="ç¼–ç å­—ç¬¦é›†" />
+                    <Item subMenuId="encoding-arabic" name="é˜¿æ‹‰ä¼¯æ–‡" />
+                    <Item subMenuId="encoding-baltic" name="æ³¢ç½—çš„è¯­" />
+                    <Item subMenuId="encoding-celtic" name="å¡žå°”ç‰¹æ–‡" />
+                    <Item subMenuId="encoding-cyrillic" name="æ–¯æ‹‰å¤«è¯­" />
+                    <Item subMenuId="encoding-centralEuropean" name="ä¸­æ¬§è¯­ç³»" />
+                    <Item subMenuId="encoding-chinese" name="ä¸­æ–‡" />
+                    <Item subMenuId="encoding-easternEuropean" name="ä¸œæ¬§è¯­ç³»" />
+                    <Item subMenuId="encoding-greek" name="å¸Œè…Šæ–‡" />
+                    <Item subMenuId="encoding-hebrew" name="å¸Œä¼¯æ¥æ–‡" />
+                    <Item subMenuId="encoding-japanese" name="æ—¥æ–‡" />
+                    <Item subMenuId="encoding-korean" name="éŸ©æ–‡" />
+                    <Item subMenuId="encoding-northEuropean" name="åŒ—æ¬§è¯­ç³»" />
+                    <Item subMenuId="encoding-thai" name="æ³°æ–‡" />
+                    <Item subMenuId="encoding-turkish" name="åœŸè€³å…¶è¯­" />
+                    <Item subMenuId="encoding-westernEuropean" name="è¥¿æ¬§è¯­ç³»" />
+                    <Item subMenuId="encoding-vietnamese" name="è¶Šå—æ–‡" />
+                    <Item subMenuId="settings-import" name="å¯¼å…¥" />
                 </SubEntries>
                 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="41001" name="ÐÂ½¨(&amp;N)" />
-                    <Item id="41002" name="´ò¿ª(&amp;O)" />
-                    <Item id="41019" name="ÎÄ¼þ¹ÜÀíÆ÷"/>
-                    <Item id="41020" name="ÃüÁîÐÐ"/>
-                    <Item id="41003" name="¹Ø±Õ" />
-                    <Item id="41004" name="È«²¿¹Ø±Õ(&amp;L)" />
-                    <Item id="41005" name="¹Ø±Õµ±Ç°ÒÔÍâËùÓÐÎÄ¼þ" />
-                    <Item id="41009" name="¹Ø±Õ×ó²àËùÓÐÎÄ¼þ"/>
-                    <Item id="41018" name="¹Ø±ÕÓÒ²àËùÓÐÎÄ¼þ"/>
-                    <Item id="41006" name="±£´æ(&amp;S)" />
-                    <Item id="41007" name="È«²¿±£´æ(&amp;E)" />
-                    <Item id="41008" name="Áí´æÎª(&amp;A)..." />
-                    <Item id="41010" name="´òÓ¡..." />
-                    <Item id="1001" name="Á¢¼´´òÓ¡" />
-                    <Item id="41011" name="ÍË³ö(&amp;X)" />
-                    <Item id="41012" name="¶ÁÈ¡»á»°..." />
-                    <Item id="41013" name="±£´æ»á»°..." />
-                    <Item id="41014" name="ÖØÐÂ¶ÁÈ¡ÎÄ¼þ" />
-                    <Item id="41015" name="¿½±´Áí´æÎª..." />
-                    <Item id="41016" name="´Ó´ÅÅÌÉ¾³ý" />
-                    <Item id="41017" name="ÖØÃüÃû..." />
-                    <Item id="41021" name="»Ö¸´×î½ü¹Ø±ÕµÄÎÄ¼þ" />
+                    <Item id="41001" name="æ–°å»º(&amp;N)" />
+                    <Item id="41002" name="æ‰“å¼€(&amp;O)" />
+                    <Item id="41019" name="æ–‡ä»¶ç®¡ç†å™¨"/>
+                    <Item id="41020" name="å‘½ä»¤è¡Œ"/>
+                    <Item id="41003" name="å…³é—­" />
+                    <Item id="41004" name="å…¨éƒ¨å…³é—­(&amp;L)" />
+                    <Item id="41005" name="å…³é—­å½“å‰ä»¥å¤–æ‰€æœ‰æ–‡ä»¶" />
+                    <Item id="41009" name="å…³é—­å·¦ä¾§æ‰€æœ‰æ–‡ä»¶"/>
+                    <Item id="41018" name="å…³é—­å³ä¾§æ‰€æœ‰æ–‡ä»¶"/>
+                    <Item id="41006" name="ä¿å­˜(&amp;S)" />
+                    <Item id="41007" name="å…¨éƒ¨ä¿å­˜(&amp;E)" />
+                    <Item id="41008" name="å¦å­˜ä¸º(&amp;A)..." />
+                    <Item id="41010" name="æ‰“å°..." />
+                    <Item id="1001" name="ç«‹å³æ‰“å°" />
+                    <Item id="41011" name="é€€å‡º(&amp;X)" />
+                    <Item id="41012" name="è¯»å–ä¼šè¯..." />
+                    <Item id="41013" name="ä¿å­˜ä¼šè¯..." />
+                    <Item id="41014" name="é‡æ–°è¯»å–æ–‡ä»¶" />
+                    <Item id="41015" name="æ‹·è´å¦å­˜ä¸º..." />
+                    <Item id="41016" name="ä»Žç£ç›˜åˆ é™¤" />
+                    <Item id="41017" name="é‡å‘½å..." />
+                    <Item id="41021" name="æ¢å¤æœ€è¿‘å…³é—­çš„æ–‡ä»¶" />
                     
-                    <Item id="42001" name="¼ôÇÐ(&amp;T)" />
-                    <Item id="42002" name="¸´ÖÆ(&amp;C)" />
-                    <Item id="42003" name="³·Ïû(&amp;U)" />
-                    <Item id="42004" name="»Ö¸´(&amp;R)" />
-                    <Item id="42005" name="Õ³Ìù(&amp;P)" />
-                    <Item id="42006" name="É¾³ý(&amp;D)" />
-                    <Item id="42007" name="È«Ñ¡(&amp;L)" />
-                    <Item id="42020" name="¿ªÊ¼/½áÊø Ñ¡Ôñ" />
-                    <Item id="42008" name="²åÈëÖÆ±í·û(Ëõ½ø)" />
-                    <Item id="42009" name="É¾³ýÖÆ±í·û(ÍË¸ñ)" />
-                    <Item id="42010" name="¸´ÖÆµ±Ç°ÐÐ" />
-                    <Item id="42011" name="µ÷»»µ±Ç°ÐÐ"/>
-                    <Item id="42012" name="·Ö¸îÐÐ" />
-                    <Item id="42013" name="ºÏ²¢ÐÐ" />
-                    <Item id="42014" name="ÉÏÒÆµ±Ç°ÐÐ" />
-                    <Item id="42015" name="ÏÂÒÆµ±Ç°ÐÐ" />
-                    <Item id="42016" name="×ª³É´óÐ´" />
-                    <Item id="42017" name="×ª³ÉÐ¡Ð´" />
-                    <Item id="42018" name="¿ªÊ¼Â¼ÖÆ(&amp;S)" />
-                    <Item id="42019" name="Í£Ö¹Â¼ÖÆ(&amp;S)" />
-                    <Item id="42021" name="»Ø·Å(&amp;P)" />
-                    <Item id="42022" name="Ìí¼Ó/É¾³ýµ¥ÐÐ×¢ÊÍ" />
-                    <Item id="42023" name="Çø¿é×¢ÊÍ" />
-                    <Item id="42047" name="Çå³ýÇø¿é×¢ÊÍ" />
-                    <Item id="42024" name="ÒÆ³ýÐÐÎ²¿Õ¸ñ" />
-                    <Item id="42042" name="ÒÆ³ýÐÐÊ×¿Õ¸ñ" />
-                    <Item id="42043" name="ÒÆ³ýÐÐÊ×ºÍÐÐÎ²¿Õ¸ñ" />
-                    <Item id="42044" name="EOL×ª¿Õ¸ñ" />
-                    <Item id="42045" name="ÒÆ³ý·Ç±ØÐèµÄ¿Õ°×ºÍ EOL" />
-                    <Item id="42046" name="TAB ×ª¿Õ¸ñ" />
-                    <Item id="42054" name="¿Õ¸ñ×ª TAB (È«²¿)" />
-                    <Item id="42053" name="¿Õ¸ñ×ª TAB (ÐÐÊ×)" />
-                    <Item id="42038" name="Õ³ÌùHTML" />
-                    <Item id="42039" name="Õ³ÌùRTF" />
-                    <Item id="42048" name="¸´ÖÆ¶þ½øÖÆ" />
-                    <Item id="42049" name="¼ôÇÐ¶þ½øÖÆ" />
-                    <Item id="42050" name="Õ³Ìù¶þ½øÖÆ" />
-                    <Item id="42037" name="ÁÐ¿éÄ£Ê½..." />
-                    <Item id="42034" name="ÁÐ¿é±à¼­..." />
-                    <Item id="42051" name="×Ö·ûÃæ°æ" />
-                    <Item id="42052" name="ÀúÊ·¼ôÇÐ°å" />
-                    <Item id="42025" name="±£´æÂ¼ÖÆºê" />
-                    <Item id="42026" name="ÎÄ×Ö·½Ïò´ÓÓÒµ½×ó" />
-                    <Item id="42027" name="ÎÄ×Ö·½Ïò´Ó×óµ½ÓÒ" />
-                    <Item id="42028" name="ÉèÎªÖ»¶Á" />
-                    <Item id="42029" name="¸´ÖÆµ±Ç°ÎÄ¼þÂ·¾¶" />
-                    <Item id="42030" name="¸´ÖÆµ±Ç°ÎÄ¼þÃû" />
-                    <Item id="42031" name="¸´ÖÆµ±Ç°Ä¿Â¼Â·¾¶" />
-                    <Item id="42032" name="ÖØ¸´ÔËÐÐºê..." />
-                    <Item id="42033" name="Çå³ýÖ»¶Á±ê¼Ç" />
-                    <Item id="42035" name="ÉèÖÃÐÐ×¢ÊÍ" />
-                    <Item id="42036" name="È¡ÏûÐÐ×¢ÊÍ" />
-                    <Item id="42055" name="ÒÆ³ý¿ÕÐÐ" />
-                    <Item id="42056" name="ÒÆ³ý¿ÕÐÐ(°üÀ¨¿Õ°××Ö·û)" />
-                    <Item id="42057" name="ÔÚµ±Ç°ÐÐÉÏ·½²åÈë¿ÕÐÐ"/>
-                    <Item id="42058" name="ÔÚµ±Ç°ÐÐÏÂ·½²åÈë¿ÕÐÐ"/>
-                    <Item id="42059" name="ÉýÐòÅÅÁÐÐÐ"/>
-                    <Item id="42060" name="½µÐòÅÅÁÐÐÐ"/>
-                    <Item id="43001" name="²éÕÒ(&amp;F)..." />
-                    <Item id="43002" name="²éÕÒÏÂÒ»¸ö(&amp;N)" />
-                    <Item id="43003" name="Ìæ»»..." />
-                    <Item id="43004" name="ÐÐ¶¨Î»..." />
-                    <Item id="43005" name="ÉèÖÃ/È¡ÏûÊéÇ©" />
-                    <Item id="43006" name="ÏÂÒ»ÊéÇ©" />
-                    <Item id="43007" name="ÉÏÒ»ÊéÇ©" />
-                    <Item id="43008" name="Çå³ýËùÓÐÊéÇ©" />
-                    <Item id="43009" name="×ªµ½Æ¥ÅäµÄÀ¨ºÅ" />
-                    <Item id="43010" name="²éÕÒÉÏÒ»¸ö" />
-                    <Item id="43011" name="ÔöÁ¿²éÕÒ(&amp;I)..." />
-                    <Item id="43013" name="ÔÚÎÄ¼þÖÐ²éÕÒ" />
-                    <Item id="43014" name="¿ìËÙ²éÕÒÏÂÒ»¸ö" />
-                    <Item id="43015" name="¿ìËÙ²éÕÒÉÏÒ»¸ö" />
-                    <Item id="43016" name="È«²¿±ê¼Ç" />
-                    <Item id="43017" name="È«²¿È¡Ïû" />
-                    <Item id="43018" name="¼ôÇÐÊéÇ©ÐÐ" />
-                    <Item id="43019" name="¸´ÖÆÊéÇ©ÐÐ" />
-                    <Item id="43020" name="Õ³Ìù(Ìæ»»)ÊéÇ©ÐÐ" />
-                    <Item id="43021" name="É¾³ýÊéÇ©ÐÐ" />
-                    <Item id="43050" name="·´Ïò±ê¼ÇÊéÇ©" />
-                    <Item id="43051" name="É¾³ýÎ´±ê¼ÇÐÐ" />
-                    <Item id="43052" name="²éÕÒ·¶Î§ÄÚµÄ×Ö·û..." />
-                    <Item id="43053" name="Ñ¡ÖÐËùÓÐÆ¥ÅäÀ¨ºÅ¼ä×Ö·û"/>
-                    <Item id="43022" name="Ê¹ÓÃ¸ñÊ½1" />
-                    <Item id="43023" name="Çå³ý¸ñÊ½1" />
-                    <Item id="43024" name="Ê¹ÓÃ¸ñÊ½2" />
-                    <Item id="43025" name="Çå³ý¸ñÊ½2" />
-                    <Item id="43026" name="Ê¹ÓÃ¸ñÊ½3" />
-                    <Item id="43027" name="Çå³ý¸ñÊ½3" />
-                    <Item id="43028" name="Ê¹ÓÃ¸ñÊ½4" />
-                    <Item id="43029" name="Çå³ý¸ñÊ½4" />
-                    <Item id="43030" name="Ê¹ÓÃ¸ñÊ½5" />
-                    <Item id="43031" name="Çå³ý¸ñÊ½5" />
-                    <Item id="43032" name="Çå³ýËùÓÐ¸ñÊ½" />
-                    <Item id="43033" name="¸ñÊ½Ò»" />
-                    <Item id="43034" name="¸ñÊ½¶þ" />
-                    <Item id="43035" name="¸ñÊ½Èý" />
-                    <Item id="43036" name="¸ñÊ½ËÄ" />
-                    <Item id="43037" name="¸ñÊ½Îå" />
-                    <Item id="43038" name="Ñ°ÕÒ¸ñÊ½" />
-                    <Item id="43039" name="¸ñÊ½Ò»" />
-                    <Item id="43040" name="¸ñÊ½¶þ" />
-                    <Item id="43041" name="¸ñÊ½Èý" />
-                    <Item id="43042" name="¸ñÊ½ËÄ" />
-                    <Item id="43043" name="¸ñÊ½Îå" />
-                    <Item id="43044" name="Ñ°ÕÒ¸ñÊ½" />
-                    <Item id="43045" name="Ñ°ÕÒ½á¹û" />
-                    <Item id="43046" name="ÏÂÒ»¸öÑ°ÕÒ½á¹û" />
-                    <Item id="43047" name="ÉÏÒ»¸öÑ°ÕÒ½á¹û" />
-                    <Item id="43048" name="Ñ¡¶¨²¢Ñ°ÕÒÏÂÒ»¸ö" />
-                    <Item id="43049" name="Ñ¡¶¨²¢Ñ°ÕÒÉÏÒ»¸ö" />
-                    <Item id="44009" name="±ãÇ©Ä£Ê½" />
-                    <Item id="44010" name="ÕÛµþËùÓÐ²ã´Î" />
-                    <Item id="44011" name="×Ô¶¨ÒåÓï·¨¶Ô»°¿ò"/>
-                    <Item id="44019" name="ÏÔÊ¾ËùÓÐ×Ö·û" />
-                    <Item id="44020" name="ÏÔÊ¾Ëõ½ø²Î¿¼Ïß" />
-                    <Item id="44022" name="×Ô¶¯»»ÐÐ" />
-                    <Item id="44023" name="·Å´ó(&amp;I)" />
-                    <Item id="44024" name="ËõÐ¡(&amp;O)" />
-                    <Item id="44025" name="ÏÔÊ¾¿Õ¸ñÓëÖÆ±í·û" />
-                    <Item id="44026" name="ÏÔÊ¾ÐÐÎ²·û" />
-                    <Item id="44029" name="Õ¹¿ªËùÓÐ²ã´Î" />
-                    <Item id="44030" name="ÕÛµþµ±Ç°²ã´Î" />
-                    <Item id="44031" name="Õ¹¿ªµ±Ç°²ã´Î" />
-                    <Item id="44049" name="ÕªÒª..." />
-                    <Item id="44080" name="ÎÄµµ½á¹¹Í¼" />
-                    <Item id="44084" name="º¯ÊýÁÐ±í" />
-                    <Item id="44086" name="±êÇ©Ò³1"/>
-                    <Item id="44087" name="±êÇ©Ò³2"/>
-                    <Item id="44088" name="±êÇ©Ò³3"/>
-                    <Item id="44089" name="±êÇ©Ò³4"/>
-                    <Item id="44090" name="±êÇ©Ò³5"/>
-                    <Item id="44091" name="±êÇ©Ò³6"/>
-                    <Item id="44092" name="±êÇ©Ò³7"/>
-                    <Item id="44093" name="±êÇ©Ò³8"/>
-                    <Item id="44094" name="±êÇ©Ò³9"/>
-                    <Item id="44095" name="ÏÂ¸ö±êÇ©Ò³"/>
-                    <Item id="44096" name="ÉÏ¸ö±êÇ©Ò³"/>
-                    <Item id="44032" name="ÇÐ»»È«ÆÁÄ£Ê½" />
-                    <Item id="44033" name="»Ö¸´Ä¬ÈÏËõ·Å" />
-                    <Item id="44034" name="×ÜÔÚ×îÇ°" />
-                    <Item id="44035" name="´¹Ö±Í¬²½¹ö¶¯" />
-                    <Item id="44036" name="Ë®Æ½Í¬²½¹ö¶¯" />
-                    <Item id="44041" name="ÏÔÊ¾»»ÐÐ·û" />
-                    <Item id="44072" name="¼¤»î´ÓÊÓÍ¼" />
-                    <Item id="44081" name="¹¤³ÌÃæ°å1" />
-                    <Item id="44082" name="¹¤³ÌÃæ°å2" />
-                    <Item id="44083" name="¹¤³ÌÃæ°å3" />
-                    <Item id="45001" name="×ª»»Îª Windows ¸ñÊ½" />
-                    <Item id="45002" name="×ª»»Îª UNIX ¸ñÊ½" />
-                    <Item id="45003" name="×ª»»Îª MAC ¸ñÊ½" />
-                    <Item id="45004" name="ÒÔ ANSI ¸ñÊ½±àÂë" />
-                    <Item id="45005" name="ÒÔ UTF-8 ¸ñÊ½±àÂë" />
-                    <Item id="45006" name="ÒÔ UCS-2 Big Endian ¸ñÊ½±àÂë" />
-                    <Item id="45007" name="ÒÔ UCS-2 Little Endian ¸ñÊ½±àÂë" />
-                    <Item id="45008" name="ÒÔ UTF-8 ÎÞ BOM ¸ñÊ½±àÂë" />
-                    <Item id="45009" name="×ªÎª ANSI ±àÂë¸ñÊ½" />
-                    <Item id="45010" name="×ªÎª UTF-8 ÎÞ BOM ±àÂë¸ñÊ½" />
-                    <Item id="45011" name="×ªÎª UTF-8 ±àÂë¸ñÊ½" />
-                    <Item id="45012" name="×ªÎª UCS-2 Big Endian ±àÂë¸ñÊ½" />
-                    <Item id="45013" name="×ªÎª UCS-2 Little Endian ±àÂë¸ñÊ½" />
-                    <Item id="10001" name="ÒÆ¶¯µ½ÁíÒ»ÊÓÍ¼" />
-                    <Item id="10002" name="¸´ÖÆµ½ÁíÒ»ÊÓÍ¼" />
-                    <Item id="10003" name="ÒÆ¶¯µ½ÐÂ´°¿Ú" />
-                    <Item id="10004" name="ÔÚÐÂ´°¿ÚÖÐ´ò¿ª" />
+                    <Item id="42001" name="å‰ªåˆ‡(&amp;T)" />
+                    <Item id="42002" name="å¤åˆ¶(&amp;C)" />
+                    <Item id="42003" name="æ’¤æ¶ˆ(&amp;U)" />
+                    <Item id="42004" name="æ¢å¤(&amp;R)" />
+                    <Item id="42005" name="ç²˜è´´(&amp;P)" />
+                    <Item id="42006" name="åˆ é™¤(&amp;D)" />
+                    <Item id="42007" name="å…¨é€‰(&amp;L)" />
+                    <Item id="42020" name="å¼€å§‹/ç»“æŸ é€‰æ‹©" />
+                    <Item id="42008" name="æ’å…¥åˆ¶è¡¨ç¬¦(ç¼©è¿›)" />
+                    <Item id="42009" name="åˆ é™¤åˆ¶è¡¨ç¬¦(é€€æ ¼)" />
+                    <Item id="42010" name="å¤åˆ¶å½“å‰è¡Œ" />
+                    <Item id="42011" name="è°ƒæ¢å½“å‰è¡Œ"/>
+                    <Item id="42012" name="åˆ†å‰²è¡Œ" />
+                    <Item id="42013" name="åˆå¹¶è¡Œ" />
+                    <Item id="42014" name="ä¸Šç§»å½“å‰è¡Œ" />
+                    <Item id="42015" name="ä¸‹ç§»å½“å‰è¡Œ" />
+                    <Item id="42016" name="è½¬æˆå¤§å†™" />
+                    <Item id="42017" name="è½¬æˆå°å†™" />
+                    <Item id="42018" name="å¼€å§‹å½•åˆ¶(&amp;S)" />
+                    <Item id="42019" name="åœæ­¢å½•åˆ¶(&amp;S)" />
+                    <Item id="42021" name="å›žæ”¾(&amp;P)" />
+                    <Item id="42022" name="æ·»åŠ /åˆ é™¤å•è¡Œæ³¨é‡Š" />
+                    <Item id="42023" name="åŒºå—æ³¨é‡Š" />
+                    <Item id="42047" name="æ¸…é™¤åŒºå—æ³¨é‡Š" />
+                    <Item id="42024" name="ç§»é™¤è¡Œå°¾ç©ºæ ¼" />
+                    <Item id="42042" name="ç§»é™¤è¡Œé¦–ç©ºæ ¼" />
+                    <Item id="42043" name="ç§»é™¤è¡Œé¦–å’Œè¡Œå°¾ç©ºæ ¼" />
+                    <Item id="42044" name="EOLè½¬ç©ºæ ¼" />
+                    <Item id="42045" name="ç§»é™¤éžå¿…éœ€çš„ç©ºç™½å’Œ EOL" />
+                    <Item id="42046" name="TAB è½¬ç©ºæ ¼" />
+                    <Item id="42054" name="ç©ºæ ¼è½¬ TAB (å…¨éƒ¨)" />
+                    <Item id="42053" name="ç©ºæ ¼è½¬ TAB (è¡Œé¦–)" />
+                    <Item id="42038" name="ç²˜è´´HTML" />
+                    <Item id="42039" name="ç²˜è´´RTF" />
+                    <Item id="42048" name="å¤åˆ¶äºŒè¿›åˆ¶" />
+                    <Item id="42049" name="å‰ªåˆ‡äºŒè¿›åˆ¶" />
+                    <Item id="42050" name="ç²˜è´´äºŒè¿›åˆ¶" />
+                    <Item id="42037" name="åˆ—å—æ¨¡å¼..." />
+                    <Item id="42034" name="åˆ—å—ç¼–è¾‘..." />
+                    <Item id="42051" name="å­—ç¬¦é¢ç‰ˆ" />
+                    <Item id="42052" name="åŽ†å²å‰ªåˆ‡æ¿" />
+                    <Item id="42025" name="ä¿å­˜å½•åˆ¶å®" />
+                    <Item id="42026" name="æ–‡å­—æ–¹å‘ä»Žå³åˆ°å·¦" />
+                    <Item id="42027" name="æ–‡å­—æ–¹å‘ä»Žå·¦åˆ°å³" />
+                    <Item id="42028" name="è®¾ä¸ºåªè¯»" />
+                    <Item id="42029" name="å¤åˆ¶å½“å‰æ–‡ä»¶è·¯å¾„" />
+                    <Item id="42030" name="å¤åˆ¶å½“å‰æ–‡ä»¶å" />
+                    <Item id="42031" name="å¤åˆ¶å½“å‰ç›®å½•è·¯å¾„" />
+                    <Item id="42032" name="é‡å¤è¿è¡Œå®..." />
+                    <Item id="42033" name="æ¸…é™¤åªè¯»æ ‡è®°" />
+                    <Item id="42035" name="è®¾ç½®è¡Œæ³¨é‡Š" />
+                    <Item id="42036" name="å–æ¶ˆè¡Œæ³¨é‡Š" />
+                    <Item id="42055" name="ç§»é™¤ç©ºè¡Œ" />
+                    <Item id="42056" name="ç§»é™¤ç©ºè¡Œ(åŒ…æ‹¬ç©ºç™½å­—ç¬¦)" />
+                    <Item id="42057" name="åœ¨å½“å‰è¡Œä¸Šæ–¹æ’å…¥ç©ºè¡Œ"/>
+                    <Item id="42058" name="åœ¨å½“å‰è¡Œä¸‹æ–¹æ’å…¥ç©ºè¡Œ"/>
+                    <Item id="42059" name="å‡åºæŽ’åˆ—è¡Œ"/>
+                    <Item id="42060" name="é™åºæŽ’åˆ—è¡Œ"/>
+                    <Item id="43001" name="æŸ¥æ‰¾(&amp;F)..." />
+                    <Item id="43002" name="æŸ¥æ‰¾ä¸‹ä¸€ä¸ª(&amp;N)" />
+                    <Item id="43003" name="æ›¿æ¢..." />
+                    <Item id="43004" name="è¡Œå®šä½..." />
+                    <Item id="43005" name="è®¾ç½®/å–æ¶ˆä¹¦ç­¾" />
+                    <Item id="43006" name="ä¸‹ä¸€ä¹¦ç­¾" />
+                    <Item id="43007" name="ä¸Šä¸€ä¹¦ç­¾" />
+                    <Item id="43008" name="æ¸…é™¤æ‰€æœ‰ä¹¦ç­¾" />
+                    <Item id="43009" name="è½¬åˆ°åŒ¹é…çš„æ‹¬å·" />
+                    <Item id="43010" name="æŸ¥æ‰¾ä¸Šä¸€ä¸ª" />
+                    <Item id="43011" name="å¢žé‡æŸ¥æ‰¾(&amp;I)..." />
+                    <Item id="43013" name="åœ¨æ–‡ä»¶ä¸­æŸ¥æ‰¾" />
+                    <Item id="43014" name="å¿«é€ŸæŸ¥æ‰¾ä¸‹ä¸€ä¸ª" />
+                    <Item id="43015" name="å¿«é€ŸæŸ¥æ‰¾ä¸Šä¸€ä¸ª" />
+                    <Item id="43016" name="å…¨éƒ¨æ ‡è®°" />
+                    <Item id="43017" name="å…¨éƒ¨å–æ¶ˆ" />
+                    <Item id="43018" name="å‰ªåˆ‡ä¹¦ç­¾è¡Œ" />
+                    <Item id="43019" name="å¤åˆ¶ä¹¦ç­¾è¡Œ" />
+                    <Item id="43020" name="ç²˜è´´(æ›¿æ¢)ä¹¦ç­¾è¡Œ" />
+                    <Item id="43021" name="åˆ é™¤ä¹¦ç­¾è¡Œ" />
+                    <Item id="43050" name="åå‘æ ‡è®°ä¹¦ç­¾" />
+                    <Item id="43051" name="åˆ é™¤æœªæ ‡è®°è¡Œ" />
+                    <Item id="43052" name="æŸ¥æ‰¾èŒƒå›´å†…çš„å­—ç¬¦..." />
+                    <Item id="43053" name="é€‰ä¸­æ‰€æœ‰åŒ¹é…æ‹¬å·é—´å­—ç¬¦"/>
+                    <Item id="43022" name="ä½¿ç”¨æ ¼å¼1" />
+                    <Item id="43023" name="æ¸…é™¤æ ¼å¼1" />
+                    <Item id="43024" name="ä½¿ç”¨æ ¼å¼2" />
+                    <Item id="43025" name="æ¸…é™¤æ ¼å¼2" />
+                    <Item id="43026" name="ä½¿ç”¨æ ¼å¼3" />
+                    <Item id="43027" name="æ¸…é™¤æ ¼å¼3" />
+                    <Item id="43028" name="ä½¿ç”¨æ ¼å¼4" />
+                    <Item id="43029" name="æ¸…é™¤æ ¼å¼4" />
+                    <Item id="43030" name="ä½¿ç”¨æ ¼å¼5" />
+                    <Item id="43031" name="æ¸…é™¤æ ¼å¼5" />
+                    <Item id="43032" name="æ¸…é™¤æ‰€æœ‰æ ¼å¼" />
+                    <Item id="43033" name="æ ¼å¼ä¸€" />
+                    <Item id="43034" name="æ ¼å¼äºŒ" />
+                    <Item id="43035" name="æ ¼å¼ä¸‰" />
+                    <Item id="43036" name="æ ¼å¼å››" />
+                    <Item id="43037" name="æ ¼å¼äº”" />
+                    <Item id="43038" name="å¯»æ‰¾æ ¼å¼" />
+                    <Item id="43039" name="æ ¼å¼ä¸€" />
+                    <Item id="43040" name="æ ¼å¼äºŒ" />
+                    <Item id="43041" name="æ ¼å¼ä¸‰" />
+                    <Item id="43042" name="æ ¼å¼å››" />
+                    <Item id="43043" name="æ ¼å¼äº”" />
+                    <Item id="43044" name="å¯»æ‰¾æ ¼å¼" />
+                    <Item id="43045" name="å¯»æ‰¾ç»“æžœ" />
+                    <Item id="43046" name="ä¸‹ä¸€ä¸ªå¯»æ‰¾ç»“æžœ" />
+                    <Item id="43047" name="ä¸Šä¸€ä¸ªå¯»æ‰¾ç»“æžœ" />
+                    <Item id="43048" name="é€‰å®šå¹¶å¯»æ‰¾ä¸‹ä¸€ä¸ª" />
+                    <Item id="43049" name="é€‰å®šå¹¶å¯»æ‰¾ä¸Šä¸€ä¸ª" />
+                    <Item id="44009" name="ä¾¿ç­¾æ¨¡å¼" />
+                    <Item id="44010" name="æŠ˜å æ‰€æœ‰å±‚æ¬¡" />
+                    <Item id="44011" name="è‡ªå®šä¹‰è¯­æ³•å¯¹è¯æ¡†"/>
+                    <Item id="44019" name="æ˜¾ç¤ºæ‰€æœ‰å­—ç¬¦" />
+                    <Item id="44020" name="æ˜¾ç¤ºç¼©è¿›å‚è€ƒçº¿" />
+                    <Item id="44022" name="è‡ªåŠ¨æ¢è¡Œ" />
+                    <Item id="44023" name="æ”¾å¤§(&amp;I)" />
+                    <Item id="44024" name="ç¼©å°(&amp;O)" />
+                    <Item id="44025" name="æ˜¾ç¤ºç©ºæ ¼ä¸Žåˆ¶è¡¨ç¬¦" />
+                    <Item id="44026" name="æ˜¾ç¤ºè¡Œå°¾ç¬¦" />
+                    <Item id="44029" name="å±•å¼€æ‰€æœ‰å±‚æ¬¡" />
+                    <Item id="44030" name="æŠ˜å å½“å‰å±‚æ¬¡" />
+                    <Item id="44031" name="å±•å¼€å½“å‰å±‚æ¬¡" />
+                    <Item id="44049" name="æ‘˜è¦..." />
+                    <Item id="44080" name="æ–‡æ¡£ç»“æž„å›¾" />
+                    <Item id="44084" name="å‡½æ•°åˆ—è¡¨" />
+                    <Item id="44086" name="æ ‡ç­¾é¡µ1"/>
+                    <Item id="44087" name="æ ‡ç­¾é¡µ2"/>
+                    <Item id="44088" name="æ ‡ç­¾é¡µ3"/>
+                    <Item id="44089" name="æ ‡ç­¾é¡µ4"/>
+                    <Item id="44090" name="æ ‡ç­¾é¡µ5"/>
+                    <Item id="44091" name="æ ‡ç­¾é¡µ6"/>
+                    <Item id="44092" name="æ ‡ç­¾é¡µ7"/>
+                    <Item id="44093" name="æ ‡ç­¾é¡µ8"/>
+                    <Item id="44094" name="æ ‡ç­¾é¡µ9"/>
+                    <Item id="44095" name="ä¸‹ä¸ªæ ‡ç­¾é¡µ"/>
+                    <Item id="44096" name="ä¸Šä¸ªæ ‡ç­¾é¡µ"/>
+                    <Item id="44032" name="åˆ‡æ¢å…¨å±æ¨¡å¼" />
+                    <Item id="44033" name="æ¢å¤é»˜è®¤ç¼©æ”¾" />
+                    <Item id="44034" name="æ€»åœ¨æœ€å‰" />
+                    <Item id="44035" name="åž‚ç›´åŒæ­¥æ»šåŠ¨" />
+                    <Item id="44036" name="æ°´å¹³åŒæ­¥æ»šåŠ¨" />
+                    <Item id="44041" name="æ˜¾ç¤ºæ¢è¡Œç¬¦" />
+                    <Item id="44072" name="æ¿€æ´»ä»Žè§†å›¾" />
+                    <Item id="44081" name="å·¥ç¨‹é¢æ¿1" />
+                    <Item id="44082" name="å·¥ç¨‹é¢æ¿2" />
+                    <Item id="44083" name="å·¥ç¨‹é¢æ¿3" />
+                    <Item id="45001" name="è½¬æ¢ä¸º Windows æ ¼å¼" />
+                    <Item id="45002" name="è½¬æ¢ä¸º UNIX æ ¼å¼" />
+                    <Item id="45003" name="è½¬æ¢ä¸º MAC æ ¼å¼" />
+                    <Item id="45004" name="ä»¥ ANSI æ ¼å¼ç¼–ç " />
+                    <Item id="45005" name="ä»¥ UTF-8 æ ¼å¼ç¼–ç " />
+                    <Item id="45006" name="ä»¥ UCS-2 Big Endian æ ¼å¼ç¼–ç " />
+                    <Item id="45007" name="ä»¥ UCS-2 Little Endian æ ¼å¼ç¼–ç " />
+                    <Item id="45008" name="ä»¥ UTF-8 æ—  BOM æ ¼å¼ç¼–ç " />
+                    <Item id="45009" name="è½¬ä¸º ANSI ç¼–ç æ ¼å¼" />
+                    <Item id="45010" name="è½¬ä¸º UTF-8 æ—  BOM ç¼–ç æ ¼å¼" />
+                    <Item id="45011" name="è½¬ä¸º UTF-8 ç¼–ç æ ¼å¼" />
+                    <Item id="45012" name="è½¬ä¸º UCS-2 Big Endian ç¼–ç æ ¼å¼" />
+                    <Item id="45013" name="è½¬ä¸º UCS-2 Little Endian ç¼–ç æ ¼å¼" />
+                    <Item id="10001" name="ç§»åŠ¨åˆ°å¦ä¸€è§†å›¾" />
+                    <Item id="10002" name="å¤åˆ¶åˆ°å¦ä¸€è§†å›¾" />
+                    <Item id="10003" name="ç§»åŠ¨åˆ°æ–°çª—å£" />
+                    <Item id="10004" name="åœ¨æ–°çª—å£ä¸­æ‰“å¼€" />
                     
-                    <Item id="46001" name="ÓïÑÔ¸ñÊ½ÉèÖÃ..." />
-                    <Item id="46150" name="×Ô¶¨ÒåÓïÑÔ¸ñÊ½..."/>
-                    <Item id="46080" name="ÓÃ»§×Ô¶¨Òå" />
-                    <Item id="47000" name="¹ØÓÚ Notepad++..." />
-                    <Item id="47001" name="Notepad++ ¹Ù·½Ö÷Ò³" />
-                    <Item id="47002" name="Notepad++ ÏîÄ¿Ö÷Ò³" />
-                    <Item id="47003" name="ÔÚÏß°ïÖú" />
-                    <Item id="47004" name="ÂÛÌ³" />
-                    <Item id="47005" name="»ñÈ¡²å¼þ" />
-                    <Item id="47006" name="Éý¼¶ Notepad++" />
-                    <Item id="47008" name="°ïÖú" />
-                    <Item id="47009" name="ÉèÖÃ¸üÐÂ´úÀí·þÎñÆ÷..." />
-					<Item id="47010" name="Ö¸ÁîÁÐ²ÎÊý..."/>
-                    <Item id="48005" name="µ¼Èë²å¼þ..." />
-                    <Item id="48006" name="µ¼ÈëÖ÷Ìâ..." />
-                    <Item id="48018" name="±à¼­µ¯³ö²Ëµ¥" />
-                    <Item id="48009" name="¹ÜÀí¿ì½Ý¼ü..." />
-                    <Item id="48011" name="Ê×Ñ¡Ïî..." />
-                    <Item id="49000" name="ÔËÐÐ(&amp;R)..." />
+                    <Item id="46001" name="è¯­è¨€æ ¼å¼è®¾ç½®..." />
+                    <Item id="46150" name="è‡ªå®šä¹‰è¯­è¨€æ ¼å¼..."/>
+                    <Item id="46080" name="ç”¨æˆ·è‡ªå®šä¹‰" />
+                    <Item id="47000" name="å…³äºŽ Notepad++..." />
+                    <Item id="47001" name="Notepad++ å®˜æ–¹ä¸»é¡µ" />
+                    <Item id="47002" name="Notepad++ é¡¹ç›®ä¸»é¡µ" />
+                    <Item id="47003" name="åœ¨çº¿å¸®åŠ©" />
+                    <Item id="47004" name="è®ºå›" />
+                    <Item id="47005" name="èŽ·å–æ’ä»¶" />
+                    <Item id="47006" name="å‡çº§ Notepad++" />
+                    <Item id="47008" name="å¸®åŠ©" />
+                    <Item id="47009" name="è®¾ç½®æ›´æ–°ä»£ç†æœåŠ¡å™¨..." />
+					<Item id="47010" name="æŒ‡ä»¤åˆ—å‚æ•°..."/>
+                    <Item id="48005" name="å¯¼å…¥æ’ä»¶..." />
+                    <Item id="48006" name="å¯¼å…¥ä¸»é¢˜..." />
+                    <Item id="48018" name="ç¼–è¾‘å¼¹å‡ºèœå•" />
+                    <Item id="48009" name="ç®¡ç†å¿«æ·é”®..." />
+                    <Item id="48011" name="é¦–é€‰é¡¹..." />
+                    <Item id="49000" name="è¿è¡Œ(&amp;R)..." />
                     
-                    <Item id="50000" name="º¯Êý×Ô¶¯Íê³É" />
-                    <Item id="50001" name="µ¥´Ê×Ô¶¯Íê³É" />
-                    <Item id="50002" name="º¯Êý²ÎÊýÌáÊ¾" />
-                    <Item id="50006" name="Â·¾¶²¹È«"/>
-                    <Item id="44042" name="Òþ²ØÐÐ" />
-                    <Item id="42040" name="´ò¿ªÎÄ¼þÁÐ±í" />
-                    <Item id="42041" name="Çå³ýÎÄ¼þÁÐ±í" />
-                    <Item id="48016" name="¹ÜÀí¿ì½Ý¼ü..." />
-                    <Item id="48017" name="¹ÜÀí¿ì½Ý¼ü..." />
+                    <Item id="50000" name="å‡½æ•°è‡ªåŠ¨å®Œæˆ" />
+                    <Item id="50001" name="å•è¯è‡ªåŠ¨å®Œæˆ" />
+                    <Item id="50002" name="å‡½æ•°å‚æ•°æç¤º" />
+                    <Item id="50006" name="è·¯å¾„è¡¥å…¨"/>
+                    <Item id="44042" name="éšè—è¡Œ" />
+                    <Item id="42040" name="æ‰“å¼€æ–‡ä»¶åˆ—è¡¨" />
+                    <Item id="42041" name="æ¸…é™¤æ–‡ä»¶åˆ—è¡¨" />
+                    <Item id="48016" name="ç®¡ç†å¿«æ·é”®..." />
+                    <Item id="48017" name="ç®¡ç†å¿«æ·é”®..." />
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                <Item CMID="0" name="¹Ø±Õµ±Ç°ÎÄ¼þ" />
-                <Item CMID="1" name="¹Ø±Õ·Çµ±Ç°ÎÄ¼þ" />
-                <Item CMID="2" name="±£´æµ±Ç°ÎÄ¼þ" />
-                <Item CMID="3" name="µ±Ç°ÎÄ¼þÁí´æÎª..." />
-                <Item CMID="4" name="´òÓ¡µ±Ç°ÎÄ¼þ" />
-                <Item CMID="5" name="ÒÆ¶¯µ½ÁíÒ»ÊÓÍ¼" />
-                <Item CMID="6" name="¸´ÖÆµ½ÁíÒ»ÊÓÍ¼" />
-                <Item CMID="7" name="¸´ÖÆÎÄ¼þÂ·¾¶µ½¼ôÇÐ°å" />
-                <Item CMID="8" name="¸´ÖÆÎÄ¼þÃûµ½¼ôÇÐ°å" />
-                <Item CMID="9" name="¸´ÖÆµ±Ç°Â·¾¶µ½¼ôÇÐ°å" />
-                <Item CMID="10" name="µ±Ç°ÎÄ¼þÖØÃüÃû" />
-                <Item CMID="11" name="É¾³ýµ±Ç°ÎÄ¼þ" />
-                <Item CMID="12" name="ÉèÖÃÎªÖ»¶Á" />
-                <Item CMID="13" name="Çå³ýÖ»¶ÁÊôÐÔ" />
-                <Item CMID="14" name="´ò¿ªÐÂ´°¿Ú" />
-                <Item CMID="15" name="ÔÚÐÂÊÓÍ¼ÖÐ´ò¿ª" />
-                <Item CMID="16" name="ÖØÐÂÔØÈë" />
-                <Item CMID="17" name="¹Ø±Õ×ó±ßËùÓÐ" />
-                <Item CMID="18" name="¹Ø±ÕÓÒ±ßËùÓÐ" />
-                <Item CMID="19" name="´ò¿ªËùÔÚÎÄ¼þ¼Ð"/>
-                <Item CMID="20" name="´ò¿ªËùÔÚÎÄ¼þ¼Ð(ÃüÁîÐÐ)"/>
+                <Item CMID="0" name="å…³é—­å½“å‰æ–‡ä»¶" />
+                <Item CMID="1" name="å…³é—­éžå½“å‰æ–‡ä»¶" />
+                <Item CMID="2" name="ä¿å­˜å½“å‰æ–‡ä»¶" />
+                <Item CMID="3" name="å½“å‰æ–‡ä»¶å¦å­˜ä¸º..." />
+                <Item CMID="4" name="æ‰“å°å½“å‰æ–‡ä»¶" />
+                <Item CMID="5" name="ç§»åŠ¨åˆ°å¦ä¸€è§†å›¾" />
+                <Item CMID="6" name="å¤åˆ¶åˆ°å¦ä¸€è§†å›¾" />
+                <Item CMID="7" name="å¤åˆ¶æ–‡ä»¶è·¯å¾„åˆ°å‰ªåˆ‡æ¿" />
+                <Item CMID="8" name="å¤åˆ¶æ–‡ä»¶ååˆ°å‰ªåˆ‡æ¿" />
+                <Item CMID="9" name="å¤åˆ¶å½“å‰è·¯å¾„åˆ°å‰ªåˆ‡æ¿" />
+                <Item CMID="10" name="å½“å‰æ–‡ä»¶é‡å‘½å" />
+                <Item CMID="11" name="åˆ é™¤å½“å‰æ–‡ä»¶" />
+                <Item CMID="12" name="è®¾ç½®ä¸ºåªè¯»" />
+                <Item CMID="13" name="æ¸…é™¤åªè¯»å±žæ€§" />
+                <Item CMID="14" name="æ‰“å¼€æ–°çª—å£" />
+                <Item CMID="15" name="åœ¨æ–°è§†å›¾ä¸­æ‰“å¼€" />
+                <Item CMID="16" name="é‡æ–°è½½å…¥" />
+                <Item CMID="17" name="å…³é—­å·¦è¾¹æ‰€æœ‰" />
+                <Item CMID="18" name="å…³é—­å³è¾¹æ‰€æœ‰" />
+                <Item CMID="19" name="æ‰“å¼€æ‰€åœ¨æ–‡ä»¶å¤¹"/>
+                <Item CMID="20" name="æ‰“å¼€æ‰€åœ¨æ–‡ä»¶å¤¹(å‘½ä»¤è¡Œ)"/>
             </TabBar>
         </Menu>
         
         <Dialog>
-            <Find title="" titleFind="²éÕÒ" titleReplace="Ìæ»»" titleFindInFiles="ÎÄ¼þ²éÕÒ" titleMark="±ê¼Ç">
-                <Item id="1" name="²éÕÒÏÂÒ»¸ö" />
-                <Item id="2" name="È¡Ïû" />
-                <Item id="1620" name="²éÕÒÄ¿±ê :" />
-                <Item id="1603" name="È«´ÊÆ¥Åä(&amp;W)" />
-                <Item id="1604" name="Æ¥Åä´óÐ¡Ð´(&amp;C)" />
-                <Item id="1605" name="ÕýÔò±í´ïÊ½(&amp;E)" />
-                <Item id="1606" name="Ñ­»·²éÕÒ(&amp;D)" />
-                <Item id="1612" name="ÏòÉÏ(&amp;U)" />
-                <Item id="1613" name="ÏòÏÂ(&amp;D)" />
-                <Item id="1614" name="¼ÆÊý" />
-                <Item id="1615" name="²éÕÒÈ«²¿" />
-                <Item id="1616" name="±ê¼ÇËùÔÚÐÐ" />
-                <Item id="1617" name="¸ßÁÁ²éÑ¯½á¹û" />
-                <Item id="1618" name="Çå³ýÉÏ´Î±ê¼Ç" />
-                <Item id="1621" name="·½Ïò" />
-                <Item id="1611" name="Ìæ»»Îª(&amp;P) :" />
-                <Item id="1608" name="Ìæ»»(&amp;R)" />
-                <Item id="1609" name="È«²¿Ìæ»»(&amp;A)" />
-                <Item id="1623" name="Í¸Ã÷¶È" />
-                <Item id="1687" name="Ê§È¥½¹µãºó" />
-                <Item id="1688" name="Ê¼ÖÕ" />
-                <Item id="1632" name="Ñ¡È¡·¶Î§ÄÚ" />
-                <Item id="1633" name="Çå³ý" />
-                <Item id="1635" name="Ìæ»»ËùÓÐ´ò¿ªÎÄ¼þ" />
-                <Item id="1636" name="²éÕÒËùÓÐ´ò¿ªÎÄ¼þ" />
-                <Item id="1637" name="ÎÄ¼þ²éÕÒ" />
-                <Item id="1654" name="ÎÄ¼þÀàÐÍ :" />
-                <Item id="1655" name="Ä¿Â¼ :" />
-                <Item id="1656" name="È«²¿²éÕÒ" />
-                <Item id="1658" name="°üº¬×ÓÄ¿Â¼" />
-                <Item id="1659" name="°üº¬Òþ²ØÄ¿Â¼" />
-                <Item id="1624" name="²éÕÒÄ£Ê½" />
-                <Item id="1625" name="ÆÕÍ¨" />
-                <Item id="1626" name="À©Õ¹ (\n, \r, \t, \0, \x...)" />
-                <Item id="1660" name="ÔÚÎÄÕÂÌæ»»" />
-                <Item id="1661" name="µ±Ç°ÎÄ¼þ¼Ð" />
-                <Item id="1641" name="ÔÚµ±Ç°ÎÄ¼þÖÐ²éÕÒ" />
-                <Item id="1686" name="Í¸Ã÷¶È" />
-                <Item id="1703" name="&amp;. Æ¥ÅäÐÂÐÐ" />
+            <Find title="" titleFind="æŸ¥æ‰¾" titleReplace="æ›¿æ¢" titleFindInFiles="æ–‡ä»¶æŸ¥æ‰¾" titleMark="æ ‡è®°">
+                <Item id="1" name="æŸ¥æ‰¾ä¸‹ä¸€ä¸ª" />
+                <Item id="2" name="å–æ¶ˆ" />
+                <Item id="1620" name="æŸ¥æ‰¾ç›®æ ‡ :" />
+                <Item id="1603" name="å…¨è¯åŒ¹é…(&amp;W)" />
+                <Item id="1604" name="åŒ¹é…å¤§å°å†™(&amp;C)" />
+                <Item id="1605" name="æ­£åˆ™è¡¨è¾¾å¼(&amp;E)" />
+                <Item id="1606" name="å¾ªçŽ¯æŸ¥æ‰¾(&amp;D)" />
+                <Item id="1612" name="å‘ä¸Š(&amp;U)" />
+                <Item id="1613" name="å‘ä¸‹(&amp;D)" />
+                <Item id="1614" name="è®¡æ•°" />
+                <Item id="1615" name="æŸ¥æ‰¾å…¨éƒ¨" />
+                <Item id="1616" name="æ ‡è®°æ‰€åœ¨è¡Œ" />
+                <Item id="1617" name="é«˜äº®æŸ¥è¯¢ç»“æžœ" />
+                <Item id="1618" name="æ¸…é™¤ä¸Šæ¬¡æ ‡è®°" />
+                <Item id="1621" name="æ–¹å‘" />
+                <Item id="1611" name="æ›¿æ¢ä¸º(&amp;P) :" />
+                <Item id="1608" name="æ›¿æ¢(&amp;R)" />
+                <Item id="1609" name="å…¨éƒ¨æ›¿æ¢(&amp;A)" />
+                <Item id="1623" name="é€æ˜Žåº¦" />
+                <Item id="1687" name="å¤±åŽ»ç„¦ç‚¹åŽ" />
+                <Item id="1688" name="å§‹ç»ˆ" />
+                <Item id="1632" name="é€‰å–èŒƒå›´å†…" />
+                <Item id="1633" name="æ¸…é™¤" />
+                <Item id="1635" name="æ›¿æ¢æ‰€æœ‰æ‰“å¼€æ–‡ä»¶" />
+                <Item id="1636" name="æŸ¥æ‰¾æ‰€æœ‰æ‰“å¼€æ–‡ä»¶" />
+                <Item id="1637" name="æ–‡ä»¶æŸ¥æ‰¾" />
+                <Item id="1654" name="æ–‡ä»¶ç±»åž‹ :" />
+                <Item id="1655" name="ç›®å½• :" />
+                <Item id="1656" name="å…¨éƒ¨æŸ¥æ‰¾" />
+                <Item id="1658" name="åŒ…å«å­ç›®å½•" />
+                <Item id="1659" name="åŒ…å«éšè—ç›®å½•" />
+                <Item id="1624" name="æŸ¥æ‰¾æ¨¡å¼" />
+                <Item id="1625" name="æ™®é€š" />
+                <Item id="1626" name="æ‰©å±• (\n, \r, \t, \0, \x...)" />
+                <Item id="1660" name="åœ¨æ–‡ç« æ›¿æ¢" />
+                <Item id="1661" name="å½“å‰æ–‡ä»¶å¤¹" />
+                <Item id="1641" name="åœ¨å½“å‰æ–‡ä»¶ä¸­æŸ¥æ‰¾" />
+                <Item id="1686" name="é€æ˜Žåº¦" />
+                <Item id="1703" name="&amp;. åŒ¹é…æ–°è¡Œ" />
             </Find>
-            <GoToLine title="×ªÖÁ">
-                <Item id="2007" name="ÐÐ" />
-                <Item id="2008" name="Æ«ÒÆÁ¿" />
-                <Item id="1" name="¶¨Î»(&amp;G)" />
-                <Item id="2" name="È¡Ïû" />
-                <Item id="2004" name="µ±Ç°Î»ÖÃ :" />
-                <Item id="2005" name="Ä¿±êÎ»ÖÃ :" />
-                <Item id="2006" name="½ØÖ¹Î»ÖÃ :" />
+            <GoToLine title="è½¬è‡³">
+                <Item id="2007" name="è¡Œ" />
+                <Item id="2008" name="åç§»é‡" />
+                <Item id="1" name="å®šä½(&amp;G)" />
+                <Item id="2" name="å–æ¶ˆ" />
+                <Item id="2004" name="å½“å‰ä½ç½® :" />
+                <Item id="2005" name="ç›®æ ‡ä½ç½® :" />
+                <Item id="2006" name="æˆªæ­¢ä½ç½® :" />
             </GoToLine>
             
-            <Run title="ÔËÐÐ...">
-                <Item id="1903" name="ÊäÈëÔËÐÐ³ÌÐòÃû" />
-                <Item id="1" name="ÔËÐÐ" />
-                <Item id="2" name="È¡Ïû" />
-                <Item id="1904" name="±£´æ..." />
+            <Run title="è¿è¡Œ...">
+                <Item id="1903" name="è¾“å…¥è¿è¡Œç¨‹åºå" />
+                <Item id="1" name="è¿è¡Œ" />
+                <Item id="2" name="å–æ¶ˆ" />
+                <Item id="1904" name="ä¿å­˜..." />
             </Run>
             
-            <StyleConfig title="ÓïÑÔ¸ñÊ½ÉèÖÃ">
-                <Item id="2" name="È¡Ïû" />
-                <Item id="2301" name="±£´æ²¢¹Ø±Õ" />
-                <Item id="2303" name="Í¸Ã÷¶È" />
-                <Item id="2306" name="Ñ¡ÔñÖ÷Ìâ" />
+            <StyleConfig title="è¯­è¨€æ ¼å¼è®¾ç½®">
+                <Item id="2" name="å–æ¶ˆ" />
+                <Item id="2301" name="ä¿å­˜å¹¶å…³é—­" />
+                <Item id="2303" name="é€æ˜Žåº¦" />
+                <Item id="2306" name="é€‰æ‹©ä¸»é¢˜" />
                 <SubDialog>
-                    <Item id="2204" name="´ÖÌå" />
-                    <Item id="2205" name="Ð±Ìå" />
-                    <Item id="2206" name="Ç°¾°É«" />
-                    <Item id="2207" name="±³¾°É«" />
-                    <Item id="2208" name="×ÖÌåÃû³Æ :" />
-                    <Item id="2209" name="×ÖÌå´óÐ¡ :" />
-                    <Item id="2211" name="ÑùÊ½:" />
-                    <Item id="2212" name="É«²ÊÑùÊ½" />
-                    <Item id="2213" name="×ÖÌåÑùÊ½" />
-                    <Item id="2214" name="Ä¬ÈÏÀ©Õ¹Ãû :" />
-                    <Item id="2216" name="×Ô¶¨ÒåÀ©Õ¹Ãû :" />
-                    <Item id="2218" name="ÏÂ»®Ïß" />
-                    <Item id="2219" name="Ä¬ÈÏ¹Ø¼ü×Ö" />
-                    <Item id="2221" name="×Ô¶¨Òå¹Ø¼ü×Ö" />
-                    <Item id="2225" name="ÓïÑÔ :" />
-                    <Item id="2226" name="Ê¹ÓÃÈ«¾ÖÇ°¾°É«" />
-                    <Item id="2227" name="Ê¹ÓÃÈ«¾Ö±³¾°É«" />
-                    <Item id="2228" name="Ê¹ÓÃÈ«¾Ö×ÖÌå" />
-                    <Item id="2229" name="Ê¹ÓÃÈ«¾Ö×ÖÌå´óÐ¡" />
-                    <Item id="2230" name="Ê¹ÓÃÈ«¾Ö´ÖÌåÑùÊ½" />
-                    <Item id="2231" name="Ê¹ÓÃÈ«¾ÖÐ±ÌåÑùÊ½" />
-                    <Item id="2232" name="Ê¹ÓÃÈ«¾ÖÏÂ»®ÏßÑùÊ½" />
+                    <Item id="2204" name="ç²—ä½“" />
+                    <Item id="2205" name="æ–œä½“" />
+                    <Item id="2206" name="å‰æ™¯è‰²" />
+                    <Item id="2207" name="èƒŒæ™¯è‰²" />
+                    <Item id="2208" name="å­—ä½“åç§° :" />
+                    <Item id="2209" name="å­—ä½“å¤§å° :" />
+                    <Item id="2211" name="æ ·å¼:" />
+                    <Item id="2212" name="è‰²å½©æ ·å¼" />
+                    <Item id="2213" name="å­—ä½“æ ·å¼" />
+                    <Item id="2214" name="é»˜è®¤æ‰©å±•å :" />
+                    <Item id="2216" name="è‡ªå®šä¹‰æ‰©å±•å :" />
+                    <Item id="2218" name="ä¸‹åˆ’çº¿" />
+                    <Item id="2219" name="é»˜è®¤å…³é”®å­—" />
+                    <Item id="2221" name="è‡ªå®šä¹‰å…³é”®å­—" />
+                    <Item id="2225" name="è¯­è¨€ :" />
+                    <Item id="2226" name="ä½¿ç”¨å…¨å±€å‰æ™¯è‰²" />
+                    <Item id="2227" name="ä½¿ç”¨å…¨å±€èƒŒæ™¯è‰²" />
+                    <Item id="2228" name="ä½¿ç”¨å…¨å±€å­—ä½“" />
+                    <Item id="2229" name="ä½¿ç”¨å…¨å±€å­—ä½“å¤§å°" />
+                    <Item id="2230" name="ä½¿ç”¨å…¨å±€ç²—ä½“æ ·å¼" />
+                    <Item id="2231" name="ä½¿ç”¨å…¨å±€æ–œä½“æ ·å¼" />
+                    <Item id="2232" name="ä½¿ç”¨å…¨å±€ä¸‹åˆ’çº¿æ ·å¼" />
                 </SubDialog>
                 
             </StyleConfig>
             
-            <UserDefine title="×Ô¶¨ÒåÓïÑÔ¸ñÊ½">
-                <Item id="20001" name="¸¡¶¯" />
-                <Item id="20002" name="ÖØÃüÃû" />
-                <Item id="20003" name="ÐÂ½¨..." />
-                <Item id="20004" name="É¾³ý" />
-                <Item id="20005" name="Áí´æÎª..." />
-                <Item id="20007" name="×Ô¶¨ÒåÓïÑÔ :" />
-                <Item id="20009" name="À©Õ¹Ãû :" />
-                <Item id="20012" name="ºöÂÔ´óÐ¡Ð´" />
-                <Item id="20011" name="Í¸Ã÷¶È" />
-                <Item id="20015" name="µ¼Èë..." />
-                <Item id="20016" name="µ¼³ö..." />
-                <Item id="0" name="É«²Ê¸ñÊ½" />
-                <Item id="1" name="Ç°¾°ÑÕÉ«" />
-                <Item id="2" name="±³¾°ÑÕÉ«" />
-                <Item id="3" name="×ÖÐÍ¸ñÊ½" />
-                <Item id="4" name="×ÖÐÍÃû³Æ£º" />
-                <Item id="5" name="×ÖÐÍ´óÐ¡" />
-                <Item id="6" name="´ÖÌå" />
-                <Item id="7" name="Ð±Ìå" />
-                <Item id="8" name="µ×Ïß" />
-                <StylerDialog title="¸ñÊ½Éè¼Æ¿ò">
-                    <Item id="25030" name="×ÖÌå:" />
-                    <Item id="25006" name="Ç°¾°ÑÕÉ«" />
-                    <Item id="25007" name="±³¾°ÑÕÉ«" />
-                    <Item id="25031" name="Ãû³Æ :" />
-                    <Item id="25032" name="´óÐ¡ :" />
-                    <Item id="25001" name="´ÖÌå" />
-                    <Item id="25002" name="Ð±Ìå" />
-                    <Item id="25003" name="ÏÂ»®Ïß" />
-                    <Item id="25029" name="Ç¶Ì× :" />
-                    <Item id="25008" name="·Ö½ç·û 1" />
-                    <Item id="25009" name="·Ö½ç·û 2" />
-                    <Item id="25010" name="·Ö½ç·û 3" />
-                    <Item id="25011" name="·Ö½ç·û 4" />
-                    <Item id="25012" name="·Ö½ç·û 5" />
-                    <Item id="25013" name="·Ö½ç·û 6" />
-                    <Item id="25014" name="·Ö½ç·û 7" />
-                    <Item id="25015" name="·Ö½ç·û 8" />
-                    <Item id="25018" name="¹Ø¼ü×Ö 1" />
-                    <Item id="25019" name="¹Ø¼ü×Ö 2" />
-                    <Item id="25020" name="¹Ø¼ü×Ö 3" />
-                    <Item id="25021" name="¹Ø¼ü×Ö 4" />
-                    <Item id="25022" name="¹Ø¼ü×Ö 5" />
-                    <Item id="25023" name="¹Ø¼ü×Ö 6" />
-                    <Item id="25024" name="¹Ø¼ü×Ö 7" />
-                    <Item id="25025" name="¹Ø¼ü×Ö 8" />
-                    <Item id="25016" name="×¢ÊÍ" />
-                    <Item id="25017" name="×¢ÊÍÐÐ" />
-                    <Item id="25026" name="ÔËËã·û 1" />
-                    <Item id="25027" name="ÔËËã·û 2" />
-                    <Item id="25028" name="Êý×Ö" />
+            <UserDefine title="è‡ªå®šä¹‰è¯­è¨€æ ¼å¼">
+                <Item id="20001" name="æµ®åŠ¨" />
+                <Item id="20002" name="é‡å‘½å" />
+                <Item id="20003" name="æ–°å»º..." />
+                <Item id="20004" name="åˆ é™¤" />
+                <Item id="20005" name="å¦å­˜ä¸º..." />
+                <Item id="20007" name="è‡ªå®šä¹‰è¯­è¨€ :" />
+                <Item id="20009" name="æ‰©å±•å :" />
+                <Item id="20012" name="å¿½ç•¥å¤§å°å†™" />
+                <Item id="20011" name="é€æ˜Žåº¦" />
+                <Item id="20015" name="å¯¼å…¥..." />
+                <Item id="20016" name="å¯¼å‡º..." />
+                <Item id="0" name="è‰²å½©æ ¼å¼" />
+                <Item id="1" name="å‰æ™¯é¢œè‰²" />
+                <Item id="2" name="èƒŒæ™¯é¢œè‰²" />
+                <Item id="3" name="å­—åž‹æ ¼å¼" />
+                <Item id="4" name="å­—åž‹åç§°ï¼š" />
+                <Item id="5" name="å­—åž‹å¤§å°" />
+                <Item id="6" name="ç²—ä½“" />
+                <Item id="7" name="æ–œä½“" />
+                <Item id="8" name="åº•çº¿" />
+                <StylerDialog title="æ ¼å¼è®¾è®¡æ¡†">
+                    <Item id="25030" name="å­—ä½“:" />
+                    <Item id="25006" name="å‰æ™¯é¢œè‰²" />
+                    <Item id="25007" name="èƒŒæ™¯é¢œè‰²" />
+                    <Item id="25031" name="åç§° :" />
+                    <Item id="25032" name="å¤§å° :" />
+                    <Item id="25001" name="ç²—ä½“" />
+                    <Item id="25002" name="æ–œä½“" />
+                    <Item id="25003" name="ä¸‹åˆ’çº¿" />
+                    <Item id="25029" name="åµŒå¥— :" />
+                    <Item id="25008" name="åˆ†ç•Œç¬¦ 1" />
+                    <Item id="25009" name="åˆ†ç•Œç¬¦ 2" />
+                    <Item id="25010" name="åˆ†ç•Œç¬¦ 3" />
+                    <Item id="25011" name="åˆ†ç•Œç¬¦ 4" />
+                    <Item id="25012" name="åˆ†ç•Œç¬¦ 5" />
+                    <Item id="25013" name="åˆ†ç•Œç¬¦ 6" />
+                    <Item id="25014" name="åˆ†ç•Œç¬¦ 7" />
+                    <Item id="25015" name="åˆ†ç•Œç¬¦ 8" />
+                    <Item id="25018" name="å…³é”®å­— 1" />
+                    <Item id="25019" name="å…³é”®å­— 2" />
+                    <Item id="25020" name="å…³é”®å­— 3" />
+                    <Item id="25021" name="å…³é”®å­— 4" />
+                    <Item id="25022" name="å…³é”®å­— 5" />
+                    <Item id="25023" name="å…³é”®å­— 6" />
+                    <Item id="25024" name="å…³é”®å­— 7" />
+                    <Item id="25025" name="å…³é”®å­— 8" />
+                    <Item id="25016" name="æ³¨é‡Š" />
+                    <Item id="25017" name="æ³¨é‡Šè¡Œ" />
+                    <Item id="25026" name="è¿ç®—ç¬¦ 1" />
+                    <Item id="25027" name="è¿ç®—ç¬¦ 2" />
+                    <Item id="25028" name="æ•°å­—" />
                 </StylerDialog>
-                <Folder title="²ã´ÎÉèÖÃÓëÄ¬ÈÏ¸ñÊ½">
-                    <Item id="21101" name="Ä¬ÈÏ¸ñÊ½ÉèÖÃ" />
-                    <Item id="21102" name="ÑùÊ½" />
-                    <Item id="21105" name="ÎÄµµ:" />
-                    <Item id="21104" name="ÁÙÊ±ÎÄ¼þÍøÕ¾:" />
-                    <Item id="21106" name="²ã´Î½ô´Õ£¨¿ÕÐÐ½ô´Õ£©" />
-                    <Item id="21220" name="´úÂë1ÑùÊ½µÄÕÛµþ:" />
-                    <Item id="21224" name="¿ªÊ¼:" />
-                    <Item id="21225" name="ÖÐ¼ä:" />
-                    <Item id="21226" name="½áÎ²:" />
-                    <Item id="21227" name="ÑùÊ½" />
-                    <Item id="21320" name="´úÂë2ÑùÊ½µÄÕÛµþ£¨ÐèÒª·Ö¸ô·û£©:" />
-                    <Item id="21324" name="¿ªÊ¼:" />
-                    <Item id="21325" name="ÖÐ¼ä:" />
-                    <Item id="21326" name="½áÎ²:" />
-                    <Item id="21327" name="ÑùÊ½" />
-                    <Item id="21420" name="ÕÛµþ×¢ÊÍÑùÊ½:" />
-                    <Item id="21424" name="¿ªÊ¼:" />
-                    <Item id="21425" name="ÖÐ¼ä:" />
-                    <Item id="21426" name="½áÎ²:" />
-                    <Item id="21427" name="ÑùÊ½" />
-                    <Item id="21127" name="ÑùÊ½" />
+                <Folder title="å±‚æ¬¡è®¾ç½®ä¸Žé»˜è®¤æ ¼å¼">
+                    <Item id="21101" name="é»˜è®¤æ ¼å¼è®¾ç½®" />
+                    <Item id="21102" name="æ ·å¼" />
+                    <Item id="21105" name="æ–‡æ¡£:" />
+                    <Item id="21104" name="ä¸´æ—¶æ–‡ä»¶ç½‘ç«™:" />
+                    <Item id="21106" name="å±‚æ¬¡ç´§å‡‘ï¼ˆç©ºè¡Œç´§å‡‘ï¼‰" />
+                    <Item id="21220" name="ä»£ç 1æ ·å¼çš„æŠ˜å :" />
+                    <Item id="21224" name="å¼€å§‹:" />
+                    <Item id="21225" name="ä¸­é—´:" />
+                    <Item id="21226" name="ç»“å°¾:" />
+                    <Item id="21227" name="æ ·å¼" />
+                    <Item id="21320" name="ä»£ç 2æ ·å¼çš„æŠ˜å ï¼ˆéœ€è¦åˆ†éš”ç¬¦ï¼‰:" />
+                    <Item id="21324" name="å¼€å§‹:" />
+                    <Item id="21325" name="ä¸­é—´:" />
+                    <Item id="21326" name="ç»“å°¾:" />
+                    <Item id="21327" name="æ ·å¼" />
+                    <Item id="21420" name="æŠ˜å æ³¨é‡Šæ ·å¼:" />
+                    <Item id="21424" name="å¼€å§‹:" />
+                    <Item id="21425" name="ä¸­é—´:" />
+                    <Item id="21426" name="ç»“å°¾:" />
+                    <Item id="21427" name="æ ·å¼" />
+                    <Item id="21127" name="æ ·å¼" />
                 </Folder>
-                <Keywords title="¹Ø¼ü×ÖÁÐ±í">
-                    <Item id="22101" name="µÚ1×é" />
-                    <Item id="22201" name="µÚ2×é" />
-                    <Item id="22301" name="µÚ3×é" />
-                    <Item id="22401" name="µÚ4×é" />
-                    <Item id="22451" name="µÚ5×é" />
-                    <Item id="22501" name="µÚ6×é" />
-                    <Item id="22551" name="µÚ7×é" />
-                    <Item id="22601" name="µÚ8×é" />
-                    <Item id="22121" name="Ç°×ºÄ£Ê½" />
-                    <Item id="22221" name="Ç°×ºÄ£Ê½" />
-                    <Item id="22321" name="Ç°×ºÄ£Ê½" />
-                    <Item id="22421" name="Ç°×ºÄ£Ê½" />
-                    <Item id="22471" name="Ç°×ºÄ£Ê½" />
-                    <Item id="22521" name="Ç°×ºÄ£Ê½" />
-                    <Item id="22571" name="Ç°×ºÄ£Ê½" />
-                    <Item id="22621" name="Ç°×ºÄ£Ê½" />
-                    <Item id="22122" name="ÑùÊ½" />
-                    <Item id="22222" name="ÑùÊ½" />
-                    <Item id="22322" name="ÑùÊ½" />
-                    <Item id="22422" name="ÑùÊ½" />
-                    <Item id="22472" name="ÑùÊ½" />
-                    <Item id="22522" name="ÑùÊ½" />
-                    <Item id="22572" name="ÑùÊ½" />
-                    <Item id="22622" name="ÑùÊ½" />
+                <Keywords title="å…³é”®å­—åˆ—è¡¨">
+                    <Item id="22101" name="ç¬¬1ç»„" />
+                    <Item id="22201" name="ç¬¬2ç»„" />
+                    <Item id="22301" name="ç¬¬3ç»„" />
+                    <Item id="22401" name="ç¬¬4ç»„" />
+                    <Item id="22451" name="ç¬¬5ç»„" />
+                    <Item id="22501" name="ç¬¬6ç»„" />
+                    <Item id="22551" name="ç¬¬7ç»„" />
+                    <Item id="22601" name="ç¬¬8ç»„" />
+                    <Item id="22121" name="å‰ç¼€æ¨¡å¼" />
+                    <Item id="22221" name="å‰ç¼€æ¨¡å¼" />
+                    <Item id="22321" name="å‰ç¼€æ¨¡å¼" />
+                    <Item id="22421" name="å‰ç¼€æ¨¡å¼" />
+                    <Item id="22471" name="å‰ç¼€æ¨¡å¼" />
+                    <Item id="22521" name="å‰ç¼€æ¨¡å¼" />
+                    <Item id="22571" name="å‰ç¼€æ¨¡å¼" />
+                    <Item id="22621" name="å‰ç¼€æ¨¡å¼" />
+                    <Item id="22122" name="æ ·å¼" />
+                    <Item id="22222" name="æ ·å¼" />
+                    <Item id="22322" name="æ ·å¼" />
+                    <Item id="22422" name="æ ·å¼" />
+                    <Item id="22472" name="æ ·å¼" />
+                    <Item id="22522" name="æ ·å¼" />
+                    <Item id="22572" name="æ ·å¼" />
+                    <Item id="22622" name="æ ·å¼" />
                 </Keywords>
-                <Comment title="×¢ÊÍÓëÊý×Ö">
-                    <Item id="23003" name="µ¥ÐÐÊ½×¢½âÓÐÐ§Î»ÖÃ" />
-                    <Item id="23004" name="Ã»ÓÐÏÞÖÆ" />
-                    <Item id="23005" name="ÐÐµÄ¿ªÍ·" />
-                    <Item id="23006" name="ÔÊÐí×¢½âÇ°¿Õ°×" />
-                    <Item id="23001" name="ÔÊÐí×¢½âÓï·¨ÕÛµþ" />
-                    <Item id="23326" name="ÑùÊ½Éè¶¨" />
-                    <Item id="23323" name="×¢½â¿ªÆô£º" />
-                    <Item id="23324" name="ÐøÐÐ×ÖÔª£º" />
-                    <Item id="23325" name="×¢½â·â±Õ£º" />
-                    <Item id="23301" name="µ¥ÐÐ×¢½â" />
-                    <Item id="23124" name="ÑùÊ½Éè¶¨" />
-                    <Item id="23122" name="×¢½â¿ªÆô£º" />
-                    <Item id="23123" name="×¢½â·â±Õ£º" />
-                    <Item id="23101" name="Çø¿é×¢½â" />
-                    <Item id="23201" name="Êý×Ö" />
-                    <Item id="23220" name="ÑùÊ½Éè¶¨" />
-                    <Item id="23230" name="×ÖÊ×1£º" />
-                    <Item id="23232" name="×ÖÊ×2£º" />
-                    <Item id="23234" name="¸½¼Ó1£º" />
-                    <Item id="23236" name="¸½¼Ó2£º" />
-                    <Item id="23238" name="×ÖÎ²1£º" />
-                    <Item id="23240" name="×ÖÎ²2£º" />
-                    <Item id="23242" name="·¶Î§£º" />
-                    <Item id="23244" name="Ð¡Êýµã" />
-                    <Item id="23245" name="µã" />
-                    <Item id="23246" name="¶ºµã" />
-                    <Item id="23247" name="µãÓë¶ººÅ" />
+                <Comment title="æ³¨é‡Šä¸Žæ•°å­—">
+                    <Item id="23003" name="å•è¡Œå¼æ³¨è§£æœ‰æ•ˆä½ç½®" />
+                    <Item id="23004" name="æ²¡æœ‰é™åˆ¶" />
+                    <Item id="23005" name="è¡Œçš„å¼€å¤´" />
+                    <Item id="23006" name="å…è®¸æ³¨è§£å‰ç©ºç™½" />
+                    <Item id="23001" name="å…è®¸æ³¨è§£è¯­æ³•æŠ˜å " />
+                    <Item id="23326" name="æ ·å¼è®¾å®š" />
+                    <Item id="23323" name="æ³¨è§£å¼€å¯ï¼š" />
+                    <Item id="23324" name="ç»­è¡Œå­—å…ƒï¼š" />
+                    <Item id="23325" name="æ³¨è§£å°é—­ï¼š" />
+                    <Item id="23301" name="å•è¡Œæ³¨è§£" />
+                    <Item id="23124" name="æ ·å¼è®¾å®š" />
+                    <Item id="23122" name="æ³¨è§£å¼€å¯ï¼š" />
+                    <Item id="23123" name="æ³¨è§£å°é—­ï¼š" />
+                    <Item id="23101" name="åŒºå—æ³¨è§£" />
+                    <Item id="23201" name="æ•°å­—" />
+                    <Item id="23220" name="æ ·å¼è®¾å®š" />
+                    <Item id="23230" name="å­—é¦–1ï¼š" />
+                    <Item id="23232" name="å­—é¦–2ï¼š" />
+                    <Item id="23234" name="é™„åŠ 1ï¼š" />
+                    <Item id="23236" name="é™„åŠ 2ï¼š" />
+                    <Item id="23238" name="å­—å°¾1ï¼š" />
+                    <Item id="23240" name="å­—å°¾2ï¼š" />
+                    <Item id="23242" name="èŒƒå›´ï¼š" />
+                    <Item id="23244" name="å°æ•°ç‚¹" />
+                    <Item id="23245" name="ç‚¹" />
+                    <Item id="23246" name="é€—ç‚¹" />
+                    <Item id="23247" name="ç‚¹ä¸Žé€—å·" />
                 </Comment>
-                <Operator title="Êý×Ö\ÔËËã·û">
-                    <Item id="24101" name="ÔËËã·ûÑùÊ½" />
-                    <Item id="24113" name="ÑùÊ½" />
-                    <Item id="24116" name="ÔËËã·û 1" />
-                    <Item id="24117" name="ÔËËã·û 2 (ÐèÒª½ç¶¨·û)" />
-                    <Item id="24201" name="ÔËËã·û 1 ÑùÊ½" />
-                    <Item id="24220" name="¿ªÊ¼:" />
-                    <Item id="24221" name="×ªÒå×Ö·û:" />
-                    <Item id="24222" name="½áÎ²:" />
-                    <Item id="24223" name="ÑùÊ½" />
-                    <Item id="24301" name="ÔËËã·û 2 ÑùÊ½" />
-                    <Item id="24320" name="¿ªÊ¼:" />
-                    <Item id="24321" name="×ªÒå×Ö·û:" />
-                    <Item id="24322" name="½áÎ²:" />
-                    <Item id="24323" name="ÑùÊ½" />
-                    <Item id="24401" name="ÔËËã·û 3 ÑùÊ½" />
-                    <Item id="24420" name="¿ªÊ¼:" />
-                    <Item id="24421" name="×ªÒå×Ö·û:" />
-                    <Item id="24422" name="½áÎ²:" />
-                    <Item id="24423" name="ÑùÊ½" />
-                    <Item id="24451" name="ÔËËã·û 4 ÑùÊ½" />
-                    <Item id="24470" name="¿ªÊ¼:" />
-                    <Item id="24471" name="×ªÒå×Ö·û:" />
-                    <Item id="24472" name="½áÎ²:" />
-                    <Item id="24473" name="ÑùÊ½" />
-                    <Item id="24501" name="ÔËËã·û 5 ÑùÊ½" />
-                    <Item id="24520" name="¿ªÊ¼:" />
-                    <Item id="24521" name="×ªÒå×Ö·û:" />
-                    <Item id="24522" name="½áÎ²:" />
-                    <Item id="24523" name="ÑùÊ½" />
-                    <Item id="24551" name="ÔËËã·û 6 ÑùÊ½" />
-                    <Item id="24570" name="¿ªÊ¼:" />
-                    <Item id="24571" name="×ªÒå×Ö·û:" />
-                    <Item id="24572" name="½áÎ²:" />
-                    <Item id="24573" name="ÑùÊ½" />
-                    <Item id="24601" name="ÔËËã·û 7 ÑùÊ½" />
-                    <Item id="24620" name="¿ªÊ¼:" />
-                    <Item id="24621" name="×ªÒå×Ö·û:" />
-                    <Item id="24622" name="½áÎ²:" />
-                    <Item id="24623" name="ÑùÊ½" />
-                    <Item id="24651" name="ÔËËã·û 8 ÑùÊ½" />
-                    <Item id="24670" name="¿ªÊ¼:" />
-                    <Item id="24671" name="×ªÒå×Ö·û:" />
-                    <Item id="24672" name="½áÎ²:" />
-                    <Item id="24673" name="ÑùÊ½" />
+                <Operator title="æ•°å­—\è¿ç®—ç¬¦">
+                    <Item id="24101" name="è¿ç®—ç¬¦æ ·å¼" />
+                    <Item id="24113" name="æ ·å¼" />
+                    <Item id="24116" name="è¿ç®—ç¬¦ 1" />
+                    <Item id="24117" name="è¿ç®—ç¬¦ 2 (éœ€è¦ç•Œå®šç¬¦)" />
+                    <Item id="24201" name="è¿ç®—ç¬¦ 1 æ ·å¼" />
+                    <Item id="24220" name="å¼€å§‹:" />
+                    <Item id="24221" name="è½¬ä¹‰å­—ç¬¦:" />
+                    <Item id="24222" name="ç»“å°¾:" />
+                    <Item id="24223" name="æ ·å¼" />
+                    <Item id="24301" name="è¿ç®—ç¬¦ 2 æ ·å¼" />
+                    <Item id="24320" name="å¼€å§‹:" />
+                    <Item id="24321" name="è½¬ä¹‰å­—ç¬¦:" />
+                    <Item id="24322" name="ç»“å°¾:" />
+                    <Item id="24323" name="æ ·å¼" />
+                    <Item id="24401" name="è¿ç®—ç¬¦ 3 æ ·å¼" />
+                    <Item id="24420" name="å¼€å§‹:" />
+                    <Item id="24421" name="è½¬ä¹‰å­—ç¬¦:" />
+                    <Item id="24422" name="ç»“å°¾:" />
+                    <Item id="24423" name="æ ·å¼" />
+                    <Item id="24451" name="è¿ç®—ç¬¦ 4 æ ·å¼" />
+                    <Item id="24470" name="å¼€å§‹:" />
+                    <Item id="24471" name="è½¬ä¹‰å­—ç¬¦:" />
+                    <Item id="24472" name="ç»“å°¾:" />
+                    <Item id="24473" name="æ ·å¼" />
+                    <Item id="24501" name="è¿ç®—ç¬¦ 5 æ ·å¼" />
+                    <Item id="24520" name="å¼€å§‹:" />
+                    <Item id="24521" name="è½¬ä¹‰å­—ç¬¦:" />
+                    <Item id="24522" name="ç»“å°¾:" />
+                    <Item id="24523" name="æ ·å¼" />
+                    <Item id="24551" name="è¿ç®—ç¬¦ 6 æ ·å¼" />
+                    <Item id="24570" name="å¼€å§‹:" />
+                    <Item id="24571" name="è½¬ä¹‰å­—ç¬¦:" />
+                    <Item id="24572" name="ç»“å°¾:" />
+                    <Item id="24573" name="æ ·å¼" />
+                    <Item id="24601" name="è¿ç®—ç¬¦ 7 æ ·å¼" />
+                    <Item id="24620" name="å¼€å§‹:" />
+                    <Item id="24621" name="è½¬ä¹‰å­—ç¬¦:" />
+                    <Item id="24622" name="ç»“å°¾:" />
+                    <Item id="24623" name="æ ·å¼" />
+                    <Item id="24651" name="è¿ç®—ç¬¦ 8 æ ·å¼" />
+                    <Item id="24670" name="å¼€å§‹:" />
+                    <Item id="24671" name="è½¬ä¹‰å­—ç¬¦:" />
+                    <Item id="24672" name="ç»“å°¾:" />
+                    <Item id="24673" name="æ ·å¼" />
                 </Operator>
-                <Item id="24001" name="ÆôÓÃ×ªÒå×Ö·û :" />
+                <Item id="24001" name="å¯ç”¨è½¬ä¹‰å­—ç¬¦ :" />
             </UserDefine>
-            <Preference title="Ê×Ñ¡Ïî">
-                <Item id="6001" name="¹Ø±Õ" />
-                <Global title="³£ÓÃ">
-                    <Item id="6101" name="¹¤¾ßÀ¸" />
-                    <Item id="6102" name="Òþ²Ø" />
-                    <Item id="6103" name="Ð¡Í¼±ê" />
-                    <Item id="6104" name="´óÍ¼±ê" />
-                    <Item id="6105" name="Ð¡ÐÍ±ê×¼Í¼±ê" />
+            <Preference title="é¦–é€‰é¡¹">
+                <Item id="6001" name="å…³é—­" />
+                <Global title="å¸¸ç”¨">
+                    <Item id="6101" name="å·¥å…·æ " />
+                    <Item id="6102" name="éšè—" />
+                    <Item id="6103" name="å°å›¾æ ‡" />
+                    <Item id="6104" name="å¤§å›¾æ ‡" />
+                    <Item id="6105" name="å°åž‹æ ‡å‡†å›¾æ ‡" />
                     
-                    <Item id="6106" name="±êÇ©À¸" />
-                    <Item id="6107" name="ËõÐ¡" />
-                    <Item id="6108" name="Ëø¶¨ (²»ÔÊÐíÍÏ·Å)" />
-                    <Item id="6109" name="»æÖÆ·Ç¼¤»î±êÇ©±³¾°" />
-                    <Item id="6110" name="Îª¼¤»î±êÇ©»æÖÆ³ÈÉ«Ìõ" />
+                    <Item id="6106" name="æ ‡ç­¾æ " />
+                    <Item id="6107" name="ç¼©å°" />
+                    <Item id="6108" name="é”å®š (ä¸å…è®¸æ‹–æ”¾)" />
+                    <Item id="6109" name="ç»˜åˆ¶éžæ¿€æ´»æ ‡ç­¾èƒŒæ™¯" />
+                    <Item id="6110" name="ä¸ºæ¿€æ´»æ ‡ç­¾ç»˜åˆ¶æ©™è‰²æ¡" />
                     
-                    <Item id="6111" name="ÏÔÊ¾×´Ì¬À¸" />
-                    <Item id="6112" name="±êÇ©ÏÔÊ¾¹Ø±Õ°´Å¥" />
-                    <Item id="6113" name="Ë«»÷¹Ø±Õ±êÇ©" />
-                    <Item id="6118" name="Òþ²Ø±êÇ©À¸" />
-                    <Item id="6119" name="¶àÐÐ±êÇ©" />
-                    <Item id="6120" name="´¹Ö±·½Ê½" />
+                    <Item id="6111" name="æ˜¾ç¤ºçŠ¶æ€æ " />
+                    <Item id="6112" name="æ ‡ç­¾æ˜¾ç¤ºå…³é—­æŒ‰é’®" />
+                    <Item id="6113" name="åŒå‡»å…³é—­æ ‡ç­¾" />
+                    <Item id="6118" name="éšè—æ ‡ç­¾æ " />
+                    <Item id="6119" name="å¤šè¡Œæ ‡ç­¾" />
+                    <Item id="6120" name="åž‚ç›´æ–¹å¼" />
                     
-                    <Item id="6121" name="²Ëµ¥À¸" />
-                    <Item id="6122" name="Òþ²Ø (°´ÏÂ Alt »ò F10 ÏÔÊ¾)" />
-                    <Item id="6123" name="½çÃæÓïÑÔ" />
+                    <Item id="6121" name="èœå•æ " />
+                    <Item id="6122" name="éšè— (æŒ‰ä¸‹ Alt æˆ– F10 æ˜¾ç¤º)" />
+                    <Item id="6123" name="ç•Œé¢è¯­è¨€" />
                     
-                    <Item id="6125" name="ÎÄ¼þÁÐ±íÃæ°å" />
-                    <Item id="6126" name="ÏÔÊ¾" />
-					<Item id="6127" name="Òþ²Ø¸±¼þÃûÅÅÐòÁÐ"/>
+                    <Item id="6125" name="æ–‡ä»¶åˆ—è¡¨é¢æ¿" />
+                    <Item id="6126" name="æ˜¾ç¤º" />
+					<Item id="6127" name="éšè—å‰¯ä»¶åæŽ’åºåˆ—"/>
                 </Global>
-                <Scintillas title="±à¼­">
-                    <Item id="6216" name="²åÈë·ûÉèÖÃ" />
-                    <Item id="6217" name="¿í¶È :" />
-                    <Item id="6219" name="ÉÁË¸ÆµÂÊ :" />
-                    <Item id="6221" name="¿ì" />
-                    <Item id="6222" name="Âý" />
-                    <Item id="6224" name="¶àÁÐ±à¼­" />
-                    <Item id="6225" name="Æô¶¯ (Ctrl+Mouse click/selection)" />
-                    <Item id="6201" name="´úÂëÕÛµþ±êÖ¾" />
-                    <Item id="6202" name="¼ò½à" />
-                    <Item id="6203" name="¼ýÍ·" />
-                    <Item id="6204" name="Ô²È¦" />
-                    <Item id="6205" name="·½¿ò" />
-                    <Item id="6226" name="ÎÞ" />
+                <Scintillas title="ç¼–è¾‘">
+                    <Item id="6216" name="æ’å…¥ç¬¦è®¾ç½®" />
+                    <Item id="6217" name="å®½åº¦ :" />
+                    <Item id="6219" name="é—ªçƒé¢‘çŽ‡ :" />
+                    <Item id="6221" name="å¿«" />
+                    <Item id="6222" name="æ…¢" />
+                    <Item id="6224" name="å¤šåˆ—ç¼–è¾‘" />
+                    <Item id="6225" name="å¯åŠ¨ (Ctrl+Mouse click/selection)" />
+                    <Item id="6201" name="ä»£ç æŠ˜å æ ‡å¿—" />
+                    <Item id="6202" name="ç®€æ´" />
+                    <Item id="6203" name="ç®­å¤´" />
+                    <Item id="6204" name="åœ†åœˆ" />
+                    <Item id="6205" name="æ–¹æ¡†" />
+                    <Item id="6226" name="æ— " />
                     
-                    <Item id="6227" name="¶ÏÐÐ" />
-                    <Item id="6228" name="Ä¬ÈÏ" />
-                    <Item id="6229" name="¶ÔÆë" />
-                    <Item id="6230" name="ËõÅÅ" />
+                    <Item id="6227" name="æ–­è¡Œ" />
+                    <Item id="6228" name="é»˜è®¤" />
+                    <Item id="6229" name="å¯¹é½" />
+                    <Item id="6230" name="ç¼©æŽ’" />
                     
-                    <Item id="6206" name="ÏÔÊ¾ÐÐºÅÀ¸" />
-                    <Item id="6207" name="ÏÔÊ¾±êÇ©À¸" />
-                    <Item id="6208" name="ÏÔÊ¾ÁÐ±ß½ç" />
-                    <Item id="6209" name="±ß½ç¿í¶È :" />
-                    <Item id="6234" name="¹Ø±Õ¸ß¼¶¾í¶¯¹¦ÄÜ
-£¨Èç¹ûÄãÓÐ´¥¿Ø°åµÄÎÊÌâ£©"/>
+                    <Item id="6206" name="æ˜¾ç¤ºè¡Œå·æ " />
+                    <Item id="6207" name="æ˜¾ç¤ºæ ‡ç­¾æ " />
+                    <Item id="6208" name="æ˜¾ç¤ºåˆ—è¾¹ç•Œ" />
+                    <Item id="6209" name="è¾¹ç•Œå®½åº¦ :" />
+                    <Item id="6234" name="å…³é—­é«˜çº§å·åŠ¨åŠŸèƒ½
+ï¼ˆå¦‚æžœä½ æœ‰è§¦æŽ§æ¿çš„é—®é¢˜ï¼‰"/>
                     
-                    <Item id="6211" name="ÁÐ±ß½çÉèÖÃ" />
-                    <Item id="6212" name="±ß½çÏßÄ£Ê½" />
-                    <Item id="6213" name="±³¾°É«Ä£Ê½" />
-                    <Item id="6214" name="µ±Ç°ÐÐ¸ßÁÁÄ£Ê½" />
+                    <Item id="6211" name="åˆ—è¾¹ç•Œè®¾ç½®" />
+                    <Item id="6212" name="è¾¹ç•Œçº¿æ¨¡å¼" />
+                    <Item id="6213" name="èƒŒæ™¯è‰²æ¨¡å¼" />
+                    <Item id="6214" name="å½“å‰è¡Œé«˜äº®æ¨¡å¼" />
                     
-                    <Item id="6231" name="±ß¿ò¿í¶È" />
+                    <Item id="6231" name="è¾¹æ¡†å®½åº¦" />
                 </Scintillas>
                 
-                <NewDoc title="ÐÂ½¨">
-                    <Item id="6401" name="¸ñÊ½" />
+                <NewDoc title="æ–°å»º">
+                    <Item id="6401" name="æ ¼å¼" />
                     <Item id="6402" name="Windows" />
                     <Item id="6403" name="Unix" />
                     <Item id="6404" name="Mac" />
-                    <Item id="6405" name="±àÂë" />
+                    <Item id="6405" name="ç¼–ç " />
                     <Item id="6406" name="ANSI" />
-                    <Item id="6407" name="UTF-8 (ÎÞBOM)" />
+                    <Item id="6407" name="UTF-8 (æ— BOM)" />
                     <Item id="6408" name="UTF-8" />
                     <Item id="6409" name="UCS-2 Big endian" />
                     <Item id="6410" name="UCS-2 Small endian" />
-                    <Item id="6411" name="Ä¬ÈÏÓïÑÔ :" />
-                    <Item id="6419" name="ÐÂ½¨ÎÄµµ" />
-                    <Item id="6420" name="Ó¦ÓÃÓÚ´ò¿ª ANSI ÎÄ¼þ" />
+                    <Item id="6411" name="é»˜è®¤è¯­è¨€ :" />
+                    <Item id="6419" name="æ–°å»ºæ–‡æ¡£" />
+                    <Item id="6420" name="åº”ç”¨äºŽæ‰“å¼€ ANSI æ–‡ä»¶" />
                 </NewDoc>
                 
-                <DefaultDir title="Ä¬ÈÏÄ¿Â¼">
-                    <Item id="6413" name="ÎÄ¼þ´ò¿ª/±£´æÂ·¾¶" />
-                    <Item id="6414" name="Óëµ±Ç°ÎÄ¼þÒ»ÖÂ" />
-                    <Item id="6415" name="¼Ç×¡×îºóµÄ²Ù×÷Â·¾¶" />
+                <DefaultDir title="é»˜è®¤ç›®å½•">
+                    <Item id="6413" name="æ–‡ä»¶æ‰“å¼€/ä¿å­˜è·¯å¾„" />
+                    <Item id="6414" name="ä¸Žå½“å‰æ–‡ä»¶ä¸€è‡´" />
+                    <Item id="6415" name="è®°ä½æœ€åŽçš„æ“ä½œè·¯å¾„" />
                 </DefaultDir>
                 
-                <FileAssoc title="ÎÄ¼þ¹ØÁª">
-                    <Item id="4009" name="Ö§³ÖµÄÀ©Õ¹Ãû :" />
-                    <Item id="4010" name="×¢²áµÄÀ©Õ¹Ãû :" />
+                <FileAssoc title="æ–‡ä»¶å…³è”">
+                    <Item id="4009" name="æ”¯æŒçš„æ‰©å±•å :" />
+                    <Item id="4010" name="æ³¨å†Œçš„æ‰©å±•å :" />
                 </FileAssoc>
-                <LangMenu title="ÓïÑÔ">
-                    <Item id="6505" name="¿ÉÓÃÏî" />
-                    <Item id="6506" name="½ûÓÃÏî" />
-                    <Item id="6507" name="½ô´ÕÓïÑÔ²Ëµ¥" />
-                    <Item id="6508" name="³ÌÐòÓïÑÔ²Ëµ¥" />
-                    <Item id="6510" name="Ê¹ÓÃÄ¬ÈÏÖµ" />
+                <LangMenu title="è¯­è¨€">
+                    <Item id="6505" name="å¯ç”¨é¡¹" />
+                    <Item id="6506" name="ç¦ç”¨é¡¹" />
+                    <Item id="6507" name="ç´§å‡‘è¯­è¨€èœå•" />
+                    <Item id="6508" name="ç¨‹åºè¯­è¨€èœå•" />
+                    <Item id="6510" name="ä½¿ç”¨é»˜è®¤å€¼" />
                 </LangMenu>
                 
-                <TabSettings title="ÖÆ±í·ûÉèÖÃ">
-                    <Item id="6301" name="ÖÆ±í·ûÉèÖÃ" />
-                    <Item id="6302" name="×ª»»Îª¿Õ¸ñ" />
-                    <Item id="6303" name="ÖÆ±í·û¿í¶È:" />
-                    <Item id="6510" name="Ê¹ÓÃÄ¬ÈÏÖµ" />
+                <TabSettings title="åˆ¶è¡¨ç¬¦è®¾ç½®">
+                    <Item id="6301" name="åˆ¶è¡¨ç¬¦è®¾ç½®" />
+                    <Item id="6302" name="è½¬æ¢ä¸ºç©ºæ ¼" />
+                    <Item id="6303" name="åˆ¶è¡¨ç¬¦å®½åº¦:" />
+                    <Item id="6510" name="ä½¿ç”¨é»˜è®¤å€¼" />
                 </TabSettings>
                 
-                <Print title="´òÓ¡">
-                    <Item id="6601" name="´òÓ¡ÐÐºÅ" />
-                    <Item id="6602" name="É«²ÊÄ£Ê½" />
-                    <Item id="6603" name="Ëù¼û¼´ËùµÃ" />
-                    <Item id="6604" name="·´É«Êä³ö" />
-                    <Item id="6605" name="°×µ×ºÚ×Ö" />
-                    <Item id="6606" name="ÎÞ±³¾°É«" />
-                    <Item id="6607" name="Ò³±ß¾à (µ¥Î»:ºÁÃ×)" />
-                    <Item id="6612" name="×ó" />
-                    <Item id="6613" name="ÉÏ" />
-                    <Item id="6614" name="ÓÒ" />
-                    <Item id="6615" name="ÏÂ" />
-                    <Item id="6706" name="´ÖÌå" />
-                    <Item id="6707" name="Ð±Ìå" />
-                    <Item id="6708" name="Ò³Ã¼" />
-                    <Item id="6709" name="×ó" />
-                    <Item id="6710" name="ÖÐ" />
-                    <Item id="6711" name="ÓÒ" />
-                    <Item id="6717" name="´ÖÌå" />
-                    <Item id="6718" name="Ð±Ìå" />
-                    <Item id="6719" name="Ò³½Å" />
-                    <Item id="6720" name="×ó" />
-                    <Item id="6721" name="ÖÐ" />
-                    <Item id="6722" name="ÓÒ" />
-                    <Item id="6723" name="Ìí¼Ó" />
-                    <Item id="6725" name="±äÁ¿ :" />
-                    <Item id="6727" name="ÕâÀïÏÔÊ¾ÄãµÄ±äÁ¿ÉèÖÃ" />
-                    <Item id="6728" name="Ò³Ã¼ÓëÒ³½Å" />
+                <Print title="æ‰“å°">
+                    <Item id="6601" name="æ‰“å°è¡Œå·" />
+                    <Item id="6602" name="è‰²å½©æ¨¡å¼" />
+                    <Item id="6603" name="æ‰€è§å³æ‰€å¾—" />
+                    <Item id="6604" name="åè‰²è¾“å‡º" />
+                    <Item id="6605" name="ç™½åº•é»‘å­—" />
+                    <Item id="6606" name="æ— èƒŒæ™¯è‰²" />
+                    <Item id="6607" name="é¡µè¾¹è· (å•ä½:æ¯«ç±³)" />
+                    <Item id="6612" name="å·¦" />
+                    <Item id="6613" name="ä¸Š" />
+                    <Item id="6614" name="å³" />
+                    <Item id="6615" name="ä¸‹" />
+                    <Item id="6706" name="ç²—ä½“" />
+                    <Item id="6707" name="æ–œä½“" />
+                    <Item id="6708" name="é¡µçœ‰" />
+                    <Item id="6709" name="å·¦" />
+                    <Item id="6710" name="ä¸­" />
+                    <Item id="6711" name="å³" />
+                    <Item id="6717" name="ç²—ä½“" />
+                    <Item id="6718" name="æ–œä½“" />
+                    <Item id="6719" name="é¡µè„š" />
+                    <Item id="6720" name="å·¦" />
+                    <Item id="6721" name="ä¸­" />
+                    <Item id="6722" name="å³" />
+                    <Item id="6723" name="æ·»åŠ " />
+                    <Item id="6725" name="å˜é‡ :" />
+                    <Item id="6727" name="è¿™é‡Œæ˜¾ç¤ºä½ çš„å˜é‡è®¾ç½®" />
+                    <Item id="6728" name="é¡µçœ‰ä¸Žé¡µè„š" />
                 </Print>
                 
-                <RecentFilesHistory title="×î½üÎÄ¼þ¼ÇÂ¼">
-                    <Item id="6304" name="×î½üÎÄ¼þ¼ÇÂ¼" />
-                    <Item id="6306" name="×î´óÌõÊý:" />
-                    <Item id="6305" name="²»ÒªÔÚÆô¶¯Ê±¼ì²é" />
-                    <Item id="6429" name="ÏÔÊ¾" />
-                    <Item id="6424" name="ÔÚ×Ó²Ëµ¥ÖÐ" />
-                    <Item id="6425" name="½öÎÄ¼þÃû" />
-                    <Item id="6426" name="ÍêÕûÎÄ¼þÂ·¾¶" />
-                    <Item id="6427" name="×Ô¶¨Òå×î´ó³¤¶È:" />
+                <RecentFilesHistory title="æœ€è¿‘æ–‡ä»¶è®°å½•">
+                    <Item id="6304" name="æœ€è¿‘æ–‡ä»¶è®°å½•" />
+                    <Item id="6306" name="æœ€å¤§æ¡æ•°:" />
+                    <Item id="6305" name="ä¸è¦åœ¨å¯åŠ¨æ—¶æ£€æŸ¥" />
+                    <Item id="6429" name="æ˜¾ç¤º" />
+                    <Item id="6424" name="åœ¨å­èœå•ä¸­" />
+                    <Item id="6425" name="ä»…æ–‡ä»¶å" />
+                    <Item id="6426" name="å®Œæ•´æ–‡ä»¶è·¯å¾„" />
+                    <Item id="6427" name="è‡ªå®šä¹‰æœ€å¤§é•¿åº¦:" />
                 </RecentFilesHistory>
                 
-                <MISC title="ÆäËû">
-                    <Item id="6307" name="ÆôÓÃ" />
-                    <Item id="6308" name="×îÐ¡»¯µ½ÏµÍ³ÍÐÅÌ" />
-                    <Item id="6309" name="¼Ç×¡×îºó´ò¿ªµÄÎÄ¼þ" />
-                    <Item id="6312" name="×Ô¶¯¼ì²âÎÄ¼þ×´Ì¬" />
-                    <Item id="6313" name="×Ô¶¯¸üÐÂÎÄ¼þ" />
-                    <Item id="6314" name="±¸·Ý" />
-                    <Item id="6325" name="¸üÐÂºó¶¨Î»µ½Ä©ÐÐ" />
-                    <Item id="6318" name="³¬Á´½ÓÉèÖÃ" />
-                    <Item id="6319" name="ÆôÓÃ" />
-                    <Item id="6320" name="²»ÏÔÊ¾ÏÂ»®Ïß" />
-                    <Item id="6322" name="»á»°ÎÄ¼þºó×ºÃû" />
-                    <Item id="6323" name="ÆôÓÃ Notepad++ ×Ô¶¯¸üÐÂ" />
-                    <Item id="6324" name="ÎÄµµÇÐ»» (Ctrl+TAB)" />
-                    <Item id="6326" name="ÆôÓÃÖÇÄÜ¸ßÁÁ" />
-                    <Item id="6329" name="¸ßÁÁÏÔÊ¾Æ¥Åä±êÇ©" />
-                    <Item id="6327" name="ÆôÓÃ" />
-                    <Item id="6328" name="¸ßÁÁÏÔÊ¾±êÇ©ÊôÐÔ" />
-                    <Item id="6330" name="¸ßÁÁÏÔÊ¾ PHP/ASP ½Å±¾ÇøÓò" />
-                    <Item id="6331" name="Ö»ÔÚ±êÇ©À¸ÏÔÊ¾ÎÄ¼þÃû" />
-                    <Item id="6332" name="Çø·Ö´óÐ¡Ð´"/>
-                    <Item id="6333" name="ÖÇÄÜ¸ßÁÁ"/>
-					<Item id="6334" name="×Ô¶¯¼ì²â×Ö·û±àÂë"/>
-					<Item id="6335" name="ÊÓ·´Ð±¸ÜÎª SQL ×ªÒå×Ö·û"/>
-                    <Item id="6114" name="ÆôÓÃ" />
-                    <Item id="6115" name="×Ô¶¯Ëõ½ø" />
-                    <Item id="6117" name="ÆôÓÃ MRU (Most Recently Used) ¹¦ÄÜ" />
+                <MISC title="å…¶ä»–">
+                    <Item id="6307" name="å¯ç”¨" />
+                    <Item id="6308" name="æœ€å°åŒ–åˆ°ç³»ç»Ÿæ‰˜ç›˜" />
+                    <Item id="6309" name="è®°ä½æœ€åŽæ‰“å¼€çš„æ–‡ä»¶" />
+                    <Item id="6312" name="è‡ªåŠ¨æ£€æµ‹æ–‡ä»¶çŠ¶æ€" />
+                    <Item id="6313" name="è‡ªåŠ¨æ›´æ–°æ–‡ä»¶" />
+                    <Item id="6314" name="å¤‡ä»½" />
+                    <Item id="6325" name="æ›´æ–°åŽå®šä½åˆ°æœ«è¡Œ" />
+                    <Item id="6318" name="è¶…é“¾æŽ¥è®¾ç½®" />
+                    <Item id="6319" name="å¯ç”¨" />
+                    <Item id="6320" name="ä¸æ˜¾ç¤ºä¸‹åˆ’çº¿" />
+                    <Item id="6322" name="ä¼šè¯æ–‡ä»¶åŽç¼€å" />
+                    <Item id="6323" name="å¯ç”¨ Notepad++ è‡ªåŠ¨æ›´æ–°" />
+                    <Item id="6324" name="æ–‡æ¡£åˆ‡æ¢ (Ctrl+TAB)" />
+                    <Item id="6326" name="å¯ç”¨æ™ºèƒ½é«˜äº®" />
+                    <Item id="6329" name="é«˜äº®æ˜¾ç¤ºåŒ¹é…æ ‡ç­¾" />
+                    <Item id="6327" name="å¯ç”¨" />
+                    <Item id="6328" name="é«˜äº®æ˜¾ç¤ºæ ‡ç­¾å±žæ€§" />
+                    <Item id="6330" name="é«˜äº®æ˜¾ç¤º PHP/ASP è„šæœ¬åŒºåŸŸ" />
+                    <Item id="6331" name="åªåœ¨æ ‡ç­¾æ æ˜¾ç¤ºæ–‡ä»¶å" />
+                    <Item id="6332" name="åŒºåˆ†å¤§å°å†™"/>
+                    <Item id="6333" name="æ™ºèƒ½é«˜äº®"/>
+					<Item id="6334" name="è‡ªåŠ¨æ£€æµ‹å­—ç¬¦ç¼–ç "/>
+					<Item id="6335" name="è§†åæ–œæ ä¸º SQL è½¬ä¹‰å­—ç¬¦"/>
+                    <Item id="6114" name="å¯ç”¨" />
+                    <Item id="6115" name="è‡ªåŠ¨ç¼©è¿›" />
+                    <Item id="6117" name="å¯ç”¨ MRU (Most Recently Used) åŠŸèƒ½" />
                 </MISC>
-                <Backup title="±¸·Ý">
-                    <Item id="6801" name="±¸·Ý" />
-                    <Item id="6315" name="½ûÓÃ" />
-                    <Item id="6316" name="¼òµ¥±¸·Ý" />
-                    <Item id="6317" name="ÈßÓà±¸·Ý" />
-                    <Item id="6804" name="Ê¹ÓÃ×Ô¶¨Òå±¸·ÝÄ¿Â¼" />
-                    <Item id="6803" name="Ä¿Â¼ :" />
-					<Item id="6817" name="ÎÄ¼þ×éÈº¿ìÕÕºÍ¶¨ÆÚ±¸·Ý"/>
-					<Item id="6818" name="Æô¶¯ÎÄ¼þ×éÈº¿ìÕÕºÍ¶¨ÆÚ±¸·Ý"/>
-					<Item id="6819" name="Ã¿"/>
-					<Item id="6821" name="Ãë"/>
-					<Item id="6822" name="¶¨ÆÚ±¸·ÝÔÚ :"/>
+                <Backup title="å¤‡ä»½">
+                    <Item id="6801" name="å¤‡ä»½" />
+                    <Item id="6315" name="ç¦ç”¨" />
+                    <Item id="6316" name="ç®€å•å¤‡ä»½" />
+                    <Item id="6317" name="å†—ä½™å¤‡ä»½" />
+                    <Item id="6804" name="ä½¿ç”¨è‡ªå®šä¹‰å¤‡ä»½ç›®å½•" />
+                    <Item id="6803" name="ç›®å½• :" />
+					<Item id="6817" name="æ–‡ä»¶ç»„ç¾¤å¿«ç…§å’Œå®šæœŸå¤‡ä»½"/>
+					<Item id="6818" name="å¯åŠ¨æ–‡ä»¶ç»„ç¾¤å¿«ç…§å’Œå®šæœŸå¤‡ä»½"/>
+					<Item id="6819" name="æ¯"/>
+					<Item id="6821" name="ç§’"/>
+					<Item id="6822" name="å®šæœŸå¤‡ä»½åœ¨ :"/>
                 </Backup>
-                <AutoCompletion title="×Ô¶¯Íê³É">
-                    <Item id="6807" name="×Ô¶¯Íê³É" />
-                    <Item id="6808" name="ËùÓÐÊäÈë¾ùÆôÓÃ×Ô¶¯Íê³É" />
-                    <Item id="6809" name="º¯Êý×Ô¶¯Íê³É" />
-                    <Item id="6810" name="µ¥´Ê×Ô¶¯Íê³É" />
-                    <Item id="6816" name="²ÎÊýÓëµ¥´Ê"/>
-                    <Item id="6811" name="´ÓµÚ" />
-                    <Item id="6813" name="¸ö×Ö·û¿ªÊ¼" />
-                    <Item id="6814" name="ÓÐÐ§Öµ : 1 - 9" />
-                    <Item id="6815" name="ÊäÈëÊ±ÌáÊ¾º¯Êý²ÎÊý" />
-                    <Item id="6851" name="×Ô¶¯ÊäÈë"/>
-                    <Item id="6857" name=" html/xml½áÊø±êÇ©"/>
-                    <Item id="6858" name="´ò¿ª"/>
-                    <Item id="6859" name="¹Ø±Õ"/>
-                    <Item id="6860" name="Æ¥Åä¶Ô1:"/>
-                    <Item id="6863" name="Æ¥Åä¶Ô2:"/>
-                    <Item id="6866" name="Æ¥Åä¶Ô3:"/>
+                <AutoCompletion title="è‡ªåŠ¨å®Œæˆ">
+                    <Item id="6807" name="è‡ªåŠ¨å®Œæˆ" />
+                    <Item id="6808" name="æ‰€æœ‰è¾“å…¥å‡å¯ç”¨è‡ªåŠ¨å®Œæˆ" />
+                    <Item id="6809" name="å‡½æ•°è‡ªåŠ¨å®Œæˆ" />
+                    <Item id="6810" name="å•è¯è‡ªåŠ¨å®Œæˆ" />
+                    <Item id="6816" name="å‚æ•°ä¸Žå•è¯"/>
+                    <Item id="6811" name="ä»Žç¬¬" />
+                    <Item id="6813" name="ä¸ªå­—ç¬¦å¼€å§‹" />
+                    <Item id="6814" name="æœ‰æ•ˆå€¼ : 1 - 9" />
+                    <Item id="6815" name="è¾“å…¥æ—¶æç¤ºå‡½æ•°å‚æ•°" />
+                    <Item id="6851" name="è‡ªåŠ¨è¾“å…¥"/>
+                    <Item id="6857" name=" html/xmlç»“æŸæ ‡ç­¾"/>
+                    <Item id="6858" name="æ‰“å¼€"/>
+                    <Item id="6859" name="å…³é—­"/>
+                    <Item id="6860" name="åŒ¹é…å¯¹1:"/>
+                    <Item id="6863" name="åŒ¹é…å¯¹2:"/>
+                    <Item id="6866" name="åŒ¹é…å¯¹3:"/>
                 </AutoCompletion>
                 
-                <MultiInstance title="¶àÊµÀý">
-                    <Item id="6151" name="¶àÊµÀýÉè¶¨"/>
-                    <Item id="6152" name="Ê¹ÓÃÐÂNotepad++ÊµÀýÆô¶¯»á»°"/>
-                    <Item id="6153" name="Ê¼ÖÕÊ¹ÓÃ¶àÊµÀýÄ£Ê½"/>
-                    <Item id="6154" name="Ä¬ÈÏ (µ¥ÊµÀý)"/>
-                    <Item id="6155" name="* ÐÞ¸Ä´ËÏîÉèÖÃÐèÖØÆôNotepad++·½¿ÉÉúÐ§"/>
+                <MultiInstance title="å¤šå®žä¾‹">
+                    <Item id="6151" name="å¤šå®žä¾‹è®¾å®š"/>
+                    <Item id="6152" name="ä½¿ç”¨æ–°Notepad++å®žä¾‹å¯åŠ¨ä¼šè¯"/>
+                    <Item id="6153" name="å§‹ç»ˆä½¿ç”¨å¤šå®žä¾‹æ¨¡å¼"/>
+                    <Item id="6154" name="é»˜è®¤ (å•å®žä¾‹)"/>
+                    <Item id="6155" name="* ä¿®æ”¹æ­¤é¡¹è®¾ç½®éœ€é‡å¯Notepad++æ–¹å¯ç”Ÿæ•ˆ"/>
                 </MultiInstance>
                 
-                <Delimiter title="¶¨½ç·û">
-                    <Item id="6251" name="¶¨½ç·ûÑ¡ÔñÉèÖÃ (Ctrl + Ë«»÷Êó±ê×ó¼ü)"/>
-                    <Item id="6252" name="´ò¿ª"/>
-                    <Item id="6255" name="¹Ø±Õ"/>
-                    <Item id="6256" name="ÔÊÐíÑ¡È¡¶àÐÐ"/>
+                <Delimiter title="å®šç•Œç¬¦">
+                    <Item id="6251" name="å®šç•Œç¬¦é€‰æ‹©è®¾ç½® (Ctrl + åŒå‡»é¼ æ ‡å·¦é”®)"/>
+                    <Item id="6252" name="æ‰“å¼€"/>
+                    <Item id="6255" name="å…³é—­"/>
+                    <Item id="6256" name="å…è®¸é€‰å–å¤šè¡Œ"/>
                 </Delimiter>
                 
-				<Cloud title="ÔÆ¶Ë">
-                    <Item id="6262" name="ÔÆ¶ËÉèÖÃ"/>
-                    <Item id="6263" name="ÍòÀïÎÞÔÆ"/>
+				<Cloud title="äº‘ç«¯">
+                    <Item id="6262" name="äº‘ç«¯è®¾ç½®"/>
+                    <Item id="6263" name="ä¸‡é‡Œæ— äº‘"/>
                     <Item id="6264" name="Dropbox"/>
                     <Item id="6265" name="OneDrive"/>
                     <Item id="6266" name="Google Drive"/>
@@ -813,114 +813,114 @@
                 </Cloud>
 
             </Preference>
-            <MultiMacro title="ÖØ¸´ÔËÐÐºê">
-                <Item id="1" name="ÔËÐÐ" />
-                <Item id="2" name="È¡Ïû" />
-                <Item id="8006" name="ÔËÐÐºê :" />
-                <Item id="8001" name="ÔËÐÐ" />
-                <Item id="8005" name="´Î" />
-                <Item id="8002" name="ÔËÐÐµ½ÎÄ¼þÎ²" />
+            <MultiMacro title="é‡å¤è¿è¡Œå®">
+                <Item id="1" name="è¿è¡Œ" />
+                <Item id="2" name="å–æ¶ˆ" />
+                <Item id="8006" name="è¿è¡Œå® :" />
+                <Item id="8001" name="è¿è¡Œ" />
+                <Item id="8005" name="æ¬¡" />
+                <Item id="8002" name="è¿è¡Œåˆ°æ–‡ä»¶å°¾" />
             </MultiMacro>
-            <Window title="ÎÄ¼þ´°¿Ú">
-                <Item id="1" name="¼¤»î" />
-                <Item id="2" name="È·¶¨" />
-                <Item id="7002" name="±£´æÎÄ¼þ" />
-                <Item id="7003" name="¹Ø±ÕÎÄ¼þ" />
-                <Item id="7004" name="ÎÄ¼þÅÅÐò" />
+            <Window title="æ–‡ä»¶çª—å£">
+                <Item id="1" name="æ¿€æ´»" />
+                <Item id="2" name="ç¡®å®š" />
+                <Item id="7002" name="ä¿å­˜æ–‡ä»¶" />
+                <Item id="7003" name="å…³é—­æ–‡ä»¶" />
+                <Item id="7004" name="æ–‡ä»¶æŽ’åº" />
             </Window>
-            <ColumnEditor title="ÁÐ±à¼­">
-                <Item id="2023" name="²åÈëÎÄ±¾" />
-                <Item id="2033" name="²åÈëÊý×Ö" />
-                <Item id="2030" name="³õÊ¼Öµ :" />
-                <Item id="2031" name="ÔöÁ¿ :" />
-                <Item id="2035" name="0 Ç°×º" />
-                <Item id="2032" name="¸ñÊ½" />
-                <Item id="2024" name="Ê®½øÖÆ" />
-                <Item id="2025" name="°Ë½øÖÆ" />
-                <Item id="2026" name="Ê®Áù½øÖÆ" />
-                <Item id="2027" name="¶þ½øÖÆ" />
-                <Item id="1" name="È·¶¨" />
-                <Item id="2" name="È¡Ïû" />
+            <ColumnEditor title="åˆ—ç¼–è¾‘">
+                <Item id="2023" name="æ’å…¥æ–‡æœ¬" />
+                <Item id="2033" name="æ’å…¥æ•°å­—" />
+                <Item id="2030" name="åˆå§‹å€¼ :" />
+                <Item id="2031" name="å¢žé‡ :" />
+                <Item id="2035" name="0 å‰ç¼€" />
+                <Item id="2032" name="æ ¼å¼" />
+                <Item id="2024" name="åè¿›åˆ¶" />
+                <Item id="2025" name="å…«è¿›åˆ¶" />
+                <Item id="2026" name="åå…­è¿›åˆ¶" />
+                <Item id="2027" name="äºŒè¿›åˆ¶" />
+                <Item id="1" name="ç¡®å®š" />
+                <Item id="2" name="å–æ¶ˆ" />
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="±à¼­¿ì½Ý²Ëµ¥" message="Äú¿ÉÒÔÍ¨¹ý±à¼­contextMenu.xmlÎÄ¼þÀ´ÐÞ¸ÄNotepad++µÄ¿ì½Ý²Ëµ¥.\rÐÞ¸ÄcontextMenu.xmlÎÄ¼þºó£¬ÖØÆôNotepad++³ÌÐòÉúÐ§." />
-            <NppHelpAbsentWarning title="ÎÄ¼þ²»´æÔÚ" message="\rÎÄ¼þ²»´æÔÚ. Çë´ÓNotepad++¹ÙÍøÏÂÔØ." />
-            <SaveCurrentModifWarning title="±£´æµ±Ç°ÐÞ¸Ä" message="Äã½«Òª±£´æµ±Ç°µÄÐÞ¸Ä.\rËùÓÐÐÞ¸Ä¶¼ÊÇ²»¿ÉÄæµÄ.\r\r¼ÌÐø£¿" />
-            <LoseUndoAbilityWarning title="ÎÞ·¨»Ö¸´¾¯¸æ" message="Äã½«Òª±£´æµ±Ç°µÄÐÞ¸Ä.\rËùÓÐÐÞ¸Ä¶¼ÊÇ²»¿ÉÄæµÄ.\r\r¼ÌÐø£¿" />
-            <CannotMoveDoc title="ÒÆ¶¯µ½ÐÂµÄNotepad++´°¿Ú" message="ÎÄ¼þÒÑÐÞ¸Ä£¬Çë±£´æ²¢ÖØÊÔ¡£" />
-            <DocReloadWarning title="ÖØÔØ¾¯¸æ" message="ÄúÈ·¶¨ÒªÖØÐÂ¼ÓÔØµ±Ç°ÎÄ¼þ²¢Ê§È¥ÔÚNotepad++Ëù×öµÄÐÞ¸ÄÂð£¿" />
-            <FileLockedWarning title="±£´æÊ§°Ü" message="Çë¼ì²éÎÄ¼þÊÇ·ñÔÚ±ðµÄ³ÌÐòÖÐ´ò¿ª" />
-            <FileAlreadyOpenedInNpp title="" message="´ËÎÄ¼þÒÑ¾­ÔÚNotepad++ÖÐ´ò¿ª¡£" />
-            <DeleteFileFailed title="É¾³ýÎÄ¼þ" message="ÎÄ¼þÉ¾³ýÊ§°Ü" />
+            <ContextMenuXmlEditWarning title="ç¼–è¾‘å¿«æ·èœå•" message="æ‚¨å¯ä»¥é€šè¿‡ç¼–è¾‘contextMenu.xmlæ–‡ä»¶æ¥ä¿®æ”¹Notepad++çš„å¿«æ·èœå•.\rä¿®æ”¹contextMenu.xmlæ–‡ä»¶åŽï¼Œé‡å¯Notepad++ç¨‹åºç”Ÿæ•ˆ." />
+            <NppHelpAbsentWarning title="æ–‡ä»¶ä¸å­˜åœ¨" message="\ræ–‡ä»¶ä¸å­˜åœ¨. è¯·ä»ŽNotepad++å®˜ç½‘ä¸‹è½½." />
+            <SaveCurrentModifWarning title="ä¿å­˜å½“å‰ä¿®æ”¹" message="ä½ å°†è¦ä¿å­˜å½“å‰çš„ä¿®æ”¹.\ræ‰€æœ‰ä¿®æ”¹éƒ½æ˜¯ä¸å¯é€†çš„.\r\rç»§ç»­ï¼Ÿ" />
+            <LoseUndoAbilityWarning title="æ— æ³•æ¢å¤è­¦å‘Š" message="ä½ å°†è¦ä¿å­˜å½“å‰çš„ä¿®æ”¹.\ræ‰€æœ‰ä¿®æ”¹éƒ½æ˜¯ä¸å¯é€†çš„.\r\rç»§ç»­ï¼Ÿ" />
+            <CannotMoveDoc title="ç§»åŠ¨åˆ°æ–°çš„Notepad++çª—å£" message="æ–‡ä»¶å·²ä¿®æ”¹ï¼Œè¯·ä¿å­˜å¹¶é‡è¯•ã€‚" />
+            <DocReloadWarning title="é‡è½½è­¦å‘Š" message="æ‚¨ç¡®å®šè¦é‡æ–°åŠ è½½å½“å‰æ–‡ä»¶å¹¶å¤±åŽ»åœ¨Notepad++æ‰€åšçš„ä¿®æ”¹å—ï¼Ÿ" />
+            <FileLockedWarning title="ä¿å­˜å¤±è´¥" message="è¯·æ£€æŸ¥æ–‡ä»¶æ˜¯å¦åœ¨åˆ«çš„ç¨‹åºä¸­æ‰“å¼€" />
+            <FileAlreadyOpenedInNpp title="" message="æ­¤æ–‡ä»¶å·²ç»åœ¨Notepad++ä¸­æ‰“å¼€ã€‚" />
+            <DeleteFileFailed title="åˆ é™¤æ–‡ä»¶" message="æ–‡ä»¶åˆ é™¤å¤±è´¥" />
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="ÄúÒª´ò¿ªµÄÎÄ¼þÌ«´ó" message="$INT_REPLACE$ ÎÄ¼þ½«±»´ò¿ª.\rÄãÈ·¶¨´ò¿ªËüÂð£¿" />
+            <NbFileToOpenImportantWarning title="æ‚¨è¦æ‰“å¼€çš„æ–‡ä»¶å¤ªå¤§" message="$INT_REPLACE$ æ–‡ä»¶å°†è¢«æ‰“å¼€.\rä½ ç¡®å®šæ‰“å¼€å®ƒå—ï¼Ÿ" />
         </MessageBox>
         <ClipboardHistory>
-            <PanelTitle name="¼ôÌù°åÀúÊ·¼ÇÂ¼"/>
+            <PanelTitle name="å‰ªè´´æ¿åŽ†å²è®°å½•"/>
         </ClipboardHistory>
         <DocSwitcher>
-            <PanelTitle name="¿ªÆôÎÄ¼þÁÐ±í"/>
-            <ColumnName name="±êÌâ"/>
-            <ColumnExt name="¸±±êÌâ"/>
+            <PanelTitle name="å¼€å¯æ–‡ä»¶åˆ—è¡¨"/>
+            <ColumnName name="æ ‡é¢˜"/>
+            <ColumnExt name="å‰¯æ ‡é¢˜"/>
         </DocSwitcher>
         <AsciiInsertion>
-            <PanelTitle name="ASCIIÊäÈëÃæ°å"/>
-            <ColumnVal name="Öµ"/>
-            <ColumnHex name="16½øÖÆÂë"/>
-            <ColumnChar name="×Ö·û"/>
+            <PanelTitle name="ASCIIè¾“å…¥é¢æ¿"/>
+            <ColumnVal name="å€¼"/>
+            <ColumnHex name="16è¿›åˆ¶ç "/>
+            <ColumnChar name="å­—ç¬¦"/>
         </AsciiInsertion>
         <DocumentMap>
-            <PanelTitle name="ÎÄµµ½á¹¹Í¼"/>
+            <PanelTitle name="æ–‡æ¡£ç»“æž„å›¾"/>
         </DocumentMap>
         <FunctionList>
-            <PanelTitle name="º¯Êý¹¦ÄÜ±í"/>
-            <SortTip name="ÅÅÐò" />
-            <ReloadTip name="ÖØÐÂÔØÈë" />
+            <PanelTitle name="å‡½æ•°åŠŸèƒ½è¡¨"/>
+            <SortTip name="æŽ’åº" />
+            <ReloadTip name="é‡æ–°è½½å…¥" />
         </FunctionList>
         <ProjectManager>
-            <PanelTitle name="¹¤³Ì" />
-            <WorkspaceRootName name="¹¤×÷Çø" />
-            <NewProjectName name="¹¤³ÌÃû" />
-            <NewFolderName name="ÎÄ¼þ¼ÐÃû³Æ" />
+            <PanelTitle name="å·¥ç¨‹" />
+            <WorkspaceRootName name="å·¥ä½œåŒº" />
+            <NewProjectName name="å·¥ç¨‹å" />
+            <NewFolderName name="æ–‡ä»¶å¤¹åç§°" />
             <Menus>
                 <Entries>
-                    <Item id="0" name="¹¤×÷Çø" />
-                    <Item id="1" name="±à¼­" />
+                    <Item id="0" name="å·¥ä½œåŒº" />
+                    <Item id="1" name="ç¼–è¾‘" />
                 </Entries>
                 <WorkspaceMenu>
-                    <Item id="3122" name="ÐÂ¹¤×÷Çø" />
-                    <Item id="3123" name="´ò¿ª¹¤×÷Çø" />
-                    <Item id="3124" name="ÖØÔØ¹¤×÷Çø" />
-                    <Item id="3125" name="±£´æ" />
-                    <Item id="3126" name="Áí´æÎª..." />
-                    <Item id="3127" name="Áí´æÎª¸±±¾..." />
-                    <Item id="3121" name="Ôö¼ÓÐÂ¹¤³Ì" />
+                    <Item id="3122" name="æ–°å·¥ä½œåŒº" />
+                    <Item id="3123" name="æ‰“å¼€å·¥ä½œåŒº" />
+                    <Item id="3124" name="é‡è½½å·¥ä½œåŒº" />
+                    <Item id="3125" name="ä¿å­˜" />
+                    <Item id="3126" name="å¦å­˜ä¸º..." />
+                    <Item id="3127" name="å¦å­˜ä¸ºå‰¯æœ¬..." />
+                    <Item id="3121" name="å¢žåŠ æ–°å·¥ç¨‹" />
                 </WorkspaceMenu>
                 <ProjectMenu>
-                    <Item id="3111" name="ÖØÃüÃû" />
-                    <Item id="3112" name="Ìí¼ÓÎÄ¼þ¼Ð" />
-                    <Item id="3113" name="Ìí¼ÓÎÄ¼þ..." />
-                    <Item id="3117" name="´ÓÄ¿Â¼Ìí¼ÓÎÄ¼þ..." />
-                    <Item id="3114" name="ÒÆ³ý" />
-                    <Item id="3118" name="ÉÏÒÆ" />
-                    <Item id="3119" name="ÏÂÒÆ" />
+                    <Item id="3111" name="é‡å‘½å" />
+                    <Item id="3112" name="æ·»åŠ æ–‡ä»¶å¤¹" />
+                    <Item id="3113" name="æ·»åŠ æ–‡ä»¶..." />
+                    <Item id="3117" name="ä»Žç›®å½•æ·»åŠ æ–‡ä»¶..." />
+                    <Item id="3114" name="ç§»é™¤" />
+                    <Item id="3118" name="ä¸Šç§»" />
+                    <Item id="3119" name="ä¸‹ç§»" />
                 </ProjectMenu>
                 <FolderMenu>
-                    <Item id="3111" name="ÖØÃüÃû" />
-                    <Item id="3112" name="Ìí¼ÓÎÄ¼þ¼Ð" />
-                    <Item id="3113" name="Ìí¼ÓÎÄ¼þ..." />
-                    <Item id="3117" name="´ÓÄ¿Â¼Ìí¼ÓÎÄ¼þ..." />
-                    <Item id="3114" name="ÒÆ³ý" />
-                    <Item id="3118" name="ÉÏÒÆ" />
-                    <Item id="3119" name="ÏÂÒÆ" />
+                    <Item id="3111" name="é‡å‘½å" />
+                    <Item id="3112" name="æ·»åŠ æ–‡ä»¶å¤¹" />
+                    <Item id="3113" name="æ·»åŠ æ–‡ä»¶..." />
+                    <Item id="3117" name="ä»Žç›®å½•æ·»åŠ æ–‡ä»¶..." />
+                    <Item id="3114" name="ç§»é™¤" />
+                    <Item id="3118" name="ä¸Šç§»" />
+                    <Item id="3119" name="ä¸‹ç§»" />
                 </FolderMenu>
                 <FileMenu>
-                    <Item id="3111" name="ÖØÃüÃû" />
-                    <Item id="3115" name="ÒÆ³ý" />
-                    <Item id="3116" name="¸ü¸ÄÎÄ¼þÂ·¾¶" />
-                    <Item id="3118" name="ÉÏÒÆ" />
-                    <Item id="3119" name="ÏÂÒÆ" />
+                    <Item id="3111" name="é‡å‘½å" />
+                    <Item id="3115" name="ç§»é™¤" />
+                    <Item id="3116" name="æ›´æ”¹æ–‡ä»¶è·¯å¾„" />
+                    <Item id="3118" name="ä¸Šç§»" />
+                    <Item id="3119" name="ä¸‹ç§»" />
                 </FileMenu>
             </Menus>
         </ProjectManager>

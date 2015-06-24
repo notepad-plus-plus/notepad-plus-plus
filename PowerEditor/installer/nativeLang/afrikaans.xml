@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
 	<Native-Langue name = "Afrikaans" filename="afrikaans.xml">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId="file" name = "&amp;Leêr"/>
+					<Item menuId="file" name = "&amp;LeÄ™r"/>
 					<Item menuId="edit" name = "&amp;Redigeer"/>
 					<Item menuId="search" name = "&amp;Soek"/>
 					<Item menuId="view" name = "&amp;Uitsig"/>
@@ -20,7 +20,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="edit-copyToClipboard" name = "Kopiëer Na klipbord"/>
+                    <Item subMenuId="edit-copyToClipboard" name = "KopiÃ«er Na klipbord"/>
                     <Item subMenuId="edit-indent" name = "Inspring"/>
                     <Item subMenuId="edit-convertCaseTo" name = "Verander register"/>
                     <Item subMenuId="edit-lineOperations" name = "Lyn Operasies"/>
@@ -82,8 +82,8 @@
                     <Item id = "42026" name = "Teksrigting RNL"/>
                     <Item id = "42027" name = "Teksigting LNR"/>
                     <Item id = "42028" name = "Stel Lees Alleenlik"/>
-                    <Item id = "42029" name = "Huidige volle leêr lokasie na klipbord"/>
-                    <Item id = "42030" name = "Huidige leêr naam na klipbord"/>
+                    <Item id = "42029" name = "Huidige volle leÄ™r lokasie na klipbord"/>
+                    <Item id = "42030" name = "Huidige leÄ™r naam na klipbord"/>
                     <Item id = "42031" name = "Huidige dir lokasie na klipbord"/>
                     <Item id = "42032" name = "Loop 'n makro baie kere..."/>
                     <Item id = "42033" name = "Verwyder lees-alleenlik vlag"/>
@@ -101,15 +101,15 @@
                     <Item id = "43009" name = "Gaan na teenoor hakkie"/>
                     <Item id = "43010" name = "Vind Vorige"/>
                     <Item id = "43011" name = "&amp;Vergrootte Soek..."/>
-                    <Item id = "43013" name = "Vind Binne Leêrs"/>
+                    <Item id = "43013" name = "Vind Binne LeÄ™rs"/>
                     <Item id = "43014" name = "Vind Volgende (globaal)"/>
                     <Item id = "43015" name = "Vind Vorige (globaal)"/>
                     <Item id = "43016" name = "Merk Als"/>
                     <Item id = "43017" name = "Ontmerk Als"/>
-                    <Item id = "43018" name = "Aan boekmerkgekoppelde reëls knip"/>
-                    <Item id = "43019" name = "Aan boekmerkgekoppelde reëls kopiëer"/>
-                    <Item id = "43020" name = "Aan boekmerkgekoppelde reëls plak"/>
-                    <Item id = "43021" name = "Aan boekmerkgekoppelde reëls wis"/>
+                    <Item id = "43018" name = "Aan boekmerkgekoppelde reÃ«ls knip"/>
+                    <Item id = "43019" name = "Aan boekmerkgekoppelde reÃ«ls kopiÃ«er"/>
+                    <Item id = "43020" name = "Aan boekmerkgekoppelde reÃ«ls plak"/>
+                    <Item id = "43021" name = "Aan boekmerkgekoppelde reÃ«ls wis"/>
                     <Item id = "43022" name = "Gebruik 1st styl"/>
                     <Item id = "43023" name = "Wis 1st styl"/>
                     <Item id = "43024" name = "Gebruik 2nd styl"/>
@@ -179,8 +179,8 @@
                     <Item id = "50002" name = "Funksie parameters leidraad"/>
                     <Item id = "42034" name = "Kolom Redigeerder..."/>
                     <Item id = "44042" name = "Steek lyne weg"/>
-                    <Item id = "42040" name = "Maak alle laaste leêrs oop"/>
-                    <Item id = "42041" name = "Wis laaste leêrslys"/>
+                    <Item id = "42040" name = "Maak alle laaste leÄ™rs oop"/>
+                    <Item id = "42041" name = "Wis laaste leÄ™rslys"/>
 					
                 </Commands>
             </Main>
@@ -194,8 +194,8 @@
                     <Item CMID = "4" name = "Druk my"/>
                     <Item CMID = "5" name = "Gaan na 'n ander sig"/>
                     <Item CMID = "6" name = "Kloon na 'n ander sig"/>
-					<Item CMID = "7" name = "Volle leêr lokasie na klipbord"/>
-					<Item CMID = "8" name = "Leêr naam na klipbord"/>
+					<Item CMID = "7" name = "Volle leÄ™r lokasie na klipbord"/>
+					<Item CMID = "8" name = "LeÄ™r naam na klipbord"/>
 					<Item CMID = "9" name = "Huidige dir lokasie na klipbord"/>
 					<Item CMID = "10" name = "Verander my naam"/>
 					<Item CMID = "11" name = "Verwyder my"/>
@@ -207,7 +207,7 @@
         </Menu>
         
         <Dialog>
-            <Find title = "" titleFind = "Vind" titleReplace = "Vervang" titleFindInFiles = "Vind in leêrs">
+            <Find title = "" titleFind = "Vind" titleReplace = "Vervang" titleFindInFiles = "Vind in leÄ™rs">
                 <Item id = "1" name = "Vind volgende"/>
                 <Item id = "2" name = "Maak Toe"/>
                 <Item id = "1620" name = "Vind wat :"/>
@@ -233,7 +233,7 @@
 			 	<Item id = "1633" name = "Maak skoon"/>
 			 	<Item id = "1635" name = "Vervang als in alle oop dokumente"/>
 			 	<Item id = "1636" name = "Vind als in alle oop dokumente"/>
-			 	<Item id = "1637" name = "Vind in Leêrs"/>
+			 	<Item id = "1637" name = "Vind in LeÄ™rs"/>
 			 	<Item id = "1640" name = "Skakel dialoog"/>
 			 	<Item id = "1654" name = "Filters :"/>
 			 	<Item id = "1655" name = "Gids :"/>
@@ -243,7 +243,7 @@
 			 	<Item id = "1624" name = "Soek metode"/>
 			 	<Item id = "1625" name = "Normaal"/>
 			 	<Item id = "1626" name = "Verlengde (\n, \r, \t, \0, \x...)"/>
-			 	<Item id = "1660" name = "Vervang in leêrs"/>
+			 	<Item id = "1660" name = "Vervang in leÄ™rs"/>
 			 	<Item id = "1641" name = "Vind als in huidige dokument"/>
 			 	<Item id = "1686" name = "Deursigtigheid"/>
             </Find>
@@ -251,7 +251,7 @@
                 <Item id = "2007" name = "Lyn"/>
                 <Item id = "2008" name = "Afset"/>
                 <Item id = "1" name = "&amp;Gaan !"/>
-                <Item id = "2" name = "Ek gaan nêrens"/>
+                <Item id = "2" name = "Ek gaan nÄ™rens"/>
                 <Item id = "2004" name = "Jy is hier :"/>
                 <Item id = "2005" name = "Wa wil jy gaan :"/>
                 <Item id = "2006" name = "Jy kan nie verder gaan as :"/>
@@ -420,11 +420,11 @@
 					<Item id = "6409" name = "UCS-2 Big endian"/>
 					<Item id = "6410" name = "UCS-2 small endian"/>
 					<Item id = "6411" name = "Verstek Taal :"/>
-					<Item id = "6413" name = "Leêr Maak Oop/ Red Lokasie"/>
+					<Item id = "6413" name = "LeÄ™r Maak Oop/ Red Lokasie"/>
 					<Item id = "6414" name = "Volg die huidige dokument"/>
 					<Item id = "6415" name = "Onthou die laaste operasie lokasie"/>
                 </NewDoc>
-				<FileAssoc title = "Leêr Assosiasies">
+				<FileAssoc title = "LeÄ™r Assosiasies">
 					<Item id = "4009" name = "Ondersteunde exts :"/>
 					<Item id = "4010" name = "Geregistreerde exts :"/>
                 </FileAssoc>
@@ -461,19 +461,19 @@
 					<Item id = "6725" name = "Veranderlike :"/>
                 </Print>
 				<MISC title = "ANDER">
-					<Item id = "6304" name = "Geskiedenis Leêr Verstellings"/>
+					<Item id = "6304" name = "Geskiedenis LeÄ™r Verstellings"/>
 	                <Item id = "6305" name = "Moet nie kyk op begin nie"/>
-					<Item id = "6306" name = "Maksimum geskiedenis leêr :"/>
+					<Item id = "6306" name = "Maksimum geskiedenis leÄ™r :"/>
 					<Item id = "6307" name = "Aktiveer"/>
 					<Item id = "6308" name = "Verklein na sys tray"/>
 					<Item id = "6309" name = "Onthou huidige sessie vir volgende begin"/>
-					<Item id = "6312" name = "Leêr Status Auto-Optelling"/>
+					<Item id = "6312" name = "LeÄ™r Status Auto-Optelling"/>
 					<Item id = "6313" name = "Dateer saggies op"/>
 					<Item id = "6318" name = "Kliekbare skakel verstallings"/>
 					<Item id = "6325" name = "Gaan na laate lyn na opdateer"/>
 					<Item id = "6319" name = "Aktiveer"/>
 					<Item id = "6320" name = "Moet nie onderstreep teken nie"/>
-					<Item id = "6322" name = "Sessie Leêr ext:"/>
+					<Item id = "6322" name = "Sessie LeÄ™r ext:"/>
 					<Item id = "6323" name = "Aktiveer Notepad++ auto-opdateerder"/>
 					<Item id = "6324" name = "Dokument skakelaar (Ctrl+TAB)"/>
 					<Item id = "6326" name = "Aktiveer slim uitligting"/>
@@ -482,7 +482,7 @@
 					<Item id="6328" name="Uitligting tag eienskap"/>
 					<Item id="6330" name="Uitligting kommentaar/php/asp zone"/>
 					
-					<Item id = "6331" name = "Wys slegs leêr naam in titelstaaf"/>
+					<Item id = "6331" name = "Wys slegs leÄ™r naam in titelstaaf"/>
 					<Item id = "6114" name = "Aktiveer"/>
 					<Item id = "6115" name = "Auto-indent"/>
 					<Item id = "6117" name = "Aktiveer MRU optrede"/>
@@ -511,7 +511,7 @@
                 <Item id = "8006" name = "Makro om te loop :"/>
                 <Item id = "8001" name = "Loop"/>
                 <Item id = "8005" name = "Hoeveelheid keer"/>
-                <Item id = "8002" name = "Loop tot einde van leêr"/>
+                <Item id = "8002" name = "Loop tot einde van leÄ™r"/>
             </MultiMacro>
 			<Window title = "Vensters">
                 <Item id = "1" name = "Aktiveer"/>

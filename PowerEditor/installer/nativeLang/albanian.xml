@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
 	<Native-Langue name = "Shqip" filename="albanian.xml" >
 		<Menu>
@@ -6,8 +6,8 @@
 				<!-- Main Menu Entries -->
 				<Entries>
 					<Item menuId="file" name = "&amp;Skedari"/>
-					<Item menuId="edit" name = "&amp;Përpuno"/>
-					<Item menuId="search" name = "K&amp;ërko"/>
+					<Item menuId="edit" name = "&amp;PÃ«rpuno"/>
+					<Item menuId="search" name = "K&amp;Ã«rko"/>
 					<Item menuId="view" name = "&amp;Pamja"/>
 					<Item menuId="encoding" name = "F&amp;ormati"/>
 					<Item menuId="language" name = "&amp;Gjuha"/>
@@ -27,52 +27,52 @@
 					<Item id = "41001" name = "&amp;E re	Ctrl+N"/>
 					<Item id = "41002" name = "&amp;Hape	Ctrl+O"/>
 					<Item id = "41003" name = "Mbylle	Ctrl+W"/>
-					<Item id = "41004" name = "M&amp;byll të gjitha"/>
-					<Item id = "41005" name = "Mbyllë të gjitha përpos dokumentit aktual"/>
+					<Item id = "41004" name = "M&amp;byll tÃ« gjitha"/>
+					<Item id = "41005" name = "MbyllÃ« tÃ« gjitha pÃ«rpos dokumentit aktual"/>
 					<Item id = "41006" name = "&amp;Depono	Ctrl+S"/>
-					<Item id = "41007" name = "Depono të g&amp;jitha	Ctrl+Shift+S"/>
+					<Item id = "41007" name = "Depono tÃ« g&amp;jitha	Ctrl+Shift+S"/>
 					<Item id = "41008" name = "Depono s&amp;i..."/>
 					<Item id = "41010" name = "Shtype...	Ctrl+P"/>
-					<Item id = "41011" name = "Përf&amp;undo"/>
+					<Item id = "41011" name = "PÃ«rf&amp;undo"/>
 
 					<Item id = "42001" name = "Prer&amp;je	Ctrl+X"/>
 					<Item id = "42002" name = "&amp;Kopjo	Ctrl+C"/>
-					<Item id = "42003" name = "&amp;Prapëso	Ctrl+Z"/>
-					<Item id = "42004" name = "&amp;Përsërit	Ctrl+Y"/>
+					<Item id = "42003" name = "&amp;PrapÃ«so	Ctrl+Z"/>
+					<Item id = "42004" name = "&amp;PÃ«rsÃ«rit	Ctrl+Y"/>
 					<Item id = "42005" name = "&amp;Shto	Ctrl+V"/>
 					<Item id = "42006" name = "&amp;Zhlyej	Entf"/>
-					<Item id = "42007" name = "M&amp;arko të gjitha	Ctrl+A"/>
-					<Item id = "42008" name = "Shto një TAB (Indent)	TAB"/>
-					<Item id = "42009" name = "Zhlyej një TAB (Outdent)	Shift+TAB"/>
+					<Item id = "42007" name = "M&amp;arko tÃ« gjitha	Ctrl+A"/>
+					<Item id = "42008" name = "Shto njÃ« TAB (Indent)	TAB"/>
+					<Item id = "42009" name = "Zhlyej njÃ« TAB (Outdent)	Shift+TAB"/>
 					<Item id = "42010" name = "Dyfisho rrjeshtin	Ctrl+D"/>
 					<Item id = "42011" name = "Ndrydhe rrjeshtin	Ctrl+T"/>
 					<Item id = "42012" name = "Zhlyje rrjeshtin	Ctrl+I"/>
-					<Item id = "42013" name = "Zhlyje këtë rrjesht	Ctrl+J"/>
-					<Item id = "42014" name = "Rrjeshti i mëparshëm	Ctrl+Shift+Up"/>
-					<Item id = "42015" name = "Rrjeshti i ardhëshëm	Ctrl+Shift+Down"/>
-					<Item id = "42016" name = "Konverto në shkronja të mëdha	Ctrl+Shift+U"/>
-					<Item id = "42017" name = "Konverto në shkronja të vogla	Ctrl+U"/>
+					<Item id = "42013" name = "Zhlyje kÃ«tÃ« rrjesht	Ctrl+J"/>
+					<Item id = "42014" name = "Rrjeshti i mÃ«parshÃ«m	Ctrl+Shift+Up"/>
+					<Item id = "42015" name = "Rrjeshti i ardhÃ«shÃ«m	Ctrl+Shift+Down"/>
+					<Item id = "42016" name = "Konverto nÃ« shkronja tÃ« mÃ«dha	Ctrl+Shift+U"/>
+					<Item id = "42017" name = "Konverto nÃ« shkronja tÃ« vogla	Ctrl+U"/>
 					<Item id = "42018" name = "Fillo &amp;inqizimin	Ctrl+Shift+R"/>
 					<Item id = "42019" name = "Ndale &amp;inqizimin	Ctrl+Shift+R"/>
 					<Item id = "42021" name = "Starto &amp;makron	Ctrl+Shift+P"/>
-					<Item id = "42022" name = "Rrjesht pas rrjeshti komento/ç'komento"/>
-					<Item id = "42023" name = "Ç'komento rrjeshtin e ri"/>
-					<Item id = "42024" name = "Zhlyej fushat e lira të fundme"/>
-					<Item id = "42025" name = "Depono makron e veçuar"/>
+					<Item id = "42022" name = "Rrjesht pas rrjeshti komento/Ã§'komento"/>
+					<Item id = "42023" name = "Ã‡'komento rrjeshtin e ri"/>
+					<Item id = "42024" name = "Zhlyej fushat e lira tÃ« fundme"/>
+					<Item id = "42025" name = "Depono makron e veÃ§uar"/>
 					<Item id = "42026" name = "Drejtimi i shkrimit nga D->M	Ctrl+Alt+R"/>
 					<Item id = "42027" name = "Drejtimi i shkrimit nga M->D	Ctrl+Alt+L"/>
 
-					<Item id = "43001" name = "&amp;Kërko...	Ctrl+F"/>
-					<Item id = "43002" name = "&amp;Kërko tutje	F3"/>
-					<Item id = "43003" name = "Zëvendëso...	Ctrl+H"/>
+					<Item id = "43001" name = "&amp;KÃ«rko...	Ctrl+F"/>
+					<Item id = "43002" name = "&amp;KÃ«rko tutje	F3"/>
+					<Item id = "43003" name = "ZÃ«vendÃ«so...	Ctrl+H"/>
 					<Item id = "43004" name = "Shko te rrjeshti...	Ctrl+G"/>
-					<Item id = "43005" name = "Vendos/zhvendos një vendmarkim	Ctrl+F2"/>
-					<Item id = "43006" name = "Vendmarkimi i ardhëshëm	F2"/>
-					<Item id = "43007" name = "Vendmarkimi i mëparshëm	Shift+F2"/>
-					<Item id = "43008" name = "Zhlyej të gjitha vendmarkimet"/>
-					<Item id = "43009" name = "Gjeje kllapën përkatëse	Ctrl+B"/>
-					<Item id = "43010" name = "Vendi i gjetjes së mëparshme	Shift+F3"/>
-					<Item id = "43013" name = "Kërko në skedë	Ctrl+Shift+F"/>
+					<Item id = "43005" name = "Vendos/zhvendos njÃ« vendmarkim	Ctrl+F2"/>
+					<Item id = "43006" name = "Vendmarkimi i ardhÃ«shÃ«m	F2"/>
+					<Item id = "43007" name = "Vendmarkimi i mÃ«parshÃ«m	Shift+F2"/>
+					<Item id = "43008" name = "Zhlyej tÃ« gjitha vendmarkimet"/>
+					<Item id = "43009" name = "Gjeje kllapÃ«n pÃ«rkatÃ«se	Ctrl+B"/>
+					<Item id = "43010" name = "Vendi i gjetjes sÃ« mÃ«parshme	Shift+F3"/>
+					<Item id = "43013" name = "KÃ«rko nÃ« skedÃ«	Ctrl+Shift+F"/>
 
 					
 					
@@ -83,8 +83,8 @@
 					
 					
 					
-					<Item id = "44010" name = "Mbyll të gjitha palosjet	Alt+0"/>
-					<Item id = "44011" name = "Dialog 'Definuar nga përdoruesi'"/>
+					<Item id = "44010" name = "Mbyll tÃ« gjitha palosjet	Alt+0"/>
+					<Item id = "44011" name = "Dialog 'Definuar nga pÃ«rdoruesi'"/>
 					
 					
 					
@@ -92,33 +92,33 @@
 					
 					
 					
-					<Item id = "44019" name = "Trego të gjitha shenjat"/>
+					<Item id = "44019" name = "Trego tÃ« gjitha shenjat"/>
 					<Item id = "44020" name = "Trego shtyrjet"/>
 					
-					<Item id = "44022" name = "The rrjeshtin në fund"/>
-					<Item id = "44023" name = "Z&amp;madho Ctrl + Rrota e miut përpara"/>
+					<Item id = "44022" name = "The rrjeshtin nÃ« fund"/>
+					<Item id = "44023" name = "Z&amp;madho Ctrl + Rrota e miut pÃ«rpara"/>
 					<Item id = "44024" name = "Zv&amp;oglo	Ctrl+ Rrota e miut prapa"/>
-					<Item id = "44025" name = "Trego tabulatorët e vendmarkimeve"/>
+					<Item id = "44025" name = "Trego tabulatorÃ«t e vendmarkimeve"/>
 					<Item id = "44026" name = "Trego fundin e rrjeshtit"/>
 					
 					
-					<Item id = "44029" name = "Hap të gjitha palosjet	Alt+Shift+0"/>
+					<Item id = "44029" name = "Hap tÃ« gjitha palosjet	Alt+Shift+0"/>
 					<Item id = "44030" name = "Mbyll palosjen	Ctrl+Alt+F"/>
 					<Item id = "44031" name = "Hape palosjen	Ctrl+Alt+Shift+F"/>
-					<Item id = "44032" name = "Pamje e plotë	F11"/>
-					<Item id = "44033" name = "Rikthe madhësinë standarte	Ctrl+/ (në bllokun e numrave)"/>
+					<Item id = "44032" name = "Pamje e plotÃ«	F11"/>
+					<Item id = "44033" name = "Rikthe madhÃ«sinÃ« standarte	Ctrl+/ (nÃ« bllokun e numrave)"/>
 
-					<Item id = "45001" name = "Konverto në Windows Format"/>
-					<Item id = "45002" name = "Konverto në UNIX Format"/>
-					<Item id = "45003" name = "Konverto në MAC Format"/>
-					<Item id = "45004" name = "Kodo në ANSI"/>
-					<Item id = "45005" name = "Kodo në UTF-8"/>
-					<Item id = "45006" name = "Kodo në UCS-2 Big Endian"/>
-					<Item id = "45007" name = "Kodo në UCS-2 Little Endian"/>
-					<Item id = "45008" name = "Trego në UTF-8"/>
+					<Item id = "45001" name = "Konverto nÃ« Windows Format"/>
+					<Item id = "45002" name = "Konverto nÃ« UNIX Format"/>
+					<Item id = "45003" name = "Konverto nÃ« MAC Format"/>
+					<Item id = "45004" name = "Kodo nÃ« ANSI"/>
+					<Item id = "45005" name = "Kodo nÃ« UTF-8"/>
+					<Item id = "45006" name = "Kodo nÃ« UCS-2 Big Endian"/>
+					<Item id = "45007" name = "Kodo nÃ« UCS-2 Little Endian"/>
+					<Item id = "45008" name = "Trego nÃ« UTF-8"/>
 
-					<Item id = "10001" name = "Zhvendose në një pamje tjetër"/>
-					<Item id = "10002" name = "Dyfishoje në një pamje tjetër"/>
+					<Item id = "10001" name = "Zhvendose nÃ« njÃ« pamje tjetÃ«r"/>
+					<Item id = "10002" name = "Dyfishoje nÃ« njÃ« pamje tjetÃ«r"/>
 
 					<Item id = "46001" name = "Konfiguruesi i stilit..."/>
 					<Item id = "47000" name = "Reth...	F1"/>
@@ -131,7 +131,7 @@
 					
 					
 					
-					<Item id = "48009" name = "Përcaktimi i shkurtesave të pullave..."/>
+					<Item id = "48009" name = "PÃ«rcaktimi i shkurtesave tÃ« pullave..."/>
 
 					<Item id = "49000" name = "&amp;Ekzekuto..."/>
 				</Commands>
@@ -140,48 +140,48 @@
 			</Splitter>
 			<TabBar>
 					<Item CMID = "0" name = "Mbylle"/>
-					<Item CMID = "1" name = "Mbyllë të gjitha"/>
+					<Item CMID = "1" name = "MbyllÃ« tÃ« gjitha"/>
 					<Item CMID = "2" name = "Depono"/>
 					<Item CMID = "3" name = "Depono si..."/>
 					<Item CMID = "4" name = "Shtyp"/>
-					<Item CMID = "5" name = "Zhvendose në një pamje tjetër"/>
-					<Item CMID = "6" name = "Dyfishoje në një pamje tjetër"/>
+					<Item CMID = "5" name = "Zhvendose nÃ« njÃ« pamje tjetÃ«r"/>
+					<Item CMID = "6" name = "Dyfishoje nÃ« njÃ« pamje tjetÃ«r"/>
 			</TabBar>
 		</Menu>
 
 		<Dialog>
 			<Find title = "Suchen">
-				<Item id = "1" name = "Kërko më tutje"/>
+				<Item id = "1" name = "KÃ«rko mÃ« tutje"/>
 				<Item id = "2" name = "Mbylle"/>
-				<Item id = "1620" name = "Kërko pas :"/>
-				<Item id = "1603" name = "&amp;Vetëm fjalë të plota"/>
-				<Item id = "1604" name = "Me shkronja&amp;të mëdhatë vogla"/>
+				<Item id = "1620" name = "KÃ«rko pas :"/>
+				<Item id = "1603" name = "&amp;VetÃ«m fjalÃ« tÃ« plota"/>
+				<Item id = "1604" name = "Me shkronja&amp;tÃ« mÃ«dhatÃ« vogla"/>
 				<Item id = "1605" name = "&amp;Shprehjet e rregullta"/>
-				<Item id = "1606" name = "&amp;Te dokumentet fillo prap në fillim"/>
+				<Item id = "1606" name = "&amp;Te dokumentet fillo prap nÃ« fillim"/>
 				<Item id = "1612" name = "P&amp;rapa"/>
 				<Item id = "1613" name = "Par&amp;a"/>
 				<Item id = "1614" name = "Numro"/>
-				<Item id = "1615" name = "Gjej të gjitha"/>
+				<Item id = "1615" name = "Gjej tÃ« gjitha"/>
 				<Item id = "1616" name = "Shenjo rrjeshtin"/>
-				<Item id = "1617" name = "Marko mostrën"/>
-				<Item id = "1618" name = "Zhlyej për çdo kërkim"/>
-				<Item id = "1621" name = "Drejtimi i kërkimit"/>
-				<Item id = "1611" name = "&amp;Zëvendëso me :"/>
-				<Item id = "1608" name = "&amp;Zëvendëso"/>
-				<Item id = "1609" name = "&amp;Zëvendëso të gjitha"/>
+				<Item id = "1617" name = "Marko mostrÃ«n"/>
+				<Item id = "1618" name = "Zhlyej pÃ«r Ã§do kÃ«rkim"/>
+				<Item id = "1621" name = "Drejtimi i kÃ«rkimit"/>
+				<Item id = "1611" name = "&amp;ZÃ«vendÃ«so me :"/>
+				<Item id = "1608" name = "&amp;ZÃ«vendÃ«so"/>
+				<Item id = "1609" name = "&amp;ZÃ«vendÃ«so tÃ« gjitha"/>
 				<Item id = "1623" name = "Transparenca"/>
-			 	<Item id = "1632" name = "Në markim"/>
-			 	<Item id = "1633" name = "Prapësp"/>
-			 	<Item id = "1635" name = "Zëvendëso gjetjet në të gjitha skedat e hapura"/>
-			 	<Item id = "1636" name = "Kërko në të gjitha skedat e hapura"/>
-			 	<Item id = "1637" name = "Kërko në skeda"/>
+			 	<Item id = "1632" name = "NÃ« markim"/>
+			 	<Item id = "1633" name = "PrapÃ«sp"/>
+			 	<Item id = "1635" name = "ZÃ«vendÃ«so gjetjet nÃ« tÃ« gjitha skedat e hapura"/>
+			 	<Item id = "1636" name = "KÃ«rko nÃ« tÃ« gjitha skedat e hapura"/>
+			 	<Item id = "1637" name = "KÃ«rko nÃ« skeda"/>
 			</Find>
 			<GoToLine title = "Shko te rrjeshti">
 				<Item id = "1" name = "&amp;OK"/>
-				<Item id = "2" name = "Ndërpre"/>
-				<Item id = "2004" name = "Ju jeni Këtu"/>
-				<Item id = "2005" name = "Caku që dëshironi :"/>
-				<Item id = "2006" name = "Nuk mund të shkoni më tutje se :"/>
+				<Item id = "2" name = "NdÃ«rpre"/>
+				<Item id = "2004" name = "Ju jeni KÃ«tu"/>
+				<Item id = "2005" name = "Caku qÃ« dÃ«shironi :"/>
+				<Item id = "2006" name = "Nuk mund tÃ« shkoni mÃ« tutje se :"/>
 			</GoToLine>
 
 			<TabSize>
@@ -192,44 +192,44 @@
 			</MaxFile>
 
 			<Run title = "Ekzekuto...">
-				<Item id = "1903" name = "Programi për t'u ekzekutuar"/>
+				<Item id = "1903" name = "Programi pÃ«r t'u ekzekutuar"/>
 				<Item id = "1" name = "&amp;Ekzekuto..."/>
-				<Item id = "2" name = "&amp;Përfundo"/>
+				<Item id = "2" name = "&amp;PÃ«rfundo"/>
 				<Item id = "1904" name = "Depono..."/>
 			</Run>
 
 			<StyleConfig title = "Konfiguruesi i stilit">
 				<Item id = "1" name = "Provo!"/>
-				<Item id = "2" name = "Ndërpre"/>
+				<Item id = "2" name = "NdÃ«rpre"/>
 				<Item id = "2301" name = "Depono"/>
 				<Item id = "2303" name = "Transparenca"/>
 
 				<SubDialog>
 					<Item id = "2204" name = "Trash"/>
-					<Item id = "2205" name = "Pjerrët"/>
+					<Item id = "2205" name = "PjerrÃ«t"/>
 					<Item id = "2206" name = "Paravija"/>
 					<Item id = "2207" name = "Prapavija"/>
 					<Item id = "2208" name = "Shkrimi :"/>
-					<Item id = "2209" name = "Madhësia :"/>
-					<Item id = "2210" name = "Vërejtje : Definimi i këtij stili bëhet definim standard i të gjitha stileve të pa definuara"/>
-					<Item id = "2211" name = "Përshkrimi i stilit :"/>
+					<Item id = "2209" name = "MadhÃ«sia :"/>
+					<Item id = "2210" name = "VÃ«rejtje : Definimi i kÃ«tij stili bÃ«het definim standard i tÃ« gjitha stileve tÃ« pa definuara"/>
+					<Item id = "2211" name = "PÃ«rshkrimi i stilit :"/>
 					<Item id = "2212" name = "Ngjyrat"/>
 					<Item id = "2213" name = "Shkrimet"/>
 					<Item id = "2214" name = "Prap. standarde:"/>
-					<Item id = "2216" name = "Prap. e përdoruesit:"/>
-					<Item id = "2218" name = "Nënvizuar"/>
-					<Item id = "2219" name = "Fjalët standarde kyqe"/>
-					<Item id = "2221" name = "Fjalët kyqe të definuara nga përdoruesi"/>
+					<Item id = "2216" name = "Prap. e pÃ«rdoruesit:"/>
+					<Item id = "2218" name = "NÃ«nvizuar"/>
+					<Item id = "2219" name = "FjalÃ«t standarde kyqe"/>
+					<Item id = "2221" name = "FjalÃ«t kyqe tÃ« definuara nga pÃ«rdoruesi"/>
 				</SubDialog>
 
 			</StyleConfig>
 
-			<UserDefine title = "Gjuha e definuar nga përdoruesi">
-				<Item id = "20002" name = "Riemërto"/>
-				<Item id = "20003" name = "Krijo të re..."/>
+			<UserDefine title = "Gjuha e definuar nga pÃ«rdoruesi">
+				<Item id = "20002" name = "RiemÃ«rto"/>
+				<Item id = "20003" name = "Krijo tÃ« re..."/>
 				<Item id = "20004" name = "Zhlyej"/>
 				<Item id = "20005" name = "Depono si..."/>
-				<Item id = "20007" name = "Gjuha e përdoruesit : "/>
+				<Item id = "20007" name = "Gjuha e pÃ«rdoruesit : "/>
 				<Item id = "20009" name = "Prap. :"/>
 				<Item id = "20012" name = "Kujdes drejtshkrimin"/>
 				<Item id = "20011" name = "Transparenca"/>
@@ -238,17 +238,17 @@
 				<Item id = "2" name = "Prapavija"/>
 				<Item id = "3" name = "Shkrimet"/>
 				<Item id = "4" name = "Shkrimi :"/>
-				<Item id = "5" name = "Madhësia :"/>
+				<Item id = "5" name = "MadhÃ«sia :"/>
 				<Item id = "6" name = "Trash"/>
-				<Item id = "7" name = "Pjerrët"/>
-				<Item id = "8" name = "Nënvizuar"/>
-				<Item id = "10" name = "Trajto fjalën kyqe si simbol"/>
+				<Item id = "7" name = "PjerrÃ«t"/>
+				<Item id = "8" name = "NÃ«nvizuar"/>
+				<Item id = "10" name = "Trajto fjalÃ«n kyqe si simbol"/>
 				<Folder title = "Def. i palosjev &amp;&amp; opcionet">
 					<Item id = "21101" name = "Ngjyrat Standard &amp;&amp; Shkrimet"/>
-					<Item id = "21201" name = "Fjalët kyqe fillimi i palosjes"/>
-					<Item id = "21301" name = "Fjalët kyqe fundi i palosjes"/>
+					<Item id = "21201" name = "FjalÃ«t kyqe fillimi i palosjes"/>
+					<Item id = "21301" name = "FjalÃ«t kyqe fundi i palosjes"/>
 				</Folder>
-				<Keywords title = "Fjalët kyqe">
+				<Keywords title = "FjalÃ«t kyqe">
 					<Item id = "22101" name = "Grupi i 1."/>
 					<Item id = "22201" name = "Grupi i 2."/>
 					<Item id = "22301" name = "Grupi i 3."/>
@@ -263,20 +263,20 @@
 					<Item id = "23101" name = "Bllok komentimi"/>
 					<Item id = "23113" name = "Fillimi i komentit :"/>
 					<Item id = "23115" name = "Fundi i komentit :"/>
-					<Item id = "23116" name = "Trajto fjalën kyqe si simbol"/>
-					<Item id = "23117" name = "Trajto fjalët kyqe si simbole"/>
-					<Item id = "23201" name = "Numër"/>
+					<Item id = "23116" name = "Trajto fjalÃ«n kyqe si simbol"/>
+					<Item id = "23117" name = "Trajto fjalÃ«t kyqe si simbole"/>
+					<Item id = "23201" name = "NumÃ«r"/>
 				</Comment>
-				<Operator title = "Operatorët">
-					<Item id = "24107" name = "Operatorët"/>
-					<Item id = "24103" name = "Simbolet në disponim"/>
-					<Item id = "24101" name = "Operatorët e aktivizuar"/>
-					<Item id = "24201" name = "Ndarësi 1"/>
+				<Operator title = "OperatorÃ«t">
+					<Item id = "24107" name = "OperatorÃ«t"/>
+					<Item id = "24103" name = "Simbolet nÃ« disponim"/>
+					<Item id = "24101" name = "OperatorÃ«t e aktivizuar"/>
+					<Item id = "24201" name = "NdarÃ«si 1"/>
 					<Item id = "24211" name = "Shenja fillestare :"/>
-					<Item id = "24214" name = "Shenja përfundimtare :"/>
-					<Item id = "24301" name = "Ndarësi 2"/>
+					<Item id = "24214" name = "Shenja pÃ«rfundimtare :"/>
+					<Item id = "24301" name = "NdarÃ«si 2"/>
 					<Item id = "24311" name = "Shenja fillestare  :"/>
-					<Item id = "24314" name = "Shenja përfundimtare :"/>
+					<Item id = "24314" name = "Shenja pÃ«rfundimtare :"/>
 				</Operator>
 			</UserDefine>
 		</Dialog>

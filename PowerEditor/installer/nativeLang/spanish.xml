@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="6.7.7">
+	<Native-Langue name="EspaÅ„ol" filename="spanish.xml" version="6.7.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -9,9 +9,9 @@
 					<Item menuId="edit" name="&amp;Editar"/>
 					<Item menuId="search" name="&amp;Buscar"/>
 					<Item menuId="view" name="&amp;Vista"/>
-					<Item menuId="encoding" name="Co&amp;dificación"/>
+					<Item menuId="encoding" name="Co&amp;dificaciÃ³n"/>
 					<Item menuId="language" name="&amp;Lenguaje"/>
-					<Item menuId="settings" name="&amp;Configuración"/>
+					<Item menuId="settings" name="&amp;ConfiguraciÃ³n"/>
 					<Item menuId="macro" name="Macro"/>
 					<Item menuId="run" name="Ejecutar"/>
 					<Item idName="Plugins" name="Plugins"/>
@@ -20,15 +20,15 @@
 				<!-- Sub Menu Entries -->
 				<SubEntries>
 					<Item subMenuId="file-openFolder" name="Abrir la carpeta contenedora"/>
-					<Item subMenuId="file-closeMore" name="Cerrar más"/>
+					<Item subMenuId="file-closeMore" name="Cerrar mÃ¡s"/>
 					<Item subMenuId="file-recentFiles" name="Archivos recientes"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copiar al portapapeles"/>
-					<Item subMenuId="edit-indent" name="Sangría"/>
-					<Item subMenuId="edit-convertCaseTo" name="MAYÚSCULAS/Minúsculas"/>
-					<Item subMenuId="edit-lineOperations" name="Operaciones con líneas"/>
+					<Item subMenuId="edit-indent" name="SangrÃ­a"/>
+					<Item subMenuId="edit-convertCaseTo" name="MAYÃšSCULAS/MinÃºsculas"/>
+					<Item subMenuId="edit-lineOperations" name="Operaciones con lÃ­neas"/>
 					<Item subMenuId="edit-comment" name="Comentarios"/>
 					<Item subMenuId="edit-autorellenado" name="Auto-completar"/>
-					<Item subMenuId="edit-eolConversion" name="Conversión fin de línea"/>
+					<Item subMenuId="edit-eolConversion" name="ConversiÃ³n fin de lÃ­nea"/>
 					<Item subMenuId="edit-blankOperations" name="Operaciones de limpieza"/>
 					<Item subMenuId="edit-pasteSpecial" name="Pegado especial"/>
 					<Item subMenuId="search-markAll" name="Marcar todo"/>
@@ -36,27 +36,27 @@
 					<Item subMenuId="search-jumpUp" name="Subir"/>
 					<Item subMenuId="search-jumpDown" name="Bajar"/>
 					<Item subMenuId="search-bookmark" name="Marca"/>
-					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
+					<Item subMenuId="view-showSymbol" name="Mostrar sÃ­mbolo"/>
 					<Item subMenuId="view-zoom" name="Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Mover/clonar el documento actual"/>
-					<Item subMenuId="view-tab" name="Pestaña"/>
+					<Item subMenuId="view-tab" name="PestaÅ„a"/>
 					<Item subMenuId="view-collapseLevel" name="Contraer nivel"/>
 					<Item subMenuId="view-uncollapseLevel" name="Expandir nivel"/>
 					<Item subMenuId="view-project" name="Proyecto"/>
 					<Item subMenuId="encoding-characterSets" name="Juego de caracteres"/>
-					<Item subMenuId="encoding-arabic" name="Árabe"/>
-					<Item subMenuId="encoding-baltic" name="Báltico"/>
+					<Item subMenuId="encoding-arabic" name="Ãrabe"/>
+					<Item subMenuId="encoding-baltic" name="BÃ¡ltico"/>
 					<Item subMenuId="encoding-celtic" name="Celta"/>
-					<Item subMenuId="encoding-cyrillic" name="Cirílico"/>
+					<Item subMenuId="encoding-cyrillic" name="CirÃ­lico"/>
 					<Item subMenuId="encoding-centralEuropean" name="Europeo central"/>
 					<Item subMenuId="encoding-chinese" name="Chino"/>
 					<Item subMenuId="encoding-easternEuropean" name="Europeo oriental"/>
 					<Item subMenuId="encoding-greek" name="Griego"/>
 					<Item subMenuId="encoding-hebrew" name="Hebreo"/>
-					<Item subMenuId="encoding-japanese" name="Japonés"/>
+					<Item subMenuId="encoding-japanese" name="JaponÃ©s"/>
 					<Item subMenuId="encoding-korean" name="Coreano"/>
 					<Item subMenuId="encoding-northEuropean" name="Europeo del Norte"/>
-					<Item subMenuId="encoding-thai" name="Tailandés"/>
+					<Item subMenuId="encoding-thai" name="TailandÃ©s"/>
 					<Item subMenuId="encoding-turkish" name="Turco"/>
 					<Item subMenuId="encoding-westernEuropean" name="Europeo occidental"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
@@ -70,7 +70,7 @@
 					<Item id="41020" name="cmd"/>
 					<Item id="41003" name="Cerrar"/>
 					<Item id="41004" name="C&amp;errar todas"/>
-					<Item id="41005" name="Cerrar las otras pestañas"/>
+					<Item id="41005" name="Cerrar las otras pestaÅ„as"/>
 					<Item id="41009" name="&amp;Guardar y cerrar"/>
 					<Item id="41018" name="Cerrar todo a la derecha"/>
 					<Item id="41006" name="&amp;Guardar"/>
@@ -79,8 +79,8 @@
 					<Item id="41010" name="Imprimir"/>
 					<Item id="1001" name="Imprimir ahora"/>
 					<Item id="41011" name="Salir"/>
-					<Item id="41012" name="Cargar sesión..."/>
-					<Item id="41013" name="Guardar sesión..."/>
+					<Item id="41012" name="Cargar sesiÃ³n..."/>
+					<Item id="41013" name="Guardar sesiÃ³n..."/>
 					<Item id="41014" name="Recargar desde disco"/>
 					<Item id="41015" name="Guardar una copia como..."/>
 					<Item id="41016" name="Borrar del disco"/>
@@ -93,18 +93,18 @@
 					<Item id="42005" name="&amp;Pegar"/>
 					<Item id="42006" name="&amp;Borrar"/>
 					<Item id="42007" name="Seleccionar t&amp;odo"/>
-					<Item id="42020" name="Inicio/Fin selección"/>
-					<Item id="42008" name="Aumentar guion de línea"/>
-					<Item id="42009" name="Reducir guion de línea"/>
-					<Item id="42010" name="Duplicar línea actual"/>
-					<Item id="42012" name="Dividir líneas"/>
-					<Item id="42013" name="Unir líneas"/>
-					<Item id="42014" name="Subir línea actual"/>
-					<Item id="42015" name="Bajar línea actual"/>
-					<Item id="42016" name="Convertir a MAYÚSCULAS"/>
-					<Item id="42017" name="Convertir a minúsculas"/>
-					<Item id="42018" name="&amp;Inicio de grabación"/>
-					<Item id="42019" name="&amp;Fin de grabación"/>
+					<Item id="42020" name="Inicio/Fin selecciÃ³n"/>
+					<Item id="42008" name="Aumentar guion de lÃ­nea"/>
+					<Item id="42009" name="Reducir guion de lÃ­nea"/>
+					<Item id="42010" name="Duplicar lÃ­nea actual"/>
+					<Item id="42012" name="Dividir lÃ­neas"/>
+					<Item id="42013" name="Unir lÃ­neas"/>
+					<Item id="42014" name="Subir lÃ­nea actual"/>
+					<Item id="42015" name="Bajar lÃ­nea actual"/>
+					<Item id="42016" name="Convertir a MAYÃšSCULAS"/>
+					<Item id="42017" name="Convertir a minÃºsculas"/>
+					<Item id="42018" name="&amp;Inicio de grabaciÃ³n"/>
+					<Item id="42019" name="&amp;Fin de grabaciÃ³n"/>
 					<Item id="42021" name="&amp;Reproducir"/>
 					<Item id="42022" name="Des/Comentar"/>
 					<Item id="42023" name="Comentario"/>
@@ -133,38 +133,38 @@
 					<Item id="42029" name="Enviar ruta actual a portapapeles"/>
 					<Item id="42030" name="Enviar nombre archivo a portapapeles"/>
 					<Item id="42031" name="Enviar ruta carpeta a portapapeles"/>
-					<Item id="42032" name="Ejecutar macro múltiples veces..."/>
+					<Item id="42032" name="Ejecutar macro mÃºltiples veces..."/>
 					<Item id="42033" name="Desactivar solo lectura"/>
 					<Item id="42035" name="Comentar"/>
 					<Item id="42036" name="No comentar"/>
-					<Item id="42055" name="Eliminar líneas vacías"/>
-					<Item id="42056" name="Eliminar líneas vacías (y contenido en blanco)"/>
-					<Item id="42057" name="Insert línea en blanco encima de la actual"/>
-					<Item id="42058" name="Insertar línea en blanco bajo la actual"/>
-					<Item id="42059" name="Ordenar líneas en sentido ascendente"/>
-					<Item id="42060" name="Ordenar líneas en sentido descendente"/>
+					<Item id="42055" name="Eliminar lÃ­neas vacÃ­as"/>
+					<Item id="42056" name="Eliminar lÃ­neas vacÃ­as (y contenido en blanco)"/>
+					<Item id="42057" name="Insert lÃ­nea en blanco encima de la actual"/>
+					<Item id="42058" name="Insertar lÃ­nea en blanco bajo la actual"/>
+					<Item id="42059" name="Ordenar lÃ­neas en sentido ascendente"/>
+					<Item id="42060" name="Ordenar lÃ­neas en sentido descendente"/>
 					<Item id="43001" name="&amp;Buscar..."/>
 					<Item id="43002" name="Buscar &amp;siguiente"/>
 					<Item id="43003" name="Reemplazar..."/>
-					<Item id="43004" name="Ir a línea..."/>
+					<Item id="43004" name="Ir a lÃ­nea..."/>
 					<Item id="43005" name="Des/Activar marcadores"/>
 					<Item id="43006" name="Marcador siguiente"/>
 					<Item id="43007" name="Marcador anterior"/>
 					<Item id="43008" name="Quitar todos los marcadores"/>
-					<Item id="43018" name="Cortar líneas marcada"/>
-					<Item id="43019" name="Copiar líneas marcadas"/>
-					<Item id="43020" name="Reemplazar líneas marcadas"/>
-					<Item id="43021" name="Borrar líneas marcadas"/>
-					<Item id="43051" name="Quitar líneas no marcadas"/>
+					<Item id="43018" name="Cortar lÃ­neas marcada"/>
+					<Item id="43019" name="Copiar lÃ­neas marcadas"/>
+					<Item id="43020" name="Reemplazar lÃ­neas marcadas"/>
+					<Item id="43021" name="Borrar lÃ­neas marcadas"/>
+					<Item id="43051" name="Quitar lÃ­neas no marcadas"/>
 					<Item id="43050" name="Invertir marcas"/>
 					<Item id="43052" name="Encontrar caracteres por tipo..."/>
 					<Item id="43053" name="Seleccionar todo lo que coincida"/>
-					<Item id="43009" name="Ir al delimitador simétrico"/>
+					<Item id="43009" name="Ir al delimitador simÃ©trico"/>
 					<Item id="43010" name="Encontrar anterior"/>
-					<Item id="43011" name="&amp;Búsqueda incremental"/>
+					<Item id="43011" name="&amp;BÃºsqueda incremental"/>
 					<Item id="43013" name="Encontrar en archivos"/>
-					<Item id="43014" name="Búsqueda volátil siguiente"/>
-					<Item id="43015" name="Búsqueda volátil anterior"/>
+					<Item id="43014" name="BÃºsqueda volÃ¡til siguiente"/>
+					<Item id="43015" name="BÃºsqueda volÃ¡til anterior"/>
 					<Item id="43022" name="Aplicar el estilo 1"/>
 					<Item id="43023" name="No aplicar el estilo 1"/>
 					<Item id="43024" name="Aplicar el estilo 2"/>
@@ -175,7 +175,7 @@
 					<Item id="43029" name="No aplicar el estilo 4"/>
 					<Item id="43030" name="Aplicar el estilo 5"/>
 					<Item id="43031" name="No aplicar el estilo 5"/>
-					<Item id="43032" name="No aplicar ningún estilo"/>
+					<Item id="43032" name="No aplicar ningÃºn estilo"/>
 					<Item id="43033" name="Estilo 1"/>
 					<Item id="43034" name="Estilo 2"/>
 					<Item id="43035" name="Estilo 3"/>
@@ -188,43 +188,43 @@
 					<Item id="43042" name="Estilo 4"/>
 					<Item id="43043" name="Estilo 5"/>
 					<Item id="43044" name="Encontrar estilo"/>
-					<Item id="43045" name="Ventana de resultados de búsqueda"/>
-					<Item id="43046" name="Resultados de búsqueda siguiente"/>
-					<Item id="43047" name="Resultados de búsqueda anterior"/>
+					<Item id="43045" name="Ventana de resultados de bÃºsqueda"/>
+					<Item id="43046" name="Resultados de bÃºsqueda siguiente"/>
+					<Item id="43047" name="Resultados de bÃºsqueda anterior"/>
 					<Item id="43048" name="Seleccionar y encontrar siguiente"/>
 					<Item id="43049" name="Seleccionar y encontrar anterior"/>
 					<Item id="44009" name="Post-It"/>
 					<Item id="44010" name="Contraer todo"/>
 					<Item id="44019" name="Mostrar todos los caracteres"/>
-					<Item id="44020" name="Mostrar sangrías"/>
-					<Item id="44022" name="Ajuste de línea"/>
+					<Item id="44020" name="Mostrar sangrÃ­as"/>
+					<Item id="44022" name="Ajuste de lÃ­nea"/>
 					<Item id="44023" name="&amp;Aumentar zoom"/>
 					<Item id="44024" name="&amp;Disminuir zoom"/>
 					<Item id="44025" name="Mostrar espacios y tabulaciones"/>
-					<Item id="44026" name="Mostrar saltos de línea"/>
+					<Item id="44026" name="Mostrar saltos de lÃ­nea"/>
 					<Item id="44029" name="Expandir todo"/>
 					<Item id="44030" name="Contraer nivel actual"/>
 					<Item id="44031" name="Expandir nivel actual"/>
 					<Item id="44049" name="Resumen..."/>
 					<Item id="44080" name="Mapa del documento"/>
 					<Item id="44084" name="Lista de funciones"/>
-					<Item id="44086" name="Pestaña 1"/>
-					<Item id="44087" name="Pestaña 2"/>
-					<Item id="44088" name="Pestaña 3"/>
-					<Item id="44089" name="Pestaña 4"/>
-					<Item id="44090" name="Pestaña 5"/>
-					<Item id="44091" name="Pestaña 6"/>
-					<Item id="44092" name="Pestaña 7"/>
-					<Item id="44093" name="Pestaña 8"/>
-					<Item id="44094" name="Pestaña 9"/>
-					<Item id="44095" name="Pestaña siguiente"/>
-					<Item id="44096" name="Pestaña anterior"/>
+					<Item id="44086" name="PestaÅ„a 1"/>
+					<Item id="44087" name="PestaÅ„a 2"/>
+					<Item id="44088" name="PestaÅ„a 3"/>
+					<Item id="44089" name="PestaÅ„a 4"/>
+					<Item id="44090" name="PestaÅ„a 5"/>
+					<Item id="44091" name="PestaÅ„a 6"/>
+					<Item id="44092" name="PestaÅ„a 7"/>
+					<Item id="44093" name="PestaÅ„a 8"/>
+					<Item id="44094" name="PestaÅ„a 9"/>
+					<Item id="44095" name="PestaÅ„a siguiente"/>
+					<Item id="44096" name="PestaÅ„a anterior"/>
 					<Item id="44032" name="Pantalla completa o no"/>
 					<Item id="44033" name="Restaurar zoom 100%"/>
 					<Item id="44034" name="Siempre visible"/>
-					<Item id="44035" name="Sincronización vertical"/>
-					<Item id="44036" name="Sincronización horizontal"/>
-					<Item id="44041" name="Mostrar símbolo de ajuste"/>
+					<Item id="44035" name="SincronizaciÃ³n vertical"/>
+					<Item id="44036" name="SincronizaciÃ³n horizontal"/>
+					<Item id="44041" name="Mostrar sÃ­mbolo de ajuste"/>
 					<Item id="44072" name="Enfocar en otra vista"/>
 					<Item id="44081" name="Panel proyecto 1"/>
 					<Item id="44082" name="Panel proyecto 2"/>
@@ -257,30 +257,30 @@
 					<Item id="46015" name="MS-DOS Style"/>
 					<Item id="46016" name="Normal Text"/>
 					<Item id="46017" name="Resource file"/>
-					<Item id="46001" name="Configuración de estilo..."/>
+					<Item id="46001" name="ConfiguraciÃ³n de estilo..."/>
 					<Item id="46150" name="Definir idioma..."/>
 					<Item id="46080" name="Definido por el usuario"/>
 					<Item id="47000" name="Acerca de Notepad++..."/>
-					<Item id="47010" name="Parámetros de linea de comando..."/>
+					<Item id="47010" name="ParÃ¡metros de linea de comando..."/>
 					<Item id="47001" name="Web de Notepad++"/>
 					<Item id="47002" name="Web del proyecto Notepad++"/>
-					<Item id="47003" name="Ayuda en línea"/>
+					<Item id="47003" name="Ayuda en lÃ­nea"/>
 					<Item id="47004" name="Foro"/>
-					<Item id="47005" name="Descargar más plugins"/>
+					<Item id="47005" name="Descargar mÃ¡s plugins"/>
 					<Item id="47006" name="Actualizar Notepad++"/>
 					<Item id="47008" name="Ayuda..."/>
-					<Item id="47009" name="Establecer proxy de actualización..."/>
+					<Item id="47009" name="Establecer proxy de actualizaciÃ³n..."/>
 					<Item id="48005" name="Importar plugin(s) ..."/>
 					<Item id="48006" name="Importar tema(s) ..."/>
-					<Item id="48018" name="Editar menú contextual emergente"/>
+					<Item id="48018" name="Editar menÃº contextual emergente"/>
 					<Item id="48009" name="Gestor de atajos de teclado..."/>
 					<Item id="48011" name="Preferencias..."/>
 					<Item id="49000" name="&amp;Ejecutar..."/>
-					<Item id="50000" name="Completar función"/>
+					<Item id="50000" name="Completar funciÃ³n"/>
 					<Item id="50001" name="Completar palabra"/>
-					<Item id="50002" name="Parámetros de la función"/>
+					<Item id="50002" name="ParÃ¡metros de la funciÃ³n"/>
 					<Item id="50006" name="Completar ruta"/>
-					<Item id="44042" name="Ocultar líneas"/>
+					<Item id="44042" name="Ocultar lÃ­neas"/>
 					<Item id="42040" name="Abrir todos los archivos recientes"/>
 					<Item id="42041" name="Limpiar lista de archivos recientes"/>
 					<Item id="48016" name="Modificar atajo/Borrar macro..."/>
@@ -301,8 +301,8 @@
 				<Item CMID="9" name="Copiar ruta de la carpeta (portapapeles)"/>
 				<Item CMID="10" name="Renombrar"/>
 				<Item CMID="11" name="Eliminar"/>
-				<Item CMID="12" name="Sólo lectura"/>
-				<Item CMID="13" name="Quitar marca de Sólo lectura"/>
+				<Item CMID="12" name="SÃ³lo lectura"/>
+				<Item CMID="13" name="Quitar marca de SÃ³lo lectura"/>
 				<Item CMID="14" name="Mover a nueva ventana"/>
 				<Item CMID="15" name="Abrir en una nueva ventana"/>
 				<Item CMID="16" name="Recargar"/>
@@ -318,23 +318,23 @@
 				<Item id="2" name="Cerrar"/>
 				<Item id="1620" name="Buscar:"/>
 				<Item id="1603" name="Solo &amp;palabras completas"/>
-				<Item id="1604" name="Coincidir &amp;MAYÚSCULAS/minúsculas"/>
-				<Item id="1605" name="Expresión &amp;regular"/>
+				<Item id="1604" name="Coincidir &amp;MAYÃšSCULAS/minÃºsculas"/>
+				<Item id="1605" name="ExpresiÃ³n &amp;regular"/>
 				<Item id="1606" name="Buscar en todo el d&amp;ocumento"/>
 				<Item id="1612" name="&amp;Arriba"/>
 				<Item id="1613" name="A&amp;bajo"/>
 				<Item id="1614" name="Contar"/>
 				<Item id="1615" name="Buscar todo"/>
-				<Item id="1616" name="Marcar línea"/>
-				<Item id="1618" name="Purgar en cada búsqueda"/>
-				<Item id="1621" name="Dirección"/>
+				<Item id="1616" name="Marcar lÃ­nea"/>
+				<Item id="1618" name="Purgar en cada bÃºsqueda"/>
+				<Item id="1621" name="DirecciÃ³n"/>
 				<Item id="1611" name="Re&amp;emplazar con:"/>
 				<Item id="1608" name="&amp;Reemplazar"/>
 				<Item id="1609" name="Reemplazar &amp;todo"/>
 				<Item id="1623" name="Transparencia"/>
 				<Item id="1687" name="Al perder el foco"/>
 				<Item id="1688" name="Siempre"/>
-				<Item id="1632" name="En la selección"/>
+				<Item id="1632" name="En la selecciÃ³n"/>
 				<Item id="1633" name="Limpiar"/>
 				<Item id="1635" name="Reemplazar en todos los archivos abiertos"/>
 				<Item id="1636" name="Buscar en todos los archivos abiertos"/>
@@ -343,7 +343,7 @@
 				<Item id="1656" name="Buscar todo"/>
 				<Item id="1658" name="En todas las subcarpetas"/>
 				<Item id="1659" name="En carpetas ocultas"/>
-				<Item id="1624" name="Modo de búsqueda"/>
+				<Item id="1624" name="Modo de bÃºsqueda"/>
 				<Item id="1625" name="Normal"/>
 				<Item id="1626" name="Extendido (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Reemplazar en todos"/>
@@ -359,18 +359,18 @@
 				<Item id="2903" name="Mi rango:"/>
 				<Item id="2906" name="&amp;Arriba"/>
 				<Item id="2907" name="&amp;Abajo"/>
-				<Item id="2908" name="Dirección"/>
+				<Item id="2908" name="DirecciÃ³n"/>
 				<Item id="2909" name="Envolver"/>
 				<Item id="2910" name="Encontrar"/>
 			</FindCharsInRange>
-			<GoToLine title="Ir a línea...">
-				<Item id="2007" name="Línea"/>
+			<GoToLine title="Ir a lÃ­nea...">
+				<Item id="2007" name="LÃ­nea"/>
 				<Item id="2008" name="Desplazamiento"/>
 				<Item id="1" name="&amp;Ir"/>
 				<Item id="2" name="Cancelar"/>
-				<Item id="2004" name="Línea actual:"/>
-				<Item id="2005" name="Ir a línea:"/>
-				<Item id="2006" name="Última linea:"/>
+				<Item id="2004" name="LÃ­nea actual:"/>
+				<Item id="2005" name="Ir a lÃ­nea:"/>
+				<Item id="2006" name="Ãšltima linea:"/>
 			</GoToLine>
 			<Run title="Run...">
 				<Item id="1903" name="Programa a ejecutar"/>
@@ -389,7 +389,7 @@
 					<Item id="2206" name="Color de fuente"/>
 					<Item id="2207" name="Color de fondo"/>
 					<Item id="2208" name="Fuente:"/>
-					<Item id="2209" name="Tamaño:"/>
+					<Item id="2209" name="TamaÅ„o:"/>
 					<Item id="2211" name="Estilo:"/>
 					<Item id="2212" name="Color"/>
 					<Item id="2213" name="Tipo de fuente"/>
@@ -402,7 +402,7 @@
 					<Item id="2226" name="Globalizar color de fuentes"/>
 					<Item id="2227" name="Globalizar color de fondo"/>
 					<Item id="2228" name="Globalizar tipo de fuente"/>
-					<Item id="2229" name="Globalizar tamaño de fuente"/>
+					<Item id="2229" name="Globalizar tamaÅ„o de fuente"/>
 					<Item id="2230" name="Globalizar negritas"/>
 					<Item id="2231" name="Globalizar cursivas"/>
 					<Item id="2232" name="Globalizar subrayados"/>
@@ -425,7 +425,7 @@
 					<Item id="25006" name="Color de fuente"/>
 					<Item id="25007" name="Color de fondo"/>
 					<Item id="25031" name="Nombre:"/>
-					<Item id="25032" name="Tamaño:"/>
+					<Item id="25032" name="TamaÅ„o:"/>
 					<Item id="25001" name="Negrita"/>
 					<Item id="25002" name="Cursiva"/>
 					<Item id="25003" name="Subrayado"/>
@@ -455,34 +455,34 @@
 				<Folder title="Carpeta &amp;&amp; por defecto">
 					<Item id="21101" name="Estilo por defecto"/>
 					<Item id="21201" name="Estilo"/>
-					<Item id="21105" name="Documentación:"/>
+					<Item id="21105" name="DocumentaciÃ³n:"/>
 					<Item id="21104" name="Sitio web temporal:"/>
-					<Item id="21106" name="Compactar el relieve (líneas vacías también)"/>
-					<Item id="21220" name="Relieve sintáctico modo 1:"/>
+					<Item id="21106" name="Compactar el relieve (lÃ­neas vacÃ­as tambiÃ©n)"/>
+					<Item id="21220" name="Relieve sintÃ¡ctico modo 1:"/>
 					<Item id="21224" name="Abriendo:"/>
 					<Item id="21225" name="Medio:"/>
 					<Item id="21226" name="Cerrando:"/>
 					<Item id="21227" name="Estilo"/>
-					<Item id="21320" name="Relieve sintáctico modo 2(necesarios separadores):"/>
+					<Item id="21320" name="Relieve sintÃ¡ctico modo 2(necesarios separadores):"/>
 					<Item id="21324" name="Abriendo:"/>
 					<Item id="21325" name="Medio:"/>
 					<Item id="21326" name="Cerrando:"/>
 					<Item id="21327" name="Estilo"/>
-					<Item id="21420" name="Relieve sintáctico modo comentario:"/>
+					<Item id="21420" name="Relieve sintÃ¡ctico modo comentario:"/>
 					<Item id="21424" name="Abriendo:"/>
 					<Item id="21425" name="Medio:"/>
 					<Item id="21426" name="Cerrando:"/>
 					<Item id="21127" name="Estilo"/>
 				</Folder>
 				<Keywords title="Listas de palabras clave">
-					<Item id="22101" name="1º Grupo"/>
-					<Item id="22201" name="2º Grupo"/>
-					<Item id="22301" name="3º Grupo"/>
-					<Item id="22401" name="4º Grupo"/>
-					<Item id="22451" name="5º Grupo"/>
-					<Item id="22501" name="6º Grupo"/>
-					<Item id="22551" name="7º Grupo"/>
-					<Item id="22601" name="8º Grupo"/>
+					<Item id="22101" name="1ÅŸ Grupo"/>
+					<Item id="22201" name="2ÅŸ Grupo"/>
+					<Item id="22301" name="3ÅŸ Grupo"/>
+					<Item id="22401" name="4ÅŸ Grupo"/>
+					<Item id="22451" name="5ÅŸ Grupo"/>
+					<Item id="22501" name="6ÅŸ Grupo"/>
+					<Item id="22551" name="7ÅŸ Grupo"/>
+					<Item id="22601" name="8ÅŸ Grupo"/>
 					<Item id="22121" name="Modo prefijo"/>
 					<Item id="22221" name="Modo prefijo"/>
 					<Item id="22321" name="Modo prefijo"/>
@@ -500,22 +500,22 @@
 					<Item id="22572" name="Estilo"/>
 					<Item id="22622" name="Estilo"/>
 				</Keywords>
-				<Comment title="Comentarios y números">
-					<Item id="23003" name="Posición de comentario en la línea"/>
-					<Item id="23004" name="Sin límite"/>
-					<Item id="23005" name="Siempre al inicio de línea"/>
+				<Comment title="Comentarios y nÃºmeros">
+					<Item id="23003" name="PosiciÃ³n de comentario en la lÃ­nea"/>
+					<Item id="23004" name="Sin lÃ­mite"/>
+					<Item id="23005" name="Siempre al inicio de lÃ­nea"/>
 					<Item id="23006" name="Permitir espacios libres previos"/>
 					<Item id="23001" name="Permitir plegado de comentarios"/>
 					<Item id="23326" name="Estilo"/>
 					<Item id="23323" name="Abrir"/>
-					<Item id="23324" name="Continuación"/>
+					<Item id="23324" name="ContinuaciÃ³n"/>
 					<Item id="23325" name="Cerrar"/>
-					<Item id="23301" name="Estilo de línea de comentario"/>
+					<Item id="23301" name="Estilo de lÃ­nea de comentario"/>
 					<Item id="23124" name="Estilo"/>
 					<Item id="23122" name="Abrir"/>
 					<Item id="23123" name="Cerrar"/>
 					<Item id="23101" name="Estilo comentario"/>
-					<Item id="23201" name="Estilo numérico"/>
+					<Item id="23201" name="Estilo numÃ©rico"/>
 					<Item id="23220" name="Estilo"/>
 					<Item id="23230" name="Prefijo 1"/>
 					<Item id="23232" name="Prefijo 2"/>
@@ -575,61 +575,61 @@
 					<Item id="24672" name="Cerrar:"/>
 					<Item id="24673" name="Estilo"/>
 				</Operator>
-				<Item id="24001" name="Habilitar carácter de escape:"/>
+				<Item id="24001" name="Habilitar carÃ¡cter de escape:"/>
 			</UserDefine>
 			<Preference title="Preferencias">
 				<Item id="6001" name="Cerrar"/>
 				<Global title="Generales">
 					<Item id="6101" name="Barra de herramientas"/>
 					<Item id="6102" name="Ocultar"/>
-					<Item id="6103" name="Iconos pequeños"/>
+					<Item id="6103" name="Iconos pequeÅ„os"/>
 					<Item id="6104" name="Iconos grandes"/>
 					<Item id="6105" name="Iconos predeterminados"/>
-					<Item id="6106" name="Barra de pestañas"/>
+					<Item id="6106" name="Barra de pestaÅ„as"/>
 					<Item id="6107" name="Ajustar texto"/>
 					<Item id="6108" name="Bloquear (impedir arrastrar y soltar)"/>
-					<Item id="6109" name="Oscurecer pestañas inactivas"/>
-					<Item id="6110" name="Mostrar una línea en la pestaña activa"/>
+					<Item id="6109" name="Oscurecer pestaÅ„as inactivas"/>
+					<Item id="6110" name="Mostrar una lÃ­nea en la pestaÅ„a activa"/>
 					<Item id="6111" name="Mostrar barra de estado"/>
-					<Item id="6112" name="Botón de cierre en cada pestaña"/>
-					<Item id="6113" name="Doble clic para cerrar pestaña"/>
+					<Item id="6112" name="BotÃ³n de cierre en cada pestaÅ„a"/>
+					<Item id="6113" name="Doble clic para cerrar pestaÅ„a"/>
 					<Item id="6118" name="Ocultar"/>
-					<Item id="6119" name="Multi-línea"/>
+					<Item id="6119" name="Multi-lÃ­nea"/>
 					<Item id="6120" name="Vertical"/>
-					<Item id="6121" name="Barra de menú"/>
+					<Item id="6121" name="Barra de menÃº"/>
 					<Item id="6122" name="Ocultar (Alt o F10 para des/activar)"/>
-					<Item id="6123" name="Localización"/>
+					<Item id="6123" name="LocalizaciÃ³n"/>
 					<Item id="6125" name="Panel lista de documentos"/>
 					<Item id="6126" name="Mostrar"/>
-					<Item id="6127" name="Desactivar columna de extensión"/>
+					<Item id="6127" name="Desactivar columna de extensiÃ³n"/>
 				</Global>
-				<Scintillas title="Edición">
-					<Item id="6216" name="Configuración del cursor"/>
+				<Scintillas title="EdiciÃ³n">
+					<Item id="6216" name="ConfiguraciÃ³n del cursor"/>
 					<Item id="6217" name="Ancho:"/>
 					<Item id="6219" name="Frecuencia:"/>
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="L"/>
-					<Item id="6224" name="Multi-Edición"/>
-					<Item id="6225" name="Habilitar (Ctrl. + clic/selección)"/>
+					<Item id="6224" name="Multi-EdiciÃ³n"/>
+					<Item id="6225" name="Habilitar (Ctrl. + clic/selecciÃ³n)"/>
 					<Item id="6201" name="Estilo de los niveles"/>
 					<Item id="6202" name="Simple"/>
 					<Item id="6203" name="Flechas"/>
-					<Item id="6204" name="Círculos"/>
+					<Item id="6204" name="CÃ­rculos"/>
 					<Item id="6205" name="Cuadrados"/>
 					<Item id="6226" name="Ninguno"/>
-					<Item id="6227" name="Ajuste de línea"/>
+					<Item id="6227" name="Ajuste de lÃ­nea"/>
 					<Item id="6228" name="Por defecto"/>
 					<Item id="6229" name="Alineado"/>
-					<Item id="6230" name="Sangría"/>
-					<Item id="6206" name="Mostrar números de línea"/>
+					<Item id="6230" name="SangrÃ­a"/>
+					<Item id="6206" name="Mostrar nÃºmeros de lÃ­nea"/>
 					<Item id="6207" name="Mostrar marcadores"/>
-					<Item id="6208" name="Mostrar límite vertical"/>
-					<Item id="6209" name="Número de columnas: "/>
-					<Item id="6234" name="Desactivar desplazamiento avanzado (si tiene problemas con pantalla táctil)"/>
-					<Item id="6211" name="Límite vertical"/>
+					<Item id="6208" name="Mostrar lÃ­mite vertical"/>
+					<Item id="6209" name="NÃºmero de columnas: "/>
+					<Item id="6234" name="Desactivar desplazamiento avanzado (si tiene problemas con pantalla tÃ¡ctil)"/>
+					<Item id="6211" name="LÃ­mite vertical"/>
 					<Item id="6212" name="Modo lineal"/>
 					<Item id="6213" name="Modo de fondo"/>
-					<Item id="6214" name="Resaltar la línea activa"/>
+					<Item id="6214" name="Resaltar la lÃ­nea activa"/>
 					<Item id="6231" name="Ancho de borde"/>
 				</Scintillas>
 				<NewDoc title="Archivo nuevo/Carpeta predeterminada">
@@ -637,7 +637,7 @@
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
 					<Item id="6404" name="Mac"/>
-					<Item id="6405" name="Codificación"/>
+					<Item id="6405" name="CodificaciÃ³n"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8 sin BOM"/>
 					<Item id="6408" name="UTF-8"/>
@@ -650,32 +650,32 @@
 				<DefaultDir title="Carpeta por defecto">
 					<Item id="6413" name="Carpeta por defecto (Abrir/Guardar)"/>
 					<Item id="6414" name="Seguir documento actual"/>
-					<Item id="6415" name="Recordar última carpeta"/>
+					<Item id="6415" name="Recordar Ãºltima carpeta"/>
 				</DefaultDir>
-				<FileAssoc title="Asociación de archivos">
+				<FileAssoc title="AsociaciÃ³n de archivos">
 					<Item id="4009" name="Ext. soportadas:"/>
 					<Item id="4010" name="Ext. asociadas:"/>
 				</FileAssoc>
-				<LangMenu title="Menú de Lenguaje">
+				<LangMenu title="MenÃº de Lenguaje">
 					<Item id="6505" name="Disponibles"/>
 					<Item id="6506" name="Desactivados"/>
-					<Item id="6507" name="Compactar el menú de lenguaje"/>
-					<Item id="6508" name="Menú de lenguaje"/>
+					<Item id="6507" name="Compactar el menÃº de lenguaje"/>
+					<Item id="6508" name="MenÃº de lenguaje"/>
 				</LangMenu>
 				<TabSettings title="Tabuladores">
 					<Item id="6301" name="Tabuladores"/>
 					<Item id="6302" name="Sustituir por espacios"/>
-					<Item id="6303" name="Tamaño: "/>
+					<Item id="6303" name="TamaÅ„o: "/>
 					<Item id="6510" name="Usar valor por defecto"/>
 				</TabSettings>
-				<Print title="Impresión">
-					<Item id="6601" name="Imprimir número de línea"/>
+				<Print title="ImpresiÃ³n">
+					<Item id="6601" name="Imprimir nÃºmero de lÃ­nea"/>
 					<Item id="6602" name="Opciones de color"/>
 					<Item id="6603" name="Sin modificar"/>
 					<Item id="6604" name="Invertir"/>
 					<Item id="6605" name="Blanco y negro"/>
 					<Item id="6606" name="Sin color de fondo"/>
-					<Item id="6607" name="Márgenes (milímetros)"/>
+					<Item id="6607" name="MÃ¡rgenes (milÃ­metros)"/>
 					<Item id="6612" name="Izquierdo"/>
 					<Item id="6613" name="Superior"/>
 					<Item id="6614" name="Derecho"/>
@@ -688,24 +688,24 @@
 					<Item id="6711" name="Parte derecha"/>
 					<Item id="6717" name="Negrita"/>
 					<Item id="6718" name="Cursiva"/>
-					<Item id="6719" name="Pie de página"/>
+					<Item id="6719" name="Pie de pÃ¡gina"/>
 					<Item id="6720" name="Parte izquierda"/>
 					<Item id="6721" name="Parte central"/>
 					<Item id="6722" name="Parte derecha"/>
-					<Item id="6723" name="Añadir"/>
+					<Item id="6723" name="AÅ„adir"/>
 					<Item id="6725" name="Variable:"/>
 					<Item id="6727" name="Mostrar sus ajustes variables"/>
-					<Item id="6728" name="Cabecera y pie de página"/>
+					<Item id="6728" name="Cabecera y pie de pÃ¡gina"/>
 				</Print>
 				<RecentFilesHistory title="Archivos recientes">
 					<Item id="6304" name="Historial de archivos recientes"/>
-					<Item id="6306" name="Máximo núm. entradas:"/>
+					<Item id="6306" name="MÃ¡ximo nÃºm. entradas:"/>
 					<Item id="6305" name="No comprobar al inicio"/>
 					<Item id="6429" name="Mostrar"/>
-					<Item id="6424" name="En submenú"/>
+					<Item id="6424" name="En submenÃº"/>
 					<Item id="6425" name="Solo nombre archivo"/>
 					<Item id="6426" name="Ruta completa archivo"/>
-					<Item id="6427" name="Longitud máxima:"/>
+					<Item id="6427" name="Longitud mÃ¡xima:"/>
 				</RecentFilesHistory>
 				<Backup title="Backup">
 					<Item id="6817" name="Copias de seguridad y Sesiones"/>
@@ -713,7 +713,7 @@
 					<Item id="6819" name="Realizar Copias cada"/>
 					<Item id="6821" name="segundos"/>
 					<Item id="6822" name="Ruta para las copias:"/>
-					<Item id="6309" name="Recordar la sesión actual en el próximo inicio"/>
+					<Item id="6309" name="Recordar la sesiÃ³n actual en el prÃ³ximo inicio"/>
 					<Item id="6801" name="Copia de seguridad"/>
 					<Item id="6315" name="No hacer"/>
 					<Item id="6316" name="Copia simple"/>
@@ -724,15 +724,15 @@
 				<AutoCompletion title="Auto-completar">
 					<Item id="6807" name="Auto-completar"/>
 					<Item id="6808" name="Permitir Auto-completar siempre"/>
-					<Item id="6809" name="Auto-completar función"/>
+					<Item id="6809" name="Auto-completar funciÃ³n"/>
 					<Item id="6810" name="Auto-completar palabra"/>
-					<Item id="6816" name="Autocompletado función y palabra"/>
+					<Item id="6816" name="Autocompletado funciÃ³n y palabra"/>
 					<Item id="6811" name="Desde"/>
-					<Item id="6813" name="º carácter"/>
-					<Item id="6814" name="Valor válido: 1 - 9"/>
-					<Item id="6815" name="Parámetros de función en entrada"/>
+					<Item id="6813" name="ÅŸ carÃ¡cter"/>
+					<Item id="6814" name="Valor vÃ¡lido: 1 - 9"/>
+					<Item id="6815" name="ParÃ¡metros de funciÃ³n en entrada"/>
 					<Item id="6851" name="Auto-insertar"/>
-					<Item id="6857" name="pestaña de cierre html/xml"/>
+					<Item id="6857" name="pestaÅ„a de cierre html/xml"/>
 					<Item id="6858" name="Abrir"/>
 					<Item id="6859" name="Cerrar"/>
 					<Item id="6860" name="Par ajustado 1:"/>
@@ -741,16 +741,16 @@
 				</AutoCompletion>
 				<MultiInstance title="Multi-Instancia">
 					<Item id="6151" name="Ajustar varias instancias"/>
-					<Item id="6152" name="Abrir sesión en nueva instancia de Notepad++"/>
+					<Item id="6152" name="Abrir sesiÃ³n en nueva instancia de Notepad++"/>
 					<Item id="6153" name="Usar siempre modo multi instancia"/>
-					<Item id="6154" name="Instancia única por defecto"/>
-					<Item id="6155" name="* La modificación de este ajuste necesita reiniciar Notepad++"/>
+					<Item id="6154" name="Instancia Ãºnica por defecto"/>
+					<Item id="6155" name="* La modificaciÃ³n de este ajuste necesita reiniciar Notepad++"/>
 				</MultiInstance>
 				<Delimiter title="Delimitador">
 					<Item id="6251" name="Ajustes del delimitador (Ctrl + doble clic)"/>
 					<Item id="6252" name="Abrir"/>
 					<Item id="6255" name="Cerrar"/>
-					<Item id="6256" name="Permitir varias líneas"/>
+					<Item id="6256" name="Permitir varias lÃ­neas"/>
 				</Delimiter>
 				<Cloud title="Nube">
 					<Item id="6262" name="Ajustes de nube"/>
@@ -766,11 +766,11 @@
 					<Item id="6312" name="Auto-detectar estado del archivo"/>
 					<Item id="6313" name="Actualizar sin notificar"/>
 					<Item id="6318" name="Ajustes de enlace clic"/>
-					<Item id="6325" name="Ir a la última línea tras actualizar"/>
+					<Item id="6325" name="Ir a la Ãºltima lÃ­nea tras actualizar"/>
 					<Item id="6319" name="Permitir"/>
 					<Item id="6320" name="No subrayar"/>
-					<Item id="6322" name="Extensión del archivo:"/>
-					<Item id="6323" name="Actualizar automáticamente Notepad++"/>
+					<Item id="6322" name="ExtensiÃ³n del archivo:"/>
+					<Item id="6323" name="Actualizar automÃ¡ticamente Notepad++"/>
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
 					<Item id="6326" name="Activar resaltado inteligente"/>
 					<Item id="6329" name="Resaltar Etiquetas"/>
@@ -778,16 +778,16 @@
 					<Item id="6328" name="Resaltar Atributos de Etiquetas"/>
 					<Item id="6330" name="Resaltar comentarios/php/asp"/>
 					<Item id="6331" name="Mostrar solo nombre de archivo en la barra"/>
-					<Item id="6332" name="Ajustar tamaño"/>
+					<Item id="6332" name="Ajustar tamaÅ„o"/>
 					<Item id="6333" name="Resaltado Inteligente"/>
-					<Item id="6334" name="Detección de codificación automática"/>
-					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
+					<Item id="6334" name="DetecciÃ³n de codificaciÃ³n automÃ¡tica"/>
+					<Item id="6335" name="Tratar barra invertida como carÃ¡cter de escape para SQL"/>
 					<Item id="6114" name="Activar"/>
-					<Item id="6115" name="Auto-Sangría"/>
+					<Item id="6115" name="Auto-SangrÃ­a"/>
 					<Item id="6117" name="Permitir MRU"/>
 				</MISC>
 			</Preference>
-			<MultiMacro title="Ejecución múltiple de macro">
+			<MultiMacro title="EjecuciÃ³n mÃºltiple de macro">
 				<Item id="1" name="Ejecutar"/>
 				<Item id="2" name="Cancelar"/>
 				<Item id="8006" name="Macro a ejecutar:"/>
@@ -800,12 +800,12 @@
 				<Item id="2" name="Aceptar"/>
 				<Item id="7002" name="Guardar"/>
 				<Item id="7003" name="Cerrar ventana(s)"/>
-				<Item id="7004" name="Ordenar pestañas"/>
+				<Item id="7004" name="Ordenar pestaÅ„as"/>
 			</Window>
 			<ColumnEditor title="Editor de columnas">
 				<Item id="2023" name="Texto a insertar"/>
-				<Item id="2033" name="Número a insertar"/>
-				<Item id="2030" name="Número inicial:"/>
+				<Item id="2033" name="NÃºmero a insertar"/>
+				<Item id="2030" name="NÃºmero inicial:"/>
 				<Item id="2031" name="Incrementar en:"/>
 				<Item id="2035" name="Ceros delante"/>
 				<Item id="2032" name="Formato"/>
@@ -818,17 +818,17 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Edición del Menú Contextual" message="Editar contextMenu.xml le permite modificar el menú contextual emergente.\rDeberá reiniciar Notepad++ para que tengan efecto los cambios."/>
+			<ContextMenuXmlEditWarning title="EdiciÃ³n del MenÃº Contextual" message="Editar contextMenu.xml le permite modificar el menÃº contextual emergente.\rDeberÃ¡ reiniciar Notepad++ para que tengan efecto los cambios."/>
 			<NppHelpAbsentWarning title="El archivo no existe" message="\rno existe. Puede descargarlo del sitio web de Notepad++."/>
-			<SaveCurrentModifWarning title="Guardar la modificación" message="Debe guardar la modificación.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>
-			<LoseUndoAbilityWarning title="No podrá deshacer" message="Debe guardar los cambios.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>
+			<SaveCurrentModifWarning title="Guardar la modificaciÃ³n" message="Debe guardar la modificaciÃ³n.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>
+			<LoseUndoAbilityWarning title="No podrÃ¡ deshacer" message="Debe guardar los cambios.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>
 			<CannotMoveDoc title="Nuevo documento de Notepad++" message="Guarde el documento modificado y vuelva a intentarlo."/>
 			<DocReloadWarning title="Reabrir" message="Confirme si desea volver a abrir el documento sin guardar los cambios"/>
-			<FileLockedWarning title="Imposible guardar" message="Compruebe si el archivo está abierto por otro programa"/>
-			<FileAlreadyOpenedInNpp title="" message="El archivo ya está abierto en Notepad++."/>
+			<FileLockedWarning title="Imposible guardar" message="Compruebe si el archivo estÃ¡ abierto por otro programa"/>
+			<FileAlreadyOpenedInNpp title="" message="El archivo ya estÃ¡ abierto en Notepad++."/>
 			<DeleteFileFailed title="Borrar archivo" message="Imposible borrar"/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<NbFileToOpenImportantWarning title="Demasiados archivos" message="$INT_REPLACE$ archivos serán abiertos.\rConfirme si desea hacerlo"/>
+			<NbFileToOpenImportantWarning title="Demasiados archivos" message="$INT_REPLACE$ archivos serÃ¡n abiertos.\rConfirme si desea hacerlo"/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial"/>
@@ -842,7 +842,7 @@
 			<PanelTitle name="Panel de entrada ASCII"/>
 			<ColumnVal name="Valor"/>
 			<ColumnHex name="Hex"/>
-			<ColumnChar name="Carácter"/>
+			<ColumnChar name="CarÃ¡cter"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Mapa de documento"/>
@@ -854,37 +854,37 @@
 		</FunctionList>
 		<ProjectManager>
 			<PanelTitle name="Proyecto"/>
-			<WorkspaceRootName name="Ubicación"/>
+			<WorkspaceRootName name="UbicaciÃ³n"/>
 			<NewProjectName name="Nombre del proyecto"/>
 			<NewFolderName name="Nombre de carpeta"/>
 			<Menus>
 				<Entries>
-					<Item id="0" name="Ubicación"/>
+					<Item id="0" name="UbicaciÃ³n"/>
 					<Item id="1" name="Editar"/>
 				</Entries>
 				<WorkspaceMenu>
-					<Item id="3122" name="Nueva ubicación"/>
-					<Item id="3123" name="Abrir ubicación"/>
-					<Item id="3124" name="Recargar ubicación"/>
+					<Item id="3122" name="Nueva ubicaciÃ³n"/>
+					<Item id="3123" name="Abrir ubicaciÃ³n"/>
+					<Item id="3124" name="Recargar ubicaciÃ³n"/>
 					<Item id="3125" name="Guardar"/>
 					<Item id="3126" name="Guardar como..."/>
 					<Item id="3127" name="Guardar copia como..."/>
-					<Item id="3121" name="Añadir proyecto"/>
+					<Item id="3121" name="AÅ„adir proyecto"/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Renombrar"/>
-					<Item id="3112" name="Añadir carpeta"/>
-					<Item id="3113" name="Añadir Archivos..."/>
-					<Item id="3117" name="Añadir archivos de la carpeta..."/>
+					<Item id="3112" name="AÅ„adir carpeta"/>
+					<Item id="3113" name="AÅ„adir Archivos..."/>
+					<Item id="3117" name="AÅ„adir archivos de la carpeta..."/>
 					<Item id="3114" name="Eliminar"/>
 					<Item id="3118" name="Subir"/>
 					<Item id="3119" name="Bajar"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Renombrar"/>
-					<Item id="3112" name="Añadir carpeta"/>
-					<Item id="3113" name="Añadir archivos..."/>
-					<Item id="3117" name="Añadir archivos de la carpeta..."/>
+					<Item id="3112" name="AÅ„adir carpeta"/>
+					<Item id="3113" name="AÅ„adir archivos..."/>
+					<Item id="3117" name="AÅ„adir archivos de la carpeta..."/>
 					<Item id="3114" name="Eliminar"/>
 					<Item id="3118" name="Subir"/>
 					<Item id="3119" name="Bajar"/>

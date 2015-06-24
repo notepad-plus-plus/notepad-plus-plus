@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
 	<Native-Langue name="Svenska" filename="swedish.xml" version="6.6.7">
 		<Menu>
@@ -7,24 +7,24 @@
 				<Entries>
 					<Item menuId="file" name="&amp;Arkiv" />
 					<Item menuId="edit" name="&amp;Redigera" />
-					<Item menuId="search" name="&amp;Sök" />
+					<Item menuId="search" name="&amp;SÃ¶k" />
 					<Item menuId="view" name="&amp;Visa" />
 					<Item menuId="encoding" name="&amp;Format" />
-					<Item menuId="language" name="S&amp;pråk" />
-					<Item menuId="settings" name="&amp;Inställningar" />
+					<Item menuId="language" name="S&amp;prÄºk" />
+					<Item menuId="settings" name="&amp;InstÃ¤llningar" />
 					<Item menuId="macro" name="&amp;Makro" />
-					<Item menuId="run" name="&amp;Kör" />
-					<Item idName="Plugins" name="&amp;Tillägg" />
-					<Item idName="Window" name="Fö&amp;nster" />
+					<Item menuId="run" name="&amp;KÃ¶r" />
+					<Item idName="Plugins" name="&amp;TillÃ¤gg" />
+					<Item idName="Window" name="FÃ¶&amp;nster" />
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-openFolder" name="Öppna objektets mapp"/>
-					<Item subMenuId="file-closeMore" name="Stäng mer"/>
+					<Item subMenuId="file-openFolder" name="Ã–ppna objektets mapp"/>
+					<Item subMenuId="file-closeMore" name="StÃ¤ng mer"/>
 					<Item subMenuId="file-recentFiles" name="Senaste filer"/>
 					<Item subMenuId="edit-copyToClipboard" name="Kopiera till Urklipp" />
 					<Item subMenuId="edit-indent" name="Indrag" />
-					<Item subMenuId="edit-convertCaseTo" name="Ändra skiftläge" />
+					<Item subMenuId="edit-convertCaseTo" name="Ã„ndra skiftlÃ¤ge" />
 					<Item subMenuId="edit-lineOperations" name="Radoperationer" />
 					<Item subMenuId="edit-comment" name="Kommentera/Avkommentera" />
 					<Item subMenuId="edit-autoCompletion" name="Autokomplettering" />
@@ -33,150 +33,150 @@
 					<Item subMenuId="edit-pasteSpecial" name="Klistra in special" />
 					<Item subMenuId="search-markAll" name="Markera allt" />
 					<Item subMenuId="search-unmarkAll" name="Avmarkera allt" />
-					<Item subMenuId="search-jumpUp" name="Hoppa uppåt" />
-					<Item subMenuId="search-jumpDown" name="Hoppa nedåt" />
-					<Item subMenuId="search-bookmark" name="Bokmärken" />
+					<Item subMenuId="search-jumpUp" name="Hoppa uppÄºt" />
+					<Item subMenuId="search-jumpDown" name="Hoppa nedÄºt" />
+					<Item subMenuId="search-bookmark" name="BokmÃ¤rken" />
 					<Item subMenuId="view-showSymbol" name="Visa symbol" />
 					<Item subMenuId="view-zoom" name="Zooma" />
 					<Item subMenuId="view-moveCloneDocument" name="Flytta/klona vy" />
 					<Item subMenuId="view-tab" name="Flik"/>
-					<Item subMenuId="view-collapseLevel" name="Minimera nivå" />
-					<Item subMenuId="view-uncollapseLevel" name="Expandera nivå" />
+					<Item subMenuId="view-collapseLevel" name="Minimera nivÄº" />
+					<Item subMenuId="view-uncollapseLevel" name="Expandera nivÄº" />
 					<Item subMenuId="view-project" name="Projekt" />
-					<Item subMenuId="encoding-characterSets" name="Teckenuppsättning" />
+					<Item subMenuId="encoding-characterSets" name="TeckenuppsÃ¤ttning" />
 					<Item subMenuId="encoding-arabic" name="Arabisk" />
 					<Item subMenuId="encoding-baltic" name="Baltisk" />
 					<Item subMenuId="encoding-celtic" name="Keltisk" />
 					<Item subMenuId="encoding-cyrillic" name="Kyrillisk" />
 					<Item subMenuId="encoding-centralEuropean" name="Centraleuropeisk" />
 					<Item subMenuId="encoding-chinese" name="Kinesisk" />
-					<Item subMenuId="encoding-easternEuropean" name="Östeuropeisk" />
+					<Item subMenuId="encoding-easternEuropean" name="Ã–steuropeisk" />
 					<Item subMenuId="encoding-greek" name="Grekisk" />
 					<Item subMenuId="encoding-hebrew" name="Hebreisk" />
 					<Item subMenuId="encoding-japanese" name="Japansk" />
 					<Item subMenuId="encoding-korean" name="Koreansk" />
 					<Item subMenuId="encoding-northEuropean" name="Nordeuropeisk" />
-					<Item subMenuId="encoding-thai" name="Thailändsk" />
+					<Item subMenuId="encoding-thai" name="ThailÃ¤ndsk" />
 					<Item subMenuId="encoding-turkish" name="Turkisk" />
 					<Item subMenuId="encoding-vietnamese" name="Vietnamesisk" />
-					<Item subMenuId="encoding-westernEuropean" name="Västeuropeisk" />
+					<Item subMenuId="encoding-westernEuropean" name="VÃ¤steuropeisk" />
 					<Item subMenuId="settings-import" name="Importera" />
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>
 					<Item id="1001" name="Sna&amp;bbutskrift" />
-					<Item id="10001" name="Flytta till delad skärm" />
-					<Item id="10002" name="Klona till delad skärm" />
+					<Item id="10001" name="Flytta till delad skÃ¤rm" />
+					<Item id="10002" name="Klona till delad skÃ¤rm" />
 					<Item id="10003" name="Flytta till ny instans" />
 					<Item id="10004" name="Klona till ny instans" />
 					<Item id="41001" name="&amp;Ny" />
-					<Item id="41002" name="&amp;Öppna" />
-					<Item id="41003" name="S&amp;täng" />
-					<Item id="41004" name="St&amp;äng alla" />
-					<Item id="41005" name="Stäng &amp;alla utom aktivt dokument" />
+					<Item id="41002" name="&amp;Ã–ppna" />
+					<Item id="41003" name="S&amp;tÃ¤ng" />
+					<Item id="41004" name="St&amp;Ã¤ng alla" />
+					<Item id="41005" name="StÃ¤ng &amp;alla utom aktivt dokument" />
 					<Item id="41006" name="&amp;Spara" />
 					<Item id="41007" name="Spara a&amp;lla" />
 					<Item id="41008" name="Spara so&amp;m..." />
-					<Item id="41009" name="Stäng alla till vänster"/>
+					<Item id="41009" name="StÃ¤ng alla till vÃ¤nster"/>
 					<Item id="41010" name="Skriv &amp;ut..." />
 					<Item id="41011" name="&amp;Avsluta" />
 					<Item id="41012" name="Ladda session..." />
 					<Item id="41013" name="Spara session..." />
-					<Item id="41014" name="Återställ från disk" />
+					<Item id="41014" name="Ä¹terstÃ¤ll frÄºn disk" />
 					<Item id="41015" name="Spara en kopia som..." />
-					<Item id="41016" name="Ta bort från disk" />
+					<Item id="41016" name="Ta bort frÄºn disk" />
 					<Item id="41017" name="Byt namn..." />
-					<Item id="41018" name="Stäng alla till höger"/>
+					<Item id="41018" name="StÃ¤ng alla till hÃ¶ger"/>
 					<Item id="41019" name="Utforskaren"/>
 					<Item id="41020" name="Kommandotolken"/>
 					<Item id="42001" name="&amp;Klipp ut" />
 					<Item id="42002" name="K&amp;opiera" />
-					<Item id="42003" name="&amp;Ångra" />
+					<Item id="42003" name="&amp;Ä¹ngra" />
 					<Item id="42004" name="&amp;Upprepa" />
 					<Item id="42005" name="K&amp;listra in" />
 					<Item id="42006" name="Ta bort" />
 					<Item id="42007" name="&amp;Markera allt" />
-					<Item id="42008" name="Öka indrag (infoga TAB)" />
+					<Item id="42008" name="Ã–ka indrag (infoga TAB)" />
 					<Item id="42009" name="Minska indrag (ta bort TAB)" />
 					<Item id="42010" name="Duplicera nuvarande rad" />
 					<Item id="42012" name="Dela rader" />
 					<Item id="42013" name="Sammanfoga rader" />
-					<Item id="42014" name="Flytta rad uppåt" />
-					<Item id="42015" name="Flytta rad nedåt" />
+					<Item id="42014" name="Flytta rad uppÄºt" />
+					<Item id="42015" name="Flytta rad nedÄºt" />
 					<Item id="42016" name="TILL VERSALER" />
 					<Item id="42017" name="till gemener" />
 					<Item id="42018" name="Starta &amp;inspelning" />
 					<Item id="42019" name="&amp;Stoppa inspelning" />
 					<Item id="42020" name="Markera start/slut" />
 					<Item id="42021" name="Spela &amp;upp" />
-					<Item id="42022" name="Växla kommentar textavsnitt" />
-					<Item id="42023" name="Kommentera ström" />
-					<Item id="42024" name="Beskär avslutande blanksteg" />
+					<Item id="42022" name="VÃ¤xla kommentar textavsnitt" />
+					<Item id="42023" name="Kommentera strÃ¶m" />
+					<Item id="42024" name="BeskÃ¤r avslutande blanksteg" />
 					<Item id="42025" name="Spara inspelad makro" />
-					<Item id="42026" name="Textriktning höger till vänster" />
-					<Item id="42027" name="Textriktning vänster till höger" />
+					<Item id="42026" name="Textriktning hÃ¶ger till vÃ¤nster" />
+					<Item id="42027" name="Textriktning vÃ¤nster till hÃ¶ger" />
 					<Item id="42028" name="Ange som skrivskyddad" />
-					<Item id="42029" name="Kopiera full sökväg till Urklipp" />
+					<Item id="42029" name="Kopiera full sÃ¶kvÃ¤g till Urklipp" />
 					<Item id="42030" name="Kopiera filnamn till Urklipp" />
-					<Item id="42031" name="Kopiera mappsökväg till Urklipp" />
-					<Item id="42032" name="Kör ett makro flera gånger..." />
+					<Item id="42031" name="Kopiera mappsÃ¶kvÃ¤g till Urklipp" />
+					<Item id="42032" name="KÃ¶r ett makro flera gÄºnger..." />
 					<Item id="42033" name="Ta bort skrivskydd" />
 					<Item id="42034" name="Kolumnredigerare..." />
 					<Item id="42035" name="Kommentera textavsnitt" />
 					<Item id="42036" name="Avkommentera textavsnitt" />
-					<Item id="42037" name="Kolumnläge..." />
-					<Item id="42038" name="Klistra in HTML-innehåll" />
-					<Item id="42039" name="Klistra in RTF-innehåll" />
-					<Item id="42040" name="Öppna alla senast använda filer" />
-					<Item id="42041" name="Töm listan med senast använda filer" />
-					<Item id="42042" name="Beskär inledande blanksteg" />
-					<Item id="42043" name="Beskär inledande och avslutande blanksteg" />
+					<Item id="42037" name="KolumnlÃ¤ge..." />
+					<Item id="42038" name="Klistra in HTML-innehÄºll" />
+					<Item id="42039" name="Klistra in RTF-innehÄºll" />
+					<Item id="42040" name="Ã–ppna alla senast anvÃ¤nda filer" />
+					<Item id="42041" name="TÃ¶m listan med senast anvÃ¤nda filer" />
+					<Item id="42042" name="BeskÃ¤r inledande blanksteg" />
+					<Item id="42043" name="BeskÃ¤r inledande och avslutande blanksteg" />
 					<Item id="42044" name="EOL till blanksteg" />
-					<Item id="42045" name="Beskär alla överflödiga blanktecken" />
+					<Item id="42045" name="BeskÃ¤r alla Ã¶verflÃ¶diga blanktecken" />
 					<Item id="42046" name="TAB till blanksteg" />
-					<Item id="42047" name="Avkommentera ström" />
-					<Item id="42048" name="Kopiera binärt innehåll" />
-					<Item id="42049" name="Klipp ut binärt innehåll" />
-					<Item id="42050" name="Klistra in binärt innehåll" />
+					<Item id="42047" name="Avkommentera strÃ¶m" />
+					<Item id="42048" name="Kopiera binÃ¤rt innehÄºll" />
+					<Item id="42049" name="Klipp ut binÃ¤rt innehÄºll" />
+					<Item id="42050" name="Klistra in binÃ¤rt innehÄºll" />
 					<Item id="42051" name="Teckenpanel" />
 					<Item id="42052" name="Urklippshistorik" />
 					<Item id="42053" name="Blanksteg till TAB (Inledande)" />
 					<Item id="42054" name="Blanksteg till TAB (Alla)" />
 					<Item id="42055" name="Ta bort tomma rader" />
-					<Item id="42056" name="Ta bort tomma rader (Innehållande blanktecken)" />
-					<Item id="42057" name="Infoga tom rad ovanför nuvarande"/>
+					<Item id="42056" name="Ta bort tomma rader (InnehÄºllande blanktecken)" />
+					<Item id="42057" name="Infoga tom rad ovanfÃ¶r nuvarande"/>
 					<Item id="42058" name="Infoga tom rad under nuvarande"/>
 					<Item id="42059" name="Sortera rader i stigande ordning"/>
 					<Item id="42060" name="Sortera rader i fallande ordning"/>
-					<Item id="43001" name="&amp;Sök..." />
-					<Item id="43002" name="S&amp;ök nästa" />
-					<Item id="43003" name="&amp;Ersätt..." />
-					<Item id="43004" name="&amp;Gå till rad..." />
-					<Item id="43005" name="Sätt in &amp;bokmärke" />
-					<Item id="43006" name="&amp;Nästa bokmärke" />
-					<Item id="43007" name="&amp;Föregående bokmärke" />
-					<Item id="43008" name="&amp;Ta bort alla bokmärken" />
-					<Item id="43009" name="Gå till matchande par" />
-					<Item id="43010" name="Sök föregående" />
-					<Item id="43011" name="&amp;Stegvis sökning..." />
-					<Item id="43013" name="Sök i filer" />
-					<Item id="43014" name="Sök nästa" />
-					<Item id="43015" name="Sök föregående" />
+					<Item id="43001" name="&amp;SÃ¶k..." />
+					<Item id="43002" name="S&amp;Ã¶k nÃ¤sta" />
+					<Item id="43003" name="&amp;ErsÃ¤tt..." />
+					<Item id="43004" name="&amp;GÄº till rad..." />
+					<Item id="43005" name="SÃ¤tt in &amp;bokmÃ¤rke" />
+					<Item id="43006" name="&amp;NÃ¤sta bokmÃ¤rke" />
+					<Item id="43007" name="&amp;FÃ¶regÄºende bokmÃ¤rke" />
+					<Item id="43008" name="&amp;Ta bort alla bokmÃ¤rken" />
+					<Item id="43009" name="GÄº till matchande par" />
+					<Item id="43010" name="SÃ¶k fÃ¶regÄºende" />
+					<Item id="43011" name="&amp;Stegvis sÃ¶kning..." />
+					<Item id="43013" name="SÃ¶k i filer" />
+					<Item id="43014" name="SÃ¶k nÃ¤sta" />
+					<Item id="43015" name="SÃ¶k fÃ¶regÄºende" />
 					<Item id="43016" name="&amp;Markera allt" />
 					<Item id="43017" name="Avmarkera allt" />
-					<Item id="43018" name="Klipp ut bokmärkta rader" />
-					<Item id="43019" name="Kopiera bokmärkta rader" />
-					<Item id="43020" name="Klistra in i (byt ut) bokmärkta rader" />
-					<Item id="43021" name="Ta bort bokmärkta rader" />
-					<Item id="43022" name="Använd stil nr. 1" />
+					<Item id="43018" name="Klipp ut bokmÃ¤rkta rader" />
+					<Item id="43019" name="Kopiera bokmÃ¤rkta rader" />
+					<Item id="43020" name="Klistra in i (byt ut) bokmÃ¤rkta rader" />
+					<Item id="43021" name="Ta bort bokmÃ¤rkta rader" />
+					<Item id="43022" name="AnvÃ¤nd stil nr. 1" />
 					<Item id="43023" name="Rensa stil nr. 1" />
-					<Item id="43024" name="Använd stil nr. 2" />
+					<Item id="43024" name="AnvÃ¤nd stil nr. 2" />
 					<Item id="43025" name="Rensa stil nr. 2" />
-					<Item id="43026" name="Använd stil nr. 3" />
+					<Item id="43026" name="AnvÃ¤nd stil nr. 3" />
 					<Item id="43027" name="Rensa stil nr. 3" />
-					<Item id="43028" name="Använd stil nr. 4" />
+					<Item id="43028" name="AnvÃ¤nd stil nr. 4" />
 					<Item id="43029" name="Rensa stil nr. 4" />
-					<Item id="43030" name="Använd stil nr. 5" />
+					<Item id="43030" name="AnvÃ¤nd stil nr. 5" />
 					<Item id="43031" name="Rensa stil nr. 5" />
 					<Item id="43032" name="Rensa alla stilar" />
 					<Item id="43033" name="Stil nr. 1" />
@@ -184,43 +184,43 @@
 					<Item id="43035" name="Stil nr. 3" />
 					<Item id="43036" name="Stil nr. 4" />
 					<Item id="43037" name="Stil nr. 5" />
-					<Item id="43038" name="Sök stil" />
+					<Item id="43038" name="SÃ¶k stil" />
 					<Item id="43039" name="Stil nr. 1" />
 					<Item id="43040" name="Stil nr. 2" />
 					<Item id="43041" name="Stil nr. 3" />
 					<Item id="43042" name="Stil nr. 4" />
 					<Item id="43043" name="Stil nr. 5" />
-					<Item id="43044" name="Sök stil" />
-					<Item id="43045" name="Sökresultatsfönster" />
-					<Item id="43046" name="Nästa sökträff" />
-					<Item id="43047" name="Föregående sökträff" />
-					<Item id="43048" name="Markera och sök nästa" />
-					<Item id="43049" name="Markera och sök föregående" />
-					<Item id="43050" name="Invertera bokmärke" />
-					<Item id="43051" name="Ta bort omärkta rader" />
+					<Item id="43044" name="SÃ¶k stil" />
+					<Item id="43045" name="SÃ¶kresultatsfÃ¶nster" />
+					<Item id="43046" name="NÃ¤sta sÃ¶ktrÃ¤ff" />
+					<Item id="43047" name="FÃ¶regÄºende sÃ¶ktrÃ¤ff" />
+					<Item id="43048" name="Markera och sÃ¶k nÃ¤sta" />
+					<Item id="43049" name="Markera och sÃ¶k fÃ¶regÄºende" />
+					<Item id="43050" name="Invertera bokmÃ¤rke" />
+					<Item id="43051" name="Ta bort omÃ¤rkta rader" />
 					<Item id="43052" name="Hitta tecken i intervallet..." />
 					<Item id="43053" name="Markera allt mellan matchande klamrar"/>
 					<Item id="44009" name="Post-it" />
 					<Item id="44010" name="Minimera alla" />
 					<Item id="44019" name="Visa alla tecken" />
-					<Item id="44020" name="Visa hjälplinjer för indrag" />
+					<Item id="44020" name="Visa hjÃ¤lplinjer fÃ¶r indrag" />
 					<Item id="44022" name="Radbrytning" />
 					<Item id="44023" name="Zooma in" />
 					<Item id="44024" name="Zooma ut" />
 					<Item id="44025" name="Visa mellanslag och tabulatorer" />
 					<Item id="44026" name="Visa radslut" />
 					<Item id="44029" name="Expandera alla" />
-					<Item id="44030" name="Minimera aktuell nivå" />
-					<Item id="44031" name="Expandera aktuell nivå" />
-					<Item id="44032" name="Aktivera/inaktivera helskärmsläge" />
-					<Item id="44033" name="Återställ standardzoom-inställning" />
-					<Item id="44034" name="Alltid överst" />
+					<Item id="44030" name="Minimera aktuell nivÄº" />
+					<Item id="44031" name="Expandera aktuell nivÄº" />
+					<Item id="44032" name="Aktivera/inaktivera helskÃ¤rmslÃ¤ge" />
+					<Item id="44033" name="Ä¹terstÃ¤ll standardzoom-instÃ¤llning" />
+					<Item id="44034" name="Alltid Ã¶verst" />
 					<Item id="44035" name="Synkronisera vertikal rullning" />
 					<Item id="44036" name="Synkronisera horisontell rullning" />
 					<Item id="44041" name="Visa radbrytningssymbol" />
-					<Item id="44042" name="Dölj rader" />
+					<Item id="44042" name="DÃ¶lj rader" />
 					<Item id="44049" name="Sammanfattning..." />
-					<Item id="44072" name="Fokus på nästa vy" />
+					<Item id="44072" name="Fokus pÄº nÃ¤sta vy" />
 					<Item id="44080" name="Dokumentsvy" />
 					<Item id="44081" name="Projektpanel #1" />
 					<Item id="44082" name="Projektpanel #2" />
@@ -235,8 +235,8 @@
 					<Item id="44092" name="Flik nr. 7"/>
 					<Item id="44093" name="Flik nr. 8"/>
 					<Item id="44094" name="Flik nr. 9"/>
-					<Item id="44095" name="Nästa flik"/>
-					<Item id="44096" name="Föregående flik"/>
+					<Item id="44095" name="NÃ¤sta flik"/>
+					<Item id="44096" name="FÃ¶regÄºende flik"/>
 					<Item id="45001" name="Konvertera till Windows-format" />
 					<Item id="45002" name="Konvertera till UNIX-format" />
 					<Item id="45003" name="Konvertera till MAC-format" />
@@ -250,135 +250,135 @@
 					<Item id="45011" name="Konvertera till UTF-8" />
 					<Item id="45012" name="Konvertera till Big Endian" />
 					<Item id="45013" name="Konvertera till Little Endian" />
-					<Item id="46001" name="Konfigurera programspråk" />
-					<Item id="46080" name="Användardefinierad" />
-					<Item id="46150" name="Definiera ditt språk..." />
+					<Item id="46001" name="Konfigurera programsprÄºk" />
+					<Item id="46080" name="AnvÃ¤ndardefinierad" />
+					<Item id="46150" name="Definiera ditt sprÄºk..." />
 					<Item id="47000" name="Om Notepad++..." />
 					<Item id="47001" name="Notepad++, officiella hemsida" />
 					<Item id="47002" name="Notepad++, projekthemsida" />
-					<Item id="47003" name="Online-hjälp" />
+					<Item id="47003" name="Online-hjÃ¤lp" />
 					<Item id="47004" name="Forum" />
-					<Item id="47005" name="Hämta fler tillägg" />
+					<Item id="47005" name="HÃ¤mta fler tillÃ¤gg" />
 					<Item id="47006" name="Uppdatera Notepad++" />
-					<Item id="47008" name="Hjälp" />
-					<Item id="48005" name="Importera tillägg..." />
+					<Item id="47008" name="HjÃ¤lp" />
+					<Item id="48005" name="Importera tillÃ¤gg..." />
 					<Item id="48006" name="Importera teman..." />
 					<Item id="48009" name="Snabbkommandon..." />
-					<Item id="48011" name="Inställningar..." />
-					<Item id="48016" name="Ändra genväg/Ta bort makro..." />
-					<Item id="48017" name="Ändra genväg/Ta bort kommando..." />
+					<Item id="48011" name="InstÃ¤llningar..." />
+					<Item id="48016" name="Ã„ndra genvÃ¤g/Ta bort makro..." />
+					<Item id="48017" name="Ã„ndra genvÃ¤g/Ta bort kommando..." />
 					<Item id="48018" name="Redigera popup-meny" />
-					<Item id="49000" name="&amp;Kör..." />
+					<Item id="49000" name="&amp;KÃ¶r..." />
 					<Item id="50000" name="Funktionskomplettering" />
 					<Item id="50001" name="Ordkomplettering" />
-					<Item id="50002" name="Funktionsparameterhjälp" />
-					<Item id="50006" name="Sökvägskomplettering"/>
+					<Item id="50002" name="FunktionsparameterhjÃ¤lp" />
+					<Item id="50006" name="SÃ¶kvÃ¤gskomplettering"/>
 				</Commands>
 			</Main>
 			<Splitter />
 			<TabBar>
-				<Item CMID="0" name="Stäng" />
-				<Item CMID="1" name="Stäng alla andra" />
+				<Item CMID="0" name="StÃ¤ng" />
+				<Item CMID="1" name="StÃ¤ng alla andra" />
 				<Item CMID="2" name="Spara" />
 				<Item CMID="3" name="Spara som..." />
 				<Item CMID="4" name="Skriv ut..." />
-				<Item CMID="5" name="Flytta till delad skärm" />
-				<Item CMID="6" name="Klona till delad skärm" />
-				<Item CMID="7" name="Fullständig sökväg till Urklipp" />
+				<Item CMID="5" name="Flytta till delad skÃ¤rm" />
+				<Item CMID="6" name="Klona till delad skÃ¤rm" />
+				<Item CMID="7" name="FullstÃ¤ndig sÃ¶kvÃ¤g till Urklipp" />
 				<Item CMID="8" name="Filnamn till Urklipp" />
-				<Item CMID="9" name="Aktuell mappsökväg till Urklipp" />
-				<Item CMID="10" name="Byt namn på fil" />
+				<Item CMID="9" name="Aktuell mappsÃ¶kvÃ¤g till Urklipp" />
+				<Item CMID="10" name="Byt namn pÄº fil" />
 				<Item CMID="11" name="Ta bort fil" />
 				<Item CMID="12" name="Skrivskydda" />
 				<Item CMID="13" name="Ta bort skrivskyddsflaggan" />
 				<Item CMID="14" name="Flytta till ny instans" />
 				<Item CMID="15" name="Klona till ny instans" />
 				<Item CMID="16" name="Ladda om" />
-				<Item CMID="17" name="Stäng alla till vänster"/>
-				<Item CMID="18" name="Stäng alla till höger"/>
-				<Item CMID="19" name="Öppna objektets mapp i utforskaren"/>
-				<Item CMID="20" name="Öppna objektets mapp i kommandotolken"/>
+				<Item CMID="17" name="StÃ¤ng alla till vÃ¤nster"/>
+				<Item CMID="18" name="StÃ¤ng alla till hÃ¶ger"/>
+				<Item CMID="19" name="Ã–ppna objektets mapp i utforskaren"/>
+				<Item CMID="20" name="Ã–ppna objektets mapp i kommandotolken"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
-			<Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleMark="Markera">
-				<Item id="1" name="Sök &amp;nästa" />
-				<Item id="2" name="Stäng" />
-				<Item id="1603" name="Sök &amp;hela ord" />
-				<Item id="1604" name="&amp;Matcha små/stora bokstäver" />
-				<Item id="1605" name="&amp;Reguljärt uttryck" />
+			<Find title="" titleFind="SÃ¶k" titleReplace="ErsÃ¤tt" titleFindInFiles="SÃ¶k i filer" titleMark="Markera">
+				<Item id="1" name="SÃ¶k &amp;nÃ¤sta" />
+				<Item id="2" name="StÃ¤ng" />
+				<Item id="1603" name="SÃ¶k &amp;hela ord" />
+				<Item id="1604" name="&amp;Matcha smÄº/stora bokstÃ¤ver" />
+				<Item id="1605" name="&amp;ReguljÃ¤rt uttryck" />
 				<Item id="1606" name="&amp;Loopa" />
-				<Item id="1608" name="&amp;Ersätt" />
-				<Item id="1609" name="Ersätt &amp;alla" />
-				<Item id="1611" name="Ersätt med..." />
+				<Item id="1608" name="&amp;ErsÃ¤tt" />
+				<Item id="1609" name="ErsÃ¤tt &amp;alla" />
+				<Item id="1611" name="ErsÃ¤tt med..." />
 				<Item id="1612" name="Upp" />
 				<Item id="1613" name="Ner" />
-				<Item id="1614" name="Antal sökträffar" />
+				<Item id="1614" name="Antal sÃ¶ktrÃ¤ffar" />
 				<Item id="1615" name="Hitta alla" />
 				<Item id="1616" name="Markera rad" />
-				<Item id="1617" name="Markera alla träffar" />
-				<Item id="1618" name="Rensa tidigare markering vid varje sökning" />
-				<Item id="1620" name="Sök efter:" />
-				<Item id="1621" name="Sök" />
-				<Item id="1624" name="Sökläge" />
+				<Item id="1617" name="Markera alla trÃ¤ffar" />
+				<Item id="1618" name="Rensa tidigare markering vid varje sÃ¶kning" />
+				<Item id="1620" name="SÃ¶k efter:" />
+				<Item id="1621" name="SÃ¶k" />
+				<Item id="1624" name="SÃ¶klÃ¤ge" />
 				<Item id="1625" name="N&amp;ormal" />
-				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)" />
+				<Item id="1626" name="&amp;UtÃ¶kat (\n, \r, \t, \0, \x...)" />
 				<Item id="1632" name="I mar&amp;kering" />
 				<Item id="1633" name="Rensa" />
-				<Item id="1635" name="Ersätt i öppnade filer" />
-				<Item id="1636" name="Sök i öppnade filer" />
-				<Item id="1637" name="Sök i filer" />
-				<Item id="1641" name="Sök alla i aktivt dokument" />
+				<Item id="1635" name="ErsÃ¤tt i Ã¶ppnade filer" />
+				<Item id="1636" name="SÃ¶k i Ã¶ppnade filer" />
+				<Item id="1637" name="SÃ¶k i filer" />
+				<Item id="1641" name="SÃ¶k alla i aktivt dokument" />
 				<Item id="1654" name="Filter:" />
 				<Item id="1655" name="Mapp:" />
-				<Item id="1656" name="Sök alla" />
+				<Item id="1656" name="SÃ¶k alla" />
 				<Item id="1658" name="I alla undermappar" />
 				<Item id="1659" name="I dolda mappar" />
-				<Item id="1660" name="Ersätt i filer" />
-				<Item id="1661" name="Följ aktuellt dok." />
+				<Item id="1660" name="ErsÃ¤tt i filer" />
+				<Item id="1661" name="FÃ¶lj aktuellt dok." />
 				<Item id="1686" name="Transparens" />
-				<Item id="1687" name="Vid förlorad fokus" />
+				<Item id="1687" name="Vid fÃ¶rlorad fokus" />
 				<Item id="1688" name="Alltid" />
 				<Item id="1703" name="&amp;. omfattar ny rad" />
 			</Find>
-			<Run title="Kör...">
-				<Item id="1" name="Kör" />
-				<Item id="2" name="Stäng" />
-				<Item id="1903" name="Ange det program du vill köra här" />
+			<Run title="KÃ¶r...">
+				<Item id="1" name="KÃ¶r" />
+				<Item id="2" name="StÃ¤ng" />
+				<Item id="1903" name="Ange det program du vill kÃ¶ra hÃ¤r" />
 				<Item id="1904" name="Spara..." />
 			</Run>
-			<GoToLine title="Gå till rad">
-				<Item id="1" name="&amp;Gå" />
-				<Item id="2" name="Stäng" />
-				<Item id="2004" name="Du är på rad:" />
-				<Item id="2005" name="Du vill gå till:" />
-				<Item id="2006" name="Du kan inte gå längre än till:" />
+			<GoToLine title="GÄº till rad">
+				<Item id="1" name="&amp;GÄº" />
+				<Item id="2" name="StÃ¤ng" />
+				<Item id="2004" name="Du Ã¤r pÄº rad:" />
+				<Item id="2005" name="Du vill gÄº till:" />
+				<Item id="2006" name="Du kan inte gÄº lÃ¤ngre Ã¤n till:" />
 				<Item id="2007" name="Rad" />
 				<Item id="2008" name="Kolumn" />
 			</GoToLine>
-			<StyleConfig title="Stilinställningar för programspråk">
-				<Item id="2" name="Stäng" />
-				<Item id="2301" name="Spara och stäng" />
+			<StyleConfig title="StilinstÃ¤llningar fÃ¶r programsprÄºk">
+				<Item id="2" name="StÃ¤ng" />
+				<Item id="2301" name="Spara och stÃ¤ng" />
 				<Item id="2303" name="Transparens" />
-				<Item id="2306" name="Välj tema: " />
+				<Item id="2306" name="VÃ¤lj tema: " />
 				<SubDialog>
 					<Item id="2204" name="Fet" />
 					<Item id="2205" name="Kursiv" />
-					<Item id="2206" name="Förgrundsfärg" />
-					<Item id="2207" name="Bakgrundsfärg" />
-					<Item id="2208" name="Namn på typsnitt:" />
+					<Item id="2206" name="FÃ¶rgrundsfÃ¤rg" />
+					<Item id="2207" name="BakgrundsfÃ¤rg" />
+					<Item id="2208" name="Namn pÄº typsnitt:" />
 					<Item id="2209" name="Storlek:" />
 					<Item id="2211" name="Beskrivning:" />
-					<Item id="2212" name="Färginställning" />
+					<Item id="2212" name="FÃ¤rginstÃ¤llning" />
 					<Item id="2213" name="Typsnitt" />
-					<Item id="2214" name="Standardfiltillägg:" />
-					<Item id="2216" name="Användarfiltillägg:" />
+					<Item id="2214" name="StandardfiltillÃ¤gg:" />
+					<Item id="2216" name="AnvÃ¤ndarfiltillÃ¤gg:" />
 					<Item id="2218" name="Understruken" />
-					<Item id="2219" name="Fördefinierade nyckelord" />
-					<Item id="2221" name="Användardefinierade nyckelord" />
-					<Item id="2225" name="Programspråk:" />
-					<Item id="2226" name="Aktivera global förgrundsfärg" />
-					<Item id="2227" name="Aktivera global bakgrundsfärg" />
+					<Item id="2219" name="FÃ¶rdefinierade nyckelord" />
+					<Item id="2221" name="AnvÃ¤ndardefinierade nyckelord" />
+					<Item id="2225" name="ProgramsprÄºk:" />
+					<Item id="2226" name="Aktivera global fÃ¶rgrundsfÃ¤rg" />
+					<Item id="2227" name="Aktivera global bakgrundsfÃ¤rg" />
 					<Item id="2228" name="Aktivera globalt typsnitt" />
 					<Item id="2229" name="Aktivera global teckenstorlek" />
 					<Item id="2230" name="Aktivera global fet teckenstil" />
@@ -387,44 +387,44 @@
 				</SubDialog>
 			</StyleConfig>
 			<FindCharsInRange title="Hitta tecken i intervallet">
-				<Item id="2" name="Stäng" />
+				<Item id="2" name="StÃ¤ng" />
 				<Item id="2901" name="Icke ASCII-tecken (128-255)" />
 				<Item id="2902" name="ASCII-tecken (0 - 127)" />
-				<Item id="2903" name="Mitt område:" />
+				<Item id="2903" name="Mitt omrÄºde:" />
 				<Item id="2906" name="Upp" />
 				<Item id="2907" name="Ner" />
 				<Item id="2908" name="Riktning" />
 				<Item id="2909" name="Loopa" />
-				<Item id="2910" name="Sök" />
+				<Item id="2910" name="SÃ¶k" />
 			</FindCharsInRange>
-			<UserDefine title="Användarinställningar">
-				<Item id="20001" name="Fäst" />
+			<UserDefine title="AnvÃ¤ndarinstÃ¤llningar">
+				<Item id="20001" name="FÃ¤st" />
 				<Item id="20002" name="Byt namn" />
 				<Item id="20003" name="Skapa nytt..." />
 				<Item id="20004" name="Ta bort" />
 				<Item id="20005" name="Spara som..." />
-				<Item id="20007" name="Användarspråk:" />
-				<Item id="20009" name="Filtillägg:" />
+				<Item id="20007" name="AnvÃ¤ndarsprÄºk:" />
+				<Item id="20009" name="FiltillÃ¤gg:" />
 				<Item id="20011" name="Transparens" />
 				<Item id="20012" name="Ignorera gem/ver" />
 				<Item id="20015" name="Importera..." />
 				<Item id="20016" name="Exportera..." />
 				<StylerDialog title="Design">
 					<Item id="1" name="OK" />
-					<Item id="2" name="Stäng" />
+					<Item id="2" name="StÃ¤ng" />
 					<Item id="25001" name="Fet" />
 					<Item id="25002" name="Kursiv" />
 					<Item id="25003" name="Understruken" />
-					<Item id="25006" name="Förgrundsfärg" />
-					<Item id="25007" name="Bakgrundsfärg" />
-					<Item id="25008" name="Avgränsare 1" />
-					<Item id="25009" name="Angränsare 2" />
-					<Item id="25010" name="Angränsare 3" />
-					<Item id="25011" name="Angränsare 4" />
-					<Item id="25012" name="Angränsare 5" />
-					<Item id="25013" name="Angränsare 6" />
-					<Item id="25014" name="Angränsare 7" />
-					<Item id="25015" name="Angränsare 8" />
+					<Item id="25006" name="FÃ¶rgrundsfÃ¤rg" />
+					<Item id="25007" name="BakgrundsfÃ¤rg" />
+					<Item id="25008" name="AvgrÃ¤nsare 1" />
+					<Item id="25009" name="AngrÃ¤nsare 2" />
+					<Item id="25010" name="AngrÃ¤nsare 3" />
+					<Item id="25011" name="AngrÃ¤nsare 4" />
+					<Item id="25012" name="AngrÃ¤nsare 5" />
+					<Item id="25013" name="AngrÃ¤nsare 6" />
+					<Item id="25014" name="AngrÃ¤nsare 7" />
+					<Item id="25015" name="AngrÃ¤nsare 8" />
 					<Item id="25016" name="Kommentar" />
 					<Item id="25017" name="Kommentarsrad" />
 					<Item id="25018" name="Nyckelord 1" />
@@ -438,7 +438,7 @@
 					<Item id="25026" name="Operator 1" />
 					<Item id="25027" name="Operator 2" />
 					<Item id="25028" name="Nummer" />
-					<Item id="25029" name="Nästling:" />
+					<Item id="25029" name="NÃ¤stling:" />
 					<Item id="25030" name="Typsnitt:" />
 					<Item id="25031" name="Namn:" />
 					<Item id="25032" name="Storlek:" />
@@ -446,21 +446,21 @@
 				<Folder title="Mapp &amp;&amp; Standard">
 					<Item id="21101" name="Standardformat" />
 					<Item id="21102" name="Format" />
-					<Item id="21104" name="Tillfällig hemsida: " />
+					<Item id="21104" name="TillfÃ¤llig hemsida: " />
 					<Item id="21105" name="Dokumentation:" />
-					<Item id="21106" name="Fälla ihop &amp;kompakt (fäll ihop tomma rader)" />
-					<Item id="21220" name="Fälla ihop kod 1: " />
-					<Item id="21224" name="Början: " />
+					<Item id="21106" name="FÃ¤lla ihop &amp;kompakt (fÃ¤ll ihop tomma rader)" />
+					<Item id="21220" name="FÃ¤lla ihop kod 1: " />
+					<Item id="21224" name="BÃ¶rjan: " />
 					<Item id="21225" name="Mitten: " />
 					<Item id="21226" name="Slut: " />
 					<Item id="21227" name="Format" />
-					<Item id="21320" name="Fälla ihop kod 2 (avgränsare behövs):" />
-					<Item id="21324" name="Början: " />
+					<Item id="21320" name="FÃ¤lla ihop kod 2 (avgrÃ¤nsare behÃ¶vs):" />
+					<Item id="21324" name="BÃ¶rjan: " />
 					<Item id="21325" name="Mitten: " />
 					<Item id="21326" name="Slut: " />
 					<Item id="21327" name="Format" />
-					<Item id="21420" name="Fälla ihop kommentar: " />
-					<Item id="21424" name="Början:" />
+					<Item id="21420" name="FÃ¤lla ihop kommentar: " />
+					<Item id="21424" name="BÃ¶rjan:" />
 					<Item id="21425" name="Mitten: " />
 					<Item id="21426" name="Slut: " />
 					<Item id="21427" name="Format" />
@@ -482,23 +482,23 @@
 					<Item id="22522" name="Format" />
 					<Item id="22572" name="Format" />
 					<Item id="22622" name="Format" />
-					<Item id="22121" name="Prefixläge" />
-					<Item id="22221" name="Prefixläge" />
-					<Item id="22321" name="Prefixläge" />
-					<Item id="22421" name="Prefixläge" />
-					<Item id="22471" name="Prefixläge" />
-					<Item id="22521" name="Prefixläge" />
-					<Item id="22571" name="Prefixläge" />
-					<Item id="22621" name="Prefixläge" />
+					<Item id="22121" name="PrefixlÃ¤ge" />
+					<Item id="22221" name="PrefixlÃ¤ge" />
+					<Item id="22321" name="PrefixlÃ¤ge" />
+					<Item id="22421" name="PrefixlÃ¤ge" />
+					<Item id="22471" name="PrefixlÃ¤ge" />
+					<Item id="22521" name="PrefixlÃ¤ge" />
+					<Item id="22571" name="PrefixlÃ¤ge" />
+					<Item id="22621" name="PrefixlÃ¤ge" />
 				</Keywords>
 				<Comment title="Kommentar &amp;&amp; Nummer">
-					<Item id="23001" name="Tillåt fälla ihop kommentarer" />
+					<Item id="23001" name="TillÄºt fÃ¤lla ihop kommentarer" />
 					<Item id="23003" name="Position radkommentar" />
-					<Item id="23004" name="Tillåt var som helst" />
-					<Item id="23005" name="Tvinga vid början av rad" />
-					<Item id="23006" name="Tillåt inledande blanksteg" />
+					<Item id="23004" name="TillÄºt var som helst" />
+					<Item id="23005" name="Tvinga vid bÃ¶rjan av rad" />
+					<Item id="23006" name="TillÄºt inledande blanksteg" />
 					<Item id="23101" name="Flerradskommentarer" />
-					<Item id="23122" name="Början" />
+					<Item id="23122" name="BÃ¶rjan" />
 					<Item id="23123" name="Slut" />
 					<Item id="23124" name="Format" />
 					<Item id="23201" name="Nummer" />
@@ -513,10 +513,10 @@
 					<Item id="23244" name="Decimaltecken" />
 					<Item id="23245" name="Punkt" />
 					<Item id="23246" name="Komma" />
-					<Item id="23247" name="Båda" />
+					<Item id="23247" name="BÄºda" />
 					<Item id="23301" name="Kommentarsrad" />
-					<Item id="23323" name="Början" />
-					<Item id="23324" name="Fortsättstecken" />
+					<Item id="23323" name="BÃ¶rjan" />
+					<Item id="23324" name="FortsÃ¤ttstecken" />
 					<Item id="23325" name="Slut" />
 					<Item id="23326" name="Format" />
 				</Comment>
@@ -524,103 +524,103 @@
 					<Item id="24101" name="Aktiverade operatorer" />
 					<Item id="24113" name="Format" />
 					<Item id="24116" name="Operatorer 1" />
-					<Item id="24117" name="Operatorer 2 (avgränsare behövs)" />
-					<Item id="24201" name="Avgränsare 1" />
-					<Item id="24220" name="Början: " />
+					<Item id="24117" name="Operatorer 2 (avgrÃ¤nsare behÃ¶vs)" />
+					<Item id="24201" name="AvgrÃ¤nsare 1" />
+					<Item id="24220" name="BÃ¶rjan: " />
 					<Item id="24221" name="Escape: " />
 					<Item id="24222" name="Slut: " />
 					<Item id="24223" name="Format" />
-					<Item id="24301" name="Avgränsare 2" />
+					<Item id="24301" name="AvgrÃ¤nsare 2" />
 					<Item id="24323" name="Format" />
-					<Item id="24320" name="Början: " />
+					<Item id="24320" name="BÃ¶rjan: " />
 					<Item id="24321" name="Escape: " />
 					<Item id="24322" name="Slut: " />
-					<Item id="24401" name="Avgränsare 3" />
+					<Item id="24401" name="AvgrÃ¤nsare 3" />
 					<Item id="24423" name="Format" />
-					<Item id="24420" name="Början: " />
+					<Item id="24420" name="BÃ¶rjan: " />
 					<Item id="24421" name="Escape: " />
 					<Item id="24422" name="Slut: " />
-					<Item id="24451" name="Avgränsare 4" />
+					<Item id="24451" name="AvgrÃ¤nsare 4" />
 					<Item id="24473" name="Format" />
-					<Item id="24470" name="Början: " />
+					<Item id="24470" name="BÃ¶rjan: " />
 					<Item id="24471" name="Escape: " />
 					<Item id="24472" name="Slut: " />
-					<Item id="24501" name="Avgränsare 5" />
+					<Item id="24501" name="AvgrÃ¤nsare 5" />
 					<Item id="24523" name="Format" />
-					<Item id="24520" name="Början: " />
+					<Item id="24520" name="BÃ¶rjan: " />
 					<Item id="24521" name="Escape: " />
 					<Item id="24522" name="Slut: " />
-					<Item id="24551" name="Avgränsare 6" />
+					<Item id="24551" name="AvgrÃ¤nsare 6" />
 					<Item id="24573" name="Format" />
-					<Item id="24570" name="Början: " />
+					<Item id="24570" name="BÃ¶rjan: " />
 					<Item id="24571" name="Escape: " />
 					<Item id="24572" name="Slut: " />
-					<Item id="24601" name="Avgränsare 7" />
+					<Item id="24601" name="AvgrÃ¤nsare 7" />
 					<Item id="24623" name="Format" />
-					<Item id="24620" name="Början: " />
+					<Item id="24620" name="BÃ¶rjan: " />
 					<Item id="24621" name="Escape: " />
 					<Item id="24622" name="Slut: " />
-					<Item id="24651" name="Avgränsare 8" />
+					<Item id="24651" name="AvgrÃ¤nsare 8" />
 					<Item id="24673" name="Format" />
-					<Item id="24670" name="Början: " />
+					<Item id="24670" name="BÃ¶rjan: " />
 					<Item id="24671" name="Escape: " />
 					<Item id="24672" name="Slut: " />
 				</Operator>
 			</UserDefine>
-			<Preference title="Inställningar">
-				<Item id="6001" name="Stäng" />
-				<Global title="Allmänt">
+			<Preference title="InstÃ¤llningar">
+				<Item id="6001" name="StÃ¤ng" />
+				<Global title="AllmÃ¤nt">
 					<Item id="6101" name="Verktygsrad" />
-					<Item id="6102" name="Dölj" />
-					<Item id="6103" name="Små ikoner" />
+					<Item id="6102" name="DÃ¶lj" />
+					<Item id="6103" name="SmÄº ikoner" />
 					<Item id="6104" name="Stora ikoner" />
-					<Item id="6105" name="Små standardikoner" />
+					<Item id="6105" name="SmÄº standardikoner" />
 					<Item id="6106" name="Flikrad" />
-					<Item id="6107" name="Förminska" />
-					<Item id="6108" name="Lås positioner (inget drag och släpp)" />
-					<Item id="6109" name="Gör inaktiva flikar mörkare" />
-					<Item id="6110" name="Rita färgad linje på aktiv flik" />
-					<Item id="6111" name="Visa statusfält" />
-					<Item id="6112" name="Stäng-knapp på varje flik" />
-					<Item id="6113" name="Dubbelklicka för att stänga dokument" />
-					<Item id="6118" name="Dölj" />
+					<Item id="6107" name="FÃ¶rminska" />
+					<Item id="6108" name="LÄºs positioner (inget drag och slÃ¤pp)" />
+					<Item id="6109" name="GÃ¶r inaktiva flikar mÃ¶rkare" />
+					<Item id="6110" name="Rita fÃ¤rgad linje pÄº aktiv flik" />
+					<Item id="6111" name="Visa statusfÃ¤lt" />
+					<Item id="6112" name="StÃ¤ng-knapp pÄº varje flik" />
+					<Item id="6113" name="Dubbelklicka fÃ¶r att stÃ¤nga dokument" />
+					<Item id="6118" name="DÃ¶lj" />
 					<Item id="6119" name="Flerradig" />
 					<Item id="6120" name="Vertikal" />
 					<Item id="6121" name="Menyrad" />
-					<Item id="6122"	name="Dölj (använd Alt eller F10 för att växla mellan dold och synlig)" />
-					<Item id="6123" name="Språk" />
-					<Item id="6125" name="Växla dokument" />
+					<Item id="6122"	name="DÃ¶lj (anvÃ¤nd Alt eller F10 fÃ¶r att vÃ¤xla mellan dold och synlig)" />
+					<Item id="6123" name="SprÄºk" />
+					<Item id="6125" name="VÃ¤xla dokument" />
 					<Item id="6126" name="Visa" />
-					<Item id="6127" name="Inaktivera filändelsekolumn" />
+					<Item id="6127" name="Inaktivera filÃ¤ndelsekolumn" />
 				</Global>
 				<Scintillas title="Redigera komponenter">
 					<Item id="6201" name="Mappliststil" />
 					<Item id="6202" name="Enkel" />
 					<Item id="6203" name="Pil" />
-					<Item id="6204" name="Runt träd" />
-					<Item id="6205" name="Fyrkantigt träd" />
+					<Item id="6204" name="Runt trÃ¤d" />
+					<Item id="6205" name="Fyrkantigt trÃ¤d" />
 					<Item id="6206" name="Visa radnummerlist" />
-					<Item id="6207" name="Visa bokmärkeslist" />
+					<Item id="6207" name="Visa bokmÃ¤rkeslist" />
 					<Item id="6208" name="Visa vertikal kant" />
 					<Item id="6209" name="Antal kolumner: " />
-					<Item id="6211" name="Vertikal kantinställning" />
-					<Item id="6212" name="Radläge" />
-					<Item id="6213" name="Bakgrundsläge" />
-					<Item id="6214" name="Aktiv rad framhävd/markerad" />
-					<Item id="6216" name="Insättningsteckens-inställningar" />
+					<Item id="6211" name="Vertikal kantinstÃ¤llning" />
+					<Item id="6212" name="RadlÃ¤ge" />
+					<Item id="6213" name="BakgrundslÃ¤ge" />
+					<Item id="6214" name="Aktiv rad framhÃ¤vd/markerad" />
+					<Item id="6216" name="InsÃ¤ttningsteckens-instÃ¤llningar" />
 					<Item id="6217" name="Bredd:" />
 					<Item id="6219" name="Blinkningstakt:" />
-					<Item id="6221" name="Hög" />
-					<Item id="6222" name="Låg" />
-					<Item id="6224" name="Multiredigerings-inställningar" />
-					<Item id="6225" name="Tillåt (Ctrl+Musklick/markering)" />
+					<Item id="6221" name="HÃ¶g" />
+					<Item id="6222" name="LÄºg" />
+					<Item id="6224" name="Multiredigerings-instÃ¤llningar" />
+					<Item id="6225" name="TillÄºt (Ctrl+Musklick/markering)" />
 					<Item id="6226" name="Ingen" />
 					<Item id="6227" name="Radplanering" />
 					<Item id="6228" name="Standard" />
 					<Item id="6229" name="Justerad" />
 					<Item id="6230" name="Indrag" />
 					<Item id="6231" name="Kantbredd" />
-					<Item id="6234" name="Inaktivera utökade bläddringfunktioner (om du har problem med pekplattan)"/>
+					<Item id="6234" name="Inaktivera utÃ¶kade blÃ¤ddringfunktioner (om du har problem med pekplattan)"/>
 				</Scintillas>
 				<NewDoc title="Nytt dokument">
 					<Item id="6401" name="Format radbrytning" />
@@ -633,56 +633,56 @@
 					<Item id="6408" name="UTF-8" />
 					<Item id="6409" name="UCS2 Big endian" />
 					<Item id="6410" name="UCS2 Little Endian" />
-					<Item id="6411" name="Standardspråk:" />
+					<Item id="6411" name="StandardsprÄºk:" />
 					<Item id="6419" name="Nytt dokument" />
-					<Item id="6420" name="Tillämpa på öppnade ANSI-filer" />
+					<Item id="6420" name="TillÃ¤mpa pÄº Ã¶ppnade ANSI-filer" />
 				</NewDoc>
 				<DefaultDir title="Standardmapp"> 
-					<Item id="6413" name="Standardmapp (öppna/spara)"/> 
-					<Item id="6414" name="Använd det aktuella dokumentet"/> 
-					<Item id="6415" name="Kom ihåg den senast använda mappen"/> 
+					<Item id="6413" name="Standardmapp (Ã¶ppna/spara)"/> 
+					<Item id="6414" name="AnvÃ¤nd det aktuella dokumentet"/> 
+					<Item id="6415" name="Kom ihÄºg den senast anvÃ¤nda mappen"/> 
 				</DefaultDir>
 				<FileAssoc title="Filassociering">
-					<Item id="4009" name="Kompatibla filtillägg:" />
-					<Item id="4010" name="Registrerade filtillägg:" />
+					<Item id="4009" name="Kompatibla filtillÃ¤gg:" />
+					<Item id="4010" name="Registrerade filtillÃ¤gg:" />
 				</FileAssoc>
-				<LangMenu title="Programspråksmeny">
-					<Item id="6505" name="Tillgängliga element" />
-					<Item id="6506" name="Ej tillgängliga element" />
-					<Item id="6507" name="Gör programspråksmenyn kompakt" />
-					<Item id="6508" name="Programspråksmeny" />
-					<Item id="6510" name="Använd standardvärdet" />
+				<LangMenu title="ProgramsprÄºksmeny">
+					<Item id="6505" name="TillgÃ¤ngliga element" />
+					<Item id="6506" name="Ej tillgÃ¤ngliga element" />
+					<Item id="6507" name="GÃ¶r programsprÄºksmenyn kompakt" />
+					<Item id="6508" name="ProgramsprÄºksmeny" />
+					<Item id="6510" name="AnvÃ¤nd standardvÃ¤rdet" />
 				</LangMenu>
-				<TabSettings title="Tabbinställningar"> 
-					<Item id="6301" name="Tabbinställningar"/> 
-					<Item id="6302" name="Ersätt med mellanslag"/> 
+				<TabSettings title="TabbinstÃ¤llningar"> 
+					<Item id="6301" name="TabbinstÃ¤llningar"/> 
+					<Item id="6302" name="ErsÃ¤tt med mellanslag"/> 
 					<Item id="6303" name="Tabb-storlek: "/> 
 				</TabSettings> 
 				<Print title="Utskriftsformat">
 					<Item id="6601" name="Skriv ut radnummer" />
-					<Item id="6602" name="Färginställning" />
+					<Item id="6602" name="FÃ¤rginstÃ¤llning" />
 					<Item id="6603" name="WYSIWYG" />
 					<Item id="6604" name="Invertera" />
-					<Item id="6605" name="Svart på vitt" />
-					<Item id="6606" name="Ingen bakgrundsfärg" />
-					<Item id="6607" name="Marginalinställningar (Enhet: mm)" />
-					<Item id="6612" name="Vänster" />
-					<Item id="6613" name="Överst" />
-					<Item id="6614" name="Höger" />
+					<Item id="6605" name="Svart pÄº vitt" />
+					<Item id="6606" name="Ingen bakgrundsfÃ¤rg" />
+					<Item id="6607" name="MarginalinstÃ¤llningar (Enhet: mm)" />
+					<Item id="6612" name="VÃ¤nster" />
+					<Item id="6613" name="Ã–verst" />
+					<Item id="6614" name="HÃ¶ger" />
 					<Item id="6615" name="Nederst" />
 					<Item id="6706" name="Fet" />
 					<Item id="6707" name="Kursiv" />
 					<Item id="6708" name="Sidhuvud" />
-					<Item id="6709" name="Vänsterparti" />
+					<Item id="6709" name="VÃ¤nsterparti" />
 					<Item id="6710" name="Mittparti" />
-					<Item id="6711" name="Högerparti" />
+					<Item id="6711" name="HÃ¶gerparti" />
 					<Item id="6717" name="Fet" />
 					<Item id="6718" name="Kursiv" />
 					<Item id="6719" name="Sidfot" />
-					<Item id="6720" name="Vänsterparti" />
+					<Item id="6720" name="VÃ¤nsterparti" />
 					<Item id="6721" name="Mittparti" />
-					<Item id="6722" name="Högerparti" />
-					<Item id="6723" name="Lägg till" />
+					<Item id="6722" name="HÃ¶gerparti" />
+					<Item id="6723" name="LÃ¤gg till" />
 					<Item id="6725" name="Variabel:" />
 					<Item id="6727" name="Vilken del:" />
 					<Item id="6728" name="Sidhuvud och sidfot" />
@@ -694,142 +694,142 @@
 					<Item id="6429" name="Visa"/>
 					<Item id="6424" name="I undermenyer" />
 					<Item id="6425" name="Endast filnamn" />
-					<Item id="6426" name="Fullständig sökväg" />
-					<Item id="6427" name="Justera maximal längd:" /> 
+					<Item id="6426" name="FullstÃ¤ndig sÃ¶kvÃ¤g" />
+					<Item id="6427" name="Justera maximal lÃ¤ngd:" /> 
 				</RecentFilesHistory> 
-				<MISC title="Övrigt">
+				<MISC title="Ã–vrigt">
 					<Item id="6114" name="Aktivera" />
 					<Item id="6115" name="Automatiskt indrag" />
-					<Item id="6117" name="Tillämpa senast använd-beteende (MRU)" />
+					<Item id="6117" name="TillÃ¤mpa senast anvÃ¤nd-beteende (MRU)" />
 					<Item id="6307" name="Aktivera" />
-					<Item id="6308" name="Minimera till meddelandefältet" />
-					<Item id="6312" name="Automatisk avkänning av filstatus" />
+					<Item id="6308" name="Minimera till meddelandefÃ¤ltet" />
+					<Item id="6312" name="Automatisk avkÃ¤nning av filstatus" />
 					<Item id="6313" name="Tyst uppdatering" />
-					<Item id="6318" name="Inställningar för klickbara länkar" />
+					<Item id="6318" name="InstÃ¤llningar fÃ¶r klickbara lÃ¤nkar" />
 					<Item id="6319" name="Aktivera" />
 					<Item id="6320" name="Aktivera inte understrykning" />
-					<Item id="6322" name="Sessionsfilsändelse:" />
+					<Item id="6322" name="SessionsfilsÃ¤ndelse:" />
 					<Item id="6323" name="Automatisk uppdatering av Notepad++" />
-					<Item id="6324" name="Dokumentbläddrare (Ctrl+Tab)" />
-					<Item id="6325" name="Gå till den sista raden efter uppdatering" />
+					<Item id="6324" name="DokumentblÃ¤ddrare (Ctrl+Tab)" />
+					<Item id="6325" name="GÄº till den sista raden efter uppdatering" />
 					<Item id="6326" name="Aktivera smart markering" />
 					<Item id="6327" name="Aktivera" />
 					<Item id="6328" name="Markera taggattribut" />
 					<Item id="6329" name="Markera matchande taggar" />
 					<Item id="6330" name="Markera kommentar/php/asp-zon" />
 					<Item id="6331" name="Visa endast filnamn i titelrad" />
-					<Item id="6332" name="Matcha skiftläge" />
+					<Item id="6332" name="Matcha skiftlÃ¤ge" />
 					<Item id="6333" name="Smarta markeringar" />					
-					<Item id="6334" name="Automatisk igenkänning av teckenkodning" />
-					<Item id="6335" name="Behandla backslash som escape-tecken för SQL" />						
+					<Item id="6334" name="Automatisk igenkÃ¤nning av teckenkodning" />
+					<Item id="6335" name="Behandla backslash som escape-tecken fÃ¶r SQL" />						
 				</MISC>
-				<Backup title="Säkerhetskopiering">
-					<Item id="6309" name="Kom ihåg nuvarande session vid nästa körning" />
+				<Backup title="SÃ¤kerhetskopiering">
+					<Item id="6309" name="Kom ihÄºg nuvarande session vid nÃ¤sta kÃ¶rning" />
 					<Item id="6315" name="Ingen" />
 					<Item id="6316" name="Enkel" />
 					<Item id="6317" name="Detaljerad" />
-					<Item id="6801" name="Säkerhetskopiering" />
+					<Item id="6801" name="SÃ¤kerhetskopiering" />
 					<Item id="6803" name="Mapp:" />
-					<Item id="6804" name="Egen mapp för säkerhetskopiering" />
-					<Item id="6817" name="Spara session och regelbunden säkerhetskopiering" />
-					<Item id="6818" name="Aktivera spara session och regelbunden säkerhetskopiering" />
-					<Item id="6819" name="Säkerhetskopiera var" />
+					<Item id="6804" name="Egen mapp fÃ¶r sÃ¤kerhetskopiering" />
+					<Item id="6817" name="Spara session och regelbunden sÃ¤kerhetskopiering" />
+					<Item id="6818" name="Aktivera spara session och regelbunden sÃ¤kerhetskopiering" />
+					<Item id="6819" name="SÃ¤kerhetskopiera var" />
 					<Item id="6821" name="sekund" />
-					<Item id="6822" name="Sökväg:" />
+					<Item id="6822" name="SÃ¶kvÃ¤g:" />
 				</Backup>
 				<AutoCompletion title="Auto-komplettering"> 
 					<Item id="6807" name="Automatisk komplettering" />
 					<Item id="6808"	name="Aktivera automatisk komplettering vid varje inmatning" />
 					<Item id="6809" name="Funktionskomplettering" />
 					<Item id="6810" name="Ordkomplettering" />
-					<Item id="6811" name="Från" />
+					<Item id="6811" name="FrÄºn" />
 					<Item id="6813" name="tecknet" />
-					<Item id="6814" name="Giltigt värde: 1-9" />
-					<Item id="6815" name="Funktionsparameterhjälp vid inmatning" />
+					<Item id="6814" name="Giltigt vÃ¤rde: 1-9" />
+					<Item id="6815" name="FunktionsparameterhjÃ¤lp vid inmatning" />
 					<Item id="6816" name="Funktion och ordkomplettering"/>
 					<Item id="6851" name="Auto-infoga"/>
 					<Item id="6857" name=" html/xml sluttagg"/>
-					<Item id="6858" name="Början"/>
+					<Item id="6858" name="BÃ¶rjan"/>
 					<Item id="6859" name="Slut"/>
 					<Item id="6860" name="Matchade par 1:"/>
 					<Item id="6863" name="Matchade par 2:"/>
 					<Item id="6866" name="Matchade par 3:"/>
 				</AutoCompletion>
 				<MultiInstance title="Flera instanser">
-					<Item id="6151" name="Inställningar flera instanser"/>
-					<Item id="6152" name="Öppna session i en ny instans av Notepad++"/>
-					<Item id="6153" name="Alltid fler-instans läge"/>
+					<Item id="6151" name="InstÃ¤llningar flera instanser"/>
+					<Item id="6152" name="Ã–ppna session i en ny instans av Notepad++"/>
+					<Item id="6153" name="Alltid fler-instans lÃ¤ge"/>
 					<Item id="6154" name="Standard (enkel-instans)"/>
-					<Item id="6155" name="* Modifieringen av inställningen behöver starta om Notepad++"/>
+					<Item id="6155" name="* Modifieringen av instÃ¤llningen behÃ¶ver starta om Notepad++"/>
 				</MultiInstance>
-				<Delimiter title="Avgränsare">
-					<Item id="6251" name="Inställningar avgränsningsval (Ctrl + Mus dubbelklick)"/>
-					<Item id="6252" name="Början"/>
+				<Delimiter title="AvgrÃ¤nsare">
+					<Item id="6251" name="InstÃ¤llningar avgrÃ¤nsningsval (Ctrl + Mus dubbelklick)"/>
+					<Item id="6252" name="BÃ¶rjan"/>
 					<Item id="6255" name="Slut"/>
-					<Item id="6256" name="Tillåt på flera rader"/>
+					<Item id="6256" name="TillÄºt pÄº flera rader"/>
 				</Delimiter>
 				<Cloud title="Moln">
-					<Item id="6262" name="Inställning för moln"/>
+					<Item id="6262" name="InstÃ¤llning fÃ¶r moln"/>
 					<Item id="6263" name="Inget moln"/>
 					<Item id="6264" name="Dropbox"/>
 					<Item id="6265" name="OneDrive"/>
 					<Item id="6266" name="Google Drive"/>
 				</Cloud>
 			</Preference>
-			<MultiMacro title="Kör ett makro flera gånger">
-				<Item id="1" name="Kör" />
-				<Item id="2" name="Stäng" />
-				<Item id="8001" name="Kör" />
-				<Item id="8002" name="Kör till filens slut" />
-				<Item id="8005" name="gånger" />
-				<Item id="8006" name="Makro att köra:" />
+			<MultiMacro title="KÃ¶r ett makro flera gÄºnger">
+				<Item id="1" name="KÃ¶r" />
+				<Item id="2" name="StÃ¤ng" />
+				<Item id="8001" name="KÃ¶r" />
+				<Item id="8002" name="KÃ¶r till filens slut" />
+				<Item id="8005" name="gÄºnger" />
+				<Item id="8006" name="Makro att kÃ¶ra:" />
 			</MultiMacro>
-			<Window title="Fönster">
+			<Window title="FÃ¶nster">
 				<Item id="1" name="Aktivera" />
-				<Item id="2" name="Stäng" />
+				<Item id="2" name="StÃ¤ng" />
 				<Item id="7002" name="Spara" />
-				<Item id="7003" name="Stäng fönster" />
+				<Item id="7003" name="StÃ¤ng fÃ¶nster" />
 				<Item id="7004" name="Sortera flikar" />
 			</Window>
 			<ColumnEditor title="Kolumnredigerare">
 				<Item id="1" name="OK" />
-				<Item id="2" name="Stäng" />
+				<Item id="2" name="StÃ¤ng" />
 				<Item id="2023" name="Text att infoga" />
 				<Item id="2024" name="Dec" />
 				<Item id="2025" name="Oct" />
 				<Item id="2026" name="Hex" />
 				<Item id="2027" name="Bin" />
-				<Item id="2030" name="Första numret:" />
-				<Item id="2031" name="Öka med:" />
+				<Item id="2030" name="FÃ¶rsta numret:" />
+				<Item id="2031" name="Ã–ka med:" />
 				<Item id="2032" name="Format" />
 				<Item id="2033" name="Nummer att infoga" />
 				<Item id="2035" name="Inledande nollor" />
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Redigera contextMenu" message="Redigering i contextMenu.xml låter dig ändra din Notepad++ popup-meny.&#x0A;Du måste starta om NotePad++ för att se ändringar gjorda i contextMenu.xml." />
-			<NppHelpAbsentWarning title="Filen finns inte" message="&#x0A;finns inte. Vänligen ladda ner den på Notepad++ hemsida." />
-			<SaveCurrentModifWarning title="Spara ändringar" message="Du bör spara ändringen.&#x0A;Alla sparade ändringar kan inte ångras.&#x0A;&#x0A;Fortsätt?" />
-			<LoseUndoAbilityWarning title="Förlora ångraförmågan varning" message="Du bör spara ändringen.&#x0A;Alla sparade ändringar kan inte ångras.&#x0A;&#x0A;Fortsätt?" />
-			<CannotMoveDoc title="Flytta till en ny Notepad++ instans" message="Dokumentet ändrat, spara det och försök igen." />
-			<DocReloadWarning title="Ladda om" message="Är du säker på att du vill ladda om den aktuella filen och förlora de ändringar som gjorts i NotePad++?" />
-			<FileLockedWarning title="Spara misslyckades" message="Kontrollera om filen är öppnad i ett annat program" />
-			<FileAlreadyOpenedInNpp title="" message="Filen är redan öppnad i Notepad++." />
+			<ContextMenuXmlEditWarning title="Redigera contextMenu" message="Redigering i contextMenu.xml lÄºter dig Ã¤ndra din Notepad++ popup-meny.&#x0A;Du mÄºste starta om NotePad++ fÃ¶r att se Ã¤ndringar gjorda i contextMenu.xml." />
+			<NppHelpAbsentWarning title="Filen finns inte" message="&#x0A;finns inte. VÃ¤nligen ladda ner den pÄº Notepad++ hemsida." />
+			<SaveCurrentModifWarning title="Spara Ã¤ndringar" message="Du bÃ¶r spara Ã¤ndringen.&#x0A;Alla sparade Ã¤ndringar kan inte Äºngras.&#x0A;&#x0A;FortsÃ¤tt?" />
+			<LoseUndoAbilityWarning title="FÃ¶rlora ÄºngrafÃ¶rmÄºgan varning" message="Du bÃ¶r spara Ã¤ndringen.&#x0A;Alla sparade Ã¤ndringar kan inte Äºngras.&#x0A;&#x0A;FortsÃ¤tt?" />
+			<CannotMoveDoc title="Flytta till en ny Notepad++ instans" message="Dokumentet Ã¤ndrat, spara det och fÃ¶rsÃ¶k igen." />
+			<DocReloadWarning title="Ladda om" message="Ã„r du sÃ¤ker pÄº att du vill ladda om den aktuella filen och fÃ¶rlora de Ã¤ndringar som gjorts i NotePad++?" />
+			<FileLockedWarning title="Spara misslyckades" message="Kontrollera om filen Ã¤r Ã¶ppnad i ett annat program" />
+			<FileAlreadyOpenedInNpp title="" message="Filen Ã¤r redan Ã¶ppnad i Notepad++." />
 			<DeleteFileFailed title="Ta bort fil" message="Ta bort fil misslyckades" />
 			<!-- $INT_REPLACE$ is a place holder, don't translate it --> 
-			<NbFileToOpenImportantWarning title="Mängden filer att öppna är för stor" message="$INT_REPLACE$ filer är på väg att öppnas.\rÄr du säker på att du vill öppna dem?"/> 
+			<NbFileToOpenImportantWarning title="MÃ¤ngden filer att Ã¶ppna Ã¤r fÃ¶r stor" message="$INT_REPLACE$ filer Ã¤r pÄº vÃ¤g att Ã¶ppnas.\rÃ„r du sÃ¤ker pÄº att du vill Ã¶ppna dem?"/> 
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
 		</ClipboardHistory>
 		<DocSwitcher>
-			<PanelTitle name="Dokumentbläddrare"/>
+			<PanelTitle name="DokumentblÃ¤ddrare"/>
 			<ColumnName name="Namn"/>
 			<ColumnExt name="Ext."/>
 		</DocSwitcher>
 		<AsciiInsertion>
-			<PanelTitle name="ASCII insättningspanel"/>
-			<ColumnVal name="Värde"/>
+			<PanelTitle name="ASCII insÃ¤ttningspanel"/>
+			<ColumnVal name="VÃ¤rde"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Tecken"/>
 		</AsciiInsertion>
@@ -853,27 +853,27 @@
 				</Entries>
 				<WorkspaceMenu>
 					<Item id="3122" name="Ny arbetsyta" />
-					<Item id="3123" name="Öppna arbetsyta" />
+					<Item id="3123" name="Ã–ppna arbetsyta" />
 					<Item id="3124" name="Ladda om arbetsyta" />
 					<Item id="3125" name="Spara" />
 					<Item id="3126" name="Spara som..." />
 					<Item id="3127" name="Spara en kopia som..." />
-					<Item id="3121" name="Lägg till nytt projekt" />
+					<Item id="3121" name="LÃ¤gg till nytt projekt" />
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Byt namn" />
-					<Item id="3112" name="Lägg till mapp" />
-					<Item id="3113" name="Lägg till filer..." />
-					<Item id="3117" name="Lägg till filer från katalog..." />
+					<Item id="3112" name="LÃ¤gg till mapp" />
+					<Item id="3113" name="LÃ¤gg till filer..." />
+					<Item id="3117" name="LÃ¤gg till filer frÄºn katalog..." />
 					<Item id="3114" name="Ta bort" />
 					<Item id="3118" name="Flytta upp" />
 					<Item id="3119" name="Flytta ner" />
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Byt namn" />
-					<Item id="3112" name="Lägg till mapp" />
-					<Item id="3113" name="Lägg till filer..." />
-					<Item id="3117" name="Lägg till filer från katalog..." />
+					<Item id="3112" name="LÃ¤gg till mapp" />
+					<Item id="3113" name="LÃ¤gg till filer..." />
+					<Item id="3117" name="LÃ¤gg till filer frÄºn katalog..." />
 					<Item id="3114" name="Ta bort" />
 					<Item id="3118" name="Flytta upp" />
 					<Item id="3119" name="Flytta ner" />
@@ -881,7 +881,7 @@
 				<FileMenu>
 					<Item id="3111" name="Byt namn" />
 					<Item id="3115" name="Ta bort" />
-					<Item id="3116" name="Ändra sökväg" />
+					<Item id="3116" name="Ã„ndra sÃ¶kvÃ¤g" />
 					<Item id="3118" name="Flytta upp" />
 					<Item id="3119" name="Flytta ner" />
 				</FileMenu>

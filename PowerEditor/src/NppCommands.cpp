@@ -1618,7 +1618,7 @@ void Notepad_plus::command(int id)
 				characterNumber += TEXT("\r");
 
 				TCHAR fileLenStr[64];
-				generic_sprintf(fileLenStr, TEXT("%I64u"), static_cast<UINT64>( fileLen ) );
+				generic_sprintf(fileLenStr, _countof(fileLenStr), TEXT("%I64u"), static_cast<UINT64>( fileLen ) );
 				characterNumber += fileLenLabel;
 				characterNumber += fileLenStr;
 				characterNumber += TEXT("\r");
@@ -1649,29 +1649,29 @@ void Notepad_plus::command(int id)
 			TCHAR nbSelByteStr[32];
 			TCHAR nbRangeStr[8];
 
-			generic_sprintf(nbCharStr, TEXT("%d"), nbChar);
+			generic_sprintf(nbCharStr, _countof(nbCharStr), TEXT("%d"), nbChar);
 			characterNumber += nbCharLabel;
 			characterNumber += nbCharStr;
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbWordStr, TEXT("%d"), nbWord);
+			generic_sprintf(nbWordStr, _countof(nbWordStr), TEXT("%d"), nbWord);
 			characterNumber += nbWordLabel;
 			characterNumber += nbWordStr;
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbLineStr, TEXT("%d"), static_cast<int>( nbLine ) );
+			generic_sprintf(nbLineStr, _countof(nbLineStr), TEXT("%d"), static_cast<int>( nbLine ) );
 			characterNumber += nbLineLabel;
 			characterNumber += nbLineStr;
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbByteStr, TEXT("%d"), nbByte);
+			generic_sprintf(nbByteStr, _countof(nbByteStr), TEXT("%d"), nbByte);
 			characterNumber += nbByteLabel;
 			characterNumber += nbByteStr;
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbSelStr, TEXT("%d"), nbSel);
-			generic_sprintf(nbSelByteStr, TEXT("%d"), nbSelByte);
-			generic_sprintf(nbRangeStr, TEXT("%d"), nbRange);
+			generic_sprintf(nbSelStr, _countof(nbSelStr), TEXT("%d"), nbSel);
+			generic_sprintf(nbSelByteStr, _countof(nbSelByteStr), TEXT("%d"), nbSelByte);
+			generic_sprintf(nbRangeStr, _countof(nbRangeStr), TEXT("%d"), nbRange);
 			characterNumber += nbSelStr;
 			characterNumber += nbSelLabel1;
 			characterNumber += nbSelByteStr;

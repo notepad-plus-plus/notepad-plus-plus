@@ -66,7 +66,6 @@ const bool dirDown = false;
 	#define generic_fopen _wfopen
 	#define generic_fgets fgetws
 	#define generic_stat _wstat
-	#define generic_sprintf swprintf
 	#define COPYDATA_FILENAMES COPYDATA_FILENAMESW
 #else
 	#define NppMainEntry WinMain
@@ -83,12 +82,11 @@ const bool dirDown = false;
 	#define generic_strtok strtok
 	#define generic_strftime strftime
 	#define generic_fprintf fprintf
-	#define generic_sprintf sprintf
+	#define generic_sprintf snprintf
 	#define generic_sscanf sscanf
 	#define generic_fopen fopen
 	#define generic_fgets fgets
 	#define generic_stat _stat
-	#define generic_sprintf sprintf
 	#define COPYDATA_FILENAMES COPYDATA_FILENAMESA
 #endif
 

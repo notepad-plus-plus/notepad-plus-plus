@@ -244,7 +244,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
         scnN.nmhdr.code = NPPN_FILEOPENED;
         _pluginsManager.notify(&scnN);
         if (_pFileSwitcherPanel)
-            _pFileSwitcherPanel->newItem((int)buf, currentView());
+            _pFileSwitcherPanel->newItem(buf, currentView());
     }
     else
     {
@@ -533,14 +533,14 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 
 	//Do all the works
 	bool isBufRemoved = removeBufferFromView(id, whichOne);
-	int hiddenBufferID = -1;
+	BufferID hiddenBufferID = BUFFER_INVALID;
 	if (nrDocs == 1 && canHideView(whichOne))
 	{	//close the view if both visible
 		hideView(whichOne);
 
 		// if the current activated buffer is in this view, 
 		// then get buffer ID to remove the entry from File Switcher Pannel
-		hiddenBufferID = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETBUFFERIDFROMPOS, 0, whichOne);
+		hiddenBufferID = reinterpret_cast<BufferID>(::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETBUFFERIDFROMPOS, 0, whichOne));
 	}
 
 	// Notify plugins that current file is closed
@@ -550,15 +550,15 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		_pluginsManager.notify(&scnN);
 
 		// The document could be clonned.
-		// if the same buffer ID is not found then remove the entry from File Switcher Pannel
+		// if the same buffer ID is not found then remove the entry from File Switcher Panel
 		if (_pFileSwitcherPanel)
 		{
 			//int posInfo = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETPOSFROMBUFFERID, (WPARAM)id ,0);
 				
-			_pFileSwitcherPanel->closeItem((int)id, whichOne);
+			_pFileSwitcherPanel->closeItem(id, whichOne);
 
-			if (hiddenBufferID != -1)
-				_pFileSwitcherPanel->closeItem((int)hiddenBufferID, whichOne);
+			if (hiddenBufferID != BUFFER_INVALID)
+				_pFileSwitcherPanel->closeItem(hiddenBufferID, whichOne);
 		}
 	}
 	command(IDM_VIEW_REFRESHTABAR);

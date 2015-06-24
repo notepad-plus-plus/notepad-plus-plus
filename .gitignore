@@ -16,6 +16,7 @@ x86/
 *.pdb
 
 #-- Visual C++ cache files
+.vs/
 ipch/
 *.aps
 *.ncb

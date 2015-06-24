@@ -423,6 +423,7 @@ static int StateForScript(script_type scriptLanguage) {
 	switch (scriptLanguage) {
 	case eScriptJS:
 		Result = SCE_HJ_START;
+		break;
 	case eScriptPython:
 		Result = SCE_HP_START;
 		break;

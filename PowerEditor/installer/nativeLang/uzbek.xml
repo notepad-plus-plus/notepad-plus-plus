@@ -35,7 +35,7 @@
                     <Item subMenuId="view-showSymbol" name = "Simvolni ko‘rsatish"/>
                     <Item subMenuId="view-zoom" name = "Masshtab"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Joriy faylni ko‘chirish"/>
-					
+
                     <Item subMenuId="view-collapseLevel" name = "Darajani taxlash"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Darajani tiklash"/>
                 </SubEntries>
@@ -59,7 +59,7 @@
 					<Item id = "41015" name = "Nusxasini boshqa nom bilan saqlash"/>
                     <Item id = "41016" name = "Diskdan o‘chirish"/>
                     <Item id = "41017" name = "Nomini o‘zgartirish..."/>
-                    
+
 					<Item id = "42001" name = "Kesib olish"/>
                     <Item id = "42002" name = "Nusxa olish"/>
                     <Item id = "42003" name = "Bekor qilish"/>
@@ -93,7 +93,7 @@
                     <Item id = "42033" name = "&quot;Faqat o‘qish&quot; belgisini olib tashlash"/>
 					<Item id = "42035" name = "Satrlarni izoh deb belgilash"/>
 					<Item id = "42036" name = "Satrlar izohini olib tashlash"/>
-					
+
 					<Item id = "43001" name = "Qidirish..."/>
                     <Item id = "43002" name = "Quyidan izlash"/>
                     <Item id = "43003" name = "Almashtirish..."/>
@@ -125,7 +125,7 @@
                     <Item id = "43030" name = "Beshinchi uslubda"/>
                     <Item id = "43031" name = "Beshinchi uslubni tozalash"/>
                     <Item id = "43032" name = "Barcha uslublarni tozalash"/>
-					
+
 					<Item id = "44009" name = "Matn butun oyna bo‘yicha"/>
                     <Item id = "44010" name = "Barchasini taxlash"/>
                     <Item id = "44011" name = "Shaxsiy tanlovlar"/>
@@ -146,7 +146,7 @@
                     <Item id = "44036" name = "Gorizontal skrollerni sinxronizatsiya qilish"/>
                     <Item id = "44041" name = "Satrdan-satrga o‘tkazish belgisini ko‘rsatish"/>
 					<Item id = "44072" name = "Boshqa ko‘rinishga fokus o‘rnatish"/>
-					
+
                     <Item id = "45001" name = "Win-formatga o‘tkazish"/>
                     <Item id = "45002" name = "UNIX-formatga o‘tkazish"/>
                     <Item id = "45003" name = "MAC-formatga o‘tkazish"/>
@@ -160,12 +160,12 @@
 					<Item id = "45011" name = "UTF-8 formatga o‘tkazish"/>
 					<Item id = "45012" name = "UCS-2 Big Endian formatga o‘tkazish"/>
 					<Item id = "45013" name = "UCS-2 Little Endian formatga o‘tkazish"/>
-					
+
                     <Item id = "10001" name = "Ikkinchi oyna sifatida"/>
                     <Item id = "10002" name = "Ikkinchi oynaga nusxa olish"/>
 					<Item id = "10003" name = "Yangi nusxaga o‘tish"/>
 					<Item id = "10004" name = "Yangi nusxada ochish"/>
-					
+
                     <Item id = "46001" name = "Uslublarni belgilash..."/>
                     <Item id = "47000" name = "Dastur haqida..."/>
                     <Item id = "47001" name = "Notepad++ dasturi sayti"/>
@@ -176,9 +176,9 @@
 					<Item id = "47008" name = "Ma`lumotlar"/>
 					<Item id = "48009" name = "Tezkor tugmalar..."/>
                     <Item id = "48011" name = "Tanlovlar..."/>
-                    
+
 					<Item id = "49000" name = "Ishga tushirish..."/>
-					
+
 					<Item id = "50000" name = "Funksiyalarni yakunlash"/>
                     <Item id = "50001" name = "So‘zlarni yakunlash"/>
                     <Item id = "50002" name = "Funksiyalar bo‘yicha luqma"/>
@@ -193,7 +193,7 @@
 					<Item id = "46080" name = "Shaxsiy tanlovlar"/>
 					<Item id = "47006" name = "Notepad++ dasturini yangilash"/>
                     <Item id = "47007" name = "Viki TTS"/>
-                    
+
 				</Commands>
             </Main>
             <Splitter>
@@ -258,7 +258,7 @@
 			 	<Item id = "1624" name = "Qidirish tartibi"/>
 			 	<Item id = "1625" name = "Oddiy"/>
 			 	<Item id = "1626" name = "Kengaytirilgan (\n, \r, \t, \0, \x...)"/>
-			 	
+
             </Find>
             <GoToLine title = "...raqamli satrga o‘tish">
                 <Item id = "2007" name = "Qator"/>
@@ -491,7 +491,7 @@
 					<Item id = "6114" name = "Ruxsat berish"/>
 					<Item id = "6115" name = "Avtomatik chekinish"/>
 					<Item id = "6117" name = "Oldingisiga o‘tish"/>
-					
+
 				</MISC>
 				<Backup title = "Zahira/Avtoto‘ldirish">
 					<Item id = "6801" name = "Zahira nusxa saqlash"/>

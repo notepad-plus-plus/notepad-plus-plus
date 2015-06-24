@@ -1,8 +1,25 @@
-#Contributing
+# Contributing
 
 Your pull requests are welcome; however, they may not be accepted for various reasons.
 
-##Guidelines for pull requests:
+
+
+
+## Before you contribute
+
+All Pull Requests, except for translations and user documentation, need to be
+attached to a issue on GitHub. For Pull Requests regarding enhancements and questions,
+the issue must first be approved by one of project's administrators before being
+merged into the project. An approved issue will have the label `Accepted`. For issues
+that have not been accepted, you may request to be assigned to that issue.
+
+Opening a issue beforehand allows the adminstrators and the communitiy to discuss
+bugs and enhancements before work begins, preventing wasted effort.
+
+
+
+
+## Guidelines for pull requests:
 
 1. Respect Notepad++ coding style.
 2. Make a single change per commit.
@@ -11,6 +28,9 @@ Your pull requests are welcome; however, they may not be accepted for various re
 5. Only bug-fix and feature request will be accepted. For the other things, I can run static code analysis tool myself.
 
 In short: The easier the code review is, the better the chance your pull request will get accepted.
+
+
+
 
 
 ##Coding style:

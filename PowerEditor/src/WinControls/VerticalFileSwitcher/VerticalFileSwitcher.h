@@ -55,19 +55,19 @@ public:
 	//Activate document in scintilla by using the internal index
 	void activateDoc(TaskLstFnStatus *tlfs) const;
 
-	int newItem(int bufferID, int iView){
+	int newItem(BufferID bufferID, int iView){
 		return _fileListView.newItem(bufferID, iView);
 	};
 
-	int closeItem(int bufferID, int iView){
+	int closeItem(BufferID bufferID, int iView){
 		return _fileListView.closeItem(bufferID, iView);
 	};
 
-	void activateItem(int bufferID, int iView) {
+	void activateItem(BufferID bufferID, int iView) {
 		_fileListView.activateItem(bufferID, iView);
 	};
 
-	void setItemIconStatus(int bufferID) {
+	void setItemIconStatus(BufferID bufferID) {
 		_fileListView.setItemIconStatus(bufferID) ;
 	};
 

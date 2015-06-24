@@ -241,10 +241,12 @@ namespace Scintilla
 {
 #endif
 
+#ifdef SCI_OWNREGEX
 RegexSearchBase *CreateRegexSearch(CharClassify* /* charClassTable */)
 {
 	return new BoostRegexSearch();
 }
+#endif
 
 #ifdef SCI_NAMESPACE
 }
@@ -444,14 +446,14 @@ const char *BoostRegexSearch::SubstituteByPosition(Document* doc, const char *te
 template <class CharT, class CharacterIterator>
 char *BoostRegexSearch::EncodingDependent<CharT, CharacterIterator>::SubstituteByPosition(const char *text, int *length) {
 	char *substituted = stringToCharPtr(_match.format((const CharT*)CharTPtr(text), boost::format_all));
-	*length = strlen(substituted);
+	*length = static_cast<int>(strlen(substituted));
 	return substituted;
 }
 
 wchar_t *BoostRegexSearch::utf8ToWchar(const char *utf8)
 {
-	int utf8Size = strlen(utf8);
-	int wcharSize = UTF16Length(utf8, utf8Size);
+	size_t utf8Size = strlen(utf8);
+	size_t wcharSize = UTF16Length(utf8, utf8Size);
 	wchar_t *w = new wchar_t[wcharSize + 1];
 	UTF16FromUTF8(utf8, utf8Size, w, wcharSize + 1);
 	w[wcharSize] = 0;
@@ -460,7 +462,7 @@ wchar_t *BoostRegexSearch::utf8ToWchar(const char *utf8)
 
 char *BoostRegexSearch::wcharToUtf8(const wchar_t *w)
 {
-	int wcharSize = wcslen(w);
+	int wcharSize = static_cast<int>(wcslen(w));
 	int charSize = UTF8Length(w, wcharSize);
 	char *c = new char[charSize + 1];
 	UTF8FromUTF16(w, wcharSize, c, charSize);

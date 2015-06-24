@@ -227,7 +227,7 @@
                     <Item id="44082" name="Проект Панеле 2"/>
                     <Item id="44083" name="Проект Панеле 3"/>
                     <Item id="44084" name="Функцияләр исемлеге"/>
-					
+
 					<Item id="44086" name="1-нче Бит"/>
 					<Item id="44087" name="2-нче Бит"/>
 					<Item id="44088" name="3-нче Бит"/>
@@ -239,8 +239,8 @@
 					<Item id="44094" name="9-нче Бит"/>
 					<Item id="44095" name="Киләсе Бит"/>
 					<Item id="44096" name="Элекке Бит"/>
-					
-					
+
+
                     <Item id="45001" name="Win-форматка үзгәртергә (CRLF)"/>
                     <Item id="45002" name="UNIX-форматка үзгәртергә (LF)"/>
                     <Item id="45003" name="MAC-форматка үзгәртергә (CR)"/>
@@ -706,7 +706,7 @@
                     <Item id="6304" name="Соңгы файллар тарихы"/>
                     <Item id="6305" name="Җибәргәндә тикшермәскә"/>
                     <Item id="6306" name="Ничәсен сакларга:"/>
-					
+
                     <Item id="6429" name="Күрсәтү"/>
                     <Item id="6424" name="Меню астында"/>
                     <Item id="6425" name="Файл исеме генә"/>
@@ -847,7 +847,7 @@
             <FileLockedWarning title="Саклап булмады" message="Бу файл башка кушымтада ачылмаганын тикшерүегез сорала."/>
             <FileAlreadyOpenedInNpp title="" message="Файл инде Notepad++ -та ачылган."/>
             <DeleteFileFailed title="Файлны бетерү" message="Файлны бетереп булмады"/>
-            
+
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Файллар саны артык күп" message="$INT_REPLACE$ файл тиздән ачылачак.&#x0A;Дәвам итәргәме?"/>
 		</MessageBox>

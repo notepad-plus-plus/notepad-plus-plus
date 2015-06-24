@@ -49,7 +49,7 @@ public :
 	};
 
 	void setCursorColour(COLORREF coulour) {
-		::SendMessage(_hSelf, BGM_SETCURSORCOLOR, (UINT)coulour, 0);
+		::SendMessage(_hSelf, BGM_SETCURSORCOLOR, (WPARAM)coulour, 0);
 	};
 
 	void hideCursor() {
@@ -64,7 +64,7 @@ public :
 		_BGCELL cell;
 		cell.row = row;
 		cell.col = col;
-		::SendMessage(_hSelf, BGM_SETCELLDATA, (UINT)&cell, (long)text);
+		::SendMessage(_hSelf, BGM_SETCELLDATA, (WPARAM)&cell, (LPARAM)text);
 	};
 
 	void makeColAutoWidth(bool autoWidth = true) {
@@ -79,7 +79,7 @@ public :
 		_BGCELL cell;
 		cell.row = row;
 		cell.col = col;
-		::SendMessage(_hSelf, BGM_DELETECELL, (UINT)&cell, 0);
+		::SendMessage(_hSelf, BGM_DELETECELL, (WPARAM)&cell, 0);
 	};
 
 	void setColWidth(unsigned int col, unsigned int width) {

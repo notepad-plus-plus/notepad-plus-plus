@@ -135,7 +135,7 @@ LRESULT CALLBACK DockingSplitter::staticWinProc(HWND hwnd, UINT message, WPARAM 
 			return TRUE;
 
 		default :
-			pDockingSplitter = (DockingSplitter *)::GetWindowLongPtr(hwnd, GWL_USERDATA);
+			pDockingSplitter = (DockingSplitter *)::GetWindowLongPtr(hwnd, GWLP_USERDATA);
 			if (!pDockingSplitter)
 				return ::DefWindowProc(hwnd, message, wParam, lParam);
 			return pDockingSplitter->runProc(hwnd, message, wParam, lParam);

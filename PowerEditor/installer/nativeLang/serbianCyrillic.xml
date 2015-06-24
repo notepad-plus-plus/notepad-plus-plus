@@ -23,7 +23,7 @@
                     <Item idName ="Plugins" name="Додаци"/>
                     <Item idName ="Window" name="Прозор"/>
                 </Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard"  name="Сачувај у остави"/>
@@ -65,7 +65,7 @@
                     <Item subMenuId="encoding-vietnamese" name="вијетнамски"/>
                     <Item subMenuId="settings-import"  name="Увези"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Нова"/>
@@ -85,7 +85,7 @@
                     <Item id="41015" name="Сачувај умножено као..."/>
                     <Item id="41016" name="Избриши с диска"/>
                     <Item id="41017" name="Преименуј..."/>
-                    
+
                     <Item id="42001" name="Ис&amp;еци"/>
                     <Item id="42002" name="&amp;Умножи"/>
                     <Item id="42003" name="&amp;Опозови"/>
@@ -125,7 +125,7 @@
                     <Item id="42033" name="Уклони ознаку само за читање"/>
                     <Item id="42035" name="Заустави напомену"/>
                     <Item id="42036" name="Без напомене"/>
-                    
+
                     <Item id="43001" name="&amp;Пронађи..."/>
                     <Item id="43002" name="Пронађи &amp;следеће"/>
                     <Item id="43003" name="Замени..."/>
@@ -217,7 +217,7 @@
                     <Item id="10002" name="Дупли приказ"/>
                     <Item id="10003" name="Пребаци другој надлежности"/>
                     <Item id="10004" name="Отвори у новој надлежности"/>
-                    
+
                     <Item id="46001" name="Поставке стилова..."/>
                     <Item id="46080" name="Кориснички-одређен"/>
                     <Item id="47000" name="О Notepad++-у..."/>
@@ -268,7 +268,7 @@
                     <Item CMID="16" name="Поново учитај"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="Нађи" titleReplace="Замени" titleFindInFiles="Пронађи у датотекама">
                 <Item id="1"    name="Пронађи следеће"/>
@@ -326,7 +326,7 @@
                 <Item id="2"    name="Одустани"/>
                 <Item id="1904" name="Сачувај..."/>
             </Run>
-            
+
             <StyleConfig title="Поставке стилова">
                 <Item id="2"    name="Одустани"/>
                 <Item id="2301" name="Сачувај &amp;/Затвори"/>
@@ -354,10 +354,10 @@
                     <Item id="2230" name="Подразумевана подебљана слова"/>
                     <Item id="2231" name="Подразумевана укошена слова"/>
                     <Item id="2232" name="Подразумевана подвучена слова"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="Кориснички дефинисано">
                 <Item id="20002" name="Преименуј"/>
                 <Item id="20003" name="Направи нови..."/>
@@ -369,7 +369,7 @@
                 <Item id="20011" name="Провидност"/>
                 <Item id="20015" name="Извоз..."/>
                 <Item id="20016" name="Увоз..."/>
-			    <StylerDialog title="Стајлер - дијалог">               
+			    <StylerDialog title="Стајлер - дијалог">
                <Item id="25030" name="Избор словоликова:"/>
 					<Item id="25006" name="Боја предњег плана"/>
 					<Item id="25007" name="Боја позадине"/>
@@ -446,20 +446,20 @@
                     <Item id="6103" name="Мале иконе"/>
 	                <Item id="6104" name="Велике иконе"/>
                     <Item id="6105" name="Стандардне иконе"/>
-                    
+
                     <Item id="6106" name="Трака језичака"/>
                     <Item id="6107" name="Смањи"/>
                     <Item id="6108" name="Закључај (без превлачења)"/>
                     <Item id="6109" name="Потамни неактивне картице"/>
                     <Item id="6110" name="Обележи тренутну картицу"/>
-                    
+
                     <Item id="6111" name="Прикажи статусну траку"/>
                     <Item id="6112" name="Прикажи дугме за затварање"/>
                     <Item id="6113" name="Двоклик за затварање документа"/>
                     <Item id="6118" name="Сакри"/>
                     <Item id="6119" name="У више редова"/>
                     <Item id="6120" name="Усправно"/>
-                    
+
                     <Item id="6121" name="Изборна трака"/>
                     <Item id="6122" name="Сакри"/>
                     <Item id="6123" name="Изабери језик"/>
@@ -488,7 +488,7 @@
                     <Item id="6207" name="Прикажи забележене"/>
                     <Item id="6208" name="Прикажи усправну ивицу"/>
                     <Item id="6209" name="Број стубца: "/>
-                    
+
                     <Item id="6211" name="Поставке усправне ивице"/>
                     <Item id="6212" name="Режим реда"/>
                     <Item id="6213" name="Позадински режим"/>
@@ -575,12 +575,12 @@
                     <Item id="6327" name="Омогући"/>
                     <Item id="6328" name="Истакни особине ознака"/>
                     <Item id="6330" name="Истакни /php/asp област"/>
-                    
+
                     <Item id="6331" name="Прикажи само име датотеке у насловној траци"/>
                     <Item id="6114" name="Омогући"/>
                     <Item id="6115" name="Аутоматски увуци"/>
                     <Item id="6117" name="Омогући MRU начин рада"/>
-                    
+
                 </MISC>
                 <Backup title="Причувна/Самодопуњавање">
                     <Item id="6801" name="Резервна копија"/>
@@ -639,7 +639,7 @@
 			<FileLockedWarning title="Неуспешно чување" message="Проверите да ли је ова датотека отворена у другом програму"/>
 			<FileAlreadyOpenedInNpp title="" message="Датотека је већ отворена у Notepad++."/>
 			<DeleteFileFailed title="Избриши датотеку" message="Неуспешно брисање датотеке"/>
-			
+
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Количина отворених датотека је превелика" message="$INT_REPLACE$ датотеке ће бити отворене.\rЖелите да их отворите?"/>
 		</MessageBox>

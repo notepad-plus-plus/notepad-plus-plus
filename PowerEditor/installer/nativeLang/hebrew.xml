@@ -16,7 +16,7 @@
 					<Item menuId="run" name="הפעלה"/>
 					<Item idName="Plugins" name="תוספים"/>
 					<Item idName="Window"  name="תמיכה"/>
-					
+
 				</Entries>
 
                 <!-- Sub Menu Entries -->
@@ -90,12 +90,12 @@
 					<Item id="42028" name="הגדר לקריאה בלבד"/>
 					<Item id="42032" name="הרץ מאקרו מספר מוגדר של פעמים"/>
 					<Item id="42033" name="בטל קריאה בלבד"/>
-                    <Item id="42034" name="עורך עמודות"/> 
+                    <Item id="42034" name="עורך עמודות"/>
 					<Item id="42035" name="חסום הערה"/>
 					<Item id="42036" name="חסום אי הערה"/>
-					
-					
-						
+
+
+
                     <Item id="43001" name="חיפוש..."/>
                     <Item id="43002" name="חיפוש הבא"/>
                     <Item id="43003" name="החלפה..."/>
@@ -110,7 +110,7 @@
 					<Item id="43013" name="חפש בתוך הקבצים"/>
 					<Item id="43014" name="מצא(הפכפכה)הבא"/>
 					<Item id="43015" name="מצא(הפכפכה)קודם"/>
-                    <Item id="43016" name="סמן הכול"/> 
+                    <Item id="43016" name="סמן הכול"/>
 					<Item id="43017" name="בטל סימון הכול"/>
 					<Item id="43018" name="גזור קווי סימניה"/>
 					<Item id="43019" name="העתק קווי סימניה"/>
@@ -170,7 +170,7 @@
                     <Item id="10002" name="העתק לתצוגה אחרת"/>
 					<Item id="10003" name="העבר לחלון חדש"/>
 					<Item id="10004" name="פתח בחלון חדש"/>
-					
+
 
                     <Item id="46001" name="עיצוב סיגנונות"/>
 					<Item id="46002" name="שפת C"/>
@@ -219,10 +219,10 @@
 					<Item id="46045" name="מאטלאב"/>
 					<Item id="46046" name="האסקל"/>
 					<Item id="46047" name="אינו"/>
-                    <Item id="46048" name="סימייק"/>   
+                    <Item id="46048" name="סימייק"/>
 					<Item id="46049" name="יאמל"/>
 					<Item id="46080" name="הגדרת משתמש"/>
-									
+
 					<Item id="47000" name="אודות התוכנה"/>
 					<Item id="47001" name="דף הבית ++Notepad"/>
 					<Item id="47002" name="דף פרוייקט ++Notepad"/>
@@ -238,7 +238,7 @@
 					<Item id="50001" name="השלמת מילה"/>
 					<Item id="50002" name="רמז פרמטרים לפונקציה"/>
 
-					
+
                 </Commands>
 			</Main>
 			<Splitter>

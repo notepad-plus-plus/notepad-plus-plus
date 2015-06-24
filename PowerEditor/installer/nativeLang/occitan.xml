@@ -5,27 +5,27 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId="file" name="&amp;Fichičr"/>
+					<Item menuId="file" name="&amp;Fichièr"/>
 					<Item menuId="edit" name="&amp;Edicion"/>
 					<Item menuId="search" name="&amp;Recercar"/>
 					<Item menuId="view" name="&amp;Visualizacion"/>
 					<Item menuId="encoding" name="For&amp;mat"/>
 					<Item menuId="language" name="&amp;Lengatge"/>
-					<Item menuId="settings" name="Paramč&amp;tres"/>
-					<Item menuId="macro" name="Macrň"/>
+					<Item menuId="settings" name="Paramè&amp;tres"/>
+					<Item menuId="macro" name="Macrò"/>
 					<Item menuId="run" name="Executar"/>
 					<Item idName="Plugins" name="Ajustons"/>
-					<Item idName="Window" name="Fenčstra"/>
+					<Item idName="Window" name="Fenèstra"/>
 				</Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="view-collapseLevel" name="Desplegar lo nivčl"/>
+                    <Item subMenuId="view-collapseLevel" name="Desplegar lo nivèl"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="41001" name="&amp;Novčl"/>
+                    <Item id="41001" name="&amp;Novèl"/>
                     <Item id="41002" name="&amp;Dobrir"/>
                     <Item id="41003" name="Tampar"/>
                     <Item id="41004" name="Tot tam&amp;par"/>
@@ -38,11 +38,11 @@
                     <Item id="41011" name="Sor&amp;tir"/>
 					<Item id="41012" name="Cargar la sesilha..."/>
                     <Item id="41013" name="Enregistrar la sesilha..."/>
-                    <Item id="41014" name="Tornar cargar dempuči lo disc"/>
-                    <Item id="41015" name="Enregistrar una cňpia coma..."/>
+                    <Item id="41014" name="Tornar cargar dempuèi lo disc"/>
+                    <Item id="41015" name="Enregistrar una còpia coma..."/>
                     <Item id="41016" name="Suprimir del disc"/>
                     <Item id="41017" name="Tornar nomemar..."/>
-					
+
                     <Item id="42001" name="Co&amp;par"/>
                     <Item id="42002" name="&amp;Copiar"/>
                     <Item id="42003" name="&amp;Anullar"/>
@@ -55,28 +55,28 @@
                     <Item id="42010" name="Duplicar la linha activa"/>
                     <Item id="42012" name="Desseparar en mai d'una linha"/>
                     <Item id="42013" name="Fusionar mai d'una linha"/>
-                    <Item id="42014" name="Montar la linha activa"/>   
-                    <Item id="42015" name="Davalar la linha activar"/>   
+                    <Item id="42014" name="Montar la linha activa"/>
+                    <Item id="42015" name="Davalar la linha activar"/>
                     <Item id="42016" name="EN MAJUSCULA"/>
                     <Item id="42017" name="en minuscula"/>
                     <Item id="42018" name="&amp;Enregistrar"/>
                     <Item id="42019" name="&amp;Arrestar"/>
                     <Item id="42021" name="&amp;Playback"/>
-                    <Item id="42022" name="Comentar/descomentar lo blňc"/>
+                    <Item id="42022" name="Comentar/descomentar lo blòc"/>
                     <Item id="42023" name="Comentari de flux"/>
                     <Item id="42024" name="Suprimir los espacis/tabulacions en fin de linha"/>
-                    <Item id="42025" name="Enregistrar la macrň que s'es a enregistrar"/>
-                    <Item id="42026" name="Tčxt de drecha a esqučrra"/>
-                    <Item id="42027" name="Tčxt d'esqučrra a drecha"/>
+                    <Item id="42025" name="Enregistrar la macrò que s'es a enregistrar"/>
+                    <Item id="42026" name="Tèxt de drecha a esquèrra"/>
+                    <Item id="42027" name="Tèxt d'esquèrra a drecha"/>
                     <Item id="42028" name="Definir en lectura sola"/>
-                    <Item id="42029" name="Copiar lo camin complet del fichičr actiu"/>
-                    <Item id="42030" name="Copiar lo nom del fichičr actiu"/>
-                    <Item id="42031" name="Copiar lo camin complet del repertňri actiu"/>
-                    <Item id="42032" name="Aviar la macrň mai d'un cňp..."/>
+                    <Item id="42029" name="Copiar lo camin complet del fichièr actiu"/>
+                    <Item id="42030" name="Copiar lo nom del fichièr actiu"/>
+                    <Item id="42031" name="Copiar lo camin complet del repertòri actiu"/>
+                    <Item id="42032" name="Aviar la macrò mai d'un còp..."/>
                     <Item id="42033" name="Suprimir l'atribut de lectura sola"/>
-					<Item id="42035" name="Comentar lo blňc"/>
-					<Item id="42036" name="Descomentar lo blňc"/>
-					
+					<Item id="42035" name="Comentar lo blòc"/>
+					<Item id="42036" name="Descomentar lo blòc"/>
+
                     <Item id="43001" name="&amp;Recercar..."/>
                     <Item id="43002" name="Recercar lo &amp;seguent"/>
                     <Item id="43003" name="Remplaçar..."/>
@@ -87,10 +87,10 @@
                     <Item id="43008" name="Suprimir totes los marca-paginas"/>
                     <Item id="43009" name="Anar a l'acolada de correspondéncia"/>
                     <Item id="43010" name="Recercar lo precedent"/>
-                    <Item id="43011" name="&amp;Recčrca incremenciala..."/>
-                    <Item id="43013" name="Recercar dins los fichičrs"/>
-                    <Item id="43014" name="Recčrca volatila seguenta"/>
-                    <Item id="43015" name="Recčrca volatila precedenta"/>
+                    <Item id="43011" name="&amp;Recèrca incremenciala..."/>
+                    <Item id="43013" name="Recercar dins los fichièrs"/>
+                    <Item id="43014" name="Recèrca volatila seguenta"/>
+                    <Item id="43015" name="Recèrca volatila precedenta"/>
                     <Item id="43016" name="Tot seleccionar"/>
                     <Item id="43017" name="Tot deseleccionar"/>
                     <Item id="43018" name="Copar las linhas marcadas"/>
@@ -99,26 +99,26 @@
                     <Item id="43021" name="Suprimir las linhas marcadas"/>
 
                     <Item id="44010" name="Tot plegar"/>
-                    <Item id="44011" name="Pančl de lenga definit per l'utilizaire"/>
-                    <Item id="44019" name="Visualizar totes los caractčrs"/>
+                    <Item id="44011" name="Panèl de lenga definit per l'utilizaire"/>
+                    <Item id="44019" name="Visualizar totes los caractèrs"/>
                     <Item id="44020" name="Visualizar la guida d'indentacion"/>
                     <Item id="44022" name="Tornar a la linha automaticament"/>
-                    <Item id="44023" name="Zoom &amp;+ Ctrl-rňda de mirga naut"/>
-                    <Item id="44024" name="Zoom &amp;6 Ctrl-rňda de mirga bas"/>
+                    <Item id="44023" name="Zoom &amp;+ Ctrl-ròda de mirga naut"/>
+                    <Item id="44024" name="Zoom &amp;6 Ctrl-ròda de mirga bas"/>
                     <Item id="44025" name="Visualizar los espacis e las tabulacions"/>
                     <Item id="44026" name="Visualizar las fins de linhas"/>
                     <Item id="44029" name="Tot desplegar"/>
-                    <Item id="44030" name="Plegar lo nivčl actual"/>
-                    <Item id="44031" name="Desplegar lo nivčl actual"/>
-                    <Item id="44032" name="Activar/ desactivar lo mňde ecran complet"/>
-                    <Item id="44033" name="Restaurar lo zoom per defaut Ctrl+/(clavičr)"/>
+                    <Item id="44030" name="Plegar lo nivèl actual"/>
+                    <Item id="44031" name="Desplegar lo nivèl actual"/>
+                    <Item id="44032" name="Activar/ desactivar lo mòde ecran complet"/>
+                    <Item id="44033" name="Restaurar lo zoom per defaut Ctrl+/(clavièr)"/>
                     <Item id="44034" name="Totjorn visible"/>
                     <Item id="44035" name="Sincronizar lo desfilament vertical"/>
                     <Item id="44036" name="Sincronizar lo desfilament orizontal"/>
-                    <Item id="44041" name="Visualizar lo simbňl de linha novčla"/>
+                    <Item id="44041" name="Visualizar lo simbòl de linha novèla"/>
                     <Item id="44070" name="Activar la visualizacion principala"/>
                     <Item id="44071" name="Activar la jos-visualizacion"/>
-                    
+
                     <Item id="45001" name="Convertir al format Windows"/>
                     <Item id="45002" name="Convertir al format UNIX"/>
                     <Item id="45003" name="Convertir al format MAC"/>
@@ -132,30 +132,30 @@
 			<Item id="45011" name="Convertir en UTF-8"/>
 			<Item id="45012" name="Convertir en UCS-2 Big Endian"/>
 			<Item id="45013" name="Convertir en UCS-2 Little Endian"/>
-					
+
                     <Item id="10001" name="Anar a una autra visualizar"/>
                     <Item id="10002" name="Clonar dins una autra visualizacion"/>
-                    
+
                     <Item id="46001" name="Configuracion de la coloracion sintaxica..."/>
                     <Item id="47000" name="A prepaus..."/>
                     <Item id="47001" name="Pagina web de Notepad++"/>
-                    <Item id="47002" name="Pagina del projčcte Notepad++"/>
+                    <Item id="47002" name="Pagina del projècte Notepad++"/>
                     <Item id="47003" name="Ajuda en linha"/>
                     <Item id="47004" name="Forum"/>
                     <Item id="47005" name="Obténer mai d'ajustons"/>
-					
+
                     <Item id="48009" name="Gestionari d'acorchis..."/>
                     <Item id="48011" name="Preferéncias..."/>
                     <Item id="49000" name="&amp;Aviar..."/>
-					
+
 					<Item id="50000" name="Complecion de foncion"/>
                     <Item id="50001" name="Complecion de mot"/>
                     <Item id="50002" name="Function parameters hint"/>
                     <Item id="42034" name="Editor de colomna..."/>
                     <Item id="44042" name="Amagar las linhas"/>
-                    <Item id="42040" name="Dobrir totes los fichičrs recents"/>
-                    <Item id="42041" name="Voidar la tičra dels fichičrs recents"/>
-					
+                    <Item id="42040" name="Dobrir totes los fichièrs recents"/>
+                    <Item id="42041" name="Voidar la tièra dels fichièrs recents"/>
+
                 </Commands>
             </Main>
             <Splitter>
@@ -170,15 +170,15 @@
                     <Item CMID="6" name="Clonar dins una autra visualizacion"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
-            <Find title="" titleFind="Recercar" titleReplace="Remplaçar" titleFindInFiles="Recercar dins de fichičrs">
+            <Find title="" titleFind="Recercar" titleReplace="Remplaçar" titleFindInFiles="Recercar dins de fichièrs">
                 <Item id="1" name="Recercar lo seguent"/>
                 <Item id="2" name="Tampar"/>
                 <Item id="1620" name="Recercar :"/>
-                <Item id="1603" name="Sonque los mots e&amp;ntičrs"/>
+                <Item id="1603" name="Sonque los mots e&amp;ntièrs"/>
                 <Item id="1604" name="Respectar la &amp;cassa"/>
-                <Item id="1605" name="&amp;Expression reguličra"/>
+                <Item id="1605" name="&amp;Expression regulièra"/>
                 <Item id="1606" name="En boc&amp;le"/>
                 <Item id="1612" name="&amp;Naut"/>
                 <Item id="1613" name="&amp;Bas"/>
@@ -186,26 +186,26 @@
                 <Item id="1615" name="Tot recercar"/>
                 <Item id="1616" name="Marcar las linhas"/>
                 <Item id="1617" name="Estil dels elements trobats"/>
-                <Item id="1618" name="Voidar a cada recčrca"/>
+                <Item id="1618" name="Voidar a cada recèrca"/>
                 <Item id="1621" name="Direccion"/>
                 <Item id="1611" name="Rem&amp;plaçar per :"/>
                 <Item id="1608" name="&amp;Remplaçar"/>
                 <Item id="1609" name="&amp;Tot remplaçar"/>
 			 	<Item id="1623" name="Transparéncia"/>
-			 	<Item id="1687" name="La pčrda del focus"/>
+			 	<Item id="1687" name="La pèrda del focus"/>
 			 	<Item id="1688" name="Totjorn"/>
 			 	<Item id="1632" name="Dins la seleccion"/>
 			 	<Item id="1633" name="Voidar"/>
-			 	<Item id="1635" name="Remplaçar dins totes los documents dobčrts"/>
-			 	<Item id="1636" name="Recercar dins totes los documents dobčrts"/>
-			 	<Item id="1637" name="Recercar dins los fichičrs"/>
+			 	<Item id="1635" name="Remplaçar dins totes los documents dobèrts"/>
+			 	<Item id="1636" name="Recercar dins totes los documents dobèrts"/>
+			 	<Item id="1637" name="Recercar dins los fichièrs"/>
 			 	<Item id="1640" name="Recercar o Remplaçar"/>
 			 	<Item id="1654" name="Filtres :"/>
-			 	<Item id="1655" name="Repertňri :"/>
+			 	<Item id="1655" name="Repertòri :"/>
 			 	<Item id="1656" name="Los recercar totes"/>
-			 	<Item id="1658" name="amb los sos-repertňris"/>
-			 	<Item id="1659" name="repertňris amagats"/>
-			 	<Item id="1624" name="Mňde de recčrca"/>
+			 	<Item id="1658" name="amb los sos-repertòris"/>
+			 	<Item id="1659" name="repertòris amagats"/>
+			 	<Item id="1624" name="Mòde de recèrca"/>
 			 	<Item id="1625" name="Normal"/>
 			 	<Item id="1626" name="Extendut (\n, \r, \t, \0, \x...)"/>
             </Find>
@@ -213,29 +213,29 @@
                 <Item id="2007" name="Linha"/>
                 <Item id="2008" name="Desfasament"/>
                 <Item id="1" name="&amp;Anar !"/>
-                <Item id="2" name="Vau endacňm"/>
-                <Item id="2004" name="Sčtz aicí :"/>
-                <Item id="2005" name="Volčtz anar :"/>
-                <Item id="2006" name="Podčtz pas anar pus lučnh que :"/>
+                <Item id="2" name="Vau endacòm"/>
+                <Item id="2004" name="Sètz aicí :"/>
+                <Item id="2005" name="Volètz anar :"/>
+                <Item id="2006" name="Podètz pas anar pus luènh que :"/>
             </GoToLine>
 
             <Run title="Aviar...">
-                <Item id="1903" name="Picatz aicí lo programa que volčtz aviar"/>
+                <Item id="1903" name="Picatz aicí lo programa que volètz aviar"/>
                 <Item id="1" name="Aviar !"/>
                 <Item id="2" name="Anullar"/>
                 <Item id="1904" name="Enregistrar..."/>
             </Run>
-            
+
             <StyleConfig title="Configurator d'estil">
 				<Item id="1" name="L'ensajar!"/>
 				<Item id="2" name="Anullar"/>
 				<Item id="2301" name="Enregistrar"/>
-				<Item id="2303" name="Transparéncia"/>		
-				
+				<Item id="2303" name="Transparéncia"/>
+
                 <SubDialog>
                 	<Item id="2204" name="Gras"/>
                     <Item id="2205" name="Italic"/>
-                    <Item id="2206" name="Color de primičr plan"/>
+                    <Item id="2206" name="Color de primièr plan"/>
                     <Item id="2207" name="Color de fons"/>
                     <Item id="2208" name="Nom de poliça :"/>
                     <Item id="2209" name="Talha de poliça :"/>
@@ -251,20 +251,20 @@
                     <Item id="2219" name="Mots clau per defaut"/>
                     <Item id="2221" name="Mots clau personalizats"/>
                     <Item id="2225" name="Lengatge :"/>
-                    <Item id="2226" name="Activar la color de primičr plan globala"/>
+                    <Item id="2226" name="Activar la color de primièr plan globala"/>
                     <Item id="2227" name="Activar la color de fons globala"/>
                     <Item id="2228" name="Activar la poliça globala"/>
                     <Item id="2229" name="Activar la talha de poliça globala"/>
                     <Item id="2230" name="Activar l'estil de poliça en gras global"/>
                     <Item id="2231" name="Activar l'estil de poliça en italic global"/>
                     <Item id="2232" name="Activar l'estil de poliça soslinhat global"/>
-                </SubDialog>                
-				
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="Personalizat">
 				<Item id="20002" name="Tornar nomemar"/>
-				<Item id="20003" name="Crear un novčl..."/>
+				<Item id="20003" name="Crear un novèl..."/>
 				<Item id="20004" name="Suprimir"/>
 				<Item id="20005" name="Enregistrar coma..."/>
 				<Item id="20007" name="Lengatge personalizat: "/>
@@ -272,7 +272,7 @@
 				<Item id="20012" name="Ignorar la cassa"/>
 				<Item id="20011" name="Transparéncia"/>
 				<Item id="0" name="Estil de color"/>
-				<Item id="1" name="Color de primičr plan"/>
+				<Item id="1" name="Color de primièr plan"/>
 				<Item id="2" name="Color de fons"/>
 				<Item id="3" name="Estil de poliça"/>
 				<Item id="4" name="Nom de poliça :"/>
@@ -280,40 +280,40 @@
 				<Item id="6" name="Gras"/>
 				<Item id="7" name="Italic"/>
 				<Item id="8" name="Soslinhat"/>
-                <Folder title="Repertňri &amp;&amp; defaut">
+                <Folder title="Repertòri &amp;&amp; defaut">
 					<Item id="21101" name="Estil per defaut"/>
-					<Item id="21201" name="Definicion de blňc de dobčrtura"/>
-					<Item id="21301" name="Definicion de blňc de tampadura"/>
+					<Item id="21201" name="Definicion de blòc de dobèrtura"/>
+					<Item id="21301" name="Definicion de blòc de tampadura"/>
                 </Folder>
-                <Keywords title="Tičras de mots clau">
-					<Item id="22101" name="1čr grop"/>
+                <Keywords title="Tièras de mots clau">
+					<Item id="22101" name="1èr grop"/>
 					<Item id="22201" name="2nd grop"/>
 					<Item id="22301" name="3en grop"/>
 					<Item id="22401" name="4en grop"/>
-					<Item id="22113" name="Mňde prefix"/>
-					<Item id="22213" name="Mňde prefix"/>
-					<Item id="22313" name="Mňde prefix"/>
-					<Item id="22413" name="Mňde prefix"/>
+					<Item id="22113" name="Mòde prefix"/>
+					<Item id="22213" name="Mòde prefix"/>
+					<Item id="22313" name="Mòde prefix"/>
+					<Item id="22413" name="Mòde prefix"/>
                 </Keywords>
                 <Comment title="Comentari &amp;&amp; nombre">
 					<Item id="23301" name="Comentari d'una linha"/>
-					<Item id="23101" name="Comentari d'un blňc"/>
-					<Item id="23113" name="Comentari de dobčrtura :"/>
+					<Item id="23101" name="Comentari d'un blòc"/>
+					<Item id="23113" name="Comentari de dobèrtura :"/>
 					<Item id="23115" name="Comentari de tampadura :"/>
-					<Item id="23116" name="Tractar lo mot clau coma un simbňl"/>
-					<Item id="23117" name="Tractar los mots clau coma de simbňls"/>
+					<Item id="23116" name="Tractar lo mot clau coma un simbòl"/>
+					<Item id="23117" name="Tractar los mots clau coma de simbòls"/>
 					<Item id="23201" name="Nombre"/>
                 </Comment>
                 <Operator title="Operators">
 					<Item id="24107" name="Operator"/>
-					<Item id="24103" name="Simbňls disponibles"/>
+					<Item id="24103" name="Simbòls disponibles"/>
 					<Item id="24101" name="Operators activats"/>
 					<Item id="24201" name="Delimitor 1"/>
-					<Item id="24211" name="Bňrna de dobčrtura :"/>
-					<Item id="24214" name="Bňrna de tampadura :"/>
+					<Item id="24211" name="Bòrna de dobèrtura :"/>
+					<Item id="24214" name="Bòrna de tampadura :"/>
 					<Item id="24301" name="Delimitor 2"/>
-					<Item id="24311" name="Bňrna de dobčrtura :"/>
-					<Item id="24314" name="Bňrna de tampadura :"/>
+					<Item id="24311" name="Bòrna de dobèrtura :"/>
+					<Item id="24314" name="Bòrna de tampadura :"/>
                 </Operator>
             </UserDefine>
 			<Preference title="Preferéncia">
@@ -321,23 +321,23 @@
 				<Global title="Global">
 					<Item id="6101" name="Barra d'espleches"/>
 					<Item id="6102" name="Amagar"/>
-					<Item id="6103" name="Icňnas pichonas"/>
-	                <Item id="6104" name="Icňnas bčlas"/>
-					<Item id="6105" name="Icňnas pichons estŕndar"/>
-					
+					<Item id="6103" name="Icònas pichonas"/>
+	                <Item id="6104" name="Icònas bèlas"/>
+					<Item id="6105" name="Icònas pichons estàndar"/>
+
 					<Item id="6106" name="Barra d'onglets"/>
 					<Item id="6107" name="Redusir"/>
 					<Item id="6108" name="Varrolhar (pas de drag 'n drop)"/>
 					<Item id="6109" name="Visualizar los onglets inactius"/>
 					<Item id="6110" name="Visualizar la barra superiora irange"/>
-					
+
 					<Item id="6111" name="Visualizar la barra d'estat"/>
 					<Item id="6112" name="Activar lo boton de tampadura sus cada onglet"/>
 					<Item id="6113" name="Doble clic per tampar lo document"/>
 					<Item id="6118" name="Amagar"/>
 					<Item id="6119" name="Multi-linha"/>
 					<Item id="6120" name="Vertical"/>
-					
+
 					<Item id="6121" name="Barra de menuts"/>
 					<Item id="6122" name="Amagar (utilizar Alt o F10 per la visualizar)"/>
 				</Global>
@@ -345,29 +345,29 @@
 					<Item id="6216" name="Cursor"/>
 					<Item id="6217" name="Largor :"/>
 					<Item id="6219" name="Blink Rate :"/>
-					
-					<Item id="6301" name="Paramčtres dels onglets"/>
+
+					<Item id="6301" name="Paramètres dels onglets"/>
 					<Item id="6302" name="Remplaçar per d'espacis"/>
 					<Item id="6303" name="Talha d'onglet : "/>
-					
-					<Item id="6201" name="Contrarňtle de relču sintaxic"/>
+
+					<Item id="6201" name="Contraròtle de relèu sintaxic"/>
 					<Item id="6202" name="Simple"/>
 					<Item id="6203" name="Sageta"/>
 	                <Item id="6204" name="Cercle"/>
 					<Item id="6205" name="Carrat"/>
-					
-					<Item id="6206" name="Mostrar los numčros de linha"/>
+
+					<Item id="6206" name="Mostrar los numèros de linha"/>
 					<Item id="6207" name="Mostrar lo marge de signet"/>
 					<Item id="6208" name="Mostrar la linha verticala"/>
 					<Item id="6209" name="Nombre de colomnas :"/>
-					
+
 					<Item id="6211" name="Linha verticala de la bordadura"/>
-					<Item id="6212" name="Mňde linha"/>
-					<Item id="6213" name="Mňde fons"/>
+					<Item id="6212" name="Mòde linha"/>
+					<Item id="6213" name="Mòde fons"/>
 					<Item id="6214" name="Colorar la linha"/>
                 </Scintillas>
-				<NewDoc title="Document novčl">
-					<Item id="6419" name="Document novčl"/>
+				<NewDoc title="Document novèl">
+					<Item id="6419" name="Document novèl"/>
 					<Item id="6401" name="Format"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
@@ -379,12 +379,12 @@
 					<Item id="6409" name="UCS-2 Big endian"/>
 					<Item id="6410" name="UCS-2 small endian"/>
 					<Item id="6411" name="Lengatge per defaut :"/>
-					<Item id="6413" name="Repertňri d'obertura / d'enregistrament dels fichičrs"/>
-					<Item id="6414" name="Seguir lo document dobčrt"/>
-					<Item id="6415" name="Se remembre del darričr repertňri utilizat"/>
-                
+					<Item id="6413" name="Repertòri d'obertura / d'enregistrament dels fichièrs"/>
+					<Item id="6414" name="Seguir lo document dobèrt"/>
+					<Item id="6415" name="Se remembre del darrièr repertòri utilizat"/>
+
                 </NewDoc>
-				<FileAssoc title="Associacion de fichičrs">
+				<FileAssoc title="Associacion de fichièrs">
 					<Item id="4009" name="Extensions geridas :"/>
 					<Item id="4010" name="Extensions enregistradas :"/>
                 </FileAssoc>
@@ -393,43 +393,43 @@
 					<Item id="6506" name="Elements desactivats"/>
                 </LangMenu>
 				<Print title="Estampar">
-					<Item id="6601" name="Estampar lo numčro de linha"/>
+					<Item id="6601" name="Estampar lo numèro de linha"/>
 					<Item id="6602" name="Opcion de color"/>
 					<Item id="6603" name="WYSIWYG"/>
 					<Item id="6604" name="Intervertir"/>
 	                <Item id="6605" name="Negre sus blanc"/>
 					<Item id="6606" name="Pas de color de fons"/>
-					<Item id="6607" name="Paramčtres de marge (unitat : mm)"/>
-					<Item id="6612" name="Esqučrra"/>
+					<Item id="6607" name="Paramètres de marge (unitat : mm)"/>
+					<Item id="6612" name="Esquèrra"/>
 					<Item id="6613" name="Naut"/>
 					<Item id="6614" name="Drecha"/>
 					<Item id="6615" name="Bas"/>
 					<Item id="6706" name="Gras"/>
 					<Item id="6707" name="Italic"/>
 					<Item id="6708" name="Encap"/>
-					<Item id="6709" name="Partida esqučrra"/>
+					<Item id="6709" name="Partida esquèrra"/>
 	                <Item id="6710" name="Partida mejana"/>
 					<Item id="6711" name="Partida drecha"/>
 					<Item id="6717" name="Gras"/>
 					<Item id="6718" name="Italic"/>
-					<Item id="6719" name="Pč de pagina"/>
-					<Item id="6720" name="Partida esqučrra"/>
+					<Item id="6719" name="Pè de pagina"/>
+					<Item id="6720" name="Partida esquèrra"/>
 	                <Item id="6721" name="Partida mejana"/>
 					<Item id="6722" name="Partida drecha"/>
 	                <Item id="6723" name="Apondre"/>
 					<Item id="6725" name="Variabla :"/>
                 </Print>
 				<MISC title="MISC">
-					<Item id="6304" name="Paramčtre de l'istoric de fichičrs"/>
+					<Item id="6304" name="Paramètre de l'istoric de fichièrs"/>
 	                <Item id="6305" name="Verificar pas a l'aviada"/>
-					<Item id="6306" name="Nombre de maximum de fichičrs dins l'istoric :"/>
+					<Item id="6306" name="Nombre de maximum de fichièrs dins l'istoric :"/>
 					<Item id="6307" name="Activar"/>
-					<Item id="6308" name="Minimizar dins la barra d'estat sistčma"/>
+					<Item id="6308" name="Minimizar dins la barra d'estat sistèma"/>
 					<Item id="6309" name="Memorizar la sesilha actuala per que ven qu'aviaretz Notepad++"/>
-					<Item id="6312" name="Auto-deteccion de l'estat de fichičr"/>
+					<Item id="6312" name="Auto-deteccion de l'estat de fichièr"/>
 					<Item id="6313" name="Mesa a jorn discreta"/>
-					<Item id="6318" name="Paramčtre de ligam clicable"/>
-					<Item id="6325" name="Davalar a la darričra linha aprčp la mesa a jorn"/>
+					<Item id="6318" name="Paramètre de ligam clicable"/>
+					<Item id="6325" name="Davalar a la darrièra linha aprèp la mesa a jorn"/>
 					<Item id="6319" name="Activar"/>
 					<Item id="6320" name="Soslinhar pas"/>
 					<Item id="6323" name="Activar la mesa a jorn automatica"/>
@@ -437,50 +437,50 @@
 					<Item id="6329" name="Suslinhar los tags de dobertura / tampadura"/>
 					<Item id="6327" name="Activar"/>
 					<Item id="6328" name="Suslinhar los tags d'atributs"/>
-					<Item id="6330" name="Suslinhar dins la zňna php/asp"/>
-					<Item id="6331" name="Mostrar solament lo nom del fichičr dins la barra de títol"/>
+					<Item id="6330" name="Suslinhar dins la zòna php/asp"/>
+					<Item id="6331" name="Mostrar solament lo nom del fichièr dins la barra de títol"/>
 					<Item id="6326" name="Activar lo suslinhament intelligent"/>
 					<Item id="6114" name="Activar (Ctrl+Tab)"/>
 					<Item id="6115" name="Indentacion automatica"/>
-					<Item id="6116" name="Memorizar lo darričr repertňri utilizat"/>
+					<Item id="6116" name="Memorizar lo darrièr repertòri utilizat"/>
 					<Item id="6117" name="Activar lo comportament MRU"/>
-					<Item id="6322" name="ext fichičr sesilha :"/>
-					
+					<Item id="6322" name="ext fichièr sesilha :"/>
+
                 </MISC>
 				<Backup title="Salvagarda/Auto-complecion">
 					<Item id="6801" name="Salvagarda"/>
 					<Item id="6315" name="Pas cap"/>
 					<Item id="6316" name="Salvagarda simpla"/>
 					<Item id="6317" name="Salvagarda verbosa"/>
-					<Item id="6804" name="Repertňri de salvagarda personalizat"/>
-					<Item id="6803" name="Repertňri :"/>
+					<Item id="6804" name="Repertòri de salvagarda personalizat"/>
+					<Item id="6803" name="Repertòri :"/>
 					<Item id="6807" name="Auto-complecion"/>
 	                <Item id="6808" name="Activar l'auto-complecion"/>
 					<Item id="6809" name="Complecion de foncion"/>
 					<Item id="6810" name="Complecion de mot"/>
 					<Item id="6811" name="Tre"/>
-					<Item id="6813" name="en caractčrs"/>
+					<Item id="6813" name="en caractèrs"/>
 					<Item id="6814" name="Valor valida : 1 - 9"/>
-					<Item id="6815" name="Visualizar los paramčtres pendent que picatz"/>
+					<Item id="6815" name="Visualizar los paramètres pendent que picatz"/>
                 </Backup>
             </Preference>
-			<MultiMacro title="Aviar la macrň mai d'un cňp">
+			<MultiMacro title="Aviar la macrò mai d'un còp">
                 <Item id="1" name="Aviar"/>
                 <Item id="2" name="Anullar"/>
-                <Item id="8006" name="Macrň d'aviar :"/>
+                <Item id="8006" name="Macrò d'aviar :"/>
                 <Item id="8001" name="Aviar"/>
-                <Item id="8005" name="cňps"/>
-                <Item id="8002" name="Duscas a la fin del fichičr"/>
+                <Item id="8005" name="còps"/>
+                <Item id="8002" name="Duscas a la fin del fichièr"/>
             </MultiMacro>
 			<Window title="Windows">
                 <Item id="1" name="Activar"/>
                 <Item id="2" name="Validar"/>
                 <Item id="7002" name="Enregistrar"/>
-                <Item id="7003" name="Tampar de fenčstras"/>
+                <Item id="7003" name="Tampar de fenèstras"/>
                 <Item id="7004" name="Ordenar los onglets"/>
             </Window>
 			<ColumnEditor title="Editor de colomna">
-                <Item id="2023" name="Tčxt a inserir"/>
+                <Item id="2023" name="Tèxt a inserir"/>
                 <Item id="2033" name="Nombre a inserir"/>
                 <Item id="2030" name="Nombre inicial :"/>
                 <Item id="2031" name="Aumentar de :"/>

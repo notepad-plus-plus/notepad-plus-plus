@@ -6,7 +6,7 @@ Updated 23.12.2014
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Catalŕ" filename="catalan.xml" version="6.7.1">
+	<Native-Langue name="Català" filename="catalan.xml" version="6.7.1">
 		<Menu>
 			<Main>
 				<Entries>
@@ -47,20 +47,20 @@ By Hiro5 <groccat at gmail>
 					<Item subMenuId="view-collapseLevel" name="P&amp;lega el nivell..."/>
 					<Item subMenuId="view-uncollapseLevel" name="De&amp;splega el nivell..."/>
 					<Item subMenuId="view-project" name="Pro&amp;jectes"/>
-					<Item subMenuId="encoding-characterSets" name="&amp;Codificació de carŕcters"/>
-					<Item subMenuId="encoding-arabic" name="Ŕr&amp;ab"/>
-					<Item subMenuId="encoding-baltic" name="&amp;Bŕltic"/>
-					<Item subMenuId="encoding-celtic" name="&amp;Cčltic"/>
-					<Item subMenuId="encoding-cyrillic" name="C&amp;irílˇlic"/>
+					<Item subMenuId="encoding-characterSets" name="&amp;Codificació de caràcters"/>
+					<Item subMenuId="encoding-arabic" name="Àr&amp;ab"/>
+					<Item subMenuId="encoding-baltic" name="&amp;Bàltic"/>
+					<Item subMenuId="encoding-celtic" name="&amp;Cèltic"/>
+					<Item subMenuId="encoding-cyrillic" name="C&amp;iríl·lic"/>
 					<Item subMenuId="encoding-centralEuropean" name="C&amp;entreeuropeu"/>
-					<Item subMenuId="encoding-chinese" name="&amp;Xinčs"/>
+					<Item subMenuId="encoding-chinese" name="&amp;Xinès"/>
 					<Item subMenuId="encoding-easternEuropean" name="Eu&amp;ropeu oriental"/>
 					<Item subMenuId="encoding-greek" name="&amp;Grec"/>
 					<Item subMenuId="encoding-hebrew" name="&amp;Hebreu"/>
-					<Item subMenuId="encoding-japanese" name="&amp;Japončs"/>
-					<Item subMenuId="encoding-korean" name="C&amp;oreŕ"/>
+					<Item subMenuId="encoding-japanese" name="&amp;Japonès"/>
+					<Item subMenuId="encoding-korean" name="C&amp;oreà"/>
 					<Item subMenuId="encoding-northEuropean" name="Europeu del &amp;nord"/>
-					<Item subMenuId="encoding-thai" name="&amp;Tailandčs"/>
+					<Item subMenuId="encoding-thai" name="&amp;Tailandès"/>
 					<Item subMenuId="encoding-turkish" name="T&amp;urc"/>
 					<Item subMenuId="encoding-westernEuropean" name="Europeu occidenta&amp;l"/>
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamita"/>
@@ -74,7 +74,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="41014" name="&amp;Recarrega des del disc"/>
 					<Item id="41006" name="&amp;Desa"/>
 					<Item id="41008" name="&amp;Anomena i desa..."/>
-					<Item id="41015" name="Anomena &amp;cňpia i desa..."/>
+					<Item id="41015" name="Anomena &amp;còpia i desa..."/>
 					<Item id="41007" name="D&amp;esa'ls tots"/>
 					<Item id="41017" name="Can&amp;via el nom..."/>
 					<Item id="41003" name="&amp;Tanca"/>
@@ -123,7 +123,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="42047" name="Treu símbol de comentari de s&amp;elecció"/>
 					<Item id="50000" name="Autocompleta &amp;funcions"/>
 					<Item id="50001" name="Autocompleta &amp;paraules"/>
-					<Item id="50002" name="&amp;Suggeriments de parŕmetres de funcions"/>
+					<Item id="50002" name="&amp;Suggeriments de paràmetres de funcions"/>
 					<Item id="50006" name="Compleció de camí"/>
 					<Item id="45001" name="Converteix a format &amp;Windows"/>
 					<Item id="45002" name="Converteix a format &amp;UNIX"/>
@@ -143,7 +143,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="42050" name="&amp;Enganxa contingut binari"/>
 					<Item id="42037" name="Consell del &amp;mode de columna..."/>
 					<Item id="42034" name="&amp;Insereix en columna..."/>
-					<Item id="42051" name="P&amp;anell d'inserció de carŕcters"/>
+					<Item id="42051" name="P&amp;anell d'inserció de caràcters"/>
 					<Item id="42052" name="&amp;Historial del porta-retalls"/>
 					<Item id="42028" name="M&amp;ode de Només-Lectura"/>
 					<Item id="42033" name="T&amp;reu marca de Només-Lectura"/>
@@ -153,8 +153,8 @@ By Hiro5 <groccat at gmail>
 					<Item id="43010" name="Cerca &amp;anterior"/>
 					<Item id="43048" name="S&amp;elecciona i cerca següent"/>
 					<Item id="43049" name="Seleccio&amp;na i cerca anterior"/>
-					<Item id="43014" name="Cerca &amp;volŕtil següent"/>
-					<Item id="43015" name="Cerca v&amp;olŕtil anterior"/>
+					<Item id="43014" name="Cerca &amp;volàtil següent"/>
+					<Item id="43015" name="Cerca v&amp;olàtil anterior"/>
 					<Item id="43003" name="&amp;Reemplaça..."/>
 					<Item id="43011" name="Cerca &amp;incremental..."/>
 					<Item id="43045" name="Finestra &amp;de resultats de cerca"/>
@@ -169,25 +169,25 @@ By Hiro5 <groccat at gmail>
 					<Item id="43024" name="Utilitza &amp;2n. estil"/>
 					<Item id="43026" name="Utilitza &amp;3r. estil"/>
 					<Item id="43028" name="Utilitza &amp;4t. estil"/>
-					<Item id="43030" name="Utilitza &amp;5č. estil"/>
+					<Item id="43030" name="Utilitza &amp;5è. estil"/>
 					<Item id="43017" name="Desmarca-&amp;ho tot"/>
 					<Item id="43023" name="Neteja &amp;1r. estil"/>
 					<Item id="43025" name="Neteja &amp;2n. estil"/>
 					<Item id="43027" name="Neteja &amp;3r. estil"/>
 					<Item id="43029" name="Neteja &amp;4t. estil"/>
-					<Item id="43031" name="Neteja &amp;5č. estil"/>
+					<Item id="43031" name="Neteja &amp;5è. estil"/>
 					<Item id="43032" name="Neteja &amp;tots els estils"/>
 					<Item id="43033" name="&amp;1r. estil"/>
 					<Item id="43034" name="&amp;2n. estil"/>
 					<Item id="43035" name="&amp;3r. estil"/>
 					<Item id="43036" name="&amp;4t. estil"/>
-					<Item id="43037" name="&amp;5č. estil"/>
+					<Item id="43037" name="&amp;5è. estil"/>
 					<Item id="43038" name="&amp;Cerca estil"/>
 					<Item id="43039" name="&amp;1r. estil"/>
 					<Item id="43040" name="&amp;2n. estil"/>
 					<Item id="43041" name="&amp;3r. estil"/>
 					<Item id="43042" name="&amp;4t. estil"/>
-					<Item id="43043" name="&amp;5č. estil"/>
+					<Item id="43043" name="&amp;5è. estil"/>
 					<Item id="43044" name="&amp;Cerca estil"/>
 					<Item id="43005" name="Activa/desactiva &amp;marca de línia"/>
 					<Item id="43006" name="Cerca marca de línia &amp;següent"/>
@@ -199,13 +199,13 @@ By Hiro5 <groccat at gmail>
 					<Item id="43021" name="Es&amp;borra les línies marcades"/>
 					<Item id="43051" name="&amp;Esborra línies sense marcar"/>
 					<Item id="43050" name="&amp;Inverteix línies marcades"/>
-					<Item id="43052" name="Cerca interva&amp;l de carŕcters..."/>
+					<Item id="43052" name="Cerca interva&amp;l de caràcters..."/>
 					<Item id="44034" name="Se&amp;mpre per damunt"/>
 					<Item id="44032" name="Mode a pantalla &amp;completa"/>
 					<Item id="44009" name="Mode fi&amp;x"/>
 					<Item id="44025" name="Mostra els &amp;espais en blanc i els tabuladors"/>
 					<Item id="44026" name="Mostra el &amp;salt de línia"/>
-					<Item id="44019" name="Mostra tots els &amp;carŕcters"/>
+					<Item id="44019" name="Mostra tots els &amp;caràcters"/>
 					<Item id="44020" name="Mostra la &amp;guia del sagnat"/>
 					<Item id="44041" name="Mostra símbol de &amp;tall"/>
 					<Item id="44023" name="&amp;Amplia"/>
@@ -253,11 +253,11 @@ By Hiro5 <groccat at gmail>
 					<Item id="45007" name="Co&amp;difica com UCS-2 Little Endian"/>
 					<Item id="45060" name="Big5 (Tradicional)"/>
 					<Item id="45061" name="GB2312 (Simplificat)"/>
-					<Item id="45054" name="OEM 861: Islandčs"/>
-					<Item id="45057" name="OEM 865: Nňrdic"/>
+					<Item id="45054" name="OEM 861: Islandès"/>
+					<Item id="45057" name="OEM 865: Nòrdic"/>
 					<Item id="45048" name="OEM 850: DOS Llatí 1"/>
-					<Item id="45053" name="OEM 860: Portugučs"/>
-					<Item id="45056" name="OEM 863: Francčs"/>
+					<Item id="45053" name="OEM 860: Portuguès"/>
+					<Item id="45056" name="OEM 863: Francès"/>
 					<Item id="45009" name="Converteix a &amp;ANSI"/>
 					<Item id="45010" name="Converteix a UTF-8 &amp;sense BOM"/>
 					<Item id="45011" name="Converteix a &amp;UTF-8"/>
@@ -270,7 +270,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="46017" name="RC (arxiu de recursos)"/>
 					<Item id="46080" name="D&amp;efinit per l'usuari"/>
 					<Item id="46150" name="Definiu el llenguatge..."/>
-					<Item id="48011" name="&amp;Preferčncies..."/>
+					<Item id="48011" name="&amp;Preferències..."/>
 					<Item id="46001" name="&amp;Configuració d'estil..."/>
 					<Item id="48009" name="&amp;Editor de tecles de dreceres..."/>
 					<Item id="48005" name="Importa &amp;complements ..."/>
@@ -287,9 +287,9 @@ By Hiro5 <groccat at gmail>
 					<Item id="47008" name="&amp;Ajuda..."/>
 					<Item id="47010" name="Ús en &amp;línia d'ordres..."/>
 					<Item id="47001" name="Web de &amp;Notepad++"/>
-					<Item id="47002" name="Pŕgina del &amp;projecte Notepad++"/>
+					<Item id="47002" name="Pàgina del &amp;projecte Notepad++"/>
 					<Item id="47003" name="Np&amp;Wiki++ (Ajuda en línia)"/>
-					<Item id="47004" name="&amp;Fňrum"/>
+					<Item id="47004" name="&amp;Fòrum"/>
 					<Item id="47005" name="Aconsegueix més &amp;complements"/>
 					<Item id="47006" name="Ac&amp;tualitza Notepad++"/>
 					<Item id="47009" name="Confi&amp;gura l'intermediari d'actualització"/>
@@ -327,7 +327,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1617" name="Estil de símbol trobat"/>
 				<Item id="1637" name="Cerca als fitxers"/>
 				<Item id="1"    name="Cerca el següent"/>
-				<Item id="1614" name="Compta coincidčncies"/>
+				<Item id="1614" name="Compta coincidències"/>
 				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
 				<Item id="1641" name="Cerca-ho tot en el document actual"/>
 				<Item id="1608" name="&amp;Reemplaça"/>
@@ -336,7 +336,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1656" name="Cerca'ls tots"/>
 				<Item id="1660" name="Reemplaça-ho als arxius"/>
 				<Item id="2"    name="Tanca"/>
-				<Item id="1620" name="Quč voleu trobar?:"/>
+				<Item id="1620" name="Què voleu trobar?:"/>
 				<Item id="1611" name="Re&amp;emplaça amb:"/>
 				<Item id="1654" name="Filtres:"/>
 				<Item id="1655" name="Directori:"/>
@@ -353,22 +353,22 @@ By Hiro5 <groccat at gmail>
 				<Item id="1606" name="Dóna la volta"/>
 				<Item id="1624" name="Mode de cerca"/>
 				<Item id="1625" name="Normal"/>
-				<Item id="1626" name="Estčs (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Estès (\n, \r, \t, \0, \x...)"/>
 				<Item id="1605" name="Expressió regular"/>
 				<Item id="1703" name="&amp;. cerca nova línia"/>
 				<Item id="1621" name="Direcció"/>
 				<Item id="1612" name="Amu&amp;nt"/>
 				<Item id="1613" name="A&amp;vall"/>
 				<Item id="1623" name=" "/>
-				<Item id="1686" name="Transparčncia"/>
+				<Item id="1686" name="Transparència"/>
 				<Item id="1687" name="En perdre el focus"/>
 				<Item id="1688" name="Sempre"/>
 			</Find>
-			<FindCharsInRange title = "Cerca interval de carŕcters...">
+			<FindCharsInRange title = "Cerca interval de caràcters...">
 				<Item id="2910" name="Cerca"/>
 				<Item id="2" name="Tanca"/>
-				<Item id="2901" name="Carŕcters no-ASCII (128-255)"/>
-				<Item id="2902" name="Carŕcters ASCII (0 - 127)"/>
+				<Item id="2901" name="Caràcters no-ASCII (128-255)"/>
+				<Item id="2902" name="Caràcters ASCII (0 - 127)"/>
 				<Item id="2903" name="Aquest interval:"/>
 				<Item id="2906" name="Amunt"/>
 				<Item id="2907" name="Avall"/>
@@ -380,7 +380,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="2008" name="Posició (en bytes)"/>
 				<Item id="2004" name="Sou aquí:"/>
 				<Item id="2005" name="Voleu anar a:"/>
-				<Item id="2006" name="No podeu anar més enllŕ de:"/>
+				<Item id="2006" name="No podeu anar més enllà de:"/>
 				<Item id="1"    name="&amp;Vés-hi!"/>
 				<Item id="2"    name="No vaig enlloc!"/>
 			</GoToLine>
@@ -391,9 +391,9 @@ By Hiro5 <groccat at gmail>
 				<Item id="2"    name="Atura"/>
 			</Run>
 			<StyleConfig title="Configuració d'estil">
-				<Item id="2" name="Cancelˇla"/>
+				<Item id="2" name="Cancel·la"/>
 				<Item id="2301" name="Desa &amp;i tanca"/>
-				<Item id="2303" name="Transparčncia"/>
+				<Item id="2303" name="Transparència"/>
 				<Item id="2306" name="Selecciona tema:"/>
 				<SubDialog>
 					<Item id="2225" name="Llenguatge:"/>
@@ -427,13 +427,13 @@ By Hiro5 <groccat at gmail>
 				<Item id="20005" name="Anomena i desa.."/>
 				<Item id="20015" name="Importa..."/>
 				<Item id="20016" name="Exporta..."/>
-				<Item id="20011" name="Transparčncia"/>
+				<Item id="20011" name="Transparència"/>
 				<Item id="20012" name="Ignora majúscules"/>
 				<Item id="20009" name="Ext.:"/>
 				<Item id="20002" name="Canvia el nom"/>
 				<Item id="20004" name="Esborra"/>
-				<Item id="24001" name="Activa carŕcter d'escapada:"/>
-				<StylerDialog title="Diŕleg d'estil">
+				<Item id="24001" name="Activa caràcter d'escapada:"/>
+				<StylerDialog title="Diàleg d'estil">
 					<Item id="25030" name="Opcions de lletra:"/>
 					<Item id="25031" name="Nom:"/>
 					<Item id="25032" name="Mida:"/>
@@ -465,7 +465,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="25027" name="Operadors 2"/>
 					<Item id="25028" name="Números"/>
 					<Item id="1" name="&amp;D'acord"/>
-					<Item id="2" name="&amp;Cancelˇla"/>
+					<Item id="2" name="&amp;Cancel·la"/>
 				</StylerDialog>
 				<Folder title="Per defecte i Bloc de codi">
 					<Item id="21105" name="Documentació:"/>
@@ -494,10 +494,10 @@ By Hiro5 <groccat at gmail>
 					<Item id="22201" name="2n. Grup"/>
 					<Item id="22301" name="3r. Grup"/>
 					<Item id="22401" name="4t. Grup"/>
-					<Item id="22451" name="5č. Grup"/>
-					<Item id="22501" name="6č. Grup"/>
-					<Item id="22551" name="7č. Grup"/>
-					<Item id="22601" name="8č. Grup"/>
+					<Item id="22451" name="5è. Grup"/>
+					<Item id="22501" name="6è. Grup"/>
+					<Item id="22551" name="7è. Grup"/>
+					<Item id="22601" name="8è. Grup"/>
 					<Item id="22122" name="Estil"/>
 					<Item id="22222" name="Estil"/>
 					<Item id="22322" name="Estil"/>
@@ -524,7 +524,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="23301" name="Comentaris de línia"/>
 					<Item id="23326" name="Estil"/>
 					<Item id="23323" name="Obertura"/>
-					<Item id="23324" name="Carŕcter de continuació"/>
+					<Item id="23324" name="Caràcter de continuació"/>
 					<Item id="23325" name="Tancament"/>
 					<Item id="23101" name="Comentaris de bloc"/>
 					<Item id="23124" name="Estil"/>
@@ -591,7 +591,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="24672" name="Tancament: "/>
 				</Operator>
 			</UserDefine>
-			<Preference title="Preferčncies">
+			<Preference title="Preferències">
 				<Item id="6001" name="Tanca"/>
 				<Global title="Global">
 					<Item id="6123" name="Idioma"/>
@@ -599,7 +599,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6102" name="Amaga la barra d'eines"/>
 					<Item id="6103" name="Icones petites"/>
 					<Item id="6104" name="Icones grans"/>
-					<Item id="6105" name="Icones estŕndard"/>
+					<Item id="6105" name="Icones estàndard"/>
 					<Item id="6121" name="Barra de menú"/>
 					<Item id="6122" name="Amaga barra de menú (pitgeu Alt o F10 per accedir)"/>
 					<Item id="6111" name="Mostra barra d'estat"/>
@@ -611,7 +611,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6119" name="Multilínia"/>
 					<Item id="6120" name="Vertical"/>
 					<Item id="6107" name="Redueix"/>
-					<Item id="6108" name="Bloqueja (no es podrŕ arrossegar)"/>
+					<Item id="6108" name="Bloqueja (no es podrà arrossegar)"/>
 					<Item id="6109" name="Enfosqueix pestanyes inactives"/>
 					<Item id="6110" name="Marca superior a la pestanya activa"/>
 					<Item id="6112" name="Botó de tancar a cada pestanya"/>
@@ -700,12 +700,12 @@ By Hiro5 <groccat at gmail>
 					<Item id="6604" name="Colors invertits"/>
 					<Item id="6605" name="Blanc i negre"/>
 					<Item id="6606" name="Sense color de fons"/>
-					<Item id="6607" name="Marges de pŕgina (Unitat:mm)"/>
+					<Item id="6607" name="Marges de pàgina (Unitat:mm)"/>
 					<Item id="6613" name="Superior"/>
 					<Item id="6612" name="Esquerra"/>
 					<Item id="6614" name="Dreta"/>
 					<Item id="6615" name="Inferior"/>
-					<Item id="6728" name="Capçalera i peu de pŕgina"/>
+					<Item id="6728" name="Capçalera i peu de pàgina"/>
 					<Item id="6725" name="Variable:"/>
 					<Item id="6723" name="Afegeix"/>
 					<Item id="6708" name="Capçalera"/>
@@ -722,18 +722,18 @@ By Hiro5 <groccat at gmail>
 					<Item id="6718" name="Cursiva"/>
 					<Item id="6727" name=" "/>
 				</Print>
-				<Backup title="Cňpia de seguretat">
-					<Item id="6817" name="Captura de sessió i cňpia periňdica"/>
+				<Backup title="Còpia de seguretat">
+					<Item id="6817" name="Captura de sessió i còpia periòdica"/>
 					<Item id="6309" name="Recorda la sessió actual per l'inici següent"/>
-					<Item id="6818" name="Activa la captura de sessió i cňpia periňdica"/>
+					<Item id="6818" name="Activa la captura de sessió i còpia periòdica"/>
 					<Item id="6819" name="Copia cada"/>
 					<Item id="6821" name="segons"/>
 					<Item id="6822" name="Directori:"/>
-					<Item id="6801" name="Cňpia de seguretat"/>
-					<Item id="6315" name="Cap cňpia"/>
-					<Item id="6316" name="Cňpia simple"/>
-					<Item id="6317" name="Cňpia complexa"/>
-					<Item id="6804" name="Directori de cňpia personalitzat"/>
+					<Item id="6801" name="Còpia de seguretat"/>
+					<Item id="6315" name="Cap còpia"/>
+					<Item id="6316" name="Còpia simple"/>
+					<Item id="6317" name="Còpia complexa"/>
+					<Item id="6804" name="Directori de còpia personalitzat"/>
 					<Item id="6803" name="Directori:"/>
 				</Backup>
 				<AutoCompletion title="Autocompleció">
@@ -742,10 +742,10 @@ By Hiro5 <groccat at gmail>
 					<Item id="6809" name="Autocompleta funcions"/>
 					<Item id="6810" name="Autocompleta paraules"/>
 					<Item id="6816" name="Autocompleta funcions i paraules"/>
-					<Item id="6815" name="Suggeriments en crear parŕm. de funció"/>
+					<Item id="6815" name="Suggeriments en crear paràm. de funció"/>
 					<Item id="6811" name="De"/>
-					<Item id="6813" name="carŕcters ordinals anglesos"/>
-					<Item id="6814" name="Valors vŕlids: 1 - 9"/>
+					<Item id="6813" name="caràcters ordinals anglesos"/>
+					<Item id="6814" name="Valors vàlids: 1 - 9"/>
 					<Item id="6851" name="Autoinserció"/>
 					<Item id="6857" name="tanca-etiq. html/xml"/>
 					<Item id="6858" name="Obre"/>
@@ -754,12 +754,12 @@ By Hiro5 <groccat at gmail>
 					<Item id="6863" name="Parella 2:"/>
 					<Item id="6866" name="Parella 3:"/>
 				</AutoCompletion>
-				<MultiInstance title="Múltiples instŕncies">
-					<Item id="6151" name="Opcions de múltiples instŕncies"/>
-					<Item id="6152" name="Obre sessió en nova instŕncia de Notepad++"/>
-					<Item id="6153" name="Sempre en mode de múltiples instŕncies"/>
-					<Item id="6154" name="Per defecte (una instŕncia)"/>
-					<Item id="6155" name="La modificació d'aquest parŕmetre requereix reiniciar Notepad++"/>
+				<MultiInstance title="Múltiples instàncies">
+					<Item id="6151" name="Opcions de múltiples instàncies"/>
+					<Item id="6152" name="Obre sessió en nova instància de Notepad++"/>
+					<Item id="6153" name="Sempre en mode de múltiples instàncies"/>
+					<Item id="6154" name="Per defecte (una instància)"/>
+					<Item id="6155" name="La modificació d'aquest paràmetre requereix reiniciar Notepad++"/>
 				</MultiInstance>
 				<Delimiter title="Delimitació">
 					<Item id="6251" name="Opcions de selecció de delimitació (Control + doble clic del ratolí)"/>
@@ -768,26 +768,26 @@ By Hiro5 <groccat at gmail>
 					<Item id="6256" name="Permet en diverses línies"/>
 				</Delimiter>
 				<Cloud title="Núvol">
-					<Item id="6262" name="Parŕmetres al núvol"/>
+					<Item id="6262" name="Paràmetres al núvol"/>
 					<Item id="6263" name="Sense núvol"/>
-					<Item id="6264" name="Dropbox"/>  
-					<Item id="6265" name="OneDrive"/>  
+					<Item id="6264" name="Dropbox"/>
+					<Item id="6265" name="OneDrive"/>
 					<Item id="6266" name="Google Drive"/>
-					<!--Item id="6261" name="Reinicieu Notepad++ perquč faci efecte."-->
+					<!--Item id="6261" name="Reinicieu Notepad++ perquè faci efecte."-->
 				</Cloud>
-				<MISC title="Miscelˇlŕnia">
+				<MISC title="Miscel·lània">
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
 					<Item id="6114" name="Habilita"/>
 					<Item id="6117" name="Ordena per l'editat més recent"/>
-					<Item id="6333" name="Ressaltat intelˇligent"/>
+					<Item id="6333" name="Ressaltat intel·ligent"/>
 					<Item id="6326" name="Activa"/>
 					<Item id="6332" name="El ressaltat distingeix majúscules"/>
-					<Item id="6323" name="Actualitza Notepad++ automŕticament"/>
-					<Item id="6334" name="Autodetecta codificació de carŕcters"/>
-					<Item id="6115" name="Sagnat automŕtic"/>
+					<Item id="6323" name="Actualitza Notepad++ automàticament"/>
+					<Item id="6334" name="Autodetecta codificació de caràcters"/>
+					<Item id="6115" name="Sagnat automàtic"/>
 					<Item id="6308" name="Minimitza a la safata del sistema"/>
 					<Item id="6331" name="Mostra només el nom de fitxer a la barra de títol"/>
-					<Item id="6335" name="Tracta \ com a carŕcter d'escapada per l'SQL"/>
+					<Item id="6335" name="Tracta \ com a caràcter d'escapada per l'SQL"/>
 					<Item id="6309" name="Recorda la sessió actual per la propera execució"/>
 					<Item id="6318" name="Configuració dels enllaços clicables"/>
 					<Item id="6319" name="Habilita"/>
@@ -801,7 +801,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6328" name="Destaca els atributs de les par. clau"/>
 					<Item id="6330" name="Destaca la zona php/asp/comentari"/>
 					<Item id="6322" name="Ext. del fitxer de sessió:"/>
-					<Item id="6334" name="Autodetecta codificació de carŕcters"/>
+					<Item id="6334" name="Autodetecta codificació de caràcters"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Executa una macro diverses vegades">
@@ -810,7 +810,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="8005" name="vegades"/>
 				<Item id="8002" name="Executa fins al final de l'arxiu"/>
 				<Item id="1" name="Executa"/>
-				<Item id="2" name="Cancelˇla"/>
+				<Item id="2" name="Cancel·la"/>
 			</MultiMacro>
 			<Window title="Finestres...">
 				<Item id="1" name="Activa"/>
@@ -821,7 +821,7 @@ By Hiro5 <groccat at gmail>
 			</Window>
 			<ColumnEditor title="Inserció en columna...">
 				<Item id="1" name="D'acord"/>
-				<Item id="2" name="Cancelˇla"/>
+				<Item id="2" name="Cancel·la"/>
 				<Item id="2023" name="Text a inserir"/>
 				<Item id="2033" name="Números a inserir"/>
 				<Item id="2030" name="Número inicial:"/>
@@ -836,26 +836,26 @@ By Hiro5 <groccat at gmail>
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.
-Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a quč faci efecte."/>
+Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a què faci efecte."/>
 			<NppHelpAbsentWarning title="No existeix el fitxer" message="
 no existeix. El podeu baixar de la web de Notepad++."/>
 			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.
 Totes les modificacions desades no es podran desfer.
 
 Voleu continuar?"/>
-			<LoseUndoAbilityWarning title="Avís de pčrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.
+			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.
 Totes les modificacions desades no es podran desfer.
 
 Voleu continuar?"/>
 			<CannotMoveDoc title="Mou a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
 			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
-			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer estŕ obert amb un altre programa"/>
-			<FileAlreadyOpenedInNpp title="" message="El fitxer ja estŕ obert amb Notepad++."/>
+			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>
+			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
 			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.
 Segur que voleu obrir-los?"/>
-			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu ŤAlt+Selecció amb ratolíť
-o ŤAlt+Maj.+Fletxes del teclatť
+			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»
+o «Alt+Maj.+Fletxes del teclat»
 per canviar al mode de columna." />
 		</MessageBox>
 		<ClipboardHistory>
@@ -870,7 +870,7 @@ per canviar al mode de columna." />
 			<PanelTitle name="Panell d'inserció ASCII"/>
 			<ColumnVal name="Valor"/>
 			<ColumnHex name="Hex"/>
-			<ColumnChar name="Carŕcter"/>
+			<ColumnChar name="Caràcter"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Mapa del Document"/>
@@ -896,7 +896,7 @@ per canviar al mode de columna." />
 					<Item id="3124" name="Recarrega espai de treball"/>
 					<Item id="3125" name="Desa"/>
 					<Item id="3126" name="Anomena i desa..."/>
-					<Item id="3127" name="Anomena cňpia i desa..."/>
+					<Item id="3127" name="Anomena còpia i desa..."/>
 					<Item id="3121" name="Afegeix nou projecte"/>
 				</WorkspaceMenu>
 				<ProjectMenu>

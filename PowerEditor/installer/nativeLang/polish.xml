@@ -20,7 +20,7 @@
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Otwórz folder zawierajšcy"/>
+                    <Item subMenuId="file-openFolder" name="Otwórz folder zawierający"/>
                     <Item subMenuId="file-closeMore" name="Zamknij więcej"/>
                     <Item subMenuId="file-recentFiles" name="Ostatnie pliki"/>
                     <Item subMenuId="edit-copyToClipboard" name="Kopiuj do schowka"/>
@@ -39,7 +39,7 @@
                     <Item subMenuId="search-bookmark" name="Zakładki"/>
                     <Item subMenuId="view-showSymbol" name="Pokaż niewidoczne znaki"/>
                     <Item subMenuId="view-zoom" name="Powiększenie"/>
-                    <Item subMenuId="view-moveCloneDocument" name="Przenie / sklonuj bieżšcy dokument"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Przenieś / sklonuj bieżący dokument"/>
                     <Item subMenuId="view-tab"  name="Tab"/>
                     <Item subMenuId="view-collapseLevel" name="Zwiń poziom"/>
                     <Item subMenuId="view-uncollapseLevel" name="Rozwiń poziom"/>
@@ -49,7 +49,7 @@
                     <Item subMenuId="encoding-baltic"  name="Bałtyckie"/>
                     <Item subMenuId="encoding-celtic"  name="Celtyckie"/>
                     <Item subMenuId="encoding-cyrillic"  name="Cyrylica"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="rodkowoeuropejskie"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Środkowoeuropejskie"/>
                     <Item subMenuId="encoding-chinese"  name="Chińskie"/>
                     <Item subMenuId="encoding-easternEuropean"  name="Wschodnioeuropejskie"/>
                     <Item subMenuId="encoding-greek"  name="Greckie"/>
@@ -66,16 +66,16 @@
 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="10001" name="Przenie do drugiego widoku"/>
+                    <Item id="10001" name="Przenieś do drugiego widoku"/>
                     <Item id="10002" name="Sklonuj do drugiego widoku"/>
-                    <Item id="10003" name="Przenie do nowej instancji"/>
+                    <Item id="10003" name="Przenieś do nowej instancji"/>
                     <Item id="10004" name="Otwórz w nowej instancji"/>
 
                     <Item id="41001" name="&amp;Nowy"/>
                     <Item id="41002" name="&amp;Otwórz"/>
                     <Item id="41003" name="Zamknij"/>
                     <Item id="41004" name="Za&amp;mknij wszystko"/>
-                    <Item id="41005" name="Zamknij wszystko poza bieżšcym"/>
+                    <Item id="41005" name="Zamknij wszystko poza bieżącym"/>
                     <Item id="41006" name="&amp;Zapisz"/>
                     <Item id="41007" name="Zapisz wszystko"/>
                     <Item id="41008" name="Z&amp;apisz jako..."/>
@@ -90,22 +90,22 @@
                     <Item id="41017" name="Zmień nazwę..."/>
 					<Item id="41009" name = "Zamknij wszystkie na lewo"/>
 					<Item id="41018" name = "Zamknij wszystkie na prawo"/>
-					<Item id="41019" name = "Explorator"/>  		 
-					<Item id="41020" name = "cmd"/> 
+					<Item id="41019" name = "Explorator"/>
+					<Item id="41020" name = "cmd"/>
                     <Item id="42001" name="Wyt&amp;nij"/>
                     <Item id="42002" name="&amp;Kopiuj"/>
                     <Item id="42003" name="C&amp;ofnij"/>
                     <Item id="42004" name="&amp;Ponów"/>
                     <Item id="42005" name="Wkl&amp;ej"/>
-                    <Item id="42006" name="&amp;Wyczyć"/>
+                    <Item id="42006" name="&amp;Wyczyść"/>
                     <Item id="42007" name="Z&amp;aznacz wszystko"/>
                     <Item id="42008" name="Wstaw TAB (wcięcie)"/>
                     <Item id="42009" name="Usuń TAB (wcięcie)"/>
-                    <Item id="42010" name="Powtórz bieżšcy wiersz"/>
+                    <Item id="42010" name="Powtórz bieżący wiersz"/>
                     <Item id="42012" name="Podziel wiersze"/>
-                    <Item id="42013" name="Złšcz wiersze"/>
-                    <Item id="42014" name="Przesuń bieżšcy wiersz do góry"/>
-                    <Item id="42015" name="Przesuń bieżšcy wiersz w dół"/>
+                    <Item id="42013" name="Złącz wiersze"/>
+                    <Item id="42014" name="Przesuń bieżący wiersz do góry"/>
+                    <Item id="42015" name="Przesuń bieżący wiersz w dół"/>
                     <Item id="42016" name="Zamiana na duże litery"/>
                     <Item id="42017" name="Zamiana na małe litery"/>
                     <Item id="42018" name="&amp;Rozpocznij nagrywanie"/>
@@ -115,52 +115,52 @@
                     <Item id="42022" name="Wstaw / usuń komentarz blokowy"/>
                     <Item id="42023" name="Kontynuj komentarz"/>
                     <Item id="42024" name="Usuń spacje na końcach linii"/>
-                    <Item id="42025" name="Zapisz bieżšce makro"/>
+                    <Item id="42025" name="Zapisz bieżące makro"/>
                     <Item id="42026" name="Kierunek tekstu z prawej do lewej"/>
                     <Item id="42027" name="Kierunek tekstu z lewej do prawej"/>
                     <Item id="42028" name="Zablokuj edycję"/>
-                    <Item id="42029" name="Skopiuj cieżkę pliku do schowka"/>
+                    <Item id="42029" name="Skopiuj ścieżkę pliku do schowka"/>
                     <Item id="42030" name="Skopiuj nazwę pliku do schowka"/>
-                    <Item id="42031" name="Skopiuj cieżkę katalogu do schowka"/>
+                    <Item id="42031" name="Skopiuj ścieżkę katalogu do schowka"/>
                     <Item id="42032" name="Uruchom makro wielokrotnie..."/>
-                    <Item id="42033" name="Wyczyć flagę 'tylko do odczytu'"/>
+                    <Item id="42033" name="Wyczyść flagę 'tylko do odczytu'"/>
                     <Item id="42034" name="Edytor kolumn..."/>
                     <Item id="42035" name="Wstaw komentarz blokowy"/>
                     <Item id="42036" name="Usuń komentarz blokowy"/>
 					<Item id="42037" name="Kolumnowy tryb zaznaczania ..."/>
-					<Item id="42038" name="Wklej treć &amp;HTML"/>
-					<Item id="42039" name="Wklej treć &amp;RTF"/>
+					<Item id="42038" name="Wklej treść &amp;HTML"/>
+					<Item id="42039" name="Wklej treść &amp;RTF"/>
                     <Item id="42040" name="Otwórz wszystkie ostatnio używane"/>
-                    <Item id="42041" name="Wyczyć listę ostatnio używanych plików"/>
-					<Item id="42042" name="Usuń spacje na poczštkach linii"/>
-					<Item id="42043" name="Usuń spacje na poczštkach i końcach linii"/>
+                    <Item id="42041" name="Wyczyść listę ostatnio używanych plików"/>
+					<Item id="42042" name="Usuń spacje na początkach linii"/>
+					<Item id="42043" name="Usuń spacje na początkach i końcach linii"/>
 					<Item id="42044" name="Znak końca linii na spację"/>
 					<Item id="42045" name="Usuń n iepotrzebne Białe znaki i puste linie"/>
 					<Item id="42046" name="Tabulacja na Spację"/>
 					<Item id="42047" name="Spacja na tabulację"/>
-					<Item id="42048" name="&amp;Kopiuj treć Binarnš"/>
-					<Item id="42049" name="Wy&amp;tnij treć Binarnš"/>
-					<Item id="42050" name="&amp;Wklej treć Binarnš"/>
+					<Item id="42048" name="&amp;Kopiuj treść Binarną"/>
+					<Item id="42049" name="Wy&amp;tnij treść Binarną"/>
+					<Item id="42050" name="&amp;Wklej treść Binarną"/>
 					<Item id="42051" name="Panel &amp;tablicy znaków "/>
 					<Item id="42052" name="Historia scho&amp;wka"/>
-					<Item id="42053" name = "Spacje na tabulatory (wiodšce)"/>
+					<Item id="42053" name = "Spacje na tabulatory (wiodące)"/>
 					<Item id="42054" name = "Spacje na tabulatory (wszędzie)"/>
 					<Item id="42055" name = "Usuwanie pustych linii"/>
-					<Item id="42056" name = "Usuwanie pustych linii (zawierajšcych białe znaki)"/>
-					<Item id="42057" name = "Wstaw pustš linię nad bieżšcš"/>
-					<Item id="42058" name = "Wstaw pustš linię pod bieżšcš"/>
-					<Item id="42059" name = "Sortowanie wierszy rosnšco"/>  		 
-					<Item id="42060" name = "Sortowanie wierszy malejšco"/>
+					<Item id="42056" name = "Usuwanie pustych linii (zawierających białe znaki)"/>
+					<Item id="42057" name = "Wstaw pustą linię nad bieżącą"/>
+					<Item id="42058" name = "Wstaw pustą linię pod bieżącą"/>
+					<Item id="42059" name = "Sortowanie wierszy rosnąco"/>
+					<Item id="42060" name = "Sortowanie wierszy malejąco"/>
                     <Item id="43001" name="&amp;Szukaj..."/>
-                    <Item id="43002" name="&amp;Następne wystšpienie"/>
+                    <Item id="43002" name="&amp;Następne wystąpienie"/>
                     <Item id="43003" name="Zamień..."/>
-                    <Item id="43004" name="Id do wiersza..."/>
+                    <Item id="43004" name="Idź do wiersza..."/>
                     <Item id="43005" name="Wstaw / usuń zakładkę"/>
                     <Item id="43006" name="Następna zakładka"/>
                     <Item id="43007" name="Poprzednia zakładka"/>
-                    <Item id="43008" name="Wyczyć wszystkie zakładki"/>
-                    <Item id="43009" name="Id do drugiego nawiasu"/>
-                    <Item id="43010" name="Poprzednie wystšpienie"/>
+                    <Item id="43008" name="Wyczyść wszystkie zakładki"/>
+                    <Item id="43009" name="Idź do drugiego nawiasu"/>
+                    <Item id="43010" name="Poprzednie wystąpienie"/>
                     <Item id="43011" name="Wyszukiwanie &amp;przyrostowe..."/>
                     <Item id="43013" name="Szukaj w plikach"/>
                     <Item id="43014" name="Szukaj zaznaczonego tekstu (w przód)"/>
@@ -169,7 +169,7 @@
                     <Item id="43017" name="Usuń wyróżnienie"/>
                     <Item id="43018" name="Wytnij linie z zakładkami"/>
                     <Item id="43019" name="Skopiuj linie z zakładkami"/>
-                    <Item id="43020" name="Wklej do linii z zakładkami (zastšp)"/>
+                    <Item id="43020" name="Wklej do linii z zakładkami (zastąp)"/>
                     <Item id="43021" name="Usuń linie z zakładkami"/>
                     <Item id="43022" name="Wyróżnienie 1"/>
                     <Item id="43023" name="Usuń wyróżnienie 1"/>
@@ -202,7 +202,7 @@
                     <Item id="43050" name="Odwróć Zakładki"/>
 					<Item id="43051" name="Usuń linie bez &amp;zakładek"/>
 					<Item id="43052" name="Szukaj znaków z zakresu..."/>
-					<Item id="43053" name = "Zaznacz wszystko pomiędzy odpowiadajšcymi nawiasami"/>
+					<Item id="43053" name = "Zaznacz wszystko pomiędzy odpowiadającymi nawiasami"/>
 					<Item id="44009" name="Pełny ekran 2"/>
                     <Item id="44010" name="Zwiń wszystko"/>
                     <Item id="44011" name="Definiowanie własnego stylu"/>
@@ -217,17 +217,17 @@
                     <Item id="44025" name="Pokaż białe znaki i tabulatory"/>
                     <Item id="44026" name="Pokaż znaki nowej linii"/>
                     <Item id="44029" name="Rozwiń wszystko"/>
-                    <Item id="44030" name="Zwiń bieżšcy poziom"/>
-                    <Item id="44031" name="Rozwiń bieżšcy poziom"/>
+                    <Item id="44030" name="Zwiń bieżący poziom"/>
+                    <Item id="44031" name="Rozwiń bieżący poziom"/>
                     <Item id="44032" name="Pełny ekran"/>
-                    <Item id="44033" name="Przywróć domylne powiększenie"/>
+                    <Item id="44033" name="Przywróć domyślne powiększenie"/>
                     <Item id="44034" name="Zawsze na wierzchu"/>
                     <Item id="44035" name="Synchronizuj przewijanie pionowe"/>
                     <Item id="44036" name="Synchronizuj przewijanie poziome"/>
                     <Item id="44041" name="Pokaż symbol zawijania"/>
                     <Item id="44042" name="Ukryj zaznaczone wiersze"/>
                     <Item id="44049" name="&amp;Informacje o pliku ..."/>
-                    <Item id="44072" name="Przejd do drugiego widoku"/>
+                    <Item id="44072" name="Przejdź do drugiego widoku"/>
 
 					<Item id="44080" name="Mapa dokumentu"/>
                     <Item id="44081" name="Panel projektu &amp;1"/>
@@ -262,7 +262,7 @@
 
                     <Item id="46001" name="Konfigurator stylów..."/>
 					<Item id="46015" name="Styl MS-DOS"/>
-					<Item id="46016" name="Zwykły tekst"/> 
+					<Item id="46016" name="Zwykły tekst"/>
 					<Item id="46017" name="Plik zasobów"/>
                     <Item id="46080" name="Zdefiniowane przez Użytkownika"/>
 					<Item id="46150" name="Zdefiniuj własny język..."/>
@@ -289,7 +289,7 @@
                     <Item id="50000" name="Uzupełnianie funkcji"/>
                     <Item id="50001" name="Uzupełnianie słów"/>
                     <Item id="50002" name="Podpowiadanie parametrów funkcji"/>
-					<Item id="50006" name = "Uzupełnianie cieżki do plików i katalogów"/>
+					<Item id="50006" name = "Uzupełnianie ścieżki do plików i katalogów"/>
 
                 </Commands>
             </Main>
@@ -297,26 +297,26 @@
             </Splitter>
             <TabBar>
                     <Item CMID="0" name="Zamknij mnie"/>
-                    <Item CMID="1" name="Zamknij wszystko poza mnš"/>
+                    <Item CMID="1" name="Zamknij wszystko poza mną"/>
                     <Item CMID="2" name="Zapisz mnie"/>
                     <Item CMID="3" name="Zapisz mnie jako..."/>
                     <Item CMID="4" name="Wydrukuj mnie"/>
                     <Item CMID="5" name="Pokaż / ukryj drugi widok"/>
                     <Item CMID="6" name="Sklonuj do drugiego widoku"/>
-                    <Item CMID="7" name="cieżka pliku do schowka"/>
+                    <Item CMID="7" name="Ścieżka pliku do schowka"/>
                     <Item CMID="8" name="Nazwa pliku do schowka"/>
-                    <Item CMID="9" name="cieżka katalogu do schowka"/>
+                    <Item CMID="9" name="Ścieżka katalogu do schowka"/>
                     <Item CMID="10" name="Zmień mi nazwę"/>
                     <Item CMID="11" name="Usuń mnie z dysku"/>
                     <Item CMID="12" name="Zablokuj edycję"/>
-                    <Item CMID="13" name="Wyczyć flagę 'tylko do odczytu'"/>
-                    <Item CMID="14" name="Przejd do nowej instancji"/>
+                    <Item CMID="13" name="Wyczyść flagę 'tylko do odczytu'"/>
+                    <Item CMID="14" name="Przejdź do nowej instancji"/>
                     <Item CMID="15" name="Otwórz w nowej instancji"/>
                     <Item CMID="16" name="Przeładuj"/>
 					<Item CMID="17" name="Zamknij wszystko po Lewo"/>
                     <Item CMID="18" name="Zamknij wszystko po Prawo"/>
-                    <Item CMID="19" name="Otwórz folder zawierajšcy w Eksploratorze"/>
-                    <Item CMID="20" name="Otwórz folder zawierajšcy w cmd"/>
+                    <Item CMID="19" name="Otwórz folder zawierający w Eksploratorze"/>
+                    <Item CMID="20" name="Otwórz folder zawierający w cmd"/>
             </TabBar>
         </Menu>
 
@@ -325,53 +325,53 @@
             <Find title="Szukaj..." titleFind="Szukaj" titleReplace="Zamień" titleFindInFiles="Szukaj w plikach" titleMark="Oznacz">
                 <Item id="1"    name="Szukaj"/>
                 <Item id="2"    name="Zamknij"/>
-                <Item id="1603" name="Znajd tylko c&amp;ałe wyrazy"/>
-                <Item id="1604" name="&amp;Uwzględniaj wielkoć liter"/>
+                <Item id="1603" name="Znajdź tylko c&amp;ałe wyrazy"/>
+                <Item id="1604" name="&amp;Uwzględniaj wielkość liter"/>
                 <Item id="1605" name="&amp;Wyrażenia regularne"/>
-                <Item id="1606" name="Wracaj na poczštek pliku"/>
+                <Item id="1606" name="Wracaj na początek pliku"/>
                 <Item id="1608" name="Z&amp;amień"/>
                 <Item id="1609" name="Zamień &amp;wszystkie"/>
                 <Item id="1611" name="Zamień &amp;na :"/>
                 <Item id="1612" name="W &amp;górę"/>
                 <Item id="1613" name="W &amp;dół"/>
-                <Item id="1614" name="Policz wystšpienia"/>
-                <Item id="1615" name="Znajd wszystkie"/>
-                <Item id="1616" name="Oznacz zakładkš"/>
+                <Item id="1614" name="Policz wystąpienia"/>
+                <Item id="1615" name="Znajdź wszystkie"/>
+                <Item id="1616" name="Oznacz zakładką"/>
                 <Item id="1617" name="Wyróżnij znalezione"/>
                 <Item id="1618" name="Bez historii wyszukiwania"/>
                 <Item id="1620" name="Szukany tekst:"/>
                 <Item id="1621" name="Kierunek"/>
-                <Item id="1623" name="Przeroczystoć"/>
+                <Item id="1623" name="Przeźroczystość"/>
                 <Item id="1624" name="Tryb szukania"/>
                 <Item id="1625" name="Normalny"/>
                 <Item id="1626" name="Rozszerzony (\n, \r, \t, \0, \x...)"/>
 				<Item id="1627" name="Poniżej"/>
                 <Item id="1632" name="W zaznaczeniu"/>
-                <Item id="1633" name="Wyczyć"/>
+                <Item id="1633" name="Wyczyść"/>
                 <Item id="1635" name="Zamień we wszystkich otwartych dokumentach"/>
                 <Item id="1636" name="Szukaj we wszystkich otwartych dokumentach"/>
                 <Item id="1637" name="Szukaj w plikach"/>
-                <Item id="1640" name="Przełšcz dialog"/>
-			 	<Item id="1641" name="Znajd wszystkie w bieżšcym dokumencie"/>
+                <Item id="1640" name="Przełącz dialog"/>
+			 	<Item id="1641" name="Znajdź wszystkie w bieżącym dokumencie"/>
                 <Item id="1654" name="Filtry:"/>
                 <Item id="1655" name="Katalog:"/>
-                <Item id="1656" name="Znajd wszystkie"/>
+                <Item id="1656" name="Znajdź wszystkie"/>
                 <Item id="1658" name="Podkatalogi"/>
                 <Item id="1659" name="Katalogi ukryte"/>
 			 	<Item id="1660" name="Zamień w plikach"/>
-				<Item id="1661" name="Przeled bieżšcy dok."/>
-			 	<Item id="1686" name="Przezroczystoć"/>
+				<Item id="1661" name="Prześledź bieżący dok."/>
+			 	<Item id="1686" name="Przezroczystość"/>
                 <Item id="1687" name="Gdy nieaktywne"/>
                 <Item id="1688" name="Zawsze"/>
-				<Item id="1703" name="&amp;. wskazuje nowš linię"/>
+				<Item id="1703" name="&amp;. wskazuje nową linię"/>
             </Find>
-            <GoToLine title="Id do linii #">
+            <GoToLine title="Idź do linii #">
                 <Item id="2007" name="Linia"/>
                 <Item id="2008" name="Przesunięcie"/>
-                <Item id="1" name="&amp;Id !"/>
+                <Item id="1" name="&amp;Idź !"/>
                 <Item id="2" name="Nigdzie nie idę"/>
-                <Item id="2004" name="Jeste tutaj:"/>
-                <Item id="2005" name="Chcesz ić do:"/>
+                <Item id="2004" name="Jesteś tutaj:"/>
+                <Item id="2005" name="Chcesz iść do:"/>
                 <Item id="2006" name="Nie zejdziesz poniżej:"/>
             </GoToLine>
 
@@ -390,18 +390,18 @@
 				<Item id="2906" name="W górę"/>
 				<Item id="2907" name="W dół"/>
 				<Item id="2908" name="Kierunek"/>
-				<Item id="2909" name="po dojciu do końca zacznij od poczštku"/>
+				<Item id="2909" name="po dojściu do końca zacznij od początku"/>
 				<Item id="2910" name="Szukaj"/>
 			</FindCharsInRange>
 
-			<DocSwitcher title="Przełšcz dokument...">
+			<DocSwitcher title="Przełącz dokument...">
 			</DocSwitcher>
 
             <StyleConfig title="Konfigurator stylów">
-                <Item id="1" name="Sprawd!"/>
+                <Item id="1" name="Sprawdź!"/>
                 <Item id="2" name="Anuluj"/>
                 <Item id="2301" name="Zapisz i zamknij"/>
-                <Item id="2303" name="Przezroczystoć"/>
+                <Item id="2303" name="Przezroczystość"/>
 				<Item id="2306" name="Dostępne style : "/>
                 <SubDialog>
                     <Item id="2204" name="Pogrubione"/>
@@ -409,17 +409,17 @@
                     <Item id="2206" name="Kolor czcionki"/>
                     <Item id="2207" name="Kolor tła"/>
                     <Item id="2208" name="Nazwa czcionki:"/>
-                    <Item id="2209" name="Wielkoć czcionki:"/>
+                    <Item id="2209" name="Wielkość czcionki:"/>
                     <!--
-                    <Item id="2210" name="Uwaga : Definicja tego stylu będzie domylnš dla wszystkich niezdefiniowanych stylów"/>
+                    <Item id="2210" name="Uwaga : Definicja tego stylu będzie domyślną dla wszystkich niezdefiniowanych stylów"/>
                     -->
                     <Item id="2211" name="Nazwa stylu:"/>
                     <Item id="2212" name="Wybór kolorów"/>
                     <Item id="2213" name="Czcionka"/>
                     <Item id="2214" name="Rozszerzenie:"/>
                     <Item id="2216" name="Rozsz. użytk.:"/>
-                    <Item id="2218" name="Podkrelenie"/>
-                    <Item id="2219" name="Domylne słowa kluczowe"/>
+                    <Item id="2218" name="Podkreślenie"/>
+                    <Item id="2219" name="Domyślne słowa kluczowe"/>
                     <Item id="2221" name="Słowa kluczowe użytkownika"/>
                     <Item id="2225" name="Język:"/>
                     <Item id="2226" name="Używaj globalnego koloru czcionki"/>
@@ -428,7 +428,7 @@
                     <Item id="2229" name="Używaj globalnego rozmiaru czcionki"/>
                     <Item id="2230" name="Używaj globalnego pogrubienia"/>
                     <Item id="2231" name="Używaj globalnej kursywy"/>
-                    <Item id="2232" name="Używaj globalnego podkrelenia"/>
+                    <Item id="2232" name="Używaj globalnego podkreślenia"/>
                 </SubDialog>
 
             </StyleConfig>
@@ -441,7 +441,7 @@
                 <Item id="20005" name="Zapisz jako..."/>
                 <Item id="20007" name="Język : "/>
                 <Item id="20009" name="Rozsz. :"/>
-                <Item id="20011" name="Przezroczystoć"/>
+                <Item id="20011" name="Przezroczystość"/>
                 <Item id="20012" name="Ignoruj wielk. liter"/>
 				<Item id="20015" name="Import"/>
 				<Item id="20016" name="Eksport"/>
@@ -450,10 +450,10 @@
 				<Item id="2" name = "Kolor tła"/>
 				<Item id="3" name = "Styl Czcionki"/>
 				<Item id="4" name = "Nazwa:"/>
-				<Item id="5" name = "Wielkoć:"/>
+				<Item id="5" name = "Wielkość:"/>
 				<Item id="6" name = "Pogrubienie"/>
 				<Item id="7" name = "Kursywa"/>
-				<Item id="8" name = "Podkrelenie"/>
+				<Item id="8" name = "Podkreślenie"/>
 				<StylerDialog title="Okno Styler">
 					<!--<Item id="1" name = "&OK"/>-->
 					<!--<Item id="2" name = "&Anuluj"/>-->
@@ -461,10 +461,10 @@
 					<Item id="25006" name="Kolor czcionki"/>
 					<Item id="25007" name="Kolor tła"/>
 					<Item id="25031" name="Nazwa:"/>
-					<Item id="25032" name="Wielkoć:"/>
+					<Item id="25032" name="Wielkość:"/>
 					<Item id="25001" name="Pogrubienie"/>
 					<Item id="25002" name="Kursywa"/>
-					<Item id="25003" name="Podkrelenie"/>
+					<Item id="25003" name="Podkreślenie"/>
 					<Item id="25029" name="Zagnieżdżenie:"/>
 					<Item id="25008" name="Ogranicznik 1"/>
 					<Item id="25009" name="Ogranicznik 2"/>
@@ -488,28 +488,28 @@
 					<Item id="25027" name="Operator 2"/>
 					<Item id="25028" name="Liczby"/>
                 </StylerDialog>
-                <Folder title="Folder &amp;&amp; Domylne">
-                    <Item id="21101" name="Ustawienia stylu domylnego"/>
+                <Folder title="Folder &amp;&amp; Domyślne">
+                    <Item id="21101" name="Ustawienia stylu domyślnego"/>
                     <Item id="21102" name="Styler"/>
                     <Item id="21104" name="tymczasowe miejsce dok:"/>
                     <Item id="21105" name="Dokumentacja:"/>
-                    <Item id="21106" name="Zwijaj cile (Zwiń również puste linie)"/>
+                    <Item id="21106" name="Zwijaj ściśle (Zwiń również puste linie)"/>
                     <Item id="21127" name="Styler"/>
-                    <Item id="21201" name="Ustawienia poczštkowego słowa kluczowego"/>
+                    <Item id="21201" name="Ustawienia początkowego słowa kluczowego"/>
 					<Item id="21220" name="Zwijanie dla stylu 1 kodu:"/>
 					<Item id="21224" name="Otwarcie:"/>
-                    <Item id="21225" name="rodek:"/>
+                    <Item id="21225" name="Środek:"/>
                     <Item id="21226" name="Zamknięcie:"/>
                     <Item id="21227" name="Styler"/>
                     <Item id="21301" name="Ustawienia końcowego słowa kluczowego"/>
 					<Item id="21320" name="Zwijanie dla stylu 2 kodu: (wymagane separatory):"/>
 					<Item id="21324" name="Otwarcie:"/>
-                    <Item id="21325" name="rodek:"/>
+                    <Item id="21325" name="Środek:"/>
                     <Item id="21326" name="Zamknięcie:"/>
                     <Item id="21327" name="Styler"/>
                     <Item id="21420" name="Styl zawijania w komentarzach:"/>
                     <Item id="21424" name="Otwarcie:"/>
-                    <Item id="21425" name="rodek:"/>
+                    <Item id="21425" name="Środek:"/>
                     <Item id="21426" name="Zamknięcie:"/>
                 </Folder>
                 <Keywords title="Lista słów kluczowych">
@@ -544,13 +544,13 @@
                 </Keywords>
                 <Comment title="Komentarze &amp;&amp; Liczby">
                     <Item id="23001" name="Zazwól zwijać komentarze"/>
-					<Item id="23002" name = "Linie komentarza musš zaczynać się na poczštku linii"/>
+					<Item id="23002" name = "Linie komentarza musą zaczynać się na początku linii"/>
                     <Item id="23003" name="Pozycja linii komentarza"/>
                     <Item id="23004" name="Zezwól wszędzie"/>
-                    <Item id="23005" name="Wymu na poczštku linii"/>
-                    <Item id="23006" name="Zezwól na poprzedzajšce białe znaki"/>
+                    <Item id="23005" name="Wymuś na początku linii"/>
+                    <Item id="23006" name="Zezwól na poprzedzające białe znaki"/>
                     <Item id="23101" name="Styl komentarza"/>
-					<Item id="23113" name = "Poczštek komentarza:"/>
+					<Item id="23113" name = "Początek komentarza:"/>
 					<Item id="23115" name = "Koniec komentarza:"/>
 					<Item id="23116" name = "Użyj słowa kluczowego jako symbolu"/>
 					<Item id="23117" name = "Użyj słów kluczowych jako symboli"/>
@@ -589,15 +589,15 @@
 					<Item id="24116" name="Operatory 1"/>
 					<Item id="24117" name="Operatory 2 (wymagane separatory)"/>
                     <Item id="24201" name="Styl ogranicznika 1"/>
-                    <Item id="24211" name="Linia poczštkowa:"/>
-                    <Item id="24214" name="Linia zamykajšca:"/>
+                    <Item id="24211" name="Linia początkowa:"/>
+                    <Item id="24214" name="Linia zamykająca:"/>
 					<Item id="24220" name="Otwarcie:"/>
                     <Item id="24221" name="Ucieczka:"/>
                     <Item id="24222" name="Zamknięcie:"/>
                     <Item id="24223" name="Styler"/>
                     <Item id="24301" name="Styl Ogranicznika 2"/>
-                    <Item id="24311" name="Linia poczštkowa:"/>
-                    <Item id="24314" name="Linia zamykajšca:"/>
+                    <Item id="24311" name="Linia początkowa:"/>
+                    <Item id="24314" name="Linia zamykająca:"/>
 					<Item id="24320" name="Otwarcie:"/>
                     <Item id="24321" name="Ucieczka:"/>
                     <Item id="24322" name="Zamknięcie:"/>
@@ -633,7 +633,7 @@
                     <Item id="24672" name="Zamknięcie:"/>
                     <Item id="24673" name="Styler"/>
                 </Operator>
-                <Item id="24001" name="Włšcz znak ucieczki:"/>
+                <Item id="24001" name="Włącz znak ucieczki:"/>
             </UserDefine>
 
             <Preference title="Preferencje">
@@ -646,13 +646,13 @@
                     <Item id="6105" name="Małe standardowe ikony"/>
                     <Item id="6106" name="Pasek zakładek"/>
                     <Item id="6107" name="Mały"/>
-                    <Item id="6108" name="Blokowanie (bez przecišgania)"/>
+                    <Item id="6108" name="Blokowanie (bez przeciągania)"/>
                     <Item id="6109" name="Zaznacz nieaktywne zakładki"/>
                     <Item id="6110" name="Zaznacz górę na pomarańczowo"/>
                     <Item id="6111" name="Pokaż pasek stanu"/>
                     <Item id="6112" name="Przycisk zamykania na każdej zakładce"/>
                     <Item id="6113" name="Podwójne kliknięcie zamyka dokument"/>
-					<Item id="6114" name="Pozwól na przełšczanie między dokumentami"/>
+					<Item id="6114" name="Pozwól na przełączanie między dokumentami"/>
 					<Item id="6115" name="Automatyczne wcięcia"/>
 					<Item id="6116" name="Pamiętaj ostatnio używany katalog"/>
 					<Item id="6117" name="Skorzystaj z historii dokumentu"/>
@@ -660,9 +660,9 @@
                     <Item id="6119" name="Wiele linii"/>
                     <Item id="6120" name="Pionowo"/>
                     <Item id="6121" name="Menu główne"/>
-                    <Item id="6122" name="Ukryj (klawisz Alt lub F10 przełšcza widocznoć)"/>
+                    <Item id="6122" name="Ukryj (klawisz Alt lub F10 przełącza widoczność)"/>
                     <Item id="6123" name="Język"/>
-                    <Item id="6125" name="Przełšcznik Dokumentów"/> 
+                    <Item id="6125" name="Przełącznik Dokumentów"/>
                     <Item id="6126" name="Pokaż"/>
 					<Item id="6127" name = "Nie używaj kolumny z rozszerzeniami"/>
                 </Global>
@@ -671,37 +671,37 @@
                     <Item id="6202" name="Prosty"/>
                     <Item id="6203" name="Strzałki"/>
                     <Item id="6204" name="Koła"/>
-                    <Item id="6205" name="Prostokšty"/>
+                    <Item id="6205" name="Prostokąty"/>
                     <Item id="6206" name="Margines z numerami wierszy"/>
                     <Item id="6207" name="Margines zakładek"/>
-                    <Item id="6208" name="Pokaż krawęd pionowš"/>
+                    <Item id="6208" name="Pokaż krawędź pionową"/>
                     <Item id="6209" name="Liczba kolumn : "/>
                     <Item id="6211" name="Ustawienia krawędzi pionowej"/>
                     <Item id="6212" name="W formie linii"/>
-                    <Item id="6213" name="Podwietlenie tła"/>
-                    <Item id="6214" name="Podwietlanie bieżšcego wiersza"/>
+                    <Item id="6213" name="Podświetlenie tła"/>
+                    <Item id="6214" name="Podświetlanie bieżącego wiersza"/>
                     <Item id="6216" name="Kursor"/>
-                    <Item id="6217" name="Szerokoć:"/>
+                    <Item id="6217" name="Szerokość:"/>
                     <Item id="6219" name="Miganie:"/>
                     <Item id="6221" name="Sz"/>
                     <Item id="6222" name="W"/>
                     <Item id="6224" name="Ustawienia Edycji Wieloliniowej"/>
-                    <Item id="6225" name="Aktywuj (Ctrl+Zaznaczenie myszkš)"/>
+                    <Item id="6225" name="Aktywuj (Ctrl+Zaznaczenie myszką)"/>
                     <Item id="6226" name="Brak"/>
                     <Item id="6227" name="Zawijanie wierszy"/>
-                    <Item id="6228" name="Domylne"/>
+                    <Item id="6228" name="Domyślne"/>
                     <Item id="6229" name="Wyrównane"/>
                     <Item id="6230" name="Wcięte"/>
-					<Item id="6231" name="Gruboć ramki"/>
+					<Item id="6231" name="Grubość ramki"/>
                     <Item id="6301" name="Tabulatory"/>
                     <Item id="6302" name="Zamień na spacje"/>
-                    <Item id="6303" name="Szerokoć tabulatora : "/>
-					<Item id="6234" name = "Wyłšcz wspomaganie przewijania (jeli masz problem z touchpadem)"/>
+                    <Item id="6303" name="Szerokość tabulatora : "/>
+					<Item id="6234" name = "Wyłącz wspomaganie przewijania (jeśli masz problem z touchpadem)"/>
 
                 </Scintillas>
 
                 <NewDoc title="Nowy dokument">
-                    <Item id="-1"   name="Wywietlanie"/>
+                    <Item id="-1"   name="Wyświetlanie"/>
                     <Item id="6401" name="Format"/>
                     <Item id="6402" name="Windows"/>
                     <Item id="6403" name="Unix"/>
@@ -712,48 +712,48 @@
                     <Item id="6408" name="UTF-8"/>
                     <Item id="6409" name="UCS2 Big endian"/>
                     <Item id="6410" name="UCS2 Little endian"/>
-                    <Item id="6411" name="Domylny język :"/>
+                    <Item id="6411" name="Domyślny język :"/>
                     <Item id="6413" name="Katalog otwarcia / zapisu pliku"/>
-                    <Item id="6414" name="Z bieżšcego dokumentu"/>
+                    <Item id="6414" name="Z bieżącego dokumentu"/>
                     <Item id="6415" name="Ostatnio używany"/>
                     <Item id="6418" name="..."/>
                     <Item id="6419" name="Nowy dokument"/>
                     <Item id="6420" name="Zastosuj do otwartych plików ANSI"/>
 					<Item id="6421" name="Jamachama"/>
-                    <Item id="6424" name="W Podmenu"/> 
-                    <Item id="6425" name="Tylko nazwa pliku"/> 
-                    <Item id="6426" name="Pełna cieżka do Pliku"/> 
-                    <Item id="6427" name="Dostosuj Max. Długoć:"/>
+                    <Item id="6424" name="W Podmenu"/>
+                    <Item id="6425" name="Tylko nazwa pliku"/>
+                    <Item id="6426" name="Pełna ścieżka do Pliku"/>
+                    <Item id="6427" name="Dostosuj Max. Długość:"/>
                 </NewDoc>
 
-                <DefaultDir title="Folder domylny">
-                    <Item id="6413" name="Folder domylny (Otwórz/Zapisz)"/>
-                    <Item id="6414" name="Według bieżšcego dokumentu"/>
+                <DefaultDir title="Folder domyślny">
+                    <Item id="6413" name="Folder domyślny (Otwórz/Zapisz)"/>
+                    <Item id="6414" name="Według bieżącego dokumentu"/>
                     <Item id="6415" name="Zapamiętaj ostatnio użyty foler"/>
                 </DefaultDir>
-				
-                <FileAssoc title="Powišzania plików">
+
+                <FileAssoc title="Powiązania plików">
                     <Item id="4009" name="Obsługiwane typy:"/>
                     <Item id="4010" name="Zarejestrowane typy:"/>
                 </FileAssoc>
                 <LangMenu title="Menu języków">
                     <Item id="6301" name="Ustawienia tabulacji"/>
-                    <Item id="6302" name="Zastšp przez spacja"/>
-                    <Item id="6303" name="Wielkoć tabulacji: "/>
+                    <Item id="6302" name="Zastąp przez spacja"/>
+                    <Item id="6303" name="Wielkość tabulacji: "/>
                     <Item id="6505" name="Dostępne"/>
-                    <Item id="6506" name="Wyłšczone"/>
+                    <Item id="6506" name="Wyłączone"/>
 					<Item id="6507" name="Kompaktowe menu języków"/>
                     <Item id="6508" name="Menu języków"/>
-                    <Item id="6510" name="Użyj wartoci domylnej"/>
+                    <Item id="6510" name="Użyj wartości domyślnej"/>
                 </LangMenu>
-				
+
                 <TabSettings title="Ustawienia tabulacji">
                     <Item id="6301" name="Ustawienia tabulacji"/>
-                    <Item id="6302" name="Zastšp przez spacje"/>
+                    <Item id="6302" name="Zastąp przez spacje"/>
                     <Item id="6303" name="Rozmiar tab: "/>
-                    <Item id="6510" name="Użyj wartoci domylnej"/>
+                    <Item id="6510" name="Użyj wartości domyślnej"/>
                 </TabSettings>
-				
+
                 <Print title="Druk">
                     <Item id="6601" name="Drukuj numery wierszy"/>
                     <Item id="6602" name="Opcje koloru"/>
@@ -770,13 +770,13 @@
                     <Item id="6707" name="Kursywa"/>
                     <Item id="6708" name="Nagłówek"/>
                     <Item id="6709" name="Lewa sekcja"/>
-                    <Item id="6710" name="rodkowa sekcja"/>
+                    <Item id="6710" name="Środkowa sekcja"/>
                     <Item id="6711" name="Prawa sekcja"/>
                     <Item id="6717" name="Pogrubiony"/>
                     <Item id="6718" name="Kursywa"/>
                     <Item id="6719" name="Stopka"/>
                     <Item id="6720" name="Lewa sekcja"/>
-                    <Item id="6721" name="rodkowa sekcja"/>
+                    <Item id="6721" name="Środkowa sekcja"/>
                     <Item id="6722" name="Prawa sekcja"/>
                     <Item id="6723" name="Dodaj"/>
                     <Item id="6725" name="Parametr:"/>
@@ -790,9 +790,9 @@
                     <Item id="6306" name="Maks. liczba wpisów:"/>
                     <Item id="6424" name="W podmenu"/>
                     <Item id="6425" name="Tylko nazwa pliku"/>
-                    <Item id="6426" name="Pełna cieżjka z nazwš"/>
-                    <Item id="6427" name="Dostosuj maksymalnš długć:"/>
-                    <Item id="6429" name="Wywietl"/>
+                    <Item id="6426" name="Pełna ścieżjka z nazwą"/>
+                    <Item id="6427" name="Dostosuj maksymalną długść:"/>
+                    <Item id="6429" name="Wyświetl"/>
                 </RecentFilesHistory>
 
                 <Backup title="Kopia zapasowa">
@@ -803,36 +803,36 @@
                     <Item id="6804" name="Dostosuj folder kopii zapasowej"/>
                     <Item id="6803" name="Folder:"/>
                 </Backup>
-				
+
                 <AutoCompletion title="Auto-Uzupełnianie">
                     <Item id="6807" name="Auto-Uzupełnianie"/>
-                    <Item id="6808" name="Włšcz auto-uzupełnianie dla wszystkich wejć"/>
+                    <Item id="6808" name="Włącz auto-uzupełnianie dla wszystkich wejść"/>
                     <Item id="6809" name="Uzupełnianie funkcji"/>
                     <Item id="6810" name="Uzupełnianie słów"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name=". znaku"/>
-                    <Item id="6814" name="Poprawne wartoci: 1 - 9"/>
-                    <Item id="6815" name="Podpowied parametrów funkcji na wejciu"/>
+                    <Item id="6814" name="Poprawne wartości: 1 - 9"/>
+                    <Item id="6815" name="Podpowiedź parametrów funkcji na wejściu"/>
 					<Item id="6816" name = "Uzupełnianie funkcji i słów"/>
                     <Item id="6851" name="Auto-Wstawianie"/>
                     <Item id="6857" name="tag zamyk. html/xml"/>
                     <Item id="6858" name="Otwórz"/>
                     <Item id="6859" name="Zamknij"/>
-                    <Item id="6860" name="Pasujšca para 1:"/>
-                    <Item id="6863" name="Pasujšca para 2:"/>
-                    <Item id="6866" name="Pasujšca para 3:"/>
+                    <Item id="6860" name="Pasująca para 1:"/>
+                    <Item id="6863" name="Pasująca para 2:"/>
+                    <Item id="6866" name="Pasująca para 3:"/>
                 </AutoCompletion>
-                
-                <MultiInstance title="Wielo-Instancyjnoć">
-                    <Item id="6151" name="Ustawienia Wielo-instancyjnoci"/>
+
+                <MultiInstance title="Wielo-Instancyjność">
+                    <Item id="6151" name="Ustawienia Wielo-instancyjności"/>
                     <Item id="6152" name="Otwórz sesję w nowej instancji Notepad++"/>
                     <Item id="6153" name="Zawsze w trybie wieloinstancyjnym"/>
-                    <Item id="6154" name="Domylna (jedna instancja)"/>
+                    <Item id="6154" name="Domyślna (jedna instancja)"/>
                     <Item id="6155" name="* Zmiana tego ustawienia wymaga ponownego uruchomienia Notepad++"/>
                 </MultiInstance>
-                
+
                 <Delimiter title="Ogranicznik">
-                    <Item id="6251" name="Ustawienia ograniczników wyboru (Ctrl + dwuklik myszkš)"/>
+                    <Item id="6251" name="Ustawienia ograniczników wyboru (Ctrl + dwuklik myszką)"/>
                     <Item id="6252" name="Otwórz"/>
                     <Item id="6255" name="Zamknij"/>
                     <Item id="6256" name="Dopuszczaj wiele linii"/>
@@ -841,32 +841,32 @@
                 </Delimiter>
 
                 <MISC title="Inne">
-                    <Item id="6114" name="Umożliwić przełšczanie"/>
+                    <Item id="6114" name="Umożliwić przełączanie"/>
                     <Item id="6115" name="Automatyczne wcięcia"/>
-                    <Item id="6117" name="Kolejnoć ostatniego użycia (MRU)"/>
+                    <Item id="6117" name="Kolejność ostatniego użycia (MRU)"/>
                     <Item id="6304" name="Historia plików"/>
                     <Item id="6305" name="Nie sprawdzaj przy uruchamianiu"/>
-                    <Item id="6306" name="Maksymalna iloć plików :"/>
-                    <Item id="6307" name="Włšcz"/>
+                    <Item id="6306" name="Maksymalna ilość plików :"/>
+                    <Item id="6307" name="Włącz"/>
                     <Item id="6308" name="Minimalizuj do ikony paska zadań"/>
-                    <Item id="6309" name="Zapamiętaj bieżšcš sesję do nast. uruchomienia"/>
+                    <Item id="6309" name="Zapamiętaj bieżącą sesję do nast. uruchomienia"/>
                     <Item id="6312" name="Autowykrywanie stanu pliku"/>
                     <Item id="6313" name="Uaktualniaj po cichu"/>
-                    <Item id="6318" name="Obsługa hiperłšczy w tekcie"/>
-                    <Item id="6319" name="Włšcz"/>
-                    <Item id="6320" name="Nie podkrelaj"/>
+                    <Item id="6318" name="Obsługa hiperłączy w tekście"/>
+                    <Item id="6319" name="Włącz"/>
+                    <Item id="6320" name="Nie podkreślaj"/>
                     <Item id="6322" name="Rozszerz. pliku sesji :"/>
-                    <Item id="6323" name="Włšcz autoaktualizację Notepad++"/>
-                    <Item id="6324" name="Przełšczanie między dokum. (Ctrl+TAB)"/>
+                    <Item id="6323" name="Włącz autoaktualizację Notepad++"/>
+                    <Item id="6324" name="Przełączanie między dokum. (Ctrl+TAB)"/>
                     <Item id="6325" name="Przewiń na koniec po uaktualnieniu"/>
-                    <Item id="6326" name="Inteligentne podwietlanie"/>
-                    <Item id="6327" name="Włšcz"/>
-                    <Item id="6328" name="Podwietlaj atrybuty"/>
-                    <Item id="6329" name="Podwietlanie pasujšcych tagów"/>
-                    <Item id="6330" name="Podwietlaj strefy php/asp"/>
+                    <Item id="6326" name="Inteligentne podświetlanie"/>
+                    <Item id="6327" name="Włącz"/>
+                    <Item id="6328" name="Podświetlaj atrybuty"/>
+                    <Item id="6329" name="Podświetlanie pasujących tagów"/>
+                    <Item id="6330" name="Podświetlaj strefy php/asp"/>
 					<Item id="6331" name="Tylko nazwa pliku w pasku tytułu"/>
 					<Item id="6332" name = "Rozróżnianie WIELKICH i małych liter"/>
-					<Item id="6333" name = "Inteligentne podwietlanie"/>
+					<Item id="6333" name = "Inteligentne podświetlanie"/>
                 </MISC>
 
                 <Backup title="Kopia / Autouzupełnianie">
@@ -877,12 +877,12 @@
                     <Item id="6804" name="Własny folder kopii zapasowych"/>
                     <Item id="6803" name="Folder:"/>
                     <Item id="6807" name="Autouzupełnianie"/>
-                    <Item id="6808" name="Włšcz autouzupełnianie"/>
+                    <Item id="6808" name="Włącz autouzupełnianie"/>
                     <Item id="6809" name="Uzupełnianie funkcji"/>
                     <Item id="6810" name="Uzupełnianie wyrazów"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name="znaków"/>
-                    <Item id="6814" name="Możliwe wartoci: 1 - 9"/>
+                    <Item id="6814" name="Możliwe wartości: 1 - 9"/>
                     <Item id="6815" name="Podpowiadanie parametrów funkcji"/>
                 </Backup>
             </Preference>
@@ -924,25 +924,25 @@
 Musisz uruchomić ponownie Notepad++ by zastosować zmiany wprowadzone w contextMenu.xml."/>
 			<NppHelpAbsentWarning title="Plik nie istnieje" message="
 nie istnieje. Pobierz go ze stron Notepad++."/>
-			<SaveCurrentModifWarning title="Zapisz Bieżšce Zmiany" message="Wymagane jest zapisanie bieżšcych zmian.
-Zapisane zmiany nie będš mogły zostać wycofane.
+			<SaveCurrentModifWarning title="Zapisz Bieżące Zmiany" message="Wymagane jest zapisanie bieżących zmian.
+Zapisane zmiany nie będą mogły zostać wycofane.
 
 Kontynuować?"/>
-			<LoseUndoAbilityWarning title="Utrata Możliwoci Cofnięcia" message="Wymagane jest zapisanie bieżšcych zmian.
-Zapisane zmiany nie będš mogły zostać wycofane.
+			<LoseUndoAbilityWarning title="Utrata Możliwości Cofnięcia" message="Wymagane jest zapisanie bieżących zmian.
+Zapisane zmiany nie będą mogły zostać wycofane.
 
 Kontynuować?"/>
 
 			<CannotMoveDoc title="Przeniesienie do nowej instancji Notepad++" message="Dokument został zmieniony, zapisz go i spróbuj ponownie."/>
-			<DocReloadWarning title="Przeładowanie pliku" message="Czy na pewno załadować ponownie bieżšcy plik i utracić zmiany wykonane dotšd w Notepad++?"/>
-			<FileLockedWarning title="Nieudany zapis" message="Sprawd, czy plik nie jest otwarty w innym programie"/>
+			<DocReloadWarning title="Przeładowanie pliku" message="Czy na pewno załadować ponownie bieżący plik i utracić zmiany wykonane dotąd w Notepad++?"/>
+			<FileLockedWarning title="Nieudany zapis" message="Sprawdź, czy plik nie jest otwarty w innym programie"/>
 			<FileAlreadyOpenedInNpp title="" message="Plik jest już otwarty w Notepad++."/>
-			<DeleteFileFailed title="Usunięcie pliku" message="Nie udało się usunšć pliku"/>
+			<DeleteFileFailed title="Usunięcie pliku" message="Nie udało się usunąć pliku"/>
 
-			<ColumnModeTip title="Podpowied kolumnowego trybu zaznaczania" message="Użyj 'Alt+zaznaczenie myszkš' lub 'Alt+Shift+strzałki' 
-by przejć do blokowego trybu zaznaczania"/>
+			<ColumnModeTip title="Podpowiedź kolumnowego trybu zaznaczania" message="Użyj 'Alt+zaznaczenie myszką' lub 'Alt+Shift+strzałki'
+by przejść do blokowego trybu zaznaczania"/>
 
-			<NbFileToOpenImportantWarning title="Otwarcie wielu plików" message="Majš być otwarte pliki: $INT_REPLACE$.\rKontynuować?"/>
+			<NbFileToOpenImportantWarning title="Otwarcie wielu plików" message="Mają być otwarte pliki: $INT_REPLACE$.\rKontynuować?"/>
 		</MessageBox>
 
         <ClipboardHistory>
@@ -955,7 +955,7 @@ by przejć do blokowego trybu zaznaczania"/>
         </DocSwitcher>
         <AsciiInsertion>
 			<PanelTitle name="Panel wstawiania ASCII"/>
-			<ColumnVal name="Wartoć"/>
+			<ColumnVal name="Wartość"/>
 			<ColumnChar name="Znak"/>
         </AsciiInsertion>
         <DocumentMap>
@@ -1006,7 +1006,7 @@ by przejć do blokowego trybu zaznaczania"/>
 				<FileMenu>
 					<Item id="3111" name="Zmień nazwę"/>
 					<Item id="3115" name="Usuń"/>
-					<Item id="3116" name="Zmień cieżkę pliku"/>
+					<Item id="3116" name="Zmień ścieżkę pliku"/>
 					<Item id="3118" name="Przesuń w górę"/>
 					<Item id="3119" name="Przesuń na dół"/>
 				</FileMenu>

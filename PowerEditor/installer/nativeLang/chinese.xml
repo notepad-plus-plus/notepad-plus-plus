@@ -5,11 +5,11 @@
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="檔案(&amp;F)"/> 
-                    <Item menuId="edit" name="編輯(&amp;E)"/> 
-                    <Item menuId="search" name="尋找(&amp;S)"/> 
-                    <Item menuId="view" name="檢視(&amp;V)"/> 
-                    <Item menuId="encoding" name="編碼(&amp;N)"/> 
+                    <Item menuId="file" name="檔案(&amp;F)"/>
+                    <Item menuId="edit" name="編輯(&amp;E)"/>
+                    <Item menuId="search" name="尋找(&amp;S)"/>
+                    <Item menuId="view" name="檢視(&amp;V)"/>
+                    <Item menuId="encoding" name="編碼(&amp;N)"/>
                     <Item menuId="language" name="程式語言(&amp;L)"/>
                     <Item menuId="settings" name="自訂(&amp;T)"/>
                     <Item menuId="macro" name="巨集"/>
@@ -61,7 +61,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="西歐語系"/>
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
                     <Item subMenuId="settings-import"  name="匯入"/>
-                    
+
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -88,7 +88,7 @@
                     <Item id="41016" name="檔案刪除"/>
                     <Item id="41017" name="檔案重新命名..."/>
                     <Item id="41021" name="恢復最近關閉檔案"/> <!-- 簡體中文用軟件轉換為繁體中文，用語可能會不妥當 -->
-                    
+
                     <Item id="42001" name="剪下(&amp;T)"/>
                     <Item id="42002" name="複製(&amp;C)"/>
                     <Item id="42003" name="復原(&amp;U)"/>
@@ -103,12 +103,12 @@
                     <Item id="42011" name="調換現行行列"/>
                     <Item id="42012" name="依右界斷行"/>
                     <Item id="42013" name="標示區併行"/>
-                    <Item id="42014" name="向上移動現行行列"/>   
-                    <Item id="42015" name="向下移動現行行列"/>   
-                    <Item id="42016" name="轉成大寫"/>   
-                    <Item id="42017" name="轉成小寫"/>   
-                    <Item id="42018" name="開始錄製巨集"/>   
-                    <Item id="42019" name="停止錄製巨集"/>   
+                    <Item id="42014" name="向上移動現行行列"/>
+                    <Item id="42015" name="向下移動現行行列"/>
+                    <Item id="42016" name="轉成大寫"/>
+                    <Item id="42017" name="轉成小寫"/>
+                    <Item id="42018" name="開始錄製巨集"/>
+                    <Item id="42019" name="停止錄製巨集"/>
                     <Item id="42021" name="播放巨集(&amp;P)"/>
                     <Item id="42022" name="執行│移除 區塊單行式註解"/>
                     <Item id="42023" name="區塊註解"/>
@@ -247,12 +247,12 @@
                     <Item id="45012" name="轉換至 UCS-2 Big Endian 碼格式"/>
                     <Item id="45013" name="轉換至 UCS-2 Little Endian 碼格式"/>
                     <Item id="45010" name="轉換至 UTF-8 碼格式〈檔首無 BOM〉"/>
-                    
+
                     <Item id="10001" name="移至另一個視窗"/>
                     <Item id="10002" name="複製到另一個視窗"/>
                     <Item id="10003" name="將此檔案移至新啟動的 Notepad++"/>
                     <Item id="10004" name="開啟此檔案到新啟動的 Notepad++"/>
-                    
+
                     <Item id="46001" name="設定程式語言格式..."/>
                     <Item id="46150" name="定義程式語言..."/>
                     <Item id="46080" name="使用者自訂"/>
@@ -309,7 +309,7 @@
                     <Item CMID="20" name="在 cmd 內開啟現行檔目錄"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="搜尋" titleReplace="取代" titleFindInFiles="搜尋目錄"  titleMark="標記">
                 <Item id="1" name="找下一個"/>
@@ -376,7 +376,7 @@
                 <Item id="2" name="取消"/>
                 <Item id="1904" name="儲存"/>
             </Run>
-            
+
             <StyleConfig title="設定程式語言格式">
                 <Item id="2" name="取消"/>
                 <Item id="2301" name="儲存 &amp;&amp; 關閉"/>
@@ -592,20 +592,20 @@
                     <Item id="6103" name="小圖示"/>
                     <Item id="6104" name="大圖示"/>
                     <Item id="6105" name="標準圖示"/>
-                    
+
                     <Item id="6106" name="頁籤列〈Tab Bar〉"/>
                     <Item id="6107" name="縮小"/>
                     <Item id="6108" name="位置鎖定〈拖曳功能喪失〉"/>
                     <Item id="6109" name="非現啟頁籤加背景色"/>
                     <Item id="6110" name="現啟頁籤端加桔紅線"/>
-                    
+
                     <Item id="6111" name="顯示狀態列"/>
                     <Item id="6112" name="啟動頁籤關閉鈕"/>
                     <Item id="6113" name="雙擊滑鼠左鍵關閉頁籤"/>
                     <Item id="6118" name="隱藏"/>
                     <Item id="6119" name="複列顯示"/>
                     <Item id="6120" name="垂直顯示"/>
-                    
+
                     <Item id="6122" name="隱藏 (使用 Alt 或 F10 鍵啟用)"/>
                     <Item id="6123" name="語言"/>
 
@@ -619,32 +619,32 @@
                     <Item id="6219" name="閃鑠率："/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
-                    <Item id="6224" name="多列編輯"/>  
-                    <Item id="6225" name="啟動 (Ctrl+Mouse click/selection)"/>  
+                    <Item id="6224" name="多列編輯"/>
+                    <Item id="6225" name="啟動 (Ctrl+Mouse click/selection)"/>
                     <Item id="6201" name="語法摺疊層次控制節點形狀"/>
                     <Item id="6202" name="精簡"/>
                     <Item id="6203" name="箭頭"/>
                     <Item id="6204" name="圓形"/>
                     <Item id="6205" name="方形"/>
                     <Item id="6226" name="無"/>
-                    
+
                     <Item id="6227" name="斷行設定"/>
                     <Item id="6228" name="原訂值"/>
                     <Item id="6229" name="對齊"/>
                     <Item id="6230" name="縮排"/>
-                    
+
                     <Item id="6206" name="顯示列數邊行"/>
                     <Item id="6207" name="顯示書籤邊行"/>
                     <Item id="6208" name="顯示邊緣線"/>
                     <Item id="6209" name="一行的字元數："/>
                     <Item id="6234" name="關閉進階捲動功能
 （如果你有觸控板的問題）"/>
-                    
+
                     <Item id="6211" name="邊緣線設定"/>
                     <Item id="6212" name="垂直線模式"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6214" name="啟動現行行列背景顏色"/>
-                    
+
                     <Item id="6231" name="邊框寬度"/>
                 </Scintillas>
                 <NewDoc title="開新文件">
@@ -662,13 +662,13 @@
                     <Item id="6419" name="開新文件設定"/>
                     <Item id="6420" name="應用於開啟 ANSI 檔案"/>
                 </NewDoc>
-                
+
                 <DefaultDir title="開啟儲存目錄設定">
                     <Item id="6413" name="開啟/儲存目錄設定"/>
                     <Item id="6414" name="使用現行檔案所在目錄"/>
                     <Item id="6415" name="開啟舊檔/另存新檔在最近開啟/儲存的目錄裡"/>
                 </DefaultDir>
-                
+
                 <FileAssoc title="副檔名連結設定">
                     <Item id="4009" name="支援的副檔名"/>
                     <Item id="4010" name="已連結的副檔名"/>
@@ -714,7 +714,7 @@
                     <Item id="6727" name="設定的變數都顯示在這裡"/>
                     <Item id="6728" name="頁首與頁腳設定"/>
                 </Print>
-                
+
                 <RecentFilesHistory title="最近開啟文件歷程">
                     <Item id="6304" name="最近開啟文件"/>
                     <Item id="6306" name="最近開啟文件最大數量："/>
@@ -725,7 +725,7 @@
                     <Item id="6426" name="顯示檔案路徑"/>
                     <Item id="6427" name="〈最大〉長度自定："/>
                 </RecentFilesHistory>
-                
+
                 <Backup title="備份">
 					<Item id="6817" name="檔案組群快照和定期備份"/>
 					<Item id="6818" name="啟動檔案組群快照和定期備份"/>
@@ -740,7 +740,7 @@
                     <Item id="6804" name="備份至指定目錄"/>
                     <Item id="6803" name="目錄："/>
                 </Backup>
-                
+
                 <AutoCompletion title="字詞自動完成功能">
                     <Item id="6807" name="自動完成功能"/>
                     <Item id="6808" name="啟動自動完成功能"/>
@@ -766,14 +766,14 @@
                     <Item id="6154" name="單一實體模式"/>
                     <Item id="6155" name="* 重新啟動 Notepad++ 讓你的修改生效"/>
                 </MultiInstance>
-                
+
                 <Delimiter title="分隔字元">
                     <Item id="6251" name="分隔符間字串選取設置 (Ctrl + 滑鼠左鍵雙擊)"/>
                     <Item id="6252" name="開啟"/>
                     <Item id="6255" name="結束"/>
                     <Item id="6256" name="允許數行字串選取"/>
                 </Delimiter>
-				
+
 				<Cloud title="雲端">
                     <Item id="6262" name="雲端上儲存讀取設定"/>
                     <Item id="6263" name="晴朗無雲"/>
@@ -782,7 +782,7 @@
                     <Item id="6266" name="Google Drive"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
-				
+
                 <MISC title="其他">
                     <Item id="6307" name="啟動"/>
                     <Item id="6308" name="縮小到系統框"/>
@@ -809,7 +809,7 @@
                     <Item id="6115" name="自動縮排"/>
                     <Item id="6117" name="開啟 MRU (Most Recently Used) 功能"/>
                 </MISC>
-                    
+
             </Preference>
             <MultiMacro title="重複執行單一巨集">
                 <Item id="1" name="執行"/>

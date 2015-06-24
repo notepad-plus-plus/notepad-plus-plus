@@ -62,7 +62,7 @@
                     <Item subMenuId="encoding-vietnamese" name="越南文" />
                     <Item subMenuId="settings-import" name="导入" />
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="新建(&amp;N)" />
@@ -87,7 +87,7 @@
                     <Item id="41016" name="从磁盘删除" />
                     <Item id="41017" name="重命名..." />
                     <Item id="41021" name="恢复最近关闭的文件" />
-                    
+
                     <Item id="42001" name="剪切(&amp;T)" />
                     <Item id="42002" name="复制(&amp;C)" />
                     <Item id="42003" name="撤消(&amp;U)" />
@@ -252,7 +252,7 @@
                     <Item id="10002" name="复制到另一视图" />
                     <Item id="10003" name="移动到新窗口" />
                     <Item id="10004" name="在新窗口中打开" />
-                    
+
                     <Item id="46001" name="语言格式设置..." />
                     <Item id="46150" name="自定义语言格式..."/>
                     <Item id="46080" name="用户自定义" />
@@ -272,7 +272,7 @@
                     <Item id="48009" name="管理快捷键..." />
                     <Item id="48011" name="首选项..." />
                     <Item id="49000" name="运行(&amp;R)..." />
-                    
+
                     <Item id="50000" name="函数自动完成" />
                     <Item id="50001" name="单词自动完成" />
                     <Item id="50002" name="函数参数提示" />
@@ -310,7 +310,7 @@
                 <Item CMID="20" name="打开所在文件夹(命令行)"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="查找" titleReplace="替换" titleFindInFiles="文件查找" titleMark="标记">
                 <Item id="1" name="查找下一个" />
@@ -362,14 +362,14 @@
                 <Item id="2005" name="目标位置 :" />
                 <Item id="2006" name="截止位置 :" />
             </GoToLine>
-            
+
             <Run title="运行...">
                 <Item id="1903" name="输入运行程序名" />
                 <Item id="1" name="运行" />
                 <Item id="2" name="取消" />
                 <Item id="1904" name="保存..." />
             </Run>
-            
+
             <StyleConfig title="语言格式设置">
                 <Item id="2" name="取消" />
                 <Item id="2301" name="保存并关闭" />
@@ -399,9 +399,9 @@
                     <Item id="2231" name="使用全局斜体样式" />
                     <Item id="2232" name="使用全局下划线样式" />
                 </SubDialog>
-                
+
             </StyleConfig>
-            
+
             <UserDefine title="自定义语言格式">
                 <Item id="20001" name="浮动" />
                 <Item id="20002" name="重命名" />
@@ -589,24 +589,24 @@
                     <Item id="6103" name="小图标" />
                     <Item id="6104" name="大图标" />
                     <Item id="6105" name="小型标准图标" />
-                    
+
                     <Item id="6106" name="标签栏" />
                     <Item id="6107" name="缩小" />
                     <Item id="6108" name="锁定 (不允许拖放)" />
                     <Item id="6109" name="绘制非激活标签背景" />
                     <Item id="6110" name="为激活标签绘制橙色条" />
-                    
+
                     <Item id="6111" name="显示状态栏" />
                     <Item id="6112" name="标签显示关闭按钮" />
                     <Item id="6113" name="双击关闭标签" />
                     <Item id="6118" name="隐藏标签栏" />
                     <Item id="6119" name="多行标签" />
                     <Item id="6120" name="垂直方式" />
-                    
+
                     <Item id="6121" name="菜单栏" />
                     <Item id="6122" name="隐藏 (按下 Alt 或 F10 显示)" />
                     <Item id="6123" name="界面语言" />
-                    
+
                     <Item id="6125" name="文件列表面板" />
                     <Item id="6126" name="显示" />
 					<Item id="6127" name="隐藏副件名排序列"/>
@@ -625,27 +625,27 @@
                     <Item id="6204" name="圆圈" />
                     <Item id="6205" name="方框" />
                     <Item id="6226" name="无" />
-                    
+
                     <Item id="6227" name="断行" />
                     <Item id="6228" name="默认" />
                     <Item id="6229" name="对齐" />
                     <Item id="6230" name="缩排" />
-                    
+
                     <Item id="6206" name="显示行号栏" />
                     <Item id="6207" name="显示标签栏" />
                     <Item id="6208" name="显示列边界" />
                     <Item id="6209" name="边界宽度 :" />
                     <Item id="6234" name="关闭高级卷动功能
 （如果你有触控板的问题）"/>
-                    
+
                     <Item id="6211" name="列边界设置" />
                     <Item id="6212" name="边界线模式" />
                     <Item id="6213" name="背景色模式" />
                     <Item id="6214" name="当前行高亮模式" />
-                    
+
                     <Item id="6231" name="边框宽度" />
                 </Scintillas>
-                
+
                 <NewDoc title="新建">
                     <Item id="6401" name="格式" />
                     <Item id="6402" name="Windows" />
@@ -661,13 +661,13 @@
                     <Item id="6419" name="新建文档" />
                     <Item id="6420" name="应用于打开 ANSI 文件" />
                 </NewDoc>
-                
+
                 <DefaultDir title="默认目录">
                     <Item id="6413" name="文件打开/保存路径" />
                     <Item id="6414" name="与当前文件一致" />
                     <Item id="6415" name="记住最后的操作路径" />
                 </DefaultDir>
-                
+
                 <FileAssoc title="文件关联">
                     <Item id="4009" name="支持的扩展名 :" />
                     <Item id="4010" name="注册的扩展名 :" />
@@ -679,14 +679,14 @@
                     <Item id="6508" name="程序语言菜单" />
                     <Item id="6510" name="使用默认值" />
                 </LangMenu>
-                
+
                 <TabSettings title="制表符设置">
                     <Item id="6301" name="制表符设置" />
                     <Item id="6302" name="转换为空格" />
                     <Item id="6303" name="制表符宽度:" />
                     <Item id="6510" name="使用默认值" />
                 </TabSettings>
-                
+
                 <Print title="打印">
                     <Item id="6601" name="打印行号" />
                     <Item id="6602" name="色彩模式" />
@@ -716,7 +716,7 @@
                     <Item id="6727" name="这里显示你的变量设置" />
                     <Item id="6728" name="页眉与页脚" />
                 </Print>
-                
+
                 <RecentFilesHistory title="最近文件记录">
                     <Item id="6304" name="最近文件记录" />
                     <Item id="6306" name="最大条数:" />
@@ -727,7 +727,7 @@
                     <Item id="6426" name="完整文件路径" />
                     <Item id="6427" name="自定义最大长度:" />
                 </RecentFilesHistory>
-                
+
                 <MISC title="其他">
                     <Item id="6307" name="启用" />
                     <Item id="6308" name="最小化到系统托盘" />
@@ -787,7 +787,7 @@
                     <Item id="6863" name="匹配对2:"/>
                     <Item id="6866" name="匹配对3:"/>
                 </AutoCompletion>
-                
+
                 <MultiInstance title="多实例">
                     <Item id="6151" name="多实例设定"/>
                     <Item id="6152" name="使用新Notepad++实例启动会话"/>
@@ -795,14 +795,14 @@
                     <Item id="6154" name="默认 (单实例)"/>
                     <Item id="6155" name="* 修改此项设置需重启Notepad++方可生效"/>
                 </MultiInstance>
-                
+
                 <Delimiter title="定界符">
                     <Item id="6251" name="定界符选择设置 (Ctrl + 双击鼠标左键)"/>
                     <Item id="6252" name="打开"/>
                     <Item id="6255" name="关闭"/>
                     <Item id="6256" name="允许选取多行"/>
                 </Delimiter>
-                
+
 				<Cloud title="云端">
                     <Item id="6262" name="云端设置"/>
                     <Item id="6263" name="万里无云"/>

@@ -16,7 +16,7 @@
 					<Item menuId="run" name="Rulează"/>
 					<Item idName="Plugins" name="Implanturi"/>
 					<Item idName="Window" name="Taburi"/>
-				</Entries>             
+				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
 	        <Item subMenuId="file-openFolder" name="Deschide Dosarul Conţinător"/>
@@ -62,7 +62,7 @@
                     <Item subMenuId="encoding-vietnamese" name="Vietnamez"/>
                     <Item subMenuId="settings-import"  name="Importă"/>
                     </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="Tab &amp;Nou"/>
@@ -86,7 +86,7 @@
                     <Item id="41015" name="Salvează Copie ca..."/>
                     <Item id="41016" name="Şterge de pe Hardisc"/>
                     <Item id="41017" name="Renumeşte..."/>
-					
+
                     <Item id="42001" name="&amp;Decupează"/>
                     <Item id="42002" name="&amp;Copiază"/>
                     <Item id="42003" name="De&amp;zexecută"/>
@@ -100,12 +100,12 @@
                     <Item id="42010" name="Duplichează Linia Curentă"/>
                     <Item id="42012" name="Desparte Liniile"/>
                     <Item id="42013" name="Uneşte Liniile"/>
-                    <Item id="42014" name="Mută în Sus Linia Curentă"/>   
-                    <Item id="42015" name="Mută în Jos Linia Curentă"/>   
+                    <Item id="42014" name="Mută în Sus Linia Curentă"/>
+                    <Item id="42015" name="Mută în Jos Linia Curentă"/>
                     <Item id="42016" name="Converteşte în MAJUSCULE"/>
                     <Item id="42017" name="Converteşte în minuscule"/>
                     <Item id="42018" name="&amp;Porneşte Înregistrarea"/>
-                    <Item id="42019" name="&amp;Opreşte Înregistrarea"/>	       
+                    <Item id="42019" name="&amp;Opreşte Înregistrarea"/>
                     <Item id="42021" name="&amp;Redă"/>
                     <Item id="42022" name="Comută Comentarea Liniei Selectate"/>
                     <Item id="42023" name="Comentează Blocul"/>
@@ -179,17 +179,17 @@
                     <Item id="43030" name="Foloseşte al 5-lea Stil"/>
                     <Item id="43031" name="Curăţă al 5-lea Stil"/>
                     <Item id="43032" name="Curăţă Toate Stilurile"/>
-                    <Item id="43033" name="1-ul Stil"/> 
-                    <Item id="43034" name="Al 2-lea Stil"/> 
-                    <Item id="43035" name="Al 3-lea Stil"/> 
-                    <Item id="43036" name="Al 4-lea Stil"/> 
-                    <Item id="43037" name="Al 5-lea Stil"/> 
-                    <Item id="43038" name="Găseşte Stilul"/> 
-                    <Item id="43039" name="1-ul Stil"/> 
-                    <Item id="43040" name="Al 2-lea Stil"/> 
-                    <Item id="43041" name="Al 3-lea Stil"/> 
-                    <Item id="43042" name="Al 4-lea Stil"/> 
-                    <Item id="43043" name="Al 5-lea Stil"/> 
+                    <Item id="43033" name="1-ul Stil"/>
+                    <Item id="43034" name="Al 2-lea Stil"/>
+                    <Item id="43035" name="Al 3-lea Stil"/>
+                    <Item id="43036" name="Al 4-lea Stil"/>
+                    <Item id="43037" name="Al 5-lea Stil"/>
+                    <Item id="43038" name="Găseşte Stilul"/>
+                    <Item id="43039" name="1-ul Stil"/>
+                    <Item id="43040" name="Al 2-lea Stil"/>
+                    <Item id="43041" name="Al 3-lea Stil"/>
+                    <Item id="43042" name="Al 4-lea Stil"/>
+                    <Item id="43043" name="Al 5-lea Stil"/>
                     <Item id="43044" name="Găseşte Stilul"/>
                     <Item id="43045" name="Fereastra Rezultatelor Căutării"/>
                     <Item id="43046" name="Rezultatul Găsit Următor"/>
@@ -224,7 +224,7 @@
                     <Item id="44096" name="Tabul Precedent"/>
 	        <Item id="44032" name="Taburile în Ecran Plin"/>
                     <Item id="44033" name="Restaurează Zumarea Implicită"/>
-                    <Item id="44034" name="Fereastra Softului Mereu Deasupra"/>	        
+                    <Item id="44034" name="Fereastra Softului Mereu Deasupra"/>
 	        <Item id="44035" name="Sincronizează Derularea Verticală"/>
                     <Item id="44036" name="Sincronizează Derularea Orizontală"/>
                     <Item id="44041" name="Arată Marcajele de Încadrare"/>
@@ -245,12 +245,12 @@
                     <Item id="45011" name="Converteşte în UCS-2 Big Endian"/>
                     <Item id="45012" name="Converteşte în UCS-2 Little Endian"/>
                     <Item id="45013" name="Converteşte în UTF-8 fără BOM"/>
-                    
+
                     <Item id="10001" name="Mută în Celălalt Panou"/>
                     <Item id="10002" name="Clonează în Celălalt Panou"/>
-                    <Item id="10003" name="Mută în Instanţă Nouă"/> 
+                    <Item id="10003" name="Mută în Instanţă Nouă"/>
                     <Item id="10004" name="Clonează în Instanţă Nouă"/>
-                    
+
                     <Item id="46001" name="Configurator de Stiluri..."/>
                    <Item id="46150" name="Defineşte Limbajul Tău..."/>
                     <Item id="46080" name="Definit de Utilizator..."/>
@@ -269,7 +269,7 @@
                     <Item id="48009" name="Administrator de Scurtături..."/>
                     <Item id="48011" name="Preferinţe..."/>
                     <Item id="49000" name="&amp;Rulează..."/>
-					
+
 	        <Item id="50000" name="Completează Funcţia"/>
                     <Item id="50001" name="Completează Cuvîntul"/>
                     <Item id="50002" name="Pont cu Parametrii Funcţiei"/>
@@ -307,7 +307,7 @@
                     <Item CMID="20" name="Deschide Dosarul Conţinător în Linia de Comandă"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="Găseşte" titleReplace="Înlocuieşte" titleFindInFiles="Găseşte în File" titleMark="Marchează">
                 <Item id="1" name="Găseşte Următorul"/>
@@ -357,7 +357,7 @@
                 <Item id="2" name="Stai pe Loc"/>
                 <Item id="2004" name="Eşti la linia:"/>
                 <Item id="2005" name="Vrei să mergi la linia:"/>
-                <Item id="2006" name="Poţi merge pînă la linia:"/>                
+                <Item id="2006" name="Poţi merge pînă la linia:"/>
             </GoToLine>
 
 	<FindCharsInRange title = "Găseşte Caracterele din Intervalul...">
@@ -371,15 +371,15 @@
                 <Item id="2908" name="Direcţie"/>
                 <Item id="2909" name="Buclează căutarea"/>
             </FindCharsInRange>
-	
+
 	<Run title="Rulează...">
                 <Item id="1903" name="Programul care trebuie rulat"/>
                 <Item id="1" name="Rulează!"/>
                 <Item id="2" name="Anulează"/>
                 <Item id="1904" name="Salvează..."/>
             </Run>
-            
-            <StyleConfig title="Configurator de Stiluri">				
+
+            <StyleConfig title="Configurator de Stiluri">
 				<Item id="2" name="Anulează"/>
 				<Item id="2301" name="Salvează şi Închide"/>
 				<Item id="2303" name="Transparenţă"/>
@@ -389,9 +389,9 @@
                     <Item id="2205" name="Înclinat"/>
                     <Item id="2206" name="Prim-Plan"/>
                     <Item id="2207" name="Fundal"/>
-                    <Item id="2208" name="Font:"/>	        
+                    <Item id="2208" name="Font:"/>
                     <Item id="2209" name="Mărime:"/>
-	        <Item id="2211" name="Stil:"/>					
+	        <Item id="2211" name="Stil:"/>
                     <Item id="2212" name="Culoare"/>
                     <Item id="2213" name="Font"/>
                     <Item id="2214" name="Extensii implicite:"/>
@@ -408,9 +408,9 @@
                     <Item id="2231" name="Activează font înclinat global"/>
                     <Item id="2232" name="Activează font subliniat global"/>
                 </SubDialog>
-				
+
             </StyleConfig>
-            
+
             <UserDefine title="Definit de Utilizator">
 				<Item id="20001" name="Dochează"/>
 				<Item id="20002" name="Renumeşte"/>
@@ -475,7 +475,7 @@
                     <Item id="21424" name="Deschidere:"/>
                     <Item id="21425" name="Mijloc:"/>
                     <Item id="21426" name="Închidere:"/>
-                    <Item id="21127" name="Stilator"/>	
+                    <Item id="21127" name="Stilator"/>
                 </Folder>
                 <Keywords title="Liste de Cuvinte-Cheie">
 	        <Item id="22101" name="Primul Grup"/>
@@ -588,13 +588,13 @@
 					<Item id="6103" name="Icoane mici"/>
 	                		            <Item id="6104" name="Icoane Mari"/>
 					<Item id="6105" name="Icoane mici standard"/>
-					
+
 					<Item id="6106" name="Bara de Taburi"/>
 					<Item id="6107" name="Micşorată"/>
 					<Item id="6108" name="Zăvorîtă (mutare taburi nepermisă)"/>
 					<Item id="6109" name="Întunecă taburile inactive"/>
 					<Item id="6110" name="Linie colorată pe taburile active"/>
-				
+
 					<Item id="6111" name="Arată Bara de Stare"/>
 					<Item id="6112" name="Buton de închidere pe fiecare tab"/>
 					<Item id="6113" name="Clic-dublu închide documentul"/>
@@ -603,7 +603,7 @@
 					<Item id="6120" name="Verticală"/>
 
 					<Item id="6121" name="Bara de Meniuri"/>
-					<Item id="6122" name="Ascunde (Comută cu Alt / F10)"/> 
+					<Item id="6122" name="Ascunde (Comută cu Alt / F10)"/>
                                                             <Item id="6123" name="Limba Interfeţei"/>
 
                                                             <Item id="6125" name="Panoul cu Lista Documentelor"/>
@@ -612,7 +612,7 @@
                 <Scintillas title="Afişare">
 					<Item id="6216" name="Setările Cursorului"/>
 					<Item id="6217" name="Lăţime:"/>
-					<Item id="6219" name="Viteză Clipire:"/>	
+					<Item id="6219" name="Viteză Clipire:"/>
                                         		<Item id="6221" name="R"/>
                                         		<Item id="6222" name="L"/>
 					<Item id="6224" name="Editare Multiplă" />
@@ -622,8 +622,8 @@
 					<Item id="6203" name="Săgeată"/>
 	                			<Item id="6204" name="Arbore Cercuri"/>
 					<Item id="6205" name="Arbore Pătrate"/>
-					<Item id="6226" name="Nimic"/>	
-				
+					<Item id="6226" name="Nimic"/>
+
                                         		<Item id="6227" name="Încadrează Textul"/>
                                         		<Item id="6228" name="Implicit"/>
                                         		<Item id="6229" name="Aliniază"/>
@@ -635,7 +635,7 @@
 					<Item id="6209" name="Număr de coloane: "/>
 				           <Item id="6234" name="Dezactivează derularea avansată
 (dacă ai probleme cu padul tactil)"/>
-				
+
 					<Item id="6211" name="Limita Verticală"/>
 					<Item id="6212" name="Linie"/>
 					<Item id="6213" name="Culoare de fundal"/>
@@ -644,7 +644,7 @@
                                         		<Item id="6231" name="Lăţimea Marginii Cadrului"/>
                 </Scintillas>
 
-				<NewDoc title="Document Nou">                                                            
+				<NewDoc title="Document Nou">
 					<Item id="6401" name="Format"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
@@ -655,9 +655,9 @@
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UCS2 Big Endian"/>
 					<Item id="6410" name="UCS2 Little Endian"/>
-					<Item id="6411" name="Limbaj Implicit:"/>                                        
+					<Item id="6411" name="Limbaj Implicit:"/>
                                                             <Item id="6419" name="Document Nou"/>
-                                                            <Item id="6420" name="Aplică la filele ANSI deschise"/>                                        
+                                                            <Item id="6420" name="Aplică la filele ANSI deschise"/>
                 </NewDoc>
 
 				<DefaultDir title="Dosarul Implicit">
@@ -677,11 +677,11 @@
                                                             <Item id="6508" name="Meniul Limbajelor" />
 				</LangMenu>
 
-			    <TabSettings title="Tabulator">					
+			    <TabSettings title="Tabulator">
                                         		<Item id="6301" name="Setările Tabulatorului (creat cu tasta TAB)"/>
 					<Item id="6302" name="Înlocuieşte cu spaţiu gol"/>
 					<Item id="6303" name="Mărime: "/>
-					<Item id="6510" name="Foloseşte implicitul" />					
+					<Item id="6510" name="Foloseşte implicitul" />
                 			</TabSettings>
 
 				<Print title="Tipărire">
@@ -695,7 +695,7 @@
 					<Item id="6612" name="Stînga"/>
 					<Item id="6613" name="Sus"/>
 					<Item id="6614" name="Dreapta"/>
-					<Item id="6615" name="Jos"/>                
+					<Item id="6615" name="Jos"/>
 					<Item id="6706" name="Gros"/>
 					<Item id="6707" name="Înclinat"/>
 					<Item id="6708" name="Antet"/>
@@ -760,7 +760,7 @@
                     <Item id="6154" name="Implicit (mono-instanţă)"/>
                     <Item id="6155" name="* Modificarea acestei setări necesită repornirea Notepad++"/>
                 </MultiInstance>
-                
+
                 <Delimiter title="Delimitator">
                     <Item id="6251" name="Setările selectării delimitatorului (Ctrl + Dublu clic maus)"/>
                     <Item id="6252" name="Deschide"/>
@@ -783,7 +783,7 @@
 					<Item id="6324" name="Comutator de Documente (Ctrl+TAB)"/>
 					<Item id="6326" name="Activează"/>
 					<Item id="6329" name="Evidenţierea Tagurilor Pereche"/>
-                                                            <Item id="6327" name="Activează"/> 
+                                                            <Item id="6327" name="Activează"/>
                                                             <Item id="6328" name="Evidenţiază atributele tagurilor"/>
                                                             <Item id="6330" name="Evidenţiază zona coment./php/asp"/>
                                                             <Item id="6331" name="Arată doar numele filei în bara de titlu"/>
@@ -791,9 +791,9 @@
 			    		<Item id="6333" name="Evidenţiere Deşteaptă a Rezultatelor Căutării"/>
 					<Item id="6114" name="Activează"/>
 					<Item id="6115" name="Indentează automat"/>
-					<Item id="6117" name="Comportament de tip *Utilizate Recent*"/>					
-                </MISC>				
-            </Preference>			
+					<Item id="6117" name="Comportament de tip *Utilizate Recent*"/>
+                </MISC>
+            </Preference>
 	<MultiMacro title="Rulează Macro de Mai Multe Ori">
                 <Item id="1" name="Rulează"/>
                 <Item id="2" name="Anulează"/>
@@ -834,7 +834,7 @@
 			<FileLockedWarning title="Salvare Eşuată" message="Verifică dacă nu cumva această filă este deschisă în alt program"/>
 			<FileAlreadyOpenedInNpp title="" message="Fila este deja deschisă în Notepad++."/>
 			<DeleteFileFailed title="Ştergerea Filei" message="Ştergerea filei a eşuat"/>
-			
+
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Numărul filelor de deschis e prea mare" message="$INT_REPLACE$ file sînt pe cale de a fi deschise.\rSigur vrei să le deschizi pe toate?"/>
 		</MessageBox>

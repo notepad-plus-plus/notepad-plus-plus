@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Espańol" filename="spanish.xml" version="6.7.7">
+	<Native-Langue name="Español" filename="spanish.xml" version="6.7.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -39,7 +39,7 @@
 					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
 					<Item subMenuId="view-zoom" name="Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Mover/clonar el documento actual"/>
-					<Item subMenuId="view-tab" name="Pestańa"/>
+					<Item subMenuId="view-tab" name="Pestaña"/>
 					<Item subMenuId="view-collapseLevel" name="Contraer nivel"/>
 					<Item subMenuId="view-uncollapseLevel" name="Expandir nivel"/>
 					<Item subMenuId="view-project" name="Proyecto"/>
@@ -70,7 +70,7 @@
 					<Item id="41020" name="cmd"/>
 					<Item id="41003" name="Cerrar"/>
 					<Item id="41004" name="C&amp;errar todas"/>
-					<Item id="41005" name="Cerrar las otras pestańas"/>
+					<Item id="41005" name="Cerrar las otras pestañas"/>
 					<Item id="41009" name="&amp;Guardar y cerrar"/>
 					<Item id="41018" name="Cerrar todo a la derecha"/>
 					<Item id="41006" name="&amp;Guardar"/>
@@ -208,17 +208,17 @@
 					<Item id="44049" name="Resumen..."/>
 					<Item id="44080" name="Mapa del documento"/>
 					<Item id="44084" name="Lista de funciones"/>
-					<Item id="44086" name="Pestańa 1"/>
-					<Item id="44087" name="Pestańa 2"/>
-					<Item id="44088" name="Pestańa 3"/>
-					<Item id="44089" name="Pestańa 4"/>
-					<Item id="44090" name="Pestańa 5"/>
-					<Item id="44091" name="Pestańa 6"/>
-					<Item id="44092" name="Pestańa 7"/>
-					<Item id="44093" name="Pestańa 8"/>
-					<Item id="44094" name="Pestańa 9"/>
-					<Item id="44095" name="Pestańa siguiente"/>
-					<Item id="44096" name="Pestańa anterior"/>
+					<Item id="44086" name="Pestaña 1"/>
+					<Item id="44087" name="Pestaña 2"/>
+					<Item id="44088" name="Pestaña 3"/>
+					<Item id="44089" name="Pestaña 4"/>
+					<Item id="44090" name="Pestaña 5"/>
+					<Item id="44091" name="Pestaña 6"/>
+					<Item id="44092" name="Pestaña 7"/>
+					<Item id="44093" name="Pestaña 8"/>
+					<Item id="44094" name="Pestaña 9"/>
+					<Item id="44095" name="Pestaña siguiente"/>
+					<Item id="44096" name="Pestaña anterior"/>
 					<Item id="44032" name="Pantalla completa o no"/>
 					<Item id="44033" name="Restaurar zoom 100%"/>
 					<Item id="44034" name="Siempre visible"/>
@@ -389,7 +389,7 @@
 					<Item id="2206" name="Color de fuente"/>
 					<Item id="2207" name="Color de fondo"/>
 					<Item id="2208" name="Fuente:"/>
-					<Item id="2209" name="Tamańo:"/>
+					<Item id="2209" name="Tamaño:"/>
 					<Item id="2211" name="Estilo:"/>
 					<Item id="2212" name="Color"/>
 					<Item id="2213" name="Tipo de fuente"/>
@@ -402,7 +402,7 @@
 					<Item id="2226" name="Globalizar color de fuentes"/>
 					<Item id="2227" name="Globalizar color de fondo"/>
 					<Item id="2228" name="Globalizar tipo de fuente"/>
-					<Item id="2229" name="Globalizar tamańo de fuente"/>
+					<Item id="2229" name="Globalizar tamaño de fuente"/>
 					<Item id="2230" name="Globalizar negritas"/>
 					<Item id="2231" name="Globalizar cursivas"/>
 					<Item id="2232" name="Globalizar subrayados"/>
@@ -425,7 +425,7 @@
 					<Item id="25006" name="Color de fuente"/>
 					<Item id="25007" name="Color de fondo"/>
 					<Item id="25031" name="Nombre:"/>
-					<Item id="25032" name="Tamańo:"/>
+					<Item id="25032" name="Tamaño:"/>
 					<Item id="25001" name="Negrita"/>
 					<Item id="25002" name="Cursiva"/>
 					<Item id="25003" name="Subrayado"/>
@@ -475,14 +475,14 @@
 					<Item id="21127" name="Estilo"/>
 				</Folder>
 				<Keywords title="Listas de palabras clave">
-					<Item id="22101" name="1ş Grupo"/>
-					<Item id="22201" name="2ş Grupo"/>
-					<Item id="22301" name="3ş Grupo"/>
-					<Item id="22401" name="4ş Grupo"/>
-					<Item id="22451" name="5ş Grupo"/>
-					<Item id="22501" name="6ş Grupo"/>
-					<Item id="22551" name="7ş Grupo"/>
-					<Item id="22601" name="8ş Grupo"/>
+					<Item id="22101" name="1º Grupo"/>
+					<Item id="22201" name="2º Grupo"/>
+					<Item id="22301" name="3º Grupo"/>
+					<Item id="22401" name="4º Grupo"/>
+					<Item id="22451" name="5º Grupo"/>
+					<Item id="22501" name="6º Grupo"/>
+					<Item id="22551" name="7º Grupo"/>
+					<Item id="22601" name="8º Grupo"/>
 					<Item id="22121" name="Modo prefijo"/>
 					<Item id="22221" name="Modo prefijo"/>
 					<Item id="22321" name="Modo prefijo"/>
@@ -582,17 +582,17 @@
 				<Global title="Generales">
 					<Item id="6101" name="Barra de herramientas"/>
 					<Item id="6102" name="Ocultar"/>
-					<Item id="6103" name="Iconos pequeńos"/>
+					<Item id="6103" name="Iconos pequeños"/>
 					<Item id="6104" name="Iconos grandes"/>
 					<Item id="6105" name="Iconos predeterminados"/>
-					<Item id="6106" name="Barra de pestańas"/>
+					<Item id="6106" name="Barra de pestañas"/>
 					<Item id="6107" name="Ajustar texto"/>
 					<Item id="6108" name="Bloquear (impedir arrastrar y soltar)"/>
-					<Item id="6109" name="Oscurecer pestańas inactivas"/>
-					<Item id="6110" name="Mostrar una línea en la pestańa activa"/>
+					<Item id="6109" name="Oscurecer pestañas inactivas"/>
+					<Item id="6110" name="Mostrar una línea en la pestaña activa"/>
 					<Item id="6111" name="Mostrar barra de estado"/>
-					<Item id="6112" name="Botón de cierre en cada pestańa"/>
-					<Item id="6113" name="Doble clic para cerrar pestańa"/>
+					<Item id="6112" name="Botón de cierre en cada pestaña"/>
+					<Item id="6113" name="Doble clic para cerrar pestaña"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Multi-línea"/>
 					<Item id="6120" name="Vertical"/>
@@ -665,7 +665,7 @@
 				<TabSettings title="Tabuladores">
 					<Item id="6301" name="Tabuladores"/>
 					<Item id="6302" name="Sustituir por espacios"/>
-					<Item id="6303" name="Tamańo: "/>
+					<Item id="6303" name="Tamaño: "/>
 					<Item id="6510" name="Usar valor por defecto"/>
 				</TabSettings>
 				<Print title="Impresión">
@@ -692,7 +692,7 @@
 					<Item id="6720" name="Parte izquierda"/>
 					<Item id="6721" name="Parte central"/>
 					<Item id="6722" name="Parte derecha"/>
-					<Item id="6723" name="Ańadir"/>
+					<Item id="6723" name="Añadir"/>
 					<Item id="6725" name="Variable:"/>
 					<Item id="6727" name="Mostrar sus ajustes variables"/>
 					<Item id="6728" name="Cabecera y pie de página"/>
@@ -728,11 +728,11 @@
 					<Item id="6810" name="Auto-completar palabra"/>
 					<Item id="6816" name="Autocompletado función y palabra"/>
 					<Item id="6811" name="Desde"/>
-					<Item id="6813" name="ş carácter"/>
+					<Item id="6813" name="º carácter"/>
 					<Item id="6814" name="Valor válido: 1 - 9"/>
 					<Item id="6815" name="Parámetros de función en entrada"/>
 					<Item id="6851" name="Auto-insertar"/>
-					<Item id="6857" name="pestańa de cierre html/xml"/>
+					<Item id="6857" name="pestaña de cierre html/xml"/>
 					<Item id="6858" name="Abrir"/>
 					<Item id="6859" name="Cerrar"/>
 					<Item id="6860" name="Par ajustado 1:"/>
@@ -778,7 +778,7 @@
 					<Item id="6328" name="Resaltar Atributos de Etiquetas"/>
 					<Item id="6330" name="Resaltar comentarios/php/asp"/>
 					<Item id="6331" name="Mostrar solo nombre de archivo en la barra"/>
-					<Item id="6332" name="Ajustar tamańo"/>
+					<Item id="6332" name="Ajustar tamaño"/>
 					<Item id="6333" name="Resaltado Inteligente"/>
 					<Item id="6334" name="Detección de codificación automática"/>
 					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
@@ -800,7 +800,7 @@
 				<Item id="2" name="Aceptar"/>
 				<Item id="7002" name="Guardar"/>
 				<Item id="7003" name="Cerrar ventana(s)"/>
-				<Item id="7004" name="Ordenar pestańas"/>
+				<Item id="7004" name="Ordenar pestañas"/>
 			</Window>
 			<ColumnEditor title="Editor de columnas">
 				<Item id="2023" name="Texto a insertar"/>
@@ -869,22 +869,22 @@
 					<Item id="3125" name="Guardar"/>
 					<Item id="3126" name="Guardar como..."/>
 					<Item id="3127" name="Guardar copia como..."/>
-					<Item id="3121" name="Ańadir proyecto"/>
+					<Item id="3121" name="Añadir proyecto"/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Renombrar"/>
-					<Item id="3112" name="Ańadir carpeta"/>
-					<Item id="3113" name="Ańadir Archivos..."/>
-					<Item id="3117" name="Ańadir archivos de la carpeta..."/>
+					<Item id="3112" name="Añadir carpeta"/>
+					<Item id="3113" name="Añadir Archivos..."/>
+					<Item id="3117" name="Añadir archivos de la carpeta..."/>
 					<Item id="3114" name="Eliminar"/>
 					<Item id="3118" name="Subir"/>
 					<Item id="3119" name="Bajar"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Renombrar"/>
-					<Item id="3112" name="Ańadir carpeta"/>
-					<Item id="3113" name="Ańadir archivos..."/>
-					<Item id="3117" name="Ańadir archivos de la carpeta..."/>
+					<Item id="3112" name="Añadir carpeta"/>
+					<Item id="3113" name="Añadir archivos..."/>
+					<Item id="3117" name="Añadir archivos de la carpeta..."/>
 					<Item id="3114" name="Eliminar"/>
 					<Item id="3118" name="Subir"/>
 					<Item id="3119" name="Bajar"/>

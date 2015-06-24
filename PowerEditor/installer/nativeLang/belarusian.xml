@@ -17,13 +17,13 @@
 					<Item idName = "Plugins" name = "Plugins"/>
 					<Item idName = "Window" name = "Вокны"/>
 				</Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="view-collapseLevel" name = "Згарнуць узровень"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Разгарнуць узровень"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id = "41001" name = "&amp;Новы	Ctrl+N"/>
@@ -34,7 +34,7 @@
                     <Item id = "41006" name = "&amp;Захаваць	Ctrl+S"/>
                     <Item id = "41007" name = "Заха&amp;ваць усё	Ctrl+Shift+S"/>
                     <Item id = "41008" name = "Захаваць &amp;як..."/>
-                    <Item id = "41010" name = "Друк...	Ctrl+P"/> 
+                    <Item id = "41010" name = "Друк...	Ctrl+P"/>
                     <Item id = "1001"  name = "Хуткі друк"/>
                     <Item id = "41011" name = "Вы&amp;хад"/>
                     <Item id = "41012" name = "Загрузіць сесію..."/>
@@ -51,8 +51,8 @@
                     <Item id = "42010" name = "Дубліраваць радок	Ctrl+D"/>
                     <Item id = "42012" name = "Разбіць радкі	Ctrl+I"/>
                     <Item id = "42013" name = "Аб'яднаць радкі	Ctrl+J"/>
-                    <Item id = "42014" name = "Падняць бягучы радок	Ctrl+Shift+Уверх"/>   
-                    <Item id = "42015" name = "Апусціць бягучы радок	Ctrl+Shift+Уніз"/>   
+                    <Item id = "42014" name = "Падняць бягучы радок	Ctrl+Shift+Уверх"/>
+                    <Item id = "42015" name = "Апусціць бягучы радок	Ctrl+Shift+Уніз"/>
                     <Item id = "42016" name = "ПРАПІСНЫЯ	Ctrl+Shift+U"/>
                     <Item id = "42017" name = "маленькія	Ctrl+U"/>
                     <Item id = "42018" name = "&amp;Старт запісу	Ctrl+Shift+R"/>
@@ -134,7 +134,7 @@
                     <Item CMID = "6" name = "Капіюемся ў іншае акно"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title = "Пошук...">
                 <Item id = "1" name = "Шукаць далей"/>
@@ -177,13 +177,13 @@
                 <Item id = "2" name = "Адмена"/>
                 <Item id = "1904" name = "Захаваць..."/>
             </Run>
-            
+
             <StyleConfig title = "Азначэньне стыляў">
 				<Item id = "1" name = "Спрабуем!"/>
 				<Item id = "2" name = "Адмена"/>
 				<Item id = "2301" name = "Захаваць і зачыніць"/>
-				<Item id = "2303" name = "Празрыста"/>		
-				
+				<Item id = "2303" name = "Празрыста"/>
+
                 <SubDialog>
                 	<Item id = "2204" name = "Тоўсты"/>
                     <Item id = "2205" name = "Курсіў"/>
@@ -201,9 +201,9 @@
                     <Item id = "2219" name = "Ключавыя словы Np++"/>
                     <Item id = "2221" name = "Нашы ключавыя словы"/>
                 </SubDialog>
-				
+
             </StyleConfig>
-            
+
             <UserDefine title = "Наша азначэньне">
 				<Item id = "20002" name = "Новае імя"/>
 				<Item id = "20003" name = "Стварыць..."/>
@@ -266,13 +266,13 @@
 					<Item id = "6103" name = "Дробныя значкі"/>
 	                <Item id = "6104" name = "Буйныя значкі"/>
 					<Item id = "6105" name = "Стандартныя дробныя значкі"/>
-					
+
 					<Item id = "6106" name = "Панэль укладак"/>
 					<Item id = "6107" name = "Паменшыць"/>
 					<Item id = "6108" name = "Забараніць перацягваньне"/>
 					<Item id = "6109" name = "Неактыўныя ўкладкі шэрыя"/>
 					<Item id = "6110" name = "Памяранцавая лінія зьверху"/>
-					
+
 					<Item id = "6111" name = "Паказваць радок стану"/>
 				</Global>
                 <Scintillas title = "Праўка">
@@ -281,12 +281,12 @@
 					<Item id = "6203" name = "Стрэлкамі"/>
 	                <Item id = "6204" name = "Кружкамі"/>
 					<Item id = "6205" name = "Квадрацікамі"/>
-					
+
 					<Item id = "6206" name = "Паказваць поле нумароў радкоў"/>
 					<Item id = "6207" name = "Паказваць поле закладак"/>
 					<Item id = "6208" name = "Вертыкальная мяжа"/>
 					<Item id = "6209" name = "Слупок: "/>
-					
+
 					<Item id = "6211" name = "Налады вертыкальнай мяжы"/>
 					<Item id = "6212" name = "Лінія"/>
 					<Item id = "6213" name = "Фон"/>
@@ -354,7 +354,7 @@
 					<Item id = "6313" name = "Абнаўляць, не пытаючы"/>
                 </MISC>
             </Preference>
-			
+
 			<MultiMacro title = "Запусціць шматкроць...">
                 <Item id = "1" name = "Запуск"/>
                 <Item id = "2" name = "Адмена"/>

@@ -228,7 +228,7 @@
                     <Item id="44082" name="Панель проекта 2"/>
                     <Item id="44083" name="Панель проекта 3"/>
                     <Item id="44084" name="Список Функций"/>
-					
+
 					<Item id="44086" name="1-я  Вкладка"/>
 					<Item id="44087" name="2-я  Вкладка"/>
 					<Item id="44088" name="3-я  Вкладка"/>
@@ -240,8 +240,8 @@
 					<Item id="44094" name="9-я  Вкладка"/>
 					<Item id="44095" name="Следующая Вкладка"/>
 					<Item id="44096" name="Предыдущая Вкладка"/>
-					
-					
+
+
                     <Item id="45001" name="Преобразовать в Win-формат (CRLF)"/>
                     <Item id="45002" name="Преобразовать в UNIX-формат (LF)"/>
                     <Item id="45003" name="Преобразовать в MAC-формат (CR)"/>
@@ -707,7 +707,7 @@
                     <Item id="6304" name="История Последних Файлов"/>
                     <Item id="6305" name="Не проверять при запуске"/>
                     <Item id="6306" name="Запоминать последние:"/>
-					
+
                     <Item id="6429" name="Отображение"/>
                     <Item id="6424" name="В подменю"/>
                     <Item id="6425" name="Только Имя файла"/>
@@ -848,7 +848,7 @@
             <FileLockedWarning title="Сохранение не удалось" message="Пожалуйста, проверьте открыт ли этот файл в другом приложении."/>
             <FileAlreadyOpenedInNpp title="" message="Файл уже открыт в Notepad++."/>
             <DeleteFileFailed title="Удаление файла" message="Не удалось удалить файл"/>
-            
+
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Очень большое количество файлов" message="$INT_REPLACE$ файлов скоро будут открыты.&#x0A;Продолжить?"/>
 		</MessageBox>

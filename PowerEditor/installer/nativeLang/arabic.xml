@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
 	<Native-Langue name = "Arabic" RTL="yes" filename="arabic.xml" >
 		<Menu>
@@ -15,11 +15,11 @@
 					<Item menuId="macro" name = "ماكرو"/>
 					<Item menuId="run" name = "تشغيل"/>
 				</Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id = "41001" name = "&amp;جديد	Ctrl+N"/>
@@ -35,7 +35,7 @@
 
                     <Item id = "41012" name = "تحميل جلسة..."/>
                     <Item id = "41013" name = "حفظ جلسة..."/>
-                    
+
                     <Item id = "42001" name = "ق&amp;ص	Ctrl+X"/>
                     <Item id = "42002" name = "&amp;نسخ	Ctrl+C"/>
                     <Item id = "42003" name = "&amp;تراجع	Ctrl+Z"/>
@@ -49,8 +49,8 @@
                     <Item id = "42011" name = "أنقل السطر الحالي	Ctrl+T"/>
                     <Item id = "42012" name = "تقسيم أسطر	Ctrl+I"/>
                     <Item id = "42013" name = "ربط أسطر	Ctrl+J"/>
-                    <Item id = "42014" name = "نقل السطر الحالي إلى أعلى	Ctrl+Shift+Up"/>   
-                    <Item id = "42015" name = "نقل السطر الحالي إلى أسفل	Ctrl+Shift+Down"/>   
+                    <Item id = "42014" name = "نقل السطر الحالي إلى أعلى	Ctrl+Shift+Up"/>
+                    <Item id = "42015" name = "نقل السطر الحالي إلى أسفل	Ctrl+Shift+Down"/>
                     <Item id = "42016" name = "أحرف إنجليزية كبيرة	Ctrl+Shift+U"/>
                     <Item id = "42017" name = "أحرف إنجليزية صغيرة	Ctrl+U"/>
                     <Item id = "42018" name = "&amp;بدء التسجيل	Ctrl+Shift+R"/>
@@ -62,7 +62,7 @@
                     <Item id = "42025" name = "حفظ الماكرو الحالية المسجلة"/>
                     <Item id = "42026" name = "اتجاه النص من اليمين إلى اليسار	Ctrl+Alt+R"/>
                     <Item id = "42027" name = "اتجاه النص من اليسار إلى اليمين	Ctrl+Alt+L"/>
-					
+
                     <Item id = "43001" name = "&amp;بحث...	Ctrl+F"/>
                     <Item id = "43002" name = "إيجاد &amp;التالي	F3"/>
                     <Item id = "43003" name = "إستبدال...	Ctrl+H"/>
@@ -74,35 +74,35 @@
                     <Item id = "43009" name = "إذهب إلى القوس المطابق	Ctrl+B"/>
                     <Item id = "43010" name = "إيجاد السابق	Shift+F3"/>
                     <Item id = "43013" name = "بحث في الملفات	Ctrl+Shift+F"/>
-					
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
+
+
+
                     <Item id = "44010" name = "لف الكل	Alt+0"/>
                     <Item id = "44011" name = "تعريف حوار المستخدم"/>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
                     <Item id = "44019" name = "أظهر كل الأحرف"/>
                     <Item id = "44020" name = "أظهر موجه الطلب"/>
-                    
-                    <Item id = "44022" name = "غلِّف"/>
+
+                    <Item id = "44022" name = "غلِّف"/>
                     <Item id = "44023" name = "&amp;تصغير	Ctrl-Mouse Wheel Up"/>
                     <Item id = "44024" name = "تك&amp;بير	Ctrl-Mouse Wheel Down"/>
                     <Item id = "44025" name = "أظهر المسافات البيضاء و تاب"/>
                     <Item id = "44026" name = "أظهر نهاية السطر"/>
-                    
-                    
+
+
                     <Item id = "44029" name = "عدم لف الكل	Alt+Shift+0"/>
                     <Item id = "44030" name = " ألغي المستوى الحالي	Ctrl+Alt+F"/>
                     <Item id = "44031" name = "لا تلغي المستوى الحالي	Ctrl+Alt+Shift+F"/>
@@ -119,23 +119,23 @@
                     <Item id = "45006" name = " رمز لـ (UCS-2 Big Endian)"/>
                     <Item id = "45007" name = " رمز لـ (UCS-2 Little Endian)"/>
                     <Item id = "45008" name = " رمز لـ (UTF-8 (without BOM))"/>
-                    
+
                     <Item id = "10001" name = "إذهب إلى منظر آخر"/>
                     <Item id = "10002" name = "انسخ إلى منظر آخر"/>
-                    
+
                     <Item id = "46001" name = "نمط معرف ..."/>
                     <Item id = "47000" name = "حول...	F1"/>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
+
+
                     <Item id = "48009" name = "راسم الإختصار..."/>
-                    
+
                     <Item id = "49000" name = "&amp;تشغيل..."/>
                 </Commands>
             </Main>
@@ -151,7 +151,7 @@
                     <Item CMID = "6" name = "انسخ الى منظر آخر"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title = "جد... ">
                 <Item id = "1" name = "جِد التالي"/>
@@ -165,7 +165,7 @@
                 <Item id = "1613" name = "&amp;اسفل"/>
                 <Item id = "1614" name = "عد"/>
                 <Item id = "1615" name = "جد الكل"/>
-                <Item id = "1616" name = "خط معلَّم"/>
+                <Item id = "1616" name = "خط معلَّم"/>
                 <Item id = "1617" name = "أسلوب إيجاد النموذج"/>
                 <Item id = "1618" name = "إزلة لكل بحث"/>
                 <Item id = "1621" name = "اتجاه"/>
@@ -194,13 +194,13 @@
                 <Item id = "2" name = "ألغي"/>
                 <Item id = "1904" name = "احفظ ..."/>
             </Run>
-            
+
             <StyleConfig title = "معرف الأنماط">
 				<Item id = "1" name = "جربها!"/>
 				<Item id = "2" name = "ألغي"/>
 				<Item id = "2301" name = "احفظ &amp;&amp; أغلق"/>
-				<Item id = "2303" name = "الشفافية"/>		
-				
+				<Item id = "2303" name = "الشفافية"/>
+
                 <SubDialog>
                 	<Item id = "2204" name = "غامق"/>
                     <Item id = "2205" name = "مائل"/>
@@ -218,9 +218,9 @@
                     <Item id = "2219" name = "كلمات دالة اعتيادية"/>
                     <Item id = "2221" name = "كلمات دالة معرفة من المستخدم"/>
                 </SubDialog>
-				
+
             </StyleConfig>
-            
+
             <UserDefine title = "معرف المستخدم">
 				<Item id = "20002" name = "اعادة تسمية"/>
 				<Item id = "20003" name = "جديدة..."/>

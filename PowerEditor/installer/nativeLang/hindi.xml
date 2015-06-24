@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
 	::Hindi language file for Notepad++ ::
-	
-	** created By:- Rathin A. Dholakia ** 
+
+	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-		
+
 -->
 <NotepadPlus>
 	<Native-Langue name="हिन्दी" filename="hindi.xml">
@@ -24,7 +24,7 @@
                     <Item idName="Plugins" name="प्लगइन्स"/>
                     <Item idName="Window" name="विन्डों"/>
                 </Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard" name="क्लिपबोर्ड पे कॉपी करे"/>
@@ -64,7 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="वियतनाम"/>
                     <Item subMenuId="settings-import" name="आयात"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;नया"/>
@@ -84,7 +84,7 @@
                     <Item id="41015" name="नकल सेव करे..."/>
                     <Item id="41016" name="डिस्क पर से निकाले"/>
                     <Item id="41017" name="पुनःनामांकन..."/>
-                    
+
                     <Item id="42001" name="&amp;कट (cut)"/>
                     <Item id="42002" name="&amp;कॉपी (copy)"/>
                     <Item id="42003" name="&amp;पूर्ववत करे (Undo)"/>
@@ -97,8 +97,8 @@
                     <Item id="42010" name="वर्तमान लाईन की नकल करे"/>
                     <Item id="42012" name="लाईन विभाजित करे"/>
                     <Item id="42013" name="लाईन जोड़े"/>
-                    <Item id="42014" name="वर्तमान लाईन को ऊपर सरकाये"/>   
-                    <Item id="42015" name="वर्तमान लाईन को नीचे सरकाये"/>   
+                    <Item id="42014" name="वर्तमान लाईन को ऊपर सरकाये"/>
+                    <Item id="42015" name="वर्तमान लाईन को नीचे सरकाये"/>
                     <Item id="42016" name="अपरकेस"/>
                     <Item id="42017" name="लोअरकेस"/>
                     <Item id="42018" name="&amp;रिकॉर्डिंग चालु करे"/>
@@ -124,7 +124,7 @@
                     <Item id="42033" name="Read-Only फ्लेग को निकाले"/>
                     <Item id="42035" name="टीका (comment) को रोके"/>
                     <Item id="42036" name="Uncomment को रोके"/>
-                    
+
                     <Item id="43001" name="&amp;खोजे..."/>
                     <Item id="43002" name="&amp;अगला खोजे"/>
                     <Item id="43003" name="बदले (replace)..."/>
@@ -195,7 +195,7 @@
                     <Item id="44036" name="क्षैतिज स्क्रोलिंग सिंक्रोंनाईज़ करे"/>
                     <Item id="44041" name="wrap चिन्ह दिखाए"/>
                     <Item id="44072" name="दूसरा व्यू फोकस करे"/>
-                    
+
                     <Item id="45001" name="WINDOWS फ़ारमैट में रूपांतरित करे"/>
                     <Item id="45002" name="UNIX फ़ारमैट में रूपांतरित करे"/>
                     <Item id="45003" name="MAC फ़ारमैट में रूपांतरित करे"/>
@@ -215,7 +215,7 @@
                     <Item id="10003" name="नए इन्स्टन्स पे जाए"/>
                     <Item id="10004" name="नया इन्स्टन्स खोले"/>
 
-                    
+
                     <Item id="46001" name="स्टाइल विन्यासक..."/>
                     <Item id="46080" name="उपयोग कर्ता निर्दीष्ट"/>
                     <Item id="47000" name="Notepad++ के बारेमे..."/>
@@ -265,7 +265,7 @@
                     <Item CMID="15" name="नया इन्स्टन्स खोले"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="ख़ोजे" titleReplace="बदले (replace)" titleFindInFiles="फाईल मे ख़ोजे" titleMark="चिन्हित">
                 <Item id="1" name="अगला खोजे"/>
@@ -323,11 +323,11 @@
                 <Item id="2" name="रद्द"/>
                 <Item id="1904" name="संग्रह..."/>
             </Run>
-            
+
             <StyleConfig title="स्टाइल कोन्फ़िगरेटर">
                 <Item id="2" name="रद्द"/>
                 <Item id="2301" name="संग्रह करे &amp;और बंध करे"/>
-                <Item id="2303" name="पारदर्शिता"/>		
+                <Item id="2303" name="पारदर्शिता"/>
                 <Item id="2306" name="थीम पसंद करे: "/>
                 <SubDialog>
                 	<Item id="2204" name="बोल्ड"/>
@@ -351,10 +351,10 @@
                     <Item id="2230" name="वैश्विक बोल्ड फ़ॉन्ट स्टाइल सक्रिय करें"/>
                     <Item id="2231" name="वैश्विक इटालिक फ़ॉन्ट स्टाइल सक्रिय करें"/>
                     <Item id="2232" name="वैश्विक अंडरलाइन फ़ॉन्ट स्टाइल सक्रिय करें"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="यूजर-डिफ़ाईन्ड">
                 <Item id="20002" name="पुनः नामांकन"/>
                 <Item id="20003" name="नया रचे..."/>
@@ -420,20 +420,20 @@
                     <Item id="6103" name="छोटे आइकॉनस"/>
 	                <Item id="6104" name="बड़े आइकॉनस"/>
                     <Item id="6105" name="स्टेंडर्ड आइकॉन"/>
-                    
+
                     <Item id="6106" name="टैब बार"/>
                     <Item id="6107" name="घटाए"/>
                     <Item id="6108" name="लॉक (no drag and drop)"/>
                     <Item id="6109" name="निष्क्रिय टैब को काला करे"/>
                     <Item id="6110" name="सक्रिय टैब पर रंगीन बार बनाए"/>
-                    
+
                     <Item id="6111" name="स्टेटस बार दिखाए"/>
                     <Item id="6112" name="हरेक टैब पर बंध का बटन दिखाए"/>
                     <Item id="6113" name="दस्तावेज़ बंध करने के लिए दो बार क्लिक करे"/>
                     <Item id="6118" name="छिपाए"/>
                     <Item id="6119" name="मल्टी-लाईन"/>
                     <Item id="6120" name="खड़ा (Vertical)"/>
-                    
+
                     <Item id="6121" name="मेनू बार"/>
                     <Item id="6122" name="छिपाए (टॉगल करने Alt या F10 कुंजी ईस्तेमाल करे)"/>
                     <Item id="6123" name="लोकलाईजेशन"/>
@@ -452,17 +452,17 @@
 	                <Item id="6204" name="सर्कल ट्री"/>
                     <Item id="6205" name="बॉक्स ट्री"/>
                     <Item id="6226" name="कुछ नहीं (None)"/>
-					
+
                     <Item id="6227" name="लाईन wrap"/>
                     <Item id="6228" name="डिफ़ाल्ट (Default) "/>
                     <Item id="6229" name="अलाईन्ड (Aligned)"/>
                     <Item id="6230" name="इंडेंट (Indent)"/>
-                    
+
                     <Item id="6206" name="लाईन नंबर दिखाए"/>
                     <Item id="6207" name="बूकमार्क दिखाए"/>
                     <Item id="6208" name="खड़ी किनार दिखाए"/>
                     <Item id="6209" name="कॉलम की संख्या: "/>
-                    
+
                     <Item id="6211" name="खड़ी किनार के सेटिंग्स"/>
                     <Item id="6212" name="लाईन मोड"/>
                     <Item id="6213" name="पृष्ठभुमि मोड"/>
@@ -549,12 +549,12 @@
                     <Item id="6327" name="सक्रिय"/>
                     <Item id="6328" name="टैग के attributes को हाईलाईट करे"/>
                     <Item id="6330" name="comment/php/asp हिस्सा हाईलाईट करे"/>
-                    
+
                     <Item id="6331" name="टाइटल बार मे सिर्फ फाईल का नाम दिखाए"/>
                     <Item id="6114" name="सक्रिय"/>
                     <Item id="6115" name="स्वचालित इंडेंट"/>
                     <Item id="6117" name="MRU बिहेवीयर सक्रिय करे"/>
-                    
+
                 </MISC>
                 <Backup title="बेकअप/ऑटो-कम्प्लिशन">
                     <Item id="6801" name="बेकअप"/>

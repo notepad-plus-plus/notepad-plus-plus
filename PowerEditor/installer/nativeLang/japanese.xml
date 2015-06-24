@@ -404,7 +404,7 @@
                 <Item id="2909" name=" 回り込み(&amp;p)"/>
                 <Item id="2910" name="検索"/>
             </FindCharsInRange>
-            
+
             <GoToLine title="指定行へジャンプ...">
                 <Item id="2007" name="行"/>
                 <Item id="2008" name="オフセット"/>
@@ -810,7 +810,7 @@
                     <Item id="6154" name="デフォルト (1つのインスタンス)"/>
                     <Item id="6155" name="* この変更を有効にするにはNotepad++の再起動が必要です。"/>
                 </MultiInstance>
-                
+
                 <Delimiter title="区切り記号">
                     <Item id="6251" name="区切り記号選択設定 (Ctrl + マウスダブルクリック)"/>
                     <Item id="6252" name="開"/>

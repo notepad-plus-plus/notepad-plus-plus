@@ -1426,6 +1426,8 @@ void ScintillaCocoa::StartDrag()
       paintState = notPainting;
 
       pixmap->InitPixMap(static_cast<int>(imageRect.Width()), static_cast<int>(imageRect.Height()), NULL, NULL);
+      pixmap->SetUnicodeMode(IsUnicodeMode());
+      pixmap->SetDBCSMode(CodePage());
 
       CGContextRef gc = pixmap->GetContext();
       // To make Paint() work on a bitmap, we have to flip our coordinates and translate the origin

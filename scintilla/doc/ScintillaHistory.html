@@ -484,6 +484,56 @@
       </li>
     </ul>
     <h3>
+       <a href="http://prdownloads.sourceforge.net/scintilla/scite356.zip?download">Release 3.5.7</a>
+    </h3>
+    <ul>
+	<li>
+	Released 20 June 2015.
+	</li>
+	<li>
+	Added SCI_MULTIPLESELECTADDNEXT to add the next occurrence of the main selection within the
+	target to the set of selections as main. If the current selection is empty then select word around caret.
+	SCI_MULTIPLESELECTADDNEXT adds each occurrence of the main selection within the
+	target to the set of selections.
+	</li>
+	<li>
+	SciTE adds "Selection Add Next" and "Selection Add Each" commands to the Search menu.
+	</li>
+	<li>
+	Added SCI_ISRANGEWORD to determine if the parameters are at the start and end of a word.
+	</li>
+	<li>
+	Added SCI_TARGETWHOLEDOCUMENT to set the target to the whole document.
+	</li>
+	<li>
+	Verilog lexer recognises protected regions and the folder folds protected regions.
+	</li>
+	<li>
+	A performance problem with markers when deleting many lines was fixed.
+	<a href="http://sourceforge.net/p/scintilla/bugs/1733/">Bug #1733</a>.
+	</li>
+	<li>
+	On Cocoa fix crash when ScintillaView destroyed if no autocompletion ever displayed.
+	<a href="http://sourceforge.net/p/scintilla/bugs/1728/">Bug #1728</a>.
+	</li>
+	<li>
+	On Cocoa fix crash in drag and drop.
+	</li>
+	<li>
+	On GTK+ 3.4+, when there are both horizontal and vertical scrollbars, draw the lower-right corner
+	so that it does not appear black when text selected.
+	<a href="http://sourceforge.net/p/scintilla/bugs/1611/">Bug #1611</a>.
+	</li>
+	<li>
+	Fixed most calls deprecated in GTK+ 3.16. Does not fix style override calls
+	as they are more complex.
+	</li>
+	<li>
+	SciTE on GTK+ 3.x uses a different technique for highlighting the search strip when there is
+	no match which is more compatible with future and past versions and different themes.
+	</li>
+    </ul>
+    <h3>
        <a href="http://prdownloads.sourceforge.net/scintilla/scite356.zip?download">Release 3.5.6</a>
     </h3>
     <ul>

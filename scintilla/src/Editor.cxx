@@ -608,6 +608,10 @@ void Editor::InvalidateSelection(SelectionRange newMain, bool invalidateWholeSel
 	InvalidateRange(firstAffected, lastAffected);
 }
 
+void Editor::InvalidateWholeSelection() {
+	InvalidateSelection(sel.RangeMain(), true);
+}
+
 void Editor::SetSelection(SelectionPosition currentPos_, SelectionPosition anchor_) {
 	currentPos_ = ClampPositionIntoDocument(currentPos_);
 	anchor_ = ClampPositionIntoDocument(anchor_);
@@ -692,6 +696,59 @@ void Editor::SetEmptySelection(int currentPos_) {
 	SetEmptySelection(SelectionPosition(currentPos_));
 }
 
+void Editor::MultipleSelectAdd(AddNumber addNumber) {
+	if (SelectionEmpty() || !multipleSelection) {
+		// Select word at caret
+		const int startWord = pdoc->ExtendWordSelect(sel.MainCaret(), -1, true);
+		const int endWord = pdoc->ExtendWordSelect(startWord, 1, true);
+		TrimAndSetSelection(endWord, startWord);
+
+	} else {
+
+		if (!pdoc->HasCaseFolder())
+			pdoc->SetCaseFolder(CaseFolderForEncoding());
+
+		const Range rangeMainSelection(sel.RangeMain().Start().Position(), sel.RangeMain().End().Position());
+		const std::string selectedText = RangeText(rangeMainSelection.start, rangeMainSelection.end);
+
+		const Range rangeTarget(targetStart, targetEnd);
+		std::vector<Range> searchRanges;
+		// Search should be over the target range excluding the current selection so
+		// may need to search 2 ranges, after the selection then before the selection.
+		if (rangeTarget.Overlaps(rangeMainSelection)) {
+			// Common case is that the selection is completely within the target but
+			// may also have overlap at start or end.
+			if (rangeMainSelection.end < rangeTarget.end)
+				searchRanges.push_back(Range(rangeMainSelection.end, rangeTarget.end));
+			if (rangeTarget.start < rangeMainSelection.start)
+				searchRanges.push_back(Range(rangeTarget.start, rangeMainSelection.start));
+		} else {
+			// No overlap
+			searchRanges.push_back(rangeTarget);
+		}
+
+		for (std::vector<Range>::const_iterator it = searchRanges.begin(); it != searchRanges.end(); ++it) {
+			int searchStart = it->start;
+			const int searchEnd = it->end;
+			for (;;) {
+				int lengthFound = selectedText.length();
+				int pos = pdoc->FindText(searchStart, searchEnd, selectedText.c_str(),
+					searchFlags, &lengthFound);
+				if (pos >= 0) {
+					sel.AddSelection(SelectionRange(pos + lengthFound, pos));
+					ScrollRange(sel.RangeMain());
+					Redraw();
+					if (addNumber == addOne)
+						return;
+					searchStart = pos + lengthFound;
+				} else {
+					break;
+				}
+			}
+		}
+	}
+}
+
 bool Editor::RangeContainsProtected(int start, int end) const {
 	if (vs.ProtectionActive()) {
 		if (start > end) {
@@ -746,9 +803,9 @@ SelectionPosition Editor::MovePositionOutsideChar(SelectionPosition pos, int mov
 	return pos;
 }
 
-int Editor::MovePositionTo(SelectionPosition newPos, Selection::selTypes selt, bool ensureVisible) {
-	bool simpleCaret = (sel.Count() == 1) && sel.Empty();
-	SelectionPosition spCaret = sel.Last();
+void Editor::MovePositionTo(SelectionPosition newPos, Selection::selTypes selt, bool ensureVisible) {
+	const bool simpleCaret = (sel.Count() == 1) && sel.Empty();
+	const SelectionPosition spCaret = sel.Last();
 
 	int delta = newPos.Position() - sel.MainCaret();
 	newPos = ClampPositionIntoDocument(newPos);
@@ -756,8 +813,7 @@ int Editor::MovePositionTo(SelectionPosition newPos, Selection::selTypes selt, b
 	if (!multipleSelection && sel.IsRectangular() && (selt == Selection::selStream)) {
 		// Can't turn into multiple selection so clear additional selections
 		InvalidateSelection(SelectionRange(newPos), true);
-		SelectionRange rangeMain = sel.RangeMain();
-		sel.SetSelection(rangeMain);
+		sel.DropAdditionalRanges();
 	}
 	if (!sel.IsRectangular() && (selt == Selection::selRectangle)) {
 		// Switching to rectangular
@@ -776,7 +832,7 @@ int Editor::MovePositionTo(SelectionPosition newPos, Selection::selTypes selt, b
 	}
 	ShowCaretAtCurrentPosition();
 
-	int currentLine = pdoc->LineFromPosition(newPos.Position());
+	const int currentLine = pdoc->LineFromPosition(newPos.Position());
 	if (ensureVisible) {
 		// In case in need of wrapping to ensure DisplayFromDoc works.
 		if (currentLine >= wrapPending.start)
@@ -795,11 +851,10 @@ int Editor::MovePositionTo(SelectionPosition newPos, Selection::selTypes selt, b
 	if (marginView.highlightDelimiter.NeedsDrawing(currentLine)) {
 		RedrawSelMargin();
 	}
-	return 0;
 }
 
-int Editor::MovePositionTo(int newPos, Selection::selTypes selt, bool ensureVisible) {
-	return MovePositionTo(SelectionPosition(newPos), selt, ensureVisible);
+void Editor::MovePositionTo(int newPos, Selection::selTypes selt, bool ensureVisible) {
+	MovePositionTo(SelectionPosition(newPos), selt, ensureVisible);
 }
 
 SelectionPosition Editor::MovePositionSoVisible(SelectionPosition pos, int moveDir) {
@@ -1780,9 +1835,8 @@ void Editor::AddChar(char ch) {
 
 void Editor::FilterSelections() {
 	if (!additionalSelectionTyping && (sel.Count() > 1)) {
-		SelectionRange rangeOnly = sel.RangeMain();
-		InvalidateSelection(rangeOnly, true);
-		sel.SetSelection(rangeOnly);
+		InvalidateWholeSelection();
+		sel.DropAdditionalRanges();
 	}
 }
 
@@ -2899,8 +2953,8 @@ void Editor::CancelModes() {
 
 void Editor::NewLine() {
 	// Remove non-main ranges
-	InvalidateSelection(sel.RangeMain(), true);
-	sel.SetSelection(sel.RangeMain());
+	InvalidateWholeSelection();
+	sel.DropAdditionalRanges();
 	sel.RangeMain().ClearVirtualSpace();
 
 	// Clear main range and insert line end
@@ -3025,7 +3079,7 @@ int Editor::StartEndDisplayLine(int pos, bool start) {
 int Editor::KeyCommand(unsigned int iMessage) {
 	switch (iMessage) {
 	case SCI_LINEDOWN:
-		CursorUpOrDown(1);
+		CursorUpOrDown(1, Selection::noSel);
 		break;
 	case SCI_LINEDOWNEXTEND:
 		CursorUpOrDown(1, Selection::selStream);
@@ -3034,7 +3088,7 @@ int Editor::KeyCommand(unsigned int iMessage) {
 		CursorUpOrDown(1, Selection::selRectangle);
 		break;
 	case SCI_PARADOWN:
-		ParaUpOrDown(1);
+		ParaUpOrDown(1, Selection::noSel);
 		break;
 	case SCI_PARADOWNEXTEND:
 		ParaUpOrDown(1, Selection::selStream);
@@ -3044,7 +3098,7 @@ int Editor::KeyCommand(unsigned int iMessage) {
 		MoveCaretInsideView(false);
 		break;
 	case SCI_LINEUP:
-		CursorUpOrDown(-1);
+		CursorUpOrDown(-1, Selection::noSel);
 		break;
 	case SCI_LINEUPEXTEND:
 		CursorUpOrDown(-1, Selection::selStream);
@@ -3053,7 +3107,7 @@ int Editor::KeyCommand(unsigned int iMessage) {
 		CursorUpOrDown(-1, Selection::selRectangle);
 		break;
 	case SCI_PARAUP:
-		ParaUpOrDown(-1);
+		ParaUpOrDown(-1, Selection::noSel);
 		break;
 	case SCI_PARAUPEXTEND:
 		ParaUpOrDown(-1, Selection::selStream);
@@ -3285,6 +3339,11 @@ int Editor::KeyCommand(unsigned int iMessage) {
 	case SCI_CANCEL:            	// Cancel any modes - handled in subclass
 		// Also unselect text
 		CancelModes();
+		if (sel.Count() > 1) {
+			// Drop additional selections
+			InvalidateWholeSelection();
+			sel.DropAdditionalRanges();
+		}
 		break;
 	case SCI_DELETEBACK:
 		DelCharBack(true);
@@ -3377,7 +3436,7 @@ int Editor::KeyCommand(unsigned int iMessage) {
 		break;
 	case SCI_DELWORDRIGHT: {
 			UndoGroup ug(pdoc);
-			InvalidateSelection(sel.RangeMain(), true);
+			InvalidateWholeSelection();
 			sel.RangeMain().caret = SelectionPosition(
 				InsertSpace(sel.RangeMain().caret.Position(), sel.RangeMain().caret.VirtualSpace()));
 			sel.RangeMain().anchor = sel.RangeMain().caret;
@@ -3387,7 +3446,7 @@ int Editor::KeyCommand(unsigned int iMessage) {
 		break;
 	case SCI_DELWORDRIGHTEND: {
 			UndoGroup ug(pdoc);
-			InvalidateSelection(sel.RangeMain(), true);
+			InvalidateWholeSelection();
 			sel.RangeMain().caret = SelectionPosition(
 				InsertSpace(sel.RangeMain().caret.Position(), sel.RangeMain().caret.VirtualSpace()));
 			int endWord = pdoc->NextWordEnd(sel.MainCaret(), 1);
@@ -3643,10 +3702,6 @@ long Editor::FindText(
 			static_cast<int>(ft->chrg.cpMin),
 			static_cast<int>(ft->chrg.cpMax),
 			ft->lpstrText,
-			(wParam & SCFIND_MATCHCASE) != 0,
-			(wParam & SCFIND_WHOLEWORD) != 0,
-			(wParam & SCFIND_WORDSTART) != 0,
-			(wParam & SCFIND_REGEXP) != 0,
 			static_cast<int>(wParam),
 			&lengthFound);
 		if (pos != -1) {
@@ -3694,18 +3749,10 @@ long Editor::SearchText(
 	try {
 		if (iMessage == SCI_SEARCHNEXT) {
 			pos = pdoc->FindText(searchAnchor, pdoc->Length(), txt,
-					(wParam & SCFIND_MATCHCASE) != 0,
-					(wParam & SCFIND_WHOLEWORD) != 0,
-					(wParam & SCFIND_WORDSTART) != 0,
-					(wParam & SCFIND_REGEXP) != 0,
 					static_cast<int>(wParam),
 					&lengthFound);
 		} else {
 			pos = pdoc->FindText(searchAnchor, 0, txt,
-					(wParam & SCFIND_MATCHCASE) != 0,
-					(wParam & SCFIND_WHOLEWORD) != 0,
-					(wParam & SCFIND_WORDSTART) != 0,
-					(wParam & SCFIND_REGEXP) != 0,
 					static_cast<int>(wParam),
 					&lengthFound);
 		}
@@ -3748,10 +3795,6 @@ long Editor::SearchInTarget(const char *text, int length) {
 		pdoc->SetCaseFolder(CaseFolderForEncoding());
 	try {
 		long pos = pdoc->FindText(targetStart, targetEnd, text,
-				(searchFlags & SCFIND_MATCHCASE) != 0,
-				(searchFlags & SCFIND_WHOLEWORD) != 0,
-				(searchFlags & SCFIND_WORDSTART) != 0,
-				(searchFlags & SCFIND_REGEXP) != 0,
 				searchFlags,
 				&lengthFound);
 		if (pos != -1) {
@@ -4568,7 +4611,7 @@ void Editor::ButtonUp(Point pt, unsigned int curTime, bool ctrl) {
 				if (sel.Count() > 1) {
 					sel.RangeMain() =
 						SelectionRange(newPos, sel.Range(sel.Count() - 1).anchor);
-					InvalidateSelection(sel.RangeMain(), true);
+					InvalidateWholeSelection();
 				} else {
 					SetSelection(newPos, sel.RangeMain().anchor);
 				}
@@ -5548,6 +5591,11 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 		targetEnd = static_cast<int>(lParam);
 		break;
 
+	case SCI_TARGETWHOLEDOCUMENT:
+		targetStart = 0;
+		targetEnd = pdoc->Length();
+		break;
+
 	case SCI_TARGETFROMSELECTION:
 		if (sel.MainCaret() < sel.MainAnchor()) {
 			targetStart = sel.MainCaret();
@@ -6128,6 +6176,9 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 
 	case SCI_WORDENDPOSITION:
 		return pdoc->ExtendWordSelect(static_cast<int>(wParam), 1, lParam != 0);
+
+	case SCI_ISRANGEWORD:
+		return pdoc->IsWordAt(static_cast<int>(wParam), lParam);
 
 	case SCI_SETWRAPMODE:
 		if (vs.SetWrapState(static_cast<int>(wParam))) {
@@ -7152,7 +7203,7 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 				sel.SetMoveExtends(!sel.MoveExtends() || (sel.selType != Selection::selStream));
 				sel.selType = Selection::selStream;
 			}
-			InvalidateSelection(sel.RangeMain(), true);
+			InvalidateWholeSelection();
 			break;
 		}
 	case SCI_GETSELECTIONMODE:
@@ -7644,12 +7695,20 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 
 	case SCI_ROTATESELECTION:
 		sel.RotateMain();
-		InvalidateSelection(sel.RangeMain(), true);
+		InvalidateWholeSelection();
 		break;
 
 	case SCI_SWAPMAINANCHORCARET:
 		InvalidateSelection(sel.RangeMain());
 		sel.RangeMain() = SelectionRange(sel.RangeMain().anchor, sel.RangeMain().caret);
+		break;
+
+	case SCI_MULTIPLESELECTADDNEXT:
+		MultipleSelectAdd(addOne);
+		break;
+
+	case SCI_MULTIPLESELECTADDEACH:
+		MultipleSelectAdd(addEach);
 		break;
 
 	case SCI_CHANGELEXERSTATE:

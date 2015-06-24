@@ -270,9 +270,17 @@ void SurfaceImpl::InitPixMap(int width, int height, Surface* surface_, WindowID 
     CGContextFillRect( gc, CGRectMake( 0, 0, width, height ) );
   }
 
-  SurfaceImpl *psurfOther = static_cast<SurfaceImpl *>(surface_);
-  unicodeMode = psurfOther->unicodeMode;
-  codePage = psurfOther->codePage;
+  if (surface_)
+  {
+    SurfaceImpl *psurfOther = static_cast<SurfaceImpl *>(surface_);
+    unicodeMode = psurfOther->unicodeMode;
+    codePage = psurfOther->codePage;
+  }
+  else
+  {
+    unicodeMode = true;
+    codePage = SC_CP_UTF8;
+  }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1532,9 +1540,21 @@ private:
   void* doubleClickActionData;
 
 public:
-  ListBoxImpl() : lineHeight(10), unicodeMode(false),
-    desiredVisibleRows(5), maxItemWidth(0), aveCharWidth(8), maxIconWidth(0),
-    doubleClickAction(NULL), doubleClickActionData(NULL)
+  ListBoxImpl() :
+    lineHeight(10),
+    unicodeMode(false),
+    desiredVisibleRows(5),
+    maxItemWidth(0),
+    aveCharWidth(8),
+    maxIconWidth(0),
+    maxWidth(2000),
+    table(nil),
+    scroller(nil),
+    colIcon(nil),
+    colText(nil),
+    ds(nil),
+    doubleClickAction(nullptr),
+    doubleClickActionData(nullptr)
   {
   }
   ~ListBoxImpl() {}

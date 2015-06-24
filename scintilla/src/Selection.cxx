@@ -343,6 +343,10 @@ void Selection::DropSelection(size_t r) {
 	}
 }
 
+void Selection::DropAdditionalRanges() {
+	SetSelection(RangeMain());
+}
+
 void Selection::TentativeSelection(SelectionRange range) {
 	if (!tentativeMain) {
 		rangesSaved = ranges;

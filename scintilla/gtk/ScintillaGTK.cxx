@@ -276,7 +276,6 @@ private:
 	gboolean Expose(GtkWidget *widget, GdkEventExpose *ose);
 	static gboolean ExposeMain(GtkWidget *widget, GdkEventExpose *ose);
 #endif
-	static void Draw(GtkWidget *widget, GdkRectangle *area);
 	void ForAll(GtkCallback callback, gpointer callback_data);
 	static void MainForAll(GtkContainer *container, gboolean include_internals, GtkCallback callback, gpointer callback_data);
 
@@ -475,18 +474,19 @@ void ScintillaGTK::RealizeThis(GtkWidget *widget) {
 	attrs.colormap = gtk_widget_get_colormap(widget);
 #endif
 	attrs.event_mask = gtk_widget_get_events(widget) | GDK_EXPOSURE_MASK;
-	GdkCursor *cursor = gdk_cursor_new(GDK_XTERM);
+	GdkDisplay *pdisplay = gtk_widget_get_display(widget);
+	GdkCursor *cursor = gdk_cursor_new_for_display(pdisplay, GDK_XTERM);
 	attrs.cursor = cursor;
 #if GTK_CHECK_VERSION(3,0,0)
 	gtk_widget_set_window(widget, gdk_window_new(gtk_widget_get_parent_window(widget), &attrs,
 		GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_CURSOR));
+#if GTK_CHECK_VERSION(3,8,0)
+	gtk_widget_register_window(widget, gtk_widget_get_window(widget));
+#else
 	gdk_window_set_user_data(gtk_widget_get_window(widget), widget);
-	GtkStyleContext *styleContext = gtk_widget_get_style_context(widget);
-	if (styleContext) {
-		GdkRGBA colourBackWidget;
-		gtk_style_context_get_background_color(styleContext, GTK_STATE_FLAG_NORMAL, &colourBackWidget);
-		gdk_window_set_background_rgba(gtk_widget_get_window(widget), &colourBackWidget);
-	}
+#endif
+	gtk_style_context_set_background(gtk_widget_get_style_context(widget),
+		gtk_widget_get_window(widget));
 	gdk_window_show(gtk_widget_get_window(widget));
 	UnRefCursor(cursor);
 #else
@@ -516,15 +516,15 @@ void ScintillaGTK::RealizeThis(GtkWidget *widget) {
 	gtk_widget_realize(PWidget(scrollbarv));
 	gtk_widget_realize(PWidget(scrollbarh));
 
-	cursor = gdk_cursor_new(GDK_XTERM);
+	cursor = gdk_cursor_new_for_display(pdisplay, GDK_XTERM);
 	gdk_window_set_cursor(PWindow(wText), cursor);
 	UnRefCursor(cursor);
 
-	cursor = gdk_cursor_new(GDK_LEFT_PTR);
+	cursor = gdk_cursor_new_for_display(pdisplay, GDK_LEFT_PTR);
 	gdk_window_set_cursor(PWindow(scrollbarv), cursor);
 	UnRefCursor(cursor);
 
-	cursor = gdk_cursor_new(GDK_LEFT_PTR);
+	cursor = gdk_cursor_new_for_display(pdisplay, GDK_LEFT_PTR);
 	gdk_window_set_cursor(PWindow(scrollbarh), cursor);
 	UnRefCursor(cursor);
 
@@ -2724,6 +2724,24 @@ gboolean ScintillaGTK::DrawText(GtkWidget *, cairo_t *cr, ScintillaGTK *sciThis)
 
 gboolean ScintillaGTK::DrawThis(cairo_t *cr) {
 	try {
+#ifdef GTK_STYLE_CLASS_SCROLLBARS_JUNCTION /* GTK >= 3.4 */
+		// if both scrollbars are visible, paint the little square on the bottom right corner
+		if (verticalScrollBarVisible && horizontalScrollBarVisible && !Wrapping()) {
+			GtkStyleContext *styleContext = gtk_widget_get_style_context(PWidget(wMain));
+			PRectangle rc = GetClientRectangle();
+
+			gtk_style_context_save(styleContext);
+			gtk_style_context_add_class(styleContext, GTK_STYLE_CLASS_SCROLLBARS_JUNCTION);
+
+			gtk_render_background(styleContext, cr, rc.right, rc.bottom,
+					verticalScrollBarWidth, horizontalScrollBarHeight);
+			gtk_render_frame(styleContext, cr, rc.right, rc.bottom,
+					verticalScrollBarWidth, horizontalScrollBarHeight);
+
+			gtk_style_context_restore(styleContext);
+		}
+#endif
+
 		gtk_container_propagate_draw(
 		    GTK_CONTAINER(PWidget(wMain)), PWidget(scrollbarh), cr);
 		gtk_container_propagate_draw(

@@ -411,7 +411,7 @@ ScintillaWin::~ScintillaWin() {}
 
 void ScintillaWin::Initialise() {
 	// Initialize COM.  If the app has already done this it will have
-	// no effect.  If the app hasnt, we really shouldnt ask them to call
+	// no effect.  If the app hasn't, we really shouldn't ask them to call
 	// it just so this internal feature works.
 	hrOle = ::OleInitialize(NULL);
 

@@ -103,6 +103,14 @@
                     <Item id="42013" name="Join Lines"/>
                     <Item id="42014" name="Move Up Current Line"/>
                     <Item id="42015" name="Move Down Current Line"/>
+                    <Item id="42059" name="Sort Lines Lexicographically Ascending"/>
+                    <Item id="42060" name="Sort Lines Lexicographically Descending"/>
+                    <Item id="42061" name="Sort Lines As Integers Ascending"/>
+                    <Item id="42062" name="Sort Lines As Integers Descending"/>
+                    <Item id="42063" name="Sort Lines As Decimals (Comma) Ascending"/>
+                    <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
+                    <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
+                    <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
                     <Item id="42016" name="UPPERCASE"/>
                     <Item id="42017" name="lowercase"/>
                     <Item id="42018" name="&amp;Start Recording"/>
@@ -143,8 +151,6 @@
                     <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
                     <Item id="42057" name="Insert Blank Line Above Current"/>
                     <Item id="42058" name="Insert Blank Line Below Current"/>
-                    <Item id="42059" name="Sort Lines in Ascending Order"/>
-                    <Item id="42060" name="Sort Lines in Descending Order"/>
                     <Item id="43001" name="&amp;Find..."/>
                     <Item id="43002" name="Find &amp;Next"/>
                     <Item id="43003" name="Replace..."/>
@@ -271,10 +277,9 @@
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ Project Page"/>
                     <Item id="47003" name="Online Documentation"/>
-                    <Item id="47004" name="Forum"/>
+                    <Item id="47011" name="Live Support"/>
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Update Notepad++"/>
-                    <Item id="47008" name="Help Contents"/>
                     <Item id="47009" name="Set Updater Proxy..."/>
                     <Item id="48005" name="Import Plugin(s) ..."/>
                     <Item id="48006" name="Import Theme(s) ..."/>

@@ -37,7 +37,7 @@
 
 bool DocTabView::_hideTabBarStatus = false;
 
-void DocTabView::addBuffer(BufferID buffer)
+void DocTabView::addBuffer(BufferID buffer, int tabIndex)
 {
 	if (buffer == BUFFER_INVALID)	//valid only
 		return;
@@ -53,7 +53,8 @@ void DocTabView::addBuffer(BufferID buffer)
 	tie.iImage = index; 
 	tie.pszText = (TCHAR *)buf->getFileName();
 	tie.lParam = (LPARAM)buffer;
-	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
+	::SendMessage(_hSelf, TCM_INSERTITEM, tabIndex == -1 ? _nbItem : tabIndex, reinterpret_cast<LPARAM>(&tie));
+	_nbItem++;
 	bufferUpdated(buf, BufferChangeMask);
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);

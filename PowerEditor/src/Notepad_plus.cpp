@@ -3178,7 +3178,7 @@ bool Notepad_plus::canHideView(int whichOne)
 	return canHide;
 }
 
-void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
+void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose, int tabIndex)
 {
 	DocTabView * tabToOpen = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
 	ScintillaEditView * viewToOpen = (whichOne == MAIN_VIEW)?&_mainEditView:&_subEditView;
@@ -3213,7 +3213,7 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 	}
 	else
 	{
-		tabToOpen->addBuffer(id);
+		tabToOpen->addBuffer(id, tabIndex);
 	}
 }
 

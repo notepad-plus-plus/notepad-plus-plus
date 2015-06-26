@@ -101,7 +101,7 @@ void Notepad_plus::command(int id)
 				if (id == IDM_FILESWITCHER_FILESCLOSEOTHERS)
 				{
 					// Get current buffer and its view
-					_pFileSwitcherPanel->activateItem(int(_pEditView->getCurrentBufferID()), currentView());
+					_pFileSwitcherPanel->activateItem(_pEditView->getCurrentBufferID(), currentView());
 				}
 			}
 			break;
@@ -2296,10 +2296,16 @@ void Notepad_plus::command(int id)
 			::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
 			break;
 		}
-
+		/*
 		case IDM_FORUM:
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/forum/?group_id=95717"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT(""), NULL, NULL, SW_SHOWNORMAL);
+			break;
+		}
+		*/
+		case IDM_ONLINESUPPORT:
+		{
+			::ShellExecute(NULL, TEXT("open"), TEXT("https://gitter.im/notepad-plus-plus/notepad-plus-plus"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 

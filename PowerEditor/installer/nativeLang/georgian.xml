@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Georgian localization for Notepad++ 6.2.3
 	Translated By UGLT.
@@ -22,7 +22,7 @@
                     <Item idName="Plugins" name="დანამატები"/>
                     <Item idName="Window" name="ფანჯარა"/>
                 </Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard"  name="ბუფერში კოპირება"/>
@@ -64,7 +64,7 @@
                     <Item subMenuId="encoding-vietnamese" name="ვიეტნამური"/>
                     <Item subMenuId="settings-import"  name="იმპორტი"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;ახალი"/>
@@ -84,7 +84,7 @@
                     <Item id="41015" name="ასლის შენახვა როგორც..."/>
                     <Item id="41016" name="დისკიდან წაშლა"/>
                     <Item id="41017" name="სახელის შეცვლა..."/>
-                    
+
                     <Item id="42001" name="ა&amp;მოჭრა"/>
                     <Item id="42002" name="&amp;კოპირება"/>
                     <Item id="42003" name="&amp;დაბრუნება"/>
@@ -124,7 +124,7 @@
                     <Item id="42033" name="ატრიბუტის 'მხოლოდ წაკითხვა' მოცილება"/>
                     <Item id="42035" name="კომენტარის ბლოკი ხაზზე"/>
                     <Item id="42036" name="ხაზზე კომენტარის ბლოკის მოცილება"/>
-                    
+
                     <Item id="43001" name="&amp;ძებნა..."/>
                     <Item id="43002" name="შემდეგი &amp;შედეგი"/>
                     <Item id="43003" name="ჩანაცვლება..."/>
@@ -267,7 +267,7 @@
                     <Item CMID="16" name="განახლება"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="ძებნა" titleReplace="ჩანაცვლება" titleFindInFiles="ფაილში ძებნა" titleMark="დანიშვნა">
                 <Item id="1"    name="შემდეგი შედეგი"/>
@@ -325,11 +325,11 @@
                 <Item id="2"    name="გაუქმება"/>
                 <Item id="1904" name="შენახვა..."/>
             </Run>
-            
+
             <StyleConfig title="სტილის კონფიგურაცია">
                 <Item id="2"    name="გაუქმება"/>
                 <Item id="2301" name="შენახვა და დახურვა"/>
-                <Item id="2303" name="გამჭვირვალობა"/>       
+                <Item id="2303" name="გამჭვირვალობა"/>
                 <Item id="2306" name="გაფორმების მონიშვნა: "/>
                 <SubDialog>
                     <Item id="2204" name="მუქი"/>
@@ -354,9 +354,9 @@
                     <Item id="2231" name="ძირითადი დახრილი შრიფტის გამოყენება"/>
                     <Item id="2232" name="ძირითადი ხაზგასმული შრიფტის გამოყენება"/>
                 </SubDialog>
-                
+
             </StyleConfig>
-            
+
             <UserDefine title="მომხმარებლის მიერ განსაზღვრული">
                 <Item id="20002" name="სახელის შეცვლა"/>
                 <Item id="20003" name="ახალი..."/>
@@ -445,20 +445,20 @@
                     <Item id="6103" name="პატარა ხატულები"/>
                     <Item id="6104" name="დიდი ხატულები"/>
                     <Item id="6105" name="სტანდარტული ხატულები"/>
-                                        
+
                     <Item id="6106" name="ჩანართების პანელი"/>
                     <Item id="6107" name="შემცირება"/>
                     <Item id="6108" name="ჩაკეტვა (გადაადგილების შეზღუდვა)"/>
                     <Item id="6109" name="უმოქმედო ჩანართების ჩაბნელება"/>
                     <Item id="6110" name="აქტიურ ჩანართზე ფერადი ზოლის ჩვენება"/>
-                    
+
                     <Item id="6111" name="სტატუსის პანელის ჩვენება"/>
                     <Item id="6112" name="ჩანართებზე დახურვის ღილაკის ჩვენება"/>
                     <Item id="6113" name="დაწკაპებისას ჩანართის დახურვა"/>
                     <Item id="6118" name="დამალვა"/>
                     <Item id="6119" name="მრავალ-ხაზიანი"/>
                     <Item id="6120" name="შვეული"/>
-                    
+
                     <Item id="6121" name="მენიუს პანელი"/>
                     <Item id="6122" name="დამალვა (გამოსაჩენად გამოიყენეთ ღილაკი Alt ან F10)"/>
                     <Item id="6123" name="ენა"/>
@@ -477,17 +477,17 @@
                     <Item id="6204" name="წრე"/>
                     <Item id="6205" name="ოთხკუთხედი"/>
                     <Item id="6226" name="გათიშვა"/>
-                    
+
                     <Item id="6227" name="ხაზის გადატანა"/>
                     <Item id="6228" name="სტანდარტული"/>
                     <Item id="6229" name="ჩამწკრივებული"/>
                     <Item id="6230" name="აბზაცი"/>
-                    
+
                     <Item id="6206" name="ხაზების დანომრვა"/>
                     <Item id="6207" name="სანიშნების გამოჩენა"/>
                     <Item id="6208" name="შვეული კიდეს ჩვენება"/>
                     <Item id="6209" name="სვეტები:"/>
-                    
+
                     <Item id="6211" name="შვეული კიდეს პარამეტრები"/>
                     <Item id="6212" name="ხაზი"/>
                     <Item id="6213" name="ფონი"/>
@@ -574,12 +574,12 @@
                     <Item id="6327" name="ჩართვა"/>
                     <Item id="6328" name="ტეგის ატრიბუტების გამოკვეთა"/>
                     <Item id="6330" name="ველების გამოკვეთა: კომენტარი/php/asp"/>
-                    
+
                     <Item id="6331" name="სათაურის ზოლში მხოლოდ ფაილის სახელის ჩვენება"/>
                     <Item id="6114" name="ჩართვა"/>
                     <Item id="6115" name="ავტ.აბზაცი"/>
                     <Item id="6117" name="MRU-ს ჩართვა"/>
-                    
+
                 </MISC>
                 <Backup title="დარეზერვება/ავტ.დასრულება">
                     <Item id="6801" name="დარეზერვება"/>

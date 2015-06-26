@@ -157,11 +157,11 @@ void VerticalFileSwitcherListView::reload()
 	initList();
 }
 
-int VerticalFileSwitcherListView::getBufferInfoFromIndex(int index, int & view) const
+BufferID VerticalFileSwitcherListView::getBufferInfoFromIndex(int index, int & view) const
 {
 	int nbItem = ListView_GetItemCount(_hSelf);
 	if (index < 0 || index >= nbItem)
-		return -1;
+		return BUFFER_INVALID;
 
 	LVITEM item;
 	item.mask = LVIF_PARAM;
@@ -170,10 +170,10 @@ int VerticalFileSwitcherListView::getBufferInfoFromIndex(int index, int & view) 
 	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 
 	view = tlfs->_iView;
-	return int(tlfs->_bufID);
+	return static_cast<BufferID>(tlfs->_bufID);
 }
 
-int VerticalFileSwitcherListView::newItem(int bufferID, int iView)
+int VerticalFileSwitcherListView::newItem(BufferID bufferID, int iView)
 {
 	int i = find(bufferID, iView);
 	if (i == -1)
@@ -183,7 +183,7 @@ int VerticalFileSwitcherListView::newItem(int bufferID, int iView)
 	return i;
 }
 
-void VerticalFileSwitcherListView::setItemIconStatus(int bufferID)
+void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 {
 	Buffer *buf = (Buffer *)bufferID;
 	
@@ -207,7 +207,7 @@ void VerticalFileSwitcherListView::setItemIconStatus(int bufferID)
 		item.iItem = i;
 		ListView_GetItem(_hSelf, &item);
 		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)(item.lParam);
-		if (int(tlfs->_bufID) == bufferID)
+		if (tlfs->_bufID == bufferID)
 		{
 			item.mask = LVIF_TEXT | LVIF_IMAGE;
 			ListView_SetItem(_hSelf, &item);
@@ -236,7 +236,7 @@ generic_string VerticalFileSwitcherListView::getFullFilePath(size_t i) const
 	return tlfs->_fn;
 }
 
-int VerticalFileSwitcherListView::closeItem(int bufferID, int iView)
+int VerticalFileSwitcherListView::closeItem(BufferID bufferID, int iView)
 {
 	int i = find(bufferID, iView);
 	if (i != -1)
@@ -244,7 +244,7 @@ int VerticalFileSwitcherListView::closeItem(int bufferID, int iView)
 	return i;
 }
 
-void VerticalFileSwitcherListView::activateItem(int bufferID, int iView)
+void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 {
 	// Clean all selection
 	int nbItem = ListView_GetItemCount(_hSelf);
@@ -255,7 +255,7 @@ void VerticalFileSwitcherListView::activateItem(int bufferID, int iView)
 	ListView_SetItemState(_hSelf, i, LVIS_FOCUSED|LVIS_SELECTED, LVIS_FOCUSED|LVIS_SELECTED);
 }
 
-int VerticalFileSwitcherListView::add(int bufferID, int iView)
+int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 {
 	int index = ListView_GetItemCount(_hSelf);
 	Buffer *buf = (Buffer *)bufferID;
@@ -311,7 +311,7 @@ void VerticalFileSwitcherListView::removeAll()
 	}
 }
 
-int VerticalFileSwitcherListView::find(int bufferID, int iView) const
+int VerticalFileSwitcherListView::find(BufferID bufferID, int iView) const
 {
 	LVITEM item;
 	bool found = false;
@@ -323,7 +323,7 @@ int VerticalFileSwitcherListView::find(int bufferID, int iView) const
 		item.iItem = i;
 		ListView_GetItem(_hSelf, &item);
 		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
-		if (int(tlfs->_bufID) == bufferID && tlfs->_iView == iView)
+		if (tlfs->_bufID == bufferID && tlfs->_iView == iView)
 		{
 			found =  true;
 			break;
@@ -374,7 +374,7 @@ std::vector<SwitcherFileInfo> VerticalFileSwitcherListView::getSelectedFiles(boo
 			ListView_GetItem(_hSelf, &item);
 
 			TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
-			files.push_back(SwitcherFileInfo(int(tlfs->_bufID), tlfs->_iView));
+			files.push_back(SwitcherFileInfo(static_cast<BufferID>(tlfs->_bufID), tlfs->_iView));
 		}
 	}
 

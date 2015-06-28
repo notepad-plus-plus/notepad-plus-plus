@@ -122,7 +122,7 @@ class NumericSorter : public ISorter
 public:
 	NumericSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn)
 	{
-		_usLocale = ::_wcreate_locale(LC_NUMERIC, TEXT("en-US"));
+		_usLocale = ::_create_locale(LC_NUMERIC, "en-US");
 	};
 
 	~NumericSorter()

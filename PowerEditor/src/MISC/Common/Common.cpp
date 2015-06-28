@@ -778,7 +778,11 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
 	const wchar_t* ptr = str.c_str();
 	errno = 0;
 	wchar_t* eptr;
+#ifdef __MINGW32__
+	double ans = ::wcstod(ptr, &eptr);
+#else
 	double ans = ::_wcstod_l(ptr, &eptr, loc);
+#endif
 	if (ptr == eptr)
 		throw new std::invalid_argument("invalid stod argument");
 	if (errno == ERANGE)

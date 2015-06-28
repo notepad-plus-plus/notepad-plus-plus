@@ -27,6 +27,7 @@
 
 
 
+#include <wtypesbase.h>
 #include <shlobj.h>
 #include <uxtheme.h>
 

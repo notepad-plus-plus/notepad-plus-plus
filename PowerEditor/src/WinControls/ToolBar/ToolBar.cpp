@@ -27,6 +27,7 @@
 
 
 
+#include <stdexcept>
 #include "ToolBar.h"
 #include "shortcut.h"
 #include "Parameters.h"

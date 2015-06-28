@@ -27,6 +27,7 @@
 
 
 
+#include <stdexcept>
 #include "TabBar.h"
 #include "Parameters.h"
 

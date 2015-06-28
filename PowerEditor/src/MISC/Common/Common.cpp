@@ -27,6 +27,7 @@
 
 
 #include <algorithm>
+#include <stdexcept>
 #include <shlwapi.h>
 #include <shlobj.h>
 #include <uxtheme.h>

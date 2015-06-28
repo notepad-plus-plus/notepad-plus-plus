@@ -27,6 +27,7 @@
 
 
 #include <iostream>
+#include <stdexcept>
 #include "ColourPicker.h"
 #include "ColourPopup.h"
 

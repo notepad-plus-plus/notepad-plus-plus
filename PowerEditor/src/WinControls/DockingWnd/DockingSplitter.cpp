@@ -27,6 +27,7 @@
 
 
 
+#include <stdexcept>
 #include "DockingSplitter.h"
 #include "Notepad_plus_msgs.h"
 #include "Parameters.h"

@@ -27,6 +27,7 @@
 
 
 
+#include <stdexcept>
 #include "ListView.h"
 #include "Parameters.h"
 #include "localization.h"

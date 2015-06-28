@@ -27,6 +27,7 @@
 
 
 
+#include <stdexcept>
 #include "DockingManager.h"
 #include "DockingSplitter.h"
 #include "DockingCont.h"

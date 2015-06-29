@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term. To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -18,7 +18,7 @@
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
@@ -38,28 +38,30 @@ const int nbExtMax = 10;
 const int extNameMax = 18;
 
 TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] = {
-	{TEXT("Notepad"),        			TEXT(".txt"), TEXT(".log"), TEXT(".ini")},
-	{TEXT("c, c++, objc"),   	TEXT(".h"), TEXT(".hpp"), TEXT(".hxx"), TEXT(".c"), TEXT(".cpp"), TEXT(".cxx"), TEXT(".cc"), TEXT(".m")},
-	{TEXT("java, c#, pascal"), 		TEXT(".java"), TEXT(".cs"), TEXT(".pas"), TEXT(".inc")},
-	{TEXT("web(html) script"),   TEXT(".html"), TEXT(".htm"), TEXT(".php"), TEXT(".phtml"), TEXT(".js"), TEXT(".jsp"), TEXT(".asp"), TEXT(".css"), TEXT(".xml")},
-	{TEXT("public script"),		TEXT(".sh"), TEXT(".bsh"), TEXT(".nsi"), TEXT(".nsh"), TEXT(".lua"), TEXT(".pl"), TEXT(".pm"), TEXT(".py")},
+	{TEXT("Notepad"),			TEXT(".txt"), TEXT(".log"), TEXT(".ini"), TEXT(".inf")},
+	{TEXT("c, c++, objc"),		TEXT(".h"), TEXT(".hpp"), TEXT(".hxx"), TEXT(".c"), TEXT(".cpp"), TEXT(".cxx"), TEXT(".cc"), TEXT(".m")},
+	{TEXT("java, c#, pascal"),	TEXT(".java"), TEXT(".cs"), TEXT(".pas"), TEXT(".inc")},
+	{TEXT("web(html) script"),	TEXT(".html"), TEXT(".htm"), TEXT(".shtml"), TEXT(".shtm"), TEXT(".xhtml"), TEXT(".xht"), TEXT(".xml"),
+								TEXT(".php"), TEXT(".php3"), TEXT(".phpt"), TEXT(".phtml"), TEXT(".asp"), TEXT(".hta"), TEXT(".css"),
+								TEXT(".js"), TEXT(".json"), TEXT(".jsm"), TEXT(".jsp")},
+	{TEXT("public script"),		TEXT(".sh"), TEXT(".bsh"), TEXT(".bash"), TEXT(".nsi"), TEXT(".nsh"), TEXT(".lua"), TEXT(".pl"), TEXT(".pm"), TEXT(".py")},
 	{TEXT("property script"),	TEXT(".rc"), TEXT(".as"), TEXT(".mx"), TEXT(".vb"), TEXT(".vbs")},
-	{TEXT("fortran, TeX, SQL"),			TEXT(".f"),  TEXT(".for"), TEXT(".f90"),  TEXT(".f95"), TEXT(".f2k"), TEXT(".tex"), TEXT(".sql")},
-	{TEXT("misc"),								TEXT(".nfo"), TEXT(".mak")},
+	{TEXT("fortran, TeX, SQL"),	TEXT(".f"), TEXT(".for"), TEXT(".f90"), TEXT(".f95"), TEXT(".f2k"), TEXT(".tex"), TEXT(".sql")},
+	{TEXT("misc"),				TEXT(".nfo"), TEXT(".mak")},
 	{TEXT("customize")}
 };
 
-void RegExtDlg::doDialog(bool isRTL) 
+void RegExtDlg::doDialog(bool isRTL)
 {
 	if (isRTL)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;
 		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_REGEXT_BOX, &pMyDlgTemplate);
-		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  dlgProc, (LPARAM)this);
+		::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, (LPARAM)this);
 		::GlobalFree(hMyDlgTemplate);
 	}
 	else
-		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_REGEXT_BOX), _hParent,  dlgProc, (LPARAM)this);
+		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_REGEXT_BOX), _hParent, dlgProc, (LPARAM)this);
 };
 
 INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
@@ -86,7 +88,7 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND :
 		{
 			switch (wParam)
 			{
@@ -106,7 +108,7 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					{
 						::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, WM_GETTEXT, extNameMax, (LPARAM)ext2Add);
 						int i = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_FINDSTRINGEXACT, 0, (LPARAM)ext2Add);
-						if (i != LB_ERR) 
+						if (i != LB_ERR)
 							return TRUE;
 						addExt(ext2Add);
 						::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, WM_SETTEXT, 0, (LPARAM)TEXT(""));
@@ -148,7 +150,7 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			}
 
 			if (HIWORD(wParam) == EN_CHANGE)
-            {
+			{
 				TCHAR text[extNameMax] = TEXT("");
 				::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, WM_GETTEXT, extNameMax, (LPARAM)text);
 				if ((lstrlen(text) == 1) && (text[0] != '.'))
@@ -164,7 +166,7 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			}
 
 			if (HIWORD(wParam) == LBN_SELCHANGE)
-            {
+			{
 				int i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETCURSEL, 0, 0);
 				if (LOWORD(wParam) == IDC_REGEXT_LANG_LIST)
 				{
@@ -261,22 +263,22 @@ void RegExtDlg::getDefSupportedExts()
 
 void RegExtDlg::addExt(TCHAR *ext)
 {
-    HKEY  hKey;
-    DWORD dwDisp;
-    long  nRet;
-    
+	HKEY hKey;
+	DWORD dwDisp;
+	long nRet;
+
 	nRet = ::RegCreateKeyEx(HKEY_CLASSES_ROOT,
-                ext,
-                0,
-                NULL,
-                0,
-                KEY_ALL_ACCESS,
-                NULL,
-                &hKey,
-                &dwDisp);
-    
-    if (nRet == ERROR_SUCCESS)
-    {
+				ext,
+				0,
+				NULL,
+				0,
+				KEY_ALL_ACCESS,
+				NULL,
+				&hKey,
+				&dwDisp);
+
+	if (nRet == ERROR_SUCCESS)
+	{
 		TCHAR valData[MAX_PATH];
 		int valDataLen = MAX_PATH * sizeof(TCHAR);		
 
@@ -289,7 +291,7 @@ void RegExtDlg::addExt(TCHAR *ext)
 		::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppName, (lstrlen(nppName)+1)*sizeof(TCHAR));
 
 		::RegCloseKey(hKey);
-    }
+	}
 }
 
 bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
@@ -327,9 +329,9 @@ bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
 
 void RegExtDlg::writeNppPath()
 {
-	HKEY  hKey, hRootKey;
+	HKEY hKey, hRootKey;
 	DWORD dwDisp;
-	long  nRet;
+	long nRet;
 	generic_string regStr(nppName);
 	regStr += TEXT("\\shell\\open\\command");
 
@@ -393,4 +395,4 @@ void RegExtDlg::writeNppPath()
 		}
 		RegCloseKey(hKey);
 	}
-} 
+}

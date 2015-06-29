@@ -103,6 +103,14 @@
 					<Item id="42013" name="Satırları Birleştir" />
 					<Item id="42014" name="Geçerli Satırı Yukarı Taşı" />
 					<Item id="42015" name="Geçerli Satırı Aşağı Taşı" />
+					<Item id="42059" name="Satırları Sözlüksel Sırala Artan"/>
+					<Item id="42060" name="Satırları Sözlüksel Sırala Azalan"/>
+					<Item id="42061" name="Satırları Tam Sayı Olarak Sırala Artan"/>
+					<Item id="42062" name="Satırları Tam Sayı Olarak Sırala Azalan"/>
+					<Item id="42063" name="Satırları Ondalıklı Olarak Sırala (Virgül) Artan"/>
+					<Item id="42064" name="Satırları Ondalıklı Olarak Sırala (Virgül) Azalan"/>
+					<Item id="42065" name="Satırları Ondalıklı Olarak Sırala (Nokta) Artan"/>
+					<Item id="42066" name="Satırları Ondalıklı Olarak Sırala (Nokta) Azalan"/>
 					<Item id="42016" name="Büyük Harflere Çevir" />
 					<Item id="42017" name="Küçük Harflere Çevir" />
 					<Item id="42018" name="Kaydı &amp;Başlat" />
@@ -143,8 +151,6 @@
 					<Item id="42056" name="Boş Satırları Kaldır (Boş Karakterler İçeren)" />
 					<Item id="42057" name="Geçerli Satırın Üstüne Boş Satır Ekle" />
 					<Item id="42058" name="Geçerli Satırın Altına Boş Satır Ekle" />
-					<Item id="42059" name="Satırları Artan Düzende Sırala" />
-					<Item id="42060" name="Satırları Azalan Düzende Sırala" />
 					<Item id="43001" name="&amp;Bul…" />
 					<Item id="43002" name="&amp;Sonrakini Bul" />
 					<Item id="43003" name="&amp;Değiştir…" />
@@ -271,10 +277,9 @@
 					<Item id="47001" name="Notepad++ &amp;Ana Sayfası" />
 					<Item id="47002" name="Notepad++ Proje Sayfası" />
 					<Item id="47003" name="Çevrimiçi Belgelendirme" />
-					<Item id="47004" name="Notepad++ &amp;Forumları" />
+					<Item id="47011" name="Canlı Destek"/>
 					<Item id="47005" name="Eklenti Merkezi" />
 					<Item id="47006" name="&amp;Güncellemeleri Denetle" />
-					<Item id="47008" name="&amp;Yardım İçerikleri" />
 					<Item id="47009" name="Güncelleyici Proxy Ayarları" />
 					<Item id="48005" name="Eklenti Al" />
 					<Item id="48006" name="Tema Al" />

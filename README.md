@@ -2,7 +2,7 @@ What is Notepad++ ?
 ===================
 
 
-[<img src="https://notepad-plus-plus.org/assets/images/communityDiscussion.png">](https://notepad-plus-plus.org/community/)  &nbsp;&nbsp;&nbsp;&nbsp;[![Join the chat at https://gitter.im/notepad-plus-plus/notepad-plus-plus](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/notepad-plus-plus/notepad-plus-plus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[<img src="https://notepad-plus-plus.org/assets/images/communityDiscussionOrange.png">](https://notepad-plus-plus.org/community/)  &nbsp;&nbsp;&nbsp;&nbsp;[![Join the chat at https://gitter.im/notepad-plus-plus/notepad-plus-plus](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/notepad-plus-plus/notepad-plus-plus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Notepad++ is a free (free as in both "free speech" and "free beer") source code
 editor and Notepad replacement that supports several programming languages and

@@ -83,6 +83,7 @@ PowerEditor/visual.net/x64/Unicode Release/
 scintilla/bin/SciLexer.*
 scintilla/bin/Scintilla.*
 scintilla/win32/*.lib
+scintilla/win32/Lexers.a
 scintilla/win32/ScintRes.res
 scintilla/boostregex/bin
 scintilla/boostregex/boostpath.mak

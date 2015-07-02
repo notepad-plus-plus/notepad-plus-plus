@@ -1320,6 +1320,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (wParam == TRUE) // if npp is about to be activated
 			{
+				if (::IsWindow(_hLastFocusedDialog) && Message == WM_ACTIVATEAPP)
+				{
+					::SetFocus(_hLastFocusedDialog);
+					_hLastFocusedDialog = NULL;
+				}
+
 				const NppGUI & nppgui = pNppParam->getNppGUI();
 				if (LOWORD(wParam) && (nppgui._fileAutoDetection != cdDisabled))
 				{
@@ -1327,6 +1333,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					checkModifiedDocument();
 					return FALSE;
 				}
+			}
+			else if (Message == WM_ACTIVATEAPP)
+			{
+				// Is about to be deactivated. Save the dialog which is currently selected so we can activate again later.
+				_hLastFocusedDialog = ::GetFocus();
 			}
 			break;
 		}

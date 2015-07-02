@@ -436,6 +436,8 @@ private:
 	DocumentMap *_pDocMap;
 	FunctionListPanel *_pFuncList;
 
+	HWND _hLastFocusedDialog;
+
 	BOOL notify(SCNotification *notification);
 	void specialCmd(int id);
 	void command(int id);

@@ -41,16 +41,8 @@
 #ifndef URLCTRL_INCLUDED
 #include "URLCtrl.h"
 #endif// URLCTRL_INCLUDED
-#ifdef __GNUC__
-static int min(int a, int b) {
-    return (a<b)?a:b;
-};
-static int max(int a, int b) {
-    return (a>b)?a:b;
-};
-#endif //__GNUC__
 #include "tchar.h"
-#include "scilexer.h"
+#include "SciLexer.h"
 #include <unordered_map>
 
 class ScintillaEditView;
@@ -421,7 +413,7 @@ class StringDlg : public StaticDialog
 {
 public :
     StringDlg() : StaticDialog() {};
-    void init(HINSTANCE hInst, HWND parent, TCHAR *title, TCHAR *staticName, TCHAR *text2Set, int txtLen = 0) {
+    void init(HINSTANCE hInst, HWND parent, const TCHAR *title, const TCHAR *staticName, const TCHAR *text2Set, int txtLen = 0) {
         Window::init(hInst, parent);
         _title = title;
         _static = staticName;

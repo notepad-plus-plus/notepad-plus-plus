@@ -27,6 +27,7 @@
 
 
 
+#include <stdexcept>
 #include "TaskList.h"
 #include "TaskListDlg_rc.h"
 #include "colors.h"
@@ -136,7 +137,7 @@ RECT TaskList::adjustSize()
 	return _rc;
 }
 
-void TaskList::setFont(TCHAR *fontName, size_t fontSize)
+void TaskList::setFont(const TCHAR *fontName, size_t fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);

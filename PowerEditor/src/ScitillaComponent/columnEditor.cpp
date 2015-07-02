@@ -28,7 +28,8 @@
 
 #include <vector>
 #include <algorithm>
-#include <Shlobj.h>
+#include <wtypesbase.h>
+#include <shlobj.h>
 #include <uxtheme.h>
 #include "columnEditor.h"
 #include "ScintillaEditView.h"

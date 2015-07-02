@@ -37,7 +37,7 @@ public:
     URLCtrl():_hfUnderlined(0),_hCursor(0), _msgDest(NULL), _cmdID(0), _oldproc(NULL), \
 		_linkColor(), _visitedColor(), _clicking(false), _URL(TEXT("")){};
 
-    void create(HWND itemHandle, TCHAR * link, COLORREF linkColor = RGB(0,0,255));
+    void create(HWND itemHandle, const TCHAR * link, COLORREF linkColor = RGB(0,0,255));
 	void create(HWND itemHandle, int cmd, HWND msgDest = NULL);
     void destroy();
 private:

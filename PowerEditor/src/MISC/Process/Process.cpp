@@ -27,7 +27,7 @@
 
 
 #include "Parameters.h"
-#include "process.h"
+#include "Process.h"
 
 
 void Process::run()

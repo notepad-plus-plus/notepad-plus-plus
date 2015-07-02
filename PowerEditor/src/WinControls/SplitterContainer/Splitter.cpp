@@ -27,6 +27,7 @@
 
 
 #include <iostream>
+#include <stdexcept>
 #include <windows.h>
 #include "Splitter.h"
 

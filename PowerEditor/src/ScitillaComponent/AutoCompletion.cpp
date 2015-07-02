@@ -493,7 +493,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 {
 	const vector< pair<char, char> > & matchedPairs = matchedPairConf._matchedPairs;
 	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
-	char *matchedChars = NULL;
+	const char *matchedChars = NULL;
 
 	// User defined matched pairs should be checked firstly
 	for (size_t i = 0, len = matchedPairs.size(); i < len; ++i)

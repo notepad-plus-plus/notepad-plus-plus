@@ -27,6 +27,7 @@
 
 
 #include <iostream>
+#include <stdexcept>
 #include "ColourPopup.h"
 
 DWORD colourItems[] = {

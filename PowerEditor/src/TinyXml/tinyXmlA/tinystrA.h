@@ -24,7 +24,7 @@ distribution.
 
 #ifndef TINYXMLA_INCLUDED
 #include "tinyxmlA.h"
-#endif TINYXMLA_INCLUDED
+#endif //TINYXMLA_INCLUDED
 
 #ifndef TIXMLA_USE_STL
 

@@ -34,7 +34,7 @@
 #include "TabBar.h"
 #endif //TAB_BAR_H
 
-#include "window.h"
+#include "Window.h"
 #include "Common.h"
 
 struct DlgInfo {
@@ -42,7 +42,7 @@ struct DlgInfo {
     generic_string _name;
 	generic_string _internalName;
 
-	DlgInfo(Window *dlg, TCHAR *name, TCHAR *internalName = NULL): _dlg(dlg), _name(name), _internalName(internalName?internalName:TEXT("")) {};
+	DlgInfo(Window *dlg, const TCHAR *name, const TCHAR *internalName = NULL): _dlg(dlg), _name(name), _internalName(internalName?internalName:TEXT("")) {};
 };
 
 typedef std::vector<DlgInfo> WindowVector;

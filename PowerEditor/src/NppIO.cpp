@@ -33,7 +33,7 @@
 #include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
-#include <TCHAR.h>
+#include <tchar.h>
 
 using namespace std;
 
@@ -164,7 +164,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     SCNotification scnN;
     scnN.nmhdr.code = NPPN_FILEBEFORELOAD;
     scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-    scnN.nmhdr.idFrom = NULL;
+    scnN.nmhdr.idFrom = 0;
     _pluginsManager.notify(&scnN);
 
     if (encoding == -1)
@@ -175,7 +175,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 	BufferID buffer;
 	if (isSnapshotMode)
 	{
-		buffer = MainFileManager->loadFile(longFileName, NULL, encoding, backupFileName, fileNameTimestamp);
+		buffer = MainFileManager->loadFile(longFileName, 0, encoding, backupFileName, fileNameTimestamp);
 
 		if (buffer != BUFFER_INVALID)
 		{
@@ -195,7 +195,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 	}
 	else
 	{
-		buffer = MainFileManager->loadFile(longFileName, NULL, encoding);
+		buffer = MainFileManager->loadFile(longFileName, 0, encoding);
 	}
 
     if (buffer != BUFFER_INVALID)

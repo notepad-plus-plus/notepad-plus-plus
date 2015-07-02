@@ -1654,7 +1654,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
     levelNext = levelCurrent;
 
     StyleContext sc(startPos, length, initStyle, styler);
-    for (; finished; dontMove?true:sc.Forward())
+    for (; finished; )
     {
         dontMove = false;
         checkEOL = EOL_DEFAULT_VALUE;
@@ -1893,7 +1893,11 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                     {
                         int length = iter->length();
                         if (length == 0)
+                        {
+                            if (!dontMove)
+                                sc.Forward();
                             continue;
+                        }
 
                         lineContinuation = true;
                         for (int i=0; i<length; ++i)
@@ -2299,6 +2303,9 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                 isCommentLine = isInComment ? COMMENTLINE_YES:COMMENTLINE_NO;
             }
         }
+
+        if (!dontMove)
+            sc.Forward();
     }
     sc.Complete();
 }

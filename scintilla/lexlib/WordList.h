@@ -32,7 +32,7 @@ public:
 	bool InList(const char *s) const;
 	bool InListAbbreviated(const char *s, const char marker) const;
 	const char *WordAt(int n) const;
-	void WordList::SetWordAt(int n, const char *word2Set) {
+	void SetWordAt(int n, const char *word2Set) {
 		words[n] = (char *)word2Set;
 	};
 	int StartAt(int n) const {

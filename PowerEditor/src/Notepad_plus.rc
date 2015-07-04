@@ -227,6 +227,7 @@ BEGIN
 		POPUP "Close More"
 		BEGIN
 			MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
+			MENUITEM "Close All Saved",					 IDM_FILE_CLOSEALLSAVED
 			MENUITEM "Close All to the Left",			 IDM_FILE_CLOSEALL_TOLEFT
 			MENUITEM "Close All to the Right",			 IDM_FILE_CLOSEALL_TORIGHT
 		END

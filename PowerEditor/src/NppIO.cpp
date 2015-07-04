@@ -1025,18 +1025,26 @@ bool Notepad_plus::fileCloseAllButCurrent()
 
 bool Notepad_plus::fileCloseAllSaved()
 {
-	std::vector<int> vecIndexesToClose;
+	if (bothActive())
+	{
+		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
+		for (int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) 
+		{
+			doClose(_pNonDocTab->getBufferByIndex(i), otherView());
+		}
+	}
+
+	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
 	for (int i = _pDocTab->nbItem() - 1; i >= 0; i--)
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
-		if (MainFileManager->getBufferByID(id) != NULL) {
 			Buffer * buf = MainFileManager->getBufferByID(id);
 			if (!buf->isDirty())
 			{
 				fileClose(id, currentView());
 			}
 		}
-	}
+	
 	return true;
 }
 

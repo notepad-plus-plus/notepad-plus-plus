@@ -230,7 +230,7 @@ bool Directory::containsData(const generic_string& path, const generic_string& f
 		if ((fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 		{
 			if (!FindNextFile(hFind, &fd))
-				return false;
+				break;
 			continue;
 		}
 		else

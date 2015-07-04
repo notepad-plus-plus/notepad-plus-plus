@@ -410,6 +410,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			vector<MenuItemUnit> itemUnitArray;
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALLSAVED, TEXT("Close All Saved")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TORIGHT, TEXT("Close All to the Right")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));

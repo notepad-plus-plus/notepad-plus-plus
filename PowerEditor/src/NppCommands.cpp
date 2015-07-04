@@ -110,6 +110,9 @@ void Notepad_plus::command(int id)
 			if (fileClose())
                 checkDocState();
 			break;
+		case IDM_FILE_CLOSEALLSAVED:
+			fileCloseAllSaved();
+			break;
 
 		case IDM_FILE_DELETE:
 			if (fileDelete())

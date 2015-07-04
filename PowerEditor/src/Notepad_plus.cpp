@@ -296,8 +296,20 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 
-	_mainEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
-	_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
+	UINT smoothingType = 0;
+	if (0 != ::SystemParametersInfo(SPI_GETFONTSMOOTHINGTYPE, 0, &smoothingType, 0))
+	{
+		if (FE_FONTSMOOTHINGCLEARTYPE == smoothingType)
+		{
+			_mainEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
+			_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
+		}
+	}
+	else
+	{
+		// Fail silently - font smoothing is not important enough to do anything else.
+		assert(false and "failed to retrieve system info 'SPI_GETFONTSMOOTHINGTYPE'");
+	}
 
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
@@ -2361,7 +2373,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
-		type == L_PHP || type == L_JS || type == L_JSP)
+		type == L_PHP || type == L_JS || type == L_JSP || type == L_CSS)
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 			(eolMode == SC_EOL_CR && ch == '\r'))
@@ -3197,7 +3209,7 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 		activateBuffer(id, whichOne);	//activate. DocTab already activated but not a problem
 		MainFileManager->closeBuffer(idToClose, viewToOpen);	//delete the buffer
 		if (_pFileSwitcherPanel)
-			_pFileSwitcherPanel->closeItem((int)idToClose, whichOne);
+			_pFileSwitcherPanel->closeItem(idToClose, whichOne);
 	}
 	else
 	{
@@ -4728,7 +4740,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	}
 
 	if (_pFileSwitcherPanel)
-		_pFileSwitcherPanel->setItemIconStatus((int)buffer);
+		_pFileSwitcherPanel->setItemIconStatus(buffer);
 
 	if (!mainActive && !subActive)
 	{
@@ -4828,7 +4840,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 
 	if (_pFileSwitcherPanel)
 	{
-		_pFileSwitcherPanel->activateItem((int)bufid, currentView());
+		_pFileSwitcherPanel->activateItem(bufid, currentView());
 	}
 
 	if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())

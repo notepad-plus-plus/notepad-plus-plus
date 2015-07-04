@@ -62,7 +62,7 @@
                     <Item subMenuId="encoding-vietnamese" name="Việt Nam"/>
                     <Item subMenuId="settings-import"  name="Nhập"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Mới"/>
@@ -86,7 +86,7 @@
                     <Item id="41015" name="Lưu một bản sao như..."/>
                     <Item id="41016" name="Xóa từ đĩa"/>
                     <Item id="41017" name="Đổi tên..."/>
-                    
+
                     <Item id="42001" name="&amp;Cắt"/>
                     <Item id="42002" name="&amp;Sao"/>
                     <Item id="42003" name="&amp;Hoàn tác"/>
@@ -100,8 +100,8 @@
                     <Item id="42010" name="Trùng lặp dòng hiện tại"/>
                     <Item id="42012" name="Tách dòng"/>
                     <Item id="42013" name="Nối dòng"/>
-                    <Item id="42014" name="Di chuyển lên dòng hiện tại"/>   
-                    <Item id="42015" name="Di chuyển xuống dòng hiện tại"/>   
+                    <Item id="42014" name="Di chuyển lên dòng hiện tại"/>
+                    <Item id="42015" name="Di chuyển xuống dòng hiện tại"/>
                     <Item id="42016" name="CHỮ HOA"/>
                     <Item id="42017" name="chữ thường"/>
                     <Item id="42018" name="&amp;Bắt đầu ghi"/>
@@ -307,7 +307,7 @@
                     <Item CMID="20" name="Mở thư mục chứa trong cmd"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="Tìm" titleReplace="Thay thế" titleFindInFiles="Tìm trong các tập tin" titleMark="Đánh dấu">
                 <Item id="1"    name="Tìm tiếp"/>
@@ -366,11 +366,11 @@
                 <Item id="2"    name="Hủy bỏ"/>
                 <Item id="1904" name="Lưu..."/>
             </Run>
-            
+
             <StyleConfig title="Cấu hình giao diện">
                 <Item id="2"    name="Hủy bỏ"/>
                 <Item id="2301" name="Lưu &amp;&amp; đóng"/>
-                <Item id="2303" name="Transparency"/>       
+                <Item id="2303" name="Transparency"/>
                 <Item id="2306" name="Chọn chủ đề: "/>
                 <SubDialog>
                     <Item id="2204" name="Đậm"/>
@@ -395,10 +395,10 @@
                     <Item id="2230" name="Enable global bold font style"/>
                     <Item id="2231" name="Enable global italic font style"/>
                     <Item id="2232" name="Enable global underline font style"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="Người dùng định nghĩa">
 				<Item id="20001" name="Dock"/>
                 <Item id="20002" name="Đổi tên"/>
@@ -576,24 +576,24 @@
                     <Item id="6103" name="Biểu tượng nhỏ"/>
                     <Item id="6104" name="Biểu tượng lớn"/>
                     <Item id="6105" name="Biểu tượng tiêu chuẩn"/>
-                    
+
                     <Item id="6106" name="Tab Bar"/>
                     <Item id="6107" name="Giảm"/>
                     <Item id="6108" name="Khóa (không có kéo và thả)"/>
                     <Item id="6109" name="Darken inactive tabs"/>
                     <Item id="6110" name="Draw a coloured bar on active tab"/>
-                    
+
                     <Item id="6111" name="Hiển thị thanh trạng thái"/>
                     <Item id="6112" name="Show close button on each tab"/>
                     <Item id="6113" name="Bấm đúp để đóng tài liệu"/>
                     <Item id="6118" name="Ẩn"/>
                     <Item id="6119" name="Nhiều dòng"/>
                     <Item id="6120" name="Thẳng đứng"/>
-                    
+
                     <Item id="6121" name="Thanh menu"/>
                     <Item id="6122" name="Ẩn (sử dụng phím Alt hoặc F10 để chuyển đổi)"/>
                     <Item id="6123" name="Địa phương hoá"/>
-					
+
 					<Item id="6125" name="Document List Panel"/>
                     <Item id="6126" name="Hiển thị"/>
                 </Global>
@@ -611,25 +611,25 @@
                     <Item id="6204" name="Circle tree"/>
                     <Item id="6205" name="Box tree"/>
                     <Item id="6226" name="Không có"/>
-                    
+
                     <Item id="6227" name="Line Wrap"/>
                     <Item id="6228" name="Mặc định"/>
                     <Item id="6229" name="Liên kết"/>
                     <Item id="6230" name="Thụt lề"/>
-                    
+
                     <Item id="6206" name="Hiển thị số dòng"/>
                     <Item id="6207" name="Display bookmarks"/>
                     <Item id="6208" name="Show vertical edge"/>
                     <Item id="6209" name="Số lượng các cột: "/>
-                    
+
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6212" name="Chế độ dòng"/>
                     <Item id="6213" name="Chế độ nền"/>
                     <Item id="6214" name="Enable current line highlighting"/>
-					
+
 					<Item id="6231" name="Border Width"/>
                 </Scintillas>
-				
+
                 <NewDoc title="Tài liệu mới">
                     <Item id="6401" name="Định dạng"/>
                     <Item id="6402" name="Windows"/>
@@ -645,13 +645,13 @@
                     <Item id="6419" name="Tài liệu mới"/>
                     <Item id="6420" name="Áp dụng cho cả tập tin ANSI"/>
                 </NewDoc>
-				
+
                 <DefaultDir title="Thư mục mặc định">
                     <Item id="6413" name="Thư mục mặc định (mở/lưu)"/>
                     <Item id="6414" name="Thực hiện theo tài liệu hiện thời"/>
                     <Item id="6415" name="Nhớ thư mục được sử dụng cuối"/>
                 </DefaultDir>
-				
+
                 <FileAssoc title="Tích hợp vào hệ thống">
                     <Item id="4009" name="Phần mở rộng được hỗ trợ:"/>
                     <Item id="4010" name="Phần mở rộng đã đăng ký:"/>
@@ -662,14 +662,14 @@
                     <Item id="6507" name="Make language menu compact"/>
                     <Item id="6508" name="Ngôn ngữ lập trình"/>
                 </LangMenu>
-				
+
                 <TabSettings title="Cài đặt tab">
                     <Item id="6301" name="Cài đặt tab"/>
                     <Item id="6302" name="Replace by space"/>
                     <Item id="6303" name="Tab size: "/>
                     <Item id="6510" name="Use default value"/>
                 </TabSettings>
-				
+
                 <Print title="In">
                     <Item id="6601" name="In số dòng"/>
                     <Item id="6602" name="Tùy chọn màu"/>
@@ -699,7 +699,7 @@
 					<Item id="6727" name="Here display your variable settings"/>
                     <Item id="6728" name="Header and Footer"/>
                 </Print>
-				
+
                 <RecentFilesHistory title="Lịch sử tập tin gần đây">
                     <Item id="6304" name="Lịch sử tập tin gần đây"/>
                     <Item id="6306" name="Max. number of entries:"/>
@@ -719,7 +719,7 @@
                     <Item id="6804" name="Tuỳ chỉnh thư mục sao lưu"/>
                     <Item id="6803" name="Thư mục:"/>
                 </Backup>
-				
+
                 <AutoCompletion title="Tự động hoàn thành">
                     <Item id="6807" name="Tự động hoàn thành"/>
                     <Item id="6808" name="Bật"/>
@@ -737,7 +737,7 @@
                     <Item id="6863" name="Matched pair 2:"/>
                     <Item id="6866" name="Matched pair 3:"/>
                 </AutoCompletion>
-                
+
                 <MultiInstance title="Multi-Instance">
                     <Item id="6151" name="Multi-instance settings"/>
                     <Item id="6152" name="Open session in a new instance of Notepad++"/>
@@ -745,14 +745,14 @@
                     <Item id="6154" name="Default (mono-instance)"/>
                     <Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
                 </MultiInstance>
-                
+
                 <Delimiter title="Delimiter">
                     <Item id="6251" name="Delimiter selection settings (Ctrl + Mouse double click)"/>
                     <Item id="6252" name="Open"/>
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>
                 </Delimiter>
-                
+
                 <MISC title="MISC.">
                     <Item id="6307" name="Enable"/>
                     <Item id="6308" name="Minimize to system tray"/>
@@ -819,7 +819,7 @@
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
-            
+
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
         </MessageBox>

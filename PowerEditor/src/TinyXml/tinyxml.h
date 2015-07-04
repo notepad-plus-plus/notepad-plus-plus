@@ -993,6 +993,7 @@ public:
 	TiXmlDocument( const generic_string& documentName ) :
 	    TiXmlNode( TiXmlNode::DOCUMENT )
 	{
+		tabsize = 4;
         value = documentName;
 		error = false;
 	}

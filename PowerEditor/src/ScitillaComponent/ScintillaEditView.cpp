@@ -257,19 +257,9 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	
 	_codepage = ::GetACP();
 
-	//Use either Unicode or ANSI setwindowlong, depending on environment
-	if (::IsWindowUnicode(_hSelf))
-	{
-		::SetWindowLongPtrW(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
-		_callWindowProc = CallWindowProcW;
-		_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtrW(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(scintillaStatic_Proc)));
-	}
-	else 
-	{
-		::SetWindowLongPtrA(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
-		_callWindowProc = CallWindowProcA;
-		_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtrA(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(scintillaStatic_Proc)));
-	}
+	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+	_callWindowProc = CallWindowProc;
+	_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(scintillaStatic_Proc)));
 
 	//Get the startup document and make a buffer for it so it can be accessed like a file
 	attachDefaultDoc();
@@ -277,7 +267,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 LRESULT CALLBACK ScintillaEditView::scintillaStatic_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
-	ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA));
+	ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 
 	if (Message == WM_MOUSEWHEEL || Message == WM_MOUSEHWHEEL)
 	{			
@@ -295,7 +285,7 @@ LRESULT CALLBACK ScintillaEditView::scintillaStatic_Proc(HWND hwnd, UINT Message
 		if (isSynpnatic || makeTouchPadCompetible)
 			return (pScint->scintillaNew_Proc(hwnd, Message, wParam, lParam));
 
-		ScintillaEditView *pScintillaOnMouse = (ScintillaEditView *)(::GetWindowLongPtr(hwndOnMouse, GWL_USERDATA));
+		ScintillaEditView *pScintillaOnMouse = (ScintillaEditView *)(::GetWindowLongPtr(hwndOnMouse, GWLP_USERDATA));
 		if (pScintillaOnMouse != pScint)
 			return ::SendMessage(hwndOnMouse, Message, wParam, lParam);
 	}
@@ -451,7 +441,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
     if (styleToSet._fontName && lstrcmp(styleToSet._fontName, TEXT("")) != 0)
 	{
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const char * fontNameA = wmc->wchar2char(styleToSet._fontName, CP_ACP);
+		const char * fontNameA = wmc->wchar2char(styleToSet._fontName, CP_UTF8);
 		execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)fontNameA);
 	}
 	int fontStyle = styleToSet._fontStyle;

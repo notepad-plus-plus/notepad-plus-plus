@@ -1,3 +1,16 @@
+Notepad++ v6.7.9.2 bug-fix:
+
+1. Fix JavaScript block not recognized in HTML document.
+
+
+
+Notepad++ v6.7.9.1 new features and bug-fix:
+
+1. Fix Hanging on exit of Notepad++ issue (update DSpellCheck for its instability issue).
+2. Add "Google Search" command in the context menu.
+
+
+
 Notepad++ v6.7.9 new features and bug-fix:
 
 1.  Upgrade Scintilla to v3.56.
@@ -12,7 +25,7 @@ Notepad++ v6.7.9 new features and bug-fix:
 
 Included plugins:
 
-1.  DSpellCheck v1.2.14
+1.  DSpellCheck v1.2.14.1
 2.  NppFTP 0.26.3
 3.  NppExport v0.2.8
 4.  Plugin Manager 1.3.5

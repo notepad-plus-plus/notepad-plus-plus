@@ -1030,7 +1030,10 @@ bool Notepad_plus::fileCloseAllSaved()
 		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
 		for (int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) 
 		{
-			doClose(_pNonDocTab->getBufferByIndex(i), otherView());
+		  	if (!_pNonDocTab->getBufferByIndex(i)->isDirty())
+			{
+				doClose(_pNonDocTab->getBufferByIndex(i), otherView());
+			}
 		}
 	}
 
@@ -1038,13 +1041,12 @@ bool Notepad_plus::fileCloseAllSaved()
 	for (int i = _pDocTab->nbItem() - 1; i >= 0; i--)
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
-			Buffer * buf = MainFileManager->getBufferByID(id);
-			if (!buf->isDirty())
-			{
-				fileClose(id, currentView());
-			}
+		Buffer * buf = MainFileManager->getBufferByID(id);
+		if (!buf->isDirty())
+		{
+			fileClose(id, currentView());
 		}
-	
+	}
 	return true;
 }
 

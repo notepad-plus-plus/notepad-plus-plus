@@ -38,16 +38,39 @@ const int nbExtMax = 10;
 const int extNameMax = 18;
 
 TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] = {
-	{TEXT("Notepad"),			TEXT(".txt"), TEXT(".log"), TEXT(".ini"), TEXT(".inf")},
-	{TEXT("c, c++, objc"),		TEXT(".h"), TEXT(".hpp"), TEXT(".hxx"), TEXT(".c"), TEXT(".cpp"), TEXT(".cxx"), TEXT(".cc"), TEXT(".m")},
-	{TEXT("java, c#, pascal"),	TEXT(".java"), TEXT(".cs"), TEXT(".pas"), TEXT(".inc")},
-	{TEXT("web(html) script"),	TEXT(".html"), TEXT(".htm"), TEXT(".shtml"), TEXT(".shtm"), TEXT(".xhtml"), TEXT(".xht"), TEXT(".xml"),
-								TEXT(".php"), TEXT(".php3"), TEXT(".phpt"), TEXT(".phtml"), TEXT(".asp"), TEXT(".hta"), TEXT(".css"),
-								TEXT(".js"), TEXT(".json"), TEXT(".jsm"), TEXT(".jsp")},
-	{TEXT("public script"),		TEXT(".sh"), TEXT(".bsh"), TEXT(".bash"), TEXT(".nsi"), TEXT(".nsh"), TEXT(".lua"), TEXT(".pl"), TEXT(".pm"), TEXT(".py")},
-	{TEXT("property script"),	TEXT(".rc"), TEXT(".as"), TEXT(".mx"), TEXT(".vb"), TEXT(".vbs")},
-	{TEXT("fortran, TeX, SQL"),	TEXT(".f"), TEXT(".for"), TEXT(".f90"), TEXT(".f95"), TEXT(".f2k"), TEXT(".tex"), TEXT(".sql")},
-	{TEXT("misc"),				TEXT(".nfo"), TEXT(".mak")},
+	{TEXT("Notepad"),
+		TEXT(".txt"), TEXT(".log")
+	},
+	{TEXT("ms ini/inf"),
+		TEXT(".ini"), TEXT(".inf")
+	},
+	{TEXT("c, c++, objc"),
+		TEXT(".h"), TEXT(".hpp"), TEXT(".hxx"), TEXT(".c"), TEXT(".cpp"), TEXT(".cxx"), TEXT(".cc"), TEXT(".m"),
+		TEXT(".vcxproj"), TEXT(".vcproj"), TEXT(".props"), TEXT(".vsprops"), TEXT(".manifest")
+	},
+	{TEXT("java, c#, pascal"),
+		TEXT(".java"), TEXT(".cs"), TEXT(".pas"), TEXT(".inc")
+	},
+	{TEXT("web script"),
+		TEXT(".html"), TEXT(".htm"), TEXT(".shtml"), TEXT(".shtm"), TEXT(".hta"),
+		TEXT(".asp"), TEXT(".aspx"),
+		TEXT(".css"), TEXT(".js"), TEXT(".json"), TEXT(".jsm"), TEXT(".jsp"),
+		TEXT(".php"), TEXT(".php3"), TEXT(".php4"), TEXT(".php5"), TEXT(".phps"), TEXT(".phpt"), TEXT(".phtml"),
+		TEXT(".xml"), TEXT(".xhtml"), TEXT(".xht"), TEXT(".xul"), TEXT(".kml"), TEXT(".xaml"), TEXT(".xsml")
+	},
+	{TEXT("public script"),
+		TEXT(".sh"), TEXT(".bsh"), TEXT(".bash"), TEXT(".bat"), TEXT(".cmd"), TEXT(".nsi"),
+		TEXT(".nsh"), TEXT(".lua"), TEXT(".pl"), TEXT(".pm"), TEXT(".py")
+	},
+	{TEXT("property script"),
+		TEXT(".rc"), TEXT(".as"), TEXT(".mx"), TEXT(".vb"), TEXT(".vbs")
+	},
+	{TEXT("fortran, TeX, SQL"),
+		TEXT(".f"), TEXT(".for"), TEXT(".f90"), TEXT(".f95"), TEXT(".f2k"), TEXT(".tex"), TEXT(".sql")
+	},
+	{TEXT("misc"),
+		TEXT(".nfo"), TEXT(".mak")
+	},
 	{TEXT("customize")}
 };
 

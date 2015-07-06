@@ -219,7 +219,7 @@
         </Language>
         <Language name="xml" ext="xml xaml xsl xslt xsd xul kml svg mxml xsml wsdl xlf xliff xbl sxbl pimx config vsixmanifest manifest proj csproj vbproj fsproj vcproj vcxproj nproj pyproj javaproj wixproj filters settings testsettings vsmdi ruleset rules targets props vsprops propdesc swidtag" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">
         </Language>
-        <Language name="yaml" ext="yml" commentLine="#">
+        <Language name="yaml" ext="yml yaml" commentLine="#">
         </Language>
         <Language name="searchResult" ext="">
             <Keywords name="instre1"></Keywords>

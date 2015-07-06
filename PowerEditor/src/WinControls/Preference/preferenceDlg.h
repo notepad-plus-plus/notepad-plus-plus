@@ -216,14 +216,10 @@ private :
 class SettingsOnCloudDlg : public StaticDialog
 {
 public :
-	SettingsOnCloudDlg(): _initialCloudChoice(noCloud) {};
+	SettingsOnCloudDlg() {};
 
 private :
-	CloudChoice _initialCloudChoice;
-
 	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	void setCloudChoice(const char *choice);
-	void removeCloudChoice();
 };
 
 class PreferenceDlg : public StaticDialog

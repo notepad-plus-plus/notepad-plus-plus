@@ -167,7 +167,8 @@
 					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>
 					<Item id="42064" name="Zeilen als Dezimalzahlen (Komma) absteigend sortieren"/>
 					<Item id="42065" name="Zeilen als Dezimalzahlen (Punkt) aufsteigend sortieren"/>
-					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>					<Item id="43001" name="&amp;Suchen ..."/>
+					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>
+					<Item id="43001" name="&amp;Suchen ..."/>
 					<Item id="43002" name="&amp;Weitersuchen"/>
 					<Item id="43003" name="&amp;Ersetzen ..."/>
 					<Item id="43004" name="&amp;Gehe zu ..."/>

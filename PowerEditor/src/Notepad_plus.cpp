@@ -1495,7 +1495,6 @@ bool Notepad_plus::replaceInFiles()
 		{
 			updateOnCount += filesPerPercent;
 			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
-			progress.flushCallerUserInput();
 		}
 		else
 		{
@@ -1504,7 +1503,6 @@ bool Notepad_plus::replaceInFiles()
 	}
 
 	progress.close();
-	progress.flushCallerUserInput();
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_invisibleEditView.setCurrentBuffer(oldBuf);
@@ -1584,7 +1582,6 @@ bool Notepad_plus::findInFiles()
 		{
 			updateOnCount += filesPerPercent;
 			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
-			progress.flushCallerUserInput();
 		}
 		else
 		{
@@ -1593,7 +1590,6 @@ bool Notepad_plus::findInFiles()
 	}
 
 	progress.close();
-	progress.flushCallerUserInput();
 
 	_findReplaceDlg.finishFilesSearch(nbTotal);
 

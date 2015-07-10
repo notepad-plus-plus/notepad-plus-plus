@@ -3112,21 +3112,7 @@ void Progress::setPercent(unsigned percent, const TCHAR *fileName) const
 }
 
 
-void Progress::flushCallerUserInput() const
-{
-	MSG msg;
-	for (HWND hwnd = _hCallerWnd; hwnd; hwnd = ::GetParent(hwnd))
-	{
-		if (::PeekMessage(&msg, hwnd, 0, 0, PM_QS_INPUT | PM_REMOVE))
-		{
-			while (::PeekMessage(&msg, hwnd, 0, 0, PM_QS_INPUT | PM_REMOVE));
-			::UpdateWindow(hwnd);
-		}
-	}
-}
-
-
-DWORD Progress::threadFunc(LPVOID data)
+DWORD WINAPI Progress::threadFunc(LPVOID data)
 {
 	Progress* pw = static_cast<Progress*>(data);
 	return (DWORD)pw->thread();

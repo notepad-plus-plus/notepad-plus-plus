@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Hungarian Language created by György Bata -->
-<!-- Email: batagy.ford kukac indamail pont hu -->
+<!-- Email: batagy.ford kukac gmail pont com -->
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
-<!-- Forum topic: http://sourceforge.net/p/notepad-plus/discussion/558104/thread/50e2045c/ -->
-<!-- For Notepad++ Version 6.7.7, modified 2015.05.01 -->
+<!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation-->
+<!-- For Notepad++ Version 6.7.9.2, modified 2015.07.04 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="6.7.7">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="6.7.9.2">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -91,6 +91,7 @@
                     <Item id="41015" name="Másolat mentése..."/>
                     <Item id="41016" name="Törlés a merevlemezről"/>
                     <Item id="41017" name="Átnevezés..."/>
+                    <Item id="41021" name="Utoljára bezárt fájl megnyitása"/>
 
                     <Item id="42001" name="Kivágás"/>
                     <Item id="42002" name="Másolás"/>
@@ -107,6 +108,14 @@
                     <Item id="42013" name="Sorok összevonása"/>
                     <Item id="42014" name="Aktuális sor mozgatása feljebb"/>
                     <Item id="42015" name="Aktuális sor mozgatása lejjebb"/>
+                    <Item id="42059" name="Sorok rendezése betűrendben"/>
+                    <Item id="42060" name="Sorok rendezése fordított betűrendben"/>
+                    <Item id="42061" name="Sorok rendezése növekvő egészek szerint"/>
+                    <Item id="42062" name="Sorok rendezése csökkenő egészek szerint"/>
+                    <Item id="42063" name="Sorok rendezése növekvő tizedes számok szerint (Tizedesvessző)"/>
+                    <Item id="42064" name="Sorok rendezése csökkenő tizedes számok szerint (Tizedesvessző)"/>
+                    <Item id="42065" name="Sorok rendezése növekvő tizedes számok szerint (Tizedespont)"/>
+                    <Item id="42066" name="Sorok rendezése csökkenő tizedes számok szerint (Tizedespont)"/>
                     <Item id="42016" name="Formázás nagybetűsre"/>
                     <Item id="42017" name="Formázás kisbetűsre"/>
                     <Item id="42018" name="Makró rögzítése"/>
@@ -147,8 +156,6 @@
                     <Item id="42056" name="Üres sorok eltávolítása (Szóközt és tabulátort tartalmazókat is)"/>
                     <Item id="42057" name="Üres sor beszúrása a jelenlegi fölé"/>
                     <Item id="42058" name="Üres sor beszúrása a jelenlegi alá"/>
-                    <Item id="42059" name="Sorok rendezése névsorrendben"/>
-                    <Item id="42060" name="Sorok rendezése fordított névsorrendben"/>
                     <Item id="43001" name="Keresés..."/>
                     <Item id="43002" name="Következő keresése"/>
                     <Item id="43003" name="Csere..."/>
@@ -282,10 +289,9 @@
                     <Item id="47001" name="Notepad++ honlapja"/>
                     <Item id="47002" name="Notepad++ projekt oldal"/>
                     <Item id="47003" name="Online Súgó"/>
-                    <Item id="47004" name="Fórum"/>
+                    <Item id="47011" name="Élő üzenőfal támogatás"/>
                     <Item id="47005" name="További bővítmények"/>
                     <Item id="47006" name="Notepad++ frissítése"/>
-                    <Item id="47008" name="Súgó..."/>
                     <Item id="47009" name="Proxy beállítások..."/>
                     <Item id="48005" name="Bővítmények importálása..."/>
                     <Item id="48006" name="Stílus témák importálása..."/>
@@ -303,7 +309,6 @@
                     <Item id="42041" name="Előzmények törlése"/>
                     <Item id="48016" name="Billentyűparancs módosítása / Makró törlése..."/>
                     <Item id="48017" name="Billentyűparancs módosítása / Parancs törlése..."/>
-                    <Item id="41021" name="Utoljára bezárt fájl megnyitása"/>
                 </Commands>
           </Main>
           <Splitter>

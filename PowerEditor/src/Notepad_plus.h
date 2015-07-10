@@ -126,6 +126,7 @@
 
 #include "localization.h"
 #include <vector>
+#include <iso646.h>
 
 
 #define MENU 0x01

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change: 28 Apr 2015 by Ondřej Müller (mullero@email.cz)
-	- all Czech translations at: http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
+	- last change: 05/Jul/2015 by Ondřej Müller (mullero@email.cz)
+	- all older Czech translations at: http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
+	- contributors: Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.7.7">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.7.9.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -148,6 +149,12 @@
 					<Item id = "42058" name = "Vložit prázdný řádek pod aktuální"/>!
 					<Item id = "42059" name = "Setřídit řádky vzestupně"/>
 					<Item id = "42060" name = "Setřídit řádky sestupně"/>
+					<Item id = "42061" name = "Setřídit řádky (podle celých čísel) vzestupně"/>
+					<Item id = "42062" name = "Setřídit řádky (podle celých čísel) sestupně"/>
+					<Item id = "42063" name = "Setřídit řádky (podle desetinných čísel s čárkou) vzestupně"/>
+					<Item id = "42064" name = "Setřídit řádky (podle desetinných čísel s čárkou) sestupně"/>
+					<Item id = "42065" name = "Setřídit řádky (podle desetinných čísel s tečkou) vzestupně"/>
+					<Item id = "42066" name = "Setřídit řádky (podle desetinných čísel s tečkou) sestupně"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nahradit..."/>
@@ -257,11 +264,11 @@
 					<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
 					<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
 					<Item id = "45060" name = "Big5 (tradiční)"/>
-                    <Item id = "45061" name = "GB2312 (zjednodušená)"/>
-                    <Item id = "45054" name = "OEM 861: Islandština"/>
-                    <Item id = "45057" name = "OEM 865: Skandinávské jazyky"/>
-                    <Item id = "45053" name = "OEM 860: Portugalština"/>
-                    <Item id = "45056" name = "OEM 863: Francoužština"/>
+					<Item id = "45061" name = "GB2312 (zjednodušená)"/>
+					<Item id = "45054" name = "OEM 861: Islandština"/>
+					<Item id = "45057" name = "OEM 865: Skandinávské jazyky"/>
+					<Item id = "45053" name = "OEM 860: Portugalština"/>
+					<Item id = "45056" name = "OEM 863: Francouzština"/>
 
 					<Item id = "10001" name = "Přepnout náhled"/>
 					<Item id = "10002" name = "Vytvořit kopii v samostatném náhledu"/>
@@ -285,7 +292,7 @@
 					<Item id = "47007" name = "Wiki FAQ"/>
 					<Item id = "47008" name = "Obsah nápovědy"/>
 					<Item id = "47009" name = "Nastavit aktualizaci proxy-serveru ..." />
-                    <Item id = "47010" name = "Parametry příkazové řádky" />
+					<Item id = "47010" name = "Parametry příkazové řádky" />
 					<Item id = "48005" name = "Importovat plugin(y) ..."/>
 					<Item id = "48006" name = "Importovat styl(y) ..."/>
 					<Item id = "48009" name = "Asociace klávesových zkratek..."/>

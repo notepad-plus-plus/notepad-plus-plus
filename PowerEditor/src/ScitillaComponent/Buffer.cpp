@@ -510,12 +510,10 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 			if (nullptr != UnicodeConvertor.getNewBuf()) 
 			{
 				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize());
-				buf->setFormat(format == -1?WIN_FORMAT:(formatType)format);
+				if( format != -1 )
+					buf->setFormat((formatType)format);
 			}
-			else
-			{
-				buf->setFormat(WIN_FORMAT);
-			}
+
 
 			UniMode um = UnicodeConvertor.getEncoding();
 			if (um == uni7Bit)
@@ -536,7 +534,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
             // Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
             buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
             buf->setUnicodeMode(uniCookie);
-			buf->setFormat(format);
+			if ( format != -1 )
+				buf->setFormat(format);
 		}
 
 		//determine buffer properties
@@ -569,18 +568,17 @@ bool FileManager::reloadBuffer(BufferID id)
 			if (nullptr != UnicodeConvertor.getNewBuf()) 
 			{
 				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize());
-				buf->setFormat(format == -1?WIN_FORMAT:(formatType)format);
+				if( format != -1 )
+					buf->setFormat((formatType)format);
 			}
-			else
-			{
-				buf->setFormat(WIN_FORMAT);
-			}
+
 			buf->setUnicodeMode(UnicodeConvertor.getEncoding());
 		}
 		else
 		{
 			buf->setEncoding(encoding);
-			buf->setFormat(format);
+			if ( format != - 1)
+				buf->setFormat(format);
 			buf->setUnicodeMode(uniCookie);
 		}
 	}
@@ -1264,7 +1262,7 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 
 	if (pFormat != NULL)
 	{
-		*pFormat = (format == -1)?WIN_FORMAT:(formatType)format;
+		*pFormat = (formatType)format;
 	}
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
 	_pscratchTilla->execute(SCI_SETSAVEPOINT);

@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
 	Italian translation for Notepad++ 6.7.9.2
-	Last modified Wed, July 03 2015 by Luca Leonardi & bovirus.
+	Last modified Wed, July 10 2015 by Luca Leonardi & bovirus.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -800,9 +800,7 @@
                 <Cloud title = "Cloud">
                     <Item id = "6262" name = "Impostazioni Cluod" />
                     <Item id = "6263" name = "Nessun servizio Cloud" />
-                    <Item id = "6264" name = "Dropbox" />
-                    <Item id = "6265" name = "OneDrive" />
-                    <Item id = "6266" name = "Google Drive" />
+                    <Item id = "6267" name = "Imposta qui il percorso del tuo cloud:"/>
                     <!--Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." /-->
                 </Cloud>
 				<MISC title = "Varie">
@@ -880,6 +878,7 @@
 			<FileAlreadyOpenedInNpp title = "" message = "Il file è già aperto in Notepad++." />
 			<DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita." />
             <NbFileToOpenImportantWarning title = "Il numero di file da aprire è troppo grande" message = "Si stanno aprendo $INT_REPLACE$ file.&#x0A;Sicuro di volerli aprire?" />
+			<SettingsOnCloudError title="Impostazioni nel cloud" message="Sembra che nelle impostazioni il percorso nel cloud è impostato su una unità a sola lettura,\ro su una cartella che richiede i privilegi per poter scrivere in essa.\rLe tue impostazioni nel cloud verranno azzerate. Imposta un valore coerente nelle impostazioni."/>
 		</MessageBox>
         <ClipboardHistory>
             <PanelTitle name = "Cronologia Appunti" />

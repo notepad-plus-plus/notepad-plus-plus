@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change: 05/Jul/2015 by Ondřej Müller (mullero@email.cz)
-	- all older Czech translations at: http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
-	- contributors: Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
+	- last change:  Notepad++ 6.7.9.2  11/Jul/2015  by Ondřej Müller (mullero@email.cz)
+	- all older Czech translations at:  http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
+	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
 	<Native-Langue name = "Čeština" filename="czech.xml" version="6.7.9.2">
@@ -146,7 +146,7 @@
 					<Item id = "42055" name = "Odstranit prázdné řádky"/>
 					<Item id = "42056" name = "Odstranit prázdné řádky (obsahující prázdné znaky)"/>
 					<Item id = "42057" name = "Vložit prázdný řádek nad aktuální"/>
-					<Item id = "42058" name = "Vložit prázdný řádek pod aktuální"/>!
+					<Item id = "42058" name = "Vložit prázdný řádek pod aktuální"/>
 					<Item id = "42059" name = "Setřídit řádky vzestupně"/>
 					<Item id = "42060" name = "Setřídit řádky sestupně"/>
 					<Item id = "42061" name = "Setřídit řádky (podle celých čísel) vzestupně"/>
@@ -291,8 +291,9 @@
 					<Item id = "47006" name = "Aktualizovat Notepad++"/>
 					<Item id = "47007" name = "Wiki FAQ"/>
 					<Item id = "47008" name = "Obsah nápovědy"/>
-					<Item id = "47009" name = "Nastavit aktualizaci proxy-serveru ..." />
-					<Item id = "47010" name = "Parametry příkazové řádky" />
+					<Item id = "47009" name = "Nastavit aktualizaci proxy-serveru ..."/>
+					<Item id = "47010" name = "Parametry příkazové řádky"/>
+					<Item id = "47011" name = "Online podpora"/>
 					<Item id = "48005" name = "Importovat plugin(y) ..."/>
 					<Item id = "48006" name = "Importovat styl(y) ..."/>
 					<Item id = "48009" name = "Asociace klávesových zkratek..."/>
@@ -864,9 +865,7 @@
 				    <!--Item id="6261" name="Pro aktivaci změn prosím restartujte Notepad++."/-->
                     <Item id = "6262" name = "Nastavení internetového úložišťě"/>
                     <Item id = "6263" name = "bez cloudu"/>
-                    <Item id = "6264" name = "DropBox"/>
-                    <Item id = "6265" name = "OneDrive"/>
-					<Item id = "6266" name = "GoogleDrive"/>
+					<Item id = "6267" name = "Zde nastavte cestu k Vašemu i-úložišti:"/>
                 </Cloud>
 			</Preference>
 
@@ -909,13 +908,14 @@
 			<NppHelpAbsentWarning title = "Soubor neexistuje" message = " neexistuje. Stáhněte si jej prosím z domovské stránky Notepadu++."/>
 			<SaveCurrentModifWarning title = "Uložit změny" message = "Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
 			<LoseUndoAbilityWarning title = "Varování před ztrátou možnosti vrátit změny" message = "Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
-			<NbFileToOpenImportantWarning title = "Velmi mnoho souborů k otevření" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si jisti, že je chcete všechny opravdu otevřít?"/>
 			<CannotMoveDoc title = "Přejít k nové instanci Notepadu++" message = "Dokument je modifikován, uložte jej a poté to zkuste znovu."/>
 			<DocReloadWarning title = "Znovu otevřít" message = "Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
 			<FileLockedWarning title = "Uložení selhalo" message = "Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
 			<FileAlreadyOpenedInNpp title = "" message = "Tento soubor je již otevřen v Notepadu++."/>
 			<DeleteFileFailed title = "Odstranit Soubor" message = "Odstranění souboru selhalo"/>
-			<NbFileToOpenImportantWarning title = "Množství souborů k otevření je příliš veliké" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title = "Velmi mnoho souborů k otevření" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
+			<SettingsOnCloudError title = "Nastavení cloudu" message = "Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
 		</MessageBox>
 
 		<ProjectManager>

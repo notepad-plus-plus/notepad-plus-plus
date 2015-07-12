@@ -34,6 +34,7 @@ In short: The easier the code review is, the better the chance your pull request
 
 
 ##Coding style:
+<img src="https://notepad-plus-plus.org/assets/images/good-bad-practice.jpg">
 
 ####GENERAL
 

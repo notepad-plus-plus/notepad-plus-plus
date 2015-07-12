@@ -1,22 +1,27 @@
 <NotepadPlus>
     <InternalCommands />
     <Macros>
-        <Macro name="Trim Trailing and save" Ctrl="no" Alt="yes" Shift="yes" Key="83">
+        <Macro name="Trim trailing whitespace and save" Ctrl="no" Alt="yes" Shift="yes" Key="83">
             <Action type="2" message="0" wParam="42024" lParam="0" sParam="" />
             <Action type="2" message="0" wParam="41006" lParam="0" sParam="" />
         </Macro>
     </Macros>
     <UserDefinedCommands>
-        <Command name="Launch in Firefox" Ctrl="yes" Alt="yes" Shift="yes" Key="88">firefox &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-        <Command name="Launch in IE" Ctrl="yes" Alt="yes" Shift="yes" Key="73">iexplore &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-        <Command name="Launch in Chrome" Ctrl="yes" Alt="yes" Shift="yes" Key="82">chrome &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-        <Command name="Launch in Safari" Ctrl="yes" Alt="yes" Shift="yes" Key="70">safari &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-        <Command name="Get php help" Ctrl="no" Alt="yes" Shift="no" Key="112">http://www.php.net/$(CURRENT_WORD)</Command>
-        <Command name="Google Search" Ctrl="no" Alt="yes" Shift="no" Key="113">https://www.google.com/search?q=$(CURRENT_WORD)</Command>
-        <Command name="Wikipedia Search" Ctrl="no" Alt="yes" Shift="no" Key="114">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>
-        <Command name="Open file" Ctrl="no" Alt="yes" Shift="no" Key="116">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD)</Command>
-        <Command name="Open in another instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD) -nosession -multiInst</Command>
-        <Command name="Send via Outlook" Ctrl="yes" Alt="yes" Shift="yes" Key="79">outlook /a &quot;$(FULL_CURRENT_PATH)&quot;</Command>
+        <Command name="Launch in &amp;Firefox" Ctrl="yes" Alt="yes" Shift="yes" Key="88">firefox &quot;$(FULL_CURRENT_PATH)&quot;</Command>
+        <Command name="Launch in &amp;IE" Ctrl="yes" Alt="yes" Shift="yes" Key="73">iexplore &quot;$(FULL_CURRENT_PATH)&quot;</Command>
+        <Command name="Launch in &amp;Chrome" Ctrl="yes" Alt="yes" Shift="yes" Key="82">chrome &quot;$(FULL_CURRENT_PATH)&quot;</Command>
+        <Command name="Launch in &amp;Safari" Ctrl="yes" Alt="yes" Shift="yes" Key="70">safari &quot;$(FULL_CURRENT_PATH)&quot;</Command>
+        <Command name="Send selected text as &amp;email body text" Ctrl="no" Alt="no" Shift="no" Key="0">&quot;mailto:?&amp;subject=$(NAME_PART)&amp;body=$(CURRENT_WORD)&quot;</Command>
+        <Command name="Send selected text as email body with Thunder&amp;bird" Ctrl="no" Alt="no" Shift="no" Key="0">thunderbird.exe -compose &quot;to=,subject=$(FILE_NAME),body=$(CURRENT_WORD)&quot;</Command>
+        <Command name="Send current file as attachment with Thunder&amp;bird" Ctrl="no" Alt="no" Shift="no" Key="0">thunderbird.exe -compose &quot;to=,subject=$(FILE_NAME),body=Attachment: $(FILE_NAME),attachment=&apos;file:$(FULL_CURRENT_PATH)&apos;&quot;</Command>
+        <Command name="Send current file as attachment with Out&amp;look" Ctrl="yes" Alt="yes" Shift="yes" Key="79">outlook /a &quot;$(FULL_CURRENT_PATH)&quot;</Command>
+        <Command name="Get &amp;php help" Ctrl="no" Alt="yes" Shift="no" Key="112">http://www.php.net/(CURRENT_WORD)</Command>
+        <Command name="&amp;Google Search" Ctrl="no" Alt="yes" Shift="no" Key="113">https://www.google.com/search?q=$(CURRENT_WORD)</Command>
+        <Command name="&amp;Wikipedia Search" Ctrl="no" Alt="yes" Shift="no" Key="114">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>
+        <Command name="Open selected file" Ctrl="no" Alt="yes" Shift="no" Key="116">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD)</Command>
+        <Command name="Open selected file in another instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD) -nosession -multiInst</Command>
+        <Command name="Run current file with &amp;cmd.exe" Ctrl="yes" Alt="yes" Shift="no" Key="67">cmd.exe /K &quot;$(FULL_CURRENT_PATH)&quot;</Command>
+        <Command name="Run current file with &amp;registered application" Ctrl="no" Alt="no" Shift="no" Key="0">&quot;$(FULL_CURRENT_PATH)&quot;</Command>
     </UserDefinedCommands>
     <PluginCommands />
     <ScintillaKeys />

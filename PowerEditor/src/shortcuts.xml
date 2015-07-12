@@ -15,9 +15,9 @@
         <Command name="Send selected text as email body with Thunder&amp;bird" Ctrl="no" Alt="no" Shift="no" Key="0">thunderbird.exe -compose &quot;to=,subject=$(FILE_NAME),body=$(CURRENT_WORD)&quot;</Command>
         <Command name="Send current file as attachment with Thunder&amp;bird" Ctrl="no" Alt="no" Shift="no" Key="0">thunderbird.exe -compose &quot;to=,subject=$(FILE_NAME),body=Attachment: $(FILE_NAME),attachment=&apos;file:$(FULL_CURRENT_PATH)&apos;&quot;</Command>
         <Command name="Send current file as attachment with Out&amp;look" Ctrl="yes" Alt="yes" Shift="yes" Key="79">outlook /a &quot;$(FULL_CURRENT_PATH)&quot;</Command>
-        <Command name="Get &amp;php help" Ctrl="no" Alt="yes" Shift="no" Key="112">http://www.php.net/%20$(CURRENT_WORD)</Command>
-        <Command name="&amp;Google Search" Ctrl="no" Alt="yes" Shift="no" Key="113">http://www.google.com/search?q=$(CURRENT_WORD)</Command>
-        <Command name="&amp;Wikipedia Search" Ctrl="no" Alt="yes" Shift="no" Key="114">http://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>
+        <Command name="Get &amp;php help" Ctrl="no" Alt="yes" Shift="no" Key="112">http://www.php.net/(CURRENT_WORD)</Command>
+        <Command name="&amp;Google Search" Ctrl="no" Alt="yes" Shift="no" Key="113">https://www.google.com/search?q=$(CURRENT_WORD)</Command>
+        <Command name="&amp;Wikipedia Search" Ctrl="no" Alt="yes" Shift="no" Key="114">https://en.wikipedia.org/wiki/Special:Search?search=$(CURRENT_WORD)</Command>
         <Command name="Open selected file" Ctrl="no" Alt="yes" Shift="no" Key="116">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD)</Command>
         <Command name="Open selected file in another instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD) -nosession -multiInst</Command>
         <Command name="Run current file with &amp;cmd.exe" Ctrl="yes" Alt="yes" Shift="no" Key="67">cmd.exe /K &quot;$(FULL_CURRENT_PATH)&quot;</Command>

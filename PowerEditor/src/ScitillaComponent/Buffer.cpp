@@ -46,7 +46,7 @@ static const int LF = 0x0A;
 
 Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
 	: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
-	_canNotify(false), _timeStamp(0), _needReloading(false), _encoding(-1), _backupFileName(TEXT("")), _isModified(false), _isLoadedDirty(false), _lang(L_TEXT)
+	_canNotify(false), _timeStamp(0), _needReloading(false), _encoding(-1), _tabSize(-1), _backupFileName(TEXT("")), _isModified(false), _isLoadedDirty(false), _lang(L_TEXT)
 {
 	NppParameters *pNppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
@@ -479,8 +479,9 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
 
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
+	int tabSize = -1;
 	formatType format;
-	bool res = loadFileData(doc, backupFileName?backupFileName:fullpath, data, &UnicodeConvertor, L_TEXT, encoding, &format);
+	bool res = loadFileData(doc, backupFileName?backupFileName:fullpath, data, &UnicodeConvertor, L_TEXT, encoding, tabSize, &format);
 	if (res) 
 	{
 		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -539,6 +540,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 			buf->setFormat(format);
 		}
 
+		buf->setTabSize(tabSize);
+
 		//determine buffer properties
 		++_nextBufferID;
 		return id;
@@ -559,8 +562,9 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
 	int encoding = buf->getEncoding();
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
+	int tabSize = -1;
 	formatType format;
-	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, buf->getLangType(), encoding, &format);
+	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, buf->getLangType(), encoding, tabSize, &format);
 	buf->_canNotify = true;
 	if (res) 
 	{
@@ -583,6 +587,7 @@ bool FileManager::reloadBuffer(BufferID id)
 			buf->setFormat(format);
 			buf->setUnicodeMode(uniCookie);
 		}
+		buf->setTabSize(tabSize);
 	}
 	return res;
 }
@@ -1134,7 +1139,7 @@ int FileManager::detectCodepage(char* buf, size_t len)
 }
 
 inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * UnicodeConvertor,
-	LangType language, int & encoding, formatType *pFormat)
+	LangType language, int & encoding, int & tabSize, formatType *pFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
@@ -1202,9 +1207,47 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 		bool isFirstTime = true;
 		int incompleteMultibyteChar = 0;
 
+		// discover indentation
+		bool newline = true;
+		int indent = 0; // current line indentation
+		int tabSizes[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // number of lines with corresponding indentation (index 0 - tab)
+		int prevIndent = 0; // previous line indentation
+		int prevTabSize = -1; // previous line tab size
+
 		do {
 			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
 			if (lenFile == 0) break;
+
+			// discover indentation
+			for (int i = 0; i < int(lenFile); i++) {
+				char ch = data[i];
+				if (ch == '\r' || ch == '\n') {
+					indent = 0;
+					newline = true;
+				} else if (newline && ch == ' ') {
+					indent++;
+				} else if (newline) {
+					if (indent) {
+						if (indent == prevIndent && prevTabSize != -1) {
+							tabSizes[prevTabSize]++;
+						} else if (indent > prevIndent && prevIndent != -1) {
+							if (indent - prevIndent <= 8) {
+								prevTabSize = indent - prevIndent;
+								tabSizes[prevTabSize]++;
+							} else {
+								prevTabSize = -1;
+							}
+						}
+						prevIndent = indent;
+					} else if (ch == '\t') {
+						tabSizes[0]++;
+						prevIndent = -1;
+					} else {
+						prevIndent = 0;
+					}
+					newline = false;
+				}
+			}
 
             // check if file contain any BOM
             if (isFirstTime) 
@@ -1255,6 +1298,13 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 			}
 			
 		} while (lenFile > 0);
+
+		// maximum non-zero indent
+		for (int j = 0; j <= 8; j++) {
+			if (tabSizes[j] && (tabSize == -1 || tabSizes[j] > tabSizes[tabSize])) {
+				tabSize = j;
+			}
+		}
 	} __except(EXCEPTION_EXECUTE_HANDLER) {  //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
 		success = false;

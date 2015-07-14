@@ -629,7 +629,7 @@ public:
 	};
 	
 	void setHotspotStyle(Style& styleToSet);
-    void setTabSettings(Lang *lang);
+    void setTabSettings(Lang *lang = 0);
 	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
 	void setWrapRestoreNeeded(bool isWrapRestoredNeeded) {_wrapRestoreNeeded = isWrapRestoredNeeded;};
 

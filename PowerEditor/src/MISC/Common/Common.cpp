@@ -27,6 +27,9 @@
 
 
 #include <algorithm>
+#include <functional> 
+#include <cctype>
+#include <locale>
 #include <shlwapi.h>
 #include <Shlobj.h>
 #include <uxtheme.h>
@@ -726,7 +729,7 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 	return subject;
 }
 
-std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter)
+std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter, bool trim)
 {
 	auto start = 0U;
 	auto end = input.find(delimiter);
@@ -739,16 +742,23 @@ std::vector<generic_string> stringSplit(const generic_string& input, const gener
 		end = input.find(delimiter, start);
 	}
 	output.push_back(input.substr(start, end));
+	if (trim)
+		stringTrimInline(output.back());
+
 	return output;
 }
 
-generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator)
+generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator, bool trim)
 {
 	generic_string joined;
 	size_t length = strings.size();
 	for (size_t i = 0; i < length; ++i)
 	{
-		joined += strings.at(i);
+		if (trim)
+			joined += stringTrim(strings.at(i));
+		else
+			joined += strings.at(i);
+
 		if (i != length - 1)
 		{
 			joined += separator;
@@ -832,4 +842,42 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 		return false;
 	}
 	return true;
+}
+
+// string trimming; algorithms taken from http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
+generic_string stringTrimLeft(const generic_string & s)
+{
+	generic_string result(s);
+	result.erase(result.begin(), std::find_if(result.begin(), result.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+	return result;
+}
+
+generic_string stringTrimRight(const generic_string & s)
+{
+	generic_string result(s);
+	result.erase(std::find_if(result.rbegin(), result.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), result.end());
+	return result;
+}
+
+generic_string & stringTrimLeftInline(generic_string & result)
+{
+	result.erase(result.begin(), std::find_if(result.begin(), result.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+	return result;
+}
+
+generic_string & stringTrimRightInline(generic_string & s)
+{
+	s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+	return s;
+}
+
+generic_string stringTrim(const generic_string &s)
+{
+	generic_string result(s);
+	return stringTrimLeftInline(stringTrimRightInline(result));
+}
+
+generic_string & stringTrimInline(generic_string &s)
+{
+	return stringTrimLeftInline(stringTrimRightInline(s));
 }

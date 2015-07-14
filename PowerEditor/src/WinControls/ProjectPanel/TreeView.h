@@ -32,7 +32,20 @@
 #include <commctrl.h>
 #include "window.h"
 #include "Common.h"
+#include <set>
 
+// abstract base class for all data assigned to a tree view item.
+// clone() must always be implemented.
+// getExtraDataString() needs to be implemented, if you use the tree state save/restore functions and has to be something,
+// with which the node (together with its label) can be identified.
+class TreeViewData {
+public:
+	virtual ~TreeViewData() = default;
+	virtual TreeViewData* clone() const = 0;
+	virtual generic_string getExtraDataString() const { return generic_string(); } 
+};
+
+// save state of a tree node
 struct TreeStateNode {
 	generic_string _label;
 	generic_string _extraData;
@@ -41,20 +54,31 @@ struct TreeStateNode {
 	std::vector<TreeStateNode> _children;
 };
 
+// Tree view listener. Is informed if a tree item is added or removed or when a message arrives.
+class TreeViewListener {
+public:
+	virtual void onTreeItemAdded(bool afterClone, HTREEITEM hItem, TreeViewData* newData) { afterClone; hItem; newData; }
+	virtual void onTreeItemRemoved(HTREEITEM hItem,TreeViewData* data) { hItem; data; }
+	virtual void onMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) { hwnd; message; wParam; lParam; }
+};
+
+class TreeView;
+
+typedef HTREEITEM (* TreeviewInsertFunc)(TreeView* treeView, HTREEITEM hParent, const TreeViewData* parentData, const TCHAR *toInsertName, const TreeViewData* toInsertData);
 
 class TreeView : public Window {
 public:
-	TreeView() : Window(), _isItemDragged(false) {};
+	TreeView() : Window(), _isItemDragged(false), _listener(NULL) {};
 
 	virtual ~TreeView() {};
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
-	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
-	bool setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr);
+	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, TreeViewData* data, TreeviewInsertFunc insertFunc = NULL );
 	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
-	
+	void removeAllChildren(HTREEITEM hParent);
+
 	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {
 		return TreeView_GetChild(_hSelf, hTreeItem);
 	};
@@ -88,6 +112,29 @@ public:
 	void toggleExpandCollapse(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_TOGGLE);
 	};
+
+	void cancelEdit() const {
+		TreeView_EndEditLabelNow(_hSelf, TRUE);
+	};
+
+	bool isExpanded(HTREEITEM hItem) const {
+		TVITEM tvItem;
+		tvItem.mask = TVIF_PARAM | TVIF_STATE;
+		tvItem.hItem = hItem;
+		::SendMessage(_hSelf, TVM_GETITEM, 0, (LPARAM)&tvItem);
+
+		return (tvItem.state & TVIS_EXPANDED) != 0;
+	}
+
+	bool isVisible(HTREEITEM hItem) const {
+		for (hItem=getParent(hItem); hItem != NULL; hItem=getParent(hItem))
+		{
+			if( !isExpanded(hItem))
+				return false;
+		}
+		return true;
+	}
+
 	void setItemImage(HTREEITEM hTreeItem, int iImage, int iSelectedImage);
 
 	// Drag and Drop operations
@@ -111,9 +158,20 @@ public:
 	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode);
 	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
 	bool searchLeafAndBuildTree(TreeView & tree2Build, const generic_string & text2Search, int index2Search);
-	void sort(HTREEITEM hTreeItem);
+	void sort(HTREEITEM hTreeItem, bool recursive = true, PFNTVCOMPARE compareFunc = NULL, LPARAM userLparam = 0);
+
+	bool itemValid(HTREEITEM item) {
+		return _validHandles.find(item) != _validHandles.end();
+	}
+
+	TreeViewData* getData(HTREEITEM item);
+
+	void setListener(TreeViewListener* listener);
 
 protected:
+	TreeViewListener* _listener;
+	std::set<HTREEITEM> _validHandles;
+
 	WNDPROC _defaultProc;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
@@ -122,7 +180,7 @@ protected:
 	};
 	void cleanSubEntries(HTREEITEM hTreeItem);
 	void dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem);
-	bool searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const generic_string & text2Search, int index2Search, HTREEITEM tree2Search);
+	bool searchLeafRecursivelyAndBuildTree(HTREEITEM tree2Build, const generic_string & text2Search, int index2Search, HTREEITEM tree2Search);
 
 	// Drag and Drop operations
 	HTREEITEM _draggedItem;
@@ -136,6 +194,7 @@ protected:
 	bool isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem);
 	bool canDragOut(HTREEITEM targetItem);
 	bool canDropIn(HTREEITEM targetItem);
+
 };
 
 

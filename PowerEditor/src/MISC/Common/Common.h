@@ -193,9 +193,17 @@ generic_string PathAppend(generic_string &strDest, const generic_string & str2ap
 COLORREF getCtrlBgColor(HWND hWnd);
 generic_string stringToUpper(generic_string strToConvert);
 generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace);
-std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter);
-generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator);
+std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter, bool trim=false);
+generic_string stringJoin(const std::vector<generic_string>& strings, const generic_string& separator, bool trim=false);
 generic_string stringTakeWhileAdmissable(const generic_string& input, const generic_string& admissable);
+
+generic_string stringTrimLeft(const generic_string & s);
+generic_string stringTrimRight(const generic_string & s);
+generic_string & stringTrimLeftInline(generic_string & result);
+generic_string & stringTrimRightInline(generic_string & s);
+generic_string stringTrim( const generic_string &s);
+generic_string & stringTrimInline( generic_string &s);
+
 double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd);

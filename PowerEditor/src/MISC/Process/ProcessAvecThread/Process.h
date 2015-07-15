@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -33,45 +33,45 @@
 //#include <string>
 using namespace std;
 
-class Process 
+class Process
 {
 public:
-	Process() {};
+	Process() {}
 	Process(const TCHAR *cmd, const TCHAR *cDir)
 		: _stdoutStr(TEXT("")), _stderrStr(TEXT("")), _hPipeOutR(NULL),
-		_hPipeErrR(NULL), _hProcess(NULL), _hProcessThread(NULL) {
-
+		_hPipeErrR(NULL), _hProcess(NULL), _hProcessThread(NULL)
+	{
 		lstrcpy(_command, cmd);
 		lstrcpy(_curDir, cDir);
-	};
+	}
 
 	BOOL run();
 
 	const TCHAR * getStdout() const {
 		return _stdoutStr.c_str();
-	};
-	
+	}
+
 	const TCHAR * getStderr() const {
 		return _stderrStr.c_str();
-	};
+	}
 
 	int getExitCode() const {
 		return _exitCode;
-	};
+	}
 
 	bool hasStdout() {
 		return (_stdoutStr.compare(TEXT("")) != 0);
-	};
+	}
 
 	bool hasStderr() {
 		return (_stderrStr.compare(TEXT("")) != 0);
-	};
+	}
 
 protected:
 	// LES ENTREES
     TCHAR _command[256];
 	TCHAR _curDir[256];
-	
+
 	// LES SORTIES
 	generic_string _stdoutStr;
 	generic_string _stderrStr;
@@ -84,7 +84,7 @@ protected:
 	HANDLE _hProcessThread;
 
     //UINT _pid;   // process ID assigned by caller
-	
+
 	static DWORD WINAPI staticListenerStdOut(void * myself){
 		((Process *)myself)->listenerStdOut();
 		return 0;

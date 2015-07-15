@@ -129,6 +129,30 @@ GOOD:
 
 * Prefer enums for integer constants
 
+* Use initialization with curly braces
+
+GOOD:
+```c
+MyClass instance{10.4};
+```
+BAD:
+```c
+MyClass instance(10.4);
+```
+
+* Always use `empty()` for testing if a string is empty or not
+
+GOOD:
+```c
+if (not string.empty())
+	...
+```
+BAD:
+```c
+if (string != "")
+	...
+```
+
 
 
 ####NAMING CONVENTIONS
@@ -164,7 +188,7 @@ GOOD:
       int _pPrivateAttribute;
       float _pAccount;
 ```
-	  
+
 * Always prefer a variable name that describes what the variable is used for
 
 GOOD:
@@ -195,6 +219,16 @@ BAD:
 
 ####BEST PRACTICES
 
+* Use C++11/14 whenever it is possible
+
+* Use C++11 member initialization feature whenever it is possible
+```c
+class Foo
+{
+	int value = 0;
+};
+```
+
 * Prefer this form :
 ```c
       ++i
@@ -211,6 +245,7 @@ BAD:
   be checked. Wherever possible, use a SmartPtr instead of old-school pointers.
 
 * Avoid using new if you can use automatic variable.
+  However, avoid `shared_ptr` as much as possible. Prefer `unique_ptr` instead.
 
 * Don't place any "using namespace" directives in headers
 

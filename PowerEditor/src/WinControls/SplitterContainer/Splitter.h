@@ -74,7 +74,7 @@ public:
 	};
 	void resizeSpliter(RECT *pRect = NULL);
 	void init(HINSTANCE hInst, HWND hPere, int splitterSize,
-			int iSplitRatio, DWORD dwFlags);
+			double iSplitRatio, DWORD dwFlags);
 	void rotate();
 	int getPhisicalSize() const {
 		return _spiltterSize;
@@ -82,7 +82,7 @@ public:
 
 private:
 	RECT _rect;
-	int _splitPercent;
+	double _splitPercent;
 	int _spiltterSize;
 	bool _isDraged;
 	DWORD _dwFlags;

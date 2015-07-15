@@ -34,12 +34,13 @@ const TCHAR* nppName   = TEXT("Notepad++_file");
 const TCHAR* nppBackup = TEXT("Notepad++_backup");
 const TCHAR* nppDoc    = TEXT("Notepad++ Document");
 
-const int nbSupportedLang = 9;
-const int nbExtMax = 10;
+const int nbSupportedLang = 10;
+const int nbExtMax = 27;
 const int extNameMax = 18;
 
 
-TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] = {
+const TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] =
+{
 	{TEXT("Notepad"),
 		TEXT(".txt"), TEXT(".log")
 	},

@@ -339,20 +339,6 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
     <ClCompile Include="..\src\ScitillaComponent\SmartHighlighter.cpp" />
     <ClCompile Include="..\src\WinControls\SplitterContainer\Splitter.cpp" />
     <ClCompile Include="..\src\WinControls\SplitterContainer\SplitterContainer.cpp" />
-    <ClCompile Include="..\src\sqlite\sqlite3.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
-      </PrecompiledHeader>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">TurnOffAllWarnings</WarningLevel>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">TurnOffAllWarnings</WarningLevel>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
-      </PrecompiledHeader>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">TurnOffAllWarnings</WarningLevel>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">TurnOffAllWarnings</WarningLevel>
-    </ClCompile>
     <ClCompile Include="..\src\WinControls\StaticDialog\StaticDialog.cpp" />
     <ClCompile Include="..\src\WinControls\StatusBar\StatusBar.cpp" />
     <ClCompile Include="..\src\WinControls\TabBar\TabBar.cpp" />
@@ -626,7 +612,6 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
     <ClInclude Include="..\src\ScitillaComponent\SmartHighlighter.h" />
     <ClInclude Include="..\src\WinControls\SplitterContainer\Splitter.h" />
     <ClInclude Include="..\src\WinControls\SplitterContainer\SplitterContainer.h" />
-    <ClInclude Include="..\src\sqlite\sqlite3.h" />
     <ClInclude Include="..\src\WinControls\StaticDialog\StaticDialog.h" />
     <ClInclude Include="..\src\WinControls\StatusBar\StatusBar.h" />
     <ClInclude Include="..\src\WinControls\TabBar\TabBar.h" />

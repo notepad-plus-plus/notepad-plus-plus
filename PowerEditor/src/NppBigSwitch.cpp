@@ -1572,9 +1572,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				    saveSession(currentSession);
 
 				// write settings on cloud if enabled, if the settings files don't exist
-				if (nppgui._cloudChoice != noCloud)
+				if (nppgui._cloudPath != TEXT("") && pNppParam->isCloudPathChanged())
 				{
-					pNppParam->writeSettingsFilesOnCloudForThe1stTime(nppgui._cloudChoice);
+					bool isOK = pNppParam->writeSettingsFilesOnCloudForThe1stTime(nppgui._cloudPath);
+					if (!isOK)
+					{
+						_nativeLangSpeaker.messageBox("SettingsOnCloudError",
+							_pPublicInterface->getHSelf(),
+							TEXT("It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."),
+							TEXT("Settings on Cloud"),
+							MB_OK | MB_APPLMODAL);
+						pNppParam->removeCloudChoice();
+					}
 				}
 
                 //Sends WM_DESTROY, Notepad++ will end

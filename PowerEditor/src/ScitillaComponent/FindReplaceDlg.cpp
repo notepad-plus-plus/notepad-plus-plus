@@ -2388,14 +2388,10 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	{
 		ptStr = TEXT("");
 	}
-
-	//printInt(fgColor);
 	
 	SetTextColor(lpDrawItemStruct->hDC, fgColor);
 	COLORREF bgColor = getCtrlBgColor(_statusBar.getHSelf());
 	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
-	//::SetBkColor(lpDrawItemStruct->hDC, ::GetSysColor(COLOR_3DFACE));
-	//ExtTextOut(lpDIS->hDC, 0, 0, 0 , &lpDIS->rcItem,ptStr, _tcslen(ptStr), NULL);
 	RECT rect;
 	_statusBar.getClientRect(rect);
 	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);

@@ -441,7 +441,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
     if (styleToSet._fontName && lstrcmp(styleToSet._fontName, TEXT("")) != 0)
 	{
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const char * fontNameA = wmc->wchar2char(styleToSet._fontName, CP_ACP);
+		const char * fontNameA = wmc->wchar2char(styleToSet._fontName, CP_UTF8);
 		execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)fontNameA);
 	}
 	int fontStyle = styleToSet._fontStyle;

@@ -614,6 +614,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_toolBar.init(_pPublicInterface->getHinst(), hwnd, tbStatus, toolBarIcons, sizeof(toolBarIcons)/sizeof(ToolBarButtonUnit));
 
 	changeToolBarIcons();
+	checkMacroState();
 
 	_rebarTop.init(_pPublicInterface->getHinst(), hwnd);
 	_rebarBottom.init(_pPublicInterface->getHinst(), hwnd);

@@ -4447,18 +4447,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("hide")))
 			_svp._bookMarkMarginShow = false;
 	}
-/*
-	// doc change state Margin
-	nm = element->Attribute(TEXT("docChangeStateMargin"));
-	if (nm) 
-	{
 
-		if (!lstrcmp(nm, TEXT("show")))
-			_svp._docChangeStateMarginShow = true;
-		else if (!lstrcmp(nm, TEXT("hide")))
-			_svp._docChangeStateMarginShow = false;
-	}
-*/
     // Indent GuideLine 
     nm = element->Attribute(TEXT("indentGuideLine"));
 	if (nm)
@@ -4594,6 +4583,16 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 		if (val >= 0 && val <= 30)
 			_svp._borderWidth = val;
 	}
+
+	// Do antialiased font
+	nm = element->Attribute(TEXT("smoothFont"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("yes")))
+			_svp._doSmoothFont = true;
+		else if (!lstrcmp(nm, TEXT("no")))
+			_svp._doSmoothFont = false;
+	}
 }
 
 
@@ -4713,6 +4712,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp)
 	(scintNode->ToElement())->SetAttribute(TEXT("disableAdvancedScrolling"), svp._disableAdvancedScrolling?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("wrapSymbolShow"), svp._wrapSymbolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), svp._doWrap?TEXT("yes"):TEXT("no"));
+
 	TCHAR *edgeStr = NULL;
 	if (svp._edgeMode == EDGE_NONE)
 		edgeStr = TEXT("no");
@@ -4727,6 +4727,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp)
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), svp._eolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), svp._borderWidth);
+	(scintNode->ToElement())->SetAttribute(TEXT("smoothFont"), svp._doSmoothFont ? TEXT("yes") : TEXT("no"));
 	return true;
 }
 

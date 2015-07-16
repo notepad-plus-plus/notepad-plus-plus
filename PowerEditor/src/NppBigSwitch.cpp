@@ -1222,6 +1222,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_SETSMOOTHFONT:
+		{
+			int param = lParam == 0 ? SC_EFF_QUALITY_DEFAULT : SC_EFF_QUALITY_LCD_OPTIMIZED;
+			_mainEditView.execute(SCI_SETFONTQUALITY, param);
+			_subEditView.execute(SCI_SETFONTQUALITY, param);
+			return TRUE;
+		}
+
         case NPPM_INTERNAL_SETMULTISELCTION :
         {
             NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();

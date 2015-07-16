@@ -4,7 +4,7 @@
         <LexerType name="actionscript" desc="ActionScript" ext="">
             <!--
             <WordsStyle name="DIRECTIVE" styleID="19" fgColor="A001D6" bgColor="000040" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
-			-->
+            -->
             <WordsStyle name="DEFAULT" styleID="11" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="FUNCTION" styleID="20" fgColor="95004A" bgColor="000040" fontName="" fontStyle="0" fontSize="" keywordClass="type2" />
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="804000" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
@@ -332,7 +332,7 @@
         <LexerType name="kix" desc="KiXtart" ext="">
             <!--
             <WordsStyle name="" styleID="0" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
-		-->
+            -->
             <WordsStyle name="DEFAULT" styleID="31" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="2" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
@@ -727,5 +727,3 @@
         <WidgetStyle name="Saved change marker" styleID="0" bgColor="80FF00" />
     </GlobalStyles>
 </NotepadPlus>
-
- 	  	 

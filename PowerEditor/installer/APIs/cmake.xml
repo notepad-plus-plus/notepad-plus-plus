@@ -213,7 +213,6 @@
 		<KeyWord name="MSVC80" />
 		<KeyWord name="CMAKE_COMPILER_2005" />
 		<KeyWord name="OFF" />
-		<KeyWord name="ON" />      
+		<KeyWord name="ON" />
 	</AutoComplete>
 </NotepadPlus>
- 	  	 

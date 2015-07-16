@@ -167,9 +167,14 @@
                     <Item id="43050" name="Inverse Bookmark"/>
                     <Item id="43052" name="Find characters in range..."/>
                     <Item id="43053" name="Select All Between Matching Braces"/>
+                    <Item id="43054" name="Highlight..."/>
                     <Item id="43009" name="Go to Matching Brace"/>
                     <Item id="43010" name="Find Previous"/>
                     <Item id="43011" name="&amp;Incremental Search"/>
+                    <Item id="44011" name="Custom settings window..." />
+                    <Item id="44012" name="Hide line number margin" />
+                    <Item id="44013" name="Hide bookmarks amrgin" />
+                    <Item id="44014" name="Hide folder margin" />
                     <Item id="43013" name="Find in Files"/>
                     <Item id="43014" name="Find (Volatile) Next"/>
                     <Item id="43015" name="Find (Volatile) Previous"/>
@@ -277,6 +282,8 @@
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ Project Page"/>
                     <Item id="47003" name="Online Documentation"/>
+                    <Item id="47004" name="Forum" />
+                    <Item id="47008" name="Help..." />
                     <Item id="47011" name="Live Support"/>
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Update Notepad++"/>
@@ -361,6 +368,7 @@
                 <Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Replace in Files"/>
                 <Item id="1661" name="Follow current doc."/>
+                <Item id="1640" name="Switch window" />
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparency"/>
                 <Item id="1703" name="&amp;. matches newline"/>
@@ -440,6 +448,8 @@
                 <Item id="20015" name="Import..."/>
                 <Item id="20016" name="Export..."/>
                 <StylerDialog title="Styler Dialog">
+                    <Item id="1"     name="OK" />
+                    <Item id="2"     name="Cancel" />
                     <Item id="25030" name="Font options:"/>
                     <Item id="25006" name="Foreground colour"/>
                     <Item id="25007" name="Background colour"/>
@@ -471,6 +481,11 @@
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Numbers"/>
                 </StylerDialog>
+                <CreateNewLanguage title="Create new language...">
+                    <Item id="1"     name="OK" />
+                    <Item id="2"     name="Cancel" />
+                    <Item id="26001" name="Name:" />
+                </CreateNewLanguage>
                 <Folder title="Folder &amp;&amp; Default">
                     <Item id="21101" name="Default style"/>
                     <Item id="21102" name="Styler"/>
@@ -617,6 +632,7 @@
                     <Item id="6119" name="Multi-line"/>
                     <Item id="6120" name="Vertical"/>
 
+                    <Item id="6121" name="Menu bar" />
                     <Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="Localization"/>
 
@@ -690,13 +706,13 @@
                     <Item id="6506" name="Disabled items"/>
                     <Item id="6507" name="Make language menu compact"/>
                     <Item id="6508" name="Language Menu"/>
+                    <Item id="6510" name="Use default value"/>
                 </LangMenu>
 
                 <TabSettings title="Tab Settings">
                     <Item id="6301" name="Tab Settings"/>
                     <Item id="6302" name="Replace by space"/>
                     <Item id="6303" name="Tab size: "/>
-                    <Item id="6510" name="Use default value"/>
                 </TabSettings>
 
                 <Print title="Print">
@@ -787,11 +803,16 @@
                     <Item id="6252" name="Open"/>
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>
+                    <Item id="6257" name="bla bla bla bla bla bla"/>
+                    <Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>
                 </Delimiter>
 
                  <Cloud title="Cloud">
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>

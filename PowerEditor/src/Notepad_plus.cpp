@@ -1344,74 +1344,67 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
 }
 
-void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
+void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir, const Progress* progress)
 {
-	generic_string dirFilter(dir);
-	dirFilter += TEXT("*.*");
 	WIN32_FIND_DATA foundData;
+	HANDLE hFile;
 
-	HANDLE hFile = ::FindFirstFile(dirFilter.c_str(), &foundData);
+	// limit scope of dirFilter to save stack space on recursive getMatchedFileNames() calls
+	{
+		generic_string dirFilter(dir);
+		dirFilter += TEXT("*.*");
+		hFile = ::FindFirstFile(dirFilter.c_str(), &foundData);
+		if (progress && !progress->isCancelled())
+		{
+			dirFilter = TEXT("Indexing \"");
+			dirFilter += dir;
+			dirFilter += TEXT("\"");
+			progress->setInfo(dirFilter.c_str());
+			progress->flushCallerUserInput();
+		}
+	}
+
+	for (BOOL r = (hFile != INVALID_HANDLE_VALUE); r; r = ::FindNextFile(hFile, &foundData))
+	{
+		if (progress && progress->isCancelled()) break;
+		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+		{
+			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
+			{
+				// do nothing
+			}
+			else if (isRecursive)
+			{
+				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
+				{
+					generic_string pathDir(dir);
+					pathDir += foundData.cFileName;
+					pathDir += TEXT("\\");
+					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir, progress);
+					if (progress && !progress->isCancelled())
+					{
+						pathDir = TEXT("Indexing \"");
+						pathDir += dir;
+						pathDir += TEXT("\"");
+						progress->setInfo(pathDir.c_str());
+						progress->flushCallerUserInput();
+					}
+				}
+			}
+		}
+		else
+		{
+			if (matchInList(foundData.cFileName, patterns))
+			{
+				generic_string pathFile(dir);
+				pathFile += foundData.cFileName;
+				fileNames.push_back(pathFile.c_str());
+			}
+		}
+	}
 
 	if (hFile != INVALID_HANDLE_VALUE)
-	{
-
-		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-		{
-			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
-			{
-				// do nothing
-			}
-			else if (isRecursive)
-			{
-				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
-				{
-					generic_string pathDir(dir);
-					pathDir += foundData.cFileName;
-					pathDir += TEXT("\\");
-					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
-				}
-			}
-		}
-		else
-		{
-			if (matchInList(foundData.cFileName, patterns))
-			{
-				generic_string pathFile(dir);
-				pathFile += foundData.cFileName;
-				fileNames.push_back(pathFile.c_str());
-			}
-		}
-	}
-	while (::FindNextFile(hFile, &foundData))
-	{
-		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-		{
-			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
-			{
-				// do nothing
-			}
-			else if (isRecursive)
-			{
-				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
-				{
-					generic_string pathDir(dir);
-					pathDir += foundData.cFileName;
-					pathDir += TEXT("\\");
-					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
-				}
-			}
-		}
-		else
-		{
-			if (matchInList(foundData.cFileName, patterns))
-			{
-				generic_string pathFile(dir);
-				pathFile += foundData.cFileName;
-				fileNames.push_back(pathFile.c_str());
-			}
-		}
-	}
-	::FindClose(hFile);
+		::FindClose(hFile);
 }
 
 
@@ -1439,61 +1432,60 @@ bool Notepad_plus::replaceInFiles()
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
 		_findReplaceDlg.getPatterns(patterns2Match);
 	}
-	vector<generic_string> fileNames;
-
-	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	Progress progress(_pPublicInterface->getHinst());
-	size_t filesCount = fileNames.size();
-	size_t filesPerPercent = 1;
+	progress.open(_findReplaceDlg.getHSelf(), TEXT("Replace In Files progress..."));
+	progress.setInfo(TEXT("Getting list of files, please wait..."));
 
-	if (filesCount > 1)
+	vector<generic_string> fileNames;
+	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir, &progress);
+
+	if (!progress.isCancelled())
 	{
-		if (filesCount >= 200)
-			filesPerPercent = filesCount / 100;
-		progress.open(_findReplaceDlg.getHSelf(), TEXT("Replace In Files progress..."));
-	}
+		const size_t filesCount = fileNames.size();
+		const size_t filesPerPercent = (filesCount < 200) ? 1 : (filesCount / 100);
 
-	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
-	{
-		if (progress.isCancelled()) break;
-
-		bool closeBuf = false;
-
-		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
-		if (id == BUFFER_INVALID)
+		for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 		{
-			id = MainFileManager->loadFile(fileNames.at(i).c_str());
-			closeBuf = true;
-		}
+			if (progress.isCancelled()) break;
 
-		if (id != BUFFER_INVALID)
-		{
-			Buffer * pBuf = MainFileManager->getBufferByID(id);
-			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
-			_invisibleEditView.setCurrentBuffer(pBuf);
+			bool closeBuf = false;
 
-			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, true, fileNames.at(i).c_str());
-			nbTotal += nbReplaced;
-			if (nbReplaced)
+			BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
+			if (id == BUFFER_INVALID)
 			{
-				MainFileManager->saveBuffer(id, pBuf->getFullPathName());
+				id = MainFileManager->loadFile(fileNames.at(i).c_str());
+				closeBuf = true;
 			}
 
-			if (closeBuf)
-				MainFileManager->closeBuffer(id, _pEditView);
-		}
-		if (i == updateOnCount)
-		{
-			updateOnCount += filesPerPercent;
-			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
-			progress.flushCallerUserInput();
-		}
-		else
-		{
-			progress.setInfo(fileNames.at(i).c_str());
+			if (id != BUFFER_INVALID)
+			{
+				Buffer * pBuf = MainFileManager->getBufferByID(id);
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+				int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+				_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
+				_invisibleEditView.setCurrentBuffer(pBuf);
+
+				int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, true, fileNames.at(i).c_str());
+				nbTotal += nbReplaced;
+				if (nbReplaced)
+				{
+					MainFileManager->saveBuffer(id, pBuf->getFullPathName());
+				}
+
+				if (closeBuf)
+					MainFileManager->closeBuffer(id, _pEditView);
+			}
+			if (i == updateOnCount)
+			{
+				updateOnCount += filesPerPercent;
+				progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
+				progress.flushCallerUserInput();
+			}
+			else
+			{
+				progress.setInfo(fileNames.at(i).c_str());
+			}
 		}
 	}
 
@@ -1534,62 +1526,62 @@ bool Notepad_plus::findInFiles()
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
 		_findReplaceDlg.getPatterns(patterns2Match);
 	}
-	vector<generic_string> fileNames;
-	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
-
-	_findReplaceDlg.beginNewFilesSearch();
 
 	Progress progress(_pPublicInterface->getHinst());
+	progress.open(_findReplaceDlg.getHSelf(), TEXT("Find In Files progress..."));
+	progress.setInfo(TEXT("Getting list of files, please wait..."));
 
-	size_t filesCount = fileNames.size();
-	size_t filesPerPercent = 1;
+	vector<generic_string> fileNames;
+	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir, &progress);
 
-	if (filesCount > 1)
+	if (!progress.isCancelled())
 	{
-		if (filesCount >= 200)
-			filesPerPercent = filesCount / 100;
-		progress.open(_findReplaceDlg.getHSelf(), TEXT("Find In Files progress..."));
-	}
+		const size_t filesCount = fileNames.size();
+		const size_t filesPerPercent = (filesCount < 200) ? 1 : (filesCount / 100);
 
-	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
-	{
-		if (progress.isCancelled()) break;
+		_findReplaceDlg.beginNewFilesSearch();
 
-		bool closeBuf = false;
-		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
-		if (id == BUFFER_INVALID)
+		for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 		{
-			id = MainFileManager->loadFile(fileNames.at(i).c_str());
-			closeBuf = true;
+			if (progress.isCancelled())
+				break;
+
+			bool closeBuf = false;
+			BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
+			if (id == BUFFER_INVALID)
+			{
+				id = MainFileManager->loadFile(fileNames.at(i).c_str());
+				closeBuf = true;
+			}
+
+			if (id != BUFFER_INVALID)
+			{
+				Buffer * pBuf = MainFileManager->getBufferByID(id);
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+				int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+				_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
+
+				nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, true, fileNames.at(i).c_str());
+				if (closeBuf)
+					MainFileManager->closeBuffer(id, _pEditView);
+			}
+			if (i == updateOnCount)
+			{
+				updateOnCount += filesPerPercent;
+				progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
+				progress.flushCallerUserInput();
+			}
+			else
+			{
+				progress.setInfo(fileNames.at(i).c_str());
+			}
 		}
 
-		if (id != BUFFER_INVALID)
-		{
-			Buffer * pBuf = MainFileManager->getBufferByID(id);
-			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
-
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, true, fileNames.at(i).c_str());
-			if (closeBuf)
-				MainFileManager->closeBuffer(id, _pEditView);
-		}
-		if (i == updateOnCount)
-		{
-			updateOnCount += filesPerPercent;
-			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
-			progress.flushCallerUserInput();
-		}
-		else
-		{
-			progress.setInfo(fileNames.at(i).c_str());
-		}
+		_findReplaceDlg.finishFilesSearch(nbTotal);
 	}
 
 	progress.close();
 	progress.flushCallerUserInput();
-
-	_findReplaceDlg.finishFilesSearch(nbTotal);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
@@ -1599,6 +1591,7 @@ bool Notepad_plus::findInFiles()
 	FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
 	if (nbTotal && !findHistory._isDlgAlwaysVisible)
 		_findReplaceDlg.display(false);
+
 	return true;
 }
 

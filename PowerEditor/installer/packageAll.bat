@@ -47,6 +47,8 @@ copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\SciLexer.dll .\minimalist\
 If ErrorLevel 1 PAUSE
+copy /Y copy ..\src\fonts\sourceCodePro\SourceCodePro-Regular.otf .\minimalist\
+If ErrorLevel 1 PAUSE
 
 
 rem Notepad++ Unicode package
@@ -86,6 +88,8 @@ If ErrorLevel 1 PAUSE
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\SciLexer.dll .\zipped.package.release\
+If ErrorLevel 1 PAUSE
+copy ..\src\fonts\sourceCodePro\SourceCodePro-Regular.otf .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 
 rem Plugins

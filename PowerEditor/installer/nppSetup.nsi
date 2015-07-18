@@ -489,6 +489,7 @@ Section -"Notepad++" mainSection
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
+	File "..\bin\SourceCodePro-Regular.otf"
 	
 	; Set Section Files and Shortcuts
 	SetOverwrite on
@@ -1969,6 +1970,7 @@ Section Uninstall
 	Delete "$INSTDIR\nativeLang.xml"
 	Delete "$INSTDIR\session.xml"
 	Delete "$INSTDIR\localization\english.xml"
+	Delete "$INSTDIR\SourceCodePro-Regular.otf"
 	
 	SetShellVarContext current
 	Delete "$APPDATA\Notepad++\langs.xml"

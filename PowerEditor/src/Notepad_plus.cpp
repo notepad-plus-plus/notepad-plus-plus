@@ -56,6 +56,8 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
 #define NPP_INTERNAL_FUCTION_STR TEXT("Notepad++::InternalFunction")
 
+#define SOURCECODEPRO_FONT  TEXT("SourceCodePro-Regular.otf")
+
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 
 ToolBarButtonUnit toolBarIcons[] = {
@@ -199,6 +201,7 @@ Notepad_plus::~Notepad_plus()
 	delete _pProjectPanel_3;
 	delete _pDocMap;
 	delete _pFuncList;
+	::RemoveFontResource(SOURCECODEPRO_FONT);
 }
 
 
@@ -208,6 +211,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+
+	// Add Main font
+	::AddFontResource(SOURCECODEPRO_FONT);
 
 	// Menu
 	_mainMenuHandle = ::GetMenu(hwnd);

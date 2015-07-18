@@ -75,6 +75,11 @@ public :
 		return ::SendMessage(_hSelf, BGM_GETROW, 0, 0);
 	};
 
+    // CHANGE_MOD: added get row count for validation
+    int getRowCount() {
+        return ::SendMessage(_hSelf, BGM_GETROWS, 0, 0);
+    }
+
 	void deleteCell(int row, int col) {
 		_BGCELL cell;
 		cell.row = row;

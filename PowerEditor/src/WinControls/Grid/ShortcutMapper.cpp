@@ -112,6 +112,8 @@ void ShortcutMapper::fillOutBabyGrid()
 	_babygrid.setText(0, 1, TEXT("Name"));
 	_babygrid.setText(0, 2, TEXT("Shortcut"));
 
+    // CHANGE_MOD: shouldBeEnabled = true when rowCount >0 (so user can't click menu for null item in Macro/User list)
+    bool shouldBeEnabled = _babygrid.getRowCount() > 0;
 	switch(_currentState) {
 		case STATE_MENU: {
 			vector<CommandShortcut> & cshortcuts = nppParam->getUserShortcuts();
@@ -120,7 +122,7 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
-            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), true);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 		case STATE_MACRO: {
@@ -130,7 +132,6 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
-            bool shouldBeEnabled = nrItems > 0;
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
 			break; }
@@ -141,7 +142,6 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
-            bool shouldBeEnabled = nrItems > 0;
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
 			break; }
@@ -152,7 +152,6 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
-            bool shouldBeEnabled = nrItems > 0;
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
@@ -163,7 +162,7 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
-            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), true);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 	}
@@ -228,17 +227,20 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDM_BABYGRID_MODIFY :
 				{
 					NppParameters *nppParam = NppParameters::getInstance();
-					int row = _babygrid.getSelectedRow();
-
+					int row = _babygrid.getSelectedRow(); 
+                    int shortcutIndex = row - 1;
+                    // CHANGE_MOD: added variable shortcutIndex to match other swtich cases, as well
+                    // added check if index <0, then to return to avoid null pointer reference
+                    if (shortcutIndex < 0) { return TRUE; }
 					switch(_currentState) {
 						case STATE_MENU: {
 							//Get CommandShortcut corresponding to row
 							vector<CommandShortcut> & shortcuts = nppParam->getUserShortcuts();
-							CommandShortcut csc = shortcuts[row - 1], prevcsc = shortcuts[row - 1];
+                            CommandShortcut csc = shortcuts[shortcutIndex], prevcsc = shortcuts[shortcutIndex];
 							csc.init(_hInst, _hSelf);
 							if (csc.doDialog() != -1 && prevcsc != csc) {	//shortcut was altered
-								nppParam->addUserModifiedIndex(row-1);
-								shortcuts[row - 1] = csc;
+                                nppParam->addUserModifiedIndex(shortcutIndex);
+                                shortcuts[shortcutIndex] = csc;
 								_babygrid.setText(row, 2, csc.toString().c_str());
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
@@ -248,10 +250,10 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_MACRO: {
 							//Get MacroShortcut corresponding to row
 							vector<MacroShortcut> & shortcuts = nppParam->getMacroList();
-							MacroShortcut msc = shortcuts[row - 1], prevmsc = shortcuts[row - 1];
+                            MacroShortcut msc = shortcuts[shortcutIndex], prevmsc = shortcuts[shortcutIndex];
 							msc.init(_hInst, _hSelf);
 							if (msc.doDialog() != -1 && prevmsc != msc) {	//shortcut was altered
-								shortcuts[row - 1] = msc;
+                                shortcuts[shortcutIndex] = msc;
 								_babygrid.setText(row, 1, msc.getName());
 								_babygrid.setText(row, 2, msc.toString().c_str());
 
@@ -263,11 +265,11 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_USER: {
 							//Get UserCommand corresponding to row
 							vector<UserCommand> & shortcuts = nppParam->getUserCommandList();
-							UserCommand ucmd = shortcuts[row - 1], prevucmd = shortcuts[row - 1];
+                            UserCommand ucmd = shortcuts[shortcutIndex], prevucmd = shortcuts[shortcutIndex];
 							ucmd.init(_hInst, _hSelf);
 							prevucmd = ucmd;
 							if (ucmd.doDialog() != -1 && prevucmd != ucmd) {	//shortcut was altered
-								shortcuts[row - 1] = ucmd;
+                                shortcuts[shortcutIndex] = ucmd;
 								_babygrid.setText(row, 1, ucmd.getName());
 								_babygrid.setText(row, 2, ucmd.toString().c_str());
 
@@ -279,12 +281,12 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_PLUGIN: {
 							//Get PluginCmdShortcut corresponding to row
 							vector<PluginCmdShortcut> & shortcuts = nppParam->getPluginCommandList();
-							PluginCmdShortcut pcsc = shortcuts[row - 1], prevpcsc = shortcuts[row - 1];
+                            PluginCmdShortcut pcsc = shortcuts[shortcutIndex], prevpcsc = shortcuts[shortcutIndex];
 							pcsc.init(_hInst, _hSelf);
 							prevpcsc = pcsc;
 							if (pcsc.doDialog() != -1 && prevpcsc != pcsc) {	//shortcut was altered
-								nppParam->addPluginModifiedIndex(row-1);
-								shortcuts[row - 1] = pcsc;
+                                nppParam->addPluginModifiedIndex(shortcutIndex);
+                                shortcuts[shortcutIndex] = pcsc;
 								_babygrid.setText(row, 2, pcsc.toString().c_str());
 
 								//Notify current Accelerator class to update everything
@@ -302,13 +304,13 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						case STATE_SCINTILLA: {
 							//Get ScintillaKeyMap corresponding to row
 							vector<ScintillaKeyMap> & shortcuts = nppParam->getScintillaKeyList();
-							ScintillaKeyMap skm = shortcuts[row - 1], prevskm = shortcuts[row-1];
+                            ScintillaKeyMap skm = shortcuts[shortcutIndex], prevskm = shortcuts[shortcutIndex];
 							skm.init(_hInst, _hSelf);
 							if (skm.doDialog() != -1 && prevskm != skm) 
 							{
 								//shortcut was altered
-								nppParam->addScintillaModifiedIndex(row-1);
-								shortcuts[row-1] = skm;
+                                nppParam->addScintillaModifiedIndex(shortcutIndex);
+                                shortcuts[shortcutIndex] = skm;
 								_babygrid.setText(row, 2, skm.toString().c_str());
 
 								//Notify current Accelerator class to update key
@@ -322,10 +324,12 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDM_BABYGRID_DELETE :
 				{
 					NppParameters *nppParam = NppParameters::getInstance();
+					const int row = _babygrid.getSelectedRow();
+					int shortcutIndex = row - 1;
+					// CHANGE_MOD: added check if index <0, then to return to avoid null pointer reference
+					if (shortcutIndex < 0) { return TRUE; } 
 					if (::MessageBox(_hSelf, TEXT("Are you sure you want to delete this shortcut?"), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
 					{
-						const int row = _babygrid.getSelectedRow();
-						int shortcutIndex = row-1;
 						DWORD cmdID = 0;
 						
 						// Menu data
@@ -419,10 +423,13 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, TEXT("Delete")));
 							_rightClickMenu.create(_hSelf, itemUnitArray);
 						}
+						// CHANGE_MOD: disable the menu items if there are no rows to click
+						bool en = _babygrid.getRowCount() > 0;
+						_rightClickMenu.enableItem(IDM_BABYGRID_MODIFY, en);
 						switch(_currentState) {
 							case STATE_MACRO:
 							case STATE_USER: {
-								_rightClickMenu.enableItem(IDM_BABYGRID_DELETE, true);
+								_rightClickMenu.enableItem(IDM_BABYGRID_DELETE, en);
 								break; }
 							case STATE_MENU:
 							case STATE_PLUGIN:

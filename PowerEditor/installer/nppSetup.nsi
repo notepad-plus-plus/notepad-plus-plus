@@ -625,6 +625,12 @@ Section -"Notepad++" mainSection
 		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
 		Delete "$INSTDIR\plugins\NppQCP.dll"
 		
+	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +4
+		MessageBox MB_OK "Due to the stability issue,$\nDSpellCheck.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
+		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+	
+	
     ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3
 		Exec 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'
@@ -797,21 +803,6 @@ SectionGroupEnd
 
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
-
-	${MementoSection} "Spell-Checker" DSpellCheck
-		Delete "$INSTDIR\plugins\DSpellCheck.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\DSpellCheck.dll"
-		SetOutPath "$UPDATE_PATH\plugins\Config"
-		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
-		File "..\bin\plugins\Config\Hunspell\dictionary.lst"
-		File "..\bin\plugins\Config\Hunspell\en_GB.aff"
-		File "..\bin\plugins\Config\Hunspell\en_GB.dic"
-		File "..\bin\plugins\Config\Hunspell\README_en_GB.txt"
-		File "..\bin\plugins\Config\Hunspell\en_US.aff"
-		File "..\bin\plugins\Config\Hunspell\en_US.dic"
-		File "..\bin\plugins\Config\Hunspell\README_en_US.txt"
-	${MementoSectionEnd}
 
 	${MementoSection} "Npp FTP" NppFTP
 		Delete "$INSTDIR\plugins\NppFTP.dll"

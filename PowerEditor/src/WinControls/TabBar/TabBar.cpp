@@ -455,8 +455,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
                 if (wParam & (MK_CONTROL | MK_SHIFT))
                 {
                     int index = (isup ? maxtab : 0);
-                    // We only need to check fo MK_CONTROL, since a MK_SHIFT message, means switch first/last
-                    if (wParam && MK_CONTROL)
+                    // CTRL overrides SHIFT if both are pressed
+                    if (wParam & MK_CONTROL)
                     {
                         // CTRL is being held while mouse wheel, do prev/next doc
                         index = ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0) + (isup ? 1 : -1);

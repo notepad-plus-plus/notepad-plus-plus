@@ -162,7 +162,7 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 	return _nbExt;
 }
 
-TCHAR * FileDialog::doOpenSingleFileDlg() 
+TCHAR* FileDialog::doOpenSingleFileDlg()
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
@@ -208,21 +208,26 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		::GetCurrentDirectory(MAX_PATH, dir);
 		params->setWorkingDir(dir);
 	}
-	::SetCurrentDirectory(dir); 
+	::SetCurrentDirectory(dir);
 
 	if (res)
 	{
-		TCHAR fn[MAX_PATH];
-		TCHAR *pFn = _fileName + lstrlen(_fileName) + 1;
+		TCHAR* pFn = _fileName + lstrlen(_fileName) + 1;
+		TCHAR fn[MAX_PATH*8];
+		memset(fn, 0x0, sizeof(fn));
+
 		if (!(*pFn))
+		{
 			_fileNames.push_back(generic_string(_fileName));
+		}
 		else
 		{
 			lstrcpy(fn, _fileName);
-			if (fn[lstrlen(fn)-1] != '\\')
+			if (fn[lstrlen(fn) - 1] != '\\')
 				lstrcat(fn, TEXT("\\"));
 		}
-		int term = int(lstrlen(fn));
+
+		int term = lstrlen(fn);
 
 		while (*pFn)
 		{
@@ -234,9 +239,9 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 
 		return &_fileNames;
 	}
-	else
-		return NULL;
+	return nullptr;
 }
+
 
 TCHAR * FileDialog::doSaveDlg() 
 {

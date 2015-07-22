@@ -3,9 +3,9 @@
 <!-- Email: batagy.ford kukac gmail pont com -->
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation-->
-<!-- For Notepad++ Version 6.7.9.2, modified 2015.07.04 -->
+<!-- For Notepad++ Version 6.8, modified 2015.07.22 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="6.7.9.2">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="6.8">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -206,6 +206,7 @@
                     <Item id="43047" name="Előző találat a találati ablakban"/>
                     <Item id="43048" name="Kijelölés és következő keresése"/>
                     <Item id="43049" name="Kijelölés és előző keresése"/>
+                    <Item id="43054" name="Kiemelés..."/>
                     <Item id="44009" name="Ablakkeret nélküli nézet"/>
                     <Item id="44010" name="Minden blokk összecsukása"/>
                     <Item id="44012" name="Sorszámozás elrejtése"/>
@@ -638,6 +639,7 @@
                     <Item id="6127" name="Kiterjesztés oszlop tiltása"/>
                 </Global>
                 <Scintillas title="Megjelenítés beállításai">
+                    <Item id="6215" name="Betűtípusok simítása"/>
                     <Item id="6216" name="Kurzor beállításai"/>
                     <Item id="6217" name="Szélesség:"/>
                     <Item id="6219" name="Villogás:"/>
@@ -801,15 +803,15 @@
                     <Item id="6252" name="Nyitótag"/>
                     <Item id="6255" name="Zárótag"/>
                     <Item id="6256" name="Többsoros blokk engedélyezése"/>
+                    <Item id="6257" name="bla bla bla bla bla"/>
+                    <Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla"/>
                 </Delimiter>
 
                  <Cloud title="Felhő">
-                    <Item id="6262" name="Felhő beállítások"/>
+                    <Item id="6262" name="Beállítások tárolása felhőben"/>
                     <Item id="6263" name="Ne használjon felhőt"/>
-                    <Item id="6264" name="Dropbox"/>
-                    <Item id="6265" name="OneDrive"/>
-                    <Item id="6266" name="Google Drive"/>
-                    <!--Item id="6261" name="Az érvénybe léptetéshez a Notepad++ újraindítása szükséges."/-->
+                    <Item id="6267" name="Felhőben tárolt beállítások elérési útja:"/>
+                    <Item id="6261" name="Ehhez program újraindítás szükséges."/>
                 </Cloud>
 
                 <MISC title="Egyéb">
@@ -861,6 +863,7 @@
                 <Item id="2030" name="Kezdő számérték:"/>
                 <Item id="2031" name="Növekmény:"/>
                 <Item id="2035" name="Bevezető nullák"/>
+                <Item id="2036" name="Ismétlés:"/>
                 <Item id="2032" name="Formátum"/>
                 <Item id="2024" name="Dec"/>
                 <Item id="2025" name="Oct"/>
@@ -883,6 +886,7 @@
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Túl sok fájl megnyitása" message = "$INT_REPLACE$ fájlt kíván megnyitni.&#x0A;&#x0A;Biztosan megnyitja mindet?"/>
+            <SettingsOnCloudError title="Beállítások tárolása felhőben" message="Úgy tűnik, a felhőben tárolt beállítások elérési útja írásvédett meghajtóra mutat,&#x0A;vagy pedig a megadott mappa módosításához nincs megfelelő írási jog.&#x0A;A felhő beállítások törlődtek. Adja meg a megfelelő értéket a Beállításokban."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Vágólap előzmények"/>

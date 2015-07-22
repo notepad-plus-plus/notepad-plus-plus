@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 6.7.9.2  11/Jul/2015  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 6.8  22/Jul/2015  by Ondřej Müller (mullero@email.cz)
 	- all older Czech translations at:  http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.7.9.2">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -696,6 +696,7 @@
 					<Item id = "6212" name = "Okraj"/>
 					<Item id = "6213" name = "Zvýraznit přesah řádky"/>
 					<Item id = "6214" name = "Zvýraznit aktivní řádek"/>
+					<Item id = "6215" name = "Povolit vyhlazování fontu"/>
 					<Item id = "6216" name = "Nastavení kurzoru"/>
 					<Item id = "6217" name = "Šířka:"/>
 					<Item id = "6219" name = "Rychlost blikání:"/>
@@ -847,26 +848,26 @@
 					<Item id = "6866" name = "Párové znaky 3:"/>
 				</AutoCompletion>
 				<MultiInstance title = "Multi-instance">
-                    <Item id = "6151" name = "Nastavení multi-instančního módu"/>
-                    <Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++"/>
-                    <Item id = "6153" name = "Vždy v multi-instančním módu"/>
-                    <Item id = "6154" name = "Implicitní (mono-instanční mód)"/>
-                    <Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
-                </MultiInstance>
+					<Item id = "6151" name = "Nastavení multi-instančního módu"/>
+					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++"/>
+					<Item id = "6153" name = "Vždy v multi-instančním módu"/>
+					<Item id = "6154" name = "Implicitní (mono-instanční mód)"/>
+					<Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
+				</MultiInstance>
 				<Delimiter title = "Ohraničení">
-                    <Item id = "6251" name = "Nastavení pro ohraničující výběr (Ctrl + dvojklik myší)"/>
-                    <Item id = "6252" name = "Úvod"/>
+					<Item id = "6251" name = "Nastavení pro ohraničující výběr (Ctrl + dvojklik myší)"/>
+					<Item id = "6252" name = "Úvod"/>
 					<Item id = "6255" name = "Konec"/>
-                    <Item id = "6256" name = "Povolit přes více řádků"/>
-                    <Item id = "6257" name = "bla bla bla bla bla bla"/>
-                    <Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
-                </Delimiter>
-                <Cloud title = "Cloud (i-úložišťě)">
-				    <!--Item id="6261" name="Pro aktivaci změn prosím restartujte Notepad++."/-->
-                    <Item id = "6262" name = "Nastavení internetového úložišťě"/>
-                    <Item id = "6263" name = "bez cloudu"/>
+					<Item id = "6256" name = "Povolit přes více řádků"/>
+					<Item id = "6257" name = "bla bla bla bla bla bla"/>
+					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
+				</Delimiter>
+				<Cloud title = "Cloud (i-úložišťě)">
+					<!--Item id="6261" name="Pro aktivaci změn prosím restartujte Notepad++."/-->
+					<Item id = "6262" name = "Nastavení internetového úložišťě"/>
+					<Item id = "6263" name = "bez cloudu"/>
 					<Item id = "6267" name = "Zde nastavte cestu k Vašemu i-úložišti:"/>
-                </Cloud>
+				</Cloud>
 			</Preference>
 
 			<MultiMacro title = "Spustit makro vícekrát">
@@ -888,15 +889,16 @@
 
 			<ColumnEditor title = "Editor sloupce">
 				<Item id = "2023" name = "Text ke vložení"/>
-				<Item id = "2033" name = "Číslo ke vložení"/>
-				<Item id = "2030" name = "Počáteční číslo:"/>
-				<Item id = "2031" name = "Inkrementace po:"/>
-				<Item id = "2035" name = "Uvozující nuly"/>
-				<Item id = "2032" name = "Formát"/>
 				<Item id = "2024" name = "Dec"/>
 				<Item id = "2025" name = "Oct"/>
 				<Item id = "2026" name = "Hex"/>
 				<Item id = "2027" name = "Bin"/>
+				<Item id = "2030" name = "Počáteční číslo:"/>
+				<Item id = "2031" name = "Inkrementace po:"/>
+				<Item id = "2032" name = "Formát"/>
+				<Item id = "2033" name = "Číslo ke vložení"/>
+				<Item id = "2035" name = "Uvozující nuly"/>
+				<Item id = "2036" name = "Opakování:"/>
 				<Item id = "1" name = "OK"/>
 				<Item id = "2" name = "Storno"/>
 			</ColumnEditor>

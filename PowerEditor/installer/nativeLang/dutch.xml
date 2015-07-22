@@ -210,6 +210,7 @@
 					<Item id="43051" name="Regels zonder bladwijzer wissen"/>
 					<Item id="43052" name="Zoeken naar karakter in bereik..."/>
 					<Item id="43053" name="Alles selecteren tussen bij elkaar horende haakjes"/>
+					<Item id="43054" name="Markeren..."/>
 					<Item id="44009" name="Interface verbergen"/>
 					<Item id="44010" name="Gegevensstructuur samenvouwen"/>
 					<Item id="44012" name="Regelnummers verbergen"/>
@@ -628,11 +629,11 @@
 					<Item id="6255" name="Einde"/>
 					<Item id="6256" name="Selecteer tekst over meerdere regels"/>
 				</Delimiter>
-                 <Cloud title="Online opslag">
-                    <Item id="6262" name="Instellingen online opslaan"/>
-                    <Item id="6263" name="Instellingen niet online opslaan"/>
-                    <Item id="6267" name="Pad naar online opslag:"/>
-                </Cloud>
+				<Cloud title="Online opslag">
+					<Item id="6262" name="Instellingen online opslaan"/>
+					<Item id="6263" name="Instellingen niet online opslaan"/>
+					<Item id="6267" name="Pad naar online opslag:"/>
+				</Cloud>
 			</Preference>
 			<Window title="Documenten">
 				<Item id="1" name="Activeren"/>

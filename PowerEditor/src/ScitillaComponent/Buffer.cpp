@@ -1058,29 +1058,21 @@ size_t FileManager::nextUntitledNewNumber() const
 		}
 	}
 
-	size_t newNumber = 1;
-	bool numberAvailable = true;
-	bool found = false;
+	size_t newNumber = 0;
+	bool found;
 	do
 	{
-		for(size_t j = 0; j < usedNumbers.size(); j++)
+		found = true;
+		for (size_t j = 0; j < usedNumbers.size(); j++)
 		{
-			numberAvailable = true;
-			found = false;
 			if (usedNumbers[j] == newNumber)
 			{
-				numberAvailable = false;
-				found = true;
+				++newNumber;
+				found = false;
 				break;
 			}
 		}
-		if (!numberAvailable)
-			newNumber++;
-		
-		if (!found)
-			break;
-
-	} while (!numberAvailable);
+	} while (!found);
 
 	return newNumber;
 }
@@ -1106,7 +1098,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 {
 	generic_string newTitle = UNTITLED_STR;
 	TCHAR nb[10];
-	wsprintf(nb, TEXT("%d"), 0);
+	wsprintf(nb, TEXT("%d"), _newNameSeqStart);
 	newTitle += nb;
 
 	if (!dontRef)
@@ -1120,6 +1112,11 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	if (!dontIncrease)
 		++_nextBufferID;
 	return id;
+}
+
+void FileManager::resetNameSeq()
+{
+	_newNameSeqStart = 0;
 }
 
 int FileManager::detectCodepage(char* buf, size_t len)

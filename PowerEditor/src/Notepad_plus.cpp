@@ -228,10 +228,18 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_pNonDocTab = &_subDocTab;
 	_pNonEditView = &_subEditView;
 
-	_mainEditView.init(_pPublicInterface->getHinst(), hwnd);
 	_subEditView.init(_pPublicInterface->getHinst(), hwnd);
 
+	_invisibleEditView.init(_pPublicInterface->getHinst(), hwnd);
+	_invisibleEditView.execute(SCI_SETUNDOCOLLECTION);
+	_invisibleEditView.execute(SCI_EMPTYUNDOBUFFER);
+	_invisibleEditView.wrap(false); // Make sure no slow down
+	
 	_fileEditView.init(_pPublicInterface->getHinst(), hwnd);
+	
+	MainFileManager->resetNameSeq();
+	_mainEditView.init(_pPublicInterface->getHinst(), hwnd);
+
 	MainFileManager->init(this, &_fileEditView); //get it up and running asap.
 
 	pNppParam->setFontList(hwnd);
@@ -251,11 +259,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, &_docTabIconList);
 
 	_mainEditView.display();
-
-	_invisibleEditView.init(_pPublicInterface->getHinst(), hwnd);
-	_invisibleEditView.execute(SCI_SETUNDOCOLLECTION);
-	_invisibleEditView.execute(SCI_EMPTYUNDOBUFFER);
-	_invisibleEditView.wrap(false); // Make sure no slow down
 
 	// Configuration of 2 scintilla views
     _mainEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp1._lineNumberMarginShow);

@@ -104,9 +104,10 @@ public:
 	int docLength(Buffer * buffer) const;
 	int getEOLFormatForm(const char* const data, size_t length) const;
 	size_t nextUntitledNewNumber() const;
+	void resetNameSeq();
 
 private:
-	FileManager() : _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL){};
+	FileManager() : _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL), _newNameSeqStart(-1){};
 	~FileManager();
 	static FileManager *_pSelf;
 
@@ -116,6 +117,7 @@ private:
 	std::vector<Buffer *> _buffers;
 	BufferID _nextBufferID;
 	size_t _nrBufs;
+	int _newNameSeqStart;
 	int detectCodepage(char* buf, size_t len);
 
 	bool loadFileData(Document doc, const TCHAR * filename, char* buffer, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat = NULL);

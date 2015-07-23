@@ -1,60 +1,60 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-	Italian translation for Notepad++ 6.7.9.2
-	Last modified Wed, July 10 2015 by Luca Leonardi & bovirus.
-	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
-	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
+    Italian translation for Notepad++ 6.7.9.2
+    Last modified Wed, July 03rd, 2015 by Luca Leonardi.
+    Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
+    For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
 <NotepadPlus>
-	<Native-Langue name = "Italiano" filename = "italian.xml" >
-		<Menu>
-			<Main>
+    <Native-Langue name = "Italiano" filename = "italian.xml" >
+        <Menu>
+            <Main>
                 <!-- Main Menu Entries -->
-				<Entries>
-					<Item menuId = "file" name = "&amp;File" />
-					<Item menuId = "edit" name = "&amp;Modifica" />
-					<Item menuId = "search" name = "C&amp;erca" />
-					<Item menuId = "view" name = "&amp;Visualizza" />
-					<Item menuId = "encoding" name = "For&amp;mato" />
-					<Item menuId = "language" name = "&amp;Linguaggio" />
-					<Item menuId = "settings" name = "C&amp;onfigurazione" />
-					<Item menuId = "macro" name = "Macro" />
-					<Item menuId = "run" name = "Esegui" />
-					<Item idName = "Plugins" name = "Plugin" />
-					<Item idName = "Window" name = "Finestra" />
-				</Entries>
+                <Entries>
+                    <Item menuId = "file" name = "&amp;File" />
+                    <Item menuId = "edit" name = "&amp;Modifica" />
+                    <Item menuId = "search" name = "C&amp;erca" />
+                    <Item menuId = "view" name = "&amp;Visualizza" />
+                    <Item menuId = "encoding" name = "For&amp;mato" />
+                    <Item menuId = "language" name = "&amp;Linguaggio" />
+                    <Item menuId = "settings" name = "C&amp;onfigurazione" />
+                    <Item menuId = "macro" name = "Macro" />
+                    <Item menuId = "run" name = "Esegui" />
+                    <Item idName = "Plugins" name = "Plugin" />
+                    <Item idName = "Window" name = "Finestra" />
+                </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId = "file-openFolder" name = "Apri cartella file" />
                     <Item subMenuId = "file-recentFiles" name = "File recenti" />
                     <Item subMenuId = "file-closeMore" name = "Chiudi di più" />
-					<Item subMenuId = "edit-copyToClipboard" name = "Copia negli Appunti" />
-					<Item subMenuId = "edit-indent" name = "Indenta" />
-					<Item subMenuId = "edit-convertCaseTo" name = "Converti caratteri" />
-					<Item subMenuId = "edit-lineOperations" name = "Operazioni sulle linee" />
-					<Item subMenuId = "edit-comment" name = "Commenta/decommenta" />
-					<Item subMenuId = "edit-autoCompletion" name = "Auto-completamento" />
-					<Item subMenuId = "edit-eolConversion" name = "Converti carattere di fine linea" />
-					<Item subMenuId = "edit-blankOperations" name = "Operazioni sugli spazi" />
-					<Item subMenuId = "edit-pasteSpecial" name = "Incolla speciale" />
-					<Item subMenuId = "search-markAll" name = "Marca tutti" />
-					<Item subMenuId = "search-unmarkAll" name = "Rimuovi marcatura" />
-					<Item subMenuId = "search-jumpUp" name = "Vai su" />
-					<Item subMenuId = "search-jumpDown" name = "Vai giù" />
+                    <Item subMenuId = "edit-copyToClipboard" name = "Copia negli appunti" />
+                    <Item subMenuId = "edit-indent" name = "Indenta" />
+                    <Item subMenuId = "edit-convertCaseTo" name = "Converti caratteri" />
+                    <Item subMenuId = "edit-lineOperations" name = "Operazioni sulle linee" />
+                    <Item subMenuId = "edit-comment" name = "Commenta/Decommenta" />
+                    <Item subMenuId = "edit-autoCompletion" name = "Auto-completamento" />
+                    <Item subMenuId = "edit-eolConversion" name = "Converti carattere di fine linea" />
+                    <Item subMenuId = "edit-blankOperations" name = "Operazioni sugli spazi" />
+                    <Item subMenuId = "edit-pasteSpecial" name = "Incolla speciale" />
+                    <Item subMenuId = "search-markAll" name = "Marca tutti" />
+                    <Item subMenuId = "search-unmarkAll" name = "Rimuovi marcatura" />
+                    <Item subMenuId = "search-jumpUp" name = "Salta su" />
+                    <Item subMenuId = "search-jumpDown" name = "Salta giù" />
                     <Item subMenuId = "search-bookmark" name = "Segnalibri" />
-					<Item subMenuId = "view-showSymbol" name = "Simboli" />
-					<Item subMenuId = "view-zoom" name = "Zoom" />
-					<Item subMenuId = "view-moveCloneDocument" name = "Sposta/clona documento attuale" />
-					<Item subMenuId = "view-Tab" name = "Schede" />
-					<Item subMenuId = "view-collapseLevel" name = "Riduci livello" />
-					<Item subMenuId = "view-uncollapseLevel" name = "Non ridurre livello" />
-					<Item subMenuId = "view-project" name = "Progetti" />
-					<Item subMenuId = "encoding-characterSets" name = "Set di caratteri" />
+                    <Item subMenuId = "view-showSymbol" name = "Simboli" />
+                    <Item subMenuId = "view-zoom" name = "Zoom" />
+                    <Item subMenuId = "view-moveCloneDocument" name = "Sposta/Clona documento corrente" />
+                    <Item subMenuId = "view-tab" name = "Schede" />
+                    <Item subMenuId = "view-collapseLevel" name = "Collassa livello" />
+                    <Item subMenuId = "view-uncollapseLevel" name = "Non collassare livello" />
+                    <Item subMenuId = "view-project" name = "Progetti" />
+                    <Item subMenuId = "encoding-characterSets" name = "Set di caratteri" />
                     <Item subMenuId = "encoding-arabic" name = "Arabo" />
                     <Item subMenuId = "encoding-baltic" name = "Baltico" />
                     <Item subMenuId = "encoding-celtic" name = "Celtico" />
                     <Item subMenuId = "encoding-cyrillic" name = "Cirillico" />
-                    <Item subMenuId = "encoding-centralEuropean" name = "Europa centrale" />
+                    <Item subMenuId = "encoding-centralEuropean" name = "Europa Centrale" />
                     <Item subMenuId = "encoding-chinese" name = "Cinese" />
                     <Item subMenuId = "encoding-easternEuropean" name = "Europa orientale" />
                     <Item subMenuId = "encoding-greek" name = "Greco" />
@@ -64,9 +64,9 @@
                     <Item subMenuId = "encoding-northEuropean" name = "Europa del nord" />
                     <Item subMenuId = "encoding-thai" name = "Tailandese" />
                     <Item subMenuId = "encoding-turkish" name = "Turco" />
-                    <Item subMenuId = "encoding-westernEuropean" name = "Europa occidentale" />
+                    <Item subMenuId = "encoding-westernEuropean" name = "Europa Occidentale" />
                     <Item subMenuId = "encoding-vietnamese" name = "Vietnamita" />
-					<Item subMenuId = "settings-import" name = "Importa" />
+                    <Item subMenuId = "settings-import" name = "Importa" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>
@@ -74,24 +74,25 @@
                     <Item id = "41002" name = "&amp;Apri..." />
                     <Item id = "41003" name = "Chiudi" />
                     <Item id = "41004" name = "C&amp;hiudi tutti" />
-                    <Item id = "41005" name = "Chiudi tutti tranne il documento attuale" />
+                    <Item id = "41005" name = "Chiudi tutti tranne il documento corrente" />
                     <Item id = "41006" name = "&amp;Salva" />
                     <Item id = "41007" name = "Salva t&amp;utto" />
                     <Item id = "41008" name = "S&amp;alva come..." />
-                    <Item id = "41009" name = "Chiudi le schede a sinistra dell'attuale" />
+                    <Item id = "41009" name = "Chiudi le schede a sinistra della corrente" />
                     <Item id = "41010" name = "Stampa..." />
                     <Item id = "1001"  name = "Stampa subito!" />
                     <Item id = "41011" name = "&amp;Esci" />
                     <Item id = "41012" name = "Apri sessione..." />
                     <Item id = "41013" name = "Salva sessione..." />
                     <Item id = "41014" name = "Ricarica dal disco" />
-					<Item id = "41015" name = "Salva una copia come..." />
-					<Item id = "41016" name = "Elimina dal disco" />
+                    <Item id = "41015" name = "Salva una copia come..." />
+                    <Item id = "41016" name = "Elimina dal disco" />
                     <Item id = "41017" name = "Rinomina..." />
-                    <Item id = "41018" name = "Chiudi le schede a destra dell'attuale" />
+                    <Item id = "41018" name = "Chiudi le schede a destra della corrente" />
                     <Item id = "41019" name = "Esplora risorse" />
                     <Item id = "41020" name = "Prompt dei comandi" />
-                    <Item id = "41021" name = "Ripristina file recentemente chiuso"/>
+                    <Item id = "41021" name = "Ripristina i file recenti" />
+
 
                     <Item id = "42001" name = "Tag&amp;lia" />
                     <Item id = "42002" name = "&amp;Copia" />
@@ -102,50 +103,50 @@
                     <Item id = "42007" name = "Seleziona t&amp;utto" />
                     <Item id = "42008" name = "Inserisci tabulazione (indent)" />
                     <Item id = "42009" name = "Rimuovi tabulazione (outdent)" />
-                    <Item id = "42010" name = "Duplica la riga attuale" />
+                    <Item id = "42010" name = "Duplica la riga corrente" />
                     <Item id = "42012" name = "Dividi righe" />
                     <Item id = "42013" name = "Unisci righe" />
-                    <Item id = "42014" name = "Sposta in su la riga attuale" />
-                    <Item id = "42015" name = "Sposta in giù la riga attuale" />
+                    <Item id = "42014" name = "Sposta in su la riga corrente" />
+                    <Item id = "42015" name = "Sposta in giù la riga corrente" />
                     <Item id = "42016" name = "Tutto maiuscole" />
                     <Item id = "42017" name = "Tutto minuscole" />
                     <Item id = "42018" name = "&amp;Inizia registrazione" />
                     <Item id = "42019" name = "&amp;Ferma registrazione" />
-                    <Item id = "42020" name = "Inizio/fine selezione" />
+                    <Item id = "42020" name = "Inizio/Fine selezione" />
                     <Item id = "42021" name = "&amp;Esegui la macro" />
-                    <Item id = "42022" name = "Commenta/decommenta selezione" />
-                    <Item id = "42023" name = "Commenta selezione" />
-                    <Item id = "42024" name = "Elimina spazi vuoti superflui" />
+                    <Item id = "42022" name = "Commenta / Decommenta singola riga" />
+                    <Item id = "42023" name = "Commenta blocco" />
+                    <Item id = "42024" name = "Elimina spazi a fine riga" />
                     <Item id = "42025" name = "Salva la macro registrata" />
-                    <Item id = "42026" name = "Direzione del testo RTL (destra-sinistra)" />
-                    <Item id = "42027" name = "Direzione del testo LTR (sinistra-destra)" />
+                    <Item id = "42026" name = "Direzione del testo RTL" />
+                    <Item id = "42027" name = "Direzione del testo LTR" />
                     <Item id = "42028" name = "File in sola lettura" />
-                    <Item id = "42029" name = "Percorso file attuale" />
-                    <Item id = "42030" name = "Nome file attuale" />
-                    <Item id = "42031" name = "Cartella attuale" />
+                    <Item id = "42029" name = "Percorso file corrente" />
+                    <Item id = "42030" name = "Nome file corrente" />
+                    <Item id = "42031" name = "Cartella corrente" />
                     <Item id = "42032" name = "Esegui una macro più volte..." />
                     <Item id = "42033" name = "Pulisci il flag di sola lettura" />
-					<Item id = "42034" name = "Editor a colonne..." />
-					<Item id = "42035" name = "Commenta blocco (riga per riga)" />
-					<Item id = "42036" name = "Decommenta blocco (riga per riga)" />
-					<Item id = "42037" name = "Modalità colonna..." />
-					<Item id = "42038" name = "Incolla contenuto HTML" />
-					<Item id = "42039" name = "Incolla contenuto RTF" />
-					<Item id = "42040" name = "Apri tutti i file recenti" />
-					<Item id = "42041" name = "Azzera elenco file recenti" />
+                    <Item id = "42034" name = "Editor a colonne..." />
+                    <Item id = "42035" name = "Commenta singola riga" />
+                    <Item id = "42036" name = "Decommenta singola riga" />
+                    <Item id = "42037" name = "Modalità colonna..." />
+                    <Item id = "42038" name = "Incolla contenuto HTML" />
+                    <Item id = "42039" name = "Incolla contenuto RTF" />
+                    <Item id = "42040" name = "Apri tutti i file recenti" />
+                    <Item id = "42041" name = "Pulisci lista file recenti" />
                     <Item id = "42042" name = "Elimina spazi iniziali" />
                     <Item id = "42043" name = "Elimina spazi iniziali e finali" />
-                    <Item id = "42044" name = "Converti EOL in spazio" />
+                    <Item id = "42044" name = "Converti EOL in Spazio" />
                     <Item id = "42045" name = "Rimuovi spazi e EOL non necessari" />
-                    <Item id = "42046" name = "Converti tabulazioni in spazi" />
-                    <Item id = "42047" name = "Decommenta Flusso" />
+                    <Item id = "42046" name = "Converti TAB in spazi" />
+                    <Item id = "42047" name = "Decommenta blocco" />
                     <Item id = "42048" name = "Copia contenuto binario" />
                     <Item id = "42049" name = "Taglia contenuto binario" />
                     <Item id = "42050" name = "Incolla contenuto binario" />
                     <Item id = "42051" name = "Pannello caratteri" />
-                    <Item id = "42052" name = "Cronologia Appunti" />
-                    <Item id = "42053" name = "Converti spazi in tabulazioni (inizio riga)" />
-                    <Item id = "42054" name = "Converti spazi in tabulazioni (tutti)" />
+                    <Item id = "42052" name = "Storia appunti" />
+                    <Item id = "42053" name = "Converti spazi in TAb (inizio riga)" />
+                    <Item id = "42054" name = "Converti spazi in TAb (tutti)" />
                     <Item id = "42055" name = "Rimuovi righe vuote" />
                     <Item id = "42056" name = "Rimuovi righe vuote (contenenti caratteri vuoti)" />
                     <Item id = "42057" name = "Inserisci riga vuota sopra all'attuale" />
@@ -173,80 +174,85 @@
                     <Item id = "43013" name = "Trova nei file..." />
                     <Item id = "43014" name = "Trova (volatile) successivo" />
                     <Item id = "43015" name = "Trova (volatile) precedente" />
-					<Item id = "43018" name = "Taglia righe con segnalibri" />
-					<Item id = "43019" name = "Copia righe con segnalibri" />
-					<Item id = "43020" name = "Incolla (sostituisci) righe con segnalibri " />
-					<Item id = "43021" name = "Elimina righe con segnalibri" />
-					<Item id = "43022" name = "Usa 1º stile" />
-					<Item id = "43024" name = "Usa 2º stile" />
-					<Item id = "43026" name = "Usa 3º stile" />
-					<Item id = "43028" name = "Usa 4º stile" />
-					<Item id = "43030" name = "Usa 5º stile" />
-					<Item id = "43023" name = "Elimina 1º stile" />
-					<Item id = "43025" name = "Elimina 2º stile" />
-					<Item id = "43027" name = "Elimina 3º stile" />
-					<Item id = "43029" name = "Elimina 4º stile" />
-					<Item id = "43031" name = "Elimina 5º stile" />
-					<Item id = "43032" name = "Elimina tutti gli stili" />
-					<Item id = "43033" name = "1º stile" />
-					<Item id = "43034" name = "2º stile" />
-					<Item id = "43035" name = "3º stile" />
-					<Item id = "43036" name = "4º stile" />
-					<Item id = "43037" name = "5º stile" />
-					<Item id = "43038" name = "Trova stile" />
-					<Item id = "43039" name = "1º stile" />
-					<Item id = "43040" name = "2º stile" />
-					<Item id = "43041" name = "3º stile" />
-					<Item id = "43042" name = "4º stile" />
-					<Item id = "43043" name = "5º stile" />
-					<Item id = "43044" name = "Trova stile" />
-					<Item id = "43045" name = "Finestra risultati di ricerca" />
-					<Item id = "43046" name = "Risultato di ricerca successivo" />
-					<Item id = "43047" name = "Risultato di ricerca precedente" />
-					<Item id = "43048" name = "Seleziona e trova successivo" />
-					<Item id = "43049" name = "Seleziona e trova precedente" />
+                    <Item id = "43018" name = "Taglia righe con segnalibri" />
+                    <Item id = "43019" name = "Copia righe con segnalibri" />
+                    <Item id = "43020" name = "Incolla (sostituisci) righe con segnalibri " />
+                    <Item id = "43021" name = "Elimina righe con segnalibri" />
+                    <Item id = "43022" name = "Usa 1º stile" />
+                    <Item id = "43024" name = "Usa 2º stile" />
+                    <Item id = "43026" name = "Usa 3º stile" />
+                    <Item id = "43028" name = "Usa 4º stile" />
+                    <Item id = "43030" name = "Usa 5º stile" />
+                    <Item id = "43023" name = "Cancella 1º stile" />
+                    <Item id = "43025" name = "Cancella 2º stile" />
+                    <Item id = "43027" name = "Cancella 3º stile" />
+                    <Item id = "43029" name = "Cancella 4º stile" />
+                    <Item id = "43031" name = "Cancella 5º stile" />
+                    <Item id = "43032" name = "Cancella tutti gli stili" />
+                    <Item id = "43033" name = "1º stile" />
+                    <Item id = "43034" name = "2º stile" />
+                    <Item id = "43035" name = "3º stile" />
+                    <Item id = "43036" name = "4º stile" />
+                    <Item id = "43037" name = "5º stile" />
+                    <Item id = "43038" name = "Trova stile" />
+                    <Item id = "43039" name = "1º stile" />
+                    <Item id = "43040" name = "2º stile" />
+                    <Item id = "43041" name = "3º stile" />
+                    <Item id = "43042" name = "4º stile" />
+                    <Item id = "43043" name = "5º stile" />
+                    <Item id = "43044" name = "Trova stile" />
+                    <Item id = "43045" name = "Finestra risultati di ricerca" />
+                    <Item id = "43046" name = "Risultato di ricerca successivo" />
+                    <Item id = "43047" name = "Risultato di ricerca precedente" />
+                    <Item id = "43048" name = "Seleziona e trova successivo" />
+                    <Item id = "43049" name = "Seleziona e trova precedente" />
                     <Item id = "43050" name = "Inverti segnalibri" />
                     <Item id = "43051" name = "Rimuovi linee non selezionate" />
                     <Item id = "43052" name = "Cerca caratteri..." />
                     <Item id = "43053" name = "Seleziona tutto tra le parentesi corrispondenti" />
+                    <Item id = "43054" name = "Evidenzia..."/>
 
-					<Item id = "44009" name = "Modalità Post-it" />
+                    <Item id = "44009" name = "Modalità Post-it" />
                     <Item id = "44010" name = "Comprimi tutte le strutture" />
-                    <Item id = "44019" name = "Visualizza tutti i caratteri" />
-                    <Item id = "44020" name = "Visualizza guide di indentazione" />
+                    <Item id = "44011" name = "Finestra impostazioni personalizzate..." />
+                    <Item id = "44012" name = "Nascondi margine numeri di riga" />
+                    <Item id = "44013" name = "Nascondi margine segnalibri" />
+                    <Item id = "44014" name = "Nascondi margine cartella" />
+                    <Item id = "44019" name = "Mostra tutti i caratteri" />
+                    <Item id = "44020" name = "Mostra guide di indentazione" />
                     <Item id = "44022" name = "Attiva a capo automatico" />
                     <Item id = "44023" name = "&amp;Ingrandisci testo" />
                     <Item id = "44024" name = "&amp;Riduci testo" />
-                    <Item id = "44025" name = "Visualizza spazi bianchi e tabulazioni" />
-                    <Item id = "44026" name = "Visualizza carattere di fine riga" />
+                    <Item id = "44025" name = "Mostra spazi bianchi e tabulazioni" />
+                    <Item id = "44026" name = "Mostra carattere di fine riga" />
                     <Item id = "44029" name = "Espandi tutti i livelli" />
-                    <Item id = "44030" name = "Riduci al livello attuale" />
-                    <Item id = "44031" name = "Espandi il livello attuale" />
-                    <Item id = "44032" name = "Visualizza a tutto schermo" />
+                    <Item id = "44030" name = "Contrai al livello corrente" />
+                    <Item id = "44031" name = "Espandi il livello corrente" />
+                    <Item id = "44032" name = "Visualizzazione a tutto schermo" />
                     <Item id = "44033" name = "Ripristina lo zoom predefinito" />
                     <Item id = "44034" name = "Sempre in primo piano" />
                     <Item id = "44035" name = "Sincronizza scorrimento verticale" />
                     <Item id = "44036" name = "Sincronizza scorrimento orizzontale" />
-                    <Item id = "44041" name = "Visualizza simbolo di a capo automatico" />
-					<Item id = "44042" name = "Nascondi righe" />
+                    <Item id = "44041" name = "Mostra simbolo di a capo automatico" />
+                    <Item id = "44042" name = "Nascondi righe" />
                     <Item id = "44049" name = "Informazioni file..." />
-					<Item id = "44072" name = "Attiva altra vista" />
-					<Item id = "44080" name = "Mappa documento" />
-					<Item id = "44081" name = "Pannello 1" />
-					<Item id = "44082" name = "Pannello 2" />
-					<Item id = "44083" name = "Pannello 3" />
-					<Item id = "44084" name = "Elenco funzioni" />
-					<Item id = "44086" name = "Prima scheda" />
-					<Item id = "44087" name = "Seconda scheda" />
-					<Item id = "44088" name = "Terza scheda" />
-					<Item id = "44089" name = "Quarta scheda" />
-					<Item id = "44090" name = "Quinta scheda" />
-					<Item id = "44091" name = "Sesta scheda" />
-					<Item id = "44092" name = "Settima scheda" />
-					<Item id = "44093" name = "Ottava scheda" />
-					<Item id = "44094" name = "Nona scheda" />
-					<Item id = "44095" name = "Scheda successiva" />
-					<Item id = "44096" name = "Scheda precedente" />
+                    <Item id = "44072" name = "Attiva altra vista" />
+                    <Item id = "44080" name = "Mappa documento" />
+                    <Item id = "44081" name = "Pannello 1" />
+                    <Item id = "44082" name = "Pannello 2" />
+                    <Item id = "44083" name = "Pannello 3" />
+                    <Item id = "44084" name = "Lista funzioni" />
+                    <Item id = "44086" name = "Prima scheda" />
+                    <Item id = "44087" name = "Seconda scheda" />
+                    <Item id = "44088" name = "Terza scheda" />
+                    <Item id = "44089" name = "Quarta scheda" />
+                    <Item id = "44090" name = "Quinta scheda" />
+                    <Item id = "44091" name = "Sesta scheda" />
+                    <Item id = "44092" name = "Settima scheda" />
+                    <Item id = "44093" name = "Ottava scheda" />
+                    <Item id = "44094" name = "Nona scheda" />
+                    <Item id = "44095" name = "Scheda successiva" />
+                    <Item id = "44096" name = "Scheda precedente" />
 
                     <Item id = "45001" name = "Formato Windows" />
                     <Item id = "45002" name = "Formato UNIX" />
@@ -256,11 +262,11 @@
                     <Item id = "45006" name = "Codifica in UCS-2 Big Endian" />
                     <Item id = "45007" name = "Codifica in UCS-2 Little Endian" />
                     <Item id = "45008" name = "Codifica in UTF-8 (senza BOM)" />
-					<Item id = "45009" name = "Converti in ANSI" />
-					<Item id = "45010" name = "Converti in UTF-8 senza BOM" />
-					<Item id = "45011" name = "Converti in UTF-8" />
-					<Item id = "45012" name = "Converti in UCS-2 Big Endian" />
-					<Item id = "45013" name = "Converti in UCS-2 Little Endian" />
+                    <Item id = "45009" name = "Converti in ANSI" />
+                    <Item id = "45010" name = "Converti in UTF-8 senza BOM" />
+                    <Item id = "45011" name = "Converti in UTF-8" />
+                    <Item id = "45012" name = "Converti in UCS-2 Big Endian" />
+                    <Item id = "45013" name = "Converti in UCS-2 Little Endian" />
                     <Item id = "45060" name = "Big5 (tradizionale)"/>
                     <Item id = "45061" name = "GB2312 (semplificato)"/>
                     <Item id = "45054" name = "OEM 861: Islandese"/>
@@ -270,62 +276,64 @@
 
                     <Item id = "10001" name = "Sposta nell&apos;altra vista" />
                     <Item id = "10002" name = "Copia nell&apos;altra vista" />
-					<Item id = "10003" name = "Sposta in una nuova finestra" />
+                    <Item id = "10003" name = "Sposta in una nuova finestra" />
                     <Item id = "10004" name = "Copia in una nuova finestra" />
 
                     <Item id = "46001" name = "Configura gli stili..." />
-					<Item id = "46015" name = "Stile MS-DOS" />
-					<Item id = "46016" name = "Testo normale" />
-					<Item id = "46017" name = "File di risorse" />
-					<Item id = "46019" name = "File MS INI" />
-					<Item id = "46033" name = "Assembly" />
-					<Item id = "46080" name = "Definito dall&apos;utente" />
-					<Item id = "46150" name = "Definisci un nuovo linguaggio..." />
+                    <Item id = "46015" name = "Stile MS-DOS" />
+                    <Item id = "46016" name = "Testo normale" />
+                    <Item id = "46017" name = "File di risorse" />
+                    <Item id = "46019" name = "File MS INI" />
+                    <Item id = "46033" name = "Assembly"/>
+                    <Item id = "46080" name = "Definito dall&apos;utente" />
+                    <Item id = "46150" name = "Definisci il tuo linguaggio..." />
 
                     <Item id = "47000" name = "Informazioni su..." />
                     <Item id = "47001" name = "Sito web Notepad++" />
                     <Item id = "47002" name = "Progetto Notepad++ (Sourceforge.net)" />
                     <Item id = "47003" name = "Documentazione online" />
+                    <Item id = "47004" name = "Forum" />
                     <Item id = "47005" name = "Ottieni altri plugin" />
-					<Item id = "47006" name = "Aggiorna Notepad++" />
+                    <Item id = "47006" name = "Aggiorna Notepad++" />
+                    <Item id = "47008" name = "Guida..." />
                     <Item id = "47009" name = "Imposta proxy aggiornamento..." />
                     <Item id = "47010" name = "Argomenti riga di comando..." />
-                    <Item id = "47011" name = "Supporto live" />
+                    <Item id = "47011" name = "Supporto Live"/>
 
                     <Item id = "48005" name = "Importa plugin..." />
-					<Item id = "48006" name = "Importa tema..." />
-					<Item id = "48009" name = "Tasti di scelta rapida..." />
+                    <Item id = "48006" name = "Importa tema..." />
+                    <Item id = "48009" name = "Tasti di scelta rapida..." />
                     <Item id = "48011" name = "Preferenze..." />
-                    <Item id = "48016" name = "Modifica scorciatoie/elimina macro..." />
-                    <Item id = "48017" name = "Modifica scorciatoie/elimina comando..." />
+                    <Item id = "48016" name = "Modifica scorciatoie/Elimina macro..." />
+                    <Item id = "48017" name = "Modifica scorciatoie/Elimina comando..." />
                     <Item id = "48018" name = "Modifica menu contestuale..." />
 
                     <Item id = "49000" name = "E&amp;segui..." />
 
                     <Item id = "50000" name = "Completa funzione" />
                     <Item id = "50001" name = "Completa parola" />
-					<Item id = "50002" name = "Parametri funzione" />
-					<Item id = "50006" name = "Completa percorso" />
+                    <Item id = "50002" name = "Parametri funzione" />
+                    <Item id = "50006" name = "Completa percorso" />
                 </Commands>
             </Main>
-			<Splitter />
+            <Splitter />
             <TabBar>
-				<Item CMID = "0" name = "Chiudi" />
-				<Item CMID = "1" name = "Chiudi tutte tranne questa" />
-				<Item CMID = "2" name = "Salva" />
-				<Item CMID = "3" name = "Salva come..." />
-				<Item CMID = "4" name = "Stampa" />
-				<Item CMID = "5" name = "Sposta nell&apos;altra vista" />
-				<Item CMID = "6" name = "Copia nell&apos;altra vista" />
-				<Item CMID = "7" name = "Copia percorso file" />
-				<Item CMID = "8" name = "Copia nome file" />
-				<Item CMID = "9" name = "Copia percorso cartella" />
-				<Item CMID = "10" name = "Rinomina file" />
-				<Item CMID = "11" name = "Elimina file" />
-				<Item CMID = "12" name = "Sola lettura" />
-				<Item CMID = "13" name = "Reimposta indicatore sola lettura" />
-				<Item CMID = "14" name = "Sposta in una nuova finestra" />
-				<Item CMID = "15" name = "Copia in una nuova finestra" />
+                <Item CMID = "0" name = "Chiudi" />
+                <Item CMID = "1" name = "Chiudi tutte tranne questa" />
+                <Item CMID = "2" name = "Salva" />
+                <Item CMID = "3" name = "Salva come..." />
+                <Item CMID = "4" name = "Stampa" />
+                <Item CMID = "5" name = "Sposta nell&apos;altra vista" />
+                <Item CMID = "6" name = "Copia nell&apos;altra vista" />
+                <Item CMID = "7" name = "Copia percorso file" />
+                <Item CMID = "8" name = "Copia nome file" />
+                <Item CMID = "9" name = "Copia percorso cartella" />
+                <Item CMID = "10" name = "Rinomina file" />
+                <Item CMID = "11" name = "Elimina file" />
+                <Item CMID = "12" name = "Sola lettura" />
+                <Item CMID = "13" name = "Reimposta flag sola lettura" />
+                <Item CMID = "14" name = "Sposta in una nuova finestra" />
+                <Item CMID = "15" name = "Copia in una nuova finestra" />
                 <Item CMID = "16" name = "Ricarica" />
                 <Item CMID = "17" name = "Chiudi tutte a sinistra" />
                 <Item CMID = "18" name = "Chiudi tutte a destra" />
@@ -341,34 +349,35 @@
                 <Item id = "1604" name = "Distingui tra ma&amp;iuscole e minuscole" />
                 <Item id = "1605" name = "Espressione regolare" />
                 <Item id = "1606" name = "Torna su se raggiunta la fine" />
-				<Item id = "1608" name = "&amp;Sostituisci" />
+                <Item id = "1608" name = "&amp;Sostituisci" />
                 <Item id = "1609" name = "Sostituisci &amp;tutti" />
                 <Item id = "1611" name = "S&amp;ostituisci con: " />
-				<Item id = "1612" name = "&amp;Su" />
+                <Item id = "1612" name = "&amp;Su" />
                 <Item id = "1613" name = "G&amp;iù" />
                 <Item id = "1614" name = "Conta occorrenze" />
                 <Item id = "1615" name = "Trova tutti" />
                 <Item id = "1616" name = "Imposta segnalibro sulla riga" />
                 <Item id = "1618" name = "Pulisci per ogni ricerca" />
-				<Item id = "1620" name = "Trova:" />
+                <Item id = "1620" name = "Trova:" />
                 <Item id = "1621" name = "Direzione" />
-				<Item id = "1624" name = "Tipo ricerca" />
+                <Item id = "1624" name = "Tipo ricerca" />
                 <Item id = "1625" name = "Normale" />
                 <Item id = "1626" name = "Estesa (\n, \r, \t, \0, \x...)" />
                 <Item id = "1632" name = "Nella selezione" />
                 <Item id = "1633" name = "Pulisci" />
                 <Item id = "1635" name = "Sostituisci tutto nei documenti aperti" />
                 <Item id = "1636" name = "Cerca in tutti i documenti aperti" />
-				<Item id = "1641" name = "Trova tutto nel documento attuale" />
+                <Item id = "1640" name = "Alterna finestra" />
+                <Item id = "1641" name = "Trova tutto nel documento corrente" />
                 <Item id = "1654" name = "Filtri:" />
                 <Item id = "1655" name = "Cartella:" />
                 <Item id = "1656" name = "Trova tutti" />
                 <Item id = "1658" name = "Nelle sottocartelle" />
-				<Item id = "1659" name = "Nelle cartelle nascoste" />
-				<Item id = "1660" name = "&amp;Sostituisci nei file" />
-				<Item id = "1661" name = "Segui documento attuale" />
-				<Item id = "1686" name = "T&amp;rasparenza" />
-				<Item id = "1687" name = "Se perde il focus" />
+                <Item id = "1659" name = "Nelle cartelle nascoste" />
+                <Item id = "1660" name = "&amp;Sostituisci nei file" />
+                <Item id = "1661" name = "Segui documento corrente" />
+                <Item id = "1686" name = "T&amp;rasparenza" />
+                <Item id = "1687" name = "Se perde il focus" />
                 <Item id = "1688" name = "Sempre" />
                 <Item id = "1703" name = "&amp;. significa 'a capo'" />
             </Find>
@@ -389,7 +398,7 @@
                 <Item id = "2004" name = "Sei alla riga:" />
                 <Item id = "2005" name = "Vai alla riga:" />
                 <Item id = "2006" name = "Ultima riga disponibile:" />
-				<Item id = "2007" name = "Riga" />
+                <Item id = "2007" name = "Riga" />
                 <Item id = "2008" name = "Offset" />
             </GoToLine>
             <Run title = "Esegui...">
@@ -402,7 +411,7 @@
                 <Item id = "2" name = "Annulla" />
                 <Item id = "2301" name = "Salva &amp;&amp; Chiudi" />
                 <Item id = "2303" name = "Trasparenza" />
-				<Item id = "2306" name = "Seleziona tema: " />
+                <Item id = "2306" name = "Seleziona tema: " />
                 <SubDialog>
                     <Item id = "2204" name = "Grassetto" />
                     <Item id = "2205" name = "Corsivo" />
@@ -429,76 +438,76 @@
                 </SubDialog>
             </StyleConfig>
             <UserDefine title = "Linguaggio definito dall'utente">
-				<Item id = "20001" name = "Ancora" />
-				<Item id = "20002" name = "Rinomina" />
-				<Item id = "20003" name = "Crea nuovo..." />
-				<Item id = "20004" name = "Rimuovi" />
-				<Item id = "20005" name = "Salva come..." />
-				<Item id = "20007" name = "Linguaggio personalizzato: " />
-				<Item id = "20009" name = "Estensione:" />
-				<Item id = "20011" name = "Trasparenza" />
-				<Item id = "20012" name = "Ignora Maius./minus." />
-				<Item id = "20015" name = "Importa..." />
-				<Item id = "20016" name = "Esporta..." />
-				<Folder title = "Cartelle &amp;&amp; Predefiniti">
-					<Item id = "21101" name = "Impostazioni stile predefinito" />
+                <Item id = "20001" name = "Ancora" />
+                <Item id = "20002" name = "Rinomina" />
+                <Item id = "20003" name = "Crea nuovo..." />
+                <Item id = "20004" name = "Rimuovi" />
+                <Item id = "20005" name = "Salva come..." />
+                <Item id = "20007" name = "Linguaggio personalizzato: " />
+                <Item id = "20009" name = "Estensione:" />
+                <Item id = "20011" name = "Trasparenza" />
+                <Item id = "20012" name = "Ignora Maius./minus." />
+                <Item id = "20015" name = "Importa..." />
+                <Item id = "20016" name = "Esporta..." />
+                <Folder title = "Cartelle &amp;&amp; Predefiniti">
+                    <Item id = "21101" name = "Impostazioni stile predefinito" />
                     <Item id = "21102" name = "Stile" />
-					<Item id = "21104" name = "Sito temporaneo documentazione:" />
-					<Item id = "21105" name = "Documentazione:" />
-					<Item id = "21106" name = "Delimita compatto (racchiudi righe vuote)" />
-					<Item id = "21220" name = "Delimitatori nel codice 1° stile:" />
-					<Item id = "21224" name = "Apri:" />
-					<Item id = "21225" name = "Centro:" />
-					<Item id = "21226" name = "Chiudi:" />
+                    <Item id = "21104" name = "Sito temporaneo documentazione:" />
+                    <Item id = "21105" name = "Documentazione:" />
+                    <Item id = "21106" name = "Delimita compatto (racchiudi righe vuote)" />
+                    <Item id = "21220" name = "Delimitatori nel codice 1° stile:" />
+                    <Item id = "21224" name = "Apri:" />
+                    <Item id = "21225" name = "Centro:" />
+                    <Item id = "21226" name = "Chiudi:" />
                     <Item id = "21227" name = "Stile" />
                     <Item id = "21320" name = "Delimitatori nel codice 2° stile (con separatori):" />
-					<Item id = "21324" name = "Apri:" />
-					<Item id = "21325" name = "Centro:" />
-					<Item id = "21326" name = "Chiudi:" />
+                    <Item id = "21324" name = "Apri:" />
+                    <Item id = "21325" name = "Centro:" />
+                    <Item id = "21326" name = "Chiudi:" />
                     <Item id = "21327" name = "Stile" />
                     <Item id = "21420" name = "Delimitatori per i commenti:" />
-					<Item id = "21424" name = "Apri:" />
-					<Item id = "21425" name = "Centro:" />
-					<Item id = "21426" name = "Chiudi:" />
+                    <Item id = "21424" name = "Apri:" />
+                    <Item id = "21425" name = "Centro:" />
+                    <Item id = "21426" name = "Chiudi:" />
                     <Item id = "21427" name = "Stile" />
                 </Folder>
                 <Keywords title = "Lista Parole Chiave">
-					<Item id = "22101" name = "1º gruppo" />
-					<Item id = "22201" name = "2º gruppo" />
-					<Item id = "22301" name = "3º gruppo" />
-					<Item id = "22401" name = "4º gruppo" />
+                    <Item id = "22101" name = "1º gruppo" />
+                    <Item id = "22201" name = "2º gruppo" />
+                    <Item id = "22301" name = "3º gruppo" />
+                    <Item id = "22401" name = "4º gruppo" />
                     <Item id = "22451" name = "5º gruppo" />
                     <Item id = "22501" name = "6º gruppo" />
                     <Item id = "22551" name = "7º gruppo" />
                     <Item id = "22601" name = "5º gruppo" />
-					<Item id = "22121" name = "Modalità prefisso" />
+                    <Item id = "22121" name = "Modalità prefisso" />
                     <Item id = "22122" name = "Stile" />
-					<Item id = "22221" name = "Modalità prefisso" />
+                    <Item id = "22221" name = "Modalità prefisso" />
                     <Item id = "22222" name = "Stile" />
-					<Item id = "22321" name = "Modalità prefisso" />
+                    <Item id = "22321" name = "Modalità prefisso" />
                     <Item id = "22322" name = "Stile" />
-					<Item id = "22421" name = "Modalità prefisso" />
+                    <Item id = "22421" name = "Modalità prefisso" />
                     <Item id = "22422" name = "Stile" />
-					<Item id = "22471" name = "Modalità prefisso" />
+                    <Item id = "22471" name = "Modalità prefisso" />
                     <Item id = "22472" name = "Stile" />
-					<Item id = "22521" name = "Modalità prefisso" />
+                    <Item id = "22521" name = "Modalità prefisso" />
                     <Item id = "22522" name = "Stile" />
-					<Item id = "22571" name = "Modalità prefisso" />
+                    <Item id = "22571" name = "Modalità prefisso" />
                     <Item id = "22572" name = "Stile" />
-					<Item id = "22621" name = "Modalità prefisso" />
+                    <Item id = "22621" name = "Modalità prefisso" />
                     <Item id = "22622" name = "Stile" />
                 </Keywords>
                 <Comment title = "Commenti &amp;&amp; Numeri">
-					<Item id = "23001" name = "Permetti delimitazione dei commenti" />
+                    <Item id = "23001" name = "Permetti delimitazione dei commenti" />
                     <Item id = "23003" name = "Posizione commenti in linea" />
                     <Item id = "23004" name = "Permetti ovunque" />
                     <Item id = "23005" name = "Forza ad inizio riga" />
                     <Item id = "23006" name = "Permetti spazi all'inizio" />
-					<Item id = "23101" name = "Stile commenti" />
-					<Item id = "23122" name = "Apertura" />
-					<Item id = "23123" name = "Chiusura" />
+                    <Item id = "23101" name = "Stile commenti" />
+                    <Item id = "23122" name = "Apertura" />
+                    <Item id = "23123" name = "Chiusura" />
                     <Item id = "23124" name = "Stile" />
-					<Item id = "23201" name = "Stile numeri" />
+                    <Item id = "23201" name = "Stile numeri" />
                     <Item id = "23220" name = "Stile" />
                     <Item id = "23230" name = "Prefisso 1:" />
                     <Item id = "23232" name = "Prefisso 2:" />
@@ -507,7 +516,7 @@
                     <Item id = "23238" name = "Suffisso 1:" />
                     <Item id = "23240" name = "Suffisso 2:" />
                     <Item id = "23242" name = "Intervallo:" />
-					<Item id = "23244" name = "Separatore decimale" />
+                    <Item id = "23244" name = "Separatore decimale" />
                     <Item id = "23245" name = "Punto" />
                     <Item id = "23246" name = "Virgola" />
                     <Item id = "23247" name = "Entrambi" />
@@ -518,52 +527,54 @@
                     <Item id = "23326" name = "Stile" />
                 </Comment>
                 <Operator title = "Operatori">
-					<Item id = "24101" name = "Stile operatori" />
+                    <Item id = "24101" name = "Stile operatori" />
                     <Item id = "24113" name = "Stile" />
-					<Item id = "24116" name = "Operatori 1" />
-					<Item id = "24117" name = "Operatori 2 (separatori necessari)" />
-					<Item id = "24201" name = "Delimitatore 1° stile" />
-					<Item id = "24220" name = "Apertura:" />
-					<Item id = "24221" name = "Escape:" />
-					<Item id = "24222" name = "Chiusura:" />
+                    <Item id = "24116" name = "Operatori 1" />
+                    <Item id = "24117" name = "Operatori 2 (separatori necessari)" />
+                    <Item id = "24201" name = "Delimitatore 1° stile" />
+                    <Item id = "24220" name = "Apertura:" />
+                    <Item id = "24221" name = "Escape:" />
+                    <Item id = "24222" name = "Chiusura:" />
                     <Item id = "24223" name = "Stile" />
-					<Item id = "24301" name = "Delimitatore 2° stile" />
+                    <Item id = "24301" name = "Delimitatore 2° stile" />
                     <Item id = "24320" name = "Apertura:" />
-					<Item id = "24321" name = "Escape:" />
-					<Item id = "24322" name = "Chiusura:" />
+                    <Item id = "24321" name = "Escape:" />
+                    <Item id = "24322" name = "Chiusura:" />
                     <Item id = "24323" name = "Stile" />
-					<Item id = "24401" name = "Delimitatore 3° stile" />
+                    <Item id = "24401" name = "Delimitatore 3° stile" />
                     <Item id = "24420" name = "Apertura:" />
-					<Item id = "24421" name = "Escape:" />
-					<Item id = "24422" name = "Chiusura:" />
+                    <Item id = "24421" name = "Escape:" />
+                    <Item id = "24422" name = "Chiusura:" />
                     <Item id = "24423" name = "Stile" />
-					<Item id = "24451" name = "Delimitatore 4° stile" />
+                    <Item id = "24451" name = "Delimitatore 4° stile" />
                     <Item id = "24470" name = "Apertura:" />
-					<Item id = "24471" name = "Escape:" />
-					<Item id = "24472" name = "Chiusura:" />
+                    <Item id = "24471" name = "Escape:" />
+                    <Item id = "24472" name = "Chiusura:" />
                     <Item id = "24473" name = "Stile" />
-					<Item id = "24501" name = "Delimitatore 5° stile" />
+                    <Item id = "24501" name = "Delimitatore 5° stile" />
                     <Item id = "24520" name = "Apertura:" />
-					<Item id = "24521" name = "Escape:" />
-					<Item id = "24522" name = "Chiusura:" />
+                    <Item id = "24521" name = "Escape:" />
+                    <Item id = "24522" name = "Chiusura:" />
                     <Item id = "24523" name = "Stile" />
-					<Item id = "24551" name = "Delimitatore 6° stile" />
+                    <Item id = "24551" name = "Delimitatore 6° stile" />
                     <Item id = "24570" name = "Apertura:" />
-					<Item id = "24571" name = "Escape:" />
-					<Item id = "24572" name = "Chiusura:" />
+                    <Item id = "24571" name = "Escape:" />
+                    <Item id = "24572" name = "Chiusura:" />
                     <Item id = "24573" name = "Stile" />
-					<Item id = "24601" name = "Delimitatore 7° stile" />
+                    <Item id = "24601" name = "Delimitatore 7° stile" />
                     <Item id = "24620" name = "Apertura:" />
-					<Item id = "24621" name = "Escape:" />
-					<Item id = "24622" name = "Chiusura:" />
+                    <Item id = "24621" name = "Escape:" />
+                    <Item id = "24622" name = "Chiusura:" />
                     <Item id = "24623" name = "Stile" />
-					<Item id = "24651" name = "Delimitatore 8° stile" />
+                    <Item id = "24651" name = "Delimitatore 8° stile" />
                     <Item id = "24670" name = "Apertura:" />
-					<Item id = "24671" name = "Escape:" />
-					<Item id = "24672" name = "Chiusura:" />
+                    <Item id = "24671" name = "Escape:" />
+                    <Item id = "24672" name = "Chiusura:" />
                     <Item id = "24673" name = "Stile" />
                 </Operator>
                 <StylerDialog title = "Configuratore di stili">
+                    <Item id = "1" name = "OK" />
+                    <Item id = "2" name = "Annulla" />
                     <Item id = "25001" name = "Grassetto" />
                     <Item id = "25002" name = "Corsivo" />
                     <Item id = "25003" name = "Sottolineato" />
@@ -595,181 +606,188 @@
                     <Item id = "25031" name = "Nome:" />
                     <Item id = "25032" name = "Dimensione:" />
                 </StylerDialog>
+                <CreateNewLanguage title = "Crea Nuovo Linguaggio...">
+                    <Item id = "1" name = "OK" />
+                    <Item id = "2" name = "Annulla" />
+                    <Item id = "26001" name = "Nome:" />
+                </CreateNewLanguage>
             </UserDefine>
-			<Preference title = "Preferenze">
-				<Item id = "6001" name = "Chiudi" />
-				<Global title = "Generale">
-					<Item id = "6123" name = "Lingua" />
+            <Preference title = "Preferenze">
+                <Item id = "6001" name = "Chiudi" />
+                <Global title = "Generale">
+                    <Item id = "6123" name = "Lingua" />
 
-					<Item id = "6101" name = "Barra degli strumenti" />
-					<Item id = "6102" name = "Nascondi" />
-					<Item id = "6103" name = "Icone piccole" />
-					<Item id = "6104" name = "Icone grandi" />
-					<Item id = "6105" name = "Icone standard" />
+                    <Item id = "6101" name = "Barra Degli Strumenti" />
+                    <Item id = "6102" name = "Nascondi" />
+                    <Item id = "6103" name = "Icone piccole" />
+                    <Item id = "6104" name = "Icone grandi" />
+                    <Item id = "6105" name = "Icone standard" />
 
-					<Item id = "6125" name = "Documenti aperti" />
-					<Item id = "6126" name = "Visualizza" />
-					<Item id = "6127" name = "Disabilita colonna estensioni" />
+                    <Item id = "6125" name = "Documenti Aperti" />
+                    <Item id = "6126" name = "Visualizza" />
+                    <Item id = "6127" name = "Disabilita colonna estensioni" />
 
-					<Item id = "6106" name = "Barra delle schede" />
-					<Item id = "6118" name = "Nascondi" />
-					<Item id = "6119" name = "Utilizza più righe" />
-					<Item id = "6120" name = "Verticale" />
-					<Item id = "6107" name = "Barra delle schede compatta" />
-					<Item id = "6108" name = "Blocca schede (no trascinamento)" />
-					<Item id = "6109" name = "Nascondi schede inattive" />
-					<Item id = "6110" name = "Evidenzia scheda attiva con una barra" />
-					<Item id = "6112" name = "Pulsante di chiusura su ogni scheda" />
-					<Item id = "6113" name = "Doppio clic chiude una scheda" />
+                    <Item id = "6106" name = "Barra Delle Schede" />
+                    <Item id = "6118" name = "Nascondi" />
+                    <Item id = "6119" name = "Utilizza più righe" />
+                    <Item id = "6120" name = "Verticale" />
+                    <Item id = "6107" name = "Barra delle schede compatta" />
+                    <Item id = "6108" name = "Blocca schede (no trascinamento)" />
+                    <Item id = "6109" name = "Oscura schede inattive" />
+                    <Item id = "6110" name = "Evidenzia scheda attiva con una barra" />
+                    <Item id = "6112" name = "Pulsante di chiusura su ogni scheda" />
+                    <Item id = "6113" name = "Doppio click chiude una scheda" />
 
-                    <Item id = "6122" name = "Nascondi (Alt o F10 per visualizzare)" />
-					<Item id = "6111" name = "Attiva barra di stato" />
-				</Global>
-				<Scintillas title = "Visualizzazione">
-					<Item id = "6216" name = "Cursore" />
-					<Item id = "6217" name = "Larghezza:" />
-					<Item id = "6219" name = "Velocità:" />
-					<Item id = "6221" name = "V" />
-					<Item id = "6222" name = "L" />
+                    <Item id = "6121" name = "Barra dei menu" />
 
-                    <Item id = "6224" name = "Selezione multipla" />
-					<Item id = "6225" name = "Abilita (Ctrl+clic/selezione)" />
+                    <Item id = "6122" name = "Nascondi (Alt o F10 per mostrare)" />
+                    <Item id = "6111" name = "Attiva barra di stato" />
+                </Global>
+                <Scintillas title = "Visualizzazione">
+                    <Item id = "6216" name = "Cursore" />
+                    <Item id = "6217" name = "Larghezza:" />
+                    <Item id = "6219" name = "Velocità:" />
+                    <Item id = "6221" name = "V" />
+                    <Item id = "6222" name = "L" />
 
-					<Item id = "6201" name = "Stile raggruppamenti" />
-					<Item id = "6202" name = "Semplice" />
-					<Item id = "6203" name = "Freccia" />
-					<Item id = "6204" name = "Cerchio" />
-					<Item id = "6205" name = "Quadrato" />
+                    <Item id = "6224" name = "Selezione Multipla" />
+                    <Item id = "6225" name = "Abilita (Ctrl+click/selezione)" />
+
+                    <Item id = "6201" name = "Stile Raggruppamenti" />
+                    <Item id = "6202" name = "Semplice" />
+                    <Item id = "6203" name = "Freccia" />
+                    <Item id = "6204" name = "Cerchio" />
+                    <Item id = "6205" name = "Quadrato" />
                     <Item id = "6226" name = "Nessuno" />
 
-					<Item id = "6211" name = "Limite di colonna" />
+                    <Item id = "6211" name = "Limite Di Colonna" />
                     <Item id = "6208" name = "Visualizza il limite di colonna" />
-					<Item id = "6212" name = "Modalità &apos;linea&apos;" />
-					<Item id = "6213" name = "Modalità &apos;sfondo&apos;" />
-					<Item id = "6209" name = "Numero di colonna: " />
+                    <Item id = "6212" name = "Modalità &apos;linea&apos;" />
+                    <Item id = "6213" name = "Modalità &apos;sfondo&apos;" />
+                    <Item id = "6209" name = "Numero di colonna: " />
 
-                    <Item id = "6227" name = "A capo automatico" />
+                    <Item id = "6227" name = "A Capo Automatico" />
                     <Item id = "6228" name = "Predefinito" />
                     <Item id = "6229" name = "Allineato" />
                     <Item id = "6230" name = "Indentato" />
 
-                    <Item id = "6231" name = "Spessore bordo editor" />
+                    <Item id = "6231" name = "Spessore Bordo Editor" />
 
-					<Item id = "6206" name = "Visualizza i numeri di riga" />
-					<Item id = "6207" name = "Visualizza i segnalibri" />
-					<Item id = "6214" name = "Evidenzia la riga attuale" />
+                    <Item id = "6206" name = "Visualizza i numeri di riga" />
+                    <Item id = "6207" name = "Visualizza i segnalibri" />
+                    <Item id = "6214" name = "Evidenzia la riga corrente" />
                     <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
                 </Scintillas>
-				<NewDoc title = "Nuovo documento">
-					<Item id = "6401" name = "Formato" />
-					<Item id = "6402" name = "Windows" />
-					<Item id = "6403" name = "Unix" />
-					<Item id = "6404" name = "Mac" />
-					<Item id = "6405" name = "Codifica" />
-					<Item id = "6406" name = "ANSI" />
-					<Item id = "6407" name = "UTF-8 senza BOM" />
-					<Item id = "6408" name = "UTF-8" />
-					<Item id = "6409" name = "UCS-2 Big endian" />
-					<Item id = "6410" name = "UCS-2 Little endian" />
-					<Item id = "6411" name = "Linguaggio predefinito:" />
-                    <Item id = "6419" name = "Nuovo documento" />
+                <NewDoc title = "Nuovo documento">
+                    <Item id = "6401" name = "Formato" />
+                    <Item id = "6402" name = "Windows" />
+                    <Item id = "6403" name = "Unix" />
+                    <Item id = "6404" name = "Mac" />
+                    <Item id = "6405" name = "Codifica" />
+                    <Item id = "6406" name = "ANSI" />
+                    <Item id = "6407" name = "UTF-8 senza BOM" />
+                    <Item id = "6408" name = "UTF-8" />
+                    <Item id = "6409" name = "UCS-2 Big endian" />
+                    <Item id = "6410" name = "UCS-2 Little endian" />
+                    <Item id = "6411" name = "Linguaggio predefinito:" />
+                    <Item id = "6419" name = "Nuovo Documento" />
                     <Item id = "6420" name = "Applica all'apertura di file ANSI" />
                 </NewDoc>
                 <DefaultDir title = "Cartella predefinita">
-                    <Item id = "6413" name = "Cartella predefinita (Apri/Salva)" />
-                    <Item id = "6414" name = "Secondo il documento attuale" />
+                    <Item id = "6413" name = "Cartella Predefinita (Apri/Salva)" />
+                    <Item id = "6414" name = "Secondo il documento corrente" />
                     <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata" />
                 </DefaultDir>
                 <RecentFilesHistory title = "File recenti">
-                    <Item id = "6304" name = "Elenco documenti recenti" />
-					<Item id = "6305" name = "Non controllare all&apos;avvio" />
-					<Item id = "6306" name = "Numero massimo di voci:" />
+                    <Item id = "6304" name = "Lista Documenti Recenti" />
+                    <Item id = "6305" name = "Non controllare all&apos;avvio" />
+                    <Item id = "6306" name = "Massimo numero di voci:" />
                     <Item id = "6424" name = "In un sottomenù" />
-					<Item id = "6425" name = "Solo nome file" />
-					<Item id = "6426" name = "Intero percorso" />
-					<Item id = "6427" name = "Personalizza lunghezza massima:" />
+                    <Item id = "6425" name = "Solo nome file" />
+                    <Item id = "6426" name = "Intero percorso" />
+                    <Item id = "6427" name = "Personalizza lunghezza massima:" />
                     <Item id = "6429" name = "Visualizza" />
                 </RecentFilesHistory>
-				<FileAssoc title = "Associazione file">
-					<Item id = "4009" name = "Estensioni supportate:" />
-					<Item id = "4010" name = "Estensioni registrate:" />
+                <FileAssoc title = "Associazione file">
+                    <Item id = "4009" name = "Estensioni supportate:" />
+                    <Item id = "4010" name = "Estensioni registrate:" />
                 </FileAssoc>
-				<LangMenu title = "Linguaggi">
-					<Item id = "6505" name = "Linguaggi disponibili" />
-					<Item id = "6506" name = "Linguaggi disabilitati" />
-					<Item id = "6507" name = "Utilizza menu compatto" />
-					<Item id = "6508" name = "Menu linguaggio" />
+                <LangMenu title = "Linguaggi">
+                    <Item id = "6505" name = "Linguaggi disponibili" />
+                    <Item id = "6506" name = "Linguaggi disabilitati" />
+                    <Item id = "6507" name = "Utilizza menu compatto" />
+                    <Item id = "6508" name = "Menu Linguaggio" />
+                    <Item id = "6510" name = "Usa predefinito" />
                 </LangMenu>
                 <TabSettings title = "Tabulazioni">
-                    <Item id = "6301" name = "Impostazioni tabulazioni" />
-					<Item id = "6302" name = "Sostituisci con spazi" />
-					<Item id = "6303" name = "Dimensione tabulazione:" />
-					<Item id = "6510" name = "Usa predefinito" />
+                    <Item id = "6301" name = "Impostazioni Tabulazioni" />
+                    <Item id = "6302" name = "Sostituisci con spazi" />
+                    <Item id = "6303" name = "Dimensione tabulazione:" />
                 </TabSettings>
-				<Print title = "Stampa">
-					<Item id = "6601" name = "Numeri di riga" />
-					<Item id = "6602" name = "Opzioni colore" />
-					<Item id = "6603" name = "WYSIWYG" />
-					<Item id = "6604" name = "Inverti" />
-					<Item id = "6605" name = "Bianco e nero" />
-					<Item id = "6606" name = "Non stampare i colori di sfondo" />
-					<Item id = "6607" name = "Impostazione margini (unità: mm)" />
-					<Item id = "6612" name = "Sinistro" />
-					<Item id = "6613" name = "Superiore" />
-					<Item id = "6614" name = "Destro" />
-					<Item id = "6615" name = "Inferiore" />
-					<Item id = "6706" name = "Grassetto" />
-					<Item id = "6707" name = "Corsivo" />
-					<Item id = "6708" name = "Intestazione" />
-					<Item id = "6709" name = "Sezione di sinistra" />
-					<Item id = "6710" name = "Sezione centrale" />
-					<Item id = "6711" name = "Sezione di destra" />
-					<Item id = "6717" name = "Grassetto" />
-					<Item id = "6718" name = "Corsivo" />
-					<Item id = "6719" name = "Piè di pagina" />
-					<Item id = "6720" name = "Sezione di sinistra" />
-					<Item id = "6721" name = "Sezione centrale" />
-					<Item id = "6722" name = "Sezione di destra" />
-					<Item id = "6723" name = "Aggiungi" />
-					<Item id = "6725" name = "Variabile:" />
-					<Item id = "6727" name = "Seleziona parte" />
-					<Item id = "6728" name = "Intestazione e piè di pagina" />
+                <Print title = "Stampa">
+                    <Item id = "6601" name = "Numeri di riga" />
+                    <Item id = "6602" name = "Opzioni Colore" />
+                    <Item id = "6603" name = "WYSIWYG" />
+                    <Item id = "6604" name = "Inverti" />
+                    <Item id = "6605" name = "Bianco e nero" />
+                    <Item id = "6606" name = "Non stampare i colori di sfondo" />
+                    <Item id = "6607" name = "Impostazione Dei Margini (unità: mm)" />
+                    <Item id = "6612" name = "Sinistro" />
+                    <Item id = "6613" name = "Superiore" />
+                    <Item id = "6614" name = "Destro" />
+                    <Item id = "6615" name = "Inferiore" />
+                    <Item id = "6706" name = "Grassetto" />
+                    <Item id = "6707" name = "Corsivo" />
+                    <Item id = "6708" name = "Intestazione" />
+                    <Item id = "6709" name = "Sezione di sinistra" />
+                    <Item id = "6710" name = "Sezione centrale" />
+                    <Item id = "6711" name = "Sezione di destra" />
+                    <Item id = "6717" name = "Grassetto" />
+                    <Item id = "6718" name = "Corsivo" />
+                    <Item id = "6719" name = "Piè di pagina" />
+                    <Item id = "6720" name = "Sezione di sinistra" />
+                    <Item id = "6721" name = "Sezione centrale" />
+                    <Item id = "6722" name = "Sezione di destra" />
+                    <Item id = "6723" name = "Aggiungi" />
+                    <Item id = "6725" name = "Variabile:" />
+                    <Item id = "6727" name = "Seleziona parte" />
+                    <Item id = "6728" name = "Intestazione E Piè Di Pagina" />
                 </Print>
                 <Backup title = "Backup">
-					<Item id = "6817" name = "Registrazione sessione e backup periodico" />
-					<Item id = "6309" name = "Ricorda sessione attuale al prossimo avvio" />
-					<Item id = "6818" name = "Abilita registrazione sessione e backup periodici" />
-					<Item id = "6819" name = "Backup ogni" />
-					<Item id = "6821" name = "secondi" />
-					<Item id = "6822" name = "Cartella backup:" />
+                    <Item id = "6817" name = "Snapshot Sessione e Backup Periodico" />
+                    <Item id = "6309" name = "Ricorda sessione corrente al prossimo avvio" />
+                    <Item id = "6818" name = "Abilita snapshot di sessione e backup periodici" />
+                    <Item id = "6819" name = "Backup ogni" />
+                    <Item id = "6821" name = "secondi" />
+                    <Item id = "6822" name = "Cartella backup:" />
 
-					<Item id = "6801" name = "Backup" />
-					<Item id = "6803" name = "Cartella:" />
-					<Item id = "6804" name = "Cartella personale backup:" />
-					<Item id = "6315" name = "Nessuno" />
-					<Item id = "6316" name = "Backup semplice" />
-					<Item id = "6317" name = "Backup dettagliato" />
+                    <Item id = "6801" name = "Backup" />
+                    <Item id = "6803" name = "Cartella:" />
+                    <Item id = "6804" name = "Cartella di backup personalizzata:" />
+                    <Item id = "6315" name = "Nessuno" />
+                    <Item id = "6316" name = "Backup semplice" />
+                    <Item id = "6317" name = "Backup dettagliato" />
                 </Backup>
                 <AutoCompletion title = "Auto-completamento">
-                    <Item id = "6807" name = "Auto-completamento" />
-					<Item id = "6808" name = "Attiva l&apos;auto-completamento per ogni input" />
-					<Item id = "6809" name = "Completamento funzione" />
-					<Item id = "6810" name = "Completamento parola" />
-					<Item id = "6811" name = "Dal" />
-					<Item id = "6813" name = "º carattere" />
-					<Item id = "6814" name = "Valori validi: 1 - 9" />
-					<Item id = "6815" name = "Suggerisci parametri funzioni durante input" />
-					<Item id = "6816" name = "Completamento funzioni e parole" />
-					<Item id = "6851" name = "Auto-inserimento" />
-					<Item id = "6857" name = "Tag chiusura HTML/XML" />
-					<Item id = "6858" name = "Apri" />
-					<Item id = "6859" name = "Chiudi" />
-					<Item id = "6860" name = "Coppia 1:" />
-					<Item id = "6863" name = "Coppia 2:" />
-					<Item id = "6866" name = "Coppia 3:" />
+                    <Item id = "6807" name = "Auto-Completamento" />
+                    <Item id = "6808" name = "Attiva l&apos;auto-completamento su ogni input" />
+                    <Item id = "6809" name = "Completamento funzione" />
+                    <Item id = "6810" name = "Completamento parola" />
+                    <Item id = "6811" name = "Dal" />
+                    <Item id = "6813" name = "º carattere" />
+                    <Item id = "6814" name = "Valori validi: 1 - 9" />
+                    <Item id = "6815" name = "Suggerisci parametri funzioni durante l&apos;immissione" />
+                    <Item id = "6816" name = "Completamento funzioni e parole" />
+                    <Item id = "6851" name = "Auto-Inserimento" />
+                    <Item id = "6857" name = "tag chiusura html/xml" />
+                    <Item id = "6858" name = "Apri" />
+                    <Item id = "6859" name = "Chiudi" />
+                    <Item id = "6860" name = "Coppia 1:" />
+                    <Item id = "6863" name = "Coppia 2:" />
+                    <Item id = "6866" name = "Coppia 3:" />
                 </AutoCompletion>
                 <MultiInstance title = "Istanze multiple">
-                    <Item id = "6151" name = "Impostazioni istanze multiple" />
+                    <Item id = "6151" name = "Impostazioni Istanze Multiple" />
                     <Item id = "6152" name = "Apri sessioni in nuova istanza di Notepad++" />
                     <Item id = "6153" name = "Sempre in modalità istanza multipla" />
                     <Item id = "6154" name = "Predefinito (instanza unica)" />
@@ -780,48 +798,52 @@
                     <Item id = "6252" name = "Apri" />
                     <Item id = "6255" name = "Chiudi" />
                     <Item id = "6256" name = "Permetti su più linee" />
+                    <Item id = "6257" name = "bla bla bla bla bla bla" />
+                    <Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla" />
                 </Delimiter>
                 <Cloud title = "Cloud">
-                    <Item id = "6262" name = "Impostazioni Cluod" />
-                    <Item id = "6263" name = "Nessun servizio Cloud" />
-                    <Item id = "6267" name = "Imposta qui il percorso del tuo cloud:"/>
+                    <Item id = "6262" name = "Impostazioni Sul Cluod" />
+                    <Item id = "6263" name = "Nessun servizio cloud" />
+                    <Item id = "6264" name = "Dropbox" />
+                    <Item id = "6265" name = "OneDrive" />
+                    <Item id = "6266" name = "Google Drive" />
                     <!--Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." /-->
                 </Cloud>
-				<MISC title = "Varie">
-					<Item id = "6324" name = "Cambia documento (Ctrl+TAB)" />
-					<Item id = "6114" name = "Abilita" />
-					<Item id = "6117" name = "Precedenza ai file più recenti" />
+                <MISC title = "Varie">
+                    <Item id = "6324" name = "Cambia Documento (Ctrl+TAB)" />
+                    <Item id = "6114" name = "Abilita" />
+                    <Item id = "6117" name = "Precedenza ai file più recenti" />
 
-                    <Item id = "6333" name = "Evidenziazione intelligente" />
-					<Item id = "6326" name = "Abilita" />
-					<Item id = "6332" name = "L'evidenziazione è case-sensitive" />
+                    <Item id = "6333" name = "Evidenziazione Intelligente" />
+                    <Item id = "6326" name = "Abilita" />
+                    <Item id = "6332" name = "L'evidenziazione è case-sensitive" />
 
-                    <Item id = "6318" name = "Collegmanti cliccabili" />
-					<Item id = "6319" name = "Abilita" />
-					<Item id = "6320" name = "Non sottolineare" />
+                    <Item id = "6318" name = "Link Cliccabili" />
+                    <Item id = "6319" name = "Abilita" />
+                    <Item id = "6320" name = "Non sottolineare" />
 
-					<Item id = "6312" name = "Rilevamento stato file" />
+                    <Item id = "6312" name = "Rilevamento Stato File" />
                     <Item id = "6307" name = "Abilita" />
-					<Item id = "6313" name = "Aggiorna senza notifica" />
-					<Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento" />
+                    <Item id = "6313" name = "Aggiorna senza notifica" />
+                    <Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento" />
 
-					<Item id = "6329" name = "Evidenzia tag corrispondenti" />
-					<Item id = "6327" name = "Abilita" />
-					<Item id = "6328" name = "Evidenzia attributi" />
-					<Item id = "6330" name = "Evidenzia zone PHP/ASP/commenti" />
+                    <Item id = "6329" name = "Evidenzia Tag Corrispondenti" />
+                    <Item id = "6327" name = "Abilita" />
+                    <Item id = "6328" name = "Evidenzia attributi" />
+                    <Item id = "6330" name = "Evidenzia zone php/asp/commenti" />
 
-					<Item id = "6334" name = "Rileva automaticamente codifica caratteri" />
-					<Item id = "6115" name = "Indentazione automatica" />
-					<Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
-					<Item id = "6331" name = "Visualizza solo nome file nella barra del titolo" />
+                    <Item id = "6334" name = "Rileva automaticamente codifica caratteri" />
+                    <Item id = "6115" name = "Indentazione automatica" />
+                    <Item id = "6308" name = "Minimizza nell&apos;area di notifica" />
+                    <Item id = "6331" name = "Mostra solo nome file nella barra del titolo" />
                     <Item id = "6335" name = "Backslash è il carattere di escape in SQL" />
 
-					<Item id = "6322" name = "Estensione file di sessione:" />
+                    <Item id = "6322" name = "Est. file di sessione:" />
 
                     <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
                 </MISC>
             </Preference>
-			<MultiMacro title = "Esegui macro più volte">
+            <MultiMacro title = "Esegui macro più volte">
                 <Item id = "1" name = "Esegui" />
                 <Item id = "2" name = "Annulla" />
                 <Item id = "8006" name = "Macro da eseguire: " />
@@ -829,14 +851,14 @@
                 <Item id = "8005" name = "volte" />
                 <Item id = "8002" name = "Esegui fino a fine file" />
             </MultiMacro>
-			<Window title = "Finestre">
+            <Window title = "Finestre">
                 <Item id = "1" name = "Attiva" />
                 <Item id = "2" name = "OK" />
                 <Item id = "7002" name = "Salva" />
                 <Item id = "7003" name = "Chiudi scheda/e" />
                 <Item id = "7004" name = "Ordina schede" />
             </Window>
-			<ColumnEditor title = "Editor a colonne">
+            <ColumnEditor title = "Editor a colonne">
                 <Item id = "2023" name = "Testo da inserire" />
                 <Item id = "2033" name = "Numero da inserire" />
                 <Item id = "2030" name = "Numero iniziale: " />
@@ -850,22 +872,21 @@
                 <Item id = "1" name = "OK" />
                 <Item id = "2" name = "Annulla" />
             </ColumnEditor>
-		</Dialog>
+        </Dialog>
         <MessageBox>
-			<ContextMenuXmlEditWarning title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.&#x0A;E' necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto." />
-			<NppHelpAbsentWarning title = "Il file non esiste" message = "&#x0A;non esiste. Scarica il file dal sito di Notepad++." />
-			<SaveCurrentModifWarning title = "Salva modifiche correnti" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?" />
-			<LoseUndoAbilityWarning title = "Attenzione: Perdita della possibilità di ripristinare" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?" />
-			<CannotMoveDoc title = "Invia a una nuova istanza di Notepad++" message = "Il documento è stato modificato, salvarlo prima di continuare." />
-			<DocReloadWarning title = "Ricarica" message = "Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa." />
-			<FileLockedWarning title = "Salvataggio fallito" message = "Verificare che il file non sia aperto con un altro programma." />
-			<FileAlreadyOpenedInNpp title = "" message = "Il file è già aperto in Notepad++." />
-			<DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita." />
+            <ContextMenuXmlEditWarning title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.&#x0A;E' necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto." />
+            <NppHelpAbsentWarning title = "Il file non esiste" message = "&#x0A;non esiste. Scarica il file dal sito di Notepad++." />
+            <SaveCurrentModifWarning title = "Salva modifiche correnti" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?" />
+            <LoseUndoAbilityWarning title = "Attenzione: Perdita della possibilità di ripristinare" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?" />
+            <CannotMoveDoc title = "Invia a una nuova istanza di Notepad++" message = "Il documento è stato modificato, salvarlo prima di continuare." />
+            <DocReloadWarning title = "Ricarica" message = "Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa." />
+            <FileLockedWarning title = "Salvataggio fallito" message = "Verificare che il file non sia aperto con un altro programma." />
+            <FileAlreadyOpenedInNpp title = "" message = "Il file è già aperto in Notepad++." />
+            <DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita." />
             <NbFileToOpenImportantWarning title = "Il numero di file da aprire è troppo grande" message = "Si stanno aprendo $INT_REPLACE$ file.&#x0A;Sicuro di volerli aprire?" />
-			<SettingsOnCloudError title="Impostazioni nel cloud" message="Sembra che nelle impostazioni il percorso nel cloud è impostato su una unità a sola lettura,\ro su una cartella che richiede i privilegi per poter scrivere in essa.\rLe tue impostazioni nel cloud verranno azzerate. Imposta un valore coerente nelle impostazioni."/>
-		</MessageBox>
+        </MessageBox>
         <ClipboardHistory>
-            <PanelTitle name = "Cronologia Appunti" />
+            <PanelTitle name = "Storia Appunti" />
         </ClipboardHistory>
         <DocSwitcher>
             <PanelTitle name = "Documenti" />
@@ -873,64 +894,63 @@
             <ColumnExt name = "Est." />
         </DocSwitcher>
         <AsciiInsertion>
-            <PanelTitle name = "Pannello inserimento ASCII" />
+            <PanelTitle name = "Pannello Inserimento ASCII" />
             <ColumnVal name = "Valore" />
-            <ColumnHex name = "Hex" />
             <ColumnChar name = "Carattere" />
         </AsciiInsertion>
         <DocumentMap>
-            <PanelTitle name = "Mappa documento" />
+            <PanelTitle name = "Mappa Documento" />
         </DocumentMap>
         <FunctionList>
-            <PanelTitle name = "Elenco funzioni" />
+            <PanelTitle name = "Lista Funzioni" />
             <SortTip name = "Ordina" />
             <ReloadTip name = "Ricarica" />
         </FunctionList>
-		<ProjectManager>
-			<PanelTitle name = "Progetti" />
-			<WorkspaceRootName name = "Spazio lavoro" />
+        <ProjectManager>
+            <PanelTitle name = "Progetti" />
+            <WorkspaceRootName name = "Workspace" />
             <NewProjectName name = "Nome progetto" />
-			<NewFolderName name = "Nome cartella" />
-			<Menus>
-				<Entries>
-					<Item id = "0" name = "Spazio lavoro" />
-					<Item id = "1" name = "Modifica" />
-				</Entries>
-				<WorkspaceMenu>
-					<Item id = "3122" name = "Nuovo spazio lavoro" />
-					<Item id = "3123" name = "Apri spazio lavoro" />
-					<Item id = "3124" name = "Ricarica spazio lavoro" />
-					<Item id = "3125" name = "Salva" />
-					<Item id = "3126" name = "Salva come..." />
-					<Item id = "3127" name = "Salva una copia come..." />
-					<Item id = "3121" name = "Aggiungi nuovo progetto" />
-				</WorkspaceMenu>
-				<ProjectMenu>
-					<Item id = "3111" name = "Rinomina" />
-					<Item id = "3112" name = "Aggiungi cartella" />
-					<Item id = "3113" name = "Aggiungi file..." />
-					<Item id = "3114" name = "Rimuovi" />
-					<Item id = "3117" name = "Aggiungi file da una cartella..." />
-                    <Item id = "3118" name = "Sposta su" />
-					<Item id = "3119" name = "Sposta giù" />
-				</ProjectMenu>
-				<FolderMenu>
-					<Item id = "3111" name = "Rinomina" />
-					<Item id = "3112" name = "Aggiungi cartella" />
-					<Item id = "3113" name = "Aggiungi file..." />
-					<Item id = "3114" name = "Rimuovi" />
+            <NewFolderName name = "Nome cartella" />
+            <Menus>
+                <Entries>
+                    <Item id = "0" name = "Workspace" />
+                    <Item id = "1" name = "Modifica" />
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id = "3122" name = "Nuovo workspace" />
+                    <Item id = "3123" name = "Apri workspace" />
+                    <Item id = "3124" name = "Ricarica workspace" />
+                    <Item id = "3125" name = "Salva" />
+                    <Item id = "3126" name = "Salva come..." />
+                    <Item id = "3127" name = "Salva una copia come..." />
+                    <Item id = "3121" name = "Aggiungi nuovo progetto" />
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id = "3111" name = "Rinomina" />
+                    <Item id = "3112" name = "Aggiungi cartella" />
+                    <Item id = "3113" name = "Aggiungi file..." />
+                    <Item id = "3114" name = "Rimuovi" />
                     <Item id = "3117" name = "Aggiungi file da una cartella..." />
                     <Item id = "3118" name = "Sposta su" />
-					<Item id = "3119" name = "Sposta giù" />
-				</FolderMenu>
-				<FileMenu>
-					<Item id = "3111" name = "Rinomina" />
-					<Item id = "3115" name = "Rimuovi" />
-					<Item id = "3116" name = "Modifica percorso file" />
+                    <Item id = "3119" name = "Sposta giù" />
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id = "3111" name = "Rinomina" />
+                    <Item id = "3112" name = "Aggiungi cartella" />
+                    <Item id = "3113" name = "Aggiungi file..." />
+                    <Item id = "3114" name = "Rimuovi" />
+                    <Item id = "3117" name = "Aggiungi file da una cartella..." />
                     <Item id = "3118" name = "Sposta su" />
-					<Item id = "3119" name = "Sposta giù" />
-				</FileMenu>
-			</Menus>
-		</ProjectManager>
+                    <Item id = "3119" name = "Sposta giù" />
+                </FolderMenu>
+                <FileMenu>
+                    <Item id = "3111" name = "Rinomina" />
+                    <Item id = "3115" name = "Rimuovi" />
+                    <Item id = "3116" name = "Modifica percorso file" />
+                    <Item id = "3118" name = "Sposta su" />
+                    <Item id = "3119" name = "Sposta giù" />
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
     </Native-Langue>
 </NotepadPlus>

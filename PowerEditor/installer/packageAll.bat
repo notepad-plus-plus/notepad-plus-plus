@@ -47,6 +47,8 @@ copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\SciLexer.dll .\minimalist\
 If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.otf .\minimalist\
+If ErrorLevel 1 PAUSE
 
 
 rem Notepad++ Unicode package
@@ -87,25 +89,10 @@ copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\SciLexer.dll .\zipped.package.release\
 If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.otf .\zipped.package.release\
+If ErrorLevel 1 PAUSE
 
 rem Plugins
-copy /Y "..\bin\plugins\DSpellCheck.dll" .\zipped.package.release\plugins\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\Hunspell\dictionary.lst" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\Hunspell\en_GB.dic" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\Hunspell\en_GB.aff" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\Hunspell\README_en_GB.txt" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\Hunspell\en_US.dic" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\Hunspell\en_US.aff" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\Hunspell\README_en_US.txt" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 PAUSE
-
 copy /Y "..\bin\plugins\NppFTP.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\NppExport.dll" .\zipped.package.release\plugins\
@@ -144,6 +131,7 @@ If ErrorLevel 1 PAUSE
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.7z .\zipped.package.release\*
 If ErrorLevel 1 PAUSE
 "C:\Program Files (x86)\NSIS\Unicode\makensis.exe" nppSetup.nsi
+rem "C:\Program Files\NSIS\Unicode\makensis.exe" nppSetup.nsi
 
 
 @echo off

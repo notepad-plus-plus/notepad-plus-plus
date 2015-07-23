@@ -56,6 +56,8 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
 #define NPP_INTERNAL_FUCTION_STR TEXT("Notepad++::InternalFunction")
 
+#define SOURCECODEPRO_FONT  TEXT("SourceCodePro-Regular.otf")
+
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 
 ToolBarButtonUnit toolBarIcons[] = {
@@ -199,6 +201,7 @@ Notepad_plus::~Notepad_plus()
 	delete _pProjectPanel_3;
 	delete _pDocMap;
 	delete _pFuncList;
+	::RemoveFontResource(SOURCECODEPRO_FONT);
 }
 
 
@@ -208,6 +211,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+
+	// Add Main font
+	::AddFontResource(SOURCECODEPRO_FONT);
 
 	// Menu
 	_mainMenuHandle = ::GetMenu(hwnd);
@@ -279,19 +285,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 
-	UINT smoothingType = 0;
-	if (0 != ::SystemParametersInfo(SPI_GETFONTSMOOTHINGTYPE, 0, &smoothingType, 0))
+	if (svp1._doSmoothFont)
 	{
-		if (FE_FONTSMOOTHINGCLEARTYPE == smoothingType)
-		{
-			_mainEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
-			_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
-		}
-	}
-	else
-	{
-		// Fail silently - font smoothing is not important enough to do anything else.
-		assert(false and "failed to retrieve system info 'SPI_GETFONTSMOOTHINGTYPE'");
+		_mainEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
+		_subEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);
 	}
 
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
@@ -1498,7 +1495,6 @@ bool Notepad_plus::replaceInFiles()
 		{
 			updateOnCount += filesPerPercent;
 			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
-			progress.flushCallerUserInput();
 		}
 		else
 		{
@@ -1507,7 +1503,6 @@ bool Notepad_plus::replaceInFiles()
 	}
 
 	progress.close();
-	progress.flushCallerUserInput();
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_invisibleEditView.setCurrentBuffer(oldBuf);
@@ -1587,7 +1582,6 @@ bool Notepad_plus::findInFiles()
 		{
 			updateOnCount += filesPerPercent;
 			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
-			progress.flushCallerUserInput();
 		}
 		else
 		{
@@ -1596,7 +1590,6 @@ bool Notepad_plus::findInFiles()
 	}
 
 	progress.close();
-	progress.flushCallerUserInput();
 
 	_findReplaceDlg.finishFilesSearch(nbTotal);
 
@@ -5556,7 +5549,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #13", "Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper."},
 	{"Anonymous #14", "A better world is where chickens can cross the road without having their motives questioned."},
 	{"Anonymous #15", "If I didn't drink, how would my friends know I love them at 2 AM?"},
-	{"Anonymous #16", "What you do after sex?\n  A. Smoke a cigarette\n  B. Kiss your partener\n  C. Clear browser history\n"},
+	{"Anonymous #16", "What you do after sex?\n  A. Smoke a cigarette\n  B. Kiss your partner\n  C. Clear browser history\n"},
 	{"Anonymous #17", "All you need is love,\nall you want is sex,\nall you have is porn.\n"},
 	{"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
 	{"Anonymous #19", "F_CK: All I need is U."},

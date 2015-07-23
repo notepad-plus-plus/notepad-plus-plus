@@ -104,6 +104,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("lua"),			TEXT("Lua"),				TEXT("Lua source File"),								L_LUA,			SCLEX_LUA},
 {TEXT("tex"),			TEXT("TeX"),				TEXT("TeX file"),										L_TEX,			SCLEX_TEX},
 {TEXT("fortran"),		TEXT("Fortran"),			TEXT("Fortran source file"),							L_FORTRAN,		SCLEX_FORTRAN},
+{TEXT("fortran77"),		TEXT("Fortran 77"),			TEXT("Fortran 77 source file"),							L_FORTRAN_77,	SCLEX_F77},
 {TEXT("bash"),			TEXT("Shell"),				TEXT("Unix script file"),								L_BASH,			SCLEX_BASH},
 {TEXT("actionscript"),	TEXT("Flash Action"),		TEXT("Flash Action script file"),						L_FLASH,		SCLEX_CPP},//WARNING, was "flash"
 {TEXT("nsis"),			TEXT("NSIS"),				TEXT("Nullsoft Scriptable Install System script file"),	L_NSIS,			SCLEX_NSIS},
@@ -1288,6 +1289,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_FORTRAN : 
 			setFortranLexer(); break;
+
+		case L_FORTRAN_77 :
+			setFortran77Lexer(); break;
 
 		case L_LISP :
             setLispLexer(); break;

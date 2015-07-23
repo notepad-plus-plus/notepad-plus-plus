@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 	Dutch localization for Notepad++ 6.8
-	Last modified Wed, Jul 22 2015 by Klaas Nekeman.
+	Last modified Thu, Jul 23 2015 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)hotmail.com.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="6.8.0">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Titles -->
@@ -392,6 +392,7 @@
 				<Item id="2032" name="Indeling"/>
 				<Item id="2033" name="Nummer invoegen"/>
 				<Item id="2035" name="Voorloopnullen"/>
+				<Item id="2036" name="Nummer herhalen:"/>
 			</ColumnEditor>
 			<StyleConfig title="Opmaak">
 				<Item id="1" name="&amp;Voorbeeld"/>
@@ -455,10 +456,11 @@
 					<Item id="6119" name="Tabs in meerdere rijen weergeven"/>
 					<Item id="6120" name="Verticale tabs"/>
 					<Item id="6121" name="Menubalk"/>
-					<Item id="6122" name="Verbergen (Tonen met Alt of F10)"/>
+					<Item id="6122" name="Menubalk verbergen (Tonen met Alt of F10)"/>
 					<Item id="6123" name="Taal"/>
 					<Item id="6125" name="Documentenlijst"/>
 					<Item id="6126" name="Documentenlijst weergeven"/>
+					<Item id="6127" name="Kolom extensies verbergen"/>
 				</Global>
 				<Scintillas title="Weergave">
 					<Item id="6201" name="Gegevensstructuur"/>
@@ -474,9 +476,10 @@
 					<Item id="6212" name="Lijn"/>
 					<Item id="6213" name="Achtergrond"/>
 					<Item id="6214" name="Actieve regel markeren"/>
+					<Item id="6215" name="ClearType inschakelen"/>
 					<Item id="6216" name="Aanwijzer"/>
 					<Item id="6217" name="Breedte:"/>
-					<Item id="6219" name="Knippersnelheid van aanwijzer:"/>
+					<Item id="6219" name="Knippersnelheid:"/>
 					<Item id="6221" name="0"/>
 					<Item id="6222" name="100"/>
 					<Item id="6224" name="Meervoudig bewerken"/>
@@ -588,8 +591,14 @@
 					<Item id="6332" name="Kapitalen onderscheiden"/>
 					<Item id="6333" name="Woorden markeren"/>
 					<Item id="6334" name="Karakterset automatisch detecteren"/>
+					<Item id="6335" name="\ als SQL escape character interpreteren"/>
 				</MISC>
 				<Backup title="Reservekopieën">
+					<Item id="6817" name="Werkomgeving"/>
+					<Item id="6818" name="Werkomgeving en aangebrachte wijzingen herstellen"/>
+					<Item id="6819" name="Informatie elke"/>
+					<Item id="6821" name="seconden bijwerken"/>
+					<Item id="6822" name="Map:"/>
 					<Item id="6309" name="Werkomgeving bewaren"/>
 					<Item id="6801" name="Reservekopieën"/>
 					<Item id="6315" name="Geen"/>
@@ -621,7 +630,7 @@
 					<Item id="6152" name="Werkomgeving openen in een nieuw venster"/>
 					<Item id="6153" name="Alle bestanden openen in een nieuw venster"/>
 					<Item id="6154" name="Alle bestanden openen in hetzelfde venster"/>
-					<Item id="6155" name="* Wijziging van deze instelling treedt in werking na het opnieuw starten van Notepad++."/>
+					<Item id="6155" name="* Wijziging van deze instelling treedt in werking na het opnieuw starten van Notepad++"/>
 				</MultiInstance>
 				<Delimiter title="Tekst selecteren">
 					<Item id="6251" name="Tekst selecteren tussen de volgende karakters (Ctrl + dubbelklik)"/>
@@ -630,6 +639,7 @@
 					<Item id="6256" name="Selecteer tekst over meerdere regels"/>
 				</Delimiter>
 				<Cloud title="Online opslag">
+					<Item id="6261" name="* Wijziging van deze instelling treedt in werking na het opnieuw starten van Notepad++"/>
 					<Item id="6262" name="Instellingen online opslaan"/>
 					<Item id="6263" name="Instellingen niet online opslaan"/>
 					<Item id="6267" name="Pad naar online opslag:"/>

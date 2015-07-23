@@ -5549,7 +5549,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #13", "Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper."},
 	{"Anonymous #14", "A better world is where chickens can cross the road without having their motives questioned."},
 	{"Anonymous #15", "If I didn't drink, how would my friends know I love them at 2 AM?"},
-	{"Anonymous #16", "What you do after sex?\n  A. Smoke a cigarette\n  B. Kiss your partener\n  C. Clear browser history\n"},
+	{"Anonymous #16", "What you do after sex?\n  A. Smoke a cigarette\n  B. Kiss your partner\n  C. Clear browser history\n"},
 	{"Anonymous #17", "All you need is love,\nall you want is sex,\nall you have is porn.\n"},
 	{"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
 	{"Anonymous #19", "F_CK: All I need is U."},

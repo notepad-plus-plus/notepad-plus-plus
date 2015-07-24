@@ -332,7 +332,7 @@
 		<!-- Dialog Windows: -->
 		<Dialog>
 			<!-- Find and Replace Dialog: -->
-			<Find title="Suchen &amp; Ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Vorkommnisse markieren">
+			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Vorkommnisse markieren">
 				<Item id="1" name="&amp;Weitersuchen"/>
 				<Item id="2" name="&amp;Schließen"/>
 				<Item id="1603" name="Nur &amp;ganze Wörter suchen"/>
@@ -341,7 +341,7 @@
 				<Item id="1606" name="Am Ende von vorn &amp;beginnen"/>
 				<Item id="1608" name="&amp;Ersetzen"/>
 				<Item id="1609" name="Alle erse&amp;tzen"/>
-				<Item id="1611" name="Erset&amp;zen durch"/>
+				<Item id="1611" name="Erset&amp;zen durch:"/>
 				<Item id="1612" name="R&amp;ückwärts"/>
 				<Item id="1613" name="&amp;Vorwärts"/>
 				<Item id="1614" name="Z&amp;ählen"/>
@@ -349,11 +349,11 @@
 				<Item id="1616" name="&amp;Lesezeichen setzen"/>
 				<Item id="1617" name="&amp;Treffer markieren"/>
 				<Item id="1618" name="Für &amp;jede Suche löschen"/>
-				<Item id="1620" name="Suchen &amp;nach"/>
+				<Item id="1620" name="Suchen &amp;nach:"/>
 				<Item id="1621" name="Suchrichtung"/>
 				<Item id="1624" name="Suchmodus"/>
 				<Item id="1625" name="Norma&amp;l"/>
-				<Item id="1626" name="Erwe&amp;itert (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Erwe&amp;itert (\r, \n, \t, \x..., \0)"/>
 				<Item id="1627" name="Unten"/>
 				<Item id="1632" name="In &amp;Markierung"/>
 				<Item id="1633" name="Zurücksetzen"/>
@@ -362,8 +362,8 @@
 				<Item id="1637" name="In Dateien suchen"/>
 				<Item id="1640" name="Umschaltdialog"/>
 				<Item id="1641" name="Alle in aktiver &amp;Datei suchen"/>
-				<Item id="1654" name="Filter"/>
-				<Item id="1655" name="Verzeichnis"/>
+				<Item id="1654" name="Filter:"/>
+				<Item id="1655" name="Verzeichnis:"/>
 				<Item id="1656" name="Alle su&amp;chen"/>
 				<Item id="1658" name="&amp;Unterverzeichnisse"/>
 				<Item id="1659" name="&amp;Versteckte Ordner"/>

@@ -353,7 +353,7 @@
 				<Item id="1621" name="Suchrichtung"/>
 				<Item id="1624" name="Suchmodus"/>
 				<Item id="1625" name="Norma&amp;l"/>
-				<Item id="1626" name="Erwe&amp;itert (\n, \r, \t, \0, \x ...)"/>
+				<Item id="1626" name="Erwe&amp;itert (\r, \n, \t, \x..., \0)"/>
 				<Item id="1627" name="Unten"/>
 				<Item id="1632" name="In &amp;Markierung"/>
 				<Item id="1633" name="Zurücksetzen"/>

@@ -127,6 +127,7 @@
 #include "localization.h"
 #include <vector>
 #include <iso646.h>
+#include <map>
 
 
 #define MENU 0x01
@@ -222,7 +223,7 @@ public:
 
 // fileOperations
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
-	BufferID doOpen(const TCHAR *fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, time_t fileNameTimestamp = 0);
+	BufferID doOpen(const TCHAR *fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, time_t fileNameTimestamp = 0, int tabIndex = -1);
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
@@ -440,6 +441,12 @@ private:
 	DocumentMap *_pDocMap;
 	FunctionListPanel *_pFuncList;
 
+	std::map<generic_string, int> _lastSeenAtIndex_Main;
+	std::map<generic_string, int> _lastSeenAtIndex_Sub;
+	void saveTabIndexForPath(const generic_string& fullPath, int tabIndex);
+	int getSuggestedTaxIndexForPath(const generic_string& fullPath);
+	void resetAllSavedTabIndexes();
+
 	BOOL notify(SCNotification *notification);
 	void specialCmd(int id);
 	void command(int id);
@@ -480,7 +487,7 @@ private:
 	void docGotoAnotherEditView(FileTransferMode mode);	//TransferMode
 	void docOpenInNewInstance(FileTransferMode mode, int x = 0, int y = 0);
 
-	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false);		//Doesnt _activate_ the buffer
+	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false, int tabIndex = -1);		//Doesnt _activate_ the buffer
 	bool removeBufferFromView(BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already
 
 	bool activateBuffer(BufferID id, int whichOne);			//activate buffer in that view if found

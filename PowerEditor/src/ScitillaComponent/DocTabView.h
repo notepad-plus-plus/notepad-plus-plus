@@ -60,7 +60,7 @@ public :
 		return;
 	};
 
-	void addBuffer(BufferID buffer);
+	void addBuffer(BufferID buffer, int tabIndex);
 	void closeBuffer(BufferID buffer);
 	void bufferUpdated(Buffer * buffer, int mask);
 

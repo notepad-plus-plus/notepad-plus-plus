@@ -37,7 +37,7 @@
 
 using namespace std;
 
-BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
+BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp, int tabIndex)
 {
  
 	const rsize_t longFileNameBufferSize = MAX_PATH;
@@ -223,8 +223,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
         scnN.nmhdr.idFrom = (uptr_t)buffer;
         _pluginsManager.notify(&scnN);
        
-
-        loadBufferIntoView(buffer, currentView());
+        bool dontClose = false;
+        loadBufferIntoView(buffer, currentView(), dontClose, tabIndex);
 
         if (_pTrayIco)
         {
@@ -496,6 +496,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		MainFileManager->deleteCurrentBufferBackup();
 
 	Buffer * buf = MainFileManager->getBufferByID(id);
+	saveTabIndexForPath(buf->getFullPathName(), tabToClose->getIndexByBuffer(id));
 
 	// Notify plugins that current file is about to be closed
 	SCNotification scnN;
@@ -1680,4 +1681,36 @@ void Notepad_plus::saveSession(const Session & session)
 void Notepad_plus::saveCurrentSession()
 {
 	::PostMessage(_pPublicInterface->getHSelf(), NPPM_INTERNAL_SAVECURRENTSESSION, 0, 0);
+}
+
+void Notepad_plus::saveTabIndexForPath(const generic_string& fullPath, int tabIndex)
+{
+	if (currentView() == MAIN_VIEW)
+	{
+		_lastSeenAtIndex_Main[fullPath] = tabIndex;
+	}
+	else
+	{
+		_lastSeenAtIndex_Sub[fullPath] = tabIndex;
+	}
+}
+
+int Notepad_plus::getSuggestedTaxIndexForPath(const generic_string& fullPath)
+{
+	std::map<generic_string, int> *pLastSeenAtIndex = currentView() == MAIN_VIEW ? &_lastSeenAtIndex_Main : &_lastSeenAtIndex_Sub;
+	if (pLastSeenAtIndex->find(fullPath) != pLastSeenAtIndex->end())
+	{
+		int lastSeenIndex = pLastSeenAtIndex->at(fullPath);
+		if (lastSeenIndex < _pDocTab->getItemCount())
+		{
+			return lastSeenIndex;
+		}
+	}
+	return -1;
+}
+
+void Notepad_plus::resetAllSavedTabIndexes()
+{
+	_lastSeenAtIndex_Main.clear();
+	_lastSeenAtIndex_Sub.clear();
 }

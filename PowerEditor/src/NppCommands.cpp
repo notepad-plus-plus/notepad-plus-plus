@@ -2483,9 +2483,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDM_CLEAN_RECENT_FILE_LIST :
+		case IDM_CLEAN_RECENT_FILE_LIST:
+		{
+			resetAllSavedTabIndexes();
 			_lastRecentFileList.clear();
 			break;
+		}
 
 		case IDM_EDIT_RTL :
 		case IDM_EDIT_LTR :
@@ -2572,7 +2575,13 @@ void Notepad_plus::command(int id)
 			generic_string lastOpenedFullPath = _lastRecentFileList.getFirstItem();
 			if (lastOpenedFullPath != TEXT(""))
 			{
-				BufferID lastOpened = doOpen(lastOpenedFullPath.c_str());
+				bool isRecursive = false;
+				bool isReadOnly = false;
+				int encoding = -1;
+				const TCHAR *backupFileName = NULL;
+				time_t fileNameTimestamp = 0;
+				int tabIndex = getSuggestedTaxIndexForPath(lastOpenedFullPath);
+				BufferID lastOpened = doOpen(lastOpenedFullPath.c_str(), isRecursive, isReadOnly, encoding, backupFileName, fileNameTimestamp, tabIndex);
 				if (lastOpened != BUFFER_INVALID)
 				{
 					switchToFile(lastOpened);

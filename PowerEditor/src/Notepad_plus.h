@@ -441,7 +441,6 @@ private:
 	FunctionListPanel *_pFuncList;
 
 	BOOL notify(SCNotification *notification);
-	void specialCmd(int id);
 	void command(int id);
 
 //Document management

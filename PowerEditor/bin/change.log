@@ -1,34 +1,17 @@
-Notepad++ v6.7.9.2 bug-fix:
+Notepad++ v6.8 new features and bug-fix:
 
-1. Fix JavaScript block not recognized in HTML document.
-
-
-
-Notepad++ v6.7.9.1 new features and bug-fix:
-
-1. Fix Hanging on exit of Notepad++ issue (update DSpellCheck for its instability issue).
-2. Add "Google Search" command in the context menu.
-
-
-
-Notepad++ v6.7.9 new features and bug-fix:
-
-1.  Upgrade Scintilla to v3.56.
-2.  Add Language and EOL conversion context menu on status bar.
-3.  Enhance sort lines feature: Add lexicographic and numeric (integer and real) sorting with ascending and descending order.
-4.  Add new feature which launches a new instance with administrator privilege to save the protected file.
-5.  Fix the context menu not working problem after doing find in files action.
-6.  Improve copy (to clipboard) in found results panel.
-7.  Improve find in files modal dialog.
+1.  Settings on cloud feature allows users to write their settings on whichever cloud.
+2.  Use Source Code Pro as default font.
+3.  Make smooth font optional.
+4.  Fix the context menu disappears problem after find in files operation.
 
 
 
 Included plugins:
 
-1.  DSpellCheck v1.2.14.1
-2.  NppFTP 0.26.3
-3.  NppExport v0.2.8
-4.  Plugin Manager 1.3.5
-5.  Converter 3.0
-6.  Mime Tool 1.9
+1.  NppFTP 0.26.3
+2.  NppExport v0.2.8
+3.  Plugin Manager 1.3.5
+4.  Converter 3.0
+5.  Mime Tool 1.9
 

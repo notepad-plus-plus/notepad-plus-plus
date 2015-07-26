@@ -529,12 +529,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             }
             else
 			{
-				if ((lParam == 1) || (lParam == 2))
-				{
-					specialCmd(LOWORD(wParam));
-				}
-				else
-					command(LOWORD(wParam));
+				command(LOWORD(wParam));
 			}
 		}
 		return TRUE;

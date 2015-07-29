@@ -2130,17 +2130,17 @@ void Notepad_plus::setUniModeText()
 		switch (um)
 		{
 			case uniUTF8:
-				uniModeTextString = TEXT("UTF-8"); break;
+				uniModeTextString = TEXT("UTF-8-BOM"); break;
 			case uni16BE:
-				uniModeTextString = TEXT("UCS-2 Big Endian"); break;
+				uniModeTextString = TEXT("UCS-2 BE BOM"); break;
 			case uni16LE:
-				uniModeTextString = TEXT("UCS-2 Little Endian"); break;
+				uniModeTextString = TEXT("UCS-2 LE BOM"); break;
 			case uni16BE_NoBOM:
-				uniModeTextString = TEXT("UCS-2 BE w/o BOM"); break;
+				uniModeTextString = TEXT("UCS-2 Big Endian"); break;
 			case uni16LE_NoBOM:
-				uniModeTextString = TEXT("UCS-2 LE w/o BOM"); break;
+				uniModeTextString = TEXT("UCS-2 Little Endian"); break;
 			case uniCookie:
-				uniModeTextString = TEXT("UTF-8 w/o BOM"); break;
+				uniModeTextString = TEXT("UTF-8"); break;
 			default :
 				uniModeTextString = TEXT("ANSI");
 		}

@@ -5,15 +5,15 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;Ficheiro"/>
-                    <Item menuId="edit" name="&amp;Editar"/>
-                    <Item menuId="search" name="&amp;Procurar"/>
-                    <Item menuId="view" name="&amp;Visualização"/>
-                    <Item menuId="encoding" name="C&amp;Codificação"/>
-                    <Item menuId="language" name="&amp;Linguagem"/>
-                    <Item menuId="settings" name="Confi&amp;Configuração"/>
-                    <Item menuId="macro" name="&amp;Macro"/>
-                    <Item menuId="run" name="E&amp;Executar"/>
+                    <Item menuId="file" name="Ficheiro"/>
+                    <Item menuId="edit" name="Editar"/>
+                    <Item menuId="search" name="Procurar"/>
+                    <Item menuId="view" name="Visualização"/>
+                    <Item menuId="encoding" name="Codificação"/>
+                    <Item menuId="language" name="Linguagem"/>
+                    <Item menuId="settings" name="Configuração"/>
+                    <Item menuId="macro" name="Macro"/>
+                    <Item menuId="run" name="Executar"/>
                     <Item idName="Plugins" name="Plugins"/>
                     <Item idName="Window" name="Janela"/>
                 </Entries>
@@ -65,21 +65,21 @@
 
                 <!-- all menu item -->
                 <Commands>
-					<Item id="41001" name="&amp;Novo"/>
-                    <Item id="41002" name="&amp;Abrir"/>
+					<Item id="41001" name="Novo"/>
+                    <Item id="41002" name="Abrir"/>
 					<Item id="41019" name="Explorador"/>
                     <Item id="41020" name="Cmd"/>
                     <Item id="41003" name="Fechar"/>
-                    <Item id="41004" name="F&amp;Fechar Tudo"/>
+                    <Item id="41004" name="Fechar Tudo"/>
                     <Item id="41005" name="Fechar TUDO Exceto Documento Atual"/>
 					<Item id="41009" name="Fechar TUDO à Esquerda"/>
                     <Item id="41018" name="Fechar TUDO à Direita"/>
-                    <Item id="41006" name="&amp;Guardar"/>
+                    <Item id="41006" name="Guardar"/>
                     <Item id="41007" name="Guardar Tudo"/>
-                    <Item id="41008" name="Guardar &amp;Como..."/>
+                    <Item id="41008" name="Guardar Como..."/>
                     <Item id="41010" name="Imprimir ..."/>
 					<Item id="1001"  name="Imprimir Agora"/>
-                    <Item id="41011" name="&amp;Sair"/>
+                    <Item id="41011" name="Sair"/>
                     <Item id="41012" name="Carregar Sessão..."/>
                     <Item id="41013" name="Guardar Sessão..."/>
                     <Item id="41014" name="Recarregar do Disco"/>
@@ -87,13 +87,13 @@
                     <Item id="41016" name="Apagar do Disco"/>
                     <Item id="41017" name="Renomear..."/>
 
-                    <Item id="42001" name="Cor&amp;tar"/>
-                    <Item id="42002" name="&amp;Copiar"/>
-                    <Item id="42003" name="&amp;Anular"/>
-                    <Item id="42004" name="&amp;Refazer"/>
-                    <Item id="42005" name="Co&amp;lar"/>
-                    <Item id="42006" name="&amp;Apagar"/>
-                    <Item id="42007" name="Selecionar T&amp;udo"/>
+                    <Item id="42001" name="Cortar"/>
+                    <Item id="42002" name="Copiar"/>
+                    <Item id="42003" name="Anular"/>
+                    <Item id="42004" name="Refazer"/>
+                    <Item id="42005" name="Colar"/>
+                    <Item id="42006" name="Apagar"/>
+                    <Item id="42007" name="Selecionar Tudo"/>
 					<Item id="42020" name="Selecionar Início/Fim"/>
                     <Item id="42008" name="Aumentar Indentação da Linha"/>
                     <Item id="42009" name="Diminuir Indentação da Linha"/>
@@ -104,9 +104,9 @@
                     <Item id="42015" name="Mover a Linha Atual para Baixo"/>
                     <Item id="42016" name="MAIÚSCULA"/>
                     <Item id="42017" name="minúscula"/>
-                    <Item id="42018" name="&amp;Iniciar Gravação"/>
-                    <Item id="42019" name="&amp;Parar Gravação"/>
-                    <Item id="42021" name="&amp;Reproduzir"/>
+                    <Item id="42018" name="Iniciar Gravação"/>
+                    <Item id="42019" name="Parar Gravação"/>
+                    <Item id="42021" name="Reproduzir"/>
                     <Item id="42022" name="Alternar Comentário de Linha"/>
                     <Item id="42023" name="Bloquear Comentario"/>
 					<Item id="42047" name="Bloquear Descomentar"/>
@@ -144,8 +144,8 @@
 					<Item id="42058" name="Inserir Linha em Branco por Baixo da Atual"/>
 					<Item id="42059" name="Ordenar Linhas pela Ordem Ascendente"/>
 					<Item id="42060" name="Ordenar Linhas pela Ordem Descendente"/>
-					<Item id="43001" name="&amp;Encontrar..."/>
-                    <Item id="43002" name="Encontrar &amp;Seguinte"/>
+					<Item id="43001" name="Encontrar..."/>
+                    <Item id="43002" name="Encontrar Seguinte"/>
                     <Item id="43003" name="Substituir..."/>
                     <Item id="43004" name="Ir para..."/>
                     <Item id="43005" name="Alternar Marcador"/>
@@ -162,7 +162,7 @@
 					<Item id="43053" name="Selecionar Tudo Entre as Chavetas Correspondidas"/>
 					<Item id="43009" name="Ir para a Chaveta Correspondida"/>
                     <Item id="43010" name="Encontrar Anterior"/>
-                    <Item id="43011" name="Procura &amp;Progressiva"/>
+                    <Item id="43011" name="Procura Progressiva"/>
                     <Item id="43013" name="Encontrar nos Ficheiros"/>
                     <Item id="43014" name="Encontrar Seguinte (temporário)"/>
                     <Item id="43015" name="Encontrar Anterior (temporário)"/>
@@ -201,8 +201,8 @@
 					<Item id="44019" name="Mostrar Todos os Carateres"/>
 					<Item id="44020" name="Mostrar Guia de Indentação"/>
                     <Item id="44022" name="Procura Contínua"/>
-                    <Item id="44023" name="Zoom &amp;+	Ctrl+Roda do Rato p/ Cima"/>
-                    <Item id="44024" name="Zoom &amp;-	Ctrl+Roda do Rato p/ Baixo"/>
+                    <Item id="44023" name="Zoom + Ctrl+Roda do Rato p/ Cima"/>
+                    <Item id="44024" name="Zoom - Ctrl+Roda do Rato p/ Baixo"/>
                     <Item id="44025" name="Mostrar Espaços e Tabulações"/>
                     <Item id="44026" name="Mostrar Fim da Linha"/>
                     <Item id="44029" name="Expandir Tudo"/>
@@ -269,7 +269,7 @@
 					<Item id="48018" name="Editar Janela do Menu de Contexto"/>
                     <Item id="48009" name="Configurador de Atalho(s)..."/>
 					<Item id="48011" name="Preferências..."/>
-					<Item id="49000" name="&amp;Executar..."/>
+					<Item id="49000" name="Executar..."/>
 
 					<Item id="50000" name="Conclusão da Função"/>
                     <Item id="50001" name="Conclusão da Palavra"/>
@@ -314,21 +314,21 @@
                 <Item id="1"    name="Encontrar Seguinte"/>
                 <Item id="2"    name="Fechar"/>
 				<Item id="1620" name="Encontrar o quê?"/>
-				<Item id="1603" name="Corresponder à &amp;Palavra Completa"/>
-                <Item id="1604" name="Corresponder &amp;MAI/MIN"/>
-                <Item id="1605" name="&amp;Expressão Regular "/>
-                <Item id="1606" name="&amp;Procura Contínua"/>
-				<Item id="1612" name="&amp;Para cima"/>
-                <Item id="1613" name="&amp;Para baixo"/>
+				<Item id="1603" name="Corresponder à Palavra Completa"/>
+                <Item id="1604" name="Corresponder MAI/MIN"/>
+                <Item id="1605" name="Expressão Regular "/>
+                <Item id="1606" name="Procura Contínua"/>
+				<Item id="1612" name="Para cima"/>
+                <Item id="1613" name="Para baixo"/>
                 <Item id="1614" name="Contar"/>
                 <Item id="1615" name="Encontrar Tudo"/>
                 <Item id="1616" name="Marcar Linha"/>
                 <Item id="1617" name="Estilo Símbolo Encontrado"/>
                 <Item id="1618" name="Limpar para Cada Procura"/>
 				<Item id="1621" name="Direção"/>
-				<Item id="1611" name="Subs&amp;tituir com:"/>
-				<Item id="1608" name="&amp;Substituir"/>
-                <Item id="1609" name="Substituir &amp;Tudo"/>
+				<Item id="1611" name="Substituir com:"/>
+				<Item id="1608" name="Substituir"/>
+                <Item id="1609" name="Substituir Tudo"/>
 				<Item id="1623" name="Transparência"/>
 				<Item id="1687" name="Ao deixar a janela"/>
 			 	<Item id="1688" name="Sempre"/>
@@ -349,12 +349,12 @@
                 <Item id="1661" name="Seguir Documento Atual"/>
 			 	<Item id="1641" name="Encontrar Tudo no Documento Atual"/>
 				<Item id="1686" name="Transparência"/>
-				<Item id="1703" name="&amp;. Corresponde com a nova linha"/>
+				<Item id="1703" name="&. Corresponde com a nova linha"/>
 				</Find>
 				<GoToLine title="Ir para...">
 				<Item id="2007" name="Linha"/>
                 <Item id="2008" name="Posição"/>
-				<Item id="1"    name="&amp;Ir"/>
+				<Item id="1"    name="Ir"/>
                 <Item id="2"    name="Sair"/>
                 <Item id="2004" name="Está aqui:"/>
                 <Item id="2005" name="Deseja ir para:"/>
@@ -370,7 +370,7 @@
 
 			<StyleConfig title="Configurador de Estilos">
                 <Item id="2"    name="Cancelar"/>
-                <Item id="2301" name="Guardar e &amp;Fechar"/>
+                <Item id="2301" name="Guardar e Fechar"/>
                 <Item id="2303" name="Transparência"/>
                 <Item id="2306" name="Selecionar Tema: "/>
                 <SubDialog>
@@ -444,7 +444,7 @@
 					<Item id="25027" name="Operador 2"/>
 					<Item id="25028" name="Números"/>
 				</StylerDialog>
-				<Folder title="Pasta &amp;&amp; Predefinida">
+				<Folder title="Pasta Predefinida">
                     <Item id="21101" name="Estilo Predefinido"/>
 					<Item id="21102" name="Estilizar"/>
                     <Item id="21105" name="Documentação:"/>
@@ -492,7 +492,7 @@
                     <Item id="22572" name="Estilizar"/>
                     <Item id="22622" name="Estilizar"/>
 				</Keywords>
-                <Comment title="Comentário && Número">
+                <Comment title="Comentário & Número">
 					<Item id="23003" name="Posição linha comentário"/>
                     <Item id="23004" name="Permitir em qualquer parte"/>
                     <Item id="23005" name="Forçar no início da linha"/>

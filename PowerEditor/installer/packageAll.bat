@@ -47,7 +47,13 @@ copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\SciLexer.dll .\minimalist\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.otf .\minimalist\
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.ttf .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Bold.ttf .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-It.ttf .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-BoldIt.ttf .\minimalist\
 If ErrorLevel 1 PAUSE
 
 
@@ -89,7 +95,13 @@ copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\SciLexer.dll .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.otf .\zipped.package.release\
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.ttf .\zipped.package.release\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Bold.ttf .\zipped.package.release\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-It.ttf .\zipped.package.release\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-BoldIt.ttf .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 
 rem Plugins

@@ -56,7 +56,10 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
 #define NPP_INTERNAL_FUCTION_STR TEXT("Notepad++::InternalFunction")
 
-#define SOURCECODEPRO_FONT  TEXT("SourceCodePro-Regular.otf")
+#define SOURCECODEPRO_FONT  TEXT("SourceCodePro-Regular.ttf")
+#define SOURCECODEPRO_I_FONT  TEXT("SourceCodePro-It.ttf")
+#define SOURCECODEPRO_B_FONT  TEXT("SourceCodePro-Bold.ttf")
+#define SOURCECODEPRO_IB_FONT  TEXT("SourceCodePro-BoldIt.ttf")
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 
@@ -123,11 +126,6 @@ ToolBarButtonUnit toolBarIcons[] = {
 	{IDM_MACRO_SAVECURRENTMACRO,			IDI_SAVERECORD_OFF_ICON,	IDI_SAVERECORD_ON_ICON,		IDI_SAVERECORD_DISABLE_ICON, IDR_SAVERECORD}
 };
 
-
-
-
-
-
 Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _pFileSwitcherPanel(NULL),
@@ -180,7 +178,6 @@ Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(N
 	_isAdministrator = is_admin ? true : false;
 }
 
-
 Notepad_plus::~Notepad_plus()
 {
 	// ATTENTION : the order of the destruction is very important
@@ -201,11 +198,11 @@ Notepad_plus::~Notepad_plus()
 	delete _pProjectPanel_3;
 	delete _pDocMap;
 	delete _pFuncList;
-	::RemoveFontResource(SOURCECODEPRO_FONT);
+	::RemoveFontResourceEx(SOURCECODEPRO_FONT, FR_PRIVATE, 0);
+	::RemoveFontResourceEx(SOURCECODEPRO_I_FONT, FR_PRIVATE, 0);
+	::RemoveFontResourceEx(SOURCECODEPRO_B_FONT, FR_PRIVATE, 0);
+	::RemoveFontResourceEx(SOURCECODEPRO_IB_FONT, FR_PRIVATE, 0);
 }
-
-
-
 
 LRESULT Notepad_plus::init(HWND hwnd)
 {
@@ -213,7 +210,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 
 	// Add Main font
-	::AddFontResource(SOURCECODEPRO_FONT);
+	::AddFontResourceEx(SOURCECODEPRO_FONT, FR_PRIVATE, 0);
+	::AddFontResourceEx(SOURCECODEPRO_I_FONT, FR_PRIVATE, 0);
+	::AddFontResourceEx(SOURCECODEPRO_B_FONT, FR_PRIVATE, 0);
+	::AddFontResourceEx(SOURCECODEPRO_IB_FONT, FR_PRIVATE, 0);
 
 	// Menu
 	_mainMenuHandle = ::GetMenu(hwnd);
@@ -712,8 +712,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.getFocus();
 	return TRUE;
 }
-
-
 
 void Notepad_plus::killAllChildren()
 {

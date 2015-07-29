@@ -489,7 +489,10 @@ Section -"Notepad++" mainSection
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
-	File "..\bin\SourceCodePro-Regular.otf"
+	File "..\bin\SourceCodePro-Regular.ttf"
+	File "..\bin\SourceCodePro-Bold.ttf"
+	File "..\bin\SourceCodePro-It.ttf"
+	File "..\bin\SourceCodePro-BoldIt.ttf"
 	
 	; Set Section Files and Shortcuts
 	SetOverwrite on
@@ -1947,7 +1950,6 @@ Section Uninstall
 	Delete "$INSTDIR\notepad++.exe"
 	Delete "$INSTDIR\readme.txt"
 	
-	
 	Delete "$INSTDIR\config.xml"
 	Delete "$INSTDIR\config.model.xml"
 	Delete "$INSTDIR\langs.xml"
@@ -1961,7 +1963,10 @@ Section Uninstall
 	Delete "$INSTDIR\nativeLang.xml"
 	Delete "$INSTDIR\session.xml"
 	Delete "$INSTDIR\localization\english.xml"
-	Delete "$INSTDIR\SourceCodePro-Regular.otf"
+	Delete "$INSTDIR\SourceCodePro-Regular.ttf"
+	Delete "$INSTDIR\SourceCodePro-Bold.ttf"
+	Delete "$INSTDIR\SourceCodePro-It.ttf"
+	Delete "$INSTDIR\SourceCodePro-BoldIt.ttf"
 	
 	SetShellVarContext current
 	Delete "$APPDATA\Notepad++\langs.xml"

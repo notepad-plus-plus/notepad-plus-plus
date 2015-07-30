@@ -93,7 +93,7 @@ http://notepad-plus-plus.org/features/function-list.html
 
 			<parser id="c_function" displayName="C source" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<function
-				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w:]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
+				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w:]+([\s]+[\w]+)?([\s]+|(\*|\*\*)[\s]+|[\s]+(\*|\*\*)|[\s]+(\*|\*\*)[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
 					displayMode="$functionName">
 					<functionName>
 						<nameExpr expr="(?!(if|while|for))[\w_~]+[\s]*\("/>
@@ -131,7 +131,7 @@ http://notepad-plus-plus.org/features/function-list.html
 						<nameExpr expr="[\w]+"/>
 					</className>
 					<function
-						mainExpr="^[\t ]*((static|const|virtual)[\s]+)?([\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{">
+						mainExpr="^[\t ]*((static|const|virtual)[\s]+)?([\w]+([\s]+[\w]+)?([\s]+|(\*|\*\*|&amp;)[\s]+|[\s]+(\*|\*\*|&amp;)|[\s]+(\*|\*\*|&amp;)[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{">
 						<functionName>
 							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+[\s]*\("/>
 							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+"/>
@@ -139,7 +139,7 @@ http://notepad-plus-plus.org/features/function-list.html
 					</function>
 				</classRange>
 				<function
-				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
+				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w]+([\s]+[\w]+)?([\s]+|(\*|\*\*|&amp;)[\s]+|[\s]+(\*|\*\*|&amp;)|[\s]+(\*|\*\*|&amp;)[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
 					displayMode="$className->$functionName">
 					<functionName>
 						<nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>

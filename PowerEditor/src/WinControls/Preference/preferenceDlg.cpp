@@ -1386,7 +1386,7 @@ INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT Message, WPARAM wParam,
 			// Check on launch time settings
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DONTCHECKHISTORY, BM_SETCHECK, !nppGUI._checkHistoryFiles, 0);
 
-			// Disply in submenu setting
+			// Display in submenu setting
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_INSUBMENU, BM_SETCHECK, pNppParam->putRecentFileInSubMenu(), 0);
 
 			// Recent File menu entry length setting

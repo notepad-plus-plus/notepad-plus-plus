@@ -133,7 +133,7 @@ protected:
 	NodeType getNodeType(HTREEITEM hItem);
 	void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);
-	POINT getMenuDisplyPoint(int iButton);
+	POINT getMenuDisplayPoint(int iButton);
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);

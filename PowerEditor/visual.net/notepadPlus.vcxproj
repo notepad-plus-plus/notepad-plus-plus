@@ -204,7 +204,10 @@ copy ..\src\stylers.model.xml ..\bin\stylers.model.xml
 copy ..\src\shortcuts.xml ..\bin\shortcuts.xml
 copy ..\src\functionList.xml ..\bin\functionList.xml
 copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
-copy ..\src\fonts\sourceCodePro\SourceCodePro-Regular.otf ..\bin\SourceCodePro-Regular.otf
+copy ..\src\fonts\sourceCodePro\SourceCodePro-Regular.ttf ..\bin\SourceCodePro-Regular.ttf
+copy ..\src\fonts\sourceCodePro\SourceCodePro-Bold.ttf ..\bin\SourceCodePro-Bold.ttf
+copy ..\src\fonts\sourceCodePro\SourceCodePro-It.ttf ..\bin\SourceCodePro-It.ttf
+copy ..\src\fonts\sourceCodePro\SourceCodePro-BoldIt.ttf ..\bin\SourceCodePro-BoldIt.ttf
 ..\misc\vistaIconTool\changeIcon.bat "..\misc\vistaIconTool\ChangeIcon.exe" "$(OutDir)notepad++.exe"
 </Command>
     </PostBuildEvent>

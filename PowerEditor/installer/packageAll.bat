@@ -47,7 +47,13 @@ copy /Y ..\bin\"notepad++.exe" .\minimalist\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\SciLexer.dll .\minimalist\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.otf .\minimalist\
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.ttf .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Bold.ttf .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-It.ttf .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-BoldIt.ttf .\minimalist\
 If ErrorLevel 1 PAUSE
 
 
@@ -89,7 +95,13 @@ copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\SciLexer.dll .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.otf .\zipped.package.release\
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Regular.ttf .\zipped.package.release\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-Bold.ttf .\zipped.package.release\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-It.ttf .\zipped.package.release\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\fonts\sourceCodePro\SourceCodePro-BoldIt.ttf .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 
 rem Plugins
@@ -130,8 +142,7 @@ If ErrorLevel 1 PAUSE
 If ErrorLevel 1 PAUSE
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.7z .\zipped.package.release\*
 If ErrorLevel 1 PAUSE
-"C:\Program Files (x86)\NSIS\Unicode\makensis.exe" nppSetup.nsi
-rem "C:\Program Files\NSIS\Unicode\makensis.exe" nppSetup.nsi
+IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\Unicode\makensis.exe" nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\Unicode\makensis.exe" nppSetup.nsi)
 
 
 @echo off

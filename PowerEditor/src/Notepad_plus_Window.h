@@ -53,7 +53,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
     -openSession : Open a session. filePath must be a session file\r\
     -r : Open files recursively. This argument will be ignored\r\
          if filePath contain no wildcard character\r\
-    -qn : Launch ghost typing to disply easter egg via its name\r\
+    -qn : Launch ghost typing to display easter egg via its name\r\
     -qt : Launch ghost typing to display a text via the given text\r\
     -qf : Launch ghost typing to display a file content via the file path\r\
     filePath : file or folder name to open (absolute or relative path name)\r\

@@ -76,7 +76,9 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
-    <LinkIncremental>false</LinkIncremental>
+    <OutDir>x64\$(Configuration)\</OutDir>
+    <IntDir>x64\$(Configuration)\</IntDir>
+  <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">
     <OutDir>..\bin\</OutDir>
@@ -84,6 +86,8 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
+    <OutDir>..\bin64\</OutDir>
+    <IntDir>x64\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
@@ -200,6 +204,10 @@ copy ..\src\stylers.model.xml ..\bin\stylers.model.xml
 copy ..\src\shortcuts.xml ..\bin\shortcuts.xml
 copy ..\src\functionList.xml ..\bin\functionList.xml
 copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
+copy ..\src\fonts\sourceCodePro\SourceCodePro-Regular.ttf ..\bin\SourceCodePro-Regular.ttf
+copy ..\src\fonts\sourceCodePro\SourceCodePro-Bold.ttf ..\bin\SourceCodePro-Bold.ttf
+copy ..\src\fonts\sourceCodePro\SourceCodePro-It.ttf ..\bin\SourceCodePro-It.ttf
+copy ..\src\fonts\sourceCodePro\SourceCodePro-BoldIt.ttf ..\bin\SourceCodePro-BoldIt.ttf
 ..\misc\vistaIconTool\changeIcon.bat "..\misc\vistaIconTool\ChangeIcon.exe" "$(OutDir)notepad++.exe"
 </Command>
     </PostBuildEvent>
@@ -244,12 +252,12 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy ..\src\config.model.xml ..\bin\config.model.xml
-copy ..\src\langs.model.xml ..\bin\langs.model.xml
-copy ..\src\stylers.model.xml ..\bin\stylers.model.xml
-copy ..\src\shortcuts.xml ..\bin\shortcuts.xml
-copy ..\src\functionList.xml ..\bin\functionList.xml
-copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
+      <Command>copy ..\src\config.model.xml ..\bin64\config.model.xml
+copy ..\src\langs.model.xml ..\bin64\langs.model.xml
+copy ..\src\stylers.model.xml ..\bin64\stylers.model.xml
+copy ..\src\shortcuts.xml ..\bin64\shortcuts.xml
+copy ..\src\functionList.xml ..\bin64\functionList.xml
+copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
 ..\misc\vistaIconTool\changeIcon.bat "..\misc\vistaIconTool\ChangeIcon.exe" "$(OutDir)notepad++.exe"
 </Command>
     </PostBuildEvent>
@@ -339,20 +347,6 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
     <ClCompile Include="..\src\ScitillaComponent\SmartHighlighter.cpp" />
     <ClCompile Include="..\src\WinControls\SplitterContainer\Splitter.cpp" />
     <ClCompile Include="..\src\WinControls\SplitterContainer\SplitterContainer.cpp" />
-    <ClCompile Include="..\src\sqlite\sqlite3.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
-      </PrecompiledHeader>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">TurnOffAllWarnings</WarningLevel>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">TurnOffAllWarnings</WarningLevel>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
-      </PrecompiledHeader>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">TurnOffAllWarnings</WarningLevel>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">TurnOffAllWarnings</WarningLevel>
-    </ClCompile>
     <ClCompile Include="..\src\WinControls\StaticDialog\StaticDialog.cpp" />
     <ClCompile Include="..\src\WinControls\StatusBar\StatusBar.cpp" />
     <ClCompile Include="..\src\WinControls\TabBar\TabBar.cpp" />
@@ -535,7 +529,6 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
     <ClInclude Include="..\src\MISC\Common\LongRunningOperation.h" />
     <ClInclude Include="..\src\MISC\Common\mutex.h" />
     <ClInclude Include="..\src\MISC\Common\mutex.hxx" />
-    <ClInclude Include="..\src\ScitillaComponent\resource.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\AboutDlg.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />
     <ClInclude Include="..\src\ScitillaComponent\AutoCompletion.h" />
@@ -626,7 +619,6 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
     <ClInclude Include="..\src\ScitillaComponent\SmartHighlighter.h" />
     <ClInclude Include="..\src\WinControls\SplitterContainer\Splitter.h" />
     <ClInclude Include="..\src\WinControls\SplitterContainer\SplitterContainer.h" />
-    <ClInclude Include="..\src\sqlite\sqlite3.h" />
     <ClInclude Include="..\src\WinControls\StaticDialog\StaticDialog.h" />
     <ClInclude Include="..\src\WinControls\StatusBar\StatusBar.h" />
     <ClInclude Include="..\src\WinControls\TabBar\TabBar.h" />

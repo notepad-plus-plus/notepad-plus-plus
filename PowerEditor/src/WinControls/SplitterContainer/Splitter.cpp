@@ -50,7 +50,7 @@ Splitter::Splitter() : Window()
 
 
 void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
-				int iSplitRatio, DWORD dwFlags)
+				double iSplitRatio, DWORD dwFlags)
 {
 	if (hPere == NULL)
 	{
@@ -100,7 +100,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 	
 	if (_dwFlags & SV_HORIZONTAL) //Horizontal spliter
 	{
-		_rect.top  = ((_rect.bottom * _splitPercent)/100);
+		_rect.top  = (LONG)((_rect.bottom * _splitPercent)/100);
 		// y axis determined by the split% of the parent windows height
 		
 		_rect.left = 0;
@@ -115,7 +115,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 	{
 		// y axis is 0 always 
 		
-		_rect.left = ((_rect.right * _splitPercent)/100); 
+		_rect.left = (LONG)((_rect.right * _splitPercent)/100); 
 		// x axis determined by split% of the parent windows width.
 		
 		_rect.right = _spiltterSize; 
@@ -340,7 +340,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 						if (pt.y <= (rt.bottom - 5))
 						{
 							_rect.top = pt.y;
-							_splitPercent = ((pt.y * 100 / rt.bottom*100) / 100);
+							_splitPercent = ((pt.y * 100 / (double)rt.bottom*100) / 100);
 						}
 						else
 						{
@@ -361,7 +361,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 						if (pt.x <= (rt.right - 5))
 						{
 							_rect.left = pt.x;
-							_splitPercent = ((pt.x*100/rt.right*100)/100);
+							_splitPercent = ((pt.x*100 / (double)rt.right*100) / 100);
 						}
 						else
 						{
@@ -425,7 +425,7 @@ void Splitter::resizeSpliter(RECT *pRect)
 		
 		//if resizeing should be done proportionately.
 		if (_dwFlags & SV_RESIZEWTHPERCNT)
-			_rect.top  = ((rect.bottom * _splitPercent)/100);
+			_rect.top  = (LONG)((rect.bottom * _splitPercent)/100);
 		else // soit la fenetre en haut soit la fenetre en bas qui est fixee
 			_rect.top = getSplitterFixPosY();
 	}
@@ -438,7 +438,7 @@ void Splitter::resizeSpliter(RECT *pRect)
 		//if resizeing should be done proportionately.
 		if (_dwFlags & SV_RESIZEWTHPERCNT) 
         {
-			_rect.left = ((rect.right * _splitPercent)/100);
+			_rect.left = (LONG)((rect.right * _splitPercent)/100);
         }
         else // soit la fenetre gauche soit la fenetre droit qui est fixee
 			_rect.left = getSplitterFixPosX();

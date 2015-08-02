@@ -123,7 +123,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (isSnapshotMode && !isDirty)
 			{
 				bool canUndo = _pEditView->execute(SCI_CANUNDO) == TRUE;
-				if (!canUndo && buf->isLoadedDirty())
+				if (!canUndo && buf->isLoadedDirty() && buf->isDirty())
 					isDirty = true;
 			}
 			buf->setDirty(isDirty);

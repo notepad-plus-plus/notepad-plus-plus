@@ -566,6 +566,7 @@ void MarginsDlg::initScintParam()
 	}
 	::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, TRUE, 0);
 
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_SMOOTHFONT, BM_SETCHECK, svp._doSmoothFont, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_SETCHECK, svp._lineNumberMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
@@ -655,27 +656,29 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_COMMAND : 
 		{			
 			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
-			int iView = 1;
 			switch (wParam)
 			{
+				case IDC_CHECK_SMOOTHFONT:
+					svp._doSmoothFont = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SMOOTHFONT, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_SETSMOOTHFONT, 0, svp._doSmoothFont);
+					return TRUE;
 				case IDC_CHECK_LINENUMBERMARGE:
 					svp._lineNumberMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
 					return TRUE;
 				
 				case IDC_CHECK_BOOKMARKMARGE:
 					svp._bookMarkMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, 0);
 					return TRUE;
 
 				case IDC_CHECK_CURRENTLINEHILITE:
 					svp._currentLineHilitingShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
 					return TRUE;
 
 				case IDC_CHECK_DISABLEADVANCEDSCROLL:
 					svp._disableAdvancedScrolling = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_GETCHECK, 0, 0));
-					//::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, iView);
 					return TRUE;
 
                 case IDC_CHECK_MULTISELECTION :
@@ -685,24 +688,24 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 				case IDC_RADIO_SIMPLE:
 					svp._folderStyle = FOLDER_STYLE_SIMPLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_SIMPLE, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_SIMPLE, 0);
 					return TRUE;
 				case IDC_RADIO_ARROW:
 					svp._folderStyle = FOLDER_STYLE_ARROW;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_ARROW, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_ARROW, 0);
 					return TRUE;
 				case IDC_RADIO_CIRCLE:
 					svp._folderStyle = FOLDER_STYLE_CIRCLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_CIRCLE, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_CIRCLE, 0);
 					return TRUE;
 				case IDC_RADIO_BOX:
 					svp._folderStyle = FOLDER_STYLE_BOX;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_BOX, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_BOX, 0);
 					return TRUE;
 					
 				case IDC_RADIO_FOLDMARGENONE:
 					svp._folderStyle = FOLDER_STYLE_NONE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN, 0);
 					return TRUE;
 					
 				case IDC_CHECK_SHOWVERTICALEDGE:
@@ -727,17 +730,17 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isChecked);
 					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isChecked);
 	
-					::SendMessage(_hParent, WM_COMMAND, modeID, iView);
+					::SendMessage(_hParent, WM_COMMAND, modeID, 0);
 					return TRUE;
 				}
 				case IDC_RADIO_LNMODE:
 					svp._edgeMode = EDGE_LINE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGELINE, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGELINE, 0);
 					return TRUE;
 					
 				case IDC_RADIO_BGMODE:
 					svp._edgeMode = EDGE_BACKGROUND;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGEBACKGROUND, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGEBACKGROUND, 0);
 					return TRUE;
 				
 				case IDC_COLONENUMBER_STATIC:
@@ -765,17 +768,17 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 				case IDC_RADIO_LWDEF:
 					svp._lineWrapMethod = LINEWRAP_DEFAULT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, 0);
 					return TRUE;
 
 				case IDC_RADIO_LWALIGN:
 					svp._lineWrapMethod = LINEWRAP_ALIGNED;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, 0);
 					return TRUE;
 
 				case IDC_RADIO_LWINDENT:
 					svp._lineWrapMethod = LINEWRAP_INDENT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, 0);
 					return TRUE;
 
 				default :
@@ -1383,7 +1386,7 @@ INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT Message, WPARAM wParam,
 			// Check on launch time settings
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DONTCHECKHISTORY, BM_SETCHECK, !nppGUI._checkHistoryFiles, 0);
 
-			// Disply in submenu setting
+			// Display in submenu setting
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_INSUBMENU, BM_SETCHECK, pNppParam->putRecentFileInSubMenu(), 0);
 
 			// Recent File menu entry length setting
@@ -2809,109 +2812,111 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, 
 
 INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 {
-	NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-	switch (Message) 
+	NppParameters * nppParams = NppParameters::getInstance();
+	NppGUI & nppGUI = (NppGUI &)(nppParams->getNppGUI());
+
+	if (HIWORD(wParam) == EN_CHANGE)
 	{
-		case WM_INITDIALOG :
+		switch (LOWORD(wParam))
 		{
-			CloudChoice cloudChoice = nppGUI._cloudChoice;
-			_initialCloudChoice = nppGUI._cloudChoice;
-/*
-			COLORREF bgColor = getCtrlBgColor(_hSelf);
-			SetTextColor(hdcStatic, RGB(255, 0, 0));
-			SetBkColor(hdcStatic, RGB(GetRValue(bgColor) - 30, GetGValue(bgColor) - 30, GetBValue(bgColor) - 30));
-*/
-			::SendDlgItemMessage(_hSelf, IDC_NOCLOUD_RADIO, BM_SETCHECK, cloudChoice == noCloud?BST_CHECKED:BST_UNCHECKED, 0);
+			case  IDC_CLOUDPATH_EDIT:
+			{
+				TCHAR inputDir[MAX_PATH] = {'\0'};
+				TCHAR inputDirExpanded[MAX_PATH] = {'\0'};
+				::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_GETTEXT, MAX_PATH, (LPARAM)inputDir);
+				::ExpandEnvironmentStrings(inputDir, inputDirExpanded, MAX_PATH);
+				if (::PathFileExists(inputDirExpanded))
+				{
+					nppGUI._cloudPath = inputDirExpanded;
+					nppParams->setCloudChoice(inputDirExpanded);
 
-			::SendDlgItemMessage(_hSelf, IDC_DROPBOX_RADIO, BM_SETCHECK, cloudChoice == dropbox?BST_CHECKED:BST_UNCHECKED, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_DROPBOX_RADIO), (nppGUI._availableClouds & DROPBOX_AVAILABLE) != 0);
+					generic_string message = nppParams->isCloudPathChanged() ? TEXT("Please restart Notepad++ to take effect.") : TEXT("");
+					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+				}
+				else
+				{
+					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_GETCHECK, 0, 0));
+					if (isChecked)
+					{
+						generic_string message = TEXT("Invalid path.");
+						::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+						nppParams->removeCloudChoice();
+					}
+				}
+				return TRUE;
+			}
+		}
+	}
 
-			::SendDlgItemMessage(_hSelf, IDC_ONEDRIVE_RADIO, BM_SETCHECK, cloudChoice == oneDrive?BST_CHECKED:BST_UNCHECKED, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_ONEDRIVE_RADIO), (nppGUI._availableClouds & ONEDRIVE_AVAILABLE) != 0);
+	switch (Message)
+	{
+		case WM_INITDIALOG:
+		{
+			// Default settings: no cloud
+			bool withCloud = false;
 
-			::SendDlgItemMessage(_hSelf, IDC_GOOGLEDRIVE_RADIO, BM_SETCHECK, cloudChoice == googleDrive?BST_CHECKED:BST_UNCHECKED, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_GOOGLEDRIVE_RADIO), (nppGUI._availableClouds & GOOGLEDRIVE_AVAILABLE) != 0);
+			generic_string message = TEXT("");
 
+			withCloud =	nppGUI._cloudPath != TEXT("");
+			if (withCloud)
+			{
+				// detect validation of path
+				if (!::PathFileExists(nppGUI._cloudPath.c_str()))
+					message = TEXT("Invalid path");
+			}
+			
+			::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+
+			::SendDlgItemMessage(_hSelf, IDC_NOCLOUD_RADIO, BM_SETCHECK, !withCloud ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_SETCHECK, withCloud ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_SETTEXT, 0, (LPARAM)nppGUI._cloudPath.c_str());
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CLOUDPATH_EDIT), withCloud);
+			::EnableWindow(::GetDlgItem(_hSelf, IDD_CLOUDPATH_BROWSE_BUTTON), withCloud);
 		}
 		break;
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 		{
 			switch (wParam)
 			{
-				case IDC_NOCLOUD_RADIO :
+				case IDC_NOCLOUD_RADIO:
 				{
-					nppGUI._cloudChoice = noCloud;
-					removeCloudChoice();
-					
-					generic_string message = _initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
+					nppGUI._cloudPath = TEXT("");
+					nppParams->removeCloudChoice();
+
+					generic_string message = nppParams->isCloudPathChanged() ? TEXT("Please restart Notepad++ to take effect.") : TEXT("");
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+
+					::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_SETTEXT, 0, (LPARAM)nppGUI._cloudPath.c_str());
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CLOUDPATH_EDIT), false);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_CLOUDPATH_BROWSE_BUTTON), false);
 				}
 				break;
 
-				case IDC_DROPBOX_RADIO :
+				case IDC_WITHCLOUD_RADIO:
 				{
-					nppGUI._cloudChoice = dropbox;
-					setCloudChoice("dropbox");
-
-					generic_string message = _initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
+					generic_string message = TEXT("Invalid path.");
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CLOUDPATH_EDIT), true);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_CLOUDPATH_BROWSE_BUTTON), true);
 				}
 				break;
 
-				case IDC_ONEDRIVE_RADIO :
+				case IDD_CLOUDPATH_BROWSE_BUTTON:
 				{
-					nppGUI._cloudChoice = oneDrive;
-					setCloudChoice("oneDrive");
-
-					generic_string message = _initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
-					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
+					folderBrowser(_hSelf, IDC_CLOUDPATH_EDIT);
 				}
 				break;
 
-				case IDC_GOOGLEDRIVE_RADIO :
-				{
-					nppGUI._cloudChoice = googleDrive;
-					setCloudChoice("googleDrive");
-
-					generic_string message = _initialCloudChoice != nppGUI._cloudChoice?TEXT("Please restart Notepad++ to take effect."):TEXT("");
-					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
-				}
-				break;
-
-				default :
+				default:
 					return FALSE;
-					
+
 			}
-		}
-		break;
+		}																						
 	}
 	return FALSE;
 }
 
-void SettingsOnCloudDlg::setCloudChoice(const char *choice)
-{
-	generic_string cloudChoicePath = (NppParameters::getInstance())->getSettingsFolder();
-	cloudChoicePath += TEXT("\\cloud\\");
 
-	if (!PathFileExists(cloudChoicePath.c_str()))
-	{
-		::CreateDirectory(cloudChoicePath.c_str(), NULL);
-	}
-	cloudChoicePath += TEXT("choice");
-	writeFileContent(cloudChoicePath.c_str(), choice);
-
-}
-
-void SettingsOnCloudDlg::removeCloudChoice()
-{
-	generic_string cloudChoicePath = (NppParameters::getInstance())->getSettingsFolder();
-	//NppParameters *nppParams = ;
-
-	cloudChoicePath += TEXT("\\cloud\\choice");
-	if (PathFileExists(cloudChoicePath.c_str()))
-	{
-		::DeleteFile(cloudChoicePath.c_str());
-	}
-}
 

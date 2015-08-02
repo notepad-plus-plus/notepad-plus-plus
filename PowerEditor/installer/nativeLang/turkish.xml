@@ -792,9 +792,7 @@
 				<Cloud title="Bulut">
 					<Item id="6262" name="Ayarları Buluta Yedekle" />
 					<Item id="6263" name="Buluta yedekleme" />
-					<Item id="6264" name="Dropbox" />
-					<Item id="6265" name="OneDrive" />
-					<Item id="6266" name="Google Drive" />
+					<Item id="6267" name="Bulutunuzun konumunu ayarlayın:"/>
 					<!--Item id="6261" name="Değişikliklerin etkili olabilmesi için lütfen Notepad++ uygulamasını yeniden başlatın./-->
 				</Cloud>
 

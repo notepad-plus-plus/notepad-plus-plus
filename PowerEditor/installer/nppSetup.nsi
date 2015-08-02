@@ -36,10 +36,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.7.9.2"
+!define APPVERSION "6.8"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 792
+!define VERSION_MINOR 8
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -489,6 +489,10 @@ Section -"Notepad++" mainSection
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
+	File "..\bin\SourceCodePro-Regular.ttf"
+	File "..\bin\SourceCodePro-Bold.ttf"
+	File "..\bin\SourceCodePro-It.ttf"
+	File "..\bin\SourceCodePro-BoldIt.ttf"
 	
 	; Set Section Files and Shortcuts
 	SetOverwrite on
@@ -624,6 +628,12 @@ Section -"Notepad++" mainSection
 		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
 		Delete "$INSTDIR\plugins\NppQCP.dll"
 		
+	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +4
+		MessageBox MB_OK "Due to the stability issue,$\nDSpellCheck.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
+		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+	
+	
     ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3
 		Exec 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'
@@ -796,21 +806,6 @@ SectionGroupEnd
 
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
-
-	${MementoSection} "Spell-Checker" DSpellCheck
-		Delete "$INSTDIR\plugins\DSpellCheck.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\DSpellCheck.dll"
-		SetOutPath "$UPDATE_PATH\plugins\Config"
-		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
-		File "..\bin\plugins\Config\Hunspell\dictionary.lst"
-		File "..\bin\plugins\Config\Hunspell\en_GB.aff"
-		File "..\bin\plugins\Config\Hunspell\en_GB.dic"
-		File "..\bin\plugins\Config\Hunspell\README_en_GB.txt"
-		File "..\bin\plugins\Config\Hunspell\en_US.aff"
-		File "..\bin\plugins\Config\Hunspell\en_US.dic"
-		File "..\bin\plugins\Config\Hunspell\README_en_US.txt"
-	${MementoSectionEnd}
 
 	${MementoSection} "Npp FTP" NppFTP
 		Delete "$INSTDIR\plugins\NppFTP.dll"
@@ -1955,7 +1950,6 @@ Section Uninstall
 	Delete "$INSTDIR\notepad++.exe"
 	Delete "$INSTDIR\readme.txt"
 	
-	
 	Delete "$INSTDIR\config.xml"
 	Delete "$INSTDIR\config.model.xml"
 	Delete "$INSTDIR\langs.xml"
@@ -1969,6 +1963,10 @@ Section Uninstall
 	Delete "$INSTDIR\nativeLang.xml"
 	Delete "$INSTDIR\session.xml"
 	Delete "$INSTDIR\localization\english.xml"
+	Delete "$INSTDIR\SourceCodePro-Regular.ttf"
+	Delete "$INSTDIR\SourceCodePro-Bold.ttf"
+	Delete "$INSTDIR\SourceCodePro-It.ttf"
+	Delete "$INSTDIR\SourceCodePro-BoldIt.ttf"
 	
 	SetShellVarContext current
 	Delete "$APPDATA\Notepad++\langs.xml"

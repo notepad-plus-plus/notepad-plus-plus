@@ -2581,6 +2581,89 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_LINENUMBER:
+		case IDM_VIEW_SYMBOLMARGIN:
+		case IDM_VIEW_DOCCHANGEMARGIN:
+		{
+			int margin;
+			if (id == IDM_VIEW_LINENUMBER)
+				margin = ScintillaEditView::_SC_MARGE_LINENUMBER;
+			else //if (id == IDM_VIEW_SYMBOLMARGIN)
+				margin = ScintillaEditView::_SC_MARGE_SYBOLE;
+
+			if (_mainEditView.hasMarginShowed(margin))
+			{
+				_mainEditView.showMargin(margin, false);
+				_subEditView.showMargin(margin, false);
+			}
+			else
+			{
+				_mainEditView.showMargin(margin);
+				_subEditView.showMargin(margin);
+			}
+		}
+		break;
+
+		case IDM_VIEW_FOLDERMAGIN_SIMPLE:
+		case IDM_VIEW_FOLDERMAGIN_ARROW:
+		case IDM_VIEW_FOLDERMAGIN_CIRCLE:
+		case IDM_VIEW_FOLDERMAGIN_BOX:
+		case IDM_VIEW_FOLDERMAGIN:
+		{
+			folderStyle fStyle = (id == IDM_VIEW_FOLDERMAGIN_SIMPLE) ? FOLDER_STYLE_SIMPLE : \
+				(id == IDM_VIEW_FOLDERMAGIN_ARROW) ? FOLDER_STYLE_ARROW : \
+				(id == IDM_VIEW_FOLDERMAGIN_CIRCLE) ? FOLDER_STYLE_CIRCLE : \
+				(id == IDM_VIEW_FOLDERMAGIN) ? FOLDER_STYLE_NONE : FOLDER_STYLE_BOX;
+
+			_mainEditView.setMakerStyle(fStyle);
+			_subEditView.setMakerStyle(fStyle);
+		}
+		break;
+
+		case IDM_VIEW_CURLINE_HILITING:
+		{
+			COLORREF colour = (NppParameters::getInstance())->getCurLineHilitingColour();
+			_mainEditView.setCurrentLineHiLiting(!_pEditView->isCurrentLineHiLiting(), colour);
+			_subEditView.setCurrentLineHiLiting(!_pEditView->isCurrentLineHiLiting(), colour);
+		}
+		break;
+
+		case IDM_VIEW_EDGEBACKGROUND:
+		case IDM_VIEW_EDGELINE:
+		case IDM_VIEW_EDGENONE:
+		{
+			int mode;
+			switch (id)
+			{
+			case IDM_VIEW_EDGELINE:
+			{
+				mode = EDGE_LINE;
+				break;
+			}
+			case IDM_VIEW_EDGEBACKGROUND:
+			{
+				mode = EDGE_BACKGROUND;
+				break;
+			}
+			default:
+				mode = EDGE_NONE;
+			}
+			_mainEditView.execute(SCI_SETEDGEMODE, mode);
+			_subEditView.execute(SCI_SETEDGEMODE, mode);
+		}
+		break;
+
+		case IDM_VIEW_LWDEF:
+		case IDM_VIEW_LWALIGN:
+		case IDM_VIEW_LWINDENT:
+		{
+			int mode = (id == IDM_VIEW_LWALIGN) ? SC_WRAPINDENT_SAME : \
+				(id == IDM_VIEW_LWINDENT) ? SC_WRAPINDENT_INDENT : SC_WRAPINDENT_FIXED;
+			_mainEditView.execute(SCI_SETWRAPINDENTMODE, mode);
+			_subEditView.execute(SCI_SETWRAPINDENTMODE, mode);
+		}
+		break;
+
 		default :
 			if (id > IDM_FILEMENU_LASTONE && id < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1))
 			{
@@ -2674,6 +2757,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_JOIN_LINES:
 			case IDM_EDIT_LINE_UP:
 			case IDM_EDIT_LINE_DOWN:
+			case IDM_EDIT_REMOVEEMPTYLINES:
+			case IDM_EDIT_REMOVEEMPTYLINESWITHBLANK:
 			case IDM_EDIT_UPPERCASE:
 			case IDM_EDIT_LOWERCASE:
 			case IDM_EDIT_BLOCK_COMMENT:

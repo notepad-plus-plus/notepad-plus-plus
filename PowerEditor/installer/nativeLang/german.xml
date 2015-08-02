@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 6.7.8,
-	last modified 2015-05-28 by Jan Schreiber.
+	German localization for Notepad++ 6.7.9.x, 
+	last modified 2015-07-10 by Jan Schreiber. 
 
-	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net,
-	or participate in the discussion in the sourceforge forum:
-	https://sourceforge.net/p/notepad-plus/discussion/558104/thread/ce46d9d8/
+	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net. 
 
 	The most recent version of this file can usually be downloaded from
-	https://drive.google.com/file/d/0B2khHHcwKI_hdlJ6Xy1tRUZNUFU/edit?usp=sharing
+	https://drive.google.com/open?id=0B2khHHcwKI_hck5NdlB2Rk5icDA&authuser=0
+	https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/german.xml
 -->
 
 <NotepadPlus>
@@ -161,8 +160,14 @@
 					<Item id="42056" name="Leerzeilen (auch mit &amp;Whitespace) löschen"/>
 					<Item id="42057" name="Leerzeile &amp;über aktueller Zeile einfügen"/>
 					<Item id="42058" name="Leerzeile u&amp;nter aktueller Zeile einfügen"/>
-					<Item id="42059" name="Zeilen au&amp;fsteigend sortieren"/>
-					<Item id="42060" name="Zeilen a&amp;bsteigend sortieren"/>
+					<Item id="42059" name="Zeilen alphabetisch au&amp;fsteigend sortieren"/>
+					<Item id="42060" name="Zeilen alphabetisch a&amp;bsteigend sortieren"/>
+					<Item id="42061" name="Zeilen als Integer aufsteigend sortieren"/>
+					<Item id="42062" name="Zeilen als Integer absteigend sortieren"/>
+					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>
+					<Item id="42064" name="Zeilen als Dezimalzahlen (Komma) absteigend sortieren"/>
+					<Item id="42065" name="Zeilen als Dezimalzahlen (Punkt) aufsteigend sortieren"/>
+					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>
 					<Item id="43001" name="&amp;Suchen ..."/>
 					<Item id="43002" name="&amp;Weitersuchen"/>
 					<Item id="43003" name="&amp;Ersetzen ..."/>
@@ -277,12 +282,13 @@
 					<Item id="46150" name="Eigene Sprache &amp;definieren ..."/>
 					<Item id="47000" name="&amp;Info ..."/>
 					<Item id="47001" name="Notepad++ im &amp;Web"/>
-					<Item id="47002" name="Notepad++ bei &amp;SourceForge"/>
-					<Item id="47004" name="&amp;Forum"/>
+					<Item id="47002" name="Notepad++ bei &amp;GitHub"/>
 					<Item id="47005" name="&amp;Erweiterungen"/>
 					<Item id="47006" name="Notepad++ aktualisieren"/>
 					<Item id="47008" name="In&amp;halt ..."/>
+					<Item id="47009" name="&amp;Proxy für Updater einstellen ..."/>
 					<Item id="47010" name="&amp;Kommandozeilenparameter ..."/>
+					<Item id="47011" name="&amp;Support im Chat"/>
 					<Item id="48005" name="&amp;Plugin(s) importieren ..."/>
 					<Item id="48006" name="&amp;Design(s) importieren ..."/>
 					<Item id="48009" name="&amp;Tastatur ..."/>
@@ -941,4 +947,3 @@
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>
-

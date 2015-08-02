@@ -234,7 +234,6 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 						break;
 
 					case IDCANCEL :
-						//::MessageBox(NULL, TEXT("cancel"), TEXT(""), MB_OK);
 						if (_isDirty)
 						{
 							NppParameters *nppParamInst = NppParameters::getInstance();

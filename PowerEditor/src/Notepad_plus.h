@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -164,7 +164,7 @@ struct TaskListInfo;
 struct VisibleGUIConf {
 	bool isPostIt;
 	bool isFullScreen;
-	
+
 	//Used by both views
 	bool isMenuShown;
 	//bool isToolbarShown;	//toolbar forcefully hidden by hiding rebar
@@ -196,8 +196,8 @@ class ProjectPanel;
 class DocumentMap;
 class FunctionListPanel;
 
-class Notepad_plus {
-
+class Notepad_plus
+{
 friend class Notepad_plus_Window;
 friend class FileManager;
 
@@ -207,11 +207,6 @@ public:
 	LRESULT init(HWND hwnd);
 	LRESULT process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	void killAllChildren();
-    /*
-    HWND getWindowHandle() const {
-        return _pPublicInterface->getHSelf();
-    };
-    */
 
 	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
 
@@ -234,7 +229,7 @@ public:
     bool fileReload() {
 	    BufferID buf = _pEditView->getCurrentBufferID();
 	    return doReload(buf, buf->isDirty());
-    };
+    }
 
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
 	bool fileCloseAll(bool doDeleteBackup, bool isSnapshotMode = false);
@@ -263,17 +258,17 @@ public:
     void saveUserDefineLangs() {
         if (ScintillaEditView::getUserDefineDlg()->isDirty())
 		(NppParameters::getInstance())->writeUserDefinedLang();
-    };
+    }
     void saveShortcuts(){
         NppParameters::getInstance()->writeShortcuts();
-    };
+    }
 	void saveSession(const Session & session);
 	void saveCurrentSession();
 
     void saveFindHistory(){
         _findReplaceDlg.saveFindHistory();
 	    (NppParameters::getInstance())->writeFindHistory();
-    };
+    }
 
 	void getCurrentOpenedFiles(Session & session, bool includUntitledDoc = false);
 
@@ -286,13 +281,13 @@ public:
 	bool doStreamComment();
 	//--FLS: undoStreamComment: New function unDoStreamComment()
 	bool undoStreamComment();
-	
+
 	bool addCurrentMacro();
 	void macroPlayback(Macro);
-    
+
     void loadLastSession();
 	bool loadSession(Session & session, bool isSnapshotMode = false);
-	
+
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFiles();
 	bool replaceInFiles();
@@ -301,16 +296,16 @@ public:
     int getHtmlXmlEncoding(const TCHAR *fileName) const;
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
-	};
+	}
 	bool emergency(generic_string emergencySavedDir);
 	Buffer * getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
-	};
+	}
 	void launchDocumentBackupTask();
 	int getQuoteIndexFrom(const char *quoter) const;
 	void showQuoteFromIndex(int index) const;
 	void showQuote(const char *quote, const char *quoter, bool doTrolling) const;
-	
+
 private:
 	Notepad_plus_Window *_pPublicInterface;
     Window *_pMainWindow;
@@ -341,7 +336,7 @@ private:
 
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
-	
+
     StatusBar _statusBar;
 	bool _toReduceTabBar;
 	ReBar _rebarTop;
@@ -357,7 +352,7 @@ private:
 	WordStyleDlg _configStyleDlg;
 	PreferenceDlg _preference;
 	FindCharsInRangeDlg _findCharsInRangeDlg;
-	
+
 	// a handle list of all the Notepad++ dialogs
 	std::vector<HWND> _hModelessDlgs;
 
@@ -369,7 +364,7 @@ private:
 	HMENU _mainMenuHandle;
 
 	bool _sysMenuEntering;
-	
+
 
 	// For FullScreen/PostIt features
 	VisibleGUIConf	_beforeSpecialView;
@@ -389,23 +384,27 @@ private:
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;
 
-	struct ActivateAppInfo {
+	struct ActivateAppInfo
+	{
 		bool _isActivated;
 		int _x;
 		int _y;
 		ActivateAppInfo() : _isActivated(false), _x(0), _y(0){};
-	} _activeAppInf;
+	}
+	_activeAppInf;
 
 	//Synchronized Scolling
-	
-	struct SyncInfo {
+
+	struct SyncInfo
+	{
 		int _line;
 		int _column;
 		bool _isSynScollV;
 		bool _isSynScollH;
 		SyncInfo():_line(0), _column(0), _isSynScollV(false), _isSynScollH(false){};
 		bool doSync() const {return (_isSynScollV || _isSynScollH); };
-	} _syncInfo;
+	}
+	_syncInfo;
 
 	bool _isUDDocked;
 
@@ -437,7 +436,6 @@ private:
 	FunctionListPanel *_pFuncList;
 
 	BOOL notify(SCNotification *notification);
-	void specialCmd(int id);
 	void command(int id);
 
 //Document management
@@ -459,15 +457,15 @@ private:
 
 	int currentView(){
 		return _activeView;
-	};
+	}
 
 	int otherView(){
 		return (_activeView == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
-	};
+	}
 
 	int otherFromView(int whichOne){
 		return (whichOne == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
-	};
+	}
 
 	bool canHideView(int whichOne);	//true if view can safely be hidden (no open docs etc)
 
@@ -510,7 +508,7 @@ private:
 
 	void setLangStatus(LangType langType){
 		_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
-	};
+	}
 
 	void setDisplayFormat(formatType f);
 	int getCmdIDFromEncoding(int encoding) const;
@@ -523,45 +521,54 @@ private:
 
 	void checkMenuItem(int itemID, bool willBeChecked) const {
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
-	};
+	}
 
 	bool isConditionExprLine(int lineNumber);
 	int findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
 	void maintainIndentation(TCHAR ch);
-	
+
 	void addHotSpot();
 
-    void bookmarkAdd(int lineno) const {
+    void bookmarkAdd(int lineno) const
+	{
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		if (!bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
-	};
-    void bookmarkDelete(int lineno) const {
+	}
+
+    void bookmarkDelete(int lineno) const
+	{
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		if ( bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
-	};
-    bool bookmarkPresent(int lineno) const {
+	}
+
+    bool bookmarkPresent(int lineno) const
+	{
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
-	};
-    void bookmarkToggle(int lineno) const {
+	}
+
+    void bookmarkToggle(int lineno) const
+	{
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 
 		if (bookmarkPresent(lineno))
 			bookmarkDelete(lineno);
 		else
-    		bookmarkAdd(lineno);
-	};
+			bookmarkAdd(lineno);
+	}
+
     void bookmarkNext(bool forwardScan);
-	void bookmarkClearAll() const {
+	void bookmarkClearAll() const
+	{
 		_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
-	};
+	}
 
 	void copyMarkedLines();
 	void cutMarkedLines();
@@ -619,7 +626,7 @@ private:
 	bool goToPreviousIndicator(int indicID2Search, bool isWrap = true) const;
 	bool goToNextIndicator(int indicID2Search, bool isWrap = true) const;
 	int wordCount();
-	
+
 	void wsTabConvert(spaceTab whichWay);
 	void doTrim(trimOp whichPart);
 	void removeEmptyLine(bool isBlankContained);
@@ -636,13 +643,15 @@ private:
 	static bool deleteBack(ScintillaEditView *pCurrentView, BufferID targetBufID);
 	static bool deleteForward(ScintillaEditView *pCurrentView, BufferID targetBufID);
 	static bool selectBack(ScintillaEditView *pCurrentView, BufferID targetBufID);
-	
-	static int getRandomNumber(int rangeMax = -1) {
+
+	static int getRandomNumber(int rangeMax = -1)
+	{
 		int randomNumber = rand();
 		if (rangeMax == -1)
 			return randomNumber;
 		return (rand() % rangeMax);
-	};
+	}
+
 	static DWORD WINAPI backupDocument(void *params);
 };
 

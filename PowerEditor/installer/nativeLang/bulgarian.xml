@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last modified:...: 20.06.2015 by RDD
+	Last modified:...: 24.07.2015 by RDD
 	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
 -->
 <NotepadPlus>
@@ -706,6 +706,7 @@
 					<Item id="6205" name="Квадрат"/>
 					<Item id="6226" name="Изключено"/>
 					<Item id="6211" name="Настройки на вертикална граница"/>
+					<Item id="6208" name="Показване на границата"/>
 					<Item id="6212" name="Линеен режим"/>
 					<Item id="6213" name="Фонов режим"/>
 					<Item id="6209" name="Брой колони: "/>
@@ -717,7 +718,7 @@
 					<Item id="6206" name="Показване номер на редовете"/>
 					<Item id="6207" name="Показване на лента с отметки"/>
 					<Item id="6214" name="Оцветяване на текущия ред"/>
-					<Item id="6208" name="Показване на границата"/>
+					<Item id="6215" name="Заглаждане на шрифта"/>
 					<Item id="6234" name="Изключване на разширените функции за превъртане"/>
 				</Scintillas>
 					<!-- Нов документ -->
@@ -857,10 +858,8 @@
 				 <Cloud title="Облак">
 					<Item id="6262" name="Настройки за облачно синхронизирана папка"/>
 					<Item id="6263" name="Локално"/>
-					<Item id="6264" name="Dropbox"/>
-					<Item id="6265" name="OneDrive"/>
-					<Item id="6266" name="Google Drive"/>
-					<!--Item id="6261" name="Промените влизат в сила, след рестартиране на Notepad++."/-->
+					<Item id="6267" name="По избор"/>
+					<Item id="6261" name="Промените влизат в сила, след рестартиране на Notepad++."/>
 				</Cloud>
 					<!-- Разни -->
 				<MISC title="Разни">
@@ -896,6 +895,7 @@
 				<Item id="2033" name="Числа за вмъкване"/>
 				<Item id="2030" name="Начално число:"/>
 				<Item id="2031" name="Увеличаване с:"/>
+				<Item id="2036" name="Повтаряне:"/>
 				<Item id="2035" name="започване с 0"/>
 				<Item id="2032" name="Формат"/>
 				<Item id="2024" name="Десетичен"/>

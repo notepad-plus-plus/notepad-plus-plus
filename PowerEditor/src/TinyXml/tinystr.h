@@ -25,6 +25,7 @@ distribution.
 #ifndef TINYXML_INCLUDED
 #include "tinyxml.h"
 #endif //TINYXML_INCLUDED
+#include <cassert>
 
 #ifndef TIXML_USE_STL
 

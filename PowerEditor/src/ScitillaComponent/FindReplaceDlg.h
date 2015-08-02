@@ -431,7 +431,6 @@ public:
 	}
 
 	void setPercent(unsigned percent, const TCHAR *fileName) const;
-	void flushCallerUserInput() const;
 
 private:
 	static const TCHAR cClassName[];

@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -126,7 +126,7 @@ public:
 	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
 	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL);
 	const char * wchar2char(const wchar_t *wcStr, UINT codepage, long *mstart, long *mend);
-	
+
 	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL) {
 		int lenWc = 0;
         const wchar_t * strW = char2wchar(txt2Encode, fromCodepage, lenIn, &lenWc, pBytesNotProcessed);
@@ -134,19 +134,20 @@ public:
     };
 
 protected:
-	WcharMbcsConvertor() {
-	};
-	~WcharMbcsConvertor() {
-	};
+	WcharMbcsConvertor() {}
+	~WcharMbcsConvertor() {}
+
 	static WcharMbcsConvertor * _pSelf;
 
 	template <class T>
-	class StringBuffer {
+	class StringBuffer
+	{
 	public:
 		StringBuffer() : _str(0), _allocLen(0) { }
 		~StringBuffer() { if(_allocLen) delete [] _str; }
 
-		void sizeTo(size_t size) {
+		void sizeTo(size_t size)
+		{
 			if(_allocLen < size)
 			{
 				if(_allocLen) delete[] _str;
@@ -154,7 +155,8 @@ protected:
 				_str = new T[_allocLen];
 			}
 		}
-		void empty() {
+		void empty()
+		{
 			static T nullStr = 0; // routines may return an empty string, with null terminator, without allocating memory; a pointer to this null character will be returned in that case
 			if(_allocLen == 0)
 				_str = &nullStr;
@@ -176,8 +178,9 @@ protected:
 private:
 	// Since there's no public ctor, we need to void the default assignment operator.
 	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&);
-
 };
+
+
 
 #define MACRO_RECORDING_IN_PROGRESS 1
 #define MACRO_RECORDING_HAS_STOPPED 2

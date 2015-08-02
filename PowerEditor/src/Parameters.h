@@ -101,7 +101,7 @@ enum ChangeDetect {cdDisabled=0, cdEnabled=1, cdAutoUpdate=2, cdGo2end=3, cdAuto
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
 enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};
 enum MultiInstSetting {monoInst = 0, multiInstOnSession = 1, multiInst = 2};
-enum CloudChoice {noCloud = 0, dropbox = 1, oneDrive = 2, googleDrive = 3};
+//enum CloudChoice {noCloud = 0, dropbox = 1, oneDrive = 2, googleDrive = 3};
 
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
@@ -671,7 +671,7 @@ struct NppGUI
 			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _disableSmartHiliteTmp(false), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true), _enableHiliteNonHTMLZone(false),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _isCmdlineNosessionActivated(false), _detectEncoding(true), _backup(bak_none), _useDir(false), _backupDir(TEXT("")),\
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
-			   _autocStatus(autoc_both), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _cloudChoice(noCloud), _availableClouds(0),\
+			   _autocStatus(autoc_both), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _cloudPath(TEXT("")), _availableClouds(0),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _enableMultiSelection(false), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false),\
 			   _smartHiliteCaseSensitive(false), _leftmostDelimiter('('), _rightmostDelimiter(')'), _delimiterSelectionOnEntireDocument(false), _multiInstSetting(monoInst),\
 			   _fileSwitcherWithoutExtColumn(false), _isSnapshotMode(true), _snapshotBackupTiming(7000), _backSlashIsEscapeCharacterForSql(true) {
@@ -780,7 +780,7 @@ struct NppGUI
 	bool isSnapshotMode() const {return _isSnapshotMode && _rememberLastSession && !_isCmdlineNosessionActivated;};
 	bool _isSnapshotMode;
 	size_t _snapshotBackupTiming;
-	CloudChoice _cloudChoice; // this option will never be read/written from/to config.xml
+	generic_string _cloudPath; // this option will never be read/written from/to config.xml
 	unsigned char _availableClouds; // this option will never be read/written from/to config.xml
 };
 
@@ -790,7 +790,7 @@ struct ScintillaViewParams
 		                    _folderStyle(FOLDER_STYLE_BOX), _foldMarginShow(true), _indentGuideLineShow(true),\
 	                        _currentLineHilitingShow(true), _wrapSymbolShow(false),  _doWrap(false), _edgeNbColumn(80),\
 							_zoom(0), _zoom2(0), _whiteSpaceShow(false), _eolShow(false), _lineWrapMethod(LINEWRAP_ALIGNED),\
-							_disableAdvancedScrolling(false){};
+							_disableAdvancedScrolling(false), _doSmoothFont(false) {};
 	bool _lineNumberMarginShow;
 	bool _bookMarkMarginShow;
 	//bool _docChangeStateMarginShow;
@@ -809,6 +809,7 @@ struct ScintillaViewParams
 	bool _eolShow;
     int _borderWidth;
 	bool _disableAdvancedScrolling;
+	bool _doSmoothFont;
 };
 
 const int NB_LIST = 20;
@@ -1159,7 +1160,6 @@ public:
 	bool reloadLang();
 	bool reloadStylers(TCHAR *stylePath = NULL);
     void destroyInstance();
-	generic_string getCloudSettingsPath(CloudChoice cloudChoice);
 	generic_string getSettingsFolder();
 
 	bool _isTaskListRBUTTONUP_Active;
@@ -1374,7 +1374,8 @@ public:
 	};
 
 	void removeTransparent(HWND hwnd) {
-		::SetWindowLongPtr(hwnd, GWL_EXSTYLE,  ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) & ~0x00080000);
+		if (hwnd != NULL)
+			::SetWindowLongPtr(hwnd, GWL_EXSTYLE,  ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) & ~0x00080000);
 	};
 
 	void setCmdlineParam(const CmdLineParams & cmdLineParams) {
@@ -1497,7 +1498,10 @@ public:
 		return _userPath;
 	};
 
-	void writeSettingsFilesOnCloudForThe1stTime(CloudChoice choice);
+	bool writeSettingsFilesOnCloudForThe1stTime(const generic_string & cloudSettingsPath);
+	void setCloudChoice(const TCHAR *pathChoice);
+	void removeCloudChoice();
+	bool isCloudPathChanged() const;
 
 	COLORREF getCurrentDefaultBgColor() const {
 		return _currentDefaultBgColor;
@@ -1617,6 +1621,8 @@ private:
 
 	COLORREF _currentDefaultBgColor;
 	COLORREF _currentDefaultFgColor;
+
+	generic_string _initialCloudChoice;
 
 	static int CALLBACK EnumFontFamExProc(const LOGFONT* lpelfe, const TEXTMETRIC *, DWORD, LPARAM lParam) {
 		std::vector<generic_string>& strVect = *(std::vector<generic_string> *)lParam;

@@ -529,12 +529,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             }
             else
 			{
-				if ((lParam == 1) || (lParam == 2))
-				{
-					specialCmd(LOWORD(wParam));
-				}
-				else
-					command(LOWORD(wParam));
+				command(LOWORD(wParam));
 			}
 		}
 		return TRUE;
@@ -1222,6 +1217,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_SETSMOOTHFONT:
+		{
+			int param = (lParam == 0 ? SC_EFF_QUALITY_DEFAULT : SC_EFF_QUALITY_LCD_OPTIMIZED);
+			_mainEditView.execute(SCI_SETFONTQUALITY, param);
+			_subEditView.execute(SCI_SETFONTQUALITY, param);
+			return TRUE;
+		}
+
         case NPPM_INTERNAL_SETMULTISELCTION :
         {
             NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
@@ -1572,9 +1575,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				    saveSession(currentSession);
 
 				// write settings on cloud if enabled, if the settings files don't exist
-				if (nppgui._cloudChoice != noCloud)
+				if (nppgui._cloudPath != TEXT("") && pNppParam->isCloudPathChanged())
 				{
-					pNppParam->writeSettingsFilesOnCloudForThe1stTime(nppgui._cloudChoice);
+					bool isOK = pNppParam->writeSettingsFilesOnCloudForThe1stTime(nppgui._cloudPath);
+					if (!isOK)
+					{
+						_nativeLangSpeaker.messageBox("SettingsOnCloudError",
+							_pPublicInterface->getHSelf(),
+							TEXT("It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."),
+							TEXT("Settings on Cloud"),
+							MB_OK | MB_APPLMODAL);
+						pNppParam->removeCloudChoice();
+					}
 				}
 
                 //Sends WM_DESTROY, Notepad++ will end

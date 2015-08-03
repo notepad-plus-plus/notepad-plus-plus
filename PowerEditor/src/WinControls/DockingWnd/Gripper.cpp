@@ -239,8 +239,8 @@ LRESULT Gripper::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 			mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 			::SetWindowPos(_hParent, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 			_pCont->focusClient();
-			delete this;
-			break;
+			delete this; // TODO: remove this line and delete this object outside of itself
+			return TRUE;
 		}
 		default:
 			break;

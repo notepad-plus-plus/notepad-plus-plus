@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 6.7.9.x, 
-	last modified 2015-07-10 by Jan Schreiber. 
+	German localization for Notepad++ 6.8, 
+	last modified 2015-08-03 by Jan Schreiber. 
 
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net. 
 
@@ -655,6 +655,7 @@
 					<Item id="6212" name="vertikale Linie"/>
 					<Item id="6213" name="farbiger Hintergrund"/>
 					<Item id="6214" name="Aktuelle Zeile hervorheben"/>
+					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6216" name="Cursoreinstellungen"/>
 					<Item id="6217" name="Breite"/>
 					<Item id="6219" name="Geschwindigkeit"/>
@@ -798,9 +799,7 @@
 				<Cloud title="Cloud-Einstellungen">
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
 					<Item id="6263" name="aus"/>
-					<Item id="6264" name="Dropbox"/>
-					<Item id="6265" name="OneDrive"/>
-					<Item id="6266" name="Google Drive"/>
+					<Item id="6267" name="Netzwerkpfad:"/>
 				</Cloud>
 				<AutoCompletion title="Autovervollständigung">
 					<Item id="6807" name="Autovervollständigung"/>

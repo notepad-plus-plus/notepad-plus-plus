@@ -393,7 +393,7 @@ void ToolBar::addToRebar(ReBar * rebar)
 	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE |
 					  RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_ID;
 
-	_rbBand.fStyle		= RBBS_VARIABLEHEIGHT | RBBS_USECHEVRON;
+	_rbBand.fStyle		= RBBS_VARIABLEHEIGHT | RBBS_USECHEVRON | RBBS_NOGRIPPER;
 	_rbBand.hwndChild	= getHSelf();
 	_rbBand.wID			= REBAR_BAR_TOOLBAR;	//ID REBAR_BAR_TOOLBAR for toolbar
 	_rbBand.cxMinChild	= 0;

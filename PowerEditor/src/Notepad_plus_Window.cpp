@@ -33,6 +33,39 @@
 const TCHAR Notepad_plus_Window::_className[32] = TEXT("Notepad++");
 HWND Notepad_plus_Window::gNppHWND = NULL;
 
+
+
+namespace // anonymous
+{
+
+	struct PaintLocker final
+	{
+		PaintLocker(HWND handle)
+			: handle(handle)
+		{
+			// disallow drawing on the window
+			LockWindowUpdate(handle);
+		}
+
+		~PaintLocker()
+		{
+			// re-allow drawing for the window
+			LockWindowUpdate(NULL);
+
+			// force re-draw
+			InvalidateRect(handle, nullptr, TRUE);
+			RedrawWindow(handle, nullptr, NULL, RDW_ERASE | RDW_ALLCHILDREN | RDW_FRAME | RDW_INVALIDATE);
+		}
+
+		HWND handle;
+	};
+
+} // anonymous namespace
+
+
+
+
+
 void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdLineParams *cmdLineParams)
 {
 	time_t timestampBegin = 0;
@@ -67,40 +100,41 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core._pluginsManager.disable();
 
 	_hSelf = ::CreateWindowEx(
-					WS_EX_ACCEPTFILES | (_notepad_plus_plus_core._nativeLangSpeaker.isRTL()?WS_EX_LAYOUTRTL:0),\
-					_className,\
-					TEXT("Notepad++"),\
-					WS_OVERLAPPEDWINDOW	| WS_CLIPCHILDREN,\
-					// CreateWindowEx bug : set all 0 to walk around the pb
-					0, 0, 0, 0,\
-					_hParent,\
-					NULL,\
-					_hInst,\
-					(LPVOID)this); // pass the ptr of this instantiated object
-                                   // for retrieve it in Notepad_plus_Proc from
-                                   // the CREATESTRUCT.lpCreateParams afterward.
+		WS_EX_ACCEPTFILES | (_notepad_plus_plus_core._nativeLangSpeaker.isRTL()?WS_EX_LAYOUTRTL:0),
+		_className,
+		TEXT("Notepad++"),
+		(WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN),
+		// CreateWindowEx bug : set all 0 to walk around the pb
+		0, 0, 0, 0,
+		_hParent, nullptr, _hInst,
+		(LPVOID) this); // pass the ptr of this instantiated object
+        // for retrieve it in Notepad_plus_Proc from
+        // the CREATESTRUCT.lpCreateParams afterward.
 
-	if (!_hSelf)
-	{
+	if (NULL == _hSelf)
 		throw std::runtime_error("Notepad_plus_Window::init : CreateWindowEx() function return null");
-	}
+
+
+	PaintLocker paintLocker{_hSelf};
 
 	_notepad_plus_plus_core.staticCheckMenuAndTB();
 
 	gNppHWND = _hSelf;
 
 	if (cmdLineParams->isPointValid())
+	{
 		::MoveWindow(_hSelf, cmdLineParams->_point.x, cmdLineParams->_point.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
+	}
 	else
 	{
 		WINDOWPLACEMENT posInfo;
-
 	    posInfo.length = sizeof(WINDOWPLACEMENT);
 		posInfo.flags = 0;
 		if(_isPrelaunch)
 			posInfo.showCmd = SW_HIDE;
 		else
-			posInfo.showCmd = nppGUI._isMaximized?SW_SHOWMAXIMIZED:SW_SHOWNORMAL;
+			posInfo.showCmd = nppGUI._isMaximized ? SW_SHOWMAXIMIZED : SW_SHOWNORMAL;
+
 		posInfo.ptMinPosition.x = (LONG)-1;
 		posInfo.ptMinPosition.y = (LONG)-1;
 		posInfo.ptMaxPosition.x = (LONG)-1;
@@ -114,7 +148,11 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		::SetWindowPlacement(_hSelf,&posInfo);
 	}
 
-	if (nppGUI._tabStatus & TAB_MULTILINE)
+
+	// avoid useless drawing
+	//PaintLocker paintLocker(_hSelf);
+
+	if (0 != (nppGUI._tabStatus & TAB_MULTILINE))
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
 
 	if (!nppGUI._menuBarShow)
@@ -132,22 +170,18 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 
 	if (cmdLineParams->_alwaysOnTop)
-	{
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
-	}
 
 	nppGUI._isCmdlineNosessionActivated = cmdLineParams->_isNoSession;
 	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
-	{
 		_notepad_plus_plus_core.loadLastSession();
-	}
 
-	if (!cmdLineParams->_isPreLaunch)
+	if (not cmdLineParams->_isPreLaunch)
 	{
 		if (cmdLineParams->isPointValid())
 			::ShowWindow(_hSelf, SW_SHOW);
 		else
-			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			::ShowWindow(_hSelf, nppGUI._isMaximized ? SW_MAXIMIZE : SW_SHOW);
 	}
 	else
 	{
@@ -155,10 +189,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core._pTrayIco->doTrayIcon(ADD);
 	}
 
-    if (cmdLine)
-    {
+	if (cmdLine)
 		_notepad_plus_plus_core.loadCommandlineParams(cmdLine, cmdLineParams);
-    }
 
 	std::vector<generic_string> fileNames;
 	std::vector<generic_string> patterns;
@@ -171,10 +203,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	PathAppend(localizationDir, TEXT("localization\\"));
 
 	_notepad_plus_plus_core.getMatchedFileNames(localizationDir.c_str(), patterns, fileNames, false, false);
-	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
-	{
+	for (size_t i = 0, len = fileNames.size(); i < len; ++i)
 		localizationSwitcher.addLanguageFromXml(fileNames[i].c_str());
-	}
 
 	fileNames.clear();
 	ThemeSwitcher & themeSwitcher = pNppParams->getThemeSwitcher();
@@ -193,6 +223,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		    themeSwitcher.addThemeFromXml(fileNames[i].c_str());
 	    }
     }
+
 	fileNames.clear();
 	themeDir.clear();
 	themeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
@@ -217,7 +248,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	scnN.nmhdr.idFrom = 0;
 	_notepad_plus_plus_core._pluginsManager.notify(&scnN);
 
-	if (cmdLineParams->_easterEggName != TEXT(""))
+	if (not cmdLineParams->_easterEggName.empty())
 	{
 		char dest[MAX_PATH];
 		wcstombs(dest, (cmdLineParams->_easterEggName).c_str(), sizeof(dest));
@@ -268,6 +299,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core.launchDocumentBackupTask();
 	}
 }
+
 
 bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const
 {

@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -65,7 +65,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	if (cmdLineParams->_isNoPlugin)
 		_notepad_plus_plus_core._pluginsManager.disable();
-	
+
 	_hSelf = ::CreateWindowEx(
 					WS_EX_ACCEPTFILES | (_notepad_plus_plus_core._nativeLangSpeaker.isRTL()?WS_EX_LAYOUTRTL:0),\
 					_className,\
@@ -77,7 +77,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 					NULL,\
 					_hInst,\
 					(LPVOID)this); // pass the ptr of this instantiated object
-                                   // for retrieve it in Notepad_plus_Proc from 
+                                   // for retrieve it in Notepad_plus_Proc from
                                    // the CREATESTRUCT.lpCreateParams afterward.
 
 	if (!_hSelf)
@@ -113,13 +113,13 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		//SetWindowPlacement will take care of situations, where saved position was in no longer available monitor
 		::SetWindowPlacement(_hSelf,&posInfo);
 	}
-	
+
 	if (nppGUI._tabStatus & TAB_MULTILINE)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
 
 	if (!nppGUI._menuBarShow)
 		::SetMenu(_hSelf, NULL);
-	
+
 	if (cmdLineParams->_isNoTab || (nppGUI._tabStatus & TAB_HIDE))
 	{
 		const int tabStatusOld = nppGUI._tabStatus;
@@ -163,7 +163,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	std::vector<generic_string> fileNames;
 	std::vector<generic_string> patterns;
 	patterns.push_back(TEXT("*.xml"));
-	
+
 	generic_string nppDir = pNppParams->getNppPath();
 
 	LocalizationSwitcher & localizationSwitcher = pNppParams->getLocalizationSwitcher();
@@ -178,7 +178,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	fileNames.clear();
 	ThemeSwitcher & themeSwitcher = pNppParams->getThemeSwitcher();
-	
+
 	//  Get themes from both npp install themes dir and app data themes dir with the per user
 	//  overriding default themes of the same name.
 
@@ -201,7 +201,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
 	{
 		generic_string themeName( themeSwitcher.getThemeFromXmlFileName(fileNames[i].c_str()) );
-		if (! themeSwitcher.themeNameExists(themeName.c_str()) ) 
+		if (! themeSwitcher.themeNameExists(themeName.c_str()) )
 		{
 			themeSwitcher.addThemeFromXml(fileNames[i].c_str());
 		}
@@ -269,7 +269,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 }
 
-bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const 
+bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const
 {
 	for (size_t i = 0, len = _notepad_plus_plus_core._hModelessDlgs.size(); i < len; ++i)
 	{

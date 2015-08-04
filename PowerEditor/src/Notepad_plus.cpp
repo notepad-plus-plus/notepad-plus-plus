@@ -126,14 +126,13 @@ ToolBarButtonUnit toolBarIcons[] = {
 	{IDM_MACRO_SAVECURRENTMACRO,			IDI_SAVERECORD_OFF_ICON,	IDI_SAVERECORD_ON_ICON,		IDI_SAVERECORD_DISABLE_ICON, IDR_SAVERECORD}
 };
 
-Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
-	_pMainSplitter(NULL),
-    _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _pFileSwitcherPanel(NULL),
-	_pProjectPanel_1(NULL), _pProjectPanel_2(NULL), _pProjectPanel_3(NULL), _pDocMap(NULL), _pFuncList(NULL),
-	_linkTriggered(true), _isHotspotDblClicked(false), _isFolding(false),
-	_sysMenuEntering(false),
-	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
-	_isFileOpening(false), _pAnsiCharPanel(NULL), _pClipboardHistoryPanel(NULL)
+
+
+
+Notepad_plus::Notepad_plus()
+	: _autoCompleteMain(&_mainEditView)
+	, _autoCompleteSub(&_subEditView)
+	, _smartHighlighter(&_findReplaceDlg)
 {
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 
@@ -368,11 +367,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
     //--Status Bar Section--//
 	bool willBeShown = nppGUI._statusBarShow;
     _statusBar.init(_pPublicInterface->getHinst(), hwnd, 6);
-	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 200);
-	_statusBar.setPartWidth(STATUSBAR_CUR_POS, 260);
-	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 110);
+	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE,     200);
+	_statusBar.setPartWidth(STATUSBAR_CUR_POS,      260);
+	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT,   110);
 	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 120);
-	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);
+	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE,  30);
     _statusBar.display(willBeShown);
 
     _pMainWindow = &_mainDocTab;
@@ -380,7 +379,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_dockingManager.init(_pPublicInterface->getHinst(), hwnd, &_pMainWindow);
 
 	if (nppGUI._isMinimizedToTray && _pTrayIco == NULL)
-		_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
+	{
+		HICON icon = ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON));
+		_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, icon, TEXT(""));
+	}
 
 	checkSyncState();
 
@@ -422,9 +424,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
 
 	for (size_t i = 0 ; i < nbMacro ; ++i)
-	{
 		::InsertMenu(hMacroMenu, posBase + i, MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
-	}
 
     if (nbMacro >= 1)
     {
@@ -554,7 +554,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TCHAR menuName[64];
 	for (size_t i = 0 ; i < len ; ++i)
 	{
-		if (tmp[i]._itemName == TEXT(""))
+		if (tmp[i]._itemName.empty())
 		{
 			::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
 			tmp[i]._itemName = purgeMenuItemString(menuName);
@@ -899,6 +899,26 @@ void Notepad_plus::saveDockingParams()
 
 	nppGUI._dockingData._pluginDockInfo = vPluginDockInfo;
 	nppGUI._dockingData._flaotingWindowInfo = vFloatingWindowInfo;
+}
+
+
+void Notepad_plus::saveUserDefineLangs()
+{
+	if (ScintillaEditView::getUserDefineDlg()->isDirty())
+		(NppParameters::getInstance())->writeUserDefinedLang();
+}
+
+
+void Notepad_plus::saveShortcuts()
+{
+	NppParameters::getInstance()->writeShortcuts();
+}
+
+
+void Notepad_plus::saveFindHistory()
+{
+	_findReplaceDlg.saveFindHistory();
+	(NppParameters::getInstance())->writeFindHistory();
 }
 
 
@@ -2100,6 +2120,12 @@ bool Notepad_plus::braceMatch()
 }
 
 
+void Notepad_plus::setLangStatus(LangType langType)
+{
+	_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
+}
+
+
 void Notepad_plus::setDisplayFormat(formatType f)
 {
 	generic_string str;
@@ -2981,7 +3007,8 @@ void Notepad_plus::getMainClientRect(RECT &rc) const
 	rc.bottom -= rc.top + _rebarBottom.getHeight() + _statusBar.getHeight();
 }
 
-void Notepad_plus::showView(int whichOne) {
+void Notepad_plus::showView(int whichOne)
+{
 	if (viewVisible(whichOne))	//no use making visible view visible
 		return;
 
@@ -3027,8 +3054,11 @@ void Notepad_plus::hideView(int whichOne)
 	{
 		_pMainSplitter->setWin0(windowToSet);
 	}
-	else // otherwise the main window is the spltter container that we just created
+	else
+	{
+		// otherwise the main window is the spltter container that we just created
 		_pMainWindow = windowToSet;
+	}
 
 	_subSplitter.display(false);	//hide splitter
 	//hide scintilla and doctab

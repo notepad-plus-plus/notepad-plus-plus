@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -61,7 +61,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize,
 
 		// hbrBackground must be NULL,
 		// otherwise this window will hide some parts of 2 windows
-		splitterContainerClass.hbrBackground = NULL; 
+		splitterContainerClass.hbrBackground = NULL;
 		splitterContainerClass.lpszMenuName = NULL;
 		splitterContainerClass.lpszClassName = SPC_CLASS_NAME;
 
@@ -90,7 +90,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize,
 	}
 }
 
-void SplitterContainer::rotateTo(DIRECTION direction) 
+void SplitterContainer::rotateTo(DIRECTION direction)
 {
 	bool doSwitchWindow = false;
 	if (_dwSplitterStyle & SV_VERTICAL)
@@ -119,7 +119,7 @@ LRESULT CALLBACK SplitterContainer::staticWinProc(HWND hwnd, UINT message, WPARA
 {
 	SplitterContainer *pSplitterContainer = NULL;
 	switch (message)
-	{	
+	{
 		case WM_NCCREATE :
 			pSplitterContainer = (SplitterContainer *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 			pSplitterContainer->_hSelf = hwnd;
@@ -141,10 +141,10 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE :
 			_splitter.init(_hInst, _hSelf, _splitterSize, _ratio, _dwSplitterStyle);
 			return TRUE;
-		
+
 		case WM_COMMAND :
 		{
-			switch (LOWORD(wParam)) 
+			switch (LOWORD(wParam))
 			{
 				case ROTATION_A_GAUCHE:
 					rotateTo(LEFT);
@@ -179,7 +179,7 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				if (lParam != 0)
 				{
-					rc0.bottom = int(lParam); 
+					rc0.bottom = int(lParam);
 
 					rc1.top   = int(lParam) + _y + _splitter.getPhisicalSize();
 					rc1.bottom = rc1.bottom - rc1.top + _y;
@@ -191,14 +191,14 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 			::InvalidateRect(_splitter.getHSelf(), NULL, TRUE);
 			return TRUE;
 		}
-		
+
 		case WM_DOPOPUPMENU :
 		{
 			if ((_splitterMode != LEFT_FIX) && (_splitterMode != RIGHT_FIX) )
 			{
 				POINT p;
 				::GetCursorPos(&p);
-				
+
 				if (!_hPopupMenu)
 				{
 					POINT p;
@@ -207,7 +207,7 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_A_GAUCHE, TEXT("Rotate to left"));
 					::InsertMenu(_hPopupMenu, 0, MF_BYPOSITION, ROTATION_A_DROITE, TEXT("Rotate to right"));
 				}
-				
+
 				::TrackPopupMenu(_hPopupMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
 			}
 			return TRUE;
@@ -226,7 +226,7 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
             }
             else
 			    return MAKELONG(0, DYNAMIC);
-         
+
         }
 
 		case WM_GETSPLITTER_Y :
@@ -245,20 +245,20 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
         }
 
 		case WM_LBUTTONDBLCLK:
-		{			
+		{
 			POINT pt;
 			::GetCursorPos(&pt);
 			::ScreenToClient(_splitter.getHSelf(), &pt);
-			
+
 			Window* targetWindow;
-			
+
 			if(this->isVertical())
 				targetWindow = pt.x < 0?_pWin0:_pWin1;
 			else
 				targetWindow = pt.y < 0?_pWin0:_pWin1;
-			
+
 			HWND parent = ::GetParent(getHSelf());
-			
+
 			::SendMessage(parent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, (LPARAM)targetWindow->getHSelf());
 			::SendMessage(parent, WM_COMMAND, IDM_FILE_NEW, 0);
 			return TRUE;

@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -38,11 +38,11 @@ bool Splitter::_isVerticalFixedRegistered = false;
 
 #define SPLITTER_SIZE 8
 
-Splitter::Splitter() : Window() 
+Splitter::Splitter() : Window()
 {
 	//hInstance = GetModuleHandle(NULL);
-	_rect.left   = 0; // x axis 
-	_rect.top    = 0; // y axis 
+	_rect.left   = 0; // x axis
+	_rect.top    = 0; // y axis
 	_rect.right  = 0; // Width of the spliter.
 	_rect.bottom = 0; // Height of the spliter
 	_isFixed = false;
@@ -67,11 +67,11 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 	WNDCLASSEX wcex;
 	DWORD dwExStyle = 0L;
 	DWORD dwStyle   = WS_CHILD | WS_VISIBLE;
-	
+
 
 	_hParent = hPere;
 	_dwFlags = dwFlags;
-	
+
 	if (_dwFlags & SV_FIXED)
 	{
 		//Fixed spliter
@@ -81,49 +81,49 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 	{
 		if (iSplitRatio >= 100)
 		{
-			//cant be 100 % or more 
+			//cant be 100 % or more
 			throw std::runtime_error("Splitter::init : Parameter iSplitRatio shoulds be 0 < ratio < 100");
 		}
 	}
 
 	_splitPercent = iSplitRatio;
-	
-	wcex.cbSize			= sizeof(WNDCLASSEX); 
+
+	wcex.cbSize			= sizeof(WNDCLASSEX);
 	wcex.style			= CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc	= (WNDPROC)staticWndProc;
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= _hInst;
 	wcex.hIcon			= NULL;
-	
+
 	::GetClientRect(_hParent, &_rect);
-	
+
 	if (_dwFlags & SV_HORIZONTAL) //Horizontal spliter
 	{
 		_rect.top  = (LONG)((_rect.bottom * _splitPercent)/100);
 		// y axis determined by the split% of the parent windows height
-		
+
 		_rect.left = 0;
 		// x axis is always 0
-		
+
 		_rect.bottom = _spiltterSize;
 		// the height of the spliter
-		
+
 		// the width of the splitter remains the same as the width of the parent window.
 	}
 	else //Vertical spliter
 	{
-		// y axis is 0 always 
-		
-		_rect.left = (LONG)((_rect.right * _splitPercent)/100); 
+		// y axis is 0 always
+
+		_rect.left = (LONG)((_rect.right * _splitPercent)/100);
 		// x axis determined by split% of the parent windows width.
-		
-		_rect.right = _spiltterSize; 
-		// width of the spliter.			
-		
+
+		_rect.right = _spiltterSize;
+		// width of the spliter.
+
 		//height of the spliter remains the same as the height of the parent window
 	}
-	
+
 	if (!_isFixed)
 	{
 		if ((_dwFlags & SV_ENABLERDBLCLK) || (_dwFlags & SV_ENABLELDBLCLK))
@@ -132,7 +132,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 			// enable mouse double click messages.
 		}
 	}
-	
+
 	if (_isFixed)
 	{
 		wcex.hCursor		= ::LoadCursor(NULL, IDC_ARROW);
@@ -157,11 +157,11 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 			wcex.lpszClassName	= TEXT("wespliter");
 		}
 	}
-	
+
 	wcex.hbrBackground	= (HBRUSH)(COLOR_3DFACE+1);
 	wcex.lpszMenuName	= NULL;
 	wcex.hIconSm		= NULL;
-	
+
 	if ((_dwFlags & SV_HORIZONTAL)&&(!_isHorizontalRegistered))
 	{
 		RegisterClassEx(&wcex);
@@ -188,15 +188,15 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 				wcex.lpszClassName,
 				TEXT(""),
 				dwStyle,
-				_rect.left, 
-				_rect.top, 
-				_rect.right, 
-				_rect.bottom, 
+				_rect.left,
+				_rect.top,
+				_rect.right,
+				_rect.bottom,
 				_hParent,
 				NULL,
 				_hInst,
 				(LPVOID)this);
-	
+
 	if (!_hSelf)
 	{
 		throw std::runtime_error("Splitter::init : CreateWindowEx() function return null");
@@ -264,7 +264,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 {
 	switch (uMsg)
 	{
-/*	
+/*
 	case WM_LBUTTONDBLCLK:
 		{
 ::MessageBox(NULL, TEXT(""), TEXT(""), MB_OK);
@@ -416,13 +416,13 @@ void Splitter::resizeSpliter(RECT *pRect)
 		rect = *pRect;
 	else
 		::GetClientRect(_hParent,&rect);
-	
+
 	if (_dwFlags & SV_HORIZONTAL)
 	{
-		// for a Horizontal spliter the width remains the same 
+		// for a Horizontal spliter the width remains the same
 		// as the width of the parent window, so get the new width of the parent.
 		_rect.right = rect.right;
-		
+
 		//if resizeing should be done proportionately.
 		if (_dwFlags & SV_RESIZEWTHPERCNT)
 			_rect.top  = (LONG)((rect.bottom * _splitPercent)/100);
@@ -431,24 +431,24 @@ void Splitter::resizeSpliter(RECT *pRect)
 	}
 	else
 	{
-		// for a (default) Vertical spliter the height remains the same 
+		// for a (default) Vertical spliter the height remains the same
 		// as the height of the parent window, so get the new height of the parent.
 		_rect.bottom = rect.bottom;
-		
+
 		//if resizeing should be done proportionately.
-		if (_dwFlags & SV_RESIZEWTHPERCNT) 
+		if (_dwFlags & SV_RESIZEWTHPERCNT)
         {
 			_rect.left = (LONG)((rect.right * _splitPercent)/100);
         }
         else // soit la fenetre gauche soit la fenetre droit qui est fixee
 			_rect.left = getSplitterFixPosX();
-        
+
 	}
 	::MoveWindow(_hSelf, _rect.left, _rect.top, _rect.right, _rect.bottom, TRUE);
 	::SendMessage(_hParent, WM_RESIZE_CONTAINER, _rect.left, _rect.top);
-	
+
 	RECT rc;
-	getClientRect(rc);	
+	getClientRect(rc);
 	_clickZone2BR.right = getClickZone(WIDTH);
 	_clickZone2BR.bottom = getClickZone(HEIGHT);
 	_clickZone2BR.left = rc.right - _clickZone2BR.right;
@@ -460,7 +460,7 @@ void Splitter::resizeSpliter(RECT *pRect)
 	redraw();
 }
 
-void Splitter::gotoTopLeft() 
+void Splitter::gotoTopLeft()
 {
 	if ((_dwFlags & SV_ENABLELDBLCLK) && (!_isFixed) && (_splitPercent > 1))
 	{
@@ -469,34 +469,34 @@ void Splitter::gotoTopLeft()
 		else
 			_rect.left   = 1;
 		_splitPercent = 1;
-		
+
 		::SendMessage(_hParent, WM_RESIZE_CONTAINER, _rect.left, _rect.top);
 		::MoveWindow(_hSelf, _rect.left, _rect.top, _rect.right, _rect.bottom, TRUE);
 		redraw();
 	}
 }
 
-void Splitter::gotoRightBouuom() 
+void Splitter::gotoRightBouuom()
 {
 	if ((_dwFlags & SV_ENABLERDBLCLK) && (!_isFixed) && (_splitPercent < 99))
 	{
 		RECT rt;
 		GetClientRect(_hParent,&rt);
-		
+
 		if (_dwFlags & SV_HORIZONTAL)
 			_rect.top   = rt.bottom - _spiltterSize;
 		else
 			_rect.left   = rt.right - _spiltterSize;
 
 		_splitPercent = 99;
-		
+
 		::SendMessage(_hParent, WM_RESIZE_CONTAINER, _rect.left, _rect.top);
 		::MoveWindow(_hSelf, _rect.left, _rect.top, _rect.right, _rect.bottom, TRUE);
 		redraw();
 	}
 }
 
-void Splitter::drawSplitter() 
+void Splitter::drawSplitter()
 {
 	PAINTSTRUCT ps;
 	RECT rc, rcToDraw1, rcToDraw2, TLrc, BRrc;
@@ -648,7 +648,7 @@ void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 		}
 	}
 }
-void Splitter::adjustZoneToDraw(RECT & rc2def, ZONE_TYPE whichZone) 
+void Splitter::adjustZoneToDraw(RECT & rc2def, ZONE_TYPE whichZone)
 {
 	if (_spiltterSize < 4) return;
 	int x0, y0, x1, y1, w, h;

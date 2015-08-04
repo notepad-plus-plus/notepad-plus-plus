@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -24,49 +24,52 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-
-#ifndef BUFFER_H
-#define BUFFER_H
-
+#pragma once
 #include "Utf8_16.h"
 
+
+
 class Buffer;
-typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrieved
+typedef Buffer* BufferID;	//each buffer has unique ID by which it can be retrieved
 #define BUFFER_INVALID	(BufferID)0
 
 typedef sptr_t Document;
 
-enum DocFileStatus{
-	DOC_REGULAR = 0x01,	//should not be combined with anything
-	DOC_UNNAMED = 0x02,	//not saved (new ##)
-	DOC_DELETED = 0x04, //doesn't exist in environment anymore, but not DOC_UNNAMED
-	DOC_MODIFIED = 0x08	//File in environment has changed
+enum DocFileStatus
+{
+	DOC_REGULAR  = 0x01, // should not be combined with anything
+	DOC_UNNAMED  = 0x02, // not saved (new ##)
+	DOC_DELETED  = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
+	DOC_MODIFIED = 0x08  // File in environment has changed
 };
 
-enum BufferStatusInfo {
-	BufferChangeLanguage	= 0x001,	//Language was altered
-	BufferChangeDirty		= 0x002,	//Buffer has changed dirty state
-	BufferChangeFormat		= 0x004,	//EOL type was changed
-	BufferChangeUnicode		= 0x008,	//Unicode type was changed
-	BufferChangeReadonly	= 0x010,	//Readonly state was changed, can be both file and user
-	BufferChangeStatus		= 0x020,	//Filesystem Status has changed
-	BufferChangeTimestamp	= 0x040,	//Timestamp was changed
-	BufferChangeFilename	= 0x080,	//Filename was changed
-	BufferChangeRecentTag	= 0x100,	//Recent tag has changed
-	BufferChangeLexing		= 0x200,	//Document needs lexing
-	BufferChangeMask		= 0x3FF		//Mask: covers all changes
+enum BufferStatusInfo
+{
+	BufferChangeLanguage	= 0x001,  // Language was altered
+	BufferChangeDirty		= 0x002,  // Buffer has changed dirty state
+	BufferChangeFormat		= 0x004,  // EOL type was changed
+	BufferChangeUnicode		= 0x008,  // Unicode type was changed
+	BufferChangeReadonly	= 0x010,  // Readonly state was changed, can be both file and user
+	BufferChangeStatus		= 0x020,  // Filesystem Status has changed
+	BufferChangeTimestamp	= 0x040,  // Timestamp was changed
+	BufferChangeFilename	= 0x080,  // Filename was changed
+	BufferChangeRecentTag	= 0x100,  // Recent tag has changed
+	BufferChangeLexing		= 0x200,  // Document needs lexing
+	BufferChangeMask		= 0x3FF   // Mask: covers all changes
 };
 
 //const int userLangNameMax = 16;
 const TCHAR UNTITLED_STR[] = TEXT("new ");
 
-//File manager class maintains all buffers
-class FileManager {
-public:
-	void init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratchTilla);
 
-	//void activateBuffer(int index);	
+
+//File manager class maintains all buffers
+class FileManager final
+{
+public:
+	void init(Notepad_plus* pNotepadPlus, ScintillaEditView* pscratchTilla);
+
+	//void activateBuffer(int index);
 	void checkFilesystemChanges();
 
 	int getNrBuffers() { return _nrBufs; };
@@ -92,7 +95,7 @@ public:
 
 	bool reloadBuffer(BufferID id);
 	bool reloadBufferDeferred(BufferID id);
-	bool saveBuffer(BufferID id, const TCHAR * filename, bool isCopy = false, generic_string * error_msg = NULL);
+	bool saveBuffer(BufferID id, const TCHAR* filename, bool isCopy = false, generic_string * error_msg = NULL);
 	bool backupCurrentBuffer();
 	bool deleteCurrentBufferBackup();
 	bool deleteFile(BufferID id);
@@ -105,29 +108,34 @@ public:
 	int getEOLFormatForm(const char* const data, size_t length) const;
 	size_t nextUntitledNewNumber() const;
 
+
 private:
-	FileManager() : _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL){};
 	~FileManager();
+	int detectCodepage(char* buf, size_t len);
+	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType language, int& encoding, formatType* pFormat = nullptr);
+
+
+private:
 	static FileManager *_pSelf;
 
-	Notepad_plus * _pNotepadPlus;
-	ScintillaEditView * _pscratchTilla;
+	Notepad_plus* _pNotepadPlus = nullptr;
+	ScintillaEditView* _pscratchTilla = nullptr;
 	Document _scratchDocDefault;
-	std::vector<Buffer *> _buffers;
-	BufferID _nextBufferID;
-	size_t _nrBufs;
-	int detectCodepage(char* buf, size_t len);
-
-	bool loadFileData(Document doc, const TCHAR * filename, char* buffer, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat = NULL);
+	std::vector<Buffer*> _buffers;
+	BufferID _nextBufferID = 0;
+	size_t _nrBufs = 0;
 };
 
 #define MainFileManager FileManager::getInstance()
 
-class Buffer
+
+
+
+class Buffer final
 {
 friend class FileManager;
-public :
-	//Loading a document: 
+public:
+	//Loading a document:
 	//constructor with ID.
 	//Set a reference (pointer to a container mostly, like DocTabView or ScintillaEditView)
 	//Set the position manually if needed
@@ -143,28 +151,24 @@ public :
 
 	const TCHAR * getFullPathName() const {
 		return _fullPathName.c_str();
-	};
+	}
 
-	const TCHAR * getFileName() const { return _fileName; };
+	const TCHAR * getFileName() const { return _fileName; }
 
-	BufferID getID() const {
-		return _id;
-	};
+	BufferID getID() const { return _id; }
 
 	void increaseRecentTag() {
 		_recentTag = ++_recentTagCtr;
 		doNotify(BufferChangeRecentTag);
-	};
+	}
 
-	long getRecentTag() const {
-		return _recentTag;
-	};
+	long getRecentTag() const { return _recentTag; }
 
 	bool checkFileState();
 
     bool isDirty() const {
         return _isDirty;
-    };
+    }
 
     bool isReadOnly() const {
         return (_isUserReadOnly || _isFileReadOnly);
@@ -172,71 +176,62 @@ public :
 
 	bool isUntitled() const {
 		return (_currentStatus == DOC_UNNAMED);
-	};
+	}
 
 	bool getFileReadOnly() const {
         return _isFileReadOnly;
-    };
+    }
 
 	void setFileReadOnly(bool ro) {
 		_isFileReadOnly = ro;
 		doNotify(BufferChangeReadonly);
-	};
+	}
 
 	bool getUserReadOnly() const {
         return _isUserReadOnly;
-    };
+    }
 
 	void setUserReadOnly(bool ro) {
 		_isUserReadOnly = ro;
 		doNotify(BufferChangeReadonly);
-    };
+    }
 
 	formatType getFormat() const {
 		return _format;
-	};
+	}
 
 	void setFormat(formatType format) {
 		_format = format;
 		doNotify(BufferChangeFormat);
-	};
+	}
 
 	LangType getLangType() const {
 		return _lang;
-	};
+	}
 
 	void setLangType(LangType lang, const TCHAR * userLangName = TEXT(""));
 
 	UniMode getUnicodeMode() const {
 		return _unicodeMode;
-	};
+	}
 
-	void setUnicodeMode(UniMode mode) {
-		_unicodeMode = mode;
-		doNotify(BufferChangeUnicode | BufferChangeDirty);
-	};
+	void setUnicodeMode(UniMode mode);
 
 	int getEncoding() const {
 		return _encoding;
-	};
+	}
 
-	void setEncoding(int encoding) {
-		_encoding = encoding;
-        doNotify(BufferChangeUnicode | BufferChangeDirty);
-	};
+	void setEncoding(int encoding);
 
 	DocFileStatus getStatus() const {
 		return _currentStatus;
-	};
+	}
 
 	Document getDocument() {
 		return _doc;
-	};
+	}
 
-	void setDirty(bool dirty) {
-		_isDirty = dirty;
-		doNotify(BufferChangeDirty);
-	};
+	void setDirty(bool dirty);
 
     void setPosition(const Position & pos, ScintillaEditView * identifier);
 	Position & getPosition(ScintillaEditView * identifier);
@@ -244,44 +239,50 @@ public :
 	void setHeaderLineState(const std::vector<size_t> & folds, ScintillaEditView * identifier);
 	const std::vector<size_t> & getHeaderLineState(const ScintillaEditView * identifier) const;
 
-	bool isUserDefineLangExt() const {
+	bool isUserDefineLangExt() const
+	{
 		return (_userLangExt[0] != '\0');
-	};
+	}
 
-	const TCHAR * getUserDefineLangName() const {
+	const TCHAR * getUserDefineLangName() const
+	{
 		return _userLangExt.c_str();
-	};
+	}
 
-	const TCHAR * getCommentLineSymbol() const {
+	const TCHAR * getCommentLineSymbol() const
+	{
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentLineSymbol;
+	}
 
-	};
-
-	const TCHAR * getCommentStart() const {
+	const TCHAR * getCommentStart() const
+	{
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentStart;
-	};
+	}
 
-    const TCHAR * getCommentEnd() const {
+    const TCHAR * getCommentEnd() const
+	{
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentEnd;
-	};
+	}
 
-	bool getNeedsLexing() const {
+	bool getNeedsLexing() const
+	{
 		return _needLexer;
-	};
+	}
 
-	void setNeedsLexing(bool lex) {
+	void setNeedsLexing(bool lex)
+	{
 		_needLexer = lex;
 		doNotify(BufferChangeLexing);
-	};
+	}
 
 	//these two return reference count after operation
 	int addReference(ScintillaEditView * identifier);		//if ID not registered, creates a new Position for that ID and new foldstate
@@ -291,11 +292,13 @@ public :
 
 	void setDeferredReload();
 
-	bool getNeedReload() {
+	bool getNeedReload()
+	{
 		return _needReloading;
 	}
 
-	void setNeedReload(bool reload) {
+	void setNeedReload(bool reload)
+	{
 		_needReloading = reload;
 	}
 
@@ -304,87 +307,91 @@ public :
 	void setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved = false);
 	*/
 
-	int docLength() const {
+	int docLength() const
+	{
+		assert(_pManager != nullptr);
 		return _pManager->docLength(_id);
-	};
+	}
 
-	int getFileLength(); // return file length. -1 if file is not existing.
+	int getFileLength() const; // return file length. -1 if file is not existing.
 
 	enum fileTimeType {ft_created, ft_modified, ft_accessed};
-	generic_string getFileTime(fileTimeType ftt);
+	generic_string getFileTime(fileTimeType ftt) const;
 
     Lang * getCurrentLang() const;
-	
-	bool isModified() const {return _isModified;};
-	void setModifiedStatus(bool isModified) {_isModified = isModified;};
-	generic_string getBackupFileName() const {return _backupFileName;};
-	void setBackupFileName(generic_string fileName) {_backupFileName = fileName;};
-	time_t getLastModifiedTimestamp() const {return _timeStamp;};
-	bool isLoadedDirty() const {
+
+	bool isModified() const {return _isModified;}
+	void setModifiedStatus(bool isModified) {_isModified = isModified;}
+	generic_string getBackupFileName() const {return _backupFileName;}
+	void setBackupFileName(generic_string fileName) {_backupFileName = fileName;}
+	time_t getLastModifiedTimestamp() const {return _timeStamp;}
+
+	bool isLoadedDirty() const
+	{
 		return _isLoadedDirty;
-	};
+	}
 
-	void setLoadedDirty(bool val) {
+	void setLoadedDirty(bool val)
+	{
 		_isLoadedDirty = val;
-	};
+	}
 
-private :
-	FileManager * _pManager;
-	bool _canNotify;
-	int _references;							//if no references file inaccessible, can be closed
-	BufferID _id;
+
+private:
+	void updateTimeStamp();
+
+	int indexOfReference(const ScintillaEditView * identifier) const;
+
+	void setStatus(DocFileStatus status)
+	{
+		_currentStatus = status;
+		doNotify(BufferChangeStatus);
+	}
+
+	void doNotify(int mask);
+
+	Buffer(const Buffer&) = delete;
+	Buffer& operator = (const Buffer&) = delete;
+
+
+private:
+	FileManager * _pManager = nullptr;
+	bool _canNotify = false;
+	int _references = 0; // if no references file inaccessible, can be closed
+	BufferID _id = nullptr;
 
 	//document properties
 	Document _doc;	//invariable
 	LangType _lang;
 	generic_string _userLangExt; // it's useful if only (_lang == L_USER)
-	bool _isDirty;
+	bool _isDirty = false;
 	formatType _format;
 	UniMode _unicodeMode;
-	int _encoding;
-	bool _isUserReadOnly;
-	bool _needLexer;	//initially true
+	int _encoding = -1;
+	bool _isUserReadOnly = false;
+	bool _needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 	//these properties have to be duplicated because of multiple references
 	//All the vectors must have the same size at all times
-	std::vector< ScintillaEditView * > _referees; // Instances of ScintillaEditView which contain this buffer
-	std::vector< Position > _positions;
-	std::vector< std::vector<size_t> > _foldStates;
+	std::vector<ScintillaEditView *> _referees; // Instances of ScintillaEditView which contain this buffer
+	std::vector<Position> _positions;
+	std::vector<std::vector<size_t>> _foldStates;
 
 	//vector< pair<size_t, pair<size_t, bool> > > _linesUndoState;
 
 	//Environment properties
 	DocFileStatus _currentStatus;
-	time_t _timeStamp; // 0 if it's a new doc
-	
-	bool _isFileReadOnly;
-	generic_string _fullPathName;
-	TCHAR * _fileName;	//points to filename part in _fullPathName
-	bool _needReloading;	//True if Buffer needs to be reloaded on activation
+	time_t _timeStamp = 0; // 0 if it's a new doc
 
-	long _recentTag;
+	bool _isFileReadOnly = false;
+	generic_string _fullPathName;
+	TCHAR * _fileName = nullptr; // points to filename part in _fullPathName
+	bool _needReloading = false; // True if Buffer needs to be reloaded on activation
+
+	long _recentTag = -1;
 	static long _recentTagCtr;
 
 	// For backup system
-	generic_string _backupFileName; // default: ""
-	bool _isModified; // default: false
-	bool _isLoadedDirty; // default: false
-
-	void updateTimeStamp();
-
-	int indexOfReference(const ScintillaEditView * identifier) const;
-
-	void setStatus(DocFileStatus status) {
-		_currentStatus = status;
-		doNotify(BufferChangeStatus);
-	}
-
-	void doNotify(int mask) {
-		if (_canNotify)
-			_pManager->beNotifiedOfBufferChange(this, mask); 
-	};
-
-	Buffer(const Buffer&) { assert(false);  }
-	Buffer& operator = (const Buffer&) { assert(false);  return *this; }
+	generic_string _backupFileName;
+	bool _isModified = false;
+	bool _isLoadedDirty = false;
 };
-
-#endif //BUFFER_H

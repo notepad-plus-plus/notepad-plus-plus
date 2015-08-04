@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -44,13 +44,13 @@ void DocTabView::addBuffer(BufferID buffer)
 	if (this->getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
 	Buffer * buf = MainFileManager->getBufferByID(buffer);
-	TCITEM tie; 
+	TCITEM tie;
 	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
 
 	int index = -1;
 	if (_hasImgLst)
 		index = 0;
-	tie.iImage = index; 
+	tie.iImage = index;
 	tie.pszText = (TCHAR *)buf->getFileName();
 	tie.lParam = (LPARAM)buffer;
 	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
@@ -59,27 +59,35 @@ void DocTabView::addBuffer(BufferID buffer)
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
-void DocTabView::closeBuffer(BufferID buffer) {
+
+void DocTabView::closeBuffer(BufferID buffer)
+{
 	int indexToClose = getIndexByBuffer(buffer);
 	deletItemAt((size_t)indexToClose);
-
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
-bool DocTabView::activateBuffer(BufferID buffer) {
+
+bool DocTabView::activateBuffer(BufferID buffer)
+{
 	int indexToActivate = getIndexByBuffer(buffer);
 	if (indexToActivate == -1)
 		return false;	//cannot activate
+
 	activateAt(indexToActivate);
 	return true;
 }
 
-BufferID DocTabView::activeBuffer() {
+
+BufferID DocTabView::activeBuffer()
+{
 	int index = getCurrentTabIndex();
 	return (BufferID)getBufferByIndex(index);
 }
 
-BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) {	//-1 if not found, something else otherwise
+
+BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not found, something else otherwise
+{
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
@@ -96,7 +104,9 @@ BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) {	//-1 if not 
 	return BUFFER_INVALID;
 }
 
-int DocTabView::getIndexByBuffer(BufferID id) {
+
+int DocTabView::getIndexByBuffer(BufferID id)
+{
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
@@ -109,7 +119,9 @@ int DocTabView::getIndexByBuffer(BufferID id) {
 	return -1;
 }
 
-BufferID DocTabView::getBufferByIndex(int index) {
+
+BufferID DocTabView::getBufferByIndex(int index)
+{
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
@@ -117,6 +129,7 @@ BufferID DocTabView::getBufferByIndex(int index) {
 
 	return (BufferID)tie.lParam;
 }
+
 
 void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 {
@@ -127,7 +140,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = 0;
-	
+
 	if (mask & BufferChangeReadonly || mask & BufferChangeDirty)
 	{
 		tie.mask |= TCIF_IMAGE;
@@ -176,6 +189,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 		::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
+
 void DocTabView::setBuffer(int index, BufferID id)
 {
 	if (index < 0 || index >= (int)_nbItem)
@@ -191,7 +205,8 @@ void DocTabView::setBuffer(int index, BufferID id)
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
-void DocTabView::reSizeTo(RECT & rc) 
+
+void DocTabView::reSizeTo(RECT & rc)
 {
 	int borderWidth = ((NppParameters::getInstance())->getSVP())._borderWidth;
 	if (_hideTabBarStatus)
@@ -204,9 +219,9 @@ void DocTabView::reSizeTo(RECT & rc)
 	{
 		TabBar::reSizeTo(rc);
 		rc.left	 += borderWidth;
-		rc.right -= borderWidth * 2;	
+		rc.right -= borderWidth * 2;
 		rc.top   += borderWidth;
-		rc.bottom -= (borderWidth * 2);	
+		rc.bottom -= (borderWidth * 2);
 		_pView->reSizeTo(rc);
 	}
 }

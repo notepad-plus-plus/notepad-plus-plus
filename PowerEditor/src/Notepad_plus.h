@@ -161,29 +161,29 @@ enum spaceTab {
 
 struct TaskListInfo;
 
-struct VisibleGUIConf {
-	bool isPostIt;
-	bool isFullScreen;
+
+struct VisibleGUIConf final
+{
+	bool isPostIt = false;
+	bool isFullScreen = false;
 
 	//Used by both views
-	bool isMenuShown;
+	bool isMenuShown = true;
 	//bool isToolbarShown;	//toolbar forcefully hidden by hiding rebar
-	DWORD_PTR preStyle;
+	DWORD_PTR preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
 	//used by postit only
-	bool isTabbarShown;
-	bool isAlwaysOnTop;
-	bool isStatusbarShown;
+	bool isTabbarShown = true;
+	bool isAlwaysOnTop = false;
+	bool isStatusbarShown = true;
 
 	//used by fullscreen only
 	WINDOWPLACEMENT _winPlace;
 
-	VisibleGUIConf() : isPostIt(false), isFullScreen(false),
-		isAlwaysOnTop(false), isMenuShown(true), isTabbarShown(true),
-		isStatusbarShown(true), preStyle(WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN)
+	VisibleGUIConf()
 	{
-		_winPlace.length = 0;
-	};
+		memset(&_winPlace, 0x0, sizeof(_winPlace));
+	}
 };
 
 
@@ -196,14 +196,19 @@ class ProjectPanel;
 class DocumentMap;
 class FunctionListPanel;
 
-class Notepad_plus
+
+
+
+
+class Notepad_plus final
 {
 friend class Notepad_plus_Window;
 friend class FileManager;
 
 public:
 	Notepad_plus();
-	virtual ~Notepad_plus();
+	~Notepad_plus();
+
 	LRESULT init(HWND hwnd);
 	LRESULT process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	void killAllChildren();
@@ -215,7 +220,8 @@ public:
 
 	// For filtering the modeless Dialog message
 
-// fileOperations
+	//! \name File Operations
+	//@{
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
 	BufferID doOpen(const TCHAR *fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, time_t fileNameTimestamp = 0);
 	bool doReload(BufferID id, bool alert = true);
@@ -225,16 +231,11 @@ public:
 
 	void fileOpen();
 	void fileNew();
-
-    bool fileReload() {
-	    BufferID buf = _pEditView->getCurrentBufferID();
-	    return doReload(buf, buf->isDirty());
-    }
-
+    bool fileReload();
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
 	bool fileCloseAll(bool doDeleteBackup, bool isSnapshotMode = false);
 	bool fileCloseAllButCurrent();
-	bool fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes);
+	bool fileCloseAllGiven(const std::vector<int>& krvecBufferIndexes);
 	bool fileCloseAllToLeft();
 	bool fileCloseAllToRight();
 	bool fileSave(BufferID id = BUFFER_INVALID);
@@ -246,7 +247,7 @@ public:
 	bool addBufferToView(BufferID id, int whichOne);
 	bool moveBuffer(BufferID id, int whereTo);	//assumes whereFrom is otherView(whereTo)
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
-// end fileOperations
+	//@}
 
 	bool isFileSession(const TCHAR * filename);
 	void filePrint(bool showDialog);
@@ -255,26 +256,17 @@ public:
 	bool saveGUIParams();
 	bool saveProjectPanelsParams();
 	void saveDockingParams();
-    void saveUserDefineLangs() {
-        if (ScintillaEditView::getUserDefineDlg()->isDirty())
-		(NppParameters::getInstance())->writeUserDefinedLang();
-    }
-    void saveShortcuts(){
-        NppParameters::getInstance()->writeShortcuts();
-    }
+    void saveUserDefineLangs();
+    void saveShortcuts();
 	void saveSession(const Session & session);
 	void saveCurrentSession();
+	void saveFindHistory();
 
-    void saveFindHistory(){
-        _findReplaceDlg.saveFindHistory();
-	    (NppParameters::getInstance())->writeFindHistory();
-    }
+	void getCurrentOpenedFiles(Session& session, bool includUntitledDoc = false);
 
-	void getCurrentOpenedFiles(Session & session, bool includUntitledDoc = false);
-
-	bool fileLoadSession(const TCHAR *fn = NULL);
+	bool fileLoadSession(const TCHAR* fn = nullptr);
 	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);
-	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR ** fileNames = NULL);
+	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR** fileNames = nullptr);
 	void changeToolBarIcons();
 
 	bool doBlockComment(comment_mode currCommentMode);
@@ -298,7 +290,7 @@ public:
 		return _accelerator.getAccTable();
 	}
 	bool emergency(generic_string emergencySavedDir);
-	Buffer * getCurrentBuffer()	{
+	Buffer* getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
 	}
 	void launchDocumentBackupTask();
@@ -306,39 +298,42 @@ public:
 	void showQuoteFromIndex(int index) const;
 	void showQuote(const char *quote, const char *quoter, bool doTrolling) const;
 
+
 private:
-	Notepad_plus_Window *_pPublicInterface;
-    Window *_pMainWindow;
+	Notepad_plus_Window *_pPublicInterface = nullptr;
+    Window *_pMainWindow = nullptr;
 	DockingManager _dockingManager;
 	std::vector<int> _internalFuncIDs;
 
 	AutoCompletion _autoCompleteMain;
-	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
+	AutoCompletion _autoCompleteSub; // each Scintilla has its own autoComplete
 
 	SmartHighlighter _smartHighlighter;
     NativeLangSpeaker _nativeLangSpeaker;
     DocTabView _mainDocTab;
     DocTabView _subDocTab;
-    DocTabView *_pDocTab;
-	DocTabView *_pNonDocTab;
+    DocTabView* _pDocTab = nullptr;
+	DocTabView* _pNonDocTab = nullptr;
 
     ScintillaEditView _subEditView;
     ScintillaEditView _mainEditView;
-	ScintillaEditView _invisibleEditView;	//for searches
-	ScintillaEditView _fileEditView;		//for FileManager
-    ScintillaEditView *_pEditView;
-	ScintillaEditView *_pNonEditView;
+	ScintillaEditView _invisibleEditView; // for searches
+	ScintillaEditView _fileEditView;      // for FileManager
+    ScintillaEditView* _pEditView = nullptr;
+	ScintillaEditView* _pNonEditView = nullptr;
 
-    SplitterContainer *_pMainSplitter;
+    SplitterContainer* _pMainSplitter = nullptr;
     SplitterContainer _subSplitter;
 
-    ContextMenu _tabPopupMenu, _tabPopupDropMenu, _fileSwitcherMultiFilePopupMenu;
+    ContextMenu _tabPopupMenu;
+	ContextMenu _tabPopupDropMenu;
+	ContextMenu _fileSwitcherMultiFilePopupMenu;
 
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
 
     StatusBar _statusBar;
-	bool _toReduceTabBar;
+	bool _toReduceTabBar = false;
 	ReBar _rebarTop;
 	ReBar _rebarBottom;
 
@@ -361,9 +356,9 @@ private:
 	//vector<iconLocator> _customIconVect;
 
 	WindowsMenu _windowsMenu;
-	HMENU _mainMenuHandle;
+	HMENU _mainMenuHandle = NULL;
 
-	bool _sysMenuEntering;
+	bool _sysMenuEntering = false;
 
 
 	// For FullScreen/PostIt features
@@ -373,43 +368,42 @@ private:
 
 	// Keystroke macro recording and playback
 	Macro _macro;
-	bool _recordingMacro;
+	bool _recordingMacro = false;
 	RunMacroDlg _runMacroDlg;
 
 	// For hotspot
-	bool _linkTriggered;
-	bool _isHotspotDblClicked;
-	bool _isFolding;
+	bool _linkTriggered = true;
+	bool _isHotspotDblClicked = false;
+	bool _isFolding = false;
 
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;
 
-	struct ActivateAppInfo
+	struct ActivateAppInfo final
 	{
-		bool _isActivated;
-		int _x;
-		int _y;
-		ActivateAppInfo() : _isActivated(false), _x(0), _y(0){};
+		bool _isActivated = false;
+		int _x = 0;
+		int _y = 0;
 	}
 	_activeAppInf;
 
 	//Synchronized Scolling
 
-	struct SyncInfo
+	struct SyncInfo final
 	{
-		int _line;
-		int _column;
-		bool _isSynScollV;
-		bool _isSynScollH;
-		SyncInfo():_line(0), _column(0), _isSynScollV(false), _isSynScollH(false){};
-		bool doSync() const {return (_isSynScollV || _isSynScollH); };
+		int _line = 0;
+		int _column = 0;
+		bool _isSynScollV = false;
+		bool _isSynScollH = false;
+
+		bool doSync() const {return (_isSynScollV || _isSynScollH); }
 	}
 	_syncInfo;
 
-	bool _isUDDocked;
+	bool _isUDDocked = false;
 
-	trayIconControler *_pTrayIco;
-	int _zoomOriginalValue;
+	trayIconControler* _pTrayIco = nullptr;
+	int _zoomOriginalValue = 0;
 
 	Accelerator _accelerator;
 	ScintillaAccelerator _scintaccelerator;
@@ -417,30 +411,30 @@ private:
 	PluginsManager _pluginsManager;
     ButtonDlg _restoreButton;
 
-	bool _isFileOpening;
-	bool _isAdministrator;
+	bool _isFileOpening = false;
+	bool _isAdministrator = false;
 
 	ScintillaCtrls _scintillaCtrls4Plugins;
 
 	std::vector<std::pair<int, int> > _hideLinesMarks;
 	StyleArray _hotspotStyles;
 
-	AnsiCharPanel *_pAnsiCharPanel;
-	ClipboardHistoryPanel *_pClipboardHistoryPanel;
-	VerticalFileSwitcher *_pFileSwitcherPanel;
-	ProjectPanel *_pProjectPanel_1;
-	ProjectPanel *_pProjectPanel_2;
-	ProjectPanel *_pProjectPanel_3;
+	AnsiCharPanel* _pAnsiCharPanel = nullptr;
+	ClipboardHistoryPanel* _pClipboardHistoryPanel = nullptr;
+	VerticalFileSwitcher* _pFileSwitcherPanel = nullptr;
+	ProjectPanel* _pProjectPanel_1 = nullptr;
+	ProjectPanel* _pProjectPanel_2 = nullptr;
+	ProjectPanel* _pProjectPanel_3 = nullptr;
 
-	DocumentMap *_pDocMap;
-	FunctionListPanel *_pFuncList;
+	DocumentMap* _pDocMap = nullptr;
+	FunctionListPanel* _pFuncList = nullptr;
 
 	BOOL notify(SCNotification *notification);
 	void command(int id);
 
 //Document management
-	UCHAR _mainWindowStatus;	//For 2 views and user dialog if docked
-	int _activeView;
+	UCHAR _mainWindowStatus = 0; //For 2 views and user dialog if docked
+	int _activeView = MAIN_VIEW;
 
 	//User dialog docking
 	void dockUserDlg();
@@ -506,9 +500,7 @@ private:
 
 	generic_string getLangDesc(LangType langType, bool getName = false);
 
-	void setLangStatus(LangType langType){
-		_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
-	}
+	void setLangStatus(LangType langType);
 
 	void setDisplayFormat(formatType f);
 	int getCmdIDFromEncoding(int encoding) const;

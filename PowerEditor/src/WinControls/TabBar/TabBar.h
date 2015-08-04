@@ -147,8 +147,10 @@ class TabBarPlus : public TabBar
 {
 public :
 
-	TabBarPlus() : TabBar(), _isDragging(false), _tabBarDefaultProc(NULL), _currentHoverTabItem(-1),\
-		_isCloseHover(false), _whichCloseClickDown(-1), _lmbdHit(false), _tooltips(NULL) {};
+    // CHANGE_MOD: added new members to init list with default values, also removed a trailing backslash
+	TabBarPlus() : TabBar(), _isDragging(false), _tabBarDefaultProc(NULL), _currentHoverTabItem(-1),
+        _isCloseHover(false), _whichCloseClickDown(-1), _lmbdHit(false), _tooltips(NULL),
+        _wheelDelta(0), _tabScrollIndex(-1) {};
 	enum tabColourIndex {
 		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
 	};
@@ -230,6 +232,10 @@ protected:
 	bool _isDraggingInside;
     int _nSrcTab;
 	int _nTabDragged;
+	// CHANGE_MOD: added members for tracking mouse wheel movement for scrolling the tab bar
+	short _wheelDelta; // non-static to allow clean-up when not needed and they only pertain to this instance
+	int _tabScrollIndex;
+
 	POINT _draggingPoint; // coordinate of Screen
 	WNDPROC _tabBarDefaultProc;
 

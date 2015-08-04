@@ -421,6 +421,72 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
+        // CHANGE_MOD: added tab bar scrolling capabilities (similar to Firefox tab scrolling), see comments below
+        case WM_MOUSEWHEEL :
+        {
+            /* NOTES: added case for WM_MOUSEWHEEL to catch if a mouse scroll event happened within the
+            tab bar to allow scrolling of the tabs if they extend past their visible range. Similar to
+            Firefox's tab scroll capability.
+            
+            The modification below allows the tab view to be scrolled left/up and right/down based on view
+            (vertical/horizontal). For horizontal layout, tabs scroll left when mouse wheel is scrolled up,
+            and scroll right when the wheel is scrolled down, this is similar to how the tab scroll in
+            Firefox works; in vertical tab view layout, scrolling up, will scroll the tabs up, and scrolling
+            down will scroll the tabs down.
+            
+            The scrolling only happens if you are not in multi-line mode and if you actually have something
+            to scroll (the little arrow box shows up when the window size is decreased or you open a lot of tabs).
+            
+            In addition, you can CTRL + scroll to do similar functionality as 'Previous Tab' and 'Next Tab'
+            based on scroll direction. Scrolling up while holding CTRL yields 'Previous Tab' and scrolling down
+            while holding CTRL is `Next Tab`. This CTRL + scroll functionality happens regardless of orientation
+            or multi-line mode as it's doing a simple buffer switch.
+            
+            Holding SHIFT + scroll will switch to the first or last document in your open tabs, based on direction
+            scrolling. Scroll up and the first document will be selected, scroll down and the last will be selected.
+            */
+            if (!_isDragging)
+            {
+                /* our wParam option stores the WHEEL_DELTA information, which we could use to get more finite
+                resolutions, but we are scrolling a tab bar and just need to know the direction of the wheel. */
+                bool isup = (((short)HIWORD(wParam)) < 0);
+                // could add option: if (_isInverse) { isup = !isup; }
+                int maxtab = ::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) -1; // tab count (can't scroll past max)
+                if (wParam & (MK_CONTROL | MK_SHIFT))
+                {
+                    int index = (isup ? maxtab : 0);
+                    // CTRL overrides SHIFT if both are pressed
+                    if (wParam & MK_CONTROL)
+                    {
+                        // CTRL is being held while mouse wheel, do prev/next doc
+                        index = ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0) + (isup ? 1 : -1);
+                        if (index > maxtab) { index = 0; } // if the tab switching to is the last/first, then go to
+                        if (index < 0) { index = maxtab; } // the other end based on position (i.e. scroll wrapping)
+                    }
+                    ::SendMessage(_hSelf, TCM_SETCURFOCUS, index, 0);
+                }
+                else if (!_isMultiLine) // don't do the scroll if in mult-line mode
+                {
+                    RECT last, ctrl;
+                    ::SendMessage(_hSelf, TCM_GETITEMRECT, (WPARAM)maxtab, (LPARAM)&last);
+                    ::GetClientRect(_hSelf, &ctrl);
+                    /* is the last tab in our list "visible"? */
+                    if ((_isVertical ? ((ctrl.bottom - last.bottom) < 3) : ((ctrl.right - last.right) < 10)) || !isup) {
+                        /* only do the "scroll" if we can, otherwise, save scroll index to avoid 'magic' scroll
+                        (the tabs "magically" appear scrolled all the way one direction or another) */
+                        if (isup) { ++_tabScrollIndex; } else { --_tabScrollIndex; }
+                        if (_tabScrollIndex > maxtab) { _tabScrollIndex = maxtab; }
+                        if (_tabScrollIndex < 0) { _tabScrollIndex = 0; }
+                         // SB_THUMBPOSITION == where we're scrolling
+                        ::SendMessage(_hSelf, WM_HSCROLL, MAKEWPARAM(SB_THUMBPOSITION, _tabScrollIndex), 0);
+                        // SB_ENDSCROLL == stop scrolling on the max tab index we can scroll to left or right
+                        ::SendMessage(_hSelf, WM_HSCROLL, MAKEWPARAM(SB_ENDSCROLL, (isup ? 0 : maxtab)), 0);
+                    }
+                }
+            }
+            return TRUE;
+        }
+
 		case WM_LBUTTONDOWN :
 		{
 			if (_drawTabCloseButton)

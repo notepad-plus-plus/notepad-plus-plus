@@ -234,7 +234,8 @@ int GetColOfMouse(int SI,int x)
 
 BOOL OutOfRange(_BGCELL *cell)
     {
-      if((cell->row > MAX_ROWS)||(cell->col > MAX_COLS))
+        // CHANGE_MOD: added check, if cell row/col <0 to avoid getting -1 for row/col
+        if ((cell->row > MAX_ROWS) || (cell->col > MAX_COLS) || (cell->row < 0) || (cell->col < 0))
           {return TRUE;}
       else
           {return FALSE;}
@@ -1858,10 +1859,12 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 
         case BGM_GETROW:
-              ReturnValue = BGHS[SelfIndex].cursorrow;
+              // CHANGE_MOD: if rows == 0, return -1 (not 0 since n-1)
+              ReturnValue = ((BGHS[SelfIndex].rows > 0) ? BGHS[SelfIndex].cursorrow : -1);
             break;
         case BGM_GETCOL:
-              ReturnValue = BGHS[SelfIndex].cursorcol;
+              // CHANGE_MOD: if cols == 0, return -1 (not 0 since n-1)
+              ReturnValue = ((BGHS[SelfIndex].cols > 0) ? BGHS[SelfIndex].cursorcol : -1);
             break;
 
 		case BGM_GETTYPE:
@@ -3112,7 +3115,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
      if(lbcount < 12)
          {
           //not worth doing binary search, do regular search
-			 FindResult = SendMessage(lbhWnd,LB_FINDSTRING,(unsigned int)-1,(LPARAM) searchtext);
+          FindResult = SendMessage(lbhWnd,LB_FINDSTRING,(unsigned int)-1,(LPARAM) searchtext);
           ReturnValue = FindResult;
           return ReturnValue;
          }

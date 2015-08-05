@@ -2906,7 +2906,7 @@ size_t Notepad_plus::getSelectedBytes()
 int Notepad_plus::wordCount()
 {
     FindOption env;
-    env._str2Search = TEXT("[^ 	\\\\.,;:!?()+\\-\\*/=\\]\\[{}&~\"'`|@$%<>\\^]+");
+    env._str2Search = TEXT("[^ 	\\\\.,;:!?()+\\r\\n\\-\\*/=\\]\\[{}&~\"'`|@$%<>\\^]+");
     env._searchType = FindRegex;
     return _findReplaceDlg.processAll(ProcessCountAll, &env, true);
 }

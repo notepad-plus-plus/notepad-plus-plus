@@ -1510,6 +1510,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			    const NppGUI & nppgui = pNppParam->getNppGUI();
 				
 				bool isSnapshotMode = nppgui.isSnapshotMode();
+
+				if (isSnapshotMode)
+					::LockWindowUpdate(_pPublicInterface->getHSelf());
+
 				if (isSnapshotMode)
 					MainFileManager->backupCurrentBuffer();
 
@@ -1589,9 +1593,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					}
 				}
 
+				if (not isSnapshotMode)
+					::LockWindowUpdate(_pPublicInterface->getHSelf());
+
                 //Sends WM_DESTROY, Notepad++ will end
-				if(Message == WM_CLOSE)
+				if (Message == WM_CLOSE)
 					::DestroyWindow(hwnd);
+
+				::LockWindowUpdate(NULL);
 			}
 			return TRUE;
 		}

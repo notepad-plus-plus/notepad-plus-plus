@@ -654,8 +654,8 @@
                 </DefaultDir>
 
                 <FileAssoc title="File Association">
-                    <Item id="4009" name="Supported exts:"/>
-                    <Item id="4010" name="Registered exts:"/>
+                    <Item id="4009" name="Supported extensions:"/>
+                    <Item id="4010" name="Registered extensions:"/>
                 </FileAssoc>
                 <LangMenu title="Language Menu">
                     <Item id="6505" name="Available items"/>

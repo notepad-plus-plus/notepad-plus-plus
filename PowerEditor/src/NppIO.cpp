@@ -37,10 +37,11 @@
 
 using namespace std;
 
-BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
+BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
-
-	const rsize_t longFileNameBufferSize = MAX_PATH;
+	const rsize_t longFileNameBufferSize = MAX_PATH; // TODO stop using fixed-size buffer
+	if (fileName.size() >= longFileNameBufferSize - 1) // issue with all other sub-routines
+		return BUFFER_INVALID;
 
 	//If [GetFullPathName] succeeds, the return value is the length, in TCHARs, of the string copied to lpBuffer, not including the terminating null character.
 	//If the lpBuffer buffer is too small to contain the path, the return value [of GetFullPathName] is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.
@@ -49,7 +50,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     NppParameters *pNppParam = NppParameters::getInstance();
     TCHAR longFileName[longFileNameBufferSize];
 
-    const DWORD getFullPathNameResult = ::GetFullPathName(fileName, longFileNameBufferSize, longFileName, NULL);
+    const DWORD getFullPathNameResult = ::GetFullPathName(fileName.c_str(), longFileNameBufferSize, longFileName, NULL);
 	if ( getFullPathNameResult == 0 )
 	{
 		return BUFFER_INVALID;
@@ -66,14 +67,14 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(longFileName)) // UNTITLED
 	{
-		lstrcpy(longFileName, fileName);
+		lstrcpy(longFileName, fileName.c_str());
 	}
 
 
     _lastRecentFileList.remove(longFileName);
 
-    const TCHAR * fileName2Find;
-    generic_string gs_fileName = fileName;
+    generic_string fileName2Find;
+	generic_string gs_fileName{fileName};
     size_t res = gs_fileName.find_first_of(UNTITLED_STR);
 
     if (res != string::npos && res == 0)
@@ -85,7 +86,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
         fileName2Find = longFileName;
     }
 
-    BufferID test = MainFileManager->getBufferFromName(fileName2Find);
+    BufferID test = MainFileManager->getBufferFromName(fileName2Find.c_str());
     if (test != BUFFER_INVALID && !isSnapshotMode)
     {
         //switchToFile(test);
@@ -248,14 +249,14 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     }
     else
     {
-        if (globbing || ::PathIsDirectory(fileName))
+        if (globbing || ::PathIsDirectory(fileName.c_str()))
         {
             vector<generic_string> fileNames;
             vector<generic_string> patterns;
             if (globbing)
             {
-                const TCHAR * substring = wcsrchr(fileName, TCHAR('\\'));
-                size_t pos = substring - fileName;
+                const TCHAR * substring = wcsrchr(fileName.c_str(), TCHAR('\\'));
+                size_t pos = substring - fileName.c_str();
 
                 patterns.push_back(substring + 1);
                 generic_string dir(fileName, pos + 1);
@@ -264,7 +265,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
             else
             {
                 generic_string fileNameStr = fileName;
-                if (fileName[lstrlen(fileName) - 1] != '\\')
+                if (fileName[fileName.size() - 1] != '\\')
                     fileNameStr += TEXT("\\");
 
                 patterns.push_back(TEXT("*"));
@@ -277,19 +278,17 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
             if (nbFiles2Open > 200)
             {
                 ok2Open = IDYES == _nativeLangSpeaker.messageBox("NbFileToOpenImportantWarning",
-                                                _pPublicInterface->getHSelf(),
-                                                TEXT("$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"),
-                                                TEXT("Amount of files to open is too large"),
-                                                MB_YESNO|MB_APPLMODAL,
-                                                nbFiles2Open);
+					_pPublicInterface->getHSelf(),
+                    TEXT("$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"),
+                    TEXT("Amount of files to open is too large"),
+                    MB_YESNO|MB_APPLMODAL,
+                    nbFiles2Open);
             }
 
             if (ok2Open)
             {
                 for (size_t i = 0 ; i < nbFiles2Open ; ++i)
-                {
-                    doOpen(fileNames[i].c_str());
-                }
+                    doOpen(fileNames[i]);
             }
         }
         else
@@ -312,6 +311,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     }
     return buffer;
 }
+
 
 bool Notepad_plus::doReload(BufferID id, bool alert)
 {

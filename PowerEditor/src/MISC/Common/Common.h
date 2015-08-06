@@ -29,6 +29,7 @@
 #include <string>
 #include <windows.h>
 #include <iso646.h>
+#include <cstdint>
 
 
 const bool dirUp = true;

@@ -29,14 +29,51 @@
 #include <windows.h>
 #include "StaticDialog.h"
 
+
+
+StaticDialog::~StaticDialog()
+{
+	if (isCreated())
+	{
+		// Prevent run_dlgProc from doing anything, since its virtual
+		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR) NULL);
+		destroy();
+	}
+}
+
+
+void StaticDialog::destroy()
+{
+	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_hSelf);
+	::DestroyWindow(_hSelf);
+}
+
+
+POINT StaticDialog::getTopPoint(HWND hwnd, bool isLeft) const
+{
+	RECT rc;
+	::GetWindowRect(hwnd, &rc);
+
+	POINT p;
+	if (isLeft)
+		p.x = rc.left;
+	else
+		p.x = rc.right;
+
+	p.y = rc.top;
+	::ScreenToClient(_hSelf, &p);
+	return p;
+}
+
+
 void StaticDialog::goToCenter()
 {
-    RECT rc;
-    ::GetClientRect(_hParent, &rc);
-    POINT center;
-    center.x = rc.left + (rc.right - rc.left)/2;
-    center.y = rc.top + (rc.bottom - rc.top)/2;
-    ::ClientToScreen(_hParent, &center);
+	RECT rc;
+	::GetClientRect(_hParent, &rc);
+	POINT center;
+	center.x = rc.left + (rc.right - rc.left)/2;
+	center.y = rc.top + (rc.bottom - rc.top)/2;
+	::ClientToScreen(_hParent, &center);
 
 	int x = center.x - (_rc.right - _rc.left)/2;
 	int y = center.y - (_rc.bottom - _rc.top)/2;
@@ -47,7 +84,8 @@ void StaticDialog::goToCenter()
 
 void StaticDialog::display(bool toShow) const
 {
-	if (toShow) {
+	if (toShow)
+	{
 		// If the user has switched from a dual monitor to a single monitor since we last
 		// displayed the dialog, then ensure that it's still visible on the single monitor.
 		RECT workAreaRect = {0};
@@ -57,6 +95,7 @@ void StaticDialog::display(bool toShow) const
 		int newLeft = rc.left;
 		int newTop = rc.top;
 		int margin = ::GetSystemMetrics(SM_CYSMCAPTION);
+
 		if (newLeft > ::GetSystemMetrics(SM_CXVIRTUALSCREEN)-margin)
 			newLeft -= rc.right - workAreaRect.right;
 		if (newLeft + (rc.right - rc.left) < ::GetSystemMetrics(SM_XVIRTUALSCREEN)+margin)
@@ -131,22 +170,23 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 	::SendMessage(msgDestParent?_hParent:(::GetParent(_hParent)), NPPM_MODELESSDIALOG, MODELESSDIALOGADD, (WPARAM)_hSelf);
 }
 
+
 INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			StaticDialog *pStaticDlg = (StaticDialog *)(lParam);
 			pStaticDlg->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)lParam);
 			::GetWindowRect(hwnd, &(pStaticDlg->_rc));
-            pStaticDlg->run_dlgProc(message, wParam, lParam);
+			pStaticDlg->run_dlgProc(message, wParam, lParam);
 
 			return TRUE;
 		}
 
-		default :
+		default:
 		{
 			StaticDialog *pStaticDlg = reinterpret_cast<StaticDialog *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 			if (!pStaticDlg)
@@ -158,34 +198,39 @@ INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, L
 
 void StaticDialog::alignWith(HWND handle, HWND handle2Align, PosAlign pos, POINT & point)
 {
-    RECT rc, rc2;
-    ::GetWindowRect(handle, &rc);
+	RECT rc, rc2;
+	::GetWindowRect(handle, &rc);
 
-    point.x = rc.left;
-    point.y = rc.top;
+	point.x = rc.left;
+	point.y = rc.top;
 
-    switch (pos)
-    {
-        case ALIGNPOS_LEFT :
-            ::GetWindowRect(handle2Align, &rc2);
-            point.x -= rc2.right - rc2.left;
-            break;
+	switch (pos)
+	{
+		case PosAlign::left:
+		{
+			::GetWindowRect(handle2Align, &rc2);
+			point.x -= rc2.right - rc2.left;
+			break;
+		}
+		case PosAlign::right:
+		{
+			::GetWindowRect(handle, &rc2);
+			point.x += rc2.right - rc2.left;
+			break;
+		}
+		case PosAlign::top:
+		{
+			::GetWindowRect(handle2Align, &rc2);
+			point.y -= rc2.bottom - rc2.top;
+			break;
+		}
+		case PosAlign::bottom:
+		{
+			::GetWindowRect(handle, &rc2);
+			point.y += rc2.bottom - rc2.top;
+			break;
+		}
+	}
 
-        case ALIGNPOS_RIGHT :
-            ::GetWindowRect(handle, &rc2);
-            point.x += rc2.right - rc2.left;
-            break;
-
-        case ALIGNPOS_TOP :
-            ::GetWindowRect(handle2Align, &rc2);
-            point.y -= rc2.bottom - rc2.top;
-            break;
-
-        default : //ALIGNPOS_BOTTOM
-            ::GetWindowRect(handle, &rc2);
-            point.y += rc2.bottom - rc2.top;
-            break;
-    }
-
-    ::ScreenToClient(_hSelf, &point);
+	::ScreenToClient(_hSelf, &point);
 }

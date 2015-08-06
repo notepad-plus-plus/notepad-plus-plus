@@ -33,7 +33,13 @@
 class Window
 {
 public:
+	//! \name Constructors & Destructor
+	//@{
+	Window() = default;
+	Window(const Window&) = delete;
 	virtual ~Window() = default;
+	//@}
+
 
 	virtual void init(HINSTANCE hInst, HWND parent)
 	{
@@ -121,6 +127,9 @@ public:
 		//assert(_hInst != 0);
 		return _hInst;
 	}
+
+
+	Window& operator = (const Window&) = delete;
 
 
 protected:

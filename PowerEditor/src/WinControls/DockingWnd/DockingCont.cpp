@@ -86,6 +86,11 @@ DockingCont::DockingCont()
 	_hoverMPos			= posClose;
 	_bDrawOgLine		= TRUE;
 	_vTbData.clear();
+
+	_captionHeightDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_captionHeightDynamic);
+	_captionGapDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_captionGapDynamic);
+	_closeButtonPosLeftDynamic = NppParameters::getInstance()->_dpiManager.scaleX(_closeButtonPosLeftDynamic);
+	_closeButtonPosTopDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_closeButtonPosTopDynamic);
 }
 
 DockingCont::~DockingCont()
@@ -533,7 +538,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 		// draw text
 		rc.left		+= 1;
-		rc.top		+= HIGH_CAPTION;
+		rc.top += _captionHeightDynamic;
 		// to make ellipsis working
 		rc.right	= rc.bottom - rc.top;
 		rc.bottom	+= 14;
@@ -577,9 +582,9 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	::SelectObject(hDc, hBmpNew);
 
 	if (_isTopCaption == TRUE)
-		::BitBlt(hDc, rc.right-bmp.bmWidth-CLOSEBTN_POS_LEFT, CLOSEBTN_POS_TOP, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
+		::BitBlt(hDc, rc.right - bmp.bmWidth - _closeButtonPosLeftDynamic, _closeButtonPosTopDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
 	else
-		::BitBlt(hDc, CLOSEBTN_POS_LEFT, CLOSEBTN_POS_LEFT, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
+		::BitBlt(hDc, _closeButtonPosLeftDynamic, _closeButtonPosLeftDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
 
 	::SelectObject(dcMem, hBmpOld);
 	::DeleteObject(hBmpCur);
@@ -599,24 +604,24 @@ eMousePos DockingCont::isInRect(HWND hwnd, int x, int y)
 
 	if (_isTopCaption == TRUE)
 	{
-		if ((x > rc.left) && (x < rc.right-HIGH_CAPTION) && (y > rc.top) && (y < rc.bottom))
+		if ((x > rc.left) && (x < rc.right - _captionHeightDynamic) && (y > rc.top) && (y < rc.bottom))
 		{
 			ret = posCaption;
 		}
-		else if ((x > rc.right-(12+CLOSEBTN_POS_LEFT)) && (x < (rc.right-CLOSEBTN_POS_LEFT)) && 
-			(y > (rc.top+CLOSEBTN_POS_TOP)) && (y < (rc.bottom-CLOSEBTN_POS_TOP)))
+		else if ((x > rc.right - (12 + _closeButtonPosLeftDynamic)) && (x < (rc.right - _closeButtonPosLeftDynamic)) &&
+			(y >(rc.top + _closeButtonPosTopDynamic)) && (y < (rc.bottom - _closeButtonPosTopDynamic)))
 		{
 			ret = posClose;
 		}
 	}
 	else
 	{
-		if ((x > rc.left) && (x < rc.right) && (y > rc.top+HIGH_CAPTION) && (y < rc.bottom))
+		if ((x > rc.left) && (x < rc.right) && (y > rc.top + _captionHeightDynamic) && (y < rc.bottom))
 		{
 			ret = posCaption;
 		}
-		else if ((x > rc.left+CLOSEBTN_POS_LEFT) && (x < rc.right-CLOSEBTN_POS_LEFT) && 
-			(y > (rc.top+CLOSEBTN_POS_TOP)) && (y < (rc.top+(12+CLOSEBTN_POS_LEFT))))
+		else if ((x > rc.left + _closeButtonPosLeftDynamic) && (x < rc.right - _closeButtonPosLeftDynamic) &&
+			(y >(rc.top + _closeButtonPosTopDynamic)) && (y < (rc.top + (12 + _closeButtonPosLeftDynamic))))
 		{
 			ret = posClose;
 		}
@@ -1023,15 +1028,15 @@ void DockingCont::onSize()
 			// draw caption
 			if (_isTopCaption == TRUE)
 			{
-				::SetWindowPos(_hCaption, NULL, rc.left, rc.top, rc.right, HIGH_CAPTION, SWP_NOZORDER | SWP_NOACTIVATE);
-				rc.top		+= HIGH_CAPTION;
-				rc.bottom	-= HIGH_CAPTION;
+				::SetWindowPos(_hCaption, NULL, rc.left, rc.top, rc.right, _captionHeightDynamic, SWP_NOZORDER | SWP_NOACTIVATE);
+				rc.top += _captionHeightDynamic;
+				rc.bottom -= _captionHeightDynamic;
 			}
 			else
 			{
-				::SetWindowPos(_hCaption, NULL, rc.left, rc.top, HIGH_CAPTION, rc.bottom, SWP_NOZORDER | SWP_NOACTIVATE);
-				rc.left		+= HIGH_CAPTION;
-				rc.right	-= HIGH_CAPTION;
+				::SetWindowPos(_hCaption, NULL, rc.left, rc.top, _captionHeightDynamic, rc.bottom, SWP_NOZORDER | SWP_NOACTIVATE);
+				rc.left += _captionHeightDynamic;
+				rc.right -= _captionHeightDynamic;
 			}
 
 			if (iItemCnt >= 2)
@@ -1039,7 +1044,7 @@ void DockingCont::onSize()
 				// resize tab and plugin control if tabs exceeds one
 				// resize tab
 				rcTemp = rc;
-				rcTemp.top		= (rcTemp.bottom + rcTemp.top) - (tabDpiDynamicalHeight + CAPTION_GAP);
+				rcTemp.top = (rcTemp.bottom + rcTemp.top) - (tabDpiDynamicalHeight + _captionGapDynamic);
 				rcTemp.bottom	= tabDpiDynamicalHeight;
 				iTabOff			= tabDpiDynamicalHeight;
 
@@ -1052,13 +1057,13 @@ void DockingCont::onSize()
 			rcTemp = rc;
 			if (_isTopCaption == TRUE)
 			{
-				rcTemp.top    += CAPTION_GAP;
-				rcTemp.bottom -= (iTabOff + CAPTION_GAP);
+				rcTemp.top += _captionGapDynamic;
+				rcTemp.bottom -= (iTabOff + _captionGapDynamic);
 			}
 			else
 			{
-				rcTemp.left   += CAPTION_GAP;
-				rcTemp.right  -= CAPTION_GAP;
+				rcTemp.left += _captionGapDynamic;
+				rcTemp.right -= _captionGapDynamic;
 				rcTemp.bottom -= iTabOff;
 			}
 
@@ -1084,7 +1089,7 @@ void DockingCont::onSize()
 			{
 				// resize tab if size of elements exceeds one
 				rcTemp = rc;
-				rcTemp.top    = rcTemp.bottom - (tabDpiDynamicalHeight + CAPTION_GAP);
+				rcTemp.top = rcTemp.bottom - (tabDpiDynamicalHeight + _captionGapDynamic);
 				rcTemp.bottom = tabDpiDynamicalHeight;
 
 				::SetWindowPos(_hContTab, NULL,

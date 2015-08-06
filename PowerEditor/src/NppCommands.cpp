@@ -2154,7 +2154,7 @@ void Notepad_plus::command(int id)
 					MB_OK|MB_APPLMODAL);
 			}
             NppParameters *pNppParams = NppParameters::getInstance();
-            BufferID bufID = doOpen((pNppParams->getContextMenuPath()).c_str());
+            BufferID bufID = doOpen((pNppParams->getContextMenuPath()));
 			switchToFile(bufID);
             break;
         }
@@ -2472,7 +2472,7 @@ void Notepad_plus::command(int id)
 			int size = _lastRecentFileList.getSize();
 			for (int i = size - 1; i >= 0; i--)
 			{
-				BufferID test = doOpen(_lastRecentFileList.getIndex(i).c_str());
+				BufferID test = doOpen(_lastRecentFileList.getIndex(i));
 				if (test != BUFFER_INVALID)
 					lastOne = test;
 			}
@@ -2570,13 +2570,11 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_RESTORELASTCLOSEDFILE:
 		{
 			generic_string lastOpenedFullPath = _lastRecentFileList.getFirstItem();
-			if (lastOpenedFullPath != TEXT(""))
+			if (not lastOpenedFullPath.empty())
 			{
-				BufferID lastOpened = doOpen(lastOpenedFullPath.c_str());
+				BufferID lastOpened = doOpen(lastOpenedFullPath);
 				if (lastOpened != BUFFER_INVALID)
-				{
 					switchToFile(lastOpened);
-				}
 			}
 		}
 		break;
@@ -2667,7 +2665,7 @@ void Notepad_plus::command(int id)
 		default :
 			if (id > IDM_FILEMENU_LASTONE && id < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1))
 			{
-				BufferID lastOpened = doOpen(_lastRecentFileList.getItem(id).c_str());
+				BufferID lastOpened = doOpen(_lastRecentFileList.getItem(id));
 				if (lastOpened != BUFFER_INVALID)
 				{
 					switchToFile(lastOpened);

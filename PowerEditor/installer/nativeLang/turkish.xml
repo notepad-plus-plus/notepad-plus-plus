@@ -357,9 +357,9 @@
 			 	<Item id="1658" name="Tüm alt klasörlerde" />
 			 	<Item id="1659" name="Gizli klasörlerde" />
 			 	<Item id="1624" name="Arama Modu" />
-			 	<Item id="1625" name="&amp;Normal" />
-			 	<Item id="1626" name="&amp;Genişletilmiş (\n, \r, \t, \0, \x, …)" />
-			 	<Item id="1660" name="Dosyalarda Değiştir" />
+				<Item id="1625" name="&amp;Normal" />
+				<Item id="1626" name="&amp;Genişletilmiş (\r, \n, \t, \x..., \0)" />
+				<Item id="1660" name="Dosyalarda Değiştir" />
 				<Item id="1661" name="Geçerli belgeyi takip et" />
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul" />
 			 	<Item id="1686" name="Saydamlaştır" />

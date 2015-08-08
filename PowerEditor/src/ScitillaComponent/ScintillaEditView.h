@@ -764,7 +764,11 @@ protected:
 	};
 
 	void setFortranLexer() {
-		setLexer(SCLEX_F77, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_FORTRAN, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
+	};
+
+	void setFortran77Lexer() {
+		setLexer(SCLEX_F77, L_FORTRAN_77, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setLispLexer(){

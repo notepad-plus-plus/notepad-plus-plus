@@ -2443,6 +2443,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_INI :
         case IDM_LANG_TEX :
         case IDM_LANG_FORTRAN :
+		case IDM_LANG_FORTRAN_77 :
         case IDM_LANG_BASH :
         case IDM_LANG_FLASH :
 		case IDM_LANG_NSIS :

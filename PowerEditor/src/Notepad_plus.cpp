@@ -2626,6 +2626,8 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_TEX;
         case IDM_LANG_FORTRAN :
             return L_FORTRAN;
+		case IDM_LANG_FORTRAN_77 :
+			return L_FORTRAN_77;
         case IDM_LANG_BASH :
             return L_BASH;
         case IDM_LANG_FLASH :
@@ -3786,7 +3788,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		TCHAR* linebuf = new TCHAR[linebufferSize];
 
 		Lang *lang = _pEditView->getCurrentBuffer()->getCurrentLang();
-		bool isFortran = lang == NULL?false:lang->_langID == L_FORTRAN;
+		bool isFortran = lang == NULL?false:lang->_langID == L_FORTRAN_77;
 		if (!isFortran)
 			lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
 		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);

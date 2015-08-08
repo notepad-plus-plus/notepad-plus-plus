@@ -738,7 +738,11 @@ BEGIN
         MENUITEM "D",                     IDM_LANG_D
         MENUITEM "Diff",                  IDM_LANG_DIFF
     END
-	MENUITEM "Fortran",                   IDM_LANG_FORTRAN
+    POPUP "F"
+    BEGIN
+        MENUITEM "Fortran (free form)",   IDM_LANG_FORTRAN
+        MENUITEM "Fortran (fixed form)",  IDM_LANG_FORTRAN_77
+    END
     MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
     POPUP "H"
     BEGIN

@@ -103,7 +103,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("python"),		TEXT("Python"),				TEXT("Python file"),									L_PYTHON,		SCLEX_PYTHON},
 {TEXT("lua"),			TEXT("Lua"),				TEXT("Lua source File"),								L_LUA,			SCLEX_LUA},
 {TEXT("tex"),			TEXT("TeX"),				TEXT("TeX file"),										L_TEX,			SCLEX_TEX},
-{TEXT("fortran"),		TEXT("Fortran"),			TEXT("Fortran source file"),							L_FORTRAN,		SCLEX_FORTRAN},
+{TEXT("fortran"),		TEXT("Fortran"),			TEXT("Fortran free form source file"),					L_FORTRAN,		SCLEX_FORTRAN},
 {TEXT("bash"),			TEXT("Shell"),				TEXT("Unix script file"),								L_BASH,			SCLEX_BASH},
 {TEXT("actionscript"),	TEXT("Flash Action"),		TEXT("Flash Action script file"),						L_FLASH,		SCLEX_CPP},//WARNING, was "flash"
 {TEXT("nsis"),			TEXT("NSIS"),				TEXT("Nullsoft Scriptable Install System script file"),	L_NSIS,			SCLEX_NSIS},
@@ -135,6 +135,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			SCLEX_R},
 {TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			SCLEX_HTML},
 {TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
+{TEXT("fortran77"),		TEXT("Fortran 77"),			TEXT("Fortran 77 fixed form source file"),				L_FORTRAN_77,	SCLEX_F77},
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -1288,6 +1289,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_FORTRAN : 
 			setFortranLexer(); break;
+
+		case L_FORTRAN_77 :
+			setFortran77Lexer(); break;
 
 		case L_LISP :
             setLispLexer(); break;

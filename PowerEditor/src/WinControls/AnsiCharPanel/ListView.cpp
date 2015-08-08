@@ -77,15 +77,15 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 	generic_string hexStr = pNativeSpeaker->getAttrNameStr(TEXT("Hex"), "AsciiInsertion", "ColumnHex");
 	generic_string charStr = pNativeSpeaker->getAttrNameStr(TEXT("Character"), "AsciiInsertion", "ColumnChar");
 
-	lvColumn.cx = 45;
+	lvColumn.cx = NppParameters::getInstance()->_dpiManager.scaleX(45);
 	lvColumn.pszText = (TCHAR *)valStr.c_str();
 	ListView_InsertColumn(_hSelf, 0, &lvColumn);
 
-	lvColumn.cx = 45;
+	lvColumn.cx = NppParameters::getInstance()->_dpiManager.scaleY(45);;
 	lvColumn.pszText = (TCHAR *)hexStr.c_str();
 	ListView_InsertColumn(_hSelf, 1, &lvColumn);
 
-	lvColumn.cx = 70;
+	lvColumn.cx = NppParameters::getInstance()->_dpiManager.scaleY(70);;
 	lvColumn.pszText = (TCHAR *)charStr.c_str();
 	ListView_InsertColumn(_hSelf, 2, &lvColumn);
 }

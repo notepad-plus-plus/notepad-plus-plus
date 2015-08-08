@@ -28,6 +28,7 @@
 
 
 #include "TreeView.h"
+#include "Parameters.h"
 
 #define CY_ITEMHEIGHT     18
 
@@ -47,7 +48,8 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
                             _hInst,
                             (LPVOID)0);
 
-	TreeView_SetItemHeight(_hSelf, CY_ITEMHEIGHT);
+	int itemHeight = NppParameters::getInstance()->_dpiManager.scaleY(CY_ITEMHEIGHT);
+	TreeView_SetItemHeight(_hSelf, itemHeight);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));

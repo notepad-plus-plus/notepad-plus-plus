@@ -37,28 +37,30 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 {
 	switch (message)
 	{
-        case WM_INITDIALOG :
+		case WM_INITDIALOG :
 		{
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
-			generic_string buildTime = TEXT("Build time : ");
 
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			buildTime +=  wmc->char2wchar(__DATE__, CP_ACP);
+			generic_string buildTime = TEXT("Build time: ");
+			buildTime += wmc->char2wchar(__DATE__, CP_ACP);
 			buildTime += TEXT(" - ");
-			buildTime +=  wmc->char2wchar(__TIME__, CP_ACP);
+			buildTime += wmc->char2wchar(__TIME__, CP_ACP);
+			buildTime += TEXT(" (v");
+			buildTime += VERSION_VALUE;
+			buildTime += TEXT(")");
 
 			::SendMessage(compileDateHandle, WM_SETTEXT, 0, (LPARAM)buildTime.c_str());
-			::EnableWindow(compileDateHandle, FALSE);
 
-            HWND licenceEditHandle = ::GetDlgItem(_hSelf, IDC_LICENCE_EDIT);
-            ::SendMessage(licenceEditHandle, WM_SETTEXT, 0, (LPARAM)LICENCE_TXT);
+			HWND licenceEditHandle = ::GetDlgItem(_hSelf, IDC_LICENCE_EDIT);
+			::SendMessage(licenceEditHandle, WM_SETTEXT, 0, (LPARAM)LICENCE_TXT);
 
-            _emailLink.init(_hInst, _hSelf);
+			_emailLink.init(_hInst, _hSelf);
 			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("mailto:don.h@free.fr"));
 			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/contributors"));
 
-            _pageLink.init(_hInst, _hSelf);
-            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/"));
+			_pageLink.init(_hInst, _hSelf);
+			_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/"));
 
 			getClientRect(_rc);
 

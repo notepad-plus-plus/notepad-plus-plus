@@ -212,9 +212,9 @@ void ToolBar::reduce()
 
 	int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD);
+	bool recreate = (_state == TB_STANDARD || _state == TB_LARGE);
 	setState(TB_SMALL);
-	reset(recreate);	//recreate toolbar if std icons were used
+	reset(recreate);	//recreate toolbar if previous state was Std icons or Big icons
 	Window::redraw();
 }
 
@@ -225,9 +225,9 @@ void ToolBar::enlarge()
 
 	int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD);
+	bool recreate = (_state == TB_STANDARD || _state == TB_SMALL);
 	setState(TB_LARGE);
-	reset(recreate);	//recreate toolbar if std icons were used
+	reset(recreate);	//recreate toolbar if previous state was Std icons or Small icons
 	Window::redraw();
 }
 

@@ -171,9 +171,12 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		throw std::exception("ScintillaEditView::init : SCINTILLA ERROR - Can not load the dynamic library");
 	}
 
+	int borderWidthPref = ((NppParameters::getInstance())->getSVP())._borderWidth,
+		styleWsExClientEdge = borderWidthPref > 0 ? WS_EX_CLIENTEDGE : 0;
+
 	Window::init(hInst, hPere);
-   _hSelf = ::CreateWindowEx(
-					WS_EX_CLIENTEDGE,\
+	_hSelf = ::CreateWindowEx(
+					styleWsExClientEdge,\
 					TEXT("Scintilla"),\
 					TEXT("Notepad++"),\
 					WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN | WS_EX_RTLREADING,\

@@ -224,4 +224,15 @@ void DocTabView::reSizeTo(RECT & rc)
 		rc.bottom -= (borderWidth * 2);
 		_pView->reSizeTo(rc);
 	}
+
+	//Control the border style of ScintillaEditView window, according to our border width value
+	static bool hasBorder = true;
+	if (borderWidth > 0 && !hasBorder) {
+		_pView->removeWindowBorder(false); //ScintillaEditView::removeWindowBorder
+		hasBorder = true;
+	}
+	else if (borderWidth == 0 && hasBorder) {
+		_pView->removeWindowBorder(true); //if we set borderWidth to 0, we want the editor window without any border
+		hasBorder = false;
+	}
 }

@@ -3281,6 +3281,8 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 	command += pX;
 	command += TEXT(" -y");
 	command += pY;
+	command += TEXT(" -l");
+	command += ScintillaEditView::langNames[buf->getLangType()].lexerName;
 
 	Command cmd(command);
 	cmd.run(_pPublicInterface->getHSelf());

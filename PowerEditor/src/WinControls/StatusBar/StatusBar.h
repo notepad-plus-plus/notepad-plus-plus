@@ -60,7 +60,6 @@ private:
 
 private:
     std::vector<int> _partWidthArray;
-    HLOCAL _hloc = NULL;
-    LPINT _lpParts = NULL;
+	int *_lpParts = nullptr;
 	generic_string _lastSetText;
 };

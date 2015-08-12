@@ -46,11 +46,8 @@ enum
 
 StatusBar::~StatusBar()
 {
-	if (NULL != _hloc)
-	{
-		::LocalUnlock(_hloc);
-		::LocalFree(_hloc);
-	}
+	if (_lpParts != nullptr)
+		delete[] _lpParts;
 }
 
 
@@ -62,7 +59,6 @@ void StatusBar::init(HINSTANCE /*hInst*/, HWND /*hPere*/)
 
 void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 {
-	assert(nbParts > 0);
 	Window::init(hInst, hPere);
     InitCommonControls();
 
@@ -84,8 +80,8 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 		_partWidthArray.resize(nbParts, (int) defaultPartWidth);
 
     // Allocate an array for holding the right edge coordinates.
-    _hloc = ::LocalAlloc(LHND, sizeof(int) * _partWidthArray.size());
-    _lpParts = (LPINT)::LocalLock(_hloc);
+	if (_partWidthArray.size())
+		_lpParts = new int[_partWidthArray.size()];
 
 	RECT rc;
 	::GetClientRect(_hParent, &rc);

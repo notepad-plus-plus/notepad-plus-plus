@@ -489,10 +489,7 @@ Section -"Notepad++" mainSection
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
-	File "..\bin\SourceCodePro-Regular.ttf"
-	File "..\bin\SourceCodePro-Bold.ttf"
-	File "..\bin\SourceCodePro-It.ttf"
-	File "..\bin\SourceCodePro-BoldIt.ttf"
+
 	
 	; Set Section Files and Shortcuts
 	SetOverwrite on

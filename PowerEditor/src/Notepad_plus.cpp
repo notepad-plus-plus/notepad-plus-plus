@@ -56,11 +56,6 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
 #define NPP_INTERNAL_FUCTION_STR TEXT("Notepad++::InternalFunction")
 
-#define SOURCECODEPRO_FONT  TEXT("SourceCodePro-Regular.ttf")
-#define SOURCECODEPRO_I_FONT  TEXT("SourceCodePro-It.ttf")
-#define SOURCECODEPRO_B_FONT  TEXT("SourceCodePro-Bold.ttf")
-#define SOURCECODEPRO_IB_FONT  TEXT("SourceCodePro-BoldIt.ttf")
-
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 
 ToolBarButtonUnit toolBarIcons[] = {
@@ -197,22 +192,12 @@ Notepad_plus::~Notepad_plus()
 	delete _pProjectPanel_3;
 	delete _pDocMap;
 	delete _pFuncList;
-	::RemoveFontResourceEx(SOURCECODEPRO_FONT, FR_PRIVATE, 0);
-	::RemoveFontResourceEx(SOURCECODEPRO_I_FONT, FR_PRIVATE, 0);
-	::RemoveFontResourceEx(SOURCECODEPRO_B_FONT, FR_PRIVATE, 0);
-	::RemoveFontResourceEx(SOURCECODEPRO_IB_FONT, FR_PRIVATE, 0);
 }
 
 LRESULT Notepad_plus::init(HWND hwnd)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-
-	// Add Main font
-	::AddFontResourceEx(SOURCECODEPRO_FONT, FR_PRIVATE, 0);
-	::AddFontResourceEx(SOURCECODEPRO_I_FONT, FR_PRIVATE, 0);
-	::AddFontResourceEx(SOURCECODEPRO_B_FONT, FR_PRIVATE, 0);
-	::AddFontResourceEx(SOURCECODEPRO_IB_FONT, FR_PRIVATE, 0);
 
 	// Menu
 	_mainMenuHandle = ::GetMenu(hwnd);

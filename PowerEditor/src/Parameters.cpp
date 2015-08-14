@@ -3953,7 +3953,24 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			int i;
 			if (element->Attribute(TEXT("format"), &i))
-				_nppGUI._newDocDefaultSettings._format = (formatType)i;
+			{
+				FormatType newFormat = FormatType::osdefault;
+				switch (i)
+				{
+					case static_cast<LPARAM>(FormatType::windows) :
+						newFormat = FormatType::windows;
+						break;
+					case static_cast<LPARAM>(FormatType::macos) :
+						newFormat = FormatType::macos;
+						break;
+					case static_cast<LPARAM>(FormatType::unix) :
+						newFormat = FormatType::unix;
+						break;
+					default:
+						assert(false and "invalid buffer format - fallback to default");
+				}
+				_nppGUI._newDocDefaultSettings._format = newFormat;
+			}
 
 			if (element->Attribute(TEXT("encoding"), &i))
 				_nppGUI._newDocDefaultSettings._unicodeMode = (UniMode)i;
@@ -4992,7 +5009,7 @@ bool NppParameters::writeGUIParams()
 		}
 		else if (!lstrcmp(nm, TEXT("NewDocDefaultSettings")))
 		{
-			element->SetAttribute(TEXT("format"), _nppGUI._newDocDefaultSettings._format);
+			element->SetAttribute(TEXT("format"), static_cast<int>(_nppGUI._newDocDefaultSettings._format));
 			element->SetAttribute(TEXT("encoding"), _nppGUI._newDocDefaultSettings._unicodeMode);
 			element->SetAttribute(TEXT("lang"), _nppGUI._newDocDefaultSettings._lang);
 			element->SetAttribute(TEXT("codepage"), _nppGUI._newDocDefaultSettings._codepage);
@@ -5268,7 +5285,7 @@ bool NppParameters::writeGUIParams()
 	{
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("NewDocDefaultSettings"));
-		GUIConfigElement->SetAttribute(TEXT("format"), _nppGUI._newDocDefaultSettings._format);
+		GUIConfigElement->SetAttribute(TEXT("format"), static_cast<int>(_nppGUI._newDocDefaultSettings._format));
 		GUIConfigElement->SetAttribute(TEXT("encoding"), _nppGUI._newDocDefaultSettings._unicodeMode);
 		GUIConfigElement->SetAttribute(TEXT("lang"), _nppGUI._newDocDefaultSettings._lang);
 		GUIConfigElement->SetAttribute(TEXT("codepage"), _nppGUI._newDocDefaultSettings._codepage);
@@ -6259,4 +6276,20 @@ void Date::now()
 	_year = timeinfo->tm_year + 1900;
 	_month = timeinfo->tm_mon + 1;
 	_day = timeinfo->tm_mday;
+}
+
+
+FormatType convertIntToFormatType(int value, FormatType defvalue)
+{
+	switch (value)
+	{
+		case static_cast<LPARAM>(FormatType::windows):
+			return FormatType::windows;
+		case static_cast<LPARAM>(FormatType::macos):
+			return FormatType::macos;
+		case static_cast<LPARAM>(FormatType::unix):
+			return FormatType::unix;
+		default:
+			return defvalue;
+	}
 }

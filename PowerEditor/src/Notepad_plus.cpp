@@ -1816,6 +1816,7 @@ void Notepad_plus::checkDocState()
 		bool isUserReadOnly = curBuf->getUserReadOnly();
 		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly?MF_CHECKED:MF_UNCHECKED));
 	}
+
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
 
@@ -2116,22 +2117,19 @@ void Notepad_plus::setLangStatus(LangType langType)
 }
 
 
-void Notepad_plus::setDisplayFormat(formatType f)
+void Notepad_plus::setDisplayFormat(FormatType format)
 {
-	generic_string str;
-	switch (f)
+	const TCHAR* str = TEXT("??");
+	switch (format)
 	{
-		case MAC_FORMAT :
-			str = TEXT("Macintosh");
-			break;
-		case UNIX_FORMAT :
-			str = TEXT("UNIX");
-			break;
-		default :
-			str = TEXT("Dos\\Windows");
+		case FormatType::windows: str = TEXT("Dos\\Windows"); break;
+		case FormatType::macos:   str = TEXT("Macintosh"); break;
+		case FormatType::unix:    str = TEXT("UNIX"); break;
+		case FormatType::unknown: str = TEXT("Unknown"); assert(false);  break;
 	}
-	_statusBar.setText(str.c_str(), STATUSBAR_EOF_FORMAT);
+	_statusBar.setText(str, STATUSBAR_EOF_FORMAT);
 }
+
 
 void Notepad_plus::setUniModeText()
 {
@@ -3480,6 +3478,7 @@ void Notepad_plus::staticCheckMenuAndTB() const
 	checkMenuItem(IDM_VIEW_WRAP_SYMBOL, _pEditView->isWrapSymbolVisible());
 }
 
+
 void Notepad_plus::dynamicCheckMenuAndTB() const
 {
 	//Format conversion
@@ -3487,12 +3486,14 @@ void Notepad_plus::dynamicCheckMenuAndTB() const
 	checkUnicodeMenuItems();
 }
 
-void Notepad_plus::enableConvertMenuItems(formatType f) const
+
+void Notepad_plus::enableConvertMenuItems(FormatType format) const
 {
-	enableCommand(IDM_FORMAT_TODOS, (f != WIN_FORMAT), MENU);
-	enableCommand(IDM_FORMAT_TOUNIX, (f != UNIX_FORMAT), MENU);
-	enableCommand(IDM_FORMAT_TOMAC, (f != MAC_FORMAT), MENU);
+	enableCommand(IDM_FORMAT_TODOS,  (format != FormatType::windows), MENU);
+	enableCommand(IDM_FORMAT_TOUNIX, (format != FormatType::unix),    MENU);
+	enableCommand(IDM_FORMAT_TOMAC,  (format != FormatType::macos),   MENU);
 }
+
 
 void Notepad_plus::checkUnicodeMenuItems() const
 {

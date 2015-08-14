@@ -1694,16 +1694,17 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDM_FORMAT_TODOS :
-		case IDM_FORMAT_TOUNIX :
-		case IDM_FORMAT_TOMAC :
+		case IDM_FORMAT_TODOS:
+		case IDM_FORMAT_TOUNIX:
+		case IDM_FORMAT_TOMAC:
 		{
-			Buffer * buf = _pEditView->getCurrentBuffer();
+			FormatType newFormat = (id == IDM_FORMAT_TODOS)
+				? FormatType::windows
+				: (id == IDM_FORMAT_TOUNIX) ? FormatType::unix : FormatType::macos;
 
-			int f = int((id == IDM_FORMAT_TODOS)?SC_EOL_CRLF:(id == IDM_FORMAT_TOUNIX)?SC_EOL_LF:SC_EOL_CR);
-
-			buf->setFormat((formatType)f);
-			_pEditView->execute(SCI_CONVERTEOLS, buf->getFormat());
+			Buffer* buf = _pEditView->getCurrentBuffer();
+			buf->setFormat(newFormat);
+			_pEditView->execute(SCI_CONVERTEOLS, static_cast<int>(buf->getFormat()));
 			break;
 		}
 

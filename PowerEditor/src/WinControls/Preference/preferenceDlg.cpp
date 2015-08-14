@@ -1100,23 +1100,25 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 	NewDocDefaultSettings & ndds = (NewDocDefaultSettings &)nppGUI.getNewDocDefaultSettings();
 
-	switch (Message) 
+	switch (Message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
-			int ID2Check = 0;
-
+			int ID2Check = IDC_RADIO_F_WIN;
 			switch (ndds._format)
 			{
-				case  MAC_FORMAT :
+				case FormatType::windows:
+					ID2Check = IDC_RADIO_F_WIN;
+					break;
+				case FormatType::macos:
 					ID2Check = IDC_RADIO_F_MAC;
 					break;
-				case UNIX_FORMAT :
+				case FormatType::unix:
 					ID2Check = IDC_RADIO_F_UNIX;
 					break;
-				
-				default : //WIN_FORMAT
-					ID2Check = IDC_RADIO_F_WIN;
+				case FormatType::unknown:
+					assert(false);
+					break;
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 
@@ -1252,16 +1254,23 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				}
 
 				case IDC_RADIO_F_MAC:
-					ndds._format = MAC_FORMAT;
+				{
+					ndds._format = FormatType::macos;
 					return TRUE;
+				}
 				case IDC_RADIO_F_UNIX:
-					ndds._format = UNIX_FORMAT;
+				{
+					ndds._format = FormatType::unix;
 					return TRUE;
+				}
 				case IDC_RADIO_F_WIN:
-					ndds._format = WIN_FORMAT;
+				{
+					ndds._format = FormatType::windows;
 					return TRUE;
+				}
 
 				default:
+				{
 					if (HIWORD(wParam) == CBN_SELCHANGE)
 					{
 						if (LOWORD(wParam) == IDC_COMBO_DEFAULTLANG)
@@ -1279,6 +1288,7 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 						}
 					}
 					return FALSE;
+				}
 			}
 	}
  	return FALSE;

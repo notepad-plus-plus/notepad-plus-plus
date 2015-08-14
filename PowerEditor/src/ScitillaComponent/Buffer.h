@@ -105,14 +105,13 @@ public:
 	void destroyInstance() { delete _pSelf; };
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	int docLength(Buffer * buffer) const;
-	int getEOLFormatForm(const char* const data, size_t length) const;
 	size_t nextUntitledNewNumber() const;
 
 
 private:
 	~FileManager();
 	int detectCodepage(char* buf, size_t len);
-	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType language, int& encoding, formatType* pFormat = nullptr);
+	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType language, int& encoding, FormatType* pFormat = nullptr);
 
 
 private:
@@ -196,11 +195,11 @@ public:
 		doNotify(BufferChangeReadonly);
     }
 
-	formatType getFormat() const {
+	FormatType getFormat() const {
 		return _format;
 	}
 
-	void setFormat(formatType format) {
+	void setFormat(FormatType format) {
 		_format = format;
 		doNotify(BufferChangeFormat);
 	}
@@ -365,7 +364,7 @@ private:
 	LangType _lang;
 	generic_string _userLangExt; // it's useful if only (_lang == L_USER)
 	bool _isDirty = false;
-	formatType _format;
+	FormatType _format = FormatType::osdefault;
 	UniMode _unicodeMode;
 	int _encoding = -1;
 	bool _isUserReadOnly = false;

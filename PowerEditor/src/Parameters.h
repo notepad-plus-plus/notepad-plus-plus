@@ -95,7 +95,28 @@ const int TAB_VERTICAL = 64;       //  0100 0000
 const int TAB_MULTILINE = 128;     //  1000 0000
 const int TAB_HIDE = 256;          //1 0000 0000
 
-enum formatType {WIN_FORMAT, MAC_FORMAT, UNIX_FORMAT};
+
+enum class FormatType: std::uint8_t
+{
+	windows,
+	macos,
+	unix,
+
+	// special values
+	unknown, // can not be the first value for legacy code
+	osdefault = windows,
+};
+
+/*!
+** \brief Convert an int into a FormatType
+** \param value An arbitrary int
+** \param defvalue The default value to use if an invalid value is provided
+*/
+FormatType convertIntToFormatType(int value, FormatType defvalue = FormatType::osdefault);
+
+
+
+
 enum UniMode {uni8Bit=0, uniUTF8=1, uni16BE=2, uni16LE=3, uniCookie=4, uni7Bit=5, uni16BE_NoBOM=6, uni16LE_NoBOM=7, uniEnd};
 enum ChangeDetect {cdDisabled=0, cdEnabled=1, cdAutoUpdate=2, cdGo2end=3, cdAutoUpdateGo2end=4};
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
@@ -519,17 +540,19 @@ private :
 	int _nbLexerStyler;
 };
 
-struct NewDocDefaultSettings 
+
+struct NewDocDefaultSettings final
 {
-	formatType _format;
-	UniMode _unicodeMode;
-	bool _openAnsiAsUtf8;
-	LangType _lang;
-	int _codepage; // -1 when not using
-	NewDocDefaultSettings():_format(WIN_FORMAT), _unicodeMode(uniCookie), _openAnsiAsUtf8(true), _lang(L_TEXT), _codepage(-1){};
+	FormatType _format = FormatType::osdefault;
+	UniMode _unicodeMode = uniCookie;
+	bool _openAnsiAsUtf8 = true;
+	LangType _lang = L_TEXT;
+	int _codepage = -1; // -1 when not using
 };
 
-struct LangMenuItem {
+
+struct LangMenuItem
+{
 	LangType _langType;
 	int	_cmdID;
 	generic_string _langName;

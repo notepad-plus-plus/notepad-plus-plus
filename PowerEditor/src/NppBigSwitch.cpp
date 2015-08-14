@@ -318,19 +318,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return -1;
 			BufferID id = (BufferID)wParam;
 			Buffer * b = MainFileManager->getBufferByID(id);
-			return b->getFormat();
+			return static_cast<LRESULT>(b->getFormat());
 		}
 
 		case NPPM_SETBUFFERFORMAT:
 		{
 			if (!wParam)
 				return FALSE;
-			if (lParam < WIN_FORMAT || lParam >= UNIX_FORMAT)
+
+			FormatType newFormat = convertIntToFormatType(static_cast<int>(lParam), FormatType::unknown);
+			if (FormatType::unknown == newFormat)
+			{
+				assert(false and "invalid buffer format message");
 				return FALSE;
+			}
 
 			BufferID id = (BufferID)wParam;
 			Buffer * b = MainFileManager->getBufferByID(id);
-			b->setFormat((formatType)lParam);
+			b->setFormat(newFormat);
 			return TRUE;
 		}
 

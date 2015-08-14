@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -35,6 +35,10 @@ using namespace std;
 const TCHAR * USERMSG = TEXT("This plugin is not compatible with current version of Notepad++.\n\n\
 Do you want to remove this plugin from plugins directory to prevent this message from the next launch time?");
 
+
+
+
+
 bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
 {
     SCNotification scnN;
@@ -58,6 +62,7 @@ bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
     return true;
 }
 
+
 int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_string> & dll2Remove)
 {
 	const TCHAR *pluginFileName = ::PathFindFileName(pluginFilePath);
@@ -65,9 +70,10 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		return 0;
 
 	PluginInfo *pi = new PluginInfo;
-	try {
+	try
+	{
 		pi->_moduleName = PathFindFileName(pluginFilePath);
-		
+
 		pi->_hLib = ::LoadLibrary(pluginFilePath);
 		if (!pi->_hLib)
 			throw generic_string(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
@@ -77,7 +83,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			throw generic_string(TEXT("This ANSI plugin is not compatible with your Unicode Notepad++."));
 
 		pi->_pFuncSetInfo = (PFUNCSETINFO)GetProcAddress(pi->_hLib, "setInfo");
-					
+
 		if (!pi->_pFuncSetInfo)
 			throw generic_string(TEXT("Missing \"setInfo\" function"));
 
@@ -92,11 +98,11 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		pi->_pMessageProc = (PMESSAGEPROC)GetProcAddress(pi->_hLib, "messageProc");
 		if (!pi->_pMessageProc)
 			throw generic_string(TEXT("Missing \"messageProc\" function"));
-		
+
 		pi->_pFuncSetInfo(_nppData);
 
 		pi->_pFuncGetFuncsArray = (PFUNCGETFUNCSARRAY)GetProcAddress(pi->_hLib, "getFuncsArray");
-		if (!pi->_pFuncGetFuncsArray) 
+		if (!pi->_pFuncGetFuncsArray)
 			throw generic_string(TEXT("Missing \"getFuncsArray\" function"));
 
 		pi->_funcItems = pi->_pFuncGetFuncsArray(&pi->_nbFuncItem);
@@ -105,7 +111,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			throw generic_string(TEXT("Missing \"FuncItems\" array, or the nb of Function Item is not set correctly"));
 
 		pi->_pluginMenu = ::CreateMenu();
-		
+
 		GetLexerCountFn GetLexerCount = (GetLexerCountFn)::GetProcAddress(pi->_hLib, "GetLexerCount");
 		// it's a lexer plugin
 		if (GetLexerCount)
@@ -128,7 +134,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			int numLexers = GetLexerCount();
 
 			NppParameters * nppParams = NppParameters::getInstance();
-			
+
 			ExternalLangContainer *containers[30];
 
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -158,7 +164,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
                 PathAppend(xmlPath, pi->_moduleName.c_str());
 				PathRemoveExtension( xmlPath );
 				PathAddExtension( xmlPath, TEXT(".xml") );
-				
+
 				if (! PathFileExists( xmlPath ) )
 				{
 					throw generic_string(generic_string(xmlPath) + TEXT(" is missing."));
@@ -173,24 +179,30 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 				pXmlDoc = NULL;
 				throw generic_string(generic_string(xmlPath) + TEXT(" failed to load."));
 			}
-			
+
 			for (int x = 0; x < numLexers; ++x) // postpone adding in case the xml is missing/corrupt
+			{
 				if (containers[x] != NULL)
 					nppParams->addExternalLangToEnd(containers[x]);
+			}
 
 			nppParams->getExternalLexerFromXmlTree(pXmlDoc);
 			nppParams->getExternalLexerDoc()->push_back(pXmlDoc);
 			const char *pDllName = wmc->wchar2char(pluginFilePath, CP_ACP);
 			::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, (LPARAM)pDllName);
-            
+
 		}
 		addInLoadedDlls(pluginFileName);
 		_pluginInfos.push_back(pi);
         return (_pluginInfos.size() - 1);
-	} catch(std::exception e) {
+	}
+	catch (std::exception e)
+	{
 		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
 		return -1;
-	} catch(generic_string s) {
+	}
+	catch (generic_string s)
+	{
 		s += TEXT("\n\n");
 		s += USERMSG;
 		if (::MessageBox(NULL, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
@@ -199,7 +211,9 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		}
 		delete pi;
         return -1;
-	} catch(...) {
+	}
+	catch (...)
+	{
 		generic_string msg = TEXT("Failed to load");
 		msg += TEXT("\n\n");
 		msg += USERMSG;
@@ -256,7 +270,7 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 		{
             loadPlugin(dllNames[i].c_str(),  dll2Remove);
 		}
-        
+
 	}
 
 	for (size_t j = 0, len = dll2Remove.size() ; j < len ; ++j)
@@ -306,9 +320,9 @@ void PluginsManager::addInMenuFromPMIndex(int i)
 			::InsertMenu(_pluginInfos[i]->_pluginMenu, j, MF_BYPOSITION | MF_SEPARATOR, 0, TEXT(""));
 			continue;
 		}
-		
+
         _pluginsCommands.push_back(PluginCommand(_pluginInfos[i]->_moduleName.c_str(), j, _pluginInfos[i]->_funcItems[j]._pFunc));
-		
+
 		int cmdID = ID_PLUGINS_CMD + (_pluginsCommands.size() - 1);
 		_pluginInfos[i]->_funcItems[j]._cmdID = cmdID;
 		generic_string itemName = _pluginInfos[i]->_funcItems[j]._itemName;
@@ -366,11 +380,16 @@ void PluginsManager::runPluginCommand(size_t i)
 	{
 		if (_pluginsCommands[i]._pFunc != NULL)
 		{
-			try {
+			try
+			{
 				_pluginsCommands[i]._pFunc();
-			} catch(std::exception e) {
+			}
+			catch (std::exception e)
+			{
 				::MessageBoxA(NULL, e.what(), "PluginsManager::runPluginCommand Exception", MB_OK);
-			} catch (...) {
+			}
+			catch (...)
+			{
 				TCHAR funcInfo[128];
 				generic_sprintf(funcInfo, TEXT("runPluginCommand(size_t i : %d)"), i);
 				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), funcInfo);
@@ -388,11 +407,16 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 		{
 			if (_pluginsCommands[i]._funcID == commandID)
 			{
-				try {
+				try
+				{
 					_pluginsCommands[i]._pFunc();
-				} catch(std::exception e) {
+				}
+				catch (std::exception e)
+				{
 					::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-				} catch (...) {
+				}
+				catch (...)
+				{
 					TCHAR funcInfo[128];
 					generic_sprintf(funcInfo, TEXT("runPluginCommand(const TCHAR *pluginName : %s, int commandID : %d)"), pluginName, commandID);
 					pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), funcInfo);
@@ -401,6 +425,7 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 		}
 	}
 }
+
 
 void PluginsManager::notify(const SCNotification *notification)
 {
@@ -411,11 +436,16 @@ void PluginsManager::notify(const SCNotification *notification)
 			// To avoid the plugin change the data in SCNotification
 			// Each notification to pass to a plugin is a copy of SCNotification instance
 			SCNotification scNotif = *notification;
-			try {
+			try
+			{
 				_pluginInfos[i]->_pBeNotified(&scNotif);
-			} catch(std::exception e) {
+			}
+			catch (std::exception e)
+			{
 				::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-			} catch (...) {
+			}
+			catch (...)
+			{
 				TCHAR funcInfo[128];
 				generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %d"),\
 					scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, scNotif.nmhdr.idFrom);
@@ -425,17 +455,23 @@ void PluginsManager::notify(const SCNotification *notification)
 	}
 }
 
+
 void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	for (size_t i = 0, len = _pluginInfos.size(); i < len ; ++i)
 	{
         if (_pluginInfos[i]->_hLib)
 		{
-			try {
+			try
+			{
 				_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
-			} catch(std::exception e) {
+			}
+			catch (std::exception e)
+			{
 				::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-			} catch (...) {
+			}
+			catch (...)
+			{
 				TCHAR funcInfo[128];
 				generic_sprintf(funcInfo, TEXT("relayNppMessages(UINT Message : %d, WPARAM wParam : %d, LPARAM lParam : %d)"), Message, wParam, lParam);
 				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), TEXT(""));
@@ -443,6 +479,7 @@ void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam
 		}
 	}
 }
+
 
 bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam)
 {
@@ -456,11 +493,16 @@ bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lPa
 		{
             if (_pluginInfos[i]->_hLib)
 			{
-				try {
+				try
+				{
 					_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
-				} catch(std::exception e) {
+				}
+				catch (std::exception e)
+				{
 					::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
-				} catch (...) {
+				}
+				catch (...)
+				{
 					TCHAR funcInfo[128];
 					generic_sprintf(funcInfo, TEXT("relayPluginMessages(UINT Message : %d, WPARAM wParam : %d, LPARAM lParam : %d)"), Message, wParam, lParam);
 					pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), funcInfo);
@@ -498,3 +540,4 @@ bool PluginsManager::allocateMarker(int numberRequired, int *start)
 	}
 	return retVal;
 }
+

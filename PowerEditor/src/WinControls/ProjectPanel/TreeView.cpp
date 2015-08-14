@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -28,6 +28,7 @@
 
 
 #include "TreeView.h"
+#include "Parameters.h"
 
 #define CY_ITEMHEIGHT     18
 
@@ -40,14 +41,15 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
                             WC_TREEVIEW,
                             TEXT("Tree View"),
                             WS_CHILD | WS_BORDER | WS_HSCROLL | WS_TABSTOP | TVS_LINESATROOT | TVS_HASLINES |
-							TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS | TVS_INFOTIP, 
+							TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS | TVS_INFOTIP,
                             0,  0,  0, 0,
-                            _hParent, 
-                            NULL, 
-                            _hInst, 
+                            _hParent,
+                            NULL,
+                            _hInst,
                             (LPVOID)0);
 
-	TreeView_SetItemHeight(_hSelf, CY_ITEMHEIGHT);
+	int itemHeight = NppParameters::getInstance()->_dpiManager.scaleY(CY_ITEMHEIGHT);
+	TreeView_SetItemHeight(_hSelf, itemHeight);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));
@@ -60,7 +62,7 @@ void TreeView::destroy()
 	cleanSubEntries(root);
 	::DestroyWindow(_hSelf);
 	_hSelf = NULL;
-} 
+}
 
 LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
@@ -78,8 +80,8 @@ bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 	tvItem.mask = TVIF_PARAM;
 
 	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
-	
-	if (!tvItem.lParam) 
+
+	if (!tvItem.lParam)
 		tvItem.lParam = (LPARAM)(new generic_string(paramStr));
 	else
 	{
@@ -92,21 +94,21 @@ bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath)
 {
 	TVITEM tvi;
-	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM; 
+	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
 
 	// Set the item label.
-	tvi.pszText = (LPTSTR)itemName; 
-	tvi.cchTextMax = MAX_PATH; 
+	tvi.pszText = (LPTSTR)itemName;
+	tvi.cchTextMax = MAX_PATH;
 
 	// Set icon
-	tvi.iImage = iImage;//isNode?INDEX_CLOSED_NODE:INDEX_LEAF; 
-	tvi.iSelectedImage = iImage;//isNode?INDEX_OPEN_NODE:INDEX_LEAF; 
+	tvi.iImage = iImage;//isNode?INDEX_CLOSED_NODE:INDEX_LEAF;
+	tvi.iSelectedImage = iImage;//isNode?INDEX_OPEN_NODE:INDEX_LEAF;
 
-	// Save the full path of file in the item's application-defined data area. 
+	// Save the full path of file in the item's application-defined data area.
 	tvi.lParam = (filePath == NULL?0:(LPARAM)(new generic_string(filePath)));
 
 	TVINSERTSTRUCT tvInsertStruct;
-	tvInsertStruct.item = tvi; 
+	tvInsertStruct.item = tvi;
 	tvInsertStruct.hInsertAfter = (HTREEITEM)TVI_LAST;
 	tvInsertStruct.hParent = hParentItem;
 
@@ -174,7 +176,7 @@ HTREEITEM TreeView::searchSubItemByName(const TCHAR *itemName, HTREEITEM hParent
 		hItem = getChildFrom(hParentItem);
 	else
 		hItem = getRoot();
-	
+
 	for ( ; hItem != NULL; hItem = getNextSibling(hItem))
 	{
 		TCHAR textBuffer[MAX_PATH];
@@ -184,7 +186,7 @@ HTREEITEM TreeView::searchSubItemByName(const TCHAR *itemName, HTREEITEM hParent
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.mask = TVIF_TEXT;
 		SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
-		
+
 		if (lstrcmp(itemName, tvItem.pszText) == 0)
 		{
 			return hItem;
@@ -292,7 +294,7 @@ bool TreeView::dropItem()
     ::ImageList_Destroy(_draggedImageList);
     ::ReleaseCapture();
     ::ShowCursor(true);
-	    
+
 	SendMessage(_hSelf,TVM_SELECTITEM,TVGN_CARET,(LPARAM)targetItem);
     SendMessage(_hSelf,TVM_SELECTITEM,TVGN_DROPHILITE,0);
 
@@ -333,7 +335,7 @@ bool TreeView::isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem)
 	HTREEITEM parent = getParent(targetItem);
 	if (parent == draggedItem)
 		return true;
-	
+
 	return isDescendant(parent, draggedItem);
 }
 
@@ -509,7 +511,7 @@ bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const gene
 	tvItem.cchTextMax = MAX_PATH;
 	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
-	
+
 	if (tvItem.iImage == index2Search)
 	{
 		generic_string itemNameUpperCase = stringToUpper(tvItem.pszText);
@@ -555,7 +557,7 @@ bool TreeView::retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREE
 	tvItem.cchTextMax = MAX_PATH;
 	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_STATE;
 	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
-	
+
 	treeState2Construct._label = textBuffer;
 	treeState2Construct._isExpanded = (tvItem.state & TVIS_EXPANDED) != 0;
 	treeState2Construct._isSelected = (tvItem.state & TVIS_SELECTED) != 0;
@@ -587,7 +589,7 @@ bool TreeView::restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, 
 	tvItem.cchTextMax = MAX_PATH;
 	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_STATE;
 	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
-	
+
 	if (treeState2Compare._label != textBuffer)
 		return false;
 

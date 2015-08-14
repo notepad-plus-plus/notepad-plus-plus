@@ -402,6 +402,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_SHOWDOCSWITCHER, 0, isChecked?TRUE:FALSE);
+					getFocus();
 				}
 				return TRUE;
 				case IDC_CHECK_DOCSWITCH_NOEXTCOLUMN :
@@ -566,6 +567,7 @@ void MarginsDlg::initScintParam()
 	}
 	::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, TRUE, 0);
 
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_SMOOTHFONT, BM_SETCHECK, svp._doSmoothFont, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_SETCHECK, svp._lineNumberMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
@@ -655,27 +657,29 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_COMMAND : 
 		{			
 			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
-			int iView = 1;
 			switch (wParam)
 			{
+				case IDC_CHECK_SMOOTHFONT:
+					svp._doSmoothFont = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SMOOTHFONT, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_SETSMOOTHFONT, 0, svp._doSmoothFont);
+					return TRUE;
 				case IDC_CHECK_LINENUMBERMARGE:
 					svp._lineNumberMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, 0);
 					return TRUE;
 				
 				case IDC_CHECK_BOOKMARKMARGE:
 					svp._bookMarkMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, 0);
 					return TRUE;
 
 				case IDC_CHECK_CURRENTLINEHILITE:
 					svp._currentLineHilitingShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
 					return TRUE;
 
 				case IDC_CHECK_DISABLEADVANCEDSCROLL:
 					svp._disableAdvancedScrolling = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_GETCHECK, 0, 0));
-					//::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, iView);
 					return TRUE;
 
                 case IDC_CHECK_MULTISELECTION :
@@ -685,24 +689,24 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 				case IDC_RADIO_SIMPLE:
 					svp._folderStyle = FOLDER_STYLE_SIMPLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_SIMPLE, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_SIMPLE, 0);
 					return TRUE;
 				case IDC_RADIO_ARROW:
 					svp._folderStyle = FOLDER_STYLE_ARROW;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_ARROW, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_ARROW, 0);
 					return TRUE;
 				case IDC_RADIO_CIRCLE:
 					svp._folderStyle = FOLDER_STYLE_CIRCLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_CIRCLE, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_CIRCLE, 0);
 					return TRUE;
 				case IDC_RADIO_BOX:
 					svp._folderStyle = FOLDER_STYLE_BOX;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_BOX, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_BOX, 0);
 					return TRUE;
 					
 				case IDC_RADIO_FOLDMARGENONE:
 					svp._folderStyle = FOLDER_STYLE_NONE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN, 0);
 					return TRUE;
 					
 				case IDC_CHECK_SHOWVERTICALEDGE:
@@ -727,17 +731,17 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isChecked);
 					::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isChecked);
 	
-					::SendMessage(_hParent, WM_COMMAND, modeID, iView);
+					::SendMessage(_hParent, WM_COMMAND, modeID, 0);
 					return TRUE;
 				}
 				case IDC_RADIO_LNMODE:
 					svp._edgeMode = EDGE_LINE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGELINE, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGELINE, 0);
 					return TRUE;
 					
 				case IDC_RADIO_BGMODE:
 					svp._edgeMode = EDGE_BACKGROUND;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGEBACKGROUND, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGEBACKGROUND, 0);
 					return TRUE;
 				
 				case IDC_COLONENUMBER_STATIC:
@@ -765,17 +769,17 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 				case IDC_RADIO_LWDEF:
 					svp._lineWrapMethod = LINEWRAP_DEFAULT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, 0);
 					return TRUE;
 
 				case IDC_RADIO_LWALIGN:
 					svp._lineWrapMethod = LINEWRAP_ALIGNED;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, 0);
 					return TRUE;
 
 				case IDC_RADIO_LWINDENT:
 					svp._lineWrapMethod = LINEWRAP_INDENT;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, iView);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, 0);
 					return TRUE;
 
 				default :
@@ -1096,23 +1100,25 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 	NewDocDefaultSettings & ndds = (NewDocDefaultSettings &)nppGUI.getNewDocDefaultSettings();
 
-	switch (Message) 
+	switch (Message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
-			int ID2Check = 0;
-
+			int ID2Check = IDC_RADIO_F_WIN;
 			switch (ndds._format)
 			{
-				case  MAC_FORMAT :
+				case FormatType::windows:
+					ID2Check = IDC_RADIO_F_WIN;
+					break;
+				case FormatType::macos:
 					ID2Check = IDC_RADIO_F_MAC;
 					break;
-				case UNIX_FORMAT :
+				case FormatType::unix:
 					ID2Check = IDC_RADIO_F_UNIX;
 					break;
-				
-				default : //WIN_FORMAT
-					ID2Check = IDC_RADIO_F_WIN;
+				case FormatType::unknown:
+					assert(false);
+					break;
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 
@@ -1134,10 +1140,10 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				default : //uni8Bit
 					ID2Check = IDC_RADIO_ANSI;
 			}
-			
+
 			int selIndex = -1;
 			generic_string str;
-			EncodingMapper *em = EncodingMapper::getInstance();
+			EncodingMapper* em = EncodingMapper::getInstance();
 			for (size_t i = 0, encodingArraySize = sizeof(encodings)/sizeof(int) ; i < encodingArraySize ; ++i)
 			{
 				int cmdID = em->getIndexFromEncoding(encodings[i]);
@@ -1161,14 +1167,15 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				ID2Check = IDC_RADIO_OTHERCP;
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_SETCURSEL, selIndex, 0);
 			}
+
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8SANSBOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
-			
+
 			int index = 0;
 			for (int i = L_TEXT ; i < pNppParam->L_END ; ++i)
 			{
-				generic_string str;
+				str.clear();
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
@@ -1195,7 +1202,7 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 			switch (wParam)
 			{
 				case IDC_RADIO_UCS2BIG:
@@ -1247,16 +1254,23 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				}
 
 				case IDC_RADIO_F_MAC:
-					ndds._format = MAC_FORMAT;
+				{
+					ndds._format = FormatType::macos;
 					return TRUE;
+				}
 				case IDC_RADIO_F_UNIX:
-					ndds._format = UNIX_FORMAT;
+				{
+					ndds._format = FormatType::unix;
 					return TRUE;
+				}
 				case IDC_RADIO_F_WIN:
-					ndds._format = WIN_FORMAT;
+				{
+					ndds._format = FormatType::windows;
 					return TRUE;
+				}
 
 				default:
+				{
 					if (HIWORD(wParam) == CBN_SELCHANGE)
 					{
 						if (LOWORD(wParam) == IDC_COMBO_DEFAULTLANG)
@@ -1274,6 +1288,7 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 						}
 					}
 					return FALSE;
+				}
 			}
 	}
  	return FALSE;
@@ -1383,7 +1398,7 @@ INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT Message, WPARAM wParam,
 			// Check on launch time settings
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DONTCHECKHISTORY, BM_SETCHECK, !nppGUI._checkHistoryFiles, 0);
 
-			// Disply in submenu setting
+			// Display in submenu setting
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_INSUBMENU, BM_SETCHECK, pNppParam->putRecentFileInSubMenu(), 0);
 
 			// Recent File menu entry length setting

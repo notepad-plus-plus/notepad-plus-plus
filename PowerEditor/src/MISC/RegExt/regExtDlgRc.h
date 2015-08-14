@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -31,15 +31,15 @@
 
 #define	IDD_REGEXT_BOX 4000
 
-	#define IDC_REGEXT_LANG_LIST   			(IDD_REGEXT_BOX + 1) 
-	#define IDC_REGEXT_LANGEXT_LIST     			(IDD_REGEXT_BOX + 2) 
-	#define IDC_REGEXT_REGISTEREDEXTS_LIST     (IDD_REGEXT_BOX + 3) 
-	#define IDC_ADDFROMLANGEXT_BUTTON     (IDD_REGEXT_BOX + 4) 
-	#define IDI_POUPELLE_ICON     (IDD_REGEXT_BOX + 5) 
-	#define IDC_CUSTOMEXT_EDIT     (IDD_REGEXT_BOX + 6) 
-	#define IDC_REMOVEEXT_BUTTON     (IDD_REGEXT_BOX + 7) 
-	#define IDC_POUPELLE_STATIC     (IDD_REGEXT_BOX + 8) 
-	#define IDC_SUPPORTEDEXTS_STATIC     (IDD_REGEXT_BOX + 9) 
-	#define IDC_REGISTEREDEXTS_STATIC     (IDD_REGEXT_BOX + 10) 
+	#define IDC_REGEXT_LANG_LIST             (IDD_REGEXT_BOX + 1)
+	#define IDC_REGEXT_LANGEXT_LIST          (IDD_REGEXT_BOX + 2)
+	#define IDC_REGEXT_REGISTEREDEXTS_LIST   (IDD_REGEXT_BOX + 3)
+	#define IDC_ADDFROMLANGEXT_BUTTON        (IDD_REGEXT_BOX + 4)
+	#define IDI_POUPELLE_ICON                (IDD_REGEXT_BOX + 5)
+	#define IDC_CUSTOMEXT_EDIT               (IDD_REGEXT_BOX + 6)
+	#define IDC_REMOVEEXT_BUTTON             (IDD_REGEXT_BOX + 7)
+	#define IDC_POUPELLE_STATIC              (IDD_REGEXT_BOX + 8)
+	#define IDC_SUPPORTEDEXTS_STATIC         (IDD_REGEXT_BOX + 9)
+	#define IDC_REGISTEREDEXTS_STATIC        (IDD_REGEXT_BOX + 10)
 
 #endif //REGEXTDLGRC_H

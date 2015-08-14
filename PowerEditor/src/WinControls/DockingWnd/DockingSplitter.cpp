@@ -1,16 +1,16 @@
 // this file is part of docking functionality for Notepad++
 // Copyright (C)2006 Jens Lorenz <jens.plugin.npp@gmx.de>
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either
 // version 2 of the License, or (at your option) any later version.
-// 
+//
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -20,7 +20,7 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -55,7 +55,7 @@ static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
 			case WM_NCLBUTTONUP:
 				::PostMessage(hWndMouse, wParam, 0, 0);
 				return TRUE;
-			default: 
+			default:
 				break;
 		}
 	}
@@ -63,7 +63,7 @@ static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
 	return ::CallNextHookEx(hookMouse, nCode, wParam, lParam);
 }
 
-void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags) 
+void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags)
 {
 	Window::init(hInst, hWnd);
 	_hMessage = hMessage;
@@ -112,7 +112,7 @@ void DockingSplitter::init(HINSTANCE hInst, HWND hWnd, HWND hMessage, UINT flags
 
 	/* create splitter windows and initialize it */
 	_hSelf = ::CreateWindowEx( 0, wc.lpszClassName, TEXT(""), WS_CHILD | WS_VISIBLE,
-								CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, 
+								CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 								_hParent, NULL, _hInst, (LPVOID)this);
 
 	if (!_hSelf)
@@ -127,7 +127,7 @@ LRESULT CALLBACK DockingSplitter::staticWinProc(HWND hwnd, UINT message, WPARAM 
 {
 	DockingSplitter *pDockingSplitter = NULL;
 	switch (message)
-	{	
+	{
 		case WM_NCCREATE :
 			pDockingSplitter = (DockingSplitter *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 			pDockingSplitter->_hSelf = hwnd;
@@ -186,7 +186,7 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 			if (_isLeftButtonDown == TRUE)
 			{
 				POINT	pt;
-				
+
 				::GetCursorPos(&pt);
 
 				if ((_flags & DMS_HORIZONTAL) && (_ptOldPos.y != pt.y))

@@ -5,17 +5,17 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;Файл"/>
-                    <Item menuId="edit" name="П&amp;равка"/>
-                    <Item menuId="search" name="&amp;Поиск"/>
-                    <Item menuId="view" name="&amp;Вид"/>
-                    <Item menuId="encoding" name="&amp;Кодировки"/>
-                    <Item menuId="language" name="&amp;Синтаксисы"/>
-                    <Item menuId="settings" name="&amp;Опции"/>
-                    <Item menuId="macro" name="&amp;Макросы"/>
-                    <Item menuId="run" name="&amp;Запуск"/>
-                    <Item idName="Plugins" name="П&amp;лагины"/>
-                    <Item idName="Window"  name="Ок&amp;на"/>
+                    <Item menuId="file" name="Файл"/>
+                    <Item menuId="edit" name="Правка"/>
+                    <Item menuId="search" name="Поиск"/>
+                    <Item menuId="view" name="Вид"/>
+                    <Item menuId="encoding" name="Кодировки"/>
+                    <Item menuId="language" name="Синтаксисы"/>
+                    <Item menuId="settings" name="Опции"/>
+                    <Item menuId="macro" name="Макросы"/>
+                    <Item menuId="run" name="Запуск"/>
+                    <Item idName="Plugins" name="Плагины"/>
+                    <Item idName="Window"  name="Окна"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -66,8 +66,8 @@
                 <!-- all menu item -->
                 <Commands>
                     <Item id="1001"   name="Распечатать!"/>
-                    <Item id="41001" name="&amp;Новый"/>
-                    <Item id="41002" name="&amp;Открыть"/>
+                    <Item id="41001" name="Новый"/>
+                    <Item id="41002" name="Открыть"/>
                     <Item id="41019" name="Открыть папку документа"/>
                     <Item id="41003" name="Закрыть"/>
                     <Item id="41004" name="Закрыть все"/>
@@ -113,7 +113,7 @@
                     <Item id="42025" name="Сохранить запись в макрос..."/>
                     <Item id="42026" name="Текст справа Налево"/>
                     <Item id="42027" name="Текст слева Направо"/>
-                    <Item id="42028" name="Только чтение"/>
+                    <Item id="42028" name="Задать &quot;Только чтение&quot;"/>
                     <Item id="42029" name="Путь и Имя файла в буфер"/>
                     <Item id="42030" name="Имя файла в буфер"/>
                     <Item id="42031" name="Путь к файлу в буфер"/>
@@ -144,8 +144,14 @@
                     <Item id="42056" name="Удалить Пустые Строки (Содер. символы Пробел)"/>
 					<Item id="42057" name="Вставить пустую строку Перед Текущей"/>
 					<Item id="42058" name="Вставить пустую строку После Текущей"/>
-					<Item id="42059" name="Сортировка Строки в порядке Возрастания"/>
-					<Item id="42060" name="Сортировка Строки в в порядке Убывания"/>
+					<Item id="42059" name="Сортировка по Возрастанию (По первой цифре)"/>
+					<Item id="42060" name="Сортировка по Убыванию (По первой цифре)"/>
+                    <Item id="42061" name="Сортировка по Возрастанию целых чисел"/>
+                    <Item id="42062" name="Сортировка по Убыванию целых чисел"/>
+                    <Item id="42063" name="Сорт. по Возрастанию десятичных чисел (Запятая) "/>
+                    <Item id="42064" name="Сорт. по Убыванию десятичных чисел (Запятая)"/>
+                    <Item id="42065" name="Сорт. по Возрастанию десятичных чисел (Точка)"/>
+                    <Item id="42066" name="Сорт. по Убыванию десятичных чисел (Точка)"/>
                     <Item id="43001" name="Найти..."/>
                     <Item id="43002" name="Искать далее"/>
                     <Item id="43003" name="Замена..."/>
@@ -154,9 +160,9 @@
                     <Item id="43006" name="К следующей Закладке"/>
                     <Item id="43007" name="К предыдущей Закладке"/>
                     <Item id="43008" name="Убрать все Закладки"/>
-                    <Item id="43009" name="Перейти к парной скобоке"/>
+                    <Item id="43009" name="Перейти к парной скобке"/>
                     <Item id="43010" name="Искать ранее"/>
-                    <Item id="43011" name="Поиск по мере &amp;набора..."/>
+                    <Item id="43011" name="Поиск по мере набора..."/>
                     <Item id="43013" name="Найти в файлах"/>
                     <Item id="43014" name="Искать выделенное далее с Регистром"/>
                     <Item id="43015" name="Искать выделенное ранее с Регистром"/>
@@ -228,7 +234,7 @@
                     <Item id="44082" name="Панель проекта 2"/>
                     <Item id="44083" name="Панель проекта 3"/>
                     <Item id="44084" name="Список Функций"/>
-
+					
 					<Item id="44086" name="1-я  Вкладка"/>
 					<Item id="44087" name="2-я  Вкладка"/>
 					<Item id="44088" name="3-я  Вкладка"/>
@@ -240,8 +246,8 @@
 					<Item id="44094" name="9-я  Вкладка"/>
 					<Item id="44095" name="Следующая Вкладка"/>
 					<Item id="44096" name="Предыдущая Вкладка"/>
-
-
+					
+					
                     <Item id="45001" name="Преобразовать в Win-формат (CRLF)"/>
                     <Item id="45002" name="Преобразовать в UNIX-формат (LF)"/>
                     <Item id="45003" name="Преобразовать в MAC-формат (CR)"/>
@@ -266,11 +272,12 @@
                     <Item id="47002" name="Страница проекта Notepad++"/>
                     <Item id="47003" name="Интернет документация"/>
                     <Item id="47004" name="Форум"/>
-                    <Item id="47005" name="Ещё плагины..."/>
+                    <Item id="47005" name="Плагины..."/>
                     <Item id="47006" name="Обновить Notepad++"/>
                     <Item id="47008" name="Справка"/>
                     <Item id="47009" name="Задать Прокси Обновления..."/>
 					<Item id="47010" name="Параметры Командной Строки"/>
+					<Item id="47011" name="Поддержка Онлайн"/>
                     <Item id="48005" name="Импортировать Плагин(ы)"/>
                     <Item id="48006" name="Импортировать Тему(ы)"/>
                     <Item id="48009" name="Горячие клавиши..."/>
@@ -304,7 +311,7 @@
                     <Item CMID="9"   name="Путь к директории файла в буфер"/>
                     <Item CMID="10" name="Переименовать"/>
                     <Item CMID="11" name="Удалить файл (в корзину)"/>
-                    <Item CMID="12" name="Только чтение"/>
+                    <Item CMID="12" name="Задать &quot;Только чтение&quot;"/>
                     <Item CMID="13" name="Снять атрибут &quot;Только чтение&quot;"/>
                     <Item CMID="14" name="Переместить в Новый Экземпляр"/>
                     <Item CMID="15" name="Открыть в Новом Экземпляре"/>
@@ -320,16 +327,16 @@
             <Find title = "" titleFind = "Найти" titleReplace = "Заменить" titleFindInFiles = "Найти в файлах" titleMark="Пометки">
                 <Item id="1"      name="Искать далее"/>
                 <Item id="2"      name="Закрыть"/>
-                <Item id="1603" name="Только &amp;целые слова"/>
+                <Item id="1603" name="Только целые слова"/>
                 <Item id="1604" name="Учитывать регистр"/>
                 <Item id="1605" name="Регуляр. выражен."/>
                 <Item id="1606" name="Зациклить поиск"/>
-                <Item id="1608" name="&amp;Заменить"/>
-                <Item id="1609" name="Заменить &amp;всё"/>
+                <Item id="1608" name="Заменить"/>
+                <Item id="1609" name="Заменить всё"/>
                 <Item id="1611" name="Заменить на:"/>
                 <Item id="1612" name="Вверх"/>
                 <Item id="1613" name="Вниз"/>
-                <Item id="1614" name="По&amp;дсчитать"/>
+                <Item id="1614" name="Подсчитать"/>
                 <Item id="1615" name="Пометить все"/>
                 <Item id="1616" name="Помечать Закладкой"/>
                 <Item id="1617" name="Помечать найденное"/>
@@ -338,7 +345,7 @@
                 <Item id="1621" name="Направление"/>
                 <Item id="1624" name="Режим поиска"/>
                 <Item id="1625" name="Обычный"/>
-                <Item id="1626" name="Рас&amp;ширенный (\n, \r, \t, \0, \x...)"/>
+                <Item id="1626" name="Расширенный (\n, \r, \t, \0, \x...)"/>
                 <Item id="1632" name="В выделенном"/>
                 <Item id="1633" name="Убрать все Пометки"/>
                 <Item id="1635" name="Заменить всё во всех Открытых Документах"/>
@@ -350,12 +357,12 @@
                 <Item id="1656" name="Найти все"/>
                 <Item id="1658" name="Во всех подпапках"/>
                 <Item id="1659" name="В скрытых папках"/>
-                <Item id="1660" name="За&amp;менить в файлах"/>
+                <Item id="1660" name="Заменить в файлах"/>
                 <Item id="1661" name="След. за текущим док."/>
                 <Item id="1686" name="Прозрачность"/>
                 <Item id="1687" name="Когда неактивно"/>
                 <Item id="1688" name="Всегда"/>
-                <Item id="1703" name="и &amp;новые строки"/>
+                <Item id="1703" name="и новые строки"/>
             </Find>
             <GoToLine title= "К строке...">
                 <Item id="2007" name="Строка"/>
@@ -503,7 +510,7 @@
                     <Item id="22313" name="Префикс режим"/>
                     <Item id="22413" name="Префикс режим"/>
                 </Keywords>
-                <Comment title="Комментарии &amp;и Числа">
+                <Comment title="Комментарии и Числа">
                     <Item id="23003" name="Положение линии комментариев"/>
                     <Item id="23004" name="Разрешить где угодно"/>
                     <Item id="23005" name="Разместить в начале строки"/>
@@ -621,6 +628,7 @@
                     <Item id="6212" name="Линия"/>
                     <Item id="6213" name="Фон Текста"/>
                     <Item id="6214" name="Подсветка текущей строки"/>
+                    <Item id="6215" name="Сглаживание шрифтов"/>
                     <Item id="6216" name="Текстовый Курсор"/>
                     <Item id="6217" name="Ширина"/>
                     <Item id="6219" name="Част. мерц.:"/>
@@ -634,7 +642,7 @@
                     <Item id="6229" name="Выровненный"/>
                     <Item id="6230" name="С отступом"/>
                     <Item id="6231" name="Размер Рамки Окна"/>
-					<Item id="6234" name="Откл. расшир. функции прокрутки"/>
+					<Item id="6234" name="Откл. расшир. функции прокрутки&#x0A; (если есть проблемы с тачпадом)"/>
                 </Scintillas>
                 <NewDoc title = "Новый Документ">
                     <Item id="6401" name="Формат"/>
@@ -707,11 +715,11 @@
                     <Item id="6304" name="История Последних Файлов"/>
                     <Item id="6305" name="Не проверять при запуске"/>
                     <Item id="6306" name="Запоминать последние:"/>
-
+					
                     <Item id="6429" name="Отображение"/>
                     <Item id="6424" name="В подменю"/>
-                    <Item id="6425" name="Только Имя файла"/>
-                    <Item id="6426" name="Полный Путь к файлу"/>
+                    <Item id="6425" name="Только имя файла"/>
+                    <Item id="6426" name="Полный путь к файлу"/>
                     <Item id="6427" name="Задать макс. длину:"/>
                 </RecentFilesHistory>
                 <MISC title = "Разное">
@@ -759,10 +767,11 @@
                  <Cloud title="Облачное Хранение">
                     <Item id="6262" name="Настройки Облачного Хранения"/>
                     <Item id="6263" name="Без Облака"/>
-                    <Item id="6264" name="Dropbox"/>
-                    <Item id="6265" name="OneDrive"/>
-                    <Item id="6266" name="Google Drive"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                    <!--Item id="6264" name="Dropbox"/-->
+                    <!--Item id="6265" name="OneDrive"/-->
+                    <!--Item id="6266" name="Google Drive"/-->
+                    <Item id="6267" name="Задать свой путь облачного хранения:"/>
+                    <!--Item id="6261" name="Перезапустите Notepad++"/-->
                 </Cloud>
                 <Backup title = "Резерв. Копирование">
                     <Item id="6801" name="Резервное Копирование (при сохранении)"/>
@@ -818,6 +827,7 @@
                 <Item id="2030" name="Исходное число:"/>
                 <Item id="2031" name="Увеличение на:"/>
                 <Item id="2035" name="Добав. 0 слева"/>
+                <Item id="2036" name="Повторить:"/>
                 <Item id="2032" name="Формат"/>
                 <Item id="2024" name="Десятич."/>
                 <Item id="2025" name="Восьм."/>
@@ -848,9 +858,10 @@
             <FileLockedWarning title="Сохранение не удалось" message="Пожалуйста, проверьте открыт ли этот файл в другом приложении."/>
             <FileAlreadyOpenedInNpp title="" message="Файл уже открыт в Notepad++."/>
             <DeleteFileFailed title="Удаление файла" message="Не удалось удалить файл"/>
-
+            
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Очень большое количество файлов" message="$INT_REPLACE$ файлов скоро будут открыты.&#x0A;Продолжить?"/>
+            <NbFileToOpenImportantWarning title="Очень большое количество файлов" message="$INT_REPLACE$ файла(ов) будут открыты.&#x0A;Продолжить?"/>
+            <SettingsOnCloudError title="Параметры Облака" message="Похоже, что путь для облака указан на диск или папку с пометкой только для чтения.&#x0A;Вам необходимо открыть доступ или получить права на запись.&#x0A;Ваши параметры облака будут отменены. Пожалуйста сбросьте значение в окне Настройки..."/>
 		</MessageBox>
         <ClipboardHistory>
 			<PanelTitle name="История Буфера"/>

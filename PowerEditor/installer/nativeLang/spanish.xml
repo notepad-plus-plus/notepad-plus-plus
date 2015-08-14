@@ -86,7 +86,7 @@
 					<Item id="41016" name="Borrar del disco"/>
 					<Item id="41017" name="Renombrar..."/>
 					<Item id="41021" name="Restaurar archivo cerrado recientemente"/>
-                    <Item id="42001" name="C&amp;ortar"/>
+					<Item id="42001" name="C&amp;ortar"/>
 					<Item id="42002" name="&amp;Copiar"/>
 					<Item id="42003" name="&amp;Deshacer"/>
 					<Item id="42004" name="&amp;Rehacer"/>
@@ -101,6 +101,14 @@
 					<Item id="42013" name="Unir líneas"/>
 					<Item id="42014" name="Subir línea actual"/>
 					<Item id="42015" name="Bajar línea actual"/>
+					<Item id="42059" name="Ordenar líneas en sentido ascendente"/>
+					<Item id="42060" name="Ordenar líneas en sentido descendente"/>
+					<Item id="42061" name="Orden de líneas numérico ascendiente"/>
+					<Item id="42062" name="Orden de líneas numérico descendiente"/>
+					<Item id="42063" name="Ordenar líneas como decimales (coma) ascendiente"/>
+					<Item id="42064" name="Ordenar líneas como decimales (coma) descendiente"/>
+					<Item id="42065" name="Ordenar líneas como decimales (punto) ascendiente"/>
+					<Item id="42066" name="Ordenar líneas como decimales (punto) descendiente"/>
 					<Item id="42016" name="Convertir a MAYÚSCULAS"/>
 					<Item id="42017" name="Convertir a minúsculas"/>
 					<Item id="42018" name="&amp;Inicio de grabación"/>
@@ -141,8 +149,6 @@
 					<Item id="42056" name="Eliminar líneas vacías (y contenido en blanco)"/>
 					<Item id="42057" name="Insert línea en blanco encima de la actual"/>
 					<Item id="42058" name="Insertar línea en blanco bajo la actual"/>
-					<Item id="42059" name="Ordenar líneas en sentido ascendente"/>
-					<Item id="42060" name="Ordenar líneas en sentido descendente"/>
 					<Item id="43001" name="&amp;Buscar..."/>
 					<Item id="43002" name="Buscar &amp;siguiente"/>
 					<Item id="43003" name="Reemplazar..."/>
@@ -829,6 +835,7 @@
 			<DeleteFileFailed title="Borrar archivo" message="Imposible borrar"/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Demasiados archivos" message="$INT_REPLACE$ archivos serán abiertos.\rConfirme si desea hacerlo"/>
+			<SettingsOnCloudError title="Ajustes en la nube" message="Ha usado una unidad de solo lectura para ajustes en la nube,\ro una carpeta que necesita privilegios para escritura.\rSus ajustes en la nube se cancelarán. Por favor ajuste de nuevo desde Preferencias."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial"/>

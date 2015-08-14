@@ -111,3 +111,10 @@ scintilla/cppcheck.suppress
 scintilla/.hg_archival.txt
 scintilla/.hgignore
 scintilla/bin/__init__.py
+PowerEditor/bin/NppShell64_06.dll
+PowerEditor/bin/NppShell_06.dll
+
+PowerEditor/bin/SourceCodePro-Bold.ttf
+PowerEditor/bin/SourceCodePro-BoldIt.ttf
+PowerEditor/bin/SourceCodePro-It.ttf
+PowerEditor/bin/SourceCodePro-Regular.ttf

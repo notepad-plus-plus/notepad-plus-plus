@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -33,14 +33,17 @@
 
 class ProcessThread
 {
-public :
-	ProcessThread(const TCHAR *appName, const TCHAR *cmd, const TCHAR *cDir, HWND hwnd) : _hwnd(hwnd) {
+public:
+	ProcessThread(const TCHAR *appName, const TCHAR *cmd, const TCHAR *cDir, HWND hwnd)
+		: _hwnd(hwnd)
+	{
 		lstrcpy(_appName, appName);
 		lstrcpy(_command, cmd);
 		lstrcpy(_curDir, cDir);
-	};
-	
-	BOOL run(){
+	}
+
+	BOOL run()
+	{
 		HANDLE hEvent = ::CreateEvent(NULL, FALSE, FALSE, TEXT("localVarProcessEvent"));
 
 		_hProcessThread = ::CreateThread(NULL, 0, staticLauncher, this, 0, NULL);
@@ -49,9 +52,10 @@ public :
 
 		::CloseHandle(hEvent);
 		return TRUE;
-	};
+	}
 
-protected :
+
+protected:
 	// ENTREES
 	TCHAR _appName[256];
     TCHAR _command[256];
@@ -59,12 +63,14 @@ protected :
 	HWND _hwnd;
 	HANDLE _hProcessThread;
 
-	static DWORD WINAPI staticLauncher(void *myself) {
+	static DWORD WINAPI staticLauncher(void *myself)
+	{
 		((ProcessThread *)myself)->launch();
 		return TRUE;
-	};
+	}
 
-	bool launch() {
+	bool launch()
+	{
 		HANDLE hEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("localVarProcessEvent"));
 		HWND hwnd = _hwnd;
 		TCHAR appName[256];
@@ -73,24 +79,22 @@ protected :
 
 		Process process(_command, _curDir);
 
-		if(!::SetEvent(hEvent))
-		{
+		if (!::SetEvent(hEvent))
 			systemMessage(TEXT("Thread launcher"));
-		}
 
 		process.run();
-		
+
 		int code = process.getExitCode();
 		TCHAR codeStr[256];
 		generic_sprintf(codeStr, TEXT("%s : %0.4X"), appName, code);
 		::MessageBox(hwnd, process.getStdout(), codeStr, MB_OK);
-		
+
 		if (process.hasStderr())
 			::MessageBox(hwnd, process.getStderr(), codeStr, MB_OK);
 
 		::CloseHandle(hMyself);
 		return true;
-	};
+	}
 };
 
 #endif PROCESS_THREAD_H

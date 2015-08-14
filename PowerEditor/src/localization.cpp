@@ -219,16 +219,23 @@ MenuPosition & getMenuPosition(const char *id)
 
 void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans)
 {
-	if (!_nativeLangA) return;
-	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
-	if (!mainMenu) return;
-	mainMenu = mainMenu->FirstChild("Main");
-	if (!mainMenu) return;
-	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
-	if (!entriesRoot) return;
-	const char *idName = NULL;
+	if (nullptr == _nativeLangA)
+		return;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
+	if (nullptr == mainMenu)
+		return;
+
+	mainMenu = mainMenu->FirstChild("Main");
+	if (nullptr == mainMenu)
+		return;
+
+	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
+	if (nullptr == entriesRoot)
+		return;
+
+	const char* idName = nullptr;
+	WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
 
 	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
 		childNode ;
@@ -246,7 +253,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 				::ModifyMenu(menuHandle, menuPos._x, MF_BYPOSITION, 0, nameW);
 			}
 		}
-		else 
+		else
 		{
 			idName = element->Attribute("idName");
 			if (idName)
@@ -286,24 +293,24 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 		childNode ;
 		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int x, y, z;
+		TiXmlElementA* element = childNode->ToElement();
 		//const char *xStr = element->Attribute("posX", &x);
 		//const char *yStr = element->Attribute("posY", &y);
-		const char *subMenuIdStr = element->Attribute("subMenuId");
-		const char *name = element->Attribute("name");
+		const char* subMenuIdStr = element->Attribute("subMenuId");
+		const char* name = element->Attribute("name");
 
-		if (!subMenuIdStr || !name)
+		if (nullptr == subMenuIdStr or nullptr == name)
 			continue;
 
-		MenuPosition & menuPos = getMenuPosition(subMenuIdStr);
-		x = menuPos._x;
-		y = menuPos._y;
-		z = menuPos._z;
+		MenuPosition& menuPos = getMenuPosition(subMenuIdStr);
+		int x = menuPos._x;
+		int y = menuPos._y;
+		int z = menuPos._z;
 
 		HMENU hSubMenu = ::GetSubMenu(menuHandle, x);
 		if (!hSubMenu)
 			continue;
+
 		HMENU hSubMenu2 = ::GetSubMenu(hSubMenu, y);
 		if (!hSubMenu2)
 			continue;
@@ -326,42 +333,45 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 	}
 }
 
-int tabContextMenuItemPos[] = {
-0, // 0 : Close 
-1, // 1 : Close ALL BUT This
-4, // 2 : Save
-5, // 3 : Save As
-9, // 4 : Print
-21,// 5 : Move to Other View
-22,// 6 : Clone to Other View
-17,// 7 : Full File Path to Clipboard
-18,// 8 : Filename to Clipboard
-19,// 9 : Current Dir. Path to Clipboard
-6, // 10: Rename
-7, // 11: Move to Recycle Bin
-14,// 12: Read-Only
-15,// 13: Clear Read-Only Flag
-23,// 14: Move to New Instance
-24,// 15: Open to New Instance
-8, // 16: Reload
-2, // 17: Close ALL to the Left
-3, // 18: Close ALL to the Right
-11,// 19: Open Containing Folder in Explorer
-12,// 20: Open Containing Folder in cmd
--1 //-------End
+
+static const int tabContextMenuItemPos[] =
+{
+	0,   // 0 : Close
+	1,   // 1 : Close ALL BUT This
+	4,   // 2 : Save
+	5,   // 3 : Save As
+	9,   // 4 : Print
+	21,  // 5 : Move to Other View
+	22,  // 6 : Clone to Other View
+	17,  // 7 : Full File Path to Clipboard
+	18,  // 8 : Filename to Clipboard
+	19,  // 9 : Current Dir. Path to Clipboard
+	6,   // 10: Rename
+	7,   // 11: Move to Recycle Bin
+	14,  // 12: Read-Only
+	15,  // 13: Clear Read-Only Flag
+	23,  // 14: Move to New Instance
+	24,  // 15: Open to New Instance
+	8,   // 16: Reload
+	2,   // 17: Close ALL to the Left
+	3,   // 18: Close ALL to the Right
+	11,  // 19: Open Containing Folder in Explorer
+	12,  // 20: Open Containing Folder in cmd
+	-1   //-------End
 };
+
 
 void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 {
-	if (_nativeLangA)
+	if (nullptr != _nativeLangA)
 	{
 		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
-		if (tabBarMenu) 
+		if (tabBarMenu)
 		{
 			tabBarMenu = tabBarMenu->FirstChild("TabBar");
 			if (tabBarMenu)
 			{
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
 				int nbCMItems = sizeof(tabContextMenuItemPos)/sizeof(int);
 
 				for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
@@ -395,12 +405,13 @@ void NativeLangSpeaker::changeLangTabDrapContextMenu(HMENU hCM)
 
 	if (_nativeLangA)
 	{
-		const char *goToViewA = NULL;
-		const char *cloneToViewA = NULL;
-		
+		const char *goToViewA = nullptr;
+		const char *cloneToViewA = nullptr;
+
 		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
 		if (tabBarMenu)
 			tabBarMenu = tabBarMenu->FirstChild("TabBar");
+
 		if (tabBarMenu)
 		{
 			for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
@@ -433,13 +444,16 @@ void NativeLangSpeaker::changeLangTabDrapContextMenu(HMENU hCM)
 	}
 }
 
+
 void NativeLangSpeaker::changeConfigLang(HWND hDlg)
 {
-	if (!_nativeLangA) return;
+	if (nullptr == _nativeLangA)
+		return;
 
 	TiXmlNodeA *styleConfDlgNode = _nativeLangA->FirstChild("Dialog");
-	if (!styleConfDlgNode) return;	
-	
+	if (!styleConfDlgNode)
+		return;
+
 	styleConfDlgNode = styleConfDlgNode->FirstChild("StyleConfig");
 	if (!styleConfDlgNode) return;
 

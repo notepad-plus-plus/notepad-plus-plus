@@ -249,8 +249,6 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				if (!_hPopupMenu)
 				{
-					POINT p;
-					::GetCursorPos(&p);
 					_hPopupMenu = ::CreatePopupMenu();
 					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_A_GAUCHE, TEXT("Rotate to left"));
 					::InsertMenu(_hPopupMenu, 0, MF_BYPOSITION, ROTATION_A_DROITE, TEXT("Rotate to right"));

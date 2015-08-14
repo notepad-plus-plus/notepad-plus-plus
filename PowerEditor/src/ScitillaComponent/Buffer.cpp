@@ -923,11 +923,11 @@ bool FileManager::backupCurrentBuffer()
 	else // buffer not dirty, sync: delete the backup file
 	{
 		generic_string backupFilePath = buffer->getBackupFileName();
-		if (backupFilePath != TEXT(""))
+		if (not backupFilePath.empty())
 		{
 			// delete backup file
 			generic_string file2Delete = buffer->getBackupFileName();
-			buffer->setBackupFileName(TEXT(""));
+			buffer->setBackupFileName(generic_string());
 			result = (::DeleteFile(file2Delete.c_str()) != 0);
 
 			// Session changes, save it
@@ -993,13 +993,14 @@ bool FileManager::deleteCurrentBufferBackup()
 	if (not backupFilePath.empty())
 	{
 		// delete backup file
-		buffer->setBackupFileName(TEXT(""));
+		buffer->setBackupFileName(generic_string());
 		result = (::DeleteFile(backupFilePath.c_str()) != 0);
 	}
 
 	// set to signaled state via destructor EventReset.
 	return result;
 }
+
 
 bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, generic_string * error_msg)
 {
@@ -1115,11 +1116,11 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 			/* for saveAs it's not necessary since this action is for the "current" directory, so we let manage in SAVEPOINTREACHED event
 			generic_string backupFilePath = buffer->getBackupFileName();
-			if (backupFilePath != TEXT(""))
+			if (not backupFilePath.empty())
 			{
 				// delete backup file
 				generic_string file2Delete = buffer->getBackupFileName();
-				buffer->setBackupFileName(TEXT(""));
+				buffer->setBackupFileName(generic_string());
 				::DeleteFile(file2Delete.c_str());
 			}
 			*/
@@ -1140,7 +1141,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		if (not backupFilePath.empty())
 		{
 			// delete backup file
-			buffer->setBackupFileName(TEXT(""));
+			buffer->setBackupFileName(generic_string());
 			::DeleteFile(backupFilePath.c_str());
 		}
 

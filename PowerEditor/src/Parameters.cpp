@@ -483,7 +483,7 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 };
 
 
-
+typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
 
 
@@ -533,6 +533,92 @@ namespace // anonymous namespace
 		return -1;
 	}
 
+	
+	static inline size_t getAsciiLenFromBase64Len(size_t base64StrLen)
+	{
+		return (base64StrLen % 4) ? 0 : (base64StrLen - base64StrLen / 4);
+	}
+
+
+	static int base64ToAscii(char *dest, const char *base64Str)
+	{
+		static const int base64IndexArray[123] =
+		{
+			-1, -1, -1, -1, -1, -1, -1, -1,
+			-1, -1, -1, -1, -1, -1, -1, -1,
+			-1, -1, -1, -1, -1, -1, -1, -1,
+			-1, -1, -1, -1, -1, -1, -1, -1,
+			-1, -1, -1, -1, -1, -1, -1, -1,
+			-1, -1, -1, 62, -1, -1, -1, 63,
+			52, 53, 54, 55 ,56, 57, 58, 59,
+			60, 61, -1, -1, -1, -1, -1, -1,
+			-1,  0,  1,  2,  3,  4,  5,  6,
+			 7,  8,  9, 10, 11, 12, 13, 14,
+			15, 16, 17, 18, 19, 20, 21, 22,
+			23, 24, 25, -1, -1, -1, -1 ,-1,
+			-1, 26, 27, 28, 29, 30, 31, 32,
+			33, 34, 35, 36, 37, 38, 39, 40,
+			41, 42, 43, 44, 45, 46, 47, 48,
+			49, 50, 51
+		};
+
+		size_t b64StrLen = strlen(base64Str);
+		size_t nbLoop = b64StrLen / 4;
+
+		size_t i = 0;
+		int k = 0;
+
+		enum {b64_just, b64_1padded, b64_2padded} padd = b64_just;
+		for ( ; i < nbLoop ; i++)
+		{
+			size_t j = i * 4;
+			UCHAR uc0, uc1, uc2, uc3, p0, p1;
+
+			uc0 = (UCHAR)base64IndexArray[base64Str[j]];
+			uc1 = (UCHAR)base64IndexArray[base64Str[j+1]];
+			uc2 = (UCHAR)base64IndexArray[base64Str[j+2]];
+			uc3 = (UCHAR)base64IndexArray[base64Str[j+3]];
+
+			if ((uc0 == -1) || (uc1 == -1) || (uc2 == -1) || (uc3 == -1))
+				return -1;
+
+			if (base64Str[j+2] == '=') // && (uc3 == '=')
+			{
+				uc2 = uc3 = 0;
+				padd = b64_2padded;
+			}
+			else if (base64Str[j+3] == '=')
+			{
+				uc3 = 0;
+				padd = b64_1padded;
+			}
+
+			p0 = uc0 << 2;
+			p1 = uc1 << 2;
+			p1 >>= 6;
+			dest[k++] = p0 | p1;
+
+			p0 = uc1 << 4;
+			p1 = uc2 << 2;
+			p1 >>= 4;
+			dest[k++] = p0 | p1;
+
+			p0 = uc2 << 6;
+			p1 = uc3;
+			dest[k++] = p0 | p1;
+		}
+
+		//dest[k] = '\0';
+		if (padd == b64_1padded)
+		//	dest[k-1] = '\0';
+			return k-1;
+		else if (padd == b64_2padded)
+		//	dest[k-2] = '\0';
+			return k-2;
+
+		return k;
+	}
+
 } // anonymous namespace
 
 
@@ -540,32 +626,72 @@ namespace // anonymous namespace
 
 
 
-wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) const
+
+void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
+{
+	TCHAR str2scan[MAX_PATH];
+	lstrcpy(str2scan, str2cut);
+	size_t len = lstrlen(str2scan);
+	bool isProcessing = false;
+	TCHAR *pBegin = nullptr;
+
+	for (size_t i = 0 ; i <= len ; ++i)
+	{
+		switch(str2scan[i])
+		{
+			case ' ':
+			case '\0':
+			{
+				if (isProcessing)
+				{
+					str2scan[i] = '\0';
+					patternVect.push_back(pBegin);
+					isProcessing = false;
+				}
+				break;
+			}
+
+			default:
+			{
+				if (!isProcessing)
+				{
+					isProcessing = true;
+					pBegin = str2scan+i;
+				}
+			}
+		}
+	}
+}
+
+
+std::wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) const
 {
 	size_t nbItem = sizeof(localizationDefs)/sizeof(LocalizationSwitcher::LocalizationDefinition);
 	for (size_t i = 0 ; i < nbItem ; ++i)
 	{
-		if (wcsicmp(fn, localizationDefs[i]._xmlFileName) == 0)
+		if (0 == wcsicmp(fn, localizationDefs[i]._xmlFileName))
 			return localizationDefs[i]._langName;
 	}
-	return TEXT("");
+	return std::wstring();
 }
 
-wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *langName) const
+
+std::wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *langName) const
 {
 	for (size_t i = 0, len = _localizationList.size(); i < len ; ++i)
 	{
-		if (wcsicmp(langName, _localizationList[i].first.c_str()) == 0)
+		if (0 == wcsicmp(langName, _localizationList[i].first.c_str()))
 			return _localizationList[i].second;
 	}
-	return TEXT("");
+	return std::wstring();
 }
+
 
 bool LocalizationSwitcher::addLanguageFromXml(wstring xmlFullPath)
 {
 	wchar_t * fn = ::PathFindFileNameW(xmlFullPath.c_str());
 	wstring foundLang = getLangFromXmlFileName(fn);
-	if (foundLang != TEXT(""))
+	if (not foundLang.empty())
 	{
 		_localizationList.push_back(pair<wstring, wstring>(foundLang, xmlFullPath));
 		return true;
@@ -573,10 +699,11 @@ bool LocalizationSwitcher::addLanguageFromXml(wstring xmlFullPath)
 	return false;
 }
 
+
 bool LocalizationSwitcher::switchToLang(wchar_t *lang2switch) const
 {
 	wstring langPath = getXmlFilePathFromLangName(lang2switch);
-	if (langPath == TEXT(""))
+	if (langPath.empty())
 		return false;
 
 	return ::CopyFileW(langPath.c_str(), _nativeLangPath.c_str(), FALSE) != FALSE;
@@ -586,13 +713,12 @@ bool LocalizationSwitcher::switchToLang(wchar_t *lang2switch) const
 generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) const
 {
 	if (!xmlFullPath || !xmlFullPath[0])
-		return TEXT("");
+		return generic_string();
 	generic_string fn(::PathFindFileName(xmlFullPath));
 	PathRemoveExtension((TCHAR *)fn.c_str());
-	return fn.c_str();
+	return fn;
 }
 
-typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
 #pragma warning(disable : 4996)
 
@@ -619,85 +745,74 @@ winVer getWindowsVersion()
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
-	//printInt(osvi.dwMajorVersion);
-	//printInt(osvi.dwMinorVersion);
+
    switch (osvi.dwPlatformId)
    {
 		case VER_PLATFORM_WIN32_NT:
 		{
-			if ( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3 )
-			{
+			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3)
 				return WV_WIN81;
-			}
 
-			if ( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2 )
-			{
+			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2)
 				return WV_WIN8;
-			}
 
-			if ( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1 )
-			{
+			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1)
 				return WV_WIN7;
-			}
 
-			if ( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0 )
-			{
+			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0)
 				return WV_VISTA;
-			}
 
-			if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2 )
+			if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2)
 			{
-				if (osvi.wProductType == VER_NT_WORKSTATION &&
-					   si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64)
-				{
+				if (osvi.wProductType == VER_NT_WORKSTATION && si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64)
 					return WV_XPX64;
-				}
 				return WV_S2003;
 			}
 
-			if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1 )
+			if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1)
 				return WV_XP;
 
-			if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 )
+			if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0)
 				return WV_W2K;
 
-			if ( osvi.dwMajorVersion <= 4 )
+			if (osvi.dwMajorVersion <= 4)
 				return WV_NT;
+			break;
 		}
-		break;
 
 		// Test for the Windows Me/98/95.
 		case VER_PLATFORM_WIN32_WINDOWS:
 		{
 			if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 0)
-			{
 				return WV_95;
-			}
 
 			if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 10)
-			{
 				return WV_98;
-			}
 
 			if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 90)
-			{
 				return WV_ME;
-			}
+			break;
 		}
-		break;
 
-	  case VER_PLATFORM_WIN32s:
-		return WV_WIN32S;
+		case VER_PLATFORM_WIN32s:
+			return WV_WIN32S;
 
-	  default :
-		return WV_UNKNOWN;
+		default:
+			return WV_UNKNOWN;
    }
+
    return WV_UNKNOWN;
 }
 
 
+
 NppParameters * NppParameters::_pSelf = new NppParameters;
+
 int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
+
+
+
+
 
 NppParameters::NppParameters() :	_pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),_pXmlUserLangDoc(NULL),\
 									_pXmlNativeLangDocA(NULL), _nbLang(0), _pXmlToolIconsDoc(NULL), _nbRecentFile(0),\
@@ -706,14 +821,12 @@ NppParameters::NppParameters() :	_pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 									_pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),	_nbUserLang(0), _nbExternalLang(0),\
 									_hUXTheme(NULL), _transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
 									_pNativeLangSpeaker(NULL), _isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1),\
-									_asNotepadStyle(false), _isFindReplacing(false), _initialCloudChoice(TEXT(""))
+									_asNotepadStyle(false), _isFindReplacing(false)
 {
 	// init import UDL array
 	_nbImportedULD = 0;
 	for (int i = 0 ; i < NB_MAX_IMPORTED_UDL ; ++i)
-	{
-		_importedULD[i] = NULL;
-	}
+		_importedULD[i] = nullptr;
 
 	//Get windows version
 	_winVersion = getWindowsVersion();
@@ -730,7 +843,7 @@ NppParameters::NppParameters() :	_pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 	::GetCurrentDirectory(MAX_PATH, curDir);
 	_currentDirectory = curDir;
 
-	_appdataNppDir = TEXT("");
+	_appdataNppDir.clear();
 	generic_string notepadStylePath(_nppPath);
 	PathAppend(notepadStylePath, notepadStyleFile);
 
@@ -740,6 +853,7 @@ NppParameters::NppParameters() :	_pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 	initMenuKeys();
 	initScintillaKeys();
 }
+
 
 NppParameters::~NppParameters()
 {
@@ -753,44 +867,11 @@ NppParameters::~NppParameters()
 		FreeLibrary(_hUXTheme);
 
 	for (std::vector<TiXmlDocument *>::iterator it = _pXmlExternalLexerDoc.begin(), end = _pXmlExternalLexerDoc.end(); it != end; ++it )
-	{
 		delete (*it);
-	}
+
 	_pXmlExternalLexerDoc.clear();
 }
 
-void cutString(const TCHAR *str2cut, vector<generic_string> & patternVect)
-{
-	TCHAR str2scan[MAX_PATH];
-	lstrcpy(str2scan, str2cut);
-	size_t len = lstrlen(str2scan);
-	bool isProcessing = false;
-	TCHAR *pBegin = NULL;
-	for (size_t i = 0 ; i <= len ; ++i)
-	{
-		switch(str2scan[i])
-		{
-			case ' ':
-			case '\0':
-			{
-				if (isProcessing)
-				{
-					str2scan[i] = '\0';
-					patternVect.push_back(pBegin);
-					isProcessing = false;
-				}
-				break;
-			}
-
-			default :
-				if (!isProcessing)
-				{
-					isProcessing = true;
-					pBegin = str2scan+i;
-				}
-		}
-	}
-}
 
 bool NppParameters::reloadStylers(TCHAR *stylePath)
 {
@@ -842,124 +923,37 @@ bool NppParameters::reloadLang()
 	if (!loadOkay)
 	{
 		delete _pXmlNativeLangDocA;
-		_pXmlNativeLangDocA = NULL;
+		_pXmlNativeLangDocA = nullptr;
 		return false;
 	}
 	return loadOkay;
 }
 
-size_t getAsciiLenFromBase64Len(size_t base64StrLen)
-{
-	if (base64StrLen % 4) return 0;
-	return  base64StrLen - base64StrLen / 4;
-}
-
-int base64ToAscii(char *dest, const char *base64Str)
-{
-	int base64IndexArray[123] =\
-	{\
-	-1, -1, -1, -1, -1, -1, -1, -1,\
-	-1, -1, -1, -1, -1, -1, -1, -1,\
-	-1, -1, -1, -1, -1, -1, -1, -1,\
-	-1, -1, -1, -1, -1, -1, -1, -1,\
-	-1, -1, -1, -1, -1, -1, -1, -1,\
-	-1, -1, -1, 62, -1, -1, -1, 63,\
-	52, 53, 54, 55 ,56, 57, 58, 59,\
-	60, 61, -1, -1, -1, -1, -1, -1,\
-	-1,  0,  1,  2,  3,  4,  5,  6,\
-	 7,  8,  9, 10, 11, 12, 13, 14,\
-	15, 16, 17, 18, 19, 20, 21, 22,\
-	23, 24, 25, -1, -1, -1, -1 ,-1,\
-	-1, 26, 27, 28, 29, 30, 31, 32,\
-	33, 34, 35, 36, 37, 38, 39, 40,\
-	41, 42, 43, 44, 45, 46, 47, 48,\
-	49, 50, 51\
-	};
-
-	size_t b64StrLen = strlen(base64Str);
-	size_t nbLoop = b64StrLen / 4;
-
-	size_t i = 0;
-	int k = 0;
-
-	enum {b64_just, b64_1padded, b64_2padded} padd = b64_just;
-	for ( ; i < nbLoop ; i++)
-	{
-		size_t j = i * 4;
-		UCHAR uc0, uc1, uc2, uc3, p0, p1;
-
-		uc0 = (UCHAR)base64IndexArray[base64Str[j]];
-		uc1 = (UCHAR)base64IndexArray[base64Str[j+1]];
-		uc2 = (UCHAR)base64IndexArray[base64Str[j+2]];
-		uc3 = (UCHAR)base64IndexArray[base64Str[j+3]];
-
-		if ((uc0 == -1) || (uc1 == -1) || (uc2 == -1) || (uc3 == -1))
-			return -1;
-
-		if (base64Str[j+2] == '=') // && (uc3 == '=')
-		{
-			uc2 = uc3 = 0;
-			padd = b64_2padded;
-		}
-		else if (base64Str[j+3] == '=')
-		{
-			uc3 = 0;
-			padd = b64_1padded;
-		}
-		p0 = uc0 << 2;
-		p1 = uc1 << 2;
-		p1 >>= 6;
-		dest[k++] = p0 | p1;
-
-		p0 = uc1 << 4;
-		p1 = uc2 << 2;
-		p1 >>= 4;
-		dest[k++] = p0 | p1;
-
-		p0 = uc2 << 6;
-		p1 = uc3;
-		dest[k++] = p0 | p1;
-	}
-
-	//dest[k] = '\0';
-	if (padd == b64_1padded)
-	//	dest[k-1] = '\0';
-		return k-1;
-	else if (padd == b64_2padded)
-	//	dest[k-2] = '\0';
-		return k-2;
-
-	return k;
-}
 
 generic_string NppParameters::getSettingsFolder()
 {
-	generic_string settingsFolderPath;
 	if (_isLocal)
-	{
 		return _nppPath;
-	}
-	else
-	{
-		ITEMIDLIST *pidl;
-		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
-		if ( !SUCCEEDED( specialLocationResult ) )
-		{
-			return TEXT( "" );
-		}
-		TCHAR tmp[MAX_PATH];
-		SHGetPathFromIDList(pidl, tmp);
-		generic_string settingsFolderPath = tmp;
-		PathAppend(settingsFolderPath, TEXT("Notepad++"));
-		return settingsFolderPath;
-	}
+
+	ITEMIDLIST *pidl;
+	const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+	if (!SUCCEEDED( specialLocationResult))
+		return generic_string();
+
+	TCHAR tmp[MAX_PATH];
+	SHGetPathFromIDList(pidl, tmp);
+	generic_string settingsFolderPath{tmp};
+	PathAppend(settingsFolderPath, TEXT("Notepad++"));
+	return settingsFolderPath;
 }
+
 
 bool NppParameters::load()
 {
 	L_END = L_EXTERNAL;
 	bool isAllLaoded = true;
-	for (int i = 0 ; i < NB_LANG ; _langList[i] = NULL, ++i);
+	for (int i = 0 ; i < NB_LANG ; _langList[i] = NULL, ++i)
+	{}
 
 	// Make localConf.xml path
 	generic_string localConfPath(_nppPath);
@@ -977,10 +971,9 @@ bool NppParameters::load()
 		{
 			ITEMIDLIST *pidl;
 			const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
-			if ( !SUCCEEDED( specialLocationResult ) )
-			{
+			if (!SUCCEEDED( specialLocationResult))
 				return false;
-			}
+
 			TCHAR progPath[MAX_PATH];
 			SHGetPathFromIDList(pidl, progPath);
 			TCHAR nppDirLocation[MAX_PATH];
@@ -1000,10 +993,9 @@ bool NppParameters::load()
 	{
 		ITEMIDLIST *pidl;
 		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
-		if ( !SUCCEEDED( specialLocationResult ) )
-		{
+		if (!SUCCEEDED( specialLocationResult))
 			return false;
-		}
+
 		TCHAR tmp[MAX_PATH];
 		SHGetPathFromIDList(pidl, tmp);
 		_userPath = tmp;
@@ -1012,15 +1004,13 @@ bool NppParameters::load()
 		_appdataNppDir = _userPath;
 
 		if (!PathFileExists(_userPath.c_str()))
-		{
 			::CreateDirectory(_userPath.c_str(), NULL);
-		}
 	}
 
 	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
 
 	// Detection cloud settings
-	generic_string cloudChoicePath = _userPath;
+	generic_string cloudChoicePath{_userPath};
 	cloudChoicePath += TEXT("\\cloud\\choice");
 
 	// cloudChoicePath doesn't exist, just quit
@@ -1031,7 +1021,7 @@ bool NppParameters::load()
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		std::wstring cloudChoiceStrW = wmc->char2wchar(cloudChoiceStr.c_str(), SC_CP_UTF8);
 
-		if (cloudChoiceStrW != TEXT("") && ::PathFileExists(cloudChoiceStrW.c_str()))
+		if (not cloudChoiceStrW.empty() and ::PathFileExists(cloudChoiceStrW.c_str()))
 		{
 			_userPath = cloudChoiceStrW;
 			_nppGUI._cloudPath = cloudChoiceStrW;
@@ -1087,7 +1077,7 @@ bool NppParameters::load()
 	{
 		::MessageBox(NULL, TEXT("Load langs.xml failed!"), TEXT("Configurator"),MB_OK);
 		delete _pXmlDoc;
-		_pXmlDoc = NULL;
+		_pXmlDoc = nullptr;
 		isAllLaoded = false;
 	}
 	else
@@ -1150,10 +1140,8 @@ bool NppParameters::load()
 		::CopyFile(srcStylersPath.c_str(), _stylerPath.c_str(), TRUE);
 	}
 
-	if ( _nppGUI._themeName.empty() || (!PathFileExists(_nppGUI._themeName.c_str())) )
-	{
+	if (_nppGUI._themeName.empty() || (!PathFileExists(_nppGUI._themeName.c_str())))
 		_nppGUI._themeName.assign(_stylerPath);
-	}
 
 	_pXmlUserStylerDoc = new TiXmlDocument(_nppGUI._themeName.c_str());
 
@@ -1183,7 +1171,7 @@ bool NppParameters::load()
 	if (!loadOkay)
 	{
 		delete _pXmlUserLangDoc;
-		_pXmlUserLangDoc = NULL;
+		_pXmlUserLangDoc = nullptr;
 		isAllLaoded = false;
 	}
 	else
@@ -1202,7 +1190,7 @@ bool NppParameters::load()
 	// LocalizationSwitcher should use always user path
 	_localizationSwitcher._nativeLangPath = nativeLangPath;
 
-	if (_startWithLocFileName != TEXT("")) // localization argument detected, use user wished localization
+	if (not _startWithLocFileName.empty()) // localization argument detected, use user wished localization
 	{
 		// overwrite nativeLangPath variable
 		nativeLangPath = _nppPath;
@@ -1225,7 +1213,7 @@ bool NppParameters::load()
 	if (!loadOkay)
 	{
 		delete _pXmlNativeLangDocA;
-		_pXmlNativeLangDocA = NULL;
+		_pXmlNativeLangDocA = nullptr;
 		isAllLaoded = false;
 	}
 
@@ -1240,7 +1228,7 @@ bool NppParameters::load()
 	if (!loadOkay)
 	{
 		delete _pXmlToolIconsDoc;
-		_pXmlToolIconsDoc = NULL;
+		_pXmlToolIconsDoc = nullptr;
 		isAllLaoded = false;
 	}
 
@@ -1263,7 +1251,7 @@ bool NppParameters::load()
 	if (!loadOkay)
 	{
 		delete _pXmlShortcutDoc;
-		_pXmlShortcutDoc = NULL;
+		_pXmlShortcutDoc = nullptr;
 		isAllLaoded = false;
 	}
 	else
@@ -1296,7 +1284,7 @@ bool NppParameters::load()
 	if (!loadOkay)
 	{
 		delete _pXmlContextMenuDocA;
-		_pXmlContextMenuDocA = NULL;
+		_pXmlContextMenuDocA = nullptr;
 		isAllLaoded = false;
 	}
 
@@ -1311,6 +1299,7 @@ bool NppParameters::load()
 	if (nppGUI._rememberLastSession)
 	{
 		_pXmlSessionDoc = new TiXmlDocument(_sessionPath);
+
 		loadOkay = _pXmlSessionDoc->LoadFile();
 		if (!loadOkay)
 			isAllLaoded = false;
@@ -1322,7 +1311,7 @@ bool NppParameters::load()
 			if (_pXmlExternalLexerDoc[i])
 				delete _pXmlExternalLexerDoc[i];
 
-		_pXmlSessionDoc = NULL;
+		_pXmlSessionDoc = nullptr;
 	}
 
 	//------------------------------//
@@ -1336,59 +1325,34 @@ bool NppParameters::load()
 		_pXmlBlacklistDoc = new TiXmlDocument(_blacklistPath);
 		loadOkay = _pXmlBlacklistDoc->LoadFile();
 		if (loadOkay)
-		{
 			getBlackListFromXmlTree();
-		}
 	}
 	return isAllLaoded;
 }
 
+
 void NppParameters::destroyInstance()
 {
-	if (_pXmlDoc != NULL)
-	{
-		delete _pXmlDoc;
-	}
-
-	if (_pXmlUserDoc != NULL)
-	{
-		delete _pXmlUserDoc;
-	}
-	if (_pXmlUserStylerDoc)
-		delete _pXmlUserStylerDoc;
-
-	if (_pXmlUserLangDoc)
-	{
-		delete _pXmlUserLangDoc;
-	}
+	delete _pXmlDoc;
+	delete _pXmlUserDoc;
+	delete _pXmlUserStylerDoc;
+	delete _pXmlUserLangDoc;
 
 	for (int i = 0 ; i < _nbImportedULD ; ++i)
 	{
 		delete _importedULD[i];
-		_importedULD[i] = NULL;
+		_importedULD[i] = nullptr;
 	}
 	_nbImportedULD = 0;
 
-	if (_pXmlNativeLangDocA)
-		delete _pXmlNativeLangDocA;
-
-	if (_pXmlToolIconsDoc)
-		delete _pXmlToolIconsDoc;
-
-	if (_pXmlShortcutDoc)
-		delete _pXmlShortcutDoc;
-
-	if (_pXmlContextMenuDocA)
-		delete _pXmlContextMenuDocA;
-
-	if (_pXmlSessionDoc)
-		delete _pXmlSessionDoc;
-
-	if (_pXmlBlacklistDoc)
-		delete _pXmlBlacklistDoc;
-
+	delete _pXmlNativeLangDocA;
+	delete _pXmlToolIconsDoc;
+	delete _pXmlShortcutDoc;
+	delete _pXmlContextMenuDocA;
+	delete _pXmlSessionDoc;
+	delete _pXmlBlacklistDoc;
 	delete _pSelf;
-	_pSelf = NULL;
+	_pSelf = nullptr;
 }
 
 
@@ -1416,15 +1380,15 @@ void NppParameters::removeTransparent(HWND hwnd)
 
 void NppParameters::SetTransparent(HWND hwnd, int percent)
 {
-	if (!_transparentFuncAddr)
-		return;
-
-	::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) | 0x00080000);
-	if (percent > 255)
-		percent = 255;
-	if (percent < 0)
-		percent = 0;
-	_transparentFuncAddr(hwnd, 0, percent, 0x00000002);
+	if (nullptr != _transparentFuncAddr)
+	{
+		::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) | 0x00080000);
+		if (percent > 255)
+			percent = 255;
+		if (percent < 0)
+			percent = 0;
+		_transparentFuncAddr(hwnd, 0, percent, 0x00000002);
+	}
 }
 
 
@@ -1529,6 +1493,7 @@ static int CALLBACK EnumFontFamExProc(const LOGFONT* lpelfe, const TEXTMETRIC*, 
 	return 1; // I want to get all fonts
 }
 
+
 void NppParameters::setFontList(HWND hWnd)
 {
 	//---------------//
@@ -1536,7 +1501,8 @@ void NppParameters::setFontList(HWND hWnd)
 	//---------------//
 	LOGFONT lf;
 	_fontlist.clear();
-	_fontlist.push_back(TEXT(""));
+	_fontlist.reserve(64); // arbitrary
+	_fontlist.push_back(generic_string());
 
 	lf.lfCharSet = DEFAULT_CHARSET;
 	lf.lfFaceName[0]='\0';
@@ -1544,6 +1510,7 @@ void NppParameters::setFontList(HWND hWnd)
 	HDC hDC = ::GetDC(hWnd);
 	::EnumFontFamiliesEx(hDC, &lf, EnumFontFamExProc, (LPARAM)&_fontlist, 0);
 }
+
 
 void NppParameters::getLangKeywordsFromXmlTree()
 {
@@ -1553,6 +1520,7 @@ void NppParameters::getLangKeywordsFromXmlTree()
 	feedKeyWordsParameters(root);
 }
 
+
 void NppParameters::getExternalLexerFromXmlTree(TiXmlDocument *doc)
 {
 	TiXmlNode *root = doc->FirstChild(TEXT("NotepadPlus"));
@@ -1560,6 +1528,7 @@ void NppParameters::getExternalLexerFromXmlTree(TiXmlDocument *doc)
 	feedKeyWordsParameters(root);
 	feedStylerArray(root);
 }
+
 
 int NppParameters::addExternalLangToEnd(ExternalLangContainer * externalLang)
 {
@@ -1569,6 +1538,7 @@ int NppParameters::addExternalLangToEnd(ExternalLangContainer * externalLang)
 	return _nbExternalLang-1;
 }
 
+
 bool NppParameters::getUserStylersFromXmlTree()
 {
 	TiXmlNode *root = _pXmlUserStylerDoc->FirstChild(TEXT("NotepadPlus"));
@@ -1576,13 +1546,15 @@ bool NppParameters::getUserStylersFromXmlTree()
 	return feedStylerArray(root);
 }
 
+
 bool NppParameters::getUserParametersFromXmlTree()
 {
 	if (!_pXmlUserDoc)
 		return false;
 
 	TiXmlNode *root = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
-	if (!root) return false;
+	if (nullptr == root)
+		return false;
 
 	// Get GUI parameters
 	feedGUIParameters(root);
@@ -1606,6 +1578,7 @@ bool NppParameters::getUserParametersFromXmlTree()
 
 	return true;
 }
+
 
 bool NppParameters::getUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc)
 {
@@ -1634,6 +1607,7 @@ bool NppParameters::getShortcutsFromXmlTree()
 	return true;
 }
 
+
 bool NppParameters::getMacrosFromXmlTree()
 {
 	if (!_pXmlShortcutDoc)
@@ -1646,6 +1620,7 @@ bool NppParameters::getMacrosFromXmlTree()
 	feedMacros(root);
 	return true;
 }
+
 
 bool NppParameters::getUserCmdsFromXmlTree()
 {
@@ -1872,7 +1847,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 				menuEntryName = menuEntryNameA?wmc->char2wchar(menuEntryNameA, SC_CP_UTF8):TEXT("");
 				menuItemName = menuItemNameA?wmc->char2wchar(menuItemNameA, SC_CP_UTF8):TEXT("");
 
-				if (menuEntryName != TEXT("") && menuItemName != TEXT(""))
+				if (not menuEntryName.empty() and not menuItemName.empty())
 				{
 					int cmd = getCmdIdFromMenuEntryItemName(mainMenuHadle, menuEntryName, menuItemName);
 					if (cmd != -1)
@@ -1889,7 +1864,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 					pluginCmdName = pluginCmdNameA?wmc->char2wchar(pluginCmdNameA, SC_CP_UTF8):TEXT("");
 
 					// if plugin menu existing plls the value of PluginEntryName and PluginCommandItemName are valid
-					if (pluginsMenu && pluginName != TEXT("") && pluginCmdName != TEXT(""))
+					if (pluginsMenu && not pluginName.empty() && not pluginCmdName.empty())
 					{
 						int pluginCmdId = getPluginCmdIdFromMenuEntryItemName(pluginsMenu, pluginName, pluginCmdName);
 						if (pluginCmdId != -1)
@@ -1902,6 +1877,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 	return true;
 }
 
+
 void NppParameters::setWorkingDir(const TCHAR * newPath)
 {
 	if (newPath && newPath[0])
@@ -1911,15 +1887,12 @@ void NppParameters::setWorkingDir(const TCHAR * newPath)
 	else
 	{
 		if (PathFileExists(_nppGUI._defaultDirExp))
-		{
 			_currentDirectory = _nppGUI._defaultDirExp;
-		}
 		else
-		{
 			_currentDirectory = _nppPath.c_str();
-		}
 	}
 }
+
 
 bool NppParameters::loadSession(Session & session, const TCHAR *sessionFileName)
 {
@@ -1931,6 +1904,7 @@ bool NppParameters::loadSession(Session & session, const TCHAR *sessionFileName)
 	delete pXmlSessionDocument;
 	return loadOkay;
 }
+
 
 bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *pSession)
 {
@@ -2591,9 +2565,10 @@ LangType NppParameters::getLangFromExt(const TCHAR *ext)
 		if (pLS)
 			userList = pLS->getLexerUserExt();
 
-		generic_string list(TEXT(""));
+		generic_string list;
 		if (defList)
 			list += defList;
+
 		if (userList)
 		{
 			list += TEXT(" ");
@@ -2662,10 +2637,8 @@ bool NppParameters::writeSettingsFilesOnCloudForThe1stTime(const generic_string 
 {
 	bool isOK = false;
 
-	if (cloudSettingsPath == TEXT(""))
-	{
+	if (cloudSettingsPath.empty())
 		return false;
-	}
 
 	// config.xml
 	generic_string cloudConfigPath = cloudSettingsPath;
@@ -3110,7 +3083,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 		{
 			if (!lstrcmp(udlVersion, TEXT("")) && !lstrcmp(keywordsName, TEXT("Delimiters")))	// support for old style (pre 2.0)
 			{
-				basic_string<TCHAR> temp = TEXT("");
+				basic_string<TCHAR> temp;
 				kwl = (valueNode)?valueNode->Value():TEXT("000000");
 
 				temp += TEXT("00");	 if (kwl[0] != '0') temp += kwl[0];	 temp += TEXT(" 01");
@@ -3127,7 +3100,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 			{
 				kwl = (valueNode)?valueNode->Value():TEXT("");
 				//int len = _tcslen(kwl);
-				basic_string<TCHAR> temp = TEXT(" ");
+				basic_string<TCHAR> temp{TEXT(" ")};
 
 				temp += kwl;
 				size_t pos = 0;
@@ -3604,14 +3577,15 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 	if (localizationCode == TEXT("uz"))
 		return TEXT("uzbek.xml");
 
-	return TEXT("");
+	return generic_string();
 }
+
 
 void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
 {
-
 	TiXmlNode *langRoot = node->FirstChildElement(TEXT("Languages"));
-	if (!langRoot) return;
+	if (!langRoot)
+		return;
 
 	for (TiXmlNode *langNode = langRoot->FirstChildElement(TEXT("Language"));
 		langNode ;
@@ -5310,7 +5284,7 @@ bool NppParameters::writeGUIParams()
 			pStr = _nppGUI._matchedPairConf._doHtmlXmlTag?TEXT("yes"):TEXT("no");
 			element->SetAttribute(TEXT("htmlXmlTag"), pStr);
 
-			TiXmlElement hist_element(TEXT(""));
+			TiXmlElement hist_element{TEXT("")};
 			hist_element.SetValue(TEXT("UserDefinePair"));
 
 			// remove all old sub-nodes
@@ -5566,7 +5540,7 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("doubleQuotes"), _nppGUI._matchedPairConf._doDoubleQuotes?TEXT("yes"):TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("htmlXmlTag"), _nppGUI._matchedPairConf._doHtmlXmlTag?TEXT("yes"):TEXT("no"));
 
-		TiXmlElement hist_element(TEXT(""));
+		TiXmlElement hist_element{TEXT("")};
 		hist_element.SetValue(TEXT("UserDefinePair"));
 		for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)
 		{
@@ -5698,7 +5672,7 @@ bool NppParameters::writeFindHistory()
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparency"), _findHistory._transparency);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("dotMatchesNewline"),		_findHistory._dotMatchesNewline?TEXT("yes"):TEXT("no"));
 
-	TiXmlElement hist_element(TEXT(""));
+	TiXmlElement hist_element{TEXT("")};
 
 	hist_element.SetValue(TEXT("Path"));
 	for (size_t i = 0, len = _findHistory._findHistoryPaths.size(); i < len; ++i)
@@ -6203,7 +6177,7 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 	TiXmlElement *rootElement = (node->InsertEndChild(TiXmlElement(TEXT("UserLang"))))->ToElement();
 
 	TCHAR temp[32];
-	generic_string udlVersion = TEXT("");
+	generic_string udlVersion;
 	udlVersion += generic_itoa(SCE_UDL_VERSION_MAJOR, temp, 10);
 	udlVersion += TEXT(".");
 	udlVersion += generic_itoa(SCE_UDL_VERSION_MINOR, temp, 10);

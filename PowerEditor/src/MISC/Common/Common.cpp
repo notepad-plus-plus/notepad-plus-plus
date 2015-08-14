@@ -96,7 +96,7 @@ char getDriveLetter()
 
 generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 {
-	generic_string fullFilePathName = TEXT("");
+	generic_string fullFilePathName;
 	TCHAR fullFileName[MAX_PATH];
 	BOOL isRelative = ::PathIsRelative(relativeFilePath);
 
@@ -203,8 +203,9 @@ void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir)
 {
-	generic_string folderName(TEXT(""));
+	generic_string folderName;
 	LPMALLOC pShellMalloc = 0;
+
 	if (::SHGetMalloc(&pShellMalloc) == NO_ERROR)
 	{
 		BROWSEINFO info;

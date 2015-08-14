@@ -1891,7 +1891,6 @@ void Notepad_plus::command(int id)
 
             if (not buf->isDirty())
             {
-				buf = _pEditView->getCurrentBuffer();
 				buf->setEncoding(encoding);
 				buf->setUnicodeMode(uniCookie);
 				fileReload();

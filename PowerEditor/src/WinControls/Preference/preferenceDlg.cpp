@@ -1138,10 +1138,10 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				default : //uni8Bit
 					ID2Check = IDC_RADIO_ANSI;
 			}
-			
+
 			int selIndex = -1;
 			generic_string str;
-			EncodingMapper *em = EncodingMapper::getInstance();
+			EncodingMapper* em = EncodingMapper::getInstance();
 			for (size_t i = 0, encodingArraySize = sizeof(encodings)/sizeof(int) ; i < encodingArraySize ; ++i)
 			{
 				int cmdID = em->getIndexFromEncoding(encodings[i]);
@@ -1165,14 +1165,15 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				ID2Check = IDC_RADIO_OTHERCP;
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_SETCURSEL, selIndex, 0);
 			}
+
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8SANSBOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
-			
+
 			int index = 0;
 			for (int i = L_TEXT ; i < pNppParam->L_END ; ++i)
 			{
-				generic_string str;
+				str.clear();
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
@@ -1199,7 +1200,7 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 			switch (wParam)
 			{
 				case IDC_RADIO_UCS2BIG:

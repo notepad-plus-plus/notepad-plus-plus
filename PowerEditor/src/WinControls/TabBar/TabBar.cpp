@@ -800,19 +800,18 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (hImgLst && tci.iImage >= 0)
 	{
 		IMAGEINFO info;
-		int yPos = 0, xPos = 0;
-		int marge = 0;
-
 		ImageList_GetImageInfo(hImgLst, tci.iImage, &info);
 
-		RECT & imageRect = info.rcImage;
+		RECT& imageRect = info.rcImage;
 
+		int yPos = 0;
+		int xPos = 0;
 		if (_isVertical)
 			xPos = (rect.left + (rect.right - rect.left) / 2 + NppParameters::getInstance()->_dpiManager.scaleX(2)) - (imageRect.right - imageRect.left) / 2;
 		else
 			yPos = (rect.top + (rect.bottom - rect.top) / 2 + (isSelected ? 0 : NppParameters::getInstance()->_dpiManager.scaleX(2))) - (imageRect.bottom - imageRect.top) / 2;
 
-			marge = spaceUnit;
+		int marge = spaceUnit;
 
 		if (_isVertical)
 		{

@@ -1246,7 +1246,6 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 	}
 	_pscratchTilla->execute(SCI_CLEARALL);
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 
 	if (language < L_EXTERNAL)
 	{
@@ -1256,28 +1255,30 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 	{
 		int id = language - L_EXTERNAL;
 		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		const char *pName = wmc->wchar2char(name, CP_ACP);
 		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)pName);
 	}
 
 	if (encoding != -1)
-	{
 		_pscratchTilla->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-	}
 
 	bool success = true;
 	int format = -1;
-	__try {
+	__try
+	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
 		_pscratchTilla->execute(SCI_ALLOCATE, WPARAM(bufferSizeRequested));
-		if(_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK) throw;
+		if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)
+			throw;
 
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
 		bool isFirstTime = true;
 		int incompleteMultibyteChar = 0;
 
-		do {
+		do
+		{
 			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
 			if (lenFile == 0) break;
 
@@ -1307,7 +1308,7 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 				}
 				else
 				{
-					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
 					int newDataLen = 0;
 					const char *newData = wmc->encode(encoding, SC_CP_UTF8, data, lenFile, &newDataLen, &incompleteMultibyteChar);
 					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, (LPARAM)newData);
@@ -1321,40 +1322,47 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 				lenConvert = UnicodeConvertor->convert(data, lenFile);
 				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
 			}
-			if(_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK) throw;
 
-			if(incompleteMultibyteChar != 0)
+			if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)
+				throw;
+
+			if (incompleteMultibyteChar != 0)
 			{
 				// copy bytes to next buffer
 				memcpy(data, data+blockSize-incompleteMultibyteChar, incompleteMultibyteChar);
 			}
 
-		} while (lenFile > 0);
-	} __except(EXCEPTION_EXECUTE_HANDLER) {  //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
+		}
+		while (lenFile > 0);
+	}
+	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
+	{
 		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
 		success = false;
 	}
 
 	fclose(fp);
 
-	if (pFormat != NULL)
-	{
-		*pFormat = (format == -1)?WIN_FORMAT:(formatType)format;
-	}
+	if (pFormat != nullptr)
+		*pFormat = (format == -1) ? WIN_FORMAT : (formatType)format;
+
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
 	_pscratchTilla->execute(SCI_SETSAVEPOINT);
-	if (ro) {
+
+	if (ro)
 		_pscratchTilla->execute(SCI_SETREADONLY, true);
-	}
+
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 	return success;
 }
 
-BufferID FileManager::getBufferFromName(const TCHAR * name)
+
+BufferID FileManager::getBufferFromName(const TCHAR* name)
 {
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+
 	for(size_t i = 0; i < _buffers.size(); i++)
 	{
 		if (!lstrcmpi(name, _buffers.at(i)->getFullPathName()))
@@ -1363,15 +1371,20 @@ BufferID FileManager::getBufferFromName(const TCHAR * name)
 	return BUFFER_INVALID;
 }
 
-BufferID FileManager::getBufferFromDocument(Document doc) {
-	for(size_t i = 0; i < _nrBufs; ++i) {
+
+BufferID FileManager::getBufferFromDocument(Document doc)
+{
+	for (size_t i = 0; i < _nrBufs; ++i)
+	{
 		if (_buffers[i]->_doc == doc)
 			return _buffers[i]->_id;
 	}
 	return BUFFER_INVALID;
 }
 
-bool FileManager::createEmptyFile(const TCHAR * path) {
+
+bool FileManager::createEmptyFile(const TCHAR * path)
+{
 	FILE * file = generic_fopen(path, TEXT("wb"));
 	if (!file)
 		return false;
@@ -1379,14 +1392,18 @@ bool FileManager::createEmptyFile(const TCHAR * path) {
 	return true;
 }
 
-int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy) {
+
+int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy)
+{
 	if (getBufferIndexByID(id) == -1)
 		return -1;
+
 	Buffer* buf = getBufferByID(id);
 	if (fn2copy)
 		lstrcpy(fn2copy, buf->getFullPathName());
 	return lstrlen(buf->getFullPathName());
 }
+
 
 int FileManager::docLength(Buffer* buffer) const
 {

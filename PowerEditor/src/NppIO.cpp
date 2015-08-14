@@ -37,6 +37,9 @@
 
 using namespace std;
 
+
+
+
 BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
 	const rsize_t longFileNameBufferSize = MAX_PATH; // TODO stop using fixed-size buffer
@@ -180,7 +183,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 
 		if (buffer != BUFFER_INVALID)
 		{
-			bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
+			bool isSnapshotMode = (backupFileName != NULL and PathFileExists(backupFileName));
 			if (isSnapshotMode)
 			{
 				// To notify plugins that a snapshot dirty file is loaded on startup

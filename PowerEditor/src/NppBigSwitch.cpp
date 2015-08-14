@@ -122,8 +122,8 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPA
 LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	LRESULT result = FALSE;
-
 	NppParameters *pNppParam = NppParameters::getInstance();
+
 	switch (Message)
 	{
 		case WM_NCACTIVATE:
@@ -2042,7 +2042,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETAPPDATAPLUGINSALLOWED:
 		{
-			NppParameters *pNppParam = NppParameters::getInstance();
 			const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
 			if (appDataNpp[0])
 			{
@@ -2058,7 +2057,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		//
 		case NPPM_INTERNAL_SETTING_HISTORY_SIZE:
 		{
-			NppParameters *pNppParam = NppParameters::getInstance();
 			_lastRecentFileList.setUserMaxNbLRF(pNppParam->getNbMaxRecentFile());
 			break;
 		}

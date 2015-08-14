@@ -602,7 +602,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_toolBar.addToRebar(&_rebarTop);
 	_rebarTop.setIDVisible(REBAR_BAR_TOOLBAR, willBeShown);
 
-   checkMacroState();
+	checkMacroState();
 
 	//--Init dialogs--//
     _findReplaceDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
@@ -621,23 +621,29 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	bool uddShow = false;
 	switch (uddStatus)
-    {
-        case UDD_SHOW :                 // show & undocked
+	{
+		case UDD_SHOW: // show & undocked
+		{
 			udd->doDialog(true, _nativeLangSpeaker.isRTL());
 			_nativeLangSpeaker.changeUserDefineLang(udd);
 			uddShow = true;
-            break;
-        case UDD_DOCKED : {              // hide & docked
+			break;
+		}
+        case UDD_DOCKED: // hide & docked
+		{
 			_isUDDocked = true;
-            break;}
-        case (UDD_SHOW | UDD_DOCKED) :    // show & docked
-            udd->doDialog(true, _nativeLangSpeaker.isRTL());
-			_nativeLangSpeaker.changeUserDefineLang(udd);
-            ::SendMessage(udd->getHSelf(), WM_COMMAND, IDC_DOCK_BUTTON, 0);
-			uddShow = true;
             break;
+		}
+        case (UDD_SHOW | UDD_DOCKED) :    // show & docked
+		{
+			udd->doDialog(true, _nativeLangSpeaker.isRTL());
+			_nativeLangSpeaker.changeUserDefineLang(udd);
+			::SendMessage(udd->getHSelf(), WM_COMMAND, IDC_DOCK_BUTTON, 0);
+			uddShow = true;
+			break;
+		}
 
-		default :                        // hide & undocked
+		default: // hide & undocked
 			break;
     }
 
@@ -650,19 +656,21 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//
 	// Initialize the default foreground & background color
 	//
-	StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
-	int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
-	if (i != -1)
 	{
-		Style & style = globalStyles.getStyler(i);
-		(NppParameters::getInstance())->setCurrentDefaultFgColor(style._fgColor);
-		(NppParameters::getInstance())->setCurrentDefaultBgColor(style._bgColor);
+		StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
+		int i = globalStyles.getStylerIndexByID(STYLE_DEFAULT);
+		if (i != -1)
+		{
+			Style & style = globalStyles.getStyler(i);
+			(NppParameters::getInstance())->setCurrentDefaultFgColor(style._fgColor);
+			(NppParameters::getInstance())->setCurrentDefaultBgColor(style._bgColor);
+		}
 	}
 
 	//
 	// launch the plugin dlg memorized at the last session
 	//
-	DockingManagerData &dmd = nppGUI._dockingData;
+	DockingManagerData& dmd = nppGUI._dockingData;
 
 	_dockingManager.setDockedContSize(CONT_LEFT  , nppGUI._dockingData._leftWidth);
 	_dockingManager.setDockedContSize(CONT_RIGHT , nppGUI._dockingData._rightWidth);
@@ -671,17 +679,13 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	for (size_t i = 0, len = dmd._pluginDockInfo.size(); i < len ; ++i)
 	{
-		PluginDlgDockingInfo & pdi = dmd._pluginDockInfo[i];
+		PluginDlgDockingInfo& pdi = dmd._pluginDockInfo[i];
 		if (pdi._isVisible)
 		{
 			if (pdi._name == NPP_INTERNAL_FUCTION_STR)
-			{
 				_internalFuncIDs.push_back(pdi._internalID);
-			}
 			else
-			{
 				_pluginsManager.runPluginCommand(pdi._name.c_str(), pdi._internalID);
-			}
 		}
 	}
 
@@ -690,6 +694,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		ContainerTabInfo & cti = dmd._containerTabInfo[i];
 		_dockingManager.setActiveTab(cti._cont, cti._activeTab);
 	}
+
 	//Load initial docs into doctab
 	loadBufferIntoView(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);

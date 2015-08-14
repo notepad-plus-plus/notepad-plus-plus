@@ -3430,8 +3430,8 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
 	{
 		if (_nbLang < NB_LANG)
 		{
-			TiXmlElement *element = langNode->ToElement();
-			const TCHAR *name = element->Attribute(TEXT("name"));
+			TiXmlElement* element = langNode->ToElement();
+			const TCHAR* name = element->Attribute(TEXT("name"));
 			if (name)
 			{
 				_langList[_nbLang] = new Lang(getLangIDFromStr(name), name);
@@ -3439,9 +3439,10 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
 				_langList[_nbLang]->setCommentLineSymbol(element->Attribute(TEXT("commentLine")));
 				_langList[_nbLang]->setCommentStart(element->Attribute(TEXT("commentStart")));
 				_langList[_nbLang]->setCommentEnd(element->Attribute(TEXT("commentEnd")));
-                int i;
-                if (element->Attribute(TEXT("tabSettings"), &i))
-                    _langList[_nbLang]->setTabInfo(i);
+
+                int tabSettings;
+                if (element->Attribute(TEXT("tabSettings"), &tabSettings))
+                    _langList[_nbLang]->setTabInfo(tabSettings);
 
 				for (TiXmlNode *kwNode = langNode->FirstChildElement(TEXT("Keywords"));
 					kwNode ;
@@ -3471,21 +3472,21 @@ typedef DWORD (WINAPI * EESFUNC) (LPCTSTR, LPTSTR, DWORD);
 void NppParameters::feedGUIParameters(TiXmlNode *node)
 {
 	TiXmlNode *GUIRoot = node->FirstChildElement(TEXT("GUIConfigs"));
-	if (!GUIRoot) return;
+	if (nullptr == GUIRoot)
+		return;
 
 	for (TiXmlNode *childNode = GUIRoot->FirstChildElement(TEXT("GUIConfig"));
 		childNode ;
 		childNode = childNode->NextSibling(TEXT("GUIConfig")) )
 	{
-		TiXmlElement *element = childNode->ToElement();
-		const TCHAR *nm = element->Attribute(TEXT("name"));
-		if (!nm) continue;
-
-		const TCHAR *val;
+		TiXmlElement* element = childNode->ToElement();
+		const TCHAR* nm = element->Attribute(TEXT("name"));
+		if (nullptr == nm)
+			continue;
 
 		if (!lstrcmp(nm, TEXT("ToolBar")))
 		{
-			val = element->Attribute(TEXT("visible"));
+			const TCHAR* val = element->Attribute(TEXT("visible"));
 			if (val)
 			{
 				if (!lstrcmp(val, TEXT("no")))
@@ -3513,7 +3514,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("hide")))
@@ -3528,7 +3529,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("hide")))
@@ -3542,7 +3543,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			bool isFailed = false;
 			int oldValue = _nppGUI._tabStatus;
-			val = element->Attribute(TEXT("dragAndDrop"));
+			const TCHAR* val = element->Attribute(TEXT("dragAndDrop"));
 			if (val)
 			{
 				if (!lstrcmp(val, TEXT("yes")))
@@ -3648,7 +3649,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("yes")))
@@ -3672,7 +3673,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("yes")))
@@ -3685,7 +3686,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("yes")))
@@ -3700,7 +3701,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("yes")))
@@ -3715,7 +3716,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("yes")))
@@ -3731,7 +3732,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("yes")))
@@ -3747,7 +3748,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("yes")))
@@ -3763,16 +3764,16 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					_nppGUI._enableTagsMatchHilite = !lstrcmp(val, TEXT("yes"));
 					const TCHAR *tahl = element->Attribute(TEXT("TagAttrHighLight"));
-					if (tahl) 
+					if (tahl)
 						_nppGUI._enableTagAttrsHilite = !lstrcmp(tahl, TEXT("yes"));
 
 					tahl = element->Attribute(TEXT("HighLightNonHtmlZone"));
-					if (tahl) 
+					if (tahl)
 						_nppGUI._enableHiliteNonHTMLZone = !lstrcmp(tahl, TEXT("yes"));
 				}
 			}
@@ -3783,7 +3784,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					_nppGUI._doTaskList = (!lstrcmp(val, TEXT("yes")))?true:false;
@@ -3792,15 +3793,13 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		}
 
 		else if (!lstrcmp(nm, TEXT("MRU")))
-		{	
+		{
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
-				{
-					_nppGUI._styleMRU = (!lstrcmp(val, TEXT("yes")))?true:false;
-				}
+					_nppGUI._styleMRU = (!lstrcmp(val, TEXT("yes")));
 			}
 		}
 
@@ -3809,7 +3808,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("1")))
@@ -3827,7 +3826,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("no")))
@@ -3840,7 +3839,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 				{
 					if (!lstrcmp(val, TEXT("vertical")))
@@ -3858,25 +3857,26 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
-				if (val) 
+				const TCHAR* val = n->Value();
+				if (val)
 				{
 					if (!lstrcmp(val, TEXT("hide")))
 						_nppGUI._userDefineDlgStatus = 0;
 					else if (!lstrcmp(val, TEXT("show")))
 						_nppGUI._userDefineDlgStatus = UDD_SHOW;
-					else 
+					else
 						isFailed = true;
 				}
 			}
-			val = element->Attribute(TEXT("position"));
-			if (val) 
+
+			const TCHAR* val = element->Attribute(TEXT("position"));
+			if (val)
 			{
 				if (!lstrcmp(val, TEXT("docked")))
 					_nppGUI._userDefineDlgStatus |= UDD_DOCKED;
 				else if (!lstrcmp(val, TEXT("undocked")))
 					_nppGUI._userDefineDlgStatus |= 0;
-				else 
+				else
 					isFailed = true;
 			}
 			if (isFailed)
@@ -3885,7 +3885,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("TabSetting")))
 		{
 			int i;
-			val = element->Attribute(TEXT("size"), &i);
+			const TCHAR* val = element->Attribute(TEXT("size"), &i);
 			if (val)
 				_nppGUI._tabSize = i;
 
@@ -3900,7 +3900,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("Caret")))
 		{
 			int i;
-			val = element->Attribute(TEXT("width"), &i);
+			const TCHAR* val = element->Attribute(TEXT("width"), &i);
 			if (val)
 				_nppGUI._caretWidth = i;
 
@@ -3911,7 +3911,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
         else if (!lstrcmp(nm, TEXT("ScintillaGlobalSettings")))
 		{
-			val = element->Attribute(TEXT("enableMultiSelection"));
+			const TCHAR* val = element->Attribute(TEXT("enableMultiSelection"));
 			if (val && lstrcmp(val, TEXT("yes")) == 0)
 				_nppGUI._enableMultiSelection = true;
 		}
@@ -3945,11 +3945,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (fuckUp)
 				_nppGUI._appPos = oldRect;
 
-			val = element->Attribute(TEXT("isMaximized"));
+			const TCHAR* val = element->Attribute(TEXT("isMaximized"));
 			if (val)
-			{
 				_nppGUI._isMaximized = (lstrcmp(val, TEXT("yes")) == 0);
-			}
 		}
 		else if (!lstrcmp(nm, TEXT("NewDocDefaultSettings")))
 		{
@@ -3966,13 +3964,14 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (element->Attribute(TEXT("codepage"), &i))
 				_nppGUI._newDocDefaultSettings._codepage = (LangType)i;
 
-			val = element->Attribute(TEXT("openAnsiAsUTF8"));
+			const TCHAR* val = element->Attribute(TEXT("openAnsiAsUTF8"));
 			if (val)
 				_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = (lstrcmp(val, TEXT("yes")) == 0);
 
 		}
 		else if (!lstrcmp(nm, TEXT("langsExcluded")))
 		{
+			// TODO
 			int g0 = 0; // up to  8
 			int g1 = 0; // up to 16
 			int g2 = 0; // up to 24
@@ -3983,37 +3982,57 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			int g7 = 0; // up to 64
 			const int nbMax = 64;
 
-			int i;
-			if (element->Attribute(TEXT("gr0"), &i))
-				if (i <= 255)
-					g0 = i;
-			if (element->Attribute(TEXT("gr1"), &i))
-				if (i <= 255)
-					g1 = i;
-			if (element->Attribute(TEXT("gr2"), &i))
-				if (i <= 255)
-					g2 = i;
-			if (element->Attribute(TEXT("gr3"), &i))
-				if (i <= 255)
-					g3 = i;
-			if (element->Attribute(TEXT("gr4"), &i))
-				if (i <= 255)
-					g4 = i;
-			if (element->Attribute(TEXT("gr5"), &i))
-				if (i <= 255)
-					g5 = i;
-			if (element->Attribute(TEXT("gr6"), &i))
-				if (i <= 255)
-					g6 = i;
-			if (element->Attribute(TEXT("gr7"), &i))
-				if (i <= 255)
-					g7 = i;
+			// TODO some refactoring needed here....
+			{
+				int i;
+				if (element->Attribute(TEXT("gr0"), &i))
+				{
+					if (i <= 255)
+						g0 = i;
+				}
+				if (element->Attribute(TEXT("gr1"), &i))
+				{
+					if (i <= 255)
+						g1 = i;
+				}
+				if (element->Attribute(TEXT("gr2"), &i))
+				{
+					if (i <= 255)
+						g2 = i;
+				}
+				if (element->Attribute(TEXT("gr3"), &i))
+				{
+					if (i <= 255)
+						g3 = i;
+				}
+				if (element->Attribute(TEXT("gr4"), &i))
+				{
+					if (i <= 255)
+						g4 = i;
+				}
+				if (element->Attribute(TEXT("gr5"), &i))
+				{
+					if (i <= 255)
+						g5 = i;
+				}
+				if (element->Attribute(TEXT("gr6"), &i))
+				{
+					if (i <= 255)
+						g6 = i;
+				}
+				if (element->Attribute(TEXT("gr7"), &i))
+				{
+					if (i <= 255)
+						g7 = i;
+				}
+			}
 
 			bool langArray[nbMax];
-			for (int i = 0 ; i < nbMax ; ++i) langArray[i] = false;
-			
+			for (int i = 0 ; i < nbMax ; ++i)
+				langArray[i] = false;
+
 			UCHAR mask = 1;
-			for (int i = 0 ; i < 8 ; ++i) 
+			for (int i = 0 ; i < 8 ; ++i)
 			{
 				if (mask & g0)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -4021,7 +4040,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 8 ; i < 16 ; ++i) 
+			for (int i = 8 ; i < 16 ; ++i)
 			{
 				if (mask & g1)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -4029,7 +4048,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 16 ; i < 24 ; ++i) 
+			for (int i = 16 ; i < 24 ; ++i)
 			{
 				if (mask & g2)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -4037,7 +4056,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 24 ; i < 32 ; ++i) 
+			for (int i = 24 ; i < 32 ; ++i)
 			{
 				if (mask & g3)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -4045,7 +4064,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 32 ; i < 40 ; ++i) 
+			for (int i = 32 ; i < 40 ; ++i)
 			{
 				if (mask & g4)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -4053,7 +4072,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 40 ; i < 48 ; ++i) 
+			for (int i = 40 ; i < 48 ; ++i)
 			{
 				if (mask & g5)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -4061,7 +4080,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 48 ; i < 56 ; ++i) 
+			for (int i = 48 ; i < 56 ; ++i)
 			{
 				if (mask & g6)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -4069,21 +4088,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 56 ; i < 64 ; ++i) 
+			for (int i = 56 ; i < 64 ; ++i)
 			{
 				if (mask & g7)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
 				mask <<= 1;
 			}
-			
-			val = element->Attribute(TEXT("langMenuCompact"));
+
+			const TCHAR* val = element->Attribute(TEXT("langMenuCompact"));
 			if (val)
 				_nppGUI._isLangMenuCompact = (!lstrcmp(val, TEXT("yes")));
 		}
 
 		else if (!lstrcmp(nm, TEXT("Print")))
 		{
-			val = element->Attribute(TEXT("lineNumber"));
+			const TCHAR* val = element->Attribute(TEXT("lineNumber"));
 			if (val)
 				_nppGUI._printSettings._printLineNumber = (!lstrcmp(val, TEXT("yes")));
 
@@ -4163,14 +4182,14 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._backup = (BackupFeature)i;
 
 			const TCHAR *bDir = element->Attribute(TEXT("useCustumDir"));
-			if (bDir && !lstrcmp(bDir, TEXT("yes"))) 
+			if (bDir && !lstrcmp(bDir, TEXT("yes")))
 			{
 				_nppGUI._useDir = true;
 			}
 			const TCHAR *pDir = element->Attribute(TEXT("dir"));
 			if (pDir)
 				_nppGUI._backupDir = pDir;
-			
+
 			const TCHAR *isSnapshotModeStr = element->Attribute(TEXT("isSnapshotMode"));
 			if (isSnapshotModeStr && !lstrcmp(isSnapshotModeStr, TEXT("no")))
 				_nppGUI._isSnapshotMode = false;
@@ -4184,50 +4203,38 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			feedDockingManager(element);
 		}
-		
+
 		else if (!lstrcmp(nm, TEXT("globalOverride")))
 		{
 			const TCHAR *bDir = element->Attribute(TEXT("fg"));
-			if (bDir && !lstrcmp(bDir, TEXT("yes"))) 
+			if (bDir && !lstrcmp(bDir, TEXT("yes")))
 			{
 				_nppGUI._globalOverride.enableFg = true;
 			}
 
 			bDir = element->Attribute(TEXT("bg"));
-			if (bDir && !lstrcmp(bDir, TEXT("yes"))) 
-			{
+			if (bDir && !lstrcmp(bDir, TEXT("yes")))
 				_nppGUI._globalOverride.enableBg = true;
-			}
 
 			bDir = element->Attribute(TEXT("font"));
-			if (bDir && !lstrcmp(bDir, TEXT("yes"))) 
-			{
+			if (bDir && !lstrcmp(bDir, TEXT("yes")))
 				_nppGUI._globalOverride.enableFont = true;
-			}
 
 			bDir = element->Attribute(TEXT("fontSize"));
-			if (bDir && !lstrcmp(bDir, TEXT("yes"))) 
-			{
+			if (bDir && !lstrcmp(bDir, TEXT("yes")))
 				_nppGUI._globalOverride.enableFontSize = true;
-			}
 
 			bDir = element->Attribute(TEXT("bold"));
-			if (bDir && !lstrcmp(bDir, TEXT("yes"))) 
-			{
+			if (bDir && !lstrcmp(bDir, TEXT("yes")))
 				_nppGUI._globalOverride.enableBold = true;
-			}
 
 			bDir = element->Attribute(TEXT("italic"));
-			if (bDir && !lstrcmp(bDir, TEXT("yes"))) 
-			{
+			if (bDir && !lstrcmp(bDir, TEXT("yes")))
 				_nppGUI._globalOverride.enableItalic = true;
-			}
 
 			bDir = element->Attribute(TEXT("underline"));
-			if (bDir && !lstrcmp(bDir, TEXT("yes"))) 
-			{
+			if (bDir && !lstrcmp(bDir, TEXT("yes")))
 				_nppGUI._globalOverride.enableUnderLine = true;
-			}
 		}
 		else if (!lstrcmp(nm, TEXT("auto-completion")))
 		{
@@ -4239,48 +4246,34 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._autocFromLen = i;
 
 			const TCHAR * funcParams = element->Attribute(TEXT("funcParams"));
-			if (funcParams && !lstrcmp(funcParams, TEXT("yes"))) 
-			{
+			if (funcParams && !lstrcmp(funcParams, TEXT("yes")))
 				_nppGUI._funcParams = true;
-			}
 		}
 		else if (!lstrcmp(nm, TEXT("auto-insert")))
 		{
 			const TCHAR * optName = element->Attribute(TEXT("htmlXmlTag"));
-			if (optName && !lstrcmp(optName, TEXT("yes"))) 
-			{
+			if (optName && !lstrcmp(optName, TEXT("yes")))
 				_nppGUI._matchedPairConf._doHtmlXmlTag = true;
-			}
 
 			optName = element->Attribute(TEXT("parentheses"));
-			if (optName && !lstrcmp(optName, TEXT("yes"))) 
-			{
+			if (optName && !lstrcmp(optName, TEXT("yes")))
 				_nppGUI._matchedPairConf._doParentheses = true;
-			}
 
 			optName = element->Attribute(TEXT("brackets"));
-			if (optName && !lstrcmp(optName, TEXT("yes"))) 
-			{
+			if (optName && !lstrcmp(optName, TEXT("yes")))
 				_nppGUI._matchedPairConf._doBrackets = true;
-			}
 
 			optName = element->Attribute(TEXT("curlyBrackets"));
-			if (optName && !lstrcmp(optName, TEXT("yes"))) 
-			{
+			if (optName && !lstrcmp(optName, TEXT("yes")))
 				_nppGUI._matchedPairConf._doCurlyBrackets = true;
-			}
 
 			optName = element->Attribute(TEXT("quotes"));
-			if (optName && !lstrcmp(optName, TEXT("yes"))) 
-			{
+			if (optName && !lstrcmp(optName, TEXT("yes")))
 				_nppGUI._matchedPairConf._doQuotes = true;
-			}
 
 			optName = element->Attribute(TEXT("doubleQuotes"));
-			if (optName && !lstrcmp(optName, TEXT("yes"))) 
-			{
+			if (optName && !lstrcmp(optName, TEXT("yes")))
 				_nppGUI._matchedPairConf._doDoubleQuotes = true;
-			}
 
 			for (TiXmlNode *subChildNode = childNode->FirstChildElement(TEXT("UserDefinePair"));
 				 subChildNode;
@@ -4290,22 +4283,16 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				int openVal = 0;
 				const TCHAR *openValStr = (subChildNode->ToElement())->Attribute(TEXT("open"), &openVal);
 				if (openValStr && (openVal >= 0 && openVal < 128))
-				{
 					open = openVal;
-				}
 
 				int close = -1;
 				int closeVal = 0;
 				const TCHAR *closeValStr = (subChildNode->ToElement())->Attribute(TEXT("close"), &closeVal);
 				if (closeValStr && (closeVal >= 0 && closeVal <= 128))
-				{
 					close = closeVal;
-				}
 
 				if (open != -1 && close != -1)
-				{
 					_nppGUI._matchedPairConf._matchedPairsInit.push_back(pair<char, char>(char(open), char(close)));
-				}
 			}
 		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
@@ -4313,7 +4300,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
 					_nppGUI._definedSessionExt = val;
 			}
@@ -4323,24 +4310,18 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				val = n->Value();
+				const TCHAR* val = n->Value();
 				if (val)
-				{
                     _nppGUI._autoUpdateOpt._doAutoUpdate = (!lstrcmp(val, TEXT("yes")))?false:true;
-				}
-                
+
                 int i;
                 val = element->Attribute(TEXT("intervalDays"), &i);
                 if (val)
-				{
                     _nppGUI._autoUpdateOpt._intervalDays = i;
-				}
 
                 val = element->Attribute(TEXT("nextUpdateDate"));
                 if (val)
-				{
                     _nppGUI._autoUpdateOpt._nextUpdateDate = Date(val);
-				}
 			}
 		}
 		else if (!lstrcmp(nm, TEXT("openSaveDir")))
@@ -4355,6 +4336,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				else
 					_nppGUI._openSaveDir = dir_followCurrent;
 			}
+
 			const TCHAR * path = element->Attribute(TEXT("defaultDirPath"));
 			if (path && path[0])
 			{
@@ -4409,27 +4391,23 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("MISC")))
 		{
 			const TCHAR * optName = element->Attribute(TEXT("fileSwitcherWithoutExtColumn"));
-			if (optName && !lstrcmp(optName, TEXT("yes"))) 
-			{
+			if (optName && !lstrcmp(optName, TEXT("yes")))
 				_nppGUI._fileSwitcherWithoutExtColumn = true;
-			}
 
 			const TCHAR * optNameBackSlashEscape = element->Attribute(TEXT("backSlashIsEscapeCharacterForSql"));
-			if (optNameBackSlashEscape && !lstrcmp(optNameBackSlashEscape, TEXT("no"))) 
-			{
+			if (optNameBackSlashEscape && !lstrcmp(optNameBackSlashEscape, TEXT("no")))
 				_nppGUI._backSlashIsEscapeCharacterForSql = false;
-			}
 		}
 	}
 }
 
 void NppParameters::feedScintillaParam(TiXmlNode *node)
 {
-    TiXmlElement *element = node->ToElement();
+    TiXmlElement* element = node->ToElement();
 
     // Line Number Margin
     const TCHAR *nm = element->Attribute(TEXT("lineNumberMargin"));
-	if (nm) 
+	if (nm)
 	{
 		if (!lstrcmp(nm, TEXT("show")))
 			_svp._lineNumberMarginShow = true;
@@ -4439,7 +4417,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 
 	// Bookmark Margin
 	nm = element->Attribute(TEXT("bookMarkMargin"));
-	if (nm) 
+	if (nm)
 	{
 
 		if (!lstrcmp(nm, TEXT("show")))
@@ -4448,7 +4426,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._bookMarkMarginShow = false;
 	}
 
-    // Indent GuideLine 
+    // Indent GuideLine
     nm = element->Attribute(TEXT("indentGuideLine"));
 	if (nm)
 	{

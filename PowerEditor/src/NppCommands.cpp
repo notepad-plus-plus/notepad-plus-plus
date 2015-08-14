@@ -1856,7 +1856,7 @@ void Notepad_plus::command(int id)
 				return;
 			}
 
-            Buffer * buf = _pEditView->getCurrentBuffer();
+            Buffer* buf = _pEditView->getCurrentBuffer();
             if (buf->isDirty())
             {
 				generic_string warning, title;
@@ -1884,17 +1884,13 @@ void Notepad_plus::command(int id)
 					TEXT("Lose Undo Ability Waning"),
 					MB_YESNO);
 
-                if (answer == IDYES)
-                {
-                    // Do nothing
-                }
-                else
+                if (answer != IDYES)
                     return;
             }
 
-            if (!buf->isDirty())
+            if (not buf->isDirty())
             {
-				Buffer *buf = _pEditView->getCurrentBuffer();
+				buf = _pEditView->getCurrentBuffer();
 				buf->setEncoding(encoding);
 				buf->setUnicodeMode(uniCookie);
 				fileReload();

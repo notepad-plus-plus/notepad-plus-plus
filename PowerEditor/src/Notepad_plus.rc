@@ -357,6 +357,7 @@ BEGIN
         MENUITEM "&Replace...",                 IDM_SEARCH_REPLACE
         MENUITEM "&Incremental Search",         IDM_SEARCH_FINDINCREMENT
         MENUITEM "Search Results Window",       IDM_FOCUS_ON_FOUND_RESULTS
+        MENUITEM "Toggle Search Results Window",IDM_TOGGLE_FOUND_RESULTS
         MENUITEM "Next Search Result",          IDM_SEARCH_GOTONEXTFOUND
         MENUITEM "Previous Search Result",      IDM_SEARCH_GOTOPREVFOUND
         MENUITEM "&Go to...",                   IDM_SEARCH_GOTOLINE

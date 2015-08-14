@@ -151,6 +151,7 @@ WinMenuKeyDefinition winKeyDefs[] = {
 	{VK_F4,		IDM_SEARCH_GOTONEXTFOUND,           false, false, false, NULL},
 	{VK_F4,		IDM_SEARCH_GOTOPREVFOUND,           false, false, true,  NULL},
 	{VK_F7,		IDM_FOCUS_ON_FOUND_RESULTS,         false, false, false, NULL},
+	{VK_F7,		IDM_TOGGLE_FOUND_RESULTS,           false, true,  false, NULL },
 	{VK_H,		IDM_SEARCH_REPLACE,					true,  false, false, NULL},
 	{VK_I,		IDM_SEARCH_FINDINCREMENT,			true,  true,  false, NULL},
 	{VK_G,		IDM_SEARCH_GOTOLINE,		 		true,  false, false, NULL},

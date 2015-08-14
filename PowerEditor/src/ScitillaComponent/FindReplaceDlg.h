@@ -261,6 +261,11 @@ public :
 	bool isRecursive() const { return _env->_isRecursive; };
 	bool isInHiddenDir() const { return _env->_isInHiddenDir; };
 	void saveFindHistory();
+
+	void focusOnFinder();
+	void hideFinder();
+	bool isFinderVisible();
+
 	void changeTabName(DIALOG_TYPE index, const TCHAR *name2change) {
 		TCITEM tie;
 		tie.mask = TCIF_TEXT;
@@ -277,15 +282,6 @@ public :
 	{
 		_pFinder->finishFilesSearch(count);
 	}
-
-	void focusOnFinder() {
-		// Show finder and set focus
-		if (_pFinder) 
-		{
-			::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
-			_pFinder->_scintView.getFocus();
-		}
-	};
 
 	HWND getHFindResults() {
 		if (_pFinder)

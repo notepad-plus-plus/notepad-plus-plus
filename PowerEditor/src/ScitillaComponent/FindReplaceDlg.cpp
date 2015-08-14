@@ -2241,6 +2241,27 @@ void FindReplaceDlg::initOptionsFromDlg()
 	_options._isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
 }
 
+void FindReplaceDlg::hideFinder()
+{
+	if (_pFinder)
+		::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_pFinder->getHSelf());
+}
+
+void FindReplaceDlg::focusOnFinder() 
+{
+	// Show finder and set focus
+	if (_pFinder)
+	{
+		::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
+		_pFinder->_scintView.getFocus();
+	}
+}
+
+bool FindReplaceDlg::isFinderVisible()
+{
+	return _pFinder && _pFinder->isVisible();
+}
+
 void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 {
 	if (!isCreated())
@@ -2995,6 +3016,7 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	_pRebar->addBand(&_rbBand, true);
 	_pRebar->setGrayBackground(_rbBand.wID);
 }
+
 
 const TCHAR Progress::cClassName[] = TEXT("NppProgressClass");
 const TCHAR Progress::cDefaultHeader[] = TEXT("Operation progress...");

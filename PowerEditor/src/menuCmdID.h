@@ -232,6 +232,7 @@
 	#define    IDM_SEARCH_FINDCHARINRANGE      (IDM_SEARCH + 52)
 	#define    IDM_SEARCH_SELECTMATCHINGBRACES (IDM_SEARCH + 53)
 	#define    IDM_SEARCH_MARK                 (IDM_SEARCH + 54)
+	#define    IDM_TOGGLE_FOUND_RESULTS        (IDM_SEARCH + 55)
 	
 #define    IDM_MISC    (IDM + 3500)
 	#define    IDM_FILESWITCHER_FILESCLOSE            (IDM_MISC + 1)

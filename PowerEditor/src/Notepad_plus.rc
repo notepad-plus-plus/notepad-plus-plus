@@ -846,7 +846,7 @@ BEGIN
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
         //MENUITEM "Online Documentation",      IDM_ONLINEHELP
-        //MENUITEM "Forum",                     IDM_FORUM
+        MENUITEM "Notepad++ Community (Forum)",                     IDM_FORUM
 		MENUITEM "Live Support",				IDM_ONLINESUPPORT
         MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR

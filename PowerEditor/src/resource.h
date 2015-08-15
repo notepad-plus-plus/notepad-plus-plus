@@ -281,15 +281,18 @@
 
 //#define IDD_RUN_DLG      1900
 
-#define IDD_GOLINE        2000
-#define ID_GOLINE_EDIT    (IDD_GOLINE + 1)
-#define ID_CURRLINE        (IDD_GOLINE + 2)
-#define ID_LASTLINE        (IDD_GOLINE + 3)
-#define ID_URHERE_STATIC           (IDD_GOLINE + 4)
+#define IDD_GOLINE                    2000
+#define ID_GOLINE_EDIT                (IDD_GOLINE + 1)
+#define ID_CURRLINE                   (IDD_GOLINE + 2)
+#define ID_LASTLINE                   (IDD_GOLINE + 3)
+#define ID_URHERE_STATIC              (IDD_GOLINE + 4)
 #define ID_UGO_STATIC                 (IDD_GOLINE + 5)
-#define ID_NOMORETHAN_STATIC   (IDD_GOLINE + 6)
-#define IDC_RADIO_GOTOLINE   (IDD_GOLINE + 7)
-#define IDC_RADIO_GOTOOFFSET   (IDD_GOLINE + 8)
+#define ID_NOMORETHAN_STATIC          (IDD_GOLINE + 6)
+#define IDC_RADIO_GOTOLINE            (IDD_GOLINE + 7)
+#define IDC_RADIO_GOTOOFFSET          (IDD_GOLINE + 8)
+#define IDC_CHECK_GOTO_OPTREMEMBER    (IDD_GOLINE + 9)
+#define IDC_CHECK_GOTO_OPTUSEPOSITION (IDD_GOLINE + 10)
+#define IDC_CHECK_GOTO_OPTDEFAULT     (IDD_GOLINE + 11)
 
 // voir columnEditor_rc.h
 //#define IDD_COLUMNEDIT   2020

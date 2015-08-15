@@ -201,8 +201,12 @@
                     <Item id="43047" name="Previous Search Result"/>
                     <Item id="43048" name="Select and Find Next"/>
                     <Item id="43049" name="Select and Find Previous"/>
+                    <Item id="43054" name="Mark..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
+                    <Item id="44012" name="Hide Line Number Margin"/>
+                    <Item id="44013" name="Hide Bookmark Margin"/>
+                    <Item id="44014" name="Hide Folder Margin"/>
                     <Item id="44019" name="Show All Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
                     <Item id="44022" name="Wrap"/>
@@ -470,6 +474,8 @@
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Numbers"/>
+                    <Item id="1" name="&amp;OK"/>
+                    <Item id="2" name="&amp;Cancel"/>
                 </StylerDialog>
                 <Folder title="Folder &amp;&amp; Default">
                     <Item id="21101" name="Default style"/>
@@ -625,6 +631,7 @@
                     <Item id="6127" name="Disable extension column"/>
                 </Global>
                 <Scintillas title="Editing">
+                    <Item id="6215" name="Enable smooth font"/>
                     <Item id="6216" name="Caret Settings"/>
                     <Item id="6217" name="Width:"/>
                     <Item id="6219" name="Blink Rate:"/>
@@ -787,13 +794,15 @@
                     <Item id="6252" name="Open"/>
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>
+                    <Item id="6257" name="bla bla bla bla bla"/>
+                    <Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla"/>
                 </Delimiter>
 
                  <Cloud title="Cloud">
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                    <Item id="6261" name="Please restart Notepad++ to take effect."/>
                 </Cloud>
 
                 <MISC title="MISC.">
@@ -844,6 +853,7 @@
                 <Item id="2030" name="Initial number:"/>
                 <Item id="2031" name="Increase by:"/>
                 <Item id="2035" name="Leading zeros"/>
+                <Item id="2036" name="Repeat :"/>
                 <Item id="2032" name="Format"/>
                 <Item id="2024" name="Dec"/>
                 <Item id="2025" name="Oct"/>
@@ -866,7 +876,7 @@
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
-			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

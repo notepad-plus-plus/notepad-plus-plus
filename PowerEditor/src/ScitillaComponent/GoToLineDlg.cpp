@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -28,42 +28,50 @@
 
 #include "GoToLineDlg.h"
 
+bool optRememberLastPos = true, optUseCurrentPos = false;
 
 INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOLINE, BM_SETCHECK, TRUE, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_GOTO_OPTREMEMBER, BM_SETCHECK, optRememberLastPos, 0);
 			goToCenter();
 			return TRUE;
 		}
-		case WM_COMMAND : 
+		case WM_COMMAND: 
 		{
 			switch (wParam)
 			{
-				case IDCANCEL : // Close
+				case IDCANCEL: // Close
+				{
 					display(false);
-                    cleanLineEdit();
+					if (not optRememberLastPos and not optUseCurrentPos)
+						cleanLineEdit();
 					return TRUE;
-
-				case IDOK :
-                {
-                    int line = getLine();
-                    if (line != -1)
-                    {
-                        display(false);
-                        cleanLineEdit();
-						if (_mode == go2line) {
+				}
+				case IDOK:
+				{
+					int line = getLine();
+					if (line != -1)
+					{
+						display(false);
+						if (not optRememberLastPos and not optUseCurrentPos)
+							cleanLineEdit();
+						if (_mode == go2line)
+						{
 							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, line-1);
 							(*_ppEditView)->execute(SCI_GOTOLINE, line-1);
-						} else {
+						}
+						else
+						{
 							int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, line);
 							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
 							(*_ppEditView)->execute(SCI_GOTOPOS, line);
 						}
-                    }
+					}
 
 					// find hotspots
 					/*
@@ -80,49 +88,62 @@ INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					notification.nmhdr.idFrom = ::GetDlgCtrlID(_hSelf);
 					::SendMessage(_hParent, WM_NOTIFY, (WPARAM)LINKTRIGGERED, (LPARAM)&notification);
 
-                    (*_ppEditView)->getFocus();
-                    return TRUE;
-                }
-
-				case IDC_RADIO_GOTOLINE :
-				case IDC_RADIO_GOTOOFFSET :
+					(*_ppEditView)->getFocus();
+					return TRUE;
+				}
+				case IDC_CHECK_GOTO_OPTREMEMBER:
+				case IDC_CHECK_GOTO_OPTUSEPOSITION:
+				case IDC_CHECK_GOTO_OPTDEFAULT:
 				{
-				
-					bool isLine, isOffset;
-					if (wParam == IDC_RADIO_GOTOLINE)
+					if (wParam == IDC_CHECK_GOTO_OPTREMEMBER)
 					{
-						isLine = true;
-						isOffset = false;
-						_mode = go2line;
+						optRememberLastPos = true;
+						optUseCurrentPos = false;
 					}
-					else
+					else if (wParam == IDC_CHECK_GOTO_OPTUSEPOSITION)
 					{
-						isLine = false;
-						isOffset = true;
-						_mode = go2offsset;
+						optRememberLastPos = false;
+						optUseCurrentPos = true;
 					}
-					::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOLINE, BM_SETCHECK, isLine, 0);
-					::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOOFFSET, BM_SETCHECK, isOffset, 0);
+					else // old default
+					{
+						optRememberLastPos = false;
+						optUseCurrentPos = false;
+					}
 					updateLinesNumbers();
 					return TRUE;
 				}
-				default :
+				case IDC_RADIO_GOTOLINE:
+				case IDC_RADIO_GOTOOFFSET:
+				{
+					_mode = (wParam == IDC_RADIO_GOTOLINE) ? go2line : go2offsset;
+					updateLinesNumbers();
+					return TRUE;
+				}
+				default:
 				{
 					switch (HIWORD(wParam))
 					{
-						case EN_SETFOCUS :
-						case BN_SETFOCUS :
+						case EN_SETFOCUS:
+						case BN_SETFOCUS:
+						{
 							updateLinesNumbers();
 							return TRUE;
-						default :
+						}
+						default:
 							return TRUE;
 					}
 					break;
 				}
 			}
 		}
-
-		default :
+		case WM_NCACTIVATE:
+		{
+			::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT)); // Keep focus on input box
+			::SendDlgItemMessage(_hSelf, ID_GOLINE_EDIT, EM_SETSEL, 0, -1); // Select number automatically
+			return FALSE;
+		}
+		default:
 			return FALSE;
 	}
 }
@@ -142,7 +163,9 @@ void GoToLineDlg::updateLinesNumbers() const
 		current = (unsigned int)(*_ppEditView)->execute(SCI_GETCURRENTPOS);
 		limit = (unsigned int)((*_ppEditView)->getCurrentDocLen() - 1);
 	}
-    ::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
-    ::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);
-}
 
+	::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
+	::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);
+	if (optUseCurrentPos)
+		::SetDlgItemInt(_hSelf, ID_GOLINE_EDIT, current, FALSE);
+}

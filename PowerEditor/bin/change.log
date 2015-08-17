@@ -1,13 +1,13 @@
 Notepad++ v6.8.1 bug-fixes:
 
-1.  Fix the Source Code Pro font making OS hanging issue (for some specific hardware congiguration).
+1.  Fix the Source Code Pro font making OS hanging issue (for some specific hardware configuration).
 2.  Make current default font (Source Code Pro) prettier by adding its bold, italic and bold-italic fonts.
-3.  Fix "Restore recent close file" text disappearing issue for some circonstance.
+3.  Fix "Restore recent close file" text disappearing issue for some circumstance.
 4.  Fix snapshot file after saving being always dirty problem.
 5.  Fix document tab moving by clicking close button issue due to splitter inaccuracy.
 6.  Fix a regression of Preferences dialog in which some modified options are not applied immediately.
-7.  Fix inconsistant untitled document name issue (new 0 instead of new 1).
-8.  Fix Macro button on toolbar inconsistant issue at Notepad++ startup.
+7.  Fix inconsistent untitled document name issue (new 0 instead of new 1).
+8.  Fix Macro button on toolbar inconsistent issue at Notepad++ startup.
 
 
 

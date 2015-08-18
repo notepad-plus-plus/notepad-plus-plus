@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus><!-- Çeviri: Emrah Güzeltaş | emrahguzeltas@gmail.com -->
-	<Native-Langue name="Turkish" filename="turkish.xml" version="6.7.7">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="6.8">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Yazıları -->
@@ -86,7 +86,7 @@
 					<Item id="41015" name="Kopya Olarak Kaydet" />
 					<Item id="41016" name="Diskten Sil" />
 					<Item id="41017" name="Yeniden Adlandır" />
-					<Item id="41021" name="En Son Kapanmış Dosyaları Geri Yükle"/>
+					<Item id="41021" name="Son Kapatılan Dosyaları Geri Yükle"/>
 
 					<Item id="42001" name="K&amp;es" />
 					<Item id="42002" name="&amp;Kopyala" />
@@ -263,11 +263,11 @@
                     <Item id="45053" name="OEM 860: Portekizce"/>
                     <Item id="45056" name="OEM 863: Fransızca"/>
 
-                    <Item id="46033" name="Çevirme (Assembly)"/>
-                    <Item id="46019" name="MS INI Dosyası"/>
-                    <Item id="46015" name="MS-DOS Stili"/>
-                    <Item id="46016" name="Normal Metin"/>
-                    <Item id="46017" name="Kaynak Dosyası"/>
+                    <Item id="46033" name="Assembly"/>
+                    <Item id="46019" name="MS INI dosyası"/>
+                    <Item id="46015" name="MS-DOS stili"/>
+                    <Item id="46016" name="Normal metin"/>
+                    <Item id="46017" name="Kaynak dosyası"/>
 
 					<Item id="46001" name="&amp;Stil Yapılandırıcı" />
 					<Item id="46150" name="Dil &amp;Tanımla" />
@@ -357,9 +357,9 @@
 			 	<Item id="1658" name="Tüm alt klasörlerde" />
 			 	<Item id="1659" name="Gizli klasörlerde" />
 			 	<Item id="1624" name="Arama Modu" />
-				<Item id="1625" name="&amp;Normal" />
-				<Item id="1626" name="&amp;Genişletilmiş (\r, \n, \t, \x..., \0)" />
-				<Item id="1660" name="Dosyalarda Değiştir" />
+			 	<Item id="1625" name="&amp;Normal" />
+			 	<Item id="1626" name="&amp;Genişletilmiş (\n, \r, \t, \0, \x, …)" />
+			 	<Item id="1660" name="Dosyalarda Değiştir" />
 				<Item id="1661" name="Geçerli belgeyi takip et" />
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul" />
 			 	<Item id="1686" name="Saydamlaştır" />
@@ -731,13 +731,13 @@
 
 				<RecentFilesHistory title="Son Kull. Dosya Geçmişi">
 					<Item id="6304" name="Son Kullanılan Dosya Geçmişi" />
-					<Item id="6306" name="En fazla girdi sayısı:" />
+					<Item id="6306" name="Maksimum girdi sayısı:" />
 					<Item id="6305" name="Başlatıldığı zaman denetleme" />
 					<Item id="6429" name="Göster" />
 					<Item id="6424" name="Alt menüde göster" />
 					<Item id="6425" name="Sadece dosya adı" />
 					<Item id="6426" name="Tam dosya adı yolu" />
-					<Item id="6427" name="En fazla uzunluğu özelleştir:" />
+					<Item id="6427" name="Maksimum uzunluğu özelleştir:" />
 				</RecentFilesHistory>
 
 				<Backup title="Yedekleme">
@@ -866,6 +866,7 @@
 
 			<!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
 			<NbFileToOpenImportantWarning title="Açılmak istenen dosya sayısı çok fazla" message="$INT_REPLACE$ dosyası açılmak üzere. Devam etmek istiyor musunuz?" />
+			<SettingsOnCloudError title="Bulut Ayarları" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi" />

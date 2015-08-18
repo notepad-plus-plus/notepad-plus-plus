@@ -91,6 +91,9 @@ DockingCont::DockingCont()
 	_captionGapDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_captionGapDynamic);
 	_closeButtonPosLeftDynamic = NppParameters::getInstance()->_dpiManager.scaleX(_closeButtonPosLeftDynamic);
 	_closeButtonPosTopDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_closeButtonPosTopDynamic);
+
+	_closeButtonWidth = NppParameters::getInstance()->_dpiManager.scaleX(12); // bitmap image is 12x12
+	_closeButtonHeight = NppParameters::getInstance()->_dpiManager.scaleY(12);
 }
 
 DockingCont::~DockingCont()
@@ -569,9 +572,9 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 	// select correct bitmap
 	if ((_isMouseOver == TRUE) && (_isMouseDown == TRUE))
-		hBmpCur = ::LoadBitmap(_hInst, MAKEINTRESOURCE(IDB_CLOSE_DOWN));
+		hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_DOWN), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
 	else
-		hBmpCur = ::LoadBitmap(_hInst, MAKEINTRESOURCE(IDB_CLOSE_UP));
+		hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_UP), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
 
 	// blit bitmap into the destination
 	::GetObject(hBmpCur, sizeof(bmp), &bmp);
@@ -608,7 +611,7 @@ eMousePos DockingCont::isInRect(HWND hwnd, int x, int y)
 		{
 			ret = posCaption;
 		}
-		else if ((x > rc.right - (12 + _closeButtonPosLeftDynamic)) && (x < (rc.right - _closeButtonPosLeftDynamic)) &&
+		else if ((x > rc.right - (_closeButtonWidth + _closeButtonPosLeftDynamic)) && (x < (rc.right - _closeButtonPosLeftDynamic)) &&
 			(y >(rc.top + _closeButtonPosTopDynamic)) && (y < (rc.bottom - _closeButtonPosTopDynamic)))
 		{
 			ret = posClose;
@@ -621,7 +624,7 @@ eMousePos DockingCont::isInRect(HWND hwnd, int x, int y)
 			ret = posCaption;
 		}
 		else if ((x > rc.left + _closeButtonPosLeftDynamic) && (x < rc.right - _closeButtonPosLeftDynamic) &&
-			(y >(rc.top + _closeButtonPosTopDynamic)) && (y < (rc.top + (12 + _closeButtonPosLeftDynamic))))
+			(y >(rc.top + _closeButtonPosTopDynamic)) && (y < (rc.top + (_closeButtonHeight + _closeButtonPosLeftDynamic))))
 		{
 			ret = posClose;
 		}

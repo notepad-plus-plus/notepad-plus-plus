@@ -104,9 +104,11 @@ public:
 
 	virtual void setBackgroundColor(COLORREF bgColour) {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
+		TreeView_SetBkColor(_treeViewSearchResult.getHSelf(), bgColour);
     };
 	virtual void setForegroundColor(COLORREF fgColour) {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
+		TreeView_SetTextColor(_treeViewSearchResult.getHSelf(), fgColour);
     };
 
     void setParent(HWND parent2set){

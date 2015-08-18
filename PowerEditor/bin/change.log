@@ -1,14 +1,15 @@
-Notepad++ v6.8.1 bug-fixes:
+Notepad++ v6.8.2 bug-fixes:
 
-1.  Fix the Source Code Pro font making OS hanging issue (for some specific hardware configuration).
-2.  Make current default font (Source Code Pro) prettier by adding its bold, italic and bold-italic fonts.
-3.  Fix "Restore recent close file" text disappearing issue for some circumstance.
-4.  Fix snapshot file after saving being always dirty problem.
-5.  Fix document tab moving by clicking close button issue due to splitter inaccuracy.
-6.  Fix a regression of Preferences dialog in which some modified options are not applied immediately.
-7.  Fix inconsistent untitled document name issue (new 0 instead of new 1).
-8.  Fix Macro button on toolbar inconsistent issue at Notepad++ startup.
-
+1.  Remove Source Code Pro font du to the different issues.
+2.  Add back "Notepad++ Community (Forum)" menu item.
+3.  Fix a visual glitch on starup and on exit.
+4.  Fix "Open in/Move to new instance" issue (to memorize the language and the position).
+5.  Fix Preferences dialog loses focus issue while enabling document list panel.
+6.  Fix the narrow columns problem in Ascii Insert Panel under a high DPI.
+7.  Fix the list items' squeezed height problem in function list panel and project panel under a high DPI.
+8.  Fix panel caption squeezed display under a high DPI.
+9.  Fixed buffer overrun when opening a recent file.
+10. Make toolbar refresh properly while switching over small/big icons.
 
 
 Included plugins:

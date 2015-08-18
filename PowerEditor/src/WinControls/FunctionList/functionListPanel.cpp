@@ -565,11 +565,19 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 
         case WM_INITDIALOG :
         {
-			int editWidth = 100;
-			int editHeight = 20;
+			int editWidth = NppParameters::getInstance()->_dpiManager.scaleX(100);
+			int editWidthSep = NppParameters::getInstance()->_dpiManager.scaleX(105); //editWidth + 5
+			int editHeight = NppParameters::getInstance()->_dpiManager.scaleY(20);
+			int iconSizeX = NppParameters::getInstance()->_dpiManager.scaleX(16);
+			int iconSizeY = NppParameters::getInstance()->_dpiManager.scaleY(16);
 			// Create toolbar menu
 			//int style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
-			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
+
+			// CCS_ADJUSTABLE -- we have no customization, thus it caused double-clicking the toolbar to open and close instantly the dialog to select icons.
+			// TBSTYLE_LIST -- "TBSTYLE_FLAT repaints its portion of the parent window after activating the tool bar (CHILDACTIVATE message), TBSTYLE_LIST does _NOT_ do this (and is reasonably annoying...)." (comment at https://msdn.microsoft.com/en-us/library/windows/desktop/bb760439.aspx)
+			// TBSTYLE_WRAPABLE -- requires refreshing toolbar somewhere else, apparently.
+
+			int style = WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | TBSTYLE_TOOLTIPS;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
 
@@ -586,14 +594,14 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 			// Place holder of search text field
 			tbButtons[0].idCommand = 0;
-			tbButtons[0].iBitmap = editWidth + 10;
+			tbButtons[0].iBitmap = editWidthSep;
 			tbButtons[0].fsState = TBSTATE_ENABLED;
-			tbButtons[0].fsStyle = BTNS_SEP;
+			tbButtons[0].fsStyle = BTNS_SEP; //This is just a separator (blank space)
 			tbButtons[0].iString = 0;
 
 			tbButtons[1].idCommand = IDC_SORTBUTTON_FUNCLIST;
 			tbButtons[1].iBitmap = 0;
-			tbButtons[1].fsState =  TBSTATE_ENABLED;
+			tbButtons[1].fsState = TBSTATE_ENABLED;
 			tbButtons[1].fsStyle = BTNS_CHECK | BTNS_AUTOSIZE;
 			tbButtons[1].iString = (INT_PTR)TEXT("");
 
@@ -604,8 +612,8 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			tbButtons[2].iString = (INT_PTR)TEXT("");
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
-			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE , (WPARAM)0, (LPARAM)MAKELONG (16, 16));
-			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
+			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON), (LPARAM)&tbButtons);
+			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELPARAM(iconSizeX, iconSizeY)); //TB_SETBUTTONSIZE should be called after adding buttons.
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
 
 			ShowWindow(_hToolbarMenu, SW_SHOW);
@@ -615,13 +623,12 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
 			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
 
-			_hSearchEdit = CreateWindowEx(0L, L"Edit", NULL,
+			_hSearchEdit = CreateWindowEx(0, L"Edit", NULL,
                                    WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL,
                                    2, 2, editWidth, editHeight,
                                    _hToolbarMenu, (HMENU) IDC_SEARCHFIELD_FUNCLIST, _hInst, 0 );
 
 			HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
-
 			if (hf)
 				::SendMessage(_hSearchEdit, WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
 
@@ -676,28 +683,30 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 		}
 		return TRUE;
 
-        case WM_SIZE:
-        {
-            int width = LOWORD(lParam);
-            int height = HIWORD(lParam);
-			RECT toolbarMenuRect;
-            ::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
+		case WM_SIZE:
+		{
+			int width = LOWORD(lParam);
+			int height = HIWORD(lParam);
+			int extraValue = NppParameters::getInstance()->_dpiManager.scaleX(4);
 
-            ::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
+			RECT toolbarMenuRect;
+			::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
+
+			::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
 
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
-				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
+				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + extraValue, width, height - toolbarMenuRect.bottom - extraValue, TRUE);
 
 			HWND hwnd_aux = _treeViewSearchResult.getHSelf();
 			if (hwnd_aux)
-				::MoveWindow(hwnd_aux, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
+				::MoveWindow(hwnd_aux, 0, toolbarMenuRect.bottom + extraValue, width, height - toolbarMenuRect.bottom - extraValue, TRUE);
 
-            break;
-        }
+			break;
+		}
 
-        default :
-            return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
-    }
+		default :
+			return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+	}
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }

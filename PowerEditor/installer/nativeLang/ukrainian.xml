@@ -167,28 +167,28 @@
                     <Item id="43013" name="Знайти у файлах"/>
                     <Item id="43014" name="Знайти таке ж далі"/>
                     <Item id="43015" name="Знайти таке ж попереднє"/>
-                    <Item id="43022" name="Використовувати 1-й стиль"/>
-                    <Item id="43023" name="Очистити 1-й стиль"/>
-                    <Item id="43024" name="Використовувати 2-й стиль"/>
-                    <Item id="43025" name="Очистити 2-й стиль"/>
-                    <Item id="43026" name="Використовувати 3-й стиль"/>
-                    <Item id="43027" name="Очистити 3-й стиль"/>
-                    <Item id="43028" name="Використовувати 4-й стиль"/>
-                    <Item id="43029" name="Очистити 4-й стиль"/>
-                    <Item id="43030" name="Використовувати 5-й стиль"/>
-                    <Item id="43031" name="Очистити 5-й стиль"/>
+                    <Item id="43022" name="Використовувати стиль 1"/>
+                    <Item id="43023" name="Очистити стиль 1"/>
+                    <Item id="43024" name="Використовувати стиль 2"/>
+                    <Item id="43025" name="Очистити стиль 2"/>
+                    <Item id="43026" name="Використовувати стиль 3"/>
+                    <Item id="43027" name="Очистити стиль 3"/>
+                    <Item id="43028" name="Використовувати стиль 4"/>
+                    <Item id="43029" name="Очистити стиль 4"/>
+                    <Item id="43030" name="Використовувати стиль 5"/>
+                    <Item id="43031" name="Очистити стиль 5"/>
                     <Item id="43032" name="Очистити всі стилі"/>
-					<Item id="43033" name="1й стиль"/>
-                    <Item id="43034" name="2й стиль"/>
-                    <Item id="43035" name="3й стиль"/>
-                    <Item id="43036" name="4й стиль"/>
-                    <Item id="43037" name="5й стиль"/>
+					<Item id="43033" name="Стиль 1"/>
+                    <Item id="43034" name="Стиль 2"/>
+                    <Item id="43035" name="Стиль 3"/>
+                    <Item id="43036" name="Стиль 4"/>
+                    <Item id="43037" name="Стиль 5"/>
                     <Item id="43038" name="Знайти стиль"/>
-                    <Item id="43039" name="1й стиль"/>
-                    <Item id="43040" name="2й стиль"/>
-                    <Item id="43041" name="3й стиль"/>
-                    <Item id="43042" name="4й стиль"/>
-                    <Item id="43043" name="5й стиль"/>
+                    <Item id="43039" name="Стиль 1"/>
+                    <Item id="43040" name="Стиль 2"/>
+                    <Item id="43041" name="Стиль 3"/>
+                    <Item id="43042" name="Стиль 4"/>
+                    <Item id="43043" name="Стиль 5"/>
                     <Item id="43044" name="Знайти стиль"/>
                     <Item id="43045" name="Вікно результатів пошуку"/>
                     <Item id="43046" name="Наступні результати пошуку"/>
@@ -207,18 +207,18 @@
 	                <Item id="44029" name="Розгорнути все"/>
                     <Item id="44030" name="Згорнути поточний фрагмент"/>
                     <Item id="44031" name="Розгорнути поточний фрагмент"/>
-                    <Item id="44049" name="Summary..."/>
+                    <Item id="44049" name="Сумарно..."/>
                     <Item id="44080" name="Карта документа"/>
                     <Item id="44084" name="Список функцій"/>
-                    <Item id="44086" name="1st Tab"/>
-                    <Item id="44087" name="2nd Tab"/>
-                    <Item id="44088" name="3rd Tab"/>
-                    <Item id="44089" name="4th Tab"/>
-                    <Item id="44090" name="5th Tab"/>
-                    <Item id="44091" name="6th Tab"/>
-                    <Item id="44092" name="7th Tab"/>
-                    <Item id="44093" name="8th Tab"/>
-                    <Item id="44094" name="9th Tab"/>
+                    <Item id="44086" name="Tab 1"/>
+                    <Item id="44087" name="Tab 2"/>
+                    <Item id="44088" name="Tab 3"/>
+                    <Item id="44089" name="Tab 4"/>
+                    <Item id="44090" name="Tab 5"/>
+                    <Item id="44091" name="Tab 6"/>
+                    <Item id="44092" name="Tab 7"/>
+                    <Item id="44093" name="Tab 8"/>
+                    <Item id="44094" name="Tab 9"/>
                     <Item id="44095" name="Наступна вкладка"/>
                     <Item id="44096" name="Попередня вкладка"/>
                     <Item id="44032" name="На весь екран"/>
@@ -275,7 +275,7 @@
                     <Item id="47005" name="Більше доповнень"/>
 					<Item id="47006" name="Оновити Notepad++"/>
 					<Item id="47008" name="Довідка Notepad++"/>
-                    <Item id="47009" name="Set Updater Proxy..."/>
+                    <Item id="47009" name="Встановити проксі для оновлення..."/>
 					<Item id="48005" name="Імпорт доповнень ..."/>
                     <Item id="48006" name="Імпорт тем..."/>
                     <Item id="48018" name="Змінити контекстне меню"/>
@@ -286,7 +286,7 @@
 					<Item id="50000" name="Закінчення функцій"/>
                     <Item id="50001" name="Закінчення слів"/>
                     <Item id="50002" name="Підказка по функціях"/>
-                    <Item id="50006" name="Path Completion"/>
+                    <Item id="50006" name="Завершення шляху"/>
                     <Item id="44042" name="Сховати рядки"/>
                     <Item id="42040" name="Відкрити всі нещодавні файли"/>
                     <Item id="42041" name="Очистити список нещодавніх файлів"/>
@@ -375,7 +375,7 @@
 
             <GoToLine title="До рядка #">
                 <Item id="2007" name="Рядок"/>
-                <Item id="2008" name="Стовпець"/>
+                <Item id="2008" name="Стовпчик"/>
                 <Item id="1"    name="Вперед!"/>
                 <Item id="2"    name="Не хочу нікуди"/>
                 <Item id="2004" name="Ми тут:"/>
@@ -432,45 +432,45 @@
 				<Item id="20009" name="Розширення:"/>
 				<Item id="20012" name="Будь-який регістр"/>
 				<Item id="20011" name="Прозорість"/>
-                <Item id="20015" name="Import..."/>
-                <Item id="20016" name="Export..."/>
+                <Item id="20015" name="Імпорт..."/>
+                <Item id="20016" name="Експорт..."/>
                 <StylerDialog title="Styler Dialog">
-                    <Item id="25030" name="Font options:"/>
-                    <Item id="25006" name="Foreground colour"/>
-                    <Item id="25007" name="Background colour"/>
-                    <Item id="25031" name="Name:"/>
-                    <Item id="25032" name="Size:"/>
-                    <Item id="25001" name="Bold"/>
-                    <Item id="25002" name="Italic"/>
-                    <Item id="25003" name="Underline"/>
-                    <Item id="25029" name="Nesting:"/>
-                    <Item id="25008" name="Delimiter 1"/>
-                    <Item id="25009" name="Delimiter 2"/>
-                    <Item id="25010" name="Delimiter 3"/>
-                    <Item id="25011" name="Delimiter 4"/>
-                    <Item id="25012" name="Delimiter 5"/>
-                    <Item id="25013" name="Delimiter 6"/>
-                    <Item id="25014" name="Delimiter 7"/>
-                    <Item id="25015" name="Delimiter 8"/>
-                    <Item id="25018" name="Keyword 1"/>
-                    <Item id="25019" name="Keyword 2"/>
-                    <Item id="25020" name="Keyword 3"/>
-                    <Item id="25021" name="Keyword 4"/>
-                    <Item id="25022" name="Keyword 5"/>
-                    <Item id="25023" name="Keyword 6"/>
-                    <Item id="25024" name="Keyword 7"/>
-                    <Item id="25025" name="Keyword 8"/>
-                    <Item id="25016" name="Comment"/>
-                    <Item id="25017" name="Comment line"/>
-                    <Item id="25026" name="Operator 1"/>
-                    <Item id="25027" name="Operator 2"/>
-                    <Item id="25028" name="Numbers"/>
+                    <Item id="25030" name="Налаштування шрифту:"/>
+                    <Item id="25006" name="Колір переднього плану"/>
+                    <Item id="25007" name="Колір тла"/>
+                    <Item id="25031" name="Назва:"/>
+                    <Item id="25032" name="Розмір:"/>
+                    <Item id="25001" name="Жирний"/>
+                    <Item id="25002" name="Курсив"/>
+                    <Item id="25003" name="Підкреслення"/>
+                    <Item id="25029" name="Вкладення:"/>
+                    <Item id="25008" name="Розділювач 1"/>
+                    <Item id="25009" name="Розділювач 2"/>
+                    <Item id="25010" name="Розділювач 3"/>
+                    <Item id="25011" name="Розділювач 4"/>
+                    <Item id="25012" name="Розділювач 5"/>
+                    <Item id="25013" name="Розділювач 6"/>
+                    <Item id="25014" name="Розділювач 7"/>
+                    <Item id="25015" name="Розділювач 8"/>
+                    <Item id="25018" name="Ключове слово 1"/>
+                    <Item id="25019" name="Ключове слово 2"/>
+                    <Item id="25020" name="Ключове слово 3"/>
+                    <Item id="25021" name="Ключове слово 4"/>
+                    <Item id="25022" name="Ключове слово 5"/>
+                    <Item id="25023" name="Ключове слово 6"/>
+                    <Item id="25024" name="Ключове слово 7"/>
+                    <Item id="25025" name="Ключове слово 8"/>
+                    <Item id="25016" name="Коментар"/>
+                    <Item id="25017" name="Рядок коментаря"/>
+                    <Item id="25026" name="Оператор 1"/>
+                    <Item id="25027" name="Оператор 2"/>
+                    <Item id="25028" name="Числа"/>
                 </StylerDialog>
                 <Folder title="Folder &amp;&amp; Default">
-                    <Item id="21101" name="Default style"/>
-                    <Item id="21102" name="Styler"/>
-                    <Item id="21105" name="Documentation:"/>
-                    <Item id="21104" name="Temporary doc site:"/>
+                    <Item id="21101" name="Типовий стиль"/>
+                    <Item id="21102" name="Стайлер"/>
+                    <Item id="21105" name="Документація:"/>
+                    <Item id="21104" name="Тимчасовий сайт документації:"/>
                     <Item id="21106" name="Fold compact (fold empty lines too)"/>
                     <Item id="21220" name="Folding in code 1 style:"/>
                     <Item id="21224" name="Open:"/>
@@ -489,14 +489,14 @@
                     <Item id="21427" name="Styler"/>
                 </Folder>
                 <Keywords title="Списки ключових слів">
-					<Item id="22101" name="1-а група"/>
-					<Item id="22201" name="2-а група"/>
-					<Item id="22301" name="3-я група"/>
-					<Item id="22401" name="4-а група"/>
-                    <Item id="22451" name="5-а група"/>
-                    <Item id="22501" name="6-а група"/>
-                    <Item id="22551" name="7-а група"/>
-                    <Item id="22601" name="8-а група"/>
+					<Item id="22101" name="Група 1"/>
+					<Item id="22201" name="Група 2"/>
+					<Item id="22301" name="Група 3"/>
+					<Item id="22401" name="Група 4"/>
+                    <Item id="22451" name="Група 5"/>
+                    <Item id="22501" name="Група 6"/>
+                    <Item id="22551" name="Група 7"/>
+                    <Item id="22601" name="Група 8"/>
                     <Item id="22121" name="Режим префіксу"/>
                     <Item id="22221" name="Режим префіксу"/>
                     <Item id="22321" name="Режим префіксу"/>
@@ -706,13 +706,13 @@
 					<Item id="6613" name="Згори"/>
 					<Item id="6614" name="Справа"/>
 					<Item id="6615" name="Знизу"/>
-					<Item id="6706" name="Грубий"/>
+					<Item id="6706" name="Жирний"/>
 					<Item id="6707" name="Курсив"/>
 					<Item id="6708" name="Верхній колонтитул"/>
 					<Item id="6709" name="Ліва частина"/>
 	                <Item id="6710" name="Середня частина"/>
 					<Item id="6711" name="Права частина"/>
-					<Item id="6717" name="Грубий"/>
+					<Item id="6717" name="Жирний"/>
 					<Item id="6718" name="Курсив"/>
 					<Item id="6719" name="Нижній колонтитул"/>
 					<Item id="6720" name="Ліва частина"/>

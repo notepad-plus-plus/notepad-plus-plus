@@ -358,7 +358,7 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 				fi._pos = foundPos;
 			}
 
-			if (classStructName != TEXT(""))
+			if (not classStructName.empty())
 			{
 				fi._data2 = classStructName;
 				fi._pos2 = -1; // change -1 valeur for validated data2
@@ -378,9 +378,7 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 					foundInfos.push_back(fi);
 			}
 			else
-			{
 				foundInfos.push_back(fi);
-			}
 		}
 		
 		begin = targetStart + foundTextLen;
@@ -388,16 +386,17 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 	}
 }
 
+
 generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos, ScintillaEditView **ppEditView)
 {
 	if (begin >= end)
 	{
 		foundPos = -1;
-		return TEXT("");
+		return generic_string();
 	}
 
 	if (!dataToSearch.size())
-		return TEXT("");
+		return generic_string();
 
 	int flags = SCFIND_REGEXP | SCFIND_POSIX  | SCFIND_REGEXP_DOTMATCHESNL;
 
@@ -408,7 +407,7 @@ generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vect
 	if (targetStart == -1 || targetStart == -2)
 	{
 		foundPos = -1;
-		return TEXT("");
+		return generic_string();
 	}
 	int targetEnd = int((*ppEditView)->execute(SCI_GETTARGETEND));
 
@@ -417,16 +416,15 @@ generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vect
 		dataToSearch.erase(dataToSearch.begin());
 		return parseSubLevel(targetStart, targetEnd, dataToSearch, foundPos, ppEditView);
 	}
-	else // only one processed element, so we conclude the result
-	{
-		TCHAR foundStr[1024];
 
-		(*ppEditView)->getGenericText(foundStr, 1024, targetStart, targetEnd);
+	// only one processed element, so we conclude the result
+	TCHAR foundStr[1024];
+	(*ppEditView)->getGenericText(foundStr, 1024, targetStart, targetEnd);
 
-		foundPos = targetStart;
-		return foundStr;
-	}
+	foundPos = targetStart;
+	return foundStr;
 }
+
 
 bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, const AssociationInfo & assoInfo)
 {
@@ -444,6 +442,7 @@ bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, const As
 
 	return true;
 }
+
 
 size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const std::vector< std::pair<int, int> > & commentZones, ScintillaEditView **ppEditView)
 {
@@ -522,15 +521,13 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 		generic_string classStructName = parseSubLevel(targetStart, targetEnd, _classNameExprArray, foundPos, ppEditView);
 		
 
-		if (_openSymbole != TEXT("") && _closeSymbole != TEXT(""))
+		if (not _openSymbole.empty() && not _closeSymbole.empty())
 		{
 			targetEnd = getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), commentZones, ppEditView);
 		}
 
 		if (targetEnd > int(end)) //we found a result but outside our range, therefore do not process it
-		{
 			break;
-		}
 		
 		scannedZones.push_back(pair<int, int>(targetStart, targetEnd));
 
@@ -549,12 +546,11 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 	}
 }
 
+
 void FunctionParser::getCommentZones(vector< pair<int, int> > & commentZone, size_t begin, size_t end, ScintillaEditView **ppEditView)
 {
-	if ((begin >= end) || (_commentExpr == TEXT("")))
-	{
+	if ((begin >= end) || (_commentExpr.empty()))
 		return;
-	}
 
 	int flags = SCFIND_REGEXP | SCFIND_POSIX | SCFIND_REGEXP_DOTMATCHESNL;
 
@@ -567,9 +563,7 @@ void FunctionParser::getCommentZones(vector< pair<int, int> > & commentZone, siz
 		targetStart = int((*ppEditView)->execute(SCI_GETTARGETSTART));
 		targetEnd = int((*ppEditView)->execute(SCI_GETTARGETEND));
 		if (targetEnd > int(end)) //we found a result but outside our range, therefore do not process it
-		{
 			break;
-		}
 
 		commentZone.push_back(pair<int, int>(targetStart, targetEnd));
 
@@ -582,17 +576,17 @@ void FunctionParser::getCommentZones(vector< pair<int, int> > & commentZone, siz
 	}
 }
 
+
 bool FunctionParser::isInZones(int pos2Test, const std::vector< std::pair<int, int> > & zones)
 {
 	for (size_t i = 0, len = zones.size(); i < len; ++i)
 	{
 		if (pos2Test >= zones[i].first && pos2Test < zones[i].second)
-		{
 			return true;
-		}
 	}
 	return false;
 }
+
 
 void FunctionParser::getInvertZones(vector< pair<int, int> > &  destZones, vector< pair<int, int> > &  sourceZones, size_t begin, size_t end)
 {
@@ -622,6 +616,7 @@ void FunctionParser::getInvertZones(vector< pair<int, int> > &  destZones, vecto
 	}
 }
 
+
 void FunctionZoneParser::parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName)
 {
 	vector< pair<int, int> > classZones, commentZones, nonCommentZones;
@@ -647,8 +642,10 @@ void FunctionUnitParser::parse(std::vector<foundInfo> & foundInfos, size_t begin
 //
 // SortClass for vector<pair<int, int>>
 // sort in _selLpos : increased order
-struct SortZones {
-	bool operator() (pair<int, int> & l, pair<int, int> & r) {
+struct SortZones final
+{
+	bool operator() (pair<int, int> & l, pair<int, int> & r)
+	{
 		return (l.first < r.first);
 	}
 };

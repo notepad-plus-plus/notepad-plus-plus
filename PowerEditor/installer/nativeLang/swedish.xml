@@ -69,6 +69,20 @@
 					<Item id="10002" name="Klona till delad skärm" />
 					<Item id="10003" name="Flytta till ny instans" />
 					<Item id="10004" name="Klona till ny instans" />
+
+					<Item id="45060" name="Big5 (Traditional)"/>
+					<Item id="45061" name="GB2312 (Simplified)"/>
+					<Item id="45054" name="OEM 861: Icelandic"/>
+					<Item id="45057" name="OEM 865: Nordic"/>
+					<Item id="45053" name="OEM 860: Portuguese"/>
+					<Item id="45056" name="OEM 863: French"/>
+
+					<Item id="46033" name="Assembler"/>
+					<Item id="46019" name="MS INI fil"/>
+					<Item id="46015" name="MS-DOS format"/>
+					<Item id="46016" name="Normal text"/>
+					<Item id="46017" name="Resursfil"/>
+
 					<Item id="41001" name="&amp;Ny" />
 					<Item id="41002" name="&amp;Öppna" />
 					<Item id="41003" name="S&amp;täng" />
@@ -86,6 +100,7 @@
 					<Item id="41015" name="Spara en kopia som..." />
 					<Item id="41016" name="Ta bort från disk" />
 					<Item id="41017" name="Byt namn..." />
+					<Item id="41021" name="Återställ stängd fil"/>
 					<Item id="41018" name="Stäng alla till höger"/>
 					<Item id="41019" name="Utforskaren"/>
 					<Item id="41020" name="Kommandotolken"/>
@@ -103,6 +118,14 @@
 					<Item id="42013" name="Sammanfoga rader" />
 					<Item id="42014" name="Flytta rad uppåt" />
 					<Item id="42015" name="Flytta rad nedåt" />
+					<Item id="42059" name="Sortera rader lexikografiskt stigande"/>
+					<Item id="42060" name="Sortera rader lexikografiskt fallande"/>
+					<Item id="42061" name="Sortera rader som heltal stigande"/>
+					<Item id="42062" name="Sortera rader som heltal fallande"/>
+					<Item id="42063" name="Sortera rader som decimaltal (komma) stigande "/>
+					<Item id="42064" name="Sortera rader som decimaltal (komma) fallande"/>
+					<Item id="42065" name="Sortera rader som decimaltal (punkt) stigande"/>
+					<Item id="42066" name="Sortera rader som decimaltal (punkt) fallande"/>
 					<Item id="42016" name="TILL VERSALER" />
 					<Item id="42017" name="till gemener" />
 					<Item id="42018" name="Starta &amp;inspelning" />
@@ -146,8 +169,6 @@
 					<Item id="42056" name="Ta bort tomma rader (Innehållande blanktecken)" />
 					<Item id="42057" name="Infoga tom rad ovanför nuvarande"/>
 					<Item id="42058" name="Infoga tom rad under nuvarande"/>
-					<Item id="42059" name="Sortera rader i stigande ordning"/>
-					<Item id="42060" name="Sortera rader i fallande ordning"/>
 					<Item id="43001" name="&amp;Sök..." />
 					<Item id="43002" name="S&amp;ök nästa" />
 					<Item id="43003" name="&amp;Ersätt..." />
@@ -162,8 +183,6 @@
 					<Item id="43013" name="Sök i filer" />
 					<Item id="43014" name="Sök nästa" />
 					<Item id="43015" name="Sök föregående" />
-					<Item id="43016" name="&amp;Markera allt" />
-					<Item id="43017" name="Avmarkera allt" />
 					<Item id="43018" name="Klipp ut bokmärkta rader" />
 					<Item id="43019" name="Kopiera bokmärkta rader" />
 					<Item id="43020" name="Klistra in i (byt ut) bokmärkta rader" />
@@ -198,7 +217,7 @@
 					<Item id="43049" name="Markera och sök föregående" />
 					<Item id="43050" name="Invertera bokmärke" />
 					<Item id="43051" name="Ta bort omärkta rader" />
-					<Item id="43052" name="Hitta tecken i intervallet..." />
+					<Item id="43052" name="Hitta tecken i intervall..." />
 					<Item id="43053" name="Markera allt mellan matchande klamrar"/>
 					<Item id="44009" name="Post-it" />
 					<Item id="44010" name="Minimera alla" />
@@ -254,13 +273,14 @@
 					<Item id="46080" name="Användardefinierad" />
 					<Item id="46150" name="Definiera ditt språk..." />
 					<Item id="47000" name="Om Notepad++..." />
-					<Item id="47001" name="Notepad++, officiella hemsida" />
+					<Item id="47010" name="Kommandoradsargument"/>
+					<Item id="47001" name="Notepad++, officiell hemsida" />
 					<Item id="47002" name="Notepad++, projekthemsida" />
 					<Item id="47003" name="Online-hjälp" />
-					<Item id="47004" name="Forum" />
+					<Item id="47011" name="Livesupport"/>
 					<Item id="47005" name="Hämta fler tillägg" />
 					<Item id="47006" name="Uppdatera Notepad++" />
-					<Item id="47008" name="Hjälp" />
+					<Item id="47009" name="Ställ in uppdateringsproxy..."/>
 					<Item id="48005" name="Importera tillägg..." />
 					<Item id="48006" name="Importera teman..." />
 					<Item id="48009" name="Snabbkommandon..." />
@@ -316,7 +336,6 @@
 				<Item id="1614" name="Antal sökträffar" />
 				<Item id="1615" name="Hitta alla" />
 				<Item id="1616" name="Markera rad" />
-				<Item id="1617" name="Markera alla träffar" />
 				<Item id="1618" name="Rensa tidigare markering vid varje sökning" />
 				<Item id="1620" name="Sök efter:" />
 				<Item id="1621" name="Sök" />
@@ -327,7 +346,6 @@
 				<Item id="1633" name="Rensa" />
 				<Item id="1635" name="Ersätt i öppnade filer" />
 				<Item id="1636" name="Sök i öppnade filer" />
-				<Item id="1637" name="Sök i filer" />
 				<Item id="1641" name="Sök alla i aktivt dokument" />
 				<Item id="1654" name="Filter:" />
 				<Item id="1655" name="Mapp:" />
@@ -586,7 +604,6 @@
 					<Item id="6118" name="Dölj" />
 					<Item id="6119" name="Flerradig" />
 					<Item id="6120" name="Vertikal" />
-					<Item id="6121" name="Menyrad" />
 					<Item id="6122"	name="Dölj (använd Alt eller F10 för att växla mellan dold och synlig)" />
 					<Item id="6123" name="Språk" />
 					<Item id="6125" name="Växla dokument" />
@@ -834,7 +851,7 @@
 			<ColumnChar name="Tecken"/>
 		</AsciiInsertion>
 		<DocumentMap>
-			<PanelTitle name="Dokumentsvy"/>
+			<PanelTitle name="Dokumentvy"/>
 		</DocumentMap>
 		<FunctionList>
 			<PanelTitle name="Funktionslista"/>

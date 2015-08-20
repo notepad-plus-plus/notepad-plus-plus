@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change: 28 Apr 2015 by Ondřej Müller (mullero@email.cz)
-	- all Czech translations at: http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
+	- last change:  Notepad++ 6.8  22/Jul/2015  by Ondřej Müller (mullero@email.cz)
+	- all older Czech translations at:  http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
+	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.7.7">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.8">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -145,9 +146,15 @@
 					<Item id = "42055" name = "Odstranit prázdné řádky"/>
 					<Item id = "42056" name = "Odstranit prázdné řádky (obsahující prázdné znaky)"/>
 					<Item id = "42057" name = "Vložit prázdný řádek nad aktuální"/>
-					<Item id = "42058" name = "Vložit prázdný řádek pod aktuální"/>!
+					<Item id = "42058" name = "Vložit prázdný řádek pod aktuální"/>
 					<Item id = "42059" name = "Setřídit řádky vzestupně"/>
 					<Item id = "42060" name = "Setřídit řádky sestupně"/>
+					<Item id = "42061" name = "Setřídit řádky (podle celých čísel) vzestupně"/>
+					<Item id = "42062" name = "Setřídit řádky (podle celých čísel) sestupně"/>
+					<Item id = "42063" name = "Setřídit řádky (podle desetinných čísel s čárkou) vzestupně"/>
+					<Item id = "42064" name = "Setřídit řádky (podle desetinných čísel s čárkou) sestupně"/>
+					<Item id = "42065" name = "Setřídit řádky (podle desetinných čísel s tečkou) vzestupně"/>
+					<Item id = "42066" name = "Setřídit řádky (podle desetinných čísel s tečkou) sestupně"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nahradit..."/>
@@ -257,11 +264,11 @@
 					<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
 					<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
 					<Item id = "45060" name = "Big5 (tradiční)"/>
-                    <Item id = "45061" name = "GB2312 (zjednodušená)"/>
-                    <Item id = "45054" name = "OEM 861: Islandština"/>
-                    <Item id = "45057" name = "OEM 865: Skandinávské jazyky"/>
-                    <Item id = "45053" name = "OEM 860: Portugalština"/>
-                    <Item id = "45056" name = "OEM 863: Francoužština"/>
+					<Item id = "45061" name = "GB2312 (zjednodušená)"/>
+					<Item id = "45054" name = "OEM 861: Islandština"/>
+					<Item id = "45057" name = "OEM 865: Skandinávské jazyky"/>
+					<Item id = "45053" name = "OEM 860: Portugalština"/>
+					<Item id = "45056" name = "OEM 863: Francouzština"/>
 
 					<Item id = "10001" name = "Přepnout náhled"/>
 					<Item id = "10002" name = "Vytvořit kopii v samostatném náhledu"/>
@@ -284,8 +291,9 @@
 					<Item id = "47006" name = "Aktualizovat Notepad++"/>
 					<Item id = "47007" name = "Wiki FAQ"/>
 					<Item id = "47008" name = "Obsah nápovědy"/>
-					<Item id = "47009" name = "Nastavit aktualizaci proxy-serveru ..." />
-                    <Item id = "47010" name = "Parametry příkazové řádky" />
+					<Item id = "47009" name = "Nastavit aktualizaci proxy-serveru ..."/>
+					<Item id = "47010" name = "Parametry příkazové řádky"/>
+					<Item id = "47011" name = "Online podpora"/>
 					<Item id = "48005" name = "Importovat plugin(y) ..."/>
 					<Item id = "48006" name = "Importovat styl(y) ..."/>
 					<Item id = "48009" name = "Asociace klávesových zkratek..."/>
@@ -688,6 +696,7 @@
 					<Item id = "6212" name = "Okraj"/>
 					<Item id = "6213" name = "Zvýraznit přesah řádky"/>
 					<Item id = "6214" name = "Zvýraznit aktivní řádek"/>
+					<Item id = "6215" name = "Povolit vyhlazování fontu"/>
 					<Item id = "6216" name = "Nastavení kurzoru"/>
 					<Item id = "6217" name = "Šířka:"/>
 					<Item id = "6219" name = "Rychlost blikání:"/>
@@ -839,28 +848,26 @@
 					<Item id = "6866" name = "Párové znaky 3:"/>
 				</AutoCompletion>
 				<MultiInstance title = "Multi-instance">
-                    <Item id = "6151" name = "Nastavení multi-instančního módu"/>
-                    <Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++"/>
-                    <Item id = "6153" name = "Vždy v multi-instančním módu"/>
-                    <Item id = "6154" name = "Implicitní (mono-instanční mód)"/>
-                    <Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
-                </MultiInstance>
+					<Item id = "6151" name = "Nastavení multi-instančního módu"/>
+					<Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++"/>
+					<Item id = "6153" name = "Vždy v multi-instančním módu"/>
+					<Item id = "6154" name = "Implicitní (mono-instanční mód)"/>
+					<Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
+				</MultiInstance>
 				<Delimiter title = "Ohraničení">
-                    <Item id = "6251" name = "Nastavení pro ohraničující výběr (Ctrl + dvojklik myší)"/>
-                    <Item id = "6252" name = "Úvod"/>
+					<Item id = "6251" name = "Nastavení pro ohraničující výběr (Ctrl + dvojklik myší)"/>
+					<Item id = "6252" name = "Úvod"/>
 					<Item id = "6255" name = "Konec"/>
-                    <Item id = "6256" name = "Povolit přes více řádků"/>
-                    <Item id = "6257" name = "bla bla bla bla bla bla"/>
-                    <Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
-                </Delimiter>
-                <Cloud title = "Cloud (i-úložišťě)">
-				    <!--Item id="6261" name="Pro aktivaci změn prosím restartujte Notepad++."/-->
-                    <Item id = "6262" name = "Nastavení internetového úložišťě"/>
-                    <Item id = "6263" name = "bez cloudu"/>
-                    <Item id = "6264" name = "DropBox"/>
-                    <Item id = "6265" name = "OneDrive"/>
-					<Item id = "6266" name = "GoogleDrive"/>
-                </Cloud>
+					<Item id = "6256" name = "Povolit přes více řádků"/>
+					<Item id = "6257" name = "bla bla bla bla bla bla"/>
+					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
+				</Delimiter>
+				<Cloud title = "Cloud (i-úložišťě)">
+					<!--Item id="6261" name="Pro aktivaci změn prosím restartujte Notepad++."/-->
+					<Item id = "6262" name = "Nastavení internetového úložišťě"/>
+					<Item id = "6263" name = "bez cloudu"/>
+					<Item id = "6267" name = "Zde nastavte cestu k Vašemu i-úložišti:"/>
+				</Cloud>
 			</Preference>
 
 			<MultiMacro title = "Spustit makro vícekrát">
@@ -882,15 +889,16 @@
 
 			<ColumnEditor title = "Editor sloupce">
 				<Item id = "2023" name = "Text ke vložení"/>
-				<Item id = "2033" name = "Číslo ke vložení"/>
-				<Item id = "2030" name = "Počáteční číslo:"/>
-				<Item id = "2031" name = "Inkrementace po:"/>
-				<Item id = "2035" name = "Uvozující nuly"/>
-				<Item id = "2032" name = "Formát"/>
 				<Item id = "2024" name = "Dec"/>
 				<Item id = "2025" name = "Oct"/>
 				<Item id = "2026" name = "Hex"/>
 				<Item id = "2027" name = "Bin"/>
+				<Item id = "2030" name = "Počáteční číslo:"/>
+				<Item id = "2031" name = "Inkrementace po:"/>
+				<Item id = "2032" name = "Formát"/>
+				<Item id = "2033" name = "Číslo ke vložení"/>
+				<Item id = "2035" name = "Uvozující nuly"/>
+				<Item id = "2036" name = "Opakování:"/>
 				<Item id = "1" name = "OK"/>
 				<Item id = "2" name = "Storno"/>
 			</ColumnEditor>
@@ -902,13 +910,14 @@
 			<NppHelpAbsentWarning title = "Soubor neexistuje" message = " neexistuje. Stáhněte si jej prosím z domovské stránky Notepadu++."/>
 			<SaveCurrentModifWarning title = "Uložit změny" message = "Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
 			<LoseUndoAbilityWarning title = "Varování před ztrátou možnosti vrátit změny" message = "Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
-			<NbFileToOpenImportantWarning title = "Velmi mnoho souborů k otevření" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si jisti, že je chcete všechny opravdu otevřít?"/>
 			<CannotMoveDoc title = "Přejít k nové instanci Notepadu++" message = "Dokument je modifikován, uložte jej a poté to zkuste znovu."/>
 			<DocReloadWarning title = "Znovu otevřít" message = "Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
 			<FileLockedWarning title = "Uložení selhalo" message = "Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
 			<FileAlreadyOpenedInNpp title = "" message = "Tento soubor je již otevřen v Notepadu++."/>
 			<DeleteFileFailed title = "Odstranit Soubor" message = "Odstranění souboru selhalo"/>
-			<NbFileToOpenImportantWarning title = "Množství souborů k otevření je příliš veliké" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title = "Velmi mnoho souborů k otevření" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
+			<SettingsOnCloudError title = "Nastavení cloudu" message = "Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
 		</MessageBox>
 
 		<ProjectManager>

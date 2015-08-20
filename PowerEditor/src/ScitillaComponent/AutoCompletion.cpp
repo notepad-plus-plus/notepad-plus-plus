@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -75,7 +75,7 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	const size_t bufSize = 256;
 	TCHAR beginChars[bufSize];
-	
+
 	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
 	if (len >= bufSize)
 		return false;
@@ -99,7 +99,7 @@ bool AutoCompletion::showApiAndWordComplete()
 	sort(wordArray.begin(), wordArray.end());
 
 	// Get word list
-	generic_string words(TEXT(""));
+	generic_string words;
 
 	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
 	{
@@ -111,9 +111,9 @@ bool AutoCompletion::showApiAndWordComplete()
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
-
 	return true;
 }
+
 
 void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
 {
@@ -314,7 +314,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	const size_t bufSize = 256;
 	TCHAR beginChars[bufSize];
-	
+
 	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
 	if (len >= bufSize)
 		return false;
@@ -327,7 +327,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	if (wordArray.size() == 0) return false;
 
-	if (wordArray.size() == 1 && autoInsert) 
+	if (wordArray.size() == 1 && autoInsert)
 	{
 		_pEditView->replaceTargetRegExMode(wordArray[0].c_str(), startPos, curPos);
 		_pEditView->execute(SCI_GOTOPOS, startPos + wordArray[0].length());
@@ -370,7 +370,7 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	TCHAR tag2find[] = TEXT("<[^\\s>]*");
 	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
-	
+
 	if (targetStart == -1 || targetStart == -2)
 		return;
 
@@ -398,7 +398,7 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	closeTag[1] = '/';
 	_pEditView->getText(closeTag + 2, targetStart + 1, targetEnd);
 	closeTag[foundTextLen+1] = '>';
-	closeTag[foundTextLen+2] = '\0'; 
+	closeTag[foundTextLen+2] = '\0';
 }
 
 void InsertedMatchedChars::removeInvalidElements(MatchedCharInserted mci)
@@ -443,7 +443,7 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 	if (isEmpty())
 		return -1;
 	int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
-	
+
 	for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
 	{
 		if (_insertedMatchedChars[i]._c == startChar)
@@ -508,7 +508,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	}
 
 	// if there's no user defined matched pair found, continue to check notepad++'s one
-	
+
 	const size_t closeTagLen = 256;
 	char closeTag[closeTagLen];
 	closeTag[0] = '\0';
@@ -652,7 +652,7 @@ void AutoCompletion::update(int character)
 	const int wordSize = 64;
 	TCHAR s[wordSize];
 	_pEditView->getWordToCurrentPos(s, wordSize);
-	
+
 	if (lstrlen(s) >= int(nppGUI._autocFromLen))
 	{
 		if (nppGUI._autocStatus == nppGUI.autoc_word)
@@ -721,11 +721,11 @@ bool AutoCompletion::setLanguage(LangType language) {
 		_funcCalltip._param = ',';
 		_funcCalltip._terminal = ';';
 		_funcCalltip._ignoreCase = true;
-        _funcCalltip._additionalWordChar = TEXT("");
+        _funcCalltip._additionalWordChar.clear();
 
 		TiXmlElement * pElem = pAutoNode->FirstChildElement(TEXT("Environment"));
-		if (pElem) 
-        {	
+		if (pElem)
+        {
 			const TCHAR * val = 0;
 			val = pElem->Attribute(TEXT("ignoreCase"));
 			if (val && !lstrcmp(val, TEXT("no"))) {
@@ -756,7 +756,7 @@ bool AutoCompletion::setLanguage(LangType language) {
 		_funcCalltip.setLanguageXML(NULL);
 	}
 
-	_keyWords = TEXT("");
+	_keyWords.clear();
 	_keyWordArray.clear();
 
 	if (_funcCompletionActive)

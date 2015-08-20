@@ -200,8 +200,8 @@ int ToolBar::getWidth() const {
 
 int ToolBar::getHeight() const {
 	DWORD size = (DWORD)SendMessage(_hSelf, TB_GETBUTTONSIZE, 0, 0);
-    DWORD padding = (DWORD)SendMessage(_hSelf, TB_GETPADDING, 0,0);
-	int totalHeight = HIWORD(size) + HIWORD(padding);
+	DWORD padding = (DWORD)SendMessage(_hSelf, TB_GETPADDING, 0, 0);
+	int totalHeight = HIWORD(size) + HIWORD(padding) - 3;
 	return totalHeight;
 }
 
@@ -212,9 +212,9 @@ void ToolBar::reduce()
 
 	int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleX(16);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD);
+	bool recreate = (_state == TB_STANDARD || _state == TB_LARGE);
 	setState(TB_SMALL);
-	reset(recreate);	//recreate toolbar if std icons were used
+	reset(recreate);	//recreate toolbar if previous state was Std icons or Big icons
 	Window::redraw();
 }
 
@@ -225,9 +225,9 @@ void ToolBar::enlarge()
 
 	int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleX(32);
 	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
-	bool recreate = (_state == TB_STANDARD);
+	bool recreate = (_state == TB_STANDARD || _state == TB_SMALL);
 	setState(TB_LARGE);
-	reset(recreate);	//recreate toolbar if std icons were used
+	reset(recreate);	//recreate toolbar if previous state was Std icons or Small icons
 	Window::redraw();
 }
 
@@ -393,7 +393,7 @@ void ToolBar::addToRebar(ReBar * rebar)
 	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE |
 					  RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_ID;
 
-	_rbBand.fStyle		= RBBS_VARIABLEHEIGHT | RBBS_USECHEVRON;
+	_rbBand.fStyle		= RBBS_VARIABLEHEIGHT | RBBS_USECHEVRON | RBBS_NOGRIPPER;
 	_rbBand.hwndChild	= getHSelf();
 	_rbBand.wID			= REBAR_BAR_TOOLBAR;	//ID REBAR_BAR_TOOLBAR for toolbar
 	_rbBand.cxMinChild	= 0;

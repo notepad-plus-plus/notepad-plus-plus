@@ -750,6 +750,9 @@ winVer getWindowsVersion()
    {
 		case VER_PLATFORM_WIN32_NT:
 		{
+			if (osvi.dwMajorVersion == 8 && osvi.dwMinorVersion == 4)
+				return WV_WIN10;
+
 			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3)
 				return WV_WIN81;
 

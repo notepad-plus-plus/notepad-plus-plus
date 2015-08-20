@@ -37,18 +37,45 @@ IF NOT [%MSVCTOOLSET%]==[] (
 	SET TOOLSETCOMMAND=toolset=%MSVCTOOLSET% 
 )
 
-	
+
 
 IF NOT EXIST "%BOOSTPATH%\boost\regex.hpp" (
    GOTO BOOSTNOTFOUND
 )
 
+
+@REM Look for BOOSTBUILDPATH, BJAM, and B2.
+@REM These locations may vary, depending on Boost version.
+@REM changed with Boost 1.56.0 ff
+SET BOOSTBUILDPATH=
+SET B2_EXE=
+IF EXIST %BOOSTPATH%\tools\build\v2 (
+	@REM Boost before 1.55.0
+	SET  BOOSTBUILDPATH=%BOOSTPATH%\tools\build\v2
+	SET  B2_EXE=%BOOSTPATH%\tools\build\v2\b2.exe
+) ELSE IF EXIST %BOOSTPATH%\tools\build (
+	@REM Boost 1.56.0 and newer
+	SET  BOOSTBUILDPATH=%BOOSTPATH%\tools\build
+	SET  B2_EXE=%BOOSTPATH%\tools\build\b2.exe
+) ELSE (
+    ECHO.
+	ECHO ** Cannot find BOOSTBUILDPATH
+	GOTO BUILDERROR
+)
+
+@REM Print out these values for visual inspection.
+ECHO.
+ECHO BOOSTPATH=%BOOSTPATH%
+ECHO BOOSTBUILDPATH=%BOOSTBUILDPATH%
+ECHO B2_EXE=%B2_EXE%
+ECHO.
+
 IF NOT EXIST "%BOOSTPATH%\bjam\bin\bjam.exe" (
 	ECHO Building BJAM, the boost build tool
-	PUSHD %BOOSTPATH%\tools\build\v2
+	PUSHD %BOOSTBUILDPATH%
 	CALL bootstrap.bat
 
-	%BOOSTPATH%\tools\build\v2\b2 --prefix=%BOOSTPATH%\bjam install
+	%B2_EXE% --prefix=%BOOSTPATH%\bjam install
 	POPD
 )
 
@@ -117,6 +144,11 @@ IF NOT [%MSVCTOOLSET%]==[] (
     GOTO TOOLSETKNOWN
 )
 
+:: VS2015
+IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-14.0\release\link-static\runtime-link-static\threading-multi\libboost_regex-vc140-mt-s-%BOOSTVERSION%.lib (
+	SET MSVCTOOLSET=msvc-14.0
+)
+
 :: VS2013
 IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-12.0\release\link-static\runtime-link-static\threading-multi\libboost_regex-vc120-mt-s-%BOOSTVERSION%.lib (
 	SET MSVCTOOLSET=msvc-12.0
@@ -155,6 +187,11 @@ ECHO Run buildboost.bat without parameters to see the usage.
 
 
 :TOOLSETKNOWN
+
+:: VS2015
+IF [%MSVCTOOLSET%]==[msvc-14.0] (
+	SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\msvc-14.0
+)
 
 :: VS2013
 IF [%MSVCTOOLSET%]==[msvc-12.0] (
@@ -222,7 +259,7 @@ ECHO Unzip the file downloaded from www.boost.org, and give the absolute path
 ECHO as the first parameter to buildboost.bat
 ECHO.
 ECHO e.g.
-ECHO buildboost.bat d:\libs\boost_1_48_0
+ECHO buildboost.bat d:\libs\boost_1_55_0
 
 ECHO.
 ECHO.
@@ -234,11 +271,12 @@ ECHO   --toolset msvc-9.0     for Visual Studio 2008
 ECHO   --toolset msvc-10.0    for Visual Studio 2010
 ECHO   --toolset msvc-11.0    for Visual Studio 2012
 ECHO   --toolset msvc-12.0    for Visual Studio 2013
+ECHO   --toolset msvc-14.0    for Visual Studio 2015
 ECHO.
 ECHO.
-ECHO e.g.  To build with boost in d:\libs\boost_1_48_0 with Visual Studio 2008
+ECHO e.g.  To build with boost in d:\libs\boost_1_55_0 with Visual Studio 2013
 ECHO.
-ECHO         buildboost.bat --toolset msvc-9.0 d:\libs\boost_1_48_0
+ECHO         buildboost.bat --toolset msvc-12.0 d:\libs\boost_1_55_0
 ECHO.
 GOTO EOF
 

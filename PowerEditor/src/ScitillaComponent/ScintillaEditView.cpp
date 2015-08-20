@@ -428,6 +428,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 	return _callWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 }
 
+#define DEFAULT_FONT_NAME "Courier New"
 
 void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 {
@@ -441,8 +442,16 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
     if (styleToSet._fontName && lstrcmp(styleToSet._fontName, TEXT("")) != 0)
 	{
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const char * fontNameA = wmc->wchar2char(styleToSet._fontName, CP_UTF8);
-		execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)fontNameA);
+
+		if (not _pParameter->isInFontList(styleToSet._fontName))
+		{
+			execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)DEFAULT_FONT_NAME);
+		}
+		else
+		{
+			const char * fontNameA = wmc->wchar2char(styleToSet._fontName, CP_UTF8);
+			execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)fontNameA);
+		}
 	}
 	int fontStyle = styleToSet._fontStyle;
     if (fontStyle != STYLE_NOT_USED)

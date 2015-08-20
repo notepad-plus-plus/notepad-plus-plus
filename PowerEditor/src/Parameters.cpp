@@ -1511,6 +1511,18 @@ void NppParameters::setFontList(HWND hWnd)
 	::EnumFontFamiliesEx(hDC, &lf, EnumFontFamExProc, (LPARAM)&_fontlist, 0);
 }
 
+bool NppParameters::isInFontList(const generic_string fontName2Search) const
+{
+	if (fontName2Search.empty())
+		return false;
+
+	for (size_t i = 0, len = _fontlist.size(); i < len; i++)
+	{
+		if (_fontlist[i] == fontName2Search)
+			return true;
+	}
+	return false;
+}
 
 void NppParameters::getLangKeywordsFromXmlTree()
 {

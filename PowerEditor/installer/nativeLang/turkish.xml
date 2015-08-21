@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<NotepadPlus><!-- Çeviri: Emrah Güzeltaş | emrahguzeltas@gmail.com -->
-	<Native-Langue name="Turkish" filename="turkish.xml" version="6.8">
+<NotepadPlus><!-- Çeviri:.....: ?-2015 - Emrah Güzeltaş; 2015-? - Tmp341 -->
+	<Native-Langue name="Turkish" filename="turkish.xml" version="6.8.2">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Yazıları -->
@@ -201,6 +201,7 @@
 					<Item id="43047" name="Önceki Arama Sonucu" />
 					<Item id="43048" name="Seç ve Sonrakini Bul" />
 					<Item id="43049" name="Seç ve Öncekini Bul" />
+					<Item id="43054" name="İşaretle..."/>
 					<Item id="44009" name="Pencereyi Ekrana Tuttur" />
 					<Item id="44010" name="Tümünü Katla" />
 					<Item id="44019" name="Tüm Karakterleri Göster" />
@@ -277,6 +278,7 @@
 					<Item id="47001" name="Notepad++ &amp;Ana Sayfası" />
 					<Item id="47002" name="Notepad++ Proje Sayfası" />
 					<Item id="47003" name="Çevrimiçi Belgelendirme" />
+					<Item id="47004" name="Notepad++ Topluluğu (Forum)"/>
 					<Item id="47011" name="Canlı Destek"/>
 					<Item id="47005" name="Eklenti Merkezi" />
 					<Item id="47006" name="&amp;Güncellemeleri Denetle" />
@@ -470,6 +472,8 @@
 						<Item id="25026" name="İşleç 1" />
 						<Item id="25027" name="İşleç 2" />
 						<Item id="25028" name="Sayılar" />
+						<Item id="1" name="Tamam"/>
+						<Item id="2" name="İptal"/>
 					</StylerDialog>
 					<Folder title="Klasör &amp;&amp; Varsayılanlar">
 						<Item id="21101" name="Varsayılan Stil" />
@@ -655,7 +659,7 @@
 					<Item id="6212" name="Çizgi modu" />
 					<Item id="6213" name="Arka plan modu" />
 					<Item id="6214" name="Geçerli satırı vurgula" />
-
+					<Item id="6215" name="Yumuşak fontu etkinleştir"/>
 					<Item id="6231" name="Kenarlık Boyutu" />
 				</Scintillas>
 
@@ -666,10 +670,10 @@
 					<Item id="6404" name="Mac OS" />
 					<Item id="6405" name="Kodlama" />
 					<Item id="6406" name="ANSI" />
-					<Item id="6407" name="BOM olmadan UTF-8" />
-					<Item id="6408" name="UTF-8" />
-					<Item id="6409" name="UCS-2 Big-Endian" />
-					<Item id="6410" name="UCS-2 Small-Endian" />
+					<Item id="6407" name="UTF-8" />
+					<Item id="6408" name="UTF-8 BOM ile" />
+					<Item id="6409" name="UCS-2 Big-Endian BOM ile" />
+					<Item id="6410" name="UCS-2 Small-Endian BOM ile" />
 					<Item id="6411" name="Varsayılan dil:" />
 					<Item id="6419" name="Yeni Belge" />
 					<Item id="6420" name="Açılmış ANSI dosyalarına uygula" />

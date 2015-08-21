@@ -201,7 +201,7 @@ int ToolBar::getWidth() const {
 int ToolBar::getHeight() const {
 	DWORD size = (DWORD)SendMessage(_hSelf, TB_GETBUTTONSIZE, 0, 0);
 	DWORD padding = (DWORD)SendMessage(_hSelf, TB_GETPADDING, 0, 0);
-	int totalHeight = HIWORD(size) + HIWORD(padding) - 3;
+	int totalHeight = HIWORD(size) + HIWORD(padding) - 4;
 	return totalHeight;
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="6.7.7">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="6.8.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -144,8 +144,14 @@
                     <Item id="42056" name="移除空行(包括空白字符)" />
                     <Item id="42057" name="在当前行上方插入空行"/>
                     <Item id="42058" name="在当前行下方插入空行"/>
-                    <Item id="42059" name="升序排列行"/>
-                    <Item id="42060" name="降序排列行"/>
+                    <Item id="42059" name="升序排列文本行"/>
+                    <Item id="42060" name="降序排列文本行"/>
+                    <Item id="42061" name="升序排列整数" />
+                    <Item id="42062" name="降序排列整数" />
+                    <Item id="42063" name="升序排列小数（逗号作为小数点）" />
+                    <Item id="42064" name="降序排列小数（逗号作为小数点）" />
+                    <Item id="42065" name="升序排列小数（句点作为小数点）" />
+                    <Item id="42066" name="降序排列小数（句点作为小数点）" />
                     <Item id="43001" name="查找(&amp;F)..." />
                     <Item id="43002" name="查找下一个(&amp;N)" />
                     <Item id="43003" name="替换..." />
@@ -170,6 +176,7 @@
                     <Item id="43051" name="删除未标记行" />
                     <Item id="43052" name="查找范围内的字符..." />
                     <Item id="43053" name="选中所有匹配括号间字符"/>
+                    <Item id="43054" name="标记..." />
                     <Item id="43022" name="使用格式1" />
                     <Item id="43023" name="清除格式1" />
                     <Item id="43024" name="使用格式2" />
@@ -260,12 +267,13 @@
                     <Item id="47001" name="Notepad++ 官方主页" />
                     <Item id="47002" name="Notepad++ 项目主页" />
                     <Item id="47003" name="在线帮助" />
-                    <Item id="47004" name="论坛" />
+                    <Item id="47004" name="Notepad++ 社区（论坛）" />
                     <Item id="47005" name="获取插件" />
                     <Item id="47006" name="升级 Notepad++" />
                     <Item id="47008" name="帮助" />
                     <Item id="47009" name="设置更新代理服务器..." />
-					<Item id="47010" name="指令列参数..."/>
+                    <Item id="47010" name="命令行参数..." />
+                    <Item id="47011" name="在线支持" />
                     <Item id="48005" name="导入插件..." />
                     <Item id="48006" name="导入主题..." />
                     <Item id="48018" name="编辑弹出菜单" />
@@ -353,6 +361,19 @@
                 <Item id="1686" name="透明度" />
                 <Item id="1703" name="&amp;. 匹配新行" />
             </Find>
+
+            <FindCharsInRange title="查找范围内的字符...">
+                <Item id="2" name="关闭"/>
+                <Item id="2901" name="非 ASCII 字符 (128-255)"/>
+                <Item id="2902" name="ASCII 字符 (0-127)"/>
+                <Item id="2903" name="自定义范围："/>
+                <Item id="2906" name="向上(&amp;U)"/>
+                <Item id="2907" name="向下(&amp;D)"/>
+                <Item id="2908" name="方向"/>
+                <Item id="2909" name="循环查找(&amp;P)"/>
+                <Item id="2910" name="查找"/>
+            </FindCharsInRange>
+
             <GoToLine title="转至">
                 <Item id="2007" name="行" />
                 <Item id="2008" name="偏移量" />
@@ -454,6 +475,8 @@
                     <Item id="25026" name="运算符 1" />
                     <Item id="25027" name="运算符 2" />
                     <Item id="25028" name="数字" />
+                    <Item id="1" name="确认" />
+                    <Item id="2" name="取消" />
                 </StylerDialog>
                 <Folder title="层次设置与默认格式">
                     <Item id="21101" name="默认格式设置" />
@@ -642,6 +665,7 @@
                     <Item id="6212" name="边界线模式" />
                     <Item id="6213" name="背景色模式" />
                     <Item id="6214" name="当前行高亮模式" />
+                    <Item id="6215" name="启用平滑字体" />
 
                     <Item id="6231" name="边框宽度" />
                 </Scintillas>

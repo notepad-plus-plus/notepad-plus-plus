@@ -45,7 +45,6 @@ private:
 	EncodingMapper(){};
 	~EncodingMapper(){};
     static EncodingMapper *_pSelf;
-    EncodingUnit *_encodings;
 };
 
 #endif // ENCODINGMAPPER_H

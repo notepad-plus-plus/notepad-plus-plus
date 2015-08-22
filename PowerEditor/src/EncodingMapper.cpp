@@ -91,7 +91,7 @@ bool isInListA(const char *token, const char *list) {
 	char word[64];
 	size_t i = 0;
 	size_t j = 0;
-	for (size_t len = strlen(list); i <= len; ++i)
+	for (auto len = strlen(list); i <= len; ++i)
 	{
 		if ((list[i] == ' ')||(list[i] == '\0'))
 		{
@@ -116,14 +116,14 @@ bool isInListA(const char *token, const char *list) {
 int EncodingMapper::getEncodingFromIndex(int index) const
 {
 	size_t nbItem = sizeof(encodings)/sizeof(EncodingUnit);
-	if (index < 0 || (size_t)index >= nbItem)
+	if (index < 0 || static_cast<size_t>(index) >= nbItem)
 		return -1;
 	return encodings[index]._codePage;
 }
 
 int EncodingMapper::getIndexFromEncoding(int encoding) const
 {
-	bool found = false;
+	auto found = false;
 	size_t nbItem = sizeof(encodings)/sizeof(EncodingUnit);
 	size_t i = 0;
 	for ( ; i < nbItem ; ++i)
@@ -143,7 +143,7 @@ int EncodingMapper::getEncodingFromString(const char *encodingAlias) const
         return SC_CP_UTF8;
 
 	size_t nbItem = sizeof(encodings)/sizeof(EncodingUnit);
-	int enc = -1;
+	auto enc = -1;
 	for (size_t i = 0 ; i < nbItem ; ++i)
 	{
 		if (isInListA(encodingAlias, encodings[i]._aliasList))

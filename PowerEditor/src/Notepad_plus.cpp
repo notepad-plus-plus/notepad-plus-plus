@@ -2122,9 +2122,9 @@ void Notepad_plus::setDisplayFormat(FormatType format)
 	const TCHAR* str = TEXT("??");
 	switch (format)
 	{
-		case FormatType::windows: str = TEXT("Dos\\Windows"); break;
-		case FormatType::macos:   str = TEXT("Macintosh"); break;
-		case FormatType::unix:    str = TEXT("UNIX"); break;
+		case FormatType::windows: str = TEXT("Windows (CRLF)"); break;
+		case FormatType::macos:   str = TEXT("Classic Mac (CR)"); break;
+		case FormatType::unix:    str = TEXT("UNIX (LF)"); break;
 		case FormatType::unknown: str = TEXT("Unknown"); assert(false);  break;
 	}
 	_statusBar.setText(str, STATUSBAR_EOF_FORMAT);

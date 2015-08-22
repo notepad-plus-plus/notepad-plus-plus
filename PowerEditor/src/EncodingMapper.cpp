@@ -83,6 +83,8 @@ EncodingUnit encodings[] = {
     {20866, "koi8_r csKOI8R"}                                                                   //IDM_FORMAT_KOI8R_CYRILLIC
 };
 
+constexpr size_t nbItem = sizeof(encodings) / sizeof(EncodingUnit);
+
 EncodingMapper * EncodingMapper::_pSelf = new EncodingMapper;
 
 bool isInListA(const char *token, const char *list) {
@@ -115,7 +117,6 @@ bool isInListA(const char *token, const char *list) {
 
 int EncodingMapper::getEncodingFromIndex(int index) const
 {
-	size_t nbItem = sizeof(encodings)/sizeof(EncodingUnit);
 	if (index < 0 || (size_t)index >= nbItem)
 		return -1;
 	return encodings[index]._codePage;
@@ -124,7 +125,6 @@ int EncodingMapper::getEncodingFromIndex(int index) const
 int EncodingMapper::getIndexFromEncoding(int encoding) const
 {
 	bool found = false;
-	size_t nbItem = sizeof(encodings)/sizeof(EncodingUnit);
 	size_t i = 0;
 	for ( ; i < nbItem ; ++i)
 	{
@@ -142,7 +142,6 @@ int EncodingMapper::getEncodingFromString(const char *encodingAlias) const
     if (isInListA(encodingAlias, "utf-8 utf8"))
         return SC_CP_UTF8;
 
-	size_t nbItem = sizeof(encodings)/sizeof(EncodingUnit);
 	int enc = -1;
 	for (size_t i = 0 ; i < nbItem ; ++i)
 	{

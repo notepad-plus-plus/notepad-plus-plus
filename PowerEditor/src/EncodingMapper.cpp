@@ -123,7 +123,7 @@ int EncodingMapper::getEncodingFromIndex(int index) const
 
 int EncodingMapper::getIndexFromEncoding(int encoding) const
 {
-	bool found = false;
+	auto found = false;
 	size_t nbItem = sizeof(encodings)/sizeof(EncodingUnit);
 	size_t i = 0;
 	for ( ; i < nbItem ; ++i)

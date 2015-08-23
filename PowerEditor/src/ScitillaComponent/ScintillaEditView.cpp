@@ -135,6 +135,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			SCLEX_R},
 {TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			SCLEX_HTML},
 {TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
+{TEXT("fortran77"),		TEXT("Fortran 77"),			TEXT("Fortran 77 source file"),							L_FORTRAN_77,	SCLEX_F77},
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -1297,6 +1298,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_FORTRAN :
 			setFortranLexer(); break;
+
+		case L_FORTRAN_77 :
+			setFortran77Lexer(); break;
 
 		case L_LISP :
             setLispLexer(); break;

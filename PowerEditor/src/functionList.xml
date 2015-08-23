@@ -121,7 +121,7 @@ http://notepad-plus-plus.org/features/function-list.html
 
 			<parser id="c_cpp_function" displayName="C++ Class" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<classRange
-					mainExpr="^[\t ]*(class|struct)[\t ]+[\w]+[\s]*(:[\s]*(public|protected|private)[\s]+[\w]+[\s]*)?\{"
+					mainExpr="^[\t ]*(class|struct)[\t ]+[\w]+[\s]*(final)?[\s]*(:[\s]*(public|protected|private)[\s]+[\w]+[\s]*)?\{"
 					openSymbole = "\{"
 					closeSymbole = "\}"
 					displayMode="node">
@@ -131,7 +131,7 @@ http://notepad-plus-plus.org/features/function-list.html
 						<nameExpr expr="[\w]+"/>
 					</className>
 					<function
-						mainExpr="^[\t ]*((static|const|virtual)[\s]+)?([\w]+([\s]+[\w]+)?([\s]+|(\*|\*\*|&amp;)[\s]+|[\s]+(\*|\*\*|&amp;)|[\s]+(\*|\*\*|&amp;)[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{">
+						mainExpr="^[\t ]*((static|const|virtual)[\s]+)?([\w]+([\s]+[\w]+)?([\s]+|(\*|\*\*|&amp;)[\s]+|[\s]+(\*|\*\*|&amp;)|[\s]+(\*|\*\*|&amp;)[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?([\s]*(final|override|final[\s]*override|override[\s]*final)[\s]*)?[\n\s]*\{">
 						<functionName>
 							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+[\s]*\("/>
 							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+"/>

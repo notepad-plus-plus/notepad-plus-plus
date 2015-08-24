@@ -219,7 +219,6 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 			buf->setEncoding(ndds._codepage);
 			buf->setFormat(ndds._format);
 			buf->setUnicodeMode(ndds._unicodeMode);
-			buf->setLangType(ndds._lang);
 		}
 
         // Notify plugins that current file is about to open

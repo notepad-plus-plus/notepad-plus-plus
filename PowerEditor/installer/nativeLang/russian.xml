@@ -5,39 +5,39 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="Файл"/>
-                    <Item menuId="edit" name="Правка"/>
-                    <Item menuId="search" name="Поиск"/>
-                    <Item menuId="view" name="Вид"/>
-                    <Item menuId="encoding" name="Кодировки"/>
-                    <Item menuId="language" name="Синтаксисы"/>
-                    <Item menuId="settings" name="Опции"/>
-                    <Item menuId="macro" name="Макросы"/>
-                    <Item menuId="run" name="Запуск"/>
-                    <Item idName="Plugins" name="Плагины"/>
-                    <Item idName="Window"  name="Окна"/>
+                    <Item menuId="file" name="&amp;Файл"/>
+                    <Item menuId="edit" name="&amp;Правка"/>
+                    <Item menuId="search" name="По&amp;иск"/>
+                    <Item menuId="view" name="&amp;Вид"/>
+                    <Item menuId="encoding" name="&amp;Кодировки"/>
+                    <Item menuId="language" name="&amp;Синтаксисы"/>
+                    <Item menuId="settings" name="&amp;Опции"/>
+                    <Item menuId="macro" name="&amp;Макросы"/>
+                    <Item menuId="run" name="&amp;Запуск"/>
+                    <Item idName="Plugins" name="Плаги&amp;ны"/>
+                    <Item idName="Window"  name="Окн&amp;а"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Открыть папку документа"/>
+                    <Item subMenuId="file-openFolder" name="&amp;Открыть папку документа"/>
                     <Item subMenuId="file-closeMore" name="Управление вкладками..."/>
                     <Item subMenuId="file-recentFiles" name="Последние файлы"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Копировать в Буфер..."/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Копировать в &amp;Буфер..."/>
                     <Item subMenuId="edit-indent" name="Отступы (табуляция)"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Преобразовать Регистр"/>
-                    <Item subMenuId="edit-lineOperations" name="Строки"/>
-                    <Item subMenuId="edit-comment" name="Комментарии"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Преобразование Регистра"/>
+                    <Item subMenuId="edit-lineOperations" name="Операции со Строками"/>
+                    <Item subMenuId="edit-comment" name="Комментирование"/>
                     <Item subMenuId="edit-autoCompletion" name="Автозавершение Ввода"/>
                     <Item subMenuId="edit-eolConversion" name="Формат Конца Строк"/>
-                    <Item subMenuId="edit-blankOperations" name="Пробелы"/>
+                    <Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
                     <Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
                     <Item subMenuId="search-markAll" name="Пометить выделенное"/>
                     <Item subMenuId="search-unmarkAll" name="Убрать Пометки"/>
                     <Item subMenuId="search-jumpUp" name="Перейти вверх"/>
                     <Item subMenuId="search-jumpDown" name="Перейти вниз"/>
-                    <Item subMenuId="search-bookmark" name="Закладки"/>
+                    <Item subMenuId="search-bookmark" name="&amp;Закладки"/>
                     <Item subMenuId="view-showSymbol"  name="Отображение символов"/>
-                    <Item subMenuId="view-zoom"  name="Масштаб"/>
+                    <Item subMenuId="view-zoom"  name="Масштаб текста"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Операции с документом"/>
                     <Item subMenuId="view-tab"  name="Выбор Вкладки..."/>
                     <Item subMenuId="view-collapseLevel" name="Свернуть уровень"/>
@@ -65,25 +65,25 @@
 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="1001"   name="Распечатать!"/>
+                    <Item id="1001"   name="&amp;Распечатать!"/>
                     <Item id="41001" name="Новый"/>
                     <Item id="41002" name="Открыть"/>
-                    <Item id="41019" name="Открыть папку документа"/>
+                    <Item id="41019" name="&amp;Открыть папку документа"/>
                     <Item id="41003" name="Закрыть"/>
-                    <Item id="41004" name="Закрыть все"/>
+                    <Item id="41004" name="Закрыть вс&amp;е"/>
                     <Item id="41005" name="Закрыть все, кроме активной"/>
                     <Item id="41006" name="Сохранить"/>
                     <Item id="41007" name="Сохранить все"/>
                     <Item id="41008" name="Сохранить как..."/>
-                    <Item id="41010" name="Печать..."/>
+                    <Item id="41010" name="Пе&amp;чать..."/>
                     <Item id="41011" name="Выход"/>
-                    <Item id="41012" name="Загрузить сессию..."/>
-                    <Item id="41013" name="Сохранить сессию..."/>
-                    <Item id="41014" name="Перезагрузить с диска"/>
+                    <Item id="41012" name="&amp;Загрузить сессию..."/>
+                    <Item id="41013" name="&amp;Сохранить сессию..."/>
+                    <Item id="41014" name="&amp;Перезагрузить с диска"/>
                     <Item id="41015" name="Сохранить копию как..."/>
-                    <Item id="41016" name="Удалить файл (в корзину)"/>
+                    <Item id="41016" name="&amp;Удалить файл (в корзину)"/>
                     <Item id="41017" name="Переименовать..."/>
-                    <Item id="41020" name="Открыть в консоли cmd"/>
+                    <Item id="41020" name="Открыть папку в &amp;консоли cmd"/>
                     <Item id="41021" name="Открыть последний закрытый файл"/>
                     <Item id="41009" name="Закрыть все Слева"/>
                     <Item id="41018" name="Закрыть все Справа"/>
@@ -93,7 +93,7 @@
                     <Item id="42004" name="Повтор"/>
                     <Item id="42005" name="Вставить"/>
                     <Item id="42006" name="Удалить"/>
-                    <Item id="42007" name="Выделить всё"/>
+                    <Item id="42007" name="Выделить все"/>
                     <Item id="42008" name="Вставить Табуляцию"/>
                     <Item id="42009" name="Удалить Табуляцию"/>
                     <Item id="42010" name="Дублировать текущую строку"/>
@@ -113,12 +113,12 @@
                     <Item id="42025" name="Сохранить запись в макрос..."/>
                     <Item id="42026" name="Текст справа Налево"/>
                     <Item id="42027" name="Текст слева Направо"/>
-                    <Item id="42028" name="Задать &quot;Только чтение&quot;"/>
-                    <Item id="42029" name="Путь и Имя файла в буфер"/>
-                    <Item id="42030" name="Имя файла в буфер"/>
-                    <Item id="42031" name="Путь к файлу в буфер"/>
+                    <Item id="42028" name="&quot;&amp;Только чтение&quot;"/>
+                    <Item id="42029" name="&amp;Путь и Имя файла"/>
+                    <Item id="42030" name="&amp;Имя файла"/>
+                    <Item id="42031" name="Пу&amp;ть к файлу"/>
                     <Item id="42032" name="Многократный запуск..."/>
-                    <Item id="42033" name="Снять атрибут &quot;Только чтение&quot;"/>
+                    <Item id="42033" name="&amp;Снять &quot;Только чтение&quot;"/>
                     <Item id="42034" name="Генератор столбца..."/>
                     <Item id="42035" name="Закомментировать строку"/>
                     <Item id="42036" name="Раскомментировать строку"/>
@@ -130,18 +130,18 @@
                     <Item id="42042" name="Убрать Начальные Пробелы"/>
                     <Item id="42043" name="Убрать Начальные и Замыкающие Пробелы"/>
                     <Item id="42044" name="Символ Конца Строки в Пробел"/>
-                    <Item id="42045" name="Убрать лишние Пробелы а Концы Строк в Пробел"/>
+                    <Item id="42045" name="Убрать лишние Пробелы / Концы Строк в Пробел"/>
                     <Item id="42046" name="Табуляцию в Пробел"/>
                     <Item id="42047" name="Раскомментировать выделенное"/>
                     <Item id="42048" name="Копировать как Двоичный код"/>
                     <Item id="42049" name="Вырезать как Двоичный код"/>
                     <Item id="42050" name="Вставить как Двоичный код"/>
-                    <Item id="42051" name="Таблица символов"/>
-                    <Item id="42052" name="Панель истории буфера обмена"/>
+                    <Item id="42051" name="Табл&amp;ица символов"/>
+                    <Item id="42052" name="&amp;Панель истории буфера обмена"/>
                     <Item id="42053" name="Пробел в Табуляцию (в начале строки)"/>
                     <Item id="42054" name="Пробел в Табуляцию (все)"/>
                     <Item id="42055" name="Удалить Пустые Строки"/>
-                    <Item id="42056" name="Удалить Пустые Строки (Содер. символы Пробел)"/>
+                    <Item id="42056" name="Удалить Пустые Строки (Содер. символы Пробела)"/>
 					<Item id="42057" name="Вставить пустую строку Перед Текущей"/>
 					<Item id="42058" name="Вставить пустую строку После Текущей"/>
 					<Item id="42059" name="Сортировка по Возрастанию (По первой цифре)"/>
@@ -159,7 +159,7 @@
                     <Item id="43005" name="Закладка (поставить /снять)"/>
                     <Item id="43006" name="К следующей Закладке"/>
                     <Item id="43007" name="К предыдущей Закладке"/>
-                    <Item id="43008" name="Убрать все Закладки"/>
+                    <Item id="43008" name="&amp;Убрать все Закладки"/>
                     <Item id="43009" name="Перейти к парной скобке"/>
                     <Item id="43010" name="Искать ранее"/>
                     <Item id="43011" name="Поиск по мере набора..."/>
@@ -203,7 +203,7 @@
                     <Item id="43050" name="Инвертировать закладки (все строки)"/>
                     <Item id="43051" name="Удалить все строки Без Закладки"/>
                     <Item id="43052" name="Найти символы в диапазоне..."/>
-					<Item id="43053" name="Выделить всё между Парных Скобок"/>
+					<Item id="43053" name="Выделить все между Парных Скобок"/>
 					<Item id="43054" name="Пометки..."/>
                     <Item id="44009" name="Только текст (во всё окно)"/>
                     <Item id="44010" name="Свернуть все блоки"/>
@@ -216,13 +216,13 @@
                     <Item id="44023" name="Крупнее    (Ctrl+Кол. Вверх)"/>
                     <Item id="44024" name="Мельче    (Ctrl+Кол. Вниз)"/>
                     <Item id="44025" name="Отображать Пробелы и Табуляции"/>
-                    <Item id="44026" name="Отображать символ Конеца Строки"/>
+                    <Item id="44026" name="Отображать символ Конца Строки"/>
                     <Item id="44029" name="Развернуть все блоки"/>
                     <Item id="44030" name="Свернуть текущий блок"/>
                     <Item id="44031" name="Развернуть текущий блок"/>
                     <Item id="44032" name="Текст во весь Экран"/>
                     <Item id="44033" name="Восстановить масштаб..."/>
-                    <Item id="44034" name="Поверх всех окон"/>
+                    <Item id="44034" name="&amp;Поверх всех окон"/>
                     <Item id="44035" name="Синхрониз. вертикальную прокрутку"/>
                     <Item id="44036" name="Синхрониз. горизонтальную прокрутку"/>
                     <Item id="44041" name="Отображать знак Переноса Строк"/>
@@ -281,7 +281,7 @@
                     <Item id="48005" name="Импортировать Плагин(ы)"/>
                     <Item id="48006" name="Импортировать Тему(ы)"/>
                     <Item id="48009" name="Горячие клавиши..."/>
-                    <Item id="48011" name="Настройки..."/>
+                    <Item id="48011" name="&amp;Настройки..."/>
                     <Item id="48016" name="Измен. гор. клав./Удалить макро..."/>
                     <Item id="48017" name="Измен. гор. клав./Удалить команду..."/>
                     <Item id="48018" name="Редакт. Контекстное Меню"/>
@@ -306,18 +306,18 @@
                     <Item CMID="4"   name="Печать"/>
                     <Item CMID="5"   name="Переместить в Другую Область"/>
                     <Item CMID="6"   name="Дублировать в Другой Области"/>
-                    <Item CMID="7"   name="Полный путь к файлу в буфер"/>
-                    <Item CMID="8"   name="Имя файла в буфер"/>
-                    <Item CMID="9"   name="Путь к директории файла в буфер"/>
+                    <Item CMID="7"   name="Полный путь к файлу (в буфер)"/>
+                    <Item CMID="8"   name="Имя файла (в буфер)"/>
+                    <Item CMID="9"   name="Путь к директории файла (в буфер)"/>
                     <Item CMID="10" name="Переименовать"/>
                     <Item CMID="11" name="Удалить файл (в корзину)"/>
-                    <Item CMID="12" name="Задать &quot;Только чтение&quot;"/>
-                    <Item CMID="13" name="Снять атрибут &quot;Только чтение&quot;"/>
+                    <Item CMID="12" name="&quot;Только чтение&quot;"/>
+                    <Item CMID="13" name="Снять &quot;Только чтение&quot;"/>
                     <Item CMID="14" name="Переместить в Новый Экземпляр"/>
                     <Item CMID="15" name="Открыть в Новом Экземпляре"/>
                     <Item CMID="16" name="Перезагрузить с диска"/>
-					<Item CMID="17" name="Закрыть Вкладки Слева"/>
-					<Item CMID="18" name="Закрыть Вкладки Справа"/>
+					<Item CMID="17" name="Закрыть все Вкладки Слева"/>
+					<Item CMID="18" name="Закрыть все Вкладки Справа"/>
                     <Item CMID="19" name="Открыть папку документа"/>
                     <Item CMID="20" name="Открыть папку документа в cmd"/>
             </TabBar>
@@ -325,33 +325,33 @@
 
         <Dialog>
             <Find title = "" titleFind = "Найти" titleReplace = "Заменить" titleFindInFiles = "Найти в файлах" titleMark="Пометки">
-                <Item id="1"      name="Искать далее"/>
+                <Item id="1"      name="&amp;Искать далее"/>
                 <Item id="2"      name="Закрыть"/>
                 <Item id="1603" name="Только целые слова"/>
-                <Item id="1604" name="Учитывать регистр"/>
+                <Item id="1604" name="Учитывать &amp;регистр"/>
                 <Item id="1605" name="Регуляр. выражен."/>
-                <Item id="1606" name="Зациклить поиск"/>
+                <Item id="1606" name="За&amp;циклить поиск"/>
                 <Item id="1608" name="Заменить"/>
-                <Item id="1609" name="Заменить всё"/>
+                <Item id="1609" name="&amp;Заменить все"/>
                 <Item id="1611" name="Заменить на:"/>
                 <Item id="1612" name="Вверх"/>
                 <Item id="1613" name="Вниз"/>
                 <Item id="1614" name="Подсчитать"/>
-                <Item id="1615" name="Пометить все"/>
-                <Item id="1616" name="Помечать Закладкой"/>
+                <Item id="1615" name="&amp;Пометить все"/>
+                <Item id="1616" name="Помечат&amp;ь Закладкой"/>
                 <Item id="1617" name="Помечать найденное"/>
                 <Item id="1618" name="Убирать предыдущие пометки"/>
                 <Item id="1620" name="Найти:"/>
                 <Item id="1621" name="Направление"/>
                 <Item id="1624" name="Режим поиска"/>
                 <Item id="1625" name="Обычный"/>
-                <Item id="1626" name="Расширенный (\n, \r, \t, \0, \x...)"/>
+                <Item id="1626" name="Расширенный (\r, \n, \t, \x..., \0)"/>
                 <Item id="1632" name="В выделенном"/>
-                <Item id="1633" name="Убрать все Пометки"/>
-                <Item id="1635" name="Заменить всё во всех Открытых Документах"/>
-                <Item id="1636" name="Найти всё во всех Открытых Документах"/>
+                <Item id="1633" name="&amp;Убрать все Пометки"/>
+                <Item id="1635" name="Заменить все во всех Открытых &amp;Документах"/>
+                <Item id="1636" name="Найти все во всех &amp;Открытых Документах"/>
                 <Item id="1637" name="Искать в файлах"/>
-                <Item id="1641" name="Найти все в&#x0A;Текущем Документе"/>
+                <Item id="1641" name="Найти все в&#x0A;&amp;Текущем Документе"/>
                 <Item id="1654" name="Фильтры:"/>
                 <Item id="1655" name="Папка:"/>
                 <Item id="1656" name="Найти все"/>
@@ -366,10 +366,10 @@
             </Find>
             <GoToLine title= "К строке...">
                 <Item id="2007" name="Строка"/>
-                <Item id="2008" name="Положение символа"/>
+                <Item id="2008" name="Символ"/>
                 <Item id="1"    name="Вперед!"/>
                 <Item id="2"    name="Отмена"/>
-                <Item id="2004" name="Сейчас вы здесь:"/>
+                <Item id="2004" name="Вы сейчас здесь:"/>
                 <Item id="2005" name="Хотите пройти к:"/>
                 <Item id="2006" name="Максимальное значение:"/>
             </GoToLine>
@@ -511,7 +511,7 @@
                     <Item id="22413" name="Префикс режим"/>
                 </Keywords>
                 <Comment title="Комментарии и Числа">
-                    <Item id="23003" name="Положение линии комментариев"/>
+                    <Item id="23003" name="Положение комментария строки"/>
                     <Item id="23004" name="Разрешить где угодно"/>
                     <Item id="23005" name="Разместить в начале строки"/>
                     <Item id="23006" name="Предшествующий пробел"/>
@@ -600,7 +600,7 @@
                     <Item id="6107" name="Уменьшенный размер"/>
                     <Item id="6108" name="Запретить перетаскивание"/>
                     <Item id="6109" name="Неактивные вкладки серого цвета"/>
-                    <Item id="6110" name="Оранжевая линия над вкладкой"/>
+                    <Item id="6110" name="Оранжевая линия над активной"/>
                     <Item id="6111" name="Отображать Строку Состояния"/>
                     <Item id="6112" name="Кнопка закрытия на вкладке"/>
                     <Item id="6113" name="Закрывать двойным щелчком"/>
@@ -841,7 +841,7 @@
                 <Item id="2"      name="Закрыть"/>
                 <Item id="2901" name="Не-ASCII символы (128-255)"/>
                 <Item id="2902" name="ASCII символы (0 - 127)"/>
-                <Item id="2903" name="Мой диапазон:"/>
+                <Item id="2903" name="Свой диапазон:"/>
                 <Item id="2906" name="Вверх"/>
                 <Item id="2907" name="Вниз"/>
                 <Item id="2908" name="Направление"/>

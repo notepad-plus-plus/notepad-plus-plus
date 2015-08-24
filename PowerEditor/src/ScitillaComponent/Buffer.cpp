@@ -1334,6 +1334,7 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 						encoding = detectCodepage(data, lenFile);
                 }
                 isFirstTime = false;
+				UnicodeConvertor->setTotalDataLength(fileSize);
             }
 
 			if (encoding != -1)

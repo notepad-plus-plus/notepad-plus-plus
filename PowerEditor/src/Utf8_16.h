@@ -119,6 +119,9 @@ public:
 	size_t calcCurPos(size_t pos);
     static UniMode determineEncoding(const unsigned char *buf, int bufLen);
 
+	unsigned __int64 getTotalDataLength() const { return totalDataLength; }
+	void setTotalDataLength(unsigned __int64 newLength) { totalDataLength = newLength; }
+
 protected:
 	void determineEncoding();
 
@@ -135,6 +138,8 @@ private:
 	bool            m_bFirstRead;
 	size_t          m_nLen;
 	Utf16_Iter      m_Iter16;
+
+	unsigned __int64 totalDataLength = 0;
 };
 
 // Read in a UTF-8 buffer and write out to UTF-16 or UTF-8

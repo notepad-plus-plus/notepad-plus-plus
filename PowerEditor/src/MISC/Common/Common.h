@@ -30,6 +30,7 @@
 #include <windows.h>
 #include <iso646.h>
 #include <cstdint>
+#include <time.h>
 
 
 const bool dirUp = true;
@@ -63,7 +64,7 @@ const bool dirDown = false;
 	#define generic_sscanf swscanf
 	#define generic_fopen _wfopen
 	#define generic_fgets fgetws
-	#define generic_stat _wstat
+	#define basic_generic_stat _wstat
 	#define generic_sprintf swprintf
 	#define COPYDATA_FILENAMES COPYDATA_FILENAMESW
 #else
@@ -85,10 +86,12 @@ const bool dirDown = false;
 	#define generic_sscanf sscanf
 	#define generic_fopen fopen
 	#define generic_fgets fgets
-	#define generic_stat _stat
+	#define basic_generic_stat _stat
 	#define generic_sprintf sprintf
 	#define COPYDATA_FILENAMES COPYDATA_FILENAMESA
 #endif
+
+#define generic_stat(path, dataStruct) (_tzset(), basic_generic_stat(path, dataStruct)) 
 
 typedef std::basic_string<TCHAR> generic_string;
 

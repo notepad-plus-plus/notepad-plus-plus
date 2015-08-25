@@ -68,7 +68,10 @@ public:
 		::GetWindowText(_hSelf, temp, MAX_PATH);
 		_pluginName = temp;
         // user information
+		assert(data->hClient != nullptr);
 		data->hClient		= _hSelf;
+
+		assert(data->pszName != nullptr);
 		data->pszName		= (TCHAR *)_pluginName.c_str();
 
 		// supported features by plugin

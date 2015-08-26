@@ -1461,6 +1461,7 @@ public:
 
 	generic_string getNppPath() const {return _nppPath;};
 	generic_string getContextMenuPath() const {return _contextMenuPath;};
+	generic_string getShortcutsPath() const {return _shortcutsPath;};
 	const TCHAR * getAppDataNppDir() const {return _appdataNppDir.c_str();};
 	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
 	const TCHAR * getworkSpaceFilePath(int i) const

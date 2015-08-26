@@ -289,6 +289,7 @@
                     <Item id="48016" name="Modifier/Supprimer Macro..."/>
                     <Item id="48017" name="Modifier/Supprimer Commande..."/>
                     <Item id="48018" name="Éditer le menu contextuel"/>
+                    <Item id="48019" name="Éditer les raccourcis clavier"/>
                     <Item id="49000" name="&amp;Exécuter..."/>
                     <Item id="50000" name="Complétion de fonction"/>
                     <Item id="50001" name="Complétion de mot"/>

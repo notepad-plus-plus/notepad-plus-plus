@@ -1580,11 +1580,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				saveUserDefineLangs();
 
 				//
-				// saving shortcuts.xml
-				//
-				saveShortcuts();
-
-				//
 				// saving session.xml
 				//
 				if (nppgui._rememberLastSession && !nppgui._isCmdlineNosessionActivated)

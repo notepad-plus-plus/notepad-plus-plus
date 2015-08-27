@@ -104,7 +104,7 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPA
 			}
 			catch (std::exception ex)
 			{
-				::MessageBoxA(_notepad_plus_plus_core._pPublicInterface->getHSelf(), ex.what(), "Exception On WM_CREATE", MB_OK);
+				::MessageBoxA(hwnd, ex.what(), "Exception On WM_CREATE", MB_OK);
 				exit(-1);
 			}
 			break;
@@ -607,7 +607,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(fileStr) >= int(wParam))
 				{
-					::MessageBox(_pPublicInterface->getHSelf(), TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM error"), MB_OK);
+					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM error"), MB_OK);
 					return FALSE;
 				}
 			}
@@ -628,7 +628,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(str) >= int(wParam))	//buffer too small
 				{
-					::MessageBox(_pPublicInterface->getHSelf(), TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETCURRENTWORD error"), MB_OK);
+					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETCURRENTWORD error"), MB_OK);
 					return FALSE;
 				}
 				else //buffer large enough, perform safe copy
@@ -656,7 +656,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(str) >= int(wParam))
 				{
-					::MessageBox(_pPublicInterface->getHSelf(), TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETNPPDIRECTORY error"), MB_OK);
+					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETNPPDIRECTORY error"), MB_OK);
 					return FALSE;
 				}
 			}
@@ -793,7 +793,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 				pNppParam->_isTaskListRBUTTONUP_Active = true;
 				short zDelta = (short) HIWORD(wParam);
-				return ::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, zDelta>0?IDC_PREV_DOC:IDC_NEXT_DOC, 0);
+				return ::SendMessage(hwnd, WM_COMMAND, zDelta>0?IDC_PREV_DOC:IDC_NEXT_DOC, 0);
 			}
 			return TRUE;
 		}
@@ -950,7 +950,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				nmhdr.hwndFrom = (whichView == MAIN_VIEW)?_mainDocTab.getHSelf():_subDocTab.getHSelf();
 
 				nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
-				::SendMessage(_pPublicInterface->getHSelf(), WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+				::SendMessage(hwnd, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
 			}
 			return TRUE;
 		}
@@ -1080,7 +1080,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_CREATESCINTILLAHANDLE:
 		{
-			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?_pPublicInterface->getHSelf():(HWND)lParam));
+			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?hwnd:(HWND)lParam));
 		}
 
 		case NPPM_INTERNAL_GETSCINTEDTVIEW:
@@ -1186,7 +1186,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_CMDLIST_MODIFIED:
 		{
 			//changeMenuShortcut(lParam, (const TCHAR *)wParam);
-			::DrawMenuBar(_pPublicInterface->getHSelf());
+			::DrawMenuBar(hwnd);
 			return TRUE;
 		}
 
@@ -1303,7 +1303,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					::GetCursorPos(&p);
 					ContextMenu scintillaContextmenu;
 					std::vector<MenuItemUnit>& tmp = pNppParam->getContextMenuItems();
-					scintillaContextmenu.create(_pPublicInterface->getHSelf(), tmp, _mainMenuHandle);
+					scintillaContextmenu.create(hwnd, tmp, _mainMenuHandle);
 					scintillaContextmenu.display(p);
 					return TRUE;
 				}
@@ -1498,7 +1498,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// Notify plugins of update to styles xml
 			SCNotification scnN;
 			scnN.nmhdr.code = NPPN_WORDSTYLESUPDATED;
-			scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+			scnN.nmhdr.hwndFrom = hwnd;
 			scnN.nmhdr.idFrom = (uptr_t) _pEditView->getCurrentBufferID();
 			_pluginsManager.notify(&scnN);
 			return TRUE;
@@ -1509,13 +1509,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (_pPublicInterface->isPrelaunch())
 			{
-				SendMessage(_pPublicInterface->getHSelf(), WM_SYSCOMMAND, SC_MINIMIZE, 0);
+				SendMessage(hwnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
 			}
 			else
 			{
 				SCNotification scnN;
 				scnN.nmhdr.code = NPPN_BEFORESHUTDOWN;
-				scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+				scnN.nmhdr.hwndFrom = hwnd;
 				scnN.nmhdr.idFrom = 0;
 				_pluginsManager.notify(&scnN);
 
@@ -1528,7 +1528,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 				if (isSnapshotMode)
 				{
-					::LockWindowUpdate(_pPublicInterface->getHSelf());
+					::LockWindowUpdate(hwnd);
 					MainFileManager->backupCurrentBuffer();
 				}
 
@@ -1597,7 +1597,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					if (!isOK)
 					{
 						_nativeLangSpeaker.messageBox("SettingsOnCloudError",
-							_pPublicInterface->getHSelf(),
+							hwnd,
 							TEXT("It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."),
 							TEXT("Settings on Cloud"),
 							MB_OK | MB_APPLMODAL);
@@ -1605,15 +1605,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					}
 				}
 
-				if (not isSnapshotMode)
-					::LockWindowUpdate(_pPublicInterface->getHSelf());
+				if (isSnapshotMode)
+					::LockWindowUpdate(NULL);
 
 				//Sends WM_DESTROY, Notepad++ will end
 				if (Message == WM_CLOSE)
 					::DestroyWindow(hwnd);
-
-				if (not isSnapshotMode)
-					::LockWindowUpdate(NULL);
 			}
 			return TRUE;
 		}
@@ -1639,7 +1636,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if ((nppgui._isMinimizedToTray || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
 			{
 				if (nullptr == _pTrayIco)
-					_pTrayIco = new trayIconControler(_pPublicInterface->getHSelf(), IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
+					_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 
 				_pTrayIco->doTrayIcon(ADD);
 				::ShowWindow(hwnd, SW_HIDE);
@@ -1660,7 +1657,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_LBUTTONDBLCLK:
 		{
-			::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_FILE_NEW, 0);
+			::SendMessage(hwnd, WM_COMMAND, IDM_FILE_NEW, 0);
 			return TRUE;
 		}
 
@@ -1672,10 +1669,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				case WM_LBUTTONUP :
 				{
 					_pEditView->getFocus();
-					::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
+					::ShowWindow(hwnd, SW_SHOW);
 					if (!_pPublicInterface->isPrelaunch())
 						_pTrayIco->doTrayIcon(REMOVE);
-					::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+					::SendMessage(hwnd, WM_SIZE, 0, 0);
 					return TRUE;
 				}
 
@@ -1694,9 +1691,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					HMENU hTrayIconMenu;  // shortcut menu
 					hmenu = ::LoadMenu(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_SYSTRAYPOPUP_MENU));
 					hTrayIconMenu = ::GetSubMenu(hmenu, 0);
-					SetForegroundWindow(_pPublicInterface->getHSelf());
-					TrackPopupMenu(hTrayIconMenu, TPM_LEFTALIGN, p.x, p.y, 0, _pPublicInterface->getHSelf(), NULL);
-					PostMessage(_pPublicInterface->getHSelf(), WM_NULL, 0, 0);
+					SetForegroundWindow(hwnd);
+					TrackPopupMenu(hTrayIconMenu, TPM_LEFTALIGN, p.x, p.y, 0, hwnd, NULL);
+					PostMessage(hwnd, WM_NULL, 0, 0);
 					DestroyMenu(hmenu);
 					return TRUE;
 				}
@@ -1846,7 +1843,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (hide == oldVal) return oldVal;
 
 			DocTabView::setHideTabBarStatus(hide);
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+			::SendMessage(hwnd, WM_SIZE, 0, 0);
 
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
 			if (hide)
@@ -1879,23 +1876,23 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_HIDEMENU:
 		{
 			bool hide = (lParam == TRUE);
-			bool isHidden = ::GetMenu(_pPublicInterface->getHSelf()) == NULL;
+			bool isHidden = ::GetMenu(hwnd) == NULL;
 			if (hide == isHidden)
 				return isHidden;
 
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 			nppGUI._menuBarShow = !hide;
 			if (nppGUI._menuBarShow)
-				::SetMenu(_pPublicInterface->getHSelf(), _mainMenuHandle);
+				::SetMenu(hwnd, _mainMenuHandle);
 			else
-				::SetMenu(_pPublicInterface->getHSelf(), NULL);
+				::SetMenu(hwnd, NULL);
 
 			return isHidden;
 		}
 
 		case NPPM_ISMENUHIDDEN:
 		{
-			return (::GetMenu(_pPublicInterface->getHSelf()) == NULL);
+			return (::GetMenu(hwnd) == NULL);
 		}
 
 		case NPPM_HIDESTATUSBAR:
@@ -1911,7 +1908,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			nppGUI._statusBarShow = show;
 			_statusBar.display(nppGUI._statusBarShow);
-			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
+			::SendMessage(hwnd, WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
 			return oldVal;
 		}
 
@@ -2104,7 +2101,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
 			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
-				::SetMenu(_pPublicInterface->getHSelf(), _mainMenuHandle);
+				::SetMenu(hwnd, _mainMenuHandle);
 
 			return TRUE;
 		}
@@ -2113,7 +2110,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
 			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
-				::SetMenu(_pPublicInterface->getHSelf(), NULL);
+				::SetMenu(hwnd, NULL);
 			_sysMenuEntering = false;
 			return FALSE;
 		}

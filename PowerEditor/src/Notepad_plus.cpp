@@ -266,6 +266,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.setWrapMode(svp1._lineWrapMethod);
     _subEditView.setWrapMode(svp1._lineWrapMethod);
 
+	_mainEditView.execute(SCI_SETTECHNOLOGY, SC_TECHNOLOGY_DIRECTWRITE);
+	_subEditView.execute(SCI_SETTECHNOLOGY, SC_TECHNOLOGY_DIRECTWRITE);
+
+	_mainEditView.execute(SCI_SETBUFFEREDDRAW, 0);
+	_subEditView.execute(SCI_SETBUFFEREDDRAW, 0);
+
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 

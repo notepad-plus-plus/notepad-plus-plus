@@ -1118,6 +1118,21 @@ bool Notepad_plus::fileSave(BufferID id)
 	return false;
 }
 
+bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
+{
+    BufferID idToSave = _mainDocTab.findBufferByName(fileNameToSave.c_str());
+    if (idToSave == BUFFER_INVALID)
+    {
+        idToSave = _subDocTab.findBufferByName(fileNameToSave.c_str());
+    }
+    if (idToSave != BUFFER_INVALID)
+    {
+        fileSave(idToSave);
+        checkDocState();
+        return true;
+    }
+    return false;
+}
 bool Notepad_plus::fileSaveAll() {
 	if (viewVisible(MAIN_VIEW)) {
 		for(int i = 0; i < _mainDocTab.nbItem(); ++i) {

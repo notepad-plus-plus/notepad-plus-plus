@@ -1,15 +1,9 @@
-Notepad++ v6.8.2 bug-fixes:
+Notepad++ v6.8.3 bug-fixes:
 
-1.  Remove Source Code Pro font du to the different issues.
-2.  Add back "Notepad++ Community (Forum)" menu item.
-3.  Fix a visual glitch on starup and on exit.
-4.  Fix "Open in/Move to new instance" issue (to memorize the language and the position).
-5.  Fix Preferences dialog loses focus issue while enabling document list panel.
-6.  Fix the narrow columns problem in Ascii Insert Panel under a high DPI.
-7.  Fix the list items' squeezed height problem in function list panel and project panel under a high DPI.
-8.  Fix panel caption squeezed display under a high DPI.
-9.  Fixed buffer overrun when opening a recent file.
-10. Make toolbar refresh properly while switching over small/big icons.
+1.  Fix the crash by using wild card (*) to open files on command line.
+2.  Fix the problem of display refresh missing on exit.
+3.  Fix plugin shortcut configuration lost problem by using option -noPlugin.
+
 
 
 Included plugins:

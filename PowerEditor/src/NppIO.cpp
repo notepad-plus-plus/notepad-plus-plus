@@ -1125,16 +1125,13 @@ bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
 	{
 		idToSave = _subDocTab.findBufferByName(fileNameToSave.c_str());
 	}
-	if (idToSave != BUFFER_INVALID)
+	else
 	{
 		fileSave(idToSave);
 		checkDocState();
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+	return false;	
 }
 
 bool Notepad_plus::fileSaveAll() {

@@ -1131,7 +1131,10 @@ bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
         checkDocState();
         return true;
     }
-    return false;
+	else
+	{
+		return false;
+	}
 }
 
 bool Notepad_plus::fileSaveAll() {

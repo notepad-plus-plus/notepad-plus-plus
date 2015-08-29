@@ -1133,6 +1133,7 @@ bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
     }
     return false;
 }
+
 bool Notepad_plus::fileSaveAll() {
 	if (viewVisible(MAIN_VIEW)) {
 		for(int i = 0; i < _mainDocTab.nbItem(); ++i) {

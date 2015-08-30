@@ -3,6 +3,7 @@ Notepad++ v6.8.3 bug-fixes:
 1.  Fix the crash by using wild card (*) to open files on command line.
 2.  Fix the problem of display refresh missing on exit.
 3.  Fix plugin shortcut configuration lost problem by using option -noPlugin.
+4.  Fix Norwegian localization bad display and wrong encoding.
 
 
 

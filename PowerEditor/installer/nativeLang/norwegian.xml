@@ -1,6 +1,8 @@
-<?xml version = "1.0" encoding = "Windows-1252" ?>
+<?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
 	<Native-Langue name = "Norsk" filename="norwegian.xml" >
+	<!-- Endret av Tor Ole Grønvoll 2015-08
+         torole@gmail.com -->
 		<Menu>
 			<Main>
 				<!--  Main Menu Entries -->
@@ -234,6 +236,7 @@
 			 	<Item id = "1633" name = "Fjern"/>
 			 	<Item id = "1635" name = "Erstatt alle i alle åpne dokument"/>
 			 	<Item id = "1636" name = "Finn alle i alle åpne dokument"/>
+				<Item id = "1641" name = "Finn alle i dette dokumentet"/>
 			 	<Item id = "1637" name = "Finn i filer"/>
 			 	<Item id = "1654" name = "Filter:"/>
 			 	<Item id = "1655" name = "Katalog:"/>
@@ -524,7 +527,7 @@
                 <Item id = "2023" name = "Sett inn tekst "/>
                 <Item id = "2033" name = "Sett inn tall "/>
                 <Item id = "2030" name = "Start med:"/>
-                <Item id = "2031" name = "Øk med:"/>
+                <Item id = "2031" name = "Ø˜k med:"/>
                 <Item id = "2035" name = "Bruk null foran"/>
                 <Item id = "2032" name = " Format "/>
                 <Item id = "2024" name = "Dec"/>

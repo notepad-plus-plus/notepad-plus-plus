@@ -3907,6 +3907,7 @@ bool Notepad_plus::addCurrentMacro()
 		theMacros.push_back(ms);
 		::InsertMenu(hMacroMenu, posBase + nbMacro, MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
 		_accelerator.updateShortcuts();
+		(NppParameters::getInstance())->setShortcutDirty();
 		return true;
 	}
 	return false;

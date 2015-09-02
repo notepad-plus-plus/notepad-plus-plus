@@ -67,12 +67,12 @@ public:
 		TCHAR temp[MAX_PATH];
 		::GetWindowText(_hSelf, temp, MAX_PATH);
 		_pluginName = temp;
-        // user information
-		assert(data->hClient != nullptr);
+		// user information
 		data->hClient		= _hSelf;
+		assert(data->hClient != nullptr);
 
-		assert(data->pszName != nullptr);
 		data->pszName		= (TCHAR *)_pluginName.c_str();
+		assert(data->pszName != nullptr);
 
 		// supported features by plugin
 		data->uMask			= 0;

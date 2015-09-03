@@ -568,16 +568,9 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			int editWidth = NppParameters::getInstance()->_dpiManager.scaleX(100);
 			int editWidthSep = NppParameters::getInstance()->_dpiManager.scaleX(105); //editWidth + 5
 			int editHeight = NppParameters::getInstance()->_dpiManager.scaleY(20);
-			int iconSizeX = NppParameters::getInstance()->_dpiManager.scaleX(16);
-			int iconSizeY = NppParameters::getInstance()->_dpiManager.scaleY(16);
+
 			// Create toolbar menu
-			//int style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
-
-			// CCS_ADJUSTABLE -- we have no customization, thus it caused double-clicking the toolbar to open and close instantly the dialog to select icons.
-			// TBSTYLE_LIST -- "TBSTYLE_FLAT repaints its portion of the parent window after activating the tool bar (CHILDACTIVATE message), TBSTYLE_LIST does _NOT_ do this (and is reasonably annoying...)." (comment at https://msdn.microsoft.com/en-us/library/windows/desktop/bb760439.aspx)
-			// TBSTYLE_WRAPABLE -- requires refreshing toolbar somewhere else, apparently.
-
-			int style = WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | TBSTYLE_TOOLTIPS;
+			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
 
@@ -612,8 +605,8 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			tbButtons[2].iString = (INT_PTR)TEXT("");
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
+			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, (WPARAM)0, (LPARAM)MAKELONG(16, 16));
 			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON), (LPARAM)&tbButtons);
-			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELPARAM(iconSizeX, iconSizeY)); //TB_SETBUTTONSIZE should be called after adding buttons.
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
 
 			ShowWindow(_hToolbarMenu, SW_SHOW);

@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
-<!--  <localization work version=6.5.3~6.8.1 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
-<Native-Langue name="한국어" filename="korean.xml" version="6.8">
+<!--  <localization work version=6.5.3~6.8.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
+<Native-Langue name="한국어" filename="korean.xml" version="6.8.2">
 <Menu>
 <Main>
 <!--  Main Menu Entries --> 
@@ -16,24 +16,24 @@
   <Item menuId="macro" name="매크로"/> 
   <Item menuId="run" name="실행"/> 
   <Item idName="Plugins" name="플러그인"/> 
-  <Item idName="Window" name="창"/> 
+  <Item idName="Window" name="창 관리"/> 
   </Entries>
 <!--  Sub Menu Entries --> 
 <SubEntries>
   <Item subMenuId="file-openFolder" name="현재 폴더 열기"/> 
   <Item subMenuId="file-closeMore" name="닫기 옵션..."/> 
   <Item subMenuId="file-recentFiles" name="최근 파일"/> 
-  <Item subMenuId="edit-copyToClipboard" name="클립보드로 복사"/> 
+  <Item subMenuId="edit-copyToClipboard" name="클립보드에 복사"/> 
   <Item subMenuId="edit-indent" name="들여쓰기"/> 
-  <Item subMenuId="edit-convertCaseTo" name="대/소문자 변환"/> 
+  <Item subMenuId="edit-convertCaseTo" name="대소문자 변환"/> 
   <Item subMenuId="edit-lineOperations" name="줄단위 편집"/> 
   <Item subMenuId="edit-comment" name="주석 달기/제거"/> 
   <Item subMenuId="edit-autoCompletion" name="자동 완성"/> 
   <Item subMenuId="edit-eolConversion" name="줄의 끝문자(EOL) 변환"/> 
   <Item subMenuId="edit-blankOperations" name="공백 기능"/> 
   <Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능"/> 
-  <Item subMenuId="search-markAll" name="모두 표시"/> 
-  <Item subMenuId="search-unmarkAll" name="모두 해제"/> 
+  <Item subMenuId="search-markAll" name="모두 책갈피"/> 
+  <Item subMenuId="search-unmarkAll" name="책갈피 모두 해제"/> 
   <Item subMenuId="search-jumpUp" name="위로 이동"/> 
   <Item subMenuId="search-jumpDown" name="아래로 이동"/> 
   <Item subMenuId="search-bookmark" name="책갈피"/> 
@@ -78,7 +78,7 @@
   <Item id="41007" name="모두 저장(&amp;E)"/> 
   <Item id="41008" name="다른 이름으로 저장(&amp;A)..."/> 
   <Item id="41010" name="인쇄..."/> 
-  <Item id="1001" name="인쇄"/> 
+  <Item id="1001" name="지금 인쇄"/> 
   <Item id="41011" name="종료(&amp;X)"/> 
   <Item id="41012" name="세션 불러오기..."/> 
   <Item id="41013" name="세션 저장..."/> 
@@ -154,7 +154,7 @@
   <Item id="43002" name="다음 찾기(&amp;N)"/> 
   <Item id="43003" name="바꾸기..."/> 
   <Item id="43004" name="줄 찾아가기..."/> 
-  <Item id="43005" name="책갈피 기억"/> 
+  <Item id="43005" name="책갈피 설정/해제"/> 
   <Item id="43006" name="다음 책갈피"/> 
   <Item id="43007" name="이전 책갈피"/> 
   <Item id="43008" name="모든 책갈피 지우기"/> 
@@ -200,6 +200,7 @@
   <Item id="43047" name="이전 찾기 결과"/> 
   <Item id="43048" name="다음 찾기 후 선택"/> 
   <Item id="43049" name="이전 찾기 후 선택"/> 
+  <Item id="43054" name="책갈피..."/> 
   <Item id="44009" name="포스트 잇"/> 
   <Item id="44010" name="모두 접기"/> 
   <Item id="44019" name="특수 문자 표시"/> 
@@ -208,7 +209,7 @@
   <Item id="44023" name="글자 확대(&amp;I) Ctrl+마우스 휠 위로"/> 
   <Item id="44024" name="글자 축소(&amp;O) Ctrl+마우스 휠 아래로"/> 
   <Item id="44025" name="공백과 탭 표시"/> 
-  <Item id="44026" name="줄 끝 표시"/> 
+  <Item id="44026" name="줄 끝 표시"/>  
   <Item id="44029" name="모두 펼치기"/> 
   <Item id="44030" name="현재 단계 접기"/> 
   <Item id="44031" name="현재 단계 펼치기"/> 
@@ -244,7 +245,7 @@
   <Item id="45006" name="UCS-2 빅 엔디언으로 표시"/> 
   <Item id="45007" name="UCS-2 리틀 엔디언으로 표시"/> 
   <Item id="45008" name="UTF-8 (BOM 없음)로 표시"/> 
-  <Item id="45009" name="ANSI 로 변환"/> 
+  <Item id="45009" name="ANSI로 변환"/> 
   <Item id="45010" name="UTF-8 (BOM 없음)로 변환"/> 
   <Item id="45011" name="UTF-8로 변환"/> 
   <Item id="45012" name="UCS-2 빅 엔디언으로 변환"/> 
@@ -272,6 +273,7 @@
   <Item id="47001" name="Notepad++ 홈페이지"/> 
   <Item id="47002" name="Notepad++ 프로젝트 페이지"/> 
   <Item id="47003" name="온라인 설명서"/> 
+  <Item id="47004" name="Notepad++ 커뮤니티 (포럼)"/> 
   <Item id="47011" name="실시간 지원"/>
   <Item id="47005" name="플러그인 받기"/> 
   <Item id="47006" name="Notepad++ 업데이트 찾기"/> 
@@ -319,20 +321,20 @@
   </TabBar>
   </Menu>
 <Dialog>
-<Find title="" titleFind="찾기" titleReplace="바꾸기" titleFindInFiles="파일에서 찾기">
+<Find title="" titleFind="찾기" titleReplace="바꾸기" titleFindInFiles="파일에서 찾기" titleMark="책갈피">
   <Item id="1" name="다음 찾기"/> 
   <Item id="2" name="닫기"/> 
   <Item id="1620" name="찾을 내용:"/> 
   <Item id="1603" name="모든 단어 일치(&amp;W)"/> 
-  <Item id="1604" name="대/소문자 구분(&amp;C)"/> 
+  <Item id="1604" name="대소문자 구분(&amp;C)"/> 
   <Item id="1605" name="정규 표현식(&amp;E)"/> 
   <Item id="1606" name="되돌이 검색(&amp;A)"/> 
   <Item id="1612" name="위로(&amp;U)"/> 
   <Item id="1613" name="아래로(&amp;D)"/> 
   <Item id="1614" name="일치하는 수"/> 
   <Item id="1615" name="모두 찾기"/> 
-  <Item id="1616" name="책갈피 표시"/> 
-  <Item id="1618" name="찾은 표시 제거"/> 
+  <Item id="1616" name="줄을 책갈피"/> 
+  <Item id="1618" name="이전 검색 결과 지우기"/> 
   <Item id="1621" name="방향"/> 
   <Item id="1611" name="바꿀 내용:"/> 
   <Item id="1608" name="바꾸기(&amp;R)"/> 
@@ -350,18 +352,18 @@
   <Item id="1659" name="숨김 폴더 포함"/> 
   <Item id="1624" name="검색 모드"/> 
   <Item id="1625" name="일반"/> 
-  <Item id="1626" name="확장 (\n, \r, \t, \0, \x...)"/> 
+  <Item id="1626" name="확장 (\r, \n, \t, \x..., \0)"/> 
   <Item id="1660" name="모두 바꾸기"/> 
   <Item id="1661" name="현재와 같은 폴더"/> 
   <Item id="1641" name="현재에서 모두 찾기"/> 
   <Item id="1686" name="투명도"/> 
-  <Item id="1703" name="새로운 줄 일치(&amp;.)"/> 
+  <Item id="1703" name="새 줄과 일치(&amp;.)"/> 
   </Find>
-<FindCharsInRange title="다음 범위에서 문자 찾기...">
+<FindCharsInRange title="다음 범위에서 문자 찾기">
   <Item id="2" name="닫기"/>
   <Item id="2901" name="Non-ASCII 문자 (128-255)"/>
   <Item id="2902" name="ASCII 문자 (0-127)"/>
-  <Item id="2903" name="내 범위:"/>
+  <Item id="2903" name="사용자 범위:"/>
   <Item id="2906" name="위로(&amp;U)"/>
   <Item id="2907" name="아래로(&amp;D)"/>
   <Item id="2908" name="방향"/>
@@ -421,7 +423,7 @@
   <Item id="20005" name="새로 저장..."/> 
   <Item id="20007" name="사용자 언어: "/> 
   <Item id="20009" name="확장자:"/> 
-  <Item id="20012" name="대/소문자 무시"/> 
+  <Item id="20012" name="대소문자 무시"/> 
   <Item id="20011" name="투명도"/> 
   <Item id="20015" name="가져오기"/> 
   <Item id="20016" name="내보내기"/> 
@@ -456,6 +458,8 @@
   <Item id="25026" name="연산자 1"/> 
   <Item id="25027" name="연산자 2"/> 
   <Item id="25028" name="숫자"/> 
+  <Item id="1" name="확인"/> 
+  <Item id="2" name="취소"/> 
   </StylerDialog>
 <Folder title="폴더 &amp;&amp; 기본값">
   <Item id="21101" name="기본 스타일"/> 
@@ -634,6 +638,7 @@
   <Item id="6212" name="줄 모드"/> 
   <Item id="6213" name="배경 모드"/> 
   <Item id="6214" name="현재 줄 강조"/> 
+  <Item id="6215" name="부드러운 글꼴 사용"/> 
   <Item id="6231" name="테두리 폭"/> 
   </Scintillas>
 <NewDoc title="새 문서">
@@ -643,10 +648,10 @@
   <Item id="6404" name="Mac"/> 
   <Item id="6405" name="인코딩"/> 
   <Item id="6406" name="ANSI"/> 
-  <Item id="6407" name="UTF-8 (BOM 없음)"/> 
-  <Item id="6408" name="UTF-8"/> 
-  <Item id="6409" name="UCS-2 빅 엔디언"/> 
-  <Item id="6410" name="UCS-2 리틀 엔디언"/> 
+  <Item id="6407" name="UTF-8"/> 
+  <Item id="6408" name="UTF-8 (BOM 포함)"/> 
+  <Item id="6409" name="UCS-2 빅 엔디언 (BOM 포함)"/> 
+  <Item id="6410" name="UCS-2 리틀 엔디언 (BOM 포함)"/> 
   <Item id="6411" name="프로그래밍 언어:"/> 
   <Item id="6419" name="새 문서"/> 
   <Item id="6420" name="모든 ANSI 파일에 적용"/> 
@@ -657,8 +662,8 @@
   <Item id="6415" name="마지막 디렉토리를 기억"/> 
   </DefaultDir>
 <FileAssoc title="파일 연결">
-  <Item id="4009" name="지원하는 파일 형식:"/> 
-  <Item id="4010" name="등록된 파일 형식:"/> 
+  <Item id="4009" name="확장자 지원:"/> 
+  <Item id="4010" name="확장자 등록:"/> 
   </FileAssoc>
 <LangMenu title="언어 메뉴">
   <Item id="6505" name="사용 가능한 항목"/> 
@@ -679,7 +684,7 @@
   <Item id="6604" name="반전"/> 
   <Item id="6605" name="흑백"/> 
   <Item id="6606" name="배경색 없음"/> 
-  <Item id="6607" name="여백 설정 (단위: 밀리미터)"/> 
+  <Item id="6607" name="여백 설정 (단위: mm)"/> 
   <Item id="6612" name="왼쪽"/> 
   <Item id="6613" name="상단"/> 
   <Item id="6614" name="오른쪽"/> 
@@ -780,7 +785,7 @@
   <Item id="6328" name="속성 태그 강조"/> 
   <Item id="6330" name="주석/php/asp 부분 강조"/> 
   <Item id="6331" name="제목 표시줄에 파일명만 표시"/> 
-  <Item id="6332" name="대/소문자 구분하여 강조"/> 
+  <Item id="6332" name="대소문자 구분하여 강조"/> 
   <Item id="6333" name="스마트 강조"/> 
   <Item id="6334" name="문자 인코딩 자동 검색"/> 
   <Item id="6335" name="SQL에서 백슬래쉬를 이스케이프 문자로 취급"/>

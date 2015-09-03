@@ -2187,6 +2187,12 @@ void Notepad_plus::addHotSpot()
 
 	_pEditView->getVisibleStartAndEndPosition(&startPos, &endPos);
 
+        if (_pEditView->getCurrentBuffer()->getLangType() == L_TEXT)
+	{
+		_pEditView->execute(SCI_STARTSTYLING, startPos, 0xFF);
+		_pEditView->execute(SCI_SETSTYLING, endPos - startPos, static_cast<unsigned char>(STYLE_DEFAULT));
+	}
+
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
 	_pEditView->execute(SCI_SETTARGETSTART, startPos);

@@ -332,7 +332,7 @@
 		<!-- Dialog Windows: -->
 		<Dialog>
 			<!-- Find and Replace Dialog: -->
-			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Vorkommnisse markieren">
+			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Hervorheben">
 				<Item id="1" name="&amp;Weitersuchen"/>
 				<Item id="2" name="&amp;Schließen"/>
 				<Item id="1603" name="Nur &amp;ganze Wörter suchen"/>

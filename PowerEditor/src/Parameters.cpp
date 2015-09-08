@@ -2934,7 +2934,9 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 void NppParameters::writeShortcuts()
 {
-	if (!_pXmlShortcutDoc)
+	if (not _isAnyShortcutModified) return;
+
+	if (not _pXmlShortcutDoc)
 	{
 		//do the treatment
 		_pXmlShortcutDoc = new TiXmlDocument(_shortcutsPath);

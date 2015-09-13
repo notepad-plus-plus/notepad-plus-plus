@@ -36,23 +36,23 @@
 					<Item subMenuId="file-recentFiles" name="Zuletzt &amp;verwendet"/>
 					<Item subMenuId="file-openFolder" name="Aktuellen &amp;Ordner öffnen"/>
 					<Item subMenuId="edit-copyToClipboard" name="Datei&amp;pfad kopieren"/>
-					<Item subMenuId="edit-indent" name="Ein&amp;rückung"/>
+					<Item subMenuId="edit-indent" name="E&amp;inrückung"/>
 					<Item subMenuId="edit-convertCaseTo" name="&amp;Groß-/Kleinschreibung"/>
 					<Item subMenuId="edit-lineOperations" name="&amp;Zeilenoperationen"/>
-					<Item subMenuId="edit-comment" name="&amp;Kommentare"/>
+					<Item subMenuId="edit-comment" name="K&amp;ommentare"/>
 					<Item subMenuId="edit-autoCompletion" name="Autovervollst&amp;ändigung"/>
 					<Item subMenuId="edit-eolConversion" name="Format Zeile&amp;nende"/>
 					<Item subMenuId="edit-blankOperations" name="Nicht &amp;druckbare Zeichen"/>
 					<Item subMenuId="edit-pasteSpecial" name= "Einf&amp;ügen spezial"/>
 					<Item subMenuId="search-markAll" name="Alle &amp;Vorkommnisse hervorheben"/>
-					<Item subMenuId="search-unmarkAll" name="Alle &amp;Hervorhebungen löschen"/>
-					<Item subMenuId="search-jumpUp" name="Zu vorheriger Hervorhebung s&amp;pringen"/>
-					<Item subMenuId="search-jumpDown" name="Zu nächster Hervorhebung s&amp;pringen"/>
+					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
+					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
+					<Item subMenuId="search-jumpDown" name="Zur &amp;nächsten Hervorhebung springen"/>
 					<Item subMenuId="search-bookmark" name="&amp;Lesezeichen"/>
 					<Item subMenuId="view-showSymbol" name="Nicht &amp;druckbare Zeichen"/>
 					<Item subMenuId="view-zoom" name="Z&amp;oom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Datei &amp;verschieben/duplizieren"/>
-					<Item subMenuId="view-collapseLevel" name="Te&amp;xtblöcke schließen"/>
+					<Item subMenuId="view-collapseLevel" name="T&amp;extblöcke schließen"/>
 					<Item subMenuId="view-uncollapseLevel" name="Te&amp;xtblöcke öffnen"/>
 					<Item subMenuId="view-project" name="Projektver&amp;waltung"/>
 					<Item subMenuId="view-tab" name="&amp;Tabs"/>
@@ -77,15 +77,15 @@
 				</SubEntries>
 				<!-- All Menu Items: -->
 				<Commands>
-					<Item id="1001"  name="&amp;Jetzt drucken!"/>
+					<Item id="1001"  name="So&amp;fort drucken"/>
 					<Item id="10001" name="In zweite Ansicht &amp;verschieben"/>
 					<Item id="10002" name="In zweite Ansicht &amp;duplizieren"/>
 					<Item id="10003" name="In &amp;neue Instanz verschieben"/>
 					<Item id="10004" name="In neue Instan&amp;z duplizieren"/>
 					<Item id="41001" name="&amp;Neu"/>
-					<Item id="41002" name="&amp;Öffnen"/>
+					<Item id="41002" name="&amp;Öffnen..."/>
 					<Item id="41003" name="Schlie&amp;ßen"/>
-					<Item id="41004" name="All&amp;e schließen"/>
+					<Item id="41004" name="Alle s&amp;chließen"/>
 					<Item id="41005" name="Alle s&amp;chließen bis auf aktuelle Datei"/>
 					<Item id="41006" name="&amp;Speichern"/>
 					<Item id="41007" name="&amp;Alle speichern"/>
@@ -94,14 +94,14 @@
 					<Item id="41010" name="&amp;Drucken..."/>
 					<Item id="41011" name="B&amp;eenden"/>
 					<Item id="41012" name="Sit&amp;zung öffnen..."/>
-					<Item id="41013" name="Sit&amp;zung speichern..."/>
+					<Item id="41013" name="Sitzung speiche&amp;rn..."/>
 					<Item id="41014" name="Neu &amp;laden"/>
 					<Item id="41015" name="&amp;Kopie speichern unter..."/>
 					<Item id="41016" name="Von Datentr&amp;äger löschen"/>
 					<Item id="41017" name="Um&amp;benennen..."/>
 					<Item id="41018" name="Dateien &amp;rechts schließen"/>
 					<Item id="41019" name="E&amp;xplorer"/>
-					<Item id="41020" name="&amp;Kommandozeile"/>
+					<Item id="41020" name="&amp;Eingabeaufforderung"/>
 					<Item id="41021" name="Zuletzt &amp;geschlossene Datei wieder öffnen"/>
 					<Item id="42001" name="Aus&amp;schneiden"/>
 					<Item id="42002" name="&amp;Kopieren"/>
@@ -110,21 +110,21 @@
 					<Item id="42005" name="&amp;Einfügen"/>
 					<Item id="42006" name="&amp;Löschen"/>
 					<Item id="42007" name="&amp;Alles auswählen"/>
-					<Item id="42008" name="Tab einfügen (&amp;einrücken)"/>
-					<Item id="42009" name="Tab entfernen (&amp;ausrücken)"/>
-					<Item id="42010" name="Zeile/Markierung wie&amp;derholen"/>
+					<Item id="42008" name="Zeileneinzug v&amp;ergrößern"/>
+					<Item id="42009" name="Zeileneinzug ver&amp;kleinern"/>
+					<Item id="42010" name="Zeile &amp;duplizieren"/>
 					<Item id="42012" name="Zeile am Fensterrand &amp;teilen"/>
 					<Item id="42013" name="&amp;Zeilen zusammenfassen"/>
-					<Item id="42014" name="Zeile nach &amp;oben schieben"/>
-					<Item id="42015" name="Zeile nach &amp;unten schieben"/>
+					<Item id="42014" name="Zeile nach &amp;oben verschieben"/>
+					<Item id="42015" name="Zeile nach &amp;unten verschieben"/>
 					<Item id="42016" name="In &amp;Großbuchstaben umwandeln"/>
 					<Item id="42017" name="In &amp;Kleinbuchstaben umwandeln"/>
 					<Item id="42018" name="Aufzeichnung s&amp;tarten"/>
 					<Item id="42019" name="Aufzeichnung st&amp;oppen"/>
 					<Item id="42020" name="Auswa&amp;hl beginnen/beenden"/>
 					<Item id="42021" name="Makro ausfüh&amp;ren"/>
-					<Item id="42022" name="&amp;Zeilenweise ein-/auskommentieren"/>
-					<Item id="42023" name="Markierung &amp;auskommentieren"/>
+					<Item id="42022" name="&amp;Zeilenweise Auskommentierung umschalten"/>
+					<Item id="42023" name="Auswahl &amp;auskommentieren"/>
 					<Item id="42024" name="Leerzeichen und Tabulatoren am Zeilen&amp;ende löschen"/>
 					<Item id="42025" name="Aufgenommenes Makro s&amp;peichern"/>
 					<Item id="42026" name="Schreib&amp;richtung von rechts nach links"/>
@@ -134,26 +134,26 @@
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
 					<Item id="42032" name="Makro &amp;mehrfach ausführen..."/>
-					<Item id="42033" name="Schreibsch&amp;utz-Attribut löschen"/>
+					<Item id="42033" name="Schreibschutz-Attribut l&amp;öschen"/>
 					<Item id="42034" name="&amp;Block-Editor..."/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
-					<Item id="42036" name="Zeilen ei&amp;nkommentieren"/>
+					<Item id="42036" name="Auskommentierung der Zeilen a&amp;ufheben"/>
 					<Item id="42037" name="Spalten-&amp;Modus..."/>
 					<Item id="42038" name="&amp;HTML-Inhalt einfügen"/>
 					<Item id="42039" name="&amp;RTF-Inhalt einfügen"/>
-					<Item id="42040" name="Alle zuletzt verwendeten Dateien &amp;öffnen"/>
-					<Item id="42041" name="Liste &amp;löschen"/>
+					<Item id="42040" name="Alle zule&amp;tzt verwendeten Dateien öffnen"/>
+					<Item id="42041" name="L&amp;iste löschen"/>
 					<Item id="42042" name="Leerzeichen und Tabulatoren am Zeilen&amp;anfang löschen"/>
 					<Item id="42043" name="Leerzeichen und Tabulatoren am Zeilenanfang &amp;und -ende löschen"/>
 					<Item id="42044" name="Zeilenumbrüche in Leerzeichen &amp;konvertieren"/>
 					<Item id="42045" name="&amp;Mehrfachen Whitespace und Umbrüche entfernen"/>
 					<Item id="42046" name="Tabulatoren in &amp;Leerzeichen umwandeln"/>
-					<Item id="42047" name="Markierung &amp;einkommentieren"/>
+					<Item id="42047" name="Auskommentierung der Auswahl au&amp;fheben"/>
 					<Item id="42048" name="Binär-Inhalt &amp;kopieren"/>
 					<Item id="42049" name="Binär-Inhalt &amp;ausschneiden"/>
 					<Item id="42050" name="Binär-Inhalt &amp;einfügen"/>
 					<Item id="42051" name="Zeichen&amp;tabelle"/>
-					<Item id="42052" name="Z&amp;wischenablage"/>
+					<Item id="42052" name="Zwis&amp;chenablage"/>
 					<Item id="42053" name="Leerzeichen in Tabulatoren umwandeln (nur am &amp;Zeilenanfang)"/>
 					<Item id="42054" name="Leerzeichen in &amp;Tabulatoren umwandeln (alle)"/>
 					<Item id="42055" name="&amp;Leerzeilen (nur völlig leere) löschen"/>
@@ -162,8 +162,8 @@
 					<Item id="42058" name="Leerzeile u&amp;nter aktueller Zeile einfügen"/>
 					<Item id="42059" name="Zeilen alphabetisch au&amp;fsteigend sortieren"/>
 					<Item id="42060" name="Zeilen alphabetisch a&amp;bsteigend sortieren"/>
-					<Item id="42061" name="Zeilen als Integer aufsteigend sortieren"/>
-					<Item id="42062" name="Zeilen als Integer absteigend sortieren"/>
+					<Item id="42061" name="Zeilen als Ganzzahlen aufsteigend sortieren"/>
+					<Item id="42062" name="Zeilen als Ganzzahlen absteigend sortieren"/>
 					<Item id="42063" name="Zeilen als Dezimalzahlen (Komma) aufsteigend sortieren"/>
 					<Item id="42064" name="Zeilen als Dezimalzahlen (Komma) absteigend sortieren"/>
 					<Item id="42065" name="Zeilen als Dezimalzahlen (Punkt) aufsteigend sortieren"/>
@@ -180,12 +180,12 @@
 					<Item id="43010" name="&amp;Rückwärts suchen"/>
 					<Item id="43011" name="&amp;Inkrementelle Suche"/>
 					<Item id="43013" name="In &amp;Dateien suchen..."/>
-					<Item id="43014" name="Wort am Cursor suchen (&amp;ohne History)"/>
-					<Item id="43015" name="Wor&amp;t am Cursor rückwärts suchen (ohne History)"/>
-					<Item id="43018" name="&amp;Zeilen mit Lesezeichen ausschneiden"/>
-					<Item id="43019" name="&amp;Zeilen mit Lesezeichen kopieren"/>
+					<Item id="43014" name="Wort am Cursor suchen (&amp;ohne Verlauf)"/>
+					<Item id="43015" name="Wor&amp;t am Cursor rückwärts suchen (ohne Verlauf)"/>
+					<Item id="43018" name="Zeilen mit Lesezeichen &amp;ausschneiden"/>
+					<Item id="43019" name="Zeilen mit Lesezeichen &amp;kopieren"/>
 					<Item id="43020" name="&amp;Zeilen mit Lesezeichen durch Zwischenablage ersetzen"/>
-					<Item id="43021" name="&amp;Zeilen mit Lesezeichen löschen"/>
+					<Item id="43021" name="Zeilen mit Lesezeichen lös&amp;chen"/>
 					<Item id="43022" name="Hervorhebung &amp;1"/>
 					<Item id="43023" name="Hervorhebung &amp;1 entfernen"/>
 					<Item id="43024" name="Hervorhebung &amp;2"/>
@@ -210,17 +210,17 @@
 					<Item id="43043" name="Hervorhebung &amp;5"/>
 					<Item id="43044" name="Hervorhebung aus &amp;Suche"/>
 					<Item id="43045" name="Suchergebnis-&amp;Fenster"/>
-					<Item id="43046" name="Zu nächstem S&amp;uchergebnis springen"/>
-					<Item id="43047" name="Zu vorherigem S&amp;uchergebnis springen"/>
+					<Item id="43046" name="Zum n&amp;ächsten Suchergebnis springen"/>
+					<Item id="43047" name="Zum vorherigen S&amp;uchergebnis springen"/>
 					<Item id="43048" name="Auswahl oder Wort am &amp;Cursor suchen"/>
 					<Item id="43049" name="Wort am Cursor r&amp;ückwärts suchen"/>
 					<Item id="43050" name="Lesezeichen inver&amp;tieren"/>
-					<Item id="43051" name="&amp;Zeilen ohne Lesezeichen löschen"/>
+					<Item id="43051" name="Zeilen &amp;ohne Lesezeichen löschen"/>
 					<Item id="43052" name="Suche nach &amp;Zeichencodes..."/>
-					<Item id="43053" name="Alles zwische&amp;n Klammern auswählen"/>
-					<Item id="43054" name="Vorkommnisse &amp;markieren..."/>
+					<Item id="43053" name="&amp;Alles zwischen Klammern auswählen"/>
+					<Item id="43054" name="&amp;Hervorheben..."/>
 					<Item id="44009" name="&amp;Post-It"/>
-					<Item id="44010" name="Alle Te&amp;xtblöcke schließen"/>
+					<Item id="44010" name="A&amp;lle Textblöcke schließen"/>
 					<Item id="44011" name="Benutzerdefinierte Spra&amp;che..."/>
 					<Item id="44012" name="Zeilennummernrand ausb&amp;lenden"/>
 					<Item id="44013" name="Lesezeichenrand ausb&amp;lenden"/>
@@ -232,12 +232,12 @@
 					<Item id="44024" name="Schrift ver&amp;kleinern"/>
 					<Item id="44025" name="&amp;Leerzeichen und Tabulatoren anzeigen"/>
 					<Item id="44026" name="Zeilenende anze&amp;igen"/>
-					<Item id="44029" name="Alle Te&amp;xtblöcke öffnen"/>
-					<Item id="44030" name="Te&amp;xtblock schließen"/>
-					<Item id="44031" name="Te&amp;xtblock öffnen"/>
+					<Item id="44029" name="Alle Textblöcke &amp;öffnen"/>
+					<Item id="44030" name="Textblock schlie&amp;ßen"/>
+					<Item id="44031" name="Textblock öff&amp;nen"/>
 					<Item id="44032" name="Voll&amp;bild"/>
-					<Item id="44033" name="Standardgrö&amp;ße"/>
-					<Item id="44034" name="Immer im Vordergrund &amp;halten"/>
+					<Item id="44033" name="&amp;Standardgröße"/>
+					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
 					<Item id="44035" name="S&amp;ynchrones vertikales Scrollen"/>
 					<Item id="44036" name="Synchrones &amp;horizontales Scrollen"/>
 					<Item id="44041" name="Symbol bei automatischem &amp;Umbruch"/>
@@ -284,7 +284,7 @@
 					<Item id="47001" name="Notepad++ im &amp;Web"/>
 					<Item id="47002" name="Notepad++ bei &amp;GitHub"/>
 					<Item id="47005" name="&amp;Erweiterungen"/>
-					<Item id="47006" name="Notepad++ aktualisieren"/>
+					<Item id="47006" name="Notepad++ &amp;aktualisieren"/>
 					<Item id="47008" name="In&amp;halt..."/>
 					<Item id="47009" name="&amp;Proxy für Updater einstellen..."/>
 					<Item id="47010" name="&amp;Kommandozeilenparameter..."/>
@@ -358,7 +358,7 @@
 				<Item id="1632" name="In &amp;Markierung"/>
 				<Item id="1633" name="Zurücksetzen"/>
 				<Item id="1635" name="Alle Funde in allen offenen Dateien ersetzen"/>
-				<Item id="1636" name="Suche in allen &amp;offenen Dateien"/>
+				<Item id="1636" name="In &amp;offenen Dateien suchen"/>
 				<Item id="1637" name="In Dateien suchen"/>
 				<Item id="1640" name="Umschaltdialog"/>
 				<Item id="1641" name="Alle in aktiver &amp;Datei suchen"/>

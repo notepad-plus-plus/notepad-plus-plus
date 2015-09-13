@@ -56,7 +56,7 @@
 					<Item subMenuId="view-uncollapseLevel" name="Te&amp;xtblöcke öffnen"/>
 					<Item subMenuId="view-project" name="Projektver&amp;waltung"/>
 					<Item subMenuId="view-tab" name="&amp;Tabs"/>
-					<Item subMenuId="encoding-characterSets" name="&amp;Zeichensatz"/>
+					<Item subMenuId="encoding-characterSets" name="&amp;Weitere"/>
 					<Item subMenuId="encoding-arabic" name="&amp;Arabisch"/>
 					<Item subMenuId="encoding-baltic" name="&amp;Baltisch"/>
 					<Item subMenuId="encoding-celtic" name="&amp;Keltisch"/>
@@ -336,9 +336,9 @@
 				<Item id="1" name="&amp;Weitersuchen"/>
 				<Item id="2" name="&amp;Schließen"/>
 				<Item id="1603" name="Nur &amp;ganze Wörter suchen"/>
-				<Item id="1604" name="Groß-/&amp;Kleinschreibung"/>
+				<Item id="1604" name="Groß-/&amp;Kleinschreibung beachten"/>
 				<Item id="1605" name="&amp;Reguläre Ausdrücke"/>
-				<Item id="1606" name="Am Ende von vorn &amp;beginnen"/>
+				<Item id="1606" name="Am Ende von vorne &amp;beginnen"/>
 				<Item id="1608" name="&amp;Ersetzen"/>
 				<Item id="1609" name="Alle erse&amp;tzen"/>
 				<Item id="1611" name="Erset&amp;zen durch:"/>
@@ -347,7 +347,6 @@
 				<Item id="1614" name="Z&amp;ählen"/>
 				<Item id="1615" name="&amp;Alle suchen"/>
 				<Item id="1616" name="&amp;Lesezeichen setzen"/>
-				<Item id="1617" name="&amp;Treffer markieren"/>
 				<Item id="1618" name="Für &amp;jede Suche löschen"/>
 				<Item id="1620" name="Suchen &amp;nach:"/>
 				<Item id="1621" name="Suchrichtung"/>
@@ -355,7 +354,7 @@
 				<Item id="1625" name="Norma&amp;l"/>
 				<Item id="1626" name="Erwe&amp;itert (\r, \n, \t, \x..., \0)"/>
 				<Item id="1627" name="Unten"/>
-				<Item id="1632" name="In &amp;Markierung"/>
+				<Item id="1632" name="In &amp;Auswahl"/>
 				<Item id="1633" name="Zurücksetzen"/>
 				<Item id="1635" name="Alle Funde in allen offenen Dateien ersetzen"/>
 				<Item id="1636" name="In &amp;offenen Dateien suchen"/>
@@ -639,21 +638,21 @@
 					<Item id="6152" name="Sitzungsdateien in einer neuen Instanz öffnen"/>
 					<Item id="6153" name="Immer im Mehrinstanzmodus"/>
 					<Item id="6154" name="Standard (nur eine Instanz)"/>
-					<Item id="6155" name="* Notepad++ muss neu gestartet werden"/>
+					<Item id="6155" name="Nach Änderung der Einstellung muss Notepad++ neu gestartet werden."/>
 				</MultiInstance>
 				<Scintillas title="Oberfläche 2">
 					<Item id="6201" name="Textblock-Faltung"/>
 					<Item id="6202" name="Plus/minus"/>
 					<Item id="6203" name="Pfeile"/>
-					<Item id="6204" name ="Kreise"/>
+					<Item id="6204" name="Kreise"/>
 					<Item id="6205" name="Quadrate"/>
 					<Item id="6206" name="Zeilennummernrand"/>
 					<Item id="6207" name="Lesezeichenrand"/>
 					<Item id="6208" name="Randbegrenzung anzeigen"/>
 					<Item id="6209" name="Anzahl der Spalten:"/>
 					<Item id="6211" name="Rechter Rand"/>
-					<Item id="6212" name="vertikale Linie"/>
-					<Item id="6213" name="farbiger Hintergrund"/>
+					<Item id="6212" name="Vertikale Linie"/>
+					<Item id="6213" name="Farbiger Hintergrund"/>
 					<Item id="6214" name="Aktuelle Zeile hervorheben"/>
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6216" name="Cursoreinstellungen"/>
@@ -661,7 +660,7 @@
 					<Item id="6219" name="Geschwindigkeit"/>
 					<Item id="6221" name="S"/>
 					<Item id="6222" name="L"/>
-					<Item id="6224" name="Gleichzeitiges Editieren"/>
+					<Item id="6224" name="Mehrfaches Editieren"/>
 					<Item id="6225" name="Aktivieren (Strg+Mausklick)"/>
 					<Item id="6226" name="Aus"/>
 					<Item id="6227" name="Umgebrochene Zeilen"/>
@@ -669,17 +668,17 @@
 					<Item id="6229" name="Linksbündig"/>
 					<Item id="6230" name="Hängend"/>
 					<Item id="6231" name="Rahmenbreite"/>
-					<Item id="6234" name="Erweitertes Scrollen deaktivieren"/>
+					<Item id="6234" name="Flüssiges Scrollen deaktivieren (bei Touchpad-Problemen)"/>
 				</Scintillas>
-				<Delimiter title="Trennzeichen für erweiterte Auswahl">
-					<Item id="6251" name="Trennzeichen (Strg+Doppelklick)"/>
+				<Delimiter title="Trennzeichen">
+					<Item id="6251" name="Trennzeichen für erweiterte Auswahl (Strg+Doppelklick)"/>
 					<Item id="6252" name="Anfang"/>
 					<Item id="6255" name="Ende"/>
 					<Item id="6256" name="Über mehrere Zeilen"/>
 					<Item id="6257" name="bla bla bla bla bla bla"/>
 					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>
 				</Delimiter>
-				<RecentFilesHistory title="Zuletzt geöffnete Dateien">
+				<RecentFilesHistory title="Zuletzt geöffn. Dateien">
 					<Item id="6304" name="Zuletzt geöffnete Dateien"/>
 					<Item id="6305" name="Beim Programmstart nicht überprüfen"/>
 					<Item id="6306" name="Max. Menüeinträge:"/>
@@ -691,7 +690,7 @@
 					<Item id="6429" name="Anzeige im Dateimenü"/>
 				</RecentFilesHistory>
 				<NewDoc title="Neue Dateien">
-					<Item id="6401" name="Zeilenende-Format"/>
+					<Item id="6401" name="Zeilenenden"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="UNIX"/>
 					<Item id="6404" name="Mac"/>
@@ -699,11 +698,11 @@
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8 ohne BOM"/>
 					<Item id="6408" name="UTF-8"/>
-					<Item id="6409" name="UCS2 Big Endian"/>
-					<Item id="6410" name="UCS2 Little Endian"/>
+					<Item id="6409" name="UCS-2 Big Endian"/>
+					<Item id="6410" name="UCS-2 Little Endian"/>
 					<Item id="6411" name="Standardsprache"/>
 					<Item id="6419" name="Format für neue Dateien"/>
-					<Item id="6420" name="auch beim Öffnen von ANSI-Dateien"/>
+					<Item id="6420" name="Auch beim Öffnen von ANSI-Dateien"/>
 				</NewDoc>
 				<DefaultDir title="Standardverzeichnis">
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
@@ -717,7 +716,7 @@
 				</FileAssoc>
 				<TabSettings title="Tabulatoren">
 					<Item id="6301" name="Tabulatoren"/>
-					<Item id="6302" name="durch Leerzeichen ersetzen"/>
+					<Item id="6302" name="Durch Leerzeichen ersetzen"/>
 					<Item id="6303" name="Tabulatorbreite:"/>
 					<Item id="6510" name="Standard verwenden"/>
 				</TabSettings>
@@ -771,22 +770,22 @@
 					<Item id="6323" name="Automatische Updates aktivieren"/>
 					<Item id="6324" name="Dokumentenumschalter (Strg+Tab)"/>
 					<Item id="6325" name="Nach Aktualisierung zum Ende scrollen"/>
-					<Item id="6326" name="Alle Wortvorkommnisse markieren"/>
+					<Item id="6326" name="Hervorhebung aktivieren"/>
 					<Item id="6327" name="Tags hervorheben"/>
 					<Item id="6328" name="Attribute hervorheben"/>
 					<Item id="6329" name="HTML-Hervorhebung"/>
-					<Item id="6330" name="PHP/ASP-Bereiche hervorheben"/>
+					<Item id="6330" name="PHP-/ASP-Bereiche hervorheben"/>
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
-					<Item id="6332" name="Groß-/Kleinschreibung unterscheiden"/>
-					<Item id="6333" name="Mehrfache Markierung"/>
+					<Item id="6332" name="Groß-/Kleinschreibung beachten"/>
+					<Item id="6333" name="Automatische Hervorhebung bei Auswahl"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
 				</MISC>
 				<Backup title="Sicherheitskopien">
 					<Item id="6801" name="Sicherheitskopie beim Speichern von Dateien"/>
-					<Item id="6315" name="keine"/>
-					<Item id="6316" name="einfach"/>
-					<Item id="6317" name="erweitert"/>
+					<Item id="6315" name="Keine"/>
+					<Item id="6316" name="Einfach"/>
+					<Item id="6317" name="Erweitert"/>
 					<Item id="6804" name="Verzeichnisangabe für die Sicherheitskopien"/>
 					<Item id="6803" name="Verzeichnis:"/>
 					<Item id="6817" name="Sitzungen automatisch speichern"/>
@@ -798,7 +797,7 @@
 				</Backup>
 				<Cloud title="Cloud-Einstellungen">
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
-					<Item id="6263" name="aus"/>
+					<Item id="6263" name="Aus"/>
 					<Item id="6267" name="Netzwerkpfad:"/>
 				</Cloud>
 				<AutoCompletion title="Autovervollständigung">
@@ -849,11 +848,12 @@
 				<Item id="2030" name="Beginnen mit"/>
 				<Item id="2031" name="Erhöhen um"/>
 				<Item id="2035" name="Führende &amp;Nullen"/>
+				<Item id="2036" name="Wiederholen"/>
 				<Item id="2032" name="Format"/>
-				<Item id="2024" name="&amp;Dec"/>
-				<Item id="2025" name="&amp;Oct"/>
-				<Item id="2026" name="&amp;Hex"/>
-				<Item id="2027" name="&amp;Bin"/>
+				<Item id="2024" name="&amp;Dezimal"/>
+				<Item id="2025" name="&amp;Oktal"/>
+				<Item id="2026" name="&amp;Hexadezimal"/>
+				<Item id="2027" name="&amp;Binär"/>
 				<Item id="1" name="Ausfüh&amp;ren"/>
 				<Item id="2" name="Abbre&amp;chen"/>
 			</ColumnEditor>

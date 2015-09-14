@@ -63,15 +63,14 @@ public:
 
     void create(tTbData * data, bool isRTL = false)
 	{
+		assert(data != nullptr);
 		StaticDialog::create(_dlgID, isRTL);
 		TCHAR temp[MAX_PATH];
 		::GetWindowText(_hSelf, temp, MAX_PATH);
 		_pluginName = temp;
-        // user information
-		assert(data->hClient != nullptr);
-		data->hClient		= _hSelf;
 
-		assert(data->pszName != nullptr);
+        // user information
+		data->hClient		= _hSelf;
 		data->pszName		= (TCHAR *)_pluginName.c_str();
 
 		// supported features by plugin

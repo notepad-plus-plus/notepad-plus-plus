@@ -804,19 +804,6 @@ SectionGroupEnd
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
 
-	${MementoSection} "Npp FTP" NppFTP
-		Delete "$INSTDIR\plugins\NppFTP.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppFTP.dll"
-		SetOutPath "$INSTDIR\plugins\doc\NppFTP"
-		File "..\bin\plugins\doc\NppFTP\license_NppFTP.txt"
-		File "..\bin\plugins\doc\NppFTP\license_libssh.txt"
-		File "..\bin\plugins\doc\NppFTP\license_OpenSSL.txt"
-		File "..\bin\plugins\doc\NppFTP\license_TiXML.txt"
-		File "..\bin\plugins\doc\NppFTP\license_ZLIB.txt"
-		File "..\bin\plugins\doc\NppFTP\license_UTCP.htm"
-		File "..\bin\plugins\doc\NppFTP\Readme.txt"
-	${MementoSectionEnd}
 
 	${MementoSection} "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"

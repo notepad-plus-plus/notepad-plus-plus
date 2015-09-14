@@ -91,8 +91,6 @@ If ErrorLevel 1 PAUSE
 
 
 rem Plugins
-copy /Y "..\bin\plugins\NppFTP.dll" .\zipped.package.release\plugins\
-If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\NppExport.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\mimeTools.dll" .\zipped.package.release\plugins\

@@ -26,6 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include <deque>
+#include <algorithm>
 #include <time.h>
 #include <sys/stat.h>
 #include "Buffer.h"
@@ -592,8 +593,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
 	FormatType bkformat = FormatType::unknown;
-
-	bool res = loadFileData(doc, backupFileName?backupFileName:fullpath, data, &UnicodeConvertor, L_TEXT, encoding, &bkformat);
+	LangType detectedLang = L_TEXT;
+	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, detectedLang, encoding, &bkformat);
 	if (res)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -619,6 +620,11 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
 		buf->setUnicodeMode(ndds._unicodeMode);
 		buf->setEncoding(-1);
+
+		// if a language has been detected, and the detected value is different from the file extension,
+		// we use the detected value
+		if (detectedLang != L_TEXT && detectedLang != buf->getLangType())
+			buf->setLangType(detectedLang);
 
 		if (encoding == -1)
 		{
@@ -667,8 +673,9 @@ bool FileManager::reloadBuffer(BufferID id)
 	int encoding = buf->getEncoding();
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
 	FormatType bkformat;
+	LangType lang = buf->getLangType();
 
-	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, buf->getLangType(), encoding, &bkformat);
+	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, &bkformat);
 	buf->_canNotify = true;
 
 	if (res)
@@ -1245,8 +1252,60 @@ int FileManager::detectCodepage(char* buf, size_t len)
 	return codepage;
 }
 
+LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, unsigned int dataLen)
+{
+	// it detectes xml, php and bash script file
+	std::string xmlHeader = "<?xml "; // length : 6
+	std::string phpHeader = "<?php "; // length : 6 
+	std::string bashHeader = "#!/bin/sh"; // length : 9
+	std::string htmlHeader2 = "<html>"; // length : 6
+	std::string htmlHeader1 = "<!DOCTYPE html>"; // length : 15
+	
+	const size_t longestLength = htmlHeader1.length(); // longest length - html header Length
+	size_t i = 0;
+
+	for (; i < dataLen; ++i)
+	{
+		if (data[i] != ' ' && data[i] != '\t' && data[i] != '\n' && data[i] != '\r')
+			break;
+	}
+
+	std::string buf2Test = std::string((const char *)data + i, longestLength);
+
+	auto res = std::mismatch(bashHeader.begin(), bashHeader.end(), buf2Test.begin());
+	if (res.first == bashHeader.end())
+	{
+		return L_BASH;
+	}
+
+	res = std::mismatch(phpHeader.begin(), phpHeader.end(), buf2Test.begin());
+	if (res.first == phpHeader.end())
+	{
+		return L_PHP;
+	}
+
+	res = std::mismatch(xmlHeader.begin(), xmlHeader.end(), buf2Test.begin());
+	if (res.first == xmlHeader.end())
+	{
+		return L_XML;
+	}
+
+	res = std::mismatch(htmlHeader1.begin(), htmlHeader1.end(), buf2Test.begin());
+	if (res.first == htmlHeader1.end())
+	{
+		return L_HTML;
+	}
+	res = std::mismatch(htmlHeader2.begin(), htmlHeader2.end(), buf2Test.begin());
+	if (res.first == htmlHeader2.end())
+	{
+		return L_HTML;
+	}
+
+	return L_TEXT;
+}
+
 inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * UnicodeConvertor,
-	LangType language, int & encoding, FormatType* pFormat)
+	LangType & language, int & encoding, FormatType* pFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
@@ -1319,9 +1378,9 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
 			if (lenFile == 0) break;
 
-            // check if file contain any BOM
             if (isFirstTime)
             {
+				// check if file contain any BOM
                 if (Utf8_16_Read::determineEncoding((unsigned char *)data, lenFile) != uni8Bit)
                 {
                     // if file contains any BOM, then encoding will be erased,
@@ -1333,6 +1392,13 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 					if (NppParameters::getInstance()->getNppGUI()._detectEncoding)
 						encoding = detectCodepage(data, lenFile);
                 }
+
+				if (language == L_TEXT)
+				{
+					// check the language du fichier
+					language = detectLanguageFromTextBegining((unsigned char *)data, lenFile);
+				}
+
                 isFirstTime = false;
             }
 

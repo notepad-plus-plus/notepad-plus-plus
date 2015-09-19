@@ -699,6 +699,7 @@ protected:
 	void setEmbeddedJSLexer();
     void setEmbeddedPhpLexer();
     void setEmbeddedAspLexer();
+	void setJsonLexer();
 	//Simple lexers
 	void setCssLexer() {
 		setLexer(SCLEX_CSS, L_CSS, LIST_0 | LIST_1);

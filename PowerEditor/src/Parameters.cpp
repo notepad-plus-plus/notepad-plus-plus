@@ -3444,9 +3444,11 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const TCHA
 LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 {
 	int lang = (int)L_TEXT;
-	for(; lang < L_EXTERNAL; ++lang) {
+	for(; lang < L_EXTERNAL; ++lang)
+	{
 		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
-		if (!lstrcmp(name, langName)) {	//found lang?
+		if (!lstrcmp(name, langName)) //found lang?
+		{
 			return (LangType)lang;
 		}
 	}
@@ -3454,7 +3456,8 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 	//Cannot find language, check if its an external one
 
 	LangType l = (LangType)lang;
-	if (l == L_EXTERNAL) {	//try find external lexer
+	if (l == L_EXTERNAL) //try find external lexer
+	{
 		int id = _pSelf->getExternalLangIndexFromName(langName);
 		if (id != -1) return (LangType)(id + L_EXTERNAL);
 	}
@@ -5887,6 +5890,8 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_XML; break;
 		case L_JS :
 			id = IDM_LANG_JS; break;
+		case L_JSON:
+			id = IDM_LANG_JSON; break;
 		case L_PHP :
 			id = IDM_LANG_PHP; break;
 		case L_ASP :

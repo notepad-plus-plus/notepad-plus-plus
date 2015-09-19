@@ -76,14 +76,15 @@ const int ScintillaEditView::_markersArray[][NB_FOLDER_STATE] = {
   {SC_MARK_BOXMINUS,      SC_MARK_BOXPLUS,   SC_MARK_VLINE,        SC_MARK_LCORNER,       SC_MARK_BOXPLUSCONNECTED,    SC_MARK_BOXMINUSCONNECTED,    SC_MARK_TCORNER}
 };
 
-//Array with all the names of all languages
+// Array with all the names of all languages
+// The order of lang type (enum LangType) must be respected
 LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("normal"),		TEXT("Normal text"),		TEXT("Normal text file"),								L_TEXT,			SCLEX_NULL},
 {TEXT("php"),			TEXT("PHP"),				TEXT("PHP Hypertext Preprocessor file"),				L_PHP,			SCLEX_HTML},
 {TEXT("c"),				TEXT("C"),					TEXT("C source file"),									L_C,			SCLEX_CPP},
 {TEXT("cpp"),			TEXT("C++"),				TEXT("C++ source file"),								L_CPP,			SCLEX_CPP},
 {TEXT("cs"),			TEXT("C#"),					TEXT("C# source file"),									L_CS,			SCLEX_CPP},
-{TEXT("objc"),			TEXT("Objective-C"),		TEXT("Objective-C source file"),						L_OBJC,			SCLEX_CPP},
+{TEXT("objc"),			TEXT("Objective-C"),			TEXT("Objective-C source file"),							L_OBJC,			SCLEX_CPP},
 {TEXT("java"),			TEXT("Java"),				TEXT("Java source file"),								L_JAVA,			SCLEX_CPP},
 {TEXT("rc"),			TEXT("RC"),					TEXT("Windows Resource file"),							L_RC,			SCLEX_CPP},
 {TEXT("html"),			TEXT("HTML"),				TEXT("Hyper Text Markup Language file"),				L_HTML,			SCLEX_HTML},
@@ -135,6 +136,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			SCLEX_R},
 {TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			SCLEX_HTML},
 {TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
+{ TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			SCLEX_CPP },
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -490,28 +492,35 @@ void ScintillaEditView::setStyle(Style styleToSet)
 		{
 			Style & style = stylers.getStyler(i);
 
-			if (go.enableFg) {
-				if (style._colorStyle & COLORSTYLE_FOREGROUND) {
+			if (go.enableFg)
+			{
+				if (style._colorStyle & COLORSTYLE_FOREGROUND)
+				{
 					styleToSet._colorStyle |= COLORSTYLE_FOREGROUND;
 					styleToSet._fgColor = style._fgColor;
-				} else {
-					if (styleToSet._styleID == STYLE_DEFAULT) {	//if global is set to transparent, use default style color
+				}
+				else
+				{
+					if (styleToSet._styleID == STYLE_DEFAULT) //if global is set to transparent, use default style color
 						styleToSet._colorStyle |= COLORSTYLE_FOREGROUND;
-					} else {
+					else
 						styleToSet._colorStyle &= ~COLORSTYLE_FOREGROUND;
-					}
 				}
 			}
-			if (go.enableBg) {
-				if (style._colorStyle & COLORSTYLE_BACKGROUND) {
+
+			if (go.enableBg)
+			{
+				if (style._colorStyle & COLORSTYLE_BACKGROUND)
+				{
 					styleToSet._colorStyle |= COLORSTYLE_BACKGROUND;
 					styleToSet._bgColor = style._bgColor;
-				} else {
-					if (styleToSet._styleID == STYLE_DEFAULT) {	//if global is set to transparent, use default style color
+				}
+				else
+				{
+					if (styleToSet._styleID == STYLE_DEFAULT) 	//if global is set to transparent, use default style color
 						styleToSet._colorStyle |= COLORSTYLE_BACKGROUND;
-					} else {
+					else
 						styleToSet._colorStyle &= ~COLORSTYLE_BACKGROUND;
-					}
 				}
 			}
 			if (go.enableFont && style._fontName && style._fontName[0])
@@ -596,6 +605,21 @@ void ScintillaEditView::setEmbeddedJSLexer()
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_DEFAULT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENTDOC, true);
+}
+
+void ScintillaEditView::setJsonLexer()
+{
+	execute(SCI_SETLEXER, SCLEX_CPP);
+
+	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+
+	makeStyle(L_JSON, pKwArray);
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 }
 
 void ScintillaEditView::setEmbeddedPhpLexer()
@@ -1214,6 +1238,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_HTML :
 		case L_XML :
 			setXmlLexer(typeDoc); break;
+
+		case L_JSON:
+			setJsonLexer(); break;
 
 		case L_CSS :
 			setCssLexer(); break;

@@ -668,6 +668,7 @@ BEGIN
         MENUITEM "INNO",                    IDM_LANG_INNO
         MENUITEM "Java",                    IDM_LANG_JAVA
         MENUITEM "Javascript",              IDM_LANG_JS
+		MENUITEM "JSON",                    IDM_LANG_JSON
         MENUITEM "JSP",                     IDM_LANG_JSP
         MENUITEM "KIXtart",                 IDM_LANG_KIX
         MENUITEM "LISP",                    IDM_LANG_LISP
@@ -747,6 +748,7 @@ BEGIN
     BEGIN
         MENUITEM "Java",                  IDM_LANG_JAVA
         MENUITEM "Javascript",            IDM_LANG_JS
+        MENUITEM "JSON",                  IDM_LANG_JSON
         MENUITEM "JSP",                   IDM_LANG_JSP
     END
     MENUITEM "KIXtart",                   IDM_LANG_KIX

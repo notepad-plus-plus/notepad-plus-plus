@@ -2573,6 +2573,8 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_XML;
         case IDM_LANG_JS :
             return L_JS;
+		case IDM_LANG_JSON:
+			return L_JSON;
         case IDM_LANG_PHP :
             return L_PHP;
         case IDM_LANG_ASP :

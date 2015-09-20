@@ -24,7 +24,11 @@ LOBJS=\
 
 INCLUDEDIRS=$(INCLUDEDIRS) -I$(BOOSTPATH)
 
-CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX -arch:IA32
+CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX
+!IF "$(PLATFORM)" != "X64"
+# old 32-bit CPUs do not have SSE2 instruction set
+CXXFLAGS=$(CXXFLAGS) -arch:IA32
+!ENDIF
 !IFDEF DEBUG
 LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTLIBPATH)\debug\link-static\runtime-link-static\threading-multi
 !ELSE

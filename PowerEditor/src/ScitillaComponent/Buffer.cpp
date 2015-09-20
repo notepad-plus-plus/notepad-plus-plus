@@ -1258,6 +1258,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	std::string xmlHeader = "<?xml "; // length : 6
 	std::string phpHeader = "<?php "; // length : 6 
 	std::string bashHeader = "#!/bin/sh"; // length : 9
+	std::string bashHeader2 = "#!/bin/bash"; // length : 11
 	std::string htmlHeader2 = "<html>"; // length : 6
 	std::string htmlHeader1 = "<!DOCTYPE html>"; // length : 15
 	
@@ -1274,6 +1275,12 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 	auto res = std::mismatch(bashHeader.begin(), bashHeader.end(), buf2Test.begin());
 	if (res.first == bashHeader.end())
+	{
+		return L_BASH;
+	}
+
+	auto res = std::mismatch(bashHeader2.begin(), bashHeader2.end(), buf2Test.begin());
+	if (res.first == bashHeader2.end())
 	{
 		return L_BASH;
 	}

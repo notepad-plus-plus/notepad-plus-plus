@@ -391,9 +391,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <Image Include="..\src\icons\cut_dis.ico" />
     <Image Include="..\src\icons\cut_off.ico" />
     <Image Include="..\src\icons\cut_on.ico" />
-    <Image Include="..\src\default_close.ico" />
-    <Image Include="..\src\default_new.ico" />
-    <Image Include="..\src\default_open.ico" />
     <Image Include="..\src\icons\delete.ico" />
     <Image Include="..\src\icons\dupli_dis.ico" />
     <Image Include="..\src\icons\dupli_off.ico" />
@@ -405,11 +402,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <Image Include="..\src\icons\findrep_on.ico" />
     <Image Include="..\src\icons\findReplace.bmp" />
     <Image Include="..\src\icons\findResult.ico" />
-    <Image Include="..\src\hot_close.ico" />
-    <Image Include="..\src\hot_new.ico" />
-    <Image Include="..\src\hot_open.ico" />
-    <Image Include="..\src\icons\icon10.ico" />
-    <Image Include="..\src\icons\imp_off.ico" />
     <Image Include="..\src\icons\imprim_off.ico" />
     <Image Include="..\src\icons\imprim_on.ico" />
     <Image Include="..\src\icons\indentGuide.bmp" />
@@ -520,8 +512,6 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <None Include="..\src\cursors\drag.cur" />
     <None Include="..\src\cursors\drag_interdit.cur" />
     <None Include="..\src\cursors\drag_plus.cur" />
-    <None Include="..\src\WinControls\ColourPicker\rt_manif.bin" />
-    <None Include="..\src\cursors\up.cur" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\MISC\Common\LongRunningOperation.h" />
@@ -533,7 +523,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\Grid\BabyGrid.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGridWrapper.h" />
     <ClInclude Include="..\src\ScitillaComponent\Buffer.h" />
-    <ClInclude Include="..\uchardet\CharDistribution.h" />
+    <ClInclude Include="..\src\uchardet\CharDistribution.h" />
     <ClInclude Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel.h" />
     <ClInclude Include="..\src\WinControls\ClipboardHistory\clipboardHistoryPanel_rc.h" />
     <ClInclude Include="..\src\ScitillaComponent\colors.h" />
@@ -573,7 +563,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\menuCmdID.h" />
     <ClInclude Include="..\src\MISC\Exception\MiniDumper.h" />
     <ClInclude Include="..\src\Notepad_plus.h" />
-    <ClInclude Include="..\src\Misc\PluginsManager\Notepad_plus_msgs.h" />
+    <ClInclude Include="..\src\MISC\PluginsManager\Notepad_plus_msgs.h" />
     <ClInclude Include="..\src\Notepad_plus_Window.h" />
     <ClInclude Include="..\src\uchardet\nsBig5Prober.h" />
     <ClInclude Include="..\src\uchardet\nsCharSetProber.h" />
@@ -594,8 +584,8 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\uchardet\nsUniversalDetector.h" />
     <ClInclude Include="..\src\uchardet\nsUTF8Prober.h" />
     <ClInclude Include="..\src\Parameters.h" />
-    <ClInclude Include="..\src\Misc\PluginsManager\PluginInterface.h" />
-    <ClInclude Include="..\src\Misc\PluginsManager\PluginsManager.h" />
+    <ClInclude Include="..\src\MISC\PluginsManager\PluginInterface.h" />
+    <ClInclude Include="..\src\MISC\PluginsManager\PluginsManager.h" />
     <ClInclude Include="..\src\WinControls\Preference\preferenceDlg.h" />
     <ClInclude Include="..\src\ScitillaComponent\Printer.h" />
     <ClInclude Include="..\src\uchardet\prmem.h" />

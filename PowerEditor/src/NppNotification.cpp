@@ -242,7 +242,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				activateBuffer(bufferToClose, iView);
 			}
-			fileClose(bufferToClose, iView);
+
+			if (fileClose(bufferToClose, iView))
+				checkDocState();
+
 			break;
 		}
 

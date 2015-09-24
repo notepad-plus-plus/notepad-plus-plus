@@ -100,7 +100,7 @@
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <SmallerTypeCheck>true</SmallerTypeCheck>

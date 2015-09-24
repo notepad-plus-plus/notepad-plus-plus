@@ -402,6 +402,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_SHOWDOCSWITCHER, 0, isChecked?TRUE:FALSE);
+					getFocus();
 				}
 				return TRUE;
 				case IDC_CHECK_DOCSWITCH_NOEXTCOLUMN :
@@ -1099,23 +1100,25 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 	NewDocDefaultSettings & ndds = (NewDocDefaultSettings &)nppGUI.getNewDocDefaultSettings();
 
-	switch (Message) 
+	switch (Message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
-			int ID2Check = 0;
-
+			int ID2Check = IDC_RADIO_F_WIN;
 			switch (ndds._format)
 			{
-				case  MAC_FORMAT :
+				case FormatType::windows:
+					ID2Check = IDC_RADIO_F_WIN;
+					break;
+				case FormatType::macos:
 					ID2Check = IDC_RADIO_F_MAC;
 					break;
-				case UNIX_FORMAT :
+				case FormatType::unix:
 					ID2Check = IDC_RADIO_F_UNIX;
 					break;
-				
-				default : //WIN_FORMAT
-					ID2Check = IDC_RADIO_F_WIN;
+				case FormatType::unknown:
+					assert(false);
+					break;
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 
@@ -1137,10 +1140,10 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				default : //uni8Bit
 					ID2Check = IDC_RADIO_ANSI;
 			}
-			
+
 			int selIndex = -1;
 			generic_string str;
-			EncodingMapper *em = EncodingMapper::getInstance();
+			EncodingMapper* em = EncodingMapper::getInstance();
 			for (size_t i = 0, encodingArraySize = sizeof(encodings)/sizeof(int) ; i < encodingArraySize ; ++i)
 			{
 				int cmdID = em->getIndexFromEncoding(encodings[i]);
@@ -1164,14 +1167,15 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				ID2Check = IDC_RADIO_OTHERCP;
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_SETCURSEL, selIndex, 0);
 			}
+
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8SANSBOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
-			
+
 			int index = 0;
 			for (int i = L_TEXT ; i < pNppParam->L_END ; ++i)
 			{
-				generic_string str;
+				str.clear();
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
@@ -1198,7 +1202,7 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 			switch (wParam)
 			{
 				case IDC_RADIO_UCS2BIG:
@@ -1250,16 +1254,23 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				}
 
 				case IDC_RADIO_F_MAC:
-					ndds._format = MAC_FORMAT;
+				{
+					ndds._format = FormatType::macos;
 					return TRUE;
+				}
 				case IDC_RADIO_F_UNIX:
-					ndds._format = UNIX_FORMAT;
+				{
+					ndds._format = FormatType::unix;
 					return TRUE;
+				}
 				case IDC_RADIO_F_WIN:
-					ndds._format = WIN_FORMAT;
+				{
+					ndds._format = FormatType::windows;
 					return TRUE;
+				}
 
 				default:
+				{
 					if (HIWORD(wParam) == CBN_SELCHANGE)
 					{
 						if (LOWORD(wParam) == IDC_COMBO_DEFAULTLANG)
@@ -1277,6 +1288,7 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 						}
 					}
 					return FALSE;
+				}
 			}
 	}
  	return FALSE;

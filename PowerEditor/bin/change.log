@@ -1,10 +1,11 @@
-Notepad++ v6.8 new features and bug-fix:
+Notepad++ v6.8.3 bug-fixes:
 
-1.  Settings on cloud feature allows users to write their settings on whichever cloud.
-2.  Use Source Code Pro as default font.
-3.  Make smooth font optional.
-4.  Fix the context menu disappears problem after find in files operation.
-
+1.  Fix a crash issue by using wild card (*) to open files on command line.
+2.  Fix the problem of display refresh missing on exit.
+3.  Fix plugin shortcut configuration lost problem by using option -noPlugin.
+4.  Fix Norwegian localization bad display and wrong encoding.
+5.  Fix functionList display problem under high DPI.
+6.  Fix Norwegian localization bad display and wrong encoding.
 
 
 Included plugins:

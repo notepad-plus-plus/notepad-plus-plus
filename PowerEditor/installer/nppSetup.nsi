@@ -36,10 +36,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.8"
+!define APPVERSION "6.8.3"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 8
+!define VERSION_MINOR 83
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -489,10 +489,7 @@ Section -"Notepad++" mainSection
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
-	File "..\bin\SourceCodePro-Regular.ttf"
-	File "..\bin\SourceCodePro-Bold.ttf"
-	File "..\bin\SourceCodePro-It.ttf"
-	File "..\bin\SourceCodePro-BoldIt.ttf"
+
 	
 	; Set Section Files and Shortcuts
 	SetOverwrite on
@@ -807,19 +804,6 @@ SectionGroupEnd
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
 
-	${MementoSection} "Npp FTP" NppFTP
-		Delete "$INSTDIR\plugins\NppFTP.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppFTP.dll"
-		SetOutPath "$INSTDIR\plugins\doc\NppFTP"
-		File "..\bin\plugins\doc\NppFTP\license_NppFTP.txt"
-		File "..\bin\plugins\doc\NppFTP\license_libssh.txt"
-		File "..\bin\plugins\doc\NppFTP\license_OpenSSL.txt"
-		File "..\bin\plugins\doc\NppFTP\license_TiXML.txt"
-		File "..\bin\plugins\doc\NppFTP\license_ZLIB.txt"
-		File "..\bin\plugins\doc\NppFTP\license_UTCP.htm"
-		File "..\bin\plugins\doc\NppFTP\Readme.txt"
-	${MementoSectionEnd}
 
 	${MementoSection} "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"

@@ -24,15 +24,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-
-#ifndef M30_IDE_COMMUN_H
-#define M30_IDE_COMMUN_H
-
+#pragma once
 #include <vector>
 #include <string>
-
 #include <windows.h>
+#include <iso646.h>
+#include <cstdint>
+
 
 const bool dirUp = true;
 const bool dirDown = false;
@@ -117,59 +115,64 @@ std::string getFileContent(const TCHAR *file2read);
 generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath);
 void writeFileContent(const TCHAR *file2write, const char *content2write);
 
-class WcharMbcsConvertor {
+
+class WcharMbcsConvertor final
+{
 public:
-	static WcharMbcsConvertor * getInstance() {return _pSelf;};
-	static void destroyInstance() {delete _pSelf;};
+	static WcharMbcsConvertor * getInstance() {return _pSelf;}
+	static void destroyInstance() {delete _pSelf;}
 
 	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
 	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
 	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL);
 	const char * wchar2char(const wchar_t *wcStr, UINT codepage, long *mstart, long *mend);
 
-	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL) {
+	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL)
+	{
 		int lenWc = 0;
         const wchar_t * strW = char2wchar(txt2Encode, fromCodepage, lenIn, &lenWc, pBytesNotProcessed);
         return wchar2char(strW, toCodepage, lenWc, pLenOut);
-    };
+    }
 
 protected:
 	WcharMbcsConvertor() {}
 	~WcharMbcsConvertor() {}
 
-	static WcharMbcsConvertor * _pSelf;
+	static WcharMbcsConvertor* _pSelf;
 
 	template <class T>
-	class StringBuffer
+	class StringBuffer final
 	{
 	public:
-		StringBuffer() : _str(0), _allocLen(0) { }
-		~StringBuffer() { if(_allocLen) delete [] _str; }
+		~StringBuffer() { if(_allocLen) delete[] _str; }
 
 		void sizeTo(size_t size)
 		{
-			if(_allocLen < size)
+			if (_allocLen < size)
 			{
-				if(_allocLen) delete[] _str;
+				if (_allocLen)
+					delete[] _str;
 				_allocLen = max(size, initSize);
 				_str = new T[_allocLen];
 			}
 		}
+
 		void empty()
 		{
 			static T nullStr = 0; // routines may return an empty string, with null terminator, without allocating memory; a pointer to this null character will be returned in that case
-			if(_allocLen == 0)
+			if (_allocLen == 0)
 				_str = &nullStr;
 			else
 				_str[0] = 0;
 		}
 
-		operator T*() { return _str; }
+		operator T* () { return _str; }
+		operator const T* () const { return _str; }
 
 	protected:
 		static const int initSize = 1024;
-		size_t _allocLen;
-		T* _str;
+		size_t _allocLen = 0;
+		T* _str = nullptr;
 	};
 
 	StringBuffer<char> _multiByteStr;
@@ -202,5 +205,3 @@ generic_string stringTakeWhileAdmissable(const generic_string& input, const gene
 double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd);
-
-#endif //M30_IDE_COMMUN_H

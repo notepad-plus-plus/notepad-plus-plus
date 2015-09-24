@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -47,7 +47,7 @@ bool checkSingleFile(const TCHAR *commandLine)
 	if (fullpathResult > MAX_PATH)
 		return false;
 
-	if (::PathFileExists(fullpath)) 
+	if (::PathFileExists(fullpath))
 		return true;
 
 	return false;
@@ -55,7 +55,7 @@ bool checkSingleFile(const TCHAR *commandLine)
 
 //commandLine should contain path to n++ executable running
 void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
-	//params.erase(params.begin());	
+	//params.erase(params.begin());
 	//remove the first element, since thats the path the the executable (GetCommandLine does that)
 	TCHAR stopChar = TEXT(' ');
 	if (commandLine[0] == TEXT('\"')) {
@@ -108,7 +108,7 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 				break; }
 			default: {											//default TCHAR, if beginning of word, add it
 				if (!isInFile && isInWhiteSpace) {
-					paramVector.push_back(commandLine+i);	//add next param 
+					paramVector.push_back(commandLine+i);	//add next param
 					isInWhiteSpace = false;
 				}
 				break; }
@@ -239,7 +239,32 @@ const TCHAR FLAG_ALWAYS_ON_TOP[] = TEXT("-alwaysOnTop");
 const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
 
-void doException(Notepad_plus_Window & notepad_plus_plus);
+
+static void doException(Notepad_plus_Window & notepad_plus_plus)
+{
+	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
+	::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
+
+	TCHAR tmpDir[1024];
+	GetTempPath(1024, tmpDir);
+	generic_string emergencySavedDir = tmpDir;
+	emergencySavedDir += TEXT("\\N++RECOV");
+
+	bool res = notepad_plus_plus.emergency(emergencySavedDir);
+	if (res)
+	{
+		generic_string displayText = TEXT("Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at :\r\n");
+		displayText += emergencySavedDir;
+		::MessageBox(Notepad_plus_Window::gNppHWND, displayText.c_str(), TEXT("Recovery success"), MB_OK | MB_ICONINFORMATION);
+	}
+	else
+		::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."), TEXT("Recovery failure"), MB_OK | MB_ICONERROR);
+}
+
+
+
+
+
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
@@ -258,7 +283,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	bool isParamePresent;
 	bool showHelp = isInList(FLAG_HELP, params);
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
-	
+
 	CmdLineParams cmdLineParams;
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
 	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, params);
@@ -276,15 +301,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
 	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
-	
-	
+
+
 	if (showHelp)
-	{
 		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
-	}
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
-	
+
 	if (cmdLineParams._localizationPath != TEXT(""))
 	{
 		pNppParameters->setStartWithLocFileName(cmdLineParams._localizationPath);
@@ -319,7 +342,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		if (currentFile[0])
 		{
 			//check if relative or full path. Relative paths dont have a colon for driveletter
-			
+
 			quotFileName += TEXT("\"");
 			quotFileName += relativeFilePathToFullFilePath(currentFile);
 			quotFileName += TEXT("\" ");
@@ -384,14 +407,14 @@ DEVOMER*/
 	}
 
 	Notepad_plus_Window notepad_plus_plus;
-	
+
 	NppGUI & nppGui = (NppGUI &)pNppParameters->getNppGUI();
 
 	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");
 
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
- 
+
 	generic_string version = TEXT("-v");
 	version += VERSION_VALUE;
 
@@ -399,10 +422,10 @@ DEVOMER*/
 
     bool doUpdate = nppGui._autoUpdateOpt._doAutoUpdate;
 
-    if (doUpdate) // check more detail 
+    if (doUpdate) // check more detail
     {
         Date today(0);
-        
+
         if (today < nppGui._autoUpdateOpt._nextUpdateDate)
             doUpdate = false;
     }
@@ -414,7 +437,7 @@ DEVOMER*/
 	{
 		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
 		updater.run();
-        
+
         // Update next update date
         if (nppGui._autoUpdateOpt._intervalDays < 0) // Make sure interval days value is positive
             nppGui._autoUpdateOpt._intervalDays = 0 - nppGui._autoUpdateOpt._intervalDays;
@@ -424,7 +447,8 @@ DEVOMER*/
 	MSG msg;
 	msg.wParam = 0;
 	Win32Exception::installHandler();
-	try {
+	try
+	{
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
 
 		// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA messages to this process (or window)
@@ -434,7 +458,7 @@ DEVOMER*/
 			HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
 			if (hDll)
 			{
-				// According to MSDN ChangeWindowMessageFilter may not be supported in future versions of Windows, 
+				// According to MSDN ChangeWindowMessageFilter may not be supported in future versions of Windows,
 				// that is why we use ChangeWindowMessageFilterEx if it is available (windows version >= Win7).
 				if(pNppParameters->getWinVersion() == WV_VISTA)
 				{
@@ -444,9 +468,7 @@ DEVOMER*/
 					MESSAGEFILTERFUNC func = (MESSAGEFILTERFUNC)::GetProcAddress( hDll, "ChangeWindowMessageFilter" );
 
 					if (func)
-					{
 						func(WM_COPYDATA, MSGFLT_ADD);
-					}
 				}
 				else
 				{
@@ -456,9 +478,7 @@ DEVOMER*/
 					MESSAGEFILTERFUNCEX func = (MESSAGEFILTERFUNCEX)::GetProcAddress( hDll, "ChangeWindowMessageFilterEx" );
 
 					if (func)
-					{
 						func(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL );
-					}
 				}
 			}
 		}
@@ -480,48 +500,39 @@ DEVOMER*/
 				}
 			}
 		}
-	} catch(int i) {
+	}
+	catch (int i)
+	{
 		TCHAR str[50] = TEXT("God Damned Exception : ");
 		TCHAR code[10];
 		wsprintf(code, TEXT("%d"), i);
 		::MessageBox(Notepad_plus_Window::gNppHWND, lstrcat(str, code), TEXT("Int Exception"), MB_OK);
 		doException(notepad_plus_plus);
-	} catch(std::runtime_error & ex) {
+	}
+	catch (std::runtime_error & ex)
+	{
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "Runtime Exception", MB_OK);
 		doException(notepad_plus_plus);
-	} catch (const Win32Exception & ex) {
+	}
+	catch (const Win32Exception & ex)
+	{
 		TCHAR message[1024];	//TODO: sane number
 		wsprintf(message, TEXT("An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n")
 		TEXT("Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%08X"), ex.code(), ex.what(), (long)ex.where());
 		::MessageBox(Notepad_plus_Window::gNppHWND, message, TEXT("Win32Exception"), MB_OK | MB_ICONERROR);
 		mdump.writeDump(ex.info());
 		doException(notepad_plus_plus);
-	} catch(std::exception & ex) {
+	}
+	catch (std::exception & ex)
+	{
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "General Exception", MB_OK);
 		doException(notepad_plus_plus);
-	} catch(...) {	//this shouldnt ever have to happen
+	}
+	catch (...) // this shouldnt ever have to happen
+	{
 		::MessageBoxA(Notepad_plus_Window::gNppHWND, "An exception that we did not yet found its name is just caught", "Unknown Exception", MB_OK);
 		doException(notepad_plus_plus);
 	}
 
 	return (UINT)msg.wParam;
-}
-
-void doException(Notepad_plus_Window & notepad_plus_plus) {
-	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
-	::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
-	
-	TCHAR tmpDir[1024];
-	GetTempPath(1024, tmpDir);
-	generic_string emergencySavedDir = tmpDir;
-	emergencySavedDir += TEXT("\\N++RECOV");
-
-	bool res = notepad_plus_plus.emergency(emergencySavedDir);
-	if (res) {
-		generic_string displayText = TEXT("Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at :\r\n");
-		displayText += emergencySavedDir;
-		::MessageBox(Notepad_plus_Window::gNppHWND, displayText.c_str(), TEXT("Recovery success"), MB_OK | MB_ICONINFORMATION);
-	} else {
-		::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."), TEXT("Recovery failure"), MB_OK | MB_ICONERROR);
-	}
 }

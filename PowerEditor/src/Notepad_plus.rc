@@ -51,7 +51,7 @@ BEGIN
             VALUE    "FileDescription",    "Notepad++ : a free (GNU) source code editor\0"
             VALUE    "FileVersion",        VERSION_VALUE
             VALUE    "InternalName",       "npp.exe\0"
-            VALUE    "LegalCopyright",     "Copyleft 1998-2013 by Don HO\0"
+            VALUE    "LegalCopyright",     "Copyleft 1998-2015 by Don HO\0"
             VALUE    "OriginalFilename",   "Notepad++.exe\0"
             VALUE    "ProductName",        "Notepad++\0"
             VALUE    "ProductVersion",     VERSION_VALUE
@@ -668,6 +668,7 @@ BEGIN
         MENUITEM "INNO",                    IDM_LANG_INNO
         MENUITEM "Java",                    IDM_LANG_JAVA
         MENUITEM "Javascript",              IDM_LANG_JS
+		MENUITEM "JSON",                    IDM_LANG_JSON
         MENUITEM "JSP",                     IDM_LANG_JSP
         MENUITEM "KIXtart",                 IDM_LANG_KIX
         MENUITEM "LISP",                    IDM_LANG_LISP
@@ -747,6 +748,7 @@ BEGIN
     BEGIN
         MENUITEM "Java",                  IDM_LANG_JAVA
         MENUITEM "Javascript",            IDM_LANG_JS
+        MENUITEM "JSON",                  IDM_LANG_JSON
         MENUITEM "JSP",                   IDM_LANG_JSP
     END
     MENUITEM "KIXtart",                   IDM_LANG_KIX
@@ -846,7 +848,7 @@ BEGIN
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
         //MENUITEM "Online Documentation",      IDM_ONLINEHELP
-        //MENUITEM "Forum",                     IDM_FORUM
+        MENUITEM "Notepad++ Community (Forum)",                     IDM_FORUM
 		MENUITEM "Live Support",				IDM_ONLINESUPPORT
         MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR

@@ -232,6 +232,13 @@ private:
 	BOOL					_bCapTTHover;
 	eMousePos				_hoverMPos;
 
+	int _captionHeightDynamic = HIGH_CAPTION;
+	int _captionGapDynamic = CAPTION_GAP;
+	int _closeButtonPosLeftDynamic = CLOSEBTN_POS_LEFT;
+	int _closeButtonPosTopDynamic = CLOSEBTN_POS_TOP;
+	int _closeButtonWidth;
+	int _closeButtonHeight;
+
 	// data of added windows
 	std::vector<tTbData *>		_vTbData;
 };

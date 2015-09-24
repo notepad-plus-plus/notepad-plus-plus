@@ -699,12 +699,12 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 //Single actions
 				case IDCANCEL:
 					(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
-					setStatusbarMessage(TEXT(""), FSNoMessage);
+					setStatusbarMessage(generic_string(), FSNoMessage);
 					display(false);
 					break;
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
 				{
-					setStatusbarMessage(TEXT(""), FSNoMessage);
+					setStatusbarMessage(generic_string(), FSNoMessage);
 					bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -2141,7 +2141,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 					nppParamInst->_isFindReplacing = false;
 
-					generic_string result = TEXT("");
+					generic_string result;
 					
 					if (nbReplaced < 0)
 						result = TEXT("Replace All: The regular expression is malformed.");
@@ -2161,7 +2161,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 				case IDCCOUNTALL :
 				{
 					int nbCounted = processAll(ProcessCountAll, _env);
-					generic_string result = TEXT("");
+					generic_string result;
 
 					if (nbCounted < 0)
 						result = TEXT("Count: The regular expression to search is malformed.");
@@ -2182,9 +2182,12 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					nppParamInst->_isFindReplacing = true;
 					int nbMarked = processAll(ProcessMarkAll, _env);
 					nppParamInst->_isFindReplacing = false;
-					generic_string result = TEXT("");
+					generic_string result;
+
 					if (nbMarked < 0)
+					{
 						result = TEXT("Mark: The regular expression to search is malformed.");
+					}
 					else
 					{
 						TCHAR moreInfo[128];
@@ -2194,6 +2197,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 							wsprintf(moreInfo, TEXT("%d matches."), nbMarked);
 						result = moreInfo;
 					}
+
 					setStatusbarMessage(result, FSMessage);
 					break;
 				}

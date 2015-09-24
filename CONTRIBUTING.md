@@ -54,7 +54,7 @@ In short: The easier the code review is, the better the chance your pull request
 
   * ###### Good:
     ```cpp
-    if (10 == a && 42 == b)
+    if (a == 10 && b == 42)
     ```
 
   * ###### Bad:

@@ -382,10 +382,13 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (size_t(foundTextLen) > closeTagSize - 2) // buffer size is not large enough. -2 for '/' & '\0'
 		return;
 
-	char tagHead[3];
-	_pEditView->getText(tagHead, targetStart, targetStart+2);
+	char tagHead[5];
+	_pEditView->getText(tagHead, targetStart, targetStart+4);
 
 	if (tagHead[1] == '/') // "</toto>" will be ignored
+		return;
+
+	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
 
 	char tagTail[2];

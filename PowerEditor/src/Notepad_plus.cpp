@@ -2704,7 +2704,7 @@ void Notepad_plus::setTitle()
 	{
 		result += buf->getFullPathName();
 	}
-	result += TEXT(" - ");
+	result += TEXT(" \u2014 ");
 	result += _pPublicInterface->getClassName();
 
 	if (_isAdministrator)

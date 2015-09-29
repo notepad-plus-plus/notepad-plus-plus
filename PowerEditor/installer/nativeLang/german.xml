@@ -83,22 +83,22 @@
 					<Item id="10003" name="In &amp;neue Instanz verschieben"/>
 					<Item id="10004" name="In neue Instan&amp;z duplizieren"/>
 					<Item id="41001" name="&amp;Neu"/>
-					<Item id="41002" name="&amp;Öffnen..."/>
+					<Item id="41002" name="&amp;Öffnen …"/>
 					<Item id="41003" name="Schlie&amp;ßen"/>
 					<Item id="41004" name="Alle s&amp;chließen"/>
 					<Item id="41005" name="Alle s&amp;chließen bis auf aktuelle Datei"/>
 					<Item id="41006" name="&amp;Speichern"/>
 					<Item id="41007" name="&amp;Alle speichern"/>
-					<Item id="41008" name="Speichern &amp;unter..."/>
+					<Item id="41008" name="Speichern &amp;unter …"/>
 					<Item id="41009" name="Dateien &amp;links schließen"/>
-					<Item id="41010" name="&amp;Drucken..."/>
+					<Item id="41010" name="&amp;Drucken …"/>
 					<Item id="41011" name="B&amp;eenden"/>
-					<Item id="41012" name="Sit&amp;zung öffnen..."/>
-					<Item id="41013" name="Sitzung speiche&amp;rn..."/>
+					<Item id="41012" name="Sit&amp;zung öffnen …"/>
+					<Item id="41013" name="Sitzung speiche&amp;rn …"/>
 					<Item id="41014" name="Neu &amp;laden"/>
-					<Item id="41015" name="&amp;Kopie speichern unter..."/>
+					<Item id="41015" name="&amp;Kopie speichern unter …"/>
 					<Item id="41016" name="Von Datentr&amp;äger löschen"/>
-					<Item id="41017" name="Um&amp;benennen..."/>
+					<Item id="41017" name="Um&amp;benennen …"/>
 					<Item id="41018" name="Dateien &amp;rechts schließen"/>
 					<Item id="41019" name="E&amp;xplorer"/>
 					<Item id="41020" name="&amp;Eingabeaufforderung"/>
@@ -133,12 +133,12 @@
 					<Item id="42029" name="Vollständigen &amp;Pfad kopieren"/>
 					<Item id="42030" name="Nur Datei&amp;namen kopieren"/>
 					<Item id="42031" name="Nur &amp;Verzeichnispfad kopieren"/>
-					<Item id="42032" name="Makro &amp;mehrfach ausführen..."/>
+					<Item id="42032" name="Makro &amp;mehrfach ausführen …"/>
 					<Item id="42033" name="Schreibschutz-Attribut l&amp;öschen"/>
-					<Item id="42034" name="&amp;Block-Editor..."/>
+					<Item id="42034" name="&amp;Block-Editor …"/>
 					<Item id="42035" name="Zeilen aus&amp;kommentieren"/>
 					<Item id="42036" name="Auskommentierung der Zeilen a&amp;ufheben"/>
-					<Item id="42037" name="Spalten-&amp;Modus..."/>
+					<Item id="42037" name="Spalten-&amp;Modus …"/>
 					<Item id="42038" name="&amp;HTML-Inhalt einfügen"/>
 					<Item id="42039" name="&amp;RTF-Inhalt einfügen"/>
 					<Item id="42040" name="Alle zule&amp;tzt verwendeten Dateien öffnen"/>
@@ -168,10 +168,10 @@
 					<Item id="42064" name="Zeilen als Dezimalzahlen (Komma) absteigend sortieren"/>
 					<Item id="42065" name="Zeilen als Dezimalzahlen (Punkt) aufsteigend sortieren"/>
 					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>
-					<Item id="43001" name="&amp;Suchen..."/>
+					<Item id="43001" name="&amp;Suchen …"/>
 					<Item id="43002" name="&amp;Weitersuchen"/>
-					<Item id="43003" name="&amp;Ersetzen..."/>
-					<Item id="43004" name="&amp;Gehe zu..."/>
+					<Item id="43003" name="&amp;Ersetzen …"/>
+					<Item id="43004" name="&amp;Gehe zu …"/>
 					<Item id="43005" name="&amp;Lesezeichen setzen/löschen"/>
 					<Item id="43006" name="&amp;Nächstes Lesezeichen"/>
 					<Item id="43007" name="&amp;Vorheriges Lesezeichen"/>
@@ -179,7 +179,7 @@
 					<Item id="43009" name="Suche zugehörige &amp;Klammer"/>
 					<Item id="43010" name="&amp;Rückwärts suchen"/>
 					<Item id="43011" name="&amp;Inkrementelle Suche"/>
-					<Item id="43013" name="In &amp;Dateien suchen..."/>
+					<Item id="43013" name="In &amp;Dateien suchen …"/>
 					<Item id="43014" name="Wort am Cursor suchen (&amp;ohne Verlauf)"/>
 					<Item id="43015" name="Wor&amp;t am Cursor rückwärts suchen (ohne Verlauf)"/>
 					<Item id="43018" name="Zeilen mit Lesezeichen &amp;ausschneiden"/>
@@ -216,12 +216,12 @@
 					<Item id="43049" name="Wort am Cursor r&amp;ückwärts suchen"/>
 					<Item id="43050" name="Lesezeichen inver&amp;tieren"/>
 					<Item id="43051" name="Zeilen &amp;ohne Lesezeichen löschen"/>
-					<Item id="43052" name="Suche nach &amp;Zeichencodes..."/>
+					<Item id="43052" name="Suche nach &amp;Zeichencodes …"/>
 					<Item id="43053" name="&amp;Alles zwischen Klammern auswählen"/>
-					<Item id="43054" name="&amp;Hervorheben..."/>
+					<Item id="43054" name="&amp;Hervorheben …"/>
 					<Item id="44009" name="&amp;Post-It"/>
 					<Item id="44010" name="A&amp;lle Textblöcke schließen"/>
-					<Item id="44011" name="Benutzerdefinierte Spra&amp;che..."/>
+					<Item id="44011" name="Benutzerdefinierte Spra&amp;che …"/>
 					<Item id="44012" name="Zeilennummernrand ausb&amp;lenden"/>
 					<Item id="44013" name="Lesezeichenrand ausb&amp;lenden"/>
 					<Item id="44014" name="Codefaltung ausb&amp;lenden"/>
@@ -242,7 +242,7 @@
 					<Item id="44036" name="Synchrones &amp;horizontales Scrollen"/>
 					<Item id="44041" name="Symbol bei automatischem &amp;Umbruch"/>
 					<Item id="44042" name="Zeilen &amp;ausblenden"/>
-					<Item id="44049" name="Datei-&amp;Info..."/>
+					<Item id="44049" name="Datei-&amp;Info …"/>
 					<Item id="44072" name="&amp;Zur anderen Ansicht wechseln"/>
 					<Item id="44080" name="&amp;Miniaturansicht"/>
 					<Item id="44081" name="Projektfenster &amp;1"/>
@@ -273,30 +273,30 @@
 					<Item id="45011" name="Konv&amp;ertiere zu UTF-8"/>
 					<Item id="45012" name="Konve&amp;rtiere zu UCS-2 Big Endian"/>
 					<Item id="45013" name="Konver&amp;tiere zu UCS-2 Little Endian"/>
-					<Item id="46001" name="&amp;Stile..."/>
+					<Item id="46001" name="&amp;Stile …"/>
 					<Item id="46015" name="MS-DOS-Stil"/>
 					<Item id="46016" name="Normaler Text"/>
 					<Item id="46017" name="Ressourcen-Datei"/>
 					<!-- <Item id="46019" name="MS-INI-Datei"/> -->
 					<Item id="46080" name="Benutzerdefiniert"/>
-					<Item id="46150" name="Eigene Sprache &amp;definieren..."/>
-					<Item id="47000" name="&amp;Info..."/>
+					<Item id="46150" name="Eigene Sprache &amp;definieren …"/>
+					<Item id="47000" name="&amp;Info …"/>
 					<Item id="47001" name="Notepad++ im &amp;Web"/>
 					<Item id="47002" name="Notepad++ bei &amp;GitHub"/>
 					<Item id="47005" name="&amp;Erweiterungen"/>
 					<Item id="47006" name="Notepad++ &amp;aktualisieren"/>
-					<Item id="47008" name="In&amp;halt..."/>
-					<Item id="47009" name="&amp;Proxy für Updater einstellen..."/>
-					<Item id="47010" name="&amp;Kommandozeilenparameter..."/>
+					<Item id="47008" name="In&amp;halt …"/>
+					<Item id="47009" name="&amp;Proxy für Updater einstellen …"/>
+					<Item id="47010" name="&amp;Kommandozeilenparameter …"/>
 					<Item id="47011" name="&amp;Support im Chat"/>
-					<Item id="48005" name="&amp;Plugin(s) importieren..."/>
-					<Item id="48006" name="&amp;Design(s) importieren..."/>
-					<Item id="48009" name="&amp;Tastatur..."/>
-					<Item id="48011" name="&amp;Optionen..."/>
-					<Item id="48016" name="Shortcut &amp;ändern/Makro löschen..."/>
-					<Item id="48017" name="Shortcut &amp;ändern/Befehl löschen..."/>
-					<Item id="48018" name="&amp;Kontextmenü anpassen..."/>
-					<Item id="49000" name="Externes Programm &amp;ausführen..."/>
+					<Item id="48005" name="&amp;Plugin(s) importieren …"/>
+					<Item id="48006" name="&amp;Design(s) importieren …"/>
+					<Item id="48009" name="&amp;Tastatur …"/>
+					<Item id="48011" name="&amp;Optionen …"/>
+					<Item id="48016" name="Shortcut &amp;ändern/Makro löschen …"/>
+					<Item id="48017" name="Shortcut &amp;ändern/Befehl löschen …"/>
+					<Item id="48018" name="&amp;Kontextmenü anpassen …"/>
+					<Item id="49000" name="Externes Programm &amp;ausführen …"/>
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
 					<Item id="50002" name="Funktions&amp;parameter anzeigen"/>
@@ -309,14 +309,14 @@
 				<Item CMID="0" name="S&amp;chließen"/>
 				<Item CMID="1" name="&amp;Alle anderen schließen"/>
 				<Item CMID="2" name="&amp;Speichern"/>
-				<Item CMID="3" name="Speichern &amp;unter..."/>
+				<Item CMID="3" name="Speichern &amp;unter …"/>
 				<Item CMID="4" name="&amp;Drucken"/>
 				<Item CMID="5" name="In zweite Ansicht &amp;verschieben"/>
 				<Item CMID="6" name="In zw&amp;eite Ansicht duplizieren"/>
 				<Item CMID="7" name="Vollständigen Pfad &amp;kopieren"/>
 				<Item CMID="8" name="Nur Datei&amp;namen kopieren"/>
 				<Item CMID="9" name="Nur Verzeichnis&amp;pfad kopieren"/>
-				<Item CMID="10" name="Um&amp;benennen..."/>
+				<Item CMID="10" name="Um&amp;benennen …"/>
 				<Item CMID="11" name="L&amp;öschen"/>
 				<Item CMID="12" name="Sch&amp;reibschutz"/>
 				<Item CMID="13" name="Schreibschutz au&amp;fheben"/>
@@ -352,7 +352,7 @@
 				<Item id="1621" name="Suchrichtung"/>
 				<Item id="1624" name="Suchmodus"/>
 				<Item id="1625" name="Norma&amp;l"/>
-				<Item id="1626" name="Erwe&amp;itert (\r, \n, \t, \x..., \0)"/>
+				<Item id="1626" name="Erwe&amp;itert (\r, \n, \t, \x…, \0)"/>
 				<Item id="1627" name="Unten"/>
 				<Item id="1632" name="In &amp;Auswahl"/>
 				<Item id="1633" name="Zurücksetzen"/>
@@ -384,7 +384,7 @@
 				<Item id="2008" name="Z&amp;eichen"/>
 			</GoToLine>
 			<!-- Run external program: -->
-			<Run title="Ausführen...">
+			<Run title="Ausführen …">
 				<Item id="1" name="&amp;Ausführen"/>
 				<Item id="2" name="A&amp;bbrechen"/>
 				<Item id="1901" name=".&amp;.."/>
@@ -440,7 +440,7 @@
 				<Item id="20002" name="Umbenennen"/>
 				<Item id="20003" name="Neue erstellen"/>
 				<Item id="20004" name="Löschen"/>
-				<Item id="20005" name="Speichern als..."/>
+				<Item id="20005" name="Speichern als …"/>
 				<Item id="20007" name="Sprache"/>
 				<Item id="20009" name="Erw."/>
 				<Item id="20011" name="Transparenz"/>
@@ -708,7 +708,7 @@
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6418" name="..."/>
+					<Item id="6418" name="…"/>
 				</DefaultDir>
 				<FileAssoc title="Dateiverknüpfungen">
 					<Item id="4009" name="Unterstützte Erw.:"/>
@@ -900,25 +900,25 @@
 					<Item id="3123" name="Arbeitsbereich öffnen"/>
 					<Item id="3124" name="Arbeitsbereich neu laden"/>
 					<Item id="3125" name="Speichern"/>
-					<Item id="3126" name="Speichern unter..."/>
-					<Item id="3127" name="Kopie speichern unter..."/>
+					<Item id="3126" name="Speichern unter …"/>
+					<Item id="3127" name="Kopie speichern unter …"/>
 					<Item id="3121" name="Neues Projekt hinzufügen"/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Umbenennen"/>
 					<Item id="3112" name="Projektordner hinzufügen"/>
-					<Item id="3113" name="Dateien hinzufügen..."/>
+					<Item id="3113" name="Dateien hinzufügen …"/>
 					<Item id="3114" name="Entfernen"/>
-					<Item id="3117" name="Dateien aus Verzeichnis hinzufügen..."/>
+					<Item id="3117" name="Dateien aus Verzeichnis hinzufügen …"/>
 					<Item id="3118" name="Nach oben schieben"/>
 					<Item id="3119" name="Nach unten schieben"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Umbenennen"/>
 					<Item id="3112" name="Projektordner hinzufügen"/>
-					<Item id="3113" name="Dateien hinzufügen..."/>
+					<Item id="3113" name="Dateien hinzufügen …"/>
 					<Item id="3114" name="Entfernen"/>
-					<Item id="3117" name="Dateien aus Verzeichnis hinzufügen..."/>
+					<Item id="3117" name="Dateien aus Verzeichnis hinzufügen …"/>
 					<Item id="3118" name="Nach oben schieben"/>
 					<Item id="3119" name="Nach unten schieben"/>
 				</FolderMenu>

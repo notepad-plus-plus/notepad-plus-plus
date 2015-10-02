@@ -1,18 +1,35 @@
 # Contributing
 
-Your pull requests are welcome; however, they may not be accepted for various reasons.
 
+## Reporting Issues
 
+Bug reports are appreciated. Following a few guidelines listed below will help speed up the process of getting them fixed. 
 
-## Before you contribute
+1. Search the issue tracker to see if it has already been reported.
+2. Disable your plugins to see if one of them is the problem. You can do this by renaming your `plugins` folder to something else.
+3. Only report an issue with a plugin if it is one of the standard plugins included in the Notepad++ installation. Any other plugin issue should be reported to its respective issue tracker. The standard plugins include (for v6.8.3):
+    * NppFTP
+    * NppExport
+    * Plugin Manager
+    * Converter
+    * mimeTools
+4. Include additional information such as:
+    * A detailed explanation
+    * Operating System version
+    * Notepad++ version
+    * List of installed plugins (if it is related to a plugin)
+    * Screen shots (if applicable)
+    * ...and any other relevant information
 
-All Pull Requests, except for translations and user documentation, need to be attached to a issue on GitHub. For Pull Requests regarding enhancements and questions, the issue must first be approved by one of project's administrators before being merged into the project. An approved issue will have the label `Accepted`. For issues that have not been accepted, you may request to be assigned to that issue.
+## Pull Requests
+
+Your pull requests are welcome; however, they may not be accepted for various reasons. All Pull Requests, except for translations and user documentation, need to be attached to a issue on GitHub. For Pull Requests regarding enhancements and questions, the issue must first be approved by one of project's administrators before being merged into the project. An approved issue will have the label `Accepted`. For issues that have not been accepted, you may request to be assigned to that issue.
 
 Opening a issue beforehand allows the administrators and the community to discuss bugs and enhancements before work begins, preventing wasted effort.
 
 
 
-## Guidelines for pull requests
+### Guidelines for pull requests
 
 1. Respect Notepad++ coding style.
 2. Make a single change per commit.
@@ -23,7 +40,7 @@ In short: The easier the code review is, the better the chance your pull request
 
 
 
-## Coding style
+### Coding style
 ![stay clean](https://notepad-plus-plus.org/assets/images/good-bad-practice.jpg)
 
 

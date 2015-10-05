@@ -505,7 +505,9 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		{
 			char userMatchedChar[2] = {'\0', '\0'};
 			userMatchedChar[0] = matchedPairs[i].second;
+			_pEditView->execute(SCI_BEGINUNDOACTION);
 			_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
+			_pEditView->execute(SCI_ENDUNDOACTION);
 			return;
 		}
 	}
@@ -629,7 +631,11 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	}
 
 	if (matchedChars)
+	{
+		_pEditView->execute(SCI_BEGINUNDOACTION);
 		_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)matchedChars);
+		_pEditView->execute(SCI_ENDUNDOACTION);
+	}
 }
 
 

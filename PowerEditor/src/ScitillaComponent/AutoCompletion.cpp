@@ -498,15 +498,26 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	char *matchedChars = NULL;
 
+	char charPrev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 2);
+	char charNext = (char)_pEditView->execute(SCI_GETCHARAT, caretPos);
+
+	bool isCharPrevBlank = (charPrev == ' ' || charPrev == '\t' || charPrev == '\n' || charPrev == '\r' || charPrev == '\0');
+	int docLen = _pEditView->getCurrentDocLen();
+	bool isCharNextBlank = (charNext == ' ' || charNext == '\t' || charNext == '\n' || charNext == '\r' || caretPos == docLen);
+
+
 	// User defined matched pairs should be checked firstly
 	for (size_t i = 0, len = matchedPairs.size(); i < len; ++i)
 	{
 		if (int(matchedPairs[i].first) == character)
 		{
-			char userMatchedChar[2] = {'\0', '\0'};
-			userMatchedChar[0] = matchedPairs[i].second;
-			_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
-			return;
+			if (isCharNextBlank)
+			{
+				char userMatchedChar[2] = { '\0', '\0' };
+				userMatchedChar[0] = matchedPairs[i].second;
+				_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
+				return;
+			}
 		}
 	}
 
@@ -520,24 +531,33 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int('('):
 			if (matchedPairConf._doParentheses)
 			{
-				matchedChars = ")";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharNextBlank)
+				{
+					matchedChars = ")";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
 		case int('['):
 			if (matchedPairConf._doBrackets)
 			{
-				matchedChars = "]";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharNextBlank)
+				{
+					matchedChars = "]";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
 		case int('{'):
 			if (matchedPairConf._doCurlyBrackets)
 			{
-				matchedChars = "}";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharNextBlank)
+				{
+					matchedChars = "}";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
@@ -555,8 +575,11 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					}
 				}
 
-				matchedChars = "\"";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharPrevBlank && isCharNextBlank)
+				{
+					matchedChars = "\"";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 		case int('\''):
@@ -572,8 +595,12 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 						return;
 					}
 				}
-				matchedChars = "'";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+
+				if (isCharPrevBlank && isCharNextBlank)
+				{
+					matchedChars = "'";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 

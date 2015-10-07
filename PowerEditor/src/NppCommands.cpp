@@ -637,7 +637,11 @@ void Notepad_plus::command(int id)
 
 		case IDM_MACRO_PLAYBACKRECORDEDMACRO:
 			if (!_recordingMacro) // if we're not currently recording, then playback the recorded keystrokes
+			{
+				_playingBackMacro = true;
 				macroPlayback(_macro);
+				_playingBackMacro = false;
+			}
 			break;
 
 		case IDM_MACRO_RUNMULTIMACRODLG :

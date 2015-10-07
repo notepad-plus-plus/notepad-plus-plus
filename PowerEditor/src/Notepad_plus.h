@@ -369,6 +369,7 @@ private:
 	// Keystroke macro recording and playback
 	Macro _macro;
 	bool _recordingMacro = false;
+	bool _playingBackMacro = false;
 	RunMacroDlg _runMacroDlg;
 
 	// For hotspot

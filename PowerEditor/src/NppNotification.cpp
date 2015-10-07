@@ -515,17 +515,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_CHARADDED:
 		{
-			const NppGUI & nppGui = NppParameters::getInstance()->getNppGUI();
-			bool indentMaintain = nppGui._maitainIndent;
-			if (indentMaintain)
-				maintainIndentation(static_cast<TCHAR>(notification->ch));
+			if (!_recordingMacro && !_playingBackMacro) // No macro recording or playing back
+			{
+				const NppGUI & nppGui = NppParameters::getInstance()->getNppGUI();
+				bool indentMaintain = nppGui._maitainIndent;
+				if (indentMaintain)
+					maintainIndentation(static_cast<TCHAR>(notification->ch));
 
-			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
-			bool isColumnMode = _pEditView->execute(SCI_GETSELECTIONS) > 1; // Multi-Selection || Column mode)
-			if (nppGui._matchedPairConf.hasAnyPairsPair() && !isColumnMode)
-				autoC->insertMatchedChars(notification->ch, nppGui._matchedPairConf);
-			autoC->update(notification->ch);
-
+				AutoCompletion * autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
+				bool isColumnMode = _pEditView->execute(SCI_GETSELECTIONS) > 1; // Multi-Selection || Column mode)
+				if (nppGui._matchedPairConf.hasAnyPairsPair() && !isColumnMode)
+					autoC->insertMatchedChars(notification->ch, nppGui._matchedPairConf);
+				autoC->update(notification->ch);
+			}
 			break;
 		}
 

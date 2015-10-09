@@ -621,9 +621,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		buf->setUnicodeMode(ndds._unicodeMode);
 		buf->setEncoding(-1);
 
-		// if a language has been detected, and the detected value is different from the file extension,
-		// we use the detected value
-		if (detectedLang != L_TEXT && detectedLang != buf->getLangType())
+		// if no file extension, and the language has been detected,  we use the detected value
+		if ((buf->getLangType() == L_TEXT) && (detectedLang != L_TEXT))
 			buf->setLangType(detectedLang);
 
 		if (encoding == -1)

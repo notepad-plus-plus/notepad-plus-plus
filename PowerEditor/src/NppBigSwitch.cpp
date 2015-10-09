@@ -402,6 +402,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return fileSaveAll();
 		}
 
+		case NPPM_SAVEFILE:
+		{
+		    return fileSaveSpecific((const TCHAR *)lParam);
+		}
+
 		case NPPM_GETCURRENTNATIVELANGENCODING:
 		{
 			return _nativeLangSpeaker.getLangEncoding();
@@ -1815,6 +1820,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			::PathAppend(pluginsConfigDir, secondPart);
 			return TRUE;
 		}
+		
+		case NPPM_GETSETTINGSDIR:
+		{
+			if (!lParam || !wParam)
+				return FALSE;
+
+			const generic_string settingsDir = pNppParam->getUserPath();
+
+			const size_t len = wParam;
+			if (len < settingsDir.length())
+				return FALSE;
+
+			TCHAR *settingsDirPtr = (TCHAR *)lParam;
+			::lstrcpy(settingsDirPtr, settingsDir.c_str());
+
+			return TRUE;
+		}
+
 
 		case NPPM_MSGTOPLUGIN :
 		{

@@ -909,9 +909,7 @@ struct Lang final
 		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL, ++i);
 	}
 
-	Lang(LangType langID, const TCHAR *name)
-		: _langID(langID)
-		, _langName(name ? name : TEXT(""))
+	Lang(LangType langID, const TCHAR *name) : _langID(langID), _langName(name ? name : TEXT(""))
 	{
 		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL, ++i);
 	}

@@ -84,7 +84,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("c"),				TEXT("C"),					TEXT("C source file"),									L_C,			SCLEX_CPP},
 {TEXT("cpp"),			TEXT("C++"),				TEXT("C++ source file"),								L_CPP,			SCLEX_CPP},
 {TEXT("cs"),			TEXT("C#"),					TEXT("C# source file"),									L_CS,			SCLEX_CPP},
-{TEXT("objc"),			TEXT("Objective-C"),			TEXT("Objective-C source file"),							L_OBJC,			SCLEX_CPP},
+{TEXT("objc"),			TEXT("Objective-C"),		TEXT("Objective-C source file"),						L_OBJC,			SCLEX_CPP},
 {TEXT("java"),			TEXT("Java"),				TEXT("Java source file"),								L_JAVA,			SCLEX_CPP},
 {TEXT("rc"),			TEXT("RC"),					TEXT("Windows Resource file"),							L_RC,			SCLEX_CPP},
 {TEXT("html"),			TEXT("HTML"),				TEXT("Hyper Text Markup Language file"),				L_HTML,			SCLEX_HTML},
@@ -136,7 +136,8 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			SCLEX_R},
 {TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			SCLEX_HTML},
 {TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
-{ TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			SCLEX_CPP },
+{TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			SCLEX_CPP },
+{TEXT("javascript.js"), TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JAVASCRIPT,	SCLEX_CPP },
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -825,11 +826,9 @@ void ScintillaEditView::setCppLexer(LangType langType)
     const char *cppTypes;
     const TCHAR *doxygenKeyWords  = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
 
-	const TCHAR *lexerName = ScintillaEditView::langNames[langType].lexerName;
-
     execute(SCI_SETLEXER, SCLEX_CPP);
 
-	if ((langType != L_RC) && (langType != L_JS))
+	if (langType != L_RC)
     {
         if (doxygenKeyWords)
 		{
@@ -838,39 +837,6 @@ void ScintillaEditView::setCppLexer(LangType langType)
 			execute(SCI_SETKEYWORDS, 2, (LPARAM)doxygenKeyWords_char);
 		}
     }
-
-	if (langType == L_JS)
-	{
-		LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(lexerName);
-		if (pStyler)
-		{
-			for (int i = 0, nb = pStyler->getNbStyler() ; i < nb ; ++i)
-			{
-				Style style = pStyler->getStyler(i);	//not by reference, but copy
-				int cppID = style._styleID;
-				switch (style._styleID)
-				{
-					case SCE_HJ_DEFAULT : cppID = SCE_C_DEFAULT; break;
-					case SCE_HJ_WORD : cppID = SCE_C_IDENTIFIER; break;
-					case SCE_HJ_SYMBOLS : cppID = SCE_C_OPERATOR; break;
-					case SCE_HJ_COMMENT : cppID = SCE_C_COMMENT; break;
-					case SCE_HJ_COMMENTLINE : cppID = SCE_C_COMMENTLINE; break;
-					case SCE_HJ_COMMENTDOC : cppID = SCE_C_COMMENTDOC; break;
-					case SCE_HJ_NUMBER : cppID = SCE_C_NUMBER; break;
-					case SCE_HJ_KEYWORD : cppID = SCE_C_WORD; break;
-					case SCE_HJ_DOUBLESTRING : cppID = SCE_C_STRING; break;
-					case SCE_HJ_SINGLESTRING : cppID = SCE_C_CHARACTER; break;
-					case SCE_HJ_REGEX : cppID = SCE_C_REGEX; break;
-				}
-				style._styleID = cppID;
-				setStyle(style);
-			}
-		}
-		execute(SCI_STYLESETEOLFILLED, SCE_C_DEFAULT, true);
-		execute(SCI_STYLESETEOLFILLED, SCE_C_COMMENTLINE, true);
-		execute(SCI_STYLESETEOLFILLED, SCE_C_COMMENT, true);
-		execute(SCI_STYLESETEOLFILLED, SCE_C_COMMENTDOC, true);
-	}
 
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(langType, pKwArray);
@@ -893,6 +859,120 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 	execute(SCI_SETKEYWORDS, 0, (LPARAM)cppInstrs);
 	execute(SCI_SETKEYWORDS, 1, (LPARAM)cppTypes);
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
+
+	// Disable track preprocessor to avoid incorrect detection.
+	// In the most of cases, the symbols are defined outside of file.
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.track.preprocessor"), reinterpret_cast<LPARAM>("0"));
+}
+
+void ScintillaEditView::setJsLexer()
+{
+	const TCHAR *doxygenKeyWords = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
+
+	execute(SCI_SETLEXER, SCLEX_CPP);
+	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+
+	if (doxygenKeyWords)
+	{
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		const char * doxygenKeyWords_char = wmc->wchar2char(doxygenKeyWords, CP_ACP);
+		execute(SCI_SETKEYWORDS, 2, (LPARAM)doxygenKeyWords_char);
+	}
+
+	const TCHAR *newLexerName = ScintillaEditView::langNames[L_JAVASCRIPT].lexerName;
+	LexerStyler *pNewStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(newLexerName);
+	if (pNewStyler) // New js styler is available, so we can use it do more modern styling
+	{
+		if (pNewStyler)
+		{
+			for (int i = 0, nb = pNewStyler->getNbStyler(); i < nb; ++i)
+			{
+				Style & style = pNewStyler->getStyler(i);
+				setStyle(style);
+			}
+		}
+
+		basic_string<char> keywordListInstruction("");
+		basic_string<char> keywordListType("");
+		basic_string<char> keywordListInstruction2("");
+
+		if (pKwArray[LANG_INDEX_INSTR])
+		{
+			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+			keywordListInstruction = wstring2string(kwlW, CP_ACP);
+		}
+		const char *jsInstrs = getCompleteKeywordList(keywordListInstruction, L_JAVASCRIPT, LANG_INDEX_INSTR);
+
+		if (pKwArray[LANG_INDEX_TYPE])
+		{
+			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
+			keywordListType = wstring2string(kwlW, CP_ACP);
+		}
+		const char *jsTypes = getCompleteKeywordList(keywordListType, L_JAVASCRIPT, LANG_INDEX_TYPE);
+
+		if (pKwArray[LANG_INDEX_INSTR2])
+		{
+			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR2];
+			keywordListInstruction2 = wstring2string(kwlW, CP_ACP);
+		}
+		const char *jsInstrs2 = getCompleteKeywordList(keywordListInstruction2, L_JAVASCRIPT, LANG_INDEX_INSTR2);
+
+		execute(SCI_SETKEYWORDS, 0, (LPARAM)jsInstrs);
+		execute(SCI_SETKEYWORDS, 1, (LPARAM)jsTypes);
+		execute(SCI_SETKEYWORDS, 3, (LPARAM)jsInstrs2);
+	}
+	else // New js styler is not available, we use the old styling for the sake of retro-compatibility
+	{
+		const TCHAR *lexerName = ScintillaEditView::langNames[L_JS].lexerName;
+		LexerStyler *pOldStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(lexerName);
+
+		if (pOldStyler)
+		{
+			for (int i = 0, nb = pOldStyler->getNbStyler(); i < nb; ++i)
+			{
+				Style style = pOldStyler->getStyler(i);	//not by reference, but copy
+				int cppID = style._styleID;
+
+				switch (style._styleID)
+				{
+					case SCE_HJ_DEFAULT: cppID = SCE_C_DEFAULT; break;
+					case SCE_HJ_WORD: cppID = SCE_C_IDENTIFIER; break;
+					case SCE_HJ_SYMBOLS: cppID = SCE_C_OPERATOR; break;
+					case SCE_HJ_COMMENT: cppID = SCE_C_COMMENT; break;
+					case SCE_HJ_COMMENTLINE: cppID = SCE_C_COMMENTLINE; break;
+					case SCE_HJ_COMMENTDOC: cppID = SCE_C_COMMENTDOC; break;
+					case SCE_HJ_NUMBER: cppID = SCE_C_NUMBER; break;
+					case SCE_HJ_KEYWORD: cppID = SCE_C_WORD; break;
+					case SCE_HJ_DOUBLESTRING: cppID = SCE_C_STRING; break;
+					case SCE_HJ_SINGLESTRING: cppID = SCE_C_CHARACTER; break;
+					case SCE_HJ_REGEX: cppID = SCE_C_REGEX; break;
+				}
+				style._styleID = cppID;
+				setStyle(style);
+			}
+		}
+		execute(SCI_STYLESETEOLFILLED, SCE_C_DEFAULT, true);
+		execute(SCI_STYLESETEOLFILLED, SCE_C_COMMENTLINE, true);
+		execute(SCI_STYLESETEOLFILLED, SCE_C_COMMENT, true);
+		execute(SCI_STYLESETEOLFILLED, SCE_C_COMMENTDOC, true);
+
+		makeStyle(L_JS, pKwArray);
+
+		basic_string<char> keywordListInstruction("");
+		if (pKwArray[LANG_INDEX_INSTR])
+		{
+			basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+			keywordListInstruction = wstring2string(kwlW, CP_ACP);
+		}
+		const char *jsEmbbededInstrs = getCompleteKeywordList(keywordListInstruction, L_JS, LANG_INDEX_INSTR);
+		execute(SCI_SETKEYWORDS, 0, (LPARAM)jsEmbbededInstrs);
+	}
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
@@ -1218,12 +1298,15 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	{
 		case L_C :
 		case L_CPP :
-		case L_JS:
 		case L_JAVA :
 		case L_RC :
 		case L_CS :
 		case L_FLASH :
 			setCppLexer(typeDoc); break;
+
+		case L_JS:
+		case L_JAVASCRIPT:
+			setJsLexer(); break;
 
 		case L_TCL :
             setTclLexer(); break;

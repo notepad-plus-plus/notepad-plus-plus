@@ -575,7 +575,10 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					}
 				}
 
-				if (isCharPrevBlank && isCharNextBlank)
+				if ((isCharPrevBlank && isCharNextBlank) ||
+					(charPrev == '(' && charNext == ')') || (charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
+					(charPrev == '[' && charNext == ']') || (charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
+					(charPrev == '{' && charNext == '}') || (charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
 				{
 					matchedChars = "\"";
 					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
@@ -596,7 +599,10 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					}
 				}
 
-				if (isCharPrevBlank && isCharNextBlank)
+				if ((isCharPrevBlank && isCharNextBlank) ||
+					(charPrev == '(' && charNext == ')') || (charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
+					(charPrev == '[' && charNext == ']') || (charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
+					(charPrev == '{' && charNext == '}') || (charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
 				{
 					matchedChars = "'";
 					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));

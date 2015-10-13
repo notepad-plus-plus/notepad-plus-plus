@@ -1261,8 +1261,19 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	std::string htmlHeader2 = "<html>"; // length : 6
 	std::string htmlHeader1 = "<!DOCTYPE html>"; // length : 15
 	
-	const size_t longestLength = htmlHeader1.length(); // longest length - html header Length
+	const size_t longestLength = htmlHeader1.length(); // longest length : html header Length
+	const size_t shortestLength = xmlHeader.length();
+	
 	size_t i = 0;
+	
+	if (dataLen <= shortestLength)
+		return L_TEXT;
+
+	// Eliminate BOM if present
+	if ((data[0] == 0xEF && data[1] == 0xBB && data[2] == 0xBF) || // UTF8 BOM
+		(data[0] == 0xFE && data[1] == 0xFF && data[2] == 0x00) || // UTF16 BE BOM
+		(data[0] == 0xFF && data[1] == 0xFE && data[2] == 0x00))   // UTF16 LE BOM
+		i += 3;
 
 	for (; i < dataLen; ++i)
 	{

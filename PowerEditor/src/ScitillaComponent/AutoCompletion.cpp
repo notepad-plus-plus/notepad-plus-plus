@@ -504,7 +504,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	bool isCharPrevBlank = (charPrev == ' ' || charPrev == '\t' || charPrev == '\n' || charPrev == '\r' || charPrev == '\0');
 	int docLen = _pEditView->getCurrentDocLen();
 	bool isCharNextBlank = (charNext == ' ' || charNext == '\t' || charNext == '\n' || charNext == '\r' || caretPos == docLen);
-
+	bool isInSandwich = (charPrev == '(' && charNext == ')') || (charPrev == '[' && charNext == ']') || (charPrev == '{' && charNext == '}');
 
 	// User defined matched pairs should be checked firstly
 	for (size_t i = 0, len = matchedPairs.size(); i < len; ++i)
@@ -531,7 +531,8 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int('('):
 			if (matchedPairConf._doParentheses)
 			{
-				if (isCharNextBlank)
+				if (isCharNextBlank || isInSandwich)
+
 				{
 					matchedChars = ")";
 					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
@@ -542,7 +543,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int('['):
 			if (matchedPairConf._doBrackets)
 			{
-				if (isCharNextBlank)
+				if (isCharNextBlank || isInSandwich)
 				{
 					matchedChars = "]";
 					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
@@ -553,7 +554,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int('{'):
 			if (matchedPairConf._doCurlyBrackets)
 			{
-				if (isCharNextBlank)
+				if (isCharNextBlank || isInSandwich)
 				{
 					matchedChars = "}";
 					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
@@ -575,10 +576,10 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					}
 				}
 
-				if ((isCharPrevBlank && isCharNextBlank) ||
-					(charPrev == '(' && charNext == ')') || (charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
-					(charPrev == '[' && charNext == ']') || (charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
-					(charPrev == '{' && charNext == '}') || (charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
+				if ((isCharPrevBlank && isCharNextBlank) || isInSandwich ||
+					(charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
+					(charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
+					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
 				{
 					matchedChars = "\"";
 					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
@@ -599,10 +600,10 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					}
 				}
 
-				if ((isCharPrevBlank && isCharNextBlank) ||
-					(charPrev == '(' && charNext == ')') || (charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
-					(charPrev == '[' && charNext == ']') || (charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
-					(charPrev == '{' && charNext == '}') || (charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
+				if ((isCharPrevBlank && isCharNextBlank) || isInSandwich ||
+					(charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
+					(charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
+					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
 				{
 					matchedChars = "'";
 					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));

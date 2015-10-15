@@ -31,6 +31,14 @@ http://notepad-plus-plus.org/features/function-list.html
 			<association langID="22" id="python_function"/>
 			<association langID="26" id="bash_function"/>
 			<association langID="28" id="nsis_syntax"/>
+			
+		<!--
+			change to "cobol_section_free" if this is the prefered reference format
+			for you, necessary as the parser is quite different and scintilla currently
+			only provides one language
+		-->
+			<association langID="50" id="cobol_section_fixed"/>
+
 		<!--
 			if langID cannot be found above, you can still set the file extensions
 			<association ext=".my_passer_ext1" id="my_passer_id"/>
@@ -252,6 +260,30 @@ http://notepad-plus-plus.org/features/function-list.html
 					</function>
 				</classRange>
 				<function mainExpr="">
+				</function>
+			</parser>
+
+			<!-- Variant for COBOL fixed-form reference format -->
+			<parser id="cobol_section_fixed" displayName="COBOL fixed-form reference format"
+				commentExpr="(?m-s)(?:^[\d\t ]{6}\*|\*&gt;).*$">
+				<function
+					mainExpr="(?m-s)^.{6}[ D][\t ]{0,3}(?!exit\s)[\w_-]+(\.|((?'seps'([\t ]|([\n\r]+(.{6}[ D]|.{0,6}$)))+)section(\.|(?&seps)(\.|[\w_-]+\.))))"
+					displayMode="$functionName">
+					<functionName>
+						<nameExpr expr="[\w_-]+((?=\.)|((?'seps'([\t ]|([\n\r]+(.{6}[ D]|.{0,6}$)))+)section((?=\.)|(?&seps)((?=\.)|[\w_-]+(?=\.)))))"/>
+					</functionName>
+				</function>
+			</parser>
+
+			<!-- Variant for COBOL free-form reference format -->
+			<parser id="cobol_section_free" displayName="COBOL fixed-form reference format"
+				commentExpr="(?m-s)(?:\*&gt;).*$">
+				<function
+					mainExpr="(?m-s)(?<=\.)\s*(?!exit\s)[\w_-]+(\s+section(\s*|(\s+[\w_-]+)?))(?=\.)"
+					displayMode="$functionName">
+					<functionName>
+						<nameExpr expr="(?m-s)(?<=[\s\.])[\w_-]+(\s*section\s*([\w_-]+)?)?"/>
+					</functionName>
 				</function>
 			</parser>
 		</parsers>

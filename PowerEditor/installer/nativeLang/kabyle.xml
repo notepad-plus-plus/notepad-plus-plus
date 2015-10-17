@@ -340,7 +340,7 @@
                 <Item id="1659" name="Deg yikaramen yeffren"/>
                 <Item id="1624" name="Askar n unadi"/>
                 <Item id="1625" name="Normal"/>
-                <Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1626" name="Extended (\r, \n, \t, \x…, \0)"/>
                 <Item id="1660" name="Semselsi deg yifuyla"/>
                 <Item id="1661" name="Follow current doc."/>
                 <Item id="1641" name="Af-d kulec di zzmam amiran"/>

@@ -207,7 +207,7 @@
 			 	<Item id="1659" name="repertòris amagats"/>
 			 	<Item id="1624" name="Mòde de recèrca"/>
 			 	<Item id="1625" name="Normal"/>
-			 	<Item id="1626" name="Extendut (\n, \r, \t, \0, \x...)"/>
+			 	<Item id="1626" name="Extendut (\r, \n, \t, \x…, \0)"/>
             </Find>
             <GoToLine title="Anar a la linha n°">
                 <Item id="2007" name="Linha"/>

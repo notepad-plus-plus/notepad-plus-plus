@@ -372,7 +372,7 @@
                 <Item id="1659" name="Rejtett mappákban is"/>
                 <Item id="1624" name="Keresési mód"/>
                 <Item id="1625" name="Normál"/>
-                <Item id="1626" name="Bővített (\r, \n, \t, \x..., \0)"/>
+                <Item id="1626" name="Bővített (\r, \n, \t, \x…, \0)"/>
                 <Item id="1660" name="Csere a fájlokban"/>
                 <Item id="1661" name="Jelenlegi mappában"/>
                 <Item id="1641" name="Keresés a jelenlegi dokumentumban"/>

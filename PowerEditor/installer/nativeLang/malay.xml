@@ -208,7 +208,7 @@ Desc: Malay translation for Notepad++
 <Item id="1659" name="Dlm folder tersorok"/>
 <Item id="1624" name="Mod carian"/>
 <Item id="1625" name="Biasa"/>
-<Item id="1626" name="Canggih (\n, \r, \t, \0, \x...)"/>
+<Item id="1626" name="Canggih (\r, \n, \t, \x…, \0)"/>
 </Find>
 
 <GoToLine title="Pergi ke Baris #">

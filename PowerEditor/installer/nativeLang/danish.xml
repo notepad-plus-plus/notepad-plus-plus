@@ -358,7 +358,7 @@
                 <Item id="1659" name="I skjulte mapper"/>
                 <Item id="1624" name="Søgemetode"/>
                 <Item id="1625" name="Normal"/>
-                <Item id="1626" name="Udvidet (\n, \r, \t, \0, \u, \x...)"/>
+                <Item id="1626" name="Udvidet (\r, \n, \t, \x…, \0)"/>
                 <Item id="1660" name="Erstat i filer"/>
                 <Item id="1661" name="Følg nuværende dok."/>
                 <Item id="1641" name="Find alle i nuværende dokument"/>

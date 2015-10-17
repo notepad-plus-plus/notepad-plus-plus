@@ -363,7 +363,7 @@
 					<Item id="1659" name="V skritih mapah"/>
 					<Item id="1624" name="Iskalni način"/>
 					<Item id="1625" name="Navaden"/>
-					<Item id="1626" name="Razširjen (\n, \r, \t, \0, \x...)"/>
+					<Item id="1626" name="Razširjen (\r, \n, \t, \x…, \0)"/>
 					<Item id="1660" name="Zamenjaj v datotekah"/>
                 <Item id="1661" name="Sledi trenutni dok."/>
 					<Item id="1641" name="Najdi vse v trenutnem dokumentu"/>

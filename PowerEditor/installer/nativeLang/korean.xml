@@ -352,7 +352,7 @@
   <Item id="1659" name="숨김 폴더 포함"/> 
   <Item id="1624" name="검색 모드"/> 
   <Item id="1625" name="일반"/> 
-  <Item id="1626" name="확장 (\r, \n, \t, \x..., \0)"/> 
+  <Item id="1626" name="확장 (\r, \n, \t, \x…, \0)"/> 
   <Item id="1660" name="모두 바꾸기"/> 
   <Item id="1661" name="현재와 같은 폴더"/> 
   <Item id="1641" name="현재에서 모두 찾기"/> 

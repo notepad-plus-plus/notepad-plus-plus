@@ -362,7 +362,7 @@
                 <Item id = "1621" name = "Direzione" />
                 <Item id = "1624" name = "Tipo ricerca" />
                 <Item id = "1625" name = "Normale" />
-                <Item id = "1626" name = "Estesa (\n, \r, \t, \0, \x...)" />
+                <Item id = "1626" name = "Estesa (\r, \n, \t, \x…, \0)" />
                 <Item id = "1632" name = "Nella selezione" />
                 <Item id = "1633" name = "Pulisci" />
                 <Item id = "1635" name = "Sostituisci tutto nei documenti aperti" />

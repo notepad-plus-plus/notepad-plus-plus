@@ -341,7 +341,7 @@
 				<Item id="1621" name="Sök" />
 				<Item id="1624" name="Sökläge" />
 				<Item id="1625" name="N&amp;ormal" />
-				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)" />
+				<Item id="1626" name="&amp;Utökat (\r, \n, \t, \x…, \0)" />
 				<Item id="1632" name="I mar&amp;kering" />
 				<Item id="1633" name="Rensa" />
 				<Item id="1635" name="Ersätt i öppnade filer" />

@@ -350,7 +350,7 @@
                 <Item id="1659" name="Sisse Peidetud Kaustad"/>
                 <Item id="1624" name="Search mode"/>
                 <Item id="1625" name="Normaalne"/>
-                <Item id="1626" name="Pikendatud (\n, \r, \t, \0, \x...)"/>
+                <Item id="1626" name="Pikendatud (\r, \n, \t, \x…, \0)"/>
                 <Item id="1660" name="Asenda Sisse Failidest"/>
                 <Item id="1661" name="Jälgi Praeguse doc."/>
                 <Item id="1641" name="Leia kõik Sisse Praegune Dokument"/>

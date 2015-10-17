@@ -324,7 +324,7 @@ By ChesÃƒÂºs D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@soft
 				<Item id="1659" name="Incluir-ie dir. zaboyaus"/> <!-- "directorios", no i culle mas-->
 				<Item id="1624" name="Modo de busca"/>
 				<Item id="1625" name="Normal"/>
-				<Item id="1626" name="Estendillau (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Estendillau (\r, \n, \t, \x…, \0)"/>
 				<Item id="1660" name="Substituir-lo en os fichers"/>
                 <Item id="1661" name="Seguir documento actual"/>
 				<Item id="1641" name="Mirar-lo tot en o documento actual"/>

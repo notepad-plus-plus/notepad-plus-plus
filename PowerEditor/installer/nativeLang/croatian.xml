@@ -370,7 +370,7 @@
                     <Item id="1659" name="U skrivenim mapama"/>
                     <Item id="1624" name="Način pretraživanja"/>
                     <Item id="1625" name="Normalno"/>
-                    <Item id="1626" name="Prošireno (\n, \r, \t, \0, \x...)"/>
+                    <Item id="1626" name="Prošireno (\r, \n, \t, \x…, \0)"/>
                     <Item id="1627" name="Dolje"/>
                     <Item id="1660" name="Zamijeni u datotekama"/>
                     <Item id="1661" name="Put tekućeg dokumenta"/>

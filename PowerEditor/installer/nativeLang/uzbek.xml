@@ -257,7 +257,7 @@
 				<Item id = "1659" name = "Yashirin direktoriyalarda"/>
 			 	<Item id = "1624" name = "Qidirish tartibi"/>
 			 	<Item id = "1625" name = "Oddiy"/>
-			 	<Item id = "1626" name = "Kengaytirilgan (\n, \r, \t, \0, \x...)"/>
+			 	<Item id = "1626" name = "Kengaytirilgan (\r, \n, \t, \x…, \0)"/>
 
             </Find>
             <GoToLine title = "...raqamli satrga o‘tish">

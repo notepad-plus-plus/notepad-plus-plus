@@ -332,7 +332,7 @@
 			 	<Item id="1623" name="Gardentasuna"/>
 			 	<Item id="1624" name="Bilaketa modua"/>
 			 	<Item id="1625" name="&amp;Arrunta"/>
-			 	<Item id="1626" name="H&amp;edatua (\n, \r, \t, \0, \x...)"/>
+			 	<Item id="1626" name="H&amp;edatua (\r, \n, \t, \x…, \0)"/>
 			 	<Item id="1632" name="Aukeran"/>
 			 	<Item id="1633" name="&amp;Garbitu"/>
 			 	<Item id="1635" name="Ordeztu Denak &amp;Irekitako Agiri Guztietan"/>

@@ -343,7 +343,7 @@
                 <Item id="1659" name="Trong thư mục ẩn"/>
                 <Item id="1624" name="Chế độ tìm kiếm"/>
                 <Item id="1625" name="Bình thường"/>
-                <Item id="1626" name="Bao gồm (\n, \r, \t, \0, \x...)"/>
+                <Item id="1626" name="Bao gồm (\r, \n, \t, \x…, \0)"/>
                 <Item id="1660" name="Thay thế trong tập tin"/>
                 <Item id="1661" name="Thực hiện theo tài liệu hiện tại."/>
                 <Item id="1641" name="Tìm tất cả trong tài liệu hiện thời"/>

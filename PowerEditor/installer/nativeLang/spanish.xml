@@ -352,7 +352,7 @@
 				<Item id="1659" name="En carpetas ocultas"/>
 				<Item id="1624" name="Modo de búsqueda"/>
 				<Item id="1625" name="Normal"/>
-				<Item id="1626" name="Extendido (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Extendido (\r, \n, \t, \x…, \0)"/>
 				<Item id="1660" name="Reemplazar en todos"/>
 				<Item id="1661" name="Seguir archivo actual"/>
 				<Item id="1641" name="Buscar solo en el archivo actual"/>

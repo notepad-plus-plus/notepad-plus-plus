@@ -344,7 +344,7 @@
                 <Item id="1623" name="Przeźroczystość"/>
                 <Item id="1624" name="Tryb szukania"/>
                 <Item id="1625" name="Normalny"/>
-                <Item id="1626" name="Rozszerzony (\n, \r, \t, \0, \x...)"/>
+                <Item id="1626" name="Rozszerzony (\r, \n, \t, \x…, \0)"/>
 				<Item id="1627" name="Poniżej"/>
                 <Item id="1632" name="W zaznaczeniu"/>
                 <Item id="1633" name="Wyczyść"/>

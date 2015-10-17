@@ -385,7 +385,7 @@
                 <Item id="1659" name="隠しフォルダも検索"/>
                 <Item id="1624" name="検索モード"/>
                 <Item id="1625" name="標準"/>
-                <Item id="1626" name="拡張(¥n, ¥r, ¥t, ¥0, ¥x...)"/>
+                <Item id="1626" name="拡張(¥r, ¥n, ¥t, ¥x…, ¥0)"/>
                 <Item id="1660" name="ファイルで置換"/>
                 <Item id="1661" name="現在のフォルダ"/>
                 <Item id="1641" name="すべて検索"/>

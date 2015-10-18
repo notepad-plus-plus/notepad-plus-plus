@@ -669,18 +669,20 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 void AutoCompletion::update(int character)
 {
+	if (!character)
+		return;
+
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 	if (!_funcCompletionActive && nppGUI._autocStatus == nppGUI.autoc_func)
 		return;
 
-	if (nppGUI._funcParams || _funcCalltip.isVisible()) {
-		if (_funcCalltip.updateCalltip(character)) {	//calltip visible because triggered by autocomplete, set mode
+	if (nppGUI._funcParams || _funcCalltip.isVisible())
+	{
+		if (_funcCalltip.updateCalltip(character)) //calltip visible because triggered by autocomplete, set mode
+		{
 			return;	//only return in case of success, else autocomplete
 		}
 	}
-
-	if (!character)
-		return;
 
 	//If autocomplete already active, let Scintilla handle it
 	if (_pEditView->execute(SCI_AUTOCACTIVE) != 0)
@@ -698,7 +700,6 @@ void AutoCompletion::update(int character)
 			showApiComplete();
 		else if (nppGUI._autocStatus == nppGUI.autoc_both)
 			showApiAndWordComplete();
-
 	}
 }
 
@@ -844,6 +845,9 @@ const TCHAR * AutoCompletion::getApiFileName()
 
 	if (_curLang > L_EXTERNAL)
         _curLang = L_TEXT;
+
+	if (_curLang == L_JAVASCRIPT)
+        _curLang = L_JS;
 
 	return ScintillaEditView::langNames[_curLang].lexerName;
 

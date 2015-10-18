@@ -1,3 +1,7 @@
+Notepad++ v6.8.5 bug-fixes:
+1.  Fix Javascript autocompletion not working regression.
+
+
 Notepad++ v6.8.4 bug-fixes and enhancements:
 
 1.  Improve document switching performance while folding restoring.

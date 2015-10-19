@@ -1255,26 +1255,25 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 {
 	// it detectes xml, php and bash script file
 	std::string xmlHeader = "<?xml "; // length : 6
-	std::string phpHeader = "<?php "; // length : 6 
-	std::string shebang1 = "#!/bin/sh"; // length : 9
-	std::string shebang2 = "#!/bin/bash"; // length : 11
+	std::string phpHeader = "<?php"; // length : 5
+	std::string shebang = "#!"; // length : 2
 	std::string htmlHeader2 = "<html>"; // length : 6
-	std::string htmlHeader1 = "<!DOCTYPE html>"; // length : 15
-	
-	const size_t longestLength = htmlHeader1.length(); // longest length : html header Length
-	const size_t shortestLength = xmlHeader.length();
-	
-	size_t i = 0;
-	
+	std::string htmlHeader1 = "<!DOCTYPE html"; // length : 14
+
+	const size_t longestLength = 40; // shebangs can be large
+	const size_t shortestLength = shebang.length();
+
 	if (dataLen <= shortestLength)
 		return L_TEXT;
 
 	// Eliminate BOM if present
+	size_t i = 0;
 	if ((data[0] == 0xEF && data[1] == 0xBB && data[2] == 0xBF) || // UTF8 BOM
 		(data[0] == 0xFE && data[1] == 0xFF && data[2] == 0x00) || // UTF16 BE BOM
 		(data[0] == 0xFF && data[1] == 0xFE && data[2] == 0x00))   // UTF16 LE BOM
 		i += 3;
 
+	// Skip any space-like char
 	for (; i < dataLen; ++i)
 	{
 		if (data[i] != ' ' && data[i] != '\t' && data[i] != '\n' && data[i] != '\r')
@@ -1283,15 +1282,41 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 	std::string buf2Test = std::string((const char *)data + i, longestLength);
 
-	auto res = std::mismatch(shebang1.begin(), shebang1.end(), buf2Test.begin());
-	if (res.first == shebang1.end())
+	// Is there a \r or \n in the buffer?
+	auto cr = buf2Test.find("\r");
+	auto nl = buf2Test.find("\n");
+	auto crnl = min(cr, nl);
+	if (crnl != std::string::npos && crnl < longestLength)
+		buf2Test = std::string((const char *)data + i, crnl);
+
+	// First test for a Unix-like Shebang
+	// See https://en.wikipedia.org/wiki/Shebang_%28Unix%29 for more details about Shebang
+	auto res = std::mismatch(shebang.begin(), shebang.end(), buf2Test.begin());
+	if (res.first == shebang.end())
 	{
-		return L_BASH;
-	}
-	res = std::mismatch(shebang2.begin(), shebang2.end(), buf2Test.begin());
-	if (res.first == shebang2.end())
-	{
-		return L_BASH;
+		// Try the most common used languages
+		if (buf2Test.find("python") != std::string::npos)
+		{
+			return L_PYTHON;
+		}
+		if (buf2Test.find("perl") != std::string::npos)
+		{
+			return L_PERL;
+		}
+		if (buf2Test.find("php") != std::string::npos)
+		{
+			return L_PHP;
+		}
+		if (buf2Test.find("ruby") != std::string::npos)
+		{
+			return L_RUBY;
+		}
+		if (buf2Test.find("sh") != std::string::npos)
+		{
+			return L_BASH;
+		}
+
+		return L_TEXT; // Unrecognized shebang (there is always room for improvement ;-)
 	}
 
 	res = std::mismatch(phpHeader.begin(), phpHeader.end(), buf2Test.begin());

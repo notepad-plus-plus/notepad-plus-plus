@@ -1253,17 +1253,14 @@ int FileManager::detectCodepage(char* buf, size_t len)
 
 LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, unsigned int dataLen)
 {
-	// it detectes xml, php and bash script file
-	std::string xmlHeader = "<?xml "; // length : 6
-	std::string phpHeader = "<?php"; // length : 5
-	std::string shebang = "#!"; // length : 2
-	std::string htmlHeader2 = "<html>"; // length : 6
-	std::string htmlHeader1 = "<!DOCTYPE html"; // length : 14
+	struct FirstLineLanguages
+	{
+		std::string pattern;
+		LangType lang;
+	};
 
-	const size_t longestLength = 40; // shebangs can be large
-	const size_t shortestLength = shebang.length();
-
-	if (dataLen <= shortestLength)
+	// Is the buffer at least the size of a BOM?
+	if (dataLen <= 3)
 		return L_TEXT;
 
 	// Eliminate BOM if present
@@ -1280,9 +1277,11 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 			break;
 	}
 
+	// Create the buffer to need to test
+	const size_t longestLength = 40; // shebangs can be large
 	std::string buf2Test = std::string((const char *)data + i, longestLength);
 
-	// Is there a \r or \n in the buffer?
+	// Is there a \r or \n in the buffer? If so, truncate it
 	auto cr = buf2Test.find("\r");
 	auto nl = buf2Test.find("\n");
 	auto crnl = min(cr, nl);
@@ -1291,57 +1290,53 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 	// First test for a Unix-like Shebang
 	// See https://en.wikipedia.org/wiki/Shebang_%28Unix%29 for more details about Shebang
+	std::string shebang = "#!";
 	auto res = std::mismatch(shebang.begin(), shebang.end(), buf2Test.begin());
 	if (res.first == shebang.end())
 	{
-		// Try the most common used languages
-		if (buf2Test.find("python") != std::string::npos)
+		// Make a list of the most commonly used languages
+		const size_t SHEBANG_LANGUAGES = 6;
+		FirstLineLanguages ShebangLangs[SHEBANG_LANGUAGES] = {
+			{ "sh",		L_BASH },
+			{ "python", L_PYTHON },
+			{ "perl",	L_PERL },
+			{ "php",	L_PHP },
+			{ "ruby",	L_RUBY },
+			{ "node",	L_JAVASCRIPT },
+		};
+
+		// Go through the list of languages
+		for (i = 0; i < SHEBANG_LANGUAGES; ++i)
 		{
-			return L_PYTHON;
-		}
-		if (buf2Test.find("perl") != std::string::npos)
-		{
-			return L_PERL;
-		}
-		if (buf2Test.find("php") != std::string::npos)
-		{
-			return L_PHP;
-		}
-		if (buf2Test.find("ruby") != std::string::npos)
-		{
-			return L_RUBY;
-		}
-		if (buf2Test.find("sh") != std::string::npos)
-		{
-			return L_BASH;
+			if (buf2Test.find(ShebangLangs[i].pattern) != std::string::npos)
+			{
+				return ShebangLangs[i].lang;
+			}
 		}
 
-		return L_TEXT; // Unrecognized shebang (there is always room for improvement ;-)
+		// Unrecognized shebang (there is always room for improvement ;-)
+		return L_TEXT;
 	}
 
-	res = std::mismatch(phpHeader.begin(), phpHeader.end(), buf2Test.begin());
-	if (res.first == phpHeader.end())
+	// Are there any other patterns we know off?
+	const size_t FIRST_LINE_LANGUAGES = 4;
+	FirstLineLanguages languages[FIRST_LINE_LANGUAGES] = {
+		{ "<?xml",			L_XML },
+		{ "<?php",			L_PHP },
+		{ "<html",			L_HTML },
+		{ "<!DOCTYPE html",	L_HTML },
+	};
+
+	for (i = 0; i < FIRST_LINE_LANGUAGES; ++i)
 	{
-		return L_PHP;
+		res = std::mismatch(languages[i].pattern.begin(), languages[i].pattern.end(), buf2Test.begin());
+		if (res.first == languages[i].pattern.end())
+		{
+			return languages[i].lang;
+		}
 	}
 
-	res = std::mismatch(xmlHeader.begin(), xmlHeader.end(), buf2Test.begin());
-	if (res.first == xmlHeader.end())
-	{
-		return L_XML;
-	}
-
-	res = std::mismatch(htmlHeader1.begin(), htmlHeader1.end(), buf2Test.begin());
-	if (res.first == htmlHeader1.end())
-	{
-		return L_HTML;
-	}
-	res = std::mismatch(htmlHeader2.begin(), htmlHeader2.end(), buf2Test.begin());
-	if (res.first == htmlHeader2.end())
-	{
-		return L_HTML;
-	}
-
+	// Unrecognized first line, we assume it is a text file for now
 	return L_TEXT;
 }
 

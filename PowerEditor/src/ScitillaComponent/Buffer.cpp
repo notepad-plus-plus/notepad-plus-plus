@@ -630,11 +630,11 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 			// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
 			if (nullptr != UnicodeConvertor.getNewBuf())
 			{
-				FormatType format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize());
+				FormatType format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize(),ndds._format);
 				buf->setFormat(format);
 			}
 			else
-				buf->setFormat(FormatType::osdefault);
+				buf->setFormat(ndds._format);
 
 			UniMode um = UnicodeConvertor.getEncoding();
 			if (um == uni7Bit)
@@ -681,13 +681,17 @@ bool FileManager::reloadBuffer(BufferID id)
 	{
 		if (encoding == -1)
 		{
+			NppParameters *pNppParamInst = NppParameters::getInstance();
+			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
+			
 			if (nullptr != UnicodeConvertor.getNewBuf())
 			{
-				FormatType format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize());
+				FormatType format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize(),ndds._format);
 				buf->setFormat(format);
 			}
-			else
-				buf->setFormat(FormatType::osdefault);
+			else{
+				buf->setFormat(ndds._format);
+			}
 
 			buf->setUnicodeMode(UnicodeConvertor.getEncoding());
 		}
@@ -1484,7 +1488,17 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 
 	// broadcast the format
 	if (pFormat != nullptr)
-		*pFormat = (format != FormatType::unknown) ? format : FormatType::osdefault;
+	{
+		if (format == FormatType::unknown){
+			NppParameters *pNppParamInst = NppParameters::getInstance();
+			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
+			*pFormat = ndds._format;
+		}
+		else
+		{
+			*pFormat = format;
+		}
+	}
 
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
 	_pscratchTilla->execute(SCI_SETSAVEPOINT);

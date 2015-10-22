@@ -1489,7 +1489,8 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 	// broadcast the format
 	if (pFormat != nullptr)
 	{
-		if (format == FormatType::unknown){
+		if (format == FormatType::unknown)
+		{
 			NppParameters *pNppParamInst = NppParameters::getInstance();
 			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 			*pFormat = ndds._format;

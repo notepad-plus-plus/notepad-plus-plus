@@ -337,7 +337,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 				<Item id="1623" name="Läpinäkyvyys"/>
 				<Item id="1624" name="Etsintätapa"/>
 				<Item id="1625" name="Normaali"/>
-				<Item id="1626" name="Laajennettu (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Laajennettu (\r, \n, \t, \x…, \0)"/>
 				<Item id="1627" name="Alas"/>
 				<Item id="1632" name="Valinnassa"/>
 				<Item id="1633" name="Poista kirjanmerkit"/>

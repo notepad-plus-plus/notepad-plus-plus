@@ -380,7 +380,7 @@
 				<Item id = "1659" name = "Ve skrytých adresářích"/>
 			 	<Item id = "1624" name = "Mód vyhledávání"/>
 			 	<Item id = "1625" name = "Normální"/>
-			 	<Item id = "1626" name = "Rozšířený (\n, \r, \t, \0, \x...)"/>
+			 	<Item id = "1626" name = "Rozšířený (\r, \n, \t, \x…, \0)"/>
 				<Item id = "1660" name = "Nah&amp;radit v souborech"/>
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
 				<Item id = "1686" name = "Průhle&amp;dnost"/>

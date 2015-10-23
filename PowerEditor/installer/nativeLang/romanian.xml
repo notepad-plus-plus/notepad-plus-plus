@@ -343,7 +343,7 @@
                 <Item id="1659" name="Incl. dos. ascunse"/>
                 <Item id="1624" name="Mod de Căutare"/>
 	    <Item id="1625" name="Normal"/>
-	    <Item id="1626" name="Extins (\n, \r, \t, \0, \x...)"/>
+	    <Item id="1626" name="Extins (\r, \n, \t, \x…, \0)"/>
 	    <Item id="1660" name="Înlocuieşte în file"/>
                 <Item id="1661" name="Urmează doc. curent"/>
 	    <Item id="1641" name="Găseşte toate din fila activă"/>

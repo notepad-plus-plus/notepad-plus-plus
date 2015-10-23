@@ -314,7 +314,7 @@
                 <Item id = "1621" name = "Diretzione"/>
 				<Item id = "1624" name = "Tipu de chirca"/>
                 <Item id = "1625" name = "Normale"/>
-                <Item id = "1626" name = "Islargada (\n, \r, \t, \0, \x...)"/>
+                <Item id = "1626" name = "Islargada (\r, \n, \t, \x…, \0)"/>
                 <Item id = "1632" name = "In sa seletzione"/>
                 <Item id = "1633" name = "Lìmpia"/>
                 <Item id = "1635" name = "Càmbia totu in is documentos abertos"/>

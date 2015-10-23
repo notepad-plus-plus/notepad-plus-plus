@@ -242,7 +242,7 @@
 			 	<Item id = "1659" name = "Sa lahat ng tagong folder"/>
 			 	<Item id = "1624" name = "Mode ng Paghahanap"/>
 			 	<Item id = "1625" name = "Normal"/>
-			 	<Item id = "1626" name = "Extended (\n, \r, \t, \0, \x...)"/>
+			 	<Item id = "1626" name = "Extended (\r, \n, \t, \x…, \0)"/>
 			 	<Item id = "1660" name = "Palitan sa mga pila"/>
 			 	<Item id = "1641" name = "Hanapin lahat sa kasalukuyang kasulatan"/>
 			 	<Item id = "1686" name = "Pagkaka-transparent"/>

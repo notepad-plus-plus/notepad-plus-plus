@@ -245,7 +245,7 @@
 			 	<Item id = "1659" name = "I skjulte mapper"/>
 			 	<Item id = "1624" name = "Søkemodus"/>
 			 	<Item id = "1625" name = "Normal"/>
-			 	<Item id = "1626" name = "Utvidet (\n, \r, \t, \0, \x...)"/>
+			 	<Item id = "1626" name = "Utvidet (\r, \n, \t, \x…, \0)"/>
                 <Item id = "1660" name = "Erstatt i filer" />
 			</Find>
 			<GoToLine title = "Gå til linje #">

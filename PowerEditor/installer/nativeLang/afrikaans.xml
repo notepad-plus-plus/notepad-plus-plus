@@ -242,7 +242,7 @@
 			 	<Item id = "1659" name = "In wegesteekte vouers"/>
 			 	<Item id = "1624" name = "Soek metode"/>
 			 	<Item id = "1625" name = "Normaal"/>
-			 	<Item id = "1626" name = "Verlengde (\n, \r, \t, \0, \x...)"/>
+			 	<Item id = "1626" name = "Verlengde (\r, \n, \t, \x…, \0)"/>
 			 	<Item id = "1660" name = "Vervang in leêrs"/>
 			 	<Item id = "1641" name = "Vind als in huidige dokument"/>
 			 	<Item id = "1686" name = "Deursigtigheid"/>

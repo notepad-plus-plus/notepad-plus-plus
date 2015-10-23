@@ -342,7 +342,7 @@
                 <Item id="1621" name="Direction"/>
                 <Item id="1624" name="Mode de recherche"/>
                 <Item id="1625" name="Mode normal"/>
-                <Item id="1626" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
+                <Item id="1626" name="Mode étendu (\r, \n, \t, \x…, \0)"/>
                 <Item id="1632" name="Dans sélection"/>
                 <Item id="1633" name="Purger"/>
                 <Item id="1635" name="Remplacer dans tous les documents ouverts"/>

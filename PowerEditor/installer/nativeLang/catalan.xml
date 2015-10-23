@@ -358,7 +358,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1606" name="Dóna la volta"/>
 				<Item id="1624" name="Mode de cerca"/>
 				<Item id="1625" name="Normal"/>
-				<Item id="1626" name="Estès (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Estès (\r, \n, \t, \x…, \0)"/>
 				<Item id="1605" name="Expressió regular"/>
 				<Item id="1703" name="&amp;. cerca nova línia"/>
 				<Item id="1621" name="Direcció"/>

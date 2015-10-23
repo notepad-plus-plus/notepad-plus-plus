@@ -330,7 +330,7 @@
                 <Item id="1659" name="Incluir pastas ocultas" />
                 <Item id="1624" name="Modo de busca" />
                 <Item id="1625" name="Normal" />
-                <Item id="1626" name="Extendido  (\n, \r, \t, \0, \x...)" />
+                <Item id="1626" name="Extendido  (\r, \n, \t, \x…, \0)" />
                 <Item id="1660" name="Substituir nos arquivos" />
                 <Item id="1661" name="Acompanhar doc. atual" />
                 <Item id="1641" name="Localizar todos no documento atual" />

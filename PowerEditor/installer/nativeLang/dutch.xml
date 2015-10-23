@@ -346,7 +346,7 @@
 				<Item id="1621" name="Richting"/>
 				<Item id="1624" name="Zoekmethode"/>
 				<Item id="1625" name="Normaal"/>
-				<Item id="1626" name="Uitgebreid (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Uitgebreid (\r, \n, \t, \x…, \0)"/>
 				<Item id="1632" name="In &amp;selectie"/>
 				<Item id="1633" name="Wissen"/>
 				<Item id="1635" name="Vervangen in &amp;alle geopende bestanden"/>

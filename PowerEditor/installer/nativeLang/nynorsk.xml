@@ -313,7 +313,7 @@
                 <Item id="1659" name="I skjulte mapper"/>
                 <Item id="1624" name="Søkemodus"/>
                 <Item id="1625" name="Normal"/>
-                <Item id="1626" name="Utvida (\n, \r, \t, \0, \x...)"/>
+                <Item id="1626" name="Utvida (\r, \n, \t, \x…, \0)"/>
                 <Item id="1660" name="Bytt ut i filer"/>
                 <Item id="1661" name="Følg aktivt dokument"/>
                 <Item id="1641" name="Søk etter alle i aktivt dokument"/>

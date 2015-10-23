@@ -354,7 +354,7 @@
                 <Item id="1659" name="包含隐藏目录" />
                 <Item id="1624" name="查找模式" />
                 <Item id="1625" name="普通" />
-                <Item id="1626" name="扩展 (\n, \r, \t, \0, \x...)" />
+                <Item id="1626" name="扩展 (\r, \n, \t, \x…, \0)" />
                 <Item id="1660" name="在文章替换" />
                 <Item id="1661" name="当前文件夹" />
                 <Item id="1641" name="在当前文件中查找" />

@@ -393,5 +393,5 @@ private:
 	// For backup system
 	generic_string _backupFileName;
 	bool _isModified = false;
-	bool _isLoadedDirty = false;
+	bool _isLoadedDirty = false; // it's the indicator for finding buffer's initial state
 };

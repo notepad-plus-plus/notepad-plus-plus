@@ -674,6 +674,10 @@ bool FileManager::reloadBuffer(BufferID id)
 	FormatType bkformat;
 	LangType lang = buf->getLangType();
 
+
+	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
+								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
+
 	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, &bkformat);
 	buf->_canNotify = true;
 
@@ -1344,8 +1348,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * UnicodeConvertor,
-	LangType & language, int & encoding, FormatType* pFormat)
+inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * UnicodeConvertor, LangType & language, int & encoding, FormatType* pFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
@@ -1472,7 +1475,7 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 			if (incompleteMultibyteChar != 0)
 			{
 				// copy bytes to next buffer
-				memcpy(data, data+blockSize-incompleteMultibyteChar, incompleteMultibyteChar);
+				memcpy(data, data + blockSize - incompleteMultibyteChar, incompleteMultibyteChar);
 			}
 
 		}

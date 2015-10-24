@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 6.7.9.2
-    Last modified Wed, July 03rd, 2015 by Luca Leonardi.
+    Italian translation for Notepad++ 6.8.2
+    Last modified Wed, October 24th, 2015 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -290,9 +290,9 @@
 
                     <Item id = "47000" name = "Informazioni su..." />
                     <Item id = "47001" name = "Sito web Notepad++" />
-                    <Item id = "47002" name = "Progetto Notepad++ (Sourceforge.net)" />
+                    <Item id = "47002" name = "Progetto Notepad++" />
                     <Item id = "47003" name = "Documentazione online" />
-                    <Item id = "47004" name = "Forum" />
+                    <Item id = "47004" name = "Community Notepad++ (Forum)" />
                     <Item id = "47005" name = "Ottieni altri plugin" />
                     <Item id = "47006" name = "Aggiorna Notepad++" />
                     <Item id = "47008" name = "Guida..." />
@@ -676,6 +676,7 @@
                     <Item id = "6206" name = "Visualizza i numeri di riga" />
                     <Item id = "6207" name = "Visualizza i segnalibri" />
                     <Item id = "6214" name = "Evidenzia la riga corrente" />
+                    <Item id = "6215" name = "Abilita antialising caratteri" />
                     <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
                 </Scintillas>
                 <NewDoc title = "Nuovo documento">
@@ -685,10 +686,10 @@
                     <Item id = "6404" name = "Mac" />
                     <Item id = "6405" name = "Codifica" />
                     <Item id = "6406" name = "ANSI" />
-                    <Item id = "6407" name = "UTF-8 senza BOM" />
-                    <Item id = "6408" name = "UTF-8" />
-                    <Item id = "6409" name = "UCS-2 Big endian" />
-                    <Item id = "6410" name = "UCS-2 Little endian" />
+                    <Item id = "6407" name = "UTF-8" />
+                    <Item id = "6408" name = "UTF-8 con BOM" />
+                    <Item id = "6409" name = "UCS-2 Big Endian con BOM" />
+                    <Item id = "6410" name = "UCS-2 Little Endian con BOM" />
                     <Item id = "6411" name = "Linguaggio predefinito:" />
                     <Item id = "6419" name = "Nuovo Documento" />
                     <Item id = "6420" name = "Applica all'apertura di file ANSI" />
@@ -804,10 +805,11 @@
                 <Cloud title = "Cloud">
                     <Item id = "6262" name = "Impostazioni Sul Cluod" />
                     <Item id = "6263" name = "Nessun servizio cloud" />
-                    <Item id = "6264" name = "Dropbox" />
+                    <!--Item id = "6264" name = "Dropbox" />
                     <Item id = "6265" name = "OneDrive" />
                     <Item id = "6266" name = "Google Drive" />
-                    <!--Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." /-->
+                    <Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." /-->
+                    <Item id = "6267" name = "Imposta qui il percorso della tua cartella cloud:" />
                 </Cloud>
                 <MISC title = "Varie">
                     <Item id = "6324" name = "Cambia Documento (Ctrl+TAB)" />

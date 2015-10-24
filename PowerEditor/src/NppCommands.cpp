@@ -42,6 +42,8 @@ using namespace std;
 
 void Notepad_plus::macroPlayback(Macro macro)
 {
+	LongRunningOperation op;
+
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 
 	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)

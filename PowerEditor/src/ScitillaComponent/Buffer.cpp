@@ -627,15 +627,6 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 
 		if (encoding == -1)
 		{
-			// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
-			if (nullptr != UnicodeConvertor.getNewBuf())
-			{
-				FormatType format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize(),ndds._format);
-				buf->setFormat(format);
-			}
-			else
-				buf->setFormat(ndds._format);
-
 			UniMode um = UnicodeConvertor.getEncoding();
 			if (um == uni7Bit)
 				um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
@@ -647,8 +638,9 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
             // Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
             buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
             buf->setUnicodeMode(uniCookie);
-			buf->setFormat(bkformat);
 		}
+
+		buf->setFormat(bkformat);
 
 		//determine buffer properties
 		++_nextBufferID;
@@ -1467,6 +1459,8 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 			{
 				lenConvert = UnicodeConvertor->convert(data, lenFile);
 				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
+				if (format == FormatType::unknown)
+					format = getEOLFormatForm(UnicodeConvertor->getNewBuf(), UnicodeConvertor->getNewSize(), FormatType::unknown);
 			}
 
 			if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)

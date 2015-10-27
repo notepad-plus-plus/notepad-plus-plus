@@ -594,7 +594,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
 	EolType bkformat = EolType::unknown;
 	LangType detectedLang = L_TEXT;
-	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, detectedLang, encoding, &bkformat);
+	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, detectedLang, encoding, bkformat);
 	if (res)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -670,31 +670,18 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
-	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, &bkformat);
+	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, bkformat);
 	buf->_canNotify = true;
 
 	if (res)
 	{
 		if (encoding == -1)
 		{
-			NppParameters *pNppParamInst = NppParameters::getInstance();
-			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
-			
-			if (nullptr != UnicodeConvertor.getNewBuf())
-			{
-				EolType format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize(), ndds._format);
-				buf->setFormat(format);
-			}
-			else{
-				buf->setFormat(ndds._format);
-			}
-
 			buf->setUnicodeMode(UnicodeConvertor.getEncoding());
 		}
 		else
 		{
 			buf->setEncoding(encoding);
-			buf->setFormat(bkformat);
 			buf->setUnicodeMode(uniCookie);
 		}
 	}
@@ -1340,7 +1327,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType* pFormat)
+inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
@@ -1484,18 +1471,15 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 	fclose(fp);
 
 	// broadcast the format
-	if (pFormat != nullptr)
+	if (format == EolType::unknown)
 	{
-		if (format == EolType::unknown)
-		{
-			NppParameters *pNppParamInst = NppParameters::getInstance();
-			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
-			*pFormat = ndds._format;
-		}
-		else
-		{
-			*pFormat = format;
-		}
+		NppParameters *pNppParamInst = NppParameters::getInstance();
+		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
+		eolFormat = ndds._format;
+	}
+	else
+	{
+		eolFormat = format;
 	}
 
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);

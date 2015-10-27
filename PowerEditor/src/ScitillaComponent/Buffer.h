@@ -111,7 +111,7 @@ public:
 private:
 	~FileManager();
 	int detectCodepage(char* buf, size_t len);
-	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int& encoding, EolType* pFormat = nullptr);
+	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int & encoding, EolType & eolFormat);
 	LangType detectLanguageFromTextBegining(const unsigned char *data, unsigned int dataLen);
 
 

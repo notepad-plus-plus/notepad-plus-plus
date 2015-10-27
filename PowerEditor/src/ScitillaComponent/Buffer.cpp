@@ -1422,6 +1422,7 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 				}
 
                 isFirstTime = false;
+				UnicodeConvertor->setTotalDataLength(fileSize);
             }
 
 			if (encoding != -1)

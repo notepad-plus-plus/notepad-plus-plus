@@ -196,12 +196,12 @@ public:
 		doNotify(BufferChangeReadonly);
     }
 
-	EolType getFormat() const {
-		return _format;
+	EolType getEolFormat() const {
+		return _eolFormat;
 	}
 
-	void setFormat(EolType format) {
-		_format = format;
+	void setEolFormat(EolType format) {
+		_eolFormat = format;
 		doNotify(BufferChangeFormat);
 	}
 
@@ -365,7 +365,7 @@ private:
 	LangType _lang;
 	generic_string _userLangExt; // it's useful if only (_lang == L_USER)
 	bool _isDirty = false;
-	EolType _format = EolType::osdefault;
+	EolType _eolFormat = EolType::osdefault;
 	UniMode _unicodeMode;
 	int _encoding = -1;
 	bool _isUserReadOnly = false;

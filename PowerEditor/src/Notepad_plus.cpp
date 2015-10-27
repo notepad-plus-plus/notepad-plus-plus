@@ -1820,8 +1820,8 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
 
-	enableConvertMenuItems(curBuf->getFormat());
-	checkUnicodeMenuItems(/*curBuf->getUnicodeMode()*/);
+	enableConvertMenuItems(curBuf->getEolFormat());
+	checkUnicodeMenuItems();
 	checkLangsMenu(-1);
 
 	if (_pAnsiCharPanel)
@@ -3498,7 +3498,7 @@ void Notepad_plus::staticCheckMenuAndTB() const
 void Notepad_plus::dynamicCheckMenuAndTB() const
 {
 	//Format conversion
-	enableConvertMenuItems(_pEditView->getCurrentBuffer()->getFormat());
+	enableConvertMenuItems(_pEditView->getCurrentBuffer()->getEolFormat());
 	checkUnicodeMenuItems();
 }
 
@@ -4720,8 +4720,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		updateStatusBar();
 		checkUnicodeMenuItems(/*buffer->getUnicodeMode()*/);
 		setUniModeText();
-		setDisplayFormat(buffer->getFormat());
-		enableConvertMenuItems(buffer->getFormat());
+		setDisplayFormat(buffer->getEolFormat());
+		enableConvertMenuItems(buffer->getEolFormat());
 	}
 }
 
@@ -4749,8 +4749,8 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	updateStatusBar();
 	checkUnicodeMenuItems(/*buf->getUnicodeMode()*/);
 	setUniModeText();
-	setDisplayFormat(buf->getFormat());
-	enableConvertMenuItems(buf->getFormat());
+	setDisplayFormat(buf->getEolFormat());
+	enableConvertMenuItems(buf->getEolFormat());
 	generic_string dir(buf->getFullPathName());
 	PathRemoveFileSpec(dir);
 	setWorkingDir(dir.c_str());

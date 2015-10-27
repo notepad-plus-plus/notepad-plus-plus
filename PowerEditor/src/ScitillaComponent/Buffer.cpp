@@ -91,7 +91,7 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	NppParameters* pNppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings& ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
 
-	_format = ndds._format;
+	_eolFormat = ndds._format;
 	_unicodeMode = ndds._unicodeMode;
 	_encoding = ndds._codepage;
 	if (_encoding != -1)
@@ -640,7 +640,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
             buf->setUnicodeMode(uniCookie);
 		}
 
-		buf->setFormat(bkformat);
+		buf->setEolFormat(bkformat);
 
 		//determine buffer properties
 		++_nextBufferID;

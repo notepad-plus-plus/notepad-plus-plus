@@ -217,7 +217,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 		{
 			const NewDocDefaultSettings & ndds = (NppParameters::getInstance()->getNppGUI()).getNewDocDefaultSettings();
 			buf->setEncoding(ndds._codepage);
-			buf->setFormat(ndds._format);
+			buf->setEolFormat(ndds._format);
 			buf->setUnicodeMode(ndds._unicodeMode);
 			buf->setLangType(ndds._lang);
 		}

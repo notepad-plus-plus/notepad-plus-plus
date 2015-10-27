@@ -318,7 +318,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return -1;
 			BufferID id = (BufferID)wParam;
 			Buffer * b = MainFileManager->getBufferByID(id);
-			return static_cast<LRESULT>(b->getFormat());
+			return static_cast<LRESULT>(b->getEolFormat());
 		}
 
 		case NPPM_SETBUFFERFORMAT:
@@ -335,7 +335,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			BufferID id = (BufferID)wParam;
 			Buffer * b = MainFileManager->getBufferByID(id);
-			b->setFormat(newFormat);
+			b->setEolFormat(newFormat);
 			return TRUE;
 		}
 

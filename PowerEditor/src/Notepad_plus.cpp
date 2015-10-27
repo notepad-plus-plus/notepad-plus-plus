@@ -2117,15 +2117,15 @@ void Notepad_plus::setLangStatus(LangType langType)
 }
 
 
-void Notepad_plus::setDisplayFormat(FormatType format)
+void Notepad_plus::setDisplayFormat(EolType format)
 {
 	const TCHAR* str = TEXT("??");
 	switch (format)
 	{
-		case FormatType::windows: str = TEXT("Dos\\Windows"); break;
-		case FormatType::macos:   str = TEXT("Macintosh"); break;
-		case FormatType::unix:    str = TEXT("UNIX"); break;
-		case FormatType::unknown: str = TEXT("Unknown"); assert(false);  break;
+		case EolType::windows: str = TEXT("Dos\\Windows"); break;
+		case EolType::macos:   str = TEXT("Macintosh"); break;
+		case EolType::unix:    str = TEXT("UNIX"); break;
+		case EolType::unknown: str = TEXT("Unknown"); assert(false);  break;
 	}
 	_statusBar.setText(str, STATUSBAR_EOF_FORMAT);
 }
@@ -3503,11 +3503,11 @@ void Notepad_plus::dynamicCheckMenuAndTB() const
 }
 
 
-void Notepad_plus::enableConvertMenuItems(FormatType format) const
+void Notepad_plus::enableConvertMenuItems(EolType format) const
 {
-	enableCommand(IDM_FORMAT_TODOS,  (format != FormatType::windows), MENU);
-	enableCommand(IDM_FORMAT_TOUNIX, (format != FormatType::unix),    MENU);
-	enableCommand(IDM_FORMAT_TOMAC,  (format != FormatType::macos),   MENU);
+	enableCommand(IDM_FORMAT_TODOS, (format != EolType::windows), MENU);
+	enableCommand(IDM_FORMAT_TOUNIX, (format != EolType::unix), MENU);
+	enableCommand(IDM_FORMAT_TOMAC, (format != EolType::macos), MENU);
 }
 
 

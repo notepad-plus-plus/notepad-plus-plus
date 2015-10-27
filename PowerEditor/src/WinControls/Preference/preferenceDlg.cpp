@@ -1107,16 +1107,16 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 			int ID2Check = IDC_RADIO_F_WIN;
 			switch (ndds._format)
 			{
-				case FormatType::windows:
+				case EolType::windows:
 					ID2Check = IDC_RADIO_F_WIN;
 					break;
-				case FormatType::macos:
+				case EolType::macos:
 					ID2Check = IDC_RADIO_F_MAC;
 					break;
-				case FormatType::unix:
+				case EolType::unix:
 					ID2Check = IDC_RADIO_F_UNIX;
 					break;
-				case FormatType::unknown:
+				case EolType::unknown:
 					assert(false);
 					break;
 			}
@@ -1255,17 +1255,17 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 
 				case IDC_RADIO_F_MAC:
 				{
-					ndds._format = FormatType::macos;
+					ndds._format = EolType::macos;
 					return TRUE;
 				}
 				case IDC_RADIO_F_UNIX:
 				{
-					ndds._format = FormatType::unix;
+					ndds._format = EolType::unix;
 					return TRUE;
 				}
 				case IDC_RADIO_F_WIN:
 				{
-					ndds._format = FormatType::windows;
+					ndds._format = EolType::windows;
 					return TRUE;
 				}
 

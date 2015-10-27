@@ -326,8 +326,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (!wParam)
 				return FALSE;
 
-			FormatType newFormat = convertIntToFormatType(static_cast<int>(lParam), FormatType::unknown);
-			if (FormatType::unknown == newFormat)
+			EolType newFormat = convertIntToFormatType(static_cast<int>(lParam), EolType::unknown);
+			if (EolType::unknown == newFormat)
 			{
 				assert(false and "invalid buffer format message");
 				return FALSE;

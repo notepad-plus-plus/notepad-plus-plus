@@ -4134,17 +4134,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			int i;
 			if (element->Attribute(TEXT("format"), &i))
 			{
-				FormatType newFormat = FormatType::osdefault;
+				EolType newFormat = EolType::osdefault;
 				switch (i)
 				{
-					case static_cast<LPARAM>(FormatType::windows) :
-						newFormat = FormatType::windows;
+					case static_cast<LPARAM>(EolType::windows) :
+						newFormat = EolType::windows;
 						break;
-					case static_cast<LPARAM>(FormatType::macos) :
-						newFormat = FormatType::macos;
+					case static_cast<LPARAM>(EolType::macos) :
+						newFormat = EolType::macos;
 						break;
-					case static_cast<LPARAM>(FormatType::unix) :
-						newFormat = FormatType::unix;
+					case static_cast<LPARAM>(EolType::unix) :
+						newFormat = EolType::unix;
 						break;
 					default:
 						assert(false and "invalid buffer format - fallback to default");
@@ -6462,16 +6462,16 @@ void Date::now()
 }
 
 
-FormatType convertIntToFormatType(int value, FormatType defvalue)
+EolType convertIntToFormatType(int value, EolType defvalue)
 {
 	switch (value)
 	{
-		case static_cast<LPARAM>(FormatType::windows):
-			return FormatType::windows;
-		case static_cast<LPARAM>(FormatType::macos):
-			return FormatType::macos;
-		case static_cast<LPARAM>(FormatType::unix):
-			return FormatType::unix;
+		case static_cast<LPARAM>(EolType::windows) :
+			return EolType::windows;
+		case static_cast<LPARAM>(EolType::macos) :
+				return EolType::macos;
+		case static_cast<LPARAM>(EolType::unix) :
+			return EolType::unix;
 		default:
 			return defvalue;
 	}

@@ -93,7 +93,7 @@ const int TAB_MULTILINE = 128;	 //  1000 0000
 const int TAB_HIDE = 256;		  //1 0000 0000
 
 
-enum class FormatType: std::uint8_t
+enum class EolType: std::uint8_t
 {
 	windows,
 	macos,
@@ -109,7 +109,7 @@ enum class FormatType: std::uint8_t
 ** \param value An arbitrary int
 ** \param defvalue The default value to use if an invalid value is provided
 */
-FormatType convertIntToFormatType(int value, FormatType defvalue = FormatType::osdefault);
+EolType convertIntToFormatType(int value, EolType defvalue = EolType::osdefault);
 
 
 
@@ -571,7 +571,7 @@ private :
 
 struct NewDocDefaultSettings final
 {
-	FormatType _format = FormatType::osdefault;
+	EolType _format = EolType::osdefault;
 	UniMode _unicodeMode = uniCookie;
 	bool _openAnsiAsUtf8 = true;
 	LangType _lang = L_TEXT;

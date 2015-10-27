@@ -1704,9 +1704,9 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_TOUNIX:
 		case IDM_FORMAT_TOMAC:
 		{
-			FormatType newFormat = (id == IDM_FORMAT_TODOS)
-				? FormatType::windows
-				: (id == IDM_FORMAT_TOUNIX) ? FormatType::unix : FormatType::macos;
+			EolType newFormat = (id == IDM_FORMAT_TODOS)
+				? EolType::windows
+				: (id == IDM_FORMAT_TOUNIX) ? EolType::unix : EolType::macos;
 
 			Buffer* buf = _pEditView->getCurrentBuffer();
 			buf->setFormat(newFormat);

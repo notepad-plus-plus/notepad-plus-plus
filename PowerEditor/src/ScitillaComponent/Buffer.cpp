@@ -54,7 +54,7 @@ long Buffer::_recentTagCtr = 0;
 namespace // anonymous
 {
 
-	static FormatType getEOLFormatForm(const char* const data, size_t length, FormatType defvalue = FormatType::osdefault)
+	static EolType getEOLFormatForm(const char* const data, size_t length, EolType defvalue = EolType::osdefault)
 	{
 		assert(length == 0 or data != nullptr && "invalid buffer for getEOLFormatForm()");
 
@@ -63,13 +63,13 @@ namespace // anonymous
 			if (data[i] == CR)
 			{
 				if (i + 1 < length && data[i + 1] == LF)
-					return FormatType::windows;
+					return EolType::windows;
 
-				return FormatType::macos;
+				return EolType::macos;
 			}
 
 			if (data[i] == LF)
-				return FormatType::unix;
+				return EolType::unix;
 		}
 
 		return defvalue; // fallback unknown
@@ -592,7 +592,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
 
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
-	FormatType bkformat = FormatType::unknown;
+	EolType bkformat = EolType::unknown;
 	LangType detectedLang = L_TEXT;
 	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, detectedLang, encoding, &bkformat);
 	if (res)
@@ -663,7 +663,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
 	int encoding = buf->getEncoding();
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
-	FormatType bkformat;
+	EolType bkformat;
 	LangType lang = buf->getLangType();
 
 
@@ -682,7 +682,7 @@ bool FileManager::reloadBuffer(BufferID id)
 			
 			if (nullptr != UnicodeConvertor.getNewBuf())
 			{
-				FormatType format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize(),ndds._format);
+				EolType format = getEOLFormatForm(UnicodeConvertor.getNewBuf(), UnicodeConvertor.getNewSize(), ndds._format);
 				buf->setFormat(format);
 			}
 			else{
@@ -1340,7 +1340,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * UnicodeConvertor, LangType & language, int & encoding, FormatType* pFormat)
+inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType* pFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
@@ -1395,7 +1395,7 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 		_pscratchTilla->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 
 	bool success = true;
-	FormatType format = FormatType::unknown;
+	EolType format = EolType::unknown;
 	__try
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
@@ -1452,15 +1452,15 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, (LPARAM)newData);
 				}
 
-				if (format == FormatType::unknown)
-					format = getEOLFormatForm(data, lenFile, FormatType::unknown);
+				if (format == EolType::unknown)
+					format = getEOLFormatForm(data, lenFile, EolType::unknown);
 			}
 			else
 			{
-				lenConvert = UnicodeConvertor->convert(data, lenFile);
-				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
-				if (format == FormatType::unknown)
-					format = getEOLFormatForm(UnicodeConvertor->getNewBuf(), UnicodeConvertor->getNewSize(), FormatType::unknown);
+				lenConvert = unicodeConvertor->convert(data, lenFile);
+				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(unicodeConvertor->getNewBuf()));
+				if (format == EolType::unknown)
+					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
 			}
 
 			if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)
@@ -1486,7 +1486,7 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 	// broadcast the format
 	if (pFormat != nullptr)
 	{
-		if (format == FormatType::unknown)
+		if (format == EolType::unknown)
 		{
 			NppParameters *pNppParamInst = NppParameters::getInstance();
 			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format

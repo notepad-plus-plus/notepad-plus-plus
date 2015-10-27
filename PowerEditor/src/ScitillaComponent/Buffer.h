@@ -111,7 +111,7 @@ public:
 private:
 	~FileManager();
 	int detectCodepage(char* buf, size_t len);
-	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int& encoding, FormatType* pFormat = nullptr);
+	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int& encoding, EolType* pFormat = nullptr);
 	LangType detectLanguageFromTextBegining(const unsigned char *data, unsigned int dataLen);
 
 
@@ -196,11 +196,11 @@ public:
 		doNotify(BufferChangeReadonly);
     }
 
-	FormatType getFormat() const {
+	EolType getFormat() const {
 		return _format;
 	}
 
-	void setFormat(FormatType format) {
+	void setFormat(EolType format) {
 		_format = format;
 		doNotify(BufferChangeFormat);
 	}
@@ -365,7 +365,7 @@ private:
 	LangType _lang;
 	generic_string _userLangExt; // it's useful if only (_lang == L_USER)
 	bool _isDirty = false;
-	FormatType _format = FormatType::osdefault;
+	EolType _format = EolType::osdefault;
 	UniMode _unicodeMode;
 	int _encoding = -1;
 	bool _isUserReadOnly = false;

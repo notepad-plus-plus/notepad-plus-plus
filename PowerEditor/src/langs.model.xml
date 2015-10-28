@@ -36,7 +36,7 @@
         <Language name="batch" ext="bat cmd nt" commentLine="REM">
             <Keywords name="instre1">rem set if else exist errorlevel for in do break call copy chcp cd chdir choice cls country ctty date del erase dir echo exit goto loadfix loadhigh mkdir md move path pause prompt rename ren rmdir rd shift time type ver verify vol com con lpt nul defined not errorlevel cmdextversion</Keywords>
         </Language>
-        <Language name="c" ext="c" commentLine="//" commentStart="/*" commentEnd="*/">
+        <Language name="c" ext="c lex" commentLine="//" commentStart="/*" commentEnd="*/">
             <Keywords name="instre1">if else switch case default break goto return for while do continue typedef sizeof NULL</Keywords>
             <Keywords name="type1">void struct union enum char short int long double float signed unsigned const static extern auto register volatile</Keywords>
         </Language>

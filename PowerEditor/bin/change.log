@@ -1,23 +1,14 @@
-Notepad++ v6.8.5 bug-fixes:
-1.  Fix Javascript autocompletion not working regression.
+Notepad++ v6.8.6 bug-fixes and enhancements:
 
-
-Notepad++ v6.8.4 bug-fixes and enhancements:
-
-1.  Improve document switching performance while folding restoring.
-2.  Enhance Javascript syntax highlighting: 2 groups of keywords more for syntax highlighting customization.
-3.  Improve auto-insert usability: the open symbols (", ', (, [ and { ) triggers the close symbols according to the context.
-4.  Apply new added language auto-detection (for php, xml, html and bash) in the case of unknown file extension.
-4.  Add JSON language support.
-5.  Fix macro playback inserting/removing characters randomly.
-6.  Fix Save All button is still enabled problem while no file to save.
-7.  Make file save dialog modern style.
-8.  Fix auto-insert for xml comment incorrect insertion.
-9.  Fix user command save problem on exit.
-10. Fix macro save problem on exit.
-11. Fix the restoring from system tray problem while running in admin mode.
-12. Fix smart highlighting not working in some case.
-13. Enlarge tabbar height.
+1.  Fix function list not working for Javascript regression.
+2.  Fix maintain indent not working in javascript regression.
+3.  Improve the language detection at the beginning of file content.
+4.  Fix possible file corruption during macro playback.
+5.  Fix wrong EOL mode for opening/reloading big files.
+6.  Fix loading 3 bytes file error due to bad encoding detection (UTF16 w/o BOM).
+7.  Fix DocMap not updating issue when switching to user defined language or external lexer.
+8.  Fix reload file issue: document marked as unsaved after reloading.
+9.  Enhance the detection of EOL: if a document has no EOL for detecting, use EOL of new document settings.
 
 
 Included plugins:

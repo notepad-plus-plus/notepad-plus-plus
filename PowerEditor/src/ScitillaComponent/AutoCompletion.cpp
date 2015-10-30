@@ -392,8 +392,10 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
 
-	for (int i = 0; i < 4; ++i) {
-		if (_strnicmp(tagHead + 1, disallowed_tags[i], strlen(disallowed_tags[i])) == 0) {
+	for (int i = 0; i < 4; ++i)
+	{
+		if (_strnicmp(tagHead + 1, disallowed_tags[i], strlen(disallowed_tags[i])) == 0)
+		{
 			return;
 		}
 	}

@@ -369,6 +369,7 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	TCHAR tag2find[] = TEXT("<[^\\s>]*");
+	char *disallowed_tags[] = {"br", "hr", "img", "link", "meta"};
 	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
 
 	if (targetStart == -1 || targetStart == -2)
@@ -382,14 +383,22 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (size_t(foundTextLen) > closeTagSize - 2) // buffer size is not large enough. -2 for '/' & '\0'
 		return;
 
-	char tagHead[5];
-	_pEditView->getText(tagHead, targetStart, targetStart+4);
+	char tagHead[10];
+	_pEditView->getText(tagHead, targetStart, targetStart+9);
 
 	if (tagHead[1] == '/') // "</toto>" will be ignored
 		return;
 
 	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
+
+	for (int i = 0; i < 5; ++i)
+	{
+		if (_strnicmp(tagHead + 1, disallowed_tags[i], strlen(disallowed_tags[i])) == 0)
+		{
+			return;
+		}
+	}
 
 	char tagTail[2];
 	_pEditView->getText(tagTail, caretPos-2, caretPos-1);

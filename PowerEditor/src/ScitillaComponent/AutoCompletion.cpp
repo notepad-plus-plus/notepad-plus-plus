@@ -364,11 +364,12 @@ bool AutoCompletion::showFunctionComplete()
 	return false;
 }
 
-void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos)
+void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos, bool isHTML)
 {
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	TCHAR tag2find[] = TEXT("<[^\\s>]*");
+	
 	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
 
 	if (targetStart == -1 || targetStart == -2)
@@ -382,14 +383,24 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (size_t(foundTextLen) > closeTagSize - 2) // buffer size is not large enough. -2 for '/' & '\0'
 		return;
 
-	char tagHead[5];
-	_pEditView->getText(tagHead, targetStart, targetStart+4);
+	char tagHead[10];
+	_pEditView->getText(tagHead, targetStart, targetStart+9);
 
 	if (tagHead[1] == '/') // "</toto>" will be ignored
 		return;
 
 	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
+
+	if (isHTML) // for HTML: "br", "hr", "img", "link" and "meta" will be ignored
+	{
+		char *disallowed_tags[] = { "br", "hr", "img", "link", "meta" };
+		for (int i = 0; i < 5; ++i)
+		{
+			if (strnicmp(tagHead + 1, disallowed_tags[i], strlen(disallowed_tags[i])) == 0)
+				return;
+		}
+	}
 
 	char tagTail[2];
 	_pEditView->getText(tagTail, caretPos-2, caretPos-1);
@@ -615,7 +626,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		{
 			if (matchedPairConf._doHtmlXmlTag && (_curLang == L_HTML || _curLang == L_XML))
 			{
-				getCloseTag(closeTag, closeTagLen, caretPos);
+				getCloseTag(closeTag, closeTagLen, caretPos, _curLang == L_HTML);
 				if (closeTag[0] != '\0')
 					matchedChars = closeTag;
 			}

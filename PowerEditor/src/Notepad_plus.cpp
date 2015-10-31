@@ -47,6 +47,7 @@
 #include "ProjectPanel.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "LongRunningOperation.h"
 
 using namespace std;
 
@@ -1939,6 +1940,8 @@ void Notepad_plus::copyMarkedLines()
 
 void Notepad_plus::cutMarkedLines()
 {
+	LongRunningOperation op;
+
 	int lastLine = _pEditView->lastZeroBasedLineNumber();
 	generic_string globalStr = TEXT("");
 
@@ -1959,6 +1962,8 @@ void Notepad_plus::cutMarkedLines()
 
 void Notepad_plus::deleteMarkedLines(bool isMarked)
 {
+	LongRunningOperation op;
+
 	int lastLine = _pEditView->lastZeroBasedLineNumber();
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
@@ -1972,6 +1977,8 @@ void Notepad_plus::deleteMarkedLines(bool isMarked)
 
 void Notepad_plus::pasteToMarkedLines()
 {
+	LongRunningOperation op;
+
 	int clipFormat;
 	clipFormat = CF_UNICODETEXT;
 

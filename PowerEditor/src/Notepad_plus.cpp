@@ -4839,13 +4839,18 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 			int iView = currentView();	//store view since fileswitch can cause it to change
 			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
 
-            if (cn == -1)
-			_pEditView->execute(SCI_GOTOLINE, ln-1);
+			if (cn == -1)
+			{
+				_pEditView->execute(SCI_GOTOLINE, ln-1);
+			}
             else
             {
                 int pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
                 _pEditView->execute(SCI_GOTOPOS, pos);
             }
+
+			_pEditView->scrollPosToCenter(_pEditView->execute(SCI_GETCURRENTPOS));
+
 			switchEditViewTo(iView);	//restore view
 		}
 	}

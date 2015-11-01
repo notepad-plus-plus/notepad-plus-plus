@@ -447,7 +447,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				int xPos = LOWORD(lParam);
 				int yPos = HIWORD(lParam);
 
-				if (_closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect))
+				if (_closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
 					_whichCloseClickDown = getTabIndexAt(xPos, yPos);
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REFRESHTABAR, 0);
@@ -524,7 +524,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				if (_currentHoverTabItem != -1)
 				{
 					::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, (LPARAM)&_currentHoverTabRect);
-					_isCloseHover = _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect);
+					_isCloseHover = _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical);
 				}
 				else
 				{
@@ -588,7 +588,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			if (_drawTabCloseButton)
 			{
-				if ((_whichCloseClickDown == currentTabOn) && _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect))
+				if ((_whichCloseClickDown == currentTabOn) && _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical))
 				{
 					TBHDR nmhdr;
 					nmhdr.hdr.hwndFrom = _hSelf;
@@ -698,23 +698,63 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	HBRUSH hBrush = ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
 	::FillRect(hDC, &rect, hBrush);
 	::DeleteObject((HGDIOBJ)hBrush);
+	
+	// equalize drawing areas of active and inactive tabs
+	int paddingDynamicTwoX = NppParameters::getInstance()->_dpiManager.scaleX(2);
+	int paddingDynamicTwoY = NppParameters::getInstance()->_dpiManager.scaleY(2);
+	if (isSelected)
+	{
+		// the drawing area of the active tab extends on all borders by default
+		rect.top += ::GetSystemMetrics(SM_CYEDGE);
+		rect.bottom -= ::GetSystemMetrics(SM_CYEDGE);
+		rect.left += ::GetSystemMetrics(SM_CXEDGE);
+		rect.right -= ::GetSystemMetrics(SM_CXEDGE);
+		// the active tab is also slightly higher by default (use this to shift the tab cotent up bx two pixels if tobBar is not drawn)
+		if (_isVertical)
+		{
+			rect.left += _drawTopBar ? paddingDynamicTwoX : 0;
+			rect.right -= _drawTopBar ? 0 : paddingDynamicTwoX;
+		}
+		else
+		{
+			rect.top += _drawTopBar ? paddingDynamicTwoY : 0;
+			rect.bottom -= _drawTopBar ? 0 : paddingDynamicTwoY;
+		}
+	}
+	else
+	{
+		if (_isVertical)
+		{
+			rect.left += paddingDynamicTwoX;
+			rect.right += paddingDynamicTwoX;
+			rect.top -= paddingDynamicTwoY;
+			rect.bottom += paddingDynamicTwoY;
+		}
+		else
+		{
+			rect.left -= paddingDynamicTwoX;
+			rect.right += paddingDynamicTwoX;
+			rect.top += paddingDynamicTwoY;
+			rect.bottom += paddingDynamicTwoY;
+		}
+	}
 
+	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
+	RECT barRect = rect;
 	if (isSelected)
 	{
 		if (_drawTopBar)
 		{
-			RECT barRect = rect;
-			int paddingDynamicSix = NppParameters::getInstance()->_dpiManager.scaleX(6);
-			int paddingDynamicTwo = NppParameters::getInstance()->_dpiManager.scaleX(2);
+			int topBarHeight = NppParameters::getInstance()->_dpiManager.scaleX(4);
 			if (_isVertical)
 			{
-				barRect.right = barRect.left + paddingDynamicSix;
-				rect.left += paddingDynamicTwo;
+				barRect.left -= NppParameters::getInstance()->_dpiManager.scaleX(2);
+				barRect.right = barRect.left + topBarHeight;
 			}
 			else
 			{
-				barRect.bottom = barRect.top + paddingDynamicSix;
-				rect.top += paddingDynamicTwo;
+				barRect.top -= NppParameters::getInstance()->_dpiManager.scaleY(2);
+				barRect.bottom = barRect.top + topBarHeight;
 			}
 
 			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, (LPARAM)_hSelf))
@@ -730,33 +770,15 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	{
 		if (_drawInactiveTab)
 		{
-			RECT barRect = rect;
-
 			hBrush = ::CreateSolidBrush(_inactiveBgColour);
 			::FillRect(hDC, &barRect, hBrush);
 			::DeleteObject((HGDIOBJ)hBrush);
 		}
 	}
 
+	// draw close button
 	if (_drawTabCloseButton)
 	{
-		RECT closeButtonRect = _closeButtonZone.getButtonRectFrom(rect);
-		if (isSelected)
-		{
-			if (!_isVertical)
-			{
-				closeButtonRect.left -= 2;
-			}
-		}
-		else
-		{
-			if (_isVertical)
-				closeButtonRect.left += 2;
-			else
-				closeButtonRect.left += NppParameters::getInstance()->_dpiManager.scaleX(2);
-		}
-
-
 		// 3 status for each inactive tab and selected tab close item :
 		// normal / hover / pushed
 		int idCloseImg;
@@ -768,7 +790,6 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		else
 			idCloseImg = isSelected?IDR_CLOSETAB:IDR_CLOSETAB_INACT;
 
-
 		HDC hdcMemory;
 		hdcMemory = ::CreateCompatibleDC(hDC);
 		HBITMAP hBmp = ::LoadBitmap(_hInst, MAKEINTRESOURCE(idCloseImg));
@@ -778,24 +799,16 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		int bmDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(bmp.bmWidth);
 		int bmDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(bmp.bmHeight);
 
-		if (_isVertical)
-			rect.top = closeButtonRect.top + bmDpiDynamicalHeight;
-		else
-			rect.right = closeButtonRect.left;
-
+		RECT buttonRect = _closeButtonZone.getButtonRectFrom(rect, _isVertical);
 
 		::SelectObject(hdcMemory, hBmp);
-		::StretchBlt(hDC, closeButtonRect.left, closeButtonRect.top, bmDpiDynamicalWidth, bmDpiDynamicalHeight, hdcMemory, 0, 0, bmp.bmWidth, bmp.bmHeight, SRCCOPY);
+		::StretchBlt(hDC, buttonRect.left, buttonRect.top, bmDpiDynamicalWidth, bmDpiDynamicalHeight, hdcMemory, 0, 0, bmp.bmWidth, bmp.bmHeight, SRCCOPY);
 		::DeleteDC(hdcMemory);
 		::DeleteObject(hBmp);
 	}
 
-	// Draw image
+	// draw image
 	HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TCM_GETIMAGELIST, 0, 0);
-
-	SIZE charPixel;
-	::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
-	int spaceUnit = charPixel.cx;
 
 	if (hImgLst && tci.iImage >= 0)
 	{
@@ -804,29 +817,26 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 		RECT& imageRect = info.rcImage;
 
-		int yPos = 0;
-		int xPos = 0;
-		if (_isVertical)
-			xPos = (rect.left + (rect.right - rect.left) / 2 + NppParameters::getInstance()->_dpiManager.scaleX(2)) - (imageRect.right - imageRect.left) / 2;
-		else
-			yPos = (rect.top + (rect.bottom - rect.top) / 2 + (isSelected ? 0 : NppParameters::getInstance()->_dpiManager.scaleX(2))) - (imageRect.bottom - imageRect.top) / 2;
-
-		int marge = spaceUnit;
-
+		int fromBorder;
+		int xPos, yPos;
 		if (_isVertical)
 		{
-			rect.bottom -= imageRect.bottom - imageRect.top;
-			ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, rect.bottom - marge, isSelected?ILD_TRANSPARENT:ILD_SELECTED);
-			rect.bottom += marge;
+			fromBorder = (rect.right - rect.left - (imageRect.right - imageRect.left) + 1) / 2;
+			xPos = rect.left + fromBorder;
+			yPos = rect.bottom - fromBorder - (imageRect.bottom - imageRect.top);
+			rect.bottom -= fromBorder + (imageRect.bottom - imageRect.top);
 		}
 		else
 		{
-			rect.left += marge;
-			ImageList_Draw(hImgLst, tci.iImage, hDC, rect.left, yPos, isSelected?ILD_TRANSPARENT:ILD_SELECTED);
-			rect.left += imageRect.right - imageRect.left;
+			fromBorder = (rect.bottom - rect.top - (imageRect.bottom - imageRect.top) + 1) / 2;
+			yPos = rect.top + fromBorder;
+			xPos = rect.left + fromBorder;
+			rect.left += fromBorder + (imageRect.right - imageRect.left);
 		}
+		ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, yPos, isSelected ? ILD_TRANSPARENT : ILD_SELECTED);
 	}
 
+	// draw text
 	bool isStandardSize = (::SendMessage(_hParent, NPPM_INTERNAL_ISTABBARREDUCED, 0, 0) == TRUE);
 
 	if (isStandardSize)
@@ -843,78 +853,62 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		else
 			SelectObject(hDC, _hLargeFont);
 	}
+	SIZE charPixel;
+	::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
+	int spaceUnit = charPixel.cx;
+
+	TEXTMETRIC textMetrics;
+	GetTextMetrics(hDC, &textMetrics);
+	int textHeight = textMetrics.tmHeight;
+	int textDescent = textMetrics.tmDescent;
 
 	int Flags = DT_SINGLELINE | DT_NOPREFIX;
 
+	// This code will read in one character at a time and remove every first ampersand (&).
+	// ex. If input "test && test &&& test &&&&" then output will be "test & test && test &&&".
+	// Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
 	TCHAR decodedLabel[MAX_PATH];
-
-	{
-		const TCHAR* in = label;
-		TCHAR* out = decodedLabel;
-
-		//This code will read in one character at a time and remove every first ampersand(&).
-		//ex. If input "test && test &&& test &&&&" then output will be "test & test && test &&&".
-		//Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
-
-		while (*in != 0)
+	const TCHAR* in = label;
+	TCHAR* out = decodedLabel;
+	while (*in != 0)
 		if (*in == '&')
-		while (*(++in) == '&')
-			*out++ = *in;
+			while (*(++in) == '&')
+				*out++ = *in;
 		else
 			*out++ = *in++;
-		*out = '\0';
-	}
+	*out = '\0';
 
-	if (_drawTabCloseButton)
+	if (_isVertical)
 	{
+		// center text horizontally (rotated text is positioned as if it were unrotated, therefore manual positioning is necessary)
 		Flags |= DT_LEFT;
-	}
-	else
-	{
-		if (!_isVertical)
-			Flags |= DT_CENTER;
-	}
-
-	// the following uses pixel values the fix alignments issues with DrawText
-	// and font's that are rotated 90 degrees
-	if (isSelected)
-	{
-		//COLORREF selectedColor = RGB(0, 0, 255);
-		::SetTextColor(hDC, _activeTextColour);
-
-		if (_isVertical)
-		{
-			rect.bottom -= NppParameters::getInstance()->_dpiManager.scaleY(2);
-			rect.left += ::GetSystemMetrics(SM_CXEDGE) + NppParameters::getInstance()->_dpiManager.scaleX(4);
-			rect.top    += (_drawTabCloseButton)?spaceUnit:0;
-
-			Flags |= DT_BOTTOM;
-		}
-		else
-		{
-			rect.top -= ::GetSystemMetrics(SM_CYEDGE);
-			rect.top += NppParameters::getInstance()->_dpiManager.scaleY(3);
-			rect.left += _drawTabCloseButton?spaceUnit:0;
-
-			Flags |= DT_VCENTER;
-		}
-	}
-	else
-	{
-		::SetTextColor(hDC, _inactiveTextColour);
-		if (_isVertical)
-		{
-			rect.top += NppParameters::getInstance()->_dpiManager.scaleY(2);
-			rect.bottom += NppParameters::getInstance()->_dpiManager.scaleY(4);
-			rect.left += ::GetSystemMetrics(SM_CXEDGE) + NppParameters::getInstance()->_dpiManager.scaleX(2);
-		}
-		else
-		{
-			rect.left   += (_drawTabCloseButton)?spaceUnit:0;
-		}
-
 		Flags |= DT_BOTTOM;
+		rect.left += (rect.right - rect.left - textHeight) / 2;
+		rect.bottom += textHeight;
+
+		// ignoring the descent when centering (text elements below the base line) is more pleasing to the eye
+		rect.left += textDescent / 2;
+		rect.right += textDescent / 2;
+
+		// 1 space distance to save icon
+		rect.bottom -= spaceUnit;
 	}
+	else
+	{
+		// center text vertically
+		Flags |= DT_LEFT;
+		Flags |= DT_VCENTER;
+
+		// ignoring the descent when centering (text elements below the base line) is more pleasing to the eye
+		rect.top += textDescent / 2;
+		rect.bottom += textDescent / 2;
+
+		// 1 space distance to save icon
+		rect.left += spaceUnit;
+	}
+
+	::SetTextColor(hDC, isSelected ? _activeTextColour : _inactiveTextColour);
+
 	::DrawText(hDC, decodedLabel, lstrlen(decodedLabel), &rect, Flags);
 	::RestoreDC(hDC, nSavedDC);
 }
@@ -1010,32 +1004,39 @@ void TabBarPlus::exchangeItemData(POINT point)
 
 CloseButtonZone::CloseButtonZone()
 {
+	// TODO: get width/height of close button dynamically
 	_width = NppParameters::getInstance()->_dpiManager.scaleX(11);
-	_hight = NppParameters::getInstance()->_dpiManager.scaleY(11);
-	_fromTop = NppParameters::getInstance()->_dpiManager.scaleY(5);
-	_fromRight = NppParameters::getInstance()->_dpiManager.scaleX(3);
+	_height = NppParameters::getInstance()->_dpiManager.scaleY(11);
 }
 
-
-bool CloseButtonZone::isHit(int x, int y, const RECT & testZone) const
+bool CloseButtonZone::isHit(int x, int y, const RECT & tabRect, bool isVertical) const
 {
-	if (((x + _width + _fromRight) < testZone.right) || (x > (testZone.right - _fromRight)))
-		return false;
+	RECT buttonRect = getButtonRectFrom(tabRect, isVertical);
 
-	if (((y - _hight - _fromTop) > testZone.top) || (y < (testZone.top + _fromTop)))
-		return false;
+	if (x >= buttonRect.left && x <= buttonRect.right && y >= buttonRect.top && y <= buttonRect.bottom)
+		return true;
 
-	return true;
+	return false;
 }
 
-
-RECT CloseButtonZone::getButtonRectFrom(const RECT & tabItemRect) const
+RECT CloseButtonZone::getButtonRectFrom(const RECT & tabRect, bool isVertical) const
 {
-	RECT rect;
-	rect.right = tabItemRect.right - _fromRight;
-	rect.left = rect.right - _width;
-	rect.top = tabItemRect.top + _fromTop;
-	rect.bottom = rect.top + _hight;
+	RECT buttonRect;
 
-	return rect;
+	int fromBorder;
+	if (isVertical)
+	{
+		fromBorder = (tabRect.right - tabRect.left - _width + 1) / 2;
+		buttonRect.left = tabRect.left + fromBorder;
+	}
+	else
+	{
+		fromBorder = (tabRect.bottom - tabRect.top - _height + 1) / 2;
+		buttonRect.left = tabRect.right - fromBorder - _width;
+	}
+	buttonRect.top = tabRect.top + fromBorder;
+	buttonRect.bottom = buttonRect.top + _height;
+	buttonRect.right = buttonRect.left + _width;
+
+	return buttonRect;
 }

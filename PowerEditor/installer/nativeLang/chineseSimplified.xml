@@ -29,7 +29,7 @@
                     <Item subMenuId="edit-comment" name="注释/取消注释" />
                     <Item subMenuId="edit-autoCompletion" name="自动完成" />
                     <Item subMenuId="edit-eolConversion" name="档案格式转换" />
-                    <Item subMenuId="edit-blankOperations" name="空白操作" />
+                    <Item subMenuId="edit-blankOperations" name="空白字符操作" />
                     <Item subMenuId="edit-pasteSpecial" name="选择性粘贴" />
                     <Item subMenuId="search-markAll" name="标记所有" />
                     <Item subMenuId="search-unmarkAll" name="清除颜色标记" />

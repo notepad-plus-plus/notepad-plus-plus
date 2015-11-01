@@ -1855,9 +1855,9 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	if (::SendMessage(_hParent, cmdid, 0, 0))
 	{
 		if(_findAllResult == 1)
-			wsprintf(_findAllResultStr, TEXT("1 hit"));
+			wsprintf(_findAllResultStr, TEXT("1 Hit"));
 		else
-			wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
+			wsprintf(_findAllResultStr, TEXT("%d Hits"), _findAllResult);
 		if (_findAllResult) 
 		{
 			focusOnFinder();

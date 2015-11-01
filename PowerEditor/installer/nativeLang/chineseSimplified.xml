@@ -24,7 +24,7 @@
                     <Item subMenuId="file-recentFiles" name="近期文件"/>
                     <Item subMenuId="edit-copyToClipboard" name="复制到剪切板" />
                     <Item subMenuId="edit-indent" name="缩进" />
-                    <Item subMenuId="edit-convertCaseTo" name="转换视图" />
+                    <Item subMenuId="edit-convertCaseTo" name="转换大小写" />
                     <Item subMenuId="edit-lineOperations" name="行操作" />
                     <Item subMenuId="edit-comment" name="注释/取消注释" />
                     <Item subMenuId="edit-autoCompletion" name="自动完成" />

@@ -424,6 +424,7 @@ Installation:
             <WordsStyle name="NUMBER" styleID="45" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="efc53d" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="47" fgColor="cbe248" bgColor="58693D" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="ffdc87" bgColor="6c7d51" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />

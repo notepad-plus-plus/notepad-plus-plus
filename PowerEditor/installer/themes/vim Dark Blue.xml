@@ -320,6 +320,7 @@
             <WordsStyle name="NUMBER" styleID="45" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="47" fgColor="000080" bgColor="000040" fontName="" fontStyle="3" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="FFA0A0" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="1" fontSize="" />

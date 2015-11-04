@@ -624,11 +624,6 @@ Section -"Notepad++" mainSection
 		MessageBox MB_OK "Due to the stability issue,$\nNppQCP.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
 		Delete "$INSTDIR\plugins\NppQCP.dll"
-		
-	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nDSpellCheck.dll will be moved to the directory $\"disabled$\"" /SD IDOK
-		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
-		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 	
 	
     ; Context Menu Management : removing old version of Context Menu module

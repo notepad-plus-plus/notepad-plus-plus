@@ -99,6 +99,14 @@
 #define UNICODE_NOCHAR                  0xFFFF
 #endif
 
+#ifndef IS_HIGH_SURROGATE
+#define IS_HIGH_SURROGATE(x)            ((x) >= SURROGATE_LEAD_FIRST && (x) <= SURROGATE_LEAD_LAST)
+#endif
+
+#ifndef IS_LOW_SURROGATE
+#define IS_LOW_SURROGATE(x)             ((x) >= SURROGATE_TRAIL_FIRST && (x) <= SURROGATE_TRAIL_LAST)
+#endif
+
 #ifndef MK_ALT
 #define MK_ALT 32
 #endif
@@ -188,6 +196,7 @@ class ScintillaWin :
 	public ScintillaBase {
 
 	bool lastKeyDownConsumed;
+	wchar_t lastHighSurrogateChar;
 
 	bool capturedMouse;
 	bool trackedMouseLeave;
@@ -245,6 +254,7 @@ class ScintillaWin :
 	virtual bool DragThreshold(Point ptStart, Point ptNow);
 	virtual void StartDrag();
 	int TargetAsUTF8(char *text);
+	void AddCharUTF16(wchar_t const *wcs, unsigned int wclen);
 	int EncodedFromUTF8(char *utf8, char *encoded) const;
 	sptr_t WndPaint(uptr_t wParam);
 
@@ -358,6 +368,7 @@ ATOM ScintillaWin::callClassAtom = 0;
 ScintillaWin::ScintillaWin(HWND hwnd) {
 
 	lastKeyDownConsumed = false;
+	lastHighSurrogateChar = 0;
 
 	capturedMouse = false;
 	trackedMouseLeave = false;
@@ -677,6 +688,25 @@ int ScintillaWin::TargetAsUTF8(char *text) {
 		return utf8Len;
 	}
 	return targetLength;
+}
+
+// Convert a UTF-16 string to UTF-8 and call AddCharUTF() on the result
+void ScintillaWin::AddCharUTF16(wchar_t const *wcs, unsigned int wclen)
+{
+	if (IsUnicodeMode()) {
+		// For a wide character version of the window:
+		char utfval[UTF8MaxBytes];
+		unsigned int len = UTF8Length(wcs, wclen);
+		UTF8FromUTF16(wcs, wclen, utfval, len);
+		AddCharUTF(utfval, len);
+	} else {
+		UINT cpDest = CodePageOfDocument();
+		char inBufferCP[20];
+		int size = ::WideCharToMultiByte(cpDest,
+			0, wcs, wclen, inBufferCP, sizeof(inBufferCP) - 1, 0, 0);
+		inBufferCP[size] = '\0';
+		AddCharUTF(inBufferCP, size);
+	}
 }
 
 // Translates a nul terminated UTF8 string into the document encoding.
@@ -1398,40 +1428,32 @@ sptr_t ScintillaWin::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam
 
 		case WM_CHAR:
 			if (((wParam >= 128) || !iscntrl(static_cast<int>(wParam))) || !lastKeyDownConsumed) {
-				wchar_t wcs[2] = {static_cast<wchar_t>(wParam), 0};
-				if (IsUnicodeMode()) {
-					// For a wide character version of the window:
-					char utfval[UTF8MaxBytes];
-					unsigned int len = UTF8Length(wcs, 1);
-					UTF8FromUTF16(wcs, 1, utfval, len);
-					AddCharUTF(utfval, len);
-				} else {
-					UINT cpDest = CodePageOfDocument();
-					char inBufferCP[20];
-					int size = ::WideCharToMultiByte(cpDest,
-						0, wcs, 1, inBufferCP, sizeof(inBufferCP) - 1, 0, 0);
-					inBufferCP[size] = '\0';
-					AddCharUTF(inBufferCP, size);
+				wchar_t wcs[3] = {static_cast<wchar_t>(wParam), 0};
+				unsigned int wclen = 1;
+				if (IS_HIGH_SURROGATE(wcs[0])) {
+					// If this is a high surrogate character, we need a second one
+					lastHighSurrogateChar = wcs[0];
+					return 0;
+				} else if (IS_LOW_SURROGATE(wcs[0])) {
+					wcs[1] = wcs[0];
+					wcs[0] = lastHighSurrogateChar;
+					lastHighSurrogateChar = 0;
+					wclen = 2;
 				}
+				AddCharUTF16(wcs, wclen);
 			}
 			return 0;
 
 		case WM_UNICHAR:
 			if (wParam == UNICODE_NOCHAR) {
-				return IsUnicodeMode() ? 1 : 0;
+				return TRUE;
 			} else if (lastKeyDownConsumed) {
 				return 1;
 			} else {
-				if (IsUnicodeMode()) {
-					char utfval[UTF8MaxBytes];
-					wchar_t wcs[2] = {static_cast<wchar_t>(wParam), 0};
-					unsigned int len = UTF8Length(wcs, 1);
-					UTF8FromUTF16(wcs, 1, utfval, len);
-					AddCharUTF(utfval, len);
-					return 1;
-				} else {
-					return 0;
-				}
+				wchar_t wcs[3] = {0};
+				unsigned int wclen = UTF16FromUTF32Character(wParam, wcs);
+				AddCharUTF16(wcs, wclen);
+				return FALSE;
 			}
 
 		case WM_SYSKEYDOWN:

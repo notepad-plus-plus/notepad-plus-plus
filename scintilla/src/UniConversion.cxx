@@ -17,10 +17,6 @@ using namespace Scintilla;
 namespace Scintilla {
 #endif
 
-enum { SURROGATE_TRAIL_FIRST = 0xDC00 };
-enum { SURROGATE_TRAIL_LAST = 0xDFFF };
-enum { SUPPLEMENTAL_PLANE_FIRST = 0x10000 };
-
 unsigned int UTF8Length(const wchar_t *uptr, unsigned int tlen) {
 	unsigned int len = 0;
 	for (unsigned int i = 0; i < tlen && uptr[i];) {

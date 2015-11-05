@@ -664,8 +664,12 @@ Section -"Notepad++" mainSection
 	UserInfo::GetAccountType
 	Pop $1
 	StrCmp $1 "Admin" 0 +2
-	
 	SetShellVarContext all
+	
+	; set the shortcuts working directory
+	; http://nsis.sourceforge.net/Docs/Chapter4.html#createshortcut
+	SetOutPath "$INSTDIR\"
+	
 	; add all the npp shortcuts for all user or current user
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"

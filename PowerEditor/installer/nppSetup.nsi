@@ -306,7 +306,7 @@ Function ExtraOptions
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
-	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\\notepad++\\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
+	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\notepad++\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
 	Pop $PluginLoadFromUserDataCheckboxHandle
 	${NSD_OnClick} $PluginLoadFromUserDataCheckboxHandle OnChange_PluginLoadFromUserDataCheckBox
 	
@@ -314,7 +314,7 @@ Function ExtraOptions
 	Pop $ShortcutCheckboxHandle
 	StrCmp $WinVer "8" 0 +2
 	${NSD_Check} $ShortcutCheckboxHandle
-	${NSD_OnClick} $ShortcutCheckboxHandle ShortcutOnChange_OldIconCheckBox
+	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
 
 	${NSD_CreateCheckbox} 0 170 100% 30u "Use the old, obsolete and monstrous icon$\nI won't blame you if you want to get the old icon back :)"
 	Pop $OldIconCheckboxHandle
@@ -325,8 +325,8 @@ FunctionEnd
 
 Var noUserDataChecked
 Var allowPluginLoadFromUserDataChecked
-Var isOldIconChecked
 Var createShortcutChecked
+Var isOldIconChecked
 
 ; TODO for optional arg
 ;Var params
@@ -340,12 +340,12 @@ Function OnChange_PluginLoadFromUserDataCheckBox
 	${NSD_GetState} $PluginLoadFromUserDataCheckboxHandle $allowPluginLoadFromUserDataChecked
 FunctionEnd
 
-Function OnChange_OldIconCheckBox
-	${NSD_GetState} $OldIconCheckboxHandle $isOldIconChecked
+Function OnChange_ShortcutCheckBox
+	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
 FunctionEnd
 
-Function ShortcutOnChange_OldIconCheckBox
-	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+Function OnChange_OldIconCheckBox
+	${NSD_GetState} $OldIconCheckboxHandle $isOldIconChecked
 FunctionEnd
 
 
@@ -550,7 +550,7 @@ Section -"Notepad++" mainSection
 	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
-	CreateDirectory "$SMPROGRAMS\Notepad++"
+	RMDir "$SMPROGRAMS\Notepad++"
 
 	; remove unstable plugins
 	CreateDirectory "$INSTDIR\plugins\disabled"
@@ -695,16 +695,20 @@ Section -"Notepad++" mainSection
 	UserInfo::GetAccountType
 	Pop $1
 	StrCmp $1 "Admin" 0 +2
-	
 	SetShellVarContext all
+	
+	; set the shortcuts working directory
+	; http://nsis.sourceforge.net/Docs/Chapter4.html#createshortcut
+	SetOutPath "$INSTDIR\"
+	
 	; add all the npp shortcuts for all user or current user
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"
-	SetShellVarContext current
-	
 	${If} $createShortcutChecked == ${BST_CHECKED}
 		CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	${EndIf}
+	
+	SetShellVarContext current
 	
 	${If} $isOldIconChecked == ${BST_CHECKED}
 		SetOutPath "$TEMP\"

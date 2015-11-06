@@ -673,11 +673,11 @@ Section -"Notepad++" mainSection
 	; add all the npp shortcuts for all user or current user
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"
-	SetShellVarContext current
-	
 	${If} $createShortcutChecked == ${BST_CHECKED}
 		CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	${EndIf}
+	
+	SetShellVarContext current
 	
 	${If} $isOldIconChecked == ${BST_CHECKED}
 		SetOutPath "$TEMP\"

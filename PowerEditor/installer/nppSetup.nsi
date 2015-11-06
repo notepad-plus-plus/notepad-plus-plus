@@ -288,7 +288,7 @@ Function ExtraOptions
 	Pop $ShortcutCheckboxHandle
 	StrCmp $WinVer "8" 0 +2
 	${NSD_Check} $ShortcutCheckboxHandle
-	${NSD_OnClick} $ShortcutCheckboxHandle ShortcutOnChange_OldIconCheckBox
+	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
 
 	${NSD_CreateCheckbox} 0 170 100% 30u "Use the old, obsolete and monstrous icon$\nI won't blame you if you want to get the old icon back :)"
 	Pop $OldIconCheckboxHandle
@@ -318,7 +318,7 @@ Function OnChange_OldIconCheckBox
 	${NSD_GetState} $OldIconCheckboxHandle $isOldIconChecked
 FunctionEnd
 
-Function ShortcutOnChange_OldIconCheckBox
+Function OnChange_ShortcutCheckBox
 	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
 FunctionEnd
 

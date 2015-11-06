@@ -299,8 +299,8 @@ FunctionEnd
 
 Var noUserDataChecked
 Var allowPluginLoadFromUserDataChecked
-Var isOldIconChecked
 Var createShortcutChecked
+Var isOldIconChecked
 
 ; TODO for optional arg
 ;Var params
@@ -314,12 +314,12 @@ Function OnChange_PluginLoadFromUserDataCheckBox
 	${NSD_GetState} $PluginLoadFromUserDataCheckboxHandle $allowPluginLoadFromUserDataChecked
 FunctionEnd
 
-Function OnChange_OldIconCheckBox
-	${NSD_GetState} $OldIconCheckboxHandle $isOldIconChecked
-FunctionEnd
-
 Function OnChange_ShortcutCheckBox
 	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+FunctionEnd
+
+Function OnChange_OldIconCheckBox
+	${NSD_GetState} $OldIconCheckboxHandle $isOldIconChecked
 FunctionEnd
 
 

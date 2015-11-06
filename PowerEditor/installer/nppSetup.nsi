@@ -524,7 +524,7 @@ Section -"Notepad++" mainSection
 	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
-	CreateDirectory "$SMPROGRAMS\Notepad++"
+	RMDir "$SMPROGRAMS\Notepad++"
 
 	; remove unstable plugins
 	CreateDirectory "$INSTDIR\plugins\disabled"

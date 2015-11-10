@@ -254,8 +254,8 @@ TCHAR * FileDialog::doSaveDlg()
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 
-	_ofn.Flags |= OFN_ENABLEHOOK;
-	_ofn.lpfnHook = OFNHookProc;
+	//_ofn.Flags |= OFN_ENABLEHOOK;
+	//_ofn.lpfnHook = OFNHookProc;
 
 	TCHAR *fn = NULL;
 	try {
@@ -374,7 +374,7 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 			// Don't touch the following 3 lines, they are cursed !!!
 			oldProc = (WNDPROC)::GetWindowLongPtr(hFileDlg, GWLP_WNDPROC);
-			if ((long)oldProc > 0)
+			if (oldProc)
 				::SetWindowLongPtr(hFileDlg, GWLP_WNDPROC, (LONG_PTR)fileDlgProc);
 
 			return FALSE;

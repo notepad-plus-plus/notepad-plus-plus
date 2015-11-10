@@ -47,6 +47,7 @@
 #include "ProjectPanel.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "LongRunningOperation.h"
 
 using namespace std;
 
@@ -327,7 +328,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 			::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
 			::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
 		}
-		int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(20);
+		int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(22);
 		int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(45);
 		TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 		TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
@@ -1820,8 +1821,8 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
 
-	enableConvertMenuItems(curBuf->getFormat());
-	checkUnicodeMenuItems(/*curBuf->getUnicodeMode()*/);
+	enableConvertMenuItems(curBuf->getEolFormat());
+	checkUnicodeMenuItems();
 	checkLangsMenu(-1);
 
 	if (_pAnsiCharPanel)
@@ -1939,6 +1940,8 @@ void Notepad_plus::copyMarkedLines()
 
 void Notepad_plus::cutMarkedLines()
 {
+	LongRunningOperation op;
+
 	int lastLine = _pEditView->lastZeroBasedLineNumber();
 	generic_string globalStr = TEXT("");
 
@@ -1959,6 +1962,8 @@ void Notepad_plus::cutMarkedLines()
 
 void Notepad_plus::deleteMarkedLines(bool isMarked)
 {
+	LongRunningOperation op;
+
 	int lastLine = _pEditView->lastZeroBasedLineNumber();
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
@@ -1972,6 +1977,8 @@ void Notepad_plus::deleteMarkedLines(bool isMarked)
 
 void Notepad_plus::pasteToMarkedLines()
 {
+	LongRunningOperation op;
+
 	int clipFormat;
 	clipFormat = CF_UNICODETEXT;
 
@@ -2117,15 +2124,15 @@ void Notepad_plus::setLangStatus(LangType langType)
 }
 
 
-void Notepad_plus::setDisplayFormat(FormatType format)
+void Notepad_plus::setDisplayFormat(EolType format)
 {
 	const TCHAR* str = TEXT("??");
 	switch (format)
 	{
-		case FormatType::windows: str = TEXT("Dos\\Windows"); break;
-		case FormatType::macos:   str = TEXT("Macintosh"); break;
-		case FormatType::unix:    str = TEXT("UNIX"); break;
-		case FormatType::unknown: str = TEXT("Unknown"); assert(false);  break;
+		case EolType::windows: str = TEXT("Dos\\Windows"); break;
+		case EolType::macos:   str = TEXT("Macintosh"); break;
+		case EolType::unix:    str = TEXT("UNIX"); break;
+		case EolType::unknown: str = TEXT("Unknown"); assert(false);  break;
 	}
 	_statusBar.setText(str, STATUSBAR_EOF_FORMAT);
 }
@@ -2365,7 +2372,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
-		type == L_PHP || type == L_JS || type == L_JSP || type == L_CSS)
+		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS)
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 			(eolMode == SC_EOL_CR && ch == '\r'))
@@ -2572,7 +2579,9 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
         case IDM_LANG_XML :
             return L_XML;
         case IDM_LANG_JS :
-            return L_JS;
+			return L_JAVASCRIPT;
+		case IDM_LANG_JSON:
+			return L_JSON;
         case IDM_LANG_PHP :
             return L_PHP;
         case IDM_LANG_ASP :
@@ -3167,7 +3176,9 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 				toActivate = active;    //activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
 			}
 			tabToClose->deletItemAt((size_t)index); //delete first
+			_isFolding = true; // So we can ignore events while folding is taking place
 			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);     //then activate. The prevent jumpy tab behaviour
+			_isFolding = false;
 		}
 	}
 	else
@@ -3494,16 +3505,16 @@ void Notepad_plus::staticCheckMenuAndTB() const
 void Notepad_plus::dynamicCheckMenuAndTB() const
 {
 	//Format conversion
-	enableConvertMenuItems(_pEditView->getCurrentBuffer()->getFormat());
+	enableConvertMenuItems(_pEditView->getCurrentBuffer()->getEolFormat());
 	checkUnicodeMenuItems();
 }
 
 
-void Notepad_plus::enableConvertMenuItems(FormatType format) const
+void Notepad_plus::enableConvertMenuItems(EolType format) const
 {
-	enableCommand(IDM_FORMAT_TODOS,  (format != FormatType::windows), MENU);
-	enableCommand(IDM_FORMAT_TOUNIX, (format != FormatType::unix),    MENU);
-	enableCommand(IDM_FORMAT_TOMAC,  (format != FormatType::macos),   MENU);
+	enableCommand(IDM_FORMAT_TODOS, (format != EolType::windows), MENU);
+	enableCommand(IDM_FORMAT_TOUNIX, (format != EolType::unix), MENU);
+	enableCommand(IDM_FORMAT_TOMAC, (format != EolType::macos), MENU);
 }
 
 
@@ -3878,7 +3889,8 @@ bool Notepad_plus::saveScintillaParams()
 
 bool Notepad_plus::addCurrentMacro()
 {
-	vector<MacroShortcut> & theMacros = (NppParameters::getInstance())->getMacroList();
+	NppParameters* nppParams = NppParameters::getInstance();
+	vector<MacroShortcut> & theMacros = nppParams->getMacroList();
 
 	int nbMacro = theMacros.size();
 
@@ -3897,7 +3909,7 @@ bool Notepad_plus::addCurrentMacro()
             // Insert the separator and modify/delete command
 			::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, (unsigned int)-1, 0);
 
-			NativeLangSpeaker *pNativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			NativeLangSpeaker *pNativeLangSpeaker = nppParams->getNativeLangSpeaker();
 			generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
 			if (nativeLangShortcutMapperMacro == TEXT(""))
 				nativeLangShortcutMapperMacro = TEXT("Modify Shortcut/Delete Macro...");
@@ -3907,6 +3919,7 @@ bool Notepad_plus::addCurrentMacro()
 		theMacros.push_back(ms);
 		::InsertMenu(hMacroMenu, posBase + nbMacro, MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
 		_accelerator.updateShortcuts();
+		nppParams->setShortcutDirty();
 		return true;
 	}
 	return false;
@@ -4714,8 +4727,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		updateStatusBar();
 		checkUnicodeMenuItems(/*buffer->getUnicodeMode()*/);
 		setUniModeText();
-		setDisplayFormat(buffer->getFormat());
-		enableConvertMenuItems(buffer->getFormat());
+		setDisplayFormat(buffer->getEolFormat());
+		enableConvertMenuItems(buffer->getEolFormat());
 	}
 }
 
@@ -4743,8 +4756,8 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	updateStatusBar();
 	checkUnicodeMenuItems(/*buf->getUnicodeMode()*/);
 	setUniModeText();
-	setDisplayFormat(buf->getFormat());
-	enableConvertMenuItems(buf->getFormat());
+	setDisplayFormat(buf->getEolFormat());
+	enableConvertMenuItems(buf->getEolFormat());
 	generic_string dir(buf->getFullPathName());
 	PathRemoveFileSpec(dir);
 	setWorkingDir(dir.c_str());
@@ -4826,13 +4839,18 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 			int iView = currentView();	//store view since fileswitch can cause it to change
 			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
 
-            if (cn == -1)
-			_pEditView->execute(SCI_GOTOLINE, ln-1);
+			if (cn == -1)
+			{
+				_pEditView->execute(SCI_GOTOLINE, ln-1);
+			}
             else
             {
                 int pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
                 _pEditView->execute(SCI_GOTOPOS, pos);
             }
+
+			_pEditView->scrollPosToCenter(_pEditView->execute(SCI_GETCURRENTPOS));
+
 			switchEditViewTo(iView);	//restore view
 		}
 	}

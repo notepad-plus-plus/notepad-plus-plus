@@ -692,6 +692,7 @@ protected:
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
  	void setCppLexer(LangType type);
+	void setJsLexer();
 	void setTclLexer();
     void setObjCLexer(LangType type);
 	void setUserLexer(const TCHAR *userLangName = NULL);
@@ -699,6 +700,7 @@ protected:
 	void setEmbeddedJSLexer();
     void setEmbeddedPhpLexer();
     void setEmbeddedAspLexer();
+	void setJsonLexer();
 	//Simple lexers
 	void setCssLexer() {
 		setLexer(SCLEX_CSS, L_CSS, LIST_0 | LIST_1);

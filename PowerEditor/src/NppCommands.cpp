@@ -42,6 +42,8 @@ using namespace std;
 
 void Notepad_plus::macroPlayback(Macro macro)
 {
+	LongRunningOperation op;
+
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 
 	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)
@@ -637,7 +639,11 @@ void Notepad_plus::command(int id)
 
 		case IDM_MACRO_PLAYBACKRECORDEDMACRO:
 			if (!_recordingMacro) // if we're not currently recording, then playback the recorded keystrokes
+			{
+				_playingBackMacro = true;
 				macroPlayback(_macro);
+				_playingBackMacro = false;
+			}
 			break;
 
 		case IDM_MACRO_RUNMULTIMACRODLG :
@@ -1349,7 +1355,7 @@ void Notepad_plus::command(int id)
 
 			//Resize the tab height
 			int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(45);
-			int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(_toReduceTabBar?20:25);
+			int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(_toReduceTabBar?22:25);
 			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 			_docTabIconList.setIconSize(iconDpiDynamicalSize);
@@ -1398,7 +1404,7 @@ void Notepad_plus::command(int id)
 
 			// This part is just for updating (redraw) the tabs
 			{
-				int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(TabBarPlus::drawTabCloseButton()?21:20);
+				int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(TabBarPlus::drawTabCloseButton()?22:22);
 				int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? 60:45);
 				TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
 				TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
@@ -1698,13 +1704,13 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_TOUNIX:
 		case IDM_FORMAT_TOMAC:
 		{
-			FormatType newFormat = (id == IDM_FORMAT_TODOS)
-				? FormatType::windows
-				: (id == IDM_FORMAT_TOUNIX) ? FormatType::unix : FormatType::macos;
+			EolType newFormat = (id == IDM_FORMAT_TODOS)
+				? EolType::windows
+				: (id == IDM_FORMAT_TOUNIX) ? EolType::unix : EolType::macos;
 
 			Buffer* buf = _pEditView->getCurrentBuffer();
-			buf->setFormat(newFormat);
-			_pEditView->execute(SCI_CONVERTEOLS, static_cast<int>(buf->getFormat()));
+			buf->setEolFormat(newFormat);
+			_pEditView->execute(SCI_CONVERTEOLS, static_cast<int>(buf->getEolFormat()));
 			break;
 		}
 
@@ -2377,6 +2383,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_HTML :
         case IDM_LANG_XML :
         case IDM_LANG_JS :
+		case IDM_LANG_JSON :
         case IDM_LANG_PHP :
         case IDM_LANG_ASP :
         case IDM_LANG_CSS :
@@ -2672,10 +2679,18 @@ void Notepad_plus::command(int id)
 				TCHAR langName[langNameLenMax];
 				::GetMenuString(_mainMenuHandle, id, langName, langNameLenMax, MF_BYCOMMAND);
 				_pEditView->getCurrentBuffer()->setLangType(L_USER, langName);
+				if (_pDocMap)
+				{
+					_pDocMap->setSyntaxHiliting();
+				}
 			}
 			else if ((id >= IDM_LANG_EXTERNAL) && (id <= IDM_LANG_EXTERNAL_LIMIT))
 			{
 				setLanguage((LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL));
+				if (_pDocMap)
+				{
+					_pDocMap->setSyntaxHiliting();
+				}
 			}
 			else if ((id >= ID_MACRO) && (id < ID_MACRO_LIMIT))
 			{

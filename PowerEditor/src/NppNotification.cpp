@@ -242,7 +242,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				activateBuffer(bufferToClose, iView);
 			}
-			fileClose(bufferToClose, iView);
+
+			if (fileClose(bufferToClose, iView))
+				checkDocState();
+
 			break;
 		}
 
@@ -263,8 +266,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			switchEditViewTo(iView);
 			BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
 			if (bufid != BUFFER_INVALID)
+			{
+				_isFolding = true; // So we can ignore events while folding is taking place
 				activateBuffer(bufid, iView);
-
+				_isFolding = false;
+			}
 			break;
 		}
 
@@ -509,17 +515,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_CHARADDED:
 		{
-			const NppGUI & nppGui = NppParameters::getInstance()->getNppGUI();
-			bool indentMaintain = nppGui._maitainIndent;
-			if (indentMaintain)
-				maintainIndentation(static_cast<TCHAR>(notification->ch));
+			if (!_recordingMacro && !_playingBackMacro) // No macro recording or playing back
+			{
+				const NppGUI & nppGui = NppParameters::getInstance()->getNppGUI();
+				bool indentMaintain = nppGui._maitainIndent;
+				if (indentMaintain)
+					maintainIndentation(static_cast<TCHAR>(notification->ch));
 
-			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
-			bool isColumnMode = _pEditView->execute(SCI_GETSELECTIONS) > 1; // Multi-Selection || Column mode)
-			if (nppGui._matchedPairConf.hasAnyPairsPair() && !isColumnMode)
-				autoC->insertMatchedChars(notification->ch, nppGui._matchedPairConf);
-			autoC->update(notification->ch);
-
+				AutoCompletion * autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
+				bool isColumnMode = _pEditView->execute(SCI_GETSELECTIONS) > 1; // Multi-Selection || Column mode)
+				if (nppGui._matchedPairConf.hasAnyPairsPair() && !isColumnMode)
+					autoC->insertMatchedChars(notification->ch, nppGui._matchedPairConf);
+				autoC->update(notification->ch);
+			}
 			break;
 		}
 

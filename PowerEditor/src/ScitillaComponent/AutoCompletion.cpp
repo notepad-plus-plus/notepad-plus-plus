@@ -382,10 +382,13 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (size_t(foundTextLen) > closeTagSize - 2) // buffer size is not large enough. -2 for '/' & '\0'
 		return;
 
-	char tagHead[3];
-	_pEditView->getText(tagHead, targetStart, targetStart+2);
+	char tagHead[5];
+	_pEditView->getText(tagHead, targetStart, targetStart+4);
 
 	if (tagHead[1] == '/') // "</toto>" will be ignored
+		return;
+
+	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
 
 	char tagTail[2];
@@ -495,15 +498,26 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	char *matchedChars = NULL;
 
+	char charPrev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 2);
+	char charNext = (char)_pEditView->execute(SCI_GETCHARAT, caretPos);
+
+	bool isCharPrevBlank = (charPrev == ' ' || charPrev == '\t' || charPrev == '\n' || charPrev == '\r' || charPrev == '\0');
+	int docLen = _pEditView->getCurrentDocLen();
+	bool isCharNextBlank = (charNext == ' ' || charNext == '\t' || charNext == '\n' || charNext == '\r' || caretPos == docLen);
+	bool isInSandwich = (charPrev == '(' && charNext == ')') || (charPrev == '[' && charNext == ']') || (charPrev == '{' && charNext == '}');
+
 	// User defined matched pairs should be checked firstly
 	for (size_t i = 0, len = matchedPairs.size(); i < len; ++i)
 	{
 		if (int(matchedPairs[i].first) == character)
 		{
-			char userMatchedChar[2] = {'\0', '\0'};
-			userMatchedChar[0] = matchedPairs[i].second;
-			_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
-			return;
+			if (isCharNextBlank)
+			{
+				char userMatchedChar[2] = { '\0', '\0' };
+				userMatchedChar[0] = matchedPairs[i].second;
+				_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
+				return;
+			}
 		}
 	}
 
@@ -517,24 +531,34 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		case int('('):
 			if (matchedPairConf._doParentheses)
 			{
-				matchedChars = ")";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharNextBlank || isInSandwich)
+
+				{
+					matchedChars = ")";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
 		case int('['):
 			if (matchedPairConf._doBrackets)
 			{
-				matchedChars = "]";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharNextBlank || isInSandwich)
+				{
+					matchedChars = "]";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
 		case int('{'):
 			if (matchedPairConf._doCurlyBrackets)
 			{
-				matchedChars = "}";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharNextBlank || isInSandwich)
+				{
+					matchedChars = "}";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
@@ -552,8 +576,14 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					}
 				}
 
-				matchedChars = "\"";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if ((isCharPrevBlank && isCharNextBlank) || isInSandwich ||
+					(charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
+					(charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
+					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
+				{
+					matchedChars = "\"";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 		case int('\''):
@@ -569,8 +599,15 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 						return;
 					}
 				}
-				matchedChars = "'";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+
+				if ((isCharPrevBlank && isCharNextBlank) || isInSandwich ||
+					(charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
+					(charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
+					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
+				{
+					matchedChars = "'";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
@@ -632,18 +669,20 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 void AutoCompletion::update(int character)
 {
+	if (!character)
+		return;
+
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 	if (!_funcCompletionActive && nppGUI._autocStatus == nppGUI.autoc_func)
 		return;
 
-	if (nppGUI._funcParams || _funcCalltip.isVisible()) {
-		if (_funcCalltip.updateCalltip(character)) {	//calltip visible because triggered by autocomplete, set mode
+	if (nppGUI._funcParams || _funcCalltip.isVisible())
+	{
+		if (_funcCalltip.updateCalltip(character)) //calltip visible because triggered by autocomplete, set mode
+		{
 			return;	//only return in case of success, else autocomplete
 		}
 	}
-
-	if (!character)
-		return;
 
 	//If autocomplete already active, let Scintilla handle it
 	if (_pEditView->execute(SCI_AUTOCACTIVE) != 0)
@@ -661,7 +700,6 @@ void AutoCompletion::update(int character)
 			showApiComplete();
 		else if (nppGUI._autocStatus == nppGUI.autoc_both)
 			showApiAndWordComplete();
-
 	}
 }
 
@@ -807,6 +845,9 @@ const TCHAR * AutoCompletion::getApiFileName()
 
 	if (_curLang > L_EXTERNAL)
         _curLang = L_TEXT;
+
+	if (_curLang == L_JAVASCRIPT)
+        _curLang = L_JS;
 
 	return ScintillaEditView::langNames[_curLang].lexerName;
 

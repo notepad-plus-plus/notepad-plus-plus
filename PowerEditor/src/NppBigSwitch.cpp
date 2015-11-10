@@ -318,7 +318,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return -1;
 			BufferID id = (BufferID)wParam;
 			Buffer * b = MainFileManager->getBufferByID(id);
-			return static_cast<LRESULT>(b->getFormat());
+			return static_cast<LRESULT>(b->getEolFormat());
 		}
 
 		case NPPM_SETBUFFERFORMAT:
@@ -326,8 +326,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (!wParam)
 				return FALSE;
 
-			FormatType newFormat = convertIntToFormatType(static_cast<int>(lParam), FormatType::unknown);
-			if (FormatType::unknown == newFormat)
+			EolType newFormat = convertIntToFormatType(static_cast<int>(lParam), EolType::unknown);
+			if (EolType::unknown == newFormat)
 			{
 				assert(false and "invalid buffer format message");
 				return FALSE;
@@ -335,7 +335,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			BufferID id = (BufferID)wParam;
 			Buffer * b = MainFileManager->getBufferByID(id);
-			b->setFormat(newFormat);
+			b->setEolFormat(newFormat);
 			return TRUE;
 		}
 
@@ -1633,7 +1633,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_SYSCOMMAND:
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			if ((nppgui._isMinimizedToTray || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
+			if (((nppgui._isMinimizedToTray && !_isAdministrator) || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
 			{
 				if (nullptr == _pTrayIco)
 					_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));

@@ -3444,9 +3444,11 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const TCHA
 LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 {
 	int lang = (int)L_TEXT;
-	for(; lang < L_EXTERNAL; ++lang) {
+	for(; lang < L_EXTERNAL; ++lang)
+	{
 		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
-		if (!lstrcmp(name, langName)) {	//found lang?
+		if (!lstrcmp(name, langName)) //found lang?
+		{
 			return (LangType)lang;
 		}
 	}
@@ -3454,7 +3456,8 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 	//Cannot find language, check if its an external one
 
 	LangType l = (LangType)lang;
-	if (l == L_EXTERNAL) {	//try find external lexer
+	if (l == L_EXTERNAL) //try find external lexer
+	{
 		int id = _pSelf->getExternalLangIndexFromName(langName);
 		if (id != -1) return (LangType)(id + L_EXTERNAL);
 	}
@@ -4131,17 +4134,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			int i;
 			if (element->Attribute(TEXT("format"), &i))
 			{
-				FormatType newFormat = FormatType::osdefault;
+				EolType newFormat = EolType::osdefault;
 				switch (i)
 				{
-					case static_cast<LPARAM>(FormatType::windows) :
-						newFormat = FormatType::windows;
+					case static_cast<LPARAM>(EolType::windows) :
+						newFormat = EolType::windows;
 						break;
-					case static_cast<LPARAM>(FormatType::macos) :
-						newFormat = FormatType::macos;
+					case static_cast<LPARAM>(EolType::macos) :
+						newFormat = EolType::macos;
 						break;
-					case static_cast<LPARAM>(FormatType::unix) :
-						newFormat = FormatType::unix;
+					case static_cast<LPARAM>(EolType::unix) :
+						newFormat = EolType::unix;
 						break;
 					default:
 						assert(false and "invalid buffer format - fallback to default");
@@ -5886,7 +5889,10 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_XML :
 			id = IDM_LANG_XML; break;
 		case L_JS :
+		case L_JAVASCRIPT:
 			id = IDM_LANG_JS; break;
+		case L_JSON:
+			id = IDM_LANG_JSON; break;
 		case L_PHP :
 			id = IDM_LANG_PHP; break;
 		case L_ASP :
@@ -6456,16 +6462,16 @@ void Date::now()
 }
 
 
-FormatType convertIntToFormatType(int value, FormatType defvalue)
+EolType convertIntToFormatType(int value, EolType defvalue)
 {
 	switch (value)
 	{
-		case static_cast<LPARAM>(FormatType::windows):
-			return FormatType::windows;
-		case static_cast<LPARAM>(FormatType::macos):
-			return FormatType::macos;
-		case static_cast<LPARAM>(FormatType::unix):
-			return FormatType::unix;
+		case static_cast<LPARAM>(EolType::windows) :
+			return EolType::windows;
+		case static_cast<LPARAM>(EolType::macos) :
+				return EolType::macos;
+		case static_cast<LPARAM>(EolType::unix) :
+			return EolType::unix;
 		default:
 			return defvalue;
 	}

@@ -111,7 +111,8 @@ public:
 private:
 	~FileManager();
 	int detectCodepage(char* buf, size_t len);
-	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType language, int& encoding, FormatType* pFormat = nullptr);
+	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int & encoding, EolType & eolFormat);
+	LangType detectLanguageFromTextBegining(const unsigned char *data, unsigned int dataLen);
 
 
 private:
@@ -195,12 +196,12 @@ public:
 		doNotify(BufferChangeReadonly);
     }
 
-	FormatType getFormat() const {
-		return _format;
+	EolType getEolFormat() const {
+		return _eolFormat;
 	}
 
-	void setFormat(FormatType format) {
-		_format = format;
+	void setEolFormat(EolType format) {
+		_eolFormat = format;
 		doNotify(BufferChangeFormat);
 	}
 
@@ -364,7 +365,7 @@ private:
 	LangType _lang;
 	generic_string _userLangExt; // it's useful if only (_lang == L_USER)
 	bool _isDirty = false;
-	FormatType _format = FormatType::osdefault;
+	EolType _eolFormat = EolType::osdefault;
 	UniMode _unicodeMode;
 	int _encoding = -1;
 	bool _isUserReadOnly = false;
@@ -392,5 +393,5 @@ private:
 	// For backup system
 	generic_string _backupFileName;
 	bool _isModified = false;
-	bool _isLoadedDirty = false;
+	bool _isLoadedDirty = false; // it's the indicator for finding buffer's initial state
 };

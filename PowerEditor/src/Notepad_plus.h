@@ -369,6 +369,7 @@ private:
 	// Keystroke macro recording and playback
 	Macro _macro;
 	bool _recordingMacro = false;
+	bool _playingBackMacro = false;
 	RunMacroDlg _runMacroDlg;
 
 	// For hotspot
@@ -495,14 +496,14 @@ private:
     void getMainClientRect(RECT & rc) const;
 	void staticCheckMenuAndTB() const;
 	void dynamicCheckMenuAndTB() const;
-	void enableConvertMenuItems(FormatType f) const;
+	void enableConvertMenuItems(EolType f) const;
 	void checkUnicodeMenuItems() const;
 
 	generic_string getLangDesc(LangType langType, bool getName = false);
 
 	void setLangStatus(LangType langType);
 
-	void setDisplayFormat(FormatType f);
+	void setDisplayFormat(EolType f);
 	int getCmdIDFromEncoding(int encoding) const;
 	void setUniModeText();
 	void checkLangsMenu(int id) const ;

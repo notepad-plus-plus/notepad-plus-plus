@@ -244,6 +244,9 @@ void FunctionListPanel::reload()
 
 	const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
 	LangType langID = ((*_ppEditView)->getCurrentBuffer())->getLangType();
+	if (langID == L_JAVASCRIPT)
+		langID = L_JS;
+
 	const TCHAR *udln = NULL;
 	if (langID == L_USER)
 	{

@@ -464,6 +464,7 @@
     #define    IDM_LANG_R                  (IDM_LANG + 54)
     #define    IDM_LANG_JSP                (IDM_LANG + 55)
 	#define    IDM_LANG_COFFEESCRIPT       (IDM_LANG + 56)
+	#define    IDM_LANG_JSON		       (IDM_LANG + 57)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 65)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 79)

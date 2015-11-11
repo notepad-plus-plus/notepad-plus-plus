@@ -53,6 +53,8 @@ InstallDir "$PROGRAMFILES\${APPNAME}"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
 OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 
+; http://nsis.sourceforge.net/Get_Windows_version
+
 ; GetWindowsVersion 4.1.1 (2015-06-22)
 ;
 ; Based on Yazno's function, http://yazno.tripod.com/powerpimpit/

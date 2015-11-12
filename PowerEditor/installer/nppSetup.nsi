@@ -625,11 +625,16 @@ Section -"Notepad++" mainSection
 		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
 		Delete "$INSTDIR\plugins\NppQCP.dll"
 		
-	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +4
-		MessageBox MB_OK "Due to the stability issue,$\nDSpellCheck.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +11
+		MessageBox MB_YESNOCANCEL "Due to the stability issue, DSpellCheck.dll will be moved to the directory $\"disabled$\".$\nChoose Cancel to keep it this installation.$\nChoose No to keep it forever." /SD IDYES IDNO never IDCANCEL donothing ;IDYES remove
+	remove:
 		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
-	
+		Goto donothing
+	never:
+		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\DSpellCheck2.dll"
+		Goto donothing
+	donothing:
 	
     ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3

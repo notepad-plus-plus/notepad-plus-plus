@@ -581,7 +581,10 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	if (_tcschr(fullpath, '~'))
+	{
+		::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	}
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
@@ -850,7 +853,10 @@ bool FileManager::backupCurrentBuffer()
 
 			TCHAR fullpath[MAX_PATH];
 			::GetFullPathName(backupFilePath.c_str(), MAX_PATH, fullpath, NULL);
-			::GetLongPathName(fullpath, fullpath, MAX_PATH);
+			if (_tcschr(fullpath, '~'))
+			{
+				::GetLongPathName(fullpath, fullpath, MAX_PATH);
+			}
 
 			// Make sure the backup file is not read only
 			DWORD dwFileAttribs = ::GetFileAttributes(fullpath);
@@ -1024,7 +1030,11 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	if (_tcschr(fullpath, '~'))
+	{
+		::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	}
+
 	if (PathFileExists(fullpath))
 	{
 		attrib = ::GetFileAttributes(fullpath);
@@ -1501,7 +1511,10 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 {
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
-	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	if (_tcschr(fullpath, '~'))
+	{
+		::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	}
 
 	for(size_t i = 0; i < _buffers.size(); i++)
 	{

@@ -38,8 +38,8 @@ public:
 private:
 	FindReplaceDlg * _pFRDlg;
 
-	bool isQualifiedWord(const char *str, char listChar[]) const;
-	bool isWordChar(char ch, char listChar[]) const;
+	bool isQualifiedWord(_In_reads_(textSize) const char* textToFind, size_t textSize, _In_reads_(listCharSize) const char* listChar, size_t listCharSize) const;
+	bool isWordChar(char ch, _In_reads_(listCharSize) const char* listChar, size_t listCharSize) const;
 };
 
 #endif //SMARTHIGHLIGHTER_H

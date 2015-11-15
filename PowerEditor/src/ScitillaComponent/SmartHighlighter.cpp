@@ -25,6 +25,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include <memory>
+#include <algorithm>
 #include "SmartHighlighter.h"
 #include "ScintillaEditView.h"
 #include "FindReplaceDlg.h"
@@ -39,7 +41,6 @@ SmartHighlighter::SmartHighlighter(FindReplaceDlg * pFRDlg)
 
 void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 {
-	//Get selection
 	CharacterRange range = pHighlightView->getSelection();
 
 	//Clear marks
@@ -47,57 +48,48 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 
 	//If nothing selected, dont mark anything
 	if (range.cpMin == range.cpMax)
-	{
 		return;
-	}
 
-	int textlen = range.cpMax - range.cpMin + 1;
+	const int textAlloclen = range.cpMax - range.cpMin + 1;
+	assert(textAlloclen > 0);
+	const size_t textLen = static_cast<size_t>(textAlloclen - 1);
 
-	char * text2Find = new char[textlen];
-	pHighlightView->getSelectedText(text2Find, textlen, false);	//do not expand selection (false)
-
+	std::unique_ptr<char[]> text2Find = std::make_unique<char[]>(textAlloclen);
+	pHighlightView->getSelectedText(text2Find.get(), textAlloclen, false);	//do not expand selection (false)
 	
 	//GETWORDCHARS for isQualifiedWord2() and isWordChar2()
-	int listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
-	char *listChar = new char[listCharSize+1];
-	pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar);
+	const int listCharIntegerSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
+	assert(listCharIntegerSize > 0);
+	const size_t listCharSize = static_cast<size_t>(listCharIntegerSize);
+
+	std::unique_ptr<char[]> listChar = std::make_unique<char[]>(listCharSize + 1);
+	pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar.get());
 	
-	bool valid = true;
 	//The word has to consist if wordChars only, and the characters before and after something else
-	if (!isQualifiedWord(text2Find, listChar))
-		valid = false;
-	else
-	{
-		UCHAR c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMax);
-		if (c)
-		{
-			if (isWordChar(char(c), listChar))
-				valid = false;
-		}
-		c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMin-1);
-		if (c)
-		{
-			if (isWordChar(char(c), listChar))
-				valid = false;
-		}
-	}
-	if (!valid) {
-		delete [] text2Find;
-		delete [] listChar;
+	if (!SmartHighlighter::isQualifiedWord(text2Find.get(), textLen, listChar.get(), listCharSize))
 		return;
+
+	UCHAR c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMax);
+	if (c)
+	{
+		if (isWordChar(char(c), listChar.get(), listCharSize))
+			return;
+	}
+	c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMin-1);
+	if (c)
+	{
+		if (isWordChar(char(c), listChar.get(), listCharSize))
+			return;
 	}
 
 	// save target locations for other search functions
-	int originalStartPos = (int)pHighlightView->execute(SCI_GETTARGETSTART);
-	int originalEndPos = (int)pHighlightView->execute(SCI_GETTARGETEND);
+	const int originalStartPos = (int)pHighlightView->execute(SCI_GETTARGETSTART);
+	const int originalEndPos = (int)pHighlightView->execute(SCI_GETTARGETEND);
 
 	// Get the range of text visible and highlight everything in it
-	int firstLine =		(int)pHighlightView->execute(SCI_GETFIRSTVISIBLELINE);
-	int nrLines =	min((int)pHighlightView->execute(SCI_LINESONSCREEN), MAXLINEHIGHLIGHT ) + 1;
-	int lastLine =		firstLine+nrLines;
-	int startPos =		0;
-	int endPos =		0;
-	int currentLine = firstLine;
+	const int firstLine =		(int)pHighlightView->execute(SCI_GETFIRSTVISIBLELINE);
+	const int nrLines =	min((int)pHighlightView->execute(SCI_LINESONSCREEN), MAXLINEHIGHLIGHT ) + 1;
+	const int lastLine =		firstLine+nrLines;
 	int prevDocLineChecked = -1;	//invalid start
 
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
@@ -106,55 +98,42 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	fo._isMatchCase = nppGUI._smartHiliteCaseSensitive;
 	fo._isWholeWord = true;
 
-	const TCHAR * searchText = NULL;
-
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	unsigned int cp = pHighlightView->execute(SCI_GETCODEPAGE); 
-	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
-	searchText = text2FindW;
+	const unsigned int cp = pHighlightView->execute(SCI_GETCODEPAGE); 
+	const TCHAR * searchTextW = wmc->char2wchar(text2Find.get(), cp);
 
-	for(; currentLine < lastLine; ++currentLine)
+	for(int currentLine = firstLine; currentLine < lastLine; ++currentLine)
 	{
-		int docLine = (int)pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine);
+		const int docLine = (int)pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine);
 		if (docLine == prevDocLineChecked)
 			continue;	//still on same line (wordwrap)
 		prevDocLineChecked = docLine;
-		startPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine);
-		endPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine+1);
+		const int startPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine);
+		int endPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine+1);
 		if (endPos == -1) {	//past EOF
-			endPos = (int)pHighlightView->getCurrentDocLen() - 1;
-			_pFRDlg->processRange(ProcessMarkAll_2, searchText, NULL, startPos, endPos, NULL, &fo);
+			endPos = pHighlightView->getCurrentDocLen() - 1;
+			_pFRDlg->processRange(ProcessMarkAll_2, searchTextW, NULL, startPos, endPos, NULL, &fo);
 			break;
-		} else {
-			_pFRDlg->processRange(ProcessMarkAll_2, searchText, NULL, startPos, endPos, NULL, &fo);
 		}
+		_pFRDlg->processRange(ProcessMarkAll_2, searchTextW, NULL, startPos, endPos, NULL, &fo);
 	}
 
 	// restore the original targets to avoid conflicts with the search/replace functions
 	pHighlightView->execute(SCI_SETTARGETSTART, originalStartPos);
 	pHighlightView->execute(SCI_SETTARGETEND, originalEndPos);
-	delete [] listChar;
 }
 
-bool SmartHighlighter::isQualifiedWord(const char *str, char *listChar) const
+bool SmartHighlighter::isQualifiedWord(_In_reads_(textSize) const char* const textToFind, const size_t textSize, _In_reads_(listCharSize) const char* const listChar, const size_t listCharSize) const
 {
-	for (size_t i = 0, len = strlen(str) ; i < len ; ++i)
+	for (size_t i = 0; i < textSize; ++i)
 	{
-		if (!isWordChar(str[i], listChar))
+		if (!isWordChar(textToFind[i], listChar, listCharSize))
 			return false;
 	}
 	return true;
 };
 
-bool SmartHighlighter::isWordChar(char ch, char listChar[]) const
+bool SmartHighlighter::isWordChar(const char ch, _In_reads_(listCharSize) const char* const listChar, const size_t listCharSize ) const
 {
-	
-	for (size_t i = 0, len = strlen(listChar) ; i < len ; ++i)
-	{
-		if (ch == listChar[i])
-		{
-			return true;
-		}
-	}
-	return false;
+	return std::find(listChar, listChar + listCharSize, ch) != (listChar + listCharSize);
 };

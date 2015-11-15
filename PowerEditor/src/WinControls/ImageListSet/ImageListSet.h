@@ -36,10 +36,13 @@
 const int nbMax = 45;
 #define	IDI_SEPARATOR_ICON -1
 
+typedef std::vector<HICON> HICONVector;
+
 class IconList
 {
 public :
 	IconList() : _hImglst(NULL) {};
+	~IconList();
 	void create(HINSTANCE hInst, int iconSize);
 	void create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize);
 
@@ -48,6 +51,7 @@ public :
 	};
 	HIMAGELIST getHandle() const {return _hImglst;};
 	void addIcon(int iconID) const;
+	int addExternalIcon(HICON icon);
 	bool changeIcon(int index, const TCHAR *iconLocation) const;
 	void setIconSize(int size) const;
 
@@ -57,6 +61,7 @@ private :
 	int *_pIconIDArray;
 	int _iconIDArraySize;
 	int _iconSize;
+	HICONVector _extImglst;
 };
 
 typedef struct 

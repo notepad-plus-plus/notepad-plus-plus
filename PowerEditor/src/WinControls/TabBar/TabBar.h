@@ -272,6 +272,7 @@ protected:
 	static HWND _hwndArray[nbCtrlMax];
 
 	void drawItem(DRAWITEMSTRUCT *pDrawItemStruct);
+	virtual void drawImage(int tabIndex, int imgIndex, HDC hDC, int xPos, int yPos);
 	void draggingCursor(POINT screenPoint);
 
 	int getTabIndexAt(const POINT & p)

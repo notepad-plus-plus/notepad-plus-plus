@@ -877,6 +877,7 @@ void ScintillaEditView::setJsLexer()
 
 	execute(SCI_SETLEXER, SCLEX_CPP);
 	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	makeStyle(L_JAVASCRIPT, pKwArray);
 
 	if (doxygenKeyWords)
 	{

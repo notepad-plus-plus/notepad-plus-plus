@@ -53,16 +53,24 @@ InstallDir "$PROGRAMFILES\${APPNAME}"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
 OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 
-; GetWindowsVersion 3.0 (2013-02-07)
+; http://nsis.sourceforge.net/Get_Windows_version
+
+; GetWindowsVersion 4.1.1 (2015-06-22)
 ;
 ; Based on Yazno's function, http://yazno.tripod.com/powerpimpit/
 ; Update by Joost Verburg
 ; Update (Macro, Define, Windows 7 detection) - John T. Haller of PortableApps.com - 2008-01-07
 ; Update (Windows 8 detection) - Marek Mizanin (Zanir) - 2013-02-07
+; Update (Windows 8.1 detection) - John T. Haller of PortableApps.com - 2014-04-04
+; Update (Windows 10 TP detection) - John T. Haller of PortableApps.com - 2014-10-01
+; Update (Windows 10 TP4 detection, and added include guards) - Kairu - 2015-06-22
 ;
 ; Usage: ${GetWindowsVersion} $R0
 ;
-; $R0 contains: 95, 98, ME, NT x.x, 2000, XP, 2003, Vista, 7, 8 or '' (for unknown)
+; $R0 contains: 95, 98, ME, NT x.x, 2000, XP, 2003, Vista, 7, 8, 8.1, 10.0 or '' (for unknown)
+ 
+!ifndef __GET_WINDOWS_VERSION_NSH
+!define __GET_WINDOWS_VERSION_NSH
  
 Function GetWindowsVersion
  
@@ -71,6 +79,7 @@ Function GetWindowsVersion
  
   ClearErrors
  
+  ; check if Windows NT family
   ReadRegStr $R0 HKLM \
   "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
  
@@ -114,7 +123,14 @@ Function GetWindowsVersion
   StrCmp $R1 '5.2' lbl_winnt_2003
   StrCmp $R1 '6.0' lbl_winnt_vista
   StrCmp $R1 '6.1' lbl_winnt_7
-  StrCmp $R1 '6.2' lbl_winnt_8 lbl_error
+  StrCmp $R1 '6.2' lbl_winnt_8
+  StrCmp $R1 '6.3' lbl_winnt_81
+  StrCmp $R1 '6.4' lbl_winnt_10 ; the early Windows 10 tech previews used version 6.4
+ 
+  StrCpy $R1 $R0 4
+ 
+  StrCmp $R1 '10.0' lbl_winnt_10
+  Goto lbl_error
  
   lbl_winnt_x:
     StrCpy $R0 "NT $R0" 6
@@ -144,6 +160,14 @@ Function GetWindowsVersion
     Strcpy $R0 '8'
   Goto lbl_done
  
+  lbl_winnt_81:
+    Strcpy $R0 '8.1'
+  Goto lbl_done
+ 
+  lbl_winnt_10:
+    Strcpy $R0 '10.0'
+  Goto lbl_done
+ 
   lbl_error:
     Strcpy $R0 ''
   lbl_done:
@@ -159,6 +183,8 @@ FunctionEnd
 !macroend
  
 !define GetWindowsVersion '!insertmacro "GetWindowsVersion"'
+ 
+!endif
 
 
 Function LaunchNpp

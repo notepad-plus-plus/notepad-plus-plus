@@ -3040,6 +3040,13 @@ void ScintillaEditView::setTabSettings(Lang *lang)
 {
     if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
     {
+		if (lang->_langID == L_JAVASCRIPT)
+		{
+			Lang *ljs = _pParameter->getLangFromID(L_JS);
+			execute(SCI_SETTABWIDTH, ljs->_tabSize);
+			execute(SCI_SETUSETABS, !ljs->_isTabReplacedBySpace);
+			return;
+		}
         execute(SCI_SETTABWIDTH, lang->_tabSize);
         execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
     }

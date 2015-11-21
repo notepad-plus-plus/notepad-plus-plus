@@ -656,18 +656,19 @@ BEGIN
         MENUITEM "Caml",                    IDM_LANG_CAML
         MENUITEM "Cmake",                   IDM_LANG_CMAKE
         MENUITEM "COBOL",                   IDM_LANG_COBOL
-        MENUITEM "CoffeeScript",           IDM_LANG_COFFEESCRIPT
+        MENUITEM "CoffeeScript",            IDM_LANG_COFFEESCRIPT
         MENUITEM "CSS",                     IDM_LANG_CSS
         MENUITEM "D",                       IDM_LANG_D
         MENUITEM "Diff",                    IDM_LANG_DIFF
-        MENUITEM "Flash actionscript",      IDM_LANG_FLASH
+        MENUITEM "ActionScript",            IDM_LANG_FLASH
         MENUITEM "Fortran",                 IDM_LANG_FORTRAN
         MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
         MENUITEM "Haskell",                 IDM_LANG_HASKELL
         MENUITEM "HTML",                    IDM_LANG_HTML
-        MENUITEM "INNO",                    IDM_LANG_INNO
+		MENUITEM "INI file",                IDM_LANG_INI
+        MENUITEM "Inno Setup",              IDM_LANG_INNO
         MENUITEM "Java",                    IDM_LANG_JAVA
-        MENUITEM "Javascript",              IDM_LANG_JS
+        MENUITEM "JavaScript",              IDM_LANG_JS
 		MENUITEM "JSON",                    IDM_LANG_JSON
         MENUITEM "JSP",                     IDM_LANG_JSP
         MENUITEM "KIXtart",                 IDM_LANG_KIX
@@ -675,7 +676,6 @@ BEGIN
         MENUITEM "Lua",                     IDM_LANG_LUA
         MENUITEM "Makefile",                IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                  IDM_LANG_MATLAB
-        MENUITEM "MS INI file",             IDM_LANG_INI
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
         MENUITEM "Normal Text",             IDM_LANG_TEXT
         MENUITEM "NSIS",                    IDM_LANG_NSIS
@@ -683,7 +683,7 @@ BEGIN
         MENUITEM "Pascal",                  IDM_LANG_PASCAL
         MENUITEM "Perl",                    IDM_LANG_PERL
         MENUITEM "PHP",                     IDM_LANG_PHP
-        MENUITEM "Postscript",              IDM_LANG_PS
+        MENUITEM "PostScript",              IDM_LANG_PS
         MENUITEM "PowerShell",              IDM_LANG_POWERSHELL
         MENUITEM "Properties",              IDM_LANG_PROPS
         MENUITEM "Python",                  IDM_LANG_PYTHON
@@ -696,7 +696,7 @@ BEGIN
         MENUITEM "SQL",                     IDM_LANG_SQL
         MENUITEM "TCL",                     IDM_LANG_TCL
         MENUITEM "TeX",                     IDM_LANG_TEX
-        MENUITEM "VB",                      IDM_LANG_VB
+        MENUITEM "Visual Basic",            IDM_LANG_VB
         MENUITEM "VHDL",                    IDM_LANG_VHDL
         MENUITEM "Verilog",                 IDM_LANG_VERILOG
         MENUITEM "XML",                     IDM_LANG_XML
@@ -710,6 +710,7 @@ BEGIN
     BEGIN
     POPUP "A"
     BEGIN
+		MENUITEM "ActionScript",          IDM_LANG_FLASH
         MENUITEM "Ada",                   IDM_LANG_ADA
         MENUITEM "ASP",                   IDM_LANG_ASP
         MENUITEM "Assembly",              IDM_LANG_ASM
@@ -732,22 +733,22 @@ BEGIN
         MENUITEM "D",                     IDM_LANG_D
         MENUITEM "Diff",                  IDM_LANG_DIFF
     END
-    POPUP "F"
-    BEGIN
-        MENUITEM "Flash actionscript",    IDM_LANG_FLASH
-        MENUITEM "Fortran",               IDM_LANG_FORTRAN
-    END
+	MENUITEM "Fortran",                   IDM_LANG_FORTRAN
     MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
     POPUP "H"
     BEGIN
         MENUITEM "Haskell",               IDM_LANG_HASKELL
         MENUITEM "HTML",                  IDM_LANG_HTML
     END
-    MENUITEM "INNO",                      IDM_LANG_INNO
+	POPUP "I"
+	BEGIN
+		MENUITEM "INI file",              IDM_LANG_INI
+		MENUITEM "Inno Setup",            IDM_LANG_INNO
+	END
     POPUP "J"
     BEGIN
         MENUITEM "Java",                  IDM_LANG_JAVA
-        MENUITEM "Javascript",            IDM_LANG_JS
+        MENUITEM "JavaScript",            IDM_LANG_JS
         MENUITEM "JSON",                  IDM_LANG_JSON
         MENUITEM "JSP",                   IDM_LANG_JSP
     END
@@ -761,7 +762,6 @@ BEGIN
     BEGIN
         MENUITEM "Makefile",              IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                IDM_LANG_MATLAB
-        MENUITEM "MS INI file",           IDM_LANG_INI
         MENUITEM "MS-DOS Style",          IDM_LANG_ASCII
     END
     POPUP "N"
@@ -775,7 +775,7 @@ BEGIN
         MENUITEM "Pascal",                IDM_LANG_PASCAL
         MENUITEM "Perl",                  IDM_LANG_PERL
         MENUITEM "PHP",                   IDM_LANG_PHP
-        MENUITEM "Postscript",            IDM_LANG_PS
+        MENUITEM "PostScript",            IDM_LANG_PS
         MENUITEM "PowerShell",            IDM_LANG_POWERSHELL
         MENUITEM "Properties",            IDM_LANG_PROPS
         MENUITEM "Python",                IDM_LANG_PYTHON
@@ -800,7 +800,7 @@ BEGIN
     END
     POPUP "V"
     BEGIN
-        MENUITEM "VB",                    IDM_LANG_VB
+        MENUITEM "Visual Basic",          IDM_LANG_VB
         MENUITEM "VHDL",                  IDM_LANG_VHDL
         MENUITEM "Verilog",               IDM_LANG_VERILOG
     END

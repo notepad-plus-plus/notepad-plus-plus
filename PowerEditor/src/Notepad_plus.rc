@@ -654,7 +654,7 @@ BEGIN
         MENUITEM "C#",                      IDM_LANG_CS
         MENUITEM "C++",                     IDM_LANG_CPP
         MENUITEM "Caml",                    IDM_LANG_CAML
-        MENUITEM "Cmake",                   IDM_LANG_CMAKE
+        MENUITEM "CMake",                   IDM_LANG_CMAKE
         MENUITEM "COBOL",                   IDM_LANG_COBOL
         MENUITEM "CoffeeScript",            IDM_LANG_COFFEESCRIPT
         MENUITEM "CSS",                     IDM_LANG_CSS
@@ -723,9 +723,9 @@ BEGIN
         MENUITEM "C#",                    IDM_LANG_CS
         MENUITEM "C++",                   IDM_LANG_CPP
         MENUITEM "Caml",                  IDM_LANG_CAML
-        MENUITEM "Cmake",                 IDM_LANG_CMAKE
+        MENUITEM "CMake",                 IDM_LANG_CMAKE
         MENUITEM "COBOL",                 IDM_LANG_COBOL
-		MENUITEM "CoffeeScript",         IDM_LANG_COFFEESCRIPT
+		MENUITEM "CoffeeScript",          IDM_LANG_COFFEESCRIPT
         MENUITEM "CSS",                   IDM_LANG_CSS
     END
     POPUP "D"

@@ -208,6 +208,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="NUMBER" styleID="45" fgColor="FF00FF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="8DB0D3" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="47" fgColor="FFFF80" bgColor="112435" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="F08047" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="F08047" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="F08047" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="7BD827" bgColor="112435" fontName="" fontStyle="0" fontSize="" />

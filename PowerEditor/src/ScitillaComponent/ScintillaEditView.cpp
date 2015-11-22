@@ -97,7 +97,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("udf"),			TEXT("udf"),				TEXT("User Define File"),								L_USER,			SCLEX_USER},
 {TEXT("asp"),			TEXT("ASP"),				TEXT("Active Server Pages script file"),				L_ASP,			SCLEX_HTML},
 {TEXT("sql"),			TEXT("SQL"),				TEXT("Structured Query Language file"),					L_SQL,			SCLEX_SQL},
-{TEXT("vb"),			TEXT("VB"),					TEXT("Visual Basic file"),								L_VB,			SCLEX_VB},
+{TEXT("vb"),			TEXT("Visual Basic"),		TEXT("Visual Basic file"),								L_VB,			SCLEX_VB},
 {TEXT("javascript"),	TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JS,			SCLEX_CPP},
 {TEXT("css"),			TEXT("CSS"),				TEXT("Cascade Style Sheets File"),						L_CSS,			SCLEX_CSS},
 {TEXT("perl"),			TEXT("Perl"),				TEXT("Perl source file"),								L_PERL,			SCLEX_PERL},
@@ -106,7 +106,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("tex"),			TEXT("TeX"),				TEXT("TeX file"),										L_TEX,			SCLEX_TEX},
 {TEXT("fortran"),		TEXT("Fortran"),			TEXT("Fortran source file"),							L_FORTRAN,		SCLEX_FORTRAN},
 {TEXT("bash"),			TEXT("Shell"),				TEXT("Unix script file"),								L_BASH,			SCLEX_BASH},
-{TEXT("actionscript"),	TEXT("Flash Action"),		TEXT("Flash Action script file"),						L_FLASH,		SCLEX_CPP},//WARNING, was "flash"
+{TEXT("actionscript"),	TEXT("ActionScript"),		TEXT("Flash ActionScript file"),						L_FLASH,		SCLEX_CPP},
 {TEXT("nsis"),			TEXT("NSIS"),				TEXT("Nullsoft Scriptable Install System script file"),	L_NSIS,			SCLEX_NSIS},
 {TEXT("tcl"),			TEXT("TCL"),				TEXT("Tool Command Language file"),						L_TCL,			SCLEX_TCL},
 {TEXT("lisp"),			TEXT("Lisp"),				TEXT("List Processing language file"),					L_LISP,			SCLEX_LISP},
@@ -114,7 +114,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("asm"),			TEXT("Assembly"),			TEXT("Assembly language source file"),					L_ASM,			SCLEX_ASM},
 {TEXT("diff"),			TEXT("Diff"),				TEXT("Diff file"),										L_DIFF,			SCLEX_DIFF},
 {TEXT("props"),			TEXT("Properties file"),	TEXT("Properties file"),								L_PROPS,		SCLEX_PROPERTIES},
-{TEXT("postscript"),	TEXT("Postscript"),			TEXT("Postscript file"),								L_PS,			SCLEX_PS},
+{TEXT("postscript"),	TEXT("PostScript"),			TEXT("PostScript file"),								L_PS,			SCLEX_PS},
 {TEXT("ruby"),			TEXT("Ruby"),				TEXT("Ruby file"),										L_RUBY,			SCLEX_RUBY},
 {TEXT("smalltalk"),		TEXT("Smalltalk"),			TEXT("Smalltalk file"),									L_SMALLTALK,	SCLEX_SMALLTALK},
 {TEXT("vhdl"),			TEXT("VHDL"),				TEXT("VHSIC Hardware Description Language file"),		L_VHDL,			SCLEX_VHDL},
@@ -125,9 +125,9 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("verilog"),		TEXT("Verilog"),			TEXT("Verilog file"),									L_VERILOG,		SCLEX_VERILOG},
 {TEXT("matlab"),		TEXT("MATLAB"),				TEXT("MATrix LABoratory"),								L_MATLAB,		SCLEX_MATLAB},
 {TEXT("haskell"),		TEXT("Haskell"),			TEXT("Haskell"),										L_HASKELL,		SCLEX_HASKELL},
-{TEXT("inno"),			TEXT("Inno"),				TEXT("Inno Setup script"),								L_INNO,			SCLEX_INNOSETUP},
+{TEXT("inno"),			TEXT("Inno Setup"),			TEXT("Inno Setup script"),								L_INNO,			SCLEX_INNOSETUP},
 {TEXT("searchResult"),	TEXT("Internal Search"),	TEXT("Internal Search"),								L_SEARCHRESULT,	SCLEX_SEARCHRESULT},
-{TEXT("cmake"),			TEXT("CMAKEFILE"),			TEXT("CMAKEFILE"),										L_CMAKE,		SCLEX_CMAKE},
+{TEXT("cmake"),			TEXT("CMake"),				TEXT("CMake file"),										L_CMAKE,		SCLEX_CMAKE},
 {TEXT("yaml"),			TEXT("YAML"),				TEXT("YAML Ain't Markup Language"),						L_YAML,			SCLEX_YAML},
 {TEXT("cobol"),			TEXT("COBOL"),				TEXT("COmmon Business Oriented Language"),				L_COBOL,		SCLEX_COBOL},
 {TEXT("gui4cli"),		TEXT("Gui4Cli"),			TEXT("Gui4Cli file"),									L_GUI4CLI,		SCLEX_GUI4CLI},
@@ -877,6 +877,7 @@ void ScintillaEditView::setJsLexer()
 
 	execute(SCI_SETLEXER, SCLEX_CPP);
 	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	makeStyle(L_JAVASCRIPT, pKwArray);
 
 	if (doxygenKeyWords)
 	{
@@ -983,6 +984,7 @@ void ScintillaEditView::setJsLexer()
 	// Disable track preprocessor to avoid incorrect detection.
 	// In the most of cases, the symbols are defined outside of file.
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.track.preprocessor"), reinterpret_cast<LPARAM>("0"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.backquoted.strings"), reinterpret_cast<LPARAM>("1"));
 }
 
 void ScintillaEditView::setTclLexer()
@@ -3039,6 +3041,13 @@ void ScintillaEditView::setTabSettings(Lang *lang)
 {
     if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
     {
+		if (lang->_langID == L_JAVASCRIPT)
+		{
+			Lang *ljs = _pParameter->getLangFromID(L_JS);
+			execute(SCI_SETTABWIDTH, ljs->_tabSize);
+			execute(SCI_SETUSETABS, !ljs->_isTabReplacedBySpace);
+			return;
+		}
         execute(SCI_SETTABWIDTH, lang->_tabSize);
         execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
     }

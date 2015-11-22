@@ -21,15 +21,15 @@
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Відкрити теку розташування"/>
                     <Item subMenuId="file-closeMore" name="Закрити ще"/>
-                    <Item subMenuId="file-recentFiles" name="Недавні файли"/>
+                    <Item subMenuId="file-recentFiles" name="Нещодавні файли"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Копіювати в буфер..."/>
                     <Item subMenuId="edit-indent" name="Абзац"/>
                     <Item subMenuId="edit-convertCaseTo" name="Змінити регістр"/>
                     <Item subMenuId="edit-lineOperations" name="Дії над рядком"/>
                     <Item subMenuId="edit-comment" name="Коментувати/Розкометувати"/>
                     <Item subMenuId="edit-autoCompletion" name="Автозавершення"/>
-                    <Item subMenuId="edit-eolConversion" name="Конвертація в EOL"/>
-                    <Item subMenuId="edit-blankOperations" name="Пусті операції"/>
+                    <Item subMenuId="edit-eolConversion" name="Конвертація закінчення рядка"/>
+                    <Item subMenuId="edit-blankOperations" name="Операції з пробілами"/>
                     <Item subMenuId="edit-pasteSpecial" name="Спеціальна вставка"/>
                     <Item subMenuId="search-markAll" name="Позначити все"/>
                     <Item subMenuId="search-unmarkAll" name="Зняти всі позначення"/>
@@ -44,22 +44,22 @@
                     <Item subMenuId="view-uncollapseLevel" name="Розгорнути рівень"/>
                     <Item subMenuId="view-project" name="Проект"/>
                     <Item subMenuId="encoding-characterSets"  name="Кодування"/>
-                    <Item subMenuId="encoding-arabic"  name="Арабська"/>
-                    <Item subMenuId="encoding-baltic"  name="Балтійська"/>
-                    <Item subMenuId="encoding-celtic"  name="Кельтська"/>
+                    <Item subMenuId="encoding-arabic"  name="Арабське"/>
+                    <Item subMenuId="encoding-baltic"  name="Балтійське"/>
+                    <Item subMenuId="encoding-celtic"  name="Кельтське"/>
                     <Item subMenuId="encoding-cyrillic"  name="Кирилиця"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Центральноєвропейська"/>
-                    <Item subMenuId="encoding-chinese"  name="Китайська"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Східноєвропейська"/>
-                    <Item subMenuId="encoding-greek"  name="Грецька"/>
-                    <Item subMenuId="encoding-hebrew"  name="Єврейська"/>
-                    <Item subMenuId="encoding-japanese"  name="Японська"/>
-                    <Item subMenuId="encoding-korean" name="Корейська"/>
-                    <Item subMenuId="encoding-northEuropean" name="Північноєвропейська"/>
-                    <Item subMenuId="encoding-thai" name="Тайська"/>
-                    <Item subMenuId="encoding-turkish" name="Турецька"/>
-                    <Item subMenuId="encoding-westernEuropean" name="Західноєвропейська"/>
-                    <Item subMenuId="encoding-vietnamese" name="В'єтнамська"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Центральноєвропейське"/>
+                    <Item subMenuId="encoding-chinese"  name="Китайське"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Східноєвропейське"/>
+                    <Item subMenuId="encoding-greek"  name="Грецьке"/>
+                    <Item subMenuId="encoding-hebrew"  name="Єврейське"/>
+                    <Item subMenuId="encoding-japanese"  name="Японське"/>
+                    <Item subMenuId="encoding-korean" name="Корейське"/>
+                    <Item subMenuId="encoding-northEuropean" name="Північноєвропейське"/>
+                    <Item subMenuId="encoding-thai" name="Тайське"/>
+                    <Item subMenuId="encoding-turkish" name="Турецьке"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Західноєвропейське"/>
+                    <Item subMenuId="encoding-vietnamese" name="В’єтнамське"/>
                     <Item subMenuId="settings-import"  name="Імпортувати"/>
                 </SubEntries>
 
@@ -95,12 +95,12 @@
                     <Item id="42005" name="Вставити"/>
                     <Item id="42006" name="Вилучити"/>
                     <Item id="42007" name="Вибрати все"/>
-                    <Item id="42020" name="Вибрати Початок/Кінець"/>
-                    <Item id="42008" name="Вставити Tab (Відступ)"/>
-                    <Item id="42009" name="Вилучити Tab (Втяжка)"/>
+                    <Item id="42020" name="Вибрати початок/кінець"/>
+                    <Item id="42008" name="Вставити Tab (відступ)"/>
+                    <Item id="42009" name="Вилучити Tab (втяжка)"/>
                     <Item id="42010" name="Дублювати рядок"/>
                     <Item id="42012" name="Розбити рядки"/>
-                    <Item id="42013" name="Об'єднати рядки"/>
+                    <Item id="42013" name="Об’єднати рядки"/>
                     <Item id="42014" name="Підняти поточний рядок"/>
                     <Item id="42015" name="Опустити поточний рядок"/>
                     <Item id="42016" name="ВЕЛИКИМИ"/>
@@ -111,14 +111,14 @@
                     <Item id="42022" name="Перемкнути в коментар одного рядка"/>
                     <Item id="42023" name="Коментувати блок"/>
                     <Item id="42047" name="Розкоментувати блок"/>
-                    <Item id="42024" name="Прибрати Пробіли"/>
-                    <Item id="42042" name="Прибрати Пробіл на початку"/>
-                    <Item id="42043" name="Прибрати Пробіл на початку і в кінці"/>
-                    <Item id="42044" name="Символ Кінця Рядка в Пробіл"/>
-                    <Item id="42045" name="Прибрати зайві Пробіли а Закінчення Рядків в Пробіл"/>
-                    <Item id="42046" name="TAB в Пробіл"/>
-                    <Item id="42054" name="Пробіл в TAB (Все)"/>
-                    <Item id="42053" name="Пробіл в TAB (На початку)"/>
+                    <Item id="42024" name="Прибрати пробіли"/>
+                    <Item id="42042" name="Прибрати пробіл на початку"/>
+                    <Item id="42043" name="Прибрати пробіл на початку і в кінці"/>
+                    <Item id="42044" name="Закінчення рядків перетворити в пробіли"/>
+                    <Item id="42045" name="Прибрати зайві пробіли а закінчення рядків перетворити в пробіли"/>
+                    <Item id="42046" name="TAB в пробіл"/>
+                    <Item id="42054" name="Пробіл в TAB (все)"/>
+                    <Item id="42053" name="Пробіл в TAB (на початку)"/>
                     <Item id="42038" name="Вставити вміст HTML"/>
                     <Item id="42039" name="Вставити вміст RTF"/>
                     <Item id="42048" name="Копіювати бінарний вміст"/>
@@ -127,22 +127,22 @@
                     <Item id="42037" name="Режим стовпців..."/>
                     <Item id="42034" name="Редактор стовпців..."/>
                     <Item id="42051" name="Панель символів"/>
-                    <Item id="42052" name="Історія буфера"/>
+                    <Item id="42052" name="Історія буферу"/>
                     <Item id="42025" name="Зберегти запис макро..."/>
                     <Item id="42026" name="Текст справа наліво"/>
                     <Item id="42027" name="Текст зліва направо"/>
                     <Item id="42028" name="Лише читання"/>
-                    <Item id="42029" name="Шлях та ім'я файла в буфер обміну"/>
-                    <Item id="42030" name="Ім'я файла в буфер обміну"/>
+                    <Item id="42029" name="Шлях та назва файла в буфер обміну"/>
+                    <Item id="42030" name="Назва файла в буфер обміну"/>
                     <Item id="42031" name="Шлях до файла в буфер обміну"/>
                     <Item id="42032" name="Багаторазовий запуск..."/>
-                    <Item id="42033" name="Прибрати атрибут &quot;Лише читання&quot;"/>
+                    <Item id="42033" name="Прибрати атрибут „Лише читання“"/>
                     <Item id="42035" name="Закоментувати блок"/>
                     <Item id="42036" name="Розкоментувати блок"/>
-                    <Item id="42055" name="Прибрати пусті рядки"/>
-                    <Item id="42056" name="Прибрати пусті рядки (Включно з пустими символами)"/>
-                    <Item id="42057" name="Додати пустий рядок над поточним"/>
-                    <Item id="42058" name="Додати пустий рядок під поточним"/>
+                    <Item id="42055" name="Прибрати порожні рядки"/>
+                    <Item id="42056" name="Прибрати порожні рядки (включно з порожніми символами)"/>
+                    <Item id="42057" name="Додати порожній рядок над поточним"/>
+                    <Item id="42058" name="Додати порожній рядок під поточним"/>
                     <Item id="42059" name="Сортувати рядки за зростанням"/>
                     <Item id="42060" name="Сортувати рядки за спаданням"/>
                     <Item id="43001" name="Пошук..."/>
@@ -202,8 +202,8 @@
                     <Item id="44022" name="Перенесення рядків"/>
                     <Item id="44023" name="Більше"/>
                     <Item id="44024" name="Дрібніше"/>
-                    <Item id="44025" name="Відображати Пробіли і Tab"/>
-                    <Item id="44026" name="Відображати Символ Закінчення Рядка"/>
+                    <Item id="44025" name="Показувати пробіли і Tab"/>
+                    <Item id="44026" name="Показувати символ закінчення рядка"/>
 	                <Item id="44029" name="Розгорнути все"/>
                     <Item id="44030" name="Згорнути поточний фрагмент"/>
                     <Item id="44031" name="Розгорнути поточний фрагмент"/>
@@ -231,7 +231,7 @@
                     <Item id="44081" name="Панель проекту 1"/>
                     <Item id="44082" name="Панель проекту 2"/>
                     <Item id="44083" name="Панель проекту 3"/>
-                    <Item id="45001" name="Перетворити в формат Windows"/>
+                    <Item id="45001" name="Перетворити в Windows-формат"/>
                     <Item id="45002" name="Перетворити в UNIX-формат"/>
                     <Item id="45003" name="Перетворити в MAC-формат"/>
                     <Item id="45004" name="Кодувати в ANSI"/>
@@ -240,7 +240,7 @@
                     <Item id="45007" name="Кодувати в UCS-2 Little Endian"/>
                     <Item id="45008" name="Кодувати в UTF-8 (без BOM)"/>
 					<Item id="45009" name="Перетворити в ANSI"/>
-					<Item id="45010" name="Перетворити в UTF-8 без BOM"/>
+					<Item id="45010" name="Перетворити в UTF-8 (без BOM)"/>
 					<Item id="45011" name="Перетворити в UTF-8"/>
 					<Item id="45012" name="Перетворити в UCS-2 Big Endian"/>
 					<Item id="45013" name="Перетворити в UCS-2 Little Endian"/>
@@ -288,8 +288,8 @@
                     <Item id="50002" name="Підказка по функціях"/>
                     <Item id="50006" name="Завершення шляху"/>
                     <Item id="44042" name="Сховати рядки"/>
-                    <Item id="42040" name="Відкрити всі недавні файли"/>
-                    <Item id="42041" name="Очистити список недавніх файлів"/>
+                    <Item id="42040" name="Відкрити всі нещодавні файли"/>
+                    <Item id="42041" name="Очистити список нещодавніх файлів"/>
 					<Item id="48016" name="Модиф. гаряч. клавіш/Видалити макро..."/>
 					<Item id="48017" name="Модиф. гаряч. клавіш/Видалити команду..."/>
 				</Commands>
@@ -304,13 +304,13 @@
                     <Item CMID="4" name="Друкувати мене"/>
                     <Item CMID="5" name="Відкрити в іншому вікні"/>
                     <Item CMID="6" name="Копіювати в друге вікно"/>
-					<Item CMID="7" name="Повний шлях файла до Буфера обміну"/>
-					<Item CMID="8" name="Ім'я файла до Буфера обміну"/>
-					<Item CMID="9" name="Поточний шлях до Буфера обміну"/>
+					<Item CMID="7" name="Повний шлях файла до буферу обміну"/>
+					<Item CMID="8" name="Назва файла до буферу обміну"/>
+					<Item CMID="9" name="Поточний шлях до буферу обміну"/>
 					<Item CMID="10" name="Перейменувати"/>
 					<Item CMID="11" name="Вилучити"/>
 					<Item CMID="12" name="Лише читання"/>
-					<Item CMID="13" name="Прибрати позначку 'Лише читання'"/>
+					<Item CMID="13" name="Прибрати позначку „Лише читання“"/>
 					<Item CMID="14" name="Перейти до нового екземпляра"/>
 					<Item CMID="15" name="Відкрити в новому екземплярі"/>
                     <Item CMID="16" name="Перезавантажити"/>
@@ -356,7 +356,7 @@
 			 	<Item id="1626" name="Розширений (\n \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Замінити в файлах"/>
 				<Item id="1661" name="У теці поточного файлу"/>
-			 	<Item id="1641" name="Виконати пошук всього в поточному документі"/>				
+			 	<Item id="1641" name="Виконати пошук всього в поточному документі"/>
 			 	<Item id="1686" name="Прозорість"/>
                 <Item id="1703" name=". matches newline"/>
             </Find>
@@ -373,7 +373,7 @@
                 <Item id="2910" name="Знайти"/>
             </FindCharsInRange>
 
-            <GoToLine title="До рядка #">
+            <GoToLine title="До рядка №">
                 <Item id="2007" name="Рядок"/>
                 <Item id="2008" name="Стовпчик"/>
                 <Item id="1"    name="Вперед!"/>
@@ -471,7 +471,7 @@
                     <Item id="21102" name="Налаштувати"/>
                     <Item id="21105" name="Документація:"/>
                     <Item id="21104" name="Тимчасовий сайт документації:"/>
-                    <Item id="21106" name="Компактне згорт. (пусті лінії також)"/>
+                    <Item id="21106" name="Компактне згорт. (порожні рядки також)"/>
                     <Item id="21220" name="Згортання в коді стилю 1:"/>
                     <Item id="21224" name="Відкриття:"/>
                     <Item id="21225" name="Середина:"/>
@@ -757,11 +757,11 @@
                     <Item id="6810" name="Завершення слів"/>
                     <Item id="6816" name="Завершення функцій і слів"/>
                     <Item id="6811" name="від"/>
-                    <Item id="6813" name="символа th"/>
+                    <Item id="6813" name="символу th"/>
                     <Item id="6814" name="Дійсне значення: 1 - 9"/>
                     <Item id="6815" name="Підказка параметрів функції при введенні"/>
                     <Item id="6851" name="Автовставлення"/>
-                    <Item id="6857" name=" html/xml закриваючий тег"/>
+                    <Item id="6857" name=" html/xml закриваючий теґ"/>
                     <Item id="6858" name="Відкрити"/>
                     <Item id="6859" name="Закрити"/>
                     <Item id="6860" name="Пара збігів 1:"/>

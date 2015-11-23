@@ -2199,10 +2199,7 @@ void Notepad_plus::addHotSpot()
 	_pEditView->execute(SCI_SETTARGETSTART, startPos);
 	_pEditView->execute(SCI_SETTARGETEND, endPos);
 
-	std::vector<unsigned char> hotspotPairs; //= _pEditView->GetHotspotPairs();
-
 	unsigned char style_hotspot = 0;
-	unsigned char mask = INDIC1_MASK;
 
 	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
 
@@ -2214,29 +2211,18 @@ void Notepad_plus::addHotSpot()
 		unsigned char idStyle = static_cast<unsigned char>(_pEditView->execute(SCI_GETSTYLEAT, posFound));
 
 		// Search the style
-		int fs = -1;
-		for (size_t i = 0, len = hotspotPairs.size(); i < len ; ++i)
+		if(style_hotspot)
 		{
-			// make sure to ignore "hotspot bit" when comparing document style with archived hotspot style
-			if ((hotspotPairs[i] & ~mask) == (idStyle & ~mask))
-			{
-				fs = hotspotPairs[i];
-				_pEditView->execute(SCI_STYLEGETFORE, fs);
-					break;
-			}
-		}
+			_pEditView->execute(SCI_STYLEGETFORE, style_hotspot);
 
-		// if we found it then use it to colourize
-		if (fs != -1)
-		{
+			// if we found it then use it to colourize
 			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
-			_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
+			_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
 		}
-		else // generalize a new style and add it into a array
+		else // generalize a new style and remember id
 		{
-			style_hotspot = idStyle | mask;	// set "hotspot bit"
-			hotspotPairs.push_back(style_hotspot);
-			unsigned char idStyleMSBunset = idStyle & ~mask;
+			style_hotspot = INDIC_MAX + 1;	// remember hotspot style id
+			unsigned char idStyleMSBunset = idStyle;
 			char fontNameA[128];
 
 			Style hotspotStyle;

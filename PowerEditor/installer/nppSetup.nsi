@@ -1030,6 +1030,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Portuguese" portuguese
 		CopyFiles "$TEMP\nppLocalization\portuguese.xml" "$INSTDIR\localization\portuguese.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Punjabi" punjabi
+		CopyFiles "$TEMP\nppLocalization\punjabi.xml" "$INSTDIR\localization\punjabi.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kannada" kannada
 		CopyFiles "$TEMP\nppLocalization\kannada.xml" "$INSTDIR\localization\kannada.xml"
 	${MementoSectionEnd}
@@ -1755,6 +1758,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.portuguese
 		Delete "$INSTDIR\localization\portuguese.xml"
+	SectionEnd
+	Section un.punjabi
+		Delete "$INSTDIR\localization\punjabi.xml"
 	SectionEnd
 	Section un.romanian
 		Delete "$INSTDIR\localization\romanian.xml"

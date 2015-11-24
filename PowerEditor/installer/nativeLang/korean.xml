@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
-<!--  <localization work version=6.5.3~6.8.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
-<Native-Langue name="한국어" filename="korean.xml" version="6.8.2">
+<!--  <localization work version=6.5.3~6.8.5 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
+<Native-Langue name="한국어" filename="korean.xml" version="6.8.5">
 <Menu>
 <Main>
 <!--  Main Menu Entries --> 
@@ -325,13 +325,13 @@
   <Item id="1" name="다음 찾기"/> 
   <Item id="2" name="닫기"/> 
   <Item id="1620" name="찾을 내용:"/> 
-  <Item id="1603" name="모든 단어 일치(&amp;W)"/> 
+  <Item id="1603" name="단어 완전 일치(&amp;W)"/> 
   <Item id="1604" name="대소문자 구분(&amp;C)"/> 
   <Item id="1605" name="정규 표현식(&amp;E)"/> 
   <Item id="1606" name="되돌이 검색(&amp;A)"/> 
   <Item id="1612" name="위로(&amp;U)"/> 
   <Item id="1613" name="아래로(&amp;D)"/> 
-  <Item id="1614" name="일치하는 수"/> 
+  <Item id="1614" name="일치하는 개수"/> 
   <Item id="1615" name="모두 찾기"/> 
   <Item id="1616" name="줄을 책갈피"/> 
   <Item id="1618" name="이전 검색 결과 지우기"/> 
@@ -352,7 +352,7 @@
   <Item id="1659" name="숨김 폴더 포함"/> 
   <Item id="1624" name="검색 모드"/> 
   <Item id="1625" name="일반"/> 
-  <Item id="1626" name="확장 (\r, \n, \t, \x..., \0)"/> 
+  <Item id="1626" name="확장 (\n, \r, \t, \0, \x...)"/> 
   <Item id="1660" name="모두 바꾸기"/> 
   <Item id="1661" name="현재와 같은 폴더"/> 
   <Item id="1641" name="현재에서 모두 찾기"/> 

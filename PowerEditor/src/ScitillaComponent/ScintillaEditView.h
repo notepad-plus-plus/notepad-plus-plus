@@ -860,7 +860,7 @@ protected:
 		setLexer(SCLEX_D, L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
     void setPowerShellLexer() {
-		setLexer(SCLEX_POWERSHELL, L_POWERSHELL, LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_POWERSHELL, L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_5);
 	};
     void setRLexer() {
 		setLexer(SCLEX_R, L_R, LIST_0 | LIST_1 | LIST_2);

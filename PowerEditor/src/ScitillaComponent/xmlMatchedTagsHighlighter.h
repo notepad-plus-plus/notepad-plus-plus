@@ -63,7 +63,7 @@ private:
 	// Allowed whitespace characters in XML
 	bool isWhitespace(int ch) { return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n'; }
 
-
+	bool insideComment(int p);	// added by Amy
 	FindResult findText(const char *text, int start, int end, int flags = 0);
 	FindResult findOpenTag(const std::string& tagName, int start, int end);
 	FindResult findCloseTag(const std::string& tagName, int start, int end);

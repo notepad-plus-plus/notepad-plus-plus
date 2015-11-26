@@ -843,34 +843,29 @@ struct NppGUI final
 	size_t _snapshotBackupTiming = 7000;
 	generic_string _cloudPath; // this option will never be read/written from/to config.xml
 	unsigned char _availableClouds = '\0'; // this option will never be read/written from/to config.xml
+	bool _useNewStyleSaveDlg = false;
 };
 
 struct ScintillaViewParams
 {
-	ScintillaViewParams() : _lineNumberMarginShow(true), _bookMarkMarginShow(true),_borderWidth(2),\
-							_folderStyle(FOLDER_STYLE_BOX), _foldMarginShow(true), _indentGuideLineShow(true),\
-							_currentLineHilitingShow(true), _wrapSymbolShow(false),  _doWrap(false), _edgeNbColumn(80),\
-							_zoom(0), _zoom2(0), _whiteSpaceShow(false), _eolShow(false), _lineWrapMethod(LINEWRAP_ALIGNED),\
-							_disableAdvancedScrolling(false), _doSmoothFont(false) {};
-	bool _lineNumberMarginShow;
-	bool _bookMarkMarginShow;
-	//bool _docChangeStateMarginShow;
-	folderStyle  _folderStyle; //"simple", "arrow", "circle", "box" and "none"
-	lineWrapMethod _lineWrapMethod;
-	bool _foldMarginShow;
-	bool _indentGuideLineShow;
-	bool _currentLineHilitingShow;
-	bool _wrapSymbolShow;
-	bool _doWrap;
-	int _edgeMode;
-	int _edgeNbColumn;
-	int _zoom;
-	int _zoom2;
-	bool _whiteSpaceShow;
+	bool _lineNumberMarginShow = true;
+	bool _bookMarkMarginShow = true;
+	folderStyle  _folderStyle = FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
+	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
+	bool _foldMarginShow = true;
+	bool _indentGuideLineShow = true;
+	bool _currentLineHilitingShow = true;
+	bool _wrapSymbolShow = false;
+	bool _doWrap = false;
+	int _edgeMode = EDGE_NONE;
+	int _edgeNbColumn = 80;
+	int _zoom = 0;
+	int _zoom2 = 0;
+	bool _whiteSpaceShow = false;
 	bool _eolShow;
-	int _borderWidth;
-	bool _disableAdvancedScrolling;
-	bool _doSmoothFont;
+	int _borderWidth = 2;
+	bool _disableAdvancedScrolling = false;
+	bool _doSmoothFont = false;
 };
 
 const int NB_LIST = 20;
@@ -1564,6 +1559,13 @@ public:
 		_currentDefaultFgColor = c;
 	}
 
+	bool useNewStyleSaveDlg() const {
+		return _nppGUI._useNewStyleSaveDlg;
+	}
+
+	void setUseNewStyleSaveDlg(bool v) {
+		_nppGUI._useNewStyleSaveDlg = v;
+	}
 	DPIManager _dpiManager;
 
 

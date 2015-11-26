@@ -4594,6 +4594,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR * optNameBackSlashEscape = element->Attribute(TEXT("backSlashIsEscapeCharacterForSql"));
 			if (optNameBackSlashEscape && !lstrcmp(optNameBackSlashEscape, TEXT("no")))
 				_nppGUI._backSlashIsEscapeCharacterForSql = false;
+
+			const TCHAR * optNameNewStyleSaveDlg = element->Attribute(TEXT("newStyleSaveDlg"));
+			if (optNameNewStyleSaveDlg && !lstrcmp(optNameNewStyleSaveDlg, TEXT("yes")))
+				_nppGUI._useNewStyleSaveDlg = true;
+
 		}
 	}
 }
@@ -5337,6 +5342,9 @@ bool NppParameters::writeGUIParams()
 
 			const TCHAR * pStrBackSlashEscape = _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no");
 			element->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), pStrBackSlashEscape);
+
+			const TCHAR * pStrNewStyleSaveDlg = _nppGUI._useNewStyleSaveDlg ? TEXT("yes") : TEXT("no");
+			element->SetAttribute(TEXT("newStyleSaveDlg"), pStrNewStyleSaveDlg);
 		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
 		{
@@ -5648,6 +5656,7 @@ bool NppParameters::writeGUIParams()
 
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn?TEXT("yes"):TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("newStyleSaveDlg"), _nppGUI._useNewStyleSaveDlg?TEXT("yes"):TEXT("no"));
 	}
 	insertDockingParamNode(GUIRoot);
 	return true;

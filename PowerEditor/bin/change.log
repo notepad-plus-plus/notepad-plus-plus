@@ -1,14 +1,14 @@
-Notepad++ v6.8.6 bug-fixes and enhancements:
+Notepad++ v6.8.7 bug-fixes and enhancements:
 
-1.  Fix function list not working for Javascript regression.
-2.  Fix maintain indent not working in javascript regression.
-3.  Improve the language detection at the beginning of file content.
-4.  Fix possible file corruption during macro playback.
-5.  Fix wrong EOL mode for opening/reloading big files.
-6.  Fix loading 3 bytes file error due to bad encoding detection (UTF16 w/o BOM).
-7.  Fix DocMap not updating issue when switching to user defined language or external lexer.
-8.  Fix reload file issue: document marked as unsaved after reloading.
-9.  Enhance the detection of EOL: if a document has no EOL for detecting, use EOL of new document settings.
+1 .  Fix crash while "backups and session snapshots" is activated. 
+2 .  Restore file extension feature in save dialog.
+3 .  Fix crash issue while moving Find In Files progress window.
+4 .  Fix tab settings not working in javascript.
+5 .  Fix user customized keywords no effect in Javascript.
+6 .  Enhance language detection on "Save as".
+7 .  Add back-quoted string support for javascript.
+8 .  Move position to center when using "-n" option in command line.
+9 .  Installer enhancement: Allow user to keep DSpellCheck plugin.
 
 
 Included plugins:

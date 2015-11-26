@@ -26,13 +26,13 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #pragma once
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.8.6")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.8.7")
 
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("6.86\0")
-#define VERSION_DIGITALVALUE 6, 8, 6, 0
+#define VERSION_VALUE TEXT("6.87\0")
+#define VERSION_DIGITALVALUE 6, 8, 7, 0
 
 #ifndef IDC_STATIC
 #define IDC_STATIC    -1

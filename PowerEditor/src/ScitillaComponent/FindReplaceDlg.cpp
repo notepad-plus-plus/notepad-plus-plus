@@ -3096,7 +3096,7 @@ void Progress::close()
 {
 	if (_hwnd)
 	{
-		::SendMessage(_hwnd, WM_CLOSE, 0, 0);
+		::PostMessage(_hwnd, WM_CLOSE, 0, 0);
 		_hwnd = NULL;
 		::WaitForSingleObject(_hThread, INFINITE);
 

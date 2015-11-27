@@ -143,7 +143,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 		openFound = findText("<", searchStartPoint, 0, 0);
 		styleAt = _pEditView->execute(SCI_GETSTYLEAT, openFound.start);
 		searchStartPoint = openFound.start - 1;
-	} while (openFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING || insideComment(openFound.start)) && searchStartPoint > 0);		
+	} while (openFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING || styleAt == SCE_H_COMMENT /*insideComment(openFound.start)*/) && searchStartPoint > 0);
 
 	if (openFound.success && styleAt != SCE_H_CDATA)
 	{
@@ -155,7 +155,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 			closeFound = findText(">", searchStartPoint, caret, 0);
 			styleAt = _pEditView->execute(SCI_GETSTYLEAT, closeFound.start);
 			searchStartPoint = closeFound.end;
-		} while (closeFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING || insideComment(closeFound.start)) && searchStartPoint <= caret);
+		} while (closeFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING || styleAt == SCE_H_COMMENT/* insideComment(closeFound.start)*/) && searchStartPoint <= caret);
 
 		if (!closeFound.success)
 		{
@@ -282,7 +282,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 				std::string tagName;
 				nextChar = _pEditView->execute(SCI_GETCHARAT, position);	
 				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
-				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'' && !insideComment(position))
+				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'' /*&& !insideComment(position)*/)
 				{
 					tagName.push_back((char)nextChar);
 					++position;
@@ -429,7 +429,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findOpenTag(con
 		{
 			nextChar = _pEditView->execute(SCI_GETCHARAT, result.end);
 			styleAt = _pEditView->execute(SCI_GETSTYLEAT, result.start);
-			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_DOUBLESTRING && styleAt != SCE_H_SINGLESTRING && !insideComment(result.start))
+			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_DOUBLESTRING && styleAt != SCE_H_SINGLESTRING && styleAt != SCE_H_COMMENT /*!insideComment(result.start)*/)
 			{
 				// We've got an open tag for this tag name (i.e. nextChar was space or '>')
 				// Now we need to find the end of the start tag.
@@ -499,7 +499,7 @@ int XmlMatchedTagsHighlighter::findCloseAngle(int startPosition, int endPosition
 		{
 			int style = _pEditView->execute(SCI_GETSTYLEAT, closeAngle.start);
 			// As long as we're not in an attribute (  <TAGNAME attrib="val>ue"> is VALID XML. )
-			if (style != SCE_H_DOUBLESTRING && style != SCE_H_SINGLESTRING && !insideComment(closeAngle.start))
+			if (style != SCE_H_DOUBLESTRING && style != SCE_H_SINGLESTRING && style != SCE_H_COMMENT /*!insideComment(closeAngle.start)*/)
 			{
 				returnPosition = closeAngle.start;
 				isValidClose = true;
@@ -548,7 +548,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findCloseTag(co
 				searchStart = result.start - 1;
 			}
 		
-			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_SINGLESTRING && styleAt != SCE_H_DOUBLESTRING && !insideComment(result.start)) // If what we found was in CDATA section, it's not a valid tag.
+			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_SINGLESTRING && styleAt != SCE_H_DOUBLESTRING && styleAt != SCE_H_COMMENT/* !insideComment(result.start)*/) // If what we found was in CDATA section, it's not a valid tag.
 			{
 				// Common case - '>' follows the tag name directly
 				if (nextChar == '>')

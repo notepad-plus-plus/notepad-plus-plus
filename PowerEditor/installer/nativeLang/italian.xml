@@ -698,6 +698,7 @@
                     <Item id = "6413" name = "Cartella Predefinita (Apri/Salva)" />
                     <Item id = "6414" name = "Secondo il documento corrente" />
                     <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata" />
+                    <Item id = "6430" name = "Usa nuovo stile per finestra di salvataggio (senza estensioni predefinite)" />
                 </DefaultDir>
                 <RecentFilesHistory title = "File recenti">
                     <Item id = "6304" name = "Lista Documenti Recenti" />

@@ -49,7 +49,10 @@ void DocTabView::addBuffer(BufferID buffer)
 
 	int index = -1;
 	if (_hasImgLst)
-		index = 0;
+	{
+		index = addIconForFilename(buf->getFileName());
+	}
+
 	tie.iImage = index;
 	tie.pszText = (TCHAR *)buf->getFileName();
 	tie.lParam = (LPARAM)buffer;
@@ -137,19 +140,14 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	if (index == -1)
 		return;
 
+	TCITEM current;
+	current.mask = TCIF_IMAGE;
+	::SendMessage(_hSelf, TCM_GETITEM, index, reinterpret_cast<LPARAM>(&current));
+
 	TCITEM tie;
 	tie.lParam = -1;
-	tie.mask = 0;
-
-	if (mask & BufferChangeReadonly || mask & BufferChangeDirty)
-	{
-		tie.mask |= TCIF_IMAGE;
-		tie.iImage = buffer->isDirty()?UNSAVED_IMG_INDEX:SAVED_IMG_INDEX;
-		if (buffer->isReadOnly())
-		{
-			tie.iImage = REDONLY_IMG_INDEX;
-		}
-	}
+	tie.mask = TCIF_IMAGE;
+	tie.iImage = current.iImage;
 
 	//We must make space for the added ampersand characters.
 	TCHAR encodedLabel[2 * MAX_PATH];
@@ -157,6 +155,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	if (mask & BufferChangeFilename)
 	{
 		tie.mask |= TCIF_TEXT;
+		tie.iImage = addIconForFilename(buffer->getFileName());
 		tie.pszText = (TCHAR *)encodedLabel;
 
 		{
@@ -224,4 +223,72 @@ void DocTabView::reSizeTo(RECT & rc)
 		rc.bottom -= (borderWidth * 2);
 		_pView->reSizeTo(rc);
 	}
+}
+
+int DocTabView::addIconForFilename(const TCHAR * name)
+{
+	int index = -1;
+	SHFILEINFO fileInfo;
+	SHGetFileInfo(
+		name,
+		FILE_ATTRIBUTE_NORMAL,
+		&fileInfo,
+		sizeof(fileInfo),
+		SHGFI_SYSICONINDEX | SHGFI_USEFILEATTRIBUTES | SHGFI_ICON);
+
+	if (fileInfo.iIcon != 0)
+		index = _pIconList->addExternalIcon(CopyIcon(fileInfo.hIcon));
+	if (index == -1)
+		index = 0;
+	return index;
+}
+
+void DocTabView::drawImage(int tabIndex, int imgIndex, HDC hDC, int xPos, int yPos)
+{
+	if (tabIndex < 0 || imgIndex < 0)
+		return;
+
+	BufferID id = getBufferByIndex(tabIndex);
+	Buffer * buf = MainFileManager->getBufferByID(id);
+	HIMAGELIST imgLst = (HIMAGELIST)::SendMessage(_hSelf, TCM_GETIMAGELIST, 0, 0);
+
+	bool unsaved = buf->isDirty();
+	bool readOnly = buf->isReadOnly();
+
+	IMAGELISTDRAWPARAMS params;
+	params.cbSize = sizeof(params);
+	params.himl = imgLst;
+	params.hdcDst = hDC;
+	params.i = imgIndex;
+	params.x = xPos;
+	params.y = yPos;
+	params.cx = 0;
+	params.cy = 0;
+	params.xBitmap = 0;
+	params.yBitmap = 0;
+	params.rgbBk = CLR_NONE;
+	params.rgbFg = CLR_NONE;
+	params.crEffect = 0;
+
+	// Draw a red background and then the image
+	HBRUSH hbrush = CreateSolidBrush(darkRed);
+	HBRUSH holdbrush = (HBRUSH)SelectObject(hDC, hbrush);
+
+	params.fStyle = unsaved ? ILD_MASK | ILD_ROP : ILD_TRANSPARENT;
+	params.dwRop = unsaved ? 0x00B8074A : 0;
+	params.fState = readOnly ? ILS_SATURATE: 0;
+	params.Frame = 0;
+	ImageList_DrawIndirect(&params);
+
+	SelectObject(hDC, holdbrush);
+
+	if (unsaved)
+	{
+		params.fStyle = ILD_TRANSPARENT;
+		params.dwRop = 0;
+		params.fState = ILS_ALPHA;
+		params.Frame = UNSAVED_IMG_ALPHA;
+		ImageList_DrawIndirect(&params);
+	}
+
 }

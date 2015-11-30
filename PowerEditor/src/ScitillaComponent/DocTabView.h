@@ -41,10 +41,12 @@ const int SAVED_IMG_INDEX = 0;
 const int UNSAVED_IMG_INDEX = 1;
 const int REDONLY_IMG_INDEX = 2;
 
+const int UNSAVED_IMG_ALPHA = 200;
+
 class DocTabView : public TabBarPlus
 {
 public :
-	DocTabView():TabBarPlus(), _pView(NULL) {};
+	DocTabView():TabBarPlus(), _pView(NULL), _pIconList(NULL) {};
 	virtual ~DocTabView(){};
 	
 	virtual void destroy() {
@@ -56,7 +58,10 @@ public :
 		TabBarPlus::init(hInst, parent);
 		_pView = pView;
 		if (pIconList)
+		{
+			_pIconList = pIconList;
 			TabBar::setImageList(pIconList->getHandle());
+		}
 		return;
 	};
 
@@ -86,7 +91,13 @@ public :
 
 	virtual void reSizeTo(RECT & rc);
 
+protected :
+	void drawImage(int tabIndex, int imgIndex, HDC hDC, int xPos, int yPos);
+
 private :
+	int DocTabView::addIconForFilename(const TCHAR * name);
+
+	IconList *_pIconList;
 	ScintillaEditView *_pView;
 	static bool _hideTabBarStatus;
 };

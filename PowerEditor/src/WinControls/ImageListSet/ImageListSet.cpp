@@ -28,6 +28,12 @@
 
 #include "ImageListSet.h"
 
+IconList::~IconList()
+{
+	for (HICONVector::iterator it = _extImglst.begin(), end = _extImglst.end(); it != end; ++it)
+		::DestroyIcon(*it);
+}
+
 void IconList::create(HINSTANCE hInst, int iconSize) 
 {
 	InitCommonControls();
@@ -58,6 +64,14 @@ void IconList::addIcon(int iconID) const
 	::DestroyIcon(hIcon);
 };
 
+int IconList::addExternalIcon(HICON icon)
+{
+	if (icon == NULL)
+		return -1;
+	_extImglst.push_back(icon);
+	return ImageList_AddIcon(_hImglst, icon);
+}
+
 bool IconList::changeIcon(int index, const TCHAR *iconLocation) const
 {
 	HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, iconLocation, IMAGE_ICON, _iconSize, _iconSize, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -74,6 +88,8 @@ void IconList::setIconSize(int size) const
 	ImageList_SetIconSize(_hImglst, size, size);
 	for (int i = 0 ; i < _iconIDArraySize ; ++i)
 		addIcon(_pIconIDArray[i]);
+	for (HICONVector::const_iterator it = _extImglst.begin(), end = _extImglst.end(); it != end; ++it)
+		ImageList_AddIcon(_hImglst, *it);
 }
 
 void ToolBarIcons::init(ToolBarButtonUnit *buttonUnitArray, int arraySize)

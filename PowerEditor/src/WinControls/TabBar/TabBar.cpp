@@ -816,13 +816,13 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		if (_isVertical)
 		{
 			rect.bottom -= imageRect.bottom - imageRect.top;
-			ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, rect.bottom - marge, isSelected?ILD_TRANSPARENT:ILD_SELECTED);
+			drawImage(nTab, tci.iImage, hDC, xPos, rect.bottom - marge);
 			rect.bottom += marge;
 		}
 		else
 		{
 			rect.left += marge;
-			ImageList_Draw(hImgLst, tci.iImage, hDC, rect.left, yPos, isSelected?ILD_TRANSPARENT:ILD_SELECTED);
+			drawImage(nTab, tci.iImage, hDC, rect.left, yPos);
 			rect.left += imageRect.right - imageRect.left;
 		}
 	}
@@ -919,6 +919,13 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	::RestoreDC(hDC, nSavedDC);
 }
 
+void TabBarPlus::drawImage(int tabIndex, int imgIndex, HDC hDC, int xPos, int yPos)
+{
+	if (tabIndex < 0 || imgIndex < 0)
+		return;
+	HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TCM_GETIMAGELIST, 0, 0);
+	ImageList_Draw(hImgLst, imgIndex, hDC, xPos, yPos, ILD_TRANSPARENT);
+}
 
 void TabBarPlus::draggingCursor(POINT screenPoint)
 {

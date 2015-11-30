@@ -3017,9 +3017,8 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 	if (::InterlockedIncrement(&refCount) == 1)
 	{
 		_hInst = hInst;
-		WNDCLASSEX wcex;
 
-		::SecureZeroMemory(&wcex, sizeof(wcex));
+		WNDCLASSEX wcex = {0};
 		wcex.cbSize = sizeof(wcex);
 		wcex.style = CS_HREDRAW | CS_VREDRAW;
 		wcex.lpfnWndProc = wndProc;
@@ -3030,9 +3029,7 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 
 		::RegisterClassEx(&wcex);
 
-		INITCOMMONCONTROLSEX icex;
-
-		::SecureZeroMemory(&icex, sizeof(icex));
+		INITCOMMONCONTROLSEX icex = {0};
 		icex.dwSize = sizeof(icex);
 		icex.dwICC = ICC_STANDARD_CLASSES | ICC_PROGRESS_CLASS;
 
@@ -3055,7 +3052,7 @@ HWND Progress::open(HWND hCallerWnd, const TCHAR* header)
 	if (_hwnd)
 		return _hwnd;
 
-	// Create manually reset non-signaled event
+	// Create manually reset non-signalled event
 	_hActiveState = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	if (!_hActiveState)
 		return NULL;
@@ -3145,7 +3142,7 @@ int Progress::thread()
 int Progress::createProgressWindow()
 {
 	_hwnd = ::CreateWindowEx(
-		WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW | WS_EX_TOPMOST,
+		WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW,
 		cClassName, _header, WS_POPUP | WS_CAPTION,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 		NULL, NULL, _hInst, (LPVOID)this);

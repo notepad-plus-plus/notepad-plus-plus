@@ -2203,6 +2203,24 @@ void Notepad_plus::addHotSpot()
 
 	unsigned char style_hotspot = 0;
 	unsigned char mask = INDIC1_MASK;
+	// INDIC2_MASK == 255 and it represents MSB bit		
+	// only LEX_HTML and LEX_POSTSCRIPT use use INDIC2_MASK bit internally		
+	// LEX_HTML is using INDIC2_MASK bit even though it has only 127 states, so it is safe to overwrite 8th bit		
+	// INDIC2_MASK will be used for LEX_HTML		
+
+	// LEX_POSTSCRIPT is using INDIC2_MASK bit for "tokenization", and is using mask=31 in lexer,		
+	// therefore hotspot in LEX_POSTSCRIPT will be saved to 5th bit		
+	// there are only 15 states in LEX_POSTSCRIPT, so it is safe to overwrite 5th bit		
+
+	// rule of the thumb is, any lexet that calls: styler.StartAt(startPos, 255);		
+	// must have special processing here, all other lexers are fine with INDIC1_MASK (7th bit)		
+
+	LangType type = _pEditView->getCurrentBuffer()->getLangType();
+
+	if (type == L_HTML || type == L_PHP || type == L_ASP || type == L_JSP)
+		mask = INDIC2_MASK;
+	else if (type == L_PS)
+		mask = 16;
 
 	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
 

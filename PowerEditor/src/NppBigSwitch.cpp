@@ -402,6 +402,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return fileSaveAll();
 		}
 
+		case NPPM_SAVEFILE:
+		{
+		    return fileSaveSpecific((const TCHAR *)lParam);
+		}
+
 		case NPPM_GETCURRENTNATIVELANGENCODING:
 		{
 			return _nativeLangSpeaker.getLangEncoding();

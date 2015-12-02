@@ -240,6 +240,7 @@ public:
 	bool fileCloseAllToRight();
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
+	bool fileSaveSpecific(const generic_string& fileNameToSave);
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);

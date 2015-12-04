@@ -866,6 +866,7 @@ struct ScintillaViewParams
 	int _borderWidth = 2;
 	bool _disableAdvancedScrolling = false;
 	bool _doSmoothFont = false;
+	bool _showBorderEdge = true;
 };
 
 const int NB_LIST = 20;

@@ -3159,3 +3159,16 @@ generic_string ScintillaEditView::getEOLString()
 		return TEXT("\r");
 	}
 }
+
+void ScintillaEditView::setBorderEdge(bool doWithBorderEdge)
+{
+	long exStyle = ::GetWindowLongPtr(_hSelf, GWL_EXSTYLE);
+
+	if (doWithBorderEdge)
+		exStyle |= WS_EX_CLIENTEDGE;
+	else
+		exStyle &= ~WS_EX_CLIENTEDGE;
+
+	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
+	::SetWindowPos(_hSelf, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+}

@@ -4718,6 +4718,16 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._edgeMode = EDGE_NONE;
 	}
 
+	// Do Scintilla border edge
+	nm = element->Attribute(TEXT("borderEdge"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("yes")))
+			_svp._showBorderEdge = true;
+		else if (!lstrcmp(nm, TEXT("no")))
+			_svp._showBorderEdge = false;
+	}
+
 	int val;
 	nm = element->Attribute(TEXT("edgeNbColumn"), &val);
 	if (nm)
@@ -4892,6 +4902,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp)
 	(scintNode->ToElement())->SetAttribute(TEXT("disableAdvancedScrolling"), svp._disableAdvancedScrolling?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("wrapSymbolShow"), svp._wrapSymbolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), svp._doWrap?TEXT("yes"):TEXT("no"));
+	(scintNode->ToElement())->SetAttribute(TEXT("borderEdge"), svp._showBorderEdge ? TEXT("yes") : TEXT("no"));
 
 	TCHAR *edgeStr = NULL;
 	if (svp._edgeMode == EDGE_NONE)

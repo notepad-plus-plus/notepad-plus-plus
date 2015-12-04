@@ -201,7 +201,7 @@
                     <Item id="43047" name="Previous Search Result"/>
                     <Item id="43048" name="Select and Find Next"/>
                     <Item id="43049" name="Select and Find Previous"/>
-					<Item id="43054" name="Mark..."/>
+                    <Item id="43054" name="Mark..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
                     <Item id="44019" name="Show All Characters"/>
@@ -278,7 +278,7 @@
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ Project Page"/>
                     <Item id="47003" name="Online Documentation"/>
-					<Item id="47004" name="Notepad++ Community (Forum)"/>
+                    <Item id="47004" name="Notepad++ Community (Forum)"/>
                     <Item id="47011" name="Live Support"/>
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Update Notepad++"/>
@@ -304,27 +304,27 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Close"/>
-                    <Item CMID="1" name="Close All BUT This"/>
-                    <Item CMID="2" name="Save"/>
-                    <Item CMID="3" name="Save As..."/>
-                    <Item CMID="4" name="Print"/>
-                    <Item CMID="5" name="Move to Other View"/>
-                    <Item CMID="6" name="Clone to Other View"/>
-                    <Item CMID="7" name="Full File Path to Clipboard"/>
-                    <Item CMID="8" name="Filename to Clipboard"/>
-                    <Item CMID="9" name="Current Dir. Path to Clipboard"/>
-                    <Item CMID="10" name="Rename"/>
-                    <Item CMID="11" name="Move to Recycle Bin"/>
-                    <Item CMID="12" name="Read-Only"/>
-                    <Item CMID="13" name="Clear Read-Only Flag"/>
-                    <Item CMID="14" name="Move to New Instance"/>
-                    <Item CMID="15" name="Open in New Instance"/>
-                    <Item CMID="16" name="Reload"/>
-                    <Item CMID="17" name="Close All to the Left"/>
-                    <Item CMID="18" name="Close All to the Right"/>
-                    <Item CMID="19" name="Open Containing Folder in Explorer"/>
-                    <Item CMID="20" name="Open Containing Folder in cmd"/>
+                <Item CMID="0" name="Close"/>
+                <Item CMID="1" name="Close All BUT This"/>
+                <Item CMID="2" name="Save"/>
+                <Item CMID="3" name="Save As..."/>
+                <Item CMID="4" name="Print"/>
+                <Item CMID="5" name="Move to Other View"/>
+                <Item CMID="6" name="Clone to Other View"/>
+                <Item CMID="7" name="Full File Path to Clipboard"/>
+                <Item CMID="8" name="Filename to Clipboard"/>
+                <Item CMID="9" name="Current Dir. Path to Clipboard"/>
+                <Item CMID="10" name="Rename"/>
+                <Item CMID="11" name="Move to Recycle Bin"/>
+                <Item CMID="12" name="Read-Only"/>
+                <Item CMID="13" name="Clear Read-Only Flag"/>
+                <Item CMID="14" name="Move to New Instance"/>
+                <Item CMID="15" name="Open in New Instance"/>
+                <Item CMID="16" name="Reload"/>
+                <Item CMID="17" name="Close All to the Left"/>
+                <Item CMID="18" name="Close All to the Right"/>
+                <Item CMID="19" name="Open Containing Folder in Explorer"/>
+                <Item CMID="20" name="Open Containing Folder in cmd"/>
             </TabBar>
         </Menu>
 
@@ -472,7 +472,7 @@
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Numbers"/>
-					<Item id="1" name="OK"/>
+                    <Item id="1" name="OK"/>
                     <Item id="2" name="Cancel"/>
                 </StylerDialog>
                 <Folder title="Folder &amp;&amp; Default">
@@ -659,7 +659,7 @@
                     <Item id="6212" name="Line mode"/>
                     <Item id="6213" name="Background mode"/>
                     <Item id="6214" name="Enable current line highlighting"/>
-					<Item id="6215" name="Enable smooth font"/>
+                    <Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
                 </Scintillas>
 
@@ -793,7 +793,7 @@
                     <Item id="6256" name="Allow on several lines"/>
                 </Delimiter>
 
-                 <Cloud title="Cloud">
+                <Cloud title="Cloud">
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
@@ -870,7 +870,7 @@
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
-			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

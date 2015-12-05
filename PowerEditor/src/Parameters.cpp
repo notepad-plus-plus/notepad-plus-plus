@@ -722,6 +722,7 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 
 #pragma warning(disable : 4996)
 
+
 winVer getWindowsVersion()
 {
 	OSVERSIONINFOEX osvi;
@@ -750,6 +751,9 @@ winVer getWindowsVersion()
    {
 		case VER_PLATFORM_WIN32_NT:
 		{
+			if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0)
+				return WV_WIN10;
+
 			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3)
 				return WV_WIN81;
 

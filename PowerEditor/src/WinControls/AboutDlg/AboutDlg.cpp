@@ -111,5 +111,106 @@ void AboutDlg::doDialog()
 
     // Adjust the position of AboutBox
 	goToCenter();
-};
+}
+
+
+INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			// Notepad++ version
+			_debugInfoStr = NOTEPAD_PLUS_VERSION;
+			_debugInfoStr += TEXT("\r\n");
+
+			// Build time
+			_debugInfoStr += TEXT("Build time : ");
+			generic_string buildTime;
+			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			buildTime += wmc->char2wchar(__DATE__, CP_ACP);
+			buildTime += TEXT(" - ");
+			buildTime += wmc->char2wchar(__TIME__, CP_ACP);
+			_debugInfoStr += buildTime;
+			_debugInfoStr += TEXT("\r\n");
+
+			// Binary path
+			_debugInfoStr += TEXT("Path : ");
+			TCHAR nppFullPath[MAX_PATH];
+			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+			_debugInfoStr += nppFullPath;
+			_debugInfoStr += TEXT("\r\n");
+
+			// Administrator mode
+			_debugInfoStr += TEXT("Admin mode : ");
+			_debugInfoStr += (_isAdmin ? TEXT("ON") : TEXT("OFF"));
+			_debugInfoStr += TEXT("\r\n");
+
+			// local conf
+			_debugInfoStr += TEXT("Local Conf mode : ");
+			bool doLocalConf = (NppParameters::getInstance())->isLocal();
+			_debugInfoStr += (doLocalConf ? TEXT("ON") : TEXT("OFF"));
+			_debugInfoStr += TEXT("\r\n");
+
+			// OS version
+			_debugInfoStr += TEXT("OS : ");
+			_debugInfoStr += (NppParameters::getInstance())->getWinVersionStr();
+			_debugInfoStr += TEXT("\r\n");
+
+			// Plugins
+			_debugInfoStr += TEXT("Plugins : ");
+			_debugInfoStr += _loadedPlugins;
+			_debugInfoStr += TEXT("\r\n");
+
+			::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, _debugInfoStr.c_str());
+
+			_copyToClipboardLink.init(_hInst, _hSelf);
+			_copyToClipboardLink.create(::GetDlgItem(_hSelf, IDC_DEBUGINFO_COPYLINK), IDC_DEBUGINFO_COPYLINK);
+
+			getClientRect(_rc);
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case IDCANCEL:
+				case IDOK:
+					display(false);
+					return TRUE;
+
+				case IDC_DEBUGINFO_COPYLINK:
+				{
+					if ((GetKeyState(VK_LBUTTON) & 0x100) != 0)
+					{
+						// Visual effect
+						::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, _debugInfoStr.length() - 1);
+
+						// Copy to clipboard
+						str2Clipboard(_debugInfoStr, _hSelf);
+					}
+					return TRUE;
+				}
+				default:
+					break;
+			}
+		}
+
+		case WM_DESTROY:
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+void DebugInfoDlg::doDialog()
+{
+	if (!isCreated())
+		create(IDD_DEBUGINFOBOX);
+
+	// Adjust the position of AboutBox
+	goToCenter();
+}
 

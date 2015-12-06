@@ -341,6 +341,7 @@ private:
 	FindReplaceDlg _findReplaceDlg;
 	FindIncrementDlg _incrementFindDlg;
     AboutDlg _aboutDlg;
+	DebugInfoDlg _debugInfoDlg;
 	RunDlg _runDlg;
     GoToLineDlg _goToLineDlg;
 	ColumnEditorDlg _colEditorDlg;

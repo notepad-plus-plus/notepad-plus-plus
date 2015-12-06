@@ -2566,7 +2566,7 @@ void Finder::copy()
 	const generic_string toClipboard = stringJoin(lines, TEXT("\r\n"));
 	if (!toClipboard.empty())
 	{
-		if (!str2Clipboard(toClipboard.c_str(), _hSelf))
+		if (!str2Clipboard(toClipboard, _hSelf))
 		{
 			assert(false);
 			::MessageBox(NULL, TEXT("Error placing text in clipboard."), TEXT("Notepad++"), MB_ICONINFORMATION);

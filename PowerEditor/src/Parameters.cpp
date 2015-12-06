@@ -6040,6 +6040,28 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 	return id;
 }
 
+generic_string NppParameters:: getWinVersionStr() const
+{
+	switch (_winVersion)
+	{
+		case WV_WIN32S: return TEXT("Windows 3.1");
+		case WV_95: return TEXT("Windows 95");
+		case WV_98: return TEXT("Windows 98");
+		case WV_ME: return TEXT("Windows Millennium Edition");
+		case WV_NT: return TEXT("Windows NT");
+		case WV_W2K: return TEXT("Windows 2000");
+		case WV_XP: return TEXT("Windows XP");
+		case WV_S2003: return TEXT("Windows Server 2003");
+		case WV_XPX64: return TEXT("Windows XP 64 bits");
+		case WV_VISTA: return TEXT("Windows Vista");
+		case WV_WIN7: return TEXT("Windows 7");
+		case WV_WIN8: return TEXT("Windows 8");
+		case WV_WIN81: return TEXT("Windows 8.1");
+		case WV_WIN10: return TEXT("Windows 10");
+		default: /*case WV_UNKNOWN:*/ return TEXT("Windows unknown version");
+	}
+}
+
 void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers)
 {
 	TiXmlNode *lexersRoot = (_pXmlUserStylerDoc->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));

@@ -2196,6 +2196,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_DEBUGINFO:
+		{
+			_debugInfoDlg.doDialog();
+			break;
+		}
+
         case IDM_ABOUT:
 		{
 			bool doAboutDlg = false;

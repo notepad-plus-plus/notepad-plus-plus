@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
         Slovenian localization for Notepad++ v6.8.1
         Last modified 20. 08. 2015 by Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="6.8.1" >
+    <Native-Langue name="Slovenščina" filename="slovenian.xml" version="6.8.7" >
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

@@ -1,14 +1,13 @@
-Notepad++ v6.8.7 bug-fixes and enhancements:
+Notepad++ v6.8.8 bug-fixes and enhancements:
 
-1 .  Fix crash while "backups and session snapshots" is activated. 
-2 .  Restore file extension feature in save dialog.
-3 .  Fix crash issue while moving Find In Files progress window.
-4 .  Fix tab settings not working in javascript.
-5 .  Fix user customized keywords no effect in Javascript.
-6 .  Enhance language detection on "Save as".
-7 .  Add back-quoted string support for javascript.
-8 .  Move position to center when using "-n" option in command line.
-9 .  Installer enhancement: Allow user to keep DSpellCheck plugin.
+1.  Fix a regression of link style in html/php.
+2.  Fix find in files progress window alway on top issue.
+3.  Add Debug Info helper feature.
+4.  Fix highlighting for tags inside comment problem.
+5.  Make editor border edge display optional.
+6.  Enhance syntax highlighting for D, Powershell, Lua and Python.
+7.  Enhance syntax highlighting of preprocessor comments for several languages.
+8.  Improve close button in tab position.
 
 
 Included plugins:

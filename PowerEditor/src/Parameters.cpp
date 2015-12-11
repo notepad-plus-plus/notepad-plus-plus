@@ -28,6 +28,7 @@
 #include <time.h>
 #include <shlwapi.h>
 #include <Shlobj.h>
+#include <algorithm>
 #include "Parameters.h"
 #include "FileDialog.h"
 #include "ScintillaEditView.h"
@@ -6173,9 +6174,20 @@ bool NppParameters::insertTabInfo(const TCHAR *langName, int tabInfo)
 		if (nm && lstrcmp(langName, nm) == 0)
 		{
 			childNode->ToElement()->SetAttribute(TEXT("tabSettings"), tabInfo);
-			_pXmlDoc->SaveFile();
-			return true;
+			return _pXmlDoc->SaveFile();
 		}
+	}
+	auto externalLexerConfig = std::find_if(_pXmlExternalLexerDoc.begin(), _pXmlExternalLexerDoc.end(), [langName](TiXmlDocument * doc){
+		auto languageNode = (doc->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("Languages"))->FirstChildElement(TEXT("Language"));
+		auto *element = languageNode->ToElement();
+		const TCHAR *nm = element->Attribute(TEXT("name"));
+		return (nm && lstrcmp(langName, nm) == 0);
+	});
+	if (externalLexerConfig != _pXmlExternalLexerDoc.end())
+	{
+		auto newLanguageNode = ((*externalLexerConfig)->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("Languages"))->FirstChildElement(TEXT("Language"));
+		newLanguageNode->SetAttribute(TEXT("tabSettings"), tabInfo);
+		return (*externalLexerConfig)->SaveFile();
 	}
 	return false;
 }

@@ -866,19 +866,23 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 
 				// Prevent buffer overflow in getGenericText().
-				if(endPos - startPos > 2*MAX_PATH)
-					endPos = startPos + 2*MAX_PATH;
+				int length = endPos - startPos + 1;
+				if (length > 0)
+				{
+					TCHAR *currentWord = new TCHAR[length];
 
-				TCHAR currentWord[2*MAX_PATH];
+					notifyView->getGenericText(currentWord, length, startPos, endPos);
 
-				notifyView->getGenericText(currentWord, MAX_PATH*2, startPos, endPos);
+					// This treatment would fail on some valid URLs where there's actually supposed to be a comma or parenthesis at the end.
+					int lastCharIndex = _tcsnlen(currentWord, length) - 1;
+					if(lastCharIndex >= 0 && (currentWord[lastCharIndex] == ',' || currentWord[lastCharIndex] == ')' || currentWord[lastCharIndex] == '('))
+						currentWord[lastCharIndex] = '\0';
 
-				// This treatment would fail on some valid URLs where there's actually supposed to be a comma or parenthesis at the end.
-				int lastCharIndex = _tcsnlen(currentWord, MAX_PATH*2) - 1;
-				if(lastCharIndex >= 0 && (currentWord[lastCharIndex] == ',' || currentWord[lastCharIndex] == ')' || currentWord[lastCharIndex] == '('))
-					currentWord[lastCharIndex] = '\0';
+					::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
 
-				::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
+					delete[] currentWord;
+				}
+
 				_isHotspotDblClicked = true;
 				notifyView->execute(SCI_SETCHARSDEFAULT);
 			}

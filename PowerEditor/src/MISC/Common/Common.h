@@ -44,6 +44,13 @@ const bool dirDown = false;
 #define BCKGRD_COLOR (RGB(255,102,102))
 #define TXT_COLOR    (RGB(255,255,255))
 
+// A macro to use instead of WinAPI GetGValue().
+// WinAPI macro GetGValue() use downcast from DWORD to WORD wich cause Visual Studio debug build to
+// crash with Run-Time Check Failure #1 - A cast to a smaller data type has caused a loss of data.
+// New macro is used in accordance with MSDN community additions to GetGValue()
+// https://msdn.microsoft.com/en-us/library/windows/desktop/dd144893%28v=vs.85%29.aspx
+#define GetGValueFix(rgb)   (LOBYTE((((WORD)((rgb) & (WORD)(~0))) >> 8)))
+
 #ifdef UNICODE
 	#define NppMainEntry wWinMain
 	#define generic_strtol wcstol

@@ -2799,7 +2799,9 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, 
 			{
 				COLORREF bgColor = getCtrlBgColor(_hSelf);
 				SetTextColor(hdcStatic, RGB(0, 0, 0));
-				SetBkColor(hdcStatic, RGB(GetRValue(bgColor) - 30, GetGValue(bgColor) - 30, GetBValue(bgColor) - 30));
+				// Use GetGValueFix instead of WinAPI GetGValue to fix Visual Studio Run-Time Check Failure #1 - A cast
+				// to a smaller data type has caused a loss of data (issue #1273).
+				SetBkColor(hdcStatic, RGB(GetRValue(bgColor) - 30, GetGValueFix(bgColor) - 30, GetBValue(bgColor) - 30));
 				return TRUE;
 			}
 			return FALSE;

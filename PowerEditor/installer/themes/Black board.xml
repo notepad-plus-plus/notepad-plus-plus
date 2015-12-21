@@ -214,6 +214,7 @@ Credits:
             <WordsStyle name="NUMBER" styleID="45" fgColor="D8FA3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="WORD" styleID="46" fgColor="F8F8F8" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="KEYWORD" styleID="47" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="F8F8F8" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />

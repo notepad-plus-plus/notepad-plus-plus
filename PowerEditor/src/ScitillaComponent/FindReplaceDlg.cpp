@@ -699,12 +699,12 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 //Single actions
 				case IDCANCEL:
 					(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
-					setStatusbarMessage(TEXT(""), FSNoMessage);
+					setStatusbarMessage(generic_string(), FSNoMessage);
 					display(false);
 					break;
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
 				{
-					setStatusbarMessage(TEXT(""), FSNoMessage);
+					setStatusbarMessage(generic_string(), FSNoMessage);
 					bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -2141,7 +2141,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 					nppParamInst->_isFindReplacing = false;
 
-					generic_string result = TEXT("");
+					generic_string result;
 					
 					if (nbReplaced < 0)
 						result = TEXT("Replace All: The regular expression is malformed.");
@@ -2161,7 +2161,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 				case IDCCOUNTALL :
 				{
 					int nbCounted = processAll(ProcessCountAll, _env);
-					generic_string result = TEXT("");
+					generic_string result;
 
 					if (nbCounted < 0)
 						result = TEXT("Count: The regular expression to search is malformed.");
@@ -2182,9 +2182,12 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					nppParamInst->_isFindReplacing = true;
 					int nbMarked = processAll(ProcessMarkAll, _env);
 					nppParamInst->_isFindReplacing = false;
-					generic_string result = TEXT("");
+					generic_string result;
+
 					if (nbMarked < 0)
+					{
 						result = TEXT("Mark: The regular expression to search is malformed.");
+					}
 					else
 					{
 						TCHAR moreInfo[128];
@@ -2194,6 +2197,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 							wsprintf(moreInfo, TEXT("%d matches."), nbMarked);
 						result = moreInfo;
 					}
+
 					setStatusbarMessage(result, FSMessage);
 					break;
 				}
@@ -2562,7 +2566,7 @@ void Finder::copy()
 	const generic_string toClipboard = stringJoin(lines, TEXT("\r\n"));
 	if (!toClipboard.empty())
 	{
-		if (!str2Clipboard(toClipboard.c_str(), _hSelf))
+		if (!str2Clipboard(toClipboard, _hSelf))
 		{
 			assert(false);
 			::MessageBox(NULL, TEXT("Error placing text in clipboard."), TEXT("Notepad++"), MB_ICONINFORMATION);
@@ -3013,9 +3017,8 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 	if (::InterlockedIncrement(&refCount) == 1)
 	{
 		_hInst = hInst;
-		WNDCLASSEX wcex;
 
-		::SecureZeroMemory(&wcex, sizeof(wcex));
+		WNDCLASSEX wcex = {0};
 		wcex.cbSize = sizeof(wcex);
 		wcex.style = CS_HREDRAW | CS_VREDRAW;
 		wcex.lpfnWndProc = wndProc;
@@ -3026,9 +3029,7 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 
 		::RegisterClassEx(&wcex);
 
-		INITCOMMONCONTROLSEX icex;
-
-		::SecureZeroMemory(&icex, sizeof(icex));
+		INITCOMMONCONTROLSEX icex = {0};
 		icex.dwSize = sizeof(icex);
 		icex.dwICC = ICC_STANDARD_CLASSES | ICC_PROGRESS_CLASS;
 
@@ -3051,7 +3052,7 @@ HWND Progress::open(HWND hCallerWnd, const TCHAR* header)
 	if (_hwnd)
 		return _hwnd;
 
-	// Create manually reset non-signaled event
+	// Create manually reset non-signalled event
 	_hActiveState = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	if (!_hActiveState)
 		return NULL;
@@ -3092,7 +3093,7 @@ void Progress::close()
 {
 	if (_hwnd)
 	{
-		::SendMessage(_hwnd, WM_CLOSE, 0, 0);
+		::PostMessage(_hwnd, WM_CLOSE, 0, 0);
 		_hwnd = NULL;
 		::WaitForSingleObject(_hThread, INFINITE);
 
@@ -3141,7 +3142,7 @@ int Progress::thread()
 int Progress::createProgressWindow()
 {
 	_hwnd = ::CreateWindowEx(
-		WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW | WS_EX_TOPMOST,
+		WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW,
 		cClassName, _header, WS_POPUP | WS_CAPTION,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 		NULL, NULL, _hInst, (LPVOID)this);
@@ -3254,7 +3255,7 @@ LRESULT APIENTRY Progress::wndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM l
 		case WM_CREATE:
 		{
 			Progress* pw =(Progress*)((LPCREATESTRUCT)lparam)->lpCreateParams;
-			::SetWindowLongPtr(hwnd, GWLP_USERDATA, PtrToUlong(pw));
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)pw);
 			return 0;
 		}
 

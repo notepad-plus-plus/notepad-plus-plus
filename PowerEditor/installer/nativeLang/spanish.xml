@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="6.7.7">
+	<Native-Langue name="Español" filename="spanish.xml" version="6.8.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -199,6 +199,7 @@
 					<Item id="43047" name="Resultados de búsqueda anterior"/>
 					<Item id="43048" name="Seleccionar y encontrar siguiente"/>
 					<Item id="43049" name="Seleccionar y encontrar anterior"/>
+					<Item id="43054" name="Marcar..."/>
 					<Item id="44009" name="Post-It"/>
 					<Item id="44010" name="Contraer todo"/>
 					<Item id="44019" name="Mostrar todos los caracteres"/>
@@ -457,6 +458,8 @@
 					<Item id="25026" name="Operador 1"/>
 					<Item id="25027" name="Operador 2"/>
 					<Item id="25028" name="Numeros"/>
+					<Item id="1" name="OK"/>
+					<Item id="2" name="Cancelar"/>
 				</StylerDialog>
 				<Folder title="Carpeta &amp;&amp; por defecto">
 					<Item id="21101" name="Estilo por defecto"/>
@@ -581,7 +584,6 @@
 					<Item id="24672" name="Cerrar:"/>
 					<Item id="24673" name="Estilo"/>
 				</Operator>
-				<Item id="24001" name="Habilitar carácter de escape:"/>
 			</UserDefine>
 			<Preference title="Preferencias">
 				<Item id="6001" name="Cerrar"/>
@@ -601,8 +603,7 @@
 					<Item id="6113" name="Doble clic para cerrar pestaña"/>
 					<Item id="6118" name="Ocultar"/>
 					<Item id="6119" name="Multi-línea"/>
-					<Item id="6120" name="Vertical"/>
-					<Item id="6121" name="Barra de menú"/>
+					<Item id="6120" name="Vertical"/>					
 					<Item id="6122" name="Ocultar (Alt o F10 para des/activar)"/>
 					<Item id="6123" name="Localización"/>
 					<Item id="6125" name="Panel lista de documentos"/>
@@ -637,6 +638,8 @@
 					<Item id="6213" name="Modo de fondo"/>
 					<Item id="6214" name="Resaltar la línea activa"/>
 					<Item id="6231" name="Ancho de borde"/>
+					<Item id="6215" name="Suavizar la fuente"/>
+					<Item id="6231" name="Ancho del borde"/>
 				</Scintillas>
 				<NewDoc title="Archivo nuevo/Carpeta predeterminada">
 					<Item id="6401" name="Formato"/>

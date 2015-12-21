@@ -57,9 +57,7 @@ struct PluginCommand
 
 struct PluginInfo
 {
-	PluginInfo() :_hLib(NULL), _pluginMenu(NULL), _pFuncSetInfo(NULL),\
-		_pFuncGetFuncsArray(NULL), _pFuncGetName(NULL), _funcItems(NULL),\
-		_nbFuncItem(0){}
+	PluginInfo() {}
 	~PluginInfo()
 	{
 		if (_pluginMenu)
@@ -69,25 +67,25 @@ struct PluginInfo
 			::FreeLibrary(_hLib);
 	}
 
-	HINSTANCE _hLib;
-	HMENU _pluginMenu;
+	HINSTANCE _hLib = NULL;
+	HMENU _pluginMenu = NULL;
 
-	PFUNCSETINFO _pFuncSetInfo;
-	PFUNCGETNAME _pFuncGetName;
-	PBENOTIFIED	_pBeNotified;
-	PFUNCGETFUNCSARRAY _pFuncGetFuncsArray;
-	PMESSAGEPROC _pMessageProc;
-	PFUNCISUNICODE _pFuncIsUnicode;
+	PFUNCSETINFO _pFuncSetInfo = NULL;
+	PFUNCGETNAME _pFuncGetName = NULL;
+	PBENOTIFIED	_pBeNotified = NULL;
+	PFUNCGETFUNCSARRAY _pFuncGetFuncsArray = NULL;
+	PMESSAGEPROC _pMessageProc = NULL;
+	PFUNCISUNICODE _pFuncIsUnicode = NULL;
 
-	FuncItem *_funcItems;
-	int _nbFuncItem;
+	FuncItem *_funcItems = NULL;
+	int _nbFuncItem = 0;
 	generic_string _moduleName;
 };
 
 class PluginsManager
 {
 public:
-	PluginsManager() : _hPluginsMenu(NULL), _isDisabled(false), _dynamicIDAlloc(ID_PLUGINS_CMD_DYNAMIC, ID_PLUGINS_CMD_DYNAMIC_LIMIT),
+	PluginsManager() : _dynamicIDAlloc(ID_PLUGINS_CMD_DYNAMIC, ID_PLUGINS_CMD_DYNAMIC_LIMIT),
 					   _markerAlloc(MARKER_PLUGINS, MARKER_PLUGINS_LIMIT)	{}
 	~PluginsManager()
 	{
@@ -128,15 +126,16 @@ public:
 	bool inDynamicRange(int id) { return _dynamicIDAlloc.isInRange(id); }
 
 	bool allocateMarker(int numberRequired, int *start);
+	generic_string getLoadedPluginNames() const;
 
 private:
 	NppData _nppData;
-	HMENU _hPluginsMenu;
+	HMENU _hPluginsMenu = NULL;
 
 	std::vector<PluginInfo *> _pluginInfos;
 	std::vector<PluginCommand> _pluginsCommands;
 	std::vector<generic_string> _loadedDlls;
-	bool _isDisabled;
+	bool _isDisabled = false;
 	IDAllocator _dynamicIDAlloc;
 	IDAllocator _markerAlloc;
 

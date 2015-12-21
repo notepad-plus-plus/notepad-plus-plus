@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="中文繁體" filename="chinese.xml" version="6.7.7">
+    <Native-Langue name="中文繁體" filename="chinese.xml" version="6.8.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -87,8 +87,7 @@
                     <Item id="41015" name="儲存拷貝至..."/>
                     <Item id="41016" name="檔案刪除"/>
                     <Item id="41017" name="檔案重新命名..."/>
-                    <Item id="41021" name="恢復最近關閉檔案"/> <!-- 簡體中文用軟件轉換為繁體中文，用語可能會不妥當 -->
-
+                    <Item id="41021" name="重新開啟最近關閉檔案"/>
                     <Item id="42001" name="剪下(&amp;T)"/>
                     <Item id="42002" name="複製(&amp;C)"/>
                     <Item id="42003" name="復原(&amp;U)"/>
@@ -145,8 +144,14 @@
                     <Item id="42056" name="移除空行（含空白字元）"/>
                     <Item id="42057" name="在現行行上加入空行"/>
                     <Item id="42058" name="在現行行下加入空行"/>
-					<Item id="42059" name="排序"/>
-					<Item id="42060" name="反向排序"/>
+					<Item id="42059" name="字典順序排序"/>
+					<Item id="42061" name="整數排序"/>
+					<Item id="42063" name="小數（逗號）排序"/>
+					<Item id="42065" name="小數（點）排序"/>
+					<Item id="42060" name="字典順序反向排序"/>
+					<Item id="42062" name="整數反向排序"/>
+					<Item id="42064" name="小數（逗號）反向排序"/>
+					<Item id="42066" name="小數（點）反向排序"/>
                     <Item id="43001" name="尋找(&amp;F)..."/>
                     <Item id="43002" name="找下一個(&amp;N)"/>
                     <Item id="43003" name="取代..."/>
@@ -196,6 +201,7 @@
                     <Item id="43047" name="上一個搜尋結果"/>
                     <Item id="43048" name="選取並搜尋下一個"/>
                     <Item id="43049" name="選取並搜尋上一個"/>
+					<Item id="43054" name="標記..."/>
                     <Item id="43050" name="反向標記書籤"/>
                     <Item id="44009" name="便條紙"/>
                     <Item id="44010" name="折疊所有層次"/>
@@ -258,7 +264,7 @@
                     <Item id="46080" name="使用者自訂"/>
                     <Item id="47000" name="關於 Notepad++..."/>
                     <Item id="47001" name="Notepad++ 官方網站"/>
-                    <Item id="47002" name="Notepad++ 在 SourceForge"/>
+                    <Item id="47002" name="Notepad++ 專案頁（GitHub）"/>
                     <Item id="47003" name="線上輔助"/>
                     <Item id="47004" name="網路論壇"/>
                     <Item id="47005" name="下載更多外掛模組"/>
@@ -266,6 +272,7 @@
                     <Item id="47008" name="全攻略秘籍"/>
                     <Item id="47009" name="設定更新程式代理伺服器..."/>
 					<Item id="47010" name="指令列參數..."/>
+					<Item id="47011" name="技術支援熱線"/>
                     <Item id="48005" name="匯入外掛模組..."/>
                     <Item id="48006" name="匯入主題面板..."/>
                     <Item id="48018" name="編輯彈跳選單"/>
@@ -432,8 +439,8 @@
                     <Item id="25030" name="字型"/>
                     <Item id="25006" name="前景顏色"/>
                     <Item id="25007" name="背景顏色"/>
-                    <Item id="25031" name="字型名稱："/>
-                    <Item id="25032" name="字型大小："/>
+                    <Item id="25031" name="名稱："/>
+                    <Item id="25032" name="大小："/>
                     <Item id="25001" name="粗體"/>
                     <Item id="25002" name="斜體"/>
                     <Item id="25003" name="底線"/>
@@ -459,6 +466,8 @@
                     <Item id="25026" name="運算符號一"/>
                     <Item id="25027" name="運算符號二"/>
                     <Item id="25028" name="數字"/>
+					<Item id="1" name="儲存"/>
+                    <Item id="2" name="取消"/>
                 </StylerDialog>
                 <Folder title="層次設定與內定格式">
                     <Item id="21101" name="內定格式設定"/>
@@ -644,7 +653,7 @@
                     <Item id="6212" name="垂直線模式"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6214" name="啟動現行行列背景顏色"/>
-
+					<Item id="6215" name="啟用 smooth font"/>
                     <Item id="6231" name="邊框寬度"/>
                 </Scintillas>
                 <NewDoc title="開新文件">
@@ -777,9 +786,7 @@
 				<Cloud title="雲端">
                     <Item id="6262" name="雲端上儲存讀取設定"/>
                     <Item id="6263" name="晴朗無雲"/>
-                    <Item id="6264" name="Dropbox"/>
-                    <Item id="6265" name="OneDrive"/>
-                    <Item id="6266" name="Google Drive"/>
+                    <Item id="6267" name="設置你的雲端的路徑："/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 

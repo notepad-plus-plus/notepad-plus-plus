@@ -402,6 +402,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_SHOWDOCSWITCHER, 0, isChecked?TRUE:FALSE);
+					getFocus();
 				}
 				return TRUE;
 				case IDC_CHECK_DOCSWITCH_NOEXTCOLUMN :
@@ -571,7 +572,9 @@ void MarginsDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
-	
+
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_SETCHECK, !svp._showBorderEdge, 0);
+
 	bool isEnable = !(svp._edgeMode == EDGE_NONE);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWVERTICALEDGE, BM_SETCHECK, isEnable, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_LNMODE, BM_SETCHECK, (svp._edgeMode == EDGE_LINE), 0);
@@ -650,11 +653,10 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 				::SendMessage(::GetParent(_hParent), WM_SIZE, 0, 0);
 			}
 			return 0;	//return zero when handled
-				
 		}
 
 		case WM_COMMAND : 
-		{			
+		{
 			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
 			switch (wParam)
 			{
@@ -685,6 +687,11 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
                     nppGUI._enableMultiSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_GETCHECK, 0, 0));
                     ::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
                     return TRUE;
+
+				case IDC_CHECK_NOEDGE:
+					svp._showBorderEdge = !(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_SETEDITORBORDEREDGE, 0, svp._showBorderEdge ? TRUE : FALSE);
+					return TRUE;
 
 				case IDC_RADIO_SIMPLE:
 					svp._folderStyle = FOLDER_STYLE_SIMPLE;
@@ -1099,23 +1106,25 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 	NewDocDefaultSettings & ndds = (NewDocDefaultSettings &)nppGUI.getNewDocDefaultSettings();
 
-	switch (Message) 
+	switch (Message)
 	{
-		case WM_INITDIALOG :
+		case WM_INITDIALOG:
 		{
-			int ID2Check = 0;
-
+			int ID2Check = IDC_RADIO_F_WIN;
 			switch (ndds._format)
 			{
-				case  MAC_FORMAT :
+				case EolType::windows:
+					ID2Check = IDC_RADIO_F_WIN;
+					break;
+				case EolType::macos:
 					ID2Check = IDC_RADIO_F_MAC;
 					break;
-				case UNIX_FORMAT :
+				case EolType::unix:
 					ID2Check = IDC_RADIO_F_UNIX;
 					break;
-				
-				default : //WIN_FORMAT
-					ID2Check = IDC_RADIO_F_WIN;
+				case EolType::unknown:
+					assert(false);
+					break;
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 
@@ -1137,10 +1146,10 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				default : //uni8Bit
 					ID2Check = IDC_RADIO_ANSI;
 			}
-			
+
 			int selIndex = -1;
 			generic_string str;
-			EncodingMapper *em = EncodingMapper::getInstance();
+			EncodingMapper* em = EncodingMapper::getInstance();
 			for (size_t i = 0, encodingArraySize = sizeof(encodings)/sizeof(int) ; i < encodingArraySize ; ++i)
 			{
 				int cmdID = em->getIndexFromEncoding(encodings[i]);
@@ -1164,14 +1173,15 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				ID2Check = IDC_RADIO_OTHERCP;
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_SETCURSEL, selIndex, 0);
 			}
+
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8SANSBOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
-			
+
 			int index = 0;
 			for (int i = L_TEXT ; i < pNppParam->L_END ; ++i)
 			{
-				generic_string str;
+				str.clear();
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
@@ -1198,7 +1208,7 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND:
 			switch (wParam)
 			{
 				case IDC_RADIO_UCS2BIG:
@@ -1250,16 +1260,23 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 				}
 
 				case IDC_RADIO_F_MAC:
-					ndds._format = MAC_FORMAT;
+				{
+					ndds._format = EolType::macos;
 					return TRUE;
+				}
 				case IDC_RADIO_F_UNIX:
-					ndds._format = UNIX_FORMAT;
+				{
+					ndds._format = EolType::unix;
 					return TRUE;
+				}
 				case IDC_RADIO_F_WIN:
-					ndds._format = WIN_FORMAT;
+				{
+					ndds._format = EolType::windows;
 					return TRUE;
+				}
 
 				default:
+				{
 					if (HIWORD(wParam) == CBN_SELCHANGE)
 					{
 						if (LOWORD(wParam) == IDC_COMBO_DEFAULTLANG)
@@ -1277,6 +1294,7 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 						}
 					}
 					return FALSE;
+				}
 			}
 	}
  	return FALSE;
@@ -1319,6 +1337,8 @@ INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
+
+			::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG, BM_SETCHECK, nppGUI._useNewStyleSaveDlg ? BST_CHECKED : BST_UNCHECKED, 0);
 		}
 
 		case WM_COMMAND : 
@@ -1359,6 +1379,10 @@ INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 
 				case IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON :
 					folderBrowser(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT);
+					return TRUE;
+
+				case IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG:
+					nppGUI._useNewStyleSaveDlg = isCheckedOrNot(IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG);
 					return TRUE;
 
 				default:
@@ -1799,6 +1823,17 @@ INT_PTR CALLBACK TabSettings::run_dlgProc(UINT Message, WPARAM wParam, LPARAM/* 
                     {
                         Lang *lang = pNppParam->getLangFromIndex(index - 1);
                         if (!lang) return FALSE;
+						if (lang->_langID == L_JS)
+						{
+							Lang *ljs = pNppParam->getLangFromID(L_JAVASCRIPT);
+							ljs->_tabSize = size;
+						}
+						else if (lang->_langID == L_JAVASCRIPT)
+						{
+							Lang *ljavascript = pNppParam->getLangFromID(L_JS);
+							ljavascript->_tabSize = size;
+						}
+
                         lang->_tabSize = size;
 
                         // write in langs.xml
@@ -1824,6 +1859,18 @@ INT_PTR CALLBACK TabSettings::run_dlgProc(UINT Message, WPARAM wParam, LPARAM/* 
                         if (!lang) return FALSE;
                         if (!lang->_tabSize || lang->_tabSize == -1)
                             lang->_tabSize = nppGUI._tabSize;
+
+						if (lang->_langID == L_JS)
+						{
+							Lang *ljs = pNppParam->getLangFromID(L_JAVASCRIPT);
+							ljs->_isTabReplacedBySpace = isTabReplacedBySpace;
+						}
+						else if (lang->_langID == L_JAVASCRIPT)
+						{
+							Lang *ljavascript = pNppParam->getLangFromID(L_JS);
+							ljavascript->_isTabReplacedBySpace = isTabReplacedBySpace;
+						}
+
                         lang->_isTabReplacedBySpace = isTabReplacedBySpace;
 
                         // write in langs.xml

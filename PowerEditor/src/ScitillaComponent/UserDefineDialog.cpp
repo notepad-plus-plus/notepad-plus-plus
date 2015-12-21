@@ -1037,9 +1037,11 @@ void UserDefineDialog::updateDlg()
     _symbolsStyleDlg.updateDlg();
 }
 
+
 INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     NppParameters *pNppParam = NppParameters::getInstance();
+
     switch (message)
     {
         case WM_INITDIALOG :
@@ -1130,7 +1132,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
             return TRUE;
         }
 
-        case WM_NOTIFY :
+        case WM_NOTIFY:
         {
             NMHDR *nmhdr = (NMHDR *)lParam;
             if (nmhdr->code == TCN_SELCHANGE)
@@ -1144,7 +1146,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
             break;
         }
 
-        case WM_HSCROLL :
+        case WM_HSCROLL:
         {
             if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_UD_PERCENTAGE_SLIDER))
             {
@@ -1211,10 +1213,13 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         ::SendMessage(_hParent, msg, 0, 0);
                         return TRUE;
                     }
-                    case IDCANCEL :
-                        ::SendMessage(_hParent, WM_CLOSE_USERDEFINE_DLG, 0, 0);
-                        display(false);
-                        return TRUE;
+
+                    case IDCANCEL:
+					{
+						::SendMessage(_hParent, WM_CLOSE_USERDEFINE_DLG, 0, 0);
+						display(false);
+						return TRUE;
+					}
 
                     case IDC_REMOVELANG_BUTTON :
                     {
@@ -1327,8 +1332,6 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                     }
                     case IDC_IMPORT_BUTTON :
                     {
-                        NppParameters *pNppParam = NppParameters::getInstance();
-
                         FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
                         fDlg.setExtFilter(TEXT("UDL"), TEXT(".xml"), NULL);
                         TCHAR *fn = fDlg.doOpenSingleFileDlg();
@@ -1353,10 +1356,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                     case IDC_EXPORT_BUTTON :
                     {
-                        NppParameters *pNppParam = NppParameters::getInstance();
-
-                        int i2Export = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
-
+						int i2Export = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                         if (i2Export == 0)
                         {
                             // maybe a better option would be to simply send IDC_SAVEAS_BUTTON message, and display "Save As..." dialog?

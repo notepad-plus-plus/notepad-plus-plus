@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation
-for Notepad++ 6.8
-Updated 23.07.2015
+for Notepad++ 6.8.2
+Updated 20.10.2015
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="6.8">
+	<Native-Langue name="Català" filename="catalan.xml" version="6.8.2">
 		<Menu>
 			<Main>
 				<Entries>
@@ -87,7 +87,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="41013" name="Desa &amp;Sessió..."/>
 					<Item id="41010" name="&amp;Imprimeix..."/>
 					<Item id="1001"  name="Im&amp;primeix ara!"/>
-					<Item id="41021" name="Restaura els fitxers tancats recentment"/>
+					<Item id="41021" name="Restaura el darrer fitxer tancat"/>
 					<Item id="42040" name="Obre tots els ar&amp;xius recents"/>
 					<Item id="42041" name="Nete&amp;ja llista d'arxius recents"/>
 					<Item id="41011" name="S&amp;urt"/>
@@ -254,10 +254,10 @@ By Hiro5 <groccat at gmail>
 					<Item id="44013" name="Amaga el marge de marca de línia"/>
 					<Item id="44014" name="Amaga el marge d'agrupació"/>
 					<Item id="45004" name="Codifica com A&amp;NSI"/>
-					<Item id="45008" name="Codifica com UTF-8 s&amp;ense BOM"/>
-					<Item id="45005" name="Codifica com U&amp;TF-8"/>
-					<Item id="45006" name="Cod&amp;ifica com UCS-2 Big Endian"/>
-					<Item id="45007" name="Co&amp;difica com UCS-2 Little Endian"/>
+					<Item id="45008" name="Codifica com UT&amp;F-8"/>
+					<Item id="45005" name="Codifica com UTF-&amp;8 amb BOM"/>
+					<Item id="45006" name="Cod&amp;ifica com UCS-2 Big Endian amb BOM"/>
+					<Item id="45007" name="Co&amp;difica com UCS-2 Little Endian amb BOM"/>
 					<Item id="45060" name="Big5 (Tradicional)"/>
 					<Item id="45061" name="GB2312 (Simplificat)"/>
 					<Item id="45054" name="OEM 861: Islandès"/>
@@ -266,10 +266,10 @@ By Hiro5 <groccat at gmail>
 					<Item id="45053" name="OEM 860: Portuguès"/>
 					<Item id="45056" name="OEM 863: Francès"/>
 					<Item id="45009" name="Converteix a &amp;ANSI"/>
-					<Item id="45010" name="Converteix a UTF-8 &amp;sense BOM"/>
-					<Item id="45011" name="Converteix a &amp;UTF-8"/>
-					<Item id="45012" name="Converteix a UCS-2 &amp;Big Endian"/>
-					<Item id="45013" name="Converteix a UCS-2 &amp;Little Endian"/>
+					<Item id="45010" name="Converteix a &amp;UTF-8"/>
+					<Item id="45011" name="Converteix a U&amp;TF-8 amb BOM"/>
+					<Item id="45012" name="Converteix a UCS-2 &amp;Big Endian amb BOM"/>
+					<Item id="45013" name="Converteix a UCS-2 &amp;Little Endian amb BOM"/>
 					<Item id="46033" name="Assemblador"/>
 					<Item id="46019" name="MS INI (arxiu)"/>
 					<Item id="46015" name="MS-DOS (estil)"/>
@@ -294,7 +294,8 @@ By Hiro5 <groccat at gmail>
 					<Item id="47010" name="Ús en &amp;línia d'ordres..."/>
 					<Item id="47001" name="Web de &amp;Notepad++"/>
 					<Item id="47002" name="Pàgina del &amp;projecte Notepad++"/>
-					<Item id="47011" name="Ajuda en línia"/>
+					<Item id="47004" name="&amp;Fòrum de Notepad++"/>
+					<Item id="47011" name="&amp;Suport en línia"/>
 					<Item id="47005" name="Aconsegueix més &amp;complements"/>
 					<Item id="47006" name="Ac&amp;tualitza Notepad++"/>
 					<Item id="47009" name="Confi&amp;gura l'intermediari d'actualització"/>
@@ -358,7 +359,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1606" name="Dóna la volta"/>
 				<Item id="1624" name="Mode de cerca"/>
 				<Item id="1625" name="Normal"/>
-				<Item id="1626" name="Estès (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Estès (\n, \r, \t, \x..., \0)"/>
 				<Item id="1605" name="Expressió regular"/>
 				<Item id="1703" name="&amp;. cerca nova línia"/>
 				<Item id="1621" name="Direcció"/>
@@ -649,7 +650,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6206" name="Mostra el número de línia al marge"/>
 					<Item id="6207" name="Mostra les marques de línia al marge"/>
 					<Item id="6214" name="Activa el realçament de la línia actual"/>
-					<Item id="6215" name="Activa tipus de lletres suavitzats"/>
+					<Item id="6215" name="Activa suavitzat de lletra"/>
 					<Item id="6234" name="Desactiva el desplaçament avançat&#xD;(si teniu problemes amb un touchpad)"/>
 				</Scintillas>
 				<NewDoc title="Document nou">
@@ -660,11 +661,11 @@ By Hiro5 <groccat at gmail>
 					<Item id="6404" name="Mac"/>
 					<Item id="6405" name="Codificació"/>
 					<Item id="6406" name="ANSI"/>
-					<Item id="6407" name="UTF-8 sense BOM"/>
+					<Item id="6407" name="UTF-8"/>
 					<Item id="6420" name="Aplica als fitxers ANSI oberts"/>
-					<Item id="6408" name="UTF-8"/>
-					<Item id="6409" name="UCS2 Big Endian"/>
-					<Item id="6410" name="UCS2 Little Endian"/>
+					<Item id="6408" name="UTF-8 amb BOM"/>
+					<Item id="6409" name="UCS2 Big Endian amb BOM"/>
+					<Item id="6410" name="UCS2 Little Endian amb BOM"/>
 					<Item id="6411" name="Llenguatge inicial:"/>
 				</NewDoc>
 				<DefaultDir title="Directoris">
@@ -776,7 +777,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6262" name="Paràmetres al núvol"/>
 					<Item id="6263" name="Sense núvol"/>
 					<Item id="6267" name="Indiqueu el directori del núvol aquí:"/>
-					<!--Item id="6261" name="Reinicieu Notepad++ perquè faci efecte."-->
+					<!-- <Item id="6261" name="Reinicieu Notepad++ perquè faci efecte."/> -->
 				</Cloud>
 				<MISC title="Miscel·lània">
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>

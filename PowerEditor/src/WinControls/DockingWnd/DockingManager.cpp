@@ -1,16 +1,16 @@
 // this file is part of docking functionality for Notepad++
 // Copyright (C)2006 Jens Lorenz <jens.plugin.npp@gmx.de>
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either
 // version 2 of the License, or (at your option) any later version.
-// 
+//
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -20,7 +20,7 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -118,7 +118,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 		clz.hInstance = _hInst;
 		clz.hIcon = NULL;
 		clz.hCursor = ::LoadCursor(NULL, IDC_ARROW);
-		clz.hbrBackground = NULL; 
+		clz.hbrBackground = NULL;
 		clz.lpszMenuName = NULL;
 		clz.lpszClassName = DSPC_CLASS_NAME;
 
@@ -177,7 +177,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 	_isInitialized = TRUE;
 }
 
-void DockingManager::destroy() 
+void DockingManager::destroy()
 {
 	::DestroyWindow(_hSelf);
 }
@@ -186,7 +186,7 @@ LRESULT CALLBACK DockingManager::staticWinProc(HWND hwnd, UINT message, WPARAM w
 {
 	DockingManager *pDockingManager = NULL;
 	switch (message)
-	{	
+	{
 		case WM_NCCREATE :
 			pDockingManager = (DockingManager *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 			pDockingManager->_hSelf = hwnd;
@@ -201,7 +201,7 @@ LRESULT CALLBACK DockingManager::staticWinProc(HWND hwnd, UINT message, WPARAM w
 	}
 }
 
-void DockingManager::updateContainerInfo(HWND hClient) 
+void DockingManager::updateContainerInfo(HWND hClient)
 {
 	for (size_t iCont = 0, len = _vContainer.size(); iCont < len; ++iCont)
 	{
@@ -212,7 +212,7 @@ void DockingManager::updateContainerInfo(HWND hClient)
 	}
 }
 
-void DockingManager::showContainer(HWND hCont, BOOL view) 
+void DockingManager::showContainer(HWND hCont, BOOL view)
 {
 	for (size_t iCont = 0, len = _vContainer.size(); iCont < len; ++iCont)
 	{
@@ -417,7 +417,7 @@ void DockingManager::reSizeTo(RECT & rc)
 	_dockData.rcRegion[CONT_TOP].left      = rc.left;
 	_dockData.rcRegion[CONT_TOP].top       = rc.top;
 	_dockData.rcRegion[CONT_TOP].right     = rc.right-rc.left;
-	
+
 	_vSplitter[CONT_TOP]->display(false);
 
 	if (_vContainer[CONT_TOP]->isVisible())
@@ -519,7 +519,7 @@ void DockingManager::reSizeTo(RECT & rc)
 	// set window positions of container
 	if (_vContainer[CONT_BOTTOM]->isVisible())
 	{
-		::SetWindowPos(_vContainer[CONT_BOTTOM]->getHSelf(), NULL, 
+		::SetWindowPos(_vContainer[CONT_BOTTOM]->getHSelf(), NULL,
 					   rcBottom.left  ,
 					   rcBottom.top   ,
 					   rcBottom.right ,
@@ -530,7 +530,7 @@ void DockingManager::reSizeTo(RECT & rc)
 
 	if (_vContainer[CONT_TOP]->isVisible())
 	{
-		::SetWindowPos(_vContainer[CONT_TOP]->getHSelf(), NULL, 
+		::SetWindowPos(_vContainer[CONT_TOP]->getHSelf(), NULL,
 					   _dockData.rcRegion[CONT_TOP].left  ,
 					   _dockData.rcRegion[CONT_TOP].top   ,
 					   _dockData.rcRegion[CONT_TOP].right ,
@@ -541,7 +541,7 @@ void DockingManager::reSizeTo(RECT & rc)
 
 	if (_vContainer[CONT_RIGHT]->isVisible())
 	{
-		::SetWindowPos(_vContainer[CONT_RIGHT]->getHSelf(), NULL, 
+		::SetWindowPos(_vContainer[CONT_RIGHT]->getHSelf(), NULL,
 					   rcRight.left  ,
 					   rcRight.top   ,
 					   rcRight.right ,
@@ -552,7 +552,7 @@ void DockingManager::reSizeTo(RECT & rc)
 
 	if (_vContainer[CONT_LEFT]->isVisible())
 	{
-		::SetWindowPos(_vContainer[CONT_LEFT]->getHSelf(), NULL, 
+		::SetWindowPos(_vContainer[CONT_LEFT]->getHSelf(), NULL,
 					   _dockData.rcRegion[CONT_LEFT].left  ,
 					   _dockData.rcRegion[CONT_LEFT].top   ,
 					   _dockData.rcRegion[CONT_LEFT].right ,
@@ -644,7 +644,7 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 			// get current container from map
 			iCont = _iContMap[iCont];
 		}
-		// previous container is in floating state 
+		// previous container is in floating state
 		else
 		{
 			// no mapping for available store mapping
@@ -683,7 +683,7 @@ void DockingManager::setActiveTab(int iCont, int iItem)
 	_vContainer[_iContMap[iCont]]->setActiveTb(iItem);
 }
 
-void DockingManager::showDockableDlg(HWND hDlg, BOOL view) 
+void DockingManager::showDockableDlg(HWND hDlg, BOOL view)
 {
 	for (size_t i = 0, len = _vContainer.size(); i < len; ++i)
 	{
@@ -710,7 +710,7 @@ void DockingManager::showDockableDlg(TCHAR* pszName, BOOL view)
 	}
 }
 
-LRESULT DockingManager::SendNotify(HWND hWnd, UINT message) 
+LRESULT DockingManager::SendNotify(HWND hWnd, UINT message)
 {
 	NMHDR	nmhdr;
 	nmhdr.code		= message;
@@ -790,7 +790,7 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
 	{
 		// set new target
 		pContTgt = _vContainer[iContPrev];
-        
+
 		// change data normaly
 		TbData.iPrevCont = iContSrc;
 		pContTgt->createToolbar(TbData);
@@ -868,7 +868,7 @@ void DockingManager::toggleActiveTb(DockingCont* pContSrc, DockingCont* pContTgt
 {
 	tTbData		TbData		= *pContSrc->getDataOfActiveTb();
 
-	toggleTb(pContSrc, pContTgt, TbData);			
+	toggleTb(pContSrc, pContTgt, TbData);
 }
 
 void DockingManager::toggleVisTb(DockingCont* pContSrc, DockingCont* pContTgt)
@@ -884,7 +884,7 @@ void DockingManager::toggleVisTb(DockingCont* pContSrc, DockingCont* pContTgt)
 	{
 		// get data one by another
 		tTbData		TbData = *vTbData[iTb];
-		toggleTb(pContSrc, pContTgt, TbData);		
+		toggleTb(pContSrc, pContTgt, TbData);
 	}
 	pContTgt->setActiveTb(pTbData);
 }
@@ -909,7 +909,7 @@ void DockingManager::toggleTb(DockingCont* pContSrc, DockingCont* pContTgt, tTbD
 		SendNotify(TbData.hClient, MAKELONG(DMN_FLOAT, iContTgt));
 
 	// create new toolbar
-	pContTgt->createToolbar(TbData);	
+	pContTgt->createToolbar(TbData);
 
 	// remove toolbar from source
 	_vContainer[iContSrc]->removeToolbar(TbData);
@@ -982,7 +982,7 @@ int DockingManager::FindEmptyContainer()
     delete [] pPrevDockList;
 
     // search for empty arrays
-    return iRetCont; 
+    return iRetCont;
 }
 
 

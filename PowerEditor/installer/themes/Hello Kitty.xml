@@ -323,6 +323,7 @@ so your enhanced file can be included in Notepad++ future release.
             <WordsStyle name="NUMBER" styleID="45" fgColor="FF0000" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="000000" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="47" fgColor="000080" bgColor="F2F4FF" fontName="" fontStyle="3" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="808080" bgColor="F2F4FF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="000000" bgColor="F2F4FF" fontName="" fontStyle="1" fontSize="" />

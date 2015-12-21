@@ -541,3 +541,14 @@ bool PluginsManager::allocateMarker(int numberRequired, int *start)
 	return retVal;
 }
 
+generic_string PluginsManager::getLoadedPluginNames() const
+{
+	generic_string pluginPaths;
+	for (size_t i = 0; i < _loadedDlls.size(); ++i)
+	{
+		pluginPaths += _loadedDlls[i];
+		pluginPaths += TEXT(" ");
+	}
+	return pluginPaths;
+}
+

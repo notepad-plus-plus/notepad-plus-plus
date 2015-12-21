@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last modified:...: 24.07.2015 by RDD
+	Last modified:...: 27.08.2015 by RDD
 	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
 -->
 <NotepadPlus>
@@ -352,7 +352,7 @@
 					<Item id="47010" name="Параметри на командния ред..."/>
 					<Item id="47001" name="Notepad++ домашна страница"/>
 					<Item id="47002" name="Notepad++ страница на проекта"/>
-					<Item id="47004" name="Форум"/>
+					<Item id="47004" name="Notepad++ общност (Форум)"/>
 					<Item id="47005" name="Още добавки"/>
 					<Item id="47003" name="Онлайн документация"/>
 					<Item id="47006" name="Обновяване на Notepad++"/>
@@ -730,11 +730,11 @@
 					<Item id="6403" name="Unix"/>
 					<Item id="6405" name="Кодировка"/>
 					<Item id="6406" name="ANSI"/>
-					<Item id="6407" name="UTF-8 без BOM"/>
+					<Item id="6407" name="UTF-8"/>
 					<Item id="6420" name="Прилагане в отворени ANSI файлове"/>
-					<Item id="6408" name="UTF-8"/>
-					<Item id="6409" name="UCS-2 Big Endian"/>
-					<Item id="6410" name="UCS-2 Little Endian"/>
+					<Item id="6408" name="UTF-8 с BOM"/>
+					<Item id="6409" name="UCS-2 Big Endian с BOM"/>
+					<Item id="6410" name="UCS-2 Little Endian с BOM"/>
 					<Item id="6411" name="Основен синтаксис:"/>
 				</NewDoc>
 					<!-- Път по подразбиране -->

@@ -190,6 +190,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="NUMBER" styleID="45" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="47" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="999966" bgColor="000000" fontName="" fontStyle="1" fontSize="" />

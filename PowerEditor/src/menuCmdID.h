@@ -464,7 +464,8 @@
     #define    IDM_LANG_R                  (IDM_LANG + 54)
     #define    IDM_LANG_JSP                (IDM_LANG + 55)
 	#define    IDM_LANG_COFFEESCRIPT       (IDM_LANG + 56)
-    #define    IDM_LANG_FORTRAN_77         (IDM_LANG + 57)
+	#define    IDM_LANG_JSON		       (IDM_LANG + 57)
+    #define    IDM_LANG_FORTRAN_77         (IDM_LANG + 58)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 65)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 79)
@@ -487,6 +488,7 @@
 	#define    IDM_CONFUPDATERPROXY (IDM_ABOUT  + 9)
 	#define    IDM_CMDLINEARGUMENTS (IDM_ABOUT  + 10)
 	#define    IDM_ONLINESUPPORT    (IDM_ABOUT  + 11)
+	#define    IDM_DEBUGINFO        (IDM_ABOUT  + 12)
 
 
 #define    IDM_SETTING    (IDM + 8000)

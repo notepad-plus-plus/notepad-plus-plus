@@ -137,7 +137,8 @@ public:
 		return !(a == b);
 	};
 
-	virtual int doDialog() {
+	virtual INT_PTR doDialog()
+	{
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent,  dlgProc, (LPARAM)this);
     };
 
@@ -230,7 +231,8 @@ public:
 	generic_string toString() const;
 	generic_string toString(int index) const;
 
-	int doDialog() {
+	INT_PTR doDialog()
+	{
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent,  dlgProc, (LPARAM)this);
     };
 

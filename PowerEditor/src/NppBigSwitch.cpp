@@ -44,7 +44,11 @@ using namespace std;
 #define WM_DPICHANGED 0x02E0
 
 
-
+DWORD WINAPI CheckModifiedDocumentThread(LPVOID)
+{
+	MainFileManager->checkFilesystemChanges();
+	return 0;
+}
 
 struct SortTaskListPred final
 {
@@ -1347,7 +1351,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				if (LOWORD(wParam) && (nppgui._fileAutoDetection != cdDisabled))
 				{
 					_activeAppInf._isActivated = true;
-					checkModifiedDocument();
+					
+					//checkModifiedDocument();
+					// Make checkModifiedDocument as thread to avoid Notepad++ hanging while user uses touch screen to activate Notepad++ windows
+					HANDLE hThread = CreateThread(NULL, 0, &CheckModifiedDocumentThread, NULL, 0, NULL);
+					::CloseHandle(hThread);
 					return FALSE;
 				}
 			}

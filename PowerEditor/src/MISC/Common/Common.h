@@ -44,51 +44,25 @@ const bool dirDown = false;
 #define BCKGRD_COLOR (RGB(255,102,102))
 #define TXT_COLOR    (RGB(255,255,255))
 
-#ifdef UNICODE
-	#define NppMainEntry wWinMain
-	#define generic_strtol wcstol
-	#define generic_strncpy wcsncpy
-	#define generic_stricmp wcsicmp
-	#define generic_strncmp wcsncmp
-	#define generic_strnicmp wcsnicmp
-	#define generic_strncat wcsncat
-	#define generic_strchr wcschr
-	#define generic_atoi _wtoi
-	#define generic_itoa _itow
-	#define generic_atof _wtof
-	#define generic_strtok wcstok
-	#define generic_strftime wcsftime
-	#define generic_fprintf fwprintf
-	#define generic_sprintf swprintf
-	#define generic_sscanf swscanf
-	#define generic_fopen _wfopen
-	#define generic_fgets fgetws
-	#define generic_stat _wstat
-	#define generic_sprintf swprintf
-	#define COPYDATA_FILENAMES COPYDATA_FILENAMESW
-#else
-	#define NppMainEntry WinMain
-	#define generic_strtol strtol
-	#define generic_strncpy strncpy
-	#define generic_stricmp stricmp
-	#define generic_strncmp strncmp
-	#define generic_strnicmp strnicmp
-	#define generic_strncat strncat
-	#define generic_strchr strchr
-	#define generic_atoi atoi
-	#define generic_itoa itoa
-	#define generic_atof atof
-	#define generic_strtok strtok
-	#define generic_strftime strftime
-	#define generic_fprintf fprintf
-	#define generic_sprintf sprintf
-	#define generic_sscanf sscanf
-	#define generic_fopen fopen
-	#define generic_fgets fgets
-	#define generic_stat _stat
-	#define generic_sprintf sprintf
-	#define COPYDATA_FILENAMES COPYDATA_FILENAMESA
-#endif
+#define generic_strtol wcstol
+#define generic_strncpy wcsncpy
+#define generic_stricmp wcsicmp
+#define generic_strncmp wcsncmp
+#define generic_strnicmp wcsnicmp
+#define generic_strncat wcsncat
+#define generic_strchr wcschr
+#define generic_atoi _wtoi
+#define generic_itoa _itow
+#define generic_atof _wtof
+#define generic_strtok wcstok
+#define generic_strftime wcsftime
+#define generic_fprintf fwprintf
+#define generic_sprintf swprintf
+#define generic_sscanf swscanf
+#define generic_fopen _wfopen
+#define generic_fgets fgetws
+#define generic_stat _wstat
+#define COPYDATA_FILENAMES COPYDATA_FILENAMESW
 
 typedef std::basic_string<TCHAR> generic_string;
 

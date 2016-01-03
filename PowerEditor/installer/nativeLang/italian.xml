@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 6.8.2
-    Last modified Wed, October 24th, 2015 by Luca Leonardi.
+    Italian translation for Notepad++ 6.8.8
+    Last modified Wed, December 28th, 2015 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -299,6 +299,7 @@
                     <Item id = "47009" name = "Imposta proxy aggiornamento..." />
                     <Item id = "47010" name = "Argomenti riga di comando..." />
                     <Item id = "47011" name = "Supporto Live"/>
+                    <Item id = "47012" name = "Informazioni di debug"/>
 
                     <Item id = "48005" name = "Importa plugin..." />
                     <Item id = "48006" name = "Importa tema..." />
@@ -678,6 +679,7 @@
                     <Item id = "6214" name = "Evidenzia la riga corrente" />
                     <Item id = "6215" name = "Abilita antialising caratteri" />
                     <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
+                    <Item id = "6235" name = "Nessun bordo" />
                 </Scintillas>
                 <NewDoc title = "Nuovo documento">
                     <Item id = "6401" name = "Formato" />

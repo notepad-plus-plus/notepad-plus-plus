@@ -51,7 +51,7 @@ bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
     //_pluginInfos[index]->_pluginMenu = NULL;
 
     if (::FreeLibrary(_pluginInfos[index]->_hLib))
-        _pluginInfos[index]->_hLib = NULL;
+        _pluginInfos[index]->_hLib = nullptr;
     else
         printStr(TEXT("not ok"));
     //delete _pluginInfos[index];
@@ -69,9 +69,9 @@ static std::wstring GetLastErrorAsString()
     if (errorMessageID == 0)
         return std::wstring(); //No error message has been recorded
 
-    LPWSTR messageBuffer = NULL;
+    LPWSTR messageBuffer = nullptr;
     size_t size = FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-        NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&messageBuffer, 0, NULL);
+        nullptr, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&messageBuffer, 0, nullptr);
 
     std::wstring message(messageBuffer, size);
 

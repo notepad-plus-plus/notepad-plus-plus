@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last modified:...: 13.12.2015 by RDD
+	Last modified:...: 05.01.2015 by RDD
 	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
 -->
 <NotepadPlus>
@@ -712,6 +712,7 @@
 					<Item id="6213" name="Фонов режим"/>
 					<Item id="6209" name="Брой колони: "/>
 					<Item id="6231" name="Дебелина на рамката на прозореца"/>
+					<Item id="6235" name="Без ръб"/>
 					<Item id="6227" name="Пренасяне на нов ред"/>
 					<Item id="6228" name="Стандартно"/>
 					<Item id="6229" name="Подравнено"/>
@@ -743,7 +744,7 @@
 					<Item id="6413" name="Директория по подразбиране (Отваряне / Запис)"/>
 					<Item id="6414" name="Следване на текущия документ"/>
 					<Item id="6415" name="Запомняне на последно използваната директория"/>
-					<Item id="6430" name="Нов стил на прозореца за запис (без опция за файлово разширение)"/>
+					<Item id="6430" name="Без избор на файлово разширение в прозореца за &quot;Запис като...&quot;"/>
 				</DefaultDir>
 					<!-- История с отваряния -->
 				<RecentFilesHistory title="История с отваряния">

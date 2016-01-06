@@ -29,7 +29,9 @@
 #ifndef ANSICHARPANEL_H
 #define  ANSICHARPANEL_H
 
-//#include <windows.h>
+#include <windows.h>
+#include <commctrl.h>
+
 #ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
 #endif //DOCKINGDLGINTERFACE_H
@@ -72,7 +74,7 @@ public:
     };
 	
 protected:
-	virtual BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	ScintillaEditView **_ppEditView;

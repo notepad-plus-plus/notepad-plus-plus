@@ -30,7 +30,7 @@ using namespace Scintilla;
 
 
 static bool IsAlphabetic(int ch) {
-	return isascii(ch) && isalpha(ch);
+	return IsASCII(ch) && isalpha(ch);
 }
 
 static inline bool AtEOL(Accessor &styler, unsigned int i) {
@@ -45,11 +45,6 @@ static bool IsBOperator(char ch) {
 // Tests for BATCH Separators
 static bool IsBSeparator(char ch) {
 	return (ch == '\\') || (ch == '.') || (ch == ';') || (ch == ' ') || (ch == '\t') || (ch == '[') || (ch == ']') || (ch == '\"') || (ch == '\'') || (ch == '/');
-}
-
-// Tests for Environment Variable symbol
-static inline bool IsEnvironmentVar(char ch) {
-	return isalpha(ch) || isdigit(ch) || (ch == '_') || (ch == '$');
 }
 
 // Find length of CMD FOR variable with modifier (%~...) or return 0
@@ -112,7 +107,7 @@ static void ColouriseTCMDLine( char *lineBuffer, unsigned int lengthLine, unsign
 	// Examples are: cd. cd\ echo: echo. path=
 	bool inString = false; // Used for processing while ""
 	// Special Keyword Buffer used to determine if the first n characters is a Keyword
-	char sKeywordBuffer[260];	// Special Keyword Buffer
+	char sKeywordBuffer[260] = "";	// Special Keyword Buffer
 	bool sKeywordFound;		// Exit Special Keyword for-loop if found
 
 	// Skip leading whitespace
@@ -445,7 +440,7 @@ static void FoldTCMDDoc(unsigned int startPos, int length, int, WordList *[], Ac
 	int level = styler.LevelAt(line);
 	int levelIndent = 0;
 	unsigned int endPos = startPos + length;
-	char s[16];
+	char s[16] = "";
 
     char chPrev = styler.SafeGetCharAt(startPos - 1);
 

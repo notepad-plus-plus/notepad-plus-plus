@@ -26,7 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
 #include "BabyGridWrapper.h"
 const TCHAR *babyGridClassName = TEXT("BABYGRID");
 
@@ -47,5 +46,5 @@ void BabyGridWrapper::init(HINSTANCE hInst, HWND parent, int id)
 					_hParent,\
 					(HMENU)id,\
 					_hInst,\
-					(LPVOID)/*this*/NULL);
+					(LPVOID)NULL);
 }

@@ -1,284 +1,942 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name = "Shqip" filename="albanian.xml" >
-		<Menu>
-			<Main>
-				<!-- Main Menu Entries -->
-				<Entries>
-					<Item menuId="file" name = "&amp;Skedari"/>
-					<Item menuId="edit" name = "&amp;P�rpuno"/>
-					<Item menuId="search" name = "K&amp;�rko"/>
-					<Item menuId="view" name = "&amp;Pamja"/>
-					<Item menuId="encoding" name = "F&amp;ormati"/>
-					<Item menuId="language" name = "&amp;Gjuha"/>
-					<Item menuId="settings" name = "Per&amp;ferencat"/>
-					<Item menuId="macro" name = "&amp;Makro"/>
-					<Item menuId="run" name = "&amp;Ekzekuto"/>
-				</Entries>
+    <Native-Langue name="Shqip" filename="albanian.xml" version="6.7.9">
+        <Menu>
+            <Main>
+                <!-- Main Menu Entries -->
+                <Entries>
+                    <Item menuId="file" name="&amp;Filet"/>
+                    <Item menuId="edit" name="Ko&amp;rrigjo"/>
+                    <Item menuId="search" name="&amp;Kërko"/>
+                    <Item menuId="view" name="&amp;Shfaq"/>
+                    <Item menuId="encoding" name="K&amp;odimi"/>
+                    <Item menuId="language" name="&amp;Gjuha"/>
+                    <Item menuId="settings" name="&amp;Rregullimet"/>
+                    <Item menuId="macro" name="Makro"/>
+                    <Item menuId="run" name="Ekzekuto"/>
+                    <Item idName="Plugins" name="Shtojca"/>
+                    <Item idName="Window" name="Dritare"/>
+                </Entries>
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item subMenuId="file-openFolder" name="Hap dosjen e përmbajtjes"/>
+                    <Item subMenuId="file-closeMore" name="Mbyll më tepër"/>
+                    <Item subMenuId="file-recentFiles" name="Filet e fundit"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Kopjo në Clipboard"/>
+                    <Item subMenuId="edit-indent" name="Kryeradhë"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Konverto kasën në"/>
+                    <Item subMenuId="edit-lineOperations" name="Veprimet e rreshtit"/>
+                    <Item subMenuId="edit-comment" name="Komento/Mos-komento"/>
+                    <Item subMenuId="edit-autoCompletion" name="Auto-plotësimi"/>
+                    <Item subMenuId="edit-eolConversion" name="Shkëmbimi EOL"/>
+                    <Item subMenuId="edit-blankOperations" name="Veprimet e zbrazëta"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Ngjit Special"/>
+                    <Item subMenuId="search-markAll" name="Shënjo të gjitha"/>
+                    <Item subMenuId="search-unmarkAll" name="Mos-shënjo të gjitha"/>
+                    <Item subMenuId="search-jumpUp" name="Shko lart"/>
+                    <Item subMenuId="search-jumpDown" name="Shko poshtë"/>
+                    <Item subMenuId="search-bookmark" name="Faqeruajtës"/>
+                    <Item subMenuId="view-showSymbol"  name="Shfaq simbolin"/>
+                    <Item subMenuId="view-zoom"  name="Zmadho"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Lëviz/Klono dokumentin aktual"/>
+                    <Item subMenuId="view-tab"  name="Tabelor"/>
+                    <Item subMenuId="view-collapseLevel" name="Niveli i mbylljes"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Niveli i mos-mbylljes"/>
+                    <Item subMenuId="view-project" name="Projekti"/>
+                    <Item subMenuId="encoding-characterSets"  name="Seti i karaktereve"/>
+                    <Item subMenuId="encoding-arabic"  name="Arabisht"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltike"/>
+                    <Item subMenuId="encoding-celtic"  name="Kelte"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Cirilike"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Europiane qendrore"/>
+                    <Item subMenuId="encoding-chinese"  name="Kineze"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Europiane lindore"/>
+                    <Item subMenuId="encoding-greek"  name="Greqisht"/>
+                    <Item subMenuId="encoding-hebrew"  name="Hebraisht"/>
+                    <Item subMenuId="encoding-japanese"  name="Japoneze"/>
+                    <Item subMenuId="encoding-korean" name="Koreane"/>
+                    <Item subMenuId="encoding-northEuropean" name="Europiane veriore"/>
+                    <Item subMenuId="encoding-thai" name="Tailandisht"/>
+                    <Item subMenuId="encoding-turkish" name="Turqisht"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Europiane perëndimore"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnameze"/>
+                    <Item subMenuId="settings-import"  name="Importo"/>
+                </SubEntries>
+                
+                <!-- all menu item -->
+                <Commands>
+                    <Item id="41001" name="I &amp;ri"/>
+                    <Item id="41002" name="&amp;Hap"/>
+                    <Item id="41019" name="Explorer"/>
+                    <Item id="41020" name="cmd"/>
+                    <Item id="41003" name="Mbyll"/>
+                    <Item id="41004" name="M&amp;byll të gjitha"/>
+                    <Item id="41005" name="Mbyll të gjitha VEÇ dokumentit aktual"/>
+                    <Item id="41009" name="Mbyll të gjitha në të majtë"/>
+                    <Item id="41018" name="Mbyll të gjitha në të djathtë"/>
+                    <Item id="41006" name="R&amp;uaj"/>
+                    <Item id="41007" name="Ruaj &amp;të gjitha"/>
+                    <Item id="41008" name="Ruaj &amp;si..."/>
+                    <Item id="41010" name="Printo..."/>
+                    <Item id="1001"  name="Printo tani"/>
+                    <Item id="41011" name="Da&amp;lje"/>
+                    <Item id="41012" name="Ngarko Sesionin..."/>
+                    <Item id="41013" name="Ruaj Sesionin..."/>
+                    <Item id="41014" name="Ringarko nga Disku"/>
+                    <Item id="41015" name="Ruaj një kopje si..."/>
+                    <Item id="41016" name="Fshij nga Disku"/>
+                    <Item id="41017" name="Riemëro..."/>
+                    <Item id="41021" name="Rikthe filin e mbyllur së fundmi"/>
+                    
+                    <Item id="42001" name="&amp;Prej"/>
+                    <Item id="42002" name="&amp;Kopjo"/>
+                    <Item id="42003" name="&amp;Mosbëj"/>
+                    <Item id="42004" name="&amp;Ribëj"/>
+                    <Item id="42005" name="&amp;Ngjit"/>
+                    <Item id="42006" name="&amp;Fshij"/>
+                    <Item id="42007" name="Zgjedh të &amp;gjitha"/>
+                    <Item id="42020" name="Fillo/Përfundo zgjedhjen"/>
+                    <Item id="42008" name="Rrit linjën e kryeradhës"/>
+                    <Item id="42009" name="Ul  linjën e kryeradhës"/>
+                    <Item id="42010" name="Dupliko linjën aktuale"/>
+                    <Item id="42012" name="Ndaj linjat"/>
+                    <Item id="42013" name="Bashko linjat"/>
+                    <Item id="42014" name="Lëviz lart linjën aktuale"/>   
+                    <Item id="42015" name="Lëviz poshtë linjën aktuale"/>   
+                    <Item id="42016" name="KASë E MADHE"/>
+                    <Item id="42017" name="kasë e vogël"/>
+                    <Item id="42018" name="&amp;Fillo regjistrimin"/>
+                    <Item id="42019" name="&amp;Ndalo regjistrimin"/>
+                    <Item id="42021" name="&amp;Rishikim"/>
+                    <Item id="42022" name="Nyjëto komentin e linjës së vetme"/>
+                    <Item id="42023" name="Blloko komentin"/>
+                    <Item id="42047" name="Blloko jo-komentin"/>
+                    <Item id="42024" name="Përmirëso hapësirën zvarritëse"/>
+                    <Item id="42042" name="Përmirëso hapësirën drejtuese"/>
+                    <Item id="42043" name="Përmirëso hapësirën zvarritëse e drejtuese"/>
+                    <Item id="42044" name="EOL në hapësirë"/>
+                    <Item id="42045" name="Largo zbrazëtirat e panevojshme dhe EOL"/>
+                    <Item id="42046" name="TAB për Hapësirë"/>
+                    <Item id="42054" name="Hapësirë për TAB (të gjitha)"/>
+                    <Item id="42053" name="Hapësirë për TAB (drejtues)"/>
+                    <Item id="42038" name="Ngjit përmbajtjen HTML"/>
+                    <Item id="42039" name="Ngjit përmbajtjen RTF"/>
+                    <Item id="42048" name="Kopjo përmbajtjen Binare"/>
+                    <Item id="42049" name="Prej përmbajtjen Binare"/>
+                    <Item id="42050" name="Ngjit përmbajtjen Binare"/>
+                    <Item id="42037" name="Mënyra e kolonës..."/>
+                    <Item id="42034" name="Editori i kolonës..."/>
+                    <Item id="42051" name="Paneli i karaktereve"/>
+                    <Item id="42052" name="Historia e Clipboard"/>
+                    <Item id="42025" name="Ruaj Macro të regjistruar aktualisht"/>
+                    <Item id="42026" name="Drejtimi i tekstit RTL"/>
+                    <Item id="42027" name="Drejtimi i tekstit LTR"/>
+                    <Item id="42028" name="Vendos vetëm-lexo"/>
+                    <Item id="42029" name="Rruga e filit aktual për Clipboard"/>
+                    <Item id="42030" name="Emri i filit aktual për Clipboard"/>
+                    <Item id="42031" name="Dosja aktuale. Rruga për Clipboard"/>
+                    <Item id="42032" name="Ekzekuto Macro shumë herë..."/>
+                    <Item id="42033" name="Pastro flamurin vetëm-lexo"/>
+                    <Item id="42035" name="Koment i linjës së vetme"/>
+                    <Item id="42036" name="Jo-koment i linjës së vetme"/>
+                    <Item id="42055" name="Largo linjat e zbrazëta"/>
+                    <Item id="42056" name="Largo linjat e zbrazëta (përmban karaktere të zbrazëta)"/>
+                    <Item id="42057" name="Fut linjë të zbrazët sipër aktuales"/>
+                    <Item id="42058" name="Fut linjë të zbrazët poshtë aktuales"/>
+                    <Item id="42059" name="Rendit linjat në renditje ngritëse"/>
+                    <Item id="42060" name="Rendit linjat në renditje zbritëse"/>
+                    <Item id="43001" name="&amp;Gjej..."/>
+                    <Item id="43002" name="Gjej &amp;tjetër"/>
+                    <Item id="43003" name="Zëvendëso..."/>
+                    <Item id="43004" name="Shko tek..."/>
+                    <Item id="43005" name="Nyjëto faqeruajtësin"/>
+                    <Item id="43006" name="Faqeruajtësi tjetër"/>
+                    <Item id="43007" name="Faqeruajtësi më përpara"/>
+                    <Item id="43008" name="Pastro të gjithë faqeruajtësit"/>
+                    <Item id="43018" name="Prej linjat e faqeruajtësit"/>
+                    <Item id="43019" name="Kopjo linjat e faqeruajtësit"/>
+                    <Item id="43020" name="Ngjit tek (zëvendëso) linjat e faqeruajtësit"/>
+                    <Item id="43021" name="Largo linjat e shënjuara"/>
+                    <Item id="43051" name="Largo linjat e pashënjuara"/>
+                    <Item id="43050" name="Faqeruajtës i anasjelltë"/>
+                    <Item id="43052" name="Gjej karakteret në shtrirje..."/>
+                    <Item id="43053" name="Zgjedh të gjitha ndërmjet përkimeve të gjetura"/>
+                    <Item id="43009" name="Shko tek përkimet e gjetura"/>
+                    <Item id="43010" name="Gjej të mëparshmit"/>
+                    <Item id="43011" name="&amp;Kërko në rritje"/>
+                    <Item id="43013" name="Gjej në file"/>
+                    <Item id="43014" name="Gjej tjetër (paqëndrueshëm)"/>
+                    <Item id="43015" name="Gjej të mëparshmit (paqëndrueshëm)"/>
+                    <Item id="43022" name="Përdor stilin 1"/>
+                    <Item id="43023" name="Pastro stilin 1"/>
+                    <Item id="43024" name="Përdor stilin 2"/>
+                    <Item id="43025" name="Pastro stilin 2"/>
+                    <Item id="43026" name="Përdor stilin 3"/>
+                    <Item id="43027" name="Pastro stilin 3"/>
+                    <Item id="43028" name="Përdor stilin 4"/>
+                    <Item id="43029" name="Pastro stilin 4"/>
+                    <Item id="43030" name="Përdor stilin 5"/>
+                    <Item id="43031" name="Pastro stilin 5"/>
+                    <Item id="43032" name="Pastro të gjithë stilet"/>
+                    <Item id="43033" name="Stili 1"/>
+                    <Item id="43034" name="Stili 2"/>
+                    <Item id="43035" name="Stili 3"/>
+                    <Item id="43036" name="Stili 4"/>
+                    <Item id="43037" name="Stili 5"/>
+                    <Item id="43038" name="Gjej stilin"/>
+                    <Item id="43039" name="Stili 1"/>
+                    <Item id="43040" name="Stili 2"/>
+                    <Item id="43041" name="Stili 3"/>
+                    <Item id="43042" name="Stili 4"/>
+                    <Item id="43043" name="Stili 5"/>
+                    <Item id="43044" name="Gjej stilin"/>
+                    <Item id="43045" name="Dritarja e rezultateve të kërkimit"/>
+                    <Item id="43046" name="Rezultatet e tjera të kërkimit"/>
+                    <Item id="43047" name="Rezultatet e mëparshme të kërkimit"/>
+                    <Item id="43048" name="Zgjedh dhe Gjej tjetër"/>
+                    <Item id="43049" name="Zgjedh dhe Gjej përpara"/>
+                    <Item id="43044" name="Gjej stilin"/>
+                    <Item id="43045" name="Dritarja e rezultateve të kërkimit"/>
+                    <Item id="43046" name="Rezultati tjetër i kërkimit"/>
+                    <Item id="43047" name="Rezultati i mëparshëm i kërkimit"/>
+                    <Item id="43048" name="Zgjedh dhe gjej tjetrin"/>
+                    <Item id="43049" name="Zgjedh dhe gjej të mëparshmin"/>
+                    <Item id="44009" name="Post-It"/>
+                    <Item id="44010" name="Palos të gjitha"/>
+                    <Item id="44019" name="Shfaq të gjitha karakteret"/>
+                    <Item id="44020" name="Shfaq guidën e kryeradhës"/>
+                    <Item id="44022" name="Mbledh"/>
+                    <Item id="44023" name="Z&amp;vogëlo Ctrl+rrota e miut lart"/>
+                    <Item id="44024" name="Zmadh&amp;o Ctrl+rrota e miut poshtë"/>
+                    <Item id="44025" name="Shfaq hapësirën e bardhë dhe TAB"/>
+                    <Item id="44026" name="Shfaq fundin e linjës"/>
+                    <Item id="44029" name="Shpalos të gjitha"/>
+                    <Item id="44030" name="Mbyll nivelin aktual"/>
+                    <Item id="44031" name="Mos-mbyll nivelin aktual"/>
+                    <Item id="44049" name="Përmbledhje..."/>
+                    <Item id="44080" name="Harta e dokumentit"/>
+                    <Item id="44084" name="Lista e funksioneve"/>
+                    <Item id="44086" name="Tabelori 1"/>
+                    <Item id="44087" name="Tabelori 2"/>
+                    <Item id="44088" name="Tabelori 3"/>
+                    <Item id="44089" name="Tabelori 4"/>
+                    <Item id="44090" name="Tabelori 5"/>
+                    <Item id="44091" name="Tabelori 6"/>
+                    <Item id="44092" name="Tabelori 7"/>
+                    <Item id="44093" name="Tabelori 8"/>
+                    <Item id="44094" name="Tabelori 9"/>
+                    <Item id="44095" name="Tabelori tjetër"/>
+                    <Item id="44096" name="Tabelori përpara"/>
+                    <Item id="44032" name="Nyjëto në mënyrën Ekran i plotë"/>
+                    <Item id="44033" name="Rikthe në zmadhimin standard"/>
+                    <Item id="44034" name="Gjithmonë në krye"/>
+                    <Item id="44035" name="Sinkronizo rrëshqitjen vertikale"/>
+                    <Item id="44036" name="Sinkronizo rrëshqitjen horizontale"/>
+                    <Item id="44041" name="Shfaq simbolin e mbledhjes"/>
+                    <Item id="44072" name="Fokuso në një pamje tjetër"/>
+                    <Item id="44081" name="Paneli i projektit 1"/>
+                    <Item id="44082" name="Paneli i projektit 2"/>
+                    <Item id="44083" name="Paneli i projektit 3"/>
+                    <Item id="45001" name="Konverto në formatin Windows"/>
+                    <Item id="45002" name="Konverto në formatin UNIX"/>
+                    <Item id="45003" name="Konverto në formatin MAC"/>
+                    <Item id="45004" name="Kodo në ANSI"/>
+                    <Item id="45005" name="Kodo në UTF-8"/>
+                    <Item id="45006" name="Kodo në UCS-2 Endian e madhe"/>
+                    <Item id="45007" name="Kodo në UCS-2 Endiane e vogël"/>
+                    <Item id="45008" name="Kodo në UTF-8 pa BOM"/>
+                    <Item id="45009" name="Konverto në ANSI"/>
+                    <Item id="45010" name="Konverto në UTF-8 pa BOM"/>
+                    <Item id="45011" name="Konverto në UTF-8"/>
+                    <Item id="45012" name="Konverto në UCS-2 Endiane e madhe"/>
+                    <Item id="45013" name="Konverto në UCS-2 Endiane e vogël"/>
 
-				<!-- Sub Menu Entries -->
-				 <SubEntries>
-					<Item subMenuId="view-collapseLevel" name = "Mbylle palimin"/>
-					<Item subMenuId="view-uncollapseLevel" name = "Hape palimin"/>
-				</SubEntries>
+                    <Item id="10001" name="Lëviz te pamja tjetër"/>
+                    <Item id="10002" name="Klono te pamja tjetër"/>
+                    <Item id="10003" name="Lëviz në instancën e re"/>
+                    <Item id="10004" name="Hap në instancën e re"/>
 
-				<!-- all menu item -->
-				<Commands>
-					<Item id = "41001" name = "&amp;E re	Ctrl+N"/>
-					<Item id = "41002" name = "&amp;Hape	Ctrl+O"/>
-					<Item id = "41003" name = "Mbylle	Ctrl+W"/>
-					<Item id = "41004" name = "M&amp;byll t� gjitha"/>
-					<Item id = "41005" name = "Mbyll� t� gjitha p�rpos dokumentit aktual"/>
-					<Item id = "41006" name = "&amp;Depono	Ctrl+S"/>
-					<Item id = "41007" name = "Depono t� g&amp;jitha	Ctrl+Shift+S"/>
-					<Item id = "41008" name = "Depono s&amp;i..."/>
-					<Item id = "41010" name = "Shtype...	Ctrl+P"/>
-					<Item id = "41011" name = "P�rf&amp;undo"/>
+                    <Item id="45060" name="Big5 (Tradicionale)"/>
+                    <Item id="45061" name="GB2312 (Thjeshtëzuar)"/>
+                    <Item id="45054" name="OEM 861: Islandisht"/>
+                    <Item id="45057" name="OEM 865: Nordike"/>
+                    <Item id="45053" name="OEM 860: Portugeze"/>
+                    <Item id="45056" name="OEM 863: Frëngjisht"/>
 
-					<Item id = "42001" name = "Prer&amp;je	Ctrl+X"/>
-					<Item id = "42002" name = "&amp;Kopjo	Ctrl+C"/>
-					<Item id = "42003" name = "&amp;Prap�so	Ctrl+Z"/>
-					<Item id = "42004" name = "&amp;P�rs�rit	Ctrl+Y"/>
-					<Item id = "42005" name = "&amp;Shto	Ctrl+V"/>
-					<Item id = "42006" name = "&amp;Zhlyej	Entf"/>
-					<Item id = "42007" name = "M&amp;arko t� gjitha	Ctrl+A"/>
-					<Item id = "42008" name = "Shto nj� TAB (Indent)	TAB"/>
-					<Item id = "42009" name = "Zhlyej nj� TAB (Outdent)	Shift+TAB"/>
-					<Item id = "42010" name = "Dyfisho rrjeshtin	Ctrl+D"/>
-					<Item id = "42011" name = "Ndrydhe rrjeshtin	Ctrl+T"/>
-					<Item id = "42012" name = "Zhlyje rrjeshtin	Ctrl+I"/>
-					<Item id = "42013" name = "Zhlyje k�t� rrjesht	Ctrl+J"/>
-					<Item id = "42014" name = "Rrjeshti i m�parsh�m	Ctrl+Shift+Up"/>
-					<Item id = "42015" name = "Rrjeshti i ardh�sh�m	Ctrl+Shift+Down"/>
-					<Item id = "42016" name = "Konverto n� shkronja t� m�dha	Ctrl+Shift+U"/>
-					<Item id = "42017" name = "Konverto n� shkronja t� vogla	Ctrl+U"/>
-					<Item id = "42018" name = "Fillo &amp;inqizimin	Ctrl+Shift+R"/>
-					<Item id = "42019" name = "Ndale &amp;inqizimin	Ctrl+Shift+R"/>
-					<Item id = "42021" name = "Starto &amp;makron	Ctrl+Shift+P"/>
-					<Item id = "42022" name = "Rrjesht pas rrjeshti komento/�'komento"/>
-					<Item id = "42023" name = "�'komento rrjeshtin e ri"/>
-					<Item id = "42024" name = "Zhlyej fushat e lira t� fundme"/>
-					<Item id = "42025" name = "Depono makron e ve�uar"/>
-					<Item id = "42026" name = "Drejtimi i shkrimit nga D->M	Ctrl+Alt+R"/>
-					<Item id = "42027" name = "Drejtimi i shkrimit nga M->D	Ctrl+Alt+L"/>
+                    <Item id="46033" name="Asamble"/>
+                    <Item id="46019" name="Fili MS INI"/>
+                    <Item id="46015" name=" Stili MS-DOS"/>
+                    <Item id="46016" name="Tekst Normal"/>
+                    <Item id="46017" name="Fili i burimit"/>
 
-					<Item id = "43001" name = "&amp;K�rko...	Ctrl+F"/>
-					<Item id = "43002" name = "&amp;K�rko tutje	F3"/>
-					<Item id = "43003" name = "Z�vend�so...	Ctrl+H"/>
-					<Item id = "43004" name = "Shko te rrjeshti...	Ctrl+G"/>
-					<Item id = "43005" name = "Vendos/zhvendos nj� vendmarkim	Ctrl+F2"/>
-					<Item id = "43006" name = "Vendmarkimi i ardh�sh�m	F2"/>
-					<Item id = "43007" name = "Vendmarkimi i m�parsh�m	Shift+F2"/>
-					<Item id = "43008" name = "Zhlyej t� gjitha vendmarkimet"/>
-					<Item id = "43009" name = "Gjeje kllap�n p�rkat�se	Ctrl+B"/>
-					<Item id = "43010" name = "Vendi i gjetjes s� m�parshme	Shift+F3"/>
-					<Item id = "43013" name = "K�rko n� sked�	Ctrl+Shift+F"/>
+                    <Item id="46001" name="Konfiguruesi i stilit..."/>
+                    <Item id="46150" name="Përcakto gjuhën..."/>
+                    <Item id="46080" name="Përcaktuar-përdoruesi"/>
+                    <Item id="47000" name="Rreth Notepad++..."/>
+                    <Item id="47010" name="Argumentet e linjës së komandës..."/>
+                    <Item id="47001" name="Notepad++ Hyrje"/>
+                    <Item id="47002" name="Notepad++ Faqja e projektit"/>
+                    <Item id="47003" name="Dokumentacioni nëlinjë"/>
+                    <Item id="47004" name="Forumi"/>
+                    <Item id="47005" name="Merr më shumë shtojca"/>
+                    <Item id="47006" name="Aktualizo Notepad++"/>
+                    <Item id="47008" name="Ndihma e përmbajtjes"/>
+                    <Item id="47009" name="Vendos proksi të aktualizuesit..."/>
+                    <Item id="48005" name="Importo shtoja(t) ..."/>
+                    <Item id="48006" name="Importo modele(t) ..."/>
+                    <Item id="48018" name="Korrigjo menynë e përmbajtjes taf-paf"/>
+                    <Item id="48009" name="Krijuesi i shkurtkalimeve..."/>
+                    <Item id="48011" name="Preferencat..."/>
+                    <Item id="49000" name="&amp;Ekzekuto..."/>
 
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					<Item id = "44010" name = "Mbyll t� gjitha palosjet	Alt+0"/>
-					<Item id = "44011" name = "Dialog 'Definuar nga p�rdoruesi'"/>
-					
-					
-					
-					
-					
-					
-					
-					<Item id = "44019" name = "Trego t� gjitha shenjat"/>
-					<Item id = "44020" name = "Trego shtyrjet"/>
-					
-					<Item id = "44022" name = "The rrjeshtin n� fund"/>
-					<Item id = "44023" name = "Z&amp;madho Ctrl + Rrota e miut p�rpara"/>
-					<Item id = "44024" name = "Zv&amp;oglo	Ctrl+ Rrota e miut prapa"/>
-					<Item id = "44025" name = "Trego tabulator�t e vendmarkimeve"/>
-					<Item id = "44026" name = "Trego fundin e rrjeshtit"/>
-					
-					
-					<Item id = "44029" name = "Hap t� gjitha palosjet	Alt+Shift+0"/>
-					<Item id = "44030" name = "Mbyll palosjen	Ctrl+Alt+F"/>
-					<Item id = "44031" name = "Hape palosjen	Ctrl+Alt+Shift+F"/>
-					<Item id = "44032" name = "Pamje e plot�	F11"/>
-					<Item id = "44033" name = "Rikthe madh�sin� standarte	Ctrl+/ (n� bllokun e numrave)"/>
+                    <Item id="50000" name="Plotësimi i funksionit"/>
+                    <Item id="50001" name="Plotësimi i fjalës"/>
+                    <Item id="50002" name="Indikimi i parametrave të funksionit"/>
+                    <Item id="50006" name="Plotësimi i rrugës"/>
+                    <Item id="44042" name="Fsheh linjat"/>
+                    <Item id="42040" name="Hap të gjithë filet e fundit"/>
+                    <Item id="42041" name="Zbraz listën e fileve të fundit"/>
+                    <Item id="48016" name="Modifiko Shkurtkalimin/Fshij Macro..."/>
+                    <Item id="48017" name="Modifiko Shkurtkalimin/Fshij komandën..."/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item CMID="0" name="Mbyll"/>
+                    <Item CMID="1" name="Mbyll të gjitha VEÇ kësaj"/>
+                    <Item CMID="2" name="Ruaj"/>
+                    <Item CMID="3" name="Ruaj si..."/>
+                    <Item CMID="4" name="Printo"/>
+                    <Item CMID="5" name="Lëviz tek pamje tjera"/>
+                    <Item CMID="6" name="Klono tek pamje tjera"/>
+                    <Item CMID="7" name="Rruga e filit të plotë në Clipboard"/>
+                    <Item CMID="8" name="Emti i filit në Clipboard"/>
+                    <Item CMID="9" name="Dosja aktuale. Rruga tek Clipboard"/>
+                    <Item CMID="10" name="Riemëro"/>
+                    <Item CMID="11" name="Lëviz tek Recycle Bin"/>
+                    <Item CMID="12" name="Vetëm-lexo"/>
+                    <Item CMID="13" name="Pastro flamurin vetëm-lexo"/>
+                    <Item CMID="14" name="Lëviz tek Instanca e re"/>
+                    <Item CMID="15" name="Hap në Instancën e re"/>
+                    <Item CMID="16" name="Ringarko"/>
+                    <Item CMID="17" name="Mbylli të gjitha në të majtë"/>
+                    <Item CMID="18" name="Mbylli të gjitha në të djathtë"/>
+                    <Item CMID="19" name="Hap dosjen e përmbajtjes në Explorer"/>
+                    <Item CMID="20" name="Hap dosjen e përmbajtjes në cmd"/>
+            </TabBar>
+        </Menu>
+        
+        <Dialog>
+            <Find title="Gjej" titleFind="Gjej" titleReplace="Zëvendëso" titleFindInFiles="Gjej në file" titleMark="Shënjo">
+                <Item id="1"    name="Gjej tjetër"/>
+                <Item id="2"    name="Mbyll"/>
+                <Item id="1620" name="Gjej ëfarë:"/>
+                <Item id="1603" name="Përkon &amp;vetëm me fjalë të plota"/>
+                <Item id="1604" name="Përkon &amp;kasa"/>
+                <Item id="1605" name="&amp;Shprehje e rregullt"/>
+                <Item id="1606" name="Mble&amp;dh rrotull"/>
+                <Item id="1612" name="&amp;Lart"/>
+                <Item id="1613" name="&amp;Poshtë"/>
+                <Item id="1614" name="Numrin"/>
+                <Item id="1615" name="Gjej të gjitha"/>
+                <Item id="1616" name="Shënjo linjën"/>
+                <Item id="1618" name="Zbraz për secilin kërkim"/>
+                <Item id="1621" name="Drejtimi"/>
+                <Item id="1611" name="Zë&amp;vendëso me:"/>
+                <Item id="1608" name="&amp;Zëvendëso"/>
+                <Item id="1609" name="Zëvendëso të gjith&amp;a"/>
+                <Item id="1687" name="Në humbje të fokusit"/>
+                <Item id="1688" name="Gjithmonë"/>
+                <Item id="1632" name="Në zgjedhje"/>
+                <Item id="1633" name="Pastro"/>
+                <Item id="1635" name="Zëvendëso të gjitha në dokumentet e hapura"/>
+                <Item id="1636" name="Gjej të gjitha në dokumentet e hapura"/>
+                <Item id="1654" name="Filtrat:"/>
+                <Item id="1655" name="Drejtori:"/>
+                <Item id="1656" name="Gjej të gjitha"/>
+                <Item id="1658" name="Në të gjitha nën-dosjet"/>
+                <Item id="1659" name="Në dosjet e fshehta"/>
+                <Item id="1624" name="Mënyra e kërkimit"/>
+                <Item id="1625" name="Normal"/>
+                <Item id="1626" name="Zgjeruar (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="Zëvendëso në file"/>
+                <Item id="1661" name="Ndjek dok. aktual"/>
+                <Item id="1641" name="Gjej të gjitha në dokumentin aktual"/>
+                <Item id="1686" name="Transparencë"/>
+                <Item id="1703" name="&amp;. përkime linjë re"/>
+            </Find>
 
-					<Item id = "45001" name = "Konverto n� Windows Format"/>
-					<Item id = "45002" name = "Konverto n� UNIX Format"/>
-					<Item id = "45003" name = "Konverto n� MAC Format"/>
-					<Item id = "45004" name = "Kodo n� ANSI"/>
-					<Item id = "45005" name = "Kodo n� UTF-8"/>
-					<Item id = "45006" name = "Kodo n� UCS-2 Big Endian"/>
-					<Item id = "45007" name = "Kodo n� UCS-2 Little Endian"/>
-					<Item id = "45008" name = "Trego n� UTF-8"/>
+            <FindCharsInRange title="Gjej karakterret në shtrirje...">
+                <Item id="2" name="Mbyll"/>
+                <Item id="2901" name="Karakteret Jo-ASCII (128-255)"/>
+                <Item id="2902" name="Karakteret ASCII (0-127)"/>
+                <Item id="2903" name="Shtrirja ime:"/>
+                <Item id="2906" name="&amp;Lart"/>
+                <Item id="2907" name="&amp;Poshtë"/>
+                <Item id="2908" name="Drejtimi"/>
+                <Item id="2909" name="&amp;Mbledh rrotull"/>
+                <Item id="2910" name="Gjej"/>
+            </FindCharsInRange>
 
-					<Item id = "10001" name = "Zhvendose n� nj� pamje tjet�r"/>
-					<Item id = "10002" name = "Dyfishoje n� nj� pamje tjet�r"/>
+            <GoToLine title="Shko tek...">
+                <Item id="2007" name="Linja"/>
+                <Item id="2008" name="Karakteri"/>
+                <Item id="1"    name="&amp;Shko"/>
+                <Item id="2"    name="Nuk shkoj askund"/>
+                <Item id="2004" name="Jeni këtu:"/>
+                <Item id="2005" name="Doni të shkoni tek:"/>
+                <Item id="2006" name="Nuk mund të shkoni më tej se:"/>
+            </GoToLine>
 
-					<Item id = "46001" name = "Konfiguruesi i stilit..."/>
-					<Item id = "47000" name = "Reth...	F1"/>
+            <Run title="Ekzekuto...">
+                <Item id="1903" name="Programi që ekzekutohet"/>
+                <Item id="1"    name="Ekzekuto"/>
+                <Item id="2"    name="Anulo"/>
+                <Item id="1904" name="Ruaj..."/>
+            </Run>
+            
+            <StyleConfig title="Konfiguruesi i stilit">
+                <Item id="2"    name="Anulo"/>
+                <Item id="2301" name="Ruaj &amp;&amp; Mbyll"/>
+                <Item id="2303" name="Transparenca"/>       
+                <Item id="2306" name="Zgjedh modelin: "/>
+                <SubDialog>
+                    <Item id="2204" name="Me të zeza"/>
+                    <Item id="2205" name="Kursive"/>
+                    <Item id="2206" name="Ngjyra e planit të parë"/>
+                    <Item id="2207" name="Ngjyra e sfondit"/>
+                    <Item id="2208" name="Emri i sfondit:"/>
+                    <Item id="2209" name="Madhësia e shkrimit:"/>
+                    <Item id="2211" name="Stili:"/>
+                    <Item id="2212" name="Stili i ngjyrës"/>
+                    <Item id="2213" name="Stili i shkrimit"/>
+                    <Item id="2214" name="Standard ekst.:"/>
+                    <Item id="2216" name="Përdorues ekst.:"/>
+                    <Item id="2218" name="Nënvizim"/>
+                    <Item id="2219" name="Fjaklë kyëe standarde"/>
+                    <Item id="2221" name="Fjalë kyëe të përcaktuara nga përdoruesi"/>
+                    <Item id="2225" name="Gjuha:"/>
+                    <Item id="2226" name="Aftëso ngjyrën globale të planit të parë"/>
+                    <Item id="2227" name="Aftëso ngjyrën globale të sfondit"/>
+                    <Item id="2228" name="Aftëso tipin global të shkrimit"/>
+                    <Item id="2229" name="Aftëso madhësinë globale të shkrimit"/>
+                    <Item id="2230" name="Aftëso stilin global të shkrimit me të zeza"/>
+                    <Item id="2231" name="Aftëso stilin global të shkrimit kursiv"/>
+                    <Item id="2232" name="Aftëso stilin global të shkrimit të nënvizuar"/>
+                </SubDialog>                
+                
+            </StyleConfig>
+            
+            <UserDefine title="Përcaktuar nga përdoruesi">
+                <Item id="20001" name="Dock"/>
+                <Item id="20002" name="Riemëro"/>
+                <Item id="20003" name="Krijo të ri..."/>
+                <Item id="20004" name="Largo"/>
+                <Item id="20005" name="Ruaj si..."/>
+                <Item id="20007" name="Gjuha e përdoruesit: "/>
+                <Item id="20009" name="Ekst.:"/>
+                <Item id="20012" name="Injoro kasën"/>
+                <Item id="20011" name="Transparenca"/>
+                <Item id="20015" name="Importo..."/>
+                <Item id="20016" name="Eksporto..."/>
+                <StylerDialog title="Dialogu i stilit">
+                    <Item id="25030" name="Opsionet e shkrimit:"/>
+                    <Item id="25006" name="Ngjyra e planit të parë"/>
+                    <Item id="25007" name="Ngjyra e sfondit"/>
+                    <Item id="25031" name="Emri:"/>
+                    <Item id="25032" name="Madhësia:"/>
+                    <Item id="25001" name="Me të zeza"/>
+                    <Item id="25002" name="Kursiv"/>
+                    <Item id="25003" name="Nënvizoj"/>
+                    <Item id="25029" name="Fole:"/>
+                    <Item id="25008" name="Delimiter 1"/>
+                    <Item id="25009" name="Delimiter 2"/>
+                    <Item id="25010" name="Delimiter 3"/>
+                    <Item id="25011" name="Delimiter 4"/>
+                    <Item id="25012" name="Delimiter 5"/>
+                    <Item id="25013" name="Delimiter 6"/>
+                    <Item id="25014" name="Delimiter 7"/>
+                    <Item id="25015" name="Delimiter 8"/>
+                    <Item id="25018" name="Fjalë kyëe 1"/>
+                    <Item id="25019" name="Fjalë kyëe 2"/>
+                    <Item id="25020" name="Fjalë kyëe 3"/>
+                    <Item id="25021" name="Fjalë kyëe 4"/>
+                    <Item id="25022" name="Fjalë kyëe 5"/>
+                    <Item id="25023" name="Fjalë kyëe 6"/>
+                    <Item id="25024" name="Fjalë kyëe 7"/>
+                    <Item id="25025" name="Fjalë kyëe 8"/>
+                    <Item id="25016" name="Komenti"/>
+                    <Item id="25017" name="Linja e komentit"/>
+                    <Item id="25026" name="Operatori 1"/>
+                    <Item id="25027" name="Operatori 2"/>
+                    <Item id="25028" name="Numrat"/>
+                </StylerDialog>
+                <Folder title="Folder &amp;&amp; Standard">
+                    <Item id="21101" name="Stili standard"/>
+                    <Item id="21102" name="Stilizuesi"/>
+                    <Item id="21105" name="Dokumentimi:"/>
+                    <Item id="21104" name="Faqja e përkohëshme doc:"/>
+                    <Item id="21106" name="Palos kompakt (palos linjat e zbrazëta gjithashtu)"/>
+                    <Item id="21220" name="Palosja në stilin e kodit 1:"/>
+                    <Item id="21224" name="Hap:"/>
+                    <Item id="21225" name="Mesëm:"/>
+                    <Item id="21226" name="Mbyll:"/>
+                    <Item id="21227" name="Stilizues"/>
+                    <Item id="21320" name="Palosja në stilin e kodit 2 (kërkohen ndarës):"/>
+                    <Item id="21324" name="Hap:"/>
+                    <Item id="21325" name="Mesëm:"/>
+                    <Item id="21326" name="Mbyll:"/>
+                    <Item id="21327" name="Stilizues"/>
+                    <Item id="21420" name="Palosja në stilin e komentit:"/>
+                    <Item id="21424" name="Hap:"/>
+                    <Item id="21425" name="Mesëm:"/>
+                    <Item id="21426" name="Mbyll:"/>
+                    <Item id="21427" name="Stilizues"/>
+                </Folder>
+                <Keywords title="Listat e fjalëve kyëe">
+                    <Item id="22101" name="Grupi 1"/>
+                    <Item id="22201" name="Grupi 2"/>
+                    <Item id="22301" name="Grupi 3"/>
+                    <Item id="22401" name="Grupi 4"/>
+                    <Item id="22451" name="Grupi 5"/>
+                    <Item id="22501" name="Grupi 6"/>
+                    <Item id="22551" name="Grupi 7"/>
+                    <Item id="22601" name="Grupi 8"/>
+                    <Item id="22121" name="Mënyra prefiks"/>
+                    <Item id="22221" name="Mënyra prefiks"/>
+                    <Item id="22321" name="Mënyra prefiks"/>
+                    <Item id="22421" name="Mënyra prefiks"/>
+                    <Item id="22471" name="Mënyra prefiks"/>
+                    <Item id="22521" name="Mënyra prefiks"/>
+                    <Item id="22571" name="Mënyra prefiks"/>
+                    <Item id="22621" name="Mënyra prefiks"/>
+                    <Item id="22122" name="Stilizues"/>
+                    <Item id="22222" name="Stilizues"/>
+                    <Item id="22322" name="Stilizues"/>
+                    <Item id="22422" name="Stilizues"/>
+                    <Item id="22472" name="Stilizues"/>
+                    <Item id="22522" name="Stilizues"/>
+                    <Item id="22572" name="Stilizues"/>
+                    <Item id="22622" name="Stilizues"/>
+                </Keywords>
+                <Comment title="Komenti &amp;&amp; Numri">
+                    <Item id="23003" name="Pozicioni i komentit të linjës"/>
+                    <Item id="23004" name="Lejo kudo"/>
+                    <Item id="23005" name="Detyroje në fillim të linjës"/>
+                    <Item id="23006" name="Lejo një hapësirë të bardhë paraprakisht"/>
+                    <Item id="23001" name="Lejo shpalosjen e komenteve"/>
+                    <Item id="23326" name="Stilizuesi"/>
+                    <Item id="23323" name="Hap"/>
+                    <Item id="23324" name="Vazhdo karakterin"/>
+                    <Item id="23325" name="Mbyll"/>
+                    <Item id="23301" name="Stili i linjës së komentit"/>
+                    <Item id="23124" name="Stilizuesi"/>
+                    <Item id="23122" name="Hap"/>
+                    <Item id="23123" name="Mbyll"/>
+                    <Item id="23101" name="Stili i komentit"/>
+                    <Item id="23201" name="Stili i numrit"/>
+                    <Item id="23220" name="Stilizuesi"/>
+                    <Item id="23230" name="Prefiks 1"/>
+                    <Item id="23232" name="Prefiks 2"/>
+                    <Item id="23234" name="Ekstra 1"/>
+                    <Item id="23236" name="Ekstra 2"/>
+                    <Item id="23238" name="Prapashtesa 1"/>
+                    <Item id="23240" name="Prapashtesa 2"/>
+                    <Item id="23242" name="Shtrirja:"/>
+                    <Item id="23244" name="Ndarës dhjetor"/>
+                    <Item id="23245" name="Pikë"/>
+                    <Item id="23246" name="Presje"/>
+                    <Item id="23247" name="Të dyja"/>
+                </Comment>
+                <Operator title="Operatorët &amp;&amp; Delimitrat">
+                    <Item id="24101" name="Stilet e operatorëve"/>
+                    <Item id="24113" name="Stilizuesi"/>
+                    <Item id="24116" name="Operatorët 1"/>
+                    <Item id="24117" name="Operatorët 2 (kërkohen ndarës)"/>
+                    <Item id="24201" name="Delimiter 1 stili"/>
+                    <Item id="24220" name="Hap:"/>
+                    <Item id="24221" name="Shmang:"/>
+                    <Item id="24222" name="Mbyll:"/>
+                    <Item id="24223" name="Stilizues"/>
+                    <Item id="24301" name="Delimiter 2 stili"/>
+                    <Item id="24320" name="Hap:"/>
+                    <Item id="24321" name="Shmang:"/>
+                    <Item id="24322" name="Mbyll:"/>
+                    <Item id="24323" name="Stilizues"/>
+                    <Item id="24401" name="Delimiter 3 stili"/>
+                    <Item id="24420" name="Hap:"/>
+                    <Item id="24421" name="Shmang:"/>
+                    <Item id="24422" name="Mbyll:"/>
+                    <Item id="24423" name="Stilizues"/>
+                    <Item id="24451" name="Delimiter 4 stili"/>
+                    <Item id="24470" name="Hap:"/>
+                    <Item id="24471" name="Shmang:"/>
+                    <Item id="24472" name="Mbyll:"/>
+                    <Item id="24473" name="Stilizues"/>
+                    <Item id="24501" name="Delimiter 5 stili"/>
+                    <Item id="24520" name="Hap:"/>
+                    <Item id="24521" name="Shmang:"/>
+                    <Item id="24522" name="Mbyll:"/>
+                    <Item id="24523" name="Stilizues"/>
+                    <Item id="24551" name="Delimiter 6 stili"/>
+                    <Item id="24570" name="Hap:"/>
+                    <Item id="24571" name="Shmang:"/>
+                    <Item id="24572" name="Mbyll:"/>
+                    <Item id="24573" name="Stilizues"/>
+                    <Item id="24601" name="Delimiter 7 stili"/>
+                    <Item id="24620" name="Hap:"/>
+                    <Item id="24621" name="Shmang:"/>
+                    <Item id="24622" name="Mbyll:"/>
+                    <Item id="24623" name="Stilizues"/>
+                    <Item id="24651" name="Delimiter 8 stili"/>
+                    <Item id="24670" name="Hap:"/>
+                    <Item id="24671" name="Shmang:"/>
+                    <Item id="24672" name="Mbyll:"/>
+                    <Item id="24673" name="Stilizues"/>
+                </Operator>
+            </UserDefine>
+            <Preference title="Preferencat">
+                <Item id="6001" name="Mbyll"/>
+                <Global title="E përgjithshme">
+                    <Item id="6101" name="Linja e mjeteve"/>
+                    <Item id="6102" name="Fsheh"/>
+                    <Item id="6103" name="Ikona të vogla"/>
+                    <Item id="6104" name="Ikona të mëdha"/>
+                    <Item id="6105" name="Ikona standarde"/>
+                    
+                    <Item id="6106" name="Linja Tab"/>
+                    <Item id="6107" name="Zvogëlo"/>
+                    <Item id="6108" name="Kyë (jo tërhiq dhe lësho)"/>
+                    <Item id="6109" name="Errëso tabelorët inaktivë"/>
+                    <Item id="6110" name="Vizato një linjë me ngjyra në tabelorin aktiv"/>
+                    
+                    <Item id="6111" name="Shfaq linjën e statusit"/>
+                    <Item id="6112" name="Shfaq butonin mbyll në secilin tab"/>
+                    <Item id="6113" name="Kliko dyfish për të mbyllur dokumentin"/>
+                    <Item id="6118" name="Fsheh"/>
+                    <Item id="6119" name="Multi-linjë"/>
+                    <Item id="6120" name="Vertikale"/>
+                    
+                    <Item id="6122" name="Fsheh (përdor Alt ose tastin F10 për ta nyjezuar)"/>
+                    <Item id="6123" name="Lokalizimi"/>
 
-					
-					
-					
-					
-					
-					
-					
-					
-					<Item id = "48009" name = "P�rcaktimi i shkurtesave t� pullave..."/>
+                    <Item id="6125" name="Paneli i listës së documentave"/>
+                    <Item id="6126" name="Shfaq"/>
+                    <Item id="6127" name="Pasivizo kolonën e zgjerimit"/>
+                </Global>
+                <Scintillas title="Korrigjimi">
+                    <Item id="6216" name="Rregullimet Caret"/>
+                    <Item id="6217" name="Gjerësia:"/>
+                    <Item id="6219" name="Norma e pulsimit:"/>
+                    <Item id="6221" name="F"/>
+                    <Item id="6222" name="S"/>
+                    <Item id="6224" name="Rregullimet Multi-korrigjim"/>
+                    <Item id="6225" name="Aftëso (Ctrl+klikim miu/zgjedhje)"/>
+                    <Item id="6201" name="Stili i margjinës së dosjes"/>
+                    <Item id="6202" name="Thjeshtë"/>
+                    <Item id="6203" name="Shigjetë"/>
+                    <Item id="6204" name="Pemë rrethi"/>
+                    <Item id="6205" name="Pemë kuti"/>
+                    <Item id="6226" name="Asnjë"/>
 
-					<Item id = "49000" name = "&amp;Ekzekuto..."/>
-				</Commands>
-			</Main>
-			<Splitter>
-			</Splitter>
-			<TabBar>
-					<Item CMID = "0" name = "Mbylle"/>
-					<Item CMID = "1" name = "Mbyll� t� gjitha"/>
-					<Item CMID = "2" name = "Depono"/>
-					<Item CMID = "3" name = "Depono si..."/>
-					<Item CMID = "4" name = "Shtyp"/>
-					<Item CMID = "5" name = "Zhvendose n� nj� pamje tjet�r"/>
-					<Item CMID = "6" name = "Dyfishoje n� nj� pamje tjet�r"/>
-			</TabBar>
-		</Menu>
+                    <Item id="6227" name="Mbërthim linje"/>
+                    <Item id="6228" name="Standard"/>
+                    <Item id="6229" name="Radhitur"/>
+                    <Item id="6230" name="Kryeradhë"/>
 
-		<Dialog>
-			<Find title = "Suchen">
-				<Item id = "1" name = "K�rko m� tutje"/>
-				<Item id = "2" name = "Mbylle"/>
-				<Item id = "1620" name = "K�rko pas :"/>
-				<Item id = "1603" name = "&amp;Vet�m fjal� t� plota"/>
-				<Item id = "1604" name = "Me shkronja&amp;t� m�dhat� vogla"/>
-				<Item id = "1605" name = "&amp;Shprehjet e rregullta"/>
-				<Item id = "1606" name = "&amp;Te dokumentet fillo prap n� fillim"/>
-				<Item id = "1612" name = "P&amp;rapa"/>
-				<Item id = "1613" name = "Par&amp;a"/>
-				<Item id = "1614" name = "Numro"/>
-				<Item id = "1615" name = "Gjej t� gjitha"/>
-				<Item id = "1616" name = "Shenjo rrjeshtin"/>
-				<Item id = "1617" name = "Marko mostr�n"/>
-				<Item id = "1618" name = "Zhlyej p�r �do k�rkim"/>
-				<Item id = "1621" name = "Drejtimi i k�rkimit"/>
-				<Item id = "1611" name = "&amp;Z�vend�so me :"/>
-				<Item id = "1608" name = "&amp;Z�vend�so"/>
-				<Item id = "1609" name = "&amp;Z�vend�so t� gjitha"/>
-				<Item id = "1623" name = "Transparenca"/>
-			 	<Item id = "1632" name = "N� markim"/>
-			 	<Item id = "1633" name = "Prap�sp"/>
-			 	<Item id = "1635" name = "Z�vend�so gjetjet n� t� gjitha skedat e hapura"/>
-			 	<Item id = "1636" name = "K�rko n� t� gjitha skedat e hapura"/>
-			 	<Item id = "1637" name = "K�rko n� skeda"/>
-			</Find>
-			<GoToLine title = "Shko te rrjeshti">
-				<Item id = "1" name = "&amp;OK"/>
-				<Item id = "2" name = "Nd�rpre"/>
-				<Item id = "2004" name = "Ju jeni K�tu"/>
-				<Item id = "2005" name = "Caku q� d�shironi :"/>
-				<Item id = "2006" name = "Nuk mund t� shkoni m� tutje se :"/>
-			</GoToLine>
+                    <Item id="6206" name="Shfaq numrat e linjave"/>
+                    <Item id="6207" name="Shfaq faqeruajtësit"/>
+                    <Item id="6208" name="Shfaq skajin vertikal"/>
+                    <Item id="6209" name="Numri i kolonave: "/>
+                    <Item id="6234" name="Pasivizo tiparin e avancuar të rrëshqitjes
+(nëse keni problem me fushën e prekjes)"/>
+                    
+                    <Item id="6211" name="Rregullimet e skajit vertikal"/>
+                    <Item id="6212" name="Mënyra linjë"/>
+                    <Item id="6213" name="Mënyra sfond"/>
+                    <Item id="6214" name="Aktivizo theksimin e linjë aktuale"/>
 
-			<TabSize>
-				<Item id = "2401" name = "Madh.sked:"/>
-			</TabSize>
-			<MaxFile>
-				<Item id = "2401" name = "Skeda.Max:"/>
-			</MaxFile>
+                    <Item id="6231" name="Gjerësia e kufirit"/>
+                </Scintillas>
 
-			<Run title = "Ekzekuto...">
-				<Item id = "1903" name = "Programi p�r t'u ekzekutuar"/>
-				<Item id = "1" name = "&amp;Ekzekuto..."/>
-				<Item id = "2" name = "&amp;P�rfundo"/>
-				<Item id = "1904" name = "Depono..."/>
-			</Run>
+                <NewDoc title="Dokument i ri">
+                    <Item id="6401" name="Formati"/>
+                    <Item id="6402" name="Windows"/>
+                    <Item id="6403" name="Unix"/>
+                    <Item id="6404" name="Mac"/>
+                    <Item id="6405" name="Kodimi"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="UTF-8 pa BOM"/>
+                    <Item id="6408" name="UTF-8"/>
+                    <Item id="6409" name="UCS-2 Endiane e madhe"/>
+                    <Item id="6410" name="UCS-2 Endiane e vogël"/>
+                    <Item id="6411" name="Gjuha standarde:"/>
+                    <Item id="6419" name="Dokument i ri"/>
+                    <Item id="6420" name="Apliko për filet e hapura ANSI"/>
+                </NewDoc>
 
-			<StyleConfig title = "Konfiguruesi i stilit">
-				<Item id = "1" name = "Provo!"/>
-				<Item id = "2" name = "Nd�rpre"/>
-				<Item id = "2301" name = "Depono"/>
-				<Item id = "2303" name = "Transparenca"/>
+                <DefaultDir title="Drejtoria standarde">
+                    <Item id="6413" name="Drejtoria standarde (Hap/Ruaj)"/>
+                    <Item id="6414" name="Ndjek dokumentin aktual"/>
+                    <Item id="6415" name="Kujto drejtorinë e përdorur së fundi"/>
+                </DefaultDir>
 
-				<SubDialog>
-					<Item id = "2204" name = "Trash"/>
-					<Item id = "2205" name = "Pjerr�t"/>
-					<Item id = "2206" name = "Paravija"/>
-					<Item id = "2207" name = "Prapavija"/>
-					<Item id = "2208" name = "Shkrimi :"/>
-					<Item id = "2209" name = "Madh�sia :"/>
-					<Item id = "2210" name = "V�rejtje : Definimi i k�tij stili b�het definim standard i t� gjitha stileve t� pa definuara"/>
-					<Item id = "2211" name = "P�rshkrimi i stilit :"/>
-					<Item id = "2212" name = "Ngjyrat"/>
-					<Item id = "2213" name = "Shkrimet"/>
-					<Item id = "2214" name = "Prap. standarde:"/>
-					<Item id = "2216" name = "Prap. e p�rdoruesit:"/>
-					<Item id = "2218" name = "N�nvizuar"/>
-					<Item id = "2219" name = "Fjal�t standarde kyqe"/>
-					<Item id = "2221" name = "Fjal�t kyqe t� definuara nga p�rdoruesi"/>
-				</SubDialog>
+                <FileAssoc title="Shoqata e fileve">
+                    <Item id="4009" name="Mbështetur eksts:"/>
+                    <Item id="4010" name="Regjistruar eksts:"/>
+                </FileAssoc>
+                <LangMenu title="Meny e gjuhës">
+                    <Item id="6505" name="Njësitë e vlefshme"/>
+                    <Item id="6506" name="Njësitë pasive"/>
+                    <Item id="6507" name="Bëje kompakte menynë e gjuhës"/>
+                    <Item id="6508" name="Meny e gjuhës"/>
+                </LangMenu>
 
-			</StyleConfig>
+                <TabSettings title="Rregullimet Tab">
+                    <Item id="6301" name="Rregullimet Tab"/>
+                    <Item id="6302" name="Zëvendëso me hapësirë"/>
+                    <Item id="6303" name="Madhësia Tab: "/>
+                    <Item id="6510" name="Përdor vlerën standarde"/>
+                </TabSettings>
 
-			<UserDefine title = "Gjuha e definuar nga p�rdoruesi">
-				<Item id = "20002" name = "Riem�rto"/>
-				<Item id = "20003" name = "Krijo t� re..."/>
-				<Item id = "20004" name = "Zhlyej"/>
-				<Item id = "20005" name = "Depono si..."/>
-				<Item id = "20007" name = "Gjuha e p�rdoruesit : "/>
-				<Item id = "20009" name = "Prap. :"/>
-				<Item id = "20012" name = "Kujdes drejtshkrimin"/>
-				<Item id = "20011" name = "Transparenca"/>
-				<Item id = "0" name = "Ngjyrat"/>
-				<Item id = "1" name = "Paravija"/>
-				<Item id = "2" name = "Prapavija"/>
-				<Item id = "3" name = "Shkrimet"/>
-				<Item id = "4" name = "Shkrimi :"/>
-				<Item id = "5" name = "Madh�sia :"/>
-				<Item id = "6" name = "Trash"/>
-				<Item id = "7" name = "Pjerr�t"/>
-				<Item id = "8" name = "N�nvizuar"/>
-				<Item id = "10" name = "Trajto fjal�n kyqe si simbol"/>
-				<Folder title = "Def. i palosjev &amp;&amp; opcionet">
-					<Item id = "21101" name = "Ngjyrat Standard &amp;&amp; Shkrimet"/>
-					<Item id = "21201" name = "Fjal�t kyqe fillimi i palosjes"/>
-					<Item id = "21301" name = "Fjal�t kyqe fundi i palosjes"/>
-				</Folder>
-				<Keywords title = "Fjal�t kyqe">
-					<Item id = "22101" name = "Grupi i 1."/>
-					<Item id = "22201" name = "Grupi i 2."/>
-					<Item id = "22301" name = "Grupi i 3."/>
-					<Item id = "22401" name = "Grupi i 4."/>
-					<Item id = "22113" name = "Modus i parasht."/>
-					<Item id = "22213" name = "Modus i parasht."/>
-					<Item id = "22313" name = "Modus i parasht."/>
-					<Item id = "22413" name = "Modus i parasht."/>
-				</Keywords>
-				<Comment title = "Kommentari &amp;&amp; Numri">
-					<Item id = "23301" name = "Rrjeshti komentues"/>
-					<Item id = "23101" name = "Bllok komentimi"/>
-					<Item id = "23113" name = "Fillimi i komentit :"/>
-					<Item id = "23115" name = "Fundi i komentit :"/>
-					<Item id = "23116" name = "Trajto fjal�n kyqe si simbol"/>
-					<Item id = "23117" name = "Trajto fjal�t kyqe si simbole"/>
-					<Item id = "23201" name = "Num�r"/>
-				</Comment>
-				<Operator title = "Operator�t">
-					<Item id = "24107" name = "Operator�t"/>
-					<Item id = "24103" name = "Simbolet n� disponim"/>
-					<Item id = "24101" name = "Operator�t e aktivizuar"/>
-					<Item id = "24201" name = "Ndar�si 1"/>
-					<Item id = "24211" name = "Shenja fillestare :"/>
-					<Item id = "24214" name = "Shenja p�rfundimtare :"/>
-					<Item id = "24301" name = "Ndar�si 2"/>
-					<Item id = "24311" name = "Shenja fillestare  :"/>
-					<Item id = "24314" name = "Shenja p�rfundimtare :"/>
-				</Operator>
-			</UserDefine>
-		</Dialog>
-	</Native-Langue>
+                <Print title="Printo">
+                    <Item id="6601" name="Printo numrin e linjave"/>
+                    <Item id="6602" name="Opsionet e ngjyrave"/>
+                    <Item id="6603" name="WYSIWYG"/>
+                    <Item id="6604" name="Anasjell"/>
+                    <Item id="6605" name="E zezë ose e bardhë"/>
+                    <Item id="6606" name="Nuk ka ngjyrë sfondi"/>
+                    <Item id="6607" name="Rregullimet e anës (Njësia:mm)"/>
+                    <Item id="6612" name="Majtas"/>
+                    <Item id="6613" name="Krye"/>
+                    <Item id="6614" name="Djathtas"/>
+                    <Item id="6615" name="Fund"/>
+                    <Item id="6706" name="Me të zeza"/>
+                    <Item id="6707" name="Kursive"/>
+                    <Item id="6708" name="Koka"/>
+                    <Item id="6709" name="Pjesa majtas"/>
+                    <Item id="6710" name="Pjesa e mesit"/>
+                    <Item id="6711" name="Pjesa djathtas"/>
+                    <Item id="6717" name="Me të zeza"/>
+                    <Item id="6718" name="Kursive"/>
+                    <Item id="6719" name="Këmba"/>
+                    <Item id="6720" name="Pjesa majtas"/>
+                    <Item id="6721" name="Pjesa e mesit"/>
+                    <Item id="6722" name="Pjesa djathtas"/>
+                    <Item id="6723" name="Shto"/>
+                    <Item id="6725" name="Variabli:"/>
+                    <Item id="6727" name="Shfaq këtu rregullimet e variablit tuaj"/>
+                    <Item id="6728" name="Koka dhe këmba"/>
+                </Print>
+
+                <RecentFilesHistory title="Historia e fileve të fundit">
+                    <Item id="6304" name="Historia e fileve të fundit"/>
+                    <Item id="6306" name="Numri maks. i hyrjeve:"/>
+                    <Item id="6305" name="Mos e kontrollo në kohën e drekës"/>
+                    <Item id="6429" name="Shfaq"/>
+                    <Item id="6424" name="Në nën-meny"/>
+                    <Item id="6425" name="Vetëm emrin e filit"/>
+                    <Item id="6426" name="Rruga e filit me emër të plotë"/>
+                    <Item id="6427" name="Përshtat gjatësinë maksimale:"/>
+                </RecentFilesHistory>
+
+                <Backup title="Backup">
+                    <Item id="6817" name="Sesioni fotografi dhe backup periodik"/>
+                    <Item id="6818" name="Aftëso sesionin fotografi dhe backup periodik"/>
+                    <Item id="6819" name="Backup në ëdo"/>
+                    <Item id="6821" name="sekonda"/>
+                    <Item id="6822" name="Backup rruga:"/>
+                    <Item id="6309" name="Kujto sesionin aktual për drekën tjetër"/>
+                    <Item id="6801" name="Backup (kopje sigurie)"/>
+                    <Item id="6315" name="Asnjë"/>
+                    <Item id="6316" name="Backup e thjeshtë"/>
+                    <Item id="6317" name="Backup fjalëshumë"/>
+                    <Item id="6804" name="Përshtat drejtorinë e Backup"/>
+                    <Item id="6803" name="Drejtori:"/>
+                </Backup>
+
+                <AutoCompletion title="Auto-plotësimi">
+                    <Item id="6807" name="Auto-plotësimi"/>
+                    <Item id="6808" name="Aftëso auto-plotësimin në secilën hyrje"/>
+                    <Item id="6809" name="Plotësimi i funksionit"/>
+                    <Item id="6810" name="Plotësimi i fjalës"/>
+                    <Item id="6816" name="Plotësimi i funksionit dhe fjalës"/>
+                    <Item id="6811" name="Nga"/>
+                    <Item id="6813" name="karaktere"/>
+                    <Item id="6814" name="Vlerat e vlefshme: 1 - 9"/>
+                    <Item id="6815" name="Parametrat e funksionit aluzion për hyrjet"/>
+                    <Item id="6851" name="Auto-fut"/>
+                    <Item id="6857" name=" html/xml etiketa e mbylljes"/>
+                    <Item id="6858" name="Hap"/>
+                    <Item id="6859" name="Mbyll"/>
+                    <Item id="6860" name="Pala që përkon 1:"/>
+                    <Item id="6863" name="Pala që përkon 2:"/>
+                    <Item id="6866" name="Pala që përkon 3:"/>
+                </AutoCompletion>
+                
+                <MultiInstance title="Multi-instancë">
+                    <Item id="6151" name="Rregullimet e Multi-instancës"/>
+                    <Item id="6152" name="Hap seionin e një instance të re Notepad++"/>
+                    <Item id="6153" name="Gjithmonë në mënyrën multi-instancë"/>
+                    <Item id="6154" name="Standard (mono-instancë)"/>
+                    <Item id="6155" name="* Modifikimi i këtij rregullimi ka nevojë për rifillimin e Notepad++"/>
+                </MultiInstance>
+                
+                <Delimiter title="Delimiter">
+                    <Item id="6251" name="Rregullimet e zgjedhjes delimiter (Ctrl + Miu klikim dyfish)"/>
+                    <Item id="6252" name="Hap"/>
+                    <Item id="6255" name="Mbyll"/>
+                    <Item id="6256" name="Lejo në disa linja"/>
+                </Delimiter>
+
+                 <Cloud title="Cloud">
+                    <Item id="6262" name="Rregullimet në cloud"/>
+                    <Item id="6263" name="Jo re"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                </Cloud>
+
+                <MISC title="MISC.">
+                    <Item id="6307" name="Aftëso"/>
+                    <Item id="6308" name="Minimizo në tabaken e sistemit"/>
+                    <Item id="6312" name="Statusi i filit Auto-Detekto"/>
+                    <Item id="6313" name="Aktualizo në qetësi"/>
+                    <Item id="6318" name="Rregullimet e lidhjes së klikueshme"/>
+                    <Item id="6325" name="Rrëshqit deri në linjën e fundit pas aktualizimit"/>
+                    <Item id="6319" name="Aftëso"/>
+                    <Item id="6320" name="Nuk ka nënvizim"/>
+                    <Item id="6322" name="Fili i sesionit ekst.:"/>
+                    <Item id="6323" name="Aftëso Notepad++ auto-aktualizo"/>
+                    <Item id="6324" name="Shkëmbyesi i dokumenteve (Ctrl+TAB)"/>
+                    <Item id="6326" name="Aftëso theksimin e zgjuar"/>
+                    <Item id="6329" name="Thekso etiketat që përkojnë"/>
+                    <Item id="6327" name="Aftëso"/>
+                    <Item id="6328" name="Thekso atributet e etiketave"/>
+                    <Item id="6330" name="Thekso zonën e komentit/php/asp"/>
+                    <Item id="6331" name="Shfaq vetëm emrin e filit në linjën e titullit"/>
+                    <Item id="6332" name="Kasa që përkon"/>
+                    <Item id="6333" name="Theksim i zgjuar"/>
+                    <Item id="6334" name="Autodetekto kodimin e karaktereve"/>
+                    <Item id="6335" name="Trajto karakterin backslash si escape për SQL"/>
+                    <Item id="6114" name="Aftëso"/>
+                    <Item id="6115" name="Auto-kryeradhë"/>
+                    <Item id="6117" name="Aftëso sjelljen MRU"/>
+                </MISC>
+            </Preference>
+            <MultiMacro title="Ekzekuto një Macro shumë herë">
+                <Item id="1" name="Ekzekuto"/>
+                <Item id="2" name="Anulo"/>
+                <Item id="8006" name="Macro që ekzekutohet:"/>
+                <Item id="8001" name="Ekzekuto"/>
+                <Item id="8005" name="herë"/>
+                <Item id="8002" name="Ekzekuto deri në fund të filit"/>
+            </MultiMacro>
+            <Window title="Windows">
+                <Item id="1" name="Aktivizo"/>
+                <Item id="2" name="OK"/>
+                <Item id="7002" name="Ruaj"/>
+                <Item id="7003" name="Mbyll dritaren(t)"/>
+                <Item id="7004" name="Rendit tabs"/>
+            </Window>
+            <ColumnEditor title="Editori i kolonës">
+                <Item id="2023" name="Teksti që futet"/>
+                <Item id="2033" name="Numri që futet"/>
+                <Item id="2030" name="Numri fillestar:"/>
+                <Item id="2031" name="Rrit sipas:"/>
+                <Item id="2035" name="Ngarkon zerot"/>
+                <Item id="2032" name="Formato"/>
+                <Item id="2024" name="Dhj"/>
+                <Item id="2025" name="Tet"/>
+                <Item id="2026" name="Hex"/>
+                <Item id="2027" name="Bin"/>
+                <Item id="1" name="OK"/>
+                <Item id="2" name="Anulo"/>
+            </ColumnEditor>
+        </Dialog>
+        <MessageBox>
+            <ContextMenuXmlEditWarning title="Korrigjimi i menysë së përmbajtjes" message="Korrigjimi i contextMenu.xml ju lejon të modifikoni menytë taf-paf (popup) të përmbajtjes së Notepad++.\rDuhet të rifilloni Notepad++, që të hyjë në efekt pas modifikimit të contextMenu.xml."/>
+            <NppHelpAbsentWarning title="Fili nuk ekziston" message="\rnuk ekziston. Ju lutem, shkarkoje nga faqja e Notepad++."/>
+            <SaveCurrentModifWarning title="Ruaj modifikimin aktual" message="Duhet të ruani modifikimet aktuale.\rTë gjitha modifikimet e ruajtura nuk mund të ribëhen.\r\rVazhdo?"/>
+            <LoseUndoAbilityWarning title="Humb paralajmërimin e aftësisë mosbëj" message="Duhet të ruani modifikimin aktual.\rTë gjitha modifikimet e ruajtura nuk mund të ribëhen.\r\rVazhdo?"/>
+            <CannotMoveDoc title="Lëviz për tek Instanca e re Notepad++" message="Dokumenti është modifikuar, ruaje atë pastaj provo përsëri."/>
+            <DocReloadWarning title="Ringarko" message="A jeni i sigurtë se doni të ringarkomi filin aktual dhe humbni ndryshimet e bëra në Notepad++?"/>
+            <FileLockedWarning title="Ruajtja dështoi" message="Ju lutem, kontrollo nëse ky fil është i hapur në ndonjë program tjetër"/>
+            <FileAlreadyOpenedInNpp title="" message="Fili është ndërkohë i hapur në Notepad++."/>
+            <DeleteFileFailed title="Fshij filin" message="Fshirja e filit dështoi"/>
+            
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <NbFileToOpenImportantWarning title="Numri i fileve për t'u hapur është tepër i madh" message="$INT_REPLACE$ filet janë duke u hapur.\rA jeni i sigurtë për t'i hapur ato?"/>
+        </MessageBox>
+        <ClipboardHistory>
+            <PanelTitle name="Historia e Clipboard"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+            <PanelTitle name="Shkëmbyesi Doc"/>
+            <ColumnName name="Emri"/>
+            <ColumnExt name="Ekst."/>
+        </DocSwitcher>
+        <AsciiInsertion>
+            <PanelTitle name="Paneli i futjes ASCII"/>
+            <ColumnVal name="Vlera"/>
+            <ColumnHex name="Hex"/>
+            <ColumnChar name="Karakteri"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="Harta e dokumentit"/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="Lista e funksioneve"/>
+            <SortTip name="Rendit" />
+            <ReloadTip name="Ringarko" />
+        </FunctionList>
+        <ProjectManager>
+            <PanelTitle name="Projekti"/>
+            <WorkspaceRootName name="Hapësira e punës"/>
+            <NewProjectName name="Emri i projektit"/>
+            <NewFolderName name="Emri i dosjes"/>
+            <Menus>
+                <Entries>
+                    <Item id="0" name="Hapësira e punës"/>
+                    <Item id="1" name="Korrigjo"/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3122" name="Hapësirë e re pune"/>
+                    <Item id="3123" name="Hap hapësirën e punës"/>
+                    <Item id="3124" name="Ringarko hapësirën e punës"/>
+                    <Item id="3125" name="Ruaj"/>
+                    <Item id="3126" name="Ruaj si..."/>
+                    <Item id="3127" name="Ruaj një kopje si..."/>
+                    <Item id="3121" name="Shto projekt të ri"/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="Riemëro"/>
+                    <Item id="3112" name="Shto dosje"/>
+                    <Item id="3113" name="Shto file..."/>
+                    <Item id="3117" name="Shto file nga drejtoria..."/>
+                    <Item id="3114" name="Largo"/>
+                    <Item id="3118" name="Lëviz lart"/>
+                    <Item id="3119" name="Lëviz poshtë"/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="Riemëro"/>
+                    <Item id="3112" name="Shto dosje"/>
+                    <Item id="3113" name="Shto file..."/>
+                    <Item id="3117" name="Shto file nga drejtoria..."/>
+                    <Item id="3114" name="Largo"/>
+                    <Item id="3118" name="Lëviz lart"/>
+                    <Item id="3119" name="Lëviz poshtë"/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="Riemëro"/>
+                    <Item id="3115" name="Largo"/>
+                    <Item id="3116" name="Modifiko rrugën e filit"/>
+                    <Item id="3118" name="Lëviz lart"/>
+                    <Item id="3119" name="Lëviz poshtë"/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
+    </Native-Langue>
 </NotepadPlus>

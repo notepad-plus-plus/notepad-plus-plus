@@ -2,14 +2,14 @@
 <!--
     Copyright 2007 Don HO <don.h@free.fr>
 	
-    This file is part of GUP.
+    This file is part of WinGup.
 
-    GUP is free software: you can redistribute it and/or modify
+    WinGup is free software: you can redistribute it and/or modify
     it under the terms of the GNU Lesser General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    GUP is distributed in the hope that it will be useful,
+    WinGup is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Lesser General Public License for more details.
@@ -19,39 +19,44 @@
 -->
 <GUPInput>
 	<!-- optional.
-	It's the current version of your program. GUP will add "?version=versionNumber" at the end of InfoUrl.
-	This parameter will be ignored if you pass directly your version number to GUP 
+	It's the current version of your program. WinGup will add "?version=versionNumber" at the end of InfoUrl.
+	This parameter will be ignored if you pass directly your version number to WinGup via command line.
 	-->
 	<Version>4.6</Version>
 
 	<!-- Mandatory.
-	This is the url (your web application) from where your GUP gets the update information.
+	This is the url (your web application, both http and https are supported) from where your WinGup gets the update information.
 	The tag "Version" value will be the parameter that your web application can use $_GET["version"] to get the current version of the program to be updated.
-	With the current version value, your web application should return a set of information in xml form to tell GUP update version and the location of update package to download.
+	With the current version value, your web application should return a set of information in xml form to tell WinGup update version and the location of update package to download.
 	-->
 	<!--InfoUrl>http://notepad-plus.sourceforge.net/commun/update/getDownLoadUrl.php</InfoUrl-->
-	<InfoUrl>http://notepad-plus-plus.org/update/getDownloadUrl.php</InfoUrl>
+	<InfoUrl>https://notepad-plus-plus.org/update/getDownloadUrl.php</InfoUrl>
 
-	<!-- optional. 
-	The User-Agent you want to use to download your binary.
-	If this node is absent or empty, then "Generic Updater for Win32" will be used by default.
+	<!-- Optional. 
+	The SoftwareName(plus its version) will be part of the User-Agent you want to use to download your binary:
+	Notepad++/4.6 (WinGup/3.0)
+	If this node is absent or empty, then only "WinGup/WINGUP_VERSION" will be used as User-Agent:
+	WinGup/3.0
 	-->
-	<User-agent>Notepad++ Generic Updater</User-agent>
+	<SoftwareName>Notepad++</SoftwareName>
 
-	<!-- optional. 
+	<!-- Optional. 
 	The window class name of program that you want to update.
-	GUP uses FindWindow routine to get the Handle of window, then send WM_CLOSE to the handle in order to quit the program.
-	If there are several running instances, GUP will kill one by one until the last instance.
+	WinGup uses FindWindow routine to get the Handle of window, then send WM_CLOSE to the handle in order to quit the program.
+	If there are several running instances, WinGup will kill one by one until the last instance.
 	
 	In win32 system, if a program is running, the binary file is locked. 
-	Use this parameter to close the program to make sure the old binary files can be erased by new ones.
+	Use this parameter to close the program to make sure the old binary files can be erased by new one.
 	-->
 	<ClassName2Close>Notepad++</ClassName2Close>
 	
 	<!-- Optional.
-	This is the title to display on the messagebox title bar.
-	If extraCmd is set (parameter is presentand the value is not empty), the 3rd button will be appear.
-	extraCmd (with its wParam and lParam) will be sent to the handle of application indicated in ClassName2Close
+	This is the title to display on the message box title bar.
+	
+	If extraCmd is set (parameter is present and the value is not empty), the 3rd button "Cancel" will be appear (beside "Yes" and "No" button).
+	extraCmd is the Windows Message (a numeric value) to notify your application that Cancel button is clicked by user.
+	extraCmd will be sent (with its wParam and lParam) to the handle of application indicated in ClassName2Close.
+	extraCmd, ecWparam and ecLparam are optional.
 	-->
 	<MessageBoxTitle extraCmd="" ecWparam="" ecLparam="">Notepad++ update</MessageBoxTitle>
 

@@ -1,691 +1,691 @@
-<?xml version="1.0" encoding="Windows-1251" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Serbian localization for Notepad++
-	Last modified Wednesday, Mart 11th 2010 18:06 GMT by Иван Старчевић.
+	Last modified Wednesday, Mart 11th 2010 18:06 GMT by РРІР°РЅ РЎС‚Р°СЂС‡РµРІРёС›.
 	Please e-mail errors, suggestions etc. to ivanstar61 at gmail.com.
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Српски" filename="serbianCyrillic.xml" >
+	<Native-Langue name="РЎСЂРїСЃРєРё" filename="serbianCyrillic.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="Д&amp;атотека"/>
-                    <Item menuId="edit" name="&amp;Уреди"/>
-                    <Item menuId="search" name="&amp;Тражи"/>
-                    <Item menuId="view" name="&amp;Приказ"/>
-                    <Item menuId="encoding" name="Код&amp;ирање"/>
-                    <Item menuId="language" name="&amp;Језик"/>
-                    <Item menuId="settings" name="П&amp;оставке"/>
-                    <Item menuId="macro" name="Макро"/>
-                    <Item menuId="run" name="Покрени"/>
-                    <Item idName ="Plugins" name="Додаци"/>
-                    <Item idName ="Window" name="Прозор"/>
+                    <Item menuId="file" name="Р”&amp;Р°С‚РѕС‚РµРєР°"/>
+                    <Item menuId="edit" name="&amp;РЈСЂРµРґРё"/>
+                    <Item menuId="search" name="&amp;РўСЂР°Р¶Рё"/>
+                    <Item menuId="view" name="&amp;РџСЂРёРєР°Р·"/>
+                    <Item menuId="encoding" name="РљРѕРґ&amp;РёСЂР°СљРµ"/>
+                    <Item menuId="language" name="&amp;Р€РµР·РёРє"/>
+                    <Item menuId="settings" name="Рџ&amp;РѕСЃС‚Р°РІРєРµ"/>
+                    <Item menuId="macro" name="РњР°РєСЂРѕ"/>
+                    <Item menuId="run" name="РџРѕРєСЂРµРЅРё"/>
+                    <Item idName ="Plugins" name="Р”РѕРґР°С†Рё"/>
+                    <Item idName ="Window" name="РџСЂРѕР·РѕСЂ"/>
                 </Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="edit-copyToClipboard"  name="Сачувај у остави"/>
-                    <Item subMenuId="edit-indent" name="Увуци"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Обележи па пребаци у"/>
-                    <Item subMenuId="edit-lineOperations" name="Линија извођења"/>
-                    <Item subMenuId="edit-comment" name="Напомена/Без напомене"/>
-                    <Item subMenuId="edit-autoCompletion" name="Аутоматско извршење"/>
-                    <Item subMenuId="edit-eolConversion" name="Промена завршетка реда"/>
-                    <Item subMenuId="edit-blankOperations" name="Празна операција"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Налепи посебно"/>
-                    <Item subMenuId="search-markAll" name="Означи све"/>
-                    <Item subMenuId="search-unmarkAll" name="Одзначи све"/>
-                    <Item subMenuId="search-jumpUp" name="Иди горе"/>
-                    <Item subMenuId="search-jumpDown" name="Иди доле"/>
-                    <Item subMenuId="search-bookmark" name="Забелешке"/>
-                    <Item subMenuId="view-showSymbol"  name="Прикажи симбол"/>
-                    <Item subMenuId="view-zoom"  name="Увећај"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Помери тренутни документ"/>
-                    <Item subMenuId="view-collapseLevel" name="Пад нивоа"/>
-                    <Item subMenuId="view-uncollapseLevel" name="Дизање нивоа"/>
-                    <Item subMenuId="view-project" name="Пројекат"/>
-                    <Item subMenuId="encoding-characterSets"  name="Скуп знакова"/>
-                    <Item subMenuId="encoding-arabic"  name="арапски"/>
-                    <Item subMenuId="encoding-baltic"  name="балтички"/>
-                    <Item subMenuId="encoding-celtic"  name="келтски"/>
-                    <Item subMenuId="encoding-cyrillic"  name="ћирилични"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="средњевропски"/>
-                    <Item subMenuId="encoding-chinese"  name="кинески"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="источноевропски"/>
-                    <Item subMenuId="encoding-greek"  name="грчки"/>
-                    <Item subMenuId="encoding-hebrew"  name="хебрејски"/>
-                    <Item subMenuId="encoding-japanese"  name="јапански"/>
-                    <Item subMenuId="encoding-korean" name="корејски"/>
-                    <Item subMenuId="encoding-northEuropean" name="северноевропски"/>
-                    <Item subMenuId="encoding-thai" name="тајландски"/>
-                    <Item subMenuId="encoding-turkish" name="турски"/>
-                    <Item subMenuId="encoding-westernEuropean" name="западноевропски"/>
-                    <Item subMenuId="encoding-vietnamese" name="вијетнамски"/>
-                    <Item subMenuId="settings-import"  name="Увези"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="РЎР°С‡СѓРІР°С Сѓ РѕСЃС‚Р°РІРё"/>
+                    <Item subMenuId="edit-indent" name="РЈРІСѓС†Рё"/>
+                    <Item subMenuId="edit-convertCaseTo" name="РћР±РµР»РµР¶Рё РїР° РїСЂРµР±Р°С†Рё Сѓ"/>
+                    <Item subMenuId="edit-lineOperations" name="Р›РёРЅРёСР° РёР·РІРѕС’РµСљР°"/>
+                    <Item subMenuId="edit-comment" name="РќР°РїРѕРјРµРЅР°/Р‘РµР· РЅР°РїРѕРјРµРЅРµ"/>
+                    <Item subMenuId="edit-autoCompletion" name="РђСѓС‚РѕРјР°С‚СЃРєРѕ РёР·РІСЂС€РµСљРµ"/>
+                    <Item subMenuId="edit-eolConversion" name="РџСЂРѕРјРµРЅР° Р·Р°РІСЂС€РµС‚РєР° СЂРµРґР°"/>
+                    <Item subMenuId="edit-blankOperations" name="РџСЂР°Р·РЅР° РѕРїРµСЂР°С†РёСР°"/>
+                    <Item subMenuId="edit-pasteSpecial" name="РќР°Р»РµРїРё РїРѕСЃРµР±РЅРѕ"/>
+                    <Item subMenuId="search-markAll" name="РћР·РЅР°С‡Рё СЃРІРµ"/>
+                    <Item subMenuId="search-unmarkAll" name="РћРґР·РЅР°С‡Рё СЃРІРµ"/>
+                    <Item subMenuId="search-jumpUp" name="РРґРё РіРѕСЂРµ"/>
+                    <Item subMenuId="search-jumpDown" name="РРґРё РґРѕР»Рµ"/>
+                    <Item subMenuId="search-bookmark" name="Р—Р°Р±РµР»РµС€РєРµ"/>
+                    <Item subMenuId="view-showSymbol"  name="РџСЂРёРєР°Р¶Рё СЃРёРјР±РѕР»"/>
+                    <Item subMenuId="view-zoom"  name="РЈРІРµС›Р°С"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="РџРѕРјРµСЂРё С‚СЂРµРЅСѓС‚РЅРё РґРѕРєСѓРјРµРЅС‚"/>
+                    <Item subMenuId="view-collapseLevel" name="РџР°Рґ РЅРёРІРѕР°"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Р”РёР·Р°СљРµ РЅРёРІРѕР°"/>
+                    <Item subMenuId="view-project" name="РџСЂРѕСРµРєР°С‚"/>
+                    <Item subMenuId="encoding-characterSets"  name="РЎРєСѓРї Р·РЅР°РєРѕРІР°"/>
+                    <Item subMenuId="encoding-arabic"  name="Р°СЂР°РїСЃРєРё"/>
+                    <Item subMenuId="encoding-baltic"  name="Р±Р°Р»С‚РёС‡РєРё"/>
+                    <Item subMenuId="encoding-celtic"  name="РєРµР»С‚СЃРєРё"/>
+                    <Item subMenuId="encoding-cyrillic"  name="С›РёСЂРёР»РёС‡РЅРё"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="СЃСЂРµРґСљРµРІСЂРѕРїСЃРєРё"/>
+                    <Item subMenuId="encoding-chinese"  name="РєРёРЅРµСЃРєРё"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="РёСЃС‚РѕС‡РЅРѕРµРІСЂРѕРїСЃРєРё"/>
+                    <Item subMenuId="encoding-greek"  name="РіСЂС‡РєРё"/>
+                    <Item subMenuId="encoding-hebrew"  name="С…РµР±СЂРµССЃРєРё"/>
+                    <Item subMenuId="encoding-japanese"  name="СР°РїР°РЅСЃРєРё"/>
+                    <Item subMenuId="encoding-korean" name="РєРѕСЂРµССЃРєРё"/>
+                    <Item subMenuId="encoding-northEuropean" name="СЃРµРІРµСЂРЅРѕРµРІСЂРѕРїСЃРєРё"/>
+                    <Item subMenuId="encoding-thai" name="С‚Р°СР»Р°РЅРґСЃРєРё"/>
+                    <Item subMenuId="encoding-turkish" name="С‚СѓСЂСЃРєРё"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Р·Р°РїР°РґРЅРѕРµРІСЂРѕРїСЃРєРё"/>
+                    <Item subMenuId="encoding-vietnamese" name="РІРёСРµС‚РЅР°РјСЃРєРё"/>
+                    <Item subMenuId="settings-import"  name="РЈРІРµР·Рё"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="41001" name="&amp;Нова"/>
-                    <Item id="41002" name="&amp;Отвори"/>
-                    <Item id="41003" name="Затвори"/>
-                    <Item id="41004" name="З&amp;атвори све"/>
-                    <Item id="41005" name="Затвори све осим тренутног документа"/>
-                    <Item id="41006" name="&amp;Сачувај"/>
-                    <Item id="41007" name="Сач&amp;увај све"/>
-                    <Item id="41008" name="Сачувај &amp;као..."/>
-                    <Item id="41010" name="Одштампај..."/>
-                    <Item id="1001"  name="Одштампај одмах"/>
-                    <Item id="41011" name="И&amp;злаз"/>
-                    <Item id="41012" name="Учитај сесију..."/>
-                    <Item id="41013" name="Сачувај сесију..."/>
-                    <Item id="41014" name="Поново учитај с диска"/>
-                    <Item id="41015" name="Сачувај умножено као..."/>
-                    <Item id="41016" name="Избриши с диска"/>
-                    <Item id="41017" name="Преименуј..."/>
-                    
-                    <Item id="42001" name="Ис&amp;еци"/>
-                    <Item id="42002" name="&amp;Умножи"/>
-                    <Item id="42003" name="&amp;Опозови"/>
-                    <Item id="42004" name="&amp;Понови"/>
-                    <Item id="42005" name="&amp;Налепи"/>
-                    <Item id="42006" name="&amp;Избриши"/>
-                    <Item id="42007" name="Изабери с&amp;ве"/>
-                    <Item id="42008" name="Повећај увучени ред"/>
-                    <Item id="42009" name="Смањи увучени ред"/>
-                    <Item id="42010" name="Удвостручи тренутни ред"/>
-                    <Item id="42012" name="Подели редове"/>
-                    <Item id="42013" name="Спој редове"/>
-                    <Item id="42014" name="Помакни тренутни ред изнад"/>
-                    <Item id="42015" name="Помакни тренутни ред испод"/>
-                    <Item id="42016" name="ВЕЛИКА СЛОВА"/>
-                    <Item id="42017" name="мала слова"/>
-                    <Item id="42018" name="&amp;Почни снимање"/>
-                    <Item id="42019" name="&amp;Заустави снимање"/>
-                    <Item id="42021" name="&amp;Пусти снимљено"/>
-                    <Item id="42022" name="Пребаци заустављену напомену"/>
-                    <Item id="42023" name="Текућа напомена"/>
-                    <Item id="42042" name="Исеци размак"/>
-					<Item id="42043" name="Одстрани водеће и преостале размаке"/>
-					<Item id="42044" name="Промена завршетка реда за простор"/>
-					<Item id="42045" name="Уклони непотребне празнине и промени завршетак реда"/>
-					<Item id="42046" name="TAB за простор"/>
-					<Item id="42047" name="Простор за TAB"/>
-                    <Item id="42024" name="Одстрани преостале размаке"/>
-                    <Item id="42025" name="Сачувај тренутно снимљени макро"/>
-                    <Item id="42026" name="Смер текста с десна на лево"/>
-                    <Item id="42027" name="Смер текста с лева на деснo"/>
-                    <Item id="42028" name="Постави само за читање"/>
-                    <Item id="42029" name="Сачувај тренутну путању датотеке у остави"/>
-                    <Item id="42030" name="Сачувај име датотеке у остави"/>
-                    <Item id="42031" name="Сачувај тренутну путању фасцикле у остави"/>
-                    <Item id="42032" name="Покрени макро више пута..."/>
-                    <Item id="42033" name="Уклони ознаку само за читање"/>
-                    <Item id="42035" name="Заустави напомену"/>
-                    <Item id="42036" name="Без напомене"/>
-                    
-                    <Item id="43001" name="&amp;Пронађи..."/>
-                    <Item id="43002" name="Пронађи &amp;следеће"/>
-                    <Item id="43003" name="Замени..."/>
-                    <Item id="43004" name="Иди у..."/>
-                    <Item id="43005" name="Означи обележено"/>
-                    <Item id="43006" name="Следеће обележено"/>
-                    <Item id="43007" name="Претходно обележено"/>
-                    <Item id="43008" name="Уклони све обележено"/>
-                    <Item id="43009" name="Иди до одговарајућег пара"/>
-                    <Item id="43010" name="Пронађи претходно"/>
-                    <Item id="43011" name="&amp;Додатна претрага"/>
-                    <Item id="43013" name="Пронађи у датотеци"/>
-                    <Item id="43014" name="Нађи следећи промењени"/>
-                    <Item id="43015" name="Нађи претходни промењени"/>
-                    <Item id="43016" name="Обележи све"/>
-                    <Item id="43017" name="Не обележавај"/>
-                    <Item id="43018" name="Исеци обележени ред"/>
-                    <Item id="43019" name="Умножи обележени ред"/>
-                    <Item id="43020" name="Налепи (замени) обележене редове"/>
-                    <Item id="43021" name="Избриши обележене редове"/>
-                    <Item id="43022" name="Користи 1. стил"/>
-                    <Item id="43023" name="Избриши 1. стил"/>
-                    <Item id="43024" name="Користи 2. стил"/>
-                    <Item id="43025" name="Избриши 2. стил"/>
-                    <Item id="43026" name="Користи 3. стил"/>
-                    <Item id="43027" name="Избриши 3. стил"/>
-                    <Item id="43028" name="Користи 4. стил"/>
-                    <Item id="43029" name="Избриши 4. стил"/>
-                    <Item id="43030" name="Користи 5. стил"/>
-                    <Item id="43031" name="Избриши 5. стил"/>
-                    <Item id="43032" name="Избриши све стилове"/>
-                    <Item id="43033" name="1. стил"/>
-                    <Item id="43034" name="2. стил"/>
-                    <Item id="43035" name="3. стил"/>
-                    <Item id="43036" name="4. стил"/>
-                    <Item id="43037" name="5. стил"/>
-                    <Item id="43038" name="Нађи стил"/>
-                    <Item id="43039" name="1. стил"/>
-                    <Item id="43040" name="2. стил"/>
-                    <Item id="43041" name="3. стил"/>
-                    <Item id="43042" name="4. стил"/>
-                    <Item id="43043" name="5. стил"/>
-                    <Item id="43044" name="Нађи стил"/>
-                    <Item id="43045" name="Исход претраге"/>
-                    <Item id="43046" name="Следећи исход претраге"/>
-                    <Item id="43047" name="Претходни исход претраге"/>
-                    <Item id="43048" name="Изабери и пронађи следеће"/>
-                    <Item id="43049" name="Изабери и нађи претходно"/>
-                    <Item id="43050" name="Обрнуте забелешке"/>
-                    <Item id="44009" name="Окачи"/>
-                    <Item id="44010" name="Уролај све нивое"/>
-                    <Item id="44011" name="Кориснички одређени дијалог..."/>
-                    <Item id="44019" name="Приказ свих знакова"/>
-                    <Item id="44020" name="Постави упутство"/>
-                    <Item id="44022" name="Прелом текста"/>
-                    <Item id="44023" name="Уве&amp;ћај	Ctrl+точкић миша напред"/>
-                    <Item id="44024" name="Ума&amp;њи	Ctrl+точкић миша назад"/>
-                    <Item id="44025" name="Прикажи знак за размак"/>
-                    <Item id="44026" name="Прикажи знак за крај реда"/>
-                    <Item id="44029" name="Одмотај све нивое"/>
-                    <Item id="44030" name="Спусти тренутни ниво"/>
-                    <Item id="44031" name="Повратак тренутног нивоа"/>
-                    <Item id="44032" name="Прикажи на целом екрану"/>
-                    <Item id="44033" name="Врати на подразумевано"/>
-                    <Item id="44034" name="Увек на врху"/>
-                    <Item id="44049" name="Резиме..."/>
-                    <Item id="44035" name="Усклади усправно померање"/>
-                    <Item id="44036" name="Усклади водоравно померање"/>
-                    <Item id="44041" name="Прикажи знак прелома реда"/>
-                    <Item id="44072" name="Усредсреди се на други приказ"/>
-                    <Item id="44081" name="Окно пројекта 1"/>
-					<Item id="44082" name="Окно пројекта 2"/>
-					<Item id="44083" name="Окно пројекта 3"/>
-                    <Item id="45001" name="Промени у Windows формат"/>
-                    <Item id="45002" name="Промени у UNIX формат"/>
-                    <Item id="45003" name="Промени у MAC формат"/>
-                    <Item id="45004" name="Кодирано у ANSI"/>
-                    <Item id="45005" name="Кодирано у UTF-8"/>
-                    <Item id="45006" name="Кодирано у UCS-2 Big Endian"/>
-                    <Item id="45007" name="Кодирано у UCS-2 Little Endian"/>
-                    <Item id="45008" name="Кодирано у UTF-8 without BOM"/>
-                    <Item id="45009" name="Пребаци у ANSI"/>
-                    <Item id="45010" name="Пребаци у UTF-8 without BOM"/>
-                    <Item id="45011" name="Пребаци у UTF-8"/>
-                    <Item id="45012" name="Пребаци у UCS-2 Big Endian"/>
-                    <Item id="45013" name="Пребаци у UCS-2 Little Endian"/>
+                    <Item id="41001" name="&amp;РќРѕРІР°"/>
+                    <Item id="41002" name="&amp;РћС‚РІРѕСЂРё"/>
+                    <Item id="41003" name="Р—Р°С‚РІРѕСЂРё"/>
+                    <Item id="41004" name="Р—&amp;Р°С‚РІРѕСЂРё СЃРІРµ"/>
+                    <Item id="41005" name="Р—Р°С‚РІРѕСЂРё СЃРІРµ РѕСЃРёРј С‚СЂРµРЅСѓС‚РЅРѕРі РґРѕРєСѓРјРµРЅС‚Р°"/>
+                    <Item id="41006" name="&amp;РЎР°С‡СѓРІР°С"/>
+                    <Item id="41007" name="РЎР°С‡&amp;СѓРІР°С СЃРІРµ"/>
+                    <Item id="41008" name="РЎР°С‡СѓРІР°С &amp;РєР°Рѕ..."/>
+                    <Item id="41010" name="РћРґС€С‚Р°РјРїР°С..."/>
+                    <Item id="1001"  name="РћРґС€С‚Р°РјРїР°С РѕРґРјР°С…"/>
+                    <Item id="41011" name="Р&amp;Р·Р»Р°Р·"/>
+                    <Item id="41012" name="РЈС‡РёС‚Р°С СЃРµСЃРёССѓ..."/>
+                    <Item id="41013" name="РЎР°С‡СѓРІР°С СЃРµСЃРёССѓ..."/>
+                    <Item id="41014" name="РџРѕРЅРѕРІРѕ СѓС‡РёС‚Р°С СЃ РґРёСЃРєР°"/>
+                    <Item id="41015" name="РЎР°С‡СѓРІР°С СѓРјРЅРѕР¶РµРЅРѕ РєР°Рѕ..."/>
+                    <Item id="41016" name="РР·Р±СЂРёС€Рё СЃ РґРёСЃРєР°"/>
+                    <Item id="41017" name="РџСЂРµРёРјРµРЅСѓС..."/>
 
-                    <Item id="10001" name="Приказ у другом делу - опозови"/>
-                    <Item id="10002" name="Дупли приказ"/>
-                    <Item id="10003" name="Пребаци другој надлежности"/>
-                    <Item id="10004" name="Отвори у новој надлежности"/>
-                    
-                    <Item id="46001" name="Поставке стилова..."/>
-                    <Item id="46080" name="Кориснички-одређен"/>
-                    <Item id="47000" name="О Notepad++-у..."/>
-                    <Item id="47001" name="Интернет страница Notepad++"/>
-                    <Item id="47002" name="Страница пројекта Notepad++"/>
-                    <Item id="47003" name="Помоћ преко интернета"/>
-                    <Item id="47004" name="Дискусиона група"/>
-                    <Item id="47005" name="Преузми нове додатке"/>
-                    <Item id="47006" name="Ажурирај Notepad++"/>
-                    <Item id="47008" name="Садржај помоћи"/>
-                    <Item id="48005" name="Увоз додатака ..."/>
-                    <Item id="48006" name="Увоз тема ..."/>
-                    <Item id="48009" name="Комбинације тастера..."/>
-                    <Item id="48011" name="Подешавања..."/>
-                    <Item id="49000" name="&amp;Покрени..."/>
+                    <Item id="42001" name="РСЃ&amp;РµС†Рё"/>
+                    <Item id="42002" name="&amp;РЈРјРЅРѕР¶Рё"/>
+                    <Item id="42003" name="&amp;РћРїРѕР·РѕРІРё"/>
+                    <Item id="42004" name="&amp;РџРѕРЅРѕРІРё"/>
+                    <Item id="42005" name="&amp;РќР°Р»РµРїРё"/>
+                    <Item id="42006" name="&amp;РР·Р±СЂРёС€Рё"/>
+                    <Item id="42007" name="РР·Р°Р±РµСЂРё СЃ&amp;РІРµ"/>
+                    <Item id="42008" name="РџРѕРІРµС›Р°С СѓРІСѓС‡РµРЅРё СЂРµРґ"/>
+                    <Item id="42009" name="РЎРјР°СљРё СѓРІСѓС‡РµРЅРё СЂРµРґ"/>
+                    <Item id="42010" name="РЈРґРІРѕСЃС‚СЂСѓС‡Рё С‚СЂРµРЅСѓС‚РЅРё СЂРµРґ"/>
+                    <Item id="42012" name="РџРѕРґРµР»Рё СЂРµРґРѕРІРµ"/>
+                    <Item id="42013" name="РЎРїРѕС СЂРµРґРѕРІРµ"/>
+                    <Item id="42014" name="РџРѕРјР°РєРЅРё С‚СЂРµРЅСѓС‚РЅРё СЂРµРґ РёР·РЅР°Рґ"/>
+                    <Item id="42015" name="РџРѕРјР°РєРЅРё С‚СЂРµРЅСѓС‚РЅРё СЂРµРґ РёСЃРїРѕРґ"/>
+                    <Item id="42016" name="Р’Р•Р›РРљРђ РЎР›РћР’Рђ"/>
+                    <Item id="42017" name="РјР°Р»Р° СЃР»РѕРІР°"/>
+                    <Item id="42018" name="&amp;РџРѕС‡РЅРё СЃРЅРёРјР°СљРµ"/>
+                    <Item id="42019" name="&amp;Р—Р°СѓСЃС‚Р°РІРё СЃРЅРёРјР°СљРµ"/>
+                    <Item id="42021" name="&amp;РџСѓСЃС‚Рё СЃРЅРёРјС™РµРЅРѕ"/>
+                    <Item id="42022" name="РџСЂРµР±Р°С†Рё Р·Р°СѓСЃС‚Р°РІС™РµРЅСѓ РЅР°РїРѕРјРµРЅСѓ"/>
+                    <Item id="42023" name="РўРµРєСѓС›Р° РЅР°РїРѕРјРµРЅР°"/>
+                    <Item id="42042" name="РСЃРµС†Рё СЂР°Р·РјР°Рє"/>
+					<Item id="42043" name="РћРґСЃС‚СЂР°РЅРё РІРѕРґРµС›Рµ Рё РїСЂРµРѕСЃС‚Р°Р»Рµ СЂР°Р·РјР°РєРµ"/>
+					<Item id="42044" name="РџСЂРѕРјРµРЅР° Р·Р°РІСЂС€РµС‚РєР° СЂРµРґР° Р·Р° РїСЂРѕСЃС‚РѕСЂ"/>
+					<Item id="42045" name="РЈРєР»РѕРЅРё РЅРµРїРѕС‚СЂРµР±РЅРµ РїСЂР°Р·РЅРёРЅРµ Рё РїСЂРѕРјРµРЅРё Р·Р°РІСЂС€РµС‚Р°Рє СЂРµРґР°"/>
+					<Item id="42046" name="TAB Р·Р° РїСЂРѕСЃС‚РѕСЂ"/>
+					<Item id="42047" name="РџСЂРѕСЃС‚РѕСЂ Р·Р° TAB"/>
+                    <Item id="42024" name="РћРґСЃС‚СЂР°РЅРё РїСЂРµРѕСЃС‚Р°Р»Рµ СЂР°Р·РјР°РєРµ"/>
+                    <Item id="42025" name="РЎР°С‡СѓРІР°С С‚СЂРµРЅСѓС‚РЅРѕ СЃРЅРёРјС™РµРЅРё РјР°РєСЂРѕ"/>
+                    <Item id="42026" name="РЎРјРµСЂ С‚РµРєСЃС‚Р° СЃ РґРµСЃРЅР° РЅР° Р»РµРІРѕ"/>
+                    <Item id="42027" name="РЎРјРµСЂ С‚РµРєСЃС‚Р° СЃ Р»РµРІР° РЅР° РґРµСЃРЅo"/>
+                    <Item id="42028" name="РџРѕСЃС‚Р°РІРё СЃР°РјРѕ Р·Р° С‡РёС‚Р°СљРµ"/>
+                    <Item id="42029" name="РЎР°С‡СѓРІР°С С‚СЂРµРЅСѓС‚РЅСѓ РїСѓС‚Р°СљСѓ РґР°С‚РѕС‚РµРєРµ Сѓ РѕСЃС‚Р°РІРё"/>
+                    <Item id="42030" name="РЎР°С‡СѓРІР°С РёРјРµ РґР°С‚РѕС‚РµРєРµ Сѓ РѕСЃС‚Р°РІРё"/>
+                    <Item id="42031" name="РЎР°С‡СѓРІР°С С‚СЂРµРЅСѓС‚РЅСѓ РїСѓС‚Р°СљСѓ С„Р°СЃС†РёРєР»Рµ Сѓ РѕСЃС‚Р°РІРё"/>
+                    <Item id="42032" name="РџРѕРєСЂРµРЅРё РјР°РєСЂРѕ РІРёС€Рµ РїСѓС‚Р°..."/>
+                    <Item id="42033" name="РЈРєР»РѕРЅРё РѕР·РЅР°РєСѓ СЃР°РјРѕ Р·Р° С‡РёС‚Р°СљРµ"/>
+                    <Item id="42035" name="Р—Р°СѓСЃС‚Р°РІРё РЅР°РїРѕРјРµРЅСѓ"/>
+                    <Item id="42036" name="Р‘РµР· РЅР°РїРѕРјРµРЅРµ"/>
 
-                    <Item id="50000" name="Допуна функција"/>
-                    <Item id="50001" name="Допуна речи"/>
-                    <Item id="50002" name="Упутство функцијских парамерара"/>
-                    <Item id="42034" name="Уређивање стубаца..."/>
-                    <Item id="44042" name="Сакриј стубце"/>
-                    <Item id="42040" name="Отвори све недавне датотеке"/>
-                    <Item id="42041" name="Очисти списак недавних датотека"/>
-                    <Item id="48016" name="Измени пречицу/Избриши Макро..."/>
-					<Item id="48017" name="Измени пречицу/Избриши команду..."/>
-					<Item id="48018" name="Уређивање искачућег изборног оквира"/>
+                    <Item id="43001" name="&amp;РџСЂРѕРЅР°С’Рё..."/>
+                    <Item id="43002" name="РџСЂРѕРЅР°С’Рё &amp;СЃР»РµРґРµС›Рµ"/>
+                    <Item id="43003" name="Р—Р°РјРµРЅРё..."/>
+                    <Item id="43004" name="РРґРё Сѓ..."/>
+                    <Item id="43005" name="РћР·РЅР°С‡Рё РѕР±РµР»РµР¶РµРЅРѕ"/>
+                    <Item id="43006" name="РЎР»РµРґРµС›Рµ РѕР±РµР»РµР¶РµРЅРѕ"/>
+                    <Item id="43007" name="РџСЂРµС‚С…РѕРґРЅРѕ РѕР±РµР»РµР¶РµРЅРѕ"/>
+                    <Item id="43008" name="РЈРєР»РѕРЅРё СЃРІРµ РѕР±РµР»РµР¶РµРЅРѕ"/>
+                    <Item id="43009" name="РРґРё РґРѕ РѕРґРіРѕРІР°СЂР°ССѓС›РµРі РїР°СЂР°"/>
+                    <Item id="43010" name="РџСЂРѕРЅР°С’Рё РїСЂРµС‚С…РѕРґРЅРѕ"/>
+                    <Item id="43011" name="&amp;Р”РѕРґР°С‚РЅР° РїСЂРµС‚СЂР°РіР°"/>
+                    <Item id="43013" name="РџСЂРѕРЅР°С’Рё Сѓ РґР°С‚РѕС‚РµС†Рё"/>
+                    <Item id="43014" name="РќР°С’Рё СЃР»РµРґРµС›Рё РїСЂРѕРјРµСљРµРЅРё"/>
+                    <Item id="43015" name="РќР°С’Рё РїСЂРµС‚С…РѕРґРЅРё РїСЂРѕРјРµСљРµРЅРё"/>
+                    <Item id="43016" name="РћР±РµР»РµР¶Рё СЃРІРµ"/>
+                    <Item id="43017" name="РќРµ РѕР±РµР»РµР¶Р°РІР°С"/>
+                    <Item id="43018" name="РСЃРµС†Рё РѕР±РµР»РµР¶РµРЅРё СЂРµРґ"/>
+                    <Item id="43019" name="РЈРјРЅРѕР¶Рё РѕР±РµР»РµР¶РµРЅРё СЂРµРґ"/>
+                    <Item id="43020" name="РќР°Р»РµРїРё (Р·Р°РјРµРЅРё) РѕР±РµР»РµР¶РµРЅРµ СЂРµРґРѕРІРµ"/>
+                    <Item id="43021" name="РР·Р±СЂРёС€Рё РѕР±РµР»РµР¶РµРЅРµ СЂРµРґРѕРІРµ"/>
+                    <Item id="43022" name="РљРѕСЂРёСЃС‚Рё 1. СЃС‚РёР»"/>
+                    <Item id="43023" name="РР·Р±СЂРёС€Рё 1. СЃС‚РёР»"/>
+                    <Item id="43024" name="РљРѕСЂРёСЃС‚Рё 2. СЃС‚РёР»"/>
+                    <Item id="43025" name="РР·Р±СЂРёС€Рё 2. СЃС‚РёР»"/>
+                    <Item id="43026" name="РљРѕСЂРёСЃС‚Рё 3. СЃС‚РёР»"/>
+                    <Item id="43027" name="РР·Р±СЂРёС€Рё 3. СЃС‚РёР»"/>
+                    <Item id="43028" name="РљРѕСЂРёСЃС‚Рё 4. СЃС‚РёР»"/>
+                    <Item id="43029" name="РР·Р±СЂРёС€Рё 4. СЃС‚РёР»"/>
+                    <Item id="43030" name="РљРѕСЂРёСЃС‚Рё 5. СЃС‚РёР»"/>
+                    <Item id="43031" name="РР·Р±СЂРёС€Рё 5. СЃС‚РёР»"/>
+                    <Item id="43032" name="РР·Р±СЂРёС€Рё СЃРІРµ СЃС‚РёР»РѕРІРµ"/>
+                    <Item id="43033" name="1. СЃС‚РёР»"/>
+                    <Item id="43034" name="2. СЃС‚РёР»"/>
+                    <Item id="43035" name="3. СЃС‚РёР»"/>
+                    <Item id="43036" name="4. СЃС‚РёР»"/>
+                    <Item id="43037" name="5. СЃС‚РёР»"/>
+                    <Item id="43038" name="РќР°С’Рё СЃС‚РёР»"/>
+                    <Item id="43039" name="1. СЃС‚РёР»"/>
+                    <Item id="43040" name="2. СЃС‚РёР»"/>
+                    <Item id="43041" name="3. СЃС‚РёР»"/>
+                    <Item id="43042" name="4. СЃС‚РёР»"/>
+                    <Item id="43043" name="5. СЃС‚РёР»"/>
+                    <Item id="43044" name="РќР°С’Рё СЃС‚РёР»"/>
+                    <Item id="43045" name="РСЃС…РѕРґ РїСЂРµС‚СЂР°РіРµ"/>
+                    <Item id="43046" name="РЎР»РµРґРµС›Рё РёСЃС…РѕРґ РїСЂРµС‚СЂР°РіРµ"/>
+                    <Item id="43047" name="РџСЂРµС‚С…РѕРґРЅРё РёСЃС…РѕРґ РїСЂРµС‚СЂР°РіРµ"/>
+                    <Item id="43048" name="РР·Р°Р±РµСЂРё Рё РїСЂРѕРЅР°С’Рё СЃР»РµРґРµС›Рµ"/>
+                    <Item id="43049" name="РР·Р°Р±РµСЂРё Рё РЅР°С’Рё РїСЂРµС‚С…РѕРґРЅРѕ"/>
+                    <Item id="43050" name="РћР±СЂРЅСѓС‚Рµ Р·Р°Р±РµР»РµС€РєРµ"/>
+                    <Item id="44009" name="РћРєР°С‡Рё"/>
+                    <Item id="44010" name="РЈСЂРѕР»Р°С СЃРІРµ РЅРёРІРѕРµ"/>
+                    <Item id="44011" name="РљРѕСЂРёСЃРЅРёС‡РєРё РѕРґСЂРµС’РµРЅРё РґРёСР°Р»РѕРі..."/>
+                    <Item id="44019" name="РџСЂРёРєР°Р· СЃРІРёС… Р·РЅР°РєРѕРІР°"/>
+                    <Item id="44020" name="РџРѕСЃС‚Р°РІРё СѓРїСѓС‚СЃС‚РІРѕ"/>
+                    <Item id="44022" name="РџСЂРµР»РѕРј С‚РµРєСЃС‚Р°"/>
+                    <Item id="44023" name="РЈРІРµ&amp;С›Р°С	Ctrl+С‚РѕС‡РєРёС› РјРёС€Р° РЅР°РїСЂРµРґ"/>
+                    <Item id="44024" name="РЈРјР°&amp;СљРё	Ctrl+С‚РѕС‡РєРёС› РјРёС€Р° РЅР°Р·Р°Рґ"/>
+                    <Item id="44025" name="РџСЂРёРєР°Р¶Рё Р·РЅР°Рє Р·Р° СЂР°Р·РјР°Рє"/>
+                    <Item id="44026" name="РџСЂРёРєР°Р¶Рё Р·РЅР°Рє Р·Р° РєСЂР°С СЂРµРґР°"/>
+                    <Item id="44029" name="РћРґРјРѕС‚Р°С СЃРІРµ РЅРёРІРѕРµ"/>
+                    <Item id="44030" name="РЎРїСѓСЃС‚Рё С‚СЂРµРЅСѓС‚РЅРё РЅРёРІРѕ"/>
+                    <Item id="44031" name="РџРѕРІСЂР°С‚Р°Рє С‚СЂРµРЅСѓС‚РЅРѕРі РЅРёРІРѕР°"/>
+                    <Item id="44032" name="РџСЂРёРєР°Р¶Рё РЅР° С†РµР»РѕРј РµРєСЂР°РЅСѓ"/>
+                    <Item id="44033" name="Р’СЂР°С‚Рё РЅР° РїРѕРґСЂР°Р·СѓРјРµРІР°РЅРѕ"/>
+                    <Item id="44034" name="РЈРІРµРє РЅР° РІСЂС…Сѓ"/>
+                    <Item id="44049" name="Р РµР·РёРјРµ..."/>
+                    <Item id="44035" name="РЈСЃРєР»Р°РґРё СѓСЃРїСЂР°РІРЅРѕ РїРѕРјРµСЂР°СљРµ"/>
+                    <Item id="44036" name="РЈСЃРєР»Р°РґРё РІРѕРґРѕСЂР°РІРЅРѕ РїРѕРјРµСЂР°СљРµ"/>
+                    <Item id="44041" name="РџСЂРёРєР°Р¶Рё Р·РЅР°Рє РїСЂРµР»РѕРјР° СЂРµРґР°"/>
+                    <Item id="44072" name="РЈСЃСЂРµРґСЃСЂРµРґРё СЃРµ РЅР° РґСЂСѓРіРё РїСЂРёРєР°Р·"/>
+                    <Item id="44081" name="РћРєРЅРѕ РїСЂРѕСРµРєС‚Р° 1"/>
+					<Item id="44082" name="РћРєРЅРѕ РїСЂРѕСРµРєС‚Р° 2"/>
+					<Item id="44083" name="РћРєРЅРѕ РїСЂРѕСРµРєС‚Р° 3"/>
+                    <Item id="45001" name="РџСЂРѕРјРµРЅРё Сѓ Windows С„РѕСЂРјР°С‚"/>
+                    <Item id="45002" name="РџСЂРѕРјРµРЅРё Сѓ UNIX С„РѕСЂРјР°С‚"/>
+                    <Item id="45003" name="РџСЂРѕРјРµРЅРё Сѓ MAC С„РѕСЂРјР°С‚"/>
+                    <Item id="45004" name="РљРѕРґРёСЂР°РЅРѕ Сѓ ANSI"/>
+                    <Item id="45005" name="РљРѕРґРёСЂР°РЅРѕ Сѓ UTF-8"/>
+                    <Item id="45006" name="РљРѕРґРёСЂР°РЅРѕ Сѓ UCS-2 Big Endian"/>
+                    <Item id="45007" name="РљРѕРґРёСЂР°РЅРѕ Сѓ UCS-2 Little Endian"/>
+                    <Item id="45008" name="РљРѕРґРёСЂР°РЅРѕ Сѓ UTF-8 without BOM"/>
+                    <Item id="45009" name="РџСЂРµР±Р°С†Рё Сѓ ANSI"/>
+                    <Item id="45010" name="РџСЂРµР±Р°С†Рё Сѓ UTF-8 without BOM"/>
+                    <Item id="45011" name="РџСЂРµР±Р°С†Рё Сѓ UTF-8"/>
+                    <Item id="45012" name="РџСЂРµР±Р°С†Рё Сѓ UCS-2 Big Endian"/>
+                    <Item id="45013" name="РџСЂРµР±Р°С†Рё Сѓ UCS-2 Little Endian"/>
+
+                    <Item id="10001" name="РџСЂРёРєР°Р· Сѓ РґСЂСѓРіРѕРј РґРµР»Сѓ - РѕРїРѕР·РѕРІРё"/>
+                    <Item id="10002" name="Р”СѓРїР»Рё РїСЂРёРєР°Р·"/>
+                    <Item id="10003" name="РџСЂРµР±Р°С†Рё РґСЂСѓРіРѕС РЅР°РґР»РµР¶РЅРѕСЃС‚Рё"/>
+                    <Item id="10004" name="РћС‚РІРѕСЂРё Сѓ РЅРѕРІРѕС РЅР°РґР»РµР¶РЅРѕСЃС‚Рё"/>
+
+                    <Item id="46001" name="РџРѕСЃС‚Р°РІРєРµ СЃС‚РёР»РѕРІР°..."/>
+                    <Item id="46080" name="РљРѕСЂРёСЃРЅРёС‡РєРё-РѕРґСЂРµС’РµРЅ"/>
+                    <Item id="47000" name="Рћ Notepad++-Сѓ..."/>
+                    <Item id="47001" name="РРЅС‚РµСЂРЅРµС‚ СЃС‚СЂР°РЅРёС†Р° Notepad++"/>
+                    <Item id="47002" name="РЎС‚СЂР°РЅРёС†Р° РїСЂРѕСРµРєС‚Р° Notepad++"/>
+                    <Item id="47003" name="РџРѕРјРѕС› РїСЂРµРєРѕ РёРЅС‚РµСЂРЅРµС‚Р°"/>
+                    <Item id="47004" name="Р”РёСЃРєСѓСЃРёРѕРЅР° РіСЂСѓРїР°"/>
+                    <Item id="47005" name="РџСЂРµСѓР·РјРё РЅРѕРІРµ РґРѕРґР°С‚РєРµ"/>
+                    <Item id="47006" name="РђР¶СѓСЂРёСЂР°С Notepad++"/>
+                    <Item id="47008" name="РЎР°РґСЂР¶Р°С РїРѕРјРѕС›Рё"/>
+                    <Item id="48005" name="РЈРІРѕР· РґРѕРґР°С‚Р°РєР° ..."/>
+                    <Item id="48006" name="РЈРІРѕР· С‚РµРјР° ..."/>
+                    <Item id="48009" name="РљРѕРјР±РёРЅР°С†РёСРµ С‚Р°СЃС‚РµСЂР°..."/>
+                    <Item id="48011" name="РџРѕРґРµС€Р°РІР°СљР°..."/>
+                    <Item id="49000" name="&amp;РџРѕРєСЂРµРЅРё..."/>
+
+                    <Item id="50000" name="Р”РѕРїСѓРЅР° С„СѓРЅРєС†РёСР°"/>
+                    <Item id="50001" name="Р”РѕРїСѓРЅР° СЂРµС‡Рё"/>
+                    <Item id="50002" name="РЈРїСѓС‚СЃС‚РІРѕ С„СѓРЅРєС†РёССЃРєРёС… РїР°СЂР°РјРµСЂР°СЂР°"/>
+                    <Item id="42034" name="РЈСЂРµС’РёРІР°СљРµ СЃС‚СѓР±Р°С†Р°..."/>
+                    <Item id="44042" name="РЎР°РєСЂРёС СЃС‚СѓР±С†Рµ"/>
+                    <Item id="42040" name="РћС‚РІРѕСЂРё СЃРІРµ РЅРµРґР°РІРЅРµ РґР°С‚РѕС‚РµРєРµ"/>
+                    <Item id="42041" name="РћС‡РёСЃС‚Рё СЃРїРёСЃР°Рє РЅРµРґР°РІРЅРёС… РґР°С‚РѕС‚РµРєР°"/>
+                    <Item id="48016" name="РР·РјРµРЅРё РїСЂРµС‡РёС†Сѓ/РР·Р±СЂРёС€Рё РњР°РєСЂРѕ..."/>
+					<Item id="48017" name="РР·РјРµРЅРё РїСЂРµС‡РёС†Сѓ/РР·Р±СЂРёС€Рё РєРѕРјР°РЅРґСѓ..."/>
+					<Item id="48018" name="РЈСЂРµС’РёРІР°СљРµ РёСЃРєР°С‡СѓС›РµРі РёР·Р±РѕСЂРЅРѕРі РѕРєРІРёСЂР°"/>
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Затвори"/>
-                    <Item CMID="1" name="Затвори све остале"/>
-                    <Item CMID="2" name="Сачувај"/>
-                    <Item CMID="3" name="Сачувај као..."/>
-                    <Item CMID="4" name="Штампач"/>
-                    <Item CMID="5" name="Приказ у другом делу"/>
-                    <Item CMID="6" name="Дуплирани приказ"/>
-                    <Item CMID="7" name="Сачувај целу путању датотеке у остави"/>
-                    <Item CMID="8" name="Сачувај име датотеке у остави"/>
-                    <Item CMID="9" name="Сачувај путању тренутне фасцикле у остави"/>
-                    <Item CMID="10" name="Преименуј"/>
-                    <Item CMID="11" name="Избриши"/>
-                    <Item CMID="12" name="Само за читање"/>
-                    <Item CMID="13" name="Одстрани заштиту од писања"/>
-                    <Item CMID="14" name="Пребаци другој надлежности"/>
-                    <Item CMID="15" name="Отвори у новој надлежности"/>
-                    <Item CMID="16" name="Поново учитај"/>
+                    <Item CMID="0" name="Р—Р°С‚РІРѕСЂРё"/>
+                    <Item CMID="1" name="Р—Р°С‚РІРѕСЂРё СЃРІРµ РѕСЃС‚Р°Р»Рµ"/>
+                    <Item CMID="2" name="РЎР°С‡СѓРІР°С"/>
+                    <Item CMID="3" name="РЎР°С‡СѓРІР°С РєР°Рѕ..."/>
+                    <Item CMID="4" name="РЁС‚Р°РјРїР°С‡"/>
+                    <Item CMID="5" name="РџСЂРёРєР°Р· Сѓ РґСЂСѓРіРѕРј РґРµР»Сѓ"/>
+                    <Item CMID="6" name="Р”СѓРїР»РёСЂР°РЅРё РїСЂРёРєР°Р·"/>
+                    <Item CMID="7" name="РЎР°С‡СѓРІР°С С†РµР»Сѓ РїСѓС‚Р°СљСѓ РґР°С‚РѕС‚РµРєРµ Сѓ РѕСЃС‚Р°РІРё"/>
+                    <Item CMID="8" name="РЎР°С‡СѓРІР°С РёРјРµ РґР°С‚РѕС‚РµРєРµ Сѓ РѕСЃС‚Р°РІРё"/>
+                    <Item CMID="9" name="РЎР°С‡СѓРІР°С РїСѓС‚Р°СљСѓ С‚СЂРµРЅСѓС‚РЅРµ С„Р°СЃС†РёРєР»Рµ Сѓ РѕСЃС‚Р°РІРё"/>
+                    <Item CMID="10" name="РџСЂРµРёРјРµРЅСѓС"/>
+                    <Item CMID="11" name="РР·Р±СЂРёС€Рё"/>
+                    <Item CMID="12" name="РЎР°РјРѕ Р·Р° С‡РёС‚Р°СљРµ"/>
+                    <Item CMID="13" name="РћРґСЃС‚СЂР°РЅРё Р·Р°С€С‚РёС‚Сѓ РѕРґ РїРёСЃР°СљР°"/>
+                    <Item CMID="14" name="РџСЂРµР±Р°С†Рё РґСЂСѓРіРѕС РЅР°РґР»РµР¶РЅРѕСЃС‚Рё"/>
+                    <Item CMID="15" name="РћС‚РІРѕСЂРё Сѓ РЅРѕРІРѕС РЅР°РґР»РµР¶РЅРѕСЃС‚Рё"/>
+                    <Item CMID="16" name="РџРѕРЅРѕРІРѕ СѓС‡РёС‚Р°С"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
-            <Find title="" titleFind="Нађи" titleReplace="Замени" titleFindInFiles="Пронађи у датотекама">
-                <Item id="1"    name="Пронађи следеће"/>
-                <Item id="2"    name="Затвори"/>
-                <Item id="1620" name="Пронађи :"/>
-                <Item id="1603" name="Упореди само &amp;целе речи"/>
-                <Item id="1604" name="Упореди &amp;подударне"/>
-                <Item id="1605" name="Правилан &amp;израз"/>
-                <Item id="1606" name="Прелом &amp;реда"/>
-                <Item id="1612" name="&amp;Горе"/>
-                <Item id="1613" name="&amp;Доле"/>
-                <Item id="1614" name="Преброј"/>
-                <Item id="1615" name="Пронађи све"/>
-                <Item id="1616" name="Обележи ред"/>
-                <Item id="1617" name="Истакни пронађено"/>
-                <Item id="1618" name="За сваку претрагу"/>
-                <Item id="1621" name="Смер"/>
-                <Item id="1611" name="Заме&amp;ни са:"/>
-                <Item id="1608" name="&amp;Замени"/>
-                <Item id="1609" name="Замени &amp;све"/>
-			 	<Item id="1623" name="Провидан"/>
-			 	<Item id="1687" name="Кад није у жижи"/>
-			 	<Item id="1688" name="Увек"/>
-			 	<Item id="1632" name="У избору"/>
-			 	<Item id="1633" name="Очисти"/>
-			 	<Item id="1635" name="Замени све у свим отвореним документима"/>
-			 	<Item id="1636" name="Пронађи све у свим отвореним документима"/>
-			 	<Item id="1637" name="Пронађи у датотекама"/>
-			 	<Item id="1654" name="Филтери:"/>
-			 	<Item id="1655" name="Фасцикла:"/>
-			 	<Item id="1656" name="Нађи све"/>
-			 	<Item id="1658" name="У свим подфасциклама"/>
-			 	<Item id="1659" name="У сакривеним фасц."/>
-			 	<Item id="1624" name="Начин претраге"/>
-			 	<Item id="1625" name="Уобичајен"/>
-			 	<Item id="1626" name="Проширен (\n, \r, \t, \0, \x...)"/>
-			 	<Item id="1660" name="Замени у датотеци"/>
-                <Item id="1661" name="Прати текући документ"/>
-			 	<Item id="1641" name="Пронађи све у текућем документу"/>
-			 	<Item id="1686" name="Провидан"/>
+            <Find title="" titleFind="РќР°С’Рё" titleReplace="Р—Р°РјРµРЅРё" titleFindInFiles="РџСЂРѕРЅР°С’Рё Сѓ РґР°С‚РѕС‚РµРєР°РјР°">
+                <Item id="1"    name="РџСЂРѕРЅР°С’Рё СЃР»РµРґРµС›Рµ"/>
+                <Item id="2"    name="Р—Р°С‚РІРѕСЂРё"/>
+                <Item id="1620" name="РџСЂРѕРЅР°С’Рё :"/>
+                <Item id="1603" name="РЈРїРѕСЂРµРґРё СЃР°РјРѕ &amp;С†РµР»Рµ СЂРµС‡Рё"/>
+                <Item id="1604" name="РЈРїРѕСЂРµРґРё &amp;РїРѕРґСѓРґР°СЂРЅРµ"/>
+                <Item id="1605" name="РџСЂР°РІРёР»Р°РЅ &amp;РёР·СЂР°Р·"/>
+                <Item id="1606" name="РџСЂРµР»РѕРј &amp;СЂРµРґР°"/>
+                <Item id="1612" name="&amp;Р“РѕСЂРµ"/>
+                <Item id="1613" name="&amp;Р”РѕР»Рµ"/>
+                <Item id="1614" name="РџСЂРµР±СЂРѕС"/>
+                <Item id="1615" name="РџСЂРѕРЅР°С’Рё СЃРІРµ"/>
+                <Item id="1616" name="РћР±РµР»РµР¶Рё СЂРµРґ"/>
+                <Item id="1617" name="РСЃС‚Р°РєРЅРё РїСЂРѕРЅР°С’РµРЅРѕ"/>
+                <Item id="1618" name="Р—Р° СЃРІР°РєСѓ РїСЂРµС‚СЂР°РіСѓ"/>
+                <Item id="1621" name="РЎРјРµСЂ"/>
+                <Item id="1611" name="Р—Р°РјРµ&amp;РЅРё СЃР°:"/>
+                <Item id="1608" name="&amp;Р—Р°РјРµРЅРё"/>
+                <Item id="1609" name="Р—Р°РјРµРЅРё &amp;СЃРІРµ"/>
+			 	<Item id="1623" name="РџСЂРѕРІРёРґР°РЅ"/>
+			 	<Item id="1687" name="РљР°Рґ РЅРёСРµ Сѓ Р¶РёР¶Рё"/>
+			 	<Item id="1688" name="РЈРІРµРє"/>
+			 	<Item id="1632" name="РЈ РёР·Р±РѕСЂСѓ"/>
+			 	<Item id="1633" name="РћС‡РёСЃС‚Рё"/>
+			 	<Item id="1635" name="Р—Р°РјРµРЅРё СЃРІРµ Сѓ СЃРІРёРј РѕС‚РІРѕСЂРµРЅРёРј РґРѕРєСѓРјРµРЅС‚РёРјР°"/>
+			 	<Item id="1636" name="РџСЂРѕРЅР°С’Рё СЃРІРµ Сѓ СЃРІРёРј РѕС‚РІРѕСЂРµРЅРёРј РґРѕРєСѓРјРµРЅС‚РёРјР°"/>
+			 	<Item id="1637" name="РџСЂРѕРЅР°С’Рё Сѓ РґР°С‚РѕС‚РµРєР°РјР°"/>
+			 	<Item id="1654" name="Р¤РёР»С‚РµСЂРё:"/>
+			 	<Item id="1655" name="Р¤Р°СЃС†РёРєР»Р°:"/>
+			 	<Item id="1656" name="РќР°С’Рё СЃРІРµ"/>
+			 	<Item id="1658" name="РЈ СЃРІРёРј РїРѕРґС„Р°СЃС†РёРєР»Р°РјР°"/>
+			 	<Item id="1659" name="РЈ СЃР°РєСЂРёРІРµРЅРёРј С„Р°СЃС†."/>
+			 	<Item id="1624" name="РќР°С‡РёРЅ РїСЂРµС‚СЂР°РіРµ"/>
+			 	<Item id="1625" name="РЈРѕР±РёС‡Р°СРµРЅ"/>
+			 	<Item id="1626" name="РџСЂРѕС€РёСЂРµРЅ (\n, \r, \t, \0, \x...)"/>
+			 	<Item id="1660" name="Р—Р°РјРµРЅРё Сѓ РґР°С‚РѕС‚РµС†Рё"/>
+                <Item id="1661" name="РџСЂР°С‚Рё С‚РµРєСѓС›Рё РґРѕРєСѓРјРµРЅС‚"/>
+			 	<Item id="1641" name="РџСЂРѕРЅР°С’Рё СЃРІРµ Сѓ С‚РµРєСѓС›РµРј РґРѕРєСѓРјРµРЅС‚Сѓ"/>
+			 	<Item id="1686" name="РџСЂРѕРІРёРґР°РЅ"/>
             </Find>
-            <GoToLine title="Пређи у ...">
-                <Item id="2007" name="Ред"/>
-                <Item id="2008" name="Карактер"/>
-                <Item id="1"    name="&amp;Крени"/>
-                <Item id="2"    name="Одустани"/>
-                <Item id="2004" name="Tренутни:"/>
-                <Item id="2005" name="Жељени:"/>
-                <Item id="2006" name="Не може даље од :"/>
+            <GoToLine title="РџСЂРµС’Рё Сѓ ...">
+                <Item id="2007" name="Р РµРґ"/>
+                <Item id="2008" name="РљР°СЂР°РєС‚РµСЂ"/>
+                <Item id="1"    name="&amp;РљСЂРµРЅРё"/>
+                <Item id="2"    name="РћРґСѓСЃС‚Р°РЅРё"/>
+                <Item id="2004" name="TСЂРµРЅСѓС‚РЅРё:"/>
+                <Item id="2005" name="Р–РµС™РµРЅРё:"/>
+                <Item id="2006" name="РќРµ РјРѕР¶Рµ РґР°С™Рµ РѕРґ :"/>
             </GoToLine>
 
-            <Run title="Покрени...">
-                <Item id="1903" name="Име програма који треба покренути"/>
-                <Item id="1"    name="Покрени"/>
-                <Item id="2"    name="Одустани"/>
-                <Item id="1904" name="Сачувај..."/>
+            <Run title="РџРѕРєСЂРµРЅРё...">
+                <Item id="1903" name="РРјРµ РїСЂРѕРіСЂР°РјР° РєРѕСРё С‚СЂРµР±Р° РїРѕРєСЂРµРЅСѓС‚Рё"/>
+                <Item id="1"    name="РџРѕРєСЂРµРЅРё"/>
+                <Item id="2"    name="РћРґСѓСЃС‚Р°РЅРё"/>
+                <Item id="1904" name="РЎР°С‡СѓРІР°С..."/>
             </Run>
-            
-            <StyleConfig title="Поставке стилова">
-                <Item id="2"    name="Одустани"/>
-                <Item id="2301" name="Сачувај &amp;/Затвори"/>
-                <Item id="2303" name="Провидност"/>
-                <Item id="2306" name="Изабери тему: "/>
+
+            <StyleConfig title="РџРѕСЃС‚Р°РІРєРµ СЃС‚РёР»РѕРІР°">
+                <Item id="2"    name="РћРґСѓСЃС‚Р°РЅРё"/>
+                <Item id="2301" name="РЎР°С‡СѓРІР°С &amp;/Р—Р°С‚РІРѕСЂРё"/>
+                <Item id="2303" name="РџСЂРѕРІРёРґРЅРѕСЃС‚"/>
+                <Item id="2306" name="РР·Р°Р±РµСЂРё С‚РµРјСѓ: "/>
                 <SubDialog>
-                	<Item id="2204" name="Подебљан"/>
-                    <Item id="2205" name="Искошен"/>
-                    <Item id="2206" name="Боја слова"/>
-                    <Item id="2207" name="Боја позадине"/>
-                    <Item id="2208" name="Врста слова :"/>
-                    <Item id="2209" name="Величина слова :"/>
-                    <Item id="2212" name="Боја писма"/>
-                    <Item id="2213" name="Врста писма"/>
-                    <Item id="2214" name="Наставци:"/>
-                    <Item id="2216" name="Кориснички:"/>
-                    <Item id="2218" name="Подвучено"/>
-                    <Item id="2219" name="Подразумеване кључне речи"/>
-                    <Item id="2221" name="Корисникове кључне речи"/>
-                    <Item id="2225" name="Језик:"/>
-                    <Item id="2226" name="Подразумевана боја текста"/>
-                    <Item id="2227" name="Подразумевана боја позадине"/>
-                    <Item id="2228" name="Подразумевано писмо"/>
-                    <Item id="2229" name="Подразумевана величина слова"/>
-                    <Item id="2230" name="Подразумевана подебљана слова"/>
-                    <Item id="2231" name="Подразумевана укошена слова"/>
-                    <Item id="2232" name="Подразумевана подвучена слова"/>
-                </SubDialog>                
-                
+                	<Item id="2204" name="РџРѕРґРµР±С™Р°РЅ"/>
+                    <Item id="2205" name="РСЃРєРѕС€РµРЅ"/>
+                    <Item id="2206" name="Р‘РѕСР° СЃР»РѕРІР°"/>
+                    <Item id="2207" name="Р‘РѕСР° РїРѕР·Р°РґРёРЅРµ"/>
+                    <Item id="2208" name="Р’СЂСЃС‚Р° СЃР»РѕРІР° :"/>
+                    <Item id="2209" name="Р’РµР»РёС‡РёРЅР° СЃР»РѕРІР° :"/>
+                    <Item id="2212" name="Р‘РѕСР° РїРёСЃРјР°"/>
+                    <Item id="2213" name="Р’СЂСЃС‚Р° РїРёСЃРјР°"/>
+                    <Item id="2214" name="РќР°СЃС‚Р°РІС†Рё:"/>
+                    <Item id="2216" name="РљРѕСЂРёСЃРЅРёС‡РєРё:"/>
+                    <Item id="2218" name="РџРѕРґРІСѓС‡РµРЅРѕ"/>
+                    <Item id="2219" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅРµ РєС™СѓС‡РЅРµ СЂРµС‡Рё"/>
+                    <Item id="2221" name="РљРѕСЂРёСЃРЅРёРєРѕРІРµ РєС™СѓС‡РЅРµ СЂРµС‡Рё"/>
+                    <Item id="2225" name="Р€РµР·РёРє:"/>
+                    <Item id="2226" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅР° Р±РѕСР° С‚РµРєСЃС‚Р°"/>
+                    <Item id="2227" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅР° Р±РѕСР° РїРѕР·Р°РґРёРЅРµ"/>
+                    <Item id="2228" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅРѕ РїРёСЃРјРѕ"/>
+                    <Item id="2229" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅР° РІРµР»РёС‡РёРЅР° СЃР»РѕРІР°"/>
+                    <Item id="2230" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅР° РїРѕРґРµР±С™Р°РЅР° СЃР»РѕРІР°"/>
+                    <Item id="2231" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅР° СѓРєРѕС€РµРЅР° СЃР»РѕРІР°"/>
+                    <Item id="2232" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅР° РїРѕРґРІСѓС‡РµРЅР° СЃР»РѕРІР°"/>
+                </SubDialog>
+
             </StyleConfig>
-            
-            <UserDefine title="Кориснички дефинисано">
-                <Item id="20002" name="Преименуј"/>
-                <Item id="20003" name="Направи нови..."/>
-                <Item id="20004" name="Уклони"/>
-                <Item id="20005" name="Сачувај као..."/>
-                <Item id="20007" name="Језик: "/>
-                <Item id="20009" name="Наставак:"/>
-                <Item id="20012" name="Занемари В/м слова"/>
-                <Item id="20011" name="Провидност"/>
-                <Item id="20015" name="Извоз..."/>
-                <Item id="20016" name="Увоз..."/>
-			    <StylerDialog title="Стајлер - дијалог">               
-               <Item id="25030" name="Избор словоликова:"/>
-					<Item id="25006" name="Боја предњег плана"/>
-					<Item id="25007" name="Боја позадине"/>
-					<Item id="25031" name="Назив:"/>
-					<Item id="25032" name="Величина:"/>
-					<Item id="25001" name="Подебљано"/>
-					<Item id="25002" name="Искошено"/>
-					<Item id="25003" name="Подвучено"/>
-					<Item id="25029" name="Смештај:"/>
-					<Item id="25008" name="Граничник 1"/>
-					<Item id="25009" name="Граничник 2"/>
-					<Item id="25010" name="Граничник 3"/>
-					<Item id="25011" name="Граничник 4"/>
-					<Item id="25012" name="Граничник 5"/>
-					<Item id="25013" name="Граничник 6"/>
-					<Item id="25014" name="Граничник 7"/>
-					<Item id="25015" name="Граничник 8"/>
-					<Item id="25018" name="Кључна реч 1"/>
-					<Item id="25019" name="Кључна реч 2"/>
-					<Item id="25020" name="Кључна реч 3"/>
-					<Item id="25021" name="Кључна реч 4"/>
-					<Item id="25022" name="Кључна реч 5"/>
-					<Item id="25023" name="Кључна реч 6"/>
-					<Item id="25024" name="Кључна реч 7"/>
-					<Item id="25025" name="Кључна реч 8"/>
-					<Item id="25016" name="Напомена"/>
-					<Item id="25017" name="Линија коментара"/>
-					<Item id="25026" name="Оператор 1"/>
-					<Item id="25027" name="Оператор 2"/>
-					<Item id="25028" name="Бројеви"/>
+
+            <UserDefine title="РљРѕСЂРёСЃРЅРёС‡РєРё РґРµС„РёРЅРёСЃР°РЅРѕ">
+                <Item id="20002" name="РџСЂРµРёРјРµРЅСѓС"/>
+                <Item id="20003" name="РќР°РїСЂР°РІРё РЅРѕРІРё..."/>
+                <Item id="20004" name="РЈРєР»РѕРЅРё"/>
+                <Item id="20005" name="РЎР°С‡СѓРІР°С РєР°Рѕ..."/>
+                <Item id="20007" name="Р€РµР·РёРє: "/>
+                <Item id="20009" name="РќР°СЃС‚Р°РІР°Рє:"/>
+                <Item id="20012" name="Р—Р°РЅРµРјР°СЂРё Р’/Рј СЃР»РѕРІР°"/>
+                <Item id="20011" name="РџСЂРѕРІРёРґРЅРѕСЃС‚"/>
+                <Item id="20015" name="РР·РІРѕР·..."/>
+                <Item id="20016" name="РЈРІРѕР·..."/>
+			    <StylerDialog title="РЎС‚Р°СР»РµСЂ - РґРёСР°Р»РѕРі">
+               <Item id="25030" name="РР·Р±РѕСЂ СЃР»РѕРІРѕР»РёРєРѕРІР°:"/>
+					<Item id="25006" name="Р‘РѕСР° РїСЂРµРґСљРµРі РїР»Р°РЅР°"/>
+					<Item id="25007" name="Р‘РѕСР° РїРѕР·Р°РґРёРЅРµ"/>
+					<Item id="25031" name="РќР°Р·РёРІ:"/>
+					<Item id="25032" name="Р’РµР»РёС‡РёРЅР°:"/>
+					<Item id="25001" name="РџРѕРґРµР±С™Р°РЅРѕ"/>
+					<Item id="25002" name="РСЃРєРѕС€РµРЅРѕ"/>
+					<Item id="25003" name="РџРѕРґРІСѓС‡РµРЅРѕ"/>
+					<Item id="25029" name="РЎРјРµС€С‚Р°С:"/>
+					<Item id="25008" name="Р“СЂР°РЅРёС‡РЅРёРє 1"/>
+					<Item id="25009" name="Р“СЂР°РЅРёС‡РЅРёРє 2"/>
+					<Item id="25010" name="Р“СЂР°РЅРёС‡РЅРёРє 3"/>
+					<Item id="25011" name="Р“СЂР°РЅРёС‡РЅРёРє 4"/>
+					<Item id="25012" name="Р“СЂР°РЅРёС‡РЅРёРє 5"/>
+					<Item id="25013" name="Р“СЂР°РЅРёС‡РЅРёРє 6"/>
+					<Item id="25014" name="Р“СЂР°РЅРёС‡РЅРёРє 7"/>
+					<Item id="25015" name="Р“СЂР°РЅРёС‡РЅРёРє 8"/>
+					<Item id="25018" name="РљС™СѓС‡РЅР° СЂРµС‡ 1"/>
+					<Item id="25019" name="РљС™СѓС‡РЅР° СЂРµС‡ 2"/>
+					<Item id="25020" name="РљС™СѓС‡РЅР° СЂРµС‡ 3"/>
+					<Item id="25021" name="РљС™СѓС‡РЅР° СЂРµС‡ 4"/>
+					<Item id="25022" name="РљС™СѓС‡РЅР° СЂРµС‡ 5"/>
+					<Item id="25023" name="РљС™СѓС‡РЅР° СЂРµС‡ 6"/>
+					<Item id="25024" name="РљС™СѓС‡РЅР° СЂРµС‡ 7"/>
+					<Item id="25025" name="РљС™СѓС‡РЅР° СЂРµС‡ 8"/>
+					<Item id="25016" name="РќР°РїРѕРјРµРЅР°"/>
+					<Item id="25017" name="Р›РёРЅРёСР° РєРѕРјРµРЅС‚Р°СЂР°"/>
+					<Item id="25026" name="РћРїРµСЂР°С‚РѕСЂ 1"/>
+					<Item id="25027" name="РћРїРµСЂР°С‚РѕСЂ 2"/>
+					<Item id="25028" name="Р‘СЂРѕСРµРІРё"/>
                 </StylerDialog>
-                <Folder title="Подразумевана &amp; фасцикла">
-                    <Item id="21101" name="Подразумевани стил"/>
-                    <Item id="21201" name="Поставке кључних речи на почетку текста"/>
-                    <Item id="21301" name="Поставке кључних речи на крају текста"/>
+                <Folder title="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅР° &amp; С„Р°СЃС†РёРєР»Р°">
+                    <Item id="21101" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅРё СЃС‚РёР»"/>
+                    <Item id="21201" name="РџРѕСЃС‚Р°РІРєРµ РєС™СѓС‡РЅРёС… СЂРµС‡Рё РЅР° РїРѕС‡РµС‚РєСѓ С‚РµРєСЃС‚Р°"/>
+                    <Item id="21301" name="РџРѕСЃС‚Р°РІРєРµ РєС™СѓС‡РЅРёС… СЂРµС‡Рё РЅР° РєСЂР°ССѓ С‚РµРєСЃС‚Р°"/>
                 </Folder>
-                <Keywords title="Списак кључних речи">
-                    <Item id="22101" name="1. Група"/>
-                    <Item id="22201" name="2. Група"/>
-                    <Item id="22301" name="3. Група"/>
-                    <Item id="22401" name="4. Група"/>
-                    <Item id="22113" name="Представка"/>
-                    <Item id="22213" name="Представка"/>
-                    <Item id="22313" name="Представка"/>
-                    <Item id="22413" name="Представка"/>
+                <Keywords title="РЎРїРёСЃР°Рє РєС™СѓС‡РЅРёС… СЂРµС‡Рё">
+                    <Item id="22101" name="1. Р“СЂСѓРїР°"/>
+                    <Item id="22201" name="2. Р“СЂСѓРїР°"/>
+                    <Item id="22301" name="3. Р“СЂСѓРїР°"/>
+                    <Item id="22401" name="4. Р“СЂСѓРїР°"/>
+                    <Item id="22113" name="РџСЂРµРґСЃС‚Р°РІРєР°"/>
+                    <Item id="22213" name="РџСЂРµРґСЃС‚Р°РІРєР°"/>
+                    <Item id="22313" name="РџСЂРµРґСЃС‚Р°РІРєР°"/>
+                    <Item id="22413" name="РџСЂРµРґСЃС‚Р°РІРєР°"/>
                 </Keywords>
-                <Comment title="Напомена &amp;/ Број">
-                    <Item id="23301" name="Напомена у реду"/>
-                    <Item id="23101" name="Напомена у блоку"/>
-                    <Item id="23113" name="Отвори напомену:"/>
-                    <Item id="23115" name="Затвори напомену:"/>
-                    <Item id="23116" name="Узми кључну реч као симбол"/>
-                    <Item id="23117" name="Узми кључне речи као симболе"/>
-                    <Item id="23201" name="Број"/>
+                <Comment title="РќР°РїРѕРјРµРЅР° &amp;/ Р‘СЂРѕС">
+                    <Item id="23301" name="РќР°РїРѕРјРµРЅР° Сѓ СЂРµРґСѓ"/>
+                    <Item id="23101" name="РќР°РїРѕРјРµРЅР° Сѓ Р±Р»РѕРєСѓ"/>
+                    <Item id="23113" name="РћС‚РІРѕСЂРё РЅР°РїРѕРјРµРЅСѓ:"/>
+                    <Item id="23115" name="Р—Р°С‚РІРѕСЂРё РЅР°РїРѕРјРµРЅСѓ:"/>
+                    <Item id="23116" name="РЈР·РјРё РєС™СѓС‡РЅСѓ СЂРµС‡ РєР°Рѕ СЃРёРјР±РѕР»"/>
+                    <Item id="23117" name="РЈР·РјРё РєС™СѓС‡РЅРµ СЂРµС‡Рё РєР°Рѕ СЃРёРјР±РѕР»Рµ"/>
+                    <Item id="23201" name="Р‘СЂРѕС"/>
                 </Comment>
-                <Operator title="Оператери">
-                    <Item id="24107" name="Оператер"/>
-                    <Item id="24103" name="Доступни симболи"/>
-                    <Item id="24101" name="Активирани оператери"/>
-                    <Item id="24201" name="Раздвајач 1"/>
-                    <Item id="24211" name="Почетни знак:"/>
-                    <Item id="24214" name="Завршни знак:"/>
-                    <Item id="24301" name="Раздвајач 2"/>
-                    <Item id="24311" name="Почетни знак:"/>
-                    <Item id="24314" name="Завршни знак:"/>
+                <Operator title="РћРїРµСЂР°С‚РµСЂРё">
+                    <Item id="24107" name="РћРїРµСЂР°С‚РµСЂ"/>
+                    <Item id="24103" name="Р”РѕСЃС‚СѓРїРЅРё СЃРёРјР±РѕР»Рё"/>
+                    <Item id="24101" name="РђРєС‚РёРІРёСЂР°РЅРё РѕРїРµСЂР°С‚РµСЂРё"/>
+                    <Item id="24201" name="Р Р°Р·РґРІР°СР°С‡ 1"/>
+                    <Item id="24211" name="РџРѕС‡РµС‚РЅРё Р·РЅР°Рє:"/>
+                    <Item id="24214" name="Р—Р°РІСЂС€РЅРё Р·РЅР°Рє:"/>
+                    <Item id="24301" name="Р Р°Р·РґРІР°СР°С‡ 2"/>
+                    <Item id="24311" name="РџРѕС‡РµС‚РЅРё Р·РЅР°Рє:"/>
+                    <Item id="24314" name="Р—Р°РІСЂС€РЅРё Р·РЅР°Рє:"/>
                 </Operator>
-                <Item id="24001" name="Омогући излазни знак:"/>
+                <Item id="24001" name="РћРјРѕРіСѓС›Рё РёР·Р»Р°Р·РЅРё Р·РЅР°Рє:"/>
             </UserDefine>
-			<Preference title="Поставке">
-                <Item id="6001" name="Затвори"/>
-                <Global title="Опште">
-                    <Item id="6101" name="Трака алата"/>
-                    <Item id="6102" name="Сакри"/>
-                    <Item id="6103" name="Мале иконе"/>
-	                <Item id="6104" name="Велике иконе"/>
-                    <Item id="6105" name="Стандардне иконе"/>
-                    
-                    <Item id="6106" name="Трака језичака"/>
-                    <Item id="6107" name="Смањи"/>
-                    <Item id="6108" name="Закључај (без превлачења)"/>
-                    <Item id="6109" name="Потамни неактивне картице"/>
-                    <Item id="6110" name="Обележи тренутну картицу"/>
-                    
-                    <Item id="6111" name="Прикажи статусну траку"/>
-                    <Item id="6112" name="Прикажи дугме за затварање"/>
-                    <Item id="6113" name="Двоклик за затварање документа"/>
-                    <Item id="6118" name="Сакри"/>
-                    <Item id="6119" name="У више редова"/>
-                    <Item id="6120" name="Усправно"/>
-                    
-                    <Item id="6121" name="Изборна трака"/>
-                    <Item id="6122" name="Сакри"/>
-                    <Item id="6123" name="Изабери језик"/>
+			<Preference title="РџРѕСЃС‚Р°РІРєРµ">
+                <Item id="6001" name="Р—Р°С‚РІРѕСЂРё"/>
+                <Global title="РћРїС€С‚Рµ">
+                    <Item id="6101" name="РўСЂР°РєР° Р°Р»Р°С‚Р°"/>
+                    <Item id="6102" name="РЎР°РєСЂРё"/>
+                    <Item id="6103" name="РњР°Р»Рµ РёРєРѕРЅРµ"/>
+	                <Item id="6104" name="Р’РµР»РёРєРµ РёРєРѕРЅРµ"/>
+                    <Item id="6105" name="РЎС‚Р°РЅРґР°СЂРґРЅРµ РёРєРѕРЅРµ"/>
+
+                    <Item id="6106" name="РўСЂР°РєР° СРµР·РёС‡Р°РєР°"/>
+                    <Item id="6107" name="РЎРјР°СљРё"/>
+                    <Item id="6108" name="Р—Р°РєС™СѓС‡Р°С (Р±РµР· РїСЂРµРІР»Р°С‡РµСљР°)"/>
+                    <Item id="6109" name="РџРѕС‚Р°РјРЅРё РЅРµР°РєС‚РёРІРЅРµ РєР°СЂС‚РёС†Рµ"/>
+                    <Item id="6110" name="РћР±РµР»РµР¶Рё С‚СЂРµРЅСѓС‚РЅСѓ РєР°СЂС‚РёС†Сѓ"/>
+
+                    <Item id="6111" name="РџСЂРёРєР°Р¶Рё СЃС‚Р°С‚СѓСЃРЅСѓ С‚СЂР°РєСѓ"/>
+                    <Item id="6112" name="РџСЂРёРєР°Р¶Рё РґСѓРіРјРµ Р·Р° Р·Р°С‚РІР°СЂР°СљРµ"/>
+                    <Item id="6113" name="Р”РІРѕРєР»РёРє Р·Р° Р·Р°С‚РІР°СЂР°СљРµ РґРѕРєСѓРјРµРЅС‚Р°"/>
+                    <Item id="6118" name="РЎР°РєСЂРё"/>
+                    <Item id="6119" name="РЈ РІРёС€Рµ СЂРµРґРѕРІР°"/>
+                    <Item id="6120" name="РЈСЃРїСЂР°РІРЅРѕ"/>
+
+                    <Item id="6121" name="РР·Р±РѕСЂРЅР° С‚СЂР°РєР°"/>
+                    <Item id="6122" name="РЎР°РєСЂРё"/>
+                    <Item id="6123" name="РР·Р°Р±РµСЂРё СРµР·РёРє"/>
                 </Global>
-                <Scintillas title="Уређивање">
-                    <Item id="6216" name="Поставке показивача"/>
-                    <Item id="6217" name="Ширина:"/>
-                    <Item id="6219" name="Брзина трептаја:"/>
-                    <Item id="6221" name="Б"/>
-                    <Item id="6222" name="С"/>
-                    <Item id="6224" name="Више уређивача"/>
-                    <Item id="6225" name="Омогући (Ctrl+клик мишем/избор)"/>
-                    <Item id="6201" name="Изглед ивице датотеке"/>
-                    <Item id="6202" name="Једноставно"/>
-                    <Item id="6203" name="Стрелица"/>
-	                <Item id="6204" name="Круг-дрво"/>
-                    <Item id="6205" name="Квадрат-дрво"/>
-                    <Item id="6226" name="Ниједан"/>
+                <Scintillas title="РЈСЂРµС’РёРІР°СљРµ">
+                    <Item id="6216" name="РџРѕСЃС‚Р°РІРєРµ РїРѕРєР°Р·РёРІР°С‡Р°"/>
+                    <Item id="6217" name="РЁРёСЂРёРЅР°:"/>
+                    <Item id="6219" name="Р‘СЂР·РёРЅР° С‚СЂРµРїС‚Р°СР°:"/>
+                    <Item id="6221" name="Р‘"/>
+                    <Item id="6222" name="РЎ"/>
+                    <Item id="6224" name="Р’РёС€Рµ СѓСЂРµС’РёРІР°С‡Р°"/>
+                    <Item id="6225" name="РћРјРѕРіСѓС›Рё (Ctrl+РєР»РёРє РјРёС€РµРј/РёР·Р±РѕСЂ)"/>
+                    <Item id="6201" name="РР·РіР»РµРґ РёРІРёС†Рµ РґР°С‚РѕС‚РµРєРµ"/>
+                    <Item id="6202" name="Р€РµРґРЅРѕСЃС‚Р°РІРЅРѕ"/>
+                    <Item id="6203" name="РЎС‚СЂРµР»РёС†Р°"/>
+	                <Item id="6204" name="РљСЂСѓРі-РґСЂРІРѕ"/>
+                    <Item id="6205" name="РљРІР°РґСЂР°С‚-РґСЂРІРѕ"/>
+                    <Item id="6226" name="РќРёСРµРґР°РЅ"/>
 
-                    <Item id="6227" name="Линија прелома"/>
-                    <Item id="6228" name="Подразумевано"/>
-                    <Item id="6229" name="Поравнат"/>
-                    <Item id="6230" name="Увлачење"/>
+                    <Item id="6227" name="Р›РёРЅРёСР° РїСЂРµР»РѕРјР°"/>
+                    <Item id="6228" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅРѕ"/>
+                    <Item id="6229" name="РџРѕСЂР°РІРЅР°С‚"/>
+                    <Item id="6230" name="РЈРІР»Р°С‡РµСљРµ"/>
 
-                    <Item id="6206" name="Прикажи број реда"/>
-                    <Item id="6207" name="Прикажи забележене"/>
-                    <Item id="6208" name="Прикажи усправну ивицу"/>
-                    <Item id="6209" name="Број стубца: "/>
-                    
-                    <Item id="6211" name="Поставке усправне ивице"/>
-                    <Item id="6212" name="Режим реда"/>
-                    <Item id="6213" name="Позадински режим"/>
-                    <Item id="6214" name="Означи тренутни ред"/>
+                    <Item id="6206" name="РџСЂРёРєР°Р¶Рё Р±СЂРѕС СЂРµРґР°"/>
+                    <Item id="6207" name="РџСЂРёРєР°Р¶Рё Р·Р°Р±РµР»РµР¶РµРЅРµ"/>
+                    <Item id="6208" name="РџСЂРёРєР°Р¶Рё СѓСЃРїСЂР°РІРЅСѓ РёРІРёС†Сѓ"/>
+                    <Item id="6209" name="Р‘СЂРѕС СЃС‚СѓР±С†Р°: "/>
+
+                    <Item id="6211" name="РџРѕСЃС‚Р°РІРєРµ СѓСЃРїСЂР°РІРЅРµ РёРІРёС†Рµ"/>
+                    <Item id="6212" name="Р РµР¶РёРј СЂРµРґР°"/>
+                    <Item id="6213" name="РџРѕР·Р°РґРёРЅСЃРєРё СЂРµР¶РёРј"/>
+                    <Item id="6214" name="РћР·РЅР°С‡Рё С‚СЂРµРЅСѓС‚РЅРё СЂРµРґ"/>
                 </Scintillas>
-                <NewDoc title="Нови документ/Подразумевана фасцикла">
-                    <Item id="6401" name="Формат"/>
+                <NewDoc title="РќРѕРІРё РґРѕРєСѓРјРµРЅС‚/РџРѕРґСЂР°Р·СѓРјРµРІР°РЅР° С„Р°СЃС†РёРєР»Р°">
+                    <Item id="6401" name="Р¤РѕСЂРјР°С‚"/>
                     <Item id="6402" name="Windows"/>
                     <Item id="6403" name="Unix"/>
 	                <Item id="6404" name="Mac"/>
-                    <Item id="6405" name="Кодирање"/>
+                    <Item id="6405" name="РљРѕРґРёСЂР°СљРµ"/>
                     <Item id="6406" name="ANSI"/>
-                    <Item id="6407" name="UTF-8 без BOM"/>
+                    <Item id="6407" name="UTF-8 Р±РµР· BOM"/>
                     <Item id="6408" name="UTF-8"/>
                     <Item id="6409" name="UCS-2 Big Endian"/>
                     <Item id="6410" name="UCS-2 Little Endian"/>
-                    <Item id="6411" name="Подразумевани језик:"/>
-                    <Item id="6413" name="Подразумевана фасцикла (Отвори/Сачувај)"/>
-                    <Item id="6414" name="Следи тренутни документ"/>
-                    <Item id="6415" name="Запамти последњу коришћену фасциклу"/>
-                    <Item id="6419" name="Нови документ"/>
-                    <Item id="6420" name="Примени на отворену ANSI дат."/>
+                    <Item id="6411" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅРё СРµР·РёРє:"/>
+                    <Item id="6413" name="РџРѕРґСЂР°Р·СѓРјРµРІР°РЅР° С„Р°СЃС†РёРєР»Р° (РћС‚РІРѕСЂРё/РЎР°С‡СѓРІР°С)"/>
+                    <Item id="6414" name="РЎР»РµРґРё С‚СЂРµРЅСѓС‚РЅРё РґРѕРєСѓРјРµРЅС‚"/>
+                    <Item id="6415" name="Р—Р°РїР°РјС‚Рё РїРѕСЃР»РµРґСљСѓ РєРѕСЂРёС€С›РµРЅСѓ С„Р°СЃС†РёРєР»Сѓ"/>
+                    <Item id="6419" name="РќРѕРІРё РґРѕРєСѓРјРµРЅС‚"/>
+                    <Item id="6420" name="РџСЂРёРјРµРЅРё РЅР° РѕС‚РІРѕСЂРµРЅСѓ ANSI РґР°С‚."/>
                 </NewDoc>
-                <FileAssoc title="Удруживање датотека">
-                    <Item id="4009" name="Подржани наставци:"/>
-                    <Item id="4010" name="Регистровани наставци:"/>
+                <FileAssoc title="РЈРґСЂСѓР¶РёРІР°СљРµ РґР°С‚РѕС‚РµРєР°">
+                    <Item id="4009" name="РџРѕРґСЂР¶Р°РЅРё РЅР°СЃС‚Р°РІС†Рё:"/>
+                    <Item id="4010" name="Р РµРіРёСЃС‚СЂРѕРІР°РЅРё РЅР°СЃС‚Р°РІС†Рё:"/>
                 </FileAssoc>
-                <LangMenu title="Избор језика/Картица поставки">
-                    <Item id="6301" name="Картица поставки"/>
-                    <Item id="6302" name="Замени са размаком"/>
-                    <Item id="6303" name="Величина картице: "/>
-                    <Item id="6505" name="Доступне ставке"/>
-                    <Item id="6506" name="Недоступне ставке"/>
-                    <Item id="6507" name="Направи избор језика"/>
-                    <Item id="6508" name="Избор језика"/>
-                    <Item id="6510" name="Користи подразумевану вредност"/>
+                <LangMenu title="РР·Р±РѕСЂ СРµР·РёРєР°/РљР°СЂС‚РёС†Р° РїРѕСЃС‚Р°РІРєРё">
+                    <Item id="6301" name="РљР°СЂС‚РёС†Р° РїРѕСЃС‚Р°РІРєРё"/>
+                    <Item id="6302" name="Р—Р°РјРµРЅРё СЃР° СЂР°Р·РјР°РєРѕРј"/>
+                    <Item id="6303" name="Р’РµР»РёС‡РёРЅР° РєР°СЂС‚РёС†Рµ: "/>
+                    <Item id="6505" name="Р”РѕСЃС‚СѓРїРЅРµ СЃС‚Р°РІРєРµ"/>
+                    <Item id="6506" name="РќРµРґРѕСЃС‚СѓРїРЅРµ СЃС‚Р°РІРєРµ"/>
+                    <Item id="6507" name="РќР°РїСЂР°РІРё РёР·Р±РѕСЂ СРµР·РёРєР°"/>
+                    <Item id="6508" name="РР·Р±РѕСЂ СРµР·РёРєР°"/>
+                    <Item id="6510" name="РљРѕСЂРёСЃС‚Рё РїРѕРґСЂР°Р·СѓРјРµРІР°РЅСѓ РІСЂРµРґРЅРѕСЃС‚"/>
                 </LangMenu>
-                <Print title="Штампач">
-                    <Item id="6601" name="Штампај бројеве редова"/>
-                    <Item id="6602" name="Избор боја"/>
-                    <Item id="6603" name="Добићете оно што видите"/>
-                    <Item id="6604" name="Обрни боје"/>
-	                <Item id="6605" name="Црно на белом"/>
-                    <Item id="6606" name="Без позадинске боје"/>
-                    <Item id="6607" name="Подеси ивицу (мм)"/>
-                    <Item id="6612" name="Лева"/>
-                    <Item id="6613" name="Врх"/>
-                    <Item id="6614" name="Десна"/>
-                    <Item id="6615" name="Дно"/>
-                    <Item id="6706" name="Подебљан"/>
-                    <Item id="6707" name="Укошен"/>
-                    <Item id="6708" name="Заглавље"/>
-                    <Item id="6709" name="Леви део"/>
-	                <Item id="6710" name="Средњи део"/>
-                    <Item id="6711" name="Десни део"/>
-                    <Item id="6717" name="Подебљан"/>
-                    <Item id="6718" name="Укошен"/>
-                    <Item id="6719" name="Подножје"/>
-                    <Item id="6720" name="Леви део"/>
-	                <Item id="6721" name="Средњи део"/>
-                    <Item id="6722" name="Десни део"/>
-	                <Item id="6723" name="Додај"/>
-                    <Item id="6725" name="Променљива :"/>
-                    <Item id="6728" name="Заглавље и подножје"/>
+                <Print title="РЁС‚Р°РјРїР°С‡">
+                    <Item id="6601" name="РЁС‚Р°РјРїР°С Р±СЂРѕСРµРІРµ СЂРµРґРѕРІР°"/>
+                    <Item id="6602" name="РР·Р±РѕСЂ Р±РѕСР°"/>
+                    <Item id="6603" name="Р”РѕР±РёС›РµС‚Рµ РѕРЅРѕ С€С‚Рѕ РІРёРґРёС‚Рµ"/>
+                    <Item id="6604" name="РћР±СЂРЅРё Р±РѕСРµ"/>
+	                <Item id="6605" name="Р¦СЂРЅРѕ РЅР° Р±РµР»РѕРј"/>
+                    <Item id="6606" name="Р‘РµР· РїРѕР·Р°РґРёРЅСЃРєРµ Р±РѕСРµ"/>
+                    <Item id="6607" name="РџРѕРґРµСЃРё РёРІРёС†Сѓ (РјРј)"/>
+                    <Item id="6612" name="Р›РµРІР°"/>
+                    <Item id="6613" name="Р’СЂС…"/>
+                    <Item id="6614" name="Р”РµСЃРЅР°"/>
+                    <Item id="6615" name="Р”РЅРѕ"/>
+                    <Item id="6706" name="РџРѕРґРµР±С™Р°РЅ"/>
+                    <Item id="6707" name="РЈРєРѕС€РµРЅ"/>
+                    <Item id="6708" name="Р—Р°РіР»Р°РІС™Рµ"/>
+                    <Item id="6709" name="Р›РµРІРё РґРµРѕ"/>
+	                <Item id="6710" name="РЎСЂРµРґСљРё РґРµРѕ"/>
+                    <Item id="6711" name="Р”РµСЃРЅРё РґРµРѕ"/>
+                    <Item id="6717" name="РџРѕРґРµР±С™Р°РЅ"/>
+                    <Item id="6718" name="РЈРєРѕС€РµРЅ"/>
+                    <Item id="6719" name="РџРѕРґРЅРѕР¶СРµ"/>
+                    <Item id="6720" name="Р›РµРІРё РґРµРѕ"/>
+	                <Item id="6721" name="РЎСЂРµРґСљРё РґРµРѕ"/>
+                    <Item id="6722" name="Р”РµСЃРЅРё РґРµРѕ"/>
+	                <Item id="6723" name="Р”РѕРґР°С"/>
+                    <Item id="6725" name="РџСЂРѕРјРµРЅС™РёРІР° :"/>
+                    <Item id="6728" name="Р—Р°РіР»Р°РІС™Рµ Рё РїРѕРґРЅРѕР¶СРµ"/>
                 </Print>
-                <MISC title="Остало">
-                    <Item id="6304" name="Поставке историје датотека"/>
-	                <Item id="6305" name="Не проверавај при покретању"/>
-                    <Item id="6306" name="Највећи број у прошлости:"/>
-                    <Item id="6307" name="Омогући"/>
-                    <Item id="6308" name="Умањи у стартни плато"/>
-                    <Item id="6309" name="Запамти тренутну сесију за следећи пут"/>
-                    <Item id="6312" name="Самопрепознавање статуса датотеке"/>
-                    <Item id="6313" name="Тихо ажурирање"/>
-                    <Item id="6318" name="Подеси активне везе"/>
-                    <Item id="6325" name="Иди до задњег реда након ажурир."/>
-                    <Item id="6319" name="Омогући"/>
-                    <Item id="6320" name="Не подвлачи"/>
-                    <Item id="6322" name="Наставак датотеке:"/>
-                    <Item id="6323" name="Омогући самоажурирање Notepad++"/>
-                    <Item id="6324" name="Бирање документа (Ctrl+TAB)"/>
-                    <Item id="6326" name="Омогући паметно наглашавање"/>
-                    <Item id="6329" name="Истакни подударне знакове"/>
-                    <Item id="6327" name="Омогући"/>
-                    <Item id="6328" name="Истакни особине ознака"/>
-                    <Item id="6330" name="Истакни /php/asp област"/>
-                    
-                    <Item id="6331" name="Прикажи само име датотеке у насловној траци"/>
-                    <Item id="6114" name="Омогући"/>
-                    <Item id="6115" name="Аутоматски увуци"/>
-                    <Item id="6117" name="Омогући MRU начин рада"/>
-                    
+                <MISC title="РћСЃС‚Р°Р»Рѕ">
+                    <Item id="6304" name="РџРѕСЃС‚Р°РІРєРµ РёСЃС‚РѕСЂРёСРµ РґР°С‚РѕС‚РµРєР°"/>
+	                <Item id="6305" name="РќРµ РїСЂРѕРІРµСЂР°РІР°С РїСЂРё РїРѕРєСЂРµС‚Р°СљСѓ"/>
+                    <Item id="6306" name="РќР°СРІРµС›Рё Р±СЂРѕС Сѓ РїСЂРѕС€Р»РѕСЃС‚Рё:"/>
+                    <Item id="6307" name="РћРјРѕРіСѓС›Рё"/>
+                    <Item id="6308" name="РЈРјР°СљРё Сѓ СЃС‚Р°СЂС‚РЅРё РїР»Р°С‚Рѕ"/>
+                    <Item id="6309" name="Р—Р°РїР°РјС‚Рё С‚СЂРµРЅСѓС‚РЅСѓ СЃРµСЃРёССѓ Р·Р° СЃР»РµРґРµС›Рё РїСѓС‚"/>
+                    <Item id="6312" name="РЎР°РјРѕРїСЂРµРїРѕР·РЅР°РІР°СљРµ СЃС‚Р°С‚СѓСЃР° РґР°С‚РѕС‚РµРєРµ"/>
+                    <Item id="6313" name="РўРёС…Рѕ Р°Р¶СѓСЂРёСЂР°СљРµ"/>
+                    <Item id="6318" name="РџРѕРґРµСЃРё Р°РєС‚РёРІРЅРµ РІРµР·Рµ"/>
+                    <Item id="6325" name="РРґРё РґРѕ Р·Р°РґСљРµРі СЂРµРґР° РЅР°РєРѕРЅ Р°Р¶СѓСЂРёСЂ."/>
+                    <Item id="6319" name="РћРјРѕРіСѓС›Рё"/>
+                    <Item id="6320" name="РќРµ РїРѕРґРІР»Р°С‡Рё"/>
+                    <Item id="6322" name="РќР°СЃС‚Р°РІР°Рє РґР°С‚РѕС‚РµРєРµ:"/>
+                    <Item id="6323" name="РћРјРѕРіСѓС›Рё СЃР°РјРѕР°Р¶СѓСЂРёСЂР°СљРµ Notepad++"/>
+                    <Item id="6324" name="Р‘РёСЂР°СљРµ РґРѕРєСѓРјРµРЅС‚Р° (Ctrl+TAB)"/>
+                    <Item id="6326" name="РћРјРѕРіСѓС›Рё РїР°РјРµС‚РЅРѕ РЅР°РіР»Р°С€Р°РІР°СљРµ"/>
+                    <Item id="6329" name="РСЃС‚Р°РєРЅРё РїРѕРґСѓРґР°СЂРЅРµ Р·РЅР°РєРѕРІРµ"/>
+                    <Item id="6327" name="РћРјРѕРіСѓС›Рё"/>
+                    <Item id="6328" name="РСЃС‚Р°РєРЅРё РѕСЃРѕР±РёРЅРµ РѕР·РЅР°РєР°"/>
+                    <Item id="6330" name="РСЃС‚Р°РєРЅРё /php/asp РѕР±Р»Р°СЃС‚"/>
+
+                    <Item id="6331" name="РџСЂРёРєР°Р¶Рё СЃР°РјРѕ РёРјРµ РґР°С‚РѕС‚РµРєРµ Сѓ РЅР°СЃР»РѕРІРЅРѕС С‚СЂР°С†Рё"/>
+                    <Item id="6114" name="РћРјРѕРіСѓС›Рё"/>
+                    <Item id="6115" name="РђСѓС‚РѕРјР°С‚СЃРєРё СѓРІСѓС†Рё"/>
+                    <Item id="6117" name="РћРјРѕРіСѓС›Рё MRU РЅР°С‡РёРЅ СЂР°РґР°"/>
+
                 </MISC>
-                <Backup title="Причувна/Самодопуњавање">
-                    <Item id="6801" name="Резервна копија"/>
-                    <Item id="6315" name="Ништа"/>
-                    <Item id="6316" name="Једноставна причувна"/>
-                    <Item id="6317" name="Опширна причувна"/>
-                    <Item id="6804" name="Пронађи фасциклу за причувну"/>
-                    <Item id="6803" name="Фасцикла:"/>
-                    <Item id="6807" name="Самодопуњавање"/>
-	                <Item id="6808" name="Самодопуњавање при сваком уносу"/>
-                    <Item id="6809" name="Допуни функције"/>
-                    <Item id="6810" name="Допуни речи"/>
-                    <Item id="6811" name="Од"/>
-                    <Item id="6813" name="- ог знака"/>
-                    <Item id="6814" name="Важећа вредност : 1 - 9"/>
-                    <Item id="6815" name="Упутство функц. параметара при задавању"/>
+                <Backup title="РџСЂРёС‡СѓРІРЅР°/РЎР°РјРѕРґРѕРїСѓСљР°РІР°СљРµ">
+                    <Item id="6801" name="Р РµР·РµСЂРІРЅР° РєРѕРїРёСР°"/>
+                    <Item id="6315" name="РќРёС€С‚Р°"/>
+                    <Item id="6316" name="Р€РµРґРЅРѕСЃС‚Р°РІРЅР° РїСЂРёС‡СѓРІРЅР°"/>
+                    <Item id="6317" name="РћРїС€РёСЂРЅР° РїСЂРёС‡СѓРІРЅР°"/>
+                    <Item id="6804" name="РџСЂРѕРЅР°С’Рё С„Р°СЃС†РёРєР»Сѓ Р·Р° РїСЂРёС‡СѓРІРЅСѓ"/>
+                    <Item id="6803" name="Р¤Р°СЃС†РёРєР»Р°:"/>
+                    <Item id="6807" name="РЎР°РјРѕРґРѕРїСѓСљР°РІР°СљРµ"/>
+	                <Item id="6808" name="РЎР°РјРѕРґРѕРїСѓСљР°РІР°СљРµ РїСЂРё СЃРІР°РєРѕРј СѓРЅРѕСЃСѓ"/>
+                    <Item id="6809" name="Р”РѕРїСѓРЅРё С„СѓРЅРєС†РёСРµ"/>
+                    <Item id="6810" name="Р”РѕРїСѓРЅРё СЂРµС‡Рё"/>
+                    <Item id="6811" name="РћРґ"/>
+                    <Item id="6813" name="- РѕРі Р·РЅР°РєР°"/>
+                    <Item id="6814" name="Р’Р°Р¶РµС›Р° РІСЂРµРґРЅРѕСЃС‚ : 1 - 9"/>
+                    <Item id="6815" name="РЈРїСѓС‚СЃС‚РІРѕ С„СѓРЅРєС†. РїР°СЂР°РјРµС‚Р°СЂР° РїСЂРё Р·Р°РґР°РІР°СљСѓ"/>
                 </Backup>
             </Preference>
-			<MultiMacro title="Покрени макро више пута узастопно">
-                <Item id="1" name="Покрени"/>
-                <Item id="2" name="Откажи"/>
-                <Item id="8006" name="Покрени макро:"/>
-                <Item id="8001" name="Покрени"/>
-                <Item id="8005" name="пута"/>
-                <Item id="8002" name="Покрени на крај датотеке"/>
+			<MultiMacro title="РџРѕРєСЂРµРЅРё РјР°РєСЂРѕ РІРёС€Рµ РїСѓС‚Р° СѓР·Р°СЃС‚РѕРїРЅРѕ">
+                <Item id="1" name="РџРѕРєСЂРµРЅРё"/>
+                <Item id="2" name="РћС‚РєР°Р¶Рё"/>
+                <Item id="8006" name="РџРѕРєСЂРµРЅРё РјР°РєСЂРѕ:"/>
+                <Item id="8001" name="РџРѕРєСЂРµРЅРё"/>
+                <Item id="8005" name="РїСѓС‚Р°"/>
+                <Item id="8002" name="РџРѕРєСЂРµРЅРё РЅР° РєСЂР°С РґР°С‚РѕС‚РµРєРµ"/>
             </MultiMacro>
-			<Window title="Тренутне датотеке">
-                <Item id="1" name="Покрени"/>
-                <Item id="2" name="У реду"/>
-                <Item id="7002" name="Сачувај"/>
-                <Item id="7003" name="Затвори"/>
-                <Item id="7004" name="Разврстај"/>
+			<Window title="РўСЂРµРЅСѓС‚РЅРµ РґР°С‚РѕС‚РµРєРµ">
+                <Item id="1" name="РџРѕРєСЂРµРЅРё"/>
+                <Item id="2" name="РЈ СЂРµРґСѓ"/>
+                <Item id="7002" name="РЎР°С‡СѓРІР°С"/>
+                <Item id="7003" name="Р—Р°С‚РІРѕСЂРё"/>
+                <Item id="7004" name="Р Р°Р·РІСЂСЃС‚Р°С"/>
             </Window>
-			<ColumnEditor title="Уређивање стубаца">
-                <Item id="2023" name="Текст за убацивање"/>
-                <Item id="2033" name="Број за убацивање"/>
-                <Item id="2030" name="Почетни број:"/>
-                <Item id="2031" name="Повећај за:"/>
-                <Item id="2035" name="Започни с 0"/>
-                <Item id="2032" name="Формат"/>
+			<ColumnEditor title="РЈСЂРµС’РёРІР°СљРµ СЃС‚СѓР±Р°С†Р°">
+                <Item id="2023" name="РўРµРєСЃС‚ Р·Р° СѓР±Р°С†РёРІР°СљРµ"/>
+                <Item id="2033" name="Р‘СЂРѕС Р·Р° СѓР±Р°С†РёРІР°СљРµ"/>
+                <Item id="2030" name="РџРѕС‡РµС‚РЅРё Р±СЂРѕС:"/>
+                <Item id="2031" name="РџРѕРІРµС›Р°С Р·Р°:"/>
+                <Item id="2035" name="Р—Р°РїРѕС‡РЅРё СЃ 0"/>
+                <Item id="2032" name="Р¤РѕСЂРјР°С‚"/>
                 <Item id="2024" name="Dec"/>
                 <Item id="2025" name="Oct"/>
                 <Item id="2026" name="Hex"/>
                 <Item id="2027" name="Bin"/>
-                <Item id="1" name="У реду"/>
-                <Item id="2" name="Откажи"/>
+                <Item id="1" name="РЈ СЂРµРґСѓ"/>
+                <Item id="2" name="РћС‚РєР°Р¶Рё"/>
             </ColumnEditor>
 		</Dialog>
 <MessageBox>
-			<ContextMenuXmlEditWarning title="Уређивање contextMenu" message="Уређивање contextMenu.xml вам омогућава да измените свој Notepad++ искачући додатни изборник.\rМорате препокренути ваш Notepad++ да би измене ступиле на снагу contextMenu.xml."/>
-			<NppHelpAbsentWarning title="Датотека не постоји" message="\rне постоји. Преузмите је са Notepad++ сајта."/>
-			<SaveCurrentModifWarning title="Сачувај тренутну измену" message="Требало би да сачувате тренутну промену.\rСве сачуване измене се не могу опозвати.\r\rНастављате?"/>
-			<LoseUndoAbilityWarning title="Губи способност смањења опозива" message="Требало би да сачувате тренутну промену.\rСве сачуване измене се не могу опозвати.\r\rНастављате?"/>
-			<CannotMoveDoc title="Премести у нову Notepad++ инстанцу" message="Документ је измењен, сачувајте га а затим покушајте поново."/>
-			<DocReloadWarning title="Поново учитај" message="Желите да поново учутате тренутну датотеку и изгубите направљене промене у Notepad++?"/>
-			<FileLockedWarning title="Неуспешно чување" message="Проверите да ли је ова датотека отворена у другом програму"/>
-			<FileAlreadyOpenedInNpp title="" message="Датотека је већ отворена у Notepad++."/>
-			<DeleteFileFailed title="Избриши датотеку" message="Неуспешно брисање датотеке"/>
-			
+			<ContextMenuXmlEditWarning title="РЈСЂРµС’РёРІР°СљРµ contextMenu" message="РЈСЂРµС’РёРІР°СљРµ contextMenu.xml РІР°Рј РѕРјРѕРіСѓС›Р°РІР° РґР° РёР·РјРµРЅРёС‚Рµ СЃРІРѕС Notepad++ РёСЃРєР°С‡СѓС›Рё РґРѕРґР°С‚РЅРё РёР·Р±РѕСЂРЅРёРє.\rРњРѕСЂР°С‚Рµ РїСЂРµРїРѕРєСЂРµРЅСѓС‚Рё РІР°С€ Notepad++ РґР° Р±Рё РёР·РјРµРЅРµ СЃС‚СѓРїРёР»Рµ РЅР° СЃРЅР°РіСѓ contextMenu.xml."/>
+			<NppHelpAbsentWarning title="Р”Р°С‚РѕС‚РµРєР° РЅРµ РїРѕСЃС‚РѕСРё" message="\rРЅРµ РїРѕСЃС‚РѕСРё. РџСЂРµСѓР·РјРёС‚Рµ СРµ СЃР° Notepad++ СЃР°СС‚Р°."/>
+			<SaveCurrentModifWarning title="РЎР°С‡СѓРІР°С С‚СЂРµРЅСѓС‚РЅСѓ РёР·РјРµРЅСѓ" message="РўСЂРµР±Р°Р»Рѕ Р±Рё РґР° СЃР°С‡СѓРІР°С‚Рµ С‚СЂРµРЅСѓС‚РЅСѓ РїСЂРѕРјРµРЅСѓ.\rРЎРІРµ СЃР°С‡СѓРІР°РЅРµ РёР·РјРµРЅРµ СЃРµ РЅРµ РјРѕРіСѓ РѕРїРѕР·РІР°С‚Рё.\r\rРќР°СЃС‚Р°РІС™Р°С‚Рµ?"/>
+			<LoseUndoAbilityWarning title="Р“СѓР±Рё СЃРїРѕСЃРѕР±РЅРѕСЃС‚ СЃРјР°СљРµСљР° РѕРїРѕР·РёРІР°" message="РўСЂРµР±Р°Р»Рѕ Р±Рё РґР° СЃР°С‡СѓРІР°С‚Рµ С‚СЂРµРЅСѓС‚РЅСѓ РїСЂРѕРјРµРЅСѓ.\rРЎРІРµ СЃР°С‡СѓРІР°РЅРµ РёР·РјРµРЅРµ СЃРµ РЅРµ РјРѕРіСѓ РѕРїРѕР·РІР°С‚Рё.\r\rРќР°СЃС‚Р°РІС™Р°С‚Рµ?"/>
+			<CannotMoveDoc title="РџСЂРµРјРµСЃС‚Рё Сѓ РЅРѕРІСѓ Notepad++ РёРЅСЃС‚Р°РЅС†Сѓ" message="Р”РѕРєСѓРјРµРЅС‚ СРµ РёР·РјРµСљРµРЅ, СЃР°С‡СѓРІР°СС‚Рµ РіР° Р° Р·Р°С‚РёРј РїРѕРєСѓС€Р°СС‚Рµ РїРѕРЅРѕРІРѕ."/>
+			<DocReloadWarning title="РџРѕРЅРѕРІРѕ СѓС‡РёС‚Р°С" message="Р–РµР»РёС‚Рµ РґР° РїРѕРЅРѕРІРѕ СѓС‡СѓС‚Р°С‚Рµ С‚СЂРµРЅСѓС‚РЅСѓ РґР°С‚РѕС‚РµРєСѓ Рё РёР·РіСѓР±РёС‚Рµ РЅР°РїСЂР°РІС™РµРЅРµ РїСЂРѕРјРµРЅРµ Сѓ Notepad++?"/>
+			<FileLockedWarning title="РќРµСѓСЃРїРµС€РЅРѕ С‡СѓРІР°СљРµ" message="РџСЂРѕРІРµСЂРёС‚Рµ РґР° Р»Рё СРµ РѕРІР° РґР°С‚РѕС‚РµРєР° РѕС‚РІРѕСЂРµРЅР° Сѓ РґСЂСѓРіРѕРј РїСЂРѕРіСЂР°РјСѓ"/>
+			<FileAlreadyOpenedInNpp title="" message="Р”Р°С‚РѕС‚РµРєР° СРµ РІРµС› РѕС‚РІРѕСЂРµРЅР° Сѓ Notepad++."/>
+			<DeleteFileFailed title="РР·Р±СЂРёС€Рё РґР°С‚РѕС‚РµРєСѓ" message="РќРµСѓСЃРїРµС€РЅРѕ Р±СЂРёСЃР°СљРµ РґР°С‚РѕС‚РµРєРµ"/>
+
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<NbFileToOpenImportantWarning title="Количина отворених датотека је превелика" message="$INT_REPLACE$ датотеке ће бити отворене.\rЖелите да их отворите?"/>
+			<NbFileToOpenImportantWarning title="РљРѕР»РёС‡РёРЅР° РѕС‚РІРѕСЂРµРЅРёС… РґР°С‚РѕС‚РµРєР° СРµ РїСЂРµРІРµР»РёРєР°" message="$INT_REPLACE$ РґР°С‚РѕС‚РµРєРµ С›Рµ Р±РёС‚Рё РѕС‚РІРѕСЂРµРЅРµ.\rР–РµР»РёС‚Рµ РґР° РёС… РѕС‚РІРѕСЂРёС‚Рµ?"/>
 		</MessageBox>
 		<ProjectManager>
-			<PanelTitle name="Пројекат"/>
-			<WorkspaceRootName name="Радни простор"/>
-			<NewProjectName name="Назив пројекта"/>
-			<NewFolderName name="Назив фасцикле"/>
+			<PanelTitle name="РџСЂРѕСРµРєР°С‚"/>
+			<WorkspaceRootName name="Р Р°РґРЅРё РїСЂРѕСЃС‚РѕСЂ"/>
+			<NewProjectName name="РќР°Р·РёРІ РїСЂРѕСРµРєС‚Р°"/>
+			<NewFolderName name="РќР°Р·РёРІ С„Р°СЃС†РёРєР»Рµ"/>
 			<Menus>
 				<Entries>
-					<Item id="0" name="Радни простор"/>
-					<Item id="1" name="Уреди"/>
+					<Item id="0" name="Р Р°РґРЅРё РїСЂРѕСЃС‚РѕСЂ"/>
+					<Item id="1" name="РЈСЂРµРґРё"/>
 				</Entries>
 				<WorkspaceMenu>
-					<Item id="3122" name="Нови радни простор"/>
-					<Item id="3123" name="Отвори радни простор"/>
-					<Item id="3124" name="Поново учитај радни простор"/>
-					<Item id="3125" name="Сачувај"/>
-					<Item id="3126" name="Сачувај као..."/>
-					<Item id="3127" name="Сачувај копију као..."/>
-					<Item id="3121" name="Додај нови пројекат"/>
+					<Item id="3122" name="РќРѕРІРё СЂР°РґРЅРё РїСЂРѕСЃС‚РѕСЂ"/>
+					<Item id="3123" name="РћС‚РІРѕСЂРё СЂР°РґРЅРё РїСЂРѕСЃС‚РѕСЂ"/>
+					<Item id="3124" name="РџРѕРЅРѕРІРѕ СѓС‡РёС‚Р°С СЂР°РґРЅРё РїСЂРѕСЃС‚РѕСЂ"/>
+					<Item id="3125" name="РЎР°С‡СѓРІР°С"/>
+					<Item id="3126" name="РЎР°С‡СѓРІР°С РєР°Рѕ..."/>
+					<Item id="3127" name="РЎР°С‡СѓРІР°С РєРѕРїРёССѓ РєР°Рѕ..."/>
+					<Item id="3121" name="Р”РѕРґР°С РЅРѕРІРё РїСЂРѕСРµРєР°С‚"/>
 				</WorkspaceMenu>
 				<ProjectMenu>
-					<Item id="3111" name="Преименуј"/>
-					<Item id="3112" name="Додај фасциклу"/>
-					<Item id="3113" name="Додај датотеке..."/>
-					<Item id="3117" name="Додај датотеке из директоријума..."/>
-					<Item id="3114" name="Уклони"/>
-					<Item id="3118" name="Премести нагоре"/>
-					<Item id="3119" name="Премести надоле"/>
+					<Item id="3111" name="РџСЂРµРёРјРµРЅСѓС"/>
+					<Item id="3112" name="Р”РѕРґР°С С„Р°СЃС†РёРєР»Сѓ"/>
+					<Item id="3113" name="Р”РѕРґР°С РґР°С‚РѕС‚РµРєРµ..."/>
+					<Item id="3117" name="Р”РѕРґР°С РґР°С‚РѕС‚РµРєРµ РёР· РґРёСЂРµРєС‚РѕСЂРёССѓРјР°..."/>
+					<Item id="3114" name="РЈРєР»РѕРЅРё"/>
+					<Item id="3118" name="РџСЂРµРјРµСЃС‚Рё РЅР°РіРѕСЂРµ"/>
+					<Item id="3119" name="РџСЂРµРјРµСЃС‚Рё РЅР°РґРѕР»Рµ"/>
 				</ProjectMenu>
 				<FolderMenu>
-					<Item id="3111" name="Применуј"/>
-					<Item id="3112" name="Додај фасциклу"/>
-					<Item id="3113" name="Додај датотеке..."/>
-					<Item id="3117" name="Додај датотеке из директоријума..."/>
-					<Item id="3114" name="Уклони"/>
-					<Item id="3118" name="Премести нагоре"/>
-					<Item id="3119" name="Премести надоле"/>
+					<Item id="3111" name="РџСЂРёРјРµРЅСѓС"/>
+					<Item id="3112" name="Р”РѕРґР°С С„Р°СЃС†РёРєР»Сѓ"/>
+					<Item id="3113" name="Р”РѕРґР°С РґР°С‚РѕС‚РµРєРµ..."/>
+					<Item id="3117" name="Р”РѕРґР°С РґР°С‚РѕС‚РµРєРµ РёР· РґРёСЂРµРєС‚РѕСЂРёССѓРјР°..."/>
+					<Item id="3114" name="РЈРєР»РѕРЅРё"/>
+					<Item id="3118" name="РџСЂРµРјРµСЃС‚Рё РЅР°РіРѕСЂРµ"/>
+					<Item id="3119" name="РџСЂРµРјРµСЃС‚Рё РЅР°РґРѕР»Рµ"/>
 				</FolderMenu>
 				<FileMenu>
-					<Item id="3111" name="Преименуј"/>
-					<Item id="3115" name="Уклони"/>
-					<Item id="3116" name="Измени путању датотеке"/>
-					<Item id="3118" name="Премести нагоре"/>
-					<Item id="3119" name="Премести надоле"/>
+					<Item id="3111" name="РџСЂРµРёРјРµРЅСѓС"/>
+					<Item id="3115" name="РЈРєР»РѕРЅРё"/>
+					<Item id="3116" name="РР·РјРµРЅРё РїСѓС‚Р°СљСѓ РґР°С‚РѕС‚РµРєРµ"/>
+					<Item id="3118" name="РџСЂРµРјРµСЃС‚Рё РЅР°РіРѕСЂРµ"/>
+					<Item id="3119" name="РџСЂРµРјРµСЃС‚Рё РЅР°РґРѕР»Рµ"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>

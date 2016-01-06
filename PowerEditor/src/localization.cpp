@@ -26,13 +26,78 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
 #include "Notepad_plus.h"
 #include "ShortcutMapper.h"
 #include "EncodingMapper.h"
-
 #include "localization.h"
 
+using namespace std;
+
+
+
+MenuPosition menuPos[] = {
+	//==============================================
+	//  {L0,  L1,  L2,    id},
+	//==============================================
+	{ 0, -1, -1, "file" },
+	{ 1, -1, -1, "edit" },
+	{ 2, -1, -1, "search" },
+	{ 3, -1, -1, "view" },
+	{ 4, -1, -1, "encoding" },
+	{ 5, -1, -1, "language" },
+	{ 6, -1, -1, "settings" },
+	{ 7, -1, -1, "macro" },
+	{ 8, -1, -1, "run" },
+
+	{ 0, 2, -1, "file-openFolder" },
+	{ 0, 11, -1, "file-closeMore" },
+	{ 0, 20, -1, "file-recentFiles" },
+
+	{ 1, 10, -1, "edit-copyToClipboard" },
+	{ 1, 11, -1, "edit-indent" },
+	{ 1, 12, -1, "edit-convertCaseTo" },
+	{ 1, 13, -1, "edit-lineOperations" },
+	{ 1, 14, -1, "edit-comment" },
+	{ 1, 15, -1, "edit-autoCompletion" },
+	{ 1, 16, -1, "edit-eolConversion" },
+	{ 1, 17, -1, "edit-blankOperations" },
+	{ 1, 18, -1, "edit-pasteSpecial" },
+
+	{ 2, 18, -1, "search-markAll" },
+	{ 2, 19, -1, "search-unmarkAll" },
+	{ 2, 20, -1, "search-jumpUp" },
+	{ 2, 21, -1, "search-jumpDown" },
+	{ 2, 23, -1, "search-bookmark" },
+
+	{ 3, 4, -1, "view-showSymbol" },
+	{ 3, 5, -1, "view-zoom" },
+	{ 3, 6, -1, "view-moveCloneDocument" },
+	{ 3, 7, -1, "view-tab" },
+	{ 3, 16, -1, "view-collapseLevel" },
+	{ 3, 17, -1, "view-uncollapseLevel" },
+	{ 3, 21, -1, "view-project" },
+
+	{ 4, 5, -1, "encoding-characterSets" },
+	{ 4, 5, 0, "encoding-arabic" },
+	{ 4, 5, 1, "encoding-baltic" },
+	{ 4, 5, 2, "encoding-celtic" },
+	{ 4, 5, 3, "encoding-cyrillic" },
+	{ 4, 5, 4, "encoding-centralEuropean" },
+	{ 4, 5, 5, "encoding-chinese" },
+	{ 4, 5, 6, "encoding-easternEuropean" },
+	{ 4, 5, 7, "encoding-greek" },
+	{ 4, 5, 8, "encoding-hebrew" },
+	{ 4, 5, 9, "encoding-japanese" },
+	{ 4, 5, 10, "encoding-korean" },
+	{ 4, 5, 11, "encoding-northEuropean" },
+	{ 4, 5, 12, "encoding-thai" },
+	{ 4, 5, 13, "encoding-turkish" },
+	{ 4, 5, 14, "encoding-westernEuropean" },
+	{ 4, 5, 15, "encoding-vietnamese" },
+
+	{ 6, 4, -1, "settings-import" },
+	{ -1, -1, -1, "" } // End of array
+};
 
 void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish)
 {
@@ -82,7 +147,6 @@ generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
 	if (!mainMenu) return TEXT("");
 	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
 	if (!entriesRoot) return TEXT("");
-	const char *idName = NULL;
 
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 
@@ -92,7 +156,7 @@ generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
 	{
 		TiXmlElementA *element = childNode->ToElement();
 
-		idName = element->Attribute("idName");
+		const char *idName = element->Attribute("idName");
 		if (idName)
 		{
 			const char *name = element->Attribute("name");
@@ -139,78 +203,9 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID)
 	return TEXT("");
 }
 
-struct MenuPosition {
-	int _x;
-	int _y;
-	int _z;
-	char _id[64];
-};
 
-MenuPosition menuPos[] = {
-//==============================================
-//  {L0,  L1,  L2,    id},
-//==============================================
-	{ 0,  -1,  -1,    "file"},
-	{ 1,  -1,  -1,    "edit"},
-	{ 2,  -1,  -1,    "search"},
-	{ 3,  -1,  -1,    "view"},
-	{ 4,  -1,  -1,    "encoding"},
-	{ 5,  -1,  -1,    "language"},
-	{ 6,  -1,  -1,    "settings"},
-	{ 7,  -1,  -1,    "macro"},
-	{ 8,  -1,  -1,    "run"},
-
-	{ 0,   2,  -1,    "file-openFolder"},
-	{ 0,  11,  -1,    "file-closeMore"},
-	{ 0,  20,  -1,    "file-recentFiles"},
-
-	{ 1,  10,  -1,    "edit-copyToClipboard"},
-	{ 1,  11,  -1,    "edit-indent"},
-	{ 1,  12,  -1,    "edit-convertCaseTo"},
-	{ 1,  13,  -1,    "edit-lineOperations"},
-	{ 1,  14,  -1,    "edit-comment"},
-	{ 1,  15,  -1,    "edit-autoCompletion"},
-	{ 1,  16,  -1,    "edit-eolConversion"},
-	{ 1,  17,  -1,    "edit-blankOperations"},
-	{ 1,  18,  -1,    "edit-pasteSpecial"},
-	
-	{ 2,  18,  -1,    "search-markAll"},
-	{ 2,  19,  -1,    "search-unmarkAll"},
-	{ 2,  20,  -1,    "search-jumpUp"},
-	{ 2,  21,  -1,    "search-jumpDown"},
-	{ 2,  23,  -1,    "search-bookmark"},
-	
-	{ 3,   4,  -1,    "view-showSymbol"},
-	{ 3,   5,  -1,    "view-zoom"},
-	{ 3,   6,  -1,    "view-moveCloneDocument"},
-	{ 3,   7,  -1,    "view-tab"},
-	{ 3,  16,  -1,    "view-collapseLevel"},
-	{ 3,  17,  -1,    "view-uncollapseLevel"},
-	{ 3,  21,  -1,    "view-project"},
-	
-	{ 4,   5,  -1,    "encoding-characterSets"},
-	{ 4,   5,   0,    "encoding-arabic"},
-	{ 4,   5,   1,    "encoding-baltic"},
-	{ 4,   5,   2,    "encoding-celtic"},
-	{ 4,   5,   3,    "encoding-cyrillic"},
-	{ 4,   5,   4,    "encoding-centralEuropean"},
-	{ 4,   5,   5,    "encoding-chinese"},
-	{ 4,   5,   6,    "encoding-easternEuropean"},
-	{ 4,   5,   7,    "encoding-greek"},
-	{ 4,   5,   8,    "encoding-hebrew"},
-	{ 4,   5,   9,    "encoding-japanese"},
-	{ 4,   5,  10,    "encoding-korean"},
-	{ 4,   5,  11,    "encoding-northEuropean"},
-	{ 4,   5,  12,    "encoding-thai"},
-	{ 4,   5,  13,    "encoding-turkish"},
-	{ 4,   5,  14,    "encoding-westernEuropean"},
-	{ 4,   5,  15,    "encoding-vietnamese"},
-
-	{ 6,   4,  -1,    "settings-import"},
-	{-1,  -1,  -1,    ""} // End of array
-};
-
-MenuPosition & getMenuPosition(const char *id) {
+MenuPosition & getMenuPosition(const char *id)
+{
 
 	int nbSubMenuPos = sizeof(menuPos)/sizeof(MenuPosition);
 
@@ -220,20 +215,27 @@ MenuPosition & getMenuPosition(const char *id) {
 			return menuPos[i];
 	}
 	return menuPos[nbSubMenuPos-1];
-};
+}
 
 void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans)
 {
-	if (!_nativeLangA) return;
-	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
-	if (!mainMenu) return;
-	mainMenu = mainMenu->FirstChild("Main");
-	if (!mainMenu) return;
-	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
-	if (!entriesRoot) return;
-	const char *idName = NULL;
+	if (nullptr == _nativeLangA)
+		return;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
+	if (nullptr == mainMenu)
+		return;
+
+	mainMenu = mainMenu->FirstChild("Main");
+	if (nullptr == mainMenu)
+		return;
+
+	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
+	if (nullptr == entriesRoot)
+		return;
+
+	const char* idName = nullptr;
+	WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
 
 	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
 		childNode ;
@@ -251,7 +253,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 				::ModifyMenu(menuHandle, menuPos._x, MF_BYPOSITION, 0, nameW);
 			}
 		}
-		else 
+		else
 		{
 			idName = element->Attribute("idName");
 			if (idName)
@@ -291,24 +293,24 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 		childNode ;
 		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int x, y, z;
+		TiXmlElementA* element = childNode->ToElement();
 		//const char *xStr = element->Attribute("posX", &x);
 		//const char *yStr = element->Attribute("posY", &y);
-		const char *subMenuIdStr = element->Attribute("subMenuId");
-		const char *name = element->Attribute("name");
+		const char* subMenuIdStr = element->Attribute("subMenuId");
+		const char* name = element->Attribute("name");
 
-		if (!subMenuIdStr || !name)
+		if (nullptr == subMenuIdStr or nullptr == name)
 			continue;
 
-		MenuPosition & menuPos = getMenuPosition(subMenuIdStr);
-		x = menuPos._x;
-		y = menuPos._y;
-		z = menuPos._z;
+		MenuPosition& menuPos = getMenuPosition(subMenuIdStr);
+		int x = menuPos._x;
+		int y = menuPos._y;
+		int z = menuPos._z;
 
 		HMENU hSubMenu = ::GetSubMenu(menuHandle, x);
 		if (!hSubMenu)
 			continue;
+
 		HMENU hSubMenu2 = ::GetSubMenu(hSubMenu, y);
 		if (!hSubMenu2)
 			continue;
@@ -331,42 +333,45 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 	}
 }
 
-int tabContextMenuItemPos[] = {
-0, // 0 : Close 
-1, // 1 : Close ALL BUT This
-4, // 2 : Save
-5, // 3 : Save As
-9, // 4 : Print
-21,// 5 : Move to Other View
-22,// 6 : Clone to Other View
-17,// 7 : Full File Path to Clipboard
-18,// 8 : Filename to Clipboard
-19,// 9 : Current Dir. Path to Clipboard
-6, // 10: Rename
-7, // 11: Move to Recycle Bin
-14,// 12: Read-Only
-15,// 13: Clear Read-Only Flag
-23,// 14: Move to New Instance
-24,// 15: Open to New Instance
-8, // 16: Reload
-2, // 17: Close ALL to the Left
-3, // 18: Close ALL to the Right
-11,// 19: Open Containing Folder in Explorer
-12,// 20: Open Containing Folder in cmd
--1 //-------End
+
+static const int tabContextMenuItemPos[] =
+{
+	0,   // 0 : Close
+	1,   // 1 : Close ALL BUT This
+	4,   // 2 : Save
+	5,   // 3 : Save As
+	9,   // 4 : Print
+	21,  // 5 : Move to Other View
+	22,  // 6 : Clone to Other View
+	17,  // 7 : Full File Path to Clipboard
+	18,  // 8 : Filename to Clipboard
+	19,  // 9 : Current Dir. Path to Clipboard
+	6,   // 10: Rename
+	7,   // 11: Move to Recycle Bin
+	14,  // 12: Read-Only
+	15,  // 13: Clear Read-Only Flag
+	23,  // 14: Move to New Instance
+	24,  // 15: Open to New Instance
+	8,   // 16: Reload
+	2,   // 17: Close ALL to the Left
+	3,   // 18: Close ALL to the Right
+	11,  // 19: Open Containing Folder in Explorer
+	12,  // 20: Open Containing Folder in cmd
+	-1   //-------End
 };
+
 
 void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 {
-	if (_nativeLangA)
+	if (nullptr != _nativeLangA)
 	{
 		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
-		if (tabBarMenu) 
+		if (tabBarMenu)
 		{
 			tabBarMenu = tabBarMenu->FirstChild("TabBar");
 			if (tabBarMenu)
 			{
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
 				int nbCMItems = sizeof(tabContextMenuItemPos)/sizeof(int);
 
 				for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
@@ -397,14 +402,16 @@ void NativeLangSpeaker::changeLangTabDrapContextMenu(HMENU hCM)
 {
 	const int POS_GO2VIEW = 0;
 	const int POS_CLONE2VIEW = 1;
-	const char *goToViewA = NULL;
-	const char *cloneToViewA = NULL;
 
 	if (_nativeLangA)
 	{
+		const char *goToViewA = nullptr;
+		const char *cloneToViewA = nullptr;
+
 		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
 		if (tabBarMenu)
 			tabBarMenu = tabBarMenu->FirstChild("TabBar");
+
 		if (tabBarMenu)
 		{
 			for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
@@ -437,13 +444,16 @@ void NativeLangSpeaker::changeLangTabDrapContextMenu(HMENU hCM)
 	}
 }
 
+
 void NativeLangSpeaker::changeConfigLang(HWND hDlg)
 {
-	if (!_nativeLangA) return;
+	if (nullptr == _nativeLangA)
+		return;
 
 	TiXmlNodeA *styleConfDlgNode = _nativeLangA->FirstChild("Dialog");
-	if (!styleConfDlgNode) return;	
-	
+	if (!styleConfDlgNode)
+		return;
+
 	styleConfDlgNode = styleConfDlgNode->FirstChild("StyleConfig");
 	if (!styleConfDlgNode) return;
 
@@ -1071,41 +1081,20 @@ generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const 
 	return defaultStr;
 }
 
-int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *defaultMessage, TCHAR *defaultTitle, int msgBoxType, int intInfo, TCHAR *strInfo)
+int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *defaultMessage, const TCHAR *defaultTitle, int msgBoxType, int intInfo, const TCHAR *strInfo)
 {
 	generic_string msg, title;
-	size_t index;
-	TCHAR int2Write[256];
-	TCHAR intPlaceHolderSymbol[] = TEXT("$INT_REPLACE$");
-	TCHAR strPlaceHolderSymbol[] = TEXT("$STR_REPLACE$");
-
-	size_t intPlaceHolderLen = lstrlen(intPlaceHolderSymbol);
-	size_t strPlaceHolderLen = lstrlen(strPlaceHolderSymbol);
-
-	generic_sprintf(int2Write, TEXT("%d"), intInfo);
-
 	if (!getMsgBoxLang(msgBoxTagName, title, msg))
 	{
 		title = defaultTitle;
 		msg = defaultMessage;
 	}
-	index = title.find(intPlaceHolderSymbol);
-	if (index != string::npos)
-		title.replace(index, intPlaceHolderLen, int2Write);
-
-	index = msg.find(intPlaceHolderSymbol);
-	if (index != string::npos)
-		msg.replace(index, intPlaceHolderLen, int2Write);
-
+	title = stringReplace(title, TEXT("$INT_REPLACE$"), std::to_wstring(intInfo));
+	msg = stringReplace(msg, TEXT("$INT_REPLACE$"), std::to_wstring(intInfo));
 	if (strInfo)
 	{
-		index = title.find(strPlaceHolderSymbol);
-		if (index != string::npos)
-			title.replace(index, strPlaceHolderLen, strInfo);
-
-		index = msg.find(strPlaceHolderSymbol);
-		if (index != string::npos)
-			msg.replace(index, strPlaceHolderLen, strInfo);
+		title = stringReplace(title, TEXT("$STR_REPLACE$"), strInfo);
+		msg = stringReplace(msg, TEXT("$STR_REPLACE$"), strInfo);
 	}
 	return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
 }

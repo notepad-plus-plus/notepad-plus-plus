@@ -22,7 +22,7 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-#include "precompiledHeaders.h"
+#include "Common.h"
 #include "tinyxmlA.h"
 
 #ifdef TIXMLA_USE_STL

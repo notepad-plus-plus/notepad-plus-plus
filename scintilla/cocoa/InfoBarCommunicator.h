@@ -8,7 +8,7 @@
  * This file is dual licensed under LGPL v2.1 and the Scintilla license (http://www.scintilla.org/License.txt).
  */
 
-enum IBDisplay {
+typedef NS_OPTIONS(NSUInteger, IBDisplay) {
   IBShowZoom          = 0x01,
   IBShowCaretPosition = 0x02,
   IBShowStatusText    = 0x04,
@@ -21,7 +21,7 @@ enum IBDisplay {
  * ScintillaView implementation. The protocol is used two-way.
  */
 
-enum NotificationType {
+typedef NS_ENUM(NSInteger, NotificationType) {
   IBNZoomChanged,    // The user selected another zoom value.
   IBNCaretChanged,   // The caret in the editor changed.
   IBNStatusChanged,  // The application set a new status message.

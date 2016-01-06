@@ -53,7 +53,7 @@ enum moveMode {
 class ViewZoneDlg : public StaticDialog
 {
 public :
-	ViewZoneDlg() : StaticDialog() {};
+	ViewZoneDlg() : StaticDialog(), _viewZoneCanvas(NULL), _canvasDefaultProc(nullptr), _higherY(0), _lowerY(0) {}
 
 	void doDialog();
 
@@ -63,7 +63,8 @@ public :
 	void drawZone(long hY, long lY) {
 		_higherY = hY;
 		_lowerY = lY;
-		::InvalidateRect(_viewZoneCanvas, NULL, TRUE);
+		if (NULL != _viewZoneCanvas)
+			::InvalidateRect(_viewZoneCanvas, NULL, TRUE);
 	};
 
 	int getViewerHeight() const {
@@ -75,10 +76,10 @@ public :
 	};
 
 protected :
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
-	static BOOL CALLBACK canvasStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
-	BOOL CALLBACK canvas_runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK canvasStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	LRESULT CALLBACK canvas_runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	void drawPreviewZone(DRAWITEMSTRUCT *pdis);
 
@@ -134,7 +135,7 @@ public:
 	void changeTextDirection(bool isRTL);
 
 protected:
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool needToRecomputeWith();
 	int getEditorTextZoneWidth();
 

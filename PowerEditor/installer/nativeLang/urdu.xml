@@ -1,278 +1,278 @@
-<?xml version="1.0" encoding="Windows-1256"?>
+<?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
 	<Native-Langue name = "Urdu" RTL="yes" filename="urdu.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId="file" name = "&amp;فائل"/>/
-					<Item menuId="edit" name = "&amp;ترميم"/>
-					<Item menuId="search" name = "&amp;تلاش"/>
-					<Item menuId="view" name = "&amp;نمائش"/>
-					<Item menuId="encoding" name = "&amp;اينکوڈنگ"/>
-					<Item menuId="language" name = "&amp;پروگرامنگ زبان"/>
-					<Item menuId="settings" name = "&amp;ترتيبات"/>
-					<Item menuId="macro" name = "ميکرو"/>
-					<Item menuId="run" name = "رن"/>
+					<Item menuId="file" name = "&amp;ظپط§ط¦ظ„"/>/
+					<Item menuId="edit" name = "&amp;طھط±ظ…ظٹظ…"/>
+					<Item menuId="search" name = "&amp;طھظ„ط§ط´"/>
+					<Item menuId="view" name = "&amp;ظ†ظ…ط§ط¦ط´"/>
+					<Item menuId="encoding" name = "&amp;ط§ظٹظ†ع©ظˆعˆظ†ع¯"/>
+					<Item menuId="language" name = "&amp;ظ¾ط±ظˆع¯ط±ط§ظ…ظ†ع¯ ط²ط¨ط§ظ†"/>
+					<Item menuId="settings" name = "&amp;طھط±طھظٹط¨ط§طھ"/>
+					<Item menuId="macro" name = "ظ…ظٹع©ط±ظˆ"/>
+					<Item menuId="run" name = "ط±ظ†"/>
 				</Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
-                    <Item id = "41001" name = "&amp;نيا	Ctrl+N"/>
-                    <Item id = "41002" name = "&amp;کھوليں	Ctrl+O"/>
-                    <Item id = "41003" name = "منسوخ	Ctrl+W"/>
-                    <Item id = "41004" name = "&amp;سب بند کريں"/>
-                    <Item id = "41005" name = "حاليہ ڈاکيومنٹ کے علاوہ سب بند کريں"/>
-                    <Item id = "41006" name = "&amp;محفوظ	Ctrl+S"/>
-                    <Item id = "41007" name = "&amp;سب محفوظ کريں	Ctrl+Shift+S"/>
-                    <Item id = "41008" name = "محفوظ &amp;بشکل..."/>
-                    <Item id = "41010" name = "طباعت...	Ctrl+P"/>
-                    <Item id = "41011" name = "&amp;خروج"/>
+                    <Item id = "41001" name = "&amp;ظ†ظٹط§	Ctrl+N"/>
+                    <Item id = "41002" name = "&amp;ع©ع¾ظˆظ„ظٹع؛	Ctrl+O"/>
+                    <Item id = "41003" name = "ظ…ظ†ط³ظˆط®	Ctrl+W"/>
+                    <Item id = "41004" name = "&amp;ط³ط¨ ط¨ظ†ط¯ ع©ط±ظٹع؛"/>
+                    <Item id = "41005" name = "ط­ط§ظ„ظٹغپ عˆط§ع©ظٹظˆظ…ظ†ظ¹ ع©غ’ ط¹ظ„ط§ظˆغپ ط³ط¨ ط¨ظ†ط¯ ع©ط±ظٹع؛"/>
+                    <Item id = "41006" name = "&amp;ظ…ط­ظپظˆط¸	Ctrl+S"/>
+                    <Item id = "41007" name = "&amp;ط³ط¨ ظ…ط­ظپظˆط¸ ع©ط±ظٹع؛	Ctrl+Shift+S"/>
+                    <Item id = "41008" name = "ظ…ط­ظپظˆط¸ &amp;ط¨ط´ع©ظ„..."/>
+                    <Item id = "41010" name = "ط·ط¨ط§ط¹طھ...	Ctrl+P"/>
+                    <Item id = "41011" name = "&amp;ط®ط±ظˆط¬"/>
 
-                    <Item id = "41012" name = "نشست لوڈ..."/>
-                    <Item id = "41013" name = "نشست محفوظ..."/>
-                    
-                    <Item id = "42001" name = "&amp;کٹ	Ctrl+X"/>
-                    <Item id = "42002" name = "&amp;نقل	Ctrl+C"/>
-                    <Item id = "42003" name = "&amp;ان ڈو	Ctrl+Z"/>
-                    <Item id = "42004" name = "&amp;ري ڈو	Ctrl+Y"/>
-                    <Item id = "42005" name = "&amp;چسپاں	Ctrl+V"/>
-                    <Item id = "42006" name = "&amp;حذف	Del"/>
-                    <Item id = "42007" name = "سب&amp;منتخب	Ctrl+A"/>
-                    <Item id = "42008" name = "ٹيب داخل کريں	TAB"/>
-                    <Item id = "42009" name = "ٹيب ختم کريں	Shift+TAB"/>
-                    <Item id = "42010" name = "حاليہ سطر کو ڈبل کريں	Ctrl+D"/>
-                    <Item id = "42011" name = "حاليہ سطر کو منتقل کريں	Ctrl+T"/>
-                    <Item id = "42012" name = "سطريں تقسيم کريں	Ctrl+I"/>
-                    <Item id = "42013" name = "سطريں ملائيں	Ctrl+J"/>
-                    <Item id = "42014" name = "حاليہ سطر کو اوپر منتقل کريں	Ctrl+Shift+Up"/>   
-                    <Item id = "42015" name = "حاليہ سطر کو نيچے منتقل کريں	Ctrl+Shift+Down"/>   
-                    <Item id = "42016" name = "انگريزي حروف بڑے	Ctrl+Shift+U"/>
-                    <Item id = "42017" name = "انگريزي حروف چھوٹے	Ctrl+U"/>
-                    <Item id = "42018" name = "&amp;اندراج شروع	Ctrl+Shift+R"/>
-                    <Item id = "42019" name = "&amp;اندراج منسوخ	Ctrl+Shift+R"/>
-                    <Item id = "42021" name = "&amp;واپپس	Ctrl+Shift+P"/>
-                    <Item id = "42022" name = "زمرة تعليق/إلغاء تعليق"/>
-                    <Item id = "42023" name = "جاري تبصرہ"/>
-                    <Item id = "42024" name = "آخ ميں مسافتيں ختم کتيں"/>
-                    <Item id = "42025" name = "حاليہ مندرج ميکرو محفوظ کريں"/>
-                    <Item id = "42026" name = "متن دائيں سے بائيں	Ctrl+Alt+R"/>
-                    <Item id = "42027" name = "متن بائيں سے دائيں	Ctrl+Alt+L"/>
-					
-                    <Item id = "43001" name = "&amp;تلاش...	Ctrl+F"/>
-                    <Item id = "43002" name = "&amp;تخليق	F3"/>
-                    <Item id = "43003" name = "تبديل...	Ctrl+H"/>
-                    <Item id = "43004" name = "سطر پر جائيں	Ctrl+G"/>
-                    <Item id = "43005" name = "ثبت المؤشر	Ctrl+F2"/>
-                    <Item id = "43006" name = "المؤشر التالي	F2"/>
-                    <Item id = "43007" name = "المؤشر اللاحق	Shift+F2"/>
-                    <Item id = "43008" name = "مسح جميع المؤشرات"/>
-                    <Item id = "43009" name = "إذهب إلى القوس المطابق	Ctrl+B"/>
-                    <Item id = "43010" name = "إيجاد السابق	Shift+F3"/>
-                    <Item id = "43013" name = "فائلوں ميں تلاش	Ctrl+Shift+F"/>
-					
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <Item id = "44010" name = "سب کو فولڈ کريں	Alt+0"/>
-                    <Item id = "44011" name = "تعريف حوار المستخدم"/>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <Item id = "44019" name = "تمام حروف دکھائيں"/>
-                    <Item id = "44020" name = "أظهر موجه الطلب"/>
-                    
-                    <Item id = "44022" name = "غلِّف"/>
-                    <Item id = "44023" name = "&amp;تصغير	Ctrl-Mouse Wheel Up"/>
-                    <Item id = "44024" name = "تك&amp;بير	Ctrl-Mouse Wheel Down"/>
-                    <Item id = "44025" name = "أظهر المسافات البيضاء و تاب"/>
-                    <Item id = "44026" name = "سطر کا اختتام دکھائيں"/>
-                    
-                    
-                    <Item id = "44029" name = "عدم لف الكل	Alt+Shift+0"/>
-                    <Item id = "44030" name = " ألغي المستوى الحالي	Ctrl+Alt+F"/>
-                    <Item id = "44031" name = "لا تلغي المستوى الحالي	Ctrl+Alt+Shift+F"/>
-                    <Item id = "44032" name = "تكبير الشاشة 	F11"/>
-                    <Item id = "44033" name = "إعدادات التقريب الإفتراضية	Ctrl+/(keypad)"/>
-                    <Item id = "44034" name = "دائماً بالأعلى"/>
-                    <Item id = "44035" name = "تزامن التحريك العمودي"/>
-                    <Item id = "44036" name = "تزامن التحريك الأفقي"/>
-                    <Item id = "45001" name = "حول لصيغة ويندوز"/>
-                    <Item id = "45002" name = "حول لصيغة يونيكس"/>
-                    <Item id = "45003" name = "حول لصيغة ماكنتوش"/>
-                    <Item id = "45004" name = "رمز برائے ANSI"/>
-                    <Item id = "45005" name = "رمز برائے UTF-8"/>
-                    <Item id = "45006" name = " رمز برائے (UCS-2 Big Endian)"/>
-                    <Item id = "45007" name = " رمز برائے (UCS-2 Little Endian)"/>
-                    <Item id = "45008" name = " رمز برائے (UTF-8 (without BOM))"/>
-                    
-                    <Item id = "10001" name = "إذهب إلى منظر آخر"/>
-                    <Item id = "10002" name = "انسخ إلى منظر آخر"/>
-                    
-                    <Item id = "46001" name = "نمط معرف ..."/>
-                    <Item id = "47000" name = "حول...	F1"/>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <Item id = "48009" name = "راسم الإختصار..."/>
-                    
-                    <Item id = "49000" name = "&amp;رن..."/>
+                    <Item id = "41012" name = "ظ†ط´ط³طھ ظ„ظˆعˆ..."/>
+                    <Item id = "41013" name = "ظ†ط´ط³طھ ظ…ط­ظپظˆط¸..."/>
+
+                    <Item id = "42001" name = "&amp;ع©ظ¹	Ctrl+X"/>
+                    <Item id = "42002" name = "&amp;ظ†ظ‚ظ„	Ctrl+C"/>
+                    <Item id = "42003" name = "&amp;ط§ظ† عˆظˆ	Ctrl+Z"/>
+                    <Item id = "42004" name = "&amp;ط±ظٹ عˆظˆ	Ctrl+Y"/>
+                    <Item id = "42005" name = "&amp;ع†ط³ظ¾ط§ع؛	Ctrl+V"/>
+                    <Item id = "42006" name = "&amp;ط­ط°ظپ	Del"/>
+                    <Item id = "42007" name = "ط³ط¨&amp;ظ…ظ†طھط®ط¨	Ctrl+A"/>
+                    <Item id = "42008" name = "ظ¹ظٹط¨ ط¯ط§ط®ظ„ ع©ط±ظٹع؛	TAB"/>
+                    <Item id = "42009" name = "ظ¹ظٹط¨ ط®طھظ… ع©ط±ظٹع؛	Shift+TAB"/>
+                    <Item id = "42010" name = "ط­ط§ظ„ظٹغپ ط³ط·ط± ع©ظˆ عˆط¨ظ„ ع©ط±ظٹع؛	Ctrl+D"/>
+                    <Item id = "42011" name = "ط­ط§ظ„ظٹغپ ط³ط·ط± ع©ظˆ ظ…ظ†طھظ‚ظ„ ع©ط±ظٹع؛	Ctrl+T"/>
+                    <Item id = "42012" name = "ط³ط·ط±ظٹع؛ طھظ‚ط³ظٹظ… ع©ط±ظٹع؛	Ctrl+I"/>
+                    <Item id = "42013" name = "ط³ط·ط±ظٹع؛ ظ…ظ„ط§ط¦ظٹع؛	Ctrl+J"/>
+                    <Item id = "42014" name = "ط­ط§ظ„ظٹغپ ط³ط·ط± ع©ظˆ ط§ظˆظ¾ط± ظ…ظ†طھظ‚ظ„ ع©ط±ظٹع؛	Ctrl+Shift+Up"/>
+                    <Item id = "42015" name = "ط­ط§ظ„ظٹغپ ط³ط·ط± ع©ظˆ ظ†ظٹع†غ’ ظ…ظ†طھظ‚ظ„ ع©ط±ظٹع؛	Ctrl+Shift+Down"/>
+                    <Item id = "42016" name = "ط§ظ†ع¯ط±ظٹط²ظٹ ط­ط±ظˆظپ ط¨ع‘غ’	Ctrl+Shift+U"/>
+                    <Item id = "42017" name = "ط§ظ†ع¯ط±ظٹط²ظٹ ط­ط±ظˆظپ ع†ع¾ظˆظ¹غ’	Ctrl+U"/>
+                    <Item id = "42018" name = "&amp;ط§ظ†ط¯ط±ط§ط¬ ط´ط±ظˆط¹	Ctrl+Shift+R"/>
+                    <Item id = "42019" name = "&amp;ط§ظ†ط¯ط±ط§ط¬ ظ…ظ†ط³ظˆط®	Ctrl+Shift+R"/>
+                    <Item id = "42021" name = "&amp;ظˆط§ظ¾ظ¾ط³	Ctrl+Shift+P"/>
+                    <Item id = "42022" name = "ط²ظ…ط±ط© طھط¹ظ„ظٹظ‚/ط¥ظ„ط؛ط§ط، طھط¹ظ„ظٹظ‚"/>
+                    <Item id = "42023" name = "ط¬ط§ط±ظٹ طھط¨طµط±غپ"/>
+                    <Item id = "42024" name = "ط¢ط® ظ…ظٹع؛ ظ…ط³ط§ظپطھظٹع؛ ط®طھظ… ع©طھظٹع؛"/>
+                    <Item id = "42025" name = "ط­ط§ظ„ظٹغپ ظ…ظ†ط¯ط±ط¬ ظ…ظٹع©ط±ظˆ ظ…ط­ظپظˆط¸ ع©ط±ظٹع؛"/>
+                    <Item id = "42026" name = "ظ…طھظ† ط¯ط§ط¦ظٹع؛ ط³غ’ ط¨ط§ط¦ظٹع؛	Ctrl+Alt+R"/>
+                    <Item id = "42027" name = "ظ…طھظ† ط¨ط§ط¦ظٹع؛ ط³غ’ ط¯ط§ط¦ظٹع؛	Ctrl+Alt+L"/>
+
+                    <Item id = "43001" name = "&amp;طھظ„ط§ط´...	Ctrl+F"/>
+                    <Item id = "43002" name = "&amp;طھط®ظ„ظٹظ‚	F3"/>
+                    <Item id = "43003" name = "طھط¨ط¯ظٹظ„...	Ctrl+H"/>
+                    <Item id = "43004" name = "ط³ط·ط± ظ¾ط± ط¬ط§ط¦ظٹع؛	Ctrl+G"/>
+                    <Item id = "43005" name = "ط«ط¨طھ ط§ظ„ظ…ط¤ط´ط±	Ctrl+F2"/>
+                    <Item id = "43006" name = "ط§ظ„ظ…ط¤ط´ط± ط§ظ„طھط§ظ„ظٹ	F2"/>
+                    <Item id = "43007" name = "ط§ظ„ظ…ط¤ط´ط± ط§ظ„ظ„ط§ط­ظ‚	Shift+F2"/>
+                    <Item id = "43008" name = "ظ…ط³ط­ ط¬ظ…ظٹط¹ ط§ظ„ظ…ط¤ط´ط±ط§طھ"/>
+                    <Item id = "43009" name = "ط¥ط°ظ‡ط¨ ط¥ظ„ظ‰ ط§ظ„ظ‚ظˆط³ ط§ظ„ظ…ط·ط§ط¨ظ‚	Ctrl+B"/>
+                    <Item id = "43010" name = "ط¥ظٹط¬ط§ط¯ ط§ظ„ط³ط§ط¨ظ‚	Shift+F3"/>
+                    <Item id = "43013" name = "ظپط§ط¦ظ„ظˆع؛ ظ…ظٹع؛ طھظ„ط§ط´	Ctrl+Shift+F"/>
+
+
+
+
+
+
+
+
+
+
+                    <Item id = "44010" name = "ط³ط¨ ع©ظˆ ظپظˆظ„عˆ ع©ط±ظٹع؛	Alt+0"/>
+                    <Item id = "44011" name = "طھط¹ط±ظٹظپ ط­ظˆط§ط± ط§ظ„ظ…ط³طھط®ط¯ظ…"/>
+
+
+
+
+
+
+
+                    <Item id = "44019" name = "طھظ…ط§ظ… ط­ط±ظˆظپ ط¯ع©ع¾ط§ط¦ظٹع؛"/>
+                    <Item id = "44020" name = "ط£ط¸ظ‡ط± ظ…ظˆط¬ظ‡ ط§ظ„ط·ظ„ط¨"/>
+
+                    <Item id = "44022" name = "ط؛ظ„ظ‘ظگظپ"/>
+                    <Item id = "44023" name = "&amp;طھطµط؛ظٹط±	Ctrl-Mouse Wheel Up"/>
+                    <Item id = "44024" name = "طھظƒ&amp;ط¨ظٹط±	Ctrl-Mouse Wheel Down"/>
+                    <Item id = "44025" name = "ط£ط¸ظ‡ط± ط§ظ„ظ…ط³ط§ظپط§طھ ط§ظ„ط¨ظٹط¶ط§ط، ظˆ طھط§ط¨"/>
+                    <Item id = "44026" name = "ط³ط·ط± ع©ط§ ط§ط®طھطھط§ظ… ط¯ع©ع¾ط§ط¦ظٹع؛"/>
+
+
+                    <Item id = "44029" name = "ط¹ط¯ظ… ظ„ظپ ط§ظ„ظƒظ„	Alt+Shift+0"/>
+                    <Item id = "44030" name = " ط£ظ„ط؛ظٹ ط§ظ„ظ…ط³طھظˆظ‰ ط§ظ„ط­ط§ظ„ظٹ	Ctrl+Alt+F"/>
+                    <Item id = "44031" name = "ظ„ط§ طھظ„ط؛ظٹ ط§ظ„ظ…ط³طھظˆظ‰ ط§ظ„ط­ط§ظ„ظٹ	Ctrl+Alt+Shift+F"/>
+                    <Item id = "44032" name = "طھظƒط¨ظٹط± ط§ظ„ط´ط§ط´ط© 	F11"/>
+                    <Item id = "44033" name = "ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„طھظ‚ط±ظٹط¨ ط§ظ„ط¥ظپطھط±ط§ط¶ظٹط©	Ctrl+/(keypad)"/>
+                    <Item id = "44034" name = "ط¯ط§ط¦ظ…ط§ظ‹ ط¨ط§ظ„ط£ط¹ظ„ظ‰"/>
+                    <Item id = "44035" name = "طھط²ط§ظ…ظ† ط§ظ„طھط­ط±ظٹظƒ ط§ظ„ط¹ظ…ظˆط¯ظٹ"/>
+                    <Item id = "44036" name = "طھط²ط§ظ…ظ† ط§ظ„طھط­ط±ظٹظƒ ط§ظ„ط£ظپظ‚ظٹ"/>
+                    <Item id = "45001" name = "ط­ظˆظ„ ظ„طµظٹط؛ط© ظˆظٹظ†ط¯ظˆط²"/>
+                    <Item id = "45002" name = "ط­ظˆظ„ ظ„طµظٹط؛ط© ظٹظˆظ†ظٹظƒط³"/>
+                    <Item id = "45003" name = "ط­ظˆظ„ ظ„طµظٹط؛ط© ظ…ط§ظƒظ†طھظˆط´"/>
+                    <Item id = "45004" name = "ط±ظ…ط² ط¨ط±ط§ط¦غ’ ANSI"/>
+                    <Item id = "45005" name = "ط±ظ…ط² ط¨ط±ط§ط¦غ’ UTF-8"/>
+                    <Item id = "45006" name = " ط±ظ…ط² ط¨ط±ط§ط¦غ’ (UCS-2 Big Endian)"/>
+                    <Item id = "45007" name = " ط±ظ…ط² ط¨ط±ط§ط¦غ’ (UCS-2 Little Endian)"/>
+                    <Item id = "45008" name = " ط±ظ…ط² ط¨ط±ط§ط¦غ’ (UTF-8 (without BOM))"/>
+
+                    <Item id = "10001" name = "ط¥ط°ظ‡ط¨ ط¥ظ„ظ‰ ظ…ظ†ط¸ط± ط¢ط®ط±"/>
+                    <Item id = "10002" name = "ط§ظ†ط³ط® ط¥ظ„ظ‰ ظ…ظ†ط¸ط± ط¢ط®ط±"/>
+
+                    <Item id = "46001" name = "ظ†ظ…ط· ظ…ط¹ط±ظپ ..."/>
+                    <Item id = "47000" name = "ط­ظˆظ„...	F1"/>
+
+
+
+
+
+
+
+
+
+                    <Item id = "48009" name = "ط±ط§ط³ظ… ط§ظ„ط¥ط®طھطµط§ط±..."/>
+
+                    <Item id = "49000" name = "&amp;ط±ظ†..."/>
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID = "0" name = "اغلقني"/>
-                    <Item CMID = "1" name = "اغلقهم كلهم ماعداي"/>
-                    <Item CMID = "2" name = "احفظني"/>
-                    <Item CMID = "3" name = "احفظني باسم ..."/>
-                    <Item CMID = "4" name = "اطبعني"/>
-                    <Item CMID = "5" name = "اذهب الى منظر آخر"/>
-                    <Item CMID = "6" name = "انسخ الى منظر آخر"/>
+                    <Item CMID = "0" name = "ط§ط؛ظ„ظ‚ظ†ظٹ"/>
+                    <Item CMID = "1" name = "ط§ط؛ظ„ظ‚ظ‡ظ… ظƒظ„ظ‡ظ… ظ…ط§ط¹ط¯ط§ظٹ"/>
+                    <Item CMID = "2" name = "ط§ط­ظپط¸ظ†ظٹ"/>
+                    <Item CMID = "3" name = "ط§ط­ظپط¸ظ†ظٹ ط¨ط§ط³ظ… ..."/>
+                    <Item CMID = "4" name = "ط§ط·ط¨ط¹ظ†ظٹ"/>
+                    <Item CMID = "5" name = "ط§ط°ظ‡ط¨ ط§ظ„ظ‰ ظ…ظ†ط¸ط± ط¢ط®ط±"/>
+                    <Item CMID = "6" name = "ط§ظ†ط³ط® ط§ظ„ظ‰ ظ…ظ†ط¸ط± ط¢ط®ط±"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
-            <Find title = "جد... ">
-                <Item id = "1" name = "جِد التالي"/>
-                <Item id = "2" name = "منسوخ"/>
-                <Item id = "1620" name = "تلاش برائے:"/>
-                <Item id = "1603" name = "طابق &amp;كامل الكلمة فقط"/>
-                <Item id = "1604" name = "طابق &amp;حالة"/>
-                <Item id = "1605" name = "اعتيادي &amp;التعبير"/>
-                <Item id = "1606" name = "حول التغليف&amp;"/>
-                <Item id = "1612" name = "&amp;اوپر"/>
-                <Item id = "1613" name = "&amp;نيچے"/>
-                <Item id = "1614" name = "شمار"/>
-                <Item id = "1615" name = "جد الكل"/>
-                <Item id = "1616" name = "خط معلَّم"/>
-                <Item id = "1617" name = "أسلوب إيجاد النموذج"/>
-                <Item id = "1618" name = "إزلة لكل بحث"/>
-                <Item id = "1621" name = "سمت"/>
-                <Item id = "1611" name = "أعد&amp;استبدل بـ:"/>
-                <Item id = "1608" name = "&amp;اعد استبدال"/>
-                <Item id = "1609" name = "اعد استبدال &amp;الكل"/>
-			 	<Item id = "1623" name = "الوضوح"/>
-			 	<Item id = "1632" name = "في الإختيار"/>
-			 	<Item id = "1633" name = "مٹائيں"/>
-			 	<Item id = "1635" name = "إستبدال الكل في جميع المستندات المفتوحة"/>
-			 	<Item id = "1636" name = "إيجاد الكل في جميع المستندات المفتوحة"/>
-			 	<Item id = "1637" name = "فائل ميں تلاش کريں"/>
+            <Find title = "ط¬ط¯... ">
+                <Item id = "1" name = "ط¬ظگط¯ ط§ظ„طھط§ظ„ظٹ"/>
+                <Item id = "2" name = "ظ…ظ†ط³ظˆط®"/>
+                <Item id = "1620" name = "طھظ„ط§ط´ ط¨ط±ط§ط¦غ’:"/>
+                <Item id = "1603" name = "ط·ط§ط¨ظ‚ &amp;ظƒط§ظ…ظ„ ط§ظ„ظƒظ„ظ…ط© ظپظ‚ط·"/>
+                <Item id = "1604" name = "ط·ط§ط¨ظ‚ &amp;ط­ط§ظ„ط©"/>
+                <Item id = "1605" name = "ط§ط¹طھظٹط§ط¯ظٹ &amp;ط§ظ„طھط¹ط¨ظٹط±"/>
+                <Item id = "1606" name = "ط­ظˆظ„ ط§ظ„طھط؛ظ„ظٹظپ&amp;"/>
+                <Item id = "1612" name = "&amp;ط§ظˆظ¾ط±"/>
+                <Item id = "1613" name = "&amp;ظ†ظٹع†غ’"/>
+                <Item id = "1614" name = "ط´ظ…ط§ط±"/>
+                <Item id = "1615" name = "ط¬ط¯ ط§ظ„ظƒظ„"/>
+                <Item id = "1616" name = "ط®ط· ظ…ط¹ظ„ظ‘ظژظ…"/>
+                <Item id = "1617" name = "ط£ط³ظ„ظˆط¨ ط¥ظٹط¬ط§ط¯ ط§ظ„ظ†ظ…ظˆط°ط¬"/>
+                <Item id = "1618" name = "ط¥ط²ظ„ط© ظ„ظƒظ„ ط¨ط­ط«"/>
+                <Item id = "1621" name = "ط³ظ…طھ"/>
+                <Item id = "1611" name = "ط£ط¹ط¯&amp;ط§ط³طھط¨ط¯ظ„ ط¨ظ€:"/>
+                <Item id = "1608" name = "&amp;ط§ط¹ط¯ ط§ط³طھط¨ط¯ط§ظ„"/>
+                <Item id = "1609" name = "ط§ط¹ط¯ ط§ط³طھط¨ط¯ط§ظ„ &amp;ط§ظ„ظƒظ„"/>
+			 	<Item id = "1623" name = "ط§ظ„ظˆط¶ظˆط­"/>
+			 	<Item id = "1632" name = "ظپظٹ ط§ظ„ط¥ط®طھظٹط§ط±"/>
+			 	<Item id = "1633" name = "ظ…ظ¹ط§ط¦ظٹع؛"/>
+			 	<Item id = "1635" name = "ط¥ط³طھط¨ط¯ط§ظ„ ط§ظ„ظƒظ„ ظپظٹ ط¬ظ…ظٹط¹ ط§ظ„ظ…ط³طھظ†ط¯ط§طھ ط§ظ„ظ…ظپطھظˆط­ط©"/>
+			 	<Item id = "1636" name = "ط¥ظٹط¬ط§ط¯ ط§ظ„ظƒظ„ ظپظٹ ط¬ظ…ظٹط¹ ط§ظ„ظ…ط³طھظ†ط¯ط§طھ ط§ظ„ظ…ظپطھظˆط­ط©"/>
+			 	<Item id = "1637" name = "ظپط§ط¦ظ„ ظ…ظٹع؛ طھظ„ط§ط´ ع©ط±ظٹع؛"/>
             </Find>
-            <Item id = "1640" name = "خيارات المحاورة"/>
-            <GoToLine title = "اذهب للسطر رقم ">
-                <Item id = "1" name = "&amp;جائيں!"/>
-                <Item id = "2" name = "أنا ذاهب للا مكان"/>
-                <Item id = "2004" name = "أنت هنا:"/>
-                <Item id = "2005" name = "أنت تريد الذهاب :"/>
-                <Item id = "2006" name = "أنت لا تستطيع الذهاب أكثر من: "/>
+            <Item id = "1640" name = "ط®ظٹط§ط±ط§طھ ط§ظ„ظ…ط­ط§ظˆط±ط©"/>
+            <GoToLine title = "ط§ط°ظ‡ط¨ ظ„ظ„ط³ط·ط± ط±ظ‚ظ… ">
+                <Item id = "1" name = "&amp;ط¬ط§ط¦ظٹع؛!"/>
+                <Item id = "2" name = "ط£ظ†ط§ ط°ط§ظ‡ط¨ ظ„ظ„ط§ ظ…ظƒط§ظ†"/>
+                <Item id = "2004" name = "ط£ظ†طھ ظ‡ظ†ط§:"/>
+                <Item id = "2005" name = "ط£ظ†طھ طھط±ظٹط¯ ط§ظ„ط°ظ‡ط§ط¨ :"/>
+                <Item id = "2006" name = "ط£ظ†طھ ظ„ط§ طھط³طھط·ظٹط¹ ط§ظ„ط°ظ‡ط§ط¨ ط£ظƒط«ط± ظ…ظ†: "/>
             </GoToLine>
 
-            <Run title = "رن ...">
-                <Item id = "1903" name = "يہاں رن کرنے کے ليے اپنا پروگرام لکھيں"/>
-                <Item id = "1" name = "رن کريں!"/>
-                <Item id = "2" name = "منسوخ کريں"/>
-                <Item id = "1904" name = "محفوظ کريں ..."/>
+            <Run title = "ط±ظ† ...">
+                <Item id = "1903" name = "ظٹغپط§ع؛ ط±ظ† ع©ط±ظ†غ’ ع©غ’ ظ„ظٹغ’ ط§ظ¾ظ†ط§ ظ¾ط±ظˆع¯ط±ط§ظ… ظ„ع©ع¾ظٹع؛"/>
+                <Item id = "1" name = "ط±ظ† ع©ط±ظٹع؛!"/>
+                <Item id = "2" name = "ظ…ظ†ط³ظˆط® ع©ط±ظٹع؛"/>
+                <Item id = "1904" name = "ظ…ط­ظپظˆط¸ ع©ط±ظٹع؛ ..."/>
             </Run>
-            
-            <StyleConfig title = "معرف الأنماط">
-				<Item id = "1" name = "تجربہ کريں!"/>
-				<Item id = "2" name = "منسوخ کريں"/>
-				<Item id = "2301" name = "محفوظ &amp;&amp; منسوخ"/>
-				<Item id = "2303" name = "شفافيت"/>		
-				
+
+            <StyleConfig title = "ظ…ط¹ط±ظپ ط§ظ„ط£ظ†ظ…ط§ط·">
+				<Item id = "1" name = "طھط¬ط±ط¨غپ ع©ط±ظٹع؛!"/>
+				<Item id = "2" name = "ظ…ظ†ط³ظˆط® ع©ط±ظٹع؛"/>
+				<Item id = "2301" name = "ظ…ط­ظپظˆط¸ &amp;&amp; ظ…ظ†ط³ظˆط®"/>
+				<Item id = "2303" name = "ط´ظپط§ظپظٹطھ"/>
+
                 <SubDialog>
-                	<Item id = "2204" name = "غامق"/>
-                    <Item id = "2205" name = "مائل"/>
-                    <Item id = "2206" name = "اللون الأمامي"/>
-                    <Item id = "2207" name = "لون الخلفية"/>
-                    <Item id = "2208" name = "فونٹ کا نام:"/>
-                    <Item id = "2209" name = "فونٹ کي جسامت:"/>
-                    <Item id = "2210" name = "احذر: تعريف هذا النمط سيصبح التعريف الإعتيادي للإنماط المعرفة جميعها"/>
-                    <Item id = "2211" name = "نمط الوصف"/>
-                    <Item id = "2212" name = "انداز رنگ"/>
-                    <Item id = "2213" name = "انداز فونٹ"/>
-                    <Item id = "2214" name = "عام خروج:"/>
-                    <Item id = "2216" name = "خروج صارف:"/>
-                    <Item id = "2218" name = "خط بالأسفل"/>
-                    <Item id = "2219" name = "كلمات دالة اعتيادية"/>
-                    <Item id = "2221" name = "كلمات دالة معرفة من المستخدم"/>
+                	<Item id = "2204" name = "ط؛ط§ظ…ظ‚"/>
+                    <Item id = "2205" name = "ظ…ط§ط¦ظ„"/>
+                    <Item id = "2206" name = "ط§ظ„ظ„ظˆظ† ط§ظ„ط£ظ…ط§ظ…ظٹ"/>
+                    <Item id = "2207" name = "ظ„ظˆظ† ط§ظ„ط®ظ„ظپظٹط©"/>
+                    <Item id = "2208" name = "ظپظˆظ†ظ¹ ع©ط§ ظ†ط§ظ…:"/>
+                    <Item id = "2209" name = "ظپظˆظ†ظ¹ ع©ظٹ ط¬ط³ط§ظ…طھ:"/>
+                    <Item id = "2210" name = "ط§ط­ط°ط±: طھط¹ط±ظٹظپ ظ‡ط°ط§ ط§ظ„ظ†ظ…ط· ط³ظٹطµط¨ط­ ط§ظ„طھط¹ط±ظٹظپ ط§ظ„ط¥ط¹طھظٹط§ط¯ظٹ ظ„ظ„ط¥ظ†ظ…ط§ط· ط§ظ„ظ…ط¹ط±ظپط© ط¬ظ…ظٹط¹ظ‡ط§"/>
+                    <Item id = "2211" name = "ظ†ظ…ط· ط§ظ„ظˆطµظپ"/>
+                    <Item id = "2212" name = "ط§ظ†ط¯ط§ط² ط±ظ†ع¯"/>
+                    <Item id = "2213" name = "ط§ظ†ط¯ط§ط² ظپظˆظ†ظ¹"/>
+                    <Item id = "2214" name = "ط¹ط§ظ… ط®ط±ظˆط¬:"/>
+                    <Item id = "2216" name = "ط®ط±ظˆط¬ طµط§ط±ظپ:"/>
+                    <Item id = "2218" name = "ط®ط· ط¨ط§ظ„ط£ط³ظپظ„"/>
+                    <Item id = "2219" name = "ظƒظ„ظ…ط§طھ ط¯ط§ظ„ط© ط§ط¹طھظٹط§ط¯ظٹط©"/>
+                    <Item id = "2221" name = "ظƒظ„ظ…ط§طھ ط¯ط§ظ„ط© ظ…ط¹ط±ظپط© ظ…ظ† ط§ظ„ظ…ط³طھط®ط¯ظ…"/>
                 </SubDialog>
-				
+
             </StyleConfig>
-            
-            <UserDefine title = "معرف المستخدم">
-				<Item id = "20002" name = "اعادة تسمية"/>
-				<Item id = "20003" name = "جديدة..."/>
-				<Item id = "20004" name = "منسوخ"/>
-				<Item id = "20005" name = "احفظ باسم ..."/>
-				<Item id = "20007" name = "لغة المستخدم: "/>
-				<Item id = "20009" name = "خروج:"/>
-				<Item id = "20012" name = "تجاهل الحالة"/>
-				<Item id = "20011" name = "الشفافية"/>
-				<Item id = "0" name = "نمط اللون"/>
-				<Item id = "1" name = "اللون الأمامي"/>
-				<Item id = "2" name = "لون الخلفية"/>
-				<Item id = "3" name = "نمط الخط"/>
-				<Item id = "4" name = "اسم الخط:"/>
-				<Item id = "5" name = "حجم الخط:"/>
-				<Item id = "6" name = "غامق"/>
-				<Item id = "7" name = "مائل"/>
-				<Item id = "8" name = "خط بالأسفل"/>
-                <Folder title = "المجلد &amp;&amp; الإفتراضي">
-					<Item id = "21101" name = "نمط الإعدادات القياسي"/>
-					<Item id = "21201" name = "فتح مجلد إعدادات الكلمات الدالة"/>
-					<Item id = "21301" name = "إغلاق مجلد إعدادات الكلمات الدالة"/>
+
+            <UserDefine title = "ظ…ط¹ط±ظپ ط§ظ„ظ…ط³طھط®ط¯ظ…">
+				<Item id = "20002" name = "ط§ط¹ط§ط¯ط© طھط³ظ…ظٹط©"/>
+				<Item id = "20003" name = "ط¬ط¯ظٹط¯ط©..."/>
+				<Item id = "20004" name = "ظ…ظ†ط³ظˆط®"/>
+				<Item id = "20005" name = "ط§ط­ظپط¸ ط¨ط§ط³ظ… ..."/>
+				<Item id = "20007" name = "ظ„ط؛ط© ط§ظ„ظ…ط³طھط®ط¯ظ…: "/>
+				<Item id = "20009" name = "ط®ط±ظˆط¬:"/>
+				<Item id = "20012" name = "طھط¬ط§ظ‡ظ„ ط§ظ„ط­ط§ظ„ط©"/>
+				<Item id = "20011" name = "ط§ظ„ط´ظپط§ظپظٹط©"/>
+				<Item id = "0" name = "ظ†ظ…ط· ط§ظ„ظ„ظˆظ†"/>
+				<Item id = "1" name = "ط§ظ„ظ„ظˆظ† ط§ظ„ط£ظ…ط§ظ…ظٹ"/>
+				<Item id = "2" name = "ظ„ظˆظ† ط§ظ„ط®ظ„ظپظٹط©"/>
+				<Item id = "3" name = "ظ†ظ…ط· ط§ظ„ط®ط·"/>
+				<Item id = "4" name = "ط§ط³ظ… ط§ظ„ط®ط·:"/>
+				<Item id = "5" name = "ط­ط¬ظ… ط§ظ„ط®ط·:"/>
+				<Item id = "6" name = "ط؛ط§ظ…ظ‚"/>
+				<Item id = "7" name = "ظ…ط§ط¦ظ„"/>
+				<Item id = "8" name = "ط®ط· ط¨ط§ظ„ط£ط³ظپظ„"/>
+                <Folder title = "ط§ظ„ظ…ط¬ظ„ط¯ &amp;&amp; ط§ظ„ط¥ظپطھط±ط§ط¶ظٹ">
+					<Item id = "21101" name = "ظ†ظ…ط· ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ظ‚ظٹط§ط³ظٹ"/>
+					<Item id = "21201" name = "ظپطھط­ ظ…ط¬ظ„ط¯ ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ط¯ط§ظ„ط©"/>
+					<Item id = "21301" name = "ط¥ط؛ظ„ط§ظ‚ ظ…ط¬ظ„ط¯ ط¥ط¹ط¯ط§ط¯ط§طھ ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ط¯ط§ظ„ط©"/>
                 </Folder>
-                <Keywords title = "قوائم الكلمات الدالة">
-					<Item id = "22101" name = "پہلا گروہ"/>
-					<Item id = "22201" name = "دوسرا گروہ"/>
-					<Item id = "22301" name = "تيسرا گروہ"/>
-					<Item id = "22401" name = "چوتھا گروہ"/>
-					<Item id = "22113" name = "نمط البادئ"/>
-					<Item id = "22213" name = "نمط البادئ"/>
-					<Item id = "22313" name = "نمط البادئ"/>
-					<Item id = "22413" name = "نمط البادئ"/>
+                <Keywords title = "ظ‚ظˆط§ط¦ظ… ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ط¯ط§ظ„ط©">
+					<Item id = "22101" name = "ظ¾غپظ„ط§ ع¯ط±ظˆغپ"/>
+					<Item id = "22201" name = "ط¯ظˆط³ط±ط§ ع¯ط±ظˆغپ"/>
+					<Item id = "22301" name = "طھظٹط³ط±ط§ ع¯ط±ظˆغپ"/>
+					<Item id = "22401" name = "ع†ظˆطھع¾ط§ ع¯ط±ظˆغپ"/>
+					<Item id = "22113" name = "ظ†ظ…ط· ط§ظ„ط¨ط§ط¯ط¦"/>
+					<Item id = "22213" name = "ظ†ظ…ط· ط§ظ„ط¨ط§ط¯ط¦"/>
+					<Item id = "22313" name = "ظ†ظ…ط· ط§ظ„ط¨ط§ط¯ط¦"/>
+					<Item id = "22413" name = "ظ†ظ…ط· ط§ظ„ط¨ط§ط¯ط¦"/>
                 </Keywords>
-                <Comment title = "تبصرہ &amp;&amp; عدد">
-					<Item id = "23301" name = "يکسطري تبصرہ"/>
-					<Item id = "23101" name = "گروہي تبصرہ"/>
-					<Item id = "23113" name = "تبصرہ کھوليں:"/>
-					<Item id = "23115" name = "تبصرہ بند کريں:"/>
-					<Item id = "23116" name = "عامل الكلمات الدالة كرموز"/>
-					<Item id = "23117" name = "عامل الكلمات الدالة كرموز"/>
-					<Item id = "23201" name = "عدد"/>
+                <Comment title = "طھط¨طµط±غپ &amp;&amp; ط¹ط¯ط¯">
+					<Item id = "23301" name = "ظٹع©ط³ط·ط±ظٹ طھط¨طµط±غپ"/>
+					<Item id = "23101" name = "ع¯ط±ظˆغپظٹ طھط¨طµط±غپ"/>
+					<Item id = "23113" name = "طھط¨طµط±غپ ع©ع¾ظˆظ„ظٹع؛:"/>
+					<Item id = "23115" name = "طھط¨طµط±غپ ط¨ظ†ط¯ ع©ط±ظٹع؛:"/>
+					<Item id = "23116" name = "ط¹ط§ظ…ظ„ ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ط¯ط§ظ„ط© ظƒط±ظ…ظˆط²"/>
+					<Item id = "23117" name = "ط¹ط§ظ…ظ„ ط§ظ„ظƒظ„ظ…ط§طھ ط§ظ„ط¯ط§ظ„ط© ظƒط±ظ…ظˆط²"/>
+					<Item id = "23201" name = "ط¹ط¯ط¯"/>
                 </Comment>
-                <Operator title = "المشغلات">
-					<Item id = "24107" name = "المشغل"/>
-					<Item id = "24103" name = "دستياب رموز"/>
-					<Item id = "24101" name = "المشغلات الناشطة"/>
-					<Item id = "24201" name = "ديليميتر 1"/>
-					<Item id = "24211" name = "الحد مفتوح:"/>
-					<Item id = "24214" name = "الحد مغلق:"/>
-					<Item id = "24301" name = "ديليميتر 2"/>
-					<Item id = "24311" name = "الحد مفتوح:"/>
-					<Item id = "24314" name = "الحد مغلق:"/>
+                <Operator title = "ط§ظ„ظ…ط´ط؛ظ„ط§طھ">
+					<Item id = "24107" name = "ط§ظ„ظ…ط´ط؛ظ„"/>
+					<Item id = "24103" name = "ط¯ط³طھظٹط§ط¨ ط±ظ…ظˆط²"/>
+					<Item id = "24101" name = "ط§ظ„ظ…ط´ط؛ظ„ط§طھ ط§ظ„ظ†ط§ط´ط·ط©"/>
+					<Item id = "24201" name = "ط¯ظٹظ„ظٹظ…ظٹطھط± 1"/>
+					<Item id = "24211" name = "ط§ظ„ط­ط¯ ظ…ظپطھظˆط­:"/>
+					<Item id = "24214" name = "ط§ظ„ط­ط¯ ظ…ط؛ظ„ظ‚:"/>
+					<Item id = "24301" name = "ط¯ظٹظ„ظٹظ…ظٹطھط± 2"/>
+					<Item id = "24311" name = "ط§ظ„ط­ط¯ ظ…ظپطھظˆط­:"/>
+					<Item id = "24314" name = "ط§ظ„ط­ط¯ ظ…ط؛ظ„ظ‚:"/>
                 </Operator>
             </UserDefine>
 		</Dialog>

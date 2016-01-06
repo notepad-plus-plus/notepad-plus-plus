@@ -1,5 +1,6 @@
 # Script to generate CharacterCategory.cxx from Python's Unicode data
 # Should be run rarely when a Python with a new version of Unicode data is available.
+# Requires Python 3.3 or later
 # Should not be run with old versions of Python.
 
 import codecs, os, platform, sys, unicodedata

@@ -26,21 +26,21 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
 #include "ContextMenu.h"
 
 MenuItemUnit::MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *parentFolderName) : _cmdID(cmdID)
 {
 	if (!itemName)
-		_itemName = TEXT("");
+		_itemName.clear();
 	else
 		_itemName = itemName;
 
 	if (!parentFolderName)
-		_parentFolderName = TEXT("");
+		_parentFolderName.clear();
 	else
 		_parentFolderName = parentFolderName;
 }
+
 
 ContextMenu::~ContextMenu()
 {
@@ -51,22 +51,23 @@ ContextMenu::~ContextMenu()
 		::DestroyMenu(_hMenu);
 	}
 }
+
 	
-void ContextMenu::create(HWND hParent, const vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle)
+void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle)
 { 
 	_hParent = hParent;
 	_hMenu = ::CreatePopupMenu();
 	bool lastIsSep = false;
 	HMENU hParentFolder = NULL;
-	generic_string currentParentFolderStr = TEXT("");
+	generic_string currentParentFolderStr;
 	int j = 0;
 
 	for (size_t i = 0, len = menuItemArray.size(); i < len; ++i)
 	{
 		const MenuItemUnit & item = menuItemArray[i];
-		if (item._parentFolderName == TEXT(""))
+		if (item._parentFolderName.empty())
 		{
-			currentParentFolderStr = TEXT("");
+			currentParentFolderStr.clear();
 			hParentFolder = NULL;
 			j = 0;
 		}

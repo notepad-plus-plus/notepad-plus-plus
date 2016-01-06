@@ -37,8 +37,9 @@
 #include "Docking.h"
 #endif //DOCKING_H
 
-
-using namespace std;
+#include <vector>
+#include "StaticDialog.h"
+#include "Common.h"
 
 
 // window styles
@@ -59,8 +60,6 @@ enum eMousePos {
 #define CAPTION_GAP			2
 #define CLOSEBTN_POS_LEFT	3
 #define CLOSEBTN_POS_TOP	3
-
-
 
 
 class DockingCont : public StaticDialog
@@ -102,10 +101,10 @@ public:
 	void setActiveTb(INT iItem);
 	INT getActiveTb();
 	tTbData * getDataOfActiveTb();
-	vector<tTbData *> getDataOfAllTb() {
+	std::vector<tTbData *> getDataOfAllTb() {
 		return _vTbData;
 	};
-	vector<tTbData *> getDataOfVisTb();
+	std::vector<tTbData *> getDataOfVisTb();
 	bool isTbVis(tTbData* data);
 
 	void doDialog(bool willBeShown = true, bool isFloating = false);
@@ -155,16 +154,16 @@ protected :
 	// Subclassing caption
 	LRESULT runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK wndCaptionProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProcCaption(hwnd, Message, wParam, lParam));
+		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProcCaption(hwnd, Message, wParam, lParam));
 	};
 
 	// Subclassing tab
 	LRESULT runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK wndTabProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProcTab(hwnd, Message, wParam, lParam));
+		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProcTab(hwnd, Message, wParam, lParam));
 	};
 
-    virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+    virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 	// drawing functions
 	void drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct);
@@ -233,8 +232,15 @@ private:
 	BOOL					_bCapTTHover;
 	eMousePos				_hoverMPos;
 
+	int _captionHeightDynamic = HIGH_CAPTION;
+	int _captionGapDynamic = CAPTION_GAP;
+	int _closeButtonPosLeftDynamic = CLOSEBTN_POS_LEFT;
+	int _closeButtonPosTopDynamic = CLOSEBTN_POS_TOP;
+	int _closeButtonWidth;
+	int _closeButtonHeight;
+
 	// data of added windows
-	vector<tTbData *>		_vTbData;
+	std::vector<tTbData *>		_vTbData;
 };
 
 

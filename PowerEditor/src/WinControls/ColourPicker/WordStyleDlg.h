@@ -29,17 +29,10 @@
 #ifndef WORD_STYLE_H
 #define WORD_STYLE_H
 
-#ifndef COLOUR_PICKER_H
 #include "ColourPicker.h"
-#endif //COLOUR_PICKER_H
-
-#ifndef WORD_STYLE_DLG_RES_H
 #include "WordStyleDlgRes.h"
-#endif //WORD_STYLE_DLG_RES_H
-
-#ifndef PARAMETERS_H
 #include "Parameters.h"
-#endif //PARAMETERS_H
+
 
 #define WM_UPDATESCINTILLAS			(WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
 
@@ -66,11 +59,11 @@ private :
 	COLORREF _colour;
 	WNDPROC _oldProc;
 
-	static BOOL CALLBACK staticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
-		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLongPtr(hwnd, GWL_USERDATA));
+	static LRESULT CALLBACK staticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
+		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		return pColourStaticTextHooker->colourStaticProc(hwnd, message, wParam, lParam);
 	}; 
-	BOOL CALLBACK colourStaticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+	LRESULT CALLBACK colourStaticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 class WordStyleDlg : public StaticDialog
@@ -121,7 +114,7 @@ public :
 	void addLastThemeEntry() {
         NppParameters *nppParamInst = NppParameters::getInstance();
         ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
-        pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
+		std::pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
 	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, (LPARAM)themeInfo.first.c_str());
     };
 
@@ -164,7 +157,7 @@ private :
     //bool _isSync;
 	bool _isShownGOCtrls;
 
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
 
 	Style & getCurrentStyler() {

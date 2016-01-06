@@ -104,9 +104,11 @@ public:
 
 	virtual void setBackgroundColor(COLORREF bgColour) {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
+		TreeView_SetBkColor(_treeViewSearchResult.getHSelf(), bgColour);
     };
 	virtual void setForegroundColor(COLORREF fgColour) {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
+		TreeView_SetTextColor(_treeViewSearchResult.getHSelf(), fgColour);
     };
 
     void setParent(HWND parent2set){
@@ -123,7 +125,7 @@ public:
 	void searchFuncAndSwitchView();
 
 protected:
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	HWND _hToolbarMenu;

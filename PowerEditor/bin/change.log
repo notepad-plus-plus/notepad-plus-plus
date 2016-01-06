@@ -1,20 +1,18 @@
-Notepad++ v6.7.7 bug-fix:
+Notepad++ v6.8.8 bug-fixes and enhancements:
 
-1.  Fix "Restore last closed file" (Ctrl+Shift+T) display bug.
-
-
-Notepad++ v6.7.6 new feature and bug-fixes:
-
-1.  Add "Restore last closed file" (Ctrl+Shift+T) feature.
-2.  Fix Setting on Cloud for dropbox and for google drive not working issue. 
+1.  Fix a regression of link style in html/php.
+2.  Fix find in files progress window alway on top issue.
+3.  Add Debug Info helper feature.
+4.  Fix highlighting for tags inside comment problem.
+5.  Make editor border edge display optional.
+6.  Enhance syntax highlighting for D, Powershell, Lua and Python.
+7.  Enhance syntax highlighting of preprocessor comments for several languages.
+8.  Improve close button in tab position.
 
 
 Included plugins:
 
-1.  DSpellCheck v1.2.12
-2.  NppFTP 0.26.1
-3.  NppExport v0.2.8
-4.  Plugin Manager 1.3.5
-5.  Converter 3.0
-6.  Mime Tool 1.9
-
+1.  NppExport v0.2.8
+2.  Plugin Manager 1.3.5
+3.  Converter 3.0
+4.  Mime Tool 1.9

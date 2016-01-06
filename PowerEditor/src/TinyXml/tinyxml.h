@@ -27,6 +27,8 @@ distribution.
 #define TINYXML_INCLUDED
 
 #ifdef _MSC_VER
+#pragma warning( push )
+#pragma warning( disable : 4458 ) // declaration of 'parameter' hides class member
 #pragma warning( disable : 4530 )
 #pragma warning( disable : 4786 )
 #endif
@@ -48,13 +50,17 @@ distribution.
 	#define TIXML_STRING	generic_string
 	#define TIXML_ISTREAM	std::basic_istream<TCHAR>
 	#define TIXML_OSTREAM	std::basic_ostream<TCHAR>
-	
-
 #else
 	#include "tinystr.h"
 	#define TIXML_STRING	TiXmlString
 	#define TIXML_OSTREAM	TiXmlOutStream
 #endif
+
+#include <assert.h>
+
+#include <string>
+
+#include "Common.h"
 
 class TiXmlDocument;
 class TiXmlElement;
@@ -987,6 +993,7 @@ public:
 	TiXmlDocument( const generic_string& documentName ) :
 	    TiXmlNode( TiXmlNode::DOCUMENT )
 	{
+		tabsize = 4;
         value = documentName;
 		error = false;
 	}
@@ -1248,6 +1255,9 @@ private:
 	TiXmlNode* node;
 };
 
+#ifdef _MSC_VER
+#pragma warning( pop )
+#endif
 
 #endif
 

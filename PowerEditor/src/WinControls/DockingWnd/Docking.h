@@ -29,6 +29,8 @@
 #ifndef DOCKING_H
 #define DOCKING_H
 
+#include <windows.h>
+
 // ATTENTION : It's a part of interface header, so don't include the others header here
 
 // styles for containers

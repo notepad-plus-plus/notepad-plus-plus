@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 	::Gujarati language file for Notepad++ ::
-	
-	** created By:- Milind Audichya ** 
+
+	** created By:- Milind Audichya **
 		Email- milindaudichya@programmer.net
-		
+
 -->
 <NotepadPlus>
     <Native-Langue name="ગુજરાતી" filename="gujarati.xml" >
@@ -69,7 +69,7 @@
                     <Item subMenuId="encoding-vietnamese" name="વિએતનામીઝ"/>
                     <Item subMenuId="settings-import"  name="ઈમ્પોર્ટ"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;નવું"/>
@@ -93,7 +93,7 @@
                     <Item id="41015" name="નકલ નું નવું નામ..."/>
                     <Item id="41016" name="ડિસ્ક માંથી ડીલીટ કરો"/>
                     <Item id="41017" name="નામ બદલો..."/>
-                    
+
                     <Item id="42001" name="&amp;કટ"/>
                     <Item id="42002" name="&amp;કોપી"/>
                     <Item id="42003" name="&amp;રદ કરો"/>
@@ -107,8 +107,8 @@
                     <Item id="42010" name="હાલની લાઈન ડુપ્લીકેટ કરો"/>
                     <Item id="42012" name="લાઈન્સ છુટી પાડો"/>
                     <Item id="42013" name="લાઈન્સ જોડો"/>
-                    <Item id="42014" name="હાલની લાઈન ઉપ્પર ખસેડો"/>   
-                    <Item id="42015" name="હાલની લાઈન નીચે ખસેડો"/>   
+                    <Item id="42014" name="હાલની લાઈન ઉપ્પર ખસેડો"/>
+                    <Item id="42015" name="હાલની લાઈન નીચે ખસેડો"/>
                     <Item id="42016" name="અપરકેસ"/>
                     <Item id="42017" name="લોવરકેસ"/>
                     <Item id="42018" name="&amp;રેકોર્ડિંગ પ્રારંભ કરો"/>
@@ -314,7 +314,7 @@
                     <Item CMID="20" name="સમાસિત ફોલ્ડર સીએમડી(cmd)માં ખોલો"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
                 <Item id="1"    name="પછીનું શોધો"/>
@@ -373,11 +373,11 @@
                 <Item id="2"    name="કેન્સલ"/>
                 <Item id="1904" name="સેવ..."/>
             </Run>
-            
+
             <StyleConfig title="Style Configurator">
                 <Item id="2"    name="કેન્સલ"/>
                 <Item id="2301" name="સેવ &amp;&amp; બંધ કરો"/>
-                <Item id="2303" name="પારદર્શકતા"/>       
+                <Item id="2303" name="પારદર્શકતા"/>
                 <Item id="2306" name="થીમ પસંદ કરો: "/>
                 <SubDialog>
                     <Item id="2204" name="બોલ્ડ"/>
@@ -402,10 +402,10 @@
                     <Item id="2230" name="વૈશ્વિક બોલ્ડ ફોન્ટ સ્ટાઈલ સક્રિય કરો"/>
                     <Item id="2231" name="વૈશ્વિક ઇટાલીક ફોન્ટ સ્ટાઈલ સક્રિય કરો"/>
                     <Item id="2232" name="વૈશ્વિક અન્ડરલાઈન ફોન્ટ સ્ટાઈલ સક્રિય કરો"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="User-Defined">
 				<Item id="20001" name="ડોક"/>
                 <Item id="20002" name="નવું નામ આપો"/>
@@ -583,24 +583,24 @@
                     <Item id="6103" name="નાના આઇકોન્સ"/>
                     <Item id="6104" name="મોટા આઇકોન્સ"/>
                     <Item id="6105" name="સ્ટાનડર્દ આઇકોન્સ"/>
-                    
+
                     <Item id="6106" name="ટેબ બાર"/>
                     <Item id="6107" name="ઘટાડો"/>
                     <Item id="6108" name="લોક ( ડ્રેગ અને ડ્રોપ નહિ)"/>
                     <Item id="6109" name="નિષ્ક્રિય ટેબ્સ ને ડાર્ક કરો"/>
                     <Item id="6110" name="એક્ટીવ ટેબ પર કલર કરેલ બાર દોરો"/>
-                    
+
                     <Item id="6111" name="સ્ટેટસ બાર બતાવો"/>
                     <Item id="6112" name="બધા ટેબ પર ક્લોઝ બટન બતાવો"/>
                     <Item id="6113" name="ડોક્યુમેન્ટ બંધ કરવા ડબલ ક્લિક કરો"/>
                     <Item id="6118" name="છુપાવો"/>
                     <Item id="6119" name="મલ્ટી-લાઈન"/>
                     <Item id="6120" name="ઊભી"/>
-                    
+
                     <Item id="6121" name="મેનુ બાર"/>
                     <Item id="6122" name="છુપાવો ( Alt અથવા F10 ટોગલ કરવા)"/>
                     <Item id="6123" name="લોકલાઈઝેશન"/>
-					
+
 					<Item id="6125" name="ડોક્યુમેન્ટ લીસ્ટ પેનલ"/>
                     <Item id="6126" name="બતાવો"/>
                 </Global>
@@ -618,27 +618,27 @@
                     <Item id="6204" name="સર્કલ ત્રિ"/>
                     <Item id="6205" name="બોક્સ ત્રિ"/>
                     <Item id="6226" name="એકે નહિ"/>
-                    
+
                     <Item id="6227" name="લાઈન વ્રેપ"/>
                     <Item id="6228" name="ડીફોલ્ટ"/>
                     <Item id="6229" name="અલાઈન્ડ"/>
                     <Item id="6230" name="ઇન્ડેન્ટ"/>
-                    
+
                     <Item id="6206" name="લાઈન નંબર બતાવો"/>
                     <Item id="6207" name="બુકમાર્ક્સ બતાવો"/>
                     <Item id="6208" name="ઊભી ધાર બતાવો"/>
                     <Item id="6209" name="કોલમ ની સંખ્યા: "/>
 					<Item id="6234" name="અડ્વાન્સડ સ્ક્રોલીંગ ફીચર ને ડિસેબલ કરો
 (જો તમને ટચપેડ માં તકલીફ હોઈ)"/>
-                    
+
                     <Item id="6211" name="ઊભી ધાર નું સેટિંગ"/>
                     <Item id="6212" name="લાઈન મોડ"/>
                     <Item id="6213" name="બેક્ગ્રાઉન્દ મોડ"/>
                     <Item id="6214" name="કરંટ લાઈન હાઇલાઇતિન્ગ સક્રિય કરો"/>
-					
+
 					<Item id="6231" name="બોર્ડર ની પહોળાઈ"/>
                 </Scintillas>
-				
+
                 <NewDoc title="New Document">
                     <Item id="6401" name="ફોરમેટ"/>
                     <Item id="6402" name="વિન્ડોઝ|Windows"/>
@@ -654,13 +654,13 @@
                     <Item id="6419" name="નવું ડોક્યુમેન્ટ"/>
                     <Item id="6420" name="ખુલ્લી એએનએસઆઈ (ANSI) ફાઈલો પર લાગુ કરો"/>
                 </NewDoc>
-				
+
                 <DefaultDir title="Default Directory">
                     <Item id="6413" name="ડીફોલ્ટ ડિરેક્ટરી (ખોલો/સેવ કરો)"/>
                     <Item id="6414" name="હાલના ડોક્યુમેન્ટ ને અનુસરો"/>
                     <Item id="6415" name=" છેલ્લી વપરાયેલી ડિરેક્ટરી ને યાદ રાખો"/>
                 </DefaultDir>
-				
+
                 <FileAssoc title="File Association">
                     <Item id="4009" name="આધારભૂત ઈએક્ષટી.(Supported exts):"/>
                     <Item id="4010" name="રજીસ્ટર્ડ ઈએક્ષટી.(Registered exts):"/>
@@ -671,14 +671,14 @@
                     <Item id="6507" name="ભાષા ના મેનુ ને કોમ્પેક્ટ બનાવો"/>
                     <Item id="6508" name="ભાષા મેનુ"/>
                 </LangMenu>
-				
+
                 <TabSettings title="Tab Settings">
                     <Item id="6301" name="ટેબ સેટિંગ્સ"/>
                     <Item id="6302" name="સ્પેસ થી બદલો"/>
                     <Item id="6303" name="ટેબ સાઈઝ: "/>
                     <Item id="6510" name="ડીફોલ્ટ વેલ્યુ વાપરો"/>
                 </TabSettings>
-				
+
                 <Print title="Print">
                     <Item id="6601" name="લાઈન નંબર પ્રિન્ટ કરો"/>
                     <Item id="6602" name="કલર વિકલ્પો"/>
@@ -708,7 +708,7 @@
 					<Item id="6727" name="અહી વેરીઅબલ સેટિંગ્સ બતાવો"/>
                     <Item id="6728" name="હેડર અને ફૂટર"/>
                 </Print>
-				
+
                 <RecentFilesHistory title="Recent Files History">
                     <Item id="6304" name="હાલની ફાઈલ હિસ્ટ્રી"/>
                     <Item id="6306" name="મહત્તમ એન્ટ્રી ની સંખ્યા:"/>
@@ -722,7 +722,7 @@
 
                 <Backup title="Backup">
 					<Item id="6309" name="હાલના સેશન ને યાદ રાખો પછીના લોન્ચ માટે"/>
-					
+
                     <Item id="6801" name="બેકઅપ"/>
                     <Item id="6315" name="એકે નઈ"/>
                     <Item id="6316" name="સાદું બેકઅપ"/>
@@ -730,7 +730,7 @@
                     <Item id="6804" name="કસ્ટમ બેકઅપ ડિરેક્ટરી"/>
                     <Item id="6803" name="ડિરેક્ટરી:"/>
                 </Backup>
-				
+
                 <AutoCompletion title="Auto-Completion">
                     <Item id="6807" name="ઓટો -કમ્પ્લીશન(Auto-Completion)"/>
                     <Item id="6808" name="દરેક ઈનપુટ માટે ઓટો-કમ્પ્લીશન સક્રિય કરો"/>
@@ -749,7 +749,7 @@
                     <Item id="6863" name="મેચ કરેલી જોડી 2:"/>
                     <Item id="6866" name="મેચ કરેલી જોડી 3:"/>
                 </AutoCompletion>
-                
+
                 <MultiInstance title="Multi-Instance">
                     <Item id="6151" name="મલ્ટી-ઇન્સ્તંસ સેટિંગ્સ"/>
                     <Item id="6152" name="સેશન ખોલો નવા Notepad++ ના ઇન્સ્તંસ માં "/>
@@ -757,14 +757,14 @@
                     <Item id="6154" name="ડીફોલ્ટ(મોનો-ઇન્સ્તંસ)"/>
                     <Item id="6155" name="* આ સેટિંગ બદલો તો Notepad++ ફરી ચાલુ કરવું પડશે"/>
                 </MultiInstance>
-                
+
                 <Delimiter title="Delimiter">
                     <Item id="6251" name="દેલીમીટર સીલેક્શન સેટિંગ્સ(Ctrl + માઉસ ડબલ ક્લિક)"/>
                     <Item id="6252" name="ખોલો"/>
                     <Item id="6255" name="બંધ કરો"/>
                     <Item id="6256" name="અનેક લાઈન્સ પર પરવાનગી આપો"/>
                 </Delimiter>
-                
+
                 <MISC title="MISC.">
                     <Item id="6307" name="સક્રિય"/>
                     <Item id="6308" name="સીસ્ટમ ટ્રે માટે/સુધી ઘટાડો"/>
@@ -831,7 +831,7 @@
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
-            
+
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
         </MessageBox>

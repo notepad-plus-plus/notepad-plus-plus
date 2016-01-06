@@ -14,11 +14,12 @@
  */
 
 #include <stdlib.h>
-#include <string>
 #include <stdio.h>
-#include <ctype.h>
 #include <time.h>
+#include <ctype.h>
 
+#include <stdexcept>
+#include <string>
 #include <vector>
 #include <map>
 
@@ -40,23 +41,26 @@
 #include "XPM.h"
 #include "LineMarker.h"
 #include "Style.h"
-#include "AutoComplete.h"
 #include "ViewStyle.h"
 #include "CharClassify.h"
 #include "Decoration.h"
 #include "CaseFolder.h"
 #include "Document.h"
+#include "CaseConvert.h"
 #include "Selection.h"
 #include "PositionCache.h"
+#include "EditModel.h"
+#include "MarginView.h"
+#include "EditView.h"
 #include "Editor.h"
 
+#include "AutoComplete.h"
 #include "ScintillaBase.h"
-#include "CaseConvert.h"
 
 extern "C" NSString* ScintillaRecPboardType;
 
-@class InnerView;
-@class MarginView;
+@class SCIContentView;
+@class SCIMarginView;
 @class ScintillaView;
 
 @class FindHighlightLayer;
@@ -78,26 +82,6 @@ extern "C" NSString* ScintillaRecPboardType;
 namespace Scintilla {
 
 /**
- * On the Mac, there is no WM_COMMAND or WM_NOTIFY message that can be sent
- * back to the parent. Therefore, there must be a callback handler that acts
- * like a Windows WndProc, where Scintilla can send notifications to. Use
- * ScintillaCocoa::RegisterNotifyHandler() to register such a handler.
- * Message format is:
- * <br>
- * WM_COMMAND: HIWORD (wParam) = notification code, LOWORD (wParam) = 0 (no control ID), lParam = ScintillaCocoa*
- * <br>
- * WM_NOTIFY: wParam = 0 (no control ID), lParam = ptr to SCNotification structure, with hwndFrom set to ScintillaCocoa*
- */
-typedef void(*SciNotifyFunc) (intptr_t windowid, unsigned int iMessage, uintptr_t wParam, uintptr_t lParam);
-
-/**
- * Scintilla sends these two messages to the nofity handler. Please refer
- * to the Windows API doc for details about the message format.
- */
-#define	WM_COMMAND	1001
-#define WM_NOTIFY	1002
-
-/**
  * Main scintilla class, implemented for OS X (Cocoa).
  */
 class ScintillaCocoa : public ScintillaBase
@@ -105,7 +89,9 @@ class ScintillaCocoa : public ScintillaBase
 private:
   TimerTarget* timerTarget;
   NSEvent* lastMouseEvent;
-  
+
+  id<ScintillaNotificationProtocol> delegate;
+
   SciNotifyFunc	notifyProc;
   intptr_t notifyObj;
 
@@ -119,20 +105,26 @@ private:
 
   bool GetPasteboardData(NSPasteboard* board, SelectionText* selectedText);
   void SetPasteboardData(NSPasteboard* board, const SelectionText& selectedText);
-  
+  int TargetAsUTF8(char *text);
+  int EncodedFromUTF8(char *utf8, char *encoded) const;
+
   int scrollSpeed;
   int scrollTicks;
   NSTimer* tickTimer;
   NSTimer* idleTimer;
   CFRunLoopObserverRef observer;
-	
+
   FindHighlightLayer *layerFindIndicator;
 
 protected:
-  Point GetVisibleOriginInMain();
-  PRectangle GetClientRectangle();
+  Point GetVisibleOriginInMain() const;
+  PRectangle GetClientRectangle() const;
+  virtual PRectangle GetClientDrawingRectangle();
   Point ConvertPoint(NSPoint point);
-  
+  virtual void RedrawRect(PRectangle rc);
+  virtual void DiscardOverdraw();
+  virtual void Redraw();
+
   virtual void Initialise();
   virtual void Finalise();
   virtual CaseFolder *CaseFolderForEncoding();
@@ -140,25 +132,30 @@ protected:
   virtual void CancelModes();
 
 public:
-  ScintillaCocoa(InnerView* view, MarginView* viewMargin);
+  ScintillaCocoa(SCIContentView* view, SCIMarginView* viewMargin);
   virtual ~ScintillaCocoa();
 
+  void SetDelegate(id<ScintillaNotificationProtocol> delegate_);
   void RegisterNotifyCallback(intptr_t windowid, SciNotifyFunc callback);
   sptr_t WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 
-  ScintillaView* TopContainer();
-  NSScrollView* ScrollContainer();
-  InnerView* ContentView();
+  NSScrollView* ScrollContainer() const;
+  SCIContentView* ContentView();
 
   bool SyncPaint(void* gc, PRectangle rc);
   bool Draw(NSRect rect, CGContextRef gc);
   void PaintMargin(NSRect aRect);
 
   virtual sptr_t DefWndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
-  void SetTicking(bool on);
+  void TickFor(TickReason reason);
+  bool FineTickerAvailable();
+  bool FineTickerRunning(TickReason reason);
+  void FineTickerStart(TickReason reason, int millis, int tolerance);
+  void FineTickerCancel(TickReason reason);
   bool SetIdle(bool on);
   void SetMouseCapture(bool on);
   bool HaveMouseCapture();
+  void WillDraw(NSRect rect);
   void ScrollText(int linesToMove);
   void SetVerticalScrollPos();
   void SetHorizontalScrollPos();
@@ -188,9 +185,10 @@ public:
   virtual void ClaimSelection();
 
   NSPoint GetCaretPosition();
-  
-  static sptr_t DirectFunction(ScintillaCocoa *sciThis, unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 
+  static sptr_t DirectFunction(sptr_t ptr, unsigned int iMessage, uptr_t wParam, sptr_t lParam);
+
+  NSTimer *timers[tickPlatform+1];
   void TimerFired(NSTimer* timer);
   void IdleTimerFired();
   static void UpdateObserver(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *sci);
@@ -199,7 +197,14 @@ public:
   virtual void IdleWork();
   virtual void QueueIdleWork(WorkNeeded::workItems items, int upTo);
   int InsertText(NSString* input);
+  NSRange PositionsFromCharacters(NSRange range) const;
+  NSRange CharactersFromPositions(NSRange range) const;
   void SelectOnlyMainSelection();
+  void ConvertSelectionVirtualSpace();
+  bool ClearAllSelections();
+  void CompositionStart();
+  void CompositionCommit();
+  void CompositionUndo();
   virtual void SetDocPointer(Document *document);
 
   bool KeyboardInput(NSEvent* event);
@@ -218,14 +223,14 @@ public:
   void DraggingExited(id <NSDraggingInfo> info);
   bool PerformDragOperation(id <NSDraggingInfo> info);
   void DragScroll();
-  
+
   // Promote some methods needed for NSResponder actions.
   virtual void SelectAll();
   void DeleteBackward();
   virtual void Cut();
   virtual void Undo();
   virtual void Redo();
-  
+
   virtual NSMenu* CreateContextMenu(NSEvent* event);
   void HandleCommand(NSInteger command);
 

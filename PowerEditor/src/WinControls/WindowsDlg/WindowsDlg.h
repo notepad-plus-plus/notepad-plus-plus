@@ -29,9 +29,8 @@
 #ifndef WINDOWS_DLG_H
 #define WINDOWS_DLG_H
 
-#ifndef SIZABLE_DLG_H
 #include "SizeableDlg.h"
-#endif //SIZABLE_DLG_H
+#include "Common.h"
 
 class DocTabView;
 class TiXmlNodeA;
@@ -78,7 +77,7 @@ public :
 	bool changeDlgLang();
 
 protected :
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	virtual BOOL onInitDialog();
 	virtual void onSize(UINT nType, int cx, int cy);
 	virtual void onGetMinMaxInfo(MINMAXINFO* lpMMI);

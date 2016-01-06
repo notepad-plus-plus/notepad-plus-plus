@@ -26,7 +26,8 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+#include <shlwapi.h>
+
 #include "FileDialog.h"
 #include "Parameters.h"
 
@@ -161,7 +162,7 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 	return _nbExt;
 }
 
-TCHAR * FileDialog::doOpenSingleFileDlg() 
+TCHAR* FileDialog::doOpenSingleFileDlg()
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
@@ -172,7 +173,7 @@ TCHAR * FileDialog::doOpenSingleFileDlg()
 
 	TCHAR *fn = NULL;
 	try {
-		fn = ::GetOpenFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
+		fn = ::GetOpenFileName(&_ofn)?_fileName:NULL;
 		
 		if (params->getNppGUI()._openSaveDir == dir_last)
 		{
@@ -201,27 +202,32 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT;
 
-	BOOL res = ::GetOpenFileName((OPENFILENAME*)&_ofn);
+	BOOL res = ::GetOpenFileName(&_ofn);
 	if (params->getNppGUI()._openSaveDir == dir_last)
 	{
 		::GetCurrentDirectory(MAX_PATH, dir);
 		params->setWorkingDir(dir);
 	}
-	::SetCurrentDirectory(dir); 
+	::SetCurrentDirectory(dir);
 
 	if (res)
 	{
-		TCHAR fn[MAX_PATH];
-		TCHAR *pFn = _fileName + lstrlen(_fileName) + 1;
+		TCHAR* pFn = _fileName + lstrlen(_fileName) + 1;
+		TCHAR fn[MAX_PATH*8];
+		memset(fn, 0x0, sizeof(fn));
+
 		if (!(*pFn))
+		{
 			_fileNames.push_back(generic_string(_fileName));
+		}
 		else
 		{
 			lstrcpy(fn, _fileName);
-			if (fn[lstrlen(fn)-1] != '\\')
+			if (fn[lstrlen(fn) - 1] != '\\')
 				lstrcat(fn, TEXT("\\"));
 		}
-		int term = int(lstrlen(fn));
+
+		int term = lstrlen(fn);
 
 		while (*pFn)
 		{
@@ -233,9 +239,9 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 
 		return &_fileNames;
 	}
-	else
-		return NULL;
+	return nullptr;
 }
+
 
 TCHAR * FileDialog::doSaveDlg() 
 {
@@ -248,12 +254,15 @@ TCHAR * FileDialog::doSaveDlg()
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 
-	_ofn.Flags |= OFN_ENABLEHOOK;
-	_ofn.lpfnHook = OFNHookProc;
+	if (!params->useNewStyleSaveDlg())
+	{
+		_ofn.Flags |= OFN_ENABLEHOOK;
+		_ofn.lpfnHook = OFNHookProc;
+	}
 
 	TCHAR *fn = NULL;
 	try {
-		fn = ::GetSaveFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
+		fn = ::GetSaveFileName(&_ofn)?_fileName:NULL;
 		if (params->getNppGUI()._openSaveDir == dir_last)
 		{
 			::GetCurrentDirectory(MAX_PATH, dir);
@@ -275,7 +284,7 @@ static WNDPROC oldProc = NULL;
 static generic_string currentExt = TEXT("");
 
 
-static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
     {
@@ -367,8 +376,8 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			}
 
 			// Don't touch the following 3 lines, they are cursed !!!
-			oldProc = (WNDPROC)::GetWindowLongPtr(hFileDlg, GWL_WNDPROC);
-			if ((long)oldProc > 0)
+			oldProc = (WNDPROC)::GetWindowLongPtr(hFileDlg, GWLP_WNDPROC);
+			if (oldProc)
 				::SetWindowLongPtr(hFileDlg, GWLP_WNDPROC, (LONG_PTR)fileDlgProc);
 
 			return FALSE;
@@ -376,7 +385,7 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 		default :
 		{
-			FileDialog *pFileDialog = reinterpret_cast<FileDialog *>(::GetWindowLongPtr(hWnd, GWL_USERDATA));
+			FileDialog *pFileDialog = reinterpret_cast<FileDialog *>(::GetWindowLongPtr(hWnd, GWLP_USERDATA));
 			if (!pFileDialog)
 			{
 				return FALSE;

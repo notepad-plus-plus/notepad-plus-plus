@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -26,30 +26,27 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+
+#include <shlobj.h>
+#include <uxtheme.h>
+
 #include "AboutDlg.h"
 #include "Parameters.h"
 
-BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (message) 
+	switch (message)
 	{
         case WM_INITDIALOG :
 		{
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
 			generic_string buildTime = TEXT("Build time : ");
 
-#ifdef UNICODE
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			buildTime +=  wmc->char2wchar(__DATE__, CP_ACP);
 			buildTime += TEXT(" - ");
 			buildTime +=  wmc->char2wchar(__TIME__, CP_ACP);
 
-#else
-			buildTime +=  __DATE__;
-			buildTime += TEXT(" - ");
-			buildTime +=  __TIME__;
-#endif
 			::SendMessage(compileDateHandle, WM_SETTEXT, 0, (LPARAM)buildTime.c_str());
 			::EnableWindow(compileDateHandle, FALSE);
 
@@ -58,13 +55,10 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
             _emailLink.init(_hInst, _hSelf);
 			//_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("mailto:don.h@free.fr"));
-			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("http://notepad-plus-plus.org/contributors"));
+			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("https://notepad-plus-plus.org/contributors"));
 
             _pageLink.init(_hInst, _hSelf);
-            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("http://notepad-plus-plus.org/"));
-
-			//_onLineHelp.init(_hInst, _hSelf);
-            //_onLineHelp.create(::GetDlgItem(_hSelf, IDC_ONLINEHELP_ADDR), TEXT("http://notepad-plus.sourceforge.net/uk/generalFAQ.php"));
+            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("https://notepad-plus-plus.org/"));
 
 			getClientRect(_rc);
 
@@ -88,12 +82,12 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 			return TRUE;
 		}
 
-		case WM_COMMAND : 
+		case WM_COMMAND :
 		{
 			switch (wParam)
 			{
 				case IDCANCEL :
-				case IDOK : 
+				case IDOK :
 					display(false);
 					return TRUE;
 
@@ -107,7 +101,7 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 			return TRUE;
 		}
 	}
-	return FALSE;	
+	return FALSE;
 }
 
 void AboutDlg::doDialog()
@@ -117,5 +111,106 @@ void AboutDlg::doDialog()
 
     // Adjust the position of AboutBox
 	goToCenter();
-};
+}
+
+
+INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
+{
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			// Notepad++ version
+			_debugInfoStr = NOTEPAD_PLUS_VERSION;
+			_debugInfoStr += TEXT("\r\n");
+
+			// Build time
+			_debugInfoStr += TEXT("Build time : ");
+			generic_string buildTime;
+			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			buildTime += wmc->char2wchar(__DATE__, CP_ACP);
+			buildTime += TEXT(" - ");
+			buildTime += wmc->char2wchar(__TIME__, CP_ACP);
+			_debugInfoStr += buildTime;
+			_debugInfoStr += TEXT("\r\n");
+
+			// Binary path
+			_debugInfoStr += TEXT("Path : ");
+			TCHAR nppFullPath[MAX_PATH];
+			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+			_debugInfoStr += nppFullPath;
+			_debugInfoStr += TEXT("\r\n");
+
+			// Administrator mode
+			_debugInfoStr += TEXT("Admin mode : ");
+			_debugInfoStr += (_isAdmin ? TEXT("ON") : TEXT("OFF"));
+			_debugInfoStr += TEXT("\r\n");
+
+			// local conf
+			_debugInfoStr += TEXT("Local Conf mode : ");
+			bool doLocalConf = (NppParameters::getInstance())->isLocal();
+			_debugInfoStr += (doLocalConf ? TEXT("ON") : TEXT("OFF"));
+			_debugInfoStr += TEXT("\r\n");
+
+			// OS version
+			_debugInfoStr += TEXT("OS : ");
+			_debugInfoStr += (NppParameters::getInstance())->getWinVersionStr();
+			_debugInfoStr += TEXT("\r\n");
+
+			// Plugins
+			_debugInfoStr += TEXT("Plugins : ");
+			_debugInfoStr += _loadedPlugins.length() == 0 ? TEXT("none") : _loadedPlugins;
+			_debugInfoStr += TEXT("\r\n");
+
+			::SetDlgItemText(_hSelf, IDC_DEBUGINFO_EDIT, _debugInfoStr.c_str());
+
+			_copyToClipboardLink.init(_hInst, _hSelf);
+			_copyToClipboardLink.create(::GetDlgItem(_hSelf, IDC_DEBUGINFO_COPYLINK), IDC_DEBUGINFO_COPYLINK);
+
+			getClientRect(_rc);
+			return TRUE;
+		}
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case IDCANCEL:
+				case IDOK:
+					display(false);
+					return TRUE;
+
+				case IDC_DEBUGINFO_COPYLINK:
+				{
+					if ((GetKeyState(VK_LBUTTON) & 0x100) != 0)
+					{
+						// Visual effect
+						::SendDlgItemMessage(_hSelf, IDC_DEBUGINFO_EDIT, EM_SETSEL, 0, _debugInfoStr.length() - 1);
+
+						// Copy to clipboard
+						str2Clipboard(_debugInfoStr, _hSelf);
+					}
+					return TRUE;
+				}
+				default:
+					break;
+			}
+		}
+
+		case WM_DESTROY:
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+void DebugInfoDlg::doDialog()
+{
+	if (!isCreated())
+		create(IDD_DEBUGINFOBOX);
+
+	// Adjust the position of AboutBox
+	goToCenter();
+}
 

@@ -26,7 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
 #include "FunctionCallTip.h"
 
 
@@ -269,14 +268,17 @@ bool FunctionCallTip::getCursorFunction()
 /*
 Find function in XML structure and parse it
 */
-bool FunctionCallTip::loadFunction() {
+bool FunctionCallTip::loadFunction()
+{
 	reset();	//set everything back to 0
 	//The functions should be ordered, but linear search because we cant access like array
 	_curFunction = NULL;
 	//Iterate through all keywords and find the correct function keyword
 	TiXmlElement *funcNode = _pXmlKeyword;
-	const TCHAR * name = NULL;
-	for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) ) {
+	
+	for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
+	{
+		const TCHAR * name = NULL;
 		name = funcNode->Attribute(TEXT("name"));
 		if (!name)		//malformed node
 			continue;
@@ -356,9 +358,9 @@ void FunctionCallTip::showCalltip()
 
 	//Check if the current overload still holds. If the current param exceeds amounti n overload, see if another one fits better (enough params)
 	stringVec & params = _overloads.at(_currentOverload);
-	size_t psize = params.size()+1, osize;
+	size_t psize = params.size()+1;
 	if ((size_t)_currentParam >= psize) {
-		osize = _overloads.size();
+		size_t osize = _overloads.size();
 		for(size_t i = 0; i < osize; ++i) {
 			psize = _overloads.at(i).size()+1;
 			if ((size_t)_currentParam < psize) {

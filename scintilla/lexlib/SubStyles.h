@@ -13,19 +13,24 @@ namespace Scintilla {
 #endif
 
 class WordClassifier {
+	int baseStyle;
 	int firstStyle;
 	int lenStyles;
 	std::map<std::string, int> wordToStyle;
 
 public:
 
-	WordClassifier() : firstStyle(0), lenStyles(0) {
+	explicit WordClassifier(int baseStyle_) : baseStyle(baseStyle_), firstStyle(0), lenStyles(0) {
 	}
 
 	void Allocate(int firstStyle_, int lenStyles_) {
 		firstStyle = firstStyle_;
 		lenStyles = lenStyles_;
 		wordToStyle.clear();
+	}
+
+	int Base() const {
+		return baseStyle;
 	}
 
 	int Start() const {
@@ -57,10 +62,12 @@ public:
 	void SetIdentifiers(int style, const char *identifiers) {
 		while (*identifiers) {
 			const char *cpSpace = identifiers;
-			while (*cpSpace && *cpSpace != ' ')
+			while (*cpSpace && !(*cpSpace == ' ' || *cpSpace == '\t' || *cpSpace == '\r' || *cpSpace == '\n'))
 				cpSpace++;
-			std::string word(identifiers, cpSpace - identifiers);
-			wordToStyle[word] = style;
+			if (cpSpace > identifiers) {
+				std::string word(identifiers, cpSpace - identifiers);
+				wordToStyle[word] = style;
+			}
 			identifiers = cpSpace;
 			if (*identifiers)
 				identifiers++;
@@ -105,8 +112,8 @@ public:
 		secondaryDistance(secondaryDistance_),
 		allocated(0) {
 		while (baseStyles[classifications]) {
+			classifiers.push_back(WordClassifier(baseStyles[classifications]));
 			classifications++;
-			classifiers.push_back(WordClassifier());
 		}
 	}
 
@@ -134,6 +141,14 @@ public:
 		return (block >= 0) ? classifiers[block].Length() : 0;
 	}
 
+	int BaseStyle(int subStyle) const {
+		int block = BlockFromStyle(subStyle);
+		if (block >= 0)
+			return classifiers[block].Base();
+		else
+			return subStyle;
+	}
+
 	int DistanceToSecondaryStyles() const {
 		return secondaryDistance;
 	}
@@ -151,7 +166,8 @@ public:
 	}
 
 	const WordClassifier &Classifier(int baseStyle) const {
-		return classifiers[BlockFromBaseStyle(baseStyle)];
+		const int block = BlockFromBaseStyle(baseStyle);
+		return classifiers[block >= 0 ? block : 0];
 	}
 };
 

@@ -17,7 +17,7 @@
                     <Item idName="Plugins" name="افزونه ها"/>
                     <Item idName="Window" name="پنجره"/>
                 </Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard"  name="کپی به کلیپ برد"/>
@@ -59,7 +59,7 @@
                     <Item subMenuId="encoding-vietnamese" name="ویتنامی"/>
                     <Item subMenuId="settings-import"  name="واردکردن"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="جدید"/>
@@ -79,7 +79,7 @@
                     <Item id="41015" name="ذخیره یک کپی بعنوان.."/>
                     <Item id="41016" name="حذف از دیسک"/>
                     <Item id="41017" name="تغییرنام.."/>
-                    
+
                     <Item id="42001" name="کات"/>
                     <Item id="42002" name="کپی"/>
                     <Item id="42003" name="آندو"/>
@@ -92,8 +92,8 @@
                     <Item id="42010" name="تکثیر خط فعلی"/>
                     <Item id="42012" name="تقسیم خطوط"/>
                     <Item id="42013" name="ادغام خطوط"/>
-                    <Item id="42014" name="انتقال خط فعلی به بالا"/>   
-                    <Item id="42015" name="انتقال خط فعلی به پایین"/>   
+                    <Item id="42014" name="انتقال خط فعلی به بالا"/>
+                    <Item id="42015" name="انتقال خط فعلی به پایین"/>
                     <Item id="42016" name="حروف بزرگ"/>
                     <Item id="42017" name="حروف کوچک"/>
                     <Item id="42018" name="شروع ضبط"/>
@@ -119,7 +119,7 @@
                     <Item id="42033" name="پاکسازی نشانه فقط-خواندنی"/>
                     <Item id="42035" name="انسداد توضیح"/>
                     <Item id="42036" name="انسداد بی توضیح"/>
-                    
+
                     <Item id="43001" name="یافتن.."/>
                     <Item id="43002" name="یافتن بعدی"/>
                     <Item id="43003" name="جایگزینی.."/>
@@ -262,7 +262,7 @@
                     <Item CMID="16" name="بارگیری مجدد"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="یافتن" titleReplace="جایگزینی" titleFindInFiles="یافتن در فایل ها" titleMark="علامت گذاری">
                 <Item id="1"    name="یافتن بعدی"/>
@@ -320,11 +320,11 @@
                 <Item id="2"    name="لغو"/>
                 <Item id="1904" name="ذخیره.."/>
             </Run>
-            
+
             <StyleConfig title="پیکربندی کننده سبک">
                 <Item id="2"    name="لغو"/>
                 <Item id="2301" name="ذخیره &amp;&amp; بستن"/>
-                <Item id="2303" name="پشت نمایی"/>       
+                <Item id="2303" name="پشت نمایی"/>
                 <Item id="2306" name="پوسته را انتخاب کنید:"/>
                 <SubDialog>
                     <Item id="2204" name="توپُر"/>
@@ -348,10 +348,10 @@
                     <Item id="2230" name="فعالسازی سبک فونت توپُر سراسری"/>
                     <Item id="2231" name="فعالسازی سبک فونت مورب سراسری"/>
                     <Item id="2232" name="فعالسازی سبک فونت زیرخط دار سراسری"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="تعریف شده توسط کاربر">
                 <Item id="20002" name="تغییرنام"/>
                 <Item id="20003" name="جدید ایجاد کن..."/>
@@ -440,20 +440,20 @@
                     <Item id="6103" name="آیکون کوچک"/>
                     <Item id="6104" name="آیکون بزرگ"/>
                     <Item id="6105" name="آیکون استاندارد"/>
-                    
+
                     <Item id="6106" name="نوار تب"/>
                     <Item id="6107" name="کاهش"/>
                     <Item id="6108" name="(قفل (بدون کشیدن و رهاکردن"/>
                     <Item id="6109" name="تیرگی تب های غیرفعال"/>
                     <Item id="6110" name="رسم نواررنگی در تب فعال"/>
-                    
+
                     <Item id="6111" name="نمایش نواروضعیت"/>
                     <Item id="6112" name="نمایش دکمه بستن در هر تب"/>
                     <Item id="6113" name="دابل کلیک برای بستن سند"/>
                     <Item id="6118" name="مخفی کن"/>
                     <Item id="6119" name="چند خطی"/>
                     <Item id="6120" name="عمودی"/>
-                    
+
                     <Item id="6121" name="نوار منو"/>
                     <Item id="6122" name="مخفی کن (ALT یا F10 را برای تعویض آن استفاده کنید)"/>
                     <Item id="6123" name="محلی سازی"/>
@@ -472,17 +472,17 @@
                     <Item id="6204" name="دایره درختی"/>
                     <Item id="6205" name="جعبه درختی"/>
                     <Item id="6226" name="هیچکدام"/>
-                    
+
                     <Item id="6227" name="پیچیدن خط"/>
                     <Item id="6228" name="پیش فرض"/>
                     <Item id="6229" name="هم تراز شده"/>
                     <Item id="6230" name="لبه دادن"/>
-                    
+
                     <Item id="6206" name="نمایش شماره خطوط"/>
                     <Item id="6207" name="نمایش بوکمارک"/>
                     <Item id="6208" name="نمایش لبه عمودی"/>
                     <Item id="6209" name="تعداد ستون ها:"/>
-                    
+
                     <Item id="6211" name="تنظیمات لبه عمودی"/>
                     <Item id="6212" name="نوع خط"/>
                     <Item id="6213" name="حالت پس زمینه"/>
@@ -569,12 +569,12 @@
                     <Item id="6327" name="فعال کردن"/>
                     <Item id="6328" name="تگ های صفات را پرنورکن"/>
                     <Item id="6330" name="را پررنگ کن php،asp،منطقه توضیح"/>
-                    
+
                     <Item id="6331" name="فقط نمایش نام فایل در نوارعنوان"/>
                     <Item id="6114" name="فعال کردن"/>
                     <Item id="6115" name="لبه دادن خودکار"/>
                     <Item id="6117" name="فعال کردن رفتار آخرین استفاده شده"/>
-                    
+
                 </MISC>
                 <Backup title="پشتیبان/تکمیل خودکار">
                     <Item id="6801" name="پشتیبان"/>
@@ -633,7 +633,7 @@
             <FileLockedWarning title="موفق به ذخیره نشد" message="لطفا بازبودن این فایل را در برنامه دیگر بررسی کنید"/>
             <FileAlreadyOpenedInNpp title="" message="فایل از قبل در برنامه باز شده است"/>
             <DeleteFileFailed title="حذف فایل" message="موفق به حذف فایل نشد"/>
-            
+
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="مقدار فایل ها برای بازشدن بزرگ هست" message="درصدد بازشدن هست $INT_REPLACE$ تعداد \rآیا میخواهید آنها را باز کنید؟"/>
         </MessageBox>

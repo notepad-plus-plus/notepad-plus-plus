@@ -31,11 +31,10 @@
 // Reverse regex are slow using the new regex engine, and hence cost too much time.
 
 
-#include "precompiledHeaders.h"
 #include "xmlMatchedTagsHighlighter.h"
 #include "ScintillaEditView.h"
 
-
+using namespace std;
 
 vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, int end)
 {
@@ -144,7 +143,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 		openFound = findText("<", searchStartPoint, 0, 0);
 		styleAt = _pEditView->execute(SCI_GETSTYLEAT, openFound.start);
 		searchStartPoint = openFound.start - 1;
-	} while (openFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING) && searchStartPoint > 0);
+	} while (openFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING || styleAt == SCE_H_COMMENT ) && searchStartPoint > 0);
 
 	if (openFound.success && styleAt != SCE_H_CDATA)
 	{
@@ -156,7 +155,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 			closeFound = findText(">", searchStartPoint, caret, 0);
 			styleAt = _pEditView->execute(SCI_GETSTYLEAT, closeFound.start);
 			searchStartPoint = closeFound.end;
-		} while (closeFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING) && searchStartPoint <= caret);
+		} while (closeFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING || styleAt == SCE_H_COMMENT) && searchStartPoint <= caret);
 
 		if (!closeFound.success)
 		{
@@ -283,7 +282,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 				std::string tagName;
 				nextChar = _pEditView->execute(SCI_GETCHARAT, position);	
 				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
-				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'')
+				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'' )
 				{
 					tagName.push_back((char)nextChar);
 					++position;
@@ -382,7 +381,6 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 	return tagFound;
 }
 
-
 XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findOpenTag(const std::string& tagName, int start, int end)
 {
 	std::string search("<");
@@ -403,7 +401,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findOpenTag(con
 		{
 			nextChar = _pEditView->execute(SCI_GETCHARAT, result.end);
 			styleAt = _pEditView->execute(SCI_GETSTYLEAT, result.start);
-			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_DOUBLESTRING && styleAt != SCE_H_SINGLESTRING)
+			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_DOUBLESTRING && styleAt != SCE_H_SINGLESTRING && styleAt != SCE_H_COMMENT)
 			{
 				// We've got an open tag for this tag name (i.e. nextChar was space or '>')
 				// Now we need to find the end of the start tag.
@@ -473,7 +471,7 @@ int XmlMatchedTagsHighlighter::findCloseAngle(int startPosition, int endPosition
 		{
 			int style = _pEditView->execute(SCI_GETSTYLEAT, closeAngle.start);
 			// As long as we're not in an attribute (  <TAGNAME attrib="val>ue"> is VALID XML. )
-			if (style != SCE_H_DOUBLESTRING && style != SCE_H_SINGLESTRING)
+			if (style != SCE_H_DOUBLESTRING && style != SCE_H_SINGLESTRING && style != SCE_H_COMMENT)
 			{
 				returnPosition = closeAngle.start;
 				isValidClose = true;
@@ -522,7 +520,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findCloseTag(co
 				searchStart = result.start - 1;
 			}
 		
-			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_SINGLESTRING && styleAt != SCE_H_DOUBLESTRING) // If what we found was in CDATA section, it's not a valid tag.
+			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_SINGLESTRING && styleAt != SCE_H_DOUBLESTRING && styleAt != SCE_H_COMMENT) // If what we found was in CDATA section, it's not a valid tag.
 			{
 				// Common case - '>' follows the tag name directly
 				if (nextChar == '>')

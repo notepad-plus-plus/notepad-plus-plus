@@ -30,18 +30,18 @@
                     <Item subMenuId="edit-comment" name = "Ко&amp;ммент кошуу/алыпсалуу"/>
                     <Item subMenuId="edit-autoCompletion" name = "А&amp;втотолуктоо"/>
 					<Item subMenuId="edit-eolConversion" name="EOL өзгөртүү"/>
-					
+
 					<Item subMenuId="search-markAll" name = "Тандалганды же сапты &amp;белгиле"/>
                     <Item subMenuId="search-unmarkAll" name = "Белгилерди &amp;кайтар"/>
 					<Item subMenuId="search-jumpUp" name = "Жогору чык"/>
 					<Item subMenuId="search-jumpDown" name = "Төмөн түш"/>
-                    
+
 					<Item subMenuId="view-showSymbol" name = "Бел&amp;гилерди көрсөтүү"/>
                     <Item subMenuId="view-zoom" name = "Мас&amp;штаб"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Документти жылды&amp;руу/клондоо"/>
                     <Item subMenuId="view-collapseLevel" name = "Дэңгээлди &amp;бүктө"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Дэңгээлди &amp;жаз"/>
-					
+
 					<Item subMenuId="encoding-characterSets" name = "Кодулоолор"/>
 					<Item subMenuId="encoding-arabic"  name="Араб"/>
                     <Item subMenuId="encoding-baltic"  name="Балтиялык"/>
@@ -313,7 +313,7 @@
 				<Item id = "2" name = "Кайтар"/>
 				<Item id = "2301" name = "OK"/>
 				<Item id = "2303" name = "Тунуктугу"/>
-				
+
                   <SubDialog>
                 	<Item id = "2204" name = "Талпагай"/>
                     <Item id = "2205" name = "Кыйгач"/>
@@ -470,7 +470,7 @@
 					<Item id = "6505" name = "Колалдындагылар"/>
 					<Item id = "6506" name = "Өчүрүлгөн тилдер"/>
 					<Item id = "6507" name = "Синтаксис менюсун кичирейт"/>
-					<Item id = "6508" name = "Синтаксис менюсу"/>	
+					<Item id = "6508" name = "Синтаксис менюсу"/>
 					<Item id = "6301" name = "Табуляция тескөөсү"/>
 					<Item id = "6302" name = "Боштук менен алмашытр"/>
 					<Item id = "6303" name = "Табуляция көлөмү:"/>

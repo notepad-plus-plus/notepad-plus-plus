@@ -18,11 +18,12 @@
 #ifndef RUN_DLG_H
 #define RUN_DLG_H
 
+#include <oleacc.h>
+#include "Common.h"
+
 #ifndef RUN_DLG_RC_H
 #include "RunDlg_rc.h"
 #endif //RUN_DLG_RC_H
-
-using namespace std;
 
 #define CURRENTWORD_MAXLENGTH 2048
 
@@ -64,7 +65,7 @@ public :
     };
 
 protected :
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
 	void addTextToCombo(const TCHAR *txt2Add) const;

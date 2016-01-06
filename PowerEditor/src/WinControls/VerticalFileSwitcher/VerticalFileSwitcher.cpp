@@ -26,7 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
+
 #include "VerticalFileSwitcher.h"
 #include "menuCmdID.h"
 #include "Parameters.h"
@@ -54,7 +54,7 @@ int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSo
 	return (0 - result);
 };
 
-BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
@@ -205,15 +205,15 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 {
 	int view = tlfs->_iView;
-	int bufferID = (int)tlfs->_bufID;
+	BufferID bufferID = static_cast<BufferID>(tlfs->_bufID);
 	
 	int currentView = ::SendMessage(_hParent, NPPM_GETCURRENTVIEW, 0, 0);
-	int currentBufID = ::SendMessage(_hParent, NPPM_GETCURRENTBUFFERID, 0, 0);
+	BufferID currentBufID = reinterpret_cast<BufferID>(::SendMessage(_hParent, NPPM_GETCURRENTBUFFERID, 0, 0));
 
 	if (bufferID == currentBufID && view == currentView)
 		return;
 	
-	int docPosInfo = ::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, bufferID, view);
+	int docPosInfo = ::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, (WPARAM)bufferID, view);
 	int view2set = docPosInfo >> 30;
 	int index2Switch = (docPosInfo << 2) >> 2 ;
 

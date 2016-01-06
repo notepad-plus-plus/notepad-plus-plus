@@ -23,6 +23,12 @@
 
 #define INDIC_INPUTMETHOD 24
 
+#define MAXLENINPUTIME 200
+#define SC_INDICATOR_INPUT INDIC_IME
+#define SC_INDICATOR_TARGET INDIC_IME+1
+#define SC_INDICATOR_CONVERTED INDIC_IME+2
+#define SC_INDICATOR_UNKNOWN INDIC_IME_MAX
+
 #ifdef SCI_NAMESPACE
 using namespace Scintilla;
 #endif
@@ -41,9 +47,14 @@ ScintillaEditBase::ScintillaEditBase(QWidget *parent)
 	setFrameStyle(QFrame::NoFrame);
 	setFocusPolicy(Qt::StrongFocus);
 	setAttribute(Qt::WA_StaticContents);
-	setAttribute(Qt::WA_OpaquePaintEvent);
+	viewport()->setAttribute(Qt::WA_OpaquePaintEvent);
 	setAttribute(Qt::WA_KeyCompression);
 	setAttribute(Qt::WA_InputMethodEnabled);
+
+	sqt->vs.indicators[SC_INDICATOR_UNKNOWN] = Indicator(INDIC_HIDDEN, ColourDesired(0, 0, 0xff));
+	sqt->vs.indicators[SC_INDICATOR_INPUT] = Indicator(INDIC_DOTS, ColourDesired(0, 0, 0xff));
+	sqt->vs.indicators[SC_INDICATOR_CONVERTED] = Indicator(INDIC_COMPOSITIONTHICK, ColourDesired(0, 0, 0xff));
+	sqt->vs.indicators[SC_INDICATOR_TARGET] = Indicator(INDIC_STRAIGHTBOX, ColourDesired(0, 0, 0xff));
 
 	connect(sqt, SIGNAL(notifyParent(SCNotification)),
 	        this, SLOT(notifyParent(SCNotification)));
@@ -319,7 +330,20 @@ void ScintillaEditBase::mouseDoubleClickEvent(QMouseEvent *event)
 void ScintillaEditBase::mouseMoveEvent(QMouseEvent *event)
 {
 	Point pos = PointFromQPoint(event->pos());
-	sqt->ButtonMove(pos);
+
+	bool shift = QApplication::keyboardModifiers() & Qt::ShiftModifier;
+	bool ctrl  = QApplication::keyboardModifiers() & Qt::ControlModifier;
+#ifdef Q_WS_X11
+	// On X allow choice of rectangular modifier since most window
+	// managers grab alt + click for moving windows.
+	bool alt   = QApplication::keyboardModifiers() & modifierTranslated(sqt->rectangularSelectionModifier);
+#else
+	bool alt   = QApplication::keyboardModifiers() & Qt::AltModifier;
+#endif
+
+	int modifiers = (shift ? SCI_SHIFT : 0) | (ctrl ? SCI_CTRL : 0) | (alt ? SCI_ALT : 0);
+
+	sqt->ButtonMoveWithModifiers(pos, modifiers);
 }
 
 void ScintillaEditBase::contextMenuEvent(QContextMenuEvent *event)
@@ -374,87 +398,179 @@ void ScintillaEditBase::dropEvent(QDropEvent *event)
 	}
 }
 
+bool ScintillaEditBase::IsHangul(const QChar qchar)
+{
+	int unicode = (int)qchar.unicode();
+	// Korean character ranges used for preedit chars.
+	// http://www.programminginkorean.com/programming/hangul-in-unicode/
+	const bool HangulJamo = (0x1100 <= unicode && unicode <= 0x11FF);
+	const bool HangulCompatibleJamo = (0x3130 <= unicode && unicode <= 0x318F);
+	const bool HangulJamoExtendedA = (0xA960 <= unicode && unicode <= 0xA97F);
+	const bool HangulJamoExtendedB = (0xD7B0 <= unicode && unicode <= 0xD7FF);
+	const bool HangulSyllable = (0xAC00 <= unicode && unicode <= 0xD7A3);
+	return HangulJamo || HangulCompatibleJamo  || HangulSyllable ||
+				HangulJamoExtendedA || HangulJamoExtendedB; 
+}
+
+void ScintillaEditBase::MoveImeCarets(int offset) 
+{
+	// Move carets relatively by bytes
+	for (size_t r=0; r < sqt->sel.Count(); r++) {
+		int positionInsert = sqt->sel.Range(r).Start().Position();
+		sqt->sel.Range(r).caret.SetPosition(positionInsert + offset);
+		sqt->sel.Range(r).anchor.SetPosition(positionInsert + offset);
+ 	}
+}
+ 
+void ScintillaEditBase::DrawImeIndicator(int indicator, int len) 
+{
+	// Emulate the visual style of IME characters with indicators.
+	// Draw an indicator on the character before caret by the character bytes of len
+	// so it should be called after AddCharUTF().
+	// It does not affect caret positions.
+	if (indicator < 8 || indicator > INDIC_MAX) {
+		return;
+	}
+	sqt->pdoc->decorations.SetCurrentIndicator(indicator);
+	for (size_t r=0; r< sqt-> sel.Count(); r++) {
+		int positionInsert = sqt->sel.Range(r).Start().Position();
+		sqt->pdoc->DecorationFillRange(positionInsert - len, 1, len);
+	}
+}
+
 void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 {
-	// Clear the current selection.
-	sqt->ClearSelection();
-	if (preeditPos >= 0)
-		sqt->SetSelection(preeditPos, preeditPos);
+	// Copy & paste by johnsonj with a lot of helps of Neil
+	// Great thanks for my forerunners, jiniya and BLUEnLIVE
 
-	// Insert the commit string.
-	if (!event->commitString().isEmpty() || event->replacementLength()) {
-		// Select the text to be removed.
-		int commitPos = send(SCI_GETCURRENTPOS);
-		int start = commitPos + event->replacementStart();
-		int end = start + event->replacementLength();
-		sqt->SetSelection(start, end);
-
-		// Replace the selection with the commit string.
-		QByteArray commitBytes = sqt->BytesForDocument(event->commitString());
-		char *commitData = commitBytes.data();
-		sqt->AddCharUTF(commitData, strlen(commitData));
+	if (sqt->pdoc->TentativeActive()) {
+		sqt->pdoc->TentativeUndo();
+	} else {
+		// No tentative undo means start of this composition so
+		// Fill in any virtual spaces.
+		sqt->FillVirtualSpace();
 	}
 
-	// Select the previous preedit string.
-	int pos = send(SCI_GETCURRENTPOS);
-	int length = sqt->BytesForDocument(preeditString).length();
-	sqt->SetSelection(pos, pos + length);
+	sqt->view.imeCaretBlockOverride = false;
 
-	// Replace the selection with the new preedit string.
-	QByteArray bytes = sqt->BytesForDocument(event->preeditString());
-	char *data = bytes.data();
-	bool recording = sqt->recordingMacro;
-	sqt->recordingMacro = false;
-	send(SCI_SETUNDOCOLLECTION, false);
-	sqt->AddCharUTF(data, strlen(data));
-	send(SCI_SETUNDOCOLLECTION, true);
-	sqt->recordingMacro = recording;
-	sqt->SetSelection(pos, pos);
+	if (!event->commitString().isEmpty()) {
+		const QString commitStr = event->commitString();
+		const unsigned int commitStrLen = commitStr.length();
 
-	// Store the state of the current preedit string.
-	preeditString = event->preeditString();
-	preeditPos = !preeditString.isEmpty() ? send(SCI_GETCURRENTPOS) : -1;
+		for (unsigned int i = 0; i < commitStrLen;) {
+			const unsigned int ucWidth = commitStr.at(i).isHighSurrogate() ? 2 : 1;
+			const QString oneCharUTF16 = commitStr.mid(i, ucWidth);
+			const QByteArray oneChar = sqt->BytesForDocument(oneCharUTF16);
+			const int oneCharLen = oneChar.length();
 
-	if (!preeditString.isEmpty()) {
-		// Apply attributes to the preedit string.
-		int indicNum = 0;
-		sqt->ShowCaretAtCurrentPosition();
-		foreach (QInputMethodEvent::Attribute a, event->attributes()) {
-			QString prefix = preeditString.left(a.start);
-			QByteArray prefixBytes = sqt->BytesForDocument(prefix);
-			int prefixLength = prefixBytes.length();
-			int caretPos = preeditPos + prefixLength;
+			sqt->AddCharUTF(oneChar.data(), oneCharLen);
+			i += ucWidth;
+		}
 
-			if (a.type == QInputMethodEvent::Cursor) {
-				sqt->SetSelection(caretPos, caretPos);
-				if (!a.length)
-					sqt->DropCaret();
+	} else if (!event->preeditString().isEmpty()) {
+		const QString preeditStr = event->preeditString();
+		const unsigned int preeditStrLen = preeditStr.length();
+		if ((preeditStrLen == 0) || (preeditStrLen > MAXLENINPUTIME)) {
+			sqt->ShowCaretAtCurrentPosition();
+			return;
+		}
 
-			} else if (a.type == QInputMethodEvent::TextFormat) {
-				Q_ASSERT(a.value.canConvert(QVariant::TextFormat));
-				QTextFormat format = a.value.value<QTextFormat>();
-				Q_ASSERT(format.isCharFormat());
+		sqt->pdoc->TentativeStart(); // TentativeActive() from now on.
+
+		// Mark segments and get ime caret position.
+		unsigned int imeCaretPos = 0;
+		unsigned int imeIndicator[MAXLENINPUTIME] = {0};
+#ifdef Q_OS_LINUX
+		// ibus-qt has a bug to return only one underline style.
+		// Q_OS_LINUX blocks are temporary work around to cope with it.
+		unsigned int attrSegment = 0;
+#endif
+
+		foreach (QInputMethodEvent::Attribute attr, event->attributes()) {
+			if (attr.type == QInputMethodEvent::TextFormat) {
+				QTextFormat format = attr.value.value<QTextFormat>();
 				QTextCharFormat charFormat = format.toCharFormat();
 
-				QString sub = preeditString.mid(a.start, a.length);
-				QByteArray subBytes = sqt->BytesForDocument(sub);
-				int subLength = subBytes.length();
-
-				if (charFormat.underlineStyle() != QTextCharFormat::NoUnderline) {
-					// Set temporary indicator for underline style.
-					QColor uc = charFormat.underlineColor();
-					int style = INDIC_PLAIN;
-					if (charFormat.underlineStyle() == QTextCharFormat::DashUnderline)
-						style = INDIC_DASH;
-					send(SCI_INDICSETSTYLE, INDIC_INPUTMETHOD + indicNum, style);
-					send(SCI_INDICSETFORE, INDIC_INPUTMETHOD + indicNum, uc.rgb());
-					send(SCI_SETINDICATORCURRENT, INDIC_INPUTMETHOD + indicNum);
-					send(SCI_INDICATORFILLRANGE, caretPos, subLength);
-					indicNum++;
+				unsigned int indicator = SC_INDICATOR_UNKNOWN;
+				switch (charFormat.underlineStyle()) {
+					case QTextCharFormat::NoUnderline:
+						indicator = SC_INDICATOR_TARGET; //target input
+						break;
+					case QTextCharFormat::SingleUnderline:
+					case QTextCharFormat::DashUnderline:
+						indicator = SC_INDICATOR_INPUT; //normal input
+						break;
+					case QTextCharFormat::DotLine:
+					case QTextCharFormat::DashDotLine:
+					case QTextCharFormat::WaveUnderline:
+					case QTextCharFormat::SpellCheckUnderline:
+						indicator = SC_INDICATOR_CONVERTED;
+						break;
+		
+					default:
+						indicator = SC_INDICATOR_UNKNOWN;
 				}
+
+#ifdef Q_OS_LINUX
+				attrSegment++;
+				indicator = attr.start;
+#endif
+				for (int i = attr.start; i < attr.start+attr.length; i++) {
+					imeIndicator[i] = indicator;
+				}
+			} else if (attr.type == QInputMethodEvent::Cursor) {
+				imeCaretPos = attr.start;
 			}
 		}
+#ifdef Q_OS_LINUX
+		const bool targetInput = (attrSegment > 1) || ((imeCaretPos == 0) && (preeditStr != preeditString));
+		preeditString = preeditStr;
+#endif
+		// Display preedit characters one by one.
+		int imeCharPos[MAXLENINPUTIME] = {0};
+		int numBytes = 0;
+
+		const bool recording = sqt->recordingMacro;
+		sqt->recordingMacro = false;
+		for (unsigned int i = 0; i < preeditStrLen;) {
+			const unsigned int ucWidth = preeditStr.at(i).isHighSurrogate() ? 2 : 1;
+			const QString oneCharUTF16 = preeditStr.mid(i, ucWidth);
+			const QByteArray oneChar = sqt->BytesForDocument(oneCharUTF16);
+			const int oneCharLen = oneChar.length();
+
+			// Record character positions for moving ime caret.
+			numBytes += oneCharLen;
+			imeCharPos[i+1] = numBytes;
+
+			sqt->AddCharUTF(oneChar.data(), oneCharLen);
+
+#ifdef Q_OS_LINUX
+			// Segment marked with imeCaretPos is for target input.
+			if ((imeIndicator[i] == imeCaretPos) && (targetInput)) {
+				DrawImeIndicator(SC_INDICATOR_TARGET, oneCharLen);
+			} else {
+				DrawImeIndicator(SC_INDICATOR_INPUT, oneCharLen);
+			}
+#else
+			DrawImeIndicator(imeIndicator[i], oneCharLen);
+#endif
+			i += ucWidth;
+		} 
+		sqt->recordingMacro = recording;
+
+		// Move IME carets.
+		if (IsHangul(preeditStr.at(0))) {
+			sqt->view.imeCaretBlockOverride = true;
+			MoveImeCarets(- imeCharPos[preeditStrLen]);
+		} else {
+			MoveImeCarets(- imeCharPos[preeditStrLen] + imeCharPos[imeCaretPos]);
+		}
+
+		// Set candidate box position for Qt::ImMicroFocus.
+		preeditPos = sqt->CurrentPosition();
+		updateMicroFocus();
 	}
+	sqt->ShowCaretAtCurrentPosition();
 }
 
 QVariant ScintillaEditBase::inputMethodQuery(Qt::InputMethodQuery query) const

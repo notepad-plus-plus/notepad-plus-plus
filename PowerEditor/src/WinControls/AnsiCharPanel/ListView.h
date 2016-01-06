@@ -29,7 +29,8 @@
 #ifndef LISTVIEW_H
 #define LISTVIEW_H
 
-#include "window.h"
+#include "Window.h"
+#include "Common.h"
 
 class ListView : public Window
 {
@@ -51,7 +52,7 @@ protected:
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((ListView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
+		return (((ListView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
 };
 

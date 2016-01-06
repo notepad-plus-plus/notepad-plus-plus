@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
 	<Native-Langue name="Slovenčina" filename="slovak.xml" >
 		<Menu>
@@ -17,7 +17,7 @@
 					<Item idName="Plugins" name="Rozšírenia"/>
 					<Item idName="Window" name="Okno"/>
 				</Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
 					<Item subMenuId="file-recentFiles" name="Nedávno otvorené súbory"/>
@@ -60,7 +60,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Západoeurópska"/>
                     <Item subMenuId="settings-import"  name="Import"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Nový"/>
@@ -80,7 +80,7 @@
 					<Item id="41015" name="Uložiť kópiu ako..."/>
                     <Item id="41016" name="Odstrániť z disku"/>
                     <Item id="41017" name="Premenovať..."/>
-					
+
                     <Item id="42001" name="Vy&amp;strihnúť"/>
                     <Item id="42002" name="&amp;Kopírovať"/>
                     <Item id="42003" name="&amp;Späť"/>
@@ -93,8 +93,8 @@
                     <Item id="42010" name="Duplikovať aktuálny riadok"/>
                     <Item id="42012" name="Rozdeliť riadky"/>
                     <Item id="42013" name="Spojiť riadky"/>
-                    <Item id="42014" name="Posunúť nahor aktuálny riadok"/>   
-                    <Item id="42015" name="Posunúť nadol aktuálny riadok"/>   
+                    <Item id="42014" name="Posunúť nahor aktuálny riadok"/>
+                    <Item id="42015" name="Posunúť nadol aktuálny riadok"/>
                     <Item id="42016" name="VEĽKÉ písmená"/>
                     <Item id="42017" name="malé písmená"/>
                     <Item id="42018" name="&amp;Začať nahrávať"/>
@@ -102,7 +102,7 @@
                     <Item id="42021" name="&amp;Prehrať"/>
                     <Item id="42022" name="Pridať/Odstrániť blokovú poznámku"/>
 					<Item id="42023" name="Pridať priebežnú poznámku"/>
-					
+
 					<Item id="42042" name="Orezať koncovú medzeru"/>
 					<Item id="42043" name="Orezať začiatočnú a koncovú medzeru"/>
 					<Item id="42044" name="EOL na medzeru"/>
@@ -132,7 +132,7 @@
 					<Item id="43052" name="Hľadať znaky v rozsahu..."/>
 					<Item id="42053" name="Medzera na TAB (Odsadenie)"/>
 					<Item id="42054" name="Medzera na TAB (Všetky)"/>
-					
+
                     <Item id="43001" name="&amp;Hľadať..."/>
                     <Item id="43002" name="Hľadať &amp;ďalšie"/>
                     <Item id="43003" name="Nahradiť..."/>
@@ -211,7 +211,7 @@
 					<Item id="44081" name="Projektový panel 1"/>
 					<Item id="44082" name="Projektový panel 2"/>
 					<Item id="44083" name="Projektový panel 3"/>
-                    
+
                     <Item id="45001" name="Prekonvertovať na Windows Formát"/>
                     <Item id="45002" name="Prekonvertovať na UNIX Formát"/>
                     <Item id="45003" name="Prekonvertovať na MAC Formát"/>
@@ -225,13 +225,13 @@
                     <Item id="45011" name="Prekonvertovať do UTF-8"/>
                     <Item id="45012" name="Prekonvertovať do UCS-2 Big Endian"/>
                     <Item id="45013" name="Prekonvertovať do UCS-2 Little Endian"/>
-                    
+
                     <Item id="10001" name="Premiestniť na iné zobrazenie"/>
                     <Item id="10002" name="Klonovať na iné zobrazenie"/>
 					<Item id="10003" name="Premiestniť na novú inštanciu"/>
                     <Item id="10004" name="Otvoriť v novej inštancii"/>
-                  
-				  
+
+
                     <Item id="46001" name="Upraviť štýly..."/>
 					<Item id="46080" name="Definované používateľom"/>
                     <Item id="47000" name="O Notepade++..."/>
@@ -239,15 +239,15 @@
                     <Item id="47002" name="Stránka projektu Notepad++"/>
                     <Item id="47003" name="Online dokumentácia"/>
                     <Item id="47004" name="Fórum"/>
-					<Item id="47005" name="Získať viac rozšírení"/>	
+					<Item id="47005" name="Získať viac rozšírení"/>
 					<Item id="47006" name="Aktualizovať Notepad++"/>
                     <Item id="47008" name="Pomocník"/>
                     <Item id="48005" name="Importovať rozšírenie(-ia) ..."/>
-                    <Item id="48006" name="Importovať tému(-y) ..."/>					
+                    <Item id="48006" name="Importovať tému(-y) ..."/>
                     <Item id="48009" name="Mapovač skratiek..."/>
                     <Item id="48011" name="Predvoľby..."/>
                     <Item id="49000" name="&amp;Spustiť..."/>
-					
+
 					<Item id="50000" name="Dokončovanie funkcií"/>
                     <Item id="50001" name="Dokončovanie slov"/>
 					<Item id="50002" name="Tip na parametre funkcie"/>
@@ -258,7 +258,7 @@
 					<Item id="48016" name="Upraviť skratku/Odstrániť makro..."/>
 					<Item id="48017" name="Upraviť skratku/Odstrániť príkaz..."/>
 					<Item id="48018" name="Upraviť vyskakovacie kontextové menu"/>
-					
+
                 </Commands>
             </Main>
             <Splitter>
@@ -282,7 +282,7 @@
 					<Item CMID="15" name="Otvoriť v novej inštancii"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="Hľadať" titleReplace="Nahradiť" titleFindInFiles="Hľadať v súboroch" titleMark="Označiť">
                 <Item id="1" 	name="Hľadať ďalšie"/>
@@ -315,13 +315,13 @@
 			 	<Item id="1655" name="Priečinok:"/>
 			 	<Item id="1656" name="Hľadať ich všetky"/>
 			 	<Item id="1658" name="Vo všetkých podpriečinkoch"/>
-				<Item id="1659" name="V skrytých priečinkoch"/> 
+				<Item id="1659" name="V skrytých priečinkoch"/>
 			 	<Item id="1624" name="Mód hľadania"/>
 			 	<Item id="1625" name="Normálny"/>
 			 	<Item id="1626" name="Rozšírený (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Nahradiť v súboroch"/>
 				<Item id="1661" name="Nasledovať aktuálny dokument"/>
-			 	<Item id="1641" name="Hľadať všetko v aktuálnom dokumente"/> 
+			 	<Item id="1641" name="Hľadať všetko v aktuálnom dokumente"/>
 				<Item id="1686" name="Priehľadnosť"/>
 				<Item id="1703" name=". značí kon. riadka"/>
             </Find>
@@ -341,7 +341,7 @@
                 <Item id="2"	name="Zrušiť"/>
                 <Item id="1904" name="Uložiť..."/>
             </Run>
-            
+
             <StyleConfig title="Upraviť štýl">
 				<Item id="2" 	name="Zrušiť"/>
 				<Item id="2301" name="Uložiť &amp;&amp; zatvoriť"/>
@@ -370,9 +370,9 @@
                     <Item id="2231" name="Povoliť globálne kurzíva"/>
                     <Item id="2232" name="Povoliť globálne podčiarknuté písmo"/>
                 </SubDialog>
-				
+
             </StyleConfig>
-            
+
             <UserDefine title="Používateľom definované">
 				<Item id="20002" name="Premenovať"/>
 				<Item id="20003" name="Vytvoriť nový..."/>
@@ -438,20 +438,20 @@
 					<Item id="6103" name="Malé ikony"/>
 	                <Item id="6104" name="Veľké ikony"/>
 					<Item id="6105" name="Štandardné ikony"/>
-					
+
 					<Item id="6106" name="Panel so záložkami"/>
 					<Item id="6107" name="Zmenšiť"/>
 					<Item id="6108" name="Zamknúť (Vypne Drag N Drop)"/>
 					<Item id="6109" name="Stmaviť neaktívne záložky"/>
 					<Item id="6110" name="Vykresliť oranžový pruh na záložke"/>
-					
+
 					<Item id="6111" name="Zobraziť stavový riadok"/>
 					<Item id="6112" name="Zobraziť zatv. tlačidlo na každej záložke"/>
 					<Item id="6113" name="Dvojkliknúť na zatvorenie dokumentu"/>
 					<Item id="6118" name="Skryť"/>
 					<Item id="6119" name="Viacriadkový"/>
 					<Item id="6120" name="Vertikálny"/>
-					
+
 					<Item id="6121" name="Panel menu"/>
 					<Item id="6122" name="Skryť (Použite Alt alebo F10 na prepnutie)"/>
 					<Item id="6123" name="Lokalizácia"/>
@@ -472,18 +472,18 @@
 	                <Item id="6204" name="Kruhový strom"/>
 					<Item id="6205" name="Krabicový strom"/>
                     <Item id="6226" name="Žiadny"/>
-					
+
 					<Item id="6227" name="Zalomenie riadka"/>
                     <Item id="6228" name="Východzie"/>
                     <Item id="6229" name="Zarovnané"/>
                     <Item id="6230" name="Odsadené"/>
 					<Item id="6231" name="Hrúbka okraja"/>
-					
+
 					<Item id="6206" name="Zobraziť čísla riadkov"/>
 					<Item id="6207" name="Zobraziť záložky"/>
 					<Item id="6208" name="Zobraziť vertikálny okraj"/>
 					<Item id="6209" name="Počet stĺpcov: "/>
-					
+
 					<Item id="6211" name="Nastavenie vertikálneho okraja"/>
 					<Item id="6212" name="Čiarový mód"/>
 					<Item id="6213" name="Na pozadí"/>
@@ -578,11 +578,11 @@
 					<Item id="6331" name="Zobraziť v titulovom paneli iba názov súboru"/>
 					<Item id="6332" name="Zvýrazňovanie rozlišuje malé/VEĽKÉ"/>
 					<Item id="6333" name="Inteligentné zvýrazňovanie"/>
-					
+
 					<Item id="6114" name="Zapnúť"/>
 					<Item id="6115" name="Auto-odsadzovanie"/>
 					<Item id="6117" name="Zapnúť MRU správanie"/>
-					
+
                 </MISC>
 				<Backup title="Záloha/Automatické dokončovanie">
 					<Item id="6801" name="Záloha"/>

@@ -22,7 +22,7 @@
 					<Item idName = "Plugins" name = "Plugin-ови"/>
 					<Item idName = "Window" name = "Прозорец"/>
 				</Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard" name = "Копирај во Складиште"/>
@@ -36,11 +36,11 @@
                     <Item subMenuId="view-showSymbol" name = "Покажи ги Симболите"/>
                     <Item subMenuId="view-zoom" name = "Зголеми"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Помести/Клонирај го Одредениот Документ"/>
-					
+
                     <Item subMenuId="view-collapseLevel" name = "Падни го Нивото"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Крени го Нивото"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id = "41001" name = "&amp;Нов"/>
@@ -60,7 +60,7 @@
                     <Item id = "41015" name = "Зачувај ја Копијата како..."/>
                     <Item id = "41016" name = "Избриши од Дискот"/>
                     <Item id = "41017" name = "Преимени..."/>
-					
+
                     <Item id = "42001" name = "Пре&amp;мести"/>
                     <Item id = "42002" name = "&amp;Копирај"/>
                     <Item id = "42003" name = "Пони&amp;шти"/>
@@ -73,8 +73,8 @@
                     <Item id = "42010" name = "Двојник на Одредената Линија"/>
                     <Item id = "42012" name = "Раздели ги Линиите"/>
                     <Item id = "42013" name = "Спои ги Линиите"/>
-                    <Item id = "42014" name = "Оди над Одредената Линија"/>   
-                    <Item id = "42015" name = "Оди под Одредената Линија"/>   
+                    <Item id = "42014" name = "Оди над Одредената Линија"/>
+                    <Item id = "42015" name = "Оди под Одредената Линија"/>
                     <Item id = "42016" name = "ГОЛЕМИ БУКВИ"/>
                     <Item id = "42017" name = "мали букви"/>
                     <Item id = "42018" name = "Почеток на Снимање"/>
@@ -94,7 +94,7 @@
                     <Item id = "42033" name = "Исчисти го знаменцето Само за читање"/>
 					<Item id = "42035" name = "Коментирај го Блокот"/>
 					<Item id = "42036" name = "Од-коментирај го Блокот"/>
-					
+
                     <Item id = "43001" name = "&amp;Барај..."/>
                     <Item id = "43002" name = "Барај &amp;Следно"/>
                     <Item id = "43003" name = "Замени..."/>
@@ -146,7 +146,7 @@
                     <Item id = "44036" name = "Синхронизирај го Хоризонталното Лизгање"/>
                     <Item id = "44041" name = "Покажи го Wrap Симболот"/>
                     <Item id = "44072" name = "Фокус на Другиот Поглед"/>
-                    
+
                     <Item id = "45001" name = "Промени во Windows Формат"/>
                     <Item id = "45002" name = "Промени во UNIX Формат"/>
                     <Item id = "45003" name = "Промени во MAC Формат"/>
@@ -160,13 +160,13 @@
 			<Item id = "45011" name = "Промени во UTF-8"/>
 			<Item id = "45012" name = "Промени во UCS-2 Big Endian"/>
 			<Item id = "45013" name = "Промени во UCS-2 Little Endian"/>
-					
+
                     <Item id = "10001" name = "Промена во друг поглед"/>
                     <Item id = "10002" name = "Клонирај во друг поглед"/>
                     <Item id = "10003" name = "Помести во нова инстанца"/>
                     <Item id = "10004" name = "Отвори во нова инстанца"/>
 
-                    
+
                     <Item id = "46001" name = "Прилагодување на стилови..."/>
                     <Item id = "47000" name = "Околу Notepad++..."/>
                     <Item id = "47001" name = "Notepad++ Дома"/>
@@ -174,11 +174,11 @@
                     <Item id = "47003" name = "NpWiki++ (Помош преку Интернет)"/>
                     <Item id = "47004" name = "Форум"/>
                     <Item id = "47005" name = "Набави повеќе Plugin-ови"/>
-					
+
                     <Item id = "48009" name = "Означување на кратенки..."/>
                     <Item id = "48011" name = "Претпоставки..."/>
                     <Item id = "49000" name = "Вкл&amp;учи..."/>
-					
+
 					<Item id = "50000" name = "Авто-пополнување на функции"/>
                     <Item id = "50001" name = "Авто-пополнување на зборови"/>
                     <Item id = "50002" name = "Ознака на функциски параметри"/>
@@ -186,7 +186,7 @@
                     <Item id = "44042" name = "Скриј ги линиите"/>
                     <Item id = "42040" name = "Отвори ги сите Минати фајлови"/>
                     <Item id = "42041" name = "Испразни ја листата со Минати фајлови"/>
-					
+
                 </Commands>
             </Main>
             <Splitter>
@@ -210,7 +210,7 @@
 					<Item CMID = "15" name = "Отвори во нова инстанца"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title = "" titleFind = "Барај" titleReplace = "Замени" titleFindInFiles = "Барај во фајловите">
                 <Item id = "1" name = "Барај Следно"/>
@@ -267,11 +267,11 @@
                 <Item id = "2" name = "Откажи"/>
                 <Item id = "1904" name = "Зачувај..."/>
             </Run>
-            
+
             <StyleConfig title = "Прилагодување на стилови">
 				<Item id = "2" name = "Откажи"/>
 				<Item id = "2301" name = "Зачувај &amp;&amp; Затвори"/>
-				<Item id = "2303" name = "Проѕирност"/>		
+				<Item id = "2303" name = "Проѕирност"/>
 				<Item id = "2306" name = "Одбери тема : "/>
                 <SubDialog>
                 	<Item id = "2204" name = "Подебело"/>
@@ -295,10 +295,10 @@
                     <Item id = "2230" name = "Стандарден подебел стил на фонт"/>
                     <Item id = "2231" name = "Стандарден кос стил на фонт"/>
                     <Item id = "2232" name = "Стандарден подвлечен стил на фонт"/>
-                </SubDialog>                
-				
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title = "Дефинирано од Корисникот">
 				<Item id = "20002" name = "Преимени"/>
 				<Item id = "20003" name = "Креирај нов..."/>
@@ -362,20 +362,20 @@
 					<Item id = "6103" name = "Мали икони"/>
 	                <Item id = "6104" name = "Големи икони"/>
 					<Item id = "6105" name = "Стандардни икони"/>
-					
+
 					<Item id = "6106" name = "Мени со јазичиња"/>
 					<Item id = "6107" name = "Намали"/>
 					<Item id = "6108" name = "Заклучи (без drag and drop)"/>
 					<Item id = "6109" name = "Затемни ги неактивните јазичиња"/>
 					<Item id = "6110" name = "Портокалово мени на активното јазиче"/>
-					
+
 					<Item id = "6111" name = "Прикажи го статус менито"/>
 					<Item id = "6112" name = "Затвори копчето на секое јазиче"/>
 					<Item id = "6113" name = "Двоклик за затворање на документот"/>
 					<Item id = "6118" name = "Скриј"/>
 					<Item id = "6119" name = "Повеќе-линии"/>
 					<Item id = "6120" name = "Вертикално"/>
-					
+
 					<Item id = "6121" name = "Мени"/>
 					<Item id = "6122" name = "Скриј (користи Alt или F10 за поместување)"/>
 					<Item id = "6123" name = "Локализација"/>
@@ -391,12 +391,12 @@
 					<Item id = "6203" name = "Стрелка"/>
 	                <Item id = "6204" name = "Кружница"/>
 					<Item id = "6205" name = "Квадрат"/>
-					
+
 					<Item id = "6206" name = "Прикажи ја ивицата на бројот на линијата"/>
 					<Item id = "6207" name = "Прикажи ја ивицата на омилените"/>
 					<Item id = "6208" name = "Прикажи ја вертикалната ивица"/>
 					<Item id = "6209" name = "Број на колони : "/>
-					
+
 					<Item id = "6211" name = "Подесувања на вертикалната ивица"/>
 					<Item id = "6212" name = "Линиски начин"/>
 					<Item id = "6213" name = "Позадински начин"/>
@@ -485,7 +485,7 @@
 					<Item id="6114" name="Овозможи"/>
 					<Item id="6115" name="Автоматско правење на простор(indent)"/>
 					<Item id="6117" name="Овозможи MRU однесување"/>
-					
+
                 </MISC>
 				<Backup title="Правење на резерви/Авто-пополнување">
 					<Item id="6801" name="Правење на резерви"/>

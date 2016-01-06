@@ -29,39 +29,13 @@
 #ifndef FILE_DIALOG_H
 #define FILE_DIALOG_H
 
+#include "Common.h"
+#include "Notepad_plus_msgs.h"
+
 const int nbExtMax = 256;
 const int extLenMax = 64;
 
-using namespace std;
-
-typedef vector<generic_string> stringVector;
-
-struct OPENFILENAMENPP {
-   DWORD        lStructSize;
-   HWND         hwndOwner;
-   HINSTANCE    hInstance;
-   LPCTSTR      lpstrFilter;
-   LPTSTR       lpstrCustomFilter;
-   DWORD        nMaxCustFilter;
-   DWORD        nFilterIndex;
-   LPTSTR       lpstrFile;
-   DWORD        nMaxFile;
-   LPTSTR       lpstrFileTitle;
-   DWORD        nMaxFileTitle;
-   LPCTSTR      lpstrInitialDir;
-   LPCTSTR      lpstrTitle;
-   DWORD        Flags;
-   WORD         nFileOffset;
-   WORD         nFileExtension;
-   LPCTSTR      lpstrDefExt;
-   LPARAM       lCustData;
-   LPOFNHOOKPROC lpfnHook;
-   LPCTSTR      lpTemplateName;
-   void *		pvReserved;
-   DWORD        dwReserved;
-   DWORD        FlagsEx;
-};
-
+typedef std::vector<generic_string> stringVector;
 
 generic_string changeExt(generic_string fn, generic_string ext, bool forceReplaced = true);
 void goToCenter(HWND hwnd);
@@ -96,11 +70,9 @@ private:
 
 	stringVector _fileNames;
 
-	OPENFILENAMENPP _ofn;
+	OPENFILENAME _ofn;
 	winVer _winVersion;
 	
-
-    //TCHAR _extArray[nbExtMax][extLenMax];
     int _nbExt;
     int _extTypeIndex;
     static FileDialog *staticThis;

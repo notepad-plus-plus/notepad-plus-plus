@@ -29,7 +29,8 @@
 #ifndef XMLMATCHEDTAGSHIGHLIGHTER_H
 #define XMLMATCHEDTAGSHIGHLIGHTER_H
 
-using namespace std;
+#include <string>
+#include <vector>
 
 class ScintillaEditView;
 
@@ -62,13 +63,12 @@ private:
 	// Allowed whitespace characters in XML
 	bool isWhitespace(int ch) { return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n'; }
 
-
 	FindResult findText(const char *text, int start, int end, int flags = 0);
 	FindResult findOpenTag(const std::string& tagName, int start, int end);
 	FindResult findCloseTag(const std::string& tagName, int start, int end);
 	int findCloseAngle(int startPosition, int endPosition);
 	
-	vector< pair<int, int> > getAttributesPos(int start, int end);
+	std::vector< std::pair<int, int> > getAttributesPos(int start, int end);
 	
 };
 

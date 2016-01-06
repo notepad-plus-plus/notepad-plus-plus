@@ -1,16 +1,16 @@
 // this file is part of docking functionality for Notepad++
 // Copyright (C)2006 Jens Lorenz <jens.plugin.npp@gmx.de>
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either
 // version 2 of the License, or (at your option) any later version.
-// 
+//
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -20,19 +20,21 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
-// Changed something around drawRectangle() (for details see there) to enhance 
+// Changed something around drawRectangle() (for details see there) to enhance
 // speed and consistency of the drag-rectangle - August 2010, Joern Gruel (jg)
 
 
-#include "precompiledHeaders.h"
+#include <stdexcept>
 #include "Gripper.h"
 #include "DockingManager.h"
 #include "Parameters.h"
+
+using namespace std;
 
 #ifndef WH_KEYBOARD_LL
 #define WH_KEYBOARD_LL 13
@@ -65,7 +67,7 @@ static LRESULT CALLBACK hookProcMouse(INT nCode, WPARAM wParam, LPARAM lParam)
 				//::PostMessage(hWndServer, wParam, 0, 0);
 				::SendMessage(hWndServer, wParam, 0, 0);
 				return TRUE;
-			default: 
+			default:
 				break;
 		}
 	}
@@ -100,7 +102,7 @@ Gripper::Gripper()
 	_ptOld.x		= 0;
 	_ptOld.y		= 0;
 	_bPtOldValid		= FALSE;
-	
+
 	_hTab			= NULL;
 	_hTabSource		= NULL;
 	_startMovingFromTab	= FALSE;
@@ -136,7 +138,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr)
 		clz.hIcon = NULL;
 		clz.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 
-		clz.hbrBackground = NULL; 
+		clz.hbrBackground = NULL;
 		clz.lpszMenuName = NULL;
 		clz.lpszClassName = MDLG_CLASS_NAME;
 
@@ -170,7 +172,7 @@ LRESULT CALLBACK Gripper::staticWinProc(HWND hwnd, UINT message, WPARAM wParam, 
 {
 	Gripper *pDlgMoving = NULL;
 	switch (message)
-	{	
+	{
 		case WM_NCCREATE :
 			pDlgMoving = (Gripper *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 			pDlgMoving->_hSelf = hwnd;
@@ -178,7 +180,7 @@ LRESULT CALLBACK Gripper::staticWinProc(HWND hwnd, UINT message, WPARAM wParam, 
 			return TRUE;
 
 		default :
-			pDlgMoving = (Gripper *)::GetWindowLongPtr(hwnd, GWL_USERDATA);
+			pDlgMoving = (Gripper *)::GetWindowLongPtr(hwnd, GWLP_USERDATA);
 			if (!pDlgMoving)
 				return ::DefWindowProc(hwnd, message, wParam, lParam);
 			return pDlgMoving->runProc(message, wParam, lParam);
@@ -238,8 +240,8 @@ LRESULT Gripper::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 			mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 			::SetWindowPos(_hParent, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 			_pCont->focusClient();
-			delete this;
-			break;
+			delete this; // TODO: remove this line and delete this object outside of itself
+			return TRUE;
 		}
 		default:
 			break;
@@ -248,7 +250,7 @@ LRESULT Gripper::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 	return ::DefWindowProc(_hSelf, message, wParam, lParam);
 }
 
- 
+
 void Gripper::create()
 {
 	RECT		rc		= {0};
@@ -284,7 +286,7 @@ void Gripper::create()
 
 	// calculate the mouse pt within dialog
 	::GetCursorPos(&pt);
-	
+
 	// get tab informations
 	initTabInformation();
 
@@ -332,14 +334,14 @@ void Gripper::onButtonUp()
 	::GetCursorPos(&pt);
 	getMousePoints(&pt, &ptBuf);
 
-	// do nothing, when old point is not valid 
+	// do nothing, when old point is not valid
 	if (_bPtOldValid == FALSE)
 		return;
 
 	// erase last drawn rectangle
 	drawRectangle(NULL);
 
-	// look if current position is within dockable area 
+	// look if current position is within dockable area
 	DockingCont*	pDockCont = contHitTest(pt);
 
 	if (pDockCont == NULL)
@@ -367,7 +369,7 @@ void Gripper::onButtonUp()
 		if (_startMovingFromTab == TRUE)
 		{
 			/* when tab is moved */
-			if ((!_pCont->isFloating()) || 
+			if ((!_pCont->isFloating()) ||
 				((_pCont->isFloating()) && (::SendMessage(_hTabSource, TCM_GETITEMCOUNT, 0, 0) > 1)))
 			{
 				pContMove = _pDockMgr->toggleActiveTb(_pCont, DMM_FLOAT, TRUE, &rc);
@@ -457,7 +459,7 @@ void Gripper::doTabReordering(POINT pt)
 
 					_iItem	= iItem;
 				}
-				else if ((hTab != _hTab) || (_iItem == -1))
+				else if (_hTab && ((hTab != _hTab) || (_iItem == -1)))
 				{
 					/* test if cusor points after last tab */
 					int		iLastItem	= ::SendMessage(hTab, TCM_GETITEMCOUNT, 0, 0) - 1;
@@ -501,7 +503,7 @@ void Gripper::doTabReordering(POINT pt)
 	}
 
 	/* insert new entry when mouse doesn't point to current hovered tab */
-	if ((_hTab != hTabOld) || (_iItem != iItemOld))
+	if (_hTab && ((_hTab != hTabOld) || (_iItem != iItemOld)))
 	{
 		_tcItem.mask	= TCIF_PARAM | (_hTab == _hTabSource ? TCIF_TEXT : 0);
 		::SendMessage(_hTab, TCM_INSERTITEM, _iItem, (LPARAM)&_tcItem);
@@ -526,28 +528,28 @@ void Gripper::doTabReordering(POINT pt)
 // Changed behaviour (jg): Now this function handles erasing of drag-rectangles and drawing of
 // new ones within one drawing step to the desktop. This is against flickering, but also it is
 // necessary for the Vista Aero style - because in this case the control is given so much to
-// the graphics driver, that accesses (especially read accesses) to the desktop window become 
-// too expensive to access it more than absolutely necessary. Besides, usage of the function 
-// ::LockWindowUpdate() was added, because with often redrawn windows in the background we had 
-// inconsistencies while erasing our drag-rectangle (because it could already have been erased 
+// the graphics driver, that accesses (especially read accesses) to the desktop window become
+// too expensive to access it more than absolutely necessary. Besides, usage of the function
+// ::LockWindowUpdate() was added, because with often redrawn windows in the background we had
+// inconsistencies while erasing our drag-rectangle (because it could already have been erased
 // on some places).
 //
-// Parameter pPt==NULL says that only erasing is wanted and the drag-rectangle is no more needed, 
+// Parameter pPt==NULL says that only erasing is wanted and the drag-rectangle is no more needed,
 // thatswhy this also leads to a call of ::LockWindowUpdate(NULL) to enable drawing by others again.
 // The previously drawn rectangle is memoried within _rectPrev (and _bPtOldValid says if it already
 // is valid - did not change this members name because didn't want change too much at once).
 //
 // I was too lazy to always draw four rectangles for the four edges of the drag-rectangle - it seems
 // that drawing an outer rectangle first and then erasing the inner stuff by drawing a second,
-// smaller rectangle inside seems to be not slower - wich comes not unawaited, because it is mostly 
+// smaller rectangle inside seems to be not slower - wich comes not unawaited, because it is mostly
 // hardware-driven and each single draw has its own fixed costs.
-// 
-// For further solutions I think we should leave this classic way of dragging and better use 
-// alpha-blending and always move the whole content of the toolbars - so we could leave the 
+//
+// For further solutions I think we should leave this classic way of dragging and better use
+// alpha-blending and always move the whole content of the toolbars - so we could leave the
 // ::LockWindowUpdate() behind us.
 //
 // Besides, while debugging into the dragging process please let the ::LockWindowUpdate() out,
-// by #undef the USE_LOCKWINDOWUPDATE in gripper.h, because it works for your debugging window 
+// by #undef the USE_LOCKWINDOWUPDATE in gripper.h, because it works for your debugging window
 // as well, of course. Or just try by this #define what difference it makes.
 //
 void Gripper::drawRectangle(const POINT* pPt)
@@ -570,7 +572,7 @@ void Gripper::drawRectangle(const POINT* pPt)
 		_hdc= ::GetDCEx(hWnd, NULL, DCX_WINDOW|DCX_CACHE);
 		#endif
 	}
-	
+
 	// Create a brush with the appropriate bitmap pattern to draw our drag rectangle
 	if (!_hbm)
 		_hbm = ::CreateBitmap(8, 8, 1, 1, DotPattern);
@@ -580,24 +582,24 @@ void Gripper::drawRectangle(const POINT* pPt)
 	if (pPt != NULL)
 	{
 		// Determine whether to draw a solid drag rectangle or checkered
-		// ???(jg) solid or checked ??? - must have been an old comment, I didn't 
+		// ???(jg) solid or checked ??? - must have been an old comment, I didn't
 		// find here this difference, but at least it's a question of drag-rects size
 		//
 		getMovingRect(*pPt, &rcNew);
 		_rcPrev= rcNew;		// save the new drawn rcNew
-	
+
 		// note that from here for handling purposes the right and bottom values of the rects
 		// contain width and height - its handsome, but i find it dangerous, but didn't want to
-		// change that already this time. 
+		// change that already this time.
 
 		if (_bPtOldValid)
 		{
-			// okay, there already a drag-rect has been drawn - and its position 
-			// had been saved within the rectangle _rectPrev, wich already had been 
+			// okay, there already a drag-rect has been drawn - and its position
+			// had been saved within the rectangle _rectPrev, wich already had been
 			// copied into rcOld in the beginning, and a new drag position
 			// is available, too.
 			// If now rcOld and rcNew are the same, just stop further handling to not
-			// draw the same drag-rectangle twice (this really happens, it should be 
+			// draw the same drag-rectangle twice (this really happens, it should be
 			// better avoided anywhere earlier)
 			//
 			if (rcOld.left==rcNew.left && rcOld.right==rcNew.right && rcOld.top== rcNew.top && rcOld.bottom==rcNew.bottom)
@@ -621,13 +623,13 @@ void Gripper::drawRectangle(const POINT* pPt)
 	rcOld.left= rcOld.left - rc.left;
 	rcOld.top = rcOld.top  - rc.top;
 	rcNew.left= rcNew.left - rc.left;
-	rcNew.top = rcNew.top  - rc.top; 
+	rcNew.top = rcNew.top  - rc.top;
 
 	HDC hdcMem= ::CreateCompatibleDC(_hdc);
 	HBITMAP hBm= ::CreateCompatibleBitmap(_hdc, rc.right, rc.bottom);
 	hbrushOrig= (HBRUSH)::SelectObject(hdcMem, hBm);
 
-	::SetBrushOrgEx(hdcMem, rc.left%8, rc.top%8, 0); 
+	::SetBrushOrgEx(hdcMem, rc.left%8, rc.top%8, 0);
 	hbmOrig= (HBITMAP)::SelectObject(hdcMem, _hbrush);
 
 	::BitBlt(hdcMem, 0, 0, rc.right, rc.bottom, _hdc, rc.left, rc.top, SRCCOPY);
@@ -641,20 +643,20 @@ void Gripper::drawRectangle(const POINT* pPt)
 		::PatBlt(hdcMem, rcNew.left  , rcNew.top  , rcNew.right  , rcNew.bottom  , PATINVERT);
 		::PatBlt(hdcMem, rcNew.left+3, rcNew.top+3, rcNew.right-6, rcNew.bottom-6, PATINVERT);
 	}
-	::BitBlt(_hdc, rc.left, rc.top, rc.right, rc.bottom, hdcMem, 0, 0, SRCCOPY); 
-	
+	::BitBlt(_hdc, rc.left, rc.top, rc.right, rc.bottom, hdcMem, 0, 0, SRCCOPY);
+
 	SelectObject(hdcMem, hbrushOrig);
 	SelectObject(hdcMem, hbmOrig);
 	DeleteObject(hBm);
 	DeleteDC(hdcMem);
-	
+
 	if (pPt == NULL)
 	{
 		#if defined(USE_LOCKWINDOWUPDATE)
 		::LockWindowUpdate(NULL);
 		#endif
 		_bPtOldValid= FALSE;
-		if (_hdc) 
+		if (_hdc)
 		{
 			::ReleaseDC(0, _hdc);
 			_hdc= NULL;

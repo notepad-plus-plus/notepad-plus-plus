@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -41,7 +41,8 @@ const int nbChar = 64;
 
 typedef const TCHAR * (__cdecl * PFUNCGETNAME)();
 
-struct NppData {
+struct NppData
+{
 	HWND _nppHandle;
 	HWND _scintillaMainHandle;
 	HWND _scintillaSecondHandle;
@@ -53,14 +54,16 @@ typedef void (__cdecl * PBENOTIFIED)(SCNotification *);
 typedef LRESULT (__cdecl * PMESSAGEPROC)(UINT Message, WPARAM wParam, LPARAM lParam);
 
 
-struct ShortcutKey {
+struct ShortcutKey
+{
 	bool _isCtrl;
 	bool _isAlt;
 	bool _isShift;
 	UCHAR _key;
 };
 
-struct FuncItem {
+struct FuncItem
+{
 	TCHAR _itemName[nbChar];
 	PFUNCPLUGINCMD _pFunc;
 	int _cmdID;
@@ -77,8 +80,8 @@ extern "C" __declspec(dllexport) FuncItem * getFuncsArray(int *);
 extern "C" __declspec(dllexport) void beNotified(SCNotification *);
 extern "C" __declspec(dllexport) LRESULT messageProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
-#ifdef UNICODE
+// This API return always true now, since Notepad++ isn't compiled in ANSI mode anymore
 extern "C" __declspec(dllexport) BOOL isUnicode();
-#endif //UNICODE
+
 
 #endif //PLUGININTERFACE_H

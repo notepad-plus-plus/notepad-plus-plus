@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
-<!-- 
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
 Cyfieithiad | Translation
 19.12.2014
 gan/by Aled Powell
@@ -27,7 +27,7 @@ gan/by Aled Powell
 					<Item subMenuId="file-openFolder" name="Agor Ffolder Lleoliad"/>
                     <Item subMenuId="file-closeMore" name="Cau Mwy"/>
                     <Item subMenuId="file-recentFiles" name="Ffeilau Diweddar"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Copïo i'r Clipfwrdd"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="CopÃ¯o i'r Clipfwrdd"/>
                     <Item subMenuId="edit-indent" name="Mewnoli"/>
                     <Item subMenuId="edit-convertCaseTo" name="Newid llythrennau i"/>
                     <Item subMenuId="edit-lineOperations" name="Gweithrediadau Llinelloedd"/>
@@ -67,7 +67,7 @@ gan/by Aled Powell
                     <Item subMenuId="encoding-vietnamese" name="Fietnameg"/>
                     <Item subMenuId="settings-import"  name="Mewnforio"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Newydd"/>
@@ -88,12 +88,12 @@ gan/by Aled Powell
                     <Item id="41012" name="Llwytho Sesiwn..."/>
                     <Item id="41013" name="Cadw Sesiwn..."/>
                     <Item id="41014" name="Ail-lwytho o Ddisg"/>
-                    <Item id="41015" name="Cadw a Chopïo Fel..."/>
+                    <Item id="41015" name="Cadw a ChopÃ¯o Fel..."/>
                     <Item id="41016" name="Dileu o Ddisg"/>
                     <Item id="41017" name="Ailenwi..."/>
-                    
+
                     <Item id="42001" name="&amp;Torri"/>
-                    <Item id="42002" name="&amp;Copïo"/>
+                    <Item id="42002" name="&amp;CopÃ¯o"/>
                     <Item id="42003" name="Dadwneud (&amp;U)"/>
                     <Item id="42004" name="Ailwneud (&amp;R)"/>
                     <Item id="42005" name="Gludo (&amp;P)"/>
@@ -105,8 +105,8 @@ gan/by Aled Powell
                     <Item id="42010" name="Dyblygu'r Llinell Bresennol"/>
                     <Item id="42012" name="Hollti Llinellau"/>
                     <Item id="42013" name="Uno Llinellau"/>
-                    <Item id="42014" name="Symud Llinell Bresennol Lawr"/>   
-                    <Item id="42015" name="Symud Llinell Bresennol Fyny"/>   
+                    <Item id="42014" name="Symud Llinell Bresennol Lawr"/>
+                    <Item id="42015" name="Symud Llinell Bresennol Fyny"/>
                     <Item id="42016" name="PRIF LYTHRENNAU"/>
                     <Item id="42017" name="is lythrennau"/>
                     <Item id="42018" name="&amp;Dechrau Recordio"/>
@@ -125,7 +125,7 @@ gan/by Aled Powell
                     <Item id="42053" name="Bwlch i TAB (Dechrau llinell)"/>
                     <Item id="42038" name="Gludo Cynnwys HTML"/>
                     <Item id="42039" name="Gludo Cynnwys RTF"/>
-                    <Item id="42048" name="Copïo Cynnwys Deuaidd"/>
+                    <Item id="42048" name="CopÃ¯o Cynnwys Deuaidd"/>
                     <Item id="42049" name="Torri Cynnwys Deuaidd"/>
                     <Item id="42050" name="Gludo Cynnwys Deuaidd"/>
                     <Item id="42037" name="Modd Colofn..."/>
@@ -158,7 +158,7 @@ gan/by Aled Powell
                     <Item id="43007" name="Llyfrnod Blaenorol"/>
                     <Item id="43008" name="Clirio Pob Llyfrnod"/>
                     <Item id="43018" name="Torri Llinellau wedi'u Llyfrnodi"/>
-                    <Item id="43019" name="Copïo Llinellau wedi'u Llyfrnodi"/>
+                    <Item id="43019" name="CopÃ¯o Llinellau wedi'u Llyfrnodi"/>
                     <Item id="43020" name="Gludo i (Newid) Llinellau wedi'u Llyfrnodi"/>
 					<Item id="43021" name="Tynnu Llinellau wedi'u Llyfrnodi"/>
 					<Item id="43051" name="Tynnu Llinellau heb eu Nodi"/>
@@ -314,7 +314,7 @@ gan/by Aled Powell
                     <Item CMID="20" name="Agor Ffolder Lleoliad yn cmd"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="Canfod" titleReplace="Newid" titleFindInFiles="Canfod Mewn Ffeiliau" titleMark="Nodi">
                 <Item id="1"    name="Canfod Nesaf"/>
@@ -373,11 +373,11 @@ gan/by Aled Powell
                 <Item id="2"    name="Diddymu"/>
                 <Item id="1904" name="Cadw..."/>
             </Run>
-            
+
             <StyleConfig title="Arddull Ffurfweddwr">
                 <Item id="2"    name="Diddymu"/>
                 <Item id="2301" name="Cadw &amp;&amp; Cau"/>
-                <Item id="2303" name="Tryloywder"/>       
+                <Item id="2303" name="Tryloywder"/>
                 <Item id="2306" name="Dewis thema: "/>
                 <SubDialog>
                     <Item id="2204" name="Bras"/>
@@ -402,10 +402,10 @@ gan/by Aled Powell
                     <Item id="2230" name="Galluogi arddull ffont bras byd-eang"/>
                     <Item id="2231" name="Galluogi arddull ffont italig byd-eang"/>
                     <Item id="2232" name="Galluogi arddull ffont tanlinell byd-eang"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="User-Defined">
 				<Item id="20001" name="Doc"/>
                 <Item id="20002" name="Ailenwi"/>
@@ -500,10 +500,10 @@ gan/by Aled Powell
                 </Keywords>
                 <Comment title="Sylwadau a Rhifau">
                     <Item id="23003" name="Lleoliad Llinell Sylw"/>
-                    <Item id="23004" name="Caniatáu unrhyw le"/>
+                    <Item id="23004" name="CaniatÃ¡u unrhyw le"/>
                     <Item id="23005" name="Gorfodi ar ddechrau llinell"/>
-                    <Item id="23006" name="Caniatáu bwlch gwyn blaenorol"/>
-                    <Item id="23001" name="Caniatáu plygu sylwadau"/>
+                    <Item id="23006" name="CaniatÃ¡u bwlch gwyn blaenorol"/>
+                    <Item id="23001" name="CaniatÃ¡u plygu sylwadau"/>
                     <Item id="23326" name="Arddullydd"/>
                     <Item id="23323" name="Agor"/>
                     <Item id="23324" name="Nod parhau"/>
@@ -632,7 +632,7 @@ gan/by Aled Powell
                     <Item id="6214" name="Galluogi amlygu'r llinell bresennol"/>
 					<Item id="6231" name="Lled Ffin"/>
                 </Scintillas>
-				
+
                 <NewDoc title="Dogfen Newydd">
                     <Item id="6401" name="Fformat"/>
                     <Item id="6402" name="Windows"/>
@@ -648,13 +648,13 @@ gan/by Aled Powell
                     <Item id="6419" name="Dogfen Newydd"/>
                     <Item id="6420" name="Rhoi ar waith i'r ffeiliau ANSI ar agor"/>
                 </NewDoc>
-				
+
                 <DefaultDir title="Cyfeiriadur Rhagosodedig">
                     <Item id="6413" name="Cyfeiriadur Rhagosodedig (Agor/Cadw)"/>
                     <Item id="6414" name="Dilyn y ddogfen presennol"/>
                     <Item id="6415" name="Cofio'r cyfeiriadur defnyddiwyd diwethaf"/>
                 </DefaultDir>
-				
+
                 <FileAssoc title="Cydgysyllitiad Ffeiliau">
                     <Item id="4009" name="Estyniadau Cynalwyd:"/>
                     <Item id="4010" name="Estyniadau Cofrestredig:"/>
@@ -665,14 +665,14 @@ gan/by Aled Powell
                     <Item id="6507" name="Gwneud dewislen iaith yn gryno"/>
                     <Item id="6508" name="Dewislen Iaith"/>
                 </LangMenu>
-				
+
                 <TabSettings title="Gosodiadau Tabiau">
                     <Item id="6301" name="Gosodiadau Tab"/>
                     <Item id="6302" name="Newid gyda bwlch"/>
                     <Item id="6303" name="Maint tabiau: "/>
                     <Item id="6510" name="Defnyddio gwerth rhagosodedig"/>
                 </TabSettings>
-				
+
                 <Print title="Argraffu">
                     <Item id="6601" name="Argraffu rhifau llinellau"/>
                     <Item id="6602" name="Dewisiadau Lliw"/>
@@ -702,7 +702,7 @@ gan/by Aled Powell
 					<Item id="6727" name="Yma dangosir eich gosodiadau newidiol"/>
                     <Item id="6728" name="Pennyn a Throedyn"/>
                 </Print>
-				
+
                 <RecentFilesHistory title="Hanes Ffeilau Diweddar">
                     <Item id="6304" name="Hanes Ffeiliau Diweddar"/>
                     <Item id="6306" name="Nifer mwyaf i'w gofio:"/>
@@ -714,21 +714,21 @@ gan/by Aled Powell
                     <Item id="6427" name="Addasu Terfyn Hyd (nodau):"/>
                 </RecentFilesHistory>
 
-                <Backup title="Cadw Copïau wrth Gefn">
-					<Item id="6817" name="Ciplun Sesiwn a Chadw Copïau wrth Gefn"/>
-					<Item id="6818" name="Gallugoi cipluniau sesiwn a chadw copïau wrth gefn"/>
+                <Backup title="Cadw CopÃ¯au wrth Gefn">
+					<Item id="6817" name="Ciplun Sesiwn a Chadw CopÃ¯au wrth Gefn"/>
+					<Item id="6818" name="Gallugoi cipluniau sesiwn a chadw copÃ¯au wrth gefn"/>
 					<Item id="6819" name="Copi wrth gefn pob"/>
 					<Item id="6821" name="eiliad"/>
 					<Item id="6822" name="Cyfeiriadur:"/>
 					<Item id="6309" name="Cofio'r sesiwn bresennol ar gyfer y lansiad nesaf"/>
-                    <Item id="6801" name="Cadw Copïau wrth Gefn"/>
+                    <Item id="6801" name="Cadw CopÃ¯au wrth Gefn"/>
                     <Item id="6315" name="Dim"/>
                     <Item id="6316" name="Syml"/>
                     <Item id="6317" name="Geiriog"/>
                     <Item id="6804" name="Cyfeiriadur dewisedig"/>
                     <Item id="6803" name="Cyfeiriadur:"/>
                 </Backup>
-				
+
                 <AutoCompletion title="Awto-cwblhau">
                     <Item id="6807" name="Awto-cwblhau"/>
                     <Item id="6808" name="Galluogi awto-cwblhau ar pob mewnbwn"/>
@@ -743,11 +743,11 @@ gan/by Aled Powell
                     <Item id="6857" name=" tag cau html/xml"/>
                     <Item id="6858" name="Agor"/>
                     <Item id="6859" name="Cau"/>
-                    <Item id="6860" name="Pâr cyfatebol 1:"/>
-                    <Item id="6863" name="Pâr cyfatebol 2:"/>
-                    <Item id="6866" name="Pâr cyfatebol 3:"/>
+                    <Item id="6860" name="PÃ¢r cyfatebol 1:"/>
+                    <Item id="6863" name="PÃ¢r cyfatebol 2:"/>
+                    <Item id="6866" name="PÃ¢r cyfatebol 3:"/>
                 </AutoCompletion>
-                
+
                 <MultiInstance title="Aml-ystyr">
                     <Item id="6151" name="Gosodiadau Aml-ystyr"/>
                     <Item id="6152" name="Agor sesiwn mewn ystyr newydd o Notepad++"/>
@@ -755,14 +755,14 @@ gan/by Aled Powell
                     <Item id="6154" name="Rhagosodedig (ystyr sengl)"/>
                     <Item id="6155" name="* Rhaid ail-ddechrau Notepad++ i roi'r newid ar waith."/>
                 </MultiInstance>
-                
+
                 <Delimiter title="Amffinydd">
                     <Item id="6251" name="Gosodiadau Dewis Amffinydd (Ctrl + Dwbl clic llygoden)"/>
                     <Item id="6252" name="Agor"/>
                     <Item id="6255" name="Cau"/>
                     <Item id="6256" name="Galluogi ar nifer o linellau"/>
                 </Delimiter>
-				
+
                  <Cloud title="Cwmwl">
                     <Item id="6262" name="Gosodiadau Cwmwl"/>
                     <Item id="6263" name="Dim Cwmwl"/>
@@ -771,15 +771,15 @@ gan/by Aled Powell
                     <Item id="6266" name="Google Drive"/>
                     <!--Item id="6261" name="Cofiwch ail-ddechrau Notepad++ i roi newidiadau ar waith."/-->
                 </Cloud>
-				
-                
+
+
                 <MISC title="Eraill">
                     <Item id="6307" name="Galluogi"/>
                     <Item id="6308" name="Lleihau i flwch system"/>
                     <Item id="6312" name="Awto-Synhwyro Statws Ffeiliau"/>
                     <Item id="6313" name="Diweddaru'n dawel"/>
                     <Item id="6318" name="Gosodiadau Dolenni Clicadwy"/>
-                    <Item id="6325" name="Sgrolio i'r llinell diwethaf ar ôl diweddaru"/>
+                    <Item id="6325" name="Sgrolio i'r llinell diwethaf ar Ã´l diweddaru"/>
                     <Item id="6319" name="Galluogi"/>
                     <Item id="6320" name="Dim tanlinellu"/>
                     <Item id="6322" name="Estyniad ffeil sesiwn:"/>
@@ -794,7 +794,7 @@ gan/by Aled Powell
                     <Item id="6332" name="Cydweddu prif/is-lythrennau"/>
                     <Item id="6333" name="Lliwddangos Clyfar"/>
 					<Item id="6334" name="Awto-synhwyro amgodiad nodau"/>
-					<Item id="6335" name="Trin ôl-slaes fel nod Escape ar gyfer SQL"/>
+					<Item id="6335" name="Trin Ã´l-slaes fel nod Escape ar gyfer SQL"/>
                     <Item id="6114" name="Galluogi"/>
                     <Item id="6115" name="Awto-mewnoli"/>
                     <Item id="6117" name="Galluogi ymddygiad MRU"/>
@@ -833,14 +833,14 @@ gan/by Aled Powell
         <MessageBox>
             <ContextMenuXmlEditWarning title="Golygu contextMenu" message="Mae golygu contextMenu.xml yn eich gallugoi i addasu eich naidlen cyd-destun Notepad++.\rRhaid ail-ddechrau Notepad++ i newidiadau i contextMenu.xml ddod ar waith."/>
             <NppHelpAbsentWarning title="Ffeil ddim yn bodoli" message="\rdim yn bodoli. Gallech ei lawrlwytho o wefan Notepad++."/>
-            <SaveCurrentModifWarning title="Cadw Newidiadau Presennol" message="Dylech gadw'r newidiadau presennol.\rNid yw'n bosib dad-wneud newidiadau ar ôl eu cadw.\r\rParhau?"/>
-            <LoseUndoAbilityWarning title="Rhybydd Collli Gallu Dadwneud" message="Dylech gadw'r newidiadau presennol.\rNid yw'n bosib dad-wneud newidiadau ar ôl eu cadw.\r\rParhau?"/>
+            <SaveCurrentModifWarning title="Cadw Newidiadau Presennol" message="Dylech gadw'r newidiadau presennol.\rNid yw'n bosib dad-wneud newidiadau ar Ã´l eu cadw.\r\rParhau?"/>
+            <LoseUndoAbilityWarning title="Rhybydd Collli Gallu Dadwneud" message="Dylech gadw'r newidiadau presennol.\rNid yw'n bosib dad-wneud newidiadau ar Ã´l eu cadw.\r\rParhau?"/>
             <CannotMoveDoc title="Symud i Ystyr Notepad++ Newydd" message="Mae'r Dogfen wedi ei addasu. Cadwch y ddogfen, yna ceisiwch eto."/>
             <DocReloadWarning title="Ail-lwytho" message="Ydych yn sicr eich bod eisiau ail-agor y ffeil bresennol a cholli'r newidiadau gwnaed yn Notepad++?"/>
             <FileLockedWarning title="Methwyd Cadw" message="Gwiriwch nad yw'r ffeil ar agor mewn rhaglen arall."/>
             <FileAlreadyOpenedInNpp title="" message="Mae'r ffeil eisoes ar agor yn Notepad++."/>
             <DeleteFileFailed title="Dileu Ffeil" message="Methwyd dileu'r ffeil"/>
-            
+
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Gormod o ffeiliau i'w hagor" message="Mae $INT_REPLACE$ ffeil ar fin cael eu hagor.\rYdych yn sicr eisiau agor nhw i gyd?"/>
         </MessageBox>
@@ -882,7 +882,7 @@ gan/by Aled Powell
                     <Item id="3124" name="Ail-lwytho Gweithle"/>
                     <Item id="3125" name="Cadw"/>
                     <Item id="3126" name="Cadw Fel..."/>
-                    <Item id="3127" name="Cadw a Chopïo Fel..."/>
+                    <Item id="3127" name="Cadw a ChopÃ¯o Fel..."/>
                     <Item id="3121" name="Ychwanegu Prosiect Newydd"/>
                 </WorkspaceMenu>
                 <ProjectMenu>

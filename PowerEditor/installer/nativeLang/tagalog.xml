@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
 	<Native-Langue name = "Tagalog" filename="tagalog.xml" >
 		<Menu>
@@ -17,7 +17,7 @@
 					<Item idName = "Plugins" name = "Mga Plugin"/>
 					<Item idName = "Window" name = "Dungawan"/>
 				</Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard" name = "Isipi sa Klipbord"/>
@@ -31,11 +31,11 @@
                     <Item subMenuId="view-showSymbol" name = "Ipakita ang Sagisag"/>
                     <Item subMenuId="view-zoom" name = "Palapitin"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Ilipat ang kasalukuyang kasulatan"/>
-					
+
                     <Item subMenuId="view-collapseLevel" name = "Pabagsakin ang antas"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Di pabagsakin ang antas"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id = "41001" name = "&amp;Magbago"/>
@@ -55,7 +55,7 @@
                     <Item id = "41015" name = "Itabi ang Sipi Bilang..."/>
                     <Item id = "41016" name = "Burahin sa Disk"/>
                     <Item id = "41017" name = "Pangalanang muli..."/>
-					
+
                     <Item id = "42001" name = "&amp;Gupitin"/>
                     <Item id = "42002" name = "&amp;Sipiin"/>
                     <Item id = "42003" name = "&amp;Di-gawin"/>
@@ -68,8 +68,8 @@
                     <Item id = "42010" name = "Ulitin ang Kasalukuyang Taludtod"/>
                     <Item id = "42012" name = "Paghiwalayin ang mga taludtod"/>
                     <Item id = "42013" name = "Pagsamahin ang mga taludtod"/>
-                    <Item id = "42014" name = "Umakyat sa kasalukuyang taludtod"/>   
-                    <Item id = "42015" name = "Bumaba sa kasalukuyang taludtod"/>   
+                    <Item id = "42014" name = "Umakyat sa kasalukuyang taludtod"/>
+                    <Item id = "42015" name = "Bumaba sa kasalukuyang taludtod"/>
                     <Item id = "42016" name = "sa TAASKASO"/>
                     <Item id = "42017" name = "sa babangkaso"/>
                     <Item id = "42018" name = "&amp;Simulang I-Rekord"/>
@@ -89,7 +89,7 @@
                     <Item id = "42033" name = "Burahin ang basahin lang na watawat"/>
 					<Item id = "42035" name = "Blokeng puna"/>
 					<Item id = "42036" name = "Blokeng di-puna"/>
-					
+
                     <Item id = "43001" name = "&amp;Hanapin..."/>
                     <Item id = "43002" name = "Hanapin ang &amp;Sumunod"/>
                     <Item id = "43003" name = "Palitan..."/>
@@ -141,7 +141,7 @@
                     <Item id = "44036" name = "Pagsabayin ang Pahigang Pag-scroll"/>
                     <Item id = "44041" name = "Ipakita ang sagisag sa balot"/>
                     <Item id = "44072" name = "Ituon-pansin sa ibang tanawin"/>
-                    
+
                     <Item id = "45001" name = "I-Convert sa Windows Format"/>
                     <Item id = "45002" name = "I-Convert sa UNIX Format"/>
                     <Item id = "45003" name = "I-Convert sa MAC Format"/>
@@ -155,13 +155,13 @@
 			<Item id = "45011" name = "I-Convert sa UTF-8"/>
 			<Item id = "45012" name = "I-Convert sa UCS-2 Big Endian"/>
 			<Item id = "45013" name = "I-Convert sa UCS-2 Little Endian"/>
-					
+
                     <Item id = "10001" name = "Ilipat sa ibang Tanawin"/>
                     <Item id = "10002" name = "I-clone sa ibang Tanawin"/>
                     <Item id = "10003" name = "I-lipat sa bagong kasaglitan"/>
                     <Item id = "10004" name = "Buksan sa bagong kasaglitan"/>
 
-                    
+
                     <Item id = "46001" name = "Styler Configurator..."/>
                     <Item id = "47000" name = "Tungkol sa..."/>
                     <Item id = "47001" name = "Notepad++ Home"/>
@@ -169,11 +169,11 @@
                     <Item id = "47003" name = "Online na tulong"/>
                     <Item id = "47004" name = "Forum"/>
                     <Item id = "47005" name = "Kumuha ng mga plugin"/>
-					
+
                     <Item id = "48009" name = "Pangmapa ng Shortcut..."/>
                     <Item id = "48011" name = "Kanaisan..."/>
                     <Item id = "49000" name = "&amp;Takbo..."/>
-					
+
 					<Item id = "50000" name = "Pagbuo ng Kagamitan"/>
                     <Item id = "50001" name = "Pagbuo ng Salita"/>
                     <Item id = "50002" name = "Function parameters hint"/>
@@ -181,7 +181,7 @@
                     <Item id = "44042" name = "Itago ang mga Taludtod"/>
                     <Item id = "42040" name = "Buksan ang Lahat ng mga Kamakailang Pila"/>
                     <Item id = "42041" name = "Linisin ang Tala ng mga Kamakailang Pila"/>
-					
+
                 </Commands>
             </Main>
             <Splitter>
@@ -205,7 +205,7 @@
 					<Item CMID = "15" name = "Buksan sa bagong kasaglitan"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title = "" titleFind = "Hanapin" titleReplace = "Palitan" titleFindInFiles = "Hanapin Sa Pila">
                 <Item id = "1" name = "Hanapin ang susunod"/>
@@ -263,12 +263,12 @@
                 <Item id = "2" name = "Wag na lang"/>
                 <Item id = "1904" name = "Itabi..."/>
             </Run>
-            
+
             <StyleConfig title = "Pang-configure ng Style ">
 				<Item id = "1" name = "Subukan mo!"/>
 				<Item id = "2" name = "Wag na lang"/>
 				<Item id = "2301" name = "Itabi &amp;&amp; Sarahan"/>
-				<Item id = "2303" name = "Pagkalabo"/>		
+				<Item id = "2303" name = "Pagkalabo"/>
 				<Item id = "2306" name = "Pumili ng paksa : "/>
                 <SubDialog>
                 	<Item id = "2204" name = "Makapal"/>
@@ -296,10 +296,10 @@
                     <Item id = "2230" name = "Payagan global na makapal na style ng font"/>
                     <Item id = "2231" name = "Payagan global na Palihis na style ng font"/>
                     <Item id = "2232" name = "Payagan global na salungguhit na style ng font"/>
-                </SubDialog>                
-				
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title = "Di-nefine ng Gumagamit">
 				<Item id = "20002" name = "Pangalanang muli"/>
 				<Item id = "20003" name = "Gumawa ng Bago..."/>
@@ -362,20 +362,20 @@
 					<Item id = "6103" name = "Maliliit na icon"/>
 	                <Item id = "6104" name = "Malalaking icon"/>
 					<Item id = "6105" name = "Maliliit na standard na icon"/>
-					
+
 					<Item id = "6106" name = "Tab bar"/>
 					<Item id = "6107" name = "Pauntiin"/>
 					<Item id = "6108" name = "Ikalang (Walang Drag at Drop)"/>
 					<Item id = "6109" name = "Iguhit ang mga inactive tab"/>
 					<Item id = "6110" name = "Iguhit ang orang top bar"/>
-					
+
 					<Item id = "6111" name = "Ipakita ang Status Bar"/>
 					<Item id = "6112" name = "Payagan ang close button sa bawat tab"/>
 					<Item id = "6113" name = "Dalawang pindot para sumara ang kasulatan"/>
 					<Item id = "6118" name = "Itago"/>
 					<Item id = "6119" name = "Ma-taludtod"/>
 					<Item id = "6120" name = "Patayo"/>
-					
+
 					<Item id = "6121" name = "Menu bar"/>
 					<Item id = "6122" name = "Itago (Gamitin ang Alt o F10 key para i-toggle ito)"/>
 					<Item id = "6123" name = "Lokalisasyon"/>
@@ -386,22 +386,22 @@
 					<Item id = "6219" name = "Bilis ng Pagkurap :"/>
 					<Item id = "6221" name = "F"/>
 					<Item id = "6222" name = "S"/>
-					
+
 					<Item id = "6301" name = "Kaayusan ng Tab"/>
 					<Item id = "6302" name = "Paltan ng Puwang"/>
 					<Item id = "6303" name = "Laki ng Tab : "/>
-		
+
 					<Item id = "6201" name = "Style ng Folder margin"/>
 					<Item id = "6202" name = "Payak"/>
 					<Item id = "6203" name = "Panuro"/>
 	                <Item id = "6204" name = "Bilog na puno"/>
 					<Item id = "6205" name = "Kahong puno"/>
-					
+
 					<Item id = "6206" name = "Ipakita ang margin ng Bilang ng taludtod"/>
 					<Item id = "6207" name = "Ipakita ang margin ng Aklat-tanda"/>
 					<Item id = "6208" name = "Ipakita ang Patayong Gilid"/>
 					<Item id = "6209" name = "Bilang ng Hanay : "/>
-					
+
 					<Item id = "6211" name = "Kaayusan ng Patayong Gilid"/>
 					<Item id = "6212" name = "Mode ng taludtod"/>
 					<Item id = "6213" name = "mode ng likod"/>
@@ -481,12 +481,12 @@
 					<Item id="6327" name="Payagan"/>
 					<Item id="6328" name="I=highlight ang mga tag attribute"/>
 					<Item id="6330" name="I-highlight ang zone ng puna/php/asp"/>
-					
+
 					<Item id = "6331" name = "Show only filename in titlebar"/>
 					<Item id = "6114" name = "Payagan"/>
 					<Item id = "6115" name = "Kusang pagpasok"/>
 					<Item id = "6117" name = "Payagan ang MRU-ng kaugalian"/>
-					
+
                 </MISC>
 				<Backup title = "Backup/Kusang pagbuo">
 					<Item id = "6801" name = "Backup"/>

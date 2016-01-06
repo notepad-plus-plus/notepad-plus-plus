@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -83,7 +83,7 @@ class NppParameters;
 #define NB_WORD_LIST 4
 #define WORD_LIST_LEN 256
 
-typedef int (* SCINTILLA_FUNC) (void*, int, int, int);
+typedef sptr_t(*SCINTILLA_FUNC) (void *, unsigned int, uptr_t, sptr_t);
 typedef void * SCINTILLA_PTR;
 
 #define WM_DOCK_USERDEFINE_DLG      (SCINTILLA_USER + 1)
@@ -153,7 +153,7 @@ const bool L2R = true;
 const bool R2L = false;
 
 struct ColumnModeInfo {
-	int _selLpos; 
+	int _selLpos;
 	int _selRpos;
 	int _order; // 0 based index
 	bool _direction; // L2R or R2L
@@ -187,7 +187,7 @@ struct SortInPositionOrder {
 	}
 };
 
-typedef vector<ColumnModeInfo> ColumnModeInfos;
+typedef std::vector<ColumnModeInfo> ColumnModeInfos;
 
 struct LanguageName {
 	const TCHAR * lexerName;
@@ -196,6 +196,8 @@ struct LanguageName {
 	LangType LangID;
 	int lexerID;
 };
+
+class ISorter;
 
 class ScintillaEditView : public Window
 {
@@ -216,7 +218,7 @@ public:
 		{
 			::FreeLibrary(_hLib);
 
-			for (BufferStyleMap::iterator it(_hotspotStyles.begin()); it != _hotspotStyles.end(); ++it ) 
+			for (BufferStyleMap::iterator it(_hotspotStyles.begin()); it != _hotspotStyles.end(); ++it )
 			{
 				for (StyleMap::iterator it2(it->second->begin()) ; it2 != it->second->end() ; ++it2)
 				{
@@ -236,9 +238,9 @@ public:
 	virtual void init(HINSTANCE hInst, HWND hPere);
 
 	LRESULT execute(UINT Msg, WPARAM wParam=0, LPARAM lParam=0) const {
-		return _pScintillaFunc(_pScintillaPtr, static_cast<int>(Msg), static_cast<int>(wParam), static_cast<int>(lParam));
+		return _pScintillaFunc(_pScintillaPtr, Msg, wParam, lParam);
 	};
-	
+
 	void activateBuffer(BufferID buffer);
 
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
@@ -247,6 +249,7 @@ public:
 	void getText(char *dest, int start, int end) const;
 	void getGenericText(TCHAR *dest, size_t destlen, int start, int end) const;
 	void getGenericText(TCHAR *dest, size_t deslen, int start, int end, int *mstart, int *mend) const;
+	generic_string getGenericTextAsString(int start, int end) const;
 	void insertGenericTextFrom(int position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
@@ -269,6 +272,7 @@ public:
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
 	void showAutoComletion(int lenEntered, const TCHAR * list);
 	void showCallTip(int startPos, const TCHAR * def);
+	generic_string getLine(int lineNumber);
 	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
 	void addText(int length, const char *buf);
 
@@ -299,7 +303,7 @@ public:
 	void getWordToCurrentPos(TCHAR * str, int strLen) const {
 		int caretPos = execute(SCI_GETCURRENTPOS);
 		int startPos = static_cast<int>(execute(SCI_WORDSTARTPOSITION, caretPos, true));
-		
+
 		str[0] = '\0';
 		if ((caretPos - startPos) < strLen)
 			getGenericText(str, strLen, startPos, caretPos);
@@ -390,7 +394,7 @@ public:
 	};
 
 	void showIndentGuideLine(bool willBeShowed = true) {
-		execute(SCI_SETINDENTATIONGUIDES, (WPARAM)willBeShowed?(SC_IV_LOOKBOTH):(SC_IV_NONE));  
+		execute(SCI_SETINDENTATIONGUIDES, (WPARAM)willBeShowed?(SC_IV_LOOKBOTH):(SC_IV_NONE));
 	};
 
 	bool isShownIndentGuide() const {
@@ -446,7 +450,7 @@ public:
 	long getTextHeight()const{
 		return long(execute(SCI_TEXTHEIGHT));
 	};
-	
+
 	void gotoLine(int line){
 		if (line < execute(SCI_GETLINECOUNT))
 			execute(SCI_GOTOLINE,line);
@@ -463,17 +467,18 @@ public:
 		long start = long(execute(SCI_GETSELECTIONSTART));
 		long end = long(execute(SCI_GETSELECTIONEND));
 		selByte = (start < end)?end-start:start-end;
-		
+
 		start = long(execute(SCI_LINEFROMPOSITION, start));
 		end = long(execute(SCI_LINEFROMPOSITION, end));
 		selLine = (start < end)?end-start:start-end;
-		if (selLine) 
+		if (selLine)
 			++selLine;
-		
+
 		return true;
     };
 
-	long getSelectedLength() const {
+	long getSelectedLength() const
+	{
 		// return -1 if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
 			return -1;
@@ -490,7 +495,7 @@ public:
 		}
 		delete [] selected;
 		return length;
-    };
+    }
 
 
 	long getLineLength(int line) const {
@@ -503,7 +508,8 @@ public:
 
 	void setLineIndent(int line, int indent) const;
 
-	void showLineNumbersMargin(bool show){
+	void showLineNumbersMargin(bool show)
+	{
 		if (show == _lineNumbersShown) return;
 		_lineNumbersShown = show;
 		if (show)
@@ -532,11 +538,11 @@ public:
 	void performGlobalStyles();
 
 	void expand(int &line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
-		
+
 	void currentLineUp() const;
 	void currentLineDown() const;
 
-	pair<int, int> getSelectionLinesRange() const;
+	std::pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;
     void currentLinesDown() const;
 
@@ -558,7 +564,7 @@ public:
 		else
 			execute(SCI_UPPERCASE);
 	};
-    
+
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(bool mode);
 	void fold(int line, bool mode);
@@ -571,11 +577,11 @@ public:
 	NppParameters * getParameter() {
 		return _pParameter;
 	};
-	
+
 	ColumnModeInfos getColumnModeSelectInfo();
 
 	void columnReplace(ColumnModeInfos & cmi, const TCHAR *str);
-	void columnReplace(ColumnModeInfos & cmi, int initial, int incr, UCHAR format);
+	void columnReplace(ColumnModeInfos & cmi, int initial, int incr, int repeat, UCHAR format);
 
 	void foldChanged(int line, int levelNow, int levelPrev);
 	void clearIndicator(int indicatorNumber) {
@@ -602,7 +608,7 @@ public:
 	bool isSelecting() const {
 		static CharacterRange previousSelRange = getSelection();
 		CharacterRange currentSelRange = getSelection();
-		
+
 		if (currentSelRange.cpMin == currentSelRange.cpMax)
 		{
 			previousSelRange = currentSelRange;
@@ -614,7 +620,7 @@ public:
 			previousSelRange = currentSelRange;
 			return true;
 		}
-		
+
 		previousSelRange = currentSelRange;
 		return false;
 	};
@@ -623,26 +629,27 @@ public:
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
 	};
-	
+
 	void setHotspotStyle(Style& styleToSet);
     void setTabSettings(Lang *lang);
 	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
 	void setWrapRestoreNeeded(bool isWrapRestoredNeeded) {_wrapRestoreNeeded = isWrapRestoredNeeded;};
 
 	bool isCJK() const {
-		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) || 
+		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) ||
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 	void scrollPosToCenter(int pos);
-	bool swapLines(size_t line1, size_t line2);
-	void quickSortLines(size_t fromLine, size_t toLine, bool isReverse = false);
+	generic_string getEOLString();
+	void setBorderEdge(bool doWithBorderEdge);
+	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
 
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;
-	
+
     static UserDefineDialog _userDefineDlg;
 
     static const int _markersArray[][NB_FOLDER_STATE];
@@ -659,14 +666,14 @@ protected:
 	//Store the current buffer so it can be retrieved later
 	BufferID _currentBufferID;
 	Buffer * _currentBuffer;
-	
+
     NppParameters *_pParameter;
 	int _codepage;
 	bool _lineNumbersShown;
 	bool _wrapRestoreNeeded;
 
-	typedef std::map<int, Style> StyleMap;
-	typedef std::map<BufferID, StyleMap*> BufferStyleMap;
+	typedef std::unordered_map<int, Style> StyleMap;
+	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
 	BufferStyleMap _hotspotStyles;
 
 	int _beginSelectPosition;
@@ -686,6 +693,7 @@ protected:
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
  	void setCppLexer(LangType type);
+	void setJsLexer();
 	void setTclLexer();
     void setObjCLexer(LangType type);
 	void setUserLexer(const TCHAR *userLangName = NULL);
@@ -693,6 +701,7 @@ protected:
 	void setEmbeddedJSLexer();
     void setEmbeddedPhpLexer();
     void setEmbeddedAspLexer();
+	void setJsonLexer();
 	//Simple lexers
 	void setCssLexer() {
 		setLexer(SCLEX_CSS, L_CSS, LIST_0 | LIST_1);
@@ -852,12 +861,12 @@ protected:
 		setLexer(SCLEX_D, L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
     void setPowerShellLexer() {
-		setLexer(SCLEX_POWERSHELL, L_POWERSHELL, LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_POWERSHELL, L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_5);
 	};
     void setRLexer() {
 		setLexer(SCLEX_R, L_R, LIST_0 | LIST_1 | LIST_2);
 	};
-	
+
     void setCoffeeScriptLexer() {
 		setLexer(SCLEX_COFFEESCRIPT, L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
 	};
@@ -898,7 +907,7 @@ protected:
 	};
 
 	int codepage2CharSet() const {
-		switch (_codepage)	
+		switch (_codepage)
 		{
 			case CP_CHINESE_TRADITIONAL : return SC_CHARSET_CHINESEBIG5;
 			case CP_CHINESE_SIMPLIFIED : return SC_CHARSET_GB2312;
@@ -909,14 +918,8 @@ protected:
 		}
 	};
 
-    pair<int, int> getWordRange();
+	std::pair<int, int> getWordRange();
 	bool expandWordSelection();
-
-	// For the quicksort on lines
-	size_t getLeftLineIndex(size_t leftIndex, size_t pivotIndex, bool isReverse);
-	size_t getRightLineIndex(size_t rightIndex, size_t pivotIndex, bool isReverse);
-	size_t getGreaterLineBetween(size_t l1, size_t l2);
-	size_t getRandomPivot(size_t fromLine, size_t toLine);
 };
 
 #endif //SCINTILLA_EDIT_VIEW_H

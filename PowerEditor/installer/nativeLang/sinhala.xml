@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 
 <!-- Contributors: Supun Viraj, Gihan Timantha, Lasith Tarindu -->
 <!-- University of Colombo School of Computing, Sri Lanka, 2013 -->
@@ -11,7 +11,7 @@
                <!-- Main Menu Entries -->
 
                <Entries>
-			   
+
                    <Item menuId="file" name="ගොනුව"/>
                    <Item menuId="edit" name="සකසන්න"/>
                    <Item menuId="search" name="සොයන්න"/>
@@ -29,7 +29,7 @@
                <!-- Sub Menu Entries -->
 
                <SubEntries>
-			   
+
                    <Item subMenuId="edit-copyToClipboard"  name="ඇමුණුම් පුවරුවට පිටපත් කිරීම "/>
                    <Item subMenuId="edit-indent" name="එබුම"/>
                    <Item subMenuId="edit-convertCaseTo" name="අක්ෂර තත්වය පෙරලීම "/>
@@ -70,11 +70,11 @@
                    <Item subMenuId="settings-import"  name="ආයාත කරන්න"/>
 
                </SubEntries>
-               
+
                <!-- all menu item -->
 
                <Commands>
-			   
+
                    <Item id="41001" name="නව"/>
                    <Item id="41002" name="විවෘත කරන්න"/>
                    <Item id="41003" name="වසන්න"/>
@@ -104,8 +104,8 @@
                    <Item id="42010" name="වර්තමාන පේලිය අනුපිටපත් කරන්න "/>
                    <Item id="42012" name="පේලි බෙදන්න"/>
                    <Item id="42013" name="පේලි එක්කරන්න"/>
-                   <Item id="42014" name="වත්මන් පේලිය ඉහලට ගෙන යන්න"/>   
-                   <Item id="42015" name="වත්මන් පේලිය පහලට ගෙන යන්න"/>   
+                   <Item id="42014" name="වත්මන් පේලිය ඉහලට ගෙන යන්න"/>
+                   <Item id="42015" name="වත්මන් පේලිය පහලට ගෙන යන්න"/>
                    <Item id="42016" name="ලොකු අකුරු"/>
                    <Item id="42017" name="කුඩා අකුරු"/>
                    <Item id="42018" name="රෙකෝඩය ආරම්භ   කිරීම "/>
@@ -123,7 +123,7 @@
                    <Item id="42025" name="දැනට  රේකොඩිත නියෝග එකලස සුරකින්න "/>
                    <Item id="42026" name="දකුණේ සිට වමට අක්ෂර"/>
                    <Item id="42027" name="වමේ සිට දකුණට අක්ෂර"/>
-                   <Item id="42028" name="පඨන  මාත්‍ර  සක්‍රීය කරන්න "/>                     
+                   <Item id="42028" name="පඨන  මාත්‍ර  සක්‍රීය කරන්න "/>
 				   <Item id="42029" name="වත්මන් ගොනු පෙත ඇමුණුම් පුවරුවට"/>
                    <Item id="42030" name="වත්මන් ගොනු නාමය ඇමුණුම් පුවරුවට"/>
                    <Item id="42031" name="වත්මන් ඩිරෙක්ටරිය ඇමුණුම් පුවරුවට"/>
@@ -256,7 +256,7 @@
            </Splitter>
 
            <TabBar>
-		   
+
                    <Item CMID="0" name="වසන්න"/>
                    <Item CMID="1" name="වත්මන් ගොනුව හැර අන් සියලු ගොනු වසන්න"/>
                    <Item CMID="2" name="සුරකින්න"/>
@@ -278,11 +278,11 @@
            </TabBar>
 
        </Menu>
-       
+
        <Dialog>
 
            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
-		   
+
                <Item id="1"    name="මීළඟ  සෙවීම"/>
                <Item id="2"    name="වසන්න "/>
                <Item id="1620" name="මෙය සොයන්න:"/>
@@ -325,7 +325,7 @@
            </Find>
 
            <GoToLine title="Go to...">
-		   
+
                <Item id="2007" name="පේලිය"/>
                <Item id="2008" name="හිලව්ව"/>
                <Item id="1"    name="යන්න"/>
@@ -337,23 +337,23 @@
            </GoToLine>
 
            <Run title="Run...">
-		   
+
                <Item id="1903" name="ධාවනයට නියමිත වැඩසටහන"/>
                <Item id="1"    name="ධාවනය කරන්න"/>
                <Item id="2"    name="අවලංගුකරන්න"/>
                <Item id="1904" name="සුරකින්න..."/>
 
            </Run>
-          
+
            <StyleConfig title="Style Configurator">
-		   
+
                <Item id="2"    name="අවලංගුකරන්න"/>
                <Item id="2301" name="සුරැකීමෙන් පසුව වසන්න"/>
-               <Item id="2303" name="විනිවිදභාවය"/>       
+               <Item id="2303" name="විනිවිදභාවය"/>
                <Item id="2306" name="තේමාව තෝරන්න:  "/>
 
                <SubDialog>
-			   
+
                    <Item id="2204" name="තදකුරු"/>
                    <Item id="2205" name="ඇලකුරු"/>
                    <Item id="2206" name="පෙරබිම වර්ණය"/>
@@ -375,14 +375,14 @@
                    <Item id="2230" name="ගෝලීය තද අකුරු විලාසය සක්‍රීයකරන්න"/>
                    <Item id="2231" name="ගෝලීය ඇල අකුරු විලාසය සක්‍රීයකරන්න"/>
                    <Item id="2232" name="ගෝලීය යට ඉරි ඇදි අකුරු විලාසය සක්‍රීයකරන්න "/>
-               </SubDialog>                
+               </SubDialog>
 
            </StyleConfig>
 
            <UserDefine title="User-Defined">
 
                <Item id="20002" name="ප්‍රතිනාමකරණය"/>
-               <Item id="20003" name="නව සැකසීම..."/> 
+               <Item id="20003" name="නව සැකසීම..."/>
                <Item id="20004" name="ඉවත්කරන්න"/>
                <Item id="20005" name="මෙලෙස සුරකින්න..."/>
                <Item id="20007" name="පරිශීලක භාෂාව: "/>
@@ -393,7 +393,7 @@
                <Item id="20016" name="නිර්යාත..."/>
 
                <StylerDialog title="Styler Dialog">
-			   
+
                    <Item id="25030" name="ෆොන්ට විකල්ප:"/>
                    <Item id="25006" name="පෙරබිම් වර්ණය"/>
                    <Item id="25007" name="පසුබිම් වර්ණය"/>
@@ -428,7 +428,7 @@
                </StylerDialog>
 
                <Folder title="Folder &amp;&amp; Default">
-			   
+
                    <Item id="21101" name="පෙරනිමි විලාස සිටවුම්"/>
                    <Item id="21201" name="ෆෝල්ඩර විවෘතකිරීමේ මූලපද"/>
                    <Item id="21301" name="ෆෝල්ඩර වසාදැමීමේ  මූලපද"/>
@@ -436,7 +436,7 @@
                </Folder>
 
                <Keywords title="Keywords Lists">
-			   
+
                    <Item id="22101" name="පලමු කාණ්ඩය"/>
                    <Item id="22201" name="දෙවන කාණ්ඩය"/>
                    <Item id="22301" name="තෙවන කාණ්ඩය"/>
@@ -449,7 +449,7 @@
                </Keywords>
 
                <Comment title="Comment &amp;&amp; Number">
-			   
+
                    <Item id="23301" name="විවරණ තීරුව"/>
                    <Item id="23101" name="විවරණ කොටස"/>
                    <Item id="23113" name="විවරණය විවෘත කරන්න:"/>
@@ -461,7 +461,7 @@
                </Comment>
 
                <Operator title="Operators">
-			   
+
                    <Item id="24107" name="කර්මය"/>
                    <Item id="24103" name="උපයෝජ්‍ය  සංකේත"/>
                    <Item id="24101" name="සක්‍රීය කර්ම"/>
@@ -473,9 +473,9 @@
                    <Item id="24314" name="සීමාව අවසානය:"/>
 
                </Operator>
-			   
+
                <Item id="24001" name="මිදුම් අනුලක්ෂණය සක්‍රීයකරන්න:"/>
-			   
+
            </UserDefine>
 
            <Preference title="Preferences">
@@ -506,7 +506,7 @@
                </Global>
 
                <Scintillas title="Editing">
-			   
+
                    <Item id="6216" name="කැරට් සිටවුම්"/>
                    <Item id="6217" name="පළල:"/>
                    <Item id="6219" name="නිමීලන ශීඝ්‍රතාව:"/>
@@ -536,7 +536,7 @@
                </Scintillas>
 
                <NewDoc title="New Document/Default Directory">
-			   
+
                    <Item id="6401" name="ආකෘතිය"/>
                    <Item id="6402" name="වින්ඩෝස්"/>
                    <Item id="6403" name="යුනික්ස්"/>
@@ -555,16 +555,16 @@
                    <Item id="6420" name=" විවෘත  ANSI ගොනු වලට යොදන්න"/>
 
                </NewDoc>
-			   
+
                <FileAssoc title="File Association">
-			   
+
                    <Item id="4009" name=" ආධාරක දිගුව:"/>
                    <Item id="4010" name="ලේඛනගත  දිගුව:"/>
 
                </FileAssoc>
 
                <LangMenu title="Language Menu/Tab Settings">
-			   
+
                    <Item id="6301" name="පිමි සිටවුම්"/>
                    <Item id="6302" name="ඉඩේන් ප්‍රතිස්ථාපනය"/>
                    <Item id="6303" name="පිමි තරම: "/>
@@ -577,7 +577,7 @@
                </LangMenu>
 
                <Print title="Print">
-			   
+
                    <Item id="6601" name="පේලි අංකය මුද්‍රණය කරන්න"/>
                    <Item id="6602" name="වර්ණ විකල්ප"/>
                    <Item id="6603" name="WYSIWYG"/>
@@ -706,7 +706,7 @@
        </MessageBox>
 
        <ProjectManager>
-	   
+
            <PanelTitle name="ව්‍යාපෘතිය"/>
            <WorkspaceRootName name="වැඩපෙදෙස"/>
            <NewProjectName name="ව්‍යාපෘති නාමය"/>

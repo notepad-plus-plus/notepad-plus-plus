@@ -34,6 +34,11 @@ inline QRect QRectFromPRect(PRectangle pr)
 	return QRect(pr.left, pr.top, pr.Width(), pr.Height());
 }
 
+inline QRectF QRectFFromPRect(PRectangle pr)
+{
+	return QRectF(pr.left, pr.top, pr.Width(), pr.Height());
+}
+
 inline PRectangle PRectFromQRect(QRect qr)
 {
 	return PRectangle(qr.x(), qr.y(), qr.x() + qr.width(), qr.y() + qr.height());

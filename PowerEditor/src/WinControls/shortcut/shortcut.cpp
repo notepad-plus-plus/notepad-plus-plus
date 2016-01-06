@@ -26,16 +26,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "precompiledHeaders.h"
-
+#include <algorithm>
 #include "shortcut.h"
 #include "Parameters.h"
 #include "ScintillaEditView.h"
 #include "resource.h"
 #include "Notepad_plus_Window.h"
-
 #include "keys.h"
-#include <array>
+
+using namespace std;
 
 const int KEY_STR_LEN = 16;
 
@@ -356,7 +355,7 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 	return;
 }
 
-BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
 {
 	switch (Message)
 	{
@@ -454,7 +453,11 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 // return true if one of CommandShortcuts is deleted. Otherwise false.
 void Accelerator::updateShortcuts() 
 {
-	const std::array<int, 3> IFAccIds = { IDM_SEARCH_FINDNEXT, IDM_SEARCH_FINDPREV, IDM_SEARCH_FINDINCREMENT };
+	vector<int> IFAccIds;
+	IFAccIds.push_back(IDM_SEARCH_FINDNEXT);
+	IFAccIds.push_back(IDM_SEARCH_FINDPREV);
+	IFAccIds.push_back(IDM_SEARCH_FINDINCREMENT);
+
 	NppParameters *pNppParam = NppParameters::getInstance();
 
 	vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
@@ -475,20 +478,26 @@ void Accelerator::updateShortcuts()
 	int offset = 0;
 	size_t i = 0;
 	//no validation performed, it might be that invalid shortcuts are being used by default. Allows user to 'hack', might be a good thing
-	for(i = 0; i < nbMenu; ++i) {
-		if (shortcuts[i].isEnabled()) {// && shortcuts[i].isValid()) {
+	for(i = 0; i < nbMenu; ++i)
+	{
+		if (shortcuts[i].isEnabled())
+		{
 			_pAccelArray[offset].cmd = (WORD)(shortcuts[i].getID());
 			_pAccelArray[offset].fVirt = shortcuts[i].getAcceleratorModifiers();
 			_pAccelArray[offset].key = shortcuts[i].getKeyCombo()._key;
+
 			// Special extra handling for shortcuts shared by Incremental Find dialog
 			if (std::find(IFAccIds.begin(), IFAccIds.end(), shortcuts[i].getID()) != IFAccIds.end())
 				IFAcc.push_back(_pAccelArray[offset]);
+
 			++offset;
 		}
 	}
 
-	for(i = 0; i < nbMacro; ++i) {
-		if (macros[i].isEnabled()) {// && macros[i].isValid()) {
+	for(i = 0; i < nbMacro; ++i)
+	{
+		if (macros[i].isEnabled()) 
+		{
 			_pAccelArray[offset].cmd = (WORD)(macros[i].getID());
 			_pAccelArray[offset].fVirt = macros[i].getAcceleratorModifiers();
 			_pAccelArray[offset].key = macros[i].getKeyCombo()._key;
@@ -496,8 +505,10 @@ void Accelerator::updateShortcuts()
 		}
 	}
 
-	for(i = 0; i < nbUserCmd; ++i) {
-		if (userCommands[i].isEnabled()) {// && userCommands[i].isValid()) {
+	for(i = 0; i < nbUserCmd; ++i)
+	{
+		if (userCommands[i].isEnabled())
+		{
 			_pAccelArray[offset].cmd = (WORD)(userCommands[i].getID());
 			_pAccelArray[offset].fVirt = userCommands[i].getAcceleratorModifiers();
 			_pAccelArray[offset].key = userCommands[i].getKeyCombo()._key;
@@ -505,8 +516,10 @@ void Accelerator::updateShortcuts()
 		}
 	}
 
-	for(i = 0; i < nbPluginCmd; ++i) {
-		if (pluginCommands[i].isEnabled()) {// && pluginCommands[i].isValid()) {
+	for(i = 0; i < nbPluginCmd; ++i)
+	{
+		if (pluginCommands[i].isEnabled())
+		{
 			_pAccelArray[offset].cmd = (WORD)(pluginCommands[i].getID());
 			_pAccelArray[offset].fVirt = pluginCommands[i].getAcceleratorModifiers();
 			_pAccelArray[offset].key = pluginCommands[i].getKeyCombo()._key;
@@ -522,9 +535,18 @@ void Accelerator::updateShortcuts()
 	if (_hAccTable)
 		::DestroyAcceleratorTable(_hAccTable);
 	_hAccTable = ::CreateAcceleratorTable(_pAccelArray, _nbAccelItems);
+
 	if (_hIncFindAccTab)
 		::DestroyAcceleratorTable(_hIncFindAccTab);
-	_hIncFindAccTab = ::CreateAcceleratorTable(IFAcc.data(), IFAcc.size());
+
+	size_t nb = IFAcc.size();
+	ACCEL *tmpAccelArray = new ACCEL[nb];
+	for (i = 0; i < nb; ++i)
+	{
+		tmpAccelArray[i] = IFAcc[i];
+	}
+	_hIncFindAccTab = ::CreateAcceleratorTable(tmpAccelArray, nb);
+	delete [] tmpAccelArray;
 
 	return;
 }
@@ -589,19 +611,10 @@ recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam, int
 			case IDD_FINDINFILES_DIR_COMBO:
 			case IDD_FINDINFILES_FILTERS_COMBO:
 			{
-#ifdef UNICODE
 				char *ch = reinterpret_cast<char *>(lParameter);
 				TCHAR tch[2];
 				::MultiByteToWideChar(codepage, 0, ch, -1, tch, 2);
 				sParameter = *tch;
-#else
-				char ch = *reinterpret_cast<char *>(lParameter);
-				TCHAR tch = ch;
-				sParameter = tch;
-
-				// dummy call
-				codepage = 0;
-#endif
 				MacroType = mtUseSParameter;
 				lParameter = 0;
 			}
@@ -622,17 +635,11 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 	else
 	{
 		long lParam = lParameter;
-#ifdef UNICODE
 		char ansiBuffer[3];
-#endif
 		if (MacroType == mtUseSParameter)
 		{
-#ifdef UNICODE
 			::WideCharToMultiByte(pEditView->execute(SCI_GETCODEPAGE), 0, sParameter.c_str(), -1, ansiBuffer, 3, NULL, NULL);
 			lParam = reinterpret_cast<LPARAM>(ansiBuffer);
-#else
-			lParam = reinterpret_cast<LPARAM>(sParameter.c_str());
-#endif
 		}
 
 		pEditView->execute(message, wParameter, lParam);
@@ -763,7 +770,7 @@ void ScintillaKeyMap::updateListItem(int index) {
 	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, index+1, 0);
 }
 
-BOOL CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
 {
 	
 	switch (Message)

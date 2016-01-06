@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -30,6 +30,9 @@
 #include "process.h"
 //#include "SysMsg.h"
 
+
+
+
 BOOL Process::run()
 {
 	BOOL result = TRUE;
@@ -47,11 +50,12 @@ BOOL Process::run()
 
 	SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE }; // inheritable handle
 
-	try {
+	try
+	{
 		// Create stdout pipe
 		if (!::CreatePipe(&_hPipeOutR, &hPipeOutW, &sa, 0))
 			error(TEXT("CreatePipe"), result, 1000);
-		
+
 		// Create stderr pipe
 		if (!::CreatePipe(&_hPipeErrR, &hPipeErrW, &sa, 0))
 			error(TEXT("CreatePipe"), result, 1001);
@@ -76,32 +80,34 @@ BOOL Process::run()
 						_curDir,        // inherit directory
 						&startup,    // STARTUPINFO
 						&procinfo);  // PROCESS_INFORMATION
-		
+
 		_hProcess = procinfo.hProcess;
 		_hProcessThread = procinfo.hThread;
 
-		if(!started)
+		if (!started)
 			error(TEXT("CreateProcess"), result, 1002);
 
 		hListenerEvent[0] = ::CreateEvent(NULL, FALSE, FALSE, TEXT("listenerEvent"));
-		if(!hListenerEvent[0])
+		if (!hListenerEvent[0])
 			error(TEXT("CreateEvent"), result, 1003);
 
 		hListenerEvent[1] = ::CreateEvent(NULL, FALSE, FALSE, TEXT("listenerStdErrEvent"));
-		if(!hListenerEvent[1])
+		if (!hListenerEvent[1])
 			error(TEXT("CreateEvent"), result, 1004);
 
 		hListenerStdOutThread = ::CreateThread(NULL, 0, staticListenerStdOut, this, 0, NULL);
 		if (!hListenerStdOutThread)
 			error(TEXT("CreateThread"), result, 1005);
-		
+
 		hListenerStdErrThread = ::CreateThread(NULL, 0, staticListenerStdErr, this, 0, NULL);
 		if (!hListenerStdErrThread)
 			error(TEXT("CreateThread"), result, 1006);
 
 		::WaitForSingleObject(_hProcess, INFINITE);
 		::WaitForMultipleObjects(2, hListenerEvent, TRUE, INFINITE);
-	} catch (int /*coderr*/){}
+	}
+	catch (int /*coderr*/)
+	{}
 
 	// on va fermer toutes les handles
 	if (hPipeOutW)
@@ -129,19 +135,14 @@ BOOL Process::run()
 
 void Process::listenerStdOut()
 {
-	//BOOL Result = 0;
-	//DWORD size = 0;
 	DWORD bytesAvail = 0;
 	BOOL result = 0;
 	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerEvent"));
-	//FILE *fp = NULL;
 
-	int taille = 0;
 	TCHAR bufferOut[MAX_LINE_LENGTH + 1];
-	//TCHAR bufferErr[MAX_LINE_LENGTH + 1];
 
 	int nExitCode = STILL_ACTIVE;
-	
+
 	DWORD outbytesRead;
 
 	::ResumeThread(_hProcessThread);
@@ -149,20 +150,19 @@ void Process::listenerStdOut()
     bool goOn = true;
 	while (goOn)
 	{ // got data
-		memset(bufferOut,0x00,MAX_LINE_LENGTH + 1); 
-		//memset(bufferErr,0x00,MAX_LINE_LENGTH + 1);
-		taille = sizeof(bufferOut) - sizeof(TCHAR);
-		
+		memset(bufferOut,0x00,MAX_LINE_LENGTH + 1);
+		int taille = sizeof(bufferOut) - sizeof(TCHAR);
+
 		Sleep(50);
 
-		if (!::PeekNamedPipe(_hPipeOutR, bufferOut, taille, &outbytesRead, &bytesAvail, NULL)) 
+		if (!::PeekNamedPipe(_hPipeOutR, bufferOut, taille, &outbytesRead, &bytesAvail, NULL))
 		{
 			bytesAvail = 0;
             goOn = false;
 			break;
 		}
 
-		if(outbytesRead)
+		if (outbytesRead)
 		{
 			result = :: ReadFile(_hPipeOutR, bufferOut, taille, &outbytesRead, NULL);
 			if ((!result) && (outbytesRead == 0))
@@ -171,7 +171,7 @@ void Process::listenerStdOut()
 				break;
             }
 		}
-		//outbytesRead = strlen(bufferOut);
+
 		bufferOut[outbytesRead] = '\0';
 		generic_string s;
 		s.assign(bufferOut);
@@ -190,7 +190,7 @@ void Process::listenerStdOut()
 	}
 	_exitCode = nExitCode;
 
-	if(!::SetEvent(hListenerEvent))
+	if (!::SetEvent(hListenerEvent))
 	{
 		systemMessage(TEXT("Thread listenerStdOut"));
 	}
@@ -198,38 +198,32 @@ void Process::listenerStdOut()
 
 void Process::listenerStdErr()
 {
-	//BOOL Result = 0;
-	//DWORD size = 0;
 	DWORD bytesAvail = 0;
 	BOOL result = 0;
 	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerStdErrEvent"));
 
 	int taille = 0;
-	//TCHAR bufferOut[MAX_LINE_LENGTH + 1];
 	TCHAR bufferErr[MAX_LINE_LENGTH + 1];
-
 	int nExitCode = STILL_ACTIVE;
-	
-	DWORD errbytesRead;
 
 	::ResumeThread(_hProcessThread);
 
-    bool goOn = true; 
+    bool goOn = true;
 	while (goOn)
 	{ // got data
 		memset(bufferErr, 0x00, MAX_LINE_LENGTH + 1);
 		taille = sizeof(bufferErr) - sizeof(TCHAR);
 
 		Sleep(50);
-
-		if (!::PeekNamedPipe(_hPipeErrR, bufferErr, taille, &errbytesRead, &bytesAvail, NULL)) 
+		DWORD errbytesRead;
+		if (!::PeekNamedPipe(_hPipeErrR, bufferErr, taille, &errbytesRead, &bytesAvail, NULL))
 		{
 			bytesAvail = 0;
             goOn = false;
 			break;
 		}
 
-		if(errbytesRead)
+		if (errbytesRead)
 		{
 			result = :: ReadFile(_hPipeErrR, bufferErr, taille, &errbytesRead, NULL);
 			if ((!result) && (errbytesRead == 0))
@@ -238,7 +232,6 @@ void Process::listenerStdErr()
 				break;
             }
 		}
-		//outbytesRead = strlen(bufferOut);
 		bufferErr[errbytesRead] = '\0';
 		generic_string s;
 		s.assign(bufferErr);
@@ -257,11 +250,12 @@ void Process::listenerStdErr()
 	}
 	//_exitCode = nExitCode;
 
-	if(!::SetEvent(hListenerEvent))
+	if (!::SetEvent(hListenerEvent))
 	{
 		systemMessage(TEXT("Thread stdout listener"));
 	}
 }
+
 
 void Process::error(const TCHAR *txt2display, BOOL & returnCode, int errCode)
 {
@@ -269,3 +263,4 @@ void Process::error(const TCHAR *txt2display, BOOL & returnCode, int errCode)
 	returnCode = FALSE;
 	throw int(errCode);
 }
+

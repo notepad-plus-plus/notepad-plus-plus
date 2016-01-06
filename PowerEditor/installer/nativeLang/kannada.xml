@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- This is the Kannada language file for Notepad++.Kannada is one of the Indian regional languages.
-I was inspired by teh work done by other contributors and I also wanted to 
-contribute by translating it to one of India's regional languages.  
-Author: Aakash vemulapalli 
-Email: aakashv11@gmail.com 
-Note:In case of any suggestions and improvements please do not hesitate to contact me. 
+I was inspired by teh work done by other contributors and I also wanted to
+contribute by translating it to one of India's regional languages.
+Author: Aakash vemulapalli
+Email: aakashv11@gmail.com
+Note:In case of any suggestions and improvements please do not hesitate to contact me.
 Thank you. -->
 <NotepadPlus>
     <Native-Langue name="ಕನ್ನಡ" filename="kannada.xml" version="6.6.8">
@@ -69,7 +69,7 @@ Thank you. -->
                     <Item subMenuId="encoding-vietnamese" name="ವಿಯೆಟ್ನಾಮೀಸ್"/>
                     <Item subMenuId="settings-import"  name="ಇಂಪಾರ್ಟ್"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="ನ್ಯೂ"/>
@@ -93,7 +93,7 @@ Thank you. -->
                     <Item id="41015" name="ಸಾವೆ ಆ ಕಾಪೀ ಆಸ್..."/>
                     <Item id="41016" name="ಡೆಲೀಟ್ ಫ್ರಮ್ ಡಿಸ್ಕ್"/>
                     <Item id="41017" name="ರಿನೇಮ್..."/>
-                    
+
                     <Item id="42001" name="ಕಟ್"/>
                     <Item id="42002" name="ಕಾಪೀ"/>
                     <Item id="42003" name="ಅಂಡೂ"/>
@@ -107,8 +107,8 @@ Thank you. -->
                     <Item id="42010" name="ಡ್ಯೂಪ್ಲಿಕೇಟ್ ಕರೆಂಟ್ ಲೈನ್"/>
                     <Item id="42012" name="ಸ್ಪ್ಲಿಟ್ ಲೈನ್ಸ್"/>
                     <Item id="42013" name="ಜಾಯ್ನ್ ಲೈನ್ಸ್"/>
-                    <Item id="42014" name="ಮೂವ್ ಅಪ್ ಕರೆಂಟ್ ಲೈನ್"/>   
-                    <Item id="42015" name="ಮೂವ್ ಡೌನ್ ಕರೆಂಟ್ ಲೈನ್"/>   
+                    <Item id="42014" name="ಮೂವ್ ಅಪ್ ಕರೆಂಟ್ ಲೈನ್"/>
+                    <Item id="42015" name="ಮೂವ್ ಡೌನ್ ಕರೆಂಟ್ ಲೈನ್"/>
                     <Item id="42016" name="ಉಪ್ಪೆರ್ಕಸೆ"/>
                     <Item id="42017" name="ಲೌಎರ್ಕಸೆ"/>
                     <Item id="42018" name="ಸ್ಟಾರ್ಟ್ ರೆಕಾರ್ಡಿಂಗ್"/>
@@ -315,7 +315,7 @@ Thank you. -->
                     <Item CMID="20" name="ಓಪನ್ ಕಂಟೇನಿಂಗ್ ಫೋಲ್ಡರ್ ಇನ್ cmd"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="ಫೈಂಡ್" titleReplace="ರೀಪ್ಲೇಸ್" titleFindInFiles="ಫೈಂಡ್ ಇನ್ ಫೈಲ್ಸ್" titleMark="Mark">
                 <Item id="1"    name="ಫೈಂಡ್ ನೆಕ್ಸ್ಟ್"/>
@@ -374,11 +374,11 @@ Thank you. -->
                 <Item id="2"    name="ಕ್ಯಾನ್ಸಲ್"/>
                 <Item id="1904" name="ಸಾವೆ...ಸಾವೆ..."/>
             </Run>
-            
+
             <StyleConfig title="ಸ್ಟೈಲ್ ಕೋನ್ಫಿಗುರತೊರ್">
                 <Item id="2"    name="ಕ್ಯಾನ್ಸಲ್"/>
                 <Item id="2301" name="ಸಾವೆ &amp;&amp;ಕ್ಲೋಸ್"/>
-                <Item id="2303" name="ಟ್ರ್ಯಾನ್ಸ್ಪರೆನ್ಸೀ"/>       
+                <Item id="2303" name="ಟ್ರ್ಯಾನ್ಸ್ಪರೆನ್ಸೀ"/>
                 <Item id="2306" name="ಸೆಲೆಕ್ಟ್ ಥೀಮ್: "/>
                 <SubDialog>
                     <Item id="2204" name="ಬೋಲ್ಡ್"/>
@@ -403,10 +403,10 @@ Thank you. -->
                     <Item id="2230" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಬೋಲ್ಡ್ ಫಾಂಟ್ ಸ್ಟೈಲ್"/>
                     <Item id="2231" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಐಟ್ಯಾಲಿಕ್ ಫಾಂಟ್ ಸ್ಟೈಲ್"/>
                     <Item id="2232" name="ಎನೇಬಲ್ ಗ್ಲೋಬಲ್ ಅಂಡರ್‌ಲೈನ್ ಫಾಂಟ್ ಸ್ಟೈಲ್"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="ಯೂಸರ್-ಡಿಫೈಂಡ್">
 				<Item id="20001" name="ಡಾಕ್"/>
                 <Item id="20002" name="ರಿನೇಮ್"/>
@@ -584,24 +584,24 @@ Thank you. -->
                     <Item id="6103" name="ಸ್ಮಾಲ್ ಐಕಾನ್ಸ್"/>
                     <Item id="6104" name="ಬಿಗ್ ಐಕಾನ್ಸ್"/>
                     <Item id="6105" name="ಸ್ಟ್ಯಾಂಡರ್ಡ್ ಐಕಾನ್ಸ್"/>
-                    
+
                     <Item id="6106" name="ಟ್ಯಾಬ್ ಬಾರ್"/>
                     <Item id="6107" name="ರೆಡ್ಯೂಸ್"/>
                     <Item id="6108" name="ಲಾಕ್ (ನೋ ಡ್ರಗ್ ಅಂಡ್ ಡ್ರಾಪ್)"/>
                     <Item id="6109" name="ಡಾರ್ಕನ್ ಇನ್ಯಾಕ್ಟಿವ್ ಟ್ಯಾಬ್ಸ್"/>
                     <Item id="6110" name="ಡ್ರಾ ಆ ಕಲರ್ಡ್ ಬಾರ್ ಒನ್ ಆಕ್ಟಿವ್ ಟ್ಯಾಬ್"/>
-                    
+
                     <Item id="6111" name="ಶೋ ಸ್ಟೇಟಸ್ ಬಾರ್"/>
                     <Item id="6112" name="ಶೋ ಕ್ಲೋಸ್ ಬಟನ್ ಒನ್ ಈಚ್ ಟ್ಯಾಬ್"/>
                     <Item id="6113" name="ಡಬಲ್ ಕ್ಲಿಕ್ ತೋ ಕ್ಲೋಸ್ ಡಾಕ್ಯುಮೆಂಟ್"/>
                     <Item id="6118" name="ಹೈಡ್"/>
                     <Item id="6119" name="ಮಲ್ಟೀ-ಲೈನ್"/>
                     <Item id="6120" name="ವರ್ಟಿಕಲ್"/>
-                    
+
                     <Item id="6121" name="ಮೆನೂ ಬಾರ್"/>
                     <Item id="6122" name="ಹೈಡ್ (ಉಸೆ ಅಲ್ಟ್ ಆರ್ ಫ್10 ಕೀ ತೋ ಟಾಗಲ್)"/>
                     <Item id="6123" name="ಲೋಕಲೈಸೇಶನ್"/>
-					
+
 					<Item id="6125" name="ಡಾಕ್ಯುಮೆಂಟ್ ಲಿಸ್ಟ್ ಪ್ಯಾನಲ್"/>
                     <Item id="6126" name="ಶೋ"/>
                     <Item id="6127" name="ಡಿಸೇಬಲ್ ಎಕ್ಸ್‌ಟೆನ್ಶನ್ ಕಾಲಮ್"/>
@@ -620,27 +620,27 @@ Thank you. -->
                     <Item id="6204" name="ಸರ್ಕಲ್ ಟ್ರೀ"/>
                     <Item id="6205" name="ಬಾಕ್ಸ್ ಟ್ರೀ"/>
                     <Item id="6226" name="ನನ್"/>
-                    
+
                     <Item id="6227" name="ಲೈನ್ ರ್ಯಾಪ್"/>
                     <Item id="6228" name="ಡಿಫಾಲ್ಟ್"/>
                     <Item id="6229" name="ಅಲೈಂಡ್"/>
                     <Item id="6230" name="ಇನ್‌ಡೆಂಟ್"/>
-                    
+
                     <Item id="6206" name="ಡಿಸ್‌ಪ್ಲೇ ಲೈನ್ ನಂಬರ್ಸ್"/>
                     <Item id="6207" name="ಡಿಸ್‌ಪ್ಲೇ ಬುಕ್‌ಮರ್ಕ್ಸ್"/>
                     <Item id="6208" name="ಶೋ ವರ್ಟಿಕಲ್ ಎಡ್ಜ್"/>
                     <Item id="6209" name="ನಂಬರ್ ಆಫ್ ಕಾಲಮ್ಸ್: "/>
 					<Item id="6234" name="ಡಿಸೇಬಲ್ ಅಡ್ವ್ಯಾನ್ಸ್ಡ್ ಸ್ಕ್ರೋಲಿಂಗ್ ಫೀಚರ್
 (ಇಫ್ ಯೂ ಹವೆ ತೌಚ್ಪಾದ್ ಪ್ರಾಬ್ಲಮ್)"/>
-                    
+
                     <Item id="6211" name="ವರ್ಟಿಕಲ್ ಎಡ್ಜ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
                     <Item id="6212" name="ಲೈನ್ ಮೋಡ್"/>
                     <Item id="6213" name="ಬ್ಯಾಕ್‌ಗ್ರೌಂಡ್ ಮೋಡ್"/>
                     <Item id="6214" name="ಎನೇಬಲ್ ಕರೆಂಟ್ ಲೈನ್ ಹೈಲೈಟಿಂಗ್"/>
-					
+
 					<Item id="6231" name="ಬಾರ್ಡರ್ ವಿಡ್ತ್"/>
                 </Scintillas>
-				
+
                 <NewDoc title="ನ್ಯೂ ಡಾಕ್ಯುಮೆಂಟ್">
                     <Item id="6401" name="ಫಾರ್ಮ್ಯಾಟ್"/>
                     <Item id="6402" name="ವಿಂಡೊಸ್"/>
@@ -656,13 +656,13 @@ Thank you. -->
                     <Item id="6419" name="ನ್ಯೂ ಡಾಕ್ಯುಮೆಂಟ್"/>
                     <Item id="6420" name="ಅಪ್ಲೈ ತೋ ಓಪಂಡ್ ಆನ್ಸಿ ಫೈಲ್ಸ್"/>
                 </NewDoc>
-				
+
                 <DefaultDir title="ಡಿಫಾಲ್ಟ್ ಡೈರೆಕ್ಟರೀ">
                     <Item id="6413" name="ಡಿಫಾಲ್ಟ್ ಡೈರೆಕ್ಟರೀ (ಓಪನ್/ಸಾವೆ)"/>
                     <Item id="6414" name="ಫಾಲೊ ಕರೆಂಟ್ ಡಾಕ್ಯುಮೆಂಟ್"/>
                     <Item id="6415" name="ರಿಮೆಂಬರ್ ಲಾಸ್ಟ್ ಯೂಸ್ಡ್ ಡೈರೆಕ್ಟರೀ"/>
                 </DefaultDir>
-				
+
                 <FileAssoc title="ಫೈಲ್ ಅಸೋಸಿಯೇಶನ್">
                     <Item id="4009" name="ಸಪೋರ್ಟೆಡ್ ಎಕ್ಷ್ಟ್ಸ್:"/>
                     <Item id="4010" name="ರಿಜಿಸ್ಟರ್ಡ್ ಎಕ್ಷ್ಟ್ಸ್:"/>
@@ -673,14 +673,14 @@ Thank you. -->
                     <Item id="6507" name="ಮೇಕ್ ಲ್ಯಾಂಗ್ವೇಜ್ ಮೆನೂ ಕಾಂಪ್ಯಾಕ್ಟ್"/>
                     <Item id="6508" name="ಲ್ಯಾಂಗ್ವೇಜ್ ಮೆನೂ"/>
                 </LangMenu>
-				
+
                 <TabSettings title="ಟ್ಯಾಬ್ ಸೆಟ್ಟಿಂಗ್ಸ್">
                     <Item id="6301" name="ಟ್ಯಾಬ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
                     <Item id="6302" name="ರೀಪ್ಲೇಸ್ ಬೈ ಸ್ಪೇಸ್"/>
                     <Item id="6303" name=" ಟ್ಯಾಬ್ ಸೈಸ್:"/>
                     <Item id="6510" name="ಉಸೆ ಡಿಫಾಲ್ಟ್ ವ್ಯಾಲ್ಯೂ"/>
                 </TabSettings>
-				
+
                 <Print title="Print">
                     <Item id="6601" name="ಪ್ರಿಂಟ್ ಲೈನ್ ನಂಬರ್"/>
                     <Item id="6602" name="ಕಲರ್ ಆಪ್ಶನ್ಸ್"/>
@@ -710,7 +710,7 @@ Thank you. -->
 					<Item id="6727" name="ಹಿಯರ್ ಡಿಸ್‌ಪ್ಲೇ ಯುವರ್ ವೇರಿಯಬಲ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
                     <Item id="6728" name="ಹೆಡರ್ ಅಂಡ್ ಫುಟರ್"/>
                 </Print>
-				
+
                 <RecentFilesHistory title="ರೀಸೆಂಟ್ ಫೈಲ್ಸ್ ಹಿಸ್ಟರೀ">
                     <Item id="6304" name="ರೀಸೆಂಟ್ ಫೈಲ್ಸ್ ಹಿಸ್ಟರೀ"/>
                     <Item id="6306" name="ಮ್ಯಾಕ್ಸ್. ನಂಬರ್ ಆಫ್ ಎಂಟ್ರೀಸ್:"/>
@@ -736,7 +736,7 @@ Thank you. -->
                     <Item id="6804" name="ಕಸ್ಟಮ್ ಬ್ಯಾಕಪ್ ಡೈರೆಕ್ಟರೀ"/>
                     <Item id="6803" name="ಡೈರೆಕ್ಟರೀ:"/>
                 </Backup>
-				
+
                 <AutoCompletion title="Auto-Completion">
                     <Item id="6807" name="Auto-Completion"/>
                     <Item id="6808" name="ಎನೇಬಲ್ auto-completion ಒನ್ ಈಚ್ ಇನ್‌ಪುಟ್"/>
@@ -755,7 +755,7 @@ Thank you. -->
                     <Item id="6863" name="ಮ್ಯಾಚ್ಡ್ ಪೇರ್ 2:"/>
                     <Item id="6866" name="ಮ್ಯಾಚ್ಡ್ ಪೇರ್ 3:"/>
                 </AutoCompletion>
-                
+
                 <MultiInstance title="ಮಲ್ಟೀ-ಇನ್ಸ್ಟೆನ್ಸ್">
                     <Item id="6151" name="ಮಲ್ಟೀ-ಇನ್ಸ್ಟೆನ್ಸ್ ಸೆಟ್ಟಿಂಗ್ಸ್"/>
                     <Item id="6152" name="ಓಪನ್ ಸೆಶನ್ ಇನ್ ಆ ನ್ಯೂ ಇನ್ಸ್ಟೆನ್ಸ್ ಆಫ್ ನಾಟೆಪೇ++"/>
@@ -763,14 +763,14 @@ Thank you. -->
                     <Item id="6154" name="ಡಿಫಾಲ್ಟ್ (ಮೋನೋ-ಇನ್ಸ್ಟೆನ್ಸ್)"/>
                     <Item id="6155" name="* ತೆ ಮಾಡಿಫಿಕೇಶನ್ ಆಫ್ ದಿಸ್ ಸೆಟ್ಟಿಂಗ್ ನೀಡ್ಸ್ ತೋ ರಿಸ್‌ಟಾರ್ಟ್ ನಾಟೆಪೇ++"/>
                 </MultiInstance>
-                
+
                 <Delimiter title="ಡೆಳಿಮೀಟೆರ್">
                     <Item id="6251" name="ಡೆಳಿಮೀಟೆರ್ ಸೆಲೆಕ್ಶನ್ ಸೆಟ್ಟಿಂಗ್ಸ್ (ಕ್ಟ್ರ್ಲ್ + ಮೌಸ್ ಡಬಲ್ ಕ್ಲಿಕ್)"/>
                     <Item id="6252" name="ಓಪನ್"/>
                     <Item id="6255" name="ಕ್ಲೋಸ್"/>
                     <Item id="6256" name="ಅಲೋ ಒನ್ ಸೆವರಲ್ ಲೈನ್ಸ್"/>
                 </Delimiter>
-				
+
                  <Cloud title="Cloud">
                     <Item id="6262" name="ಸೆಟ್ಟಿಂಗ್ಸ್ ಒನ್ ಕ್ಲೌಡ್"/>
                     <Item id="6263" name="ನೋ ಕ್ಲೌಡ್"/>
@@ -779,7 +779,7 @@ Thank you. -->
                     <Item id="6266" name="ಗೂಗ್ಲೆ ಡ್ರೈವ್"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
-				
+
                 <MISC title="MISC.">
                     <Item id="6307" name="Enable"/>
                     <Item id="6308" name="ಮಿನಿಮೈಸ್ ತೋ ಸಿಸ್ಟಮ್ ಟ್ರೇ"/>
@@ -847,7 +847,7 @@ Thank you. -->
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
-            
+
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
         </MessageBox>

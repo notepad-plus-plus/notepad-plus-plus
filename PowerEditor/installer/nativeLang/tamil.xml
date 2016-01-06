@@ -17,7 +17,7 @@
                     <Item idName="Plugins" name="உள்இடுக்கைகள்"/>
                     <Item idName="Window" name="சாளரம்"/>
                 </Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard"  name="பிடிப்பு பகலையில் நகலெடுக்க"/>
@@ -59,7 +59,7 @@
                     <Item subMenuId="encoding-vietnamese" name="வியட்நமீச"/>
                     <Item subMenuId="settings-import"  name="ஏற்று"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="புது (&amp;N)"/>
@@ -79,7 +79,7 @@
                     <Item id="41015" name="நகலாக சேமி..."/>
                     <Item id="41016" name="தட்டுளிருந்து நீக்கு"/>
                     <Item id="41017" name="திரும்ப பெயரிடு..."/>
-                    
+
                     <Item id="42001" name="வெட்டு (&amp;T)"/>
                     <Item id="42002" name="படி எடு (&amp;C)"/>
                     <Item id="42003" name="செய்ததை விடு (&amp;U)"/>
@@ -92,8 +92,8 @@
                     <Item id="42010" name="நடப்பு வரியை படி எடு"/>
                     <Item id="42012" name="வரிகளை பிரி"/>
                     <Item id="42013" name="வரிகளை சேர்"/>
-                    <Item id="42014" name="நடப்பு வரியை மேல் நகர்த்து"/>   
-                    <Item id="42015" name="நடப்பு வரியை கீல் இறக்கு"/>   
+                    <Item id="42014" name="நடப்பு வரியை மேல் நகர்த்து"/>
+                    <Item id="42015" name="நடப்பு வரியை கீல் இறக்கு"/>
                     <Item id="42016" name="பேரேழுத்து"/>
                     <Item id="42017" name="சிற்ரேழுத்து"/>
                     <Item id="42018" name="பதிவை தொடங்கு (&amp;S)"/>
@@ -119,7 +119,7 @@
                     <Item id="42033" name="படிக்க-மட்டும் என்பதை மாற்று"/>
                     <Item id="42035" name="குறிப்பிடல் நிறுத்து"/>
                     <Item id="42036" name="குறிப்பிடல் தொடங்கு"/>
-                    
+
                     <Item id="43001" name="கண்டுபிடி...(&amp;F)"/>
                     <Item id="43002" name="அடுத்ததை கண்டுபிடி (&amp;N)"/>
                     <Item id="43003" name="மாற்றிடு..."/>
@@ -159,7 +159,7 @@
                     <Item id="43038" name="பாணி கண்டுபிடி"/>
                     <Item id="43039" name="1வது பாணி"/>
                     <Item id="43040" name="2வது பாணி"/>
-                    <Item id="43041" name="3வது பாணி"/>	
+                    <Item id="43041" name="3வது பாணி"/>
                     <Item id="43042" name="4வது பாணி"/>
                     <Item id="43043" name="5வது பாணி"/>
                     <Item id="43044" name="பாணி கண்டுபிடி"/>
@@ -212,7 +212,7 @@
                     <Item id="10003" name="புதிய சாளரத்திற்கு நகர்த்து"/>
                     <Item id="10004" name="புதிய சாளரத்தில் திற"/>
 
-                    
+
                     <Item id="46001" name="பாணி மாற்றி..."/>
                     <Item id="46080" name="பயனர் வரையறுத்த"/>
                     <Item id="47000" name="Notepad++ ப்பை பற்றி "/>
@@ -263,7 +263,7 @@
 					<Item CMID="16" name="மறுஏற்றம் செய்"/>
             </TabBar>
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="கண்டுபிடி" titleReplace="மாற்று" titleFindInFiles="கோப்புகளில் கண்டுபிடி">
                 <Item id="1"    name="அடுத்ததை கண்டுபிடி"/>
@@ -321,11 +321,11 @@
                 <Item id="2"    name="நீக்கு"/>
                 <Item id="1904" name="சேமி..."/>
             </Run>
-            
+
             <StyleConfig title="Style Configurator">
                 <Item id="2"    name="நீக்கு"/>
                 <Item id="2301" name="சேமி &amp;&amp; மூடு"/>
-                <Item id="2303" name=" வெளிப்படை"/>		
+                <Item id="2303" name=" வெளிப்படை"/>
                 <Item id="2306" name="themeயை தேர்வுசெய் : "/>
                 <SubDialog>
                 	<Item id="2204" name="தடிப்பு"/>
@@ -349,10 +349,10 @@
                     <Item id="2230" name="முழு தடிப்பு எழுத்தை இயளுமைபடுத்து"/>
                     <Item id="2231" name="முழு சாய்வு எழுத்தை இயளுமைபடுத்து"/>
                     <Item id="2232" name="முழு அடிக்கோட்டு எழுத்தை இயளுமைபடுத்து"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="பயனர்-வரையறுத்த">
                 <Item id="20002" name="மறுபெயரிடு"/>
                 <Item id="20003" name="புதிய படைப்பு..."/>
@@ -418,20 +418,20 @@
                     <Item id="6103" name="சிறு படவுறு"/>
 	                <Item id="6104" name="பெரு படவுறு"/>
                     <Item id="6105" name="நிலை படவுறு"/>
-                    
+
                     <Item id="6106" name="தத்தல் பட்டை"/>
                     <Item id="6107" name="சிறிதாக்கு"/>
                     <Item id="6108" name="Lock (no drag and drop)"/>
                     <Item id="6109" name="செயல்படா தத்தல்களை பட்டையிடு"/>
                     <Item id="6110" name="செயல்படு தத்தல்களை வண்ண கோடிடு"/>
-                    
+
 					<Item id="6111" name="இருப்புநிலை காட்டு"/>
                     <Item id="6112" name="ஒவ்வொரு தத்தையிளும் மூடு பட்டன் காட்டு"/>
                     <Item id="6113" name="கோப்பை மூட இருமுறை சொடுக்கு"/>
                     <Item id="6118" name="மறை"/>
                     <Item id="6119" name="பல்-வரி"/>
                     <Item id="6120" name="நீள்"/>
-                    
+
                     <Item id="6121" name="பட்டியட்பட்டை"/>
                     <Item id="6122" name="மறை (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="இடத்துரிக்குரியதாக்கல்"/>
@@ -450,17 +450,17 @@
 	                <Item id="6204" name="வட்ட வடிவ"/>
                     <Item id="6205" name="பெட்டி வடிவ"/>
                     <Item id="6226" name="ஒன்றுமற்ற"/>
-					
+
 					<Item id="6227" name="வரிச் சுருக்கம்"/>
                     <Item id="6228" name="இயல்புநிலை"/>
                     <Item id="6229" name="ஒத்திசைந்த"/>
                     <Item id="6230" name="உள்தள்"/>
-                    
+
 					<Item id="6206" name="வரி எண்களை காட்டு"/>
                     <Item id="6207" name="அடையளகுறி காட்டு"/>
                     <Item id="6208" name="நீள் விளிம்பு காட்டு"/>
                     <Item id="6209" name="பத்தி எண்ணிக்கை : "/>
-                    
+
                     <Item id="6211" name="நீள் விளிம்பு அமைப்பு"/>
                     <Item id="6212" name="வரி பாங்கு"/>
                     <Item id="6213" name="பின்னணி பாங்கு"/>
@@ -547,12 +547,12 @@
                     <Item id="6327" name="இயளுமைபடுத்து"/>
                     <Item id="6328" name="Highlight tag attributes"/>
                     <Item id="6330" name="Highlight comment/php/asp zone"/>
-                    
+
                     <Item id="6331" name="பொருள் தலைப்புப்பட்டை கோப்புகளை மட்டும் காட்டு"/>
                     <Item id="6114" name="இயளுமைபடுத்து"/>
                     <Item id="6115" name="தானி - உள்தள்"/>
                     <Item id="6117" name="MRU behaviour யை இயளுமைபடுத்து"/>
-                    
+
                 </MISC>
                 <Backup title="பதிலி/தானி-முடிவு">
                     <Item id="6801" name="பதிலி"/>
@@ -611,7 +611,7 @@
 			<FileLockedWarning title="Save failed" message="இந்த கோப்பு மற்றுமொறு நிரலில் திறக்கப்பட்டுள்ளதா எனச் சோதி"/>
 			<FileAlreadyOpenedInNpp title="" message="இந்த கோப்பு ஏற்கனவே Notepad++ல் திறக்கப்பட்டுள்ளது."/>
 			<DeleteFileFailed title="Delete File" message="கோப்பு 'நீக்கம் வெற்றியடையவில்லை"/>
-			
+
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
 		</MessageBox>

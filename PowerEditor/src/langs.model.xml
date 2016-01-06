@@ -244,7 +244,8 @@
         </Language>
         <Language name="xml" ext="xml xaml xsl xslt xsd xul kml svg mxml xsml wsdl xlf xliff xbl sxbl sitemap gml gpx plist" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">
         </Language>
-        <Language name="yaml" ext="yml yaml" commentLine="#">
+        <Language name="yaml" ext="yml yaml" commentLine="#" tabSettings="132">
+          <Keywords name="instre1">true false yes no</Keywords>
         </Language>
         <Language name="searchResult" ext="">
             <Keywords name="instre1"></Keywords>

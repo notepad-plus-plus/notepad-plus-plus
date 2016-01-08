@@ -28,7 +28,7 @@
                     <Item subMenuId="edit-lineOperations" name="行操作" />
                     <Item subMenuId="edit-comment" name="注释/取消注释" />
                     <Item subMenuId="edit-autoCompletion" name="自动完成" />
-                    <Item subMenuId="edit-eolConversion" name="档案格式转换" />
+                    <Item subMenuId="edit-eolConversion" name="文档格式转换" />
                     <Item subMenuId="edit-blankOperations" name="空白字符操作" />
                     <Item subMenuId="edit-pasteSpecial" name="选择性粘贴" />
                     <Item subMenuId="search-markAll" name="标记所有" />
@@ -99,7 +99,6 @@
                     <Item id="42008" name="插入制表符(缩进)" />
                     <Item id="42009" name="删除制表符(退格)" />
                     <Item id="42010" name="复制当前行" />
-                    <Item id="42011" name="调换当前行"/>
                     <Item id="42012" name="分割行" />
                     <Item id="42013" name="合并行" />
                     <Item id="42014" name="上移当前行" />
@@ -528,39 +527,39 @@
                     <Item id="22622" name="样式" />
                 </Keywords>
                 <Comment title="注释与数字">
-                    <Item id="23003" name="单行式注解有效位置" />
+                    <Item id="23003" name="单行注释的有效位置" />
                     <Item id="23004" name="没有限制" />
-                    <Item id="23005" name="行的开头" />
-                    <Item id="23006" name="允许注解前空白" />
-                    <Item id="23001" name="允许注解语法折叠" />
+                    <Item id="23005" name="强制行首" />
+                    <Item id="23006" name="允许注释前空白" />
+                    <Item id="23001" name="允许注释语法折叠" />
                     <Item id="23326" name="样式设定" />
-                    <Item id="23323" name="注解开启：" />
-                    <Item id="23324" name="续行字元：" />
-                    <Item id="23325" name="注解封闭：" />
-                    <Item id="23301" name="单行注解" />
+                    <Item id="23323" name="注释开始：" />
+                    <Item id="23324" name="续行字符：" />
+                    <Item id="23325" name="注释结束：" />
+                    <Item id="23301" name="单行注释样式" />
                     <Item id="23124" name="样式设定" />
-                    <Item id="23122" name="注解开启：" />
-                    <Item id="23123" name="注解封闭：" />
-                    <Item id="23101" name="区块注解" />
-                    <Item id="23201" name="数字" />
+                    <Item id="23122" name="注释开始：" />
+                    <Item id="23123" name="注释结束：" />
+                    <Item id="23101" name="区块注释样式" />
+                    <Item id="23201" name="数字样式" />
                     <Item id="23220" name="样式设定" />
-                    <Item id="23230" name="字首1：" />
-                    <Item id="23232" name="字首2：" />
+                    <Item id="23230" name="前缀1：" />
+                    <Item id="23232" name="前缀2：" />
                     <Item id="23234" name="附加1：" />
                     <Item id="23236" name="附加2：" />
-                    <Item id="23238" name="字尾1：" />
-                    <Item id="23240" name="字尾2：" />
+                    <Item id="23238" name="后缀1：" />
+                    <Item id="23240" name="后缀2：" />
                     <Item id="23242" name="范围：" />
                     <Item id="23244" name="小数点" />
                     <Item id="23245" name="点" />
-                    <Item id="23246" name="逗点" />
+                    <Item id="23246" name="逗号" />
                     <Item id="23247" name="点与逗号" />
                 </Comment>
-                <Operator title="数字\运算符">
+                <Operator title="数字与运算符">
                     <Item id="24101" name="运算符样式" />
                     <Item id="24113" name="样式" />
                     <Item id="24116" name="运算符 1" />
-                    <Item id="24117" name="运算符 2 (需要界定符)" />
+                    <Item id="24117" name="运算符 2 (需要分隔符)" />
                     <Item id="24201" name="运算符 1 样式" />
                     <Item id="24220" name="开始:" />
                     <Item id="24221" name="转义字符:" />
@@ -632,7 +631,7 @@
 
                     <Item id="6125" name="文件列表面板" />
                     <Item id="6126" name="显示" />
-					<Item id="6127" name="隐藏副件名排序列"/>
+					<Item id="6127" name="隐藏后缀名栏"/>
                 </Global>
                 <Scintillas title="编辑">
                     <Item id="6216" name="插入符设置" />
@@ -641,7 +640,7 @@
                     <Item id="6221" name="快" />
                     <Item id="6222" name="慢" />
                     <Item id="6224" name="多列编辑" />
-                    <Item id="6225" name="启动 (Ctrl+Mouse click/selection)" />
+                    <Item id="6225" name="启动 (Ctrl+鼠标点选)" />
                     <Item id="6201" name="代码折叠标志" />
                     <Item id="6202" name="简洁" />
                     <Item id="6203" name="箭头" />
@@ -649,7 +648,7 @@
                     <Item id="6205" name="方框" />
                     <Item id="6226" name="无" />
 
-                    <Item id="6227" name="断行" />
+                    <Item id="6227" name="折行" />
                     <Item id="6228" name="默认" />
                     <Item id="6229" name="对齐" />
                     <Item id="6230" name="缩排" />
@@ -658,8 +657,8 @@
                     <Item id="6207" name="显示标签栏" />
                     <Item id="6208" name="显示列边界" />
                     <Item id="6209" name="边界宽度 :" />
-                    <Item id="6234" name="关闭高级卷动功能
-（如果你有触控板的问题）"/>
+                    <Item id="6234" name="关闭高级滚动功能
+（如果你遇到触摸板问题）"/>
 
                     <Item id="6211" name="列边界设置" />
                     <Item id="6212" name="边界线模式" />
@@ -828,11 +827,9 @@
                 </Delimiter>
 
 				<Cloud title="云端">
-                    <Item id="6262" name="云端设置"/>
+                    <Item id="6262" name="云端存取设置"/>
                     <Item id="6263" name="万里无云"/>
-                    <Item id="6264" name="Dropbox"/>
-                    <Item id="6265" name="OneDrive"/>
-                    <Item id="6266" name="Google Drive"/>
+                    <Item id="6267" name="设置你的云端路径:"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
@@ -884,9 +881,9 @@
             <PanelTitle name="剪贴板历史记录"/>
         </ClipboardHistory>
         <DocSwitcher>
-            <PanelTitle name="开启文件列表"/>
-            <ColumnName name="标题"/>
-            <ColumnExt name="副标题"/>
+            <PanelTitle name="文件列表"/>
+            <ColumnName name="文件名"/>
+            <ColumnExt name="后缀名"/>
         </DocSwitcher>
         <AsciiInsertion>
             <PanelTitle name="ASCII输入面板"/>

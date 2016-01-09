@@ -797,7 +797,7 @@
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
+                    <Item id="6261" name="Please restart Notepad++ to take effect."/>
                 </Cloud>
 
                 <MISC title="MISC.">

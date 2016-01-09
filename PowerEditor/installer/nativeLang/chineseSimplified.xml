@@ -770,7 +770,7 @@
                     <Item id="6327" name="启用" />
                     <Item id="6328" name="高亮显示标签属性" />
                     <Item id="6330" name="高亮显示 PHP/ASP 脚本区域" />
-                    <Item id="6331" name="只在标签栏显示文件名" />
+                    <Item id="6331" name="只在标题栏显示文件名" />
                     <Item id="6332" name="区分大小写"/>
                     <Item id="6333" name="智能高亮"/>
 					<Item id="6334" name="自动检测字符编码"/>

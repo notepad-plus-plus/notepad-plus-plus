@@ -806,7 +806,7 @@
                     <Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla" />
                 </Delimiter>
                 <Cloud title = "Cloud">
-                    <Item id = "6262" name = "Impostazioni Sul Cluod" />
+                    <Item id = "6262" name = "Impostazioni Sul Cloud" />
                     <Item id = "6263" name = "Nessun servizio cloud" />
                     <!--Item id = "6264" name = "Dropbox" />
                     <Item id = "6265" name = "OneDrive" />

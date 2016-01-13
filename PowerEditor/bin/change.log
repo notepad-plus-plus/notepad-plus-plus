@@ -1,13 +1,12 @@
-Notepad++ v6.8.8 bug-fixes and enhancements:
+Notepad++ v6.8.9 bug-fixes and enhancements:
 
-1.  Fix a regression of link style in html/php.
-2.  Fix find in files progress window alway on top issue.
-3.  Add Debug Info helper feature.
-4.  Fix highlighting for tags inside comment problem.
-5.  Make editor border edge display optional.
-6.  Enhance syntax highlighting for D, Powershell, Lua and Python.
-7.  Enhance syntax highlighting of preprocessor comments for several languages.
-8.  Improve close button in tab position.
+1.  Fix Notepad++ hanging issue while user uses touchscreen to activate Notepad++ window.
+2.  HTML auto-close tag enhancement: Prevent <br>, <hr>, <img>, <link> and <meta> from being closed automatically.
+3.  Project enhancement: Allows user defined extension to associate workspace file. 
+4.  Make behavior of SHIFT+END and SHIFT+HOME more consistent when word wrapping is enabled.
+5.  Add new API NPPM_SAVEFILE (for plugins) to save any file, not only the focused one.
+6.  Add file extensions for FreePascal/Lazarus pascal, lex (as C).
+7.  Update keywords for C, C++, JavaScript, Python and YAML.
 
 
 Included plugins:

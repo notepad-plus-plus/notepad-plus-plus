@@ -410,12 +410,12 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_HOMEWRAP"),                SCI_HOMEWRAP,                false, false, false, 0,           0},
 	{TEXT("SCI_HOMEWRAPEXTEND"),          SCI_HOMEWRAPEXTEND,          false, false, false, 0,           0},
 	{TEXT("SCI_VCHOME"),                  SCI_VCHOME,                  false, false, false, 0,           0},
-	{TEXT("SCI_VCHOMEEXTEND"),            SCI_VCHOMEEXTEND,            false, false, true,  VK_HOME,     0},
+	{TEXT("SCI_VCHOMEWRAPEXTEND"),        SCI_VCHOMEWRAPEXTEND,        false, false, true,  VK_HOME,     0},
 	{TEXT("SCI_VCHOMERECTEXTEND"),        SCI_VCHOMERECTEXTEND,        false, true,  true,  VK_HOME,     0},
 	{TEXT("SCI_VCHOMEWRAP"),              SCI_VCHOMEWRAP,              false, false, false, VK_HOME,     0},
 	{TEXT("SCI_VCHOMEWRAPEXTEND"),        SCI_VCHOMEWRAPEXTEND,        false, false, false, 0,           0},
 	{TEXT("SCI_LINEEND"),                 SCI_LINEEND,                 false, false, false, 0,           0},
-	{TEXT("SCI_LINEENDEXTEND"),           SCI_LINEENDEXTEND,           false, false, true,  VK_END,      0},
+	{TEXT("SCI_LINEENDWRAPEXTEND"),       SCI_LINEENDWRAPEXTEND,       false, false, true,  VK_END,      0},
 	{TEXT("SCI_LINEENDRECTEXTEND"),       SCI_LINEENDRECTEXTEND,       false, true,  true,  VK_END,      0},
 	{TEXT("SCI_LINEENDDISPLAY"),          SCI_LINEENDDISPLAY,          false, true,  false, VK_END,      0},
 	{TEXT("SCI_LINEENDDISPLAYEXTEND"),    SCI_LINEENDDISPLAYEXTEND,    false, false, false, 0,           0},
@@ -4528,6 +4528,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._definedSessionExt = val;
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("workspaceExt")))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				const TCHAR* val = n->Value();
+				val = n->Value();
+				if (val)
+					_nppGUI._definedWorkspaceExt = val;
+			}
+		}
 		else if (!lstrcmp(nm, TEXT("noUpdate")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -4975,6 +4986,7 @@ bool NppParameters::writeGUIParams()
 	bool autocExist = false;
 	bool autocInsetExist = false;
 	bool sessionExtExist = false;
+	bool workspaceExtExist = false;
 	bool noUpdateExist = false;
 	bool menuBarExist = false;
 	bool smartHighLightExist = false;
@@ -5418,6 +5430,15 @@ bool NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
 		}
+		else if (!lstrcmp(nm, TEXT("workspaceExt")))
+		{
+			workspaceExtExist = true;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(_nppGUI._definedWorkspaceExt.c_str());
+			else
+				childNode->InsertEndChild(TiXmlText(_nppGUI._definedWorkspaceExt.c_str()));
+		}
 		else if (!lstrcmp(nm, TEXT("noUpdate")))
 		{
 			noUpdateExist = true;
@@ -5670,6 +5691,13 @@ bool NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("sessionExt"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
+	}
+
+	if (!workspaceExtExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("workspaceExt"));
+		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedWorkspaceExt.c_str()));
 	}
 
 	if (!menuBarExist)

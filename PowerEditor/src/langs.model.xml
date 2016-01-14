@@ -36,9 +36,9 @@
         <Language name="batch" ext="bat cmd nt" commentLine="REM">
             <Keywords name="instre1">rem set if else exist errorlevel for in do break call copy chcp cd chdir choice cls country ctty date del erase dir echo exit goto loadfix loadhigh mkdir md move path pause prompt rename ren rmdir rd shift time type ver verify vol com con lpt nul defined not errorlevel cmdextversion</Keywords>
         </Language>
-        <Language name="c" ext="c" commentLine="//" commentStart="/*" commentEnd="*/">
+        <Language name="c" ext="c lex" commentLine="//" commentStart="/*" commentEnd="*/">
             <Keywords name="instre1">if else switch case default break goto return for while do continue typedef sizeof NULL</Keywords>
-            <Keywords name="type1">void struct union enum char short int long double float signed unsigned const static extern auto register volatile</Keywords>
+            <Keywords name="type1">void struct union enum char short int long double float signed unsigned const static extern auto register volatile bool uint8_t uint16_t uint32_t uint64_t int8_t int16_t int32_t int64_t size_t time_t clock_t wchar_t FILE</Keywords>
         </Language>
         <Language name="caml" ext="ml mli sml thy" commentLine="" commentStart="(*" commentEnd="*)">
             <Keywords name="instre1">and as assert asr begin class constraint do done downto else end exception external false for fun function functor if in include inherit initializer land lazy let lor lsl lsr lxor match method mod module mutable new object of open or private rec sig struct then to true try type val virtual when while with</Keywords>
@@ -62,7 +62,7 @@
         </Language>
         <Language name="cpp" ext="h hpp hxx cpp cxx cc" commentLine="//" commentStart="/*" commentEnd="*/">
             <Keywords name="instre1">alignof and and_eq bitand bitor break case catch compl const_cast continue default delete do dynamic_cast else false for goto if namespace new not not_eq nullptr operator or or_eq reinterpret_cast return sizeof static_assert static_cast switch this throw true try typedef typeid using while xor xor_eq NULL</Keywords>
-            <Keywords name="type1">alignas asm auto bool char char16_t char32_t class const constexpr decltype double enum explicit export extern final float friend inline int int8_t int16_t int32_t int64_t int_fast8_t int_fast16_t int_fast32_t int_fast64_t intmax_t intptr_t long mutable noexcept override private protected public register short signed size_t ssize_t static struct template thread_local typename uint8_t uint16_t uint32_t uint64_t uint_fast8_t uint_fast16_t uint_fast32_t uint_fast64_t uintmax_t uintptr_t union unsigned virtual void volatile wchar_t</Keywords>
+            <Keywords name="type1">alignas asm auto bool char char16_t char32_t class clock_t const constexpr decltype double enum explicit export extern final float friend inline int int8_t int16_t int32_t int64_t int_fast8_t int_fast16_t int_fast32_t int_fast64_t intmax_t intptr_t long mutable noexcept override private protected ptrdiff_t public register short signed size_t ssize_t static struct template thread_local time_t typename uint8_t uint16_t uint32_t uint64_t uint_fast8_t uint_fast16_t uint_fast32_t uint_fast64_t uintmax_t uintptr_t union unsigned virtual void volatile wchar_t</Keywords>
         </Language>
         <Language name="cs" ext="cs" commentLine="//" commentStart="/*" commentEnd="*/">
             <Keywords name="instre1">abstract as base break case catch checked continue default delegate do else event explicit extern false finally fixed for foreach goto if implicit in interface internal is lock namespace new null object operator out override params private protected public readonly ref return sealed sizeof stackalloc switch this throw true try typeof unchecked unsafe using virtual while</Keywords>
@@ -112,10 +112,10 @@
         </Language>
 		<!-- Embbeded javascript -->
         <Language name="javascript" ext="" commentLine="//" commentStart="/*" commentEnd="*/">
-            <Keywords name="instre1">abstract boolean break byte case catch char class const continue debugger default delete do double else enum export extends final finally float for from function goto if implements import in instanceof int interface let long native new of package private protected public return short static super switch synchronized this throw throws transient try typeof var void volatile while with true false prototype</Keywords>
+            <Keywords name="instre1">abstract boolean break byte case catch char class const continue debugger default delete do double else enum export extends final finally float for from function goto if implements import in instanceof int interface let long native new null of package private protected public return short static super switch synchronized this throw throws transient try typeof var void volatile while with true false prototype</Keywords>
         </Language>
-        <Language name="javascript.js" ext="js jsm" commentLine="//" commentStart="/*" commentEnd="*/">
-            <Keywords name="instre1">abstract boolean break byte case catch char class const continue debugger default delete do double else enum export extends final finally float for from function goto if implements import in instanceof int interface let long native new of package private protected public return short static super switch synchronized this throw throws transient try typeof var void volatile while with true false prototype</Keywords>
+        <Language name="javascript.js" ext="js jsm jsx ts tsx" commentLine="//" commentStart="/*" commentEnd="*/">
+            <Keywords name="instre1">abstract boolean break byte case catch char class const continue debugger default delete do double else enum export extends final finally float for from function goto if implements import in instanceof int interface let long native new null of package private protected public return short static super switch synchronized this throw throws transient try typeof var void volatile while with true false prototype</Keywords>
 			<Keywords name="type1">Array Date eval hasOwnProperty Infinity isFinite isNaN isPrototypeOf Math NaN Number Object prototype String toString undefined valueOf</Keywords>
 			<Keywords name="instre2">alert all anchor anchors area assign blur button checkbox clearInterval clearTimeout clientInformation close closed confirm constructor crypto decodeURI decodeURIComponent defaultStatus document element elements embed embeds encodeURI encodeURIComponent escape event fileUpload focus form forms frame innerHeight innerWidth layer layers link location mimeTypes navigate navigator frames frameRate hidden history image images offscreenBuffering open opener option outerHeight outerWidth packages pageXOffset pageYOffset parent parseFloat parseInt password pkcs11 plugin prompt propertyIsEnum radio reset screenX screenY scroll secure select self setInterval setTimeout status submit taint text textarea top unescape untaint window</Keywords>
 			<Keywords name="type2">onblur onclick onerror onfocus onkeydown onkeypress onkeyup onmouseover onload onmouseup onmousedown onsubmit</Keywords>
@@ -156,7 +156,7 @@
             <Keywords name="type1">void struct union enum char short int long double float signed unsigned const static extern auto register volatile id Class SEL IMP BOOL</Keywords>
             <Keywords name="type2">oneway in out inout bycopy byref</Keywords>
         </Language>
-        <Language name="pascal" ext="pas inc" commentStart="{" commentEnd="}">
+        <Language name="pascal" ext="pas pp p inc lpr" commentStart="{" commentEnd="}">
             <Keywords name="instre1">and array asm begin case cdecl class const constructor default destructor div do downto else end end. except exit exports external far file finalization finally for function goto if implementation in index inherited initialization inline interface label library message mod near nil not object of on or out overload override packed pascal private procedure program property protected public published raise read record register repeat resourcestring safecall set shl shr stdcall stored string then threadvar to try type unit until uses var virtual while with write xor</Keywords>
         </Language>
         <Language name="perl" ext="pl pm plx" commentLine="#">
@@ -196,7 +196,7 @@
         <Language name="props" ext="properties" commentLine=";">
         </Language>
         <Language name="python" ext="py pyw" commentLine="#">
-            <Keywords name="instre1">and as assert break class continue def del elif else except exec False finally for from global if import in is lambda None not or pass print raise return triple True try while with yield</Keywords>
+            <Keywords name="instre1">and as assert break class continue def del elif else except exec False finally for from global if import in is lambda None not or pass print raise return True try while with yield</Keywords>
         </Language>
         <Language name="r" ext="r s splus" commentLine="#">
             <Keywords name="instre1">if else repeat while function for in next break TRUE FALSE NULL NA Inf NaN</Keywords>
@@ -244,7 +244,8 @@
         </Language>
         <Language name="xml" ext="xml xaml xsl xslt xsd xul kml svg mxml xsml wsdl xlf xliff xbl sxbl sitemap gml gpx plist" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">
         </Language>
-        <Language name="yaml" ext="yml yaml" commentLine="#">
+        <Language name="yaml" ext="yml yaml" commentLine="#" tabSettings="132">
+          <Keywords name="instre1">true false yes no</Keywords>
         </Language>
         <Language name="searchResult" ext="">
             <Keywords name="instre1"></Keywords>

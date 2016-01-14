@@ -51,7 +51,7 @@ bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
     //_pluginInfos[index]->_pluginMenu = NULL;
 
     if (::FreeLibrary(_pluginInfos[index]->_hLib))
-        _pluginInfos[index]->_hLib = NULL;
+        _pluginInfos[index]->_hLib = nullptr;
     else
         printStr(TEXT("not ok"));
     //delete _pluginInfos[index];
@@ -62,6 +62,24 @@ bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
     return true;
 }
 
+static std::wstring GetLastErrorAsString()
+{
+    //Get the error message, if any.
+    DWORD errorMessageID = ::GetLastError();
+    if (errorMessageID == 0)
+        return std::wstring(); //No error message has been recorded
+
+    LPWSTR messageBuffer = nullptr;
+    size_t size = FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        nullptr, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&messageBuffer, 0, nullptr);
+
+    std::wstring message(messageBuffer, size);
+
+    //Free the buffer.
+    LocalFree(messageBuffer);
+
+    return message;
+}
 
 int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_string> & dll2Remove)
 {
@@ -74,10 +92,16 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 	{
 		pi->_moduleName = PathFindFileName(pluginFilePath);
 
-		pi->_hLib = ::LoadLibrary(pluginFilePath);
-		if (!pi->_hLib)
-			throw generic_string(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
-
+	        pi->_hLib = ::LoadLibrary(pluginFilePath);
+                if (!pi->_hLib)
+                {
+                    const std::wstring& lastErrorMsg = GetLastErrorAsString();
+                    if (lastErrorMsg.empty())
+                        throw generic_string(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
+                    else
+                        throw generic_string(lastErrorMsg.c_str());
+                }
+        
 		pi->_pFuncIsUnicode = (PFUNCISUNICODE)GetProcAddress(pi->_hLib, "isUnicode");
 		if (!pi->_pFuncIsUnicode || !pi->_pFuncIsUnicode())
 			throw generic_string(TEXT("This ANSI plugin is not compatible with your Unicode Notepad++."));

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation
-for Notepad++ 6.8.2
-Updated 20.10.2015
+for Notepad++ 6.8.8
+Updated 20.12.2015
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="6.8.2">
+	<Native-Langue name="Català" filename="catalan.xml" version="6.8.8">
 		<Menu>
 			<Main>
 				<Entries>
@@ -299,6 +299,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="47005" name="Aconsegueix més &amp;complements"/>
 					<Item id="47006" name="Ac&amp;tualitza Notepad++"/>
 					<Item id="47009" name="Confi&amp;gura l'intermediari d'actualització"/>
+					<Item id="47012" name="Informació de depuració"/>
 					<Item id="47000" name="&amp;Quant a..."/>
 				</Commands>
 			</Main>
@@ -359,7 +360,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="1606" name="Dóna la volta"/>
 				<Item id="1624" name="Mode de cerca"/>
 				<Item id="1625" name="Normal"/>
-				<Item id="1626" name="Estès (\n, \r, \t, \x..., \0)"/>
+				<Item id="1626" name="Estès (\n, \r, \t, \0, \x...)"/>
 				<Item id="1605" name="Expressió regular"/>
 				<Item id="1703" name="&amp;. cerca nova línia"/>
 				<Item id="1621" name="Direcció"/>
@@ -643,6 +644,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6213" name="Mode de color de fons"/>
 					<Item id="6209" name="Número de columna:"/>
 					<Item id="6231" name="Mida del marge"/>
+					<Item id="6235" name="Sense vores"/>
 					<Item id="6227" name="Ajustament de línia"/>
 					<Item id="6228" name="Per defecte"/>
 					<Item id="6229" name="Alineat"/>
@@ -672,6 +674,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6413" name="Directori d'obertura/emmagatzematge"/>
 					<Item id="6414" name="Segons el document actual"/>
 					<Item id="6415" name="Segons l'últim directori emprat"/>
+					<Item id="6430" name="Diàleg de desament alternatiu (sense extensions de fitxer)"/>
 				</DefaultDir>
 				<RecentFilesHistory title="Historial de fitxers recents">
 					<Item id="6304" name="Historial de fitxers recents"/>

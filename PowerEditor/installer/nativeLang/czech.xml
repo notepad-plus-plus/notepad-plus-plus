@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 6.8  22/Jul/2015  by Ondřej Müller (mullero@email.cz)
-	- all older Czech translations at:  http://sourceforge.net/p/notepad-plus/discussion/558104/thread/edb297e2/
+	- last change:  Notepad++ 6.8.7  30/Nov/2015  by Ondřej Müller (mullero@email.cz)
+	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.8">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.8.7">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -283,17 +283,17 @@
 					<Item id = "46033" name = "Sestavení"/>
 					<Item id = "46080" name = "Vlastní"/>
 					<Item id = "47000" name = "O Notepadu++	..."/>
-					<Item id = "47001" name = "Notepad++ - domovská stránka"/>
-					<Item id = "47002" name = "Notepad++ - stránka projektu"/>
-					<Item id = "47003" name = "NpWiki++ - online nápověda"/>
-					<Item id = "47004" name = "Diskuzní fórum"/>
+					<Item id = "47001" name = "N++ - domovská stránka"/>
+					<Item id = "47002" name = "N++ - stránka projektu"/>
+					<Item id = "47003" name = "N++ Wiki - online nápověda"/>
+					<Item id = "47004" name = "N++ Community - Diskuzní fórum"/>
 					<Item id = "47005" name = "Získat další pluginy"/>
 					<Item id = "47006" name = "Aktualizovat Notepad++"/>
 					<Item id = "47007" name = "Wiki FAQ"/>
 					<Item id = "47008" name = "Obsah nápovědy"/>
 					<Item id = "47009" name = "Nastavit aktualizaci proxy-serveru ..."/>
 					<Item id = "47010" name = "Parametry příkazové řádky"/>
-					<Item id = "47011" name = "Online podpora"/>
+					<Item id = "47011" name = "N++ - online podpora"/>
 					<Item id = "48005" name = "Importovat plugin(y) ..."/>
 					<Item id = "48006" name = "Importovat styl(y) ..."/>
 					<Item id = "48009" name = "Asociace klávesových zkratek..."/>
@@ -380,7 +380,7 @@
 				<Item id = "1659" name = "Ve skrytých adresářích"/>
 			 	<Item id = "1624" name = "Mód vyhledávání"/>
 			 	<Item id = "1625" name = "Normální"/>
-			 	<Item id = "1626" name = "Rozšířený (\n, \r, \t, \0, \x...)"/>
+			 	<Item id = "1626" name = "Rozšířený (\n, \r, \t, \x..., \0)"/>
 				<Item id = "1660" name = "Nah&amp;radit v souborech"/>
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
 				<Item id = "1686" name = "Průhle&amp;dnost"/>
@@ -472,8 +472,8 @@
 				<Item id = "7" name = "Kurzíva"/>
 				<Item id = "8" name = "Podtrhnout"/>
 				<StylerDialog title = "Dialog pro návrh">
-					<!--<Item id = "1" name = "&OK"/>-->
-					<!--<Item id = "2" name = "&Storno"/>-->
+					<Item id = "1" name = "OK"/>
+					<Item id = "2" name = "Storno"/>
 					<Item id = "25030" name = "Možnosti písma:"/>
 					<Item id = "25006" name = "Barva popředí"/>
 					<Item id = "25007" name = "Barva pozadí"/>
@@ -732,6 +732,7 @@
 					<Item id = "6413" name = "Implicitní adresář pro otevírání/ukládání souborů"/>
 					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
 					<Item id = "6415" name = "Zapamatovat si poslední používaný adresář"/>
+					<Item id = "6430" name = "Použít nový styl dialogu pro ukládání (bez zvýraznění typu souboru)"/>
 				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">
 					<Item id = "4009" name = "Podporované přípony:"/>
@@ -863,7 +864,7 @@
 					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
 				</Delimiter>
 				<Cloud title = "Cloud (i-úložišťě)">
-					<!--Item id="6261" name="Pro aktivaci změn prosím restartujte Notepad++."/-->
+					<Item id = "6261" name = "Pro aktivaci změn prosím restartujte Notepad++."/>
 					<Item id = "6262" name = "Nastavení internetového úložišťě"/>
 					<Item id = "6263" name = "bez cloudu"/>
 					<Item id = "6267" name = "Zde nastavte cestu k Vašemu i-úložišti:"/>

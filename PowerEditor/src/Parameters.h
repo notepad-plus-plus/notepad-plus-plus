@@ -816,6 +816,8 @@ struct NppGUI final
 	MatchedPairConf _matchedPairConf;
 
 	generic_string _definedSessionExt;
+	generic_string _definedWorkspaceExt;
+	
 
 
 

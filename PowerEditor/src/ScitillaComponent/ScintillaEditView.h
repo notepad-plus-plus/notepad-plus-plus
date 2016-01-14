@@ -539,9 +539,6 @@ public:
 
 	void expand(int &line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
 
-	void currentLineUp() const;
-	void currentLineDown() const;
-
 	std::pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;
     void currentLinesDown() const;

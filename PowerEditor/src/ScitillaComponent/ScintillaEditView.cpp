@@ -2372,12 +2372,7 @@ pair<int, int> ScintillaEditView::getSelectionLinesRange() const
 
     range.first = execute(SCI_LINEFROMPOSITION, start);
     range.second = execute(SCI_LINEFROMPOSITION, end);
-    if (range.first > range.second)
-	{
-		int temp = range.first;
-		range.first = range.second;
-		range.second = temp;
-	}
+
     return range;
 }
 
@@ -2448,7 +2443,7 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 	size_t selectionStart = execute(SCI_GETSELECTIONSTART);
 	size_t selectionEnd = execute(SCI_GETSELECTIONEND);
 
-	int strSize = ((selectionEnd > selectionStart)?(selectionEnd - selectionStart):(selectionStart - selectionEnd))+1;
+	int strSize = (selectionEnd - selectionStart) + 1;
 	if (strSize)
 	{
 		char *selectedStr = new char[strSize+1];

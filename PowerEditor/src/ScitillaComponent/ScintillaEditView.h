@@ -466,11 +466,11 @@ public:
 			return false;
 		long start = long(execute(SCI_GETSELECTIONSTART));
 		long end = long(execute(SCI_GETSELECTIONEND));
-		selByte = (start < end)?end-start:start-end;
+		selByte = end - start;
 
 		start = long(execute(SCI_LINEFROMPOSITION, start));
 		end = long(execute(SCI_LINEFROMPOSITION, end));
-		selLine = (start < end)?end-start:start-end;
+		selLine = end - start;
 		if (selLine)
 			++selLine;
 

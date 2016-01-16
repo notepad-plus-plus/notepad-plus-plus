@@ -62,7 +62,7 @@ using namespace Scintilla;
 
 // Auxiliary functions:
 
-static inline bool endOfLine(Accessor &styler, unsigned int i) {
+static inline bool endOfLine(Accessor &styler, Sci_PositionU i) {
 	return
       (styler[i] == '\n') || ((styler[i] == '\r') && (styler.SafeGetCharAt(i + 1) != '\n')) ;
 }
@@ -119,18 +119,18 @@ static inline bool isMETAPOSTequal(int ch) {
 }
 
 static int CheckMETAPOSTInterface(
-    unsigned int startPos,
-    int length,
+    Sci_PositionU startPos,
+    Sci_Position length,
     Accessor &styler,
 	int defaultInterface) {
 
     char lineBuffer[1024] ;
-	unsigned int linePos = 0 ;
+	Sci_PositionU linePos = 0 ;
 
 	// some day we can make something lexer.metapost.mapping=(none,0)(metapost,1)(mp,1)(metafun,2)...
 
     if (styler.SafeGetCharAt(0) == '%') {
-        for (unsigned int i = 0; i < startPos + length; i++) {
+        for (Sci_PositionU i = 0; i < startPos + length; i++) {
             lineBuffer[linePos++] = styler.SafeGetCharAt(i) ;
             if (endOfLine(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
                 lineBuffer[linePos] = '\0';
@@ -154,8 +154,8 @@ static int CheckMETAPOSTInterface(
 }
 
 static void ColouriseMETAPOSTDoc(
-    unsigned int startPos,
-    int length,
+    Sci_PositionU startPos,
+    Sci_Position length,
     int,
     WordList *keywordlists[],
     Accessor &styler) {
@@ -336,7 +336,7 @@ static int classifyFoldPointMetapost(const char* s,WordList *keywordlists[]) {
 
 }
 
-static int ParseMetapostWord(unsigned int pos, Accessor &styler, char *word)
+static int ParseMetapostWord(Sci_PositionU pos, Accessor &styler, char *word)
 {
   int length=0;
   char ch=styler.SafeGetCharAt(pos);
@@ -351,19 +351,19 @@ static int ParseMetapostWord(unsigned int pos, Accessor &styler, char *word)
   return length;
 }
 
-static void FoldMetapostDoc(unsigned int startPos, int length, int, WordList *keywordlists[], Accessor &styler)
+static void FoldMetapostDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *keywordlists[], Accessor &styler)
 {
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	unsigned int endPos = startPos+length;
+	Sci_PositionU endPos = startPos+length;
 	int visibleChars=0;
-	int lineCurrent=styler.GetLine(startPos);
+	Sci_Position lineCurrent=styler.GetLine(startPos);
 	int levelPrev=styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent=levelPrev;
 	char chNext=styler[startPos];
 
 	char buffer[100]="";
 
-	for (unsigned int i=startPos; i < endPos; i++) {
+	for (Sci_PositionU i=startPos; i < endPos; i++) {
 		char ch=chNext;
 		chNext=styler.SafeGetCharAt(i+1);
 		char chPrev=styler.SafeGetCharAt(i-1);

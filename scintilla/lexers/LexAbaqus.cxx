@@ -38,7 +38,7 @@ static inline bool IsASetChar(const int ch) {
 	return (ch < 0x80 && (isalnum(ch) || (ch == '_') || (ch == '.') || (ch == '-')));
 }
 
-static void ColouriseABAQUSDoc(unsigned int startPos, int length, int initStyle, WordList*[] /* *keywordlists[] */,
+static void ColouriseABAQUSDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList*[] /* *keywordlists[] */,
                             Accessor &styler) {
 	enum localState { KW_LINE_KW, KW_LINE_COMMA, KW_LINE_PAR, KW_LINE_EQ, KW_LINE_VAL, \
 					  DAT_LINE_VAL, DAT_LINE_COMMA,\
@@ -301,10 +301,10 @@ static int LowerCase(int c)
 	return c;
 }
 
-static int LineEnd(int line, Accessor &styler)
+static Sci_Position LineEnd(Sci_Position line, Accessor &styler)
 {
-    const int docLines = styler.GetLine(styler.Length() - 1);  // Available last line
-    int eol_pos ;
+    const Sci_Position docLines = styler.GetLine(styler.Length() - 1);  // Available last line
+    Sci_Position eol_pos ;
     // if the line is the last line, the eol_pos is styler.Length()
     // eol will contain a new line, or a virtual new line
     if ( docLines == line )
@@ -314,7 +314,7 @@ static int LineEnd(int line, Accessor &styler)
     return eol_pos ;
 }
 
-static int LineStart(int line, Accessor &styler)
+static Sci_Position LineStart(Sci_Position line, Accessor &styler)
 {
     return styler.LineStart(line) ;
 }
@@ -330,14 +330,14 @@ static int LineStart(int line, Accessor &styler)
 // 6  : block close keyword line
 // 7  : keyword line in error
 // 8  : comment line
-static int LineType(int line, Accessor &styler) {
-    int pos = LineStart(line, styler) ;
-    int eol_pos = LineEnd(line, styler) ;
+static int LineType(Sci_Position line, Accessor &styler) {
+    Sci_Position pos = LineStart(line, styler) ;
+    Sci_Position eol_pos = LineEnd(line, styler) ;
 
     int c ;
     char ch = ' ';
 
-    int i = pos ;
+    Sci_Position i = pos ;
     while ( i < eol_pos ) {
         c = styler.SafeGetCharAt(i);
         ch = static_cast<char>(LowerCase(c));
@@ -418,7 +418,7 @@ static int LineType(int line, Accessor &styler) {
     return 4 ;
 }
 
-static void SafeSetLevel(int line, int level, Accessor &styler)
+static void SafeSetLevel(Sci_Position line, int level, Accessor &styler)
 {
     if ( line < 0 )
         return ;
@@ -432,20 +432,20 @@ static void SafeSetLevel(int line, int level, Accessor &styler)
         styler.SetLevel(line, level) ;
 }
 
-static void FoldABAQUSDoc(unsigned int startPos, int length, int,
+static void FoldABAQUSDoc(Sci_PositionU startPos, Sci_Position length, int,
 WordList *[], Accessor &styler) {
-    int startLine = styler.GetLine(startPos) ;
-    int endLine   = styler.GetLine(startPos+length-1) ;
+    Sci_Position startLine = styler.GetLine(startPos) ;
+    Sci_Position endLine   = styler.GetLine(startPos+length-1) ;
 
     // bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
     // We want to deal with all the cases
     // To know the correct indentlevel, we need to look back to the
     // previous command line indentation level
 	// order of formatting keyline datalines commentlines
-    int beginData    = -1 ;
-    int beginComment = -1 ;
-    int prvKeyLine   = startLine ;
-    int prvKeyLineTp =  0 ;
+    Sci_Position beginData    = -1 ;
+    Sci_Position beginComment = -1 ;
+    Sci_Position prvKeyLine   = startLine ;
+    Sci_Position prvKeyLineTp =  0 ;
 
     // Scan until we find the previous keyword line
     // this will give us the level reference that we need
@@ -467,7 +467,7 @@ WordList *[], Accessor &styler) {
     prvKeyLine = -1 ;
 
     // Now start scanning over the lines.
-    for ( int line = startLine; line <= endLine; line++ ) {
+    for ( Sci_Position line = startLine; line <= endLine; line++ ) {
         int lineType = LineType(line, styler) ;
 
         // Check for comment line
@@ -516,7 +516,7 @@ WordList *[], Accessor &styler) {
 				datLevel = level ;
 			}
 
-            for ( int ll = beginData; ll < beginComment; ll++ )
+            for ( Sci_Position ll = beginData; ll < beginComment; ll++ )
                 SafeSetLevel(ll, datLevel, styler) ;
 
             // The keyword we just found is going to be written at another level
@@ -532,7 +532,7 @@ WordList *[], Accessor &styler) {
 				}
             }
 
-            for ( int lll = beginComment; lll < line; lll++ )
+            for ( Sci_Position lll = beginComment; lll < line; lll++ )
                 SafeSetLevel(lll, level, styler) ;
 
             // wrap and reset
@@ -549,10 +549,10 @@ WordList *[], Accessor &styler) {
     } else {
         // We need to find out whether this comment block is followed by
         // a data line or a keyword line
-        const int docLines = styler.GetLine(styler.Length() - 1);
+        const Sci_Position docLines = styler.GetLine(styler.Length() - 1);
 
-        for ( int line = endLine + 1; line <= docLines; line++ ) {
-            int lineType = LineType(line, styler) ;
+        for ( Sci_Position line = endLine + 1; line <= docLines; line++ ) {
+            Sci_Position lineType = LineType(line, styler) ;
 
             if ( lineType != 8 ) {
 				if ( !(lineType & 4) )  {
@@ -578,7 +578,7 @@ WordList *[], Accessor &styler) {
 		datLevel = level ;
 	}
 
-    for ( int ll = beginData; ll < beginComment; ll++ )
+    for ( Sci_Position ll = beginData; ll < beginComment; ll++ )
         SafeSetLevel(ll, datLevel, styler) ;
 
 	if ( prvKeyLineTp == 5 ) {
@@ -588,7 +588,7 @@ WordList *[], Accessor &styler) {
 	if ( prvKeyLineTp == 6 ) {
 		level -= 1 ;
 	}
-	for ( int m = beginComment; m <= endLine; m++ )
+	for ( Sci_Position m = beginComment; m <= endLine; m++ )
         SafeSetLevel(m, level, styler) ;
 }
 

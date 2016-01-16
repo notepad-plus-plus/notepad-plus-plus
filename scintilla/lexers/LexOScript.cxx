@@ -183,7 +183,7 @@ public:
 // ------------------------------------------------
 // Function colourising an excerpt of OScript code.
 
-static void ColouriseOScriptDoc(unsigned int startPos, int length,
+static void ColouriseOScriptDoc(Sci_PositionU startPos, Sci_Position length,
 								int initStyle, WordList *keywordlists[],
 								Accessor &styler) {
 	// I wonder how whole-line styles ended by EOLN can escape the resetting
@@ -374,10 +374,10 @@ static inline bool IsBlockComment(int style) {
 	return style == SCE_OSCRIPT_BLOCK_COMMENT;
 }
 
-static bool IsLineComment(int line, Accessor &styler) {
-	int pos = styler.LineStart(line);
-	int eolPos = styler.LineStart(line + 1) - 1;
-	for (int i = pos; i < eolPos; i++) {
+static bool IsLineComment(Sci_Position line, Accessor &styler) {
+	Sci_Position pos = styler.LineStart(line);
+	Sci_Position eolPos = styler.LineStart(line + 1) - 1;
+	for (Sci_Position i = pos; i < eolPos; i++) {
 		char ch = styler[i];
 		char chNext = styler.SafeGetCharAt(i + 1);
 		int style = styler.StyleAt(i);
@@ -395,9 +395,9 @@ static inline bool IsPreprocessor(int style) {
 		   style == SCE_OSCRIPT_DOC_COMMENT;
 }
 
-static void GetRangeLowered(unsigned int start, unsigned int end,
-							Accessor &styler, char *s, unsigned int len) {
-	unsigned int i = 0;
+static void GetRangeLowered(Sci_PositionU start, Sci_PositionU end,
+							Accessor &styler, char *s, Sci_PositionU len) {
+	Sci_PositionU i = 0;
 	while (i < end - start + 1 && i < len - 1) {
 		s[i] = static_cast<char>(tolower(styler[start + i]));
 		i++;
@@ -405,9 +405,9 @@ static void GetRangeLowered(unsigned int start, unsigned int end,
 	s[i] = '\0';
 }
 
-static void GetForwardWordLowered(unsigned int start, Accessor &styler,
-								  char *s, unsigned int len) {
-	unsigned int i = 0;
+static void GetForwardWordLowered(Sci_PositionU start, Accessor &styler,
+								  char *s, Sci_PositionU len) {
+	Sci_PositionU i = 0;
 	while (i < len - 1 && IsAlpha(styler.SafeGetCharAt(start + i))) {
 		s[i] = static_cast<char>(tolower(styler.SafeGetCharAt(start + i)));
 		i++;
@@ -416,7 +416,7 @@ static void GetForwardWordLowered(unsigned int start, Accessor &styler,
 }
 
 static void UpdatePreprocessorFoldLevel(int &levelCurrent,
-		unsigned int startPos, Accessor &styler) {
+		Sci_PositionU startPos, Accessor &styler) {
 	char s[7]; // Size of the longest possible keyword + null.
 	GetForwardWordLowered(startPos, styler, s, sizeof(s));
 
@@ -431,8 +431,8 @@ static void UpdatePreprocessorFoldLevel(int &levelCurrent,
 	}
 }
 
-static void UpdateKeywordFoldLevel(int &levelCurrent, unsigned int lastStart,
-		unsigned int currentPos, Accessor &styler) {
+static void UpdateKeywordFoldLevel(int &levelCurrent, Sci_PositionU lastStart,
+		Sci_PositionU currentPos, Accessor &styler) {
 	char s[9];
 	GetRangeLowered(lastStart, currentPos, styler, s, sizeof(s));
 
@@ -451,14 +451,14 @@ static void UpdateKeywordFoldLevel(int &levelCurrent, unsigned int lastStart,
 // ------------------------------
 // Function folding OScript code.
 
-static void FoldOScriptDoc(unsigned int startPos, int length, int initStyle,
+static void FoldOScriptDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
 						   WordList *[], Accessor &styler) {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldPreprocessor = styler.GetPropertyInt("fold.preprocessor") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	int endPos = startPos + length;
+	Sci_Position endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = styler[startPos];
@@ -466,7 +466,7 @@ static void FoldOScriptDoc(unsigned int startPos, int length, int initStyle,
 	int style = initStyle;
 	int lastStart = 0;
 
-	for (int i = startPos; i < endPos; i++) {
+	for (Sci_Position i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;

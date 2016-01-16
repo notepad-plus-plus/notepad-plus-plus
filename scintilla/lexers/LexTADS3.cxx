@@ -269,7 +269,7 @@ static void ColouriseTADS3HTMLTag(StyleContext &sc, int &lineState) {
 }
 
 static void ColouriseTADS3Keyword(StyleContext &sc,
-                                                        WordList *keywordlists[],       unsigned int endPos) {
+                                                        WordList *keywordlists[],       Sci_PositionU endPos) {
         char s[250];
         WordList &keywords = *keywordlists[0];
         WordList &userwords1 = *keywordlists[1];
@@ -283,7 +283,7 @@ static void ColouriseTADS3Keyword(StyleContext &sc,
         sc.GetCurrent(s, sizeof(s));
         if ( strcmp(s, "is") == 0 || strcmp(s, "not") == 0) {
                 // have to find if "in" is next
-                int n = 1;
+                Sci_Position n = 1;
                 while (n + sc.currentPos < endPos && IsASpaceOrTab(sc.GetRelative(n)))
                         n++;
                 if (sc.GetRelative(n) == 'i' && sc.GetRelative(n+1) == 'n') {
@@ -513,13 +513,13 @@ static void ColouriseTADS3Number(StyleContext &sc) {
         sc.SetState(endState);
 }
 
-static void ColouriseTADS3Doc(unsigned int startPos, int length, int initStyle,
+static void ColouriseTADS3Doc(Sci_PositionU startPos, Sci_Position length, int initStyle,
                                                            WordList *keywordlists[], Accessor &styler) {
         int visibleChars = 0;
         int bracketLevel = 0;
         int lineState = 0;
-        unsigned int endPos = startPos + length;
-        int lineCurrent = styler.GetLine(startPos);
+        Sci_PositionU endPos = startPos + length;
+        Sci_Position lineCurrent = styler.GetLine(startPos);
         if (lineCurrent > 0) {
                 lineState = styler.GetLineState(lineCurrent-1);
         }
@@ -707,9 +707,9 @@ static inline bool IsSpaceEquivalent(const int ch, const int style) {
                 || style == SCE_T3_PREPROCESSOR;
 }
 
-static char peekAhead(unsigned int startPos, unsigned int endPos,
+static char peekAhead(Sci_PositionU startPos, Sci_PositionU endPos,
                                           Accessor &styler) {
-        for (unsigned int i = startPos; i < endPos; i++) {
+        for (Sci_PositionU i = startPos; i < endPos; i++) {
                 int style = styler.StyleAt(i);
                 char ch = styler[i];
                 if (!IsSpaceEquivalent(ch, style)) {
@@ -728,10 +728,10 @@ static char peekAhead(unsigned int startPos, unsigned int endPos,
         return ' ';
 }
 
-static void FoldTADS3Doc(unsigned int startPos, int length, int initStyle,
+static void FoldTADS3Doc(Sci_PositionU startPos, Sci_Position length, int initStyle,
                             WordList *[], Accessor &styler) {
-        unsigned int endPos = startPos + length;
-        int lineCurrent = styler.GetLine(startPos);
+        Sci_PositionU endPos = startPos + length;
+        Sci_Position lineCurrent = styler.GetLine(startPos);
         int levelCurrent = SC_FOLDLEVELBASE;
         if (lineCurrent > 0)
                 levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
@@ -747,7 +747,7 @@ static void FoldTADS3Doc(unsigned int startPos, int length, int initStyle,
         char ch = chNext;
         int stylePrev = style;
         bool redo = false;
-        for (unsigned int i = startPos; i < endPos; i++) {
+        for (Sci_PositionU i = startPos; i < endPos; i++) {
                 if (redo) {
                         redo = false;
                         i--;

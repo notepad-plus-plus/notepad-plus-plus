@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <stdexcept>
 #include <vector>
 #include <map>
 

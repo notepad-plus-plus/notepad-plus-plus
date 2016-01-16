@@ -24,12 +24,12 @@
 using namespace Scintilla;
 #endif
 
-static void GetRange(unsigned int start,
-                     unsigned int end,
+static void GetRange(Sci_PositionU start,
+                     Sci_PositionU end,
                      Accessor &styler,
                      char *s,
-                     unsigned int len) {
-	unsigned int i = 0;
+                     Sci_PositionU len) {
+	Sci_PositionU i = 0;
 	while ((i < end - start + 1) && (i < len-1)) {
 		s[i] = static_cast<char>(tolower(styler[start + i]));
 		i++;
@@ -37,19 +37,19 @@ static void GetRange(unsigned int start,
 	s[i] = '\0';
 }
 
-static void ColourisePlmDoc(unsigned int startPos,
-                            int length,
+static void ColourisePlmDoc(Sci_PositionU startPos,
+                            Sci_Position length,
                             int initStyle,
                             WordList *keywordlists[],
                             Accessor &styler)
 {
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int state = initStyle;
 
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
 
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = styler.SafeGetCharAt(i);
 		char chNext = styler.SafeGetCharAt(i + 1);
 
@@ -99,7 +99,7 @@ static void ColourisePlmDoc(unsigned int startPos,
 			if (!isdigit(ch) && !isalpha(ch) && ch != '$') {
 				// Get the entire identifier.
 				char word[1024];
-				int segmentStart = styler.GetStartSegment();
+				Sci_Position segmentStart = styler.GetStartSegment();
 				GetRange(segmentStart, i - 1, styler, word, sizeof(word));
 
 				i--;
@@ -125,25 +125,25 @@ static void ColourisePlmDoc(unsigned int startPos,
 	styler.ColourTo(endPos - 1, state);
 }
 
-static void FoldPlmDoc(unsigned int startPos,
-                       int length,
+static void FoldPlmDoc(Sci_PositionU startPos,
+                       Sci_Position length,
                        int initStyle,
                        WordList *[],
                        Accessor &styler)
 {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
-	int startKeyword = 0;
+	Sci_Position startKeyword = 0;
 
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;

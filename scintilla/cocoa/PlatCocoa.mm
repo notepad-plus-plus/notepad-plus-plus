@@ -270,9 +270,17 @@ void SurfaceImpl::InitPixMap(int width, int height, Surface* surface_, WindowID 
     CGContextFillRect( gc, CGRectMake( 0, 0, width, height ) );
   }
 
-  SurfaceImpl *psurfOther = static_cast<SurfaceImpl *>(surface_);
-  unicodeMode = psurfOther->unicodeMode;
-  codePage = psurfOther->codePage;
+  if (surface_)
+  {
+    SurfaceImpl *psurfOther = static_cast<SurfaceImpl *>(surface_);
+    unicodeMode = psurfOther->unicodeMode;
+    codePage = psurfOther->codePage;
+  }
+  else
+  {
+    unicodeMode = true;
+    codePage = SC_CP_UTF8;
+  }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -472,14 +480,14 @@ void SurfaceImpl::FillRectangle(PRectangle rc, ColourDesired back)
 
 //--------------------------------------------------------------------------------------------------
 
-void drawImageRefCallback(CGImageRef pattern, CGContextRef gc)
+static void drawImageRefCallback(CGImageRef pattern, CGContextRef gc)
 {
   CGContextDrawImage(gc, CGRectMake(0, 0, CGImageGetWidth(pattern), CGImageGetHeight(pattern)), pattern);
 }
 
 //--------------------------------------------------------------------------------------------------
 
-void releaseImageRefCallback(CGImageRef pattern)
+static void releaseImageRefCallback(CGImageRef pattern)
 {
   CGImageRelease(pattern);
 }
@@ -1110,7 +1118,7 @@ bool Window::HasFocus()
 
 //--------------------------------------------------------------------------------------------------
 
-static CGFloat ScreenMax(NSWindow* win)
+static CGFloat ScreenMax()
 {
   return NSMaxY([[NSScreen mainScreen] frame]);
 }
@@ -1138,7 +1146,7 @@ PRectangle Window::GetPosition()
       win = reinterpret_cast<NSWindow*>(idWin);
       rect = [win frame];
     }
-    CGFloat screenHeight = ScreenMax(win);
+    CGFloat screenHeight = ScreenMax();
     // Invert screen positions to match Scintilla
     return PRectangle(
         static_cast<XYPOSITION>(NSMinX(rect)), static_cast<XYPOSITION>(screenHeight - NSMaxY(rect)),
@@ -1171,7 +1179,7 @@ void Window::SetPosition(PRectangle rc)
       // NSWindow
       PLATFORM_ASSERT([idWin isKindOfClass: [NSWindow class]]);
       NSWindow* win = reinterpret_cast<NSWindow*>(idWin);
-      CGFloat screenHeight = ScreenMax(win);
+      CGFloat screenHeight = ScreenMax();
       NSRect nsrc = NSMakeRect(rc.left, screenHeight - rc.bottom,
           rc.Width(), rc.Height());
       [win setFrame: nsrc display:YES];
@@ -1321,16 +1329,28 @@ PRectangle Window::GetMonitorRect(Point)
   if (wid)
   {
     id idWin = reinterpret_cast<id>(wid);
+    if ([idWin isKindOfClass: [NSView class]])
+    {
+      NSView* view = reinterpret_cast<NSView*>(idWin);
+      idWin = [view window];
+    }
     if ([idWin isKindOfClass: [NSWindow class]])
     {
+      PRectangle rcPosition = GetPosition();
+
       NSWindow* win = reinterpret_cast<NSWindow*>(idWin);
       NSScreen* screen = [win screen];
-      NSRect rect = [screen frame];
+      NSRect rect = [screen visibleFrame];
       CGFloat screenHeight = rect.origin.y + rect.size.height;
       // Invert screen positions to match Scintilla
-      return PRectangle(
+      PRectangle rcWork(
           static_cast<XYPOSITION>(NSMinX(rect)), static_cast<XYPOSITION>(screenHeight - NSMaxY(rect)),
           static_cast<XYPOSITION>(NSMaxX(rect)), static_cast<XYPOSITION>(screenHeight - NSMinY(rect)));
+      PRectangle rcMonitor(rcWork.left - rcPosition.left,
+                           rcWork.top - rcPosition.top,
+                           rcWork.right - rcPosition.left,
+                           rcWork.bottom - rcPosition.top);
+      return rcMonitor;
     }
   }
   return PRectangle();
@@ -1532,9 +1552,21 @@ private:
   void* doubleClickActionData;
 
 public:
-  ListBoxImpl() : lineHeight(10), unicodeMode(false),
-    desiredVisibleRows(5), maxItemWidth(0), aveCharWidth(8), maxIconWidth(0),
-    doubleClickAction(NULL), doubleClickActionData(NULL)
+  ListBoxImpl() :
+    lineHeight(10),
+    unicodeMode(false),
+    desiredVisibleRows(5),
+    maxItemWidth(0),
+    aveCharWidth(8),
+    maxIconWidth(0),
+    maxWidth(2000),
+    table(nil),
+    scroller(nil),
+    colIcon(nil),
+    colText(nil),
+    ds(nil),
+    doubleClickAction(nullptr),
+    doubleClickActionData(nullptr)
   {
   }
   ~ListBoxImpl() {}

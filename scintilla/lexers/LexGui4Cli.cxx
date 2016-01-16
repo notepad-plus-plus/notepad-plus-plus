@@ -68,9 +68,9 @@ inline bool isGCOperator(int ch)
 #define isFoldPoint(x)  ((styler.LevelAt(x) & SC_FOLDLEVELNUMBERMASK) == 1024)
 
 static void colorFirstWord(WordList *keywordlists[], Accessor &styler,
-									StyleContext *sc, char *buff, int length, int)
+									StyleContext *sc, char *buff, Sci_Position length, int)
 {
-	int c = 0;
+	Sci_Position c = 0;
 	while (sc->More() && isSpaceOrNL(sc->ch))
 	{	sc->Forward();
 	}
@@ -119,12 +119,13 @@ static void colorFirstWord(WordList *keywordlists[], Accessor &styler,
 
 // Main colorizing function called by Scintilla
 static void
-ColouriseGui4CliDoc(unsigned int startPos, int length, int initStyle,
+ColouriseGui4CliDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
                     WordList *keywordlists[], Accessor &styler)
 {
 	styler.StartAt(startPos);
 
-	int quotestart = 0, oldstate, currentline = styler.GetLine(startPos);
+	Sci_Position currentline = styler.GetLine(startPos);
+	int quotestart = 0, oldstate;
 	styler.StartSegment(startPos);
 	bool noforward;
 	char buff[BUFFSIZE+1];	// buffer for command name
@@ -243,20 +244,20 @@ ColouriseGui4CliDoc(unsigned int startPos, int length, int initStyle,
 }
 
 // Main folding function called by Scintilla - (based on props (.ini) files function)
-static void FoldGui4Cli(unsigned int startPos, int length, int,
+static void FoldGui4Cli(Sci_PositionU startPos, Sci_Position length, int,
 								WordList *[], Accessor &styler)
 {
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
 	bool headerPoint = false;
 
-	for (unsigned int i = startPos; i < endPos; i++)
+	for (Sci_PositionU i = startPos; i < endPos; i++)
 	{
 		char ch = chNext;
 		chNext = styler[i+1];

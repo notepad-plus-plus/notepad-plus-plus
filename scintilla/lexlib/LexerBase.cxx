@@ -61,7 +61,7 @@ const char * SCI_METHOD LexerBase::DescribeProperty(const char *) {
 	return "";
 }
 
-int SCI_METHOD LexerBase::PropertySet(const char *key, const char *val) {
+Sci_Position SCI_METHOD LexerBase::PropertySet(const char *key, const char *val) {
 	const char *valOld = props.Get(key);
 	if (strcmp(val, valOld) != 0) {
 		props.Set(key, val);
@@ -75,7 +75,7 @@ const char * SCI_METHOD LexerBase::DescribeWordListSets() {
 	return "";
 }
 
-int SCI_METHOD LexerBase::WordListSet(int n, const char *wl) {
+Sci_Position SCI_METHOD LexerBase::WordListSet(int n, const char *wl) {
 	if (n < numWordLists) {
 		WordList wlNew;
 		wlNew.Set(wl);

@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+#include <stdexcept>
+
 #include "CharClassify.h"
 
 #ifdef SCI_NAMESPACE

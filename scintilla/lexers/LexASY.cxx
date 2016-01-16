@@ -23,7 +23,7 @@
 using namespace Scintilla;
 #endif
 
-static void ColouriseAsyDoc(unsigned int startPos, int length, int initStyle,
+static void ColouriseAsyDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
 		WordList *keywordlists[], Accessor &styler) {
 
 	WordList &keywords = *keywordlists[0];
@@ -152,7 +152,7 @@ static inline bool isASYidentifier(int ch) {
       ((ch >= 'a') && (ch <= 'z')) || ((ch >= 'A') && (ch <= 'Z')) ;
 }
 
-static int ParseASYWord(unsigned int pos, Accessor &styler, char *word)
+static int ParseASYWord(Sci_PositionU pos, Accessor &styler, char *word)
 {
   int length=0;
   char ch=styler.SafeGetCharAt(pos);
@@ -167,11 +167,11 @@ static int ParseASYWord(unsigned int pos, Accessor &styler, char *word)
   return length;
 }
 
-static bool IsASYDrawingLine(int line, Accessor &styler) {
-	int pos = styler.LineStart(line);
-	int eol_pos = styler.LineStart(line + 1) - 1;
+static bool IsASYDrawingLine(Sci_Position line, Accessor &styler) {
+	Sci_Position pos = styler.LineStart(line);
+	Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
 
-	int startpos = pos;
+	Sci_Position startpos = pos;
 	char buffer[100]="";
 
 	while (startpos<eol_pos){
@@ -186,14 +186,14 @@ static bool IsASYDrawingLine(int line, Accessor &styler) {
 	return false;
 }
 
-static void FoldAsyDoc(unsigned int startPos, int length, int initStyle,
+static void FoldAsyDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
 					   WordList *[], Accessor &styler) {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	bool foldAtElse = styler.GetPropertyInt("fold.at.else", 0) != 0;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelCurrent = SC_FOLDLEVELBASE;
 	if (lineCurrent > 0)
 		levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
@@ -202,7 +202,7 @@ static void FoldAsyDoc(unsigned int startPos, int length, int initStyle,
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;

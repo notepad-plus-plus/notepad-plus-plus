@@ -334,6 +334,18 @@ const CGFloat paddingHighlightY = 2;
 //--------------------------------------------------------------------------------------------------
 
 /**
+ * Method called by owning ScintillaCocoa object when it is destroyed.
+ */
+- (void) ownerDestroyed
+{
+  mTarget = NULL;
+  [notificationQueue release];
+  notificationQueue = nil;
+}
+
+//--------------------------------------------------------------------------------------------------
+
+/**
  * Method called by a timer installed by ScintillaCocoa. This two step approach is needed because
  * a native Obj-C class is required as target for the timer.
  */
@@ -358,7 +370,7 @@ const CGFloat paddingHighlightY = 2;
   [notificationQueue enqueueNotification: notification
                             postingStyle: NSPostWhenIdle
                             coalesceMask: (NSNotificationCoalescingOnName | NSNotificationCoalescingOnSender)
-                                forModes: nil];
+                                forModes: @[NSDefaultRunLoopMode, NSModalPanelRunLoopMode]];
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -391,8 +403,6 @@ ScintillaCocoa::ScintillaCocoa(SCIContentView* view, SCIMarginView* viewMargin)
   enteredSetScrollingSize = false;
   scrollSpeed = 1;
   scrollTicks = 2000;
-  tickTimer = NULL;
-  idleTimer = NULL;
   observer = NULL;
   layerFindIndicator = NULL;
   imeInteraction = imeInline;
@@ -408,6 +418,7 @@ ScintillaCocoa::ScintillaCocoa(SCIContentView* view, SCIMarginView* viewMargin)
 ScintillaCocoa::~ScintillaCocoa()
 {
   Finalise();
+  [timerTarget ownerDestroyed];
   [timerTarget release];
 }
 
@@ -560,24 +571,24 @@ public:
 			folded[0] = mapping[static_cast<unsigned char>(mixed[0])];
 			return 1;
 		} else {
-            CFStringRef cfsVal = CFStringCreateWithBytes(kCFAllocatorDefault,
-                                                         reinterpret_cast<const UInt8 *>(mixed),
-                                                         lenMixed, encoding, false);
+			CFStringRef cfsVal = CFStringCreateWithBytes(kCFAllocatorDefault,
+								     reinterpret_cast<const UInt8 *>(mixed),
+								     lenMixed, encoding, false);
 
-            NSString *sMapped = [(NSString *)cfsVal stringByFoldingWithOptions:NSCaseInsensitiveSearch
-                                                                        locale:[NSLocale currentLocale]];
+			NSString *sMapped = [(NSString *)cfsVal stringByFoldingWithOptions:NSCaseInsensitiveSearch
+										    locale:[NSLocale currentLocale]];
 
-            char *encoded = EncodedBytes((CFStringRef)sMapped, encoding);
+			char *encoded = EncodedBytes((CFStringRef)sMapped, encoding);
 
 			size_t lenMapped = strlen(encoded);
-            if (lenMapped < sizeFolded) {
-                memcpy(folded, encoded,  lenMapped);
-            } else {
-                folded[0] = '\0';
-                lenMapped = 1;
-            }
-            delete []encoded;
-            CFRelease(cfsVal);
+			if (lenMapped < sizeFolded) {
+				memcpy(folded, encoded,  lenMapped);
+			} else {
+				folded[0] = '\0';
+				lenMapped = 1;
+			}
+			delete []encoded;
+			CFRelease(cfsVal);
 			return lenMapped;
 		}
 	}
@@ -587,38 +598,37 @@ CaseFolder *ScintillaCocoa::CaseFolderForEncoding() {
 	if (pdoc->dbcsCodePage == SC_CP_UTF8) {
 		return new CaseFolderUnicode();
 	} else {
-        CFStringEncoding encoding = EncodingFromCharacterSet(IsUnicodeMode(),
-                                                             vs.styles[STYLE_DEFAULT].characterSet);
-        if (pdoc->dbcsCodePage == 0) {
-            CaseFolderTable *pcf = new CaseFolderTable();
-            pcf->StandardASCII();
-            // Only for single byte encodings
-            for (int i=0x80; i<0x100; i++) {
-                char sCharacter[2] = "A";
-                sCharacter[0] = static_cast<char>(i);
-                CFStringRef cfsVal = CFStringCreateWithBytes(kCFAllocatorDefault,
-                                                             reinterpret_cast<const UInt8 *>(sCharacter),
-                                                             1, encoding, false);
-                if (!cfsVal)
-                        continue;
+		CFStringEncoding encoding = EncodingFromCharacterSet(IsUnicodeMode(),
+								     vs.styles[STYLE_DEFAULT].characterSet);
+		if (pdoc->dbcsCodePage == 0) {
+			CaseFolderTable *pcf = new CaseFolderTable();
+			pcf->StandardASCII();
+			// Only for single byte encodings
+			for (int i=0x80; i<0x100; i++) {
+				char sCharacter[2] = "A";
+				sCharacter[0] = static_cast<char>(i);
+				CFStringRef cfsVal = CFStringCreateWithBytes(kCFAllocatorDefault,
+									     reinterpret_cast<const UInt8 *>(sCharacter),
+									     1, encoding, false);
+				if (!cfsVal)
+					continue;
 
-                NSString *sMapped = [(NSString *)cfsVal stringByFoldingWithOptions:NSCaseInsensitiveSearch
-                                                                            locale:[NSLocale currentLocale]];
+				NSString *sMapped = [(NSString *)cfsVal stringByFoldingWithOptions:NSCaseInsensitiveSearch
+											    locale:[NSLocale currentLocale]];
 
-                char *encoded = EncodedBytes((CFStringRef)sMapped, encoding);
+				char *encoded = EncodedBytes((CFStringRef)sMapped, encoding);
 
-                if (strlen(encoded) == 1) {
-                    pcf->SetTranslation(sCharacter[0], encoded[0]);
-                }
+				if (strlen(encoded) == 1) {
+					pcf->SetTranslation(sCharacter[0], encoded[0]);
+				}
 
-                delete []encoded;
-                CFRelease(cfsVal);
-            }
-            return pcf;
-        } else {
-            return new CaseFolderDBCS(encoding);
-        }
-		return 0;
+				delete []encoded;
+				CFRelease(cfsVal);
+			}
+			return pcf;
+		} else {
+			return new CaseFolderDBCS(encoding);
+		}
 	}
 }
 
@@ -837,50 +847,56 @@ sptr_t scintilla_send_message(void* sci, unsigned int iMessage, uptr_t wParam, s
  */
 sptr_t ScintillaCocoa::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam)
 {
-  switch (iMessage)
-  {
-    case SCI_GETDIRECTFUNCTION:
-      return reinterpret_cast<sptr_t>(DirectFunction);
-
-    case SCI_GETDIRECTPOINTER:
-      return reinterpret_cast<sptr_t>(this);
-
-    case SCI_TARGETASUTF8:
-      return TargetAsUTF8(reinterpret_cast<char*>(lParam));
-
-    case SCI_ENCODEDFROMUTF8:
-      return EncodedFromUTF8(reinterpret_cast<char*>(wParam),
-                             reinterpret_cast<char*>(lParam));
-
-    case SCI_SETIMEINTERACTION:
-      // Only inline IME supported on Cocoa
-      break;
-
-    case SCI_GRABFOCUS:
-      [[ContentView() window] makeFirstResponder:ContentView()];
-      break;
-
-    case SCI_SETBUFFEREDDRAW:
-      // Buffered drawing not supported on Cocoa
-      view.bufferedDraw = false;
-      break;
-
-    case SCI_FINDINDICATORSHOW:
-      ShowFindIndicatorForRange(NSMakeRange(wParam, lParam-wParam), YES);
-      return 0;
-
-    case SCI_FINDINDICATORFLASH:
-      ShowFindIndicatorForRange(NSMakeRange(wParam, lParam-wParam), NO);
-      return 0;
-
-    case SCI_FINDINDICATORHIDE:
-      HideFindIndicator();
-      return 0;
-
-    default:
-      sptr_t r = ScintillaBase::WndProc(iMessage, wParam, lParam);
-
-      return r;
+  try {
+    switch (iMessage)
+    {
+      case SCI_GETDIRECTFUNCTION:
+        return reinterpret_cast<sptr_t>(DirectFunction);
+        
+      case SCI_GETDIRECTPOINTER:
+        return reinterpret_cast<sptr_t>(this);
+        
+      case SCI_TARGETASUTF8:
+        return TargetAsUTF8(reinterpret_cast<char*>(lParam));
+        
+      case SCI_ENCODEDFROMUTF8:
+        return EncodedFromUTF8(reinterpret_cast<char*>(wParam),
+                               reinterpret_cast<char*>(lParam));
+        
+      case SCI_SETIMEINTERACTION:
+        // Only inline IME supported on Cocoa
+        break;
+        
+      case SCI_GRABFOCUS:
+        [[ContentView() window] makeFirstResponder:ContentView()];
+        break;
+        
+      case SCI_SETBUFFEREDDRAW:
+        // Buffered drawing not supported on Cocoa
+        view.bufferedDraw = false;
+        break;
+        
+      case SCI_FINDINDICATORSHOW:
+        ShowFindIndicatorForRange(NSMakeRange(wParam, lParam-wParam), YES);
+        return 0;
+        
+      case SCI_FINDINDICATORFLASH:
+        ShowFindIndicatorForRange(NSMakeRange(wParam, lParam-wParam), NO);
+        return 0;
+        
+      case SCI_FINDINDICATORHIDE:
+        HideFindIndicator();
+        return 0;
+        
+      default:
+        sptr_t r = ScintillaBase::WndProc(iMessage, wParam, lParam);
+        
+        return r;
+    }
+  } catch (std::bad_alloc &) {
+    errorStatus = SC_STATUS_BADALLOC;
+  } catch (...) {
+    errorStatus = SC_STATUS_FAILURE;
   }
   return 0l;
 }
@@ -941,16 +957,18 @@ bool ScintillaCocoa::FineTickerRunning(TickReason reason)
 void ScintillaCocoa::FineTickerStart(TickReason reason, int millis, int tolerance)
 {
   FineTickerCancel(reason);
-  NSTimer *fineTimer = [NSTimer scheduledTimerWithTimeInterval: millis / 1000.0
-                                                        target: timerTarget
-                                                      selector: @selector(timerFired:)
-                                                      userInfo: nil
-                                                       repeats: YES];
+  NSTimer *fineTimer = [NSTimer timerWithTimeInterval: millis / 1000.0
+                                               target: timerTarget
+                                             selector: @selector(timerFired:)
+                                             userInfo: nil
+                                              repeats: YES];
   if (tolerance && [fineTimer respondsToSelector: @selector(setTolerance:)])
   {
     [fineTimer setTolerance: tolerance / 1000.0];
   }
   timers[reason] = fineTimer;
+  [NSRunLoop.currentRunLoop addTimer: fineTimer forMode: NSDefaultRunLoopMode];
+  [NSRunLoop.currentRunLoop addTimer: fineTimer forMode: NSModalPanelRunLoopMode];
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -977,11 +995,12 @@ bool ScintillaCocoa::SetIdle(bool on)
     if (idler.state)
     {
       // Scintilla ticks = milliseconds
-      idleTimer = [NSTimer scheduledTimerWithTimeInterval: timer.tickSize / 1000.0
-						   target: timerTarget
-						 selector: @selector(idleTimerFired:)
-						 userInfo: nil
-						  repeats: YES];
+      NSTimer *idleTimer = [NSTimer scheduledTimerWithTimeInterval: timer.tickSize / 1000.0
+                                                            target: timerTarget
+                                                          selector: @selector(idleTimerFired:)
+                                                          userInfo: nil
+                                                           repeats: YES];
+      [NSRunLoop.currentRunLoop addTimer: idleTimer forMode: NSModalPanelRunLoopMode];
       idler.idlerID = reinterpret_cast<IdlerID>(idleTimer);
     }
     else
@@ -1275,6 +1294,7 @@ void ScintillaCocoa::DragScroll()
 
 - (void)pasteboard:(NSPasteboard *)pasteboard item:(NSPasteboardItem *)item provideDataForType:(NSString *)type
 {
+#pragma unused(item)
   if (selectedText.Length() == 0)
     return;
 
@@ -1401,57 +1421,40 @@ void ScintillaCocoa::StartDrag()
   SCIContentView* content = ContentView();
 
   // To get a bitmap of the text we're dragging, we just use Paint on a pixmap surface.
-  SurfaceImpl *sw = new SurfaceImpl();
-  SurfaceImpl *pixmap = NULL;
+  SurfaceImpl sw;
+  sw.InitPixMap(static_cast<int>(client.Width()), static_cast<int>(client.Height()), NULL, NULL);
 
-  bool lastHideSelection = view.hideSelection;
+  const bool lastHideSelection = view.hideSelection;
   view.hideSelection = true;
-  if (sw)
-  {
-    pixmap = new SurfaceImpl();
-    if (pixmap)
-    {
-      PRectangle imageRect = rcSel;
-      paintState = painting;
-      sw->InitPixMap(static_cast<int>(client.Width()), static_cast<int>(client.Height()), NULL, NULL);
-      paintingAllText = true;
-      // Have to create a new context and make current as text drawing goes
-      // to the current context, not a passed context.
-      CGContextRef gcsw = sw->GetContext();
-      NSGraphicsContext *nsgc = [NSGraphicsContext graphicsContextWithGraphicsPort: gcsw
-                                                                           flipped: YES];
-      [NSGraphicsContext setCurrentContext:nsgc];
-      CGContextTranslateCTM(gcsw, -client.left, -client.top);
-      Paint(sw, client);
-      paintState = notPainting;
-
-      pixmap->InitPixMap(static_cast<int>(imageRect.Width()), static_cast<int>(imageRect.Height()), NULL, NULL);
-
-      CGContextRef gc = pixmap->GetContext();
-      // To make Paint() work on a bitmap, we have to flip our coordinates and translate the origin
-      CGContextTranslateCTM(gc, 0, imageRect.Height());
-      CGContextScaleCTM(gc, 1.0, -1.0);
-
-      pixmap->CopyImageRectangle(*sw, imageRect, PRectangle(0.0f, 0.0f, imageRect.Width(), imageRect.Height()));
-      // XXX TODO: overwrite any part of the image that is not part of the
-      //           selection to make it transparent.  right now we just use
-      //           the full rectangle which may include non-selected text.
-    }
-    sw->Release();
-    delete sw;
-  }
+  PRectangle imageRect = rcSel;
+  paintState = painting;
+  paintingAllText = true;
+  CGContextRef gcsw = sw.GetContext();
+  CGContextTranslateCTM(gcsw, -client.left, -client.top);
+  Paint(&sw, client);
+  paintState = notPainting;
   view.hideSelection = lastHideSelection;
 
+  SurfaceImpl pixmap;
+  pixmap.InitPixMap(static_cast<int>(imageRect.Width()), static_cast<int>(imageRect.Height()), NULL, NULL);
+  pixmap.SetUnicodeMode(IsUnicodeMode());
+  pixmap.SetDBCSMode(CodePage());
+
+  CGContextRef gc = pixmap.GetContext();
+  // To make Paint() work on a bitmap, we have to flip our coordinates and translate the origin
+  CGContextTranslateCTM(gc, 0, imageRect.Height());
+  CGContextScaleCTM(gc, 1.0, -1.0);
+
+  pixmap.CopyImageRectangle(sw, imageRect, PRectangle(0.0f, 0.0f, imageRect.Width(), imageRect.Height()));
+  // XXX TODO: overwrite any part of the image that is not part of the
+  //           selection to make it transparent.  right now we just use
+  //           the full rectangle which may include non-selected text.
+
   NSBitmapImageRep* bitmap = NULL;
-  if (pixmap)
-  {
-    CGImageRef imagePixmap = pixmap->GetImage();
-    if (imagePixmap)
-      bitmap = [[[NSBitmapImageRep alloc] initWithCGImage: imagePixmap] autorelease];
-    CGImageRelease(imagePixmap);
-    pixmap->Release();
-    delete pixmap;
-  }
+  CGImageRef imagePixmap = pixmap.GetImage();
+  if (imagePixmap)
+    bitmap = [[[NSBitmapImageRep alloc] initWithCGImage: imagePixmap] autorelease];
+  CGImageRelease(imagePixmap);
 
   NSImage* image = [[[NSImage alloc] initWithSize: selectionRectangle.size] autorelease];
   [image addRepresentation: bitmap];
@@ -2231,7 +2234,7 @@ void ScintillaCocoa::SelectOnlyMainSelection()
  */
 void ScintillaCocoa::ConvertSelectionVirtualSpace()
 {
-  FillVirtualSpace();
+  ClearBeforeTentativeStart();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2446,6 +2449,17 @@ void ScintillaCocoa::ActiveStateChanged(bool isActive)
   } else {
     ShowCaretAtCurrentPosition();
   }
+}
+
+//--------------------------------------------------------------------------------------------------
+
+/**
+ * When the window is about to move, the calltip and autcoimpletion stay in the same spot,
+ * so cancel them.
+ */
+void ScintillaCocoa::WindowWillMove() {
+  AutoCompleteCancel();
+  ct.CallTipCancel();
 }
 
 // If building with old SDK, need to define version number for 10.8

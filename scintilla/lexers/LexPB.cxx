@@ -70,10 +70,10 @@ static inline bool IsAWordStart(const int ch)
     return (ch < 0x80) && (isalnum(ch) || ch == '_');
 }
 
-bool MatchUpperCase(Accessor &styler, int pos, const char *s)   //Same as styler.Match() but uppercase comparison (a-z,A-Z and space only)
+static bool MatchUpperCase(Accessor &styler, Sci_Position pos, const char *s)   //Same as styler.Match() but uppercase comparison (a-z,A-Z and space only)
 {
     char ch;
-    for (int i=0; *s; i++)
+    for (Sci_Position i=0; *s; i++)
     {
         ch=styler.SafeGetCharAt(pos+i);
         if (ch > 0x60) ch -= '\x20';
@@ -83,7 +83,7 @@ bool MatchUpperCase(Accessor &styler, int pos, const char *s)   //Same as styler
     return true;
 }
 
-static void ColourisePBDoc(unsigned int startPos, int length, int initStyle,WordList *keywordlists[],Accessor &styler) {
+static void ColourisePBDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,WordList *keywordlists[],Accessor &styler) {
 
     WordList &keywords = *keywordlists[0];
 
@@ -185,14 +185,14 @@ static void ColourisePBDoc(unsigned int startPos, int length, int initStyle,Word
 //GFA Basic which is dead now. After testing the feature of toggling FOR-NEXT loops, WHILE-WEND loops
 //and so on too I found this is more disturbing then helping (for me). So if You think in another way
 //you can (or must) write Your own toggling routine ;-)
-static void FoldPBDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler)
+static void FoldPBDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler)
 {
     // No folding enabled, no reason to continue...
     if( styler.GetPropertyInt("fold") == 0 )
         return;
 
-    unsigned int endPos = startPos + length;
-    int lineCurrent = styler.GetLine(startPos);
+    Sci_PositionU endPos = startPos + length;
+    Sci_Position lineCurrent = styler.GetLine(startPos);
     int levelCurrent = SC_FOLDLEVELBASE;
     if (lineCurrent > 0)
         levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
@@ -202,7 +202,7 @@ static void FoldPBDoc(unsigned int startPos, int length, int, WordList *[], Acce
     bool fNewLine=true;
     bool fMightBeMultiLineMacro=false;
     bool fBeginOfCommentFound=false;
-    for (unsigned int i = startPos; i < endPos; i++)
+    for (Sci_PositionU i = startPos; i < endPos; i++)
     {
         char ch = chNext;
         chNext = styler.SafeGetCharAt(i + 1);
@@ -354,7 +354,7 @@ static void FoldPBDoc(unsigned int startPos, int length, int, WordList *[], Acce
                 break;
             }
         }  //switch (ch)
-    }  //for (unsigned int i = startPos; i < endPos; i++)
+    }  //for (Sci_PositionU i = startPos; i < endPos; i++)
 }
 
 static const char * const pbWordListDesc[] = {

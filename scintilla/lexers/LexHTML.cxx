@@ -57,17 +57,17 @@ inline bool IsOperator(int ch) {
 	return false;
 }
 
-static void GetTextSegment(Accessor &styler, unsigned int start, unsigned int end, char *s, size_t len) {
-	unsigned int i = 0;
+static void GetTextSegment(Accessor &styler, Sci_PositionU start, Sci_PositionU end, char *s, size_t len) {
+	Sci_PositionU i = 0;
 	for (; (i < end - start + 1) && (i < len-1); i++) {
 		s[i] = static_cast<char>(MakeLowerCase(styler[start + i]));
 	}
 	s[i] = '\0';
 }
 
-static const char *GetNextWord(Accessor &styler, unsigned int start, char *s, size_t sLen) {
+static const char *GetNextWord(Accessor &styler, Sci_PositionU start, char *s, size_t sLen) {
 
-	unsigned int i = 0;
+	Sci_PositionU i = 0;
 	for (; i < sLen-1; i++) {
 		char ch = static_cast<char>(styler.SafeGetCharAt(start + i));
 		if ((i == 0) && !IsAWordStart(ch))
@@ -81,12 +81,12 @@ static const char *GetNextWord(Accessor &styler, unsigned int start, char *s, si
 	return s;
 }
 
-static script_type segIsScriptingIndicator(Accessor &styler, unsigned int start, unsigned int end, script_type prevValue) {
+static script_type segIsScriptingIndicator(Accessor &styler, Sci_PositionU start, Sci_PositionU end, script_type prevValue) {
 	char s[100];
 	GetTextSegment(styler, start, end, s, sizeof(s));
 	//Platform::DebugPrintf("Scripting indicator [%s]\n", s);
-	//if (strstr(s, "src"))	// External script
-		//return eScriptNone;
+	if (strstr(s, "src"))	// External script
+		return eScriptNone;
 	if (strstr(s, "vbs"))
 		return eScriptVBS;
 	if (strstr(s, "pyth"))
@@ -110,7 +110,7 @@ static script_type segIsScriptingIndicator(Accessor &styler, unsigned int start,
 	return prevValue;
 }
 
-static int PrintScriptingIndicatorOffset(Accessor &styler, unsigned int start, unsigned int end) {
+static int PrintScriptingIndicatorOffset(Accessor &styler, Sci_PositionU start, Sci_PositionU end) {
 	int iResult = 0;
 	char s[100];
 	GetTextSegment(styler, start, end, s, sizeof(s));
@@ -171,7 +171,7 @@ static int stateForPrintState(int StateToPrint) {
 	return state;
 }
 
-static inline bool IsNumber(unsigned int start, Accessor &styler) {
+static inline bool IsNumber(Sci_PositionU start, Accessor &styler) {
 	return IsADigit(styler[start]) || (styler[start] == '.') ||
 	       (styler[start] == '-') || (styler[start] == '#');
 }
@@ -242,7 +242,7 @@ static inline bool isCommentASPState(int state) {
 	return bResult;
 }
 
-static void classifyAttribHTML(unsigned int start, unsigned int end, WordList &keywords, Accessor &styler) {
+static void classifyAttribHTML(Sci_PositionU start, Sci_PositionU end, WordList &keywords, Accessor &styler) {
 	bool wordIsNumber = IsNumber(start, styler);
 	char chAttr = SCE_H_ATTRIBUTEUNKNOWN;
 	if (wordIsNumber) {
@@ -259,14 +259,14 @@ static void classifyAttribHTML(unsigned int start, unsigned int end, WordList &k
 	styler.ColourTo(end, chAttr);
 }
 
-static int classifyTagHTML(unsigned int start, unsigned int end,
+static int classifyTagHTML(Sci_PositionU start, Sci_PositionU end,
                            WordList &keywords, Accessor &styler, bool &tagDontFold,
 			   bool caseSensitive, bool isXml, bool allowScripts) {
 	char withSpace[30 + 2] = " ";
 	const char *s = withSpace + 1;
 	// Copy after the '<'
-	unsigned int i = 1;
-	for (unsigned int cPos = start; cPos <= end && i < 30; cPos++) {
+	Sci_PositionU i = 1;
+	for (Sci_PositionU cPos = start; cPos <= end && i < 30; cPos++) {
 		char ch = styler[cPos];
 		if ((ch != '<') && (ch != '/')) {
 			withSpace[i++] = caseSensitive ? ch : static_cast<char>(MakeLowerCase(ch));
@@ -298,7 +298,7 @@ static int classifyTagHTML(unsigned int start, unsigned int end,
 		if (allowScripts && 0 == strcmp(s, "script")) {
 			// check to see if this is a self-closing tag by sniffing ahead
 			bool isSelfClose = false;
-			for (unsigned int cPos = end; cPos <= end + 200; cPos++) {
+			for (Sci_PositionU cPos = end; cPos <= end + 200; cPos++) {
 				char ch = styler.SafeGetCharAt(cPos, '\0');
 				if (ch == '\0' || ch == '>')
 					break;
@@ -318,10 +318,10 @@ static int classifyTagHTML(unsigned int start, unsigned int end,
 	return chAttr;
 }
 
-static void classifyWordHTJS(unsigned int start, unsigned int end,
+static void classifyWordHTJS(Sci_PositionU start, Sci_PositionU end,
                              WordList &keywords, Accessor &styler, script_mode inScriptType) {
 	char s[30 + 1];
-	unsigned int i = 0;
+	Sci_PositionU i = 0;
 	for (; i < end - start + 1 && i < 30; i++) {
 		s[i] = styler[start + i];
 	}
@@ -337,7 +337,7 @@ static void classifyWordHTJS(unsigned int start, unsigned int end,
 	styler.ColourTo(end, statePrintForState(chAttr, inScriptType));
 }
 
-static int classifyWordHTVB(unsigned int start, unsigned int end, WordList &keywords, Accessor &styler, script_mode inScriptType) {
+static int classifyWordHTVB(Sci_PositionU start, Sci_PositionU end, WordList &keywords, Accessor &styler, script_mode inScriptType) {
 	char chAttr = SCE_HB_IDENTIFIER;
 	bool wordIsNumber = IsADigit(styler[start]) || (styler[start] == '.');
 	if (wordIsNumber) {
@@ -358,10 +358,10 @@ static int classifyWordHTVB(unsigned int start, unsigned int end, WordList &keyw
 		return SCE_HB_DEFAULT;
 }
 
-static void classifyWordHTPy(unsigned int start, unsigned int end, WordList &keywords, Accessor &styler, char *prevWord, script_mode inScriptType, bool isMako) {
+static void classifyWordHTPy(Sci_PositionU start, Sci_PositionU end, WordList &keywords, Accessor &styler, char *prevWord, script_mode inScriptType, bool isMako) {
 	bool wordIsNumber = IsADigit(styler[start]);
 	char s[30 + 1];
-	unsigned int i = 0;
+	Sci_PositionU i = 0;
 	for (; i < end - start + 1 && i < 30; i++) {
 		s[i] = styler[start + i];
 	}
@@ -383,7 +383,7 @@ static void classifyWordHTPy(unsigned int start, unsigned int end, WordList &key
 
 // Update the word colour to default or keyword
 // Called when in a PHP word
-static void classifyWordHTPHP(unsigned int start, unsigned int end, WordList &keywords, Accessor &styler) {
+static void classifyWordHTPHP(Sci_PositionU start, Sci_PositionU end, WordList &keywords, Accessor &styler) {
 	char chAttr = SCE_HPHP_DEFAULT;
 	bool wordIsNumber = IsADigit(styler[start]) || (styler[start] == '.' && start+1 <= end && IsADigit(styler[start+1]));
 	if (wordIsNumber) {
@@ -397,9 +397,9 @@ static void classifyWordHTPHP(unsigned int start, unsigned int end, WordList &ke
 	styler.ColourTo(end, chAttr);
 }
 
-static bool isWordHSGML(unsigned int start, unsigned int end, WordList &keywords, Accessor &styler) {
+static bool isWordHSGML(Sci_PositionU start, Sci_PositionU end, WordList &keywords, Accessor &styler) {
 	char s[30 + 1];
-	unsigned int i = 0;
+	Sci_PositionU i = 0;
 	for (; i < end - start + 1 && i < 30; i++) {
 		s[i] = styler[start + i];
 	}
@@ -407,9 +407,9 @@ static bool isWordHSGML(unsigned int start, unsigned int end, WordList &keywords
 	return keywords.InList(s);
 }
 
-static bool isWordCdata(unsigned int start, unsigned int end, Accessor &styler) {
+static bool isWordCdata(Sci_PositionU start, Sci_PositionU end, Accessor &styler) {
 	char s[30 + 1];
-	unsigned int i = 0;
+	Sci_PositionU i = 0;
 	for (; i < end - start + 1 && i < 30; i++) {
 		s[i] = styler[start + i];
 	}
@@ -421,8 +421,8 @@ static bool isWordCdata(unsigned int start, unsigned int end, Accessor &styler) 
 static int StateForScript(script_type scriptLanguage) {
 	int Result;
 	switch (scriptLanguage) {
-	case eScriptJS:
-		Result = SCE_HJ_START;
+	case eScriptVBS:
+		Result = SCE_HB_START;
 		break;
 	case eScriptPython:
 		Result = SCE_HP_START;
@@ -440,7 +440,7 @@ static int StateForScript(script_type scriptLanguage) {
 		Result = SCE_H_COMMENT;
 		break;
 	default :
-		Result = SCE_HB_START;
+		Result = SCE_HJ_START;
 		break;
 	}
 	return Result;
@@ -520,9 +520,9 @@ static bool isPHPStringState(int state) {
 	    (state == SCE_HPHP_COMPLEX_VARIABLE);
 }
 
-static int FindPhpStringDelimiter(char *phpStringDelimiter, const int phpStringDelimiterSize, int i, const int lengthDoc, Accessor &styler, bool &isSimpleString) {
-	int j;
-	const int beginning = i - 1;
+static Sci_Position FindPhpStringDelimiter(char *phpStringDelimiter, const int phpStringDelimiterSize, Sci_Position i, const Sci_Position lengthDoc, Accessor &styler, bool &isSimpleString) {
+	Sci_Position j;
+	const Sci_Position beginning = i - 1;
 	bool isValidSimpleString = false;
 
 	while (i < lengthDoc && (styler[i] == ' ' || styler[i] == '\t'))
@@ -567,7 +567,7 @@ static int FindPhpStringDelimiter(char *phpStringDelimiter, const int phpStringD
 	return j - 1;
 }
 
-static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseHyperTextDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                                   Accessor &styler, bool isXml) {
 	WordList &keywords = *keywordlists[0];
 	WordList &keywords2 = *keywordlists[1];
@@ -592,7 +592,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 	// If inside a tag, it may be a script tag, so reread from the start of line starting tag to ensure any language tags are seen
 	if (InTagState(state)) {
 		while ((startPos > 0) && (InTagState(styler.StyleAt(startPos - 1)))) {
-			int backLineStart = styler.LineStart(styler.GetLine(startPos-1));
+			Sci_Position backLineStart = styler.LineStart(styler.GetLine(startPos-1));
 			length += startPos - backLineStart;
 			startPos = backLineStart;
 		}
@@ -610,7 +610,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 	}
 	styler.StartAt(startPos);
 
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int lineState;
 	if (lineCurrent > 0) {
 		lineState = styler.GetLineState(lineCurrent-1);
@@ -621,7 +621,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 		// property asp.default.language
 		//	Script in ASP code is initially assumed to be in JavaScript.
 		//	To change this to VBScript set asp.default.language to 2. Python is 3.
-		lineState |= styler.GetPropertyInt("asp.default.language", eScriptVBS) << 4;
+		lineState |= styler.GetPropertyInt("asp.default.language", eScriptJS) << 4;
 	}
 	script_mode inScriptType = script_mode((lineState >> 0) & 0x03); // 2 bits of scripting mode
 	bool tagOpened = (lineState >> 2) & 0x01; // 1 bit to know if we are in an opened tag
@@ -695,7 +695,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 	int chPrevNonWhite = ' ';
 	// look back to set chPrevNonWhite properly for better regex colouring
 	if (scriptLanguage == eScriptJS && startPos > 0) {
-		int back = startPos;
+		Sci_Position back = startPos;
 		int style = 0;
 		while (--back) {
 			style = styler.StyleAt(back);
@@ -709,8 +709,8 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 	}
 
 	styler.StartSegment(startPos);
-	const int lengthDoc = startPos + length;
-	for (int i = startPos; i < lengthDoc; i++) {
+	const Sci_Position lengthDoc = startPos + length;
+	for (Sci_Position i = startPos; i < lengthDoc; i++) {
 		const int chPrev2 = chPrev;
 		chPrev = ch;
 		if (!IsASpace(ch) && state != SCE_HJ_COMMENT &&
@@ -746,7 +746,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				//Platform::DebugPrintf("state=%d, StateToPrint=%d, initStyle=%d\n", state, StateToPrint, initStyle);
 				//if ((state == SCE_HPHP_OPERATOR) || (state == SCE_HPHP_DEFAULT) || (state == SCE_HJ_SYMBOLS) || (state == SCE_HJ_START) || (state == SCE_HJ_DEFAULT)) {
 					if (ch == '#') {
-						int j = i + 1;
+						Sci_Position j = i + 1;
 						while ((j < lengthDoc) && IsASpaceOrTab(styler.SafeGetCharAt(j))) {
 							j++;
 						}
@@ -769,7 +769,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 					} else if ((ch == '\n') && !((chNext == '\r') && (chNext2 == '\n')) && (chNext != '\n')) {
 						// check if the number of tabs is lower than the level
 						int Findlevel = (levelCurrent & ~SC_FOLDLEVELBASE) * 8;
-						for (int j = 0; Findlevel > 0; j++) {
+						for (Sci_Position j = 0; Findlevel > 0; j++) {
 							char chTmp = styler.SafeGetCharAt(i + j + 1);
 							if (chTmp == '\t') {
 								Findlevel -= 8;
@@ -875,7 +875,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				if (const char *tag =
 						state == SCE_HJ_COMMENTLINE || isXml ? "script" :
 						state == SCE_H_COMMENT ? "comment" : 0) {
-					int j = i + 2;
+					Sci_Position j = i + 2;
 					int chr;
 					do {
 						chr = static_cast<int>(*tag++);
@@ -1237,7 +1237,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				styler.ColourTo(i - 1, StateToPrint);
 				state = SCE_H_SGML_SIMPLESTRING;
 			} else if ((ch == '-') && (chPrev == '-')) {
-				if (static_cast<int>(styler.GetStartSegment()) <= (i - 2)) {
+				if (static_cast<Sci_Position>(styler.GetStartSegment()) <= (i - 2)) {
 					styler.ColourTo(i - 2, StateToPrint);
 				}
 				state = SCE_H_SGML_COMMENT;
@@ -2080,7 +2080,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 		// Some of the above terminated their lexeme but since the same character starts
 		// the same class again, only reenter if non empty segment.
 
-		bool nonEmptySegment = i >= static_cast<int>(styler.GetStartSegment());
+		bool nonEmptySegment = i >= static_cast<Sci_Position>(styler.GetStartSegment());
 		if (state == SCE_HB_DEFAULT) {    // One of the above succeeded
 			if ((ch == '\"') && (nonEmptySegment)) {
 				state = SCE_HB_STRING;
@@ -2136,7 +2136,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 		break;
 	default:
 		StateToPrint = statePrintForState(state, inScriptType);
-		if (static_cast<int>(styler.GetStartSegment()) < lengthDoc)
+		if (static_cast<Sci_Position>(styler.GetStartSegment()) < lengthDoc)
 			styler.ColourTo(lengthDoc - 1, StateToPrint);
 		break;
 	}
@@ -2148,19 +2148,19 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 	}
 }
 
-static void ColouriseXMLDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseXMLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                                   Accessor &styler) {
 	// Passing in true because we're lexing XML
 	ColouriseHyperTextDoc(startPos, length, initStyle, keywordlists, styler, true);
 }
 
-static void ColouriseHTMLDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseHTMLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                                   Accessor &styler) {
 	// Passing in false because we're notlexing XML
 	ColouriseHyperTextDoc(startPos, length, initStyle, keywordlists, styler, false);
 }
 
-static void ColourisePHPScriptDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColourisePHPScriptDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
         Accessor &styler) {
 	if (startPos == 0)
 		initStyle = SCE_HPHP_DEFAULT;

@@ -28,7 +28,7 @@
 using namespace Scintilla;
 #endif
 
-int SCI_METHOD LexerNoExceptions::PropertySet(const char *key, const char *val) {
+Sci_Position SCI_METHOD LexerNoExceptions::PropertySet(const char *key, const char *val) {
 	try {
 		return LexerBase::PropertySet(key, val);
 	} catch (...) {
@@ -37,7 +37,7 @@ int SCI_METHOD LexerNoExceptions::PropertySet(const char *key, const char *val) 
 	return -1;
 }
 
-int SCI_METHOD LexerNoExceptions::WordListSet(int n, const char *wl) {
+Sci_Position SCI_METHOD LexerNoExceptions::WordListSet(int n, const char *wl) {
 	try {
 		return LexerBase::WordListSet(n, wl);
 	} catch (...) {
@@ -46,7 +46,7 @@ int SCI_METHOD LexerNoExceptions::WordListSet(int n, const char *wl) {
 	return -1;
 }
 
-void SCI_METHOD LexerNoExceptions::Lex(unsigned int startPos, int length, int initStyle, IDocument *pAccess) {
+void SCI_METHOD LexerNoExceptions::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
 	try {
 		Accessor astyler(pAccess, &props);
 		Lexer(startPos, length, initStyle, pAccess, astyler);
@@ -56,7 +56,7 @@ void SCI_METHOD LexerNoExceptions::Lex(unsigned int startPos, int length, int in
 		pAccess->SetErrorStatus(SC_STATUS_FAILURE);
 	}
 }
-void SCI_METHOD LexerNoExceptions::Fold(unsigned int startPos, int length, int initStyle, IDocument *pAccess) {
+void SCI_METHOD LexerNoExceptions::Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
 	try {
 		Accessor astyler(pAccess, &props);
 		Folder(startPos, length, initStyle, pAccess, astyler);

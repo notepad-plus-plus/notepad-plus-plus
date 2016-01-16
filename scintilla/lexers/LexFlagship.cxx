@@ -37,7 +37,7 @@ static inline bool IsAWordChar(int ch)
 				(isalnum(ch) || ch == '_');
 }
 
-static void ColouriseFlagShipDoc(unsigned int startPos, int length, int initStyle,
+static void ColouriseFlagShipDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
                                  WordList *keywordlists[], Accessor &styler)
 {
 
@@ -271,9 +271,9 @@ static void ColouriseFlagShipDoc(unsigned int startPos, int length, int initStyl
 					}
 				}
 			} else if (bEnableCode && sc.ch == '{') {
-				int p = 0;
+				Sci_Position p = 0;
 				int chSeek;
-				unsigned int endPos(startPos + length);
+				Sci_PositionU endPos(startPos + length);
 				do {	// Skip whitespace
 					chSeek = sc.GetRelative(++p);
 				} while (IsASpaceOrTab(chSeek) && (sc.currentPos + p < endPos));
@@ -302,14 +302,14 @@ static void ColouriseFlagShipDoc(unsigned int startPos, int length, int initStyl
 	sc.Complete();
 }
 
-static void FoldFlagShipDoc(unsigned int startPos, int length, int,
+static void FoldFlagShipDoc(Sci_PositionU startPos, Sci_Position length, int,
 									WordList *[], Accessor &styler)
 {
 
-	int endPos = startPos + length;
+	Sci_Position endPos = startPos + length;
 
 	// Backtrack to previous line in case need to fix its fold status
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	if (startPos > 0 && lineCurrent > 0) {
 			lineCurrent--;
 			startPos = styler.LineStart(lineCurrent);
@@ -317,7 +317,7 @@ static void FoldFlagShipDoc(unsigned int startPos, int length, int,
 	int spaceFlags = 0;
 	int indentCurrent = styler.IndentAmount(lineCurrent, &spaceFlags);
 	char chNext = styler[startPos];
-	for (int i = startPos; i < endPos; i++) {
+	for (Sci_Position i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 

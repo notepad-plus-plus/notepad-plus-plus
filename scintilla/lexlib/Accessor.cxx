@@ -32,8 +32,8 @@ int Accessor::GetPropertyInt(const char *key, int defaultValue) const {
 	return pprops->GetInt(key, defaultValue);
 }
 
-int Accessor::IndentAmount(int line, int *flags, PFNIsCommentLeader pfnIsCommentLeader) {
-	int end = Length();
+int Accessor::IndentAmount(Sci_Position line, int *flags, PFNIsCommentLeader pfnIsCommentLeader) {
+	Sci_Position end = Length();
 	int spaceFlags = 0;
 
 	// Determines the indentation level of the current line and also checks for consistent
@@ -41,11 +41,11 @@ int Accessor::IndentAmount(int line, int *flags, PFNIsCommentLeader pfnIsComment
 	// Indentation is judged consistent when the indentation whitespace of each line lines
 	// the same or the indentation of one line is a prefix of the other.
 
-	int pos = LineStart(line);
+	Sci_Position pos = LineStart(line);
 	char ch = (*this)[pos];
 	int indent = 0;
 	bool inPrevPrefix = line > 0;
-	int posPrev = inPrevPrefix ? LineStart(line-1) : 0;
+	Sci_Position posPrev = inPrevPrefix ? LineStart(line-1) : 0;
 	while ((ch == ' ' || ch == '\t') && (pos < end)) {
 		if (inPrevPrefix) {
 			char chPrev = (*this)[posPrev++];

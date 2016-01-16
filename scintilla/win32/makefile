@@ -31,7 +31,7 @@ ifneq "$(shell g++ -c CheckD2D.cxx 2>&1)" ""
 D2DFLAGS=-DDISABLE_D2D
 endif
 
-CXXBASEFLAGS=--std=c++0x -Wall -pedantic $(INCLUDEDIRS) -fno-rtti $(D2DFLAGS)
+CXXBASEFLAGS=--std=c++0x -Wall -pedantic $(INCLUDEDIRS) $(D2DFLAGS)
 
 ifdef CXX11_REGEX
 REFLAGS=-DCXX11_REGEX

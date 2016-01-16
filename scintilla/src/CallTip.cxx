@@ -9,6 +9,7 @@
 #include <string.h>
 #include <stdio.h>
 
+#include <stdexcept>
 #include <string>
 
 #include "Platform.h"
@@ -16,6 +17,7 @@
 #include "Scintilla.h"
 
 #include "StringCopy.h"
+#include "Position.h"
 #include "CallTip.h"
 
 #ifdef SCI_NAMESPACE

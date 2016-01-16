@@ -45,8 +45,8 @@ static inline bool IsNewline(const int ch) {
 }
 
 // True if can follow ch down to the end with possibly trailing whitespace
-static bool FollowToLineEnd(const int ch, const int state, const unsigned int endPos, StyleContext &sc) {
-    unsigned int i = 0;
+static bool FollowToLineEnd(const int ch, const int state, const Sci_PositionU endPos, StyleContext &sc) {
+    Sci_PositionU i = 0;
     while (sc.GetRelative(++i) == ch)
         ;
     // Skip over whitespace
@@ -63,7 +63,7 @@ static bool FollowToLineEnd(const int ch, const int state, const unsigned int en
 
 // Does the previous line have more than spaces and tabs?
 static bool HasPrevLineContent(StyleContext &sc) {
-    int i = 0;
+    Sci_Position i = 0;
     // Go back to the previous newline
     while ((--i + sc.currentPos) && !IsNewline(sc.GetRelative(i)))
         ;
@@ -77,9 +77,9 @@ static bool HasPrevLineContent(StyleContext &sc) {
 }
 
 // Separator line
-static bool IsValidHrule(const unsigned int endPos, StyleContext &sc) {
+static bool IsValidHrule(const Sci_PositionU endPos, StyleContext &sc) {
     int count = 1;
-    unsigned int i = 0;
+    Sci_PositionU i = 0;
     for (;;) {
         ++i;
         int c = sc.GetRelative(i);
@@ -103,9 +103,9 @@ static bool IsValidHrule(const unsigned int endPos, StyleContext &sc) {
     }
 }
 
-static void ColorizeTxt2tagsDoc(unsigned int startPos, int length, int initStyle,
+static void ColorizeTxt2tagsDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
                                WordList **, Accessor &styler) {
-    unsigned int endPos = startPos + length;
+    Sci_PositionU endPos = startPos + length;
     int precharCount = 0;
     // Don't advance on a new loop iteration and retry at the same position.
     // Useful in the corner case of having to start at the beginning file position
@@ -188,7 +188,7 @@ static void ColorizeTxt2tagsDoc(unsigned int startPos, int length, int initStyle
                 if (IsNewline(sc.ch))
                 sc.SetState(SCE_TXT2TAGS_LINE_BEGIN);
             if (sc.atLineStart && sc.Match("```")) {
-                int i = 1;
+                Sci_Position i = 1;
                 while (!IsNewline(sc.GetRelative(i)) && sc.currentPos + i < endPos)
                     i++;
                 sc.Forward(i);
@@ -375,7 +375,7 @@ static void ColorizeTxt2tagsDoc(unsigned int startPos, int length, int initStyle
             }
             // Ordered list
             else if (IsADigit(sc.ch)) {
-                int digitCount = 0;
+                Sci_Position digitCount = 0;
                 while (IsADigit(sc.GetRelative(++digitCount)))
                     ;
                 if (sc.GetRelative(digitCount) == '.' &&
@@ -405,8 +405,8 @@ static void ColorizeTxt2tagsDoc(unsigned int startPos, int length, int initStyle
          //   }
             // Links and Images
             if (sc.Match("![") || sc.ch == '[') {
-                int i = 0, j = 0, k = 0;
-                int len = endPos - sc.currentPos;
+                Sci_Position i = 0, j = 0, k = 0;
+                Sci_Position len = endPos - sc.currentPos;
                 while (i < len && (sc.GetRelative(++i) != ']' || sc.GetRelative(i - 1) == '\\'))
                     ;
                 if (sc.GetRelative(i) == ']') {

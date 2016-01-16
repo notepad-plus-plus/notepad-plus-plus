@@ -33,8 +33,8 @@ using namespace Scintilla;
 #endif
 
 static void ColouriseVHDLDoc(
-  unsigned int startPos,
-  int length,
+  Sci_PositionU startPos,
+  Sci_Position length,
   int initStyle,
   WordList *keywordlists[],
   Accessor &styler);
@@ -57,8 +57,8 @@ static inline bool IsABlank(unsigned int ch) {
 
 /***************************************/
 static void ColouriseVHDLDoc(
-  unsigned int startPos,
-  int length,
+  Sci_PositionU startPos,
+  Sci_Position length,
   int initStyle,
   WordList *keywordlists[],
   Accessor &styler)
@@ -157,10 +157,10 @@ static void ColouriseVHDLDoc(
   sc.Complete();
 }
 //=============================================================================
-static bool IsCommentLine(int line, Accessor &styler) {
-	int pos = styler.LineStart(line);
-	int eol_pos = styler.LineStart(line + 1) - 1;
-	for (int i = pos; i < eol_pos; i++) {
+static bool IsCommentLine(Sci_Position line, Accessor &styler) {
+	Sci_Position pos = styler.LineStart(line);
+	Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
+	for (Sci_Position i = pos; i < eol_pos; i++) {
 		char ch = styler[i];
 		char chNext = styler[i+1];
 		if ((ch == '-') && (chNext == '-'))
@@ -170,11 +170,11 @@ static bool IsCommentLine(int line, Accessor &styler) {
 	}
 	return false;
 }
-static bool IsCommentBlockStart(int line, Accessor &styler)
+static bool IsCommentBlockStart(Sci_Position line, Accessor &styler)
 {
-    int pos = styler.LineStart(line);
-	int eol_pos = styler.LineStart(line + 1) - 1;
-	for (int i = pos; i < eol_pos; i++) {
+    Sci_Position pos = styler.LineStart(line);
+	Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
+	for (Sci_Position i = pos; i < eol_pos; i++) {
 		char ch = styler[i];
 		char chNext = styler[i+1];
         char style = styler.StyleAt(i);
@@ -184,12 +184,12 @@ static bool IsCommentBlockStart(int line, Accessor &styler)
 	return false;
 }
 
-static bool IsCommentBlockEnd(int line, Accessor &styler)
+static bool IsCommentBlockEnd(Sci_Position line, Accessor &styler)
 {
-    int pos = styler.LineStart(line);
-	int eol_pos = styler.LineStart(line + 1) - 1;
+    Sci_Position pos = styler.LineStart(line);
+	Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
 
-	for (int i = pos; i < eol_pos; i++) {
+	for (Sci_Position i = pos; i < eol_pos; i++) {
 		char ch = styler[i];
 		char chNext = styler[i+1];
         char style = styler.StyleAt(i);
@@ -207,8 +207,8 @@ static bool IsCommentStyle(char style)
 //=============================================================================
 // Folding the code
 static void FoldNoBoxVHDLDoc(
-  unsigned int startPos,
-  int length,
+  Sci_PositionU startPos,
+  Sci_Position length,
   int,
   Accessor &styler)
 {
@@ -216,7 +216,7 @@ static void FoldNoBoxVHDLDoc(
   // don't check if the style for the keywords that I use to adjust the levels.
   char words[] =
     "architecture begin block case component else elsif end entity generate loop package process record then "
-    "procedure function when units";
+    "procedure protected function when units";
   WordList keywords;
   keywords.Set(words);
 
@@ -228,9 +228,9 @@ static void FoldNoBoxVHDLDoc(
   //bool foldAtWhen       = styler.GetPropertyInt("fold.at.When", 1) != 0;  //< fold at when in case statements
 
   int  visibleChars     = 0;
-  unsigned int endPos   = startPos + length;
+  Sci_PositionU endPos   = startPos + length;
 
-  int lineCurrent       = styler.GetLine(startPos);
+  Sci_Position lineCurrent       = styler.GetLine(startPos);
   int levelCurrent      = SC_FOLDLEVELBASE;
   if(lineCurrent > 0)
     levelCurrent        = styler.LevelAt(lineCurrent-1) >> 16;
@@ -240,15 +240,15 @@ static void FoldNoBoxVHDLDoc(
   int levelNext         = levelCurrent;
 
   /***************************************/
-  int lastStart         = 0;
+  Sci_Position lastStart         = 0;
   char prevWord[32]     = "";
 
   /***************************************/
   // Find prev word
   // The logic for going up or down a level depends on a the previous keyword
   // This code could be cleaned up.
-  int end = 0;
-  unsigned int j;
+  Sci_Position end = 0;
+  Sci_PositionU j;
   for(j = startPos; j>0; j--)
   {
     char ch       = styler.SafeGetCharAt(j);
@@ -267,7 +267,7 @@ static void FoldNoBoxVHDLDoc(
       if(!IsAWordChar(chPrev) && IsAWordStart(ch) && (end != 0))
       {
         char s[32];
-        unsigned int k;
+        Sci_PositionU k;
         for(k=0; (k<31 ) && (k<end-j+1 ); k++) {
           s[k] = static_cast<char>(tolower(styler[j+k]));
         }
@@ -280,7 +280,7 @@ static void FoldNoBoxVHDLDoc(
       }
     }
   }
-  for(j=j+static_cast<unsigned int>(strlen(prevWord)); j<endPos; j++)
+  for(j=j+static_cast<Sci_PositionU>(strlen(prevWord)); j<endPos; j++)
   {
     char ch       = styler.SafeGetCharAt(j);
     int style     = styler.StyleAt(j);
@@ -300,13 +300,13 @@ static void FoldNoBoxVHDLDoc(
   //Platform::DebugPrintf("Line[%04d] Prev[%20s] ************************* Level[%x]\n", lineCurrent+1, prevWord, levelCurrent);
 
   /***************************************/
-  for (unsigned int i = startPos; i < endPos; i++)
+  for (Sci_PositionU i = startPos; i < endPos; i++)
   {
     char ch         = chNext;
     chNext          = styler.SafeGetCharAt(i + 1);
     chPrev          = styler.SafeGetCharAt(i - 1);
     chNextNonBlank  = chNext;
-    unsigned int j  = i+1;
+    Sci_PositionU j  = i+1;
     while(IsABlank(chNextNonBlank) && j<endPos)
     {
       j ++ ;
@@ -365,7 +365,7 @@ static void FoldNoBoxVHDLDoc(
 
       if(IsAWordChar(ch) && !IsAWordChar(chNext)) {
         char s[32];
-        unsigned int k;
+        Sci_PositionU k;
         for(k=0; (k<31 ) && (k<i-lastStart+1 ); k++) {
           s[k] = static_cast<char>(tolower(styler[lastStart+k]));
         }
@@ -381,6 +381,7 @@ static void FoldNoBoxVHDLDoc(
             strcmp(s, "loop") == 0          ||
             strcmp(s, "package") ==0        ||
             strcmp(s, "process") == 0       ||
+            strcmp(s, "protected") == 0     ||
             strcmp(s, "record") == 0        ||
             strcmp(s, "then") == 0          ||
             strcmp(s, "units") == 0)
@@ -399,7 +400,7 @@ static void FoldNoBoxVHDLDoc(
           {
             if (strcmp(prevWord, "end") != 0 && lastStart)
             { // check for instantiated unit by backward searching for the colon.
-              unsigned pos = lastStart;
+              Sci_PositionU pos = lastStart;
               char chAtPos, styleAtPos;
               do{// skip white spaces
                 pos--;
@@ -427,7 +428,7 @@ static void FoldNoBoxVHDLDoc(
             { // This code checks to see if the procedure / function is a definition within a "package"
               // rather than the actual code in the body.
               int BracketLevel = 0;
-              for(int pos=i+1; pos<styler.Length(); pos++)
+              for(Sci_Position pos=i+1; pos<styler.Length(); pos++)
               {
                 int styleAtPos = styler.StyleAt(pos);
                 char chAtPos = styler.SafeGetCharAt(pos);
@@ -510,7 +511,7 @@ static void FoldNoBoxVHDLDoc(
 }
 
 //=============================================================================
-static void FoldVHDLDoc(unsigned int startPos, int length, int initStyle, WordList *[],
+static void FoldVHDLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[],
                        Accessor &styler) {
   FoldNoBoxVHDLDoc(startPos, length, initStyle, styler);
 }

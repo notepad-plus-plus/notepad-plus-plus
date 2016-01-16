@@ -115,7 +115,7 @@ static inline bool IsDoxygenChar (const int ch)
  *  Main function, which colourises a 68k source
  */
 
-static void ColouriseA68kDoc (unsigned int startPos, int length, int initStyle, WordList *keywordlists[], Accessor &styler)
+static void ColouriseA68kDoc (Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[], Accessor &styler)
 {
     // Used to buffer a string, to be able to compare it using built-in functions 
     char Buffer[100]; 

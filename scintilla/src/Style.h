@@ -61,7 +61,7 @@ public:
 	ColourDesired back;
 	bool eolFilled;
 	bool underline;
-	enum ecaseForced {caseMixed, caseUpper, caseLower};
+	enum ecaseForced {caseMixed, caseUpper, caseLower, caseCamel};
 	ecaseForced caseForce;
 	bool visible;
 	bool changeable;

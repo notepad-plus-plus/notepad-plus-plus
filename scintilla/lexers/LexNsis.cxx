@@ -69,10 +69,10 @@ static bool isNsisLetter(char ch)
   return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
 }
 
-static bool NsisNextLineHasElse(unsigned int start, unsigned int end, Accessor &styler)
+static bool NsisNextLineHasElse(Sci_PositionU start, Sci_PositionU end, Accessor &styler)
 {
-  int nNextLine = -1;
-  for( unsigned int i = start; i < end; i++ )
+  Sci_Position nNextLine = -1;
+  for( Sci_PositionU i = start; i < end; i++ )
   {
     char cNext = styler.SafeGetCharAt( i );
     if( cNext == '\n' )
@@ -85,7 +85,7 @@ static bool NsisNextLineHasElse(unsigned int start, unsigned int end, Accessor &
   if( nNextLine == -1 ) // We never found the next line...
     return false;
 
-  for( unsigned int firstChar = nNextLine; firstChar < end; firstChar++ )
+  for( Sci_PositionU firstChar = nNextLine; firstChar < end; firstChar++ )
   {
     char cNext = styler.SafeGetCharAt( firstChar );
     if( cNext == ' ' )
@@ -111,7 +111,7 @@ static int NsisCmp( const char *s1, const char *s2, bool bIgnoreCase )
   return strcmp( s1, s2 );
 }
 
-static int calculateFoldNsis(unsigned int start, unsigned int end, int foldlevel, Accessor &styler, bool bElse, bool foldUtilityCmd )
+static int calculateFoldNsis(Sci_PositionU start, Sci_PositionU end, int foldlevel, Accessor &styler, bool bElse, bool foldUtilityCmd )
 {
   int style = styler.StyleAt(end);
 
@@ -143,7 +143,7 @@ static int calculateFoldNsis(unsigned int start, unsigned int end, int foldlevel
 
   char s[20]; // The key word we are looking for has atmost 13 characters
   s[0] = '\0';
-  for (unsigned int i = 0; i < end - start + 1 && i < 19; i++)
+  for (Sci_PositionU i = 0; i < end - start + 1 && i < 19; i++)
 	{
 		s[i] = static_cast<char>( styler[ start + i ] );
 		s[i + 1] = '\0';
@@ -169,7 +169,7 @@ static int calculateFoldNsis(unsigned int start, unsigned int end, int foldlevel
   return newFoldlevel;
 }
 
-static int classifyWordNsis(unsigned int start, unsigned int end, WordList *keywordLists[], Accessor &styler )
+static int classifyWordNsis(Sci_PositionU start, Sci_PositionU end, WordList *keywordLists[], Accessor &styler )
 {
   bool bIgnoreCase = false;
   if( styler.GetPropertyInt("nsis.ignorecase") == 1 )
@@ -188,7 +188,7 @@ static int classifyWordNsis(unsigned int start, unsigned int end, WordList *keyw
 	WordList &Lables = *keywordLists[2];
 	WordList &UserDefined = *keywordLists[3];
 
-	for (unsigned int i = 0; i < end - start + 1 && i < 99; i++)
+	for (Sci_PositionU i = 0; i < end - start + 1 && i < 99; i++)
 	{
     if( bIgnoreCase )
       s[i] = static_cast<char>( tolower(styler[ start + i ] ) );
@@ -247,7 +247,7 @@ static int classifyWordNsis(unsigned int start, unsigned int end, WordList *keyw
   if( s[0] == '$' && bUserVars )
   {
     bool bHasSimpleNsisChars = true;
-    for (unsigned int j = 1; j < end - start + 1 && j < 99; j++)
+    for (Sci_PositionU j = 1; j < end - start + 1 && j < 99; j++)
 	  {
       if( !isNsisChar( s[j] ) )
       {
@@ -264,7 +264,7 @@ static int classifyWordNsis(unsigned int start, unsigned int end, WordList *keyw
   if( isNsisNumber( s[0] ) )
   {
     bool bHasSimpleNsisNumber = true;
-    for (unsigned int j = 1; j < end - start + 1 && j < 99; j++)
+    for (Sci_PositionU j = 1; j < end - start + 1 && j < 99; j++)
 	  {
       if( !isNsisNumber( s[j] ) )
       {
@@ -280,7 +280,7 @@ static int classifyWordNsis(unsigned int start, unsigned int end, WordList *keyw
 	return SCE_NSIS_DEFAULT;
 }
 
-static void ColouriseNsisDoc(unsigned int startPos, int length, int, WordList *keywordLists[], Accessor &styler)
+static void ColouriseNsisDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *keywordLists[], Accessor &styler)
 {
 	int state = SCE_NSIS_DEFAULT;
   if( startPos > 0 )
@@ -289,14 +289,14 @@ static void ColouriseNsisDoc(unsigned int startPos, int length, int, WordList *k
 	styler.StartAt( startPos );
 	styler.GetLine( startPos );
 
-	unsigned int nLengthDoc = startPos + length;
+	Sci_PositionU nLengthDoc = startPos + length;
 	styler.StartSegment( startPos );
 
 	char cCurrChar;
 	bool bVarInString = false;
   bool bClassicVarInString = false;
 
-	unsigned int i;
+	Sci_PositionU i;
 	for( i = startPos; i < nLengthDoc; i++ )
 	{
 		cCurrChar = styler.SafeGetCharAt( i );
@@ -403,8 +403,8 @@ static void ColouriseNsisDoc(unsigned int startPos, int length, int, WordList *k
 
         if( cNextChar == '\r' || cNextChar == '\n' )
         {
-          int nCurLine = styler.GetLine(i+1);
-          int nBack = i;
+          Sci_Position nCurLine = styler.GetLine(i+1);
+          Sci_Position nBack = i;
           // We need to check if the previous line has a \ in it...
           bool bNextLine = false;
 
@@ -552,7 +552,7 @@ static void ColouriseNsisDoc(unsigned int startPos, int length, int, WordList *k
 	styler.ColourTo(nLengthDoc-1,state);
 }
 
-static void FoldNsisDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler)
+static void FoldNsisDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler)
 {
 	// No folding enabled, no reason to continue...
 	if( styler.GetPropertyInt("fold") == 0 )
@@ -562,11 +562,11 @@ static void FoldNsisDoc(unsigned int startPos, int length, int, WordList *[], Ac
   bool foldUtilityCmd = styler.GetPropertyInt("nsis.foldutilcmd", 1) == 1;
   bool blockComment = false;
 
-  int lineCurrent = styler.GetLine(startPos);
-  unsigned int safeStartPos = styler.LineStart( lineCurrent );
+  Sci_Position lineCurrent = styler.GetLine(startPos);
+  Sci_PositionU safeStartPos = styler.LineStart( lineCurrent );
 
   bool bArg1 = true;
-  int nWordStart = -1;
+  Sci_Position nWordStart = -1;
 
   int levelCurrent = SC_FOLDLEVELBASE;
 	if (lineCurrent > 0)
@@ -580,7 +580,7 @@ static void FoldNsisDoc(unsigned int startPos, int length, int, WordList *[], Ac
     blockComment = true;
   }
 
-  for (unsigned int i = safeStartPos; i < startPos + length; i++)
+  for (Sci_PositionU i = safeStartPos; i < startPos + length; i++)
 	{
     char chCurr = styler.SafeGetCharAt(i);
     style = styler.StyleAt(i);

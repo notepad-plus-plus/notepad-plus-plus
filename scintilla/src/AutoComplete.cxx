@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include <stdexcept>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -18,6 +19,7 @@
 
 #include "Scintilla.h"
 #include "CharacterSet.h"
+#include "Position.h"
 #include "AutoComplete.h"
 
 #ifdef SCI_NAMESPACE

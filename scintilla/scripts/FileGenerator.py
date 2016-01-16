@@ -137,6 +137,25 @@ def Regenerate(filename, commentPrefix, *lists):
     """
     Generate(filename, filename, commentPrefix, *lists)
 
+def UpdateLineInPlistFile(path, key, value):
+    """Replace a single string value preceded by 'key' in an XML plist file.
+    """
+    lines = []
+    keyCurrent = ""
+    with codecs.open(path, "rb", "utf-8") as f:
+        for l in f.readlines():
+            ls = l.strip()
+            if ls.startswith("<key>"):
+                keyCurrent = ls.replace("<key>", "").replace("</key>", "")
+            elif ls.startswith("<string>"):
+                if keyCurrent == key:
+                    start, tag, rest = l.partition("<string>")
+                    val, etag, end = rest.partition("</string>")
+                    l = start + tag + value + etag + end
+            lines.append(l)
+    contents = "".join(lines)
+    UpdateFile(path, contents)
+
 def UpdateLineInFile(path, linePrefix, lineReplace):
     lines = []
     updated = False

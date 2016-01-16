@@ -75,7 +75,7 @@ static inline bool IsAWordChar(const int ch) {
 	return (ch < 0x80) && (ch != ' ') && (isalnum(ch) || ch == '_');
 }
 
-static void ColouriseErlangDoc(unsigned int startPos, int length, int initStyle,
+static void ColouriseErlangDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
 								WordList *keywordlists[], Accessor &styler) {
 
 	StyleContext sc(startPos, length, initStyle, styler);
@@ -500,7 +500,7 @@ static void ColouriseErlangDoc(unsigned int startPos, int length, int initStyle,
 static int ClassifyErlangFoldPoint(
 	Accessor &styler,
 	int styleNext,
-	int keyword_start
+	Sci_Position keyword_start
 ) {
 	int lev = 0;
 	if (styler.Match(keyword_start,"case")
@@ -521,23 +521,23 @@ static int ClassifyErlangFoldPoint(
 }
 
 static void FoldErlangDoc(
-	unsigned int startPos, int length, int initStyle,
+	Sci_PositionU startPos, Sci_Position length, int initStyle,
 	WordList** /*keywordlists*/, Accessor &styler
 ) {
-	unsigned int endPos = startPos + length;
-	int currentLine = styler.GetLine(startPos);
+	Sci_PositionU endPos = startPos + length;
+	Sci_Position currentLine = styler.GetLine(startPos);
 	int lev;
 	int previousLevel = styler.LevelAt(currentLine) & SC_FOLDLEVELNUMBERMASK;
 	int currentLevel = previousLevel;
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
 	int stylePrev;
-	int keyword_start = 0;
+	Sci_Position keyword_start = 0;
 	char ch;
 	char chNext = styler.SafeGetCharAt(startPos);
 	bool atEOL;
 
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 

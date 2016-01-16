@@ -43,10 +43,10 @@ static bool isCmakeLetter(char ch)
     return(ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
 }
 
-static bool CmakeNextLineHasElse(unsigned int start, unsigned int end, Accessor &styler)
+static bool CmakeNextLineHasElse(Sci_PositionU start, Sci_PositionU end, Accessor &styler)
 {
-    int nNextLine = -1;
-    for ( unsigned int i = start; i < end; i++ ) {
+    Sci_Position nNextLine = -1;
+    for ( Sci_PositionU i = start; i < end; i++ ) {
         char cNext = styler.SafeGetCharAt( i );
         if ( cNext == '\n' ) {
             nNextLine = i+1;
@@ -57,7 +57,7 @@ static bool CmakeNextLineHasElse(unsigned int start, unsigned int end, Accessor 
     if ( nNextLine == -1 ) // We never foudn the next line...
         return false;
 
-    for ( unsigned int firstChar = nNextLine; firstChar < end; firstChar++ ) {
+    for ( Sci_PositionU firstChar = nNextLine; firstChar < end; firstChar++ ) {
         char cNext = styler.SafeGetCharAt( firstChar );
         if ( cNext == ' ' )
             continue;
@@ -71,7 +71,7 @@ static bool CmakeNextLineHasElse(unsigned int start, unsigned int end, Accessor 
     return false;
 }
 
-static int calculateFoldCmake(unsigned int start, unsigned int end, int foldlevel, Accessor &styler, bool bElse)
+static int calculateFoldCmake(Sci_PositionU start, Sci_PositionU end, int foldlevel, Accessor &styler, bool bElse)
 {
     // If the word is too long, it is not what we are looking for
     if ( end - start > 20 )
@@ -100,7 +100,7 @@ static int calculateFoldCmake(unsigned int start, unsigned int end, int foldleve
     return newFoldlevel;
 }
 
-static int classifyWordCmake(unsigned int start, unsigned int end, WordList *keywordLists[], Accessor &styler )
+static int classifyWordCmake(Sci_PositionU start, Sci_PositionU end, WordList *keywordLists[], Accessor &styler )
 {
     char word[100] = {0};
     char lowercaseWord[100] = {0};
@@ -109,7 +109,7 @@ static int classifyWordCmake(unsigned int start, unsigned int end, WordList *key
     WordList &Parameters = *keywordLists[1];
     WordList &UserDefined = *keywordLists[2];
 
-    for (unsigned int i = 0; i < end - start + 1 && i < 99; i++) {
+    for (Sci_PositionU i = 0; i < end - start + 1 && i < 99; i++) {
         word[i] = static_cast<char>( styler[ start + i ] );
         lowercaseWord[i] = static_cast<char>(tolower(word[i]));
     }
@@ -162,7 +162,7 @@ static int classifyWordCmake(unsigned int start, unsigned int end, WordList *key
     return SCE_CMAKE_DEFAULT;
 }
 
-static void ColouriseCmakeDoc(unsigned int startPos, int length, int, WordList *keywordLists[], Accessor &styler)
+static void ColouriseCmakeDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *keywordLists[], Accessor &styler)
 {
     int state = SCE_CMAKE_DEFAULT;
     if ( startPos > 0 )
@@ -171,14 +171,14 @@ static void ColouriseCmakeDoc(unsigned int startPos, int length, int, WordList *
     styler.StartAt( startPos );
     styler.GetLine( startPos );
 
-    unsigned int nLengthDoc = startPos + length;
+    Sci_PositionU nLengthDoc = startPos + length;
     styler.StartSegment( startPos );
 
     char cCurrChar;
     bool bVarInString = false;
     bool bClassicVarInString = false;
 
-    unsigned int i;
+    Sci_PositionU i;
     for ( i = startPos; i < nLengthDoc; i++ ) {
         cCurrChar = styler.SafeGetCharAt( i );
         char cNextChar = styler.SafeGetCharAt(i+1);
@@ -263,8 +263,8 @@ static void ColouriseCmakeDoc(unsigned int startPos, int length, int, WordList *
             }
 
             if ( cNextChar == '\r' || cNextChar == '\n' ) {
-                int nCurLine = styler.GetLine(i+1);
-                int nBack = i;
+                Sci_Position nCurLine = styler.GetLine(i+1);
+                Sci_Position nBack = i;
                 // We need to check if the previous line has a \ in it...
                 bool bNextLine = false;
 
@@ -377,7 +377,7 @@ static void ColouriseCmakeDoc(unsigned int startPos, int length, int, WordList *
     styler.ColourTo(nLengthDoc-1,state);
 }
 
-static void FoldCmakeDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler)
+static void FoldCmakeDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler)
 {
     // No folding enabled, no reason to continue...
     if ( styler.GetPropertyInt("fold") == 0 )
@@ -385,18 +385,18 @@ static void FoldCmakeDoc(unsigned int startPos, int length, int, WordList *[], A
 
     bool foldAtElse = styler.GetPropertyInt("fold.at.else", 0) == 1;
 
-    int lineCurrent = styler.GetLine(startPos);
-    unsigned int safeStartPos = styler.LineStart( lineCurrent );
+    Sci_Position lineCurrent = styler.GetLine(startPos);
+    Sci_PositionU safeStartPos = styler.LineStart( lineCurrent );
 
     bool bArg1 = true;
-    int nWordStart = -1;
+    Sci_Position nWordStart = -1;
 
     int levelCurrent = SC_FOLDLEVELBASE;
     if (lineCurrent > 0)
         levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
     int levelNext = levelCurrent;
 
-    for (unsigned int i = safeStartPos; i < startPos + length; i++) {
+    for (Sci_PositionU i = safeStartPos; i < startPos + length; i++) {
         char chCurr = styler.SafeGetCharAt(i);
 
         if ( bArg1 ) {

@@ -45,12 +45,12 @@ inline bool isTACLwordstart(char ch)
 	return ch == '#' || ch == '|' || ch == '_' || iswordstart(ch);
 	}
 
-static void getRange(unsigned int start,
-		unsigned int end,
+static void getRange(Sci_PositionU start,
+		Sci_PositionU end,
 		Accessor &styler,
 		char *s,
-		unsigned int len) {
-	unsigned int i = 0;
+		Sci_PositionU len) {
+	Sci_PositionU i = 0;
 	while ((i < end - start + 1) && (i < len-1)) {
 		s[i] = static_cast<char>(tolower(styler[start + i]));
 		i++;
@@ -65,7 +65,7 @@ static bool IsStreamCommentStyle(int style) {
 		style == SCE_C_COMMENTDOCKEYWORDERROR;
 }
 
-static void ColourTo(Accessor &styler, unsigned int end, unsigned int attr, bool bInAsm) {
+static void ColourTo(Accessor &styler, Sci_PositionU end, unsigned int attr, bool bInAsm) {
 	if ((bInAsm) && (attr == SCE_C_OPERATOR || attr == SCE_C_NUMBER || attr == SCE_C_DEFAULT || attr == SCE_C_WORD || attr == SCE_C_IDENTIFIER)) {
 		styler.ColourTo(end, SCE_C_REGEX);
 	} else
@@ -73,7 +73,7 @@ static void ColourTo(Accessor &styler, unsigned int end, unsigned int attr, bool
 }
 
 // returns 1 if the item starts a class definition, and -1 if the word is "end", and 2 if the word is "asm"
-static int classifyWordTACL(unsigned int start, unsigned int end, /*WordList &keywords*/WordList *keywordlists[], Accessor &styler, bool bInAsm) {
+static int classifyWordTACL(Sci_PositionU start, Sci_PositionU end, /*WordList &keywords*/WordList *keywordlists[], Accessor &styler, bool bInAsm) {
 	int ret = 0;
 
 	WordList& keywords = *keywordlists[0];
@@ -122,7 +122,7 @@ static int classifyFoldPointTACL(const char* s) {
 	return lev;
 }
 
-static void ColouriseTACLDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseTACLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
 	Accessor &styler) {
 
 	styler.StartAt(startPos);
@@ -132,11 +132,11 @@ static void ColouriseTACLDoc(unsigned int startPos, int length, int initStyle, W
 		state = SCE_C_DEFAULT;
 	char chPrev = ' ';
 	char chNext = styler[startPos];
-	unsigned int lengthDoc = startPos + length;
+	Sci_PositionU lengthDoc = startPos + length;
 
 	bool bInClassDefinition;
 
-	int currentLine = styler.GetLine(startPos);
+	Sci_Position currentLine = styler.GetLine(startPos);
 	if (currentLine > 0) {
 		styler.SetLineState(currentLine, styler.GetLineState(currentLine-1));
 		bInClassDefinition = (styler.GetLineState(currentLine) == 1);
@@ -151,7 +151,7 @@ static void ColouriseTACLDoc(unsigned int startPos, int length, int initStyle, W
 
 	styler.StartSegment(startPos);
 	int visibleChars = 0;
-	unsigned int i;
+	Sci_PositionU i;
 	for (i = startPos; i < lengthDoc; i++) {
 		char ch = chNext;
 
@@ -250,7 +250,7 @@ static void ColouriseTACLDoc(unsigned int startPos, int length, int initStyle, W
 				if (ch == '}' || (ch == '\r' || ch == '\n')) {
 					if (((i > styler.GetStartSegment() + 2) || (
 						(initStyle == SCE_C_COMMENTDOC) &&
-						(styler.GetStartSegment() == static_cast<unsigned int>(startPos))))) {
+						(styler.GetStartSegment() == static_cast<Sci_PositionU>(startPos))))) {
 							ColourTo(styler, i, state, bInAsm);
 							state = SCE_C_DEFAULT;
 					}
@@ -280,14 +280,14 @@ static void ColouriseTACLDoc(unsigned int startPos, int length, int initStyle, W
 		ColourTo(styler, lengthDoc - 1, state, bInAsm);
 }
 
-static void FoldTACLDoc(unsigned int startPos, int length, int initStyle, WordList *[],
+static void FoldTACLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[],
                             Accessor &styler) {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldPreprocessor = styler.GetPropertyInt("fold.preprocessor") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = styler[startPos];
@@ -295,9 +295,9 @@ static void FoldTACLDoc(unsigned int startPos, int length, int initStyle, WordLi
 	int style = initStyle;
 	bool section = false;
 
-	int lastStart = 0;
+	Sci_Position lastStart = 0;
 
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;
@@ -346,7 +346,7 @@ static void FoldTACLDoc(unsigned int startPos, int length, int initStyle, WordLi
 
 		if (foldPreprocessor && (style == SCE_C_PREPROCESSOR)) {
 			if (ch == '{' && chNext == '$') {
-				unsigned int j=i+2; // skip {$
+				Sci_PositionU j=i+2; // skip {$
 				while ((j<endPos) && IsASpaceOrTab(styler.SafeGetCharAt(j))) {
 					j++;
 				}

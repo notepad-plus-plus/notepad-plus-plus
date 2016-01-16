@@ -47,7 +47,7 @@ ScintillaEditBase::ScintillaEditBase(QWidget *parent)
 	setFrameStyle(QFrame::NoFrame);
 	setFocusPolicy(Qt::StrongFocus);
 	setAttribute(Qt::WA_StaticContents);
-	viewport()->setAttribute(Qt::WA_OpaquePaintEvent);
+	viewport()->setAutoFillBackground(false);
 	setAttribute(Qt::WA_KeyCompression);
 	setAttribute(Qt::WA_InputMethodEnabled);
 
@@ -448,7 +448,7 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 	} else {
 		// No tentative undo means start of this composition so
 		// Fill in any virtual spaces.
-		sqt->FillVirtualSpace();
+		sqt->ClearBeforeTentativeStart();
 	}
 
 	sqt->view.imeCaretBlockOverride = false;
@@ -540,7 +540,7 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 
 			// Record character positions for moving ime caret.
 			numBytes += oneCharLen;
-			imeCharPos[i+1] = numBytes;
+			imeCharPos[i + ucWidth] = numBytes;
 
 			sqt->AddCharUTF(oneChar.data(), oneCharLen);
 
@@ -568,6 +568,7 @@ void ScintillaEditBase::inputMethodEvent(QInputMethodEvent *event)
 
 		// Set candidate box position for Qt::ImMicroFocus.
 		preeditPos = sqt->CurrentPosition();
+		sqt->EnsureCaretVisible();
 		updateMicroFocus();
 	}
 	sqt->ShowCaretAtCurrentPosition();

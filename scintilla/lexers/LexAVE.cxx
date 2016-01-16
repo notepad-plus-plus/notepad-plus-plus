@@ -59,8 +59,8 @@ inline bool isAveOperator(char ch) {
 }
 
 static void ColouriseAveDoc(
-	unsigned int startPos,
-	int length,
+	Sci_PositionU startPos,
+	Sci_Position length,
 	int initStyle,
 	WordList *keywordlists[],
 	Accessor &styler) {
@@ -82,7 +82,7 @@ static void ColouriseAveDoc(
 	for (; sc.More(); sc.Forward()) {
 		if (sc.atLineEnd) {
 			// Update the line state, so it can be seen by next line
-			int currentLine = styler.GetLine(sc.currentPos);
+			Sci_Position currentLine = styler.GetLine(sc.currentPos);
 			styler.SetLineState(currentLine, 0);
 		}
 		if (sc.atLineStart && (sc.state == SCE_AVE_STRING)) {
@@ -157,11 +157,11 @@ static void ColouriseAveDoc(
 	sc.Complete();
 }
 
-static void FoldAveDoc(unsigned int startPos, int length, int /* initStyle */, WordList *[],
+static void FoldAveDoc(Sci_PositionU startPos, Sci_Position length, int /* initStyle */, WordList *[],
                        Accessor &styler) {
-	unsigned int lengthDoc = startPos + length;
+	Sci_PositionU lengthDoc = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = static_cast<char>(tolower(styler[startPos]));
@@ -169,7 +169,7 @@ static void FoldAveDoc(unsigned int startPos, int length, int /* initStyle */, W
 	int styleNext = styler.StyleAt(startPos);
 	char s[10] = "";
 
-	for (unsigned int i = startPos; i < lengthDoc; i++) {
+	for (Sci_PositionU i = startPos; i < lengthDoc; i++) {
 		char ch = static_cast<char>(tolower(chNext));
 		chNext = static_cast<char>(tolower(styler.SafeGetCharAt(i + 1)));
 		int style = styleNext;

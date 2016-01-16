@@ -9,7 +9,8 @@
     <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
     <meta name="Description"
     content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
-    <meta name="Date.Modified" content="20150526" />
+    <meta name="Date.Modified" content="20151106" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
         #versionlist {
             margin: 0;
@@ -55,8 +56,8 @@
           GTK+, and OS X</font>
         </td>
         <td width="40%" align="right">
-          <font color="#FFCC99" size="3"> Release version 3.5.6<br />
-           Site last modified May 26 2015</font>
+          <font color="#FFCC99" size="3"> Release version 3.6.2<br />
+           Site last modified November 6 2015</font>
         </td>
         <td width="20%">
           &nbsp;
@@ -71,14 +72,11 @@
       </tr>
     </table>
     <ul id="versionlist">
-      <li>Version 3.5.6 fixes a bug with undo on Cocoa that could lose data.</li>
-      <li>Version 3.5.5 improves IME on Qt and fixes minor bugs.</li>
-      <li>Version 3.5.4 improves indicators to be able to change appearance on mouse-over and to use a wide variety of colours together.</li>
-      <li>Version 3.5.3 removes support for Windows 95, 98, and ME.</li>
-      <li>Version 3.5.2 only supports 64-bit builds for OS X 10.7+ Cocoa. Provisional support of C++11 &lt;regex&gt;.</li>
-      <li>Version 3.5.1 fixes minor bugs and includes a lexer for BibTeX.</li>
-      <li>Version 3.5.0 can share space vertically so that extreme ascenders and descenders are not cut off.
-      Separate timers are used to minimize wake ups and thus power use.</li>
+      <li>Version 3.6.2 fixes crashes and other bugs, particularly on Cocoa.</li>
+      <li>Version 3.6.1 adds minor features and fixes bugs.</li>
+      <li>Version 3.6.0 implements more multiple selection operations.
+      Type definitions Sci_Position, Sci_PositionU, and Sci_PositionCR allow client
+      code to prepare for a future change allowing larger than 2 GB documents.</li>
     </ul>
     <ul id="menu">
       <li id="remote1"><a href="http://www.scintilla.org/SciTEImage.html">Screenshot</a></li>
@@ -88,12 +86,14 @@
       <li id="remote3"><a href="http://www.scintilla.org/SciTE.html">SciTE</a></li>
       <li><a href="http://www.scintilla.org/ScintillaHistory.html">History</a></li>
       <li><a href="http://www.scintilla.org/ScintillaRelated.html">Related</a></li>
+      <li id="remote4"><a href="http://www.scintilla.org/Privacy.html">Privacy</a></li>
     </ul>
 <script type="text/javascript" language="JavaScript"><!--
 if (!IsRemote()) { //if NOT remote...
     document.getElementById('remote1').style.display='none';
     document.getElementById('remote2').style.display='none';
     document.getElementById('remote3').style.display='none';
+    document.getElementById('remote4').style.display='none';
 }
 //--></script>
     <p>

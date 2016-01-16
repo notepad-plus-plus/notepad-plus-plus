@@ -19,8 +19,8 @@ class LexerSimple : public LexerBase {
 public:
 	explicit LexerSimple(const LexerModule *module_);
 	const char * SCI_METHOD DescribeWordListSets();
-	void SCI_METHOD Lex(unsigned int startPos, int lengthDoc, int initStyle, IDocument *pAccess);
-	void SCI_METHOD Fold(unsigned int startPos, int lengthDoc, int initStyle, IDocument *pAccess);
+	void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess);
+	void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess);
 };
 
 #ifdef SCI_NAMESPACE

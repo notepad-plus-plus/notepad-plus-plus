@@ -383,16 +383,7 @@ private:
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;
 
-	struct ActivateAppInfo final
-	{
-		bool _isActivated = false;
-		int _x = 0;
-		int _y = 0;
-	}
-	_activeAppInf;
-
 	//Synchronized Scolling
-
 	struct SyncInfo final
 	{
 		int _line = 0;

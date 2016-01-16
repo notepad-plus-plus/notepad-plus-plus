@@ -407,7 +407,7 @@
     // Used by Doc Monitor plugin
     //
 	#define NPPM_INTERNAL_CHECKDOCSTATUS (NPPMSG + 53)
-    // VOID NPPM_CHECKDOCSTATUS(BOOL, 0)
+    // VOID NPPM_CHECKDOCSTATUS(0, 0)
     // check all opened documents status.
     // If files are modified, then reloaod (with or without prompt, it depends on settings).
     // if files are deleted, then prompt user to close the documents

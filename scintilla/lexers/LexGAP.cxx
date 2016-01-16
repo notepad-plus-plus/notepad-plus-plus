@@ -39,8 +39,8 @@ static inline bool IsGAPOperator(char ch) {
 	return false;
 }
 
-static void GetRange(unsigned int start, unsigned int end, Accessor &styler, char *s, unsigned int len) {
-	unsigned int i = 0;
+static void GetRange(Sci_PositionU start, Sci_PositionU end, Accessor &styler, char *s, Sci_PositionU len) {
+	Sci_PositionU i = 0;
 	while ((i < end - start + 1) && (i < len-1)) {
 		s[i] = static_cast<char>(styler[start + i]);
 		i++;
@@ -48,7 +48,7 @@ static void GetRange(unsigned int start, unsigned int end, Accessor &styler, cha
 	s[i] = '\0';
 }
 
-static void ColouriseGAPDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[], Accessor &styler) {
+static void ColouriseGAPDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[], Accessor &styler) {
 
 	WordList &keywords1 = *keywordlists[0];
 	WordList &keywords2 = *keywordlists[1];
@@ -197,19 +197,19 @@ static int ClassifyFoldPointGAP(const char* s) {
 	return level;
 }
 
-static void FoldGAPDoc( unsigned int startPos, int length, int initStyle,   WordList** , Accessor &styler) {
-	unsigned int endPos = startPos + length;
+static void FoldGAPDoc( Sci_PositionU startPos, Sci_Position length, int initStyle,   WordList** , Accessor &styler) {
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
 
-	int lastStart = 0;
+	Sci_Position lastStart = 0;
 
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;

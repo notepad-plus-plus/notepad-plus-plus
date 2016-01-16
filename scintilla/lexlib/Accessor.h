@@ -18,14 +18,14 @@ class Accessor;
 class WordList;
 class PropSetSimple;
 
-typedef bool (*PFNIsCommentLeader)(Accessor &styler, int pos, int len);
+typedef bool (*PFNIsCommentLeader)(Accessor &styler, Sci_Position pos, Sci_Position len);
 
 class Accessor : public LexAccessor {
 public:
 	PropSetSimple *pprops;
 	Accessor(IDocument *pAccess_, PropSetSimple *pprops_);
 	int GetPropertyInt(const char *, int defaultValue=0) const;
-	int IndentAmount(int line, int *flags, PFNIsCommentLeader pfnIsCommentLeader = 0);
+	int IndentAmount(Sci_Position line, int *flags, PFNIsCommentLeader pfnIsCommentLeader = 0);
 };
 
 #ifdef SCI_NAMESPACE

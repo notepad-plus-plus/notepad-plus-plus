@@ -69,7 +69,7 @@ using namespace Scintilla;
 
 // Auxiliary functions:
 
-static inline bool endOfLine(Accessor &styler, unsigned int i) {
+static inline bool endOfLine(Accessor &styler, Sci_PositionU i) {
 	return
       (styler[i] == '\n') || ((styler[i] == '\r') && (styler.SafeGetCharAt(i + 1) != '\n')) ;
 }
@@ -122,18 +122,18 @@ static inline bool isTeXseven(int ch) {
 // Interface determination
 
 static int CheckTeXInterface(
-    unsigned int startPos,
-    int length,
+    Sci_PositionU startPos,
+    Sci_Position length,
     Accessor &styler,
 	int defaultInterface) {
 
     char lineBuffer[1024] ;
-	unsigned int linePos = 0 ;
+	Sci_PositionU linePos = 0 ;
 
     // some day we can make something lexer.tex.mapping=(all,0)(nl,1)(en,2)...
 
     if (styler.SafeGetCharAt(0) == '%') {
-        for (unsigned int i = 0; i < startPos + length; i++) {
+        for (Sci_PositionU i = 0; i < startPos + length; i++) {
             lineBuffer[linePos++] = styler.SafeGetCharAt(i) ;
             if (endOfLine(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
                 lineBuffer[linePos] = '\0';
@@ -170,8 +170,8 @@ static int CheckTeXInterface(
 }
 
 static void ColouriseTeXDoc(
-    unsigned int startPos,
-    int length,
+    Sci_PositionU startPos,
+    Sci_Position length,
     int,
     WordList *keywordlists[],
     Accessor &styler) {
@@ -297,9 +297,9 @@ static inline bool isWordChar(int ch) {
 	return ((ch >= 'a') && (ch <= 'z')) || ((ch >= 'A') && (ch <= 'Z'));
 }
 
-static int ParseTeXCommand(unsigned int pos, Accessor &styler, char *command)
+static int ParseTeXCommand(Sci_PositionU pos, Accessor &styler, char *command)
 {
-  int length=0;
+  Sci_Position length=0;
   char ch=styler.SafeGetCharAt(pos+1);
 
   if(ch==',' || ch==':' || ch==';' || ch=='%'){
@@ -362,11 +362,11 @@ static int classifyFoldPointTeXUnpaired(const char* s) {
 	return lev;
 }
 
-static bool IsTeXCommentLine(int line, Accessor &styler) {
-	int pos = styler.LineStart(line);
-	int eol_pos = styler.LineStart(line + 1) - 1;
+static bool IsTeXCommentLine(Sci_Position line, Accessor &styler) {
+	Sci_Position pos = styler.LineStart(line);
+	Sci_Position eol_pos = styler.LineStart(line + 1) - 1;
 
-	int startpos = pos;
+	Sci_Position startpos = pos;
 
 	while (startpos<eol_pos){
 		char ch = styler[startpos];
@@ -380,18 +380,18 @@ static bool IsTeXCommentLine(int line, Accessor &styler) {
 
 // FoldTeXDoc: borrowed from VisualTeX with modifications
 
-static void FoldTexDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler)
+static void FoldTexDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler)
 {
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	unsigned int endPos = startPos+length;
+	Sci_PositionU endPos = startPos+length;
 	int visibleChars=0;
-	int lineCurrent=styler.GetLine(startPos);
+	Sci_Position lineCurrent=styler.GetLine(startPos);
 	int levelPrev=styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent=levelPrev;
 	char chNext=styler[startPos];
 	char buffer[100]="";
 
-	for (unsigned int i=startPos; i < endPos; i++) {
+	for (Sci_PositionU i=startPos; i < endPos; i++) {
 		char ch=chNext;
 		chNext=styler.SafeGetCharAt(i+1);
 		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');

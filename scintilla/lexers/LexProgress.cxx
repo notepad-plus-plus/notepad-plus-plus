@@ -43,7 +43,7 @@ static inline bool IsAWordStart(int ch) {
 
 enum SentenceStart { SetSentenceStart = 0xf, ResetSentenceStart = 0x10}; // true -> bit = 0
 
-static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void Colourise4glDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                             Accessor &styler) {
 
     WordList &keywords1 = *keywordlists[0];   // regular keywords
@@ -205,14 +205,14 @@ static bool IsStreamCommentStyle(int style) {
 // Store both the current line's fold level and the next lines in the
 // level store to make it easy to pick up with each increment
 // and to make it possible to fiddle the current level for "} else {".
-static void FoldNoBox4glDoc(unsigned int startPos, int length, int initStyle,
+static void FoldNoBox4glDoc(Sci_PositionU startPos, Sci_Position length, int initStyle,
                             Accessor &styler) {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	bool foldAtElse = styler.GetPropertyInt("fold.at.else", 0) != 0;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelCurrent = SC_FOLDLEVELBASE;
 	if (lineCurrent > 0)
 		levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
@@ -221,7 +221,7 @@ static void FoldNoBox4glDoc(unsigned int startPos, int length, int initStyle,
 	char chNext = static_cast<char>(tolower(styler[startPos]));
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = static_cast<char>(tolower(styler.SafeGetCharAt(i + 1)));
 		int stylePrev = style;
@@ -265,7 +265,7 @@ static void FoldNoBox4glDoc(unsigned int startPos, int length, int initStyle,
 	}
 }
 
-static void Fold4glDoc(unsigned int startPos, int length, int initStyle, WordList *[],
+static void Fold4glDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[],
                        Accessor &styler) {
 	FoldNoBox4glDoc(startPos, length, initStyle, styler);
 }

@@ -24,9 +24,13 @@
 #         sorted list of lexer properties
 #     propertyDocuments
 #         dictionary of property documentation { name: document string }
+#     sclexFromName
+#         dictionary of SCLEX_* IDs { name: SCLEX_ID }
+#     fileFromSclex
+#         dictionary of file names { SCLEX_ID: file name }
 
 # This file can be run to see the data it provides.
-# Requires Python 2.5 or later
+# Requires Python 2.7 or later
 
 from __future__ import with_statement
 
@@ -36,11 +40,21 @@ import FileGenerator
 
 def FindModules(lexFile):
     modules = []
+    partLine = ""
     with open(lexFile) as f:
         for l in f.readlines():
-            if l.startswith("LexerModule"):
-                l = l.replace("(", " ")
-                modules.append(l.split()[1])
+            l = l.rstrip()
+            if partLine or l.startswith("LexerModule"):
+                if ")" in l:
+                    l = partLine + l
+                    l = l.replace("(", " ")
+                    l = l.replace(")", " ")
+                    l = l.replace(",", " ")
+                    parts = l.split()
+                    modules.append([parts[1], parts[2], parts[4][1:-1]])
+                    partLine = ""
+                else:
+                    partLine = partLine + l
     return modules
 
 # Properties that start with lexer. or fold. are automatically found but there are some
@@ -185,8 +199,14 @@ class ScintillaData:
         self.lexerModules = []
         lexerProperties = set()
         self.propertyDocuments = {}
+        self.sclexFromName = {}
+        self.fileFromSclex = {}
         for lexFile in lexFilePaths:
-            self.lexerModules.extend(FindModules(lexFile))
+            modules = FindModules(lexFile)
+            for module in modules:
+                self.sclexFromName[module[2]] = module[1]
+                self.fileFromSclex[module[1]] = lexFile
+                self.lexerModules.append(module[0])
             for k in FindProperties(lexFile).keys():
                 lexerProperties.add(k)
             documents = FindPropertyDocumentation(lexFile)
@@ -209,6 +229,12 @@ if __name__=="__main__":
         sci.dateModified, sci.yearModified, sci.mdyModified, sci.dmyModified, sci.myModified))
     printWrapped(str(len(sci.lexFiles)) + " lexer files: " + ", ".join(sci.lexFiles))
     printWrapped(str(len(sci.lexerModules)) + " lexer modules: " + ", ".join(sci.lexerModules))
+    print("Lexer name to ID:")
+    lexNames = sorted(sci.sclexFromName.keys())
+    for lexName in lexNames:
+        sclex = sci.sclexFromName[lexName]
+        fileName = os.path.basename(sci.fileFromSclex[sclex])
+        print("    " + lexName + " -> " + sclex + " in " + fileName)
     printWrapped("Lexer properties: " + ", ".join(sci.lexerProperties))
     print("Lexer property documentation:")
     documentProperties = list(sci.propertyDocuments.keys())

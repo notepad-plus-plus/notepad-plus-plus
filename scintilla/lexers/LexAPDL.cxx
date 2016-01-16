@@ -43,7 +43,7 @@ static inline bool IsAnOperator(char ch) {
 	return false;
 }
 
-static void ColouriseAPDLDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseAPDLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                             Accessor &styler) {
 
 	int stringStart = ' ';
@@ -184,16 +184,16 @@ static int CheckAPDLFoldPoint(char const *token, int &level) {
 	return 0;
 }
 
-static void FoldAPDLDoc(unsigned int startPos, int length, int,
+static void FoldAPDLDoc(Sci_PositionU startPos, Sci_Position length, int,
 	WordList *[], Accessor &styler) {
 
-	int line = styler.GetLine(startPos);
+	Sci_Position line = styler.GetLine(startPos);
 	int level = styler.LevelAt(line);
 	int go = 0, done = 0;
-	int endPos = startPos + length;
+	Sci_Position endPos = startPos + length;
 	char word[256];
 	int wordlen = 0;
-	int i;
+	Sci_Position i;
     bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	// Scan for tokens at the start of the line (they may include
 	// whitespace, for tokens like "End Function"

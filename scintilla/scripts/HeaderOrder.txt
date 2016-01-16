@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <memory>
 #include <regex>
+#include <sstream>
 
 // GTK+ headers
 #include <glib.h>
@@ -87,6 +88,7 @@
 // src
 #include "Catalogue.h"
 
+#include "Position.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
 #include "RunStyles.h"

@@ -61,7 +61,7 @@ static inline bool IsSorcusOperator(const int ch)
 }
 
 
-static void ColouriseSorcusDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseSorcusDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                                Accessor &styler)
 {
 

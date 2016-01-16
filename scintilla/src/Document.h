@@ -270,7 +270,7 @@ public:
 
 	void SCI_METHOD SetErrorStatus(int status);
 
-	int SCI_METHOD LineFromPosition(int pos) const;
+	Sci_Position SCI_METHOD LineFromPosition(Sci_Position pos) const;
 	int ClampPositionIntoDocument(int pos) const;
 	bool IsCrLf(int pos) const;
 	int LenChar(int pos);
@@ -278,9 +278,9 @@ public:
 	int MovePositionOutsideChar(int pos, int moveDir, bool checkLineEnd=true) const;
 	int NextPosition(int pos, int moveDir) const;
 	bool NextCharacter(int &pos, int moveDir) const;	// Returns true if pos changed
-	int SCI_METHOD GetRelativePosition(int positionStart, int characterOffset) const;
+	Sci_Position SCI_METHOD GetRelativePosition(Sci_Position positionStart, Sci_Position characterOffset) const;
 	int GetRelativePositionUTF16(int positionStart, int characterOffset) const;
-	int SCI_METHOD GetCharacterAndWidth(int position, int *pWidth) const;
+	int SCI_METHOD GetCharacterAndWidth(Sci_Position position, Sci_Position *pWidth) const;
 	int SCI_METHOD CodePage() const;
 	bool SCI_METHOD IsDBCSLeadByte(char ch) const;
 	int SafeSegment(const char *text, int length, int lengthSegment) const;
@@ -292,7 +292,7 @@ public:
 	bool DeleteChars(int pos, int len);
 	int InsertString(int position, const char *s, int insertLength);
 	void ChangeInsertion(const char *s, int length);
-	int SCI_METHOD AddData(char *data, int length);
+	int SCI_METHOD AddData(char *data, Sci_Position length);
 	void * SCI_METHOD ConvertToDocument();
 	int Undo();
 	int Redo();
@@ -318,7 +318,7 @@ public:
 	const char *RangePointer(int position, int rangeLength) { return cb.RangePointer(position, rangeLength); }
 	int GapPosition() const { return cb.GapPosition(); }
 
-	int SCI_METHOD GetLineIndentation(int line);
+	int SCI_METHOD GetLineIndentation(Sci_Position line);
 	int SetLineIndentation(int line, int indent);
 	int GetLineIndentPosition(int line) const;
 	int GetColumn(int position);
@@ -335,10 +335,10 @@ public:
 	void DelCharBack(int pos);
 
 	char CharAt(int position) const { return cb.CharAt(position); }
-	void SCI_METHOD GetCharRange(char *buffer, int position, int lengthRetrieve) const {
+	void SCI_METHOD GetCharRange(char *buffer, Sci_Position position, Sci_Position lengthRetrieve) const {
 		cb.GetCharRange(buffer, position, lengthRetrieve);
 	}
-	char SCI_METHOD StyleAt(int position) const { return cb.StyleAt(position); }
+	char SCI_METHOD StyleAt(Sci_Position position) const { return cb.StyleAt(position); }
 	void GetStyleRange(unsigned char *buffer, int position, int lengthRetrieve) const {
 		cb.GetStyleRange(buffer, position, lengthRetrieve);
 	}
@@ -350,16 +350,16 @@ public:
 	void DeleteMarkFromHandle(int markerHandle);
 	void DeleteAllMarks(int markerNum);
 	int LineFromHandle(int markerHandle);
-	int SCI_METHOD LineStart(int line) const;
+	Sci_Position SCI_METHOD LineStart(Sci_Position line) const;
 	bool IsLineStartPosition(int position) const;
-	int SCI_METHOD LineEnd(int line) const;
+	Sci_Position SCI_METHOD LineEnd(Sci_Position line) const;
 	int LineEndPosition(int position) const;
 	bool IsLineEndPosition(int position) const;
 	bool IsPositionInLineEnd(int position) const;
 	int VCHomePosition(int position) const;
 
-	int SCI_METHOD SetLevel(int line, int level);
-	int SCI_METHOD GetLevel(int line) const;
+	int SCI_METHOD SetLevel(Sci_Position line, int level);
+	int SCI_METHOD GetLevel(Sci_Position line) const;
 	void ClearLevels();
 	int GetLastChild(int lineParent, int level=-1, int lastLine=-1);
 	int GetFoldParent(int line) const;
@@ -369,7 +369,7 @@ public:
 	int ExtendWordSelect(int pos, int delta, bool onlyWordCharacters=false);
 	int NextWordStart(int pos, int delta);
 	int NextWordEnd(int pos, int delta);
-	int SCI_METHOD Length() const { return cb.Length(); }
+	Sci_Position SCI_METHOD Length() const { return cb.Length(); }
 	void Allocate(int newSize) { cb.Allocate(newSize); }
 
 	struct CharacterExtracted {
@@ -381,20 +381,23 @@ public:
 	};
 	CharacterExtracted ExtractCharacter(int position) const;
 
+	bool IsWordStartAt(int pos) const;
+	bool IsWordEndAt(int pos) const;
+	bool IsWordAt(int start, int end) const;
+
 	bool MatchesWordOptions(bool word, bool wordStart, int pos, int length) const;
 	bool HasCaseFolder(void) const;
 	void SetCaseFolder(CaseFolder *pcf_);
-	long FindText(int minPos, int maxPos, const char *search, bool caseSensitive, bool word,
-		bool wordStart, bool regExp, int flags, int *length);
+	long FindText(int minPos, int maxPos, const char *search, int flags, int *length);
 	const char *SubstituteByPosition(const char *text, int *length);
 	int LinesTotal() const;
 
 	void SetDefaultCharClasses(bool includeWordClass);
 	void SetCharClasses(const unsigned char *chars, CharClassify::cc newCharClass);
 	int GetCharsOfClass(CharClassify::cc characterClass, unsigned char *buffer);
-	void SCI_METHOD StartStyling(int position, char mask);
-	bool SCI_METHOD SetStyleFor(int length, char style);
-	bool SCI_METHOD SetStyles(int length, const char *styles);
+	void SCI_METHOD StartStyling(Sci_Position position, char mask);
+	bool SCI_METHOD SetStyleFor(Sci_Position length, char style);
+	bool SCI_METHOD SetStyles(Sci_Position length, const char *styles);
 	int GetEndStyled() const { return endStyled; }
 	void EnsureStyledTo(int pos);
 	void LexerChanged();
@@ -403,12 +406,12 @@ public:
 	void SCI_METHOD DecorationSetCurrentIndicator(int indicator) {
 		decorations.SetCurrentIndicator(indicator);
 	}
-	void SCI_METHOD DecorationFillRange(int position, int value, int fillLength);
+	void SCI_METHOD DecorationFillRange(Sci_Position position, int value, Sci_Position fillLength);
 
-	int SCI_METHOD SetLineState(int line, int state);
-	int SCI_METHOD GetLineState(int line) const;
+	int SCI_METHOD SetLineState(Sci_Position line, int state);
+	int SCI_METHOD GetLineState(Sci_Position line) const;
 	int GetMaxLineState();
-	void SCI_METHOD ChangeLexerState(int start, int end);
+	void SCI_METHOD ChangeLexerState(Sci_Position start, Sci_Position end);
 
 	StyledText MarginStyledText(int line) const;
 	void MarginSetStyle(int line, int style);
@@ -438,10 +441,6 @@ public:
 	int BraceMatch(int position, int maxReStyle);
 
 private:
-	bool IsWordStartAt(int pos) const;
-	bool IsWordEndAt(int pos) const;
-	bool IsWordAt(int start, int end) const;
-
 	void NotifyModifyAttempt();
 	void NotifySavePoint(bool atSavePoint);
 	void NotifyModified(DocModification mh);

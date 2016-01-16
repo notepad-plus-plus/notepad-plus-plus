@@ -91,13 +91,13 @@ public:
     const char * SCI_METHOD DescribeProperty(const char *name) {
         return osVisualProlog.DescribeProperty(name);
     }
-    int SCI_METHOD PropertySet(const char *key, const char *val);
+    Sci_Position SCI_METHOD PropertySet(const char *key, const char *val);
     const char * SCI_METHOD DescribeWordListSets() {
         return osVisualProlog.DescribeWordListSets();
     }
-    int SCI_METHOD WordListSet(int n, const char *wl);
-    void SCI_METHOD Lex(unsigned int startPos, int length, int initStyle, IDocument *pAccess);
-    void SCI_METHOD Fold(unsigned int startPos, int length, int initStyle, IDocument *pAccess);
+    Sci_Position SCI_METHOD WordListSet(int n, const char *wl);
+    void SCI_METHOD Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess);
+    void SCI_METHOD Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess);
 
     void * SCI_METHOD PrivateCall(int, void *) {
         return 0;
@@ -108,14 +108,14 @@ public:
     }
 };
 
-int SCI_METHOD LexerVisualProlog::PropertySet(const char *key, const char *val) {
+Sci_Position SCI_METHOD LexerVisualProlog::PropertySet(const char *key, const char *val) {
     if (osVisualProlog.PropertySet(&options, key, val)) {
         return 0;
     }
     return -1;
 }
 
-int SCI_METHOD LexerVisualProlog::WordListSet(int n, const char *wl) {
+Sci_Position SCI_METHOD LexerVisualProlog::WordListSet(int n, const char *wl) {
     WordList *wordListN = 0;
     switch (n) {
     case 0:
@@ -131,7 +131,7 @@ int SCI_METHOD LexerVisualProlog::WordListSet(int n, const char *wl) {
         wordListN = &docKeywords;
         break;
     }
-    int firstModification = -1;
+    Sci_Position firstModification = -1;
     if (wordListN) {
         WordList wlNew;
         wlNew.Set(wl);
@@ -145,8 +145,8 @@ int SCI_METHOD LexerVisualProlog::WordListSet(int n, const char *wl) {
 
 // Functor used to truncate history
 struct After {
-    int line;
-    After(int line_) : line(line_) {}
+    Sci_Position line;
+    After(Sci_Position line_) : line(line_) {}
 };
 
 static bool isLowerLetter(int ch){
@@ -208,13 +208,13 @@ static bool isOpenStringVerbatim(int next, int &closingQuote){
 }
 
 // Look ahead to see which colour "end" should have (takes colour after the following keyword)
-static void endLookAhead(char s[], LexAccessor &styler, int start) {
+static void endLookAhead(char s[], LexAccessor &styler, Sci_Position start) {
     char ch = styler.SafeGetCharAt(start, '\n');
     while (' ' == ch) {
         start++;
         ch = styler.SafeGetCharAt(start, '\n');
     }
-    int i = 0;
+    Sci_Position i = 0;
     while (i < 100 && isLowerLetter(ch)){
         s[i] = ch;
         i++;
@@ -244,7 +244,7 @@ static void forwardEscapeLiteral(StyleContext &sc, int EscapeState) {
     }
 }
 
-void SCI_METHOD LexerVisualProlog::Lex(unsigned int startPos, int length, int initStyle, IDocument *pAccess) {
+void SCI_METHOD LexerVisualProlog::Lex(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
     LexAccessor styler(pAccess);
     CharacterSet setDoxygen(CharacterSet::setAlpha, "");
     CharacterSet setNumber(CharacterSet::setNone, "+-.0123456789abcdefABCDEFxoXO");
@@ -252,7 +252,7 @@ void SCI_METHOD LexerVisualProlog::Lex(unsigned int startPos, int length, int in
     StyleContext sc(startPos, length, initStyle, styler, 0x7f);
 
     int styleBeforeDocKeyword = SCE_VISUALPROLOG_DEFAULT;
-    int currentLine = styler.GetLine(startPos);
+    Sci_Position currentLine = styler.GetLine(startPos);
 
     int closingQuote = '"';
     int nestLevel = 0;
@@ -446,13 +446,13 @@ void SCI_METHOD LexerVisualProlog::Lex(unsigned int startPos, int length, int in
 // level store to make it easy to pick up with each increment
 // and to make it possible to fiddle the current level for "} else {".
 
-void SCI_METHOD LexerVisualProlog::Fold(unsigned int startPos, int length, int initStyle, IDocument *pAccess) {
+void SCI_METHOD LexerVisualProlog::Fold(Sci_PositionU startPos, Sci_Position length, int initStyle, IDocument *pAccess) {
 
     LexAccessor styler(pAccess);
 
-    unsigned int endPos = startPos + length;
+    Sci_PositionU endPos = startPos + length;
     int visibleChars = 0;
-    int currentLine = styler.GetLine(startPos);
+    Sci_Position currentLine = styler.GetLine(startPos);
     int levelCurrent = SC_FOLDLEVELBASE;
     if (currentLine > 0)
         levelCurrent = styler.LevelAt(currentLine-1) >> 16;
@@ -461,7 +461,7 @@ void SCI_METHOD LexerVisualProlog::Fold(unsigned int startPos, int length, int i
     char chNext = styler[startPos];
     int styleNext = styler.StyleAt(startPos);
     int style = initStyle;
-    for (unsigned int i = startPos; i < endPos; i++) {
+    for (Sci_PositionU i = startPos; i < endPos; i++) {
         char ch = chNext;
         chNext = styler.SafeGetCharAt(i + 1);
         style = styleNext;
@@ -492,7 +492,7 @@ void SCI_METHOD LexerVisualProlog::Fold(unsigned int startPos, int length, int i
             currentLine++;
             levelCurrent = levelNext;
             levelMinCurrent = levelCurrent;
-            if (atEOL && (i == static_cast<unsigned int>(styler.Length()-1))) {
+            if (atEOL && (i == static_cast<Sci_PositionU>(styler.Length()-1))) {
                 // There is an empty line at end of file so give it same level and empty
                 styler.SetLevel(currentLine, (levelCurrent | levelCurrent << 16) | SC_FOLDLEVELWHITEFLAG);
             }

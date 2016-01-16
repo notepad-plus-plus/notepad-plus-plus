@@ -64,8 +64,8 @@ static inline bool IsABase85Char(const int ch) {
 }
 
 static void ColourisePSDoc(
-    unsigned int startPos,
-    int length,
+    Sci_PositionU startPos,
+    Sci_Position length,
     int initStyle,
     WordList *keywordlists[],
     Accessor &styler) {
@@ -79,7 +79,7 @@ static void ColourisePSDoc(
     StyleContext sc(startPos, length, initStyle, styler);
 
     int pslevel = styler.GetPropertyInt("ps.level", 3);
-    int lineCurrent = styler.GetLine(startPos);
+    Sci_Position lineCurrent = styler.GetLine(startPos);
     int nestTextCurrent = 0;
     if (lineCurrent > 0 && initStyle == SCE_PS_TEXT)
         nestTextCurrent = styler.GetLineState(lineCurrent - 1);
@@ -266,13 +266,13 @@ static void ColourisePSDoc(
     sc.Complete();
 }
 
-static void FoldPSDoc(unsigned int startPos, int length, int, WordList *[],
+static void FoldPSDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[],
                        Accessor &styler) {
     bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
     bool foldAtElse = styler.GetPropertyInt("fold.at.else", 0) != 0;
-    unsigned int endPos = startPos + length;
+    Sci_PositionU endPos = startPos + length;
     int visibleChars = 0;
-    int lineCurrent = styler.GetLine(startPos);
+    Sci_Position lineCurrent = styler.GetLine(startPos);
     int levelCurrent = SC_FOLDLEVELBASE;
     if (lineCurrent > 0)
         levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
@@ -280,7 +280,7 @@ static void FoldPSDoc(unsigned int startPos, int length, int, WordList *[],
     int levelNext = levelCurrent;
     char chNext = styler[startPos];
     int styleNext = styler.StyleAt(startPos);
-    for (unsigned int i = startPos; i < endPos; i++) {
+    for (Sci_PositionU i = startPos; i < endPos; i++) {
         char ch = chNext;
         chNext = styler.SafeGetCharAt(i + 1);
         int style = styleNext;

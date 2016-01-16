@@ -159,6 +159,7 @@ enu WhiteSpace=SCWS_
 val SCWS_INVISIBLE=0
 val SCWS_VISIBLEALWAYS=1
 val SCWS_VISIBLEAFTERINDENT=2
+val SCWS_VISIBLEONLYININDENT=3
 
 # Are white space characters currently visible?
 # Returns one of SCWS_* constants.
@@ -417,6 +418,7 @@ val SC_CHARSET_HANGUL=129
 val SC_CHARSET_MAC=77
 val SC_CHARSET_OEM=255
 val SC_CHARSET_RUSSIAN=204
+val SC_CHARSET_OEM866=866
 val SC_CHARSET_CYRILLIC=1251
 val SC_CHARSET_SHIFTJIS=128
 val SC_CHARSET_SYMBOL=2
@@ -462,6 +464,7 @@ enu CaseVisible=SC_CASE_
 val SC_CASE_MIXED=0
 val SC_CASE_UPPER=1
 val SC_CASE_LOWER=2
+val SC_CASE_CAMEL=3
 
 # Get the foreground colour of a style.
 get colour StyleGetFore=2481(int style,)
@@ -1069,6 +1072,12 @@ fun void SetTargetRange=2686(position start, position end)
 # Retrieve the text in the target.
 get int GetTargetText=2687(, stringresult characters)
 
+# Make the target range start and end be the same as the selection range start and end.
+fun void TargetFromSelection=2287(,)
+
+# Sets the target to the whole document.
+fun void TargetWholeDocument=2690(,)
+
 # Replace the target text with the argument text.
 # Text is counted so it can contain NULs.
 # Returns the length of the replacement text.
@@ -1248,6 +1257,9 @@ fun int WordStartPosition=2266(position pos, bool onlyWordCharacters)
 # Get position of end of word.
 fun int WordEndPosition=2267(position pos, bool onlyWordCharacters)
 
+# Is the range start..end considered a word?
+fun bool IsRangeWord=2691(position start, position end)
+
 enu Wrap=SC_WRAP_
 val SC_WRAP_NONE=0
 val SC_WRAP_WORD=1
@@ -1402,9 +1414,6 @@ get int GetMultiPaste=2615(,)
 # Retrieve the value of a tag from a regular expression search.
 # Result is NUL-terminated.
 get int GetTag=2616(int tagNumber, stringresult tagValue)
-
-# Make the target range start and end be the same as the selection range start and end.
-fun void TargetFromSelection=2287(,)
 
 # Join the lines in the target.
 fun void LinesJoin=2288(,)
@@ -1785,7 +1794,7 @@ val CARET_STRICT=0x04
 val CARET_JUMPS=0x10
 # If CARET_EVEN is not set, instead of having symmetrical UZs,
 # the left and bottom UZs are extended up to right and top UZs respectively.
-# This way, we favour the displaying of useful information: the begining of lines,
+# This way, we favour the displaying of useful information: the beginning of lines,
 # where most code reside, and the lines after the caret, eg. the body of a function.
 val CARET_EVEN=0x08
 
@@ -2350,6 +2359,14 @@ fun void RotateSelection=2606(,)
 # Swap that caret and anchor of the main selection.
 fun void SwapMainAnchorCaret=2607(,)
 
+# Add the next occurrence of the main selection to the set of selections as main.
+# If the current selection is empty then select word around caret.
+fun void MultipleSelectAddNext=2688(,)
+
+# Add each occurrence of the main selection in the target to the set of selections.
+# If the current selection is empty then select word around caret.
+fun void MultipleSelectAddEach=2689(,)
+
 # Indicate that the internal state of a lexer has changed over a range and therefore
 # there may be a need to redraw.
 fun int ChangeLexerState=2617(position start, position end)
@@ -2642,6 +2659,13 @@ val SCMOD_ALT=4
 val SCMOD_SUPER=8
 val SCMOD_META=16
 
+enu CompletionMethods=SC_AC_
+val SC_AC_FILLUP=1
+val SC_AC_DOUBLECLICK=2
+val SC_AC_TAB=3
+val SC_AC_NEWLINE=4
+val SC_AC_COMMAND=5
+
 ################################################
 # For SciLexer.h
 enu Lexer=SCLEX_
@@ -2786,9 +2810,12 @@ val SCE_P_COMMENTBLOCK=12
 val SCE_P_STRINGEOL=13
 val SCE_P_WORD2=14
 val SCE_P_DECORATOR=15
-# Lexical states for SCLEX_CPP
+# Lexical states for SCLEX_CPP, SCLEX_BULLANT, SCLEX_COBOL, SCLEX_TACL, SCLEX_TAL
 lex Cpp=SCLEX_CPP SCE_C_
 lex BullAnt=SCLEX_BULLANT SCE_C_
+lex COBOL=SCLEX_COBOL SCE_C_
+lex TACL=SCLEX_TACL SCE_C_
+lex TAL=SCLEX_TAL SCE_C_
 val SCE_C_DEFAULT=0
 val SCE_C_COMMENT=1
 val SCE_C_COMMENTLINE=2
@@ -3075,10 +3102,13 @@ val SCE_RB_STDIN=30
 val SCE_RB_STDOUT=31
 val SCE_RB_STDERR=40
 val SCE_RB_UPPER_BOUND=41
-# Lexical states for SCLEX_VB, SCLEX_VBSCRIPT, SCLEX_POWERBASIC
+# Lexical states for SCLEX_VB, SCLEX_VBSCRIPT, SCLEX_POWERBASIC, SCLEX_BLITZBASIC, SCLEX_PUREBASIC, SCLEX_FREEBASIC
 lex VB=SCLEX_VB SCE_B_
 lex VBScript=SCLEX_VBSCRIPT SCE_B_
 lex PowerBasic=SCLEX_POWERBASIC SCE_B_
+lex BlitzBasic=SCLEX_BLITZBASIC SCE_B_
+lex PureBasic=SCLEX_PUREBASIC SCE_B_
+lex FreeBasic=SCLEX_FREEBASIC SCE_B_
 val SCE_B_DEFAULT=0
 val SCE_B_COMMENT=1
 val SCE_B_NUMBER=2
@@ -3173,6 +3203,24 @@ val SCE_ERR_TIDY=19
 val SCE_ERR_JAVA_STACK=20
 val SCE_ERR_VALUE=21
 val SCE_ERR_GCC_INCLUDED_FROM=22
+val SCE_ERR_ESCSEQ=23
+val SCE_ERR_ESCSEQ_UNKNOWN=24
+val SCE_ERR_ES_BLACK=40
+val SCE_ERR_ES_RED=41
+val SCE_ERR_ES_GREEN=42
+val SCE_ERR_ES_BROWN=43
+val SCE_ERR_ES_BLUE=44
+val SCE_ERR_ES_MAGENTA=45
+val SCE_ERR_ES_CYAN=46
+val SCE_ERR_ES_GRAY=47
+val SCE_ERR_ES_DARK_GRAY=48
+val SCE_ERR_ES_BRIGHT_RED=49
+val SCE_ERR_ES_BRIGHT_GREEN=50
+val SCE_ERR_ES_YELLOW=51
+val SCE_ERR_ES_BRIGHT_BLUE=52
+val SCE_ERR_ES_BRIGHT_MAGENTA=53
+val SCE_ERR_ES_BRIGHT_CYAN=54
+val SCE_ERR_ES_WHITE=55
 # Lexical states for SCLEX_BATCH
 lex Batch=SCLEX_BATCH SCE_BAT_
 val SCE_BAT_DEFAULT=0
@@ -4387,6 +4435,7 @@ val SCE_COFFEESCRIPT_TRIPLEVERBATIM=21
 val SCE_COFFEESCRIPT_COMMENTBLOCK=22
 val SCE_COFFEESCRIPT_VERBOSE_REGEX=23
 val SCE_COFFEESCRIPT_VERBOSE_REGEX_COMMENT=24
+val SCE_COFFEESCRIPT_INSTANCEPROPERTY=25
 # Lexical states for SCLEX_AVS
 lex AVS=SCLEX_AVS SCE_AVS_
 val SCE_AVS_DEFAULT=0
@@ -4633,7 +4682,7 @@ evt void MacroRecord=2009(int message, int wParam, int lParam)
 evt void MarginClick=2010(int modifiers, int position, int margin)
 evt void NeedShown=2011(int position, int length)
 evt void Painted=2013(void)
-evt void UserListSelection=2014(int listType, string text, int position)
+evt void UserListSelection=2014(int listType, string text, int positionint, int ch, CompletionMethods listCompletionMethod)
 evt void URIDropped=2015(string text)
 evt void DwellStart=2016(int position, int x, int y)
 evt void DwellEnd=2017(int position, int x, int y)
@@ -4641,7 +4690,7 @@ evt void Zoom=2018(void)
 evt void HotSpotClick=2019(int modifiers, int position)
 evt void HotSpotDoubleClick=2020(int modifiers, int position)
 evt void CallTipClick=2021(int position)
-evt void AutoCSelection=2022(string text, int position)
+evt void AutoCSelection=2022(string text, int position, int ch, CompletionMethods listCompletionMethod)
 evt void IndicatorClick=2023(int modifiers, int position)
 evt void IndicatorRelease=2024(int modifiers, int position)
 evt void AutoCCancelled=2025(void)
@@ -4649,6 +4698,7 @@ evt void AutoCCharDeleted=2026(void)
 evt void HotSpotReleaseClick=2027(int modifiers, int position)
 evt void FocusIn=2028(void)
 evt void FocusOut=2029(void)
+evt void AutoCCompleted=2030(string text, int position, int ch, CompletionMethods listCompletionMethod)
 
 # There are no provisional features currently
 

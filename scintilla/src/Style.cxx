@@ -7,6 +7,8 @@
 
 #include <string.h>
 
+#include <stdexcept>
+
 #include "Platform.h"
 
 #include "Scintilla.h"

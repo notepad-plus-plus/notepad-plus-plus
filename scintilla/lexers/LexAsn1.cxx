@@ -47,7 +47,7 @@ static bool isAsn1Char(int ch)
 //	Function determining the color of a given code portion
 //	Based on a "state"
 //
-static void ColouriseAsn1Doc(unsigned int startPos, int length, int initStyle, WordList *keywordLists[], Accessor &styler)
+static void ColouriseAsn1Doc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordLists[], Accessor &styler)
 {
 	// The keywords
 	WordList &Keywords = *keywordLists[0];
@@ -168,7 +168,7 @@ asn1_default:
 	sc.Complete();
 }
 
-static void FoldAsn1Doc(unsigned int, int, int, WordList *[], Accessor &styler)
+static void FoldAsn1Doc(Sci_PositionU, Sci_Position, int, WordList *[], Accessor &styler)
 {
 	// No folding enabled, no reason to continue...
 	if( styler.GetPropertyInt("fold") == 0 )

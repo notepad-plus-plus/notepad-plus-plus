@@ -85,6 +85,9 @@ public:
 	/// copy exisiting contents to the new buffer.
 	/// Must not be used to decrease the size of the buffer.
 	void ReAllocate(int newSize) {
+		if (newSize < 0)
+			throw std::runtime_error("SplitVector::ReAllocate: negative size.");
+
 		if (newSize > size) {
 			// Move the gap to the end
 			GapTo(lengthBody);

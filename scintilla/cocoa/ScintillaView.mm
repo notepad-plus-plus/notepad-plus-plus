@@ -241,6 +241,11 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor)
  */
 - (void) viewWillDraw
 {
+  if (!mOwner) {
+    [super viewWillDraw];
+    return;
+  }
+
   const NSRect *rects;
   NSInteger nRects = 0;
   [self getRectsBeingDrawn:&rects count:&nRects];
@@ -261,7 +266,8 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor)
  */
 - (void) prepareContentInRect: (NSRect) rect
 {
-  mOwner.backend->WillDraw(rect);
+  if (mOwner)
+    mOwner.backend->WillDraw(rect);
 #if MAC_OS_X_VERSION_MAX_ALLOWED > 1080
   [super prepareContentInRect: rect];
 #endif
@@ -404,6 +410,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor)
 
 - (NSRect) firstRectForCharacterRange: (NSRange) aRange actualRange: (NSRangePointer) actualRange
 {
+#pragma unused(actualRange)
   const NSRange posRange = mOwner.backend->PositionsFromCharacters(aRange);
 
   NSRect rect;
@@ -694,6 +701,8 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor)
  */
 - (NSRect)adjustScroll:(NSRect)proposedVisibleRect
 {
+  if (!mOwner)
+    return proposedVisibleRect;
   NSRect rc = proposedVisibleRect;
   // Snap to lines
   NSRect contentRect = [self bounds];
@@ -737,6 +746,7 @@ static NSCursor *cursorFromEnum(Window::Cursor cursor)
 - (NSDragOperation)draggingSession: (NSDraggingSession *) session
 sourceOperationMaskForDraggingContext: (NSDraggingContext) context
 {
+#pragma unused(session)
   switch(context)
   {
     case NSDraggingContextOutsideApplication:
@@ -751,12 +761,14 @@ sourceOperationMaskForDraggingContext: (NSDraggingContext) context
 - (void)draggingSession:(NSDraggingSession *)session
            movedToPoint:(NSPoint)screenPoint
 {
+#pragma unused(session, screenPoint)
 }
 
 - (void)draggingSession:(NSDraggingSession *)session
            endedAtPoint:(NSPoint)screenPoint
               operation:(NSDragOperation)operation
 {
+#pragma unused(session, screenPoint)
   if (operation == NSDragOperationDelete)
   {
     mOwner.backend->WndProc(SCI_CLEAR, 0, 0);
@@ -1192,6 +1204,11 @@ sourceOperationMaskForDraggingContext: (NSDraggingContext) context
                    name:NSApplicationDidBecomeActiveNotification
                  object:nil];
 
+    [center addObserver:self
+               selector:@selector(windowWillMove:)
+                   name:NSWindowWillMoveNotification
+                 object:[self window]];
+    
     [[scrollView contentView] setPostsBoundsChangedNotifications:YES];
     [center addObserver:self
 	       selector:@selector(scrollerAction:)
@@ -1207,6 +1224,9 @@ sourceOperationMaskForDraggingContext: (NSDraggingContext) context
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   delete mBackend;
+  mBackend = NULL;
+  mContent.owner = nil;
+  [scrollView removeFromSuperview];
   [marginView release];
   [super dealloc];
 }
@@ -1223,6 +1243,13 @@ sourceOperationMaskForDraggingContext: (NSDraggingContext) context
 - (void) applicationDidBecomeActive: (NSNotification *)note {
 #pragma unused(note)
     mBackend->ActiveStateChanged(true);
+}
+
+//--------------------------------------------------------------------------------------------------
+
+- (void) windowWillMove: (NSNotification *)note {
+#pragma unused(note)
+  mBackend->WindowWillMove();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1298,6 +1325,7 @@ sourceOperationMaskForDraggingContext: (NSDraggingContext) context
  */
 - (void) scrollerAction: (id) sender
 {
+#pragma unused(sender)
   mBackend->UpdateForScroll();
 }
 

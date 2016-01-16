@@ -27,6 +27,7 @@
 #include "Scintilla.h"
 #include "Platform.h"
 #include "ILexer.h"
+#include "Position.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
 #include "RunStyles.h"

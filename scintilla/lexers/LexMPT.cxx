@@ -80,7 +80,7 @@ static int GetLotLineState(std::string &line) {
 	}
 }
 
-static void ColourizeLotDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler) {
+static void ColourizeLotDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
 	bool atLineStart = true;// Arms the 'at line start' flag
@@ -89,7 +89,7 @@ static void ColourizeLotDoc(unsigned int startPos, int length, int, WordList *[]
 	line.reserve(256);	// Lot lines are less than 256 chars long most of the time. This should avoid reallocations
 
 	// Styles LOT document
-	unsigned int i;			// Declared here because it's used after the for loop
+	Sci_PositionU i;			// Declared here because it's used after the for loop
 	for (i = startPos; i < startPos + length; ++i) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
@@ -118,11 +118,11 @@ static void ColourizeLotDoc(unsigned int startPos, int length, int, WordList *[]
 // sections (headed by a set line)
 // passes (contiguous pass results within a section)
 // fails (contiguous fail results within a section)
-static void FoldLotDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler) {
+static void FoldLotDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[], Accessor &styler) {
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 0) != 0;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 
 	char chNext = styler.SafeGetCharAt(startPos);
 	int style = SCE_LOT_DEFAULT;
@@ -133,7 +133,7 @@ static void FoldLotDoc(unsigned int startPos, int length, int, WordList *[], Acc
 	if (startPos > 1)
 		style = styler.StyleAt(startPos - 2);
 
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 

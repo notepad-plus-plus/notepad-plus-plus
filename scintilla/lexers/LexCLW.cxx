@@ -142,12 +142,12 @@ inline bool SetNumericConstantState(StyleContext &scDoc) {
 }
 
 // Get the next word in uppercase from the current position (keyword lookahead)
-inline bool GetNextWordUpper(Accessor &styler, unsigned int uiStartPos, int iLength, char *cWord) {
+inline bool GetNextWordUpper(Accessor &styler, Sci_PositionU uiStartPos, Sci_Position iLength, char *cWord) {
 
-	unsigned int iIndex = 0;		// Buffer Index
+	Sci_PositionU iIndex = 0;		// Buffer Index
 
 	// Loop through the remaining string from the current position
-	for (int iOffset = uiStartPos; iOffset < iLength; iOffset++) {
+	for (Sci_Position iOffset = uiStartPos; iOffset < iLength; iOffset++) {
 		// Get the character from the buffer using the offset
 		char cCharacter = styler[iOffset];
 		if (IsEOL(cCharacter)) {
@@ -174,7 +174,7 @@ inline bool GetNextWordUpper(Accessor &styler, unsigned int uiStartPos, int iLen
 }
 
 // Clarion Language Colouring Procedure
-static void ColouriseClarionDoc(unsigned int uiStartPos, int iLength, int iInitStyle, WordList *wlKeywords[], Accessor &accStyler, bool bCaseSensitive) {
+static void ColouriseClarionDoc(Sci_PositionU uiStartPos, Sci_Position iLength, int iInitStyle, WordList *wlKeywords[], Accessor &accStyler, bool bCaseSensitive) {
 
 	int iParenthesesLevel = 0;		// Parenthese Level
 	int iColumn1Label = false;		// Label starts in Column 1
@@ -521,22 +521,22 @@ static void ColouriseClarionDoc(unsigned int uiStartPos, int iLength, int iInitS
 }
 
 // Clarion Language Case Sensitive Colouring Procedure
-static void ColouriseClarionDocSensitive(unsigned int uiStartPos, int iLength, int iInitStyle, WordList *wlKeywords[], Accessor &accStyler) {
+static void ColouriseClarionDocSensitive(Sci_PositionU uiStartPos, Sci_Position iLength, int iInitStyle, WordList *wlKeywords[], Accessor &accStyler) {
 
 	ColouriseClarionDoc(uiStartPos, iLength, iInitStyle, wlKeywords, accStyler, true);
 }
 
 // Clarion Language Case Insensitive Colouring Procedure
-static void ColouriseClarionDocInsensitive(unsigned int uiStartPos, int iLength, int iInitStyle, WordList *wlKeywords[], Accessor &accStyler) {
+static void ColouriseClarionDocInsensitive(Sci_PositionU uiStartPos, Sci_Position iLength, int iInitStyle, WordList *wlKeywords[], Accessor &accStyler) {
 
 	ColouriseClarionDoc(uiStartPos, iLength, iInitStyle, wlKeywords, accStyler, false);
 }
 
 // Fill Buffer
 
-static void FillBuffer(unsigned int uiStart, unsigned int uiEnd, Accessor &accStyler, char *szBuffer, unsigned int uiLength) {
+static void FillBuffer(Sci_PositionU uiStart, Sci_PositionU uiEnd, Accessor &accStyler, char *szBuffer, Sci_PositionU uiLength) {
 
-	unsigned int uiPos = 0;
+	Sci_PositionU uiPos = 0;
 
 	while ((uiPos < uiEnd - uiStart + 1) && (uiPos < uiLength-1)) {
 		szBuffer[uiPos] = static_cast<char>(toupper(accStyler[uiStart + uiPos]));
@@ -599,19 +599,19 @@ static int ClassifyClarionFoldPoint(int iLevel, const char* szString) {
 }
 
 // Clarion Language Folding Procedure
-static void FoldClarionDoc(unsigned int uiStartPos, int iLength, int iInitStyle, WordList *[], Accessor &accStyler) {
+static void FoldClarionDoc(Sci_PositionU uiStartPos, Sci_Position iLength, int iInitStyle, WordList *[], Accessor &accStyler) {
 
-	unsigned int uiEndPos = uiStartPos + iLength;
-	int iLineCurrent = accStyler.GetLine(uiStartPos);
+	Sci_PositionU uiEndPos = uiStartPos + iLength;
+	Sci_Position iLineCurrent = accStyler.GetLine(uiStartPos);
 	int iLevelPrev = accStyler.LevelAt(iLineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int iLevelCurrent = iLevelPrev;
 	char chNext = accStyler[uiStartPos];
 	int iStyle = iInitStyle;
 	int iStyleNext = accStyler.StyleAt(uiStartPos);
 	int iVisibleChars = 0;
-	int iLastStart = 0;
+	Sci_Position iLastStart = 0;
 
-	for (unsigned int uiPos = uiStartPos; uiPos < uiEndPos; uiPos++) {
+	for (Sci_PositionU uiPos = uiStartPos; uiPos < uiEndPos; uiPos++) {
 
 		char chChar = chNext;
 		chNext = accStyler.SafeGetCharAt(uiPos + 1);

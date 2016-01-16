@@ -53,8 +53,8 @@ static inline bool IsANumberChar(int ch) {
 }
 
 static void ColourisePovDoc(
-	unsigned int startPos,
-	int length,
+	Sci_PositionU startPos,
+	Sci_Position length,
 	int initStyle,
 	WordList *keywordlists[],
     Accessor &styler) {
@@ -68,7 +68,7 @@ static void ColourisePovDoc(
 	WordList &keywords7 = *keywordlists[6];
 	WordList &keywords8 = *keywordlists[7];
 
-	int currentLine = styler.GetLine(startPos);
+	Sci_Position currentLine = styler.GetLine(startPos);
 	// Initialize the block comment /* */ nesting level, if we are inside such a comment.
 	int blockCommentLevel = 0;
 	if (initStyle == SCE_POV_COMMENT) {
@@ -226,8 +226,8 @@ static void ColourisePovDoc(
 }
 
 static void FoldPovDoc(
-	unsigned int startPos,
-	int length,
+	Sci_PositionU startPos,
+	Sci_Position length,
 	int initStyle,
 	WordList *[],
 	Accessor &styler) {
@@ -235,15 +235,15 @@ static void FoldPovDoc(
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldDirective = styler.GetPropertyInt("fold.directive") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;
@@ -270,7 +270,7 @@ static void FoldPovDoc(
 		}
 		if (foldDirective && (style == SCE_POV_DIRECTIVE)) {
 			if (ch == '#') {
-				unsigned int j=i+1;
+				Sci_PositionU j=i+1;
 				while ((j<endPos) && IsASpaceOrTab(styler.SafeGetCharAt(j))) {
 					j++;
 				}

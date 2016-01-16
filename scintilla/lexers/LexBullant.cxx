@@ -23,10 +23,10 @@
 using namespace Scintilla;
 #endif
 
-static int classifyWordBullant(unsigned int start, unsigned int end, WordList &keywords, Accessor &styler) {
+static int classifyWordBullant(Sci_PositionU start, Sci_PositionU end, WordList &keywords, Accessor &styler) {
 	char s[100];
 	s[0] = '\0';
-	for (unsigned int i = 0; i < end - start + 1 && i < 30; i++) {
+	for (Sci_PositionU i = 0; i < end - start + 1 && i < 30; i++) {
 		s[i] = static_cast<char>(tolower(styler[start + i]));
 		s[i + 1] = '\0';
 	}
@@ -58,14 +58,14 @@ static int classifyWordBullant(unsigned int start, unsigned int end, WordList &k
 	return lev;
 }
 
-static void ColouriseBullantDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseBullantDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
 	Accessor &styler) {
 	WordList &keywords = *keywordlists[0];
 
 	styler.StartAt(startPos);
 
 	bool fold = styler.GetPropertyInt("fold") != 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 
@@ -74,11 +74,11 @@ static void ColouriseBullantDoc(unsigned int startPos, int length, int initStyle
 		state = SCE_C_DEFAULT;
 	char chPrev = ' ';
 	char chNext = styler[startPos];
-	unsigned int lengthDoc = startPos + length;
+	Sci_PositionU lengthDoc = startPos + length;
 	int visibleChars = 0;
 	styler.StartSegment(startPos);
 	int endFoundThisLine = 0;
-	for (unsigned int i = startPos; i < lengthDoc; i++) {
+	for (Sci_PositionU i = startPos; i < lengthDoc; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 

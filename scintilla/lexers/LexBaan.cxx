@@ -36,7 +36,7 @@ static inline bool IsAWordStart(const int ch) {
 	return (ch < 0x80) && (isalnum(ch) || ch == '_');
 }
 
-static void ColouriseBaanDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseBaanDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                             Accessor &styler) {
 
 	WordList &keywords = *keywordlists[0];
@@ -137,19 +137,19 @@ static void ColouriseBaanDoc(unsigned int startPos, int length, int initStyle, W
 	sc.Complete();
 }
 
-static void FoldBaanDoc(unsigned int startPos, int length, int initStyle, WordList *[],
+static void FoldBaanDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[],
                             Accessor &styler) {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
-	for (unsigned int i = startPos; i < endPos; i++) {
+	for (Sci_PositionU i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 		int stylePrev = style;

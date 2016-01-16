@@ -64,12 +64,12 @@ static int CountBits(int nBits)
 	return count;
 	}
 
-static void getRange(unsigned int start,
-        unsigned int end,
+static void getRange(Sci_PositionU start,
+        Sci_PositionU end,
         Accessor &styler,
         char *s,
-        unsigned int len) {
-    unsigned int i = 0;
+        Sci_PositionU len) {
+    Sci_PositionU i = 0;
     while ((i < end - start + 1) && (i < len-1)) {
         s[i] = static_cast<char>(tolower(styler[start + i]));
         i++;
@@ -77,12 +77,12 @@ static void getRange(unsigned int start,
     s[i] = '\0';
 }
 
-static void ColourTo(Accessor &styler, unsigned int end, unsigned int attr) {
+static void ColourTo(Accessor &styler, Sci_PositionU end, unsigned int attr) {
     styler.ColourTo(end, attr);
 }
 
 
-static int classifyWordCOBOL(unsigned int start, unsigned int end, /*WordList &keywords*/WordList *keywordlists[], Accessor &styler, int nContainment, bool *bAarea) {
+static int classifyWordCOBOL(Sci_PositionU start, Sci_PositionU end, /*WordList &keywords*/WordList *keywordlists[], Accessor &styler, int nContainment, bool *bAarea) {
     int ret = 0;
 
     WordList& a_keywords = *keywordlists[0];
@@ -142,7 +142,7 @@ static int classifyWordCOBOL(unsigned int start, unsigned int end, /*WordList &k
     return ret;
 }
 
-static void ColouriseCOBOLDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseCOBOLDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
     Accessor &styler) {
 
     styler.StartAt(startPos);
@@ -152,11 +152,11 @@ static void ColouriseCOBOLDoc(unsigned int startPos, int length, int initStyle, 
         state = SCE_C_DEFAULT;
     char chPrev = ' ';
     char chNext = styler[startPos];
-    unsigned int lengthDoc = startPos + length;
+    Sci_PositionU lengthDoc = startPos + length;
 
     int nContainment;
 
-    int currentLine = styler.GetLine(startPos);
+    Sci_Position currentLine = styler.GetLine(startPos);
     if (currentLine > 0) {
         styler.SetLineState(currentLine, styler.GetLineState(currentLine-1));
         nContainment = styler.GetLineState(currentLine);
@@ -170,7 +170,7 @@ static void ColouriseCOBOLDoc(unsigned int startPos, int length, int initStyle, 
     bool bNewLine = true;
     bool bAarea = !isspacechar(chNext);
 	int column = 0;
-    for (unsigned int i = startPos; i < lengthDoc; i++) {
+    for (Sci_PositionU i = startPos; i < lengthDoc; i++) {
         char ch = chNext;
 
         chNext = styler.SafeGetCharAt(i + 1);
@@ -277,7 +277,7 @@ static void ColouriseCOBOLDoc(unsigned int startPos, int length, int initStyle, 
                 if (ch == '\r' || ch == '\n') {
                     if (((i > styler.GetStartSegment() + 2) || (
                         (initStyle == SCE_C_COMMENTDOC) &&
-                        (styler.GetStartSegment() == static_cast<unsigned int>(startPos))))) {
+                        (styler.GetStartSegment() == static_cast<Sci_PositionU>(startPos))))) {
                             ColourTo(styler, i, state);
                             state = SCE_C_DEFAULT;
                     }
@@ -309,12 +309,12 @@ static void ColouriseCOBOLDoc(unsigned int startPos, int length, int initStyle, 
     ColourTo(styler, lengthDoc - 1, state);
 }
 
-static void FoldCOBOLDoc(unsigned int startPos, int length, int, WordList *[],
+static void FoldCOBOLDoc(Sci_PositionU startPos, Sci_Position length, int, WordList *[],
                             Accessor &styler) {
     bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-    unsigned int endPos = startPos + length;
+    Sci_PositionU endPos = startPos + length;
     int visibleChars = 0;
-    int lineCurrent = styler.GetLine(startPos);
+    Sci_Position lineCurrent = styler.GetLine(startPos);
     int levelPrev = lineCurrent > 0 ? styler.LevelAt(lineCurrent - 1) & SC_FOLDLEVELNUMBERMASK : 0xFFF;
     char chNext = styler[startPos];
 
@@ -322,7 +322,7 @@ static void FoldCOBOLDoc(unsigned int startPos, int length, int, WordList *[],
     bool bAarea = !isspacechar(chNext);
 	int column = 0;
 	bool bComment = false;
-    for (unsigned int i = startPos; i < endPos; i++) {
+    for (Sci_PositionU i = startPos; i < endPos; i++) {
         char ch = chNext;
         chNext = styler.SafeGetCharAt(i + 1);
 		++column;

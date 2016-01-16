@@ -26,9 +26,9 @@
 using namespace Scintilla;
 #endif
 
-inline static void getRange( unsigned int start, unsigned int end, Accessor & styler, char * s, unsigned int len )
+inline static void getRange( Sci_PositionU start, Sci_PositionU end, Accessor & styler, char * s, Sci_PositionU len )
 {
-	unsigned int i = 0;
+	Sci_PositionU i = 0;
 	while( ( i < end - start + 1 ) && ( i < len - 1 ) )
 	{
 		s[i] = static_cast<char>( styler[ start + i ] );
@@ -37,7 +37,7 @@ inline static void getRange( unsigned int start, unsigned int end, Accessor & st
 	s[ i ] = '\0';
 }
 
-inline bool HandleString( unsigned int & cur, unsigned int one_too_much, Accessor & styler )
+inline bool HandleString( Sci_PositionU & cur, Sci_PositionU one_too_much, Accessor & styler )
 {
 	char ch;
 
@@ -92,7 +92,7 @@ inline bool HandleString( unsigned int & cur, unsigned int one_too_much, Accesso
 	}
 }
 
-inline bool HandleCommentBlock( unsigned int & cur, unsigned int one_too_much, Accessor & styler, bool could_fail )
+inline bool HandleCommentBlock( Sci_PositionU & cur, Sci_PositionU one_too_much, Accessor & styler, bool could_fail )
 {
 	char ch;
 
@@ -155,7 +155,7 @@ inline bool HandleCommentBlock( unsigned int & cur, unsigned int one_too_much, A
 	}
 }
 
-inline bool HandleCommentLine( unsigned int & cur, unsigned int one_too_much, Accessor & styler, bool could_fail )
+inline bool HandleCommentLine( Sci_PositionU & cur, Sci_PositionU one_too_much, Accessor & styler, bool could_fail )
 {
 	char ch;
 
@@ -240,7 +240,7 @@ inline bool HandleCommentLine( unsigned int & cur, unsigned int one_too_much, Ac
 	}
 }
 
-inline bool HandlePar( unsigned int & cur, Accessor & styler )
+inline bool HandlePar( Sci_PositionU & cur, Accessor & styler )
 {
 	styler.ColourTo( cur, SCE_OPAL_PAR );
 
@@ -250,7 +250,7 @@ inline bool HandlePar( unsigned int & cur, Accessor & styler )
 	return true;
 }
 
-inline bool HandleSpace( unsigned int & cur, unsigned int one_too_much, Accessor & styler )
+inline bool HandleSpace( Sci_PositionU & cur, Sci_PositionU one_too_much, Accessor & styler )
 {
 	char ch;
 
@@ -281,7 +281,7 @@ inline bool HandleSpace( unsigned int & cur, unsigned int one_too_much, Accessor
 	}
 }
 
-inline bool HandleInteger( unsigned int & cur, unsigned int one_too_much, Accessor & styler )
+inline bool HandleInteger( Sci_PositionU & cur, Sci_PositionU one_too_much, Accessor & styler )
 {
 	char ch;
 
@@ -304,10 +304,10 @@ inline bool HandleInteger( unsigned int & cur, unsigned int one_too_much, Access
 	}
 }
 
-inline bool HandleWord( unsigned int & cur, unsigned int one_too_much, Accessor & styler, WordList * keywordlists[] )
+inline bool HandleWord( Sci_PositionU & cur, Sci_PositionU one_too_much, Accessor & styler, WordList * keywordlists[] )
 {
 	char ch;
-	const unsigned int beg = cur;
+	const Sci_PositionU beg = cur;
 
 	cur++;
 	for( ; ; )
@@ -323,7 +323,7 @@ inline bool HandleWord( unsigned int & cur, unsigned int one_too_much, Accessor 
 		}
 	}
 
-	const int ide_len = cur - beg + 1;
+	const Sci_Position ide_len = cur - beg + 1;
 	char * ide = new char[ ide_len ];
 	getRange( beg, cur, styler, ide, ide_len );
 
@@ -393,7 +393,7 @@ inline bool HandleWord( unsigned int & cur, unsigned int one_too_much, Accessor 
 
 }
 
-inline bool HandleSkip( unsigned int & cur, unsigned int one_too_much, Accessor & styler )
+inline bool HandleSkip( Sci_PositionU & cur, Sci_PositionU one_too_much, Accessor & styler )
 {
 	cur++;
 	styler.ColourTo( cur - 1, SCE_OPAL_DEFAULT );
@@ -408,13 +408,13 @@ inline bool HandleSkip( unsigned int & cur, unsigned int one_too_much, Accessor 
 	}
 }
 
-static void ColouriseOpalDoc( unsigned int startPos, int length, int initStyle, WordList *keywordlists[], Accessor & styler )
+static void ColouriseOpalDoc( Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[], Accessor & styler )
 {
 	styler.StartAt( startPos );
 	styler.StartSegment( startPos );
 
-	unsigned int & cur = startPos;
-	const unsigned int one_too_much = startPos + length;
+	Sci_PositionU & cur = startPos;
+	const Sci_PositionU one_too_much = startPos + length;
 
 	int state = initStyle;
 

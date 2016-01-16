@@ -8,12 +8,14 @@
 #include <string.h>
 #include <assert.h>
 
+#include <stdexcept>
 #include <vector>
 #include <map>
 
 #include "Platform.h"
 
 #include "Scintilla.h"
+#include "Position.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
 #include "RunStyles.h"
@@ -149,6 +151,7 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 		ms[margin] = source.ms[margin];
 	}
 	maskInLine = source.maskInLine;
+	maskDrawInText = source.maskDrawInText;
 	fixedColumnWidth = source.fixedColumnWidth;
 	marginInside = source.marginInside;
 	textStart = source.textStart;
@@ -187,6 +190,32 @@ ViewStyle::~ViewStyle() {
 		delete it->second;
 	}
 	fonts.clear();
+}
+
+void ViewStyle::CalculateMarginWidthAndMask() {
+	fixedColumnWidth = marginInside ? leftMarginWidth : 0;
+	maskInLine = 0xffffffff;
+	int maskDefinedMarkers = 0;
+	for (int margin = 0; margin <= SC_MAX_MARGIN; margin++) {
+		fixedColumnWidth += ms[margin].width;
+		if (ms[margin].width > 0)
+			maskInLine &= ~ms[margin].mask;
+		maskDefinedMarkers |= ms[margin].mask;
+	}
+	maskDrawInText = 0;
+	for (int markBit = 0; markBit < 32; markBit++) {
+		const int maskBit = 1 << markBit;
+		switch (markers[markBit].markType) {
+		case SC_MARK_EMPTY:
+			maskInLine &= ~maskBit;
+			break;
+		case SC_MARK_BACKGROUND:
+		case SC_MARK_UNDERLINE:
+			maskInLine &= ~maskBit;
+			maskDrawInText |= maskDefinedMarkers & maskBit;
+			break;
+		}
+	}
 }
 
 void ViewStyle::Init(size_t stylesSize_) {
@@ -263,13 +292,7 @@ void ViewStyle::Init(size_t stylesSize_) {
 	ms[2].width = 0;
 	ms[2].mask = 0;
 	marginInside = true;
-	fixedColumnWidth = marginInside ? leftMarginWidth : 0;
-	maskInLine = 0xffffffff;
-	for (int margin=0; margin <= SC_MAX_MARGIN; margin++) {
-		fixedColumnWidth += ms[margin].width;
-		if (ms[margin].width > 0)
-			maskInLine &= ~ms[margin].mask;
-	}
+	CalculateMarginWidthAndMask();
 	textStart = marginInside ? fixedColumnWidth : leftMarginWidth;
 	zoomLevel = 0;
 	viewWhitespace = wsInvisible;
@@ -366,13 +389,7 @@ void ViewStyle::Refresh(Surface &surface, int tabInChars) {
 		controlCharWidth = surface.WidthChar(styles[STYLE_CONTROLCHAR].font, static_cast<char>(controlCharSymbol));
 	}
 
-	fixedColumnWidth = marginInside ? leftMarginWidth : 0;
-	maskInLine = 0xffffffff;
-	for (int margin=0; margin <= SC_MAX_MARGIN; margin++) {
-		fixedColumnWidth += ms[margin].width;
-		if (ms[margin].width > 0)
-			maskInLine &= ~ms[margin].mask;
-	}
+	CalculateMarginWidthAndMask();
 	textStart = marginInside ? fixedColumnWidth : leftMarginWidth;
 }
 
@@ -475,7 +492,7 @@ ColourOptional ViewStyle::Background(int marksOfLine, bool caretActive, bool lin
 		int marksMasked = marksOfLine & maskInLine;
 		if (marksMasked) {
 			for (int markBit = 0; (markBit < 32) && marksMasked; markBit++) {
-				if ((marksMasked & 1) && (markers[markBit].markType != SC_MARK_EMPTY) &&
+				if ((marksMasked & 1) &&
 					(markers[markBit].alpha == SC_ALPHA_NOALPHA)) {
 					background = ColourOptional(markers[markBit].back, true);
 				}
@@ -493,6 +510,12 @@ bool ViewStyle::SelectionBackgroundDrawn() const {
 
 bool ViewStyle::WhitespaceBackgroundDrawn() const {
 	return (viewWhitespace != wsInvisible) && (whitespaceColours.back.isSet);
+}
+
+bool ViewStyle::WhiteSpaceVisible(bool inIndent) const {
+	return (!inIndent && viewWhitespace == wsVisibleAfterIndent) ||
+		(inIndent && viewWhitespace == wsVisibleOnlyInIndent) ||
+		viewWhitespace == wsVisibleAlways;
 }
 
 ColourDesired ViewStyle::WrapColour() const {

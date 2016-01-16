@@ -7,6 +7,8 @@
 
 #include <stdlib.h>
 
+#include <stdexcept>
+
 #include "UniConversion.h"
 
 #ifdef SCI_NAMESPACE

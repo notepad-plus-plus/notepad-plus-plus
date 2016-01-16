@@ -60,7 +60,7 @@ static void ClassifySTTXTWord(WordList *keywordlists[], StyleContext &sc)
 	sc.SetState(SCE_STTXT_DEFAULT);
 }
 
-static void ColouriseSTTXTDoc (unsigned int startPos, int length, int initStyle,
+static void ColouriseSTTXTDoc (Sci_PositionU startPos, Sci_Position length, int initStyle,
 							  WordList *keywordlists[], Accessor &styler)
 {
 	StyleContext sc(startPos, length, initStyle, styler);
@@ -199,12 +199,12 @@ static const char * const STTXTWordListDesc[] = {
 	0
 };
 
-static bool IsCommentLine(int line, Accessor &styler, bool type)
+static bool IsCommentLine(Sci_Position line, Accessor &styler, bool type)
 {
-	int pos = styler.LineStart(line);
-	int eolPos = styler.LineStart(line + 1) - 1;
+	Sci_Position pos = styler.LineStart(line);
+	Sci_Position eolPos = styler.LineStart(line + 1) - 1;
 
-	for (int i = pos; i < eolPos; i++)
+	for (Sci_Position i = pos; i < eolPos; i++)
 	{
 		char ch = styler[i];
 		char chNext = styler.SafeGetCharAt(i + 1);
@@ -221,7 +221,7 @@ static bool IsCommentLine(int line, Accessor &styler, bool type)
 			return false;
 	}
 
-	for (int i = eolPos-2; i>pos; i--)
+	for (Sci_Position i = eolPos-2; i>pos; i--)
 	{
 		char ch = styler[i];
 		char chPrev = styler.SafeGetCharAt(i-1);
@@ -236,12 +236,12 @@ static bool IsCommentLine(int line, Accessor &styler, bool type)
 	return false;
 }
 
-static bool IsPragmaLine(int line, Accessor &styler)
+static bool IsPragmaLine(Sci_Position line, Accessor &styler)
 {
-	int pos = styler.LineStart(line);
-	int eolPos = styler.LineStart(line+1) - 1;
+	Sci_Position pos = styler.LineStart(line);
+	Sci_Position eolPos = styler.LineStart(line+1) - 1;
 
-	for (int i = pos ; i < eolPos ; i++)
+	for (Sci_Position i = pos ; i < eolPos ; i++)
 	{
 		char ch = styler[i];
 		int style = styler.StyleAt(i);
@@ -254,9 +254,9 @@ static bool IsPragmaLine(int line, Accessor &styler)
 	return false;
 }
 
-static void GetRangeUpper(unsigned int start,unsigned int end,Accessor &styler,char *s,unsigned int len)
+static void GetRangeUpper(Sci_PositionU start,Sci_PositionU end,Accessor &styler,char *s,Sci_PositionU len)
 {
-	unsigned int i = 0;
+	Sci_PositionU i = 0;
 	while ((i < end - start + 1) && (i < len-1)) {
 		s[i] = static_cast<char>(toupper(styler[start + i]));
 		i++;
@@ -264,8 +264,8 @@ static void GetRangeUpper(unsigned int start,unsigned int end,Accessor &styler,c
 	s[i] = '\0';
 }
 
-static void ClassifySTTXTWordFoldPoint(int &levelCurrent,unsigned int lastStart,
-									 unsigned int currentPos, Accessor &styler)
+static void ClassifySTTXTWordFoldPoint(int &levelCurrent,Sci_PositionU lastStart,
+									 Sci_PositionU currentPos, Accessor &styler)
 {
 	char s[256];
 	GetRangeUpper(lastStart, currentPos, styler, s, sizeof(s));
@@ -321,24 +321,24 @@ static void ClassifySTTXTWordFoldPoint(int &levelCurrent,unsigned int lastStart,
 	}
 }
 
-static void FoldSTTXTDoc(unsigned int startPos, int length, int initStyle, WordList *[],Accessor &styler)
+static void FoldSTTXTDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *[],Accessor &styler)
 {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldPreprocessor = styler.GetPropertyInt("fold.preprocessor") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	unsigned int endPos = startPos + length;
+	Sci_PositionU endPos = startPos + length;
 	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
+	Sci_Position lineCurrent = styler.GetLine(startPos);
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
 	int style = initStyle;
-	int lastStart = 0;
+	Sci_Position lastStart = 0;
 
 	CharacterSet setWord(CharacterSet::setAlphaNum, "_", 0x80, true);
 
-	for (unsigned int i = startPos; i < endPos; i++)
+	for (Sci_PositionU i = startPos; i < endPos; i++)
 	{
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);

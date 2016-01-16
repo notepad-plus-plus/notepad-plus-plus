@@ -47,7 +47,7 @@ inline bool isMMIXALOperator(char ch) {
 	return false;
 }
 
-static void ColouriseMMIXALDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+static void ColouriseMMIXALDoc(Sci_PositionU startPos, Sci_Position length, int initStyle, WordList *keywordlists[],
                             Accessor &styler) {
 
 	WordList &opcodes = *keywordlists[0];

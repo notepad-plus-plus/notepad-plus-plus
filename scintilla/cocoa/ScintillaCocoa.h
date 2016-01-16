@@ -30,6 +30,7 @@
 #include "PropSetSimple.h"
 #endif
 
+#include "Position.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
 #include "RunStyles.h"
@@ -110,8 +111,6 @@ private:
 
   int scrollSpeed;
   int scrollTicks;
-  NSTimer* tickTimer;
-  NSTimer* idleTimer;
   CFRunLoopObserverRef observer;
 
   FindHighlightLayer *layerFindIndicator;
@@ -235,6 +234,7 @@ public:
   void HandleCommand(NSInteger command);
 
   virtual void ActiveStateChanged(bool isActive);
+  void WindowWillMove();
 
   // Find indicator
   void ShowFindIndicatorForRange(NSRange charRange, BOOL retaining);

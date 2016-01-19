@@ -5965,6 +5965,8 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_PASCAL; break;
 		case L_MAKEFILE :
 			id = IDM_LANG_MAKEFILE;	break;
+		case L_MIRC :
+			id = IDM_LANG_MIRC;	break;
 		case L_INI :
 			id = IDM_LANG_INI; break;
 		case L_ASCII :

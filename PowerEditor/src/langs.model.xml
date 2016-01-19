@@ -142,6 +142,8 @@
         <Language name="matlab" ext="m" commentLine="%" commentStart="" commentEnd="">
             <Keywords name="instre1">break case catch continue else elseif end for function global if otherwise persistent return switch try while</Keywords>
         </Language>
+        <Language name"mIRC" ext="mrc" commentLine=";" commentStart="/*" commentEnd="*/">
+        </Language>
         <Language name="nfo" ext="nfo">
         </Language>
         <Language name="nsis" ext="nsi nsh" commentLine=";" commentStart="/*" commentEnd="*/">

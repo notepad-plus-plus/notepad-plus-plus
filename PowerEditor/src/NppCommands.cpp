@@ -2247,7 +2247,7 @@ void Notepad_plus::command(int id)
 				{
 					if (_nativeLangSpeaker.getLangEncoding() == NPP_CP_BIG5)
 					{
-						char *authorName = "«J¤µ§^";
+						char *authorName = "Â«JÂ¤ÂµÂ§^";
 						HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
 
 						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -2405,6 +2405,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_TEXT :
         case IDM_LANG_RC :
         case IDM_LANG_MAKEFILE :
+        case IDM_LANG_MIRC :
         case IDM_LANG_INI :
         case IDM_LANG_TEX :
         case IDM_LANG_FORTRAN :

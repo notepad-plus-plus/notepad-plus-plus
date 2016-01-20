@@ -301,6 +301,10 @@ public :
 		tie.mask = TCIF_TEXT;
 		tie.pszText = (TCHAR *)name2change;
 		TabCtrl_SetItem(_tab.getHSelf(), index, &tie);
+
+		TCHAR label[MAX_PATH];
+		_tab.getCurrentTitle(label, MAX_PATH);
+		::SetWindowText(_hSelf, label);
 	}
 	void beginNewFilesSearch()
 	{

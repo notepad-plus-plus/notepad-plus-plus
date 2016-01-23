@@ -885,5 +885,13 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	return true;
 }
 
-
+bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns)
+{
+	for (size_t i = 0, len = patterns.size(); i < len; ++i)
+	{
+		if (PathMatchSpec(fileName, patterns[i].c_str()))
+			return true;
+	}
+	return false;
+}
 

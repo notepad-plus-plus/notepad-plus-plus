@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
+// it does not provide a detailed definition of that term.  To avoid      
+// misunderstandings, we consider an application to constitute a          
 // "derivative work" for the purpose of this license if it does any of the
-// following:
+// following:                                                             
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -26,13 +26,26 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "Parameters.h"
-#include "Process.h"
+#ifndef FILEBROWSER_RC_H
+#define FILEBROWSER_RC_H
+
+#define	IDD_FILEBROWSER		3500
+
+#define	IDD_FILEBROWSER_MENU		(IDD_FILEBROWSER + 10)
+  #define IDM_FILEBROWSER_RENAME       (IDD_FILEBROWSER_MENU + 1)
+  #define IDM_FILEBROWSER_NEWFOLDER    (IDD_FILEBROWSER_MENU + 2)
+  #define IDM_FILEBROWSER_ADDFILES     (IDD_FILEBROWSER_MENU + 3)
+  #define IDM_FILEBROWSER_DELETEFOLDER (IDD_FILEBROWSER_MENU + 4)
+  #define IDM_FILEBROWSER_DELETEFILE   (IDD_FILEBROWSER_MENU + 5)
+  #define IDM_FILEBROWSER_MODIFYFILEPATH   (IDD_FILEBROWSER_MENU + 6)
+  #define IDM_FILEBROWSER_MOVEUP       (IDD_FILEBROWSER_MENU + 8)
+  #define IDM_FILEBROWSER_MOVEDOWN     (IDD_FILEBROWSER_MENU + 9)
+
+#define	IDD_FILEBROWSER_CTRL		(IDD_FILEBROWSER + 30)
+  #define	ID_FILEBROWSERTREEVIEW    (IDD_FILEBROWSER_CTRL + 1)
+  #define	IDB_FILEBROWSER_BTN       (IDD_FILEBROWSER_CTRL + 2)
+#define	IDB_FILEBROWSER_EDIT_BTN          (IDD_FILEBROWSER_CTRL + 3)
 
 
-void Process::run()
-{
-	TCHAR *opVerb = TEXT("open");
-	::ShellExecute(NULL, opVerb, _command.c_str(), _args.c_str(), _curDir.c_str(), SW_SHOWNORMAL);
-}
+#endif // FILEBROWSER_RC_H
 

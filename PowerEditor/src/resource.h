@@ -346,6 +346,8 @@
 //See functionListPanel_rc.h
 //#define IDD_FUNCLIST_PANEL   3400
 
+//See fileBrowser_rc.h
+//#define IDD_FILEBROWSER 3500
 
 // See regExtDlg.h
 //#define IDD_REGEXT 4000

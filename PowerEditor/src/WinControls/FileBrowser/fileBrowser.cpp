@@ -32,6 +32,7 @@
 #include "FileDialog.h"
 #include "localization.h"
 #include "Parameters.h"
+#include "ReadDirectoryChanges.h"
 
 #define CX_BITMAP         16
 #define CY_BITMAP         16
@@ -672,6 +673,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 				if (::MessageBox(_hSelf, str2display, TEXT("Remove folder from project"), MB_YESNO) == IDYES)
 				{
 					_treeView.removeItem(hTreeItem);
+					//_folderUpdaters[0].stopWatcher();
 				}
 			}
 			else
@@ -1111,20 +1113,72 @@ generic_string FolderInfo::getLabel()
 
 void FolderUpdater::startWatcher()
 {
-	_mutex = ::CreateMutex(nullptr, false, nullptr);
+	// no thread yet, create a event with non-signaled, to block all threads
+	_EventHandle = ::CreateEvent(nullptr, TRUE, FALSE, nullptr);
 	_watchThreadHandle = ::CreateThread(NULL, 0, watching, this, 0, NULL);
 }
 
 void FolderUpdater::stopWatcher()
 {
-	_toBeContinued = false;
-	ReleaseMutex(_mutex);
+	::SetEvent(_EventHandle);
 	::CloseHandle(_watchThreadHandle);
+	::CloseHandle(_EventHandle);
 }
 
-bool FolderUpdater::updateTree(changeInfo changeInfo)
+LPCWSTR explainAction(DWORD dwAction)
 {
-	// Search the roots : the root path is the prefix of file/folder in changeInfo
+	switch (dwAction)
+	{
+	case FILE_ACTION_ADDED:
+		return L"Added";
+	case FILE_ACTION_REMOVED:
+		return L"Deleted";
+	case FILE_ACTION_MODIFIED:
+		return L"Modified";
+	case FILE_ACTION_RENAMED_OLD_NAME:
+		return L"Renamed From";
+	case FILE_ACTION_RENAMED_NEW_NAME:
+		return L"Renamed ";
+	default:
+		return L"BAD DATA";
+	}
+};
+
+bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> & file2Change)
+{
+	//TCHAR msg2show[1024];
+
+	switch (action)
+	{
+		case FILE_ACTION_ADDED:
+			//swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
+			//printStr(msg2show);
+			//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
+			break;
+
+		case FILE_ACTION_REMOVED:
+			//swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
+			//printStr(msg2show);
+
+			break;
+
+		case FILE_ACTION_RENAMED_NEW_NAME:
+			//swprintf(msg2show, L"%s from %s \rto %s", explainAction(action), file2Change[0].c_str(), file2Change[1].c_str());
+			//printStr(msg2show);
+
+			break;
+
+		default:
+			break;
+	}
+	generic_string separator = TEXT("\\\\");
+
+	size_t sepPos = file2Change[0].find(separator);
+	if (sepPos == generic_string::npos)
+		return false;
+
+	generic_string rootPrefix = file2Change[0].substr(0, sepPos);
+	generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
 
 	// found: remove prefix of file/folder in changeInfo, splite the remained path
 
@@ -1132,6 +1186,102 @@ bool FolderUpdater::updateTree(changeInfo changeInfo)
 
 	return true;
 }
+
+
+DWORD WINAPI FolderUpdater::watching(void *params)
+{
+	FolderUpdater *thisFolderUpdater = (FolderUpdater *)params;
+	const TCHAR *dir2Watch = (thisFolderUpdater->_rootFolder)._path.c_str();
+
+	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_CREATION | FILE_NOTIFY_CHANGE_DIR_NAME | FILE_NOTIFY_CHANGE_FILE_NAME;
+
+	// Create the monitor and add directory to watch.
+	CReadDirectoryChanges changes;
+	changes.AddDirectory(dir2Watch, true, dwNotificationFlags);
+
+	HANDLE changeHandles[] = { thisFolderUpdater->_EventHandle, changes.GetWaitHandle() };
+
+	bool toBeContinued = true;
+
+	while (toBeContinued)
+	{
+		DWORD waitStatus = ::WaitForMultipleObjects(_countof(changeHandles), changeHandles, FALSE, INFINITE);
+		switch (waitStatus)
+		{
+			case WAIT_OBJECT_0 + 0:
+			// Mutex was signaled. User removes this folder or file browser is closed
+				toBeContinued = false;
+				break;
+
+			case WAIT_OBJECT_0 + 1:
+			// We've received a notification in the queue.
+			{
+				DWORD dwAction;
+				CStringW wstrFilename;
+				if (changes.CheckOverflow())
+					printStr(L"Queue overflowed.");
+				else
+				{
+					changes.Pop(dwAction, wstrFilename);
+					static generic_string oldName;
+
+					std::vector<generic_string> file2Change;
+
+					switch (dwAction)
+					{
+						case FILE_ACTION_ADDED:
+							file2Change.push_back(wstrFilename.GetString());
+							thisFolderUpdater->updateTree(dwAction, file2Change);
+							//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
+							oldName = TEXT("");
+							break;
+
+						case FILE_ACTION_REMOVED:
+							file2Change.push_back(wstrFilename.GetString());
+							thisFolderUpdater->updateTree(dwAction, file2Change);
+							oldName = TEXT("");
+							break;
+
+						case FILE_ACTION_MODIFIED:
+							oldName = TEXT("");
+							break;
+
+						case FILE_ACTION_RENAMED_OLD_NAME:
+							oldName = wstrFilename.GetString();
+							break;
+
+						case FILE_ACTION_RENAMED_NEW_NAME:
+							if (not oldName.empty())
+							{
+								file2Change.push_back(oldName);
+								file2Change.push_back(wstrFilename.GetString());
+								thisFolderUpdater->updateTree(dwAction, file2Change);
+							}
+							oldName = TEXT("");
+							break;
+
+						default:
+							oldName = TEXT("");
+							break;
+					}
+				}
+			}
+			break;
+
+			case WAIT_IO_COMPLETION:
+				// Nothing to do.
+				break;
+		}
+	}
+
+	// Just for sample purposes. The destructor will
+	// call Terminate() automatically.
+	changes.Terminate();
+	//printStr(L"Quit watching thread");
+	return EXIT_SUCCESS;
+}
+
+/*
 
 DWORD WINAPI FolderUpdater::watching(void *params)
 {
@@ -1230,3 +1380,4 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 	printStr(TEXT("youpi!"));
 	return 0;
 }
+*/

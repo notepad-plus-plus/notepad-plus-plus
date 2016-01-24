@@ -117,7 +117,7 @@ friend class FileBrowser;
 public:
 	FolderUpdater(FolderInfo fi, HWND hFileBrowser) : _rootFolder(fi), _hFileBrowser(hFileBrowser) {};
 	~FolderUpdater() {};
-	bool updateTree(changeInfo changeInfo); // postMessage to FileBrowser to upgrade GUI
+	bool updateTree(DWORD action, const std::vector<generic_string> & file2Change); // postMessage to FileBrowser to upgrade GUI
 
 	void startWatcher();
 	void stopWatcher();
@@ -126,9 +126,8 @@ public:
 private:
 	FolderInfo _rootFolder;
 	HWND _hFileBrowser = nullptr;
-	bool _toBeContinued = true;
 	HANDLE _watchThreadHandle = nullptr;
-	HANDLE _mutex = nullptr;
+	HANDLE _EventHandle = nullptr;
 
 	static DWORD WINAPI watching(void *param);
 };

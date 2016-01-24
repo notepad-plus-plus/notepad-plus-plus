@@ -5940,7 +5940,6 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	const char *text2display = ((TextTrollerParams *)params)->_text2display;
 	HWND curScintilla = pCurrentView->getHSelf();
 	BufferID targetBufID = ((TextTrollerParams *)params)->_targetBufID;
-	//HANDLE mutex = ((TextTrollerParams *)params)->_mutex;
 
 	for (size_t i = 0, len = strlen(text2display); i < len; ++i)
     {
@@ -6076,24 +6075,6 @@ int Notepad_plus::getQuoteIndexFrom(const char *quoter) const
 void Notepad_plus::showAllQuotes() const
 {
 }
-
-
-/*
-void Notepad_plus::showQuoteFromIndex(int index) const
-{
-	if (index < 0 || index >= nbQuote) return;
-
-    //TextPlayerParams *params = new TextPlayerParams();
-	static TextPlayerParams params;
-	params._nppHandle = Notepad_plus::_pPublicInterface->getHSelf();
-	params._text2display = quotes[index]._quote;
-	params._quoter = quotes[index]._quoter;
-	params._pCurrentView = _pEditView;
-	params._shouldBeTrolling = index < 20;
-	HANDLE hThread = ::CreateThread(NULL, 0, threadTextPlayer, &params, 0, NULL);
-    ::CloseHandle(hThread);
-}
-*/
 
 
 void Notepad_plus::showQuoteFromIndex(int index) const

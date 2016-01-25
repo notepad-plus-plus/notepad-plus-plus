@@ -669,6 +669,7 @@
 					<Item id="6230" name="Hängend"/>
 					<Item id="6231" name="Rahmenbreite"/>
 					<Item id="6234" name="Flüssiges Scrollen deaktivieren (bei Touchpad-Problemen)"/>
+					<Item id="6235" name="Kein Rahmen"/>
 				</Scintillas>
 				<Delimiter title="Trennzeichen">
 					<Item id="6251" name="Trennzeichen für erweiterte Auswahl (Strg+Doppelklick)"/>

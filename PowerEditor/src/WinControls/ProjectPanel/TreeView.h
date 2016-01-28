@@ -54,6 +54,7 @@ public:
 	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
+	bool renameItem(HTREEITEM Item2Set, const TCHAR *newName);
 	
 	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {
 		return TreeView_GetChild(_hSelf, hTreeItem);

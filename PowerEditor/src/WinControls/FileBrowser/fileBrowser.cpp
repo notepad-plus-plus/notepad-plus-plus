@@ -580,7 +580,7 @@ POINT FileBrowser::getMenuDisplayPoint(int iButton)
 	return p;
 }
 
-HTREEITEM FileBrowser::addFolder(HTREEITEM hTreeItem, const TCHAR *folderName)
+HTREEITEM FileBrowser::createNewFolder(HTREEITEM hTreeItem, const TCHAR *folderName)
 {
 	HTREEITEM addedItem = _treeView.addItem(folderName, hTreeItem, INDEX_CLOSED_NODE);
 	
@@ -634,12 +634,12 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		case IDM_FILEBROWSER_RENAME :
 			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);
 		break;
-
+		
 		case IDM_FILEBROWSER_NEWFOLDER :
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			generic_string newFolderLabel = pNativeSpeaker->getAttrNameStr(PM_NEWFOLDERNAME, "ProjectManager", "NewFolderName");
-			addFolder(hTreeItem, newFolderLabel.c_str());
+			createNewFolder(hTreeItem, newFolderLabel.c_str());
 		}
 		break;
 
@@ -654,7 +654,8 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			_treeView.moveUp(hTreeItem);
 		}
 		break;
-
+		
+		/*
 		case IDM_FILEBROWSER_ADDFILES :
 		{
 			addFiles(hTreeItem);
@@ -662,6 +663,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 				_treeView.setItemImage(hTreeItem, INDEX_OPEN_NODE, INDEX_OPEN_NODE);
 		}
 		break;
+		*/
 
 		case IDM_FILEBROWSER_DELETEFOLDER :
 		{
@@ -701,84 +703,12 @@ void FileBrowser::popupMenuCmd(int cmdID)
 	}
 }
 
-void FileBrowser::addFiles(HTREEITEM hTreeItem)
-{
-	FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
-
-	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
-	{
-		size_t sz = pfns->size();
-		for (size_t i = 0 ; i < sz ; ++i)
-		{
-			TCHAR *strValueLabel = ::PathFindFileName(pfns->at(i).c_str());
-			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, pfns->at(i).c_str());
-		}
-		_treeView.expand(hTreeItem);
-	}
-}
-
-void FileBrowser::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem)
-{
-	bool isRecursive = true;
-	bool isInHiddenDir = false;
-	generic_string dirFilter(folderPath);
-	if (folderPath[lstrlen(folderPath)-1] != '\\')
-		dirFilter += TEXT("\\");
-
-	dirFilter += TEXT("*.*");
-	WIN32_FIND_DATA foundData;
-	std::vector<generic_string> files;
-
-	HANDLE hFile = ::FindFirstFile(dirFilter.c_str(), &foundData);
-	
-	do {
-		if (hFile == INVALID_HANDLE_VALUE)
-			break;
-
-		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-		{
-			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
-			{
-				// do nothing
-			}
-			else if (isRecursive)
-			{
-				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
-				{
-					generic_string pathDir(folderPath);
-					if (folderPath[lstrlen(folderPath)-1] != '\\')
-						pathDir += TEXT("\\");
-					pathDir += foundData.cFileName;
-					pathDir += TEXT("\\");
-					HTREEITEM addedItem = addFolder(hTreeItem, foundData.cFileName);
-					recursiveAddFilesFrom(pathDir.c_str(), addedItem);
-				}
-			}
-		}
-		else
-		{
-			files.push_back(foundData.cFileName);
-		}
-	} while (::FindNextFile(hFile, &foundData));
-	
-	for (size_t i = 0, len = files.size() ; i < len ; ++i)
-	{
-		generic_string pathFile(folderPath);
-		if (folderPath[lstrlen(folderPath)-1] != '\\')
-			pathFile += TEXT("\\");
-		pathFile += files[i];
-		_treeView.addItem(files[i].c_str(), hTreeItem, INDEX_LEAF, pathFile.c_str());
-	}
-
-	::FindClose(hFile);
-}
-
 
 
 void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<generic_string> & patterns, FolderInfo & directoryStructure, bool isRecursive, bool isInHiddenDir)
 {
-	directoryStructure.setPath(dir);
+	if (directoryStructure._parent == nullptr) // Root!
+		directoryStructure.setRootPath(dir);
 
 	generic_string dirFilter(dir);
 	dirFilter += TEXT("*.*");
@@ -803,7 +733,7 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 					pathDir += foundData.cFileName;
 					pathDir += TEXT("\\");
 
-					FolderInfo subDirectoryStructure;
+					FolderInfo subDirectoryStructure(foundData.cFileName, &directoryStructure);
 					getDirectoryStructure(pathDir.c_str(), patterns, subDirectoryStructure, isRecursive, isInHiddenDir);
 					directoryStructure.addSubFolder(subDirectoryStructure);
 				}
@@ -813,12 +743,11 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 		{
 			if (matchInList(foundData.cFileName, patterns))
 			{
-				generic_string pathFile(dir);
-				pathFile += foundData.cFileName;
-				directoryStructure.addFile(pathFile.c_str());
+				directoryStructure.addFile(foundData.cFileName);
 			}
 		}
 	}
+
 	while (::FindNextFile(hFile, &foundData))
 	{
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
@@ -835,7 +764,7 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 					pathDir += foundData.cFileName;
 					pathDir += TEXT("\\");
 
-					FolderInfo subDirectoryStructure;
+					FolderInfo subDirectoryStructure(foundData.cFileName, &directoryStructure);
 					getDirectoryStructure(pathDir.c_str(), patterns, subDirectoryStructure, isRecursive, isInHiddenDir);
 					directoryStructure.addSubFolder(subDirectoryStructure);
 				}
@@ -845,9 +774,7 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 		{
 			if (matchInList(foundData.cFileName, patterns))
 			{
-				generic_string pathFile(dir);
-				pathFile += foundData.cFileName;
-				directoryStructure.addFile(pathFile.c_str());
+				directoryStructure.addFile(foundData.cFileName);
 			}
 		}
 	}
@@ -856,40 +783,40 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 
 void FileBrowser::addRootFolder(generic_string rootFolderPath)
 {
-	for (size_t i = 0; i < _folderUpdaters.size(); ++i)
+	size_t nbFolderUpdaters = _folderUpdaters.size();
+	for (size_t i = 0; i < nbFolderUpdaters; ++i)
 	{
-		if (_folderUpdaters[i]._rootFolder._path == rootFolderPath)
+		if (_folderUpdaters[i]._rootFolder._rootPath == rootFolderPath)
 			return;
 	}
 
 	std::vector<generic_string> patterns2Match;
 	patterns2Match.push_back(TEXT("*.*"));
 
-	FolderInfo directoryStructure;
+	TCHAR *label = ::PathFindFileName(rootFolderPath.c_str());
+	FolderInfo directoryStructure(label, nullptr);
 	getDirectoryStructure(rootFolderPath.c_str(), patterns2Match, directoryStructure, true, false);
 	HTREEITEM hRootItem = createFolderItemsFromDirStruct(nullptr, directoryStructure);
 	_treeView.expand(hRootItem);
-	_folderUpdaters.push_back(FolderUpdater(directoryStructure, _hSelf));
+	_folderUpdaters.push_back(FolderUpdater(directoryStructure, this));
 	_folderUpdaters[_folderUpdaters.size() - 1].startWatcher();
 }
 
 HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure)
 {
-	TCHAR rootPath[MAX_PATH];
-	lstrcpy(rootPath, directoryStructure._path.c_str());
-	size_t len = lstrlen(rootPath);
-	if (rootPath[len-1] == '\\')
-		rootPath[len-1] = '\0';
-
-	TCHAR *rootName = ::PathFindFileName(rootPath);
 	HTREEITEM hFolderItem = nullptr;
-	if (hParentItem == nullptr)
+	if (directoryStructure._parent == nullptr && hParentItem == nullptr)
 	{
-		hFolderItem = _treeView.addItem(rootName, TVI_ROOT, INDEX_CLOSED_NODE);
+		TCHAR rootPath[MAX_PATH];
+		lstrcpy(rootPath, directoryStructure._rootPath.c_str());
+		size_t len = lstrlen(rootPath);
+		if (rootPath[len - 1] == '\\')
+			rootPath[len - 1] = '\0';
+		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), TVI_ROOT, INDEX_CLOSED_NODE, rootPath);
 	}
 	else
 	{
-		hFolderItem = addFolder(hParentItem, rootName);
+		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSED_NODE);
 	}
 
 	for (size_t i = 0; i < directoryStructure._subFolders.size(); ++i)
@@ -899,216 +826,326 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 
 	for (size_t i = 0; i < directoryStructure._files.size(); ++i)
 	{
-		TCHAR filePath[MAX_PATH];
-		lstrcpy(filePath, directoryStructure._files[i]._path.c_str());
-		TCHAR *fileName = ::PathFindFileName(filePath);
-		_treeView.addItem(fileName, hFolderItem, INDEX_LEAF, directoryStructure._files[i]._path.c_str());
+		_treeView.addItem(directoryStructure._files[i]._name.c_str(), hFolderItem, INDEX_LEAF);
 	}
 	_treeView.fold(hParentItem);
 
 	return hFolderItem;
 }
 
-bool FolderInfo::compare(const FolderInfo & struct2compare, std::vector<changeInfo> & result)
+HTREEITEM FileBrowser::getRootFromFullPath(generic_string rootPath)
 {
-	if (_contentHash == struct2compare._contentHash)
+	HTREEITEM node = nullptr;
+	for (HTREEITEM hItemNode = _treeView.getRoot();
+		hItemNode != nullptr && node == nullptr;
+		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
-		if (_path == struct2compare._path) // Everything is fine
+		TVITEM tvItem;
+		tvItem.mask = TVIF_PARAM;
+		tvItem.cchTextMax = MAX_PATH;
+		tvItem.hItem = hItemNode;
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+
+		if (tvItem.lParam != 0 && rootPath == *((generic_string *)tvItem.lParam))
+			node = hItemNode;
+	}
+	return node;
+}
+
+HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string label)
+{
+	HTREEITEM childNodeFound = nullptr;
+
+	for (HTREEITEM hItemNode = _treeView.getChildFrom(parent);
+		hItemNode != NULL && childNodeFound == nullptr;
+		hItemNode = _treeView.getNextSibling(hItemNode))
+	{
+		TCHAR textBuffer[MAX_PATH];
+		TVITEM tvItem;
+		tvItem.mask = TVIF_TEXT;
+		tvItem.pszText = textBuffer;
+		tvItem.cchTextMax = MAX_PATH;
+		tvItem.hItem = hItemNode;
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+
+		if (label == tvItem.pszText)
 		{
-			return true;
-		}
-		else // folder is renamed
-		{
-			// put result in the vector
-			changeInfo info;
-			info._action = info.rename;
-			info._fullFilePath = struct2compare._path;
-			return false;
+			childNodeFound = hItemNode;
 		}
 	}
-	else // sub-folders or files/sub-files deleted or renamed
+	return childNodeFound;
+}
+
+bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, vector<generic_string> linarPathArray)
+{
+	if (node == nullptr) // it's a root. Search the right root with rootPath
 	{
-		if (_path != struct2compare._path) // both content and path are different, stop to compare
-		{
-			return true; // everything could be fine
-		}
+		// Search
+		if ((node = getRootFromFullPath(rootPath)) == nullptr)
+			return false;
+	}
 
-		//check folder (maybe go deeper)
-		for (size_t i = 0; i < _subFolders.size(); ++i)
+	if (linarPathArray.size() == 1)
+	{
+		// Search : if no found, add
+		HTREEITEM childNodeFound = findChildNodeFromName(node, linarPathArray[0]);
+		if (childNodeFound != nullptr)
+			return false;
+
+		// No found, good - Action
+		if (::PathIsDirectory(addItemFullPath.c_str()))
 		{
-			bool isFound = false;
-			for (size_t j = 0; j < struct2compare._subFolders.size(); ++j)
+			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_CLOSED_NODE);
+		}
+		else
+		{
+			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_LEAF);
+		}
+		return true;
+	}
+	else
+	{
+		HTREEITEM childNodeFound = nullptr;
+		for (HTREEITEM hItemNode = _treeView.getChildFrom(node);
+			hItemNode != NULL && childNodeFound == nullptr;
+			hItemNode = _treeView.getNextSibling(hItemNode))
+		{
+			TCHAR textBuffer[MAX_PATH];
+			TVITEM tvItem;
+			tvItem.mask = TVIF_TEXT;
+			tvItem.pszText = textBuffer;
+			tvItem.cchTextMax = MAX_PATH;
+			tvItem.hItem = hItemNode;
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+
+			if (linarPathArray[0] == tvItem.pszText)
 			{
-				if ((_subFolders[i]._path == struct2compare._subFolders[j]._path) &&
-					(_subFolders[i]._contentHash == struct2compare._subFolders[j]._contentHash))
-				{
-					isFound = true;
-				}
-				else
-				{
-					if ((_subFolders[i]._path != struct2compare._subFolders[j]._path) &&
-						(_subFolders[i]._contentHash == struct2compare._subFolders[j]._contentHash)) // rename
-					{
-						changeInfo info;
-						info._action = info.rename;
-						info._fullFilePath = struct2compare._path;
-					}
-					else if ((_subFolders[i]._path == struct2compare._subFolders[j]._path) &&
-						(_subFolders[i]._contentHash != struct2compare._subFolders[j]._contentHash)) // problem of sub-files or sub-folders. go deeper
-					{
-						_subFolders[i].compare(struct2compare._subFolders[j], result);
-					}
-				}
-			}
-			if (not isFound) // folder is deleted
-			{
-				// put result in the vector
-				changeInfo info;
-				info._action = info.remove;
-				info._fullFilePath = _subFolders[i]._path;
-				result.push_back(info);
+				// search recursively the node for an action
+				linarPathArray.erase(linarPathArray.begin());
+				return addInTree(rootPath, addItemFullPath, hItemNode, linarPathArray);
 			}
 		}
+		return false;
+	}
+}
 
-		//check files 
+bool FileBrowser::deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
+{
+	if (node == nullptr) // it's a root. Search the right root with rootPath
+	{
+		// Search
+		if ((node = getRootFromFullPath(rootPath)) == nullptr)
+			return false;
+	}
+
+	if (linarPathArray.size() == 1)
+	{
+		// Search
+		HTREEITEM childNodeFound = findChildNodeFromName(node, linarPathArray[0]);
+		if (childNodeFound == nullptr)
+			return false;
+
+		// found it, delete it
+		_treeView.removeItem(childNodeFound);
+		return true;
+	}
+	else
+	{
+		HTREEITEM childNodeFound = nullptr;
+		for (HTREEITEM hItemNode = _treeView.getChildFrom(node);
+			hItemNode != NULL && childNodeFound == nullptr;
+			hItemNode = _treeView.getNextSibling(hItemNode))
+		{
+			TCHAR textBuffer[MAX_PATH];
+			TVITEM tvItem;
+			tvItem.mask = TVIF_TEXT;
+			tvItem.pszText = textBuffer;
+			tvItem.cchTextMax = MAX_PATH;
+			tvItem.hItem = hItemNode;
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+
+			if (linarPathArray[0] == tvItem.pszText)
+			{
+				// search recursively the node for an action
+				linarPathArray.erase(linarPathArray.begin());
+				return deleteFromTree(rootPath, hItemNode, linarPathArray);
+			}
+		}
+		return false;
+	}
+}
+
+bool FileBrowser::renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo)
+{
+	if (node == nullptr) // it's a root. Search the right root with rootPath
+	{
+		// Search
+		if ((node = getRootFromFullPath(rootPath)) == nullptr)
+			return false;
+	}
+
+	if (linarPathArrayFrom.size() == 1)
+	{
+		// Search
+		HTREEITEM childNodeFound = findChildNodeFromName(node, linarPathArrayFrom[0]);
+		if (childNodeFound == nullptr)
+			return false;
+
+		// found it, rename it
+		_treeView.renameItem(childNodeFound, linarPathArrayTo[0].c_str());
+		return true;
+	}
+	else
+	{
+		HTREEITEM childNodeFound = nullptr;
+		for (HTREEITEM hItemNode = _treeView.getChildFrom(node);
+			hItemNode != NULL && childNodeFound == nullptr;
+			hItemNode = _treeView.getNextSibling(hItemNode))
+		{
+			TCHAR textBuffer[MAX_PATH];
+			TVITEM tvItem;
+			tvItem.mask = TVIF_TEXT;
+			tvItem.pszText = textBuffer;
+			tvItem.cchTextMax = MAX_PATH;
+			tvItem.hItem = hItemNode;
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+
+			if (linarPathArrayFrom[0] == tvItem.pszText)
+			{
+				// search recursively the node for an action
+				linarPathArrayFrom.erase(linarPathArrayFrom.begin());
+				linarPathArrayTo.erase(linarPathArrayTo.begin());
+				return renameInTree(rootPath, hItemNode, linarPathArrayFrom, linarPathArrayTo);
+			}
+		}
+		return false;
+	}
+}
+
+bool FolderInfo::addToStructure(generic_string & fullpath, std::vector<generic_string> linarPathArray)
+{
+	if (linarPathArray.size() == 1) // could be file or folder
+	{
+		fullpath += TEXT("\\");
+		fullpath += linarPathArray[0];
+		if (PathIsDirectory(fullpath.c_str()))
+		{
+			// search in folders, if found - no good
+			size_t nbFolder = _subFolders.size();
+			for (size_t i = 0; i < nbFolder; ++i)
+			{
+				if (linarPathArray[0] == _subFolders[i].getName())
+					return false; // Maybe already added?
+			}
+			_subFolders.push_back(FolderInfo(linarPathArray[0], this));
+			return true;
+		}
+		else
+		{
+			// search in files, if found - no good
+			size_t nbFile = _files.size();
+			for (size_t i = 0; i < nbFile; ++i)
+			{
+				if (linarPathArray[0] == _files[i].getName())
+					return false; // Maybe already added?
+			}
+			_files.push_back(FileInfo(linarPathArray[0], this));
+			return true;
+		}	
+	}
+	else // folder
+	{
+		size_t nbFolder = _subFolders.size();
+		for (size_t i = 0; i < nbFolder; ++i)
+		{
+			if (_subFolders[i].getName() == linarPathArray[0])
+			{
+				fullpath += TEXT("\\");
+				fullpath += linarPathArray[0];
+				linarPathArray.erase(linarPathArray.begin());
+				return _subFolders[i].addToStructure(fullpath, linarPathArray);
+			}
+		}
+		return false;
+	}
+}
+
+bool FolderInfo::removeFromStructure(std::vector<generic_string> linarPathArray)
+{
+	if (linarPathArray.size() == 1) // could be file or folder
+	{
 		for (size_t i = 0; i < _files.size(); ++i)
 		{
-			bool isFound = false;
-			for (size_t j = 0; not isFound && j < struct2compare._files.size(); ++j)
+			if (_files[i].getName() == linarPathArray[0])
 			{
-				if (_files[i]._path == struct2compare._files[j]._path)
-					isFound = true;
-			}
-
-			if (not isFound) // file is deleted
-			{
-				// put result in the vector
-				changeInfo info;
-				info._action = info.remove;
-				info._fullFilePath = _files[i]._path;
-				result.push_back(info);
+				// remove this file
+				_files.erase(_files.begin() + i);
+				return true;
 			}
 		}
-		/*
-		for (size_t i = 0; i < struct2compare._files.size(); ++i)
+
+		for (size_t i = 0; i < _subFolders.size(); ++i)
 		{
-			bool isFound = false;
-			for (size_t j = 0; not isFound && j < _files.size(); ++j)
+			if (_subFolders[i].getName() == linarPathArray[0])
 			{
-				if (_files[i]._path == struct2compare._files[j]._path)
-					isFound = true;
-			}
-
-			if (not isFound) // file is deleted
-			{
-				// put result in the vector
-				changeInfo info;
-				info._action = info.add;
-				info._fullFilePath = struct2compare._files[i]._path;
-				result.push_back(info);
+				// remove this folder
+				_subFolders.erase(_subFolders.begin() + i);
+				return true;
 			}
 		}
-		*/
-		return true;
 	}
+	else // folder
+	{
+		for (size_t i = 0; i < _subFolders.size(); ++i)
+		{
+			if (_subFolders[i].getName() == linarPathArray[0])
+			{
+				linarPathArray.erase(linarPathArray.begin());
+				return _subFolders[i].removeFromStructure(linarPathArray);
+			}
+		}
+	}
+	return false;
 }
 
-bool FolderInfo::makeDiff(FolderInfo & struct1, FolderInfo & struct2, std::vector<changeInfo> result)
+bool FolderInfo::renameInStructure(std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo)
 {
-	if (struct1._contentHash == struct2._contentHash)
+	if (linarPathArrayFrom.size() == 1) // could be file or folder
 	{
-		if (struct1._path == struct2._path) // Everything is fine
+		for (size_t i = 0; i < _files.size(); ++i)
 		{
-			// remove both
-			return true;
+			if (_files[i].getName() == linarPathArrayFrom[0])
+			{
+				// rename this file
+				_files[i].setName(linarPathArrayTo[0]);
+				return true;
+			}
 		}
-		else // folder is renamed
+
+		for (size_t i = 0; i < _subFolders.size(); ++i)
 		{
-			// put result in the vector
-			changeInfo info;
-			info._action = info.rename;
-			info._fullFilePath = struct2._path;
-			result.push_back(info);
-			return false;
+			if (_subFolders[i].getName() == linarPathArrayFrom[0])
+			{
+				// rename this folder
+				_subFolders[i].setName(linarPathArrayTo[0]);
+				return true;
+			}
 		}
+		return false;
 	}
-	else // sub-folders or files/sub-files deleted or renamed
+	else // folder
 	{
-		if (struct1._path != struct2._path) // both content and path are different, stop to compare
+		for (size_t i = 0; i < _subFolders.size(); ++i)
 		{
-			return true; // everything could be fine
-		}
-
-		//check folder (maybe go deeper)
-		for (int i = struct1._subFolders.size(); i >= 0; --i)
-		{
-			bool isFound = false;
-			for (int j = struct2._subFolders.size(); not isFound && j >= 0; --j)
+			if (_subFolders[i].getName() == linarPathArrayFrom[0])
 			{
-				if ((struct1._subFolders[i]._path == struct2._subFolders[j]._path) &&
-					(struct1._subFolders[i]._contentHash == struct2._subFolders[j]._contentHash))
-				{
-					struct1._subFolders.erase(struct1._subFolders.begin() + i);
-					struct2._subFolders.erase(struct2._subFolders.begin() + j);
-					isFound = true;
-				}
-				else
-				{
-					if ((struct1._subFolders[i]._path != struct2._subFolders[j]._path) &&
-						(struct1._subFolders[i]._contentHash == struct2._subFolders[j]._contentHash)) // rename
-					{
-						changeInfo info;
-						info._action = info.rename;
-						info._fullFilePath = struct2._path;
-						result.push_back(info);
-					}
-					else if ((struct1._subFolders[i]._path == struct2._subFolders[j]._path) &&
-						(struct1._subFolders[i]._contentHash != struct2._subFolders[j]._contentHash)) // problem of sub-files or sub-folders. go deeper
-					{
-						makeDiff(struct1._subFolders[i], struct2._subFolders[j], result);
-					}
-				}
-			}
-			if (not isFound) // folder is deleted
-			{
-				// put result in the vector
-				changeInfo info;
-				info._action = info.remove;
-				info._fullFilePath = struct1._subFolders[i]._path;
-				result.push_back(info);
+				linarPathArrayFrom.erase(linarPathArrayFrom.begin());
+				linarPathArrayTo.erase(linarPathArrayTo.begin());
+				return _subFolders[i].renameInStructure(linarPathArrayFrom, linarPathArrayTo);
 			}
 		}
-
-		//check files 
-		for (int i = struct1._files.size(); i >= 0; --i)
-		{
-			bool isFound = false;
-			for (int j = struct2._files.size(); not isFound && j >= 0; --j)
-			{
-				if (struct1._files[i]._path == struct2._files[j]._path)
-				{
-					struct1._subFolders.erase(struct1._subFolders.begin() + i);
-					struct2._subFolders.erase(struct2._subFolders.begin() + j);
-					isFound = true;
-				}
-			}
-
-			if (not isFound) // file is deleted
-			{
-				// put result in the vector
-				changeInfo info;
-				info._action = info.remove;
-				info._fullFilePath = struct1._files[i]._path;
-				result.push_back(info);
-			}
-		}
-		return true;
+		return false;
 	}
-}
-
-generic_string FolderInfo::getLabel()
-{
-	return ::PathFindFileName(_path.c_str());
 }
 
 void FolderUpdater::startWatcher()
@@ -1144,45 +1181,113 @@ LPCWSTR explainAction(DWORD dwAction)
 	}
 };
 
+vector<generic_string> split(const generic_string & string2split, TCHAR sep)
+{
+	vector<generic_string> splitedStrings;
+	size_t len = string2split.length();
+	size_t beginPos = 0;
+	for (size_t i = 0; i < len + 1; ++i)
+	{
+		if (string2split[i] == sep || string2split[i] == '\0')
+		{
+			splitedStrings.push_back(string2split.substr(beginPos, i - beginPos));
+			beginPos = i + 1;
+		}
+	}
+	return splitedStrings;
+};
+
 bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> & file2Change)
 {
-	//TCHAR msg2show[1024];
-
+	/*
+	TCHAR msg2show[1024];
 	switch (action)
 	{
-		case FILE_ACTION_ADDED:
-			//swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
-			//printStr(msg2show);
-			//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
-			break;
+	case FILE_ACTION_ADDED:
+		swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
+		printStr(msg2show);
+		//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
+		break;
 
-		case FILE_ACTION_REMOVED:
-			//swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
-			//printStr(msg2show);
+	case FILE_ACTION_REMOVED:
+		swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
+		printStr(msg2show);
 
-			break;
+		break;
 
-		case FILE_ACTION_RENAMED_NEW_NAME:
-			//swprintf(msg2show, L"%s from %s \rto %s", explainAction(action), file2Change[0].c_str(), file2Change[1].c_str());
-			//printStr(msg2show);
+	case FILE_ACTION_RENAMED_NEW_NAME:
+		swprintf(msg2show, L"%s from %s \rto %s", explainAction(action), file2Change[0].c_str(), file2Change[1].c_str());
+		printStr(msg2show);
 
-			break;
+		break;
 
-		default:
-			break;
+	default:
+		break;
 	}
+	*/
 	generic_string separator = TEXT("\\\\");
 
 	size_t sepPos = file2Change[0].find(separator);
 	if (sepPos == generic_string::npos)
 		return false;
 
-	generic_string rootPrefix = file2Change[0].substr(0, sepPos);
 	generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
 
-	// found: remove prefix of file/folder in changeInfo, splite the remained path
+	// remove prefix of file/folder in changeInfo, splite the remained path
+	vector<generic_string> linarPathArray = split(pathSuffix, '\\');
 
-	// search recursively according indication (file or folder)
+	if (action == FILE_ACTION_ADDED)
+	{
+		generic_string rootPath = file2Change[0].substr(0, sepPos);
+		generic_string path = rootPath;
+		// search recursively and modify the tree structure
+		bool foundAndModified = _rootFolder.addToStructure(path, linarPathArray);
+		if (foundAndModified)
+		{
+			generic_string addedFilePath = file2Change[0].substr(0, sepPos + 1);
+			addedFilePath += pathSuffix;
+			bool isAdded = _pFileBrowser->addInTree(rootPath, addedFilePath, nullptr, linarPathArray);
+			if (not isAdded)
+				MessageBox(NULL, addedFilePath.c_str(), TEXT("file/folder is not added"), MB_OK);
+		}
+		else
+			printStr(TEXT("addToStructure pb"));
+	}
+	else if (action == FILE_ACTION_REMOVED)
+	{
+		generic_string rootPath = file2Change[0].substr(0, sepPos);
+		// search recursively and modify the tree structure
+		bool foundAndModified = _rootFolder.removeFromStructure(linarPathArray);
+		if (foundAndModified)
+		{
+			bool isRemoved = _pFileBrowser->deleteFromTree(rootPath, nullptr, linarPathArray);
+			if (not isRemoved)
+				MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
+		}
+		else
+			printStr(TEXT("removeFromStructure pb"));
+	}
+	else if (action == FILE_ACTION_RENAMED_NEW_NAME)
+	{
+		generic_string rootPath = file2Change[0].substr(0, sepPos);
+
+		size_t sepPos2 = file2Change[1].find(separator);
+		if (sepPos2 == generic_string::npos)
+			return false;
+
+		generic_string pathSuffix2 = file2Change[1].substr(sepPos2 + separator.length(), file2Change[1].length() - 1);
+		vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
+
+		bool foundAndModified = _rootFolder.renameInStructure(linarPathArray, linarPathArray2);
+		if (foundAndModified)
+		{
+			bool isRenamed = _pFileBrowser->renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2);
+			if (not isRenamed)
+				MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
+		}
+		else
+			printStr(TEXT("removeFromStructure pb"));
+	}
 
 	return true;
 }
@@ -1191,7 +1296,7 @@ bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> &
 DWORD WINAPI FolderUpdater::watching(void *params)
 {
 	FolderUpdater *thisFolderUpdater = (FolderUpdater *)params;
-	const TCHAR *dir2Watch = (thisFolderUpdater->_rootFolder)._path.c_str();
+	const TCHAR *dir2Watch = (thisFolderUpdater->_rootFolder)._rootPath.c_str();
 
 	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_CREATION | FILE_NOTIFY_CHANGE_DIR_NAME | FILE_NOTIFY_CHANGE_FILE_NAME;
 

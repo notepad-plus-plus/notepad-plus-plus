@@ -91,6 +91,20 @@ bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 	return true;
 }
 
+bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
+{
+	if (not Item2Set || not newName)
+		return false;
+
+	TVITEM tvItem;
+	tvItem.hItem = Item2Set;
+	tvItem.mask = TVIF_TEXT;
+	tvItem.pszText = (LPWSTR)newName;
+	tvItem.cchTextMax = MAX_PATH;
+	SendMessage(_hSelf, TVM_SETITEM, 0, (LPARAM)&tvItem);
+	return true;
+}
+
 HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath)
 {
 	TVITEM tvi;

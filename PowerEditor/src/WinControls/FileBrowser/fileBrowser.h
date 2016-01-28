@@ -60,33 +60,22 @@
 
 class TiXmlNode;
 
-class changeInfo final
-{
-friend class FolderInfo;
-public:
-	enum folderChangeAction{
-		add, remove, rename
-	};
-
-private:
-	bool isFile; // true: file, false: folder
-	generic_string _fullFilePath;
-	std::vector<generic_string> _relativePath;
-	folderChangeAction _action;
-};
-
 class FileInfo final
 {
 friend class FileBrowser;
 friend class FolderInfo;
 
 public:
-	FileInfo(const generic_string & fn) { _path = fn; };
-	generic_string getLabel() { return ::PathFindFileName(_path.c_str()); };
+	FileInfo(const generic_string & name, FolderInfo *parent) : _name(name), _parent(parent) {};
+	generic_string getName() const { return _name; };
+	void setName(generic_string name) { _name = name; };
 
 private:
-	generic_string _path;
+	FileInfo(){}; // constructor by default is forbidden
+	FolderInfo *_parent = nullptr;
+	generic_string _name;
 };
+
 
 class FolderInfo final
 {
@@ -94,18 +83,25 @@ friend class FileBrowser;
 friend class FolderUpdater;
 
 public:
-	void setPath(generic_string dn) { _path = dn; };
-	void addFile(generic_string fn) { _files.push_back(FileInfo(fn)); };
+	FolderInfo(const generic_string & name, FolderInfo *parent) : _name(name), _parent(parent) {};
+	void setRootPath(generic_string rootPath) { _rootPath = rootPath; };
+	generic_string getRootPath() const { return _rootPath; };
+	void setName(generic_string name) { _name = name; };
+	generic_string getName() const { return _name; };
+	void addFile(generic_string fn) { _files.push_back(FileInfo(fn, this)); };
 	void addSubFolder(FolderInfo subDirectoryStructure) { _subFolders.push_back(subDirectoryStructure); };
-	bool compare(const FolderInfo & struct2compare, std::vector<changeInfo> & result);
-	static bool makeDiff(FolderInfo & struct1, FolderInfo & struct2static, std::vector<changeInfo> result);
-	generic_string getLabel();
+
+	bool addToStructure(generic_string & fullpath, std::vector<generic_string> linarPathArray);
+	bool removeFromStructure(std::vector<generic_string> linarPathArray);
+	bool renameInStructure(std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo);
 
 private:
+	FolderInfo(){}; // constructor by default is forbidden
 	std::vector<FolderInfo> _subFolders;
 	std::vector<FileInfo> _files;
-	generic_string _path;
-	generic_string _contentHash;
+	FolderInfo *_parent = nullptr;
+	generic_string _name;
+	generic_string _rootPath; // set only for root folder; empty for normal folder
 };
 
 enum BrowserNodeType {
@@ -115,17 +111,16 @@ enum BrowserNodeType {
 class FolderUpdater {
 friend class FileBrowser;
 public:
-	FolderUpdater(FolderInfo fi, HWND hFileBrowser) : _rootFolder(fi), _hFileBrowser(hFileBrowser) {};
+	FolderUpdater(FolderInfo fi, FileBrowser *pFileBrowser) : _rootFolder(fi), _pFileBrowser(pFileBrowser) {};
 	~FolderUpdater() {};
 	bool updateTree(DWORD action, const std::vector<generic_string> & file2Change); // postMessage to FileBrowser to upgrade GUI
 
 	void startWatcher();
 	void stopWatcher();
 
-
 private:
 	FolderInfo _rootFolder;
-	HWND _hFileBrowser = nullptr;
+	FileBrowser *_pFileBrowser = nullptr;
 	HANDLE _watchThreadHandle = nullptr;
 	HANDLE _EventHandle = nullptr;
 
@@ -157,6 +152,13 @@ public:
 
 	void addRootFolder(generic_string);
 
+	HTREEITEM getRootFromFullPath(generic_string rootPath);
+	HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string);
+
+	bool addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
+	bool deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
+	bool renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo);
+
 protected:
 	TreeView _treeView;
 	HIMAGELIST _hImaLst;
@@ -170,9 +172,8 @@ protected:
 	void initMenus();
 	void destroyMenus();
 	BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
-	void addFiles(HTREEITEM hTreeItem);
-	void recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem);
-	HTREEITEM addFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
+
+	HTREEITEM createNewFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
 
 	generic_string getRelativePath(const generic_string & fn, const TCHAR *workSpaceFileName);
 	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const TCHAR* fn2write);

@@ -37,6 +37,7 @@
 #include "TreeView.h"
 #include "fileBrowser_rc.h"
 
+#define FB_PROJECTPANELTITLE     TEXT("File Browser")
 #define PM_NEWFOLDERNAME         TEXT("Folder Name")
 #define PM_NEWPROJECTNAME        TEXT("Project Name")
 
@@ -113,7 +114,7 @@ friend class FileBrowser;
 public:
 	FolderUpdater(FolderInfo fi, FileBrowser *pFileBrowser) : _rootFolder(fi), _pFileBrowser(pFileBrowser) {};
 	~FolderUpdater() {};
-	bool updateTree(DWORD action, const std::vector<generic_string> & file2Change); // postMessage to FileBrowser to upgrade GUI
+	//bool updateTree(DWORD action, const std::vector<generic_string> & file2Change); // postMessage to FileBrowser to upgrade GUI
 
 	void startWatcher();
 	void stopWatcher();
@@ -121,6 +122,7 @@ public:
 private:
 	FolderInfo _rootFolder;
 	FileBrowser *_pFileBrowser = nullptr;
+	
 	HANDLE _watchThreadHandle = nullptr;
 	HANDLE _EventHandle = nullptr;
 
@@ -146,6 +148,7 @@ public:
 	virtual void setBackgroundColor(COLORREF bgColour) {
 		TreeView_SetBkColor(_treeView.getHSelf(), bgColour);
     };
+
 	virtual void setForegroundColor(COLORREF fgColour) {
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
     };
@@ -162,14 +165,14 @@ public:
 protected:
 	TreeView _treeView;
 	HIMAGELIST _hImaLst;
-	HWND _hToolbarMenu = NULL;
-	HMENU _hWorkSpaceMenu = NULL;
-	HMENU _hProjectMenu = NULL;
+
+	HMENU _hGlobalMenu = NULL;
+	HMENU _hRootMenu = NULL;
 	HMENU _hFolderMenu = NULL;
 	HMENU _hFileMenu = NULL;
-	std::vector<FolderUpdater> _folderUpdaters;
+	std::vector<FolderUpdater *> _folderUpdaters;
 
-	void initMenus();
+	void initPopupMenus();
 	void destroyMenus();
 	BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
 

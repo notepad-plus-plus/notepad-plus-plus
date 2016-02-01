@@ -47,13 +47,34 @@
 #define GET_X_LPARAM(lp)                        ((int)(short)LOWORD(lp))
 #define GET_Y_LPARAM(lp)                        ((int)(short)HIWORD(lp))
 
+#define FB_ADDFILE (WM_USER + 1024)
+#define FB_RMFILE  (WM_USER + 1025)
+#define FB_RNFILE  (WM_USER + 1026)
+
 FileBrowser::~FileBrowser()
 {
 	for (size_t i = 0; i < _folderUpdaters.size(); ++i)
 	{
-		_folderUpdaters[i].stopWatcher();
+		_folderUpdaters[i]->stopWatcher();
+		delete _folderUpdaters[i];
 	}
 }
+
+vector<generic_string> split(const generic_string & string2split, TCHAR sep)
+{
+	vector<generic_string> splitedStrings;
+	size_t len = string2split.length();
+	size_t beginPos = 0;
+	for (size_t i = 0; i < len + 1; ++i)
+	{
+		if (string2split[i] == sep || string2split[i] == '\0')
+		{
+			splitedStrings.push_back(string2split.substr(beginPos, i - beginPos));
+			beginPos = i + 1;
+		}
+	}
+	return splitedStrings;
+};
 
 INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -61,56 +82,31 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
     {
         case WM_INITDIALOG :
         {
-			FileBrowser::initMenus();
-
-			// Create toolbar menu
-			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
-			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
-								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
-			TBBUTTON tbButtons[2];
-
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			generic_string workspace_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 0, PM_WORKSPACEMENUENTRY);
-			generic_string edit_entry = pNativeSpeaker->getProjectPanelLangMenuStr("Entries", 1, PM_EDITMENUENTRY);
-
-			tbButtons[0].idCommand = IDB_FILEBROWSER_BTN;
-			tbButtons[0].iBitmap = I_IMAGENONE;
-			tbButtons[0].fsState = TBSTATE_ENABLED;
-			tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[0].iString = (INT_PTR)workspace_entry.c_str();
-
-			tbButtons[1].idCommand = IDB_FILEBROWSER_EDIT_BTN;
-			tbButtons[1].iBitmap = I_IMAGENONE;
-			tbButtons[1].fsState = TBSTATE_ENABLED;
-			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[1].iString = (INT_PTR)edit_entry.c_str();
-
-			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
-			SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
-			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
-			ShowWindow(_hToolbarMenu, SW_SHOW);
+			FileBrowser::initPopupMenus();
 
 			_treeView.init(_hInst, _hSelf, ID_FILEBROWSERTREEVIEW);
-
 			setImageList(IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
+
+			_treeView.addCanNotDropInList(INDEX_OPEN_ROOT);
+			_treeView.addCanNotDropInList(INDEX_CLOSE_ROOT);
+			_treeView.addCanNotDropInList(INDEX_OPEN_NODE);
+			_treeView.addCanNotDropInList(INDEX_CLOSED_NODE);
 			_treeView.addCanNotDropInList(INDEX_LEAF);
 			_treeView.addCanNotDropInList(INDEX_LEAF_INVALID);
 
-			//_treeView.addCanNotDragOutList(INDEX_CLEAN_ROOT);
-			//_treeView.addCanNotDragOutList(INDEX_DIRTY_ROOT);
-			//_treeView.addCanNotDragOutList(INDEX_PROJECT);
+			_treeView.addCanNotDragOutList(INDEX_OPEN_ROOT);
+			_treeView.addCanNotDragOutList(INDEX_CLOSE_ROOT);
+			_treeView.addCanNotDragOutList(INDEX_OPEN_NODE);
+			_treeView.addCanNotDragOutList(INDEX_CLOSED_NODE);
+			_treeView.addCanNotDragOutList(INDEX_LEAF);
+			_treeView.addCanNotDragOutList(INDEX_LEAF_INVALID);
 
+			_treeView.makeLabelEditable(false);
 			_treeView.display();
-
-			/*
-			if (!openWorkSpace(_workSpaceFilePath.c_str()))
-				newWorkSpace();
-			*/
 
             return TRUE;
         }
 
-		
 		case WM_MOUSEMOVE:
 			if (_treeView.isDragging())
 				_treeView.dragItem(_hSelf, LOWORD(lParam), HIWORD(lParam));
@@ -133,14 +129,10 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
         {
             int width = LOWORD(lParam);
             int height = HIWORD(lParam);
-            RECT toolbarMenuRect;
-            ::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
-
-            ::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
 
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
-				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
+				::MoveWindow(hwnd, 0, 0, width, height, TRUE);
             break;
         }
 
@@ -159,15 +151,91 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
         {
 			_treeView.destroy();
 			destroyMenus();
-			::DestroyWindow(_hToolbarMenu);
             break;
         }
-		case WM_KEYDOWN:
-			//if (wParam == VK_F2)
+
+		case FB_ADDFILE:
+		{
+			const std::vector<generic_string> file2Change = *(std::vector<generic_string> *)lParam;
+			generic_string separator = TEXT("\\\\");
+
+			size_t sepPos = file2Change[0].find(separator);
+			if (sepPos == generic_string::npos)
+				return false;
+
+			generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
+
+			// remove prefix of file/folder in changeInfo, splite the remained path
+			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+
+			generic_string rootPath = file2Change[0].substr(0, sepPos);
+			generic_string path = rootPath;
+
+			generic_string addedFilePath = file2Change[0].substr(0, sepPos + 1);
+			addedFilePath += pathSuffix;
+			bool isAdded = addInTree(rootPath, addedFilePath, nullptr, linarPathArray);
+			if (not isAdded)
 			{
-				::MessageBoxA(NULL,"vkF2","",MB_OK);
+				//MessageBox(NULL, addedFilePath.c_str(), TEXT("file/folder is not added"), MB_OK);
 			}
 			break;
+		}
+
+		case FB_RMFILE:
+		{
+			const std::vector<generic_string> file2Change = *(std::vector<generic_string> *)lParam;
+			generic_string separator = TEXT("\\\\");
+
+			size_t sepPos = file2Change[0].find(separator);
+			if (sepPos == generic_string::npos)
+				return false;
+
+			generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
+
+			// remove prefix of file/folder in changeInfo, splite the remained path
+			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+
+			generic_string rootPath = file2Change[0].substr(0, sepPos);
+			// search recursively and modify the tree structure
+
+			bool isRemoved = deleteFromTree(rootPath, nullptr, linarPathArray);
+			if (not isRemoved)
+			{
+				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
+			}
+			break;
+		}
+
+		case FB_RNFILE:
+		{
+			const std::vector<generic_string> file2Change = *(std::vector<generic_string> *)lParam;
+			generic_string separator = TEXT("\\\\");
+
+			size_t sepPos = file2Change[0].find(separator);
+			if (sepPos == generic_string::npos)
+				return false;
+
+			generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
+
+			// remove prefix of file/folder in changeInfo, splite the remained path
+			vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+
+			generic_string rootPath = file2Change[0].substr(0, sepPos);
+
+			size_t sepPos2 = file2Change[1].find(separator);
+			if (sepPos2 == generic_string::npos)
+				return false;
+
+			generic_string pathSuffix2 = file2Change[1].substr(sepPos2 + separator.length(), file2Change[1].length() - 1);
+			vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
+
+			bool isRenamed = renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2);
+			if (not isRenamed)
+			{
+				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
+			}
+			break;
+		}
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
@@ -175,61 +243,35 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
-void FileBrowser::initMenus()
+void FileBrowser::initPopupMenus()
 {
-	_hWorkSpaceMenu = ::CreatePopupMenu();
-	
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-
-	generic_string edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_MOVEUP, PM_MOVEUPENTRY);
-	generic_string edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_MOVEDOWN, PM_MOVEDOWNENTRY);
+	generic_string edit_removeFolderFromFileBrowser = pNativeSpeaker->getProjectPanelLangMenuStr("FileBrowserContextMenu", IDM_FILEBROWSER_REMOVEROOTFOLDER, PM_EDITREMOVE);
+	/*
 	generic_string edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_RENAME, PM_EDITRENAME);
 	generic_string edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_NEWFOLDER, PM_EDITNEWFOLDER);
 	generic_string edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_ADDFILES, PM_EDITADDFILES);
-	//generic_string edit_addfilesRecursive = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_ADDFILESRECUSIVELY, PM_EDITADDFILESRECUSIVELY);
-	generic_string edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_DELETEFOLDER, PM_EDITREMOVE);
 
-	_hProjectMenu = ::CreatePopupMenu();
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MOVEUP, edit_moveup.c_str());
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MOVEDOWN, edit_movedown.c_str());
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, UINT(-1), 0);
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_RENAME, edit_rename.c_str());
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_NEWFOLDER, edit_addfolder.c_str());
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILES, edit_addfiles.c_str());
-	//::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILESRECUSIVELY, edit_addfilesRecursive.c_str());
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_DELETEFOLDER, edit_remove.c_str());
-
-	edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_MOVEUP, PM_MOVEUPENTRY);
-	edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_MOVEDOWN, PM_MOVEDOWNENTRY);
+	
 	edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_RENAME, PM_EDITRENAME);
 	edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_NEWFOLDER, PM_EDITNEWFOLDER);
 	edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_ADDFILES, PM_EDITADDFILES);
-	//edit_addfilesRecursive = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_ADDFILESRECUSIVELY, PM_EDITADDFILESRECUSIVELY);
 	edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_DELETEFOLDER, PM_EDITREMOVE);
+*/
+	_hGlobalMenu = ::CreatePopupMenu();
+
+	_hRootMenu = ::CreatePopupMenu();
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, edit_removeFolderFromFileBrowser.c_str());
 
 	_hFolderMenu = ::CreatePopupMenu();
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MOVEUP,        edit_moveup.c_str());
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MOVEDOWN,      edit_movedown.c_str());
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, UINT(-1), 0);
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_RENAME,        edit_rename.c_str());
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_NEWFOLDER,     edit_addfolder.c_str());
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILES,      edit_addfiles.c_str());
-	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILESRECUSIVELY, edit_addfilesRecursive.c_str());
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_DELETEFOLDER,  edit_remove.c_str());
-
-	edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_FILEBROWSER_MOVEUP, PM_MOVEUPENTRY);
-	edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_FILEBROWSER_MOVEDOWN, PM_MOVEDOWNENTRY);
-	edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_FILEBROWSER_RENAME, PM_EDITRENAME);
-	edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_FILEBROWSER_DELETEFILE, PM_EDITREMOVE);
-	generic_string edit_modifyfile = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_FILEBROWSER_MODIFYFILEPATH, PM_EDITMODIFYFILE);
-
+	
+	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_NEWFOLDER,     edit_addfolder.c_str());
+	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILES,      edit_addfiles.c_str());
+	
 	_hFileMenu = ::CreatePopupMenu();
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MOVEUP, edit_moveup.c_str());
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MOVEDOWN, edit_movedown.c_str());
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, UINT(-1), 0);
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_RENAME, edit_rename.c_str());
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_DELETEFILE, edit_remove.c_str());
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MODIFYFILEPATH, edit_modifyfile.c_str());
+	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_RENAME, edit_rename.c_str());
+	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_DELETEFILE, edit_remove.c_str());
+	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MODIFYFILEPATH, edit_modifyfile.c_str());
 }
 
 
@@ -298,8 +340,8 @@ BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int project
 
 void FileBrowser::destroyMenus() 
 {
-	::DestroyMenu(_hWorkSpaceMenu);
-	::DestroyMenu(_hProjectMenu);
+	::DestroyMenu(_hGlobalMenu);
+	::DestroyMenu(_hRootMenu);
 	::DestroyMenu(_hFolderMenu);
 	::DestroyMenu(_hFileMenu);
 }
@@ -351,29 +393,55 @@ generic_string FileBrowser::getRelativePath(const generic_string & filePath, con
 
 void FileBrowser::openSelectFile()
 {
-	TVITEM tvItem;
-	tvItem.mask = TVIF_PARAM;
-	tvItem.hItem = _treeView.getSelection();
-	::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+	// Get the selected item
+	HTREEITEM selectedNode = _treeView.getSelection();
+	if (not selectedNode) return;
 
-	BrowserNodeType nType = getNodeType(tvItem.hItem);
-	generic_string *fn = (generic_string *)tvItem.lParam;
-	if (nType == browserNodeType_file && fn)
+	vector<generic_string> fullPathArray;
+	generic_string fullPath;
+
+	// go up until to root, then get the full path
+	HTREEITEM parent = selectedNode;
+	for (; parent != nullptr;)
 	{
-		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-		if (::PathFileExists(fn->c_str()))
+		generic_string folderName = _treeView.getItemDisplayName(parent);
+	
+		HTREEITEM temp = _treeView.getParent(parent);
+		if (temp == nullptr)
 		{
-			::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fn->c_str()));
-			tvItem.iImage = INDEX_LEAF;
-			tvItem.iSelectedImage = INDEX_LEAF;
+			LPARAM param = _treeView.getItemParam(parent);
+			folderName = (param == 0) ? TEXT("") : *((generic_string *)param);
 		}
-		else
-		{
-			tvItem.iImage = INDEX_LEAF_INVALID;
-			tvItem.iSelectedImage = INDEX_LEAF_INVALID;
-		}
-		TreeView_SetItem(_treeView.getHSelf(), &tvItem);
+		parent = temp;
+		fullPathArray.push_back(folderName);
 	}
+
+
+	for (long i = fullPathArray.size() - 1; i >= 0; --i)
+	{
+		fullPath += fullPathArray[i];
+		if (i != 0)
+			fullPath += TEXT("\\");
+	}
+
+	// test the path - if it's a file, open it, otherwise just fold or unfold it
+	if (not ::PathFileExists(fullPath.c_str()))
+		return;
+
+	TVITEM tvItem;
+	tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	if (::PathIsDirectory(fullPath.c_str()))
+	{
+		tvItem.iImage = INDEX_LEAF_INVALID;
+		tvItem.iSelectedImage = INDEX_LEAF_INVALID;
+	}
+	else
+	{
+		::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fullPath.c_str()));
+		tvItem.iImage = INDEX_LEAF;
+		tvItem.iSelectedImage = INDEX_LEAF;
+	}
+	TreeView_SetItem(_treeView.getHSelf(), &tvItem);
 }
 
 
@@ -441,20 +509,9 @@ void FileBrowser::notified(LPNMHDR notification)
 
 			case TVN_KEYDOWN:
 			{
-				//tvItem.hItem = _treeView.getSelection();
-				//::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
 				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
 				
-				if (ptvkd->wVKey == VK_DELETE)
-				{
-					HTREEITEM hItem = _treeView.getSelection();
-					BrowserNodeType nType = getNodeType(hItem);
-					if (nType == browserNodeType_folder)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFOLDER);
-					else if (nType == browserNodeType_file)
-						popupMenuCmd(IDM_FILEBROWSER_DELETEFILE);
-				}
-				else if (ptvkd->wVKey == VK_RETURN)
+				if (ptvkd->wVKey == VK_RETURN)
 				{
 					HTREEITEM hItem = _treeView.getSelection();
 					BrowserNodeType nType = getNodeType(hItem);
@@ -462,6 +519,16 @@ void FileBrowser::notified(LPNMHDR notification)
 						openSelectFile();
 					else
 						_treeView.toggleExpandCollapse(hItem);
+				}
+				/*
+				else if (ptvkd->wVKey == VK_DELETE)
+				{
+					HTREEITEM hItem = _treeView.getSelection();
+					BrowserNodeType nType = getNodeType(hItem);
+					if (nType == browserNodeType_folder)
+						popupMenuCmd(IDM_FILEBROWSER_DELETEFOLDER);
+					else if (nType == browserNodeType_file)
+						popupMenuCmd(IDM_FILEBROWSER_DELETEFILE);
 				}
 				else if (ptvkd->wVKey == VK_UP)
 				{
@@ -479,7 +546,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				}
 				else if (ptvkd->wVKey == VK_F2)
 					popupMenuCmd(IDM_FILEBROWSER_RENAME);
-				
+				*/
 			}
 			break;
 
@@ -521,20 +588,20 @@ BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
 	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
 
+	// File
+	if (tvItem.iImage == INDEX_LEAF)
+	{
+		return browserNodeType_file;
+	}
 	// Root
-	if (tvItem.iImage == INDEX_CLOSE_ROOT || tvItem.iImage == INDEX_OPEN_ROOT)
+	else if (tvItem.lParam != NULL)
 	{
 		return browserNodeType_root;
 	}
 	// Folder
-	else if (tvItem.lParam == NULL)
-	{
-		return browserNodeType_folder;
-	}
-	// File
 	else
 	{
-		return browserNodeType_file;
+		return browserNodeType_folder;
 	}
 }
 
@@ -550,7 +617,11 @@ void FileBrowser::showContextMenu(int x, int y)
 	ScreenToClient(_treeView.getHSelf(), &(tvHitInfo.pt));
 	hTreeItem = TreeView_HitTest(_treeView.getHSelf(), &tvHitInfo);
 
-	if (tvHitInfo.hItem != NULL)
+	if (tvHitInfo.hItem == nullptr)
+	{
+		TrackPopupMenu(_hGlobalMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
+	}
+	else
 	{
 		// Make item selected
 		_treeView.selectItem(tvHitInfo.hItem);
@@ -559,25 +630,16 @@ void FileBrowser::showContextMenu(int x, int y)
 		BrowserNodeType nodeType = getNodeType(tvHitInfo.hItem);
 		HMENU hMenu = NULL;
 		if (nodeType == browserNodeType_root)
-			hMenu = _hWorkSpaceMenu;
+			hMenu = _hRootMenu;
 		else if (nodeType == browserNodeType_folder)
-			hMenu = _hFolderMenu;
+			//hMenu = _hFolderMenu;
+			return;
 		else //nodeType_file
-			hMenu = _hFileMenu;
+			//hMenu = _hFileMenu;
+			return;
+
 		TrackPopupMenu(hMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
 	}
-}
-
-POINT FileBrowser::getMenuDisplayPoint(int iButton)
-{
-	POINT p;
-	RECT btnRect;
-	SendMessage(_hToolbarMenu, TB_GETITEMRECT, iButton, (LPARAM)&btnRect);
-
-	p.x = btnRect.left;
-	p.y = btnRect.top + btnRect.bottom;
-	ClientToScreen(_hToolbarMenu, &p);
-	return p;
 }
 
 HTREEITEM FileBrowser::createNewFolder(HTREEITEM hTreeItem, const TCHAR *folderName)
@@ -602,35 +664,31 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 	switch (cmdID)
 	{
-		//
-		// Toolbar menu buttons
-		//
-		case IDB_FILEBROWSER_BTN:
-		{
-		  POINT p = getMenuDisplayPoint(0);
-		  TrackPopupMenu(_hWorkSpaceMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
-		}
-		break;
-
-		case IDB_FILEBROWSER_EDIT_BTN:
-		{
-			POINT p = getMenuDisplayPoint(1);
-			HMENU hMenu = NULL;
-			BrowserNodeType nodeType = getNodeType(hTreeItem);
-
-			if (nodeType == browserNodeType_folder)
-				hMenu = _hFolderMenu;
-			else if (nodeType == browserNodeType_file)
-				hMenu = _hFileMenu;
-			if (hMenu)
-				TrackPopupMenu(hMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
-		}
-		break;
 
 		//
 		// Toolbar menu commands
 		//
+		case IDM_FILEBROWSER_REMOVEROOTFOLDER:
+		{
+			HTREEITEM selectedNode = _treeView.getSelection();
+			generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
+			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
+				return;
 
+			size_t nbFolderUpdaters = _folderUpdaters.size();
+			for (size_t i = 0; i < nbFolderUpdaters; ++i)
+			{
+				if (_folderUpdaters[i]->_rootFolder._rootPath == *rootPath)
+				{
+					_folderUpdaters[i]->stopWatcher();
+					_folderUpdaters.erase(_folderUpdaters.begin() + i);
+					_treeView.removeItem(selectedNode);
+					break;
+				}
+			}
+		}
+		break;
+	/*
 		case IDM_FILEBROWSER_RENAME :
 			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);
 		break;
@@ -655,15 +713,6 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		}
 		break;
 		
-		/*
-		case IDM_FILEBROWSER_ADDFILES :
-		{
-			addFiles(hTreeItem);
-			if (getNodeType(hTreeItem) == browserNodeType_folder)
-				_treeView.setItemImage(hTreeItem, INDEX_OPEN_NODE, INDEX_OPEN_NODE);
-		}
-		break;
-		*/
 
 		case IDM_FILEBROWSER_DELETEFOLDER :
 		{
@@ -700,6 +749,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			}
 		}
 		break;
+		*/
 	}
 }
 
@@ -711,6 +761,8 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 		directoryStructure.setRootPath(dir);
 
 	generic_string dirFilter(dir);
+	if (dirFilter[dirFilter.length() - 1] != '\\')
+		dirFilter += TEXT("\\");
 	dirFilter += TEXT("*.*");
 	WIN32_FIND_DATA foundData;
 
@@ -730,6 +782,8 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
 				{
 					generic_string pathDir(dir);
+					if (pathDir[pathDir.length() - 1] != '\\')
+						pathDir += TEXT("\\");
 					pathDir += foundData.cFileName;
 					pathDir += TEXT("\\");
 
@@ -761,6 +815,8 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
 				{
 					generic_string pathDir(dir);
+					if (pathDir[pathDir.length() - 1] != '\\')
+						pathDir += TEXT("\\");
 					pathDir += foundData.cFileName;
 					pathDir += TEXT("\\");
 
@@ -783,23 +839,52 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 
 void FileBrowser::addRootFolder(generic_string rootFolderPath)
 {
+	// make sure there's no '\' at the end
+	if (rootFolderPath[rootFolderPath.length() - 1] == '\\')
+	{
+		rootFolderPath = rootFolderPath.substr(0, rootFolderPath.length() - 1);
+	}
+
 	size_t nbFolderUpdaters = _folderUpdaters.size();
 	for (size_t i = 0; i < nbFolderUpdaters; ++i)
 	{
-		if (_folderUpdaters[i]._rootFolder._rootPath == rootFolderPath)
+		if (_folderUpdaters[i]->_rootFolder._rootPath == rootFolderPath)
 			return;
+		else
+		{
+			size_t pos = rootFolderPath.find(_folderUpdaters[i]->_rootFolder._rootPath);
+			if (pos == 0)
+			{
+				printStr(TEXT("do nothing, go down to select the dir."));
+				
+				return;
+			}
+			
+			pos = _folderUpdaters[i]->_rootFolder._rootPath.find(rootFolderPath);
+			if (pos == 0)
+			{
+				printStr(TEXT("remove old, add this one"));
+				return;
+			}
+		}
 	}
 
 	std::vector<generic_string> patterns2Match;
-	patterns2Match.push_back(TEXT("*.*"));
+ 	patterns2Match.push_back(TEXT("*.*"));
 
 	TCHAR *label = ::PathFindFileName(rootFolderPath.c_str());
-	FolderInfo directoryStructure(label, nullptr);
+	TCHAR rootLabel[MAX_PATH];
+	lstrcpy(rootLabel, label);
+	size_t len = lstrlen(rootLabel);
+	if (rootLabel[len - 1] == '\\')
+		rootLabel[len - 1] = '\0';
+
+	FolderInfo directoryStructure(rootLabel, nullptr);
 	getDirectoryStructure(rootFolderPath.c_str(), patterns2Match, directoryStructure, true, false);
 	HTREEITEM hRootItem = createFolderItemsFromDirStruct(nullptr, directoryStructure);
 	_treeView.expand(hRootItem);
-	_folderUpdaters.push_back(FolderUpdater(directoryStructure, this));
-	_folderUpdaters[_folderUpdaters.size() - 1].startWatcher();
+	_folderUpdaters.push_back(new FolderUpdater(directoryStructure, this));
+	_folderUpdaters[_folderUpdaters.size() - 1]->startWatcher();
 }
 
 HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, const FolderInfo & directoryStructure)
@@ -887,6 +972,10 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 
 	if (linarPathArray.size() == 1)
 	{
+		// Of course item to add should be exist on the disk
+		if (not::PathFileExists(addItemFullPath.c_str()))
+			return false;
+
 		// Search : if no found, add
 		HTREEITEM childNodeFound = findChildNodeFromName(node, linarPathArray[0]);
 		if (childNodeFound != nullptr)
@@ -1181,50 +1270,35 @@ LPCWSTR explainAction(DWORD dwAction)
 	}
 };
 
-vector<generic_string> split(const generic_string & string2split, TCHAR sep)
-{
-	vector<generic_string> splitedStrings;
-	size_t len = string2split.length();
-	size_t beginPos = 0;
-	for (size_t i = 0; i < len + 1; ++i)
-	{
-		if (string2split[i] == sep || string2split[i] == '\0')
-		{
-			splitedStrings.push_back(string2split.substr(beginPos, i - beginPos));
-			beginPos = i + 1;
-		}
-	}
-	return splitedStrings;
-};
-
+/*
 bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> & file2Change)
 {
-	/*
-	TCHAR msg2show[1024];
-	switch (action)
-	{
-	case FILE_ACTION_ADDED:
-		swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
-		printStr(msg2show);
-		//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
-		break;
+	
+	// TCHAR msg2show[1024];
+	// switch (action)
+	// {
+	// case FILE_ACTION_ADDED:
+	// swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
+	// printStr(msg2show);
+	//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
+	// break;
 
-	case FILE_ACTION_REMOVED:
-		swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
-		printStr(msg2show);
+	// case FILE_ACTION_REMOVED:
+	// swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
+	// printStr(msg2show);
 
-		break;
+	// break;
 
-	case FILE_ACTION_RENAMED_NEW_NAME:
-		swprintf(msg2show, L"%s from %s \rto %s", explainAction(action), file2Change[0].c_str(), file2Change[1].c_str());
-		printStr(msg2show);
+	// case FILE_ACTION_RENAMED_NEW_NAME:
+	// swprintf(msg2show, L"%s from %s \rto %s", explainAction(action), file2Change[0].c_str(), file2Change[1].c_str());
+	// printStr(msg2show);
 
-		break;
+	// break;
 
-	default:
-		break;
-	}
-	*/
+	// default:
+	// break;
+	// }
+	
 	generic_string separator = TEXT("\\\\");
 
 	size_t sepPos = file2Change[0].find(separator);
@@ -1241,7 +1315,8 @@ bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> &
 		generic_string rootPath = file2Change[0].substr(0, sepPos);
 		generic_string path = rootPath;
 		// search recursively and modify the tree structure
-		bool foundAndModified = _rootFolder.addToStructure(path, linarPathArray);
+		//bool foundAndModified = _rootFolder.addToStructure(path, linarPathArray);
+		bool foundAndModified = true;
 		if (foundAndModified)
 		{
 			generic_string addedFilePath = file2Change[0].substr(0, sepPos + 1);
@@ -1257,7 +1332,8 @@ bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> &
 	{
 		generic_string rootPath = file2Change[0].substr(0, sepPos);
 		// search recursively and modify the tree structure
-		bool foundAndModified = _rootFolder.removeFromStructure(linarPathArray);
+		//bool foundAndModified = _rootFolder.removeFromStructure(linarPathArray);
+		bool foundAndModified = true;
 		if (foundAndModified)
 		{
 			bool isRemoved = _pFileBrowser->deleteFromTree(rootPath, nullptr, linarPathArray);
@@ -1278,7 +1354,8 @@ bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> &
 		generic_string pathSuffix2 = file2Change[1].substr(sepPos2 + separator.length(), file2Change[1].length() - 1);
 		vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
 
-		bool foundAndModified = _rootFolder.renameInStructure(linarPathArray, linarPathArray2);
+		//bool foundAndModified = _rootFolder.renameInStructure(linarPathArray, linarPathArray2);
+		bool foundAndModified = true;
 		if (foundAndModified)
 		{
 			bool isRenamed = _pFileBrowser->renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2);
@@ -1291,18 +1368,21 @@ bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> &
 
 	return true;
 }
-
+*/
 
 DWORD WINAPI FolderUpdater::watching(void *params)
 {
 	FolderUpdater *thisFolderUpdater = (FolderUpdater *)params;
-	const TCHAR *dir2Watch = (thisFolderUpdater->_rootFolder)._rootPath.c_str();
+
+	generic_string dir2Watch = (thisFolderUpdater->_rootFolder)._rootPath;
+	if (dir2Watch[dir2Watch.length() - 1] != '\\')
+		dir2Watch += TEXT("\\"); // CReadDirectoryChanges will add another '\' so we will get "\\" as a separator (of monitored root) in the notification
 
 	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_CREATION | FILE_NOTIFY_CHANGE_DIR_NAME | FILE_NOTIFY_CHANGE_FILE_NAME;
 
 	// Create the monitor and add directory to watch.
 	CReadDirectoryChanges changes;
-	changes.AddDirectory(dir2Watch, true, dwNotificationFlags);
+	changes.AddDirectory(dir2Watch.c_str(), true, dwNotificationFlags);
 
 	HANDLE changeHandles[] = { thisFolderUpdater->_EventHandle, changes.GetWaitHandle() };
 
@@ -1329,21 +1409,22 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 				{
 					changes.Pop(dwAction, wstrFilename);
 					static generic_string oldName;
-
-					std::vector<generic_string> file2Change;
+					static std::vector<generic_string> file2Change;
+					file2Change.clear();
 
 					switch (dwAction)
 					{
 						case FILE_ACTION_ADDED:
 							file2Change.push_back(wstrFilename.GetString());
-							thisFolderUpdater->updateTree(dwAction, file2Change);
-							//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
+							//thisFolderUpdater->updateTree(dwAction, file2Change);
+							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_ADDFILE, (WPARAM)nullptr, (LPARAM)&file2Change);
 							oldName = TEXT("");
 							break;
 
 						case FILE_ACTION_REMOVED:
 							file2Change.push_back(wstrFilename.GetString());
-							thisFolderUpdater->updateTree(dwAction, file2Change);
+							//thisFolderUpdater->updateTree(dwAction, file2Change);
+							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RMFILE, (WPARAM)nullptr, (LPARAM)&file2Change);
 							oldName = TEXT("");
 							break;
 
@@ -1360,7 +1441,8 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 							{
 								file2Change.push_back(oldName);
 								file2Change.push_back(wstrFilename.GetString());
-								thisFolderUpdater->updateTree(dwAction, file2Change);
+								//thisFolderUpdater->updateTree(dwAction, file2Change);
+								::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RNFILE, (WPARAM)nullptr, (LPARAM)&file2Change);
 							}
 							oldName = TEXT("");
 							break;
@@ -1385,104 +1467,3 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 	//printStr(L"Quit watching thread");
 	return EXIT_SUCCESS;
 }
-
-/*
-
-DWORD WINAPI FolderUpdater::watching(void *params)
-{
-	FolderUpdater *thisFolderUpdater = (FolderUpdater *)params;
-	const TCHAR *lpDir = (thisFolderUpdater->_rootFolder)._path.c_str();
-	DWORD dwWaitStatus;
-	HANDLE dwChangeHandles[3];
-
-	// Watch the directory for file creation and deletion. 
-	dwChangeHandles[0] = FindFirstChangeNotification(
-		lpDir,                         // directory to watch 
-		TRUE,                         // do watch subtree 
-		FILE_NOTIFY_CHANGE_FILE_NAME); // watch file name changes 
-
-	if (dwChangeHandles[0] == INVALID_HANDLE_VALUE)
-	{
-		printStr(TEXT("\n ERROR: FindFirstChangeNotification function failed.\n"));
-		//ExitProcess(GetLastError());
-		return 1;
-	}
-
-	// Watch the subtree for directory creation and deletion. 
-	dwChangeHandles[1] = FindFirstChangeNotification(
-		lpDir,                       // directory to watch 
-		TRUE,                          // watch the subtree 
-		FILE_NOTIFY_CHANGE_DIR_NAME);  // watch dir name changes 
-
-	if (dwChangeHandles[1] == INVALID_HANDLE_VALUE)
-	{
-		printStr(TEXT("\n ERROR: FindFirstChangeNotification function failed.\n"));
-		return 1;
-	}
-
-	dwChangeHandles[2] = thisFolderUpdater->_mutex;
-
-
-	// Make a final validation check on our handles.
-	if ((dwChangeHandles[0] == NULL) || (dwChangeHandles[1] == NULL))
-	{
-		printStr(TEXT("\n ERROR: Unexpected NULL from FindFirstChangeNotification.\n"));
-		//ExitProcess(GetLastError());
-		return 1;
-	}
-
-	// Change notification is set. Now wait on both notification 
-	// handles and refresh accordingly. 
-
-	while (thisFolderUpdater->_toBeContinued)
-	{
-		// Wait for notification.
-		dwWaitStatus = WaitForMultipleObjects(3, dwChangeHandles, FALSE, INFINITE);
-
-		switch (dwWaitStatus)
-		{
-		case WAIT_OBJECT_0:
-
-			// A file was created, renamed, or deleted in the directory.
-			// Refresh this directory and restart the notification.
-			printStr(lpDir);
-			//PostMessage()
-			if (FindNextChangeNotification(dwChangeHandles[0]) == FALSE)
-			{
-				printStr(TEXT("\n ERROR: FindNextChangeNotification function failed.\n"));
-				return 1;
-			}
-			break;
-
-		case WAIT_OBJECT_0 + 1:
-
-			// A directory was created, renamed, or deleted.
-			// Refresh the tree and restart the notification.
-			printStr(TEXT("A directory was created, renamed, or deleted."));
-			if (FindNextChangeNotification(dwChangeHandles[1]) == FALSE)
-			{
-				printStr(TEXT("\n ERROR: FindNextChangeNotification function failed.\n"));
-				return 1;
-			}
-			break;
-
-		case WAIT_TIMEOUT:
-
-			// A timeout occurred, this would happen if some value other 
-			// than INFINITE is used in the Wait call and no changes occur.
-			// In a single-threaded environment you might not want an
-			// INFINITE wait.
-
-			printStr(TEXT("\nNo changes in the timeout period.\n"));
-			break;
-
-		default:
-			printStr(TEXT("\n ERROR: Unhandled dwWaitStatus.\n"));
-			return 1;
-			break;
-		}
-	}
-	printStr(TEXT("youpi!"));
-	return 0;
-}
-*/

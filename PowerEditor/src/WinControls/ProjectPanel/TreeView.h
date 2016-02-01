@@ -51,11 +51,14 @@ public:
 	virtual void destroy();
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
 	bool setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr);
+	LPARAM getItemParam(HTREEITEM Item2Get);
+	generic_string getItemDisplayName(HTREEITEM Item2Set);
 	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
 	bool renameItem(HTREEITEM Item2Set, const TCHAR *newName);
-	
+	void makeLabelEditable(bool toBeEnabled);
+
 	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {
 		return TreeView_GetChild(_hSelf, hTreeItem);
 	};

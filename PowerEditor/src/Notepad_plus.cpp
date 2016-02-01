@@ -5371,7 +5371,7 @@ void Notepad_plus::launchFileBrowser()
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		generic_string title_temp = pNativeSpeaker->getAttrNameStr(PM_PROJECTPANELTITLE, "FileBrowser", "PanelTitle");
+		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FB_PROJECTPANELTITLE, "FileBrowser", "PanelTitle");
 
 		static TCHAR title[32];
 		if (title_temp.length() < 32)

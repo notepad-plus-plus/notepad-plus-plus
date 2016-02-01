@@ -1291,7 +1291,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 			{ "perl",	L_PERL },
 			{ "php",	L_PHP },
 			{ "ruby",	L_RUBY },
-			{ "node",	L_JAVASCRIPT },
+			{ "node",	L_JAVASCRIPT }
 		};
 
 		// Go through the list of languages
@@ -1313,7 +1313,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 		{ "<?xml",			L_XML },
 		{ "<?php",			L_PHP },
 		{ "<html",			L_HTML },
-		{ "<!DOCTYPE html",	L_HTML },
+		{ "<!DOCTYPE html",	L_HTML }
 	};
 
 	for (i = 0; i < FIRST_LINE_LANGUAGES; ++i)

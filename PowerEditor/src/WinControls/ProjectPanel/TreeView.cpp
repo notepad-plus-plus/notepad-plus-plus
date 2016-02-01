@@ -69,6 +69,16 @@ LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 
+void TreeView::makeLabelEditable(bool toBeEnabled)
+{
+	DWORD dwNewStyle = (DWORD)GetWindowLongPtr(_hSelf, GWL_STYLE);
+	if (toBeEnabled)
+		dwNewStyle |= TVS_EDITLABELS;
+	else
+		dwNewStyle &= ~TVS_EDITLABELS;
+	::SetWindowLongPtr(_hSelf, GWL_STYLE, dwNewStyle);
+}
+
 
 bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 {
@@ -89,6 +99,34 @@ bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 	}
 	SendMessage(_hSelf, TVM_SETITEM, 0,(LPARAM)&tvItem);
 	return true;
+}
+
+LPARAM TreeView::getItemParam(HTREEITEM Item2Get)
+{
+	if (not Item2Get)
+		return false;
+	//TCHAR textBuffer[MAX_PATH];
+	TVITEM tvItem;
+	tvItem.hItem = Item2Get;
+	tvItem.mask = TVIF_PARAM;
+	//tvItem.pszText = textBuffer;
+	tvItem.lParam = 0;
+	SendMessage(_hSelf, TVM_GETITEM, 0, (LPARAM)&tvItem);
+	return tvItem.lParam;
+}
+
+generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set)
+{
+	if (not Item2Set)
+		return false;
+	TCHAR textBuffer[MAX_PATH];
+	TVITEM tvItem;
+	tvItem.hItem = Item2Set;
+	tvItem.mask = TVIF_TEXT;
+	tvItem.pszText = textBuffer;
+	tvItem.cchTextMax = MAX_PATH;
+	SendMessage(_hSelf, TVM_GETITEM, 0, (LPARAM)&tvItem);
+	return tvItem.pszText;
 }
 
 bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)

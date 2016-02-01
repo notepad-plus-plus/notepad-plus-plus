@@ -149,12 +149,6 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			::DestroyWindow(_hToolbarMenu);
             break;
         }
-		case WM_KEYDOWN:
-			//if (wParam == VK_F2)
-			{
-				::MessageBoxA(NULL,"vkF2","",MB_OK);
-			}
-			break;
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);

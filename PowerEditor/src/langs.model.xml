@@ -371,6 +371,12 @@
             <Keywords name="type3">std ieee work standard textio std_logic_1164 std_logic_arith std_logic_misc std_logic_signed std_logic_textio std_logic_unsigned numeric_bit numeric_std math_complex math_real vital_primitives vital_timing</Keywords>
             <Keywords name="type4">boolean bit character severity_level integer real time delay_length natural positive string bit_vector file_open_kind file_open_status line text side width std_ulogic std_ulogic_vector std_logic std_logic_vector X01 X01Z UX01 UX01Z unsigned signed</Keywords>
         </Language>
+        <Language name="visualprolog" ext="pro cl i pack ph" commentLine="%" commentStart="/*" commentEnd="*/">
+            <Keywords name="instre1">goal namespace interface class implement open inherits supports resolve delegate monitor constants domains predicates constructors properties clauses facts</Keywords>
+            <Keywords name="instre2">guard language stdcall apicall c thiscall prolog digits if then elseif else foreach do try catch finally erroneous failure procedure determ multi nondeterm anyflow and or externally from div mod rem quot in orelse otherwise</Keywords>
+            <Keywords name="type1">include bininclude requires orrequires if then else elseif endif error message export externally options</Keywords>
+            <Keywords name="type2">short detail end exception withdomain</Keywords>
+        </Language>
         <Language name="xml" ext="xml xaml xsl xslt xsd xul kml svg mxml xsml wsdl xlf xliff xbl sxbl sitemap gml gpx plist" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">
         </Language>
         <Language name="yaml" ext="yml yaml" commentLine="#" tabSettings="132">

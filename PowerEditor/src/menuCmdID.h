@@ -509,6 +509,7 @@
     #define    IDM_LANG_RUST               (IDM_LANG + 80)
     #define    IDM_LANG_SPICE              (IDM_LANG + 81)
     #define    IDM_LANG_TXT2TAGS           (IDM_LANG + 82)
+    #define    IDM_LANG_VISUALPROLOG       (IDM_LANG + 83)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 165)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 179)
@@ -516,6 +517,7 @@
     #define    IDM_LANG_USER               (IDM_LANG + 180)     //46180: Used for translation
     #define    IDM_LANG_USER_LIMIT         (IDM_LANG + 210)     //46210: Ajust with IDM_LANG_USER
     #define    IDM_LANG_USER_DLG           (IDM_LANG + 250)     //46250: Used for translation 
+
 
     
     

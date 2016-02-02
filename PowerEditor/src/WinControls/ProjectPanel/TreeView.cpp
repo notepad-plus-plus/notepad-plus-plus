@@ -101,7 +101,7 @@ bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 	return true;
 }
 
-LPARAM TreeView::getItemParam(HTREEITEM Item2Get)
+LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 {
 	if (not Item2Get)
 		return false;
@@ -115,7 +115,7 @@ LPARAM TreeView::getItemParam(HTREEITEM Item2Get)
 	return tvItem.lParam;
 }
 
-generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set)
+generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
 	if (not Item2Set)
 		return false;

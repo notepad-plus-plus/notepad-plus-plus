@@ -59,10 +59,7 @@ public :
 	RunDlg() : StaticDialog() {};
 
 	void doDialog(bool isRTL = false);
-
-    virtual void destroy() {
-
-    };
+    virtual void destroy() {};
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

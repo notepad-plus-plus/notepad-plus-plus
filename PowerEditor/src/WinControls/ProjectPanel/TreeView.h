@@ -51,8 +51,8 @@ public:
 	virtual void destroy();
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
 	bool setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr);
-	LPARAM getItemParam(HTREEITEM Item2Get);
-	generic_string getItemDisplayName(HTREEITEM Item2Set);
+	LPARAM getItemParam(HTREEITEM Item2Get) const;
+	generic_string getItemDisplayName(HTREEITEM Item2Set) const;
 	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();

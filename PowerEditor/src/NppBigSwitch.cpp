@@ -1590,6 +1590,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				saveScintillaParams(); //writeScintillaParams
 				saveGUIParams(); //writeGUIParams
 				saveProjectPanelsParams(); //writeProjectPanelsSettings
+				saveFileBrowserParam();
 				//
 				// saving config.xml
 				//

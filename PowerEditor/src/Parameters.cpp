@@ -1592,6 +1592,9 @@ bool NppParameters::getUserParametersFromXmlTree()
 	//Get Project Panel parameters
 	feedProjectPanelsParameters(root);
 
+	//Get File browser parameters
+	feedFileBrowserParameters(root);
+
 	return true;
 }
 
@@ -2069,6 +2072,23 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 }
 
 void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
+{
+	TiXmlNode *fileBrowserRoot = node->FirstChildElement(TEXT("FileBrowser"));
+	if (!fileBrowserRoot) return;
+
+	for (TiXmlNode *childNode = fileBrowserRoot->FirstChildElement(TEXT("root"));
+		childNode;
+		childNode = childNode->NextSibling(TEXT("root")) )
+	{
+		const TCHAR *filePath = (childNode->ToElement())->Attribute(TEXT("foldername"));
+		if (filePath)
+		{
+			_fileBrowserRoot.push_back(filePath);
+		}
+	}
+}
+
+void NppParameters::feedFileBrowserParameters(TiXmlNode *node)
 {
 	TiXmlNode *projPanelRoot = node->FirstChildElement(TEXT("ProjectPanels"));
 	if (!projPanelRoot) return;
@@ -3397,7 +3417,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	TiXmlElement projPanelRootNode{TEXT("ProjectPanels")};
 
 	// Add 3 Project Panel parameters
-	for (int i = 0 ; i < 3 ; ++i)
+	for (size_t i = 0 ; i < 3 ; ++i)
 	{
 		TiXmlElement projPanelNode{TEXT("ProjectPanel")};
 		(projPanelNode.ToElement())->SetAttribute(TEXT("id"), i);
@@ -3408,6 +3428,43 @@ bool NppParameters::writeProjectPanelsSettings() const
 
 	// (Re)Insert the Project Panel root
 	(nppRoot->ToElement())->InsertEndChild(projPanelRootNode);
+	return true;
+}
+
+bool NppParameters::writeFileBrowserSettings(const vector<generic_string> & rootPaths, const generic_string & latestSelectedItemPath) const
+{
+	if (!_pXmlUserDoc) return false;
+
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
+	if (!nppRoot) return false;
+
+	TiXmlNode *oldFileBrowserRootNode = nppRoot->FirstChildElement(TEXT("FileBrowser"));
+	if (oldFileBrowserRootNode != nullptr)
+	{
+		// Erase the file broser root
+		nppRoot->RemoveChild(oldFileBrowserRootNode);
+	}
+
+	// Create the file browser root
+	TiXmlElement fileBrowserRootNode{ TEXT("FileBrowser") };
+
+	if (rootPaths.size() != 0)
+	{
+		fileBrowserRootNode.SetAttribute(TEXT("latestSelectedItem"), latestSelectedItemPath.c_str());
+
+		// add roots
+		size_t len = rootPaths.size();
+		for (size_t i = 0; i < len; ++i)
+		{
+			TiXmlElement fbRootNode{ TEXT("root") };
+			(fbRootNode.ToElement())->SetAttribute(TEXT("foldername"), rootPaths[i].c_str());
+
+			(fileBrowserRootNode.ToElement())->InsertEndChild(fbRootNode);
+		}
+	}
+
+	// (Re)Insert the file browser root
+	(nppRoot->ToElement())->InsertEndChild(fileBrowserRootNode);
 	return true;
 }
 

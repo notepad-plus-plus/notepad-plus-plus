@@ -795,6 +795,17 @@ bool Notepad_plus::saveProjectPanelsParams()
 	return (NppParameters::getInstance())->writeProjectPanelsSettings();
 }
 
+bool Notepad_plus::saveFileBrowserParam()
+{
+	if (_pFileBrowser)
+	{
+		vector<generic_string> rootPaths = _pFileBrowser->getRoots();
+		generic_string selectedItemPath = _pFileBrowser->getSelectedItemPath();
+		return (NppParameters::getInstance())->writeFileBrowserSettings(rootPaths, selectedItemPath);
+	}
+	return true; // nothing to save so true is returned
+}
+
 void Notepad_plus::saveDockingParams()
 {
 	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
@@ -2997,7 +3008,9 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 				if (test != BUFFER_INVALID)
 					lastOpened = test;
 			}
-			if (lastOpened != BUFFER_INVALID) {
+
+			if (lastOpened != BUFFER_INVALID)
+			{
 				switchToFile(lastOpened);
 			}
 		}
@@ -3007,14 +3020,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		}
 		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
 		{
-			launchFileBrowser();
-
 			// process new mode
-
-			for (int i = 0; i < filesDropped; ++i)
-			{
-				_pFileBrowser->addRootFolder(folderPaths[i]);
-			}
+			launchFileBrowser(folderPaths);
 
 			/*
 			for (int i = 0; i < filesDropped; ++i)
@@ -5352,7 +5359,7 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchFileBrowser()
+void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 {
 	if (!_pFileBrowser)
 	{
@@ -5369,6 +5376,11 @@ void Notepad_plus::launchFileBrowser()
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_PROJECTPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
+
+		// the dlgDlg should be the index of funcItem where the current function pointer is
+		// in this case is DOCKABLE_DEMO_INDEX
+		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
+		data.dlgID = IDM_VIEW_FILEBROWSER;
 
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FB_PROJECTPANELTITLE, "FileBrowser", "PanelTitle");
@@ -5388,6 +5400,11 @@ void Notepad_plus::launchFileBrowser()
 		_pFileBrowser->setForegroundColor(fgColor);
 	}
 
+	for (size_t i = 0; i <folders.size(); ++i)
+	{
+		_pFileBrowser->addRootFolder(folders[i]);
+	}
+
 	_pFileBrowser->display();
 }
 
@@ -5400,7 +5417,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 
 		(*pProjPanel) = new ProjectPanel;
 		(*pProjPanel)->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
-		(*pProjPanel)->setWorkSpaceFilePath(pNppParam->getworkSpaceFilePath(panelID));
+		(*pProjPanel)->setWorkSpaceFilePath(pNppParam->getWorkSpaceFilePath(panelID));
 
 		tTbData	data;
 		memset(&data, 0, sizeof(data));

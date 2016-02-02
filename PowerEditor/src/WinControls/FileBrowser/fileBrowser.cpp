@@ -32,6 +32,7 @@
 #include "FileDialog.h"
 #include "localization.h"
 #include "Parameters.h"
+#include "RunDlg.h"
 #include "ReadDirectoryChanges.h"
 
 #define CX_BITMAP         16
@@ -262,13 +263,17 @@ void FileBrowser::initPopupMenus()
 
 	_hRootMenu = ::CreatePopupMenu();
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, edit_removeFolderFromFileBrowser.c_str());
-
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 	_hFolderMenu = ::CreatePopupMenu();
-	
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_NEWFOLDER,     edit_addfolder.c_str());
 	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILES,      edit_addfiles.c_str());
 	
 	_hFileMenu = ::CreatePopupMenu();
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_RENAME, edit_rename.c_str());
 	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_DELETEFILE, edit_remove.c_str());
 	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MODIFYFILEPATH, edit_modifyfile.c_str());
@@ -391,17 +396,15 @@ generic_string FileBrowser::getRelativePath(const generic_string & filePath, con
 	return relativeFile;
 }
 
-void FileBrowser::openSelectFile()
+generic_string FileBrowser::getNodePath(HTREEITEM node) const
 {
-	// Get the selected item
-	HTREEITEM selectedNode = _treeView.getSelection();
-	if (not selectedNode) return;
+	if (not node) return TEXT("");
 
 	vector<generic_string> fullPathArray;
 	generic_string fullPath;
 
 	// go up until to root, then get the full path
-	HTREEITEM parent = selectedNode;
+	HTREEITEM parent = node;
 	for (; parent != nullptr;)
 	{
 		generic_string folderName = _treeView.getItemDisplayName(parent);
@@ -423,6 +426,17 @@ void FileBrowser::openSelectFile()
 		if (i != 0)
 			fullPath += TEXT("\\");
 	}
+
+	return fullPath;
+}
+
+void FileBrowser::openSelectFile()
+{
+	// Get the selected item
+	HTREEITEM selectedNode = _treeView.getSelection();
+	if (not selectedNode) return;
+
+	generic_string fullPath = getNodePath(selectedNode);
 
 	// test the path - if it's a file, open it, otherwise just fold or unfold it
 	if (not ::PathFileExists(fullPath.c_str()))
@@ -506,6 +520,27 @@ void FileBrowser::notified(LPNMHDR notification)
 				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0,(LPARAM)(&(tvnotif->item)));
 			}
 			break;
+
+			case TVN_GETINFOTIP:
+			{
+				LPNMTVGETINFOTIP lpGetInfoTip = (LPNMTVGETINFOTIP)notification;
+				static generic_string tipStr;
+				BrowserNodeType nType = getNodeType(lpGetInfoTip->hItem);
+				if (nType == browserNodeType_root)
+				{
+					tipStr = *((generic_string *)lpGetInfoTip->lParam);
+				}
+				else if (nType == browserNodeType_file)
+				{
+					tipStr = getNodePath(lpGetInfoTip->hItem);
+				}
+				else
+					return;
+				lpGetInfoTip->pszText = (LPTSTR)tipStr.c_str();
+				lpGetInfoTip->cchTextMax = tipStr.size();
+			}
+			break;
+
 
 			case TVN_KEYDOWN:
 			{
@@ -632,11 +667,9 @@ void FileBrowser::showContextMenu(int x, int y)
 		if (nodeType == browserNodeType_root)
 			hMenu = _hRootMenu;
 		else if (nodeType == browserNodeType_folder)
-			//hMenu = _hFolderMenu;
-			return;
+			hMenu = _hFolderMenu;
 		else //nodeType_file
-			//hMenu = _hFileMenu;
-			return;
+			hMenu = _hFileMenu;
 
 		TrackPopupMenu(hMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
 	}
@@ -658,8 +691,8 @@ HTREEITEM FileBrowser::createNewFolder(HTREEITEM hTreeItem, const TCHAR *folderN
 void FileBrowser::popupMenuCmd(int cmdID)
 {
 	// get selected item handle
-	HTREEITEM hTreeItem = _treeView.getSelection();
-	if (!hTreeItem)
+	HTREEITEM selectedNode = _treeView.getSelection();
+	if (not selectedNode)
 		return;
 
 	switch (cmdID)
@@ -670,7 +703,6 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		//
 		case IDM_FILEBROWSER_REMOVEROOTFOLDER:
 		{
-			HTREEITEM selectedNode = _treeView.getSelection();
 			generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
 				return;
@@ -688,6 +720,36 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			}
 		}
 		break;
+		
+		case IDM_FILEBROWSER_EXPLORERHERE:
+		{
+			generic_string path = getNodePath(selectedNode);
+			if (::PathFileExists(path.c_str()))
+			{
+				TCHAR cmdStr[1024];
+				wsprintf(cmdStr, TEXT("explorer /select,%s"), path.c_str());
+				Command cmd(cmdStr);
+				cmd.run(nullptr);
+			}
+		}
+		break;
+
+		case IDM_FILEBROWSER_CMDHERE:
+		{
+			if (getNodeType(selectedNode) == browserNodeType_file)
+				selectedNode = _treeView.getParent(selectedNode);
+
+			generic_string path = getNodePath(selectedNode);
+			if (::PathFileExists(path.c_str()))
+			{
+				TCHAR cmdStr[1024];
+				wsprintf(cmdStr, TEXT("cmd /K cd /d %s"), path.c_str());
+				Command cmd(cmdStr);
+				cmd.run(nullptr);
+			}
+		}
+		break;
+
 	/*
 		case IDM_FILEBROWSER_RENAME :
 			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);
@@ -701,17 +763,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		}
 		break;
 
-		case IDM_FILEBROWSER_MOVEDOWN :
-		{
-			_treeView.moveDown(hTreeItem);
-		}
-		break;
 
-		case IDM_FILEBROWSER_MOVEUP :
-		{
-			_treeView.moveUp(hTreeItem);
-		}
-		break;
 		
 
 		case IDM_FILEBROWSER_DELETEFOLDER :
@@ -856,7 +908,6 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 			if (pos == 0)
 			{
 				printStr(TEXT("do nothing, go down to select the dir."));
-				
 				return;
 			}
 			
@@ -918,7 +969,7 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 	return hFolderItem;
 }
 
-HTREEITEM FileBrowser::getRootFromFullPath(generic_string rootPath)
+HTREEITEM FileBrowser::getRootFromFullPath(const generic_string & rootPath) const
 {
 	HTREEITEM node = nullptr;
 	for (HTREEITEM hItemNode = _treeView.getRoot();
@@ -959,6 +1010,37 @@ HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string la
 		}
 	}
 	return childNodeFound;
+}
+
+vector<generic_string> FileBrowser::getRoots() const
+{
+	vector<generic_string> roots;
+
+	HTREEITEM node = nullptr;
+	for (HTREEITEM hItemNode = _treeView.getRoot();
+		hItemNode != nullptr && node == nullptr;
+		hItemNode = _treeView.getNextSibling(hItemNode))
+	{
+		TVITEM tvItem;
+		tvItem.mask = TVIF_PARAM;
+		tvItem.cchTextMax = MAX_PATH;
+		tvItem.hItem = hItemNode;
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+
+		roots.push_back(*((generic_string *)tvItem.lParam));
+	}
+	return roots;
+}
+
+generic_string FileBrowser::getSelectedItemPath() const
+{
+	generic_string itemPath;
+	HTREEITEM hItemNode = _treeView.getSelection();
+	if (hItemNode)
+	{
+		itemPath = getNodePath(hItemNode);
+	}
+	return itemPath;
 }
 
 bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, vector<generic_string> linarPathArray)

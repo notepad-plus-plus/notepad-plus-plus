@@ -122,10 +122,8 @@ public:
 private:
 	FolderInfo _rootFolder;
 	FileBrowser *_pFileBrowser = nullptr;
-	
 	HANDLE _watchThreadHandle = nullptr;
 	HANDLE _EventHandle = nullptr;
-
 	static DWORD WINAPI watching(void *param);
 };
 
@@ -153,14 +151,18 @@ public:
 		TreeView_SetTextColor(_treeView.getHSelf(), fgColour);
     };
 
+	generic_string getNodePath(HTREEITEM node) const;
 	void addRootFolder(generic_string);
 
-	HTREEITEM getRootFromFullPath(generic_string rootPath);
+	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
 	HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string);
 
 	bool addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	bool deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	bool renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo);
+
+	std::vector<generic_string> getRoots() const;
+	generic_string getSelectedItemPath() const;
 
 protected:
 	TreeView _treeView;

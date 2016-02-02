@@ -255,6 +255,7 @@ public:
 
 	bool saveGUIParams();
 	bool saveProjectPanelsParams();
+	bool saveFileBrowserParam();
 	void saveDockingParams();
     void saveUserDefineLangs();
     void saveShortcuts();
@@ -621,7 +622,7 @@ private:
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser();
+	void launchFileBrowser(const std::vector<generic_string> & folders);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);

@@ -37,7 +37,8 @@
 #include "TreeView.h"
 #include "fileBrowser_rc.h"
 
-#define FB_PROJECTPANELTITLE     TEXT("File Browser")
+#define FB_PANELTITLE     TEXT("Folder as Workspace")
+/*
 #define PM_NEWFOLDERNAME         TEXT("Folder Name")
 #define PM_NEWPROJECTNAME        TEXT("Project Name")
 
@@ -50,14 +51,16 @@
 #define PM_EDITNEWFOLDER           TEXT("Add Folder")
 #define PM_EDITADDFILES            TEXT("Add Files...")
 #define PM_EDITADDFILESRECUSIVELY  TEXT("Add Files from Directory...")
-#define PM_EDITREMOVE              TEXT("Remove\tDEL")
-#define PM_EDITMODIFYFILE          TEXT("Modify File Path")
+*/
+#define FB_REMOVEROOT              TEXT("Remove")
 
-#define PM_WORKSPACEMENUENTRY      TEXT("Workspace")
-#define PM_EDITMENUENTRY           TEXT("Edit")
+//#define PM_EDITMODIFYFILE          TEXT("Copy path")
 
-#define PM_MOVEUPENTRY             TEXT("Move Up\tCtrl+Up")
-#define PM_MOVEDOWNENTRY           TEXT("Move Down\tCtrl+Down")
+//#define PM_WORKSPACEMENUENTRY      TEXT("Workspace")
+//#define PM_EDITMENUENTRY           TEXT("Edit")
+
+//#define PM_MOVEUPENTRY             TEXT("Move Up\tCtrl+Up")
+//#define PM_MOVEDOWNENTRY           TEXT("Move Down\tCtrl+Down")
 
 class TiXmlNode;
 

@@ -150,8 +150,10 @@ static int __stdcall BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM, LPARAM pDa
 };
 
 
-void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
+generic_string folderBrowser(HWND parent, const generic_string & title, int outputCtrlID, const TCHAR *defaultStr)
 {
+	generic_string dirStr;
+
 	// This code was copied and slightly modifed from:
 	// http://www.bcbdev.com/faqs/faq62.htm
 
@@ -170,11 +172,13 @@ void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 		info.pidlRoot = NULL;
 		TCHAR szDisplayName[MAX_PATH];
 		info.pszDisplayName = szDisplayName;
-		info.lpszTitle = TEXT("Select a folder to search from");
+		info.lpszTitle = title.c_str();
 		info.ulFlags = 0;
 		info.lpfn = BrowseCallbackProc;
+
 		TCHAR directory[MAX_PATH];
-		::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
+		if (outputCtrlID != 0)
+			::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
 		directory[_countof(directory) - 1] = '\0';
 
 		if (!directory[0] && defaultStr)
@@ -193,12 +197,17 @@ void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 			// Return is true if success.
 			TCHAR szDir[MAX_PATH];
 			if (::SHGetPathFromIDList(pidl, szDir))
+			{
 				// Set edit control to the directory path.
-				::SetDlgItemText(parent, outputCtrlID, szDir);
+				if (outputCtrlID != 0)
+					::SetDlgItemText(parent, outputCtrlID, szDir);
+				dirStr = szDir;
+			}
 			pShellMalloc->Free(pidl);
 		}
 		pShellMalloc->Release();
 	}
+	return dirStr;
 }
 
 

@@ -246,9 +246,9 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 void FileBrowser::initPopupMenus()
 {
-	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-	generic_string edit_removeFolderFromFileBrowser = pNativeSpeaker->getProjectPanelLangMenuStr("FileBrowserContextMenu", IDM_FILEBROWSER_REMOVEROOTFOLDER, PM_EDITREMOVE);
-	/*
+	//NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+/*
+	generic_string removeFolderFromFileBrowser = pNativeSpeaker->getProjectPanelLangMenuStr("FileBrowserContextMenu", IDM_FILEBROWSER_REMOVEROOTFOLDER, FB_REMOVEROOT);	
 	generic_string edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_RENAME, PM_EDITRENAME);
 	generic_string edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_NEWFOLDER, PM_EDITNEWFOLDER);
 	generic_string edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_ADDFILES, PM_EDITADDFILES);
@@ -260,18 +260,24 @@ void FileBrowser::initPopupMenus()
 	edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_DELETEFOLDER, PM_EDITREMOVE);
 */
 	_hGlobalMenu = ::CreatePopupMenu();
+	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDROOT, TEXT("Add"));
+	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEALLROOTS, TEXT("Remove All"));
 
 	_hRootMenu = ::CreatePopupMenu();
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, edit_removeFolderFromFileBrowser.c_str());
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, TEXT("Remove"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
+
 	_hFolderMenu = ::CreatePopupMenu();
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_NEWFOLDER,     edit_addfolder.c_str());
 	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILES,      edit_addfiles.c_str());
 	
 	_hFileMenu = ::CreatePopupMenu();
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_RENAME, edit_rename.c_str());
@@ -692,8 +698,6 @@ void FileBrowser::popupMenuCmd(int cmdID)
 {
 	// get selected item handle
 	HTREEITEM selectedNode = _treeView.getSelection();
-	if (not selectedNode)
-		return;
 
 	switch (cmdID)
 	{
@@ -703,6 +707,8 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		//
 		case IDM_FILEBROWSER_REMOVEROOTFOLDER:
 		{
+			if (not selectedNode) return;
+
 			generic_string *rootPath = (generic_string *)_treeView.getItemParam(selectedNode);
 			if (_treeView.getParent(selectedNode) != nullptr || rootPath == nullptr)
 				return;
@@ -723,6 +729,8 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		
 		case IDM_FILEBROWSER_EXPLORERHERE:
 		{
+			if (not selectedNode) return;
+
 			generic_string path = getNodePath(selectedNode);
 			if (::PathFileExists(path.c_str()))
 			{
@@ -736,6 +744,8 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_CMDHERE:
 		{
+			if (not selectedNode) return;
+
 			if (getNodeType(selectedNode) == browserNodeType_file)
 				selectedNode = _treeView.getParent(selectedNode);
 
@@ -750,18 +760,44 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		}
 		break;
 
+		case IDM_FILEBROWSER_COPYEPATH:
+		{
+			if (not selectedNode) return;
+			generic_string path = getNodePath(selectedNode);
+			str2Clipboard(path, _hParent);
+		}
+		break;
+
+		case IDM_FILEBROWSER_REMOVEALLROOTS:
+		{
+			for (int i = _folderUpdaters.size() - 1; i >= 0; --i)
+			{
+				_folderUpdaters[i]->stopWatcher();
+
+				HTREEITEM root =  getRootFromFullPath(_folderUpdaters[i]->_rootFolder._rootPath);
+				if (root)
+					_treeView.removeItem(root);
+
+				_folderUpdaters.erase(_folderUpdaters.begin() + i);
+			}
+		}
+		break;
+
+		case IDM_FILEBROWSER_ADDROOT:
+		{
+			generic_string folderPath = folderBrowser(_hParent, TEXT("Select a folder to add in Folder as Workspace panel"));
+			if (not folderPath.empty())
+			{
+				addRootFolder(folderPath);
+			}
+		}
+		break;
 	/*
 		case IDM_FILEBROWSER_RENAME :
 			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);
 		break;
 		
-		case IDM_FILEBROWSER_NEWFOLDER :
-		{
-			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			generic_string newFolderLabel = pNativeSpeaker->getAttrNameStr(PM_NEWFOLDERNAME, "ProjectManager", "NewFolderName");
-			createNewFolder(hTreeItem, newFolderLabel.c_str());
-		}
-		break;
+
 
 
 		

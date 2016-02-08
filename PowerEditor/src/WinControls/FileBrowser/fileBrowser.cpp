@@ -265,11 +265,13 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, TEXT("Remove"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 
 	_hFolderMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_NEWFOLDER,     edit_addfolder.c_str());
@@ -279,9 +281,10 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_OPENINNPP, TEXT("Open"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_SHELLEXECUTE, TEXT("Run by system"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
-	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_RENAME, edit_rename.c_str());
 	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_DELETEFILE, edit_remove.c_str());
 	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MODIFYFILEPATH, edit_modifyfile.c_str());
 }
@@ -786,6 +789,17 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			}
 		}
 		break;
+
+		case IDM_FILEBROWSER_SHELLEXECUTE:
+		{
+			if (not selectedNode) return;
+			generic_string path = getNodePath(selectedNode);
+
+			if (::PathFileExists(path.c_str()))
+				::ShellExecute(NULL, TEXT("open"), path.c_str(), NULL, NULL, SW_SHOWNORMAL);
+		}
+		break;
+
 	/*
 		case IDM_FILEBROWSER_RENAME :
 			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);

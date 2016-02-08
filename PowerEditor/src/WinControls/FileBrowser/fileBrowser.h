@@ -179,7 +179,7 @@ protected:
 
 	void initPopupMenus();
 	void destroyMenus();
-	BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
+	BOOL setImageList(int root_clean_id, int root_dirty_id, int open_node_id, int closed_node_id, int leaf_id);
 
 	HTREEITEM createNewFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
 

@@ -40,10 +40,10 @@
 
 #define INDEX_OPEN_ROOT      0
 #define INDEX_CLOSE_ROOT     1
-#define INDEX_OPEN_NODE	     3
-#define INDEX_CLOSED_NODE    4
-#define INDEX_LEAF           5
-#define INDEX_LEAF_INVALID   6
+#define INDEX_OPEN_NODE	     2
+#define INDEX_CLOSE_NODE    3
+#define INDEX_LEAF           4
+
 
 #define GET_X_LPARAM(lp)                        ((int)(short)LOWORD(lp))
 #define GET_Y_LPARAM(lp)                        ((int)(short)HIWORD(lp))
@@ -86,21 +86,19 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			FileBrowser::initPopupMenus();
 
 			_treeView.init(_hInst, _hSelf, ID_FILEBROWSERTREEVIEW);
-			setImageList(IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
+			setImageList(IDI_FB_ROOTOPEN, IDI_FB_ROOTCLOSE, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE);
 
 			_treeView.addCanNotDropInList(INDEX_OPEN_ROOT);
 			_treeView.addCanNotDropInList(INDEX_CLOSE_ROOT);
 			_treeView.addCanNotDropInList(INDEX_OPEN_NODE);
-			_treeView.addCanNotDropInList(INDEX_CLOSED_NODE);
+			_treeView.addCanNotDropInList(INDEX_CLOSE_NODE);
 			_treeView.addCanNotDropInList(INDEX_LEAF);
-			_treeView.addCanNotDropInList(INDEX_LEAF_INVALID);
 
 			_treeView.addCanNotDragOutList(INDEX_OPEN_ROOT);
 			_treeView.addCanNotDragOutList(INDEX_CLOSE_ROOT);
 			_treeView.addCanNotDragOutList(INDEX_OPEN_NODE);
-			_treeView.addCanNotDragOutList(INDEX_CLOSED_NODE);
+			_treeView.addCanNotDragOutList(INDEX_CLOSE_NODE);
 			_treeView.addCanNotDragOutList(INDEX_LEAF);
-			_treeView.addCanNotDragOutList(INDEX_LEAF_INVALID);
 
 			_treeView.makeLabelEditable(false);
 			_treeView.display();
@@ -265,6 +263,7 @@ void FileBrowser::initPopupMenus()
 
 	_hRootMenu = ::CreatePopupMenu();
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, TEXT("Remove"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
@@ -277,6 +276,8 @@ void FileBrowser::initPopupMenus()
 	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILES,      edit_addfiles.c_str());
 	
 	_hFileMenu = ::CreatePopupMenu();
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_OPENINNPP, TEXT("Open"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
@@ -286,11 +287,11 @@ void FileBrowser::initPopupMenus()
 }
 
 
-BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id) 
+BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int open_node_id, int closed_node_id, int leaf_id) 
 {
 	HBITMAP hbmp;
 	COLORREF maskColour = RGB(192, 192, 192);
-	const int nbBitmaps = 7;
+	const int nbBitmaps = 5;
 
 	// Creation of image list
 	if ((_hImaLst = ImageList_Create(CX_BITMAP, CY_BITMAP, ILC_COLOR32 | ILC_MASK, nbBitmaps, 0)) == NULL) 
@@ -309,12 +310,6 @@ BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int project
 	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
 	DeleteObject(hbmp);
 
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(project_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_node_id));
 	if (hbmp == NULL)
 		return FALSE;
@@ -328,12 +323,6 @@ BOOL FileBrowser::setImageList(int root_clean_id, int root_dirty_id, int project
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(leaf_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(ivalid_leaf_id));
 	if (hbmp == NULL)
 		return FALSE;
 	ImageList_AddMasked(_hImaLst, hbmp, maskColour);
@@ -447,21 +436,10 @@ void FileBrowser::openSelectFile()
 	// test the path - if it's a file, open it, otherwise just fold or unfold it
 	if (not ::PathFileExists(fullPath.c_str()))
 		return;
-
-	TVITEM tvItem;
-	tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 	if (::PathIsDirectory(fullPath.c_str()))
-	{
-		tvItem.iImage = INDEX_LEAF_INVALID;
-		tvItem.iSelectedImage = INDEX_LEAF_INVALID;
-	}
-	else
-	{
-		::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fullPath.c_str()));
-		tvItem.iImage = INDEX_LEAF;
-		tvItem.iSelectedImage = INDEX_LEAF;
-	}
-	TreeView_SetItem(_treeView.getHSelf(), &tvItem);
+		return;
+
+	::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fullPath.c_str()));
 }
 
 
@@ -516,8 +494,7 @@ void FileBrowser::notified(LPNMHDR notification)
 					}
 					else
 					{
-						tvItem.iImage = INDEX_LEAF_INVALID;
-						tvItem.iSelectedImage = INDEX_LEAF_INVALID;
+						//TODO: remove it
 					}
 					TreeView_SetItem(_treeView.getHSelf(), &tvItem);
 				}
@@ -601,11 +578,22 @@ void FileBrowser::notified(LPNMHDR notification)
 				{
 					if (nmtv->action == TVE_COLLAPSE)
 					{
-						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSED_NODE, INDEX_CLOSED_NODE);
+						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_NODE, INDEX_CLOSE_NODE);
 					}
 					else if (nmtv->action == TVE_EXPAND)
 					{
 						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_NODE, INDEX_OPEN_NODE);
+					}
+				}
+				else if (getNodeType(nmtv->itemNew.hItem) == browserNodeType_root)
+				{
+					if (nmtv->action == TVE_COLLAPSE)
+					{
+						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_CLOSE_ROOT, INDEX_CLOSE_ROOT);
+					}
+					else if (nmtv->action == TVE_EXPAND)
+					{
+						_treeView.setItemImage(nmtv->itemNew.hItem, INDEX_OPEN_ROOT, INDEX_OPEN_ROOT);
 					}
 				}
 			}
@@ -683,7 +671,7 @@ void FileBrowser::showContextMenu(int x, int y)
 
 HTREEITEM FileBrowser::createNewFolder(HTREEITEM hTreeItem, const TCHAR *folderName)
 {
-	HTREEITEM addedItem = _treeView.addItem(folderName, hTreeItem, INDEX_CLOSED_NODE);
+	HTREEITEM addedItem = _treeView.addItem(folderName, hTreeItem, INDEX_CLOSE_NODE);
 	
 	TreeView_Expand(_treeView.getHSelf(), hTreeItem, TVE_EXPAND);
 	TreeView_EditLabel(_treeView.getHSelf(), addedItem);
@@ -765,6 +753,12 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			if (not selectedNode) return;
 			generic_string path = getNodePath(selectedNode);
 			str2Clipboard(path, _hParent);
+		}
+		break;
+
+		case IDM_FILEBROWSER_OPENINNPP:
+		{
+			openSelectFile();
 		}
 		break;
 
@@ -984,11 +978,11 @@ HTREEITEM FileBrowser::createFolderItemsFromDirStruct(HTREEITEM hParentItem, con
 		size_t len = lstrlen(rootPath);
 		if (rootPath[len - 1] == '\\')
 			rootPath[len - 1] = '\0';
-		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), TVI_ROOT, INDEX_CLOSED_NODE, rootPath);
+		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), TVI_ROOT, INDEX_CLOSE_ROOT, rootPath);
 	}
 	else
 	{
-		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSED_NODE);
+		hFolderItem = _treeView.addItem(directoryStructure._name.c_str(), hParentItem, INDEX_CLOSE_NODE);
 	}
 
 	for (size_t i = 0; i < directoryStructure._subFolders.size(); ++i)
@@ -1102,7 +1096,7 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 		// No found, good - Action
 		if (::PathIsDirectory(addItemFullPath.c_str()))
 		{
-			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_CLOSED_NODE);
+			_treeView.addItem(linarPathArray[0].c_str(), node, INDEX_CLOSE_NODE);
 		}
 		else
 		{

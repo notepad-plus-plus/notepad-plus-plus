@@ -38,6 +38,7 @@
 #include "ProjectPanel.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "fileBrowser.h"
 
 using namespace std;
 
@@ -1511,6 +1512,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				_pProjectPanel_3->setBackgroundColor(style._bgColor);
 				_pProjectPanel_3->setForegroundColor(style._fgColor);
+			}
+
+			if (_pFileBrowser)
+			{
+				_pFileBrowser->setBackgroundColor(style._bgColor);
+				_pFileBrowser->setForegroundColor(style._fgColor);
 			}
 
 			if (_pDocMap)

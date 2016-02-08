@@ -139,6 +139,8 @@
 #define IDI_PROJECT_FOLDERCLOSE        605
 #define IDI_PROJECT_FILE            606
 #define IDI_PROJECT_FILEINVALID        607
+#define IDI_FB_ROOTOPEN        608
+#define IDI_FB_ROOTCLOSE        609
 
 #define IDI_FUNCLIST_ROOT            620
 #define IDI_FUNCLIST_NODE            621
@@ -185,6 +187,7 @@
 #define IDR_M_PLAYRECORD    1526
 #define IDR_DOCMAP        1527
 #define IDR_FUNC_LIST    1528
+#define IDR_FILEBROWSER    1529
 #define IDR_CLOSETAB     1530
 #define IDR_CLOSETAB_INACT     1531
 #define IDR_CLOSETAB_HOVER     1532
@@ -196,7 +199,7 @@
 #define IDR_CLIPBOARDPANEL_ICO        1537
 #define IDR_ASCIIPANEL_ICO        1538
 #define IDR_DOCSWITCHER_ICO        1539
-
+#define IDR_FILEBROWSER_ICO        1540
 #define ID_MACRO 20000
 #define ID_MACRO_LIMIT 20200
 

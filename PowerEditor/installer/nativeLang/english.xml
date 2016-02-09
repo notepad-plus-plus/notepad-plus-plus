@@ -418,13 +418,13 @@
                     <Item id="2219" name="Default keywords"/>
                     <Item id="2221" name="User-defined keywords"/>
                     <Item id="2225" name="Language:"/>
-                    <Item id="2226" name="Enable global foreground colour"/>
-                    <Item id="2227" name="Enable global background colour"/>
-                    <Item id="2228" name="Enable global font"/>
-                    <Item id="2229" name="Enable global font size"/>
-                    <Item id="2230" name="Enable global bold font style"/>
-                    <Item id="2231" name="Enable global italic font style"/>
-                    <Item id="2232" name="Enable global underline font style"/>
+                    <Item id="2226" name="Global foreground colour"/>
+                    <Item id="2227" name="Global background colour"/>
+                    <Item id="2228" name="Global font"/>
+                    <Item id="2229" name="Global font size"/>
+                    <Item id="2230" name="Global bold font style"/>
+                    <Item id="2231" name="Global italic font style"/>
+                    <Item id="2232" name="Global underline font style"/>
                 </SubDialog>
 
             </StyleConfig>
@@ -635,7 +635,7 @@
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
                     <Item id="6224" name="Multi-Editing Settings"/>
-                    <Item id="6225" name="Enable (Ctrl+Mouse click/selection)"/>
+                    <Item id="6225" name="Ctrl+Mouse click/selection"/>
                     <Item id="6201" name="Folder Margin Style"/>
                     <Item id="6202" name="Simple"/>
                     <Item id="6203" name="Arrow"/>
@@ -658,8 +658,8 @@
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6212" name="Line mode"/>
                     <Item id="6213" name="Background mode"/>
-                    <Item id="6214" name="Enable current line highlighting"/>
-					<Item id="6215" name="Enable smooth font"/>
+                    <Item id="6214" name="Highlight current line"/>
+					<Item id="6215" name="Font smoothing"/>
                     <Item id="6231" name="Border Width"/>
                 </Scintillas>
 
@@ -761,7 +761,7 @@
 
                 <AutoCompletion title="Auto-Completion">
                     <Item id="6807" name="Auto-Completion"/>
-                    <Item id="6808" name="Enable auto-completion on each input"/>
+                    <Item id="6808" name="Auto-completion on each input"/>
                     <Item id="6809" name="Function completion"/>
                     <Item id="6810" name="Word completion"/>
                     <Item id="6816" name="Function and word completion"/>
@@ -810,9 +810,9 @@
                     <Item id="6319" name="Enable"/>
                     <Item id="6320" name="No underline"/>
                     <Item id="6322" name="Session file ext.:"/>
-                    <Item id="6323" name="Enable Notepad++ auto-updater"/>
+                    <Item id="6323" name="Notepad++ auto-updater"/>
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
-                    <Item id="6326" name="Enable smart highlighting"/>
+                    <Item id="6326" name="Enable"/>
                     <Item id="6329" name="Highlight Matching Tags"/>
                     <Item id="6327" name="Enable"/>
                     <Item id="6328" name="Highlight tag attributes"/>
@@ -824,7 +824,7 @@
                     <Item id="6335" name="Treat backslash as escape character for SQL"/>
                     <Item id="6114" name="Enable"/>
                     <Item id="6115" name="Auto-indent"/>
-                    <Item id="6117" name="Enable MRU behaviour"/>
+                    <Item id="6117" name="MRU behaviour"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Run a Macro Multiple Times">

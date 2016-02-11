@@ -161,8 +161,9 @@ public:
 	HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string);
 
 	bool addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
+	HTREEITEM findInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	bool deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
-	bool renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo);
+	bool renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo);
 
 	std::vector<generic_string> getRoots() const;
 	generic_string getSelectedItemPath() const;
@@ -179,7 +180,7 @@ protected:
 
 	void initPopupMenus();
 	void destroyMenus();
-	BOOL setImageList(int root_clean_id, int root_dirty_id, int open_node_id, int closed_node_id, int leaf_id);
+	BOOL setImageList(int root_open_id, int root_close_id, int open_node_id, int closed_node_id, int leaf_id);
 
 	HTREEITEM createNewFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
 

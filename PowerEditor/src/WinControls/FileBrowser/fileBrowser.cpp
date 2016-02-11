@@ -228,7 +228,7 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			generic_string pathSuffix2 = file2Change[1].substr(sepPos2 + separator.length(), file2Change[1].length() - 1);
 			vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
 
-			bool isRenamed = renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2);
+			bool isRenamed = renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2[linarPathArray2.size() - 1]);
 			if (not isRenamed)
 			{
 				//MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
@@ -951,14 +951,21 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 			size_t pos = rootFolderPath.find(_folderUpdaters[i]->_rootFolder._rootPath);
 			if (pos == 0)
 			{
-				printStr(TEXT("do nothing, go down to select the dir."));
+				//do nothing, go down to select the dir
+				generic_string rootPath = _folderUpdaters[i]->_rootFolder._rootPath;
+				generic_string pathSuffix = rootFolderPath.substr(rootPath.size() + 1, rootFolderPath.size() - rootPath.size());
+				vector<generic_string> linarPathArray = split(pathSuffix, '\\');
+				
+				HTREEITEM foundItem = findInTree(rootPath, nullptr, linarPathArray);
+				if (foundItem)
+					_treeView.selectItem(foundItem);
 				return;
 			}
 			
 			pos = _folderUpdaters[i]->_rootFolder._rootPath.find(rootFolderPath);
 			if (pos == 0)
 			{
-				printStr(TEXT("remove old, add this one"));
+				::MessageBox(_hParent, TEXT("A sub-folder of the folder you want to open exists.\rPlease remove it from the panel before you add this one."), rootFolderPath.c_str(), MB_OK);
 				return;
 			}
 		}
@@ -1144,25 +1151,19 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 	}
 }
 
-bool FileBrowser::deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
+HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
 {
 	if (node == nullptr) // it's a root. Search the right root with rootPath
 	{
 		// Search
 		if ((node = getRootFromFullPath(rootPath)) == nullptr)
-			return false;
+			return nullptr;
 	}
 
 	if (linarPathArray.size() == 1)
 	{
 		// Search
-		HTREEITEM childNodeFound = findChildNodeFromName(node, linarPathArray[0]);
-		if (childNodeFound == nullptr)
-			return false;
-
-		// found it, delete it
-		_treeView.removeItem(childNodeFound);
-		return true;
+		return findChildNodeFromName(node, linarPathArray[0]);
 	}
 	else
 	{
@@ -1183,58 +1184,33 @@ bool FileBrowser::deleteFromTree(generic_string rootPath, HTREEITEM node, std::v
 			{
 				// search recursively the node for an action
 				linarPathArray.erase(linarPathArray.begin());
-				return deleteFromTree(rootPath, hItemNode, linarPathArray);
+				return findInTree(rootPath, hItemNode, linarPathArray);
 			}
 		}
-		return false;
+		return nullptr;
 	}
 }
 
-bool FileBrowser::renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, std::vector<generic_string> linarPathArrayTo)
-{
-	if (node == nullptr) // it's a root. Search the right root with rootPath
+bool FileBrowser::deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray)
 	{
-		// Search
-		if ((node = getRootFromFullPath(rootPath)) == nullptr)
+	HTREEITEM foundItem = findInTree(rootPath, node, linarPathArray);
+	if (foundItem == nullptr)
 			return false;
+
+	// found it, delete it
+	_treeView.removeItem(foundItem);
+	return true;
 	}
 
-	if (linarPathArrayFrom.size() == 1)
+bool FileBrowser::renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo)
 	{
-		// Search
-		HTREEITEM childNodeFound = findChildNodeFromName(node, linarPathArrayFrom[0]);
-		if (childNodeFound == nullptr)
+	HTREEITEM foundItem = findInTree(rootPath, node, linarPathArrayFrom);
+	if (foundItem == nullptr)
 			return false;
 
 		// found it, rename it
-		_treeView.renameItem(childNodeFound, linarPathArrayTo[0].c_str());
+	_treeView.renameItem(foundItem, renameTo.c_str());
 		return true;
-	}
-	else
-	{
-		HTREEITEM childNodeFound = nullptr;
-		for (HTREEITEM hItemNode = _treeView.getChildFrom(node);
-			hItemNode != NULL && childNodeFound == nullptr;
-			hItemNode = _treeView.getNextSibling(hItemNode))
-		{
-			TCHAR textBuffer[MAX_PATH];
-			TVITEM tvItem;
-			tvItem.mask = TVIF_TEXT;
-			tvItem.pszText = textBuffer;
-			tvItem.cchTextMax = MAX_PATH;
-			tvItem.hItem = hItemNode;
-			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
-
-			if (linarPathArrayFrom[0] == tvItem.pszText)
-			{
-				// search recursively the node for an action
-				linarPathArrayFrom.erase(linarPathArrayFrom.begin());
-				linarPathArrayTo.erase(linarPathArrayTo.begin());
-				return renameInTree(rootPath, hItemNode, linarPathArrayFrom, linarPathArrayTo);
-			}
-		}
-		return false;
-	}
 }
 
 bool FolderInfo::addToStructure(generic_string & fullpath, std::vector<generic_string> linarPathArray)

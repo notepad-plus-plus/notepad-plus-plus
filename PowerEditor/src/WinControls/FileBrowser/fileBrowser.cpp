@@ -34,6 +34,7 @@
 #include "Parameters.h"
 #include "RunDlg.h"
 #include "ReadDirectoryChanges.h"
+#include "menuCmdID.h"
 
 #define CX_BITMAP         16
 #define CY_BITMAP         16
@@ -447,8 +448,12 @@ void FileBrowser::openSelectFile()
 
 
 void FileBrowser::notified(LPNMHDR notification)
-{
-	if ((notification->hwndFrom == _treeView.getHSelf()))
+{			
+	if (notification->code == DMN_CLOSE)
+	{
+		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FILEBROWSER, 0);
+	}
+	else if ((notification->hwndFrom == _treeView.getHSelf()))
 	{
 		TCHAR textBuffer[MAX_PATH];
 		TVITEM tvItem;

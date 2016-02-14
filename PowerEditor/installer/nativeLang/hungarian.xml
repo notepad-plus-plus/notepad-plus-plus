@@ -3,9 +3,9 @@
 <!-- Email: batagy.ford kukac gmail pont com -->
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation-->
-<!-- For Notepad++ Version 6.8.2, modified 2015.08.20 -->
+<!-- For Notepad++ Version 6.8.8, modified 2016.02.14 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="6.8.2">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="6.8.8">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -292,6 +292,7 @@
                     <Item id="47003" name="Online Súgó"/>
                     <Item id="47004" name="Notepad++ Fórum"/>
                     <Item id="47011" name="Élő üzenőfal támogatás"/>
+                    <Item id="47012" name="Debug adatok"/>
                     <Item id="47005" name="További bővítmények"/>
                     <Item id="47006" name="Notepad++ frissítése"/>
                     <Item id="47009" name="Proxy beállítások..."/>
@@ -372,7 +373,7 @@
                 <Item id="1659" name="Rejtett mappákban is"/>
                 <Item id="1624" name="Keresési mód"/>
                 <Item id="1625" name="Normál"/>
-                <Item id="1626" name="Bővített (\r, \n, \t, \x..., \0)"/>
+                <Item id="1626" name="Bővített (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Csere a fájlokban"/>
                 <Item id="1661" name="Jelenlegi mappában"/>
                 <Item id="1641" name="Keresés a jelenlegi dokumentumban"/>
@@ -672,6 +673,7 @@
                     <Item id="6214" name="Aktuális sor kiemelése"/>
                     <Item id="6215" name="Betűtípusok simítása"/>
                     <Item id="6231" name="Ablakkeret szélessége"/>
+                    <Item id="6235" name="Él nélkül"/>
                 </Scintillas>
 
                 <NewDoc title="Új dokumentum">
@@ -695,6 +697,7 @@
                     <Item id="6413" name="Alapértelmezett mappa (megnyitáskor és mentéskor)"/>
                     <Item id="6414" name="Ugyanott, mint a jelenlegi dokumentum"/>
                     <Item id="6415" name="Utoljára használt mappa megjegyzése"/>
+                    <Item id="6430" name="Újabb típusú mentési ablak használata (fájl kiterjesztés nélküli funkció)"/>
                 </DefaultDir>
 
                 <FileAssoc title="Fájl társítások">

@@ -26,7 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include <shlwapi.h>
-#include <Shlobj.h>
+#include <shlobj.h>
 #include <uxtheme.h>
 #include "preferenceDlg.h"
 #include "lesDlgs.h"
@@ -44,7 +44,7 @@ const int BORDERWIDTH_INTERVAL = 1;
 
 // This int encoding array is built from "EncodingUnit encodings[]" (see EncodingMapper.cpp)
 // And DefaultNewDocDlg will use "int encoding array" to get more info from "EncodingUnit encodings[]"
-int encodings[] = {
+static int encodings[] = {
 	1250, 
 	1251, 
 	1252, 
@@ -572,7 +572,9 @@ void MarginsDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
-	
+
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_SETCHECK, !svp._showBorderEdge, 0);
+
 	bool isEnable = !(svp._edgeMode == EDGE_NONE);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWVERTICALEDGE, BM_SETCHECK, isEnable, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_LNMODE, BM_SETCHECK, (svp._edgeMode == EDGE_LINE), 0);
@@ -651,11 +653,10 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 				::SendMessage(::GetParent(_hParent), WM_SIZE, 0, 0);
 			}
 			return 0;	//return zero when handled
-				
 		}
 
 		case WM_COMMAND : 
-		{			
+		{
 			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
 			switch (wParam)
 			{
@@ -686,6 +687,11 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
                     nppGUI._enableMultiSelection = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_MULTISELECTION, BM_GETCHECK, 0, 0));
                     ::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
                     return TRUE;
+
+				case IDC_CHECK_NOEDGE:
+					svp._showBorderEdge = !(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_SETEDITORBORDEREDGE, 0, svp._showBorderEdge ? TRUE : FALSE);
+					return TRUE;
 
 				case IDC_RADIO_SIMPLE:
 					svp._folderStyle = FOLDER_STYLE_SIMPLE;
@@ -869,6 +875,7 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE), dontUnderlineState);
 
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_SETTEXT, 0, (LPARAM)nppGUI._definedSessionExt.c_str());
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_SETTEXT, 0, (LPARAM)nppGUI._definedWorkspaceExt.c_str());
 			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
@@ -903,6 +910,13 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 						TCHAR sessionExt[MAX_PATH];
 						::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_GETTEXT, MAX_PATH, (LPARAM)sessionExt);
 						nppGUI._definedSessionExt = sessionExt;
+						return TRUE;
+					}
+					case  IDC_EDIT_WORKSPACEFILEEXT:
+					{
+						TCHAR workspaceExt[MAX_PATH];
+						::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_GETTEXT, MAX_PATH, (LPARAM)workspaceExt);
+						nppGUI._definedWorkspaceExt = workspaceExt;
 						return TRUE;
 					}
 				}
@@ -1331,6 +1345,8 @@ INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
+
+			::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG, BM_SETCHECK, nppGUI._useNewStyleSaveDlg ? BST_CHECKED : BST_UNCHECKED, 0);
 		}
 
 		case WM_COMMAND : 
@@ -1371,6 +1387,10 @@ INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 
 				case IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON :
 					folderBrowser(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT);
+					return TRUE;
+
+				case IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG:
+					nppGUI._useNewStyleSaveDlg = isCheckedOrNot(IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG);
 					return TRUE;
 
 				default:

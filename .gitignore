@@ -65,7 +65,7 @@ PowerEditor/bin/session.xml
 PowerEditor/bin/functionList.xml
 PowerEditor/bin/shortcuts.xml
 PowerEditor/bin/backup/
-PowerEditor/bin/localization/
+PowerEditor/bin/localization
 PowerEditor/bin/plugins/
 PowerEditor/installer/build/
 PowerEditor/installer/minimalist/
@@ -119,3 +119,17 @@ PowerEditor/bin/SourceCodePro-BoldIt.ttf
 PowerEditor/bin/SourceCodePro-It.ttf
 PowerEditor/bin/SourceCodePro-Regular.ttf
 *.zip
+
+#-------------------------------------------------------------------------------
+# GNU GCC MinGW
+
+#-- Generated during makefile build
+*.d
+*.o
+/PowerEditor/gcc/resources.res
+/PowerEditor/bin/NotepadPP.exe
+
+#-- Generated manually to make Notepad++ execute properly on Linux using Wine
+/PowerEditor/bin/libgcc_s_sjlj-1.dll
+/PowerEditor/bin/libstdc++-6.dll
+/PowerEditor/bin/libwinpthread-1.dll

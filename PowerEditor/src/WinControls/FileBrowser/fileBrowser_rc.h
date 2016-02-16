@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid
-// misunderstandings, we consider an application to constitute a
+// it does not provide a detailed definition of that term.  To avoid      
+// misunderstandings, we consider an application to constitute a          
 // "derivative work" for the purpose of this license if it does any of the
-// following:
+// following:                                                             
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -26,24 +26,30 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef PROCESSUS_H
-#define PROCESSUS_H
+#ifndef FILEBROWSER_RC_H
+#define FILEBROWSER_RC_H
 
-enum progType {WIN32_PROG, CONSOLE_PROG};
+#define	IDD_FILEBROWSER		3500
 
-class Process
-{
-public:
-    Process(const TCHAR *cmd, const TCHAR *args, const TCHAR *cDir)
-		:_command(cmd), _args(args), _curDir(cDir){}
+#define	IDD_FILEBROWSER_MENU		(IDD_FILEBROWSER + 10)
 
-	void run();
+  #define IDM_FILEBROWSER_REMOVEROOTFOLDER (IDD_FILEBROWSER_MENU + 1)
+/*
+  #define IDM_FILEBROWSER_RENAME       (IDD_FILEBROWSER_MENU + 1)
+  #define IDM_FILEBROWSER_NEWFOLDER    (IDD_FILEBROWSER_MENU + 2)
+  #define IDM_FILEBROWSER_ADDFILES     (IDD_FILEBROWSER_MENU + 3)
 
-protected:
-    generic_string _command;
-	generic_string _args;
-	generic_string _curDir;
-};
 
-#endif //PROCESSUS_H
+  #define IDM_FILEBROWSER_DELETEFILE   (IDD_FILEBROWSER_MENU + 5)
+*/
+  
+  //#define IDM_FILEBROWSER_MODIFYFILEPATH   (IDD_FILEBROWSER_MENU + 6)
+  #define IDM_FILEBROWSER_EXPLORERHERE       (IDD_FILEBROWSER_MENU + 8)
+  #define IDM_FILEBROWSER_CMDHERE     (IDD_FILEBROWSER_MENU + 9)
+
+#define	IDD_FILEBROWSER_CTRL		(IDD_FILEBROWSER + 30)
+  #define	ID_FILEBROWSERTREEVIEW    (IDD_FILEBROWSER_CTRL + 1)
+  
+
+#endif // FILEBROWSER_RC_H
 

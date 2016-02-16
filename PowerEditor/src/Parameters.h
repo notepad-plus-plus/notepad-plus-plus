@@ -812,6 +812,8 @@ struct NppGUI final
 	MatchedPairConf _matchedPairConf;
 
 	generic_string _definedSessionExt;
+	generic_string _definedWorkspaceExt;
+	
 
 
 
@@ -843,34 +845,30 @@ struct NppGUI final
 	size_t _snapshotBackupTiming = 7000;
 	generic_string _cloudPath; // this option will never be read/written from/to config.xml
 	unsigned char _availableClouds = '\0'; // this option will never be read/written from/to config.xml
+	bool _useNewStyleSaveDlg = false;
 };
 
 struct ScintillaViewParams
 {
-	ScintillaViewParams() : _lineNumberMarginShow(true), _bookMarkMarginShow(true),_borderWidth(2),\
-							_folderStyle(FOLDER_STYLE_BOX), _foldMarginShow(true), _indentGuideLineShow(true),\
-							_currentLineHilitingShow(true), _wrapSymbolShow(false),  _doWrap(false), _edgeNbColumn(80),\
-							_zoom(0), _zoom2(0), _whiteSpaceShow(false), _eolShow(false), _lineWrapMethod(LINEWRAP_ALIGNED),\
-							_disableAdvancedScrolling(false), _doSmoothFont(false) {};
-	bool _lineNumberMarginShow;
-	bool _bookMarkMarginShow;
-	//bool _docChangeStateMarginShow;
-	folderStyle  _folderStyle; //"simple", "arrow", "circle", "box" and "none"
-	lineWrapMethod _lineWrapMethod;
-	bool _foldMarginShow;
-	bool _indentGuideLineShow;
-	bool _currentLineHilitingShow;
-	bool _wrapSymbolShow;
-	bool _doWrap;
-	int _edgeMode;
-	int _edgeNbColumn;
-	int _zoom;
-	int _zoom2;
-	bool _whiteSpaceShow;
+	bool _lineNumberMarginShow = true;
+	bool _bookMarkMarginShow = true;
+	folderStyle  _folderStyle = FOLDER_STYLE_BOX; //"simple", "arrow", "circle", "box" and "none"
+	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
+	bool _foldMarginShow = true;
+	bool _indentGuideLineShow = true;
+	bool _currentLineHilitingShow = true;
+	bool _wrapSymbolShow = false;
+	bool _doWrap = false;
+	int _edgeMode = EDGE_NONE;
+	int _edgeNbColumn = 80;
+	int _zoom = 0;
+	int _zoom2 = 0;
+	bool _whiteSpaceShow = false;
 	bool _eolShow;
-	int _borderWidth;
-	bool _disableAdvancedScrolling;
-	bool _doSmoothFont;
+	int _borderWidth = 2;
+	bool _disableAdvancedScrolling = false;
+	bool _doSmoothFont = false;
+	bool _showBorderEdge = true;
 };
 
 const int NB_LIST = 20;
@@ -1344,6 +1342,7 @@ public:
 	bool writeHistory(const TCHAR *fullpath);
 
 	bool writeProjectPanelsSettings() const;
+	bool writeFileBrowserSettings(const std::vector<generic_string> & rootPath, const generic_string & latestSelectedItemPath) const;
 
 	TiXmlNode* getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName, const TCHAR *attributName, const TCHAR *attributVal) const;
 
@@ -1461,12 +1460,11 @@ public:
 	generic_string getContextMenuPath() const {return _contextMenuPath;};
 	const TCHAR * getAppDataNppDir() const {return _appdataNppDir.c_str();};
 	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
-	const TCHAR * getworkSpaceFilePath(int i) const
-	{
+	const TCHAR * getWorkSpaceFilePath(int i) const {
 		if (i < 0 || i > 2) return nullptr;
 		return _workSpaceFilePathes[i].c_str();
 	}
-
+	const std::vector<generic_string> getFileBrowserRoots() const { return _fileBrowserRoot; };
 	void setWorkSpaceFilePath(int i, const TCHAR *wsFile);
 
 	void setWorkingDir(const TCHAR * newPath);
@@ -1480,8 +1478,7 @@ public:
 	int langTypeToCommandID(LangType lt) const;
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
 
-	struct FindDlgTabTitiles final
-	{
+	struct FindDlgTabTitiles final {
 		generic_string _find;
 		generic_string _replace;
 		generic_string _findInFiles;
@@ -1492,14 +1489,14 @@ public:
 
 	bool asNotepadStyle() const {return _asNotepadStyle;};
 
-	bool reloadPluginCmds()
-	{
+	bool reloadPluginCmds() {
 		return getPluginCmdsFromXmlTree();
 	}
 
 	bool getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
 	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
-	winVer getWinVersion() { return _winVersion;};
+	winVer getWinVersion() const {return _winVersion;};
+	generic_string getWinVersionStr() const;
 	FindHistory & getFindHistory() {return _findHistory;};
 	bool _isFindReplacing; // an on the fly variable for find/replace functions
 	void safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection);
@@ -1564,6 +1561,13 @@ public:
 		_currentDefaultFgColor = c;
 	}
 
+	bool useNewStyleSaveDlg() const {
+		return _nppGUI._useNewStyleSaveDlg;
+	}
+
+	void setUseNewStyleSaveDlg(bool v) {
+		_nppGUI._useNewStyleSaveDlg = v;
+	}
 	DPIManager _dpiManager;
 
 
@@ -1658,6 +1662,8 @@ private:
 	generic_string _currentDirectory;
 	generic_string _workSpaceFilePathes[3];
 
+	std::vector<generic_string> _fileBrowserRoot;
+
 	Accelerator *_pAccelerator;
 	ScintillaAccelerator * _pScintAccelerator;
 
@@ -1698,6 +1704,7 @@ private:
 	void feedDockingManager(TiXmlNode *node);
 	void feedFindHistoryParameters(TiXmlNode *node);
 	void feedProjectPanelsParameters(TiXmlNode *node);
+	void feedFileBrowserParameters(TiXmlNode *node);
 
 	bool feedStylerArray(TiXmlNode *node);
 	void getAllWordStyles(TCHAR *lexerName, TiXmlNode *lexerNode);

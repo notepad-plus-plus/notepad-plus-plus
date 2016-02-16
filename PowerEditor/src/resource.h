@@ -26,13 +26,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #pragma once
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.8.6")
 
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.8.9")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("6.86\0")
-#define VERSION_DIGITALVALUE 6, 8, 6, 0
+#define VERSION_VALUE TEXT("6.89\0")
+#define VERSION_DIGITALVALUE 6, 8, 9, 0
+
+
 
 #ifndef IDC_STATIC
 #define IDC_STATIC    -1
@@ -277,6 +279,11 @@
 #define IDC_ONLINEHELP_ADDR 1704
 #define IDC_AUTHOR_NAME 1705
 #define IDC_BUILD_DATETIME 1706        //LS: CompileDateInAboutDialog: Automatically insert compile date as additional version info in About-dialog!
+
+#define IDD_DEBUGINFOBOX 1750
+#define IDC_DEBUGINFO_EDIT 1751
+#define IDC_DEBUGINFO_COPYLINK 1752
+
 //#define IDD_USER_DEFINE_BOX                  1800
 
 //#define IDD_RUN_DLG      1900
@@ -339,6 +346,8 @@
 //See functionListPanel_rc.h
 //#define IDD_FUNCLIST_PANEL   3400
 
+//See fileBrowser_rc.h
+//#define IDD_FILEBROWSER 3500
 
 // See regExtDlg.h
 //#define IDD_REGEXT 4000
@@ -400,7 +409,7 @@
     // Used by Doc Monitor plugin
     //
 	#define NPPM_INTERNAL_CHECKDOCSTATUS (NPPMSG + 53)
-    // VOID NPPM_CHECKDOCSTATUS(BOOL, 0)
+    // VOID NPPM_CHECKDOCSTATUS(0, 0)
     // check all opened documents status.
     // If files are modified, then reloaod (with or without prompt, it depends on settings).
     // if files are deleted, then prompt user to close the documents

@@ -512,6 +512,13 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_FILEBROWSER:
+		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+			launchFileBrowser(pNppParam->getFileBrowserRoots());
+		}
+		break;
+
 		case IDM_VIEW_DOC_MAP:
 		{
 			if (_pDocMap && (!_pDocMap->isClosed()))
@@ -2193,6 +2200,12 @@ void Notepad_plus::command(int id)
 				view_to_focus = currentView();
 			}
 			switchEditViewTo(view_to_focus);
+			break;
+		}
+
+		case IDM_DEBUGINFO:
+		{
+			_debugInfoDlg.doDialog();
 			break;
 		}
 

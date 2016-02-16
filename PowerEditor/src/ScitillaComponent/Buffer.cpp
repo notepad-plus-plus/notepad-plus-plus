@@ -1083,6 +1083,9 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			if (lengthDoc == 0)
 				items_written = 1;
 		}
+		
+		// check the language du fichier
+		LangType language = detectLanguageFromTextBegining((unsigned char *)buf, lengthDoc);
 
 		UnicodeConvertor.fclose();
 
@@ -1122,12 +1125,11 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			return true;	//all done
 		}
 
-		buffer->setFileName(fullpath);
+		buffer->setFileName(fullpath, language);
 		buffer->setDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		buffer->checkFileState();
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
-		//_pscratchTilla->markSavedLines();
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
 		generic_string backupFilePath = buffer->getBackupFileName();
@@ -1289,7 +1291,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 			{ "perl",	L_PERL },
 			{ "php",	L_PHP },
 			{ "ruby",	L_RUBY },
-			{ "node",	L_JAVASCRIPT },
+			{ "node",	L_JAVASCRIPT }
 		};
 
 		// Go through the list of languages
@@ -1311,7 +1313,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 		{ "<?xml",			L_XML },
 		{ "<?php",			L_PHP },
 		{ "<html",			L_HTML },
-		{ "<!DOCTYPE html",	L_HTML },
+		{ "<!DOCTYPE html",	L_HTML }
 	};
 
 	for (i = 0; i < FIRST_LINE_LANGUAGES; ++i)

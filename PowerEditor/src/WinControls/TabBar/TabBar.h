@@ -135,13 +135,11 @@ protected:
 struct CloseButtonZone
 {
 	CloseButtonZone();
-	bool isHit(int x, int y, const RECT & testZone) const;
-	RECT getButtonRectFrom(const RECT & tabItemRect) const;
+	bool isHit(int x, int y, const RECT & tabRect, bool isVertical) const;
+	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical) const;
 
 	int _width;
-	int _hight;
-	int _fromTop; // distance from top in pixzl
-	int _fromRight; // distance from right in pixzl
+	int _height;
 };
 
 

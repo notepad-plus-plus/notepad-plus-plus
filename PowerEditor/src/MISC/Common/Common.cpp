@@ -25,8 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <algorithm>
+#include <stdexcept>
 #include <shlwapi.h>
-#include <Shlobj.h>
+#include <shlobj.h>
 #include <uxtheme.h>
 #include "StaticDialog.h"
 
@@ -823,7 +824,11 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
 	const wchar_t* ptr = str.c_str();
 	errno = 0;
 	wchar_t* eptr;
+#ifdef __MINGW32__
+	double ans = ::wcstod(ptr, &eptr);
+#else
 	double ans = ::_wcstod_l(ptr, &eptr, loc);
+#endif
 	if (ptr == eptr)
 		throw new std::invalid_argument("invalid stod argument");
 	if (errno == ERANGE)
@@ -880,5 +885,13 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	return true;
 }
 
-
+bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns)
+{
+	for (size_t i = 0, len = patterns.size(); i < len; ++i)
+	{
+		if (PathMatchSpec(fileName, patterns[i].c_str()))
+			return true;
+	}
+	return false;
+}
 

@@ -319,7 +319,8 @@
 	#define    IDM_VIEW_PROJECT_PANEL_3           (IDM_VIEW + 83)
 
 	#define    IDM_VIEW_FUNC_LIST                 (IDM_VIEW + 84)
-	
+	#define    IDM_VIEW_FILEBROWSER               (IDM_VIEW + 85)
+
 	#define	   IDM_VIEW_TAB1					  (IDM_VIEW + 86)
 	#define	   IDM_VIEW_TAB2					  (IDM_VIEW + 87)
 	#define	   IDM_VIEW_TAB3					  (IDM_VIEW + 88)
@@ -487,6 +488,7 @@
 	#define    IDM_CONFUPDATERPROXY (IDM_ABOUT  + 9)
 	#define    IDM_CMDLINEARGUMENTS (IDM_ABOUT  + 10)
 	#define    IDM_ONLINESUPPORT    (IDM_ABOUT  + 11)
+	#define    IDM_DEBUGINFO        (IDM_ABOUT  + 12)
 
 
 #define    IDM_SETTING    (IDM + 8000)

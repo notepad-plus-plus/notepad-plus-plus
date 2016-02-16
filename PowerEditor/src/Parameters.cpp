@@ -27,7 +27,7 @@
 
 #include <time.h>
 #include <shlwapi.h>
-#include <Shlobj.h>
+#include <shlobj.h>
 #include "Parameters.h"
 #include "FileDialog.h"
 #include "ScintillaEditView.h"
@@ -410,12 +410,12 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_HOMEWRAP"),                SCI_HOMEWRAP,                false, false, false, 0,           0},
 	{TEXT("SCI_HOMEWRAPEXTEND"),          SCI_HOMEWRAPEXTEND,          false, false, false, 0,           0},
 	{TEXT("SCI_VCHOME"),                  SCI_VCHOME,                  false, false, false, 0,           0},
-	{TEXT("SCI_VCHOMEEXTEND"),            SCI_VCHOMEEXTEND,            false, false, true,  VK_HOME,     0},
+	{TEXT("SCI_VCHOMEWRAPEXTEND"),        SCI_VCHOMEWRAPEXTEND,        false, false, true,  VK_HOME,     0},
 	{TEXT("SCI_VCHOMERECTEXTEND"),        SCI_VCHOMERECTEXTEND,        false, true,  true,  VK_HOME,     0},
 	{TEXT("SCI_VCHOMEWRAP"),              SCI_VCHOMEWRAP,              false, false, false, VK_HOME,     0},
 	{TEXT("SCI_VCHOMEWRAPEXTEND"),        SCI_VCHOMEWRAPEXTEND,        false, false, false, 0,           0},
 	{TEXT("SCI_LINEEND"),                 SCI_LINEEND,                 false, false, false, 0,           0},
-	{TEXT("SCI_LINEENDEXTEND"),           SCI_LINEENDEXTEND,           false, false, true,  VK_END,      0},
+	{TEXT("SCI_LINEENDWRAPEXTEND"),       SCI_LINEENDWRAPEXTEND,       false, false, true,  VK_END,      0},
 	{TEXT("SCI_LINEENDRECTEXTEND"),       SCI_LINEENDRECTEXTEND,       false, true,  true,  VK_END,      0},
 	{TEXT("SCI_LINEENDDISPLAY"),          SCI_LINEENDDISPLAY,          false, true,  false, VK_END,      0},
 	{TEXT("SCI_LINEENDDISPLAYEXTEND"),    SCI_LINEENDDISPLAYEXTEND,    false, false, false, 0,           0},
@@ -722,6 +722,7 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 
 #pragma warning(disable : 4996)
 
+
 winVer getWindowsVersion()
 {
 	OSVERSIONINFOEX osvi;
@@ -750,6 +751,9 @@ winVer getWindowsVersion()
    {
 		case VER_PLATFORM_WIN32_NT:
 		{
+			if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0)
+				return WV_WIN10;
+
 			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3)
 				return WV_WIN81;
 
@@ -1588,6 +1592,9 @@ bool NppParameters::getUserParametersFromXmlTree()
 	//Get Project Panel parameters
 	feedProjectPanelsParameters(root);
 
+	//Get File browser parameters
+	feedFileBrowserParameters(root);
+
 	return true;
 }
 
@@ -2065,6 +2072,23 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 }
 
 void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
+{
+	TiXmlNode *fileBrowserRoot = node->FirstChildElement(TEXT("FileBrowser"));
+	if (!fileBrowserRoot) return;
+
+	for (TiXmlNode *childNode = fileBrowserRoot->FirstChildElement(TEXT("root"));
+		childNode;
+		childNode = childNode->NextSibling(TEXT("root")) )
+	{
+		const TCHAR *filePath = (childNode->ToElement())->Attribute(TEXT("foldername"));
+		if (filePath)
+		{
+			_fileBrowserRoot.push_back(filePath);
+		}
+	}
+}
+
+void NppParameters::feedFileBrowserParameters(TiXmlNode *node)
 {
 	TiXmlNode *projPanelRoot = node->FirstChildElement(TEXT("ProjectPanels"));
 	if (!projPanelRoot) return;
@@ -3393,7 +3417,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	TiXmlElement projPanelRootNode{TEXT("ProjectPanels")};
 
 	// Add 3 Project Panel parameters
-	for (int i = 0 ; i < 3 ; ++i)
+	for (size_t i = 0 ; i < 3 ; ++i)
 	{
 		TiXmlElement projPanelNode{TEXT("ProjectPanel")};
 		(projPanelNode.ToElement())->SetAttribute(TEXT("id"), i);
@@ -3404,6 +3428,43 @@ bool NppParameters::writeProjectPanelsSettings() const
 
 	// (Re)Insert the Project Panel root
 	(nppRoot->ToElement())->InsertEndChild(projPanelRootNode);
+	return true;
+}
+
+bool NppParameters::writeFileBrowserSettings(const vector<generic_string> & rootPaths, const generic_string & latestSelectedItemPath) const
+{
+	if (!_pXmlUserDoc) return false;
+
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
+	if (!nppRoot) return false;
+
+	TiXmlNode *oldFileBrowserRootNode = nppRoot->FirstChildElement(TEXT("FileBrowser"));
+	if (oldFileBrowserRootNode != nullptr)
+	{
+		// Erase the file broser root
+		nppRoot->RemoveChild(oldFileBrowserRootNode);
+	}
+
+	// Create the file browser root
+	TiXmlElement fileBrowserRootNode{ TEXT("FileBrowser") };
+
+	if (rootPaths.size() != 0)
+	{
+		fileBrowserRootNode.SetAttribute(TEXT("latestSelectedItem"), latestSelectedItemPath.c_str());
+
+		// add roots
+		size_t len = rootPaths.size();
+		for (size_t i = 0; i < len; ++i)
+		{
+			TiXmlElement fbRootNode{ TEXT("root") };
+			(fbRootNode.ToElement())->SetAttribute(TEXT("foldername"), rootPaths[i].c_str());
+
+			(fileBrowserRootNode.ToElement())->InsertEndChild(fbRootNode);
+		}
+	}
+
+	// (Re)Insert the file browser root
+	(nppRoot->ToElement())->InsertEndChild(fileBrowserRootNode);
 	return true;
 }
 
@@ -4502,6 +4563,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._definedSessionExt = val;
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("workspaceExt")))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				const TCHAR* val = n->Value();
+				val = n->Value();
+				if (val)
+					_nppGUI._definedWorkspaceExt = val;
+			}
+		}
 		else if (!lstrcmp(nm, TEXT("noUpdate")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -4594,6 +4666,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR * optNameBackSlashEscape = element->Attribute(TEXT("backSlashIsEscapeCharacterForSql"));
 			if (optNameBackSlashEscape && !lstrcmp(optNameBackSlashEscape, TEXT("no")))
 				_nppGUI._backSlashIsEscapeCharacterForSql = false;
+
+			const TCHAR * optNameNewStyleSaveDlg = element->Attribute(TEXT("newStyleSaveDlg"));
+			if (optNameNewStyleSaveDlg && !lstrcmp(optNameNewStyleSaveDlg, TEXT("yes")))
+				_nppGUI._useNewStyleSaveDlg = true;
+
 		}
 	}
 }
@@ -4711,6 +4788,16 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._edgeMode = EDGE_LINE;
 		else
 			_svp._edgeMode = EDGE_NONE;
+	}
+
+	// Do Scintilla border edge
+	nm = element->Attribute(TEXT("borderEdge"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("yes")))
+			_svp._showBorderEdge = true;
+		else if (!lstrcmp(nm, TEXT("no")))
+			_svp._showBorderEdge = false;
 	}
 
 	int val;
@@ -4887,6 +4974,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp)
 	(scintNode->ToElement())->SetAttribute(TEXT("disableAdvancedScrolling"), svp._disableAdvancedScrolling?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("wrapSymbolShow"), svp._wrapSymbolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), svp._doWrap?TEXT("yes"):TEXT("no"));
+	(scintNode->ToElement())->SetAttribute(TEXT("borderEdge"), svp._showBorderEdge ? TEXT("yes") : TEXT("no"));
 
 	TCHAR *edgeStr = NULL;
 	if (svp._edgeMode == EDGE_NONE)
@@ -4933,6 +5021,7 @@ bool NppParameters::writeGUIParams()
 	bool autocExist = false;
 	bool autocInsetExist = false;
 	bool sessionExtExist = false;
+	bool workspaceExtExist = false;
 	bool noUpdateExist = false;
 	bool menuBarExist = false;
 	bool smartHighLightExist = false;
@@ -5337,6 +5426,9 @@ bool NppParameters::writeGUIParams()
 
 			const TCHAR * pStrBackSlashEscape = _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no");
 			element->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), pStrBackSlashEscape);
+
+			const TCHAR * pStrNewStyleSaveDlg = _nppGUI._useNewStyleSaveDlg ? TEXT("yes") : TEXT("no");
+			element->SetAttribute(TEXT("newStyleSaveDlg"), pStrNewStyleSaveDlg);
 		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
 		{
@@ -5346,6 +5438,15 @@ bool NppParameters::writeGUIParams()
 				n->SetValue(_nppGUI._definedSessionExt.c_str());
 			else
 				childNode->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
+		}
+		else if (!lstrcmp(nm, TEXT("workspaceExt")))
+		{
+			workspaceExtExist = true;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(_nppGUI._definedWorkspaceExt.c_str());
+			else
+				childNode->InsertEndChild(TiXmlText(_nppGUI._definedWorkspaceExt.c_str()));
 		}
 		else if (!lstrcmp(nm, TEXT("noUpdate")))
 		{
@@ -5584,6 +5685,13 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
 	}
 
+	if (!workspaceExtExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("workspaceExt"));
+		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedWorkspaceExt.c_str()));
+	}
+
 	if (!menuBarExist)
 	{
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
@@ -5648,6 +5756,7 @@ bool NppParameters::writeGUIParams()
 
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn?TEXT("yes"):TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("newStyleSaveDlg"), _nppGUI._useNewStyleSaveDlg?TEXT("yes"):TEXT("no"));
 	}
 	insertDockingParamNode(GUIRoot);
 	return true;
@@ -6014,6 +6123,28 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 				id = IDM_LANG_TEXT;
 	}
 	return id;
+}
+
+generic_string NppParameters:: getWinVersionStr() const
+{
+	switch (_winVersion)
+	{
+		case WV_WIN32S: return TEXT("Windows 3.1");
+		case WV_95: return TEXT("Windows 95");
+		case WV_98: return TEXT("Windows 98");
+		case WV_ME: return TEXT("Windows Millennium Edition");
+		case WV_NT: return TEXT("Windows NT");
+		case WV_W2K: return TEXT("Windows 2000");
+		case WV_XP: return TEXT("Windows XP");
+		case WV_S2003: return TEXT("Windows Server 2003");
+		case WV_XPX64: return TEXT("Windows XP 64 bits");
+		case WV_VISTA: return TEXT("Windows Vista");
+		case WV_WIN7: return TEXT("Windows 7");
+		case WV_WIN8: return TEXT("Windows 8");
+		case WV_WIN81: return TEXT("Windows 8.1");
+		case WV_WIN10: return TEXT("Windows 10");
+		default: /*case WV_UNKNOWN:*/ return TEXT("Windows unknown version");
+	}
 }
 
 void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers)

@@ -30,7 +30,7 @@
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "Sorters.h"
-#include "TCHAR.h"
+#include "tchar.h"
 #include <memory>
 
 using namespace std;
@@ -171,7 +171,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 {
 	if (!_hLib)
 	{
-		throw std::exception("ScintillaEditView::init : SCINTILLA ERROR - Can not load the dynamic library");
+		throw std::runtime_error("ScintillaEditView::init : SCINTILLA ERROR - Can not load the dynamic library");
 	}
 
 	Window::init(hInst, hPere);
@@ -188,7 +188,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 	if (!_hSelf)
 	{
-		throw std::exception("ScintillaEditView::init : CreateWindowEx() function return null");
+		throw std::runtime_error("ScintillaEditView::init : CreateWindowEx() function return null");
 	}
 
 	_pScintillaFunc = (SCINTILLA_FUNC)::SendMessage(_hSelf, SCI_GETDIRECTFUNCTION, 0, 0);
@@ -198,12 +198,12 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 	if (!_pScintillaFunc)
 	{
-		throw std::exception("ScintillaEditView::init : SCI_GETDIRECTFUNCTION message failed");
+		throw std::runtime_error("ScintillaEditView::init : SCI_GETDIRECTFUNCTION message failed");
 	}
 
 	if (!_pScintillaPtr)
 	{
-		throw std::exception("ScintillaEditView::init : SCI_GETDIRECTPOINTER message failed");
+		throw std::runtime_error("ScintillaEditView::init : SCI_GETDIRECTPOINTER message failed");
 	}
 
     execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
@@ -1521,6 +1521,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	    setSpecialStyle(styleLN);
     }
     setTabSettings(_pParameter->getLangFromID(typeDoc));
+
 	execute(SCI_SETSTYLEBITS, 8);	// Always use 8 bit mask in Document class (Document::stylingBitsMask),
 									// in that way Editor::PositionIsHotspot will return correct hotspot styleID.
 									// This value has no effect on LexAccessor::mask.
@@ -3161,4 +3162,17 @@ generic_string ScintillaEditView::getEOLString()
 	{
 		return TEXT("\r");
 	}
+}
+
+void ScintillaEditView::setBorderEdge(bool doWithBorderEdge)
+{
+	long exStyle = ::GetWindowLongPtr(_hSelf, GWL_EXSTYLE);
+
+	if (doWithBorderEdge)
+		exStyle |= WS_EX_CLIENTEDGE;
+	else
+		exStyle &= ~WS_EX_CLIENTEDGE;
+
+	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
+	::SetWindowPos(_hSelf, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 }

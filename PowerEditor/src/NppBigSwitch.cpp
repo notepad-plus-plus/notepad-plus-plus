@@ -44,7 +44,11 @@ using namespace std;
 #define WM_DPICHANGED 0x02E0
 
 
-
+DWORD WINAPI CheckModifiedDocumentThread(LPVOID)
+{
+	MainFileManager->checkFilesystemChanges();
+	return 0;
+}
 
 struct SortTaskListPred final
 {
@@ -400,6 +404,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_SAVEALLFILES:
 		{
 			return fileSaveAll();
+		}
+
+		case NPPM_SAVEFILE:
+		{
+		    return fileSaveSpecific((const TCHAR *)lParam);
 		}
 
 		case NPPM_GETCURRENTNATIVELANGENCODING:
@@ -1229,6 +1238,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_SETEDITORBORDEREDGE:
+		{
+			bool withBorderEdge = (lParam == 1);
+			_mainEditView.setBorderEdge(withBorderEdge);
+			_subEditView.setBorderEdge(withBorderEdge);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SETMULTISELCTION:
 		{
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
@@ -1330,20 +1347,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return notify(notification);
 		}
 
-		case NPPM_INTERNAL_CHECKDOCSTATUS:
 		case WM_ACTIVATEAPP:
 		{
 			if (wParam == TRUE) // if npp is about to be activated
 			{
-				const NppGUI & nppgui = pNppParam->getNppGUI();
-				if (LOWORD(wParam) && (nppgui._fileAutoDetection != cdDisabled))
-				{
-					_activeAppInf._isActivated = true;
-					checkModifiedDocument();
-					return FALSE;
-				}
+				::PostMessage(hwnd, NPPM_INTERNAL_CHECKDOCSTATUS, 0, 0);
 			}
-			break;
+			return FALSE;
+		}
+
+		case NPPM_INTERNAL_CHECKDOCSTATUS:
+		{
+			const NppGUI & nppgui = pNppParam->getNppGUI();
+			if (nppgui._fileAutoDetection != cdDisabled)
+			{
+				checkModifiedDocument();
+				return TRUE;
+			}
+			return FALSE;
 		}
 
 		case NPPM_INTERNAL_GETCHECKDOCOPT:
@@ -1569,6 +1590,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				saveScintillaParams(); //writeScintillaParams
 				saveGUIParams(); //writeGUIParams
 				saveProjectPanelsParams(); //writeProjectPanelsSettings
+				saveFileBrowserParam();
 				//
 				// saving config.xml
 				//

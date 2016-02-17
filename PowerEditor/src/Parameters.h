@@ -1279,7 +1279,7 @@ public:
 
 	int getNbLang() const {return _nbLang;};
 
-	LangType getLangFromExt(const TCHAR *ext);
+	LangType getLangFromExt(const TCHAR *ext, LangType defaultLang = L_TEXT);
 
 	const TCHAR * getLangExtFromName(const TCHAR *langName) const
 	{

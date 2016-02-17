@@ -201,7 +201,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 		else // if it's not user lang, then check if it's supported lang
 		{
 			_userLangExt.clear();
-			newLang = pNppParamInst->getLangFromExt(ext);
+			newLang = pNppParamInst->getLangFromExt(ext, defaultLang);
 		}
 	}
 

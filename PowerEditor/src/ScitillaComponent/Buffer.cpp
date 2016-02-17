@@ -171,7 +171,7 @@ void Buffer::updateTimeStamp()
 // Set full path file name in buffer object,
 // and determinate its language by its extension.
 // If the ext is not in the list, the defaultLang passed as argument will be set.
-void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
+void Buffer::setFileName(const TCHAR *fn, LangType defaultLang, bool dontReDetectLangIfAlreadySet)
 {
 	NppParameters *pNppParamInst = NppParameters::getInstance();
 	if (_fullPathName == fn)
@@ -185,36 +185,40 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 	_fileName = PathFindFileName(_fullPathName.c_str());
 
 	// for _lang
-	LangType newLang = defaultLang;
-	TCHAR *ext = PathFindExtension(_fullPathName.c_str());
-	if (*ext == '.') // extension found
+	LangType newLang = _lang;
+	if (!dontReDetectLangIfAlreadySet || _lang == L_TEXT)
 	{
-		ext += 1;
-
-		// Define User Lang firstly
-		const TCHAR* langName = pNppParamInst->getUserDefinedLangNameFromExt(ext, _fileName);
-		if (langName)
+		newLang = defaultLang;
+		TCHAR *ext = PathFindExtension(_fullPathName.c_str());
+		if (*ext == '.') // extension found
 		{
-			newLang = L_USER;
-			_userLangExt = langName;
-		}
-		else // if it's not user lang, then check if it's supported lang
-		{
-			_userLangExt.clear();
-			newLang = pNppParamInst->getLangFromExt(ext, defaultLang);
-		}
-	}
+			ext += 1;
 
-	if (newLang == defaultLang || newLang == L_TEXT)	//language can probably be refined
-	{
-		if ((!generic_stricmp(_fileName, TEXT("makefile"))) || (!generic_stricmp(_fileName, TEXT("GNUmakefile"))))
-			newLang = L_MAKEFILE;
-		else if (!generic_stricmp(_fileName, TEXT("CmakeLists.txt")))
-			newLang = L_CMAKE;
-		else if ((!generic_stricmp(_fileName, TEXT("SConstruct"))) || (!generic_stricmp(_fileName, TEXT("SConscript"))) || (!generic_stricmp(_fileName, TEXT("wscript"))))
-			newLang = L_PYTHON;
-		else if ((!generic_stricmp(_fileName, TEXT("Rakefile"))) || (!generic_stricmp(_fileName, TEXT("Vagrantfile"))))
-			newLang = L_RUBY;
+			// Define User Lang firstly
+			const TCHAR* langName = pNppParamInst->getUserDefinedLangNameFromExt(ext, _fileName);
+			if (langName)
+			{
+				newLang = L_USER;
+				_userLangExt = langName;
+			}
+			else // if it's not user lang, then check if it's supported lang
+			{
+				_userLangExt.clear();
+				newLang = pNppParamInst->getLangFromExt(ext, defaultLang);
+			}
+		}
+
+		if (newLang == defaultLang || newLang == L_TEXT)	//language can probably be refined
+		{
+			if ((!generic_stricmp(_fileName, TEXT("makefile"))) || (!generic_stricmp(_fileName, TEXT("GNUmakefile"))))
+				newLang = L_MAKEFILE;
+			else if (!generic_stricmp(_fileName, TEXT("CmakeLists.txt")))
+				newLang = L_CMAKE;
+			else if ((!generic_stricmp(_fileName, TEXT("SConstruct"))) || (!generic_stricmp(_fileName, TEXT("SConscript"))) || (!generic_stricmp(_fileName, TEXT("wscript"))))
+				newLang = L_PYTHON;
+			else if ((!generic_stricmp(_fileName, TEXT("Rakefile"))) || (!generic_stricmp(_fileName, TEXT("Vagrantfile"))))
+				newLang = L_RUBY;
+		}
 	}
 
 	updateTimeStamp();
@@ -1133,7 +1137,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			return true;	//all done
 		}
 
-		buffer->setFileName(fullpath, language);
+		buffer->setFileName(fullpath, language, true);
 		buffer->setDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		buffer->checkFileState();

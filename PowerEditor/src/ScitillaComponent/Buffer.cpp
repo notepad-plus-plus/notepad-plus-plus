@@ -1275,7 +1275,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	auto nl = buf2Test.find("\n");
 	auto crnl = min(cr, nl);
 	if (crnl != std::string::npos && crnl < longestLength)
-		buf2Test = std::string((const char *)data + i, crnl);
+		buf2Test.resize(crnl);
 
 	// First test for a Unix-like Shebang
 	// See https://en.wikipedia.org/wiki/Shebang_%28Unix%29 for more details about Shebang

@@ -1573,6 +1573,8 @@ bool Notepad_plus::findInFiles()
 		progress.open(_findReplaceDlg.getHSelf(), TEXT("Find In Files progress..."));
 	}
 
+	DWORD last_ti = GetTickCount();
+
 	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
 	{
 		if (progress.isCancelled()) break;
@@ -1596,13 +1598,16 @@ bool Notepad_plus::findInFiles()
 			if (closeBuf)
 				MainFileManager->closeBuffer(id, _pEditView);
 		}
+		DWORD new_ti = GetTickCount();
 		if (i == updateOnCount)
 		{
+			last_ti = new_ti;
 			updateOnCount += filesPerPercent;
 			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
-		}
-		else
+		} 
+		else if (new_ti - last_ti >= 150)
 		{
+			last_ti = new_ti;
 			progress.setInfo(fileNames.at(i).c_str());
 		}
 	}

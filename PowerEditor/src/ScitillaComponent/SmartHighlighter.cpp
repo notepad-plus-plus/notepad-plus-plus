@@ -132,8 +132,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	}
 
 	// restore the original targets to avoid conflicts with the search/replace functions
-	pHighlightView->execute(SCI_SETTARGETSTART, originalStartPos);
-	pHighlightView->execute(SCI_SETTARGETEND, originalEndPos);
+	pHighlightView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
 	delete [] listChar;
 }
 

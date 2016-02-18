@@ -1952,8 +1952,7 @@ TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool ex
 
 int ScintillaEditView::searchInTarget(const TCHAR * text2Find, int lenOfText2Find, int fromPos, int toPos) const
 {
-	execute(SCI_SETTARGETSTART, fromPos);
-	execute(SCI_SETTARGETEND, toPos);
+	execute(SCI_SETTARGETRANGE, fromPos, toPos);
 
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
@@ -1992,8 +1991,7 @@ int ScintillaEditView::replaceTarget(const TCHAR * str2replace, int fromTargetPo
 {
 	if (fromTargetPos != -1 || toTargetPos != -1)
 	{
-		execute(SCI_SETTARGETSTART, fromTargetPos);
-		execute(SCI_SETTARGETEND, toTargetPos);
+		execute(SCI_SETTARGETRANGE, fromTargetPos, toTargetPos);
 	}
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
@@ -2005,8 +2003,7 @@ int ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, int fromTargetPo
 {
 	if (fromTargetPos != -1 || toTargetPos != -1)
 	{
-		execute(SCI_SETTARGETSTART, fromTargetPos);
-		execute(SCI_SETTARGETEND, toTargetPos);
+		execute(SCI_SETTARGETRANGE, fromTargetPos, toTargetPos);
 	}
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
@@ -2427,8 +2424,7 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 			}
 			::WideCharToMultiByte(codepage, 0, destStr, len, srcStr, len, NULL, NULL);
 
-			execute(SCI_SETTARGETSTART, start);
-			execute(SCI_SETTARGETEND, end);
+			execute(SCI_SETTARGETRANGE, start, end);
 			execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)srcStr);
 
 			delete [] srcStr;
@@ -2467,8 +2463,7 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 		}
 		::WideCharToMultiByte(codepage, 0, selectedStrW, strWSize, selectedStr, strSize, NULL, NULL);
 
-		execute(SCI_SETTARGETSTART, selectionStart);
-		execute(SCI_SETTARGETEND, selectionEnd);
+		execute(SCI_SETTARGETRANGE, selectionStart, selectionEnd);
 		execute(SCI_REPLACETARGET, strSize - 1, (LPARAM)selectedStr);
 		execute(SCI_SETSEL, selectionStart, selectionEnd);
 		delete [] selectedStr;
@@ -2609,8 +2604,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 				cmi[i]._selRpos += cmi[i]._nbVirtualCaretSpc;
 			}
 
-			execute(SCI_SETTARGETSTART, cmi[i]._selLpos);
-			execute(SCI_SETTARGETEND, cmi[i]._selRpos);
+			execute(SCI_SETTARGETRANGE, cmi[i]._selLpos, cmi[i]._selRpos);
 
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			unsigned int cp = execute(SCI_GETCODEPAGE);
@@ -2712,8 +2706,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 				cmi[i]._selLpos += cmi[i]._nbVirtualAnchorSpc;
 				cmi[i]._selRpos += cmi[i]._nbVirtualCaretSpc;
 			}
-			execute(SCI_SETTARGETSTART, cmi[i]._selLpos);
-			execute(SCI_SETTARGETEND, cmi[i]._selRpos);
+			execute(SCI_SETTARGETRANGE, cmi[i]._selLpos, cmi[i]._selRpos);
 
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			unsigned int cp = execute(SCI_GETCODEPAGE);

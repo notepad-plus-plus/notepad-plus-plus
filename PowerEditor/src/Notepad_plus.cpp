@@ -978,8 +978,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 		int endPos = lenFile-1;
 		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
-		_invisibleEditView.execute(SCI_SETTARGETSTART, startPos);
-		_invisibleEditView.execute(SCI_SETTARGETEND, endPos);
+		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 		int posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(xmlHeaderRegExpr), (LPARAM)xmlHeaderRegExpr);
 		if (posFound != -1 && posFound != -2)
@@ -1016,8 +1015,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 		int endPos = lenFile-1;
 		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
-		_invisibleEditView.execute(SCI_SETTARGETSTART, startPos);
-		_invisibleEditView.execute(SCI_SETTARGETEND, endPos);
+		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 		int posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr), (LPARAM)htmlHeaderRegExpr);
 
@@ -2207,8 +2205,7 @@ void Notepad_plus::addHotSpot()
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
-	_pEditView->execute(SCI_SETTARGETSTART, startPos);
-	_pEditView->execute(SCI_SETTARGETEND, endPos);
+	_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 	std::vector<unsigned char> hotspotPairs; //= _pEditView->GetHotspotPairs();
 
@@ -2307,8 +2304,7 @@ void Notepad_plus::addHotSpot()
 			_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
 		}
 
-		_pEditView->execute(SCI_SETTARGETSTART, posFound + foundTextLen);
-		_pEditView->execute(SCI_SETTARGETEND, endPos);
+		_pEditView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
 
 		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
 	}
@@ -2325,8 +2321,7 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 	int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
 	int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
-	_pEditView->execute(SCI_SETTARGETSTART, startPos);
-	_pEditView->execute(SCI_SETTARGETEND, endPos);
+	_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 	const char ifElseForWhileExpr[] = "((else[ \t]+)?if|for|while)[ \t]*[(].*[)][ \t]*|else[ \t]*";
 
@@ -2464,8 +2459,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
 				int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
 				_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
-				_pEditView->execute(SCI_SETTARGETSTART, startPos);
-				_pEditView->execute(SCI_SETTARGETEND, endPos);
+				_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 				const char braceExpr[] = "[ \t]*\\{.*";
 

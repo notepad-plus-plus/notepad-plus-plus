@@ -1216,8 +1216,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_EOL2WS:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->execute(SCI_SETTARGETSTART, 0);
-			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
@@ -1226,8 +1225,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			doTrim(lineHeader);
-			_pEditView->execute(SCI_SETTARGETSTART, 0);
-			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;

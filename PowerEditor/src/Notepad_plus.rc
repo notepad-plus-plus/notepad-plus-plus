@@ -51,7 +51,7 @@ BEGIN
             VALUE    "FileDescription",    "Notepad++ : a free (GNU) source code editor\0"
             VALUE    "FileVersion",        VERSION_VALUE
             VALUE    "InternalName",       "npp.exe\0"
-            VALUE    "LegalCopyright",     "Copyleft 1998-2015 by Don HO\0"
+            VALUE    "LegalCopyright",     "Copyleft 1998-2016 by Don HO\0"
             VALUE    "OriginalFilename",   "Notepad++.exe\0"
             VALUE    "ProductName",        "Notepad++\0"
             VALUE    "ProductVersion",     VERSION_VALUE

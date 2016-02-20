@@ -386,10 +386,7 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	char tagHead[10];
 	_pEditView->getText(tagHead, targetStart, targetStart+9);
 
-	if (tagHead[1] == '/') // "</toto>" will be ignored
-		return;
-
-	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
+	if (tagHead[1] == '/' || tagHead[1] == '!') // end tags, comments and DOCTYPE declarations will be ignored
 		return;
 
 	if (isHTML) // for HTML: "br", "hr", "img", "link" and "meta" will be ignored

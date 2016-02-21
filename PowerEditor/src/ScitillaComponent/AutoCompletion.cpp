@@ -86,13 +86,18 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	getWordArray(wordArray, beginChars);
 
-
-	for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
+	bool canStop = false;
+	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
-		if (_keyWordArray[i].find(beginChars) == 0)
+		if (_keyWordArray[i].compare(0, len, beginChars) == 0)
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);
+			canStop = true;
+		}
+		else if (canStop) {
+			// Early out since no more strings will match
+			break;
 		}
 	}
 
@@ -104,7 +109,7 @@ bool AutoCompletion::showApiAndWordComplete()
 	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
 	{
 		words += wordArray[i];
-		if (i != wordArray.size()-1)
+		if (i != len - 1)
 			words += TEXT(" ");
 	}
 
@@ -121,7 +126,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
-	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]*");
+	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
 
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 
@@ -141,9 +146,8 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 			TCHAR w[bufSize];
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
 
-			if (lstrcmp(w, beginChars) != 0)
-				if (!isInList(w, wordArray))
-					wordArray.push_back(w);
+			if (!isInList(w, wordArray))
+				wordArray.push_back(w);
 		}
 		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
 	}

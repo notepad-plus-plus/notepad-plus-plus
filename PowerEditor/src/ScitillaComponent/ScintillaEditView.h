@@ -466,18 +466,18 @@ public:
 		// return false if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
 			return false;
-		long start = long(execute(SCI_GETSELECTIONSTART));
-		long end = long(execute(SCI_GETSELECTIONEND));
-		selByte = end - start;
+		long pStart = long(execute(SCI_GETSELECTIONSTART));
+		long pEnd = long(execute(SCI_GETSELECTIONEND));
+		selByte = pEnd - pStart;
 
-		start = long(execute(SCI_LINEFROMPOSITION, start));
-		end = long(execute(SCI_LINEFROMPOSITION, end));
-		selLine = end - start;
-		if (selLine)
+		long lStart = long(execute(SCI_LINEFROMPOSITION, pStart));
+		long lEnd = long(execute(SCI_LINEFROMPOSITION, pEnd));
+		selLine = lEnd - lStart;
+		if (selLine || selByte)
 			++selLine;
 
 		return true;
-    };
+	};
 
 	long getSelectedLength() const
 	{

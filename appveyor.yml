@@ -1,7 +1,7 @@
 clone_depth: 1
 
 install:
-  - ps: Invoke-WebRequest -OutFile boost_1_55_0.7z https://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.7z
+  - ps: Invoke-WebRequest -OutFile boost_1_55_0.7z -UserAgent Wget/1.17.1 https://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.7z
   - 7z x boost_1_55_0.7z
 
 build_script:

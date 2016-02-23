@@ -1346,6 +1346,7 @@ public:
 	bool writeHistory(const TCHAR *fullpath);
 
 	bool writeProjectPanelsSettings() const;
+	bool writeFileBrowserSettings(const std::vector<generic_string> & rootPath, const generic_string & latestSelectedItemPath) const;
 
 	TiXmlNode* getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName, const TCHAR *attributName, const TCHAR *attributVal) const;
 
@@ -1463,12 +1464,11 @@ public:
 	generic_string getContextMenuPath() const {return _contextMenuPath;};
 	const TCHAR * getAppDataNppDir() const {return _appdataNppDir.c_str();};
 	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
-	const TCHAR * getworkSpaceFilePath(int i) const
-	{
+	const TCHAR * getWorkSpaceFilePath(int i) const {
 		if (i < 0 || i > 2) return nullptr;
 		return _workSpaceFilePathes[i].c_str();
 	}
-
+	const std::vector<generic_string> getFileBrowserRoots() const { return _fileBrowserRoot; };
 	void setWorkSpaceFilePath(int i, const TCHAR *wsFile);
 
 	void setWorkingDir(const TCHAR * newPath);
@@ -1482,8 +1482,7 @@ public:
 	int langTypeToCommandID(LangType lt) const;
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
 
-	struct FindDlgTabTitiles final
-	{
+	struct FindDlgTabTitiles final {
 		generic_string _find;
 		generic_string _replace;
 		generic_string _findInFiles;
@@ -1494,8 +1493,7 @@ public:
 
 	bool asNotepadStyle() const {return _asNotepadStyle;};
 
-	bool reloadPluginCmds()
-	{
+	bool reloadPluginCmds() {
 		return getPluginCmdsFromXmlTree();
 	}
 
@@ -1668,6 +1666,8 @@ private:
 	generic_string _currentDirectory;
 	generic_string _workSpaceFilePathes[3];
 
+	std::vector<generic_string> _fileBrowserRoot;
+
 	Accelerator *_pAccelerator;
 	ScintillaAccelerator * _pScintAccelerator;
 
@@ -1708,6 +1708,7 @@ private:
 	void feedDockingManager(TiXmlNode *node);
 	void feedFindHistoryParameters(TiXmlNode *node);
 	void feedProjectPanelsParameters(TiXmlNode *node);
+	void feedFileBrowserParameters(TiXmlNode *node);
 
 	bool feedStylerArray(TiXmlNode *node);
 	void getAllWordStyles(TCHAR *lexerName, TiXmlNode *lexerNode);

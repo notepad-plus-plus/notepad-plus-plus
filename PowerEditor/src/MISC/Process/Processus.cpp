@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -26,25 +26,13 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include <windows.h>
-#include "ProjectPanel_rc.h"
+#include "Parameters.h"
+#include "Processus.h"
 
-IDD_PROJECTPANEL DIALOGEX 26, 41, 142, 324
-STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
-CAPTION "Project"
-FONT 8, "MS Sans Serif", 0, 0, 0x0
-BEGIN
 
-END
+void Process::run()
+{
+	TCHAR *opVerb = TEXT("open");
+	::ShellExecute(NULL, opVerb, _command.c_str(), _args.c_str(), _curDir.c_str(), SW_SHOWNORMAL);
+}
 
-IDD_FILERELOCALIZER_DIALOG DIALOGEX 0, 0, 350, 48
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_TOOLWINDOW
-CAPTION "Change file full path name"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,235,27,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,290,27,50,14
-    EDITTEXT        IDC_EDIT_FILEFULLPATHNAME,7,7,335,14,ES_AUTOHSCROLL
-END

@@ -319,7 +319,8 @@
 	#define    IDM_VIEW_PROJECT_PANEL_3           (IDM_VIEW + 83)
 
 	#define    IDM_VIEW_FUNC_LIST                 (IDM_VIEW + 84)
-	
+	#define    IDM_VIEW_FILEBROWSER               (IDM_VIEW + 85)
+
 	#define	   IDM_VIEW_TAB1					  (IDM_VIEW + 86)
 	#define	   IDM_VIEW_TAB2					  (IDM_VIEW + 87)
 	#define	   IDM_VIEW_TAB3					  (IDM_VIEW + 88)

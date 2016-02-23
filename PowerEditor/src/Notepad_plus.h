@@ -105,7 +105,7 @@
 #endif //DOCKINGMANAGER_H
 
 #ifndef PROCESSUS_H
-#include "Process.h"
+#include "Processus.h"
 #endif //PROCESSUS_H
 
 #ifndef AUTOCOMPLETION_H
@@ -195,9 +195,7 @@ class VerticalFileSwitcher;
 class ProjectPanel;
 class DocumentMap;
 class FunctionListPanel;
-
-
-
+class FileBrowser;
 
 
 class Notepad_plus final
@@ -257,6 +255,7 @@ public:
 
 	bool saveGUIParams();
 	bool saveProjectPanelsParams();
+	bool saveFileBrowserParam();
 	void saveDockingParams();
     void saveUserDefineLangs();
     void saveShortcuts();
@@ -383,16 +382,7 @@ private:
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;
 
-	struct ActivateAppInfo final
-	{
-		bool _isActivated = false;
-		int _x = 0;
-		int _y = 0;
-	}
-	_activeAppInf;
-
 	//Synchronized Scolling
-
 	struct SyncInfo final
 	{
 		int _line = 0;
@@ -429,6 +419,8 @@ private:
 	ProjectPanel* _pProjectPanel_1 = nullptr;
 	ProjectPanel* _pProjectPanel_2 = nullptr;
 	ProjectPanel* _pProjectPanel_3 = nullptr;
+
+	FileBrowser* _pFileBrowser = nullptr;
 
 	DocumentMap* _pDocMap = nullptr;
 	FunctionListPanel* _pFuncList = nullptr;
@@ -598,9 +590,7 @@ private:
 	bool findInOpenedFiles();
 	bool findInCurrentFile();
 
-	bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
 	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
-
 	void doSynScorll(HWND hW);
 	void setWorkingDir(const TCHAR *dir);
 	bool str2Cliboard(const generic_string & str2cpy);
@@ -632,6 +622,7 @@ private:
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
+	void launchFileBrowser(const std::vector<generic_string> & folders);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -649,6 +640,8 @@ private:
 	}
 
 	static DWORD WINAPI backupDocument(void *params);
+	//static DWORD WINAPI monitorFileOnChange(void * params);
+	//static DWORD WINAPI monitorDirectoryOnChange(void * params);
 };
 
 

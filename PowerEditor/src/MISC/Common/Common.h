@@ -66,7 +66,7 @@ const bool dirDown = false;
 
 typedef std::basic_string<TCHAR> generic_string;
 
-void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr = NULL);
+generic_string folderBrowser(HWND parent, const generic_string & title = TEXT(""), int outputCtrlID = 0, const TCHAR *defaultStr = NULL);
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir = NULL);
 
 void printInt(int int2print);
@@ -88,7 +88,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 std::string getFileContent(const TCHAR *file2read);
 generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath);
 void writeFileContent(const TCHAR *file2write, const char *content2write);
-
+bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
 
 class WcharMbcsConvertor final
 {

@@ -38,6 +38,7 @@
 #include "ProjectPanel.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "fileBrowser.h"
 
 using namespace std;
 
@@ -1347,24 +1348,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return notify(notification);
 		}
 
-		case NPPM_INTERNAL_CHECKDOCSTATUS:
 		case WM_ACTIVATEAPP:
 		{
 			if (wParam == TRUE) // if npp is about to be activated
 			{
-				const NppGUI & nppgui = pNppParam->getNppGUI();
-				if (LOWORD(wParam) && (nppgui._fileAutoDetection != cdDisabled))
-				{
-					_activeAppInf._isActivated = true;
-					
-					//checkModifiedDocument();
-					// Make checkModifiedDocument as thread to avoid Notepad++ hanging while user uses touch screen to activate Notepad++ windows
-					HANDLE hThread = CreateThread(NULL, 0, &CheckModifiedDocumentThread, NULL, 0, NULL);
-					::CloseHandle(hThread);
-					return FALSE;
-				}
+				::PostMessage(hwnd, NPPM_INTERNAL_CHECKDOCSTATUS, 0, 0);
 			}
-			break;
+			return FALSE;
+		}
+
+		case NPPM_INTERNAL_CHECKDOCSTATUS:
+		{
+			const NppGUI & nppgui = pNppParam->getNppGUI();
+			if (nppgui._fileAutoDetection != cdDisabled)
+			{
+				checkModifiedDocument();
+				return TRUE;
+			}
+			return FALSE;
 		}
 
 		case NPPM_INTERNAL_GETCHECKDOCOPT:
@@ -1513,6 +1514,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_pProjectPanel_3->setForegroundColor(style._fgColor);
 			}
 
+			if (_pFileBrowser)
+			{
+				_pFileBrowser->setBackgroundColor(style._bgColor);
+				_pFileBrowser->setForegroundColor(style._fgColor);
+			}
+
 			if (_pDocMap)
 				_pDocMap->setSyntaxHiliting();
 
@@ -1590,6 +1597,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				saveScintillaParams(); //writeScintillaParams
 				saveGUIParams(); //writeGUIParams
 				saveProjectPanelsParams(); //writeProjectPanelsSettings
+				saveFileBrowserParam();
 				//
 				// saving config.xml
 				//

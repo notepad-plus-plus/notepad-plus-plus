@@ -466,11 +466,11 @@ public:
 			return false;
 		long start = long(execute(SCI_GETSELECTIONSTART));
 		long end = long(execute(SCI_GETSELECTIONEND));
-		selByte = (start < end)?end-start:start-end;
+		selByte = end - start;
 
 		start = long(execute(SCI_LINEFROMPOSITION, start));
 		end = long(execute(SCI_LINEFROMPOSITION, end));
-		selLine = (start < end)?end-start:start-end;
+		selLine = end - start;
 		if (selLine)
 			++selLine;
 
@@ -538,9 +538,6 @@ public:
 	void performGlobalStyles();
 
 	void expand(int &line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
-
-	void currentLineUp() const;
-	void currentLineDown() const;
 
 	std::pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;

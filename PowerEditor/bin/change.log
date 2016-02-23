@@ -1,12 +1,13 @@
-Notepad++ v6.8.9 bug-fixes and enhancements:
+Notepad++ v6.9 New feature and bug-fixes:
 
-1.  Fix Notepad++ hanging issue while user uses touchscreen to activate Notepad++ window.
-2.  HTML auto-close tag enhancement: Prevent <br>, <hr>, <img>, <link> and <meta> from being closed automatically.
-3.  Project enhancement: Allows user defined extension to associate workspace file. 
-4.  Make behavior of SHIFT+END and SHIFT+HOME more consistent when word wrapping is enabled.
-5.  Add new API NPPM_SAVEFILE (for plugins) to save any file, not only the focused one.
-6.  Add file extensions for FreePascal/Lazarus pascal, lex (as C).
-7.  Update keywords for C, C++, JavaScript, Python and YAML.
+1.  Add "Folder as Workspace" feature.
+2.  Fix Notepad++ hanging issue while user uses touchscreen to activate Notepad++ window.
+3.  HTML auto-close tag enhancement: Prevent <br>, <hr>, <img>, <link> and <meta> from being closed automatically.
+4.  Project enhancement: Allows user defined extension to associate workspace file. 
+5.  Make behavior of SHIFT+END and SHIFT+HOME more consistent when word wrapping is enabled.
+6.  Add new API NPPM_SAVEFILE (for plugins) to save any file, not only the focused one.
+7.  Add file extensions for FreePascal/Lazarus pascal, lex (as C).
+8.  Update keywords for C, C++, JavaScript, Python and YAML.
 
 
 Included plugins:

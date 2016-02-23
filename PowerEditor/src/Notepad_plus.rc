@@ -51,7 +51,7 @@ BEGIN
             VALUE    "FileDescription",    "Notepad++ : a free (GNU) source code editor\0"
             VALUE    "FileVersion",        VERSION_VALUE
             VALUE    "InternalName",       "npp.exe\0"
-            VALUE    "LegalCopyright",     "Copyleft 1998-2015 by Don HO\0"
+            VALUE    "LegalCopyright",     "Copyleft 1998-2016 by Don HO\0"
             VALUE    "OriginalFilename",   "Notepad++.exe\0"
             VALUE    "ProductName",        "Notepad++\0"
             VALUE    "ProductVersion",     VERSION_VALUE
@@ -158,9 +158,12 @@ IDR_CLOSETAB_HOVER              BITMAP    "icons/closeTabButton_hover.bmp"
 IDR_CLOSETAB_PUSH               BITMAP    "icons/closeTabButton_push.bmp"
 IDR_DOCMAP                      BITMAP    "icons/docMap.bmp"
 IDR_FUNC_LIST                   BITMAP    "icons/functionList.bmp"
+IDR_FILEBROWSER                 BITMAP    "icons/fileBrowser.bmp"
+
 IDR_DOCMAP_ICO                  ICON      "icons/docMap.ico"
 IDR_FUNC_LIST_ICO               ICON      "icons/functionList.ico"
 IDR_PROJECTPANEL_ICO            ICON      "icons/projectPanel.ico"
+IDR_FILEBROWSER_ICO             ICON      "icons/fileBrowser.ico"
 IDR_CLIPBOARDPANEL_ICO          ICON      "icons/clipboardPanel.ico"
 IDR_ASCIIPANEL_ICO              ICON      "icons/asciiPanel.ico"
 IDR_DOCSWITCHER_ICO             ICON      "icons/docSwitcher.ico"
@@ -197,6 +200,8 @@ IDI_PROJECT_FOLDEROPEN          BITMAP      "icons/project_folder_open.bmp"
 IDI_PROJECT_FOLDERCLOSE         BITMAP      "icons/project_folder_close.bmp"
 IDI_PROJECT_FILE                BITMAP      "icons/project_file.bmp"
 IDI_PROJECT_FILEINVALID         BITMAP      "icons/project_file_invalid.bmp"
+IDI_FB_ROOTOPEN                 BITMAP      "icons/fb_root_open.bmp"
+IDI_FB_ROOTCLOSE                BITMAP      "icons/fb_root_close.bmp"
 
 IDI_FUNCLIST_ROOT               BITMAP      "icons/project_file.bmp"
 IDI_FUNCLIST_NODE               BITMAP      "icons/funcList_node.bmp"
@@ -504,7 +509,7 @@ BEGIN
                 MENUITEM "Project Panel 2",          IDM_VIEW_PROJECT_PANEL_2
                 MENUITEM "Project Panel 3",          IDM_VIEW_PROJECT_PANEL_3
             END
-
+		MENUITEM "Folder as Workspace",   IDM_VIEW_FILEBROWSER
         MENUITEM "Document Map",          IDM_VIEW_DOC_MAP
         MENUITEM "Function List",         IDM_VIEW_FUNC_LIST
         MENUITEM SEPARATOR

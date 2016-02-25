@@ -3193,7 +3193,10 @@ int Progress::createProgressWindow()
 RECT Progress::adjustSizeAndPos(int width, int height)
 {
 	RECT maxWin;
-	::GetWindowRect(::GetDesktopWindow(), &maxWin);
+	maxWin.left		= ::GetSystemMetrics(SM_XVIRTUALSCREEN);
+	maxWin.top		= ::GetSystemMetrics(SM_YVIRTUALSCREEN);
+	maxWin.right	= ::GetSystemMetrics(SM_CXVIRTUALSCREEN) + maxWin.left;
+	maxWin.bottom	= ::GetSystemMetrics(SM_CYVIRTUALSCREEN) + maxWin.top;
 
 	POINT center;
 
@@ -3223,9 +3226,14 @@ RECT Progress::adjustSizeAndPos(int width, int height)
 	if (width < maxWin.right - maxWin.left)
 	{
 		win.left = center.x - width / 2;
-		if (win.left < 0)
-			win.left = 0;
+		if (win.left < maxWin.left)
+			win.left = maxWin.left;
 		win.right = win.left + width;
+		if (win.right > maxWin.right)
+		{
+			win.right = maxWin.right;
+			win.left = win.right - width;
+		}
 	}
 	else
 	{
@@ -3236,9 +3244,14 @@ RECT Progress::adjustSizeAndPos(int width, int height)
 	if (height < maxWin.bottom - maxWin.top)
 	{
 		win.top = center.y - height / 2;
-		if (win.top < 0)
-			win.top = 0;
+		if (win.top < maxWin.top)
+			win.top = maxWin.top;
 		win.bottom = win.top + height;
+		if (win.bottom > maxWin.bottom)
+		{
+			win.bottom = maxWin.bottom;
+			win.top = win.bottom - height;
+		}
 	}
 	else
 	{

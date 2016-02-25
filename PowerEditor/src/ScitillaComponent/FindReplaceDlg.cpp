@@ -2505,13 +2505,13 @@ void Finder::openAll()
 	}
 }
 
-bool Finder::isLineActualSearchResult(int line) const
+bool Finder::isLineActualSearchResult(const generic_string & s) const
 {
-	const int foldLevel = _scintView.execute(SCI_GETFOLDLEVEL, line) & SC_FOLDLEVELNUMBERMASK;
-	return foldLevel == SC_FOLDLEVELBASE + 3;
+	const long firstColon = s.find(TEXT("\tLine "));
+	return (firstColon == 0);
 }
 
-generic_string Finder::prepareStringForClipboard(generic_string s) const
+generic_string & Finder::prepareStringForClipboard(generic_string & s) const
 {
 	// Input: a string like "\tLine 3: search result".
 	// Output: "search result"
@@ -2527,7 +2527,8 @@ generic_string Finder::prepareStringForClipboard(generic_string s) const
 	else
 	{
 		// Plus 2 in order to deal with ": ".
-		return s.substr(2 + firstColon);
+		s = s.substr(2 + firstColon);
+		return s;
 	}
 }
 
@@ -2558,9 +2559,10 @@ void Finder::copy()
 	std::vector<generic_string> lines;
 	for (size_t line = fromLine; line <= toLine; ++line)
 	{
-		if (isLineActualSearchResult(line))
+		generic_string lineStr = _scintView.getLine(line);
+		if (isLineActualSearchResult(lineStr))
 		{
-			lines.push_back(prepareStringForClipboard(_scintView.getLine(line)));
+			lines.push_back(prepareStringForClipboard(lineStr));
 		}
 	}
 	const generic_string toClipboard = stringJoin(lines, TEXT("\r\n"));

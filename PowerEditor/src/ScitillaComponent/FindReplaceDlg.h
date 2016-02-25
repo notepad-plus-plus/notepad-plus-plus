@@ -178,8 +178,8 @@ private:
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
 	};
 
-	bool isLineActualSearchResult(int line) const;
-	generic_string prepareStringForClipboard(generic_string s) const;
+	bool isLineActualSearchResult(const generic_string & s) const;
+	generic_string & prepareStringForClipboard(generic_string & s) const;
 
 	static FoundInfo EmptyFoundInfo;
 	static SearchResultMarking EmptySearchResultMarking;

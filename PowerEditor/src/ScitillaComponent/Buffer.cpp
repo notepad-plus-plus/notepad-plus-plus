@@ -1275,36 +1275,39 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	auto nl = buf2Test.find("\n");
 	auto crnl = min(cr, nl);
 	if (crnl != std::string::npos && crnl < longestLength)
-		buf2Test = std::string((const char *)data + i, crnl);
+		buf2Test.resize(crnl);
 
 	// First test for a Unix-like Shebang
 	// See https://en.wikipedia.org/wiki/Shebang_%28Unix%29 for more details about Shebang
 	std::string shebang = "#!";
-	auto res = std::mismatch(shebang.begin(), shebang.end(), buf2Test.begin());
-	if (res.first == shebang.end())
+	if (buf2Test.length() > shebang.length()) 
 	{
-		// Make a list of the most commonly used languages
-		const size_t SHEBANG_LANGUAGES = 6;
-		FirstLineLanguages ShebangLangs[SHEBANG_LANGUAGES] = {
-			{ "sh",		L_BASH },
-			{ "python", L_PYTHON },
-			{ "perl",	L_PERL },
-			{ "php",	L_PHP },
-			{ "ruby",	L_RUBY },
-			{ "node",	L_JAVASCRIPT }
-		};
-
-		// Go through the list of languages
-		for (i = 0; i < SHEBANG_LANGUAGES; ++i)
+		auto res = std::mismatch(shebang.begin(), shebang.end(), buf2Test.begin());
+		if (res.first == shebang.end())
 		{
-			if (buf2Test.find(ShebangLangs[i].pattern) != std::string::npos)
-			{
-				return ShebangLangs[i].lang;
-			}
-		}
+			// Make a list of the most commonly used languages
+			const size_t SHEBANG_LANGUAGES = 6;
+			FirstLineLanguages ShebangLangs[SHEBANG_LANGUAGES] = {
+				{ "sh", L_BASH },
+				{ "python", L_PYTHON },
+				{ "perl", L_PERL },
+				{ "php", L_PHP },
+				{ "ruby", L_RUBY },
+				{ "node", L_JAVASCRIPT }
+			};
 
-		// Unrecognized shebang (there is always room for improvement ;-)
-		return L_TEXT;
+			// Go through the list of languages
+			for (i = 0; i < SHEBANG_LANGUAGES; ++i)
+			{
+				if (buf2Test.find(ShebangLangs[i].pattern) != std::string::npos)
+				{
+					return ShebangLangs[i].lang;
+				}
+			}
+
+			// Unrecognized shebang (there is always room for improvement ;-)
+			return L_TEXT;
+		}
 	}
 
 	// Are there any other patterns we know off?
@@ -1318,10 +1321,13 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 	for (i = 0; i < FIRST_LINE_LANGUAGES; ++i)
 	{
-		res = std::mismatch(languages[i].pattern.begin(), languages[i].pattern.end(), buf2Test.begin());
-		if (res.first == languages[i].pattern.end())
+		if (buf2Test.length() >= languages[i].pattern.length())
 		{
-			return languages[i].lang;
+			auto res = std::mismatch(languages[i].pattern.begin(), languages[i].pattern.end(), buf2Test.begin());
+			if (res.first == languages[i].pattern.end())
+			{
+				return languages[i].lang;
+			}
 		}
 	}
 

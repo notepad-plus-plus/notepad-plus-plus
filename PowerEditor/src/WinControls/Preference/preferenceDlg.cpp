@@ -32,6 +32,8 @@
 #include "lesDlgs.h"
 #include "EncodingMapper.h"
 
+#define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
+
 using namespace std;
 
 const int BLINKRATE_FASTEST = 50;
@@ -2807,7 +2809,10 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, 
 			{
 				COLORREF bgColor = getCtrlBgColor(_hSelf);
 				SetTextColor(hdcStatic, RGB(0, 0, 0));
-				SetBkColor(hdcStatic, RGB(GetRValue(bgColor) - 30, GetGValue(bgColor) - 30, GetBValue(bgColor) - 30));
+				BYTE r = GetRValue(bgColor) - 30;
+				BYTE g = MyGetGValue(bgColor) - 30;
+				BYTE b = GetBValue(bgColor) - 30;
+				SetBkColor(hdcStatic, RGB(r, g, b));
 				return TRUE;
 			}
 			return FALSE;

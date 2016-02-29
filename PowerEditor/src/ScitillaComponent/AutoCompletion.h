@@ -37,6 +37,8 @@
 #include "tinyxml.h"
 #endif// TINYXML_INCLUDED
 
+const size_t tagMaxLen = 256;
+
 class ScintillaEditView;
 
 struct MatchedCharInserted {

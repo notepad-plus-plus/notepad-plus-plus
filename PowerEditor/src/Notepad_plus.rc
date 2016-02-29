@@ -681,6 +681,7 @@ BEGIN
         MENUITEM "Lua",                     IDM_LANG_LUA
         MENUITEM "Makefile",                IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                  IDM_LANG_MATLAB
+        MENUITEM "mIRC",                    IDM_LANG_MIRC
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
         MENUITEM "Normal Text",             IDM_LANG_TEXT
         MENUITEM "NSIS",                    IDM_LANG_NSIS
@@ -767,6 +768,7 @@ BEGIN
     BEGIN
         MENUITEM "Makefile",              IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                IDM_LANG_MATLAB
+        MENUITEM "mIRC",                  IDM_LANG_MIRC
         MENUITEM "MS-DOS Style",          IDM_LANG_ASCII
     END
     POPUP "N"

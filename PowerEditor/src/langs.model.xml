@@ -142,6 +142,36 @@
         <Language name="matlab" ext="m" commentLine="%" commentStart="" commentEnd="">
             <Keywords name="instre1">break case catch continue else elseif end for function global if otherwise persistent return switch try while</Keywords>
         </Language>
+        <Language name="mirc" ext="mrc">
+            <Keywords name="Comments">00; 01 02 03 04</Keywords>
+            <Keywords name="Numbers, prefix1"></Keywords>
+            <Keywords name="Numbers, prefix2"></Keywords>
+            <Keywords name="Numbers, extras1"></Keywords>
+            <Keywords name="Numbers, extras2"></Keywords>
+            <Keywords name="Numbers, suffix1"></Keywords>
+            <Keywords name="Numbers, suffix2"></Keywords>
+            <Keywords name="Numbers, range"></Keywords>
+            <Keywords name="Operators1">( ) : | /</Keywords>
+            <Keywords name="Operators2">[ ]</Keywords>
+            <Keywords name="Folders in code1, open">{</Keywords>
+            <Keywords name="Folders in code1, middle">. , &quot; * \ [ ] ; !</Keywords>
+            <Keywords name="Folders in code1, close">}</Keywords>
+            <Keywords name="Folders in code2, open"></Keywords>
+            <Keywords name="Folders in code2, middle"></Keywords>
+            <Keywords name="Folders in code2, close"></Keywords>
+            <Keywords name="Folders in comment, open"></Keywords>
+            <Keywords name="Folders in comment, middle"></Keywords>
+            <Keywords name="Folders in comment, close"></Keywords>
+            <Keywords name="Keywords1">abook action ajinvite aline ame amsg anick aop auto auser autojoin avoice away background ban bcopy beep bindip bread break breplace bset btrunc bunset bwrite channel clear clearall cline clipboard close cnick color comclose comopen comreg continue copy creq ctcpreply ctcps dcc dccserver dde ddeserver debug dec describe dialog did didtok disable disconnect dlevel dline dll dns dqwindow drawcopy drawdot drawfill drawline drawpic drawrect drawreplace drawrot drawsave drawscroll drawtext ebeeps echo editbox emailaddr enable events exit fclose filter findtext finger firewall flash flist flood flush flushini fnord font fopen fseek fsend fserve fullname fwrite ghide gload gmove gopts goto gplay gpoint gqreq groups gshow gsize gstop gtalk gunload guser hadd halt haltdef hdec hdel help hfree hinc hload hmake hop hsave ial ialclear ialmark identd ignore iline inc iuser join linesep links list load loadbuf localinfo log mdi me menubar mkdir mnick mode msg noop notify notice omsg onotice partall pdcc perform play playctrl pop protect pvoice qme qmsg query queryrn raw reload remini remote remove rename renwin reseterror resetidle return rlevel rline rmdir run ruser save savebuf saveini say scid scon server set showmirc signal sline sockaccept sockclose socklist socklisten sockmark sockopen sockread sockrename sockudp sockwrite sound speak splay sreq strip switchbar timer timestamp titlebar tnick tokenize toolbar tray treebar ulist unload unset unsetall updatenl url uwho var vcadd vcmd vcrem vol while window winhelp write writeini xyzzy nick part parseline invite quit ctcp closemsg debug kick user logview proxy tip tips topic whois lusers menu status nicklist menubar</Keywords>
+            <Keywords name="Keywords2">== === != !== &lt; &gt; &gt;= &lt;= = // \\ isin isincs iswm iswmcs isnum isletter isalnum isalpha islower isupper ison isop ishop isvoice isreg ischan isban isaop isavoice isignore isprotect isnotify Alias if else elseif on off</Keywords>
+            <Keywords name="Keywords3">$+</Keywords>
+            <Keywords name="Keywords4">! % &amp; #</Keywords>
+            <Keywords name="Keywords5">$</Keywords>
+            <Keywords name="Keywords6">START QUIT KICK DISCONNECT CONNECT JOIN PART NICK BAN UNBAN EXIT TOPIC INVITE NOTICE RAWMODE CTCP APPACTIVE USERMODE LOGON CONNECTFAIL OPEN AGENT ACTIVE CHAT CLOSE DCCSERVER DEHELP OP DEOP HELP VOICE DEVOICE FILERCVD FILESENT GETFAIL HOTLINK INPUT KEYDOWN KEYUP LOAD MIDIEND MODE MP3END NOSOUND NOTIFY PARSELINE PING PLAYEND PONG SENDFAIL SERV SERVERMODE SERVEROP SIGNAL SNOTICE TABCOMP UDPREAD UNLOAD UNOTIFY VCMD WALLOPS WAVEEND</Keywords>
+            <Keywords name="Keywords7">-</Keywords>
+            <Keywords name="Keywords8">timer size title option icon button tab text edit link box radio</Keywords>
+            <Keywords name="Delimiters">00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23</Keywords>
+        </Language>
         <Language name="nfo" ext="nfo">
         </Language>
         <Language name="nsis" ext="nsi nsh" commentLine=";" commentStart="/*" commentEnd="*/">

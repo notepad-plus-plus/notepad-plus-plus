@@ -2620,6 +2620,8 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_RC;
         case IDM_LANG_MAKEFILE :
             return L_MAKEFILE;
+        case IDM_LANG_MIRC :
+            return L_MIRC;
         case IDM_LANG_INI :
             return L_INI;
         case IDM_LANG_TEX :

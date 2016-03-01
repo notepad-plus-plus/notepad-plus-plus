@@ -182,6 +182,9 @@ public :
 		_draggingPoint.y = 0;
 	};
 
+	void setHighlight(int index, bool val);
+	bool isHighlighed(int index);
+
 	static void doOwnerDrawTab();
 	static void doVertical();
 	static void doMultiLine();

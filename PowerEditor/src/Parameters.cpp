@@ -3901,6 +3901,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 						_nppGUI._fileAutoDetection = cdGo2end;
 					else if (!lstrcmp(val, TEXT("autoUpdate2End")))
 						_nppGUI._fileAutoDetection = cdAutoUpdateGo2end;
+					else if (!lstrcmp(val, TEXT("highlight")))
+						_nppGUI._fileAutoDetection = cdHighlight;
+					else if (!lstrcmp(val, TEXT("highlight2End")))
+						_nppGUI._fileAutoDetection = cdHighlightGo2end;
 		 			else //(!lstrcmp(val, TEXT("no")))
 						_nppGUI._fileAutoDetection = cdDisabled;
 
@@ -5164,6 +5168,12 @@ bool NppParameters::writeGUIParams()
 				case cdAutoUpdateGo2end:
 					pStr = TEXT("autoUpdate2End");
 					break;
+				case cdHighlight:
+					pStr = TEXT("highlight");
+					break;
+				case cdHighlightGo2end:
+					pStr = TEXT("highlight2End");
+					break;
 			}
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
@@ -5520,6 +5530,12 @@ bool NppParameters::writeGUIParams()
 				break;
 			case cdAutoUpdateGo2end:
 				pStr = TEXT("autoUpdate2End");
+				break;
+			case cdHighlight:
+				pStr = TEXT("highlight");
+				break;
+			case cdHighlightGo2end:
+				pStr = TEXT("highlight2End");
 				break;
 		}
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();

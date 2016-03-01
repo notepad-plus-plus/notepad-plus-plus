@@ -830,6 +830,7 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATESILENTLY, BM_SETCHECK, BST_CHECKED, 0);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLIGHTTAB), FALSE);
 			}
 			else if (nppGUI._fileAutoDetection == cdGo2end)
 			{
@@ -841,10 +842,25 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATESILENTLY, BM_SETCHECK, BST_CHECKED, 0);
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, BST_CHECKED, 0);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLIGHTTAB), FALSE);
+			}
+			else if (nppGUI._fileAutoDetection == cdHighlight)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_HIGHLIGHTTAB, BM_SETCHECK, BST_CHECKED, 0);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), FALSE);
+			}
+			else if (nppGUI._fileAutoDetection == cdHighlightGo2end)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_HIGHLIGHTTAB, BM_SETCHECK, BST_CHECKED, 0);
+				::SendDlgItemMessage(_hSelf, IDC_CHECK_UPDATEGOTOEOF, BM_SETCHECK, BST_CHECKED, 0);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), FALSE);
 			}
 			else //cdDisabled
 			{
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLIGHTTAB), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), FALSE);
 			}
 
@@ -929,16 +945,24 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_FILEAUTODETECTION:
 				{
 					bool isChecked = isCheckedOrNot(IDC_CHECK_FILEAUTODETECTION);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), isChecked);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), isChecked);
 
 					bool isSilent = isCheckedOrNot(IDC_CHECK_UPDATESILENTLY);
 					bool isGo2End = isCheckedOrNot(IDC_CHECK_UPDATEGOTOEOF);
+					bool isHighlightTab = isCheckedOrNot(IDC_CHECK_HIGHLIGHTTAB);
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), isChecked && !isHighlightTab);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLIGHTTAB), isChecked &&!isSilent);
+
 
 					ChangeDetect cd;
 
 					if (!isChecked)
 						cd = cdDisabled;
+					else if (!isSilent && isHighlightTab && !isGo2End)
+						cd = cdHighlight;
+					else if (!isSilent && isHighlightTab && isGo2End)
+						cd = cdHighlightGo2end;
 					else if (!isSilent && !isGo2End)
 						cd = cdEnabled;
 					else if (!isSilent && isGo2End)
@@ -953,14 +977,23 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				return TRUE;
 
 				case IDC_CHECK_UPDATESILENTLY:
+				case IDC_CHECK_HIGHLIGHTTAB:
 				case IDC_CHECK_UPDATEGOTOEOF:
 				{
 					bool isSilent = isCheckedOrNot(IDC_CHECK_UPDATESILENTLY);
 					bool isGo2End = isCheckedOrNot(IDC_CHECK_UPDATEGOTOEOF);
+					bool isHighlightTab = isCheckedOrNot(IDC_CHECK_HIGHLIGHTTAB);
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATESILENTLY), !isHighlightTab);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLIGHTTAB), !isSilent);
 
 					ChangeDetect cd;
 
-					if (!isSilent && !isGo2End)
+					if (!isSilent && isHighlightTab && !isGo2End)
+						cd = cdHighlight;
+					else if (!isSilent && isHighlightTab && isGo2End)
+						cd = cdHighlightGo2end;
+					else if (!isSilent && !isGo2End)
 						cd = cdEnabled;
 					else if (!isSilent && isGo2End)
 						cd = cdGo2end;

@@ -3493,7 +3493,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 void Notepad_plus::performPostReload(int whichOne) {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = pNppParam->getNppGUI();
-	bool toEnd = (nppGUI._fileAutoDetection == cdAutoUpdateGo2end) || (nppGUI._fileAutoDetection == cdGo2end);
+	bool toEnd = (nppGUI._fileAutoDetection == cdAutoUpdateGo2end) || (nppGUI._fileAutoDetection == cdGo2end) || (nppGUI._fileAutoDetection == cdHighlightGo2end);
 	if (!toEnd)
 		return;
 	if (whichOne == MAIN_VIEW) {
@@ -4660,8 +4660,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			}
 			case DOC_MODIFIED:	//ask for reloading
 			{
+				bool highlight = (nppGUI._fileAutoDetection == cdHighlight) || (nppGUI._fileAutoDetection == cdHighlightGo2end);
 				bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
-				if (!autoUpdate || buffer->isDirty())
+				if ((highlight && (mainActive || subActive)) || (!highlight && !autoUpdate) || buffer->isDirty())
 				{
                     // if file updating is not silently, we switch to the file to update.
                     int index = _pDocTab->getIndexByBuffer(buffer->getID());
@@ -4675,6 +4676,16 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 					
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
 						break;	//abort
+				}
+				else if (highlight && !mainActive && !subActive)
+				{
+					int index_m = _mainDocTab.getIndexByBuffer(buffer->getID());
+					if(index_m != -1)
+						_mainDocTab.setHighlight(index_m, true);
+					int index_s = _subDocTab.getIndexByBuffer(buffer->getID());
+					if(index_s != -1)
+						_subDocTab.setHighlight(index_s, true);
+					break;
 				}
 				// Set _isLoadedDirty false so when the document clean state is reached the icon will be set to blue
 				buffer->setLoadedDirty(false);

@@ -45,7 +45,7 @@ void DocTabView::addBuffer(BufferID buffer)
 		return;
 	Buffer * buf = MainFileManager->getBufferByID(buffer);
 	TCITEM tie;
-	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
+	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM | TCIF_STATE;
 
 	int index = -1;
 	if (_hasImgLst)

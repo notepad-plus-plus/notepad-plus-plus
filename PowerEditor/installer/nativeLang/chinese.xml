@@ -130,35 +130,35 @@
                     <Item id="42051" name="字元列表"/>
                     <Item id="42052" name="剪貼板記錄"/>
                     <Item id="42025" name="儲存巨集"/>
-                    <Item id="42026" name="文字方向從右到左"/>
-                    <Item id="42027" name="文字方向從左到右"/>
-                    <Item id="42028" name="設定現行文件唯讀"/>
-                    <Item id="42029" name="複製現行檔案路徑"/>
-                    <Item id="42030" name="複製現行檔案名"/>
-                    <Item id="42031" name="複製現行檔案目錄路徑"/>
+                    <Item id="42026" name="文字方向 ←"/>
+                    <Item id="42027" name="文字方向 →"/>
+                    <Item id="42028" name="設為唯讀"/>
+                    <Item id="42029" name="路徑+檔名"/>
+                    <Item id="42030" name="檔名"/>
+                    <Item id="42031" name="資料夾路徑"/>
                     <Item id="42032" name="重複執行單一巨集..."/>
                     <Item id="42033" name="移除檔案唯讀屬性"/>
                     <Item id="42035" name="單行式註解"/>
                     <Item id="42036" name="移除單行式註解"/>
                     <Item id="42055" name="移除空行"/>
-                    <Item id="42056" name="移除空行（含空白字元）"/>
-                    <Item id="42057" name="在現行行上加入空行"/>
-                    <Item id="42058" name="在現行行下加入空行"/>
-					<Item id="42059" name="字典順序排序"/>
-					<Item id="42061" name="整數排序"/>
-					<Item id="42063" name="小數（逗號）排序"/>
-					<Item id="42065" name="小數（點）排序"/>
-					<Item id="42060" name="字典順序反向排序"/>
-					<Item id="42062" name="整數反向排序"/>
-					<Item id="42064" name="小數（逗號）反向排序"/>
-					<Item id="42066" name="小數（點）反向排序"/>
+                    <Item id="42056" name="移除空行 (含空格字元)"/>
+                    <Item id="42057" name="向上插入空行"/>
+                    <Item id="42058" name="向下插入空行"/>
+                    <Item id="42059" name="升冪排序文字"/>
+                    <Item id="42060" name="降冪排序文字"/>
+                    <Item id="42061" name="升冪排序整數"/>
+                    <Item id="42062" name="降冪排序整數"/>
+                    <Item id="42063" name="升冪排序小數 (,)"/>
+                    <Item id="42064" name="降冪排序小數 (,)"/>
+                    <Item id="42065" name="升冪排序小數 (.)"/>
+					<Item id="42066" name="降冪排序小數 (.)"/>
                     <Item id="43001" name="尋找(&amp;F)..."/>
-                    <Item id="43002" name="找下一個(&amp;N)"/>
+                    <Item id="43002" name="向下尋找(&amp;N)"/>
                     <Item id="43003" name="取代..."/>
-                    <Item id="43004" name="到..."/>
-                    <Item id="43005" name="設定│取消書籤"/>
-                    <Item id="43006" name="到下一個書籤"/>
-                    <Item id="43007" name="到上一個書籤"/>
+                    <Item id="43004" name="跳至..."/>
+                    <Item id="43005" name="書籤標記/清除切換"/>
+                    <Item id="43006" name="下個書籤"/>
+                    <Item id="43007" name="上個書籤"/>
                     <Item id="43008" name="清除所有書籤"/>
                     <Item id="43009" name="跳至匹配括號"/>
                     <Item id="43010" name="找上一個"/>
@@ -310,10 +310,10 @@
                     <Item CMID="14" name="將此檔案移至新啟動的 Notepad++"/>
                     <Item CMID="15" name="開啟此檔案到新啟動的 Notepad++"/>
                     <Item CMID="16" name="重新載入"/>
-                    <Item CMID="17" name="關閉左邊所有檔案"/>
-                    <Item CMID="18" name="關閉右邊所有檔案"/>
-					<Item CMID="19" name="在 Explorer 內開啟現行檔目錄"/>
-                    <Item CMID="20" name="在 cmd 內開啟現行檔目錄"/>
+                    <Item CMID="17" name="關閉左側所有檔案"/>
+                    <Item CMID="18" name="關閉右側所有檔案"/>
+                    <Item CMID="19" name="開啟此資料夾於檔案總管"/>
+                    <Item CMID="20" name="開啟此資料夾於主控台 (Console)"/>
             </TabBar>
         </Menu>
 
@@ -368,12 +368,12 @@
                 <Item id="2910" name="尋找"/>
             </FindCharsInRange>
             <GoToLine title="到那兒去溜搭溜搭">
-                <Item id="2007" name="列數"/>
-                <Item id="2008" name="Offset"/>
+                <Item id="2007" name="行數"/>
+                <Item id="2008" name="位移"/>
                 <Item id="1" name="走吧！"/>
                 <Item id="2" name="我那兒也不去"/>
                 <Item id="2004" name="您目前的所在位置："/>
-                <Item id="2005" name="您要去："/>
+                <Item id="2005" name="您要前往:"/>
                 <Item id="2006" name="您不能超過："/>
             </GoToLine>
 
@@ -415,14 +415,14 @@
                 </SubDialog>
             </StyleConfig>
             <UserDefine title="自訂程式語言">
-                <Item id="20001" name="鑲嵌"/>
+                <Item id="20001" name="停靠面板"/>
                 <Item id="20002" name="重新命名"/>
-                <Item id="20003" name="建新語言..."/>
+                <Item id="20003" name="建立..."/>
                 <Item id="20004" name="刪除"/>
-                <Item id="20005" name="儲存為 ..."/>
-                <Item id="20007" name="自訂程式語言名稱"/>
+                <Item id="20005" name="另存..."/>
+                <Item id="20007" name="自訂語言: "/>
                 <Item id="20009" name="副檔名"/>
-                <Item id="20012" name="不區分大小寫"/>
+                <Item id="20012" name="不分大小寫"/>
                 <Item id="20011" name="透明度"/>
                 <Item id="20015" name="匯入..."/>
                 <Item id="20016" name="匯出..."/>
@@ -615,12 +615,12 @@
                     <Item id="6119" name="多行"/>
                     <Item id="6120" name="直式"/>
 
-                    <Item id="6122" name="隱藏 (使用 Alt 或 F10 鍵啟用)"/>
-                    <Item id="6123" name="語言"/>
+                    <Item id="6122" name="隱藏 (用 Alt 或 F10 切換)"/>
+                    <Item id="6123" name="界面語言​​"/>
 
-                    <Item id="6125" name="開啟文件列表"/>
-                    <Item id="6126" name="啟動"/>
-					<Item id="6127" name="隱藏副檔名排序列"/>
+                    <Item id="6125" name="文件清單面板"/>
+                    <Item id="6126" name="顯示"/>
+                    <Item id="6127" name="停用副檔名欄"/>
                 </Global>
                 <Scintillas title="編輯">
                     <Item id="6216" name="游標設定"/>
@@ -629,8 +629,8 @@
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
                     <Item id="6224" name="多列編輯"/>
-                    <Item id="6225" name="啟動 (Ctrl+Mouse click/selection)"/>
-                    <Item id="6201" name="語法摺疊層次控制節點形狀"/>
+                    <Item id="6225" name="啟用 (Ctrl+滑鼠點擊/選取)"/>
+                    <Item id="6201" name="收折點樣式"/>
                     <Item id="6202" name="精簡"/>
                     <Item id="6203" name="箭頭"/>
                     <Item id="6204" name="圓形"/>
@@ -642,10 +642,10 @@
                     <Item id="6229" name="對齊"/>
                     <Item id="6230" name="縮排"/>
 
-                    <Item id="6206" name="顯示列數邊行"/>
-                    <Item id="6207" name="顯示書籤邊行"/>
-                    <Item id="6208" name="顯示邊緣線"/>
-                    <Item id="6209" name="一行的字元數："/>
+                    <Item id="6206" name="顯示行號"/>
+                    <Item id="6207" name="顯示書籤標記"/>
+                    <Item id="6208" name="顯示邊界線"/>
+                    <Item id="6209" name="字元數:"/>
                     <Item id="6234" name="關閉進階捲動功能
 (若有觸控板問題)"/>
 
@@ -683,8 +683,8 @@
                     <Item id="4010" name="已連結的副檔名"/>
                 </FileAssoc>
                 <LangMenu title="程式語言選單">
-                    <Item id="6505" name="有效項目"/>
-                    <Item id="6506" name="隱藏項目"/>
+                    <Item id="6505" name="可用項目"/>
+                    <Item id="6506" name="停用項目"/>
                     <Item id="6507" name="簡化程式語言選單"/>
                     <Item id="6508" name="程式語言選單"/>
                 </LangMenu>
@@ -763,11 +763,11 @@
                     <Item id="6815" name="自動顯示功能參數提示"/>
                     <Item id="6851" name="自動補齊"/>
                     <Item id="6857" name=" html/xml 結束標記"/>
-                    <Item id="6858" name="開啟"/>
-                    <Item id="6859" name="結束"/>
-                    <Item id="6860" name="匹配對一："/>
-                    <Item id="6863" name="匹配對二："/>
-                    <Item id="6866" name="匹配對三："/>
+                    <Item id="6858" name="起"/>
+                    <Item id="6859" name="迄"/>
+                    <Item id="6860" name="成對括弧1:"/>
+                    <Item id="6863" name="成對括弧2:"/>
+                    <Item id="6866" name="成對括弧3:"/>
                 </AutoCompletion>
                 <MultiInstance title="多重實體開啟">
                     <Item id="6151" name="多重實體設定"/>
@@ -792,16 +792,16 @@
                 </Cloud>
 
                 <MISC title="其他">
-                    <Item id="6307" name="啟動"/>
-                    <Item id="6308" name="縮小到系統框"/>
-                    <Item id="6312" name="自動檢視開啟文件狀態"/>
-                    <Item id="6313" name="自動更新檔案"/>
-                    <Item id="6325" name="檔案更新後置現行列至最後一列"/>
-                    <Item id="6318" name="可點擊連結設定"/>
-                    <Item id="6319" name="啟動"/>
-                    <Item id="6320" name="不標記底線"/>
-                    <Item id="6322" name="組群檔副檔名："/>
-                    <Item id="6323" name="啟動 Notepad++ 自動升級更新功能"/>
+                    <Item id="6307" name="啟用"/>
+                    <Item id="6308" name="最小化至系統匣"/>
+                    <Item id="6312" name="自動檢測檔案狀態"/>
+                    <Item id="6313" name="默默的自動更新"/>
+                    <Item id="6318" name="可點擊的連結設定"/>
+                    <Item id="6325" name="更新後卷動至最後一行"/>
+                    <Item id="6319" name="啟用"/>
+                    <Item id="6320" name="無底線"/>
+                    <Item id="6322" name="開檔狀態檔副檔名:"/>
+                    <Item id="6323" name="啟用 Notepad++ 自動更新"/>
                     <Item id="6324" name="文件切換器 (Ctrl+TAB)"/>
                     <Item id="6326" name="啟動【字慧】高亮度顯示"/>
                     <Item id="6329" name="高亮度顯示相契合的 xml/html 標示 (tag)"/>
@@ -832,7 +832,7 @@
                 <Item id="2" name="關閉"/>
                 <Item id="7002" name="儲存檔案"/>
                 <Item id="7003" name="關閉檔案"/>
-                <Item id="7004" name="欄位排序"/>
+                <Item id="7004" name="排序頁籤"/>
             </Window>
             <ColumnEditor title="直行編輯">
                 <Item id="2023" name="插入文字"/>

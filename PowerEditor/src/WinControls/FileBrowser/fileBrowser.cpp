@@ -266,12 +266,14 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, TEXT("Remove"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, TEXT("Find in Files..."));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 
 	_hFolderMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, TEXT("Find in Files..."));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
@@ -761,6 +763,14 @@ void FileBrowser::popupMenuCmd(int cmdID)
 			if (not selectedNode) return;
 			generic_string path = getNodePath(selectedNode);
 			str2Clipboard(path, _hParent);
+		}
+		break;
+
+		case IDM_FILEBROWSER_FINDINFILES:
+		{
+			if (not selectedNode) return;
+			generic_string path = getNodePath(selectedNode);
+			::SendMessage(_hParent, NPPM_LAUNCHFINDINFILESDLG, (WPARAM)path.c_str(), 0);
 		}
 		break;
 

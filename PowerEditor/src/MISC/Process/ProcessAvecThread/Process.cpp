@@ -165,7 +165,6 @@ void Process::listenerStdOut()
 				break;
             }
 		}
-
 		bufferOut[outbytesRead] = '\0';
 		generic_string s;
 		s.assign(bufferOut);

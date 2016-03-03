@@ -69,7 +69,6 @@ public :
         redraw();
     };
 
-
 	int getHeight() const {
 		if (!::IsWindowVisible(_hSelf))
 			return 0;

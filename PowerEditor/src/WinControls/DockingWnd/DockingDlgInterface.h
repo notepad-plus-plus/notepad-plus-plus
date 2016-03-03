@@ -35,8 +35,7 @@
 #ifndef DOCKING_H
 #include "Docking.h"
 #endif //DOCKING_H
-
-#include <assert.h>
+include <assert.h>
 #include <shlwapi.h>
 #include "Common.h"
 #include "StaticDialog.h"

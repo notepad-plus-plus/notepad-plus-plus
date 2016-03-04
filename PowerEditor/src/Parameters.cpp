@@ -6033,6 +6033,8 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_TEX; break;
 		case L_FORTRAN :
 			id = IDM_LANG_FORTRAN; break;
+		case L_FORTRAN_77 :
+			id = IDM_LANG_FORTRAN_77; break;
 		case L_BASH :
 			id = IDM_LANG_BASH; break;
 		case L_FLASH :

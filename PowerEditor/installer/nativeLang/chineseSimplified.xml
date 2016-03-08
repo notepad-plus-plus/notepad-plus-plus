@@ -754,7 +754,6 @@
                 <MISC title="其他">
                     <Item id="6307" name="启用" />
                     <Item id="6308" name="最小化到系统托盘" />
-                    <Item id="6309" name="记住最后打开的文件" />
                     <Item id="6312" name="自动检测文件状态" />
                     <Item id="6313" name="自动更新文件" />
                     <Item id="6314" name="备份" />
@@ -770,7 +769,7 @@
                     <Item id="6327" name="启用" />
                     <Item id="6328" name="高亮显示标签属性" />
                     <Item id="6330" name="高亮显示 PHP/ASP 脚本区域" />
-                    <Item id="6331" name="只在标题栏显示文件名" />
+                    <Item id="6331" name="在标题栏仅显示文件名" />
                     <Item id="6332" name="区分大小写"/>
                     <Item id="6333" name="智能高亮"/>
 					<Item id="6334" name="自动检测字符编码"/>
@@ -786,11 +785,12 @@
                     <Item id="6317" name="冗余备份" />
                     <Item id="6804" name="使用自定义备份目录" />
                     <Item id="6803" name="目录 :" />
-					<Item id="6817" name="文件组群快照和定期备份"/>
-					<Item id="6818" name="启动文件组群快照和定期备份"/>
+					<Item id="6817" name="文件状态快照和定期备份"/>
+					<Item id="6818" name="启动文件状态快照和定期备份"/>
 					<Item id="6819" name="每"/>
 					<Item id="6821" name="秒"/>
 					<Item id="6822" name="定期备份在 :"/>
+                    <Item id="6309" name="记住最后打开的文件" />
                 </Backup>
                 <AutoCompletion title="自动完成">
                     <Item id="6807" name="自动完成" />
@@ -854,7 +854,8 @@
                 <Item id="2033" name="插入数字" />
                 <Item id="2030" name="初始值 :" />
                 <Item id="2031" name="增量 :" />
-                <Item id="2035" name="0 前缀" />
+                <Item id="2035" name="开头补零" />
+                <Item id="2036" name="重复次数 :" />
                 <Item id="2032" name="格式" />
                 <Item id="2024" name="十进制" />
                 <Item id="2025" name="八进制" />

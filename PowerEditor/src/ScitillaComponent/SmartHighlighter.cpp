@@ -61,6 +61,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	int listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
 	char *listChar = new char[listCharSize+1];
 	pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar);
+	listChar[listCharSize] = '\0';
 	
 	bool valid = true;
 	//The word has to consist if wordChars only, and the characters before and after something else
@@ -131,8 +132,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	}
 
 	// restore the original targets to avoid conflicts with the search/replace functions
-	pHighlightView->execute(SCI_SETTARGETSTART, originalStartPos);
-	pHighlightView->execute(SCI_SETTARGETEND, originalEndPos);
+	pHighlightView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
 	delete [] listChar;
 }
 

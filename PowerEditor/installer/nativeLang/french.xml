@@ -723,12 +723,12 @@
                     <Item id="6424" name="Dans un sous-menu"/>
                     <Item id="6425" name="Seul le nom du fichier"/>
                     <Item id="6426" name="Chemin complet du fichier"/>
-                    <Item id="6427" name="Adapter la longueur maximum:"/>
+                    <Item id="6427" name="Adapter la longueur maximale :"/>
                 </RecentFilesHistory>
 
                 <Backup title="Sauvegarde">
-					<Item id="6817" name="Instantané de la session et sauvegarde periodique"/>
-					<Item id="6818" name="Activer instantané de la session et sauvegarde periodique"/>
+					<Item id="6817" name="Instantané de la session et sauvegarde périodique"/>
+					<Item id="6818" name="Activer instantané de la session et sauvegarde périodique"/>
 					<Item id="6819" name="Sauvegarder toutes les"/>
 					<Item id="6821" name="secondes"/>
 					<Item id="6822" name="dans le dossier"/>
@@ -752,7 +752,7 @@
                     <Item id="6815" name="Paramètres affichés durant la saisie"/>
                     <Item id="6851" name="Insertion automatique"/>
                     <Item id="6857" name="balise fermante (html/xml)"/>
-                    <Item id="6858" name="Debut"/>
+                    <Item id="6858" name="Début"/>
                     <Item id="6859" name="Fin"/>
                     <Item id="6860" name="paire #1 :"/>
                     <Item id="6863" name="paire #2 :"/>
@@ -777,7 +777,7 @@
 				<Cloud title="Cloud">
                     <Item id="6262" name="Sauvegarder les paramètres dans le cloud"/>
                     <Item id="6263" name="Par défaut"/>
-                    <Item id="6267" name="Le chemin d'accèss de votre location de cloud :"/>
+                    <Item id="6267" name="Le chemin d'accès de votre location de cloud :"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
@@ -792,7 +792,7 @@
                     <Item id="6318" name="Paramétrage de lien cliquable"/>
                     <Item id="6319" name="Activer"/>
                     <Item id="6320" name="Ne pas souligner"/>
-                    <Item id="6322" name="Ext fichier session:"/>
+                    <Item id="6322" name="Ext fichier session :"/>
                     <Item id="6323" name="Activer la mise à jour automatique"/>
                     <Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
@@ -846,14 +846,14 @@
             <ColumnModeTip title="Sélection en mode colonnes" message="Utiliser 'Alt+sélection souris' ou 'Alt+Maj+flêches' pour activer le mode colonne."/>
             <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de contextMenu.xml vous permet de modifier la fenêtre de menu contextuel de Notepad++. Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
             <DeleteFileFailed title="Suppression du fichier" message="La suppression du fichier a échoué."/>
-            <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++?"/>
+            <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++ ?"/>
             <FileAlreadyOpenedInNpp title="" message="Le fichier est toujours ouvert dans Notepad++."/>
-            <FileLockedWarning title="Échec de la sauvegarde" message="S'il vous plaît vérifier si ce fichier est ouvert par un autre programme"/>
-            <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer?"/>
+            <FileLockedWarning title="Échec de la sauvegarde" message="Veuillez vérifier si ce fichier est ouvert par un autre programme"/>
+            <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir est trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouvert. Êtes-vous sûr de les ouvrir?"/>
-            <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. S'il vous plaît, le télécharger sur le site de Notepad++."/>
-            <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer?"/>
+            <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir est trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouvert. Êtes-vous sûr de les ouvrir ?"/>
+            <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. Veuillez le télécharger sur le site de Notepad++."/>
+            <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
         </MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papiers"/>

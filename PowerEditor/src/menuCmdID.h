@@ -319,7 +319,8 @@
 	#define    IDM_VIEW_PROJECT_PANEL_3           (IDM_VIEW + 83)
 
 	#define    IDM_VIEW_FUNC_LIST                 (IDM_VIEW + 84)
-	
+	#define    IDM_VIEW_FILEBROWSER               (IDM_VIEW + 85)
+
 	#define	   IDM_VIEW_TAB1					  (IDM_VIEW + 86)
 	#define	   IDM_VIEW_TAB2					  (IDM_VIEW + 87)
 	#define	   IDM_VIEW_TAB3					  (IDM_VIEW + 88)
@@ -465,6 +466,7 @@
     #define    IDM_LANG_JSP                (IDM_LANG + 55)
 	#define    IDM_LANG_COFFEESCRIPT       (IDM_LANG + 56)
 	#define    IDM_LANG_JSON		       (IDM_LANG + 57)
+    #define    IDM_LANG_FORTRAN_77         (IDM_LANG + 58)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 65)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 79)
@@ -487,6 +489,7 @@
 	#define    IDM_CONFUPDATERPROXY (IDM_ABOUT  + 9)
 	#define    IDM_CMDLINEARGUMENTS (IDM_ABOUT  + 10)
 	#define    IDM_ONLINESUPPORT    (IDM_ABOUT  + 11)
+	#define    IDM_DEBUGINFO        (IDM_ABOUT  + 12)
 
 
 #define    IDM_SETTING    (IDM + 8000)

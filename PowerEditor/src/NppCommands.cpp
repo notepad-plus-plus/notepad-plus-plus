@@ -35,6 +35,7 @@
 #include "VerticalFileSwitcher.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "fileBrowser.h"
 #include "Sorters.h"
 #include "LongRunningOperation.h"
 
@@ -512,9 +513,43 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_FILEBROWSER:
+		{
+			if (_pFileBrowser == nullptr) // first launch, check in params to open folders
+			{
+				NppParameters *pNppParam = NppParameters::getInstance();
+				launchFileBrowser(pNppParam->getFileBrowserRoots());
+				if (_pFileBrowser != nullptr)
+				{
+					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+					_pFileBrowser->setClosed(false);
+				}
+			}
+			else
+			{
+				if (not _pFileBrowser->isClosed())
+				{
+					_pFileBrowser->display(false);
+					_pFileBrowser->setClosed(true);
+					checkMenuItem(IDM_VIEW_FILEBROWSER, false);
+					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, false);
+				}
+				else
+				{
+					vector<generic_string> dummy;
+					launchFileBrowser(dummy);
+					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+					_pFileBrowser->setClosed(false);
+				}
+			}
+		}
+		break;
+
 		case IDM_VIEW_DOC_MAP:
 		{
-			if (_pDocMap && (!_pDocMap->isClosed()))
+			if (_pDocMap && (not _pDocMap->isClosed()))
 			{
 				_pDocMap->display(false);
 				_pDocMap->vzDlgDisplay(false);
@@ -537,7 +572,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_FUNC_LIST:
 		{
-			if (_pFuncList && (!_pFuncList->isClosed()))
+			if (_pFuncList && (not _pFuncList->isClosed()))
 			{
 				_pFuncList->display(false);
 				_pFuncList->setClosed(true);
@@ -1181,8 +1216,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_EOL2WS:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->execute(SCI_SETTARGETSTART, 0);
-			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
@@ -1191,8 +1225,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			doTrim(lineHeader);
-			_pEditView->execute(SCI_SETTARGETSTART, 0);
-			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
@@ -2196,6 +2229,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_DEBUGINFO:
+		{
+			_debugInfoDlg.doDialog();
+			break;
+		}
+
         case IDM_ABOUT:
 		{
 			bool doAboutDlg = false;
@@ -2402,6 +2441,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_INI :
         case IDM_LANG_TEX :
         case IDM_LANG_FORTRAN :
+		case IDM_LANG_FORTRAN_77 :
         case IDM_LANG_BASH :
         case IDM_LANG_FLASH :
 		case IDM_LANG_NSIS :

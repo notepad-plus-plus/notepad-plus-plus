@@ -214,6 +214,7 @@ Credits:
             <WordsStyle name="WORD" styleID="46" fgColor="BDAE9D" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="KEYWORD" styleID="47" fgColor="37A3ED" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1">alert appendChild arguments array blur checked childNodes className confirm dialogArguments event focus getElementById getElementsByTagName innerHTML keyCode length location null number parentNode push RegExp replace selectNodes selectSingleNode setAttribute split src srcElement test undefined value window</WordsStyle>
             <WordsStyle name="USER-DEFINED" styleID="16" fgColor="FF5555" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" keywordClass="type1">XmlUtil loadXmlString TopologyXmlTree NotificationArea loadXmlFile debug</WordsStyle>
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="00FF40" bgColor="2A211C" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="00FF40" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="80FF00" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="E5C138" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />

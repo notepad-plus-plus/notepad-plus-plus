@@ -33,12 +33,121 @@
 #include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
-#include <TCHAR.h>
+#include <tchar.h>
 
 using namespace std;
 
+/*
+struct monitorFileParams {
+	WCHAR _fullFilePath[MAX_PATH];
+};
+
+DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
+{
+	monitorFileParams *mfp = (monitorFileParams *)params;
+
+	//Le répertoire à surveiller :
+	WCHAR folderToMonitor[MAX_PATH];
+	//::MessageBoxW(NULL, mfp->_fullFilePath, TEXT("PATH AFTER thread"), MB_OK);
+	lstrcpy(folderToMonitor, mfp->_fullFilePath);
 
 
+	//::PathRemoveFileSpecW(folderToMonitor);
+
+	HANDLE hDirectory = ::CreateFile(folderToMonitor,
+		FILE_LIST_DIRECTORY, FILE_SHARE_READ | FILE_SHARE_WRITE,
+		NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+
+	// buffer qui va récuppérer les informations de mise à jour
+	const int MAX_BUFFER = 1024;
+	BYTE buffer[MAX_BUFFER];
+	DWORD nombreDeByteRetournes = 0;
+
+	bool cond = true;
+	while (cond)
+	{
+		::Sleep(1000);
+		// surveille un changement dans le répertoire : il attend tant que rien ne se passe : c’est synchrone.
+		BOOL res = ReadDirectoryChangesW(hDirectory, buffer, MAX_BUFFER,
+			TRUE, FILE_NOTIFY_CHANGE_LAST_WRITE, &nombreDeByteRetournes, NULL, NULL);
+
+		if (res == FALSE)
+			continue;
+
+		// puis on transforme le buffer pour être lisible.
+		FILE_NOTIFY_INFORMATION *notifyInfo = (FILE_NOTIFY_INFORMATION *)buffer;
+
+		wchar_t fn[MAX_PATH];
+		memset(fn, 0, MAX_PATH*sizeof(wchar_t));
+		if (notifyInfo->Action != FILE_ACTION_MODIFIED)
+			continue;
+
+		// affiche le fichier qui a été modifié.
+		if (notifyInfo->FileNameLength <= 0)
+			continue;
+
+		TCHAR str2Display[512];
+		generic_strncpy(fn, notifyInfo->FileName, notifyInfo->FileNameLength / sizeof(wchar_t));
+		generic_sprintf(str2Display, TEXT("offset : %d\raction : %d\rfn len : %d\rfn : %s"), notifyInfo->NextEntryOffset, notifyInfo->Action, notifyInfo->FileNameLength, notifyInfo->FileName);
+		// on peut vérifier avec ceci :
+		//printInt(notifyInfo->NextEntryOffset);
+		//printInt(notifyInfo->FileNameLength);
+		MessageBox(NULL, str2Display, TEXT("name"), MB_OK);
+	}
+	return TRUE;
+}
+
+DWORD WINAPI Notepad_plus::monitorDirectoryOnChange(void * params)
+{
+	monitorFileParams *mfp = (monitorFileParams *)params;
+
+	//Le répertoire à surveiller :
+	WCHAR folderToMonitor[MAX_PATH];
+	//::MessageBoxW(NULL, mfp->_fullFilePath, TEXT("PATH AFTER thread"), MB_OK);
+	lstrcpy(folderToMonitor, mfp->_fullFilePath);
+
+
+	//::PathRemoveFileSpecW(folderToMonitor);
+
+	HANDLE hDirectory = ::CreateFile(folderToMonitor,
+		FILE_LIST_DIRECTORY, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
+		NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED, NULL);
+
+	// buffer qui va récuppérer les informations de mise à jour
+	const int MAX_BUFFER = 1024;
+	BYTE buffer[MAX_BUFFER];
+	DWORD nombreDeByteRetournes = 0;
+
+	bool cond = true;
+	while (cond)
+	{
+		::Sleep(1000);
+		// surveille un changement dans le répertoire : il attend tant que rien ne se passe : c’est synchrone.
+		ReadDirectoryChangesW(hDirectory, buffer, MAX_BUFFER,
+			TRUE, FILE_NOTIFY_CHANGE_CREATION | FILE_NOTIFY_CHANGE_FILE_NAME, &nombreDeByteRetournes, NULL, NULL);
+		// puis on transforme le buffer pour être lisible.
+		FILE_NOTIFY_INFORMATION *notifyInfo = (FILE_NOTIFY_INFORMATION *)buffer;
+
+		wchar_t fn[MAX_PATH];
+		memset(fn, 0, MAX_PATH*sizeof(wchar_t));
+
+		//if (notifyInfo->Action != FILE_ACTION_MODIFIED)
+		if (notifyInfo->Action != FILE_ACTION_ADDED && notifyInfo->Action != FILE_ACTION_REMOVED && notifyInfo->Action != FILE_ACTION_RENAMED_OLD_NAME && notifyInfo->Action != FILE_ACTION_RENAMED_NEW_NAME)
+			continue;
+
+		// affiche le fichier qui a été modifié.
+		//if (notifyInfo->FileNameLength <= 0)
+			//continue;
+
+		generic_strncpy(fn, notifyInfo->FileName, notifyInfo->FileNameLength / sizeof(wchar_t));
+
+		// on peut vérifier avec ceci :
+		//printInt(notifyInfo->FileNameLength);
+		MessageBox(NULL, fn, TEXT("name"), MB_OK);
+	}
+	return TRUE;
+}
+*/
 
 BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
@@ -112,6 +221,13 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         fileLoadSession(longFileName);
         return BUFFER_INVALID;
     }
+
+	if (isFileWorkspace(longFileName) && PathFileExists(longFileName))
+	{
+		pNppParam->setWorkSpaceFilePath(0, longFileName);
+		command(IDM_VIEW_PROJECT_PANEL_1);
+		return BUFFER_INVALID;
+	}
 
     bool isWow64Off = false;
     if (!PathFileExists(longFileName))
@@ -249,6 +365,20 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         _pluginsManager.notify(&scnN);
         if (_pFileSwitcherPanel)
             _pFileSwitcherPanel->newItem(buf, currentView());
+
+		/*
+		if (::PathFileExists(longFileName))
+		{
+			// Thread to 
+			monitorFileParams *params = new monitorFileParams;
+			lstrcpy(params->_fullFilePath, longFileName);
+			//::MessageBoxW(NULL, params._fullFilePath, TEXT("PATH b4 thread"), MB_OK);
+			//HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, params, 0, NULL);
+			HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, params, 0, NULL);
+			::CloseHandle(hThread);
+		}
+		*/
+
     }
     else
     {
@@ -1118,6 +1248,27 @@ bool Notepad_plus::fileSave(BufferID id)
 	return false;
 }
 
+bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
+{
+	BufferID idToSave = _mainDocTab.findBufferByName(fileNameToSave.c_str());
+	if (idToSave == BUFFER_INVALID)
+	{
+		idToSave = _subDocTab.findBufferByName(fileNameToSave.c_str());
+	}
+    //do not use else syntax, id might be taken from sub doc tab, 
+    //in which case fileSave needs to be executed also
+	if (idToSave != BUFFER_INVALID)
+	{
+		fileSave(idToSave);
+		checkDocState();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 bool Notepad_plus::fileSaveAll() {
 	if (viewVisible(MAIN_VIEW)) {
 		for(int i = 0; i < _mainDocTab.nbItem(); ++i) {
@@ -1335,6 +1486,29 @@ bool Notepad_plus::isFileSession(const TCHAR * filename) {
 	return false;
 }
 
+bool Notepad_plus::isFileWorkspace(const TCHAR * filename) {
+	// if filename matches the ext of user defined workspace file ext, then it'll be opened as a workspace
+	const TCHAR *definedWorkspaceExt = NppParameters::getInstance()->getNppGUI()._definedWorkspaceExt.c_str();
+	if (*definedWorkspaceExt != '\0')
+	{
+		generic_string fncp = filename;
+		TCHAR *pExt = PathFindExtension(fncp.c_str());
+
+		generic_string usrWorkspaceExt = TEXT("");
+		if (*definedWorkspaceExt != '.')
+		{
+			usrWorkspaceExt += TEXT(".");
+		}
+		usrWorkspaceExt += definedWorkspaceExt;
+
+		if (!generic_stricmp(pExt, usrWorkspaceExt.c_str()))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void Notepad_plus::loadLastSession()
 {
 	NppParameters *nppParams = NppParameters::getInstance();
@@ -1359,11 +1533,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	{
 		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
 
-		if (isFileSession(pFn))
+		if (isFileSession(pFn) || isFileWorkspace(pFn))
 		{
 			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
 			session._mainViewFiles.erase(posIt);
-			continue;	//skip session files, not supporting recursive sessions
+			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
 
 		bool isWow64Off = false;
@@ -1454,10 +1628,10 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	{
 		const TCHAR *pFn = session._subViewFiles[k]._fileName.c_str();
 
-		if (isFileSession(pFn)) {
+		if (isFileSession(pFn) || isFileWorkspace(pFn)) {
 			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
 			session._subViewFiles.erase(posIt);
-			continue;	//skip session files, not supporting recursive sessions
+			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
 
 		bool isWow64Off = false;

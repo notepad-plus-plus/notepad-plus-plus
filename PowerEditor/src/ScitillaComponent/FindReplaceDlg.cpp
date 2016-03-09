@@ -25,7 +25,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#include <Shlobj.h>
+#include <shlobj.h>
 #include <uxtheme.h>
 #include "FindReplaceDlg.h"
 #include "ScintillaEditView.h"
@@ -1159,7 +1159,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDD_FINDINFILES_BROWSE_BUTTON :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						folderBrowser(_hSelf, IDD_FINDINFILES_DIR_COMBO, _options._directory.c_str());	
+						folderBrowser(_hSelf, TEXT("Select a folder to search from"), IDD_FINDINFILES_DIR_COMBO, _options._directory.c_str());
 				}
 				return TRUE;
 
@@ -2505,13 +2505,13 @@ void Finder::openAll()
 	}
 }
 
-bool Finder::isLineActualSearchResult(int line) const
+bool Finder::isLineActualSearchResult(const generic_string & s) const
 {
-	const int foldLevel = _scintView.execute(SCI_GETFOLDLEVEL, line) & SC_FOLDLEVELNUMBERMASK;
-	return foldLevel == SC_FOLDLEVELBASE + 3;
+	const long firstColon = s.find(TEXT("\tLine "));
+	return (firstColon == 0);
 }
 
-generic_string Finder::prepareStringForClipboard(generic_string s) const
+generic_string & Finder::prepareStringForClipboard(generic_string & s) const
 {
 	// Input: a string like "\tLine 3: search result".
 	// Output: "search result"
@@ -2527,7 +2527,8 @@ generic_string Finder::prepareStringForClipboard(generic_string s) const
 	else
 	{
 		// Plus 2 in order to deal with ": ".
-		return s.substr(2 + firstColon);
+		s = s.substr(2 + firstColon);
+		return s;
 	}
 }
 
@@ -2558,15 +2559,16 @@ void Finder::copy()
 	std::vector<generic_string> lines;
 	for (size_t line = fromLine; line <= toLine; ++line)
 	{
-		if (isLineActualSearchResult(line))
+		generic_string lineStr = _scintView.getLine(line);
+		if (isLineActualSearchResult(lineStr))
 		{
-			lines.push_back(prepareStringForClipboard(_scintView.getLine(line)));
+			lines.push_back(prepareStringForClipboard(lineStr));
 		}
 	}
 	const generic_string toClipboard = stringJoin(lines, TEXT("\r\n"));
 	if (!toClipboard.empty())
 	{
-		if (!str2Clipboard(toClipboard.c_str(), _hSelf))
+		if (!str2Clipboard(toClipboard, _hSelf))
 		{
 			assert(false);
 			::MessageBox(NULL, TEXT("Error placing text in clipboard."), TEXT("Notepad++"), MB_ICONINFORMATION);
@@ -3017,9 +3019,8 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 	if (::InterlockedIncrement(&refCount) == 1)
 	{
 		_hInst = hInst;
-		WNDCLASSEX wcex;
 
-		::SecureZeroMemory(&wcex, sizeof(wcex));
+		WNDCLASSEX wcex = {0};
 		wcex.cbSize = sizeof(wcex);
 		wcex.style = CS_HREDRAW | CS_VREDRAW;
 		wcex.lpfnWndProc = wndProc;
@@ -3030,9 +3031,7 @@ Progress::Progress(HINSTANCE hInst) : _hwnd(NULL), _hCallerWnd(NULL)
 
 		::RegisterClassEx(&wcex);
 
-		INITCOMMONCONTROLSEX icex;
-
-		::SecureZeroMemory(&icex, sizeof(icex));
+		INITCOMMONCONTROLSEX icex = {0};
 		icex.dwSize = sizeof(icex);
 		icex.dwICC = ICC_STANDARD_CLASSES | ICC_PROGRESS_CLASS;
 
@@ -3055,7 +3054,7 @@ HWND Progress::open(HWND hCallerWnd, const TCHAR* header)
 	if (_hwnd)
 		return _hwnd;
 
-	// Create manually reset non-signaled event
+	// Create manually reset non-signalled event
 	_hActiveState = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	if (!_hActiveState)
 		return NULL;
@@ -3096,7 +3095,7 @@ void Progress::close()
 {
 	if (_hwnd)
 	{
-		::SendMessage(_hwnd, WM_CLOSE, 0, 0);
+		::PostMessage(_hwnd, WM_CLOSE, 0, 0);
 		_hwnd = NULL;
 		::WaitForSingleObject(_hThread, INFINITE);
 
@@ -3145,7 +3144,7 @@ int Progress::thread()
 int Progress::createProgressWindow()
 {
 	_hwnd = ::CreateWindowEx(
-		WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW | WS_EX_TOPMOST,
+		WS_EX_APPWINDOW | WS_EX_TOOLWINDOW | WS_EX_OVERLAPPEDWINDOW,
 		cClassName, _header, WS_POPUP | WS_CAPTION,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 		NULL, NULL, _hInst, (LPVOID)this);

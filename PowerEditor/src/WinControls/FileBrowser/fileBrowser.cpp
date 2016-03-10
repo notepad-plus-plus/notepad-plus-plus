@@ -352,51 +352,6 @@ void FileBrowser::destroyMenus()
 	::DestroyMenu(_hFileMenu);
 }
 
-void FileBrowser::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR* fn2write)
-{
-	TCHAR textBuffer[MAX_PATH];
-	TVITEM tvItem;
-	tvItem.mask = TVIF_TEXT | TVIF_PARAM;
-	tvItem.pszText = textBuffer;
-	tvItem.cchTextMax = MAX_PATH;
-
-    for (HTREEITEM hItemNode = _treeView.getChildFrom(hItem);
-		hItemNode != NULL;
-		hItemNode = _treeView.getNextSibling(hItemNode))
-	{
-		tvItem.hItem = hItemNode;
-		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
-		if (tvItem.lParam != NULL)
-		{
-			generic_string *fn = (generic_string *)tvItem.lParam;
-			generic_string newFn = getRelativePath(*fn, fn2write);
-			TiXmlNode *fileLeaf = node->InsertEndChild(TiXmlElement(TEXT("File")));
-			fileLeaf->ToElement()->SetAttribute(TEXT("name"), newFn.c_str());
-		}
-		else
-		{
-			TiXmlNode *folderNode = node->InsertEndChild(TiXmlElement(TEXT("Folder")));
-			folderNode->ToElement()->SetAttribute(TEXT("name"), tvItem.pszText);
-			buildProjectXml(folderNode, hItemNode, fn2write);
-		}
-	}
-}
-
-generic_string FileBrowser::getRelativePath(const generic_string & filePath, const TCHAR *workSpaceFileName)
-{
-	TCHAR wsfn[MAX_PATH];
-	lstrcpy(wsfn, workSpaceFileName);
-	::PathRemoveFileSpec(wsfn);
-
-	size_t pos_found = filePath.find(wsfn);
-	if (pos_found == generic_string::npos)
-		return filePath;
-	const TCHAR *relativeFile = filePath.c_str() + lstrlen(wsfn);
-	if (relativeFile[0] == '\\')
-		++relativeFile;
-	return relativeFile;
-}
-
 generic_string FileBrowser::getNodePath(HTREEITEM node) const
 {
 	if (not node) return TEXT("");
@@ -679,19 +634,6 @@ void FileBrowser::showContextMenu(int x, int y)
 	}
 }
 
-HTREEITEM FileBrowser::createNewFolder(HTREEITEM hTreeItem, const TCHAR *folderName)
-{
-	HTREEITEM addedItem = _treeView.addItem(folderName, hTreeItem, INDEX_CLOSE_NODE);
-	
-	TreeView_Expand(_treeView.getHSelf(), hTreeItem, TVE_EXPAND);
-	TreeView_EditLabel(_treeView.getHSelf(), addedItem);
-	if (getNodeType(hTreeItem) == browserNodeType_folder)
-		_treeView.setItemImage(hTreeItem, INDEX_OPEN_NODE, INDEX_OPEN_NODE);
-
-	return addedItem;
-}
-
-
 void FileBrowser::popupMenuCmd(int cmdID)
 {
 	// get selected item handle
@@ -948,6 +890,26 @@ void FileBrowser::getDirectoryStructure(const TCHAR *dir, const std::vector<gene
 	::FindClose(hFile);
 }
 
+bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_string & subFolder)
+{
+	if (relatedRoot.empty())
+		return false;
+
+	if (subFolder.empty())
+		return false;
+
+	size_t pos = subFolder.find(relatedRoot);
+	if (pos != 0) // pos == 0 is the necessary condition, but not enough
+		return false;
+
+	vector<generic_string> relatedRootArray = split(relatedRoot, '\\');
+	vector<generic_string> subFolderArray = split(subFolder, '\\');
+
+	size_t index2Compare = relatedRootArray.size() - 1;
+
+	return relatedRootArray[index2Compare] == subFolderArray[index2Compare];
+}
+
 void FileBrowser::addRootFolder(generic_string rootFolderPath)
 {
 	// make sure there's no '\' at the end
@@ -963,8 +925,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 			return;
 		else
 		{
-			size_t pos = rootFolderPath.find(_folderUpdaters[i]->_rootFolder._rootPath);
-			if (pos == 0)
+			if (isRelatedRootFolder(_folderUpdaters[i]->_rootFolder._rootPath, rootFolderPath))
 			{
 				//do nothing, go down to select the dir
 				generic_string rootPath = _folderUpdaters[i]->_rootFolder._rootPath;
@@ -977,8 +938,7 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 				return;
 			}
 			
-			pos = _folderUpdaters[i]->_rootFolder._rootPath.find(rootFolderPath);
-			if (pos == 0)
+			if (isRelatedRootFolder(rootFolderPath, _folderUpdaters[i]->_rootFolder._rootPath))
 			{
 				::MessageBox(_hParent, TEXT("A sub-folder of the folder you want to open exists.\rPlease remove it from the panel before you add this one."), rootFolderPath.c_str(), MB_OK);
 				return;

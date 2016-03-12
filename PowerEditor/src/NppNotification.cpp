@@ -430,8 +430,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
-				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY,   TEXT("Read-Only")));
-				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear Read-Only Flag")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_TOGGLEUSERREADONLY, TEXT("Read-Only")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETFILEREADONLY,    TEXT("Set Read-Only Flag")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARFILEREADONLY,  TEXT("Clear Read-Only Flag")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP,   TEXT("Full File Path to Clipboard")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   TEXT("Filename to Clipboard")));
@@ -451,11 +452,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			bool isUserReadOnly = buf->getUserReadOnly();
-			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY, isUserReadOnly);
+			_tabPopupMenu.checkItem(IDM_EDIT_TOGGLEUSERREADONLY, isUserReadOnly);
 
 			bool isSysReadOnly = buf->getFileReadOnly();
-			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly);
-			_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, isSysReadOnly);
+			_tabPopupMenu.enableItem(IDM_EDIT_TOGGLEUSERREADONLY, !isSysReadOnly);
+			_tabPopupMenu.enableItem(IDM_EDIT_SETFILEREADONLY, !isSysReadOnly);
+			_tabPopupMenu.enableItem(IDM_EDIT_CLEARFILEREADONLY, isSysReadOnly);
 
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);

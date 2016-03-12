@@ -51,14 +51,21 @@
 #define	TASKLIST_USER    (WM_USER + 8000)
 	#define WM_GETTASKLISTINFO (TASKLIST_USER + 01)
 
+enum class FileStatus
+{
+	Saved,
+	Unsaved,
+	ReadOnly
+};
+
 struct TaskLstFnStatus {
 	int _iView;
 	int _docIndex;
 	generic_string _fn;
-	int _status;
+	FileStatus _status;
 	void *_bufID;
-	TaskLstFnStatus(generic_string str, int status) : _fn(str), _status(status){};
-	TaskLstFnStatus(int iView, int docIndex, generic_string str, int status, void *bufID) : 
+	TaskLstFnStatus(generic_string str, FileStatus status) : _fn(str), _status(status){};
+	TaskLstFnStatus(int iView, int docIndex, generic_string str, FileStatus status, void *bufID) :
 	_iView(iView), _docIndex(docIndex), _fn(str), _status(status), _bufID(bufID) {};
 };
 

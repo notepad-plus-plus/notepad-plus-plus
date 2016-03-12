@@ -2500,7 +2500,8 @@ void Notepad_plus::command(int id)
 				else
 				{
 					TaskListDlg tld;
-					HIMAGELIST hImgLst = _docTabIconList.getHandle();
+					bool hideDiskette = NppParameters::getInstance()->getNppGUI()._taskListHideDiskette;
+					HIMAGELIST hImgLst = hideDiskette ? nullptr : _docTabIconList.getHandle();
 					tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
 					tld.doDialog();
 				}

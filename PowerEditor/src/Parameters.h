@@ -780,6 +780,7 @@ struct NppGUI final
 	bool _enableTagAttrsHilite = true;
 	bool _enableHiliteNonHTMLZone = false;
 	bool _styleMRU = true;
+	bool _taskListHideDiskette = false;
 	char _leftmostDelimiter = '(';
 	char _rightmostDelimiter = ')';
 	bool _delimiterSelectionOnEntireDocument = false;

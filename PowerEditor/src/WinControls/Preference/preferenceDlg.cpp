@@ -882,6 +882,7 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, nppGUI._styleMRU, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCHER_HIDEDISKETTE, BM_SETCHECK, nppGUI._taskListHideDiskette, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, nppGUI._enableSmartHilite, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE, BM_SETCHECK, nppGUI._smartHiliteCaseSensitive, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGSMATCHHILITE, BM_SETCHECK, nppGUI._enableTagsMatchHilite, 0);
@@ -1008,12 +1009,14 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					if (nppGUI._doTaskList)
 					{
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STYLEMRU), TRUE);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_DOCSWITCHER_HIDEDISKETTE), TRUE);
 					}
 					else
 					{
 						nppGUI._styleMRU = false;
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, false, 0);
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STYLEMRU), FALSE);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_DOCSWITCHER_HIDEDISKETTE), FALSE);
 					}
 					return TRUE;
 				}
@@ -1080,6 +1083,12 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_STYLEMRU :
 				{
 					nppGUI._styleMRU = !nppGUI._styleMRU;
+					return TRUE;
+				}
+
+				case IDC_CHECK_DOCSWITCHER_HIDEDISKETTE:
+				{
+					nppGUI._taskListHideDiskette = !nppGUI._taskListHideDiskette;
 					return TRUE;
 				}
 

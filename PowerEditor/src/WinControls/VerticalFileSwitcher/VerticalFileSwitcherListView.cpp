@@ -141,7 +141,7 @@ void VerticalFileSwitcherListView::initList()
 		item.pszText = fn;
 		item.iItem = i;
 		item.iSubItem = 0;
-		item.iImage = fileNameStatus._status;
+		item.iImage = static_cast<int>(fileNameStatus._status);
 		item.lParam = (LPARAM)tl;
 		ListView_InsertItem(_hSelf, &item);
 		if (isExtColumn)
@@ -262,7 +262,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	Buffer *buf = (Buffer *)bufferID;
 	const TCHAR *fileName = buf->getFileName();
 
-	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, fileName, 0, (void *)bufferID);
+	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, fileName, FileStatus::Saved, (void *)bufferID);
 
 	TCHAR fn[MAX_PATH];
 	lstrcpy(fn, ::PathFindFileName(fileName));

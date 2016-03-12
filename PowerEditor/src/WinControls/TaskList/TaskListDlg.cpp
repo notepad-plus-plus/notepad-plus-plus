@@ -121,7 +121,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 					TaskLstFnStatus & fileNameStatus = _taskListInfo._tlfsLst[lvItem.iItem];
 
 					lvItem.pszText = (TCHAR *)fileNameStatus._fn.c_str();
-					lvItem.iImage = fileNameStatus._status;
+					lvItem.iImage = static_cast<int>(fileNameStatus._status);
 
 					return TRUE;
 				}
@@ -171,37 +171,48 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	HDC hDC = lpDrawItemStruct->hDC;
 	int nItem = lpDrawItemStruct->itemID;
 	const TCHAR *label = _taskListInfo._tlfsLst[nItem]._fn.c_str();
-	int iImage = _taskListInfo._tlfsLst[nItem]._status;
 	
 	COLORREF textColor = darkGrey;
 	int imgStyle = ILD_SELECTED;
 
-	if (lpDrawItemStruct->itemState & ODS_SELECTED)
+	bool isSelected = lpDrawItemStruct->itemState & ODS_SELECTED;
+	if (isSelected)
 	{
 		imgStyle = ILD_TRANSPARENT;
 		textColor = black;
 		::SelectObject(hDC, _taskList.GetFontSelected());
 	}
-	
-	//
-	// DRAW IMAGE
-	//
-	HIMAGELIST hImgLst = _taskList.getImgLst();
 
-	IMAGEINFO info;
-	ImageList_GetImageInfo(hImgLst, iImage, &info);
-
-	RECT & imageRect = info.rcImage;
-	//int yPos = (rect.top + (rect.bottom - rect.top)/2 + (isSelected?0:2)) - (imageRect.bottom - imageRect.top)/2;
-	
 	SIZE charPixel;
 	::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
 	int spaceUnit = charPixel.cx;
 	int marge = spaceUnit;
 
 	rect.left += marge;
-	ImageList_Draw(hImgLst, iImage, hDC, rect.left, rect.top, imgStyle);
-	rect.left += imageRect.right - imageRect.left + spaceUnit * 2;
+	
+	//
+	// DRAW IMAGE
+	//
+	HIMAGELIST hImgLst = _taskList.getImgLst();
+	if (hImgLst != nullptr)
+	{
+		int iImage = static_cast<int>(_taskListInfo._tlfsLst[nItem]._status);
+
+		IMAGEINFO info;
+		ImageList_GetImageInfo(hImgLst, iImage, &info);
+
+		RECT & imageRect = info.rcImage;
+		//int yPos = (rect.top + (rect.bottom - rect.top)/2 + (isSelected?0:2)) - (imageRect.bottom - imageRect.top)/2;
+
+		ImageList_Draw(hImgLst, iImage, hDC, rect.left, rect.top, imgStyle);
+		rect.left += imageRect.right - imageRect.left + spaceUnit * 2;
+	}
+	else
+	{
+		// no image -> change the color of modified files
+		if (_taskListInfo._tlfsLst[nItem]._status == FileStatus::Unsaved)
+			textColor = isSelected ? red : darkRed;
+	}
 
 	//
 	// DRAW TEXT

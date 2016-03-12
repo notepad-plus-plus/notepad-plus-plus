@@ -166,7 +166,7 @@
     #define    IDM_EDIT_PASTE_BINARY                (IDM_EDIT + 50)
     #define    IDM_EDIT_CHAR_PANEL                  (IDM_EDIT + 51)
     #define    IDM_EDIT_CLIPBOARDHISTORY_PANEL      (IDM_EDIT + 52)
-	#define    IDM_EDIT_SETFILEREADONLY             (IDM_EDIT + 67)
+    #define    IDM_EDIT_SETFILEREADONLY             (IDM_EDIT + 67)
 
     #define    IDM_EDIT_AUTOCOMPLETE                (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE    (50000 + 1)

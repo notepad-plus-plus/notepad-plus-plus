@@ -961,6 +961,8 @@ bool NppParameters::load()
 	for (int i = 0 ; i < NB_LANG ; _langList[i] = NULL, ++i)
 	{}
 
+	_isx64 = sizeof(void *) == 8;
+
 	// Make localConf.xml path
 	generic_string localConfPath(_nppPath);
 	PathAppend(localConfPath, localConfFile);

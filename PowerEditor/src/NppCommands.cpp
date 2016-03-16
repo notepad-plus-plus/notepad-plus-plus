@@ -74,6 +74,12 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_OPEN_FOLDER_AS_WORKSPACE:
+		{
+			openFolderAsWorkspace();
+		}
+		break;
+
 		case IDM_FILE_OPEN_FOLDER:
 		{
 			Command cmd(TEXT("explorer /select,$(FULL_CURRENT_PATH)"));

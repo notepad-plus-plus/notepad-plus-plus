@@ -165,6 +165,7 @@ public:
 	bool deleteFromTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	bool renameInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArrayFrom, const generic_string & renameTo);
 
+	bool chooseAndAddRoot();
 	std::vector<generic_string> getRoots() const;
 	generic_string getSelectedItemPath() const;
 

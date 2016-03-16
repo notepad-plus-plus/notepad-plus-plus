@@ -515,35 +515,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_FILEBROWSER:
 		{
-			if (_pFileBrowser == nullptr) // first launch, check in params to open folders
-			{
-				NppParameters *pNppParam = NppParameters::getInstance();
-				launchFileBrowser(pNppParam->getFileBrowserRoots());
-				if (_pFileBrowser != nullptr)
-				{
-					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
-					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
-					_pFileBrowser->setClosed(false);
-				}
-			}
-			else
-			{
-				if (not _pFileBrowser->isClosed())
-				{
-					_pFileBrowser->display(false);
-					_pFileBrowser->setClosed(true);
-					checkMenuItem(IDM_VIEW_FILEBROWSER, false);
-					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, false);
-				}
-				else
-				{
-					vector<generic_string> dummy;
-					launchFileBrowser(dummy);
-					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
-					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
-					_pFileBrowser->setClosed(false);
-				}
-			}
+			bool visible = _pFileBrowser != nullptr && !_pFileBrowser->isClosed();
+			showFileBrowser(!visible);
 		}
 		break;
 

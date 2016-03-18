@@ -912,6 +912,9 @@ bool isRelatedRootFolder(const generic_string & relatedRoot, const generic_strin
 
 void FileBrowser::addRootFolder(generic_string rootFolderPath)
 {
+	if (not ::PathFileExists(rootFolderPath.c_str()))
+		return;
+
 	// make sure there's no '\' at the end
 	if (rootFolderPath[rootFolderPath.length() - 1] == '\\')
 	{

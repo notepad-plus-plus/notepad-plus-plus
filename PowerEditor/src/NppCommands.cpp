@@ -87,6 +87,37 @@ void Notepad_plus::command(int id)
 			cmd.run(_pPublicInterface->getHSelf());
 		}
 		break;
+		
+		case IDM_FILE_OPENFOLDERASWORSPACE:
+		{
+			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), TEXT("Select a folder to add in Folder as Workspace panel"));
+			if (not folderPath.empty())
+			{
+				if (_pFileBrowser == nullptr) // first launch, check in params to open folders
+				{
+					vector<generic_string> dummy;
+					launchFileBrowser(dummy);
+					if (_pFileBrowser != nullptr)
+					{
+						checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+						_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+						_pFileBrowser->setClosed(false);
+					}
+					else // problem
+						return;
+				}
+				else
+				{
+					if (_pFileBrowser->isClosed())
+					{
+						_pFileBrowser->display();
+						_pFileBrowser->setClosed(false);
+					}
+				}
+				_pFileBrowser->addRootFolder(folderPath);
+			}
+		}
+		break;
 
 		case IDM_FILE_RELOAD:
 			fileReload();

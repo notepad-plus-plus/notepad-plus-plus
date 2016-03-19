@@ -77,6 +77,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	//
 	{VK_N,       IDM_FILE_NEW,                                 true,  false, false, nullptr},
 	{VK_O,       IDM_FILE_OPEN,                                true,  false, false, nullptr},
+	{VK_NULL,    IDM_FILE_OPENFOLDERASWORSPACE,                false, false, false, nullptr},
 	{VK_NULL,    IDM_FILE_RELOAD,                              false, false, false, nullptr},
 	{VK_S,       IDM_FILE_SAVE,                                true,  false, false, nullptr},
 	{VK_S,       IDM_FILE_SAVEAS,                              true,  true,  false, nullptr},

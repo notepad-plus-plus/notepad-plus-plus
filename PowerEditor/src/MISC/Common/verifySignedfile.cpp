@@ -36,7 +36,7 @@
 #include <wincrypt.h>
 #include <sensapi.h>
 #include <iomanip>
-#include "VerifySignedFile.h"
+#include "verifySignedfile.h"
 #include "Common.h"
 #include "sha-256.h"
 

@@ -31,7 +31,7 @@
 #include "Window.h"
 #include "Common.h"
 
-#include <Commctrl.h>
+#include <commctrl.h>
 
 struct columnInfo {
 	size_t _width;

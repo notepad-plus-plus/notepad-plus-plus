@@ -28,7 +28,7 @@
 
 #include <time.h>
 #include <shlwapi.h>
-#include <ShlObj.h>
+#include <shlobj.h>
 #include "Notepad_plus_Window.h"
 #include "FileDialog.h"
 #include "EncodingMapper.h"

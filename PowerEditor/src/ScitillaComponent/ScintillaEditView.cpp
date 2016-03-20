@@ -617,6 +617,15 @@ void ScintillaEditView::setJsonLexer()
 
 	makeStyle(L_JSON, pKwArray);
 
+	basic_string<char> keywordList("");
+	if (pKwArray[LANG_INDEX_INSTR])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		keywordList = wstring2string(kwlW, CP_ACP);
+	}
+
+	execute(SCI_SETKEYWORDS, 0, (LPARAM)getCompleteKeywordList(keywordList, L_JSON, LANG_INDEX_INSTR));
+
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 

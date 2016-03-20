@@ -29,7 +29,7 @@
 #ifndef PROCESSUS_H
 #define PROCESSUS_H
 
-#include "common.h"
+#include "Common.h"
 
 enum progType {WIN32_PROG, CONSOLE_PROG};
 

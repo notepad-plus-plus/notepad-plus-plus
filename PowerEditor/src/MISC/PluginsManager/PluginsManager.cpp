@@ -27,7 +27,7 @@
 
 
 #include <shlwapi.h>
-#include <DbgHelp.h>
+#include <dbghelp.h>
 #include <algorithm>
 #include <cinttypes>
 #include "PluginsManager.h"

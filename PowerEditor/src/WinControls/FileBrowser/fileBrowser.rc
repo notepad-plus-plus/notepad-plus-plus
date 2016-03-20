@@ -27,7 +27,7 @@
 
 
 #include <windows.h>
-#include "FileBrowser_rc.h"
+#include "fileBrowser_rc.h"
 
 IDD_FILEBROWSER DIALOGEX 26, 41, 142, 324
 STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU

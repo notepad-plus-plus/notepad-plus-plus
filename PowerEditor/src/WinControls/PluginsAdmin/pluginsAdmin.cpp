@@ -40,7 +40,7 @@
 #include "Processus.h"
 #include "PluginsManager.h"
 #include "md5.h"
-#include "verifySignedFile.h"
+#include "verifySignedfile.h"
 
 using namespace std;
 using nlohmann::json;

@@ -32,7 +32,7 @@
 #include "Parameters.h"
 #include "Sorters.h"
 #include "tchar.h"
-#include "verifySignedFile.h"
+#include "verifySignedfile.h"
 
 using namespace std;
 

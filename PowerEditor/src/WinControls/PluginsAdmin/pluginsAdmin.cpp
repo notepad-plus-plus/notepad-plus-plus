@@ -39,7 +39,7 @@
 #include "localization.h"
 #include "Processus.h"
 #include "PluginsManager.h"
-#include "verifySignedFile.h"
+#include "verifySignedfile.h"
 
 #define TEXTFILE        256
 #define IDR_PLUGINLISTJSONFILE  101

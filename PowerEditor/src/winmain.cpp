@@ -29,7 +29,7 @@
 #include "Processus.h"
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
-#include "verifySignedFile.h"
+#include "verifySignedfile.h"
 
 typedef std::vector<generic_string> ParamVector;
 

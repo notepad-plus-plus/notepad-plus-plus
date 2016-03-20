@@ -37,7 +37,7 @@
 #include "functionListPanel.h"
 #include "fileBrowser.h"
 #include "Sorters.h"
-#include "verifySignedFile.h"
+#include "verifySignedfile.h"
 #include "md5.h"
 #include "sha-256.h"
 

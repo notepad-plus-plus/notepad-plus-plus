@@ -74,7 +74,7 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_OPEN_FOLDER_AS_WORKSPACE:
+		case IDM_FILE_OPEN_FOLDER_AS_WORKSPACE:
 		{
 			openFolderAsWorkspace();
 		}

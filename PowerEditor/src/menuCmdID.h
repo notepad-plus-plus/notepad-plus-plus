@@ -55,11 +55,11 @@
     #define    IDM_FILE_OPEN_FOLDER             (IDM_FILE + 19)
     #define    IDM_FILE_OPEN_CMD                (IDM_FILE + 20)
 	#define    IDM_FILE_RESTORELASTCLOSEDFILE   (IDM_FILE + 21)
-	#define    IDM_OPEN_FOLDER_AS_WORKSPACE     (IDM_FILE + 22)
+	#define    IDM_FILE_OPEN_FOLDER_AS_WORKSPACE (IDM_FILE + 22)
 // IMPORTANT: If list above is modified, you have to change the following values:
  
 // To be updated if new menu item(s) is (are) added in menu "File"
-	#define    IDM_FILEMENU_LASTONE             IDM_OPEN_FOLDER_AS_WORKSPACE
+	#define    IDM_FILEMENU_LASTONE             IDM_FILE_OPEN_FOLDER_AS_WORKSPACE
 
 	
 
@@ -88,8 +88,9 @@
 //19  Print Now
 //20  --------
 //21  Exit
-    #define    IDM_FILEMENU_EXISTCMDPOSITION    21 
- 
+    #define    IDM_FILEMENU_EXISTCMDPOSITION    21
+
+
 #define    IDM_EDIT       (IDM + 2000)
     #define    IDM_EDIT_CUT                         (IDM_EDIT + 1) 
     #define    IDM_EDIT_COPY                        (IDM_EDIT + 2)

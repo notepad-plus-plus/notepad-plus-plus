@@ -5579,10 +5579,11 @@ struct Quote
 
 
 
-const int nbQuote = 201;
+const int nbQuote = 203;
 Quote quotes[nbQuote] =
 {
-	{"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
+	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
+	{"Notepad++ #2", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 	{"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 	{"L. Peter Deutsch", "To iterate is human, to recurse divine."},
 	{"Seymour Cray", "The trouble with programmers is that you can never tell what a programmer is doing until it's too late."},
@@ -5613,7 +5614,7 @@ Quote quotes[nbQuote] =
 	{"Don Ho", "Je mange donc je chie."},
 	{"Don Ho #2", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
 	{"Don Ho #3", "Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street."},
-	//{"Anonymous #1", ""},
+	{"Anonymous #1", "An opinion without 3.14 is just an onion."},
 	{"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
 	{"Anonymous #3", "I'm not totally useless. I can be used as a bad example."},
 	{"Anonymous #4", "Life is too short to remove USB safely."},

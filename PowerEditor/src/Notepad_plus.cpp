@@ -1982,6 +1982,38 @@ void Notepad_plus::checkSyncState()
 	enableCommand(IDM_VIEW_SYNSCROLLH, canDoSync, MENU | TOOLBAR);
 }
 
+void doCheck(HMENU mainHandle, int id)
+{
+	MENUITEMINFO mii;
+	mii.cbSize = sizeof(MENUITEMINFO);
+	mii.fMask = MIIM_SUBMENU | MIIM_FTYPE | MIIM_ID | MIIM_STATE;
+
+	int count = ::GetMenuItemCount(mainHandle);
+	for (int i = 0; i < count; i++)
+	{
+		::GetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
+		if (mii.fType == MFT_RADIOCHECK || mii.fType == MFT_STRING)
+		{
+			if (mii.hSubMenu == 0)
+			{
+				if (mii.wID == (unsigned int)id)
+				{
+					::CheckMenuRadioItem(mainHandle, 0, count, i, MF_BYPOSITION);
+				}
+				else
+				{
+					mii.fState = 0;
+					::SetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
+				}
+			}
+			else
+			{
+				doCheck(mii.hSubMenu, id);
+			}
+		}
+	}
+}
+
 void Notepad_plus::checkLangsMenu(int id) const
 {
 	Buffer * curBuf = _pEditView->getCurrentBuffer();
@@ -2001,14 +2033,16 @@ void Notepad_plus::checkLangsMenu(int id) const
 					if (::GetMenuString(_mainMenuHandle, i, menuLangName, nbChar-1, MF_BYCOMMAND))
 						if (!lstrcmp(userLangName, menuLangName))
 						{
-							::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, i, MF_BYCOMMAND);
+							HMENU _langMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
+							doCheck(_langMenuHandle, i);
 							return;
 						}
 				}
 			}
 		}
 	}
-	::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, id, MF_BYCOMMAND);
+	HMENU _langMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
+	doCheck(_langMenuHandle, id);
 }
 
 generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)

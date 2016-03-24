@@ -9,7 +9,10 @@ editor and Notepad replacement that supports several programming languages and
 natural languages. Running in the MS Windows environment, its use is governed by
 GPL License.
 
+Build Status
+------------
 
+| `VS2013` (via appveyor)  | [![Build Status](https://ci.appveyor.com/api/projects/status/github/notepad-plus-plus/notepad-plus-plus)](https://ci.appveyor.com/project/donho/notepad-plus-plus)  |
 
 To build Notepad++ from source:
 -------------------------------

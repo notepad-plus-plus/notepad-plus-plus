@@ -6,3 +6,7 @@ install:
 
 build_script:
   - cmd /k "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat" < appveyor-build.cmd
+
+artifacts:
+  - path: 'PowerEditor\visual.net\Unicode Debug\Notepad++.exe'
+    name: bin

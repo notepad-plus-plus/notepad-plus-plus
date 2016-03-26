@@ -839,9 +839,9 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
 	double ans = ::_wcstod_l(ptr, &eptr, loc);
 #endif
 	if (ptr == eptr)
-		throw new std::invalid_argument("invalid stod argument");
+		throw std::invalid_argument("invalid stod argument");
 	if (errno == ERANGE)
-		throw new std::out_of_range("stod argument out of range");
+		throw std::out_of_range("stod argument out of range");
 	if (idx != NULL)
 		*idx = (size_t)(eptr - ptr);
 	return ans;

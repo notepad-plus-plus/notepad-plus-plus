@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 6.9.0  16/Feb/2016  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 6.9.1  29/Mar/2016  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.9.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.9.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -93,6 +93,7 @@
 					<Item id = "41019" name = "Explorer"/>
 					<Item id = "41020" name = "cmd"/>
 					<Item id = "41021" name = "Znovuotevřít aktuálně zavřený soubor"/>
+					<Item id = "41022" name = "Otevřít složku jako pracovní plochu"/>
 					<Item id = "42001" name = "Vyjmou&amp;t"/>
 					<Item id = "42002" name = "&amp;Kopírovat"/>
 					<Item id = "42003" name = "&amp;Zpět"/>
@@ -803,7 +804,7 @@
 					<Item id = "6318" name = "Nastavení hyperlinků"/>
 					<Item id = "6319" name = "Povolit"/>
 					<Item id = "6320" name = "Nepodtrhávat"/>
-					<Item id = "6322" name = "Přípona relace:"/>
+					<Item id = "6322" name = "Přípona souboru relace:"/>
 					<Item id = "6323" name = "Povolit autom. aktualizaci Notepadu++"/>
 					<Item id = "6324" name = "Přepínač dokumentů (Ctrl+TAB)"/>
 					<Item id = "6325" name = "Přejít na poslední řádek po aktualizaci"/>
@@ -817,6 +818,7 @@
 					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
 					<Item id = "6334" name = "Automatická detekce kódóvání znaků"/>
 					<Item id = "6335" name = "Zpětné lomítko je escape znak pro SQL"/>
+					<Item id = "6337" name = "Přípona souboru pracovní plochy:"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>

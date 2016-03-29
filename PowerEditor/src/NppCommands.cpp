@@ -76,7 +76,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPEN_FOLDER:
 		{
-			Command cmd(TEXT("explorer /select,$(FULL_CURRENT_PATH)"));
+			Command cmd(TEXT("explorer /select,\"$(FULL_CURRENT_PATH)\""));
 			cmd.run(_pPublicInterface->getHSelf());
 		}
 		break;

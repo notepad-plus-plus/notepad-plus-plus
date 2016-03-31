@@ -55,11 +55,13 @@
     #define    IDM_FILE_OPEN_FOLDER             (IDM_FILE + 19)
     #define    IDM_FILE_OPEN_CMD                (IDM_FILE + 20)
 	#define    IDM_FILE_RESTORELASTCLOSEDFILE   (IDM_FILE + 21)
-	#define    IDM_FILE_OPENFOLDERASWORSPACE    (IDM_FILE + 22)
+	#define    IDM_FILE_OPEN_FOLDER_AS_WORKSPACE (IDM_FILE + 22)
 // IMPORTANT: If list above is modified, you have to change the following values:
  
 // To be updated if new menu item(s) is (are) added in menu "File"
-    #define    IDM_FILEMENU_LASTONE             IDM_FILE_OPENFOLDERASWORSPACE
+	#define    IDM_FILEMENU_LASTONE             IDM_FILE_OPEN_FOLDER_AS_WORKSPACE
+
+	
 
 // 0 based position of command "Exit" including the bars in the file menu
 // and without counting "Recent files history" items
@@ -67,7 +69,7 @@
 // 0  New
 // 1  Open...
 // 2  Open Containing Folder
-// 3  Open Folder as Workspace
+// 3  Open Folder as Workspace...
 // 4  Reload from Disk
 // 5  Save
 // 6  Save As...

@@ -739,11 +739,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_ADDROOT:
 		{
-			generic_string folderPath = folderBrowser(_hParent, TEXT("Select a folder to add in Folder as Workspace panel"));
-			if (not folderPath.empty())
-			{
-				addRootFolder(folderPath);
-			}
+			chooseAndAddRoot();
 		}
 		break;
 
@@ -1039,6 +1035,18 @@ HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string la
 		}
 	}
 	return childNodeFound;
+}
+
+bool FileBrowser::chooseAndAddRoot()
+{
+	generic_string folderPath = folderBrowser(_hParent, TEXT("Select a folder to add in Folder as Workspace panel"));
+	if (folderPath.empty())
+	{
+		return false;
+	}
+	
+	addRootFolder(folderPath);
+	return true;
 }
 
 vector<generic_string> FileBrowser::getRoots() const

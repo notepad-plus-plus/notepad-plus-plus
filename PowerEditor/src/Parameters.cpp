@@ -77,7 +77,6 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	//
 	{VK_N,       IDM_FILE_NEW,                                 true,  false, false, nullptr},
 	{VK_O,       IDM_FILE_OPEN,                                true,  false, false, nullptr},
-	{VK_NULL,    IDM_FILE_OPENFOLDERASWORSPACE,                false, false, false, nullptr},
 	{VK_NULL,    IDM_FILE_RELOAD,                              false, false, false, nullptr},
 	{VK_S,       IDM_FILE_SAVE,                                true,  false, false, nullptr},
 	{VK_S,       IDM_FILE_SAVEAS,                              true,  true,  false, nullptr},
@@ -96,7 +95,10 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{VK_NULL,    IDM_FILE_PRINTNOW,                            false, false, false, nullptr},
 	{VK_F4,      IDM_FILE_EXIT,                                false, true,  false, nullptr},
 
+	{VK_NULL,    IDM_FILE_OPEN_FOLDER,                         false, false, false, nullptr},
+	{VK_NULL,    IDM_FILE_OPEN_CMD,                            false, false, false, nullptr},
 	{ VK_T,      IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false,  true, TEXT("Restore Recent Closed File")},
+	{VK_NULL,    IDM_FILE_OPEN_FOLDER_AS_WORKSPACE,            false, false, false, nullptr},
 
 //	{VK_NULL,    IDM_EDIT_UNDO,                                false, false, false, nullptr},
 //	{VK_NULL,    IDM_EDIT_REDO,                                false, false, false, nullptr},

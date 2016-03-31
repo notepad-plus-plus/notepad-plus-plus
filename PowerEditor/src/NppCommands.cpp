@@ -74,6 +74,12 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_FILE_OPEN_FOLDER_AS_WORKSPACE:
+		{
+			openFolderAsWorkspace();
+		}
+		break;
+
 		case IDM_FILE_OPEN_FOLDER:
 		{
 			Command cmd(TEXT("explorer /select,$(FULL_CURRENT_PATH)"));
@@ -85,37 +91,6 @@ void Notepad_plus::command(int id)
 		{
 			Command cmd(TEXT("cmd /K cd /d $(CURRENT_DIRECTORY)"));
 			cmd.run(_pPublicInterface->getHSelf());
-		}
-		break;
-		
-		case IDM_FILE_OPENFOLDERASWORSPACE:
-		{
-			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), TEXT("Select a folder to add in Folder as Workspace panel"));
-			if (not folderPath.empty())
-			{
-				if (_pFileBrowser == nullptr) // first launch, check in params to open folders
-				{
-					vector<generic_string> dummy;
-					launchFileBrowser(dummy);
-					if (_pFileBrowser != nullptr)
-					{
-						checkMenuItem(IDM_VIEW_FILEBROWSER, true);
-						_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
-						_pFileBrowser->setClosed(false);
-					}
-					else // problem
-						return;
-				}
-				else
-				{
-					if (_pFileBrowser->isClosed())
-					{
-						_pFileBrowser->display();
-						_pFileBrowser->setClosed(false);
-					}
-				}
-				_pFileBrowser->addRootFolder(folderPath);
-			}
 		}
 		break;
 
@@ -546,35 +521,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_FILEBROWSER:
 		{
-			if (_pFileBrowser == nullptr) // first launch, check in params to open folders
-			{
-				NppParameters *pNppParam = NppParameters::getInstance();
-				launchFileBrowser(pNppParam->getFileBrowserRoots());
-				if (_pFileBrowser != nullptr)
-				{
-					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
-					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
-					_pFileBrowser->setClosed(false);
-				}
-			}
-			else
-			{
-				if (not _pFileBrowser->isClosed())
-				{
-					_pFileBrowser->display(false);
-					_pFileBrowser->setClosed(true);
-					checkMenuItem(IDM_VIEW_FILEBROWSER, false);
-					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, false);
-				}
-				else
-				{
-					vector<generic_string> dummy;
-					launchFileBrowser(dummy);
-					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
-					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
-					_pFileBrowser->setClosed(false);
-				}
-			}
+			bool visible = _pFileBrowser != nullptr && !_pFileBrowser->isClosed();
+			showFileBrowser(!visible);
 		}
 		break;
 

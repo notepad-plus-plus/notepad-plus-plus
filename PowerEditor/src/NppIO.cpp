@@ -33,6 +33,7 @@
 #include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
+#include "fileBrowser.h"
 #include <tchar.h>
 
 using namespace std;
@@ -1463,6 +1464,29 @@ bool Notepad_plus::fileReload()
 	assert(_pEditView != nullptr);
 	BufferID buf = _pEditView->getCurrentBufferID();
 	return doReload(buf, buf->isDirty());
+}
+
+
+void Notepad_plus::openFolderAsWorkspace()
+{
+	bool wasClosed = true;
+	if (_pFileBrowser != nullptr)
+	{
+		wasClosed = _pFileBrowser->isClosed();
+	}
+	else
+	{
+		launchFileBrowser(); // also displays the file browser
+	}
+
+	bool wasFolderChosen = _pFileBrowser->chooseAndAddRoot();
+	if (wasClosed)
+	{
+		// if the file browser was closed before:
+		// - make sure to show it if a folder was chosen
+		// - make sure to close it again if no folder was chosen
+		showFileBrowser(wasFolderChosen);
+	}
 }
 
 

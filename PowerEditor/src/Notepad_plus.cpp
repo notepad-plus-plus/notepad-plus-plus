@@ -3109,7 +3109,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
 		{
 			// process new mode
-			launchFileBrowser(folderPaths);
+			showFileBrowser();
+			addFoldersToFileBrowser(folderPaths);
 
 			/*
 			for (int i = 0; i < filesDropped; ++i)
@@ -5447,53 +5448,81 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
+
+void Notepad_plus::showFileBrowser(bool show)
 {
-	if (!_pFileBrowser)
+	// initialize if necessary
+	if (_pFileBrowser == nullptr)
 	{
-		_pFileBrowser = new FileBrowser;
-		_pFileBrowser->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
-
-		tTbData	data;
-		memset(&data, 0, sizeof(data));
-		_pFileBrowser->create(&data);
-		data.pszName = TEXT("ST");
-
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pFileBrowser->getHSelf());
-		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_FILEBROWSER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
-
-		// the dlgDlg should be the index of funcItem where the current function pointer is
-		// in this case is DOCKABLE_DEMO_INDEX
-		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
-		data.dlgID = IDM_VIEW_FILEBROWSER;
-
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FB_PANELTITLE, "FileBrowser", "PanelTitle");
-
-		static TCHAR title[32];
-		if (title_temp.length() < 32)
-		{
-			lstrcpy(title, title_temp.c_str());
-			data.pszName = title;
-		}
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
-
-		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
-
-		_pFileBrowser->setBackgroundColor(bgColor);
-		_pFileBrowser->setForegroundColor(fgColor);
+		launchFileBrowser();
 	}
 
-	for (size_t i = 0; i <folders.size(); ++i)
-	{
-		_pFileBrowser->addRootFolder(folders[i]);
-	}
+	_pFileBrowser->display(show);
 
-	_pFileBrowser->display();
+	// update flag and UI checkmarks
+	checkMenuItem(IDM_VIEW_FILEBROWSER, show);
+	_toolBar.setCheck(IDM_VIEW_FILEBROWSER, show);
+	_pFileBrowser->setClosed(!show);
+}
+
+void Notepad_plus::launchFileBrowser()
+{
+	assert(_pFileBrowser == nullptr and "file browser shouldn't exist yet");
+
+	_pFileBrowser = new FileBrowser;
+	_pFileBrowser->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
+
+	tTbData	data;
+	memset(&data, 0, sizeof(data));
+	_pFileBrowser->create(&data);
+	data.pszName = TEXT("ST");
+
+	::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pFileBrowser->getHSelf());
+	// define the default docking behaviour
+	data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
+	data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_FILEBROWSER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+	data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
+
+	// the dlgDlg should be the index of funcItem where the current function pointer is
+	// in this case is DOCKABLE_DEMO_INDEX
+	// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
+	data.dlgID = IDM_VIEW_FILEBROWSER;
+
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	generic_string title_temp = pNativeSpeaker->getAttrNameStr(FB_PANELTITLE, "FileBrowser", "PanelTitle");
+
+	static TCHAR title[32];
+	if (title_temp.length() < 32)
+	{
+		lstrcpy(title, title_temp.c_str());
+		data.pszName = title;
+	}
+	::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+
+	COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
+	COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
+
+	_pFileBrowser->setBackgroundColor(bgColor);
+	_pFileBrowser->setForegroundColor(fgColor);
+
+	// initialize with stored root folders
+	NppParameters * pNppParam = NppParameters::getInstance();
+	addFoldersToFileBrowser(pNppParam->getFileBrowserRoots());
+}
+
+
+void Notepad_plus::addFoldersToFileBrowser(const std::vector<generic_string> & folders)
+{
+	if (_pFileBrowser == nullptr)
+	{
+		assert(false and "file browser doesn't exist yet");
+		return;
+	}
+	
+	for (auto folder : folders)
+	{
+		_pFileBrowser->addRootFolder(folder);
+	}
 }
 
 

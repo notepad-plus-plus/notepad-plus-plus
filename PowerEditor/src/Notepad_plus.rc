@@ -216,12 +216,12 @@ BEGIN
     BEGIN
         MENUITEM "&New",                             IDM_FILE_NEW
         MENUITEM "&Open...",                         IDM_FILE_OPEN
+        MENUITEM "Open Folder as &Workspace...",     IDM_FILE_OPEN_FOLDER_AS_WORKSPACE
 		POPUP "Open Containing Folder"
 		BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
 		END
-		MENUITEM "Open Folder as Workspace",         IDM_FILE_OPENFOLDERASWORSPACE
         MENUITEM "Re&load from Disk",                IDM_FILE_RELOAD
         MENUITEM "&Save",                            IDM_FILE_SAVE
         MENUITEM "Save &As...",                      IDM_FILE_SAVEAS

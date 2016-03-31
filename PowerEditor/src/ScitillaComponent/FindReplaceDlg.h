@@ -59,10 +59,11 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, MARK_DLG};
 enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR, CURRENT_DOC};
 
 struct FoundInfo {
-	FoundInfo(int start, int end, const TCHAR *fullPath)
-		: _start(start), _end(end), _fullPath(fullPath) {};
+	FoundInfo(int start, int end, size_t lineNumber, const TCHAR *fullPath)
+		: _start(start), _end(end), _lineNumber(lineNumber), _fullPath(fullPath) {};
 	int _start;
 	int _end;
+	size_t _lineNumber;
 	generic_string _fullPath;
 };
 
@@ -73,32 +74,27 @@ struct TargetRange {
 
 enum SearchIncrementalType { NotIncremental, FirstIncremental, NextIncremental };
 enum SearchType { FindNormal, FindExtended, FindRegex };
-enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt };
+enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder };
 
 struct FindOption
 {
-	bool _isWholeWord;
-	bool _isMatchCase;
-	bool _isWrapAround;
-	bool _whichDirection;
-	SearchIncrementalType _incrementalType;
-	SearchType _searchType;
-	bool _doPurge;
-	bool _doMarkLine;
-	bool _isInSelection;
+	bool _isWholeWord = true;
+	bool _isMatchCase = true;
+	bool _isWrapAround = true;
+	bool _whichDirection = DIR_DOWN;
+	SearchIncrementalType _incrementalType = NotIncremental;
+	SearchType _searchType = FindNormal;
+	bool _doPurge = false;
+	bool _doMarkLine = false;
+	bool _isInSelection = false;
 	generic_string _str2Search;
 	generic_string _str4Replace;
 	generic_string _filters;
 	generic_string _directory;
-	bool _isRecursive;
-	bool _isInHiddenDir;
-	bool _dotMatchesNewline;
-	FindOption() : _isWholeWord(true), _isMatchCase(true), _searchType(FindNormal),\
-		_isWrapAround(true), _whichDirection(DIR_DOWN), _incrementalType(NotIncremental), 
-		_doPurge(false), _doMarkLine(false),
-		_isInSelection(false),  _isRecursive(true), _isInHiddenDir(false),
-		_dotMatchesNewline(false),
-		_filters(TEXT("")), _directory(TEXT("")) {};
+	bool _isRecursive = true;
+	bool _isInHiddenDir = false;
+	bool _dotMatchesNewline = false;
+	bool _isMatchLineNumber = true; // only for Find in Folder
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -139,17 +135,20 @@ public:
 	void addSearchLine(const TCHAR *searchName);
 	void addFileNameTitle(const TCHAR * fileName);
 	void addFileHitCount(int count);
-	void addSearchHitCount(int count);
-	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, int lineNb);
+	void addSearchHitCount(int count, bool isMatchLines = false);
+	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline);
 	void setFinderStyle();
 	void removeAll();
 	void openAll();
 	void copy();
 	void beginNewFilesSearch();
-	void finishFilesSearch(int count);
+	void finishFilesSearch(int count, bool isMatchLines = false);
 	void gotoNextFoundResult(int direction);
 	void GotoFoundLine();
 	void DeleteResult();
+	std::vector<generic_string> getResultFilePaths() const;
+	bool canFind(const TCHAR *fileName, size_t lineNumber) const;
+	void setVolatiled(bool val) { _canBeVolatiled = val; };
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -169,10 +168,13 @@ private:
 	SearchResultMarkings _MarkingsStruct;
 
 	ScintillaEditView _scintView;
-	unsigned int nFoundFiles;
+	unsigned int _nbFoundFiles = 0;
 
 	int _lastFileHeaderPos;
 	int _lastSearchHeaderPos;
+
+	bool _canBeVolatiled = true;
+
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
@@ -194,6 +196,40 @@ enum FindNextType {
 	FINDNEXTTYPE_FINDNEXTFORREPLACE
 };
 
+struct FindReplaceInfo
+{
+	const TCHAR *_txt2find = nullptr;
+	const TCHAR *_txt2replace = nullptr;
+	int _startRange = -1;
+	int _endRange = -1;
+};
+
+struct FindersInfo
+{
+	Finder *_pSourceFinder = nullptr;
+	Finder *_pDestFinder = nullptr;
+	const TCHAR *_pFileName = nullptr;
+
+	FindOption _findOption;
+};
+
+class FindInFinderDlg : public StaticDialog
+{
+public:
+	void init(HINSTANCE hInst, HWND hPere) {
+		Window::init(hInst, hPere);
+	};
+	void doDialog(Finder *launcher, bool isRTL = false);
+	FindOption & getOption() { return _options; }
+
+private:
+	Finder  *_pFinder2Search = nullptr;
+	FindOption _options;
+	
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void initFromOptions();
+	void writeOptions();
+};
 
 class FindReplaceDlg : public StaticDialog
 {
@@ -225,13 +261,12 @@ public :
 	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, const FindOption *options = NULL);
 
 	int markAll(const TCHAR *txt2find, int styleID, bool isWholeWordSelected);
-	//int markAll2(const TCHAR *str2find);
 	int markAllInc(const FindOption *opt);
 	
 
-	int processAll(ProcessOperation op, const FindOption *opt, bool isEntire = false, const TCHAR *fileName = NULL, int colourStyleID = -1);
-//	int processAll(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, bool isEntire = false, const TCHAR *fileName = NULL, const FindOption *opt = NULL, int colourStyleID = -1);
-	int processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName = NULL, const FindOption *opt = NULL, int colourStyleID = -1);
+	int processAll(ProcessOperation op, const FindOption *opt, bool isEntire = false, const FindersInfo *pFindersInfo = nullptr, int colourStyleID = -1);
+	int processRange(ProcessOperation op, FindReplaceInfo & findReplaceInfo, const FindersInfo *pFindersInfo, const FindOption *opt = NULL, int colourStyleID = -1);
+
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
 	void setSearchText(TCHAR * txt2find);
@@ -302,12 +337,11 @@ public :
 
 	void execSavedCommand(int cmd, int intValue, generic_string stringValue);
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
-
+	Finder * createFinder();
+	bool removeFinder(Finder *finder2remove);
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	void addText2Combo(const TCHAR * txt2add, HWND comboID, bool isUTF8 = false);
-	generic_string getTextFromCombo(HWND hCombo, bool isUnicode = false) const;
 	static LONG_PTR originalFinderProc;
 
 	// Window procedure for the finder
@@ -322,6 +356,10 @@ private :
 
 	ScintillaEditView **_ppEditView;
 	Finder  *_pFinder;
+
+	std::vector<Finder *> _findersOfFinder;
+
+
 	bool _isRTL;
 
 	int _findAllResult;
@@ -358,11 +396,7 @@ private :
 	}
 
 	void updateCombos();
-	void updateCombo(int comboID) {
-		bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
-		HWND hCombo = ::GetDlgItem(_hSelf, comboID);
-		addText2Combo(getTextFromCombo(hCombo, isUnicode).c_str(), hCombo, isUnicode);
-	};
+	void updateCombo(int comboID);
 	void fillFindHistory();
     void fillComboHistory(int id, const std::vector<generic_string> & strings);
 	int saveComboHistory(int id, int maxcount, std::vector<generic_string> & strings);

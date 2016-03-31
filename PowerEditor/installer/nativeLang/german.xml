@@ -712,7 +712,7 @@
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
 					<Item id="6418" name="…"/>																	<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="6430" name="Benutze den neuen Stilspeicherungsdialog (ohne Dateierweiterungen)"/>	<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="6430" name="Benutze den neuen Dialog zum Speichern (ohne Dateierweiterungen)"/>	<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>
 
 				<FileAssoc title="Dateiverknüpfungen">

@@ -345,8 +345,9 @@ BEGIN
         MENUITEM "Character Panel",        IDM_EDIT_CHAR_PANEL
         MENUITEM "Clipboard History",      IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR
-        MENUITEM "Set Read-Only",           IDM_EDIT_SETREADONLY
-        MENUITEM "Clear Read-Only Flag",    IDM_EDIT_CLEARREADONLY
+        MENUITEM "Set Read-Only",           IDM_EDIT_TOGGLEUSERREADONLY
+        MENUITEM "Set Read-Only Flag",      IDM_EDIT_SETFILEREADONLY
+        MENUITEM "Clear Read-Only Flag",    IDM_EDIT_CLEARFILEREADONLY
         //MENUITEM SEPARATOR
     END
 

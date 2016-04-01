@@ -146,7 +146,7 @@
 
     #define    IDM_EDIT_RTL                         (IDM_EDIT + 26)
     #define    IDM_EDIT_LTR                         (IDM_EDIT + 27)
-    #define    IDM_EDIT_SETREADONLY                 (IDM_EDIT + 28)
+    #define    IDM_EDIT_TOGGLEUSERREADONLY          (IDM_EDIT + 28)
     #define    IDM_EDIT_FULLPATHTOCLIP              (IDM_EDIT + 29)
     #define    IDM_EDIT_FILENAMETOCLIP              (IDM_EDIT + 30)
     #define    IDM_EDIT_CURRENTDIRTOCLIP            (IDM_EDIT + 31)
@@ -155,7 +155,7 @@
     #define    IDM_MACRO_RUNMULTIMACRODLG           (IDM_EDIT + 32)
 //-----------
 
-    #define    IDM_EDIT_CLEARREADONLY               (IDM_EDIT + 33)
+    #define    IDM_EDIT_CLEARFILEREADONLY           (IDM_EDIT + 33)
     #define    IDM_EDIT_COLUMNMODE                  (IDM_EDIT + 34)
     #define    IDM_EDIT_BLOCK_COMMENT_SET           (IDM_EDIT + 35)
     #define    IDM_EDIT_BLOCK_UNCOMMENT             (IDM_EDIT + 36)
@@ -167,6 +167,7 @@
     #define    IDM_EDIT_PASTE_BINARY                (IDM_EDIT + 50)
     #define    IDM_EDIT_CHAR_PANEL                  (IDM_EDIT + 51)
     #define    IDM_EDIT_CLIPBOARDHISTORY_PANEL      (IDM_EDIT + 52)
+    #define    IDM_EDIT_SETFILEREADONLY             (IDM_EDIT + 67)
 
     #define    IDM_EDIT_AUTOCOMPLETE                (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE    (50000 + 1)

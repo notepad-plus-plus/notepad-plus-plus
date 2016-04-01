@@ -106,8 +106,9 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 //	{VK_NULL,    IDM_EDIT_DELETE,                              false, false, false, nullptr},
 //	{VK_NULL,    IDM_EDIT_SELECTALL,                           false, false, false, nullptr},
 
-	{VK_NULL,    IDM_EDIT_SETREADONLY,                         false, false, false, nullptr},
-	{VK_NULL,    IDM_EDIT_CLEARREADONLY,                       false, false, false, nullptr},
+	{VK_NULL,    IDM_EDIT_TOGGLEUSERREADONLY,                  false, false, false, nullptr},
+	{VK_NULL,    IDM_EDIT_SETFILEREADONLY,                     false, false, false, nullptr},
+	{VK_NULL,    IDM_EDIT_CLEARFILEREADONLY,                   false, false, false, nullptr},
 	{VK_NULL,    IDM_EDIT_FULLPATHTOCLIP,                      false, false, false, nullptr},
 	{VK_NULL,    IDM_EDIT_FILENAMETOCLIP,                      false, false, false, nullptr},
 	{VK_NULL,    IDM_EDIT_CURRENTDIRTOCLIP,                    false, false, false, nullptr},

@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 6.8.8
-    Last modified Wed, December 28th, 2015 by Luca Leonardi.
+    Italian translation for Notepad++ 6.9.1
+    Last modified Wed, March 20th, 2016 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -92,7 +92,7 @@
                     <Item id = "41019" name = "Esplora risorse" />
                     <Item id = "41020" name = "Prompt dei comandi" />
                     <Item id = "41021" name = "Ripristina i file recenti" />
-
+                    <Item id = "41022" name = "Apri cartella come workspace"/>
 
                     <Item id = "42001" name = "Tag&amp;lia" />
                     <Item id = "42002" name = "&amp;Copia" />
@@ -242,6 +242,7 @@
                     <Item id = "44082" name = "Pannello 2" />
                     <Item id = "44083" name = "Pannello 3" />
                     <Item id = "44084" name = "Lista funzioni" />
+                    <Item id = "44085" name = "Cartella come workspace" />
                     <Item id = "44086" name = "Prima scheda" />
                     <Item id = "44087" name = "Seconda scheda" />
                     <Item id = "44088" name = "Terza scheda" />
@@ -811,7 +812,7 @@
                     <!--Item id = "6264" name = "Dropbox" />
                     <Item id = "6265" name = "OneDrive" />
                     <Item id = "6266" name = "Google Drive" />
-                    <Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." /-->
+                    <Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." />-->
                     <Item id = "6267" name = "Imposta qui il percorso della tua cartella cloud:" />
                 </Cloud>
                 <MISC title = "Varie">
@@ -844,6 +845,7 @@
                     <Item id = "6335" name = "Backslash è il carattere di escape in SQL" />
 
                     <Item id = "6322" name = "Est. file di sessione:" />
+                    <Item id = "6337" name = "Est. file workspace:" />
 
                     <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
                 </MISC>
@@ -869,6 +871,7 @@
                 <Item id = "2030" name = "Numero iniziale: " />
                 <Item id = "2031" name = "Incrementa di: " />
                 <Item id = "2035" name = "Zeri iniziali" />
+                <Item id = "2036" name = "Ripeti: " />
                 <Item id = "2032" name = "Formato" />
                 <Item id = "2024" name = "Decimale" />
                 <Item id = "2025" name = "Ottale" />

@@ -104,7 +104,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("python"),		TEXT("Python"),				TEXT("Python file"),									L_PYTHON,		SCLEX_PYTHON},
 {TEXT("lua"),			TEXT("Lua"),				TEXT("Lua source File"),								L_LUA,			SCLEX_LUA},
 {TEXT("tex"),			TEXT("TeX"),				TEXT("TeX file"),										L_TEX,			SCLEX_TEX},
-{TEXT("fortran"),		TEXT("Fortran"),			TEXT("Fortran source file"),							L_FORTRAN,		SCLEX_FORTRAN},
+{TEXT("fortran"),		TEXT("Fortran free form"),	TEXT("Fortran free form source file"),					L_FORTRAN,		SCLEX_FORTRAN},
 {TEXT("bash"),			TEXT("Shell"),				TEXT("Unix script file"),								L_BASH,			SCLEX_BASH},
 {TEXT("actionscript"),	TEXT("ActionScript"),		TEXT("Flash ActionScript file"),						L_FLASH,		SCLEX_CPP},
 {TEXT("nsis"),			TEXT("NSIS"),				TEXT("Nullsoft Scriptable Install System script file"),	L_NSIS,			SCLEX_NSIS},
@@ -138,6 +138,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
 {TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			SCLEX_CPP },
 {TEXT("javascript.js"), TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JAVASCRIPT,	SCLEX_CPP },
+{TEXT("fortran77"),		TEXT("Fortran fixed form"),	TEXT("Fortran fixed form source file"),					L_FORTRAN_77,	SCLEX_F77},
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -615,6 +616,15 @@ void ScintillaEditView::setJsonLexer()
 	const TCHAR *pKwArray[10] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 	makeStyle(L_JSON, pKwArray);
+
+	basic_string<char> keywordList("");
+	if (pKwArray[LANG_INDEX_INSTR])
+	{
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		keywordList = wstring2string(kwlW, CP_ACP);
+	}
+
+	execute(SCI_SETKEYWORDS, 0, (LPARAM)getCompleteKeywordList(keywordList, L_JSON, LANG_INDEX_INSTR));
 
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
@@ -1410,6 +1420,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_FORTRAN :
 			setFortranLexer(); break;
 
+		case L_FORTRAN_77 :
+			setFortran77Lexer(); break;
+
 		case L_LISP :
             setLispLexer(); break;
 
@@ -1948,8 +1961,7 @@ TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool ex
 
 int ScintillaEditView::searchInTarget(const TCHAR * text2Find, int lenOfText2Find, int fromPos, int toPos) const
 {
-	execute(SCI_SETTARGETSTART, fromPos);
-	execute(SCI_SETTARGETEND, toPos);
+	execute(SCI_SETTARGETRANGE, fromPos, toPos);
 
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
@@ -1988,8 +2000,7 @@ int ScintillaEditView::replaceTarget(const TCHAR * str2replace, int fromTargetPo
 {
 	if (fromTargetPos != -1 || toTargetPos != -1)
 	{
-		execute(SCI_SETTARGETSTART, fromTargetPos);
-		execute(SCI_SETTARGETEND, toTargetPos);
+		execute(SCI_SETTARGETRANGE, fromTargetPos, toTargetPos);
 	}
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
@@ -2001,8 +2012,7 @@ int ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, int fromTargetPo
 {
 	if (fromTargetPos != -1 || toTargetPos != -1)
 	{
-		execute(SCI_SETTARGETSTART, fromTargetPos);
-		execute(SCI_SETTARGETEND, toTargetPos);
+		execute(SCI_SETTARGETRANGE, fromTargetPos, toTargetPos);
 	}
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
@@ -2423,8 +2433,7 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 			}
 			::WideCharToMultiByte(codepage, 0, destStr, len, srcStr, len, NULL, NULL);
 
-			execute(SCI_SETTARGETSTART, start);
-			execute(SCI_SETTARGETEND, end);
+			execute(SCI_SETTARGETRANGE, start, end);
 			execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)srcStr);
 
 			delete [] srcStr;
@@ -2463,8 +2472,7 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 		}
 		::WideCharToMultiByte(codepage, 0, selectedStrW, strWSize, selectedStr, strSize, NULL, NULL);
 
-		execute(SCI_SETTARGETSTART, selectionStart);
-		execute(SCI_SETTARGETEND, selectionEnd);
+		execute(SCI_SETTARGETRANGE, selectionStart, selectionEnd);
 		execute(SCI_REPLACETARGET, strSize - 1, (LPARAM)selectedStr);
 		execute(SCI_SETSEL, selectionStart, selectionEnd);
 		delete [] selectedStr;
@@ -2605,8 +2613,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 				cmi[i]._selRpos += cmi[i]._nbVirtualCaretSpc;
 			}
 
-			execute(SCI_SETTARGETSTART, cmi[i]._selLpos);
-			execute(SCI_SETTARGETEND, cmi[i]._selRpos);
+			execute(SCI_SETTARGETRANGE, cmi[i]._selLpos, cmi[i]._selRpos);
 
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			unsigned int cp = execute(SCI_GETCODEPAGE);
@@ -2708,8 +2715,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 				cmi[i]._selLpos += cmi[i]._nbVirtualAnchorSpc;
 				cmi[i]._selRpos += cmi[i]._nbVirtualCaretSpc;
 			}
-			execute(SCI_SETTARGETSTART, cmi[i]._selLpos);
-			execute(SCI_SETTARGETEND, cmi[i]._selRpos);
+			execute(SCI_SETTARGETRANGE, cmi[i]._selLpos, cmi[i]._selRpos);
 
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			unsigned int cp = execute(SCI_GETCODEPAGE);

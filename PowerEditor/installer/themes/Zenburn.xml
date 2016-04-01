@@ -407,8 +407,9 @@ License:             Feel free to modify this style and re-release it. This styl
         <LexerType name="json" desc="JSON" ext="">
             <WordsStyle name="DEFAULT" styleID="11" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="8CD0D3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING" styleID="6" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="CHARACTER" styleID="7" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING DOUBLE QUOTE" styleID="6" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING SINGLE QUOTE" styleID="7" fgColor="CC9393" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="BOOLEAN NULL" styleID="5" fgColor="CEDF99" bgColor="3F3F3F" fontName="" fontStyle="3" fontSize="" keywordClass="instre1" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="DFC47D" bgColor="3F3F3F" fontName="" fontStyle="1" fontSize="" />
         </LexerType>
         <LexerType name="kix" desc="KiXtart" ext="">

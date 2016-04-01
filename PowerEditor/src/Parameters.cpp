@@ -77,6 +77,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	//
 	{VK_N,       IDM_FILE_NEW,                                 true,  false, false, nullptr},
 	{VK_O,       IDM_FILE_OPEN,                                true,  false, false, nullptr},
+	{VK_NULL,    IDM_FILE_OPENFOLDERASWORSPACE,                false, false, false, nullptr},
 	{VK_NULL,    IDM_FILE_RELOAD,                              false, false, false, nullptr},
 	{VK_S,       IDM_FILE_SAVE,                                true,  false, false, nullptr},
 	{VK_S,       IDM_FILE_SAVEAS,                              true,  true,  false, nullptr},
@@ -359,6 +360,7 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_UNDO"),                    SCI_UNDO,                    true,  false, false, VK_Z,        IDM_EDIT_UNDO},
 	{TEXT(""),                            SCI_UNDO,                    false, true,  false, VK_BACK,     0},
 	{TEXT("SCI_REDO"),                    SCI_REDO,                    true,  false, false, VK_Y,        IDM_EDIT_REDO},
+	{TEXT(""),                            SCI_REDO,                    true,  false, true,  VK_Z,        0},
 	{TEXT("SCI_NEWLINE"),                 SCI_NEWLINE,                 false, false, false, VK_RETURN,   0},
 	{TEXT(""),                            SCI_NEWLINE,                 false, false, true,  VK_RETURN,   0},
 	{TEXT("SCI_TAB"),                     SCI_TAB,                     false, false, false, VK_TAB,      IDM_EDIT_INS_TAB},
@@ -6097,6 +6099,8 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_TEX; break;
 		case L_FORTRAN :
 			id = IDM_LANG_FORTRAN; break;
+		case L_FORTRAN_77 :
+			id = IDM_LANG_FORTRAN_77; break;
 		case L_BASH :
 			id = IDM_LANG_BASH; break;
 		case L_FLASH :

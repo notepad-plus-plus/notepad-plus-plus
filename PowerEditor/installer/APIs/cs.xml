@@ -45,7 +45,6 @@
 		<KeyWord name="finally" />
 		<KeyWord name="fixed" />
 		<KeyWord name="float" />
-		<KeyWord name="float" />
 		<KeyWord name="for" />
 		<KeyWord name="foreach" />
 		<KeyWord name="goto" />
@@ -225,6 +224,7 @@
 		<KeyWord name="unsafe" />
 		<KeyWord name="ushort" />
 		<KeyWord name="using" />
+		<KeyWord name="var" />
 		<KeyWord name="virtual" />
 		<KeyWord name="void" />
 		<KeyWord name="volatile" />

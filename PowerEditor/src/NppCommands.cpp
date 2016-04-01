@@ -87,6 +87,37 @@ void Notepad_plus::command(int id)
 			cmd.run(_pPublicInterface->getHSelf());
 		}
 		break;
+		
+		case IDM_FILE_OPENFOLDERASWORSPACE:
+		{
+			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), TEXT("Select a folder to add in Folder as Workspace panel"));
+			if (not folderPath.empty())
+			{
+				if (_pFileBrowser == nullptr) // first launch, check in params to open folders
+				{
+					vector<generic_string> dummy;
+					launchFileBrowser(dummy);
+					if (_pFileBrowser != nullptr)
+					{
+						checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+						_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+						_pFileBrowser->setClosed(false);
+					}
+					else // problem
+						return;
+				}
+				else
+				{
+					if (_pFileBrowser->isClosed())
+					{
+						_pFileBrowser->display();
+						_pFileBrowser->setClosed(false);
+					}
+				}
+				_pFileBrowser->addRootFolder(folderPath);
+			}
+		}
+		break;
 
 		case IDM_FILE_RELOAD:
 			fileReload();
@@ -1216,8 +1247,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_EOL2WS:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->execute(SCI_SETTARGETSTART, 0);
-			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
@@ -1226,8 +1256,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			doTrim(lineHeader);
-			_pEditView->execute(SCI_SETTARGETSTART, 0);
-			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
@@ -2443,6 +2472,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_INI :
         case IDM_LANG_TEX :
         case IDM_LANG_FORTRAN :
+		case IDM_LANG_FORTRAN_77 :
         case IDM_LANG_BASH :
         case IDM_LANG_FLASH :
 		case IDM_LANG_NSIS :

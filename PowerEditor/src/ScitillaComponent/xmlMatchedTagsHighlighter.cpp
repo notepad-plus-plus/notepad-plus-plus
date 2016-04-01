@@ -665,7 +665,6 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 	}
 
 	// restore the original targets and search options to avoid the conflit with search/replace function
-	_pEditView->execute(SCI_SETTARGETSTART, originalStartPos);
-	_pEditView->execute(SCI_SETTARGETEND, originalEndPos);
+	_pEditView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
 	_pEditView->execute(SCI_SETSEARCHFLAGS, originalSearchFlags);
 }

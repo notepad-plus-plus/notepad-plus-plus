@@ -110,7 +110,6 @@ public:
 
 	HWND getHSelf() const
 	{
-		//assert(_hSelf != 0);
 		return _hSelf;
 	}
 

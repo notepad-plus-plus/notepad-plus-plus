@@ -86,13 +86,18 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	getWordArray(wordArray, beginChars);
 
-
-	for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
+	bool canStop = false;
+	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
-		if (_keyWordArray[i].find(beginChars) == 0)
+		if (_keyWordArray[i].compare(0, len, beginChars) == 0)
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);
+			canStop = true;
+		}
+		else if (canStop) {
+			// Early out since no more strings will match
+			break;
 		}
 	}
 
@@ -104,7 +109,7 @@ bool AutoCompletion::showApiAndWordComplete()
 	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
 	{
 		words += wordArray[i];
-		if (i != wordArray.size()-1)
+		if (i != len - 1)
 			words += TEXT(" ");
 	}
 
@@ -121,7 +126,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
-	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]*");
+	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
 
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 
@@ -141,9 +146,8 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 			TCHAR w[bufSize];
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
 
-			if (lstrcmp(w, beginChars) != 0)
-				if (!isInList(w, wordArray))
-					wordArray.push_back(w);
+			if (!isInList(w, wordArray))
+				wordArray.push_back(w);
 		}
 		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
 	}
@@ -383,8 +387,8 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (size_t(foundTextLen) > closeTagSize - 2) // buffer size is not large enough. -2 for '/' & '\0'
 		return;
 
-	char tagHead[10];
-	_pEditView->getText(tagHead, targetStart, targetStart+9);
+	char tagHead[tagMaxLen];
+	_pEditView->getText(tagHead, targetStart, targetEnd);
 
 	if (tagHead[1] == '/') // "</toto>" will be ignored
 		return;
@@ -392,12 +396,13 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
 
-	if (isHTML) // for HTML: "br", "hr", "img", "link" and "meta" will be ignored
+	if (isHTML) // for HTML: "br", "hr", "img", "link", "!doctype" and "meta" will be ignored
 	{
-		char *disallowed_tags[] = { "br", "hr", "img", "link", "meta" };
-		for (int i = 0; i < 5; ++i)
+		char *disallowedTags[] = { "br", "hr", "img", "link", "meta", "!doctype" };
+		size_t disallowedTagsLen = sizeof(disallowedTags) / sizeof(char *);
+		for (size_t i = 0; i < disallowedTagsLen; ++i)
 		{
-			if (strnicmp(tagHead + 1, disallowed_tags[i], strlen(disallowed_tags[i])) == 0)
+			if (strnicmp(tagHead + 1, disallowedTags[i], strlen(disallowedTags[i])) == 0)
 				return;
 		}
 	}
@@ -534,8 +539,8 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 	// if there's no user defined matched pair found, continue to check notepad++'s one
 
-	const size_t closeTagLen = 256;
-	char closeTag[closeTagLen];
+	
+	char closeTag[tagMaxLen];
 	closeTag[0] = '\0';
 	switch (character)
 	{
@@ -626,7 +631,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		{
 			if (matchedPairConf._doHtmlXmlTag && (_curLang == L_HTML || _curLang == L_XML))
 			{
-				getCloseTag(closeTag, closeTagLen, caretPos, _curLang == L_HTML);
+				getCloseTag(closeTag, tagMaxLen, caretPos, _curLang == L_HTML);
 				if (closeTag[0] != '\0')
 					matchedChars = closeTag;
 			}

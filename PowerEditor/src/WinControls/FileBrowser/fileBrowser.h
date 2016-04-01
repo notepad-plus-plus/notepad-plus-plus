@@ -182,10 +182,6 @@ protected:
 	void destroyMenus();
 	BOOL setImageList(int root_open_id, int root_close_id, int open_node_id, int closed_node_id, int leaf_id);
 
-	HTREEITEM createNewFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
-
-	generic_string getRelativePath(const generic_string & fn, const TCHAR *workSpaceFileName);
-	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const TCHAR* fn2write);
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
 	POINT getMenuDisplayPoint(int iButton);

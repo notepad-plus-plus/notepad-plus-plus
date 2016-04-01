@@ -323,6 +323,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETMULTIPASTE, SC_MULTIPASTE_EACH);
 	_subEditView.execute(SCI_SETMULTIPASTE, SC_MULTIPASTE_EACH);
 
+	// Let Scintilla deal with some of the folding functionality
+	_mainEditView.execute(SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_SHOW);
+	_subEditView.execute(SCI_SETAUTOMATICFOLD, SC_AUTOMATICFOLD_SHOW);
+
 	TabBarPlus::doDragNDrop(true);
 
 	if (_toReduceTabBar)
@@ -613,6 +617,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	//--Init dialogs--//
     _findReplaceDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
+	_findInFinderDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_incrementFindDlg.init(_pPublicInterface->getHinst(), hwnd, &_findReplaceDlg, _nativeLangSpeaker.isRTL());
 	_incrementFindDlg.addToRebar(&_rebarBottom);
     _goToLineDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
@@ -974,8 +979,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 		int endPos = lenFile-1;
 		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
-		_invisibleEditView.execute(SCI_SETTARGETSTART, startPos);
-		_invisibleEditView.execute(SCI_SETTARGETEND, endPos);
+		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 		int posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(xmlHeaderRegExpr), (LPARAM)xmlHeaderRegExpr);
 		if (posFound != -1 && posFound != -2)
@@ -1012,8 +1016,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 		int endPos = lenFile-1;
 		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
-		_invisibleEditView.execute(SCI_SETTARGETSTART, startPos);
-		_invisibleEditView.execute(SCI_SETTARGETEND, endPos);
+		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 		int posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr), (LPARAM)htmlHeaderRegExpr);
 
@@ -1499,7 +1502,9 @@ bool Notepad_plus::replaceInFiles()
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			_invisibleEditView.setCurrentBuffer(pBuf);
 
-			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, true, fileNames.at(i).c_str());
+			FindersInfo findersInfo;
+			findersInfo._pFileName = fileNames.at(i).c_str();
+			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, true, &findersInfo);
 			nbTotal += nbReplaced;
 			if (nbReplaced)
 			{
@@ -1533,11 +1538,87 @@ bool Notepad_plus::replaceInFiles()
 	return true;
 }
 
+bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
+{
+	int nbTotal = 0;
+	ScintillaEditView *pOldView = _pEditView;
+	_pEditView = &_invisibleEditView;
+	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
+
+	vector<generic_string> patterns2Match;
+	_findReplaceDlg.getPatterns(patterns2Match);
+	if (patterns2Match.size() == 0)
+	{
+		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
+		_findReplaceDlg.getPatterns(patterns2Match);
+	}
+
+	vector<generic_string> fileNames = findInFolderInfo->_pSourceFinder->getResultFilePaths();
+
+	findInFolderInfo->_pDestFinder->beginNewFilesSearch();
+	findInFolderInfo->_pDestFinder->addSearchLine(findInFolderInfo->_findOption._str2Search.c_str());
+
+	Progress progress(_pPublicInterface->getHinst());
+
+	size_t filesCount = fileNames.size();
+	size_t filesPerPercent = 1;
+
+	if (filesCount > 1)
+	{
+		if (filesCount >= 200)
+			filesPerPercent = filesCount / 100;
+		progress.open(_findReplaceDlg.getHSelf(), TEXT("Find In Files progress..."));
+	}
+
+	for (size_t i = 0, updateOnCount = filesPerPercent; i < filesCount; ++i)
+	{
+		if (progress.isCancelled()) break;
+
+		bool closeBuf = false;
+		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
+		if (id == BUFFER_INVALID)
+		{
+			id = MainFileManager->loadFile(fileNames.at(i).c_str());
+			closeBuf = true;
+		}
+
+		if (id != BUFFER_INVALID)
+		{
+			Buffer * pBuf = MainFileManager->getBufferByID(id);
+			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
+
+			findInFolderInfo->_pFileName = fileNames.at(i).c_str();
+			nbTotal += _findReplaceDlg.processAll(ProcessFindInFinder, &(findInFolderInfo->_findOption), true, findInFolderInfo);
+			if (closeBuf)
+				MainFileManager->closeBuffer(id, _pEditView);
+		}
+		if (i == updateOnCount)
+		{
+			updateOnCount += filesPerPercent;
+			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
+		}
+		else
+		{
+			progress.setInfo(fileNames.at(i).c_str());
+		}
+	}
+	progress.close();
+
+	findInFolderInfo->_pDestFinder->finishFilesSearch(nbTotal, findInFolderInfo->_findOption._isMatchLineNumber);
+
+	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_pEditView = pOldView;
+
+	return true;
+}
+
 bool Notepad_plus::findInFiles()
 {
 	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
 
-	if (!dir2Search[0] || !::PathFileExists(dir2Search))
+	if (not dir2Search[0] || not ::PathFileExists(dir2Search))
 	{
 		return false;
 	}
@@ -1556,6 +1637,7 @@ bool Notepad_plus::findInFiles()
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
 		_findReplaceDlg.getPatterns(patterns2Match);
 	}
+
 	vector<generic_string> fileNames;
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
@@ -1591,8 +1673,9 @@ bool Notepad_plus::findInFiles()
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
-
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, true, fileNames.at(i).c_str());
+			FindersInfo findersInfo;
+			findersInfo._pFileName = fileNames.at(i).c_str();
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, true, &findersInfo);
 			if (closeBuf)
 				MainFileManager->closeBuffer(id, _pEditView);
 		}
@@ -1644,7 +1727,9 @@ bool Notepad_plus::findInOpenedFiles()
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, pBuf->getFullPathName());
+			FindersInfo findersInfo;
+			findersInfo._pFileName = pBuf->getFullPathName();
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
 	    }
     }
 
@@ -1656,7 +1741,9 @@ bool Notepad_plus::findInOpenedFiles()
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, pBuf->getFullPathName());
+			FindersInfo findersInfo;
+			findersInfo._pFileName = pBuf->getFullPathName();
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
 	    }
     }
 
@@ -1689,7 +1776,9 @@ bool Notepad_plus::findInCurrentFile()
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 	int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 	_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
-	nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, pBuf->getFullPathName());
+	FindersInfo findersInfo;
+	findersInfo._pFileName = pBuf->getFullPathName();
+	nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, isEntireDoc, &findersInfo);
 
 	_findReplaceDlg.finishFilesSearch(nbTotal);
 
@@ -2203,8 +2292,7 @@ void Notepad_plus::addHotSpot()
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
-	_pEditView->execute(SCI_SETTARGETSTART, startPos);
-	_pEditView->execute(SCI_SETTARGETEND, endPos);
+	_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 	std::vector<unsigned char> hotspotPairs; //= _pEditView->GetHotspotPairs();
 
@@ -2303,8 +2391,7 @@ void Notepad_plus::addHotSpot()
 			_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
 		}
 
-		_pEditView->execute(SCI_SETTARGETSTART, posFound + foundTextLen);
-		_pEditView->execute(SCI_SETTARGETEND, endPos);
+		_pEditView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
 
 		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
 	}
@@ -2321,8 +2408,7 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 	int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
 	int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
-	_pEditView->execute(SCI_SETTARGETSTART, startPos);
-	_pEditView->execute(SCI_SETTARGETEND, endPos);
+	_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 	const char ifElseForWhileExpr[] = "((else[ \t]+)?if|for|while)[ \t]*[(].*[)][ \t]*|else[ \t]*";
 
@@ -2460,8 +2546,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
 				int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
 				_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
-				_pEditView->execute(SCI_SETTARGETSTART, startPos);
-				_pEditView->execute(SCI_SETTARGETEND, endPos);
+				_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 				const char braceExpr[] = "[ \t]*\\{.*";
 
@@ -2626,6 +2711,8 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_TEX;
         case IDM_LANG_FORTRAN :
             return L_FORTRAN;
+		case IDM_LANG_FORTRAN_77 :
+			return L_FORTRAN_77;
         case IDM_LANG_BASH :
             return L_BASH;
         case IDM_LANG_FLASH :
@@ -3786,7 +3873,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		TCHAR* linebuf = new TCHAR[linebufferSize];
 
 		Lang *lang = _pEditView->getCurrentBuffer()->getCurrentLang();
-		bool isFortran = lang == NULL?false:lang->_langID == L_FORTRAN;
+		bool isFortran = lang == NULL?false:lang->_langID == L_FORTRAN_77;
 		if (!isFortran)
 			lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
 		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);
@@ -5579,10 +5666,11 @@ struct Quote
 
 
 
-const int nbQuote = 201;
+const int nbQuote = 203;
 Quote quotes[nbQuote] =
 {
-	{"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
+	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
+	{"Notepad++ #2", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 	{"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 	{"L. Peter Deutsch", "To iterate is human, to recurse divine."},
 	{"Seymour Cray", "The trouble with programmers is that you can never tell what a programmer is doing until it's too late."},
@@ -5613,7 +5701,7 @@ Quote quotes[nbQuote] =
 	{"Don Ho", "Je mange donc je chie."},
 	{"Don Ho #2", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
 	{"Don Ho #3", "Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street."},
-	//{"Anonymous #1", ""},
+	{"Anonymous #1", "An opinion without 3.14 is just an onion."},
 	{"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
 	{"Anonymous #3", "I'm not totally useless. I can be used as a bad example."},
 	{"Anonymous #4", "Life is too short to remove USB safely."},
@@ -5657,7 +5745,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #43", "Afraid to die alone?\nBecome a bus driver."},
 	{"Anonymous #44", "The first 5 days after the weekend are always the hardest."},
 	{"Anonymous #45", "Rhinos are just fat unicorns."},
-	{"Anonymous #46", "Today, I asked a girl out. She replied, \"Sorry, I'm suddenly a lesbian.\" FML"},
+	{"Anonymous #46", "Sometimes when I'm writing Javascript I want to throw up my hands and say \"this is bullshit!\"\nbut I can never remember what \"this\" refers to."},
 	{"Anonymous #47", "Kids are like fart.\nYou can only stand yours."},
 	{"Anonymous #48", "If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography."},
 	{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars."},

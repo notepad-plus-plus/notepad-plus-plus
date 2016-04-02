@@ -1815,8 +1815,14 @@ void Notepad_plus::command(int id)
 				: (id == IDM_FORMAT_TOUNIX) ? EolType::unix : EolType::macos;
 
 			Buffer* buf = _pEditView->getCurrentBuffer();
-			buf->setEolFormat(newFormat);
-			_pEditView->execute(SCI_CONVERTEOLS, static_cast<int>(buf->getEolFormat()));
+
+			if (not buf->isReadOnly())
+			{
+				LongRunningOperation op;
+				buf->setEolFormat(newFormat);
+				_pEditView->execute(SCI_CONVERTEOLS, static_cast<int>(buf->getEolFormat()));
+			}
+
 			break;
 		}
 

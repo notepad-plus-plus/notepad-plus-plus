@@ -104,6 +104,7 @@
 					<Item id="41018" name="Stäng alla till höger"/>
 					<Item id="41019" name="Utforskaren"/>
 					<Item id="41020" name="Kommandotolken"/>
+					<Item id="41022" name="Öppna mapp som arbetsyta"/>
 					<Item id="42001" name="&amp;Klipp ut" />
 					<Item id="42002" name="K&amp;opiera" />
 					<Item id="42003" name="&amp;Ångra" />
@@ -246,6 +247,7 @@
 					<Item id="44082" name="Projektpanel #2" />
 					<Item id="44083" name="Projektpanel #3" />
 					<Item id="44084" name="Funktionslista" />
+					<Item id="44085" name="Mapp som arbetsyta"/>
 					<Item id="44086" name="Flik nr. 1"/>
 					<Item id="44087" name="Flik nr. 2"/>
 					<Item id="44088" name="Flik nr. 3"/>
@@ -278,7 +280,9 @@
 					<Item id="47001" name="Notepad++, officiell hemsida" />
 					<Item id="47002" name="Notepad++, projekthemsida" />
 					<Item id="47003" name="Online-hjälp" />
+					<Item id="47004" name="Notepad++, forum"/>
 					<Item id="47011" name="Livesupport"/>
+					<Item id="47012" name="Felsökningsinformation"/>
 					<Item id="47005" name="Hämta fler tillägg" />
 					<Item id="47006" name="Uppdatera Notepad++" />
 					<Item id="47009" name="Ställ in uppdateringsproxy..."/>
@@ -639,6 +643,7 @@
 					<Item id="6230" name="Indrag" />
 					<Item id="6231" name="Kantbredd" />
 					<Item id="6234" name="Inaktivera utökade bläddringfunktioner (om du har problem med pekplattan)"/>
+					<Item id="6235" name="Ingen kant"/>
 					<Item id="6215" name="Aktivera utjämnade tecken"/>
 				</Scintillas>
 				<NewDoc title="Nytt dokument">
@@ -660,6 +665,7 @@
 					<Item id="6413" name="Standardmapp (öppna/spara)"/>
 					<Item id="6414" name="Använd det aktuella dokumentet"/>
 					<Item id="6415" name="Kom ihåg den senast använda mappen"/>
+					<Item id="6430" name="Använd modern stil på sparadialogen (utan funktion för filtillägg)"/>
 				</DefaultDir>
 				<FileAssoc title="Filassociering">
 					<Item id="4009" name="Kompatibla filtillägg:" />
@@ -741,6 +747,7 @@
 					<Item id="6333" name="Smarta markeringar" />
 					<Item id="6334" name="Automatisk igenkänning av teckenkodning" />
 					<Item id="6335" name="Behandla omvänt snedstreck som escape-tecken för SQL" />
+					<Item id="6337" name="Filändelse för arbetsytafil:"/>
 				</MISC>
 				<Backup title="Säkerhetskopiering">
 					<Item id="6309" name="Kom ihåg nuvarande session vid nästa start" />
@@ -825,10 +832,10 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Redigera snabbmenyn" message="Genom att redigering contextMenu.xml kan du anpassa snabbmenyn i Notepad++.&#x0A;Du måste starta om Notepad++ för att ändringarna i contextMenu.xml ska aktiveras." />
+			<ContextMenuXmlEditWarning title="Redigera snabbmenyn" message="Genom att redigera contextMenu.xml kan du anpassa snabbmenyn i Notepad++.&#x0A;Du måste starta om Notepad++ för att ändringarna i contextMenu.xml ska aktiveras." />
 			<NppHelpAbsentWarning title="Filen finns inte" message="&#x0A;finns inte. Ladda ned den från hemsidan för Notepad++." />
-			<SaveCurrentModifWarning title="Spara ändringar" message="Du bör spara ändringen.&#x0A;Alla sparade ändringar kan inte ångras.&#x0A;&#x0A;Fortsätt?" />
-			<LoseUndoAbilityWarning title="Förlora ångraförmågan varning" message="Du bör spara ändringarna.&#x0A;Inga sparade ändringar kan ångras.&#x0A;&#x0A;Fortsätt?" />
+			<SaveCurrentModifWarning title="Spara ändringar" message="Du bör spara ändringen.&#x0A;Inga sparade ändringar kan ångras.&#x0A;&#x0A;Fortsätt?" />
+			<LoseUndoAbilityWarning title="Varning, förlorad förmåga att ångra" message="Du bör spara ändringarna.&#x0A;Inga sparade ändringar kan ångras.&#x0A;&#x0A;Fortsätt?" />
 			<CannotMoveDoc title="Flytta till en ny instans av Notepad++" message="Dokumentet är ändrat, spara det och försök igen." />
 			<DocReloadWarning title="Ladda om" message="Är du säker på att du vill ladda om den aktuella filen och förlora de ändringar som gjorts i Notepad++?" />
 			<FileLockedWarning title="Kunde inte spara" message="Kontrollera om filen är öppnad i ett annat program" />

@@ -800,6 +800,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_ZOOM:
 		{
+			_smartHighlighter.highlightView(notifyView);
 			break;
 		}
 

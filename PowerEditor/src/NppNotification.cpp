@@ -485,6 +485,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_pEditView->marginClick(notification->position, notification->modifiers);
 				if (_pDocMap)
 					_pDocMap->fold(lineClick, _pEditView->isFolded(lineClick));
+				_smartHighlighter.highlightView(_pEditView);
 			}
 			else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
 			{

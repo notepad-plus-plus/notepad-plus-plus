@@ -847,8 +847,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_HOTSPOTDOUBLECLICK:
 		{
-			notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.,:?&@=/%#()");
-
+			notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+*.,:;!?$&@=/%#()");
+		
 			int pos = notifyView->execute(SCI_GETCURRENTPOS);
 			int startPos = static_cast<int>(notifyView->execute(SCI_WORDSTARTPOSITION, pos, false));
 			int endPos = static_cast<int>(notifyView->execute(SCI_WORDENDPOSITION, pos, false));

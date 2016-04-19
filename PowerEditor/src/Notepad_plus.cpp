@@ -4998,6 +4998,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
  	LangType lt = pCmdParams->_langType;
 	int ln =  pCmdParams->_line2go;
     int cn = pCmdParams->_column2go;
+    int cpos = pCmdParams->_pos2go;
 	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
 
@@ -5019,11 +5020,16 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 			pBuf->setLangType(lt);
 		}
 
-		if (ln != -1)
+		if (ln != -1 || cpos != -1)
 		{	//we have to move the cursor manually
 			int iView = currentView();	//store view since fileswitch can cause it to change
 			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
 
+			if (cpos != -1)
+			{
+				_pEditView->execute(SCI_GOTOPOS, cpos);
+			}
+            else
 			if (cn == -1)
 			{
 				_pEditView->execute(SCI_GOTOLINE, ln-1);

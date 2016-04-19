@@ -212,6 +212,7 @@ struct CmdLineParams
 	bool _alwaysOnTop = false;
 	int _line2go   = -1;
 	int _column2go = -1;
+	int _pos2go = -1;
 
 	POINT _point;
 	bool _isPointXValid = false;

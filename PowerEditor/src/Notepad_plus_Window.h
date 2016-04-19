@@ -31,7 +31,7 @@
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEsterEggName | -qtText | -qfCntentFileName] [filePath]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEsterEggName | -qtText | -qfCntentFileName] [filePath]\r\
 \r\
     --help : This help message\r\
     -multiInst : Launch another Notepad++ instance\r\
@@ -40,6 +40,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
     -L : Apply indicated localization, langCode is browser language code\r\
     -n : Scroll to indicated line on filePath\r\
     -c : Scroll to indicated column on filePath\r\
+    -p : Scroll to indicated position on filePath\r\
     -x : Move Notepad++ to indicated left side position on the screen\r\
     -y : Move Notepad++ to indicated top position on the screen\r\
     -nosession : Launch Notepad++ without previous session\r\

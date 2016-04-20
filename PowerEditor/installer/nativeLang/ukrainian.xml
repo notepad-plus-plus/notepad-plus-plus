@@ -67,7 +67,7 @@
                 <Commands>
                     <Item id="41001" name="Створити"/>
                     <Item id="41002" name="Відкрити"/>
-                    <Item id="41019" name="Explorer"/>
+                    <Item id="41019" name="Провідник"/>
                     <Item id="41020" name="cmd"/>
                     <Item id="41003" name="Закрити"/>
                     <Item id="41004" name="Закрити все"/>
@@ -103,6 +103,14 @@
                     <Item id="42013" name="Об'єднати рядки"/>
                     <Item id="42014" name="Підняти поточний рядок"/>
                     <Item id="42015" name="Опустити поточний рядок"/>
+                    <Item id="42059" name="Сортувати рядки за зростанням"/>
+                    <Item id="42060" name="Сортувати рядки за спаданням"/>
+                    <Item id="42061" name="Сортувати рядки як ціле за зростанням"/>
+                    <Item id="42062" name="Сортувати рядки як ціле за спаданням"/>
+                    <Item id="42063" name="Сортувати рядки як десяткове (Кома) за зростанням"/>
+                    <Item id="42064" name="Сортувати рядки як десяткове (Кома) за спаданням"/>
+                    <Item id="42065" name="Сортувати рядки як десяткове (Крапка) за зростанням"/>
+                    <Item id="42066" name="Сортувати рядки як десяткове (Крапка) за спаданням"/>
                     <Item id="42016" name="ВЕЛИКИМИ"/>
                     <Item id="42017" name="маленькими"/>
                     <Item id="42018" name="Почати запис"/>
@@ -143,8 +151,6 @@
                     <Item id="42056" name="Прибрати пусті рядки (Включно з пустими символами)"/>
                     <Item id="42057" name="Додати пустий рядок над поточним"/>
                     <Item id="42058" name="Додати пустий рядок під поточним"/>
-                    <Item id="42059" name="Сортувати рядки за зростанням"/>
-                    <Item id="42060" name="Сортувати рядки за спаданням"/>
                     <Item id="43001" name="Пошук..."/>
                     <Item id="43002" name="Виконати пошук далі"/>
                     <Item id="43003" name="Замінити..."/>
@@ -195,7 +201,8 @@
                     <Item id="43047" name="Попередні результати пошуку"/>
                     <Item id="43048" name="Вибрати і шукати далі"/>
                     <Item id="43049" name="Вибрати і шукати раніше"/>
-					<Item id="44009" name="Текст на все вікно"/>
+                    <Item id="43054" name="Знак..."/>
+                    <Item id="44009" name="Текст на все вікно"/>
                     <Item id="44010" name="Згорнути все"/>
                     <Item id="44019" name="Всі символи"/>
                     <Item id="44020" name="Значення відступів"/>
@@ -272,9 +279,9 @@
                     <Item id="47002" name="Сторінка проекту Notepad++"/>
                     <Item id="47003" name="NpWiki++ (Онлайн допомога)"/>
                     <Item id="47004" name="Форум"/>
+                    <Item id="47011" name="Жива підтримка"/>
                     <Item id="47005" name="Більше доповнень"/>
 					<Item id="47006" name="Оновити Notepad++"/>
-					<Item id="47008" name="Довідка Notepad++"/>
                     <Item id="47009" name="Встановити проксі для оновлення..."/>
 					<Item id="48005" name="Імпорт доповнень ..."/>
                     <Item id="48006" name="Імпорт тем..."/>
@@ -465,6 +472,8 @@
                     <Item id="25026" name="Оператор 1"/>
                     <Item id="25027" name="Оператор 2"/>
                     <Item id="25028" name="Числа"/>
+                    <Item id="1" name="OK"/>
+                    <Item id="2" name="Скасувати"/>
                 </StylerDialog>
                 <Folder title="Стандартний">
                     <Item id="21101" name="Типовий стиль"/>
@@ -514,7 +523,7 @@
                     <Item id="22572" name="Стиль"/>
                     <Item id="22622" name="Стиль"/>
                 </Keywords>
-                <Comment title="Comment  Number">
+                <Comment title="Comment &amp;&amp; Number">
                     <Item id="23003" name="Line comment position"/>
                     <Item id="23004" name="Allow anywhere"/>
                     <Item id="23005" name="Force at beginning of line"/>
@@ -544,16 +553,16 @@
                     <Item id="23247" name="Both"/>
                 </Comment>
                 <Operator title="Оператори">
-					<Item id="24107" name="Оператор"/>
-					<Item id="24103" name="Доступні знаки"/>
 					<Item id="24101" name="Пускові оператори"/>
-					<Item id="24201" name="Розмежувач № 1"/>
-					<Item id="24211" name="Межа відкриття:"/>
-					<Item id="24214" name="Межа закриття:"/>
-					<Item id="24301" name="Розмежувач № 2"/>
-					<Item id="24311" name="Межа відкриття:"/>
-					<Item id="24314" name="Межа закриття:"/>
-                    <Item id="24301" name="Delimiter 2 style"/>
+                    <Item id="24113" name="Styler"/>
+                    <Item id="24116" name="Operators 1"/>
+                    <Item id="24117" name="Operators 2 (separators required)"/>
+                    <Item id="24201" name="Розмежувач 1 стиль"/>
+                    <Item id="24220" name="Open:"/>
+                    <Item id="24221" name="Escape:"/>
+                    <Item id="24222" name="Close:"/>
+                    <Item id="24223" name="Styler"/>
+                    <Item id="24301" name="Розмежувач 2 стиль"/>
                     <Item id="24320" name="Open:"/>
                     <Item id="24321" name="Escape:"/>
                     <Item id="24322" name="Close:"/>
@@ -619,7 +628,7 @@
                     <Item id="6126" name="Показати"/>
                     <Item id="6127" name="Вимкнути колонку розширення"/>
 				</Global>
-                <Scintillas title="Редактування">
+                <Scintillas title="Редагування">
 					<Item id="6216" name="Налаштування вставки"/>
 					<Item id="6217" name="Ширина"/>
 					<Item id="6219" name="Частота мерехтіння:"/>
@@ -687,7 +696,7 @@
 					<Item id="6508" name="Меню синтаксису"/>
                 </LangMenu>
 
-                <TabSettings title="Налаштування табуляції">
+                <TabSettings title="Табуляція">
                     <Item id="6301" name="Налаштування табуляції"/>
                     <Item id="6302" name="Замінити пробілом"/>
                     <Item id="6303" name="Розмір табуляції: "/>
@@ -724,8 +733,8 @@
                     <Item id="6728" name="Верхній та нижній колонтитули"/>
                 </Print>
 
-                <RecentFilesHistory title="Історія недавніх файлів">
-                    <Item id="6304" name="Недавня історія файлів"/>
+                <RecentFilesHistory title="Історія файлів">
+                    <Item id="6304" name="Історія останніх файлів"/>
                     <Item id="6306" name="Макс. кількість записів:"/>
                     <Item id="6305" name="Не перевіряти при запуску"/>
                     <Item id="6429" name="Відображення"/>
@@ -787,9 +796,7 @@
                  <Cloud title="Хмарне сховище">
                     <Item id="6262" name="Налаштування хмарного сховища"/>
                     <Item id="6263" name="Без хмари"/>
-                    <Item id="6264" name="Dropbox"/>
-                    <Item id="6265" name="OneDrive"/>
-                    <Item id="6266" name="Google Drive"/>
+                    <Item id="6267" name="Встановіть шлях до свого хмарного сховища тут:"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
@@ -863,6 +870,7 @@
             
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті.\rВи дійсно хочете відкрити їх?"/>
+	    <SettingsOnCloudError title="Налаштування в хмарі" message="Схоже, шлях налаштувань в хмарі встановлений на диск лише для читання,\r або в теку, яка потребує відповідних прав на запис. \r Ваші налаштування в хмарі будуть скасовані. Будь ласка, скиньте відповідні значення через діалог Налаштування."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Історія буфера"/>

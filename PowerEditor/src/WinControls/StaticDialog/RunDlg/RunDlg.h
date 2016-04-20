@@ -18,7 +18,7 @@
 #ifndef RUN_DLG_H
 #define RUN_DLG_H
 
-#include <Oleacc.h>
+#include <oleacc.h>
 #include "Common.h"
 
 #ifndef RUN_DLG_RC_H
@@ -59,10 +59,7 @@ public :
 	RunDlg() : StaticDialog() {};
 
 	void doDialog(bool isRTL = false);
-
-    virtual void destroy() {
-
-    };
+    virtual void destroy() {};
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

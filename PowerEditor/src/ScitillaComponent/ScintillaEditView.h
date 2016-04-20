@@ -88,17 +88,18 @@ typedef void * SCINTILLA_PTR;
 
 #define WM_DOCK_USERDEFINE_DLG      (SCINTILLA_USER + 1)
 #define WM_UNDOCK_USERDEFINE_DLG    (SCINTILLA_USER + 2)
-#define WM_CLOSE_USERDEFINE_DLG		(SCINTILLA_USER + 3)
-#define WM_REMOVE_USERLANG		    (SCINTILLA_USER + 4)
-#define WM_RENAME_USERLANG			(SCINTILLA_USER + 5)
-#define WM_REPLACEALL_INOPENEDDOC	(SCINTILLA_USER + 6)
-#define WM_FINDALL_INOPENEDDOC  	(SCINTILLA_USER + 7)
-#define WM_DOOPEN				  	(SCINTILLA_USER + 8)
-#define WM_FINDINFILES			  	(SCINTILLA_USER + 9)
-#define WM_REPLACEINFILES		  	(SCINTILLA_USER + 10)
-#define WM_FINDALL_INCURRENTDOC	  	(SCINTILLA_USER + 11)
-#define WM_FRSAVE_INT	  	(SCINTILLA_USER + 12)
-#define WM_FRSAVE_STR	  	(SCINTILLA_USER + 13)
+#define WM_CLOSE_USERDEFINE_DLG     (SCINTILLA_USER + 3)
+#define WM_REMOVE_USERLANG          (SCINTILLA_USER + 4)
+#define WM_RENAME_USERLANG          (SCINTILLA_USER + 5)
+#define WM_REPLACEALL_INOPENEDDOC   (SCINTILLA_USER + 6)
+#define WM_FINDALL_INOPENEDDOC      (SCINTILLA_USER + 7)
+#define WM_DOOPEN                   (SCINTILLA_USER + 8)
+#define WM_FINDINFILES              (SCINTILLA_USER + 9)
+#define WM_REPLACEINFILES           (SCINTILLA_USER + 10)
+#define WM_FINDALL_INCURRENTDOC     (SCINTILLA_USER + 11)
+#define WM_FRSAVE_INT               (SCINTILLA_USER + 12)
+#define WM_FRSAVE_STR               (SCINTILLA_USER + 13)
+#define WM_FINDALL_INCURRENTFINDER  (SCINTILLA_USER + 14)
 
 const int NB_FOLDER_STATE = 7;
 
@@ -229,6 +230,7 @@ public:
 			}
 		}
 	};
+
 	virtual void destroy()
 	{
 		::DestroyWindow(_hSelf);
@@ -466,11 +468,11 @@ public:
 			return false;
 		long start = long(execute(SCI_GETSELECTIONSTART));
 		long end = long(execute(SCI_GETSELECTIONEND));
-		selByte = (start < end)?end-start:start-end;
+		selByte = end - start;
 
 		start = long(execute(SCI_LINEFROMPOSITION, start));
 		end = long(execute(SCI_LINEFROMPOSITION, end));
-		selLine = (start < end)?end-start:start-end;
+		selLine = end - start;
 		if (selLine)
 			++selLine;
 
@@ -538,9 +540,6 @@ public:
 	void performGlobalStyles();
 
 	void expand(int &line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
-
-	void currentLineUp() const;
-	void currentLineDown() const;
 
 	std::pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;
@@ -641,6 +640,7 @@ public:
 	};
 	void scrollPosToCenter(int pos);
 	generic_string getEOLString();
+	void setBorderEdge(bool doWithBorderEdge);
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
@@ -766,7 +766,11 @@ protected:
 	};
 
 	void setFortranLexer() {
-		setLexer(SCLEX_F77, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_FORTRAN, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
+	};
+
+	void setFortran77Lexer() {
+		setLexer(SCLEX_F77, L_FORTRAN_77, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setLispLexer(){
@@ -860,7 +864,7 @@ protected:
 		setLexer(SCLEX_D, L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
     void setPowerShellLexer() {
-		setLexer(SCLEX_POWERSHELL, L_POWERSHELL, LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_POWERSHELL, L_POWERSHELL, LIST_0 | LIST_1 | LIST_2 | LIST_5);
 	};
     void setRLexer() {
 		setLexer(SCLEX_R, L_R, LIST_0 | LIST_1 | LIST_2);

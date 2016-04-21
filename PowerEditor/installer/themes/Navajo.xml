@@ -331,6 +331,23 @@ Installation:
             <WordsStyle name="LABEL" styleID="13" fgColor="D92B10" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CONTINUATION" styleID="14" fgColor="5F0000" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
+        <LexerType name="fortran77" desc="Fortran (fixed form)" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="2" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="3" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING2" styleID="4" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRINGEOL" styleID="5" fgColor="870087" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="6" fgColor="010101" bgColor="BA9C80" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="7" fgColor="106060" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="8" fgColor="804040" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="FUNCTION1" styleID="9" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="FUNCTION2" styleID="10" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
+            <WordsStyle name="PREPROCESSOR" styleID="11" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR2" styleID="12" fgColor="010101" bgColor="BA9C80" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="LABEL" styleID="13" fgColor="D92B10" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CONTINUATION" styleID="14" fgColor="5F0000" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
+        </LexerType>
         <LexerType name="gui4cli" desc="GUI4CLI" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT LINE" styleID="1" fgColor="181880" bgColor="BA9C80" fontName="" fontStyle="2" fontSize="" />

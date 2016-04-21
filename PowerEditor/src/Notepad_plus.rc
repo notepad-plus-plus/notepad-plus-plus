@@ -678,6 +678,7 @@ BEGIN
 		MENUITEM "JSON",                    IDM_LANG_JSON
         MENUITEM "JSP",                     IDM_LANG_JSP
         MENUITEM "KIXtart",                 IDM_LANG_KIX
+        MENUITEM "Less",                    IDM_LANG_LESS
         MENUITEM "LISP",                    IDM_LANG_LISP
         MENUITEM "Lua",                     IDM_LANG_LUA
         MENUITEM "Makefile",                IDM_LANG_MAKEFILE
@@ -696,6 +697,7 @@ BEGIN
         MENUITEM "R",                       IDM_LANG_R
         MENUITEM "Resource file",           IDM_LANG_RC
         MENUITEM "Ruby",                    IDM_LANG_RUBY
+        MENUITEM "SCSS",                     IDM_LANG_SCSS
         MENUITEM "Shell",                   IDM_LANG_BASH
         MENUITEM "Scheme",                  IDM_LANG_SCHEME
         MENUITEM "Smalltalk",               IDM_LANG_SMALLTALK
@@ -765,6 +767,7 @@ BEGIN
     MENUITEM "KIXtart",                   IDM_LANG_KIX
     POPUP "L"
     BEGIN
+        MENUITEM "LESS",                  IDM_LANG_LESS
         MENUITEM "LISP",                  IDM_LANG_LISP
         MENUITEM "Lua",                   IDM_LANG_LUA
     END
@@ -798,6 +801,7 @@ BEGIN
     END
     POPUP "S"
     BEGIN
+        MENUITEM "SCSS",                   IDM_LANG_SCSS
         MENUITEM "Shell",                 IDM_LANG_BASH
         MENUITEM "Scheme",                IDM_LANG_SCHEME
         MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK

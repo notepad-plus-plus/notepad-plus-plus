@@ -6012,6 +6012,10 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_JSP; break;
 		case L_CSS :
 			id = IDM_LANG_CSS; break;
+		case L_LESS :
+			id = IDM_LANG_LESS; break;
+		case L_SCSS :
+			id = IDM_LANG_SCSS; break;
 		case L_LUA :
 			id = IDM_LANG_LUA; break;
 		case L_PERL :

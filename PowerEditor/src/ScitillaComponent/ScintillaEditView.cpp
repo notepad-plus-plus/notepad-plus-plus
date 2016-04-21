@@ -641,7 +641,7 @@ void ScintillaEditView::setCssLexer(LangType type)
 	if (type == L_LESS) 
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.css.less.language"), reinterpret_cast<LPARAM>("1"));
 	else if (type == L_SCSS) 
-		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.css.less.language"), reinterpret_cast<LPARAM>("1"));	
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.css.scss.language"), reinterpret_cast<LPARAM>("1"));	
 };
 
 void ScintillaEditView::setEmbeddedPhpLexer()

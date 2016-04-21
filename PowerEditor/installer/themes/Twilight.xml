@@ -472,6 +472,23 @@ Credits:
             <WordsStyle name="LABEL" styleID="13" fgColor="9B703F" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>
             <WordsStyle name="CONTINUATION" styleID="14" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>
         </LexerType>
+        <LexerType name="fortran77" desc="Fortran (fixed form)" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="5F5A60" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="NUMBER" styleID="2" fgColor="CF6A4C" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="STRING" styleID="3" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="STRING2" styleID="4" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="STRINGEOL" styleID="5" fgColor="8F9D6A" bgColor="141414" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="OPERATOR" styleID="6" fgColor="CDA869" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>
+            <WordsStyle name="IDENTIFIER" styleID="7" fgColor="CF6A4C" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>
+            <WordsStyle name="INSTRUCTION WORD" styleID="8" fgColor="F9EE98" bgColor="141414" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1"/>
+            <WordsStyle name="FUNCTION1" styleID="9" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10" keywordClass="instre2"/>
+            <WordsStyle name="FUNCTION2" styleID="10" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10" keywordClass="type1"/>
+            <WordsStyle name="PREPROCESSOR" styleID="11" fgColor="8996A8" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>
+            <WordsStyle name="OPERATOR2" styleID="12" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>
+            <WordsStyle name="LABEL" styleID="13" fgColor="9B703F" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>
+            <WordsStyle name="CONTINUATION" styleID="14" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>
+        </LexerType>
         <LexerType name="lisp" desc="LISP" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>
             <WordsStyle name="COMMENTLINE" styleID="1" fgColor="5F5A60" bgColor="141414" fontName="" fontStyle="0" fontSize="10"/>

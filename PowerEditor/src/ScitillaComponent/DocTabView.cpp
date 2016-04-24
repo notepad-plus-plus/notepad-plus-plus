@@ -145,7 +145,11 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	{
 		tie.mask |= TCIF_IMAGE;
 		tie.iImage = buffer->isDirty()?UNSAVED_IMG_INDEX:SAVED_IMG_INDEX;
-		if (buffer->isReadOnly())
+		if (buffer->isMonitoringOn())
+		{
+			tie.iImage = MONITORING_IMG_INDEX;
+		}
+		else if (buffer->isReadOnly())
 		{
 			tie.iImage = REDONLY_IMG_INDEX;
 		}

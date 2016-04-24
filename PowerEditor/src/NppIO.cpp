@@ -33,121 +33,97 @@
 #include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
+#include "ReadDirectoryChanges.h"
 #include <tchar.h>
 
 using namespace std;
 
-/*
-struct monitorFileParams {
-	WCHAR _fullFilePath[MAX_PATH];
-};
 
 DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 {
-	monitorFileParams *mfp = (monitorFileParams *)params;
+	MonitorInfo *monitorInfo = (MonitorInfo *)params;
+	Buffer *buf = monitorInfo->_buffer;
+	ScintillaEditView *mainEditorView = monitorInfo->_mainEditorView;
+	ScintillaEditView *subEditorView = monitorInfo->_subEditorView;
 
-	//Le répertoire à surveiller :
+	const TCHAR *fullFileName = (const TCHAR *)buf->getFullPathName();
+
+	//The folder to watch :
 	WCHAR folderToMonitor[MAX_PATH];
 	//::MessageBoxW(NULL, mfp->_fullFilePath, TEXT("PATH AFTER thread"), MB_OK);
-	lstrcpy(folderToMonitor, mfp->_fullFilePath);
+	lstrcpy(folderToMonitor, fullFileName);
+	//MessageBox(NULL, fullFileName, TEXT("fullFileName"), MB_OK);
 
+	::PathRemoveFileSpecW(folderToMonitor);
 
-	//::PathRemoveFileSpecW(folderToMonitor);
+	//MessageBox(NULL, folderToMonitor, TEXT("folderToMonitor"), MB_OK);
+	
+	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_LAST_WRITE;
 
-	HANDLE hDirectory = ::CreateFile(folderToMonitor,
-		FILE_LIST_DIRECTORY, FILE_SHARE_READ | FILE_SHARE_WRITE,
-		NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+	// Create the monitor and add directory to watch.
+	CReadDirectoryChanges changes;
+	changes.AddDirectory(folderToMonitor, true, dwNotificationFlags);
 
-	// buffer qui va récuppérer les informations de mise à jour
-	const int MAX_BUFFER = 1024;
-	BYTE buffer[MAX_BUFFER];
-	DWORD nombreDeByteRetournes = 0;
+	HANDLE changeHandles[] = { buf->getMonitoringEvent(), changes.GetWaitHandle() };
 
-	bool cond = true;
-	while (cond)
+	bool toBeContinued = true;
+
+	while (toBeContinued)
 	{
-		::Sleep(1000);
-		// surveille un changement dans le répertoire : il attend tant que rien ne se passe : c’est synchrone.
-		BOOL res = ReadDirectoryChangesW(hDirectory, buffer, MAX_BUFFER,
-			TRUE, FILE_NOTIFY_CHANGE_LAST_WRITE, &nombreDeByteRetournes, NULL, NULL);
+		DWORD waitStatus = ::WaitForMultipleObjects(_countof(changeHandles), changeHandles, FALSE, INFINITE);
+		switch (waitStatus)
+		{
+			case WAIT_OBJECT_0 + 0:
+				// Mutex was signaled. User removes this folder or file browser is closed
+				toBeContinued = false;
+			break;
 
-		if (res == FALSE)
-			continue;
+			case WAIT_OBJECT_0 + 1:
+				// We've received a notification in the queue.
+			{
+				DWORD dwAction;
+				CStringW wstrFilename;
+				if (changes.CheckOverflow())
+					printStr(L"Queue overflowed.");
+				else
+				{
+					changes.Pop(dwAction, wstrFilename);
 
-		// puis on transforme le buffer pour être lisible.
-		FILE_NOTIFY_INFORMATION *notifyInfo = (FILE_NOTIFY_INFORMATION *)buffer;
+					if (dwAction == FILE_ACTION_MODIFIED && lstrcmp(fullFileName, wstrFilename.GetString()) == 0)
+					{
+						MainFileManager->reloadBuffer(buf->getID());
+						buf->updateTimeStamp();
 
-		wchar_t fn[MAX_PATH];
-		memset(fn, 0, MAX_PATH*sizeof(wchar_t));
-		if (notifyInfo->Action != FILE_ACTION_MODIFIED)
-			continue;
+						// not only test main view
+						if (buf == mainEditorView->getCurrentBuffer())
+						{
+							int lastLineToShow = mainEditorView->execute(SCI_GETLINECOUNT);
+							mainEditorView->scroll(0, lastLineToShow);
+						}
+						// but also test sub-view, because the buffer could be clonned
+						if (buf == subEditorView->getCurrentBuffer())
+						{
+							int lastLineToShow = subEditorView->execute(SCI_GETLINECOUNT);
+							subEditorView->scroll(0, lastLineToShow);
+						}
+					}
+				}
+			}
+			break;
 
-		// affiche le fichier qui a été modifié.
-		if (notifyInfo->FileNameLength <= 0)
-			continue;
-
-		TCHAR str2Display[512];
-		generic_strncpy(fn, notifyInfo->FileName, notifyInfo->FileNameLength / sizeof(wchar_t));
-		generic_sprintf(str2Display, TEXT("offset : %d\raction : %d\rfn len : %d\rfn : %s"), notifyInfo->NextEntryOffset, notifyInfo->Action, notifyInfo->FileNameLength, notifyInfo->FileName);
-		// on peut vérifier avec ceci :
-		//printInt(notifyInfo->NextEntryOffset);
-		//printInt(notifyInfo->FileNameLength);
-		MessageBox(NULL, str2Display, TEXT("name"), MB_OK);
+			case WAIT_IO_COMPLETION:
+				// Nothing to do.
+			break;
+		}
 	}
-	return TRUE;
+
+	// Just for sample purposes. The destructor will
+	// call Terminate() automatically.
+	changes.Terminate();
+	//MessageBox(NULL, TEXT("FREEDOM !!!"), TEXT("out"), MB_OK);
+	delete monitorInfo;
+	return EXIT_SUCCESS;
 }
-
-DWORD WINAPI Notepad_plus::monitorDirectoryOnChange(void * params)
-{
-	monitorFileParams *mfp = (monitorFileParams *)params;
-
-	//Le répertoire à surveiller :
-	WCHAR folderToMonitor[MAX_PATH];
-	//::MessageBoxW(NULL, mfp->_fullFilePath, TEXT("PATH AFTER thread"), MB_OK);
-	lstrcpy(folderToMonitor, mfp->_fullFilePath);
-
-
-	//::PathRemoveFileSpecW(folderToMonitor);
-
-	HANDLE hDirectory = ::CreateFile(folderToMonitor,
-		FILE_LIST_DIRECTORY, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
-		NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED, NULL);
-
-	// buffer qui va récuppérer les informations de mise à jour
-	const int MAX_BUFFER = 1024;
-	BYTE buffer[MAX_BUFFER];
-	DWORD nombreDeByteRetournes = 0;
-
-	bool cond = true;
-	while (cond)
-	{
-		::Sleep(1000);
-		// surveille un changement dans le répertoire : il attend tant que rien ne se passe : c’est synchrone.
-		ReadDirectoryChangesW(hDirectory, buffer, MAX_BUFFER,
-			TRUE, FILE_NOTIFY_CHANGE_CREATION | FILE_NOTIFY_CHANGE_FILE_NAME, &nombreDeByteRetournes, NULL, NULL);
-		// puis on transforme le buffer pour être lisible.
-		FILE_NOTIFY_INFORMATION *notifyInfo = (FILE_NOTIFY_INFORMATION *)buffer;
-
-		wchar_t fn[MAX_PATH];
-		memset(fn, 0, MAX_PATH*sizeof(wchar_t));
-
-		//if (notifyInfo->Action != FILE_ACTION_MODIFIED)
-		if (notifyInfo->Action != FILE_ACTION_ADDED && notifyInfo->Action != FILE_ACTION_REMOVED && notifyInfo->Action != FILE_ACTION_RENAMED_OLD_NAME && notifyInfo->Action != FILE_ACTION_RENAMED_NEW_NAME)
-			continue;
-
-		// affiche le fichier qui a été modifié.
-		//if (notifyInfo->FileNameLength <= 0)
-			//continue;
-
-		generic_strncpy(fn, notifyInfo->FileName, notifyInfo->FileNameLength / sizeof(wchar_t));
-
-		// on peut vérifier avec ceci :
-		//printInt(notifyInfo->FileNameLength);
-		MessageBox(NULL, fn, TEXT("name"), MB_OK);
-	}
-	return TRUE;
-}
-*/
 
 BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
@@ -368,20 +344,6 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         _pluginsManager.notify(&scnN);
         if (_pFileSwitcherPanel)
             _pFileSwitcherPanel->newItem(buf, currentView());
-
-		/*
-		if (::PathFileExists(longFileName))
-		{
-			// Thread to 
-			monitorFileParams *params = new monitorFileParams;
-			lstrcpy(params->_fullFilePath, longFileName);
-			//::MessageBoxW(NULL, params._fullFilePath, TEXT("PATH b4 thread"), MB_OK);
-			//HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, params, 0, NULL);
-			HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, params, 0, NULL);
-			::CloseHandle(hThread);
-		}
-		*/
-
     }
     else
     {
@@ -670,6 +632,12 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	}
 
 	int nrDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
+
+	if (buf->isMonitoringOn())
+	{
+		// turn off monitoring
+		command(IDM_VIEW_MONITORING);
+	}
 
 	//Do all the works
 	bool isBufRemoved = removeBufferFromView(id, whichOne);

@@ -1754,6 +1754,48 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_MONITORING:
+		{
+			static HANDLE hThread = nullptr;
+			Buffer * curBuf = _pEditView->getCurrentBuffer();
+			if (curBuf->isMonitoringOn())
+			{
+				curBuf->stopMonitoring();
+				::CloseHandle(hThread);
+				hThread = nullptr;
+				checkMenuItem(IDM_VIEW_MONITORING, false);
+				_toolBar.setCheck(IDM_VIEW_MONITORING, false);
+				curBuf->setUserReadOnly(false);
+			}
+			else
+			{
+				const TCHAR *longFileName = curBuf->getFullPathName();
+				if (::PathFileExists(longFileName))
+				{
+					if (curBuf->isDirty())
+					{
+						::MessageBox(_pPublicInterface->getHSelf(), TEXT("The document is dirty. Please save the modification before monitoring it."), TEXT("Monitoring problem"), MB_OK);
+					}
+					else
+					{
+						curBuf->startMonitoring(); // monitoring firstly for making monitoring icon 
+						curBuf->setUserReadOnly(true);
+						
+						MonitorInfo *monitorInfo = new MonitorInfo(curBuf, &_mainEditView, &_subEditView);
+						hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
+						checkMenuItem(IDM_VIEW_MONITORING, true);
+						_toolBar.setCheck(IDM_VIEW_MONITORING, true);
+					}
+				}
+				else
+				{
+					::MessageBox(_pPublicInterface->getHSelf(), TEXT("The file should exist to be monitored."), TEXT("Monitoring problem"), MB_OK);
+				}
+			}
+
+			break;
+		}
+
 		case IDM_EXECUTE:
 		{
 			bool isFirstTime = !_runDlg.isCreated();

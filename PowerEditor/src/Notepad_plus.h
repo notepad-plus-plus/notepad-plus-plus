@@ -186,7 +186,6 @@ struct VisibleGUIConf final
 	}
 };
 
-
 class FileDialog;
 class Notepad_plus_Window;
 class AnsiCharPanel;
@@ -643,8 +642,15 @@ private:
 	}
 
 	static DWORD WINAPI backupDocument(void *params);
-	//static DWORD WINAPI monitorFileOnChange(void * params);
-	//static DWORD WINAPI monitorDirectoryOnChange(void * params);
+
+	static DWORD WINAPI monitorFileOnChange(void * params);
+	struct MonitorInfo final {
+		MonitorInfo(Buffer *buf, ScintillaEditView *mainEditorView, ScintillaEditView *subEditorView) :
+			_buffer(buf), _mainEditorView(mainEditorView), _subEditorView(subEditorView) {};
+		Buffer *_buffer = nullptr;
+		ScintillaEditView *_mainEditorView = nullptr;
+		ScintillaEditView *_subEditorView = nullptr;
+	};
 };
 
 

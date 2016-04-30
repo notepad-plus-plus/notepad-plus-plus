@@ -71,10 +71,14 @@ To build SciLexer.dll without PCRE support:
     - `nmake NOBOOST=1 -f scintilla.mak`         (normal build)
     - `nmake NOBOOST=1 DEBUG=1 -f scintilla.mak` (debugging build)
 
- 4. Copy `SciLexer.dll` from `scintilla\bin\` to the same directory as `notepad++.exe`.
-    - For the `Unicode Release` configuration, the output directory
+
+
+## To *run* `notepad++.exe`:
+
+Copy `SciLexer.dll` from `scintilla\bin\` to the same directory as `notepad++.exe`.  
+* For the `Unicode Release` configuration, the output directory
       (where `notepad++.exe` is) is `PowerEditor\bin\`.
-    - For the `Unicode Debug` configuration, the output directory
+* For the `Unicode Debug` configuration, the output directory
       (where `notepad++.exe` is) is `PowerEditor\visual.net\Unicode Debug\`.
 
 

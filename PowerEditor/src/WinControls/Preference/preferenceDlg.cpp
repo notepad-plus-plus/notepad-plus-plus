@@ -1829,6 +1829,8 @@ INT_PTR CALLBACK TabSettings::run_dlgProc(UINT Message, WPARAM wParam, LPARAM/* 
 			        ::GetCursorPos(&p);
 			        int size = tabSizeDlg.doDialog(p);
 			        if (size == -1) return FALSE;
+			        if (size == 0) return FALSE;
+			        //Tab size 0 removal
 
 					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
 					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);

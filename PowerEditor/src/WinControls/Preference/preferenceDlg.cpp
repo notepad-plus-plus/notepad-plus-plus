@@ -31,9 +31,7 @@
 #include "preferenceDlg.h"
 #include "lesDlgs.h"
 #include "EncodingMapper.h"
-
-#define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
-
+#include <iostream>
 using namespace std;
 
 const int BLINKRATE_FASTEST = 50;
@@ -1388,7 +1386,7 @@ INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 					return TRUE;
 
 				case IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON :
-					folderBrowser(_hSelf, TEXT("Select a folder as default directory"), IDC_OPENSAVEDIR_ALWAYSON_EDIT);
+					folderBrowser(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT);
 					return TRUE;
 
 				case IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG:
@@ -2262,6 +2260,9 @@ INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			generic_string backupFilePath = NppParameters::getInstance()->getUserPath();
 			backupFilePath += TEXT("\\backup\\");
 			::SetDlgItemText(_hSelf, IDD_BACKUPDIR_RESTORESESSION_PATH_EDIT, backupFilePath.c_str());
+			generic_string cumstomBackupFilePath = NppParameters::getInstance()->getUserPath();
+			cumstomBackupFilePath += TEXT("\\custombackup\\");
+			::SetDlgItemText(_hSelf, IDC_BACKUPDIR_EDIT, cumstomBackupFilePath.c_str());
 
 			int ID2CheckBackupOnSave = 0;
 
@@ -2296,8 +2297,10 @@ INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					case  IDC_BACKUPDIR_EDIT:
 					{
 						TCHAR inputDir[MAX_PATH];
+						
 						::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_GETTEXT, MAX_PATH, (LPARAM)inputDir);
 						nppGUI._backupDir = inputDir;
+
 						return TRUE;
 					}
 
@@ -2397,7 +2400,7 @@ INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				}
 				case IDD_BACKUPDIR_BROWSE_BUTTON :
 				{
-					folderBrowser(_hSelf, TEXT("Select a folder as backup directory"), IDC_BACKUPDIR_EDIT);
+					folderBrowser(_hSelf, IDC_BACKUPDIR_EDIT);
 					return TRUE;
 				}
 
@@ -2809,10 +2812,7 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, 
 			{
 				COLORREF bgColor = getCtrlBgColor(_hSelf);
 				SetTextColor(hdcStatic, RGB(0, 0, 0));
-				BYTE r = GetRValue(bgColor) - 30;
-				BYTE g = MyGetGValue(bgColor) - 30;
-				BYTE b = GetBValue(bgColor) - 30;
-				SetBkColor(hdcStatic, RGB(r, g, b));
+				SetBkColor(hdcStatic, RGB(GetRValue(bgColor) - 30, GetGValue(bgColor) - 30, GetBValue(bgColor) - 30));
 				return TRUE;
 			}
 			return FALSE;
@@ -2965,7 +2965,7 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LP
 
 				case IDD_CLOUDPATH_BROWSE_BUTTON:
 				{
-					folderBrowser(_hSelf, TEXT("Select a folder from/to where Notepad++ reads/writes its settings"), IDC_CLOUDPATH_EDIT);
+					folderBrowser(_hSelf, IDC_CLOUDPATH_EDIT);
 				}
 				break;
 
@@ -2977,6 +2977,5 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LP
 	}
 	return FALSE;
 }
-
 
 

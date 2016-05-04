@@ -103,7 +103,7 @@ SRC_WIN			= $(wildcard $(WIN_DIR)/*.cpp)
  SRC_COLOUR		= $(wildcard $(COLOUR_DIR)/*.cpp)
  SRC_DOCKING	= $(wildcard $(DOCKING_DIR)/*.cpp)
  SRC_DOCMAP		= $(wildcard $(DOCMAP_DIR)/*.cpp)
- SRC_FILEBROWSE	= $(wildcard $(FILEBROWSE_DIR)/*.cpp)
+ SRC_FILEBROWSE	= #$(wildcard $(FILEBROWSE_DIR)/*.cpp)
  SRC_FINDCHARS	= $(wildcard $(FINDCHARS_DIR)/*.cpp)
  SRC_FUNCLIST	= $(wildcard $(FUNCLIST_DIR)/*.cpp)
  SRC_GRID		= $(wildcard $(GRID_DIR)/*.cpp)
@@ -111,7 +111,7 @@ SRC_WIN			= $(wildcard $(WIN_DIR)/*.cpp)
  SRC_OPENSAVE	= $(wildcard $(OPENSAVE_DIR)/*.cpp)
  SRC_PREFERENCE	= $(wildcard $(PREFERENCE_DIR)/*.cpp)
  SRC_PRJPANEL	= $(wildcard $(PRJPANEL_DIR)/*.cpp)
- SRC_READDIR	= $(wildcard $(READDIR_DIR)/*.cpp)
+ SRC_READDIR	= #$(wildcard $(READDIR_DIR)/*.cpp)
  SRC_SHORTCUT	= $(wildcard $(SHORTCUT_DIR)/*.cpp)
  SRC_SPLITTER	= $(wildcard $(SPLITTER_DIR)/*.cpp)
  SRC_STATICDLG	= $(wildcard $(STATICDLG_DIR)/*.cpp)
@@ -236,7 +236,7 @@ UNICODE         = -DUNICODE -D_UNICODE
 CXX				= $(CROSS_COMPILE)g++
 #CXXFLAGS		= -O2 $(INCLUDESPECIAL)
 CXXFLAGS		= $(INCLUDESPECIAL) -DTIXML_USE_STL -DTIXMLA_USE_STL $(UNICODE) -std=c++14 -fpermissive
-INCLUDES		= $(patsubst %,-I%,$(DIRS)) -I./include
+INCLUDES		= -I./include $(patsubst %,-I%,$(DIRS))
 LDFLAGS			= -Wl,--subsystem,windows
 LIBS			= -lcomdlg32 -lcomctl32 -lgdi32 -lole32 -loleacc -lshell32 -lshlwapi
 

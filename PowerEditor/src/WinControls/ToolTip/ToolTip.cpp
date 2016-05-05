@@ -27,7 +27,6 @@
 
 
 #include <iostream>
-#include <stdexcept>
 #include "ToolTip.h"
 
 INT_PTR CALLBACK dlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

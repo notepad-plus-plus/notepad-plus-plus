@@ -26,7 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include <stdexcept>
 #include "ImageListSet.h"
 
 void IconList::create(HINSTANCE hInst, int iconSize) 

@@ -26,13 +26,11 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include <shlwapi.h>
-#include <shlobj.h>
+#include <Shlobj.h>
 #include <uxtheme.h>
 #include "preferenceDlg.h"
 #include "lesDlgs.h"
 #include "EncodingMapper.h"
-
-#define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
 
 using namespace std;
 
@@ -46,7 +44,7 @@ const int BORDERWIDTH_INTERVAL = 1;
 
 // This int encoding array is built from "EncodingUnit encodings[]" (see EncodingMapper.cpp)
 // And DefaultNewDocDlg will use "int encoding array" to get more info from "EncodingUnit encodings[]"
-static int encodings[] = {
+int encodings[] = {
 	1250, 
 	1251, 
 	1252, 
@@ -877,7 +875,6 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE), dontUnderlineState);
 
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_SETTEXT, 0, (LPARAM)nppGUI._definedSessionExt.c_str());
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_SETTEXT, 0, (LPARAM)nppGUI._definedWorkspaceExt.c_str());
 			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
@@ -912,13 +909,6 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 						TCHAR sessionExt[MAX_PATH];
 						::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_GETTEXT, MAX_PATH, (LPARAM)sessionExt);
 						nppGUI._definedSessionExt = sessionExt;
-						return TRUE;
-					}
-					case  IDC_EDIT_WORKSPACEFILEEXT:
-					{
-						TCHAR workspaceExt[MAX_PATH];
-						::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_GETTEXT, MAX_PATH, (LPARAM)workspaceExt);
-						nppGUI._definedWorkspaceExt = workspaceExt;
 						return TRUE;
 					}
 				}
@@ -1388,7 +1378,7 @@ INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 					return TRUE;
 
 				case IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON :
-					folderBrowser(_hSelf, TEXT("Select a folder as default directory"), IDC_OPENSAVEDIR_ALWAYSON_EDIT);
+					folderBrowser(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT);
 					return TRUE;
 
 				case IDC_OPENSAVEDIR_CHECK_USENEWSTYLESAVEDIALOG:
@@ -2277,6 +2267,7 @@ INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				default : //bak_none
 					ID2CheckBackupOnSave = IDC_RADIO_BKNONE;
 			}
+
 			::SendDlgItemMessage(_hSelf, ID2CheckBackupOnSave, BM_SETCHECK, BST_CHECKED, 0);
 
 			if (nppGUI._useDir)
@@ -2389,6 +2380,12 @@ INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					return TRUE;
 				}
 
+				case IDC_CHECK_SAVEBACKUPSONABORT:
+				{
+					nppGUI._saveBackupsOnAbort = isCheckedOrNot(IDC_CHECK_SAVEBACKUPSONABORT);
+					return TRUE;
+				}
+
 				case IDC_BACKUPDIR_CHECK:
 				{
 					nppGUI._useDir = !nppGUI._useDir;
@@ -2397,7 +2394,7 @@ INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				}
 				case IDD_BACKUPDIR_BROWSE_BUTTON :
 				{
-					folderBrowser(_hSelf, TEXT("Select a folder as backup directory"), IDC_BACKUPDIR_EDIT);
+					folderBrowser(_hSelf, IDC_BACKUPDIR_EDIT);
 					return TRUE;
 				}
 
@@ -2809,10 +2806,7 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, 
 			{
 				COLORREF bgColor = getCtrlBgColor(_hSelf);
 				SetTextColor(hdcStatic, RGB(0, 0, 0));
-				BYTE r = GetRValue(bgColor) - 30;
-				BYTE g = MyGetGValue(bgColor) - 30;
-				BYTE b = GetBValue(bgColor) - 30;
-				SetBkColor(hdcStatic, RGB(r, g, b));
+				SetBkColor(hdcStatic, RGB(GetRValue(bgColor) - 30, GetGValue(bgColor) - 30, GetBValue(bgColor) - 30));
 				return TRUE;
 			}
 			return FALSE;
@@ -2965,7 +2959,7 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LP
 
 				case IDD_CLOUDPATH_BROWSE_BUTTON:
 				{
-					folderBrowser(_hSelf, TEXT("Select a folder from/to where Notepad++ reads/writes its settings"), IDC_CLOUDPATH_EDIT);
+					folderBrowser(_hSelf, IDC_CLOUDPATH_EDIT);
 				}
 				break;
 

@@ -29,7 +29,6 @@
 
 
 
-class Notepad_plus;
 class Buffer;
 typedef Buffer* BufferID;	//each buffer has unique ID by which it can be retrieved
 #define BUFFER_INVALID	(BufferID)0

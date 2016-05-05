@@ -27,12 +27,12 @@
 #pragma once
 
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.9")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.8.8")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("6.9\0")
-#define VERSION_DIGITALVALUE 6, 9, 0, 0
+#define VERSION_VALUE TEXT("6.88\0")
+#define VERSION_DIGITALVALUE 6, 8, 8, 0
 
 
 
@@ -85,6 +85,8 @@
 #define IDI_MMPLAY_OFF_ICON     234
 #define IDI_MMPLAY_ON_ICON      235
 
+#define IDI_ABORT_OFF_ICON		236//ADDED BY BS
+
 #define IDI_NEW_ON_ICON      301
 #define IDI_OPEN_ON_ICON     302
 #define IDI_CLOSE_ON_ICON    303
@@ -105,6 +107,8 @@
 #define IDI_VIEW_ALL_CHAR_OFF_ICON  318
 #define IDI_VIEW_INDENT_OFF_ICON 319
 #define IDI_VIEW_WRAP_OFF_ICON 320
+
+#define IDI_ABORT_ON_ICON		336//ADDED BY BS
 
 //#define IDI_NEW_DISABLE_ICON   401
 //#define IDI_OPEN_ON_ICON       402
@@ -139,8 +143,6 @@
 #define IDI_PROJECT_FOLDERCLOSE        605
 #define IDI_PROJECT_FILE            606
 #define IDI_PROJECT_FILEINVALID        607
-#define IDI_FB_ROOTOPEN        608
-#define IDI_FB_ROOTCLOSE        609
 
 #define IDI_FUNCLIST_ROOT            620
 #define IDI_FUNCLIST_NODE            621
@@ -187,11 +189,11 @@
 #define IDR_M_PLAYRECORD    1526
 #define IDR_DOCMAP        1527
 #define IDR_FUNC_LIST    1528
-#define IDR_FILEBROWSER    1529
 #define IDR_CLOSETAB     1530
 #define IDR_CLOSETAB_INACT     1531
 #define IDR_CLOSETAB_HOVER     1532
 #define IDR_CLOSETAB_PUSH     1533
+
 
 #define IDR_FUNC_LIST_ICO    1534
 #define IDR_DOCMAP_ICO        1535
@@ -199,7 +201,9 @@
 #define IDR_CLIPBOARDPANEL_ICO        1537
 #define IDR_ASCIIPANEL_ICO        1538
 #define IDR_DOCSWITCHER_ICO        1539
-#define IDR_FILEBROWSER_ICO        1540
+
+#define IDR_ABORT        1540//ADDED BY BS
+
 #define ID_MACRO 20000
 #define ID_MACRO_LIMIT 20200
 
@@ -349,8 +353,6 @@
 //See functionListPanel_rc.h
 //#define IDD_FUNCLIST_PANEL   3400
 
-//See fileBrowser_rc.h
-//#define IDD_FILEBROWSER 3500
 
 // See regExtDlg.h
 //#define IDD_REGEXT 4000
@@ -401,8 +403,6 @@
 	#define NPPM_INTERNAL_GETSCINTEDTVIEW           (NOTEPADPLUS_USER_INTERNAL + 37)
 	#define NPPM_INTERNAL_ENABLESNAPSHOT            (NOTEPADPLUS_USER_INTERNAL + 38)
 	#define NPPM_INTERNAL_SAVECURRENTSESSION        (NOTEPADPLUS_USER_INTERNAL + 39)
-	#define NPPM_INTERNAL_FINDINFINDERDLG           (NOTEPADPLUS_USER_INTERNAL + 40)
-	#define NPPM_INTERNAL_REMOVEFINDER               (NOTEPADPLUS_USER_INTERNAL + 41)
 
 
     //wParam: 0
@@ -414,7 +414,7 @@
     // Used by Doc Monitor plugin
     //
 	#define NPPM_INTERNAL_CHECKDOCSTATUS (NPPMSG + 53)
-    // VOID NPPM_CHECKDOCSTATUS(0, 0)
+    // VOID NPPM_CHECKDOCSTATUS(BOOL, 0)
     // check all opened documents status.
     // If files are modified, then reloaod (with or without prompt, it depends on settings).
     // if files are deleted, then prompt user to close the documents

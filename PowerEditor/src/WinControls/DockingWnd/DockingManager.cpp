@@ -27,12 +27,11 @@
 
 
 
-#include <stdexcept>
 #include "DockingManager.h"
 #include "DockingSplitter.h"
 #include "DockingCont.h"
 #include "Gripper.h"
-#include "Parameters.h"
+#include "parameters.h"
 
 using namespace std;
 

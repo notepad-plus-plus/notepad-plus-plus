@@ -149,6 +149,12 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			::DestroyWindow(_hToolbarMenu);
             break;
         }
+		case WM_KEYDOWN:
+			//if (wParam == VK_F2)
+			{
+				::MessageBoxA(NULL,"vkF2","",MB_OK);
+			}
+			break;
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
@@ -200,8 +206,10 @@ void ProjectPanel::initMenus()
 	generic_string edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_RENAME, PM_EDITRENAME);
 	generic_string edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_NEWFOLDER, PM_EDITNEWFOLDER);
 	generic_string edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_ADDFILES, PM_EDITADDFILES);
+	generic_string edit_sort = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_ADDFILES, PM_EDITSORT);
 	generic_string edit_addfilesRecursive = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_ADDFILESRECUSIVELY, PM_EDITADDFILESRECUSIVELY);
 	generic_string edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_DELETEFOLDER, PM_EDITREMOVE);
+	generic_string edit_removeAll = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_DELETEFILE, PM_EDITREMOVEALL);
 
 	_hProjectMenu = ::CreatePopupMenu();
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP, edit_moveup.c_str());
@@ -212,6 +220,8 @@ void ProjectPanel::initMenus()
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES, edit_addfiles.c_str());
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILESRECUSIVELY, edit_addfilesRecursive.c_str());
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFOLDER, edit_remove.c_str());
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SORT, edit_sort.c_str());
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_REMOVEALL, edit_removeAll.c_str());
 
 	edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_MOVEUP, PM_MOVEUPENTRY);
 	edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_MOVEDOWN, PM_MOVEDOWNENTRY);
@@ -220,6 +230,8 @@ void ProjectPanel::initMenus()
 	edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_ADDFILES, PM_EDITADDFILES);
 	edit_addfilesRecursive = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_ADDFILESRECUSIVELY, PM_EDITADDFILESRECUSIVELY);
 	edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_DELETEFOLDER, PM_EDITREMOVE);
+	edit_sort = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_SORT, PM_EDITSORT);
+	edit_sort = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_REMOVEALL, PM_EDITREMOVEALL);
 
 	_hFolderMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP,        edit_moveup.c_str());
@@ -230,6 +242,7 @@ void ProjectPanel::initMenus()
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES,      edit_addfiles.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILESRECUSIVELY, edit_addfilesRecursive.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFOLDER,  edit_remove.c_str());
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SORT, edit_sort.c_str());
 
 	edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_PROJECT_MOVEUP, PM_MOVEUPENTRY);
 	edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_PROJECT_MOVEDOWN, PM_MOVEDOWNENTRY);
@@ -244,6 +257,7 @@ void ProjectPanel::initMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, edit_rename.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, edit_remove.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MODIFYFILEPATH, edit_modifyfile.c_str());
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_REMOVEALL, edit_removeAll.c_str());
 }
 
 
@@ -889,6 +903,17 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		}
 		break;
 
+		case IDM_PROJECT_SORT:
+		{
+			sort(hTreeItem);  //edit by bs
+		}
+		break;
+		case IDM_PROJECT_REMOVEALL:
+		{
+			removeAllFiles();  //edit by bs
+		}
+		break;
+
 		case IDM_PROJECT_ADDFILESRECUSIVELY :
 		{
 			addFilesFromDirectory(hTreeItem);
@@ -1039,6 +1064,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			}
 		}
 		break;
+		
 	}
 }
 
@@ -1076,6 +1102,17 @@ void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 		_treeView.expand(hTreeItem);
 		setWorkSpaceDirty(true);
 	}
+}
+
+void ProjectPanel::sort(HTREEITEM hTreeItem)
+{
+	_treeView.sort(hTreeItem);	//add by bs 
+}
+
+void ProjectPanel::removeAllFiles()
+{
+	_treeView.removeAll(); 
+		
 }
 
 void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem)

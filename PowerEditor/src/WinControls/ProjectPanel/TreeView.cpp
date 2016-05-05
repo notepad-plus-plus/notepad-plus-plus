@@ -69,16 +69,6 @@ LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 
-void TreeView::makeLabelEditable(bool toBeEnabled)
-{
-	DWORD dwNewStyle = (DWORD)GetWindowLongPtr(_hSelf, GWL_STYLE);
-	if (toBeEnabled)
-		dwNewStyle |= TVS_EDITLABELS;
-	else
-		dwNewStyle &= ~TVS_EDITLABELS;
-	::SetWindowLongPtr(_hSelf, GWL_STYLE, dwNewStyle);
-}
-
 
 bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 {
@@ -98,48 +88,6 @@ bool TreeView::setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr)
 		*((generic_string *)tvItem.lParam) = paramStr;
 	}
 	SendMessage(_hSelf, TVM_SETITEM, 0,(LPARAM)&tvItem);
-	return true;
-}
-
-LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
-{
-	if (not Item2Get)
-		return false;
-	//TCHAR textBuffer[MAX_PATH];
-	TVITEM tvItem;
-	tvItem.hItem = Item2Get;
-	tvItem.mask = TVIF_PARAM;
-	//tvItem.pszText = textBuffer;
-	tvItem.lParam = 0;
-	SendMessage(_hSelf, TVM_GETITEM, 0, (LPARAM)&tvItem);
-	return tvItem.lParam;
-}
-
-generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
-{
-	if (not Item2Set)
-		return false;
-	TCHAR textBuffer[MAX_PATH];
-	TVITEM tvItem;
-	tvItem.hItem = Item2Set;
-	tvItem.mask = TVIF_TEXT;
-	tvItem.pszText = textBuffer;
-	tvItem.cchTextMax = MAX_PATH;
-	SendMessage(_hSelf, TVM_GETITEM, 0, (LPARAM)&tvItem);
-	return tvItem.pszText;
-}
-
-bool TreeView::renameItem(HTREEITEM Item2Set, const TCHAR *newName)
-{
-	if (not Item2Set || not newName)
-		return false;
-
-	TVITEM tvItem;
-	tvItem.hItem = Item2Set;
-	tvItem.mask = TVIF_TEXT;
-	tvItem.pszText = (LPWSTR)newName;
-	tvItem.cchTextMax = MAX_PATH;
-	SendMessage(_hSelf, TVM_SETITEM, 0, (LPARAM)&tvItem);
 	return true;
 }
 
@@ -193,6 +141,20 @@ void TreeView::removeAllItems()
 		cleanSubEntries(tvProj);
 	}
 	TreeView_DeleteAllItems(_hSelf);
+}
+
+void TreeView::removeAll()
+{
+	HTREEITEM root = getRoot();
+	HTREEITEM child = getChildFrom(root);
+
+	HTREEITEM child2 = getChildFrom(child);
+	while (getNextSibling(child2)!= NULL){
+		HTREEITEM temp = getNextSibling(child2);
+		removeItem(child2);
+		child2 = temp;
+	}
+	
 }
 
 
@@ -441,7 +403,7 @@ bool TreeView::moveUp(HTREEITEM itemToMove)
 bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
 {
 	HTREEITEM selectedItem = getSelection();
-	int itemSelected = selectedItem == itemGoDown?1:(selectedItem == itemGoUp?2:0);
+	int itemSelected = selectedItem == itemGoDown ? 1:(selectedItem == itemGoUp?2:0);
 
 	// get previous and next for both items with () function
 	HTREEITEM itemTop = getPrevSibling(itemGoDown);

@@ -991,9 +991,14 @@ bool FileManager::deleteCurrentBufferBackup()
 	generic_string backupFilePath = buffer->getBackupFileName();
 	if (not backupFilePath.empty())
 	{
-		// delete backup file
-		buffer->setBackupFileName(generic_string());
-		result = (::DeleteFile(backupFilePath.c_str()) != 0);
+		NppParameters *pNppParam = NppParameters::getInstance();
+		NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+		if (!nppGUI._saveBackupsOnAbort)
+		{
+			// delete backup file
+			buffer->setBackupFileName(generic_string());
+			result = (::DeleteFile(backupFilePath.c_str()) != 0);
+		}
 	}
 
 	// set to signaled state via destructor EventReset.

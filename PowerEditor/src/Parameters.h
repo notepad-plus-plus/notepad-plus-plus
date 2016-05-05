@@ -801,6 +801,7 @@ struct NppGUI final
 
 	PrintSettings _printSettings;
 	BackupFeature _backup = bak_none;
+	bool _saveBackupsOnAbort = false;
 	bool _useDir = false;
 	generic_string _backupDir;
 	DockingManagerData _dockingData;

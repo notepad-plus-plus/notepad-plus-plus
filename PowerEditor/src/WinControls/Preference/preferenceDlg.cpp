@@ -2389,6 +2389,12 @@ INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					return TRUE;
 				}
 
+				case IDC_CHECK_SAVEBACKUPSONABORT:
+				{
+					nppGUI._saveBackupsOnAbort = isCheckedOrNot(IDC_CHECK_SAVEBACKUPSONABORT);
+					return TRUE;
+				}
+
 				case IDC_BACKUPDIR_CHECK:
 				{
 					nppGUI._useDir = !nppGUI._useDir;

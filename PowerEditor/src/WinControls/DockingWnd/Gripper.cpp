@@ -29,7 +29,6 @@
 // speed and consistency of the drag-rectangle - August 2010, Joern Gruel (jg)
 
 
-#include <stdexcept>
 #include "Gripper.h"
 #include "DockingManager.h"
 #include "Parameters.h"

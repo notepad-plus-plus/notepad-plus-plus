@@ -27,7 +27,6 @@
 
 
 
-#include <stdexcept>
 #include "TabBar.h"
 #include "Parameters.h"
 
@@ -318,7 +317,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 				throw std::runtime_error("TabBarPlus::init : Tab Control error - Tab Control # is over its limit");
 			}
 			_hwndArray[i] = _hSelf;
-			_ctrlID = i;
+			_ctrlID = i+1;
 		}
 		++_nbCtrl;
 

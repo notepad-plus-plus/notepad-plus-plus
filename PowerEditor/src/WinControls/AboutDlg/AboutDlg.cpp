@@ -27,7 +27,7 @@
 
 
 
-#include <shlobj.h>
+#include <Shlobj.h>
 #include <uxtheme.h>
 
 #include "AboutDlg.h"

@@ -54,7 +54,9 @@
 #define PM_EDITNEWFOLDER           TEXT("Add Folder")
 #define PM_EDITADDFILES            TEXT("Add Files...")
 #define PM_EDITADDFILESRECUSIVELY  TEXT("Add Files from Directory...")
+#define PM_EDITSORT                TEXT("Sort")				// edit by bs 
 #define PM_EDITREMOVE              TEXT("Remove\tDEL")
+#define PM_EDITREMOVEALL           TEXT("Remove All Files")
 #define PM_EDITMODIFYFILE          TEXT("Modify File Path")
 
 #define PM_WORKSPACEMENUENTRY      TEXT("Workspace")
@@ -123,6 +125,8 @@ protected:
 	void destroyMenus();
 	BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
 	void addFiles(HTREEITEM hTreeItem);
+	void sort(HTREEITEM hTreeItem);	//edit by bs
+	void removeAllFiles();   //edit by bs
 	void addFilesFromDirectory(HTREEITEM hTreeItem);
 	void recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem);
 	HTREEITEM addFolder(HTREEITEM hTreeItem, const TCHAR *folderName);

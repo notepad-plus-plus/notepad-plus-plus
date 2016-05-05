@@ -30,7 +30,7 @@
 
 #include <windows.h>
 #include <commctrl.h>
-#include "Window.h"
+#include "window.h"
 #include "Common.h"
 
 struct TreeStateNode {
@@ -51,14 +51,11 @@ public:
 	virtual void destroy();
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
 	bool setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr);
-	LPARAM getItemParam(HTREEITEM Item2Get) const;
-	generic_string getItemDisplayName(HTREEITEM Item2Set) const;
 	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
-	void removeAllItems();
-	bool renameItem(HTREEITEM Item2Set, const TCHAR *newName);
-	void makeLabelEditable(bool toBeEnabled);
-
+	void removeAllItems(); 
+	void removeAll();
+	
 	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {
 		return TreeView_GetChild(_hSelf, hTreeItem);
 	};
@@ -116,6 +113,7 @@ public:
 	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
 	bool searchLeafAndBuildTree(TreeView & tree2Build, const generic_string & text2Search, int index2Search);
 	void sort(HTREEITEM hTreeItem);
+	
 
 protected:
 	WNDPROC _defaultProc;
@@ -124,7 +122,7 @@ protected:
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((TreeView *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
-	void cleanSubEntries(HTREEITEM hTreeItem);
+	
 	void dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem);
 	bool searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const generic_string & text2Search, int index2Search, HTREEITEM tree2Search);
 
@@ -140,6 +138,7 @@ protected:
 	bool isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem);
 	bool canDragOut(HTREEITEM targetItem);
 	bool canDropIn(HTREEITEM targetItem);
+	void cleanSubEntries(HTREEITEM hTreeItem);
 };
 
 

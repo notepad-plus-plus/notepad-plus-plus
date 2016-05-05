@@ -36,10 +36,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.9"
+!define APPVERSION "6.8.8"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 9
+!define VERSION_MINOR 88
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -653,6 +653,7 @@ Section -"Notepad++" mainSection
 		
 	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +11
 		MessageBox MB_YESNOCANCEL "Due to the stability issue, DSpellCheck.dll will be moved to the directory $\"disabled$\".$\nChoose Cancel to keep it this installation.$\nChoose No to keep it forever." /SD IDYES IDNO never IDCANCEL donothing ;IDYES remove
+	remove:
 		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 		Goto donothing
@@ -1225,6 +1226,13 @@ SectionGroup "Themes" Themes
 	${MementoSectionEnd}
 SectionGroupEnd
 
+${MementoUnselectedSection} "As default html viewer" htmlViewer
+	SetOverwrite on
+	SetOutPath "$INSTDIR\"
+	File "..\bin\nppIExplorerShell.exe"
+	WriteRegStr HKLM "SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name" "" "$INSTDIR\nppIExplorerShell.exe"
+${MementoSectionEnd}
+
 InstType "Minimalist"
 
 ${MementoSection} "Auto-Updater" AutoUpdater
@@ -1238,6 +1246,15 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin\updater\README.md"
 ${MementoSectionEnd}
 
+/*
+${MementoSection} "User Manual" UserManual
+	SetOverwrite on
+	IfFileExists  "$INSTDIR\NppHelp.chm" 0 +2
+		Delete "$INSTDIR\NppHelp.chm"
+	SetOutPath "$INSTDIR\user.manual"
+	File /r "..\bin\user.manual\"
+${MementoSectionEnd}
+*/
 
 ${MementoSectionDone}
 
@@ -1253,6 +1270,7 @@ ${MementoSectionDone}
     !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need those plugins to extend the capacity of Notepad++.'
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${htmlViewer} 'Open the html file in Notepad++ while you choose <view source> from IE.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
     ;!insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of Notepad++.'
     ;!insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add Notepad++ shortcut on your desktop.'

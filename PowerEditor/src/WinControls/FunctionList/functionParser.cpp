@@ -28,7 +28,7 @@
 #include <shlwapi.h>
 #include "ScintillaEditView.h"
 #include "functionParser.h"
-#include "BoostRegexSearch.h"
+#include "boostregexsearch.h"
 
 using namespace std;
 

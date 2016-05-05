@@ -27,9 +27,8 @@
 
 
 
-#include <stdexcept>
 #include "ToolBar.h"
-#include "shortcut.h"
+#include "Shortcut.h"
 #include "Parameters.h"
 #include "FindReplaceDlg_rc.h"
 

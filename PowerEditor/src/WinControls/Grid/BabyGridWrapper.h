@@ -30,7 +30,7 @@
 #define BABYGRIDWRAPPER
 
 #ifndef BABYGRID_H
-#include "BabyGrid.h"
+#include "babygrid.h"
 #endif// BABYGRID_H
 
 #include "Window.h"

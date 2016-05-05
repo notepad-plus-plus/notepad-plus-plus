@@ -88,18 +88,17 @@ typedef void * SCINTILLA_PTR;
 
 #define WM_DOCK_USERDEFINE_DLG      (SCINTILLA_USER + 1)
 #define WM_UNDOCK_USERDEFINE_DLG    (SCINTILLA_USER + 2)
-#define WM_CLOSE_USERDEFINE_DLG     (SCINTILLA_USER + 3)
-#define WM_REMOVE_USERLANG          (SCINTILLA_USER + 4)
-#define WM_RENAME_USERLANG          (SCINTILLA_USER + 5)
-#define WM_REPLACEALL_INOPENEDDOC   (SCINTILLA_USER + 6)
-#define WM_FINDALL_INOPENEDDOC      (SCINTILLA_USER + 7)
-#define WM_DOOPEN                   (SCINTILLA_USER + 8)
-#define WM_FINDINFILES              (SCINTILLA_USER + 9)
-#define WM_REPLACEINFILES           (SCINTILLA_USER + 10)
-#define WM_FINDALL_INCURRENTDOC     (SCINTILLA_USER + 11)
-#define WM_FRSAVE_INT               (SCINTILLA_USER + 12)
-#define WM_FRSAVE_STR               (SCINTILLA_USER + 13)
-#define WM_FINDALL_INCURRENTFINDER  (SCINTILLA_USER + 14)
+#define WM_CLOSE_USERDEFINE_DLG		(SCINTILLA_USER + 3)
+#define WM_REMOVE_USERLANG		    (SCINTILLA_USER + 4)
+#define WM_RENAME_USERLANG			(SCINTILLA_USER + 5)
+#define WM_REPLACEALL_INOPENEDDOC	(SCINTILLA_USER + 6)
+#define WM_FINDALL_INOPENEDDOC  	(SCINTILLA_USER + 7)
+#define WM_DOOPEN				  	(SCINTILLA_USER + 8)
+#define WM_FINDINFILES			  	(SCINTILLA_USER + 9)
+#define WM_REPLACEINFILES		  	(SCINTILLA_USER + 10)
+#define WM_FINDALL_INCURRENTDOC	  	(SCINTILLA_USER + 11)
+#define WM_FRSAVE_INT	  	(SCINTILLA_USER + 12)
+#define WM_FRSAVE_STR	  	(SCINTILLA_USER + 13)
 
 const int NB_FOLDER_STATE = 7;
 
@@ -230,7 +229,6 @@ public:
 			}
 		}
 	};
-
 	virtual void destroy()
 	{
 		::DestroyWindow(_hSelf);
@@ -468,11 +466,11 @@ public:
 			return false;
 		long start = long(execute(SCI_GETSELECTIONSTART));
 		long end = long(execute(SCI_GETSELECTIONEND));
-		selByte = end - start;
+		selByte = (start < end)?end-start:start-end;
 
 		start = long(execute(SCI_LINEFROMPOSITION, start));
 		end = long(execute(SCI_LINEFROMPOSITION, end));
-		selLine = end - start;
+		selLine = (start < end)?end-start:start-end;
 		if (selLine)
 			++selLine;
 
@@ -540,6 +538,9 @@ public:
 	void performGlobalStyles();
 
 	void expand(int &line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
+
+	void currentLineUp() const;
+	void currentLineDown() const;
 
 	std::pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;
@@ -766,11 +767,7 @@ protected:
 	};
 
 	void setFortranLexer() {
-		setLexer(SCLEX_FORTRAN, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
-	};
-
-	void setFortran77Lexer() {
-		setLexer(SCLEX_F77, L_FORTRAN_77, LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_F77, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setLispLexer(){

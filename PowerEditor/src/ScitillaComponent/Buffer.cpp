@@ -581,10 +581,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-	if (_tcschr(fullpath, '~'))
-	{
-		::GetLongPathName(fullpath, fullpath, MAX_PATH);
-	}
+	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
@@ -853,10 +850,7 @@ bool FileManager::backupCurrentBuffer()
 
 			TCHAR fullpath[MAX_PATH];
 			::GetFullPathName(backupFilePath.c_str(), MAX_PATH, fullpath, NULL);
-			if (_tcschr(fullpath, '~'))
-			{
-				::GetLongPathName(fullpath, fullpath, MAX_PATH);
-			}
+			::GetLongPathName(fullpath, fullpath, MAX_PATH);
 
 			// Make sure the backup file is not read only
 			DWORD dwFileAttribs = ::GetFileAttributes(fullpath);
@@ -991,9 +985,15 @@ bool FileManager::deleteCurrentBufferBackup()
 	generic_string backupFilePath = buffer->getBackupFileName();
 	if (not backupFilePath.empty())
 	{
-		// delete backup file
-		buffer->setBackupFileName(generic_string());
-		result = (::DeleteFile(backupFilePath.c_str()) != 0);
+		NppParameters *pNppParam = NppParameters::getInstance();
+		NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+		if (!nppGUI._saveBackupsOnAbort)								// EDITED BY BS
+		{
+			// delete backup file
+			buffer->setBackupFileName(generic_string());				// EDITED BY BS
+			result = (::DeleteFile(backupFilePath.c_str()) != 0);		// EDITED BY BS
+		}
+		
 	}
 
 	// set to signaled state via destructor EventReset.
@@ -1030,11 +1030,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-	if (_tcschr(fullpath, '~'))
-	{
-		::GetLongPathName(fullpath, fullpath, MAX_PATH);
-	}
-
+	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	if (PathFileExists(fullpath))
 	{
 		attrib = ::GetFileAttributes(fullpath);
@@ -1145,7 +1141,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		generic_string backupFilePath = buffer->getBackupFileName();
 		if (not backupFilePath.empty())
 		{
-			// delete backup file
+			//delete backup file
 			buffer->setBackupFileName(generic_string());
 			::DeleteFile(backupFilePath.c_str());
 		}
@@ -1290,23 +1286,22 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	// First test for a Unix-like Shebang
 	// See https://en.wikipedia.org/wiki/Shebang_%28Unix%29 for more details about Shebang
 	std::string shebang = "#!";
-
-	size_t foundPos = buf2Test.find(shebang);
-	if (foundPos == 0)
+	auto res = std::mismatch(shebang.begin(), shebang.end(), buf2Test.begin());
+	if (res.first == shebang.end())
 	{
 		// Make a list of the most commonly used languages
-		const size_t NB_SHEBANG_LANGUAGES = 6;
-		FirstLineLanguages ShebangLangs[NB_SHEBANG_LANGUAGES] = {
+		const size_t SHEBANG_LANGUAGES = 6;
+		FirstLineLanguages ShebangLangs[SHEBANG_LANGUAGES] = {
 			{ "sh",		L_BASH },
 			{ "python", L_PYTHON },
 			{ "perl",	L_PERL },
 			{ "php",	L_PHP },
 			{ "ruby",	L_RUBY },
-			{ "node",	L_JAVASCRIPT }
+			{ "node",	L_JAVASCRIPT },
 		};
 
 		// Go through the list of languages
-		for (i = 0; i < NB_SHEBANG_LANGUAGES; ++i)
+		for (i = 0; i < SHEBANG_LANGUAGES; ++i)
 		{
 			if (buf2Test.find(ShebangLangs[i].pattern) != std::string::npos)
 			{
@@ -1319,19 +1314,18 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	}
 
 	// Are there any other patterns we know off?
-	const size_t NB_FIRST_LINE_LANGUAGES = 5;
-	FirstLineLanguages languages[NB_FIRST_LINE_LANGUAGES] = {
+	const size_t FIRST_LINE_LANGUAGES = 4;
+	FirstLineLanguages languages[FIRST_LINE_LANGUAGES] = {
 		{ "<?xml",			L_XML },
 		{ "<?php",			L_PHP },
 		{ "<html",			L_HTML },
 		{ "<!DOCTYPE html",	L_HTML },
-		{ "<?",				L_PHP } // MUST be after "<?php" and "<?xml" to get the result as accurate as possible
 	};
 
-	for (i = 0; i < NB_FIRST_LINE_LANGUAGES; ++i)
+	for (i = 0; i < FIRST_LINE_LANGUAGES; ++i)
 	{
-		foundPos = buf2Test.find(languages[i].pattern);
-		if (foundPos == 0)
+		res = std::mismatch(languages[i].pattern.begin(), languages[i].pattern.end(), buf2Test.begin());
+		if (res.first == languages[i].pattern.end())
 		{
 			return languages[i].lang;
 		}
@@ -1511,10 +1505,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 {
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
-	if (_tcschr(fullpath, '~'))
-	{
-		::GetLongPathName(fullpath, fullpath, MAX_PATH);
-	}
+	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 
 	for(size_t i = 0; i < _buffers.size(); i++)
 	{

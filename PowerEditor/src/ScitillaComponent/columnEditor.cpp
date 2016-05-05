@@ -28,7 +28,7 @@
 
 #include <vector>
 #include <algorithm>
-#include <shlobj.h>
+#include <Shlobj.h>
 #include <uxtheme.h>
 #include "columnEditor.h"
 #include "ScintillaEditView.h"

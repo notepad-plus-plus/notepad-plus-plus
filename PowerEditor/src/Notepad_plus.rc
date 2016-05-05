@@ -51,7 +51,7 @@ BEGIN
             VALUE    "FileDescription",    "Notepad++ : a free (GNU) source code editor\0"
             VALUE    "FileVersion",        VERSION_VALUE
             VALUE    "InternalName",       "npp.exe\0"
-            VALUE    "LegalCopyright",     "Copyleft 1998-2016 by Don HO\0"
+            VALUE    "LegalCopyright",     "Copyleft 1998-2015 by Don HO\0"
             VALUE    "OriginalFilename",   "Notepad++.exe\0"
             VALUE    "ProductName",        "Notepad++\0"
             VALUE    "ProductVersion",     VERSION_VALUE
@@ -61,154 +61,152 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_M30ICON                     ICON      "icons/npp.ico"
-IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
-//IDI_JESUISCHARLIE               ICON      "icons/Je_suis_Charlie.ico"
-IDI_NEW_OFF_ICON                ICON      "icons/new_off.ico"
-IDI_OPEN_OFF_ICON               ICON      "icons/open_off.ico"
-IDI_SAVE_OFF_ICON               ICON      "icons/save_off.ico"
-IDI_SAVEALL_OFF_ICON            ICON      "icons/saveall_off.ico"
-IDI_CLOSE_OFF_ICON              ICON      "icons/supp_off.ico"
-IDI_CLOSEALL_OFF_ICON           ICON      "icons/suppall_off.ico"
-IDI_CUT_OFF_ICON                ICON      "icons/cut_off.ico"
-IDI_COPY_OFF_ICON               ICON      "icons/dupli_off.ico"
-IDI_PASTE_OFF_ICON              ICON      "icons/paste_off.ico"
-IDI_UNDO_OFF_ICON               ICON      "icons/undo_off.ico"
-IDI_REDO_OFF_ICON               ICON      "icons/redo_off.ico"
-IDI_FIND_OFF_ICON               ICON      "icons/find_off.ico"
-IDI_REPLACE_OFF_ICON            ICON      "icons/findrep_off.ico"
-IDI_ZOOMIN_OFF_ICON             ICON      "icons/zoomIn_off.ico"
-IDI_ZOOMOUT_OFF_ICON            ICON      "icons/zoomOut_off.ico"
-IDI_VIEW_UD_DLG_OFF_ICON        ICON      "icons/userDefineDlg_off.ico"
-IDI_VIEW_ALL_CHAR_OFF_ICON      ICON      "icons/allChars_off.ico"
-IDI_VIEW_INDENT_OFF_ICON        ICON      "icons/indentGuide_off.ico"
-IDI_VIEW_WRAP_OFF_ICON          ICON      "icons/wrap_off.ico"
-IDI_PRINT_OFF_ICON              ICON      "icons/imprim_off.ico"
-IDI_NEW_ON_ICON                 ICON      "icons/new_on.ico"
-IDI_OPEN_ON_ICON                ICON      "icons/open_on.ico"
-IDI_SAVE_ON_ICON                ICON      "icons/save_on.ico"
-IDI_SAVEALL_ON_ICON             ICON      "icons/saveall_on.ico"
-IDI_CLOSE_ON_ICON               ICON      "icons/supp_on.ico"
-IDI_CLOSEALL_ON_ICON            ICON      "icons/suppall_on.ico"
-IDI_CUT_ON_ICON                 ICON      "icons/cut_on.ico"
-IDI_COPY_ON_ICON                ICON      "icons/dupli_on.ico"
-IDI_PASTE_ON_ICON               ICON      "icons/paste_on.ico"
-IDI_UNDO_ON_ICON                ICON      "icons/undo_on.ico"
-IDI_REDO_ON_ICON                ICON      "icons/redo_on.ico"
-IDI_FIND_ON_ICON                ICON      "icons/find_on.ico"
-IDI_REPLACE_ON_ICON             ICON      "icons/findrep_on.ico"
-IDI_ZOOMIN_ON_ICON              ICON      "icons/zoomIn_on.ico"
-IDI_ZOOMOUT_ON_ICON             ICON      "icons/zoomOut_on.ico"
-IDI_VIEW_UD_DLG_ON_ICON         ICON      "icons/userDefineDlg_on.ico"
-IDI_VIEW_ALL_CHAR_ON_ICON       ICON      "icons/allChars_on.ico"
-IDI_VIEW_INDENT_ON_ICON         ICON      "icons/indentGuide_on.ico"
-IDI_VIEW_WRAP_ON_ICON           ICON      "icons/wrap_on.ico"
-IDI_PRINT_ON_ICON               ICON      "icons/imprim_on.ico"
+IDI_M30ICON                     ICON      "icons\\npp.ico"
+IDI_CHAMELEON                   ICON      "icons\\chameleon.ico"
+//IDI_JESUISCHARLIE               ICON      "icons\\Je_suis_Charlie.ico"
+IDI_NEW_OFF_ICON                ICON      "icons\\new_off.ico"
+IDI_OPEN_OFF_ICON               ICON      "icons\\open_off.ico"
+IDI_SAVE_OFF_ICON               ICON      "icons\\save_off.ico"
+IDI_SAVEALL_OFF_ICON            ICON      "icons\\saveall_off.ico"
+IDI_CLOSE_OFF_ICON              ICON      "icons\\supp_off.ico"
+IDI_CLOSEALL_OFF_ICON           ICON      "icons\\suppall_off.ico"
+IDI_CUT_OFF_ICON                ICON      "icons\\cut_off.ico"
+IDI_COPY_OFF_ICON               ICON      "icons\\dupli_off.ico"
+IDI_PASTE_OFF_ICON              ICON      "icons\\paste_off.ico"
+IDI_UNDO_OFF_ICON               ICON      "icons\\undo_off.ico"
+IDI_REDO_OFF_ICON               ICON      "icons\\redo_off.ico"
+IDI_FIND_OFF_ICON               ICON      "icons\\find_off.ico"
+IDI_REPLACE_OFF_ICON            ICON      "icons\\findrep_off.ico"
+IDI_ZOOMIN_OFF_ICON             ICON      "icons\\zoomIn_off.ico"
+IDI_ZOOMOUT_OFF_ICON            ICON      "icons\\zoomOut_off.ico"
+IDI_VIEW_UD_DLG_OFF_ICON        ICON      "icons\\userDefineDlg_off.ico"
+IDI_VIEW_ALL_CHAR_OFF_ICON      ICON      "icons\\allChars_off.ico"
+IDI_VIEW_INDENT_OFF_ICON        ICON      "icons\\indentGuide_off.ico"
+IDI_VIEW_WRAP_OFF_ICON          ICON      "icons\\wrap_off.ico"
+IDI_PRINT_OFF_ICON              ICON      "icons\\imprim_off.ico"
+IDI_ABORT_OFF_ICON				ICON	  "icons\\unsaved.ico"//ADDED BY BS
+IDI_NEW_ON_ICON                 ICON      "icons\\new_on.ico"
+IDI_OPEN_ON_ICON                ICON      "icons\\open_on.ico"
+IDI_SAVE_ON_ICON                ICON      "icons\\save_on.ico"
+IDI_SAVEALL_ON_ICON             ICON      "icons\\saveall_on.ico"
+IDI_CLOSE_ON_ICON               ICON      "icons\\supp_on.ico"
+IDI_CLOSEALL_ON_ICON            ICON      "icons\\suppall_on.ico"
+IDI_CUT_ON_ICON                 ICON      "icons\\cut_on.ico"
+IDI_COPY_ON_ICON                ICON      "icons\\dupli_on.ico"
+IDI_PASTE_ON_ICON               ICON      "icons\\paste_on.ico"
+IDI_UNDO_ON_ICON                ICON      "icons\\undo_on.ico"
+IDI_REDO_ON_ICON                ICON      "icons\\redo_on.ico"
+IDI_FIND_ON_ICON                ICON      "icons\\find_on.ico"
+IDI_REPLACE_ON_ICON             ICON      "icons\\findrep_on.ico"
+IDI_ZOOMIN_ON_ICON              ICON      "icons\\zoomIn_on.ico"
+IDI_ZOOMOUT_ON_ICON             ICON      "icons\\zoomOut_on.ico"
+IDI_VIEW_UD_DLG_ON_ICON         ICON      "icons\\userDefineDlg_on.ico"
+IDI_VIEW_ALL_CHAR_ON_ICON       ICON      "icons\\allChars_on.ico"
+IDI_VIEW_INDENT_ON_ICON         ICON      "icons\\indentGuide_on.ico"
+IDI_VIEW_WRAP_ON_ICON           ICON      "icons\\wrap_on.ico"
+IDI_PRINT_ON_ICON               ICON      "icons\\imprim_on.ico"
+IDI_ABORT_ON_ICON				ICON	  "icons\\unsaved.ico"//ADDED BY BS
 
-IDI_SAVE_DISABLE_ICON           ICON      "icons/save_dis.ico"
-IDI_SAVEALL_DISABLE_ICON        ICON      "icons/saveall_dis.ico"
-IDI_CUT_DISABLE_ICON            ICON      "icons/cut_dis.ico"
-IDI_COPY_DISABLE_ICON           ICON      "icons/dupli_dis.ico"
-IDI_PASTE_DISABLE_ICON          ICON      "icons/paste_dis.ico"
-IDI_UNDO_DISABLE_ICON           ICON      "icons/undo_dis.ico"
-IDI_REDO_DISABLE_ICON           ICON      "icons/redo_dis.ico"
+IDI_SAVE_DISABLE_ICON           ICON      "icons\\save_dis.ico"
+IDI_SAVEALL_DISABLE_ICON        ICON      "icons\\saveall_dis.ico"
+IDI_CUT_DISABLE_ICON            ICON      "icons\\cut_dis.ico"
+IDI_COPY_DISABLE_ICON           ICON      "icons\\dupli_dis.ico"
+IDI_PASTE_DISABLE_ICON          ICON      "icons\\paste_dis.ico"
+IDI_UNDO_DISABLE_ICON           ICON      "icons\\undo_dis.ico"
+IDI_REDO_DISABLE_ICON           ICON      "icons\\redo_dis.ico"
 //
-IDI_SAVED_ICON                  ICON      "icons/saved.ico"
-IDI_UNSAVED_ICON                ICON      "icons/unsaved.ico"
-IDI_READONLY_ICON               ICON      "icons/readonly.ico"
-IDI_DELETE_ICON                 ICON      "icons/delete.ico"
+IDI_SAVED_ICON                  ICON      "icons\\saved.ico"
+IDI_UNSAVED_ICON                ICON      "icons\\unsaved.ico"
+IDI_READONLY_ICON               ICON      "icons\\readonly.ico"
+IDI_DELETE_ICON                 ICON      "icons\\delete.ico"
 
-IDI_FIND_RESULT_ICON            ICON      "icons/findResult.ico"
+IDI_FIND_RESULT_ICON            ICON      "icons\\findResult.ico"
 
-IDC_DRAG_TAB                    CURSOR    "cursors/drag.cur"
-IDC_DRAG_INTERDIT_TAB           CURSOR    "cursors/drag_interdit.cur"
-IDC_DRAG_PLUS_TAB               CURSOR    "cursors/drag_plus.cur"
-IDC_DRAG_OUT_TAB                CURSOR    "cursors/drag_out.cur"
+IDC_DRAG_TAB                    CURSOR    "cursors\\drag.cur"
+IDC_DRAG_INTERDIT_TAB           CURSOR    "cursors\\drag_interdit.cur"
+IDC_DRAG_PLUS_TAB               CURSOR    "cursors\\drag_plus.cur"
+IDC_DRAG_OUT_TAB                CURSOR    "cursors\\drag_out.cur"
 
-IDR_FILENEW                     BITMAP    "icons/newFile.bmp"
-IDR_FILEOPEN                    BITMAP    "icons/openFile.bmp"
-IDR_FILESAVE                    BITMAP    "icons/saveFile.bmp"
-IDR_SAVEALL                     BITMAP    "icons/saveAll.bmp"
-IDR_CLOSEFILE                   BITMAP    "icons/closeFile.bmp"
-IDR_CLOSEALL                    BITMAP    "icons/closeAll.bmp"
-IDR_FIND                        BITMAP    "icons/find.bmp"
-IDR_REPLACE                     BITMAP    "icons/findReplace.bmp"
-IDR_ZOOMIN                      BITMAP    "icons/zoomIn.bmp"
-IDR_ZOOMOUT                     BITMAP    "icons/zoomOut.bmp"
-IDR_WRAP                        BITMAP    "icons/wrap.bmp"
-IDR_INVISIBLECHAR               BITMAP    "icons/invisibleChar.bmp"
-IDR_INDENTGUIDE                 BITMAP    "icons/indentGuide.bmp"
-IDR_SHOWPANNEL                  BITMAP    "icons/showPannel.bmp"
-IDR_STARTRECORD                 BITMAP    "icons/startRecord.bmp"
-IDR_STOPRECORD                  BITMAP    "icons/stopRecord.bmp"
-IDR_PLAYRECORD                  BITMAP    "icons/playRecord.bmp"
-IDR_M_PLAYRECORD                BITMAP    "icons/playRecord_m.bmp"
-IDR_SAVERECORD                  BITMAP    "icons/saveRecord.bmp"
-IDR_CUT                         BITMAP    "icons/cut.bmp"
-IDR_COPY                        BITMAP    "icons/copy.bmp"
-IDR_PASTE                       BITMAP    "icons/paste.bmp"
-IDR_UNDO                        BITMAP    "icons/undo.bmp"
-IDR_REDO                        BITMAP    "icons/redo.bmp"
-IDR_SYNCV                       BITMAP    "icons/syncV.bmp"
-IDR_SYNCH                       BITMAP    "icons/syncH.bmp"
-IDR_PRINT                       BITMAP    "icons/print.bmp"
-IDR_CLOSETAB                    BITMAP    "icons/closeTabButton.bmp"
-IDR_CLOSETAB_INACT              BITMAP    "icons/closeTabButton_inact.bmp"
-IDR_CLOSETAB_HOVER              BITMAP    "icons/closeTabButton_hover.bmp"
-IDR_CLOSETAB_PUSH               BITMAP    "icons/closeTabButton_push.bmp"
-IDR_DOCMAP                      BITMAP    "icons/docMap.bmp"
-IDR_FUNC_LIST                   BITMAP    "icons/functionList.bmp"
-IDR_FILEBROWSER                 BITMAP    "icons/fileBrowser.bmp"
+IDR_FILENEW                     BITMAP    "icons\\newFile.bmp"
+IDR_FILEOPEN                    BITMAP    "icons\\openFile.bmp"
+IDR_FILESAVE                    BITMAP    "icons\\saveFile.bmp"
+IDR_SAVEALL                     BITMAP    "icons\\saveAll.bmp"
+IDR_CLOSEFILE                   BITMAP    "icons\\closeFile.bmp"
+IDR_CLOSEALL                    BITMAP    "icons\\closeAll.bmp"
+IDR_ABORT						BITMAP	  "icons\\xxxx.bmp" //ADDED BY BS
+IDR_FIND                        BITMAP    "icons\\find.bmp"
+IDR_REPLACE                     BITMAP    "icons\\findReplace.bmp"
+IDR_ZOOMIN                      BITMAP    "icons\\zoomIn.bmp"
+IDR_ZOOMOUT                     BITMAP    "icons\\zoomOut.bmp"
+IDR_WRAP                        BITMAP    "icons\\wrap.bmp"
+IDR_INVISIBLECHAR               BITMAP    "icons\\invisibleChar.bmp"
+IDR_INDENTGUIDE                 BITMAP    "icons\\indentGuide.bmp"
+IDR_SHOWPANNEL                  BITMAP    "icons\\showPannel.bmp"
+IDR_STARTRECORD                 BITMAP    "icons\\startRecord.bmp"
+IDR_STOPRECORD                  BITMAP    "icons\\stopRecord.bmp"
+IDR_PLAYRECORD                  BITMAP    "icons\\playRecord.bmp"
+IDR_M_PLAYRECORD                BITMAP    "icons\\playRecord_m.bmp"
+IDR_SAVERECORD                  BITMAP    "icons\\saveRecord.bmp"
+IDR_CUT                         BITMAP    "icons\\cut.bmp"
+IDR_COPY                        BITMAP    "icons\\copy.bmp"
+IDR_PASTE                       BITMAP    "icons\\paste.bmp"
+IDR_UNDO                        BITMAP    "icons\\undo.bmp"
+IDR_REDO                        BITMAP    "icons\\redo.bmp"
+IDR_SYNCV                       BITMAP    "icons\\syncV.bmp"
+IDR_SYNCH                       BITMAP    "icons\\syncH.bmp"
+IDR_PRINT                       BITMAP    "icons\\print.bmp"
+IDR_CLOSETAB                    BITMAP    "icons\\closeTabButton.bmp"
+IDR_CLOSETAB_INACT              BITMAP    "icons\\closeTabButton_inact.bmp"
+IDR_CLOSETAB_HOVER              BITMAP    "icons\\closeTabButton_hover.bmp"
+IDR_CLOSETAB_PUSH               BITMAP    "icons\\closeTabButton_push.bmp"
+IDR_DOCMAP                      BITMAP    "icons\\docMap.bmp"
+IDR_FUNC_LIST                   BITMAP    "icons\\functionList.bmp"
+IDR_DOCMAP_ICO                  ICON      "icons\\docMap.ico"
+IDR_FUNC_LIST_ICO               ICON      "icons\\functionList.ico"
+IDR_PROJECTPANEL_ICO            ICON      "icons\\projectPanel.ico"
+IDR_CLIPBOARDPANEL_ICO          ICON      "icons\\clipboardPanel.ico"
+IDR_ASCIIPANEL_ICO              ICON      "icons\\asciiPanel.ico"
+IDR_DOCSWITCHER_ICO             ICON      "icons\\docSwitcher.ico"
+IDI_STARTRECORD_OFF_ICON        ICON      "icons\\startrecord_off.ico"
+IDI_STARTRECORD_ON_ICON         ICON      "icons\\startrecord_on.ico"
+IDI_STARTRECORD_DISABLE_ICON    ICON      "icons\\startrecord_dis.ico"
+IDI_STOPRECORD_OFF_ICON         ICON      "icons\\stoprecord_off.ico"
+IDI_STOPRECORD_ON_ICON          ICON      "icons\\stoprecord_on.ico"
+IDI_STOPRECORD_DISABLE_ICON     ICON      "icons\\stoprecord_dis.ico"
+IDI_PLAYRECORD_OFF_ICON         ICON      "icons\\playrecord_off.ico"
+IDI_PLAYRECORD_ON_ICON          ICON      "icons\\playrecord_on.ico"
+IDI_PLAYRECORD_DISABLE_ICON     ICON      "icons\\playrecord_dis.ico"
+IDI_SAVERECORD_OFF_ICON         ICON      "icons\\saverecord_off.ico"
+IDI_SAVERECORD_ON_ICON          ICON      "icons\\saverecord_on.ico"
+IDI_SAVERECORD_DISABLE_ICON     ICON      "icons\\saverecord_dis.ico"
 
-IDR_DOCMAP_ICO                  ICON      "icons/docMap.ico"
-IDR_FUNC_LIST_ICO               ICON      "icons/functionList.ico"
-IDR_PROJECTPANEL_ICO            ICON      "icons/projectPanel.ico"
-IDR_FILEBROWSER_ICO             ICON      "icons/fileBrowser.ico"
-IDR_CLIPBOARDPANEL_ICO          ICON      "icons/clipboardPanel.ico"
-IDR_ASCIIPANEL_ICO              ICON      "icons/asciiPanel.ico"
-IDR_DOCSWITCHER_ICO             ICON      "icons/docSwitcher.ico"
-IDI_STARTRECORD_OFF_ICON        ICON      "icons/startrecord_off.ico"
-IDI_STARTRECORD_ON_ICON         ICON      "icons/startrecord_on.ico"
-IDI_STARTRECORD_DISABLE_ICON    ICON      "icons/startrecord_dis.ico"
-IDI_STOPRECORD_OFF_ICON         ICON      "icons/stoprecord_off.ico"
-IDI_STOPRECORD_ON_ICON          ICON      "icons/stoprecord_on.ico"
-IDI_STOPRECORD_DISABLE_ICON     ICON      "icons/stoprecord_dis.ico"
-IDI_PLAYRECORD_OFF_ICON         ICON      "icons/playrecord_off.ico"
-IDI_PLAYRECORD_ON_ICON          ICON      "icons/playrecord_on.ico"
-IDI_PLAYRECORD_DISABLE_ICON     ICON      "icons/playrecord_dis.ico"
-IDI_SAVERECORD_OFF_ICON         ICON      "icons/saverecord_off.ico"
-IDI_SAVERECORD_ON_ICON          ICON      "icons/saverecord_on.ico"
-IDI_SAVERECORD_DISABLE_ICON     ICON      "icons/saverecord_dis.ico"
-
-IDI_SYNCV_OFF_ICON              ICON      "icons/syncV_off.ico"
-IDI_SYNCV_ON_ICON               ICON      "icons/syncV_on.ico"
-IDI_SYNCV_DISABLE_ICON          ICON      "icons/syncV_dis.ico"
-IDI_SYNCH_OFF_ICON              ICON      "icons/syncH_off.ico"
-IDI_SYNCH_ON_ICON               ICON      "icons/syncH_on.ico"
-IDI_SYNCH_DISABLE_ICON          ICON      "icons/syncH_dis.ico"
+IDI_SYNCV_OFF_ICON              ICON      "icons\\syncV_off.ico"
+IDI_SYNCV_ON_ICON               ICON      "icons\\syncV_on.ico"
+IDI_SYNCV_DISABLE_ICON          ICON      "icons\\syncV_dis.ico"
+IDI_SYNCH_OFF_ICON              ICON      "icons\\syncH_off.ico"
+IDI_SYNCH_ON_ICON               ICON      "icons\\syncH_on.ico"
+IDI_SYNCH_DISABLE_ICON          ICON      "icons\\syncH_dis.ico"
 
 // multi run macro
-IDI_MMPLAY_DIS_ICON             ICON      "icons/playrecord_m_dis.ico"
-IDI_MMPLAY_OFF_ICON             ICON      "icons/playrecord_m_off.ico"
-IDI_MMPLAY_ON_ICON              ICON      "icons/playrecord_m_on.ico"
+IDI_MMPLAY_DIS_ICON             ICON      "icons\\playrecord_m_dis.ico"
+IDI_MMPLAY_OFF_ICON             ICON      "icons\\playrecord_m_off.ico"
+IDI_MMPLAY_ON_ICON              ICON      "icons\\playrecord_m_on.ico"
 
 
-IDI_PROJECT_WORKSPACE           BITMAP      "icons/project_work_space.bmp"
-IDI_PROJECT_WORKSPACEDIRTY      BITMAP      "icons/project_work_space_dirty.bmp"
-IDI_PROJECT_PROJECT             BITMAP      "icons/project_root.bmp"
-IDI_PROJECT_FOLDEROPEN          BITMAP      "icons/project_folder_open.bmp"
-IDI_PROJECT_FOLDERCLOSE         BITMAP      "icons/project_folder_close.bmp"
-IDI_PROJECT_FILE                BITMAP      "icons/project_file.bmp"
-IDI_PROJECT_FILEINVALID         BITMAP      "icons/project_file_invalid.bmp"
-IDI_FB_ROOTOPEN                 BITMAP      "icons/fb_root_open.bmp"
-IDI_FB_ROOTCLOSE                BITMAP      "icons/fb_root_close.bmp"
+IDI_PROJECT_WORKSPACE           BITMAP      "icons\\project_work_space.bmp"
+IDI_PROJECT_WORKSPACEDIRTY      BITMAP      "icons\\project_work_space_dirty.bmp"
+IDI_PROJECT_PROJECT             BITMAP      "icons\\project_root.bmp"
+IDI_PROJECT_FOLDEROPEN          BITMAP      "icons\\project_folder_open.bmp"
+IDI_PROJECT_FOLDERCLOSE         BITMAP      "icons\\project_folder_close.bmp"
+IDI_PROJECT_FILE                BITMAP      "icons\\project_file.bmp"
+IDI_PROJECT_FILEINVALID         BITMAP      "icons\\project_file_invalid.bmp"
 
-IDI_FUNCLIST_ROOT               BITMAP      "icons/project_file.bmp"
-IDI_FUNCLIST_NODE               BITMAP      "icons/funcList_node.bmp"
-IDI_FUNCLIST_LEAF               BITMAP      "icons/funcList_leaf.bmp"
+IDI_FUNCLIST_ROOT               BITMAP      "icons\\project_file.bmp"
+IDI_FUNCLIST_NODE               BITMAP      "icons\\funcList_node.bmp"
+IDI_FUNCLIST_LEAF               BITMAP      "icons\\funcList_leaf.bmp"
 
-IDI_FUNCLIST_SORTBUTTON         BITMAP      "icons/funclstSort.bmp"
-IDI_FUNCLIST_RELOADBUTTON       BITMAP      "icons/funclstReload.bmp"
+IDI_FUNCLIST_SORTBUTTON         BITMAP      "icons\\funclstSort.bmp"
+IDI_FUNCLIST_RELOADBUTTON       BITMAP      "icons\\funclstReload.bmp"
 
 IDR_M30_MENU MENU
 BEGIN
@@ -221,7 +219,6 @@ BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
 		END
-		MENUITEM "Open Folder as Workspace",         IDM_FILE_OPENFOLDERASWORSPACE
         MENUITEM "Re&load from Disk",                IDM_FILE_RELOAD
         MENUITEM "&Save",                            IDM_FILE_SAVE
         MENUITEM "Save &As...",                      IDM_FILE_SAVEAS
@@ -230,6 +227,7 @@ BEGIN
         MENUITEM "Rename...",                        IDM_FILE_RENAME
         MENUITEM "&Close",                           IDM_FILE_CLOSE
         MENUITEM "Clos&e All",                       IDM_FILE_CLOSEALL
+		MENUITEM "&Abort",							 IDM_FILE_ABORT//ADDED BY BS
 		POPUP "Close More"
 		BEGIN
 			MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
@@ -367,8 +365,8 @@ BEGIN
         MENUITEM "Previous Search Result",      IDM_SEARCH_GOTOPREVFOUND
         MENUITEM "&Go to...",                   IDM_SEARCH_GOTOLINE
         MENUITEM "Go to Matching Brace",        IDM_SEARCH_GOTOMATCHINGBRACE
-        MENUITEM "Select All Between Matching Braces", IDM_SEARCH_SELECTMATCHINGBRACES
-        MENUITEM "Mar&k...",                    IDM_SEARCH_MARK
+		MENUITEM "Select All Between Matching Braces" IDM_SEARCH_SELECTMATCHINGBRACES
+		MENUITEM "Mar&k..."                     IDM_SEARCH_MARK
         MENUITEM SEPARATOR
 
         POPUP "Mark All"
@@ -440,7 +438,7 @@ BEGIN
             MENUITEM "Show Indent Guide",           IDM_VIEW_INDENT_GUIDE
             MENUITEM "Show Wrap Symbol",            IDM_VIEW_WRAP_SYMBOL
         END
-        POPUP "Zoom"
+		POPUP "Zoom"
         BEGIN
             MENUITEM "Zoom &In (Ctrl+Mouse Wheel Up)",       IDM_VIEW_ZOOMIN
             MENUITEM "Zoom &Out (Ctrl+Mouse Wheel Down)",    IDM_VIEW_ZOOMOUT
@@ -456,18 +454,18 @@ BEGIN
 		
 		POPUP "Tab"
 		BEGIN
-			MENUITEM "1st Tab",					IDM_VIEW_TAB1
-			MENUITEM "2nd Tab",					IDM_VIEW_TAB2
-			MENUITEM "3rd Tab",					IDM_VIEW_TAB3
-			MENUITEM "4th Tab",					IDM_VIEW_TAB4
-			MENUITEM "5th Tab",					IDM_VIEW_TAB5
-			MENUITEM "6th Tab",					IDM_VIEW_TAB6
-			MENUITEM "7th Tab",					IDM_VIEW_TAB7
-			MENUITEM "8th Tab",					IDM_VIEW_TAB8
-			MENUITEM "9th Tab",					IDM_VIEW_TAB9
+			MENUITEM "1st Tab"					IDM_VIEW_TAB1
+			MENUITEM "2nd Tab"					IDM_VIEW_TAB2
+			MENUITEM "3rd Tab"					IDM_VIEW_TAB3
+			MENUITEM "4th Tab"					IDM_VIEW_TAB4
+			MENUITEM "5th Tab"					IDM_VIEW_TAB5
+			MENUITEM "6th Tab"					IDM_VIEW_TAB6
+			MENUITEM "7th Tab"					IDM_VIEW_TAB7
+			MENUITEM "8th Tab"					IDM_VIEW_TAB8
+			MENUITEM "9th Tab"					IDM_VIEW_TAB9
 			MENUITEM SEPARATOR
-			MENUITEM "Next Tab",				IDM_VIEW_TAB_NEXT
-			MENUITEM "Previous Tab",			IDM_VIEW_TAB_PREV
+			MENUITEM "Next Tab"					IDM_VIEW_TAB_NEXT
+			MENUITEM "Previous Tab"				IDM_VIEW_TAB_PREV
 		END
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
@@ -510,7 +508,7 @@ BEGIN
                 MENUITEM "Project Panel 2",          IDM_VIEW_PROJECT_PANEL_2
                 MENUITEM "Project Panel 3",          IDM_VIEW_PROJECT_PANEL_3
             END
-		MENUITEM "Folder as Workspace",   IDM_VIEW_FILEBROWSER
+
         MENUITEM "Document Map",          IDM_VIEW_DOC_MAP
         MENUITEM "Function List",         IDM_VIEW_FUNC_LIST
         MENUITEM SEPARATOR
@@ -739,11 +737,7 @@ BEGIN
         MENUITEM "D",                     IDM_LANG_D
         MENUITEM "Diff",                  IDM_LANG_DIFF
     END
-    POPUP "F"
-    BEGIN
-        MENUITEM "Fortran (free form)",   IDM_LANG_FORTRAN
-        MENUITEM "Fortran (fixed form)",  IDM_LANG_FORTRAN_77
-    END
+	MENUITEM "Fortran",                   IDM_LANG_FORTRAN
     MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
     POPUP "H"
     BEGIN
@@ -896,7 +890,8 @@ BEGIN
     //CONTROL         "",IDI_JESUISCHARLIE,"Static",SS_OWNERDRAW,20,5,64,64
     LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,70,20,140,11
     LTEXT           "Author :",IDC_STATIC,21,45,31,8
-    LTEXT           "Notepad++ team",IDC_AUTHOR_NAME,78,45,70,8
+	LTEXT			"Team BugSquashers and",IDC_STATIC,78,45,90,8 //Edit to about box by TBS
+    LTEXT           "Notepad++ team",IDC_AUTHOR_NAME,162,45,70,8
     LTEXT           "Home Page :",IDC_STATIC,21,59,47,8
     LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,78,59,126,8
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,19,75,231,131,BS_CENTER

@@ -1,7 +1,7 @@
 @ECHO OFF
 :: Perform the pre-steps to build boost and set the boost path for the build file
 SETLOCAL
-SET BOOSTPATH=
+SET BOOSTPATH= C:/
 SET MSVCTOOLSET=
 SET TOOLSETCOMMAND=
 SET BOOSTVERSION=

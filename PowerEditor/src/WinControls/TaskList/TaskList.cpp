@@ -27,7 +27,6 @@
 
 
 
-#include <stdexcept>
 #include "TaskList.h"
 #include "TaskListDlg_rc.h"
 #include "colors.h"

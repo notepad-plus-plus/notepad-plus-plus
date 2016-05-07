@@ -464,6 +464,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_DISABLEAUTOUPDATE:
+		{
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			nppGUI._autoUpdateOpt._doAutoUpdate = false;
+			return TRUE;
+		}
+
 		case WM_SIZE:
 		{
 			RECT rc;

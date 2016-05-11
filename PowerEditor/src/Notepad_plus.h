@@ -447,7 +447,7 @@ private:
 	bool reloadLang();
 	bool loadStyles();
 
-	int currentView(){
+	int currentView() {
 		return _activeView;
 	}
 
@@ -645,11 +645,10 @@ private:
 
 	static DWORD WINAPI monitorFileOnChange(void * params);
 	struct MonitorInfo final {
-		MonitorInfo(Buffer *buf, ScintillaEditView *mainEditorView, ScintillaEditView *subEditorView) :
-			_buffer(buf), _mainEditorView(mainEditorView), _subEditorView(subEditorView) {};
+		MonitorInfo(Buffer *buf, HWND nppHandle) :
+			_buffer(buf), _nppHandle(nppHandle) {};
 		Buffer *_buffer = nullptr;
-		ScintillaEditView *_mainEditorView = nullptr;
-		ScintillaEditView *_subEditorView = nullptr;
+		HWND _nppHandle = nullptr;
 	};
 };
 

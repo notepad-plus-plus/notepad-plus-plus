@@ -1409,6 +1409,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return FALSE;
 		}
 
+		case NPPM_INTERNAL_RELOADSCROLLTOEND:
+		{
+			Buffer *buf = (Buffer *)wParam;
+			buf->reload();
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_GETCHECKDOCOPT:
 		{
 			return (LRESULT)((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetection;

@@ -238,14 +238,14 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 	bool isWow64Off = false;
 	NppParameters *pNppParam = NppParameters::getInstance();
 
-	if (!PathFileExists(_fullPathName.c_str()))
+	if (not PathFileExists(_fullPathName.c_str()))
 	{
 		pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
 	}
 
 	bool isOK = false;
-	if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
+	if (_currentStatus != DOC_DELETED && not PathFileExists(_fullPathName.c_str()))	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
@@ -256,7 +256,7 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 	}
 	else if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName.c_str()))
 	{	//document has returned from its grave
-		if (!generic_stat(_fullPathName.c_str(), &buf))
+		if (not generic_stat(_fullPathName.c_str(), &buf))
 		{
 			_isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
 
@@ -266,10 +266,10 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 			isOK = true;
 		}
 	}
-	else if (!generic_stat(_fullPathName.c_str(), &buf))
+	else if (not generic_stat(_fullPathName.c_str(), &buf))
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
-		bool isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
+		bool isFileReadOnly = (bool)(not(buf.st_mode & _S_IWRITE));
 		if (isFileReadOnly != _isFileReadOnly)
 		{
 			_isFileReadOnly = isFileReadOnly;
@@ -294,11 +294,20 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 	if (isWow64Off)
 	{
 		pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-		//isWow64Off = false;
 	}
 	return isOK;
 }
 
+void Buffer::reload()
+{
+	struct _stat buf;
+	if (PathFileExists(_fullPathName.c_str()) && not generic_stat(_fullPathName.c_str(), &buf))
+	{
+		_timeStamp = buf.st_mtime;
+		_currentStatus = DOC_NEEDRELOAD;
+		doNotify(BufferChangeTimestamp | BufferChangeStatus);
+	}
+}
 
 int Buffer::getFileLength() const
 {
@@ -1341,10 +1350,10 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
-	if (!fp)
+	if (not fp)
 		return false;
 
 	//Get file size
@@ -1354,9 +1363,9 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
 	unsigned __int64 bufferSizeRequested = fileSize + min(1<<20,fileSize/6);
 	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
-	if(bufferSizeRequested > INT_MAX)
+	if (bufferSizeRequested > INT_MAX)
 	{
-		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
+		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File size problem"), MB_OK|MB_APPLMODAL);
 		/*
 		_nativeLangSpeaker.messageBox("NbFileToOpenImportantWarning",
 										_pPublicInterface->getHSelf(),
@@ -1503,6 +1512,7 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 		_pscratchTilla->execute(SCI_SETREADONLY, true);
 
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+
 	return success;
 }
 

@@ -38,10 +38,11 @@ typedef sptr_t Document;
 
 enum DocFileStatus
 {
-	DOC_REGULAR  = 0x01, // should not be combined with anything
-	DOC_UNNAMED  = 0x02, // not saved (new ##)
-	DOC_DELETED  = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
-	DOC_MODIFIED = 0x08  // File in environment has changed
+	DOC_REGULAR    = 0x01, // should not be combined with anything
+	DOC_UNNAMED    = 0x02, // not saved (new ##)
+	DOC_DELETED    = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
+	DOC_MODIFIED   = 0x08, // File in environment has changed
+	DOC_NEEDRELOAD = 0x10  // File is modified & needed to be reload (by log monitoring)
 };
 
 enum BufferStatusInfo
@@ -354,6 +355,7 @@ public:
 
 	bool isMonitoringOn() const { return _isMonitoringOn; };
 	void updateTimeStamp();
+	void reload();
 
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;

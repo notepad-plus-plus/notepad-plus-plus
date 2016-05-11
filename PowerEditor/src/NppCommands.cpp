@@ -1781,7 +1781,7 @@ void Notepad_plus::command(int id)
 						curBuf->startMonitoring(); // monitoring firstly for making monitoring icon 
 						curBuf->setUserReadOnly(true);
 						
-						MonitorInfo *monitorInfo = new MonitorInfo(curBuf, &_mainEditView, &_subEditView);
+						MonitorInfo *monitorInfo = new MonitorInfo(curBuf, _pPublicInterface->getHSelf());
 						hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
 						checkMenuItem(IDM_VIEW_MONITORING, true);
 						_toolBar.setCheck(IDM_VIEW_MONITORING, true);

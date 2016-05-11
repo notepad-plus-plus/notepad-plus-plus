@@ -43,8 +43,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 {
 	MonitorInfo *monitorInfo = (MonitorInfo *)params;
 	Buffer *buf = monitorInfo->_buffer;
-	ScintillaEditView *mainEditorView = monitorInfo->_mainEditorView;
-	ScintillaEditView *subEditorView = monitorInfo->_subEditorView;
+	HWND h = monitorInfo->_nppHandle;
 
 	const TCHAR *fullFileName = (const TCHAR *)buf->getFullPathName();
 
@@ -91,21 +90,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 
 					if (dwAction == FILE_ACTION_MODIFIED && lstrcmp(fullFileName, wstrFilename.GetString()) == 0)
 					{
-						MainFileManager->reloadBuffer(buf->getID());
-						buf->updateTimeStamp();
-
-						// not only test main view
-						if (buf == mainEditorView->getCurrentBuffer())
-						{
-							int lastLineToShow = mainEditorView->execute(SCI_GETLINECOUNT);
-							mainEditorView->scroll(0, lastLineToShow);
-						}
-						// but also test sub-view, because the buffer could be clonned
-						if (buf == subEditorView->getCurrentBuffer())
-						{
-							int lastLineToShow = subEditorView->execute(SCI_GETLINECOUNT);
-							subEditorView->scroll(0, lastLineToShow);
-						}
+						::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, (WPARAM)buf, 0);
 					}
 				}
 			}

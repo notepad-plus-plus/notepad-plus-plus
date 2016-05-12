@@ -2565,24 +2565,20 @@ bool NppParameters::importUDLFromFile(generic_string sourceFile)
 
 bool NppParameters::exportUDLToFile(int langIndex2export, generic_string fileName2save)
 {
-	if (langIndex2export != -1 && langIndex2export >= _nbUserLang)
+	if (langIndex2export >= NB_MAX_USER_LANG)
+		return false;
+
+	if (langIndex2export < 0 && langIndex2export >= _nbUserLang)
 		return false;
 
 	TiXmlDocument *pNewXmlUserLangDoc = new TiXmlDocument(fileName2save);
 	TiXmlNode *newRoot2export = pNewXmlUserLangDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 
-	bool b = false;
-
-	if ( langIndex2export >= NB_MAX_USER_LANG )
-	{
-		return false;
-	}
-
 	insertUserLang2Tree(newRoot2export, _userLangArray[langIndex2export]);
-	b = pNewXmlUserLangDoc->SaveFile();
+	bool result = pNewXmlUserLangDoc->SaveFile();
 
 	delete pNewXmlUserLangDoc;
-	return b;
+	return result;
 }
 
 LangType NppParameters::getLangFromExt(const TCHAR *ext)

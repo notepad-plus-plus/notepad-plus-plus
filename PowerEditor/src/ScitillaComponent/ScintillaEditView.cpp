@@ -3076,7 +3076,6 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 generic_string ScintillaEditView::getEOLString()
 {
 	const int eol_mode = int(execute(SCI_GETEOLMODE));
-	string newline;
 	if (eol_mode == SC_EOL_CRLF)
 	{
 		return TEXT("\r\n");

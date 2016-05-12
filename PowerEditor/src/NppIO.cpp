@@ -57,7 +57,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 
 	//MessageBox(NULL, folderToMonitor, TEXT("folderToMonitor"), MB_OK);
 	
-	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_LAST_WRITE;
+	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_FILE_NAME;
 
 	// Create the monitor and add directory to watch.
 	CReadDirectoryChanges changes;
@@ -87,10 +87,18 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 				else
 				{
 					changes.Pop(dwAction, wstrFilename);
-
-					if (dwAction == FILE_ACTION_MODIFIED && lstrcmp(fullFileName, wstrFilename.GetString()) == 0)
+					if (lstrcmp(fullFileName, wstrFilename.GetString()) == 0)
 					{
-						::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, (WPARAM)buf, 0);
+						if (dwAction == FILE_ACTION_MODIFIED)
+						{
+							::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, (WPARAM)buf, 0);
+						}
+						else if ((dwAction == FILE_ACTION_REMOVED) || (dwAction == FILE_ACTION_RENAMED_OLD_NAME))
+						{
+							// File is deleted or renamed - quit monitoring thread and close file
+							::PostMessage(h, NPPM_MENUCOMMAND, 0, IDM_VIEW_MONITORING);
+							::PostMessage(h, NPPM_INTERNAL_CHECKDOCSTATUS, 0, 0);
+						}
 					}
 				}
 			}

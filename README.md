@@ -34,7 +34,7 @@ like to debug Notepad++, but don't have boost.
 
 ## To build `notepad++.exe`:
 
- 1. Open [`PowerEditor\visual.net\notepadPlus.vcproj`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/visual.net/notepadPlus.vcxproj)
+ 1. Open [`PowerEditor\visual.net\notepadPlus.vcxproj`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/visual.net/notepadPlus.vcxproj)
  2. Build Notepad++ [like a normal Visual Studio project](https://msdn.microsoft.com/en-us/library/7s88b19e.aspx).
 
 

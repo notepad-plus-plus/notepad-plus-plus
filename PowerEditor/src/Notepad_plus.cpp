@@ -5775,7 +5775,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #44", "The first 5 days after the weekend are always the hardest."},
 	{"Anonymous #45", "Rhinos are just fat unicorns."},
 	{"Anonymous #46", "Sometimes when I'm writing Javascript I want to throw up my hands and say \"this is bullshit!\"\nbut I can never remember what \"this\" refers to."},
-	{"Anonymous #47", "Kids are like fart.\nYou can only stand yours."},
+	{"Anonymous #47", "Kids are like farts.\nYou can only stand yours."},
 	{"Anonymous #48", "If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography."},
 	{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars."},
 	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in britain and try to get a bunch of gold... it's like history but opposite."},

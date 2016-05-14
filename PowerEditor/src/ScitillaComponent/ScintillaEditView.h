@@ -473,7 +473,7 @@ public:
 		start = long(execute(SCI_LINEFROMPOSITION, start));
 		end = long(execute(SCI_LINEFROMPOSITION, end));
 		selLine = end - start;
-		if (selLine)
+		if (selByte)
 			++selLine;
 
 		return true;

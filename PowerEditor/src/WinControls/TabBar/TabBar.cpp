@@ -66,7 +66,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
-    int multiLine = isMultiLine?(_isTraditional?TCS_MULTILINE:0):0;
+	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE | TCS_BUTTONS : 0) : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
         TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | vertical | multiLine;
@@ -258,7 +258,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
-    int multiLine = isMultiLine?(_isTraditional?TCS_MULTILINE:0):0;
+	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE | TCS_BUTTONS : 0) : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
         TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
@@ -413,7 +413,7 @@ void TabBarPlus::doMultiLine()
 	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
 		if (_hwndArray[i])
-			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE);
+			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE | TCS_BUTTONS);
 	}
 }
 
@@ -462,7 +462,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if (wParam == 2)
 				return TRUE;
 
-            if (_doDragNDrop)
+            if (_doDragNDrop && !isMultiLine())
             {
                 _nSrcTab = _nTabDragged = currentTabOn;
 

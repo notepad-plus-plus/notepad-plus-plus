@@ -2573,7 +2573,7 @@ bool NppParameters::exportUDLToFile(int langIndex2export, generic_string fileNam
 
 	bool b = false;
 
-	if ( langIndex2export >= NB_MAX_USER_LANG )
+	if ( langIndex2export == -1 || langIndex2export >= NB_MAX_USER_LANG )
 	{
 		return false;
 	}

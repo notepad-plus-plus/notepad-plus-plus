@@ -66,7 +66,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
-    int multiLine = isMultiLine?(_isTraditional?TCS_MULTILINE:0):0;
+	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE | TCS_BUTTONS : 0) : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
         TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | vertical | multiLine;
@@ -200,8 +200,8 @@ void TabBar::setImageList(HIMAGELIST himl)
 
 void TabBar::reSizeTo(RECT & rc2Ajust)
 {
-	RECT RowRect;
-	int RowCount, TabsLength;
+	RECT rowRect;
+	int rowCount, tabsHight;
 
 	// Important to do that!
 	// Otherwise, the window(s) it contains will take all the resouce of CPU
@@ -213,27 +213,28 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	// Do our own calculations because TabCtrl_AdjustRect doesn't work
 	// on vertical or multi-lined tab controls
 
-	RowCount = TabCtrl_GetRowCount(_hSelf);
-	TabCtrl_GetItemRect(_hSelf, 0, &RowRect);
+	rowCount = TabCtrl_GetRowCount(_hSelf);
+	TabCtrl_GetItemRect(_hSelf, 0, &rowRect);
 	if (_isTraditional)
 	{
 		TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
 	}
 	else if (_isVertical)
 	{
-		TabsLength  = RowCount * (RowRect.right - RowRect.left);
-		TabsLength += GetSystemMetrics(SM_CXEDGE);
+		tabsHight  = rowCount * (rowRect.right - rowRect.left);
+		tabsHight += GetSystemMetrics(SM_CXEDGE);
 
-		rc2Ajust.left	+= TabsLength;
-		rc2Ajust.right	-= TabsLength;
+		rc2Ajust.left	+= tabsHight;
+		rc2Ajust.right	-= tabsHight;
 	}
 	else
 	{
-		TabsLength  = RowCount * (RowRect.bottom - RowRect.top);
-		TabsLength += GetSystemMetrics(SM_CYEDGE);
+		const int marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
+		tabsHight  = rowCount * (rowRect.bottom - rowRect.top + marge);
+		tabsHight += GetSystemMetrics(SM_CYEDGE);
 
-		rc2Ajust.top	+= TabsLength;
-		rc2Ajust.bottom -= TabsLength;
+		rc2Ajust.top	+= tabsHight;
+		rc2Ajust.bottom -= tabsHight;
 	}
 }
 
@@ -258,7 +259,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
-    int multiLine = isMultiLine?(_isTraditional?TCS_MULTILINE:0):0;
+	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE | TCS_BUTTONS : 0) : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
         TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
@@ -414,7 +415,7 @@ void TabBarPlus::doMultiLine()
 	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
 		if (_hwndArray[i])
-			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE);
+			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE | TCS_BUTTONS);
 	}
 }
 
@@ -553,7 +554,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if (wParam == 2)
 				return TRUE;
 
-            if (_doDragNDrop)
+            if (_doDragNDrop && !isMultiLine())
             {
                 _nSrcTab = _nTabDragged = currentTabOn;
 

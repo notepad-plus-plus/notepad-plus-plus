@@ -4,7 +4,7 @@ Style Name: Port VibrantInk
 Description: Based on the Textmate theme VibrantInk (http://alternateidea.com/blog/articles/2006/01/03/textmate-vibrant-ink-theme-and-prototype-bundle) by Justin Palmer
 File name: 			stylers.xml
 Created by:			tyler (tyler at impoverishedgourmet.com)
-Featured language:	Php, Css, Javascript, Html, XML, others? 
+Featured language:	Php, Css, JavaScript, Html, XML, others? 
 Note:				Feel free to modify this style and re-release it.  Any additions to languages or syntax to bring it closer to VibrantInk would be appreciated.
 					This style available under the terms of the GNU Free License.
 
@@ -185,7 +185,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="COMMENTLINE" styleID="125" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
             <WordsStyle name="OPERATOR" styleID="127" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="JavaScript" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="0" fontSize="" />

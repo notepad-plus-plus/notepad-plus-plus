@@ -5,7 +5,7 @@ Style name: 		Port Ruby Blue
 File name: 			stylers.xml
 Created by:			tomsolo (aka tonoslo on sourceforge.net)
 				http://www.3276.hu
-Featured language:	Php, Css, Sql, Javascript, Html, XML. 
+Featured language:	Php, Css, Sql, JavaScript, Html, XML. 
 Note: 			If u create other languages with this style please send me the modified styler.xml : tonoslo at users.sourceforge.net (ty!)
 Other info:			this style is based on and inspired by Textmate (a Mac source editor, http:/www.textmate.org) user submitted theme:
 				Ruby Blue theme created by John W. Long, http://wiseheartdesign.com/articles/2006/03/11/ruby-blue-textmate-theme)
@@ -203,7 +203,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="COMMENTLINE" styleID="125" fgColor="3A8BDA" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="OPERATOR" styleID="127" fgColor="F0804F" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="JavaScript" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="FFFFFF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="FF00FF" bgColor="112435" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="8DB0D3" bgColor="112435" fontName="" fontStyle="0" fontSize="" />

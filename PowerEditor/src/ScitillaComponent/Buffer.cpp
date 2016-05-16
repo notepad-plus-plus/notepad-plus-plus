@@ -238,14 +238,14 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 	bool isWow64Off = false;
 	NppParameters *pNppParam = NppParameters::getInstance();
 
-	if (!PathFileExists(_fullPathName.c_str()))
+	if (not PathFileExists(_fullPathName.c_str()))
 	{
 		pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
 		isWow64Off = true;
 	}
 
 	bool isOK = false;
-	if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
+	if (_currentStatus != DOC_DELETED && not PathFileExists(_fullPathName.c_str()))	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
@@ -256,7 +256,7 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 	}
 	else if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName.c_str()))
 	{	//document has returned from its grave
-		if (!generic_stat(_fullPathName.c_str(), &buf))
+		if (not generic_stat(_fullPathName.c_str(), &buf))
 		{
 			_isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
 
@@ -266,10 +266,10 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 			isOK = true;
 		}
 	}
-	else if (!generic_stat(_fullPathName.c_str(), &buf))
+	else if (not generic_stat(_fullPathName.c_str(), &buf))
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
-		bool isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
+		bool isFileReadOnly = (bool)(not(buf.st_mode & _S_IWRITE));
 		if (isFileReadOnly != _isFileReadOnly)
 		{
 			_isFileReadOnly = isFileReadOnly;
@@ -294,11 +294,20 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 	if (isWow64Off)
 	{
 		pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-		//isWow64Off = false;
 	}
 	return isOK;
 }
 
+void Buffer::reload()
+{
+	struct _stat buf;
+	if (PathFileExists(_fullPathName.c_str()) && not generic_stat(_fullPathName.c_str(), &buf))
+	{
+		_timeStamp = buf.st_mtime;
+		_currentStatus = DOC_NEEDRELOAD;
+		doNotify(BufferChangeTimestamp | BufferChangeStatus);
+	}
+}
 
 int Buffer::getFileLength() const
 {
@@ -581,7 +590,10 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	if (_tcschr(fullpath, '~'))
+	{
+		::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	}
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
@@ -850,7 +862,10 @@ bool FileManager::backupCurrentBuffer()
 
 			TCHAR fullpath[MAX_PATH];
 			::GetFullPathName(backupFilePath.c_str(), MAX_PATH, fullpath, NULL);
-			::GetLongPathName(fullpath, fullpath, MAX_PATH);
+			if (_tcschr(fullpath, '~'))
+			{
+				::GetLongPathName(fullpath, fullpath, MAX_PATH);
+			}
 
 			// Make sure the backup file is not read only
 			DWORD dwFileAttribs = ::GetFileAttributes(fullpath);
@@ -1024,7 +1039,11 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	if (_tcschr(fullpath, '~'))
+	{
+		::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	}
+
 	if (PathFileExists(fullpath))
 	{
 		attrib = ::GetFileAttributes(fullpath);
@@ -1083,6 +1102,9 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			if (lengthDoc == 0)
 				items_written = 1;
 		}
+		
+		// check the language du fichier
+		LangType language = detectLanguageFromTextBegining((unsigned char *)buf, lengthDoc);
 
 		UnicodeConvertor.fclose();
 
@@ -1122,12 +1144,11 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			return true;	//all done
 		}
 
-		buffer->setFileName(fullpath);
+		buffer->setFileName(fullpath, language);
 		buffer->setDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		buffer->checkFileState();
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
-		//_pscratchTilla->markSavedLines();
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
 		generic_string backupFilePath = buffer->getBackupFileName();
@@ -1278,22 +1299,23 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	// First test for a Unix-like Shebang
 	// See https://en.wikipedia.org/wiki/Shebang_%28Unix%29 for more details about Shebang
 	std::string shebang = "#!";
-	auto res = std::mismatch(shebang.begin(), shebang.end(), buf2Test.begin());
-	if (res.first == shebang.end())
+
+	size_t foundPos = buf2Test.find(shebang);
+	if (foundPos == 0)
 	{
 		// Make a list of the most commonly used languages
-		const size_t SHEBANG_LANGUAGES = 6;
-		FirstLineLanguages ShebangLangs[SHEBANG_LANGUAGES] = {
+		const size_t NB_SHEBANG_LANGUAGES = 6;
+		FirstLineLanguages ShebangLangs[NB_SHEBANG_LANGUAGES] = {
 			{ "sh",		L_BASH },
 			{ "python", L_PYTHON },
 			{ "perl",	L_PERL },
 			{ "php",	L_PHP },
 			{ "ruby",	L_RUBY },
-			{ "node",	L_JAVASCRIPT },
+			{ "node",	L_JAVASCRIPT }
 		};
 
 		// Go through the list of languages
-		for (i = 0; i < SHEBANG_LANGUAGES; ++i)
+		for (i = 0; i < NB_SHEBANG_LANGUAGES; ++i)
 		{
 			if (buf2Test.find(ShebangLangs[i].pattern) != std::string::npos)
 			{
@@ -1306,18 +1328,19 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	}
 
 	// Are there any other patterns we know off?
-	const size_t FIRST_LINE_LANGUAGES = 4;
-	FirstLineLanguages languages[FIRST_LINE_LANGUAGES] = {
+	const size_t NB_FIRST_LINE_LANGUAGES = 5;
+	FirstLineLanguages languages[NB_FIRST_LINE_LANGUAGES] = {
 		{ "<?xml",			L_XML },
 		{ "<?php",			L_PHP },
 		{ "<html",			L_HTML },
 		{ "<!DOCTYPE html",	L_HTML },
+		{ "<?",				L_PHP } // MUST be after "<?php" and "<?xml" to get the result as accurate as possible
 	};
 
-	for (i = 0; i < FIRST_LINE_LANGUAGES; ++i)
+	for (i = 0; i < NB_FIRST_LINE_LANGUAGES; ++i)
 	{
-		res = std::mismatch(languages[i].pattern.begin(), languages[i].pattern.end(), buf2Test.begin());
-		if (res.first == languages[i].pattern.end())
+		foundPos = buf2Test.find(languages[i].pattern);
+		if (foundPos == 0)
 		{
 			return languages[i].lang;
 		}
@@ -1327,10 +1350,10 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
-	if (!fp)
+	if (not fp)
 		return false;
 
 	//Get file size
@@ -1340,9 +1363,9 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
 	unsigned __int64 bufferSizeRequested = fileSize + min(1<<20,fileSize/6);
 	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
-	if(bufferSizeRequested > INT_MAX)
+	if (bufferSizeRequested > INT_MAX)
 	{
-		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
+		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File size problem"), MB_OK|MB_APPLMODAL);
 		/*
 		_nativeLangSpeaker.messageBox("NbFileToOpenImportantWarning",
 										_pPublicInterface->getHSelf(),
@@ -1489,6 +1512,7 @@ inline bool FileManager::loadFileData(Document doc, const TCHAR * filename, char
 		_pscratchTilla->execute(SCI_SETREADONLY, true);
 
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+
 	return success;
 }
 
@@ -1497,7 +1521,10 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 {
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
-	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	if (_tcschr(fullpath, '~'))
+	{
+		::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	}
 
 	for(size_t i = 0; i < _buffers.size(); i++)
 	{

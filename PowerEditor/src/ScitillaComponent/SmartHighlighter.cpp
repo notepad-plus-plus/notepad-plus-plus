@@ -61,6 +61,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	int listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
 	char *listChar = new char[listCharSize+1];
 	pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar);
+	listChar[listCharSize] = '\0';
 	
 	bool valid = true;
 	//The word has to consist if wordChars only, and the characters before and after something else
@@ -121,18 +122,24 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 		prevDocLineChecked = docLine;
 		startPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine);
 		endPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine+1);
-		if (endPos == -1) {	//past EOF
-			endPos = (int)pHighlightView->getCurrentDocLen() - 1;
-			_pFRDlg->processRange(ProcessMarkAll_2, searchText, NULL, startPos, endPos, NULL, &fo);
+		FindReplaceInfo frInfo;
+		frInfo._txt2find = searchText;
+		frInfo._startRange = startPos;
+		frInfo._endRange = endPos;
+		if (endPos == -1) 
+		{	//past EOF
+			frInfo._endRange = (int)pHighlightView->getCurrentDocLen() - 1;
+			_pFRDlg->processRange(ProcessMarkAll_2, frInfo, NULL, &fo);
 			break;
-		} else {
-			_pFRDlg->processRange(ProcessMarkAll_2, searchText, NULL, startPos, endPos, NULL, &fo);
+		}
+		else
+		{
+			_pFRDlg->processRange(ProcessMarkAll_2, frInfo, NULL, &fo);
 		}
 	}
 
 	// restore the original targets to avoid conflicts with the search/replace functions
-	pHighlightView->execute(SCI_SETTARGETSTART, originalStartPos);
-	pHighlightView->execute(SCI_SETTARGETEND, originalEndPos);
+	pHighlightView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
 	delete [] listChar;
 }
 

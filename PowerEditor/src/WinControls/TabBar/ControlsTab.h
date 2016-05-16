@@ -34,7 +34,7 @@
 #include "TabBar.h"
 #endif //TAB_BAR_H
 
-#include "window.h"
+#include "Window.h"
 #include "Common.h"
 
 struct DlgInfo

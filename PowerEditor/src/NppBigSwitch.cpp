@@ -38,13 +38,18 @@
 #include "ProjectPanel.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "fileBrowser.h"
 
 using namespace std;
 
 #define WM_DPICHANGED 0x02E0
 
 
-
+DWORD WINAPI CheckModifiedDocumentThread(LPVOID)
+{
+	MainFileManager->checkFilesystemChanges();
+	return 0;
+}
 
 struct SortTaskListPred final
 {
@@ -210,8 +215,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_FINDALL_INCURRENTDOC:
 		{
-			findInCurrentFile();
-			return TRUE;
+			return findInCurrentFile();
 		}
 
 		case WM_FINDINFILES:
@@ -219,6 +223,21 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return findInFiles();
 		}
 
+		case WM_FINDALL_INCURRENTFINDER:
+		{
+			FindersInfo *findInFolderInfo = (FindersInfo *)wParam;
+			Finder * newFinder = _findReplaceDlg.createFinder();
+			
+			findInFolderInfo->_pDestFinder = newFinder;
+			bool isOK = findInFinderFiles(findInFolderInfo);
+			return isOK;
+		}
+		/*
+		case NPPM_INTERNAL_REMOVEFINDER:
+		{
+			return _findReplaceDlg.removeFinder((Finder *)wParam);
+		}
+		*/
 		case WM_REPLACEINFILES:
 		{
 			replaceInFiles();
@@ -240,6 +259,26 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_nativeLangSpeaker.changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
 			_findReplaceDlg.launchFindInFilesDlg();
 			setFindReplaceFolderFilter((const TCHAR*) wParam, (const TCHAR*) lParam);
+
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_FINDINFINDERDLG:
+		{
+			const int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize];
+			Finder *launcher = (Finder *)wParam;
+
+			bool isFirstTime = not _findInFinderDlg.isCreated();
+
+			_findInFinderDlg.doDialog(launcher, _nativeLangSpeaker.isRTL());
+
+			_pEditView->getGenericSelectedText(str, strSize);
+			_findReplaceDlg.setSearchText(str);
+			setFindReplaceFolderFilter(NULL, NULL);
+
+			if (isFirstTime)
+				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
 
 			return TRUE;
 		}
@@ -402,6 +441,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return fileSaveAll();
 		}
 
+		case NPPM_SAVEFILE:
+		{
+		    return fileSaveSpecific((const TCHAR *)lParam);
+		}
+
 		case NPPM_GETCURRENTNATIVELANGENCODING:
 		{
 			return _nativeLangSpeaker.getLangEncoding();
@@ -417,6 +461,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			scnN.nmhdr.hwndFrom = (void *)lParam;
 			scnN.nmhdr.idFrom = (uptr_t)id;
 			_pluginsManager.notify(&scnN);
+			return TRUE;
+		}
+
+		case NPPM_DISABLEAUTOUPDATE:
+		{
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			nppGUI._autoUpdateOpt._doAutoUpdate = false;
 			return TRUE;
 		}
 
@@ -1229,6 +1280,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_SETEDITORBORDEREDGE:
+		{
+			bool withBorderEdge = (lParam == 1);
+			_mainEditView.setBorderEdge(withBorderEdge);
+			_subEditView.setBorderEdge(withBorderEdge);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SETMULTISELCTION:
 		{
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
@@ -1330,20 +1389,31 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return notify(notification);
 		}
 
-		case NPPM_INTERNAL_CHECKDOCSTATUS:
 		case WM_ACTIVATEAPP:
 		{
 			if (wParam == TRUE) // if npp is about to be activated
 			{
-				const NppGUI & nppgui = pNppParam->getNppGUI();
-				if (LOWORD(wParam) && (nppgui._fileAutoDetection != cdDisabled))
-				{
-					_activeAppInf._isActivated = true;
-					checkModifiedDocument();
-					return FALSE;
-				}
+				::PostMessage(hwnd, NPPM_INTERNAL_CHECKDOCSTATUS, 0, 0);
 			}
-			break;
+			return FALSE;
+		}
+
+		case NPPM_INTERNAL_CHECKDOCSTATUS:
+		{
+			const NppGUI & nppgui = pNppParam->getNppGUI();
+			if (nppgui._fileAutoDetection != cdDisabled)
+			{
+				checkModifiedDocument();
+				return TRUE;
+			}
+			return FALSE;
+		}
+
+		case NPPM_INTERNAL_RELOADSCROLLTOEND:
+		{
+			Buffer *buf = (Buffer *)wParam;
+			buf->reload();
+			return TRUE;
 		}
 
 		case NPPM_INTERNAL_GETCHECKDOCOPT:
@@ -1492,6 +1562,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_pProjectPanel_3->setForegroundColor(style._fgColor);
 			}
 
+			if (_pFileBrowser)
+			{
+				_pFileBrowser->setBackgroundColor(style._bgColor);
+				_pFileBrowser->setForegroundColor(style._fgColor);
+			}
+
 			if (_pDocMap)
 				_pDocMap->setSyntaxHiliting();
 
@@ -1569,6 +1645,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				saveScintillaParams(); //writeScintillaParams
 				saveGUIParams(); //writeGUIParams
 				saveProjectPanelsParams(); //writeProjectPanelsSettings
+				saveFileBrowserParam();
 				//
 				// saving config.xml
 				//

@@ -1123,7 +1123,7 @@ static void setBackwards(WordList * kwLists[], StyleContext & sc, bool prefixes[
     int folding = FOLD_NONE;
     int moveForward = 0;
 
-    for (int i=0; i<=MAPPER_TOTAL; ++i)
+    for (int i=0; i<MAPPER_TOTAL; ++i)
     {
         if (nestedKey & maskMapper[i])
         {

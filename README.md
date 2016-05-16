@@ -9,7 +9,10 @@ editor and Notepad replacement that supports several programming languages and
 natural languages. Running in the MS Windows environment, its use is governed by
 GPL License.
 
+Build Status
+------------
 
+`VS2013` (via appveyor)  [![Build Status](https://ci.appveyor.com/api/projects/status/github/notepad-plus-plus/notepad-plus-plus)](https://ci.appveyor.com/project/donho/notepad-plus-plus)
 
 To build Notepad++ from source:
 -------------------------------
@@ -31,7 +34,7 @@ like to debug Notepad++, but don't have boost.
 
 ## To build `notepad++.exe`:
 
- 1. Open [`PowerEditor\visual.net\notepadPlus.vcproj`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/visual.net/notepadPlus.vcxproj)
+ 1. Open [`PowerEditor\visual.net\notepadPlus.vcxproj`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/visual.net/notepadPlus.vcxproj)
  2. Build Notepad++ [like a normal Visual Studio project](https://msdn.microsoft.com/en-us/library/7s88b19e.aspx).
 
 

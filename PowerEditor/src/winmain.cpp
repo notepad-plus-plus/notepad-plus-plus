@@ -26,7 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "Notepad_plus_Window.h"
-#include "Process.h"
+#include "Processus.h"
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
 
@@ -336,7 +336,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
     // tell the running instance the FULL path to the new files to load
 	size_t nrFilesToOpen = params.size();
 
-	for(size_t i = 0; i < nrFilesToOpen; ++i)
+	for (size_t i = 0; i < nrFilesToOpen; ++i)
 	{
 		const TCHAR * currentFile = params.at(i);
 		if (currentFile[0])
@@ -460,7 +460,7 @@ DEVOMER*/
 			{
 				// According to MSDN ChangeWindowMessageFilter may not be supported in future versions of Windows,
 				// that is why we use ChangeWindowMessageFilterEx if it is available (windows version >= Win7).
-				if(pNppParameters->getWinVersion() == WV_VISTA)
+				if (pNppParameters->getWinVersion() == WV_VISTA)
 				{
 					typedef BOOL (WINAPI *MESSAGEFILTERFUNC)(UINT message,DWORD dwFlag);
 					const DWORD MSGFLT_ADD = 1;

@@ -26,13 +26,26 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "Parameters.h"
-#include "process.h"
+#ifndef PROCESSUS_H
+#define PROCESSUS_H
 
+#include "common.h"
 
-void Process::run()
+enum progType {WIN32_PROG, CONSOLE_PROG};
+
+class Process
 {
-	TCHAR *opVerb = TEXT("open");
-	::ShellExecute(NULL, opVerb, _command.c_str(), _args.c_str(), _curDir.c_str(), SW_SHOWNORMAL);
-}
+public:
+    Process(const TCHAR *cmd, const TCHAR *args, const TCHAR *cDir)
+		:_command(cmd), _args(args), _curDir(cDir){}
+
+	void run();
+
+protected:
+    generic_string _command;
+	generic_string _args;
+	generic_string _curDir;
+};
+
+#endif //PROCESSUS_H
 

@@ -454,7 +454,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY, isUserReadOnly);
 
 			bool isSysReadOnly = buf->getFileReadOnly();
-			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly);
+			_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, not isSysReadOnly && not buf->isMonitoringOn());
 			_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, isSysReadOnly);
 
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
@@ -485,6 +485,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_pEditView->marginClick(notification->position, notification->modifiers);
 				if (_pDocMap)
 					_pDocMap->fold(lineClick, _pEditView->isFolded(lineClick));
+				_smartHighlighter.highlightView(_pEditView);
 			}
 			else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
 			{
@@ -799,6 +800,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_ZOOM:
 		{
+			_smartHighlighter.highlightView(notifyView);
 			break;
 		}
 
@@ -853,8 +855,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			int startPos = static_cast<int>(notifyView->execute(SCI_WORDSTARTPOSITION, pos, false));
 			int endPos = static_cast<int>(notifyView->execute(SCI_WORDENDPOSITION, pos, false));
 
-			notifyView->execute(SCI_SETTARGETSTART, startPos);
-			notifyView->execute(SCI_SETTARGETEND, endPos);
+			notifyView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 			int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
 			if (posFound != -2)
@@ -887,13 +888,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_NEEDSHOWN:
 		{
-			int begin = notifyView->execute(SCI_LINEFROMPOSITION, notification->position);
-			int end = notifyView->execute(SCI_LINEFROMPOSITION, notification->position + notification->length);
-			int firstLine = begin < end ? begin : end;
-			int lastLine = begin > end ? begin : end;
-
-			for (int line = firstLine; line <= lastLine; ++line)
-				notifyView->execute(SCI_ENSUREVISIBLE, line, 0);
 			break;
 		}
 

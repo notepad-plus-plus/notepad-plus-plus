@@ -26,6 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include <shlwapi.h>
+#include <stdexcept>
 #include "VerticalFileSwitcherListView.h"
 #include "Buffer.h"
 #include "localization.h"

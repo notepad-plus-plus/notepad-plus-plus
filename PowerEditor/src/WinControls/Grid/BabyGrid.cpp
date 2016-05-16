@@ -10,7 +10,7 @@ Add WM_MOUSEWHEEL, WM_LBUTTONDBLCLK and WM_RBUTTONUP events
 Modified by Don HO <don.h@free.fr>
 */
 
-#include "babygrid.h"
+#include "BabyGrid.h"
 #include "Parameters.h"
 
 #define MAX_GRIDS 20
@@ -163,12 +163,12 @@ int GetNextColWithWidth(int SI, int startcol, int direction)
      if(direction == 1){j++;}
      if(direction != 1){j--;}
 
-     while((BGHS[SI].columnwidths[j] == 0)&&(j<=BGHS[SI].cols)&&(j>0))
+     while((j>0)&&(j<=BGHS[SI].cols)&&(BGHS[SI].columnwidths[j] == 0))
          {
          if(direction == 1){j++;}
          if(direction != 1){j--;}
          }
-     if((BGHS[SI].columnwidths[j] > 0)&&(j<=BGHS[SI].cols))
+     if((j<=BGHS[SI].cols)&&(BGHS[SI].columnwidths[j] > 0))
          {
           ReturnValue = j;
          }

@@ -35,6 +35,7 @@
 #include "VerticalFileSwitcher.h"
 #include "documentMap.h"
 #include "functionListPanel.h"
+#include "fileBrowser.h"
 #include "Sorters.h"
 #include "LongRunningOperation.h"
 
@@ -75,7 +76,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPEN_FOLDER:
 		{
-			Command cmd(TEXT("explorer /select,$(FULL_CURRENT_PATH)"));
+			Command cmd(TEXT("explorer /select,\"$(FULL_CURRENT_PATH)\""));
 			cmd.run(_pPublicInterface->getHSelf());
 		}
 		break;
@@ -84,6 +85,37 @@ void Notepad_plus::command(int id)
 		{
 			Command cmd(TEXT("cmd /K cd /d $(CURRENT_DIRECTORY)"));
 			cmd.run(_pPublicInterface->getHSelf());
+		}
+		break;
+		
+		case IDM_FILE_OPENFOLDERASWORSPACE:
+		{
+			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), TEXT("Select a folder to add in Folder as Workspace panel"));
+			if (not folderPath.empty())
+			{
+				if (_pFileBrowser == nullptr) // first launch, check in params to open folders
+				{
+					vector<generic_string> dummy;
+					launchFileBrowser(dummy);
+					if (_pFileBrowser != nullptr)
+					{
+						checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+						_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+						_pFileBrowser->setClosed(false);
+					}
+					else // problem
+						return;
+				}
+				else
+				{
+					if (_pFileBrowser->isClosed())
+					{
+						_pFileBrowser->display();
+						_pFileBrowser->setClosed(false);
+					}
+				}
+				_pFileBrowser->addRootFolder(folderPath);
+			}
 		}
 		break;
 
@@ -512,9 +544,43 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_FILEBROWSER:
+		{
+			if (_pFileBrowser == nullptr) // first launch, check in params to open folders
+			{
+				NppParameters *pNppParam = NppParameters::getInstance();
+				launchFileBrowser(pNppParam->getFileBrowserRoots());
+				if (_pFileBrowser != nullptr)
+				{
+					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+					_pFileBrowser->setClosed(false);
+				}
+			}
+			else
+			{
+				if (not _pFileBrowser->isClosed())
+				{
+					_pFileBrowser->display(false);
+					_pFileBrowser->setClosed(true);
+					checkMenuItem(IDM_VIEW_FILEBROWSER, false);
+					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, false);
+				}
+				else
+				{
+					vector<generic_string> dummy;
+					launchFileBrowser(dummy);
+					checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+					_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+					_pFileBrowser->setClosed(false);
+				}
+			}
+		}
+		break;
+
 		case IDM_VIEW_DOC_MAP:
 		{
-			if (_pDocMap && (!_pDocMap->isClosed()))
+			if (_pDocMap && (not _pDocMap->isClosed()))
 			{
 				_pDocMap->display(false);
 				_pDocMap->vzDlgDisplay(false);
@@ -537,7 +603,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_FUNC_LIST:
 		{
-			if (_pFuncList && (!_pFuncList->isClosed()))
+			if (_pFuncList && (not _pFuncList->isClosed()))
 			{
 				_pFuncList->display(false);
 				_pFuncList->setClosed(true);
@@ -1181,8 +1247,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_EOL2WS:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->execute(SCI_SETTARGETSTART, 0);
-			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
@@ -1191,8 +1256,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			doTrim(lineHeader);
-			_pEditView->execute(SCI_SETTARGETSTART, 0);
-			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
@@ -1690,6 +1754,48 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_MONITORING:
+		{
+			static HANDLE hThread = nullptr;
+			Buffer * curBuf = _pEditView->getCurrentBuffer();
+			if (curBuf->isMonitoringOn())
+			{
+				curBuf->stopMonitoring();
+				::CloseHandle(hThread);
+				hThread = nullptr;
+				checkMenuItem(IDM_VIEW_MONITORING, false);
+				_toolBar.setCheck(IDM_VIEW_MONITORING, false);
+				curBuf->setUserReadOnly(false);
+			}
+			else
+			{
+				const TCHAR *longFileName = curBuf->getFullPathName();
+				if (::PathFileExists(longFileName))
+				{
+					if (curBuf->isDirty())
+					{
+						::MessageBox(_pPublicInterface->getHSelf(), TEXT("The document is dirty. Please save the modification before monitoring it."), TEXT("Monitoring problem"), MB_OK);
+					}
+					else
+					{
+						curBuf->startMonitoring(); // monitoring firstly for making monitoring icon 
+						curBuf->setUserReadOnly(true);
+						
+						MonitorInfo *monitorInfo = new MonitorInfo(curBuf, _pPublicInterface->getHSelf());
+						hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
+						checkMenuItem(IDM_VIEW_MONITORING, true);
+						_toolBar.setCheck(IDM_VIEW_MONITORING, true);
+					}
+				}
+				else
+				{
+					::MessageBox(_pPublicInterface->getHSelf(), TEXT("The file should exist to be monitored."), TEXT("Monitoring problem"), MB_OK);
+				}
+			}
+
+			break;
+		}
+
 		case IDM_EXECUTE:
 		{
 			bool isFirstTime = !_runDlg.isCreated();
@@ -1709,8 +1815,14 @@ void Notepad_plus::command(int id)
 				: (id == IDM_FORMAT_TOUNIX) ? EolType::unix : EolType::macos;
 
 			Buffer* buf = _pEditView->getCurrentBuffer();
-			buf->setEolFormat(newFormat);
-			_pEditView->execute(SCI_CONVERTEOLS, static_cast<int>(buf->getEolFormat()));
+
+			if (not buf->isReadOnly())
+			{
+				LongRunningOperation op;
+				buf->setEolFormat(newFormat);
+				_pEditView->execute(SCI_CONVERTEOLS, static_cast<int>(buf->getEolFormat()));
+			}
+
 			break;
 		}
 
@@ -2196,6 +2308,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_DEBUGINFO:
+		{
+			_debugInfoDlg.doDialog();
+			break;
+		}
+
         case IDM_ABOUT:
 		{
 			bool doAboutDlg = false;
@@ -2402,6 +2520,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_INI :
         case IDM_LANG_TEX :
         case IDM_LANG_FORTRAN :
+		case IDM_LANG_FORTRAN_77 :
         case IDM_LANG_BASH :
         case IDM_LANG_FLASH :
 		case IDM_LANG_NSIS :

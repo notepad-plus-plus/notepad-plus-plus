@@ -105,7 +105,7 @@
 #endif //DOCKINGMANAGER_H
 
 #ifndef PROCESSUS_H
-#include "Process.h"
+#include "Processus.h"
 #endif //PROCESSUS_H
 
 #ifndef AUTOCOMPLETION_H
@@ -186,7 +186,6 @@ struct VisibleGUIConf final
 	}
 };
 
-
 class FileDialog;
 class Notepad_plus_Window;
 class AnsiCharPanel;
@@ -195,9 +194,7 @@ class VerticalFileSwitcher;
 class ProjectPanel;
 class DocumentMap;
 class FunctionListPanel;
-
-
-
+class FileBrowser;
 
 
 class Notepad_plus final
@@ -240,6 +237,7 @@ public:
 	bool fileCloseAllToRight();
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
+	bool fileSaveSpecific(const generic_string& fileNameToSave);
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
@@ -250,11 +248,13 @@ public:
 	//@}
 
 	bool isFileSession(const TCHAR * filename);
+	bool isFileWorkspace(const TCHAR * filename);
 	void filePrint(bool showDialog);
 	bool saveScintillaParams();
 
 	bool saveGUIParams();
 	bool saveProjectPanelsParams();
+	bool saveFileBrowserParam();
 	void saveDockingParams();
     void saveUserDefineLangs();
     void saveShortcuts();
@@ -281,6 +281,7 @@ public:
 	bool loadSession(Session & session, bool isSnapshotMode = false);
 
 	void notifyBufferChanged(Buffer * buffer, int mask);
+	bool findInFinderFiles(FindersInfo *findInFolderInfo);
 	bool findInFiles();
 	bool replaceInFiles();
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
@@ -339,8 +340,11 @@ private:
 
 	// Dialog
 	FindReplaceDlg _findReplaceDlg;
+	FindInFinderDlg _findInFinderDlg;
+
 	FindIncrementDlg _incrementFindDlg;
     AboutDlg _aboutDlg;
+	DebugInfoDlg _debugInfoDlg;
 	RunDlg _runDlg;
     GoToLineDlg _goToLineDlg;
 	ColumnEditorDlg _colEditorDlg;
@@ -380,16 +384,7 @@ private:
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;
 
-	struct ActivateAppInfo final
-	{
-		bool _isActivated = false;
-		int _x = 0;
-		int _y = 0;
-	}
-	_activeAppInf;
-
 	//Synchronized Scolling
-
 	struct SyncInfo final
 	{
 		int _line = 0;
@@ -427,6 +422,8 @@ private:
 	ProjectPanel* _pProjectPanel_2 = nullptr;
 	ProjectPanel* _pProjectPanel_3 = nullptr;
 
+	FileBrowser* _pFileBrowser = nullptr;
+
 	DocumentMap* _pDocMap = nullptr;
 	FunctionListPanel* _pFuncList = nullptr;
 
@@ -450,7 +447,7 @@ private:
 	bool reloadLang();
 	bool loadStyles();
 
-	int currentView(){
+	int currentView() {
 		return _activeView;
 	}
 
@@ -595,9 +592,7 @@ private:
 	bool findInOpenedFiles();
 	bool findInCurrentFile();
 
-	bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
 	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
-
 	void doSynScorll(HWND hW);
 	void setWorkingDir(const TCHAR *dir);
 	bool str2Cliboard(const generic_string & str2cpy);
@@ -629,6 +624,7 @@ private:
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
+	void launchFileBrowser(const std::vector<generic_string> & folders);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -646,6 +642,14 @@ private:
 	}
 
 	static DWORD WINAPI backupDocument(void *params);
+
+	static DWORD WINAPI monitorFileOnChange(void * params);
+	struct MonitorInfo final {
+		MonitorInfo(Buffer *buf, HWND nppHandle) :
+			_buffer(buf), _nppHandle(nppHandle) {};
+		Buffer *_buffer = nullptr;
+		HWND _nppHandle = nullptr;
+	};
 };
 
 

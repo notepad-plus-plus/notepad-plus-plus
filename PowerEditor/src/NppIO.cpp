@@ -33,12 +33,90 @@
 #include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
-#include <TCHAR.h>
+#include "ReadDirectoryChanges.h"
+#include <tchar.h>
 
 using namespace std;
 
 
+DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
+{
+	MonitorInfo *monitorInfo = (MonitorInfo *)params;
+	Buffer *buf = monitorInfo->_buffer;
+	HWND h = monitorInfo->_nppHandle;
 
+	const TCHAR *fullFileName = (const TCHAR *)buf->getFullPathName();
+
+	//The folder to watch :
+	WCHAR folderToMonitor[MAX_PATH];
+	//::MessageBoxW(NULL, mfp->_fullFilePath, TEXT("PATH AFTER thread"), MB_OK);
+	lstrcpy(folderToMonitor, fullFileName);
+	//MessageBox(NULL, fullFileName, TEXT("fullFileName"), MB_OK);
+
+	::PathRemoveFileSpecW(folderToMonitor);
+
+	//MessageBox(NULL, folderToMonitor, TEXT("folderToMonitor"), MB_OK);
+	
+	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_FILE_NAME;
+
+	// Create the monitor and add directory to watch.
+	CReadDirectoryChanges changes;
+	changes.AddDirectory(folderToMonitor, true, dwNotificationFlags);
+
+	HANDLE changeHandles[] = { buf->getMonitoringEvent(), changes.GetWaitHandle() };
+
+	bool toBeContinued = true;
+
+	while (toBeContinued)
+	{
+		DWORD waitStatus = ::WaitForMultipleObjects(_countof(changeHandles), changeHandles, FALSE, INFINITE);
+		switch (waitStatus)
+		{
+			case WAIT_OBJECT_0 + 0:
+				// Mutex was signaled. User removes this folder or file browser is closed
+				toBeContinued = false;
+			break;
+
+			case WAIT_OBJECT_0 + 1:
+				// We've received a notification in the queue.
+			{
+				DWORD dwAction;
+				CStringW wstrFilename;
+				if (changes.CheckOverflow())
+					printStr(L"Queue overflowed.");
+				else
+				{
+					changes.Pop(dwAction, wstrFilename);
+					if (lstrcmp(fullFileName, wstrFilename.GetString()) == 0)
+					{
+						if (dwAction == FILE_ACTION_MODIFIED)
+						{
+							::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, (WPARAM)buf, 0);
+						}
+						else if ((dwAction == FILE_ACTION_REMOVED) || (dwAction == FILE_ACTION_RENAMED_OLD_NAME))
+						{
+							// File is deleted or renamed - quit monitoring thread and close file
+							::PostMessage(h, NPPM_MENUCOMMAND, 0, IDM_VIEW_MONITORING);
+							::PostMessage(h, NPPM_INTERNAL_CHECKDOCSTATUS, 0, 0);
+						}
+					}
+				}
+			}
+			break;
+
+			case WAIT_IO_COMPLETION:
+				// Nothing to do.
+			break;
+		}
+	}
+
+	// Just for sample purposes. The destructor will
+	// call Terminate() automatically.
+	changes.Terminate();
+	//MessageBox(NULL, TEXT("FREEDOM !!!"), TEXT("out"), MB_OK);
+	delete monitorInfo;
+	return EXIT_SUCCESS;
+}
 
 BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
@@ -50,22 +128,25 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	//If the lpBuffer buffer is too small to contain the path, the return value [of GetFullPathName] is the size, in TCHARs, of the buffer that is required to hold the path and the terminating null character.
 	//If [GetFullPathName] fails for any other reason, the return value is zero.
 
-    NppParameters *pNppParam = NppParameters::getInstance();
-    TCHAR longFileName[longFileNameBufferSize];
+	NppParameters *pNppParam = NppParameters::getInstance();
+	TCHAR longFileName[longFileNameBufferSize];
 
-    const DWORD getFullPathNameResult = ::GetFullPathName(fileName.c_str(), longFileNameBufferSize, longFileName, NULL);
-	if ( getFullPathNameResult == 0 )
+	const DWORD getFullPathNameResult = ::GetFullPathName(fileName.c_str(), longFileNameBufferSize, longFileName, NULL);
+	if (getFullPathNameResult == 0)
 	{
 		return BUFFER_INVALID;
 	}
-	if ( getFullPathNameResult > longFileNameBufferSize )
+	if (getFullPathNameResult > longFileNameBufferSize)
 	{
 		return BUFFER_INVALID;
 	}
-	assert( _tcslen( longFileName ) == getFullPathNameResult );
+	assert(_tcslen(longFileName) == getFullPathNameResult);
 
-	// ignore the returned value of function due to win64 redirection system
-	::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
+	if (_tcschr(longFileName, '~'))
+	{
+		// ignore the returned value of function due to win64 redirection system
+		::GetLongPathName(longFileName, longFileName, longFileNameBufferSize);
+	}
 
 	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
 	if (isSnapshotMode && !PathFileExists(longFileName)) // UNTITLED
@@ -112,6 +193,13 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         fileLoadSession(longFileName);
         return BUFFER_INVALID;
     }
+
+	if (isFileWorkspace(longFileName) && PathFileExists(longFileName))
+	{
+		pNppParam->setWorkSpaceFilePath(0, longFileName);
+		command(IDM_VIEW_PROJECT_PANEL_1);
+		return BUFFER_INVALID;
+	}
 
     bool isWow64Off = false;
     if (!PathFileExists(longFileName))
@@ -537,6 +625,12 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	}
 
 	int nrDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
+
+	if (buf->isMonitoringOn())
+	{
+		// turn off monitoring
+		command(IDM_VIEW_MONITORING);
+	}
 
 	//Do all the works
 	bool isBufRemoved = removeBufferFromView(id, whichOne);
@@ -1118,6 +1212,27 @@ bool Notepad_plus::fileSave(BufferID id)
 	return false;
 }
 
+bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
+{
+	BufferID idToSave = _mainDocTab.findBufferByName(fileNameToSave.c_str());
+	if (idToSave == BUFFER_INVALID)
+	{
+		idToSave = _subDocTab.findBufferByName(fileNameToSave.c_str());
+	}
+    //do not use else syntax, id might be taken from sub doc tab, 
+    //in which case fileSave needs to be executed also
+	if (idToSave != BUFFER_INVALID)
+	{
+		fileSave(idToSave);
+		checkDocState();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 bool Notepad_plus::fileSaveAll() {
 	if (viewVisible(MAIN_VIEW)) {
 		for(int i = 0; i < _mainDocTab.nbItem(); ++i) {
@@ -1335,6 +1450,29 @@ bool Notepad_plus::isFileSession(const TCHAR * filename) {
 	return false;
 }
 
+bool Notepad_plus::isFileWorkspace(const TCHAR * filename) {
+	// if filename matches the ext of user defined workspace file ext, then it'll be opened as a workspace
+	const TCHAR *definedWorkspaceExt = NppParameters::getInstance()->getNppGUI()._definedWorkspaceExt.c_str();
+	if (*definedWorkspaceExt != '\0')
+	{
+		generic_string fncp = filename;
+		TCHAR *pExt = PathFindExtension(fncp.c_str());
+
+		generic_string usrWorkspaceExt = TEXT("");
+		if (*definedWorkspaceExt != '.')
+		{
+			usrWorkspaceExt += TEXT(".");
+		}
+		usrWorkspaceExt += definedWorkspaceExt;
+
+		if (!generic_stricmp(pExt, usrWorkspaceExt.c_str()))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void Notepad_plus::loadLastSession()
 {
 	NppParameters *nppParams = NppParameters::getInstance();
@@ -1359,11 +1497,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	{
 		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
 
-		if (isFileSession(pFn))
+		if (isFileSession(pFn) || isFileWorkspace(pFn))
 		{
 			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
 			session._mainViewFiles.erase(posIt);
-			continue;	//skip session files, not supporting recursive sessions
+			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
 
 		bool isWow64Off = false;
@@ -1454,10 +1592,10 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	{
 		const TCHAR *pFn = session._subViewFiles[k]._fileName.c_str();
 
-		if (isFileSession(pFn)) {
+		if (isFileSession(pFn) || isFileWorkspace(pFn)) {
 			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
 			session._subViewFiles.erase(posIt);
-			continue;	//skip session files, not supporting recursive sessions
+			continue;	//skip session files, not supporting recursive sessions or embedded workspace files
 		}
 
 		bool isWow64Off = false;

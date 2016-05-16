@@ -156,6 +156,7 @@ void URLCtrl::destroy()
         if(_hCursor)
             ::DestroyCursor(_hCursor);
 }
+
 void URLCtrl::action()
 {
 	if (_cmdID)

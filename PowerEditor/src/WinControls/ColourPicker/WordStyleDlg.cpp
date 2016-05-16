@@ -26,7 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include <Shlobj.h>
+#include <shlobj.h>
 #include <shlwapi.h>
 #include <uxtheme.h>
 #include "WordStyleDlg.h"

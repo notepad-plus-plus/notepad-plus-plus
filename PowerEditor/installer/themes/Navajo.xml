@@ -435,7 +435,7 @@ Installation:
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="BCBCBC" bgColor="5F0000" fontName="" fontStyle="3" fontSize="" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="JavaScript" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="000000" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="C00058" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="106060" bgColor="BA9C80" fontName="" fontStyle="0" fontSize="" />

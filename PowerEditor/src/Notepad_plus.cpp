@@ -364,11 +364,11 @@ LRESULT Notepad_plus::init(HWND hwnd)
     //--Status Bar Section--//
 	bool willBeShown = nppGUI._statusBarShow;
     _statusBar.init(_pPublicInterface->getHinst(), hwnd, 6);
-	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE,     200);
-	_statusBar.setPartWidth(STATUSBAR_CUR_POS,      260);
-	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT,   110);
-	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 120);
-	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE,  30);
+	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, NppParameters::getInstance()->_dpiManager.scaleX(200));
+	_statusBar.setPartWidth(STATUSBAR_CUR_POS, NppParameters::getInstance()->_dpiManager.scaleX(260));
+	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, NppParameters::getInstance()->_dpiManager.scaleX(110));
+	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, NppParameters::getInstance()->_dpiManager.scaleX(120));
+	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, NppParameters::getInstance()->_dpiManager.scaleX(30));
     _statusBar.display(willBeShown);
 
     _pMainWindow = &_mainDocTab;

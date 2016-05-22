@@ -7,5 +7,4 @@ nmake -f scintilla.mak                                                          
 cd ..\..\PowerEditor\visual.net                                                         || exit
 msbuild notepadPlus.vcxproj /p:configuration="Unicode Debug" /p:platform=Win32          || exit
 
-cd ..
-appveyor PushArtifact bin
+appveyor PushArtifact "Unicode Debug\Notepad++.exe" -FileName "Notepad++_debug.exe"

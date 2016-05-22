@@ -8,3 +8,8 @@ cd ..\..\PowerEditor\visual.net                                                 
 msbuild notepadPlus.vcxproj /p:configuration="Unicode Debug" /p:platform=Win32          || exit
 
 appveyor PushArtifact "Unicode Debug\Notepad++.exe" -FileName "Notepad++_debug.exe"
+
+msbuild notepadPlus.vcxproj /p:configuration="Unicode Release" /p:platform=Win32          || exit
+cd ..\bin
+appveyor PushArtifact "Notepad++.exe"
+

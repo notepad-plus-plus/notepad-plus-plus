@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -46,11 +46,11 @@ using namespace std;
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
 
-inline static DWORD GetStyle(HWND hWnd) { 
-	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE); 
+inline static DWORD GetStyle(HWND hWnd) {
+	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
 }
-inline static DWORD GetExStyle(HWND hWnd) { 
-	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE); 
+inline static DWORD GetExStyle(HWND hWnd) {
+	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 }
 
 inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
@@ -97,21 +97,21 @@ struct NumericStringEquivalence
 				break;
 			}
 			if (_istdigit(*str1) && _istdigit(*str2))
-			{			
+			{
 				lcmp = generic_strtol(str1, &p1, 10) - generic_strtol(str2, &p2, 10);
 				if ( lcmp == 0 )
 					lcmp = (p2 - str2) - (p1 - str1);
 				if ( lcmp != 0 )
-					break;	
+					break;
 				str1 = p1, str2 = p2;
 			}
-			else 
+			else
 			{
 				if (_istascii(*str1) && _istupper(*str1))
 					c1 = _totlower(*str1);
 				else
 					c1 = *str1;
-				if (_istascii(*str2) && _istupper(*str2)) 
+				if (_istascii(*str2) && _istupper(*str2))
 					c2 = _totlower(*str2);
 				else
 					c2 = *str2;
@@ -131,7 +131,7 @@ struct BufferEquivalent
 	DocTabView *_pTab;
 	int _iColumn;
 	bool _reverse;
-	BufferEquivalent(DocTabView *pTab, int iColumn, bool reverse) 
+	BufferEquivalent(DocTabView *pTab, int iColumn, bool reverse)
 		: _pTab(pTab), _iColumn(iColumn), _reverse(reverse)
 	{}
 
@@ -143,7 +143,7 @@ struct BufferEquivalent
 	}
 
 	bool compare(int i1, int i2) const
-	{ 
+	{
 		BufferID bid1 = _pTab->getBufferByIndex(i1);
 		BufferID bid2 = _pTab->getBufferByIndex(i2);
 		Buffer * b1 = MainFileManager->getBufferByID(bid1);
@@ -164,7 +164,7 @@ struct BufferEquivalent
 		{
 			int t1 = (int)b1->getLangType();
 			int t2 = (int)b2->getLangType();
-			return (t1 < t2); // yeah should be the name 
+			return (t1 < t2); // yeah should be the name
 		}
 		return false;
 	}
@@ -220,51 +220,58 @@ void WindowsDlg::init(HINSTANCE hInst, HWND parent)
 
 INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (message) 
+	switch (message)
 	{
 		case WM_INITDIALOG :
 		{
 			changeDlgLang();
-			return MyBaseClass::run_dlgProc(message, wParam, lParam);	
+			return MyBaseClass::run_dlgProc(message, wParam, lParam);
 		}
-		case WM_COMMAND : 
+
+		case WM_COMMAND :
 		{
 			switch (wParam)
 			{
-			case IDOK :
-				activateCurrent();
-				return TRUE;
-
-			case IDCANCEL :
-				::GetWindowRect(_hSelf, &_lastKnownLocation);
-				EndDialog(_hSelf, IDCANCEL);
-				return TRUE;
-
-			case IDC_WINDOWS_SAVE:
-				doSave();
-				return TRUE;
-
-			case IDC_WINDOWS_CLOSE:
-				doClose();
-				return TRUE;
-
-			case IDC_WINDOWS_SORT:
-				doSortToTabs();
-				_isSorted = false;
-				updateButtonState();
-				break;
-
-			default :
-				break;
+				case IDOK:
+				{
+					activateCurrent();
+					return TRUE;
+				}
+				case IDCANCEL:
+				{
+					::GetWindowRect(_hSelf, &_lastKnownLocation);
+					EndDialog(_hSelf, IDCANCEL);
+					return TRUE;
+				}
+				case IDC_WINDOWS_SAVE:
+				{
+					doSave();
+					return TRUE;
+				}
+				case IDC_WINDOWS_CLOSE:
+				{
+					doClose();
+					return TRUE;
+				}
+				case IDC_WINDOWS_SORT:
+				{
+					doSortToTabs();
+					_isSorted = false;
+					updateButtonState();
+					break;
+				}
 			}
+			break;
 		}
 
-		case WM_DESTROY :
+		case WM_DESTROY:
+		{
 			//destroy();
 			return TRUE;
+		}
 
 		case WM_NOTIFY :
-		{		
+		{
 			if (wParam == IDC_WINDOWS_LIST)
 			{
 				NMHDR* pNMHDR = (NMHDR*)lParam;
@@ -272,7 +279,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				{
 					NMLVDISPINFO *pLvdi = (NMLVDISPINFO *)pNMHDR;
 					//if(pLvdi->item.mask & LVIF_IMAGE)
-					//	; 
+					//	;
 					if(pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;
@@ -388,11 +395,12 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					return TRUE;
 				}
 			}
+			break;
 		}
-		break;
 	}
-	return MyBaseClass::run_dlgProc(message, wParam, lParam);	
+	return MyBaseClass::run_dlgProc(message, wParam, lParam);
 }
+
 
 void WindowsDlg::updateButtonState()
 {
@@ -507,7 +515,7 @@ BOOL WindowsDlg::onInitDialog()
 
 	if (_lastKnownLocation.bottom > 0 && _lastKnownLocation.right > 0)
 	{
-		SetWindowPos(_hSelf, NULL, _lastKnownLocation.left, _lastKnownLocation.top, 
+		SetWindowPos(_hSelf, NULL, _lastKnownLocation.left, _lastKnownLocation.top,
 			_lastKnownLocation.right-_lastKnownLocation.left, _lastKnownLocation.bottom-_lastKnownLocation.top, SWP_SHOWWINDOW);
 	}
 	else
@@ -549,7 +557,7 @@ LRESULT WindowsDlg::onWinMgr(WPARAM wp, LPARAM lp)
 			nmw.sizeinfo.szMin = _szMinListCtrl;
 			nmw.processed = TRUE;
 			return TRUE;
-		}	
+		}
 	}
 	return MyBaseClass::onWinMgr(wp, lp);
 }
@@ -621,14 +629,14 @@ void WindowsDlg::doSave()
 {
 	NMWINDLG nmdlg;
 	nmdlg.type = WDT_SAVE;
-	nmdlg.curSel = ListView_GetNextItem(_hList, -1, LVNI_SELECTED); 
+	nmdlg.curSel = ListView_GetNextItem(_hList, -1, LVNI_SELECTED);
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;
 	nmdlg.nItems = ListView_GetSelectedCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
 	for (int i=-1, j=0;;++j) {
-		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED); 
-		if (i == -1) break;						
+		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
+		if (i == -1) break;
 		nmdlg.Items[j] = _idxMap[i];
 	}
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
@@ -644,7 +652,7 @@ void WindowsDlg::destroy()
 	HWND hSelf = _hSelf;
 	_hSelf = NULL;
 	::DestroyWindow(hSelf);
-	
+
 }
 
 void WindowsDlg::activateCurrent()
@@ -669,7 +677,7 @@ void WindowsDlg::doClose()
 	nmdlg.type = WDT_CLOSE;
 	int index = ListView_GetNextItem(_hList, -1, LVNI_ALL|LVNI_SELECTED);
 	if (index == -1) return;
-	
+
 	nmdlg.curSel = _idxMap[index];
 	nmdlg.hwndFrom = _hSelf;
 	nmdlg.code = WDN_NOTIFY;
@@ -678,7 +686,7 @@ void WindowsDlg::doClose()
 	vector<int> key;
 	key.resize(n, 0x7fffffff);
 	for(int i=-1, j=0;; ++j) {
-		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED); 
+		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED);
 		if (i == -1) break;
 		ListView_SetItemState(_hList, i, 0, LVIS_SELECTED); // deselect
 		nmdlg.Items[j] = _idxMap[i];
@@ -737,14 +745,14 @@ void WindowsDlg::doSortToTabs()
 	vector<int> key;
 	key.resize(n, 0x7fffffff);
 	for(int i=-1, j=0;; ++j) {
-		i = ListView_GetNextItem(_hList, i, LVNI_ALL); 
+		i = ListView_GetNextItem(_hList, i, LVNI_ALL);
 		if (i == -1) break;
 		nmdlg.Items[j] = _idxMap[i];
 		if (i == curSel)
 			nmdlg.curSel = j;
 		key[j] = i;
 	}
-	
+
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));
 	if (nmdlg.processed)
 	{

@@ -5,19 +5,19 @@
 // Compiles with Visual C++ 6.0. Runs on Win 98 and probably Win 2000 too.
 // Set tabsize = 3 in your editor.
 //
-// Theo - Heavily modified to remove MFC dependencies.  
+// Theo - Heavily modified to remove MFC dependencies.
 //        Replaced CWnd*/HWND, CRect/RECT, CSize/SIZE, CPoint/POINT
 
 
 #include "WinMgr.h"
 
 // Theo - Style Helpers
-inline static DWORD GetStyle(HWND hWnd) { 
-	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE); 
+inline static DWORD GetStyle(HWND hWnd) {
+	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE);
 }
 
-inline static DWORD GetExStyle(HWND hWnd) { 
-	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE); 
+inline static DWORD GetExStyle(HWND hWnd) {
+	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 }
 
 const UINT WM_WINMGR = RegisterWindowMessage(TEXT("WM_WINMGR"));
@@ -147,7 +147,7 @@ CWinMgr::CalcGroup(WINRECT* pGroup, HWND hWnd)
 		h = min(abs(h), RectHeight(rcTotal)/2);
 		::InflateRect(&rcTotal, -w, -h);
 	}
-	
+
 	BOOL bRow = pGroup->IsRowGroup();		 // Is this a row group?
 
 	// Running height or width: start with total
@@ -223,7 +223,7 @@ CWinMgr::AdjustSize(WINRECT* wrc, BOOL bRow,
 	//
 	int hwCurrent = wrc->GetHeightOrWidth(bRow); // current size
 	int hwExtra = hw - hwCurrent;						// amount extra
-	hwExtra = min(max(hwExtra, 0), hwRemaining);	// truncate 
+	hwExtra = min(max(hwExtra, 0), hwRemaining);	// truncate
 	hw = hwCurrent + hwExtra;							// new height-or-width
 	wrc->SetHeightOrWidth(hw, bRow);				// set...
 	hwRemaining -= hwExtra;								// and adjust remaining
@@ -274,7 +274,7 @@ CWinMgr::OnGetSizeInfo(SIZEINFO& szi, WINRECT* wrc, HWND hWnd)
 {
 	szi.szMin = SIZEZERO;				// default min size = zero
 	szi.szMax = SIZEMAX;					// default max size = infinite
-	szi.szDesired = RectToSize(wrc->GetRect());	// default desired size = current 
+	szi.szDesired = RectToSize(wrc->GetRect());	// default desired size = current
 
 	if (wrc->IsGroup()) {
 		// For groups, calculate min, max, desired size as aggregate of children
@@ -304,7 +304,7 @@ CWinMgr::OnGetSizeInfo(SIZEINFO& szi, WINRECT* wrc, HWND hWnd)
 			}
 		}
 
-		// Add margins. 
+		// Add margins.
 		int w2,h2;
 		wrc->GetMargins(w2,h2);			// get margins
 		w2<<=1; h2<<=1;					// double
@@ -396,7 +396,7 @@ BOOL CWinMgr::SendGetSizeInfo(SIZEINFO& szi, HWND hWnd, UINT nID)
 	szi = nmw.sizeinfo; // copy back to caller's struct
 	return TRUE;
 }
-		
+
 //////////////////
 // Get min/max info.
 //
@@ -410,7 +410,7 @@ CWinMgr::GetMinMaxInfo(HWND hWnd, MINMAXINFO* lpMMI)
 }
 
 //////////////////
-// Get min/max info. 
+// Get min/max info.
 //
 void CWinMgr::GetMinMaxInfo(HWND hWnd, SIZEINFO& szi)
 {

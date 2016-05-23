@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -105,7 +105,7 @@
 #endif //DOCKINGMANAGER_H
 
 #ifndef PROCESSUS_H
-#include "Process.h"
+#include "Processus.h"
 #endif //PROCESSUS_H
 
 #ifndef AUTOCOMPLETION_H
@@ -126,6 +126,7 @@
 
 #include "localization.h"
 #include <vector>
+#include <iso646.h>
 
 
 #define MENU 0x01
@@ -160,31 +161,30 @@ enum spaceTab {
 
 struct TaskListInfo;
 
-struct VisibleGUIConf {
-	bool isPostIt;
-	bool isFullScreen;
-	
+
+struct VisibleGUIConf final
+{
+	bool isPostIt = false;
+	bool isFullScreen = false;
+
 	//Used by both views
-	bool isMenuShown;
+	bool isMenuShown = true;
 	//bool isToolbarShown;	//toolbar forcefully hidden by hiding rebar
-	DWORD_PTR preStyle;
+	DWORD_PTR preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
 	//used by postit only
-	bool isTabbarShown;
-	bool isAlwaysOnTop;
-	bool isStatusbarShown;
+	bool isTabbarShown = true;
+	bool isAlwaysOnTop = false;
+	bool isStatusbarShown = true;
 
 	//used by fullscreen only
 	WINDOWPLACEMENT _winPlace;
 
-	VisibleGUIConf() : isPostIt(false), isFullScreen(false),
-		isAlwaysOnTop(false), isMenuShown(true), isTabbarShown(true),
-		isStatusbarShown(true), preStyle(WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN)
+	VisibleGUIConf()
 	{
-		_winPlace.length = 0;
-	};
+		memset(&_winPlace, 0x0, sizeof(_winPlace));
+	}
 };
-
 
 class FileDialog;
 class Notepad_plus_Window;
@@ -194,23 +194,21 @@ class VerticalFileSwitcher;
 class ProjectPanel;
 class DocumentMap;
 class FunctionListPanel;
+class FileBrowser;
 
-class Notepad_plus {
 
+class Notepad_plus final
+{
 friend class Notepad_plus_Window;
 friend class FileManager;
 
 public:
 	Notepad_plus();
-	virtual ~Notepad_plus();
+	~Notepad_plus();
+
 	LRESULT init(HWND hwnd);
 	LRESULT process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	void killAllChildren();
-    /*
-    HWND getWindowHandle() const {
-        return _pPublicInterface->getHSelf();
-    };
-    */
 
 	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
 
@@ -219,9 +217,10 @@ public:
 
 	// For filtering the modeless Dialog message
 
-// fileOperations
+	//! \name File Operations
+	//@{
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
-	BufferID doOpen(const TCHAR *fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, time_t fileNameTimestamp = 0);
+	BufferID doOpen(const generic_string& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, time_t fileNameTimestamp = 0);
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
@@ -229,20 +228,16 @@ public:
 
 	void fileOpen();
 	void fileNew();
-
-    bool fileReload() {
-	    BufferID buf = _pEditView->getCurrentBufferID();
-	    return doReload(buf, buf->isDirty());
-    };
-
+    bool fileReload();
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
 	bool fileCloseAll(bool doDeleteBackup, bool isSnapshotMode = false);
 	bool fileCloseAllButCurrent();
-	bool fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes);
+	bool fileCloseAllGiven(const std::vector<int>& krvecBufferIndexes);
 	bool fileCloseAllToLeft();
 	bool fileCloseAllToRight();
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
+	bool fileSaveSpecific(const generic_string& fileNameToSave);
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);
 	bool fileDelete(BufferID id = BUFFER_INVALID);
 	bool fileRename(BufferID id = BUFFER_INVALID);
@@ -250,49 +245,43 @@ public:
 	bool addBufferToView(BufferID id, int whichOne);
 	bool moveBuffer(BufferID id, int whereTo);	//assumes whereFrom is otherView(whereTo)
 	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
-// end fileOperations
+	//@}
 
 	bool isFileSession(const TCHAR * filename);
+	bool isFileWorkspace(const TCHAR * filename);
 	void filePrint(bool showDialog);
 	bool saveScintillaParams();
 
 	bool saveGUIParams();
 	bool saveProjectPanelsParams();
+	bool saveFileBrowserParam();
 	void saveDockingParams();
-    void saveUserDefineLangs() {
-        if (ScintillaEditView::getUserDefineDlg()->isDirty())
-		(NppParameters::getInstance())->writeUserDefinedLang();
-    };
-    void saveShortcuts(){
-        NppParameters::getInstance()->writeShortcuts();
-    };
+    void saveUserDefineLangs();
+    void saveShortcuts();
 	void saveSession(const Session & session);
 	void saveCurrentSession();
+	void saveFindHistory();
 
-    void saveFindHistory(){
-        _findReplaceDlg.saveFindHistory();
-	    (NppParameters::getInstance())->writeFindHistory();
-    };
+	void getCurrentOpenedFiles(Session& session, bool includUntitledDoc = false);
 
-	void getCurrentOpenedFiles(Session & session, bool includUntitledDoc = false);
-
-	bool fileLoadSession(const TCHAR *fn = NULL);
+	bool fileLoadSession(const TCHAR* fn = nullptr);
 	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);
-	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR ** fileNames = NULL);
+	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR** fileNames = nullptr);
 	void changeToolBarIcons();
 
 	bool doBlockComment(comment_mode currCommentMode);
 	bool doStreamComment();
 	//--FLS: undoStreamComment: New function unDoStreamComment()
 	bool undoStreamComment();
-	
+
 	bool addCurrentMacro();
 	void macroPlayback(Macro);
-    
+
     void loadLastSession();
 	bool loadSession(Session & session, bool isSnapshotMode = false);
-	
+
 	void notifyBufferChanged(Buffer * buffer, int mask);
+	bool findInFinderFiles(FindersInfo *findInFolderInfo);
 	bool findInFiles();
 	bool replaceInFiles();
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
@@ -300,63 +289,69 @@ public:
     int getHtmlXmlEncoding(const TCHAR *fileName) const;
 	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
-	};
+	}
 	bool emergency(generic_string emergencySavedDir);
-	Buffer * getCurrentBuffer()	{
+	Buffer* getCurrentBuffer()	{
 		return _pEditView->getCurrentBuffer();
-	};
+	}
 	void launchDocumentBackupTask();
 	int getQuoteIndexFrom(const char *quoter) const;
 	void showQuoteFromIndex(int index) const;
 	void showQuote(const char *quote, const char *quoter, bool doTrolling) const;
-	
+
+
 private:
-	Notepad_plus_Window *_pPublicInterface;
-    Window *_pMainWindow;
+	Notepad_plus_Window *_pPublicInterface = nullptr;
+    Window *_pMainWindow = nullptr;
 	DockingManager _dockingManager;
 	std::vector<int> _internalFuncIDs;
 
 	AutoCompletion _autoCompleteMain;
-	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
+	AutoCompletion _autoCompleteSub; // each Scintilla has its own autoComplete
 
 	SmartHighlighter _smartHighlighter;
     NativeLangSpeaker _nativeLangSpeaker;
     DocTabView _mainDocTab;
     DocTabView _subDocTab;
-    DocTabView *_pDocTab;
-	DocTabView *_pNonDocTab;
+    DocTabView* _pDocTab = nullptr;
+	DocTabView* _pNonDocTab = nullptr;
 
     ScintillaEditView _subEditView;
     ScintillaEditView _mainEditView;
-	ScintillaEditView _invisibleEditView;	//for searches
-	ScintillaEditView _fileEditView;		//for FileManager
-    ScintillaEditView *_pEditView;
-	ScintillaEditView *_pNonEditView;
+	ScintillaEditView _invisibleEditView; // for searches
+	ScintillaEditView _fileEditView;      // for FileManager
+    ScintillaEditView* _pEditView = nullptr;
+	ScintillaEditView* _pNonEditView = nullptr;
 
-    SplitterContainer *_pMainSplitter;
+    SplitterContainer* _pMainSplitter = nullptr;
     SplitterContainer _subSplitter;
 
-    ContextMenu _tabPopupMenu, _tabPopupDropMenu, _fileSwitcherMultiFilePopupMenu;
+    ContextMenu _tabPopupMenu;
+	ContextMenu _tabPopupDropMenu;
+	ContextMenu _fileSwitcherMultiFilePopupMenu;
 
 	ToolBar	_toolBar;
 	IconList _docTabIconList;
-	
+
     StatusBar _statusBar;
-	bool _toReduceTabBar;
+	bool _toReduceTabBar = false;
 	ReBar _rebarTop;
 	ReBar _rebarBottom;
 
 	// Dialog
 	FindReplaceDlg _findReplaceDlg;
+	FindInFinderDlg _findInFinderDlg;
+
 	FindIncrementDlg _incrementFindDlg;
     AboutDlg _aboutDlg;
+	DebugInfoDlg _debugInfoDlg;
 	RunDlg _runDlg;
     GoToLineDlg _goToLineDlg;
 	ColumnEditorDlg _colEditorDlg;
 	WordStyleDlg _configStyleDlg;
 	PreferenceDlg _preference;
 	FindCharsInRangeDlg _findCharsInRangeDlg;
-	
+
 	// a handle list of all the Notepad++ dialogs
 	std::vector<HWND> _hModelessDlgs;
 
@@ -365,10 +360,10 @@ private:
 	//vector<iconLocator> _customIconVect;
 
 	WindowsMenu _windowsMenu;
-	HMENU _mainMenuHandle;
+	HMENU _mainMenuHandle = NULL;
 
-	bool _sysMenuEntering;
-	
+	bool _sysMenuEntering = false;
+
 
 	// For FullScreen/PostIt features
 	VisibleGUIConf	_beforeSpecialView;
@@ -377,39 +372,34 @@ private:
 
 	// Keystroke macro recording and playback
 	Macro _macro;
-	bool _recordingMacro;
+	bool _recordingMacro = false;
+	bool _playingBackMacro = false;
 	RunMacroDlg _runMacroDlg;
 
 	// For hotspot
-	bool _linkTriggered;
-	bool _isHotspotDblClicked;
-	bool _isFolding;
+	bool _linkTriggered = true;
+	bool _isHotspotDblClicked = false;
+	bool _isFolding = false;
 
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;
 
-	struct ActivateAppInfo {
-		bool _isActivated;
-		int _x;
-		int _y;
-		ActivateAppInfo() : _isActivated(false), _x(0), _y(0){};
-	} _activeAppInf;
-
 	//Synchronized Scolling
-	
-	struct SyncInfo {
-		int _line;
-		int _column;
-		bool _isSynScollV;
-		bool _isSynScollH;
-		SyncInfo():_line(0), _column(0), _isSynScollV(false), _isSynScollH(false){};
-		bool doSync() const {return (_isSynScollV || _isSynScollH); };
-	} _syncInfo;
+	struct SyncInfo final
+	{
+		int _line = 0;
+		int _column = 0;
+		bool _isSynScollV = false;
+		bool _isSynScollH = false;
 
-	bool _isUDDocked;
+		bool doSync() const {return (_isSynScollV || _isSynScollH); }
+	}
+	_syncInfo;
 
-	trayIconControler *_pTrayIco;
-	int _zoomOriginalValue;
+	bool _isUDDocked = false;
+
+	trayIconControler* _pTrayIco = nullptr;
+	int _zoomOriginalValue = 0;
 
 	Accelerator _accelerator;
 	ScintillaAccelerator _scintaccelerator;
@@ -417,31 +407,32 @@ private:
 	PluginsManager _pluginsManager;
     ButtonDlg _restoreButton;
 
-	bool _isFileOpening;
-	bool _isAdministrator;
+	bool _isFileOpening = false;
+	bool _isAdministrator = false;
 
 	ScintillaCtrls _scintillaCtrls4Plugins;
 
 	std::vector<std::pair<int, int> > _hideLinesMarks;
 	StyleArray _hotspotStyles;
 
-	AnsiCharPanel *_pAnsiCharPanel;
-	ClipboardHistoryPanel *_pClipboardHistoryPanel;
-	VerticalFileSwitcher *_pFileSwitcherPanel;
-	ProjectPanel *_pProjectPanel_1;
-	ProjectPanel *_pProjectPanel_2;
-	ProjectPanel *_pProjectPanel_3;
+	AnsiCharPanel* _pAnsiCharPanel = nullptr;
+	ClipboardHistoryPanel* _pClipboardHistoryPanel = nullptr;
+	VerticalFileSwitcher* _pFileSwitcherPanel = nullptr;
+	ProjectPanel* _pProjectPanel_1 = nullptr;
+	ProjectPanel* _pProjectPanel_2 = nullptr;
+	ProjectPanel* _pProjectPanel_3 = nullptr;
 
-	DocumentMap *_pDocMap;
-	FunctionListPanel *_pFuncList;
+	FileBrowser* _pFileBrowser = nullptr;
+
+	DocumentMap* _pDocMap = nullptr;
+	FunctionListPanel* _pFuncList = nullptr;
 
 	BOOL notify(SCNotification *notification);
-	void specialCmd(int id);
 	void command(int id);
 
 //Document management
-	UCHAR _mainWindowStatus;	//For 2 views and user dialog if docked
-	int _activeView;
+	UCHAR _mainWindowStatus = 0; //For 2 views and user dialog if docked
+	int _activeView = MAIN_VIEW;
 
 	//User dialog docking
 	void dockUserDlg();
@@ -456,17 +447,17 @@ private:
 	bool reloadLang();
 	bool loadStyles();
 
-	int currentView(){
+	int currentView() {
 		return _activeView;
-	};
+	}
 
 	int otherView(){
 		return (_activeView == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
-	};
+	}
 
 	int otherFromView(int whichOne){
 		return (whichOne == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
-	};
+	}
 
 	bool canHideView(int whichOne);	//true if view can safely be hidden (no open docs etc)
 
@@ -502,16 +493,14 @@ private:
     void getMainClientRect(RECT & rc) const;
 	void staticCheckMenuAndTB() const;
 	void dynamicCheckMenuAndTB() const;
-	void enableConvertMenuItems(formatType f) const;
+	void enableConvertMenuItems(EolType f) const;
 	void checkUnicodeMenuItems() const;
 
 	generic_string getLangDesc(LangType langType, bool getName = false);
 
-	void setLangStatus(LangType langType){
-		_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
-	};
+	void setLangStatus(LangType langType);
 
-	void setDisplayFormat(formatType f);
+	void setDisplayFormat(EolType f);
 	int getCmdIDFromEncoding(int encoding) const;
 	void setUniModeText();
 	void checkLangsMenu(int id) const ;
@@ -522,45 +511,54 @@ private:
 
 	void checkMenuItem(int itemID, bool willBeChecked) const {
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
-	};
+	}
 
 	bool isConditionExprLine(int lineNumber);
 	int findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol);
 	void maintainIndentation(TCHAR ch);
-	
+
 	void addHotSpot();
 
-    void bookmarkAdd(int lineno) const {
+    void bookmarkAdd(int lineno) const
+	{
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		if (!bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
-	};
-    void bookmarkDelete(int lineno) const {
+	}
+
+    void bookmarkDelete(int lineno) const
+	{
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		if ( bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
-	};
-    bool bookmarkPresent(int lineno) const {
+	}
+
+    bool bookmarkPresent(int lineno) const
+	{
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
-	};
-    void bookmarkToggle(int lineno) const {
+	}
+
+    void bookmarkToggle(int lineno) const
+	{
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 
 		if (bookmarkPresent(lineno))
 			bookmarkDelete(lineno);
 		else
-    		bookmarkAdd(lineno);
-	};
+			bookmarkAdd(lineno);
+	}
+
     void bookmarkNext(bool forwardScan);
-	void bookmarkClearAll() const {
+	void bookmarkClearAll() const
+	{
 		_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
-	};
+	}
 
 	void copyMarkedLines();
 	void cutMarkedLines();
@@ -594,9 +592,7 @@ private:
 	bool findInOpenedFiles();
 	bool findInCurrentFile();
 
-	bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
 	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
-
 	void doSynScorll(HWND hW);
 	void setWorkingDir(const TCHAR *dir);
 	bool str2Cliboard(const generic_string & str2cpy);
@@ -618,7 +614,7 @@ private:
 	bool goToPreviousIndicator(int indicID2Search, bool isWrap = true) const;
 	bool goToNextIndicator(int indicID2Search, bool isWrap = true) const;
 	int wordCount();
-	
+
 	void wsTabConvert(spaceTab whichWay);
 	void doTrim(trimOp whichPart);
 	void removeEmptyLine(bool isBlankContained);
@@ -628,6 +624,7 @@ private:
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
+	void launchFileBrowser(const std::vector<generic_string> & folders);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -635,14 +632,24 @@ private:
 	static bool deleteBack(ScintillaEditView *pCurrentView, BufferID targetBufID);
 	static bool deleteForward(ScintillaEditView *pCurrentView, BufferID targetBufID);
 	static bool selectBack(ScintillaEditView *pCurrentView, BufferID targetBufID);
-	
-	static int getRandomNumber(int rangeMax = -1) {
+
+	static int getRandomNumber(int rangeMax = -1)
+	{
 		int randomNumber = rand();
 		if (rangeMax == -1)
 			return randomNumber;
 		return (rand() % rangeMax);
-	};
+	}
+
 	static DWORD WINAPI backupDocument(void *params);
+
+	static DWORD WINAPI monitorFileOnChange(void * params);
+	struct MonitorInfo final {
+		MonitorInfo(Buffer *buf, HWND nppHandle) :
+			_buffer(buf), _nppHandle(nppHandle) {};
+		Buffer *_buffer = nullptr;
+		HWND _nppHandle = nullptr;
+	};
 };
 
 

@@ -154,13 +154,13 @@ protected :
 	// Subclassing caption
 	LRESULT runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK wndCaptionProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProcCaption(hwnd, Message, wParam, lParam));
+		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProcCaption(hwnd, Message, wParam, lParam));
 	};
 
 	// Subclassing tab
 	LRESULT runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK wndTabProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProcTab(hwnd, Message, wParam, lParam));
+		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProcTab(hwnd, Message, wParam, lParam));
 	};
 
     virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -231,6 +231,13 @@ private:
 	BOOL					_bCaptionTT;
 	BOOL					_bCapTTHover;
 	eMousePos				_hoverMPos;
+
+	int _captionHeightDynamic = HIGH_CAPTION;
+	int _captionGapDynamic = CAPTION_GAP;
+	int _closeButtonPosLeftDynamic = CLOSEBTN_POS_LEFT;
+	int _closeButtonPosTopDynamic = CLOSEBTN_POS_TOP;
+	int _closeButtonWidth;
+	int _closeButtonHeight;
 
 	// data of added windows
 	std::vector<tTbData *>		_vTbData;

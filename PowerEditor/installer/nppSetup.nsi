@@ -36,10 +36,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.7.9"
+!define APPVERSION "6.9.2"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 79
+!define VERSION_MINOR 92
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -53,16 +53,24 @@ InstallDir "$PROGRAMFILES\${APPNAME}"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
 OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 
-; GetWindowsVersion 3.0 (2013-02-07)
+; http://nsis.sourceforge.net/Get_Windows_version
+
+; GetWindowsVersion 4.1.1 (2015-06-22)
 ;
 ; Based on Yazno's function, http://yazno.tripod.com/powerpimpit/
 ; Update by Joost Verburg
 ; Update (Macro, Define, Windows 7 detection) - John T. Haller of PortableApps.com - 2008-01-07
 ; Update (Windows 8 detection) - Marek Mizanin (Zanir) - 2013-02-07
+; Update (Windows 8.1 detection) - John T. Haller of PortableApps.com - 2014-04-04
+; Update (Windows 10 TP detection) - John T. Haller of PortableApps.com - 2014-10-01
+; Update (Windows 10 TP4 detection, and added include guards) - Kairu - 2015-06-22
 ;
 ; Usage: ${GetWindowsVersion} $R0
 ;
-; $R0 contains: 95, 98, ME, NT x.x, 2000, XP, 2003, Vista, 7, 8 or '' (for unknown)
+; $R0 contains: 95, 98, ME, NT x.x, 2000, XP, 2003, Vista, 7, 8, 8.1, 10.0 or '' (for unknown)
+ 
+!ifndef __GET_WINDOWS_VERSION_NSH
+!define __GET_WINDOWS_VERSION_NSH
  
 Function GetWindowsVersion
  
@@ -71,6 +79,7 @@ Function GetWindowsVersion
  
   ClearErrors
  
+  ; check if Windows NT family
   ReadRegStr $R0 HKLM \
   "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
  
@@ -114,7 +123,14 @@ Function GetWindowsVersion
   StrCmp $R1 '5.2' lbl_winnt_2003
   StrCmp $R1 '6.0' lbl_winnt_vista
   StrCmp $R1 '6.1' lbl_winnt_7
-  StrCmp $R1 '6.2' lbl_winnt_8 lbl_error
+  StrCmp $R1 '6.2' lbl_winnt_8
+  StrCmp $R1 '6.3' lbl_winnt_81
+  StrCmp $R1 '6.4' lbl_winnt_10 ; the early Windows 10 tech previews used version 6.4
+ 
+  StrCpy $R1 $R0 4
+ 
+  StrCmp $R1 '10.0' lbl_winnt_10
+  Goto lbl_error
  
   lbl_winnt_x:
     StrCpy $R0 "NT $R0" 6
@@ -144,6 +160,14 @@ Function GetWindowsVersion
     Strcpy $R0 '8'
   Goto lbl_done
  
+  lbl_winnt_81:
+    Strcpy $R0 '8.1'
+  Goto lbl_done
+ 
+  lbl_winnt_10:
+    Strcpy $R0 '10.0'
+  Goto lbl_done
+ 
   lbl_error:
     Strcpy $R0 ''
   lbl_done:
@@ -159,6 +183,8 @@ FunctionEnd
 !macroend
  
 !define GetWindowsVersion '!insertmacro "GetWindowsVersion"'
+ 
+!endif
 
 
 Function LaunchNpp
@@ -280,7 +306,7 @@ Function ExtraOptions
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
-	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\\notepad++\\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
+	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\notepad++\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
 	Pop $PluginLoadFromUserDataCheckboxHandle
 	${NSD_OnClick} $PluginLoadFromUserDataCheckboxHandle OnChange_PluginLoadFromUserDataCheckBox
 	
@@ -288,7 +314,7 @@ Function ExtraOptions
 	Pop $ShortcutCheckboxHandle
 	StrCmp $WinVer "8" 0 +2
 	${NSD_Check} $ShortcutCheckboxHandle
-	${NSD_OnClick} $ShortcutCheckboxHandle ShortcutOnChange_OldIconCheckBox
+	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
 
 	${NSD_CreateCheckbox} 0 170 100% 30u "Use the old, obsolete and monstrous icon$\nI won't blame you if you want to get the old icon back :)"
 	Pop $OldIconCheckboxHandle
@@ -299,8 +325,8 @@ FunctionEnd
 
 Var noUserDataChecked
 Var allowPluginLoadFromUserDataChecked
-Var isOldIconChecked
 Var createShortcutChecked
+Var isOldIconChecked
 
 ; TODO for optional arg
 ;Var params
@@ -314,12 +340,12 @@ Function OnChange_PluginLoadFromUserDataCheckBox
 	${NSD_GetState} $PluginLoadFromUserDataCheckboxHandle $allowPluginLoadFromUserDataChecked
 FunctionEnd
 
-Function OnChange_OldIconCheckBox
-	${NSD_GetState} $OldIconCheckboxHandle $isOldIconChecked
+Function OnChange_ShortcutCheckBox
+	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
 FunctionEnd
 
-Function ShortcutOnChange_OldIconCheckBox
-	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+Function OnChange_OldIconCheckBox
+	${NSD_GetState} $OldIconCheckboxHandle $isOldIconChecked
 FunctionEnd
 
 
@@ -489,6 +515,7 @@ Section -"Notepad++" mainSection
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
+
 	
 	; Set Section Files and Shortcuts
 	SetOverwrite on
@@ -523,7 +550,7 @@ Section -"Notepad++" mainSection
 	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
-	CreateDirectory "$SMPROGRAMS\Notepad++"
+	RMDir "$SMPROGRAMS\Notepad++"
 
 	; remove unstable plugins
 	CreateDirectory "$INSTDIR\plugins\disabled"
@@ -624,6 +651,16 @@ Section -"Notepad++" mainSection
 		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
 		Delete "$INSTDIR\plugins\NppQCP.dll"
 		
+	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +11
+		MessageBox MB_YESNOCANCEL "Due to the stability issue, DSpellCheck.dll will be moved to the directory $\"disabled$\".$\nChoose Cancel to keep it this installation.$\nChoose No to keep it forever." /SD IDYES IDNO never IDCANCEL donothing ;IDYES remove
+		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
+		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+		Goto donothing
+	never:
+		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\DSpellCheck2.dll"
+		Goto donothing
+	donothing:
+	
     ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3
 		Exec 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'
@@ -657,16 +694,20 @@ Section -"Notepad++" mainSection
 	UserInfo::GetAccountType
 	Pop $1
 	StrCmp $1 "Admin" 0 +2
-	
 	SetShellVarContext all
+	
+	; set the shortcuts working directory
+	; http://nsis.sourceforge.net/Docs/Chapter4.html#createshortcut
+	SetOutPath "$INSTDIR\"
+	
 	; add all the npp shortcuts for all user or current user
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"
-	SetShellVarContext current
-	
 	${If} $createShortcutChecked == ${BST_CHECKED}
 		CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	${EndIf}
+	
+	SetShellVarContext current
 	
 	${If} $isOldIconChecked == ${BST_CHECKED}
 		SetOutPath "$TEMP\"
@@ -797,34 +838,6 @@ SectionGroupEnd
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
 
-	${MementoSection} "Spell-Checker" DSpellCheck
-		Delete "$INSTDIR\plugins\DSpellCheck.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\DSpellCheck.dll"
-		SetOutPath "$UPDATE_PATH\plugins\Config"
-		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
-		File "..\bin\plugins\Config\Hunspell\dictionary.lst"
-		File "..\bin\plugins\Config\Hunspell\en_GB.aff"
-		File "..\bin\plugins\Config\Hunspell\en_GB.dic"
-		File "..\bin\plugins\Config\Hunspell\README_en_GB.txt"
-		File "..\bin\plugins\Config\Hunspell\en_US.aff"
-		File "..\bin\plugins\Config\Hunspell\en_US.dic"
-		File "..\bin\plugins\Config\Hunspell\README_en_US.txt"
-	${MementoSectionEnd}
-
-	${MementoSection} "Npp FTP" NppFTP
-		Delete "$INSTDIR\plugins\NppFTP.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppFTP.dll"
-		SetOutPath "$INSTDIR\plugins\doc\NppFTP"
-		File "..\bin\plugins\doc\NppFTP\license_NppFTP.txt"
-		File "..\bin\plugins\doc\NppFTP\license_libssh.txt"
-		File "..\bin\plugins\doc\NppFTP\license_OpenSSL.txt"
-		File "..\bin\plugins\doc\NppFTP\license_TiXML.txt"
-		File "..\bin\plugins\doc\NppFTP\license_ZLIB.txt"
-		File "..\bin\plugins\doc\NppFTP\license_UTCP.htm"
-		File "..\bin\plugins\doc\NppFTP\Readme.txt"
-	${MementoSectionEnd}
 
 	${MementoSection} "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
@@ -1020,6 +1033,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Portuguese" portuguese
 		CopyFiles "$TEMP\nppLocalization\portuguese.xml" "$INSTDIR\localization\portuguese.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Punjabi" punjabi
+		CopyFiles "$TEMP\nppLocalization\punjabi.xml" "$INSTDIR\localization\punjabi.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kannada" kannada
 		CopyFiles "$TEMP\nppLocalization\kannada.xml" "$INSTDIR\localization\kannada.xml"
 	${MementoSectionEnd}
@@ -1209,13 +1225,6 @@ SectionGroup "Themes" Themes
 	${MementoSectionEnd}
 SectionGroupEnd
 
-${MementoUnselectedSection} "As default html viewer" htmlViewer
-	SetOverwrite on
-	SetOutPath "$INSTDIR\"
-	File "..\bin\nppIExplorerShell.exe"
-	WriteRegStr HKLM "SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name" "" "$INSTDIR\nppIExplorerShell.exe"
-${MementoSectionEnd}
-
 InstType "Minimalist"
 
 ${MementoSection} "Auto-Updater" AutoUpdater
@@ -1229,15 +1238,6 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin\updater\README.md"
 ${MementoSectionEnd}
 
-/*
-${MementoSection} "User Manual" UserManual
-	SetOverwrite on
-	IfFileExists  "$INSTDIR\NppHelp.chm" 0 +2
-		Delete "$INSTDIR\NppHelp.chm"
-	SetOutPath "$INSTDIR\user.manual"
-	File /r "..\bin\user.manual\"
-${MementoSectionEnd}
-*/
 
 ${MementoSectionDone}
 
@@ -1253,7 +1253,6 @@ ${MementoSectionDone}
     !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need those plugins to extend the capacity of Notepad++.'
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${htmlViewer} 'Open the html file in Notepad++ while you choose <view source> from IE.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
     ;!insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of Notepad++.'
     ;!insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add Notepad++ shortcut on your desktop.'
@@ -1746,6 +1745,9 @@ SectionGroup un.localization
 	Section un.portuguese
 		Delete "$INSTDIR\localization\portuguese.xml"
 	SectionEnd
+	Section un.punjabi
+		Delete "$INSTDIR\localization\punjabi.xml"
+	SectionEnd
 	Section un.romanian
 		Delete "$INSTDIR\localization\romanian.xml"
 	SectionEnd
@@ -1955,7 +1957,6 @@ Section Uninstall
 	Delete "$INSTDIR\notepad++.exe"
 	Delete "$INSTDIR\readme.txt"
 	
-	
 	Delete "$INSTDIR\config.xml"
 	Delete "$INSTDIR\config.model.xml"
 	Delete "$INSTDIR\langs.xml"
@@ -1969,6 +1970,10 @@ Section Uninstall
 	Delete "$INSTDIR\nativeLang.xml"
 	Delete "$INSTDIR\session.xml"
 	Delete "$INSTDIR\localization\english.xml"
+	Delete "$INSTDIR\SourceCodePro-Regular.ttf"
+	Delete "$INSTDIR\SourceCodePro-Bold.ttf"
+	Delete "$INSTDIR\SourceCodePro-It.ttf"
+	Delete "$INSTDIR\SourceCodePro-BoldIt.ttf"
 	
 	SetShellVarContext current
 	Delete "$APPDATA\Notepad++\langs.xml"

@@ -41,16 +41,8 @@
 #ifndef URLCTRL_INCLUDED
 #include "URLCtrl.h"
 #endif// URLCTRL_INCLUDED
-#ifdef __GNUC__
-static int min(int a, int b) {
-    return (a<b)?a:b;
-};
-static int max(int a, int b) {
-    return (a>b)?a:b;
-};
-#endif //__GNUC__
 #include "tchar.h"
-#include "scilexer.h"
+#include "SciLexer.h"
 #include <unordered_map>
 
 class ScintillaEditView;

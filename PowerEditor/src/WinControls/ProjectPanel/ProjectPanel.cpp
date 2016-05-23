@@ -149,12 +149,6 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			::DestroyWindow(_hToolbarMenu);
             break;
         }
-		case WM_KEYDOWN:
-			//if (wParam == VK_F2)
-			{
-				::MessageBoxA(NULL,"vkF2","",MB_OK);
-			}
-			break;
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
@@ -760,7 +754,7 @@ void ProjectPanel::showContextMenu(int x, int y)
 	}
 }
 
-POINT ProjectPanel::getMenuDisplyPoint(int iButton)
+POINT ProjectPanel::getMenuDisplayPoint(int iButton)
 {
 	POINT p;
 	RECT btnRect;
@@ -798,14 +792,14 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		//
 		case IDB_PROJECT_BTN:
 		{
-		  POINT p = getMenuDisplyPoint(0);
+		  POINT p = getMenuDisplayPoint(0);
 		  TrackPopupMenu(_hWorkSpaceMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
 		}
 		break;
 
 		case IDB_EDIT_BTN:
 		{
-			POINT p = getMenuDisplyPoint(1);
+			POINT p = getMenuDisplayPoint(1);
 			HMENU hMenu = NULL;
 			NodeType nodeType = getNodeType(hTreeItem);
 			if (nodeType == nodeType_project)

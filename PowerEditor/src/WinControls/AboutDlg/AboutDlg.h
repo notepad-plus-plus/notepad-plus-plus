@@ -55,7 +55,6 @@ along with this program; if not, write to the Free Software \
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.")
 
 
-
 class AboutDlg : public StaticDialog
 {
 public :
@@ -75,5 +74,34 @@ private :
     URLCtrl _emailLink;
     URLCtrl _pageLink;
 };
+
+
+class DebugInfoDlg : public StaticDialog
+{
+public:
+	DebugInfoDlg() : StaticDialog() {};
+
+	void init(HINSTANCE hInst, HWND parent, bool isAdmin, generic_string loadedPlugins) {
+		_isAdmin = isAdmin;
+		_loadedPlugins = loadedPlugins;
+		Window::init(hInst, parent);
+	};
+
+	void doDialog();
+
+	virtual void destroy() {
+		_copyToClipboardLink.destroy();
+	};
+
+protected:
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	generic_string _debugInfoStr;
+	bool _isAdmin = false;
+	generic_string _loadedPlugins;
+	URLCtrl _copyToClipboardLink;
+};
+
 
 #endif //ABOUT_DLG_H

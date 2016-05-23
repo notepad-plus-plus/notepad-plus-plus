@@ -13,10 +13,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -35,11 +35,13 @@
 #include "Win32Exception.h"
 
 
-Win32Exception::Win32Exception(EXCEPTION_POINTERS * info) {
+Win32Exception::Win32Exception(EXCEPTION_POINTERS * info)
+{
 	_location = info->ExceptionRecord->ExceptionAddress;
 	_code = info->ExceptionRecord->ExceptionCode;
 	_info = info;
-	switch (_code) {
+	switch (_code)
+	{
 		case EXCEPTION_ACCESS_VIOLATION:
 			_event = "Access violation";
 			break;
@@ -52,17 +54,25 @@ Win32Exception::Win32Exception(EXCEPTION_POINTERS * info) {
 	}
 }
 
-void Win32Exception::installHandler() {
+void Win32Exception::installHandler()
+{
+#ifndef __MINGW32__
 	_set_se_translator(Win32Exception::translate);
+#endif
 }
 
-void  Win32Exception::removeHandler() {
+void  Win32Exception::removeHandler()
+{
+#ifndef __MINGW32__
 	_set_se_translator(NULL);
+#endif
 }
 
-void Win32Exception::translate(unsigned code, EXCEPTION_POINTERS * info) {
+void Win32Exception::translate(unsigned code, EXCEPTION_POINTERS * info)
+{
 	// Windows guarantees that *(info->ExceptionRecord) is valid
-	switch (code) {
+	switch (code)
+	{
 		case EXCEPTION_ACCESS_VIOLATION:
 			throw Win32AccessViolation(info);
 			break;
@@ -71,7 +81,12 @@ void Win32Exception::translate(unsigned code, EXCEPTION_POINTERS * info) {
 	}
 }
 
-Win32AccessViolation::Win32AccessViolation(EXCEPTION_POINTERS * info) : Win32Exception(info) {
+
+Win32AccessViolation::Win32AccessViolation(EXCEPTION_POINTERS * info)
+	: Win32Exception(info)
+{
 	_isWrite = info->ExceptionRecord->ExceptionInformation[0] == 1;
 	_badAddress = reinterpret_cast<ExceptionAddress>(info->ExceptionRecord->ExceptionInformation[1]);
 }
+
+

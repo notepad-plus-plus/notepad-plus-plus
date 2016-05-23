@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
 	<Native-Langue name = "Samogitian" filename="samogitian.xml" >
 	    <!-- Mindaugas Machernis veertea.  -->
@@ -14,15 +14,15 @@
 					<Item menuId="language" name = "&amp;Shnekta"/>
 					<Item menuId="settings" name = "&amp;Nostatimaa"/>
 				</Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    
-                    
-                    
-                    
+
+
+
+
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id = "41001" name = "&amp;Koortea	Ctrl+N"/>
@@ -35,7 +35,7 @@
                     <Item id = "41008" name = "Keateep &amp;Sauguotea .."/>
                     <Item id = "41010" name = "Spausdintea...	Ctrl+P"/>
                     <Item id = "41011" name = "Pabonga"/>
-                    
+
                     <Item id = "42001" name = "Eashkearp&amp;t'	Ctrl+X"/>
                     <Item id = "42002" name = "P&amp;asdaugeantea	Ctrl+C"/>
                     <Item id = "42003" name = "&amp;Atshaukt'	Ctrl+Z"/>
@@ -43,7 +43,7 @@
                     <Item id = "42005" name = "K&amp;eeltea	Ctrl+V"/>
                     <Item id = "42006" name = "&amp;Eashtriintea	Del"/>
                     <Item id = "42007" name = "Veaskou Zhea&amp;mietea	Ctrl+A"/>
-                    
+
                     <Item id = "43001" name = "&amp;Eaiskuot'...	Ctrl+F"/>
                     <Item id = "43002" name = "Keaata Ea&amp;iskuotea	F3"/>
                     <Item id = "43003" name = "Keist'...	Ctrl+H"/>
@@ -52,58 +52,58 @@
                     <Item id = "43006" name = "Veait' Keat' Atmiint'	F2"/>
                     <Item id = "43007" name = "Veait' Boovus' Atmiint' Shift+F2"/>
                     <Item id = "43008" name = "Veait's Veasas Ozhmeaarshtea"/>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-					
+
+
+
+
+
+
+
+
+
+
+
                     <Item id = "44011" name = "Long's kalbuos naujuos apeapreazheaama"/>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
                     <Item id = "44025" name = "Zheaanklos tarpa ear tabuliaveaam ruodiit'"/>
                     <Item id = "44026" name = "Skeartoka eilooteas roudiit'"/>
                     <Item id = "44019" name = "Zheanklos veasos ruodiit"/>
-                    
-                    
+
+
                     <Item id = "44020" name = "Zhiim's Tabuliaveam'"/>
-                    
+
                     <Item id = "44022" name = "Tekst' liigiout'"/>
                     <Item id = "44023" name = "Didint' Ctrl-pelies ratok's aukshtiin"/>
                     <Item id = "44024" name = "Mazhint' Ctrl-pelies ratok's zhemiin"/>
-                    
+
                     <Item id = "45001" name = "Windows formato veerstea"/>
                     <Item id = "45002" name = "UNIX  formato veerstea"/>
                     <Item id = "45003" name = "MAC  formato veerstea"/>
-					
+
                     <Item id = "45004" name = "ANSI kodout'"/>
                     <Item id = "45005" name = "UTF-8 kodout'"/>
                     <Item id = "45006" name = "UCS-2 Big Endian kodout'"/>
                     <Item id = "45007" name = "UCS-2 Little Endian kodout'"/>
                     <Item id = "45008" name = "MAC formato kodout'"/>
-                    
+
                     <Item id = "10001" name = "Ean vaizd' keaat'"/>
                     <Item id = "10002" name = "Vaizd's dveagob's"/>
-                    
+
                     <Item id = "46001" name = "Reankeaniis Steaalio..."/>
-    
+
                     <Item id = "47000" name = "Apleank...	F1"/>
-                    
-                    
-                    
-                     
-                    
-                    
+
+
+
+
+
+
                     <Item id = "49000" name = "&amp;Veakdiitea..."/>
                 </Commands>
 			</Main>
@@ -119,7 +119,7 @@
 					<Item CMID = "6" name = "Vaizd's deaagob's"/>
 			</TabBar>
 		</Menu>
-		
+
 		<Dialog>
             <Find title = "Ieshkuot'...">
                 <Item id = "1" name = "Keat' eaiskuot'"/>
@@ -137,7 +137,7 @@
                 <Item id = "1617" name = "Uzhimt's stealios"/>
                 <Item id = "1618" name = "Po paieshkuos eashseavaliitea"/>
                 <Item id = "1621" name = "Kriipteas"/>
-                
+
                 <Item id = "1611" name = "Eaa kou pakeeistea?"/>
                 <Item id = "1608" name = "Keist'"/>
                 <Item id = "1609" name = "Veasos Keistea"/>
@@ -164,7 +164,7 @@
 				<Item id = "1" name = "Bandiik!"/>
 				<Item id = "2" name = "Grazhink"/>
 				<Item id = "2301" name = "Sauguok"/>
-				
+
                 <SubDialog>
                     <Item id = "2211" name = "Apeabreazheams Stealiaus :"/>
                     <Item id = "2210" name = "Tas stealios veaseaams galious"/>
@@ -182,7 +182,7 @@
                     <Item id = "2219" name = "Raktazhodee"/>
                     <Item id = "2221" name = "Rajtazhodee vartuotuoja"/>
                 </SubDialog>
-				
+
             </StyleConfig>
             <UserDefine title = "Apeapriezht's Vartuotuoja">
 				<Item id = "20002" name = "Keist'"/>

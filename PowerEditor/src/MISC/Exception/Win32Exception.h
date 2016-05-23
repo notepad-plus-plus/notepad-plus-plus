@@ -13,10 +13,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -42,16 +42,16 @@ typedef const void* ExceptionAddress; // OK on Win32 platform
 class Win32Exception : public std::exception
 {
 public:
-    static void 		installHandler();
-    static void 		removeHandler();
-    virtual const char* what()  const throw() { return _event;    };
-    ExceptionAddress 	where() const         { return _location; };
-    unsigned int		code()  const         { return _code;     };
-	EXCEPTION_POINTERS* info()  const         { return _info;     };
-	
+    static void			installHandler();
+    static void			removeHandler();
+    virtual const char* what()  const throw() { return _event;    }
+    ExceptionAddress	where() const         { return _location; }
+    unsigned int		code()  const         { return _code;     }
+	EXCEPTION_POINTERS* info()  const         { return _info;     }
+
 protected:
     Win32Exception(EXCEPTION_POINTERS * info);	//Constructor only accessible by exception handler
-    static void 		translate(unsigned code, EXCEPTION_POINTERS * info);
+    static void			translate(unsigned code, EXCEPTION_POINTERS * info);
 
 private:
     const char * _event;
@@ -61,11 +61,12 @@ private:
 	EXCEPTION_POINTERS * _info;
 };
 
+
 class Win32AccessViolation: public Win32Exception
 {
 public:
-    bool 				isWrite()    const { return _isWrite;    };
-    ExceptionAddress	badAddress() const { return _badAddress; };
+    bool				isWrite()    const { return _isWrite;    }
+    ExceptionAddress	badAddress() const { return _badAddress; }
 private:
     Win32AccessViolation(EXCEPTION_POINTERS * info);
 

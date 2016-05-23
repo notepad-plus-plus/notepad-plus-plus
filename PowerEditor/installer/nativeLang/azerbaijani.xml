@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
 	<Native-Langue name="Azərbaycan" filename="azerbaijan.xml" >
 		<Menu>
@@ -17,7 +17,7 @@
                     <Item idName="Plugins" name="Plaginlər"/>
                     <Item idName="Window" name="Pəncərə"/>
                 </Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard"  name="Bufferə kopiya et"/>
@@ -27,19 +27,19 @@
                     <Item subMenuId="edit-comment" name="Şərhi Sil/Əlavə et"/>
                     <Item subMenuId="edit-autoCompletion" name="Avtomatik tamamlanma"/>
                     <Item subMenuId="edit-eolConversion" name="EOL Konversiya"/>
-					
+
                     <Item subMenuId="search-markAll" name="Hamısını qeyd et"/>
                     <Item subMenuId="search-unmarkAll" name="Heç birini qeyd etmə"/>
                     <Item subMenuId="search-jumpUp" name="Yuxarı səviyyəyə qalx"/>
                     <Item subMenuId="search-jumpDown" name="Aşağı səviyyəyə düş"/>
                     <Item subMenuId="search-bookmark" name="Tağlar"/>
-					
+
                     <Item subMenuId="view-showSymbol"  name="Simvolu göstər"/>
                     <Item subMenuId="view-zoom"  name="Miqyas"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Bu sənədi Daşı/Kopiya et"/>
                     <Item subMenuId="view-collapseLevel" name="Səviyyəni daralt"/>
                     <Item subMenuId="view-uncollapseLevel" name="Səviyyəni genişləndir"/>
-					
+
                     <Item subMenuId="encoding-characterSets"  name="Simvolların Yığımı"/>
                     <Item subMenuId="encoding-arabic"  name="Ərəb"/>
                     <Item subMenuId="encoding-baltic"  name="Baltik"/>
@@ -57,10 +57,10 @@
                     <Item subMenuId="encoding-turkish" name="Türk"/>
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vyetnam"/>
-					
+
                     <Item subMenuId="settings-import"  name="Import"/>
                 </SubEntries>
-                
+
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="Yeni"/>
@@ -80,7 +80,7 @@
                     <Item id="41015" name="Kopiyasını yadda saxla..."/>
                     <Item id="41016" name="Sil"/>
                     <Item id="41017" name="Adını dəyiş..."/>
-                    
+
                     <Item id="42001" name="Kəs"/>
                     <Item id="42002" name="Kopiya et"/>
                     <Item id="42003" name="Qaytar geri"/>
@@ -93,8 +93,8 @@
                     <Item id="42010" name="Seçilən sətiri dublikat et"/>
                     <Item id="42012" name="Sətirləri böl"/>
                     <Item id="42013" name="Sətirləri birləşdir"/>
-                    <Item id="42014" name="Seçilən sətiri yuxarı daşı"/>   
-                    <Item id="42015" name="Seçilən sətiri aşağı daşı"/>   
+                    <Item id="42014" name="Seçilən sətiri yuxarı daşı"/>
+                    <Item id="42015" name="Seçilən sətiri aşağı daşı"/>
                     <Item id="42016" name="BÖYÜK HƏRFLƏR"/>
                     <Item id="42017" name="kiçik hərflər"/>
                     <Item id="42018" name="Qeydi başla"/>
@@ -114,7 +114,7 @@
                     <Item id="42033" name="&quot;Ancaq oxumaq&quot; tağını götür"/>
                     <Item id="42035" name="Bloku Şərhləndir"/>
                     <Item id="42036" name="Bloku Şərhləndirmə"/>
-                    
+
                     <Item id="43001" name="Tap..."/>
                     <Item id="43002" name="Sonrakını tap"/>
                     <Item id="43003" name="Əvəz et..."/>
@@ -184,7 +184,7 @@
                     <Item id="44036" name="Üfiqi sürüşdürməni sinxronizasiya et"/>
                     <Item id="44041" name="Sətiri keçirdən simvolu göstər"/>
                     <Item id="44072" name="Digər pəncərəyə keç"/>
-                    
+
                     <Item id="45001" name="(Windows) Formatına çevir"/>
                     <Item id="45002" name="(UNIX) Formatına çevir"/>
                     <Item id="45003" name="(MAC) Formatına çevir"/>
@@ -204,7 +204,7 @@
                     <Item id="10003" name="Yeni pəncərəyə keçirt"/>
                     <Item id="10004" name="Yeni pəncərədə aç"/>
 
-                    
+
                     <Item id="46001" name="Stilin konfiqurasiyası..."/>
                     <Item id="46080" name="İstifadəçinin nizamları"/>
                     <Item id="47000" name="Notepad++ haqqında"/>
@@ -231,11 +231,11 @@
 					<Item id="48016" name="Qısayolu dəyiş/Macronu sil..."/>
 					<Item id="48017" name="Qısayolu dəyiş/Komandanı sil..."/>
 				</Commands>
-				
+
             </Main>
             <Splitter>
             </Splitter>
-			
+
             <TabBar>
                     <Item CMID="0" name="Bağla"/>
                     <Item CMID="1" name="Digər sənədləri bağla"/>
@@ -254,9 +254,9 @@
                     <Item CMID="14" name="Yeni pəncərəyə keçirt"/>
                     <Item CMID="15" name="Yeni pəncərədə aç"/>
             </TabBar>
-			
+
         </Menu>
-        
+
         <Dialog>
             <Find title="" titleFind="Tap" titleReplace="Əvəz et" titleFindInFiles="Fayllarda axtar">
                 <Item id="1"    name="Sonrakını tap"/>
@@ -298,7 +298,7 @@
 			 	<Item id="1641" name="Bu sənəddə hamısını tap"/>
 			 	<Item id="1686" name="Şəffaflıq"/>
             </Find>
-			
+
             <GoToLine title="Sətirə Keçid...">
                 <Item id="2007" name="Sətir"/>
                 <Item id="2008" name="Sütun"/>
@@ -315,13 +315,13 @@
                 <Item id="2"    name="İmtina"/>
                 <Item id="1904" name="Yadda saxla..."/>
             </Run>
-            
+
             <StyleConfig title="Stilin konfiqurasiyası">
                 <Item id="2"    name="İmtina"/>
                 <Item id="2301" name="Yadda saxla və bağla"/>
-                <Item id="2303" name="Şəffaflıq"/>		
+                <Item id="2303" name="Şəffaflıq"/>
                 <Item id="2306" name="Tema seç : "/>
-				
+
                 <SubDialog>
                 	<Item id="2204" name="Qalın"/>
                     <Item id="2205" name="İtalyan"/>
@@ -344,10 +344,10 @@
                     <Item id="2230" name="Bütün şriftlər qalın olsun"/>
                     <Item id="2231" name="Bütün şriftlər italyan stilində olsun"/>
                     <Item id="2232" name="Bütün şriftlərin altında xətt olsun"/>
-                </SubDialog>                
-                
+                </SubDialog>
+
             </StyleConfig>
-            
+
             <UserDefine title="İstifadəçi nizamları">
                 <Item id="20002" name="Adını dəyiş"/>
                 <Item id="20003" name="Təzəsini yarat..."/>
@@ -366,13 +366,13 @@
                 <Item id="6"     name="Qalın"/>
                 <Item id="7"     name="İtalyan"/>
                 <Item id="8"     name="Altınnan xətt çək"/>
-				
+
                 <Folder title="İlkin-qovluq">
                     <Item id="21101" name="İlkin stil nizamları"/>
                     <Item id="21201" name="Qovluğu açmaq açar-sözləri nizamları"/>
                     <Item id="21301" name="Qovluğu bağlamaq açar-sözləri nizamları"/>
                 </Folder>
-				
+
                 <Keywords title="Açar-sözləri listi">
                     <Item id="22101" name="1-ci Qrup"/>
                     <Item id="22201" name="2-ci Qrup"/>
@@ -383,7 +383,7 @@
                     <Item id="22313" name="Ön əlavə rejimi"/>
                     <Item id="22413" name="Ön əlavə rejimi"/>
                 </Keywords>
-				
+
                 <Comment title="Şərh sayı">
                     <Item id="23301" name="Şərh sətiri"/>
                     <Item id="23101" name="Şərhləri bloklaşdır"/>
@@ -393,7 +393,7 @@
                     <Item id="23117" name="Açar-sözlərini simvollar kimi işlət"/>
                     <Item id="23201" name=" Sayı "/>
                 </Comment>
-				
+
                 <Operator title="Operatorlar">
                     <Item id="24107" name="Operator"/>
                     <Item id="24103" name="Mövcud simvollar"/>
@@ -405,38 +405,38 @@
                     <Item id="24311" name="Açan sərhəd :"/>
                     <Item id="24314" name="Bağlayan sərhəd :"/>
                 </Operator>
-				
+
                 <Item id="24001" name="Enable escape character :"/>
             </UserDefine>
-			
+
 			<Preference title="Nizamlar">
                 <Item id="6001" name="Bağla"/>
-				
+
                 <Global title="Ümumi">
                     <Item id="6101" name="Alətlər paneli"/>
                     <Item id="6102" name="Gizlət"/>
                     <Item id="6103" name="Balaca ikonlar"/>
 	                <Item id="6104" name="Böyük ikonlar"/>
                     <Item id="6105" name="Standart ikonlar"/>
-                    
+
                     <Item id="6106" name="Sənəd başlıqları"/>
                     <Item id="6107" name="Kiçiltmək"/>
                     <Item id="6108" name="Qıfılla (yer dəyişməsinə qadağa et)"/>
                     <Item id="6109" name="Aktiv olmayan başlıqlar boz olsun"/>
                     <Item id="6110" name="Üstündə sarı xətt olsun"/>
-                    
+
                     <Item id="6111" name="Vəziyyət sətirini göstər"/>
                     <Item id="6112" name="Bağla düyməsini göstər"/>
                     <Item id="6113" name="Başlığı iki kliklə bağla"/>
                     <Item id="6118" name="Gizlət"/>
                     <Item id="6119" name="Kaskad"/>
                     <Item id="6120" name="Şaquli"/>
-                    
+
                     <Item id="6121" name="Menyu paneli"/>
                     <Item id="6122" name="Gizlət (Seçim üçün &quot;Alt&quot; və ya &quot;F1&quot; düyməsini basın)"/>
                     <Item id="6123" name="İnterfeys dili"/>
                 </Global>
-				
+
                 <Scintillas title="Redaktə etmək">
                     <Item id="6216" name="Yapışdırma nizamları"/>
                     <Item id="6217" name="En :"/>
@@ -451,23 +451,23 @@
 	                <Item id="6204" name="Dairələr"/>
                     <Item id="6205" name="Dördbucaqlar"/>
                     <Item id="6226" name="Heç nə"/>
-					
+
                     <Item id="6227" name="Line Wrap"/>
                     <Item id="6228" name="İlkin nizamlar"/>
                     <Item id="6229" name="Aligned"/>
                     <Item id="6230" name="Indent"/>
-                    
+
                     <Item id="6206" name="Sətirlərin nömrələrinin göstər"/>
                     <Item id="6207" name="Tağları göstər"/>
                     <Item id="6208" name="Şaquli sərhədini göstər"/>
                     <Item id="6209" name="Sütun sayı : "/>
-                    
+
                     <Item id="6211" name="Səhifənin şaquli sərhədinin nizamları"/>
                     <Item id="6212" name="Xətt rejimi"/>
                     <Item id="6213" name="Arxa plan rejimi"/>
                     <Item id="6214" name="Seçilmiş sətiri vurğula"/>
                 </Scintillas>
-				
+
                 <NewDoc title="Yeni sənəd/İlkin qovluq">
                     <Item id="6401" name="Format"/>
                     <Item id="6402" name="Windows"/>
@@ -486,12 +486,12 @@
                     <Item id="6419" name="Yeni sənəd"/>
                     <Item id="6420" name="ANSI faylı açarkan tətbiq et"/>
                 </NewDoc>
-				
+
                 <FileAssoc title="Faylların əlaqələri">
                     <Item id="4009" name="Dəstəklənən fayllar:"/>
                     <Item id="4010" name="Qeydli fayllar :"/>
                 </FileAssoc>
-				
+
                 <LangMenu title="Dil menyusu/Başlıqların nizamları">
                     <Item id="6301" name="Başlıqların nizamları"/>
                     <Item id="6302" name="Boşluqla dəyişdir"/>
@@ -502,7 +502,7 @@
                     <Item id="6508" name="Menyu dili"/>
                     <Item id="6510" name="İlkin nizamlar"/>
                 </LangMenu>
-				
+
                 <Print title="Çap">
                     <Item id="6601" name="Sətirin nömrəsini çap et"/>
                     <Item id="6602" name="Rəng nizamları"/>
@@ -531,7 +531,7 @@
                     <Item id="6725" name="Bilgi :"/>
                     <Item id="6728" name="Üst və alt bilgi"/>
                 </Print>
-				
+
                 <MISC title="Digər">
                     <Item id="6304" name="Açılmış sənədlərin tarixi"/>
 	                <Item id="6305" name="İşə salarkən yoxlama"/>
@@ -554,13 +554,13 @@
                     <Item id="6327" name="İcazə ver"/>
                     <Item id="6328" name="Müvafiq teqləri işiqlandır"/>
                     <Item id="6330" name="Şərh/php/asp sahələrini işıqlandır"/>
-                    
+
                     <Item id="6331" name="Başlıqda yalnız faylın adını göstər"/>
                     <Item id="6114" name="İcazə ver"/>
                     <Item id="6115" name="Auto-indent"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
                 </MISC>
-				
+
                 <Backup title="Ehtiyatlaşdırma/Avtomatik Tamamlanma">
                     <Item id="6801" name="Ehtiyatlaşdırma"/>
                     <Item id="6315" name="Heç biri"/>
@@ -577,9 +577,9 @@
                     <Item id="6814" name="Cari Dəyər : 1 - 9"/>
                     <Item id="6815" name="Funksiyanın parametirlərini daxil edərkən kömək et"/>
                 </Backup>
-				
+
             </Preference>
-			
+
 			<MultiMacro title="Macronu bir neçə dəfə işə sal">
                 <Item id="1" name="İşə sal"/>
                 <Item id="2" name="İmtina"/>
@@ -588,7 +588,7 @@
                 <Item id="8005" name="dəfə"/>
                 <Item id="8002" name="Faylı sonuna qədər icra et"/>
             </MultiMacro>
-			
+
 			<Window title="Pəncərələr">
                 <Item id="1" name="Aktivləşdir"/>
                 <Item id="2" name="OK"/>
@@ -596,7 +596,7 @@
                 <Item id="7003" name="Pəncərəni(ri) bağla"/>
                 <Item id="7004" name="Sırala"/>
             </Window>
-			
+
 			<ColumnEditor title="Sütun Redaktəsi">
                 <Item id="2023" name="Yerləşdiriləcək mətin"/>
                 <Item id="2033" name="Yerləşdiriləcək sayı"/>
@@ -611,7 +611,7 @@
                 <Item id="1" name="OK"/>
                 <Item id="2" name="İmtina"/>
             </ColumnEditor>
-			
+
 		</Dialog>
     </Native-Langue>
 </NotepadPlus>

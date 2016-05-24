@@ -49,7 +49,7 @@ struct WinMenuKeyDefinition //more or less matches accelerator table definition,
 	bool isCtrl;
 	bool isAlt;
 	bool isShift;
-	TCHAR * specialName;		//Used when no real menu name exists (in case of toggle for example)
+	const TCHAR * specialName;		//Used when no real menu name exists (in case of toggle for example)
 };
 
 
@@ -702,7 +702,7 @@ bool LocalizationSwitcher::addLanguageFromXml(wstring xmlFullPath)
 }
 
 
-bool LocalizationSwitcher::switchToLang(wchar_t *lang2switch) const
+bool LocalizationSwitcher::switchToLang(const wchar_t *lang2switch) const
 {
 	wstring langPath = getXmlFilePathFromLangName(lang2switch);
 	if (langPath.empty())
@@ -3104,7 +3104,7 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 {
 	const TCHAR * udlVersion = _userLangArray[_nbUserLang - 1]->_udlVersion.c_str();
 	const TCHAR * keywordsName = nullptr;
-	TCHAR *kwl = nullptr;
+	const TCHAR *kwl = nullptr;
 	int id = -1;
 
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("Keywords"));
@@ -4974,7 +4974,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp)
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), svp._doWrap?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("borderEdge"), svp._showBorderEdge ? TEXT("yes") : TEXT("no"));
 
-	TCHAR *edgeStr = NULL;
+	const TCHAR *edgeStr = NULL;
 	if (svp._edgeMode == EDGE_NONE)
 		edgeStr = TEXT("no");
 	else if (svp._edgeMode == EDGE_LINE)

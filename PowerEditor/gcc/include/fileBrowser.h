@@ -26,39 +26,36 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef URLCTRL_INCLUDED
-#define URLCTRL_INCLUDED
+#ifndef FILEBROWSER_H
+#define  FILEBROWSER_H
 
-#include "Window.h"
-#include "Common.h"
+#warning FileBrowser stub used for MinGW/GCC because ATL is not supported
 
-class URLCtrl : public Window {
+//#include <windows.h>
+#ifndef DOCKINGDLGINTERFACE_H
+#include "DockingDlgInterface.h"
+#endif //DOCKINGDLGINTERFACE_H
+
+#include "TreeView.h"
+#include "fileBrowser_rc.h"
+
+#define FB_PANELTITLE     TEXT("Folder as Workspace")
+#define FB_REMOVEROOT              TEXT("Remove")
+
+class FileBrowser : public DockingDlgInterface {
 public:
-    URLCtrl():_hfUnderlined(0),_hCursor(0), _msgDest(NULL), _cmdID(0), _oldproc(NULL), \
-		_linkColor(), _visitedColor(), _clicking(false), _URL(TEXT("")){};
+	FileBrowser(): DockingDlgInterface(IDD_FILEBROWSER) {};
+	~FileBrowser() {};
+	void addRootFolder(generic_string) {};
 
-    void create(HWND itemHandle, const TCHAR * link, COLORREF linkColor = RGB(0,0,255));
-	void create(HWND itemHandle, int cmd, HWND msgDest = NULL);
-    void destroy();
-private:
-	void action();
-protected :
-    generic_string _URL;
-    HFONT	_hfUnderlined;
-    HCURSOR	_hCursor;
-
-	HWND _msgDest;
-	unsigned long _cmdID;
-
-    WNDPROC  _oldproc;
-    COLORREF _linkColor;			
-    COLORREF _visitedColor;
-    bool  _clicking;
-
-    static LRESULT CALLBACK URLCtrlProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
-        return ((URLCtrl *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam);
-    };
-    LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+	std::vector<generic_string> getRoots() const {
+		std::vector<generic_string> roots;
+		return roots;
+	};
+	generic_string getSelectedItemPath() const {
+		generic_string itemPath;
+		return itemPath;
+	};
 };
 
-#endif //URLCTRL_INCLUDED
+#endif // FILEBROWSER_H

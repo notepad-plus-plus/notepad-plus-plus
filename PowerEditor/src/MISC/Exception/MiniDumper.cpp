@@ -70,7 +70,7 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 
 					ExInfo.ThreadId = ::GetCurrentThreadId();
 					ExInfo.ExceptionPointers = pExceptionInfo;
-					ExInfo.ClientPointers = NULL;
+					ExInfo.ClientPointers = FALSE;
 
 					// write the dump
 					BOOL bOK = pDump( GetCurrentProcess(), GetCurrentProcessId(), hFile, MiniDumpNormal, &ExInfo, NULL, NULL );

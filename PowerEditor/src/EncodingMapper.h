@@ -31,7 +31,7 @@
 
 struct EncodingUnit {
    int _codePage;
-   char *_aliasList;
+   const char *_aliasList;
 };
 
 class EncodingMapper {

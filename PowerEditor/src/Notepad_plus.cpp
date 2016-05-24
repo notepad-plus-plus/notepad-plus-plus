@@ -1816,7 +1816,7 @@ int Notepad_plus::doSaveOrNot(const TCHAR *fn)
 int Notepad_plus::doReloadOrNot(const TCHAR *fn, bool dirty)
 {
 	TCHAR* pattern = TEXT("%s\r\rThis file has been modified by another program.\rDo you want to reload it%s?");
-	TCHAR* lose_info_str = dirty ? TEXT(" and lose the changes made in Notepad++") : TEXT("");
+	const TCHAR* lose_info_str = dirty ? TEXT(" and lose the changes made in Notepad++") : TEXT("");
 	TCHAR phrase[512];
 	wsprintf(phrase, pattern, fn, lose_info_str);
 	int icon = dirty ? MB_ICONEXCLAMATION : MB_ICONQUESTION;
@@ -2495,7 +2495,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				if (nextChar == '}')
 				{
-					char *eolChars;
+					const char *eolChars;
 					if (eolMode == SC_EOL_CRLF)
 						eolChars = "\r\n";
 					else if (eolMode == SC_EOL_LF)
@@ -5917,7 +5917,7 @@ Quote quotes[nbQuote] =
 
 
 const int nbWtf = 6;
-char* wtf[nbWtf] =
+const char* wtf[nbWtf] =
 {
 	"WTF?!",
 	"lol",

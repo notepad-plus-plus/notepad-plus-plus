@@ -70,6 +70,6 @@
 	This parameter can hide all the network error message. 
 	If "SilentMode" is set as "yes", then users won't be warned when there's no connection of internet or the url is not available. 
 	-->
-	<SilentMode>no</SilentMode>
+	<SilentMode>yes</SilentMode>
 	
 </GUPInput>

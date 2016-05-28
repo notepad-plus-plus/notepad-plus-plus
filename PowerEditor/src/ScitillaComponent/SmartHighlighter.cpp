@@ -56,36 +56,59 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	char * text2Find = new char[textlen];
 	pHighlightView->getSelectedText(text2Find, textlen, false);	//do not expand selection (false)
 
+	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+
+	NppGUI::SmartHiliteMode mode = nppGUI._smartHiliteMode;
+	bool wordOnly;
 	
-	//GETWORDCHARS for isQualifiedWord2() and isWordChar2()
-	int listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
-	char *listChar = new char[listCharSize+1];
-	pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar);
-	listChar[listCharSize] = '\0';
-	
-	bool valid = true;
-	//The word has to consist if wordChars only, and the characters before and after something else
-	if (!isQualifiedWord(text2Find, listChar))
-		valid = false;
-	else
-	{
-		UCHAR c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMax);
-		if (c)
-		{
-			if (isWordChar(char(c), listChar))
-				valid = false;
-		}
-		c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMin-1);
-		if (c)
-		{
-			if (isWordChar(char(c), listChar))
-				valid = false;
-		}
+	if (mode == NppGUI::SmartHiliteMode::wordOnly) {
+		wordOnly = true;
 	}
-	if (!valid) {
-		delete [] text2Find;
-		delete [] listChar;
-		return;
+	else if (mode == NppGUI::SmartHiliteMode::findDialog) {
+		// fetch find dialog's setting
+		NppParameters *nppParams = NppParameters::getInstance();
+		FindHistory & findHistory = nppParams->getFindHistory();
+		wordOnly = findHistory._isMatchWord;
+	}
+	else {
+		wordOnly = false;
+	}
+
+	if (wordOnly) 
+	{
+		//GETWORDCHARS for isQualifiedWord2() and isWordChar2()
+		int listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
+		char *listChar = new char[listCharSize+1];
+		pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar);
+		listChar[listCharSize] = '\0';
+	
+		bool valid = true;
+
+		//The word has to consist of wordChars only, and the characters before and after something else
+		if (!isQualifiedWord(text2Find, listChar))
+			valid = false;
+		else
+		{
+			UCHAR c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMax);
+			if (c)
+			{
+				if (isWordChar(char(c), listChar))
+					valid = false;
+			}
+			c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMin-1);
+			if (c)
+			{
+				if (isWordChar(char(c), listChar))
+					valid = false;
+			}
+		}
+
+		if (!valid) {
+			delete [] text2Find;
+			return;
+		}
+
+		delete[] listChar;
 	}
 
 	// save target locations for other search functions
@@ -101,11 +124,9 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	int currentLine = firstLine;
 	int prevDocLineChecked = -1;	//invalid start
 
-	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
-
 	FindOption fo;
 	fo._isMatchCase = nppGUI._smartHiliteCaseSensitive;
-	fo._isWholeWord = true;
+	fo._isWholeWord = wordOnly;
 
 	const TCHAR * searchText = NULL;
 
@@ -140,7 +161,6 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 
 	// restore the original targets to avoid conflicts with the search/replace functions
 	pHighlightView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
-	delete [] listChar;
 }
 
 bool SmartHighlighter::isQualifiedWord(const char *str, char *listChar) const

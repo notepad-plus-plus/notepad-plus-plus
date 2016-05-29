@@ -453,6 +453,18 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 
 bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 {
+	const int index = MainFileManager->getBufferIndexByID(id);
+	if (index == -1)
+	{
+		_nativeLangSpeaker.messageBox("BufferClosedWarning",
+			_pPublicInterface->getHSelf(),
+			TEXT("File already closed."),
+			TEXT("Save failed"),
+			MB_OK);
+
+		return false;
+	}
+
 	SCNotification scnN;
 	// Notify plugins that current file is about to be saved
 	if (!isCopy)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="6.8.2">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="6.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -87,6 +87,7 @@
                     <Item id="41016" name="从磁盘删除" />
                     <Item id="41017" name="重命名..." />
                     <Item id="41021" name="恢复最近关闭的文件" />
+                    <Item id="41022" name="在工作区打开文件夹(&amp;W)"/>
 
                     <Item id="42001" name="剪切(&amp;T)" />
                     <Item id="42002" name="复制(&amp;C)" />
@@ -220,6 +221,7 @@
                     <Item id="44049" name="摘要..." />
                     <Item id="44080" name="文档结构图" />
                     <Item id="44084" name="函数列表" />
+                    <Item id="44085" name="文件夹工作区(&amp;W)"/>
                     <Item id="44086" name="标签页1"/>
                     <Item id="44087" name="标签页2"/>
                     <Item id="44088" name="标签页3"/>

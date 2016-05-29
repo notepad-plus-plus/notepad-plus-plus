@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english_customizable.xml" version="6.8.2">
+    <Native-Langue name="English" filename="english_customizable.xml" version="6.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -87,6 +87,7 @@
                     <Item id="41016" name="Delete from Disk"/>
                     <Item id="41017" name="Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
+                    <Item id="41022" name="Open Folder as &amp;Workspace"/>
 
                     <Item id="42001" name="Cu&amp;t"/>
                     <Item id="42002" name="&amp;Copy"/>
@@ -217,6 +218,7 @@
                     <Item id="44049" name="Summary..."/>
                     <Item id="44080" name="Document Map"/>
                     <Item id="44084" name="Function List"/>
+                    <Item id="44085" name="Folder as &amp;Workspace"/>
                     <Item id="44086" name="1st Tab"/>
                     <Item id="44087" name="2nd Tab"/>
                     <Item id="44088" name="3rd Tab"/>

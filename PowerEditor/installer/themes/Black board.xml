@@ -313,15 +313,15 @@ Credits:
         </LexerType>
         <LexerType name="pascal" desc="Pascal" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="IDENTIFIER" styleID="11" fgColor="8DA6CE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
-            <WordsStyle name="NUMBER" styleID="4" fgColor="D8FA3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="CHARACTER" styleID="7" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="OPERATOR" styleID="10" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="REGEX" styleID="14" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="COMMENT" styleID="1" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="PREPROCESSOR" styleID="5" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="IDENTIFIER" styleID="1" fgColor="8DA6CE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="9" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
+            <WordsStyle name="NUMBER" styleID="7" fgColor="D8FA3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="CHARACTER" styleID="12" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="OPERATOR" styleID="13" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="ASM" styleID="14" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="COMMENT" styleID="2" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="COMMENT LINE" styleID="4" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENT DOC" styleID="3" fgColor="AEAEAE" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
         <LexerType name="perl" desc="Perl" ext="">

@@ -458,19 +458,19 @@ Notepad++ Custom Style
         </LexerType>
         <LexerType name="pascal" desc="Pascal" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="PREPROCESSOR" styleID="5" fgColor="A082BD" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="PREPROCESSOR2" styleID="6" fgColor="9473B5" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="IDENTIFIER" styleID="11" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
-            <WordsStyle name="NUMBER" styleID="4" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="1" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="9" fgColor="93C763" bgColor="293134" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="NUMBER" styleID="7" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="HEX NUMBER" styleID="8" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="10" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING EOL" styleID="10" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING EOL" styleID="11" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="EC7600" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="OPERATOR" styleID="10" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="REGEX" styleID="14" fgColor="D39745" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="COMMENT" styleID="1" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="13" fgColor="E8E2B7" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ASM" styleID="14" fgColor="D39745" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="2" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="4" fgColor="66747B" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT DOC" styleID="3" fgColor="6C788C" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="perl" desc="Perl" ext="">

@@ -364,6 +364,8 @@ private:
 
 	bool _sysMenuEntering = false;
 
+	// make sure we don't recursively call doClose when closing the last file with -quitOnEmpty
+	bool _isAttemptingCloseOnQuit = false;
 
 	// For FullScreen/PostIt features
 	VisibleGUIConf	_beforeSpecialView;
@@ -463,6 +465,8 @@ private:
 	}
 
 	bool canHideView(int whichOne);	//true if view can safely be hidden (no open docs etc)
+
+	bool isEmpty(); // true if we have 1 view with 1 clean, untitled doc
 
 	int switchEditViewTo(int gid);	//activate other view (set focus etc)
 

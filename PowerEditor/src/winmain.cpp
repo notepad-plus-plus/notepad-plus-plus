@@ -240,6 +240,7 @@ const TCHAR FLAG_HELP[] = TEXT("--help");
 const TCHAR FLAG_ALWAYS_ON_TOP[] = TEXT("-alwaysOnTop");
 const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
+const TCHAR FLAG_QUIT_ON_EMPTY[] = TEXT("-quitOnEmpty");
 
 
 static void doException(Notepad_plus_Window & notepad_plus_plus)
@@ -304,6 +305,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
 	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
+	cmdLineParams._quitOnEmpty = isInList(FLAG_QUIT_ON_EMPTY, params);
 
 
 	if (showHelp)

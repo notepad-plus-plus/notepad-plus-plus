@@ -183,6 +183,7 @@ struct CmdLineParams
 	int _line2go   = -1;
 	int _column2go = -1;
 	int _pos2go = -1;
+	bool _quitOnEmpty = false;
 
 	POINT _point;
 	bool _isPointXValid = false;
@@ -755,6 +756,7 @@ struct NppGUI final
 	char _rightmostDelimiter = ')';
 	bool _delimiterSelectionOnEntireDocument = false;
 	bool _backSlashIsEscapeCharacterForSql = true;
+	bool _quitOnEmpty = false;
 
 
 	// 0 : do nothing

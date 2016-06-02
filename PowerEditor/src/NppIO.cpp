@@ -599,6 +599,10 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	if (i == -1)
 		return;
 
+	size_t numInitialOpenBuffers =
+		((_mainWindowStatus & WindowMainActive) == WindowMainActive ? _mainDocTab.nbItem() : 0) +
+		((_mainWindowStatus & WindowSubActive) == WindowSubActive ? _subDocTab.nbItem() : 0);
+
 	if (doDeleteBackup)
 		MainFileManager->deleteCurrentBufferBackup();
 
@@ -675,6 +679,16 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		}
 	}
 	command(IDM_VIEW_REFRESHTABAR);
+
+	if (NppParameters::getInstance()->getNppGUI()._quitOnEmpty)
+	{
+		// the user closed the last open tab
+		if (numInitialOpenBuffers == 1 && isEmpty() && !_isAttemptingCloseOnQuit)
+		{
+			command(IDM_FILE_EXIT);
+		}
+	}
+
 	return;
 }
 

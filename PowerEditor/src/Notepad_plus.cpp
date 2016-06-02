@@ -3266,6 +3266,17 @@ bool Notepad_plus::canHideView(int whichOne)
 	return canHide;
 }
 
+bool Notepad_plus::isEmpty()
+{
+	if (bothActive()) return false;
+
+	DocTabView * tabToCheck = (_mainWindowStatus & WindowMainActive) ? &_mainDocTab : &_subDocTab;
+	
+	Buffer * buf = MainFileManager->getBufferByID(tabToCheck->getBufferByIndex(0));
+	bool isEmpty = ((tabToCheck->nbItem() == 1) && !buf->isDirty() && buf->isUntitled());
+	return isEmpty;
+}
+
 void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 {
 	DocTabView * tabToOpen = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;

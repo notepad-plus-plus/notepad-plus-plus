@@ -671,11 +671,9 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	if (NppParameters::getInstance()->getNppGUI()._quitOnEmpty)
 	{
 		// the user closed the last open tab
-		if (numInitialOpenBuffers == 1 && isEmpty() && !_isAttemptingQuitOnEmpty)
+		if (numInitialOpenBuffers == 1 && isEmpty() && !_isAttemptingCloseOnQuit)
 		{
-			_isAttemptingQuitOnEmpty = true;
 			command(IDM_FILE_EXIT);
-			_isAttemptingQuitOnEmpty = false;
 		}
 	}
 

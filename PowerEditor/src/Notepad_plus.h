@@ -365,7 +365,7 @@ private:
 	bool _sysMenuEntering = false;
 
 	// make sure we don't recursively call doClose when closing the last file with -quitOnEmpty
-	bool _isAttemptingQuitOnEmpty = false;
+	bool _isAttemptingCloseOnQuit = false;
 
 	// For FullScreen/PostIt features
 	VisibleGUIConf	_beforeSpecialView;

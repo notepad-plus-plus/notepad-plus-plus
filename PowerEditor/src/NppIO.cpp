@@ -852,7 +852,11 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
+<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+=======
+	for(size_t i = 0; i < _mainDocTab.nbItem(); ++i)
+>>>>>>> Corrected a few variable types, fixing a few integer overflows.
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -906,7 +910,11 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 			}
 		}
 	}
+<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+=======
+	for(size_t i = 0; i < _subDocTab.nbItem(); ++i)
+>>>>>>> Corrected a few variable types, fixing a few integer overflows.
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -1059,8 +1067,12 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
+<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 	for (size_t i = 0; i < _mainDocTab.nbItem(); ++i)
 	{
+=======
+	for(size_t i = 0; i < _mainDocTab.nbItem(); ++i) {
+>>>>>>> Corrected a few variable types, fixing a few integer overflows.
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		if (id == current)
 			continue;
@@ -1087,7 +1099,11 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			}
 		}
 	}
+<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 	for (size_t i = 0; i < _subDocTab.nbItem(); ++i)
+=======
+	for(size_t i = 0; i < _subDocTab.nbItem(); ++i)
+>>>>>>> Corrected a few variable types, fixing a few integer overflows.
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -1256,21 +1272,32 @@ bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
 	}
 }
 
+<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 bool Notepad_plus::fileSaveAll()
 {
 	if (viewVisible(MAIN_VIEW))
 	{
 		for(size_t i = 0; i < _mainDocTab.nbItem(); ++i)
 		{
+=======
+bool Notepad_plus::fileSaveAll() {
+	if (viewVisible(MAIN_VIEW)) {
+		for(size_t i = 0; i < _mainDocTab.nbItem(); ++i) {
+>>>>>>> Corrected a few variable types, fixing a few integer overflows.
 			BufferID idToSave = _mainDocTab.getBufferByIndex(i);
 			fileSave(idToSave);
 		}
 	}
 
+<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 	if (viewVisible(SUB_VIEW))
 	{
 		for(size_t i = 0; i < _subDocTab.nbItem(); ++i)
 		{
+=======
+	if (viewVisible(SUB_VIEW)) {
+		for(size_t i = 0; i < _subDocTab.nbItem(); ++i) {
+>>>>>>> Corrected a few variable types, fixing a few integer overflows.
 			BufferID idToSave = _subDocTab.getBufferByIndex(i);
 			fileSave(idToSave);
 		}

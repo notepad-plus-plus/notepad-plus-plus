@@ -283,8 +283,13 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					if(pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;
+<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 						size_t index = pLvdi->item.iItem;
 						if (index >= _pTab->nbItem() || index >= _idxMap.size())
+=======
+						int index = pLvdi->item.iItem;
+						if (index >= int(_pTab->nbItem()) || index >= (int)_idxMap.size())
+>>>>>>> Corrected a few variable types, fixing a few integer overflows.
 							return FALSE;
 						index = _idxMap[index];
 

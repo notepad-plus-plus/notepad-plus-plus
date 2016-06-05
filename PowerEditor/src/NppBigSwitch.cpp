@@ -785,7 +785,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			size_t j = 0;
 			if (Message != NPPM_GETOPENFILENAMESSECOND)
 			{
+<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 				for (size_t i = 0; i < _mainDocTab.nbItem() && j < nbFileNames; ++i)
+=======
+				for (size_t i = 0 ; i < _mainDocTab.nbItem() && j < nbFileNames ; ++i)
+>>>>>>> Corrected a few variable types, fixing a few integer overflows.
 				{
 					BufferID id = _mainDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
@@ -795,7 +799,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			if (Message != NPPM_GETOPENFILENAMESPRIMARY)
 			{
+<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 				for (size_t i = 0; i < _subDocTab.nbItem() && j < nbFileNames; ++i)
+=======
+				for (size_t i = 0 ; i < _subDocTab.nbItem() && j < nbFileNames ; ++i)
+>>>>>>> Corrected a few variable types, fixing a few integer overflows.
 				{
 					BufferID id = _subDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);

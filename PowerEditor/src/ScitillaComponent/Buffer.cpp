@@ -807,6 +807,12 @@ bool FileManager::backupCurrentBuffer()
 			{
 				// no thread yet, create a event with non-signaled, to block all threads
 				writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
+				if (!writeEvent)
+				{
+					// problem!!!
+					printStr(TEXT("CreateEvent problem in backupCurrentBuffer()!"));
+					return false;
+				}
 			}
 			else
 			{
@@ -818,7 +824,12 @@ bool FileManager::backupCurrentBuffer()
 				}
 
 				// unlocled here, set to non-signaled state, to block all threads
-				::ResetEvent(writeEvent);
+				if (!::ResetEvent(writeEvent))
+				{
+					// problem!!!
+					printStr(TEXT("ResetEvent problem in backupCurrentBuffer()!"));
+					return false;
+				}
 			}
 
 			UniMode mode = buffer->getUnicodeMode();

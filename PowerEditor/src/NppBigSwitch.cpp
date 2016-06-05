@@ -167,7 +167,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			generic_string name{userLangName};
 
 			//loop through buffers and reset the language (L_USER, TEXT("")) if (L_USER, name)
-			for (int i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
 			{
 				Buffer* buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && name == buf->getUserDefineLangName())
@@ -185,7 +185,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			generic_string newName{(TCHAR *)wParam};
 
 			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
-			for (int i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
 			{
 				Buffer* buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && oldName == buf->getUserDefineLangName())
@@ -388,7 +388,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			else
 				return (LRESULT)BUFFER_INVALID;
 
-			if ((int)wParam < pView->nbItem())
+			if ((size_t)wParam < pView->nbItem())
 				return (LRESULT)(pView->getBufferByIndex((int)wParam));
 
 			return (LRESULT)BUFFER_INVALID;
@@ -618,7 +618,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETSHORTCUTBYCMDID:
 		{
-			int cmdID = wParam; // cmdID
+			int cmdID = static_cast<int32_t>(wParam); // cmdID
 			ShortcutKey *sk = (ShortcutKey *)lParam; // ShortcutKey structure
 
 			return _pluginsManager.getShortcutByCmdID(cmdID, sk);
@@ -626,7 +626,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_MENUCOMMAND:
 		{
-			command(lParam);
+			command(static_cast<int32_t>(lParam));
 			return TRUE;
 		}
 
@@ -684,7 +684,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 				else //buffer large enough, perform safe copy
 				{
-					lstrcpyn((TCHAR *)lParam, str, wParam);
+					lstrcpyn((TCHAR *)lParam, str, static_cast<int32_t>(wParam));
 					return TRUE;
 				}
 			}
@@ -751,8 +751,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETNBOPENFILES:
 		{
-			int nbDocPrimary = _mainDocTab.nbItem();
-			int nbDocSecond = _subDocTab.nbItem();
+			size_t nbDocPrimary = _mainDocTab.nbItem();
+			size_t nbDocSecond = _subDocTab.nbItem();
 			if (lParam == ALL_OPEN_FILES)
 				return nbDocPrimary + nbDocSecond;
 			else if (lParam == PRIMARY_VIEW)
@@ -769,12 +769,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return 0;
 
 			TCHAR** fileNames = (TCHAR**) wParam;
-			int nbFileNames = lParam;
+			size_t nbFileNames = static_cast<size_t>(lParam);
 
-			int j = 0;
+			size_t j = 0;
 			if (Message != NPPM_GETOPENFILENAMESSECOND)
 			{
-				for (int i = 0 ; i < _mainDocTab.nbItem() && j < nbFileNames ; ++i)
+				for (size_t i = 0; i < _mainDocTab.nbItem() && j < nbFileNames; ++i)
 				{
 					BufferID id = _mainDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
@@ -784,7 +784,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			if (Message != NPPM_GETOPENFILENAMESPRIMARY)
 			{
-				for (int i = 0 ; i < _subDocTab.nbItem() && j < nbFileNames ; ++i)
+				for (size_t i = 0; i < _subDocTab.nbItem() && j < nbFileNames; ++i)
 				{
 					BufferID id = _subDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
@@ -856,7 +856,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				case APPCOMMAND_BROWSER_BACKWARD:
 				case APPCOMMAND_BROWSER_FORWARD:
 				{
-					int nbDoc = viewVisible(MAIN_VIEW)?_mainDocTab.nbItem():0;
+					size_t nbDoc = viewVisible(MAIN_VIEW) ? _mainDocTab.nbItem() : 0;
 					nbDoc += viewVisible(SUB_VIEW)?_subDocTab.nbItem():0;
 					if (nbDoc > 1)
 						activateNextDoc((GET_APPCOMMAND_LPARAM(lParam) == APPCOMMAND_BROWSER_FORWARD)?dirDown:dirUp);
@@ -918,7 +918,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return -1;
 
 			// get text of current scintilla
-			UINT length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
+			auto length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
 			char* buffer = new char[length];
 			pSci->execute(SCI_GETTEXT, length, (LPARAM)buffer);
 
@@ -956,7 +956,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return -1;
 
 			// get text of current scintilla
-			UINT length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
+			auto length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
 			char* buffer = new char[length];
 			pSci->execute(SCI_GETTEXT, length, (LPARAM)buffer);
 
@@ -986,8 +986,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_TRIGGERTABBARCONTEXTMENU:
 		{
 			// similar to NPPM_ACTIVEDOC
-			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW))?currentView():wParam;
-			int index = lParam;
+			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW)) ? currentView() : static_cast<int32_t>(wParam);
+			int index = static_cast<int32_t>(lParam);
 
 			switchEditViewTo(whichView);
 			activateDoc(index);
@@ -1051,13 +1051,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_FRSAVE_INT:
 		{
-			_macro.push_back(recordedMacroStep(wParam, 0, lParam, NULL, recordedMacroStep::mtSavedSnR));
+			_macro.push_back(recordedMacroStep(static_cast<int32_t>(wParam), 0, static_cast<long>(lParam), NULL, recordedMacroStep::mtSavedSnR));
 			break;
 		}
 
 		case WM_FRSAVE_STR:
 		{
-			_macro.push_back(recordedMacroStep(wParam, 0, 0, (const TCHAR *)lParam, recordedMacroStep::mtSavedSnR));
+			_macro.push_back(recordedMacroStep(static_cast<int32_t>(wParam), 0, 0, (const TCHAR *)lParam, recordedMacroStep::mtSavedSnR));
 			break;
 		}
 
@@ -1074,8 +1074,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					break;
 
 				int counter = 0;
-				int lastLine = int(_pEditView->execute(SCI_GETLINECOUNT)) - 1;
-				int currLine = _pEditView->getCurrentLineNumber();
+				int lastLine = static_cast<int32_t>(_pEditView->execute(SCI_GETLINECOUNT)) - 1;
+				int currLine = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 				int indexMacro = _runMacroDlg.getMacro2Exec();
 				int deltaLastLine = 0;
 				int deltaCurrLine = 0;
@@ -1101,8 +1101,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					else // run until eof
 					{
 						bool cursorMovedUp = deltaCurrLine < 0;
-						deltaLastLine = int(_pEditView->execute(SCI_GETLINECOUNT)) - 1 - lastLine;
-						deltaCurrLine = _pEditView->getCurrentLineNumber() - currLine;
+						deltaLastLine = static_cast<int32_t>(_pEditView->execute(SCI_GETLINECOUNT)) - 1 - lastLine;
+						deltaCurrLine = static_cast<int32_t>(_pEditView->getCurrentLineNumber()) - currLine;
 
 						if (( deltaCurrLine == 0 )	// line no. not changed?
 							&& (deltaLastLine >= 0))  // and no lines removed?
@@ -1187,7 +1187,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				case STATUSBAR_EOF_FORMAT:
 				case STATUSBAR_UNICODE_TYPE:
 				case STATUSBAR_TYPING_MODE:
-					_statusBar.setText(str2set, wParam);
+					_statusBar.setText(str2set, static_cast<int32_t>(wParam));
 					return TRUE;
 				default :
 					return FALSE;
@@ -1905,12 +1905,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_ALLOCATECMDID:
 		{
-			return _pluginsManager.allocateCmdID(wParam, reinterpret_cast<int *>(lParam));
+			return _pluginsManager.allocateCmdID(static_cast<int32_t>(wParam), reinterpret_cast<int *>(lParam));
 		}
 
 		case NPPM_ALLOCATEMARKER:
 		{
-			return _pluginsManager.allocateMarker(wParam, reinterpret_cast<int *>(lParam));
+			return _pluginsManager.allocateMarker(static_cast<int32_t>(wParam), reinterpret_cast<int *>(lParam));
 		}
 
 		case NPPM_HIDETABBAR:
@@ -2076,7 +2076,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DOCSWITCHERDISABLECOLUMN:
 		{
-			BOOL isOff = lParam;
+			BOOL isOff = static_cast<BOOL>(lParam);
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 			nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
 
@@ -2098,7 +2098,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_SHOWDOCSWITCHER:
 		{
-			BOOL toShow = lParam;
+			BOOL toShow = static_cast<BOOL>(lParam);
 			if (toShow)
 			{
 				if (!_pFileSwitcherPanel || !_pFileSwitcherPanel->isVisible())
@@ -2248,7 +2248,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 					case WDT_SORT:
 					{
-						if (nmdlg->nItems != (unsigned int)_pDocTab->nbItem())	//sanity check, if mismatch just abort
+						if (nmdlg->nItems != _pDocTab->nbItem())	//sanity check, if mismatch just abort
 							break;
 
 						//Collect all buffers

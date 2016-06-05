@@ -540,35 +540,34 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				std::string bufstring;
 
-				unsigned int position_of_click;
+				size_t position_of_click;
 				// For some reason Ctrl+DoubleClick on an empty line means that notification->position == 1.
 				// In that case we use SCI_GETCURRENTPOS to get the position.
 				if (notification->position != -1)
 					position_of_click = notification->position;
 				else
-					position_of_click = int(_pEditView->execute(SCI_GETCURRENTPOS));
+					position_of_click = _pEditView->execute(SCI_GETCURRENTPOS);
 
 				// Anonymous scope to limit use of the buf pointer (much easier to deal with std::string).
 				{
 					char *buf;
-					int length;
 
 					if (nppGUI._delimiterSelectionOnEntireDocument)
 					{
 						// Get entire document.
-						length = notifyView->execute(SCI_GETLENGTH);
+						auto length = notifyView->execute(SCI_GETLENGTH);
 						buf = new char[length + 1];
 						notifyView->execute(SCI_GETTEXT, (LPARAM)(length + 1), (WPARAM)buf);
 					}
 					else
 					{
 						// Get single line.
-						length = notifyView->execute(SCI_GETCURLINE);
+						auto length = notifyView->execute(SCI_GETCURLINE);
 						buf = new char[length + 1];
 						notifyView->execute(SCI_GETCURLINE, (WPARAM)length, (LPARAM)buf);
 
 						// Compute the position of the click (relative to the beginning of the line).
-						const int line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
+						const auto line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
 						position_of_click = position_of_click - line_position;
 					}
 
@@ -583,7 +582,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					// If the delimiters are the same (e.g. they are both a quotation mark), choose the ones
 					// which are closest to the clicked position.
-					for (int i = position_of_click; i >= 0; --i)
+					for (int i = static_cast<int32_t>(position_of_click); i >= 0; --i)
 					{
 						if (bufstring.at(i) == nppGUI._leftmostDelimiter)
 						{
@@ -608,7 +607,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						break;
 
 					// Scan for right delimiter.
-					for (unsigned int i = position_of_click; i < bufstring.length(); ++i)
+					for (size_t i = position_of_click; i < bufstring.length(); ++i)
 					{
 						if (bufstring.at(i) == nppGUI._rightmostDelimiter)
 						{
@@ -617,13 +616,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 							{
 								if (! (i > 0 && bufstring.at(i - 1) == '\\'))
 								{
-									rightmost_position = i;
+									rightmost_position = static_cast<int32_t>(i);
 									break;
 								}
 							}
 							else
 							{
-								rightmost_position = i;
+								rightmost_position = static_cast<int32_t>(i);
 								break;
 							}
 						}
@@ -673,7 +672,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					}
 					else
 					{
-						const int line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
+						const auto line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
 						notifyView->execute(SCI_SETCURRENTPOS, line_position + rightmost_position);
 						notifyView->execute(SCI_SETANCHOR, line_position + leftmost_position + 1);
 					}
@@ -681,7 +680,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			else if (_isHotspotDblClicked)
 			{
-				int pos = notifyView->execute(SCI_GETCURRENTPOS);
+				auto pos = notifyView->execute(SCI_GETCURRENTPOS);
 				notifyView->execute(SCI_SETCURRENTPOS, pos);
 				notifyView->execute(SCI_SETANCHOR, pos);
 				_isHotspotDblClicked = false;
@@ -806,7 +805,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_MACRORECORD:
 		{
-			_macro.push_back(recordedMacroStep(notification->message, notification->wParam, notification->lParam, _pEditView->execute(SCI_GETCODEPAGE)));
+			_macro.push_back(recordedMacroStep(
+				notification->message, 
+				static_cast<long>(notification->wParam),
+				static_cast<long>(notification->lParam),
+				static_cast<int32_t>(_pEditView->execute(SCI_GETCODEPAGE))));
 			break;
 		}
 
@@ -851,13 +854,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.,:?&@=/%#()");
 
-			int pos = notifyView->execute(SCI_GETCURRENTPOS);
+			auto pos = notifyView->execute(SCI_GETCURRENTPOS);
 			int startPos = static_cast<int>(notifyView->execute(SCI_WORDSTARTPOSITION, pos, false));
 			int endPos = static_cast<int>(notifyView->execute(SCI_WORDENDPOSITION, pos, false));
 
 			notifyView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
-			int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
+			int posFound = static_cast<int32_t>(notifyView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR));
 			if (posFound != -2)
 			{
 				if (posFound != -1)
@@ -875,7 +878,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				notifyView->getGenericText(currentWord, MAX_PATH*2, startPos, endPos);
 
 				// This treatment would fail on some valid URLs where there's actually supposed to be a comma or parenthesis at the end.
-				int lastCharIndex = _tcsnlen(currentWord, MAX_PATH*2) - 1;
+				size_t lastCharIndex = _tcsnlen(currentWord, MAX_PATH*2) - 1;
 				if(lastCharIndex >= 0 && (currentWord[lastCharIndex] == ',' || currentWord[lastCharIndex] == ')' || currentWord[lastCharIndex] == '('))
 					currentWord[lastCharIndex] = '\0';
 

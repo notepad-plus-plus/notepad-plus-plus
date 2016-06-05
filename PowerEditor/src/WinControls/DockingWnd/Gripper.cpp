@@ -59,13 +59,11 @@ static LRESULT CALLBACK hookProcMouse(INT nCode, WPARAM wParam, LPARAM lParam)
 		{
 			case WM_MOUSEMOVE:
 			case WM_NCMOUSEMOVE:
-				//::PostMessage(hWndServer, wParam, 0, 0);
-				::SendMessage(hWndServer, wParam, 0, 0);
+				::SendMessage(hWndServer, static_cast<UINT>(wParam), 0, 0);
 				break;
 			case WM_LBUTTONUP:
 			case WM_NCLBUTTONUP:
-				//::PostMessage(hWndServer, wParam, 0, 0);
-				::SendMessage(hWndServer, wParam, 0, 0);
+				::SendMessage(hWndServer, static_cast<UINT>(wParam), 0, 0);
 				return TRUE;
 			default:
 				break;
@@ -414,7 +412,6 @@ void Gripper::doTabReordering(POINT pt)
 	BOOL					inTab		= FALSE;
 	HWND					hTab		= NULL;
 	HWND					hTabOld		= _hTab;
-	int						iItem		= -1;
 	int						iItemOld	= _iItem;
 
 	/* search for every tab entry */
@@ -441,14 +438,14 @@ void Gripper::doTabReordering(POINT pt)
 					iItemOld = _iItem;
 				}
 
-				/* get pointed tab item */
+				// get pointed tab item
 				info.pt	= pt;
 				::ScreenToClient(hTab, &info.pt);
-				iItem = ::SendMessage(hTab, TCM_HITTEST, 0, (LPARAM)&info);
+				auto iItem = ::SendMessage(hTab, TCM_HITTEST, 0, (LPARAM)&info);
 
 				if (iItem != -1)
 				{
-					/* prevent flickering of tabs with different sizes */
+					// prevent flickering of tabs with different sizes
 					::SendMessage(hTab, TCM_GETITEMRECT, iItem, (LPARAM)&rc);
 					ClientRectToScreenRect(hTab, &rc);
 
@@ -457,17 +454,17 @@ void Gripper::doTabReordering(POINT pt)
 						return;
 					}
 
-					_iItem	= iItem;
+					_iItem = static_cast<int32_t>(iItem);
 				}
 				else if (_hTab && ((hTab != _hTab) || (_iItem == -1)))
 				{
-					/* test if cusor points after last tab */
-					int		iLastItem	= ::SendMessage(hTab, TCM_GETITEMCOUNT, 0, 0) - 1;
+					// test if cusor points after last tab
+					auto iLastItem = ::SendMessage(hTab, TCM_GETITEMCOUNT, 0, 0) - 1;
 
 					::SendMessage(hTab, TCM_GETITEMRECT, iLastItem, (LPARAM)&rc);
 					if ((rc.left + rc.right) < pt.x)
 					{
-						_iItem = iLastItem + 1;
+						_iItem = static_cast<int32_t>(iLastItem) + 1;
 					}
 				}
 
@@ -478,18 +475,18 @@ void Gripper::doTabReordering(POINT pt)
 		}
 	}
 
-	/* set and remove tabs correct */
+	// set and remove tabs correct
 	if ((inTab == TRUE) && (iItemOld != _iItem))
 	{
 		if (_hTab == _hTabSource)
 		{
-			/* delete item if switching back to source tab */
-			int iSel = ::SendMessage(_hTab, TCM_GETCURSEL, 0, 0);
+			// delete item if switching back to source tab
+			auto iSel = ::SendMessage(_hTab, TCM_GETCURSEL, 0, 0);
 			::SendMessage(_hTab, TCM_DELETEITEM, iSel, 0);
 		}
 		else if (_hTab == hTabOld)
 		{
-			/* delete item on switch between tabs */
+			// delete item on switch between tabs
 			::SendMessage(_hTab, TCM_DELETEITEM, iItemOld, 0);
 		}
 	}
@@ -502,14 +499,14 @@ void Gripper::doTabReordering(POINT pt)
 		_iItem = -1;
 	}
 
-	/* insert new entry when mouse doesn't point to current hovered tab */
+	// insert new entry when mouse doesn't point to current hovered tab
 	if (_hTab && ((_hTab != hTabOld) || (_iItem != iItemOld)))
 	{
 		_tcItem.mask	= TCIF_PARAM | (_hTab == _hTabSource ? TCIF_TEXT : 0);
 		::SendMessage(_hTab, TCM_INSERTITEM, _iItem, (LPARAM)&_tcItem);
 	}
 
-	/* select the tab only in source tab window */
+	// select the tab only in source tab window
 	if ((_hTab == _hTabSource) && (_iItem != -1))
 	{
 		::SendMessage(_hTab, TCM_SETCURSEL, _iItem, 0);
@@ -731,7 +728,7 @@ DockingCont* Gripper::contHitTest(POINT pt)
 	vector<DockingCont*>	vCont	= _pDockMgr->getContainerInfo();
 	HWND					hWnd	= ::WindowFromPoint(pt);
 
-	for (UINT iCont = 0, len = vCont.size(); iCont < len; ++iCont)
+	for (size_t iCont = 0, len = vCont.size(); iCont < len; ++iCont)
 	{
 		/* test if within caption */
 		if (hWnd == vCont[iCont]->getCaptionWnd())
@@ -869,8 +866,8 @@ void Gripper::initTabInformation()
 	}
 	else
 	{
-		/* get active tab item */
-		_iItem	= ::SendMessage(_hTabSource, TCM_GETCURSEL, 0, 0);
+		// get active tab item
+		_iItem = static_cast<int32_t>(::SendMessage(_hTabSource, TCM_GETCURSEL, 0, 0));
 	}
 
 	/* get size of item */

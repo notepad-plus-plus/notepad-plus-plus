@@ -298,7 +298,8 @@ void ToolBar::reset(bool create)
 		TBADDBITMAP addbmpdyn = {0, 0};
 		for (size_t i = 0 ; i < _nrButtons ; ++i)
 		{
-			HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(_toolBarIcons.getStdIconAt(i)), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+			int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
+			HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 			addbmp.nID = (UINT_PTR)hBmp;
 
 			//addbmp.nID = _toolBarIcons.getStdIconAt(i);

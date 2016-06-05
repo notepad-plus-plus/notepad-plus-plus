@@ -54,7 +54,7 @@ inline static DWORD GetExStyle(HWND hWnd) {
 }
 
 inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
-	DWORD dwStyle = ::GetWindowLongPtr(hWnd, GWL_STYLE);
+	DWORD dwStyle = (DWORD)::GetWindowLongPtr(hWnd, GWL_STYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
 	if(dwStyle == dwNewStyle)
 		return FALSE;
@@ -63,7 +63,7 @@ inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 }
 
 inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
-	DWORD dwStyle = ::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+	DWORD dwStyle = (DWORD)::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
 	if(dwStyle == dwNewStyle)
 		return FALSE;
@@ -100,7 +100,7 @@ struct NumericStringEquivalence
 			{
 				lcmp = generic_strtol(str1, &p1, 10) - generic_strtol(str2, &p2, 10);
 				if ( lcmp == 0 )
-					lcmp = (p2 - str2) - (p1 - str1);
+					lcmp = static_cast<int32_t>((p2 - str2) - (p1 - str1));
 				if ( lcmp != 0 )
 					break;
 				str1 = p1, str2 = p2;
@@ -283,8 +283,8 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					if(pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;
-						int index = pLvdi->item.iItem;
-						if (index >= _pTab->nbItem() || index >= (int)_idxMap.size())
+						size_t index = pLvdi->item.iItem;
+						if (index >= _pTab->nbItem() || index >= _idxMap.size())
 							return FALSE;
 						index = _idxMap[index];
 
@@ -356,13 +356,16 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 						{
 							_lastSort = iColumn;
 						}
-						int i;
-						int n = _idxMap.size();
+						size_t i;
+						size_t n = _idxMap.size();
 						vector<int> sortMap;
 						sortMap.resize(n);
-						for (i=0; i<n; ++i) sortMap[_idxMap[i]] = ListView_GetItemState(_hList, i, LVIS_SELECTED);
+						for (i = 0; i < n; ++i)
+							sortMap[_idxMap[i]] = ListView_GetItemState(_hList, i, LVIS_SELECTED);
+
 						stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, iColumn, reverse));
-						for (i=0; i<n; ++i) ListView_SetItemState(_hList, i, sortMap[_idxMap[i]] ? LVIS_SELECTED : 0, LVIS_SELECTED);
+						for (i = 0; i < n; ++i)
+							ListView_SetItemState(_hList, i, sortMap[_idxMap[i]] ? LVIS_SELECTED : 0, LVIS_SELECTED);
 
 						::InvalidateRect(_hList, &_rc, FALSE);
 						_isSorted = true;
@@ -426,7 +429,7 @@ void WindowsDlg::updateButtonState()
 int WindowsDlg::doDialog(TiXmlNodeA *dlgNode)
 {
 	_dlgNode = dlgNode;
-	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent,  dlgProc, (LPARAM)this);
+	return (int)::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent,  dlgProc, (LPARAM)this);
 };
 
 bool WindowsDlg::changeDlgLang()
@@ -579,11 +582,10 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 				_idxMap.resize(count);
 				if (oldSize < count)
 					lo = oldSize;
-				for (size_t i=lo; i<count; ++i)
-					_idxMap[i] = i;
+				for (size_t i = lo; i < count; ++i)
+					_idxMap[i] = int(i);
 			}
 			LPARAM lp = invalidate ? LVSICF_NOSCROLL|LVSICF_NOINVALIDATEALL : LVSICF_NOSCROLL;
-			//ListView_SetItemCountEx(_hList, count, lp);
 			::SendMessage(_hList, LVM_SETITEMCOUNT, (WPARAM)count, lp);
 			::InvalidateRect(_hList, &_rc, FALSE);
 
@@ -610,7 +612,7 @@ void WindowsDlg::fitColumnsToSize()
 
 void WindowsDlg::resetSelection()
 {
-	int curSel = _pTab->getCurrentTabIndex();
+	auto curSel = _pTab->getCurrentTabIndex();
 	int pos = 0;
 	for (vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr, ++pos)
 	{
@@ -712,7 +714,7 @@ void WindowsDlg::doClose()
 	}
 	delete[] nmdlg.Items;
 
-	if (_pTab->nbItem() != (int)_idxMap.size())
+	if (_pTab->nbItem() != _idxMap.size())
 		doRefresh(true);
 	else
 	{
@@ -806,12 +808,13 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 {
 	if (hMenu == _hMenu)
 	{
-		int curDoc = pTab->getCurrentTabIndex();
-		int nMaxDoc = IDM_WINDOW_MRU_LIMIT - IDM_WINDOW_MRU_FIRST + 1;
-		int nDoc = pTab->nbItem();
+		auto curDoc = pTab->getCurrentTabIndex();
+		size_t nMaxDoc = IDM_WINDOW_MRU_LIMIT - IDM_WINDOW_MRU_FIRST + 1;
+		size_t nDoc = pTab->nbItem();
 		nDoc = min(nDoc, nMaxDoc);
-		int id, pos;
-		for (id=IDM_WINDOW_MRU_FIRST, pos=0; id<IDM_WINDOW_MRU_FIRST + nDoc; ++id, ++pos)
+		int id;
+		size_t pos;
+		for (id = IDM_WINDOW_MRU_FIRST, pos = 0; id < IDM_WINDOW_MRU_FIRST + static_cast<int32_t>(nDoc); ++id, ++pos)
 		{
 			BufferID bufID = pTab->getBufferByIndex(pos);
 			Buffer * buf = MainFileManager->getBufferByID(bufID);
@@ -820,14 +823,14 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 			memset(&mii, 0, sizeof(mii));
 			mii.cbSize = sizeof(mii);
 			mii.fMask = MIIM_STRING|MIIM_STATE|MIIM_ID;
-			generic_string strBuffer(BuildMenuFileName(60, pos, buf->getFileName()));
+			generic_string strBuffer(BuildMenuFileName(60, static_cast<int32_t>(pos), buf->getFileName()));
 			// Can't make mii.dwTypeData = strBuffer.c_str() because of const cast.
 			// So, making temporary buffer for this.
 			std::vector<TCHAR> vBuffer(strBuffer.begin(), strBuffer.end());
 			vBuffer.push_back('\0');
 			mii.dwTypeData = (&vBuffer[0]);
 			mii.fState &= ~(MF_GRAYED|MF_DISABLED|MF_CHECKED);
-			if (pos == curDoc)
+			if (int(pos) == curDoc)
 				mii.fState |= MF_CHECKED;
 			mii.wID = id;
 

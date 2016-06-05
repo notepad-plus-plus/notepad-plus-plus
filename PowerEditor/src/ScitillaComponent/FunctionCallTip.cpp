@@ -91,14 +91,16 @@ void FunctionCallTip::setLanguageXML(TiXmlElement * pXmlKeyword) {
 	_funcName = 0;
 }
 
-bool FunctionCallTip::updateCalltip(int ch, bool needShown) {
-	if (!needShown && ch != _start && !isVisible())		//must be already visible
+bool FunctionCallTip::updateCalltip(int ch, bool needShown)
+{
+	if (not needShown && ch != _start && not isVisible())		//must be already visible
 		return false;
 
-	_curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	_curPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 
 	//recalculate everything
-	if (!getCursorFunction()) {	//cannot display calltip (anymore)
+	if (not getCursorFunction())
+	{	//cannot display calltip (anymore)
 		close();
 		return false;
 	}
@@ -132,9 +134,9 @@ void FunctionCallTip::close()
 
 bool FunctionCallTip::getCursorFunction()
 {
-	int line = _pEditView->execute(SCI_LINEFROMPOSITION, _curPos);
-	int startpos = _pEditView->execute(SCI_POSITIONFROMLINE, line);
-	int endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
+	auto line = _pEditView->execute(SCI_LINEFROMPOSITION, _curPos);
+	int startpos = static_cast<int32_t>(_pEditView->execute(SCI_POSITIONFROMLINE, line));
+	int endpos = static_cast<int32_t>(_pEditView->execute(SCI_GETLINEENDPOSITION, line));
 	int len = endpos - startpos + 3;	//also take CRLF in account, even if not there
 	int offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
 	const int maxLen = 256;
@@ -163,7 +165,8 @@ bool FunctionCallTip::getCursorFunction()
         {
 			tokenLen = 0;
 			TCHAR * begin = lineData+i;
-            while ((isBasicWordChar(ch) || isAdditionalWordChar(ch)) && i < offset) {
+            while ((isBasicWordChar(ch) || isAdditionalWordChar(ch)) && i < offset)
+			{
 				++tokenLen;
 				++i;
 				ch = lineData[i];
@@ -195,9 +198,12 @@ bool FunctionCallTip::getCursorFunction()
 	for (size_t i = 0; i < vsize; ++i)
 	{
 		Token & curToken = tokenVector.at(i);
-		if (curToken.isIdentifier) {
-			curValue.lastIdentifier = i;
-		} else {
+		if (curToken.isIdentifier)
+		{
+			curValue.lastIdentifier = static_cast<int32_t>(i);
+		}
+		else
+		{
 			if (curToken.token[0] == _start)
 			{
 				++scopeLevel;
@@ -205,25 +211,37 @@ bool FunctionCallTip::getCursorFunction()
 				valueVec.push_back(newValue);	//store the current settings, so when this new function doesnt happen to be the 'real' one, we can restore everything
 				
 				curValue.scopeLevel = scopeLevel;
-				if (i > 0 && curValue.lastIdentifier == int(i)-1) {	//identifier must be right before (, else we have some expression like "( x + y() )"
+				if (i > 0 && curValue.lastIdentifier == static_cast<int32_t>(i) - 1)
+				{	//identifier must be right before (, else we have some expression like "( x + y() )"
 					curValue.lastFunctionIdentifier = curValue.lastIdentifier;
 					curValue.param = 0;
-				} else {	//some expression
+				}
+				else
+				{	//some expression
 					curValue.lastFunctionIdentifier = -1;
 				}
-			} else if (curToken.token[0] == _param && curValue.lastFunctionIdentifier > -1) {
+			}
+			else if (curToken.token[0] == _param && curValue.lastFunctionIdentifier > -1)
+			{
 				++curValue.param;
-			} else if (curToken.token[0] == _stop) {
+			}
+			else if (curToken.token[0] == _stop)
+			{
 				if (scopeLevel)	//scope cannot go below -1
 					scopeLevel--;
-				if (valueVec.size() > 0) {	//only pop level if scope was of actual function
+				if (valueVec.size() > 0)
+				{	//only pop level if scope was of actual function
 					curValue = valueVec.back();
 					valueVec.pop_back();
-				} else {
+				}
+				else
+				{
 					//invalidate curValue
 					curValue = FunctionValues();
 				}
-			} else if (curToken.token[0] == _terminal) {
+			}
+			else if (curToken.token[0] == _terminal)
+			{
 				//invalidate everything
 				valueVec.clear();
 				curValue = FunctionValues();
@@ -233,32 +251,40 @@ bool FunctionCallTip::getCursorFunction()
 	
 	bool res = false;
 
-	if (curValue.lastFunctionIdentifier == -1) {	//not in direct function. Start popping the stack untill we empty it, or a func IS found
-		while(curValue.lastFunctionIdentifier == -1 && valueVec.size() > 0) {
+	if (curValue.lastFunctionIdentifier == -1)
+	{	//not in direct function. Start popping the stack untill we empty it, or a func IS found
+		while(curValue.lastFunctionIdentifier == -1 && valueVec.size() > 0)
+		{
 			curValue = valueVec.back();
 			valueVec.pop_back();
 		}
 	}
-	if (curValue.lastFunctionIdentifier > -1) {
+	if (curValue.lastFunctionIdentifier > -1)
+	{
 		Token funcToken = tokenVector.at(curValue.lastFunctionIdentifier);
 		funcToken.token[funcToken.length] = 0;
 		_currentParam = curValue.param;
 
 		bool same = false;
-		if (_funcName) {
+		if (_funcName)
+		{
 			if(_ignoreCase)
 				same = testNameNoCase(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
 			else
 				same = generic_strncmp(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
 		}
-		if (!same) {	//check if we need to reload data
-			if (_funcName) {
+		if (!same)
+		{	//check if we need to reload data
+			if (_funcName)
+			{
 				delete [] _funcName;
 			}
 			_funcName = new TCHAR[funcToken.length+1];
 			lstrcpy(_funcName, funcToken.token);
 			res = loadFunction();
-		} else {
+		}
+		else
+		{
 			res = true;
 		}
 	}
@@ -276,7 +302,7 @@ bool FunctionCallTip::loadFunction()
 	//Iterate through all keywords and find the correct function keyword
 	TiXmlElement *funcNode = _pXmlKeyword;
 	
-	for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
+	for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")))
 	{
 		const TCHAR * name = NULL;
 		name = funcNode->Attribute(TEXT("name"));
@@ -359,12 +385,15 @@ void FunctionCallTip::showCalltip()
 	//Check if the current overload still holds. If the current param exceeds amounti n overload, see if another one fits better (enough params)
 	stringVec & params = _overloads.at(_currentOverload);
 	size_t psize = params.size()+1;
-	if ((size_t)_currentParam >= psize) {
+	if ((size_t)_currentParam >= psize)
+	{
 		size_t osize = _overloads.size();
-		for(size_t i = 0; i < osize; ++i) {
+		for(size_t i = 0; i < osize; ++i)
+		{
 			psize = _overloads.at(i).size()+1;
-			if ((size_t)_currentParam < psize) {
-				_currentOverload = i;
+			if ((size_t)_currentParam < psize)
+			{
+				_currentOverload = static_cast<int32_t>(i);
 				break;
 			}
 		}

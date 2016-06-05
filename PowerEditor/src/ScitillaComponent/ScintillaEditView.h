@@ -248,11 +248,11 @@ public:
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 
-	void getText(char *dest, int start, int end) const;
-	void getGenericText(TCHAR *dest, size_t destlen, int start, int end) const;
+	void getText(char *dest, size_t start, size_t end) const;
+	void getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(TCHAR *dest, size_t deslen, int start, int end, int *mstart, int *mend) const;
-	generic_string getGenericTextAsString(int start, int end) const;
-	void insertGenericTextFrom(int position, const TCHAR *text2insert) const;
+	generic_string getGenericTextAsString(size_t start, size_t end) const;
+	void insertGenericTextFrom(size_t position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
 	int getSelectedTextCount() {
@@ -266,17 +266,17 @@ public:
     char * getWordOnCaretPos(char * txt, int size);
     TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
-	int searchInTarget(const TCHAR * Text2Find, int lenOfText2Find, int fromPos, int toPos) const;
+	int searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appandGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const;
 	int replaceTarget(const TCHAR * str2replace, int fromTargetPos = -1, int toTargetPos = -1) const;
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
-	void showAutoComletion(int lenEntered, const TCHAR * list);
+	void showAutoComletion(size_t lenEntered, const TCHAR * list);
 	void showCallTip(int startPos, const TCHAR * def);
-	generic_string getLine(int lineNumber);
-	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
-	void addText(int length, const char *buf);
+	generic_string getLine(size_t lineNumber);
+	void getLine(size_t lineNumber, TCHAR * line, int lineBufferLen);
+	void addText(size_t length, const char *buf);
 
 	void insertNewLineAboveCurrentLine();
 	void insertNewLineBelowCurrentLine();
@@ -303,8 +303,8 @@ public:
 	};
 
 	void getWordToCurrentPos(TCHAR * str, int strLen) const {
-		int caretPos = execute(SCI_GETCURRENTPOS);
-		int startPos = static_cast<int>(execute(SCI_WORDSTARTPOSITION, caretPos, true));
+		auto caretPos = execute(SCI_GETCURRENTPOS);
+		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
 		str[0] = '\0';
 		if ((caretPos - startPos) < strLen)
@@ -420,13 +420,13 @@ public:
 		execute(SCI_SETWRAPVISUALFLAGS, willBeShown?SC_WRAPVISUALFLAG_END:SC_WRAPVISUALFLAG_NONE);
     };
 
-	long getCurrentLineNumber()const {
-		return long(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
+	size_t getCurrentLineNumber()const {
+		return static_cast<size_t>(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
 	};
 
-	long lastZeroBasedLineNumber() const {
-		int endPos = execute(SCI_GETLENGTH);
-		return execute(SCI_LINEFROMPOSITION, endPos);
+	int32_t lastZeroBasedLineNumber() const {
+		auto endPos = execute(SCI_GETLENGTH);
+		return static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, endPos));
 	};
 
 	long getCurrentXOffset()const{
@@ -484,7 +484,7 @@ public:
 		// return -1 if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
 			return -1;
-		long size_selected = execute(SCI_GETSELTEXT);
+		auto size_selected = execute(SCI_GETSELTEXT);
 		char *selected = new char[size_selected + 1];
 		execute(SCI_GETSELTEXT, (WPARAM)0, (LPARAM)selected);
 		char *c = selected;
@@ -566,7 +566,7 @@ public:
 
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(bool mode);
-	void fold(int line, bool mode);
+	void fold(size_t line, bool mode);
 	bool isFolded(int line){
 		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
 	};
@@ -638,7 +638,7 @@ public:
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) ||
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
-	void scrollPosToCenter(int pos);
+	void scrollPosToCenter(size_t pos);
 	generic_string getEOLString();
 	void setBorderEdge(bool doWithBorderEdge);
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);

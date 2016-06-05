@@ -76,7 +76,7 @@ public :
 		int indexClicked = int(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 		activateWindowAt(indexClicked);
 	};
-	void renameTab(int index, const TCHAR *newName);
+	void renameTab(size_t index, const TCHAR *newName);
 	bool renameTab(const TCHAR *internalName, const TCHAR *newName);
 
 private:

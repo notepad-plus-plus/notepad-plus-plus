@@ -120,7 +120,7 @@ int DocTabView::getIndexByBuffer(BufferID id)
 }
 
 
-BufferID DocTabView::getBufferByIndex(int index)
+BufferID DocTabView::getBufferByIndex(size_t index)
 {
 	TCITEM tie;
 	tie.lParam = -1;

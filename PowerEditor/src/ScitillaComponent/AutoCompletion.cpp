@@ -133,7 +133,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	int posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);
+	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
 
 	while (posFind != -1 && posFind != -2)
 	{
@@ -149,7 +149,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 			if (!isInList(w, wordArray))
 				wordArray.push_back(w);
 		}
-		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
+		posFind = _pEditView->searchInTarget(expr.c_str(), static_cast<int32_t>(expr.length()), wordEnd, docLength);
 	}
 }
 
@@ -244,10 +244,10 @@ void AutoCompletion::showPathCompletion()
 	// Get current line (at most MAX_PATH characters "backwards" from current caret).
 	generic_string currentLine;
 	{
-		const long bufSize = MAX_PATH;
+		const size_t bufSize = MAX_PATH;
 		TCHAR buf[bufSize + 1];
-		const int currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
-		const int startPos = max(0, currentPos - bufSize);
+		const size_t currentPos = static_cast<size_t>(_pEditView->execute(SCI_GETCURRENTPOS));
+		const auto startPos = max(0, currentPos - bufSize);
 		_pEditView->getGenericText(buf, bufSize + 1, startPos, currentPos);
 		currentLine = buf;
 	}
@@ -428,12 +428,12 @@ void InsertedMatchedChars::removeInvalidElements(MatchedCharInserted mci)
 	}
 	else
 	{
-		for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
+		for (int i = int(_insertedMatchedChars.size()) - 1; i >= 0; --i)
 		{
 			if (_insertedMatchedChars[i]._pos < mci._pos)
 			{
-				int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, mci._pos);
-				int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
+				auto posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, mci._pos);
+				auto startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
 
 				if (posToDetectLine != startPosLine) //not in the same line
 				{
@@ -461,18 +461,18 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 {
 	if (isEmpty())
 		return -1;
-	int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
+	auto posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
 
-	for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
+	for (int i = int32_t(_insertedMatchedChars.size()) - 1; i >= 0; --i)
 	{
 		if (_insertedMatchedChars[i]._c == startChar)
 		{
 			if (_insertedMatchedChars[i]._pos < posToDetect)
 			{
-				int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
+				auto startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
 				if (posToDetectLine == startPosLine)
 				{
-					int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
+					auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
 
 					for (int j = posToDetect; j <= endPos; ++j)
 					{
@@ -511,7 +511,7 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & matchedPairConf)
 {
 	const vector< pair<char, char> > & matchedPairs = matchedPairConf._matchedPairs;
-	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	int caretPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 	char *matchedChars = NULL;
 
 	char charPrev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 2);

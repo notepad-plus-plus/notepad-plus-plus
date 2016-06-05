@@ -58,7 +58,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 
 	
 	//GETWORDCHARS for isQualifiedWord2() and isWordChar2()
-	int listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
+	auto listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
 	char *listChar = new char[listCharSize+1];
 	pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar);
 	listChar[listCharSize] = '\0';
@@ -110,7 +110,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	const TCHAR * searchText = NULL;
 
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	unsigned int cp = pHighlightView->execute(SCI_GETCODEPAGE); 
+	UINT cp = static_cast<UINT>(pHighlightView->execute(SCI_GETCODEPAGE));
 	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
 	searchText = text2FindW;
 

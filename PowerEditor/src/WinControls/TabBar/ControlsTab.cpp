@@ -92,7 +92,7 @@ bool ControlsTab::renameTab(const TCHAR *internalName, const TCHAR *newName)
 	return true;
 }
 
-void ControlsTab::renameTab(int index, const TCHAR *newName)
+void ControlsTab::renameTab(size_t index, const TCHAR *newName)
 {
 	TCITEM tie;
 	tie.mask = TCIF_TEXT;

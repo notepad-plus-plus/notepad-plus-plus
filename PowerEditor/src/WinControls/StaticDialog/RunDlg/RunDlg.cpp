@@ -91,14 +91,14 @@ int whichVar(TCHAR *str)
 void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t strDestLen, HWND hWnd)
 {
 	size_t j = 0;
-	for (size_t i = 0, len = size_t(lstrlen(strSrc)); i < len; ++i)
+	for (int i = 0, len = lstrlen(strSrc); i < len; ++i)
 	{
 		int iBegin = -1;
 		int iEnd = -1;
 		if ((strSrc[i] == '$') && (strSrc[i+1] == '('))
 		{
 			iBegin = i += 2;
-			for (size_t len2 = size_t(lstrlen(strSrc)); i < len2 ; ++i)
+			for (size_t len2 = size_t(lstrlen(strSrc)); size_t(i) < len2 ; ++i)
 			{
 				if (strSrc[i] == ')')
 				{
@@ -131,7 +131,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 					TCHAR expandedStr[CURRENTWORD_MAXLENGTH];
 					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
 					{
-						int lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
+						auto lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
 						wsprintf(expandedStr, TEXT("%d"), lineNumber);
 					}
 					else
@@ -231,7 +231,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				{
 					std::vector<UserCommand> & theUserCmds = (NppParameters::getInstance())->getUserCommandList();
 
-					int nbCmd = theUserCmds.size();
+					int nbCmd = static_cast<int32_t>(theUserCmds.size());
 
 					int cmdID = ID_USER_CMD + nbCmd;
 					TCHAR cmd[MAX_PATH];
@@ -301,7 +301,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 void RunDlg::addTextToCombo(const TCHAR *txt2Add) const
 {
 	HWND handle = ::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH);
-	int i = ::SendMessage(handle, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2Add);
+	auto i = ::SendMessage(handle, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2Add);
 	if (i == CB_ERR)
 		i = ::SendMessage(handle, CB_ADDSTRING, 0, (LPARAM)txt2Add);
 	::SendMessage(handle, CB_SETCURSEL, i, 0);
@@ -309,7 +309,7 @@ void RunDlg::addTextToCombo(const TCHAR *txt2Add) const
 void RunDlg::removeTextFromCombo(const TCHAR *txt2Remove) const
 {
 	HWND handle = ::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH);
-	int i = ::SendMessage(handle, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2Remove);
+	auto i = ::SendMessage(handle, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2Remove);
 	if (i == CB_ERR)
 		return;
 	::SendMessage(handle, CB_DELETESTRING, i, 0);

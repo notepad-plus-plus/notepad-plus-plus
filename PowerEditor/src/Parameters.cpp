@@ -1482,7 +1482,7 @@ void NppParameters::setCurLineHilitingColour(COLORREF colour2Set)
 static int CALLBACK EnumFontFamExProc(const LOGFONT* lpelfe, const TEXTMETRIC*, DWORD, LPARAM lParam)
 {
 	std::vector<generic_string>& strVect = *(std::vector<generic_string> *)lParam;
-	const size_t vectSize = strVect.size();
+	const int32_t vectSize = static_cast<int32_t>(strVect.size());
 	const TCHAR* lfFaceName = ((ENUMLOGFONTEX*)lpelfe)->elfLogFont.lfFaceName;
 
 	//Search through all the fonts, EnumFontFamiliesEx never states anything about order
@@ -2272,9 +2272,8 @@ void NppParameters::feedMacros(TiXmlNode *node)
 		{
 			Macro macro;
 			getActions(childNode, macro);
-			int cmdID = ID_MACRO + _macros.size();
+			int cmdID = ID_MACRO + static_cast<int32_t>(_macros.size());
 			MacroShortcut ms(sc, macro, cmdID);
-			//if (ms.isValid())
 			_macros.push_back(ms);
 		}
 	}
@@ -2329,7 +2328,7 @@ void NppParameters::feedUserCmds(TiXmlNode *node)
 				const TCHAR *cmdStr = aNode->Value();
 				if (cmdStr)
 				{
-					int cmdID = ID_USER_CMD + _userCommands.size();
+					int cmdID = ID_USER_CMD + int32_t(_userCommands.size());
 					UserCommand uc(sc, cmdStr, cmdID);
 					//if (uc.isValid())
 					_userCommands.push_back(uc);
@@ -2395,7 +2394,7 @@ void NppParameters::feedScintKeys(TiXmlNode *node)
 
 		//Find the corresponding scintillacommand and alter it, put the index in the list
 		size_t len = _scintillaKeyCommands.size();
-		for(size_t i = 0; i < len; ++i)
+		for (int32_t i = 0; i < static_cast<int32_t>(len); ++i)
 		{
 			ScintillaKeyMap & skmOrig = _scintillaKeyCommands[i];
 			if (skmOrig.getScintillaKeyID() == (unsigned long)scintKey && skmOrig.getMenuCmdID() == menuID)
@@ -2563,12 +2562,12 @@ bool NppParameters::importUDLFromFile(generic_string sourceFile)
 	return loadOkay;
 }
 
-bool NppParameters::exportUDLToFile(int langIndex2export, generic_string fileName2save)
+bool NppParameters::exportUDLToFile(size_t langIndex2export, generic_string fileName2save)
 {
 	if (langIndex2export >= NB_MAX_USER_LANG)
 		return false;
 
-	if (langIndex2export < 0 && langIndex2export >= _nbUserLang)
+	if (static_cast<int32_t>(langIndex2export) >= _nbUserLang)
 		return false;
 
 	TiXmlDocument *pNewXmlUserLangDoc = new TiXmlDocument(fileName2save);
@@ -2821,11 +2820,11 @@ void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & mac
 	{
 		TiXmlNode *actionNode = macroRoot->InsertEndChild(TiXmlElement(TEXT("Action")));
 		const recordedMacroStep & action = macro._macro[i];
-		actionNode->ToElement()->SetAttribute(TEXT("type"), action.MacroType);
-		actionNode->ToElement()->SetAttribute(TEXT("message"), action.message);
-		actionNode->ToElement()->SetAttribute(TEXT("wParam"), action.wParameter);
-		actionNode->ToElement()->SetAttribute(TEXT("lParam"), action.lParameter);
-		actionNode->ToElement()->SetAttribute(TEXT("sParam"), action.sParameter.c_str());
+		actionNode->ToElement()->SetAttribute(TEXT("type"), action._macroType);
+		actionNode->ToElement()->SetAttribute(TEXT("message"), action._message);
+		actionNode->ToElement()->SetAttribute(TEXT("wParam"), action._wParameter);
+		actionNode->ToElement()->SetAttribute(TEXT("lParam"), action._lParameter);
+		actionNode->ToElement()->SetAttribute(TEXT("sParam"), action._sParameter.c_str());
 	}
 }
 
@@ -2938,14 +2937,14 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				{
 					size_t markLine = viewSessionFiles[i]._marks[j];
 					TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
-					markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
+					markNode->ToElement()->SetAttribute(TEXT("line"), int(markLine));
 				}
 
 				for (size_t j = 0, len = viewSessionFiles[i]._foldStates.size() ; j < len ; ++j)
 				{
 					size_t foldLine = viewSessionFiles[i]._foldStates[j];
 					TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
-					foldNode->ToElement()->SetAttribute(TEXT("line"), foldLine);
+					foldNode->ToElement()->SetAttribute(TEXT("line"), int(foldLine));
 				}
 			}
 		}
@@ -3040,12 +3039,13 @@ int NppParameters::addUserLangToEnd(const UserLangContainer & userLang, const TC
 }
 
 
-void NppParameters::removeUserLang(int index)
+void NppParameters::removeUserLang(size_t index)
 {
-	if (index >= _nbUserLang )
+	if (static_cast<int32_t>(index) >= _nbUserLang)
 		return;
 	delete _userLangArray[index];
-	for (int i = index ; i < (_nbUserLang - 1) ; ++i)
+
+	for (int32_t i = static_cast<int32_t>(index); i < (_nbUserLang - 1); ++i)
 		_userLangArray[i] = _userLangArray[i+1];
 	_nbUserLang--;
 }
@@ -3415,7 +3415,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	TiXmlElement projPanelRootNode{TEXT("ProjectPanels")};
 
 	// Add 3 Project Panel parameters
-	for (size_t i = 0 ; i < 3 ; ++i)
+	for (int32_t i = 0 ; i < 3 ; ++i)
 	{
 		TiXmlElement projPanelNode{TEXT("ProjectPanel")};
 		(projPanelNode.ToElement())->SetAttribute(TEXT("id"), i);
@@ -5301,7 +5301,7 @@ bool NppParameters::writeGUIParams()
 			element->SetAttribute(TEXT("dir"), _nppGUI._backupDir.c_str());
 
 			element->SetAttribute(TEXT("isSnapshotMode"), _nppGUI._isSnapshotMode && _nppGUI._rememberLastSession?TEXT("yes"):TEXT("no"));
-			element->SetAttribute(TEXT("snapshotBackupTiming"), _nppGUI._snapshotBackupTiming);
+			element->SetAttribute(TEXT("snapshotBackupTiming"), int32_t(_nppGUI._snapshotBackupTiming));
 			backExist = true;
 		}
 		else if (!lstrcmp(nm, TEXT("MRU")))
@@ -5362,7 +5362,7 @@ bool NppParameters::writeGUIParams()
 		{
 			autocExist = true;
 			element->SetAttribute(TEXT("autoCAction"), _nppGUI._autocStatus);
-			element->SetAttribute(TEXT("triggerFromNbChar"), _nppGUI._autocFromLen);
+			element->SetAttribute(TEXT("triggerFromNbChar"), int32_t(_nppGUI._autocFromLen));
 			const TCHAR * pStr = _nppGUI._funcParams?TEXT("yes"):TEXT("no");
 			element->SetAttribute(TEXT("funcParams"), pStr);
 		}
@@ -5594,7 +5594,7 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("dir"), _nppGUI._backupDir.c_str());
 
 		GUIConfigElement->SetAttribute(TEXT("isSnapshotMode"), _nppGUI.isSnapshotMode()?TEXT("yes"):TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("snapshotBackupTiming"), _nppGUI._snapshotBackupTiming);
+		GUIConfigElement->SetAttribute(TEXT("snapshotBackupTiming"), int32_t(_nppGUI._snapshotBackupTiming));
 	}
 
 	if (!doTaskListExist)
@@ -5638,7 +5638,7 @@ bool NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("auto-completion"));
 		GUIConfigElement->SetAttribute(TEXT("autoCAction"), _nppGUI._autocStatus);
-		GUIConfigElement->SetAttribute(TEXT("triggerFromNbChar"), _nppGUI._autocFromLen);
+		GUIConfigElement->SetAttribute(TEXT("triggerFromNbChar"), int32_t(_nppGUI._autocFromLen));
 		const TCHAR * pStr = _nppGUI._funcParams?TEXT("yes"):TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("funcParams"), pStr);
 		autocExist = true;

@@ -167,7 +167,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			generic_string name{userLangName};
 
 			//loop through buffers and reset the language (L_USER, TEXT("")) if (L_USER, name)
-			for (int i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
 			{
 				Buffer* buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && name == buf->getUserDefineLangName())
@@ -185,7 +185,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			generic_string newName{(TCHAR *)wParam};
 
 			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
-			for (int i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
 			{
 				Buffer* buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && oldName == buf->getUserDefineLangName())
@@ -774,7 +774,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			int j = 0;
 			if (Message != NPPM_GETOPENFILENAMESSECOND)
 			{
-				for (int i = 0 ; i < _mainDocTab.nbItem() && j < nbFileNames ; ++i)
+				for (size_t i = 0 ; i < _mainDocTab.nbItem() && j < nbFileNames ; ++i)
 				{
 					BufferID id = _mainDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
@@ -784,7 +784,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			if (Message != NPPM_GETOPENFILENAMESPRIMARY)
 			{
-				for (int i = 0 ; i < _subDocTab.nbItem() && j < nbFileNames ; ++i)
+				for (size_t i = 0 ; i < _subDocTab.nbItem() && j < nbFileNames ; ++i)
 				{
 					BufferID id = _subDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);

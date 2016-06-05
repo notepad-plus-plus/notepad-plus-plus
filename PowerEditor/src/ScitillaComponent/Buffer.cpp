@@ -518,14 +518,14 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 
 void FileManager::checkFilesystemChanges()
 {
-	for(int i = int(_nrBufs -1) ; i >= 0 ; i--)
+	for(int i = int(_nrBufs) - 1 ; i >= 0 ; i--)
     {
         if (i >= int(_nrBufs))
         {
             if (_nrBufs == 0)
                 return;
 
-            i = _nrBufs - 1;
+            i = int(_nrBufs) - 1;
         }
         _buffers[i]->checkFileState();	//something has changed. Triggers update automatically
 	}
@@ -1115,7 +1115,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		}
 		
 		// check the language du fichier
-		LangType language = detectLanguageFromTextBegining((unsigned char *)buf, lengthDoc);
+		LangType language = detectLanguageFromTextBeginning((unsigned char *)buf, lengthDoc);
 
 		UnicodeConvertor.fclose();
 
@@ -1270,7 +1270,7 @@ int FileManager::detectCodepage(char* buf, size_t len)
 	return codepage;
 }
 
-LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, unsigned int dataLen)
+LangType FileManager::detectLanguageFromTextBeginning(const unsigned char *data, size_t dataLen)
 {
 	struct FirstLineLanguages
 	{
@@ -1452,7 +1452,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				if (language == L_TEXT)
 				{
 					// check the language du fichier
-					language = detectLanguageFromTextBegining((unsigned char *)data, lenFile);
+					language = detectLanguageFromTextBeginning((unsigned char *)data, lenFile);
 				}
 
                 isFirstTime = false;

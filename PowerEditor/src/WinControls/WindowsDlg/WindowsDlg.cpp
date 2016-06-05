@@ -284,7 +284,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					{
 						pLvdi->item.pszText[0] = 0;
 						int index = pLvdi->item.iItem;
-						if (index >= _pTab->nbItem() || index >= (int)_idxMap.size())
+						if (index >= int(_pTab->nbItem()) || index >= (int)_idxMap.size())
 							return FALSE;
 						index = _idxMap[index];
 

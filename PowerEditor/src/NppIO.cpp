@@ -841,7 +841,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
-	for(int i = 0; i < _mainDocTab.nbItem(); ++i)
+	for(size_t i = 0; i < _mainDocTab.nbItem(); ++i)
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -895,7 +895,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 			}
 		}
 	}
-	for(int i = 0; i < _subDocTab.nbItem(); ++i)
+	for(size_t i = 0; i < _subDocTab.nbItem(); ++i)
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -1046,7 +1046,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
-	for(int i = 0; i < _mainDocTab.nbItem(); ++i) {
+	for(size_t i = 0; i < _mainDocTab.nbItem(); ++i) {
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		if (id == current)
 			continue;
@@ -1073,7 +1073,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			}
 		}
 	}
-	for(int i = 0; i < _subDocTab.nbItem(); ++i)
+	for(size_t i = 0; i < _subDocTab.nbItem(); ++i)
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -1241,14 +1241,14 @@ bool Notepad_plus::fileSaveSpecific(const generic_string& fileNameToSave)
 
 bool Notepad_plus::fileSaveAll() {
 	if (viewVisible(MAIN_VIEW)) {
-		for(int i = 0; i < _mainDocTab.nbItem(); ++i) {
+		for(size_t i = 0; i < _mainDocTab.nbItem(); ++i) {
 			BufferID idToSave = _mainDocTab.getBufferByIndex(i);
 			fileSave(idToSave);
 		}
 	}
 
 	if (viewVisible(SUB_VIEW)) {
-		for(int i = 0; i < _subDocTab.nbItem(); ++i) {
+		for(size_t i = 0; i < _subDocTab.nbItem(); ++i) {
 			BufferID idToSave = _subDocTab.getBufferByIndex(i);
 			fileSave(idToSave);
 		}

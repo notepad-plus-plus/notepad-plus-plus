@@ -97,7 +97,7 @@ public:
 
 	void setImageList(HIMAGELIST himl);
 
-    int nbItem() const {
+    size_t nbItem() const {
         return _nbItem;
     }
 

@@ -120,8 +120,8 @@ class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
 public:
 	Finder() : DockingDlgInterface(IDD_FINDRESULT), _pMainFoundInfos(&_foundInfos1), _pMainMarkings(&_markings1) {
-		_MarkingsStruct._length = 0;
-		_MarkingsStruct._markings = NULL;
+		_markingsStruct._length = 0;
+		_markingsStruct._markings = NULL;
 	};
 
 	~Finder() {
@@ -144,8 +144,8 @@ public:
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count, bool isMatchLines = false);
 	void gotoNextFoundResult(int direction);
-	void GotoFoundLine();
-	void DeleteResult();
+	void gotoFoundLine();
+	void deleteResult();
 	std::vector<generic_string> getResultFilePaths() const;
 	bool canFind(const TCHAR *fileName, size_t lineNumber) const;
 	void setVolatiled(bool val) { _canBeVolatiled = val; };
@@ -165,7 +165,7 @@ private:
 	std::vector<SearchResultMarking> _markings1;
 	std::vector<SearchResultMarking> _markings2;
 	std::vector<SearchResultMarking>* _pMainMarkings;
-	SearchResultMarkings _MarkingsStruct;
+	SearchResultMarkings _markingsStruct;
 
 	ScintillaEditView _scintView;
 	unsigned int _nbFoundFiles = 0;
@@ -390,7 +390,7 @@ private :
 	};
 
 	void gotoCorrectTab() {
-		int currentIndex = _tab.getCurrentTabIndex();
+		auto currentIndex = _tab.getCurrentTabIndex();
 		if (currentIndex != _currentStatus)
 			_tab.activateAt(_currentStatus);
 	};
@@ -408,7 +408,7 @@ private :
 	static const int FR_OP_REPLACE = 2;
 	static const int FR_OP_FIF = 4;
 	static const int FR_OP_GLOBAL = 8;
-	void saveInMacro(int cmd, int cmdType);
+	void saveInMacro(size_t cmd, int cmdType);
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 
 };

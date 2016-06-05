@@ -781,8 +781,8 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 
 std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter)
 {
-	auto start = 0U;
-	auto end = input.find(delimiter);
+	size_t start = 0U;
+	size_t end = input.find(delimiter);
 	std::vector<generic_string> output;
 	const size_t delimiterLength = delimiter.length();
 	while (end != std::string::npos)
@@ -849,7 +849,7 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 {
-	int len2Allocate = (str2cpy.size() + 1) * sizeof(TCHAR);
+	size_t len2Allocate = (str2cpy.size() + 1) * sizeof(TCHAR);
 	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, len2Allocate);
 	if (hglbCopy == NULL)
 	{

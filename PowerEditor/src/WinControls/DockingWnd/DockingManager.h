@@ -63,10 +63,10 @@ public :
 		_ppMainWindow = ppWin;
 	};
 
-	void showContainer(HWND hCont, BOOL view = TRUE);
+	void showContainer(HWND hCont, bool display = true);
 
-	void showContainer(UINT	uCont, BOOL view = TRUE) {
-		_vContainer[uCont]->doDialog((view == TRUE));
+	void showContainer(size_t uCont, bool display = true) {
+		_vContainer[uCont]->doDialog(display);
 		onSize();
 	}
 

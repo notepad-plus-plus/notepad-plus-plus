@@ -213,7 +213,7 @@ generic_string ScintillaKeyMap::toString() const {
 	return toString(0);
 }
 
-generic_string ScintillaKeyMap::toString(int index) const {
+generic_string ScintillaKeyMap::toString(size_t index) const {
 	generic_string sc = TEXT("");
 	if (!isEnabled())
 		return sc;
@@ -232,39 +232,46 @@ generic_string ScintillaKeyMap::toString(int index) const {
 	return sc;
 }
 
-KeyCombo ScintillaKeyMap::getKeyComboByIndex(int index) const {
+KeyCombo ScintillaKeyMap::getKeyComboByIndex(size_t index) const {
 	return _keyCombos[index];
 }
 
-void ScintillaKeyMap::setKeyComboByIndex(int index, KeyCombo combo) {
-	if(combo._key == 0 && (size > 1)) {	//remove the item if possible
+void ScintillaKeyMap::setKeyComboByIndex(int index, KeyCombo combo)
+{
+	if(combo._key == 0 && (_size > 1))
+	{	//remove the item if possible
 		_keyCombos.erase(_keyCombos.begin() + index);
 	}
 	_keyCombos[index] = combo;
 }
 
-void ScintillaKeyMap::removeKeyComboByIndex(int index) {
-	if (size > 1 && index > -1 && index < int(size)) {
+void ScintillaKeyMap::removeKeyComboByIndex(size_t index)
+{
+	if (_size > 1 && index < _size)
+	{
 		_keyCombos.erase(_keyCombos.begin() + index);
-		size--;
+		_size--;
 	}
 }
 
-int ScintillaKeyMap::addKeyCombo(KeyCombo combo) {	//returns index where key is added, or -1 when invalid
+int ScintillaKeyMap::addKeyCombo(KeyCombo combo)
+{	//returns index where key is added, or -1 when invalid
 	if (combo._key == 0)	//do not allow to add disabled keycombos
 		return -1;
-	if (!isEnabled()) {	//disabled, override current combo with new enabled one
+	if (!isEnabled())
+	{	//disabled, override current combo with new enabled one
 		_keyCombos[0] = combo;
 		return 0;
 	}
-	for(size_t i = 0; i < size; ++i) {	//if already in the list do not add it
+	for(size_t i = 0; i < _size; ++i)
+	{	//if already in the list do not add it
 		KeyCombo & kc = _keyCombos[i];
 		if (combo._key == kc._key && combo._isCtrl == kc._isCtrl && combo._isAlt == kc._isAlt && combo._isShift == kc._isShift)
-			return i;	//already in the list
+			return static_cast<int32_t>(i);	//already in the list
 	}
 	_keyCombos.push_back(combo);
-	++size;
-	return (size - 1);
+	++_size;
+	return static_cast<int32_t>(_size - 1);
 }
 
 bool ScintillaKeyMap::isEnabled() const {
@@ -272,7 +279,7 @@ bool ScintillaKeyMap::isEnabled() const {
 }
 
 size_t ScintillaKeyMap::getSize() const {
-	return size;
+	return _size;
 }
 
 void getKeyStrFromVal(UCHAR keyVal, generic_string & str)
@@ -309,7 +316,7 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 	else if ((cmd >= ID_PLUGINS_CMD) && (cmd < ID_PLUGINS_CMD_LIMIT))
 	{
 		vector<PluginCmdShortcut> & pluginCmds = (NppParameters::getInstance())->getPluginCommandList();
-		int i = 0;
+		size_t i = 0;
 		for (size_t j = 0, len = pluginCmds.size(); j < len ; ++j)
 		{
 			if (pluginCmds[j].getID() == cmd)
@@ -376,7 +383,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, (LPARAM)namedKeyArray[i].name);
 
 				if (_keyCombo._key == namedKeyArray[i].id)
-					iFound = i;
+					iFound = static_cast<int32_t>(i);
 			}
 
 			if (iFound != -1)
@@ -393,17 +400,17 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			switch (wParam)
 			{
 				case IDC_CTRL_CHECK :
-					_keyCombo._isCtrl = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					_keyCombo._isCtrl = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 					return TRUE;
 
 				case IDC_ALT_CHECK :
-					_keyCombo._isAlt = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					_keyCombo._isAlt = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 					return TRUE;
 
 				case IDC_SHIFT_CHECK :
-					_keyCombo._isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					_keyCombo._isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
 					return TRUE;
 
 				case IDOK :
@@ -435,7 +442,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					{
 						if (LOWORD(wParam) == IDC_KEY_COMBO)
 						{
-							int i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
+							auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
 							_keyCombo._key = namedKeyArray[i].id;
 							::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 							::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled()?SW_HIDE:SW_SHOW);
@@ -545,7 +552,7 @@ void Accelerator::updateShortcuts()
 	{
 		tmpAccelArray[i] = IFAcc[i];
 	}
-	_hIncFindAccTab = ::CreateAcceleratorTable(tmpAccelArray, nb);
+	_hIncFindAccTab = ::CreateAcceleratorTable(tmpAccelArray, static_cast<int32_t>(nb));
 	delete [] tmpAccelArray;
 
 	return;
@@ -586,10 +593,10 @@ void Accelerator::updateMenuItemByCommand(CommandShortcut csc) {
 }
 
 recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam, int codepage)
-	: message(iMessage), wParameter(wParam), lParameter(lParam), MacroType(mtUseLParameter)
+	: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(mtUseLParameter)
 { 
-	if (lParameter) {
-		switch (message) {
+	if (_lParameter) {
+		switch (_message) {
 			case SCI_SETTEXT :
 			case SCI_REPLACESEL :
 			case SCI_REPLACETARGET :
@@ -611,17 +618,17 @@ recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam, int
 			case IDD_FINDINFILES_DIR_COMBO:
 			case IDD_FINDINFILES_FILTERS_COMBO:
 			{
-				char *ch = reinterpret_cast<char *>(lParameter);
+				char *ch = reinterpret_cast<char *>(_lParameter);
 				TCHAR tch[2];
 				::MultiByteToWideChar(codepage, 0, ch, -1, tch, 2);
-				sParameter = *tch;
-				MacroType = mtUseSParameter;
-				lParameter = 0;
+				_sParameter = *tch;
+				_macroType = mtUseSParameter;
+				_lParameter = 0;
 			}
 			break;
 
 				
-			default : // for all other messages, use lParameter "as is"
+			default : // for all other messages, use _lParameter "as is"
 				break;
 		}
 	}
@@ -629,34 +636,38 @@ recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam, int
 
 void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 {
-	if (MacroType == mtMenuCommand)
-		::SendMessage(pNotepad->getHSelf(), WM_COMMAND, wParameter, 0);
+	if (_macroType == mtMenuCommand)
+		::SendMessage(pNotepad->getHSelf(), WM_COMMAND, _wParameter, 0);
 
 	else
 	{
-		long lParam = lParameter;
 		char ansiBuffer[3];
-		if (MacroType == mtUseSParameter)
+		if (_macroType == mtUseSParameter)
 		{
-			::WideCharToMultiByte(pEditView->execute(SCI_GETCODEPAGE), 0, sParameter.c_str(), -1, ansiBuffer, 3, NULL, NULL);
-			lParam = reinterpret_cast<LPARAM>(ansiBuffer);
+			::WideCharToMultiByte(static_cast<UINT>(pEditView->execute(SCI_GETCODEPAGE)), 0, _sParameter.c_str(), -1, ansiBuffer, 3, NULL, NULL);
+			auto lParam = reinterpret_cast<LPARAM>(ansiBuffer);
+			pEditView->execute(_message, _wParameter, lParam);
+		}
+		else
+		{
+			pEditView->execute(_message, _wParameter, _lParameter);
 		}
 
-		pEditView->execute(message, wParameter, lParam);
-		if ( (message == SCI_SETTEXT)
-			|| (message == SCI_REPLACESEL) 
-			|| (message == SCI_ADDTEXT) 
-			|| (message == SCI_ADDSTYLEDTEXT) 
-			|| (message == SCI_INSERTTEXT) 
-			|| (message == SCI_APPENDTEXT) ) {
+		if ( (_message == SCI_SETTEXT)
+			|| (_message == SCI_REPLACESEL) 
+			|| (_message == SCI_ADDTEXT) 
+			|| (_message == SCI_ADDSTYLEDTEXT) 
+			|| (_message == SCI_INSERTTEXT) 
+			|| (_message == SCI_APPENDTEXT) )
+		{
 			SCNotification scnN;
 			scnN.nmhdr.code = SCN_CHARADDED;
 			scnN.nmhdr.hwndFrom = pEditView->getHSelf();
 			scnN.nmhdr.idFrom = 0;
-			if(sParameter.empty())
+			if(_sParameter.empty())
 				scnN.ch = 0;
 			else
-				scnN.ch = sParameter.at(0);
+				scnN.ch = _sParameter.at(0);
 			::SendMessage(pNotepad->getHSelf(), WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&scnN));
 		}
 	}
@@ -744,13 +755,13 @@ void ScintillaKeyMap::validateDialog() {
 	bool isDisabled = !isEnabled();	//true if this shortcut already is 
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_ADD), valid && !isDisabling);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_APPLY), valid && (!isDisabling || size == 1));
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_RMVE), (size > 1)?TRUE:FALSE);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_APPLY), valid && (!isDisabling || _size == 1));
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_RMVE), (_size > 1)?TRUE:FALSE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isDisabled?SW_SHOW:SW_HIDE);
 }
 
 void ScintillaKeyMap::showCurrentSettings() {
-	int keyIndex = ::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
+	auto keyIndex = ::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
 	_keyCombo = _keyCombos[keyIndex];
 	::SendDlgItemMessage(_hSelf, IDC_CTRL_CHECK,	BM_SETCHECK, _keyCombo._isCtrl?BST_CHECKED:BST_UNCHECKED, 0);
 	::SendDlgItemMessage(_hSelf, IDC_ALT_CHECK,		BM_SETCHECK, _keyCombo._isAlt?BST_CHECKED:BST_UNCHECKED, 0);
@@ -785,7 +796,8 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, (LPARAM)namedKeyArray[i].name);
 			}
 
-			for(size_t i = 0; i < size; ++i) {
+			for(size_t i = 0; i < _size; ++i)
+			{
 				::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_ADDSTRING, 0, (LPARAM)toString(i).c_str());
 			}
 			::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, 0, 0);
@@ -802,19 +814,19 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			switch (wParam)
 			{
 				case IDC_CTRL_CHECK :
-					_keyCombo._isCtrl = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					_keyCombo._isCtrl = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
 					//applyToCurrentIndex();
 					validateDialog();
 					return TRUE;
 
 				case IDC_ALT_CHECK :
-					_keyCombo._isAlt = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					_keyCombo._isAlt = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
 					//applyToCurrentIndex();
 					validateDialog();
 					return TRUE;
 
 				case IDC_SHIFT_CHECK :
-					_keyCombo._isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					_keyCombo._isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
 					//applyToCurrentIndex();
 					return TRUE;
 
@@ -829,29 +841,35 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 					::EndDialog(_hSelf, -1);
 					return TRUE;
 
-				case IDC_BUTTON_ADD: {
-					int oldsize = size;
+				case IDC_BUTTON_ADD: 
+				{
+					size_t oldsize = _size;
 					int res = addKeyCombo(_keyCombo);
-					if (res > -1) {
-						if (res == oldsize) {
+					if (res > -1)
+					{
+						if (res == static_cast<int32_t>(oldsize))
+						{
 							::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, (WPARAM)-1, (LPARAM)toString(res).c_str());
-						}else {	//update current generic_string, can happen if it was disabled
+						}
+						else
+						{	//update current generic_string, can happen if it was disabled
 							updateListItem(res);
 						}
 						::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, res, 0);
 					}
 					showCurrentSettings();
 					validateDialog();
-					return TRUE; }
+					return TRUE; 
+				}
 
 				case IDC_BUTTON_RMVE: {
-					if (size == 1)	//cannot delete last shortcut
+					if (_size == 1)	//cannot delete last shortcut
 						return TRUE;
-					int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
+					auto i = ::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
 					removeKeyComboByIndex(i);
 					::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, i, 0);
-					if (i == (int)size)
-						i = size - 1;
+					if (i == (int)_size)
+						i = _size - 1;
 					::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, i, 0);
 					showCurrentSettings();
 					validateDialog();
@@ -868,7 +886,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 						switch(LOWORD(wParam)) {
 							case IDC_KEY_COMBO:
 							{
-								int i = ::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_GETCURSEL, 0, 0);
+								auto i = ::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_GETCURSEL, 0, 0);
 								_keyCombo._key = namedKeyArray[i].id;
 								//applyToCurrentIndex();
 								validateDialog();

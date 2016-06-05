@@ -206,30 +206,30 @@ public:
 		_keyCombos.clear();
 		_keyCombos.push_back(_keyCombo);
 		_keyCombo._key = 0;
-		size = 1;
+		_size = 1;
 	};
 	unsigned long getScintillaKeyID() const {return _scintillaKeyID;};
 	int getMenuCmdID() const {return _menuCmdID;};
-	int toKeyDef(int index) const {
+	int toKeyDef(size_t index) const {
 		KeyCombo kc = _keyCombos[index];
 		int keymod = (kc._isCtrl?SCMOD_CTRL:0) | (kc._isAlt?SCMOD_ALT:0) | (kc._isShift?SCMOD_SHIFT:0);
 		return keyTranslate((int)kc._key) + (keymod << 16);
 	};
 
-	KeyCombo getKeyComboByIndex(int index) const;
+	KeyCombo getKeyComboByIndex(size_t index) const;
 	void setKeyComboByIndex(int index, KeyCombo combo);
-	void removeKeyComboByIndex(int index);
+	void removeKeyComboByIndex(size_t index);
 	void clearDups() {
-		if (size > 1)
+		if (_size > 1)
 			_keyCombos.erase(_keyCombos.begin()+1, _keyCombos.end());
-		size = 1;
+		_size = 1;
 	};
 	int addKeyCombo(KeyCombo combo);
 	bool isEnabled() const;
 	size_t getSize() const;
 
 	generic_string toString() const;
-	generic_string toString(int index) const;
+	generic_string toString(size_t index) const;
 
 	INT_PTR doDialog()
 	{
@@ -238,11 +238,12 @@ public:
 
 	//only compares the internal KeyCombos, nothing else
 	friend inline const bool operator==(const ScintillaKeyMap & a, const ScintillaKeyMap & b) {
-		bool equal = a.size == b.size;
+		bool equal = a._size == b._size;
 		if (!equal)
 			return false;
 		size_t i = 0;
-		while(equal && (i < a.size)) {
+		while(equal && (i < a._size))
+		{
 			equal = 
 				(a._keyCombos[i]._isCtrl	== b._keyCombos[i]._isCtrl) && 
 				(a._keyCombos[i]._isAlt		== b._keyCombos[i]._isAlt) && 
@@ -261,7 +262,7 @@ private:
 	unsigned long _scintillaKeyID;
 	int _menuCmdID;
 	std::vector<KeyCombo> _keyCombos;
-	size_t size;
+	size_t _size;
 	void applyToCurrentIndex();
 	void validateDialog();
 	void showCurrentSettings();
@@ -277,24 +278,24 @@ class ScintillaEditView;
 struct recordedMacroStep {
 	enum MacroTypeIndex {mtUseLParameter, mtUseSParameter, mtMenuCommand, mtSavedSnR};
 	
-	int message;
-	long wParameter;
-	long lParameter;
-	generic_string sParameter;
-	MacroTypeIndex MacroType;
+	int _message;
+	long _wParameter;
+	long _lParameter;
+	generic_string _sParameter;
+	MacroTypeIndex _macroType;
 	
 	recordedMacroStep(int iMessage, long wParam, long lParam, int codepage);
-	recordedMacroStep(int iCommandID) : message(0), wParameter(iCommandID), lParameter(0), MacroType(mtMenuCommand) {};
+	recordedMacroStep(int iCommandID) : _message(0), _wParameter(iCommandID), _lParameter(0), _macroType(mtMenuCommand) {};
 
 	recordedMacroStep(int iMessage, long wParam, long lParam, const TCHAR *sParam, int type)
-		: message(iMessage), wParameter(wParam), lParameter(lParam), MacroType(MacroTypeIndex(type)){
-			sParameter = (sParam)?generic_string(sParam):TEXT("");	
+		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(MacroTypeIndex(type)){
+			_sParameter = (sParam)?generic_string(sParam):TEXT("");	
 	};
 
 	bool isValid() const {
 		return true;
 	};
-	bool isPlayable() const {return MacroType <= mtMenuCommand;};
+	bool isPlayable() const {return _macroType <= mtMenuCommand;};
 
 	void PlayBack(Window* pNotepad, ScintillaEditView *pEditView);
 };

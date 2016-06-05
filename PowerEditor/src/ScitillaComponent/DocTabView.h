@@ -71,7 +71,7 @@ public :
 	BufferID findBufferByName(const TCHAR * fullfilename);	//-1 if not found, something else otherwise
 
 	int getIndexByBuffer(BufferID id);
-	BufferID getBufferByIndex(int index);
+	BufferID getBufferByIndex(size_t index);
 
 	void setBuffer(int index, BufferID id);
 

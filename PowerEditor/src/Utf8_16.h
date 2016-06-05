@@ -117,7 +117,7 @@ public:
 
 	UniMode getEncoding() const { return m_eEncoding; }
 	size_t calcCurPos(size_t pos);
-    static UniMode determineEncoding(const unsigned char *buf, int bufLen);
+    static UniMode determineEncoding(const unsigned char *buf, size_t bufLen);
 
 protected:
 	void determineEncoding();

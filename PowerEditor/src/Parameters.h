@@ -436,9 +436,9 @@ public:
 	int getNbStyler() const {return _nbStyler;};
 	void setNbStyler(int nb) {_nbStyler = nb;};
 
-	Style& getStyler(int index)
+	Style& getStyler(size_t index)
 	{
-		assert((size_t) index < SCE_STYLE_ARRAY_SIZE);
+		assert(index < SCE_STYLE_ARRAY_SIZE);
 		return _styleArray[index];
 	}
 
@@ -1285,9 +1285,8 @@ public:
 		return nullptr;
 	}
 
-	Lang * getLangFromIndex(int i) const
-	{
-		return (i >= 0 and i < _nbLang) ? _langList[i] : nullptr;
+	Lang * getLangFromIndex(size_t i) const {
+		return (i < size_t(_nbLang)) ? _langList[i] : nullptr;
 	}
 
 	int getNbLang() const {return _nbLang;};
@@ -1372,7 +1371,7 @@ public:
 	const std::vector<generic_string>& getFontList() const { return _fontlist; }
 
 	int getNbUserLang() const {return _nbUserLang;}
-	UserLangContainer & getULCFromIndex(int i) {return *_userLangArray[i];};
+	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};
 	UserLangContainer * getULCFromName(const TCHAR *userLangName);
 
 	int getNbExternalLang() const {return _nbExternalLang;};
@@ -1406,7 +1405,7 @@ public:
 	const TCHAR * getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *fullName) const;
 
 	int addUserLangToEnd(const UserLangContainer & userLang, const TCHAR *newName);
-	void removeUserLang(int index);
+	void removeUserLang(size_t index);
 
 	bool isExistingExternalLangName(const TCHAR *newName) const;
 
@@ -1527,7 +1526,7 @@ public:
 
 	PluginList & getPluginList() {return _pluginList;};
 	bool importUDLFromFile(generic_string sourceFile);
-	bool exportUDLToFile(int langIndex2export, generic_string fileName2save);
+	bool exportUDLToFile(size_t langIndex2export, generic_string fileName2save);
 	NativeLangSpeaker* getNativeLangSpeaker() {
 		return _pNativeLangSpeaker;
 	}

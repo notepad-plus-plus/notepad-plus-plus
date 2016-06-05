@@ -132,7 +132,7 @@ void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
 }
 
 
-void TabBar::setFont(TCHAR *fontName, size_t fontSize)
+void TabBar::setFont(TCHAR *fontName, int fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);
@@ -457,7 +457,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
             ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
-			int currentTabOn = ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0);
+			int currentTabOn = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
 			if (wParam == 2)
 				return TRUE;

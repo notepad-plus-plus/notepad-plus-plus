@@ -124,9 +124,9 @@ int EncodingMapper::getEncodingFromIndex(int index) const
 int EncodingMapper::getIndexFromEncoding(int encoding) const
 {
 	bool found = false;
-	size_t nbItem = sizeof(encodings)/sizeof(EncodingUnit);
-	size_t i = 0;
-	for ( ; i < nbItem ; ++i)
+	int nbItem = sizeof(encodings)/sizeof(EncodingUnit);
+	int i = 0;
+	for ( ; i < nbItem; ++i)
 	{
 		if (encodings[i]._codePage == encoding)
 		{
@@ -134,7 +134,7 @@ int EncodingMapper::getIndexFromEncoding(int encoding) const
 			break;
 		}
 	}
-	return found?i:-1;
+	return found ? i : -1;
 }
 
 int EncodingMapper::getEncodingFromString(const char *encodingAlias) const

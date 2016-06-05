@@ -376,7 +376,7 @@ generic_string FileBrowser::getNodePath(HTREEITEM node) const
 	}
 
 
-	for (long i = fullPathArray.size() - 1; i >= 0; --i)
+	for (int i = int(fullPathArray.size()) - 1; i >= 0; --i)
 	{
 		fullPath += fullPathArray[i];
 		if (i != 0)
@@ -485,7 +485,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				else
 					return;
 				lpGetInfoTip->pszText = (LPTSTR)tipStr.c_str();
-				lpGetInfoTip->cchTextMax = tipStr.size();
+				lpGetInfoTip->cchTextMax = static_cast<int>(tipStr.size());
 			}
 			break;
 
@@ -724,7 +724,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_REMOVEALLROOTS:
 		{
-			for (int i = _folderUpdaters.size() - 1; i >= 0; --i)
+			for (int i = (int)_folderUpdaters.size() - 1; i >= 0; --i)
 			{
 				_folderUpdaters[i]->stopWatcher();
 

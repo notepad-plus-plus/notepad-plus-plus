@@ -55,11 +55,14 @@ INT_PTR CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
                     {
                         display(false);
                         cleanLineEdit();
-						if (_mode == go2line) {
+						if (_mode == go2line)
+						{
 							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, line-1);
 							(*_ppEditView)->execute(SCI_GOTOLINE, line-1);
-						} else {
-							int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, line);
+						}
+						else
+						{
+							auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, line);
 							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
 							(*_ppEditView)->execute(SCI_GOTOPOS, line);
 						}

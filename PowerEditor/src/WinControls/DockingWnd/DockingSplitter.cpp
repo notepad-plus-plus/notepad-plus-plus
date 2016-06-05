@@ -50,11 +50,11 @@ static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
 		{
 			case WM_MOUSEMOVE:
 			case WM_NCMOUSEMOVE:
-				::PostMessage(hWndMouse, wParam, 0, 0);
+				::PostMessage(hWndMouse, static_cast<UINT>(wParam), 0, 0);
 				break;
 			case WM_LBUTTONUP:
 			case WM_NCLBUTTONUP:
-				::PostMessage(hWndMouse, wParam, 0, 0);
+				::PostMessage(hWndMouse, static_cast<UINT>(wParam), 0, 0);
 				return TRUE;
 			default:
 				break;

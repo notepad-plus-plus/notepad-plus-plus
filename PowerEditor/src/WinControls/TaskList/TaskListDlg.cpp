@@ -47,11 +47,11 @@ LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;
 		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_VALUE_DLG, &pMyDlgTemplate);
-		int result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  dlgProc, (LPARAM)this);
+		int result = static_cast<int32_t>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, (LPARAM)this));
 		::GlobalFree(hMyDlgTemplate);
 		return result;
 	}
-	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_TASKLIST_DLG), _hParent,  dlgProc, (LPARAM)this);
+	return static_cast<int32_t>(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_TASKLIST_DLG), _hParent, dlgProc, (LPARAM)this));
 }
 
 INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
@@ -61,7 +61,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 		case WM_INITDIALOG :
 		{
 			::SendMessage(_hParent, WM_GETTASKLISTINFO, (WPARAM)&_taskListInfo, 0);
-			int nbTotal = _taskListInfo._tlfsLst.size();
+			int nbTotal = static_cast<int32_t>(_taskListInfo._tlfsLst.size());
 
 			int i2set = _taskListInfo._currentIndex + (_initDir == dirDown?1:-1);
 			
@@ -145,7 +145,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			{
 				case ID_PICKEDUP :
 				{
-					int listIndex = lParam;
+					auto listIndex = lParam;
 					int view2set = _taskListInfo._tlfsLst[listIndex]._iView;
 					int index2Switch = _taskListInfo._tlfsLst[listIndex]._docIndex;
 					::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);

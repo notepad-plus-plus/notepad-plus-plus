@@ -354,7 +354,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						DWORD cmdID = 0;
 						
 						// Menu data
-						size_t posBase = 0;
+						int32_t posBase = 0;
 						size_t nbElem = 0;
 						HMENU hMenu = NULL;
                         int modifCmd = IDM_SETTING_SHORTCUT_MAPPER_RUN;
@@ -417,7 +417,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						nppParam->setShortcutDirty();
 
                         // All menu items are shifted up. So we delete the last item
-                        ::RemoveMenu(hMenu, posBase + nbElem, MF_BYPOSITION);
+						::RemoveMenu(hMenu, posBase + static_cast<int32_t>(nbElem), MF_BYPOSITION);
 
                         if (nbElem == 0) 
                         {

@@ -43,7 +43,7 @@
 class RunMacroDlg : public StaticDialog
 {
 public :
-	RunMacroDlg() : StaticDialog(), m_Mode(RM_RUN_MULTI), m_Times(1) {};
+	RunMacroDlg() : StaticDialog(), _mode(RM_RUN_MULTI), _times(1) {};
 	~RunMacroDlg() {
 	};
 
@@ -60,17 +60,17 @@ public :
 
 	void initMacroList();
 
-	int getMode() const {return m_Mode;};
-	int getTimes() const {return m_Times;};
+	int getMode() const {return _mode;};
+	int getTimes() const {return _times;};
 	int getMacro2Exec() const;
 
 private :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void check(int);
 
-	int m_Mode;
-	int m_Times;
-	int m_macroIndex;
+	int _mode;
+	int _times;
+	int _macroIndex;
 };
 
 #endif //RUN_MACRO_DLG_H

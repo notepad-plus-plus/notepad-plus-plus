@@ -52,6 +52,7 @@ UpgradeLog*.htm
 .builds
 *.pidb
 PowerEditor/bin/notepad++.exe
+PowerEditor/bin/notepad++.exe
 PowerEditor/bin/SciLexer.dll
 PowerEditor/bin/config.xml
 PowerEditor/bin/stylers.xml
@@ -67,12 +68,15 @@ PowerEditor/bin/shortcuts.xml
 PowerEditor/bin/backup/
 PowerEditor/bin/localization
 PowerEditor/bin/plugins/
+PowerEditor/bin64/
 PowerEditor/installer/build/
 PowerEditor/installer/minimalist/
 PowerEditor/installer/zipped.package.release/
 PowerEditor/visual.net/Unicode Debug/
 PowerEditor/visual.net/Unicode Release/
 PowerEditor/visual.net/notepadPlus.sln
+PowerEditor/visual.net/x64/Unicode Debug/
+PowerEditor/visual.net/x64/Unicode Release/
 
 
 # scintilla - generated files

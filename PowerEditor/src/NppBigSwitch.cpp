@@ -529,8 +529,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				case COPYDATA_PARAMS:
 				{
-					CmdLineParams *cmdLineParam = (CmdLineParams *)pCopyData->lpData;
-					pNppParam->setCmdlineParam(*cmdLineParam);
+					CmdLineParams *cmdLineParam = (CmdLineParams *)pCopyData->lpData; // CmdLineParams object from another instance
+					auto cmdLineParamsSize = static_cast<size_t>(pCopyData->cbData);  // CmdLineParams size from another instance
+					if (sizeof(CmdLineParams) == cmdLineParamsSize) // make sure the structure is the same
+					{
+						pNppParam->setCmdlineParam(*cmdLineParam);
+					}
+					else
+					{
+#ifdef DEBUG 
+						printStr(TEXT("sizeof(CmdLineParams) != cmdLineParamsSize\rCmdLineParams is formed by an instance of another version,\rwhereas your CmdLineParams has been modified in this instance."));
+#endif
+					}
+
 					NppGUI nppGui = (NppGUI)pNppParam->getNppGUI();
 					nppGui._isCmdlineNosessionActivated = cmdLineParam->_isNoSession;
 					break;

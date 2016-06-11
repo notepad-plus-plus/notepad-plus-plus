@@ -212,7 +212,7 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 			std::vector<generic_string> classNameExprArray2;
 			std::vector<generic_string> functionNameExprArray2;
 			getUnitPaserParameters(functionParser, mainExpr2, functionNameExprArray2, classNameExprArray2);
-			FunctionUnitParser *funcUnitPaser = new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr2.c_str(), functionNameExprArray2, classNameExprArray2);
+			FunctionUnitParser *funcUnitPaser = new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr2, functionNameExprArray2, classNameExprArray2);
 
 			_parsers.push_back(new FunctionMixParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray, funcUnitPaser));
 		}
@@ -220,13 +220,13 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 		{
 			generic_string mainExpr, openSymbole, closeSymbole, functionExpr;
 			getZonePaserParameters(classRangeParser, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
-			_parsers.push_back(new FunctionZoneParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray));
+			_parsers.push_back(new FunctionZoneParser(id, displayName, commentExpr.c_str(), mainExpr, openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray));
 		}
 		else if (functionParser)
 		{
 			generic_string  mainExpr;
 			getUnitPaserParameters(functionParser, mainExpr, functionNameExprArray, classNameExprArray);
-			_parsers.push_back(new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), functionNameExprArray, classNameExprArray));
+			_parsers.push_back(new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr, functionNameExprArray, classNameExprArray));
 		}
 	}
 
@@ -652,7 +652,7 @@ struct SortZones final
 
 void FunctionMixParser::parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName)
 {
-	vector< pair<int, int> > commentZones, scannedZones, nonCommentZones, nonScannedZones;
+	vector< pair<int, int> > commentZones, scannedZones, nonScannedZones;
 	getCommentZones(commentZones, begin, end, ppEditView);
 
 	classParse(foundInfos, scannedZones, commentZones, begin, end, ppEditView, classStructName);

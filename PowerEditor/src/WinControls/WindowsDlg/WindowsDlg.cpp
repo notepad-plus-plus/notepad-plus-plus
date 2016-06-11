@@ -742,17 +742,14 @@ void WindowsDlg::doSortToTabs()
 	//nmdlg.curSel = curSel;
 	nmdlg.curSel = _idxMap[curSel];
 	nmdlg.code = WDN_NOTIFY;
-	UINT n = nmdlg.nItems = ListView_GetItemCount(_hList);
+	nmdlg.nItems = ListView_GetItemCount(_hList);
 	nmdlg.Items = new UINT[nmdlg.nItems];
-	vector<int> key;
-	key.resize(n, 0x7fffffff);
 	for(int i=-1, j=0;; ++j) {
 		i = ListView_GetNextItem(_hList, i, LVNI_ALL);
 		if (i == -1) break;
 		nmdlg.Items[j] = _idxMap[i];
 		if (i == curSel)
 			nmdlg.curSel = j;
-		key[j] = i;
 	}
 
 	SendMessage(_hParent, WDN_NOTIFY, 0, LPARAM(&nmdlg));

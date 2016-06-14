@@ -3172,7 +3172,14 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 				if (globalMappper().keywordIdMapper.find(keywordsName) != globalMappper().keywordIdMapper.end())
 				{
 					id = globalMappper().keywordIdMapper[keywordsName];
-					lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[id], kwl);
+					if (_tcslen(kwl) < max_char)
+					{
+						lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[id], kwl);
+					}
+					else
+					{
+						lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[id], TEXT("imported string too long, needs to be < max_char(30720)"));
+					}
 				}
 			}
 		}

@@ -720,7 +720,7 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 			bool inSingleQuote = false;
 			bool nonWSFound = false;
 			int index = 0;
-			for (size_t j=0, len = strlen(keyWords_char); j<len; ++j)
+			for (size_t j=0, len = strlen(keyWords_char); j<len && index < (max_char-1); ++j)
 			{
 				if (!inSingleQuote && keyWords_char[j] == '"')
 				{

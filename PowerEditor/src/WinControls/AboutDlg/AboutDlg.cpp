@@ -47,6 +47,9 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			buildTime += TEXT(" - ");
 			buildTime +=  wmc->char2wchar(__TIME__, CP_ACP);
 
+			LPCTSTR version = sizeof(void *) == 8 ? TEXT("(64-bit)") : TEXT("(32-bit)");
+			::SetDlgItemText(_hSelf, IDC_VERSION_BIT, version);
+
 			::SendMessage(compileDateHandle, WM_SETTEXT, 0, (LPARAM)buildTime.c_str());
 			::EnableWindow(compileDateHandle, FALSE);
 

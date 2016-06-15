@@ -41,29 +41,33 @@ like to debug Notepad++, but don't have boost.
 
 ## To build `SciLexer.dll` with boost:
 
-Here are the instructions to build SciLexer.dll for Notepad++:
+Here are the instructions to build SciLexer.dll (for both 32-bit & 64-bit) for Notepad++:
 
  1. Download the [Boost source code](http://sourceforge.net/projects/boost/files/boost/1.55.0/).
     v1.55 should be used with VS 2013. Then unzip it. In my case, `boost_1_55_0` is copied in `C:\sources\`
  2. Go to `scintilla\boostregex\` then run BuildBoost.bat with your boost path.
     In my case: `BuildBoost.bat C:\sources\boost_1_55_0`
+	If you are compiling a 64 bit Scintilla under your *VS2013 x64 Native tool command prompt*, add `-x64` flag.
+	In my case: `BuildBoost.bat C:\sources\boost_1_55_0 -x64`
  3. Go in `scintilla\win32\` then run `nmake -f scintilla.mak`
 
 
 
 ## To build `SciLexer.dll` *without* boost:
 
-This will work with `notepad++.exe`, however some functionality in Notepad++ might be broken.
+This will work with `notepad++.exe`, however some functionality in Notepad++ will be broken.
 
-To build SciLexer.dll without PCRE support:
+To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
 
- 1. Open a command prompt *for building* ([a.k.a. the *Developer Command Prompt for VS2013*](https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx))
+ 1. For 32-bit, open a command prompt *for building* ([a.k.a. the *Developer Command Prompt for VS2013*](https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx))
     - From the IDE, you can do this by right clicking on a file in Solution Explorer,
       and clicking "Open Command Prompt". This will open up a command prompt with all the proper environment variables.
     - From the Windows Start screen/menu, type `Developer Command Prompt for VS2013`,
       and click/select the result.
     - From an *already open* command prompt, run `vcvarsall.bat`
       (e.g. "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat").
+	  
+	For 64-bit, open *VS2013 x64 Native tool command prompt*.
 
  2. Change directory (`cd` or `pushd`) to `scintilla\win32\`
 

@@ -87,20 +87,45 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 	if (isInLoadedDlls(pluginFileName))
 		return 0;
 
+	NppParameters * nppParams = NppParameters::getInstance();
+
 	PluginInfo *pi = new PluginInfo;
 	try
 	{
+		DWORD detectionResult;
+		if (GetBinaryType(pluginFilePath, &detectionResult))
+		{
+			switch (detectionResult)
+			{
+				case SCS_32BIT_BINARY:
+				{
+					if (nppParams->isx64())
+						throw generic_string(TEXT("This plugin is in 32-bit, whereas your Notepad++ is in 64-bit."));
+				}
+				break;
+
+				case SCS_64BIT_BINARY:
+				{
+					if (not nppParams->isx64())
+						throw generic_string(TEXT("This plugin is in 64-bit, whereas your Notepad++ is in 32-bit."));
+				}
+				break;
+
+				default:
+					throw generic_string(TEXT("It's not a windows standard dll."));
+			}
+		}
 		pi->_moduleName = PathFindFileName(pluginFilePath);
 
-	        pi->_hLib = ::LoadLibrary(pluginFilePath);
-                if (!pi->_hLib)
-                {
-                    const std::wstring& lastErrorMsg = GetLastErrorAsString();
-                    if (lastErrorMsg.empty())
-                        throw generic_string(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
-                    else
-                        throw generic_string(lastErrorMsg.c_str());
-                }
+	    pi->_hLib = ::LoadLibrary(pluginFilePath);
+        if (!pi->_hLib)
+        {
+            const std::wstring& lastErrorMsg = GetLastErrorAsString();
+            if (lastErrorMsg.empty())
+                throw generic_string(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
+            else
+                throw generic_string(lastErrorMsg.c_str());
+        }
         
 		pi->_pFuncIsUnicode = (PFUNCISUNICODE)GetProcAddress(pi->_hLib, "isUnicode");
 		if (!pi->_pFuncIsUnicode || !pi->_pFuncIsUnicode())
@@ -156,8 +181,6 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			lexDesc[0] = '\0';
 
 			int numLexers = GetLexerCount();
-
-			NppParameters * nppParams = NppParameters::getInstance();
 
 			ExternalLangContainer *containers[30];
 

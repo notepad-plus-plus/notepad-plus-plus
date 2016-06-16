@@ -1548,6 +1548,7 @@ public:
 	void setCloudChoice(const TCHAR *pathChoice);
 	void removeCloudChoice();
 	bool isCloudPathChanged() const;
+	bool isx64() const { return _isx64; };
 
 	COLORREF getCurrentDefaultBgColor() const {
 		return _currentDefaultBgColor;
@@ -1631,6 +1632,7 @@ private:
 	WNDPROC _transparentFuncAddr;
 	WNDPROC _enableThemeDialogTextureFuncAddr;
 	bool _isLocal;
+	bool _isx64 = false; // by default 32-bit
 
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };

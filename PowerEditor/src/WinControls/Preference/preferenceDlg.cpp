@@ -2913,11 +2913,10 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LP
 		case WM_INITDIALOG:
 		{
 			// Default settings: no cloud
-			bool withCloud = false;
+			const bool withCloud = (nppGUI._cloudPath != TEXT(""));
 
 			generic_string message = TEXT("");
 
-			withCloud =	nppGUI._cloudPath != TEXT("");
 			if (withCloud)
 			{
 				// detect validation of path

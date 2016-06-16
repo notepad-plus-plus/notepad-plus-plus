@@ -1517,7 +1517,7 @@ void NppParameters::setFontList(HWND hWnd)
 	::EnumFontFamiliesEx(hDC, &lf, EnumFontFamExProc, (LPARAM)&_fontlist, 0);
 }
 
-bool NppParameters::isInFontList(const generic_string fontName2Search) const
+bool NppParameters::isInFontList(const generic_string& fontName2Search) const
 {
 	if (fontName2Search.empty())
 		return false;
@@ -2537,7 +2537,9 @@ bool NppParameters::feedUserLang(TiXmlNode *node)
 					_userLangArray[_nbUserLang - 1]->_styleArray.addStyler(i, globalMappper().styleNameMapper[i].c_str());
 			}
 
-		} catch (std::exception e) {
+		} catch (const std::exception& e) 
+		{
+			(void)e; // Suppress unused parameter warning
 			delete _userLangArray[--_nbUserLang];
 			isEverythingOK = false;
 		}
@@ -4236,7 +4238,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			int g5 = 0; // up to 48
 			int g6 = 0; // up to 56
 			int g7 = 0; // up to 64
-			const int nbMax = 64;
 
 			// TODO some refactoring needed here....
 			{
@@ -4282,10 +4283,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 						g7 = i;
 				}
 			}
-
-			bool langArray[nbMax];
-			for (int i = 0 ; i < nbMax ; ++i)
-				langArray[i] = false;
 
 			UCHAR mask = 1;
 			for (int i = 0 ; i < 8 ; ++i)
@@ -4566,8 +4563,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
-				const TCHAR* val = n->Value();
-				val = n->Value();
+				const TCHAR* const val = n->Value();
 				if (val)
 					_nppGUI._definedWorkspaceExt = val;
 			}

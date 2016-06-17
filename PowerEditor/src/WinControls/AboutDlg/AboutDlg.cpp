@@ -123,8 +123,11 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 	{
 		case WM_INITDIALOG:
 		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+
 			// Notepad++ version
 			_debugInfoStr = NOTEPAD_PLUS_VERSION;
+			_debugInfoStr += pNppParam->isx64() ? TEXT("   (64-bit)") : TEXT("   (32-bit)");
 			_debugInfoStr += TEXT("\r\n");
 
 			// Build time

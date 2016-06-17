@@ -92,29 +92,6 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 	PluginInfo *pi = new PluginInfo;
 	try
 	{
-		DWORD detectionResult;
-		if (GetBinaryType(pluginFilePath, &detectionResult))
-		{
-			switch (detectionResult)
-			{
-				case SCS_32BIT_BINARY:
-				{
-					if (nppParams->isx64())
-						throw generic_string(TEXT("This plugin is in 32-bit, whereas your Notepad++ is in 64-bit."));
-				}
-				break;
-
-				case SCS_64BIT_BINARY:
-				{
-					if (not nppParams->isx64())
-						throw generic_string(TEXT("This plugin is in 64-bit, whereas your Notepad++ is in 32-bit."));
-				}
-				break;
-
-				default:
-					throw generic_string(TEXT("It's not a windows standard dll."));
-			}
-		}
 		pi->_moduleName = PathFindFileName(pluginFilePath);
 
 	    pi->_hLib = ::LoadLibrary(pluginFilePath);

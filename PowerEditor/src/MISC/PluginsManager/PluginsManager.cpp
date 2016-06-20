@@ -470,10 +470,10 @@ void PluginsManager::notify(const SCNotification *notification)
 			}
 			catch (...)
 			{
-				TCHAR funcInfo[128];
+				TCHAR funcInfo[256];
 				generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %d"),\
 					scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, scNotif.nmhdr.idFrom);
-				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), funcInfo);
+				pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
 			}
 		}
 	}
@@ -498,7 +498,7 @@ void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam
 			{
 				TCHAR funcInfo[128];
 				generic_sprintf(funcInfo, TEXT("relayNppMessages(UINT Message : %d, WPARAM wParam : %d, LPARAM lParam : %d)"), Message, wParam, lParam);
-				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), TEXT(""));
+				pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
 			}
 		}
 	}
@@ -529,7 +529,7 @@ bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					TCHAR funcInfo[128];
 					generic_sprintf(funcInfo, TEXT("relayPluginMessages(UINT Message : %d, WPARAM wParam : %d, LPARAM lParam : %d)"), Message, wParam, lParam);
-					pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), funcInfo);
+					pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
 				}
 				return true;
             }

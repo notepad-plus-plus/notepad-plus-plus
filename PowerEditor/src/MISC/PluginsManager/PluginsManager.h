@@ -142,9 +142,9 @@ private:
 	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature)
 	{
 		generic_string msg = pluginName;
-		msg += TEXT(" just crash in\r");
+		msg += TEXT(" just crashed in\r");
 		msg += funcSignature;
-		::MessageBox(NULL, msg.c_str(), TEXT(" just crash in\r"), MB_OK|MB_ICONSTOP);
+		::MessageBox(NULL, msg.c_str(), TEXT("Plugin Crash"), MB_OK|MB_ICONSTOP);
 	}
 
 	bool isInLoadedDlls(const TCHAR *fn) const

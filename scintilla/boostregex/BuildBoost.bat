@@ -230,12 +230,12 @@ ECHO Unzip the file downloaded from www.boost.org, and give the absolute path
 ECHO as the first parameter to buildboost.bat
 ECHO.
 ECHO e.g.
-ECHO buildboost.bat d:\libs\boost_1_48_0           
+ECHO buildboost.bat d:\libs\boost_1_55_0           
 
 ECHO.
 ECHO To build 64 bit version, add "-x64" flag after the full file path.
 ECHO e.g.
-ECHO buildboost.bat d:\libs\boost_1_48_0 -x64
+ECHO buildboost.bat d:\libs\boost_1_55_0 -x64
 
 ECHO.
 ECHO.
@@ -249,16 +249,16 @@ ECHO   --toolset msvc-11.0    for Visual Studio 2012
 ECHO   --toolset msvc-12.0    for Visual Studio 2013
 ECHO.
 ECHO.
-ECHO e.g.  To build with boost in d:\libs\boost_1_48_0 with Visual Studio 2008
+ECHO e.g.  To build with boost in d:\libs\boost_1_55_0 with Visual Studio 2008
 ECHO.
-ECHO         buildboost.bat --toolset msvc-9.0 d:\libs\boost_1_48_0
+ECHO         buildboost.bat --toolset msvc-9.0 d:\libs\boost_1_55_0
 ECHO.
 GOTO EOF
 
 
 :BUILDERROR
 ECHO There was an error building boost.  Please see the messages above for details.
-ECHO  - Have you got a clean extract from a recent boost version, such as 1.48?
+ECHO  - Have you got a clean extract from a recent boost version, such as 1.55?
 ECHO  - Download a fresh copy from www.boost.org and extract it to a directory, 
 ECHO    and run the batch again with the name of that directory
 

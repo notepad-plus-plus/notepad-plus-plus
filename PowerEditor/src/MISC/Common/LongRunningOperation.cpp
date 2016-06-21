@@ -35,13 +35,13 @@ using namespace Yuni;
 
 LongRunningOperation::LongRunningOperation()
 {
-	Mutex::ClassLevelLockable<LongRunningOperation>::mutex.lock();
+    Mutex::ClassLevelLockable<LongRunningOperation>::mutex.lock();
 }
 
 
 LongRunningOperation::~LongRunningOperation()
 {
-	Mutex::ClassLevelLockable<LongRunningOperation>::mutex.unlock();
+    Mutex::ClassLevelLockable<LongRunningOperation>::mutex.unlock();
 }
 
 

@@ -93,68 +93,83 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 class WcharMbcsConvertor final
 {
 public:
-	static WcharMbcsConvertor * getInstance() {return _pSelf;}
-	static void destroyInstance() {delete _pSelf;}
+    static WcharMbcsConvertor * getInstance()
+    {
+        return _pSelf;
+    }
+    static void destroyInstance()
+    {
+        delete _pSelf;
+    }
 
-	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
-	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
-	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn = -1, int *pLenOut = NULL);
-	const char * wchar2char(const wchar_t *wcStr, UINT codepage, long *mstart, long *mend);
+    const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
+    const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
+    const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn = -1, int *pLenOut = NULL);
+    const char * wchar2char(const wchar_t *wcStr, UINT codepage, long *mstart, long *mend);
 
-	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL)
-	{
-		int lenWc = 0;
+    const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL)
+    {
+        int lenWc = 0;
         const wchar_t * strW = char2wchar(txt2Encode, fromCodepage, lenIn, &lenWc, pBytesNotProcessed);
         return wchar2char(strW, toCodepage, lenWc, pLenOut);
     }
 
 protected:
-	WcharMbcsConvertor() {}
-	~WcharMbcsConvertor() {}
+    WcharMbcsConvertor() {}
+    ~WcharMbcsConvertor() {}
 
-	static WcharMbcsConvertor* _pSelf;
+    static WcharMbcsConvertor* _pSelf;
 
-	template <class T>
-	class StringBuffer final
-	{
-	public:
-		~StringBuffer() { if(_allocLen) delete[] _str; }
+    template <class T>
+    class StringBuffer final
+    {
+    public:
+        ~StringBuffer()
+        {
+            if(_allocLen) delete[] _str;
+        }
 
-		void sizeTo(size_t size)
-		{
-			if (_allocLen < size)
-			{
-				if (_allocLen)
-					delete[] _str;
-				_allocLen = max(size, initSize);
-				_str = new T[_allocLen];
-			}
-		}
+        void sizeTo(size_t size)
+        {
+            if (_allocLen < size)
+            {
+                if (_allocLen)
+                    delete[] _str;
+                _allocLen = max(size, initSize);
+                _str = new T[_allocLen];
+            }
+        }
 
-		void empty()
-		{
-			static T nullStr = 0; // routines may return an empty string, with null terminator, without allocating memory; a pointer to this null character will be returned in that case
-			if (_allocLen == 0)
-				_str = &nullStr;
-			else
-				_str[0] = 0;
-		}
+        void empty()
+        {
+            static T nullStr = 0; // routines may return an empty string, with null terminator, without allocating memory; a pointer to this null character will be returned in that case
+            if (_allocLen == 0)
+                _str = &nullStr;
+            else
+                _str[0] = 0;
+        }
 
-		operator T* () { return _str; }
-		operator const T* () const { return _str; }
+        operator T* ()
+        {
+            return _str;
+        }
+        operator const T* () const
+        {
+            return _str;
+        }
 
-	protected:
-		static const int initSize = 1024;
-		size_t _allocLen = 0;
-		T* _str = nullptr;
-	};
+    protected:
+        static const int initSize = 1024;
+        size_t _allocLen = 0;
+        T* _str = nullptr;
+    };
 
-	StringBuffer<char> _multiByteStr;
-	StringBuffer<wchar_t> _wideCharStr;
+    StringBuffer<char> _multiByteStr;
+    StringBuffer<wchar_t> _wideCharStr;
 
 private:
-	// Since there's no public ctor, we need to void the default assignment operator.
-	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&);
+    // Since there's no public ctor, we need to void the default assignment operator.
+    WcharMbcsConvertor& operator= (const WcharMbcsConvertor&);
 };
 
 

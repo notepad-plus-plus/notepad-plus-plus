@@ -32,8 +32,8 @@
 class LongRunningOperation
 {
 public:
-	LongRunningOperation();
-	~LongRunningOperation();
+    LongRunningOperation();
+    ~LongRunningOperation();
 };
 
 #endif //M30_IDE_LONGRUNNINGOPERATION_h

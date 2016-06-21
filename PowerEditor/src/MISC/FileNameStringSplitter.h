@@ -36,87 +36,90 @@ typedef std::vector<generic_string> stringVector;
 class FileNameStringSplitter
 {
 public:
-	FileNameStringSplitter(const TCHAR *fileNameStr)
-	{
-		//if (!fileNameStr) return;
-		TCHAR *pStr = NULL;
-		bool isInsideQuotes = false;
-		const int filePathLength = MAX_PATH;
+    FileNameStringSplitter(const TCHAR *fileNameStr)
+    {
+        //if (!fileNameStr) return;
+        TCHAR *pStr = NULL;
+        bool isInsideQuotes = false;
+        const int filePathLength = MAX_PATH;
 
-		TCHAR str[filePathLength];
-		int i = 0;
+        TCHAR str[filePathLength];
+        int i = 0;
         bool fini = false;
 
-		for (pStr = (TCHAR *)fileNameStr ; !fini ; )
-		{
-			if (i >= filePathLength)
-				break;
+        for (pStr = (TCHAR *)fileNameStr ; !fini ; )
+        {
+            if (i >= filePathLength)
+                break;
 
-			switch (*pStr)
-			{
-				case '"':
-				{
-					if (isInsideQuotes)
-					{
-						str[i] = '\0';
-                        if (str[0])
-							_fileNames.push_back(generic_string(str));
-						i = 0;
-					}
-					isInsideQuotes = !isInsideQuotes;
-					pStr++;
-					break;
-				}
-
-				case ' ':
-				{
-					if (isInsideQuotes)
-					{
-						str[i] = *pStr;
-						i++;
-					}
-					else
-					{
-						str[i] = '\0';
-                        if (str[0])
-							_fileNames.push_back(generic_string(str));
-						i = 0;
-					}
-                    pStr++;
-					break;
-				}
-
-                case '\0':
-				{
-                    str[i] = *pStr;
+            switch (*pStr)
+            {
+            case '"':
+            {
+                if (isInsideQuotes)
+                {
+                    str[i] = '\0';
                     if (str[0])
-						_fileNames.push_back(generic_string(str));
-                    fini = true;
-					break;
-				}
+                        _fileNames.push_back(generic_string(str));
+                    i = 0;
+                }
+                isInsideQuotes = !isInsideQuotes;
+                pStr++;
+                break;
+            }
 
-				default :
-				{
-					str[i] = *pStr;
-					i++; pStr++;
-					break;
-				}
-			}
-		}
-	}
+            case ' ':
+            {
+                if (isInsideQuotes)
+                {
+                    str[i] = *pStr;
+                    i++;
+                }
+                else
+                {
+                    str[i] = '\0';
+                    if (str[0])
+                        _fileNames.push_back(generic_string(str));
+                    i = 0;
+                }
+                pStr++;
+                break;
+            }
 
-	const TCHAR * getFileName(size_t index) const {
-		if (index >= _fileNames.size())
-			return NULL;
-		return _fileNames[index].c_str();
-	}
+            case '\0':
+            {
+                str[i] = *pStr;
+                if (str[0])
+                    _fileNames.push_back(generic_string(str));
+                fini = true;
+                break;
+            }
 
-	int size() const {
-		return int(_fileNames.size());
-	}
+            default :
+            {
+                str[i] = *pStr;
+                i++;
+                pStr++;
+                break;
+            }
+            }
+        }
+    }
+
+    const TCHAR * getFileName(size_t index) const
+    {
+        if (index >= _fileNames.size())
+            return NULL;
+        return _fileNames[index].c_str();
+    }
+
+    int size() const
+    {
+        return int(_fileNames.size());
+    }
 
 private :
-	stringVector _fileNames;
+    stringVector _fileNames;
 };
 
 

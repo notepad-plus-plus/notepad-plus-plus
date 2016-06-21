@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -35,41 +35,47 @@
 class ScintillaEditView;
 
 
-class XmlMatchedTagsHighlighter {
+class XmlMatchedTagsHighlighter
+{
 public:
-	XmlMatchedTagsHighlighter(ScintillaEditView *pEditView):_pEditView(pEditView){};
-	void tagMatch(bool doHiliteAttr);
-	
+    XmlMatchedTagsHighlighter(ScintillaEditView *pEditView):_pEditView(pEditView) {};
+    void tagMatch(bool doHiliteAttr);
+
 private:
-	ScintillaEditView *_pEditView;
-	
-	struct XmlMatchedTagsPos {
-		int tagOpenStart;
-		int tagNameEnd;
-		int tagOpenEnd;
+    ScintillaEditView *_pEditView;
 
-		int tagCloseStart;
-		int tagCloseEnd;
-	};
+    struct XmlMatchedTagsPos
+    {
+        int tagOpenStart;
+        int tagNameEnd;
+        int tagOpenEnd;
 
-	struct FindResult {
-		int start;
-		int end;
-		bool success;
-	};
-	
-	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);
+        int tagCloseStart;
+        int tagCloseEnd;
+    };
 
-	// Allowed whitespace characters in XML
-	bool isWhitespace(int ch) { return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n'; }
+    struct FindResult
+    {
+        int start;
+        int end;
+        bool success;
+    };
 
-	FindResult findText(const char *text, int start, int end, int flags = 0);
-	FindResult findOpenTag(const std::string& tagName, int start, int end);
-	FindResult findCloseTag(const std::string& tagName, int start, int end);
-	int findCloseAngle(int startPosition, int endPosition);
-	
-	std::vector< std::pair<int, int> > getAttributesPos(int start, int end);
-	
+    bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);
+
+    // Allowed whitespace characters in XML
+    bool isWhitespace(int ch)
+    {
+        return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n';
+    }
+
+    FindResult findText(const char *text, int start, int end, int flags = 0);
+    FindResult findOpenTag(const std::string& tagName, int start, int end);
+    FindResult findCloseTag(const std::string& tagName, int start, int end);
+    int findCloseAngle(int startPosition, int endPosition);
+
+    std::vector< std::pair<int, int> > getAttributesPos(int start, int end);
+
 };
 
 #endif //XMLMATCHEDTAGSHIGHLIGHTER_H

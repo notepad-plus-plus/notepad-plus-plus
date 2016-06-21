@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -35,9 +35,10 @@ class CRC16_ISO_3309
 public :
     CRC16_ISO_3309(unsigned short polynom = 0x1021, unsigned short initVal = 0xFFFF)
         :_polynom(polynom), _initVal(initVal) {};
-    ~CRC16_ISO_3309(){};
+    ~CRC16_ISO_3309() {};
 
-    void set(unsigned short polynom, unsigned short initVal) {
+    void set(unsigned short polynom, unsigned short initVal)
+    {
         _polynom = polynom;
         _initVal = initVal;
     };
@@ -73,8 +74,8 @@ const bool bits16 = false;
 class CRC16 : public CRC16_ISO_3309
 {
 public:
-    CRC16(){};
-    ~CRC16(){};
+    CRC16() {};
+    ~CRC16() {};
     unsigned short calculate(const unsigned char *data, unsigned short count)
     {
         assert(data != NULL);

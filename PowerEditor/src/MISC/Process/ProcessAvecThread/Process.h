@@ -36,66 +36,73 @@ using namespace std;
 class Process
 {
 public:
-	Process() {}
-	Process(const TCHAR *cmd, const TCHAR *cDir)
-		: _stdoutStr(TEXT("")), _stderrStr(TEXT("")), _hPipeOutR(NULL),
-		_hPipeErrR(NULL), _hProcess(NULL), _hProcessThread(NULL)
-	{
-		lstrcpy(_command, cmd);
-		lstrcpy(_curDir, cDir);
-	}
+    Process() {}
+    Process(const TCHAR *cmd, const TCHAR *cDir)
+        : _stdoutStr(TEXT("")), _stderrStr(TEXT("")), _hPipeOutR(NULL),
+          _hPipeErrR(NULL), _hProcess(NULL), _hProcessThread(NULL)
+    {
+        lstrcpy(_command, cmd);
+        lstrcpy(_curDir, cDir);
+    }
 
-	BOOL run();
+    BOOL run();
 
-	const TCHAR * getStdout() const {
-		return _stdoutStr.c_str();
-	}
+    const TCHAR * getStdout() const
+    {
+        return _stdoutStr.c_str();
+    }
 
-	const TCHAR * getStderr() const {
-		return _stderrStr.c_str();
-	}
+    const TCHAR * getStderr() const
+    {
+        return _stderrStr.c_str();
+    }
 
-	int getExitCode() const {
-		return _exitCode;
-	}
+    int getExitCode() const
+    {
+        return _exitCode;
+    }
 
-	bool hasStdout() {
-		return (_stdoutStr.compare(TEXT("")) != 0);
-	}
+    bool hasStdout()
+    {
+        return (_stdoutStr.compare(TEXT("")) != 0);
+    }
 
-	bool hasStderr() {
-		return (_stderrStr.compare(TEXT("")) != 0);
-	}
+    bool hasStderr()
+    {
+        return (_stderrStr.compare(TEXT("")) != 0);
+    }
 
 protected:
-	// LES ENTREES
+    // LES ENTREES
     TCHAR _command[256];
-	TCHAR _curDir[256];
+    TCHAR _curDir[256];
 
-	// LES SORTIES
-	generic_string _stdoutStr;
-	generic_string _stderrStr;
-	int _exitCode;
+    // LES SORTIES
+    generic_string _stdoutStr;
+    generic_string _stderrStr;
+    int _exitCode;
 
-	// LES HANDLES
+    // LES HANDLES
     HANDLE _hPipeOutR;
-	HANDLE _hPipeErrR;
-	HANDLE _hProcess;
-	HANDLE _hProcessThread;
+    HANDLE _hPipeErrR;
+    HANDLE _hProcess;
+    HANDLE _hProcessThread;
 
     //UINT _pid;   // process ID assigned by caller
 
-	static DWORD WINAPI staticListenerStdOut(void * myself){
-		((Process *)myself)->listenerStdOut();
-		return 0;
-	};
-	static DWORD WINAPI staticListenerStdErr(void * myself) {
-		((Process *)myself)->listenerStdErr();
-		return 0;
-	};
-	void listenerStdOut();
-	void listenerStdErr();
-	void error(const TCHAR *txt2display, BOOL & returnCode, int errCode);
+    static DWORD WINAPI staticListenerStdOut(void * myself)
+    {
+        ((Process *)myself)->listenerStdOut();
+        return 0;
+    };
+    static DWORD WINAPI staticListenerStdErr(void * myself)
+    {
+        ((Process *)myself)->listenerStdErr();
+        return 0;
+    };
+    void listenerStdOut();
+    void listenerStdErr();
+    void error(const TCHAR *txt2display, BOOL & returnCode, int errCode);
 };
 
 #endif //PROCESSUS_H

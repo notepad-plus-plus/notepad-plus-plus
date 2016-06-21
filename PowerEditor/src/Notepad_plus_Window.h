@@ -65,50 +65,50 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
 class Notepad_plus_Window : public Window
 {
 public:
-	void init(HINSTANCE, HWND, const TCHAR *cmdLine, CmdLineParams *cmdLineParams);
+    void init(HINSTANCE, HWND, const TCHAR *cmdLine, CmdLineParams *cmdLineParams);
 
-	bool isDlgsMsg(MSG *msg) const;
+    bool isDlgsMsg(MSG *msg) const;
 
-	HACCEL getAccTable() const
-	{
-		return _notepad_plus_plus_core.getAccTable();
-	}
+    HACCEL getAccTable() const
+    {
+        return _notepad_plus_plus_core.getAccTable();
+    }
 
-	bool emergency(generic_string emergencySavedDir)
-	{
-		return _notepad_plus_plus_core.emergency(emergencySavedDir);
-	}
+    bool emergency(generic_string emergencySavedDir)
+    {
+        return _notepad_plus_plus_core.emergency(emergencySavedDir);
+    }
 
-	bool isPrelaunch() const
-	{
-		return _isPrelaunch;
-	}
+    bool isPrelaunch() const
+    {
+        return _isPrelaunch;
+    }
 
-	void setIsPrelaunch(bool val)
-	{
-		_isPrelaunch = val;
-	}
+    void setIsPrelaunch(bool val)
+    {
+        _isPrelaunch = val;
+    }
 
-	virtual void destroy()
-	{
-		::DestroyWindow(_hSelf);
-	}
+    virtual void destroy()
+    {
+        ::DestroyWindow(_hSelf);
+    }
 
-	static const TCHAR * getClassName()
-	{
-		return _className;
-	}
+    static const TCHAR * getClassName()
+    {
+        return _className;
+    }
 
-	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
+    static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
 
 
 private:
-	Notepad_plus _notepad_plus_plus_core;
-	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+    Notepad_plus _notepad_plus_plus_core;
+    static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+    LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	static const TCHAR _className[32];
-	bool _isPrelaunch = false;
-	bool _disablePluginsManager = false;
-	std::string _userQuote; // keep the availability of this string for thread using
+    static const TCHAR _className[32];
+    bool _isPrelaunch = false;
+    bool _disablePluginsManager = false;
+    std::string _userQuote; // keep the availability of this string for thread using
 };

@@ -37,33 +37,35 @@ const int extNameLen = 32;
 class RegExtDlg : public StaticDialog
 {
 public :
-	RegExtDlg() : _isCustomize(false){};
-	~RegExtDlg(){};
-	void doDialog(bool isRTL = false);
+    RegExtDlg() : _isCustomize(false) {};
+    ~RegExtDlg() {};
+    void doDialog(bool isRTL = false);
 
 
 private :
-	bool _isCustomize;
+    bool _isCustomize;
 
-	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+    INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
-	void getRegisteredExts();
-	void getDefSupportedExts();
-	void addExt(TCHAR *ext);
-	bool deleteExts(const TCHAR *ext2Delete);
-	void writeNppPath();
+    void getRegisteredExts();
+    void getDefSupportedExts();
+    void addExt(TCHAR *ext);
+    bool deleteExts(const TCHAR *ext2Delete);
+    void writeNppPath();
 
-	int getNbSubKey(HKEY hKey) const {
-		int nbSubKey;
-		long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, (LPDWORD)&nbSubKey, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-		return (result == ERROR_SUCCESS)?nbSubKey:0;
-	}
+    int getNbSubKey(HKEY hKey) const
+    {
+        int nbSubKey;
+        long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, (LPDWORD)&nbSubKey, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        return (result == ERROR_SUCCESS)?nbSubKey:0;
+    }
 
-	int getNbSubValue(HKEY hKey) const {
-		int nbSubValue;
-		long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, NULL, NULL, NULL, (LPDWORD)&nbSubValue, NULL, NULL, NULL, NULL);
-		return (result == ERROR_SUCCESS)?nbSubValue:0;
-	}
+    int getNbSubValue(HKEY hKey) const
+    {
+        int nbSubValue;
+        long result = ::RegQueryInfoKey(hKey, NULL, NULL, NULL, NULL, NULL, NULL, (LPDWORD)&nbSubValue, NULL, NULL, NULL, NULL);
+        return (result == ERROR_SUCCESS)?nbSubValue:0;
+    }
 };
 
 #endif //REG_EXT_DLG_H

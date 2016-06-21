@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -38,57 +38,63 @@ class PreferenceDlg;
 class ShortcutMapper;
 class UserDefineDialog;
 
-class MenuPosition {
+class MenuPosition
+{
 public:
-	int _x;
-	int _y;
-	int _z;
-	char _id[64];
+    int _x;
+    int _y;
+    int _z;
+    char _id[64];
 };
 
 
-class NativeLangSpeaker {
+class NativeLangSpeaker
+{
 public:
-    NativeLangSpeaker():_nativeLangA(NULL), _nativeLangEncoding(CP_ACP), _isRTL(false), _fileName(NULL){};
+    NativeLangSpeaker():_nativeLangA(NULL), _nativeLangEncoding(CP_ACP), _isRTL(false), _fileName(NULL) {};
     void init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish = false);
-	void changeConfigLang(HWND hDlg);
-	void changeLangTabContextMenu(HMENU hCM);
-	TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
-	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);
-	void changeLangTabDrapContextMenu(HMENU hCM);
-	generic_string getSpecialMenuEntryName(const char *entryName);
-	generic_string getNativeLangMenuString(int itemID);
-	void changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans);
-	void changeShortcutLang();
-	void changeShortcutmapperLang(ShortcutMapper * sm);
-	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
+    void changeConfigLang(HWND hDlg);
+    void changeLangTabContextMenu(HMENU hCM);
+    TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
+    bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);
+    void changeLangTabDrapContextMenu(HMENU hCM);
+    generic_string getSpecialMenuEntryName(const char *entryName);
+    generic_string getNativeLangMenuString(int itemID);
+    void changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans);
+    void changeShortcutLang();
+    void changeShortcutmapperLang(ShortcutMapper * sm);
+    void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
     void changeUserDefineLang(UserDefineDialog *userDefineDlg);
-	void changeUserDefineLangPopupDlg(HWND hDlg);
+    void changeUserDefineLangPopupDlg(HWND hDlg);
     void changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg);
     void changePrefereceDlgLang(PreferenceDlg & preference);
-    bool isRTL() const {
+    bool isRTL() const
+    {
         return _isRTL;
     };
 
-    const char * getFileName() const {
+    const char * getFileName() const
+    {
         return _fileName;
     };
 
-    const TiXmlNodeA * getNativeLangA() {
+    const TiXmlNodeA * getNativeLangA()
+    {
         return _nativeLangA;
     };
 
-    int getLangEncoding() const {
+    int getLangEncoding() const
+    {
         return _nativeLangEncoding;
     };
-	bool getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message);
-	generic_string getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
-	//generic_string getFileBrowserLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
-	generic_string getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name = NULL) const;
-	int messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *message, const TCHAR *title, int msgBoxType, int intInfo = 0, const TCHAR *strInfo = NULL);
+    bool getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message);
+    generic_string getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
+    //generic_string getFileBrowserLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
+    generic_string getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name = NULL) const;
+    int messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *message, const TCHAR *title, int msgBoxType, int intInfo = 0, const TCHAR *strInfo = NULL);
 private:
-	TiXmlNodeA *_nativeLangA;
-	int _nativeLangEncoding;
+    TiXmlNodeA *_nativeLangA;
+    int _nativeLangEncoding;
     bool _isRTL;
     const char *_fileName;
 };

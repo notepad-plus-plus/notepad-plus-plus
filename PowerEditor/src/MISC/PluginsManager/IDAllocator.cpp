@@ -31,23 +31,23 @@
 #include "IDAllocator.h"
 
 IDAllocator::IDAllocator(int start, int maximumID)
-	: _start(start),
-	  _nextID(start),
-	  _maximumID(maximumID)
+    : _start(start),
+      _nextID(start),
+      _maximumID(maximumID)
 {
 }
 
 int IDAllocator::allocate(int quantity)
 {
-	int retVal = -1;
+    int retVal = -1;
 
-	if (_nextID + quantity <= _maximumID && quantity > 0)
-	{
-		retVal = _nextID;
-		_nextID += quantity;
-	}
+    if (_nextID + quantity <= _maximumID && quantity > 0)
+    {
+        retVal = _nextID;
+        _nextID += quantity;
+    }
 
-	return retVal;
+    return retVal;
 }
 
 

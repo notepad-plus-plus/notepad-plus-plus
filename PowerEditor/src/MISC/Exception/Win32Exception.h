@@ -44,10 +44,22 @@ class Win32Exception : public std::exception
 public:
     static void			installHandler();
     static void			removeHandler();
-    virtual const char* what()  const throw() { return _event;    }
-    ExceptionAddress	where() const         { return _location; }
-    unsigned int		code()  const         { return _code;     }
-	EXCEPTION_POINTERS* info()  const         { return _info;     }
+    virtual const char* what()  const throw()
+    {
+        return _event;
+    }
+    ExceptionAddress	where() const
+    {
+        return _location;
+    }
+    unsigned int		code()  const
+    {
+        return _code;
+    }
+    EXCEPTION_POINTERS* info()  const
+    {
+        return _info;
+    }
 
 protected:
     Win32Exception(EXCEPTION_POINTERS * info);	//Constructor only accessible by exception handler
@@ -58,15 +70,21 @@ private:
     ExceptionAddress _location;
     unsigned int _code;
 
-	EXCEPTION_POINTERS * _info;
+    EXCEPTION_POINTERS * _info;
 };
 
 
 class Win32AccessViolation: public Win32Exception
 {
 public:
-    bool				isWrite()    const { return _isWrite;    }
-    ExceptionAddress	badAddress() const { return _badAddress; }
+    bool				isWrite()    const
+    {
+        return _isWrite;
+    }
+    ExceptionAddress	badAddress() const
+    {
+        return _badAddress;
+    }
 private:
     Win32AccessViolation(EXCEPTION_POINTERS * info);
 

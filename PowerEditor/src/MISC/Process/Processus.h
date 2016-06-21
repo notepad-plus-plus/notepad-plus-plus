@@ -37,14 +37,14 @@ class Process
 {
 public:
     Process(const TCHAR *cmd, const TCHAR *args, const TCHAR *cDir)
-		:_command(cmd), _args(args), _curDir(cDir){}
+        :_command(cmd), _args(args), _curDir(cDir) {}
 
-	void run();
+    void run();
 
 protected:
     generic_string _command;
-	generic_string _args;
-	generic_string _curDir;
+    generic_string _args;
+    generic_string _curDir;
 };
 
 #endif //PROCESSUS_H

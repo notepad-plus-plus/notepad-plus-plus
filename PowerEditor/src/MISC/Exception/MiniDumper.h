@@ -38,15 +38,16 @@
 
 // based on dbghelp.h
 typedef BOOL (WINAPI *MINIDUMPWRITEDUMP)(HANDLE hProcess, DWORD dwPid, HANDLE hFile, MINIDUMP_TYPE DumpType,
-									const PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam,
-									const PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam,
-									const PMINIDUMP_CALLBACK_INFORMATION CallbackParam
-									);
+        const PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam,
+        const PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam,
+        const PMINIDUMP_CALLBACK_INFORMATION CallbackParam
+                                        );
 
-class MiniDumper {
+class MiniDumper
+{
 public:
-	MiniDumper();
-	bool writeDump(EXCEPTION_POINTERS * pExceptionInfo);
+    MiniDumper();
+    bool writeDump(EXCEPTION_POINTERS * pExceptionInfo);
 };
 
 #endif //MDUMP_H

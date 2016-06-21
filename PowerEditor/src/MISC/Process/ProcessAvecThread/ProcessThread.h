@@ -34,67 +34,67 @@
 class ProcessThread
 {
 public:
-	ProcessThread(const TCHAR *appName, const TCHAR *cmd, const TCHAR *cDir, HWND hwnd)
-		: _hwnd(hwnd)
-	{
-		lstrcpy(_appName, appName);
-		lstrcpy(_command, cmd);
-		lstrcpy(_curDir, cDir);
-	}
+    ProcessThread(const TCHAR *appName, const TCHAR *cmd, const TCHAR *cDir, HWND hwnd)
+        : _hwnd(hwnd)
+    {
+        lstrcpy(_appName, appName);
+        lstrcpy(_command, cmd);
+        lstrcpy(_curDir, cDir);
+    }
 
-	BOOL run()
-	{
-		HANDLE hEvent = ::CreateEvent(NULL, FALSE, FALSE, TEXT("localVarProcessEvent"));
+    BOOL run()
+    {
+        HANDLE hEvent = ::CreateEvent(NULL, FALSE, FALSE, TEXT("localVarProcessEvent"));
 
-		_hProcessThread = ::CreateThread(NULL, 0, staticLauncher, this, 0, NULL);
+        _hProcessThread = ::CreateThread(NULL, 0, staticLauncher, this, 0, NULL);
 
-		::WaitForSingleObject(hEvent, INFINITE);
+        ::WaitForSingleObject(hEvent, INFINITE);
 
-		::CloseHandle(hEvent);
-		return TRUE;
-	}
+        ::CloseHandle(hEvent);
+        return TRUE;
+    }
 
 
 protected:
-	// ENTREES
-	TCHAR _appName[256];
+    // ENTREES
+    TCHAR _appName[256];
     TCHAR _command[256];
-	TCHAR _curDir[256];
-	HWND _hwnd;
-	HANDLE _hProcessThread;
+    TCHAR _curDir[256];
+    HWND _hwnd;
+    HANDLE _hProcessThread;
 
-	static DWORD WINAPI staticLauncher(void *myself)
-	{
-		((ProcessThread *)myself)->launch();
-		return TRUE;
-	}
+    static DWORD WINAPI staticLauncher(void *myself)
+    {
+        ((ProcessThread *)myself)->launch();
+        return TRUE;
+    }
 
-	bool launch()
-	{
-		HANDLE hEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("localVarProcessEvent"));
-		HWND hwnd = _hwnd;
-		TCHAR appName[256];
-		lstrcpy(appName, _appName);
-		HANDLE hMyself = _hProcessThread;
+    bool launch()
+    {
+        HANDLE hEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("localVarProcessEvent"));
+        HWND hwnd = _hwnd;
+        TCHAR appName[256];
+        lstrcpy(appName, _appName);
+        HANDLE hMyself = _hProcessThread;
 
-		Process process(_command, _curDir);
+        Process process(_command, _curDir);
 
-		if (!::SetEvent(hEvent))
-			systemMessage(TEXT("Thread launcher"));
+        if (!::SetEvent(hEvent))
+            systemMessage(TEXT("Thread launcher"));
 
-		process.run();
+        process.run();
 
-		int code = process.getExitCode();
-		TCHAR codeStr[256];
-		generic_sprintf(codeStr, TEXT("%s : %0.4X"), appName, code);
-		::MessageBox(hwnd, process.getStdout(), codeStr, MB_OK);
+        int code = process.getExitCode();
+        TCHAR codeStr[256];
+        generic_sprintf(codeStr, TEXT("%s : %0.4X"), appName, code);
+        ::MessageBox(hwnd, process.getStdout(), codeStr, MB_OK);
 
-		if (process.hasStderr())
-			::MessageBox(hwnd, process.getStderr(), codeStr, MB_OK);
+        if (process.hasStderr())
+            ::MessageBox(hwnd, process.getStderr(), codeStr, MB_OK);
 
-		::CloseHandle(hMyself);
-		return true;
-	}
+        ::CloseHandle(hMyself);
+        return true;
+    }
 };
 
 #endif PROCESS_THREAD_H

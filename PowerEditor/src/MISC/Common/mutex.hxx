@@ -4,8 +4,8 @@
 
 // Under the LGPL you may use YUNI for any purpose you wish, and modify it if you
 // require, as long as you:
-// 
-// Pass on the (modified) YUNI source code with your software, with original 
+//
+// Pass on the (modified) YUNI source code with your software, with original
 // copyrights intact :
 //  * If you distribute electronically, the source can be a separate download
 //    (either from your own site if you modified YUNI, or to the official YUNI
@@ -14,10 +14,10 @@
 //  * If you distribute physical media, the YUNI source that you used to build
 //    your application should be included on that media
 // Make it clear where you have customised it.
-// 
+//
 // In addition to the LGPL license text, the following exceptions / clarifications
 // to the LGPL conditions apply to YUNI:
-// 
+//
 //  * Making modifications to YUNI configuration files, build scripts and
 //    configuration headers such as yuni/platform.h in order to create a
 //    customised build setup of YUNI with the otherwise unmodified source code,
@@ -44,71 +44,71 @@
 namespace Yuni
 {
 
-	inline void Mutex::lock()
-	{
-		# ifndef YUNI_NO_THREAD_SAFE
-		# ifdef YUNI_OS_WINDOWS
-		EnterCriticalSection(&pSection);
-		# else
-		::pthread_mutex_lock(&pLock);
-		# endif
-		# endif
-	}
+    inline void Mutex::lock()
+    {
+# ifndef YUNI_NO_THREAD_SAFE
+# ifdef YUNI_OS_WINDOWS
+        EnterCriticalSection(&pSection);
+# else
+        ::pthread_mutex_lock(&pLock);
+# endif
+# endif
+    }
 
 
-	inline bool Mutex::trylock()
-	{
-		# ifndef YUNI_NO_THREAD_SAFE
-		# ifdef YUNI_OS_WINDOWS
-		return (0 != TryEnterCriticalSection(&pSection));
-		# else
-		return (0 == ::pthread_mutex_trylock(&pLock));
-		# endif
-		# else
-		return false;
-		# endif
-	}
+    inline bool Mutex::trylock()
+    {
+# ifndef YUNI_NO_THREAD_SAFE
+# ifdef YUNI_OS_WINDOWS
+        return (0 != TryEnterCriticalSection(&pSection));
+# else
+        return (0 == ::pthread_mutex_trylock(&pLock));
+# endif
+# else
+        return false;
+# endif
+    }
 
 
-	inline void Mutex::unlock()
-	{
-		# ifndef YUNI_NO_THREAD_SAFE
-		# ifdef YUNI_OS_WINDOWS
-		LeaveCriticalSection(&pSection);
-		# else
-		::pthread_mutex_unlock(&pLock);
-		# endif
-		# endif
-	}
+    inline void Mutex::unlock()
+    {
+# ifndef YUNI_NO_THREAD_SAFE
+# ifdef YUNI_OS_WINDOWS
+        LeaveCriticalSection(&pSection);
+# else
+        ::pthread_mutex_unlock(&pLock);
+# endif
+# endif
+    }
 
 
-	# ifndef YUNI_NO_THREAD_SAFE
-	# ifndef YUNI_OS_WINDOWS
-	inline pthread_mutex_t& Mutex::pthreadMutex()
-	{
-		return pLock;
-	}
+# ifndef YUNI_NO_THREAD_SAFE
+# ifndef YUNI_OS_WINDOWS
+    inline pthread_mutex_t& Mutex::pthreadMutex()
+    {
+        return pLock;
+    }
 
-	inline const pthread_mutex_t& Mutex::pthreadMutex() const
-	{
-		return pLock;
-	}
-	# endif
-	# endif
-
-
-
-	inline MutexLocker::MutexLocker(Mutex& m) :
-		pMutex(m)
-	{
-		m.lock();
-	}
+    inline const pthread_mutex_t& Mutex::pthreadMutex() const
+    {
+        return pLock;
+    }
+# endif
+# endif
 
 
-	inline MutexLocker::~MutexLocker()
-	{
-		pMutex.unlock();
-	}
+
+    inline MutexLocker::MutexLocker(Mutex& m) :
+        pMutex(m)
+    {
+        m.lock();
+    }
+
+
+    inline MutexLocker::~MutexLocker()
+    {
+        pMutex.unlock();
+    }
 
 
 

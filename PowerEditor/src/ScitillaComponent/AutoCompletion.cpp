@@ -368,7 +368,7 @@ bool AutoCompletion::showFunctionComplete()
 	return false;
 }
 
-void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos, bool isHTML)
+void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos, LangType language)
 {
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
@@ -396,15 +396,21 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
 
-	if (isHTML) // for HTML: "br", "hr", "img", "link", "!doctype" and "meta" will be ignored
+	if (language == L_HTML) // for HTML: "br", "hr", "img", "link", "!doctype" and "meta" will be ignored
 	{
-		char *disallowedTags[] = { "br", "hr", "img", "link", "meta", "!doctype" };
+		const char *disallowedTags[] = { "br", "hr", "img", "link", "meta", "!doctype" };
 		size_t disallowedTagsLen = sizeof(disallowedTags) / sizeof(char *);
 		for (size_t i = 0; i < disallowedTagsLen; ++i)
 		{
 			if (strnicmp(tagHead + 1, disallowedTags[i], strlen(disallowedTags[i])) == 0)
 				return;
 		}
+	}
+	else if (language == L_XML)
+	{
+		// Ignore "?xml"
+		if (strnicmp(tagHead + 1, "?xml", strlen("?xml")) == 0)
+			return;
 	}
 
 	char tagTail[2];
@@ -631,7 +637,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		{
 			if (matchedPairConf._doHtmlXmlTag && (_curLang == L_HTML || _curLang == L_XML))
 			{
-				getCloseTag(closeTag, tagMaxLen, caretPos, _curLang == L_HTML);
+				getCloseTag(closeTag, tagMaxLen, caretPos, _curLang);
 				if (closeTag[0] != '\0')
 					matchedChars = closeTag;
 			}

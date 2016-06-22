@@ -95,7 +95,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{VK_NULL,    IDM_FILE_PRINTNOW,                            false, false, false, nullptr},
 	{VK_F4,      IDM_FILE_EXIT,                                false, true,  false, nullptr},
 
-	{ VK_T,      IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false,  true, TEXT("Restore Recent Closed File")},
+	{ VK_T,      IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false,  true, nullptr},
 
 //	{VK_NULL,    IDM_EDIT_UNDO,                                false, false, false, nullptr},
 //	{VK_NULL,    IDM_EDIT_REDO,                                false, false, false, nullptr},

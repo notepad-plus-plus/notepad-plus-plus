@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Catalan translation
-for Notepad++ 6.8.8
-Updated 20.12.2015
+Catalan translation 
+for Notepad++ 6.9.2
+Updated 21.06.2016
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="6.8.8">
+	<Native-Langue name="Català" filename="catalan.xml" version="6.9.2">
 		<Menu>
 			<Main>
 				<Entries>
@@ -71,6 +71,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="41002" name="&amp;Obre..."/>
 					<Item id="41019" name="Explorador de Windows"/>
 					<Item id="41020" name="Indicador d'ordres"/>
+					<Item id="41022" name="Obre carpeta com espai de treball"/>
 					<Item id="41014" name="&amp;Recarrega des del disc"/>
 					<Item id="41006" name="&amp;Desa"/>
 					<Item id="41008" name="&amp;Anomena i desa..."/>
@@ -241,12 +242,14 @@ By Hiro5 <groccat at gmail>
 					<Item id="44030" name="Plega el &amp;nivell actual"/>
 					<Item id="44031" name="Desplega el n&amp;ivell actual"/>
 					<Item id="44049" name="Sumari&amp;..."/>
+					<Item id="44085" name="Carpeta com espai de treball"/>
 					<Item id="44080" name="M&amp;apa del document"/>
 					<Item id="44084" name="Llista de funcions"/>
 					<Item id="44035" name="Sincronitza el desplaçament &amp;vertical"/>
 					<Item id="44036" name="Sincronitza el desplaçament &amp;horitzontal"/>
 					<Item id="42026" name="Text de &amp;dreta a esquerra"/>
 					<Item id="42027" name="Text d'&amp;esquerra a dreta"/>
+					<Item id="44097" name="Segueix canvis de fitxer"/>
 					<Item id="44081" name="Panell de projecte &amp;1"/>
 					<Item id="44082" name="Panell de projecte &amp;2"/>
 					<Item id="44083" name="Panell de projecte &amp;3"/>
@@ -313,7 +316,7 @@ By Hiro5 <groccat at gmail>
 				<Item CMID="2"  name="&amp;Desa"/>
 				<Item CMID="3"  name="Desa &amp;com a..."/>
 				<Item CMID="10" name="Canvia el &amp;nom..."/>
-				<Item CMID="11" name="Es&amp;borra"/>
+				<Item CMID="11" name="Su&amp;primeix"/>
 				<Item CMID="16" name="Recarre&amp;ga"/>
 				<Item CMID="4"  name="&amp;Imprimeix..."/>
 				<Item CMID="19" name="Obre la carpeta contenidora amb l'Explorador"/>
@@ -808,6 +811,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6328" name="Destaca els atributs de les par. clau"/>
 					<Item id="6330" name="Destaca la zona php/asp/comentari"/>
 					<Item id="6322" name="Ext. del fitxer de sessió:"/>
+					<Item id="6337" name="Ext. del fitxer d'espai de treball:"/>
 					<Item id="6334" name="Autodetecta codificació de caràcters"/>
 				</MISC>
 			</Preference>
@@ -852,7 +856,7 @@ By Hiro5 <groccat at gmail>
 			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
-			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.&#xD;Segur que voleu obrir-los?"/>
+			<NbFileToOpenImportantWarning title="Massa fitxers per obrir" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.&#xD;Segur que voleu obrir-los?"/>
 			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»&#xD;o «Alt+Maj.+Fletxes del teclat»&#xD;per canviar al mode de columna." />
 			<SettingsOnCloudError title="Opcions al núvol" message="Sembla que el directori indicat a les opcions del núvol es troba en una unitat de només lectura,&#xD;o en una carpeta que demana drets d'accés d'escriptura.&#xD;Els vostres paràmetres del núvol es cancel·laran. Reinicieu a un valor coherent a través del diàleg de Preferències."/>
 		</MessageBox>
@@ -878,6 +882,9 @@ By Hiro5 <groccat at gmail>
 			<SortTip name="Ordena" />
 			<ReloadTip name="Recarrega" />
 		</FunctionList>
+		<FileBrowser>
+			<PanelTitle name="Carpeta com espai de treball"/>
+		</FileBrowser>
 		<ProjectManager>
 			<PanelTitle name="Projecte"/>
 			<WorkspaceRootName name="Espai de treball"/>

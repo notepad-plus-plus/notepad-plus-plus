@@ -250,6 +250,7 @@ Credits:
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="EFE900" bgColor="0B161D" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="55E439" bgColor="0B161D" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="CDATA" styleID="17" fgColor="FF3A83" bgColor="0B161D" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="ENTITY" styleID="10" fgColor="FF3A83" bgColor="0B161D" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
         <LexerType name="ini" desc="ini file" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="0B161D" fontName="" fontStyle="0" fontSize="10" />

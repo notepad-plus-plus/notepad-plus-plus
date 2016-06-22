@@ -872,6 +872,7 @@ Installation:
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="981f0e" bgColor="fdd64a" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="ffdc87" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ENTITY" styleID="10" fgColor="561e0f" bgColor="58693D" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="yaml" desc="YAML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="f2c476" bgColor="58693D" fontName="" fontStyle="0" fontSize="" />

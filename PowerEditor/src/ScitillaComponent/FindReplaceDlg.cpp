@@ -831,8 +831,20 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if (isMacroRecording)
 						saveInMacro(wParam, FR_OP_FIND);
 
+					bool direction_bak = _options._whichDirection;
+					// if shift-key is pressed, revert search direction
+					// if shift-key is not pressed, use the normal setting
+					SHORT shift = GetKeyState(VK_SHIFT);
+					if (shift & SHIFTED)
+					{
+						_options._whichDirection = !_options._whichDirection;
+					}
+
 					FindStatus findStatus = FSFound;
 					processFindNext(_options._str2Search.c_str(), _env, &findStatus);
+					// restore search direction which may have been overwritten because shift-key was pressed
+					_options._whichDirection = direction_bak;
+
 					if (findStatus == FSEndReached)
 						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."), FSEndReached);
 					else if (findStatus == FSTopReached)

@@ -223,7 +223,7 @@ BEGIN
             MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
             MENUITEM "cmd",            IDM_FILE_OPEN_CMD
 		END
-		MENUITEM "Open Folder as Workspace",         IDM_FILE_OPENFOLDERASWORSPACE
+		MENUITEM "Open Folder as Workspace...",      IDM_FILE_OPENFOLDERASWORSPACE
         MENUITEM "Re&load from Disk",                IDM_FILE_RELOAD
         MENUITEM "&Save",                            IDM_FILE_SAVE
         MENUITEM "Save &As...",                      IDM_FILE_SAVEAS

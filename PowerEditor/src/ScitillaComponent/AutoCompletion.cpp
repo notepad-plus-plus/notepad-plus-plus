@@ -370,6 +370,17 @@ bool AutoCompletion::showFunctionComplete()
 
 void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos, bool isHTML)
 {
+	char prev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 2);
+	char prevprev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 3);
+
+	// Closing a tag (i.e. "-->") will be ignored
+	if (prevprev == '-' && prev == '-')
+		return;
+
+	// "<toto/>" and "<toto arg="0" />" will be ignored
+	if (prev == '/')
+		return;
+
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	TCHAR tag2find[] = TEXT("<[^\\s>]*");
@@ -406,12 +417,6 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 				return;
 		}
 	}
-
-	char tagTail[2];
-	_pEditView->getText(tagTail, caretPos-2, caretPos-1);
-
-	if (tagTail[0] == '/') // "<toto/>" and "<toto arg="0" />" will be ignored
-		return;
 
 	closeTag[0] = '<';
 	closeTag[1] = '/';

@@ -668,6 +668,53 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_TAB_MOVEFORWARD:
+		case IDM_VIEW_TAB_MOVEBACKWARD:
+		{
+			const int currentTabIndex = _pDocTab->getCurrentTabIndex();
+			const int lastTabIndex = _pDocTab->getItemCount() - 1;
+			int newTabIndex = currentTabIndex;
+
+			if (id == IDM_VIEW_TAB_MOVEFORWARD)
+			{
+				if (currentTabIndex >= lastTabIndex)
+					return;
+				++newTabIndex;
+			}
+			else
+			{
+				if (currentTabIndex < 1)
+					return;
+				--newTabIndex;
+			}
+
+			TCITEM tciMove, tciShift;
+			tciMove.mask = tciShift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
+
+			const int strSizeMax = 256;
+			TCHAR strMove[strSizeMax];
+			TCHAR strShift[strSizeMax];
+
+			tciMove.pszText = strMove;
+			tciMove.cchTextMax = strSizeMax;
+
+			tciShift.pszText = strShift;
+			tciShift.cchTextMax = strSizeMax;
+
+			::SendMessage(_pDocTab->getHSelf(), TCM_GETITEM, currentTabIndex, reinterpret_cast<LPARAM>(&tciMove));
+
+			::SendMessage(_pDocTab->getHSelf(), TCM_GETITEM, newTabIndex, reinterpret_cast<LPARAM>(&tciShift));
+			::SendMessage(_pDocTab->getHSelf(), TCM_SETITEM, currentTabIndex, reinterpret_cast<LPARAM>(&tciShift));
+
+			::SendMessage(_pDocTab->getHSelf(), TCM_SETITEM, newTabIndex, reinterpret_cast<LPARAM>(&tciMove));
+
+			::SendMessage(_pDocTab->getHSelf(), TCM_SETCURSEL, newTabIndex, 0);
+
+			// Notify plugins that the document order has changed
+			::SendMessage(_pDocTab->getHParent(), NPPM_INTERNAL_DOCORDERCHANGED, 0, newTabIndex);
+		}
+		break;
+
 		case IDM_EDIT_DELETE:
 			_pEditView->execute(WM_CLEAR);
 			break;
@@ -2968,6 +3015,8 @@ void Notepad_plus::command(int id)
 			case IDM_VIEW_TAB9:
 			case IDM_VIEW_TAB_NEXT:
 			case IDM_VIEW_TAB_PREV:
+			case IDM_VIEW_TAB_MOVEFORWARD:
+			case IDM_VIEW_TAB_MOVEBACKWARD:
 			case IDC_PREV_DOC :
 			case IDC_NEXT_DOC :
 			case IDM_SEARCH_GOPREVMARKER1   :

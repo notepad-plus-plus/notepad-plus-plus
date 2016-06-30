@@ -475,6 +475,9 @@ BEGIN
 			MENUITEM SEPARATOR
 			MENUITEM "Next Tab",				IDM_VIEW_TAB_NEXT
 			MENUITEM "Previous Tab",			IDM_VIEW_TAB_PREV
+			MENUITEM SEPARATOR
+			MENUITEM "Move Tab Forward",		IDM_VIEW_TAB_MOVEFORWARD
+			MENUITEM "Move Tab Backward",		IDM_VIEW_TAB_MOVEBACKWARD
 		END
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW

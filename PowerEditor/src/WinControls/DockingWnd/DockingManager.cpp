@@ -262,7 +262,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 			}
 
 			// destroy containers
-			for (size_t i = _vContainer.size(); i > 0; i--)
+			for (int32_t i = static_cast<int32_t>(_vContainer.size()); i > 0; i--)
 			{
 				_vContainer[i-1]->destroy();
 				delete _vContainer[i-1];

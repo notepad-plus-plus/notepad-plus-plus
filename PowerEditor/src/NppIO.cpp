@@ -966,14 +966,14 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 		//first close all docs in non-current view, which gets closed automatically
 		//Set active tab to the last one closed.
 		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
-		for (size_t i = _pNonDocTab->nbItem() - 1; i >= 0; i--) //close all from right to left
+		for (int32_t i = static_cast<int32_t>(_pNonDocTab->nbItem()) - 1; i >= 0; i--) //close all from right to left
 		{
 			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), doDeleteBackup);
 		}
     }
 
 	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
-	for (int i = static_cast<int32_t>(_pDocTab->nbItem()) - 1; i >= 0; i--)
+	for (int32_t i = static_cast<int32_t>(_pDocTab->nbItem()) - 1; i >= 0; i--)
 	{	//close all from right to left
 		doClose(_pDocTab->getBufferByIndex(i), currentView(), doDeleteBackup);
 	}
@@ -1123,14 +1123,14 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		//Set active tab to the last one closed.
 		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
 
-		for (int i = int(_pNonDocTab->nbItem()) - 1; i >= 0; i--) 	//close all from right to left
+		for (int32_t i = static_cast<int32_t>(_pNonDocTab->nbItem()) - 1; i >= 0; i--) 	//close all from right to left
 		{
 			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), isSnapshotMode);
 		}
     }
 
 	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
-	for (int i = int(_pDocTab->nbItem()) - 1; i >= 0; i--)	//close all from right to left
+	for (int32_t i = static_cast<int32_t>(_pDocTab->nbItem()) - 1; i >= 0; i--)	//close all from right to left
 	{
 		if (i == active)	//dont close active index
 		{

@@ -784,7 +784,7 @@ void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translatio
 		::ModifyMenu(_hMenu, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowStr.c_str());
 	}
 
-	UINT pos = 0;
+	int32_t pos = 0;
 	for(pos = GetMenuItemCount(hMainMenu) - 1; pos > 0; --pos)
 	{
 		if ((GetMenuState(hMainMenu, pos, MF_BYPOSITION) & MF_POPUP) != MF_POPUP)

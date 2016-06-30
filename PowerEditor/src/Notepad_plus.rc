@@ -274,8 +274,14 @@ BEGIN
         END
         POPUP "Convert Case to"
         BEGIN
-            MENUITEM "&UPPERCASE",    IDM_EDIT_UPPERCASE
-            MENUITEM "&lowercase",    IDM_EDIT_LOWERCASE
+            MENUITEM "&UPPERCASE",              IDM_EDIT_UPPERCASE
+            MENUITEM "&lowercase",              IDM_EDIT_LOWERCASE
+            MENUITEM "&Title Case",             IDM_EDIT_TITLECASE_FORCE
+            MENUITEM "Title Case (blend)",      IDM_EDIT_TITLECASE_BLEND
+            MENUITEM "&Sentence case",          IDM_EDIT_SENTENCECASE_FORCE
+            MENUITEM "Sentence case (blend)",   IDM_EDIT_SENTENCECASE_BLEND
+            MENUITEM "&iNVERTCASE",             IDM_EDIT_INVERTCASE
+            MENUITEM "&RAnDomCaSe",             IDM_EDIT_RANDOMCASE
         END
         POPUP "Line Operations"
         BEGIN

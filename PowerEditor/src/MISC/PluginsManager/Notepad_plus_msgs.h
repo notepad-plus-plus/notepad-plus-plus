@@ -427,6 +427,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	#define NPPM_GETEXTPART				(RUNCOMMAND_USER + EXT_PART)
 	#define NPPM_GETCURRENTWORD			(RUNCOMMAND_USER + CURRENT_WORD)
 	#define NPPM_GETNPPDIRECTORY		(RUNCOMMAND_USER + NPP_DIRECTORY)
+	#define NPPM_GETNPPROOTDIRECTORY	(RUNCOMMAND_USER + NPP_ROOT_DIRECTORY)
 	// BOOL NPPM_GETXXXXXXXXXXXXXXXX(size_t strLen, TCHAR *str)
 	// where str is the allocated TCHAR array,
 	//	     strLen is the allocated array size
@@ -450,6 +451,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 		#define NPP_DIRECTORY 7
 		#define CURRENT_LINE 8
 		#define CURRENT_COLUMN 9
+		#define NPP_ROOT_DIRECTORY 10
 
 
 // Notification code

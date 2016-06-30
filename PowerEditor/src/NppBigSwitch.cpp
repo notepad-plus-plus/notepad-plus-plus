@@ -704,6 +704,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_GETNPPROOTDIRECTORY:
 		case NPPM_GETNPPDIRECTORY:
 		{
 			const int strSize = MAX_PATH;
@@ -711,6 +712,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			::GetModuleFileName(NULL, str, strSize);
 			PathRemoveFileSpec(str);
+			if (Message == NPPM_GETNPPROOTDIRECTORY)
+				PathRemoveFileSpec(str);
 
 			// For the compability reason, if wParam is 0, then we assume the size of generic_string buffer (lParam) is large enough.
 			// otherwise we check if the generic_string buffer size is enough for the generic_string to copy.

@@ -1206,6 +1206,30 @@ void Notepad_plus::command(int id)
             _pEditView->convertSelectedTextToLowerCase();
 			break;
 
+		case IDM_EDIT_TITLECASE_FORCE:
+			_pEditView->convertSelectedTextToNewerCase(TITLECASE_FORCE);
+			break;
+
+		case IDM_EDIT_TITLECASE_BLEND:
+			_pEditView->convertSelectedTextToNewerCase(TITLECASE_BLEND);
+			break;
+
+		case IDM_EDIT_SENTENCECASE_FORCE:
+			_pEditView->convertSelectedTextToNewerCase(SENTENCECASE_FORCE);
+			break;
+
+		case IDM_EDIT_SENTENCECASE_BLEND:
+			_pEditView->convertSelectedTextToNewerCase(SENTENCECASE_BLEND);
+			break;
+
+		case IDM_EDIT_INVERTCASE:
+			_pEditView->convertSelectedTextToNewerCase(INVERTCASE);
+			break;
+
+		case IDM_EDIT_RANDOMCASE:
+			_pEditView->convertSelectedTextToNewerCase(RANDOMCASE);
+			break;
+
 		case IDM_EDIT_BLOCK_COMMENT:
 			doBlockComment(cm_toggle);
  			break;
@@ -2871,6 +2895,12 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_REMOVEEMPTYLINESWITHBLANK:
 			case IDM_EDIT_UPPERCASE:
 			case IDM_EDIT_LOWERCASE:
+			case IDM_EDIT_TITLECASE_FORCE:
+			case IDM_EDIT_TITLECASE_BLEND:
+			case IDM_EDIT_SENTENCECASE_FORCE:
+			case IDM_EDIT_SENTENCECASE_BLEND:
+			case IDM_EDIT_INVERTCASE:
+			case IDM_EDIT_RANDOMCASE:
 			case IDM_EDIT_BLOCK_COMMENT:
 			case IDM_EDIT_BLOCK_COMMENT_SET:
 			case IDM_EDIT_BLOCK_UNCOMMENT:

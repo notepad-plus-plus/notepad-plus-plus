@@ -340,6 +340,8 @@
 	#define	   IDM_VIEW_TAB_NEXT				  (IDM_VIEW + 95)
 	#define	   IDM_VIEW_TAB_PREV				  (IDM_VIEW + 96)
     #define    IDM_VIEW_MONITORING                (IDM_VIEW + 97)
+	#define	   IDM_VIEW_TAB_MOVEFORWARD			  (IDM_VIEW + 98)
+	#define	   IDM_VIEW_TAB_MOVEBACKWARD		  (IDM_VIEW + 99)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002

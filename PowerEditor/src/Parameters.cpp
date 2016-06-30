@@ -251,6 +251,8 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{VK_NUMPAD9, IDM_VIEW_TAB9,                                true,  false, false, nullptr},
 	{VK_NEXT,    IDM_VIEW_TAB_NEXT,                            true,  false, false, nullptr},
 	{VK_PRIOR,   IDM_VIEW_TAB_PREV,                            true,  false, false, nullptr},
+	{VK_NEXT,    IDM_VIEW_TAB_MOVEFORWARD,                     true,  false, true,  nullptr},
+	{VK_PRIOR,   IDM_VIEW_TAB_MOVEBACKWARD,                    true,  false, true,  nullptr},
 
 	{VK_NULL,    IDM_FORMAT_TODOS,                             false, false, false, nullptr},
 	{VK_NULL,    IDM_FORMAT_TOUNIX,                            false, false, false, nullptr},

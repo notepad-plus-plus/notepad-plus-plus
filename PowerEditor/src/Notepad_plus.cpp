@@ -274,6 +274,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 
+	_mainEditView.execute(SCI_SETENDATLASTLINE, not svp1._scrollBeyondLastLine);
+	_subEditView.execute(SCI_SETENDATLASTLINE, not svp1._scrollBeyondLastLine);
+
 	if (svp1._doSmoothFont)
 	{
 		_mainEditView.execute(SCI_SETFONTQUALITY, SC_EFF_QUALITY_LCD_OPTIMIZED);

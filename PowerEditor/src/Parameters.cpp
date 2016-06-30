@@ -4752,6 +4752,16 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._currentLineHilitingShow = false;
 	}
 
+	// Scrolling Beyond Last Line State
+	nm = element->Attribute(TEXT("scrollBeyondLastLine"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("yes")))
+			_svp._scrollBeyondLastLine = true;
+		else if (!lstrcmp(nm, TEXT("no")))
+			_svp._scrollBeyondLastLine = false;
+	}
+
 	// Disable Advanced Scrolling
 	nm = element->Attribute(TEXT("disableAdvancedScrolling"));
 	if (nm)
@@ -4975,6 +4985,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp)
 	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);
 
 	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHilitingShow"), svp._currentLineHilitingShow?TEXT("show"):TEXT("hide"));
+	(scintNode->ToElement())->SetAttribute(TEXT("scrollBeyondLastLine"), svp._scrollBeyondLastLine?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("disableAdvancedScrolling"), svp._disableAdvancedScrolling?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("wrapSymbolShow"), svp._wrapSymbolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), svp._doWrap?TEXT("yes"):TEXT("no"));

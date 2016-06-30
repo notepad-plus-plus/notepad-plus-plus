@@ -837,6 +837,7 @@ struct ScintillaViewParams
 	bool _whiteSpaceShow = false;
 	bool _eolShow;
 	int _borderWidth = 2;
+	bool _scrollBeyondLastLine = false;
 	bool _disableAdvancedScrolling = false;
 	bool _doSmoothFont = false;
 	bool _showBorderEdge = true;

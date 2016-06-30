@@ -582,7 +582,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					// If the delimiters are the same (e.g. they are both a quotation mark), choose the ones
 					// which are closest to the clicked position.
-					for (int i = static_cast<int32_t>(position_of_click); i >= 0; --i)
+					for (int32_t i = static_cast<int32_t>(position_of_click); i >= 0; --i)
 					{
 						if (bufstring.at(i) == nppGUI._leftmostDelimiter)
 						{

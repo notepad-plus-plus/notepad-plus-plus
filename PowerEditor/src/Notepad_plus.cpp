@@ -2533,7 +2533,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, curLine);
 			auto endPos = _pEditView->execute(SCI_GETCURRENTPOS);
 
-			for (auto i = endPos - 2; i > 0 && i > startPos; --i)
+			for (long long i = endPos - 2; i > 0 && i > startPos; --i)
 			{
 				UCHAR aChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, i);
 				if (aChar != ' ' && aChar != '\t')

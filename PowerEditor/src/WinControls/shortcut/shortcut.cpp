@@ -693,7 +693,7 @@ void ScintillaAccelerator::updateKeys()
 	for(int i = 0; i < _nrScintillas; ++i)
 	{
 		::SendMessage(_vScintillas[i], SCI_CLEARALLCMDKEYS, 0, 0);
-		for(size_t j = mapSize - 1; j >= 0; j--) //reverse order, top of the list has highest priority
+		for(int32_t j = static_cast<int32_t>(mapSize) - 1; j >= 0; j--) //reverse order, top of the list has highest priority
 		{	
 			ScintillaKeyMap skm = map[j];
 			if (skm.isEnabled()) 

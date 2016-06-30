@@ -2399,7 +2399,129 @@ void ScintillaEditView::currentLinesDown() const
 	execute(SCI_SCROLLRANGE, execute(SCI_GETSELECTIONEND), execute(SCI_GETSELECTIONSTART));
 }
 
-void ScintillaEditView::convertSelectedTextTo(bool Case)
+void ScintillaEditView::changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const
+{
+	if (strWToConvert == nullptr || nbChars == NULL)
+		return;
+
+	switch (caseToConvert)
+	{
+		case UPPERCASE:
+		{
+			for (int i = 0; i < nbChars; ++i)
+			{
+				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+			}
+			break; 
+		} //case UPPERCASE
+		case LOWERCASE:
+		{
+			for (int i = 0; i < nbChars; ++i)
+			{
+				strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+			}
+			break; 
+		} //case LOWERCASE
+		case TITLECASE_FORCE:
+		case TITLECASE_BLEND:
+		{
+			for (int i = 0; i < nbChars; ++i)
+			{
+				if (::IsCharAlphaW(strWToConvert[i]))
+				{
+					if ((i < 1) ? true : not ::IsCharAlphaNumericW(strWToConvert[i - 1]))
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+					else if (caseToConvert == TITLECASE_FORCE)
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+					//An exception
+					if ((i < 2) ? false : (strWToConvert[i - 1] == L'\'' && ::IsCharAlphaW(strWToConvert[i - 2])))
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+				}
+			}
+			break; 
+		} //case TITLECASE
+		case SENTENCECASE_FORCE:
+		case SENTENCECASE_BLEND:
+		{
+			bool isNewSentence = true;
+			bool wasEolR = false;
+			bool wasEolN = false;
+			for (int i = 0; i < nbChars; ++i)
+			{
+				if (::IsCharAlphaW(strWToConvert[i]))
+				{
+					if (isNewSentence)
+					{
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+						isNewSentence = false;
+					}
+					else if (caseToConvert == SENTENCECASE_FORCE)
+					{
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+					}
+					wasEolR = false;
+					wasEolN = false;
+					//An exception
+					if (strWToConvert[i] == L'i' &&
+						((i < 1) ? false : (::iswspace(strWToConvert[i - 1]) || strWToConvert[i - 1] == L'(' || strWToConvert[i - 1] == L'"')) &&
+						((i + 1 == nbChars) ? false : (::iswspace(strWToConvert[i + 1]) || strWToConvert[i + 1] == L'\'')))
+					{
+						strWToConvert[i] = L'I';
+					}
+				}
+				else if (strWToConvert[i] == L'.' || strWToConvert[i] == L'!' || strWToConvert[i] == L'?')
+				{
+					if ((i + 1 == nbChars) ? true : ::IsCharAlphaNumericW(strWToConvert[i + 1]))
+						isNewSentence = false;
+					else
+						isNewSentence = true;
+				}
+				else if (strWToConvert[i] == L'\r')
+				{
+					if (wasEolR)
+						isNewSentence = true;
+					else
+						wasEolR = true;
+				}
+				else if (strWToConvert[i] == L'\n')
+				{
+					if (wasEolN)
+						isNewSentence = true;
+					else
+						wasEolN = true;
+				}
+			}
+			break;
+		} //case SENTENCECASE
+		case INVERTCASE:
+		{
+			for (int i = 0; i < nbChars; ++i)
+			{
+				if (::IsCharLowerW(strWToConvert[i]))
+					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+				else
+					strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+			}
+			break; 
+		} //case INVERTCASE
+		case RANDOMCASE:
+		{
+			for (int i = 0; i < nbChars; ++i)
+			{
+				if (::IsCharAlphaW(strWToConvert[i]))
+				{
+					if (std::rand() & true)
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)strWToConvert[i]);
+					else
+						strWToConvert[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)strWToConvert[i]);
+				}
+			}
+			break; 
+		} //case RANDOMCASE
+	} //switch (caseToConvert)
+}
+
+void ScintillaEditView::convertSelectedTextTo(const TextCase & caseToConvert)
 {
 	unsigned int codepage = _codepage;
 	UniMode um = getCurrentBuffer()->getUnicodeMode();
@@ -2424,13 +2546,8 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 
 			int nbChar = ::MultiByteToWideChar(codepage, 0, srcStr, len, destStr, len);
 
-			for (int j = 0 ; j < nbChar ; ++j)
-			{
-				if (Case == UPPERCASE)
-					destStr[j] = (wchar_t)(UINT_PTR)::CharUpperW((LPWSTR)destStr[j]);
-				else
-					destStr[j] = (wchar_t)(UINT_PTR)::CharLowerW((LPWSTR)destStr[j]);
-			}
+			changeCase(destStr, nbChar, caseToConvert);
+
 			::WideCharToMultiByte(codepage, 0, destStr, len, srcStr, len, NULL, NULL);
 
 			execute(SCI_SETTARGETRANGE, start, end);
@@ -2464,13 +2581,8 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 
 		int nbChar = ::MultiByteToWideChar(codepage, 0, selectedStr, strSize, selectedStrW, strWSize);
 
-		for (int i = 0 ; i < nbChar ; ++i)
-		{
-			if (Case == UPPERCASE)
-				selectedStrW[i] = (WCHAR)(UINT_PTR)::CharUpperW((LPWSTR)selectedStrW[i]);
-			else
-				selectedStrW[i] = (WCHAR)(UINT_PTR)::CharLowerW((LPWSTR)selectedStrW[i]);
-		}
+		changeCase(selectedStrW, nbChar, caseToConvert);
+
 		::WideCharToMultiByte(codepage, 0, selectedStrW, strWSize, selectedStr, strSize, NULL, NULL);
 
 		execute(SCI_SETTARGETRANGE, selectionStart, selectionEnd);

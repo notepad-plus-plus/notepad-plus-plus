@@ -99,9 +99,17 @@ const int CP_GREEK = 1253;
 const bool fold_uncollapse = true;
 const bool fold_collapse = false;
 
-const bool UPPERCASE = true;
-const bool LOWERCASE = false;
-
+enum TextCase : UCHAR
+{
+	UPPERCASE,
+	LOWERCASE,
+	TITLECASE_FORCE,
+	TITLECASE_BLEND,
+	SENTENCECASE_FORCE,
+	SENTENCECASE_BLEND,
+	INVERTCASE,
+	RANDOMCASE
+};
 
 const UCHAR MASK_FORMAT = 0x03;
 const UCHAR MASK_ZERO_LEADING = 0x04;
@@ -518,7 +526,8 @@ public:
     void currentLinesUp() const;
     void currentLinesDown() const;
 
-	void convertSelectedTextTo(bool Case);
+	void changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const;
+	void convertSelectedTextTo(const TextCase & caseToConvert);
 	void setMultiSelections(const ColumnModeInfos & cmi);
 
     void convertSelectedTextToLowerCase() {
@@ -535,6 +544,14 @@ public:
 			convertSelectedTextTo(UPPERCASE);
 		else
 			execute(SCI_UPPERCASE);
+	};
+
+	void convertSelectedTextToNewerCase(const TextCase & caseToConvert) {
+		// if system is w2k or xp
+		if ((NppParameters::getInstance())->isTransparentAvailable())
+			convertSelectedTextTo(caseToConvert);
+		else
+			::MessageBox(_hSelf, TEXT("This function needs a newer OS version."), TEXT("Change Case Error"), MB_OK | MB_ICONHAND);
 	};
 
 	void collapse(int level2Collapse, bool mode);

@@ -3803,19 +3803,29 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 
 bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 {
+	Buffer * buf = _pEditView->getCurrentBuffer();
+	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	if (buf->isReadOnly())
+		return false;
+
 	//--LS: BlockToStreamComment:
 	const TCHAR *commentStart;
 	const TCHAR *commentEnd;
 	generic_string symbolStart;
 	generic_string symbolEnd;
 
-	const TCHAR *commentLineSybol;
+	const TCHAR *commentLineSymbol;
 	generic_string symbol;
 
-	Buffer * buf = _pEditView->getCurrentBuffer();
-	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
-	if (buf->isReadOnly())
-		return false;
+	//Single Line Comment/Uncomment/Toggle can have two modes:
+	// * a NORMAL MODE which uses a commentLineSymbol to comment/uncomment code per line, and
+	// * an ADVANCED MODE which uses commentStart and commentEnd symbols to comment/uncomment code per line.
+	//The NORMAL MODE is used for all Lexers which have a commentLineSymbol defined.
+	//The ADVANCED MODE is only available for Lexers which do not have a commentLineSymbol but commentStreamSymbols (start/end) defined.
+	//The ADVANCED MODE behaves the same way as the NORMAL MODE (comment/uncomment every single line in the selection range separately)
+	//but uses two smbols to accomplish this.
+	bool isSingleLineAdvancedMode = false;
+
 	if (buf->getLangType() == L_USER)
 	{
 		UserLangContainer * userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
@@ -3823,7 +3833,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			return false;
 
 		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
-		commentLineSybol = symbol.c_str();
+		commentLineSymbol = symbol.c_str();
 		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
@@ -3832,24 +3842,35 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	}
 	else
 	{
-		commentLineSybol = buf->getCommentLineSymbol();
+		commentLineSymbol = buf->getCommentLineSymbol();
 		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	if ((!commentLineSybol) || (!commentLineSybol[0]) || (commentLineSybol == NULL))
+	if ((!commentLineSymbol) || (!commentLineSymbol[0]) || (commentLineSymbol == NULL))
 	{
 	//--FLS: BlockToStreamComment: If there is no block-comment symbol, try the stream comment:
 		if (!(!commentStart || !commentStart[0] || commentStart == NULL || !commentEnd || !commentEnd[0] || commentEnd == NULL))
 		{
-			if ((currCommentMode == cm_comment))
+			if (currCommentMode == cm_comment)
 			{
-				return doStreamComment();
+				//Do an advanced "Single Line Comment" by using stream-comment symbols (start/end) per line in this case.
+				isSingleLineAdvancedMode = true;
+				//return doStreamComment(); //Use "Block Comment" for this.
 			}
 			else if (currCommentMode == cm_uncomment)
 			{
+				//"undoStreamComment()" can be more flexible than "isSingleLineAdvancedMode = true", 
+				//since it can uncomment more embedded levels at once and the commentEnd symbol can be located everywhere. 
+				//But, depending on the selection start/end position, the first/last selected line may not be uncommented properly!
 				return undoStreamComment();
+				//isSingleLineAdvancedMode = true;
+			}
+			else if (currCommentMode == cm_toggle)
+			{
+				//Do an advanced "Toggle Single Line Comment" by using stream-comment symbols (start/end) per line in this case.
+				isSingleLineAdvancedMode = true;
 			}
 			else
 				return false;
@@ -3858,10 +3879,37 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			return false;
 	}
 
-    generic_string comment(commentLineSybol);
-    comment += TEXT(" ");
+	//For Single Line NORMAL MODE
+	generic_string comment;
+	size_t comment_length = 0;
 
-    size_t comment_length = comment.length();
+	//For Single Line ADVANCED MODE
+	generic_string advCommentStart;
+	generic_string advCommentEnd;
+	size_t advCommentStart_length = 0;
+	size_t advCommentEnd_length = 0;
+
+	const TCHAR aSpace[] { TEXT(" ") };
+
+	//Only values that have passed through will be assigned, to be sure they are valid!
+	if (not isSingleLineAdvancedMode)
+	{
+		comment = commentLineSymbol;
+		comment += aSpace;
+
+		comment_length = comment.length();
+	}
+	else // isSingleLineAdvancedMode
+	{
+		advCommentStart = commentStart;
+		advCommentStart += aSpace;
+		advCommentEnd = aSpace;
+		advCommentEnd += commentEnd;
+
+		advCommentStart_length = advCommentStart.length();
+		advCommentEnd_length = advCommentEnd.length();
+	}
+
     size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
     size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
     size_t caretPosition = _pEditView->execute(SCI_GETCURRENTPOS);
@@ -3870,73 +3918,172 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	int selStartLine = static_cast<int32_t>(_pEditView->execute(SCI_LINEFROMPOSITION, selectionStart));
 	int selEndLine = static_cast<int32_t>(_pEditView->execute(SCI_LINEFROMPOSITION, selectionEnd));
     int lines = selEndLine - selStartLine;
-    size_t firstSelLineStart = _pEditView->execute(SCI_POSITIONFROMLINE, selStartLine);
     // "caret return" is part of the last selected line
     if ((lines > 0) && (selectionEnd == static_cast<size_t>(_pEditView->execute(SCI_POSITIONFROMLINE, selEndLine))))
 		selEndLine--;
 	//--FLS: count lines which were un-commented to decide if undoStreamComment() shall be called.
 	int nUncomments = 0;
+	//Some Lexers need line-comments at the beginning of a line.
+	const bool avoidIndent = buf->getLangType() == L_FORTRAN_77;
+
     _pEditView->execute(SCI_BEGINUNDOACTION);
 
     for (int i = selStartLine; i <= selEndLine; ++i)
 	{
-		auto lineStart = _pEditView->execute(SCI_POSITIONFROMLINE, i);
-        auto lineIndent = lineStart;
-        auto lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
+		size_t lineStart = _pEditView->execute(SCI_POSITIONFROMLINE, i);
+		size_t lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
+		size_t lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
 
-		size_t linebufferSize = lineEnd - lineStart + 2;
+		// empty lines are not commented
+		if (lineIndent == lineEnd)
+			continue;
+
+		if (avoidIndent)
+			lineIndent = lineStart;
+
+		size_t linebufferSize = lineEnd - lineIndent + 2;
 		TCHAR* linebuf = new TCHAR[linebufferSize];
 
-		Lang *lang = _pEditView->getCurrentBuffer()->getCurrentLang();
-		bool isFortran = lang == NULL?false:lang->_langID == L_FORTRAN_77;
-		if (!isFortran)
-			lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
 		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);
 
         generic_string linebufStr = linebuf;
 		delete [] linebuf;
 
-        // empty lines are not commented
-        if (linebufStr.length() < 1)
-			continue;
-
-   		if (currCommentMode != cm_comment)
+   		if (currCommentMode != cm_comment) // uncomment/toggle
 		{
-			//--FLS: In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
-			//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
-			//if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
-			if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), comment_length -1) == 0)
+			if (not isSingleLineAdvancedMode)
 			{
-				generic_string commentStr = linebufStr.substr(0, comment_length);
-				size_t len = (generic_strnicmp(commentStr.c_str(), comment.c_str(), comment_length) == 0) ? comment_length : comment_length - 1;
+				//--FLS: In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
+				//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
+				//if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
+				if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), comment_length - 1) == 0)
+				{
+					size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : comment_length - 1;
 
-				_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
-				_pEditView->replaceSelWith("");
+					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
+					_pEditView->replaceSelWith("");
 
-				if (i == selStartLine) // is this the first selected line?
-					selectionStart -= len;
-				selectionEnd -= len; // every iteration
-				++nUncomments;
-				continue;
+					// SELECTION RANGE ADJUSTMENT .......................
+					if (i == selStartLine) // first selected line
+					{
+						if (selectionStart > lineIndent + len)
+							selectionStart -= len;
+						else if (selectionStart > lineIndent)
+							selectionStart = lineIndent;
+					} // ................................................
+					if (i == selEndLine) // last selected line
+					{
+						if (selectionEnd > lineIndent + len)
+							selectionEnd -= len;
+						else if (selectionEnd > lineIndent)
+						{
+							selectionEnd = lineIndent;
+							if (lineIndent == lineStart && i != selStartLine)
+								++selectionEnd; // avoid caret return in this case
+						}
+					} // ................................................
+					else // every iteration except the last selected line
+						selectionEnd -= len;
+					// ..................................................
+
+					++nUncomments;
+					continue;
+				}
 			}
-		}
-		if ((currCommentMode == cm_toggle) || (currCommentMode == cm_comment))
+			else // isSingleLineAdvancedMode
+			{
+				if ((generic_strnicmp(linebufStr.c_str(), advCommentStart.c_str(), advCommentStart_length - 1) == 0) &&
+					(generic_strnicmp(linebufStr.substr(linebufStr.length() - advCommentEnd_length + 1, advCommentEnd_length - 1).c_str(), advCommentEnd.substr(1, advCommentEnd_length - 1).c_str(), advCommentEnd_length - 1) == 0))
+				{
+					size_t startLen = linebufStr[advCommentStart_length - 1] == aSpace[0] ? advCommentStart_length : advCommentStart_length - 1;
+					size_t endLen = linebufStr[linebufStr.length() - advCommentEnd_length] == aSpace[0] ? advCommentEnd_length : advCommentEnd_length - 1;
+
+					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + startLen);
+					_pEditView->replaceSelWith("");
+					_pEditView->execute(SCI_SETSEL, lineEnd - startLen - endLen, lineEnd - startLen);
+					_pEditView->replaceSelWith("");
+
+					// SELECTION RANGE ADJUSTMENT .......................
+					if (i == selStartLine) // first selected line
+					{
+						if (selectionStart > lineEnd - endLen)
+							selectionStart = lineEnd - startLen - endLen;
+						else if (selectionStart > lineIndent + startLen)
+							selectionStart -= startLen;
+						else if (selectionStart > lineIndent)
+							selectionStart = lineIndent;
+					} // ................................................
+					if (i == selEndLine) // last selected line
+					{
+						if (selectionEnd > lineEnd)
+							selectionEnd -= (startLen + endLen);
+						else if (selectionEnd > lineEnd - endLen)
+							selectionEnd = lineEnd - startLen - endLen;
+						else if (selectionEnd > lineIndent + startLen)
+							selectionEnd -= startLen;
+						else if (selectionEnd > lineIndent)
+						{
+							selectionEnd = lineIndent;
+							if (lineIndent == lineStart && i != selStartLine)
+								++selectionEnd; // avoid caret return in this case
+						}
+					} // ................................................
+					else // every iteration except the last selected line
+						selectionEnd -= (startLen + endLen);
+					// ..................................................
+
+					++nUncomments;
+					continue;
+				}
+			}
+		} // uncomment/toggle
+
+		if (currCommentMode != cm_uncomment) // comment/toggle
 		{
-			if (i == selStartLine) // is this the first selected line?
-				selectionStart += comment_length;
-			selectionEnd += comment_length; // every iteration
-			_pEditView->insertGenericTextFrom(lineIndent, comment.c_str());
-		}
-     }
-    // after uncommenting selection may promote itself to the lines
-    // before the first initially selected line;
-    // another problem - if only comment symbol was selected;
-    if (selectionStart < firstSelLineStart)
-	{
-        if (selectionStart >= selectionEnd - (comment_length - 1))
-			selectionEnd = firstSelLineStart;
-        selectionStart = firstSelLineStart;
-    }
+			if (not isSingleLineAdvancedMode)
+			{
+				_pEditView->insertGenericTextFrom(lineIndent, comment.c_str());
+
+				// SELECTION RANGE ADJUSTMENT .......................
+				if (i == selStartLine) // first selected line
+				{
+					if (selectionStart >= lineIndent)
+						selectionStart += comment_length;
+				} // ................................................
+				if (i == selEndLine) // last selected line
+				{
+					if (selectionEnd >= lineIndent)
+						selectionEnd += comment_length;
+				} // ................................................
+				else // every iteration except the last selected line
+					selectionEnd += comment_length;
+				// ..................................................
+			}
+			else // isSingleLineAdvancedMode
+			{
+				_pEditView->insertGenericTextFrom(lineIndent, advCommentStart.c_str());
+				_pEditView->insertGenericTextFrom(lineEnd + advCommentStart_length, advCommentEnd.c_str());
+
+				// SELECTION RANGE ADJUSTMENT .......................
+				if (i == selStartLine) // first selected line
+				{
+					if (selectionStart >= lineIndent)
+						selectionStart += advCommentStart_length;
+				} // ................................................
+				if (i == selEndLine) // last selected line
+				{
+					if (selectionEnd > lineEnd)
+						selectionEnd += (advCommentStart_length + advCommentEnd_length);
+					else if (selectionEnd >= lineIndent)
+						selectionEnd += advCommentStart_length;
+				} // ................................................
+				else // every iteration except the last selected line
+					selectionEnd += (advCommentStart_length + advCommentEnd_length);
+				// ..................................................
+			}
+		} // comment/toggle
+	} // for (...)
+
     if (move_caret)
 	{
         // moving caret to the beginning of selected block

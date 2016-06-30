@@ -34,6 +34,7 @@ const TCHAR fileNamePart[] = TEXT("NAME_PART");
 const TCHAR fileExtPart[] = TEXT("EXT_PART");
 const TCHAR currentWord[] = TEXT("CURRENT_WORD");
 const TCHAR nppDir[] = TEXT("NPP_DIRECTORY");
+const TCHAR nppRootDir[] = TEXT("NPP_ROOT_DIRECTORY");
 const TCHAR currentLine[] = TEXT("CURRENT_LINE");
 const TCHAR currentColumn[] = TEXT("CURRENT_COLUMN");
 

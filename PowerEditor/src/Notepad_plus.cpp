@@ -3065,7 +3065,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			switchEditViewTo(MAIN_VIEW);
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
-		BufferID lastOpened = BUFFER_INVALID;
 
 		vector<generic_string> folderPaths;
 		vector<generic_string> filePaths;
@@ -3088,18 +3087,13 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 				filePaths.push_back(pathDropped);
 			}
 		}
-		
-		bool isOldMode = false;
 
-		if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
+		if (filePaths.size() > 0) // old mode or new mode + only files
 		{
-
 			BufferID lastOpened = BUFFER_INVALID;
-			for (int i = 0; i < filesDropped; ++i)
+			for (int i = 0, n = filePaths.size(); i < n; ++i)
 			{
-				TCHAR pathDropped[MAX_PATH];
-				::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
-				BufferID test = doOpen(pathDropped);
+				BufferID test = doOpen(filePaths[i]);
 				if (test != BUFFER_INVALID)
 					lastOpened = test;
 			}
@@ -3109,37 +3103,13 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 				switchToFile(lastOpened);
 			}
 		}
-		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() != 0)) // new mode && both folders & files
+
+		// why commented code when you have source control?
+		if (folderPaths.size() > 0)
 		{
-			// display error & do nothing
-		}
-		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
-		{
-			// process new mode
 			launchFileBrowser(folderPaths);
-
-			/*
-			for (int i = 0; i < filesDropped; ++i)
-			{
-				if (not _pFileBrowser->isAlreadyExist(folderPaths[i]))
-				{
-					vector<generic_string> patterns2Match;
-					patterns2Match.push_back(TEXT("*.*"));
-
-					FolderInfo directoryStructure;
-					getDirectoryStructure(folderPaths[i].c_str(), patterns2Match, directoryStructure, true, false);
-					_pFileBrowser->setDirectoryStructure(directoryStructure);
-				}
-				int j = 0;
-				j++;
-			}
-			*/
 		}
 
-		if (lastOpened != BUFFER_INVALID) 
-		{
-			switchToFile(lastOpened);
-		}
 		::DragFinish(hdrop);
 		// Put Notepad_plus to forefront
 		// May not work for Win2k, but OK for lower versions

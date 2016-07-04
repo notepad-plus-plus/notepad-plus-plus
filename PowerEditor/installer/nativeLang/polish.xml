@@ -290,7 +290,7 @@
                     <Item id="47010" name="Argumenty linii poleceń..."/>
                     <Item id="47011" name="Pomoc na żywo"/>
                     <Item id="48005" name="Importuj wtyczki..."/>
-                    <Item id="48006" name="Import motywy..."/>
+                    <Item id="48006" name="Importuj motywy..."/>
                     <Item id="48009" name="Skróty klawiaturowe..."/>
                     <Item id="48011" name="Preferencje..."/>
                     <Item id="48016" name="Zmień skrót/usuń makro..."/>
@@ -803,7 +803,7 @@
                 </Cloud>
 
                 <MISC title="Inne">
-                    <Item id="6114" name="Umożliwić przełączanie"/>
+                    <Item id="6114" name="Umożliwiaj przełączanie"/>
                     <Item id="6115" name="Automatyczne wcięcia"/>
                     <Item id="6117" name="Kolejność ostatniego użycia (MRU)"/>
                     <Item id="6307" name="Włącz"/>
@@ -849,6 +849,7 @@
                 <Item id="2033" name="Wstaw liczby"/>
                 <Item id="2030" name="Zacznij od:"/>
                 <Item id="2031" name="Zwiększaj o:"/>
+                <Item id="2036" name="Powtarzaj:"/>
                 <Item id="2035" name="Dopełniaj zerami"/>
                 <Item id="2032" name="Format"/>
                 <Item id="2024" name="Dec"/>

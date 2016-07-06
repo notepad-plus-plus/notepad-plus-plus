@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Polish" filename="polish.xml" version="6.8.2">
+    <Native-Langue name="Polish" filename="polish.xml" version="6.9.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -92,7 +92,7 @@
                     <Item id="41016" name="Usuń z dysku"/>
                     <Item id="41017" name="Zmień nazwę..."/>
                     <Item id="41021" name="Odzyskaj ostatnio zamknięty plik"/>
-
+                    <Item id="41022" name="Otwórz folder jako obszar roboczy..."/>
                     <Item id="42001" name="Wyt&amp;nij"/>
                     <Item id="42002" name="&amp;Kopiuj"/>
                     <Item id="42003" name="C&amp;ofnij"/>
@@ -237,6 +237,7 @@
                     <Item id="44082" name="Panel projektu &amp;2"/>
                     <Item id="44083" name="Panel projektu &amp;3"/>
                     <Item id="44084" name="Lista funkcji"/>
+                    <Item id="44085" name="Widok obszaru roboczego"/>
                     <Item id="44086" name="1. Zakładka"/>
                     <Item id="44087" name="2. Zakładka"/>
                     <Item id="44088" name="3. Zakładka"/>
@@ -248,7 +249,7 @@
                     <Item id="44094" name="9. Zakładka"/>
                     <Item id="44095" name="Kolejne zakładki"/>
                     <Item id="44096" name="Poprzednia zakładka"/>
-
+                    <Item id="44097" name="Monitorowanie pliku (tail -f)" />
                     <Item id="45001" name="Konwertuj na format Windows"/>
                     <Item id="45002" name="Konwertuj na format Unix"/>
                     <Item id="45003" name="Konwertuj na format Mac"/>
@@ -288,7 +289,8 @@
                     <Item id="47006" name="Uaktualnij Notepad++"/>
                     <Item id="47009" name="Ustaw proxy aktualizacji..."/>
                     <Item id="47010" name="Argumenty linii poleceń..."/>
-                    <Item id="47011" name="Pomoc na żywo"/>
+                    <Item id="47011" name="Czat użytkowników..."/>
+                    <Item id="47012" name="Informacje o środowisku..."/>
                     <Item id="48005" name="Importuj wtyczki..."/>
                     <Item id="48006" name="Importuj motywy..."/>
                     <Item id="48009" name="Skróty klawiaturowe..."/>
@@ -684,6 +686,7 @@
                     <Item id="6413" name="Folder domyślny (otwórz/zapisz)"/>
                     <Item id="6414" name="Według bieżącego dokumentu"/>
                     <Item id="6415" name="Zapamiętaj ostatnio użyty folder"/>
+                    <Item id="6430" name="Użyj nowego stylu okna zapisywania (bez domyślnego rozszerzenia pliku)" />
                 </DefaultDir>
 
                 <FileAssoc title="Powiązania plików">
@@ -827,6 +830,7 @@
                     <Item id="6333" name="Inteligentne podświetlanie"/>
                     <Item id="6334" name="Automatycznie rozpoznaj kodowanie"/>
                     <Item id="6335" name="Użyj '\' jako znaku ucieczki dla SQL"/>
+                    <Item id="6337" name="Roz. pliku obszaru rob.:"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Uruchom makro wielokrotnie">
@@ -908,6 +912,9 @@ Twoje ustawienia w chmurze zostaną anulowane. Zmień miejsce zapisu ustawień p
             <SortTip name="Sortuj" />
             <ReloadTip name="Odśwież" />
         </FunctionList>
+        <FileBrowser>
+            <PanelTitle name="Obszar roboczy"/>
+        </FileBrowser>
         <ProjectManager>
             <PanelTitle name="Projekt"/>
             <WorkspaceRootName name="Obszar roboczy"/>

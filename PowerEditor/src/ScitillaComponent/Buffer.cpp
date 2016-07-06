@@ -518,11 +518,7 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 
 void FileManager::checkFilesystemChanges()
 {
-<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 	for (int i = int(_nrBufs) - 1; i >= 0 ; i--)
-=======
-	for(int i = int(_nrBufs) - 1 ; i >= 0 ; i--)
->>>>>>> Corrected a few variable types, fixing a few integer overflows.
     {
         if (i >= int(_nrBufs))
         {
@@ -818,7 +814,7 @@ bool FileManager::backupCurrentBuffer()
 					// problem!!!
 					printStr(TEXT("CreateEvent problem in backupCurrentBuffer()!"));
 					return false;
-				}
+			}
 			}
 			else
 			{
@@ -1276,11 +1272,7 @@ int FileManager::detectCodepage(char* buf, size_t len)
 	return codepage;
 }
 
-<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
-LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen)
-=======
 LangType FileManager::detectLanguageFromTextBeginning(const unsigned char *data, size_t dataLen)
->>>>>>> Corrected a few variable types, fixing a few integer overflows.
 {
 	struct FirstLineLanguages
 	{

@@ -3329,11 +3329,7 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 		{
 			int toActivate = 0;
 			//activate next doc, otherwise prev if not possible
-<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 			if (size_t(active) == tabToClose->nbItem() - 1) //prev
-=======
-			if (active == int(tabToClose->nbItem()) - 1) //prev
->>>>>>> Corrected a few variable types, fixing a few integer overflows.
 			{
 				toActivate = active - 1;
 			}
@@ -3913,13 +3909,13 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 				size_t len = (generic_strnicmp(commentStr.c_str(), comment.c_str(), comment_length) == 0) ? comment_length : comment_length - 1;
 
 				_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
-				_pEditView->replaceSelWith("");
+					_pEditView->replaceSelWith("");
 
-				if (i == selStartLine) // is this the first selected line?
+					if (i == selStartLine) // is this the first selected line?
 					selectionStart -= len;
 				selectionEnd -= len; // every iteration
 				++nUncomments;
-				continue;
+					continue;
 			}
 		}
 		if ((currCommentMode == cm_toggle) || (currCommentMode == cm_comment))
@@ -4692,12 +4688,8 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {
 	TCHAR savePath[MAX_PATH] = {0};
 
 	//rescue primary
-<<<<<<< 1aaf78b0c1375ef150ad4def365323026064d292
 	for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
 	{
-=======
-	for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i) {
->>>>>>> Corrected a few variable types, fixing a few integer overflows.
 		Buffer * docbuf = MainFileManager->getBufferByIndex(i);
 		if (!docbuf->isDirty())	//skip saved documents
 			continue;

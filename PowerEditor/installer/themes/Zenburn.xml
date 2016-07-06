@@ -406,7 +406,7 @@ License:             Feel free to modify this style and re-release it. This styl
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="7F9F7F" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="JavaScript" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="8CD0D3" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
@@ -814,6 +814,7 @@ License:             Feel free to modify this style and re-release it. This styl
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="DFDFDF" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
             <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="DFDFDF" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="C89191" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ENTITY" styleID="10" fgColor="CFBFAF" bgColor="3F3F3F" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="yaml" desc="YAML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="DCDCCC" bgColor="3F3F3F" fontName="" fontStyle="0" fontSize="" />

@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 6.9.1
-    Last modified Wed, March 20th, 2016 by Luca Leonardi.
+    Italian translation for Notepad++ 6.9.2
+    Last modified Wed, May 21st, 2016 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -254,6 +254,7 @@
                     <Item id = "44094" name = "Nona scheda" />
                     <Item id = "44095" name = "Scheda successiva" />
                     <Item id = "44096" name = "Scheda precedente" />
+                    <Item id = "44097" name = "Monitora" />
 
                     <Item id = "45001" name = "Formato Windows" />
                     <Item id = "45002" name = "Formato UNIX" />

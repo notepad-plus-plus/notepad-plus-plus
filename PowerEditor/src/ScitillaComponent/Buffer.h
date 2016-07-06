@@ -74,9 +74,9 @@ public:
 	//void activateBuffer(int index);
 	void checkFilesystemChanges();
 
-	int getNrBuffers() { return _nrBufs; };
+	size_t getNrBuffers() { return _nrBufs; };
 	int getBufferIndexByID(BufferID id);
-	Buffer * getBufferByIndex(int index);	//generates exception if index is invalid
+	Buffer * getBufferByIndex(size_t index);
 	Buffer * getBufferByID(BufferID id) {return (Buffer*)id;}
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
@@ -114,7 +114,7 @@ private:
 	~FileManager();
 	int detectCodepage(char* buf, size_t len);
 	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int & encoding, EolType & eolFormat);
-	LangType detectLanguageFromTextBegining(const unsigned char *data, unsigned int dataLen);
+	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
 
 private:

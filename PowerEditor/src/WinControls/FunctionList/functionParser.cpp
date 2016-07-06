@@ -248,7 +248,7 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 				{
 					if (_parsers[i]->_id == id)
 					{
-						_associationMap.push_back(AssociationInfo(i, langIDStr?langID:-1, exts?exts:TEXT(""), userDefinedLangName?userDefinedLangName:TEXT("")));
+						_associationMap.push_back(AssociationInfo(static_cast<int32_t>(i), langIDStr ? langID : -1, exts ? exts : TEXT(""), userDefinedLangName ? userDefinedLangName : TEXT("")));
 						break;
 					}
 				}
@@ -464,13 +464,13 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 
 	(*ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 	int targetStart = (*ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
-	int targetEnd = 0;
+	LRESULT targetEnd = 0;
 
 	do
 	{
 		if (targetStart != -1 && targetStart != -2) // found open or close symbol
 		{
-			targetEnd = int((*ppEditView)->execute(SCI_GETTARGETEND));
+			targetEnd = (*ppEditView)->execute(SCI_GETTARGETEND);
 
 			// Treat it only if it's NOT in the comment zone
 			if (!isInZones(targetStart, commentZones))
@@ -523,7 +523,7 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 
 		if (not _openSymbole.empty() && not _closeSymbole.empty())
 		{
-			targetEnd = getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), commentZones, ppEditView);
+			targetEnd = static_cast<int32_t>(getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), commentZones, ppEditView));
 		}
 
 		if (targetEnd > int(end)) //we found a result but outside our range, therefore do not process it

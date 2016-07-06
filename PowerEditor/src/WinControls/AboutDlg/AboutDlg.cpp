@@ -47,6 +47,10 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			buildTime += TEXT(" - ");
 			buildTime +=  wmc->char2wchar(__TIME__, CP_ACP);
 
+			NppParameters *pNppParam = NppParameters::getInstance();
+			LPCTSTR bitness = pNppParam ->isx64() ? TEXT("(64-bit)") : TEXT("(32-bit)");
+			::SetDlgItemText(_hSelf, IDC_VERSION_BIT, bitness);
+
 			::SendMessage(compileDateHandle, WM_SETTEXT, 0, (LPARAM)buildTime.c_str());
 			::EnableWindow(compileDateHandle, FALSE);
 
@@ -62,7 +66,6 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 
 			getClientRect(_rc);
 
-			NppParameters *pNppParam = NppParameters::getInstance();
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 			{
@@ -120,8 +123,11 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 	{
 		case WM_INITDIALOG:
 		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+
 			// Notepad++ version
 			_debugInfoStr = NOTEPAD_PLUS_VERSION;
+			_debugInfoStr += pNppParam->isx64() ? TEXT("   (64-bit)") : TEXT("   (32-bit)");
 			_debugInfoStr += TEXT("\r\n");
 
 			// Build time

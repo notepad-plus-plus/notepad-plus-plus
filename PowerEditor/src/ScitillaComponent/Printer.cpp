@@ -213,13 +213,13 @@ size_t Printer::doPrint(bool justDoIt)
 	{
 		if (_startPos > _endPos) 
 		{
-			lengthPrinted = _endPos;
-			lengthDoc = _startPos;
+			lengthPrinted = static_cast<long>(_endPos);
+			lengthDoc = static_cast<long>(_startPos);
 		}
 		else 
 		{
-			lengthPrinted = _startPos;
-			lengthDoc = _endPos;
+			lengthPrinted = static_cast<long>(_startPos);
+			lengthDoc = static_cast<long>(_endPos);
 		}
 
 		if (lengthPrinted < 0)

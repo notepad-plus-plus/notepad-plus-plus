@@ -87,20 +87,22 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 	if (isInLoadedDlls(pluginFileName))
 		return 0;
 
+	NppParameters * nppParams = NppParameters::getInstance();
+
 	PluginInfo *pi = new PluginInfo;
 	try
 	{
 		pi->_moduleName = PathFindFileName(pluginFilePath);
 
-	        pi->_hLib = ::LoadLibrary(pluginFilePath);
-                if (!pi->_hLib)
-                {
-                    const std::wstring& lastErrorMsg = GetLastErrorAsString();
-                    if (lastErrorMsg.empty())
-                        throw generic_string(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
-                    else
-                        throw generic_string(lastErrorMsg.c_str());
-                }
+	    pi->_hLib = ::LoadLibrary(pluginFilePath);
+        if (!pi->_hLib)
+        {
+            const std::wstring& lastErrorMsg = GetLastErrorAsString();
+            if (lastErrorMsg.empty())
+                throw generic_string(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
+            else
+                throw generic_string(lastErrorMsg.c_str());
+        }
         
 		pi->_pFuncIsUnicode = (PFUNCISUNICODE)GetProcAddress(pi->_hLib, "isUnicode");
 		if (!pi->_pFuncIsUnicode || !pi->_pFuncIsUnicode())
@@ -156,8 +158,6 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			lexDesc[0] = '\0';
 
 			int numLexers = GetLexerCount();
-
-			NppParameters * nppParams = NppParameters::getInstance();
 
 			ExternalLangContainer *containers[30];
 
@@ -218,7 +218,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		}
 		addInLoadedDlls(pluginFileName);
 		_pluginInfos.push_back(pi);
-        return (_pluginInfos.size() - 1);
+		return static_cast<int32_t>(_pluginInfos.size() - 1);
 	}
 	catch (std::exception e)
 	{
@@ -347,7 +347,7 @@ void PluginsManager::addInMenuFromPMIndex(int i)
 
         _pluginsCommands.push_back(PluginCommand(_pluginInfos[i]->_moduleName.c_str(), j, _pluginInfos[i]->_funcItems[j]._pFunc));
 
-		int cmdID = ID_PLUGINS_CMD + (_pluginsCommands.size() - 1);
+		int cmdID = ID_PLUGINS_CMD + static_cast<int32_t>(_pluginsCommands.size() - 1);
 		_pluginInfos[i]->_funcItems[j]._cmdID = cmdID;
 		generic_string itemName = _pluginInfos[i]->_funcItems[j]._itemName;
 
@@ -390,7 +390,7 @@ HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 
 		for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 		{
-            addInMenuFromPMIndex(i);
+			addInMenuFromPMIndex(static_cast<int32_t>(i));
 		}
         return _hPluginsMenu;
 	}
@@ -470,10 +470,10 @@ void PluginsManager::notify(const SCNotification *notification)
 			}
 			catch (...)
 			{
-				TCHAR funcInfo[128];
+				TCHAR funcInfo[256];
 				generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %d"),\
 					scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, scNotif.nmhdr.idFrom);
-				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), funcInfo);
+				pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
 			}
 		}
 	}
@@ -498,7 +498,7 @@ void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam
 			{
 				TCHAR funcInfo[128];
 				generic_sprintf(funcInfo, TEXT("relayNppMessages(UINT Message : %d, WPARAM wParam : %d, LPARAM lParam : %d)"), Message, wParam, lParam);
-				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), TEXT(""));
+				pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
 			}
 		}
 	}
@@ -529,7 +529,7 @@ bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					TCHAR funcInfo[128];
 					generic_sprintf(funcInfo, TEXT("relayPluginMessages(UINT Message : %d, WPARAM wParam : %d, LPARAM lParam : %d)"), Message, wParam, lParam);
-					pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), funcInfo);
+					pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
 				}
 				return true;
             }

@@ -139,7 +139,7 @@ void VerticalFileSwitcherListView::initList()
 		item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
 		
 		item.pszText = fn;
-		item.iItem = i;
+		item.iItem = static_cast<int32_t>(i);
 		item.iSubItem = 0;
 		item.iImage = fileNameStatus._status;
 		item.lParam = (LPARAM)tl;
@@ -225,12 +225,12 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 generic_string VerticalFileSwitcherListView::getFullFilePath(size_t i) const
 {
 	size_t nbItem = ListView_GetItemCount(_hSelf);
-	if (i < 0 || i > nbItem)
+	if (i > nbItem)
 		return TEXT("");
 
 	LVITEM item;
 	item.mask = LVIF_PARAM;
-	item.iItem = i;
+	item.iItem = static_cast<int32_t>(i);
 	ListView_GetItem(_hSelf, &item);
 	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 

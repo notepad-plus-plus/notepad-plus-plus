@@ -284,6 +284,7 @@
 #define IDC_ONLINEHELP_ADDR 1704
 #define IDC_AUTHOR_NAME 1705
 #define IDC_BUILD_DATETIME 1706        //LS: CompileDateInAboutDialog: Automatically insert compile date as additional version info in About-dialog!
+#define IDC_VERSION_BIT 1707
 
 #define IDD_DEBUGINFOBOX 1750
 #define IDC_DEBUGINFO_EDIT 1751

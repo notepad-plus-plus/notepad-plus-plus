@@ -50,7 +50,7 @@ GlobalMappers & globalMappper()
 
 bool SharedParametersDialog::setPropertyByCheck(HWND hwnd, WPARAM id, bool & bool2set)
 {
-    bool2set = (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, id), BM_GETCHECK, 0, 0));
+    bool2set = (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, int(id)), BM_GETCHECK, 0, 0));
 
     if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
         _pScintilla->styleChange();
@@ -990,7 +990,7 @@ void UserDefineDialog::changeStyle()
     _status = !_status;
     ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, (_status == DOCK)?TEXT("Undock"):TEXT("Dock"));
 
-    long style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
+	auto style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
     if (!style)
         ::MessageBox(NULL, TEXT("GetWindowLongPtr failed in UserDefineDialog::changeStyle()"), TEXT(""), MB_OK);
 
@@ -998,7 +998,7 @@ void UserDefineDialog::changeStyle()
         ((style & ~WS_POPUP) & ~DS_MODALFRAME & ~WS_CAPTION) | WS_CHILD :
         (style & ~WS_CHILD) | WS_POPUP | DS_MODALFRAME | WS_CAPTION;
 
-    long result = ::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
+    auto result = ::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
     if (!result)
         ::MessageBox(NULL, TEXT("SetWindowLongPtr failed in UserDefineDialog::changeStyle()"), TEXT(""), MB_OK);
 
@@ -1010,7 +1010,7 @@ void UserDefineDialog::changeStyle()
     ::SetParent(_hSelf, (_status == DOCK)?_hParent:NULL);
 }
 
-void UserDefineDialog::enableLangAndControlsBy(int index)
+void UserDefineDialog::enableLangAndControlsBy(size_t index)
 {
     _pUserLang = (index == 0)?_pCurrentUserLang:&((NppParameters::getInstance())->getULCFromIndex(index - 1));
     if (index != 0)
@@ -1026,7 +1026,7 @@ void UserDefineDialog::updateDlg()
 {
     if (!_isDirty)
     {
-        int i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+		int i = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0));
         if (i > 0)
             _isDirty = true;
     }
@@ -1150,8 +1150,8 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
         {
             if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_UD_PERCENTAGE_SLIDER))
             {
-                int percent = ::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
-                pNppParam->SetTransparent(_hSelf, percent/*HIWORD(wParam)*/);
+				int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
+                pNppParam->SetTransparent(_hSelf, percent);
             }
             return TRUE;
         }
@@ -1169,7 +1169,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
             {
                 if (LOWORD(wParam) == IDC_LANGNAME_COMBO)
                 {
-                    int i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
+					auto i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
                     enableLangAndControlsBy(i);
                     updateDlg();
                 }
@@ -1203,7 +1203,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                                 bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_UD_TRANSPARENT_CHECK, BM_GETCHECK, 0, 0));
                                 if (isChecked)
                                 {
-                                    int percent = ::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
+									int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
                                     pNppParam->SetTransparent(_hSelf, percent);
                                 }
                                 ::ShowWindow(::GetDlgItem(_hSelf, IDC_UD_TRANSPARENT_CHECK), SW_SHOW);
@@ -1226,7 +1226,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         int result = ::MessageBox(_hSelf, TEXT("Are you sure?"), TEXT("Remove the current language"), MB_YESNO);
                         if (result == IDYES)
                         {
-                            int i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+                            auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                             TCHAR langName[256];
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, (LPARAM)langName);
 
@@ -1240,7 +1240,9 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                             //remove current language from langMenu
                             HWND hNpp = ::GetParent(_hSelf);
-                            ::RemoveMenu(::GetSubMenu((HMENU)::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_LANGUAGE), IDM_LANG_USER + i, MF_BYCOMMAND);
+							HMENU m = (HMENU)::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0);
+							HMENU subMenu = ::GetSubMenu(m, MENUINDEX_LANGUAGE);
+							::RemoveMenu(subMenu, IDM_LANG_USER + UINT(i), MF_BYCOMMAND);
                             ::DrawMenuBar(hNpp);
                             ::SendMessage(_hParent, WM_REMOVE_USERLANG, 0, (LPARAM)langName);
                         }
@@ -1249,7 +1251,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                     case IDC_RENAME_BUTTON :
                     {
                         TCHAR langName[256];
-                        int i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+                        auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                         ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, (LPARAM)langName);
 
                         StringDlg strDlg;
@@ -1276,7 +1278,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                             //rename current language name in langMenu
                             HWND hNpp = ::GetParent(_hSelf);
-                            ::ModifyMenu(::GetSubMenu((HMENU)::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_LANGUAGE), IDM_LANG_USER + i, MF_BYCOMMAND, IDM_LANG_USER + i, newName);
+                            ::ModifyMenu(::GetSubMenu((HMENU)::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_LANGUAGE), IDM_LANG_USER + UINT(i), MF_BYCOMMAND, IDM_LANG_USER + i, newName);
                             ::DrawMenuBar(hNpp);
                             ::SendMessage(_hParent, WM_RENAME_USERLANG, (WPARAM)newName, (LPARAM)langName);
                         }
@@ -1288,7 +1290,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                     case IDC_SAVEAS_BUTTON :
                     {
                         //TCHAR langName[256];
-                        int i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+                        auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                         //::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, (LPARAM)langName);
                         if (i == 0)
                             wParam = IDC_ADDNEW_BUTTON;
@@ -1341,7 +1343,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         bool isSuccessful = pNppParam->importUDLFromFile(sourceFile);
                         if (isSuccessful)
                         {
-                            int i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+                            auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                             reloadLangCombo();
                             ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, i, 0);
                             _isDirty = true;
@@ -1356,7 +1358,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                     case IDC_EXPORT_BUTTON :
                     {
-						int i2Export = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+						auto i2Export = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
                         if (i2Export == 0)
                         {
                             // maybe a better option would be to simply send IDC_SAVEAS_BUTTON message, and display "Save As..." dialog?
@@ -1390,7 +1392,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_UD_TRANSPARENT_CHECK, BM_GETCHECK, 0, 0));
                         if (isChecked)
                         {
-                            int percent = ::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
+							int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
                             pNppParam->SetTransparent(_hSelf, percent);
                         }
                         else
@@ -1585,7 +1587,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             else
                 wsprintf(size, TEXT("%d"),style._fontSize);
 
-            int i = ::SendMessage(hFontSizeCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)size);
+            auto i = ::SendMessage(hFontSizeCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)size);
             if (i != CB_ERR)
                 ::SendMessage(hFontSizeCombo, CB_SETCURSEL, i, 0);
 
@@ -1594,11 +1596,11 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             const std::vector<generic_string> & fontlist = pNppParam->getFontList();
             for (size_t j = 0, len = fontlist.size() ; j < len ; ++j)
             {
-                int k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[j].c_str());
+                auto k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[j].c_str());
                 ::SendMessage(hFontNameCombo, CB_SETITEMDATA, k, (LPARAM)fontlist[j].c_str());
             }
 
-            i = ::SendMessage(hFontNameCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)style._fontName);
+			i = ::SendMessage(hFontNameCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)style._fontName);
             if (i == CB_ERR)
                 i = 0;
             ::SendMessage(hFontNameCombo, CB_SETCURSEL, i, 0);
@@ -1655,7 +1657,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             Style & style = SharedParametersDialog::_pUserLang->_styleArray.getStyler(dlg->_stylerIndex);
             if (HIWORD(wParam) == CBN_SELCHANGE)
             {
-                int i = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETCURSEL, 0, 0);
+                auto i = ::SendDlgItemMessage(hwnd, LOWORD(wParam), CB_GETCURSEL, 0, 0);
                 if (LOWORD(wParam) == IDC_STYLER_COMBO_FONT_SIZE)
                 {
                     TCHAR intStr[5];

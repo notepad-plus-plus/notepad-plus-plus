@@ -218,8 +218,8 @@ INT_PTR CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
                 {
 			        if (HIWORD(wParam) == LBN_SELCHANGE)
 		            {
-                        int i = ::SendMessage((HWND)lParam, LB_GETCURSEL, 0L, 0L);
-                        _colour = ::SendMessage((HWND)lParam, LB_GETITEMDATA, i, 0L);
+                        auto i = ::SendMessage((HWND)lParam, LB_GETCURSEL, 0L, 0L);
+						_colour = static_cast<COLORREF>(::SendMessage((HWND)lParam, LB_GETITEMDATA, i, 0L));
 
                         ::SendMessage(_hParent, WM_PICKUP_COLOR, _colour, 0);
 					    return TRUE;

@@ -41,6 +41,7 @@
 #include "resource.h"
 #endif //RESOURCE_H
 
+#include <stdint.h>
 #include <windows.h>
 #include <commctrl.h>
 #include "Window.h"
@@ -80,12 +81,12 @@ public:
 	void activateAt(int index) const;
 	void getCurrentTitle(TCHAR *title, int titleLen);
 
-	int getCurrentTabIndex() const {
-		return ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0);
+	int32_t getCurrentTabIndex() const {
+		return static_cast<int32_t>(SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 	};
 
-	int getItemCount() const {
-		return ::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0);
+	int32_t getItemCount() const {
+		return static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0));
 	}
 
 	void deletItemAt(size_t index);
@@ -97,11 +98,11 @@ public:
 
 	void setImageList(HIMAGELIST himl);
 
-    int nbItem() const {
+    size_t nbItem() const {
         return _nbItem;
     }
 
-	void setFont(TCHAR *fontName, size_t fontSize);
+	void setFont(TCHAR *fontName, int fontSize);
 
 	void setVertical(bool b) {
 		_isVertical = b;
@@ -277,12 +278,12 @@ protected:
 		return getTabIndexAt(p.x, p.y);
 	}
 
-	int getTabIndexAt(int x, int y)
+	int32_t getTabIndexAt(int x, int y)
 	{
 		TCHITTESTINFO hitInfo;
 		hitInfo.pt.x = x;
 		hitInfo.pt.y = y;
-		return ::SendMessage(_hSelf, TCM_HITTEST, 0, (LPARAM)&hitInfo);
+		return static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, (LPARAM)&hitInfo));
 	}
 
 	bool isPointInParentZone(POINT screenPoint) const

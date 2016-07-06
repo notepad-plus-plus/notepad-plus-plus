@@ -332,7 +332,7 @@
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="80A0FF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="JavaScript" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
@@ -695,6 +695,7 @@
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ENTITY" styleID="10" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="yaml" desc="YAML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000040" fontName="" fontStyle="0" fontSize="" />

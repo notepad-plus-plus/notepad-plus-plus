@@ -244,7 +244,7 @@ public :
 	bool renameDialogTitle(const TCHAR *internalName, const TCHAR *newName);
 	
 	int getListSelectedIndex() const {
-		return ::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETCURSEL, 0, 0);
+		return static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETCURSEL, 0, 0));
 	};
 	void setListSelection(size_t currentSel) const;
 
@@ -253,7 +253,7 @@ public :
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	void makeCategoryList();
-	void showDialogByIndex(int index);
+	void showDialogByIndex(size_t index);
 	//ControlsTab _ctrlTab;
 	WindowVector _wVector;
 	BarsDlg _barsDlg;

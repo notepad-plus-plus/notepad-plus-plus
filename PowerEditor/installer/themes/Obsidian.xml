@@ -339,7 +339,7 @@ Notepad++ Custom Style
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="6C788C" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="6C788C" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="JavaScript" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="FFCD22" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
@@ -729,6 +729,7 @@ Notepad++ Custom Style
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="B3B689" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="D39745" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="D5E6F0" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ENTITY" styleID="10" fgColor="BBBBBB" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="yaml" desc="YAML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />

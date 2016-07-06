@@ -208,7 +208,7 @@ Credits:
             <WordsStyle name="COMMENTLINE" styleID="125" fgColor="666666" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="OPERATOR" styleID="127" fgColor="E5C138" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="JavaScript" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="BDAF9D" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="FF3A83" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="WORD" styleID="46" fgColor="BDAE9D" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
@@ -252,6 +252,7 @@ Credits:
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="FF8080" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="55E439" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="CDATA" styleID="17" fgColor="FF3A83" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="ENTITY" styleID="10" fgColor="FF3A83" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
         <LexerType name="ini" desc="ini file" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F8" bgColor="2A211C" fontName="" fontStyle="0" fontSize="10" />

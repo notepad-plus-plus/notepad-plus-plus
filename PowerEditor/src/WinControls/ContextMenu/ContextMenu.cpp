@@ -80,7 +80,7 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 				j = 0;
 
 				_subMenus.push_back(hParentFolder);
-				::InsertMenu(_hMenu, i, MF_BYPOSITION | MF_POPUP, (UINT_PTR)hParentFolder, currentParentFolderStr.c_str());
+				::InsertMenu(_hMenu, static_cast<UINT>(i), MF_BYPOSITION | MF_POPUP, (UINT_PTR)hParentFolder, currentParentFolderStr.c_str());
 			}
 		}
 
@@ -96,12 +96,12 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 		}
 		else if (item._cmdID != 0)
 		{
-			::InsertMenu(_hMenu, i, flag, item._cmdID, item._itemName.c_str());
+			::InsertMenu(_hMenu, static_cast<UINT>(i), flag, item._cmdID, item._itemName.c_str());
 			lastIsSep = false;
 		}
 		else if (item._cmdID == 0 && !lastIsSep)
 		{
-			::InsertMenu(_hMenu, i, flag, item._cmdID, item._itemName.c_str());
+			::InsertMenu(_hMenu, static_cast<int32_t>(i), flag, item._cmdID, item._itemName.c_str());
 			lastIsSep = true;
 		}
 		else // last item is separator and current item is separator

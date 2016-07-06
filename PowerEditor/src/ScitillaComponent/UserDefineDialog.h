@@ -403,7 +403,7 @@ private :
         _dlgPos.bottom -= _dlgPos.top;
     };
     void restorePosSize(){reSizeTo(_dlgPos);};
-    void enableLangAndControlsBy(int index);
+    void enableLangAndControlsBy(size_t index);
 protected :
     void setKeywords2List(int){};
     void updateDlg();

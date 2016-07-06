@@ -98,7 +98,7 @@ void CReadChangesRequest::BeginRead()
 	::ReadDirectoryChangesW(
 		m_hDirectory,						// handle to directory
 		&m_Buffer[0],                       // read results buffer
-		m_Buffer.size(),                    // length of buffer
+		static_cast<DWORD>(m_Buffer.size()),                    // length of buffer
 		m_bIncludeChildren,                 // monitoring option
 		m_dwFilterFlags,                    // filter conditions
 		&dwBytes,                           // bytes returned

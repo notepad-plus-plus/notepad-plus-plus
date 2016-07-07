@@ -84,7 +84,7 @@ public:
 	void insertMatchedChars(int character, const MatchedPairConf & matchedPairConf);
 	void update(int character);
 	void callTipClick(int direction);
-	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, LangType language);
+	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
 
 private:
 	bool _funcCompletionActive = false;

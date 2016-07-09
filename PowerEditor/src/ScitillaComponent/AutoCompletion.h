@@ -94,6 +94,8 @@ public:
 	void callTipClick(int direction);
 	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, LangType language);
 
+	bool _disabledOnCharAdded;
+
 private:
 	bool _funcCompletionActive;
 	ScintillaEditView * _pEditView;

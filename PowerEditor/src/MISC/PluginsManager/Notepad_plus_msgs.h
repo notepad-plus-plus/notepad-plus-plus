@@ -419,6 +419,12 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	#define NPPM_DISABLEAUTOUPDATE (NPPMSG + 95) // 2119 in decimal
 	// VOID NPPM_DISABLEAUTOUPDATE(0, 0)
 
+	#define NPPM_SETAUTOCOMPLETIONDISABLEDONCHARADDED (NPPMSG + 97)
+	// BOOL NPPM_SETAUTOCOMPLETIONDISABLEDONCHARADDED(0, 0/1)
+	// Allows plugins to programmatically disable the autocompletion shown when typing characters
+	// the user can still call the autocompletion window manually
+	// Return : the previous status (true if disabled, false otherwise)
+
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)

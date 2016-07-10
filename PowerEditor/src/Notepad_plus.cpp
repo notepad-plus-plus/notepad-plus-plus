@@ -2434,10 +2434,9 @@ int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char target
 	if (startPos == endPos)
 		return -1;
 
-	int balance = 0;
-
 	if (startPos > endPos) // backward
 	{
+		int balance = 0;
 		for (int i = int(startPos); i >= int(endPos); --i)
 		{
 			char aChar = (char)_pEditView->execute(SCI_GETCHARAT, i);
@@ -4985,7 +4984,6 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 
 	NppParameters *nppParams = NppParameters::getInstance();
 	FileNameStringSplitter fnss(commandLine);
-	const TCHAR *pFn = NULL;
 
 	// loading file as session file is allowed only when there is only one file
 	if (pCmdParams->_isSessionFile && fnss.size() == 1)
@@ -5008,7 +5006,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 	BufferID lastOpened = BUFFER_INVALID;
 	for (int i = 0, len = fnss.size(); i < len ; ++i)
 	{
-		pFn = fnss.getFileName(i);
+		const TCHAR *pFn = fnss.getFileName(i);
 		if (!pFn) return;
 
 		BufferID bufID = doOpen(pFn, recursive, readOnly);

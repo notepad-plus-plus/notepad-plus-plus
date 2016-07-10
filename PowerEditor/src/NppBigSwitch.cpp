@@ -529,7 +529,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				case COPYDATA_PARAMS:
 				{
-					CmdLineParams *cmdLineParam = (CmdLineParams *)pCopyData->lpData; // CmdLineParams object from another instance
+					CmdLineParams *cmdLineParam = reinterpret_cast<CmdLineParams *>(pCopyData->lpData); // CmdLineParams object from another instance
 					auto cmdLineParamsSize = static_cast<size_t>(pCopyData->cbData);  // CmdLineParams size from another instance
 					if (sizeof(CmdLineParams) == cmdLineParamsSize) // make sure the structure is the same
 					{
@@ -810,7 +810,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (!wParam)
 				return 0;
 
-			TaskListInfo * tli = (TaskListInfo *)wParam;
+			TaskListInfo * tli = reinterpret_cast<TaskListInfo *>(wParam);
 			getTaskListInfo(tli);
 
 			if (lParam != 0)

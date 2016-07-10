@@ -69,7 +69,7 @@ INT_PTR CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LP
 
 		case WM_INITDIALOG :
 		{
-			ColourPopup *pColourPopup = (ColourPopup *)(lParam);
+			ColourPopup *pColourPopup = reinterpret_cast<ColourPopup *>(lParam);
 			pColourPopup->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)lParam);
 			pColourPopup->run_dlgProc(message, wParam, lParam);

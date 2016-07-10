@@ -112,7 +112,7 @@ VOID CALLBACK CReadChangesRequest::NotificationCompletion(
 	DWORD dwNumberOfBytesTransfered,					// number of bytes transferred
 	LPOVERLAPPED lpOverlapped)							// I/O information buffer
 {
-	CReadChangesRequest* pBlock = (CReadChangesRequest*)lpOverlapped->hEvent;
+	CReadChangesRequest* pBlock = reinterpret_cast<CReadChangesRequest*>(lpOverlapped->hEvent);
 
 	if (dwErrorCode == ERROR_OPERATION_ABORTED)
 	{

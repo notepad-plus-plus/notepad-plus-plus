@@ -782,12 +782,11 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	//-- font style : bold & italic
 	isEnable = false;
-	int isBold, isItalic, isUnderline;
 	if (style._fontStyle != STYLE_NOT_USED)
 	{
-		isBold = (style._fontStyle & FONTSTYLE_BOLD)?BST_CHECKED:BST_UNCHECKED;
-		isItalic = (style._fontStyle & FONTSTYLE_ITALIC)?BST_CHECKED:BST_UNCHECKED;
-		isUnderline = (style._fontStyle & FONTSTYLE_UNDERLINE)?BST_CHECKED:BST_UNCHECKED;
+		int isBold = (style._fontStyle & FONTSTYLE_BOLD)?BST_CHECKED:BST_UNCHECKED;
+		int isItalic = (style._fontStyle & FONTSTYLE_ITALIC)?BST_CHECKED:BST_UNCHECKED;
+		int isUnderline = (style._fontStyle & FONTSTYLE_UNDERLINE)?BST_CHECKED:BST_UNCHECKED;
 		::SendMessage(_hCheckBold, BM_SETCHECK, isBold, 0);
 		::SendMessage(_hCheckItalic, BM_SETCHECK, isItalic, 0);
 		::SendMessage(_hCheckUnderline, BM_SETCHECK, isUnderline, 0);

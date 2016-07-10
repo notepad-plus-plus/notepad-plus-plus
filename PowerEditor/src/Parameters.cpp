@@ -3105,16 +3105,14 @@ void NppParameters::feedUserSettings(TiXmlNode *settingsRoot)
 void NppParameters::feedUserKeywordList(TiXmlNode *node)
 {
 	const TCHAR * udlVersion = _userLangArray[_nbUserLang - 1]->_udlVersion.c_str();
-	const TCHAR * keywordsName = nullptr;
-	TCHAR *kwl = nullptr;
 	int id = -1;
 
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("Keywords"));
 		childNode ;
 		childNode = childNode->NextSibling(TEXT("Keywords")))
 	{
-		keywordsName = (childNode->ToElement())->Attribute(TEXT("name"));
-		kwl = nullptr;
+		const TCHAR * keywordsName = (childNode->ToElement())->Attribute(TEXT("name"));
+		TCHAR *kwl = nullptr;
 
 		TiXmlNode *valueNode = childNode->FirstChild();
 		if (valueNode)
@@ -3183,14 +3181,13 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 
 void NppParameters::feedUserStyles(TiXmlNode *node)
 {
-	const TCHAR *styleName = NULL;
 	int id = -1;
 
 	for (TiXmlNode *childNode = node->FirstChildElement(TEXT("WordsStyle"));
 		childNode ;
 		childNode = childNode->NextSibling(TEXT("WordsStyle")))
 	{
-		styleName = (childNode->ToElement())->Attribute(TEXT("name"));
+		const TCHAR *styleName = (childNode->ToElement())->Attribute(TEXT("name"));
 		if (styleName)
 		{
 			if (globalMappper().styleIdMapper.find(styleName) != globalMappper().styleIdMapper.end())

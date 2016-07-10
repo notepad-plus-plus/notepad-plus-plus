@@ -77,7 +77,7 @@ public:
 	size_t getNrBuffers() { return _nrBufs; };
 	int getBufferIndexByID(BufferID id);
 	Buffer * getBufferByIndex(size_t index);
-	Buffer * getBufferByID(BufferID id) {return (Buffer*)id;}
+	Buffer * getBufferByID(BufferID id) {return static_cast<Buffer*>(id);}
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
 

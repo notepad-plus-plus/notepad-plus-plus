@@ -186,7 +186,7 @@ int VerticalFileSwitcherListView::newItem(BufferID bufferID, int iView)
 
 void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 {
-	Buffer *buf = (Buffer *)bufferID;
+	Buffer *buf = static_cast<Buffer *>(bufferID);
 	
 	TCHAR fn[MAX_PATH];
 	lstrcpy(fn, ::PathFindFileName(buf->getFileName()));
@@ -259,7 +259,7 @@ void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 {
 	int index = ListView_GetItemCount(_hSelf);
-	Buffer *buf = (Buffer *)bufferID;
+	Buffer *buf = static_cast<Buffer *>(bufferID);
 	const TCHAR *fileName = buf->getFileName();
 
 	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, fileName, 0, (void *)bufferID);

@@ -652,7 +652,7 @@ struct SortZones final
 
 void FunctionMixParser::parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName)
 {
-	vector< pair<int, int> > commentZones, scannedZones, nonCommentZones, nonScannedZones;
+	vector< pair<int, int> > commentZones, scannedZones, nonScannedZones;
 	getCommentZones(commentZones, begin, end, ppEditView);
 
 	classParse(foundInfos, scannedZones, commentZones, begin, end, ppEditView, classStructName);

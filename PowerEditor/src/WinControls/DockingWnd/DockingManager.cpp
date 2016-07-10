@@ -287,7 +287,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		{
 			Gripper *pGripper = new Gripper;
 			pGripper->init(_hInst, _hParent);
-			pGripper->startGrip((DockingCont*)lParam, this);
+			pGripper->startGrip(reinterpret_cast<DockingCont*>(lParam), this);
 			break;
 		}
 
@@ -355,12 +355,12 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		case DMM_DOCK:
 		case DMM_FLOAT:
 		{
-			toggleActiveTb((DockingCont*)lParam, message);
+			toggleActiveTb(reinterpret_cast<DockingCont*>(lParam), message);
 			return FALSE;
 		}
 		case DMM_CLOSE:
 		{
-			tTbData	TbData	= *((DockingCont*)lParam)->getDataOfActiveTb();
+			tTbData	TbData	= *(reinterpret_cast<DockingCont*>(lParam))->getDataOfActiveTb();
 			LRESULT res = SendNotify(TbData.hClient, DMN_CLOSE);	// Be sure the active item is OK with closing
 			if (res == 0)	// Item will be closing?
 				::PostMessage(_hParent, WM_ACTIVATE, WA_ACTIVE, 0);	// Tell editor to take back focus
@@ -368,12 +368,12 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		}
 		case DMM_FLOATALL:
 		{
-			toggleVisTb((DockingCont*)lParam, DMM_FLOAT);
+			toggleVisTb(reinterpret_cast<DockingCont*>(lParam), DMM_FLOAT);
 			return FALSE;
 		}
 		case DMM_DOCKALL:
 		{
-			toggleVisTb((DockingCont*)lParam, DMM_DOCK);
+			toggleVisTb(reinterpret_cast<DockingCont*>(lParam), DMM_DOCK);
 			return FALSE;
 		}
 		case DMM_GETIMAGELIST:
@@ -699,10 +699,9 @@ void DockingManager::showDockableDlg(HWND hDlg, BOOL view)
 
 void DockingManager::showDockableDlg(TCHAR* pszName, BOOL view)
 {
-	tTbData *pTbData = NULL;
 	for (size_t i = 0, len = _vContainer.size(); i < len; ++i)
 	{
-		pTbData = _vContainer[i]->findToolbarByName(pszName);
+		tTbData *pTbData = _vContainer[i]->findToolbarByName(pszName);
 		if (pTbData != NULL)
 		{
 			_vContainer[i]->showToolbar(pTbData, view);

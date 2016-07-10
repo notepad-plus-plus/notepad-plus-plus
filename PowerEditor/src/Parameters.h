@@ -185,7 +185,7 @@ struct sessionFileInfo : public Position
 	int	_encoding = -1;
 
 	generic_string _backupFilePath;
-	time_t _originalFileLastModifTimestamp;
+	time_t _originalFileLastModifTimestamp = 0;
 };
 
 
@@ -490,7 +490,7 @@ public:
 	{
 		if (this != &ls)
 		{
-			*((StyleArray *)this) = ls;
+			*(static_cast<StyleArray *>(this)) = ls;
 			this->_lexerName = ls._lexerName;
 			this->_lexerDesc = ls._lexerDesc;
 			this->_lexerUserExt = ls._lexerUserExt;

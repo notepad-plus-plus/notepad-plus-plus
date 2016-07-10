@@ -177,7 +177,7 @@ INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, L
 	{
 		case WM_INITDIALOG:
 		{
-			StaticDialog *pStaticDlg = (StaticDialog *)(lParam);
+			StaticDialog *pStaticDlg = reinterpret_cast<StaticDialog *>(lParam);
 			pStaticDlg->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)lParam);
 			::GetWindowRect(hwnd, &(pStaticDlg->_rc));

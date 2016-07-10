@@ -583,7 +583,8 @@ void Accelerator::updateFullMenu() {
 	::DrawMenuBar(_hMenuParent);
 }
 
-void Accelerator::updateMenuItemByCommand(CommandShortcut csc) {
+void Accelerator::updateMenuItemByCommand(CommandShortcut csc)
+{
 	int cmdID = (int)csc.getID();
 	
 	//  Ensure that the menu item checks set prior to this update remain in affect.
@@ -641,9 +642,9 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 
 	else
 	{
-		char ansiBuffer[3];
 		if (_macroType == mtUseSParameter)
 		{
+			char ansiBuffer[3];
 			::WideCharToMultiByte(static_cast<UINT>(pEditView->execute(SCI_GETCODEPAGE)), 0, _sParameter.c_str(), -1, ansiBuffer, 3, NULL, NULL);
 			auto lParam = reinterpret_cast<LPARAM>(ansiBuffer);
 			pEditView->execute(_message, _wParameter, lParam);

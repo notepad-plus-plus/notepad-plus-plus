@@ -111,7 +111,7 @@ public:
 
 	static unsigned int WINAPI ThreadStartProc(LPVOID arg)
 	{
-		CReadChangesServer* pServer = (CReadChangesServer*)arg;
+		CReadChangesServer* pServer = static_cast<CReadChangesServer*>(arg);
 		pServer->Run();
 		return 0;
 	}
@@ -119,14 +119,14 @@ public:
 	// Called by QueueUserAPC to start orderly shutdown.
 	static void CALLBACK TerminateProc(__in  ULONG_PTR arg)
 	{
-		CReadChangesServer* pServer = (CReadChangesServer*)arg;
+		CReadChangesServer* pServer = reinterpret_cast<CReadChangesServer*>(arg);
 		pServer->RequestTermination();
 	}
 
 	// Called by QueueUserAPC to add another directory.
 	static void CALLBACK AddDirectoryProc(__in  ULONG_PTR arg)
 	{
-		CReadChangesRequest* pRequest = (CReadChangesRequest*)arg;
+		CReadChangesRequest* pRequest = reinterpret_cast<CReadChangesRequest*>(arg);
 		pRequest->m_pServer->AddDirectory(pRequest);
 	}
 

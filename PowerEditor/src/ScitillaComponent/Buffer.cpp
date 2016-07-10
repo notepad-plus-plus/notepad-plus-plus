@@ -612,7 +612,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	if (res)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
-		BufferID id = (BufferID) newBuf;
+		BufferID id = static_cast<BufferID>(newBuf);
 		newBuf->_id = id;
 
 		if (backupFileName != NULL)
@@ -1222,7 +1222,7 @@ BufferID FileManager::newEmptyDocument()
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
-	BufferID id = (BufferID)newBuf;
+	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
 	++_nrBufs;
@@ -1240,7 +1240,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	if (!dontRef)
 		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
-	BufferID id = (BufferID)newBuf;
+	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
 	++_nrBufs;

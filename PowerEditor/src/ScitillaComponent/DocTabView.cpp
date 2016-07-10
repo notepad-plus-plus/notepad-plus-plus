@@ -82,7 +82,7 @@ bool DocTabView::activateBuffer(BufferID buffer)
 BufferID DocTabView::activeBuffer()
 {
 	int index = getCurrentTabIndex();
-	return (BufferID)getBufferByIndex(index);
+	return static_cast<BufferID>(getBufferByIndex(index));
 }
 
 
@@ -94,7 +94,7 @@ BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not fo
 	for(size_t i = 0; i < _nbItem; ++i)
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
-		BufferID id = (BufferID)tie.lParam;
+		BufferID id = reinterpret_cast<BufferID>(tie.lParam);
 		Buffer * buf = MainFileManager->getBufferByID(id);
 		if (!lstrcmp(fullfilename, buf->getFullPathName()))
 		{
@@ -113,7 +113,7 @@ int DocTabView::getIndexByBuffer(BufferID id)
 	for(int i = 0; i < (int)_nbItem; ++i)
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
-		if ((BufferID)tie.lParam == id)
+		if (reinterpret_cast<BufferID>(tie.lParam) == id)
 			return i;
 	}
 	return -1;
@@ -127,7 +127,7 @@ BufferID DocTabView::getBufferByIndex(size_t index)
 	tie.mask = TCIF_PARAM;
 	::SendMessage(_hSelf, TCM_GETITEM, index, reinterpret_cast<LPARAM>(&tie));
 
-	return (BufferID)tie.lParam;
+	return reinterpret_cast<BufferID>(tie.lParam);
 }
 
 

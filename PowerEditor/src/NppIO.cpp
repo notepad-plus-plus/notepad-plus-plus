@@ -41,7 +41,7 @@ using namespace std;
 
 DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 {
-	MonitorInfo *monitorInfo = (MonitorInfo *)params;
+	MonitorInfo *monitorInfo = static_cast<MonitorInfo *>(params);
 	Buffer *buf = monitorInfo->_buffer;
 	HWND h = monitorInfo->_nppHandle;
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 6.9.1  29/Mar/2016  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 6.9.2  19/May/2016  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.9.1">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.9.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -251,6 +251,7 @@
 					<Item id = "44094" name = "9. Tabulátor"/>
 					<Item id = "44095" name = "Další tabulátor"/>
 					<Item id = "44096" name = "Předchozi tabulátor"/>
+					<Item id = "44097" name = "Monitorování změn (tail -f)"/>
 
 					<Item id = "45001" name = "Konvertovat do formátu Windows"/>
 					<Item id = "45002" name = "Konvertovat do formátu UNIX"/>

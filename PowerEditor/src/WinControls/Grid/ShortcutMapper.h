@@ -66,6 +66,9 @@ public:
 	void getClientRect(RECT & rc) const;
 	void translateTab(int index, const TCHAR * newname);
 
+	bool findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
+							const KeyCombo & itemKeyCombo, const size_t & itemIndex) const;
+
 protected :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -79,8 +82,32 @@ private:
 
 	TCHAR tabNames[5][maxTabName];
 
+	//save/restore the last view
+	std::vector<size_t> _lastHomeRow;
+	std::vector<size_t> _lastCursorRow;
+
+	const generic_string _defaultInfo = TEXT("No schortcut conflicts for this item.");
+	const generic_string _assignInfo  = TEXT("No conflicts . . .");
+
+	std::vector<HFONT> _hGridFonts;
+
+	enum GridFonts : uint_fast8_t
+	{
+		GFONT_HEADER,
+		GFONT_ROWS,
+		MAX_GRID_FONTS
+	};
+
 	void initTabs();
 	void initBabyGrid();
 	void fillOutBabyGrid();
+
+	bool isConflict(const KeyCombo & lhs, const KeyCombo & rhs) const
+	{
+		return ( (lhs._isCtrl  == rhs._isCtrl ) &&
+				 (lhs._isAlt   == rhs._isAlt  ) &&
+				 (lhs._isShift == rhs._isShift) &&
+				 (lhs._key	   == rhs._key	  ) );
+	}
 };
 

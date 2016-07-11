@@ -1257,6 +1257,30 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_FINDKEYCONFLICTS:
+		{
+			if (not wParam || not lParam) // Clean up current session
+			{
+				if (_pShortcutMapper != nullptr)
+				{
+					delete _pShortcutMapper;
+					_pShortcutMapper = nullptr;
+				}
+				return TRUE;
+			}
+
+			if (_pShortcutMapper == nullptr) // Begin new session
+			{
+				_pShortcutMapper = new ShortcutMapper;
+				if (_pShortcutMapper == nullptr)
+					break;
+			}
+
+			*reinterpret_cast<bool*>(lParam) = _pShortcutMapper->findKeyConflicts(nullptr, *reinterpret_cast<KeyCombo*>(wParam), (size_t)-1);
+
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SETCARETWIDTH:
 		{
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();

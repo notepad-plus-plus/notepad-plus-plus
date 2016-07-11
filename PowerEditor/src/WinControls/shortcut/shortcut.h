@@ -180,6 +180,7 @@ protected :
 	bool _canModifyName;
 	TCHAR _name[nameLenMax];		//normal name is plain text (for display purposes)
 	TCHAR _menuName[nameLenMax];	//menu name has ampersands for quick keys
+	void updateConflictState(const bool endSession = false) const;
 };
 		 
 class CommandShortcut : public Shortcut {

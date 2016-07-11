@@ -362,6 +362,22 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 	return;
 }
 
+void Shortcut::updateConflictState(const bool endSession) const
+{
+	if (endSession)
+	{
+		// Clean up message for detached dialogs: save Macros/RunCommands
+		::SendMessage(_hParent, NPPM_INTERNAL_FINDKEYCONFLICTS, 0, 0);
+		return;
+	}
+
+	// Check for conflicts
+	bool isConflict = false;
+	::SendMessage(_hParent, NPPM_INTERNAL_FINDKEYCONFLICTS,
+				  reinterpret_cast<WPARAM>(&_keyCombo), reinterpret_cast<LPARAM>(&isConflict));
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_CONFLICT_STATIC), isConflict ? SW_SHOW : SW_HIDE);
+}
+
 INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
 {
 	switch (Message)
@@ -389,7 +405,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			if (iFound != -1)
 				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_SETCURSEL, iFound, 0);
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled()?SW_HIDE:SW_SHOW);
-
+			updateConflictState();
 			goToCenter();
 			return TRUE;
 		}
@@ -402,15 +418,18 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				case IDC_CTRL_CHECK :
 					_keyCombo._isCtrl = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
+					updateConflictState();
 					return TRUE;
 
 				case IDC_ALT_CHECK :
 					_keyCombo._isAlt = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
+					updateConflictState();
 					return TRUE;
 
 				case IDC_SHIFT_CHECK :
 					_keyCombo._isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
+					updateConflictState();
 					return TRUE;
 
 				case IDOK :
@@ -423,10 +442,12 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 						setName(editName);
 					}
 					::EndDialog(_hSelf, 0);
+					updateConflictState(true);
 					return TRUE;
 
 				case IDCANCEL :
 					::EndDialog(_hSelf, -1);
+					updateConflictState(true);
 					return TRUE;
 
 				default:
@@ -446,6 +467,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 							_keyCombo._key = namedKeyArray[i].id;
 							::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 							::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled()?SW_HIDE:SW_SHOW);
+							updateConflictState();
 							return TRUE;
 						}
 					}
@@ -754,11 +776,23 @@ void ScintillaKeyMap::validateDialog() {
 	bool valid = isValid();	//current combo valid?
 	bool isDisabling = _keyCombo._key == 0;	//true if this keycombo were to disable the shortcut
 	bool isDisabled = !isEnabled();	//true if this shortcut already is 
+	bool isDuplicate = false; //true if already in the list
 
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_ADD), valid && !isDisabling);
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_APPLY), valid && (!isDisabling || _size == 1));
+	for (size_t i = 0; i < _size; ++i) 
+	{
+		if (_keyCombo._key   == _keyCombos[i]._key   && _keyCombo._isCtrl  == _keyCombos[i]._isCtrl &&
+			_keyCombo._isAlt == _keyCombos[i]._isAlt && _keyCombo._isShift == _keyCombos[i]._isShift)
+		{
+			isDuplicate = true;
+			break;
+		}
+	}
+
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_ADD), valid && !isDisabling && !isDuplicate);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_APPLY), valid && (!isDisabling || _size == 1) && !isDuplicate);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_RMVE), (_size > 1)?TRUE:FALSE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isDisabled?SW_SHOW:SW_HIDE);
+	updateConflictState();
 }
 
 void ScintillaKeyMap::showCurrentSettings() {
@@ -829,6 +863,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 				case IDC_SHIFT_CHECK :
 					_keyCombo._isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
 					//applyToCurrentIndex();
+					validateDialog();
 					return TRUE;
 
 				case IDOK :
@@ -896,6 +931,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 							case IDC_LIST_KEYS:
 							{
 								showCurrentSettings();
+								validateDialog();
 								return TRUE;
 							}
 						}

@@ -41,7 +41,7 @@ void BabyGridWrapper::init(HINSTANCE hInst, HWND parent, int id)
 	_hSelf = ::CreateWindowEx(WS_EX_CLIENTEDGE,
 	                babyGridClassName,\
 					TEXT(""),\
-					WS_CHILD | WS_VISIBLE,\
+					WS_CHILD | WS_VISIBLE | WS_TABSTOP,\
 					CW_USEDEFAULT, 0, CW_USEDEFAULT, 0,\
 					_hParent,\
 					(HMENU)id,\

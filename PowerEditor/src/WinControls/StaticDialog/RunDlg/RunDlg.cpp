@@ -196,10 +196,15 @@ HINSTANCE Command::run(HWND hWnd)
 	return res;
 }
 
-INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
+		case NPPM_INTERNAL_FINDKEYCONFLICTS:
+		{
+			return ::SendMessage(_hParent, message, wParam, lParam);
+		}
+
 		case WM_COMMAND : 
 		{
 			switch (wParam)

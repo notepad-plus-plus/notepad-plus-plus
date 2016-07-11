@@ -90,6 +90,67 @@ public :
 		::SendMessage(_hSelf, BGM_CLEARGRID, 0, 0);
 	};
 
+	int getNumberRows() const {
+		return (int)::SendMessage(_hSelf, BGM_GETROWS, 0, 0);
+	};
+
+	int getHomeRow() const {
+		return (int)::SendMessage(_hSelf, BGM_GETHOMEROW, 0, 0);
+	};
+
+	void setLastView(const size_t homeRow, const size_t cursorRow) const {
+		::SendMessage(_hSelf, BGM_SETLASTVIEW, homeRow, cursorRow);
+	};
+
+	void updateView() const {
+		::SendMessage(_hSelf, WM_PAINT, 0, 0);
+	};
+
+	void setHighlightColorNoFocus(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR_NOFOCUS, color, 0);
+	};
+
+	void setProtectColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETPROTECTCOLOR, color, 0);
+	};
+
+	void setHighlightColorProtect(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR_PROTECT, color, 0);
+	};
+
+	void setHighlightColorProtectNoFocus(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR_PROTECT_NOFOCUS, color, 0);
+	};
+
+	bool setMarker(const bool isMarker) const {
+		::SendMessage(_hSelf, BGM_SETPROTECT, isMarker, 0);
+		return isMarker;
+	};
+
+	void setAutoRow(const bool isAutoRow) const {
+		::SendMessage(_hSelf, BGM_AUTOROW, isAutoRow, 0);
+	};
+
+	void setInitialContent(const bool isInitialContent) const {
+		::SendMessage(_hSelf, BGM_SETINITIALCONTENT, isInitialContent, 0);
+	};
+
+	void setHeaderFont(const HFONT & hFont) const {
+		::SendMessage(_hSelf, BGM_SETHEADINGFONT, (WPARAM)hFont, 0);
+	};
+
+	void setRowFont(const HFONT & hFont) const {
+		::SendMessage(_hSelf, WM_SETFONT, (WPARAM)hFont, 0);
+	};
+
+	void setHeaderHeight(const size_t headerHeight) const {
+		::SendMessage(_hSelf, BGM_SETHEADERROWHEIGHT, headerHeight, 0);
+	};
+
+	void setRowHeight(const size_t rowHeight) const {
+		::SendMessage(_hSelf, BGM_SETROWHEIGHT, rowHeight, 0);
+	};
+
 private :
 	static bool _isRegistered;
 };

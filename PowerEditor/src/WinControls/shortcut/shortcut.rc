@@ -52,10 +52,10 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,103,73,50,14
     LTEXT           "+",IDC_STATIC,45,42,8,8
     LTEXT           "+",IDC_STATIC,96,42,8,8
-    EDITTEXT        IDC_NAME_EDIT,56,9,93,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NAME_EDIT,56,9,118,14,ES_AUTOHSCROLL
     LTEXT           "Name :",IDC_NAME_STATIC,15,12,34,8,0,WS_EX_RIGHT
-	LTEXT           "This will disable the accelerator!",IDC_WARNING_STATIC,
-                    6,90,170,8
+	LTEXT           "This will disable the accelerator!",IDC_WARNING_STATIC,6,91,170,8
+	LTEXT           "CONFLICT FOUND!",IDC_CONFLICT_STATIC,6,91,170,8
 END
 
 IDD_SHORTCUTSCINT_DLG DIALOGEX 0, 0, 286, 114
@@ -76,10 +76,10 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,210,78,48,14
     LTEXT           "+",IDC_STATIC,147,39,8,8
     LTEXT           "+",IDC_STATIC,198,39,8,8
-    EDITTEXT        IDC_NAME_EDIT,158,6,93,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_NAME_EDIT,158,6,118,14,ES_AUTOHSCROLL | ES_READONLY
     LTEXT           "Name :",IDC_NAME_STATIC,117,9,34,8,0,WS_EX_RIGHT
-    LTEXT           "This will remove the accelerator!",IDC_WARNING_STATIC,
-                    120,98,138,8
+    LTEXT           "This will remove the accelerator!",IDC_WARNING_STATIC,114,99,162,8
+    LTEXT           "CONFLICT FOUND!",IDC_CONFLICT_STATIC,114,99,162,8
     LISTBOX         IDC_LIST_KEYS,6,6,90,72,LBS_NOINTEGRALHEIGHT | 
                     WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Add",IDC_BUTTON_ADD,6,84,42,14

@@ -376,6 +376,9 @@ private:
 	bool _playingBackMacro = false;
 	RunMacroDlg _runMacroDlg;
 
+	// For conflict detection when saving Macros or RunCommands
+	ShortcutMapper * _pShortcutMapper = nullptr;
+
 	// For hotspot
 	bool _linkTriggered = true;
 	bool _isHotspotDblClicked = false;

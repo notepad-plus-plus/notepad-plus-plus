@@ -26,6 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include <shlwapi.h>
+#include <stdexcept>
 #include "VerticalFileSwitcherListView.h"
 #include "Buffer.h"
 #include "localization.h"
@@ -138,7 +139,7 @@ void VerticalFileSwitcherListView::initList()
 		item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
 		
 		item.pszText = fn;
-		item.iItem = i;
+		item.iItem = static_cast<int32_t>(i);
 		item.iSubItem = 0;
 		item.iImage = fileNameStatus._status;
 		item.lParam = (LPARAM)tl;
@@ -185,7 +186,7 @@ int VerticalFileSwitcherListView::newItem(BufferID bufferID, int iView)
 
 void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 {
-	Buffer *buf = (Buffer *)bufferID;
+	Buffer *buf = static_cast<Buffer *>(bufferID);
 	
 	TCHAR fn[MAX_PATH];
 	lstrcpy(fn, ::PathFindFileName(buf->getFileName()));
@@ -224,12 +225,12 @@ void VerticalFileSwitcherListView::setItemIconStatus(BufferID bufferID)
 generic_string VerticalFileSwitcherListView::getFullFilePath(size_t i) const
 {
 	size_t nbItem = ListView_GetItemCount(_hSelf);
-	if (i < 0 || i > nbItem)
+	if (i > nbItem)
 		return TEXT("");
 
 	LVITEM item;
 	item.mask = LVIF_PARAM;
-	item.iItem = i;
+	item.iItem = static_cast<int32_t>(i);
 	ListView_GetItem(_hSelf, &item);
 	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 
@@ -258,7 +259,7 @@ void VerticalFileSwitcherListView::activateItem(BufferID bufferID, int iView)
 int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 {
 	int index = ListView_GetItemCount(_hSelf);
-	Buffer *buf = (Buffer *)bufferID;
+	Buffer *buf = static_cast<Buffer *>(bufferID);
 	const TCHAR *fileName = buf->getFileName();
 
 	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, fileName, 0, (void *)bufferID);

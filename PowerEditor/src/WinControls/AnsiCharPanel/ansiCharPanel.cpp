@@ -133,7 +133,7 @@ void AnsiCharPanel::insertChar(unsigned char char2insert) const
 		WideCharToMultiByte(CP_UTF8, 0, wCharStr, -1, multiByteStr, sizeof(multiByteStr), NULL, NULL);
 	}
 	(*_ppEditView)->execute(SCI_REPLACESEL, 0, (LPARAM)"");
-	int len = (char2insert < 128)?1:strlen(multiByteStr);
+	size_t len = (char2insert < 128)?1:strlen(multiByteStr);
     (*_ppEditView)->execute(SCI_ADDTEXT, len, (LPARAM)multiByteStr);
 	(*_ppEditView)->getFocus();
 }

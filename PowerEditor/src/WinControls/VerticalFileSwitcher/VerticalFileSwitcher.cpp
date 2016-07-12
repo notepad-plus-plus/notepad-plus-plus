@@ -207,13 +207,13 @@ void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 	int view = tlfs->_iView;
 	BufferID bufferID = static_cast<BufferID>(tlfs->_bufID);
 	
-	int currentView = ::SendMessage(_hParent, NPPM_GETCURRENTVIEW, 0, 0);
+	auto currentView = ::SendMessage(_hParent, NPPM_GETCURRENTVIEW, 0, 0);
 	BufferID currentBufID = reinterpret_cast<BufferID>(::SendMessage(_hParent, NPPM_GETCURRENTBUFFERID, 0, 0));
 
 	if (bufferID == currentBufID && view == currentView)
 		return;
 	
-	int docPosInfo = ::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, (WPARAM)bufferID, view);
+	int docPosInfo = static_cast<int32_t>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, (WPARAM)bufferID, view));
 	int view2set = docPosInfo >> 30;
 	int index2Switch = (docPosInfo << 2) >> 2 ;
 
@@ -222,9 +222,9 @@ void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 
 int VerticalFileSwitcher::setHeaderOrder(LPNMLISTVIEW pnm_list_view)
 {
-	HWND hListView,colHeader;
+	HWND hListView, colHeader;
 	LVCOLUMN lvc;
-	int q,cols;
+	int q, cols;
 	int index = pnm_list_view->iSubItem;
 
 	lvc.mask = LVCF_FMT;
@@ -250,8 +250,8 @@ int VerticalFileSwitcher::setHeaderOrder(LPNMLISTVIEW pnm_list_view)
 	// this is the case our clicked column wasn't the one being sorted up until now
 	// so first  we need to iterate through all columns and send LVM_SETCOLUMN to them with fmt set to NOT include these HDFs
 	colHeader = (HWND)SendMessage(hListView,LVM_GETHEADER,0,0);
-	cols = SendMessage(colHeader,HDM_GETITEMCOUNT,0,0);
-	for(q=0; q<cols; ++q)
+	cols = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
+	for (q = 0; q < cols; ++q)
 	{
 		//Get current fmt
 		SendMessage(hListView,LVM_GETCOLUMN,(WPARAM) q, (LPARAM) &lvc);

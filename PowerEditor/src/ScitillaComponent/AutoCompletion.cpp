@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -75,7 +75,7 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	const size_t bufSize = 256;
 	TCHAR beginChars[bufSize];
-	
+
 	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
 	if (len >= bufSize)
 		return false;
@@ -86,34 +86,39 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	getWordArray(wordArray, beginChars);
 
-
-	for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
+	bool canStop = false;
+	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
-		if (_keyWordArray[i].find(beginChars) == 0)
+		if (_keyWordArray[i].compare(0, len, beginChars) == 0)
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);
+			canStop = true;
+		}
+		else if (canStop) {
+			// Early out since no more strings will match
+			break;
 		}
 	}
 
 	sort(wordArray.begin(), wordArray.end());
 
 	// Get word list
-	generic_string words(TEXT(""));
+	generic_string words;
 
 	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
 	{
 		words += wordArray[i];
-		if (i != wordArray.size()-1)
+		if (i != len - 1)
 			words += TEXT(" ");
 	}
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
-
 	return true;
 }
+
 
 void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
 {
@@ -121,14 +126,14 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
-	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]*");
+	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
 
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	int posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);
+	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
 
 	while (posFind != -1 && posFind != -2)
 	{
@@ -141,11 +146,10 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 			TCHAR w[bufSize];
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
 
-			if (lstrcmp(w, beginChars) != 0)
-				if (!isInList(w, wordArray))
-					wordArray.push_back(w);
+			if (!isInList(w, wordArray))
+				wordArray.push_back(w);
 		}
-		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
+		posFind = _pEditView->searchInTarget(expr.c_str(), static_cast<int32_t>(expr.length()), wordEnd, docLength);
 	}
 }
 
@@ -240,10 +244,10 @@ void AutoCompletion::showPathCompletion()
 	// Get current line (at most MAX_PATH characters "backwards" from current caret).
 	generic_string currentLine;
 	{
-		const long bufSize = MAX_PATH;
+		const size_t bufSize = MAX_PATH;
 		TCHAR buf[bufSize + 1];
-		const int currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
-		const int startPos = max(0, currentPos - bufSize);
+		const size_t currentPos = static_cast<size_t>(_pEditView->execute(SCI_GETCURRENTPOS));
+		const auto startPos = max(0, currentPos - bufSize);
 		_pEditView->getGenericText(buf, bufSize + 1, startPos, currentPos);
 		currentLine = buf;
 	}
@@ -314,7 +318,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	const size_t bufSize = 256;
 	TCHAR beginChars[bufSize];
-	
+
 	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
 	if (len >= bufSize)
 		return false;
@@ -327,7 +331,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	if (wordArray.size() == 0) return false;
 
-	if (wordArray.size() == 1 && autoInsert) 
+	if (wordArray.size() == 1 && autoInsert)
 	{
 		_pEditView->replaceTargetRegExMode(wordArray[0].c_str(), startPos, curPos);
 		_pEditView->execute(SCI_GOTOPOS, startPos + wordArray[0].length());
@@ -364,13 +368,25 @@ bool AutoCompletion::showFunctionComplete()
 	return false;
 }
 
-void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos)
+void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos, LangType language)
 {
+	char prev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 2);
+	char prevprev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 3);
+
+	// Closing a tag (i.e. "-->") will be ignored
+	if (prevprev == '-' && prev == '-')
+		return;
+
+	// "<toto/>" and "<toto arg="0" />" will be ignored
+	if (prev == '/')
+		return;
+
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	TCHAR tag2find[] = TEXT("<[^\\s>]*");
-	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
 	
+	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
+
 	if (targetStart == -1 || targetStart == -2)
 		return;
 
@@ -382,23 +398,37 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (size_t(foundTextLen) > closeTagSize - 2) // buffer size is not large enough. -2 for '/' & '\0'
 		return;
 
-	char tagHead[3];
-	_pEditView->getText(tagHead, targetStart, targetStart+2);
+	char tagHead[tagMaxLen];
+	_pEditView->getText(tagHead, targetStart, targetEnd);
 
 	if (tagHead[1] == '/') // "</toto>" will be ignored
 		return;
 
-	char tagTail[2];
-	_pEditView->getText(tagTail, caretPos-2, caretPos-1);
-
-	if (tagTail[0] == '/') // "<toto/>" and "<toto arg="0" />" will be ignored
+	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
+
+	if (language == L_HTML) // for HTML: "br", "hr", "img", "link", "!doctype" and "meta" will be ignored
+	{
+		const char *disallowedTags[] = { "br", "hr", "img", "link", "meta", "!doctype" };
+		size_t disallowedTagsLen = sizeof(disallowedTags) / sizeof(char *);
+		for (size_t i = 0; i < disallowedTagsLen; ++i)
+		{
+			if (strnicmp(tagHead + 1, disallowedTags[i], strlen(disallowedTags[i])) == 0)
+				return;
+		}
+	}
+	else if (language == L_XML)
+	{
+		// Ignore "?xml"
+		if (strnicmp(tagHead + 1, "?xml", strlen("?xml")) == 0)
+			return;
+	}
 
 	closeTag[0] = '<';
 	closeTag[1] = '/';
 	_pEditView->getText(closeTag + 2, targetStart + 1, targetEnd);
 	closeTag[foundTextLen+1] = '>';
-	closeTag[foundTextLen+2] = '\0'; 
+	closeTag[foundTextLen+2] = '\0';
 }
 
 void InsertedMatchedChars::removeInvalidElements(MatchedCharInserted mci)
@@ -409,12 +439,12 @@ void InsertedMatchedChars::removeInvalidElements(MatchedCharInserted mci)
 	}
 	else
 	{
-		for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
+		for (int i = int(_insertedMatchedChars.size()) - 1; i >= 0; --i)
 		{
 			if (_insertedMatchedChars[i]._pos < mci._pos)
 			{
-				int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, mci._pos);
-				int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
+				auto posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, mci._pos);
+				auto startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
 
 				if (posToDetectLine != startPosLine) //not in the same line
 				{
@@ -442,18 +472,18 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 {
 	if (isEmpty())
 		return -1;
-	int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
-	
-	for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
+	auto posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
+
+	for (int i = int32_t(_insertedMatchedChars.size()) - 1; i >= 0; --i)
 	{
 		if (_insertedMatchedChars[i]._c == startChar)
 		{
 			if (_insertedMatchedChars[i]._pos < posToDetect)
 			{
-				int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
+				auto startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
 				if (posToDetectLine == startPosLine)
 				{
-					int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
+					auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
 
 					for (int j = posToDetect; j <= endPos; ++j)
 					{
@@ -492,49 +522,70 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & matchedPairConf)
 {
 	const vector< pair<char, char> > & matchedPairs = matchedPairConf._matchedPairs;
-	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	int caretPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 	char *matchedChars = NULL;
+
+	char charPrev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 2);
+	char charNext = (char)_pEditView->execute(SCI_GETCHARAT, caretPos);
+
+	bool isCharPrevBlank = (charPrev == ' ' || charPrev == '\t' || charPrev == '\n' || charPrev == '\r' || charPrev == '\0');
+	int docLen = _pEditView->getCurrentDocLen();
+	bool isCharNextBlank = (charNext == ' ' || charNext == '\t' || charNext == '\n' || charNext == '\r' || caretPos == docLen);
+	bool isInSandwich = (charPrev == '(' && charNext == ')') || (charPrev == '[' && charNext == ']') || (charPrev == '{' && charNext == '}');
 
 	// User defined matched pairs should be checked firstly
 	for (size_t i = 0, len = matchedPairs.size(); i < len; ++i)
 	{
 		if (int(matchedPairs[i].first) == character)
 		{
-			char userMatchedChar[2] = {'\0', '\0'};
-			userMatchedChar[0] = matchedPairs[i].second;
-			_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
-			return;
+			if (isCharNextBlank)
+			{
+				char userMatchedChar[2] = { '\0', '\0' };
+				userMatchedChar[0] = matchedPairs[i].second;
+				_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
+				return;
+			}
 		}
 	}
 
 	// if there's no user defined matched pair found, continue to check notepad++'s one
+
 	
-	const size_t closeTagLen = 256;
-	char closeTag[closeTagLen];
+	char closeTag[tagMaxLen];
 	closeTag[0] = '\0';
 	switch (character)
 	{
 		case int('('):
 			if (matchedPairConf._doParentheses)
 			{
-				matchedChars = ")";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharNextBlank || isInSandwich)
+
+				{
+					matchedChars = ")";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
 		case int('['):
 			if (matchedPairConf._doBrackets)
 			{
-				matchedChars = "]";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharNextBlank || isInSandwich)
+				{
+					matchedChars = "]";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
 		case int('{'):
 			if (matchedPairConf._doCurlyBrackets)
 			{
-				matchedChars = "}";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if (isCharNextBlank || isInSandwich)
+				{
+					matchedChars = "}";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
@@ -552,8 +603,14 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					}
 				}
 
-				matchedChars = "\"";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				if ((isCharPrevBlank && isCharNextBlank) || isInSandwich ||
+					(charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
+					(charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
+					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
+				{
+					matchedChars = "\"";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 		case int('\''):
@@ -569,8 +626,15 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 						return;
 					}
 				}
-				matchedChars = "'";
-				_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+
+				if ((isCharPrevBlank && isCharNextBlank) || isInSandwich ||
+					(charPrev == '(' && isCharNextBlank) || (isCharPrevBlank && charNext == ')') ||
+					(charPrev == '[' && isCharNextBlank) || (isCharPrevBlank && charNext == ']') ||
+					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
+				{
+					matchedChars = "'";
+					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+				}
 			}
 		break;
 
@@ -578,7 +642,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		{
 			if (matchedPairConf._doHtmlXmlTag && (_curLang == L_HTML || _curLang == L_XML))
 			{
-				getCloseTag(closeTag, closeTagLen, caretPos);
+				getCloseTag(closeTag, tagMaxLen, caretPos, _curLang);
 				if (closeTag[0] != '\0')
 					matchedChars = closeTag;
 			}
@@ -632,18 +696,20 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 void AutoCompletion::update(int character)
 {
+	if (!character)
+		return;
+
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 	if (!_funcCompletionActive && nppGUI._autocStatus == nppGUI.autoc_func)
 		return;
 
-	if (nppGUI._funcParams || _funcCalltip.isVisible()) {
-		if (_funcCalltip.updateCalltip(character)) {	//calltip visible because triggered by autocomplete, set mode
+	if (nppGUI._funcParams || _funcCalltip.isVisible())
+	{
+		if (_funcCalltip.updateCalltip(character)) //calltip visible because triggered by autocomplete, set mode
+		{
 			return;	//only return in case of success, else autocomplete
 		}
 	}
-
-	if (!character)
-		return;
 
 	//If autocomplete already active, let Scintilla handle it
 	if (_pEditView->execute(SCI_AUTOCACTIVE) != 0)
@@ -652,7 +718,7 @@ void AutoCompletion::update(int character)
 	const int wordSize = 64;
 	TCHAR s[wordSize];
 	_pEditView->getWordToCurrentPos(s, wordSize);
-	
+
 	if (lstrlen(s) >= int(nppGUI._autocFromLen))
 	{
 		if (nppGUI._autocStatus == nppGUI.autoc_word)
@@ -661,7 +727,6 @@ void AutoCompletion::update(int character)
 			showApiComplete();
 		else if (nppGUI._autocStatus == nppGUI.autoc_both)
 			showApiAndWordComplete();
-
 	}
 }
 
@@ -721,11 +786,11 @@ bool AutoCompletion::setLanguage(LangType language) {
 		_funcCalltip._param = ',';
 		_funcCalltip._terminal = ';';
 		_funcCalltip._ignoreCase = true;
-        _funcCalltip._additionalWordChar = TEXT("");
+        _funcCalltip._additionalWordChar.clear();
 
 		TiXmlElement * pElem = pAutoNode->FirstChildElement(TEXT("Environment"));
-		if (pElem) 
-        {	
+		if (pElem)
+        {
 			const TCHAR * val = 0;
 			val = pElem->Attribute(TEXT("ignoreCase"));
 			if (val && !lstrcmp(val, TEXT("no"))) {
@@ -756,7 +821,7 @@ bool AutoCompletion::setLanguage(LangType language) {
 		_funcCalltip.setLanguageXML(NULL);
 	}
 
-	_keyWords = TEXT("");
+	_keyWords.clear();
 	_keyWordArray.clear();
 
 	if (_funcCompletionActive)
@@ -807,6 +872,9 @@ const TCHAR * AutoCompletion::getApiFileName()
 
 	if (_curLang > L_EXTERNAL)
         _curLang = L_TEXT;
+
+	if (_curLang == L_JAVASCRIPT)
+        _curLang = L_JS;
 
 	return ScintillaEditView::langNames[_curLang].lexerName;
 

@@ -36,7 +36,7 @@
 #include <deque>
 
 struct RecentItem {
-	int _id;
+	int _id = 0;
 	generic_string _name;
 	RecentItem(const TCHAR * name) : _name(name) {};
 };

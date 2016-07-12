@@ -227,64 +227,83 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDM_BABYGRID_MODIFY :
 				{
 					NppParameters *nppParam = NppParameters::getInstance();
-					int row = _babygrid.getSelectedRow(); 
+					int row = _babygrid.getSelectedRow();
                     int shortcutIndex = row - 1;
                     // CHANGE_MOD: added variable shortcutIndex to match other swtich cases, as well
                     // added check if index <0, then to return to avoid null pointer reference
                     if (shortcutIndex < 0) { return TRUE; }
-					switch(_currentState) {
-						case STATE_MENU: {
+					switch(_currentState)
+					{
+						case STATE_MENU:
+						{
 							//Get CommandShortcut corresponding to row
 							vector<CommandShortcut> & shortcuts = nppParam->getUserShortcuts();
                             CommandShortcut csc = shortcuts[shortcutIndex], prevcsc = shortcuts[shortcutIndex];
 							csc.init(_hInst, _hSelf);
-							if (csc.doDialog() != -1 && prevcsc != csc) {	//shortcut was altered
+							if (csc.doDialog() != -1 && prevcsc != csc)
+							{
+								//shortcut was altered
                                 nppParam->addUserModifiedIndex(shortcutIndex);
                                 shortcuts[shortcutIndex] = csc;
 								_babygrid.setText(row, 2, csc.toString().c_str());
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								
+								nppParam->setShortcutDirty();
 							}
-							break; }
-						case STATE_MACRO: {
+							break;
+						}
+
+						case STATE_MACRO: 
+						{
 							//Get MacroShortcut corresponding to row
 							vector<MacroShortcut> & shortcuts = nppParam->getMacroList();
                             MacroShortcut msc = shortcuts[shortcutIndex], prevmsc = shortcuts[shortcutIndex];
 							msc.init(_hInst, _hSelf);
-							if (msc.doDialog() != -1 && prevmsc != msc) {	//shortcut was altered
+							if (msc.doDialog() != -1 && prevmsc != msc)
+							{
+								//shortcut was altered
                                 shortcuts[shortcutIndex] = msc;
 								_babygrid.setText(row, 1, msc.getName());
 								_babygrid.setText(row, 2, msc.toString().c_str());
 
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								
+								nppParam->setShortcutDirty();
 							}
-							break; }
-						case STATE_USER: {
+							break; 
+						}
+
+						case STATE_USER: 
+						{
 							//Get UserCommand corresponding to row
 							vector<UserCommand> & shortcuts = nppParam->getUserCommandList();
                             UserCommand ucmd = shortcuts[shortcutIndex], prevucmd = shortcuts[shortcutIndex];
 							ucmd.init(_hInst, _hSelf);
 							prevucmd = ucmd;
-							if (ucmd.doDialog() != -1 && prevucmd != ucmd) {	//shortcut was altered
+							if (ucmd.doDialog() != -1 && prevucmd != ucmd)
+							{	
+								//shortcut was altered
                                 shortcuts[shortcutIndex] = ucmd;
 								_babygrid.setText(row, 1, ucmd.getName());
 								_babygrid.setText(row, 2, ucmd.toString().c_str());
 
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								
+								nppParam->setShortcutDirty();
 							}
-							break; }
-						case STATE_PLUGIN: {
+							break; 
+						}
+
+						case STATE_PLUGIN:
+						{
 							//Get PluginCmdShortcut corresponding to row
 							vector<PluginCmdShortcut> & shortcuts = nppParam->getPluginCommandList();
                             PluginCmdShortcut pcsc = shortcuts[shortcutIndex], prevpcsc = shortcuts[shortcutIndex];
 							pcsc.init(_hInst, _hSelf);
 							prevpcsc = pcsc;
-							if (pcsc.doDialog() != -1 && prevpcsc != pcsc) {	//shortcut was altered
+							if (pcsc.doDialog() != -1 && prevpcsc != pcsc)
+							{
+								//shortcut was altered
                                 nppParam->addPluginModifiedIndex(shortcutIndex);
                                 shortcuts[shortcutIndex] = pcsc;
 								_babygrid.setText(row, 2, pcsc.toString().c_str());
@@ -299,9 +318,13 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								shortcut._key = pcsc.getKeyCombo()._key;
 
 								::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED, cmdID, (LPARAM)&shortcut);
+								nppParam->setShortcutDirty();
 							}
-							break; }
-						case STATE_SCINTILLA: {
+							break;
+						}
+
+						case STATE_SCINTILLA:
+						{
 							//Get ScintillaKeyMap corresponding to row
 							vector<ScintillaKeyMap> & shortcuts = nppParam->getScintillaKeyList();
                             ScintillaKeyMap skm = shortcuts[shortcutIndex], prevskm = shortcuts[shortcutIndex];
@@ -315,12 +338,14 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 								//Notify current Accelerator class to update key
 								nppParam->getScintillaAccelerator()->updateKeys();
+								nppParam->setShortcutDirty();
 							}
 							break; 
 						}
 					}
 					return TRUE;
 				}
+
 				case IDM_BABYGRID_DELETE :
 				{
 					NppParameters *nppParam = NppParameters::getInstance();
@@ -333,7 +358,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						DWORD cmdID = 0;
 						
 						// Menu data
-						size_t posBase = 0;
+						int32_t posBase = 0;
 						size_t nbElem = 0;
 						HMENU hMenu = NULL;
                         int modifCmd = IDM_SETTING_SHORTCUT_MAPPER_RUN;
@@ -345,6 +370,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							{
 								return FALSE;			//this is bad
 							}
+
 							case STATE_MACRO: 
 							{
 								vector<MacroShortcut> & theMacros = nppParam->getMacroList();
@@ -366,6 +392,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								}
 								break; 
 							}
+
 							case STATE_USER: 
 							{
 								vector<UserCommand> & theUserCmds = nppParam->getUserCommandList();
@@ -391,9 +418,10 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
                         // updateShortcuts() will update all menu item - the menu items will be shifted
 						nppParam->getAccelerator()->updateShortcuts();
+						nppParam->setShortcutDirty();
 
                         // All menu items are shifted up. So we delete the last item
-                        ::RemoveMenu(hMenu, posBase + nbElem, MF_BYPOSITION);
+						::RemoveMenu(hMenu, posBase + static_cast<int32_t>(nbElem), MF_BYPOSITION);
 
                         if (nbElem == 0) 
                         {

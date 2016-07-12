@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -43,26 +43,26 @@ HTREEITEM TreeView::insertTo(HTREEITEM parent, TCHAR *itemStr, int imgIndex)
 void TreeView::init(HINSTANCE hInst, HWND pere)
 {
 	Window::init(hInst, pere);
-	InitCommonControls(); 
+	InitCommonControls();
 
 	HTREEITEM Parent;           // Tree item handle
 	HTREEITEM Before;           // .......
-	HTREEITEM Root; 
-	
-    // Get the dimensions of the parent window's client area, and create 
-    // the tree-view control. 
-    
+	HTREEITEM Root;
+
+    // Get the dimensions of the parent window's client area, and create
+    // the tree-view control.
+
     _hSelf = CreateWindowEx(0,
                             WC_TREEVIEW,
                             TEXT("Tree View"),
-                            WS_VISIBLE | WS_CHILD | WS_BORDER | 
-							TVS_HASLINES | TVS_HASBUTTONS | TVS_SHOWSELALWAYS , 
+                            WS_VISIBLE | WS_CHILD | WS_BORDER |
+							TVS_HASLINES | TVS_HASBUTTONS | TVS_SHOWSELALWAYS ,
                             0,  0,  0, 0,
-                            _hParent, 
-                            NULL, 
-                            _hInst, 
-                            NULL); 
-	
+                            _hParent,
+                            NULL,
+                            _hInst,
+                            NULL);
+
 	if (!_hSelf)
 		throw int(56);
 
@@ -78,7 +78,7 @@ void TreeView::init(HINSTANCE hInst, HWND pere)
 	Parent = insertTo(Before, TEXT("Macro"), 0);
 	insertTo(Parent, TEXT("ChangeCode"), 0);
 	insertTo(Parent, TEXT("CipherData"), 0);
-	
+
 	insertTo(NULL, TEXT("Bla bla bla bla..."), 0);
 	//display();
 }

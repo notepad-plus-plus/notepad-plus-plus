@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 6.7.9.2
-    Last modified Wed, July 03rd, 2015 by Luca Leonardi.
+    Italian translation for Notepad++ 6.9.2
+    Last modified Wed, May 21st, 2016 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -92,7 +92,7 @@
                     <Item id = "41019" name = "Esplora risorse" />
                     <Item id = "41020" name = "Prompt dei comandi" />
                     <Item id = "41021" name = "Ripristina i file recenti" />
-
+                    <Item id = "41022" name = "Apri cartella come workspace"/>
 
                     <Item id = "42001" name = "Tag&amp;lia" />
                     <Item id = "42002" name = "&amp;Copia" />
@@ -242,6 +242,7 @@
                     <Item id = "44082" name = "Pannello 2" />
                     <Item id = "44083" name = "Pannello 3" />
                     <Item id = "44084" name = "Lista funzioni" />
+                    <Item id = "44085" name = "Cartella come workspace" />
                     <Item id = "44086" name = "Prima scheda" />
                     <Item id = "44087" name = "Seconda scheda" />
                     <Item id = "44088" name = "Terza scheda" />
@@ -253,6 +254,7 @@
                     <Item id = "44094" name = "Nona scheda" />
                     <Item id = "44095" name = "Scheda successiva" />
                     <Item id = "44096" name = "Scheda precedente" />
+                    <Item id = "44097" name = "Monitora" />
 
                     <Item id = "45001" name = "Formato Windows" />
                     <Item id = "45002" name = "Formato UNIX" />
@@ -290,15 +292,16 @@
 
                     <Item id = "47000" name = "Informazioni su..." />
                     <Item id = "47001" name = "Sito web Notepad++" />
-                    <Item id = "47002" name = "Progetto Notepad++ (Sourceforge.net)" />
+                    <Item id = "47002" name = "Progetto Notepad++" />
                     <Item id = "47003" name = "Documentazione online" />
-                    <Item id = "47004" name = "Forum" />
+                    <Item id = "47004" name = "Community Notepad++ (Forum)" />
                     <Item id = "47005" name = "Ottieni altri plugin" />
                     <Item id = "47006" name = "Aggiorna Notepad++" />
                     <Item id = "47008" name = "Guida..." />
                     <Item id = "47009" name = "Imposta proxy aggiornamento..." />
                     <Item id = "47010" name = "Argomenti riga di comando..." />
                     <Item id = "47011" name = "Supporto Live"/>
+                    <Item id = "47012" name = "Informazioni di debug"/>
 
                     <Item id = "48005" name = "Importa plugin..." />
                     <Item id = "48006" name = "Importa tema..." />
@@ -676,7 +679,9 @@
                     <Item id = "6206" name = "Visualizza i numeri di riga" />
                     <Item id = "6207" name = "Visualizza i segnalibri" />
                     <Item id = "6214" name = "Evidenzia la riga corrente" />
+                    <Item id = "6215" name = "Abilita antialising caratteri" />
                     <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
+                    <Item id = "6235" name = "Nessun bordo" />
                 </Scintillas>
                 <NewDoc title = "Nuovo documento">
                     <Item id = "6401" name = "Formato" />
@@ -685,10 +690,10 @@
                     <Item id = "6404" name = "Mac" />
                     <Item id = "6405" name = "Codifica" />
                     <Item id = "6406" name = "ANSI" />
-                    <Item id = "6407" name = "UTF-8 senza BOM" />
-                    <Item id = "6408" name = "UTF-8" />
-                    <Item id = "6409" name = "UCS-2 Big endian" />
-                    <Item id = "6410" name = "UCS-2 Little endian" />
+                    <Item id = "6407" name = "UTF-8" />
+                    <Item id = "6408" name = "UTF-8 con BOM" />
+                    <Item id = "6409" name = "UCS-2 Big Endian con BOM" />
+                    <Item id = "6410" name = "UCS-2 Little Endian con BOM" />
                     <Item id = "6411" name = "Linguaggio predefinito:" />
                     <Item id = "6419" name = "Nuovo Documento" />
                     <Item id = "6420" name = "Applica all'apertura di file ANSI" />
@@ -697,6 +702,7 @@
                     <Item id = "6413" name = "Cartella Predefinita (Apri/Salva)" />
                     <Item id = "6414" name = "Secondo il documento corrente" />
                     <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata" />
+                    <Item id = "6430" name = "Usa nuovo stile per finestra di salvataggio (senza estensioni predefinite)" />
                 </DefaultDir>
                 <RecentFilesHistory title = "File recenti">
                     <Item id = "6304" name = "Lista Documenti Recenti" />
@@ -802,12 +808,13 @@
                     <Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla" />
                 </Delimiter>
                 <Cloud title = "Cloud">
-                    <Item id = "6262" name = "Impostazioni Sul Cluod" />
+                    <Item id = "6262" name = "Impostazioni Sul Cloud" />
                     <Item id = "6263" name = "Nessun servizio cloud" />
-                    <Item id = "6264" name = "Dropbox" />
+                    <!--Item id = "6264" name = "Dropbox" />
                     <Item id = "6265" name = "OneDrive" />
                     <Item id = "6266" name = "Google Drive" />
-                    <!--Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." /-->
+                    <Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." />-->
+                    <Item id = "6267" name = "Imposta qui il percorso della tua cartella cloud:" />
                 </Cloud>
                 <MISC title = "Varie">
                     <Item id = "6324" name = "Cambia Documento (Ctrl+TAB)" />
@@ -839,6 +846,7 @@
                     <Item id = "6335" name = "Backslash è il carattere di escape in SQL" />
 
                     <Item id = "6322" name = "Est. file di sessione:" />
+                    <Item id = "6337" name = "Est. file workspace:" />
 
                     <Item id = "6323" name = "Aggiorna automaticamente Notepad++" />
                 </MISC>
@@ -864,6 +872,7 @@
                 <Item id = "2030" name = "Numero iniziale: " />
                 <Item id = "2031" name = "Incrementa di: " />
                 <Item id = "2035" name = "Zeri iniziali" />
+                <Item id = "2036" name = "Ripeti: " />
                 <Item id = "2032" name = "Formato" />
                 <Item id = "2024" name = "Decimale" />
                 <Item id = "2025" name = "Ottale" />

@@ -51,6 +51,7 @@ UpgradeLog*.htm
 *.log
 .builds
 *.pidb
+
 PowerEditor/bin/notepad++.exe
 PowerEditor/bin/SciLexer.dll
 PowerEditor/bin/config.xml
@@ -65,20 +66,24 @@ PowerEditor/bin/session.xml
 PowerEditor/bin/functionList.xml
 PowerEditor/bin/shortcuts.xml
 PowerEditor/bin/backup/
-PowerEditor/bin/localization/
+PowerEditor/bin/localization
 PowerEditor/bin/plugins/
+PowerEditor/bin64/
 PowerEditor/installer/build/
 PowerEditor/installer/minimalist/
 PowerEditor/installer/zipped.package.release/
 PowerEditor/visual.net/Unicode Debug/
 PowerEditor/visual.net/Unicode Release/
 PowerEditor/visual.net/notepadPlus.sln
+PowerEditor/visual.net/x64/Unicode Debug/
+PowerEditor/visual.net/x64/Unicode Release/
 
 
 # scintilla - generated files
 scintilla/bin/SciLexer.*
 scintilla/bin/Scintilla.*
 scintilla/win32/*.lib
+scintilla/win32/Lexers.a
 scintilla/win32/ScintRes.res
 scintilla/boostregex/bin
 scintilla/boostregex/boostpath.mak
@@ -111,3 +116,25 @@ scintilla/cppcheck.suppress
 scintilla/.hg_archival.txt
 scintilla/.hgignore
 scintilla/bin/__init__.py
+PowerEditor/bin/NppShell64_06.dll
+PowerEditor/bin/NppShell_06.dll
+
+PowerEditor/bin/SourceCodePro-Bold.ttf
+PowerEditor/bin/SourceCodePro-BoldIt.ttf
+PowerEditor/bin/SourceCodePro-It.ttf
+PowerEditor/bin/SourceCodePro-Regular.ttf
+*.zip
+
+#-------------------------------------------------------------------------------
+# GNU GCC MinGW
+
+#-- Generated during makefile build
+*.d
+*.o
+/PowerEditor/gcc/resources.res
+/PowerEditor/bin/NotepadPP.exe
+
+#-- Generated manually to make Notepad++ execute properly on Linux using Wine
+/PowerEditor/bin/libgcc_s_sjlj-1.dll
+/PowerEditor/bin/libstdc++-6.dll
+/PowerEditor/bin/libwinpthread-1.dll

@@ -27,6 +27,7 @@
 
 
 #include <iostream>
+#include <stdexcept>
 #include "ColourPopup.h"
 
 DWORD colourItems[] = {
@@ -68,9 +69,9 @@ INT_PTR CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LP
 
 		case WM_INITDIALOG :
 		{
-			ColourPopup *pColourPopup = (ColourPopup *)(lParam);
+			ColourPopup *pColourPopup = reinterpret_cast<ColourPopup *>(lParam);
 			pColourPopup->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)lParam);
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, static_cast<LONG_PTR>(lParam));
 			pColourPopup->run_dlgProc(message, wParam, lParam);
 			return TRUE;
 		}
@@ -217,8 +218,8 @@ INT_PTR CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
                 {
 			        if (HIWORD(wParam) == LBN_SELCHANGE)
 		            {
-                        int i = ::SendMessage((HWND)lParam, LB_GETCURSEL, 0L, 0L);
-                        _colour = ::SendMessage((HWND)lParam, LB_GETITEMDATA, i, 0L);
+                        auto i = ::SendMessage((HWND)lParam, LB_GETCURSEL, 0L, 0L);
+						_colour = static_cast<COLORREF>(::SendMessage((HWND)lParam, LB_GETITEMDATA, i, 0L));
 
                         ::SendMessage(_hParent, WM_PICKUP_COLOR, _colour, 0);
 					    return TRUE;

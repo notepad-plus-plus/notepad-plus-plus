@@ -41,16 +41,8 @@
 #ifndef URLCTRL_INCLUDED
 #include "URLCtrl.h"
 #endif// URLCTRL_INCLUDED
-#ifdef __GNUC__
-static int min(int a, int b) {
-    return (a<b)?a:b;
-};
-static int max(int a, int b) {
-    return (a>b)?a:b;
-};
-#endif //__GNUC__
 #include "tchar.h"
-#include "scilexer.h"
+#include "SciLexer.h"
 #include <unordered_map>
 
 class ScintillaEditView;
@@ -411,7 +403,7 @@ private :
         _dlgPos.bottom -= _dlgPos.top;
     };
     void restorePosSize(){reSizeTo(_dlgPos);};
-    void enableLangAndControlsBy(int index);
+    void enableLangAndControlsBy(size_t index);
 protected :
     void setKeywords2List(int){};
     void updateDlg();

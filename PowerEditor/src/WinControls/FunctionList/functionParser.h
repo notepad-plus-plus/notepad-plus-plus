@@ -24,23 +24,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-#ifndef FUNCTIONPARSER_H
-#define FUNCTIONPARSER_H
-
+#pragma once;
 class ScintillaEditView;
 class TiXmlDocument;
 class TiXmlNode;
 
-struct foundInfo {
+
+
+struct foundInfo final
+{
 	generic_string _data;
 	generic_string _data2;
-	int _pos;
-	int _pos2;
-	foundInfo(): _data(TEXT("")), _data2(TEXT("")), _pos(-1), _pos2(-1) {};
+	int _pos = -1;
+	int _pos2 = -1;
 };
 
-class FunctionParser {
+class FunctionParser
+{
 friend class FunctionParsersManager;
 public:
 	FunctionParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string functionExpr, std::vector<generic_string> functionNameExprArray, std::vector<generic_string> classNameExprArray): 
@@ -62,7 +62,8 @@ protected:
 };
 
 
-class FunctionZoneParser : public FunctionParser {
+class FunctionZoneParser : public FunctionParser
+{
 public:
 	FunctionZoneParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
 		std::vector<generic_string> classNameExprArray, generic_string functionExpr, std::vector<generic_string> functionNameExprArray):
@@ -84,70 +85,77 @@ private:
 
 
 
-class FunctionUnitParser : public FunctionParser {
+class FunctionUnitParser : public FunctionParser
+{
 public:
 	FunctionUnitParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr,
 		generic_string mainExpr, std::vector<generic_string> functionNameExprArray, 
-		std::vector<generic_string> classNameExprArray): FunctionParser(id, displayName, commentExpr, mainExpr, functionNameExprArray, classNameExprArray){};
+		std::vector<generic_string> classNameExprArray): FunctionParser(id, displayName, commentExpr, mainExpr, functionNameExprArray, classNameExprArray)
+	{}
 
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
-
 };
 
-class FunctionMixParser : public FunctionZoneParser {
+class FunctionMixParser : public FunctionZoneParser
+{
 public:
 	FunctionMixParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
 		std::vector<generic_string> classNameExprArray, generic_string functionExpr, std::vector<generic_string> functionNameExprArray, FunctionUnitParser *funcUnitPaser):
 		FunctionZoneParser(id, displayName, commentExpr, rangeExpr,	openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(funcUnitPaser){};
 		
-	~FunctionMixParser() {
-		if (_funcUnitPaser)
-			delete _funcUnitPaser;
+	~FunctionMixParser()
+	{
+		delete _funcUnitPaser;
 	}
+
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 
 private:
-	FunctionUnitParser *_funcUnitPaser;
+	FunctionUnitParser* _funcUnitPaser = nullptr;
 };
 
-struct AssociationInfo {
+
+struct AssociationInfo final
+{
 	int _id;
 	int _langID;
 	generic_string _ext;
 	generic_string _userDefinedLangName;
 
-	AssociationInfo(int id, int langID, const TCHAR *ext, const TCHAR *userDefinedLangName): _id(id), _langID(langID) {
+	AssociationInfo(int id, int langID, const TCHAR *ext, const TCHAR *userDefinedLangName)
+		: _id(id), _langID(langID)
+	{
 		if (ext)
 			_ext = ext;
 		else
-			_ext = TEXT("");
+			_ext.clear();
 
 		if (userDefinedLangName)
 			_userDefinedLangName = userDefinedLangName;
 		else
-			_userDefinedLangName = TEXT("");
+			_userDefinedLangName.clear();
 	};
 };
 
-class FunctionParsersManager {
+
+class FunctionParsersManager final
+{
 public:
-	FunctionParsersManager() : _ppEditView(NULL), _pXmlFuncListDoc(NULL){};
 	~FunctionParsersManager();
+
 	bool init(generic_string xmlPath, ScintillaEditView ** ppEditView);
 	bool parse(std::vector<foundInfo> & foundInfos, const AssociationInfo & assoInfo);
 	void writeFunctionListXml(const TCHAR *destFoder) const;
 	
+
 private:
-	ScintillaEditView **_ppEditView;
+	ScintillaEditView **_ppEditView = nullptr;
 	std::vector<FunctionParser *> _parsers;
 	std::vector<AssociationInfo> _associationMap;
-	TiXmlDocument *_pXmlFuncListDoc;
+	TiXmlDocument *_pXmlFuncListDoc = nullptr;
 
 	bool getFuncListFromXmlTree();
 	bool getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray);
 	bool getUnitPaserParameters(TiXmlNode *functionParser, generic_string &mainExprStr, std::vector<generic_string> &functionNameExprArray, std::vector<generic_string> &classNameExprArray);
 	FunctionParser * getParser(const AssociationInfo & assoInfo);
 };
-
-#endif //FUNCTIONPARSER_H
-

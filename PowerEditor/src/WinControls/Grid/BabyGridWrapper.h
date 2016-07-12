@@ -30,7 +30,7 @@
 #define BABYGRIDWRAPPER
 
 #ifndef BABYGRID_H
-#include "babygrid.h"
+#include "BabyGrid.h"
 #endif// BABYGRID_H
 
 #include "Window.h"
@@ -62,8 +62,8 @@ public :
 
 	void setText(size_t row, size_t col, const TCHAR *text) {
 		_BGCELL cell;
-		cell.row = row;
-		cell.col = col;
+		cell.row = int(row);
+		cell.col = int(col);
 		::SendMessage(_hSelf, BGM_SETCELLDATA, (WPARAM)&cell, (LPARAM)text);
 	};
 
@@ -72,7 +72,7 @@ public :
 	};
 
 	int getSelectedRow() {
-		return ::SendMessage(_hSelf, BGM_GETROW, 0, 0);
+		return (int)::SendMessage(_hSelf, BGM_GETROW, 0, 0);
 	};
 
     // CHANGE_MOD: added get row count for validation

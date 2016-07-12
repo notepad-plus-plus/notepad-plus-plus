@@ -149,12 +149,6 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			::DestroyWindow(_hToolbarMenu);
             break;
         }
-		case WM_KEYDOWN:
-			//if (wParam == VK_F2)
-			{
-				::MessageBoxA(NULL,"vkF2","",MB_OK);
-			}
-			break;
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
@@ -613,7 +607,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 						return;
 				}
 				lpGetInfoTip->pszText = (LPTSTR)str->c_str();
-				lpGetInfoTip->cchTextMax = str->size();
+				lpGetInfoTip->cchTextMax = static_cast<int32_t>(str->size());
 			}
 			break;
 
@@ -760,7 +754,7 @@ void ProjectPanel::showContextMenu(int x, int y)
 	}
 }
 
-POINT ProjectPanel::getMenuDisplyPoint(int iButton)
+POINT ProjectPanel::getMenuDisplayPoint(int iButton)
 {
 	POINT p;
 	RECT btnRect;
@@ -798,14 +792,14 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		//
 		case IDB_PROJECT_BTN:
 		{
-		  POINT p = getMenuDisplyPoint(0);
+		  POINT p = getMenuDisplayPoint(0);
 		  TrackPopupMenu(_hWorkSpaceMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
 		}
 		break;
 
 		case IDB_EDIT_BTN:
 		{
-			POINT p = getMenuDisplyPoint(1);
+			POINT p = getMenuDisplayPoint(1);
 			HMENU hMenu = NULL;
 			NodeType nodeType = getNodeType(hTreeItem);
 			if (nodeType == nodeType_project)
@@ -1208,10 +1202,10 @@ int FileRelocalizerDlg::doDialog(const TCHAR *fn, bool isRTL)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;
 		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_FILERELOCALIZER_DIALOG, &pMyDlgTemplate);
-		int result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  dlgProc, (LPARAM)this);
+		int result = static_cast<int32_t>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, (LPARAM)this));
 		::GlobalFree(hMyDlgTemplate);
 		return result;
 	}
-	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_FILERELOCALIZER_DIALOG), _hParent,  dlgProc, (LPARAM)this);
+	return static_cast<int32_t>(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_FILERELOCALIZER_DIALOG), _hParent, dlgProc, (LPARAM)this));
 }
 

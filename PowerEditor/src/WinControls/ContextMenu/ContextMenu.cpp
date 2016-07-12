@@ -31,15 +31,16 @@
 MenuItemUnit::MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *parentFolderName) : _cmdID(cmdID)
 {
 	if (!itemName)
-		_itemName = TEXT("");
+		_itemName.clear();
 	else
 		_itemName = itemName;
 
 	if (!parentFolderName)
-		_parentFolderName = TEXT("");
+		_parentFolderName.clear();
 	else
 		_parentFolderName = parentFolderName;
 }
+
 
 ContextMenu::~ContextMenu()
 {
@@ -50,6 +51,7 @@ ContextMenu::~ContextMenu()
 		::DestroyMenu(_hMenu);
 	}
 }
+
 	
 void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle)
 { 
@@ -57,15 +59,15 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 	_hMenu = ::CreatePopupMenu();
 	bool lastIsSep = false;
 	HMENU hParentFolder = NULL;
-	generic_string currentParentFolderStr = TEXT("");
+	generic_string currentParentFolderStr;
 	int j = 0;
 
 	for (size_t i = 0, len = menuItemArray.size(); i < len; ++i)
 	{
 		const MenuItemUnit & item = menuItemArray[i];
-		if (item._parentFolderName == TEXT(""))
+		if (item._parentFolderName.empty())
 		{
-			currentParentFolderStr = TEXT("");
+			currentParentFolderStr.clear();
 			hParentFolder = NULL;
 			j = 0;
 		}
@@ -78,7 +80,7 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 				j = 0;
 
 				_subMenus.push_back(hParentFolder);
-				::InsertMenu(_hMenu, i, MF_BYPOSITION | MF_POPUP, (UINT_PTR)hParentFolder, currentParentFolderStr.c_str());
+				::InsertMenu(_hMenu, static_cast<UINT>(i), MF_BYPOSITION | MF_POPUP, (UINT_PTR)hParentFolder, currentParentFolderStr.c_str());
 			}
 		}
 
@@ -94,12 +96,12 @@ void ContextMenu::create(HWND hParent, const std::vector<MenuItemUnit> & menuIte
 		}
 		else if (item._cmdID != 0)
 		{
-			::InsertMenu(_hMenu, i, flag, item._cmdID, item._itemName.c_str());
+			::InsertMenu(_hMenu, static_cast<UINT>(i), flag, item._cmdID, item._itemName.c_str());
 			lastIsSep = false;
 		}
 		else if (item._cmdID == 0 && !lastIsSep)
 		{
-			::InsertMenu(_hMenu, i, flag, item._cmdID, item._itemName.c_str());
+			::InsertMenu(_hMenu, static_cast<int32_t>(i), flag, item._cmdID, item._itemName.c_str());
 			lastIsSep = true;
 		}
 		else // last item is separator and current item is separator

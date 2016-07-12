@@ -30,7 +30,9 @@
 #define WINDOWS_DLG_RC_H
 
 #ifdef __GNUC__
+#ifndef _WIN32_IE
 #define _WIN32_IE 0x0600
+#endif
 
 	#ifndef LVS_OWNERDATA
 		#define LVS_OWNERDATA 4096

@@ -24,20 +24,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-
 #include <algorithm>
+#include <stdexcept>
 #include <shlwapi.h>
-#include <Shlobj.h>
+#include <shlobj.h>
 #include <uxtheme.h>
 #include "StaticDialog.h"
-
-
 
 #include "Common.h"
 #include "../Utf8.h"
 
-WcharMbcsConvertor * WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
+
+WcharMbcsConvertor* WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
+
+
+
 
 void printInt(int int2print)
 {
@@ -96,7 +97,7 @@ char getDriveLetter()
 
 generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 {
-	generic_string fullFilePathName = TEXT("");
+	generic_string fullFilePathName;
 	TCHAR fullFileName[MAX_PATH];
 	BOOL isRelative = ::PathIsRelative(relativeFilePath);
 
@@ -112,6 +113,7 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath)
 			fullFilePathName += getDriveLetter();
 			fullFilePathName += ':';
 		}
+
 		fullFilePathName += relativeFilePath;
 	}
 
@@ -148,8 +150,10 @@ static int __stdcall BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM, LPARAM pDa
 };
 
 
-void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
+generic_string folderBrowser(HWND parent, const generic_string & title, int outputCtrlID, const TCHAR *defaultStr)
 {
+	generic_string dirStr;
+
 	// This code was copied and slightly modifed from:
 	// http://www.bcbdev.com/faqs/faq62.htm
 
@@ -168,11 +172,13 @@ void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 		info.pidlRoot = NULL;
 		TCHAR szDisplayName[MAX_PATH];
 		info.pszDisplayName = szDisplayName;
-		info.lpszTitle = TEXT("Select a folder to search from");
+		info.lpszTitle = title.c_str();
 		info.ulFlags = 0;
 		info.lpfn = BrowseCallbackProc;
+
 		TCHAR directory[MAX_PATH];
-		::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
+		if (outputCtrlID != 0)
+			::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
 		directory[_countof(directory) - 1] = '\0';
 
 		if (!directory[0] && defaultStr)
@@ -191,19 +197,25 @@ void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 			// Return is true if success.
 			TCHAR szDir[MAX_PATH];
 			if (::SHGetPathFromIDList(pidl, szDir))
+			{
 				// Set edit control to the directory path.
-				::SetDlgItemText(parent, outputCtrlID, szDir);
+				if (outputCtrlID != 0)
+					::SetDlgItemText(parent, outputCtrlID, szDir);
+				dirStr = szDir;
+			}
 			pShellMalloc->Free(pidl);
 		}
 		pShellMalloc->Release();
 	}
+	return dirStr;
 }
 
 
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir)
 {
-	generic_string folderName(TEXT(""));
+	generic_string folderName;
 	LPMALLOC pShellMalloc = 0;
+
 	if (::SHGetMalloc(&pShellMalloc) == NO_ERROR)
 	{
 		BROWSEINFO info;
@@ -301,7 +313,6 @@ int filter(unsigned int code, struct _EXCEPTION_POINTERS *)
 {
     if (code == EXCEPTION_ACCESS_VIOLATION)
         return EXCEPTION_EXECUTE_HANDLER;
-
     return EXCEPTION_CONTINUE_SEARCH;
 }
 
@@ -310,9 +321,11 @@ bool isInList(const TCHAR *token, const TCHAR *list)
 {
 	if ((!token) || (!list))
 		return false;
+
 	TCHAR word[64];
 	size_t i = 0;
 	size_t j = 0;
+
 	for (size_t len = lstrlen(list); i <= len; ++i)
 	{
 		if ((list[i] == ' ')||(list[i] == '\0'))
@@ -341,24 +354,26 @@ generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand
 	TCHAR cleanedName[64] = TEXT("");
 	size_t j = 0;
 	size_t menuNameLen = lstrlen(menuItemStr);
-	for(size_t k = 0 ; k < menuNameLen ; ++k)
+	for (size_t k = 0 ; k < menuNameLen ; ++k)
 	{
 		if (menuItemStr[k] == '\t')
 		{
 			cleanedName[k] = 0;
 			break;
 		}
-		else if (menuItemStr[k] == '&')
-		{
-			if (keepAmpersand)
-				cleanedName[j++] = menuItemStr[k];
-			//else skip
-		}
 		else
 		{
-			cleanedName[j++] = menuItemStr[k];
+			if (menuItemStr[k] == '&')
+			{
+				if (keepAmpersand)
+					cleanedName[j++] = menuItemStr[k];
+				//else skip
+			}
+			else
+				cleanedName[j++] = menuItemStr[k];
 		}
 	}
+
 	cleanedName[j] = 0;
 	return cleanedName;
 }
@@ -367,10 +382,15 @@ generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand
 const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage, int lenMbcs, int *pLenWc, int *pBytesNotProcessed)
 {
 	// Do not process NULL pointer
-	if (!mbcs2Convert) return NULL;
+	if (!mbcs2Convert)
+		return nullptr;
 
 	// Do not process empty strings
-	if (lenMbcs == 0 || lenMbcs == -1 && mbcs2Convert[0] == 0) { _wideCharStr.empty(); return _wideCharStr;	}
+	if (lenMbcs == 0 || lenMbcs == -1 && mbcs2Convert[0] == 0)
+	{
+		_wideCharStr.empty();
+		return _wideCharStr;
+	}
 
 	int bytesNotProcessed = 0;
 	int lenWc = 0;
@@ -419,8 +439,11 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 	else
 		_wideCharStr.empty();
 
-	if (pLenWc) *pLenWc = lenWc;
-	if (pBytesNotProcessed) *pBytesNotProcessed = bytesNotProcessed;
+	if (pLenWc)
+		*pLenWc = lenWc;
+	if (pBytesNotProcessed)
+		*pBytesNotProcessed = bytesNotProcessed;
+
 	return _wideCharStr;
 }
 
@@ -459,10 +482,10 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 }
 
 
-const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, int lenWc, int *pLenMbcs)
+const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, int lenWc, int *pLenMbcs)
 {
-	// Do not process NULL pointer
-	if (!wcharStr2Convert) return NULL;
+	if (nullptr == wcharStr2Convert)
+		return nullptr;
 
 	int lenMbcs = WideCharToMultiByte(codepage, 0, wcharStr2Convert, lenWc, NULL, 0, NULL, NULL);
 	if (lenMbcs > 0)
@@ -481,8 +504,8 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UI
 
 const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, long *mstart, long *mend)
 {
-	// Do not process NULL pointer
-	if (!wcharStr2Convert) return NULL;
+	if (nullptr == wcharStr2Convert)
+		return nullptr;
 
 	int len = WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, NULL, 0, NULL, NULL);
 	if (len > 0)
@@ -517,9 +540,9 @@ std::wstring string2wstring(const std::string & rString, UINT codepage)
 		MultiByteToWideChar(codepage, 0, rString.c_str(), -1, &vw[0], len);
 		return &vw[0];
 	}
-	else
-		return L"";
+	return std::wstring();
 }
+
 
 std::string wstring2string(const std::wstring & rwString, UINT codepage)
 {
@@ -530,9 +553,9 @@ std::string wstring2string(const std::wstring & rwString, UINT codepage)
 		WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, &vw[0], len, NULL, NULL);
 		return &vw[0];
 	}
-	else
-		return "";
+	return std::string();
 }
+
 
 // Escapes ampersands in file name to use it in menu
 template <typename T>
@@ -549,6 +572,7 @@ generic_string convertFileName(T beg, T end)
 	return strTmp;
 }
 
+
 generic_string intToString(int val)
 {
 	std::vector<TCHAR> vt;
@@ -558,7 +582,8 @@ generic_string intToString(int val)
 
 	vt.push_back('0' + (TCHAR)(std::abs(val % 10)));
 	val /= 10;
-	while (val != 0) {
+	while (val != 0)
+	{
 		vt.push_back('0' + (TCHAR)(std::abs(val % 10)));
 		val /= 10;
 	}
@@ -569,13 +594,15 @@ generic_string intToString(int val)
 	return generic_string(vt.rbegin(), vt.rend());
 }
 
+
 generic_string uintToString(unsigned int val)
 {
 	std::vector<TCHAR> vt;
 
 	vt.push_back('0' + (TCHAR)(val % 10));
 	val /= 10;
-	while (val != 0) {
+	while (val != 0)
+	{
 		vt.push_back('0' + (TCHAR)(val % 10));
 		val /= 10;
 	}
@@ -635,7 +662,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 }
 
 
-generic_string PathRemoveFileSpec(generic_string & path)
+generic_string PathRemoveFileSpec(generic_string& path)
 {
     generic_string::size_type lastBackslash = path.find_last_of(TEXT('\\'));
     if (lastBackslash == generic_string::npos)
@@ -649,7 +676,7 @@ generic_string PathRemoveFileSpec(generic_string & path)
     {
         if (lastBackslash == 2 && path[1] == TEXT(':') && path.size() >= 3)  // "C:\foo.exe" becomes "C:\"
             path.erase(3);
-        else if (lastBackslash == 0 && path.size() > 1)  //   "\foo.exe" becomes "\"
+        else if (lastBackslash == 0 && path.size() > 1) // "\foo.exe" becomes "\"
             path.erase(1);
         else
             path.erase(lastBackslash);
@@ -658,29 +685,29 @@ generic_string PathRemoveFileSpec(generic_string & path)
 }
 
 
-generic_string PathAppend(generic_string &strDest, const generic_string & str2append)
+generic_string PathAppend(generic_string& strDest, const generic_string& str2append)
 {
-	if (strDest == TEXT("") && str2append == TEXT("")) // "" + ""
+	if (strDest.empty() && str2append.empty()) // "" + ""
 	{
 		strDest = TEXT("\\");
 		return strDest;
 	}
 
-	if (strDest == TEXT("") && str2append != TEXT("")) // "" + titi
+	if (strDest.empty() && not str2append.empty()) // "" + titi
 	{
 		strDest = str2append;
 		return strDest;
 	}
 
-	if (strDest[strDest.length() - 1] == '\\' && (str2append != TEXT("") && str2append[0] == '\\')) // toto\ + \titi
+	if (strDest[strDest.length() - 1] == '\\' && (not str2append.empty() && str2append[0] == '\\')) // toto\ + \titi
 	{
 		strDest.erase(strDest.length() - 1, 1);
 		strDest += str2append;
 		return strDest;
 	}
 
-	if ((strDest[strDest.length() - 1] == '\\' && (str2append != TEXT("") && str2append[0] != '\\')) // toto\ + titi
-		|| (strDest[strDest.length() - 1] != '\\' && (str2append != TEXT("") && str2append[0] == '\\'))) // toto + \titi
+	if ((strDest[strDest.length() - 1] == '\\' && (not str2append.empty() && str2append[0] != '\\')) // toto\ + titi
+		|| (strDest[strDest.length() - 1] != '\\' && (not str2append.empty() && str2append[0] == '\\'))) // toto + \titi
 	{
 		strDest += str2append;
 		return strDest;
@@ -754,8 +781,8 @@ generic_string stringReplace(generic_string subject, const generic_string& searc
 
 std::vector<generic_string> stringSplit(const generic_string& input, const generic_string& delimiter)
 {
-	auto start = 0U;
-	auto end = input.find(delimiter);
+	size_t start = 0U;
+	size_t end = input.find(delimiter);
 	std::vector<generic_string> output;
 	const size_t delimiterLength = delimiter.length();
 	while (end != std::string::npos)
@@ -806,11 +833,15 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
 	const wchar_t* ptr = str.c_str();
 	errno = 0;
 	wchar_t* eptr;
+#ifdef __MINGW32__
+	double ans = ::wcstod(ptr, &eptr);
+#else
 	double ans = ::_wcstod_l(ptr, &eptr, loc);
+#endif
 	if (ptr == eptr)
-		throw new std::invalid_argument("invalid stod argument");
+		throw std::invalid_argument("invalid stod argument");
 	if (errno == ERANGE)
-		throw new std::out_of_range("stod argument out of range");
+		throw std::out_of_range("stod argument out of range");
 	if (idx != NULL)
 		*idx = (size_t)(eptr - ptr);
 	return ans;
@@ -818,7 +849,7 @@ double stodLocale(const generic_string& str, _locale_t loc, size_t* idx)
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 {
-	int len2Allocate = (str2cpy.size() + 1) * sizeof(TCHAR);
+	size_t len2Allocate = (str2cpy.size() + 1) * sizeof(TCHAR);
 	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, len2Allocate);
 	if (hglbCopy == NULL)
 	{
@@ -863,5 +894,13 @@ bool str2Clipboard(const generic_string &str2cpy, HWND hwnd)
 	return true;
 }
 
-
+bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns)
+{
+	for (size_t i = 0, len = patterns.size(); i < len; ++i)
+	{
+		if (PathMatchSpec(fileName, patterns[i].c_str()))
+			return true;
+	}
+	return false;
+}
 

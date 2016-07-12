@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="6.7.5">
+    <Native-Langue name="Français" filename="french.xml" version="6.8.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -90,6 +90,7 @@
                     <Item id="41015" name="Enregistrer une copie..."/>
                     <Item id="41016" name="Supprimer"/>
                     <Item id="41017" name="Renommer..."/>
+					<Item id="41021" name="Ouvrir le fichier récemment fermé"/>
                     <Item id="42001" name="Cou&amp;per"/>
                     <Item id="42002" name="&amp;Copier"/>
                     <Item id="42003" name="&amp;Annuler"/>
@@ -130,8 +131,14 @@
                     <Item id="42056" name="Enlever les lignes vides (contenant les blancs aussi)"/>
                     <Item id="42057" name="Insérer une ligne vide devant la ligne courante"/>
                     <Item id="42058" name="Insérer une ligne vide après la ligne courante"/>
-					<Item id="42059" name="Trier les lignes dans l'ordre croissant"/>
-					<Item id="42060" name="Trier les lignes dans l'ordre décroissant"/>
+					<Item id="42059" name="Trier les lignes dans l'ordre lexicographique croissant"/>
+					<Item id="42061" name="Trier les lignes dans l'ordre d'entier croissant"/>
+					<Item id="42063" name="Trier les lignes dans l'ordre décimal (virgule) croissant"/>
+					<Item id="42065" name="Trier les lignes dans l'ordre décimal (point) croissant"/>
+					<Item id="42060" name="Trier les lignes dans l'ordre lexicographique décroissant"/>
+					<Item id="42062" name="Trier les lignes dans l'ordre d'entier décroissant"/>
+					<Item id="42064" name="Trier les lignes dans l'ordre décimal (virgule) décroissant"/>
+					<Item id="42066" name="Trier les lignes dans l'ordre décimal (point) décroissant"/>
                     <Item id="42037" name="Sélection en mode colonne..."/>
                     <Item id="42040" name="Ouvrir tous les fichiers récents"/>
                     <Item id="42041" name="Vider la liste des fichiers récents"/>
@@ -199,6 +206,7 @@
                     <Item id="43051" name="Supprimer les lignes non marquées"/>
                     <Item id="43052" name="Rechercher des caractères dans une plage..."/>
                     <Item id="43053" name="Sélectionner tout entre les 2 accolades"/>
+					<Item id="43054" name="Marquer..."/>
                     <Item id="44009" name="Post-it"/>
                     <Item id="44010" name="Replier tous les blocs"/>
                     <Item id="44019" name="Afficher tous les caractères"/>
@@ -273,6 +281,7 @@
                     <Item id="47008" name="Aide"/>
                     <Item id="47009" name="Paramétrer le Proxy d'Updater..."/>
 					<Item id="47010" name="Arguments de la Ligne de Commande..."/>
+					<Item id="47011" name="Support en Direct"/>
                     <Item id="48005" name="Importer un complément..."/>
                     <Item id="48006" name="Importer un thème..."/>
                     <Item id="48009" name="Raccourcis clavier..."/>
@@ -477,6 +486,8 @@
             <Item id="25030" name="Police:"/>
             <Item id="25031" name="Nom:"/>
             <Item id="25032" name="Taille:"/>
+			<Item id="1" name="Enregistrer"/>
+            <Item id="2" name="Annuler"/>
         </StylerDialog>
         <Keywords title="Mots-clés">
             <Item id="22101" name="1er Groupe"/>
@@ -621,6 +632,7 @@
                     <Item id="6212" name="Afficher un filet vertical"/>
                     <Item id="6213" name="Colorer l’arrière-plan"/>
                     <Item id="6214" name="Surligner la ligne actuelle"/>
+					<Item id="6215" name="Activer smooth font"/>
                     <Item id="6216" name="Curseur"/>
                     <Item id="6217" name="Largeur :"/>
                     <Item id="6219" name="Clignotement :"/>
@@ -711,12 +723,12 @@
                     <Item id="6424" name="Dans un sous-menu"/>
                     <Item id="6425" name="Seul le nom du fichier"/>
                     <Item id="6426" name="Chemin complet du fichier"/>
-                    <Item id="6427" name="Adapter la longueur maximum:"/>
+                    <Item id="6427" name="Adapter la longueur maximale :"/>
                 </RecentFilesHistory>
 
                 <Backup title="Sauvegarde">
-					<Item id="6817" name="Instantané de la session et sauvegarde periodique"/>
-					<Item id="6818" name="Activer instantané de la session et sauvegarde periodique"/>
+					<Item id="6817" name="Instantané de la session et sauvegarde périodique"/>
+					<Item id="6818" name="Activer instantané de la session et sauvegarde périodique"/>
 					<Item id="6819" name="Sauvegarder toutes les"/>
 					<Item id="6821" name="secondes"/>
 					<Item id="6822" name="dans le dossier"/>
@@ -740,7 +752,7 @@
                     <Item id="6815" name="Paramètres affichés durant la saisie"/>
                     <Item id="6851" name="Insertion automatique"/>
                     <Item id="6857" name="balise fermante (html/xml)"/>
-                    <Item id="6858" name="Debut"/>
+                    <Item id="6858" name="Début"/>
                     <Item id="6859" name="Fin"/>
                     <Item id="6860" name="paire #1 :"/>
                     <Item id="6863" name="paire #2 :"/>
@@ -764,10 +776,8 @@
 
 				<Cloud title="Cloud">
                     <Item id="6262" name="Sauvegarder les paramètres dans le cloud"/>
-                    <Item id="6263" name="Local"/>
-                    <Item id="6264" name="Dropbox"/>
-                    <Item id="6265" name="OneDrive"/>
-                    <Item id="6266" name="Google Drive"/>
+                    <Item id="6263" name="Par défaut"/>
+                    <Item id="6267" name="Le chemin d'accès de votre location de cloud :"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
@@ -782,7 +792,7 @@
                     <Item id="6318" name="Paramétrage de lien cliquable"/>
                     <Item id="6319" name="Activer"/>
                     <Item id="6320" name="Ne pas souligner"/>
-                    <Item id="6322" name="Ext fichier session:"/>
+                    <Item id="6322" name="Ext fichier session :"/>
                     <Item id="6323" name="Activer la mise à jour automatique"/>
                     <Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
@@ -836,14 +846,14 @@
             <ColumnModeTip title="Sélection en mode colonnes" message="Utiliser 'Alt+sélection souris' ou 'Alt+Maj+flêches' pour activer le mode colonne."/>
             <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de contextMenu.xml vous permet de modifier la fenêtre de menu contextuel de Notepad++. Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
             <DeleteFileFailed title="Suppression du fichier" message="La suppression du fichier a échoué."/>
-            <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++?"/>
+            <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++ ?"/>
             <FileAlreadyOpenedInNpp title="" message="Le fichier est toujours ouvert dans Notepad++."/>
-            <FileLockedWarning title="Échec de la sauvegarde" message="S'il vous plaît vérifier si ce fichier est ouvert par un autre programme"/>
-            <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer?"/>
+            <FileLockedWarning title="Échec de la sauvegarde" message="Veuillez vérifier si ce fichier est ouvert par un autre programme"/>
+            <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir est trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouvert. Êtes-vous sûr de les ouvrir?"/>
-            <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. S'il vous plaît, le télécharger sur le site de Notepad++."/>
-            <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer?"/>
+            <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir est trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts. Êtes-vous sûr de les ouvrir ?"/>
+            <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. Veuillez le télécharger sur le site de Notepad++."/>
+            <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
         </MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papiers"/>

@@ -71,9 +71,7 @@ class TiXmlNode;
 
 class ProjectPanel : public DockingDlgInterface {
 public:
-	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL),\
-		_hToolbarMenu(NULL), _hWorkSpaceMenu(NULL), _hProjectMenu(NULL),\
-		_hFolderMenu(NULL), _hFileMenu(NULL){};
+	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL) {};
 
 
 	void init(HINSTANCE hInst, HWND hPere) {
@@ -113,11 +111,14 @@ public:
 protected:
 	TreeView _treeView;
 	HIMAGELIST _hImaLst;
-	HWND _hToolbarMenu;
-	HMENU _hWorkSpaceMenu, _hProjectMenu, _hFolderMenu, _hFileMenu;
+	HWND _hToolbarMenu = nullptr;
+	HMENU _hWorkSpaceMenu = nullptr;
+	HMENU _hProjectMenu = nullptr;
+	HMENU _hFolderMenu = nullptr;
+	HMENU _hFileMenu = nullptr;
 	generic_string _workSpaceFilePath;
 	generic_string _selDirOfFilesFromDirDlg;
-	bool _isDirty;
+	bool _isDirty = false;
 
 	void initMenus();
 	void destroyMenus();
@@ -133,7 +134,7 @@ protected:
 	NodeType getNodeType(HTREEITEM hItem);
 	void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);
-	POINT getMenuDisplyPoint(int iButton);
+	POINT getMenuDisplayPoint(int iButton);
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);

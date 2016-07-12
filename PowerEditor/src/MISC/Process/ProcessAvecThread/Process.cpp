@@ -151,11 +151,11 @@ void Process::listenerStdOut()
 	while (goOn)
 	{ // got data
 		memset(bufferOut,0x00,MAX_LINE_LENGTH + 1);
-		int taille = sizeof(bufferOut) - sizeof(TCHAR);
+		int size = sizeof(bufferOut) - sizeof(TCHAR);
 
 		Sleep(50);
 
-		if (!::PeekNamedPipe(_hPipeOutR, bufferOut, taille, &outbytesRead, &bytesAvail, NULL))
+		if (!::PeekNamedPipe(_hPipeOutR, bufferOut, size, &outbytesRead, &bytesAvail, NULL))
 		{
 			bytesAvail = 0;
             goOn = false;
@@ -164,7 +164,7 @@ void Process::listenerStdOut()
 
 		if (outbytesRead)
 		{
-			result = :: ReadFile(_hPipeOutR, bufferOut, taille, &outbytesRead, NULL);
+			result = :: ReadFile(_hPipeOutR, bufferOut, size, &outbytesRead, NULL);
 			if ((!result) && (outbytesRead == 0))
             {
                 goOn = false;
@@ -202,7 +202,6 @@ void Process::listenerStdErr()
 	BOOL result = 0;
 	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerStdErrEvent"));
 
-	int taille = 0;
 	TCHAR bufferErr[MAX_LINE_LENGTH + 1];
 	int nExitCode = STILL_ACTIVE;
 
@@ -212,11 +211,11 @@ void Process::listenerStdErr()
 	while (goOn)
 	{ // got data
 		memset(bufferErr, 0x00, MAX_LINE_LENGTH + 1);
-		taille = sizeof(bufferErr) - sizeof(TCHAR);
+		size_t size = sizeof(bufferErr) - sizeof(TCHAR);
 
 		Sleep(50);
 		DWORD errbytesRead;
-		if (!::PeekNamedPipe(_hPipeErrR, bufferErr, taille, &errbytesRead, &bytesAvail, NULL))
+		if (!::PeekNamedPipe(_hPipeErrR, bufferErr, size, &errbytesRead, &bytesAvail, NULL))
 		{
 			bytesAvail = 0;
             goOn = false;
@@ -225,7 +224,7 @@ void Process::listenerStdErr()
 
 		if (errbytesRead)
 		{
-			result = :: ReadFile(_hPipeErrR, bufferErr, taille, &errbytesRead, NULL);
+			result = :: ReadFile(_hPipeErrR, bufferErr, size, &errbytesRead, NULL);
 			if ((!result) && (errbytesRead == 0))
             {
                 goOn = false;

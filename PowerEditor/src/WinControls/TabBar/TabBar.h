@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -41,6 +41,7 @@
 #include "resource.h"
 #endif //RESOURCE_H
 
+#include <stdint.h>
 #include <windows.h>
 #include <commctrl.h>
 #include "Window.h"
@@ -60,10 +61,13 @@ const TCHAR TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = TEXT("Active tab unfocused indi
 const TCHAR TABBAR_ACTIVETEXT[64] = TEXT("Active tab text");
 const TCHAR TABBAR_INACTIVETEXT[64] = TEXT("Inactive tabs");
 
-struct TBHDR {
+struct TBHDR
+{
 	NMHDR hdr;
 	int tabOrigin;
 };
+
+
 
 class TabBar : public Window
 {
@@ -77,12 +81,12 @@ public:
 	void activateAt(int index) const;
 	void getCurrentTitle(TCHAR *title, int titleLen);
 
-	int getCurrentTabIndex() const {
-		return ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0);
+	int32_t getCurrentTabIndex() const {
+		return static_cast<int32_t>(SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 	};
 
-	int getItemCount() const {
-		return ::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0);
+	int32_t getItemCount() const {
+		return static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0));
 	}
 
 	void deletItemAt(size_t index);
@@ -92,21 +96,18 @@ public:
 		_nbItem = 0;
 	};
 
-	void setImageList(HIMAGELIST himl) {
-		_hasImgLst = true;
-		::SendMessage(_hSelf, TCM_SETIMAGELIST, 0, (LPARAM)himl);
-	};
-    
-    int nbItem() const {
-        return _nbItem;
-    };
+	void setImageList(HIMAGELIST himl);
 
-	void setFont(TCHAR *fontName, size_t fontSize);
-		
+    size_t nbItem() const {
+        return _nbItem;
+    }
+
+	void setFont(TCHAR *fontName, int fontSize);
+
 	void setVertical(bool b) {
 		_isVertical = b;
 	};
-	
+
 	void setMultiLine(bool b) {
 		_isMultiLine = b;
 	};
@@ -125,32 +126,33 @@ protected:
 
 	bool _isVertical;
 	bool _isMultiLine;
-	
+
 	long getRowCount() const {
 		return long(::SendMessage(_hSelf, TCM_GETROWCOUNT, 0, 0));
-	};
+	}
 };
 
 
-struct CloseButtonZone {
+struct CloseButtonZone
+{
 	CloseButtonZone();
-	bool isHit(int x, int y, const RECT & testZone) const;
-	RECT getButtonRectFrom(const RECT & tabItemRect) const;
+	bool isHit(int x, int y, const RECT & tabRect, bool isVertical) const;
+	RECT getButtonRectFrom(const RECT & tabRect, bool isVertical) const;
 
 	int _width;
-	int _hight;
-	int _fromTop; // distance from top in pixzl
-	int _fromRight; // distance from right in pixzl
+	int _height;
 };
+
+
 
 class TabBarPlus : public TabBar
 {
 public :
-
     // CHANGE_MOD: added new members to init list with default values, also removed a trailing backslash
 	TabBarPlus() : TabBar(), _isDragging(false), _tabBarDefaultProc(NULL), _currentHoverTabItem(-1),
         _isCloseHover(false), _whichCloseClickDown(-1), _lmbdHit(false), _tooltips(NULL),
         _wheelDelta(0), _tabScrollIndex(-1) {};
+
 	enum tabColourIndex {
 		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
 	};
@@ -198,29 +200,31 @@ public :
 	static void setDrawTopBar(bool b) {
 		_drawTopBar = b;
 		doOwnerDrawTab();
-	};
+	}
+
 	static void setDrawInactiveTab(bool b) {
 		_drawInactiveTab = b;
 		doOwnerDrawTab();
-	};
+	}
+
 	static void setDrawTabCloseButton(bool b) {
 		_drawTabCloseButton = b;
 		doOwnerDrawTab();
-	};
+	}
 
 	static void setDbClk2Close(bool b) {
 		_isDbClk2Close = b;
-	};
+	}
 
 	static void setVertical(bool b) {
 		_isCtrlVertical = b;
 		doVertical();
-	};
+	}
 
 	static void setMultiLine(bool b) {
 		_isCtrlMultiLine = b;
 		doMultiLine();
-	};
+	}
 
 	static void setColour(COLORREF colour2Set, tabColourIndex i);
 
@@ -276,23 +280,26 @@ protected:
 	void drawItem(DRAWITEMSTRUCT *pDrawItemStruct);
 	void draggingCursor(POINT screenPoint);
 
-	int getTabIndexAt(const POINT & p) {
+	int getTabIndexAt(const POINT & p)
+	{
 		return getTabIndexAt(p.x, p.y);
-	};
+	}
 
-	int getTabIndexAt(int x, int y) {
+	int32_t getTabIndexAt(int x, int y)
+	{
 		TCHITTESTINFO hitInfo;
 		hitInfo.pt.x = x;
 		hitInfo.pt.y = y;
-		return ::SendMessage(_hSelf, TCM_HITTEST, 0, (LPARAM)&hitInfo);
-	};
+		return static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, (LPARAM)&hitInfo));
+	}
 
-	bool isPointInParentZone(POINT screenPoint) const {
+	bool isPointInParentZone(POINT screenPoint) const
+	{
         RECT parentZone;
         ::GetWindowRect(_hParent, &parentZone);
 	    return (((screenPoint.x >= parentZone.left) && (screenPoint.x <= parentZone.right)) &&
 			    (screenPoint.y >= parentZone.top) && (screenPoint.y <= parentZone.bottom));
-    };
+    }
 };
 
 #endif // TAB_BAR_H

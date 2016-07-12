@@ -86,11 +86,11 @@ protected:
     //UINT _pid;   // process ID assigned by caller
 
 	static DWORD WINAPI staticListenerStdOut(void * myself){
-		((Process *)myself)->listenerStdOut();
+		static_cast<Process *>(myself)->listenerStdOut();
 		return 0;
 	};
 	static DWORD WINAPI staticListenerStdErr(void * myself) {
-		((Process *)myself)->listenerStdErr();
+		static_cast<Process *>(myself)->listenerStdErr();
 		return 0;
 	};
 	void listenerStdOut();

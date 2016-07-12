@@ -53,11 +53,11 @@ static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
     {
 		case WM_MOUSEMOVE:
 		case WM_NCMOUSEMOVE:
-			::PostMessage(hWndServer, wParam, 0, 0);
+			::PostMessage(hWndServer, UINT(wParam), 0, 0);
 			break;
 		case WM_LBUTTONUP:
 		case WM_NCLBUTTONUP:
-			::PostMessage(hWndServer, wParam, 0, 0);
+			::PostMessage(hWndServer, UINT(wParam), 0, 0);
 			break;
         default: 
 			break;
@@ -86,6 +86,14 @@ DockingCont::DockingCont()
 	_hoverMPos			= posClose;
 	_bDrawOgLine		= TRUE;
 	_vTbData.clear();
+
+	_captionHeightDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_captionHeightDynamic);
+	_captionGapDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_captionGapDynamic);
+	_closeButtonPosLeftDynamic = NppParameters::getInstance()->_dpiManager.scaleX(_closeButtonPosLeftDynamic);
+	_closeButtonPosTopDynamic = NppParameters::getInstance()->_dpiManager.scaleY(_closeButtonPosTopDynamic);
+
+	_closeButtonWidth = NppParameters::getInstance()->_dpiManager.scaleX(12); // bitmap image is 12x12
+	_closeButtonHeight = NppParameters::getInstance()->_dpiManager.scaleY(12);
 }
 
 DockingCont::~DockingCont()
@@ -219,7 +227,7 @@ void DockingCont::setActiveTb(int iItem)
 
 int DockingCont::getActiveTb()
 {
-	return ::SendMessage(_hContTab, TCM_GETCURSEL, 0, 0);
+	return static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETCURSEL, 0, 0));
 }
 
 tTbData* DockingCont::getDataOfActiveTb()
@@ -241,9 +249,9 @@ tTbData* DockingCont::getDataOfActiveTb()
 
 vector<tTbData*> DockingCont::getDataOfVisTb()
 {
-	vector<tTbData*>	vTbData;
-	TCITEM				tcItem		= {0};
-	int					iItemCnt	= ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
+	vector<tTbData*> vTbData;
+	TCITEM tcItem = {0};
+	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	tcItem.mask	= TCIF_PARAM;
 
@@ -257,8 +265,8 @@ vector<tTbData*> DockingCont::getDataOfVisTb()
 
 bool DockingCont::isTbVis(tTbData* data)
 {
-	TCITEM				tcItem		= {0};
-	int					iItemCnt	= ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
+	TCITEM tcItem = {0};
+	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	tcItem.mask	= TCIF_PARAM;
 
@@ -450,7 +458,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	HBITMAP		hBmpCur		= NULL;
 	HBITMAP		hBmpOld 	= NULL;
 	HBITMAP		hBmpNew		= NULL;
-	UINT		length  	= _pszCaption.length();
+	int length = static_cast<int32_t>(_pszCaption.length());
 
 	int nSavedDC			= ::SaveDC(hDc);
 
@@ -533,7 +541,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 		// draw text
 		rc.left		+= 1;
-		rc.top		+= HIGH_CAPTION;
+		rc.top += _captionHeightDynamic;
 		// to make ellipsis working
 		rc.right	= rc.bottom - rc.top;
 		rc.bottom	+= 14;
@@ -564,9 +572,9 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 	// select correct bitmap
 	if ((_isMouseOver == TRUE) && (_isMouseDown == TRUE))
-		hBmpCur = ::LoadBitmap(_hInst, MAKEINTRESOURCE(IDB_CLOSE_DOWN));
+		hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_DOWN), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
 	else
-		hBmpCur = ::LoadBitmap(_hInst, MAKEINTRESOURCE(IDB_CLOSE_UP));
+		hBmpCur = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(IDB_CLOSE_UP), IMAGE_BITMAP, _closeButtonWidth, _closeButtonHeight, 0);
 
 	// blit bitmap into the destination
 	::GetObject(hBmpCur, sizeof(bmp), &bmp);
@@ -577,9 +585,9 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	::SelectObject(hDc, hBmpNew);
 
 	if (_isTopCaption == TRUE)
-		::BitBlt(hDc, rc.right-bmp.bmWidth-CLOSEBTN_POS_LEFT, CLOSEBTN_POS_TOP, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
+		::BitBlt(hDc, rc.right - bmp.bmWidth - _closeButtonPosLeftDynamic, _closeButtonPosTopDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
 	else
-		::BitBlt(hDc, CLOSEBTN_POS_LEFT, CLOSEBTN_POS_LEFT, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
+		::BitBlt(hDc, _closeButtonPosLeftDynamic, _closeButtonPosLeftDynamic, bmp.bmWidth, bmp.bmHeight, dcMem, 0, 0, SRCCOPY);
 
 	::SelectObject(dcMem, hBmpOld);
 	::DeleteObject(hBmpCur);
@@ -599,24 +607,24 @@ eMousePos DockingCont::isInRect(HWND hwnd, int x, int y)
 
 	if (_isTopCaption == TRUE)
 	{
-		if ((x > rc.left) && (x < rc.right-HIGH_CAPTION) && (y > rc.top) && (y < rc.bottom))
+		if ((x > rc.left) && (x < rc.right - _captionHeightDynamic) && (y > rc.top) && (y < rc.bottom))
 		{
 			ret = posCaption;
 		}
-		else if ((x > rc.right-(12+CLOSEBTN_POS_LEFT)) && (x < (rc.right-CLOSEBTN_POS_LEFT)) && 
-			(y > (rc.top+CLOSEBTN_POS_TOP)) && (y < (rc.bottom-CLOSEBTN_POS_TOP)))
+		else if ((x > rc.right - (_closeButtonWidth + _closeButtonPosLeftDynamic)) && (x < (rc.right - _closeButtonPosLeftDynamic)) &&
+			(y >(rc.top + _closeButtonPosTopDynamic)) && (y < (rc.bottom - _closeButtonPosTopDynamic)))
 		{
 			ret = posClose;
 		}
 	}
 	else
 	{
-		if ((x > rc.left) && (x < rc.right) && (y > rc.top+HIGH_CAPTION) && (y < rc.bottom))
+		if ((x > rc.left) && (x < rc.right) && (y > rc.top + _captionHeightDynamic) && (y < rc.bottom))
 		{
 			ret = posCaption;
 		}
-		else if ((x > rc.left+CLOSEBTN_POS_LEFT) && (x < rc.right-CLOSEBTN_POS_LEFT) && 
-			(y > (rc.top+CLOSEBTN_POS_TOP)) && (y < (rc.top+(12+CLOSEBTN_POS_LEFT))))
+		else if ((x > rc.left + _closeButtonPosLeftDynamic) && (x < rc.right - _closeButtonPosLeftDynamic) &&
+			(y >(rc.top + _closeButtonPosTopDynamic)) && (y < (rc.top + (_closeButtonHeight + _closeButtonPosLeftDynamic))))
 		{
 			ret = posClose;
 		}
@@ -648,7 +656,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
 			info.pt.y = HIWORD(lParam);
-			iItem = ::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info);
+			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
 
 			SelectTab(iItem);
 			_beginDrag = FALSE;
@@ -668,7 +676,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
 			info.pt.y = HIWORD(lParam);
-			iItem = ::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info);
+			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
 
 			SelectTab(iItem);
 
@@ -695,7 +703,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
 			info.pt.y = HIWORD(lParam);
-			iItem = ::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info);
+			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
 
 			if ((_beginDrag == TRUE) && (wParam == MK_LBUTTON))
 			{
@@ -708,7 +716,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			}
             else
             {
-				int	iItemSel = ::SendMessage(hwnd, TCM_GETCURSEL, 0, 0);
+				int	iItemSel = static_cast<int32_t>(::SendMessage(hwnd, TCM_GETCURSEL, 0, 0));
 
 				if ((_bTabTTHover == FALSE) && (iItem != iItemSel))
 				{
@@ -766,7 +774,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
 			info.pt.y = HIWORD(lParam);
-			iItem = ::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info);
+			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
 
 			// recalc mouse position
 			::ClientToScreen(hwnd, &info.pt);
@@ -801,7 +809,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				// get selected sub item
 				info.pt.x = LOWORD(lParam);
 				info.pt.y = HIWORD(lParam);
-				iItem = ::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info);
+				iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
 
 				SelectTab(iItem);
 			}
@@ -862,7 +870,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (((tTbData*)tcItem.lParam)->uMask & DWS_ICONTAB)
 	{
 		HIMAGELIST	hImageList	= (HIMAGELIST)::SendMessage(_hParent, DMM_GETIMAGELIST, 0, 0);
-		int			iPosImage	= ::SendMessage(_hParent, DMM_GETICONPOS, 0, (LPARAM)((tTbData*)tcItem.lParam)->hClient);
+		int iPosImage = static_cast<int32_t>(::SendMessage(_hParent, DMM_GETICONPOS, 0, (LPARAM)((tTbData*)tcItem.lParam)->hClient));
 
 		if ((hImageList != NULL) && (iPosImage >= 0))
 		{
@@ -1006,11 +1014,11 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 
 void DockingCont::onSize()
 {
-	TCITEM	tcItem		= {0};
-	RECT	rc			= {0};
-	RECT	rcTemp		= {0};
-	UINT	iItemCnt	= ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
-	UINT	iTabOff		= 0;
+	TCITEM tcItem = {0};
+	RECT rc = {0};
+	RECT rcTemp = {0};
+	UINT iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
+	UINT iTabOff = 0;
 
 	getClientRect(rc);
 
@@ -1023,15 +1031,15 @@ void DockingCont::onSize()
 			// draw caption
 			if (_isTopCaption == TRUE)
 			{
-				::SetWindowPos(_hCaption, NULL, rc.left, rc.top, rc.right, HIGH_CAPTION, SWP_NOZORDER | SWP_NOACTIVATE);
-				rc.top		+= HIGH_CAPTION;
-				rc.bottom	-= HIGH_CAPTION;
+				::SetWindowPos(_hCaption, NULL, rc.left, rc.top, rc.right, _captionHeightDynamic, SWP_NOZORDER | SWP_NOACTIVATE);
+				rc.top += _captionHeightDynamic;
+				rc.bottom -= _captionHeightDynamic;
 			}
 			else
 			{
-				::SetWindowPos(_hCaption, NULL, rc.left, rc.top, HIGH_CAPTION, rc.bottom, SWP_NOZORDER | SWP_NOACTIVATE);
-				rc.left		+= HIGH_CAPTION;
-				rc.right	-= HIGH_CAPTION;
+				::SetWindowPos(_hCaption, NULL, rc.left, rc.top, _captionHeightDynamic, rc.bottom, SWP_NOZORDER | SWP_NOACTIVATE);
+				rc.left += _captionHeightDynamic;
+				rc.right -= _captionHeightDynamic;
 			}
 
 			if (iItemCnt >= 2)
@@ -1039,7 +1047,7 @@ void DockingCont::onSize()
 				// resize tab and plugin control if tabs exceeds one
 				// resize tab
 				rcTemp = rc;
-				rcTemp.top		= (rcTemp.bottom + rcTemp.top) - (tabDpiDynamicalHeight + CAPTION_GAP);
+				rcTemp.top = (rcTemp.bottom + rcTemp.top) - (tabDpiDynamicalHeight + _captionGapDynamic);
 				rcTemp.bottom	= tabDpiDynamicalHeight;
 				iTabOff			= tabDpiDynamicalHeight;
 
@@ -1052,13 +1060,13 @@ void DockingCont::onSize()
 			rcTemp = rc;
 			if (_isTopCaption == TRUE)
 			{
-				rcTemp.top    += CAPTION_GAP;
-				rcTemp.bottom -= (iTabOff + CAPTION_GAP);
+				rcTemp.top += _captionGapDynamic;
+				rcTemp.bottom -= (iTabOff + _captionGapDynamic);
 			}
 			else
 			{
-				rcTemp.left   += CAPTION_GAP;
-				rcTemp.right  -= CAPTION_GAP;
+				rcTemp.left += _captionGapDynamic;
+				rcTemp.right -= _captionGapDynamic;
 				rcTemp.bottom -= iTabOff;
 			}
 
@@ -1084,7 +1092,7 @@ void DockingCont::onSize()
 			{
 				// resize tab if size of elements exceeds one
 				rcTemp = rc;
-				rcTemp.top    = rcTemp.bottom - (tabDpiDynamicalHeight + CAPTION_GAP);
+				rcTemp.top = rcTemp.bottom - (tabDpiDynamicalHeight + _captionGapDynamic);
 				rcTemp.bottom = tabDpiDynamicalHeight;
 
 				::SetWindowPos(_hContTab, NULL,
@@ -1103,10 +1111,10 @@ void DockingCont::onSize()
 		
 
 		// get active item data
-		UINT	iItemCnt = ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
+		size_t iItemCnt = static_cast<size_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 		// resize visible plugin windows
-		for (UINT iItem = 0; iItem < iItemCnt; ++iItem)
+		for (size_t iItem = 0; iItem < iItemCnt; ++iItem)
 		{
 			tcItem.mask		= TCIF_PARAM;
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
@@ -1130,8 +1138,8 @@ void DockingCont::onSize()
 
 void DockingCont::doClose()
 {
-	int	iItemOff	= 0;
-	int	iItemCnt	= ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
+	int	iItemOff = 0;
+	int	iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	for (int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
@@ -1178,12 +1186,12 @@ void DockingCont::showToolbar(tTbData* pTbData, BOOL state)
 
 int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 {
-	int		iItem	= SearchPosInTab(pTbData);
+	int iItem = SearchPosInTab(pTbData);
 
 	// delete item
 	if (TRUE == ::SendMessage(_hContTab, TCM_DELETEITEM, iItem, 0))
 	{
-		UINT	iItemCnt = ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
+		auto iItemCnt = ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
 
 		if (iItemCnt != 0)
 		{
@@ -1191,7 +1199,7 @@ int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 
 			tcItem.mask	= TCIF_PARAM;
 
-			if ((unsigned int)iItem == iItemCnt)
+			if (iItem == iItemCnt)
 			{
 				iItem--;
 			}
@@ -1231,8 +1239,8 @@ int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 
 void DockingCont::viewToolbar(tTbData *pTbData)
 {
-	TCITEM		tcItem		= {0};
-	int			iItemCnt	= ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
+	TCITEM tcItem = {0};
+	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	if (iItemCnt > 0)
 	{
@@ -1278,8 +1286,8 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 
 int DockingCont::SearchPosInTab(tTbData* pTbData)
 {
-	TCITEM	tcItem		= {0};
-	int		iItemCnt	= ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
+	TCITEM tcItem = {0};
+	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 	tcItem.mask	= TCIF_PARAM;
 
@@ -1300,10 +1308,10 @@ void DockingCont::SelectTab(int iTab)
 	if (iTab != -1)
 	{
 		const TCHAR	*pszMaxTxt	= NULL;
-		TCITEM	tcItem		= {0};
-		SIZE	size		= {0};
-		int		maxWidth	= 0;
-		int		iItemCnt	= ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
+		TCITEM tcItem = {0};
+		SIZE size = {0};
+		int maxWidth = 0;
+		int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
 
 		// get data of new active dialog
 		tcItem.mask		= TCIF_PARAM;
@@ -1369,7 +1377,7 @@ void DockingCont::SelectTab(int iTab)
 
 		for (int iItem = 0; iItem < iItemCnt; ++iItem)
 		{
-			generic_string szText(TEXT(""));
+			generic_string szText;
 			if (iItem == iTab && pszMaxTxt)
 			{
 				// fake here an icon before text ...

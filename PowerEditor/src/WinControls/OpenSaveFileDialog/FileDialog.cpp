@@ -125,7 +125,7 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 	extFilter += TEXT(")");	
 	
 	// Resize filter buffer
-	int nbCharAdditional = extFilter.length() + lstrlen(exts) + 3; // 3 additional for nulls
+	int nbCharAdditional = static_cast<int32_t>(extFilter.length() + lstrlen(exts) + 3); // 3 additional for nulls
 	if (_fileExt)
 	{
 		oldFilter = new TCHAR[_nbCharFileExt];
@@ -150,7 +150,7 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 	// Append new filter    
     TCHAR *pFileExt = _fileExt + _nbCharFileExt;
 	lstrcpy(pFileExt, extFilter.c_str());
-    _nbCharFileExt += extFilter.length() + 1;
+	_nbCharFileExt += static_cast<int32_t>(extFilter.length()) + 1;
     
     pFileExt = _fileExt + _nbCharFileExt;
 	lstrcpy(pFileExt, exts);
@@ -162,7 +162,7 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 	return _nbExt;
 }
 
-TCHAR * FileDialog::doOpenSingleFileDlg() 
+TCHAR* FileDialog::doOpenSingleFileDlg()
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
@@ -208,21 +208,26 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		::GetCurrentDirectory(MAX_PATH, dir);
 		params->setWorkingDir(dir);
 	}
-	::SetCurrentDirectory(dir); 
+	::SetCurrentDirectory(dir);
 
 	if (res)
 	{
-		TCHAR fn[MAX_PATH];
-		TCHAR *pFn = _fileName + lstrlen(_fileName) + 1;
+		TCHAR* pFn = _fileName + lstrlen(_fileName) + 1;
+		TCHAR fn[MAX_PATH*8];
+		memset(fn, 0x0, sizeof(fn));
+
 		if (!(*pFn))
+		{
 			_fileNames.push_back(generic_string(_fileName));
+		}
 		else
 		{
 			lstrcpy(fn, _fileName);
-			if (fn[lstrlen(fn)-1] != '\\')
+			if (fn[lstrlen(fn) - 1] != '\\')
 				lstrcat(fn, TEXT("\\"));
 		}
-		int term = int(lstrlen(fn));
+
+		int term = lstrlen(fn);
 
 		while (*pFn)
 		{
@@ -234,9 +239,9 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 
 		return &_fileNames;
 	}
-	else
-		return NULL;
+	return nullptr;
 }
+
 
 TCHAR * FileDialog::doSaveDlg() 
 {
@@ -249,8 +254,11 @@ TCHAR * FileDialog::doSaveDlg()
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 
-	_ofn.Flags |= OFN_ENABLEHOOK;
-	_ofn.lpfnHook = OFNHookProc;
+	if (!params->useNewStyleSaveDlg())
+	{
+		_ofn.Flags |= OFN_ENABLEHOOK;
+		_ofn.lpfnHook = OFNHookProc;
+	}
 
 	TCHAR *fn = NULL;
 	try {
@@ -329,9 +337,9 @@ static generic_string addExt(HWND textCtrl, HWND typeCtrl) {
 	TCHAR fn[MAX_PATH];
 	::GetWindowText(textCtrl, fn, MAX_PATH);
 	
-	int i = ::SendMessage(typeCtrl, CB_GETCURSEL, 0, 0);
+	auto i = ::SendMessage(typeCtrl, CB_GETCURSEL, 0, 0);
 
-	int cbTextLen = ::SendMessage(typeCtrl, CB_GETLBTEXTLEN, i, 0);
+	auto cbTextLen = ::SendMessage(typeCtrl, CB_GETLBTEXTLEN, i, 0);
 	TCHAR * ext = new TCHAR[cbTextLen + 1];
 	::SendMessage(typeCtrl, CB_GETLBTEXT, i, (LPARAM)ext);
 	
@@ -369,7 +377,7 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 			// Don't touch the following 3 lines, they are cursed !!!
 			oldProc = (WNDPROC)::GetWindowLongPtr(hFileDlg, GWLP_WNDPROC);
-			if ((long)oldProc > 0)
+			if (oldProc)
 				::SetWindowLongPtr(hFileDlg, GWLP_WNDPROC, (LONG_PTR)fileDlgProc);
 
 			return FALSE;
@@ -420,7 +428,7 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM, LPARAM lParam)
 				case CDN_FILEOK :
 				{
 					HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
-					int index = ::SendMessage(typeControl, CB_GETCURSEL, 0, 0);
+					int index = static_cast<int32_t>(::SendMessage(typeControl, CB_GETCURSEL, 0, 0));
 					NppParameters *pNppParam = NppParameters::getInstance();
 					pNppParam->setFileSaveDlgFilterIndex(index);
 					return TRUE;
@@ -470,16 +478,16 @@ generic_string changeExt(generic_string fn, generic_string ext, bool forceReplac
 
 	generic_string fnExt = fn;
 	
-	int index = fnExt.find_last_of(TEXT("."));
+	auto index = fnExt.find_last_of(TEXT("."));
 	generic_string extension = TEXT(".");
 	extension += ext;
-	if (size_t(index) == generic_string::npos)
+	if (index == generic_string::npos)
 	{
 		fnExt += extension;
 	}
 	else if (forceReplaced)
 	{
-		int len = (extension.length() > fnExt.length() - index + 1)?extension.length():fnExt.length() - index + 1;
+		auto len = (extension.length() > fnExt.length() - index + 1)?extension.length():fnExt.length() - index + 1;
 		fnExt.replace(index, len, extension);
 	}
 	return fnExt;

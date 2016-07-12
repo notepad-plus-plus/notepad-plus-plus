@@ -152,7 +152,7 @@ int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardData cbd)
 
 			if (found)
 			{
-				iFound = i;
+				iFound = static_cast<int32_t>(i);
 				break;
 			}
 		}
@@ -235,24 +235,24 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 				{
 					if (HIWORD(wParam) == LBN_DBLCLK)
 					{
-						int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
+						auto i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
 						if (i != LB_ERR)
 						{
 							int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 							if (codepage == -1)
 							{
-								int cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
-								codepage = cp==SC_CP_UTF8?SC_CP_UTF8:0;
+								auto cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
+								codepage = cp == SC_CP_UTF8 ? SC_CP_UTF8 : 0;
 							}
 							else
 								codepage = SC_CP_UTF8;
 
 							ByteArray ba(_clipboardDataVector[i]);
 
-							int nbChar = WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), ba.getLength(), NULL, 0, NULL, NULL);
+							int nbChar = WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), static_cast<int32_t>(ba.getLength()), NULL, 0, NULL, NULL);
 
 							char *c = new char[nbChar+1];
-							WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), ba.getLength(), c, nbChar+1, NULL, NULL);
+							WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), static_cast<int32_t>(ba.getLength()), c, nbChar + 1, NULL, NULL);
 
 							(*_ppEditView)->execute(SCI_REPLACESEL, 0, (LPARAM)"");
 							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), (LPARAM)c);
@@ -273,18 +273,7 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 			::MoveWindow(::GetDlgItem(_hSelf, IDC_LIST_CLIPBOARD), 0, 0, width, height, TRUE);
             break;
         }
-/*
-		case WM_VKEYTOITEM:
-		{
-			if (LOWORD(wParam) == VK_RETURN)
-			{
-				int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
-				printInt(i);
-				return TRUE;
-			}//return TRUE;
-			break;
-		}
-*/
+
 		case WM_CTLCOLORLISTBOX:
 		{
 			if (_lbBgColor != -1)

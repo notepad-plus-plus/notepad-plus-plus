@@ -809,6 +809,12 @@ bool FileManager::backupCurrentBuffer()
 			{
 				// no thread yet, create a event with non-signaled, to block all threads
 				writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
+				if (!writeEvent)
+				{
+					// problem!!!
+					printStr(TEXT("CreateEvent problem in backupCurrentBuffer()!"));
+					return false;
+			}
 			}
 			else
 			{
@@ -820,7 +826,12 @@ bool FileManager::backupCurrentBuffer()
 				}
 
 				// unlocled here, set to non-signaled state, to block all threads
-				::ResetEvent(writeEvent);
+				if (!::ResetEvent(writeEvent))
+				{
+					// problem!!!
+					printStr(TEXT("ResetEvent problem in backupCurrentBuffer()!"));
+					return false;
+				}
 			}
 
 			UniMode mode = buffer->getUnicodeMode();
@@ -1106,7 +1117,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		}
 		
 		// check the language du fichier
-		LangType language = detectLanguageFromTextBegining((unsigned char *)buf, lengthDoc);
+		LangType language = detectLanguageFromTextBeginning((unsigned char *)buf, lengthDoc);
 
 		UnicodeConvertor.fclose();
 
@@ -1261,7 +1272,7 @@ int FileManager::detectCodepage(char* buf, size_t len)
 	return codepage;
 }
 
-LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen)
+LangType FileManager::detectLanguageFromTextBeginning(const unsigned char *data, size_t dataLen)
 {
 	struct FirstLineLanguages
 	{
@@ -1443,7 +1454,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				if (language == L_TEXT)
 				{
 					// check the language du fichier
-					language = detectLanguageFromTextBegining((unsigned char *)data, lenFile);
+					language = detectLanguageFromTextBeginning((unsigned char *)data, lenFile);
 				}
 
                 isFirstTime = false;

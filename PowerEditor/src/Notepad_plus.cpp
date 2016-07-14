@@ -3908,13 +3908,13 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 				size_t len = (generic_strnicmp(commentStr.c_str(), comment.c_str(), comment_length) == 0) ? comment_length : comment_length - 1;
 
 				_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
-				_pEditView->replaceSelWith("");
+					_pEditView->replaceSelWith("");
 
-				if (i == selStartLine) // is this the first selected line?
+					if (i == selStartLine) // is this the first selected line?
 					selectionStart -= len;
 				selectionEnd -= len; // every iteration
 				++nUncomments;
-				continue;
+					continue;
 			}
 		}
 		if ((currCommentMode == cm_toggle) || (currCommentMode == cm_comment))

@@ -533,7 +533,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					auto cmdLineParamsSize = static_cast<size_t>(pCopyData->cbData);  // CmdLineParams size from another instance
 					if (sizeof(CmdLineParams) == cmdLineParamsSize) // make sure the structure is the same
 					{
-						pNppParam->setCmdlineParam(*cmdLineParam);
+					pNppParam->setCmdlineParam(*cmdLineParam);
 					}
 					else
 					{

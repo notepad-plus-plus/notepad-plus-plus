@@ -1176,7 +1176,11 @@ bool Notepad_plus::fileSave(BufferID id)
 					fn_bak = fn;
 				}
 				fn_bak += TEXT(".bak");
-				::CopyFile(fn, fn_bak.c_str(), FALSE);
+
+				if (not ::CopyFile(fn, fn_bak.c_str(), FALSE))
+				{
+					return false;
+				}
 			}
 			else if (backup == bak_verbose)
 			{
@@ -1221,7 +1225,10 @@ bool Notepad_plus::fileSave(BufferID id)
 				fn_dateTime_bak += tmpbuf;
 				fn_dateTime_bak += TEXT(".bak");
 
-				::CopyFile(fn, fn_dateTime_bak.c_str(), FALSE);
+				if (not ::CopyFile(fn, fn_dateTime_bak.c_str(), FALSE))
+				{
+					return false;
+				}
 			}
 			return doSave(bufferID, buf->getFullPathName(), false);
 		}

@@ -805,22 +805,30 @@ bool FileManager::backupCurrentBuffer()
 			// Synchronization
 			// This method is called from 2 differents place, so synchronization is important
 			HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
-			if (!writeEvent)
+			if (not writeEvent)
 			{
 				// no thread yet, create a event with non-signaled, to block all threads
 				writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
+				if (not writeEvent)
+				{
+					printStr(TEXT("CreateEvent problem in backupCurrentBuffer()!"));
+					return false;
+				}
 			}
 			else
 			{
 				if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
 				{
-					// problem!!!
 					printStr(TEXT("WaitForSingleObject problem in backupCurrentBuffer()!"));
 					return false;
 				}
 
 				// unlocled here, set to non-signaled state, to block all threads
-				::ResetEvent(writeEvent);
+				if (not ::ResetEvent(writeEvent))
+				{
+					printStr(TEXT("ResetEvent problem in backupCurrentBuffer()!"));
+					return false;
+				}
 			}
 
 			UniMode mode = buffer->getUnicodeMode();

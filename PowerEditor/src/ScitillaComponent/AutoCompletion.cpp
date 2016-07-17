@@ -404,6 +404,9 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (tagHead[1] == '/') // "</toto>" will be ignored
 		return;
 
+	if (tagHead[1] == '?') // "<?" (Processing Instructions) will be ignored
+		return;
+
 	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
 

@@ -33,7 +33,7 @@ class FindReplaceDlg;
 
 class SmartHighlighter {
 public:
-	SmartHighlighter(FindReplaceDlg * pFRDlg);
+	explicit SmartHighlighter(FindReplaceDlg * pFRDlg);
 	void highlightView(ScintillaEditView * pHighlightView);
 private:
 	FindReplaceDlg * _pFRDlg;

@@ -26,17 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SHORTCUTS_H
-#define SHORTCUTS_H
+#pragma once
 
-#ifndef IDD_SHORTCUT_DLG
 #include "shortcutRc.h"
-#endif //IDD_SHORTCUT_DLG
-
-#ifndef SCINTILLA_H
 #include "Scintilla.h"
-#endif //SCINTILLA_H
-
 #include "StaticDialog.h"
 #include "Common.h"
 
@@ -139,7 +132,7 @@ public:
 
 	virtual INT_PTR doDialog()
 	{
-		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent,  dlgProc, (LPARAM)this);
+		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
 
 	virtual bool isValid() const { //valid should only be used in cases where the shortcut isEnabled().
@@ -233,7 +226,7 @@ public:
 
 	INT_PTR doDialog()
 	{
-		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent,  dlgProc, (LPARAM)this);
+		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
 
 	//only compares the internal KeyCombos, nothing else
@@ -277,15 +270,15 @@ class ScintillaEditView;
 
 struct recordedMacroStep {
 	enum MacroTypeIndex {mtUseLParameter, mtUseSParameter, mtMenuCommand, mtSavedSnR};
-	
-	int _message;
-	long _wParameter;
-	long _lParameter;
+
+	int _message = 0;
+	long _wParameter = 0;
+	long _lParameter = 0;
 	generic_string _sParameter;
-	MacroTypeIndex _macroType;
+	MacroTypeIndex _macroType = mtMenuCommand;
 	
 	recordedMacroStep(int iMessage, long wParam, long lParam, int codepage);
-	recordedMacroStep(int iCommandID) : _message(0), _wParameter(iCommandID), _lParameter(0), _macroType(mtMenuCommand) {};
+	explicit recordedMacroStep(int iCommandID): _wParameter(iCommandID) {};
 
 	recordedMacroStep(int iMessage, long wParam, long lParam, const TCHAR *sParam, int type)
 		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(MacroTypeIndex(type)){
@@ -391,5 +384,3 @@ private:
 
 	void updateMenuItemByID(ScintillaKeyMap skm, int id);
 };
-
-#endif //SHORTCUTS_H

@@ -24,12 +24,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 #pragma once;
+
 class ScintillaEditView;
 class TiXmlDocument;
 class TiXmlNode;
-
-
 
 struct foundInfo final
 {
@@ -78,7 +78,6 @@ private:
 	generic_string _rangeExpr;
 	generic_string _openSymbole;
 	generic_string _closeSymbole;
-	generic_string _functionExpr;
 
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const std::vector< std::pair<int, int> > & commentZones, ScintillaEditView **ppEditView);
 };

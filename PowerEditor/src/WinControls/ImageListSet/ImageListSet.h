@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef IMAGE_LIST_H
-#define IMAGE_LIST_H
+#pragma once
 
 #include <vector>
 #include <windows.h>
@@ -39,7 +38,7 @@ const int nbMax = 45;
 class IconList
 {
 public :
-	IconList() : _hImglst(NULL) {};
+	IconList() {};
 	void create(HINSTANCE hInst, int iconSize);
 	void create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize);
 
@@ -52,11 +51,11 @@ public :
 	void setIconSize(int size) const;
 
 private :
-	HIMAGELIST _hImglst;
-	HINSTANCE _hInst;
-	int *_pIconIDArray;
-	int _iconIDArraySize;
-	int _iconSize;
+	HIMAGELIST _hImglst = nullptr;
+	HINSTANCE _hInst = nullptr;
+	int *_pIconIDArray = nullptr;
+	int _iconIDArraySize = 0;
+	int _iconSize = 0;
 };
 
 typedef struct 
@@ -139,4 +138,3 @@ private :
 	unsigned int _nbCmd;
 };
 
-#endif //IMAGE_LIST_H

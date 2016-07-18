@@ -207,8 +207,8 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
         }
 
 		case WM_CHANGECBCHAIN:
-			if (_hwndNextCbViewer == (HWND)wParam)
-				_hwndNextCbViewer = (HWND)lParam;
+			if (_hwndNextCbViewer == reinterpret_cast<HWND>(wParam))
+				_hwndNextCbViewer = reinterpret_cast<HWND>(lParam);
 			else if (_hwndNextCbViewer)
 				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
 			return TRUE;

@@ -26,21 +26,11 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef FIND_REPLACE_DLG_H
-#define FIND_REPLACE_DLG_H
+#pragma once
 
-#ifndef FINDREPLACE_DLG_H
 #include "FindReplaceDlg_rc.h"
-#endif //FINDREPLACE_DLG_H
-
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
-
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "BoostRegexSearch.h"
 #include "StatusBar.h"
 
@@ -119,7 +109,7 @@ private:
 class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
 public:
-	Finder() : DockingDlgInterface(IDD_FINDRESULT), _pMainFoundInfos(&_foundInfos1), _pMainMarkings(&_markings1) {
+	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
 		_markingsStruct._length = 0;
 		_markingsStruct._markings = NULL;
 	};
@@ -158,20 +148,20 @@ private:
 
 	enum { searchHeaderLevel = SC_FOLDLEVELBASE + 1, fileHeaderLevel, resultLevel };
 
-	ScintillaEditView **_ppEditView;
+	ScintillaEditView **_ppEditView = nullptr;
 	std::vector<FoundInfo> _foundInfos1;
 	std::vector<FoundInfo> _foundInfos2;
-	std::vector<FoundInfo>* _pMainFoundInfos;
+	std::vector<FoundInfo>* _pMainFoundInfos = &_foundInfos1;
 	std::vector<SearchResultMarking> _markings1;
 	std::vector<SearchResultMarking> _markings2;
-	std::vector<SearchResultMarking>* _pMainMarkings;
+	std::vector<SearchResultMarking>* _pMainMarkings = &_markings1;
 	SearchResultMarkings _markingsStruct;
 
 	ScintillaEditView _scintView;
 	unsigned int _nbFoundFiles = 0;
 
-	int _lastFileHeaderPos;
-	int _lastSearchHeaderPos;
+	int _lastFileHeaderPos = 0;
+	int _lastSearchHeaderPos = 0;
 
 	bool _canBeVolatiled = true;
 
@@ -417,7 +407,7 @@ private :
 class FindIncrementDlg : public StaticDialog
 {
 public :
-	FindIncrementDlg() : _pFRDlg(NULL), _pRebar(NULL), _findStatus(FSFound) {};
+	FindIncrementDlg() {};
 	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false);
 	virtual void destroy();
 	virtual void display(bool toShow = true) const;
@@ -434,11 +424,11 @@ public :
 
 	void addToRebar(ReBar * rebar);
 private :
-	bool _isRTL;
-	FindReplaceDlg *_pFRDlg;
-	FindStatus _findStatus;
+	bool _isRTL = false;
+	FindReplaceDlg *_pFRDlg = nullptr;
+	FindStatus _findStatus = FSFound;
 
-	ReBar * _pRebar;
+	ReBar * _pRebar = nullptr;
 	REBARBANDINFO _rbBand;
 
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -449,7 +439,7 @@ private :
 class Progress
 {
 public:
-	Progress(HINSTANCE hInst);
+	explicit Progress(HINSTANCE hInst);
 	~Progress();
 
 	HWND open(HWND hCallerWnd = NULL, const TCHAR* header = NULL);
@@ -503,4 +493,3 @@ private:
 	HWND _hBtn;
 };
 
-#endif //FIND_REPLACE_DLG_H

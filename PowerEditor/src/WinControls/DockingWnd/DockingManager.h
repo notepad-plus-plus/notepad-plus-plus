@@ -25,29 +25,19 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#ifndef DOCKINGMANAGER_H
-#define DOCKINGMANAGER_H
+#pragma once
 
 #include <vector>
 #include <windows.h>
 #include <commctrl.h>
 #include "Window.h"
-
-#ifndef DOCKINGCONT
 #include "DockingCont.h"
-#endif //DOCKINGCONT
-
-class DockingSplitter;
-
-#ifndef SPLITTER_CONTAINER_H
 #include "SplitterContainer.h"
-#endif //SPLITTER_CONTAINER_H
-
 
 #define DSPC_CLASS_NAME TEXT("dockingManager")
 #define	CONT_MAP_MAX	50
 
+class DockingSplitter;
 
 class DockingManager : public Window
 {
@@ -120,20 +110,19 @@ private :
 	BOOL ContExists(size_t iCont);
 	int	 FindEmptyContainer();
 	LRESULT SendNotify(HWND hWnd, UINT message);
-
+	
 private:
-	Window						**_ppWindow;
+	Window						**_ppWindow = nullptr;
 	RECT						_rcWork;
 	RECT						_rect;
-	Window						**_ppMainWindow;
-	std::vector<HWND>				_vImageList;
-	HIMAGELIST					_hImageList;
-	std::vector<DockingCont*>		_vContainer;
+	Window						**_ppMainWindow = nullptr;
+	std::vector<HWND>			_vImageList;
+	HIMAGELIST					_hImageList = nullptr;
+	std::vector<DockingCont*>	_vContainer;
 	tDockMgr					_dockData;
 	static BOOL					_isRegistered;
-	BOOL						_isInitialized;
+	BOOL						_isInitialized = FALSE;
 	int							_iContMap[CONT_MAP_MAX];
 	std::vector<DockingSplitter *>	_vSplitter;
 };
 
-#endif //DOCKINGMANAGER_H

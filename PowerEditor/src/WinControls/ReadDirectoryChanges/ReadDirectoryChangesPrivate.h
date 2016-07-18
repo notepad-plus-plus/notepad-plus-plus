@@ -104,7 +104,7 @@ protected:
 class CReadChangesServer
 {
 public:
-	CReadChangesServer(CReadDirectoryChanges* pParent)
+	explicit CReadChangesServer(CReadDirectoryChanges* pParent)
 	{
 		m_bTerminate=false; m_nOutstandingRequests=0;m_pBase=pParent;
 	}

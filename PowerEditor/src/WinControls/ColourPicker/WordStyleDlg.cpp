@@ -183,7 +183,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 
 		case WM_HSCROLL :
 		{
-			if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_SC_PERCENTAGE_SLIDER))
+			if (reinterpret_cast<HWND>(lParam) == ::GetDlgItem(_hSelf, IDC_SC_PERCENTAGE_SLIDER))
 			{
 				int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_SC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
 				(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
@@ -416,7 +416,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 
 							case CPN_COLOURPICKED:
 							{
-								if ((HWND)lParam == _pFgColour->getHSelf())
+								if (reinterpret_cast<HWND>(lParam) == _pFgColour->getHSelf())
 								{
 									updateColour(C_FOREGROUND);
 									notifyDataModified();
@@ -428,7 +428,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 									apply();
 									return TRUE;
 								}
-								else if ((HWND)lParam == _pBgColour->getHSelf())
+								else if (reinterpret_cast<HWND>(lParam) == _pBgColour->getHSelf())
 								{
 									updateColour(C_BACKGROUND);
 									notifyDataModified();

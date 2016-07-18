@@ -879,7 +879,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				// This treatment would fail on some valid URLs where there's actually supposed to be a comma or parenthesis at the end.
 				size_t lastCharIndex = _tcsnlen(currentWord, MAX_PATH*2) - 1;
-				if(lastCharIndex >= 0 && (currentWord[lastCharIndex] == ',' || currentWord[lastCharIndex] == ')' || currentWord[lastCharIndex] == '('))
+				if ((currentWord[lastCharIndex] == ',' || currentWord[lastCharIndex] == ')' || currentWord[lastCharIndex] == '('))
 					currentWord[lastCharIndex] = '\0';
 
 				::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);

@@ -69,7 +69,7 @@ private :
 class WordStyleDlg : public StaticDialog
 {
 public :
-	WordStyleDlg():_isDirty(false), _isThemeDirty(false), _restoreInvalid(false), /*_isSync(true),*/ _isShownGOCtrls(false){};
+	WordStyleDlg() {};
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -119,13 +119,12 @@ public :
     };
 
 
-
 private :
-    ColourPicker *_pFgColour;
-    ColourPicker *_pBgColour;
+    ColourPicker *_pFgColour = nullptr;
+    ColourPicker *_pBgColour = nullptr;
 
-    int _currentLexerIndex;
-	int _currentThemeIndex;
+    int _currentLexerIndex = -1;
+	int _currentThemeIndex = -1;
 
     HWND _hCheckBold;
     HWND _hCheckItalic;
@@ -148,14 +147,13 @@ private :
 	LexerStylerArray _styles2restored;
 	StyleArray _gstyles2restored;
 	GlobalOverride _gOverride2restored;
-	bool _restoreInvalid;
+	bool _restoreInvalid = false;
 
 	ColourStaticTextHooker colourHooker;
 
-	bool _isDirty;
-	bool _isThemeDirty;
-    //bool _isSync;
-	bool _isShownGOCtrls;
+	bool _isDirty = false;
+	bool _isThemeDirty = false;
+	bool _isShownGOCtrls = false;
 
 	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 

@@ -350,33 +350,38 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 	}
 }
 
-void ToolBar::doPopop(POINT chevPoint) {
+void ToolBar::doPopop(POINT chevPoint)
+{
 	//first find hidden buttons
 	int width = Window::getWidth();
 
 	size_t start = 0;
 	RECT btnRect = {0,0,0,0};
-	while(start < _nrCurrentButtons) {
+	while(start < _nrCurrentButtons)
+	{
 		::SendMessage(_hSelf, TB_GETITEMRECT, start, (LPARAM)&btnRect);
 		if(btnRect.right > width)
 			break;
 		++start;
 	}
 
-	if (start < _nrCurrentButtons) {	//some buttons are hidden
+	if (start < _nrCurrentButtons)
+	{	//some buttons are hidden
 		HMENU menu = ::CreatePopupMenu();
-		int cmd;
 		generic_string text;
-		while (start < _nrCurrentButtons) {
-			cmd = _pTBB[start].idCommand;
+		while (start < _nrCurrentButtons)
+		{
+			int cmd = _pTBB[start].idCommand;
 			getNameStrFromCmd(cmd, text);
-			if (_pTBB[start].idCommand != 0) {
+			if (_pTBB[start].idCommand != 0)
+			{
 				if (::SendMessage(_hSelf, TB_ISBUTTONENABLED, cmd, 0) != 0)
 					AppendMenu(menu, MF_ENABLED, cmd, text.c_str());
 				else
 					AppendMenu(menu, MF_DISABLED|MF_GRAYED, cmd, text.c_str());
 			} else
 				AppendMenu(menu, MF_SEPARATOR, 0, TEXT(""));
+			
 			++start;
 		}
 		TrackPopupMenu(menu, 0, chevPoint.x, chevPoint.y, 0, _hSelf, NULL);
@@ -513,11 +518,10 @@ void ReBar::setGrayBackground(int id)
 int ReBar::getNewID()
 {
 	int idToUse = REBAR_BAR_EXTERNAL;
-	int curVal = 0;
 	size_t size = usedIDs.size();
 	for(size_t i = 0; i < size; ++i)
 	{
-		curVal = usedIDs.at(i);
+		int curVal = usedIDs.at(i);
 		if (curVal < idToUse)
 		{
 			continue;

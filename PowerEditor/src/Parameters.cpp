@@ -5138,7 +5138,7 @@ bool NppParameters::writeGUIParams()
 		}
 		else if (!lstrcmp(nm, TEXT("UserDefineDlg")))
 		{
-			const TCHAR *pStr = _nppGUI._userDefineDlgStatus & UDD_SHOW?TEXT("show"):TEXT("hide");
+			const TCHAR *pStr = (_nppGUI._userDefineDlgStatus & UDD_SHOW) ? TEXT("show") : TEXT("hide");
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 				n->SetValue(pStr);
@@ -5704,7 +5704,6 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("triggerFromNbChar"), int32_t(_nppGUI._autocFromLen));
 		const TCHAR * pStr = _nppGUI._funcParams?TEXT("yes"):TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("funcParams"), pStr);
-		autocExist = true;
 	}
 
 	if (!autocInsetExist)
@@ -5730,7 +5729,6 @@ bool NppParameters::writeGUIParams()
 			(hist_element.ToElement())->SetAttribute(TEXT("close"), close);
 			GUIConfigElement->InsertEndChild(hist_element);
 		}
-		autocInsetExist = true;
 	}
 
 	if (dockingParamNode)

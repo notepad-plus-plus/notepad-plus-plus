@@ -27,13 +27,9 @@
 
 // created by Daniel Volk mordorpost@volkarts.com
 
-#ifndef RUN_MACRO_DLG_H
-#define RUN_MACRO_DLG_H
+#pragma once
 
-#ifndef RUN_MACRO_DLG_RC_H
 #include "RunMacroDlg_rc.h"
-#endif //RUN_MACRO_DLG_RC_H
-
 #include "StaticDialog.h"
 
 #define RM_CANCEL -1
@@ -43,7 +39,7 @@
 class RunMacroDlg : public StaticDialog
 {
 public :
-	RunMacroDlg() : StaticDialog(), _mode(RM_RUN_MULTI), _times(1) {};
+	RunMacroDlg() : StaticDialog() {};
 	~RunMacroDlg() {
 	};
 
@@ -68,9 +64,7 @@ private :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void check(int);
 
-	int _mode;
-	int _times;
-	int _macroIndex;
+	int _mode = RM_RUN_MULTI;
+	int _times = 1;
+	int _macroIndex = 0;
 };
-
-#endif //RUN_MACRO_DLG_H

@@ -275,9 +275,9 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						{
 							//Get UserCommand corresponding to row
 							vector<UserCommand> & shortcuts = nppParam->getUserCommandList();
-							UserCommand ucmd = shortcuts[row - 1], prevucmd = shortcuts[row - 1];
+							UserCommand ucmd = shortcuts[row - 1];
 							ucmd.init(_hInst, _hSelf);
-							prevucmd = ucmd;
+							UserCommand prevucmd = ucmd;
 							if (ucmd.doDialog() != -1 && prevucmd != ucmd)
 							{	
 								//shortcut was altered
@@ -296,9 +296,9 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						{
 							//Get PluginCmdShortcut corresponding to row
 							vector<PluginCmdShortcut> & shortcuts = nppParam->getPluginCommandList();
-							PluginCmdShortcut pcsc = shortcuts[row - 1], prevpcsc = shortcuts[row - 1];
+							PluginCmdShortcut pcsc = shortcuts[row - 1];
 							pcsc.init(_hInst, _hSelf);
-							prevpcsc = pcsc;
+							PluginCmdShortcut prevpcsc = pcsc;
 							if (pcsc.doDialog() != -1 && prevpcsc != pcsc)
 							{
 								//shortcut was altered

@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef PROCESSUS_H
-#define PROCESSUS_H
+#pragma once
 
 #include <windows.h>
 //#include <string>
@@ -38,8 +37,6 @@ class Process
 public:
 	Process() {}
 	Process(const TCHAR *cmd, const TCHAR *cDir)
-		: _stdoutStr(TEXT("")), _stderrStr(TEXT("")), _hPipeOutR(NULL),
-		_hPipeErrR(NULL), _hProcess(NULL), _hProcessThread(NULL)
 	{
 		lstrcpy(_command, cmd);
 		lstrcpy(_curDir, cDir);
@@ -75,13 +72,13 @@ protected:
 	// LES SORTIES
 	generic_string _stdoutStr;
 	generic_string _stderrStr;
-	int _exitCode;
+	int _exitCode = 0;
 
 	// LES HANDLES
-    HANDLE _hPipeOutR;
-	HANDLE _hPipeErrR;
-	HANDLE _hProcess;
-	HANDLE _hProcessThread;
+    HANDLE _hPipeOutR = nullptr;
+	HANDLE _hPipeErrR = nullptr;
+	HANDLE _hProcess = nullptr;
+	HANDLE _hProcessThread = nullptr;
 
     //UINT _pid;   // process ID assigned by caller
 
@@ -98,5 +95,4 @@ protected:
 	void error(const TCHAR *txt2display, BOOL & returnCode, int errCode);
 };
 
-#endif //PROCESSUS_H
 

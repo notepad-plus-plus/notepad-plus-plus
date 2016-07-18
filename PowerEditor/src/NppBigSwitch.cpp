@@ -574,7 +574,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (HIWORD(wParam) == SCEN_SETFOCUS)
 			{
 				HWND hMain = _mainEditView.getHSelf(), hSec = _subEditView.getHSelf();
-				HWND hFocus = (HWND)lParam;
+				HWND hFocus = reinterpret_cast<HWND>(lParam);
 				if (hMain == hFocus)
 					switchEditViewTo(MAIN_VIEW);
 				else if (hSec == hFocus)
@@ -1142,12 +1142,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_CREATESCINTILLAHANDLE:
 		{
-			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?hwnd:(HWND)lParam));
+			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?hwnd:reinterpret_cast<HWND>(lParam)));
 		}
 
 		case NPPM_INTERNAL_GETSCINTEDTVIEW:
 		{
-			return (LRESULT)_scintillaCtrls4Plugins.getScintillaEditViewFrom((HWND)lParam);
+			return (LRESULT)_scintillaCtrls4Plugins.getScintillaEditViewFrom(reinterpret_cast<HWND>(lParam));
 		}
 
 		case NPPM_INTERNAL_ENABLESNAPSHOT:
@@ -1158,7 +1158,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DESTROYSCINTILLAHANDLE:
 		{
-			return _scintillaCtrls4Plugins.destroyScintilla((HWND)lParam);
+			return _scintillaCtrls4Plugins.destroyScintilla(reinterpret_cast<HWND>(lParam));
 		}
 
 		case NPPM_GETNBUSERLANG:
@@ -1328,11 +1328,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				for (size_t i = 0, len = _hModelessDlgs.size() ; i < len ; ++i)
 				{
-					if (_hModelessDlgs[i] == (HWND)lParam)
+					if (_hModelessDlgs[i] == reinterpret_cast<HWND>(lParam))
 						return NULL;
 				}
 
-				_hModelessDlgs.push_back((HWND)lParam);
+				_hModelessDlgs.push_back(reinterpret_cast<HWND>(lParam));
 				return lParam;
 			}
 			else
@@ -1341,7 +1341,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					for (size_t i = 0, len = _hModelessDlgs.size(); i < len ; ++i)
 					{
-						if (_hModelessDlgs[i] == (HWND)lParam)
+						if (_hModelessDlgs[i] == reinterpret_cast<HWND>(lParam))
 						{
 							vector<HWND>::iterator hDlg = _hModelessDlgs.begin() + i;
 							_hModelessDlgs.erase(hDlg);
@@ -1791,20 +1791,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DMMSHOW:
 		{
-			_dockingManager.showDockableDlg((HWND)lParam, SW_SHOW);
+			_dockingManager.showDockableDlg(reinterpret_cast<HWND>(lParam), SW_SHOW);
 			return TRUE;
 		}
 
 		case NPPM_DMMHIDE:
 		{
-			_dockingManager.showDockableDlg((HWND)lParam, SW_HIDE);
+			_dockingManager.showDockableDlg(reinterpret_cast<HWND>(lParam), SW_HIDE);
 			return TRUE;
 		}
 
 		case NPPM_DMMUPDATEDISPINFO:
 		{
-			if (::IsWindowVisible((HWND)lParam))
-				_dockingManager.updateContainerInfo((HWND)lParam);
+			if (::IsWindowVisible(reinterpret_cast<HWND>(lParam)))
+				_dockingManager.updateContainerInfo(reinterpret_cast<HWND>(lParam));
 			return TRUE;
 		}
 
@@ -2014,7 +2014,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_ISFOCUSEDTAB:
 		{
 			HWND hTabToTest = (currentView() == MAIN_VIEW)?_mainDocTab.getHSelf():_subDocTab.getHSelf();
-			return (HWND)lParam == hTabToTest;
+			return reinterpret_cast<HWND>(lParam) == hTabToTest;
 		}
 
 		case NPPM_INTERNAL_GETMENU:
@@ -2043,7 +2043,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SWITCHVIEWFROMHWND:
 		{
-			HWND handle = (HWND)lParam;
+			HWND handle = reinterpret_cast<HWND>(lParam);
 			if (_mainEditView.getHSelf() == handle || _mainDocTab.getHSelf() == handle)
 			{
 				switchEditViewTo(MAIN_VIEW);

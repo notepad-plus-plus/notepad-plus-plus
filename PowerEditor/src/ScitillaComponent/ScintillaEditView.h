@@ -26,41 +26,17 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SCINTILLA_EDIT_VIEW_H
-#define SCINTILLA_EDIT_VIEW_H
+#pragma once
 
-#ifndef SCINTILLA_H
+
 #include "Scintilla.h"
-#endif //SCINTILLA_H
-
-#ifndef SCINTILLA_REF_H
 #include "ScintillaRef.h"
-#endif //SCINTILLA_REF_H
-
-#ifndef SCILEXER_H
 #include "SciLexer.h"
-#endif //SCILEXER_H
-
-#ifndef BUFFER_H
 #include "Buffer.h"
-#endif //BUFFER_H
-
-#ifndef COLORS_H
 #include "colors.h"
-#endif //COLORS_H
-
-#ifndef USER_DEFINE_H
 #include "UserDefineDialog.h"
-#endif //USER_DEFINE_H
-
-#ifndef XPM_ICON_H
 #include "xpm_icons.h"
-#endif //XPM_ICON_H
-/*
-#ifndef RESOURCE_H
-#include "resource.h"
-#endif //RESOURCE_H
-*/
+
 
 #ifndef WM_MOUSEWHEEL
 #define WM_MOUSEWHEEL 0x020A
@@ -204,10 +180,7 @@ class ScintillaEditView : public Window
 {
 friend class Finder;
 public:
-	ScintillaEditView()
-		: Window(), _pScintillaFunc(NULL),_pScintillaPtr(NULL),
-		  _lineNumbersShown(false), _wrapRestoreNeeded(false), _beginSelectPosition(-1)
-	{
+	ScintillaEditView(): Window() {
 		++_refCount;
 	};
 
@@ -656,26 +629,26 @@ protected:
 	static LRESULT CALLBACK scintillaStatic_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	SCINTILLA_FUNC _pScintillaFunc;
-	SCINTILLA_PTR  _pScintillaPtr;
+	SCINTILLA_FUNC _pScintillaFunc = nullptr;
+	SCINTILLA_PTR  _pScintillaPtr = nullptr;
 	static WNDPROC _scintillaDefaultProc;
-	CallWindowProcFunc _callWindowProc;
+	CallWindowProcFunc _callWindowProc = nullptr;
 	BufferID attachDefaultDoc();
 
 	//Store the current buffer so it can be retrieved later
-	BufferID _currentBufferID;
-	Buffer * _currentBuffer;
+	BufferID _currentBufferID = nullptr;
+	Buffer * _currentBuffer = nullptr;
 
-    NppParameters *_pParameter;
-	int _codepage;
-	bool _lineNumbersShown;
-	bool _wrapRestoreNeeded;
+    NppParameters *_pParameter = nullptr;
+	int _codepage = CP_ACP;
+	bool _lineNumbersShown = false;
+	bool _wrapRestoreNeeded = false;
 
 	typedef std::unordered_map<int, Style> StyleMap;
 	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
 	BufferStyleMap _hotspotStyles;
 
-	int _beginSelectPosition;
+	int _beginSelectPosition = -1;
 
 //Lexers and Styling
 	void restyleBuffer();
@@ -925,4 +898,3 @@ protected:
 	bool expandWordSelection();
 };
 
-#endif //SCINTILLA_EDIT_VIEW_H

@@ -25,16 +25,10 @@
 // along with this program; if not, write to the Free Software
 
 
-#ifndef DOCKINGDLGINTERFACE_H
-#define DOCKINGDLGINTERFACE_H
+#pragma once
 
-#ifndef DOCKING_RESOURCE_H
 #include "dockingResource.h"
-#endif //DOCKING_RESOURCE_H
-
-#ifndef DOCKING_H
 #include "Docking.h"
-#endif //DOCKING_H
 
 #include <assert.h>
 #include <shlwapi.h>
@@ -47,17 +41,13 @@ class DockingDlgInterface : public StaticDialog
 {
 public:
 	DockingDlgInterface() = default;
-
-	explicit DockingDlgInterface(int dlgID)
-		: _dlgID(dlgID)
-	{}
-	
+	explicit DockingDlgInterface(int dlgID): _dlgID(dlgID) {}
 
 	virtual void init(HINSTANCE hInst, HWND parent)
 	{
 		StaticDialog::init(hInst, parent);
 		TCHAR temp[MAX_PATH];
-		::GetModuleFileName((HMODULE)hInst, temp, MAX_PATH);
+		::GetModuleFileName(reinterpret_cast<HMODULE>(hInst), temp, MAX_PATH);
 		_moduleName = ::PathFindFileName(temp);
 	}
 
@@ -71,7 +61,7 @@ public:
 
         // user information
 		data->hClient		= _hSelf;
-		data->pszName		= (TCHAR *)_pluginName.c_str();
+		data->pszName		= _pluginName.c_str();
 
 		// supported features by plugin
 		data->uMask			= 0;
@@ -82,17 +72,16 @@ public:
 
 	virtual void updateDockingDlg()
 	{
-		::SendMessage(_hParent, NPPM_DMMUPDATEDISPINFO, 0, (LPARAM)_hSelf);
+		::SendMessage(_hParent, NPPM_DMMUPDATEDISPINFO, 0, reinterpret_cast<LPARAM>(_hSelf));
 	}
 
     virtual void destroy() {}
 
 	virtual void setBackgroundColor(COLORREF) {}
-
 	virtual void setForegroundColor(COLORREF) {}
 
 	virtual void display(bool toShow = true) const {
-		::SendMessage(_hParent, toShow?NPPM_DMMSHOW:NPPM_DMMHIDE, 0, (LPARAM)_hSelf);
+		::SendMessage(_hParent, toShow ? NPPM_DMMSHOW : NPPM_DMMHIDE, 0, reinterpret_cast<LPARAM>(_hSelf));
 	}
 
 	bool isClosed() const {
@@ -115,7 +104,7 @@ protected :
 
 			case WM_NOTIFY: 
 			{
-				LPNMHDR	pnmh	= (LPNMHDR)lParam;
+				LPNMHDR	pnmh = reinterpret_cast<LPNMHDR>(lParam);
 
 				if (pnmh->hwndFrom == _hParent)
 				{
@@ -157,5 +146,3 @@ protected :
 	generic_string  _pluginName;
 	bool			_isClosed = false;
 };
-
-#endif // DOCKINGDLGINTERFACE_H

@@ -24,23 +24,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#ifndef USER_DEFINE_H
-#define USER_DEFINE_H
-#ifndef USERDEFINE_RC_H
+
+#pragma once
+
 #include "UserDefineResource.h"
-#endif //USERDEFINE_RC_H
-#ifndef CONTROLS_TAB_H
 #include "ControlsTab.h"
-#endif //CONTROLS_TAB_H
-#ifndef COLOUR_PICKER_H
 #include "ColourPicker.h"
-#endif //COLOUR_PICKER_H
-#ifndef PARAMETERS_H
 #include "Parameters.h"
-#endif //PARAMETERS_H
-#ifndef URLCTRL_INCLUDED
 #include "URLCtrl.h"
-#endif// URLCTRL_INCLUDED
 #include "tchar.h"
 #include "SciLexer.h"
 #include <unordered_map>
@@ -391,12 +382,12 @@ private :
     KeyWordsStyleDialog     _keyWordsStyleDlg;
     CommentStyleDialog      _commentStyleDlg;
     SymbolsStyleDialog      _symbolsStyleDlg;
-    bool _status;
+    bool _status = UNDOCK;
     RECT _dlgPos;
-    int _currentHight;
-    int _yScrollPos;
-    int _prevHightVal;
-    bool _isDirty;
+    int _currentHight = 0;
+    int _yScrollPos = 0;
+    int _prevHightVal = 0;
+    bool _isDirty = false;
     void getActualPosSize() {
         ::GetWindowRect(_hSelf, &_dlgPos);
         _dlgPos.right -= _dlgPos.left;
@@ -420,17 +411,21 @@ public :
         _textValue = text2Set;
         _txtLen = txtLen;
     };
+
     long doDialog() {
-        return long(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, (LPARAM)this));
+        return long(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this)));
     };
+
     virtual void destroy() {};
+	
 protected :
     INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+
 private :
     generic_string _title;
     generic_string _textValue;
     generic_string _static;
-    int _txtLen;
+    int _txtLen = 0;
 };
 
 class StylerDlg
@@ -451,7 +446,7 @@ public:
 	};
 
     long doDialog() {
-        return long (::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), _parent,  dlgProc, (LPARAM)this));
+		return long(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), _parent, dlgProc, reinterpret_cast<LPARAM>(this)));
     };
 
     static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -464,4 +459,3 @@ public:
     ColourPicker * _pBgColour;
     Style _initialStyle;
 };
-#endif //USER_DEFINE_H

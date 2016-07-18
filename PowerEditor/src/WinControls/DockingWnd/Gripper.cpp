@@ -327,7 +327,6 @@ void Gripper::onButtonUp()
 	POINT			ptBuf		= {0,0};
 	RECT			rc			= {0};
 	RECT			rcCorr		= {0};
-	DockingCont*	pContMove	= NULL;
 
 	::GetCursorPos(&pt);
 	getMousePoints(&pt, &ptBuf);
@@ -363,6 +362,8 @@ void Gripper::onButtonUp()
 		/* correct rectangle position when mouse is not within */
 		DoCalcGripperRect(&rc, rcCorr, pt);
 
+		DockingCont* pContMove	= NULL;
+		
 		/* change location of toolbars */
 		if (_startMovingFromTab == TRUE)
 		{

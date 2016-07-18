@@ -637,7 +637,7 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			HWND hCaretBlikRateSlider = ::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER);
 			HWND hBorderWidthSlider = ::GetDlgItem(_hSelf, IDC_BORDERWIDTH_SLIDER);
-			if ((HWND)lParam == hCaretBlikRateSlider)
+			if (reinterpret_cast<HWND>(lParam) == hCaretBlikRateSlider)
 			{
 				int blinkRate = (int)::SendMessage(hCaretBlikRateSlider, TBM_GETPOS, 0, 0);
 				if (blinkRate == BLINKRATE_SLOWEST)
@@ -646,7 +646,7 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 				::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETBLINKRATE, 0, 0);
 			}
-			else if ((HWND)lParam == hBorderWidthSlider)
+			else if (reinterpret_cast<HWND>(lParam) == hBorderWidthSlider)
 			{
 				int borderWidth = (int)::SendMessage(hBorderWidthSlider, TBM_GETPOS, 0, 0);
 				ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
@@ -2912,12 +2912,9 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LP
 	{
 		case WM_INITDIALOG:
 		{
-			// Default settings: no cloud
-			bool withCloud = false;
-
 			generic_string message = TEXT("");
 
-			withCloud =	nppGUI._cloudPath != TEXT("");
+			bool withCloud = nppGUI._cloudPath != TEXT("");
 			if (withCloud)
 			{
 				// detect validation of path

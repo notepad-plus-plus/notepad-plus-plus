@@ -199,7 +199,7 @@ END_WINDOW_MAP()
 
 RECT WindowsDlg::_lastKnownLocation;
 
-WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap), _isSorted(false)
+WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap)
 {
 	_szMinButton = SIZEZERO;
 	_szMinListCtrl = SIZEZERO;
@@ -429,7 +429,7 @@ void WindowsDlg::updateButtonState()
 int WindowsDlg::doDialog(TiXmlNodeA *dlgNode)
 {
 	_dlgNode = dlgNode;
-	return (int)::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent,  dlgProc, (LPARAM)this);
+	return (int)::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 };
 
 bool WindowsDlg::changeDlgLang()

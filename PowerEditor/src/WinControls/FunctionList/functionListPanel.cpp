@@ -314,7 +314,6 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 {
 	DockingDlgInterface::init(hInst, hPere);
 	_ppEditView = ppEditView;
-	bool isOK = false;
 	bool doLocalConf = (NppParameters::getInstance())->isLocal();
 
 	if (!doLocalConf)
@@ -329,12 +328,12 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 			if (PathFileExists(funcListDefaultXmlPath.c_str()))
 			{
 				::CopyFile(funcListDefaultXmlPath.c_str(), funcListXmlPath.c_str(), TRUE);
-				isOK = _funcParserMgr.init(funcListXmlPath, ppEditView);
+				_funcParserMgr.init(funcListXmlPath, ppEditView);
 			}
 		}
 		else
 		{
-			isOK = _funcParserMgr.init(funcListXmlPath, ppEditView);
+			_funcParserMgr.init(funcListXmlPath, ppEditView);
 		}
 	}
 	else
@@ -343,11 +342,9 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 		PathAppend(funcListDefaultXmlPath, TEXT("functionList.xml"));
 		if (PathFileExists(funcListDefaultXmlPath.c_str()))
 		{
-			isOK = _funcParserMgr.init(funcListDefaultXmlPath, ppEditView);
+			_funcParserMgr.init(funcListDefaultXmlPath, ppEditView);
 		}
 	}
-
-	//return isOK;
 }
 
 bool FunctionListPanel::openSelection(const TreeView & treeView)

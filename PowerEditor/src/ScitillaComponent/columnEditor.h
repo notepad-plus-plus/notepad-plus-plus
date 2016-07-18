@@ -70,7 +70,7 @@ protected :
 
 private :
 
-    ScintillaEditView **_ppEditView;
+    ScintillaEditView **_ppEditView = nullptr;
 
 
 };

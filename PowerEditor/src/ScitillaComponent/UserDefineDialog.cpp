@@ -938,7 +938,7 @@ void SymbolsStyleDialog::setKeywords2List(int id)
     }
 }
 
-UserDefineDialog::UserDefineDialog(): SharedParametersDialog(), _status(UNDOCK), _yScrollPos(0), _prevHightVal(0), _isDirty(false)
+UserDefineDialog::UserDefineDialog(): SharedParametersDialog()
 {
     _pCurrentUserLang = new UserLangContainer();
 
@@ -1148,7 +1148,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
         case WM_HSCROLL:
         {
-            if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_UD_PERCENTAGE_SLIDER))
+            if (reinterpret_cast<HWND>(lParam) == ::GetDlgItem(_hSelf, IDC_UD_PERCENTAGE_SLIDER))
             {
 				int percent = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_UD_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0));
                 pNppParam->SetTransparent(_hSelf, percent);

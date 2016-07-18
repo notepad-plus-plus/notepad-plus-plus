@@ -339,7 +339,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 		case WM_LBUTTONDBLCLK:
 		{
 			if (isInRect(hwnd, LOWORD(lParam), HIWORD(lParam)) == posCaption)
-				::SendMessage(_hParent, DMM_FLOATALL, 0, (LPARAM)this);
+				::SendMessage(_hParent, DMM_FLOATALL, 0, reinterpret_cast<LPARAM>(this));
 
 			focusClient();
 			return TRUE;
@@ -1463,6 +1463,6 @@ void DockingCont::focusClient()
 
 LPARAM DockingCont::NotifyParent(UINT message)
 {
-	return ::SendMessage(_hParent, message, 0, (LPARAM)this);
+	return ::SendMessage(_hParent, message, 0, reinterpret_cast<LPARAM>(this));
 }
 

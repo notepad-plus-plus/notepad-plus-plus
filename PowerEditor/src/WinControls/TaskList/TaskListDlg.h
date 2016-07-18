@@ -26,37 +26,23 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef TASKLISTDLG_H
-#define TASKLISTDLG_H
+#pragma once
 
 #include "Common.h"
 #include "StaticDialog.h"
-
-#ifndef TASKLISTDLGRC_H
 #include "TaskListDlg_rc.h"
-#endif //TASKLISTDLGRC_H
-
-#ifndef TASKLIST_H
 #include "TaskList.h"
-#endif //TASKLIST_H
-/*
-#ifndef IMAGE_LIST_H
-#include "ImageListSet.h"
-#endif //IMAGE_LIST_H
-*/
-#ifndef NOTEPAD_PLUS_MSGS_H
 #include "Notepad_plus_msgs.h"
-#endif //NOTEPAD_PLUS_MSGS_H
 
 #define	TASKLIST_USER    (WM_USER + 8000)
-	#define WM_GETTASKLISTINFO (TASKLIST_USER + 01)
+#define WM_GETTASKLISTINFO (TASKLIST_USER + 01)
 
 struct TaskLstFnStatus {
-	int _iView;
-	int _docIndex;
+	int _iView = -1;
+	int _docIndex = 0;
 	generic_string _fn;
-	int _status;
-	void *_bufID;
+	int _status = 0;
+	void *_bufID = nullptr;
 	TaskLstFnStatus(generic_string str, int status) : _fn(str), _status(status){};
 	TaskLstFnStatus(int iView, int docIndex, generic_string str, int status, void *bufID) : 
 	_iView(iView), _docIndex(docIndex), _fn(str), _status(status), _bufID(bufID) {};
@@ -64,7 +50,7 @@ struct TaskLstFnStatus {
 
 struct TaskListInfo {
 	std::vector<TaskLstFnStatus> _tlfsLst;
-	int _currentIndex;
+	int _currentIndex = -1;
 };
 
 static HWND hWndServer = NULL;
@@ -91,11 +77,9 @@ private :
 	TaskList _taskList;
 	TaskListInfo _taskListInfo;
 	HIMAGELIST _hImalist;
-	bool _initDir;
-	HHOOK _hHooker;
+	bool _initDir = false;
+	HHOOK _hHooker = nullptr;
 
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 };
 
-
-#endif // TASKLISTDLG_H

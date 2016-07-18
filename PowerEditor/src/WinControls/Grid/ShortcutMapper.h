@@ -26,24 +26,12 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SHORTCUTMAPPER
-#define SHORTCUTMAPPER
+#pragma once
 
-#ifndef BABYGRIDWRAPPER
 #include "BabyGridWrapper.h"
-#endif// BABYGRIDWRAPPER
-
-#ifndef SHORTCUTMAPPER_RC_H
 #include "ShortcutMapper_rc.h"
-#endif //SHORTCUTMAPPER_RC_H
-
-#ifndef SHORTCUTS_H
 #include "shortcut.h"
-#endif// SHORTCUTS_H
-
-#ifndef CONTEXTMENU_H
 #include "ContextMenu.h"
-#endif// CONTEXTMENU_H
 
 enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTILLA};
 
@@ -69,11 +57,11 @@ public:
 		{
 			DLGTEMPLATE *pMyDlgTemplate = NULL;
 			HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_SHORTCUTMAPPER_DLG, &pMyDlgTemplate);
-			::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  dlgProc, (LPARAM)this);
+			::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 			::GlobalFree(hMyDlgTemplate);
 		}
 		else
-			::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTMAPPER_DLG), _hParent, dlgProc, (LPARAM)this);
+			::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTMAPPER_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 	};
 	void getClientRect(RECT & rc) const;
 	void translateTab(int index, const TCHAR * newname);
@@ -96,4 +84,3 @@ private:
 	void fillOutBabyGrid();
 };
 
-#endif //SHORTCUTMAPPER

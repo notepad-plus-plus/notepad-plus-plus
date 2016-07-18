@@ -75,8 +75,6 @@ LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 DockingManager::DockingManager()
 {
-	_isInitialized			= FALSE;
-	_hImageList				= NULL;
 	memset(_iContMap, -1, CONT_MAP_MAX * sizeof(int));
 
 	_iContMap[0] = CONT_LEFT;
@@ -297,7 +295,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 
 			for (int iCont = 0; iCont < DOCKCONT_MAX; ++iCont)
 			{
-				if (_vSplitter[iCont]->getHSelf() == (HWND)lParam)
+				if (_vSplitter[iCont]->getHSelf() == reinterpret_cast<HWND>(lParam))
 				{
 					switch (iCont)
 					{
@@ -384,7 +382,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		{
 			for (size_t uImageCnt = 0, len = _vImageList.size(); uImageCnt < len; ++uImageCnt)
 			{
-				if ((HWND)lParam == _vImageList[uImageCnt])
+				if (reinterpret_cast<HWND>(lParam) == _vImageList[uImageCnt])
 				{
 					return uImageCnt;
 				}

@@ -26,17 +26,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef DOCKINGCONT
-#define DOCKINGCONT
-
-#ifndef RESOURCE_H
+#pragma once
 #include "resource.h"
-#endif //RESOURCE_H
-
-#ifndef DOCKING_H
 #include "Docking.h"
-#endif //DOCKING_H
-
 #include <vector>
 #include "StaticDialog.h"
 #include "Common.h"
@@ -243,6 +235,3 @@ private:
 	std::vector<tTbData *>		_vTbData;
 };
 
-
-
-#endif // DOCKINGCONT

@@ -26,21 +26,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef TAB_BAR_H
-#define TAB_BAR_H
+#pragma once
 
 #ifndef _WIN32_IE
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-#ifndef MENUCMDID_H
 #include "menuCmdID.h"
-#endif //MENUCMDID_H
-
-#ifndef RESOURCE_H
 #include "resource.h"
-#endif //RESOURCE_H
-
 #include <stdint.h>
 #include <windows.h>
 #include <commctrl.h>
@@ -72,7 +65,7 @@ struct TBHDR
 class TabBar : public Window
 {
 public:
-	TabBar() : Window(), _nbItem(0), _hasImgLst(false), _hFont(NULL), _hLargeFont(NULL), _hVerticalFont(NULL), _hVerticalLargeFont(NULL){};
+	TabBar() : Window() {};
 	virtual ~TabBar() {};
 	virtual void destroy();
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false);
@@ -114,18 +107,18 @@ public:
 
 
 protected:
-	size_t _nbItem;
-	bool _hasImgLst;
-	HFONT _hFont;
-	HFONT _hLargeFont;
-	HFONT _hVerticalFont;
-	HFONT _hVerticalLargeFont;
+	size_t _nbItem = 0;
+	bool _hasImgLst = false;
+	HFONT _hFont = nullptr;
+	HFONT _hLargeFont = nullptr;
+	HFONT _hVerticalFont = nullptr;
+	HFONT _hVerticalLargeFont = nullptr;
 
-	int _ctrlID;
-	bool _isTraditional;
+	int _ctrlID = 0;
+	bool _isTraditional = false;
 
-	bool _isVertical;
-	bool _isMultiLine;
+	bool _isVertical = false;
+	bool _isMultiLine = false;
 
 	long getRowCount() const {
 		return long(::SendMessage(_hSelf, TCM_GETROWCOUNT, 0, 0));
@@ -148,8 +141,7 @@ struct CloseButtonZone
 class TabBarPlus : public TabBar
 {
 public :
-	TabBarPlus() : TabBar(), _isDragging(false), _tabBarDefaultProc(NULL), _currentHoverTabItem(-1),\
-		_isCloseHover(false), _whichCloseClickDown(-1), _lmbdHit(false), _tooltips(NULL) {};
+	TabBarPlus() : TabBar() {};
 	enum tabColourIndex {
 		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
 	};
@@ -229,21 +221,21 @@ protected:
     // it's the boss to decide if we do the drag N drop
     static bool _doDragNDrop;
 	// drag N drop members
-	bool _isDragging;
-	bool _isDraggingInside;
-    int _nSrcTab;
-	int _nTabDragged;
+	bool _isDragging = false;
+	bool _isDraggingInside = false;
+    int _nSrcTab = -1;
+	int _nTabDragged = -1;
 	POINT _draggingPoint; // coordinate of Screen
-	WNDPROC _tabBarDefaultProc;
+	WNDPROC _tabBarDefaultProc = nullptr;
 
 	RECT _currentHoverTabRect;
-	int _currentHoverTabItem;
+	int _currentHoverTabItem = -1;
 
 	CloseButtonZone _closeButtonZone;
-	bool _isCloseHover;
-	int _whichCloseClickDown;
-	bool _lmbdHit; // Left Mouse Button Down Hit
-	HWND _tooltips;
+	bool _isCloseHover = false;
+	int _whichCloseClickDown = -1;
+	bool _lmbdHit = false; // Left Mouse Button Down Hit
+	HWND _tooltips = nullptr;
 
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
@@ -294,5 +286,3 @@ protected:
 			    (screenPoint.y >= parentZone.top) && (screenPoint.y <= parentZone.bottom));
     }
 };
-
-#endif // TAB_BAR_H

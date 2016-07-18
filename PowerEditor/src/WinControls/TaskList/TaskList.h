@@ -40,7 +40,7 @@
 class TaskList : public Window
 {
 public:
-	TaskList() : Window(), _currentIndex(0), _hFont(NULL), _hFontSelected(NULL) {
+	TaskList() : Window() {
 		_rc.left = 0;
 		_rc.top = 0;
 		_rc.right = 150;
@@ -70,10 +70,10 @@ protected:
 		return (((TaskList *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
 
-	HFONT _hFont;
-	HFONT _hFontSelected;
-	int _nbItem;
-	int _currentIndex;
+	HFONT _hFont = nullptr;
+	HFONT _hFontSelected = nullptr;
+	int _nbItem = 0;
+	int _currentIndex = 0;
 	RECT _rc;
 };
 

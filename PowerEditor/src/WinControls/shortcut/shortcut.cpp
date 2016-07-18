@@ -589,7 +589,7 @@ void Accelerator::updateMenuItemByCommand(CommandShortcut csc)
 	
 	//  Ensure that the menu item checks set prior to this update remain in affect.
 	UINT cmdFlags = GetMenuState(_hAccelMenu, cmdID, MF_BYCOMMAND );
-	cmdFlags = MF_BYCOMMAND | (cmdFlags&MF_CHECKED) ? ( MF_CHECKED ) : ( MF_UNCHECKED );
+	cmdFlags = MF_BYCOMMAND | ((cmdFlags&MF_CHECKED) ? MF_CHECKED : MF_UNCHECKED);
 	::ModifyMenu(_hAccelMenu, cmdID, cmdFlags, cmdID, csc.toMenuItemString().c_str());
 }
 

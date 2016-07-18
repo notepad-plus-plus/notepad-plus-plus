@@ -967,7 +967,7 @@ bool FileManager::backupCurrentBuffer()
 class EventReset final
 {
 public:
-	EventReset(HANDLE h)
+	explicit EventReset(HANDLE h)
 	{
 		_h = h;
 	}

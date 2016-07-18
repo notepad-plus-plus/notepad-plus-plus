@@ -26,46 +26,16 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #pragma once
 
-#ifndef TINYXMLA_INCLUDED
 #include "tinyxmlA.h"
-#endif //TINYXMLA_INCLUDED
-
-#ifndef TINYXML_INCLUDED
 #include "tinyxml.h"
-#endif //TINYXML_INCLUDED
-
-#ifndef SCINTILLA_H
 #include "Scintilla.h"
-#endif //SCINTILLA_H
-
-#ifndef SCINTILLA_REF_H
 #include "ScintillaRef.h"
-#endif //SCINTILLA_REF_H
-
-#ifndef TOOL_BAR_H
 #include "ToolBar.h"
-#endif //TOOL_BAR_H
-
-#ifndef USER_DEFINE_LANG_REFERENCE_H
 #include "UserDefineLangReference.h"
-#endif //USER_DEFINE_LANG_REFERENCE_H
-
-#ifndef COLORS_H
 #include "colors.h"
-#endif //COLORS_H
-
-#ifndef SHORTCUTS_H
 #include "shortcut.h"
-#endif //SHORTCUTS_H
-
-#ifndef CONTEXTMENU_H
 #include "ContextMenu.h"
-#endif //CONTEXTMENU_H
-
-#ifndef DPIMANAGER_H
 #include "dpiManager.h"
-#endif //DPIMANAGER_H
-
 #include <assert.h>
 #include <tchar.h>
 
@@ -649,7 +619,7 @@ public:
 			   !(month == 11 && day > 30));
 	}
 
-	Date(const TCHAR *dateStr);
+	explicit Date(const TCHAR *dateStr);
 
 	// The constructor which makes the date of number of days from now
 	// nbDaysFromNow could be negative if user want to make a date in the past

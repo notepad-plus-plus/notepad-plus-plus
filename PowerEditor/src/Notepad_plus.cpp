@@ -1120,11 +1120,9 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
 
     int count = 0;
     int column = 0;
-    int counter = 0;
     int newCurrentPos = 0;
 	int tabStop = static_cast<int32_t>(tabWidth - 1);   // remember, counting from zero !
     bool onlyLeading = false;
-    bool nonSpaceFound = false;
     vector<int> bookmarks;
     vector<int> folding;
 
@@ -1206,6 +1204,8 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
         case space2TabAll:
         {
             bool nextChar = false;
+			int counter = 0;
+			bool nonSpaceFound = false;
             for (int i=0; source[i] != '\0'; ++i)
             {
                 if (nonSpaceFound == false)
@@ -2855,7 +2855,7 @@ void Notepad_plus::activateDoc(size_t pos)
 		return;
 	}
 
-	if (pos >= 0 && pos < nbDoc)
+	if (pos < nbDoc)
 	{
 		BufferID id = _pDocTab->getBufferByIndex(pos);
 		activateBuffer(id, currentView());
@@ -6367,14 +6367,12 @@ bool Notepad_plus::undoStreamComment()
 
 		//-- Check, if selectionStart or selectionEnd is within a stream comment -----
 		//   or if the selection includes a complete stream-comment!! ----------------
-		bool blnCommentFound = false;
 
 		//-- First, check if there is a stream-comment around the selectionStart position:
 		if ((blnStartCommentBefore[iSelStart] && blnEndCommentAfter[iSelStart])
 			&& (!blnEndCommentBefore[iSelStart] || (posStartCommentBefore[iSelStart] >= posEndCommentBefore[iSelStart]))
 			&& (!blnStartCommentAfter[iSelStart] || (posEndCommentAfter[iSelStart] <= posStartCommentAfter[iSelStart])))
 		{
-				blnCommentFound = true;
 				posStartComment = posStartCommentBefore[iSelStart];
 				posEndComment   = posEndCommentAfter[iSelStart];
 		}
@@ -6396,7 +6394,6 @@ bool Notepad_plus::undoStreamComment()
 				&& (!blnEndCommentBefore[iSelEnd] || (posStartCommentBefore[iSelEnd] >= posEndCommentBefore[iSelEnd]))
 				&& (!blnStartCommentAfter[iSelEnd] || (posEndCommentAfter[iSelEnd] <= posStartCommentAfter[iSelEnd])))
 			{
-					blnCommentFound = true;
 					posStartComment = posStartCommentBefore[iSelEnd];
 					posEndComment   = posEndCommentAfter[iSelEnd];
 			}
@@ -6405,7 +6402,6 @@ bool Notepad_plus::undoStreamComment()
 				&& (blnEndCommentBefore[iSelEnd] && (posEndCommentBefore[iSelEnd] >  selectionStart)))
 			{
 					//-- If there are more than one stream-comment within the selection, take the first one after selectionStart!!
-					blnCommentFound = true;
 					posStartComment = posStartCommentAfter[iSelStart];
 					posEndComment   = posEndCommentAfter[iSelStart];
 			}

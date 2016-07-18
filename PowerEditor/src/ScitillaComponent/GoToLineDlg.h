@@ -26,21 +26,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef GOTILINE_DLG_H
-#define GOTILINE_DLG_H
-
-#ifndef RESOURCE_H
+#pragma once
 #include "resource.h"
-#endif //RESOURCE_H
-
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
 
 class GoToLineDlg : public StaticDialog
 {
 public :
-	GoToLineDlg() : StaticDialog(), _mode(go2line) {};
+	GoToLineDlg() : StaticDialog() {};
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);
@@ -67,12 +60,11 @@ public :
 
 protected :
 	enum mode {go2line, go2offsset};
-	mode _mode;
+	mode _mode = go2line;
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
-
-    ScintillaEditView **_ppEditView;
+    ScintillaEditView **_ppEditView = nullptr;
 
     void updateLinesNumbers() const;
 
@@ -88,4 +80,3 @@ private :
 
 };
 
-#endif //GOTILINE_DLG_H

@@ -1467,12 +1467,11 @@ void Notepad_plus::command(int id)
 			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton());
 
 			// This part is just for updating (redraw) the tabs
-			{
-				int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(TabBarPlus::drawTabCloseButton()?22:22);
-				int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? 60:45);
-				TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-				TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-			}
+			int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(TabBarPlus::drawTabCloseButton() ? 22 : 22);
+			int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? 60 : 45);
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;
 		}

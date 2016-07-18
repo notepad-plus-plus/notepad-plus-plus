@@ -47,7 +47,7 @@ public:
 	generic_string getAscii(unsigned char value);
 
 protected:
-	int _codepage;
+	int _codepage = -1;
 	WNDPROC _defaultProc;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 

@@ -71,6 +71,7 @@ generic_string getFolderName(HWND parent, const TCHAR *defaultDir = NULL);
 
 void printInt(int int2print);
 void printStr(const TCHAR *str2print);
+generic_string commafyInt(size_t n);
 
 void writeLog(const TCHAR *logFileName, const char *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);

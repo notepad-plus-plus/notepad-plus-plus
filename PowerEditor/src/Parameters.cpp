@@ -422,7 +422,7 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_LINEENDDISPLAY"),          SCI_LINEENDDISPLAY,          false, true,  false, VK_END,      0},
 	{TEXT("SCI_LINEENDDISPLAYEXTEND"),    SCI_LINEENDDISPLAYEXTEND,    false, false, false, 0,           0},
 	{TEXT("SCI_LINEENDWRAP"),             SCI_LINEENDWRAP,             false, false, false, VK_END,      0},
-	{TEXT("SCI_LINEENDWRAPEXTEND"),       SCI_LINEENDWRAPEXTEND,       false, false, false, 0,           0},
+	{TEXT("SCI_LINEENDEXTEND"),           SCI_LINEENDEXTEND,           false, false, false, 0,           0},
 	{TEXT("SCI_DOCUMENTSTART"),           SCI_DOCUMENTSTART,           true,  false, false, VK_HOME,     0},
 	{TEXT("SCI_DOCUMENTSTARTEXTEND"),     SCI_DOCUMENTSTARTEXTEND,     true,  false, true,  VK_HOME,     0},
 	{TEXT("SCI_DOCUMENTEND"),             SCI_DOCUMENTEND,             true,  false, false, VK_END,      0},

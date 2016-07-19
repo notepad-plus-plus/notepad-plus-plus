@@ -26,6 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <algorithm>
 #include <stdexcept>
+#include <sstream>
 #include <shlwapi.h>
 #include <shlobj.h>
 #include <uxtheme.h>
@@ -37,6 +38,7 @@
 
 WcharMbcsConvertor* WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
 
+typedef std::basic_stringstream<TCHAR> generic_stringstream;
 
 
 
@@ -53,6 +55,13 @@ void printStr(const TCHAR *str2print)
 	::MessageBox(NULL, str2print, TEXT(""), MB_OK);
 }
 
+generic_string commafyInt(size_t n)
+{
+	generic_stringstream ss;
+	ss.imbue(std::locale(""));
+	ss << n;
+	return ss.str();
+}
 
 std::string getFileContent(const TCHAR *file2read)
 {

@@ -1686,10 +1686,8 @@ void Notepad_plus::command(int id)
 				characterNumber += curBuf->getFileTime(Buffer::ft_modified);
 				characterNumber += TEXT("\r");
 
-				TCHAR fileLenStr[64];
-				generic_sprintf(fileLenStr, TEXT("%I64u"), static_cast<UINT64>( fileLen ) );
 				characterNumber += fileLenLabel;
-				characterNumber += fileLenStr;
+				characterNumber += commafyInt(static_cast<UINT64>(fileLen)).c_str();
 				characterNumber += TEXT("\r");
 				characterNumber += TEXT("\r");
 			}
@@ -1710,42 +1708,27 @@ void Notepad_plus::command(int id)
 			auto nbSelByte = getSelectedBytes();
 			auto nbRange = getSelectedAreas();
 
-			TCHAR nbCharStr[32];
-			TCHAR nbWordStr[16];
-			TCHAR nbByteStr[32];
-			TCHAR nbLineStr[32];
-			TCHAR nbSelStr[32];
-			TCHAR nbSelByteStr[32];
-			TCHAR nbRangeStr[8];
-
-			generic_sprintf(nbCharStr, TEXT("%d"), nbChar);
 			characterNumber += nbCharLabel;
-			characterNumber += nbCharStr;
+			characterNumber += commafyInt(nbChar).c_str();
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbWordStr, TEXT("%d"), nbWord);
 			characterNumber += nbWordLabel;
-			characterNumber += nbWordStr;
+			characterNumber += commafyInt(nbWord).c_str();
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbLineStr, TEXT("%d"), static_cast<int>( nbLine ) );
 			characterNumber += nbLineLabel;
-			characterNumber += nbLineStr;
+			characterNumber += commafyInt(static_cast<int>(nbLine)).c_str();
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbByteStr, TEXT("%d"), nbByte);
 			characterNumber += nbByteLabel;
-			characterNumber += nbByteStr;
+			characterNumber += commafyInt(nbByte).c_str();
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbSelStr, TEXT("%d"), nbSel);
-			generic_sprintf(nbSelByteStr, TEXT("%d"), nbSelByte);
-			generic_sprintf(nbRangeStr, TEXT("%d"), nbRange);
-			characterNumber += nbSelStr;
+			characterNumber += commafyInt(nbSel).c_str();
 			characterNumber += nbSelLabel1;
-			characterNumber += nbSelByteStr;
+			characterNumber += commafyInt(nbSelByte).c_str();
 			characterNumber += nbSelLabel2;
-			characterNumber += nbRangeStr;
+			characterNumber += commafyInt(nbRange).c_str();
 			characterNumber += nbRangeLabel;
 			characterNumber += TEXT("\r");
 

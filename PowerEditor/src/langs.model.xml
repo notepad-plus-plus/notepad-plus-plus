@@ -148,7 +148,7 @@
         <Language name="makefile" ext="mak" commentLine="#">
         </Language>
         <Language name="matlab" ext="m" commentLine="%" commentStart="" commentEnd="">
-            <Keywords name="instre1">break case catch continue else elseif end for function global if otherwise persistent return switch try while</Keywords>
+            <Keywords name="instre1">break case catch classdef continue else elseif end for function global if otherwise parfor persistent return switch try while</Keywords>
         </Language>
         <Language name="nfo" ext="nfo">
         </Language>

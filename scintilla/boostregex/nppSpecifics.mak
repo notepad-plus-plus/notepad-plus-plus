@@ -54,7 +54,7 @@ $(DIR_O)\BoostRegexSearch.obj:: ../boostregex/BoostRegexSearch.cxx ../src/CharCl
 !MESSAGE from scintilla\BoostRegex directory with the path where 
 !MESSAGE you have extracted the boost archive (from www.boost.org)
 !MESSAGE e.g. 
-!MESSAGE       buildboost.bat d:\libs\boost_1_48_0
+!MESSAGE       buildboost.bat d:\libs\boost_1_55_0
 !MESSAGE
 !MESSAGE If you want to build scintilla without Boost (and just 
 !MESSAGE use the limited  built-in regular expressions), 

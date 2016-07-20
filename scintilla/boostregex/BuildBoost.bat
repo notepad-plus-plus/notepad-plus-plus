@@ -133,6 +133,10 @@ IF NOT [%MSVCTOOLSET%]==[] (
     GOTO TOOLSETKNOWN
 )
 
+:: VS201x
+IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-15.0\release\%BUILDTARGETPATH%link-static\runtime-link-static\threading-multi\libboost_regex-vc150-mt-s-%BOOSTVERSION%.lib (
+	SET MSVCTOOLSET=msvc-15.0
+
 :: VS2015
 IF EXIST %BOOSTPATH%\bin.v2\libs\regex\build\msvc-14.0\release\%BUILDTARGETPATH%link-static\runtime-link-static\threading-multi\libboost_regex-vc140-mt-s-%BOOSTVERSION%.lib (
 	SET MSVCTOOLSET=msvc-14.0
@@ -176,6 +180,11 @@ ECHO Run buildboost.bat without parameters to see the usage.
 
 
 :TOOLSETKNOWN
+
+:: VS201x
+IF [%MSVCTOOLSET%]==[msvc-15.0] (
+	SET BOOSTLIBPATH=%BOOSTPATH%\bin.v2\libs\regex\build\msvc-15.0
+)
 
 :: VS2015
 IF [%MSVCTOOLSET%]==[msvc-14.0] (
@@ -267,11 +276,12 @@ ECHO   --toolset msvc-10.0    for Visual Studio 2010
 ECHO   --toolset msvc-11.0    for Visual Studio 2012
 ECHO   --toolset msvc-12.0    for Visual Studio 2013
 ECHO   --toolset msvc-14.0    for Visual Studio 2015
+ECHO   --toolset msvc-15.0    for Visual Studio 201x
 ECHO.
 ECHO.
 ECHO e.g.  To build with boost in d:\libs\boost_1_55_0 with Visual Studio 2013
 ECHO.
-ECHO         buildboost.bat --toolset msvc-9.0 d:\libs\boost_1_55_0
+ECHO         buildboost.bat --toolset msvc-12.0 d:\libs\boost_1_55_0
 ECHO.
 GOTO EOF
 

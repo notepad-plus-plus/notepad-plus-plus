@@ -915,7 +915,7 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 		case WM_NCACTIVATE:
 		{
 			// Note: lParam to identify the trigger window
-			if ((int)lParam != -1)
+			if (static_cast<int>(lParam) != -1)
 			{
 				::SendMessage(_hParent, WM_NCACTIVATE, wParam, 0);
 			}
@@ -1330,7 +1330,7 @@ void DockingCont::SelectTab(int iTab)
 		nmhdr.idFrom	= 0;
 		::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
 
-		if ((unsigned int)iTab != _prevItem)
+		if (static_cast<unsigned int>(iTab) != _prevItem)
 		{
 			// hide previous dialog
 			::SendMessage(_hContTab, TCM_GETITEM, _prevItem, (LPARAM)&tcItem);

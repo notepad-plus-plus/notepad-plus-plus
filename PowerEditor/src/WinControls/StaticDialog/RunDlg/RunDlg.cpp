@@ -245,7 +245,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						int const posBase = 2;
 						
 						if (nbCmd == 0)
-							::InsertMenu(hRunMenu, posBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
+							::InsertMenu(hRunMenu, posBase - 1, MF_BYPOSITION, static_cast<unsigned int>(-1), 0);
 						
 						theUserCmds.push_back(uc);
 						::InsertMenu(hRunMenu, posBase + nbCmd, MF_BYPOSITION, cmdID, uc.toMenuItemString().c_str());
@@ -254,7 +254,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
                         if (nbCmd == 0)
                         {
                             // Insert the separator and modify/delete command
-			                ::InsertMenu(hRunMenu, posBase + nbCmd + 1, MF_BYPOSITION, (unsigned int)-1, 0);
+							::InsertMenu(hRunMenu, posBase + nbCmd + 1, MF_BYPOSITION, static_cast<unsigned int>(-1), 0);
 							NativeLangSpeaker *pNativeLangSpeaker = nppParams->getNativeLangSpeaker();
 							generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
 							if (nativeLangShortcutMapperMacro == TEXT(""))

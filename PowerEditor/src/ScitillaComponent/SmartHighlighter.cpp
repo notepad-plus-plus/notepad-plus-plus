@@ -89,13 +89,13 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	}
 
 	// save target locations for other search functions
-	int originalStartPos = (int)pHighlightView->execute(SCI_GETTARGETSTART);
-	int originalEndPos = (int)pHighlightView->execute(SCI_GETTARGETEND);
+	auto originalStartPos = pHighlightView->execute(SCI_GETTARGETSTART);
+	auto originalEndPos = pHighlightView->execute(SCI_GETTARGETEND);
 
 	// Get the range of text visible and highlight everything in it
-	int firstLine =		(int)pHighlightView->execute(SCI_GETFIRSTVISIBLELINE);
+	int firstLine = static_cast<int>(pHighlightView->execute(SCI_GETFIRSTVISIBLELINE));
 	int nrLines =	min((int)pHighlightView->execute(SCI_LINESONSCREEN), MAXLINEHIGHLIGHT ) + 1;
-	int lastLine =		firstLine+nrLines;
+	int lastLine =		firstLine + nrLines;
 	int startPos =		0;
 	int endPos =		0;
 	int currentLine = firstLine;
@@ -128,7 +128,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 		frInfo._endRange = endPos;
 		if (endPos == -1) 
 		{	//past EOF
-			frInfo._endRange = (int)pHighlightView->getCurrentDocLen() - 1;
+			frInfo._endRange = pHighlightView->getCurrentDocLen() - 1;
 			_pFRDlg->processRange(ProcessMarkAll_2, frInfo, NULL, &fo);
 			break;
 		}

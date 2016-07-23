@@ -592,14 +592,14 @@ void FunctionParser::getInvertZones(vector< pair<int, int> > &  destZones, vecto
 {
 	if (sourceZones.size() == 0)
 	{
-		destZones.push_back(pair<int, int>((int)begin, (int)end));
+		destZones.push_back(pair<int, int>(static_cast<int>(begin), static_cast<int>(end)));
 	}
 	else
 	{
 		// check the begin
 		if (int(begin) < sourceZones[0].first)
 		{
-			destZones.push_back(pair<int, int>((int)begin, sourceZones[0].first - 1));
+			destZones.push_back(pair<int, int>(static_cast<int>(begin), sourceZones[0].first - 1));
 		}
 
 		size_t i = 0;
@@ -612,7 +612,7 @@ void FunctionParser::getInvertZones(vector< pair<int, int> > &  destZones, vecto
 		}
 		int lastBegin = sourceZones[i].second + 1;
 		if (lastBegin < int(end))
-			destZones.push_back(pair<int, int>(lastBegin, (int)end));
+			destZones.push_back(pair<int, int>(lastBegin, static_cast<int>(end)));
 	}
 }
 

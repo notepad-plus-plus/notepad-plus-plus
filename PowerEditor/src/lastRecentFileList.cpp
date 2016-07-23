@@ -195,7 +195,7 @@ void LastRecentFileList::remove(const TCHAR *fn)
 		remove(index);
 };
 
-void LastRecentFileList::remove(int index) 
+void LastRecentFileList::remove(size_t index) 
 {
 	if (_size == 0 || _locked)
 		return;

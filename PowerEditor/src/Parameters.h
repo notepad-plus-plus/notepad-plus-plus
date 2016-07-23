@@ -1403,14 +1403,14 @@ public:
 	bool isRemappingShortcut() const {return _shortcuts.size() != 0;};
 
 	std::vector<CommandShortcut> & getUserShortcuts() { return _shortcuts; };
-	std::vector<int> & getUserModifiedShortcuts() { return _customizedShortcuts; };
-	void addUserModifiedIndex(int index);
+	std::vector<size_t> & getUserModifiedShortcuts() { return _customizedShortcuts; };
+	void addUserModifiedIndex(size_t index);
 
 	std::vector<MacroShortcut> & getMacroList() { return _macros; };
 	std::vector<UserCommand> & getUserCommandList() { return _userCommands; };
 	std::vector<PluginCmdShortcut> & getPluginCommandList() { return _pluginCommands; };
-	std::vector<int> & getPluginModifiedKeyIndices() { return _pluginCustomizedCmds; };
-	void addPluginModifiedIndex(int index);
+	std::vector<size_t> & getPluginModifiedKeyIndices() { return _pluginCustomizedCmds; };
+	void addPluginModifiedIndex(size_t index);
 
 	std::vector<ScintillaKeyMap> & getScintillaKeyList() { return _scintillaKeyCommands; };
 	std::vector<int> & getScintillaModifiedKeyIndices() { return _scintillaModifiedKeyIndices; };
@@ -1605,11 +1605,11 @@ public:
 private:
 	bool _isAnyShortcutModified = false;
 	std::vector<CommandShortcut> _shortcuts;			//main menu shortuts. Static size
-	std::vector<int> _customizedShortcuts;			//altered main menu shortcuts. Indices static. Needed when saving alterations
+	std::vector<size_t> _customizedShortcuts;			//altered main menu shortcuts. Indices static. Needed when saving alterations
 	std::vector<MacroShortcut> _macros;				//macro shortcuts, dynamic size, defined on loading macros and adding/deleting them
 	std::vector<UserCommand> _userCommands;			//run shortcuts, dynamic size, defined on loading run commands and adding/deleting them
 	std::vector<PluginCmdShortcut> _pluginCommands;	//plugin commands, dynamic size, defined on loading plugins
-	std::vector<int> _pluginCustomizedCmds;			//plugincommands that have been altered. Indices determined after loading ALL plugins. Needed when saving alterations
+	std::vector<size_t> _pluginCustomizedCmds;			//plugincommands that have been altered. Indices determined after loading ALL plugins. Needed when saving alterations
 
 	std::vector<ScintillaKeyMap> _scintillaKeyCommands;	//scintilla keycommands. Static size
 	std::vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations

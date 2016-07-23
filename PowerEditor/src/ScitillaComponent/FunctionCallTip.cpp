@@ -118,7 +118,7 @@ void FunctionCallTip::showNextOverload() {
 void FunctionCallTip::showPrevOverload() {
 	if (!isVisible())
 		return;
-	_currentOverload = _currentOverload > 0?(_currentOverload-1) : _currentNrOverloads-1;
+	_currentOverload = _currentOverload > 0 ? (_currentOverload-1) : (_currentNrOverloads-1);
 	showCalltip();
 }
 
@@ -366,7 +366,7 @@ bool FunctionCallTip::loadFunction()
 		++_currentNrOverloads;
 	}
 
-	_currentNrOverloads = (int)_overloads.size();
+	_currentNrOverloads = _overloads.size();
 
 	if (_currentNrOverloads == 0)	//malformed node
 		return false;

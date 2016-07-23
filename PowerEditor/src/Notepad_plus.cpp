@@ -332,12 +332,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	if (_toReduceTabBar)
 	{
-		HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+		HFONT hf = reinterpret_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
 
 		if (hf)
 		{
-			::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
-			::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
+			::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+			::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 		}
 		int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(22);
 		int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(45);
@@ -418,15 +418,15 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	size_t const posBase = 6;
 	size_t nbMacro = macros.size();
 	if (nbMacro >= 1)
-		::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
+		::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
 	for (size_t i = 0 ; i < nbMacro ; ++i)
-		::InsertMenu(hMacroMenu, UINT(posBase + i), MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
+		::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + i), MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
 
     if (nbMacro >= 1)
     {
-        ::InsertMenu(hMacroMenu, UINT(posBase + nbMacro + 1), MF_BYPOSITION, (unsigned int)-1, 0);
-        ::InsertMenu(hMacroMenu, UINT(posBase + nbMacro + 2), MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, TEXT("Modify Shortcut/Delete Macro..."));
+        ::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + nbMacro + 1), MF_BYPOSITION, static_cast<UINT>(-1), 0);
+        ::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + nbMacro + 2), MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, TEXT("Modify Shortcut/Delete Macro..."));
     }
 
 	// Run Menu
@@ -435,17 +435,17 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	int const runPosBase = 2;
 	size_t nbUserCommand = userCommands.size();
 	if (nbUserCommand >= 1)
-		::InsertMenu(hRunMenu, runPosBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
+		::InsertMenu(hRunMenu, runPosBase - 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
 	for (size_t i = 0 ; i < nbUserCommand ; ++i)
 	{
-		::InsertMenu(hRunMenu, UINT(runPosBase + i), MF_BYPOSITION, ID_USER_CMD + i, userCommands[i].toMenuItemString().c_str());
+		::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + i), MF_BYPOSITION, ID_USER_CMD + i, userCommands[i].toMenuItemString().c_str());
 	}
 
     if (nbUserCommand >= 1)
     {
-		::InsertMenu(hRunMenu, UINT(runPosBase + nbUserCommand + 1), MF_BYPOSITION, (unsigned int)-1, 0);
-        ::InsertMenu(hRunMenu, UINT(runPosBase + nbUserCommand + 2), MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, TEXT("Modify Shortcut/Delete Command..."));
+		::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + nbUserCommand + 1), MF_BYPOSITION,  static_cast<UINT>(-1), 0);
+        ::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + nbUserCommand + 2), MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, TEXT("Modify Shortcut/Delete Command..."));
     }
 
 	// Updater menu item
@@ -2935,11 +2935,11 @@ size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 	if (u != uniUTF8 && u != uniCookie)
 	{
 		size_t numLines = _pEditView->execute(SCI_GETLINECOUNT);
-		size_t result = _pEditView->execute(SCI_GETLENGTH);
+		auto result = _pEditView->execute(SCI_GETLENGTH);
 		size_t lines = numLines==0?0:numLines-1;
 		if (_pEditView->execute(SCI_GETEOLMODE) == SC_EOL_CRLF) lines *= 2;
 		result -= lines;
-		return ((int)result < 0) ? 0 : result;
+		return (result < 0) ? 0 : result;
 	}
  	else
  	{
@@ -4072,10 +4072,10 @@ bool Notepad_plus::addCurrentMacro()
 		int const posBase = 6;	//separator at index 5
 		if (nbMacro == 0)
 		{
-			::InsertMenu(hMacroMenu, posBase-1, MF_BYPOSITION, (unsigned int)-1, 0);	//no separator yet, add one
+			::InsertMenu(hMacroMenu, posBase-1, MF_BYPOSITION, static_cast<UINT>(-1), 0);	//no separator yet, add one
 
             // Insert the separator and modify/delete command
-			::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, (unsigned int)-1, 0);
+			::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
 			NativeLangSpeaker *pNativeLangSpeaker = nppParams->getNativeLangSpeaker();
 			generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
@@ -4100,22 +4100,20 @@ void Notepad_plus::changeToolBarIcons()
 
 bool Notepad_plus::switchToFile(BufferID id)
 {
-	int i = 0;
 	int iView = currentView();
 	if (id == BUFFER_INVALID)
 		return false;
-
-	if ((i = _pDocTab->getIndexByBuffer(id)) != -1)
+	int i = _pDocTab->getIndexByBuffer(id);
+	if (i != -1)
 	{
 		iView = currentView();
 	}
-	else if ((i = _pNonDocTab->getIndexByBuffer(id)) != -1)
-	{
-		iView = otherView();
-	}
-
+	
+	i = _pNonDocTab->getIndexByBuffer(id);
 	if (i != -1)
 	{
+		iView = otherView();
+
 		switchEditViewTo(iView);
 		activateBuffer(id, currentView());
 		return true;
@@ -4406,7 +4404,7 @@ void Notepad_plus::postItToggle()
 	NppParameters * pNppParam = NppParameters::getInstance();
 	if (!_beforeSpecialView.isPostIt)	// PostIt disabled, enable it
 	{
-		NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+		NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
 		// get current status before switch to postIt
 		//check these always
 		{
@@ -4752,9 +4750,6 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		switch(buffer->getStatus())
 		{
 			case DOC_UNNAMED: 	//nothing todo
-			{
-				break;
-			}
 			case DOC_REGULAR: 	//nothing todo
 			{
 				break;
@@ -5960,7 +5955,7 @@ bool isInList(int elem, vector<int> elemList)
 DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 {
 	// random seed generation needs only one time.
-	srand((unsigned int)time(NULL));
+	srand(static_cast<UINT>(time(NULL)));
 
 	TextPlayerParams* textPlayerParams = static_cast<TextPlayerParams*>(params);
 	HWND hNpp = textPlayerParams->_nppHandle;
@@ -6078,7 +6073,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	WaitForSingleObject(textTrollerParams->_mutex, INFINITE);
 
 	// random seed generation needs only one time.
-	srand((unsigned int)time(NULL));
+	srand(static_cast<UINT>(time(NULL)));
 
 	ScintillaEditView *pCurrentView = textTrollerParams->_pCurrentView;
 	const char *text2display = textTrollerParams->_text2display;
@@ -6203,7 +6198,7 @@ int Notepad_plus::getQuoteIndexFrom(const char *quoter) const
 
 	if (stricmp(quoter, "random") == 0)
 	{
-		srand((unsigned int)time(NULL));
+		srand(static_cast<UINT>(time(NULL)));
 		return getRandomNumber(nbQuote);
 	}
 
@@ -6445,20 +6440,20 @@ bool Notepad_plus::undoStreamComment()
 		if (selectionStart > posStartComment)
 		{
 			if (selectionStart >= posStartComment+startCommentLength)
-				selectionStartMove = -(int)startCommentLength;
+				selectionStartMove = -static_cast<int>(startCommentLength);
 			else
-				selectionStartMove = -(int)(selectionStart - posStartComment);
+				selectionStartMove = -static_cast<int>(selectionStart - posStartComment);
 		}
 		else
 			selectionStartMove = 0;
 
 		//   selectionEnd
 		if (selectionEnd >= posEndComment+endCommentLength)
-			selectionEndMove = -(int)(startCommentLength+endCommentLength);
+			selectionEndMove = -static_cast<int>(startCommentLength+endCommentLength);
 		else if (selectionEnd <= posEndComment)
-			selectionEndMove = -(int)startCommentLength;
+			selectionEndMove = -static_cast<int>(startCommentLength);
 		else
-			selectionEndMove = -(int)(startCommentLength + (selectionEnd - posEndComment));
+			selectionEndMove = -static_cast<int>(startCommentLength + (selectionEnd - posEndComment));
 
 		//-- Reset selection of text without deleted stream-comment-string
 		if (move_caret)

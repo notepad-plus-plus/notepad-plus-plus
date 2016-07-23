@@ -110,11 +110,11 @@ int DocTabView::getIndexByBuffer(BufferID id)
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
-	for(int i = 0; i < (int)_nbItem; ++i)
+	for(size_t i = 0; i < _nbItem; ++i)
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		if (reinterpret_cast<BufferID>(tie.lParam) == id)
-			return i;
+			return static_cast<int>(i);
 	}
 	return -1;
 }
@@ -194,13 +194,13 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 }
 
 
-void DocTabView::setBuffer(int index, BufferID id)
+void DocTabView::setBuffer(size_t index, BufferID id)
 {
-	if (index < 0 || index >= (int)_nbItem)
+	if (index < 0 || index >= _nbItem)
 		return;
 
 	TCITEM tie;
-	tie.lParam = (LPARAM)id;
+	tie.lParam = reinterpret_cast<LPARAM>(id);
 	tie.mask = TCIF_PARAM;
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
 

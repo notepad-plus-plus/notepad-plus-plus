@@ -513,7 +513,7 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UI
 		_multiByteStr.sizeTo(len);
 		len = WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, _multiByteStr, len, NULL, NULL); // not needed?
 
-        if ((int)*mstart < lstrlenW(wcharStr2Convert) && (int)*mend < lstrlenW(wcharStr2Convert))
+        if (*mstart < lstrlenW(wcharStr2Convert) && *mend < lstrlenW(wcharStr2Convert))
         {
 			*mstart = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mstart, NULL, 0, NULL, NULL);
 			*mend = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mend, NULL, 0, NULL, NULL);

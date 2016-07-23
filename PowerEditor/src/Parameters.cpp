@@ -2247,8 +2247,8 @@ void NppParameters::feedShortcut(TiXmlNode *node)
 		if (idStr)
 		{
 			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
-			int len = (int)_shortcuts.size();
-			for(int i = 0; i < len; ++i)
+			size_t len = _shortcuts.size();
+			for(size_t i = 0; i < len; ++i)
 			{
 				if (_shortcuts[i].getID() == (unsigned long)id)
 				{	//found our match
@@ -2360,8 +2360,8 @@ void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
 			continue;
 
 		//Find the corresponding plugincommand and alter it, put the index in the list
-		int len = (int)_pluginCommands.size();
-		for(int i = 0; i < len; ++i)
+		size_t len = _pluginCommands.size();
+		for(size_t i = 0; i < len; ++i)
 		{
 			PluginCmdShortcut & pscOrig = _pluginCommands[i];
 			if (!generic_strnicmp(pscOrig.getModuleName(), moduleName, lstrlen(moduleName)) && pscOrig.getInternalID() == internalID)
@@ -2977,7 +2977,7 @@ void NppParameters::writeShortcuts()
 	cmdRoot = root->InsertEndChild(TiXmlElement(TEXT("InternalCommands")));
 	for (size_t i = 0, len = _customizedShortcuts.size(); i < len ; ++i)
 	{
-		int index = _customizedShortcuts[i];
+		size_t index = _customizedShortcuts[i];
 		CommandShortcut csc = _shortcuts[index];
 		insertCmd(cmdRoot, csc);
 	}
@@ -3506,7 +3506,7 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const TCHA
 // 2 restes : L_H, L_USER
 LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 {
-	int lang = (int)L_TEXT;
+	int lang = static_cast<int>(L_TEXT);
 	for(; lang < L_EXTERNAL; ++lang)
 	{
 		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
@@ -5480,8 +5480,8 @@ bool NppParameters::writeGUIParams()
 		}
 		else if (!lstrcmp(nm, TEXT("delimiterSelection")))
 		{
-			element->SetAttribute(TEXT("leftmostDelimiter"), (int)_nppGUI._leftmostDelimiter);
-			element->SetAttribute(TEXT("rightmostDelimiter"), (int)_nppGUI._rightmostDelimiter);
+			element->SetAttribute(TEXT("leftmostDelimiter"), static_cast<int>(_nppGUI._leftmostDelimiter));
+			element->SetAttribute(TEXT("rightmostDelimiter"), static_cast<int>(_nppGUI._rightmostDelimiter));
 			if(_nppGUI._delimiterSelectionOnEntireDocument)
 				element->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), TEXT("yes"));
 			else
@@ -6448,7 +6448,7 @@ void NppParameters::stylerStrOp(bool op)
 	}
 }
 
-void NppParameters::addUserModifiedIndex(int index)
+void NppParameters::addUserModifiedIndex(size_t index)
 {
 	size_t len = _customizedShortcuts.size();
 	bool found = false;
@@ -6466,7 +6466,7 @@ void NppParameters::addUserModifiedIndex(int index)
 	}
 }
 
-void NppParameters::addPluginModifiedIndex(int index)
+void NppParameters::addPluginModifiedIndex(size_t index)
 {
 	size_t len = _pluginCustomizedCmds.size();
 	bool found = false;

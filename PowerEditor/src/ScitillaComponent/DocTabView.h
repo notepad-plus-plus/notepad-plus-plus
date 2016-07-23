@@ -73,7 +73,7 @@ public :
 	int getIndexByBuffer(BufferID id);
 	BufferID getBufferByIndex(size_t index);
 
-	void setBuffer(int index, BufferID id);
+	void setBuffer(size_t index, BufferID id);
 
 	static bool setHideTabBarStatus(bool hideOrNot) {
 		bool temp = _hideTabBarStatus;

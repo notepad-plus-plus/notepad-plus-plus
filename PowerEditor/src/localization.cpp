@@ -840,8 +840,6 @@ void NativeLangSpeaker::changeShortcutLang()
 	NppParameters * pNppParam = NppParameters::getInstance();
 	vector<CommandShortcut> & mainshortcuts = pNppParam->getUserShortcuts();
 	vector<ScintillaKeyMap> & scinshortcuts = pNppParam->getScintillaKeyList();
-	int mainSize = (int)mainshortcuts.size();
-	int scinSize = (int)scinshortcuts.size();
 
 	TiXmlNodeA *shortcuts = _nativeLangA->FirstChild("Shortcuts");
 	if (!shortcuts) return;
@@ -860,7 +858,8 @@ void NativeLangSpeaker::changeShortcutLang()
 		int index, id;
 		if (element->Attribute("index", &index) && element->Attribute("id", &id))
 		{
-			if (index > -1 && index < mainSize) { //valid index only
+			if (index > -1 && static_cast<size_t>(index) < mainshortcuts.size()) //valid index only
+			{
 				const char *name = element->Attribute("name");
 				CommandShortcut & csc = mainshortcuts[index];
 				if (csc.getID() == (unsigned long)id) 
@@ -891,7 +890,8 @@ void NativeLangSpeaker::changeShortcutLang()
 		int index;
 		if (element->Attribute("index", &index))
 		{
-			if (index > -1 && index < scinSize) { //valid index only
+			if (index > -1 && static_cast<size_t>(index) < scinshortcuts.size()) //valid index only
+			{
 				const char *name = element->Attribute("name");
 				ScintillaKeyMap & skm = scinshortcuts[index];
 

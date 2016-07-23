@@ -435,7 +435,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 									int tabColourIndex;
 									if ((tabColourIndex = whichTabColourIndex()) != -1)
 									{
-										tabColourIndex = (int)tabColourIndex == TabBarPlus::inactiveText? TabBarPlus::inactiveBg : tabColourIndex;
+										tabColourIndex = tabColourIndex == (TabBarPlus::inactiveText ? TabBarPlus::inactiveBg : tabColourIndex);
 										TabBarPlus::setColour(_pBgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
 									}
 									apply();
@@ -498,16 +498,16 @@ int WordStyleDlg::whichTabColourIndex()
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
 
 	if (lstrcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
-		return (int)TabBarPlus::activeFocusedTop;
+		return TabBarPlus::activeFocusedTop;
 
 	if (lstrcmp(styleName, TABBAR_ACTIVEUNFOCUSEDINDCATOR) == 0)
-		return (int)TabBarPlus::activeUnfocusedTop;
+		return TabBarPlus::activeUnfocusedTop;
 
 	if (lstrcmp(styleName, TABBAR_ACTIVETEXT) == 0)
-		return (int)TabBarPlus::activeText;
+		return TabBarPlus::activeText;
 
 	if (lstrcmp(styleName, TABBAR_INACTIVETEXT) == 0)
-		return (int)TabBarPlus::inactiveText;
+		return TabBarPlus::inactiveText;
 
 	return -1;
 }

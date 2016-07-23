@@ -455,13 +455,13 @@ bool ReBar::addBand(REBARBANDINFO * rBand, bool useID)
 
 void ReBar::reNew(int id, REBARBANDINFO * rBand) 
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)rBand);
 };
 
 void ReBar::removeBand(int id) 
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (id >= REBAR_BAR_EXTERNAL)
 		releaseID(id);
 	::SendMessage(_hSelf, RB_DELETEBAND, (WPARAM)index, (LPARAM)0);
@@ -469,7 +469,7 @@ void ReBar::removeBand(int id)
 
 void ReBar::setIDVisible(int id, bool show) 
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (index == -1 )
 		return;	//error
 
@@ -489,7 +489,7 @@ void ReBar::setIDVisible(int id, bool show)
 
 bool ReBar::getIDVisible(int id)
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (index == -1 )
 		return false;	//error
 	REBARBANDINFO rbBand;
@@ -504,7 +504,7 @@ bool ReBar::getIDVisible(int id)
 
 void ReBar::setGrayBackground(int id) 
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (index == -1 )
 		return;	//error
 	REBARBANDINFO rbBand;

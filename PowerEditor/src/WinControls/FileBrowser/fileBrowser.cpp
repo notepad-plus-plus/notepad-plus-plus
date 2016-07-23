@@ -42,12 +42,12 @@
 #define INDEX_OPEN_ROOT      0
 #define INDEX_CLOSE_ROOT     1
 #define INDEX_OPEN_NODE	     2
-#define INDEX_CLOSE_NODE    3
+#define INDEX_CLOSE_NODE     3
 #define INDEX_LEAF           4
 
 
-#define GET_X_LPARAM(lp)                        ((int)(short)LOWORD(lp))
-#define GET_Y_LPARAM(lp)                        ((int)(short)HIWORD(lp))
+#define GET_X_LPARAM(lp) static_cast<short>(LOWORD(lp))
+#define GET_Y_LPARAM(lp) static_cast<short>(HIWORD(lp))
 
 #define FB_ADDFILE (WM_USER + 1024)
 #define FB_RMFILE  (WM_USER + 1025)
@@ -724,7 +724,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_REMOVEALLROOTS:
 		{
-			for (int i = (int)_folderUpdaters.size() - 1; i >= 0; --i)
+			for (int i = static_cast<int>(_folderUpdaters.size()) - 1; i >= 0; --i)
 			{
 				_folderUpdaters[i]->stopWatcher();
 

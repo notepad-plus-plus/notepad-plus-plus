@@ -99,7 +99,7 @@ public :
 
     virtual void redraw() const {
         _pFgColour->redraw();
-        _pBgColour->redraw();
+		_pBgColour->redraw();
 		::InvalidateRect(_hStyleInfoStaticText, NULL, TRUE);
 		::UpdateWindow(_hStyleInfoStaticText);
     };

@@ -36,21 +36,21 @@ void TiXmlBase::PutString( const TIXML_STRING& str, TIXML_OSTREAM* stream )
 
 void TiXmlBase::PutString( const TIXML_STRING& str, TIXML_STRING* outString )
 {
-	int i=0;
+	size_t i = 0;
 
-	while( i<(int)str.length() )
+	while (i < str.length())
 	{
 		int c = str[i];
 
-		if (    c == '&' 
-		     && i < ( (int)str.length() - 2 )
+		if (c == '&' 
+		     && i < ( str.length() - 2 )
 			 && str[i+1] == '#'
 			 && str[i+2] == 'x' )
 		{
 			// Hexadecimal character reference.
 			// Pass through unchanged.
 			// &#xA9;	-- copyright symbol, for example.
-			while ( i<(int)str.length() )
+			while ( i < str.length() )
 			{
 				outString->append( str.c_str() + i, 1 );
 				++i;
@@ -87,14 +87,14 @@ void TiXmlBase::PutString( const TIXML_STRING& str, TIXML_STRING* outString )
 		{
 			// Easy pass at non-alpha/numeric/symbol
 			// 127 is the delete key. Below 32 is symbolic.
-			TCHAR buf[ 32 ];
-			wsprintf( buf, TEXT("&#x%04X;"), (unsigned) ( c & 0xffff ) );
+			TCHAR buf[32];
+			wsprintf( buf, TEXT("&#x%04X;"), static_cast<unsigned int>(c & 0xffff) );
 			outString->append( buf, lstrlen( buf ) );
 			++i;
 		}
 		else
 		{
-			TCHAR realc = (TCHAR) c;
+			TCHAR realc = static_cast<TCHAR>(c);
 			outString->append( &realc, 1 );
 			++i;
 		}

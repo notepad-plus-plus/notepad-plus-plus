@@ -3031,19 +3031,22 @@ void Notepad_plus::updateStatusBar()
 
 	long selected_length = _pEditView->getSelectedLength();
 	if (selected_length != -1)
-		wsprintf(strSel, TEXT("Sel : %d | %d"), selected_length, selLine);
+		wsprintf(strSel, TEXT("Sel : %s | %s"), commafyInt(selected_length).c_str(), commafyInt(selLine).c_str());
 	else
 		wsprintf(strSel, TEXT("Sel : %s"), TEXT("N/A"));
 
-    wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    %s"),\
-        (_pEditView->getCurrentLineNumber() + 1), \
-        (_pEditView->getCurrentColumnNumber() + 1),\
-        strSel);
+	wsprintf(strLnCol, TEXT("Ln : %s    Col : %s    %s"),
+		commafyInt(_pEditView->getCurrentLineNumber() + 1).c_str(),
+		commafyInt(_pEditView->getCurrentColumnNumber() + 1).c_str(),
+		strSel);
 
     _statusBar.setText(strLnCol, STATUSBAR_CUR_POS);
 
     TCHAR strDocLen[256];
-	wsprintf(strDocLen, TEXT("length : %d    lines : %d"), _pEditView->getCurrentDocLen(), _pEditView->execute(SCI_GETLINECOUNT));
+	wsprintf(strDocLen, TEXT("length : %s    lines : %s"),
+		commafyInt(_pEditView->getCurrentDocLen()).c_str(),
+		commafyInt(_pEditView->execute(SCI_GETLINECOUNT)).c_str());
+
     _statusBar.setText(strDocLen, STATUSBAR_DOC_SIZE);
     _statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
 }

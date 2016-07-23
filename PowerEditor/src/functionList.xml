@@ -31,6 +31,7 @@ http://notepad-plus-plus.org/features/function-list.html
 			<association langID="22" id="python_function"/>
 			<association langID="26" id="bash_function"/>
 			<association langID="28" id="nsis_syntax"/>
+			<association langID="36" id="ruby_function"/>
 		<!--
 			if langID cannot be found above, you can still set the file extensions
 			<association ext=".my_passer_ext1" id="my_passer_id"/>
@@ -172,39 +173,39 @@ http://notepad-plus-plus.org/features/function-list.html
 				</function>
 			</parser>
 			
-            <parser id="php_function" displayName="PHP" commentExpr="((/\*.*?\*)/|(//.*?$))">
-                <classRange
-                    mainExpr="^[\s]*(class|abstract[\s]+class|final[\s]+class)[\t ]+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*([\s]*|[\s]*(extends|implements|(extends[\s]+(\\|[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)+[\s]+implements))[\s]+(\,[\s]*|(\\|[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*))+[\s]*)?\{"
-                    openSymbole = "\{"
-                    closeSymbole = "\}"
-                    displayMode="node">
-                    <className>
-                        <nameExpr expr="(class|abstract[\s]+class|final[\s]+class)[\s]+[\w]+"/>
-                        <nameExpr expr="[\s]+[\w]+\Z"/>
-                        <nameExpr expr="[\w]+\Z"/>
-                    </className>
-                    <function
-                        mainExpr="^[\s]*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+[\s]+)?(function[\s]+)+([\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\{]*\{">
-                        <functionName>
-                            <funcNameExpr expr="(?!(if|while|for|switch))[\w_]+[\s]*\([^\{]*"/>
-                            <!-- comment below node if want display method with parmas -->
-                            <funcNameExpr expr="(?!(if|while|for|switch))[\w_]+"/>
-                        </functionName>
-                    </function>
-                </classRange>
-                <function
-                    mainExpr="^[\s]*function[\s]+\w+\("
-
-                    displayMode="$className->$functionName">
-                    <functionName>
-                        <nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
-                        <nameExpr expr="(?!(if|while|for))[\w_]+"/>
-                    </functionName>
-                    <className>
-                        <nameExpr expr="[\w_]+(?=[\s]*::)"/>
-                    </className>
-                </function>
-            </parser>
+			<parser id="php_function" displayName="PHP" commentExpr="((/\*.*?\*)/|(//.*?$))">
+				<classRange
+					mainExpr="^[\s]*(class|abstract[\s]+class|final[\s]+class)[\t ]+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*([\s]*|[\s]*(extends|implements|(extends[\s]+(\\|[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)+[\s]+implements))[\s]+(\,[\s]*|(\\|[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*))+[\s]*)?\{"
+					openSymbole = "\{"
+					closeSymbole = "\}"
+					displayMode="node">
+					<className>
+						<nameExpr expr="(class|abstract[\s]+class|final[\s]+class)[\s]+[\w]+"/>
+						<nameExpr expr="[\s]+[\w]+\Z"/>
+						<nameExpr expr="[\w]+\Z"/>
+					</className>
+					<function
+						mainExpr="^[\s]*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+[\s]+)?(function[\s]+)+([\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\{]*\{">
+						<functionName>
+							<funcNameExpr expr="(?!(if|while|for|switch))[\w_]+[\s]*\([^\{]*"/>
+							<!-- comment below node if want display method with parmas -->
+							<funcNameExpr expr="(?!(if|while|for|switch))[\w_]+"/>
+						</functionName>
+					</function>
+				</classRange>
+				<function
+					  mainExpr="^[\s]*function[\s]+\w+\("
+					  displayMode="$className->$functionName">
+					  <functionName>
+							<nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
+							<nameExpr expr="(?!(if|while|for))[\w_]+"/>
+					   </functionName>
+					   <className>
+							<nameExpr expr="[\w_]+(?=[\s]*::)"/>
+					   </className>
+				</function>
+			</parser>
+			
 			<parser id="bash_function" displayName="Shell" commentExpr="(#.*?$)">
 				<function
 					mainExpr="^[\t ]*(function[\t\r\n ]*)?([a-zA-Z0-9_])+[\t\r\n ]*(\([^\)]*\))?[\t\r\n ]*(\{)[^(\})\r\n\t ]*"
@@ -214,6 +215,7 @@ http://notepad-plus-plus.org/features/function-list.html
 					</functionName>
 				</function>
 			</parser>
+			
 			<parser id="python_function" displayName="Python class" commentExpr="(#.*?$|'''.*?('''|\Z))">
 				<classRange mainExpr="(?&lt;=^class ).*?(?=\n\S|\Z)">
 					<className>
@@ -228,6 +230,29 @@ http://notepad-plus-plus.org/features/function-list.html
 				<function mainExpr="(?&lt;=def ).+?(?=:)">
 					<functionName>
 						<funcNameExpr expr=".*"/>
+					</functionName>
+				</function>
+			</parser>
+			
+			<parser id="ruby_function" displayName="Ruby">
+				<!-- within a class-->
+				<classRange 
+					mainExpr="(?&lt;=^class ).*?(?=\n\S|\Z)"
+					displayMode="node" >
+					<className>
+						<nameExpr expr="\w+"/>
+					</className>
+					<function mainExpr="^\s*def\s+\w+" displayMode="$className->$functionName" >
+						<functionName>
+							<funcNameExpr expr="(?&lt;=def\s)\w+"/>
+						</functionName>
+					</function>                  
+				</classRange>
+				
+				<!-- without class-->
+				<function mainExpr="^\s*def\s+\w+" displayMode="$functionName" >
+					<functionName>
+						<nameExpr expr="(?&lt;=def\s)\w+"/>
 					</functionName>
 				</function>
 			</parser>

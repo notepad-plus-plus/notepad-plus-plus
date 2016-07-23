@@ -39,54 +39,25 @@ SmartHighlighter::SmartHighlighter(FindReplaceDlg * pFRDlg)
 
 void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 {
-	//Get selection
-	CharacterRange range = pHighlightView->getSelection();
-
-	//Clear marks
+	// Clear marks
 	pHighlightView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
 
-	//If nothing selected, dont mark anything
-	if (range.cpMin == range.cpMax)
-	{
+	// If nothing selected, dont mark anything
+	if (pHighlightView->execute(SCI_GETSELECTIONEMPTY) == 1)
 		return;
-	}
+
+	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
+	auto wordStart = pHighlightView->execute(SCI_WORDSTARTPOSITION, curPos, true);
+	auto wordEnd = pHighlightView->execute(SCI_WORDENDPOSITION, wordStart, true);
+	auto range = pHighlightView->getSelection();
+
+	// Make sure the "word" positions match the current selection
+	if (wordStart == wordEnd || wordStart != range.cpMin || wordEnd != range.cpMax)
+		return;
 
 	int textlen = range.cpMax - range.cpMin + 1;
-
 	char * text2Find = new char[textlen];
-	pHighlightView->getSelectedText(text2Find, textlen, false);	//do not expand selection (false)
-
-	
-	//GETWORDCHARS for isQualifiedWord2() and isWordChar2()
-	auto listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
-	char *listChar = new char[listCharSize+1];
-	pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar);
-	listChar[listCharSize] = '\0';
-	
-	bool valid = true;
-	//The word has to consist if wordChars only, and the characters before and after something else
-	if (!isQualifiedWord(text2Find, listChar))
-		valid = false;
-	else
-	{
-		UCHAR c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMax);
-		if (c)
-		{
-			if (isWordChar(char(c), listChar))
-				valid = false;
-		}
-		c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMin-1);
-		if (c)
-		{
-			if (isWordChar(char(c), listChar))
-				valid = false;
-		}
-	}
-	if (!valid) {
-		delete [] text2Find;
-		delete [] listChar;
-		return;
-	}
+	pHighlightView->getSelectedText(text2Find, textlen, false); //do not expand selection (false)
 
 	// save target locations for other search functions
 	auto originalStartPos = pHighlightView->execute(SCI_GETTARGETSTART);
@@ -140,28 +111,6 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 
 	// restore the original targets to avoid conflicts with the search/replace functions
 	pHighlightView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
-	delete [] listChar;
+
+	delete[] text2Find;
 }
-
-bool SmartHighlighter::isQualifiedWord(const char *str, char *listChar) const
-{
-	for (size_t i = 0, len = strlen(str) ; i < len ; ++i)
-	{
-		if (!isWordChar(str[i], listChar))
-			return false;
-	}
-	return true;
-};
-
-bool SmartHighlighter::isWordChar(char ch, char listChar[]) const
-{
-	
-	for (size_t i = 0, len = strlen(listChar) ; i < len ; ++i)
-	{
-		if (ch == listChar[i])
-		{
-			return true;
-		}
-	}
-	return false;
-};

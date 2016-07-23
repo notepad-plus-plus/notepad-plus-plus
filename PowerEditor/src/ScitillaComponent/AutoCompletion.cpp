@@ -67,8 +67,8 @@ bool AutoCompletion::showApiComplete()
 
 bool AutoCompletion::showApiAndWordComplete()
 {
-	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
-	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
+	auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	auto startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true);
 
 	if (curPos == startPos)
 		return false;

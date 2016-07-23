@@ -516,7 +516,7 @@ void CommentStyleDialog::setKeywords2List(int id)
             IDC_COMMENT_CLOSE_EDIT
         };
 
-        for (int i=0; i<sizeof(list)/sizeof(int); ++i)
+        for (auto i = 0; i < sizeof(list)/sizeof(int); ++i)
         {
             generic_itoa(i, intBuffer+1, 10);
             ::GetDlgItemText(_hSelf, list[i], buffer, max_char);
@@ -918,7 +918,7 @@ void SymbolsStyleDialog::setKeywords2List(int id)
                 IDC_DELIMITER8_BOUNDARYCLOSE_EDIT
             };
 
-            for (int i=0; i<sizeof(list)/sizeof(int); ++i)
+            for (int i = 0; i < sizeof(list)/sizeof(int); ++i)
             {
                 if (i < 10)
                     generic_itoa(i, intBuffer+1, 10);
@@ -1491,7 +1491,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                 case SB_THUMBTRACK:
                 case SB_THUMBPOSITION:
-                    _yScrollPos = (int)HIWORD(wParam);
+                    _yScrollPos = HIWORD(wParam);
                     break;
 
                 default :

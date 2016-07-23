@@ -137,13 +137,13 @@ void GoToLineDlg::updateLinesNumbers() const
 	
 	if (_mode == go2line)
 	{
-		current = (unsigned int)((*_ppEditView)->getCurrentLineNumber() + 1);
-		limit = (unsigned int)((*_ppEditView)->execute(SCI_GETLINECOUNT));
+		current = static_cast<unsigned int>((*_ppEditView)->getCurrentLineNumber() + 1);
+		limit = static_cast<unsigned int>((*_ppEditView)->execute(SCI_GETLINECOUNT));
 	}
 	else
 	{
-		current = (unsigned int)(*_ppEditView)->execute(SCI_GETCURRENTPOS);
-		limit = (unsigned int)((*_ppEditView)->getCurrentDocLen() - 1);
+		current = static_cast<unsigned int>((*_ppEditView)->execute(SCI_GETCURRENTPOS));
+		limit = static_cast<unsigned int>((*_ppEditView)->getCurrentDocLen() - 1);
 	}
     ::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
     ::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);

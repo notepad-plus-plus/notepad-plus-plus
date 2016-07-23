@@ -639,19 +639,19 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			HWND hBorderWidthSlider = ::GetDlgItem(_hSelf, IDC_BORDERWIDTH_SLIDER);
 			if (reinterpret_cast<HWND>(lParam) == hCaretBlikRateSlider)
 			{
-				int blinkRate = (int)::SendMessage(hCaretBlikRateSlider, TBM_GETPOS, 0, 0);
+				auto blinkRate = ::SendMessage(hCaretBlikRateSlider, TBM_GETPOS, 0, 0);
 				if (blinkRate == BLINKRATE_SLOWEST)
 					blinkRate = 0;
-				nppGUI._caretBlinkRate = blinkRate;
+				nppGUI._caretBlinkRate = static_cast<int>(blinkRate);
 
 				::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETBLINKRATE, 0, 0);
 			}
 			else if (reinterpret_cast<HWND>(lParam) == hBorderWidthSlider)
 			{
-				int borderWidth = (int)::SendMessage(hBorderWidthSlider, TBM_GETPOS, 0, 0);
+				auto borderWidth = ::SendMessage(hBorderWidthSlider, TBM_GETPOS, 0, 0);
 				ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
-				svp._borderWidth = borderWidth;
-				::SetDlgItemInt(_hSelf, IDC_BORDERWIDTHVAL_STATIC, borderWidth, FALSE);
+				svp._borderWidth = static_cast<int>(borderWidth);
+				::SetDlgItemInt(_hSelf, IDC_BORDERWIDTHVAL_STATIC, static_cast<UINT>(borderWidth), FALSE);
 				::SendMessage(::GetParent(_hParent), WM_SIZE, 0, 0);
 			}
 			return 0;	//return zero when handled

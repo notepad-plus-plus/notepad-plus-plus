@@ -232,7 +232,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 				::SendMessage(_vContainer[iCont]->getHSelf(), WM_NCACTIVATE, wParam, (LPARAM)-1);
 			}
 
-			if ((int)lParam != -1)
+			if (static_cast<int>(lParam) != -1)
 			{
 				::SendMessage(_hParent, WM_NCACTIVATE, wParam, (LPARAM)-1);
 			}

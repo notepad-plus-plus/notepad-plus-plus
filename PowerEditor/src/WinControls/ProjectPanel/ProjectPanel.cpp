@@ -44,8 +44,8 @@
 #define INDEX_LEAF           5
 #define INDEX_LEAF_INVALID   6
 
-#define GET_X_LPARAM(lp)                        ((int)(short)LOWORD(lp))
-#define GET_Y_LPARAM(lp)                        ((int)(short)HIWORD(lp))
+#define GET_X_LPARAM(lp)     LOWORD(lp)
+#define GET_Y_LPARAM(lp)     HIWORD(lp)
 
 INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {

@@ -134,7 +134,7 @@ public:
 	};
 
     virtual void destroy() {
-		for (int iTb = (int)_vTbData.size(); iTb > 0; iTb--)
+		for (int iTb = static_cast<int>(_vTbData.size()); iTb > 0; iTb--)
 		{
 			delete _vTbData[iTb-1];
 		}

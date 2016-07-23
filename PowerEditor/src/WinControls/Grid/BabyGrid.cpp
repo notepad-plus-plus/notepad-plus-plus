@@ -560,11 +560,11 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		  rect.left +=0;
 		  rect.right -=0;
           if((rect.bottom - rect.top)>24)
-              {
+          {
                excess=(rect.bottom - rect.top)-16;
-               rect.top += (int)(excess/2);
-               rect.bottom -= (int)(excess/2);
-              }
+               rect.top += excess / 2;
+               rect.bottom -= excess / 2;
+          }
 	      DrawFrameControl(gdc,&rect,DFC_BUTTON,DFCS_BUTTONCHECK|DFCS_CHECKED);
 		 }
 
@@ -577,11 +577,11 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		  rect.left +=0;
 		  rect.right -=0;
           if((rect.bottom - rect.top)>24)
-              {
+          {
                excess=(rect.bottom - rect.top)-16;
-               rect.top += (int)(excess/2);
-               rect.bottom -= (int)(excess/2);
-              }
+               rect.top += excess / 2;
+               rect.bottom -= excess / 2;
+          }
 
 
 	      DrawFrameControl(gdc,&rect,DFC_BUTTON,DFCS_BUTTONCHECK);
@@ -1183,14 +1183,11 @@ void DisplayEditString(HWND hWnd,int SI,TCHAR* tstring)
        rt.right +=5;
        ShowCaret(hWnd);
 
-           {
-            int rh,ah;
-            rh=BGHS[SI].rowheight;
-            ah=BGHS[SI].fontascentheight;
+           
+       int rh = BGHS[SI].rowheight;
+       int ah = BGHS[SI].fontascentheight;
 
-            SetCaretPos(rt.right-4,rt.top+(int)(rh/2)-ah+2);
-
-           }
+       SetCaretPos(rt.right - 4, rt.top + (rh / 2)-ah + 2);
 
        SelectObject(cdc,holdfont);
        ReleaseDC(hWnd,cdc);
@@ -1413,18 +1410,18 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
              if(lstrlen(BGHS[SelfIndex].title) > 0)
                  {
                   linecount=1;
-                  for(j=0;j<(int)lstrlen(BGHS[SelfIndex].title);j++)
-                      {
-                       if(BGHS[SelfIndex].title[j]=='\n')
-                           {
+				  for (j = 0; j<static_cast<int>(lstrlen(BGHS[SelfIndex].title)); j++)
+                  {
+                       if (BGHS[SelfIndex].title[j] == '\n')
+                       {
                             linecount++;
-                           }
+                       }
 
-                      }
+                  }
                   holdfont=(HFONT)SelectObject(gdc,BGHS[SelfIndex].htitlefont);
                   GetTextExtentPoint32(gdc,BGHS[SelfIndex].title,lstrlen(BGHS[SelfIndex].title),&size);
                   SelectObject(gdc,holdfont);
-                  BGHS[SelfIndex].titleheight = (int)((size.cy*1.2) * linecount);
+				  BGHS[SelfIndex].titleheight = static_cast<int>((size.cy*1.2) * linecount);
                  }
              else
                  {
@@ -3111,7 +3108,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
      if(lbcount < 12)
          {
           //not worth doing binary search, do regular search
-			 FindResult = static_cast<int32_t>(SendMessage(lbhWnd, LB_FINDSTRING, (unsigned int)-1, (LPARAM)searchtext));
+			 FindResult = static_cast<int32_t>(SendMessage(lbhWnd, LB_FINDSTRING, static_cast<unsigned int>(-1), reinterpret_cast<LPARAM>(searchtext)));
           ReturnValue = FindResult;
           return ReturnValue;
          }
@@ -3121,7 +3118,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
      tail = lbcount - 1;
 
      //is it the head?
-     SendMessage(lbhWnd,LB_GETTEXT,head,(LPARAM)headtext);
+     SendMessage(lbhWnd, LB_GETTEXT, head, reinterpret_cast<LPARAM>(headtext));
      headtext[9] = 0x00;
 
 	 p=lstrcmp(searchtext,headtext);
@@ -3141,7 +3138,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
 
 
      //is it the tail?
-     SendMessage(lbhWnd,LB_GETTEXT,tail,(LPARAM)tailtext);
+	 SendMessage(lbhWnd, LB_GETTEXT, tail, reinterpret_cast<LPARAM>(tailtext));
      tailtext[9] = 0x00;
 	 p=lstrcmp(searchtext,tailtext);
      if(p==0)
@@ -3166,7 +3163,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
          {
                   finger = head + ((tail - head) / 2);
 
-                 SendMessage(lbhWnd,LB_GETTEXT,finger,(LPARAM)tbuffer);
+				  SendMessage(lbhWnd, LB_GETTEXT, finger, reinterpret_cast<LPARAM>(tbuffer));
                  tbuffer[9] = 0x00;
                  p=lstrcmp(tbuffer,searchtext);
                  if(p==0)

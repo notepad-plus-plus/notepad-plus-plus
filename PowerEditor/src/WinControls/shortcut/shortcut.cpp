@@ -585,7 +585,7 @@ void Accelerator::updateFullMenu() {
 
 void Accelerator::updateMenuItemByCommand(CommandShortcut csc)
 {
-	int cmdID = (int)csc.getID();
+	int cmdID = csc.getID();
 	
 	//  Ensure that the menu item checks set prior to this update remain in affect.
 	UINT cmdFlags = GetMenuState(_hAccelMenu, cmdID, MF_BYCOMMAND );

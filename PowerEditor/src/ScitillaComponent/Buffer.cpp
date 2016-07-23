@@ -408,11 +408,11 @@ Lang * Buffer::getCurrentLang() const
 
 int Buffer::indexOfReference(const ScintillaEditView * identifier) const
 {
-	int size = (int)_referees.size();
-	for (int i = 0; i < size; ++i)
+	size_t size = _referees.size();
+	for (size_t i = 0; i < size; ++i)
 	{
 		if (_referees[i] == identifier)
-			return i;
+			return static_cast<int>(i);
 	}
 	return -1;	//not found
 }
@@ -537,7 +537,7 @@ int FileManager::getBufferIndexByID(BufferID id)
 	for(size_t i = 0; i < _nrBufs; ++i)
 	{
 		if (_buffers[i]->_id == id)
-			return (int) i;
+			return static_cast<int>(i);
 	}
 	return -1;
 }

@@ -185,29 +185,30 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 {
 	// to make sure the found result is visible
 	//When searching up, the beginning of the (possible multiline) result is important, when scrolling down the end
-	int testPos = (isDownwards)?posEnd:posStart;
+	int testPos = isDownwards ? posEnd : posStart;
+
 	pEditView->execute(SCI_SETCURRENTPOS, testPos);
-	int currentlineNumberDoc = (int)pEditView->execute(SCI_LINEFROMPOSITION, testPos);
-	int currentlineNumberVis = (int)pEditView->execute(SCI_VISIBLEFROMDOCLINE, currentlineNumberDoc);
+	auto currentlineNumberDoc = pEditView->execute(SCI_LINEFROMPOSITION, testPos);
+	auto currentlineNumberVis = pEditView->execute(SCI_VISIBLEFROMDOCLINE, currentlineNumberDoc);
 	pEditView->execute(SCI_ENSUREVISIBLE, currentlineNumberDoc);	// make sure target line is unfolded
 
-	int firstVisibleLineVis =	(int)pEditView->execute(SCI_GETFIRSTVISIBLELINE);
-	int linesVisible =			(int)pEditView->execute(SCI_LINESONSCREEN) - 1;	//-1 for the scrollbar
-	int lastVisibleLineVis =	(int)linesVisible + firstVisibleLineVis;
+	auto firstVisibleLineVis =	pEditView->execute(SCI_GETFIRSTVISIBLELINE);
+	auto linesVisible =			pEditView->execute(SCI_LINESONSCREEN) - 1;	//-1 for the scrollbar
+	auto lastVisibleLineVis =	linesVisible + firstVisibleLineVis;
 	
 	//if out of view vertically, scroll line into (center of) view
 	int linesToScroll = 0;
 	if (currentlineNumberVis < firstVisibleLineVis)
 	{
-		linesToScroll = currentlineNumberVis - firstVisibleLineVis;
+		linesToScroll = static_cast<int>(currentlineNumberVis - firstVisibleLineVis);
 		//use center
-		linesToScroll -= linesVisible/2;		
+		linesToScroll -= static_cast<int>(linesVisible/2);		
 	}
 	else if (currentlineNumberVis > lastVisibleLineVis)
 	{
-		linesToScroll = currentlineNumberVis - lastVisibleLineVis;
+		linesToScroll = static_cast<int>(currentlineNumberVis - lastVisibleLineVis);
 		//use center
-		linesToScroll += linesVisible/2;
+		linesToScroll += static_cast<int>(linesVisible/2);
 	}
 	pEditView->scroll(0, linesToScroll);
 

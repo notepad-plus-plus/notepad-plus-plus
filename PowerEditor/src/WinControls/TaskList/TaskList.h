@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef TASKLIST_H
-#define TASKLIST_H
+#pragma once
 
 #include <windows.h>
 #include <commctrl.h>
@@ -77,5 +76,3 @@ protected:
 	RECT _rc;
 };
 
-
-#endif // TASKLIST_H

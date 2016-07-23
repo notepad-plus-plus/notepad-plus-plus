@@ -128,7 +128,7 @@ void StatusBar::adjustParts(int clientWidth)
     // copy the coordinates to the array.
     int nWidth = std::max<int>(clientWidth - 20, 0);
 
-	for (int i = (int)_partWidthArray.size() - 1; i >= 0; i--)
+	for (int i = static_cast<int>(_partWidthArray.size()) - 1; i >= 0; i--)
     {
 		_lpParts[i] = nWidth;
 		nWidth -= _partWidthArray[i];

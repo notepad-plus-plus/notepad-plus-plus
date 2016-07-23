@@ -653,7 +653,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 							// Note: cast of leftmost_position to unsigned int is safe, since if leftmost_position is not -1 then it is guaranteed to be positive.
 							// If it was possible, leftmost_position and rightmost_position should be of type optional<unsigned int>.
-							if ( matching_leftmost <= position_of_click && i >= position_of_click &&  (leftmost_position == -1 ||  matching_leftmost > (unsigned int)leftmost_position) )
+							if (matching_leftmost <= position_of_click && i >= position_of_click && (leftmost_position == -1 || matching_leftmost > static_cast<unsigned int>(leftmost_position)))
 							{
 								leftmost_position = matching_leftmost;
 								rightmost_position = i;

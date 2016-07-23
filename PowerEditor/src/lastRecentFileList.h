@@ -52,7 +52,7 @@ public:
 
 	void add(const TCHAR *fn);
 	void remove(const TCHAR *fn);
-	void remove(int index);
+	void remove(size_t index);
 	void clear();
 
 	int getSize() {

@@ -866,6 +866,7 @@
                 <Item id="2027" name="Binário" />
                 <Item id="1" name="OK" />
                 <Item id="2" name="Cancelar" />
+                <Item id="2036" name="Repetir :"/>
             </ColumnEditor>
         </Dialog>
         <MessageBox>
@@ -879,9 +880,28 @@
             <FileAlreadyOpenedInNpp title="" message="O arquivo já está aberto no Notepad++." />
             <DeleteFileFailed title="Excluir Arquivo" message="Falha ao excluir arquivo" />
         </MessageBox>
+        <ClipboardHistory>
+            <PanelTitle name="Histórico da área de transferência"/>
+        </ClipboardHistory>
+        <AsciiInsertion>
+            <PanelTitle name="Painel de inserção ASCII"/>
+            <ColumnVal name="Valor"/>
+            <ColumnHex name="Hex"/>
+            <ColumnChar name="Caractér"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="Mapa do documento"/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="Lista de funções"/>
+            <SortTip name="Ordenar" />
+            <ReloadTip name="Recarregar" />
+        </FunctionList>
         <ProjectManager>
             <PanelTitle name="Projeto" />
             <WorkspaceRootName name="Área de trabalho" />
+            <NewProjectName name="Nome do projeto"/>
+            <NewFolderName name="Nome da pasta"/>
             <Menus>
                 <Entries>
                     <Item id="0" name="Área de trabalho" />
@@ -901,17 +921,24 @@
                     <Item id="3112" name="Adicionar pastas" />
                     <Item id="3113" name="Adicionar arquivos..." />
                     <Item id="3114" name="Remover" />
+                    <Item id="3117" name="Adicionar arquivos a partir do diretório..."/>
+                    <Item id="3118" name="Mover para cima"/>
+                    <Item id="3119" name="Mover para baixo"/>
                 </ProjectMenu>
                 <FolderMenu>
                     <Item id="3111" name="Renomear" />
                     <Item id="3112" name="Adicionar pastas" />
                     <Item id="3113" name="Adicionar arquivos..." />
                     <Item id="3114" name="Remover" />
+                    <Item id="3118" name="Mover para cima"/>
+                    <Item id="3119" name="Mover para baixo"/>
                 </FolderMenu>
                 <FileMenu>
                     <Item id="3111" name="Renomear" />
                     <Item id="3115" name="Remover" />
                     <Item id="3116" name="Alterar caminho do arquivo" />
+                    <Item id="3118" name="Mover para cima"/>
+                    <Item id="3119" name="Mover para baixo"/>
                 </FileMenu>
             </Menus>
         </ProjectManager>

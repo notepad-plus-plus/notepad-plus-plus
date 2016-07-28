@@ -717,9 +717,11 @@ BEGIN
 
     POPUP "&Language"
     BEGIN
+        MENUITEM "Normal Text",           IDM_LANG_TEXT
+	MENUITEM SEPARATOR
     POPUP "A"
     BEGIN
-		MENUITEM "ActionScript",          IDM_LANG_FLASH
+	MENUITEM "ActionScript",          IDM_LANG_FLASH
         MENUITEM "Ada",                   IDM_LANG_ADA
         MENUITEM "ASP",                   IDM_LANG_ASP
         MENUITEM "Assembly",              IDM_LANG_ASM
@@ -777,12 +779,8 @@ BEGIN
         MENUITEM "Matlab",                IDM_LANG_MATLAB
         MENUITEM "MS-DOS Style",          IDM_LANG_ASCII
     END
-    POPUP "N"
-    BEGIN
-        MENUITEM "Normal Text",           IDM_LANG_TEXT
         MENUITEM "NSIS",                  IDM_LANG_NSIS
-    END
-    MENUITEM "Objective-C",               IDM_LANG_OBJC
+	MENUITEM "Objective-C",           IDM_LANG_OBJC
     POPUP "P"
     BEGIN
         MENUITEM "Pascal",                IDM_LANG_PASCAL

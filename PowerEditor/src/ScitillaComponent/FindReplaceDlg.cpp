@@ -1008,7 +1008,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							if(nbReplaced == 1)
 								wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 							else
-								wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
+								wsprintf(moreInfo, TEXT("Replace All: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
 							result = moreInfo;
 						}
 						setStatusbarMessage(result, FSMessage);
@@ -1038,7 +1038,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							if (nbCounted == 1)
 								wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
 							else
-								wsprintf(moreInfo, TEXT("Count: %d matches."), nbCounted);
+								wsprintf(moreInfo, TEXT("Count: %s matches."), commafyInt(nbCounted).c_str());
 							result = moreInfo;
 						}
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
@@ -1071,7 +1071,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							if(nbMarked == 1)
 								wsprintf(moreInfo, TEXT("Mark: %d match."), nbMarked);
 							else
-								wsprintf(moreInfo, TEXT("Mark: %d matches."), nbMarked);
+								wsprintf(moreInfo, TEXT("Mark: %s matches."), commafyInt(nbMarked).c_str());
 							result = moreInfo;
 						}
 						setStatusbarMessage(result, FSMessage);
@@ -2015,7 +2015,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		if(_findAllResult == 1)
 			wsprintf(_findAllResultStr, TEXT("1 hit"));
 		else
-			wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
+			wsprintf(_findAllResultStr, TEXT("%s hits"), commafyInt(_findAllResult).c_str());
 		if (_findAllResult) 
 		{
 			focusOnFinder();
@@ -2409,7 +2409,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 						if (nbReplaced == 1)
 							wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 						else
-							wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
+							wsprintf(moreInfo, TEXT("Replace All: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
 						result = moreInfo;
 					}
 					
@@ -2429,7 +2429,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 						if (nbCounted == 1)
 							wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
 						else
-							wsprintf(moreInfo, TEXT("Count: %d matches."), nbCounted);
+							wsprintf(moreInfo, TEXT("Count: %s matches."), commafyInt(nbCounted).c_str());
 						result = moreInfo;
 					}
 					setStatusbarMessage(result, FSMessage);
@@ -2452,7 +2452,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 						if (nbMarked <= 1)
 							wsprintf(moreInfo, TEXT("%d match."), nbMarked);
 						else
-							wsprintf(moreInfo, TEXT("%d matches."), nbMarked);
+							wsprintf(moreInfo, TEXT("%s matches."), commafyInt(nbMarked).c_str());
 						result = moreInfo;
 					}
 
@@ -3256,7 +3256,7 @@ void FindIncrementDlg::setFindStatus(FindStatus iStatus, int nbCounted)
 	else if (nbCounted == 1)
 		wsprintf(findCount, TEXT("%d match."), nbCounted);
 	else
-		wsprintf(findCount, TEXT("%d matches."), nbCounted);
+		wsprintf(findCount, TEXT("%s matches."), commafyInt(nbCounted).c_str());
 
 	if (iStatus<0 || iStatus >= sizeof(findStatus)/sizeof(findStatus[0]))
 		return; // out of range

@@ -1102,7 +1102,7 @@ bool Notepad_plus::replaceInOpenedFiles() {
 		if (nbTotal)
 			enableCommand(IDM_FILE_SAVEALL, true, MENU | TOOLBAR);
 		TCHAR result[64];
-		wsprintf(result, TEXT("Replace in Opened Files: %d occurrences replaced."), nbTotal);
+		wsprintf(result, TEXT("Replace in Opened Files: %s occurrences replaced."), commafyInt(nbTotal).c_str());
 		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 	}
 	return true;
@@ -1533,7 +1533,7 @@ bool Notepad_plus::replaceInFiles()
 	_pEditView = pOldView;
 
 	TCHAR msg[128];
-	wsprintf(msg, TEXT("Replace in Files: %d occurrences replaced"), nbTotal);
+	wsprintf(msg, TEXT("Replace in Files: %s occurrences replaced"), commafyInt(nbTotal).c_str());
 	_findReplaceDlg.setStatusbarMessage(msg, FSMessage);
 
 	return true;

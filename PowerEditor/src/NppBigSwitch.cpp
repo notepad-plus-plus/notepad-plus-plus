@@ -1646,7 +1646,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					//Causing them to show on restart even though they are loaded by session
 					_lastRecentFileList.setLock(true);	//only lock when the session is remembered
 				}
+				_isAttemptingCloseOnQuit = true;
 				bool allClosed = fileCloseAll(false, isSnapshotMode);	//try closing files before doing anything else
+				_isAttemptingCloseOnQuit = false;
 
 				if (nppgui._rememberLastSession)
 					_lastRecentFileList.setLock(false);	//only lock when the session is remembered

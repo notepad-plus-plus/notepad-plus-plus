@@ -4259,20 +4259,22 @@ void Notepad_plus::changeToolBarIcons()
 
 bool Notepad_plus::switchToFile(BufferID id)
 {
+	int i = 0;
 	int iView = currentView();
 	if (id == BUFFER_INVALID)
 		return false;
-	int i = _pDocTab->getIndexByBuffer(id);
-	if (i != -1)
+
+	if ((i = _pDocTab->getIndexByBuffer(id)) != -1)
 	{
 		iView = currentView();
 	}
-	
-	i = _pNonDocTab->getIndexByBuffer(id);
-	if (i != -1)
+	else if ((i = _pNonDocTab->getIndexByBuffer(id)) != -1)
 	{
 		iView = otherView();
+	}
 
+	if (i != -1)
+	{
 		switchEditViewTo(iView);
 		activateBuffer(id, currentView());
 		return true;

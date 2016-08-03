@@ -335,7 +335,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	if (_toReduceTabBar)
 	{
-		HFONT hf = reinterpret_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
+		HFONT hf = static_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
 
 		if (hf)
 		{

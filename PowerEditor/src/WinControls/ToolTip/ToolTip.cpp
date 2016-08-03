@@ -46,7 +46,7 @@ void ToolTip::init(HINSTANCE hInst, HWND hParent)
 		}
 
 		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
-		_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticWinProc));
+		_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticWinProc)));
 	}
 }
 

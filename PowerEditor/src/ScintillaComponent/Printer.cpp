@@ -143,8 +143,8 @@ size_t Printer::doPrint(bool justDoIt)
 	TEXTMETRIC tm;
 
 	int fontSize = nppGUI._printSettings._headerFontSize?nppGUI._printSettings._headerFontSize:9;
-	int fontWeight = nppGUI._printSettings._headerFontStyle & FONTSTYLE_BOLD?FW_BOLD:FW_NORMAL;
-	int isFontItalic = nppGUI._printSettings._headerFontStyle & FONTSTYLE_ITALIC?TRUE:FALSE;
+	int fontWeight = nppGUI._printSettings._headerFontStyle & (FONTSTYLE_BOLD?FW_BOLD:FW_NORMAL);
+	int isFontItalic = nppGUI._printSettings._headerFontStyle & (FONTSTYLE_ITALIC?TRUE:FALSE);
 	const TCHAR *fontFace = (nppGUI._printSettings._headerFontName != TEXT(""))?nppGUI._printSettings._headerFontName.c_str():TEXT("Arial");
 
 	int headerLineHeight = ::MulDiv(fontSize, ptDpi.y, 72);
@@ -165,8 +165,8 @@ size_t Printer::doPrint(bool justDoIt)
 	headerLineHeight = tm.tmHeight + tm.tmExternalLeading;
 
 	fontSize = nppGUI._printSettings._footerFontSize?nppGUI._printSettings._footerFontSize:9;
-	fontWeight = nppGUI._printSettings._footerFontStyle & FONTSTYLE_BOLD?FW_BOLD:FW_NORMAL;
-	isFontItalic = nppGUI._printSettings._footerFontStyle & FONTSTYLE_ITALIC?TRUE:FALSE;
+	fontWeight = nppGUI._printSettings._footerFontStyle & (FONTSTYLE_BOLD?FW_BOLD:FW_NORMAL);
+	isFontItalic = nppGUI._printSettings._footerFontStyle & (FONTSTYLE_ITALIC?TRUE:FALSE);
 	fontFace = (nppGUI._printSettings._footerFontName != TEXT(""))?nppGUI._printSettings._footerFontName.c_str():TEXT("Arial");
 	//::MessageBox(NULL, itoa(nppGUI._printSettings._footerFontStyle, , 10), TEXT("footer"), MB_OK);
 
@@ -213,13 +213,13 @@ size_t Printer::doPrint(bool justDoIt)
 	{
 		if (_startPos > _endPos) 
 		{
-			lengthPrinted = _endPos;
-			lengthDoc = _startPos;
+			lengthPrinted = static_cast<long>(_endPos);
+			lengthDoc = static_cast<long>(_startPos);
 		}
 		else 
 		{
-			lengthPrinted = _startPos;
-			lengthDoc = _endPos;
+			lengthPrinted = static_cast<long>(_startPos);
+			lengthDoc = static_cast<long>(_endPos);
 		}
 
 		if (lengthPrinted < 0)
@@ -340,12 +340,11 @@ size_t Printer::doPrint(bool justDoIt)
 		_pSEView->showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, false);
 
 	size_t pageNum = 1;
-	bool printPage;
 	const TCHAR pageVar[] = TEXT("$(CURRENT_PRINTING_PAGE)");
 
 	while (lengthPrinted < lengthDoc) 
 	{
-		printPage = (!(_pdlg.Flags & PD_PAGENUMS) ||
+		bool printPage = (!(_pdlg.Flags & PD_PAGENUMS) ||
 		             (pageNum >= _pdlg.nFromPage) && (pageNum <= _pdlg.nToPage));
 					 
 		if (!justDoIt)

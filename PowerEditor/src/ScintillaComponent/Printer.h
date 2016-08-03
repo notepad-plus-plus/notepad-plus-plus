@@ -57,10 +57,10 @@ public :
 
 private :
 	PRINTDLG _pdlg;
-	ScintillaEditView *_pSEView;
-	size_t _startPos;
-	size_t _endPos;
-	size_t _nbPageTotal;
+	ScintillaEditView *_pSEView = nullptr;
+	size_t _startPos = 0;
+	size_t _endPos = 0;
+	size_t _nbPageTotal =0;
 };
 
 #endif //PRINTER_H

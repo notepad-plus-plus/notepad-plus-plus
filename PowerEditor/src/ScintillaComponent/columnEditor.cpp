@@ -101,22 +101,22 @@ INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						}
 						else
 						{
-							int cursorPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
-							int cursorCol = (*_ppEditView)->execute(SCI_GETCOLUMN, cursorPos);
-							int cursorLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, cursorPos);
-							int endPos = (*_ppEditView)->execute(SCI_GETLENGTH);
-							int endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
+							auto cursorPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
+							auto cursorCol = (*_ppEditView)->execute(SCI_GETCOLUMN, cursorPos);
+							auto cursorLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, cursorPos);
+							auto endPos = (*_ppEditView)->execute(SCI_GETLENGTH);
+							auto endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
 							int lineAllocatedLen = 1024;
 							TCHAR *line = new TCHAR[lineAllocatedLen];
 
-							for (int i = cursorLine ; i <= endLine ; ++i)
+							for (size_t i = cursorLine ; i <= static_cast<size_t>(endLine); ++i)
 							{
-								int lineBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, i);
-								int lineEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, i);
+								auto lineBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, i);
+								auto lineEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, i);
 
-								int lineEndCol = (*_ppEditView)->execute(SCI_GETCOLUMN, lineEnd);
-								int lineLen = lineEnd - lineBegin + 1;
+								auto lineEndCol = (*_ppEditView)->execute(SCI_GETCOLUMN, lineEnd);
+								auto lineLen = lineEnd - lineBegin + 1;
 
 								if (lineLen > lineAllocatedLen)
 								{
@@ -134,11 +134,11 @@ INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								}
 								else
 								{
-									int posAbs2Start = (*_ppEditView)->execute(SCI_FINDCOLUMN, i, cursorCol);
-									int posRelative2Start = posAbs2Start - lineBegin;
+									auto posAbs2Start = (*_ppEditView)->execute(SCI_FINDCOLUMN, i, cursorCol);
+									auto posRelative2Start = posAbs2Start - lineBegin;
 									s2r.insert(posRelative2Start, str);
 								}
-								(*_ppEditView)->replaceTarget(s2r.c_str(), lineBegin, lineEnd);
+								(*_ppEditView)->replaceTarget(s2r.c_str(), int(lineBegin), int(lineEnd));
 							}
 							delete [] line;
 						}
@@ -165,17 +165,17 @@ INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						}
 						else
 						{
-							int cursorPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
-							int cursorCol = (*_ppEditView)->execute(SCI_GETCOLUMN, cursorPos);
-							int cursorLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, cursorPos);
-							int endPos = (*_ppEditView)->execute(SCI_GETLENGTH);
-							int endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
+							auto cursorPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
+							auto cursorCol = (*_ppEditView)->execute(SCI_GETCOLUMN, cursorPos);
+							auto cursorLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, cursorPos);
+							auto endPos = (*_ppEditView)->execute(SCI_GETLENGTH);
+							auto endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
 							// Compute the numbers to be placed at each column.
 							std::vector<int> numbers;
 							{
 								int curNumber = initialNumber;
-								const unsigned int kiMaxSize = 1 + (unsigned int)endLine - (unsigned int)cursorLine;
+								const size_t kiMaxSize = 1 + (size_t)endLine - (size_t)cursorLine;
 								while (numbers.size() < kiMaxSize)
 								{
 									for (int i = 0; i < repeat; i++)
@@ -212,13 +212,13 @@ INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 							int nb = max(nbInit, nbEnd);
 
 
-							for (int i = cursorLine ; i <= endLine ; ++i)
+							for (size_t i = cursorLine ; i <= size_t(endLine) ; ++i)
 							{
-								int lineBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, i);
-								int lineEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, i);
+								auto lineBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, i);
+								auto lineEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, i);
 
-								int lineEndCol = (*_ppEditView)->execute(SCI_GETCOLUMN, lineEnd);
-								int lineLen = lineEnd - lineBegin + 1;
+								auto lineEndCol = (*_ppEditView)->execute(SCI_GETCOLUMN, lineEnd);
+								auto lineLen = lineEnd - lineBegin + 1;
 
 								if (lineLen > lineAllocatedLen)
 								{
@@ -241,12 +241,12 @@ INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 								}
 								else
 								{
-									int posAbs2Start = (*_ppEditView)->execute(SCI_FINDCOLUMN, i, cursorCol);
-									int posRelative2Start = posAbs2Start - lineBegin;
+									auto posAbs2Start = (*_ppEditView)->execute(SCI_FINDCOLUMN, i, cursorCol);
+									auto posRelative2Start = posAbs2Start - lineBegin;
 									s2r.insert(posRelative2Start, str);
 								}
 
-								(*_ppEditView)->replaceTarget(s2r.c_str(), lineBegin, lineEnd);
+								(*_ppEditView)->replaceTarget(s2r.c_str(), int(lineBegin), int(lineEnd));
 							}
 							delete [] line;
 						}

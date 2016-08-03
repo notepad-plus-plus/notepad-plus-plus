@@ -26,14 +26,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef CONTROLS_TAB_H
-#define CONTROLS_TAB_H
+#pragma once
 
-
-#ifndef TAB_BAR_H
 #include "TabBar.h"
-#endif //TAB_BAR_H
-
 #include "Window.h"
 #include "Common.h"
 
@@ -76,15 +71,11 @@ public :
 		int indexClicked = int(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 		activateWindowAt(indexClicked);
 	};
-	void renameTab(int index, const TCHAR *newName);
+	void renameTab(size_t index, const TCHAR *newName);
 	bool renameTab(const TCHAR *internalName, const TCHAR *newName);
 
 private:
 	WindowVector *_pWinVector = nullptr;
     int _current = 0;
-    bool _isVertical = false;
 };
 
-
-
-#endif //CONTROLS_TAB_H

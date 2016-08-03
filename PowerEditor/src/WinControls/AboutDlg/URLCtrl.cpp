@@ -197,7 +197,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	    // colours, and with an underline text style
 	    case WM_PAINT:
         {
-			DWORD dwStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+			DWORD dwStyle = static_cast<DWORD>(::GetWindowLongPtr(hwnd, GWL_STYLE));
 		    DWORD dwDTStyle = DT_SINGLELINE;
 
 		    //Test if centered horizontally or vertically

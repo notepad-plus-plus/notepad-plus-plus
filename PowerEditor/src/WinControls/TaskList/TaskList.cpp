@@ -25,8 +25,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-
 #include <stdexcept>
 #include "TaskList.h"
 #include "TaskListDlg_rc.h"
@@ -137,7 +135,7 @@ RECT TaskList::adjustSize()
 	return _rc;
 }
 
-void TaskList::setFont(TCHAR *fontName, size_t fontSize)
+void TaskList::setFont(TCHAR *fontName, int fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);
@@ -192,7 +190,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			short zDelta = (short) HIWORD(wParam);
 			if (zDelta > 0)
 			{
-				size_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
+				int32_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
 				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
 				// tells what item(s) to be repainted
 				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
@@ -207,7 +205,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{
-				size_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
+				int32_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
 				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
 				// tells what item(s) to be repainted
 				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
@@ -241,7 +239,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 					if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT))) ||
 					    (msg->wParam == VK_UP))
 					{ 
-						size_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
+						int32_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
 						ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
 						// tells what item(s) to be repainted
 						ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
@@ -257,7 +255,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 					// VK_DOWN and VK_RIGHT do the same as VK_TAB does
 					else if ((msg->wParam == VK_TAB) || (msg->wParam == VK_DOWN))
 					{
-						size_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
+						int32_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
 						ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
 						// tells what item(s) to be repainted
 						ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);

@@ -1,6 +1,6 @@
 Notepad++ v6.9.2 new features and bug-fixes:
 
-1.  Add most wanted feature: Log Mornitoring (tail -f).
+1.  Add most wanted feature: Log Monitoring (tail -f).
 2.  Add new feature: Find in Finder.
 3.  Fix status bar display bug in high dpi environment.
 4.  Fix open in explorer problem while path contain unusual characters.

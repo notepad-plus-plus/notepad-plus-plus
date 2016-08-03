@@ -399,7 +399,7 @@ void TiXmlDocumentA::StreamIn( TIXMLA_ISTREAM * in, TIXMLA_STRING * tag )
 
 	while ( in->good() )
 	{
-		int tagIndex = tag->length();
+		size_t tagIndex = tag->length();
 		while ( in->good() && in->peek() != '>' )
 		{
 			int c = in->get();
@@ -640,7 +640,7 @@ void TiXmlElementA::StreamIn (TIXMLA_ISTREAM * in, TIXMLA_STRING * tag)
 			// We should be at a "<", regardless.
 			if ( !in->good() ) return;
 			assert( in->peek() == '<' );
-			int tagIndex = tag->length();
+			size_t tagIndex = tag->length();
 
 			bool closingTag = false;
 			bool firstCharFound = false;
@@ -1154,7 +1154,7 @@ const char* TiXmlDeclarationA::Parse( const char* p, TiXmlParsingDataA* data )
 
 bool TiXmlTextA::Blank() const
 {
-	for ( unsigned int i=0, len=value.length(); i<len; i++ )
+	for ( size_t i = 0, len = value.length(); i < len; i++ )
 		if ( !isspace( value[i] ) )
 			return false;
 	return true;

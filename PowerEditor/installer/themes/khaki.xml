@@ -435,7 +435,7 @@ Installation:
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="3" fontSize="" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="d700d7" bgColor="d7d7af" fontName="" fontStyle="3" fontSize="" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="JavaScript" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="005f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="000087" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
@@ -869,6 +869,7 @@ Installation:
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="ff005f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="005f5f" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ENTITY" styleID="10" fgColor="870000" bgColor="d7d7af" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="yaml" desc="YAML" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="5f5f00" bgColor="d7d7af" fontName="" fontStyle="0" fontSize="" />

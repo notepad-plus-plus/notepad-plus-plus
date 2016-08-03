@@ -44,8 +44,8 @@
 #define INDEX_LEAF           5
 #define INDEX_LEAF_INVALID   6
 
-#define GET_X_LPARAM(lp)                        ((int)(short)LOWORD(lp))
-#define GET_Y_LPARAM(lp)                        ((int)(short)HIWORD(lp))
+#define GET_X_LPARAM(lp)     LOWORD(lp)
+#define GET_Y_LPARAM(lp)     HIWORD(lp)
 
 INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -607,7 +607,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 						return;
 				}
 				lpGetInfoTip->pszText = (LPTSTR)str->c_str();
-				lpGetInfoTip->cchTextMax = str->size();
+				lpGetInfoTip->cchTextMax = static_cast<int32_t>(str->size());
 			}
 			break;
 
@@ -1202,10 +1202,10 @@ int FileRelocalizerDlg::doDialog(const TCHAR *fn, bool isRTL)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;
 		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_FILERELOCALIZER_DIALOG, &pMyDlgTemplate);
-		int result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  dlgProc, (LPARAM)this);
+		int result = static_cast<int32_t>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
 		::GlobalFree(hMyDlgTemplate);
 		return result;
 	}
-	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_FILERELOCALIZER_DIALOG), _hParent,  dlgProc, (LPARAM)this);
+	return static_cast<int32_t>(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_FILERELOCALIZER_DIALOG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
 }
 

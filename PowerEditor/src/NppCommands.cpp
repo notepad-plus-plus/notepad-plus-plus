@@ -52,7 +52,7 @@ void Notepad_plus::macroPlayback(Macro macro)
 		if (step->isPlayable())
 			step->PlayBack(this->_pPublicInterface, _pEditView);
 		else
-			_findReplaceDlg.execSavedCommand(step->message, step->lParameter, step->sParameter);
+			_findReplaceDlg.execSavedCommand(step->_message, step->_lParameter, step->_sParameter);
 	}
 
 	_pEditView->execute(SCI_ENDUNDOACTION);
@@ -244,7 +244,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_COPY_BINARY:
 		case IDM_EDIT_CUT_BINARY:
 		{
-			int textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
+			int textLen = static_cast<int32_t>(_pEditView->execute(SCI_GETSELTEXT, 0, 0)) - 1;
 			if (!textLen)
 				return;
 
@@ -426,8 +426,8 @@ void Notepad_plus::command(int id)
 			}
 			else
 			{
-				int selStart = _pEditView->execute(SCI_GETSELECTIONSTART);
-				int selEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+				auto selStart = _pEditView->execute(SCI_GETSELECTIONSTART);
+				auto selEnd = _pEditView->execute(SCI_GETSELECTIONEND);
 				hasLineSelection = selStart != selEnd;
 				if (hasLineSelection)
 				{
@@ -490,8 +490,8 @@ void Notepad_plus::command(int id)
 
 			if (hasLineSelection) // there was 1 selection, so we restore it
 			{
-				int posStart = _pEditView->execute(SCI_POSITIONFROMLINE, fromLine);
-				int posEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, toLine);
+				auto posStart = _pEditView->execute(SCI_POSITIONFROMLINE, fromLine);
+				auto posEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, toLine);
 				_pEditView->execute(SCI_SETSELECTIONSTART, posStart);
 				_pEditView->execute(SCI_SETSELECTIONEND, posEnd);
 			}
@@ -1467,12 +1467,11 @@ void Notepad_plus::command(int id)
 			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton());
 
 			// This part is just for updating (redraw) the tabs
-			{
-				int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(TabBarPlus::drawTabCloseButton()?22:22);
-				int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? 60:45);
-				TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-				TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
-			}
+			int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(TabBarPlus::drawTabCloseButton() ? 22 : 22);
+			int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(TabBarPlus::drawTabCloseButton() ? 60 : 45);
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), tabDpiDynamicalWidth, tabDpiDynamicalHeight);
+
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;
 		}
@@ -1632,8 +1631,8 @@ void Notepad_plus::command(int id)
             _syncInfo._isSynScollV = isSynScollV;
 			if (_syncInfo._isSynScollV)
 			{
-				int mainCurrentLine = _mainEditView.execute(SCI_GETFIRSTVISIBLELINE);
-				int subCurrentLine = _subEditView.execute(SCI_GETFIRSTVISIBLELINE);
+				int mainCurrentLine = static_cast<int32_t>(_mainEditView.execute(SCI_GETFIRSTVISIBLELINE));
+				int subCurrentLine = static_cast<int32_t>(_subEditView.execute(SCI_GETFIRSTVISIBLELINE));
 				_syncInfo._line = mainCurrentLine - subCurrentLine;
 			}
 
@@ -1649,11 +1648,11 @@ void Notepad_plus::command(int id)
             _syncInfo._isSynScollH = isSynScollH;
 			if (_syncInfo._isSynScollH)
 			{
-				int mxoffset = _mainEditView.execute(SCI_GETXOFFSET);
-				int pixel = int(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
+				int mxoffset = static_cast<int32_t>(_mainEditView.execute(SCI_GETXOFFSET));
+				int pixel = static_cast<int32_t>(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
 				int mainColumn = mxoffset/pixel;
 
-				int sxoffset = _subEditView.execute(SCI_GETXOFFSET);
+				int sxoffset = static_cast<int32_t>(_subEditView.execute(SCI_GETXOFFSET));
 				pixel = int(_subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
 				int subColumn = sxoffset/pixel;
 				_syncInfo._column = mainColumn - subColumn;
@@ -1687,10 +1686,8 @@ void Notepad_plus::command(int id)
 				characterNumber += curBuf->getFileTime(Buffer::ft_modified);
 				characterNumber += TEXT("\r");
 
-				TCHAR fileLenStr[64];
-				generic_sprintf(fileLenStr, TEXT("%I64u"), static_cast<UINT64>( fileLen ) );
 				characterNumber += fileLenLabel;
-				characterNumber += fileLenStr;
+				characterNumber += commafyInt(static_cast<UINT64>(fileLen)).c_str();
 				characterNumber += TEXT("\r");
 				characterNumber += TEXT("\r");
 			}
@@ -1703,50 +1700,35 @@ void Notepad_plus::command(int id)
 			TCHAR *nbRangeLabel = TEXT(" ranges");
 
 			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
-			int nbChar = getCurrentDocCharCount(um);
+			auto nbChar = getCurrentDocCharCount(um);
 			int nbWord = wordCount();
-			size_t nbLine = _pEditView->execute(SCI_GETLINECOUNT);
-			int nbByte = _pEditView->execute(SCI_GETLENGTH);
-			int nbSel = getSelectedCharNumber(um);
-			int nbSelByte = getSelectedBytes();
-			int nbRange = getSelectedAreas();
+			auto nbLine = _pEditView->execute(SCI_GETLINECOUNT);
+			auto nbByte = _pEditView->execute(SCI_GETLENGTH);
+			auto nbSel = getSelectedCharNumber(um);
+			auto nbSelByte = getSelectedBytes();
+			auto nbRange = getSelectedAreas();
 
-			TCHAR nbCharStr[32];
-			TCHAR nbWordStr[16];
-			TCHAR nbByteStr[32];
-			TCHAR nbLineStr[32];
-			TCHAR nbSelStr[32];
-			TCHAR nbSelByteStr[32];
-			TCHAR nbRangeStr[8];
-
-			generic_sprintf(nbCharStr, TEXT("%d"), nbChar);
 			characterNumber += nbCharLabel;
-			characterNumber += nbCharStr;
+			characterNumber += commafyInt(nbChar).c_str();
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbWordStr, TEXT("%d"), nbWord);
 			characterNumber += nbWordLabel;
-			characterNumber += nbWordStr;
+			characterNumber += commafyInt(nbWord).c_str();
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbLineStr, TEXT("%d"), static_cast<int>( nbLine ) );
 			characterNumber += nbLineLabel;
-			characterNumber += nbLineStr;
+			characterNumber += commafyInt(static_cast<int>(nbLine)).c_str();
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbByteStr, TEXT("%d"), nbByte);
 			characterNumber += nbByteLabel;
-			characterNumber += nbByteStr;
+			characterNumber += commafyInt(nbByte).c_str();
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbSelStr, TEXT("%d"), nbSel);
-			generic_sprintf(nbSelByteStr, TEXT("%d"), nbSelByte);
-			generic_sprintf(nbRangeStr, TEXT("%d"), nbRange);
-			characterNumber += nbSelStr;
+			characterNumber += commafyInt(nbSel).c_str();
 			characterNumber += nbSelLabel1;
-			characterNumber += nbSelByteStr;
+			characterNumber += commafyInt(nbSelByte).c_str();
 			characterNumber += nbSelLabel2;
-			characterNumber += nbRangeStr;
+			characterNumber += commafyInt(nbRange).c_str();
 			characterNumber += nbRangeLabel;
 			characterNumber += TEXT("\r");
 
@@ -2144,7 +2126,7 @@ void Notepad_plus::command(int id)
 				// Save the current clipboard content
 				::OpenClipboard(_pPublicInterface->getHSelf());
 				HANDLE clipboardData = ::GetClipboardData(CF_TEXT);
-				int len = ::GlobalSize(clipboardData);
+				int len = static_cast<int32_t>(::GlobalSize(clipboardData));
 				LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
 
 				HANDLE allocClipboardData = ::GlobalAlloc(GMEM_MOVEABLE, len);
@@ -2318,7 +2300,7 @@ void Notepad_plus::command(int id)
 		{
 			bool doAboutDlg = false;
 			const int maxSelLen = 32;
-			int textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
+			auto textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
 			if (!textLen)
 				doAboutDlg = true;
 			if (textLen > maxSelLen)
@@ -2564,7 +2546,7 @@ void Notepad_plus::command(int id)
         case IDC_PREV_DOC :
         case IDC_NEXT_DOC :
         {
-			int nbDoc = viewVisible(MAIN_VIEW)?_mainDocTab.nbItem():0;
+			size_t nbDoc = viewVisible(MAIN_VIEW) ? _mainDocTab.nbItem() : 0;
 			nbDoc += viewVisible(SUB_VIEW)?_subDocTab.nbItem():0;
 
 			bool doTaskList = ((NppParameters::getInstance())->getNppGUI())._doTaskList;

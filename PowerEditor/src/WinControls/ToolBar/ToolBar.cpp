@@ -298,7 +298,8 @@ void ToolBar::reset(bool create)
 		TBADDBITMAP addbmpdyn = {0, 0};
 		for (size_t i = 0 ; i < _nrButtons ; ++i)
 		{
-			HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(_toolBarIcons.getStdIconAt(i)), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+			int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
+			HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 			addbmp.nID = (UINT_PTR)hBmp;
 
 			//addbmp.nID = _toolBarIcons.getStdIconAt(i);
@@ -349,33 +350,38 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 	}
 }
 
-void ToolBar::doPopop(POINT chevPoint) {
+void ToolBar::doPopop(POINT chevPoint)
+{
 	//first find hidden buttons
 	int width = Window::getWidth();
 
 	size_t start = 0;
 	RECT btnRect = {0,0,0,0};
-	while(start < _nrCurrentButtons) {
+	while(start < _nrCurrentButtons)
+	{
 		::SendMessage(_hSelf, TB_GETITEMRECT, start, (LPARAM)&btnRect);
 		if(btnRect.right > width)
 			break;
 		++start;
 	}
 
-	if (start < _nrCurrentButtons) {	//some buttons are hidden
+	if (start < _nrCurrentButtons)
+	{	//some buttons are hidden
 		HMENU menu = ::CreatePopupMenu();
-		int cmd;
 		generic_string text;
-		while (start < _nrCurrentButtons) {
-			cmd = _pTBB[start].idCommand;
+		while (start < _nrCurrentButtons)
+		{
+			int cmd = _pTBB[start].idCommand;
 			getNameStrFromCmd(cmd, text);
-			if (_pTBB[start].idCommand != 0) {
+			if (_pTBB[start].idCommand != 0)
+			{
 				if (::SendMessage(_hSelf, TB_ISBUTTONENABLED, cmd, 0) != 0)
 					AppendMenu(menu, MF_ENABLED, cmd, text.c_str());
 				else
 					AppendMenu(menu, MF_DISABLED|MF_GRAYED, cmd, text.c_str());
 			} else
 				AppendMenu(menu, MF_SEPARATOR, 0, TEXT(""));
+			
 			++start;
 		}
 		TrackPopupMenu(menu, 0, chevPoint.x, chevPoint.y, 0, _hSelf, NULL);
@@ -449,13 +455,13 @@ bool ReBar::addBand(REBARBANDINFO * rBand, bool useID)
 
 void ReBar::reNew(int id, REBARBANDINFO * rBand) 
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)rBand);
 };
 
 void ReBar::removeBand(int id) 
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (id >= REBAR_BAR_EXTERNAL)
 		releaseID(id);
 	::SendMessage(_hSelf, RB_DELETEBAND, (WPARAM)index, (LPARAM)0);
@@ -463,7 +469,7 @@ void ReBar::removeBand(int id)
 
 void ReBar::setIDVisible(int id, bool show) 
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (index == -1 )
 		return;	//error
 
@@ -483,7 +489,7 @@ void ReBar::setIDVisible(int id, bool show)
 
 bool ReBar::getIDVisible(int id)
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (index == -1 )
 		return false;	//error
 	REBARBANDINFO rbBand;
@@ -498,7 +504,7 @@ bool ReBar::getIDVisible(int id)
 
 void ReBar::setGrayBackground(int id) 
 {
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (index == -1 )
 		return;	//error
 	REBARBANDINFO rbBand;
@@ -512,11 +518,10 @@ void ReBar::setGrayBackground(int id)
 int ReBar::getNewID()
 {
 	int idToUse = REBAR_BAR_EXTERNAL;
-	int curVal = 0;
 	size_t size = usedIDs.size();
 	for(size_t i = 0; i < size; ++i)
 	{
-		curVal = usedIDs.at(i);
+		int curVal = usedIDs.at(i);
 		if (curVal < idToUse)
 		{
 			continue;

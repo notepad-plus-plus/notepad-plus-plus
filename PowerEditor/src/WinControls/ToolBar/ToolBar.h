@@ -42,7 +42,7 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-enum toolBarStatusType {/*TB_HIDE, */TB_SMALL, TB_LARGE, TB_STANDARD};
+enum toolBarStatusType {TB_SMALL, TB_LARGE, TB_STANDARD};
 
 
 typedef struct {
@@ -67,7 +67,7 @@ class TiXmlNode;
 class ToolBar : public Window
 {
 public :
-	ToolBar():Window(), _pTBB(NULL), _nrButtons(0), _nrDynButtons(0), _nrTotalButtons(0), _nrCurrentButtons(0), _pRebar(NULL) {};
+	ToolBar():Window() {};
 	virtual ~ToolBar(){};
 
     void initTheme(TiXmlDocument *toolIconsDocRoot);
@@ -117,19 +117,18 @@ public :
 	void addToRebar(ReBar * rebar);
 
 private :
-	TBBUTTON *_pTBB;
+	TBBUTTON *_pTBB = nullptr;
 	ToolBarIcons _toolBarIcons;
-	toolBarStatusType _state;
+	toolBarStatusType _state = TB_SMALL;
 	std::vector<tDynamicList> _vDynBtnReg;
-	size_t _nrButtons;
-	size_t _nrDynButtons;
-	size_t _nrTotalButtons;
-	size_t _nrCurrentButtons;
-	ReBar * _pRebar;
+	size_t _nrButtons = 0;
+	size_t _nrDynButtons = 0;
+	size_t _nrTotalButtons = 0;
+	size_t _nrCurrentButtons = 0;
+	ReBar * _pRebar = nullptr;
 	REBARBANDINFO _rbBand;
     std::vector<iconLocator> _customIconVect;
-    TiXmlNode *_toolIcons;
-
+    TiXmlNode *_toolIcons = nullptr;
 
 	void setDefaultImageList() {
 		::SendMessage(_hSelf, TB_SETIMAGELIST , (WPARAM)0, (LPARAM)_toolBarIcons.getDefaultLst());

@@ -26,19 +26,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef LASTRECENTFILELIST_H
-#define LASTRECENTFILELIST_H
+#pragma once
 
-#ifndef PARAMETERS_H
 #include "Parameters.h"
-#endif //PARAMETERS_H
-
 #include <deque>
 
 struct RecentItem {
-	int _id;
+	int _id = 0;
 	generic_string _name;
-	RecentItem(const TCHAR * name) : _name(name) {};
+	explicit RecentItem(const TCHAR * name) : _name(name) {};
 };
 
 typedef std::deque<RecentItem> recentList;
@@ -46,7 +42,7 @@ typedef std::deque<RecentItem> recentList;
 class LastRecentFileList
 {
 public:
-	LastRecentFileList() : _hasSeparators(false), _size(0), _locked(false) {
+	LastRecentFileList() {
 		_userMax = (NppParameters::getInstance())->getNbMaxRecentFile();
 	};
 
@@ -56,7 +52,7 @@ public:
 
 	void add(const TCHAR *fn);
 	void remove(const TCHAR *fn);
-	void remove(int index);
+	void remove(size_t index);
 	void clear();
 
 	int getSize() {
@@ -99,19 +95,19 @@ public:
 
 private:
 	recentList _lrfl;
-	Accelerator *_pAccelerator;
-	int _userMax;
-	int _size;
-	int _nativeLangEncoding;
+	Accelerator *_pAccelerator = nullptr;
+	int _userMax = 0;
+	int _size = 0;
+	int _nativeLangEncoding = -1;
 
 	// For the menu
-	HMENU _hParentMenu;
-	HMENU _hMenu;
-	int _posBase;
-	int _idBase;
+	HMENU _hParentMenu = nullptr;
+	HMENU _hMenu = nullptr;
+	int _posBase = -1;
+	int _idBase = -1;
 	bool _idFreeArray[NB_MAX_LRF_FILE];
-	bool _hasSeparators;
-	bool _locked;
+	bool _hasSeparators = false;
+	bool _locked = false;
 
 	int find(const TCHAR *fn);
 
@@ -119,4 +115,3 @@ private:
 	void setAvailable(int id);
 };
 
-#endif //LASTRECENTFILELIST_H

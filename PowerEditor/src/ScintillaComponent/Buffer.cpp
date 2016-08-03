@@ -47,6 +47,10 @@ static const int LF = 0x0A;
 long Buffer::_recentTagCtr = 0;
 
 
+
+
+
+
 namespace // anonymous
 {
 
@@ -73,6 +77,8 @@ namespace // anonymous
 
 
 } // anonymous namespace
+
+
 
 
 Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)
@@ -103,6 +109,7 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	_needLexer = false; // new buffers do not need lexing, Scintilla takes care of that
 }
 
+
 void Buffer::doNotify(int mask)
 {
 	if (_canNotify)
@@ -112,11 +119,13 @@ void Buffer::doNotify(int mask)
 	}
 }
 
+
 void Buffer::setDirty(bool dirty)
 {
 	_isDirty = dirty;
 	doNotify(BufferChangeDirty);
 }
+
 
 void Buffer::setEncoding(int encoding)
 {
@@ -124,11 +133,13 @@ void Buffer::setEncoding(int encoding)
 	doNotify(BufferChangeUnicode | BufferChangeDirty);
 }
 
+
 void Buffer::setUnicodeMode(UniMode mode)
 {
 	_unicodeMode = mode;
 	doNotify(BufferChangeUnicode | BufferChangeDirty);
 }
+
 
 void Buffer::setLangType(LangType lang, const TCHAR* userLangName)
 {
@@ -155,6 +166,7 @@ void Buffer::updateTimeStamp()
 		doNotify(BufferChangeTimestamp);
 	}
 }
+
 
 // Set full path file name in buffer object,
 // and determinate its language by its extension.
@@ -215,6 +227,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 
 	doNotify(BufferChangeFilename | BufferChangeTimestamp);
 }
+
 
 bool Buffer::checkFileState() //eturns true if the status has been changed (it can change into DOC_REGULAR too). false otherwise
 {
@@ -311,6 +324,7 @@ int Buffer::getFileLength() const
 	return -1;
 }
 
+
 generic_string Buffer::getFileTime(fileTimeType ftt) const
 {
 	if (_currentStatus == DOC_UNNAMED)
@@ -335,6 +349,7 @@ generic_string Buffer::getFileTime(fileTimeType ftt) const
 	return generic_string();
 }
 
+
 void Buffer::setPosition(const Position & pos, ScintillaEditView * identifier)
 {
 	int index = indexOfReference(identifier);
@@ -343,11 +358,13 @@ void Buffer::setPosition(const Position & pos, ScintillaEditView * identifier)
 	_positions[index] = pos;
 }
 
+
 Position& Buffer::getPosition(ScintillaEditView* identifier)
 {
 	int index = indexOfReference(identifier);
 	return _positions.at(index);
 }
+
 
 void Buffer::setHeaderLineState(const std::vector<size_t> & folds, ScintillaEditView * identifier)
 {
@@ -363,11 +380,13 @@ void Buffer::setHeaderLineState(const std::vector<size_t> & folds, ScintillaEdit
 		local.push_back(folds[i]);
 }
 
+
 const std::vector<size_t> & Buffer::getHeaderLineState(const ScintillaEditView * identifier) const
 {
 	int index = indexOfReference(identifier);
 	return _foldStates.at(index);
 }
+
 
 Lang * Buffer::getCurrentLang() const
 {
@@ -386,13 +405,14 @@ Lang * Buffer::getCurrentLang() const
 	return nullptr;
 }
 
+
 int Buffer::indexOfReference(const ScintillaEditView * identifier) const
 {
-	int size = (int)_referees.size();
-	for (int i = 0; i < size; ++i)
+	size_t size = _referees.size();
+	for (size_t i = 0; i < size; ++i)
 	{
 		if (_referees[i] == identifier)
-			return i;
+			return static_cast<int>(i);
 	}
 	return -1;	//not found
 }
@@ -422,6 +442,7 @@ int Buffer::removeReference(ScintillaEditView * identifier)
 	return _references;
 }
 
+
 void Buffer::setHideLineChanged(bool isHide, int location)
 {
 	//First run through all docs without removing markers
@@ -435,6 +456,7 @@ void Buffer::setHideLineChanged(bool isHide, int location)
 			_referees.at(i)->notifyMarkers(this, isHide, location, true);
 	}
 }
+
 
 void Buffer::setDeferredReload() // triggers a reload on the next Document access
 {
@@ -493,38 +515,43 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 
 void FileManager::checkFilesystemChanges()
 {
-	for(int i = int(_nrBufs -1) ; i >= 0 ; i--)
+	for (int i = int(_nrBufs) - 1; i >= 0 ; i--)
     {
         if (i >= int(_nrBufs))
         {
             if (_nrBufs == 0)
                 return;
 
-            i = _nrBufs - 1;
+            i = int(_nrBufs) - 1;
         }
         _buffers[i]->checkFileState();	//something has changed. Triggers update automatically
 	}
 }
+
 
 int FileManager::getBufferIndexByID(BufferID id)
 {
 	for(size_t i = 0; i < _nrBufs; ++i)
 	{
 		if (_buffers[i]->_id == id)
-			return (int) i;
+			return static_cast<int>(i);
 	}
 	return -1;
 }
 
-Buffer* FileManager::getBufferByIndex(int index)
+Buffer* FileManager::getBufferByIndex(size_t index)
 {
+	if (index >= _buffers.size())
+		return nullptr;
 	return _buffers.at(index);
 }
+
 
 void FileManager::beNotifiedOfBufferChange(Buffer* theBuf, int mask)
 {
 	_pNotepadPlus->notifyBufferChanged(theBuf, mask);
 }
+
 
 void FileManager::addBufferReference(BufferID buffer, ScintillaEditView * identifier)
 {
@@ -580,7 +607,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	if (res)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
-		BufferID id = (BufferID) newBuf;
+		BufferID id = static_cast<BufferID>(newBuf);
 		newBuf->_id = id;
 
 		if (backupFileName != NULL)
@@ -636,6 +663,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	}
 }
 
+
 bool FileManager::reloadBuffer(BufferID id)
 {
 	Buffer* buf = getBufferByID(id);
@@ -668,6 +696,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	}
 	return res;
 }
+
 
 bool FileManager::reloadBufferDeferred(BufferID id)
 {
@@ -770,22 +799,30 @@ bool FileManager::backupCurrentBuffer()
 			// Synchronization
 			// This method is called from 2 differents place, so synchronization is important
 			HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
-			if (!writeEvent)
+			if (not writeEvent)
 			{
 				// no thread yet, create a event with non-signaled, to block all threads
 				writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
+				if (not writeEvent)
+				{
+					printStr(TEXT("CreateEvent problem in backupCurrentBuffer()!"));
+					return false;
+				}
 			}
 			else
 			{
 				if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
 				{
-					// problem!!!
 					printStr(TEXT("WaitForSingleObject problem in backupCurrentBuffer()!"));
 					return false;
 				}
 
 				// unlocled here, set to non-signaled state, to block all threads
-				::ResetEvent(writeEvent);
+				if (not ::ResetEvent(writeEvent))
+				{
+					printStr(TEXT("ResetEvent problem in backupCurrentBuffer()!"));
+					return false;
+				}
 			}
 
 			UniMode mode = buffer->getUnicodeMode();
@@ -924,7 +961,7 @@ bool FileManager::backupCurrentBuffer()
 class EventReset final
 {
 public:
-	EventReset(HANDLE h)
+	explicit EventReset(HANDLE h)
 	{
 		_h = h;
 	}
@@ -1186,7 +1223,7 @@ BufferID FileManager::newEmptyDocument()
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
-	BufferID id = (BufferID)newBuf;
+	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
 	++_nrBufs;
@@ -1204,7 +1241,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	if (!dontRef)
 		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
-	BufferID id = (BufferID)newBuf;
+	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
 	++_nrBufs;
@@ -1225,7 +1262,7 @@ int FileManager::detectCodepage(char* buf, size_t len)
 	return codepage;
 }
 
-LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, unsigned int dataLen)
+LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen)
 {
 	struct FirstLineLanguages
 	{
@@ -1424,7 +1461,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				{
 					WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
 					int newDataLen = 0;
-					const char *newData = wmc->encode(encoding, SC_CP_UTF8, data, lenFile, &newDataLen, &incompleteMultibyteChar);
+					const char *newData = wmc->encode(encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
 					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, (LPARAM)newData);
 				}
 
@@ -1482,6 +1519,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	return success;
 }
 
+
 BufferID FileManager::getBufferFromName(const TCHAR* name)
 {
 	TCHAR fullpath[MAX_PATH];
@@ -1499,6 +1537,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 	return BUFFER_INVALID;
 }
 
+
 BufferID FileManager::getBufferFromDocument(Document doc)
 {
 	for (size_t i = 0; i < _nrBufs; ++i)
@@ -1508,6 +1547,7 @@ BufferID FileManager::getBufferFromDocument(Document doc)
 	}
 	return BUFFER_INVALID;
 }
+
 
 bool FileManager::createEmptyFile(const TCHAR * path)
 {
@@ -1528,6 +1568,7 @@ int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy)
 		lstrcpy(fn2copy, buf->getFullPathName());
 	return lstrlen(buf->getFullPathName());
 }
+
 
 int FileManager::docLength(Buffer* buffer) const
 {

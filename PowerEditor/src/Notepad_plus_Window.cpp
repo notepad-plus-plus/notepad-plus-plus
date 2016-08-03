@@ -40,7 +40,7 @@ namespace // anonymous
 
 	struct PaintLocker final
 	{
-		PaintLocker(HWND handle)
+		explicit PaintLocker(HWND handle)
 			: handle(handle)
 		{
 			// disallow drawing on the window

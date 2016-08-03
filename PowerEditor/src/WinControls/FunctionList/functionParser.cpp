@@ -248,7 +248,7 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 				{
 					if (_parsers[i]->_id == id)
 					{
-						_associationMap.push_back(AssociationInfo(i, langIDStr?langID:-1, exts?exts:TEXT(""), userDefinedLangName?userDefinedLangName:TEXT("")));
+						_associationMap.push_back(AssociationInfo(static_cast<int32_t>(i), langIDStr ? langID : -1, exts ? exts : TEXT(""), userDefinedLangName ? userDefinedLangName : TEXT("")));
 						break;
 					}
 				}
@@ -464,13 +464,13 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 
 	(*ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 	int targetStart = (*ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
-	int targetEnd = 0;
+	LRESULT targetEnd = 0;
 
 	do
 	{
 		if (targetStart != -1 && targetStart != -2) // found open or close symbol
 		{
-			targetEnd = int((*ppEditView)->execute(SCI_GETTARGETEND));
+			targetEnd = (*ppEditView)->execute(SCI_GETTARGETEND);
 
 			// Treat it only if it's NOT in the comment zone
 			if (!isInZones(targetStart, commentZones))
@@ -523,7 +523,7 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 
 		if (not _openSymbole.empty() && not _closeSymbole.empty())
 		{
-			targetEnd = getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), commentZones, ppEditView);
+			targetEnd = static_cast<int32_t>(getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), commentZones, ppEditView));
 		}
 
 		if (targetEnd > int(end)) //we found a result but outside our range, therefore do not process it
@@ -592,14 +592,14 @@ void FunctionParser::getInvertZones(vector< pair<int, int> > &  destZones, vecto
 {
 	if (sourceZones.size() == 0)
 	{
-		destZones.push_back(pair<int, int>((int)begin, (int)end));
+		destZones.push_back(pair<int, int>(static_cast<int>(begin), static_cast<int>(end)));
 	}
 	else
 	{
 		// check the begin
 		if (int(begin) < sourceZones[0].first)
 		{
-			destZones.push_back(pair<int, int>((int)begin, sourceZones[0].first - 1));
+			destZones.push_back(pair<int, int>(static_cast<int>(begin), sourceZones[0].first - 1));
 		}
 
 		size_t i = 0;
@@ -612,7 +612,7 @@ void FunctionParser::getInvertZones(vector< pair<int, int> > &  destZones, vecto
 		}
 		int lastBegin = sourceZones[i].second + 1;
 		if (lastBegin < int(end))
-			destZones.push_back(pair<int, int>(lastBegin, (int)end));
+			destZones.push_back(pair<int, int>(lastBegin, static_cast<int>(end)));
 	}
 }
 
@@ -652,7 +652,7 @@ struct SortZones final
 
 void FunctionMixParser::parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName)
 {
-	vector< pair<int, int> > commentZones, scannedZones, nonCommentZones, nonScannedZones;
+	vector< pair<int, int> > commentZones, scannedZones, nonScannedZones;
 	getCommentZones(commentZones, begin, end, ppEditView);
 
 	classParse(foundInfos, scannedZones, commentZones, begin, end, ppEditView, classStructName);

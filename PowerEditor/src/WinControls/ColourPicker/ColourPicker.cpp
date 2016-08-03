@@ -147,7 +147,6 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			HDC dc = (HDC)wParam;
 			drawBackground(dc);
 			return TRUE;
-			break;
 		}
 
 		case WM_PAINT:

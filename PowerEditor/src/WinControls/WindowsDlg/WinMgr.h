@@ -225,7 +225,7 @@ struct NMWINMGR : public NMHDR {
 //
 class CWinMgr /*: public CObject*/ {
 public:
-	CWinMgr(WINRECT* map);
+	explicit CWinMgr(WINRECT* map);
 	virtual ~CWinMgr();
 
 	virtual void GetWindowPositions(HWND hWnd); // load map from window posns

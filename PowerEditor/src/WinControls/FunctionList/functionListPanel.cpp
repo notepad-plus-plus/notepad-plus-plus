@@ -43,7 +43,7 @@ void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText
 {
 	HTREEITEM itemParent = NULL;
 	TCHAR posStr[32];
-	generic_itoa(pos, posStr, 10);
+	generic_itoa(static_cast<int32_t>(pos), posStr, 10);
 	HTREEITEM root = _treeView.getRoot();
 
 	if (nodeName != NULL && *nodeName != '\0')
@@ -108,7 +108,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 		else // nothing found
 		{
 			cntOpen = 0; // get me out of here
-			targetEnd = begin;
+			targetEnd = static_cast<int32_t>(begin);
 		}
 
 		targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), targetEnd, docLen);
@@ -314,7 +314,6 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 {
 	DockingDlgInterface::init(hInst, hPere);
 	_ppEditView = ppEditView;
-	bool isOK = false;
 	bool doLocalConf = (NppParameters::getInstance())->isLocal();
 
 	if (!doLocalConf)
@@ -329,12 +328,12 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 			if (PathFileExists(funcListDefaultXmlPath.c_str()))
 			{
 				::CopyFile(funcListDefaultXmlPath.c_str(), funcListXmlPath.c_str(), TRUE);
-				isOK = _funcParserMgr.init(funcListXmlPath, ppEditView);
+				_funcParserMgr.init(funcListXmlPath, ppEditView);
 			}
 		}
 		else
 		{
-			isOK = _funcParserMgr.init(funcListXmlPath, ppEditView);
+			_funcParserMgr.init(funcListXmlPath, ppEditView);
 		}
 	}
 	else
@@ -343,11 +342,9 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 		PathAppend(funcListDefaultXmlPath, TEXT("functionList.xml"));
 		if (PathFileExists(funcListDefaultXmlPath.c_str()))
 		{
-			isOK = _funcParserMgr.init(funcListDefaultXmlPath, ppEditView);
+			_funcParserMgr.init(funcListDefaultXmlPath, ppEditView);
 		}
 	}
-
-	//return isOK;
 }
 
 bool FunctionListPanel::openSelection(const TreeView & treeView)
@@ -370,7 +367,7 @@ bool FunctionListPanel::openSelection(const TreeView & treeView)
 	if (pos == -1)
 		return false;
 
-	int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
+	auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
 	(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
 	(*_ppEditView)->scrollPosToCenter(pos);
 

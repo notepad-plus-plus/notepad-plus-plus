@@ -191,6 +191,38 @@ Function LaunchNpp
   Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
 FunctionEnd
 
+; Check if Notepad++ is running
+; Created by Motaz Alnuweiri
+
+; URL: http://nsis.sourceforge.net/Check_whether_your_application_is_running
+;      http://nsis.sourceforge.net/Sharing_functions_between_Installer_and_Uninstaller
+
+; Create CheckIfRunning shared function.
+!macro CheckIfRunning un
+	Function ${un}CheckIfRunning
+		Check:
+		System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
+		
+		IntCmp $R0 0 NotRunning
+			System::Call 'kernel32::CloseHandle(i $R0)'
+			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Cannot continue the installation: Notepad++ is running.\
+			          $\n$\n\
+                      Please close Notepad++, then click ''Retry''." IDRETRY Retry IDCANCEL Cancel
+			Retry:
+				Goto Check
+			
+			Cancel:
+				Quit
+	
+		NotRunning:
+		
+	FunctionEnd
+!macroend
+ 
+; Insert CheckIfRunning function as an installer and uninstaller function.
+!insertmacro CheckIfRunning ""
+!insertmacro CheckIfRunning "un."
+
 ; Modern interface settings
 !define MUI_ICON ".\images\npp_inst.ico"
 
@@ -209,6 +241,7 @@ FunctionEnd
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
 page Custom ExtraOptions
+!define MUI_PAGE_CUSTOMFUNCTION_SHOW "CheckIfRunning"
 !insertmacro MUI_PAGE_INSTFILES
 
 
@@ -218,6 +251,7 @@ page Custom ExtraOptions
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_CONFIRM
+!define MUI_PAGE_CUSTOMFUNCTION_SHOW "un.CheckIfRunning"
 !insertmacro MUI_UNPAGE_INSTFILES
 
 ; TODO for optional arg

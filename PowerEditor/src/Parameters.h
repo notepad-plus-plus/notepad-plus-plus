@@ -26,46 +26,16 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #pragma once
 
-#ifndef TINYXMLA_INCLUDED
 #include "tinyxmlA.h"
-#endif //TINYXMLA_INCLUDED
-
-#ifndef TINYXML_INCLUDED
 #include "tinyxml.h"
-#endif //TINYXML_INCLUDED
-
-#ifndef SCINTILLA_H
 #include "Scintilla.h"
-#endif //SCINTILLA_H
-
-#ifndef SCINTILLA_REF_H
 #include "ScintillaRef.h"
-#endif //SCINTILLA_REF_H
-
-#ifndef TOOL_BAR_H
 #include "ToolBar.h"
-#endif //TOOL_BAR_H
-
-#ifndef USER_DEFINE_LANG_REFERENCE_H
 #include "UserDefineLangReference.h"
-#endif //USER_DEFINE_LANG_REFERENCE_H
-
-#ifndef COLORS_H
 #include "colors.h"
-#endif //COLORS_H
-
-#ifndef SHORTCUTS_H
 #include "shortcut.h"
-#endif //SHORTCUTS_H
-
-#ifndef CONTEXTMENU_H
 #include "ContextMenu.h"
-#endif //CONTEXTMENU_H
-
-#ifndef DPIMANAGER_H
 #include "dpiManager.h"
-#endif //DPIMANAGER_H
-
 #include <assert.h>
 #include <tchar.h>
 
@@ -185,7 +155,7 @@ struct sessionFileInfo : public Position
 	int	_encoding = -1;
 
 	generic_string _backupFilePath;
-	time_t _originalFileLastModifTimestamp;
+	time_t _originalFileLastModifTimestamp = 0;
 };
 
 
@@ -436,9 +406,9 @@ public:
 	int getNbStyler() const {return _nbStyler;};
 	void setNbStyler(int nb) {_nbStyler = nb;};
 
-	Style& getStyler(int index)
+	Style& getStyler(size_t index)
 	{
-		assert((size_t) index < SCE_STYLE_ARRAY_SIZE);
+		assert(index < SCE_STYLE_ARRAY_SIZE);
 		return _styleArray[index];
 	}
 
@@ -490,7 +460,7 @@ public:
 	{
 		if (this != &ls)
 		{
-			*((StyleArray *)this) = ls;
+			*(static_cast<StyleArray *>(this)) = ls;
 			this->_lexerName = ls._lexerName;
 			this->_lexerDesc = ls._lexerDesc;
 			this->_lexerUserExt = ls._lexerUserExt;
@@ -649,7 +619,7 @@ public:
 			   !(month == 11 && day > 30));
 	}
 
-	Date(const TCHAR *dateStr);
+	explicit Date(const TCHAR *dateStr);
 
 	// The constructor which makes the date of number of days from now
 	// nbDaysFromNow could be negative if user want to make a date in the past
@@ -1281,9 +1251,8 @@ public:
 		return nullptr;
 	}
 
-	Lang * getLangFromIndex(int i) const
-	{
-		return (i >= 0 and i < _nbLang) ? _langList[i] : nullptr;
+	Lang * getLangFromIndex(size_t i) const {
+		return (i < size_t(_nbLang)) ? _langList[i] : nullptr;
 	}
 
 	int getNbLang() const {return _nbLang;};
@@ -1368,7 +1337,7 @@ public:
 	const std::vector<generic_string>& getFontList() const { return _fontlist; }
 
 	int getNbUserLang() const {return _nbUserLang;}
-	UserLangContainer & getULCFromIndex(int i) {return *_userLangArray[i];};
+	UserLangContainer & getULCFromIndex(size_t i) {return *_userLangArray[i];};
 	UserLangContainer * getULCFromName(const TCHAR *userLangName);
 
 	int getNbExternalLang() const {return _nbExternalLang;};
@@ -1402,7 +1371,7 @@ public:
 	const TCHAR * getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *fullName) const;
 
 	int addUserLangToEnd(const UserLangContainer & userLang, const TCHAR *newName);
-	void removeUserLang(int index);
+	void removeUserLang(size_t index);
 
 	bool isExistingExternalLangName(const TCHAR *newName) const;
 
@@ -1434,14 +1403,14 @@ public:
 	bool isRemappingShortcut() const {return _shortcuts.size() != 0;};
 
 	std::vector<CommandShortcut> & getUserShortcuts() { return _shortcuts; };
-	std::vector<int> & getUserModifiedShortcuts() { return _customizedShortcuts; };
-	void addUserModifiedIndex(int index);
+	std::vector<size_t> & getUserModifiedShortcuts() { return _customizedShortcuts; };
+	void addUserModifiedIndex(size_t index);
 
 	std::vector<MacroShortcut> & getMacroList() { return _macros; };
 	std::vector<UserCommand> & getUserCommandList() { return _userCommands; };
 	std::vector<PluginCmdShortcut> & getPluginCommandList() { return _pluginCommands; };
-	std::vector<int> & getPluginModifiedKeyIndices() { return _pluginCustomizedCmds; };
-	void addPluginModifiedIndex(int index);
+	std::vector<size_t> & getPluginModifiedKeyIndices() { return _pluginCustomizedCmds; };
+	void addPluginModifiedIndex(size_t index);
 
 	std::vector<ScintillaKeyMap> & getScintillaKeyList() { return _scintillaKeyCommands; };
 	std::vector<int> & getScintillaModifiedKeyIndices() { return _scintillaModifiedKeyIndices; };
@@ -1523,7 +1492,7 @@ public:
 
 	PluginList & getPluginList() {return _pluginList;};
 	bool importUDLFromFile(generic_string sourceFile);
-	bool exportUDLToFile(int langIndex2export, generic_string fileName2save);
+	bool exportUDLToFile(size_t langIndex2export, generic_string fileName2save);
 	NativeLangSpeaker* getNativeLangSpeaker() {
 		return _pNativeLangSpeaker;
 	}
@@ -1545,6 +1514,7 @@ public:
 	void setCloudChoice(const TCHAR *pathChoice);
 	void removeCloudChoice();
 	bool isCloudPathChanged() const;
+	bool isx64() const { return _isx64; };
 
 	COLORREF getCurrentDefaultBgColor() const {
 		return _currentDefaultBgColor;
@@ -1628,17 +1598,18 @@ private:
 	WNDPROC _transparentFuncAddr;
 	WNDPROC _enableThemeDialogTextureFuncAddr;
 	bool _isLocal;
+	bool _isx64 = false; // by default 32-bit
 
 public:
 	void setShortcutDirty() { _isAnyShortcutModified = true; };
 private:
 	bool _isAnyShortcutModified = false;
 	std::vector<CommandShortcut> _shortcuts;			//main menu shortuts. Static size
-	std::vector<int> _customizedShortcuts;			//altered main menu shortcuts. Indices static. Needed when saving alterations
+	std::vector<size_t> _customizedShortcuts;			//altered main menu shortcuts. Indices static. Needed when saving alterations
 	std::vector<MacroShortcut> _macros;				//macro shortcuts, dynamic size, defined on loading macros and adding/deleting them
 	std::vector<UserCommand> _userCommands;			//run shortcuts, dynamic size, defined on loading run commands and adding/deleting them
 	std::vector<PluginCmdShortcut> _pluginCommands;	//plugin commands, dynamic size, defined on loading plugins
-	std::vector<int> _pluginCustomizedCmds;			//plugincommands that have been altered. Indices determined after loading ALL plugins. Needed when saving alterations
+	std::vector<size_t> _pluginCustomizedCmds;			//plugincommands that have been altered. Indices determined after loading ALL plugins. Needed when saving alterations
 
 	std::vector<ScintillaKeyMap> _scintillaKeyCommands;	//scintilla keycommands. Static size
 	std::vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations

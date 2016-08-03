@@ -242,13 +242,13 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 	}
 
 	// Now try to match it.
-	for( i=0; i<NUM_ENTITY; ++i )
+	for (i=0; i<NUM_ENTITY; ++i)
 	{
 		if ( generic_strncmp( entity[i].str, p, entity[i].strLength ) == 0 )
 		{
-			assert( (unsigned int)lstrlen( entity[i].str ) == entity[i].strLength );
+			assert(static_cast<unsigned int>(lstrlen(entity[i].str)) == entity[i].strLength );
 			*value = entity[i].chr;
-			return ( p + entity[i].strLength );
+			return (p + entity[i].strLength);
 		}
 	}
 
@@ -379,7 +379,7 @@ void TiXmlDocument::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 
 	while ( in->good() )
 	{
-		int tagIndex = tag->length();
+		size_t tagIndex = tag->length();
 		while ( in->good() && in->peek() != '>' )
 		{
 			int c = in->get();
@@ -620,7 +620,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 			// We should be at a "<", regardless.
 			if ( !in->good() ) return;
 			assert( in->peek() == '<' );
-			int tagIndex = tag->length();
+			size_t tagIndex = tag->length();
 
 			bool closingTag = false;
 			bool firstCharFound = false;
@@ -1134,7 +1134,7 @@ const TCHAR* TiXmlDeclaration::Parse( const TCHAR* p, TiXmlParsingData* data )
 
 bool TiXmlText::Blank() const
 {
-	for ( unsigned int i=0, len=value.length(); i<len; i++ )
+	for (size_t i = 0, len = value.length(); i < len; i++)
 		if ( !isspace( value[i] ) )
 			return false;
 	return true;

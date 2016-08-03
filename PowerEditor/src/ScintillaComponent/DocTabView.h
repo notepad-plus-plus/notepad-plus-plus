@@ -71,9 +71,9 @@ public :
 	BufferID findBufferByName(const TCHAR * fullfilename);	//-1 if not found, something else otherwise
 
 	int getIndexByBuffer(BufferID id);
-	BufferID getBufferByIndex(int index);
+	BufferID getBufferByIndex(size_t index);
 
-	void setBuffer(int index, BufferID id);
+	void setBuffer(size_t index, BufferID id);
 
 	static bool setHideTabBarStatus(bool hideOrNot) {
 		bool temp = _hideTabBarStatus;

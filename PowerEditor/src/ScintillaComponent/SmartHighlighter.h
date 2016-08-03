@@ -33,13 +33,10 @@ class FindReplaceDlg;
 
 class SmartHighlighter {
 public:
-	SmartHighlighter(FindReplaceDlg * pFRDlg);
+	explicit SmartHighlighter(FindReplaceDlg * pFRDlg);
 	void highlightView(ScintillaEditView * pHighlightView);
 private:
 	FindReplaceDlg * _pFRDlg;
-
-	bool isQualifiedWord(const char *str, char listChar[]) const;
-	bool isWordChar(char ch, char listChar[]) const;
 };
 
 #endif //SMARTHIGHLIGHTER_H

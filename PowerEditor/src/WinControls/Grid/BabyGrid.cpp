@@ -476,7 +476,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 {
 		  HBRUSH hbrush,holdbrush;
 		  HPEN hpen,holdpen;
-		  iProtection=SendMessage(hWnd,BGM_GETPROTECTION,(WPARAM)&BGcell,0);
+		  iProtection = static_cast<int32_t>(SendMessage(hWnd, BGM_GETPROTECTION, (WPARAM)&BGcell, 0));
 		  if(BGHS[SI].DRAWHIGHLIGHT)//highlight on
 			  {
 			   if(r==BGHS[SI].cursorrow)
@@ -527,7 +527,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 rect.right -= 2;
 		 rect.left += 2;
 
-		 iDataType=SendMessage(hWnd,BGM_GETTYPE,(WPARAM)&BGcell,0);
+		 iDataType = static_cast<int32_t>(SendMessage(hWnd, BGM_GETTYPE, (WPARAM)&BGcell, 0));
          if((iDataType < 1)||(iDataType > 5))
              {
               iDataType = 1;//default to alphanumeric data type.. can't happen
@@ -560,11 +560,11 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		  rect.left +=0;
 		  rect.right -=0;
           if((rect.bottom - rect.top)>24)
-              {
+          {
                excess=(rect.bottom - rect.top)-16;
-               rect.top += (int)(excess/2);
-               rect.bottom -= (int)(excess/2);
-              }
+               rect.top += excess / 2;
+               rect.bottom -= excess / 2;
+          }
 	      DrawFrameControl(gdc,&rect,DFC_BUTTON,DFCS_BUTTONCHECK|DFCS_CHECKED);
 		 }
 
@@ -577,11 +577,11 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		  rect.left +=0;
 		  rect.right -=0;
           if((rect.bottom - rect.top)>24)
-              {
+          {
                excess=(rect.bottom - rect.top)-16;
-               rect.top += (int)(excess/2);
-               rect.bottom -= (int)(excess/2);
-              }
+               rect.top += excess / 2;
+               rect.bottom -= excess / 2;
+          }
 
 
 	      DrawFrameControl(gdc,&rect,DFC_BUTTON,DFCS_BUTTONCHECK);
@@ -691,7 +691,7 @@ TCHAR GetASCII(WPARAM wParam, LPARAM lParam)
      BYTE keys[256];
      WORD dwReturnedValue;
      GetKeyboardState(keys);
-     result=ToAscii(wParam,(lParam >> 16) && 0xff,keys,&dwReturnedValue,0);
+	 result = ToAscii(static_cast<UINT>(wParam), (lParam >> 16) && 0xff, keys, &dwReturnedValue, 0);
      returnvalue = (TCHAR) dwReturnedValue;
      if(returnvalue < 0){returnvalue = 0;}
      wsprintf(mbuffer, TEXT("return value = %d"), returnvalue);
@@ -1183,14 +1183,11 @@ void DisplayEditString(HWND hWnd,int SI,TCHAR* tstring)
        rt.right +=5;
        ShowCaret(hWnd);
 
-           {
-            int rh,ah;
-            rh=BGHS[SI].rowheight;
-            ah=BGHS[SI].fontascentheight;
+           
+       int rh = BGHS[SI].rowheight;
+       int ah = BGHS[SI].fontascentheight;
 
-            SetCaretPos(rt.right-4,rt.top+(int)(rh/2)-ah+2);
-
-           }
+       SetCaretPos(rt.right - 4, rt.top + (rh / 2)-ah + 2);
 
        SelectObject(cdc,holdfont);
        ReleaseDC(hWnd,cdc);
@@ -1413,18 +1410,18 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
              if(lstrlen(BGHS[SelfIndex].title) > 0)
                  {
                   linecount=1;
-                  for(j=0;j<(int)lstrlen(BGHS[SelfIndex].title);j++)
-                      {
-                       if(BGHS[SelfIndex].title[j]=='\n')
-                           {
+				  for (j = 0; j<static_cast<int>(lstrlen(BGHS[SelfIndex].title)); j++)
+                  {
+                       if (BGHS[SelfIndex].title[j] == '\n')
+                       {
                             linecount++;
-                           }
+                       }
 
-                      }
+                  }
                   holdfont=(HFONT)SelectObject(gdc,BGHS[SelfIndex].htitlefont);
                   GetTextExtentPoint32(gdc,BGHS[SelfIndex].title,lstrlen(BGHS[SelfIndex].title),&size);
                   SelectObject(gdc,holdfont);
-                  BGHS[SelfIndex].titleheight = (int)((size.cy*1.2) * linecount);
+				  BGHS[SelfIndex].titleheight = static_cast<int>((size.cy*1.2) * linecount);
                  }
              else
                  {
@@ -1464,15 +1461,15 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             break;
 
 		case BGM_DRAWCURSOR:
-			  DrawCursor(hWnd,wParam);
+			DrawCursor(hWnd, static_cast<int32_t>(wParam));
 			break;
         case BGM_SETCURSORPOS:
                DrawCursor(hWnd,SelfIndex);
                if((((int)wParam <= BGHS[SelfIndex].rows)&&((int)wParam > 0))&&
                    (((int)lParam <= BGHS[SelfIndex].cols)&&((int)lParam > 0)))
                    {
-                     BGHS[SelfIndex].cursorrow=wParam;
-                     BGHS[SelfIndex].cursorcol=lParam;
+					   BGHS[SelfIndex].cursorrow = static_cast<int32_t>(wParam);
+					   BGHS[SelfIndex].cursorcol = static_cast<int32_t>(lParam);
                    }
                else
                    {
@@ -1625,7 +1622,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			  lstrcat(buffer, TEXT("|"));
               lstrcat(buffer, (TCHAR*)lParam);
-              FindResult=SendMessage(BGHS[SelfIndex].hlist1,LB_ADDSTRING,0,(LPARAM)buffer);
+			  FindResult = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, 0, (LPARAM)buffer));
 
               if(FindResult==LB_ERR)
                   {
@@ -1639,8 +1636,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               //get the last line and adjust grid dimmensions
                   if(BGHS[SelfIndex].AUTOROW)
                   {
-                   int j;
-                    j=SendMessage(BGHS[SelfIndex].hlist1,LB_GETCOUNT,0,0);
+                   int j = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_GETCOUNT, 0, 0));
                     if(j>0)
                         {
                          SendMessage(BGHS[SelfIndex].hlist1,LB_GETTEXT,j-1,(LPARAM)buffer);
@@ -1799,7 +1795,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case BGM_SETGRIDDIM:
 			   if((wParam>=0)&&(wParam<=MAX_ROWS))
 			   {
-				BGHS[SelfIndex].rows = wParam;
+				   BGHS[SelfIndex].rows = static_cast<int32_t>(wParam);
 			   }
 			   else
 			   {
@@ -1815,7 +1811,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			   if((lParam>0)&&(lParam<=MAX_COLS))
 			   {
-				BGHS[SelfIndex].cols = lParam;
+				   BGHS[SelfIndex].cols = static_cast<int32_t>(lParam);
 			   }
 			   else
 			   {
@@ -1840,7 +1836,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			  if((wParam <= MAX_COLS)&&(wParam >= 0) && (lParam >= 0))
 			  {
                 RECT rect;
-			    BGHS[SelfIndex].columnwidths[wParam] = lParam;
+				BGHS[SelfIndex].columnwidths[wParam] = static_cast<int32_t>(lParam);
                 GetClientRect(hWnd,&rect);
                 InvalidateRect(hWnd,&rect,FALSE);
                 GetVisibleColumns(hWnd,SelfIndex);
@@ -1850,7 +1846,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			  if(wParam >= 0)
 			  {
                RECT rect;
-			   BGHS[SelfIndex].headerrowheight = wParam;
+			   BGHS[SelfIndex].headerrowheight = static_cast<int32_t>(wParam);
                SizeGrid(hWnd,SelfIndex);
                GetClientRect(hWnd,&rect);
                InvalidateRect(hWnd,&rect,FALSE);
@@ -1921,28 +1917,28 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
         case BGM_SETROWHEIGHT:
 			if(wParam <1){wParam=1;}
-              BGHS[SelfIndex].rowheight = wParam;
-               SetHomeRow(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
-               SetHomeCol(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
-               SizeGrid(hWnd,SelfIndex);
+			BGHS[SelfIndex].rowheight = static_cast<int32_t>(wParam);
+            SetHomeRow(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
+            SetHomeCol(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
+            SizeGrid(hWnd,SelfIndex);
 
-                  {
-                    RECT rect;
-                    GetClientRect(hWnd,&rect);
-                    InvalidateRect(hWnd,&rect,FALSE);
-                  }
+            {
+				RECT rect;
+				GetClientRect(hWnd,&rect);
+				InvalidateRect(hWnd,&rect,FALSE);
+            }
             break;
 
         case BGM_SETTITLEHEIGHT:
             if(wParam<0){wParam =0;}
-            BGHS[SelfIndex].titleheight = wParam;
-               SetHomeRow(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
-               SetHomeCol(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
-                  {
-                    RECT rect;
-                    GetClientRect(hWnd,&rect);
-                    InvalidateRect(hWnd,&rect,FALSE);
-                  }
+			BGHS[SelfIndex].titleheight = static_cast<int32_t>(wParam);
+            SetHomeRow(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
+            SetHomeCol(hWnd,SelfIndex,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
+            {
+                RECT rect;
+                GetClientRect(hWnd,&rect);
+                InvalidateRect(hWnd,&rect,FALSE);
+            }
             break;
         case BGM_SETGRIDLINECOLOR:
 			  DrawCursor(hWnd,SelfIndex);
@@ -2138,7 +2134,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                          //resizing hidden column to the left of cursor
                         if(c==-1)
                             {
-                             c=SendMessage(hWnd,BGM_GETCOLS,0,0);
+								c = static_cast<int32_t>(SendMessage(hWnd, BGM_GETCOLS, 0, 0));
                             }
                         else
                             {
@@ -3103,7 +3099,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
 
      FOUND=FALSE;
      //get count of items in listbox
-     lbcount = SendMessage(lbhWnd,LB_GETCOUNT,0,0);
+	 lbcount = static_cast<int32_t>(SendMessage(lbhWnd, LB_GETCOUNT, 0, 0));
      if(lbcount == 0)
          {
            ReturnValue = LB_ERR;
@@ -3112,7 +3108,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
      if(lbcount < 12)
          {
           //not worth doing binary search, do regular search
-			 FindResult = SendMessage(lbhWnd,LB_FINDSTRING,(unsigned int)-1,(LPARAM) searchtext);
+			 FindResult = static_cast<int32_t>(SendMessage(lbhWnd, LB_FINDSTRING, static_cast<unsigned int>(-1), reinterpret_cast<LPARAM>(searchtext)));
           ReturnValue = FindResult;
           return ReturnValue;
          }
@@ -3122,7 +3118,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
      tail = lbcount - 1;
 
      //is it the head?
-     SendMessage(lbhWnd,LB_GETTEXT,head,(LPARAM)headtext);
+     SendMessage(lbhWnd, LB_GETTEXT, head, reinterpret_cast<LPARAM>(headtext));
      headtext[9] = 0x00;
 
 	 p=lstrcmp(searchtext,headtext);
@@ -3142,7 +3138,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
 
 
      //is it the tail?
-     SendMessage(lbhWnd,LB_GETTEXT,tail,(LPARAM)tailtext);
+	 SendMessage(lbhWnd, LB_GETTEXT, tail, reinterpret_cast<LPARAM>(tailtext));
      tailtext[9] = 0x00;
 	 p=lstrcmp(searchtext,tailtext);
      if(p==0)
@@ -3167,7 +3163,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
          {
                   finger = head + ((tail - head) / 2);
 
-                 SendMessage(lbhWnd,LB_GETTEXT,finger,(LPARAM)tbuffer);
+				  SendMessage(lbhWnd, LB_GETTEXT, finger, reinterpret_cast<LPARAM>(tbuffer));
                  tbuffer[9] = 0x00;
                  p=lstrcmp(tbuffer,searchtext);
                  if(p==0)

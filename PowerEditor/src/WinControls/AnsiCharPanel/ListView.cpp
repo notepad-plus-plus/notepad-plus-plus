@@ -64,7 +64,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 	}
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
-	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));
+	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
 	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT ;

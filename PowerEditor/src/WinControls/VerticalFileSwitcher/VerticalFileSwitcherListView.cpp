@@ -67,7 +67,7 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 	}
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
-	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));
+	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 
 	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_INFOTIP);
 	ListView_SetItemCountEx(_hSelf, 50, LVSICF_NOSCROLL);

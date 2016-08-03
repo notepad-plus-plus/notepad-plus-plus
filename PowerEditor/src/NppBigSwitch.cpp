@@ -82,7 +82,7 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT Message,
 		{
 			// First message we get the ptr of instantiated object
 			// then stock it into GWLP_USERDATA index in order to retrieve afterward
-			Notepad_plus_Window *pM30ide = reinterpret_cast<Notepad_plus_Window *>((reinterpret_cast<LPCREATESTRUCT>(lParam))->lpCreateParams);
+			Notepad_plus_Window *pM30ide = static_cast<Notepad_plus_Window *>((reinterpret_cast<LPCREATESTRUCT>(lParam))->lpCreateParams);
 			pM30ide->_hSelf = hwnd;
 			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)pM30ide);
 			return TRUE;
@@ -524,7 +524,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				case COPYDATA_PARAMS:
 				{
-					CmdLineParams *cmdLineParam = reinterpret_cast<CmdLineParams *>(pCopyData->lpData); // CmdLineParams object from another instance
+					CmdLineParams *cmdLineParam = static_cast<CmdLineParams *>(pCopyData->lpData); // CmdLineParams object from another instance
 					auto cmdLineParamsSize = static_cast<size_t>(pCopyData->cbData);  // CmdLineParams size from another instance
 					if (sizeof(CmdLineParams) == cmdLineParamsSize) // make sure the structure is the same
 					{
@@ -544,7 +544,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 				case COPYDATA_FILENAMESA:
 				{
-					char *fileNamesA = reinterpret_cast<char *>(pCopyData->lpData);
+					char *fileNamesA = static_cast<char *>(pCopyData->lpData);
 					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
 					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 					const wchar_t *fileNamesW = wmc->char2wchar(fileNamesA, CP_ACP);
@@ -554,7 +554,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 				case COPYDATA_FILENAMESW:
 				{
-					wchar_t *fileNamesW = reinterpret_cast<wchar_t *>(pCopyData->lpData);
+					wchar_t *fileNamesW = static_cast<wchar_t *>(pCopyData->lpData);
 					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
 					break;

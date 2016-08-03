@@ -52,7 +52,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 	TreeView_SetItemHeight(_hSelf, itemHeight);
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
-	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));
+	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 }
 
 

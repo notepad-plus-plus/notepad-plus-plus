@@ -322,9 +322,9 @@ BEGIN
         END
         POPUP "EOL Conversion"
         BEGIN
-            MENUITEM "Windows Format",             IDM_FORMAT_TODOS
-            MENUITEM "UNIX/OSX Format",            IDM_FORMAT_TOUNIX
-            MENUITEM "Old Mac Format",             IDM_FORMAT_TOMAC
+            MENUITEM "Windows (CR LF)",             IDM_FORMAT_TODOS
+            MENUITEM "Unix (LF)",                   IDM_FORMAT_TOUNIX
+            MENUITEM "Macintosh (CR)",              IDM_FORMAT_TOMAC
         END
         POPUP "Blank Operations"
         BEGIN

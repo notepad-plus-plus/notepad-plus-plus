@@ -1579,7 +1579,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             // for the font size combo
             HWND hFontSizeCombo = ::GetDlgItem(hwnd, IDC_STYLER_COMBO_FONT_SIZE);
             for(int j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(TCHAR)) ; ++j)
-                ::SendMessage(hFontSizeCombo, CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[j]);
+				::SendMessage(hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[j]));
 
             TCHAR size[10];
             if (style._fontSize == -1)
@@ -1587,7 +1587,7 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             else
                 wsprintf(size, TEXT("%d"),style._fontSize);
 
-            auto i = ::SendMessage(hFontSizeCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)size);
+			auto i = ::SendMessage(hFontSizeCombo, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(size));
             if (i != CB_ERR)
                 ::SendMessage(hFontSizeCombo, CB_SETCURSEL, i, 0);
 
@@ -1596,11 +1596,11 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
             const std::vector<generic_string> & fontlist = pNppParam->getFontList();
             for (size_t j = 0, len = fontlist.size() ; j < len ; ++j)
             {
-                auto k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[j].c_str());
-                ::SendMessage(hFontNameCombo, CB_SETITEMDATA, k, (LPARAM)fontlist[j].c_str());
+				auto k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontlist[j].c_str()));
+				::SendMessage(hFontNameCombo, CB_SETITEMDATA, k, reinterpret_cast<LPARAM>(fontlist[j].c_str()));
             }
 
-			i = ::SendMessage(hFontNameCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)style._fontName);
+			i = ::SendMessage(hFontNameCombo, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(style._fontName));
             if (i == CB_ERR)
                 i = 0;
             ::SendMessage(hFontNameCombo, CB_SETCURSEL, i, 0);

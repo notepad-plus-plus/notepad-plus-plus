@@ -400,7 +400,7 @@ void FileBrowser::openSelectFile()
 	if (::PathIsDirectory(fullPath.c_str()))
 		return;
 
-	::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fullPath.c_str()));
+	::SendMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fullPath.c_str()));
 }
 
 
@@ -439,7 +439,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				{
 					// Get the old label
 					tvItem.hItem = _treeView.getSelection();
-					::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+					::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 					size_t len = lstrlen(tvItem.pszText);
 
 					// Find the position of old label in File path
@@ -712,7 +712,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		{
 			if (not selectedNode) return;
 			generic_string path = getNodePath(selectedNode);
-			::SendMessage(_hParent, NPPM_LAUNCHFINDINFILESDLG, (WPARAM)path.c_str(), 0);
+			::SendMessage(_hParent, NPPM_LAUNCHFINDINFILESDLG, reinterpret_cast<WPARAM>(path.c_str()), 0);
 		}
 		break;
 
@@ -1009,7 +1009,7 @@ HTREEITEM FileBrowser::getRootFromFullPath(const generic_string & rootPath) cons
 		tvItem.mask = TVIF_PARAM;
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.hItem = hItemNode;
-		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 		if (tvItem.lParam != 0 && rootPath == *((generic_string *)tvItem.lParam))
 			node = hItemNode;
@@ -1031,7 +1031,7 @@ HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string la
 		tvItem.pszText = textBuffer;
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.hItem = hItemNode;
-		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 		if (label == tvItem.pszText)
 		{
@@ -1054,7 +1054,7 @@ vector<generic_string> FileBrowser::getRoots() const
 		tvItem.mask = TVIF_PARAM;
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.hItem = hItemNode;
-		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 		roots.push_back(*((generic_string *)tvItem.lParam));
 	}
@@ -1497,14 +1497,14 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 						case FILE_ACTION_ADDED:
 							file2Change.push_back(wstrFilename.GetString());
 							//thisFolderUpdater->updateTree(dwAction, file2Change);
-							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_ADDFILE, (WPARAM)nullptr, (LPARAM)&file2Change);
+							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_ADDFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							oldName = TEXT("");
 							break;
 
 						case FILE_ACTION_REMOVED:
 							file2Change.push_back(wstrFilename.GetString());
 							//thisFolderUpdater->updateTree(dwAction, file2Change);
-							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RMFILE, (WPARAM)nullptr, (LPARAM)&file2Change);
+							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RMFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							oldName = TEXT("");
 							break;
 
@@ -1522,7 +1522,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 								file2Change.push_back(oldName);
 								file2Change.push_back(wstrFilename.GetString());
 								//thisFolderUpdater->updateTree(dwAction, file2Change);
-								::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RNFILE, (WPARAM)nullptr, (LPARAM)&file2Change);
+								::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RNFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							}
 							oldName = TEXT("");
 							break;

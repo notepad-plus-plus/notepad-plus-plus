@@ -109,7 +109,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			for(size_t i = 0 ; i < themeSwitcher.size() ; ++i)
 			{
 				pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(i);
-				int j = static_cast<int32_t>(::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, (LPARAM)themeInfo.first.c_str()));
+				int j = static_cast<int32_t>(::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str())));
 				if (! themeInfo.second.compare( nppParamInst->getNppGUI()._themeName ) )
 				{
 					_currentThemeIndex = j;
@@ -127,13 +127,13 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 			::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 
 			for(int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; ++i)
-				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[i]);
+				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontSizeStrs[i]));
 
 			const std::vector<generic_string> & fontlist = (NppParameters::getInstance())->getFontList();
 			for (size_t i = 0, len = fontlist.size() ; i < len ; ++i)
 			{
-				auto j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
-				::SendMessage(_hFontNameCombo, CB_SETITEMDATA, j, (LPARAM)fontlist[i].c_str());
+				auto j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(fontlist[i].c_str()));
+				::SendMessage(_hFontNameCombo, CB_SETITEMDATA, j, reinterpret_cast<LPARAM>(fontlist[i].c_str()));
 			}
 
 			_pFgColour = new ColourPicker;

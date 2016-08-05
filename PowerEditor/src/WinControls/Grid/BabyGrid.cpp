@@ -1690,7 +1690,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                    int j = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_GETCOUNT, 0, 0));
                     if(j>0)
                         {
-                         SendMessage(BGHS[SelfIndex].hlist1,LB_GETTEXT,j-1,(LPARAM)buffer);
+							SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, j - 1, reinterpret_cast<LPARAM>(buffer));
                          buffer[5]=0x00;
                          j=generic_atoi(buffer);
                          if(j>SendMessage(hWnd,BGM_GETROWS,0,0))

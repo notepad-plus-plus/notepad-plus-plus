@@ -332,9 +332,9 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			const bool isConflict = findKeyConflicts(&conflictInfo, *reinterpret_cast<KeyCombo*>(wParam), _babygrid.getSelectedRow() - 1);
 			*reinterpret_cast<bool*>(lParam) = isConflict;
 			if (isConflict)
-				::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, (LPARAM)conflictInfo.c_str());
+				::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(conflictInfo.c_str()));
 			else
-				::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, (LPARAM)_assignInfo.c_str());
+				::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_assignInfo.c_str()));
 
 			return TRUE;
 		}
@@ -724,9 +724,9 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							}
 
 							if (conflictInfo.empty())
-								::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, (LPARAM)_defaultInfo.c_str());
+								::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_defaultInfo.c_str()));
 							else
-								::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, (LPARAM)conflictInfo.c_str());
+								::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(conflictInfo.c_str()));
 
 							return TRUE;
 						}

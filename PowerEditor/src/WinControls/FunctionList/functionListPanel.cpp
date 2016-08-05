@@ -199,7 +199,7 @@ void FunctionListPanel::sortOrUnsort()
 	else
 	{
 		TCHAR text2search[MAX_PATH] ;
-		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2search);
+		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
 
 		if (text2search[0] == '\0') // main view
 		{
@@ -288,13 +288,13 @@ void FunctionListPanel::reload()
 		TreeParams *previousParams = getFromStateArray(fullFilePath);
 		if (!previousParams)
 		{
-			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)TEXT(""));
+			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
 			setSort(false);
 			_treeView.expand(root);
 		}
 		else
 		{
-			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)(previousParams->_searchParameters)._text2Find.c_str());
+			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>((previousParams->_searchParameters)._text2Find.c_str()));
 
 			_treeView.restoreFoldingStateFrom(previousParams->_treeState, root);
 
@@ -469,7 +469,7 @@ BOOL FunctionListPanel::setTreeViewImageList(int root_id, int node_id, int leaf_
 void FunctionListPanel::searchFuncAndSwitchView()
 {
 	TCHAR text2search[MAX_PATH] ;
-	::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2search);
+	::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
 	bool doSort = shouldSort();
 
 	if (text2search[0] == '\0')
@@ -574,16 +574,15 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
 
-			//::GetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC);
-			oldFunclstToolbarProc = (WNDPROC)::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, (LONG_PTR)funclstToolbarProc);
+			oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstToolbarProc)));
 			TBBUTTON tbButtons[3];
 
 			// Add the bmap image into toolbar's imagelist
 			TBADDBITMAP addbmp = {_hInst, 0};
 			addbmp.nID = IDI_FUNCLIST_SORTBUTTON;
-			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, (LPARAM)&addbmp);
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 			addbmp.nID = IDI_FUNCLIST_RELOADBUTTON;
-			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, (LPARAM)&addbmp);
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 
 			// Place holder of search text field
 			tbButtons[0].idCommand = 0;
@@ -606,7 +605,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
 			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, (WPARAM)0, (LPARAM)MAKELONG(16, 16));
-			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON), (LPARAM)&tbButtons);
+			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
 
 			ShowWindow(_hToolbarMenu, SW_SHOW);

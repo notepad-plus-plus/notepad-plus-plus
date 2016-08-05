@@ -812,7 +812,7 @@ void ScintillaKeyMap::showCurrentSettings() {
 }
 
 void ScintillaKeyMap::updateListItem(int index) {
-	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, index, (LPARAM)toString(index).c_str());
+	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, index, reinterpret_cast<LPARAM>(toString(index).c_str()));
 	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, index+1, 0);
 }
 
@@ -828,12 +828,12 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 
 			for (size_t i = 0 ; i < nrKeys ; ++i)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, (LPARAM)namedKeyArray[i].name);
+				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(namedKeyArray[i].name));
 			}
 
 			for(size_t i = 0; i < _size; ++i)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_ADDSTRING, 0, (LPARAM)toString(i).c_str());
+				::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(toString(i).c_str()));
 			}
 			::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, 0, 0);
 
@@ -885,7 +885,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 					{
 						if (res == static_cast<int32_t>(oldsize))
 						{
-							::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, (WPARAM)-1, (LPARAM)toString(res).c_str());
+							::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(toString(res).c_str()));
 						}
 						else
 						{	//update current generic_string, can happen if it was disabled

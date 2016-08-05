@@ -229,12 +229,12 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 			// activate/deactivate titlebar of toolbars
 			for (size_t iCont = DOCKCONT_MAX, len = _vContainer.size(); iCont < len; ++iCont)
 			{
-				::SendMessage(_vContainer[iCont]->getHSelf(), WM_NCACTIVATE, wParam, (LPARAM)-1);
+				::SendMessage(_vContainer[iCont]->getHSelf(), WM_NCACTIVATE, wParam, static_cast<LPARAM>(-1));
 			}
 
 			if (static_cast<int>(lParam) != -1)
 			{
-				::SendMessage(_hParent, WM_NCACTIVATE, wParam, (LPARAM)-1);
+				::SendMessage(_hParent, WM_NCACTIVATE, wParam, static_cast<LPARAM>(-1));
 			}
 			break;
 		}
@@ -376,7 +376,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		}
 		case DMM_GETIMAGELIST:
 		{
-			return (LPARAM)_hImageList;
+			return reinterpret_cast<LPARAM>(_hImageList);
 		}
 		case DMM_GETICONPOS:
 		{
@@ -714,7 +714,7 @@ LRESULT DockingManager::SendNotify(HWND hWnd, UINT message)
 	nmhdr.code		= message;
 	nmhdr.hwndFrom	= _hParent;
 	nmhdr.idFrom	= ::GetDlgCtrlID(_hParent);
-	::SendMessage(hWnd, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+	::SendMessage(hWnd, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
 	return ::GetWindowLongPtr(hWnd, DWLP_MSGRESULT);
 }
 

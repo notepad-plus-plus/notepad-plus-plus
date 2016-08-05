@@ -1408,7 +1408,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		const char *pName = wmc->wchar2char(name, CP_ACP);
-		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)pName);
+		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
 	}
 
 	if (encoding != -1)
@@ -1462,14 +1462,14 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				if (encoding == SC_CP_UTF8)
 				{
 					// Pass through UTF-8 (this does not check validity of characters, thus inserting a multi-byte character in two halfs is working)
-					_pscratchTilla->execute(SCI_APPENDTEXT, lenFile, (LPARAM)data);
+					_pscratchTilla->execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
 				}
 				else
 				{
 					WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
 					int newDataLen = 0;
 					const char *newData = wmc->encode(encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
-					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, (LPARAM)newData);
+					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
 				}
 
 				if (format == EolType::unknown)
@@ -1478,7 +1478,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 			else
 			{
 				lenConvert = unicodeConvertor->convert(data, lenFile);
-				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(unicodeConvertor->getNewBuf()));
+				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
 				if (format == EolType::unknown)
 					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
 			}

@@ -45,20 +45,20 @@ void addText2Combo(const TCHAR * txt2add, HWND hCombo)
 	if (!hCombo) return;
 	if (!lstrcmp(txt2add, TEXT(""))) return;
 
-	auto i = ::SendMessage(hCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2add);
+	auto i = ::SendMessage(hCombo, CB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(txt2add));
 	if (i != CB_ERR) // found
 	{
 		::SendMessage(hCombo, CB_DELETESTRING, i, 0);
 	}
 
-	i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, (LPARAM)txt2add);
+	i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, reinterpret_cast<LPARAM>(txt2add));
 	::SendMessage(hCombo, CB_SETCURSEL, i, 0);
 };
 
 generic_string getTextFromCombo(HWND hCombo)
 {
 	TCHAR str[FINDREPLACE_MAXLENGTH];
-	::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, (LPARAM)str);
+	::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, reinterpret_cast<LPARAM>(str));
 	return generic_string(str);
 };
 
@@ -464,7 +464,7 @@ void Finder::gotoFoundLine()
 	const FoundInfo fInfo = *(_pMainFoundInfos->begin() + lno);
 
 	// Switch to another document
-	::SendMessage(::GetParent(_hParent), WM_DOOPEN, 0, (LPARAM)fInfo._fullPath.c_str());
+	::SendMessage(::GetParent(_hParent), WM_DOOPEN, 0, reinterpret_cast<LPARAM>(fInfo._fullPath.c_str()));
 	Searching::displaySectionCentered(fInfo._start, fInfo._end, *_ppEditView);
 
 	// Then we colourise the double clicked line
@@ -1984,7 +1984,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		_pFinder->_scintView.display();
 		_pFinder->display();
-		::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_pFinder->getHSelf());
+		::SendMessage(_hParent, NPPM_DMMHIDE, 0, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 		::UpdateWindow(_hParent);
 		justCreated = true;
 	}
@@ -1995,7 +1995,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// Send the address of _MarkingsStruct to the lexer
 		char ptrword[sizeof(void*)*2+1];
 		sprintf(ptrword, "%p", &_pFinder->_markingsStruct);
-		_pFinder->_scintView.execute(SCI_SETPROPERTY, (WPARAM)"@MarkingsStruct", (LPARAM)ptrword);
+		_pFinder->_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("@MarkingsStruct"), reinterpret_cast<LPARAM>(ptrword));
 	}
 	
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
@@ -2023,12 +2023,12 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		else
 		{
 			// Show finder
-			::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
+			::SendMessage(_hParent, NPPM_DMMSHOW, 0, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 			getFocus(); // no hits
 		}
 	}
 	else // error - search folder doesn't exist
-		::SendMessage(_hSelf, WM_NEXTDLGCTL, (WPARAM)::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), TRUE);
+		::SendMessage(_hSelf, WM_NEXTDLGCTL, reinterpret_cast<WPARAM>(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO)), TRUE);
 }
 
 Finder * FindReplaceDlg::createFinder()
@@ -2039,7 +2039,7 @@ Finder * FindReplaceDlg::createFinder()
 	
 	tTbData	data = { 0 };
 	pFinder->create(&data, false);
-	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)pFinder->getHSelf());
+	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<WPARAM>(pFinder->getHSelf()));
 	// define the default docking behaviour
 	data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO;
 	data.hIconTab = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -2050,12 +2050,12 @@ Finder * FindReplaceDlg::createFinder()
 	// the dlgDlg should be the index of funcItem where the current function pointer is
 	// in this case is DOCKABLE_DEMO_INDEX
 	data.dlgID = 0;
-	::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+	::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 	pFinder->_scintView.init(_hInst, pFinder->getHSelf());
 
 	// Subclass the ScintillaEditView for the Finder (Scintilla doesn't notify all key presses)
-	originalFinderProc = SetWindowLongPtr(pFinder->_scintView.getHSelf(), GWLP_WNDPROC, (LONG_PTR)finderProc);
+	originalFinderProc = SetWindowLongPtr(pFinder->_scintView.getHSelf(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(finderProc));
 
 	pFinder->setFinderReadOnly(true);
 	pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
@@ -2075,47 +2075,24 @@ Finder * FindReplaceDlg::createFinder()
 
 	pFinder->_scintView.display();
 	pFinder->display();
-	//::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)pFinder->getHSelf());
 	::UpdateWindow(_hParent);
-	//justCreated = true;
 	
 	pFinder->setFinderStyle();
 
 	// Send the address of _MarkingsStruct to the lexer
 	char ptrword[sizeof(void*) * 2 + 1];
 	sprintf(ptrword, "%p", &pFinder->_markingsStruct);
-	pFinder->_scintView.execute(SCI_SETPROPERTY, (WPARAM)"@MarkingsStruct", (LPARAM)ptrword);
+	pFinder->_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("@MarkingsStruct"), reinterpret_cast<LPARAM>(ptrword));
 
 	_findersOfFinder.push_back(pFinder);
 
 	::SendMessage(pFinder->getHSelf(), WM_SIZE, 0, 0);
 
 	// Show finder
-	::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)pFinder->getHSelf());
+	::SendMessage(_hParent, NPPM_DMMSHOW, 0, reinterpret_cast<LPARAM>(pFinder->getHSelf()));
 	pFinder->_scintView.getFocus();
 
 	return pFinder;
-
-	/*
-	{
-		if (_findAllResult == 1)
-			wsprintf(_findAllResultStr, TEXT("1 hit"));
-		else
-			wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
-		if (_findAllResult)
-		{
-			focusOnFinder();
-		}
-		else
-		{
-			// Show finder
-			::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)pFinder->getHSelf());
-			getFocus(); // no hits
-		}
-	}
-	else // error - search folder doesn't exist
-		::SendMessage(_hSelf, WM_NEXTDLGCTL, (WPARAM)::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), TRUE);
-	*/
 }
 
 bool FindReplaceDlg::removeFinder(Finder *finder2remove)
@@ -2137,7 +2114,7 @@ void FindReplaceDlg::setSearchText(TCHAR * txt2find) {
 	if (txt2find && txt2find[0])
 	{
 		// We got a valid search string
-		::SendMessage(hCombo, CB_SETCURSEL, (WPARAM)-1, 0); // remove selection - to allow using down arrow to get to last searched word
+		::SendMessage(hCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
 		::SetDlgItemText(_hSelf, IDFINDWHAT, txt2find);
 	}
 	::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
@@ -2254,11 +2231,11 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 		booleans |= _options._doMarkLine?IDF_MARKLINE_CHECK:0;
 	}
 	if (cmdType & FR_OP_REPLACE)
-		::SendMessage(_hParent, WM_FRSAVE_STR, IDREPLACEWITH, (LPARAM)_options._str4Replace.c_str());
+		::SendMessage(_hParent, WM_FRSAVE_STR, IDREPLACEWITH, reinterpret_cast<LPARAM>(_options._str4Replace.c_str()));
 	if (cmdType & FR_OP_FIF)
 	{
-		::SendMessage(_hParent, WM_FRSAVE_STR, IDD_FINDINFILES_DIR_COMBO, (LPARAM)_options._directory.c_str());
-		::SendMessage(_hParent, WM_FRSAVE_STR, IDD_FINDINFILES_FILTERS_COMBO, (LPARAM)_options._filters.c_str());
+		::SendMessage(_hParent, WM_FRSAVE_STR, IDD_FINDINFILES_DIR_COMBO, reinterpret_cast<LPARAM>(_options._directory.c_str()));
+		::SendMessage(_hParent, WM_FRSAVE_STR, IDD_FINDINFILES_FILTERS_COMBO, reinterpret_cast<LPARAM>(_options._filters.c_str()));
 		booleans |= _options._isRecursive?IDF_FINDINFILES_RECURSIVE_CHECK:0;
 		booleans |= _options._isInHiddenDir?IDF_FINDINFILES_INHIDDENDIR_CHECK:0;
 	}
@@ -2776,7 +2753,7 @@ void Finder::openAll()
 
 	for (size_t i = 0; i < sz; ++i)
 	{
-		::SendMessage(::GetParent(_hParent), WM_DOOPEN, 0, (LPARAM)_pMainFoundInfos->at(i)._fullPath.c_str());
+		::SendMessage(::GetParent(_hParent), WM_DOOPEN, 0, reinterpret_cast<LPARAM>(_pMainFoundInfos->at(i)._fullPath.c_str()));
 	}
 }
 

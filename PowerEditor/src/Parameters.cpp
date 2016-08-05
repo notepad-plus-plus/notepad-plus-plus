@@ -725,12 +725,9 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 	if (!xmlFullPath || !xmlFullPath[0])
 		return generic_string();
 	generic_string fn(::PathFindFileName(xmlFullPath));
-	PathRemoveExtension((TCHAR *)fn.c_str());
+	PathRemoveExtension(const_cast<TCHAR *>(fn.c_str()));
 	return fn;
 }
-
-
-#pragma warning(disable : 4996)
 
 
 winVer getWindowsVersion()

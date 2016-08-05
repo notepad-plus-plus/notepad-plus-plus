@@ -2824,7 +2824,7 @@ void Notepad_plus::setTitle()
 	if (_isAdministrator)
 		result += TEXT(" [Administrator]");
 
-	::SendMessage(_pPublicInterface->getHSelf(), WM_SETTEXT, 0, (LPARAM)result.c_str());
+	::SendMessage(_pPublicInterface->getHSelf(), WM_SETTEXT, 0, reinterpret_cast<LPARAM>(result.c_str()));
 }
 
 void Notepad_plus::activateNextDoc(bool direction)

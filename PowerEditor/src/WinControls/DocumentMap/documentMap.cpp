@@ -35,7 +35,7 @@ void DocumentMap::reloadMap()
 	if (_pScintillaEditView && _ppEditView)
 	{
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
-		_pScintillaEditView->execute(SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
+		_pScintillaEditView->execute(SCI_SETDOCPOINTER, 0, static_cast<LPARAM>(currentDoc));
 
 		//
 		// sync with the current document
@@ -271,9 +271,9 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
     {
         case WM_INITDIALOG :
         {
-			HWND hwndScintilla = (HWND)::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, (LPARAM)_hSelf);
-			_pScintillaEditView = (ScintillaEditView *)::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, (LPARAM)hwndScintilla);
-			_pScintillaEditView->execute(SCI_SETZOOM, (WPARAM)-10, 0);
+			HWND hwndScintilla = reinterpret_cast<HWND>(::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, reinterpret_cast<LPARAM>(_hSelf)));
+			_pScintillaEditView = reinterpret_cast<ScintillaEditView *>(::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, reinterpret_cast<LPARAM>(hwndScintilla)));
+			_pScintillaEditView->execute(SCI_SETZOOM, static_cast<WPARAM>(-10), 0);
 			_pScintillaEditView->execute(SCI_SETVSCROLLBAR, FALSE, 0);
 			_pScintillaEditView->execute(SCI_SETHSCROLLBAR, FALSE, 0);
 

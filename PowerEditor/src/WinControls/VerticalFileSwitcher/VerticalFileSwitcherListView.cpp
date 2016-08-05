@@ -146,7 +146,7 @@ void VerticalFileSwitcherListView::initList()
 		ListView_InsertItem(_hSelf, &item);
 		if (isExtColumn)
 		{
-			ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(fileNameStatus._fn.c_str()));
+			ListView_SetItemText(_hSelf, i, 1, ::PathFindExtension(fileNameStatus._fn.c_str()));
 		}
 	}
 	ListView_SetItemState(_hSelf, taskListInfo._currentIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);

@@ -135,7 +135,7 @@ void StatusBar::adjustParts(int clientWidth)
 	}
 
     // Tell the status bar to create the window parts.
-    ::SendMessage(_hSelf, SB_SETPARTS, (WPARAM)_partWidthArray.size(), (LPARAM)_lpParts);
+	::SendMessage(_hSelf, SB_SETPARTS, _partWidthArray.size(), reinterpret_cast<LPARAM>(_lpParts));
 }
 
 
@@ -148,7 +148,7 @@ bool StatusBar::setText(const TCHAR* str, int whichPart)
 		else
 			_lastSetText.clear();
 
-		return (TRUE == ::SendMessage(_hSelf, SB_SETTEXT, whichPart, (LPARAM)_lastSetText.c_str()));
+		return (TRUE == ::SendMessage(_hSelf, SB_SETTEXT, whichPart, reinterpret_cast<LPARAM>(_lastSetText.c_str())));
 	}
 	assert(false and "invalid status bar index");
 	return false;
@@ -162,5 +162,5 @@ bool StatusBar::setOwnerDrawText(const TCHAR* str)
 	else
 		_lastSetText.clear();
 
-	return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, (LPARAM)_lastSetText.c_str()) == TRUE);
+	return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, reinterpret_cast<LPARAM>(_lastSetText.c_str())) == TRUE);
 }

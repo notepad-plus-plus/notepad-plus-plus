@@ -539,7 +539,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			{
 				char userMatchedChar[2] = { '\0', '\0' };
 				userMatchedChar[0] = matchedPairs[i].second;
-				_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
+				_pEditView->execute(SCI_INSERTTEXT, caretPos, reinterpret_cast<LPARAM>(userMatchedChar));
 				return;
 			}
 		}
@@ -559,7 +559,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 				{
 					matchedChars = ")";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -570,7 +570,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 				if (isCharNextBlank || isInSandwich)
 				{
 					matchedChars = "]";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -581,7 +581,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 				if (isCharNextBlank || isInSandwich)
 				{
 					matchedChars = "}";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -591,7 +591,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			{
 				if (!_insertedMatchedChars.isEmpty())
 				{
-					int pos = _insertedMatchedChars.search('"', char(character), caretPos);
+					int pos = _insertedMatchedChars.search('"', static_cast<char>(character), caretPos);
 					if (pos != -1)
 					{
 						_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -606,7 +606,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
 				{
 					matchedChars = "\"";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -615,7 +615,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			{
 				if (!_insertedMatchedChars.isEmpty())
 				{
-					int pos = _insertedMatchedChars.search('\'', char(character), caretPos);
+					int pos = _insertedMatchedChars.search('\'', static_cast<char>(character), caretPos);
 					if (pos != -1)
 					{
 						_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -630,7 +630,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
 				{
 					matchedChars = "'";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -671,7 +671,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					startChar = '{';
 				}
 
-				int pos = _insertedMatchedChars.search(startChar, char(character), caretPos);
+				int pos = _insertedMatchedChars.search(startChar, static_cast<char>(character), caretPos);
 				if (pos != -1)
 				{
 					_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -683,11 +683,11 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 		default:
 			if (!_insertedMatchedChars.isEmpty())
-				_insertedMatchedChars.removeInvalidElements(MatchedCharInserted(char(character), caretPos - 1));
+				_insertedMatchedChars.removeInvalidElements(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 	}
 
 	if (matchedChars)
-		_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)matchedChars);
+		_pEditView->execute(SCI_INSERTTEXT, caretPos, reinterpret_cast<LPARAM>(matchedChars));
 }
 
 

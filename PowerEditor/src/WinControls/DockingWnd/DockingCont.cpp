@@ -240,7 +240,7 @@ tTbData* DockingCont::getDataOfActiveTb()
 		TCITEM	tcItem	= {0};
 
 		tcItem.mask		= TCIF_PARAM;
-		::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		pTbData = (tTbData*)tcItem.lParam;
 	}
 
@@ -257,7 +257,7 @@ vector<tTbData*> DockingCont::getDataOfVisTb()
 
 	for(int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
-		::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		vTbData.push_back((tTbData*)tcItem.lParam);
 	}
 	return vTbData;
@@ -272,7 +272,7 @@ bool DockingCont::isTbVis(tTbData* data)
 
 	for(int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
-		::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		if (!tcItem.lParam)
 			return false;
 		if (((tTbData*)tcItem.lParam) == data)
@@ -747,12 +747,12 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 						// get text of toolbar
 						tcItem.mask		= TCIF_PARAM;
-						::SendMessage(hwnd, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+						::SendMessage(hwnd, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 						if (!tcItem.lParam)
 							return FALSE;
 
 						toolTip.init(_hInst, hwnd);
-						toolTip.Show(rc, ((tTbData*)tcItem.lParam)->pszName, info.pt.x, info.pt.y + 20);
+						toolTip.Show(rc, (reinterpret_cast<tTbData*>(tcItem.lParam))->pszName, info.pt.x, info.pt.y + 20);
 					}
 				}
 
@@ -774,14 +774,14 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
 			info.pt.y = HIWORD(lParam);
-			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
+			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
 			// recalc mouse position
 			::ClientToScreen(hwnd, &info.pt);
 
 			// get text of toolbar
 			tcItem.mask		= TCIF_PARAM;
-			::SendMessage(hwnd, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+			::SendMessage(hwnd, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 			if (!tcItem.lParam)
 				return FALSE;
 
@@ -809,7 +809,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				// get selected sub item
 				info.pt.x = LOWORD(lParam);
 				info.pt.y = HIWORD(lParam);
-				iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
+				iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
 				SelectTab(iItem);
 			}
@@ -832,12 +832,12 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 	// get current selected item
 	tcItem.mask = TCIF_PARAM;
-	::SendMessage(_hContTab, TCM_GETITEM, nTab, (LPARAM)&tcItem);
+	::SendMessage(_hContTab, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tcItem));
 	if (!tcItem.lParam)
 		return;
 
-	const TCHAR *text	= ((tTbData*)tcItem.lParam)->pszName;
-	int		length	= lstrlen(((tTbData*)tcItem.lParam)->pszName);
+	const TCHAR *text = reinterpret_cast<tTbData*>(tcItem.lParam)->pszName;
+	int		length = lstrlen(reinterpret_cast<tTbData*>(tcItem.lParam)->pszName);
 
 
 	// get drawing context
@@ -1247,7 +1247,7 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 		UINT	iItem	= getActiveTb();
 
 		tcItem.mask		= TCIF_PARAM;
-		::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		if (!tcItem.lParam)
 			return;
 		
@@ -1263,13 +1263,13 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 	if (iTabPos == -1)
 	{
 		// set only params and text even if icon available
-		::SendMessage(_hContTab, TCM_INSERTITEM, iItemCnt, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_INSERTITEM, iItemCnt, reinterpret_cast<LPARAM>(&tcItem));
 		SelectTab(iItemCnt);
 	}
 	// if exists select it and update data
 	else
 	{
-		::SendMessage(_hContTab, TCM_SETITEM, iTabPos, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_SETITEM, iTabPos, reinterpret_cast<LPARAM>(&tcItem));
 		SelectTab(iTabPos);
 	}
 
@@ -1385,7 +1385,7 @@ void DockingCont::SelectTab(int iTab)
 				szText += pszMaxTxt;
 			}
 			tcItem.pszText = (TCHAR *)szText.c_str();
-			::SendMessage(_hContTab, TCM_SETITEM, iItem, (LPARAM)&tcItem);
+			::SendMessage(_hContTab, TCM_SETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		}
 
 		// selects the pressed tab and store previous tab
@@ -1412,7 +1412,7 @@ bool DockingCont::updateCaption()
 
 	// get data of new active dialog
 	tcItem.mask		= TCIF_PARAM;
-	::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+	::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 
 	if (!tcItem.lParam) return false;
 
@@ -1447,7 +1447,7 @@ void DockingCont::focusClient()
 	{
 		// get data of new active dialog
 		tcItem.mask		= TCIF_PARAM;
-		::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 
 		// set focus
 		if (!tcItem.lParam)

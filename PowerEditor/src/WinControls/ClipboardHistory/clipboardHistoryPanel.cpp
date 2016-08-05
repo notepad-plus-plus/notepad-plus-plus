@@ -173,7 +173,7 @@ void ClipboardHistoryPanel::addToClipboadHistory(ClipboardData cbd)
 
 	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
 	TCHAR *displayStr = (TCHAR *)sa.getPointer();
-	::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_INSERTSTRING, 0, (LPARAM)displayStr);
+	::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_INSERTSTRING, 0, reinterpret_cast<LPARAM>(displayStr));
 }
 
 
@@ -254,8 +254,8 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 							char *c = new char[nbChar+1];
 							WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), static_cast<int32_t>(ba.getLength()), c, nbChar + 1, NULL, NULL);
 
-							(*_ppEditView)->execute(SCI_REPLACESEL, 0, (LPARAM)"");
-							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), (LPARAM)c);
+							(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), reinterpret_cast<LPARAM>(c));
 							(*_ppEditView)->getFocus();
 							delete [] c;
 						}
@@ -277,13 +277,13 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 		case WM_CTLCOLORLISTBOX:
 		{
 			if (_lbBgColor != -1)
-				return (LRESULT)::CreateSolidBrush((COLORREF)_lbBgColor);
+				return reinterpret_cast<LRESULT>(::CreateSolidBrush(_lbBgColor));
 			break;
 		}
 
 		case WM_DRAWITEM:
 		{
-			drawItem((DRAWITEMSTRUCT *)lParam);
+			drawItem(reinterpret_cast<DRAWITEMSTRUCT *>(lParam));
 			break;
 		}
         default :

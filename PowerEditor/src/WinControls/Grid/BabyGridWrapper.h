@@ -49,7 +49,7 @@ public :
 	};
 
 	void setCursorColour(COLORREF coulour) {
-		::SendMessage(_hSelf, BGM_SETCURSORCOLOR, (WPARAM)coulour, 0);
+		::SendMessage(_hSelf, BGM_SETCURSORCOLOR, coulour, 0);
 	};
 
 	void hideCursor() {
@@ -64,7 +64,7 @@ public :
 		_BGCELL cell;
 		cell.row = int(row);
 		cell.col = int(col);
-		::SendMessage(_hSelf, BGM_SETCELLDATA, (WPARAM)&cell, (LPARAM)text);
+		::SendMessage(_hSelf, BGM_SETCELLDATA, reinterpret_cast<WPARAM>(&cell), reinterpret_cast<LPARAM>(text));
 	};
 
 	void makeColAutoWidth(bool autoWidth = true) {
@@ -79,7 +79,7 @@ public :
 		_BGCELL cell;
 		cell.row = row;
 		cell.col = col;
-		::SendMessage(_hSelf, BGM_DELETECELL, (WPARAM)&cell, 0);
+		::SendMessage(_hSelf, BGM_DELETECELL, reinterpret_cast<WPARAM>(&cell), 0);
 	};
 
 	void setColWidth(unsigned int col, unsigned int width) {
@@ -136,11 +136,11 @@ public :
 	};
 
 	void setHeaderFont(const HFONT & hFont) const {
-		::SendMessage(_hSelf, BGM_SETHEADINGFONT, (WPARAM)hFont, 0);
+		::SendMessage(_hSelf, BGM_SETHEADINGFONT, reinterpret_cast<WPARAM>(hFont), 0);
 	};
 
 	void setRowFont(const HFONT & hFont) const {
-		::SendMessage(_hSelf, WM_SETFONT, (WPARAM)hFont, 0);
+		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), 0);
 	};
 
 	void setHeaderHeight(const size_t headerHeight) const {

@@ -465,7 +465,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				}
 
 				// For File, Folder and Project
-				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0,(LPARAM)(&(tvnotif->item)));
+				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&(tvnotif->item)));
 			}
 			break;
 
@@ -580,7 +580,7 @@ BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 	TVITEM tvItem;
 	tvItem.hItem = hItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
-	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 	// File
 	if (tvItem.iImage == INDEX_LEAF)
@@ -1116,7 +1116,7 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
 			tvItem.hItem = hItemNode;
-			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 			if (linarPathArray[0] == tvItem.pszText)
 			{
@@ -1156,7 +1156,7 @@ HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
 			tvItem.hItem = hItemNode;
-			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 			if (linarPathArray[0] == tvItem.pszText)
 			{
@@ -1360,7 +1360,7 @@ bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> &
 	// case FILE_ACTION_ADDED:
 	// swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
 	// printStr(msg2show);
-	//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
+	//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, reinterpret_cast<LPARAM>(wstrFilename.GetString()));
 	// break;
 
 	// case FILE_ACTION_REMOVED:

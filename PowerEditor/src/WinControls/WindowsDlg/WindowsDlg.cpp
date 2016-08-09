@@ -586,7 +586,7 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 					_idxMap[i] = int(i);
 			}
 			LPARAM lp = invalidate ? LVSICF_NOSCROLL|LVSICF_NOINVALIDATEALL : LVSICF_NOSCROLL;
-			::SendMessage(_hList, LVM_SETITEMCOUNT, (WPARAM)count, lp);
+			::SendMessage(_hList, LVM_SETITEMCOUNT, count, lp);
 			::InvalidateRect(_hList, &_rc, FALSE);
 
 			resetSelection();

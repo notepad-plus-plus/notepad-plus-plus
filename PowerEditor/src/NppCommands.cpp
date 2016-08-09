@@ -296,7 +296,7 @@ void Notepad_plus::command(int id)
 			CloseClipboard();
 
 			if (id == IDM_EDIT_CUT_BINARY)
-				_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)"");
+				_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
 		}
 		break;
 
@@ -333,8 +333,8 @@ void Notepad_plus::command(int id)
 							unsigned long *lpLen = (unsigned long *)GlobalLock(hglbLen);
 							if (lpLen != NULL)
 							{
-								_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)"");
-								_pEditView->execute(SCI_ADDTEXT, *lpLen, (LPARAM)lpchar);
+								_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+								_pEditView->execute(SCI_ADDTEXT, *lpLen, reinterpret_cast<LPARAM>(lpchar));
 
 								GlobalUnlock(hglb);
 							}
@@ -343,7 +343,7 @@ void Notepad_plus::command(int id)
 					else
 					{
 
-						_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)lpchar);
+						_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(lpchar));
 					}
 					GlobalUnlock(hglb);
 				}
@@ -374,7 +374,7 @@ void Notepad_plus::command(int id)
 					// Call the application-defined ReplaceSelection
 					// function to insert the text and repaint the
 					// window.
-					_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)lptstr);
+					_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(lptstr));
 
 					GlobalUnlock(hglb);
 				}
@@ -729,8 +729,8 @@ void Notepad_plus::command(int id)
 				_mainEditView.execute(SCI_STOPRECORD);
 				_subEditView.execute(SCI_STOPRECORD);
 
-				_mainEditView.execute(SCI_SETCURSOR, (WPARAM)SC_CURSORNORMAL);
-				_subEditView.execute(SCI_SETCURSOR, (WPARAM)SC_CURSORNORMAL);
+				_mainEditView.execute(SCI_SETCURSOR, static_cast<WPARAM>(SC_CURSORNORMAL));
+				_subEditView.execute(SCI_SETCURSOR, static_cast<WPARAM>(SC_CURSORNORMAL));
 
 				_recordingMacro = false;
 				_runMacroDlg.initMacroList();
@@ -1215,9 +1215,15 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_SPLIT_LINES:
 			_pEditView->execute(SCI_TARGETFROMSELECTION);
 			if (_pEditView->execute(SCI_GETEDGEMODE) == EDGE_NONE)
+			{
 				_pEditView->execute(SCI_LINESSPLIT);
+			}
 			else
-				_pEditView->execute(SCI_LINESSPLIT, _pEditView->execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM)"P") * _pEditView->execute(SCI_GETEDGECOLUMN));
+			{
+				auto textWidth = _pEditView->execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("P"));
+				auto edgeCol = _pEditView->execute(SCI_GETEDGECOLUMN);
+				_pEditView->execute(SCI_LINESSPLIT, textWidth * edgeCol);
+			}
 			break;
 
 		case IDM_EDIT_JOIN_LINES:
@@ -1501,8 +1507,8 @@ void Notepad_plus::command(int id)
 
 			if (hf)
 			{
-				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
-				::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
+				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+				::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 			}
 
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
@@ -1720,11 +1726,11 @@ void Notepad_plus::command(int id)
 			if (_syncInfo._isSynScollH)
 			{
 				int mxoffset = static_cast<int32_t>(_mainEditView.execute(SCI_GETXOFFSET));
-				int pixel = static_cast<int32_t>(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
+				int pixel = static_cast<int32_t>(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
 				int mainColumn = mxoffset/pixel;
 
 				int sxoffset = static_cast<int32_t>(_subEditView.execute(SCI_GETXOFFSET));
-				pixel = int(_subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
+				pixel = int(_subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
 				int subColumn = sxoffset/pixel;
 				_syncInfo._column = mainColumn - subColumn;
 			}

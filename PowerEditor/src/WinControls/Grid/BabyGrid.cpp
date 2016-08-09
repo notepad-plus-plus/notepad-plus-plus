@@ -433,7 +433,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 	  }
 	 }
 	 else
-	  SendMessage(hWnd,BGM_GETCELLDATA,(WPARAM)&BGcell,(LPARAM)buffer);
+		 SendMessage(hWnd, BGM_GETCELLDATA, reinterpret_cast<WPARAM>(&BGcell), reinterpret_cast<LPARAM>(buffer));
 
 	 rectsave=rect;
 	 DrawEdge(gdc,&rect,EDGE_ETCHED,BF_MIDDLE|BF_RECT|BF_ADJUST);
@@ -476,7 +476,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 else
 		  // iProperty will combine (iDataType << 4) and (iProtection & 0xf), 
 		  // this will reduce some unnecessary and 'heavy' message calls for getting iDataType and iProtection separately
-		  iProperty = static_cast<int32_t>(SendMessage(hWnd, BGM_GETCELLDATA, (WPARAM)&BGcell, (LPARAM)buffer));
+		  iProperty = static_cast<int32_t>(SendMessage(hWnd, BGM_GETCELLDATA, reinterpret_cast<WPARAM>(&BGcell), reinterpret_cast<LPARAM>(buffer)));
 
 		 if(c==0)
 		 {
@@ -487,7 +487,6 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 {
 		  HBRUSH hbrush,holdbrush;
 		  HPEN hpen,holdpen;
-		  //iProtection = static_cast<int32_t>(SendMessage(hWnd, BGM_GETPROTECTION, (WPARAM)&BGcell, 0));
 		  iProtection = iProperty & 0xf;
 		  if(BGHS[SI].DRAWHIGHLIGHT)//highlight on
 			  {
@@ -545,7 +544,6 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 rect.right -= 2;
 		 rect.left += 2;
 
-		 //iDataType = static_cast<int32_t>(SendMessage(hWnd, BGM_GETTYPE, (WPARAM)&BGcell, 0));
 		 iDataType = iProperty >> 4 & 0xf;
          if((iDataType < 1)||(iDataType > 5))
              {
@@ -611,8 +609,8 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 			   WPARAM wParam;
                buffer[0]=0x20;
                BGHS[SI].ownerdrawitem = generic_atoi(buffer);
-							 wParam=MAKEWPARAM((UINT)::GetMenu(hWnd),BGN_OWNERDRAW);
-			   SendMessage(GetParent(hWnd),WM_COMMAND,wParam,(LPARAM)&rect);
+			   wParam=MAKEWPARAM((UINT)::GetMenu(hWnd),BGN_OWNERDRAW);
+			   SendMessage(GetParent(hWnd), WM_COMMAND, wParam, reinterpret_cast<LPARAM>(&rect));
 			 }
 
          if(BGHS[SI].EDITING)
@@ -689,7 +687,7 @@ void DrawCursor(HWND hWnd,int SI)
 void SetCurrentCellStatus(HWND hWnd,int SelfIndex)
     {
        SetCell(&BGcell,BGHS[SelfIndex].cursorrow,BGHS[SelfIndex].cursorcol);
-       if(SendMessage(hWnd,BGM_GETPROTECTION,(WPARAM)&BGcell,0))
+	   if (SendMessage(hWnd, BGM_GETPROTECTION, reinterpret_cast<WPARAM>(&BGcell), 0))
            {
             BGHS[SelfIndex].CURRENTCELLPROTECTED = TRUE;
            }
@@ -1151,7 +1149,7 @@ void CloseEdit(HWND hWnd,int SI)
      c=BGHS[SI].cursorcol;
      cell.row = r;
      cell.col = c;
-     SendMessage(hWnd,BGM_SETCELLDATA,(WPARAM)&cell,(LPARAM)BGHS[SI].editstring);
+	 SendMessage(hWnd, BGM_SETCELLDATA, reinterpret_cast<WPARAM>(&cell), reinterpret_cast<LPARAM>(BGHS[SI].editstring));
      lstrcpy(BGHS[SI].editstring, TEXT(""));
      RefreshGrid(hWnd);
      BGHS[SI].EDITING = FALSE;
@@ -1567,7 +1565,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               if(FindResult != LB_ERR)
                   {
                    //it was found, get the text, modify text delete it from list, add modified to list
-				   SendMessage(BGHS[SelfIndex].hlist1,LB_GETTEXT,FindResult,(LPARAM)buffer);
+					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
 				   if((BOOL)lParam)
 				   {
 					buffer[10] = 'P';
@@ -1576,8 +1574,8 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				   {
 					buffer[10] = 'U';
 				   }
-                   SendMessage(BGHS[SelfIndex].hlist1,LB_DELETESTRING,FindResult,0);
-				   SendMessage(BGHS[SelfIndex].hlist1,LB_ADDSTRING,FindResult,(LPARAM)buffer);
+                   SendMessage(BGHS[SelfIndex].hlist1, LB_DELETESTRING, FindResult, 0);
+				   SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, FindResult, reinterpret_cast<LPARAM>(buffer));
                   }
 			  else
 			  {
@@ -1593,7 +1591,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				   lstrcat(buffer, TEXT("UA"));
 				  }
 				  lstrcat(buffer, TEXT("|"));
-				  SendMessage(BGHS[SelfIndex].hlist1,LB_ADDSTRING,FindResult,(LPARAM)buffer);
+				  SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, FindResult, reinterpret_cast<LPARAM>(buffer));
 			  }
 
 			break;
@@ -1673,7 +1671,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			  lstrcat(buffer, TEXT("|"));
               lstrcat(buffer, (TCHAR*)lParam);
-			  FindResult = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, 0, (LPARAM)buffer));
+			  FindResult = static_cast<int32_t>(SendMessage(BGHS[SelfIndex].hlist1, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(buffer)));
 
               if(FindResult==LB_ERR)
                   {
@@ -1790,7 +1788,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               if(FindResult != LB_ERR)
                   {
                    //it was found, get it
-                   SendMessage(BGHS[SelfIndex].hlist1,LB_GETTEXT,FindResult,(LPARAM)buffer);
+					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
 				   switch (buffer[10]) // no need to call BGM_GETPROTECTION separately for this
 					{
 					 case 'U': ReturnValue = 0; break;
@@ -1946,7 +1944,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               if(FindResult != LB_ERR)
                   {
                    //it was found, get it
-                   SendMessage(BGHS[SelfIndex].hlist1,LB_GETTEXT,FindResult,(LPARAM)buffer);
+					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
 				   switch (buffer[11])
 				   {
 				   case 'A':ReturnValue=1;break;
@@ -1975,7 +1973,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               if(FindResult != LB_ERR)
                   {
                    //it was found, get it
-                   SendMessage(BGHS[SelfIndex].hlist1,LB_GETTEXT,FindResult,(LPARAM)buffer);
+					  SendMessage(BGHS[SelfIndex].hlist1, LB_GETTEXT, FindResult, reinterpret_cast<LPARAM>(buffer));
 				   switch (buffer[10])
 				   {
 				   case 'U':ReturnValue=0;break;
@@ -3151,7 +3149,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                       BGHS[BG_GridIndex].htitlefont = hfonttitle;
                       BGHS[BG_GridIndex].hcolumnheadingfont = hfontheader;
 					  lstrcpy(BGHS[BG_GridIndex].title,lpcs->lpszName);
-                      SendMessage(hWnd,WM_SETTEXT,0,(LPARAM)lpcs->lpszName);
+					  SendMessage(hWnd, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(lpcs->lpszName));
 
 
                   }

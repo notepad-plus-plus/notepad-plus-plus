@@ -42,15 +42,15 @@ void ShortcutMapper::initTabs() {
 	TCITEM tie;
 	tie.mask = TCIF_TEXT;
 	tie.pszText = tabNames[0];
-	::SendMessage(hTab, TCM_INSERTITEM, 0, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&tie));
 	tie.pszText = tabNames[1];
-	::SendMessage(hTab, TCM_INSERTITEM, 1, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 1, reinterpret_cast<LPARAM>(&tie));
 	tie.pszText = tabNames[2];
-	::SendMessage(hTab, TCM_INSERTITEM, 2, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 2, reinterpret_cast<LPARAM>(&tie));
 	tie.pszText = tabNames[3];
-	::SendMessage(hTab, TCM_INSERTITEM, 3, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 3, reinterpret_cast<LPARAM>(&tie));
 	tie.pszText = tabNames[4];
-	::SendMessage(hTab, TCM_INSERTITEM, 4, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 4, reinterpret_cast<LPARAM>(&tie));
 
     TabCtrl_SetCurSel(_hTabCtrl, int(_currentState));
 
@@ -471,7 +471,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								shortcut._isShift = pcsc.getKeyCombo()._isShift;
 								shortcut._key = pcsc.getKeyCombo()._key;
 
-								::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED, cmdID, (LPARAM)&shortcut);
+								::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED, cmdID, reinterpret_cast<LPARAM>(&shortcut));
 								nppParam->setShortcutDirty();
 							}
 							break;

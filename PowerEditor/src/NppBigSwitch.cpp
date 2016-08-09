@@ -84,7 +84,7 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT Message,
 			// then stock it into GWLP_USERDATA index in order to retrieve afterward
 			Notepad_plus_Window *pM30ide = static_cast<Notepad_plus_Window *>((reinterpret_cast<LPCREATESTRUCT>(lParam))->lpCreateParams);
 			pM30ide->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)pM30ide);
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pM30ide));
 			return TRUE;
 		}
 
@@ -134,7 +134,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_NCACTIVATE:
 		{
 			// Note: lParam is -1 to prevent endless loops of calls
-			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, (LPARAM)-1);
+			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, -1);
 			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
 
@@ -927,7 +927,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// get text of current scintilla
 			auto length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
 			char* buffer = new char[length];
-			pSci->execute(SCI_GETTEXT, length, (LPARAM)buffer);
+			pSci->execute(SCI_GETTEXT, length, reinterpret_cast<LPARAM>(buffer));
 
 			// convert here
 			UniMode unicodeMode = pSci->getCurrentBuffer()->getUnicodeMode();
@@ -965,7 +965,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// get text of current scintilla
 			auto length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
 			char* buffer = new char[length];
-			pSci->execute(SCI_GETTEXT, length, (LPARAM)buffer);
+			pSci->execute(SCI_GETTEXT, length, reinterpret_cast<LPARAM>(buffer));
 
 			Utf8_16_Read UnicodeConvertor;
 			length = UnicodeConvertor.convert(buffer, length-1);
@@ -1008,7 +1008,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				nmhdr.hwndFrom = (whichView == MAIN_VIEW)?_mainDocTab.getHSelf():_subDocTab.getHSelf();
 
 				nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
-				::SendMessage(hwnd, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+				::SendMessage(hwnd, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
 			}
 			return TRUE;
 		}

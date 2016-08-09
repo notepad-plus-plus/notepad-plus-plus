@@ -751,7 +751,7 @@ COLORREF getCtrlBgColor(HWND hWnd)
 						HGDIOBJ hOld = SelectObject(hdcMem, hBmp);
 						if (hOld)
 						{
-							if (SendMessage(hWnd,	WM_ERASEBKGND, (WPARAM)hdcMem, 0))
+							if (SendMessage(hWnd, WM_ERASEBKGND, reinterpret_cast<WPARAM>(hdcMem), 0))
 							{
 								crRet = GetPixel(hdcMem, 2, 2); // 0, 0 is usually on the border
 							}

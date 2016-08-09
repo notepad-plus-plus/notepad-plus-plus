@@ -211,8 +211,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						}
 						else
 						{
-							::SendMessage(hWinParent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, (LPARAM)hWin);
-							::SendMessage(hWinParent, WM_COPYDATA, (WPARAM)_pPublicInterface->getHinst(), (LPARAM)&fileNamesData);
+							::SendMessage(hWinParent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, reinterpret_cast<LPARAM>(hWin));
+							::SendMessage(hWinParent, WM_COPYDATA, reinterpret_cast<WPARAM>(_pPublicInterface->getHinst()), reinterpret_cast<LPARAM>(&fileNamesData));
 							if (!isInCtrlStat)
 							{
 								fileClose(bufferToClose, iView);
@@ -557,14 +557,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						// Get entire document.
 						auto length = notifyView->execute(SCI_GETLENGTH);
 						buf = new char[length + 1];
-						notifyView->execute(SCI_GETTEXT, (LPARAM)(length + 1), (WPARAM)buf);
+						notifyView->execute(SCI_GETTEXT, length + 1, reinterpret_cast<LPARAM>(buf));
 					}
 					else
 					{
 						// Get single line.
 						auto length = notifyView->execute(SCI_GETCURLINE);
 						buf = new char[length + 1];
-						notifyView->execute(SCI_GETCURLINE, (WPARAM)length, (LPARAM)buf);
+						notifyView->execute(SCI_GETCURLINE, length, reinterpret_cast<LPARAM>(buf));
 
 						// Compute the position of the click (relative to the beginning of the line).
 						const auto line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
@@ -852,7 +852,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_HOTSPOTDOUBLECLICK:
 		{
-			notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.,:?&@=/%#()");
+			notifyView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.,:?&@=/%#()"));
 
 			auto pos = notifyView->execute(SCI_GETCURRENTPOS);
 			int startPos = static_cast<int>(notifyView->execute(SCI_WORDSTARTPOSITION, pos, false));
@@ -860,7 +860,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			notifyView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
-			int posFound = static_cast<int32_t>(notifyView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR));
+			int posFound = static_cast<int32_t>(notifyView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
 			if (posFound != -2)
 			{
 				if (posFound != -1)
@@ -909,7 +909,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case RBN_CHEVRONPUSHED:
 		{
-			NMREBARCHEVRON * lpnm = (NMREBARCHEVRON*) notification;
+			NMREBARCHEVRON * lpnm = reinterpret_cast<NMREBARCHEVRON *>(notification);
 			ReBar * notifRebar = &_rebarTop;
 			if (_rebarBottom.getHSelf() == lpnm->hdr.hwndFrom)
 				notifRebar = &_rebarBottom;
@@ -931,8 +931,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			rbBand.cbSize = REBARBAND_SIZE;
 
 			rbBand.fMask = RBBIM_CHILD;
-			::SendMessage(notifRebar->getHSelf(), RB_GETBANDINFO, lpnm->uBand, (LPARAM)&rbBand);
-			::SendMessage(rbBand.hwndChild, WM_NOTIFY, 0, (LPARAM)lpnm);
+			::SendMessage(notifRebar->getHSelf(), RB_GETBANDINFO, lpnm->uBand, reinterpret_cast<LPARAM>(&rbBand));
+			::SendMessage(rbBand.hwndChild, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(lpnm));
 			break;
 		}
 

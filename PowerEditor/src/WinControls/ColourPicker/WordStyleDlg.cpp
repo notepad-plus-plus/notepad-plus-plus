@@ -470,11 +470,11 @@ void WordStyleDlg::loadLangListFromNppParam()
 	// Clean up Language List
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_RESETCONTENT, 0, 0);
 
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)TEXT("Global Styles"));
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Global Styles")));
 	// All the lexers
 	for (int i = 0, nb = _lsArray.getNbLexer() ; i < nb ; ++i)
 	{
-		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)_lsArray.getLexerDescFromIndex(i));
+		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(_lsArray.getLexerDescFromIndex(i)));
 	}
 
 	const int index2Begin = 0;
@@ -495,7 +495,7 @@ int WordStyleDlg::whichTabColourIndex()
 	if (i == LB_ERR)
 		return -1;
 	TCHAR styleName[128];
-	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
 
 	if (lstrcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
 		return TabBarPlus::activeFocusedTop;
@@ -541,7 +541,7 @@ void WordStyleDlg::updateFontSize()
 	TCHAR intStr[5];
 	if (iFontSizeSel != 0)
 	{
-		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, (LPARAM)intStr);
+		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, reinterpret_cast<LPARAM>(intStr));
 		if (!intStr[0])
 			style._fontSize = STYLE_NOT_USED;
 		else
@@ -560,7 +560,7 @@ void WordStyleDlg::updateExtension()
 {
 	const int NB_MAX = 256;
 	TCHAR ext[NB_MAX];
-	::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_GETTEXT, NB_MAX, (LPARAM)ext);
+	::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_GETTEXT, NB_MAX, reinterpret_cast<LPARAM>(ext));
 	_lsArray.getLexerFromIndex(_currentLexerIndex - 1).setLexerUserExt(ext);
 }
 
@@ -572,7 +572,7 @@ void WordStyleDlg::updateUserKeywords()
 	auto len = ::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXTLENGTH, 0, 0);
 	len += 1;
 	TCHAR *kw = new TCHAR[len];
-	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, len, (LPARAM)kw);
+	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, len, reinterpret_cast<LPARAM>(kw));
 	style.setKeywords(kw);
 
 	delete [] kw;
@@ -663,7 +663,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 		const TCHAR *langName = _lsArray.getLexerNameFromIndex(index - 1);
 		const TCHAR *ext = NppParameters::getInstance()->getLangExtFromName(langName);
 		const TCHAR *userExt = (_lsArray.getLexerStylerByName(langName))->getLexerUserExt();
-		::SendDlgItemMessage(_hSelf, IDC_DEF_EXT_EDIT, WM_SETTEXT, 0, (LPARAM)(ext));
+		::SendDlgItemMessage(_hSelf, IDC_DEF_EXT_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ext));
 
 		// WM_SETTEXT cause sending WM_COMMAND message with EN_CHANGE.
 		// That makes status dirty, even it shouldn't in this case.
@@ -671,7 +671,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 		// then restore the status after sending this message.
 		bool isDirty = _isDirty;
 		bool isThemeDirty = _isThemeDirty;
-		::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_SETTEXT, 0, (LPARAM)(userExt));
+		::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(userExt));
 		_isDirty = isDirty;
 		_isThemeDirty = isThemeDirty;
 		::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), isDirty || isThemeDirty);
@@ -687,7 +687,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 	for (int i = 0, nb = lexerStyler.getNbStyler(); i < nb ; ++i)
 	{
 		Style & style = lexerStyler.getStyler(i);
-		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, (LPARAM)style._styleDesc);
+		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(style._styleDesc));
 	}
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_SETCURSEL, 0, 0);
 	setVisualFromStyleList();
@@ -716,13 +716,13 @@ void WordStyleDlg::setVisualFromStyleList()
 	auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return;
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXT, i, (LPARAM)str);
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(str));
 
 	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return;
 	TCHAR styleName[64];
-	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, reinterpret_cast<LPARAM>(styleName));
 
 	lstrcat(lstrcat(str, TEXT(" : ")), styleName);
 
@@ -755,7 +755,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	LRESULT iFontName;
 	if (style._fontName != NULL)
 	{
-		iFontName = ::SendMessage(_hFontNameCombo, CB_FINDSTRING, 1, (LPARAM)style._fontName);
+		iFontName = ::SendMessage(_hFontNameCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(style._fontName));
 		if (iFontName == CB_ERR)
 			iFontName = 0;
 		isEnable = true;
@@ -774,7 +774,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (style._fontSize != STYLE_NOT_USED)
 	{
 		wsprintf(intStr, TEXT("%d"), style._fontSize);
-		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, (LPARAM)intStr);
+		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, reinterpret_cast<LPARAM>(intStr));
 		isEnable = true;
 	}
 	::SendMessage(_hFontSizeCombo, CB_SETCURSEL, iFontSize, 0);
@@ -819,10 +819,10 @@ void WordStyleDlg::setVisualFromStyleList()
 		const TCHAR *kws = pNppParams->getWordList(lType, style._keywordClass);
 		if (!kws)
 			kws = TEXT("");
-		::SendDlgItemMessage(_hSelf, IDC_DEF_KEYWORDS_EDIT, WM_SETTEXT, 0, (LPARAM)(kws));
+		::SendDlgItemMessage(_hSelf, IDC_DEF_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(kws));
 
 		const TCHAR *ckwStr = (style._keywords)?style._keywords->c_str():TEXT("");
-		::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_SETTEXT, 0, (LPARAM)(ckwStr));
+		::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ckwStr));
 	}
 
 	int showOption = shouldBeDisplayed?SW_SHOW:SW_HIDE;

@@ -656,7 +656,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
 			info.pt.y = HIWORD(lParam);
-			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
+			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
 			SelectTab(iItem);
 			_beginDrag = FALSE;
@@ -676,13 +676,13 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
 			info.pt.y = HIWORD(lParam);
-			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
+			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
 			SelectTab(iItem);
 
 			// get data and hide toolbar
 			tcItem.mask		= TCIF_PARAM;
-			::SendMessage(hwnd, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+			::SendMessage(hwnd, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 
 			if (!tcItem.lParam)
 				return FALSE;
@@ -703,7 +703,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			// get selected sub item
 			info.pt.x = LOWORD(lParam);
 			info.pt.y = HIWORD(lParam);
-			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, (LPARAM)&info));
+			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
 			if ((_beginDrag == TRUE) && (wParam == MK_LBUTTON))
 			{
@@ -870,7 +870,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (((tTbData*)tcItem.lParam)->uMask & DWS_ICONTAB)
 	{
 		HIMAGELIST	hImageList	= (HIMAGELIST)::SendMessage(_hParent, DMM_GETIMAGELIST, 0, 0);
-		int iPosImage = static_cast<int32_t>(::SendMessage(_hParent, DMM_GETICONPOS, 0, (LPARAM)((tTbData*)tcItem.lParam)->hClient));
+		int iPosImage = static_cast<int32_t>(::SendMessage(_hParent, DMM_GETICONPOS, 0, reinterpret_cast<LPARAM>(reinterpret_cast<tTbData*>(tcItem.lParam)->hClient)));
 
 		if ((hImageList != NULL) && (iPosImage >= 0))
 		{
@@ -927,12 +927,12 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			_hCaption = ::GetDlgItem(_hSelf, IDC_BTN_CAPTION);
 
 			// intial subclassing of caption
-			::SetWindowLongPtr(_hCaption, GWLP_USERDATA, (LONG_PTR)this);
-			_hDefaultCaptionProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hCaption, GWLP_WNDPROC, (LONG_PTR)wndCaptionProc));
+			::SetWindowLongPtr(_hCaption, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+			_hDefaultCaptionProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hCaption, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(wndCaptionProc)));
 
 			// intial subclassing of tab
-			::SetWindowLongPtr(_hContTab, GWLP_USERDATA, (LONG_PTR)this);
-			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWLP_WNDPROC, (LONG_PTR)wndTabProc));
+			::SetWindowLongPtr(_hContTab, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(wndTabProc)));
 
 			// set min tab width
 			int tabDpiDynamicalMinWidth = NppParameters::getInstance()->_dpiManager.scaleY(24);
@@ -949,9 +949,9 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 		case WM_DRAWITEM :
 		{
 			// draw tab or caption
-			if (((DRAWITEMSTRUCT *)lParam)->CtlID == IDC_TAB_CONT)
+			if (reinterpret_cast<DRAWITEMSTRUCT *>(lParam)->CtlID == IDC_TAB_CONT)
 			{
-				drawTabItem((DRAWITEMSTRUCT *)lParam);
+				drawTabItem(reinterpret_cast<DRAWITEMSTRUCT *>(lParam));
 				return TRUE;
 			}
 			else
@@ -1117,7 +1117,7 @@ void DockingCont::onSize()
 		for (size_t iItem = 0; iItem < iItemCnt; ++iItem)
 		{
 			tcItem.mask		= TCIF_PARAM;
-			::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+			::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 			if (!tcItem.lParam)
 				continue;
 
@@ -1130,7 +1130,7 @@ void DockingCont::onSize()
 			nmhdr.code		= DMN_FLOATDROPPED;
 			nmhdr.hwndFrom	= _hSelf;
 			nmhdr.idFrom	= 0;
-			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
 			
 		}
 	}
@@ -1148,7 +1148,7 @@ void DockingCont::doClose()
 		// get item data
 		SelectTab(iItemOff);
 		tcItem.mask	= TCIF_PARAM;
-		::SendMessage(_hContTab, TCM_GETITEM, iItemOff, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_GETITEM, iItemOff, reinterpret_cast<LPARAM>(&tcItem));
 		if (!tcItem.lParam)
 			continue;
 
@@ -1258,7 +1258,7 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 	// create new tab if it not exists
 	int iTabPos = SearchPosInTab(pTbData);
 	tcItem.mask			= TCIF_PARAM;
-	tcItem.lParam		= (LPARAM)pTbData;
+	tcItem.lParam = reinterpret_cast<LPARAM>(pTbData);
 
 	if (iTabPos == -1)
 	{
@@ -1293,7 +1293,7 @@ int DockingCont::SearchPosInTab(tTbData* pTbData)
 
 	for (int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
-		::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 		if (!tcItem.lParam)
 			continue;
 
@@ -1315,7 +1315,7 @@ void DockingCont::SelectTab(int iTab)
 
 		// get data of new active dialog
 		tcItem.mask		= TCIF_PARAM;
-		::SendMessage(_hContTab, TCM_GETITEM, iTab, (LPARAM)&tcItem);
+		::SendMessage(_hContTab, TCM_GETITEM, iTab, reinterpret_cast<LPARAM>(&tcItem));
 		// show active dialog
 		if (!tcItem.lParam)
 			return;
@@ -1328,12 +1328,12 @@ void DockingCont::SelectTab(int iTab)
 		nmhdr.code		= DMN_SWITCHIN;
 		nmhdr.hwndFrom	= _hSelf;
 		nmhdr.idFrom	= 0;
-		::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+		::SendMessage(reinterpret_cast<tTbData*>(tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
 
 		if (static_cast<unsigned int>(iTab) != _prevItem)
 		{
 			// hide previous dialog
-			::SendMessage(_hContTab, TCM_GETITEM, _prevItem, (LPARAM)&tcItem);
+			::SendMessage(_hContTab, TCM_GETITEM, _prevItem, reinterpret_cast<LPARAM>(&tcItem));
 
 			if (!tcItem.lParam)
 				return;
@@ -1344,7 +1344,7 @@ void DockingCont::SelectTab(int iTab)
 			nmhdr.code		= DMN_SWITCHOFF;
 			nmhdr.hwndFrom	= _hSelf;
 			nmhdr.idFrom	= 0;
-			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
 		}
 
 		// resize tab item
@@ -1357,10 +1357,10 @@ void DockingCont::SelectTab(int iTab)
 		{
 			const TCHAR *pszTabTxt = NULL;
 
-			::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+			::SendMessage(_hContTab, TCM_GETITEM, iItem, reinterpret_cast<LPARAM>(&tcItem));
 			if (!tcItem.lParam)
 				continue;
-			pszTabTxt = ((tTbData*)tcItem.lParam)->pszName;
+			pszTabTxt = reinterpret_cast<tTbData*>(tcItem.lParam)->pszName;
 
 			// get current font width
 			GetTextExtentPoint32(hDc, pszTabTxt, lstrlen(pszTabTxt), &size);

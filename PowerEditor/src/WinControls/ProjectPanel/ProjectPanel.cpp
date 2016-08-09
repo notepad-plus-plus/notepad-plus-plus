@@ -77,8 +77,8 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
 			tbButtons[1].iString = (INT_PTR)edit_entry.c_str();
 
-			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
-			SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
+			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
+			SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
 			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 
@@ -403,7 +403,7 @@ bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
         tvProj = _treeView.getNextSibling(tvProj))
     {        
         tvItem.hItem = tvProj;
-        SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
         //printStr(tvItem.pszText);
 
 		TiXmlNode *projRoot = root->InsertEndChild(TiXmlElement(TEXT("Project")));
@@ -427,7 +427,7 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
 		tvItem.hItem = hItemNode;
-		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 		if (tvItem.lParam != NULL)
 		{
 			generic_string *fn = (generic_string *)tvItem.lParam;
@@ -505,7 +505,7 @@ void ProjectPanel::openSelectFile()
 	TVITEM tvItem;
 	tvItem.mask = TVIF_PARAM;
 	tvItem.hItem = _treeView.getSelection();
-	::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+	::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 	NodeType nType = getNodeType(tvItem.hItem);
 	generic_string *fn = (generic_string *)tvItem.lParam;
@@ -514,7 +514,7 @@ void ProjectPanel::openSelectFile()
 		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
 		if (::PathFileExists(fn->c_str()))
 		{
-			::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fn->c_str()));
+			::SendMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fn->c_str()));
 			tvItem.iImage = INDEX_LEAF;
 			tvItem.iSelectedImage = INDEX_LEAF;
 		}
@@ -559,7 +559,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 				{
 					// Get the old label
 					tvItem.hItem = _treeView.getSelection();
-					::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+					::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 					size_t len = lstrlen(tvItem.pszText);
 
 					// Find the position of old label in File path
@@ -586,7 +586,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 				}
 
 				// For File, Folder and Project
-				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0,(LPARAM)(&(tvnotif->item)));
+				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&(tvnotif->item)));
 				setWorkSpaceDirty(true);
 			}
 			break;
@@ -613,8 +613,6 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 			case TVN_KEYDOWN:
 			{
-				//tvItem.hItem = _treeView.getSelection();
-				//::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
 				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
 				
 				if (ptvkd->wVKey == VK_DELETE)
@@ -698,7 +696,7 @@ NodeType ProjectPanel::getNodeType(HTREEITEM hItem)
 	TVITEM tvItem;
 	tvItem.hItem = hItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
-	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 	// Root
 	if (tvItem.iImage == INDEX_CLEAN_ROOT || tvItem.iImage == INDEX_DIRTY_ROOT)
@@ -758,7 +756,7 @@ POINT ProjectPanel::getMenuDisplayPoint(int iButton)
 {
 	POINT p;
 	RECT btnRect;
-	SendMessage(_hToolbarMenu, TB_GETITEMRECT, iButton, (LPARAM)&btnRect);
+	SendMessage(_hToolbarMenu, TB_GETITEMRECT, iButton, reinterpret_cast<LPARAM>(&btnRect));
 
 	p.x = btnRect.left;
 	p.y = btnRect.top + btnRect.bottom;
@@ -1018,7 +1016,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
 			
-			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 			if (!tvItem.lParam)
 				return;
 			generic_string * fn = (generic_string *)tvItem.lParam;
@@ -1034,7 +1032,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				lstrcpy(textBuffer, strValueLabel);
 				int iImage = ::PathFileExists(fn->c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
 				tvItem.iImage = tvItem.iSelectedImage = iImage;
-				SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0,(LPARAM)&tvItem);
+				SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 				setWorkSpaceDirty(true);
 			}
 		}

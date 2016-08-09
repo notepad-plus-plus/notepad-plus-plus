@@ -43,7 +43,7 @@ int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSo
 
 	LVCOLUMN lvc;
 	lvc.mask = LVCF_FMT;
-	::SendMessage(pnmListView->hdr.hwndFrom, LVM_GETCOLUMN, (WPARAM)pnmListView->iSubItem, (LPARAM)&lvc);
+	::SendMessage(pnmListView->hdr.hwndFrom, LVM_GETCOLUMN, pnmListView->iSubItem, reinterpret_cast<LPARAM>(&lvc));
 	bool isDirectionUp = (HDF_SORTUP & lvc.fmt) != 0;
 
 	int result = lstrcmp(str1, str2);
@@ -128,7 +128,7 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 					nmhdr.code = NM_RCLICK;
 					nmhdr.hwndFrom = _hSelf;
 					nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
-					::SendMessage(_hParent, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+					::SendMessage(_hParent, WM_NOTIFY, nmhdr.idFrom, reinterpret_cast<LPARAM>(&nmhdr));
 					return TRUE;
 				}
 
@@ -147,7 +147,7 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 				{
 					LPNMLISTVIEW pnmLV = (LPNMLISTVIEW)lParam;
 					setHeaderOrder(pnmLV);
-					ListView_SortItemsEx(pnmLV->hdr.hwndFrom, ListViewCompareProc,(LPARAM)pnmLV);
+					ListView_SortItemsEx(pnmLV->hdr.hwndFrom, ListViewCompareProc, reinterpret_cast<LPARAM>(pnmLV));
 					return TRUE;
 				}
 				case LVN_KEYDOWN:
@@ -213,7 +213,7 @@ void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 	if (bufferID == currentBufID && view == currentView)
 		return;
 	
-	int docPosInfo = static_cast<int32_t>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, (WPARAM)bufferID, view));
+	int docPosInfo = static_cast<int32_t>(::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, reinterpret_cast<WPARAM>(bufferID), view));
 	int view2set = docPosInfo >> 30;
 	int index2Switch = (docPosInfo << 2) >> 2 ;
 
@@ -229,12 +229,12 @@ int VerticalFileSwitcher::setHeaderOrder(LPNMLISTVIEW pnm_list_view)
 
 	lvc.mask = LVCF_FMT;
 	hListView = pnm_list_view->hdr.hwndFrom;
-	SendMessage(hListView, LVM_GETCOLUMN, (WPARAM)index, (LPARAM)&lvc);
+	SendMessage(hListView, LVM_GETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
 	if(HDF_SORTUP & lvc.fmt)
 	{
 		//set the opposite arrow
 		lvc.fmt = lvc.fmt & (~HDF_SORTUP) | HDF_SORTDOWN; //turns off sort-up, turns on sort-down
-		SendMessage(hListView, LVM_SETCOLUMN, (WPARAM) index, (LPARAM) &lvc);
+		SendMessage(hListView, LVM_SETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
 		//use any sorting you would use, e.g. the LVM_SORTITEMS message
 		return SORT_DIRECTION_DOWN;
 	}
@@ -243,7 +243,7 @@ int VerticalFileSwitcher::setHeaderOrder(LPNMLISTVIEW pnm_list_view)
     {
 		//the opposite
 		lvc.fmt = lvc.fmt & (~HDF_SORTDOWN) | HDF_SORTUP;
-		SendMessage(hListView, LVM_SETCOLUMN, (WPARAM) index, (LPARAM) &lvc);
+		SendMessage(hListView, LVM_SETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
 		return SORT_DIRECTION_UP;
     }
   
@@ -254,17 +254,17 @@ int VerticalFileSwitcher::setHeaderOrder(LPNMLISTVIEW pnm_list_view)
 	for (q = 0; q < cols; ++q)
 	{
 		//Get current fmt
-		SendMessage(hListView,LVM_GETCOLUMN,(WPARAM) q, (LPARAM) &lvc);
+		SendMessage(hListView, LVM_GETCOLUMN, q, reinterpret_cast<LPARAM>(&lvc));
 		//remove both sort-up and sort-down
 		lvc.fmt = lvc.fmt & (~HDF_SORTUP) & (~HDF_SORTDOWN);
-		SendMessage(hListView,LVM_SETCOLUMN,(WPARAM) q, (LPARAM) &lvc);
+		SendMessage(hListView, LVM_SETCOLUMN, q, reinterpret_cast<LPARAM>(&lvc));
 	}
 	
 	//read current fmt from clicked column
-	SendMessage(hListView,LVM_GETCOLUMN,(WPARAM) index, (LPARAM) &lvc);
+	SendMessage(hListView, LVM_GETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
 	// then set whichever arrow you feel like and send LVM_SETCOLUMN to this particular column
 	lvc.fmt = lvc.fmt | HDF_SORTUP;
-	SendMessage(hListView, LVM_SETCOLUMN, (WPARAM) index, (LPARAM) &lvc);
+	SendMessage(hListView, LVM_SETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
 
 	return SORT_DIRECTION_UP;
 }

@@ -63,7 +63,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
 	}
 
-	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
+	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
@@ -79,15 +79,15 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 	generic_string charStr = pNativeSpeaker->getAttrNameStr(TEXT("Character"), "AsciiInsertion", "ColumnChar");
 
 	lvColumn.cx = NppParameters::getInstance()->_dpiManager.scaleX(45);
-	lvColumn.pszText = (TCHAR *)valStr.c_str();
+	lvColumn.pszText = const_cast<TCHAR *>(valStr.c_str());
 	ListView_InsertColumn(_hSelf, 0, &lvColumn);
 
 	lvColumn.cx = NppParameters::getInstance()->_dpiManager.scaleY(45);;
-	lvColumn.pszText = (TCHAR *)hexStr.c_str();
+	lvColumn.pszText = const_cast<TCHAR *>(hexStr.c_str());
 	ListView_InsertColumn(_hSelf, 1, &lvColumn);
 
 	lvColumn.cx = NppParameters::getInstance()->_dpiManager.scaleY(70);;
-	lvColumn.pszText = (TCHAR *)charStr.c_str();
+	lvColumn.pszText = const_cast<TCHAR *>(charStr.c_str());
 	ListView_InsertColumn(_hSelf, 2, &lvColumn);
 }
 

@@ -54,20 +54,18 @@ void ShortcutMapper::initTabs() {
 
     TabCtrl_SetCurSel(_hTabCtrl, int(_currentState));
 
-	//force alignment to babygrid on higher dpi
-	if (NppParameters::getInstance()->_dpiManager.scaleY(30) > 30)
-	{
-		WINDOWPLACEMENT wp;
-		wp.length = sizeof(wp);
+	// force alignment to babygrid
+	RECT rcTab;
+	WINDOWPLACEMENT wp;
+	wp.length = sizeof(wp);
 
-		::GetWindowPlacement(hTab, &wp);
+	::GetWindowPlacement(hTab, &wp);
+	::SendMessage(hTab, TCM_GETITEMRECT, 0, reinterpret_cast<LPARAM>(&rcTab));
 
-		const int offset = NppParameters::getInstance()->_dpiManager.scaleY(30) - wp.rcNormalPosition.bottom;
-		wp.rcNormalPosition.bottom += offset;
-		wp.rcNormalPosition.top += offset + 1;
+	wp.rcNormalPosition.bottom = NppParameters::getInstance()->_dpiManager.scaleY(30);
+	wp.rcNormalPosition.top = wp.rcNormalPosition.bottom - rcTab.bottom;
 
-		::SetWindowPlacement(hTab, &wp);
-	}
+	::SetWindowPlacement(hTab, &wp);
 }
 
 void ShortcutMapper::getClientRect(RECT & rc) const 

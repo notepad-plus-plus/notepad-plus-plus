@@ -811,12 +811,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			if (lParam != 0)
 			{
-				for (int idx = 0; idx < (int)tli->_tlfsLst.size(); ++idx)
+				for (size_t idx = 0; idx < tli->_tlfsLst.size(); ++idx)
 				{
 					if (tli->_tlfsLst[idx]._iView == currentView() &&
 						tli->_tlfsLst[idx]._docIndex == _pDocTab->getCurrentTabIndex())
 					{
-						tli->_currentIndex = idx;
+						tli->_currentIndex = static_cast<int>(idx);
 						break;
 					}
 				}
@@ -830,12 +830,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			else
 			{
-				for (int idx = 0; idx < (int)tli->_tlfsLst.size(); ++idx)
+				for (size_t idx = 0; idx < tli->_tlfsLst.size(); ++idx)
 				{
-					if(tli->_tlfsLst[idx]._iView == currentView() &&
-					   tli->_tlfsLst[idx]._docIndex == _pDocTab->getCurrentTabIndex())
+					if (tli->_tlfsLst[idx]._iView == currentView() &&
+					    tli->_tlfsLst[idx]._docIndex == _pDocTab->getCurrentTabIndex())
 					{
-						tli->_currentIndex = idx;
+						tli->_currentIndex = static_cast<int>(idx);
 						break;
 					}
 				}
@@ -1882,7 +1882,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_SETMENUITEMCHECK:
 		{
 			::CheckMenuItem(_mainMenuHandle, static_cast<UINT>(wParam), MF_BYCOMMAND | (static_cast<BOOL>(lParam) ? MF_CHECKED : MF_UNCHECKED));
-			_toolBar.setCheck((int)wParam, bool(lParam != 0));
+			_toolBar.setCheck(static_cast<int>(wParam), lParam != 0);
 			return TRUE;
 		}
 
@@ -2202,7 +2202,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_INITMENUPOPUP:
 		{
-			_windowsMenu.initPopupMenu((HMENU)wParam, _pDocTab);
+			_windowsMenu.initPopupMenu(reinterpret_cast<HMENU>(wParam), _pDocTab);
 			return TRUE;
 		}
 

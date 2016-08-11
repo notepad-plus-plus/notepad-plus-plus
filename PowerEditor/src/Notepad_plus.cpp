@@ -2448,7 +2448,7 @@ int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char target
 		int balance = 0;
 		for (int i = int(startPos); i >= int(endPos); --i)
 		{
-			char aChar = (char)_pEditView->execute(SCI_GETCHARAT, i);
+			char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, i));
 			if (aChar == targetSymbol)
 			{
 				if (balance == 0)
@@ -2892,7 +2892,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 					size_t endpos = _pEditView->execute(SCI_GETLINESELENDPOSITION, j);
 					for (size_t pos = stpos; pos < endpos; ++pos)
 					{
-						unsigned char c = 0xf0 & (unsigned char)_pEditView->execute(SCI_GETCHARAT, pos);
+						unsigned char c = 0xf0 & static_cast<unsigned char>(_pEditView->execute(SCI_GETCHARAT, pos));
 						if (c >= 0xc0)
 							pos += utflen[(c & 0x30) >>  4];
 						++result;

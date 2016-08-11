@@ -61,7 +61,7 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					if (i == -1)
 						return TRUE;
 
-					insertChar((unsigned char)i);
+					insertChar(static_cast<unsigned char>(i));
 					return TRUE;
 				}
 
@@ -76,7 +76,7 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 							if (i == -1)
 								return TRUE;
 
-							insertChar((unsigned char)i);
+							insertChar(static_cast<unsigned char>(i));
 							return TRUE;
 						}
 						default:

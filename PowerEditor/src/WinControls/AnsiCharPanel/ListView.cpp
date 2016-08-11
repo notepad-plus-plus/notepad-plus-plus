@@ -55,9 +55,9 @@ void ListView::init(HINSTANCE hInst, HWND parent)
                                 0,
                                 0,
                                 _hParent,
-                                (HMENU) NULL,
+                                nullptr,
                                 hInst,
-                                NULL);
+                                nullptr);
 	if (!_hSelf)
 	{
 		throw std::runtime_error("ListView::init : CreateWindowEx() function return null");
@@ -205,10 +205,10 @@ void ListView::setValues(int codepage)
 		item.iSubItem = 0;
 		ListView_InsertItem(_hSelf, &item);
 
-		ListView_SetItemText(_hSelf, i, 1, (LPTSTR)hex);
+		ListView_SetItemText(_hSelf, i, 1, hex);
 
-		generic_string s = getAscii((unsigned char)i);
-		ListView_SetItemText(_hSelf, i, 2, (LPTSTR)s.c_str());
+		generic_string s = getAscii(static_cast<unsigned char>(i));
+		ListView_SetItemText(_hSelf, i, 2, const_cast<LPTSTR>(s.c_str()));
 	}
 }
 

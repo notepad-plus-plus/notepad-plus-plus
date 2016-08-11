@@ -370,8 +370,8 @@ bool AutoCompletion::showFunctionComplete()
 
 void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos, bool isHTML)
 {
-	char prev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 2);
-	char prevprev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 3);
+	char prev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 2));
+	char prevprev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 3));
 
 	// Closing a tag (i.e. "-->") will be ignored
 	if (prevprev == '-' && prev == '-')
@@ -484,7 +484,7 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 
 					for (int j = posToDetect; j <= endPos; ++j)
 					{
-						char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
+						char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, j));
 
 						if (aChar != ' ') // non space is not allowed
 						{
@@ -522,8 +522,8 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	int caretPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 	char *matchedChars = NULL;
 
-	char charPrev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 2);
-	char charNext = (char)_pEditView->execute(SCI_GETCHARAT, caretPos);
+	char charPrev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 2));
+	char charNext = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos));
 
 	bool isCharPrevBlank = (charPrev == ' ' || charPrev == '\t' || charPrev == '\n' || charPrev == '\r' || charPrev == '\0');
 	int docLen = _pEditView->getCurrentDocLen();

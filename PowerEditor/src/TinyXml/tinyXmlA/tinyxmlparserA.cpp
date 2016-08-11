@@ -175,7 +175,7 @@ const char* TiXmlBaseA::SkipWhiteSpace( const char* p )
 		int c = in->peek();
 		if ( !IsWhiteSpace( c ) )
 			return true;
-		*tag += (char)in->get();
+		*tag += static_cast<char>(in->get());
 	}
 }
 
@@ -188,7 +188,7 @@ const char* TiXmlBaseA::SkipWhiteSpace( const char* p )
 			return true;
 
 		in->get();
-		*tag += (char)c;
+		*tag += static_cast<char>(c);
 	}
 	return false;
 }
@@ -204,7 +204,7 @@ const char* TiXmlBaseA::ReadName( const char* p, TIXMLA_STRING * name )
 	// hyphens, or colons. (Colons are valid ony for namespaces,
 	// but tinyxml can't tell namespaces from names.)
 	if (    p && *p 
-		 && ( isalpha( (unsigned char) *p ) || *p == '_' ) )
+		&& (isalpha(static_cast<unsigned char>(*p)) || *p == '_'))
 	{
 		while(		p && *p
 				&&	(		isalnum( (unsigned char ) *p ) 
@@ -240,22 +240,22 @@ const char* TiXmlBaseA::GetEntity( const char* p, char* value )
 		{
 			// Short, one value entity.
 			if ( isalpha( *(p+3) ) ) 
-				*value += ( (char)tolower( *(p+3) ) - 'a' + 10 );
+				*value += (static_cast<char>(tolower(*(p + 3))) - 'a' + 10);
 			else				     
-				*value += ( (char)*(p+3) - '0' );
+				*value += (static_cast<char>(*(p + 3)) - '0');
 
 			return p+5;
 		}
 		else
 		{
 			// two value entity
-			if ( isalpha( *(p+3) ) ) *value += ((char) tolower( *(p+3) ) - 'a' + 10 ) * 16;
-			else				     *value += ((char) *(p+3) - '0' ) * 16;
+			if (isalpha(*(p + 3))) *value += (static_cast<char>(tolower(*(p + 3))) - 'a' + 10) * 16;
+			else				     *value += (static_cast<char>(*(p + 3)) - '0') * 16;
 
 			if ( isalpha( *(p+4) ) ) 
-				*value += ((char) tolower( *(p+4) ) - 'a' + 10 );
+				*value += (static_cast<char>(tolower(*(p + 4))) - 'a' + 10);
 			else				     
-				*value += ((char) *(p+4) - '0' );
+				*value += (static_cast<char>(*(p + 4)) - '0');
 
 			return p+6;
 		}
@@ -403,7 +403,7 @@ void TiXmlDocumentA::StreamIn( TIXMLA_ISTREAM * in, TIXMLA_STRING * tag )
 		while ( in->good() && in->peek() != '>' )
 		{
 			int c = in->get();
-			(*tag) += (char) c;
+			(*tag) += static_cast<char>(c);
 		}
 
 		if ( in->good() )
@@ -597,7 +597,7 @@ void TiXmlElementA::StreamIn (TIXMLA_ISTREAM * in, TIXMLA_STRING * tag)
 	while( in->good() )
 	{
 		int c = in->get();
-		(*tag) += (char) c ;
+		(*tag) += static_cast<char>(c);
 		
 		if ( c == '>' )
 			break;
@@ -655,7 +655,7 @@ void TiXmlElementA::StreamIn (TIXMLA_ISTREAM * in, TIXMLA_STRING * tag)
 				if ( c == '>' )
 					break;
 
-				*tag += (char)c;
+				*tag += static_cast<char>(c);
 				in->get();
 
 				if ( !firstCharFound && c != '<' && !IsWhiteSpace( c ) )
@@ -671,7 +671,7 @@ void TiXmlElementA::StreamIn (TIXMLA_ISTREAM * in, TIXMLA_STRING * tag)
 			{
 				int c = in->get();
 				assert( c == '>' );
-				*tag += (char)c;
+				*tag += static_cast<char>(c);
 
 				// We are done, once we've found our closing tag.
 				return;
@@ -880,7 +880,7 @@ void TiXmlUnknownA::StreamIn( TIXMLA_ISTREAM * in, TIXMLA_STRING * tag )
 	while ( in->good() )
 	{
 		int c = in->get();	
-		(*tag) += (char)c;
+		(*tag) += static_cast<char>(c);
 
 		if ( c == '>' )
 		{
@@ -932,7 +932,7 @@ void TiXmlCommentA::StreamIn( TIXMLA_ISTREAM * in, TIXMLA_STRING * tag )
 	while ( in->good() )
 	{
 		int c = in->get();	
-		(*tag) += (char)c;
+		(*tag) += static_cast<char>(c);
 
 		if ( c == '>' 
 			 && tag->at( tag->length() - 2 ) == '-'
@@ -1051,7 +1051,7 @@ void TiXmlTextA::StreamIn( TIXMLA_ISTREAM * in, TIXMLA_STRING * tag )
 		if ( c == '<' )
 			return;
 
-		(*tag) += (char)c;
+		(*tag) += static_cast<char>(c);
 		in->get();
 	}
 }
@@ -1081,7 +1081,7 @@ void TiXmlDeclarationA::StreamIn( TIXMLA_ISTREAM * in, TIXMLA_STRING * tag )
 	while ( in->good() )
 	{
 		int c = in->get();
-		(*tag) += (char)c;
+		(*tag) += static_cast<char>(c);
 
 		if ( c == '>' )
 		{

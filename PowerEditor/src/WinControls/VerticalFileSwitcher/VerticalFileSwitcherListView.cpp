@@ -58,9 +58,9 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
                                 0,
                                 0,
                                 _hParent,
-                                (HMENU) NULL,
+                                nullptr,
                                 hInst,
-                                NULL);
+                                nullptr);
 	if (!_hSelf)
 	{
 		throw std::runtime_error("VerticalFileSwitcherListView::init : CreateWindowEx() function return null");
@@ -112,10 +112,8 @@ void VerticalFileSwitcherListView::initList()
 
 	generic_string nameStr = pNativeSpeaker->getAttrNameStr(TEXT("Name"), FS_ROOTNODE, FS_CLMNNAME);
 	
-	//insertColumn(nameStr.c_str(), 150, 0);
 	insertColumn(nameStr.c_str(), (isExtColumn ? totalWidth - 50 : totalWidth), 0);
 
-	//bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
 		generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);

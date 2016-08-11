@@ -589,11 +589,11 @@ generic_string intToString(int val)
 	// can't use abs here because std::numeric_limits<int>::min() has no positive representation
 	//val = std::abs(val);
 
-	vt.push_back('0' + (TCHAR)(std::abs(val % 10)));
+	vt.push_back('0' + static_cast<TCHAR>(std::abs(val % 10)));
 	val /= 10;
 	while (val != 0)
 	{
-		vt.push_back('0' + (TCHAR)(std::abs(val % 10)));
+		vt.push_back('0' + static_cast<TCHAR>(std::abs(val % 10)));
 		val /= 10;
 	}
 
@@ -608,11 +608,11 @@ generic_string uintToString(unsigned int val)
 {
 	std::vector<TCHAR> vt;
 
-	vt.push_back('0' + (TCHAR)(val % 10));
+	vt.push_back('0' + static_cast<TCHAR>(val % 10));
 	val /= 10;
 	while (val != 0)
 	{
-		vt.push_back('0' + (TCHAR)(val % 10));
+		vt.push_back('0' + static_cast<TCHAR>(val % 10));
 		val /= 10;
 	}
 
@@ -627,7 +627,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 	if (pos < 9)
 	{
 		strTemp.push_back('&');
-		strTemp.push_back('1' + (TCHAR)pos);
+		strTemp.push_back('1' + static_cast<TCHAR>(pos));
 	}
 	else if (pos == 9)
 	{

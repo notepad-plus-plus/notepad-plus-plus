@@ -246,7 +246,8 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 					if (uc.doDialog() != -1)
 					{
-						HMENU hRunMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_RUN);
+						HMENU mainMenu = reinterpret_cast<HMENU>(::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0));
+						HMENU hRunMenu = ::GetSubMenu(mainMenu, MENUINDEX_RUN);
 						int const posBase = 2;
 						
 						if (nbCmd == 0)

@@ -184,7 +184,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
 				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'')
 				{
-					tagName.push_back((char)nextChar);
+					tagName.push_back(static_cast<char>(nextChar));
 					++position;
 					nextChar = static_cast<int32_t>(_pEditView->execute(SCI_GETCHARAT, position));
 				}
@@ -284,7 +284,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
 				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'' )
 				{
-					tagName.push_back((char)nextChar);
+					tagName.push_back(static_cast<char>(nextChar));
 					++position;
 					nextChar = static_cast<int32_t>(_pEditView->execute(SCI_GETCHARAT, position));
 				}

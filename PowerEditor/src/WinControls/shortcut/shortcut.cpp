@@ -332,7 +332,8 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
 		const int commandSize = 64;
 		TCHAR cmdName[commandSize];
-		int nbChar = ::GetMenuString((HMENU)::SendMessage(hNotepad_plus, NPPM_INTERNAL_GETMENU, 0, 0), cmd, cmdName, commandSize, MF_BYCOMMAND);
+		HMENU m = reinterpret_cast<HMENU>(::SendMessage(hNotepad_plus, NPPM_INTERNAL_GETMENU, 0, 0));
+		int nbChar = ::GetMenuString(m, cmd, cmdName, commandSize, MF_BYCOMMAND);
 		if (!nbChar)
 			return;
 		bool fin = false;
@@ -387,7 +388,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, getMenuName());	//display the menu name, with ampersands
 			if (!_canModifyName)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
-			int textlen = (int)::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
+			auto textlen = ::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_CTRL_CHECK, BM_SETCHECK, _keyCombo._isCtrl?BST_CHECKED:BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_ALT_CHECK, BM_SETCHECK, _keyCombo._isAlt?BST_CHECKED:BST_UNCHECKED, 0);
@@ -412,7 +413,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 
 		case WM_COMMAND : 
 		{
-			int textlen = (int)::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
+			auto textlen = ::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
 			switch (wParam)
 			{
 				case IDC_CTRL_CHECK :
@@ -696,14 +697,15 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 	}
 }
 
-void ScintillaAccelerator::init(vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent) {
+void ScintillaAccelerator::init(vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent)
+{
 	_hAccelMenu = hMenu;
 	_hMenuParent = menuParent;
-	size_t nr = vScintillas->size();
-	for(size_t i = 0; i < nr; ++i) {
+	size_t nbScintilla = vScintillas->size();
+	for (size_t i = 0; i < nbScintilla; ++i)
+	{
 		_vScintillas.push_back(vScintillas->at(i));
 	}
-	_nrScintillas = (int)nr;
 }
 
 void ScintillaAccelerator::updateKeys() 
@@ -712,8 +714,8 @@ void ScintillaAccelerator::updateKeys()
 	vector<ScintillaKeyMap> & map = pNppParam->getScintillaKeyList();
 	size_t mapSize = map.size();
 	size_t index;
-
-	for(int i = 0; i < _nrScintillas; ++i)
+	size_t nb = nbScintillas();
+	for (size_t i = 0; i < nb; ++i)
 	{
 		::SendMessage(_vScintillas[i], SCI_CLEARALLCMDKEYS, 0, 0);
 		for(int32_t j = static_cast<int32_t>(mapSize) - 1; j >= 0; j--) //reverse order, top of the list has highest priority
@@ -762,11 +764,12 @@ void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id)
 }
 
 //This procedure uses _keyCombo as a temp. variable to store current settings which can then later be applied (by pressing OK)
-void ScintillaKeyMap::applyToCurrentIndex() {
-	int index = (int)::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
-	if(index == LB_ERR)
+void ScintillaKeyMap::applyToCurrentIndex()
+{
+	int index = static_cast<int>(::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0));
+	if (index == LB_ERR)
 		return;
-	setKeyComboByIndex(index, _keyCombo);
+	setKeyComboByIndex(static_cast<int>(index), _keyCombo);
 	updateListItem(index);
 	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, index, 0);
 
@@ -898,28 +901,33 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 					return TRUE; 
 				}
 
-				case IDC_BUTTON_RMVE: {
+				case IDC_BUTTON_RMVE:
+				{
 					if (_size == 1)	//cannot delete last shortcut
 						return TRUE;
 					auto i = ::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
 					removeKeyComboByIndex(i);
 					::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, i, 0);
-					if (i == (int)_size)
+					if (static_cast<size_t>(i) == _size)
 						i = _size - 1;
 					::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, i, 0);
 					showCurrentSettings();
 					validateDialog();
-					return TRUE; }
+					return TRUE; 
+				}
 
-				case IDC_BUTTON_APPLY: {
+				case IDC_BUTTON_APPLY:
+				{
 					applyToCurrentIndex();
 					validateDialog();
-					return TRUE; }
+					return TRUE;
+				}
 
 				default:
 					if (HIWORD(wParam) == CBN_SELCHANGE || HIWORD(wParam) == LBN_SELCHANGE)
 					{
-						switch(LOWORD(wParam)) {
+						switch(LOWORD(wParam))
+						{
 							case IDC_KEY_COMBO:
 							{
 								auto i = ::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_GETCURSEL, 0, 0);

@@ -62,7 +62,7 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 					{
 						for (size_t i = 0 ; i < (*lpLen) ; ++i)
 						{
-							clipboardData.push_back((unsigned char)lpchar[i]);
+							clipboardData.push_back(static_cast<unsigned char>(lpchar[i]));
 						}
 						GlobalUnlock(hglb); 
 					}
@@ -73,7 +73,7 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 				int nbBytes = (lstrlenW(lpWchar) + 1) * sizeof(wchar_t);
 				for (int i = 0 ; i < nbBytes ; ++i)
 				{
-					clipboardData.push_back((unsigned char)lpchar[i]);
+					clipboardData.push_back(static_cast<unsigned char>(lpchar[i]));
 				}
 			}
 			GlobalUnlock(hglb); 

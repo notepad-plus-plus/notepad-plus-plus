@@ -1715,7 +1715,8 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 
 					if (LOWORD(wParam)==IDC_BUTTON_REMOVE)
 					{
-						::DeleteMenu((HMENU)::SendMessage(grandParent, NPPM_INTERNAL_GETMENU, 0, 0), lmi._cmdID, MF_BYCOMMAND);
+						HMENU menu2remove = reinterpret_cast<HMENU>(::SendMessage(grandParent, NPPM_INTERNAL_GETMENU, 0, 0));
+						::DeleteMenu(menu2remove, lmi._cmdID, MF_BYCOMMAND);
 					}
 					else
 					{
@@ -2810,7 +2811,7 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, 
 		case WM_CTLCOLORSTATIC:
 		{
 			HDC hdcStatic = (HDC) wParam;
-			HWND hwnd = (HWND) lParam;
+			HWND hwnd = reinterpret_cast<HWND>(lParam);
 			if (hwnd == ::GetDlgItem(_hSelf, IDD_STATIC_BLABLA) || hwnd == ::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE))
 			{
 				COLORREF bgColor = getCtrlBgColor(_hSelf);

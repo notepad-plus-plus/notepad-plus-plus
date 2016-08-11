@@ -1240,9 +1240,9 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                             //remove current language from langMenu
                             HWND hNpp = ::GetParent(_hSelf);
-							HMENU m = (HMENU)::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0);
+							HMENU m = reinterpret_cast<HMENU>(::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0));
 							HMENU subMenu = ::GetSubMenu(m, MENUINDEX_LANGUAGE);
-							::RemoveMenu(subMenu, IDM_LANG_USER + UINT(i), MF_BYCOMMAND);
+							::RemoveMenu(subMenu, static_cast<UINT>(IDM_LANG_USER + i), MF_BYCOMMAND);
                             ::DrawMenuBar(hNpp);
 							::SendMessage(_hParent, WM_REMOVE_USERLANG, 0, reinterpret_cast<LPARAM>(langName));
                         }
@@ -1325,7 +1325,8 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                             //add new language name in langMenu
                             HWND hNpp = ::GetParent(_hSelf);
-                            ::InsertMenu(::GetSubMenu((HMENU)::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_LANGUAGE), IDM_LANG_USER + newIndex, MF_BYCOMMAND, IDM_LANG_USER + newIndex + 1, newName);
+							HMENU m = reinterpret_cast<HMENU>(::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0));
+                            ::InsertMenu(::GetSubMenu(m, MENUINDEX_LANGUAGE), IDM_LANG_USER + newIndex, MF_BYCOMMAND, IDM_LANG_USER + newIndex + 1, newName);
                             ::DrawMenuBar(hNpp);
                         }
 

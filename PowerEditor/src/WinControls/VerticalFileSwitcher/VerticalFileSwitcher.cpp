@@ -249,7 +249,7 @@ int VerticalFileSwitcher::setHeaderOrder(LPNMLISTVIEW pnm_list_view)
   
 	// this is the case our clicked column wasn't the one being sorted up until now
 	// so first  we need to iterate through all columns and send LVM_SETCOLUMN to them with fmt set to NOT include these HDFs
-	colHeader = (HWND)SendMessage(hListView,LVM_GETHEADER,0,0);
+	colHeader = reinterpret_cast<HWND>(SendMessage(hListView, LVM_GETHEADER, 0, 0));
 	cols = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
 	for (q = 0; q < cols; ++q)
 	{

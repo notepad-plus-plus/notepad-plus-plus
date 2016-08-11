@@ -121,7 +121,7 @@ WINRECT* CWinMgr::FindRect(int nID)
 {
 	assert(m_map);
 	for (WINRECT* w=m_map; !w->IsEnd(); ++w) {
-		if (w->GetID()==(UINT)nID)
+		if (w->GetID() == static_cast<UINT>(nID))
 			return w;
 	}
 	return NULL;

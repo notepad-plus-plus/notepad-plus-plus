@@ -1710,7 +1710,7 @@ void NppParameters::initMenuKeys()
 	for(int i = 0; i < nrCommands; ++i)
 	{
 		wkd = winKeyDefs[i];
-		Shortcut sc((wkd.specialName?wkd.specialName:TEXT("")), wkd.isCtrl, wkd.isAlt, wkd.isShift, (unsigned char)wkd.vKey);
+		Shortcut sc((wkd.specialName ? wkd.specialName : TEXT("")), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
 		_shortcuts.push_back( CommandShortcut(sc, wkd.functionId) );
 	}
 }
@@ -1732,12 +1732,14 @@ void NppParameters::initScintillaKeys() {
 			kc._isCtrl = skd.isCtrl;
 			kc._isAlt = skd.isAlt;
 			kc._isShift = skd.isShift;
-			kc._key = (unsigned char)skd.vKey;
+			kc._key = static_cast<unsigned char>(skd.vKey);
 			_scintillaKeyCommands[prevIndex].addKeyCombo(kc);
 		}
 		else
 		{
-			_scintillaKeyCommands.push_back(ScintillaKeyMap(Shortcut(skd.name, skd.isCtrl, skd.isAlt, skd.isShift, (unsigned char)skd.vKey), skd.functionId, skd.redirFunctionId));
+			Shortcut s = Shortcut(skd.name, skd.isCtrl, skd.isAlt, skd.isShift, static_cast<unsigned char>(skd.vKey));
+			ScintillaKeyMap sm = ScintillaKeyMap(s, skd.functionId, skd.redirFunctionId);
+			_scintillaKeyCommands.push_back(sm);
 			++prevIndex;
 		}
 		prevID = skd.functionId;
@@ -2435,7 +2437,7 @@ void NppParameters::feedScintKeys(TiXmlNode *node)
 					str = (nextNode->ToElement())->Attribute(TEXT("Key"), &key);
 					if (!str)
 						continue;
-					kc._key = (unsigned char)key;
+					kc._key = static_cast<unsigned char>(key);
 					_scintillaKeyCommands[i].addKeyCombo(kc);
 				}
 				break;
@@ -2490,7 +2492,7 @@ bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc)
 	if (!keyStr)
 		return false;
 
-	sc = Shortcut(name, isCtrl, isAlt, isShift, (unsigned char)key);
+	sc = Shortcut(name, isCtrl, isAlt, isShift, static_cast<unsigned char>(key));
 	return true;
 }
 
@@ -2902,7 +2904,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 	if (root)
 	{
 		TiXmlNode *sessionNode = root->InsertEndChild(TiXmlElement(TEXT("Session")));
-		(sessionNode->ToElement())->SetAttribute(TEXT("activeView"), (int)session._activeView);
+		(sessionNode->ToElement())->SetAttribute(TEXT("activeView"), static_cast<int>(session._activeView));
 
 		struct ViewElem {
 			TiXmlNode *viewNode;
@@ -2920,7 +2922,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 		for (size_t k = 0; k < nbElem ; ++k)
 		{
-			(viewElems[k].viewNode->ToElement())->SetAttribute(TEXT("activeIndex"), (int)viewElems[k].activeIndex);
+			(viewElems[k].viewNode->ToElement())->SetAttribute(TEXT("activeIndex"), static_cast<int>(viewElems[k].activeIndex));
 			vector<sessionFileInfo> & viewSessionFiles = *(viewElems[k].viewFiles);
 
 			for (size_t i = 0, len = viewElems[k].viewFiles->size(); i < len ; ++i)
@@ -4637,12 +4639,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			int leftmost = 0;
 			element->Attribute(TEXT("leftmostDelimiter"), &leftmost);
 			if(leftmost > 0 && leftmost < 256)
-				_nppGUI._leftmostDelimiter = (char)leftmost;
+				_nppGUI._leftmostDelimiter = static_cast<char>(leftmost);
 
 			int rightmost = 0;
 			element->Attribute(TEXT("rightmostDelimiter"), &rightmost);
 			if(rightmost > 0 && rightmost < 256)
-				_nppGUI._rightmostDelimiter = (char)rightmost;
+				_nppGUI._rightmostDelimiter = static_cast<char>(rightmost);
 
 			const TCHAR *delimiterSelectionOnEntireDocument = element->Attribute(TEXT("delimiterSelectionOnEntireDocument"));
 			if(delimiterSelectionOnEntireDocument != NULL && !lstrcmp(delimiterSelectionOnEntireDocument, TEXT("yes")))

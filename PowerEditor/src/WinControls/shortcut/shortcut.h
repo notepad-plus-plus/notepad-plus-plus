@@ -39,7 +39,7 @@ class NppParameters;
 
 void getKeyStrFromVal(UCHAR keyVal, generic_string & str);
 void getNameStrFromCmd(DWORD cmd, generic_string & str);
-static int keyTranslate(int keyIn) {
+static size_t keyTranslate(size_t keyIn) {
 	switch (keyIn) {
 		case VK_DOWN:		return SCK_DOWN;
 		case VK_UP:			return SCK_UP;
@@ -204,10 +204,10 @@ public:
 	};
 	unsigned long getScintillaKeyID() const {return _scintillaKeyID;};
 	int getMenuCmdID() const {return _menuCmdID;};
-	int toKeyDef(size_t index) const {
+	size_t toKeyDef(size_t index) const {
 		KeyCombo kc = _keyCombos[index];
 		int keymod = (kc._isCtrl?SCMOD_CTRL:0) | (kc._isAlt?SCMOD_ALT:0) | (kc._isShift?SCMOD_SHIFT:0);
-		return keyTranslate((int)kc._key) + (keymod << 16);
+		return keyTranslate(kc._key) + (keymod << 16);
 	};
 
 	KeyCombo getKeyComboByIndex(size_t index) const;
@@ -373,15 +373,15 @@ private:
 
 class ScintillaAccelerator {	//Handles accelerator keys for scintilla
 public:
-	ScintillaAccelerator() : _nrScintillas(0) {};
+	ScintillaAccelerator() {};
 	void init(std::vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent);
 	void updateKeys();
 	void updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skm);
+	size_t nbScintillas() { return _vScintillas.size(); };
 private:
-	HMENU _hAccelMenu;
-	HWND _hMenuParent;
+	HMENU _hAccelMenu = nullptr;
+	HWND _hMenuParent = nullptr;
 	std::vector<HWND> _vScintillas;
-	int _nrScintillas;
 
 	void updateMenuItemByID(ScintillaKeyMap skm, int id);
 };

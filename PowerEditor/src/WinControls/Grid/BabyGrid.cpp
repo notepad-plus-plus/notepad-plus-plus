@@ -1776,7 +1776,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
               LPBGcell=(_BGCELL*)wParam;
               if(OutOfRange(LPBGcell))
                   {
-                   wParam=MAKEWPARAM((UINT)GetMenu(hWnd),BGN_OUTOFRANGE);
+					  wParam = MAKEWPARAM(reinterpret_cast<UINT>(GetMenu(hWnd)), BGN_OUTOFRANGE);
                    lParam = 0;
                    SendMessage(GetParent(hWnd),WM_COMMAND,wParam,lParam);
 				   ReturnValue = -1;

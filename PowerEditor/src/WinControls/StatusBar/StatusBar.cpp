@@ -78,7 +78,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 
 	_partWidthArray.clear();
 	if (nbParts > 0)
-		_partWidthArray.resize(nbParts, (int) defaultPartWidth);
+		_partWidthArray.resize(nbParts, defaultPartWidth);
 
     // Allocate an array for holding the right edge coordinates.
 	if (_partWidthArray.size())

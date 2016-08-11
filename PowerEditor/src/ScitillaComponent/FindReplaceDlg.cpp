@@ -126,7 +126,7 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 						int res = 0;
 						if (Searching::readBase(query+(i+1), &res, base, size))
 						{
-							result[j] = (TCHAR)res;
+							result[j] = static_cast<TCHAR>(res);
 							i += size;
 							break;
 						}
@@ -157,7 +157,7 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 bool Searching::readBase(const TCHAR * str, int * value, int base, int size) {
 	int i = 0, temp = 0;
 	*value = 0;
-	TCHAR max = '0' + (TCHAR)base - 1;
+	TCHAR max = '0' + static_cast<TCHAR>(base) - 1;
 	TCHAR current;
 	while(i < size) {
 		current = str[i];

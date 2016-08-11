@@ -199,7 +199,7 @@ void LastRecentFileList::remove(size_t index)
 {
 	if (_size == 0 || _locked)
 		return;
-	if (index > -1 && index < (int)_lrfl.size())
+	if (index < _lrfl.size())
 	{
 		::RemoveMenu(_hMenu, _lrfl.at(index)._id, MF_BYCOMMAND);
 		setAvailable(_lrfl.at(index)._id);

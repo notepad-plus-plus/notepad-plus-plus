@@ -852,6 +852,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_HOTSPOTDOUBLECLICK:
 		{
+			// Save the current wordChars before setting a custom list
+			const size_t wordBufferSize = notifyView->execute(SCI_GETWORDCHARS);
+			char *wordChars = new char[wordBufferSize + 1];
+			notifyView->execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(wordChars));
+			wordChars[wordBufferSize] = '\0';
+
+			// Set a custom list for detecting links
 			notifyView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.,:?&@=/%#()"));
 
 			auto pos = notifyView->execute(SCI_GETCURRENTPOS);
@@ -884,8 +891,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
 				_isHotspotDblClicked = true;
-				notifyView->execute(SCI_SETCHARSDEFAULT);
+
+				// Re-set the previous wordChar list
+				notifyView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(wordChars));
 			}
+
+			delete[] wordChars;
 			break;
 		}
 

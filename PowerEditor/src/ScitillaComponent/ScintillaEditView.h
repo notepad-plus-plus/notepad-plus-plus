@@ -35,7 +35,7 @@
 #include "Buffer.h"
 #include "colors.h"
 #include "UserDefineDialog.h"
-#include "xpm_icons.h"
+#include "rgba_icons.h"
 
 
 #ifndef WM_MOUSEWHEEL
@@ -122,8 +122,9 @@ const UCHAR BASE_02 = 0x03; // Bin
 const int MARK_BOOKMARK = 24;
 const int MARK_HIDELINESBEGIN = 23;
 const int MARK_HIDELINESEND = 22;
-//const int MARK_LINEMODIFIEDUNSAVED = 21;
-//const int MARK_LINEMODIFIEDSAVED = 20;
+const int MARK_HIDELINESUNDERLINE = 21;
+//const int MARK_LINEMODIFIEDUNSAVED = 20;
+//const int MARK_LINEMODIFIEDSAVED = 19;
 // 24 - 16 reserved for Notepad++ internal used
 // 15 - 0  are free to use for plugins
 
@@ -319,9 +320,11 @@ public:
         else
 		{
 			int width = 3;
-			if (whichMarge == _SC_MARGE_SYBOLE || whichMarge == _SC_MARGE_FOLDER)
-				width = 14;
-            execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed?width:0);
+			if (whichMarge == _SC_MARGE_SYBOLE)
+				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 20 : 16;
+			else if (whichMarge == _SC_MARGE_FOLDER)
+				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 18 : 14;
+			execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 		}
     };
 

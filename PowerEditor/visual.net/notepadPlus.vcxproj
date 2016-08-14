@@ -647,7 +647,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\WindowsDlg\WinMgr.h" />
     <ClInclude Include="..\src\WinControls\ColourPicker\WordStyleDlg.h" />
     <ClInclude Include="..\src\ScitillaComponent\xmlMatchedTagsHighlighter.h" />
-    <ClInclude Include="..\src\xpm_icons.h" />
+    <ClInclude Include="..\src\rgba_icons.h" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\src\notepad++.exe.manifest" />

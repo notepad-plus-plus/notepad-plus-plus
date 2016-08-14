@@ -210,12 +210,29 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
     execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
     showMargin(_SC_MARGE_FOLDER, true);
 
-    execute(SCI_SETMARGINMASKN, _SC_MARGE_SYBOLE, (1<<MARK_BOOKMARK) | (1<<MARK_HIDELINESBEGIN) | (1<<MARK_HIDELINESEND));
+    execute(SCI_SETMARGINMASKN, _SC_MARGE_SYBOLE, (1<<MARK_BOOKMARK) | (1<<MARK_HIDELINESBEGIN) | (1<<MARK_HIDELINESEND) | (1<<MARK_HIDELINESUNDERLINE));
 
 	execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
-	execute(SCI_MARKERDEFINEPIXMAP, MARK_BOOKMARK, reinterpret_cast<LPARAM>(bookmark_xpm));
-	execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, reinterpret_cast<LPARAM>(acTop_xpm));
-	execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, reinterpret_cast<LPARAM>(acBottom_xpm));
+
+	execute(SCI_MARKERDEFINE, MARK_HIDELINESUNDERLINE, SC_MARK_UNDERLINE);
+	execute(SCI_MARKERSETBACK, MARK_HIDELINESUNDERLINE, 0x77CC77);
+
+	if (NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150)
+	{
+		execute(SCI_RGBAIMAGESETWIDTH, 18);
+		execute(SCI_RGBAIMAGESETHEIGHT, 18);
+		execute(SCI_MARKERDEFINERGBAIMAGE, MARK_BOOKMARK, reinterpret_cast<LPARAM>(bookmark18));
+		execute(SCI_MARKERDEFINERGBAIMAGE, MARK_HIDELINESBEGIN, reinterpret_cast<LPARAM>(hidelines_begin18));
+		execute(SCI_MARKERDEFINERGBAIMAGE, MARK_HIDELINESEND, reinterpret_cast<LPARAM>(hidelines_end18));
+	}
+	else
+	{
+		execute(SCI_RGBAIMAGESETWIDTH, 14);
+		execute(SCI_RGBAIMAGESETHEIGHT, 14);
+		execute(SCI_MARKERDEFINERGBAIMAGE, MARK_BOOKMARK, reinterpret_cast<LPARAM>(bookmark14));
+		execute(SCI_MARKERDEFINERGBAIMAGE, MARK_HIDELINESBEGIN, reinterpret_cast<LPARAM>(hidelines_begin14));
+		execute(SCI_MARKERDEFINERGBAIMAGE, MARK_HIDELINESEND, reinterpret_cast<LPARAM>(hidelines_end14));
+	}
 
     execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_FOLDER, true);
     execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_SYBOLE, true);
@@ -2918,6 +2935,7 @@ void ScintillaEditView::hideLines()
 	//execute(SCI_HIDELINES, startLine, endLine);
 	//Add markers
 	execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESBEGIN);
+	execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESUNDERLINE);
 	execute(SCI_MARKERADD, endLine+1, MARK_HIDELINESEND);
 
 	//remove any markers in between
@@ -2926,7 +2944,7 @@ void ScintillaEditView::hideLines()
 	{
 		auto state = execute(SCI_MARKERGET, i);
 		bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);	//check close first, then open, since close closes scope
-		bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN)) != 0);
+		bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
 		if (closePresent)
 		{
 			execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
@@ -2934,6 +2952,7 @@ void ScintillaEditView::hideLines()
 		}
 		if (openPresent) {
 			execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
+			execute(SCI_MARKERDELETE, i, MARK_HIDELINESUNDERLINE);
 			++scope;
 		}
 	}
@@ -2949,7 +2968,7 @@ void ScintillaEditView::hideLines()
 bool ScintillaEditView::markerMarginClick(int lineNumber)
 {
 	auto state = execute(SCI_MARKERGET, lineNumber);
-	bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN)) != 0);
+	bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
 	bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);
 
 	if (!openPresent && !closePresent)
@@ -2967,7 +2986,7 @@ bool ScintillaEditView::markerMarginClick(int lineNumber)
 		for(lineNumber--; lineNumber >= 0 && !openPresent; lineNumber--)
 		{
 			state = execute(SCI_MARKERGET, lineNumber);
-			openPresent = ((state & (1 << MARK_HIDELINESBEGIN)) != 0);
+			openPresent = ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0);
 		}
 
 		if (openPresent)
@@ -3034,7 +3053,7 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 				}
 				isInSection = false;
 			}
-			if ( ((state & (1 << MARK_HIDELINESBEGIN)) != 0) )
+			if ( ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0) )
 			{
 				isInSection = true;
 				startHiding = i+1;
@@ -3074,10 +3093,13 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 					isInSection = false;
 				}
 			}
-			if ( ((state & (1 << MARK_HIDELINESBEGIN)) != 0) )
+			if ( ((state & (1 << MARK_HIDELINESBEGIN | 1 << MARK_HIDELINESUNDERLINE)) != 0) )
 			{
 				if (doDelete)
+				{
 					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
+					execute(SCI_MARKERDELETE, i, MARK_HIDELINESUNDERLINE);
+				}
 				else
 				{
 					isInSection = true;

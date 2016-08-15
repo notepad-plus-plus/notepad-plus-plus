@@ -72,7 +72,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 				i2set = 0;
 
 			_taskList.init(_hInst, _hSelf, _hImalist, nbTotal, i2set);
-			_taskList.setFont(TEXT("Verdana"), 14);
+			_taskList.setFont(TEXT("Verdana"), NppParameters::getInstance()->_dpiManager.scaleY(14));
 			_rc = _taskList.adjustSize();
 
 			reSizeTo(_rc);
@@ -172,7 +172,9 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	int nItem = lpDrawItemStruct->itemID;
 	const TCHAR *label = _taskListInfo._tlfsLst[nItem]._fn.c_str();
 	int iImage = _taskListInfo._tlfsLst[nItem]._status;
-	
+
+	const int aSpaceWidth = ListView_GetStringWidth(_taskList.getHSelf(), TEXT(" "));
+
 	COLORREF textColor = darkGrey;
 	int imgStyle = ILD_SELECTED;
 
@@ -189,25 +191,19 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	HIMAGELIST hImgLst = _taskList.getImgLst();
 
 	IMAGEINFO info;
-	ImageList_GetImageInfo(hImgLst, iImage, &info);
+	::ImageList_GetImageInfo(hImgLst, iImage, &info);
 
 	RECT & imageRect = info.rcImage;
-	//int yPos = (rect.top + (rect.bottom - rect.top)/2 + (isSelected?0:2)) - (imageRect.bottom - imageRect.top)/2;
-	
-	SIZE charPixel;
-	::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
-	int spaceUnit = charPixel.cx;
-	int marge = spaceUnit;
+	// center icon position, prefer bottom orientation
+	imageRect.top = ((rect.bottom - rect.top) - (imageRect.bottom - imageRect.top) + 1) / 2;
 
-	rect.left += marge;
-	ImageList_Draw(hImgLst, iImage, hDC, rect.left, rect.top, imgStyle);
-	rect.left += imageRect.right - imageRect.left + spaceUnit * 2;
+	rect.left += aSpaceWidth;
+	::ImageList_Draw(hImgLst, iImage, hDC, rect.left, rect.top + imageRect.top, imgStyle);
+	rect.left += imageRect.right - imageRect.left + aSpaceWidth * 2;
 
 	//
 	// DRAW TEXT
 	//
 	::SetTextColor(hDC, textColor);
-	rect.top -= ::GetSystemMetrics(SM_CYEDGE);
-		
 	::DrawText(hDC, label, lstrlen(label), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 }

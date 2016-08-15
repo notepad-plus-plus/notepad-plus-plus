@@ -32,6 +32,8 @@
 !include "nsDialogs.nsh" ; allows creation of custom pages in the installer
 !include "Memento.nsh"   ; remember user selections in the installer across runs
 
+SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
+;SetCompressor /FINAL lzma	; This reduces installer size by approx 15~18%,
 
 ; Define the application name
 !define APPNAME "Notepad++"

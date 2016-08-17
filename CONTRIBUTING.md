@@ -176,6 +176,18 @@ Function names are not separated from the first parenthesis.</h5>
     ```
 
 
+1. ##### Always use `C++ conversion` instead of `C-Style cast`. Generally, all the conversion among types should be avoided. If you have no choice, use C++ conversion.
+
+  * ###### Good:
+    ```cpp
+    char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, j));
+    ```
+
+  * ###### Bad:
+    ```cpp
+    char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
+    ```
+
 
 #### NAMING CONVENTIONS
 

@@ -282,6 +282,7 @@
                     <Item id="47003" name="Online Documentation"/>
 					<Item id="47004" name="Notepad++ Community (Forum)"/>
                     <Item id="47011" name="Live Support"/>
+                    <Item id="47012" name="Debug Info"/>
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Update Notepad++"/>
                     <Item id="47009" name="Set Updater Proxy..."/>
@@ -663,6 +664,7 @@
                     <Item id="6214" name="Enable current line highlighting"/>
 					<Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
+                    <Item id="6235" name="No edge"/>
                 </Scintillas>
 
                 <NewDoc title="New Document">
@@ -685,6 +687,7 @@
                     <Item id="6413" name="Default Directory (Open/Save)"/>
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
+                    <Item id="6430" name="Use new style save dialog (without file extension feature)"/>
                 </DefaultDir>
 
                 <FileAssoc title="File Association">

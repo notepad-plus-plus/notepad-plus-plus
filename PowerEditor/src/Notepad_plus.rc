@@ -280,8 +280,8 @@ BEGIN
             MENUITEM "Title Case (blend)",      IDM_EDIT_TITLECASE_BLEND
             MENUITEM "&Sentence case",          IDM_EDIT_SENTENCECASE_FORCE
             MENUITEM "Sentence case (blend)",   IDM_EDIT_SENTENCECASE_BLEND
-            MENUITEM "&iNVERTCASE",             IDM_EDIT_INVERTCASE
-            MENUITEM "&RAnDomCaSe",             IDM_EDIT_RANDOMCASE
+            MENUITEM "&iNVERT cASE",             IDM_EDIT_INVERTCASE
+            MENUITEM "&ranDOm CasE",             IDM_EDIT_RANDOMCASE
         END
         POPUP "Line Operations"
         BEGIN
@@ -877,7 +877,7 @@ BEGIN
         MENUITEM "Update Notepad++",          IDM_UPDATE_NPP
 		MENUITEM "Set Updater Proxy...",         IDM_CONFUPDATERPROXY
 		MENUITEM SEPARATOR
-        MENUITEM "Debug Info",           IDM_DEBUGINFO
+        MENUITEM "Debug Info...",           IDM_DEBUGINFO
         MENUITEM "About Notepad++",           IDM_ABOUT
     END
 

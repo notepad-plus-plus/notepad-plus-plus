@@ -1318,9 +1318,18 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+
+		case NPPM_INTERNAL_SCROLLBEYONDLASTLINE:
+		{
+			const bool endAtLastLine = not (pNppParam->getSVP())._scrollBeyondLastLine;
+			_mainEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
+			_subEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SETMULTISELCTION:
 		{
-			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
 			_mainEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
 			_subEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
 			return TRUE;

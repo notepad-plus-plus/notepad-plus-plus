@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="正體中文" filename="chinese.xml" version="6.9.2">
+    <Native-Langue name="正體中文" filename="chinese.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -107,6 +107,12 @@
                     <Item id="42015" name="向下移動現行行列"/>
                     <Item id="42016" name="轉成大寫"/>
                     <Item id="42017" name="轉成小寫"/>
+					<Item id="42067" name="每字第一字母大寫，其他皆小寫"/>
+                    <Item id="42068" name="每字第一字母大寫"/>
+                    <Item id="42069" name="句子第一字母大寫，其他皆小寫"/>
+                    <Item id="42070" name="句子第一字母大寫"/>
+                    <Item id="42071" name="大小寫互換"/>
+                    <Item id="42072" name="隨機大小寫"/>
                     <Item id="42018" name="開始錄製巨集"/>
                     <Item id="42019" name="停止錄製巨集"/>
                     <Item id="42021" name="播放巨集(&amp;P)"/>
@@ -232,6 +238,9 @@
                     <Item id="44094" name="欄標九"/>
                     <Item id="44095" name="下一個欄標"/>
                     <Item id="44096" name="上一個欄標"/>
+					<Item id="44097" name="監視日誌 (tail -f)"/>
+					<Item id="44098" name="前移欄標"/>
+                    <Item id="44099" name="後移欄標"/>
                     <Item id="44032" name="全螢幕"/>
                     <Item id="44033" name="復原字體大小"/>
                     <Item id="44034" name="保持在最上層"/>
@@ -275,6 +284,7 @@
                     <Item id="47009" name="設定更新程式代理伺服器..."/>
 					<Item id="47010" name="指令列參數..."/>
 					<Item id="47011" name="技術支援熱線"/>
+					<Item id="47012" name="除錯資訊..."/>
                     <Item id="48005" name="匯入外掛模組..."/>
                     <Item id="48006" name="匯入主題面板..."/>
                     <Item id="48018" name="編輯彈跳選單"/>
@@ -657,6 +667,8 @@
                     <Item id="6214" name="啟動現行行列背景顏色"/>
 					<Item id="6215" name="啟用 smooth font"/>
                     <Item id="6231" name="邊框寬度"/>
+					<Item id="6235" name="無邊框"/>
+					<Item id="6236" name="啟用超出了最後一行捲動功能"/>
                 </Scintillas>
                 <NewDoc title="開新文件">
                     <Item id="6401" name="格式"/>
@@ -678,6 +690,7 @@
                     <Item id="6413" name="預設資料夾 (開啟/儲存)"/>
                     <Item id="6414" name="依照目前文件"/>
                     <Item id="6415" name="記住上次使用的資料夾"/>
+					<Item id="6430" name="使用新式儲存對話框（不含副檔名功能支援）"/>
                 </DefaultDir>
 
                 <FileAssoc title="副檔名連結設定">
@@ -815,6 +828,7 @@
                     <Item id="6333" name="字慧高亮度顯示"/>
 					<Item id="6334" name="自動檢測字符編碼"/>
 					<Item id="6335" name="視反斜標號為 SQL 轉義字符"/>
+					<Item id="6337" name="文件夾工作區檔案副檔名:"/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6115" name="自動縮排"/>
                     <Item id="6117" name="開啟 MRU (Most Recently Used) 功能"/>

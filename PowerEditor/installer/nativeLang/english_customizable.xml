@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english_customizable.xml" version="6.9.2">
+    <Native-Langue name="English" filename="english_customizable.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -114,6 +114,12 @@
                     <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
                     <Item id="42016" name="UPPERCASE"/>
                     <Item id="42017" name="lowercase"/>
+                    <Item id="42067" name="Title Case"/>
+                    <Item id="42068" name="Title Case (blend)"/>
+                    <Item id="42069" name="Sentence case"/>
+                    <Item id="42070" name="Sentence case (blend)"/>
+                    <Item id="42071" name="iNVERT cASE"/>
+                    <Item id="42072" name="ranDOm CasE"/>
                     <Item id="42018" name="&amp;Start Recording"/>
                     <Item id="42019" name="&amp;Stop Recording"/>
                     <Item id="42021" name="&amp;Playback"/>
@@ -230,6 +236,9 @@
                     <Item id="44094" name="9th Tab"/>
                     <Item id="44095" name="Next Tab"/>
                     <Item id="44096" name="Previous Tab"/>
+                    <Item id="44097" name="Monitoring (tail -f)"/>
+                    <Item id="44098" name="Move Tab Forward"/>
+                    <Item id="44099" name="Move Tab Backward"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -282,6 +291,7 @@
                     <Item id="47003" name="Online Documentation"/>
 					<Item id="47004" name="Notepad++ Community (Forum)"/>
                     <Item id="47011" name="Live Support"/>
+                    <Item id="47012" name="Debug Info..."/>
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Update Notepad++"/>
                     <Item id="47009" name="Set Updater Proxy..."/>
@@ -362,7 +372,7 @@
                 <Item id="1659" name="In hidden folders"/>
                 <Item id="1624" name="Search mode"/>
                 <Item id="1625" name="Normal"/>
-                <Item id="1626" name="Extended (\r, \n, \t, \x..., \0)"/>
+                <Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Replace in Files"/>
                 <Item id="1661" name="Follow current doc."/>
                 <Item id="1641" name="Find All in Current Document"/>
@@ -663,6 +673,8 @@
                     <Item id="6214" name="Enable current line highlighting"/>
 					<Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
+                    <Item id="6235" name="No edge"/>
+                    <Item id="6236" name="Enable scrolling beyond last line"/>
                 </Scintillas>
 
                 <NewDoc title="New Document">
@@ -685,6 +697,7 @@
                     <Item id="6413" name="Default Directory (Open/Save)"/>
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
+                    <Item id="6430" name="Use new style save dialog (without file extension feature)"/>
                 </DefaultDir>
 
                 <FileAssoc title="File Association">
@@ -824,6 +837,7 @@
                     <Item id="6333" name="Smart Highlighting"/>
                     <Item id="6334" name="Autodetect character encoding"/>
                     <Item id="6335" name="Treat backslash as escape character for SQL"/>
+                    <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Enable"/>
                     <Item id="6115" name="Auto-indent"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
@@ -850,6 +864,7 @@
                 <Item id="2030" name="Initial number:"/>
                 <Item id="2031" name="Increase by:"/>
                 <Item id="2035" name="Leading zeros"/>
+                <Item id="2036" name="Repeat :"/>
                 <Item id="2032" name="Format"/>
                 <Item id="2024" name="Dec"/>
                 <Item id="2025" name="Oct"/>

@@ -684,7 +684,7 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 				case IDC_CHECK_SCROLLBEYONDLASTLINE:
 					svp._scrollBeyondLastLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SCROLL_BEYOND_LASTLINE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SCROLLBEYONDLASTLINE, 0, 0);
 					return TRUE;
 
 				case IDC_CHECK_DISABLEADVANCEDSCROLL:
@@ -1828,9 +1828,9 @@ INT_PTR CALLBACK TabSettings::run_dlgProc(UINT Message, WPARAM wParam, LPARAM/* 
 			        POINT p;
 			        ::GetCursorPos(&p);
 			        int size = tabSizeDlg.doDialog(p);
+					
+					//Tab size 0 removal
 			        if (size <= 0) return FALSE;
-
-			        //Tab size 0 removal
 
 					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
 					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);

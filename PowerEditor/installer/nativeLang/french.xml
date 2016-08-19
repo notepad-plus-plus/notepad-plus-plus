@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="6.8.2">
+    <Native-Langue name="Français" filename="french.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -108,6 +108,12 @@
                     <Item id="42015" name="Déplacer la ligne actuelle vers le bas"/>
                     <Item id="42016" name="EN MAJUSCULE"/>
                     <Item id="42017" name="en minuscule"/>
+					<Item id="42067" name="Majuscules Dans Les Titres"/>
+                    <Item id="42068" name="Majuscules Dans Les Titres (moins strict)"/>
+                    <Item id="42069" name="Majuscule en début de phrase"/>
+                    <Item id="42070" name="Majuscule en début de phrase (moins strict)"/>
+                    <Item id="42071" name="à L'ENVERS"/>
+                    <Item id="42072" name="ALÉATOiRe"/>
                     <Item id="42018" name="Démarrer l’enregistrement"/>
                     <Item id="42019" name="Arrêter l’enregistrement"/>
                     <Item id="42021" name="Rejouer la macro"/>
@@ -244,6 +250,9 @@
                     <Item id="44094" name="Onglet 9"/>
                     <Item id="44095" name="Prochain Onglet"/>
                     <Item id="44096" name="Onglet Précédant"/>
+					<Item id="44097" name="Surveillance de Log(tail -f)"/>
+					<Item id="44098" name="Onglet vers Avant"/>
+                    <Item id="44099" name="Onglet vers Après"/>
                     <Item id="45001" name="Convertir en Format Windows (CR+LF)"/>
                     <Item id="45002" name="Convertir en Format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en Format Mac (CR)"/>
@@ -282,6 +291,7 @@
                     <Item id="47009" name="Paramétrer le Proxy d'Updater..."/>
 					<Item id="47010" name="Arguments de la Ligne de Commande..."/>
 					<Item id="47011" name="Support en Direct"/>
+					<Item id="47012" name="Debug Info..."/>
                     <Item id="48005" name="Importer un complément..."/>
                     <Item id="48006" name="Importer un thème..."/>
                     <Item id="48009" name="Raccourcis clavier..."/>
@@ -646,6 +656,8 @@
                     <Item id="6229" name="Aligné"/>
                     <Item id="6230" name="Indenté"/>
                     <Item id="6231" name="Largeur de la bordure"/>
+					<Item id="6235" name="Pas de bordure"/>
+					<Item id="6236" name="Activer le défilement au-delà de la dernière ligne"/>
                 </Scintillas>
                 <NewDoc title="Nouveau document">
                     <Item id="6401" name="Format des sauts de ligne"/>
@@ -667,6 +679,7 @@
                     <Item id="6413" name="Dossier par défaut (ouvrir/enregistrer)"/>
                     <Item id="6414" name="Utiliser celui du document actuel"/>
                     <Item id="6415" name="Mémoriser le dernier dossier utilisé"/>
+					<Item id="6430" name="Activer le nouveau style de dialogue d'enregistrement (sans l'extension de fichier supporté)"/>
                 </DefaultDir>
 
                 <FileAssoc title="Extensions de fichier">
@@ -806,6 +819,7 @@
                     <Item id="6333" name="Sélectionner et montrer tout"/>
 					<Item id="6334" name="Détecter l'encodage automatiquement"/>
 					<Item id="6335" name="Backslash : caractère d'échappement pour SQL"/>
+					<Item id="6337" name="Ext fichier Espace de travail :"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">

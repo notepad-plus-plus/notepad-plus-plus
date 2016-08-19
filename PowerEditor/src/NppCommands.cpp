@@ -2807,14 +2807,6 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_VIEW_SCROLL_BEYOND_LASTLINE:
-		{
-			const bool endAtLastLine = not NppParameters::getInstance()->getSVP()._scrollBeyondLastLine;
-			_mainEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
-			_subEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
-		}
-		break;
-
 		case IDM_VIEW_EDGEBACKGROUND:
 		case IDM_VIEW_EDGELINE:
 		case IDM_VIEW_EDGENONE:

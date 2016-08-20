@@ -45,7 +45,7 @@ void ToolTip::init(HINSTANCE hInst, HWND hParent)
 			throw std::runtime_error("ToolTip::init : CreateWindowEx() function return null");
 		}
 
-		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
+		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 		_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticWinProc)));
 	}
 }
@@ -76,9 +76,9 @@ void ToolTip::Show(RECT rectTitle, const TCHAR * pszTitle, int iXOff, int iWidth
 
 	// Bleuargh...  const_cast.  Will have to do for now.
 	_ti.lpszText  = const_cast<TCHAR *>(pszTitle);
-	::SendMessage(_hSelf, TTM_ADDTOOL, 0, (LPARAM) (LPTOOLINFO) &_ti);
-	::SendMessage(_hSelf, TTM_TRACKPOSITION, 0, (LPARAM)(DWORD) MAKELONG(_ti.rect.left + iXOff, _ti.rect.top + iWidthOff));
-	::SendMessage(_hSelf, TTM_TRACKACTIVATE, true, (LPARAM)(LPTOOLINFO) &_ti);
+	::SendMessage(_hSelf, TTM_ADDTOOL, 0, reinterpret_cast<LPARAM>(&_ti));
+	::SendMessage(_hSelf, TTM_TRACKPOSITION, 0, MAKELONG(_ti.rect.left + iXOff, _ti.rect.top + iWidthOff));
+	::SendMessage(_hSelf, TTM_TRACKACTIVATE, true, reinterpret_cast<LPARAM>(&_ti));
 }
 
 

@@ -245,51 +245,34 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 void FileBrowser::initPopupMenus()
 {
-	//NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-/*
-	generic_string removeFolderFromFileBrowser = pNativeSpeaker->getProjectPanelLangMenuStr("FileBrowserContextMenu", IDM_FILEBROWSER_REMOVEROOTFOLDER, FB_REMOVEROOT);	
-	generic_string edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_RENAME, PM_EDITRENAME);
-	generic_string edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_NEWFOLDER, PM_EDITNEWFOLDER);
-	generic_string edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_ADDFILES, PM_EDITADDFILES);
-
-	
-	edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_RENAME, PM_EDITRENAME);
-	edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_NEWFOLDER, PM_EDITNEWFOLDER);
-	edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_ADDFILES, PM_EDITADDFILES);
-	edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_DELETEFOLDER, PM_EDITREMOVE);
-*/
 	_hGlobalMenu = ::CreatePopupMenu();
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDROOT, TEXT("Add"));
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEALLROOTS, TEXT("Remove All"));
 
 	_hRootMenu = ::CreatePopupMenu();
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, TEXT("Remove"));
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, TEXT("Find in Files..."));
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 
 	_hFolderMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, TEXT("Find in Files..."));
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
-	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_NEWFOLDER,     edit_addfolder.c_str());
-	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILES,      edit_addfiles.c_str());
 	
 	_hFileMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_OPENINNPP, TEXT("Open"));
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_SHELLEXECUTE, TEXT("Run by system"));
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
-	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_DELETEFILE, edit_remove.c_str());
-	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MODIFYFILEPATH, edit_modifyfile.c_str());
 }
 
 
@@ -465,7 +448,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				}
 
 				// For File, Folder and Project
-				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0,(LPARAM)(&(tvnotif->item)));
+				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&(tvnotif->item)));
 			}
 			break;
 
@@ -580,7 +563,7 @@ BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 	TVITEM tvItem;
 	tvItem.hItem = hItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
-	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 	// File
 	if (tvItem.iImage == INDEX_LEAF)
@@ -1116,7 +1099,7 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
 			tvItem.hItem = hItemNode;
-			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 			if (linarPathArray[0] == tvItem.pszText)
 			{
@@ -1156,7 +1139,7 @@ HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
 			tvItem.hItem = hItemNode;
-			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 			if (linarPathArray[0] == tvItem.pszText)
 			{
@@ -1360,7 +1343,7 @@ bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> &
 	// case FILE_ACTION_ADDED:
 	// swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
 	// printStr(msg2show);
-	//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
+	//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, reinterpret_cast<LPARAM>(wstrFilename.GetString()));
 	// break;
 
 	// case FILE_ACTION_REMOVED:

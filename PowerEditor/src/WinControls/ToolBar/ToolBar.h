@@ -76,7 +76,7 @@ public :
 
 	virtual void destroy();
 	void enable(int cmdID, bool doEnable) const {
-		::SendMessage(_hSelf, TB_ENABLEBUTTON, cmdID, (LPARAM)doEnable);
+		::SendMessage(_hSelf, TB_ENABLEBUTTON, cmdID, static_cast<LPARAM>(doEnable));
 	};
 
 	int getWidth() const;
@@ -87,11 +87,11 @@ public :
 	void setToUglyIcons();
 
 	bool getCheckState(int ID2Check) const {
-		return bool(::SendMessage(_hSelf, TB_GETSTATE, (WPARAM)ID2Check, 0) & TBSTATE_CHECKED);
+		return bool(::SendMessage(_hSelf, TB_GETSTATE, ID2Check, 0) & TBSTATE_CHECKED);
 	};
 
 	void setCheck(int ID2Check, bool willBeChecked) const {
-		::SendMessage(_hSelf, TB_CHECKBUTTON, (WPARAM)ID2Check, (LPARAM)MAKELONG(willBeChecked, 0));
+		::SendMessage(_hSelf, TB_CHECKBUTTON, ID2Check, MAKELONG(willBeChecked, 0));
 	};
 
 	toolBarStatusType getState() const {
@@ -131,13 +131,13 @@ private :
     TiXmlNode *_toolIcons = nullptr;
 
 	void setDefaultImageList() {
-		::SendMessage(_hSelf, TB_SETIMAGELIST , (WPARAM)0, (LPARAM)_toolBarIcons.getDefaultLst());
+		::SendMessage(_hSelf, TB_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDefaultLst()));
 	};
 	void setHotImageList() {
-		::SendMessage(_hSelf, TB_SETHOTIMAGELIST , (WPARAM)0, (LPARAM)_toolBarIcons.getHotLst());
+		::SendMessage(_hSelf, TB_SETHOTIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getHotLst()));
 	};
 	void setDisableImageList() {
-		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, (WPARAM)0, (LPARAM)_toolBarIcons.getDisableLst());
+		::SendMessage(_hSelf, TB_SETDISABLEDIMAGELIST, 0, reinterpret_cast<LPARAM>(_toolBarIcons.getDisableLst()));
 	};
 
 	void reset(bool create = false);

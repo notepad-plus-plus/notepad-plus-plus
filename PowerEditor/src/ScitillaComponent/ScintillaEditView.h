@@ -35,7 +35,7 @@
 #include "Buffer.h"
 #include "colors.h"
 #include "UserDefineDialog.h"
-#include "xpm_icons.h"
+#include "rgba_icons.h"
 
 
 #ifndef WM_MOUSEWHEEL
@@ -122,8 +122,9 @@ const UCHAR BASE_02 = 0x03; // Bin
 const int MARK_BOOKMARK = 24;
 const int MARK_HIDELINESBEGIN = 23;
 const int MARK_HIDELINESEND = 22;
-//const int MARK_LINEMODIFIEDUNSAVED = 21;
-//const int MARK_LINEMODIFIEDSAVED = 20;
+const int MARK_HIDELINESUNDERLINE = 21;
+//const int MARK_LINEMODIFIEDUNSAVED = 20;
+//const int MARK_LINEMODIFIEDSAVED = 19;
 // 24 - 16 reserved for Notepad++ internal used
 // 15 - 0  are free to use for plugins
 
@@ -319,9 +320,11 @@ public:
         else
 		{
 			int width = 3;
-			if (whichMarge == _SC_MARGE_SYBOLE || whichMarge == _SC_MARGE_FOLDER)
-				width = 14;
-            execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed?width:0);
+			if (whichMarge == _SC_MARGE_SYBOLE)
+				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 20 : 16;
+			else if (whichMarge == _SC_MARGE_FOLDER)
+				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 18 : 14;
+			execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 		}
     };
 
@@ -377,7 +380,7 @@ public:
 	};
 
 	void showIndentGuideLine(bool willBeShowed = true) {
-		execute(SCI_SETINDENTATIONGUIDES, (WPARAM)willBeShowed?(SC_IV_LOOKBOTH):(SC_IV_NONE));
+		execute(SCI_SETINDENTATIONGUIDES, willBeShowed ? SC_IV_LOOKBOTH : SC_IV_NONE);
 	};
 
 	bool isShownIndentGuide() const {
@@ -385,7 +388,7 @@ public:
 	};
 
     void wrap(bool willBeWrapped = true) {
-        execute(SCI_SETWRAPMODE, (WPARAM)willBeWrapped);
+        execute(SCI_SETWRAPMODE, willBeWrapped);
     };
 
     bool isWrap() const {
@@ -467,7 +470,7 @@ public:
 			return -1;
 		auto size_selected = execute(SCI_GETSELTEXT);
 		char *selected = new char[size_selected + 1];
-		execute(SCI_GETSELTEXT, (WPARAM)0, (LPARAM)selected);
+		execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selected));
 		char *c = selected;
 		long length = 0;
 		while(*c != '\0')
@@ -716,7 +719,7 @@ protected:
 
 	void setSqlLexer() {
 		const bool kbBackSlash = NppParameters::getInstance()->getNppGUI()._backSlashIsEscapeCharacterForSql;
-		execute(SCI_SETPROPERTY, (WPARAM)"sql.backslash.escapes", kbBackSlash ? (LPARAM)"1" : (LPARAM)"0");
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 		setLexer(SCLEX_SQL, L_SQL, LIST_0);
 	};
 

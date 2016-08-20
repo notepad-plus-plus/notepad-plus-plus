@@ -86,7 +86,7 @@ private:
 	std::vector<size_t> _lastHomeRow;
 	std::vector<size_t> _lastCursorRow;
 
-	const generic_string _defaultInfo = TEXT("No schortcut conflicts for this item.");
+	const generic_string _defaultInfo = TEXT("No shortcut conflicts for this item.");
 	const generic_string _assignInfo  = TEXT("No conflicts . . .");
 
 	std::vector<HFONT> _hGridFonts;

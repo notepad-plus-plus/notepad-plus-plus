@@ -213,7 +213,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			nppParams->getExternalLexerFromXmlTree(pXmlDoc);
 			nppParams->getExternalLexerDoc()->push_back(pXmlDoc);
 			const char *pDllName = wmc->wchar2char(pluginFilePath, CP_ACP);
-			::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, (LPARAM)pDllName);
+			::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, reinterpret_cast<LPARAM>(pDllName));
 
 		}
 		addInLoadedDlls(pluginFileName);

@@ -98,6 +98,16 @@ mkdir .\zipped.package.release\plugins\APIs
 mkdir .\zipped.package.release\plugins\Config
 mkdir .\zipped.package.release\plugins\doc
 
+rmdir /S /Q .\zipped.package.release64
+
+mkdir .\zipped.package.release64
+mkdir .\zipped.package.release64\updater
+mkdir .\zipped.package.release64\localization
+mkdir .\zipped.package.release64\themes
+mkdir .\zipped.package.release64\plugins
+mkdir .\zipped.package.release64\plugins\APIs
+mkdir .\zipped.package.release64\plugins\Config
+mkdir .\zipped.package.release64\plugins\doc
 
 copy /Y ..\bin\license.txt .\zipped.package.release\
 If ErrorLevel 1 goto End

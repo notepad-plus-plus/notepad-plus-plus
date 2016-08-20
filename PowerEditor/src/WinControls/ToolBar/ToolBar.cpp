@@ -193,15 +193,15 @@ int ToolBar::getWidth() const {
 	RECT btnRect;
 	int totalWidth = 0;
 	for(size_t i = 0; i < _nrCurrentButtons; ++i) {
-		::SendMessage(_hSelf, TB_GETITEMRECT, i, (LPARAM)&btnRect);
+		::SendMessage(_hSelf, TB_GETITEMRECT, i, reinterpret_cast<LPARAM>(&btnRect));
 		totalWidth += btnRect.right - btnRect.left;
 	}
 	return totalWidth;
 }
 
 int ToolBar::getHeight() const {
-	DWORD size = (DWORD)SendMessage(_hSelf, TB_GETBUTTONSIZE, 0, 0);
-	DWORD padding = (DWORD)SendMessage(_hSelf, TB_GETPADDING, 0, 0);
+	DWORD size = static_cast<DWORD>(SendMessage(_hSelf, TB_GETBUTTONSIZE, 0, 0));
+	DWORD padding = static_cast<DWORD>(SendMessage(_hSelf, TB_GETPADDING, 0, 0));
 	int totalHeight = HIWORD(size) + HIWORD(padding) - 3;
 	return totalHeight;
 }
@@ -249,15 +249,17 @@ void ToolBar::reset(bool create)
 	if(create && _hSelf) {
 		//Store current button state information
 		TBBUTTON tempBtn;
-		for(size_t i = 0; i < _nrCurrentButtons; ++i) {
-			::SendMessage(_hSelf, TB_GETBUTTON, (WPARAM)i, (LPARAM)&tempBtn);
+		for(size_t i = 0; i < _nrCurrentButtons; ++i)
+		{
+			::SendMessage(_hSelf, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&tempBtn));
 			_pTBB[i].fsState = tempBtn.fsState;
 		}
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
 	}
 
-	if(!_hSelf) {
+	if(!_hSelf)
+	{
 		_hSelf = ::CreateWindowEx(
 					WS_EX_PALETTEWINDOW,
 					TOOLBARCLASSNAME,
@@ -271,8 +273,8 @@ void ToolBar::reset(bool create)
 					0);
 		// Send the TB_BUTTONSTRUCTSIZE message, which is required for 
 		// backward compatibility.
-		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
-		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, (LPARAM)TBSTYLE_EX_HIDECLIPPEDBUTTONS);
+		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
+		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_HIDECLIPPEDBUTTONS);
 	}
 
 	if (!_hSelf)
@@ -299,18 +301,18 @@ void ToolBar::reset(bool create)
 		for (size_t i = 0 ; i < _nrButtons ; ++i)
 		{
 			int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
-			HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-			addbmp.nID = (UINT_PTR)hBmp;
+			HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
+			addbmp.nID = reinterpret_cast<UINT_PTR>(hBmp);
 
 			//addbmp.nID = _toolBarIcons.getStdIconAt(i);
-			::SendMessage(_hSelf, TB_ADDBITMAP, 1, (LPARAM)&addbmp);
+			::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 		}
 		if (_nrDynButtons > 0)
 		{
 			for (size_t j = 0; j < _nrDynButtons; ++j)
 			{
-				addbmpdyn.nID = (UINT_PTR)_vDynBtnReg.at(j).hBmp;
-				::SendMessage(_hSelf, TB_ADDBITMAP, 1, (LPARAM)&addbmpdyn);
+				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j).hBmp);
+				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
 			}
 		}
 	}
@@ -320,8 +322,8 @@ void ToolBar::reset(bool create)
 		size_t nrBtnToAdd = (_state == TB_STANDARD?_nrTotalButtons:_nrButtons);
 		_nrCurrentButtons = nrBtnToAdd;
 		WORD btnSize = (_state == TB_LARGE?32:16);
-		::SendMessage(_hSelf, TB_SETBUTTONSIZE , (WPARAM)0, (LPARAM)MAKELONG (btnSize, btnSize));
-		::SendMessage(_hSelf, TB_ADDBUTTONS, (WPARAM)nrBtnToAdd, (LPARAM)_pTBB);
+		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
+		::SendMessage(_hSelf, TB_ADDBUTTONS, nrBtnToAdd, reinterpret_cast<LPARAM>(_pTBB));
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
 
@@ -359,7 +361,7 @@ void ToolBar::doPopop(POINT chevPoint)
 	RECT btnRect = {0,0,0,0};
 	while(start < _nrCurrentButtons)
 	{
-		::SendMessage(_hSelf, TB_GETITEMRECT, start, (LPARAM)&btnRect);
+		::SendMessage(_hSelf, TB_GETITEMRECT, start, reinterpret_cast<LPARAM>(&btnRect));
 		if(btnRect.right > width)
 			break;
 		++start;
@@ -429,7 +431,7 @@ void ReBar::init(HINSTANCE hInst, HWND hPere)
 	rbi.cbSize = sizeof(REBARINFO);
 	rbi.fMask  = 0;
 	rbi.himl   = (HIMAGELIST)NULL;
-	::SendMessage(_hSelf, RB_SETBARINFO, 0, (LPARAM)&rbi);
+	::SendMessage(_hSelf, RB_SETBARINFO, 0, reinterpret_cast<LPARAM>(&rbi));
 }
 
 bool ReBar::addBand(REBARBANDINFO * rBand, bool useID) 
@@ -449,27 +451,27 @@ bool ReBar::addBand(REBARBANDINFO * rBand, bool useID)
 	} else {
 		rBand->wID = getNewID();
 	}
-	::SendMessage(_hSelf, RB_INSERTBAND, (WPARAM)-1, (LPARAM)rBand);	//add to end of list
+	::SendMessage(_hSelf, RB_INSERTBAND, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(rBand));	//add to end of list
 	return true;
 }
 
 void ReBar::reNew(int id, REBARBANDINFO * rBand) 
 {
-	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
-	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)rBand);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, id, 0);
+	::SendMessage(_hSelf, RB_SETBANDINFO, index, reinterpret_cast<LPARAM>(rBand));
 };
 
 void ReBar::removeBand(int id) 
 {
-	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, id, 0);
 	if (id >= REBAR_BAR_EXTERNAL)
 		releaseID(id);
-	::SendMessage(_hSelf, RB_DELETEBAND, (WPARAM)index, (LPARAM)0);
+	::SendMessage(_hSelf, RB_DELETEBAND, index, 0);
 }
 
 void ReBar::setIDVisible(int id, bool show) 
 {
-	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, id, 0);
 	if (index == -1 )
 		return;	//error
 
@@ -479,17 +481,17 @@ void ReBar::setIDVisible(int id, bool show)
 
 
 	rbBand.fMask = RBBIM_STYLE;
-	::SendMessage(_hSelf, RB_GETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
+	::SendMessage(_hSelf, RB_GETBANDINFO, index, reinterpret_cast<LPARAM>(&rbBand));
 	if (show)
 		rbBand.fStyle &= (RBBS_HIDDEN ^ -1);
 	else
 		rbBand.fStyle |= RBBS_HIDDEN;
-	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
+	::SendMessage(_hSelf, RB_SETBANDINFO, index, reinterpret_cast<LPARAM>(&rbBand));
 }
 
 bool ReBar::getIDVisible(int id)
 {
-	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, id, 0);
 	if (index == -1 )
 		return false;	//error
 	REBARBANDINFO rbBand;
@@ -497,14 +499,14 @@ bool ReBar::getIDVisible(int id)
 	rbBand.cbSize  = REBARBAND_SIZE;
 
 	rbBand.fMask = RBBIM_STYLE;
-	::SendMessage(_hSelf, RB_GETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
+	::SendMessage(_hSelf, RB_GETBANDINFO, index, reinterpret_cast<LPARAM>(&rbBand));
 	return ((rbBand.fStyle & RBBS_HIDDEN) == 0);
 }
 
 
 void ReBar::setGrayBackground(int id) 
 {
-	auto index = SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	auto index = SendMessage(_hSelf, RB_IDTOINDEX, id, 0);
 	if (index == -1 )
 		return;	//error
 	REBARBANDINFO rbBand;
@@ -512,7 +514,7 @@ void ReBar::setGrayBackground(int id)
 	rbBand.cbSize  = REBARBAND_SIZE;
 	rbBand.fMask = RBBIM_BACKGROUND;
 	rbBand.hbmBack = LoadBitmap((HINSTANCE)::GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_INCREMENTAL_BG));
-	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
+	::SendMessage(_hSelf, RB_SETBANDINFO, index, reinterpret_cast<LPARAM>(&rbBand));
 }
 
 int ReBar::getNewID()

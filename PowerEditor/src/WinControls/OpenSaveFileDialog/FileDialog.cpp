@@ -341,7 +341,7 @@ static generic_string addExt(HWND textCtrl, HWND typeCtrl) {
 
 	auto cbTextLen = ::SendMessage(typeCtrl, CB_GETLBTEXTLEN, i, 0);
 	TCHAR * ext = new TCHAR[cbTextLen + 1];
-	::SendMessage(typeCtrl, CB_GETLBTEXT, i, (LPARAM)ext);
+	::SendMessage(typeCtrl, CB_GETLBTEXT, i, reinterpret_cast<LPARAM>(ext));
 	
 	TCHAR *pExt = get1stExt(ext);
 	if (*fn != '\0')
@@ -365,7 +365,7 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			NppParameters *pNppParam = NppParameters::getInstance();
 			int index = pNppParam->getFileSaveDlgFilterIndex();
 
-			::SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)staticThis);
+			::SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(staticThis));
 			hFileDlg = ::GetParent(hWnd);
 			goToCenter(hFileDlg);
 
@@ -376,9 +376,9 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			}
 
 			// Don't touch the following 3 lines, they are cursed !!!
-			oldProc = (WNDPROC)::GetWindowLongPtr(hFileDlg, GWLP_WNDPROC);
+			oldProc = reinterpret_cast<WNDPROC>(::GetWindowLongPtr(hFileDlg, GWLP_WNDPROC));
 			if (oldProc)
-				::SetWindowLongPtr(hFileDlg, GWLP_WNDPROC, (LONG_PTR)fileDlgProc);
+				::SetWindowLongPtr(hFileDlg, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(fileDlgProc));
 
 			return FALSE;
 		}

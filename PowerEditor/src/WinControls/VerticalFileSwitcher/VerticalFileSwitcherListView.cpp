@@ -58,15 +58,15 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
                                 0,
                                 0,
                                 _hParent,
-                                (HMENU) NULL,
+                                nullptr,
                                 hInst,
-                                NULL);
+                                nullptr);
 	if (!_hSelf)
 	{
 		throw std::runtime_error("VerticalFileSwitcherListView::init : CreateWindowEx() function return null");
 	}
 
-	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
+	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 
 	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_INFOTIP);
@@ -99,7 +99,7 @@ void VerticalFileSwitcherListView::initList()
 {
 	TaskListInfo taskListInfo;
 	static HWND nppHwnd = ::GetParent(_hParent);
-	::SendMessage(nppHwnd, WM_GETTASKLISTINFO, (WPARAM)&taskListInfo, TRUE);
+	::SendMessage(nppHwnd, WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), TRUE);
 
 	NppParameters *nppParams = NppParameters::getInstance();
 	NativeLangSpeaker *pNativeSpeaker = nppParams->getNativeLangSpeaker();
@@ -112,10 +112,8 @@ void VerticalFileSwitcherListView::initList()
 
 	generic_string nameStr = pNativeSpeaker->getAttrNameStr(TEXT("Name"), FS_ROOTNODE, FS_CLMNNAME);
 	
-	//insertColumn(nameStr.c_str(), 150, 0);
 	insertColumn(nameStr.c_str(), (isExtColumn ? totalWidth - 50 : totalWidth), 0);
 
-	//bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
 	if (isExtColumn)
 	{
 		generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
@@ -142,7 +140,7 @@ void VerticalFileSwitcherListView::initList()
 		item.iItem = static_cast<int32_t>(i);
 		item.iSubItem = 0;
 		item.iImage = fileNameStatus._status;
-		item.lParam = (LPARAM)tl;
+		item.lParam = reinterpret_cast<LPARAM>(tl);
 		ListView_InsertItem(_hSelf, &item);
 		if (isExtColumn)
 		{
@@ -278,7 +276,7 @@ int VerticalFileSwitcherListView::add(BufferID bufferID, int iView)
 	item.iItem = index;
 	item.iSubItem = 0;
 	item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
-	item.lParam = (LPARAM)tl;
+	item.lParam = reinterpret_cast<LPARAM>(tl);
 	ListView_InsertItem(_hSelf, &item);
 
 	if (isExtColumn)

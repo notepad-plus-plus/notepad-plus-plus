@@ -42,32 +42,30 @@ void ShortcutMapper::initTabs() {
 	TCITEM tie;
 	tie.mask = TCIF_TEXT;
 	tie.pszText = tabNames[0];
-	::SendMessage(hTab, TCM_INSERTITEM, 0, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&tie));
 	tie.pszText = tabNames[1];
-	::SendMessage(hTab, TCM_INSERTITEM, 1, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 1, reinterpret_cast<LPARAM>(&tie));
 	tie.pszText = tabNames[2];
-	::SendMessage(hTab, TCM_INSERTITEM, 2, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 2, reinterpret_cast<LPARAM>(&tie));
 	tie.pszText = tabNames[3];
-	::SendMessage(hTab, TCM_INSERTITEM, 3, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 3, reinterpret_cast<LPARAM>(&tie));
 	tie.pszText = tabNames[4];
-	::SendMessage(hTab, TCM_INSERTITEM, 4, (LPARAM)(&tie) );
+	::SendMessage(hTab, TCM_INSERTITEM, 4, reinterpret_cast<LPARAM>(&tie));
 
     TabCtrl_SetCurSel(_hTabCtrl, int(_currentState));
 
-	//force alignment to babygrid on higher dpi
-	if (NppParameters::getInstance()->_dpiManager.scaleY(30) > 30)
-	{
-		WINDOWPLACEMENT wp;
-		wp.length = sizeof(wp);
+	// force alignment to babygrid
+	RECT rcTab;
+	WINDOWPLACEMENT wp;
+	wp.length = sizeof(wp);
 
-		::GetWindowPlacement(hTab, &wp);
+	::GetWindowPlacement(hTab, &wp);
+	::SendMessage(hTab, TCM_GETITEMRECT, 0, reinterpret_cast<LPARAM>(&rcTab));
 
-		const int offset = NppParameters::getInstance()->_dpiManager.scaleY(30) - wp.rcNormalPosition.bottom;
-		wp.rcNormalPosition.bottom += offset;
-		wp.rcNormalPosition.top += offset + 1;
+	wp.rcNormalPosition.bottom = NppParameters::getInstance()->_dpiManager.scaleY(30);
+	wp.rcNormalPosition.top = wp.rcNormalPosition.bottom - rcTab.bottom;
 
-		::SetWindowPlacement(hTab, &wp);
-	}
+	::SetWindowPlacement(hTab, &wp);
 }
 
 void ShortcutMapper::getClientRect(RECT & rc) const 
@@ -471,7 +469,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								shortcut._isShift = pcsc.getKeyCombo()._isShift;
 								shortcut._key = pcsc.getKeyCombo()._key;
 
-								::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED, cmdID, (LPARAM)&shortcut);
+								::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED, cmdID, reinterpret_cast<LPARAM>(&shortcut));
 								nppParam->setShortcutDirty();
 							}
 							break;
@@ -557,7 +555,8 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								// preparing to remove from menu
 								posBase = 6;
 								nbElem = theMacros.size();
-								hMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_MACRO);
+								HMENU m = reinterpret_cast<HMENU>(::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0));
+								hMenu = ::GetSubMenu(m, MENUINDEX_MACRO);
                                 modifCmd = IDM_SETTING_SHORTCUT_MAPPER_MACRO;
 								for (size_t i = shortcutIndex ; i < nbElem ; ++i)	//lower the IDs of the remaining items so there are no gaps
 								{
@@ -590,7 +589,8 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								// preparing to remove from menu
 								posBase = 2;
 								nbElem = theUserCmds.size();
-								hMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_RUN);
+								HMENU m = reinterpret_cast<HMENU>(::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0));
+								hMenu = ::GetSubMenu(m, MENUINDEX_RUN);
                                 modifCmd = IDM_SETTING_SHORTCUT_MAPPER_RUN;
 								for (size_t i = shortcutIndex ; i < nbElem ; ++i)	//lower the IDs of the remaining items so there are no gaps
 								{

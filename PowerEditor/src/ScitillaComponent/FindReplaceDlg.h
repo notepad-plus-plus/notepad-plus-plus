@@ -311,7 +311,7 @@ public :
 		// Show finder and set focus
 		if (_pFinder) 
 		{
-			::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
+			::SendMessage(_hParent, NPPM_DMMSHOW, 0, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 			_pFinder->_scintView.getFocus();
 		}
 	};
@@ -376,7 +376,7 @@ private :
 	void enableMarkFunc();
 
 	void setDefaultButton(int nID) {
-		SendMessage(_hSelf, DM_SETDEFID, (WPARAM)nID, 0L);
+		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);
 	};
 
 	void gotoCorrectTab() {
@@ -413,7 +413,7 @@ public :
 	virtual void display(bool toShow = true) const;
 
 	void setSearchText(const TCHAR * txt2find, bool) {
-		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, (LPARAM)txt2find);
+		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(txt2find));
 	};
 
 	void setFindStatus(FindStatus iStatus, int nbCounted);
@@ -455,7 +455,7 @@ public:
 	void setInfo(const TCHAR *info) const
 	{
 		if (_hwnd)
-			::SendMessage(_hPText, WM_SETTEXT, 0, (LPARAM)info);
+			::SendMessage(_hPText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
 	}
 
 	void setPercent(unsigned percent, const TCHAR *fileName) const;

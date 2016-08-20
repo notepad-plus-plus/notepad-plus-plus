@@ -52,8 +52,8 @@ public :
 		return oldColour;
 	};
 	void hookOn(HWND staticHandle) {
-		::SetWindowLongPtr(staticHandle, GWLP_USERDATA, (LONG_PTR)this);
-		_oldProc = (WNDPROC)::SetWindowLongPtr(staticHandle, GWLP_WNDPROC, (LONG_PTR)staticProc);
+		::SetWindowLongPtr(staticHandle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+		_oldProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(staticHandle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 	};
 private :
 	COLORREF _colour;

@@ -64,12 +64,13 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	auto originalEndPos = pHighlightView->execute(SCI_GETTARGETEND);
 
 	// Get the range of text visible and highlight everything in it
-	int firstLine = static_cast<int>(pHighlightView->execute(SCI_GETFIRSTVISIBLELINE));
-	int nrLines =	min((int)pHighlightView->execute(SCI_LINESONSCREEN), MAXLINEHIGHLIGHT ) + 1;
-	int lastLine =		firstLine + nrLines;
+	auto firstLine = static_cast<int>(pHighlightView->execute(SCI_GETFIRSTVISIBLELINE));
+	auto nbLineOnScreen = pHighlightView->execute(SCI_LINESONSCREEN);
+	auto nrLines =	min(nbLineOnScreen, MAXLINEHIGHLIGHT ) + 1;
+	auto lastLine =		firstLine + nrLines;
 	int startPos =		0;
 	int endPos =		0;
-	int currentLine = firstLine;
+	auto currentLine = firstLine;
 	int prevDocLineChecked = -1;	//invalid start
 
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
@@ -87,12 +88,12 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 
 	for(; currentLine < lastLine; ++currentLine)
 	{
-		int docLine = (int)pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine);
+		int docLine = static_cast<int>(pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine));
 		if (docLine == prevDocLineChecked)
 			continue;	//still on same line (wordwrap)
 		prevDocLineChecked = docLine;
-		startPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine);
-		endPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine+1);
+		startPos = static_cast<int>(pHighlightView->execute(SCI_POSITIONFROMLINE, docLine));
+		endPos = static_cast<int>(pHighlightView->execute(SCI_POSITIONFROMLINE, docLine + 1));
 		FindReplaceInfo frInfo;
 		frInfo._txt2find = searchText;
 		frInfo._startRange = startPos;

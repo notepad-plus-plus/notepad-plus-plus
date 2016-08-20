@@ -91,7 +91,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 					{
 						if (dwAction == FILE_ACTION_MODIFIED)
 						{
-							::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, (WPARAM)buf, 0);
+							::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, reinterpret_cast<WPARAM>(buf), 0);
 						}
 						else if ((dwAction == FILE_ACTION_REMOVED) || (dwAction == FILE_ACTION_RENAMED_OLD_NAME))
 						{
@@ -209,7 +209,6 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
     }
 
     bool globbing = wcsrchr(longFileName, TCHAR('*')) || wcsrchr(longFileName, TCHAR('?'));
-	bool isOpenningNewEmptyFile = false;
 
 	if (!isSnapshotMode) // if not backup mode, or backupfile path is invalid
 	{
@@ -229,7 +228,6 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 					if (res)
 					{
 						isCreateFileSuccessful = true;
-						isOpenningNewEmptyFile = true;
 					}
 					else
 					{
@@ -299,16 +297,6 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         // if file is read only, we set the view read only
         if (isReadOnly)
             buf->setUserReadOnly(true);
-
-		// if it's a new created file, then use new file default settings
-		if (isOpenningNewEmptyFile)
-		{
-			const NewDocDefaultSettings & ndds = (NppParameters::getInstance()->getNppGUI()).getNewDocDefaultSettings();
-			buf->setEncoding(ndds._codepage);
-			buf->setEolFormat(ndds._format);
-			buf->setUnicodeMode(ndds._unicodeMode);
-			buf->setLangType(ndds._lang);
-		}
 
         // Notify plugins that current file is about to open
         scnN.nmhdr.code = NPPN_FILEBEFOREOPEN;
@@ -670,8 +658,6 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		// if the same buffer ID is not found then remove the entry from File Switcher Panel
 		if (_pFileSwitcherPanel)
 		{
-			//int posInfo = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETPOSFROMBUFFERID, (WPARAM)id ,0);
-
 			_pFileSwitcherPanel->closeItem(id, whichOne);
 
 			if (hiddenBufferID != BUFFER_INVALID)

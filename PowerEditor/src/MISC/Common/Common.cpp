@@ -913,3 +913,21 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 	return false;
 }
 
+std::wstring GetLastErrorAsString(DWORD errorCode)
+{
+	// Get the error message, if any.
+	// If both error codes (passed error n GetLastError) are 0, then return empty
+	if (errorCode == 0 && ( (errorCode = GetLastError()), errorCode == 0 ))
+		return std::wstring(); //No error message has been recorded
+	
+	LPWSTR messageBuffer = nullptr;
+	size_t size = FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		nullptr, errorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&messageBuffer, 0, nullptr);
+
+	std::wstring message(messageBuffer, size);
+
+	//Free the buffer.
+	LocalFree(messageBuffer);
+
+	return message;
+}

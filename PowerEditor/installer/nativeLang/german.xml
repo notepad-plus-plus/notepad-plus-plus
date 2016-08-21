@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 6.9.1
-	last modified: 2016-03-30 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.0
+	last modified: 2016-09-17 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net or schnurlos(at)gmail.com
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="6.9.1">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.0">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -99,6 +99,7 @@
 					<Item id="41016" name="Von Datentr&amp;äger löschen"/>
 					<Item id="41017" name="Um&amp;benennen …"/>
 					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
+					<Item id="41022" name="Verzeichnis als Arbeitsbereich öffnen"/>
 
 					<Item id="42001" name="Aus&amp;schneiden"/>
 					<Item id="42002" name="&amp;Kopieren"/>
@@ -123,8 +124,14 @@
 					<Item id="42064" name="Zeilen als Dezimalzahlen (Komma) absteigend sortieren"/>
 					<Item id="42065" name="Zeilen als Dezimalzahlen (Punkt) aufsteigend sortieren"/>
 					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>
-					<Item id="42016" name="In &amp;Großbuchstaben umwandeln"/>
-					<Item id="42017" name="In &amp;Kleinbuchstaben umwandeln"/>
+					<Item id="42016" name="In &amp;GROSSBUCHSTABEN umwandeln"/>
+					<Item id="42017" name="In &amp;kleinbuchstaben umwandeln"/>
+					<Item id="42067" name="Überschriftenstil"/>
+					<Item id="42068" name="Gemischter Überschriftenstil"/>
+					<Item id="42069" name="Normaler Wortstil"/>
+					<Item id="42070" name="Gemischter Wortstil"/>
+					<Item id="42071" name="iNVERTIERTER wORTSTIL"/>
+					<Item id="42072" name="zUFäLlIGeR WortSTiL"/>
 					<Item id="42018" name="Aufzeichnung s&amp;tarten"/>
 					<Item id="42019" name="Aufzeichnung st&amp;oppen"/>
 					<Item id="42021" name="Makro ausfüh&amp;ren"/>
@@ -229,6 +236,7 @@
 					<Item id="44049" name="Datei-&amp;Info …"/>
 					<Item id="44080" name="&amp;Miniaturansicht"/>
 					<Item id="44084" name="&amp;Funktionsliste"/>
+					<Item id="44085" name="Verzeichnis als Arbeitsbereich"/>
 					<Item id="44086" name="&amp;1. Tab"/>
 					<Item id="44087" name="&amp;2. Tab"/>
 					<Item id="44088" name="&amp;3. Tab"/>
@@ -240,6 +248,9 @@
 					<Item id="44094" name="&amp;9. Tab"/>
 					<Item id="44095" name="&amp;Nächster Tab"/>
 					<Item id="44096" name="&amp;Vorheriger Tab"/>
+					<Item id="44097" name="Überwachen (Ende -f)"/>
+					<Item id="44098" name="Bewege Tab vorwärts"/>
+					<Item id="44099" name="Bewege Tab rückwärts"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -281,7 +292,7 @@
 					<Item id="45053" name="OEM 860: Portugiesisch"/>
 					<Item id="45056" name="OEM 863: Französisch"/>
 
-					<Item id="46033" name="Zusammengesetzt"/>
+                    <Item id="46033" name="Zusammengesetzt"/>
 					<Item id="46019" name="MS-INI-Datei"/>
 					<Item id="46015" name="MS-DOS-Stil"/>
 					<Item id="46016" name="Normaler Text"/>
@@ -297,6 +308,7 @@
 					<Item id="47003" name="Online-Dokumentation"/>
 					<Item id="47004" name="Notepad++ Online-Forum"/>
 					<Item id="47011" name="&amp;Support im Chat"/>
+					<Item id="47012" name="Debug-Info"/>
 					<Item id="47005" name="&amp;Erweiterungen"/>
 					<Item id="47006" name="Notepad++ &amp;aktualisieren"/>
 					<Item id="47009" name="&amp;Proxy für Updater einstellen …"/>
@@ -316,10 +328,7 @@
 					<Item id="42041" name="L&amp;iste löschen"/>
 					<Item id="48016" name="Shortcut &amp;ändern/Makro löschen …"/>
 					<Item id="48017" name="Shortcut &amp;ändern/Befehl löschen …"/>
-					<Item id="44085" name="Verzeichnis als Arbeitsbereich"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="41022" name="Verzeichnis als Arbeitsbereich öffnen"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="47012" name="Debug-Info"/>								<!-- kommt im englischen nicht oder nicht mehr vor -->
-			</Commands>
+				</Commands>
 			</Main>
 			<Splitter>
 			</Splitter>
@@ -380,7 +389,7 @@
 				<Item id="1659" name="&amp;Versteckte Ordner"/>
 				<Item id="1624" name="Suchmodus"/>
 				<Item id="1625" name="Norma&amp;l"/>
-				<Item id="1626" name="Erwe&amp;itert (\r, \n, \t, \x…, \0)"/>
+				<Item id="1626" name="Erwe&amp;itert (\n, \r, \t, \0, \x…)"/>
 				<Item id="1660" name="Ersetzen in Dateien"/>
 				<Item id="1661" name="&amp;Ordner der akt. Datei"/>
 				<Item id="1641" name="Alle in aktiver &amp;Datei suchen"/>
@@ -647,8 +656,8 @@
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
+                                        <Item id="6121" name="Programm beim Schließen des letzten Tabs beenden"/>
 
-					<Item id="6121" name="Menüleiste"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="6122" name="Menüleiste ausblenden (wechseln: Alt oder F10)"/>
 					<Item id="6123" name="Sprache der Benutzeroberfläche"/>
 
@@ -680,7 +689,8 @@
 					<Item id="6207" name="Lesezeichenrand"/>
 					<Item id="6208" name="Randbegrenzung anzeigen"/>
 					<Item id="6209" name="Anzahl der Spalten:"/>
-					<Item id="6234" name="Flüssiges Scrollen deaktivieren (bei Touchpad-Problemen)"/>
+					<Item id="6234" name="Flüssiges Scrollen deaktivieren
+(bei Touchpad-Problemen)"/>
 
 					<Item id="6211" name="Rechter Rand"/>
 					<Item id="6212" name="Vertikale Linie"/>
@@ -688,7 +698,8 @@
 					<Item id="6214" name="Aktuelle Zeile hervorheben"/>
 					<Item id="6215" name="Kantenglättung der Schriftarten"/>
 					<Item id="6231" name="Rahmenbreite"/>
-					<Item id="6235" name="Kein Rand"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="6235" name="Kein Rand"/>
+					<Item id="6236" name="Scrollen über letzte Zeile hinaus"/>
 				</Scintillas>
 
 				<NewDoc title="Neue Dateien">
@@ -711,8 +722,9 @@
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
+					<Item id="6430" name="Benutze den neuen Stilspeicherungsdialog (ohne Dateierweiterungen)"/>	
+                                        <Item id="6431" name="Alle Dateien im Verzeichnis öffnen anstatt das Start-Verzeichnis als Arbeitsbereich zu verwenden"/>
 					<Item id="6418" name="…"/>																	<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="6430" name="Benutze den neuen Dialog zum Speichern (ohne Dateierweiterungen)"/>	<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>
 
 				<FileAssoc title="Dateiverknüpfungen">
@@ -861,10 +873,10 @@
 					<Item id="6333" name="Automatische Hervorhebung bei Auswahl"/>
 					<Item id="6334" name="Kodierung automatisch erkennen"/>
 					<Item id="6335" name="Backslash ist Escapezeichen für SQL"/>
+					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6115" name="Automatische Einrückung"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>
-					<Item id="6337" name="Arbeitsbereich Dateierw.:"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
@@ -909,7 +921,7 @@
 			<FileAlreadyOpenedInNpp title="Datei bereits geöffnet" message="Die Datei ist bereits in Notepad++ geöffnet."/>
 			<DeleteFileFailed title="Löschen fehlgeschlagen!" message="Datei konnte nicht gelöscht werden."/>
 
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.&#x0A;Sind Sie sicher?"/>
 			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte auf ein Laufwerk nur mit Leserechten,\roder auf ein Verzeichnis ohne die erforderlichen Schreibrechte zeigen.\rDie Einstellungen in der Cloud werden abgebrochen. Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
 		</MessageBox>
@@ -924,7 +936,7 @@
 		<AsciiInsertion>
 			<PanelTitle name="Zeichentabelle"/>
 			<ColumnVal name="Dezimal"/>
-			<ColumnHex name="Hexadezimal"/>
+            <ColumnHex name="Hexadezimal"/>
 			<ColumnChar name="Zeichen"/>
 		</AsciiInsertion>
 		<DocumentMap>

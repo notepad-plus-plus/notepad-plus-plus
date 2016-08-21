@@ -342,13 +342,74 @@ void Notepad_plus::command(int id)
 					}
 					else
 					{
-
 						_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(lpchar));
 					}
 					GlobalUnlock(hglb);
 				}
 			}
 			CloseClipboard();
+
+		}
+		break;
+
+		case IDM_EDIT_OPENINFOLDER:
+		case IDM_EDIT_OPENASFILE:
+		{
+			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
+				return;
+
+			HWND hwnd = _pPublicInterface->getHSelf();
+			TCHAR curentWord[CURRENTWORD_MAXLENGTH];
+			::SendMessage(hwnd, NPPM_GETCURRENTWORD, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
+			
+			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH];
+			if (id == IDM_EDIT_OPENINFOLDER)
+			{
+				lstrcpy(cmd2Exec, TEXT("explorer"));
+			}
+			else
+			{
+				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
+			}
+
+			if (::PathFileExists(curentWord))
+			{
+				generic_string fullFilePath = id == IDM_EDIT_OPENINFOLDER ? TEXT("/select,") : TEXT("");
+				fullFilePath += TEXT("\"");
+				fullFilePath += curentWord;
+				fullFilePath += TEXT("\"");
+
+				if (id == IDM_EDIT_OPENINFOLDER ||
+					(id == IDM_EDIT_OPENASFILE && not ::PathIsDirectory(curentWord)))
+					::ShellExecute(hwnd, TEXT("open"), cmd2Exec, fullFilePath.c_str(), TEXT("."), SW_SHOW);
+			}
+			else
+			{
+				TCHAR currentDir[CURRENTWORD_MAXLENGTH];
+				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
+
+				generic_string fullFilePath = id == IDM_EDIT_OPENINFOLDER ? TEXT("/select,") : TEXT("");
+				fullFilePath += TEXT("\"");
+				fullFilePath += currentDir;
+				fullFilePath += TEXT("\\");
+				fullFilePath += curentWord;
+				if ((id == IDM_EDIT_OPENASFILE && 
+					(not::PathFileExists(fullFilePath.c_str() + 1) || ::PathIsDirectory(fullFilePath.c_str() + 1))))
+					return;
+				fullFilePath += TEXT("\"");
+				::ShellExecute(hwnd, TEXT("open"), cmd2Exec, fullFilePath.c_str(), TEXT("."), SW_SHOW);
+			}
+		}
+		break;
+
+		case IDM_EDIT_SEARCHONINTERNET:
+		{
+
+		}
+		break;
+
+		case IDM_EDIT_CHANGESEARCHENGIN:
+		{
 
 		}
 		break;

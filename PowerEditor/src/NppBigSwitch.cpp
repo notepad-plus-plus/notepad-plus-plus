@@ -71,12 +71,12 @@ struct SortTaskListPred final
 };
 
 
-LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (hwnd == NULL)
 		return FALSE;
 
-	switch(Message)
+	switch(message)
 	{
 		case WM_NCCREATE:
 		{
@@ -90,15 +90,15 @@ LRESULT CALLBACK Notepad_plus_Window::Notepad_plus_Proc(HWND hwnd, UINT Message,
 
 		default:
 		{
-			return (reinterpret_cast<Notepad_plus_Window *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA))->runProc(hwnd, Message, wParam, lParam));
+			return (reinterpret_cast<Notepad_plus_Window *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA))->runProc(hwnd, message, wParam, lParam));
 		}
 	}
 }
 
 
-LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
+LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (Message)
+	switch (message)
 	{
 		case WM_CREATE:
 		{
@@ -117,25 +117,25 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPA
 		default:
 		{
 			if (this)
-				return _notepad_plus_plus_core.process(hwnd, Message, wParam, lParam);
+				return _notepad_plus_plus_core.process(hwnd, message, wParam, lParam);
 		}
 	}
 	return FALSE;
 }
 
 
-LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
+LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	LRESULT result = FALSE;
 	NppParameters *pNppParam = NppParameters::getInstance();
 
-	switch (Message)
+	switch (message)
 	{
 		case WM_NCACTIVATE:
 		{
 			// Note: lParam is -1 to prevent endless loops of calls
 			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, -1);
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
 
 		case WM_DRAWITEM:
@@ -646,16 +646,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// par defaut : NPPM_GETCURRENTDIRECTORY
 			TCHAR *fileStr = lstrcpy(str, _pEditView->getCurrentBuffer()->getFullPathName());
 
-			if (Message == NPPM_GETCURRENTDIRECTORY)
+			if (message == NPPM_GETCURRENTDIRECTORY)
 				PathRemoveFileSpec(str);
-			else if (Message == NPPM_GETFILENAME)
+			else if (message == NPPM_GETFILENAME)
 				fileStr = PathFindFileName(str);
-			else if (Message == NPPM_GETNAMEPART)
+			else if (message == NPPM_GETNAMEPART)
 			{
 				fileStr = PathFindFileName(str);
 				PathRemoveExtension(fileStr);
 			}
-			else if (Message == NPPM_GETEXTPART)
+			else if (message == NPPM_GETEXTPART)
 				fileStr = PathFindExtension(str);
 
 			// For the compability reason, if wParam is 0, then we assume the size of generic_string buffer (lParam) is large enough.
@@ -699,13 +699,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_GETNPPFULLFILEPATH:
 		case NPPM_GETNPPDIRECTORY:
 		{
 			const int strSize = MAX_PATH;
 			TCHAR str[strSize];
 
 			::GetModuleFileName(NULL, str, strSize);
-			PathRemoveFileSpec(str);
+
+			if (message == NPPM_GETNPPDIRECTORY)
+				PathRemoveFileSpec(str);
 
 			// For the compability reason, if wParam is 0, then we assume the size of generic_string buffer (lParam) is large enough.
 			// otherwise we check if the generic_string buffer size is enough for the generic_string to copy.
@@ -779,7 +782,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			size_t nbFileNames = static_cast<size_t>(lParam);
 
 			size_t j = 0;
-			if (Message != NPPM_GETOPENFILENAMESSECOND)
+			if (message != NPPM_GETOPENFILENAMESSECOND)
 			{
 				for (size_t i = 0; i < _mainDocTab.nbItem() && j < nbFileNames; ++i)
 				{
@@ -789,7 +792,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 
-			if (Message != NPPM_GETOPENFILENAMESPRIMARY)
+			if (message != NPPM_GETOPENFILENAMESPRIMARY)
 			{
 				for (size_t i = 0; i < _subDocTab.nbItem() && j < nbFileNames; ++i)
 				{
@@ -871,7 +874,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					break;
 				}
 			}
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
 
 		case NPPM_GETNBSESSIONFILES:
@@ -999,7 +1002,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			switchEditViewTo(whichView);
 			activateDoc(index);
 
-			if (Message == NPPM_TRIGGERTABBARCONTEXTMENU)
+			if (message == NPPM_TRIGGERTABBARCONTEXTMENU)
 			{
 				// open here tab menu
 				NMHDR	nmhdr;
@@ -1318,7 +1321,6 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-
 		case NPPM_INTERNAL_SCROLLBEYONDLASTLINE:
 		{
 			const bool endAtLastLine = not (pNppParam->getSVP())._scrollBeyondLastLine;
@@ -1407,7 +1409,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
 
 		case WM_NOTIFY:
@@ -1727,7 +1729,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					::LockWindowUpdate(NULL);
 
 				//Sends WM_DESTROY, Notepad++ will end
-				if (Message == WM_CLOSE)
+				if (message == WM_CLOSE)
 					::DestroyWindow(hwnd);
 			}
 			return TRUE;
@@ -1770,7 +1772,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_sysMenuEntering = true;
 			}
 
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
 
 		case WM_LBUTTONDBLCLK:
@@ -1936,7 +1938,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_MSGTOPLUGIN :
 		{
-			return _pluginsManager.relayPluginMessages(Message, wParam, lParam);
+			return _pluginsManager.relayPluginMessages(message, wParam, lParam);
 		}
 
 		case NPPM_ALLOCATESUPPORTED:
@@ -2132,7 +2134,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR:
 		case NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR:
 		{
-			return (Message == NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR
+			return (message == NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR
 					?(NppParameters::getInstance())->getCurrentDefaultFgColor()
 					:(NppParameters::getInstance())->getCurrentDefaultBgColor());
 		}
@@ -2240,7 +2242,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		default:
 		{
-			if (Message == WDN_NOTIFY)
+			if (message == WDN_NOTIFY)
 			{
 				NMWINDLG* nmdlg = reinterpret_cast<NMWINDLG*>(lParam);
 				switch (nmdlg->type)
@@ -2310,11 +2312,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return TRUE;
 			}
 
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, message, wParam, lParam);
 		}
 	}
 
-	_pluginsManager.relayNppMessages(Message, wParam, lParam);
+	_pluginsManager.relayNppMessages(message, wParam, lParam);
 	return result;
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Polish" filename="polish.xml" version="6.9.2">
+    <Native-Langue name="Polish" filename="polish.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -107,8 +107,14 @@
                     <Item id="42013" name="Połącz wiersze"/>
                     <Item id="42014" name="Przesuń bieżący wiersz do góry"/>
                     <Item id="42015" name="Przesuń bieżący wiersz w dół"/>
-                    <Item id="42016" name="Zamiana na duże litery"/>
-                    <Item id="42017" name="Zamiana na małe litery"/>
+                    <Item id="42016" name="DUŻE LITERY"/>
+                    <Item id="42017" name="małe litery"/>
+                    <Item id="42067" name="Jak Nazwy Własne"/>
+                    <Item id="42068" name="Jak Nazwy Własne (zachowaj dotychczasowe)"/>
+                    <Item id="42069" name="Pierwsza litera w zdaniu"/>
+                    <Item id="42070" name="Pierwsza litera w zdaniu (zachowaj dotychczasowe)"/>
+                    <Item id="42071" name="oDWRÓĆ wIELKOŚĆ"/>
+                    <Item id="42072" name="LOsowA wIelKość"/>
                     <Item id="42018" name="&amp;Rozpocznij nagrywanie"/>
                     <Item id="42019" name="&amp;Zakończ nagrywanie"/>
                     <Item id="42020" name="Rozpocznij/zakończ zaznaczenie"/>
@@ -250,6 +256,8 @@
                     <Item id="44095" name="Kolejne zakładki"/>
                     <Item id="44096" name="Poprzednia zakładka"/>
                     <Item id="44097" name="Monitorowanie pliku (tail -f)" />
+                    <Item id="44098" name="Przesuń zakładkę do przodu"/>
+                    <Item id="44099" name="Przesuń zakładkę do tyłu"/>
                     <Item id="45001" name="Konwertuj na format Windows"/>
                     <Item id="45002" name="Konwertuj na format Unix"/>
                     <Item id="45003" name="Konwertuj na format Mac"/>
@@ -664,6 +672,7 @@
                     <Item id="6231" name="Grubość ramki"/>
                     <Item id="6234" name="Wyłącz wspomaganie przewijania (jeśli masz problem z touchpadem)"/>
                     <Item id="6235" name="Bez krawędzi"/>
+                    <Item id="6236" name="Włącz przewijanie poza ostatnią linię"/>
                 </Scintillas>
 
                 <NewDoc title="Nowy dokument">

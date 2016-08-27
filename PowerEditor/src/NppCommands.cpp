@@ -2563,7 +2563,7 @@ void Notepad_plus::command(int id)
 		}
 		case IDM_PROJECTPAGE :
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("https://github.com/donho/notepad-plus-plus/"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("https://github.com/notepad-plus-plus/notepad-plus-plus/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 

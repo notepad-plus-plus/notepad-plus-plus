@@ -94,7 +94,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 
 	NppParameters *pNppParams = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)pNppParams->getNppGUI();
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParams->getNppGUI());
 
 	if (cmdLineParams->_isNoPlugin)
 		_notepad_plus_plus_core._pluginsManager.disable();

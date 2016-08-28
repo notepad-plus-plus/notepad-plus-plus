@@ -31,6 +31,7 @@
                     <Item subMenuId="edit-eolConversion" name="Convertir les sauts de ligne"/>
                     <Item subMenuId="edit-blankOperations" name="Traitement des espacements"/>
                     <Item subMenuId="edit-pasteSpecial" name="Collage spécial"/>
+					<Item subMenuId="edit-onSelection" name="Sur la Selection"/>
                     <Item subMenuId="search-markAll" name="Marquer tout"/>
                     <Item subMenuId="search-unmarkAll" name="Enlever toutes les marques"/>
                     <Item subMenuId="search-jumpUp" name="Aller vers le haut"/>
@@ -114,6 +115,10 @@
                     <Item id="42070" name="Majuscule en début de phrase (moins strict)"/>
                     <Item id="42071" name="à L'ENVERS"/>
                     <Item id="42072" name="ALÉATOiRe"/>
+					<Item id="42073" name="Ouverture du Fichier"/>
+					<Item id="42074" name="Ouvrir le répertoire dans Explorer"/>
+					<Item id="42075" name="Rechercher sur Internet"/>
+					<Item id="42076" name="Changer le Moteur de Recherche..."/>
                     <Item id="42018" name="Démarrer l’enregistrement"/>
                     <Item id="42019" name="Arrêter l’enregistrement"/>
                     <Item id="42021" name="Rejouer la macro"/>
@@ -794,6 +799,17 @@
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
+                <SearchEngine title="Moteur de Recherche">
+                    <Item id="6271" name="Moteur de Recherche (Pour la commande &quot;Rechercher sur Internet&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Votre Moteur de Recherche :"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Exemple: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
+
                 <MISC title="Divers">
                     <Item id="6114" name="Activer"/>
                     <Item id="6115" name="Indentation automatique"/>
@@ -868,6 +884,7 @@
             <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir est trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts. Êtes-vous sûr de les ouvrir ?"/>
             <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. Veuillez le télécharger sur le site de Notepad++."/>
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
+            <FilePathNotFoundWarning title="Ouvrier" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
         </MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papiers"/>

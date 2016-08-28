@@ -31,6 +31,7 @@
                     <Item subMenuId="edit-eolConversion" name="換行格式"/>
                     <Item subMenuId="edit-blankOperations" name="空格處理"/>
                     <Item subMenuId="edit-pasteSpecial" name="特殊貼上"/>
+					<Item subMenuId="edit-onSelection" name="選取字元"/>
                     <Item subMenuId="search-markAll" name="全部標記"/>
                     <Item subMenuId="search-unmarkAll" name="去除標記"/>
                     <Item subMenuId="search-jumpUp" name="上個標記"/>
@@ -113,6 +114,10 @@
                     <Item id="42070" name="句子第一字母大寫"/>
                     <Item id="42071" name="大小寫互換"/>
                     <Item id="42072" name="隨機大小寫"/>
+					<Item id="42073" name="開啟檔案"/>
+					<Item id="42074" name="開啟此資料夾於檔案總管"/>
+					<Item id="42075" name="上網搜尋"/>
+					<Item id="42076" name="更改搜索引擎..."/>
                     <Item id="42018" name="開始錄製巨集"/>
                     <Item id="42019" name="停止錄製巨集"/>
                     <Item id="42021" name="播放巨集(&amp;P)"/>
@@ -806,6 +811,17 @@
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
+                <SearchEngine title="搜索引擎">
+                    <Item id="6271" name="搜索引擎（對於『上網搜尋』選單指令）"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="雅虎"/>
+                    <Item id="6276" name="設定你的搜索引擎："/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="範例： https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
+
                 <MISC title="其他">
                     <Item id="6307" name="啟用"/>
                     <Item id="6308" name="最小化至系統匣"/>
@@ -879,6 +895,7 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="檔案開啟數量過多" message="$INT_REPLACE$ 檔案將開啟。\r確定要開啟它們？"/>
             <SettingsOnCloudError title="雲端設定" message="雲端路徑似乎設成唯讀磁碟，或是資料夾需要寫入權限。\r您的雲端設定將被取消。\r請在「喜好設定」對話框重設相關設定值。"/>
+			<FilePathNotFoundWarning title="開啟檔案" message="你試圖開啟的文件不存在。"/>
         </MessageBox>
 		<ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>

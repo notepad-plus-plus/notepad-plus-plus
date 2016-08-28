@@ -372,6 +372,7 @@ void Notepad_plus::command(int id)
 				::SendMessage(hwnd, NPPM_GETNPPFULLFILEPATH, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(cmd2Exec));
 			}
 
+			// Full file path
 			if (::PathFileExists(curentWord))
 			{
 				generic_string fullFilePath = id == IDM_EDIT_OPENINFOLDER ? TEXT("/select,") : TEXT("");
@@ -383,7 +384,7 @@ void Notepad_plus::command(int id)
 					(id == IDM_EDIT_OPENASFILE && not ::PathIsDirectory(curentWord)))
 					::ShellExecute(hwnd, TEXT("open"), cmd2Exec, fullFilePath.c_str(), TEXT("."), SW_SHOW);
 			}
-			else
+			else // Full file path - need concatenate with current full file path
 			{
 				TCHAR currentDir[CURRENTWORD_MAXLENGTH];
 				::SendMessage(hwnd, NPPM_GETCURRENTDIRECTORY, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(currentDir));
@@ -393,9 +394,17 @@ void Notepad_plus::command(int id)
 				fullFilePath += currentDir;
 				fullFilePath += TEXT("\\");
 				fullFilePath += curentWord;
-				if ((id == IDM_EDIT_OPENASFILE && 
+
+				if ((id == IDM_EDIT_OPENASFILE &&
 					(not::PathFileExists(fullFilePath.c_str() + 1) || ::PathIsDirectory(fullFilePath.c_str() + 1))))
+				{
+					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
+						_pPublicInterface->getHSelf(),
+						TEXT("The file you're trying to open doesn't exist."),
+						TEXT("File Open"),
+						MB_OK | MB_APPLMODAL);
 					return;
+				}
 				fullFilePath += TEXT("\"");
 				::ShellExecute(hwnd, TEXT("open"), cmd2Exec, fullFilePath.c_str(), TEXT("."), SW_SHOW);
 			}
@@ -404,13 +413,48 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_SEARCHONINTERNET:
 		{
+			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
+				return;
 
+			const NppGUI & nppGui = (NppParameters::getInstance())->getNppGUI();
+			generic_string url;
+			if (nppGui._searchEngineChoice == nppGui.se_custom)
+			{
+				if (nppGui._searchEngineCustom.empty())
+				{
+					url = TEXT("https://www.google.com/search?q=$(CURRENT_WORD)");
+				}
+				else
+				{
+					url = nppGui._searchEngineCustom.c_str();
+				}
+			}
+			else if (nppGui._searchEngineChoice == nppGui.se_duckDuckGo)
+			{
+				url = TEXT("https://duckduckgo.com/?q=$(CURRENT_WORD)");
+			}
+			else if (nppGui._searchEngineChoice == nppGui.se_google)
+			{
+				url = TEXT("https://www.google.com/search?q=$(CURRENT_WORD)");
+			}
+			else if (nppGui._searchEngineChoice == nppGui.se_bing)
+			{
+				url = TEXT("https://www.bing.com/search?q=$(CURRENT_WORD)");
+			}
+			else if (nppGui._searchEngineChoice == nppGui.se_yahoo)
+			{
+				url = TEXT("https://search.yahoo.com/search?q=$(CURRENT_WORD)");
+			}
+
+			Command cmd(url.c_str());
+			cmd.run(_pPublicInterface->getHSelf());	
 		}
 		break;
 
-		case IDM_EDIT_CHANGESEARCHENGIN:
+		case IDM_EDIT_CHANGESEARCHENGINE:
 		{
-
+			command(IDM_SETTING_PREFERECE);
+			_preference.showDialogByName(TEXT("SearchEngine"));
 		}
 		break;
 
@@ -2378,15 +2422,13 @@ void Notepad_plus::command(int id)
 
         case IDM_SETTING_EDITCONTEXTMENU :
         {
-			//if (contion)
-			{
-				generic_string warning, title;
-				_nativeLangSpeaker.messageBox("ContextMenuXmlEditWarning",
-					_pPublicInterface->getHSelf(),
-					TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu on edit zone.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."),
-					TEXT("Editing contextMenu"),
-					MB_OK|MB_APPLMODAL);
-			}
+			generic_string warning, title;
+			_nativeLangSpeaker.messageBox("ContextMenuXmlEditWarning",
+				_pPublicInterface->getHSelf(),
+				TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu on edit zone.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."),
+				TEXT("Editing contextMenu"),
+				MB_OK|MB_APPLMODAL);
+
             NppParameters *pNppParams = NppParameters::getInstance();
             BufferID bufID = doOpen((pNppParams->getContextMenuPath()));
 			switchToFile(bufID);
@@ -2765,7 +2807,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_NEWDOC:
 		{
-			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			fileNew();
 		}
@@ -2773,14 +2815,14 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_ACTIVATE :
 		{
-			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 		}
 		break;
 
 		case IDM_SYSTRAYPOPUP_NEW_AND_PASTE:
 		{
-			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			BufferID bufferID = _pEditView->getCurrentBufferID();
 			Buffer * buf = MainFileManager->getBufferByID(bufferID);
@@ -2794,7 +2836,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SYSTRAYPOPUP_OPENFILE:
 		{
-			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			fileOpen();
 		}

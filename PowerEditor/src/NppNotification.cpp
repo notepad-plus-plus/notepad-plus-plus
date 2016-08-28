@@ -710,7 +710,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			braceMatch();
 
-			NppGUI & nppGui = (NppGUI &)nppParam->getNppGUI();
+			NppGUI & nppGui = const_cast<NppGUI &>(nppParam->getNppGUI());
 
 			if (nppGui._enableTagsMatchHilite)
 			{

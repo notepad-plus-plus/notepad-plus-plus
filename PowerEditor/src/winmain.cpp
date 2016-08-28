@@ -413,7 +413,7 @@ DEVOMER*/
 
 	Notepad_plus_Window notepad_plus_plus;
 
-	NppGUI & nppGui = (NppGUI &)pNppParameters->getNppGUI();
+	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
 
 	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");

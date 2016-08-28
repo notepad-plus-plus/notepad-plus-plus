@@ -349,11 +349,11 @@ BEGIN
         END
 		POPUP "On Selection"
 		BEGIN
-			MENUITEM "Open as file",           IDM_EDIT_OPENASFILE
-			MENUITEM "Open in folder",         IDM_EDIT_OPENINFOLDER
-			//MENUITEM SEPARATOR
-			//MENUITEM "Search on Internet",     IDM_EDIT_SEARCHONINTERNET
-			//MENUITEM "Change Search Engin...", IDM_EDIT_CHANGESEARCHENGIN
+			MENUITEM "Open File",           IDM_EDIT_OPENASFILE
+			MENUITEM "Open Containing Folder in Explorer",         IDM_EDIT_OPENINFOLDER
+			MENUITEM SEPARATOR
+			MENUITEM "Search on Internet",     IDM_EDIT_SEARCHONINTERNET
+			MENUITEM "Change Search Engine...", IDM_EDIT_CHANGESEARCHENGINE
 		END
         MENUITEM SEPARATOR
         MENUITEM "Column Mode...",        IDM_EDIT_COLUMNMODETIP

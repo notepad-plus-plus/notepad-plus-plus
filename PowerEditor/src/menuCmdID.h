@@ -131,7 +131,7 @@
 	#define    IDM_EDIT_OPENASFILE                   (IDM_EDIT + 73)
 	#define    IDM_EDIT_OPENINFOLDER                 (IDM_EDIT + 74)
 	#define    IDM_EDIT_SEARCHONINTERNET             (IDM_EDIT + 75)
-	#define    IDM_EDIT_CHANGESEARCHENGIN            (IDM_EDIT + 76)
+	#define    IDM_EDIT_CHANGESEARCHENGINE           (IDM_EDIT + 76)
 
 // Menu macro
     #define    IDM_MACRO_STARTRECORDINGMACRO        (IDM_EDIT + 18)

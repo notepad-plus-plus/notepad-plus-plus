@@ -274,6 +274,19 @@
                     <Item id="10002" name="複製到另一個視窗"/>
                     <Item id="10003" name="將此檔案移至新啟動的 Notepad++"/>
                     <Item id="10004" name="開啟此檔案到新啟動的 Notepad++"/>
+                    
+                    <Item id="45060" name="Big5（正體）"/>
+                    <Item id="45061" name="GB2312（簡體）"/>
+                    <Item id="45054" name="OEM 861：冰島文"/>
+                    <Item id="45057" name="OEM 865：北歐文字"/>
+                    <Item id="45053" name="OEM 860：葡萄牙文"/>
+                    <Item id="45056" name="OEM 863：法文"/>
+                    
+                    <!--<Item id="46033" name="Assembly"/>-->
+                    <Item id="46019" name="MS INI 檔案"/>
+                    <!--<Item id="46015" name="MS-DOS Style"/>-->
+                    <!--<Item id="46016" name="Normal Text"/>-->
+                    <!--<Item id="46017" name="Resource file"/>-->
 
                     <Item id="46001" name="設定程式語言格式..."/>
                     <Item id="46150" name="定義程式語言..."/>

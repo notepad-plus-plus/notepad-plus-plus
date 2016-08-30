@@ -256,11 +256,25 @@
                     <Item id="45011" name="转为 UTF-8 编码格式" />
                     <Item id="45012" name="转为 UCS-2 Big Endian 编码格式" />
                     <Item id="45013" name="转为 UCS-2 Little Endian 编码格式" />
+                    
                     <Item id="10001" name="移动到另一视图" />
                     <Item id="10002" name="复制到另一视图" />
                     <Item id="10003" name="移动到新窗口" />
                     <Item id="10004" name="在新窗口中打开" />
-
+                    
+                    <Item id="45060" name="Big5（繁体）"/>
+                    <Item id="45061" name="GB2312（简体）"/>
+                    <Item id="45054" name="OEM 861: 冰岛文"/>
+                    <Item id="45057" name="OEM 865: 北欧文字"/>
+                    <Item id="45053" name="OEM 860：葡萄牙文"/>
+                    <Item id="45056" name="OEM 863：法文"/>
+                    
+                    <Item id="46033" name="汇编"/>
+                    <Item id="46019" name="MS INI 文件"/>
+                    <Item id="46015" name="MS-DOS 风格"/>
+                    <Item id="46016" name="常规文本"/>
+                    <Item id="46017" name="资源文件"/>
+                    
                     <Item id="46001" name="语言格式设置..." />
                     <Item id="46150" name="自定义语言格式..."/>
                     <Item id="46080" name="用户自定义" />

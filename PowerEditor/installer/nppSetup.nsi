@@ -869,6 +869,11 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\cmake.xml"
 	${MementoSectionEnd}
+	
+	${MementoSection} "AutoIt" AutoIt
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File ".\APIs\autoit.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 SectionGroup "Plugins" Plugins
@@ -1401,6 +1406,10 @@ SectionGroup un.autoCompletionComponent
 	Section un.CMAKE
 		Delete "$INSTDIR\plugins\APIs\cmake.xml"
 	SectionEnd	
+	
+	Section un.AutoIt
+		Delete "$INSTDIR\plugins\APIs\autoit.xml"
+	SectionEnd
 SectionGroupEnd
 
 SectionGroup un.Plugins

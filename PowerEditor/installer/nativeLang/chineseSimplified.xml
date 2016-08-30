@@ -264,8 +264,8 @@
                     
                     <Item id="45060" name="Big5（繁体）"/>
                     <Item id="45061" name="GB2312（简体）"/>
-                    <Item id="45054" name="OEM 861: 冰岛文"/>
-                    <Item id="45057" name="OEM 865: 北欧文字"/>
+                    <Item id="45054" name="OEM 861：冰岛文"/>
+                    <Item id="45057" name="OEM 865：北欧文字"/>
                     <Item id="45053" name="OEM 860：葡萄牙文"/>
                     <Item id="45056" name="OEM 863：法文"/>
                     

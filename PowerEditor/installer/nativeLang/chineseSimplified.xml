@@ -45,20 +45,20 @@
                     <Item subMenuId="view-project" name="工程" />
                     <Item subMenuId="encoding-characterSets" name="编码字符集" />
                     <Item subMenuId="encoding-arabic" name="阿拉伯文" />
-                    <Item subMenuId="encoding-baltic" name="波罗的语" />
+                    <Item subMenuId="encoding-baltic" name="波罗的海文" />
                     <Item subMenuId="encoding-celtic" name="塞尔特文" />
-                    <Item subMenuId="encoding-cyrillic" name="斯拉夫语" />
-                    <Item subMenuId="encoding-centralEuropean" name="中欧语系" />
+                    <Item subMenuId="encoding-cyrillic" name="斯拉夫文" />
+                    <Item subMenuId="encoding-centralEuropean" name="中欧语言" />
                     <Item subMenuId="encoding-chinese" name="中文" />
-                    <Item subMenuId="encoding-easternEuropean" name="东欧语系" />
+                    <Item subMenuId="encoding-easternEuropean" name="东欧语言" />
                     <Item subMenuId="encoding-greek" name="希腊文" />
                     <Item subMenuId="encoding-hebrew" name="希伯来文" />
                     <Item subMenuId="encoding-japanese" name="日文" />
                     <Item subMenuId="encoding-korean" name="韩文" />
-                    <Item subMenuId="encoding-northEuropean" name="北欧语系" />
+                    <Item subMenuId="encoding-northEuropean" name="北欧语言" />
                     <Item subMenuId="encoding-thai" name="泰文" />
-                    <Item subMenuId="encoding-turkish" name="土耳其语" />
-                    <Item subMenuId="encoding-westernEuropean" name="西欧语系" />
+                    <Item subMenuId="encoding-turkish" name="土耳其文" />
+                    <Item subMenuId="encoding-westernEuropean" name="西欧语言" />
                     <Item subMenuId="encoding-vietnamese" name="越南文" />
                     <Item subMenuId="settings-import" name="导入" />
                 </SubEntries>

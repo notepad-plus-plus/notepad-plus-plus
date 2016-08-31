@@ -49,17 +49,17 @@
                     <Item subMenuId="encoding-baltic"  name="波羅的海文"/>
                     <Item subMenuId="encoding-celtic"  name="凱爾特文"/>
                     <Item subMenuId="encoding-cyrillic"  name="斯拉夫文"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="中歐語系"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="中歐語文"/>
                     <Item subMenuId="encoding-chinese"  name="中文"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="東歐語系"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="東歐語文"/>
                     <Item subMenuId="encoding-greek"  name="希臘文"/>
                     <Item subMenuId="encoding-hebrew"  name="希伯來文"/>
                     <Item subMenuId="encoding-japanese"  name="日文"/>
                     <Item subMenuId="encoding-korean" name="韓文"/>
-                    <Item subMenuId="encoding-northEuropean" name="北歐語系"/>
+                    <Item subMenuId="encoding-northEuropean" name="北歐語文"/>
                     <Item subMenuId="encoding-thai" name="泰文"/>
                     <Item subMenuId="encoding-turkish" name="土耳其文"/>
-                    <Item subMenuId="encoding-westernEuropean" name="西歐語系"/>
+                    <Item subMenuId="encoding-westernEuropean" name="西歐語文"/>
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
                     <Item subMenuId="settings-import"  name="匯入"/>
 

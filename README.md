@@ -1,9 +1,9 @@
 CSE2410
 ===================
 
-Intro. to Software Eng. \n
-Team-Lions: \n
-	Mauricio Rojas Anaya \n
-	Joshua Jennings \n
-	Mohammed Alshamsi \n
-	Paul Wills \n
+Intro. to Software Eng. <br />
+Team-Lions: <br />
+	Mauricio Rojas Anaya <br />
+	Joshua Jennings <br />
+	Mohammed Alshamsi <br />
+	Paul Wills <br />

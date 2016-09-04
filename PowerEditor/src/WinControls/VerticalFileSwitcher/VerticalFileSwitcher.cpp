@@ -30,6 +30,8 @@
 #include "VerticalFileSwitcher.h"
 #include "menuCmdID.h"
 #include "Parameters.h"
+#include "windowsx.h"
+#include "resource.h"
 //#include "localization.h"
 
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
@@ -66,7 +68,6 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 
             return TRUE;
         }
-
 		case WM_NOTIFY:
 		{
 			switch (((LPNMHDR)lParam)->code)
@@ -171,15 +172,121 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 						default:
 							break;
 					}
+					break;
 				}
-				break;
-
+				
+				case LVN_BEGINDRAG:
+				{
+					// load dragging cursor
+					::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_TAB)));
+					// captrue mouse input to finish drag-n-drop operation
+					::SetCapture(getHSelf());
+					_bDragging = TRUE;
+					return TRUE;
+				}
+					
 				default:
 					break;
 			}
+			return TRUE;
 		}
-		return TRUE;
+		
+		case WM_MOUSEMOVE:
+		{
+			if (!_bDragging)
+				break;
 
+			LVHITTESTINFO hitInfo;
+			hitInfo.pt.x = GET_X_LPARAM(lParam);
+			hitInfo.pt.y = GET_Y_LPARAM(lParam);
+
+			::ClientToScreen(getHSelf(), &hitInfo.pt);
+			::ScreenToClient(_fileListView.getHSelf(), &hitInfo.pt);
+			ListView_HitTest(_fileListView.getHSelf(), &hitInfo);
+
+			// Out of the ListView?
+			if (hitInfo.iItem == -1)
+			{
+				RECT vfsRect;
+				::GetClientRect(getHSelf(), &vfsRect);
+				POINT p;
+				p.x = GET_X_LPARAM(lParam);
+				p.y = GET_Y_LPARAM(lParam);
+				// Out of Vertical File Switch Window?
+				if (::PtInRect(&vfsRect, p) == 0)
+				{
+					::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_INTERDIT_TAB)));
+					// Clear all drophilted state
+					ListView_SetItemState(_fileListView.getHSelf(), -1, 0, LVIS_DROPHILITED);
+				}
+				else
+					::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_TAB)));
+				break;
+			}
+			::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_TAB)));
+			// Not in an item?
+			if (((hitInfo.flags & LVHT_ONITEMLABEL) == 0) &&
+				((hitInfo.flags & LVHT_ONITEMSTATEICON) == 0) &&
+				((hitInfo.flags & LVHT_ONITEMICON) == 0) ) 
+				break;
+			
+			LVITEM hitItem;
+			hitItem.iItem = hitInfo.iItem;
+			hitItem.iSubItem = 0;
+			hitItem.mask = LVIF_STATE;
+			hitItem.stateMask = LVIS_DROPHILITED;
+			ListView_GetItem(_fileListView.getHSelf(), &hitItem);
+
+			// Hit item is already marked?
+			if (hitItem.state & LVIS_DROPHILITED)
+				break;
+
+			// Clear all drophilted state
+			ListView_SetItemState(_fileListView.getHSelf(), -1, 0, LVIS_DROPHILITED);
+
+			// Mark hit item
+			ListView_SetItemState(_fileListView.getHSelf(), hitItem.iItem, LVIS_DROPHILITED, LVIS_DROPHILITED);
+			
+			break;
+		}
+		case WM_LBUTTONUP:
+		{
+			// End the drag-and-drop process
+			if (!_bDragging)
+				break;
+			_bDragging = FALSE;
+
+			int hitPos = ListView_GetNextItem(_fileListView.getHSelf(), -1, LVIS_DROPHILITED);
+			ListView_SetItemState(_fileListView.getHSelf(), -1, 0, LVIS_DROPHILITED);
+			int draggedPos;
+			int previousDraggedPos = -1;
+			while((draggedPos = ListView_GetNextItem(_fileListView.getHSelf(), -1, LVNI_SELECTED)) != -1 && hitPos != -1)
+			{
+				// prevent switching selected items order when one item is under hit position and another is above 
+				if (previousDraggedPos != -1 && previousDraggedPos  < hitPos && draggedPos > hitPos)
+					++hitPos;
+				int newIdx = moveItem(draggedPos, hitPos);
+				// prevent switching selected items order when multiple selected items are under hit position
+				if (hitPos <= draggedPos)
+					++hitPos;
+				// Mark all moved items as Drophilted to restore selected state after moving all items
+				ListView_SetItemState(_fileListView.getHSelf(), newIdx, LVIS_DROPHILITED, LVIS_DROPHILITED);
+				previousDraggedPos = draggedPos;
+			}
+			int movedItem = -1;
+			while ((movedItem = ListView_GetNextItem(_fileListView.getHSelf(), movedItem, LVIS_DROPHILITED)) != -1)
+			{
+				// restore selected state
+				ListView_SetItemState(_fileListView.getHSelf(), movedItem, LVIS_SELECTED, LVIS_SELECTED);
+			}
+			// Clear all drophilted state
+			ListView_SetItemState(_fileListView.getHSelf(), -1, 0, LVIS_DROPHILITED);
+			::ReleaseCapture();
+			::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_ARROW)));
+			
+			break;
+		}
+		
         case WM_SIZE:
         {
             int width = LOWORD(lParam);
@@ -194,8 +301,8 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 			_fileListView.destroy();
             break;
         }
-
-        default :
+        
+		default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
     }
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
@@ -267,4 +374,42 @@ int VerticalFileSwitcher::setHeaderOrder(LPNMLISTVIEW pnm_list_view)
 	SendMessage(hListView, LVM_SETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
 
 	return SORT_DIRECTION_UP;
+}
+
+INT VerticalFileSwitcher::moveItem(INT itemIdx, INT destIdx)
+{
+	LVITEM movedItem;
+	TCHAR name[MAX_PATH];
+	TCHAR ext[MAX_PATH];
+	movedItem.iItem = itemIdx;
+	movedItem.iSubItem = 0;
+
+	movedItem.cchTextMax = MAX_PATH;
+	movedItem.pszText = name;
+	movedItem.stateMask = LVIS_OVERLAYMASK | LVIS_ACTIVATING | LVIS_CUT
+		| LVIS_FOCUSED | LVIS_STATEIMAGEMASK;
+	movedItem.mask = LVIF_STATE | LVIF_IMAGE | LVIF_INDENT
+		| LVIF_PARAM | LVIF_TEXT;
+	ListView_GetItem(_fileListView.getHSelf(), &movedItem);
+	if (destIdx > movedItem.iItem)
+		movedItem.iItem = destIdx + 1;
+	else
+		movedItem.iItem = destIdx;
+
+	bool isExtColumn = !(NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
+	if (isExtColumn)
+		ListView_GetItemText(_fileListView.getHSelf(), itemIdx, 1, ext, sizeof(ext));\
+
+	// Insert the main item
+	int iRet = ListView_InsertItem(_fileListView.getHSelf(), &movedItem);
+	if (isExtColumn)
+		ListView_SetItemText(_fileListView.getHSelf(), iRet, 1, ext);
+	
+	if (iRet <= itemIdx)
+		++itemIdx;
+	else
+		--iRet;
+	// Delete from original position
+	ListView_DeleteItem(_fileListView.getHSelf(), itemIdx);
+	return iRet;
 }

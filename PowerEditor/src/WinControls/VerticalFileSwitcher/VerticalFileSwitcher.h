@@ -105,5 +105,8 @@ protected:
 private:
 	VerticalFileSwitcherListView _fileListView;
 	HIMAGELIST _hImaLst;
+	BOOL _bDragging = FALSE;
+
+	INT moveItem(INT itemIdx, INT destIdx);
 };
 #endif // VERTICALFILESWITCHER_H

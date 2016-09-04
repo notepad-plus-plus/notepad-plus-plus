@@ -87,7 +87,14 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 				else
 				{
 					changes.Pop(dwAction, wstrFilename);
-					if (lstrcmp(fullFileName, wstrFilename.GetString()) == 0)
+					generic_string fn = wstrFilename.GetString();
+
+					// Fix monitoring files which are under root problem
+					size_t pos = fn.find(TEXT("\\\\"));
+					if (pos == 2)
+						fn.replace(pos, 2, TEXT("\\"));
+
+					if (lstrcmp(fullFileName, fn.c_str()) == 0)
 					{
 						if (dwAction == FILE_ACTION_MODIFIED)
 						{

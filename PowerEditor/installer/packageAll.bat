@@ -84,6 +84,31 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\SciLexer.dll .\minimalist\
 If ErrorLevel 1 goto End
 
+rmdir /S /Q .\minimalist64
+mkdir .\minimalist64
+
+copy /Y ..\bin\license.txt .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\readme.txt .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\change.log .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\src\config.model.xml .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\src\langs.model.xml .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\src\stylers.model.xml .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\src\contextMenu.xml .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\src\shortcuts.xml .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin\doLocalConf.xml .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin64\"notepad++.exe" .\minimalist64\
+If ErrorLevel 1 goto End
+copy /Y ..\bin64\SciLexer.dll .\minimalist64\
+If ErrorLevel 1 goto End
 
 
 rem Notepad++ Unicode package
@@ -179,12 +204,17 @@ If ErrorLevel 1 goto End
 
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.minimalist.7z .\minimalist\*
 If ErrorLevel 1 goto End
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.minimalist64.7z .\minimalist64\*
+If ErrorLevel 1 goto End
+
+
 "C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.bin.zip .\zipped.package.release\*
 If ErrorLevel 1 goto End
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.7z .\zipped.package.release\*
 If ErrorLevel 1 goto End
 rem IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\Unicode\makensis.exe" nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\Unicode\makensis.exe" nppSetup.nsi)
 IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\makensis.exe" nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\makensis.exe" nppSetup.nsi)
+IF EXIST "%PROGRAMFILES(X86)%" ("%PROGRAMFILES(x86)%\NSIS\makensis.exe" -DARCH64 nppSetup.nsi) ELSE ("%PROGRAMFILES%\NSIS\makensis.exe" -DARCH64 nppSetup.nsi)
 
 rem Notepad++ Unicode package
 rmdir /S /Q .\zipped.package.release
@@ -226,6 +256,9 @@ If ErrorLevel 1 goto End
 "C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.bin64.zip .\zipped.package.release64\*
 If ErrorLevel 1 goto End
 
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin64.7z .\zipped.package.release64\*
+If ErrorLevel 1 goto End
+
 
 
 @echo off
@@ -234,20 +267,27 @@ setlocal enableDelayedExpansion
 
 cd .\build\
 
-for %%a in (npp.*.Installer.exe) do (
+for %%a in (npp.*.Installer.x32.exe) do (
   rem echo a = %%a
   set nppInstallerVar=%%a
-  set zipvar=!nppInstallerVar:Installer.exe=bin.zip!
-  set 64zipvar=!nppInstallerVar:Installer.exe=bin64.zip!
-  set 7zvar=!nppInstallerVar:Installer.exe=bin.7z!
-  set 7zvarMin=!nppInstallerVar:Installer.exe=bin.minimalist.7z!
+  set zipvar=!nppInstallerVar:Installer.x32.exe=bin.x32.zip!
+  set zipvar64=!nppInstallerVar:Installer.x32.exe=bin.x64.zip!
+  set 7zvar=!nppInstallerVar:Installer.x32.exe=bin.x32.7z!
+  set 7zvar64=!nppInstallerVar:Installer.x32.exe=bin.x64.7z!
+  set 7zvarMin=!nppInstallerVar:Installer.x32.exe=bin.minimalist.x32.7z!
+  set 7zvarMin64=!nppInstallerVar:Installer.x32.exe=bin.minimalist.x64.7z!
 )
 
-rem echo z=!zipvar!
+rem echo zipvar=!zipvar!
+rem echo 64zipvar=!64zipvar!
+rem echo 7zvar=!7zvar!
+rem echo 7zvarMin=!7zvarMin!
 ren npp.bin.zip !zipvar!
-ren npp.bin64.zip !64zipvar!
+ren npp.bin64.zip !zipvar64!
 ren npp.bin.7z !7zvar!
+ren npp.bin64.7z !7zvar64!
 ren npp.bin.minimalist.7z !7zvarMin!
+ren npp.bin.minimalist64.7z !7zvarMin64!
 
 if %SIGN% == 0 goto NoSignInstaller
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++ Installer" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ !nppInstallerVar!

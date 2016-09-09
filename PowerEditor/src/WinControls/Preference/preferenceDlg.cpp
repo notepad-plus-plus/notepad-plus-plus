@@ -932,9 +932,29 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE, BM_SETCHECK, nppGUI._enableTagAttrsHilite, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE, BM_SETCHECK, nppGUI._enableHiliteNonHTMLZone, 0);
 
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Match whole word only"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Match any selection"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Same as Find dialog"));
+
+			switch (nppGUI._smartHiliteMode)
+			{
+				case NppGUI::SmartHiliteMode::wordOnly:
+					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 0, 0);
+					break;
+
+				case NppGUI::SmartHiliteMode::anySelection:
+					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 1, 0);
+					break;
+
+				case NppGUI::SmartHiliteMode::findDialog:
+					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 2, 0);
+					break;
+			}
+
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHilite);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), nppGUI._enableSmartHilite);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHORTTITLE, BM_SETCHECK, nppGUI._shortTitlebar, 0);
 
@@ -1077,6 +1097,7 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), nppGUI._enableSmartHilite);
 					return TRUE;
 				}
 
@@ -1140,6 +1161,41 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					nppGUI._backSlashIsEscapeCharacterForSql = isCheckedOrNot(IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL);
 					return TRUE;
 				}
+
+				default:
+					switch (HIWORD(wParam))
+					{
+						case CBN_SELCHANGE:
+						{
+							switch (LOWORD(wParam))
+							{
+								case IDC_COMBO_SMARTHILITEMODE :
+								{
+									auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_GETCURSEL, 0, 0);
+									
+									switch (index)
+									{
+										case 0:
+											nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::wordOnly;
+											break;
+
+										case 1:
+											nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::anySelection;
+											break;
+
+										case 2:
+											nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::findDialog;
+											break;
+									}
+
+									return TRUE;
+								}
+
+								default:
+									break;
+							}
+						}
+					}
 			}
 		}
 	}

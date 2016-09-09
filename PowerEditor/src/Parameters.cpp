@@ -4032,6 +4032,31 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 		}
 
+		else if (!lstrcmp(nm, TEXT("SmartHighLightMode")))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+
+			if (n)
+			{
+				const TCHAR* val = n->Value();
+				if (val)
+				{
+					if (!lstrcmp(val, TEXT("1")))
+					{
+						_nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::anySelection;
+					}
+					else if (!lstrcmp(val, TEXT("2")))
+					{
+						_nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::findDialog;
+					}
+					else
+					{
+						_nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::wordOnly;
+					}
+				}
+			}
+		}
+
 		else if (!lstrcmp(nm, TEXT("TagsMatchHighLight")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -5077,6 +5102,7 @@ bool NppParameters::writeGUIParams()
 	bool menuBarExist = false;
 	bool smartHighLightExist = false;
 	bool smartHighLightCaseSensitiveExist = false;
+	bool smartHighLightModeExists = false;
 	bool tagsMatchHighLightExist = false;
 	bool caretExist = false;
 	bool ScintillaGlobalSettingsExist = false;
@@ -5286,7 +5312,37 @@ bool NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(pStr));
 		}
+		else if (!lstrcmp(nm, TEXT("SmartHighLightMode")))
+		{
+			smartHighLightModeExists = true;
+			const TCHAR *pStr;
 
+			switch (_nppGUI._smartHiliteMode)
+			{
+				case NppGUI::SmartHiliteMode::anySelection:
+					pStr = TEXT("1");
+					break;
+
+				case NppGUI::SmartHiliteMode::findDialog:
+					pStr = TEXT("2");
+					break;
+
+				default: // NppGUI::SmartHiliteMode::wordOnly
+					pStr = TEXT("0");
+					break;
+			}
+
+			TiXmlNode *n = childNode->FirstChild();
+
+			if (n)
+			{
+				n->SetValue(pStr);
+			}
+			else
+			{
+				childNode->InsertEndChild(TiXmlText(pStr));
+			}
+		}
 		else if (!lstrcmp(nm, TEXT("TagsMatchHighLight")))
 		{
 			tagsMatchHighLightExist = true;
@@ -5612,6 +5668,25 @@ bool NppParameters::writeGUIParams()
 	{
 		insertGUIConfigBoolNode(GUIRoot, TEXT("SmartHighLightCaseSensitive"), _nppGUI._smartHiliteCaseSensitive);
 	}
+
+	if (!smartHighLightModeExists)
+	{
+		const TCHAR *pStr = TEXT("0");
+
+		if (_nppGUI._smartHiliteMode == 1)
+		{
+			pStr = TEXT("1");
+		}
+		else if (_nppGUI._smartHiliteMode == 2)
+		{
+			pStr = TEXT("2");
+		}
+
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("SmartHighLightMode"));
+		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+	}
+
 	if (!tagsMatchHighLightExist)
 	{
 		TiXmlElement * ele = insertGUIConfigBoolNode(GUIRoot, TEXT("TagsMatchHighLight"), _nppGUI._enableTagsMatchHilite);

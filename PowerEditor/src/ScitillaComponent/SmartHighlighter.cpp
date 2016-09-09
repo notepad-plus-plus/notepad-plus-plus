@@ -52,7 +52,33 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	auto range = pHighlightView->getSelection();
 
 	// Make sure the "word" positions match the current selection
-	if (wordStart == wordEnd || wordStart != range.cpMin || wordEnd != range.cpMax)
+	if (wordStart == wordEnd)
+		return;
+
+	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+
+	// Determine mode for SmartHighlighting
+	NppGUI::SmartHiliteMode mode = nppGUI._smartHiliteMode;
+	bool wordOnly;
+
+	if (mode == NppGUI::SmartHiliteMode::wordOnly)
+	{
+		wordOnly = true;
+	}
+	else if (mode == NppGUI::SmartHiliteMode::findDialog)
+	{
+		// fetch find dialog's setting
+		NppParameters *nppParams = NppParameters::getInstance();
+		FindHistory &findHistory = nppParams->getFindHistory();
+		wordOnly = findHistory._isMatchWord;
+	}
+	else
+	{
+		wordOnly = false;
+	}
+
+	// additional checks for wordOnly mode
+	if (wordOnly && (wordStart != range.cpMin || wordEnd != range.cpMax))
 		return;
 
 	int textlen = range.cpMax - range.cpMin + 1;
@@ -73,11 +99,9 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	auto currentLine = firstLine;
 	int prevDocLineChecked = -1;	//invalid start
 
-	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
-
 	FindOption fo;
 	fo._isMatchCase = nppGUI._smartHiliteCaseSensitive;
-	fo._isWholeWord = true;
+	fo._isWholeWord = wordOnly;
 
 	const TCHAR * searchText = NULL;
 

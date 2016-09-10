@@ -26,7 +26,7 @@ Notepad++ official site:
 	https://notepad-plus-plus.org/
 
 Notepad++ project site:
-	https://github.com/donho/notepad-plus-plus/
+	https://github.com/notepad-plus-plus/notepad-plus-plus/
 
 Notepad++ wiki:
 	http://docs.notepad-plus-plus.org/

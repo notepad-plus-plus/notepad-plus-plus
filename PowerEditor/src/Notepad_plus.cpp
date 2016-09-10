@@ -202,7 +202,7 @@ Notepad_plus::~Notepad_plus()
 LRESULT Notepad_plus::init(HWND hwnd)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
 
 	// Menu
 	_mainMenuHandle = ::GetMenu(hwnd);
@@ -750,7 +750,7 @@ void Notepad_plus::killAllChildren()
 
 bool Notepad_plus::saveGUIParams()
 {
-	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
@@ -818,7 +818,7 @@ bool Notepad_plus::saveFileBrowserParam()
 
 void Notepad_plus::saveDockingParams()
 {
-	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 
 	// Save the docking information
 	nppGUI._dockingData._leftWidth		= _dockingManager.getDockedContSize(CONT_LEFT);
@@ -4360,7 +4360,7 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
-		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+		NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 		nppGUI._disableSmartHiliteTmp = true;
 
         auto currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
@@ -4413,7 +4413,7 @@ bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
-		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+		NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 		nppGUI._disableSmartHiliteTmp = true;
 
         auto currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
@@ -5895,7 +5895,6 @@ Quote quotes[nbQuote] =
 	{"Church of Emacs", "vi has two modes - \"beep repeatedly\" and \"break everything\"."},
 	{"Steve Jobs", "Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas."},
 	{"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
-	{"brotips #1212", "Cheating is like eating fast food: you do it, you enjoy it, and then you feel like shit."},
 	{"Robin Williams", "God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time."},
 	{"Darth Vader", "You don't get to 500 million star systems without making a few enemies."},
 	{"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
@@ -6056,6 +6055,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #152", "A SQL query goes into a bar, walks up to two tables and asks, \"Can I join you?\""},
 	{"Anonymous #153", "You are not fat, you are just more visible."},
 	{"Anonymous #154", "Minimalist\n (.   .)\n  )   (\n (  Y  )\nASCII Art"},
+	{"Internet #1", "If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing." },
 	{"Louis C.K.", "I'm a good citizen. I'm a good father. I recycle and I masturbate."},
 	{"Mary Oliver", "Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift."},
 	{"Floor", "If you fall, I will be there."},

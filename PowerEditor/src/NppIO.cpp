@@ -87,7 +87,14 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 				else
 				{
 					changes.Pop(dwAction, wstrFilename);
-					if (lstrcmp(fullFileName, wstrFilename.GetString()) == 0)
+					generic_string fn = wstrFilename.GetString();
+
+					// Fix monitoring files which are under root problem
+					size_t pos = fn.find(TEXT("\\\\"));
+					if (pos == 2)
+						fn.replace(pos, 2, TEXT("\\"));
+
+					if (lstrcmp(fullFileName, fn.c_str()) == 0)
 					{
 						if (dwAction == FILE_ACTION_MODIFIED)
 						{
@@ -1297,13 +1304,13 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	// Disable file autodetection before opening save dialog to prevent use-after-delete bug.
 	NppParameters *pNppParam = NppParameters::getInstance();
-	ChangeDetect cdBefore = ((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetection;
-	((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetection = cdDisabled;
+	ChangeDetect cdBefore = (const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection;
+	(const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection = cdDisabled;
 
 	TCHAR *pfn = fDlg.doSaveDlg();
 
 	// Enable file autodetection again.
-	((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetection = cdBefore;
+	(const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection = cdBefore;
 
 	if (pfn)
 	{

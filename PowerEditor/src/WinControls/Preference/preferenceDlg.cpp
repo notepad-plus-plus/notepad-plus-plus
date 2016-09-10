@@ -95,9 +95,9 @@ static int encodings[] = {
 	20866
 };
 
-INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (Message) 
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -147,6 +147,9 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_settingsOnCloudDlg.init(_hInst, _hSelf);
 			_settingsOnCloudDlg.create(IDD_PREFERENCE_SETTINGSONCLOUD_BOX, false, false);
 
+			_searchEngineDlg.init(_hInst, _hSelf);
+			_searchEngineDlg.create(IDD_PREFERENCE_SEARCHENGINE_BOX, false, false);
+
 
 			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("General"), TEXT("Global")));
 			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Editing"), TEXT("Scintillas")));
@@ -162,6 +165,7 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_wVector.push_back(DlgInfo(&_multiInstDlg, TEXT("Multi-Instance"), TEXT("MultiInstance")));
 			_wVector.push_back(DlgInfo(&_delimiterSettingsDlg, TEXT("Delimiter"), TEXT("Delimiter")));
 			_wVector.push_back(DlgInfo(&_settingsOnCloudDlg, TEXT("Cloud"), TEXT("Cloud")));
+			_wVector.push_back(DlgInfo(&_searchEngineDlg, TEXT("Search Engine"), TEXT("SearchEngine")));
 			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC."), TEXT("MISC")));
 
 
@@ -188,6 +192,7 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			_multiInstDlg.reSizeTo(rc);
 			_delimiterSettingsDlg.reSizeTo(rc);
 			_settingsOnCloudDlg.reSizeTo(rc);
+			_searchEngineDlg.reSizeTo(rc);
 
 			NppParameters *pNppParam = NppParameters::getInstance();
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
@@ -238,6 +243,20 @@ void PreferenceDlg::makeCategoryList()
 	setListSelection(0);
 }
 
+int32_t PreferenceDlg::getIndexFromName(const TCHAR *name) const
+{
+	if (not name)
+		return -1;
+
+	int32_t i = 0;
+	for (auto it = _wVector.begin() ; it != _wVector.end(); ++it, ++i)
+	{
+		if (it->_internalName == name)
+			return i;
+	}
+	return -1;
+}
+
 void PreferenceDlg::setListSelection(size_t currentSel) const
 {
 	// Stupid LB API doesn't allow LB_SETSEL to be used on single select listbox, so we do it in a hard way
@@ -279,7 +298,18 @@ bool PreferenceDlg::renameDialogTitle(const TCHAR *internalName, const TCHAR *ne
 	return true;
 }
 
-void PreferenceDlg::showDialogByIndex(size_t index)
+void PreferenceDlg::showDialogByName(const TCHAR *name) const
+{
+	int32_t i = getIndexFromName(name);
+	if (i >= 0)
+	{
+		showDialogByIndex(i);
+		setListSelection(i);
+	}
+}
+
+
+void PreferenceDlg::showDialogByIndex(size_t index) const
 {
 	size_t len = _wVector.size();
 	for (size_t i = 0; i < len; ++i)
@@ -307,11 +337,11 @@ void PreferenceDlg::destroy()
 	_delimiterSettingsDlg.destroy();
 }
 
-INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	
-	switch (Message) 
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -592,11 +622,11 @@ void MarginsDlg::initScintParam()
 }
 
 
-INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-	switch (Message) 
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -820,11 +850,11 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 	return FALSE;
 }
 
-INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-	switch (Message) 
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -1116,13 +1146,13 @@ void RecentFilesHistoryDlg::setCustomLen(int val)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), val > 0?SW_SHOW:SW_HIDE);
 }
 
-INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 	NewDocDefaultSettings & ndds = (NewDocDefaultSettings &)nppGUI.getNewDocDefaultSettings();
 
-	switch (Message)
+	switch (message)
 	{
 		case WM_INITDIALOG:
 		{
@@ -1314,12 +1344,12 @@ INT_PTR CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
  	return FALSE;
 }
 
-INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 
-	switch (Message) 
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -1407,12 +1437,12 @@ INT_PTR CALLBACK DefaultDirectoryDlg::run_dlgProc(UINT Message, WPARAM wParam, L
 	return FALSE;
 }
 
-INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 
-	switch (Message) 
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -1542,12 +1572,12 @@ INT_PTR CALLBACK RecentFilesHistoryDlg::run_dlgProc(UINT Message, WPARAM wParam,
 	return FALSE;
 }
 
-INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
 
-	switch (Message) 
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -1733,12 +1763,12 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 	return FALSE;
 }
 
-INT_PTR CALLBACK TabSettings::run_dlgProc(UINT Message, WPARAM wParam, LPARAM/* lParam*/)
+INT_PTR CALLBACK TabSettings::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* lParam*/)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 
-	switch (Message) 
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -1952,12 +1982,12 @@ void trim(generic_string & str)
 	else str.erase(str.begin(), str.end());
 };
 
-INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 
-	switch (Message) 
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -2255,11 +2285,11 @@ INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPAR
 }
 
 
-INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK BackupDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-	switch (Message) 
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -2449,11 +2479,11 @@ void BackupDlg::updateBackupGUI()
 }
 
 
-INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-	switch (Message) 
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -2644,7 +2674,6 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPA
 					const int NB_MAX_CHAR = 9;
 
 					ValueDlg valDlg;
-					//NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
 					valDlg.init(NULL, _hSelf, static_cast<int32_t>(nppGUI._autocFromLen), TEXT("Nb char : "));
 					valDlg.setNBNumber(1);
 
@@ -2717,10 +2746,10 @@ INT_PTR CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPA
 }
 
 
-INT_PTR CALLBACK MultiInstDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK MultiInstDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
-	NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-	switch (Message) 
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -2763,10 +2792,10 @@ INT_PTR CALLBACK MultiInstDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-	switch (Message) 
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
+	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
@@ -2879,10 +2908,10 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, 
 	return FALSE;
 }
 
-INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	NppParameters * nppParams = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)(nppParams->getNppGUI());
+	NppGUI & nppGUI = const_cast<NppGUI &>(nppParams->getNppGUI());
 
 	if (HIWORD(wParam) == EN_CHANGE)
 	{
@@ -2917,7 +2946,7 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LP
 		}
 	}
 
-	switch (Message)
+	switch (message)
 	{
 		case WM_INITDIALOG:
 		{
@@ -2984,5 +3013,92 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT Message, WPARAM wParam, LP
 	return FALSE;
 }
 
+INT_PTR CALLBACK SearchEngineChoiceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
+{
+	NppParameters * nppParams = NppParameters::getInstance();
+	NppGUI & nppGUI = const_cast<NppGUI &>(nppParams->getNppGUI());
 
+	if (HIWORD(wParam) == EN_CHANGE)
+	{
+		switch (LOWORD(wParam))
+		{
+			case  IDC_SEARCHENGINE_EDIT:
+			{
+				TCHAR input[MAX_PATH] = { '\0' };
+				::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(input));
+				nppGUI._searchEngineCustom = input;
+				return TRUE;
+			}
+		}
+	}
+
+	switch (message)
+	{
+		case WM_INITDIALOG:
+		{
+			if (nppGUI._searchEngineChoice == nppGUI.se_custom)
+			{
+				if (nppGUI._searchEngineCustom.empty())
+				{
+					nppGUI._searchEngineChoice = nppGUI.se_google;
+				}
+			}
+			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_CUSTOM_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_custom ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_DUCKDUCKGO_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_duckDuckGo ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_GOOGLE_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_google ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_BING_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_bing ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_YAHOO_RADIO, BM_SETCHECK, nppGUI._searchEngineChoice == nppGUI.se_yahoo ? BST_CHECKED : BST_UNCHECKED, 0);
+
+			::SendDlgItemMessage(_hSelf, IDC_SEARCHENGINE_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._searchEngineCustom.c_str()));
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_SEARCHENGINE_EDIT), nppGUI._searchEngineChoice == nppGUI.se_custom);
+		}
+		break;
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case IDC_SEARCHENGINE_DUCKDUCKGO_RADIO:
+				{
+					nppGUI._searchEngineChoice = nppGUI.se_duckDuckGo;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_SEARCHENGINE_EDIT), false);
+				}
+				break;
+
+				case IDC_SEARCHENGINE_GOOGLE_RADIO:
+				{
+					nppGUI._searchEngineChoice = nppGUI.se_google;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_SEARCHENGINE_EDIT), false);
+				}
+				break;
+
+				case IDC_SEARCHENGINE_BING_RADIO:
+				{
+					nppGUI._searchEngineChoice = nppGUI.se_bing;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_SEARCHENGINE_EDIT), false);
+				}
+				break;
+
+				case IDC_SEARCHENGINE_YAHOO_RADIO:
+				{
+					nppGUI._searchEngineChoice = nppGUI.se_yahoo;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_SEARCHENGINE_EDIT), false);
+				}
+				break;
+
+				case IDC_SEARCHENGINE_CUSTOM_RADIO:
+				{
+					nppGUI._searchEngineChoice = nppGUI.se_custom;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_SEARCHENGINE_EDIT), true);
+				}
+				break;
+
+				default:
+					return FALSE;
+			}
+		}
+		break;
+	}
+	return FALSE;
+}
 

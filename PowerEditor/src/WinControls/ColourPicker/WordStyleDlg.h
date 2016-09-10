@@ -123,8 +123,8 @@ private :
     ColourPicker *_pFgColour = nullptr;
     ColourPicker *_pBgColour = nullptr;
 
-    int _currentLexerIndex = -1;
-	int _currentThemeIndex = -1;
+    int _currentLexerIndex = 0;
+	int _currentThemeIndex = 0;
 
     HWND _hCheckBold;
     HWND _hCheckItalic;
@@ -159,8 +159,9 @@ private :
 
 
 	Style & getCurrentStyler() {
-		auto styleIndex = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
-		if (styleIndex == LB_ERR) styleIndex = 0;
+		int32_t styleIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0));
+		if (styleIndex == LB_ERR)
+			styleIndex = 0;
 
         if (_currentLexerIndex == 0)
 		{

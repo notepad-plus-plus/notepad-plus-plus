@@ -79,6 +79,8 @@ int whichVar(TCHAR *str)
 		return CURRENT_WORD;
 	else if (!lstrcmp(nppDir, str))
 		return NPP_DIRECTORY;
+	else if (!lstrcmp(nppFullFilePath, str))
+		return NPP_FULL_FILE_PATH;
 	else if (!lstrcmp(currentLine, str))
 		return CURRENT_LINE;
 	else if (!lstrcmp(currentColumn, str))

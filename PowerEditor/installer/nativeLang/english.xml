@@ -31,6 +31,7 @@
                     <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
                     <Item subMenuId="edit-blankOperations" name="Blank Operations"/>
                     <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
+                    <Item subMenuId="edit-onSelection" name="On Selection"/>
                     <Item subMenuId="search-markAll" name="Mark All"/>
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
@@ -120,6 +121,10 @@
                     <Item id="42070" name="Sentence case (blend)"/>
                     <Item id="42071" name="iNVERT cASE"/>
                     <Item id="42072" name="ranDOm CasE"/>
+					<Item id="42073" name="Open File"/>
+					<Item id="42074" name="Open Containing Folder in Explorer"/>
+					<Item id="42075" name="Search on Internet"/>
+					<Item id="42076" name="Change Search Engine..."/>
                     <Item id="42018" name="&amp;Start Recording"/>
                     <Item id="42019" name="&amp;Stop Recording"/>
                     <Item id="42021" name="&amp;Playback"/>
@@ -808,12 +813,22 @@
                     <Item id="6256" name="Allow on several lines"/>
                 </Delimiter>
 
-                 <Cloud title="Cloud">
+                <Cloud title="Cloud">
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
+				
+                <SearchEngine title="Search Engine">
+                    <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Set your search engine here:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
 
                 <MISC title="MISC.">
                     <Item id="6307" name="Enable"/>
@@ -888,6 +903,7 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
 			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

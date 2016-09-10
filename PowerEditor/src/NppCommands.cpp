@@ -111,6 +111,8 @@ void Notepad_plus::command(int id)
 					if (_pFileBrowser->isClosed())
 					{
 						_pFileBrowser->display();
+						checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+						_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
 						_pFileBrowser->setClosed(false);
 					}
 				}
@@ -2521,7 +2523,7 @@ void Notepad_plus::command(int id)
 				{
 					if (_nativeLangSpeaker.getLangEncoding() == NPP_CP_BIG5)
 					{
-						char *authorName = "«J¤µ§^";
+						char *authorName = "Â«JÂ¤ÂµÂ§^";
 						HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
 
 						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();

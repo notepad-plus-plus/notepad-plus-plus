@@ -71,6 +71,7 @@ PowerEditor/bin/plugins/
 PowerEditor/bin64/
 PowerEditor/installer/build/
 PowerEditor/installer/minimalist/
+PowerEditor/installer/minimalist64/
 PowerEditor/installer/zipped.package.release/
 PowerEditor/installer/zipped.package.release64/
 PowerEditor/visual.net/Unicode Debug/

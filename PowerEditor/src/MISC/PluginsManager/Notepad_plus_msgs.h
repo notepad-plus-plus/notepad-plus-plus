@@ -440,6 +440,8 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	// INT NPPM_GETCURRENTCOLUMN(0, 0)
 	// return the caret current position column
 
+	#define NPPM_GETNPPFULLFILEPATH			(RUNCOMMAND_USER + NPP_FULL_FILE_PATH)
+
 		#define VAR_NOT_RECOGNIZED 0
 		#define FULL_CURRENT_PATH 1
 		#define CURRENT_DIRECTORY 2
@@ -450,6 +452,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 		#define NPP_DIRECTORY 7
 		#define CURRENT_LINE 8
 		#define CURRENT_COLUMN 9
+		#define NPP_FULL_FILE_PATH 10
 
 
 // Notification code

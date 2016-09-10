@@ -786,9 +786,6 @@ struct NppGUI final
 
 	generic_string _definedSessionExt;
 	generic_string _definedWorkspaceExt;
-	
-
-
 
 	struct AutoUpdateOptions
 	{
@@ -819,6 +816,10 @@ struct NppGUI final
 	generic_string _cloudPath; // this option will never be read/written from/to config.xml
 	unsigned char _availableClouds = '\0'; // this option will never be read/written from/to config.xml
 	bool _useNewStyleSaveDlg = false;
+
+	enum SearchEngineChoice{ se_custom = 0, se_duckDuckGo = 1, se_google = 2, se_bing = 3, se_yahoo = 4 };
+	SearchEngineChoice _searchEngineChoice = se_google;
+	generic_string _searchEngineCustom;
 };
 
 struct ScintillaViewParams

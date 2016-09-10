@@ -62,6 +62,7 @@ MenuPosition menuPos[] = {
 	{ 1, 16, -1, "edit-eolConversion" },
 	{ 1, 17, -1, "edit-blankOperations" },
 	{ 1, 18, -1, "edit-pasteSpecial" },
+	{ 1, 19, -1, "edit-onSelection" },
 
 	{ 2, 18, -1, "search-markAll" },
 	{ 2, 19, -1, "search-unmarkAll" },
@@ -828,6 +829,13 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	{
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Cloud"), nameW);
+	}
+
+	changeDlgLang(preference._searchEngineDlg.getHSelf(), "SearchEngine", titre);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("SearchEngine"), nameW);
 	}
 
 	preference.setListSelection(currentSel);

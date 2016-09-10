@@ -158,7 +158,7 @@ public:
 	void addRootFolder(generic_string);
 
 	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
-	HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string);
+	HTREEITEM findChildNodeFromName(HTREEITEM parent, generic_string);
 
 	bool addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	HTREEITEM findInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
@@ -170,13 +170,14 @@ public:
 
 protected:
 	TreeView _treeView;
-	HIMAGELIST _hImaLst;
+	HIMAGELIST _hImaLst = NULL;
 
 	HMENU _hGlobalMenu = NULL;
 	HMENU _hRootMenu = NULL;
 	HMENU _hFolderMenu = NULL;
 	HMENU _hFileMenu = NULL;
 	std::vector<FolderUpdater *> _folderUpdaters;
+	bool _bIsHitOnTree = false;
 
 	void initPopupMenus();
 	void destroyMenus();

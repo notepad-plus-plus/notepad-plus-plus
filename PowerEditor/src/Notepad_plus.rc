@@ -275,8 +275,8 @@ BEGIN
         BEGIN
             MENUITEM "&UPPERCASE",              IDM_EDIT_UPPERCASE
             MENUITEM "&lowercase",              IDM_EDIT_LOWERCASE
-            MENUITEM "&Title Case",             IDM_EDIT_TITLECASE_FORCE
-            MENUITEM "Title Case (blend)",      IDM_EDIT_TITLECASE_BLEND
+			MENUITEM "&Proper Case",            IDM_EDIT_PROPERCASE_FORCE
+            MENUITEM "Proper Case (blend)",      IDM_EDIT_PROPERCASE_BLEND
             MENUITEM "&Sentence case",          IDM_EDIT_SENTENCECASE_FORCE
             MENUITEM "Sentence case (blend)",   IDM_EDIT_SENTENCECASE_BLEND
             MENUITEM "&iNVERT cASE",             IDM_EDIT_INVERTCASE

@@ -1364,11 +1364,11 @@ void Notepad_plus::command(int id)
             _pEditView->convertSelectedTextToLowerCase();
 			break;
 
-		case IDM_EDIT_TITLECASE_FORCE:
+		case IDM_EDIT_PROPERCASE_FORCE:
 			_pEditView->convertSelectedTextToNewerCase(TITLECASE_FORCE);
 			break;
 
-		case IDM_EDIT_TITLECASE_BLEND:
+		case IDM_EDIT_PROPERCASE_BLEND:
 			_pEditView->convertSelectedTextToNewerCase(TITLECASE_BLEND);
 			break;
 
@@ -3051,8 +3051,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_REMOVEEMPTYLINESWITHBLANK:
 			case IDM_EDIT_UPPERCASE:
 			case IDM_EDIT_LOWERCASE:
-			case IDM_EDIT_TITLECASE_FORCE:
-			case IDM_EDIT_TITLECASE_BLEND:
+			case IDM_EDIT_PROPERCASE_FORCE:
+			case IDM_EDIT_PROPERCASE_BLEND:
 			case IDM_EDIT_SENTENCECASE_FORCE:
 			case IDM_EDIT_SENTENCECASE_BLEND:
 			case IDM_EDIT_INVERTCASE:

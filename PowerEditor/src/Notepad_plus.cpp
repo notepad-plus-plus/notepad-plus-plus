@@ -1876,8 +1876,8 @@ void Notepad_plus::checkClipboard()
 	enableCommand(IDM_EDIT_DELETE, hasSelection, MENU | TOOLBAR);
 	enableCommand(IDM_EDIT_UPPERCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_LOWERCASE, hasSelection, MENU);
-	enableCommand(IDM_EDIT_TITLECASE_FORCE, hasSelection, MENU);
-	enableCommand(IDM_EDIT_TITLECASE_BLEND, hasSelection, MENU);
+	enableCommand(IDM_EDIT_PROPERCASE_FORCE, hasSelection, MENU);
+	enableCommand(IDM_EDIT_PROPERCASE_BLEND, hasSelection, MENU);
 	enableCommand(IDM_EDIT_SENTENCECASE_FORCE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_SENTENCECASE_BLEND, hasSelection, MENU);
 	enableCommand(IDM_EDIT_INVERTCASE, hasSelection, MENU);

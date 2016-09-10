@@ -85,9 +85,13 @@ public:
 		TreeView_Expand(_hSelf, hItem, TVE_EXPAND);
 	};
 
+	void expandAll(HTREEITEM hItem);
+
 	void fold(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_COLLAPSE);
 	};
+
+	void foldAll(HTREEITEM hItem);
 
 	void toggleExpandCollapse(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_TOGGLE);

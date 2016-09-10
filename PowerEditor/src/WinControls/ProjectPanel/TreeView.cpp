@@ -680,3 +680,31 @@ void TreeView::sort(HTREEITEM hTreeItem)
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
 		sort(hItem);
 }
+
+void TreeView::expandAll(HTREEITEM hItem)
+{
+	HTREEITEM hChild = getChildFrom(hItem);
+	if (hChild)
+	{
+		expand(hItem);
+		while (hChild)
+		{
+			expandAll(hChild);
+			hChild = getNextSibling(hChild);
+		}
+	}
+}
+
+void TreeView::foldAll(HTREEITEM hItem)
+{
+	HTREEITEM hChild = getChildFrom(hItem);
+	if (hChild)
+	{
+		fold(hItem);
+		while (hChild)
+		{
+			foldAll(hChild);
+			hChild = getNextSibling(hChild);
+		}
+	}
+}

@@ -232,8 +232,9 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 		const TCHAR* end = generic_strchr(p+3, TEXT(';'));
 		if (end && end - p <= 3 + 4)
 		{
-			int val;
-			if (generic_sscanf(p+3, TEXT("%x"), &val) == 1)
+			TCHAR* hexend;
+			auto val = generic_strtol(p + 3, &hexend, 16);
+			if (hexend == end)
 			{
 				*value = static_cast<TCHAR>(val);
 				return end + 1;

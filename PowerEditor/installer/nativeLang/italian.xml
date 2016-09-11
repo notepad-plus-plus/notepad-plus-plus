@@ -1,9 +1,9 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 6.9.2
-    Last modified Wed, May 21st, 2016 by Luca Leonardi.
+    Italian translation for Notepad++ 7.0.0
+    Last modified Wed, Sep 11th, 2016 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
-    For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
+    For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
     <Native-Langue name = "Italiano" filename = "italian.xml" >
@@ -37,6 +37,7 @@
                     <Item subMenuId = "edit-eolConversion" name = "Converti carattere di fine linea" />
                     <Item subMenuId = "edit-blankOperations" name = "Operazioni sugli spazi" />
                     <Item subMenuId = "edit-pasteSpecial" name = "Incolla speciale" />
+                    <Item subMenuId = "edit-onSelection" name = "Testo selezionato" />
                     <Item subMenuId = "search-markAll" name = "Marca tutti" />
                     <Item subMenuId = "search-unmarkAll" name = "Rimuovi marcatura" />
                     <Item subMenuId = "search-jumpUp" name = "Salta su" />
@@ -92,7 +93,7 @@
                     <Item id = "41019" name = "Esplora risorse" />
                     <Item id = "41020" name = "Prompt dei comandi" />
                     <Item id = "41021" name = "Ripristina i file recenti" />
-                    <Item id = "41022" name = "Apri cartella come workspace"/>
+                    <Item id = "41022" name = "Apri cartella come workspace" />
 
                     <Item id = "42001" name = "Tag&amp;lia" />
                     <Item id = "42002" name = "&amp;Copia" />
@@ -108,8 +109,8 @@
                     <Item id = "42013" name = "Unisci righe" />
                     <Item id = "42014" name = "Sposta in su la riga corrente" />
                     <Item id = "42015" name = "Sposta in giù la riga corrente" />
-                    <Item id = "42016" name = "Tutto maiuscole" />
-                    <Item id = "42017" name = "Tutto minuscole" />
+                    <Item id = "42016" name = "TUTTO MAIUSCOLE" />
+                    <Item id = "42017" name = "tutto minuscole" />
                     <Item id = "42018" name = "&amp;Inizia registrazione" />
                     <Item id = "42019" name = "&amp;Ferma registrazione" />
                     <Item id = "42020" name = "Inizio/Fine selezione" />
@@ -145,12 +146,12 @@
                     <Item id = "42050" name = "Incolla contenuto binario" />
                     <Item id = "42051" name = "Pannello caratteri" />
                     <Item id = "42052" name = "Storia appunti" />
-                    <Item id = "42053" name = "Converti spazi in TAb (inizio riga)" />
-                    <Item id = "42054" name = "Converti spazi in TAb (tutti)" />
+                    <Item id = "42053" name = "Converti spazi in tabulazioni (a inizio riga)" />
+                    <Item id = "42054" name = "Converti spazi in tabulazioni (ovunque)" />
                     <Item id = "42055" name = "Rimuovi righe vuote" />
                     <Item id = "42056" name = "Rimuovi righe vuote (contenenti caratteri vuoti)" />
-                    <Item id = "42057" name = "Inserisci riga vuota sopra all'attuale" />
-                    <Item id = "42058" name = "Inserisci riga vuota sotto all'attuale" />
+                    <Item id = "42057" name = "Inserisci riga vuota sopra all&apos;attuale" />
+                    <Item id = "42058" name = "Inserisci riga vuota sotto all&apos;attuale" />
                     <Item id = "42059" name = "Ordina righe in modo crescente" />
                     <Item id = "42060" name = "Ordina righe in modo decrescente" />
                     <Item id = "42061" name = "Ordina righe come interi in modo crescente" />
@@ -159,6 +160,17 @@
                     <Item id = "42064" name = "Ordina righe come valori decimali (virgola) in modo decrescente" />
                     <Item id = "42065" name = "Ordina righe come valori decimali (punto) in modo crescente" />
                     <Item id = "42066" name = "Ordina righe come valori decimali (punto) in modo decrescente" />
+					
+					<Item id = "42067" name = "Iniziali Maiuscole" />
+					<Item id = "42068" name = "Iniziali Maiuscole (intelligente)" />
+					<Item id = "42069" name = "Frasi maiuscole" />
+					<Item id = "42070" name = "Frasi maiuscole (intelligente)" />
+					<Item id = "42071" name = "iNVERTI mAIUSCOLE/mINUSCOLE" />
+					<Item id = "42072" name = "mAiusCole/miNUScLE casUaLi" />
+					<Item id = "42073" name = "Apri come file" />
+					<Item id = "42074" name = "Apri cartella in Esplora Risorse" />
+					<Item id = "42075" name = "Cerca in Internet" />
+					<Item id = "42076" name = "Modifica motore di ricerca..." />
 
                     <Item id = "43001" name = "&amp;Trova..." />
                     <Item id = "43002" name = "Trova &amp;successivo" />
@@ -177,7 +189,7 @@
                     <Item id = "43018" name = "Taglia righe con segnalibri" />
                     <Item id = "43019" name = "Copia righe con segnalibri" />
                     <Item id = "43020" name = "Incolla (sostituisci) righe con segnalibri " />
-                    <Item id = "43021" name = "Elimina righe con segnalibri" />
+                    <Item id = "43021" name = "Elimina righe con segnalibro" />
                     <Item id = "43022" name = "Usa 1º stile" />
                     <Item id = "43024" name = "Usa 2º stile" />
                     <Item id = "43026" name = "Usa 3º stile" />
@@ -207,10 +219,10 @@
                     <Item id = "43048" name = "Seleziona e trova successivo" />
                     <Item id = "43049" name = "Seleziona e trova precedente" />
                     <Item id = "43050" name = "Inverti segnalibri" />
-                    <Item id = "43051" name = "Rimuovi linee non selezionate" />
+                    <Item id = "43051" name = "Elimina righe senza segnalibro" />
                     <Item id = "43052" name = "Cerca caratteri..." />
                     <Item id = "43053" name = "Seleziona tutto tra le parentesi corrispondenti" />
-                    <Item id = "43054" name = "Evidenzia..."/>
+                    <Item id = "43054" name = "Evidenzia..." />
 
                     <Item id = "44009" name = "Modalità Post-it" />
                     <Item id = "44010" name = "Comprimi tutte le strutture" />
@@ -254,7 +266,9 @@
                     <Item id = "44094" name = "Nona scheda" />
                     <Item id = "44095" name = "Scheda successiva" />
                     <Item id = "44096" name = "Scheda precedente" />
-                    <Item id = "44097" name = "Monitora" />
+                    <Item id = "44097" name = "Monitora (tail -f)" />
+					<Item id = "44098" name = "Sposta scheda avanti" />
+					<Item id = "44099" name = "Sposta scheda indietro" />
 
                     <Item id = "45001" name = "Formato Windows" />
                     <Item id = "45002" name = "Formato UNIX" />
@@ -269,12 +283,12 @@
                     <Item id = "45011" name = "Converti in UTF-8" />
                     <Item id = "45012" name = "Converti in UCS-2 Big Endian" />
                     <Item id = "45013" name = "Converti in UCS-2 Little Endian" />
-                    <Item id = "45060" name = "Big5 (tradizionale)"/>
-                    <Item id = "45061" name = "GB2312 (semplificato)"/>
-                    <Item id = "45054" name = "OEM 861: Islandese"/>
-                    <Item id = "45057" name = "OEM 865: Noedico"/>
-                    <Item id = "45053" name = "OEM 860: Portoghese"/>
-                    <Item id = "45056" name = "OEM 863: Francese"/>
+                    <Item id = "45060" name = "Big5 (tradizionale)" />
+                    <Item id = "45061" name = "GB2312 (semplificato)" />
+                    <Item id = "45054" name = "OEM 861: Islandese" />
+                    <Item id = "45057" name = "OEM 865: Noedico" />
+                    <Item id = "45053" name = "OEM 860: Portoghese" />
+                    <Item id = "45056" name = "OEM 863: Francese" />
 
                     <Item id = "10001" name = "Sposta nell&apos;altra vista" />
                     <Item id = "10002" name = "Copia nell&apos;altra vista" />
@@ -286,7 +300,7 @@
                     <Item id = "46016" name = "Testo normale" />
                     <Item id = "46017" name = "File di risorse" />
                     <Item id = "46019" name = "File MS INI" />
-                    <Item id = "46033" name = "Assembly"/>
+                    <Item id = "46033" name = "Assembly" />
                     <Item id = "46080" name = "Definito dall&apos;utente" />
                     <Item id = "46150" name = "Definisci il tuo linguaggio..." />
 
@@ -300,8 +314,8 @@
                     <Item id = "47008" name = "Guida..." />
                     <Item id = "47009" name = "Imposta proxy aggiornamento..." />
                     <Item id = "47010" name = "Argomenti riga di comando..." />
-                    <Item id = "47011" name = "Supporto Live"/>
-                    <Item id = "47012" name = "Informazioni di debug"/>
+                    <Item id = "47011" name = "Supporto Live" />
+                    <Item id = "47012" name = "Informazioni di debug..." />
 
                     <Item id = "48005" name = "Importa plugin..." />
                     <Item id = "48006" name = "Importa tema..." />
@@ -382,7 +396,7 @@
                 <Item id = "1686" name = "T&amp;rasparenza" />
                 <Item id = "1687" name = "Se perde il focus" />
                 <Item id = "1688" name = "Sempre" />
-                <Item id = "1703" name = "&amp;. significa 'a capo'" />
+                <Item id = "1703" name = "&amp;. significa &apos;a capo&apos;" />
             </Find>
             <FindCharsInRange title = "Cerca caratteri...">
                 <Item id = "2910" name = "Cerca" />
@@ -440,7 +454,7 @@
                     <Item id = "2232" name = "Abilita stile globale per il sottolineato" />
                 </SubDialog>
             </StyleConfig>
-            <UserDefine title = "Linguaggio definito dall'utente">
+            <UserDefine title = "Linguaggio definito dall&apos;utente">
                 <Item id = "20001" name = "Ancora" />
                 <Item id = "20002" name = "Rinomina" />
                 <Item id = "20003" name = "Crea nuovo..." />
@@ -505,7 +519,7 @@
                     <Item id = "23003" name = "Posizione commenti in linea" />
                     <Item id = "23004" name = "Permetti ovunque" />
                     <Item id = "23005" name = "Forza ad inizio riga" />
-                    <Item id = "23006" name = "Permetti spazi all'inizio" />
+                    <Item id = "23006" name = "Permetti spazi all&apos;inizio" />
                     <Item id = "23101" name = "Stile commenti" />
                     <Item id = "23122" name = "Apertura" />
                     <Item id = "23123" name = "Chiusura" />
@@ -682,6 +696,7 @@
                     <Item id = "6215" name = "Abilita antialising caratteri" />
                     <Item id = "6234" name = "Disabilita scrolling avanzato&#xA;(in caso di problemi con touchpad)" />
                     <Item id = "6235" name = "Nessun bordo" />
+					<Item id = "6236" name = "Abilita scorrimento oltre l&apos;ultima riga" />
                 </Scintillas>
                 <NewDoc title = "Nuovo documento">
                     <Item id = "6401" name = "Formato" />
@@ -696,13 +711,13 @@
                     <Item id = "6410" name = "UCS-2 Little Endian con BOM" />
                     <Item id = "6411" name = "Linguaggio predefinito:" />
                     <Item id = "6419" name = "Nuovo Documento" />
-                    <Item id = "6420" name = "Applica all'apertura di file ANSI" />
+                    <Item id = "6420" name = "Applica all&apos;apertura di file ANSI" />
                 </NewDoc>
                 <DefaultDir title = "Cartella predefinita">
                     <Item id = "6413" name = "Cartella Predefinita (Apri/Salva)" />
                     <Item id = "6414" name = "Secondo il documento corrente" />
                     <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata" />
-                    <Item id = "6430" name = "Usa nuovo stile per finestra di salvataggio (senza estensioni predefinite)" />
+                    <Item id = "6430" name = "Non selezionare estensione predefinita nella finestra di salvataggio" />
                 </DefaultDir>
                 <RecentFilesHistory title = "File recenti">
                     <Item id = "6304" name = "Lista Documenti Recenti" />
@@ -816,6 +831,16 @@
                     <Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." />-->
                     <Item id = "6267" name = "Imposta qui il percorso della tua cartella cloud:" />
                 </Cloud>
+				<SearchEngine title = "Motore di ricerca" >
+					<Item id = "6271" name = "Motore Di Ricerca (per il commando 'Cerca in Internet')" />
+					<Item id = "6272" name = "DuckDuckGo" />
+					<Item id = "6273" name = "Google" />
+					<Item id = "6274" name = "Bing" />
+					<Item id = "6275" name = "Yahoo!" />
+					<Item id = "6276" name = "Imposta un motore di ricerca personalizzato:" />
+					<!-- Don’t change anything after Example: -->
+					<Item id = "6278" name="Esempio: https://www.google.com/search?q=$(CURRENT_WORD)" />
+				</SearchEngine>
                 <MISC title = "Varie">
                     <Item id = "6324" name = "Cambia Documento (Ctrl+TAB)" />
                     <Item id = "6114" name = "Abilita" />
@@ -823,7 +848,7 @@
 
                     <Item id = "6333" name = "Evidenziazione Intelligente" />
                     <Item id = "6326" name = "Abilita" />
-                    <Item id = "6332" name = "L'evidenziazione è case-sensitive" />
+                    <Item id = "6332" name = "L&apos;evidenziazione è case-sensitive" />
 
                     <Item id = "6318" name = "Link Cliccabili" />
                     <Item id = "6319" name = "Abilita" />
@@ -883,7 +908,7 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.&#x0A;E' necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto." />
+            <ContextMenuXmlEditWarning title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.&#x0A;E&apos; necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto." />
             <NppHelpAbsentWarning title = "Il file non esiste" message = "&#x0A;non esiste. Scarica il file dal sito di Notepad++." />
             <SaveCurrentModifWarning title = "Salva modifiche correnti" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?" />
             <LoseUndoAbilityWarning title = "Attenzione: Perdita della possibilità di ripristinare" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?" />
@@ -893,6 +918,7 @@
             <FileAlreadyOpenedInNpp title = "" message = "Il file è già aperto in Notepad++." />
             <DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita." />
             <NbFileToOpenImportantWarning title = "Il numero di file da aprire è troppo grande" message = "Si stanno aprendo $INT_REPLACE$ file.&#x0A;Sicuro di volerli aprire?" />
+			<FilePathNotFoundWarning title = "Apertura file" message = "Il file che si sta cercando di aprire non esiste." />
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name = "Storia Appunti" />

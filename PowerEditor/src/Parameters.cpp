@@ -3890,11 +3890,23 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				else
 					isFailed = true;
 			}
+
 			val = element->Attribute(TEXT("hide"));
 			if (val)
 			{
 				if (!lstrcmp(val, TEXT("yes")))
 					_nppGUI._tabStatus |= TAB_HIDE;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
+			}
+
+			val = element->Attribute(TEXT("quitOnEmpty"));
+			if (val)
+			{
+				if (!lstrcmp(val, TEXT("yes")))
+					_nppGUI._tabStatus |= TAB_QUITONEMPTY;
 				else if (!lstrcmp(val, TEXT("no")))
 					_nppGUI._tabStatus |= 0;
 				else
@@ -5142,6 +5154,9 @@ bool NppParameters::writeGUIParams()
 
 			pStr = (_nppGUI._tabStatus & TAB_HIDE)?TEXT("yes"):TEXT("no");
 			element->SetAttribute(TEXT("hide"), pStr);
+
+			pStr = (_nppGUI._tabStatus & TAB_QUITONEMPTY) ? TEXT("yes") : TEXT("no");
+			element->SetAttribute(TEXT("quitOnEmpty"), pStr);
 
 		}
 		else if (!lstrcmp(nm, TEXT("ScintillaViewsSplitter")))

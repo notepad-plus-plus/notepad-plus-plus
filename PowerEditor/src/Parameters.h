@@ -52,15 +52,16 @@ const int UDD_DOCKED = 2; // 0000 0010
 // 2 : 0000 0010 hide & docked
 // 3 : 0000 0011 show & docked
 
-const int TAB_DRAWTOPBAR = 1;	  //  0000 0001
-const int TAB_DRAWINACTIVETAB = 2; //  0000 0010
-const int TAB_DRAGNDROP = 4;	   //  0000 0100
-const int TAB_REDUCE = 8;		   //  0000 1000
-const int TAB_CLOSEBUTTON = 16;	//  0001 0000
-const int TAB_DBCLK2CLOSE = 32;	//  0010 0000
-const int TAB_VERTICAL = 64;	   //  0100 0000
-const int TAB_MULTILINE = 128;	 //  1000 0000
-const int TAB_HIDE = 256;		  //1 0000 0000
+const int TAB_DRAWTOPBAR = 1;      //0000 0000 0001
+const int TAB_DRAWINACTIVETAB = 2; //0000 0000 0010
+const int TAB_DRAGNDROP = 4;       //0000 0000 0100
+const int TAB_REDUCE = 8;          //0000 0000 1000
+const int TAB_CLOSEBUTTON = 16;    //0000 0001 0000
+const int TAB_DBCLK2CLOSE = 32;    //0000 0010 0000
+const int TAB_VERTICAL = 64;       //0000 0100 0000
+const int TAB_MULTILINE = 128;     //0000 1000 0000
+const int TAB_HIDE = 256;          //0001 0000 0000
+const int TAB_QUITONEMPTY = 512;   //0010 0000 0000
 
 
 enum class EolType: std::uint8_t
@@ -183,7 +184,6 @@ struct CmdLineParams
 	int _line2go   = -1;
 	int _column2go = -1;
 	int _pos2go = -1;
-	bool _quitOnEmpty = false;
 
 	POINT _point;
 	bool _isPointXValid = false;
@@ -756,7 +756,6 @@ struct NppGUI final
 	char _rightmostDelimiter = ')';
 	bool _delimiterSelectionOnEntireDocument = false;
 	bool _backSlashIsEscapeCharacterForSql = true;
-	bool _quitOnEmpty = false;
 
 
 	// 0 : do nothing

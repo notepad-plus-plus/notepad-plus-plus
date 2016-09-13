@@ -398,69 +398,46 @@ void FunctionCallTip::showCalltip()
 			}
 		}
 	}
-	const TCHAR * curRetValText = _retVals.at(_currentOverload);
-	const TCHAR * curDescriptionText = _descriptions.at(_currentOverload);
-	bool hasDescr = true;
-	if (!curDescriptionText[0])
-		hasDescr = false;
 
-	int bytesNeeded = lstrlen(curRetValText) + lstrlen(_funcName) + 5;//'retval funcName (params)\0'
-	if (hasDescr)
-		bytesNeeded += lstrlen(curDescriptionText);
+	generic_stringstream callTipText;
 
-	size_t nrParams = params.size();
-	for(size_t i = 0; i < nrParams; ++i) {
-		bytesNeeded += lstrlen(params.at(i)) + 2;	//'param, '
+	if (_currentNrOverloads > 1)
+	{
+		callTipText << TEXT("\001") << _currentOverload + 1 << TEXT(" of ") << _currentNrOverloads << TEXT("\002");
 	}
 
-	if (_currentNrOverloads > 1) {
-		bytesNeeded += 24;	//  /\00001 of 00003\/
-	}
-
-	const int maxLen = 2048;
-	if (bytesNeeded >= maxLen)
-		return;
-
-	TCHAR textBuffer[maxLen];
-	textBuffer[0] = 0;
-
-	if (_currentNrOverloads > 1) {
-		wsprintf(textBuffer, TEXT("\001%u of %u\002"), _currentOverload+1, _currentNrOverloads);
-	}
-
-	lstrcat(textBuffer, curRetValText);
-	lstrcat(textBuffer, TEXT(" "));
-	lstrcat(textBuffer, _funcName);
-	lstrcat(textBuffer, TEXT(" ("));
+	callTipText << _retVals.at(_currentOverload) << TEXT(' ') << _funcName << TEXT(' ') << _start;
 
 	int highlightstart = 0;
 	int highlightend = 0;
-	for(size_t i = 0; i < nrParams; ++i) 
+	size_t nrParams = params.size();
+	for (size_t i = 0; i < nrParams; ++i)
 	{
 		if (int(i) == _currentParam) 
 		{
-			highlightstart = lstrlen(textBuffer);
+			highlightstart = static_cast<int>(callTipText.str().length());
 			highlightend = highlightstart + lstrlen(params.at(i));
 		}
-		lstrcat(textBuffer, params.at(i));
-		if (i < nrParams-1)
-			lstrcat(textBuffer, TEXT(", "));
+		callTipText << params.at(i);
+		if (i < nrParams - 1)
+			callTipText << _param << TEXT(' ');
 	}
 
-	lstrcat(textBuffer, TEXT(")"));
-	if (hasDescr) {
-		lstrcat(textBuffer, TEXT("\n"));
-		lstrcat(textBuffer, curDescriptionText);
+	callTipText << _stop;
+	if (_descriptions.at(_currentOverload)[0])
+	{
+		callTipText << TEXT("\n") << _descriptions.at(_currentOverload);
 	}
 
 	if (isVisible())
 		_pEditView->execute(SCI_CALLTIPCANCEL);
 	else
 		_startPos = _curPos;
-	_pEditView->showCallTip(_startPos, textBuffer);
+	_pEditView->showCallTip(_startPos, callTipText.str().c_str());
 
 	_selfActivated = true;
-	if (highlightstart != highlightend) {
+	if (highlightstart != highlightend)
+	{
 		_pEditView->execute(SCI_CALLTIPSETHLT, highlightstart, highlightend);
 	}
 }

@@ -4707,6 +4707,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optNameNewStyleSaveDlg && !lstrcmp(optNameNewStyleSaveDlg, TEXT("yes")))
 				_nppGUI._useNewStyleSaveDlg = true;
 
+			const TCHAR * optNameFolderDroppedOpenFiles = element->Attribute(TEXT("isFolderDroppedOpenFiles"));
+			if (optNameFolderDroppedOpenFiles && !lstrcmp(optNameFolderDroppedOpenFiles, TEXT("yes")))
+				_nppGUI._isFolderDroppedOpenFiles = true;
+
 		}
 	}
 }
@@ -5480,6 +5484,9 @@ bool NppParameters::writeGUIParams()
 
 			const TCHAR * pStrNewStyleSaveDlg = _nppGUI._useNewStyleSaveDlg ? TEXT("yes") : TEXT("no");
 			element->SetAttribute(TEXT("newStyleSaveDlg"), pStrNewStyleSaveDlg);
+
+			const TCHAR * pStrFolderDroppedOpenFiles = _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no");
+			element->SetAttribute(TEXT("isFolderDroppedOpenFiles"), pStrFolderDroppedOpenFiles);
 		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
 		{
@@ -5816,6 +5823,7 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn?TEXT("yes"):TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql?TEXT("yes"):TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("newStyleSaveDlg"), _nppGUI._useNewStyleSaveDlg?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));
 	}
 
 	if (!searchEngineExist)

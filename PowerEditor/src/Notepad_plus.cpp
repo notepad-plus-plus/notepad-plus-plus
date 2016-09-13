@@ -3101,7 +3101,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			}
 		}
 		
-		bool isOldMode = false;
+		NppParameters *pNppParam = NppParameters::getInstance();
+		bool isOldMode = pNppParam->getNppGUI()._isFolderDroppedOpenFiles;
 
 		if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
 		{

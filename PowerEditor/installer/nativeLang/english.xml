@@ -637,6 +637,7 @@
                     <Item id="6118" name="Hide"/>
                     <Item id="6119" name="Multi-line"/>
                     <Item id="6120" name="Vertical"/>
+                    <Item id="6121" name="Exit on close the last tab"/>
 
                     <Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="Localization"/>
@@ -703,6 +704,7 @@
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
                     <Item id="6430" name="Use new style save dialog (without file extension feature)"/>
+                    <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
                 </DefaultDir>
 
                 <FileAssoc title="File Association">

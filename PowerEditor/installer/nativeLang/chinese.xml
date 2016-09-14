@@ -631,6 +631,7 @@
                     <Item id="6118" name="隱藏"/>
                     <Item id="6119" name="多行"/>
                     <Item id="6120" name="直式"/>
+																				<Item id="6121" name="關閉最後一個文件時關閉程式"/>
 
                     <Item id="6122" name="隱藏 (用 Alt 或 F10 切換)"/>
                     <Item id="6123" name="界面語言​​"/>
@@ -695,7 +696,8 @@
                     <Item id="6413" name="預設資料夾 (開啟/儲存)"/>
                     <Item id="6414" name="依照目前文件"/>
                     <Item id="6415" name="記住上次使用的資料夾"/>
-					<Item id="6430" name="使用新式儲存對話框（不含副檔名功能支援）"/>
+																				<Item id="6430" name="使用新式儲存對話框（不含副檔名功能支援）"/>
+																				<Item id="6431" name="拖放文件夾開啟文件夾中所有文件，而不啟動文件夾工作區"/>
                 </DefaultDir>
 
                 <FileAssoc title="副檔名連結設定">

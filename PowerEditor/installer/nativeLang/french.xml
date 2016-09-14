@@ -91,7 +91,8 @@
                     <Item id="41015" name="Enregistrer une copie..."/>
                     <Item id="41016" name="Supprimer"/>
                     <Item id="41017" name="Renommer..."/>
-					<Item id="41021" name="Ouvrir le fichier récemment fermé"/>
+																				<Item id="41021" name="Ouvrir le fichier récemment fermé"/>
+																				<Item id="41022" name="Ouvrir Dossier en tant qu'Espace de travail"/>
                     <Item id="42001" name="Cou&amp;per"/>
                     <Item id="42002" name="&amp;Copier"/>
                     <Item id="42003" name="&amp;Annuler"/>
@@ -244,6 +245,7 @@
                     <Item id="44083" name="Panneau de Projet #3"/>
                     <Item id="44080" name="Plan du Document"/>
                     <Item id="44084" name="Liste des Fonctions"/>
+																				<Item id="44085" name="Dossier en tant qu'Espace de travail"/>
                     <Item id="44086" name="Onglet 1"/>
                     <Item id="44087" name="Onglet 2"/>
                     <Item id="44088" name="Onglet 3"/>
@@ -625,6 +627,7 @@
                     <Item id="6118" name="Cacher"/>
                     <Item id="6119" name="Multiligne"/>
                     <Item id="6120" name="Verticale"/>
+																				<Item id="6121" name="Quitter lors de la fermeture de dernier onglet"/>
                     <Item id="6122" name="Cachée (Alt ou F10 pour afficher)"/>
                     <Item id="6123" name="Langue"/>
                     <Item id="6125" name="Commutateur de documents"/>
@@ -684,7 +687,8 @@
                     <Item id="6413" name="Dossier par défaut (ouvrir/enregistrer)"/>
                     <Item id="6414" name="Utiliser celui du document actuel"/>
                     <Item id="6415" name="Mémoriser le dernier dossier utilisé"/>
-					<Item id="6430" name="Activer le nouveau style de dialogue d'enregistrement (sans l'extension de fichier supporté)"/>
+																				<Item id="6430" name="Activer le nouveau style de dialogue d'enregistrement (sans l'extension de fichier supporté)"/>
+																				<Item id="6431" name="Lors de drag and drop d'un dossier, ouvrir tous les fichier dans le dossier"/>
                 </DefaultDir>
 
                 <FileAssoc title="Extensions de fichier">

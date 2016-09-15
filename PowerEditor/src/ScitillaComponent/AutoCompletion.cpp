@@ -370,6 +370,14 @@ bool AutoCompletion::showFunctionComplete()
 
 void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos, bool isHTML)
 {
+	if (isHTML)
+	{
+		// Skip if caretPos is within any scripting language
+		int style = static_cast<int>(_pEditView->execute(SCI_GETSTYLEAT, caretPos));
+		if (style >= SCE_HJ_START)
+			return;
+	}
+
 	char prev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 2));
 	char prevprev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 3));
 

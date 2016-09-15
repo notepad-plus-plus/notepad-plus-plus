@@ -143,22 +143,22 @@ Function removeUnstablePlugins
 		Delete "$INSTDIR\plugins\QuickText.UNI.dll"
 
 	IfFileExists "$INSTDIR\plugins\AHKExternalLexer.dll" 0 +4
-		MessageBox MB_OK "Due to the compability issue,$\nAHKExternalLexer.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the compatibility issue,$\nAHKExternalLexer.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\AHKExternalLexer.dll" "$INSTDIR\plugins\disabled\AHKExternalLexer.dll"
 		Delete "$INSTDIR\plugins\AHKExternalLexer.dll"
 
 	IfFileExists "$INSTDIR\plugins\NppExternalLexers.dll" 0 +4
-		MessageBox MB_OK "Due to the compability issue,$\n\NppExternalLexers.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the compatibility issue,$\n\NppExternalLexers.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\NppExternalLexers.dll" "$INSTDIR\plugins\disabled\NppExternalLexers.dll"
 		Delete "$INSTDIR\plugins\NppExternalLexers.dll"
 
 	IfFileExists "$INSTDIR\plugins\ExternalLexerKVS.dll" 0 +4
-		MessageBox MB_OK "Due to the compability issue,$\n\ExternalLexerKVS.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the compatibility issue,$\n\ExternalLexerKVS.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\ExternalLexerKVS.dll" "$INSTDIR\plugins\disabled\ExternalLexerKVS.dll"
 		Delete "$INSTDIR\plugins\ExternalLexerKVS.dll"
 
 	IfFileExists "$INSTDIR\plugins\Oberon2LexerU.dll" 0 +4
-		MessageBox MB_OK "Due to the compability issue,$\n\Oberon2LexerU.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the compatibility issue,$\n\Oberon2LexerU.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\Oberon2LexerU.dll" "$INSTDIR\plugins\disabled\Oberon2LexerU.dll"
 		Delete "$INSTDIR\plugins\Oberon2LexerU.dll"
 
@@ -189,7 +189,7 @@ Function removeUnstablePlugins
 		Delete "$INSTDIR\plugins\NppQCP.dll"
 		
 	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +11
-		MessageBox MB_YESNOCANCEL "Due to the stability issue, DSpellCheck.dll will be moved to the directory $\"disabled$\".$\nChoose Cancel to keep it this installation.$\nChoose No to keep it forever." /SD IDYES IDNO never IDCANCEL donothing ;IDYES remove
+		MessageBox MB_YESNOCANCEL "Due to the stability issue, DSpellCheck.dll will be moved to the directory $\"disabled$\".$\nChoose Cancel to keep it for this installation.$\nChoose No to keep it forever." /SD IDYES IDNO never IDCANCEL donothing ;IDYES remove
 		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 		Goto donothing

@@ -37,9 +37,8 @@ SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 
 
 !include "nsisInclude\winVer.nsh"
-!include "nsisInclude\tools.nsh"
-
 !include "nsisInclude\gobalDef.nsh"
+!include "nsisInclude\tools.nsh"
 
 !ifdef ARCH64
 OutFile ".\build\npp.${APPVERSION}.Installer.x64.exe"
@@ -151,7 +150,7 @@ ${MementoSectionDone}
 ;--------------------------------
 
 Section -FinishSection
-	Call writeInstallInfoInRegistry
+  Call writeInstallInfoInRegistry
 SectionEnd
 
 !include "nsisInclude\uninstall.nsh"

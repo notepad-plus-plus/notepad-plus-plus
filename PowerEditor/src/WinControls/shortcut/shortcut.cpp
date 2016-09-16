@@ -187,7 +187,14 @@ void Shortcut::setName(const TCHAR * name) {
 }
 
 generic_string ScintillaKeyMap::toString() const {
-	return toString(0);
+	generic_string sc = TEXT("");
+	size_t nbCombos = getSize();
+	for (size_t combo = 0; combo < nbCombos; ++combo){
+		sc += toString(combo);
+		if (combo < nbCombos - 1)
+			sc += TEXT(" or ");
+	}
+	return sc;
 }
 
 generic_string ScintillaKeyMap::toString(size_t index) const {

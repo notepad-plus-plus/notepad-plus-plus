@@ -197,17 +197,17 @@
                     <Item id="43030" name="Appliquer le style 5"/>
                     <Item id="43031" name="Dégager le style 5"/>
                     <Item id="43032" name="Dégager tous les styles"/>
-                    <Item id="43033" name="Style 1"/>
-                    <Item id="43034" name="Style 2"/>
-                    <Item id="43035" name="Style 3"/>
-                    <Item id="43036" name="Style 4"/>
-                    <Item id="43037" name="Style 5"/>
+                    <Item id="43033" name="Recherche le Style 1 suivant"/>
+                    <Item id="43034" name="Recherche le Style 2 suivant"/>
+                    <Item id="43035" name="Recherche le Style 3 suivant"/>
+                    <Item id="43036" name="Recherche le Style 4 suivant"/>
+                    <Item id="43037" name="Recherche le Style 5 suivant"/>
                     <Item id="43038" name="Style de recherche"/>
-                    <Item id="43039" name="Style 1"/>
-                    <Item id="43040" name="Style 2"/>
-                    <Item id="43041" name="Style 3"/>
-                    <Item id="43042" name="Style 4"/>
-                    <Item id="43043" name="Style 5"/>
+                    <Item id="43039" name="Recherche le Style 1 précédent"/>
+                    <Item id="43040" name="Recherche le Style 2 précédent"/>
+                    <Item id="43041" name="Recherche le Style 3 précédent"/>
+                    <Item id="43042" name="Recherche le Style 4 précédent"/>
+                    <Item id="43043" name="Recherche le Style 5 précédent"/>
                     <Item id="43044" name="Style de recherche"/>
                     <Item id="43045" name="Fenêtre de résultats de recherche"/>
                     <Item id="43046" name="Résultat de recherche suivant"/>

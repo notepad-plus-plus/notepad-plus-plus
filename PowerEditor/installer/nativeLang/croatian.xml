@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
         Croatian localization for Notepad++
-        Last modified 18 October 2015 by Elvis Gambiraža
+        Last modified 14 September 2016 by Elvis Gambiraža
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="6.8.4">
+        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -36,6 +36,7 @@
                     <Item subMenuId="edit-eolConversion" name="Kraj retka"/>
                     <Item subMenuId="edit-blankOperations" name="Praznine"/>
                     <Item subMenuId="edit-pasteSpecial" name="Umetanje posebno"/>
+                    <Item subMenuId="edit-onSelection" name="Pri označavanju"/>
                     <Item subMenuId="search-markAll" name="Označi sve"/>
                     <Item subMenuId="search-unmarkAll" name="Poništi oznake"/>
                     <Item subMenuId="search-jumpUp" name="Skoči gore"/>
@@ -92,6 +93,7 @@
                     <Item id="41016" name="Izbriši s &amp;diska"/>
                     <Item id="41017" name="Pre&amp;imenuj..."/>
                     <Item id="41021" name="Vrati nedavno zatvorene datoteke"/>
+                    <Item id="41022" name="Otvori mapu kao &amp;radnu površinu"/>
 
                     <Item id="42001" name="Iz&amp;reži"/>
                     <Item id="42002" name="&amp;Kopiraj"/>
@@ -119,6 +121,16 @@
                     <Item id="42066" name="Sortiraj retke kao decimalne brojeve (točka) Padajuće"/>
                     <Item id="42016" name="VELIKA SLOVA"/>
                     <Item id="42017" name="mala slova"/>
+                    <Item id="42067" name="Kao Naslovi"/>
+                    <Item id="42068" name="Kao Naslovi (miješano)"/>
+                    <Item id="42069" name="Kao rečenica"/>
+                    <Item id="42070" name="Kao rečenica (miješano)"/>
+                    <Item id="42071" name="oBRATNO"/>
+                    <Item id="42072" name="sluČAjnO"/>
+                    <Item id="42073" name="Otvori datoteku"/>
+                    <Item id="42074" name="Otvori sadržavajuću mapu u Exploreru"/>
+                    <Item id="42075" name="Traži na Internetu"/>
+                    <Item id="42076" name="Promijeni tražilicu..."/>
                     <Item id="42018" name="&amp;Započni snimanje"/>
                     <Item id="42019" name="Za&amp;ustavi snimanje"/>
                     <Item id="42021" name="&amp;Prikaži snimljeno"/>
@@ -231,6 +243,7 @@
                     <Item id="44049" name="Svojstva dokumenta..."/>
                     <Item id="44080" name="Pregledna mapa dokumenta"/>
                     <Item id="44084" name="Popis funkcija"/>
+                    <Item id="44085" name="Mapa kao &amp;radna površina"/>
                     <Item id="44086" name="1. uvlaka"/>
                     <Item id="44087" name="2. uvlaka"/>
                     <Item id="44088" name="3. uvlaka"/>
@@ -242,6 +255,9 @@
                     <Item id="44094" name="9. uvlaka"/>
                     <Item id="44095" name="Sljedeća uvlaka"/>
                     <Item id="44096" name="Prethodna uvlaka"/>
+                    <Item id="44097" name="Nadzor (dodatak -f)"/>
+                    <Item id="44098" name="Premjesti karticu naprijed"/>
+                    <Item id="44099" name="Premjesti karticu natrag"/>
                     <Item id="44032" name="Cijeli zaslon"/>
                     <Item id="44033" name="Vrati izvorne postavke uvećavanja"/>
                     <Item id="44034" name="Uvijek na vrhu"/>
@@ -295,6 +311,7 @@
                     <Item id="47003" name="Online dokumentacija"/>
                     <Item id="47004" name="Notepad++ zajednica (Forum)"/>
                     <Item id="47011" name="Podrška uživo"/>
+                    <Item id="47012" name="Debug Info..."/>
                     <Item id="47005" name="Dodatni priključci"/>
                     <Item id="47006" name="Ažuriraj Notepad++"/>
                     <Item id="47007" name="Wiki FAQ"/>
@@ -346,7 +363,7 @@
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Pronađi" titleReplace="Zamijeni" titleFindInFiles="Pronađi u datotekama">
+            <Find title="" titleFind="Pronađi" titleReplace="Zamijeni" titleFindInFiles="Pronađi u datotekama" titleMark="Označi">
                     <Item id="1"    name="Pronađi sljedeće"/>
                     <Item id="2"    name="Zatvori"/>
                     <Item id="1620" name="Pronađi:"/>
@@ -381,7 +398,7 @@
                     <Item id="1659" name="U skrivenim mapama"/>
                     <Item id="1624" name="Način pretraživanja"/>
                     <Item id="1625" name="Normalno"/>
-                    <Item id="1626" name="Prošireno (\r, \n, \t, \x..., \0)"/>
+                    <Item id="1626" name="Prošireno (\n, \r, \t, \0, \x...)"/>
                     <Item id="1627" name="Dolje"/>
                     <Item id="1660" name="Zamijeni u datotekama"/>
                     <Item id="1661" name="Put tekućeg dokumenta"/>
@@ -730,6 +747,8 @@
                     <Item id="6214" name="Istakni trenutno aktivni redak"/>
                     <Item id="6215" name="Uključi glatki font"/>
                     <Item id="6231" name="Širina margine"/>
+                    <Item id="6235" name="Bez ruba"/>
+                    <Item id="6236" name="Omogući klizanje nakon zadnjeg retka"/>
                 </Scintillas>
 
                 <NewDoc title="Novi dokument">
@@ -754,6 +773,7 @@
                     <Item id="6414" name="Sukladno tekućem dokumentu"/>
                     <Item id="6415" name="Upamti popis posljednje korištenih mapa"/>
                     <Item id="6418" name="..."/>
+                    <Item id="6430" name="Upotrijebi novi dijalog spremanja stila (bez nastavka datoteke)"/>
                 </DefaultDir>
 
                 <FileAssoc title="Pridruživanje datoteka">
@@ -873,8 +893,19 @@
                     <Item id="6265" name="OneDrive"/>
                     <Item id="6266" name="Google Drive"/>
                     <Item id="6267" name="Upiši put lokacije oblaka ovdje:"/>
-                    <!--Item id="6261" name="Molim restartajte Notepad++ kako bi proradilo."/-->
+                    <Item id="6261" name="Molim restartajte Notepad++ kako bi proradilo."/>
                 </Cloud>
+
+                <SearchEngine title="Tražilica">
+                    <Item id="6271" name="Tražilica (za naredbu &quot;Traži na Internetu&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Postavi svoju tražilicu ovdje:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Primjer: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
 
                 <MISC title="Razno">
                     <Item id="6307" name="Uključi"/>
@@ -899,6 +930,7 @@
                     <Item id="6333" name="Inteligentno isticanje"/>
                     <Item id="6334" name="Automatski detektiraj enkoding"/>
                     <Item id="6335" name="Tretiraj backslash kao escape karakter za SQL"/>
+                    <Item id="6337" name="Nastavak datoteke radne površine:"/>
                     <Item id="6114" name="Uključi sklopku"/>
                     <Item id="6115" name="Automatska uvlaka redaka"/>
                     <Item id="6117" name="Koristi povijest dokumenata"/>
@@ -927,6 +959,7 @@
                     <Item id="2030" name="Početna znamenka:"/>
                     <Item id="2031" name="Povećavanje za:"/>
                     <Item id="2035" name="Vodeće nule"/>
+                    <Item id="2036" name="Ponovi:"/>
                     <Item id="2032" name="Format"/>
                     <Item id="2024" name="Dec"/>
                     <Item id="2025" name="Oct"/>
@@ -950,6 +983,7 @@
                     <!-- $INT_REPLACE$ is a place holder, don't translate it -->
                     <NbFileToOpenImportantWarning title="Broj datoteka za otvaranje je prevelik" message="$INT_REPLACE$ datoteka će se otvoriti.\rŽelite li ih zaista otvoriti?"/>
                     <SettingsOnCloudError title="Podešavanje oblaka" message="Izgleda da je put u podešavanju oblaka postavljen na pogon samo za čitanje,\rili na mapu koja zahtijeva posebne ovlasti za pisanje.\rVaše postavke oblaka će biti poništene. Molim, resetirajte koherentnu vrijednost preko dijaloga Postavke."/>
+                    <FilePathNotFoundWarning title="File Open" message="Datoteka koju pokušavate otvoriti ne postoji."/>
             </MessageBox>
             <ClipboardHistory>
                     <PanelTitle name="Povijest međuspremnika"/>

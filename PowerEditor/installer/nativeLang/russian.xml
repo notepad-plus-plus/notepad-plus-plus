@@ -31,6 +31,7 @@
                     <Item subMenuId="edit-eolConversion" name="Формат Конца Строк"/>
                     <Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
                     <Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
+                    <Item subMenuId="edit-onSelection" name="Выделенное"/>
                     <Item subMenuId="search-markAll" name="Пометить выделенное"/>
                     <Item subMenuId="search-unmarkAll" name="Убрать Пометки"/>
                     <Item subMenuId="search-jumpUp" name="Перейти вверх"/>
@@ -85,7 +86,7 @@
                     <Item id="41017" name="Переименовать..."/>
                     <Item id="41020" name="Открыть папку в &amp;консоли cmd"/>
                     <Item id="41021" name="Открыть последний закрытый файл"/>
-                    <Item id="41022" name="Открыть папку как проект"/>
+                    <Item id="41022" name="Открыть Папку как Проект"/>
                     <Item id="41009" name="Закрыть все Слева"/>
                     <Item id="41018" name="Закрыть все Справа"/>
                     <Item id="42001" name="Вырезать"/>
@@ -153,6 +154,16 @@
                     <Item id="42064" name="Сорт. по Убыванию десятичных чисел (Запятая)"/>
                     <Item id="42065" name="Сорт. по Возрастанию десятичных чисел (Точка)"/>
                     <Item id="42066" name="Сорт. по Убыванию десятичных чисел (Точка)"/>
+                    <Item id="42067" name="Все с Заглавной"/>
+                    <Item id="42068" name="Все с Заглавной (смешанный)"/>
+                    <Item id="42069" name="Предложение"/>
+                    <Item id="42070" name="Предложение (смешанный)"/>
+                    <Item id="42071" name="иНВЕРТИРОВАТЬ рЕГИСТР"/>
+                    <Item id="42072" name="СлуЧаЙнЫЙ РегиСТр"/>
+					<Item id="42073" name="Открыть Файл"/>
+					<Item id="42074" name="Открыть папку Документа"/>
+					<Item id="42075" name="Поиск в Интернете"/>
+					<Item id="42076" name="Сменить Поисковую Систему..."/>
                     <Item id="43001" name="Найти..."/>
                     <Item id="43002" name="Искать далее"/>
                     <Item id="43003" name="Замена..."/>
@@ -247,6 +258,9 @@
 					<Item id="44094" name="9-я  Вкладка"/>
 					<Item id="44095" name="Следующая Вкладка"/>
 					<Item id="44096" name="Предыдущая Вкладка"/>
+					<Item id="44097" name="Мониторинг (tail -f)"/>
+                    <Item id="44098" name="Переместить Вкладку Вперёд"/>
+                    <Item id="44099" name="Переместить Вкладку Назад"/>
 					
 					
                     <Item id="45001" name="Преобразовать в Win-формат (CRLF)"/>
@@ -256,7 +270,7 @@
                     <Item id="45005" name="Кодировка в UTF-8"/>
                     <Item id="45006" name="Кодировка в UCS-2 Big Endian"/>
                     <Item id="45007" name="Кодировка в UCS-2 Little Endian"/>
-                    <Item id="45008" name="Кодировка в UTF-8 (без BOM)"/>
+                    <Item id="45008" name="Кодировка в UTF-8 без BOM"/>
                     <Item id="45009" name="Преобразовать в ANSI"/>
                     <Item id="45010" name="Преобразовать в UTF-8 без BOM"/>
                     <Item id="45011" name="Преобразовать в UTF-8"/>
@@ -646,6 +660,7 @@
                     <Item id="6231" name="Размер Рамки Окна"/>
 					<Item id="6234" name="Откл. расшир. функции прокрутки&#x0A; (если есть проблемы с тачпадом)"/>
                     <Item id="6235" name="Без рамки"/>
+                    <Item id="6236" name="Прокрутка за пределы последней строки"/>
                 </Scintillas>
                 <NewDoc title = "Новый Документ">
                     <Item id="6401" name="Формат"/>
@@ -772,12 +787,18 @@
                  <Cloud title="Облачное Хранение">
                     <Item id="6262" name="Настройки Облачного Хранения"/>
                     <Item id="6263" name="Без Облака"/>
-                    <!--Item id="6264" name="Dropbox"/-->
-                    <!--Item id="6265" name="OneDrive"/-->
-                    <!--Item id="6266" name="Google Drive"/-->
                     <Item id="6267" name="Задать свой путь облачного хранения:"/>
-                    <!--Item id="6261" name="Перезапустите Notepad++"/-->
                 </Cloud>
+                <SearchEngine title="Поисковая Система">
+                    <Item id="6271" name="Поисковая Система (для команды &quot;Поиск в Интернете&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Задавать свою поисковую систему:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Пример: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
                 <Backup title = "Резерв. Копирование">
                     <Item id="6801" name="Резервное Копирование (при сохранении)"/>
 					<Item id="6817" name="Снимок сессии и периодическое резервное копирование"/>

@@ -13,9 +13,9 @@
                 <!-- Main Menu Entries -->
                 <Entries>
                     <Item menuId="file" name="&amp;फाईल"/>
-                    <Item menuId="edit" name="&amp;एडिट"/>
-                    <Item menuId="search" name="&amp;सर्च"/>
-                    <Item menuId="view" name="&amp;व्यू"/>
+                    <Item menuId="edit" name="&amp;सम्पादित करे "/>
+                    <Item menuId="search" name="&amp;खोजे " />
+                    <Item menuId="view" name="&amp;देखे"/>
                     <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
                     <Item menuId="language" name="&amp;भाषा"/>
                     <Item menuId="settings" name="&amp;सेटिंग"/>
@@ -27,20 +27,20 @@
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="edit-copyToClipboard" name="क्लिपबोर्ड पे कॉपी करे"/>
+                    <Item subMenuId="edit-copyToClipboard" name="क्लिपबोर्ड पे  कॉपी करे"/>
                     <Item subMenuId="edit-indent" name="इंडेन्ट"/>
-                    <Item subMenuId="edit-convertCaseTo" name="कैस को एसे बदले"/>
+                    <Item subMenuId="edit-convertCaseTo" name="कैस को बदले"/>
                     <Item subMenuId="edit-lineOperations" name="लाईन ऑपरेशन"/>
-                    <Item subMenuId="edit-comment" name="कॉमेंट/कटाक्ष"/>
+                    <Item subMenuId="edit-comment" name="टिप्पणी"/>
                     <Item subMenuId="edit-autoCompletion" name="स्वचालित पूर्ति"/>
-                    <Item subMenuId="edit-eolConversion" name="EOL कन्वर्जन"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL रूपांतरण"/>
 					<Item subMenuId="edit-blankOperations" name="ब्लैंक ऑपरेशन"/>
                     <Item subMenuId="search-markAll" name="सभी चिन्हित करे"/>
-                    <Item subMenuId="search-unmarkAll" name="सभी चिन्ह निकाले"/>
+                    <Item subMenuId="search-unmarkAll" name="सभी अचिन्हित करे "/>
                     <Item subMenuId="search-jumpUp" name="ऊपर कूदे"/>
                     <Item subMenuId="search-jumpDown" name="नीच कूदे"/>
                     <Item subMenuId="search-bookmark" name="बूकमार्क"/>
-                    <Item subMenuId="view-showSymbol" name="चिन्ह दिखाये"/>
+                    <Item subMenuId="view-showSymbol" name="चिन्ह दर्शाये"/>
                     <Item subMenuId="view-zoom" name="बड़ा करे"/>
                     <Item subMenuId="view-moveCloneDocument" name="चालु दस्तावेज़ को हिलाये/क्लोन करे"/>
                     <Item subMenuId="view-collapseLevel" name="लेवल मिटाए"/>
@@ -72,9 +72,9 @@
                     <Item id="41003" name="बंध"/>
                     <Item id="41004" name="&amp;सब बंध"/>
                     <Item id="41005" name="चालु दस्तावेज़ के अलावा सब बंध"/>
-                    <Item id="41006" name="&amp;सेव"/>
-                    <Item id="41007" name="&amp;सब सेव करे"/>
-                    <Item id="41008" name="&amp;की तरह सेव करे"/>
+                    <Item id="41006" name="&amp;संचित करे"/>
+                    <Item id="41007" name="&amp;सब संचित करे/>
+                    <Item id="41008" name="&amp;की तरह संचित करे"/>
                     <Item id="41010" name="छापे..."/>
                     <Item id="1001" name="अभी छापे"/>
                     <Item id="41011" name="&amp;बाहर"/>

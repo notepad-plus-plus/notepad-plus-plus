@@ -656,8 +656,8 @@
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
+                                        <Item id="6121" name="Programm beim Schließen des letzten Tabs beenden"/>
 
-					<Item id="6121" name="Menüleiste"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="6122" name="Menüleiste ausblenden (wechseln: Alt oder F10)"/>
 					<Item id="6123" name="Sprache der Benutzeroberfläche"/>
 
@@ -723,6 +723,7 @@
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
 					<Item id="6430" name="Benutze den neuen Stilspeicherungsdialog (ohne Dateierweiterungen)"/>	
+                                        <Item id="6431" name="Alle Dateien im Verzeichnis öffnen anstatt das Start-Verzeichnis als Arbeitsbereich zu verwenden"/>
 					<Item id="6418" name="…"/>																	<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>
 

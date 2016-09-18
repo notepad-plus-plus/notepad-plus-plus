@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="6.9.2">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -31,6 +31,7 @@
                     <Item subMenuId="edit-eolConversion" name="文档格式转换" />
                     <Item subMenuId="edit-blankOperations" name="空白字符操作" />
                     <Item subMenuId="edit-pasteSpecial" name="选择性粘贴" />
+                    <Item subMenuId="edit-onSelection" name="所选内容"/>
                     <Item subMenuId="search-markAll" name="标记所有" />
                     <Item subMenuId="search-unmarkAll" name="清除颜色标记" />
                     <Item subMenuId="search-jumpUp" name="到上一个颜色标记" />
@@ -152,6 +153,16 @@
                     <Item id="42064" name="降序排列小数（逗号作为小数点）" />
                     <Item id="42065" name="升序排列小数（句点作为小数点）" />
                     <Item id="42066" name="降序排列小数（句点作为小数点）" />
+                    <Item id="42067" name="首字母大写"/>
+                    <Item id="42068" name="首字母大写 (混合)"/>
+                    <Item id="42069" name="句首字母大写"/>
+                    <Item id="42070" name="句首字母大写 (混合)"/>
+                    <Item id="42071" name="大小写互换"/>
+                    <Item id="42072" name="随机大小写"/>
+                    <Item id="42073" name="打开该文件"/>
+                    <Item id="42074" name="在文件夹中显示"/>
+                    <Item id="42075" name="在线搜索"/>
+                    <Item id="42076" name="修改搜索引擎..."/>
                     <Item id="43001" name="查找(&amp;F)..." />
                     <Item id="43002" name="查找下一个(&amp;N)" />
                     <Item id="43003" name="替换..." />
@@ -233,6 +244,9 @@
                     <Item id="44094" name="标签页9"/>
                     <Item id="44095" name="下个标签页"/>
                     <Item id="44096" name="上个标签页"/>
+                    <Item id="44097" name="监控日志 (tail -f)"/>
+                    <Item id="44098" name="制表符前移"/>
+                    <Item id="44099" name="制表符后移"/>
                     <Item id="44032" name="切换全屏模式" />
                     <Item id="44033" name="恢复默认缩放" />
                     <Item id="44034" name="总在最前" />
@@ -275,6 +289,7 @@
                     <Item id="47009" name="设置更新代理服务器..." />
                     <Item id="47010" name="命令行参数..." />
                     <Item id="47011" name="在线支持" />
+                    <Item id="47012" name="调试信息..."/>
                     <Item id="48005" name="导入插件..." />
                     <Item id="48006" name="导入主题..." />
                     <Item id="48018" name="编辑弹出菜单" />
@@ -626,8 +641,8 @@
                     <Item id="6118" name="隐藏标签栏" />
                     <Item id="6119" name="多行标签" />
                     <Item id="6120" name="垂直方式" />
+                    <Item id="6121" name="关闭最后一个标签页时退出"/>
 
-                    <Item id="6121" name="菜单栏" />
                     <Item id="6122" name="隐藏 (按下 Alt 或 F10 显示)" />
                     <Item id="6123" name="界面语言" />
 
@@ -667,8 +682,9 @@
                     <Item id="6213" name="背景色模式" />
                     <Item id="6214" name="当前行高亮模式" />
                     <Item id="6215" name="启用平滑字体" />
-
                     <Item id="6231" name="边框宽度" />
+                    <Item id="6235" name="无边框"/>
+                    <Item id="6236" name="启用超出最后一行时滚动"/>
                 </Scintillas>
 
                 <NewDoc title="新建">
@@ -691,6 +707,8 @@
                     <Item id="6413" name="文件打开/保存路径" />
                     <Item id="6414" name="与当前文件一致" />
                     <Item id="6415" name="记住最后的操作路径" />
+                    <Item id="6430" name="使用新的样式保存对话框（没有文件扩展功能）"/>
+                    <Item id="6431" name="拖放文件夹时打开该文件夹中的所有文件而不是将其作为工作区"/>
                 </DefaultDir>
 
                 <FileAssoc title="文件关联">
@@ -753,33 +771,6 @@
                     <Item id="6427" name="自定义最大长度:" />
                 </RecentFilesHistory>
 
-                <MISC title="其他">
-                    <Item id="6307" name="启用" />
-                    <Item id="6308" name="最小化到系统托盘" />
-                    <Item id="6312" name="自动检测文件状态" />
-                    <Item id="6313" name="自动更新文件" />
-                    <Item id="6314" name="备份" />
-                    <Item id="6325" name="更新后定位到末行" />
-                    <Item id="6318" name="超链接设置" />
-                    <Item id="6319" name="启用" />
-                    <Item id="6320" name="不显示下划线" />
-                    <Item id="6322" name="会话文件后缀名" />
-                    <Item id="6323" name="启用 Notepad++ 自动更新" />
-                    <Item id="6324" name="文档切换 (Ctrl+TAB)" />
-                    <Item id="6326" name="启用智能高亮" />
-                    <Item id="6329" name="高亮显示匹配标签" />
-                    <Item id="6327" name="启用" />
-                    <Item id="6328" name="高亮显示标签属性" />
-                    <Item id="6330" name="高亮显示 PHP/ASP 脚本区域" />
-                    <Item id="6331" name="在标题栏仅显示文件名" />
-                    <Item id="6332" name="区分大小写"/>
-                    <Item id="6333" name="智能高亮"/>
-					<Item id="6334" name="自动检测字符编码"/>
-					<Item id="6335" name="视反斜杠为 SQL 转义字符"/>
-                    <Item id="6114" name="启用" />
-                    <Item id="6115" name="自动缩进" />
-                    <Item id="6117" name="启用 MRU (Most Recently Used) 功能" />
-                </MISC>
                 <Backup title="备份">
                     <Item id="6801" name="备份" />
                     <Item id="6315" name="禁用" />
@@ -794,6 +785,7 @@
 					<Item id="6822" name="定期备份在 :"/>
                     <Item id="6309" name="记住最后打开的文件" />
                 </Backup>
+
                 <AutoCompletion title="自动完成">
                     <Item id="6807" name="自动完成" />
                     <Item id="6808" name="所有输入均启用自动完成" />
@@ -828,12 +820,51 @@
                     <Item id="6256" name="允许选取多行"/>
                 </Delimiter>
 
-				<Cloud title="云端">
+                <Cloud title="云端">
                     <Item id="6262" name="云端存取设置"/>
                     <Item id="6263" name="万里无云"/>
                     <Item id="6267" name="设置你的云端路径:"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
+
+                <SearchEngine title="搜索引擎">
+                    <Item id="6271" name="搜索引擎 (用于命令 &quot;在线搜索&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="自定义搜索引擎:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="示例: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
+
+                <MISC title="其他">
+                    <Item id="6307" name="启用" />
+                    <Item id="6308" name="最小化到系统托盘" />
+                    <Item id="6312" name="自动检测文件状态" />
+                    <Item id="6313" name="自动更新文件" />
+                    <Item id="6314" name="备份" />
+                    <Item id="6325" name="更新后定位到末行" />
+                    <Item id="6318" name="超链接设置" />
+                    <Item id="6319" name="启用" />
+                    <Item id="6320" name="不显示下划线" />
+                    <Item id="6322" name="会话文件后缀名:" />
+                    <Item id="6323" name="启用 Notepad++ 自动更新" />
+                    <Item id="6324" name="文档切换 (Ctrl+TAB)" />
+                    <Item id="6326" name="启用智能高亮" />
+                    <Item id="6329" name="高亮显示匹配标签" />
+                    <Item id="6327" name="启用" />
+                    <Item id="6328" name="高亮显示标签属性" />
+                    <Item id="6330" name="高亮显示 PHP/ASP 脚本区域" />
+                    <Item id="6331" name="在标题栏仅显示文件名" />
+                    <Item id="6332" name="区分大小写"/>
+                    <Item id="6333" name="智能高亮"/>
+                    <Item id="6334" name="自动检测字符编码"/>
+                    <Item id="6335" name="视反斜杠为 SQL 转义字符"/>
+                    <Item id="6337" name="工作区文件后缀名:"/>
+                    <Item id="6114" name="启用" />
+                    <Item id="6115" name="自动缩进" />
+                    <Item id="6117" name="启用 MRU (Most Recently Used) 功能" />
+                </MISC>
 
             </Preference>
             <MultiMacro title="重复运行宏">
@@ -879,6 +910,8 @@
             <DeleteFileFailed title="删除文件" message="文件删除失败" />
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="您要打开的文件太大" message="$INT_REPLACE$ 文件将被打开.\r你确定打开它吗？" />
+            <SettingsOnCloudError title="云端设置" message="您所设置的云端路径貌似在一个只读驱动器中,\r又或者该文件夹需要一个可写的权限。\r您的云设置将被取消。请通过首选项对话框重新设置。"/>
+            <FilePathNotFoundWarning title="文件打开" message="要打开的文件可能不存在。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>

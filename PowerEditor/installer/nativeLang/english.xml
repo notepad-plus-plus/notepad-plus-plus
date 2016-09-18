@@ -196,17 +196,17 @@
                     <Item id="43030" name="Using 5th Style"/>
                     <Item id="43031" name="Clear 5th Style"/>
                     <Item id="43032" name="Clear All Styles"/>
-                    <Item id="43033" name="1st style"/>
-                    <Item id="43034" name="2nd style"/>
-                    <Item id="43035" name="3rd style"/>
-                    <Item id="43036" name="4th style"/>
-                    <Item id="43037" name="5th style"/>
+                    <Item id="43033" name="Go to next 1st style"/>
+                    <Item id="43034" name="Go to next 2nd style"/>
+                    <Item id="43035" name="Go to next 3rd style"/>
+                    <Item id="43036" name="Go to next 4th style"/>
+                    <Item id="43037" name="Go to next 5th style"/>
                     <Item id="43038" name="Find style"/>
-                    <Item id="43039" name="1st style"/>
-                    <Item id="43040" name="2nd style"/>
-                    <Item id="43041" name="3rd style"/>
-                    <Item id="43042" name="4th style"/>
-                    <Item id="43043" name="5th style"/>
+                    <Item id="43039" name="Go to previous 1st style"/>
+                    <Item id="43040" name="Go to previous 2nd style"/>
+                    <Item id="43041" name="Go to previous 3rd style"/>
+                    <Item id="43042" name="Go to previous 4th style"/>
+                    <Item id="43043" name="Go to previous 5th style"/>
                     <Item id="43044" name="Find style"/>
                     <Item id="43045" name="Search Results Window"/>
                     <Item id="43046" name="Next Search Result"/>

@@ -14,10 +14,10 @@
                 <!-- Main Menu Entries -->
                 <Entries>
                     <Item menuId="file" name="&amp;फाईल"/>
-                    <Item menuId="edit" name="&amp;एडिट"/>
-                    <Item menuId="search" name="&amp;सर्च"/>
-                    <Item menuId="view" name="&amp;व्यू"/>
-                    <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
+                    <Item menuId="edit" name="&amp;संपादित करें"/>
+                    <Item menuId="search" name="&amp;खोजें"/>
+                    <Item menuId="view" name="&amp;देखें"/>
+                    <Item menuId="encoding" name="&amp;संकेतीकरण"/>
                     <Item menuId="language" name="&amp;भाषा"/>
                     <Item menuId="settings" name="&amp;सेटिंग"/>
                     <Item menuId="macro" name="मेक्रो"/>
@@ -28,16 +28,16 @@
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="edit-copyToClipboard" name="क्लिपबोर्ड पे कॉपी करें"/>
+					<Item subMenuId="edit-copyToClipboard" name="क्लिपबोर्ड पे प्रतिलिपि करें"/>
                     <Item subMenuId="edit-indent" name="इंडेन्ट"/>
                     <Item subMenuId="edit-convertCaseTo" name="कैस को एसे बदलें"/>
                     <Item subMenuId="edit-lineOperations" name="लाईन ऑपरेशन"/>
-                    <Item subMenuId="edit-comment" name="कॉमेंट/कटाक्ष"/>
-                    <Item subMenuId="edit-autoCompletion" name="स्वचालित पूर्ति"/>
-                    <Item subMenuId="edit-eolConversion" name="EOL कन्वर्जन"/>
-					<Item subMenuId="edit-blankOperations" name="ब्लैंक ऑपरेशन"/>
+                    <Item subMenuId="edit-comment" name="टिप्पणी/टिप्पणी हटायें"/>
+                    <Item subMenuId="edit-autoCompletion" name="स्वतः पूर्ण"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL रूपांतरण"/>
+					<Item subMenuId="edit-blankOperations" name="रिक्त ऑपरेशन"/>
                     <Item subMenuId="search-markAll" name="सभी चिन्हित करें"/>
-                    <Item subMenuId="search-unmarkAll" name="सभी चिन्ह निकालें"/>
+                    <Item subMenuId="search-unmarkAll" name="सभी अचिन्हित करें"/>
                     <Item subMenuId="search-jumpUp" name="ऊपर कूदें"/>
                     <Item subMenuId="search-jumpDown" name="नीच कूदें"/>
                     <Item subMenuId="search-bookmark" name="बूकमार्क"/>
@@ -46,7 +46,7 @@
                     <Item subMenuId="view-moveCloneDocument" name="चालु दस्तावेज़ को हिलाये/क्लोन करें"/>
                     <Item subMenuId="view-collapseLevel" name="लेवल संक्षिप्त करें"/>
                     <Item subMenuId="view-uncollapseLevel" name="लेवल विस्तृत करें"/>
-                    <Item subMenuId="encoding-characterSets" name="वर्ण सेट"/>
+                    <Item subMenuId="encoding-characterSets" name="वर्ण समूह"/>
                     <Item subMenuId="encoding-arabic" name="अरबी"/>
                     <Item subMenuId="encoding-baltic" name="बाल्टिक"/>
                     <Item subMenuId="encoding-celtic" name="केल्टिक"/>
@@ -70,32 +70,32 @@
                 <Commands>
                     <Item id="41001" name="&amp;नया"/>
                     <Item id="41002" name="&amp;खोलें"/>
-                    <Item id="41003" name="बंध करें"/>
-                    <Item id="41004" name="&amp;सब बंध करें"/>
-                    <Item id="41005" name="चालु दस्तावेज़ के अलावा सब बंध"/>
-                    <Item id="41006" name="&amp;सेव"/>
-                    <Item id="41007" name="&amp;सब सेव करें"/>
-                    <Item id="41008" name="&amp;की तरह सेव करें"/>
+                    <Item id="41003" name="बंद करें"/>
+                    <Item id="41004" name="&amp;सभी बंद करें"/>
+                    <Item id="41005" name="चालु दस्तावेज़ के अलावा सभी बंद"/>
+                    <Item id="41006" name="&amp;रक्षित करें"/>
+                    <Item id="41007" name="&amp;सभी रक्षित करें"/>
+                    <Item id="41008" name="&amp;की तरह रक्षित करें"/>
                     <Item id="41010" name="छापें..."/>
                     <Item id="1001" name="अभी छापें"/>
-                    <Item id="41011" name="&amp;बाहर"/>
+                    <Item id="41011" name="&amp;निकास"/>
                     <Item id="41012" name="सत्र लोड करें"/>
-                    <Item id="41013" name="सत्र सेव करें..."/>
-                    <Item id="41014" name="डिस्क पर से रीलोड करें"/>
-                    <Item id="41015" name="नकल सेव करें..."/>
-                    <Item id="41016" name="डिस्क पर से निकालें"/>
+                    <Item id="41013" name="सत्र रक्षित करें..."/>
+                    <Item id="41014" name="डिस्क से पुनः लोड करें"/>
+                    <Item id="41015" name="प्रतिलिपि रक्षित करें..."/>
+                    <Item id="41016" name="डिस्क से मिटायें "/>
                     <Item id="41017" name="पुनःनामांकन..."/>
 
                     <Item id="42001" name="&amp;कट (cut)"/>
-                    <Item id="42002" name="&amp;कॉपी (copy)"/>
+                    <Item id="42002" name="&amp;प्रतिलिपि (copy)"/>
                     <Item id="42003" name="&amp;पूर्ववत करें (Undo)"/>
                     <Item id="42004" name="&amp;फिर से करें (Redo)"/>
                     <Item id="42005" name="&amp;पेस्ट (Paste)"/>
-                    <Item id="42006" name="&amp;मिटायें (डिलीट/Delete)"/>
-                    <Item id="42007" name="&amp;सभी का चयन करें (Select All)"/>
+                    <Item id="42006" name="&amp;मिटायें (Delete)"/>
+                    <Item id="42007" name="&amp;सभी चयनित करें (Select All)"/>
                     <Item id="42008" name="लाईन इंडेंट बढ़ायें"/>
                     <Item id="42009" name="लाईन इंडेंट घटायें"/>
-                    <Item id="42010" name="वर्तमान लाईन की नकल करें"/>
+                    <Item id="42010" name="वर्तमान लाईन की प्रतिलिपि करें"/>
                     <Item id="42012" name="लाईन विभाजित करें"/>
                     <Item id="42013" name="लाईन जोड़ें"/>
                     <Item id="42014" name="वर्तमान लाईन को ऊपर सरकायें"/>
@@ -110,11 +110,11 @@
 					<Item id="42042" name="लिडिंग स्पेस को छाँटें"/>
 					<Item id="42043" name="आगे और पीछे की स्पेस को छाँटे"/>
 					<Item id="42044" name="EOL से स्पेस"/>
-					<Item id="42045" name="बिन जरूरी ब्लैंक और EOL निकालें"/>
+					<Item id="42045" name="अनावश्यक रिक्त और EOL निकालें"/>
 					<Item id="42046" name="TAB से स्पेस"/>
 					<Item id="42047" name="स्पेस से TAB"/>
                     <Item id="42024" name="अनुगामी स्पेस छाँटें"/>
-                    <Item id="42025" name="अभी रिकॉर्ड किया गया मेक्रो (macro)सेव करें"/>
+                    <Item id="42025" name="अभी रिकॉर्ड किया गया मेक्रो (macro)रक्षित करें"/>
                     <Item id="42026" name="RTL अक्षर की दिशा "/>
                     <Item id="42027" name="LTR अक्षर की दिशा "/>
                     <Item id="42028" name="Read-Only सेट करें"/>
@@ -126,8 +126,8 @@
                     <Item id="42035" name="टीका (comment) को रोकें"/>
                     <Item id="42036" name="Uncomment को रोकें"/>
 
-                    <Item id="43001" name="&amp;खोजो..."/>
-                    <Item id="43002" name="&amp;अगला खोजो"/>
+                    <Item id="43001" name="&amp;खोजें..."/>
+                    <Item id="43002" name="&amp;अगला खोजें"/>
                     <Item id="43003" name="बदले (replace)..."/>
                     <Item id="43004" name="गो टु..."/>
                     <Item id="43005" name="बुकमार्क टॉगल करें"/>
@@ -135,17 +135,17 @@
                     <Item id="43007" name="पिछला बुकमार्क"/>
                     <Item id="43008" name="सभी बुकमार्क निकाल दें"/>
                     <Item id="43009" name="मिलते ब्रेकेट पर जाओ"/>
-                    <Item id="43010" name="अगला खोजो"/>
+                    <Item id="43010" name="अगला खोजें"/>
                     <Item id="43011" name="&amp;इंक्रीमेंटल खोज"/>
-                    <Item id="43013" name="फ़ाईलों मे खोजो"/>
-                    <Item id="43014" name="अगला (Volatile) खोजो"/>
-                    <Item id="43015" name="अगला (Volatile) खोजो"/>
+                    <Item id="43013" name="फ़ाईलों मे खोजें"/>
+                    <Item id="43014" name="अगला (Volatile) खोजें"/>
+                    <Item id="43015" name="अगला (Volatile) खोजें"/>
                     <Item id="43016" name="सभी चिन्हित करें"/>
-                    <Item id="43017" name="सभी चिन्हित निकालें"/>
-                    <Item id="43018" name="बुकमार्कड लाइन को कट करो"/>
-                    <Item id="43019" name="बुकमार्कड लाइन को कॉपी करो"/>
-                    <Item id="43020" name="बुकमार्कड लाइन में पेस्ट करो (Replace)"/>
-                    <Item id="43021" name="बुकमार्कड लाइन को रद्द (delete) करो"/>
+                    <Item id="43017" name="सभी अचिन्हित करें"/>
+                    <Item id="43018" name="बुकमार्कड लाइन को कट करें"/>
+                    <Item id="43019" name="बुकमार्कड लाइन को प्रतिलिपि करें"/>
+                    <Item id="43020" name="बुकमार्कड लाइन में पेस्ट करें (Replace)"/>
+                    <Item id="43021" name="बुकमार्कड लाइन को रद्द (delete) करें"/>
                     <Item id="43022" name="१ला स्टाईल ईस्तेमाल करके"/>
                     <Item id="43023" name="१ला स्टाईल निकालें"/>
                     <Item id="43024" name="2रा स्टाईल ईस्तेमाल करके"/>
@@ -169,21 +169,21 @@
                     <Item id="43042" name="4था स्टाईल"/>
                     <Item id="43043" name="5वा स्टाईल"/>
                     <Item id="43044" name="स्टाईल खोजें"/>
-                    <Item id="43045" name="परिणाम की विंडो खोजें"/>
+                    <Item id="43045" name="खोज परिणाम की विंडो "/>
                     <Item id="43046" name="अगला खोज परिणाम"/>
                     <Item id="43047" name="पिछला खोज परिणाम"/>
-                    <Item id="43048" name="पसंद करे और अगला खोजें"/>
-                    <Item id="43049" name="पसंद करे और पिछला ख़ोजें"/>
+                    <Item id="43048" name="चयनित करे और अगला खोजें"/>
+                    <Item id="43049" name="चयनित करें और पिछला ख़ोजें"/>
                     <Item id="43050" name="उल्टा बुकमार्क"/>
                     <Item id="44009" name="ईसे-डाले (post-it)"/>
-                    <Item id="44010" name="सब गड़ी करे"/>
+                    <Item id="44010" name="सब गड़ी करें"/>
                     <Item id="44011" name="उपयोग कर्ता द्वारा बताया गया डायलोग..."/>
                     <Item id="44019" name="सभी केरेक्टर दिखायें"/>
                     <Item id="44020" name="ईन्डेन्ट मार्ग दर्शक दिखायें"/>
-                    <Item id="44022" name="रेप (Wrap)"/>
+                    <Item id="44022" name="लपेटें (Wrap)"/>
                     <Item id="44023" name="&amp;बड़ा करें Ctrl+Mouse Wheel Up"/>
                     <Item id="44024" name="&amp;छोटा करें Ctrl+Mouse Wheel Down"/>
-                    <Item id="44025" name="खाली जगह और टैब दिखायें"/>
+                    <Item id="44025" name="रिक्त जगह और टैब दिखायें"/>
                     <Item id="44026" name="लाईन का अंत दिखायें"/>
                     <Item id="44029" name="सभी गड़ी खोल दे"/>
                     <Item id="44030" name="वर्तमान लेवल को (collapse) संक्षिप्त करें"/>
@@ -192,10 +192,10 @@
                     <Item id="44033" name="पूर्ववत zoom बहाल करें"/>
                     <Item id="44034" name="हमेशा ऊपर"/>
 					<Item id="44049" name="सारांश..."/>
-                    <Item id="44035" name="खड़ा स्क्रोलिंग सिंक्रोंनाईज़ करें"/>
-                    <Item id="44036" name="क्षैतिज स्क्रोलिंग सिंक्रोंनाईज़ करें"/>
+                    <Item id="44035" name="लंबरूप स्क्रोलिंग को समक्रमिक करें"/>
+                    <Item id="44036" name="क्षैतिज स्क्रोलिंग को समक्रमिक करें"/>
                     <Item id="44041" name="wrap चिन्ह दिखायें"/>
-                    <Item id="44072" name="दूसरा व्यू फोकस करें"/>
+                    <Item id="44072" name="दूसरा दृश्य फोकस करें"/>
 
                     <Item id="45001" name="WINDOWS फॉर्मेट में रूपांतरित करें"/>
                     <Item id="45002" name="UNIX फॉर्मेट में रूपांतरित करें"/>
@@ -211,8 +211,8 @@
                     <Item id="45012" name="UCS-2 Big Endian में रूपांतरित करें"/>
                     <Item id="45013" name="UCS-2 Little Endian में रूपांतरित करें"/>
 
-                    <Item id="10001" name="दूसरे व्यू में जायें"/>
-                    <Item id="10002" name="दूसरे व्यू में क्लोन करें"/>
+                    <Item id="10001" name="दूसरे दृश्य में जायें"/>
+                    <Item id="10002" name="दूसरे दृश्य में क्लोन करें"/>
                     <Item id="10003" name="नए इन्स्टन्स पे जायें"/>
                     <Item id="10004" name="नया इन्स्टन्स खोलें"/>
 
@@ -247,13 +247,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="बंध"/>
-                    <Item CMID="1" name="इस के अलावा सभी बंध करें"/>
-                    <Item CMID="2" name="सेव"/>
-                    <Item CMID="3" name="सेव एज़..."/>
+                    <Item CMID="0" name="बंद"/>
+                    <Item CMID="1" name="इस के अलावा सभी बंद करें"/>
+                    <Item CMID="2" name="रक्षित करें"/>
+                    <Item CMID="3" name="की तरह रक्षित करें..."/>
                     <Item CMID="4" name="छापें"/>
-                    <Item CMID="5" name="दूसरे व्यू पे जायें"/>
-                    <Item CMID="6" name="दूसरे व्यू पे क्लोन करें"/>
+                    <Item CMID="5" name="दूसरे दृश्य पे जायें"/>
+                    <Item CMID="6" name="दूसरे दृश्य पे क्लोन करें"/>
                     <Item CMID="7" name="फ़ाईल का पुरा पाथ क्लिपबोर्ड पर"/>
                     <Item CMID="8" name="फाईल के नाम को क्लिपबोर्ड पर"/>
                     <Item CMID="9" name="वर्तमान डायरेक्टरी पथ को क्लिपबोर्ड पर"/>
@@ -269,7 +269,7 @@
         <Dialog>
             <Find title="" titleFind="ख़ोजें" titleReplace="बदलें (replace)" titleFindInFiles="फाईल मे ख़ोजें" titleMark="चिन्हित">
                 <Item id="1" name="अगला खोजें"/>
-                <Item id="2" name="बंध"/>
+                <Item id="2" name="बंद"/>
                 <Item id="1620" name="क्या खोजें:"/>
                 <Item id="1603" name="&amp;पुरा शब्द मिलायें"/>
                 <Item id="1604" name="&amp;केस (case) मिलायें"/>
@@ -290,12 +290,12 @@
 			 	<Item id="1687" name="फोकस गवाने पर"/>
 			 	<Item id="1688" name="हमेशा"/>
 			 	<Item id="1632" name="पसंदगी में"/>
-			 	<Item id="1633" name="क्लिअर"/>
+			 	<Item id="1633" name="साफ़"/>
 			 	<Item id="1635" name="सभी खुले दस्तावेजो में सब बदलें"/>
 			 	<Item id="1636" name="सभी खुले दस्तावेज़ो में सब ख़ोजें"/>
 			 	<Item id="1637" name="फ़ाईलों में ख़ोजें"/>
-			 	<Item id="1654" name="फिल्टर्स:"/>
-			 	<Item id="1655" name="डायरेक्टरी:"/>
+			 	<Item id="1654" name="फिल्टर्स"/>
+			 	<Item id="1655" name="डायरेक्टरी"/>
 			 	<Item id="1656" name="सब ख़ोजें"/>
 			 	<Item id="1658" name="सभी (sub-folders) सब फ़ोल्डर्स में"/>
 			 	<Item id="1659" name="छिपे फ़ोल्डर्स में"/>
@@ -303,7 +303,7 @@
 			 	<Item id="1625" name="सामान्य"/>
 			 	<Item id="1626" name="विस्तृत (\n, \r, \t, \0, \x...)"/>
 			 	<Item id="1660" name="फ़ाईलों में बदलें"/>
-                <Item id="1661" name="वर्तमान दस्तावेज़ का पीछा करें"/>
+                <Item id="1661" name="वर्तमान दस्तावेज़ का अनुसरण करें"/>
 			 	<Item id="1641" name="सभी वस्तु वर्तमान दस्तावेज़ में ख़ोजें"/>
 			 	<Item id="1686" name="पारदर्शिता"/>
             </Find>
@@ -326,7 +326,7 @@
 
             <StyleConfig title="स्टाइल कोन्फ़िगरेटर">
                 <Item id="2" name="रद्द"/>
-                <Item id="2301" name="संग्रह करें &amp;और बंध करें"/>
+                <Item id="2301" name="संग्रह करें &amp;और बंद करें"/>
                 <Item id="2303" name="पारदर्शिता"/>
                 <Item id="2306" name="थीम पसंद करें: "/>
                 <SubDialog>
@@ -359,7 +359,7 @@
                 <Item id="20002" name="पुनः नामांकन"/>
                 <Item id="20003" name="नया रचें..."/>
                 <Item id="20004" name="निकालें"/>
-                <Item id="20005" name="सेव एज़..."/>
+                <Item id="20005" name="रक्षित करें एज़..."/>
                 <Item id="20007" name="उपयोग कर्ता भाषा:"/>
                 <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="केस की अवगणना"/>
@@ -378,7 +378,7 @@
                 <Folder title="फोंल्डर डिफ़ाल्ट">
                     <Item id="21101" name="डिफ़ाल्ट स्टाइल सेटिंग"/>
                     <Item id="21201" name="फोंल्डर खोलने के कीवर्ड सेटिंग"/>
-                    <Item id="21301" name="फोंल्डर बंध करने के कीवर्ड सेटिंग"/>
+                    <Item id="21301" name="फोंल्डर बंद करने के कीवर्ड सेटिंग"/>
                 </Folder>
                 <Keywords title="किवर्ड लिस्ट">
                     <Item id="22101" name="1ला समूह"/>
@@ -394,7 +394,7 @@
                     <Item id="23301" name="कॉमेंट लाईन"/>
                     <Item id="23101" name="कॉमेंट ब्लॉक"/>
                     <Item id="23113" name="कॉमेंट खोलें:"/>
-                    <Item id="23115" name="कॉमेंट बंध:"/>
+                    <Item id="23115" name="कॉमेंट बंद:"/>
                     <Item id="23116" name="कीवर्ड को चिन्ह की तरह लें"/>
                     <Item id="23117" name="कीवर्डॉ को चिन्ह की तरह लें"/>
                     <Item id="23201" name="आंक"/>
@@ -405,15 +405,15 @@
                     <Item id="24101" name="सक्रिय ऑपरेटर"/>
                     <Item id="24201" name="डिलिमिटर-1"/>
                     <Item id="24211" name="बाउन्ड्री ओपन:"/>
-                    <Item id="24214" name="बाउन्ड्री बंध:"/>
+                    <Item id="24214" name="बाउन्ड्री बंद:"/>
                     <Item id="24301" name="डिलिमिटर-2"/>
                     <Item id="24311" name="बाउन्ड्री ओपन:"/>
-                    <Item id="24314" name="बाउन्ड्री बंध:"/>
+                    <Item id="24314" name="बाउन्ड्री बंद:"/>
                 </Operator>
                 <Item id="24001" name="इस्केप कैरेक्टर सक्रिय करें:"/>
             </UserDefine>
 			<Preference title="प्राथमिकता (Preferences)">
-                <Item id="6001" name="बंध"/>
+                <Item id="6001" name="बंद"/>
                 <Global title="समान्य">
                     <Item id="6101" name="टूलबार"/>
                     <Item id="6102" name="छिपायें"/>
@@ -428,8 +428,8 @@
                     <Item id="6110" name="सक्रिय टैब पर रंगीन बार बनायें"/>
 
                     <Item id="6111" name="स्टेटस बार दिखायें"/>
-                    <Item id="6112" name="हरेक टैब पर बंध का बटन दिखायें"/>
-                    <Item id="6113" name="दस्तावेज़ बंध करने के लिए दो बार क्लिक करें"/>
+                    <Item id="6112" name="हरेक टैब पर बंद का बटन दिखायें"/>
+                    <Item id="6113" name="दस्तावेज़ बंद करने के लिए दो बार क्लिक करें"/>
                     <Item id="6118" name="छिपायें"/>
                     <Item id="6119" name="मल्टी-लाईन"/>
                     <Item id="6120" name="खड़ा (Vertical)"/>
@@ -585,7 +585,7 @@
                 <Item id="1" name="सक्रिय"/>
                 <Item id="2" name="ठीक"/>
                 <Item id="7002" name="संग्रह"/>
-                <Item id="7003" name="विंडो/विंडोज बंध करें"/>
+                <Item id="7003" name="विंडो/विंडोज बंद करें"/>
                 <Item id="7004" name="टेब को छाँटे"/>
             </Window>
 			<ColumnEditor title="कॉलम एडिटर">

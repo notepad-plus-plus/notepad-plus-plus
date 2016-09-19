@@ -688,11 +688,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_replaceClosePos.left = p.x;
 			_replaceClosePos.top = p.y;
 
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL, !_isRTL));
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL), !_isRTL);
 			 _findInFilesClosePos.left = p.x;
 			 _findInFilesClosePos.top = p.y;
 
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL, !_isRTL));
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL), !_isRTL);
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
 

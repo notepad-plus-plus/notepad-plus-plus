@@ -2618,12 +2618,21 @@ void Notepad_plus::command(int id)
 				generic_string updaterFullPath = updaterDir;
 				PathAppend(updaterFullPath, TEXT("gup.exe"));
 
-				generic_string param = TEXT("-verbose -v");
-				param += VERSION_VALUE;
-
+				generic_string param;
 				if (id == IDM_CONFUPDATERPROXY)
+				{
 					param = TEXT("-options");
+				}
+				else
+				{
+					param = TEXT("-verbose -v");
+					param += VERSION_VALUE;
 
+					if (NppParameters::getInstance()->isx64())
+					{
+						param += TEXT(" -px64");
+					}
+				}
 				Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 
 				updater.run();

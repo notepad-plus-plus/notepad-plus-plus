@@ -418,8 +418,8 @@ DEVOMER*/
 
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
 
-	generic_string version = TEXT("-v");
-	version += VERSION_VALUE;
+	generic_string updaterParams = TEXT("-v");
+	updaterParams += VERSION_VALUE;
 
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
 
@@ -438,7 +438,11 @@ DEVOMER*/
 	bool isGtXP = ver > WV_XP;
 	if (TheFirstOne && isUpExist && doUpdate && isGtXP)
 	{
-		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
+		if (pNppParameters->isx64())
+		{
+			updaterParams += TEXT(" -px64");
+		}
+		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 		updater.run();
 
         // Update next update date

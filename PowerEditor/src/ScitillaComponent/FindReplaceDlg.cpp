@@ -684,14 +684,15 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			p.y = arc.top;
 			::ScreenToClient(_hSelf, &p);
 
+			p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL), !_isRTL);
 			_replaceClosePos.left = p.x;
 			_replaceClosePos.top = p.y;
 
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL));
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL, !_isRTL));
 			 _findInFilesClosePos.left = p.x;
 			 _findInFilesClosePos.top = p.y;
 
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL));
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL, !_isRTL));
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
 
@@ -2500,8 +2501,8 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 {
 	if (!isCreated())
 	{
-		create(IDD_FIND_REPLACE_DLG, isRTL);
 		_isRTL = isRTL;
+		create(IDD_FIND_REPLACE_DLG, isRTL);
 	}
 
 	if (whichType == FINDINFILES_DLG)

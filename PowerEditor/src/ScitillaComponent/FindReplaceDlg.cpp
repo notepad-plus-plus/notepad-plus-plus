@@ -310,6 +310,9 @@ void FindReplaceDlg::fillFindHistory()
 		::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, BST_CHECKED, 0);
 		::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)false);
+		
+		// If the search mode from history is regExp then enable the checkbox (. matches newline)
+		::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
 	}
 	
 	if (nppParams->isTransparentAvailable())

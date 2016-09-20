@@ -788,6 +788,18 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					(NppParameters::getInstance())->removeTransparent(_hSelf);
 				}
 			}
+			
+			// At very first time (when find dlg is launched), search mode is Normal.
+			// In that case, ". Matches newline" should be disabled as it applicable only for Regex
+			if (isCheckedOrNot(IDREGEXP))
+			{
+				::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
+			}
+			else
+			{
+				::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), false);
+			}
+			
 			return TRUE;
 		}
 

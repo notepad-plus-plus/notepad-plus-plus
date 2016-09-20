@@ -86,6 +86,7 @@ page Custom ExtraOptions
 
 Function .onInit
 
+	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
 	Call preventInstallInWin9x
 		
  !insertmacro MUI_LANGDLL_DISPLAY

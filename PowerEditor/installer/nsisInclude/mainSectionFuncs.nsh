@@ -25,7 +25,7 @@ FunctionEnd
 	
 Function copyCommonFiles
 	SetOverwrite on
-	SetOutPath "$TEMP\"
+	SetOutPath "$PLUGINSDIR\"
 	File "langsModel.xml"
 	File "configModel.xml"
 	File "stylesGlobalModel.xml"
@@ -73,7 +73,7 @@ Function copyCommonFiles
 
 	; Copy all the language files to the temp directory
 	; than make them installed via option
-	SetOutPath "$TEMP\nppLocalization\"
+	SetOutPath "$PLUGINSDIR\nppLocalization\"
 	File ".\nativeLang\"
 
 	IfFileExists "$UPDATE_PATH\nativeLang.xml" 0 +2
@@ -83,8 +83,8 @@ Function copyCommonFiles
 		Delete "$INSTDIR\nativeLang.xml"
 
 	StrCmp $LANGUAGE ${LANG_ENGLISH} +3 0
-	CopyFiles "$TEMP\nppLocalization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
-	CopyFiles "$TEMP\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
+	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
+	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
 FunctionEnd
 
 	
@@ -260,10 +260,10 @@ FunctionEnd
 
 Function changeIconOption
 	${If} $isOldIconChecked == ${BST_CHECKED}
-		SetOutPath "$TEMP\"
+		SetOutPath "$PLUGINSDIR\"
 		File "..\misc\vistaIconTool\changeIcon.exe"
 		File "..\src\icons\npp.ico"
-		nsExec::ExecToStack '"$TEMP\changeIcon.exe" "$TEMP\npp.ico" "$INSTDIR\notepad++.exe" 100 1033'
+		nsExec::ExecToStack '"$PLUGINSDIR\changeIcon.exe" "$PLUGINSDIR\npp.ico" "$INSTDIR\notepad++.exe" 100 1033'
 	${EndIf}
 FunctionEnd
 

@@ -258,13 +258,4 @@ Function shortcutLinkManagement
 	SetShellVarContext current
 FunctionEnd
 
-Function changeIconOption
-	${If} $isOldIconChecked == ${BST_CHECKED}
-		SetOutPath "$TEMP\"
-		File "..\misc\vistaIconTool\changeIcon.exe"
-		File "..\src\icons\npp.ico"
-		nsExec::ExecToStack '"$TEMP\changeIcon.exe" "$TEMP\npp.ico" "$INSTDIR\notepad++.exe" 100 1033'
-	${EndIf}
-FunctionEnd
-
 

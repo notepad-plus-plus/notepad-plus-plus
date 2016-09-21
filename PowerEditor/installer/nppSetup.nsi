@@ -116,7 +116,7 @@ Var UPDATE_PATH
 !include "nsisInclude\mainSectionFuncs.nsh"
 
 Section -"Notepad++" mainSection
-	
+
 	Call setPathAndOptions
 	
 	Call copyCommonFiles
@@ -126,8 +126,6 @@ Section -"Notepad++" mainSection
 	Call removeOldContextMenu
 	
 	Call shortcutLinkManagement
-
-	Call changeIconOption
 	
 SectionEnd
 

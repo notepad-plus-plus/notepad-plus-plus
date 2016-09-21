@@ -36,7 +36,6 @@ FunctionEnd
 ;Installer Functions
 Var Dialog
 Var NoUserDataCheckboxHandle
-Var OldIconCheckboxHandle
 Var ShortcutCheckboxHandle
 Var PluginLoadFromUserDataCheckboxHandle
 Var WinVer
@@ -63,10 +62,6 @@ Function ExtraOptions
 	${NSD_Check} $ShortcutCheckboxHandle
 	${NSD_OnClick} $ShortcutCheckboxHandle OnChange_ShortcutCheckBox
 
-	${NSD_CreateCheckbox} 0 170 100% 30u "Use the old, obsolete and monstrous icon$\nI won't blame you if you want to get the old icon back :)"
-	Pop $OldIconCheckboxHandle
-	${NSD_OnClick} $OldIconCheckboxHandle OnChange_OldIconCheckBox
-	
 	nsDialogs::Show
 FunctionEnd
 
@@ -109,9 +104,6 @@ Function OnChange_ShortcutCheckBox
 	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
 FunctionEnd
 
-Function OnChange_OldIconCheckBox
-	${NSD_GetState} $OldIconCheckboxHandle $isOldIconChecked
-FunctionEnd
 
 Function writeInstallInfoInRegistry
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"

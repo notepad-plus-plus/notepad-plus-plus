@@ -43,7 +43,7 @@ SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 !ifdef ARCH64
 OutFile ".\build\npp.${APPVERSION}.Installer.x64.exe"
 !else
-OutFile ".\build\npp.${APPVERSION}.Installer.x32.exe"
+OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 !endif
  
 ; Insert CheckIfRunning function as an installer and uninstaller function.

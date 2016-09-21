@@ -20,24 +20,30 @@ echo on
 
 if %SIGN% == 0 goto NoSign
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\notepad++.exe
+If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\notepad++.exe
 If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\SciLexer.dll
+If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\SciLexer.dll
 If ErrorLevel 1 goto End
 
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\NppShell_06.dll
 If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\NppShell64_06.dll
-rem signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\NppShell64_06.dll
 If ErrorLevel 1 goto End
 
-sign them manuelly as they are updated
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\updater\GUP.exe
 If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\updater\gpup.exe
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\updater\GUP.exe
 If ErrorLevel 1 goto End
+
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\updater\libcurl.dll
+If ErrorLevel 1 goto End
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\updater\libcurl.dll
+If ErrorLevel 1 goto End
+
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\updater\gpup.exe
 If ErrorLevel 1 goto End
 
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\NppExport.dll
@@ -260,28 +266,33 @@ If ErrorLevel 1 goto End
 If ErrorLevel 1 goto End
 
 
-
-@echo off
-
+rem set var locally in this batch file
 setlocal enableDelayedExpansion 
 
 cd .\build\
 
-for %%a in (npp.*.Installer.x32.exe) do (
+
+for %%a in (npp.*.Installer.exe) do (
   rem echo a = %%a
   set nppInstallerVar=%%a
-  set zipvar=!nppInstallerVar:Installer.x32.exe=bin.x32.zip!
-  set zipvar64=!nppInstallerVar:Installer.x32.exe=bin.x64.zip!
-  set 7zvar=!nppInstallerVar:Installer.x32.exe=bin.x32.7z!
-  set 7zvar64=!nppInstallerVar:Installer.x32.exe=bin.x64.7z!
-  set 7zvarMin=!nppInstallerVar:Installer.x32.exe=bin.minimalist.x32.7z!
-  set 7zvarMin64=!nppInstallerVar:Installer.x32.exe=bin.minimalist.x64.7z!
+  set nppInstallerVar64=!nppInstallerVar:Installer.exe=Installer.x64.exe!
+		
+		rem nppInstallerVar should be the version for exemple: 6.9
+		rem we put npp.6.9. + (bin.zip instead of Installer.exe) into var zipvar
+  set zipvar=!nppInstallerVar:Installer.exe=bin.zip!
+  set zipvar64=!nppInstallerVar:Installer.exe=bin.x64.zip!
+  set 7zvar=!nppInstallerVar:Installer.exe=bin.7z!
+  set 7zvar64=!nppInstallerVar:Installer.exe=bin.x64.7z!
+  set 7zvarMin=!nppInstallerVar:Installer.exe=bin.minimalist.7z!
+  set 7zvarMin64=!nppInstallerVar:Installer.exe=bin.minimalist.x64.7z!
 )
 
 rem echo zipvar=!zipvar!
-rem echo 64zipvar=!64zipvar!
+rem echo zipvar64=!zipvar64!
 rem echo 7zvar=!7zvar!
+rem echo 7zvar64=!7zvar64!
 rem echo 7zvarMin=!7zvarMin!
+rem echo 7zvarMin64=!7zvarMin64!
 ren npp.bin.zip !zipvar!
 ren npp.bin64.zip !zipvar64!
 ren npp.bin.7z !7zvar!
@@ -291,6 +302,9 @@ ren npp.bin.minimalist64.7z !7zvarMin64!
 
 if %SIGN% == 0 goto NoSignInstaller
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++ Installer" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ !nppInstallerVar!
+If ErrorLevel 1 goto End
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++ Installer" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ !nppInstallerVar64!
+If ErrorLevel 1 goto End
 :NoSignInstaller
 
 cd ..

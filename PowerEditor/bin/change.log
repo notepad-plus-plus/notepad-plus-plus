@@ -1,14 +1,33 @@
-Notepad++ v6.9.2 new features and bug-fixes:
+Notepad++ 7 new features and bug-fixes:
 
-1.  Add most wanted feature: Log Monitoring (tail -f).
-2.  Add new feature: Find in Finder.
-3.  Fix status bar display bug in high dpi environment.
-4.  Fix open in explorer problem while path contain unusual characters.
-5.  Fix smart highlighter issue after zoom or code folding change.
+1.  64-bit build available.
+2.  Fix the DLL Hijacking Vulnerability of previous versions (by updating NSIS to v3.0).
+3.  Auto-updater improvement: periodical check can be disable via auto-update prompt dialog.
+4.  Installer enhancement: Check if Notepad++ is running and ask the user to close it before continue.
+5.  Enhancement: add conflict detection to Shortcut Mapper.
+6.  Fix auto-completion on XML comment <!-- comment --> and <?xml> tag bug.
+7.  Fix file saving crash which can be reproduced through a specific way to save file.
+8.  Fix a crash issue while UDL's user keyword list is too long.
+9.  Fix HDPI issues for some components (task list, margins and shortcut mapper).
+10. Add a new feature(optional) : Close the last document will quit Notepad++.
+11. Add more Change Case variants (Title Case, Sentence case, iVERT cASE, rANdOm caSe).
+12. Add Open file & open containing folder commands on selected file/folder name in text content.
+13. Add Search on Internet command on selected word(s) in text content.
+14. Add Scroll Tab Bar with mouse wheel capacity.
+15. Add commands for moving the current file tab Forward/Backward.
+16. Fix bug of monitoring not working for files under root.
+17. Ruby is supported by Function List.
+18. Added new option: Enable scrolling beyond last line.
+19. Add an option to restore old behaviour (open files in folder) while folder being dropped.
 
 Included plugins:
 
-1.  NppExport v0.2.8
-2.  Plugin Manager 1.3.5
-3.  Converter 3.0
-4.  Mime Tool 1.9
+1.  NppExport v0.2.8 (32-bit x86 only)
+2.  Plugin Manager 1.3.5 (32-bit x86 only)
+3.  Converter 4.2
+4.  Mime Tool 2.1
+
+
+Updater (Installer only):
+
+* WinGup v4.1

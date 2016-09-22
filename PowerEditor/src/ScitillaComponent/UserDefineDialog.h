@@ -412,8 +412,8 @@ public :
         _txtLen = txtLen;
     };
 
-    long doDialog() {
-        return long(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this)));
+    INT_PTR doDialog() {
+        return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this));
     };
 
     virtual void destroy() {};

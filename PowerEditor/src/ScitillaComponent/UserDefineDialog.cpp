@@ -1301,7 +1301,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         else
                             strDlg.init(_hInst, _hSelf, TEXT("Create New Language..."), TEXT("Name : "), TEXT(""), langNameLenMax-1);
 
-                        TCHAR *tmpName = (TCHAR *)strDlg.doDialog();
+                        TCHAR *tmpName = reinterpret_cast<TCHAR *>(strDlg.doDialog());
 
                         if (tmpName && tmpName[0])
                         {
@@ -1530,9 +1530,9 @@ INT_PTR CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
                 {
                     TCHAR tmpName[langNameLenMax];
                     tmpName[0] = '\0';
-                    ::GetDlgItemText(_hSelf, IDC_STRING_EDIT, (LPTSTR)tmpName, langNameLenMax);
+                    ::GetDlgItemText(_hSelf, IDC_STRING_EDIT, tmpName, langNameLenMax);
                     _textValue = tmpName;
-                    ::EndDialog(_hSelf, int(_textValue.c_str()));
+                    ::EndDialog(_hSelf, reinterpret_cast<INT_PTR>(_textValue.c_str()));
                     return TRUE;
                 }
 

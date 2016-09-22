@@ -67,7 +67,7 @@ BEGIN
     CONTROL         "Draw a coloured bar on active tab",IDC_CHECK_ORANGE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,229,102,137,10
     CONTROL         "Show close button on each tab",IDC_CHECK_ENABLETABCLOSE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,229,117,133,10
     CONTROL         "Double click to close document",IDC_CHECK_DBCLICK2CLOSE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,229,132,133,10
-    CONTROL         "Exit on close the last tab",IDC_CHECK_TAB_LAST_EXIT, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,232,147,145,10
+    CONTROL         "Exit on close the last tab",IDC_CHECK_TAB_LAST_EXIT, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,229,147,145,10
     CONTROL         "Show status bar",IDC_CHECK_SHOWSTATUSBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,57,169,130,10
     CONTROL         "Hide menu bar (use Alt or F10 key to toggle)",IDC_CHECK_HIDEMENUBAR, "Button", BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,223,169,218,10
 END

@@ -128,7 +128,11 @@ Function writeInstallInfoInRegistry
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
 	
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
-	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME}"
+	!ifdef ARCH64
+		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (64-bit x64)"
+	!else
+		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (32-bit x86)"
+	!endif
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "Publisher" "Notepad++ Team"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "VersionMajor" "${VERSION_MAJOR}"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "VersionMinor" "${VERSION_MINOR}"

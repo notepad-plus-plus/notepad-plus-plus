@@ -273,15 +273,15 @@ struct recordedMacroStep {
 	enum MacroTypeIndex {mtUseLParameter, mtUseSParameter, mtMenuCommand, mtSavedSnR};
 
 	int _message = 0;
-	long _wParameter = 0;
-	long _lParameter = 0;
+	uptr_t _wParameter = 0;
+	uptr_t _lParameter = 0;
 	generic_string _sParameter;
 	MacroTypeIndex _macroType = mtMenuCommand;
 	
-	recordedMacroStep(int iMessage, long wParam, long lParam, int codepage);
+	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, int codepage);
 	explicit recordedMacroStep(int iCommandID): _wParameter(iCommandID) {};
 
-	recordedMacroStep(int iMessage, long wParam, long lParam, const TCHAR *sParam, int type)
+	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, const TCHAR *sParam, int type)
 		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(MacroTypeIndex(type)){
 			_sParameter = (sParam)?generic_string(sParam):TEXT("");	
 	};

@@ -805,11 +805,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_MACRORECORD:
 		{
-			_macro.push_back(recordedMacroStep(
-				notification->message, 
-				static_cast<long>(notification->wParam),
-				static_cast<long>(notification->lParam),
-				static_cast<int32_t>(_pEditView->execute(SCI_GETCODEPAGE))));
+			_macro.push_back(
+				recordedMacroStep(
+					notification->message,
+					notification->wParam,
+					notification->lParam,
+					static_cast<int32_t>(_pEditView->execute(SCI_GETCODEPAGE))
+				)
+			);
 			break;
 		}
 

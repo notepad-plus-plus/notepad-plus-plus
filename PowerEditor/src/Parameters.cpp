@@ -2842,8 +2842,8 @@ void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & mac
 		const recordedMacroStep & action = macro._macro[i];
 		actionNode->ToElement()->SetAttribute(TEXT("type"), action._macroType);
 		actionNode->ToElement()->SetAttribute(TEXT("message"), action._message);
-		actionNode->ToElement()->SetAttribute(TEXT("wParam"), action._wParameter);
-		actionNode->ToElement()->SetAttribute(TEXT("lParam"), action._lParameter);
+		actionNode->ToElement()->SetAttribute(TEXT("wParam"), static_cast<int>(action._wParameter));
+		actionNode->ToElement()->SetAttribute(TEXT("lParam"), static_cast<int>(action._lParameter));
 		actionNode->ToElement()->SetAttribute(TEXT("sParam"), action._sParameter.c_str());
 	}
 }

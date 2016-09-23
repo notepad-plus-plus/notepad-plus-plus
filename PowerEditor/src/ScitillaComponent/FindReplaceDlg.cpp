@@ -2283,7 +2283,7 @@ void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus 
 	}
 }
 
-void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stringValue)
+void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string stringValue)
 {
 	switch(cmd)
 	{
@@ -2306,7 +2306,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 			_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL)> 0);
 			break;
 		case IDNORMAL:
-			_env->_searchType = (SearchType)intValue;
+			_env->_searchType = static_cast<SearchType>(intValue);
 			break;
 		case IDREPLACEWITH:
 			_env->_str4Replace = stringValue;

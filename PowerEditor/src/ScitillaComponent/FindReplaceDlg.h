@@ -329,7 +329,7 @@ public :
 		}
 	};
 
-	void execSavedCommand(int cmd, int intValue, generic_string stringValue);
+	void execSavedCommand(int cmd, uptr_t intValue, generic_string stringValue);
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);

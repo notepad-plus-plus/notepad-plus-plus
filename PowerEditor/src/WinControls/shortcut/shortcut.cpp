@@ -616,7 +616,7 @@ void Accelerator::updateMenuItemByCommand(CommandShortcut csc)
 	::ModifyMenu(_hAccelMenu, cmdID, cmdFlags, cmdID, csc.toMenuItemString().c_str());
 }
 
-recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam, int codepage)
+recordedMacroStep::recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, int codepage)
 	: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(mtUseLParameter)
 { 
 	if (_lParameter) {

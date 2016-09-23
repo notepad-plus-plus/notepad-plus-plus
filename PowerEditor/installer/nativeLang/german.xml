@@ -856,7 +856,7 @@
  					<!--Item id="6261" name="Bitte Notepad++ für die Änderungen neu starten."/-->
 				</Cloud>
 
-				<SearchEngine title="Search Engine">
+				<SearchEngine title="Suchmaschine">
 					<Item id="6271" name="Suchmaschine (für das Kommando &quot;Suche im Internet&quot;)"/>
 					<Item id="6272" name="DuckDuckGo"/>
 					<Item id="6273" name="Google"/>

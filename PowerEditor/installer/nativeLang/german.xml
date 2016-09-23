@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.0
-	last modified: 2016-09-17 by schnurlos (schnurlos@gmail.com)
+	last modified: 2016-09-25 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net or schnurlos(at)gmail.com
 
@@ -43,6 +43,7 @@
 					<Item subMenuId="edit-eolConversion" name="Format Zeile&amp;nende"/>
 					<Item subMenuId="edit-blankOperations" name="Nicht &amp;druckbare Zeichen"/>
 					<Item subMenuId="edit-pasteSpecial" name= "Einf&amp;ügen spezial"/>
+					<Item subMenuId="edit-onSelection" name="Bei Auswahl"/>
 					<Item subMenuId="search-markAll" name="Alle &amp;Vorkommnisse hervorheben"/>
 					<Item subMenuId="search-unmarkAll" name="Alle Hervorhe&amp;bungen löschen"/>
 					<Item subMenuId="search-jumpUp" name="Zur vorherigen Hervorhebung s&amp;pringen"/>
@@ -132,6 +133,10 @@
 					<Item id="42070" name="Gemischter Wortstil"/>
 					<Item id="42071" name="iNVERTIERTER wORTSTIL"/>
 					<Item id="42072" name="zUFäLlIGeR WortSTiL"/>
+					<Item id="42073" name="Datei Öffnen"/>
+					<Item id="42074" name="Ordner im Explorer öffnen"/>
+					<Item id="42075" name="Suche im Internet"/>
+					<Item id="42076" name="Suchmaschine wechseln..."/>
 					<Item id="42018" name="Aufzeichnung s&amp;tarten"/>
 					<Item id="42019" name="Aufzeichnung st&amp;oppen"/>
 					<Item id="42021" name="Makro ausfüh&amp;ren"/>
@@ -248,9 +253,9 @@
 					<Item id="44094" name="&amp;9. Tab"/>
 					<Item id="44095" name="&amp;Nächster Tab"/>
 					<Item id="44096" name="&amp;Vorheriger Tab"/>
-					<Item id="44097" name="Überwachen (Ende -f)"/>
-					<Item id="44098" name="Bewege Tab vorwärts"/>
-					<Item id="44099" name="Bewege Tab rückwärts"/>
+					<Item id="44097" name="Überwachen (tail -f)"/>
+					<Item id="44098" name="Tab vorwärts bewegen"/>
+					<Item id="44099" name="Tab rückwärts bewegen"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -656,7 +661,7 @@
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
-                                        <Item id="6121" name="Programm beim Schließen des letzten Tabs beenden"/>
+					<Item id="6121" name="Programm beim Schließen des letzten Tabs beenden"/>
 
 					<Item id="6122" name="Menüleiste ausblenden (wechseln: Alt oder F10)"/>
 					<Item id="6123" name="Sprache der Benutzeroberfläche"/>
@@ -722,9 +727,9 @@
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6430" name="Benutze den neuen Stilspeicherungsdialog (ohne Dateierweiterungen)"/>	
-                                        <Item id="6431" name="Alle Dateien im Verzeichnis öffnen anstatt das Start-Verzeichnis als Arbeitsbereich zu verwenden"/>
-					<Item id="6418" name="…"/>																	<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="6430" name="Neuen Stilspeicherungsdialog benutzen (ohne Dateierweiterungen)"/>	
+					<Item id="6431" name="Alle Dateien im Verzeichnis öffnen anstatt das Start-Verzeichnis als Arbeitsbereich zu verwenden"/>
+					<Item id="6418" name="…"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>
 
 				<FileAssoc title="Dateiverknüpfungen">
@@ -848,8 +853,19 @@
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
 					<Item id="6263" name="Aus"/>
 					<Item id="6267" name="Netzwerkpfad:"/>
-                    <!--Item id="6261" name="Bitte Notepad++ für die Änderungen neu starten."/-->
+ 					<!--Item id="6261" name="Bitte Notepad++ für die Änderungen neu starten."/-->
 				</Cloud>
+
+				<SearchEngine title="Suchmaschine">
+					<Item id="6271" name="Suchmaschine (für das Kommando &quot;Suche im Internet&quot;)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Suchmaschine hier einstellen:"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="Beispiel: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine>
 
 				<MISC title="Diverses">
 					<Item id="6307" name="Aktivieren"/>
@@ -924,6 +940,7 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.&#x0A;Sind Sie sicher?"/>
 			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte auf ein Laufwerk nur mit Leserechten,\roder auf ein Verzeichnis ohne die erforderlichen Schreibrechte zeigen.\rDie Einstellungen in der Cloud werden abgebrochen. Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
+			<FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

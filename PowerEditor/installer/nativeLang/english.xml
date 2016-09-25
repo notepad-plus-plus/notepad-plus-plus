@@ -273,19 +273,6 @@
                     <Item id="10003" name="Move to New Instance"/>
                     <Item id="10004" name="Open in New Instance"/>
 
-                    <Item id="45060" name="Big5 (Traditional)"/>
-                    <Item id="45061" name="GB2312 (Simplified)"/>
-                    <Item id="45054" name="OEM 861: Icelandic"/>
-                    <Item id="45057" name="OEM 865: Nordic"/>
-                    <Item id="45053" name="OEM 860: Portuguese"/>
-                    <Item id="45056" name="OEM 863: French"/>
-
-                    <Item id="46033" name="Assembly"/>
-                    <Item id="46019" name="MS INI file"/>
-                    <Item id="46015" name="MS-DOS Style"/>
-                    <Item id="46016" name="Normal Text"/>
-                    <Item id="46017" name="Resource file"/>
-
                     <Item id="46001" name="Style Configurator..."/>
                     <Item id="46150" name="Define your language..."/>
                     <Item id="46080" name="User-Defined"/>

@@ -273,18 +273,7 @@
                     <Item id="45011" name="Convertir en UTF-8"/>
                     <Item id="45012" name="Convertir en UTF-16BE"/>
                     <Item id="45013" name="Convertir en UTF-16LE"/>
-                    <Item id="45053" name="OEM 860: Portugais"/>
-                    <Item id="45054" name="OEM 861: Islandais"/>
-                    <Item id="45056" name="OEM 863: Français"/>
-                    <Item id="45057" name="OEM 865: Nordique"/>
-                    <Item id="45060" name="Big5 (Traditionnel)"/>
-                    <Item id="45061" name="GB2312 (Simplifié)"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
-                    <Item id="46015" name="MS-DOS Style"/>
-                    <Item id="46016" name="Normal Texte"/>
-                    <Item id="46017" name="Ressource fichier"/>
-                    <Item id="46019" name="MS INI fichier"/>
-                    <Item id="46033" name="Assembleur"/>
                     <Item id="46150" name="Définissez votre langage..."/>
                     <Item id="46080" name="Langage utilisateur"/>
                     <Item id="47000" name="À propos de Notepad++..."/>

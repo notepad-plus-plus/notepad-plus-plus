@@ -129,9 +129,9 @@ Function writeInstallInfoInRegistry
 	
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
 	!ifdef ARCH64
-		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (x64)"
+		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (64-bit x64)"
 	!else
-		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (x86)"
+		WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "DisplayName" "${APPNAME} (32-bit x86)"
 	!endif
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "Publisher" "Notepad++ Team"
 	WriteRegStr HKLM "${UNINSTALL_REG_KEY}" "VersionMajor" "${VERSION_MAJOR}"

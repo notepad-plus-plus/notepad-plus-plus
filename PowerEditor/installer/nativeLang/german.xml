@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.0
-	last modified: 2016-09-23 by schnurlos (schnurlos@gmail.com)
+	last modified: 2016-09-25 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net or schnurlos(at)gmail.com
 
@@ -253,9 +253,9 @@
 					<Item id="44094" name="&amp;9. Tab"/>
 					<Item id="44095" name="&amp;Nächster Tab"/>
 					<Item id="44096" name="&amp;Vorheriger Tab"/>
-					<Item id="44097" name="Überwachen (Ende -f)"/>
-					<Item id="44098" name="Bewege Tab vorwärts"/>
-					<Item id="44099" name="Bewege Tab rückwärts"/>
+					<Item id="44097" name="Überwachen (tail -f)"/>
+					<Item id="44098" name="Tab vorwärts bewegen"/>
+					<Item id="44099" name="Tab rückwärts bewegen"/>
 					<Item id="44032" name="Voll&amp;bild"/>
 					<Item id="44033" name="&amp;Standardgröße"/>
 					<Item id="44034" name="Immer im Vorder&amp;grund halten"/>
@@ -727,7 +727,7 @@
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6430" name="Benutze den neuen Stilspeicherungsdialog (ohne Dateierweiterungen)"/>	
+					<Item id="6430" name="Neuen Stilspeicherungsdialog benutzen (ohne Dateierweiterungen)"/>	
 					<Item id="6431" name="Alle Dateien im Verzeichnis öffnen anstatt das Start-Verzeichnis als Arbeitsbereich zu verwenden"/>
 					<Item id="6418" name="…"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>

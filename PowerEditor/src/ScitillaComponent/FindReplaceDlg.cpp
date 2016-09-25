@@ -310,6 +310,9 @@ void FindReplaceDlg::fillFindHistory()
 		::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, BST_CHECKED, 0);
 		::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)false);
+		
+		// If the search mode from history is regExp then enable the checkbox (. matches newline)
+		::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
 	}
 	
 	if (nppParams->isTransparentAvailable())
@@ -684,14 +687,15 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			p.y = arc.top;
 			::ScreenToClient(_hSelf, &p);
 
+			p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL), !_isRTL);
 			_replaceClosePos.left = p.x;
 			_replaceClosePos.top = p.y;
 
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL));
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL), !_isRTL);
 			 _findInFilesClosePos.left = p.x;
 			 _findInFilesClosePos.top = p.y;
 
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL));
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL), !_isRTL);
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
 
@@ -766,12 +770,12 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nbSelected = 0;
 				}
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nbSelected);
-                // uncheck if the control is disable
-                if (!nbSelected)
-                {
+				// uncheck if the control is disable
+				if (!nbSelected)
+				{
 					checkVal = BST_UNCHECKED;
 					_options._isInSelection = false;
-                }
+				}
 				::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, checkVal, 0);
 			}
 			
@@ -786,6 +790,17 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					(NppParameters::getInstance())->removeTransparent(_hSelf);
 				}
+			}
+
+			// At very first time (when find dlg is launched), search mode is Normal.
+			// In that case, ". Matches newline" should be disabled as it applicable on for Regex
+			if (isCheckedOrNot(IDREGEXP))
+			{
+				::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
+			}
+			else
+			{
+				::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), false);
 			}
 			return TRUE;
 		}
@@ -2500,8 +2515,8 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 {
 	if (!isCreated())
 	{
-		create(IDD_FIND_REPLACE_DLG, isRTL);
 		_isRTL = isRTL;
+		create(IDD_FIND_REPLACE_DLG, isRTL);
 	}
 
 	if (whichType == FINDINFILES_DLG)

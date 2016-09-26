@@ -27,6 +27,7 @@
 
 
 #include <shlwapi.h>
+#include <algorithm>
 #include "PluginsManager.h"
 #include "resource.h"
 
@@ -116,6 +117,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		pi->_pFuncGetName = (PFUNCGETNAME)GetProcAddress(pi->_hLib, "getName");
 		if (!pi->_pFuncGetName)
 			throw generic_string(TEXT("Missing \"getName\" function"));
+		pi->_funcName = pi->_pFuncGetName();
 
 		pi->_pBeNotified = (PBENOTIFIED)GetProcAddress(pi->_hLib, "beNotified");
 		if (!pi->_pBeNotified)
@@ -300,6 +302,8 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 	for (size_t j = 0, len = dll2Remove.size() ; j < len ; ++j)
 		::DeleteFile(dll2Remove[j].c_str());
 
+	std::sort(_pluginInfos.begin(), _pluginInfos.end(), [](const PluginInfo *a, const PluginInfo *b) { return a->_funcName < b->_funcName; });
+
 	return true;
 }
 
@@ -334,7 +338,7 @@ bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)
 void PluginsManager::addInMenuFromPMIndex(int i)
 {
     vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance())->getPluginCommandList();
-	::InsertMenu(_hPluginsMenu, i, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_pluginInfos[i]->_pluginMenu, _pluginInfos[i]->_pFuncGetName());
+	::InsertMenu(_hPluginsMenu, i, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_pluginInfos[i]->_pluginMenu, _pluginInfos[i]->_funcName.c_str());
 
     unsigned short j = 0;
 	for ( ; j < _pluginInfos[i]->_nbFuncItem ; ++j)

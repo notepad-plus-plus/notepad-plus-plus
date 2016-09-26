@@ -80,6 +80,7 @@ struct PluginInfo
 	FuncItem *_funcItems = NULL;
 	int _nbFuncItem = 0;
 	generic_string _moduleName;
+	generic_string _funcName;
 };
 
 class PluginsManager

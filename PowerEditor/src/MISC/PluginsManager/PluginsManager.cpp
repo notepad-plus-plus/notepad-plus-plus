@@ -27,15 +27,23 @@
 
 
 #include <shlwapi.h>
+#include <DbgHelp.h>
 #include <algorithm>
 #include "PluginsManager.h"
 #include "resource.h"
 
 using namespace std;
 
-const TCHAR * USERMSG = TEXT("This plugin is not compatible with current version of Notepad++.\n\n\
-Do you want to remove this plugin from plugins directory to prevent this message from the next launch time?");
+const TCHAR * USERMSG = TEXT(" is not compatible with the current version of Notepad++.\n\n\
+Do you want to remove this plugin from the plugins directory to prevent this message from the next launch?");
 
+#ifdef _WIN64
+#define ARCH_TYPE IMAGE_FILE_MACHINE_AMD64
+const TCHAR *ARCH_ERR_MSG = TEXT("Cannot load 32-bit plugin.");
+#else
+#define ARCH_TYPE IMAGE_FILE_MACHINE_I386
+const TCHAR *ARCH_ERR_MSG = TEXT("Cannot load 64-bit plugin.");
+#endif
 
 
 
@@ -82,6 +90,44 @@ static std::wstring GetLastErrorAsString()
     return message;
 }
 
+static WORD GetBinaryArchitectureType(const TCHAR *filePath)
+{
+	WORD machine_type = IMAGE_FILE_MACHINE_UNKNOWN;
+	HANDLE hMapping = NULL;
+	LPVOID addrHeader = NULL;
+
+	HANDLE hFile = CreateFile(filePath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_READONLY, NULL);
+	if (hFile == INVALID_HANDLE_VALUE)
+		goto cleanup;
+
+	hMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY | SEC_IMAGE, 0, 0, NULL);
+	if (hMapping == NULL)
+		goto cleanup;
+
+	addrHeader = MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, 0);
+	if (addrHeader == NULL)
+		goto cleanup; // couldn't memory map the file
+
+	PIMAGE_NT_HEADERS peHdr = ImageNtHeader(addrHeader);
+	if (peHdr == NULL)
+		goto cleanup; // couldn't read the header
+
+	// Found the binary and architecture type
+	machine_type = peHdr->FileHeader.Machine;
+
+cleanup: // release all of our handles
+	if (addrHeader != NULL)
+		UnmapViewOfFile(addrHeader);
+
+	if (hMapping != NULL)
+		CloseHandle(hMapping);
+
+	if (hFile != INVALID_HANDLE_VALUE)
+		CloseHandle(hFile);
+
+	return machine_type;
+}
+
 int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_string> & dll2Remove)
 {
 	const TCHAR *pluginFileName = ::PathFindFileName(pluginFilePath);
@@ -94,6 +140,9 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 	try
 	{
 		pi->_moduleName = PathFindFileName(pluginFilePath);
+
+		if (GetBinaryArchitectureType(pluginFilePath) != ARCH_TYPE)
+			throw generic_string(ARCH_ERR_MSG);
 
 	    pi->_hLib = ::LoadLibrary(pluginFilePath);
         if (!pi->_hLib)
@@ -230,6 +279,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 	catch (generic_string s)
 	{
 		s += TEXT("\n\n");
+		s += pluginFileName;
 		s += USERMSG;
 		if (::MessageBox(NULL, s.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{
@@ -242,6 +292,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 	{
 		generic_string msg = TEXT("Failed to load");
 		msg += TEXT("\n\n");
+		msg += pluginFileName;
 		msg += USERMSG;
 		if (::MessageBox(NULL, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)
 		{

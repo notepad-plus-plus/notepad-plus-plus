@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.0.0  6/Sep/2016  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.0.0  26/Sep/2016  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
@@ -691,7 +691,7 @@
 					<Item id = "6118" name = "Skrýt"/>
 					<Item id = "6119" name = "Více řad"/>
 					<Item id = "6120" name = "Vertikální"/>
-					<Item id = "6121" name = "Menu"/>
+					<Item id = "6121" name = "Ukončit program při uzavření poslední karty"/>
 					<Item id = "6122" name = "Skrýt (klávesa Alt nebo F10 slouží k přepínání)"/>
 					<Item id = "6123" name = "Lokalizace"/>
 					<Item id = "6125" name = "Přepínač dokumentů"/>
@@ -751,6 +751,7 @@
 					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
 					<Item id = "6415" name = "Zapamatovat si poslední používaný adresář"/>
 					<Item id = "6430" name = "Použít nový styl dialogu pro ukládání (bez zvýraznění typu souboru)"/>
+					<Item id = "6431" name = "Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
 				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">
 					<Item id = "4009" name = "Podporované přípony:"/>

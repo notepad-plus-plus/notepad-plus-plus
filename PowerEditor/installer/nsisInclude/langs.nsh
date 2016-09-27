@@ -81,6 +81,7 @@
   !insertmacro MUI_LANGUAGE "Bosnian"
   !insertmacro MUI_LANGUAGE "Mongolian"
   !insertmacro MUI_LANGUAGE "Estonian"
+  !insertmacro MUI_LANGUAGE "Corsican"
   
   ;!insertmacro MUI_LANGUAGE "Breton"
   ;!insertmacro MUI_LANGUAGE "Icelandic"
@@ -140,6 +141,7 @@ LangString langFileName ${LANG_LATVIAN} "Latvian.xml"
 LangString langFileName ${LANG_BOSNIAN} "bosnian.xml"
 LangString langFileName ${LANG_MONGOLIAN} "mongolian.xml"
 LangString langFileName ${LANG_ESTONIAN} "estonian.xml"
+LangString langFileName ${LANG_ESTONIAN} "corsican.xml"
 
 
 SectionGroup "Localization" localization
@@ -188,6 +190,9 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Chinese (Simplified)" chineseSimplified
 		CopyFiles "$TEMP\nppLocalization\chineseSimplified.xml" "$INSTDIR\localization\chineseSimplified.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Corsican" corsican
+		CopyFiles "$TEMP\nppLocalization\corsican.xml" "$INSTDIR\localization\corsican.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Croatian" croatian
 		CopyFiles "$TEMP\nppLocalization\croatian.xml" "$INSTDIR\localization\croatian.xml"
@@ -444,6 +449,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.chineseSimplified
 		Delete "$INSTDIR\localization\chineseSimplified.xml"
+	SectionEnd
+	Section un.corsican
+		Delete "$INSTDIR\localization\corsican.xml"
 	SectionEnd
 	Section un.croatian
 		Delete "$INSTDIR\localization\croatian.xml"

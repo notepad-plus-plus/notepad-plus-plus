@@ -538,7 +538,7 @@ private:
 	{
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
-		if ( bookmarkPresent(lineno))
+		while (bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
 	}
 

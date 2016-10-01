@@ -39,7 +39,12 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 		if (wordArray[i] == word)
 			return true;
 	return false;
-};
+}
+
+static bool isAllDigits(const generic_string &str)
+{
+	return std::all_of(str.begin(), str.end(), ::isdigit);
+}
 
 
 bool AutoCompletion::showApiComplete()
@@ -123,6 +128,10 @@ bool AutoCompletion::showApiAndWordComplete()
 void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
 {
 	const size_t bufSize = 256;
+	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+
+	if (nppGUI._autocIgnoreNumbers && isAllDigits(beginChars))
+		return;
 
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;

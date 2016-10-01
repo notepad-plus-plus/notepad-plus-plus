@@ -4555,8 +4555,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (element->Attribute(TEXT("triggerFromNbChar"), &i))
 				_nppGUI._autocFromLen = i;
 
-			const TCHAR * funcParams = element->Attribute(TEXT("funcParams"));
-			if (funcParams && !lstrcmp(funcParams, TEXT("yes")))
+			const TCHAR * optName = element->Attribute(TEXT("autoCIgnoreNumbers"));
+			if (optName && !lstrcmp(optName, TEXT("yes")))
+				_nppGUI._autocIgnoreNumbers = true;
+
+			optName = element->Attribute(TEXT("funcParams"));
+			if (optName && !lstrcmp(optName, TEXT("yes")))
 				_nppGUI._funcParams = true;
 		}
 		else if (!lstrcmp(nm, TEXT("auto-insert")))
@@ -5476,7 +5480,11 @@ bool NppParameters::writeGUIParams()
 			autocExist = true;
 			element->SetAttribute(TEXT("autoCAction"), _nppGUI._autocStatus);
 			element->SetAttribute(TEXT("triggerFromNbChar"), static_cast<int32_t>(_nppGUI._autocFromLen));
-			const TCHAR * pStr = _nppGUI._funcParams?TEXT("yes"):TEXT("no");
+
+			const TCHAR * pStr = _nppGUI._autocIgnoreNumbers?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("autoCIgnoreNumbers"), pStr);
+
+			pStr = _nppGUI._funcParams?TEXT("yes"):TEXT("no");
 			element->SetAttribute(TEXT("funcParams"), pStr);
 		}
 		else if (!lstrcmp(nm, TEXT("auto-insert")))
@@ -5780,7 +5788,11 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("auto-completion"));
 		GUIConfigElement->SetAttribute(TEXT("autoCAction"), _nppGUI._autocStatus);
 		GUIConfigElement->SetAttribute(TEXT("triggerFromNbChar"), static_cast<int32_t>(_nppGUI._autocFromLen));
-		const TCHAR * pStr = _nppGUI._funcParams?TEXT("yes"):TEXT("no");
+
+		const TCHAR * pStr = _nppGUI._autocIgnoreNumbers?TEXT("yes"):TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("autoCIgnoreNumbers"), pStr);
+
+		pStr = _nppGUI._funcParams?TEXT("yes"):TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("funcParams"), pStr);
 	}
 

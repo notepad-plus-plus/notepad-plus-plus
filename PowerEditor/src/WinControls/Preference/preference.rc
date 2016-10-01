@@ -325,6 +325,8 @@ BEGIN
     CTEXT           "1",IDD_AUTOC_STATIC_N,299,15,8,8,WS_TABSTOP
     LTEXT           "th character",IDD_AUTOC_STATIC_CHAR,313,15,57,8
     LTEXT           "Valid value : 1 - 9",IDD_AUTOC_STATIC_NOTE,278,25,93,8
+    CONTROL         "Ignore numbers",IDD_AUTOC_IGNORENUMBERS,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,278,55,80,10
     CONTROL         "Function parameters hint on input",IDD_FUNC_CHECK,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,91,72,160,10
     GROUPBOX        "Auto-Insert",IDD_AUTOCINSERT_GRPSTATIC,86,94,289,84,BS_CENTER

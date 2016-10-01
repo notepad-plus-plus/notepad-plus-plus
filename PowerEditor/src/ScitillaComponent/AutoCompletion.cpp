@@ -401,7 +401,7 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	TCHAR tag2find[] = TEXT("<[^\\s>]*");
-	
+
 	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
 
 	if (targetStart == -1 || targetStart == -2)
@@ -427,9 +427,14 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
 
-	if (isHTML) // for HTML: "br", "hr", "img", "link", "!doctype" and "meta" will be ignored
+	if (isHTML) // for HTML: ignore void elements
 	{
-		char *disallowedTags[] = { "br", "hr", "img", "link", "meta", "!doctype" };
+		// https://www.w3.org/TR/html5/syntax.html#void-elements
+		char *disallowedTags[] = {
+				"area", "base", "br", "col", "embed", "hr", "img", "input",
+				"keygen", "link", "meta", "param", "source", "track", "wbr",
+				"!doctype"
+			};
 		size_t disallowedTagsLen = sizeof(disallowedTags) / sizeof(char *);
 		for (size_t i = 0; i < disallowedTagsLen; ++i)
 		{
@@ -564,7 +569,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 	// if there's no user defined matched pair found, continue to check notepad++'s one
 
-	
+
 	char closeTag[tagMaxLen];
 	closeTag[0] = '\0';
 	switch (character)

@@ -101,6 +101,11 @@ Section un.UserManual
 SectionEnd
 
 Section Uninstall
+!ifdef ARCH64
+	SetRegView 64
+!else
+	SetRegView 32
+!endif
 	;Remove from registry...
 	DeleteRegKey HKLM "${UNINSTALL_REG_KEY}"
 	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"

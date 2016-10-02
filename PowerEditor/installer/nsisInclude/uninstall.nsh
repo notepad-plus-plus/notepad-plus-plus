@@ -26,18 +26,13 @@
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 Section un.explorerContextMenu
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_06.dll"'
-	Delete "$INSTDIR\NppShell_01.dll"
-	Delete "$INSTDIR\NppShell_02.dll"
-	Delete "$INSTDIR\NppShell_03.dll"
-	Delete "$INSTDIR\NppShell_04.dll"
-	Delete "$INSTDIR\NppShell_05.dll"
-	Delete "$INSTDIR\NppShell_06.dll"
+	; Removing old contextMenu is not required as it is taken care the time of installation
+	; But just to play safe, Call removeOldContextMenu	
+	Call un.removeOldContextMenu
+	
+	IfFileExists "$INSTDIR\NppShell_06.dll" 0 +3
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_06.dll"'
+		Delete "$INSTDIR\NppShell_06.dll"
 SectionEnd
 
 Section un.UnregisterFileExt
@@ -191,4 +186,15 @@ SectionEnd
 
 Function un.onInit
   ;!insertmacro MUI_UNGETLANGUAGE
+  ; *******************************************************
+	; This section is required, to delete only 64 bit portion of uninstaller
+	; Otherwise, if both the versions (32 and 64) are installed and user uninstalls 64 bit version
+	; Then 32 bit version can't be uninstalled (via control panel), as 32 bit registries were also deleted
+	; To avoid this, SetRegView 64 for 64bit installer, So only 64 bit uninstaller related registry will be deleted.
+	!ifdef ARCH64
+		${If} ${RunningX64}
+			SetRegView 64
+		${EndIf}
+ 	!endif
+  ; *******************************************************
 FunctionEnd

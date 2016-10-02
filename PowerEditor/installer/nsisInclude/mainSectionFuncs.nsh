@@ -216,7 +216,7 @@ Function removeUnstablePlugins
 		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
 		Delete "$INSTDIR\plugins\NppQCP.dll"
 		
-	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +11
+	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 donothing
 		MessageBox MB_YESNOCANCEL "Due to the stability issue, DSpellCheck.dll will be moved to the directory $\"disabled$\".$\nChoose Cancel to keep it for this installation.$\nChoose No to keep it forever." /SD IDYES IDNO never IDCANCEL donothing ;IDYES remove
 		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
@@ -227,36 +227,38 @@ Function removeUnstablePlugins
 	donothing:
 FunctionEnd
 
-Function removeOldContextMenu
+!macro removeOldContexMenu un
+Function ${un}removeOldContextMenu
    ; Context Menu Management : removing old version of Context Menu module
-	IfFileExists "$INSTDIR\nppcm.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'
+    IfFileExists "$INSTDIR\nppcm.dll" 0 +3
+		ExecWait 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'
 		Delete "$INSTDIR\nppcm.dll"
         
     IfFileExists "$INSTDIR\NppShell.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell.dll"'
 		Delete "$INSTDIR\NppShell.dll"
 		
     IfFileExists "$INSTDIR\NppShell_01.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
 		Delete "$INSTDIR\NppShell_01.dll"
         
     IfFileExists "$INSTDIR\NppShell_02.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
 		Delete "$INSTDIR\NppShell_02.dll"
 		
     IfFileExists "$INSTDIR\NppShell_03.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
 		Delete "$INSTDIR\NppShell_03.dll"
 		
-	IfFileExists "$INSTDIR\NppShell_04.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
+    IfFileExists "$INSTDIR\NppShell_04.dll" 0 +3
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
 		Delete "$INSTDIR\NppShell_04.dll"
 		
-	IfFileExists "$INSTDIR\NppShell_05.dll" 0 +3
-		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
+    IfFileExists "$INSTDIR\NppShell_05.dll" 0 +3
+		ExecWait 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
 		Delete "$INSTDIR\NppShell_05.dll"
 FunctionEnd
+!macroend
 
 Function shortcutLinkManagement
 	; remove all the npp shortcuts from current user

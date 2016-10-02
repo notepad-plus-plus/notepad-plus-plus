@@ -115,17 +115,17 @@ Section Uninstall
 	Delete "$INSTDIR\uninstall.exe"
 
 	; Delete Shortcuts
-	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
-	RMDir "$SMPROGRAMS\Notepad++"
+	Delete "$SMPROGRAMS\${APPNAME}\Uninstall.lnk"
+	RMDir "$SMPROGRAMS\${APPNAME}"
 	
 	UserInfo::GetAccountType
 	Pop $1
 	StrCmp $1 "Admin" 0 +2
-		SetShellVarContext all
+		SetShellVarContext all ; make context for all user
 	
 	Delete "$DESKTOP\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
+	Delete "$SMPROGRAMS\${APPNAME}\Notepad++.lnk"
+	Delete "$SMPROGRAMS\${APPNAME}\readme.lnk"
 	
 
 	; Clean up Notepad++
@@ -154,24 +154,29 @@ Section Uninstall
 	Delete "$INSTDIR\SourceCodePro-Bold.ttf"
 	Delete "$INSTDIR\SourceCodePro-It.ttf"
 	Delete "$INSTDIR\SourceCodePro-BoldIt.ttf"
+	Delete "$INSTDIR\NppHelp.chm"
 	
+	; make context as current user to uninstall user's APPDATA
 	SetShellVarContext current
-	Delete "$APPDATA\Notepad++\langs.xml"
-	Delete "$APPDATA\Notepad++\config.xml"
-	Delete "$APPDATA\Notepad++\stylers.xml"
-	Delete "$APPDATA\Notepad++\contextMenu.xml"
-	Delete "$APPDATA\Notepad++\shortcuts.xml"
-	Delete "$APPDATA\Notepad++\functionList.xml"
-	Delete "$APPDATA\Notepad++\nativeLang.xml"
-	Delete "$APPDATA\Notepad++\session.xml"
-	Delete "$APPDATA\Notepad++\insertExt.ini"
-	IfFileExists  "$INSTDIR\NppHelp.chm" 0 +2
-		Delete "$INSTDIR\NppHelp.chm"
+	Delete "$APPDATA\${APPNAME}\langs.xml"
+	Delete "$APPDATA\${APPNAME}\config.xml"
+	Delete "$APPDATA\${APPNAME}\stylers.xml"
+	Delete "$APPDATA\${APPNAME}\contextMenu.xml"
+	Delete "$APPDATA\${APPNAME}\shortcuts.xml"
+	Delete "$APPDATA\${APPNAME}\functionList.xml"
+	Delete "$APPDATA\${APPNAME}\nativeLang.xml"
+	Delete "$APPDATA\${APPNAME}\session.xml"
+	Delete "$APPDATA\${APPNAME}\userDefineLang.xml"
+	Delete "$APPDATA\${APPNAME}\insertExt.ini"
+	
+	RMDir /r "$APPDATA\${APPNAME}\plugins\"
+	RMDir "$APPDATA\${APPNAME}\backup\"
+	RMDir "$APPDATA\${APPNAME}\themes\"
+	RMDir "$APPDATA\${APPNAME}"
 
-	RMDir "$APPDATA\Notepad++"
 	
 	StrCmp $1 "Admin" 0 +2
-		SetShellVarContext all
+		SetShellVarContext all ; make context for all user
 		
 	; Remove remaining directories
 	RMDir /r "$INSTDIR\plugins\disabled\"
@@ -180,8 +185,7 @@ Section Uninstall
 	RMDir "$INSTDIR\themes\"
 	RMDir "$INSTDIR\localization\"
 	RMDir "$INSTDIR\"
-	RMDir "$SMPROGRAMS\Notepad++"
-	RMDir "$APPDATA\Notepad++"
+	RMDir "$SMPROGRAMS\${APPNAME}"
 
 SectionEnd
 

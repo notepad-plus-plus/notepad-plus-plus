@@ -25,6 +25,7 @@
 ; along with this program; if not, write to the Free Software
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+Var UPDATE_PATH
 Function setPathAndOptions
 	; Set Section properties
 	SetOverwrite on
@@ -38,7 +39,7 @@ Function setPathAndOptions
 	${ELSE}
 		IfFileExists $INSTDIR\doLocalConf.xml 0 +2
 		Delete $INSTDIR\doLocalConf.xml
-		StrCpy $UPDATE_PATH "$APPDATA\Notepad++"
+		StrCpy $UPDATE_PATH "$APPDATA\${APPNAME}"
 		CreateDirectory $UPDATE_PATH\plugins\config
 	${EndIf}
 	
@@ -260,10 +261,10 @@ FunctionEnd
 Function shortcutLinkManagement
 	; remove all the npp shortcuts from current user
 	Delete "$DESKTOP\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
-	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
-	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
-	RMDir "$SMPROGRAMS\Notepad++"
+	Delete "$SMPROGRAMS\${APPNAME}\Notepad++.lnk"
+	Delete "$SMPROGRAMS\${APPNAME}\readme.lnk"
+	Delete "$SMPROGRAMS\${APPNAME}\Uninstall.lnk"
+	RMDir "$SMPROGRAMS\${APPNAME}"
 		
 	; detect the right of 
 	UserInfo::GetAccountType
@@ -276,8 +277,8 @@ Function shortcutLinkManagement
 	SetOutPath "$INSTDIR\"
 	
 	; add all the npp shortcuts for all user or current user
-	CreateDirectory "$SMPROGRAMS\Notepad++"
-	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"
+	CreateDirectory "$SMPROGRAMS\${APPNAME}"
+	CreateShortCut "$SMPROGRAMS\${APPNAME}\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	${If} $createShortcutChecked == ${BST_CHECKED}
 		CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	${EndIf}

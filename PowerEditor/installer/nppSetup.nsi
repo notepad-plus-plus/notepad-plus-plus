@@ -111,8 +111,6 @@ Function .onInstSuccess
 FunctionEnd
 
 
-Var UPDATE_PATH
-
 !include "nsisInclude\mainSectionFuncs.nsh"
 
 Section -"Notepad++" mainSection

@@ -25,189 +25,193 @@
 ; along with this program; if not, write to the Free Software
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+
 SectionGroup "Themes" Themes
 	SetOverwrite off
+	; UPDATE_PATH: the value is $INSTDIR if doLocalConf.xml exit,
+	;              otherwise the value is $APPDATA\${APPNAME}
 	${MementoSection} "Black Board" BlackBoard
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Black board.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Choco" Choco
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Choco.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Hello Kitty" HelloKitty
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Hello Kitty.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Mono Industrial" MonoIndustrial
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Mono Industrial.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Monokai" Monokai
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Monokai.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Obsidian" Obsidian
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\obsidian.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Plastic Code Wrap" PlasticCodeWrap
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Plastic Code Wrap.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Ruby Blue" RubyBlue
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Ruby Blue.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Twilight" Twilight
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Twilight.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Vibrant Ink" VibrantInk
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Vibrant Ink.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Deep Black" DeepBlack
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Deep Black.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "vim Dark Blue" vimDarkBlue
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\vim Dark Blue.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Bespin" Bespin
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Bespin.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Zenburn" Zenburn
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Zenburn.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Solarized" Solarized
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Solarized.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Solarized Light" Solarized-light
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Solarized-light.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Hot Fudge Sundae" HotFudgeSundae
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\HotFudgeSundae.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "khaki" khaki
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\khaki.xml"
 	${MementoSectionEnd}
 
 	${MementoSection} "Mossy Lawn" MossyLawn
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\MossyLawn.xml"
 	${MementoSectionEnd}
 	
 	${MementoSection} "Navajo" Navajo
-		SetOutPath "$APPDATA\${APPNAME}\themes"
+		SetOutPath "$UPDATE_PATH\themes"
 		File ".\themes\Navajo.xml"
 	${MementoSectionEnd}
 SectionGroupEnd
 
 
 SectionGroup un.Themes
+	
 	Section un.BlackBoard
-		Delete "$APPDATA\${APPNAME}\themes\Black board.xml"
+		Delete "$themesParentPath\themes\Black board.xml"
 	SectionEnd
 
 	Section un.Choco
-		Delete "$APPDATA\${APPNAME}\themes\Choco.xml"
+		Delete "$themesParentPath\themes\Choco.xml"
 	SectionEnd
 	
 	Section un.HelloKitty
-		Delete "$APPDATA\${APPNAME}\themes\Hello Kitty.xml"
+		Delete "$themesParentPath\themes\Hello Kitty.xml"
 	SectionEnd
 	
 	Section un.MonoIndustrial
-		Delete "$APPDATA\${APPNAME}\themes\Mono Industrial.xml"
+		Delete "$themesParentPath\themes\Mono Industrial.xml"
 	SectionEnd
 	
 	Section un.Monokai
-		Delete "$APPDATA\${APPNAME}\themes\Monokai.xml"
+		Delete "$themesParentPath\themes\Monokai.xml"
 	SectionEnd
 	
 	Section un.Obsidian
-		Delete "$APPDATA\${APPNAME}\themes\obsidian.xml"
+		Delete "$themesParentPath\themes\obsidian.xml"
 	SectionEnd
 	
 	Section un.PlasticCodeWrap
-		Delete "$APPDATA\${APPNAME}\themes\Plastic Code Wrap.xml"
+		Delete "$themesParentPath\themes\Plastic Code Wrap.xml"
 	SectionEnd
 	
 	Section un.RubyBlue
-		Delete "$APPDATA\${APPNAME}\themes\Ruby Blue.xml"
+		Delete "$themesParentPath\themes\Ruby Blue.xml"
 	SectionEnd
 	
 	Section un.Twilight
-		Delete "$APPDATA\${APPNAME}\themes\Twilight.xml"
+		Delete "$themesParentPath\themes\Twilight.xml"
 	SectionEnd
 	
 	Section un.VibrantInk
-		Delete "$APPDATA\${APPNAME}\themes\Vibrant Ink.xml"
+		Delete "$themesParentPath\themes\Vibrant Ink.xml"
 	SectionEnd
 
 	Section un.DeepBlack
-		Delete "$APPDATA\${APPNAME}\themes\Deep Black.xml"
+		Delete "$themesParentPath\themes\Deep Black.xml"
 	SectionEnd
 	
 	Section un.vimDarkBlue
-		Delete "$APPDATA\${APPNAME}\themes\vim Dark Blue.xml"
+		Delete "$themesParentPath\themes\vim Dark Blue.xml"
 	SectionEnd
 	
 	Section un.Bespin
-		Delete "$APPDATA\${APPNAME}\themes\Bespin.xml"
+		Delete "$themesParentPath\themes\Bespin.xml"
 	SectionEnd
 	
 	Section un.Zenburn
-		Delete "$APPDATA\${APPNAME}\themes\Zenburn.xml"
+		Delete "$themesParentPath\themes\Zenburn.xml"
 	SectionEnd
 
 	Section un.Solarized
-		Delete "$APPDATA\${APPNAME}\themes\Solarized.xml"
+		Delete "$themesParentPath\themes\Solarized.xml"
 	SectionEnd
 
 	Section un.Solarized-light
-		Delete "$APPDATA\${APPNAME}\themes\Solarized-light.xml"
+		Delete "$themesParentPath\themes\Solarized-light.xml"
 	SectionEnd
 	
 	Section un.HotFudgeSundae
-		Delete "$APPDATA\${APPNAME}\themes\HotFudgeSundae.xml"
+		Delete "$themesParentPath\themes\HotFudgeSundae.xml"
 	SectionEnd
 
 	Section un.khaki
-		Delete "$APPDATA\${APPNAME}\themes\khaki.xml"
+		Delete "$themesParentPath\themes\khaki.xml"
 	SectionEnd
 	
 	Section un.MossyLawn
-		Delete "$APPDATA\${APPNAME}\themes\MossyLawn.xml"
+		Delete "$themesParentPath\themes\MossyLawn.xml"
 	SectionEnd
 
 	Section un.Navajo
-		Delete "$APPDATA\${APPNAME}\themes\Navajo.xml"
+		Delete "$themesParentPath\themes\Navajo.xml"
 	SectionEnd
 	
 SectionGroupEnd

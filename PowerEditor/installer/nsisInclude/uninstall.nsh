@@ -189,6 +189,12 @@ Section Uninstall
 
 SectionEnd
 
+Var themesParentPath
 Function un.onInit
-  ;!insertmacro MUI_UNGETLANGUAGE
+  	; determinate theme path for uninstall themes
+	StrCpy $themesParentPath "$APPDATA\${APPNAME}"
+	IfFileExists $INSTDIR\doLocalConf.xml doesExist noneExist
+doesExist:
+	StrCpy $themesParentPath $INSTDIR
+noneExist:
 FunctionEnd

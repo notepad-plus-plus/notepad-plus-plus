@@ -127,6 +127,7 @@ Section -"Notepad++" mainSection
 	
 SectionEnd
 
+!include "nsisInclude\uninstall.nsh"
 !include "nsisInclude\autoCompletion.nsh"
 !include "nsisInclude\themes.nsh"
 !include "nsisInclude\binariesComponents.nsh"
@@ -150,7 +151,7 @@ Section -FinishSection
   Call writeInstallInfoInRegistry
 SectionEnd
 
-!include "nsisInclude\uninstall.nsh"
+
 
 BrandingText "Don HO"
 

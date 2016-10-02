@@ -379,6 +379,7 @@
                 <Item id="1687" name="Когда неактивно"/>
                 <Item id="1688" name="Всегда"/>
                 <Item id="1703" name="и новые строки"/>
+                <Item id="1721" name="&amp;Быстрый поиск"/>
             </Find>
             <GoToLine title= "К строке...">
                 <Item id="2007" name="Строка"/>

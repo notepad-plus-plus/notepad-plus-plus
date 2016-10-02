@@ -135,4 +135,6 @@
 #define IDREGEXP_FIFOLDER				1719
 #define IDREDOTMATCHNL_FIFOLDER			1720
 
+#define ID_QUICK_FIND                   1721
+#define IDF_QUICK_FIND                  2048
 #endif //FINDREPLACE_DLG_H

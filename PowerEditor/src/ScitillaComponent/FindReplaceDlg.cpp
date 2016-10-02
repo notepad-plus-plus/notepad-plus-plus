@@ -621,6 +621,7 @@ void FindInFinderDlg::initFromOptions()
 	::SendDlgItemMessage(_hSelf, IDREGEXP_FIFOLDER, BM_SETCHECK, _options._searchType == FindRegex ? BST_CHECKED : BST_UNCHECKED, 0);
 
 	::SendDlgItemMessage(_hSelf, IDREDOTMATCHNL_FIFOLDER, BM_SETCHECK, _options._dotMatchesNewline ? BST_CHECKED : BST_UNCHECKED, 0);
+	::SendDlgItemMessage(_hSelf, ID_QUICK_FIND, BM_SETCHECK, _options._quick_find ? BST_CHECKED : BST_UNCHECKED, 0);
 }
 
 void FindInFinderDlg::writeOptions()
@@ -633,6 +634,7 @@ void FindInFinderDlg::writeOptions()
 	_options._searchType = isCheckedOrNot(IDREGEXP_FIFOLDER) ? FindRegex : isCheckedOrNot(IDEXTENDED_FIFOLDER) ? FindExtended : FindNormal;
 
 	_options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL_FIFOLDER);
+	_options._quick_find = isCheckedOrNot(ID_QUICK_FIND);
 }
 
 INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
@@ -640,6 +642,7 @@ INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 	switch (message)
 	{
 		case WM_INITDIALOG:
+			::ShowWindow(GetDlgItem(_hSelf, ID_QUICK_FIND), SW_HIDE);
 			initFromOptions();
 			return TRUE;
 
@@ -694,7 +697,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL));
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
-
+			::SendDlgItemMessage(_hSelf, ID_QUICK_FIND, BM_SETCHECK, _options._quick_find ? BST_CHECKED : BST_UNCHECKED, 0);
 			return TRUE;
 		}
 
@@ -798,6 +801,79 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			bool isMacroRecording = (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS);
 			NppParameters *nppParamInst = NppParameters::getInstance();
 			FindHistory & findHistory = nppParamInst->getFindHistory();
+
+			// find and mark all matches
+			auto quickFindAndMarkAll = [&]()
+			{
+				if (_options._quick_find && _currentStatus == FIND_DLG)
+				{
+					// Clear all previous marks
+					(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
+					(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+
+					// Use find next method to search for first match
+					setStatusbarMessage(TEXT(""), FSNoMessage);
+					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+					_options._str2Search = getTextFromCombo(hFindCombo);
+
+					nppParamInst->_isFindReplacing = false;
+					if (isMacroRecording)
+						saveInMacro(wParam, FR_OP_FIND);
+
+					FindStatus findStatus = FSFound;
+					// Save old caret position
+					auto old_pos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
+					(*_ppEditView)->execute(SCI_SETCURRENTPOS, 0);
+
+					if (processFindNext(_options._str2Search.c_str(), _env, &findStatus))
+					{
+
+						nppParamInst->_isFindReplacing = true;
+						int nbMarked = processAll(ProcessMarkAll, &_options);
+
+						generic_string result = TEXT("");
+						if (nbMarked < 0)
+						{
+							result = TEXT("Mark: The regular expression to search is malformed.");
+						}
+						else
+						{
+							TCHAR moreInfo[128];
+							if (nbMarked == 1)
+								wsprintf(moreInfo, TEXT("Mark: %d match."), nbMarked);
+							else
+								wsprintf(moreInfo, TEXT("Mark: %s matches."), commafyInt(nbMarked).c_str());
+							result = moreInfo;
+						}
+						setStatusbarMessage(result, FSMessage);
+					}
+					else
+					{
+						// if nothing found stay at old position
+						(*_ppEditView)->execute(SCI_SETCURRENTPOS, old_pos);
+					}
+
+					::SetFocus(hFindCombo);
+					COMBOBOXINFO cbi{ sizeof(COMBOBOXINFO) };
+					if (GetComboBoxInfo(hFindCombo, &cbi))
+					{
+						// Set caret at the end of combobox after resetting focus
+						SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(-1), static_cast<LPARAM>(-1));
+					}
+				}
+			};
+
+			// Hide quick find checkbox where it's not needed
+			if (_currentStatus == FIND_DLG)
+			{
+				::ShowWindow(GetDlgItem(_hSelf, ID_QUICK_FIND), SW_SHOW);
+			}
+			else
+			{
+				::ShowWindow(GetDlgItem(_hSelf, ID_QUICK_FIND), SW_HIDE);
+			}
+
+
 			switch (wParam)
 			{
 //Single actions
@@ -1098,10 +1174,12 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 				case IDWHOLEWORD :
 					findHistory._isMatchWord = _options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
+					quickFindAndMarkAll();
 					return TRUE;
 
 				case IDMATCHCASE :
 					findHistory._isMatchCase = _options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
+					quickFindAndMarkAll();
 					return TRUE;
 
 				case IDNORMAL:
@@ -1254,14 +1332,27 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					if (_currentStatus == FINDINFILES_DLG)
 						folderBrowser(_hSelf, TEXT("Select a folder to search from"), IDD_FINDINFILES_DIR_COMBO, _options._directory.c_str());
-				}
-				return TRUE;
+				} return TRUE;
+
+				case ID_QUICK_FIND:
+				{
+					_options._quick_find = isCheckedOrNot(ID_QUICK_FIND);
+
+				} return TRUE;
 
 				default :
 					break;
 			}
-			break;
-		}
+
+			// Process notifications dialog controls
+			switch (HIWORD(wParam))
+			{
+				case CBN_EDITUPDATE: // Combobox edit field update notification
+				{
+					quickFindAndMarkAll();
+				} return TRUE;
+			}
+		} break;
 	}
 	return FALSE;
 }
@@ -2223,6 +2314,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 	booleans |= _options._isWholeWord?IDF_WHOLEWORD:0;
 	booleans |= _options._isMatchCase?IDF_MATCHCASE:0;
 	booleans |= _options._dotMatchesNewline?IDF_REDOTMATCHNL:0;
+	booleans |= _options._quick_find?IDF_QUICK_FIND:0;
 
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDNORMAL, _options._searchType);
 	if (cmd == IDCMARKALL)
@@ -2304,6 +2396,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 			_env->_isWrapAround = ((intValue & IDF_WRAP)> 0);
 			_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION)> 0);
 			_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL)> 0);
+			_env->_quick_find = ((intValue & IDF_REDOTMATCHNL)> 0);
 			break;
 		case IDNORMAL:
 			_env->_searchType = static_cast<SearchType>(intValue);

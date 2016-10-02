@@ -349,6 +349,7 @@
 	    <Item id="1641" name="Găseşte toate din fila activă"/>
                 <Item id="1686" name="Transparenţă"/>
 	    <Item id="1703" name="&amp;. potrivit newline"/>
+                <Item id="1721" name="&amp;Căutare rapidă"/>
             </Find>
             <GoToLine title="Du-te la Linia cu Numărul...">
 	    <Item id="2007" name="Linie"/>

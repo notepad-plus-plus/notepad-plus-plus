@@ -807,10 +807,6 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			{
 				if (_options._quick_find && _currentStatus == FIND_DLG)
 				{
-					// Clear all previous marks
-					(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
-					(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
-
 					// Use find next method to search for first match
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -829,6 +825,9 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					{
 
 						nppParamInst->_isFindReplacing = true;
+
+						// clear all marked selections without affecting bookmarks
+						(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, 0, static_cast<int>((*_ppEditView)->execute(SCI_GETLENGTH)));
 						int nbMarked = processAll(ProcessMarkAll, &_options);
 
 						generic_string result = TEXT("");
@@ -1337,7 +1336,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case ID_QUICK_FIND:
 				{
 					_options._quick_find = isCheckedOrNot(ID_QUICK_FIND);
-
+					quickFindAndMarkAll();
 				} return TRUE;
 
 				default :

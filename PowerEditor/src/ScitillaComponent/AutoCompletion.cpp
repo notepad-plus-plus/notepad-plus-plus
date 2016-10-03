@@ -30,7 +30,7 @@
 #include <shlwapi.h>
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
-
+#include <iterator>
 using namespace std;
 
 static bool isInList(generic_string word, const vector<generic_string> & wordArray)
@@ -39,8 +39,12 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 		if (wordArray[i] == word)
 			return true;
 	return false;
-};
+}
 
+static bool isAllDigits(const generic_string &str)
+{
+ 	return std::all_of(str.begin(), str.end(), ::isdigit);
+};
 
 bool AutoCompletion::showApiComplete()
 {
@@ -58,7 +62,7 @@ bool AutoCompletion::showApiComplete()
 	if (len >= _keyWordMaxLen)
 		return false;
 
-	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
@@ -89,7 +93,16 @@ bool AutoCompletion::showApiAndWordComplete()
 	bool canStop = false;
 	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
-		if (_keyWordArray[i].compare(0, len, beginChars) == 0)
+
+		generic_string keytemp;
+		std::transform(_keyWordArray[i].begin(), _keyWordArray[i].end(), std::back_inserter(keytemp), ::tolower);
+		generic_string expr(beginChars);
+		generic_string beginchartmp;
+		std::transform(expr.begin(), expr.end(), std::back_inserter(beginchartmp), ::tolower);
+
+		//if (_keyWordArray[i].compare(0, len, beginChars) == 0)
+		//if (keytemp.compare(0, len, beginchartmp) == 0)
+		if (((keytemp.compare(0, len, beginchartmp) == 0) && _ignoreCase) || (_keyWordArray[i].compare(0, len, beginChars) == 0))
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);
@@ -101,7 +114,14 @@ bool AutoCompletion::showApiAndWordComplete()
 		}
 	}
 
-	sort(wordArray.begin(), wordArray.end());
+	if(_ignoreCase){
+		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const auto& lhs, const auto& rhs){
+			const auto result = mismatch(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), [](const auto& lhs, const auto& rhs){return tolower(lhs) == tolower(rhs);});
+			return result.second != rhs.cend() && (result.first == lhs.cend() || tolower(*result.first) < tolower(*result.second));
+		});
+	}else{
+		std::sort(_keyWordArray.begin(), _keyWordArray.end());
+	}
 
 	// Get word list
 	generic_string words;
@@ -110,10 +130,10 @@ bool AutoCompletion::showApiAndWordComplete()
 	{
 		words += wordArray[i];
 		if (i != len - 1)
-			words += TEXT(" ");
+			words += TEXT("\n");
 	}
 
-	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -123,14 +143,22 @@ bool AutoCompletion::showApiAndWordComplete()
 void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
 {
 	const size_t bufSize = 256;
-
+	if (isAllDigits(beginChars))
+		return;
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
+	//expr += TEXT("[^ \\t.,;:\"()=<>'+!\\[\\]]*");
 	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
 
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
-
-	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
+	
+	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX ;
+	
+	if(_ignoreCase){
+		flags = SCFIND_WORDSTART | SCFIND_REGEXP | SCFIND_POSIX ;
+	}
+	
+	
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
@@ -338,8 +366,14 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		return true;
 	}
 
-	sort(wordArray.begin(), wordArray.end());
-
+	if(_ignoreCase){
+		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const auto& lhs, const auto& rhs){
+			const auto result = mismatch(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), [](const auto& lhs, const auto& rhs){return tolower(lhs) == tolower(rhs);});
+			return result.second != rhs.cend() && (result.first == lhs.cend() || tolower(*result.first) < tolower(*result.second));
+		});
+	}else{
+		std::sort(_keyWordArray.begin(), _keyWordArray.end());
+	}
 	// Get word list
 	generic_string words(TEXT(""));
 
@@ -849,13 +883,18 @@ bool AutoCompletion::setLanguage(LangType language) {
 				}
 			}
 		}
-
-		sort(_keyWordArray.begin(), _keyWordArray.end());
-
+		if(_ignoreCase){
+			std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const auto& lhs, const auto& rhs){
+				const auto result = mismatch(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), [](const auto& lhs, const auto& rhs){return tolower(lhs) == tolower(rhs);});
+				return result.second != rhs.cend() && (result.first == lhs.cend() || tolower(*result.first) < tolower(*result.second));
+			});
+		}else{
+			std::sort(_keyWordArray.begin(), _keyWordArray.end());
+		}
 		for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
 		{
 			_keyWords.append(_keyWordArray[i]);
-			_keyWords.append(TEXT(" "));
+			_keyWords.append(TEXT("\n"));
 		}
 	}
 	return _funcCompletionActive;

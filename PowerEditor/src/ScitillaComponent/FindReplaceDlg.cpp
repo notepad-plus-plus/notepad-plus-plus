@@ -837,16 +837,16 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					FindStatus findStatus = FSFound;
 					// Save old search position
-					auto old_pos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
+					auto oldPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
 					(*_ppEditView)->execute(SCI_SETCURRENTPOS, 0);
 
 					COMBOBOXINFO cbi{ sizeof(COMBOBOXINFO) };
-					DWORD start_pos = static_cast<DWORD>(-1);
-					DWORD end_pos = static_cast<DWORD>(-1);
+					DWORD startPos = static_cast<DWORD>(-1);
+					DWORD endPos = static_cast<DWORD>(-1);
 					// get search box caret position to be restored after refocus
 					if (GetComboBoxInfo(hFindCombo, &cbi))
 					{
-						::SendMessage(cbi.hwndItem, EM_GETSEL, reinterpret_cast<WPARAM>(&start_pos), reinterpret_cast<LPARAM>(&end_pos));
+						::SendMessage(cbi.hwndItem, EM_GETSEL, reinterpret_cast<WPARAM>(&startPos), reinterpret_cast<LPARAM>(&endPos));
 					}
 
 					// clear all marked selections without affecting bookmarks
@@ -876,11 +876,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					else
 					{
 						// if nothing found stay at old position
-						(*_ppEditView)->execute(SCI_SETCURRENTPOS, old_pos);
+						(*_ppEditView)->execute(SCI_SETCURRENTPOS, oldPos);
 					}
 
 					::SetFocus(hFindCombo);
-					SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(start_pos), static_cast<LPARAM>(start_pos));
+					SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(startPos), static_cast<LPARAM>(startPos));
 				}
 			};
 
@@ -1196,6 +1196,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 //Option actions
 				case IDREDOTMATCHNL:
 					findHistory._dotMatchesNewline = _options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL);
+					quickFindAndMarkAll();
 					return TRUE;
 
 				case IDWHOLEWORD :
@@ -1247,7 +1248,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					//regex upward search is disable in v6.3 due to a regression
 					::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)!isRegex);
-					return TRUE; }
+					quickFindAndMarkAll();
+					} return TRUE;
 
 				case IDWRAP :
 					findHistory._isWrap = _options._isWrapAround = isCheckedOrNot(IDWRAP);
@@ -1371,21 +1373,21 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			}
 
 			// Process notifications dialog controls
-			static generic_string old_search{};
+			static generic_string oldSearch{};
 			switch (HIWORD(wParam))
 			{
 				case CBN_SELCHANGE: // Combo box selection change
 				case CBN_EDITUPDATE: // Combo box edit field update notification
 				{
-					auto current_search = (HIWORD(wParam) == CBN_SELCHANGE)
+					auto currentSearch = (HIWORD(wParam) == CBN_SELCHANGE)
 						?getTextFromComboCurrentSel(::GetDlgItem(_hSelf, IDFINDWHAT))
 						:getTextFromCombo(::GetDlgItem(_hSelf, IDFINDWHAT));
 
 					if (_options._quick_find && LOWORD(wParam) == IDFINDWHAT
-						&& old_search != current_search)
+						&& oldSearch != currentSearch)
 					{
-						old_search = current_search;
-						quickFindAndMarkAll(current_search);
+						oldSearch = currentSearch;
+						quickFindAndMarkAll(currentSearch);
 					}
 				} return TRUE;
 			}

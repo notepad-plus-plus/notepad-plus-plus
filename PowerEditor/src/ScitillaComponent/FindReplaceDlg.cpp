@@ -2342,28 +2342,31 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 
 void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus staus)
 {
-	if (staus == FSNotFound)
+	if (!_options._quick_find)
 	{
-		::MessageBeep(0xFFFFFFFF);
+		if (staus == FSNotFound)
+		{
+			::MessageBeep(0xFFFFFFFF);
 
-		FLASHWINFO flashInfo;
-		flashInfo.cbSize = sizeof(FLASHWINFO);
-		flashInfo.hwnd = isVisible()?_hSelf:GetParent(_hSelf);
-		flashInfo.uCount = 3;
-		flashInfo.dwTimeout = 100;
-		flashInfo.dwFlags = FLASHW_ALL;
-		FlashWindowEx(&flashInfo);
-	}
-	else if (staus == FSTopReached || staus == FSEndReached)
-	{
-		if (!isVisible()) {
 			FLASHWINFO flashInfo;
 			flashInfo.cbSize = sizeof(FLASHWINFO);
-			flashInfo.hwnd = GetParent(_hSelf);
-			flashInfo.uCount = 2;
+			flashInfo.hwnd = isVisible()?_hSelf:GetParent(_hSelf);
+			flashInfo.uCount = 3;
 			flashInfo.dwTimeout = 100;
 			flashInfo.dwFlags = FLASHW_ALL;
 			FlashWindowEx(&flashInfo);
+		}
+		else if (staus == FSTopReached || staus == FSEndReached)
+		{
+			if (!isVisible()) {
+				FLASHWINFO flashInfo;
+				flashInfo.cbSize = sizeof(FLASHWINFO);
+				flashInfo.hwnd = GetParent(_hSelf);
+				flashInfo.uCount = 2;
+				flashInfo.dwTimeout = 100;
+				flashInfo.dwFlags = FLASHW_ALL;
+				FlashWindowEx(&flashInfo);
+			}
 		}
 	}
 

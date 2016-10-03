@@ -879,6 +879,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDCANCEL:
 					(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
 					setStatusbarMessage(generic_string(), FSNoMessage);
+					// clear all marks at dialog 'close'
+					if (_options._quick_find && _currentStatus == FIND_DLG)
+					{
+						(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, 0, static_cast<int>((*_ppEditView)->execute(SCI_GETLENGTH)));
+					}
 					display(false);
 					break;
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
@@ -1347,8 +1352,19 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			switch (HIWORD(wParam))
 			{
 				case CBN_EDITUPDATE: // Combobox edit field update notification
+				case CBN_SELCHANGE:
 				{
-					quickFindAndMarkAll();
+					if (_options._quick_find && LOWORD(wParam) == IDFINDWHAT)
+					{
+						static generic_string old_search{};
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						auto current_search = getTextFromCombo(hFindCombo);
+						if (old_search != current_search)
+						{
+							old_search = current_search;
+							quickFindAndMarkAll();
+						}
+					}
 				} return TRUE;
 			}
 		} break;

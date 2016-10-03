@@ -815,7 +815,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			FindHistory & findHistory = nppParamInst->getFindHistory();
 
 			// find and mark all matches
-			auto quickFindAndMarkAll = [&](generic_string search_str = {})
+			auto quickFindAndMarkAll = [&](generic_string search_str)
 			{
 				if (_options._quick_find && _currentStatus == FIND_DLG)
 				{
@@ -1196,17 +1196,17 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 //Option actions
 				case IDREDOTMATCHNL:
 					findHistory._dotMatchesNewline = _options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL);
-					quickFindAndMarkAll();
+					quickFindAndMarkAll({});
 					return TRUE;
 
 				case IDWHOLEWORD :
 					findHistory._isMatchWord = _options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
-					quickFindAndMarkAll();
+					quickFindAndMarkAll({});
 					return TRUE;
 
 				case IDMATCHCASE :
 					findHistory._isMatchCase = _options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
-					quickFindAndMarkAll();
+					quickFindAndMarkAll({});
 					return TRUE;
 
 				case IDNORMAL:
@@ -1248,7 +1248,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					//regex upward search is disable in v6.3 due to a regression
 					::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)!isRegex);
-					quickFindAndMarkAll();
+					quickFindAndMarkAll({});
 					} return TRUE;
 
 				case IDWRAP :
@@ -1365,7 +1365,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case ID_QUICK_FIND:
 				{
 					_options._quick_find = isCheckedOrNot(ID_QUICK_FIND);
-					quickFindAndMarkAll();
+					quickFindAndMarkAll({});
 				} return TRUE;
 
 				default :

@@ -62,6 +62,18 @@ generic_string getTextFromCombo(HWND hCombo)
 	return generic_string(str);
 };
 
+
+generic_string getTextFromComboCurrentSel(HWND hFindCombo)
+{
+	// get search box string by current selection
+	// using getTextFromCombo will return current text, which is not what is needed
+	auto cur_sel = ::SendMessage(hFindCombo, CB_GETCURSEL, 0, 0);
+	TCHAR str[FINDREPLACE_MAXLENGTH];
+	::SendMessage(hFindCombo, CB_GETLBTEXT, cur_sel, reinterpret_cast<LPARAM>(str));
+	return generic_string{ str };
+}
+
+
 int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int length) 
 {	//query may equal to result, since it always gets smaller
 	int i = 0, j = 0;
@@ -803,20 +815,21 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			FindHistory & findHistory = nppParamInst->getFindHistory();
 
 			// find and mark all matches
-			auto quickFindAndMarkAll = [&]()
+			auto quickFindAndMarkAll = [&](generic_string search_str = {})
 			{
 				if (_options._quick_find && _currentStatus == FIND_DLG)
 				{
 					// Use find next method to search for first match
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-
-					// get search box string by current selection
-					// using getTextFromCombo will return current text, which is not what is needed
-					auto cur_sel = ::SendMessage(hFindCombo, CB_GETCURSEL, 0, 0);
-					TCHAR str[FINDREPLACE_MAXLENGTH];
-					::SendMessage(hFindCombo, CB_GETLBTEXT, cur_sel, reinterpret_cast<LPARAM>(str));
-					_options._str2Search = generic_string{str};
+					if (search_str.empty())
+					{
+						_options._str2Search = getTextFromCombo(hFindCombo);
+					}
+					else
+					{
+						_options._str2Search = search_str;
+					}
 
 					nppParamInst->_isFindReplacing = false;
 					if (isMacroRecording)
@@ -827,15 +840,23 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					auto old_pos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
 					(*_ppEditView)->execute(SCI_SETCURRENTPOS, 0);
 
+					COMBOBOXINFO cbi{ sizeof(COMBOBOXINFO) };
+					DWORD start_pos = static_cast<DWORD>(-1);
+					DWORD end_pos = static_cast<DWORD>(-1);
+					// get search box caret position to be restored after refocus
+					if (GetComboBoxInfo(hFindCombo, &cbi))
+					{
+						::SendMessage(cbi.hwndItem, EM_GETSEL, reinterpret_cast<WPARAM>(&start_pos), reinterpret_cast<LPARAM>(&end_pos));
+					}
+
+					// clear all marked selections without affecting bookmarks
+					(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, 0, static_cast<int>((*_ppEditView)->execute(SCI_GETLENGTH)));
 					if (processFindNext(_options._str2Search.c_str(), _env, &findStatus))
 					{
 
 						nppParamInst->_isFindReplacing = true;
 
-						// clear all marked selections without affecting bookmarks
-						(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, 0, static_cast<int>((*_ppEditView)->execute(SCI_GETLENGTH)));
 						int nbMarked = processAll(ProcessMarkAll, &_options);
-
 						generic_string result = TEXT("");
 						if (nbMarked < 0)
 						{
@@ -859,12 +880,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					}
 
 					::SetFocus(hFindCombo);
-					COMBOBOXINFO cbi{ sizeof(COMBOBOXINFO) };
-					if (GetComboBoxInfo(hFindCombo, &cbi))
-					{
-						// Set caret at the end of combobox after resetting focus
-						SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(-1), static_cast<LPARAM>(-1));
-					}
+					SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(start_pos), static_cast<LPARAM>(start_pos));
 				}
 			};
 
@@ -1355,40 +1371,21 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			}
 
 			// Process notifications dialog controls
+			static generic_string old_search{};
 			switch (HIWORD(wParam))
 			{
 				case CBN_SELCHANGE: // Combo box selection change
-				{
-					if (_options._quick_find)
-					{
-						static generic_string old_search{};
-						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-
-						// get search box string by current selection
-						// using getTextFromCombo will return current text, which is not what is needed
-						auto cur_sel = ::SendMessage(hFindCombo, CB_GETCURSEL, 0, 0);
-						TCHAR str[FINDREPLACE_MAXLENGTH];
-						::SendMessage(hFindCombo, CB_GETLBTEXT, cur_sel, reinterpret_cast<LPARAM>(str));
-						auto current_search = generic_string(str);
-						// a 'fix' for Ctrl + A when used in search box
-						if (old_search == current_search)
-						{
-							return TRUE;
-						}
-						old_search = current_search;
-					}
-					else
-					{
-						return TRUE;
-					}
-				} //!fall-through!
-
 				case CBN_EDITUPDATE: // Combo box edit field update notification
-
 				{
-					if (_options._quick_find && LOWORD(wParam) == IDFINDWHAT)
+					auto current_search = (HIWORD(wParam) == CBN_SELCHANGE)
+						?getTextFromComboCurrentSel(::GetDlgItem(_hSelf, IDFINDWHAT))
+						:getTextFromCombo(::GetDlgItem(_hSelf, IDFINDWHAT));
+
+					if (_options._quick_find && LOWORD(wParam) == IDFINDWHAT
+						&& old_search != current_search)
 					{
-						quickFindAndMarkAll();
+						old_search = current_search;
+						quickFindAndMarkAll(current_search);
 					}
 				} return TRUE;
 			}

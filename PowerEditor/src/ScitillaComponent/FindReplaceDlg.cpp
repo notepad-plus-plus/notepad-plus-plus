@@ -810,14 +810,20 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					// Use find next method to search for first match
 					setStatusbarMessage(TEXT(""), FSNoMessage);
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-					_options._str2Search = getTextFromCombo(hFindCombo);
+
+					// get search box string by current selection
+					// using getTextFromCombo will return current text, which is not what is needed
+					auto cur_sel = ::SendMessage(hFindCombo, CB_GETCURSEL, 0, 0);
+					TCHAR str[FINDREPLACE_MAXLENGTH];
+					::SendMessage(hFindCombo, CB_GETLBTEXT, cur_sel, reinterpret_cast<LPARAM>(str));
+					_options._str2Search = generic_string{str};
 
 					nppParamInst->_isFindReplacing = false;
 					if (isMacroRecording)
 						saveInMacro(wParam, FR_OP_FIND);
 
 					FindStatus findStatus = FSFound;
-					// Save old caret position
+					// Save old search position
 					auto old_pos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
 					(*_ppEditView)->execute(SCI_SETCURRENTPOS, 0);
 
@@ -1351,19 +1357,38 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			// Process notifications dialog controls
 			switch (HIWORD(wParam))
 			{
-				case CBN_EDITUPDATE: // Combobox edit field update notification
-				case CBN_SELCHANGE:
+				case CBN_SELCHANGE: // Combo box selection change
 				{
-					if (_options._quick_find && LOWORD(wParam) == IDFINDWHAT)
+					if (_options._quick_find)
 					{
 						static generic_string old_search{};
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-						auto current_search = getTextFromCombo(hFindCombo);
-						if (old_search != current_search)
+
+						// get search box string by current selection
+						// using getTextFromCombo will return current text, which is not what is needed
+						auto cur_sel = ::SendMessage(hFindCombo, CB_GETCURSEL, 0, 0);
+						TCHAR str[FINDREPLACE_MAXLENGTH];
+						::SendMessage(hFindCombo, CB_GETLBTEXT, cur_sel, reinterpret_cast<LPARAM>(str));
+						auto current_search = generic_string(str);
+						// a 'fix' for Ctrl + A when used in search box
+						if (old_search == current_search)
 						{
-							old_search = current_search;
-							quickFindAndMarkAll();
+							return TRUE;
 						}
+						old_search = current_search;
+					}
+					else
+					{
+						return TRUE;
+					}
+				} //!fall-through!
+
+				case CBN_EDITUPDATE: // Combo box edit field update notification
+
+				{
+					if (_options._quick_find && LOWORD(wParam) == IDFINDWHAT)
+					{
+						quickFindAndMarkAll();
 					}
 				} return TRUE;
 			}

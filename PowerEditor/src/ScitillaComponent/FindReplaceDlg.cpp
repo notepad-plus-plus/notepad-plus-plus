@@ -2278,7 +2278,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), !hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL),!hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE),!hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, ID_QUICK_FIND), SW_SHOW);
+	::ShowWindow(::GetDlgItem(_hSelf, ID_QUICK_FIND), SW_SHOW); // Should be visible in both search and replace dialogs
 
 	gotoCorrectTab();
 

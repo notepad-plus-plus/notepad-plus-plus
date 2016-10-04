@@ -85,7 +85,7 @@ struct FindOption
 	bool _isInHiddenDir = false;
 	bool _dotMatchesNewline = false;
 	bool _isMatchLineNumber = true; // only for Find in Folder
-	bool _quick_find = true;
+	bool _quickFind = true;
 };
 
 //This class contains generic search functions as static functions for easy access

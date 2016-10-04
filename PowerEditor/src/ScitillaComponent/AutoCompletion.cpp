@@ -39,11 +39,6 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 		if (wordArray[i] == word)
 			return true;
 	return false;
-}
-
-static bool isAllDigits(const generic_string &str)
-{
- 	return std::all_of(str.begin(), str.end(), ::isdigit);
 };
 
 bool AutoCompletion::showApiComplete()
@@ -108,24 +103,13 @@ bool AutoCompletion::showApiAndWordComplete()
 				wordArray.push_back(_keyWordArray[i]);
 			canStop = true;
 		}
-		else if (canStop)
-		{
+		else if (canStop) {
 			// Early out since no more strings will match
 			break;
 		}
 	}
 
-	if (_ignoreCase)
-	{
-		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const auto& lhs, const auto& rhs){
-			const auto result = mismatch(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), [](const auto& lhs, const auto& rhs){return tolower(lhs) == tolower(rhs);});
-			return result.second != rhs.cend() && (result.first == lhs.cend() || tolower(*result.first) < tolower(*result.second));
-		});
-	}
-	else
-	{
-		std::sort(_keyWordArray.begin(), _keyWordArray.end());
-	}
+	sortKeyWords();
 
 	// Get word list
 	generic_string words;
@@ -147,8 +131,6 @@ bool AutoCompletion::showApiAndWordComplete()
 void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
 {
 	const size_t bufSize = 256;
-	if (isAllDigits(beginChars))
-		return;
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
 	//expr += TEXT("[^ \\t.,;:\"()=<>'+!\\[\\]]*");
@@ -158,8 +140,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX ;
 	
-	if (_ignoreCase)
-	{
+	if(_ignoreCase){
 		flags = SCFIND_WORDSTART | SCFIND_REGEXP | SCFIND_POSIX ;
 	}
 	
@@ -371,17 +352,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		return true;
 	}
 
-	if (_ignoreCase)
-	{
-		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const auto& lhs, const auto& rhs){
-			const auto result = mismatch(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), [](const auto& lhs, const auto& rhs){return tolower(lhs) == tolower(rhs);});
-			return result.second != rhs.cend() && (result.first == lhs.cend() || tolower(*result.first) < tolower(*result.second));
-		});
-	}
-	else
-	{
-		std::sort(_keyWordArray.begin(), _keyWordArray.end());
-	}
+	sortKeyWords();
 	// Get word list
 	generic_string words(TEXT(""));
 
@@ -891,17 +862,7 @@ bool AutoCompletion::setLanguage(LangType language) {
 				}
 			}
 		}
-		if (_ignoreCase)
-		{
-			std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const auto& lhs, const auto& rhs){
-				const auto result = mismatch(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), [](const auto& lhs, const auto& rhs){return tolower(lhs) == tolower(rhs);});
-				return result.second != rhs.cend() && (result.first == lhs.cend() || tolower(*result.first) < tolower(*result.second));
-			});
-		}
-		else
-		{
-			std::sort(_keyWordArray.begin(), _keyWordArray.end());
-		}
+		sortKeyWords();
 		for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
 		{
 			_keyWords.append(_keyWordArray[i]);
@@ -933,4 +894,16 @@ const TCHAR * AutoCompletion::getApiFileName()
 
 	return ScintillaEditView::langNames[_curLang].lexerName;
 
+}
+void AutoCompletion::sortKeyWords()
+{
+	if (_ignoreCase) {
+		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const auto& lhs, const auto& rhs) {
+			const auto result = mismatch(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), [](const auto& lhs, const auto& rhs) {return tolower(lhs) == tolower(rhs); });
+			return result.second != rhs.cend() && (result.first == lhs.cend() || tolower(*result.first) < tolower(*result.second));
+		});
+	}
+	else {
+		std::sort(_keyWordArray.begin(), _keyWordArray.end());
+	}
 }

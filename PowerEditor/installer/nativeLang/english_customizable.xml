@@ -362,7 +362,7 @@
                 <Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Replace in Files"/>
                 <Item id="1661" name="Follow current doc."/>
-                <Item id="1641" name="Find All in Current Document"/>
+                <Item id="1641" name="Find &amp;All in Current Document"/>
                 <Item id="1686" name="Transparency"/>
                 <Item id="1703" name="&amp;. matches newline"/>
             </Find>

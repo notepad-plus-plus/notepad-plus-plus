@@ -135,83 +135,123 @@ SectionGroupEnd
 SectionGroup un.Themes
 	
 	Section un.BlackBoard
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Black board.xml"
+	${endIf}
 	SectionEnd
 
 	Section un.Choco
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Choco.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.HelloKitty
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Hello Kitty.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.MonoIndustrial
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Mono Industrial.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.Monokai
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Monokai.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.Obsidian
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\obsidian.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.PlasticCodeWrap
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Plastic Code Wrap.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.RubyBlue
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Ruby Blue.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.Twilight
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Twilight.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.VibrantInk
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Vibrant Ink.xml"
+	${endIf}
 	SectionEnd
 
 	Section un.DeepBlack
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Deep Black.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.vimDarkBlue
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\vim Dark Blue.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.Bespin
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Bespin.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.Zenburn
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Zenburn.xml"
+	${endIf}
 	SectionEnd
 
 	Section un.Solarized
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Solarized.xml"
+	${endIf}
 	SectionEnd
 
 	Section un.Solarized-light
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Solarized-light.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.HotFudgeSundae
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\HotFudgeSundae.xml"
+	${endIf}
 	SectionEnd
 
 	Section un.khaki
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\khaki.xml"
+	${endIf}
 	SectionEnd
 	
 	Section un.MossyLawn
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\MossyLawn.xml"
+	${endIf}
 	SectionEnd
 
 	Section un.Navajo
+	${If} $keepUserData == "false"
 		Delete "$themesParentPath\themes\Navajo.xml"
+	${endIf}
 	SectionEnd
 	
 SectionGroupEnd

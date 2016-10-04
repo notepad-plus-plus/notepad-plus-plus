@@ -25,6 +25,21 @@
 ; along with this program; if not, write to the Free Software
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+Var themesParentPath
+Var doLocalConf
+Function un.onInit
+  	; determinate theme path for uninstall themes
+	StrCpy $themesParentPath "$APPDATA\${APPNAME}"
+	StrCpy $doLocalConf "false"
+	IfFileExists $INSTDIR\doLocalConf.xml doesExist noneExist
+doesExist:
+	StrCpy $themesParentPath $INSTDIR
+	StrCpy $doLocalConf "true"
+noneExist:
+	;MessageBox MB_OK "doLocalConf == $doLocalConf"
+FunctionEnd
+
+
 Section un.explorerContextMenu
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
@@ -100,6 +115,16 @@ Section un.UserManual
 	RMDir /r "$INSTDIR\user.manual"
 SectionEnd
 
+Var keepUserData
+Function un.doYouReallyWantToKeepData
+	StrCpy $keepUserData "false"
+	MessageBox MB_YESNO "Would you like to keep your custom settings?" IDYES skipRemoveUserData IDNO removeUserData
+skipRemoveUserData:
+	StrCpy $keepUserData "true"
+removeUserData:
+FunctionEnd
+
+
 Section Uninstall
 !ifdef ARCH64
 	SetRegView 64
@@ -129,7 +154,6 @@ Section Uninstall
 	
 
 	; Clean up Notepad++
-	Delete "$INSTDIR\LINEDRAW.TTF"
 	Delete "$INSTDIR\SciLexer.dll"
 	Delete "$INSTDIR\change.log"
 	Delete "$INSTDIR\LICENSE"
@@ -137,47 +161,62 @@ Section Uninstall
 	Delete "$INSTDIR\notepad++.exe"
 	Delete "$INSTDIR\readme.txt"
 	
-	Delete "$INSTDIR\config.xml"
+	${If} $doLocalConf == "true"
+		Call un.doYouReallyWantToKeepData
+	${endIf}
+
+	${If} $keepUserData == "false"
+		Delete "$INSTDIR\config.xml"
+		Delete "$INSTDIR\langs.xml"
+		Delete "$INSTDIR\stylers.xml"
+		Delete "$INSTDIR\contextMenu.xml"
+		Delete "$INSTDIR\shortcuts.xml"
+		Delete "$INSTDIR\functionList.xml"
+		Delete "$INSTDIR\session.xml"
+		Delete "$INSTDIR\nativeLang.xml"
+		Delete "$INSTDIR\userDefineLang.xml"
+	${endIf}
+	
 	Delete "$INSTDIR\config.model.xml"
-	Delete "$INSTDIR\langs.xml"
 	Delete "$INSTDIR\langs.model.xml"
-	Delete "$INSTDIR\stylers.xml"
 	Delete "$INSTDIR\stylers.model.xml"
 	Delete "$INSTDIR\stylers_remove.xml"
-	Delete "$INSTDIR\contextMenu.xml"
-	Delete "$INSTDIR\shortcuts.xml"
-	Delete "$INSTDIR\functionList.xml"
-	Delete "$INSTDIR\nativeLang.xml"
-	Delete "$INSTDIR\session.xml"
 	Delete "$INSTDIR\localization\english.xml"
+	Delete "$INSTDIR\LINEDRAW.TTF"
 	Delete "$INSTDIR\SourceCodePro-Regular.ttf"
 	Delete "$INSTDIR\SourceCodePro-Bold.ttf"
 	Delete "$INSTDIR\SourceCodePro-It.ttf"
 	Delete "$INSTDIR\SourceCodePro-BoldIt.ttf"
 	Delete "$INSTDIR\NppHelp.chm"
+	Delete "$INSTDIR\doLocalConf.xml"
 	
-	; make context as current user to uninstall user's APPDATA
-	SetShellVarContext current
-	Delete "$APPDATA\${APPNAME}\langs.xml"
-	Delete "$APPDATA\${APPNAME}\config.xml"
-	Delete "$APPDATA\${APPNAME}\stylers.xml"
-	Delete "$APPDATA\${APPNAME}\contextMenu.xml"
-	Delete "$APPDATA\${APPNAME}\shortcuts.xml"
-	Delete "$APPDATA\${APPNAME}\functionList.xml"
-	Delete "$APPDATA\${APPNAME}\nativeLang.xml"
-	Delete "$APPDATA\${APPNAME}\session.xml"
-	Delete "$APPDATA\${APPNAME}\userDefineLang.xml"
-	Delete "$APPDATA\${APPNAME}\insertExt.ini"
-	
-	RMDir /r "$APPDATA\${APPNAME}\plugins\"
-	RMDir "$APPDATA\${APPNAME}\backup\"
-	RMDir "$APPDATA\${APPNAME}\themes\"
-	RMDir "$APPDATA\${APPNAME}"
+	${If} $doLocalConf == "false"
+		Call un.doYouReallyWantToKeepData
+	${endIf}
 
+	${If} $keepUserData == "false"
+		; make context as current user to uninstall user's APPDATA
+		SetShellVarContext current
+		Delete "$APPDATA\${APPNAME}\langs.xml"
+		Delete "$APPDATA\${APPNAME}\config.xml"
+		Delete "$APPDATA\${APPNAME}\stylers.xml"
+		Delete "$APPDATA\${APPNAME}\contextMenu.xml"
+		Delete "$APPDATA\${APPNAME}\shortcuts.xml"
+		Delete "$APPDATA\${APPNAME}\functionList.xml"
+		Delete "$APPDATA\${APPNAME}\nativeLang.xml"
+		Delete "$APPDATA\${APPNAME}\session.xml"
+		Delete "$APPDATA\${APPNAME}\userDefineLang.xml"
+		Delete "$APPDATA\${APPNAME}\insertExt.ini"
 	
-	StrCmp $1 "Admin" 0 +2
-		SetShellVarContext all ; make context for all user
+		RMDir /r "$APPDATA\${APPNAME}\plugins\"
+		RMDir "$APPDATA\${APPNAME}\backup\"
+		RMDir "$APPDATA\${APPNAME}\themes\"
+		RMDir "$APPDATA\${APPNAME}"
 		
+		StrCmp $1 "Admin" 0 +2
+			SetShellVarContext all ; make context for all user
+	${endIf}
+	
 	; Remove remaining directories
 	RMDir /r "$INSTDIR\plugins\disabled\"
 	RMDir "$INSTDIR\plugins\APIs\"
@@ -189,12 +228,4 @@ Section Uninstall
 
 SectionEnd
 
-Var themesParentPath
-Function un.onInit
-  	; determinate theme path for uninstall themes
-	StrCpy $themesParentPath "$APPDATA\${APPNAME}"
-	IfFileExists $INSTDIR\doLocalConf.xml doesExist noneExist
-doesExist:
-	StrCpy $themesParentPath $INSTDIR
-noneExist:
-FunctionEnd
+

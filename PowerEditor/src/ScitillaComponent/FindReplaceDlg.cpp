@@ -814,86 +814,6 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			NppParameters *nppParamInst = NppParameters::getInstance();
 			FindHistory & findHistory = nppParamInst->getFindHistory();
 
-			// find and mark all matches
-			auto quickFindAndMarkAll = [&](generic_string search_str)
-			{
-				if (_options._quickFind && (_currentStatus == FIND_DLG || _currentStatus == REPLACE_DLG))
-				{
-					// Use find next method to search for first match
-					setStatusbarMessage(TEXT(""), FSNoMessage);
-					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-					if (search_str.empty())
-					{
-						_options._str2Search = getTextFromCombo(hFindCombo);
-					}
-					else
-					{
-						_options._str2Search = search_str;
-					}
-
-					nppParamInst->_isFindReplacing = false;
-					if (isMacroRecording)
-						saveInMacro(wParam, FR_OP_FIND);
-
-					FindStatus findStatus = FSFound;
-					// Save old search position
-					auto oldPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
-					(*_ppEditView)->execute(SCI_SETCURRENTPOS, 0);
-
-					COMBOBOXINFO cbi{ sizeof(COMBOBOXINFO) };
-					DWORD startPos = static_cast<DWORD>(-1);
-					DWORD endPos = static_cast<DWORD>(-1);
-					// get search box caret position to be restored after refocus
-					if (GetComboBoxInfo(hFindCombo, &cbi))
-					{
-						::SendMessage(cbi.hwndItem, EM_GETSEL, reinterpret_cast<WPARAM>(&startPos), reinterpret_cast<LPARAM>(&endPos));
-					}
-
-					// clear all marked selections without affecting bookmarks
-					(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, 0, static_cast<int>((*_ppEditView)->execute(SCI_GETLENGTH)));
-					if (processFindNext(_options._str2Search.c_str(), _env, &findStatus))
-					{
-
-						nppParamInst->_isFindReplacing = true;
-
-						int nbMarked = processAll(ProcessMarkAll, &_options);
-						generic_string result = TEXT("");
-						if (nbMarked < 0)
-						{
-							result = TEXT("Mark: The regular expression to search is malformed.");
-						}
-						else
-						{
-							TCHAR moreInfo[128];
-							if (nbMarked == 1)
-								wsprintf(moreInfo, TEXT("Mark: %d match."), nbMarked);
-							else
-								wsprintf(moreInfo, TEXT("Mark: %s matches."), commafyInt(nbMarked).c_str());
-							result = moreInfo;
-						}
-						setStatusbarMessage(result, FSMessage);
-					}
-					else
-					{
-						// if nothing found stay at old position
-						(*_ppEditView)->execute(SCI_SETCURRENTPOS, oldPos);
-					}
-
-					::SetFocus(hFindCombo);
-					SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(startPos), static_cast<LPARAM>(startPos));
-				}
-			};
-
-			// Hide quick find checkbox where it's not needed
-			if (_currentStatus == FIND_DLG ||  _currentStatus == REPLACE_DLG)
-			{
-				::ShowWindow(GetDlgItem(_hSelf, ID_QUICK_FIND), SW_SHOW);
-			}
-			else
-			{
-				::ShowWindow(GetDlgItem(_hSelf, ID_QUICK_FIND), SW_HIDE);
-			}
-
 			switch (wParam)
 			{
 //Single actions
@@ -903,7 +823,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					// clear all marks at dialog 'close'
 					if (_options._quickFind && (_currentStatus == FIND_DLG || _currentStatus == REPLACE_DLG))
 					{
-						(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, 0, static_cast<int>((*_ppEditView)->execute(SCI_GETLENGTH)));
+						clearMarksByStyle(SCE_UNIVERSAL_FOUND_STYLE_INC);
 					}
 					display(false);
 					break;
@@ -1370,7 +1290,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					}
 					else
 					{
-						(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, 0, static_cast<int>((*_ppEditView)->execute(SCI_GETLENGTH)));
+						clearMarksByStyle(SCE_UNIVERSAL_FOUND_STYLE_INC);
 					}
 				} return TRUE;
 
@@ -1400,6 +1320,86 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		} break;
 	}
 	return FALSE;
+}
+
+// Find all matches of search_str and mark them with SCE_UNIVERSAL_FOUND_STYLE_INC style
+// In case argument is empty search box text value is used
+void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str)
+{
+	if (_options._quickFind && (_currentStatus == FIND_DLG || _currentStatus == REPLACE_DLG))
+	{
+		NppParameters *nppParamInst = NppParameters::getInstance();
+		// Use find next method to search for first match
+		setStatusbarMessage(TEXT(""), FSNoMessage);
+		HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+		if (search_str.empty())
+		{
+			_options._str2Search = getTextFromCombo(hFindCombo);
+		}
+		else
+		{
+			_options._str2Search = search_str;
+		}
+
+		nppParamInst->_isFindReplacing = false;
+
+		FindStatus findStatus = FSFound;
+		// Save old search position
+		auto oldPos = (*_ppEditView)->execute(SCI_GETCURRENTPOS);
+		(*_ppEditView)->execute(SCI_SETCURRENTPOS, 0);
+
+		COMBOBOXINFO cbi{ sizeof(COMBOBOXINFO) };
+		DWORD startPos = static_cast<DWORD>(-1);
+		DWORD endPos = static_cast<DWORD>(-1);
+		// get search box caret position to be restored after refocus
+		if (GetComboBoxInfo(hFindCombo, &cbi))
+		{
+			::SendMessage(cbi.hwndItem, EM_GETSEL, reinterpret_cast<WPARAM>(&startPos), reinterpret_cast<LPARAM>(&endPos));
+		}
+
+		clearMarksByStyle(SCE_UNIVERSAL_FOUND_STYLE_INC);
+		if (processFindNext(_options._str2Search.c_str(), _env, &findStatus))
+		{
+
+			nppParamInst->_isFindReplacing = true;
+
+			int nbMarked = processAll(ProcessMarkAll_IncSearch, &_options);
+			generic_string result = TEXT("");
+			if (nbMarked < 0)
+			{
+				result = TEXT("Mark: The regular expression to search is malformed.");
+			}
+			else
+			{
+				TCHAR moreInfo[128];
+				if (nbMarked == 1)
+					wsprintf(moreInfo, TEXT("Mark: %d match."), nbMarked);
+				else
+					wsprintf(moreInfo, TEXT("Mark: %s matches."), commafyInt(nbMarked).c_str());
+				result = moreInfo;
+			}
+			setStatusbarMessage(result, FSMessage);
+		}
+		else
+		{
+			// if nothing found stay at old position
+			(*_ppEditView)->execute(SCI_SETCURRENTPOS, oldPos);
+		}
+
+		::SetFocus(hFindCombo);
+		SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(startPos), static_cast<LPARAM>(startPos));
+	}
+
+}
+
+// clear all marks in current document with specified style
+void FindReplaceDlg::clearMarksByStyle(int style)
+{
+	auto currentInd = (*_ppEditView)->execute(SCI_GETINDICATORCURRENT);
+	(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, style);
+	(*_ppEditView)->execute(SCI_INDICATORCLEARRANGE, 0, static_cast<int>((*_ppEditView)->execute(SCI_GETLENGTH)));
+	(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, currentInd);
+	setStatusbarMessage(TEXT(""), FSNoMessage);
 }
 
 // return value :
@@ -2278,6 +2278,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), !hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL),!hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE),!hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, ID_QUICK_FIND), SW_SHOW);
 
 	gotoCorrectTab();
 
@@ -2302,6 +2303,7 @@ void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), !hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), !hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), !hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, ID_QUICK_FIND), !hideOrShow);
 }
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
@@ -2326,7 +2328,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
-
+	::ShowWindow(::GetDlgItem(_hSelf, ID_QUICK_FIND), isEnable ? SW_HIDE : SW_SHOW);
 	// Show Items
 	if (isEnable)
 	{
@@ -2654,6 +2656,7 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 
 	::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
     display(toShow);
+	quickFindAndMarkAll({});
 }
 
 LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -2675,6 +2678,10 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 
 void FindReplaceDlg::enableFindInFilesFunc()
 {
+	if (_options._quickFind)
+	{
+		clearMarksByStyle(SCE_UNIVERSAL_FOUND_STYLE_INC);
+	}
 	enableFindInFilesControls();
 	_currentStatus = FINDINFILES_DLG;
 	gotoCorrectTab();
@@ -2687,6 +2694,10 @@ void FindReplaceDlg::enableFindInFilesFunc()
 
 void FindReplaceDlg::enableMarkFunc()
 {
+	if (_options._quickFind)
+	{
+		clearMarksByStyle(SCE_UNIVERSAL_FOUND_STYLE_INC);
+	}
 	enableFindInFilesControls(false);
 	enableMarkAllControls(true);
 

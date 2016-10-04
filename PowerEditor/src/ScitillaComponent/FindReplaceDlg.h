@@ -337,6 +337,7 @@ public :
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
 	static LONG_PTR originalFinderProc;
 
 	// Window procedure for the finder
@@ -369,6 +370,8 @@ private :
 	FindStatus _statusbarFindStatus;
 
 	
+	void quickFindAndMarkAll(generic_string search_str);
+	void clearMarksByStyle(int style);
 
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);

@@ -89,15 +89,19 @@ bool AutoCompletion::showApiAndWordComplete()
 	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
 
-		generic_string keytemp;
-		std::transform(_keyWordArray[i].begin(), _keyWordArray[i].end(), std::back_inserter(keytemp), ::tolower);
-		generic_string expr(beginChars);
-		generic_string beginchartmp;
-		std::transform(expr.begin(), expr.end(), std::back_inserter(beginchartmp), ::tolower);
-
+		bool _ignoreCaseMatch = false;
+		if (_ignoreCase)
+		{
+			generic_string keytemp;
+			std::transform(_keyWordArray[i].begin(), _keyWordArray[i].end(), std::back_inserter(keytemp), ::tolower);
+			generic_string expr(beginChars);
+			generic_string beginchartmp;
+			std::transform(expr.begin(), expr.end(), std::back_inserter(beginchartmp), ::tolower);
+			_ignoreCaseMatch = (keytemp.compare(0, len, beginchartmp) == 0);
+		}
+		
 		//if (_keyWordArray[i].compare(0, len, beginChars) == 0)
-		//if (keytemp.compare(0, len, beginchartmp) == 0)
-		if (((keytemp.compare(0, len, beginchartmp) == 0) && _ignoreCase) || (_keyWordArray[i].compare(0, len, beginChars) == 0))
+		if (_ignoreCaseMatch || (_keyWordArray[i].compare(0, len, beginChars) == 0))
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);

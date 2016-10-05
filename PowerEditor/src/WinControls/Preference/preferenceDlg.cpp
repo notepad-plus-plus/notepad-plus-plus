@@ -387,6 +387,9 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH, BM_SETCHECK, showDocSwitcher, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH_NOEXTCOLUMN, BM_SETCHECK, nppGUI._fileSwitcherWithoutExtColumn, 0);
 
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_AT_START_OF_LINE, BM_SETCHECK, nppGUI._lineCommentAtStartOfLine, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_BLANK_LINE, BM_SETCHECK, nppGUI._lineCoomentIncBlankLines, 0);
+
 			LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
 
 			for (size_t i = 0, len = localizationSwitcher.size(); i < len ; ++i)
@@ -567,6 +570,7 @@ void MarginsDlg::initScintParam()
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	const ScintillaViewParams & svp = pNppParam->getSVP();
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
 	
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_BOX, BM_SETCHECK, FALSE, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_CIRCLE, BM_SETCHECK, FALSE, 0);
@@ -613,6 +617,9 @@ void MarginsDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_SETCHECK, svp._scrollBeyondLastLine, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
+
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_AT_START_OF_LINE, BM_SETCHECK, nppGUI._lineCommentAtStartOfLine, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_BLANK_LINE, BM_SETCHECK, nppGUI._lineCoomentIncBlankLines, 0);
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_SETCHECK, !svp._showBorderEdge, 0);
 
@@ -832,6 +839,14 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				case IDC_RADIO_LWINDENT:
 					svp._lineWrapMethod = LINEWRAP_INDENT;
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, 0);
+					return TRUE;
+
+				case IDC_CHECK_LINE_COMMENT_AT_START_OF_LINE:
+					nppGUI._lineCommentAtStartOfLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_AT_START_OF_LINE, BM_GETCHECK, 0, 0));
+					return TRUE;
+
+				case IDC_CHECK_LINE_COMMENT_BLANK_LINE:
+					nppGUI._lineCoomentIncBlankLines = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_BLANK_LINE, BM_GETCHECK, 0, 0));
 					return TRUE;
 
 				default :

@@ -1362,7 +1362,6 @@ void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str)
 		{
 
 			nppParamInst->_isFindReplacing = true;
-
 			int nbMarked = processAll(ProcessMarkAll_IncSearch, &_options);
 			generic_string result = TEXT("");
 			if (nbMarked < 0)
@@ -1379,6 +1378,7 @@ void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str)
 				result = moreInfo;
 			}
 			setStatusbarMessage(result, FSMessage);
+			nppParamInst->_isFindReplacing = false;
 		}
 		else
 		{
@@ -2253,6 +2253,7 @@ void FindReplaceDlg::setSearchText(TCHAR * txt2find) {
 		::SendMessage(hCombo, CB_SETCURSEL, static_cast<WPARAM>(-1), 0); // remove selection - to allow using down arrow to get to last searched word
 		::SetDlgItemText(_hSelf, IDFINDWHAT, txt2find);
 	}
+	quickFindAndMarkAll({});
 	::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 }
 
@@ -2656,7 +2657,6 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 
 	::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
     display(toShow);
-	quickFindAndMarkAll({});
 }
 
 LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)

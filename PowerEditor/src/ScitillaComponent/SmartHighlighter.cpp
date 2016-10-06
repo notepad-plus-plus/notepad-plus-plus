@@ -47,13 +47,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 		return;
 
 	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
-	auto wordStart = pHighlightView->execute(SCI_WORDSTARTPOSITION, curPos, true);
-	auto wordEnd = pHighlightView->execute(SCI_WORDENDPOSITION, wordStart, true);
 	auto range = pHighlightView->getSelection();
-
-	// Make sure the "word" positions match the current selection
-	if (wordStart == wordEnd)
-		return;
 
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
@@ -78,8 +72,15 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	}
 
 	// additional checks for wordOnly mode
-	if (wordOnly && (wordStart != range.cpMin || wordEnd != range.cpMax))
-		return;
+	// Make sure the "word" positions match the current selection
+	if (wordOnly) 
+	{
+		auto wordStart = pHighlightView->execute(SCI_WORDSTARTPOSITION, curPos, true);
+		auto wordEnd = pHighlightView->execute(SCI_WORDENDPOSITION, wordStart, true);
+
+		if (wordStart == wordEnd || wordStart != range.cpMin || wordEnd != range.cpMax)
+			return;
+	}
 
 	int textlen = range.cpMax - range.cpMin + 1;
 	char * text2Find = new char[textlen];

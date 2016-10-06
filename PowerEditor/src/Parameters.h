@@ -823,7 +823,7 @@ struct NppGUI final
 	bool _isFolderDroppedOpenFiles = false;
 
 	bool _lineCommentAtStartOfLine = false;
-	bool _lineCoomentIncBlankLines = false;
+	bool _lineCommentBlankLines = false;
 };
 
 struct ScintillaViewParams

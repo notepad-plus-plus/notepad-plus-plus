@@ -3958,7 +3958,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		size_t lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
 
 		// empty lines are not commented
-		if (lineIndent == lineEnd && !nppGUI._lineCoomentIncBlankLines)
+		if (lineIndent == lineEnd && !nppGUI._lineCommentBlankLines )
 			continue;
 
 		if (avoidIndent || nppGUI._lineCommentAtStartOfLine)

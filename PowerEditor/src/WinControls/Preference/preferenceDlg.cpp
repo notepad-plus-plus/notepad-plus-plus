@@ -388,7 +388,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH_NOEXTCOLUMN, BM_SETCHECK, nppGUI._fileSwitcherWithoutExtColumn, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_AT_START_OF_LINE, BM_SETCHECK, nppGUI._lineCommentAtStartOfLine, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_BLANK_LINE, BM_SETCHECK, nppGUI._lineCoomentIncBlankLines, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_BLANK_LINES, BM_SETCHECK, nppGUI._lineCommentBlankLines, 0);
 
 			LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
 
@@ -619,7 +619,7 @@ void MarginsDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_AT_START_OF_LINE, BM_SETCHECK, nppGUI._lineCommentAtStartOfLine, 0);
-	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_BLANK_LINE, BM_SETCHECK, nppGUI._lineCoomentIncBlankLines, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_BLANK_LINES, BM_SETCHECK, nppGUI._lineCommentBlankLines, 0);
 
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_NOEDGE, BM_SETCHECK, !svp._showBorderEdge, 0);
 
@@ -845,8 +845,8 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					nppGUI._lineCommentAtStartOfLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_AT_START_OF_LINE, BM_GETCHECK, 0, 0));
 					return TRUE;
 
-				case IDC_CHECK_LINE_COMMENT_BLANK_LINE:
-					nppGUI._lineCoomentIncBlankLines = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_BLANK_LINE, BM_GETCHECK, 0, 0));
+				case IDC_CHECK_LINE_COMMENT_BLANK_LINES:
+					nppGUI._lineCommentBlankLines = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINE_COMMENT_BLANK_LINES, BM_GETCHECK, 0, 0));
 					return TRUE;
 
 				default :

@@ -39,6 +39,7 @@ SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 !include "nsisInclude\winVer.nsh"
 !include "nsisInclude\gobalDef.nsh"
 !include "nsisInclude\tools.nsh"
+!include "nsisInclude\uninstall.nsh"
 
 !ifdef ARCH64
 OutFile ".\build\npp.${APPVERSION}.Installer.x64.exe"
@@ -84,22 +85,41 @@ page Custom ExtraOptions
 
 !include "nsisInclude\langs.nsh"
 
+Var diffArchDir2Remove
 Function .onInit
 
 	Call preventInstallInWin9x
 		
- !insertmacro MUI_LANGDLL_DISPLAY
+	!insertmacro MUI_LANGDLL_DISPLAY
 
- !ifdef ARCH64
+!ifdef ARCH64
 	${If} ${RunningX64}
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
 		; change install dir 
 		StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
+		
+		; check if 32-bit version has been installed if yes, ask user to remove it
+		IfFileExists $PROGRAMFILES\${APPNAME}\notepad++.exe 0 noDelete32
+		MessageBox MB_YESNO "You're installing 64-bit version. 32-bit version has been installed. Remove it?$\n(Your custom config files will be kept)" /SD IDYES IDYES doDelete32 IDNO noDelete32 ;IDYES remove
+doDelete32:
+		StrCpy $diffArchDir2Remove $PROGRAMFILES\${APPNAME}
+noDelete32:
+		
 	${Else}
 		MessageBox MB_OK "You cannot install Notepad++ 64-bit version on your 32-bit system.$\nPlease download and intall Notepad++ 32-bit version instead."
 		Abort
 	${EndIf}
+!else ; 32-bit installer
+	${If} ${RunningX64}
+		; check if 64-bit version has been installed if yes, ask user to remove it
+		IfFileExists $PROGRAMFILES64\${APPNAME}\notepad++.exe 0 noDelete64
+		MessageBox MB_YESNO "You're installing 32-bit version. 64-bit version has been installed. Remove it?$\n(Your custom config files will be kept)"  /SD IDYES IDYES doDelete64 IDNO noDelete64
+doDelete64:
+		StrCpy $diffArchDir2Remove $PROGRAMFILES64\${APPNAME}
+noDelete64:
+	${EndIf}
+
 !endif
 
 	${MementoSectionRestore}
@@ -117,6 +137,11 @@ Section -"Notepad++" mainSection
 
 	Call setPathAndOptions
 	
+	${If} $diffArchDir2Remove != ""
+		!insertmacro uninstallRegKey
+		!insertmacro uninstallDir $diffArchDir2Remove 
+	${endIf}
+
 	Call copyCommonFiles
 
 	Call removeUnstablePlugins
@@ -127,7 +152,6 @@ Section -"Notepad++" mainSection
 	
 SectionEnd
 
-!include "nsisInclude\uninstall.nsh"
 !include "nsisInclude\autoCompletion.nsh"
 !include "nsisInclude\themes.nsh"
 !include "nsisInclude\binariesComponents.nsh"
@@ -150,7 +174,6 @@ ${MementoSectionDone}
 Section -FinishSection
   Call writeInstallInfoInRegistry
 SectionEnd
-
 
 
 BrandingText "Don HO"

@@ -115,6 +115,7 @@ Section un.UserManual
 	RMDir /r "$INSTDIR\user.manual"
 SectionEnd
 
+
 Var keepUserData
 Function un.doYouReallyWantToKeepData
 	StrCpy $keepUserData "false"
@@ -123,6 +124,43 @@ skipRemoveUserData:
 	StrCpy $keepUserData "true"
 removeUserData:
 FunctionEnd
+
+
+!macro uninstallRegKey
+	;Remove from registry...
+!ifdef ARCH64
+	SetRegView 32
+!else
+	SetRegView 64
+!endif
+	DeleteRegKey HKLM "${UNINSTALL_REG_KEY}"
+	;DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
+	;DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
+!ifdef ARCH64
+	SetRegView 64
+!else
+	SetRegView 32
+!endif
+!macroend
+
+!macro uninstallDir dir2remove
+	; Delete Shortcuts
+	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
+	RMDir "$SMPROGRAMS\Notepad++"
+	
+	UserInfo::GetAccountType
+	Pop $1
+	StrCmp $1 "Admin" 0 +2
+		SetShellVarContext all
+	
+	Delete "$DESKTOP\Notepad++.lnk"
+	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
+	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
+
+	
+	RMDir /r "${dir2remove}"
+	
+!macroend
 
 
 Section Uninstall

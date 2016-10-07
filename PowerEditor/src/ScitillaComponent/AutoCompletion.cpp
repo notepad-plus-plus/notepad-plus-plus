@@ -107,7 +107,8 @@ bool AutoCompletion::showApiAndWordComplete()
 				wordArray.push_back(_keyWordArray[i]);
 			canStop = true;
 		}
-		else if (canStop) {
+		else if (canStop) 
+		{
 			// Early out since no more strings will match
 			break;
 		}
@@ -144,7 +145,8 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX ;
 	
-	if(_ignoreCase){
+	if(_ignoreCase)
+	{
 		flags = SCFIND_WORDSTART | SCFIND_REGEXP | SCFIND_POSIX ;
 	}
 	
@@ -901,13 +903,15 @@ const TCHAR * AutoCompletion::getApiFileName()
 }
 void AutoCompletion::sortKeyWords()
 {
-	if (_ignoreCase) {
+	if (_ignoreCase)
+	{
 		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const auto& lhs, const auto& rhs) {
 			const auto result = mismatch(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), [](const auto& lhs, const auto& rhs) {return tolower(lhs) == tolower(rhs); });
 			return result.second != rhs.cend() && (result.first == lhs.cend() || tolower(*result.first) < tolower(*result.second));
 		});
 	}
-	else {
+	else 
+	{
 		std::sort(_keyWordArray.begin(), _keyWordArray.end());
 	}
 }

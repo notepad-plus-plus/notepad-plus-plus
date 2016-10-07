@@ -784,7 +784,7 @@ struct NppGUI final
 	enum AutocStatus{autoc_none, autoc_func, autoc_word, autoc_both};
 	AutocStatus _autocStatus = autoc_both;
 	size_t  _autocFromLen = 1;
-	bool _autocIgnoreNumbers = false;
+	bool _autocIgnoreNumbers = true;
 	bool _funcParams = false;
 	MatchedPairConf _matchedPairConf;
 

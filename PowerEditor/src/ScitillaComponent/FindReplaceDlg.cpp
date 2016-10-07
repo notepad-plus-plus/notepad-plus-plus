@@ -1336,6 +1336,7 @@ void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str, bool bNoRefo
 	{
 		NppParameters *nppParamInst = NppParameters::getInstance();
 		FindHistory & findHistory = nppParamInst->getFindHistory();
+		_options._noFlashing = true;
 
 		// Wrap-around disabled in quick search mode as it searches current view
 		findHistory._isWrap = _options._isWrapAround = false;
@@ -1369,7 +1370,20 @@ void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str, bool bNoRefo
 		}
 
 		clearMarksByStyle(SCE_UNIVERSAL_FOUND_STYLE_INC);
-		if (processFindNext(_options._str2Search.c_str(), _env, &findStatus))
+
+		bool bFindStatus = processFindNext(_options._str2Search.c_str(), _env, &findStatus);
+
+		// if search is done from the search dialog and there are no matches in current view
+		// will try to find a match in the whole document
+		if (!bFindStatus && !bNoRefocus)
+		{
+			_options._quickFind = false;
+
+			bFindStatus = processFindNext(_options._str2Search.c_str(), _env, &findStatus);
+			_options._quickFind = true;
+		}
+
+		if (bFindStatus)
 		{
 
 			nppParamInst->_isFindReplacing = true;
@@ -1403,6 +1417,7 @@ void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str, bool bNoRefo
 			SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(startPos), static_cast<LPARAM>(startPos));
 		}
 		findHistory._isWrap = _options._isWrapAround = isCheckedOrNot(IDWRAP);
+		_options._noFlashing = false;
 	}
 
 }
@@ -2424,7 +2439,7 @@ void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)
 
 void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus staus)
 {
-	if (!_options._quickFind)
+	if (!_options._noFlashing)
 	{
 		if (staus == FSNotFound)
 		{

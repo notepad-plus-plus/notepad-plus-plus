@@ -85,7 +85,7 @@ struct FindOption
 	bool _isInHiddenDir = false;
 	bool _dotMatchesNewline = false;
 	bool _isMatchLineNumber = true; // only for Find in Folder
-	bool _quickFind = true;
+	bool _quickFind = false; // "quick find" status
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -334,6 +334,8 @@ public :
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
+	void clearMarksByStyle(int style);
+	void quickFindAndMarkAll(generic_string search_str, bool bNoRefocus = false);
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -370,8 +372,6 @@ private :
 	FindStatus _statusbarFindStatus;
 
 	
-	void quickFindAndMarkAll(generic_string search_str);
-	void clearMarksByStyle(int style);
 
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);

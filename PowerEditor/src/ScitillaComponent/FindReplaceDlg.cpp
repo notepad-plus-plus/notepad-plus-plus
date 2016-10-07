@@ -840,6 +840,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						saveInMacro(wParam, FR_OP_FIND);
 
 					FindStatus findStatus = FSFound;
+					bool bOldStatus = _options._quickFind;
+
+					// disable quick find so "find next" will search beyond current view
+					_options._quickFind = false;
 					processFindNext(_options._str2Search.c_str(), _env, &findStatus);
 					if (findStatus == FSEndReached)
 						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."), FSEndReached);
@@ -847,6 +851,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."), FSTopReached);
 
 					nppParamInst->_isFindReplacing = false;
+					_options._quickFind = bOldStatus;
 				}
 				return TRUE;
 
@@ -1284,6 +1289,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case ID_QUICK_FIND:
 				{
 					_options._quickFind = isCheckedOrNot(ID_QUICK_FIND);
+					::EnableWindow(::GetDlgItem(_hSelf, IDWRAP), (BOOL)!_options._quickFind);
 					if (_options._quickFind)
 					{
 						quickFindAndMarkAll({});
@@ -1324,11 +1330,16 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 // Find all matches of search_str and mark them with SCE_UNIVERSAL_FOUND_STYLE_INC style
 // In case argument is empty search box text value is used
-void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str)
+void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str, bool bNoRefocus)
 {
 	if (_options._quickFind && (_currentStatus == FIND_DLG || _currentStatus == REPLACE_DLG))
 	{
 		NppParameters *nppParamInst = NppParameters::getInstance();
+		FindHistory & findHistory = nppParamInst->getFindHistory();
+
+		// Wrap-around disabled in quick search mode as it searches current view
+		findHistory._isWrap = _options._isWrapAround = false;
+
 		// Use find next method to search for first match
 		setStatusbarMessage(TEXT(""), FSNoMessage);
 		HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -1386,8 +1397,12 @@ void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str)
 			(*_ppEditView)->execute(SCI_SETCURRENTPOS, oldPos);
 		}
 
-		::SetFocus(hFindCombo);
-		SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(startPos), static_cast<LPARAM>(startPos));
+		if (!bNoRefocus)
+		{
+			::SetFocus(hFindCombo);
+			SendMessage(cbi.hwndItem, EM_SETSEL, static_cast<WPARAM>(startPos), static_cast<LPARAM>(startPos));
+		}
+		findHistory._isWrap = _options._isWrapAround = isCheckedOrNot(IDWRAP);
 	}
 
 }
@@ -1469,6 +1484,15 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		}
 	}
 
+	if (_options._quickFind)
+	{
+		int cpMin, cpMax;
+		(*_ppEditView)->getVisibleStartAndEndPosition(&cpMin, &cpMax);
+		startPosition = cpMin;
+		endPosition = cpMax;
+	}
+
+
 	int flags = Searching::buildSearchFlags(pOptions);
 	switch (findNextType)
 	{
@@ -1536,7 +1560,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 				setStatusbarMessage(msg, FSNotFound);
 				
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
-				if (!::IsWindowVisible(_hSelf))
+				if (!::IsWindowVisible(_hSelf) || (::GetFocus() == (*_ppEditView)->getHSelf()))
 				{
 					//::SetFocus((*_ppEditView)->getHSelf());
 					(*_ppEditView)->getFocus();
@@ -1724,6 +1748,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 		endPosition = docLength;
 	}
 
+
 	//then adjust scope if the full document needs to be changed
 	if (pOptions->_isWrapAround || isEntire || (op == ProcessCountAll))	//entire document needs to be scanned
 	{		
@@ -1742,6 +1767,14 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	{
 		startPosition = 0;
 		endPosition = docLength;
+	}
+
+	if (pOptions->_quickFind && op == ProcessMarkAll_IncSearch)
+	{
+		int cpMin, cpMax;
+		(*_ppEditView)->getVisibleStartAndEndPosition(&cpMin, &cpMax);
+		startPosition = cpMin;
+		endPosition = cpMax;
 	}
 
 	FindReplaceInfo findReplaceInfo;

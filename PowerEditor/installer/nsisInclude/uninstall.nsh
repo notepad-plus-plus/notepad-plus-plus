@@ -27,8 +27,10 @@
 
 Var themesParentPath
 Var doLocalConf
+Var keepUserData
 Function un.onInit
-  	; determinate theme path for uninstall themes
+  	StrCpy $keepUserData "false"	; default value(It is must, otherwise few files such as shortcuts.xml, contextMenu.xml etc, will not be removed when $INSTDIR\doLocalConf.xml is not avaliable.)
+	; determinate theme path for uninstall themes
 	StrCpy $themesParentPath "$APPDATA\${APPNAME}"
 	StrCpy $doLocalConf "false"
 	IfFileExists $INSTDIR\doLocalConf.xml doesExist noneExist
@@ -116,7 +118,6 @@ Section un.UserManual
 SectionEnd
 
 
-Var keepUserData
 Function un.doYouReallyWantToKeepData
 	StrCpy $keepUserData "false"
 	MessageBox MB_YESNO "Would you like to keep your custom settings?" IDYES skipRemoveUserData IDNO removeUserData
@@ -247,9 +248,9 @@ Section Uninstall
 		Delete "$APPDATA\${APPNAME}\insertExt.ini"
 	
 		RMDir /r "$APPDATA\${APPNAME}\plugins\"
-		RMDir "$APPDATA\${APPNAME}\backup\"
-		RMDir "$APPDATA\${APPNAME}\themes\"
-		RMDir "$APPDATA\${APPNAME}"
+		RMDir /r "$APPDATA\${APPNAME}\backup\"
+		RMDir "$APPDATA\${APPNAME}\themes\"	; has no effect as not empty at this momenet, but it is taken care in themes.nsh
+		RMDir "$APPDATA\${APPNAME}"		; has no effect as not empty at this momenet, but it is taken care in themes.nsh
 		
 		StrCmp $1 "Admin" 0 +2
 			SetShellVarContext all ; make context for all user

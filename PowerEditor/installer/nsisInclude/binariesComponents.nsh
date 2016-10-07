@@ -116,7 +116,12 @@ SectionGroup un.Plugins
 		Delete "$INSTDIR\plugins\PluginManager.dll"
 		Delete "$INSTDIR\updater\gpup.exe"
 		RMDir "$INSTDIR\updater\"
-	SectionEnd	
+	SectionEnd
+	
+	Section un.RemovePluginDir
+		; As if all the files are deleted remove current dir
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
 
 SectionGroupEnd
 

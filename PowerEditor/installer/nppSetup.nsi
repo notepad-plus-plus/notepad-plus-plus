@@ -101,7 +101,7 @@ Function .onInit
 		
 		; check if 32-bit version has been installed if yes, ask user to remove it
 		IfFileExists $PROGRAMFILES\${APPNAME}\notepad++.exe 0 noDelete32
-		MessageBox MB_YESNO "You're installing 64-bit version. 32-bit version has been installed. Remove it?$\n(Your custom config files will be kept)" /SD IDYES IDYES doDelete32 IDNO noDelete32 ;IDYES remove
+		MessageBox MB_YESNO "You are trying to install 64-bit version while 32-bit version is already installed. Would you like to remove Notepad++ 32 bit version?$\n(Your custom config files will be kept)" /SD IDYES IDYES doDelete32 IDNO noDelete32 ;IDYES remove
 doDelete32:
 		StrCpy $diffArchDir2Remove $PROGRAMFILES\${APPNAME}
 noDelete32:
@@ -114,7 +114,7 @@ noDelete32:
 	${If} ${RunningX64}
 		; check if 64-bit version has been installed if yes, ask user to remove it
 		IfFileExists $PROGRAMFILES64\${APPNAME}\notepad++.exe 0 noDelete64
-		MessageBox MB_YESNO "You're installing 32-bit version. 64-bit version has been installed. Remove it?$\n(Your custom config files will be kept)"  /SD IDYES IDYES doDelete64 IDNO noDelete64
+		MessageBox MB_YESNO "You are trying to install 32-bit version while 64-bit version is already installed. Would you like to remove Notepad++ 64 bit version?$\n(Your custom config files will be kept)"  /SD IDYES IDYES doDelete64 IDNO noDelete64
 doDelete64:
 		StrCpy $diffArchDir2Remove $PROGRAMFILES64\${APPNAME}
 noDelete64:

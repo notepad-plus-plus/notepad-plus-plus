@@ -215,5 +215,10 @@ SectionGroup un.autoCompletionComponent
 	
 	Section un.CMAKE
 		Delete "$INSTDIR\plugins\APIs\cmake.xml"
-	SectionEnd	
+	SectionEnd
+	
+	Section un.RemovePluginAPIDir
+		; As if all the files are deleted remove current dir
+		RMDir "$INSTDIR\plugins\APIs\"
+	SectionEnd
 SectionGroupEnd

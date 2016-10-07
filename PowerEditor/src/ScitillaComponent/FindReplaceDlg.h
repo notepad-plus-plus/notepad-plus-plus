@@ -86,6 +86,7 @@ struct FindOption
 	bool _dotMatchesNewline = false;
 	bool _isMatchLineNumber = true; // only for Find in Folder
 	bool _quickFind = false; // "quick find" status
+	bool _noFlashing = false; // when true search dialog will not flash in case of errors
 };
 
 //This class contains generic search functions as static functions for easy access

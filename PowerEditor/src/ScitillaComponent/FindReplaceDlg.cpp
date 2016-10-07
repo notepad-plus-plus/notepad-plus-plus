@@ -744,6 +744,12 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					int indexClicked = int(::SendMessage(tabHandle, TCM_GETCURSEL, 0, 0));
 					doDialog((DIALOG_TYPE)indexClicked);
+					if (_options._quickFind &&
+						(static_cast<DIALOG_TYPE>(indexClicked) == FIND_DLG
+						|| static_cast<DIALOG_TYPE>(indexClicked) == REPLACE_DLG))
+					{
+						quickFindAndMarkAll({});
+					}
 				}
 				return TRUE;
 			}
@@ -824,6 +830,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if (_options._quickFind && (_currentStatus == FIND_DLG || _currentStatus == REPLACE_DLG))
 					{
 						clearMarksByStyle(SCE_UNIVERSAL_FOUND_STYLE_INC);
+						// disable quick find so it will not affect other search feature
+						_options._quickFind = false;
 					}
 					display(false);
 					break;
@@ -2337,6 +2345,9 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
 
+	// restore quick find state
+	_options._quickFind = isCheckedOrNot(ID_QUICK_FIND);
+
 	setDefaultButton(IDOK);
 }
 
@@ -2495,7 +2506,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 			_env->_isWrapAround = ((intValue & IDF_WRAP)> 0);
 			_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION)> 0);
 			_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL)> 0);
-			_env->_quickFind = ((intValue & IDF_REDOTMATCHNL)> 0);
+			_env->_quickFind = ((intValue & IDF_QUICK_FIND)> 0);
 			break;
 		case IDNORMAL:
 			_env->_searchType = static_cast<SearchType>(intValue);
@@ -2670,6 +2681,7 @@ void FindReplaceDlg::initOptionsFromDlg()
 	
 	_options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
 	_options._isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
+	_options._quickFind = isCheckedOrNot(ID_QUICK_FIND);
 }
 
 void FindInFinderDlg::doDialog(Finder *launcher, bool isRTL)

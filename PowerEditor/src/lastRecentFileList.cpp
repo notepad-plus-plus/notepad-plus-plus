@@ -149,6 +149,7 @@ void LastRecentFileList::updateMenu()
 			// Remove the last left separator from the submenu
 			::RemoveMenu(_hMenu, 0, MF_BYPOSITION);
 		}
+		_pAccelerator->updateFullMenu();
 	}
 
 	//Remove all menu items

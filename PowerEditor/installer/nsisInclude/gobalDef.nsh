@@ -34,6 +34,12 @@
 !define VERSION_MAJOR 7
 !define VERSION_MINOR 0
 
+!define CompanyName		"Don HO don.h@free.fr"
+!define Description		"Notepad++ : a free (GNU) source code editor"
+!define Version 		"7.0.0.0"
+!define ProdVer 		"${VERSION_MAJOR}.${VERSION_MINOR}"
+!define LegalCopyright 	"Copyleft 1998-2016 by Don HO"
+
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
 !define UNINSTALL_REG_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"

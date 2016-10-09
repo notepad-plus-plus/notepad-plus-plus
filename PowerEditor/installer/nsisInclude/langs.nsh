@@ -189,6 +189,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Chinese (Simplified)" chineseSimplified
 		CopyFiles "$TEMP\nppLocalization\chineseSimplified.xml" "$INSTDIR\localization\chineseSimplified.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Corsican" corsican
+		CopyFiles "$TEMP\nppLocalization\corsican.xml" "$INSTDIR\localization\corsican.xml"
+	${MementoSectionEnd}
 	${MementoUnselectedSection} "Croatian" croatian
 		CopyFiles "$TEMP\nppLocalization\croatian.xml" "$INSTDIR\localization\croatian.xml"
 	${MementoSectionEnd}
@@ -444,6 +447,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.chineseSimplified
 		Delete "$INSTDIR\localization\chineseSimplified.xml"
+	SectionEnd
+	Section un.corsican
+		Delete "$INSTDIR\localization\corsican.xml"
 	SectionEnd
 	Section un.croatian
 		Delete "$INSTDIR\localization\croatian.xml"

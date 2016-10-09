@@ -905,9 +905,12 @@ void AutoCompletion::sortKeyWords()
 {
 	if (_ignoreCase)
 	{
-		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const auto& lhs, const auto& rhs) {
-			const auto result = mismatch(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), [](const auto& lhs, const auto& rhs) {return tolower(lhs) == tolower(rhs); });
-			return result.second != rhs.cend() && (result.first == lhs.cend() || tolower(*result.first) < tolower(*result.second));
+		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const generic_string& lhs, const generic_string& rhs) {
+			generic_string first;
+			std::transform(lhs.begin(), lhs.end(), std::back_inserter(first), ::tolower);
+			generic_string second;
+			std::transform(rhs.begin(), rhs.end(), std::back_inserter(second), ::tolower);
+			return first < second;
 		});
 	}
 	else 

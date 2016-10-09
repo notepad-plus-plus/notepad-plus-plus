@@ -31,6 +31,7 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("English"), TEXT("english.xml")},
 	{TEXT("English (customizable)"), TEXT("english_customizable.xml")},
 	{TEXT("Français"), TEXT("french.xml")},
+	{TEXT("Corsu"), TEXT("corsican.xml")},
 	{TEXT("中文繁體"), TEXT("chinese.xml")},
 	{TEXT("中文简体"), TEXT("chineseSimplified.xml")},
 	{TEXT("한국어"), TEXT("korean.xml")},
@@ -110,6 +111,6 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Cymraeg"), TEXT("welsh.xml")},
 	{TEXT("eesti keel"), TEXT("estonian.xml")},
 	{TEXT("Тоҷик"), TEXT("tajikCyrillic.xml")},
-	{ TEXT("татарча"), TEXT("tatar.xml") },
+	{TEXT("татарча"), TEXT("tatar.xml")},
 	{TEXT("ਪੰਜਾਬੀ"), TEXT("punjabi.xml")}
 };

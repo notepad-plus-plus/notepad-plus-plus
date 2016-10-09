@@ -157,8 +157,8 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_wVector.push_back(DlgInfo(&_defaultDirectoryDlg, TEXT("Default Directory"), TEXT("DefaultDir")));
 			_wVector.push_back(DlgInfo(&_recentFilesHistoryDlg, TEXT("Recent Files History"), TEXT("RecentFilesHistory")));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
-			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language Menu"), TEXT("LangMenu")));
-			_wVector.push_back(DlgInfo(&_tabSettings, TEXT("Tab Settings"), TEXT("TabSettings")));
+			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language"), TEXT("Language")));
+			_wVector.push_back(DlgInfo(&_tabSettings, TEXT("Highlighting"), TEXT("Highlighting")));
 			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print"), TEXT("Print")));
 			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup"), TEXT("Backup")));
 			_wVector.push_back(DlgInfo(&_autoCompletionDlg, TEXT("Auto-Completion"), TEXT("AutoCompletion")));
@@ -926,36 +926,6 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, nppGUI._styleMRU, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, nppGUI._enableSmartHilite, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE, BM_SETCHECK, nppGUI._smartHiliteCaseSensitive, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGSMATCHHILITE, BM_SETCHECK, nppGUI._enableTagsMatchHilite, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE, BM_SETCHECK, nppGUI._enableTagAttrsHilite, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE, BM_SETCHECK, nppGUI._enableHiliteNonHTMLZone, 0);
-
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Match whole word only"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Match any selection"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Same as Find dialog"));
-
-			switch (nppGUI._smartHiliteMode)
-			{
-				case NppGUI::SmartHiliteMode::wordOnly:
-					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 0, 0);
-					break;
-
-				case NppGUI::SmartHiliteMode::anySelection:
-					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 1, 0);
-					break;
-
-				case NppGUI::SmartHiliteMode::findDialog:
-					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 2, 0);
-					break;
-			}
-
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHilite);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), nppGUI._enableSmartHilite);
-
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHORTTITLE, BM_SETCHECK, nppGUI._shortTitlebar, 0);
 
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
@@ -1088,60 +1058,6 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					return TRUE;
 				}
 
-				case IDC_CHECK_ENABLSMARTHILITE :
-				{
-					nppGUI._enableSmartHilite = !nppGUI._enableSmartHilite;
-					if (!nppGUI._enableSmartHilite)
-					{
-						HWND grandParent = ::GetParent(_hParent);
-						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
-					}
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), nppGUI._enableSmartHilite);
-					return TRUE;
-				}
-
-				case IDC_CHECK_SMARTHILITECASESENSITIVE:
-				{
-					nppGUI._smartHiliteCaseSensitive = !nppGUI._smartHiliteCaseSensitive;
-					if (!nppGUI._smartHiliteCaseSensitive)
-					{
-						HWND grandParent = ::GetParent(_hParent);
-						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
-					}
-					return TRUE;
-				}
-
-				case IDC_CHECK_ENABLTAGSMATCHHILITE:
-				{
-					nppGUI._enableTagsMatchHilite = !nppGUI._enableTagsMatchHilite;
-					if (!nppGUI._enableTagsMatchHilite)
-					{
-						HWND grandParent = ::GetParent(_hParent);
-						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATORTAGMATCH, 0, 0);
-					}
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHilite);
-					return TRUE;
-				}
-
-				case IDC_CHECK_ENABLTAGATTRHILITE:
-				{
-					nppGUI._enableTagAttrsHilite = !nppGUI._enableTagAttrsHilite;
-					if (!nppGUI._enableTagAttrsHilite)
-					{
-						HWND grandParent = ::GetParent(_hParent);
-						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATORTAGATTR, 0, 0);
-					}
-					return TRUE;
-				}
-
-				case IDC_CHECK_HIGHLITENONEHTMLZONE:
-				{
-					nppGUI._enableHiliteNonHTMLZone = !nppGUI._enableHiliteNonHTMLZone;
-					return TRUE;
-				}
-
 				case IDC_CHECK_STYLEMRU :
 				{
 					nppGUI._styleMRU = !nppGUI._styleMRU;
@@ -1161,41 +1077,6 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					nppGUI._backSlashIsEscapeCharacterForSql = isCheckedOrNot(IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL);
 					return TRUE;
 				}
-
-				default:
-					switch (HIWORD(wParam))
-					{
-						case CBN_SELCHANGE:
-						{
-							switch (LOWORD(wParam))
-							{
-								case IDC_COMBO_SMARTHILITEMODE :
-								{
-									auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_GETCURSEL, 0, 0);
-									
-									switch (index)
-									{
-										case 0:
-											nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::wordOnly;
-											break;
-
-										case 1:
-											nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::anySelection;
-											break;
-
-										case 2:
-											nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::findDialog;
-											break;
-									}
-
-									return TRUE;
-								}
-
-								default:
-									break;
-							}
-						}
-					}
 			}
 		}
 	}
@@ -1650,7 +1531,10 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	{
 		case WM_INITDIALOG :
 		{
-			int nbLang = pNppParam->getNbLang();
+			//
+			// Lang Menu
+			//
+			const int nbLang = pNppParam->getNbLang();
 	        for (int i = 0 ; i < nbLang ; ++i)
             {
 				::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(pNppParam->getLangFromIndex(i)->_langName.c_str()));
@@ -1683,16 +1567,40 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_REMOVE), FALSE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_RESTORE), FALSE);
 
+			
+			//
+			// Tab settings
+			//
+			::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, nppGUI._tabSize, FALSE);
+
+			_tabSizeVal.init(_hInst, _hSelf);
+			_tabSizeVal.create(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), IDC_TABSIZEVAL_STATIC);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEBYSPACE, BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
+
+			::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("[Default]")));
+			for (int i = 0; i < nbLang; ++i)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(pNppParam->getLangFromIndex(i)->_langName.c_str()));
+			}
+			const int index2Begin = 0;
+			::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_SETCURSEL, 0, index2Begin);
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_GR_TABVALUE_STATIC), SW_HIDE);
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), SW_HIDE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), FALSE);
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
+
 			ETDTProc enableDlgTheme = reinterpret_cast<ETDTProc>(pNppParam->getEnableThemeDlgTexture());
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 			return TRUE;
 		}
+
 		case WM_COMMAND : 
 		{
 			if (HIWORD(wParam) == LBN_SELCHANGE)
             {
+				// Lang Menu
 				if (LOWORD(wParam) == IDC_LIST_DISABLEDLANG || LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
 				{
 					HWND hEnableList = ::GetDlgItem(_hSelf, IDC_LIST_ENABLEDLANG);
@@ -1730,10 +1638,61 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					return TRUE;
 
 				}
+				// Tab setting
+				else if (LOWORD(wParam) == IDC_LIST_TABSETTNG)
+				{
+					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
+					if (index == LB_ERR)
+						return FALSE;
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_GR_TABVALUE_STATIC), index ? SW_SHOW : SW_HIDE);
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), index ? SW_SHOW : SW_HIDE);
+
+					if (index)
+					{
+						Lang *lang = pNppParam->getLangFromIndex(index - 1);
+						if (!lang) return FALSE;
+						bool useDefaultTab = (lang->_tabSize == -1 || lang->_tabSize == 0);
+
+						::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_SETCHECK, useDefaultTab, 0);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), !useDefaultTab);
+
+						int size = useDefaultTab ? nppGUI._tabSize : lang->_tabSize;
+						::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
+						::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);
+
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
+						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), useDefaultTab);
+						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
+						::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab ? nppGUI._tabReplacedBySpace : lang->_isTabReplacedBySpace, 0);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), !useDefaultTab);
+
+						if (!useDefaultTab)
+						{
+							::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, lang->_tabSize, FALSE);
+							::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, lang->_isTabReplacedBySpace, 0);
+						}
+					}
+					else
+					{
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), TRUE);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), TRUE);
+						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), SW_SHOW);
+						::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, nppGUI._tabSize, FALSE);
+						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), TRUE);
+						::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
+					}
+
+					return TRUE;
+				}
+
             }
 
 			switch (wParam)
             {
+				//
+				// Lang Menu
+				//
 				case IDC_CHECK_LANGMENUCOMPACT : 
 				{
 					nppGUI._isLangMenuCompact = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_LANGMENUCOMPACT), BM_GETCHECK, 0, 0));
@@ -1826,6 +1785,122 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					::DrawMenuBar(grandParent);
 					return TRUE;
 				}
+
+				//
+				// Tab setting
+				//
+				case IDC_TABSIZEVAL_STATIC:
+				{
+					ValueDlg tabSizeDlg;
+					tabSizeDlg.init(_hInst, _hParent, nppGUI._tabSize, TEXT("Tab Size : "));
+					POINT p;
+					::GetCursorPos(&p);
+					int size = tabSizeDlg.doDialog(p);
+
+					//Tab size 0 removal
+					if (size <= 0) return FALSE;
+
+					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
+					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);
+
+					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
+					if (index == LB_ERR) return FALSE;
+
+					if (index != 0)
+					{
+						Lang *lang = pNppParam->getLangFromIndex(index - 1);
+						if (!lang) return FALSE;
+						if (lang->_langID == L_JS)
+						{
+							Lang *ljs = pNppParam->getLangFromID(L_JAVASCRIPT);
+							ljs->_tabSize = size;
+						}
+						else if (lang->_langID == L_JAVASCRIPT)
+						{
+							Lang *ljavascript = pNppParam->getLangFromID(L_JS);
+							ljavascript->_tabSize = size;
+						}
+
+						lang->_tabSize = size;
+
+						// write in langs.xml
+						pNppParam->insertTabInfo(lang->getLangName(), lang->getTabInfo());
+					}
+					else
+					{
+						nppGUI._tabSize = size;
+					}
+
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_SIZE, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_REPLACEBYSPACE:
+				{
+					bool isTabReplacedBySpace = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_GETCHECK, 0, 0);
+					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
+					if (index == LB_ERR) return FALSE;
+					if (index != 0)
+					{
+						Lang *lang = pNppParam->getLangFromIndex(index - 1);
+						if (!lang) return FALSE;
+						if (!lang->_tabSize || lang->_tabSize == -1)
+							lang->_tabSize = nppGUI._tabSize;
+
+						if (lang->_langID == L_JS)
+						{
+							Lang *ljs = pNppParam->getLangFromID(L_JAVASCRIPT);
+							ljs->_isTabReplacedBySpace = isTabReplacedBySpace;
+						}
+						else if (lang->_langID == L_JAVASCRIPT)
+						{
+							Lang *ljavascript = pNppParam->getLangFromID(L_JS);
+							ljavascript->_isTabReplacedBySpace = isTabReplacedBySpace;
+						}
+
+						lang->_isTabReplacedBySpace = isTabReplacedBySpace;
+
+						// write in langs.xml
+						pNppParam->insertTabInfo(lang->getLangName(), lang->getTabInfo());
+					}
+					else
+					{
+						nppGUI._tabReplacedBySpace = isTabReplacedBySpace;
+					}
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
+					return TRUE;
+				}
+
+				case IDC_CHECK_DEFAULTTABVALUE:
+				{
+					bool useDefaultTab = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_GETCHECK, 0, 0);
+					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
+					if (index == LB_ERR || index == 0) // index == 0 shouldn't happen
+						return FALSE;
+
+					Lang *lang = pNppParam->getLangFromIndex(index - 1);
+					if (!lang)
+						return FALSE;
+
+					//- Set tab setting in choosed language
+					lang->_tabSize = useDefaultTab ? 0 : nppGUI._tabSize;
+					lang->_isTabReplacedBySpace = useDefaultTab ? false : nppGUI._tabReplacedBySpace;
+
+					//- set visual effect
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), !useDefaultTab);
+					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, useDefaultTab ? nppGUI._tabSize : lang->_tabSize, FALSE);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), useDefaultTab);
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
+					::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab ? nppGUI._tabReplacedBySpace : lang->_isTabReplacedBySpace, 0);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), !useDefaultTab);
+
+					// write in langs.xml
+					if (useDefaultTab)
+						pNppParam->insertTabInfo(lang->getLangName(), -1);
+
+					return TRUE;
+				}
 			}
 		}
 	}
@@ -1841,24 +1916,35 @@ INT_PTR CALLBACK TabSettings::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* 
 	{
 		case WM_INITDIALOG :
 		{
-			::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, nppGUI._tabSize, FALSE);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, nppGUI._enableSmartHilite, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE, BM_SETCHECK, nppGUI._smartHiliteCaseSensitive, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGSMATCHHILITE, BM_SETCHECK, nppGUI._enableTagsMatchHilite, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE, BM_SETCHECK, nppGUI._enableTagAttrsHilite, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE, BM_SETCHECK, nppGUI._enableHiliteNonHTMLZone, 0);
 
-            _tabSizeVal.init(_hInst, _hSelf);
-			_tabSizeVal.create(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), IDC_TABSIZEVAL_STATIC);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEBYSPACE, BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Match whole word only"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Match any selection"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Same as Find dialog"));
 
-			int nbLang = pNppParam->getNbLang();
-			::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("[Default]")));
-	        for (int i = 0 ; i < nbLang ; ++i)
-            {
-				::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(pNppParam->getLangFromIndex(i)->_langName.c_str()));
-            }
-            const int index2Begin = 0;
-	        ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_SETCURSEL, 0, index2Begin);
-	        ::ShowWindow(::GetDlgItem(_hSelf, IDC_GR_TABVALUE_STATIC), SW_HIDE);
-            ::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), SW_HIDE);
-            ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), FALSE);            
-            ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
+			switch (nppGUI._smartHiliteMode)
+			{
+				case NppGUI::SmartHiliteMode::wordOnly:
+					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 0, 0);
+					break;
+
+				case NppGUI::SmartHiliteMode::anySelection:
+					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 1, 0);
+					break;
+
+				case NppGUI::SmartHiliteMode::findDialog:
+					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 2, 0);
+					break;
+			}
+
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHilite);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), nppGUI._enableSmartHilite);
 
 			ETDTProc enableDlgTheme = reinterpret_cast<ETDTProc>(pNppParam->getEnableThemeDlgTexture());
 			if (enableDlgTheme)
@@ -1870,168 +1956,90 @@ INT_PTR CALLBACK TabSettings::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* 
 		{
 			if (HIWORD(wParam) == LBN_SELCHANGE)
             {
-				if (LOWORD(wParam) == IDC_LIST_TABSETTNG)
+				switch (LOWORD(wParam))
 				{
-					auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-					if (index == LB_ERR)
-						return FALSE;
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_GR_TABVALUE_STATIC), index?SW_SHOW:SW_HIDE);
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), index?SW_SHOW:SW_HIDE);
-
-					if (index)
+					case IDC_COMBO_SMARTHILITEMODE:
 					{
-						Lang *lang = pNppParam->getLangFromIndex(index - 1);
-						if (!lang) return FALSE;
-							bool useDefaultTab = (lang->_tabSize == -1 || lang->_tabSize == 0);
+						auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_GETCURSEL, 0, 0);
 
-						::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_SETCHECK, useDefaultTab, 0);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), !useDefaultTab);
-
-						int size = useDefaultTab?nppGUI._tabSize:lang->_tabSize;
-						::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
-						::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);
-
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), useDefaultTab);
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-						::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab?nppGUI._tabReplacedBySpace:lang->_isTabReplacedBySpace, 0);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), !useDefaultTab);
-
-						if (!useDefaultTab)
+						switch (index)
 						{
-							::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, lang->_tabSize, FALSE);
-							::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, lang->_isTabReplacedBySpace, 0);
+							case 0:
+								nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::wordOnly;
+								break;
+
+							case 1:
+								nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::anySelection;
+								break;
+
+							case 2:
+								nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::findDialog;
+								break;
 						}
-					}
-					else
-					{
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), TRUE);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), TRUE);
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), SW_SHOW);
-						::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, nppGUI._tabSize, FALSE);
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), TRUE);
-						::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
+
+						return TRUE;
 					}
 
-					return TRUE;
+					default:
+						break;
 				}
             }
 
 			switch (wParam)
             {
-                case IDC_TABSIZEVAL_STATIC:
+				case IDC_CHECK_ENABLSMARTHILITE:
 				{
-            		ValueDlg tabSizeDlg;
-			        tabSizeDlg.init(_hInst, _hParent, nppGUI._tabSize, TEXT("Tab Size : "));
-			        POINT p;
-			        ::GetCursorPos(&p);
-			        int size = tabSizeDlg.doDialog(p);
-					
-					//Tab size 0 removal
-			        if (size <= 0) return FALSE;
-
-					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
-					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);
-
-                    auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-                    if (index == LB_ERR) return FALSE;
-
-                    if (index != 0)
-                    {
-                        Lang *lang = pNppParam->getLangFromIndex(index - 1);
-                        if (!lang) return FALSE;
-						if (lang->_langID == L_JS)
-						{
-							Lang *ljs = pNppParam->getLangFromID(L_JAVASCRIPT);
-							ljs->_tabSize = size;
-						}
-						else if (lang->_langID == L_JAVASCRIPT)
-						{
-							Lang *ljavascript = pNppParam->getLangFromID(L_JS);
-							ljavascript->_tabSize = size;
-						}
-
-                        lang->_tabSize = size;
-
-                        // write in langs.xml
-                        pNppParam->insertTabInfo(lang->getLangName(), lang->getTabInfo());
-                    }
-                    else
-                    {
-                        nppGUI._tabSize = size;
-                    }
-                    
-                    ::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_SIZE, 0, 0);
+					nppGUI._enableSmartHilite = !nppGUI._enableSmartHilite;
+					if (!nppGUI._enableSmartHilite)
+					{
+						HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+					}
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), nppGUI._enableSmartHilite);
 					return TRUE;
 				}
 
-				case IDC_CHECK_REPLACEBYSPACE:
-                {
-                    bool isTabReplacedBySpace = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_GETCHECK, 0, 0);
-                    auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-                    if (index == LB_ERR) return FALSE;
-                    if (index != 0)
-                    {
-                        Lang *lang = pNppParam->getLangFromIndex(index - 1);
-                        if (!lang) return FALSE;
-                        if (!lang->_tabSize || lang->_tabSize == -1)
-                            lang->_tabSize = nppGUI._tabSize;
-
-						if (lang->_langID == L_JS)
-						{
-							Lang *ljs = pNppParam->getLangFromID(L_JAVASCRIPT);
-							ljs->_isTabReplacedBySpace = isTabReplacedBySpace;
-						}
-						else if (lang->_langID == L_JAVASCRIPT)
-						{
-							Lang *ljavascript = pNppParam->getLangFromID(L_JS);
-							ljavascript->_isTabReplacedBySpace = isTabReplacedBySpace;
-						}
-
-                        lang->_isTabReplacedBySpace = isTabReplacedBySpace;
-
-                        // write in langs.xml
-                        pNppParam->insertTabInfo(lang->getLangName(), lang->getTabInfo());
-                    }
-                    else
-                    {
-                        nppGUI._tabReplacedBySpace = isTabReplacedBySpace;
-                    }
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
+				case IDC_CHECK_SMARTHILITECASESENSITIVE:
+				{
+					nppGUI._smartHiliteCaseSensitive = !nppGUI._smartHiliteCaseSensitive;
+					if (!nppGUI._smartHiliteCaseSensitive)
+					{
+						HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+					}
 					return TRUE;
-                }
+				}
 
-                case IDC_CHECK_DEFAULTTABVALUE:
-                {
-                    bool useDefaultTab = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_GETCHECK, 0, 0);
-                    auto index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-	                if (index == LB_ERR || index == 0) // index == 0 shouldn't happen
-		                return FALSE;
+				case IDC_CHECK_ENABLTAGSMATCHHILITE:
+				{
+					nppGUI._enableTagsMatchHilite = !nppGUI._enableTagsMatchHilite;
+					if (!nppGUI._enableTagsMatchHilite)
+					{
+						HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATORTAGMATCH, 0, 0);
+					}
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHilite);
+					return TRUE;
+				}
 
-                    Lang *lang = pNppParam->getLangFromIndex(index - 1);
-                    if (!lang)
-                        return FALSE;
+				case IDC_CHECK_ENABLTAGATTRHILITE:
+				{
+					nppGUI._enableTagAttrsHilite = !nppGUI._enableTagAttrsHilite;
+					if (!nppGUI._enableTagAttrsHilite)
+					{
+						HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATORTAGATTR, 0, 0);
+					}
+					return TRUE;
+				}
 
-                    //- Set tab setting in choosed language
-                    lang->_tabSize = useDefaultTab?0:nppGUI._tabSize;
-                    lang->_isTabReplacedBySpace = useDefaultTab?false:nppGUI._tabReplacedBySpace;
-
-                    //- set visual effect
-                    ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), !useDefaultTab);
-					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, useDefaultTab?nppGUI._tabSize:lang->_tabSize, FALSE);
-                    ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-                    ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), useDefaultTab);
-                    ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-                    ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab?nppGUI._tabReplacedBySpace:lang->_isTabReplacedBySpace, 0);
-                    ::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), !useDefaultTab);
-
-                    // write in langs.xml
-                    if (useDefaultTab)
-                        pNppParam->insertTabInfo(lang->getLangName(), -1);
-
-                    return TRUE;
-                }
+				case IDC_CHECK_HIGHLITENONEHTMLZONE:
+				{
+					nppGUI._enableHiliteNonHTMLZone = !nppGUI._enableHiliteNonHTMLZone;
+					return TRUE;
+				}
 			}
 		}
 	}

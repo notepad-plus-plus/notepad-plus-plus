@@ -117,9 +117,13 @@ class LangMenuDlg : public StaticDialog
 {
 public :
 	LangMenuDlg() {};
+	virtual void destroy() {
+		_tabSizeVal.destroy();
+	};
 
 private :
     LexerStylerArray _lsArray;
+	URLCtrl _tabSizeVal;
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	std::vector<LangMenuItem> _langList;
 };
@@ -128,12 +132,9 @@ class TabSettings : public StaticDialog
 {
 public :
 	TabSettings() {};
-    virtual void destroy() {
-		_tabSizeVal.destroy();
-	};
 
 private :
-    URLCtrl _tabSizeVal;
+
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 

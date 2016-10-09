@@ -29,10 +29,13 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "7"
+!system "nsisInclude\GetVersion.exe"
+!include "VersionInfo.txt"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
-!define VERSION_MAJOR 7
-!define VERSION_MINOR 0
+
+!define COMPANYNAME	"Don HO don.h@free.fr"
+!define DESCRIPTION	"Notepad++ : a free (GNU) source code editor"
+!define LEGALCOPYRIGHT 	"Copyleft 1998-2016 by Don HO"
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 

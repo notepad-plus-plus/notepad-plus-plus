@@ -46,6 +46,17 @@ OutFile ".\build\npp.${APPVERSION}.Installer.x64.exe"
 !else
 OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 !endif
+
+; ------------------------------------------------------------------------
+;Version Information
+   VIProductVersion "${VERSION}"
+   VIAddVersionKey  "ProductName" 	"${APPNAME}"
+   VIAddVersionKey  "CompanyName" 	"${COMPANYNAME}"
+   VIAddVersionKey  "LegalCopyright" 	"${LEGALCOPYRIGHT}"
+   VIAddVersionKey  "FileDescription" 	"${DESCRIPTION}"
+   VIAddVersionKey  "FileVersion" 	"${VERSION}"
+   VIAddVersionKey  "ProductVersion" 	"${PRODVERSION}"
+; ------------------------------------------------------------------------
  
 ; Insert CheckIfRunning function as an installer and uninstaller function.
 !insertmacro CheckIfRunning ""

@@ -101,7 +101,7 @@ Credits:
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="DEFAULT" styleID="11" fgColor="F8F8F8" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
-            <WordsStyle name="TYPE WORD" styleID="16" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="TYPE WORD" styleID="16" fgColor="FBDE2D" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" keywordClass="type1" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="D8FA3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="STRING" styleID="6" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="61CE3C" bgColor="0C1021" fontName="" fontStyle="0" fontSize="10" />

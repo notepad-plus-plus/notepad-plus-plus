@@ -1918,33 +1918,16 @@ INT_PTR CALLBACK TabSettings::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* 
 		{
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, nppGUI._enableSmartHilite, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE, BM_SETCHECK, nppGUI._smartHiliteCaseSensitive, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY, BM_SETCHECK, nppGUI._smartHiliteWordOnly, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS, BM_SETCHECK, nppGUI._smartHiliteUseFindSettings, 0);
+
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGSMATCHHILITE, BM_SETCHECK, nppGUI._enableTagsMatchHilite, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE, BM_SETCHECK, nppGUI._enableTagAttrsHilite, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE, BM_SETCHECK, nppGUI._enableHiliteNonHTMLZone, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Match whole word only"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Match any selection"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_ADDSTRING, 0, (LPARAM)TEXT("Same as Find dialog"));
-
-			switch (nppGUI._smartHiliteMode)
-			{
-				case NppGUI::SmartHiliteMode::wordOnly:
-					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 0, 0);
-					break;
-
-				case NppGUI::SmartHiliteMode::anySelection:
-					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 1, 0);
-					break;
-
-				case NppGUI::SmartHiliteMode::findDialog:
-					::SendMessage(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), CB_SETCURSEL, 2, 0);
-					break;
-			}
-
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHilite);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), nppGUI._enableSmartHilite);
 
 			ETDTProc enableDlgTheme = reinterpret_cast<ETDTProc>(pNppParam->getEnableThemeDlgTexture());
 			if (enableDlgTheme)
@@ -1952,39 +1935,9 @@ INT_PTR CALLBACK TabSettings::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* 
 
 			return TRUE;
 		}
+
 		case WM_COMMAND : 
 		{
-			if (HIWORD(wParam) == LBN_SELCHANGE)
-            {
-				switch (LOWORD(wParam))
-				{
-					case IDC_COMBO_SMARTHILITEMODE:
-					{
-						auto index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_SMARTHILITEMODE, CB_GETCURSEL, 0, 0);
-
-						switch (index)
-						{
-							case 0:
-								nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::wordOnly;
-								break;
-
-							case 1:
-								nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::anySelection;
-								break;
-
-							case 2:
-								nppGUI._smartHiliteMode = NppGUI::SmartHiliteMode::findDialog;
-								break;
-						}
-
-						return TRUE;
-					}
-
-					default:
-						break;
-				}
-            }
-
 			switch (wParam)
             {
 				case IDC_CHECK_ENABLSMARTHILITE:
@@ -1992,22 +1945,53 @@ INT_PTR CALLBACK TabSettings::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* 
 					nppGUI._enableSmartHilite = !nppGUI._enableSmartHilite;
 					if (!nppGUI._enableSmartHilite)
 					{
-						HWND grandParent = ::GetParent(_hParent);
-						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+						//HWND grandParent = ::GetParent(_hParent);
+						//::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_SMARTHILITEMODE), nppGUI._enableSmartHilite);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY), nppGUI._enableSmartHilite);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS), nppGUI._enableSmartHilite);
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					return TRUE;
 				}
 
 				case IDC_CHECK_SMARTHILITECASESENSITIVE:
 				{
-					nppGUI._smartHiliteCaseSensitive = !nppGUI._smartHiliteCaseSensitive;
-					if (!nppGUI._smartHiliteCaseSensitive)
+					nppGUI._smartHiliteCaseSensitive = isCheckedOrNot(IDC_CHECK_SMARTHILITECASESENSITIVE);
+					if (nppGUI._smartHiliteCaseSensitive)
 					{
-						HWND grandParent = ::GetParent(_hParent);
-						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS, BM_SETCHECK, false, 0);
+						nppGUI._smartHiliteUseFindSettings = false;
 					}
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+					return TRUE;
+				}
+				case IDC_CHECK_SMARTHILITEWHOLEWORDONLY:
+				{
+					nppGUI._smartHiliteWordOnly = isCheckedOrNot(IDC_CHECK_SMARTHILITEWHOLEWORDONLY);
+					if (nppGUI._smartHiliteWordOnly)
+					{
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS, BM_SETCHECK, false, 0);
+						nppGUI._smartHiliteUseFindSettings = false;
+					}
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+					return TRUE;
+				}
+				case IDC_CHECK_SMARTHILITEUSEFINDSETTINGS:
+				{
+					nppGUI._smartHiliteUseFindSettings = isCheckedOrNot(IDC_CHECK_SMARTHILITEUSEFINDSETTINGS);
+					if (nppGUI._smartHiliteUseFindSettings)
+					{
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE, BM_SETCHECK, false, 0);
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY, BM_SETCHECK, false, 0);
+						nppGUI._smartHiliteCaseSensitive = false;
+						nppGUI._smartHiliteWordOnly = false;
+					}
+					HWND grandParent = ::GetParent(_hParent);
+					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					return TRUE;
 				}
 

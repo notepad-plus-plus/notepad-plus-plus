@@ -746,10 +746,10 @@ struct NppGUI final
 	bool _doTaskList = true;
 	bool _maitainIndent = true;
 	bool _enableSmartHilite = true;
+
 	bool _smartHiliteCaseSensitive = false;
-	
-	enum SmartHiliteMode { wordOnly = 0, anySelection = 1, findDialog = 2 };
-	SmartHiliteMode _smartHiliteMode = SmartHiliteMode::wordOnly;
+	bool _smartHiliteWordOnly = true;
+	bool _smartHiliteUseFindSettings = false;
 
 	bool _disableSmartHiliteTmp = false;
 	bool _enableTagsMatchHilite = true;

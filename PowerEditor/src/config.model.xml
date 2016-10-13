@@ -77,6 +77,7 @@
 		<GUIConfig name="auto-insert" parentheses="yes" brackets="yes" curlyBrackets="yes" quotes="no" doubleQuotes="yes" htmlXmlTag="no" />
         <GUIConfig name="multiInst" setting="0" />
         <GUIConfig name="sessionExt"></GUIConfig>
+		<GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no">yes</GUIConfig>
     </GUIConfigs>
     <!-- The History of opened files list -->
     <History nbMaxFile="15" />

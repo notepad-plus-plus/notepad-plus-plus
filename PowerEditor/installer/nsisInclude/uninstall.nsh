@@ -41,18 +41,15 @@ FunctionEnd
 
 
 Section un.explorerContextMenu
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
+	; Removing old contextMenu is not required as it is taken care the time of installation
+	; But just to play safe, Call removeOldContextMenu
+	Call un.removeOldContextMenu
+	
+	; First try to unregister the Dlls
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_06.dll"'
-	Delete "$INSTDIR\NppShell_01.dll"
-	Delete "$INSTDIR\NppShell_02.dll"
-	Delete "$INSTDIR\NppShell_03.dll"
-	Delete "$INSTDIR\NppShell_04.dll"
-	Delete "$INSTDIR\NppShell_05.dll"
-	Delete "$INSTDIR\NppShell_06.dll"
+	
+	; Now try to delete the file. If files are locked in explorer.exe, then move to %temp
+	${safeFileDelete} "$INSTDIR" "NppShell_06.dll"
 SectionEnd
 
 Section un.UnregisterFileExt

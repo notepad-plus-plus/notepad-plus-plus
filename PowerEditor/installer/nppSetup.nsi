@@ -132,6 +132,9 @@ FunctionEnd
 
 
 !include "nsisInclude\mainSectionFuncs.nsh"
+; Insert removeOldContexMenu function as an installer and uninstaller function.
+!insertmacro removeOldContexMenu ""
+!insertmacro removeOldContexMenu "un."
 
 Section -"Notepad++" mainSection
 

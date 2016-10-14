@@ -87,7 +87,7 @@ Function copyCommonFiles
 
 	; Copy all the language files to the temp directory
 	; than make them installed via option
-	SetOutPath "$TEMP\nppLocalization\"
+	SetOutPath "$PLUGINSDIR\nppLocalization\"
 	File ".\nativeLang\"
 
 	IfFileExists "$UPDATE_PATH\nativeLang.xml" 0 +2
@@ -97,8 +97,8 @@ Function copyCommonFiles
 		Delete "$INSTDIR\nativeLang.xml"
 
 	StrCmp $LANGUAGE ${LANG_ENGLISH} +3 0
-	CopyFiles "$TEMP\nppLocalization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
-	CopyFiles "$TEMP\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
+	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
+	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
 FunctionEnd
 
 	

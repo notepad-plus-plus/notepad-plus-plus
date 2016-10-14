@@ -88,6 +88,7 @@ page Custom ExtraOptions
 Var diffArchDir2Remove
 Function .onInit
 
+	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
 	Call preventInstallInWin9x
 		
 	!insertmacro MUI_LANGDLL_DISPLAY

@@ -85,7 +85,7 @@ public:
 	void update(int character);
 	void callTipClick(int direction);
 	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
-
+	void sortKeyWords();
 private:
 	bool _funcCompletionActive = false;
 	ScintillaEditView * _pEditView = nullptr;

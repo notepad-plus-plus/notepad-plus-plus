@@ -128,10 +128,10 @@ private :
 	std::vector<LangMenuItem> _langList;
 };
 
-class TabSettings : public StaticDialog
+class Highlighting : public StaticDialog
 {
 public :
-	TabSettings() {};
+	Highlighting() {};
 
 private :
 
@@ -256,7 +256,7 @@ private :
 	SettingsDlg _settingsDlg;
 	RegExtDlg _fileAssocDlg;
 	LangMenuDlg _langMenuDlg;
-	TabSettings _tabSettings;
+	Highlighting _highlighting;
 	PrintSettingsDlg _printSettingsDlg;
 	DefaultNewDocDlg _defaultNewDocDlg;
 	DefaultDirectoryDlg	_defaultDirectoryDlg;

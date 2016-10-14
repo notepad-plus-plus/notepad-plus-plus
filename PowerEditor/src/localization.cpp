@@ -770,18 +770,18 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(TEXT("FileAssoc"), nameW);
 	}
 
-	changeDlgLang(preference._langMenuDlg.getHSelf(), "LangMenu", titre);
+	changeDlgLang(preference._langMenuDlg.getHSelf(), "Language", titre);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference.renameDialogTitle(TEXT("LangMenu"), nameW);
+		preference.renameDialogTitle(TEXT("Language"), nameW);
 	}
 
-	changeDlgLang(preference._tabSettings.getHSelf(), "TabSettings", titre);
+	changeDlgLang(preference._highlighting.getHSelf(), "Highlighting", titre);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference.renameDialogTitle(TEXT("TabSettings"), nameW);
+		preference.renameDialogTitle(TEXT("Highlighting"), nameW);
 	}
 
 	changeDlgLang(preference._printSettingsDlg.getHSelf(), "Print", titre);

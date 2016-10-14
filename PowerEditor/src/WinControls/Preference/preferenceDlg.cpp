@@ -129,8 +129,8 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_langMenuDlg.init(_hInst, _hSelf);
 			_langMenuDlg.create(IDD_PREFERENCE_LANG_BOX, false, false);
 
-			_tabSettings.init(_hInst, _hSelf);
-			_tabSettings.create(IDD_PREFERENCE_TABSETTINGS_BOX, false, false);
+			_highlighting.init(_hInst, _hSelf);
+			_highlighting.create(IDD_PREFERENCE_HILITE_BOX, false, false);
 
 			_backupDlg.init(_hInst, _hSelf);
 			_backupDlg.create(IDD_PREFERENCE_BACKUP_BOX, false, false);
@@ -158,7 +158,7 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_wVector.push_back(DlgInfo(&_recentFilesHistoryDlg, TEXT("Recent Files History"), TEXT("RecentFilesHistory")));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
 			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language"), TEXT("Language")));
-			_wVector.push_back(DlgInfo(&_tabSettings, TEXT("Highlighting"), TEXT("Highlighting")));
+			_wVector.push_back(DlgInfo(&_highlighting, TEXT("Highlighting"), TEXT("Highlighting")));
 			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print"), TEXT("Print")));
 			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup"), TEXT("Backup")));
 			_wVector.push_back(DlgInfo(&_autoCompletionDlg, TEXT("Auto-Completion"), TEXT("AutoCompletion")));
@@ -185,7 +185,7 @@ INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_recentFilesHistoryDlg.reSizeTo(rc);
 			_fileAssocDlg.reSizeTo(rc);
 			_langMenuDlg.reSizeTo(rc);
-			_tabSettings.reSizeTo(rc);
+			_highlighting.reSizeTo(rc);
 			_printSettingsDlg.reSizeTo(rc);
 			_backupDlg.reSizeTo(rc);
 			_autoCompletionDlg.reSizeTo(rc);
@@ -326,7 +326,7 @@ void PreferenceDlg::destroy()
 	_settingsDlg.destroy();
 	_fileAssocDlg.destroy();
 	_langMenuDlg.destroy();
-	_tabSettings.destroy();
+	_highlighting.destroy();
 	_printSettingsDlg.destroy();
 	_defaultNewDocDlg.destroy();
 	_defaultDirectoryDlg.destroy();
@@ -1907,7 +1907,7 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	return FALSE;
 }
 
-INT_PTR CALLBACK TabSettings::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* lParam*/)
+INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/* lParam*/)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();

@@ -676,26 +676,35 @@
                     <Item id="6413" name="Dossier par défaut (ouvrir/enregistrer)"/>
                     <Item id="6414" name="Utiliser celui du document actuel"/>
                     <Item id="6415" name="Mémoriser le dernier dossier utilisé"/>
-																				<Item id="6430" name="Activer le nouveau style de dialogue d'enregistrement (sans l'extension de fichier supporté)"/>
-																				<Item id="6431" name="Lors de drag and drop d'un dossier, ouvrir tous les fichier dans le dossier"/>
+					<Item id="6430" name="Activer le nouveau style de dialogue d'enregistrement (sans l'extension de fichier supporté)"/>
+					<Item id="6431" name="Lors de drag and drop d'un dossier, ouvrir tous les fichier dans le dossier"/>
                 </DefaultDir>
 
                 <FileAssoc title="Extensions de fichier">
                   <Item id="4009" name="Extensions :"/>
                   <Item id="4010" name="Extensions associées :"/>
                 </FileAssoc>
-                <LangMenu title="Menu langage">
+                <Language title="Langage">
                     <Item id="6505" name="Langages disponibles"/>
                     <Item id="6506" name="Langages cachés"/>
                     <Item id="6507" name="Compacter le menu Langage"/>
                     <Item id="6508" name="Menu Langage"/>
-                </LangMenu>
-                <TabSettings title="Tabulations">
-                    <Item id="6301" name="Tabulations"/>
+					<Item id="6301" name="Tabulations"/>
                     <Item id="6302" name="Insérer des espaces"/>
                     <Item id="6303" name="Taille : "/>
                     <Item id="6510" name="Valeur par défaut"/>
-                </TabSettings>
+                </Language>
+                <Highlighting title="Coloration">
+                    <Item id="6333" name="Sélectionner et montrer tout"/>
+                    <Item id="6326" name="Activer le coloriage automatique"/>
+                    <Item id="6332" name="Case sensible"/>
+					<Item id="6338" name="Mot entier uniquement"/>
+					<Item id="6339" name="Utiliser les paramètres de Recherche"/>
+                    <Item id="6329" name="Surligner les tags ouverture/fermeture"/>
+                    <Item id="6327" name="Activer"/>
+                    <Item id="6328" name="Les attributs de tag"/>
+                    <Item id="6330" name="Dans la zone commentaire/php/asp"/>
+                </Highlighting>
                 <Print title="Impression">
                     <Item id="6601" name="Imprimer les numéros de lignes"/>
                     <Item id="6602" name="Couleur"/>
@@ -818,14 +827,7 @@
                     <Item id="6323" name="Activer la mise à jour automatique"/>
                     <Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
-                    <Item id="6326" name="Activer le coloriage automatique"/>
-                    <Item id="6327" name="Activer"/>
-                    <Item id="6328" name="Les attributs de tag"/>
-                    <Item id="6329" name="Surligner les tags ouverture/fermeture"/>
-                    <Item id="6330" name="Dans la zone commentaire/php/asp"/>
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
-                    <Item id="6332" name="Case sensible"/>
-                    <Item id="6333" name="Sélectionner et montrer tout"/>
 					<Item id="6334" name="Détecter l'encodage automatiquement"/>
 					<Item id="6335" name="Backslash : caractère d'échappement pour SQL"/>
 					<Item id="6337" name="Ext fichier Espace de travail :"/>

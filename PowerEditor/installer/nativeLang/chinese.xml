@@ -618,24 +618,20 @@
                     <Item id="6103" name="小圖示"/>
                     <Item id="6104" name="大圖示"/>
                     <Item id="6105" name="標準圖示"/>
-
                     <Item id="6106" name="頁籤列"/>
                     <Item id="6107" name="小型"/>
                     <Item id="6108" name="鎖定 (無拖曳)"/>
                     <Item id="6109" name="非使用中頁籤變暗"/>
                     <Item id="6110" name="使用中頁籤加色條"/>
-
                     <Item id="6111" name="顯示狀態列"/>
                     <Item id="6112" name="在每個頁籤顯示關閉鈕"/>
                     <Item id="6113" name="雙擊滑鼠關閉文件"/>
                     <Item id="6118" name="隱藏"/>
                     <Item id="6119" name="多行"/>
                     <Item id="6120" name="直式"/>
-																				<Item id="6121" name="關閉最後一個文件時關閉程式"/>
-
+					<Item id="6121" name="關閉最後一個文件時關閉程式"/>
                     <Item id="6122" name="隱藏 (用 Alt 或 F10 切換)"/>
                     <Item id="6123" name="界面語言​​"/>
-
                     <Item id="6125" name="文件清單面板"/>
                     <Item id="6126" name="顯示"/>
                     <Item id="6127" name="停用副檔名欄"/>
@@ -696,27 +692,36 @@
                     <Item id="6413" name="預設資料夾 (開啟/儲存)"/>
                     <Item id="6414" name="依照目前文件"/>
                     <Item id="6415" name="記住上次使用的資料夾"/>
-																				<Item id="6430" name="使用新式儲存對話框（不含副檔名功能支援）"/>
-																				<Item id="6431" name="拖放文件夾開啟文件夾中所有文件，而不啟動文件夾工作區"/>
+					<Item id="6430" name="使用新式儲存對話框（不含副檔名功能支援）"/>
+					<Item id="6431" name="拖放文件夾開啟文件夾中所有文件，而不啟動文件夾工作區"/>
                 </DefaultDir>
 
                 <FileAssoc title="副檔名連結設定">
                     <Item id="4009" name="支援的副檔名"/>
                     <Item id="4010" name="已連結的副檔名"/>
                 </FileAssoc>
-                <LangMenu title="程式語言選單">
+                <Language title="程式語言">
                     <Item id="6505" name="可用項目"/>
                     <Item id="6506" name="停用項目"/>
                     <Item id="6507" name="簡化程式語言選單"/>
                     <Item id="6508" name="程式語言選單"/>
-                </LangMenu>
-
-                <TabSettings title="跳格(Tab)設定">
-                    <Item id="6301" name="跳格設定"/>
+					<Item id="6301" name="跳格設定"/>
                     <Item id="6302" name="以空格取代"/>
                     <Item id="6303" name="跳格大小: "/>
                     <Item id="6510" name="使用預設值"/>
-                </TabSettings>
+                </Language>
+
+                <Highlighting title="高亮度顯示">
+                    <Item id="6333" name="字慧高亮度顯示"/>
+                    <Item id="6326" name="啟動【字慧】高亮度顯示"/>
+                    <Item id="6332" name="區別大小寫"/>
+					<Item id="6338" name="僅符合整個單字"/>
+					<Item id="6339" name="使用搜尋對話框的設定"/>
+                    <Item id="6329" name="高亮度顯示相契合的 xml/html 標示 (tag)"/>
+                    <Item id="6327" name="啟動"/>
+                    <Item id="6328" name="高亮度顯示屬性 (tag attributes)"/>
+                    <Item id="6330" name="高亮度顯示 註解/php/asp 區域"/>
+                </Highlighting>
                 <Print title="列印">
                     <Item id="6601" name="列印行號"/>
                     <Item id="6602" name="顏色選項"/>
@@ -836,14 +841,7 @@
                     <Item id="6322" name="開檔狀態檔副檔名:"/>
                     <Item id="6323" name="啟用 Notepad++ 自動更新"/>
                     <Item id="6324" name="文件切換器 (Ctrl+TAB)"/>
-                    <Item id="6326" name="啟動【字慧】高亮度顯示"/>
-                    <Item id="6329" name="高亮度顯示相契合的 xml/html 標示 (tag)"/>
-                    <Item id="6327" name="啟動"/>
-                    <Item id="6328" name="高亮度顯示屬性 (tag attributes)"/>
-                    <Item id="6330" name="高亮度顯示 註解/php/asp 區域"/>
-                    <Item id="6331" name="在標題列僅顯示檔案名稱〈無路徑〉"/>
-                    <Item id="6332" name="區別大小寫"/>
-                    <Item id="6333" name="字慧高亮度顯示"/>
+					<Item id="6331" name="在標題列僅顯示檔案名稱〈無路徑〉"/>
 					<Item id="6334" name="自動檢測字符編碼"/>
 					<Item id="6335" name="視反斜標號為 SQL 轉義字符"/>
 					<Item id="6337" name="文件夾工作區檔案副檔名:"/>

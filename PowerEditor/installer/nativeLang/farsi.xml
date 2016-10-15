@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Farsi" filename="farsi.xml" version="6.8.2">
+    <Native-Langue name="Farsi" filename="farsi.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -31,6 +31,7 @@
                     <Item subMenuId="edit-eolConversion" name="تبدیل ای اُو اِل"/>
                     <Item subMenuId="edit-blankOperations" name="عملکردهای خالی"/>
                     <Item subMenuId="edit-pasteSpecial" name="چسباندن ویژه"/>
+                    <Item subMenuId="edit-onSelection" name="در انتخاب کردن"/>
                     <Item subMenuId="search-markAll" name="علامت گذاری همه"/>
                     <Item subMenuId="search-unmarkAll" name="بی علامت کردن همه"/>
                     <Item subMenuId="search-jumpUp" name="پرش بالا"/>
@@ -87,6 +88,7 @@
                     <Item id="41016" name="حذف از دیسک"/>
                     <Item id="41017" name="تغییرنام.."/>
                     <Item id="41021" name="بازگردانی فایل های اخیر بسته شده"/>
+                    <Item id="41022" name="بازکردن پوشه بعنوان فضای کاری&amp;"/>
 
                     <Item id="42001" name="کات"/>
                     <Item id="42002" name="کپی"/>
@@ -113,6 +115,16 @@
                     <Item id="42066" name="مرتبسازی خطوط با اعشار (نقطه) نزولی"/>
                     <Item id="42016" name="حروف بزرگ"/>
                     <Item id="42017" name="حروف کوچک"/>
+                    <Item id="42067" name="اولین حرف هر کلمه بزرگ"/>
+                    <Item id="42068" name="(اولین حرف هر کلمه بزرگ (ترکیبی"/>
+                    <Item id="42069" name="اولین حرف هر جمله بزرگ"/>
+                    <Item id="42070" name="(اولین حرف هر جمله بزرگ (ترکیبی"/>
+                    <Item id="42071" name="معکوس کردن حروف بزرگ و کوچک"/>
+                    <Item id="42072" name="بزرگی و کوچکی حروف تصادفی"/>
+					<Item id="42073" name="بازکردن فایل"/>
+					<Item id="42074" name="بازکردن پوشه شامل در اکسپلورر"/>
+					<Item id="42075" name="جستجو در اینترنت"/>
+					<Item id="42076" name="تغییر موتور جستجو..."/>
                     <Item id="42018" name="شروع ضبط"/>
                     <Item id="42019" name="توقف ضبط"/>
                     <Item id="42021" name="پخش"/>
@@ -217,6 +229,7 @@
                     <Item id="44049" name="خلاصه وضعیت.."/>
                     <Item id="44080" name="نقشه سند"/>
                     <Item id="44084" name="لیست تابع"/>
+                    <Item id="44085" name="پوشه بعنوان فضای کاری&amp;"/>
                     <Item id="44086" name="اولین تب"/>
                     <Item id="44087" name="دومین تب"/>
                     <Item id="44088" name="سومین تب"/>
@@ -228,6 +241,9 @@
                     <Item id="44094" name="نهمین تب"/>
                     <Item id="44095" name="تب بعدی"/>
                     <Item id="44096" name="تب قبلی"/>
+                    <Item id="44097" name="(نظارت کردن (دنبال کردن -اِف"/>
+                    <Item id="44098" name="انتقال تب به جلو"/>
+                    <Item id="44099" name="انتقال تب به عقب"/>
                     <Item id="44032" name="ضامن حالت تمام صفحه"/>
                     <Item id="44033" name="بازگردانی زوم پیش فرض"/>
                     <Item id="44034" name="همیشه در بالا"/>
@@ -241,16 +257,16 @@
                     <Item id="45001" name="تبدیل به فرمت ویندوز"/>
                     <Item id="45002" name="تبدیل به فرمت یونیکس"/>
                     <Item id="45003" name="تبدیل به فرمت مَک"/>
-                    <Item id="45004" name="Encode in ANSI"/>
-                    <Item id="45005" name="Encode in UTF-8"/>
-                    <Item id="45006" name="Encode in UCS-2 Big Endian"/>
-                    <Item id="45007" name="Encode in UCS-2 Little Endian"/>
-                    <Item id="45008" name="Encode in UTF-8 without BOM"/>
-                    <Item id="45009" name="Convert to ANSI"/>
-                    <Item id="45010" name="Convert to UTF-8 without BOM"/>
-                    <Item id="45011" name="Convert to UTF-8"/>
-                    <Item id="45012" name="Convert to UCS-2 Big Endian"/>
-                    <Item id="45013" name="Convert to UCS-2 Little Endian"/>
+                    <Item id="45004" name="ANSI کُد گذاری در"/>
+                    <Item id="45005" name="UTF-8 کُد گذاری در"/>
+                    <Item id="45006" name="UCS-2 Big Endian کُد گذاری در"/>
+                    <Item id="45007" name="UCS-2 Little Endian کُد گذاری در"/>
+                    <Item id="45008" name="BOM بدون UTF-8 کُد گذاری در"/>
+                    <Item id="45009" name="ANSI تبدیل به"/>
+                    <Item id="45010" name="BOM بدون UTF-8 تبدیل به"/>
+                    <Item id="45011" name="UTF-8 تبدیل به"/>
+                    <Item id="45012" name="UCS-2 Big Endian تبدیل به"/>
+                    <Item id="45013" name="UCS-2 Little Endian تبدیل به"/>
 
                     <Item id="10001" name="انتقال به نمای دیگر"/>
                     <Item id="10002" name="شبیه سازی در نمای دیگر"/>
@@ -280,6 +296,7 @@
                     <Item id="47003" name="اسناد آنلاین"/>
 					<Item id="47004" name="انجمن برنامه"/>
                     <Item id="47011" name="پشتیبانی زنده"/>
+                    <Item id="47012" name="اطلاعات عیب یابی..."/>
                     <Item id="47005" name="دریافت افزونه ها..."/>
                     <Item id="47006" name="بروزرسانی برنامه"/>
                     <Item id="47009" name="تنظیم پراکسی بروز رسان..."/>
@@ -620,6 +637,7 @@
                     <Item id="6118" name="مخفی کن"/>
                     <Item id="6119" name="چند خطی"/>
                     <Item id="6120" name="عمودی"/>
+                    <Item id="6121" name="خروج در بستن آخرین تب"/>
 
                     <Item id="6122" name="مخفی کن (ALT یا F10 را برای تعویض آن استفاده کنید)"/>
                     <Item id="6123" name="محلی سازی"/>
@@ -661,6 +679,8 @@
                     <Item id="6214" name="فعالسازی پرنورکردن خط فعلی"/>
 					<Item id="6215" name="فعالسازی نرمی فونت"/>
                     <Item id="6231" name="عرض کناره"/>
+                    <Item id="6235" name="بدون لبه"/>
+                    <Item id="6236" name="فعالسازی اسکرول بعد خط آخر"/>
                 </Scintillas>
 
                 <NewDoc title="سند جدید">
@@ -683,6 +703,8 @@
                     <Item id="6413" name="دایرکتوری پیش فرض بازکردن/ذخیره"/>
                     <Item id="6414" name="پیگیری سند فعلی"/>
                     <Item id="6415" name="بخاطر سپردن آخرین دایرکتوری استفاده شده"/>
+                    <Item id="6430" name="از پنجره ذخیره سبک جدید استفاده کن (بدون ویژگی پسوند فایل)"/>
+                    <Item id="6431" name="حین رها کردن پوشخ بجای اِجرای پوشه بعنوان فضای کاری،همه فایل های پوشه را باز کن"/>
                 </DefaultDir>
 
                 <FileAssoc title="وابسته سازی فایل">
@@ -728,8 +750,8 @@
                     <Item id="6721" name="قسمت میانی"/>
                     <Item id="6722" name="قسمت راست"/>
                     <Item id="6723" name="افزودن"/>
-                    <Item id="6725" name="متغییر:"/>
-                    <Item id="6727" name="تنظیمات متغییر خود را اینجا نشان میدهد"/>
+                    <Item id="6725" name="متغیر:"/>
+                    <Item id="6727" name="تنظیمات متغیر خود را اینجا نشان میدهد"/>
                     <Item id="6728" name="سرصفحه و پاصفحه"/>
                 </Print>
 
@@ -793,12 +815,22 @@
                     <Item id="6256" name="اجازه در چندین خط"/>
                 </Delimiter>
 
-                 <Cloud title="اَبری">
+                <Cloud title="اَبری">
                     <Item id="6262" name="تنظیمات اَبری"/>
                     <Item id="6263" name="از اشبری استفاده نکن"/>
                     <Item id="6267" name="مکان مسیر اَبری خود را اینجا وارد کنید:"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
+				
+                <SearchEngine title="موتور جستجو">
+                    <Item id="6271" name="(&quot;موتور جستجو (برای فرمان &quot;جستجو در اینترنت"/>
+                    <Item id="6272" name="داک داک گو"/>
+                    <Item id="6273" name="گوگل"/>
+                    <Item id="6274" name="بینگ"/>
+                    <Item id="6275" name="یاهو"/>
+                    <Item id="6276" name="موتور جستجوی خود را اینجا تنظیم کنید:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="مثال: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
 
                 <MISC title="متفرقه">
                     <Item id="6307" name="فعال کردن"/>
@@ -822,6 +854,7 @@
                     <Item id="6333" name="برجسته سازی هوشمند"/>
                     <Item id="6334" name="تشخیص خودکار رمزگذاری کاراکترها"/>
                     <Item id="6335" name="تلقی بَک اِسلَش بعنوان کاراکتر گریز برای اِس کیو اِل"/>
+                    <Item id="6337" name="پسوند فایل فضای کاری:"/>
                     <Item id="6114" name="فعال کردن"/>
                     <Item id="6115" name="لبه دادن خودکار"/>
                     <Item id="6117" name="فعال کردن رفتار آخرین استفاده شده"/>
@@ -848,6 +881,7 @@
                 <Item id="2030" name="شماره آغازین:"/>
                 <Item id="2031" name="افزایش با:"/>
                 <Item id="2035" name="صفر های جلو"/>
+                <Item id="2036" name="گزارش :"/>
                 <Item id="2032" name="فرمت"/>
                 <Item id="2024" name="دسیمال"/>
                 <Item id="2025" name="اُکتال"/>
@@ -871,6 +905,7 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="مقدار فایل ها برای بازشدن بزرگ هست" message="درصدد بازشدن هست $INT_REPLACE$ تعداد \rآیا میخواهید آنها را باز کنید؟"/>
 			<SettingsOnCloudError title="تنظیمات در اَبری" message="بنظر تنظیمات مسیر در اَبری در حالت فقط-خواندنی است یا،\rیا آن پوشه نیاز به سطح دسترسی بالاتر دارد\rتنظیمات اشبری لغو خواهد شد،لطفا مقدار همسان را در پنجره تنظیمات ریست کنید"/>
+			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="تاریخچه کلیپ برد"/>

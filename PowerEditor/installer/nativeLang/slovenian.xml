@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
         Slovenian localization for Notepad++ v7.0
-        Last modified 01. Oct. 2016 by Vinko Kastelic
+        Last modified 15. Oct. 2016 by Vinko Kastelic
         
 -->
 <NotepadPlus>
@@ -277,20 +277,7 @@
                     <Item id="10002" name="Kloniraj v drugi pogled"/>
                     <Item id="10003" name="Premakni v novo pojavitev"/>
                     <Item id="10004" name="Odpri v novi pojavitvi"/>
-					
-						<Item id="45060" name="Big5 (Traditional)"/>
-                    <Item id="45061" name="GB2312 (Simplified)"/>
-                    <Item id="45054" name="OEM 861: Islandic"/>
-                    <Item id="45057" name="OEM 865: Nordic"/>
-                    <Item id="45053" name="OEM 860: Portuguese"/>
-                    <Item id="45056" name="OEM 863: French"/>
-					
-                    <Item id="46033" name="Sklop"/>
-                    <Item id="46019" name="MS INI datoteka"/>
-                    <Item id="46015" name="MS-DOS slog"/>
-                    <Item id="46016" name="Običajno besedilo"/>
-                    <Item id="46017" name="Izvorna datoteka"/>
-					
+								
                     <Item id="46001" name="Nastavljanje sloga..."/>
 						<Item id="46150" name="Določite svoj jezik..."/>
                     <Item id="46080" name="Uporabniško določeno"/>
@@ -716,19 +703,28 @@
 						<Item id="4009" name="Podprte pripone:"/>
 						<Item id="4010" name="Registrirane pripone:"/>
 					</FileAssoc>
-					<LangMenu title="Jezikovni meni">					
+					<Language title="Jezik">					
 						<Item id="6505" name="Razpoložljive postavke"/>
 						<Item id="6506" name="Onemogočene postavke"/>
 						<Item id="6507" name="Strni jezikovni meni"/>
-						<Item id="6508" name="Jezikovni meni"/>                    
-					</LangMenu>
-				
-					<TabSettings title="Nastavitve zavihka">
+						<Item id="6508" name="Jezikovni meni"/> 	
 						<Item id="6301" name="Nastavitve zavihka"/>
 						<Item id="6302" name="Zamenjaj s presledki"/>
 						<Item id="6303" name="Velikost zavihka: "/>
 						<Item id="6510" name="Uporabi privzeto vrednost"/>
-					</TabSettings>
+					</Language>
+					
+					<Highlighting title="Highlighting">
+						<Item id="6333" name="Pametno poudarjanje"/>
+						<Item id="6326" name="Omogoči pametno poudarjanje"/>					
+						<Item id="6332" name="Razlikuj male/VELIKE črke"/>
+						<Item id="6338" name="Ujemanje samo cele besede"/>
+						<Item id="6339" name="Uporabi nastavitve pogovornega okna Najdi"/>
+						<Item id="6329" name="Poudari ujemajoče oznake"/>
+						<Item id="6327" name="Omogoči"/>
+						<Item id="6328" name="Poudari atribute oznake"/>
+						<Item id="6330" name="Poudari komentar/php/asp območja"/>											
+					</Highlighting>
 					
 					<Print title="Tiskanje">
 						<Item id="6601" name="Natisni številko vrstice"/>
@@ -792,6 +788,7 @@
 						<Item id="6809" name="Dopolnjevanje funkcij"/>
 						<Item id="6810" name="Dopolnjevanje besed"/>
 						<Item id="6816" name="Funkcija in beseda zaključka"/>
+                    <Item id="6824" name="Prezri številke"/>						
 						<Item id="6811" name="Od"/>
 						<Item id="6813" name=". znaka naprej"/>
 						<Item id="6814" name="Veljavna vrednost: 1 - 9"/>
@@ -848,15 +845,8 @@
 						<Item id="6320" name="Brez podčrtavanja"/>
 						<Item id="6322" name="Pripona datoteke seje:"/>
 						<Item id="6323" name="Omogoči samodejno posodabljanje Notepada++"/>
-						<Item id="6324" name="Preklopnik dokumentov (Ctrl+TAB)"/>
-						<Item id="6326" name="Omogoči pametno poudarjanje"/>
-						<Item id="6329" name="Poudari ujemajoče oznake"/>
-						<Item id="6327" name="Omogoči"/>
-						<Item id="6328" name="Poudari atribute oznake"/>
-						<Item id="6330" name="Poudari komentar/php/asp območja"/>					
-						<Item id="6331" name="V naslovni vrstici pokaži le ime datoteke"/>
-						<Item id="6332" name="Razlikuj male/VELIKE črke"/>
-						<Item id="6333" name="Pametno poudarjanje"/>
+						<Item id="6324" name="Preklopnik dokumentov (Ctrl+TAB)"/>		
+						<Item id="6331" name="V naslovni vrstici pokaži le ime datoteke"/>						
 						<Item id="6334" name="Samodejno zaznavanje kodiranja znakov"/>
 						<Item id="6335" name="Uporabite poševnico kot ubežni znak za SQL"/>
 						<Item id="6337" name="Delovni prostor pripone datoteke:"/>

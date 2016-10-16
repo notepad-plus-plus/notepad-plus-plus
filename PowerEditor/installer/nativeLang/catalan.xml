@@ -2,7 +2,7 @@
 <!--
 Catalan translation 
 for Notepad++ 7.0
-Updated 11.10.2016
+Updated 16.10.2016
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
@@ -708,18 +708,27 @@ By Hiro5 <groccat at gmail>
 					<Item id="4009" name="Extensions suportades:"/>
 					<Item id="4010" name="Ext. registrades:"/>
 				</FileAssoc>
-				<LangMenu title="Llenguatge">
+				<Language title="Llenguatge">
 					<Item id="6508" name="Menú de Llenguatge"/>
 					<Item id="6507" name="Compacta el menú de Llenguatge"/>
 					<Item id="6505" name="Ítems disponibles"/>
 					<Item id="6506" name="Ítems no disponibles"/>
-				</LangMenu>
-				<TabSettings title="Tabulació">
-					<Item id="6301" name="Configuració de la tabulació"/>
+					<Item id="6301" name="Configuració de tabulació"/>
 					<Item id="6510" name="Utilitza el predeterminat"/>
 					<Item id="6303" name="Mida de tabulació:"/>
 					<Item id="6302" name="Reemplaça per espais"/>
-				</TabSettings>
+				</Language>
+				<Highlighting title="Ressaltat">
+					<Item id="6333" name="Ressaltat intel·ligent"/>
+					<Item id="6326" name="Activa ressaltat intel·ligent"/>
+					<Item id="6332" name="El ressaltat distingeix majúscules."/>
+					<Item id="6338" name="Només paraula sencera"/>
+					<Item id="6339" name="Empra opcions del diàleg de cerca"/>
+					<Item id="6329" name="Destacat de paraules clau"/>
+					<Item id="6327" name="Habilita"/>
+					<Item id="6328" name="Destaca els atributs de par. clau"/>
+					<Item id="6330" name="Destaca la zona php/asp/comentari"/>
+				</Highlighting>
 				<Print title="Impressió">
 					<Item id="6601" name="Imprimeix número de línia"/>
 					<Item id="6602" name="Opcions de color"/>
@@ -805,9 +814,6 @@ By Hiro5 <groccat at gmail>
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
 					<Item id="6114" name="Habilita"/>
 					<Item id="6117" name="Ordena per l'editat més recent"/>
-					<Item id="6333" name="Ressaltat intel·ligent"/>
-					<Item id="6326" name="Activa"/>
-					<Item id="6332" name="El ressaltat distingeix majúscules"/>
 					<Item id="6323" name="Actualitza Notepad++ automàticament"/>
 					<Item id="6334" name="Autodetecta codificació de caràcters"/>
 					<Item id="6115" name="Sagnat automàtic"/>
@@ -822,10 +828,6 @@ By Hiro5 <groccat at gmail>
 					<Item id="6307" name="Habilita"/>
 					<Item id="6313" name="Actualitza en silenci"/>
 					<Item id="6325" name="Vés a l'última línia després d'actualitzar"/>
-					<Item id="6329" name="Destacat de paraules clau"/>
-					<Item id="6327" name="Habilita"/>
-					<Item id="6328" name="Destaca els atributs de les par. clau"/>
-					<Item id="6330" name="Destaca la zona php/asp/comentari"/>
 					<Item id="6322" name="Ext. del fitxer de sessió:"/>
 					<Item id="6337" name="Ext. del fitxer d'espai de treball:"/>
 					<Item id="6334" name="Autodetecta codificació de caràcters"/>

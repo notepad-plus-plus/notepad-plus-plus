@@ -898,6 +898,8 @@ NppParameters::~NppParameters()
 
 bool NppParameters::reloadStylers(TCHAR *stylePath)
 {
+	saveColorPalette();
+
 	if (_pXmlUserStylerDoc)
 		delete _pXmlUserStylerDoc;
 
@@ -914,6 +916,7 @@ bool NppParameters::reloadStylers(TCHAR *stylePath)
 	_widgetStyleArray.setNbStyler( 0 );
 
 	getUserStylersFromXmlTree();
+	loadColorPalette();
 
 	//  Reload plugin styles.
 	for( size_t i = 0; i < getExternalLexerDoc()->size(); ++i)
@@ -1179,7 +1182,10 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 	else
+	{
 		getUserStylersFromXmlTree();
+		loadColorPalette();
+	}
 
 	_themeSwitcher._stylesXmlPath = _stylerPath;
 	// Firstly, add the default theme
@@ -6331,6 +6337,7 @@ void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & g
 	}
 
 	_pXmlUserStylerDoc->SaveFile();
+	saveColorPalette();
 }
 
 
@@ -6506,6 +6513,117 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 		styleElement->SetAttribute(TEXT("nesting"), style2Write._nesting);
 	}
+}
+
+bool NppParameters::saveColorPalette()
+{
+	if (not _themeColorPalette.isDirty())
+		return true;
+
+	_themeColorPalette.setSavePoint();
+
+	if (not _pXmlUserStylerDoc)
+		return false;
+
+	TiXmlNode *root = _pXmlUserStylerDoc->FirstChild(TEXT("NotepadPlus"));
+	if (not root)
+		return false;
+
+	TiXmlNode *colorRoot = root->FirstChild(TEXT("ColorPalette"));
+	if (colorRoot)
+		root->RemoveChild(colorRoot);
+
+	colorRoot = root->InsertEndChild(TiXmlElement(TEXT("ColorPalette")));
+	if (not colorRoot)
+		return false;
+
+	long row = 0;
+	const long maxRows = 6;
+	long column = 0;
+	long rgbVal = 0;
+	TCHAR colorStr[7];
+	generic_string genStr;
+	TiXmlNode *colorNode = nullptr;
+	for (size_t index = 0; index < _themeColorPalette.getSize(); ++index, ++row)
+	{
+		if (row < 1 || row > maxRows)
+		{
+			row = 1;
+			++column;
+			colorNode = colorRoot->InsertEndChild(TiXmlElement(TEXT("Colors")));
+			if (not colorNode)
+				return false;
+			genStr = TEXT("Set ");
+			genStr += std::to_wstring(column);
+			colorNode->ToElement()->SetAttribute(TEXT("name"), genStr.c_str());
+		}
+
+		genStr = TEXT("color");
+		genStr += std::to_wstring(row);
+		rgbVal = RGB2int(_themeColorPalette.getColor(index));
+		wsprintf(colorStr, TEXT("%.6X"), rgbVal);
+		colorNode->ToElement()->SetAttribute(genStr.c_str(), colorStr);
+	}
+
+	return _pXmlUserStylerDoc->SaveFile();
+}
+
+bool NppParameters::loadColorPalette()
+{
+	_themeColorPalette.setDefaultColorPalette();
+	_themeColorPalette.setSavePoint();
+
+	if (not _pXmlUserStylerDoc)
+		return false;
+
+	TiXmlNode *root = _pXmlUserStylerDoc->FirstChild(TEXT("NotepadPlus"));
+	if (not root)
+		return false;
+	
+	TiXmlNode *colorRoot = root->FirstChild(TEXT("ColorPalette"));
+	if (not colorRoot)
+		return false;
+
+	const long maxRows = 6;
+	const long maxColumns = 8;
+	generic_string genStr;
+	const TCHAR *colorStr = nullptr;
+	const TCHAR *colorNodeStr(TEXT("Colors"));
+	const generic_string nameStrModel(TEXT("Set 0"));
+	for (TiXmlNode *colorNode = colorRoot->FirstChild(colorNodeStr);
+		colorNode;
+		colorNode = colorNode->NextSibling(colorNodeStr))
+	{
+		TiXmlElement *element = colorNode->ToElement();
+
+		const generic_string nameStr = element->Attribute(TEXT("name"));
+		if (nameStr.length() != nameStrModel.length()
+				|| nameStr.compare(0, nameStr.length() - 1, nameStrModel, 0, nameStr.length() - 1)
+				|| not ::iswdigit(nameStr.back()))
+			continue;
+
+		const long column = std::wcstol(nameStr.substr(nameStr.length() - 1, 1).c_str(), 0, 10);
+		if (column < 1 || column > maxColumns)
+			continue;
+
+		const long startIndex = maxRows * (column - 1);
+		for (long row = 1; row <= maxRows; ++row)
+		{
+			genStr = TEXT("color");
+			genStr += std::to_wstring(row);
+			colorStr = element->Attribute(genStr.c_str());
+			if (colorStr)
+			{
+				COLORREF colorVal = hexStrVal(colorStr);
+				if (colorVal == -1)
+					continue;
+				colorVal = RGB((colorVal >> 16) & 0xFF, (colorVal >> 8) & 0xFF, colorVal & 0xFF);
+				_themeColorPalette.setColor(startIndex + row - 1, colorVal, false);
+			}
+		}
+	}
+
+	return true;
 }
 
 void NppParameters::stylerStrOp(bool op)

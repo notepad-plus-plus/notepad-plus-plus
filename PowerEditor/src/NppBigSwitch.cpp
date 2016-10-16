@@ -1710,6 +1710,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				if (nppgui._rememberLastSession && !nppgui._isCmdlineNosessionActivated)
 					saveSession(currentSession);
 
+				pNppParam->saveColorPalette(); // save theme color palette
+
 				// write settings on cloud if enabled, if the settings files don't exist
 				if (nppgui._cloudPath != TEXT("") && pNppParam->isCloudPathChanged())
 				{

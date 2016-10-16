@@ -541,6 +541,65 @@ private :
 };
 
 
+// Default color palette for ColourPopup dialog
+const std::vector<COLORREF> defaultColorPalette {
+	RGB(  0,   0,   0), RGB( 64,   0,   0), RGB(128,   0,   0), RGB(128,  64,  64), RGB(255,   0,   0), RGB(255, 128, 128),
+	RGB(255, 255, 128), RGB(255, 255,   0), RGB(255, 128,  64), RGB(255, 128,   0), RGB(128,  64,   0), RGB(128, 128,   0),
+	RGB(128, 128,  64), RGB(  0,  64,   0), RGB(  0, 128,   0), RGB(  0, 255,   0), RGB(128, 255,   0), RGB(128, 255, 128),
+	RGB(  0, 255, 128), RGB(  0, 255,  64), RGB(  0, 128, 128), RGB(  0, 128,  64), RGB(  0,  64,  64), RGB(128, 128, 128),
+	RGB( 64, 128, 128), RGB(  0,   0, 128), RGB(  0,   0, 255), RGB(  0,  64, 128), RGB(  0, 255, 255), RGB(128, 255, 255),
+	RGB(  0, 128, 255), RGB(  0, 128, 192), RGB(128, 128, 255), RGB(  0,   0, 160), RGB(  0,   0,  64), RGB(192, 192, 192),
+	RGB( 64,   0,  64), RGB( 64,   0,  64), RGB(128,   0, 128), RGB(128,   0,  64), RGB(128, 128, 192), RGB(255, 128, 192),
+	RGB(255, 128, 255), RGB(255,   0, 255), RGB(255,   0, 128), RGB(128,   0, 255), RGB( 64,   0, 128), RGB(255, 255, 255),
+};
+
+// Customizable theme color palette for ColourPopup dialog
+struct ThemeColorPalette
+{
+public:
+	void setDefaultColorPalette()
+	{
+		_colorPalette = defaultColorPalette;
+	}
+
+	void setColor(const size_t & index, const COLORREF & color, const bool & markDirty = true)
+	{
+		if (index < _colorPalette.size())
+		{
+			_colorPalette[index] = color & 0xFFFFFF;
+			if (markDirty)
+				_isDirty = true;
+		}
+	}
+
+	COLORREF getColor(const size_t & index) const
+	{
+		if (index < _colorPalette.size())
+			return _colorPalette[index];
+		return 0;
+	}
+
+	size_t getSize() const
+	{
+		return _colorPalette.size();
+	}
+
+	bool isDirty() const
+	{
+		return _isDirty;
+	}
+
+	void setSavePoint()
+	{
+		_isDirty = false;
+	}
+
+private:
+	bool _isDirty = false;
+	std::vector<COLORREF> _colorPalette = defaultColorPalette;
+};
+
+
 struct NewDocDefaultSettings final
 {
 	EolType _format = EolType::osdefault;
@@ -1339,6 +1398,10 @@ public:
 	StyleArray & getMiscStylerArray() {return _widgetStyleArray;};
 	GlobalOverride & getGlobalOverrideStyle() {return _nppGUI._globalOverride;};
 
+	ThemeColorPalette & getThemeColorPalette() { return _themeColorPalette; }
+	bool saveColorPalette();
+	bool loadColorPalette();
+
 	COLORREF getCurLineHilitingColour();
 	void setCurLineHilitingColour(COLORREF colour2Set);
 
@@ -1598,6 +1661,7 @@ private:
 	// All Styles (colours & fonts)
 	LexerStylerArray _lexerStylerArray;
 	StyleArray _widgetStyleArray;
+	ThemeColorPalette _themeColorPalette;
 
 	std::vector<generic_string> _fontlist;
 	std::vector<generic_string> _blacklist;

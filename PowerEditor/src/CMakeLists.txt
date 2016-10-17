@@ -339,7 +339,7 @@ SET(rcFiles
 			./WinControls/ColourPicker/WordStyleDlg.rc
 )
 
-IF (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+IF (WIN32)
 	SET(option WIN32)
 	SET(win32_LIBRARIES comctl32 shlwapi dbghelp)
 if ( MSVC )
@@ -351,7 +351,7 @@ else ( MSVC )
 	SET(CMAKE_CXX_FLAGS "-include../gcc/include/various.h -std=c++14 -fpermissive")
 	SET(defs -DUNICODE -D_UNICODE -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL )
 endif ( MSVC )
-ENDIF (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+ENDIF (WIN32)
 
 ADD_DEFINITIONS(${defs})
 

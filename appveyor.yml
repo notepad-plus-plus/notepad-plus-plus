@@ -29,6 +29,10 @@ build_script:
     - msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform%"
 
 after_build:
+    - cd c:\projects\notepad-plus-plus\PowerEditor\script
+    - ps: >-
+        python .\validate_native_lang.py
+
     - cd c:\projects\notepad-plus-plus\
     - ps: >-
         $nppFileName = "Notepad++.$env:PLATFORM.$env:CONFIGURATION.exe"

@@ -121,10 +121,10 @@
                     <Item id="42070" name="文頭を大文字、他はそのまま(Sentence case)"/>
                     <Item id="42071" name="大文字/小文字を反転する"/>
                     <Item id="42072" name="大文字/小文字をランダムにする"/>
-					<Item id="42073" name="ファイル名として開く"/>
-					<Item id="42074" name="エクスプローラーで開く"/>
-					<Item id="42075" name="インターネットで検索する"/>
-					<Item id="42076" name="検索エンジンを変更..."/>
+                    <Item id="42073" name="ファイル名として開く"/>
+                    <Item id="42074" name="エクスプローラーで開く"/>
+                    <Item id="42075" name="インターネットで検索する"/>
+                    <Item id="42076" name="検索エンジンを変更..."/>
                     <Item id="42018" name="記録開始(&amp;S)"/>
                     <Item id="42019" name="記録終了(&amp;S)"/>
                     <Item id="42021" name="再生(&amp;P)"/>
@@ -711,19 +711,28 @@
                     <Item id="4009" name="サポート形式:"/>
                     <Item id="4010" name="登録済み形式:"/>
                 </FileAssoc>
-                <LangMenu title="言語メニュー">
+                <Language title="言語メニュー">
                     <Item id="6505" name="利用する"/>
                     <Item id="6506" name="利用しない"/>
                     <Item id="6507" name="言語メニューをまとめる"/>
                     <Item id="6508" name="言語メニュー"/>
-                </LangMenu>
-
-                <TabSettings title="タブ設定">
                     <Item id="6301" name="タブ設定"/>
                     <Item id="6302" name="スペースで置換"/>
                     <Item id="6303" name="タブ幅:"/>
                     <Item id="6510" name="デフォルト値を使用"/>
-                </TabSettings>
+                </Language>
+
+                <Highlighting title="強調表示">
+                    <Item id="6333" name="スマート強調表示"/>
+                    <Item id="6326" name="スマート強調表示を有効"/>
+                    <Item id="6332" name="大/小文字を区別"/>
+                    <Item id="6338" name="単語単位"/>
+                    <Item id="6339" name="検索ダイアログの設定に従う"/>
+                    <Item id="6329" name="一致するタグの強調表示"/>
+                    <Item id="6327" name="有効"/>
+                    <Item id="6328" name="タグの属性を強調表示"/>
+                    <Item id="6330" name="コメント/PHP/ASP 領域を強調表示"/>
+                </Highlighting>
 
                 <Print title="印刷">
                     <Item id="6601" name="行番号を印刷する"/>
@@ -787,6 +796,7 @@
                     <Item id="6809" name="関数名補完"/>
                     <Item id="6810" name="単語補完"/>
                     <Item id="6816" name="関数名と単語の補完"/>
+                    <Item id="6824" name="数字は補完しない"/>
                     <Item id="6811" name=" "/>
                     <Item id="6813" name="文字目から"/>
                     <Item id="6814" name="指定可能な値： 1 - 9"/>
@@ -815,7 +825,7 @@
                     <Item id="6256" name="複数行を許可する"/>
                 </Delimiter>
 
-                 <Cloud title="クラウド">
+                <Cloud title="クラウド">
                     <Item id="6262" name="クラウド設定"/>
                     <Item id="6263" name="クラウドを使用しない"/>
                     <Item id="6267" name="クラウドのパスを指定:"/>
@@ -846,14 +856,7 @@
                     <Item id="6322" name="セッションファイルの拡張子:"/>
                     <Item id="6323" name="Notepad++の自動アップデートを有効にする"/>
                     <Item id="6324" name="ビューの切り替え(Ctrl+Tab)"/>
-                    <Item id="6326" name="スマート強調表示を有効"/>
-                    <Item id="6329" name="一致するタグの強調表示"/>
-                    <Item id="6327" name="有効"/>
-                    <Item id="6328" name="タグの属性を強調表示"/>
-                    <Item id="6330" name="コメント/PHP/ASP 領域を強調表示"/>
                     <Item id="6331" name="タイトルバーにファイル名のみ表示"/>
-                    <Item id="6332" name="大文字/小文字を区別"/>
-                    <Item id="6333" name="スマート強調表示"/>
                     <Item id="6334" name="文字コードを自動判別"/>
                     <Item id="6335" name="バックスラッシュをSQLのエスケープ文字と見なす"/>
                     <Item id="6337" name="ワークスペースファイルの拡張子:"/>
@@ -910,7 +913,7 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルが開かれようとしています。¥r本当に開きますか?"/>
             <SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダに設定されているようです。クラウドの設定はキャンセルされます。環境設定画面で有効な設定にやり直してください。"/>
-			<FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
+            <FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>

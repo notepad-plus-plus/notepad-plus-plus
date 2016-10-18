@@ -28,6 +28,7 @@
 
 #include <time.h>
 #include <shlwapi.h>
+#include <ShlObj.h>
 #include "Notepad_plus_Window.h"
 #include "FileDialog.h"
 #include "EncodingMapper.h"
@@ -1157,69 +1158,56 @@ bool Notepad_plus::fileSave(BufferID id)
 
 	if (!buf->getFileReadOnly() && buf->isDirty())	//cannot save if readonly
 	{
-		const TCHAR *fn = buf->getFullPathName();
 		if (buf->isUntitled())
 		{
 			return fileSaveAs(bufferID);
 		}
-		else
-		{
-			const NppGUI & nppgui = (NppParameters::getInstance())->getNppGUI();
-			BackupFeature backup = nppgui._backup;
-			TCHAR *name = ::PathFindFileName(fn);
 
+		const NppGUI & nppgui = (NppParameters::getInstance())->getNppGUI();
+		BackupFeature backup = nppgui._backup;
+
+		if (backup != bak_none)
+		{
+			const TCHAR *fn = buf->getFullPathName();
+			TCHAR *name = ::PathFindFileName(fn);
+			generic_string fn_bak;
+
+			if (nppgui._useDir && not nppgui._backupDir.empty())
+			{
+				// Get the custom directory, make sure it has a trailing slash
+				fn_bak = nppgui._backupDir;
+				if (fn_bak.back() != TEXT('\\'))
+					fn_bak += TEXT("\\");
+			}
+			else
+			{
+				// Get the current file's directory
+				generic_string path = fn;
+				::PathRemoveFileSpec(path);
+				fn_bak = path.c_str();
+				fn_bak += TEXT("\\");
+
+				// If verbose, save it in a sub folder
+				if (backup == bak_verbose)
+				{
+					fn_bak += TEXT("nppBackup\\");
+				}
+			}
+
+			// Make sure the directory exists
+			if (!::PathFileExists(fn_bak.c_str()))
+			{
+				SHCreateDirectory(NULL, fn_bak.c_str());
+			}
+
+			// Determine what to name the backed-up file
 			if (backup == bak_simple)
 			{
-				//copy fn to fn.backup
-				generic_string fn_bak(fn);
-				if ((nppgui._useDir) && (nppgui._backupDir != TEXT("")))
-				{
-					fn_bak = nppgui._backupDir;
-					fn_bak += TEXT("\\");
-					fn_bak += name;
-				}
-				else
-				{
-					fn_bak = fn;
-				}
+				fn_bak += name;
 				fn_bak += TEXT(".bak");
-
-				if (not ::CopyFile(fn, fn_bak.c_str(), FALSE))
-				{
-					return false;
-				}
 			}
 			else if (backup == bak_verbose)
 			{
-				generic_string fn_dateTime_bak(TEXT(""));
-
-				if ((nppgui._useDir) && (nppgui._backupDir != TEXT("")))
-				{
-					fn_dateTime_bak = nppgui._backupDir;
-					fn_dateTime_bak += TEXT("\\");
-				}
-				else
-				{
-					const TCHAR *bakDir = TEXT("nppBackup");
-
-					// std::string path should be a temp throwable variable
-					generic_string path = fn;
-					::PathRemoveFileSpec(path);
-					fn_dateTime_bak = path.c_str();
-
-
-					fn_dateTime_bak += TEXT("\\");
-					fn_dateTime_bak += bakDir;
-					fn_dateTime_bak += TEXT("\\");
-
-					if (!::PathFileExists(fn_dateTime_bak.c_str()))
-					{
-						::CreateDirectory(fn_dateTime_bak.c_str(), NULL);
-					}
-				}
-
-				fn_dateTime_bak += name;
-
 				const int temBufLen = 32;
 				TCHAR tmpbuf[temBufLen];
 				time_t ltime = time(0);
@@ -1228,17 +1216,26 @@ bool Notepad_plus::fileSave(BufferID id)
 				today = localtime(&ltime);
 				generic_strftime(tmpbuf, temBufLen, TEXT("%Y-%m-%d_%H%M%S"), today);
 
-				fn_dateTime_bak += TEXT(".");
-				fn_dateTime_bak += tmpbuf;
-				fn_dateTime_bak += TEXT(".bak");
+				fn_bak += name;
+				fn_bak += TEXT(".");
+				fn_bak += tmpbuf;
+				fn_bak += TEXT(".bak");
+			}
 
-				if (not ::CopyFile(fn, fn_dateTime_bak.c_str(), FALSE))
+			if (not ::CopyFile(fn, fn_bak.c_str(), FALSE))
+			{
+				generic_string msg = TEXT("The previous version of the file could not be saved into the backup directory at ");
+				msg += TEXT("\"");
+				msg += fn_bak;
+				msg += TEXT("\".\r\rDo you want to save the current file anyways?");
+				if (::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), TEXT("File Backup Failed"), MB_YESNO | MB_ICONERROR) == IDNO)
 				{
 					return false;
 				}
 			}
-			return doSave(bufferID, buf->getFullPathName(), false);
 		}
+
+		return doSave(bufferID, buf->getFullPathName(), false);
 	}
 	return false;
 }

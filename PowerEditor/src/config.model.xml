@@ -55,7 +55,6 @@
                       -->
         <GUIConfig name="Backup" action="0" useCustumDir="no" dir="" />
         <GUIConfig name="TaskList">yes</GUIConfig>
-        <GUIConfig name="SaveOpenFileInSameDir">no</GUIConfig>
         <!--
 			value 0 for the folloing parameters means invisible :
 			leftWidth, topHight, rightWidth, bottomHight

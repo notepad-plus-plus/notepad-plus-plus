@@ -318,13 +318,13 @@
 			<parser
 				id         ="nsis_syntax"
 				displayName="NSIS Syntax"
-				commentExpr="(?s:/\*.*?\*/)|(?m-s:[#;].*?$)"
+				commentExpr="(?s:^[\t\x20]*/\*.*?\*/)|(?m-s:^[\t\x20]*[#;].*?$)"
 			>
 				<function
-					mainExpr="^[\t\x20]*(!macro|Function|Section|SectionGroup)[\t\x20]+[^\r\n]*$"
+					mainExpr="^[\t\x20]*(!macro|Function|Section|SectionGroup|!echo)[\t\x20]+[^\r\n]*$"
 				>
 					<functionName>
-						<nameExpr expr="(?(?=[\t\x20]*!macro)[\t\x20]*!macro[\t\x20]+[^\s]+|[^\r\n]*)" />
+						<nameExpr expr=".*" />
 					</functionName>
 				</function>
 			</parser>

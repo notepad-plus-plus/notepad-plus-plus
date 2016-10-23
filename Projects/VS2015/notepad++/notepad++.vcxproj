@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -72,36 +72,31 @@
     <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>false</GenerateManifest>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>false</GenerateManifest>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\scintilla\include;..\include;..\..\..\PowerEditor\src\WinControls;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\SysMsg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\tinyxml;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\Win32Explr;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\WinControls\Preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\tinyxml\tinyXmlA;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0501;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <Optimization>Disabled</Optimization>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\TinyXml;..\..\..\PowerEditor\src\TinyXml\tinyXmlA;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\scintilla\include;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
@@ -115,7 +110,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Manifest>
-      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+      <AdditionalManifestFiles>..\..\..\PowerEditor\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
       <Command />
@@ -123,19 +118,18 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\scintilla\include;..\include;..\..\..\PowerEditor\src\WinControls;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\SysMsg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\tinyxml;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\Win32Explr;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\WinControls\Preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\tinyxml\tinyXmlA;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0501;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <Optimization>Disabled</Optimization>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\TinyXml;..\..\..\PowerEditor\src\TinyXml\tinyXmlA;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\scintilla\include;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
@@ -148,7 +142,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <Manifest>
-      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+      <AdditionalManifestFiles>..\..\..\PowerEditor\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
       <Command>
@@ -157,28 +151,32 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\scintilla\include;..\include;..\..\..\PowerEditor\src\WinControls;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\SysMsg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\tinyxml;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\Win32Explr;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\WinControls\Preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\tinyxml\tinyXmlA;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0501;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
       <StringPooling>true</StringPooling>
+      <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
-      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\TinyXml;..\..\..\PowerEditor\src\TinyXml\tinyXmlA;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\scintilla\include;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Version>1.0</Version>
       <TypeLibraryFile />
       <TypeLibraryResourceID>1</TypeLibraryResourceID>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)npp.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -186,34 +184,38 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Manifest>
-      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+      <AdditionalManifestFiles>..\..\..\PowerEditor\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy ..\..\..\PowerEditor\src\config.model.xml ..\bin\config.model.xml
+copy ..\..\..\PowerEditor\src\langs.model.xml ..\bin\langs.model.xml
+copy ..\..\..\PowerEditor\src\stylers.model.xml ..\bin\stylers.model.xml
+copy ..\..\..\PowerEditor\src\shortcuts.xml ..\bin\shortcuts.xml
+copy ..\..\..\PowerEditor\src\functionList.xml ..\bin\functionList.xml
+copy ..\..\..\PowerEditor\src\contextMenu.xml ..\bin\contextMenu.xml
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+      <Optimization>Full</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <OmitFramePointers>
-      </OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\scintilla\include;..\include;..\..\..\PowerEditor\src\WinControls;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\SysMsg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\tinyxml;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\Win32Explr;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\WinControls\Preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\tinyxml\tinyXmlA;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32_WINNT=0x0501;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
       <StringPooling>true</StringPooling>
+      <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
-      <ExceptionHandling>Async</ExceptionHandling>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\TinyXml;..\..\..\PowerEditor\src\TinyXml\tinyXmlA;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\scintilla\include;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -221,7 +223,7 @@
       <TypeLibraryFile>
       </TypeLibraryFile>
       <TypeLibraryResourceID>1</TypeLibraryResourceID>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)npp.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -229,28 +231,26 @@
       <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <Manifest>
-      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+      <AdditionalManifestFiles>..\..\..\PowerEditor\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy ..\..\..\PowerEditor\src\config.model.xml ..\bin64\config.model.xml
+copy ..\..\..\PowerEditor\src\langs.model.xml ..\bin64\langs.model.xml
+copy ..\..\..\PowerEditor\src\stylers.model.xml ..\bin64\stylers.model.xml
+copy ..\..\..\PowerEditor\src\shortcuts.xml ..\bin64\shortcuts.xml
+copy ..\..\..\PowerEditor\src\functionList.xml ..\bin64\functionList.xml
+copy ..\..\..\PowerEditor\src\contextMenu.xml ..\bin64\contextMenu.xml
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\PowerEditor\src\MISC\Common\LongRunningOperation.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\MISC\Common\mutex.cpp" />
-    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\AboutDlg\AboutDlg.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</ForcedIncludeFiles>
-    </ClCompile>
+    <ClCompile Include="..\..\..\PowerEditor\src\MISC\Process\Processus.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\AboutDlg\AboutDlg.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\AutoCompletion.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\Grid\BabyGrid.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\Grid\BabyGridWrapper.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\Buffer.cpp" />
@@ -261,6 +261,8 @@
     <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\columnEditor.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\MISC\Common\Common.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ContextMenu\ContextMenu.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\TabBar\ControlsTab.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingCont.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingManager.cpp" />
@@ -317,7 +319,6 @@
     <ClCompile Include="..\..\..\PowerEditor\src\Misc\PluginsManager\PluginsManager.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\Preference\preferenceDlg.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\Printer.cpp" />
-    <ClCompile Include="..\..\..\PowerEditor\src\MISC\Process\Processus.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\MISC\RegExt\regExtDlg.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg\RunDlg.cpp" />
@@ -361,9 +362,6 @@
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\WinRect.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\WordStyleDlg.cpp" />
     <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\xmlMatchedTagsHighlighter.cpp" />
-    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser.cpp" />
-    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.cpp" />
-    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -485,6 +483,7 @@
     <ResourceCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\columnEditor.rc" />
     <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingGUIWidget.rc" />
     <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\DocumentMap\documentMap.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser.rc" />
     <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\FindCharsInRange\findCharsInRange.rc" />
     <ResourceCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\FindReplaceDlg.rc" />
     <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\FunctionList\functionListPanel.rc" />
@@ -501,7 +500,6 @@
     <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.rc" />
     <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\WindowsDlg.rc" />
     <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\WordStyleDlg.rc" />
-    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\PowerEditor\src\cursors\drag.cur" />
@@ -512,9 +510,12 @@
     <ClInclude Include="..\..\..\PowerEditor\src\MISC\Common\LongRunningOperation.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\MISC\Common\mutex.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\MISC\Common\mutex.hxx" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\Process\Processus.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\AboutDlg\AboutDlg.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\AutoCompletion.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser_rc.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\Grid\BabyGrid.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\Grid\BabyGridWrapper.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\Buffer.h" />
@@ -527,6 +528,9 @@
     <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\columnEditor.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\MISC\Common\Common.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ContextMenu\ContextMenu.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ThreadSafeQueue.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\TabBar\ControlsTab.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\Docking.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingCont.h" />
@@ -584,7 +588,6 @@
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\Preference\preferenceDlg.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\Printer.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\uchardet\prmem.h" />
-    <ClInclude Include="..\..\..\PowerEditor\src\MISC\Process\Processus.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel_rc.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\MISC\RegExt\regExtDlg.h" />
@@ -634,35 +637,10 @@
     <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\WordStyleDlg.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\xmlMatchedTagsHighlighter.h" />
     <ClInclude Include="..\..\..\PowerEditor\src\rgba_icons.h" />
-    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser.h" />
-    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser_rc.h" />
-    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.h" />
-    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.h" />
-    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ThreadSafeQueue.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="..\..\..\PowerEditor\src\notepad++.exe.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\..\PowerEditor\src\config.model.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\..\PowerEditor\src\langs.model.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\..\PowerEditor\src\stylers.model.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\..\PowerEditor\src\shortcuts.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\..\PowerEditor\src\functionList.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\..\PowerEditor\src\contextMenu.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SciLexer\SciLexer.vcxproj">

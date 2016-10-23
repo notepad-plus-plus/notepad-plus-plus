@@ -40,6 +40,80 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_CAML, L_ADA, L_VERILOG, L_MATLAB, L_HASKELL, L_INNO, L_SEARCHRESULT,\
 			   L_CMAKE, L_YAML, L_COBOL, L_GUI4CLI, L_D, L_POWERSHELL, L_R, L_JSP,\
 			   L_COFFEESCRIPT, L_JSON, L_JAVASCRIPT, L_FORTRAN_77,\
+			   L_A68K, \
+			   L_ABAQUS, \
+			   L_APDL, \
+			   L_AS, \
+			   L_ASN1, \
+			   L_ASYMPTOTE, \
+			   L_AVE, \
+			   L_AVS, \
+			   L_BAAN, \
+			   L_BLITZBASIC, \
+			   L_PUREBASIC, \
+			   L_FREEBASIC, \
+			   L_BIBTEX, \
+			   L_BULLANT, \
+			   L_CLW, \
+			   L_CLWNOCASE, \
+			   L_CONF, \
+			   L_CPPNOCASE, /* probably not applicable */\
+			   L_NNCRONTAB, \
+			   L_CSOUND, \
+			   L_DMAP, \
+			   L_DMIS, \
+			   L_ECL, \
+			   L_EIFFEL, \
+			   L_EIFFELKW, \
+			   L_ERLANG, \
+			   L_ESCRIPT, \
+			   L_FLAGSHIP, \
+			   L_FORTH, \
+			   L_GAP, \
+			   L_LITERATEHASKELL, \
+			   L_SREC, /* Pending PR #1257 */\
+			   L_IHEX, /* Pending PR #1257 */\
+			   L_TEHEX, /* Pending PR #1257 */\
+			   L_PHPSCRIPT, \
+			   L_KVIRC, \
+			   L_LATEX, \
+			   L_LOUT, \
+			   L_MAGIK, \
+			   L_MARKDOWN, /* Related issue #1695 */\
+			   L_OCTAVE, \
+			   L_METAPOST, \
+			   L_MMIXAL, \
+			   L_MODULA, \
+			   L_LOT, \
+			   L_MSSQL, \
+			   L_MYSQL, \
+			   L_NIMROD, \
+			   L_OPAL, \
+			   L_OSCRIPT, \
+			   L_ERRORLIST, \
+			   L_POWERBASIC, \
+			   L_PLM, \
+			   L_PO, /* PR #181 never merged */\
+			   L_POV, /* PR #181 never merged */\
+			   L_POWERPRO, \
+			   L_PROGRESS, \
+			   L_REBOL, \
+			   L_REGISTRY, /* PR #181 never merged */\
+			   L_RUST, /* Relate issue #469 */\
+			   L_SCRIPTOL, \
+			   L_SML, \
+			   L_SORCUS, \
+			   L_SPECMAN, \
+			   L_SPICE, \
+			   L_STTXT, \
+			   L_TACL, \
+			   L_TADS3, \
+			   L_TAL, \
+			   L_TCMD, \
+			   L_TXT2TAGS, \
+			   L_VBSCRIPT, \
+			   L_VISUALPROLOG, /* Pending PR #1439 */\
+
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
 			   L_EXTERNAL};

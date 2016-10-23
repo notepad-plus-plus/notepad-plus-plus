@@ -6199,6 +6199,225 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_COFFEESCRIPT :
 			id = IDM_LANG_COFFEESCRIPT; break;
 
+		case L_A68K :
+			id = IDM_LANG_A68K; break;
+
+		case L_ABAQUS :
+			id = IDM_LANG_ABAQUS; break;
+
+		case L_APDL :
+			id = IDM_LANG_APDL; break;
+
+		case L_AS :
+			id = IDM_LANG_AS; break;
+
+		case L_ASN1 :
+			id = IDM_LANG_ASN1; break;
+
+		case L_ASYMPTOTE :
+			id = IDM_LANG_ASYMPTOTE; break;
+
+		case L_AVE :
+			id = IDM_LANG_AVE; break;
+
+		case L_AVS :
+			id = IDM_LANG_AVS; break;
+
+		case L_BAAN :
+			id = IDM_LANG_BAAN; break;
+
+		case L_BLITZBASIC :
+			id = IDM_LANG_BLITZBASIC; break;
+
+		case L_PUREBASIC :
+			id = IDM_LANG_PUREBASIC; break;
+
+		case L_FREEBASIC :
+			id = IDM_LANG_FREEBASIC; break;
+
+		case L_BIBTEX :
+			id = IDM_LANG_BIBTEX; break;
+
+		case L_BULLANT :
+			id = IDM_LANG_BULLANT; break;
+
+		case L_CLW :
+			id = IDM_LANG_CLW; break;
+
+		case L_CLWNOCASE :
+			id = IDM_LANG_CLWNOCASE; break;
+
+		case L_CONF :
+			id = IDM_LANG_CONF; break;
+
+		case L_CPPNOCASE :
+			id = IDM_LANG_CPPNOCASE; break;
+
+		case L_NNCRONTAB :
+			id = IDM_LANG_NNCRONTAB; break;
+
+		case L_CSOUND :
+			id = IDM_LANG_CSOUND; break;
+
+		case L_DMAP :
+			id = IDM_LANG_DMAP; break;
+
+		case L_DMIS :
+			id = IDM_LANG_DMIS; break;
+
+		case L_ECL :
+			id = IDM_LANG_ECL; break;
+
+		case L_EIFFEL :
+			id = IDM_LANG_EIFFEL; break;
+
+		case L_EIFFELKW :
+			id = IDM_LANG_EIFFELKW; break;
+
+		case L_ERLANG :
+			id = IDM_LANG_ERLANG; break;
+
+		case L_ESCRIPT :
+			id = IDM_LANG_ESCRIPT; break;
+
+		case L_FLAGSHIP :
+			id = IDM_LANG_FLAGSHIP; break;
+
+		case L_FORTH :
+			id = IDM_LANG_FORTH; break;
+
+		case L_GAP :
+			id = IDM_LANG_GAP; break;
+
+		case L_LITERATEHASKELL :
+			id = IDM_LANG_LITERATEHASKELL; break;
+
+		case L_SREC :
+			id = IDM_LANG_SREC; break;
+
+		case L_IHEX :
+			id = IDM_LANG_IHEX; break;
+
+		case L_TEHEX :
+			id = IDM_LANG_TEHEX; break;
+
+		case L_PHPSCRIPT :
+			id = IDM_LANG_PHPSCRIPT; break;
+
+		case L_KVIRC :
+			id = IDM_LANG_KVIRC; break;
+
+		case L_LATEX :
+			id = IDM_LANG_LATEX; break;
+
+		case L_LOUT :
+			id = IDM_LANG_LOUT; break;
+
+		case L_MAGIK :
+			id = IDM_LANG_MAGIK; break;
+
+		case L_MARKDOWN :
+			id = IDM_LANG_MARKDOWN; break;
+
+		case L_OCTAVE :
+			id = IDM_LANG_OCTAVE; break;
+
+		case L_METAPOST :
+			id = IDM_LANG_METAPOST; break;
+
+		case L_MMIXAL :
+			id = IDM_LANG_MMIXAL; break;
+
+		case L_MODULA :
+			id = IDM_LANG_MODULA; break;
+
+		case L_LOT :
+			id = IDM_LANG_LOT; break;
+
+		case L_MSSQL :
+			id = IDM_LANG_MSSQL; break;
+
+		case L_MYSQL :
+			id = IDM_LANG_MYSQL; break;
+
+		case L_NIMROD :
+			id = IDM_LANG_NIMROD; break;
+
+		case L_OPAL :
+			id = IDM_LANG_OPAL; break;
+
+		case L_OSCRIPT :
+			id = IDM_LANG_OSCRIPT; break;
+
+		case L_ERRORLIST :
+			id = IDM_LANG_ERRORLIST; break;
+
+		case L_POWERBASIC :
+			id = IDM_LANG_POWERBASIC; break;
+
+		case L_PLM :
+			id = IDM_LANG_PLM; break;
+
+		case L_PO :
+			id = IDM_LANG_PO; break;
+
+		case L_POV :
+			id = IDM_LANG_POV; break;
+
+		case L_POWERPRO :
+			id = IDM_LANG_POWERPRO; break;
+
+		case L_PROGRESS :
+			id = IDM_LANG_PROGRESS; break;
+
+		case L_REBOL :
+			id = IDM_LANG_REBOL; break;
+
+		case L_REGISTRY :
+			id = IDM_LANG_REGISTRY; break;
+
+		case L_RUST :
+			id = IDM_LANG_RUST; break;
+
+		case L_SCRIPTOL :
+			id = IDM_LANG_SCRIPTOL; break;
+
+		case L_SML :
+			id = IDM_LANG_SML; break;
+
+		case L_SORCUS :
+			id = IDM_LANG_SORCUS; break;
+
+		case L_SPECMAN :
+			id = IDM_LANG_SPECMAN; break;
+
+		case L_SPICE :
+			id = IDM_LANG_SPICE; break;
+
+		case L_STTXT :
+			id = IDM_LANG_STTXT; break;
+
+		case L_TACL :
+			id = IDM_LANG_TACL; break;
+
+		case L_TADS3 :
+			id = IDM_LANG_TADS3; break;
+
+		case L_TAL :
+			id = IDM_LANG_TAL; break;
+
+		case L_TCMD :
+			id = IDM_LANG_TCMD; break;
+
+		case L_TXT2TAGS :
+			id = IDM_LANG_TXT2TAGS; break;
+
+		case L_VBSCRIPT :
+			id = IDM_LANG_VBSCRIPT; break;
+
+		case L_VISUALPROLOG :
+			id = IDM_LANG_VISUALPROLOG; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

@@ -727,6 +727,83 @@ BEGIN
         MENUITEM "XML",                     IDM_LANG_XML
         MENUITEM "YAML",                    IDM_LANG_YAML
         MENUITEM SEPARATOR
+        POPUP "Partial support (Beta)"
+        BEGIN
+            MENUITEM "A68k",                    IDM_LANG_A68K
+            MENUITEM "Abaqus",                  IDM_LANG_ABAQUS
+            MENUITEM "Apdl",                    IDM_LANG_APDL
+            MENUITEM "As",                      IDM_LANG_AS
+            MENUITEM "Asn1",                    IDM_LANG_ASN1
+            MENUITEM "Asymptote",               IDM_LANG_ASYMPTOTE
+            MENUITEM "Ave",                     IDM_LANG_AVE
+            MENUITEM "Avs",                     IDM_LANG_AVS
+            MENUITEM "Baan",                    IDM_LANG_BAAN
+            MENUITEM "Blitzbasic",              IDM_LANG_BLITZBASIC
+            MENUITEM "Purebasic",               IDM_LANG_PUREBASIC
+            MENUITEM "Freebasic",               IDM_LANG_FREEBASIC
+            MENUITEM "Bib",                     IDM_LANG_BIBTEX
+            MENUITEM "Bullant",                 IDM_LANG_BULLANT
+            MENUITEM "Clarion",                 IDM_LANG_CLW
+            MENUITEM "Clarionnocase",           IDM_LANG_CLWNOCASE
+            MENUITEM "Conf",                    IDM_LANG_CONF
+            MENUITEM "Cppnocase",               IDM_LANG_CPPNOCASE
+            MENUITEM "Nncrontab",               IDM_LANG_NNCRONTAB
+            MENUITEM "CSound",                  IDM_LANG_CSOUND
+            MENUITEM "DMAP",                    IDM_LANG_DMAP
+            MENUITEM "DMIS",                    IDM_LANG_DMIS
+            MENUITEM "Ecl",                     IDM_LANG_ECL
+            MENUITEM "Eiffel",                  IDM_LANG_EIFFEL
+            MENUITEM "Eiffelkw",                IDM_LANG_EIFFELKW
+            MENUITEM "Erlang",                  IDM_LANG_ERLANG
+            MENUITEM "Escript",                 IDM_LANG_ESCRIPT
+            MENUITEM "Flagship",                IDM_LANG_FLAGSHIP
+            MENUITEM "Forth",                   IDM_LANG_FORTH
+            MENUITEM "Gap",                     IDM_LANG_GAP
+            MENUITEM "Literatehaskell",         IDM_LANG_LITERATEHASKELL
+            MENUITEM "Srec",                    IDM_LANG_SREC
+            MENUITEM "Ihex",                    IDM_LANG_IHEX
+            MENUITEM "Tehex",                   IDM_LANG_TEHEX
+            MENUITEM "Phpscript",               IDM_LANG_PHPSCRIPT
+            MENUITEM "Kvirc",                   IDM_LANG_KVIRC
+            MENUITEM "Latex",                   IDM_LANG_LATEX
+            MENUITEM "Lout",                    IDM_LANG_LOUT
+            MENUITEM "Magiksf",                 IDM_LANG_MAGIK
+            MENUITEM "Markdown",                IDM_LANG_MARKDOWN
+            MENUITEM "Octave",                  IDM_LANG_OCTAVE
+            MENUITEM "Metapost",                IDM_LANG_METAPOST
+            MENUITEM "Mmixal",                  IDM_LANG_MMIXAL
+            MENUITEM "Modula",                  IDM_LANG_MODULA
+            MENUITEM "Lot",                     IDM_LANG_LOT
+            MENUITEM "MsSQL",                   IDM_LANG_MSSQL
+            MENUITEM "MySQL",                   IDM_LANG_MYSQL
+            MENUITEM "Nimrod",                  IDM_LANG_NIMROD
+            MENUITEM "Opal",                    IDM_LANG_OPAL
+            MENUITEM "Oscript",                 IDM_LANG_OSCRIPT
+            MENUITEM "Errorlist",               IDM_LANG_ERRORLIST
+            MENUITEM "Powerbasic",              IDM_LANG_POWERBASIC
+            MENUITEM "PL/M",                    IDM_LANG_PLM
+            MENUITEM "Po",                      IDM_LANG_PO
+            MENUITEM "Pov",                     IDM_LANG_POV
+            MENUITEM "Powerpro",                IDM_LANG_POWERPRO
+            MENUITEM "Progress",                IDM_LANG_PROGRESS
+            MENUITEM "Rebol",                   IDM_LANG_REBOL
+            MENUITEM "Registry",                IDM_LANG_REGISTRY
+            MENUITEM "Rust",                    IDM_LANG_RUST
+            MENUITEM "Scriptol",                IDM_LANG_SCRIPTOL
+            MENUITEM "SML",                     IDM_LANG_SML
+            MENUITEM "Sorcus inst",             IDM_LANG_SORCUS
+            MENUITEM "Specman",                 IDM_LANG_SPECMAN
+            MENUITEM "Spice",                   IDM_LANG_SPICE
+            MENUITEM "FcST",                    IDM_LANG_STTXT
+            MENUITEM "TACL",                    IDM_LANG_TACL
+            MENUITEM "Tads3",                   IDM_LANG_TADS3
+            MENUITEM "TAL",                     IDM_LANG_TAL
+            MENUITEM "Tcmd",                    IDM_LANG_TCMD
+            MENUITEM "Txt2tags",                IDM_LANG_TXT2TAGS
+            MENUITEM "Vbscript",                IDM_LANG_VBSCRIPT
+            MENUITEM "Visualprolog",            IDM_LANG_VISUALPROLOG
+        END
+        MENUITEM SEPARATOR
         MENUITEM "Define your language...", IDM_LANG_USER_DLG
         MENUITEM "User-Defined",            IDM_LANG_USER
     END
@@ -836,7 +913,85 @@ BEGIN
     MENUITEM "XML",                       IDM_LANG_XML
     MENUITEM "YAML",                      IDM_LANG_YAML
     MENUITEM SEPARATOR
-    MENUITEM "Define your language...",   IDM_LANG_USER_DLG
+    POPUP "Partial support (Beta)"
+    BEGIN
+        MENUITEM "A68k",                    IDM_LANG_A68K
+        MENUITEM "Abaqus",                  IDM_LANG_ABAQUS
+        MENUITEM "Apdl",                    IDM_LANG_APDL
+        MENUITEM "As",                      IDM_LANG_AS
+        MENUITEM "Asn1",                    IDM_LANG_ASN1
+        MENUITEM "Asymptote",               IDM_LANG_ASYMPTOTE
+        MENUITEM "Ave",                     IDM_LANG_AVE
+        MENUITEM "Avs",                     IDM_LANG_AVS
+        MENUITEM "Baan",                    IDM_LANG_BAAN
+        MENUITEM "Blitzbasic",              IDM_LANG_BLITZBASIC
+        MENUITEM "Purebasic",               IDM_LANG_PUREBASIC
+        MENUITEM "Freebasic",               IDM_LANG_FREEBASIC
+        MENUITEM "Bib",                     IDM_LANG_BIBTEX
+        MENUITEM "Bullant",                 IDM_LANG_BULLANT
+        MENUITEM "Clarion",                 IDM_LANG_CLW
+        MENUITEM "Clarionnocase",           IDM_LANG_CLWNOCASE
+        MENUITEM "Conf",                    IDM_LANG_CONF
+        MENUITEM "Cppnocase",               IDM_LANG_CPPNOCASE
+        MENUITEM "Nncrontab",               IDM_LANG_NNCRONTAB
+        MENUITEM "CSound",                  IDM_LANG_CSOUND
+        MENUITEM "DMAP",                    IDM_LANG_DMAP
+        MENUITEM "DMIS",                    IDM_LANG_DMIS
+        MENUITEM "Ecl",                     IDM_LANG_ECL
+        MENUITEM "Eiffel",                  IDM_LANG_EIFFEL
+        MENUITEM "Eiffelkw",                IDM_LANG_EIFFELKW
+        MENUITEM "Erlang",                  IDM_LANG_ERLANG
+        MENUITEM "Escript",                 IDM_LANG_ESCRIPT
+        MENUITEM "Flagship",                IDM_LANG_FLAGSHIP
+        MENUITEM "Forth",                   IDM_LANG_FORTH
+        MENUITEM "Gap",                     IDM_LANG_GAP
+        MENUITEM "Literatehaskell",         IDM_LANG_LITERATEHASKELL
+        MENUITEM "Srec",                    IDM_LANG_SREC
+        MENUITEM "Ihex",                    IDM_LANG_IHEX
+        MENUITEM "Tehex",                   IDM_LANG_TEHEX
+        MENUITEM "Phpscript",               IDM_LANG_PHPSCRIPT
+        MENUITEM "Kvirc",                   IDM_LANG_KVIRC
+        MENUITEM "Latex",                   IDM_LANG_LATEX
+        MENUITEM "Lout",                    IDM_LANG_LOUT
+        MENUITEM "Magiksf",                 IDM_LANG_MAGIK
+        MENUITEM "Markdown",                IDM_LANG_MARKDOWN
+        MENUITEM "Octave",                  IDM_LANG_OCTAVE
+        MENUITEM "Metapost",                IDM_LANG_METAPOST
+        MENUITEM "Mmixal",                  IDM_LANG_MMIXAL
+        MENUITEM "Modula",                  IDM_LANG_MODULA
+        MENUITEM "Lot",                     IDM_LANG_LOT
+        MENUITEM "MsSQL",                   IDM_LANG_MSSQL
+        MENUITEM "MySQL",                   IDM_LANG_MYSQL
+        MENUITEM "Nimrod",                  IDM_LANG_NIMROD
+        MENUITEM "Opal",                    IDM_LANG_OPAL
+        MENUITEM "Oscript",                 IDM_LANG_OSCRIPT
+        MENUITEM "Errorlist",               IDM_LANG_ERRORLIST
+        MENUITEM "Powerbasic",              IDM_LANG_POWERBASIC
+        MENUITEM "PL/M",                    IDM_LANG_PLM
+        MENUITEM "Po",                      IDM_LANG_PO
+        MENUITEM "Pov",                     IDM_LANG_POV
+        MENUITEM "Powerpro",                IDM_LANG_POWERPRO
+        MENUITEM "Progress",                IDM_LANG_PROGRESS
+        MENUITEM "Rebol",                   IDM_LANG_REBOL
+        MENUITEM "Registry",                IDM_LANG_REGISTRY
+        MENUITEM "Rust",                    IDM_LANG_RUST
+        MENUITEM "Scriptol",                IDM_LANG_SCRIPTOL
+        MENUITEM "SML",                     IDM_LANG_SML
+        MENUITEM "Sorcus inst",             IDM_LANG_SORCUS
+        MENUITEM "Specman",                 IDM_LANG_SPECMAN
+        MENUITEM "Spice",                   IDM_LANG_SPICE
+        MENUITEM "FcST",                    IDM_LANG_STTXT
+        MENUITEM "TACL",                    IDM_LANG_TACL
+        MENUITEM "Tads3",                   IDM_LANG_TADS3
+        MENUITEM "TAL",                     IDM_LANG_TAL
+        MENUITEM "Tcmd",                    IDM_LANG_TCMD
+        MENUITEM "Txt2tags",                IDM_LANG_TXT2TAGS
+        MENUITEM "Vbscript",                IDM_LANG_VBSCRIPT
+        MENUITEM "Visualprolog",            IDM_LANG_VISUALPROLOG
+    END
+    MENUITEM SEPARATOR
+
+	MENUITEM "Define your language...",   IDM_LANG_USER_DLG
     MENUITEM "User-Defined",              IDM_LANG_USER
     END
 

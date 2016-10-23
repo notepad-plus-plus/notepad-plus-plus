@@ -2786,6 +2786,154 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_R;
 		case IDM_LANG_COFFEESCRIPT :
             return L_COFFEESCRIPT;
+        case IDM_LANG_A68K :
+            return L_A68K;
+        case IDM_LANG_ABAQUS :
+            return L_ABAQUS;
+        case IDM_LANG_APDL :
+            return L_APDL;
+        case IDM_LANG_AS :
+            return L_AS;
+        case IDM_LANG_ASN1 :
+            return L_ASN1;
+        case IDM_LANG_ASYMPTOTE :
+            return L_ASYMPTOTE;
+        case IDM_LANG_AVE :
+            return L_AVE;
+        case IDM_LANG_AVS :
+            return L_AVS;
+        case IDM_LANG_BAAN :
+            return L_BAAN;
+        case IDM_LANG_BLITZBASIC :
+            return L_BLITZBASIC;
+        case IDM_LANG_PUREBASIC :
+            return L_PUREBASIC;
+        case IDM_LANG_FREEBASIC :
+            return L_FREEBASIC;
+        case IDM_LANG_BIBTEX :
+            return L_BIBTEX;
+        case IDM_LANG_BULLANT :
+            return L_BULLANT;
+        case IDM_LANG_CLW :
+            return L_CLW;
+        case IDM_LANG_CLWNOCASE :
+            return L_CLWNOCASE;
+        case IDM_LANG_CONF :
+            return L_CONF;
+        case IDM_LANG_CPPNOCASE :
+            return L_CPPNOCASE;
+        case IDM_LANG_NNCRONTAB :
+            return L_NNCRONTAB;
+        case IDM_LANG_CSOUND :
+            return L_CSOUND;
+        case IDM_LANG_DMAP :
+            return L_DMAP;
+        case IDM_LANG_DMIS :
+            return L_DMIS;
+        case IDM_LANG_ECL :
+            return L_ECL;
+        case IDM_LANG_EIFFEL :
+            return L_EIFFEL;
+        case IDM_LANG_EIFFELKW :
+            return L_EIFFELKW;
+        case IDM_LANG_ERLANG :
+            return L_ERLANG;
+        case IDM_LANG_ESCRIPT :
+            return L_ESCRIPT;
+        case IDM_LANG_FLAGSHIP :
+            return L_FLAGSHIP;
+        case IDM_LANG_FORTH :
+            return L_FORTH;
+        case IDM_LANG_GAP :
+            return L_GAP;
+        case IDM_LANG_LITERATEHASKELL :
+            return L_LITERATEHASKELL;
+        case IDM_LANG_SREC :
+            return L_SREC;
+        case IDM_LANG_IHEX :
+            return L_IHEX;
+        case IDM_LANG_TEHEX :
+            return L_TEHEX;
+        case IDM_LANG_PHPSCRIPT :
+            return L_PHPSCRIPT;
+        case IDM_LANG_KVIRC :
+            return L_KVIRC;
+        case IDM_LANG_LATEX :
+            return L_LATEX;
+        case IDM_LANG_LOUT :
+            return L_LOUT;
+        case IDM_LANG_MAGIK :
+            return L_MAGIK;
+        case IDM_LANG_MARKDOWN :
+            return L_MARKDOWN;
+        case IDM_LANG_OCTAVE :
+            return L_OCTAVE;
+        case IDM_LANG_METAPOST :
+            return L_METAPOST;
+        case IDM_LANG_MMIXAL :
+            return L_MMIXAL;
+        case IDM_LANG_MODULA :
+            return L_MODULA;
+        case IDM_LANG_LOT :
+            return L_LOT;
+        case IDM_LANG_MSSQL :
+            return L_MSSQL;
+        case IDM_LANG_MYSQL :
+            return L_MYSQL;
+        case IDM_LANG_NIMROD :
+            return L_NIMROD;
+        case IDM_LANG_OPAL :
+            return L_OPAL;
+        case IDM_LANG_OSCRIPT :
+            return L_OSCRIPT;
+        case IDM_LANG_ERRORLIST :
+            return L_ERRORLIST;
+        case IDM_LANG_POWERBASIC :
+            return L_POWERBASIC;
+        case IDM_LANG_PLM :
+            return L_PLM;
+        case IDM_LANG_PO :
+            return L_PO;
+        case IDM_LANG_POV :
+            return L_POV;
+        case IDM_LANG_POWERPRO :
+            return L_POWERPRO;
+        case IDM_LANG_PROGRESS :
+            return L_PROGRESS;
+        case IDM_LANG_REBOL :
+            return L_REBOL;
+        case IDM_LANG_REGISTRY :
+            return L_REGISTRY;
+        case IDM_LANG_RUST :
+            return L_RUST;
+        case IDM_LANG_SCRIPTOL :
+            return L_SCRIPTOL;
+        case IDM_LANG_SML :
+            return L_SML;
+        case IDM_LANG_SORCUS :
+            return L_SORCUS;
+        case IDM_LANG_SPECMAN :
+            return L_SPECMAN;
+        case IDM_LANG_SPICE :
+            return L_SPICE;
+        case IDM_LANG_STTXT :
+            return L_STTXT;
+        case IDM_LANG_TACL :
+            return L_TACL;
+        case IDM_LANG_TADS3 :
+            return L_TADS3;
+        case IDM_LANG_TAL :
+            return L_TAL;
+        case IDM_LANG_TCMD :
+            return L_TCMD;
+        case IDM_LANG_TXT2TAGS :
+            return L_TXT2TAGS;
+        case IDM_LANG_VBSCRIPT :
+            return L_VBSCRIPT;
+        case IDM_LANG_VISUALPROLOG :
+            return L_VISUALPROLOG;
+        case IDM_LANG_EXTERNAL	:
+            return L_EXTERNAL;
 
 		case IDM_LANG_USER :
             return L_USER;

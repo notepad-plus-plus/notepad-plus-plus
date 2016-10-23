@@ -1,0 +1,675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>notepad++</ProjectName>
+    <ProjectGuid>{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}</ProjectGuid>
+    <RootNamespace>Notepad++</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\TinyXml;..\..\..\PowerEditor\src\TinyXml\tinyXmlA;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\scintilla\include;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Version>1.0</Version>
+      <TypeLibraryFile>/TLBID</TypeLibraryFile>
+      <TypeLibraryResourceID>5</TypeLibraryResourceID>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)notepadPlus.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <PostBuildEvent>
+      <Command />
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\TinyXml;..\..\..\PowerEditor\src\TinyXml\tinyXmlA;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\scintilla\include;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Version>1.0</Version>
+      <TypeLibraryFile>/TLBID</TypeLibraryFile>
+      <TypeLibraryResourceID>5</TypeLibraryResourceID>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)notepadPlus.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\TinyXml;..\..\..\PowerEditor\src\TinyXml\tinyXmlA;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\scintilla\include;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Version>1.0</Version>
+      <TypeLibraryFile />
+      <TypeLibraryResourceID>1</TypeLibraryResourceID>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <OmitFramePointers>
+      </OmitFramePointers>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1;_CRT_NON_CONFORMING_WCSTOK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4091;4456;4457;4459</DisableSpecificWarnings>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\TinyXml;..\..\..\PowerEditor\src\TinyXml\tinyXmlA;..\..\..\PowerEditor\src\ScitillaComponent;..\..\..\scintilla\include;..\..\..\PowerEditor\src\uchardet;..\..\..\PowerEditor\src;..\..\..\PowerEditor\src\MISC;..\..\..\PowerEditor\src\MISC\Exception;..\..\..\PowerEditor\src\MISC\Process;..\..\..\PowerEditor\src\MISC\RegExt;..\..\..\PowerEditor\src\MISC\PluginsManager;..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\WinControls\DockingWnd;..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg;..\..\..\PowerEditor\src\WinControls\StaticDialog;..\..\..\PowerEditor\src\WinControls\ImageListSet;..\..\..\PowerEditor\src\WinControls\ToolBar;..\..\..\PowerEditor\src\WinControls\shortcut;..\..\..\PowerEditor\src\WinControls\SplitterContainer;..\..\..\PowerEditor\src\WinControls\ContextMenu;..\..\..\PowerEditor\src\WinControls\ToolTip;..\..\..\PowerEditor\src\WinControls\TabBar;..\..\..\PowerEditor\src\WinControls\ColourPicker;..\..\..\PowerEditor\src\WinControls\AboutDlg;..\..\..\PowerEditor\src\WinControls\StatusBar;..\..\..\PowerEditor\src\WinControls\FindCharsInRange;..\..\..\PowerEditor\src\WinControls\TrayIcon;..\..\..\PowerEditor\src\WinControls\preference;..\..\..\PowerEditor\src\WinControls\WindowsDlg;..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog;..\..\..\PowerEditor\src\WinControls\TaskList;..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges;..\..\..\PowerEditor\src\WinControls\Grid;..\..\..\PowerEditor\src\WinControls\AnsiCharPanel;..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher;..\..\..\PowerEditor\src\WinControls\ProjectPanel;..\..\..\PowerEditor\src\WinControls\FunctionList;..\..\..\PowerEditor\src\WinControls\ClipboardHistory;..\..\..\PowerEditor\src\WinControls\DocumentMap;..\..\..\PowerEditor\src\WinControls\FileBrowser;..\..\..\PowerEditor\src\WinControls;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;shell32.lib;Oleacc.lib;Dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Version>1.0</Version>
+      <TypeLibraryFile>
+      </TypeLibraryFile>
+      <TypeLibraryResourceID>1</TypeLibraryResourceID>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)npp.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\PowerEditor\src\MISC\Common\LongRunningOperation.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\MISC\Common\mutex.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\AboutDlg\AboutDlg.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\AutoCompletion.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\Grid\BabyGrid.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\Grid\BabyGridWrapper.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\Buffer.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\CharDistribution.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ClipboardHistory\clipboardHistoryPanel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\ColourPicker.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\ColourPopup.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\columnEditor.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\MISC\Common\Common.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ContextMenu\ContextMenu.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\TabBar\ControlsTab.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingCont.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingManager.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingSplitter.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\DocTabView.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\DocumentMap\documentMap.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\EncodingMapper.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog\FileDialog.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\FindCharsInRange\FindCharsInRange.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\FindReplaceDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\FunctionCallTip.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\FunctionList\functionListPanel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\FunctionList\functionParser.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\GoToLineDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\Gripper.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\MISC\PluginsManager\IDAllocator.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ImageListSet\ImageListSet.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\JpCntx.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\LangBulgarianModel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\LangCyrillicModel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\LangGreekModel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\LangHebrewModel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\LangHungarianModel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\LangThaiModel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\lastRecentFileList.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\lesDlgs.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\AnsiCharPanel\ListView.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\localization.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\MISC\Exception\MiniDumper.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\Notepad_plus.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\Notepad_plus_Window.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\NppBigSwitch.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\NppCommands.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\NppIO.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\NppNotification.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsBig5Prober.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsCharSetProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsEscCharsetProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsEscSM.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsEUCJPProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsEUCKRProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsEUCTWProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsGB2312Prober.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsHebrewProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsLatin1Prober.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsMBCSGroupProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsMBCSSM.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsSBCharSetProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsSBCSGroupProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsSJISProber.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsUniversalDetector.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\nsUTF8Prober.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\Parameters.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\Misc\PluginsManager\PluginsManager.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\Preference\preferenceDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\Printer.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\MISC\Process\Processus.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\MISC\RegExt\regExtDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg\RunDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\shortcut\RunMacroDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\ScintillaCtrls.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\ScintillaEditView.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\shortcut\shortcut.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\Grid\ShortcutMapper.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\SizeableDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\SmartHighlighter.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\SplitterContainer\Splitter.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\SplitterContainer\SplitterContainer.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\StaticDialog\StaticDialog.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\StatusBar\StatusBar.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\TabBar\TabBar.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\TaskList\TaskList.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\TaskList\TaskListDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\TinyXml\tinystr.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\TinyXml\tinyXmlA\tinystrA.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\TinyXml\tinyxml.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\TinyXml\tinyXmlA\tinyxmlA.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\TinyXml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\TinyXml\tinyXmlA\tinyxmlerrorA.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\TinyXml\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\TinyXml\tinyXmlA\tinyxmlparserA.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ToolBar\ToolBar.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ToolTip\ToolTip.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\TrayIcon\trayIconControler.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ProjectPanel\TreeView.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\uchardet\uchardet.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\UniConversion.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\AboutDlg\URLCtrl.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\UserDefineDialog.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\Utf8_16.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcherListView.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\MISC\Exception\Win32Exception.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\WindowsDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\winmain.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\WinMgr.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\WinRect.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\WordStyleDlg.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\xmlMatchedTagsHighlighter.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.cpp" />
+    <ClCompile Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\PowerEditor\src\icons\allChars_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\allChars_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\closeAll.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\closefile.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\closeTabButton.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\closeTabButton_hover.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\closeTabButton_inact.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\closeTabButton_push.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\copy.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\cut.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\cut_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\cut_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\cut_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\delete.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\dupli_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\dupli_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\dupli_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\find.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\find_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\find_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\findrep_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\findrep_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\findReplace.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\findResult.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\imprim_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\imprim_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\indentGuide.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\indentGuide_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\indentGuide_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\invisibleChar.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\new_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\new_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\newFile.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\npp.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\open_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\open_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\openFile.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\paste.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\paste_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\paste_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\paste_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\playRecord.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\playrecord_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\playRecord_m.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\playrecord_m_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\playrecord_m_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\playrecord_m_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\playrecord_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\playrecord_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\print.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\readonly.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\redo.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\redo_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\redo_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\redo_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\save_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\save_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\save_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saveAll.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saveall_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saveall_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saveall_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saved.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saveFile.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saveRecord.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saverecord_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saverecord_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\saverecord_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\showPannel.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\startRecord.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\startrecord_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\startrecord_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\startrecord_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\stopRecord.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\stoprecord_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\stoprecord_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\stoprecord_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\supp_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\supp_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\suppall_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\suppall_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\syncH.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\syncH_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\syncH_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\syncH_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\syncV.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\syncV_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\syncV_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\syncV_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\undo.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\undo_dis.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\undo_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\undo_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\unsaved.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\userDefineDlg_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\userDefineDlg_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\wrap.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\wrap_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\wrap_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\zoomIn.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\zoomIn_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\zoomIn_on.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\zoomOut.bmp" />
+    <Image Include="..\..\..\PowerEditor\src\icons\zoomOut_off.ico" />
+    <Image Include="..\..\..\PowerEditor\src\icons\zoomOut_on.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\AnsiCharPanel\ansiCharPanel.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\ClipboardHistory\clipboardHistoryPanel.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\ColourPopup.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\columnEditor.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingGUIWidget.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\DocumentMap\documentMap.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\FindCharsInRange\findCharsInRange.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\FindReplaceDlg.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\FunctionList\functionListPanel.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\Notepad_plus.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\Preference\preference.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\MISC\RegExt\regExtDlg.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg\RunDlg.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\shortcut\RunMacroDlg.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\shortcut\shortcut.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\Grid\ShortcutMapper.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\TaskList\TaskListDlg.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\ScitillaComponent\UserDefineDialog.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\WindowsDlg.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\WordStyleDlg.rc" />
+    <ResourceCompile Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\PowerEditor\src\cursors\drag.cur" />
+    <None Include="..\..\..\PowerEditor\src\cursors\drag_interdit.cur" />
+    <None Include="..\..\..\PowerEditor\src\cursors\drag_plus.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\Common\LongRunningOperation.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\Common\mutex.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\Common\mutex.hxx" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\AboutDlg\AboutDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\AutoCompletion.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\Grid\BabyGrid.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\Grid\BabyGridWrapper.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\Buffer.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\CharDistribution.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ClipboardHistory\clipboardHistoryPanel.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ClipboardHistory\clipboardHistoryPanel_rc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\colors.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\ColourPicker.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\ColourPopup.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\columnEditor.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\Common\Common.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ContextMenu\ContextMenu.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\TabBar\ControlsTab.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\Docking.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingCont.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingDlgInterface.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingManager.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\dockingResource.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\DockingSplitter.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\DocTabView.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DocumentMap\documentMap.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\EncodingMapper.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\OpenSaveFileDialog\FileDialog.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\FileNameStringSplitter.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FindCharsInRange\FindCharsInRange.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\FindReplaceDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\FunctionCallTip.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FunctionList\functionListPanel.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FunctionList\functionListPanel_rc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FunctionList\functionParser.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\GoToLineDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\DockingWnd\Gripper.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\PluginsManager\IDAllocator.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ImageListSet\ImageListSet.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\JpCntx.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\lastRecentFileList.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\lesDlgs.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\AnsiCharPanel\ListView.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\localization.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\localizationstring.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\menuCmdID.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\Exception\MiniDumper.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\Notepad_plus.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\PluginsManager\Notepad_plus_msgs.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\Notepad_plus_Window.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsBig5Prober.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsCharSetProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsCodingStateMachine.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nscore.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsEscCharsetProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsEUCJPProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsEUCKRProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsEUCTWProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsGB2312Prober.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsHebrewProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsLatin1Prober.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsMBCSGroupProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsPkgInt.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsSBCharSetProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsSBCSGroupProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsSJISProber.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsUniversalDetector.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\nsUTF8Prober.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\Parameters.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\PluginsManager\PluginInterface.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\PluginsManager\PluginsManager.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\Preference\preferenceDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\Printer.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\prmem.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\Process\Processus.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel_rc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\RegExt\regExtDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\RegExt\regExtDlgRc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\resource.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\StaticDialog\RunDlg\RunDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\shortcut\RunMacroDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\shortcut\RunMacroDlg_rc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\ScintillaCtrls.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\ScintillaEditView.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\shortcut\shortcut.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\Grid\ShortcutMapper.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\Grid\ShortcutMapper_rc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\SizeableDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\SmartHighlighter.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\SplitterContainer\Splitter.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\SplitterContainer\SplitterContainer.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\StaticDialog\StaticDialog.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\StatusBar\StatusBar.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\TabBar\TabBar.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\TaskList\TaskList.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\TaskList\TaskListDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\TaskList\TaskListDlg_rc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\TinyXml\tinystr.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\TinyXml\tinyXmlA\tinystrA.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\TinyXml\tinyxml.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\TinyXml\tinyXmlA\tinyxmlA.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ToolBar\ToolBar.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ToolTip\ToolTip.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\TrayIcon\trayIconControler.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ProjectPanel\TreeView.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\uchardet\uchardet.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\UniConversion.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\AboutDlg\URLCtrl.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\UserDefineDialog.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\UserDefineLangReference.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\UserDefineResource.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\Utf8_16.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcher_rc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\VerticalFileSwitcher\VerticalFileSwitcherListView.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\MISC\Exception\Win32Exception.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\Window.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\WindowsDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\WindowsDlgRc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\WindowsDlg\WinMgr.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ColourPicker\WordStyleDlg.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\ScitillaComponent\xmlMatchedTagsHighlighter.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\rgba_icons.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\FileBrowser\fileBrowser_rc.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChanges.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ReadDirectoryChangesPrivate.h" />
+    <ClInclude Include="..\..\..\PowerEditor\src\WinControls\ReadDirectoryChanges\ThreadSafeQueue.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="..\..\..\PowerEditor\src\notepad++.exe.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\PowerEditor\src\config.model.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\langs.model.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\stylers.model.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\shortcuts.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\functionList.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\contextMenu.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SciLexer\SciLexer.vcxproj">
+      <Project>{b98320aa-1fe5-49e0-b8af-8d57adb090cc}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

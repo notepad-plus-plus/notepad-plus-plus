@@ -15,9 +15,6 @@
 #include <shlwapi.h>
 #include <uxtheme.h>
 
-#include <atlbase.h>
-#include <atlstr.h>
-
 #include <tchar.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -782,8 +782,8 @@ bool Notepad_plus::saveGUIParams()
 	nppGUI._isMaximized = ((IsZoomed(_pPublicInterface->getHSelf()) != 0) || (posInfo.flags & WPF_RESTORETOMAXIMIZED));
 
 	saveDockingParams();
-
-	return (NppParameters::getInstance())->writeGUIParams();
+	(NppParameters::getInstance())->createXmlTreeFromGUIParams();
+	return true;
 }
 
 bool Notepad_plus::saveProjectPanelsParams()
@@ -4218,13 +4218,12 @@ bool Notepad_plus::doStreamComment()
 	return true;
 }
 
-bool Notepad_plus::saveScintillaParams()
+void Notepad_plus::saveScintillasZoom()
 {
 	NppParameters * pNppParam = NppParameters::getInstance();
 	ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
-	svp._zoom = int(_mainEditView.execute(SCI_GETZOOM));
-	svp._zoom2 = int(_subEditView.execute(SCI_GETZOOM));
-	return (NppParameters::getInstance())->writeScintillaParams(svp);
+	svp._zoom = static_cast<int>(_mainEditView.execute(SCI_GETZOOM));
+	svp._zoom2 = static_cast<int>(_subEditView.execute(SCI_GETZOOM));
 }
 
 bool Notepad_plus::addCurrentMacro()

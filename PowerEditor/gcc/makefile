@@ -22,7 +22,7 @@ GCC_DIR			= .
 GCCINCLUDE_DIR  = $(GCC_DIR)/include
 
 #MISC:
-MISC_DIR		= $(NPP_DIR)/MISC
+ MISC_DIR		= $(NPP_DIR)/MISC
  COMMON_DIR		= $(MISC_DIR)/Common
  EXCEPTION_DIR	= $(MISC_DIR)/Exception
  PLUGINS_DIR	= $(MISC_DIR)/PluginsManager
@@ -33,7 +33,7 @@ MISC_DIR		= $(NPP_DIR)/MISC
 SCINT_DIR		= $(NPP_DIR)/ScitillaComponent
 
 #TinyXml
-TIXML_DIR		= $(NPP_DIR)/TinyXml
+ TIXML_DIR		= $(NPP_DIR)/TinyXml
  TIXMLA_DIR		= $(TIXML_DIR)/tinyXmlA
 
 #uchardet
@@ -45,13 +45,13 @@ WIN_DIR			= $(NPP_DIR)/WinControls
  ANSICHAR_DIR	= $(WIN_DIR)/AnsiCharPanel
  CLIPBOARD_DIR	= $(WIN_DIR)/ClipboardHistory
  CONTEXT_DIR	= $(WIN_DIR)/ContextMenu
- COLOUR_DIR		= $(WIN_DIR)/ColourPicker
+ COLOUR_DIR	= $(WIN_DIR)/ColourPicker
  DOCKING_DIR	= $(WIN_DIR)/DockingWnd
- DOCMAP_DIR		= $(WIN_DIR)/DocumentMap
+ DOCMAP_DIR	= $(WIN_DIR)/DocumentMap
  FINDCHARS_DIR	= $(WIN_DIR)/FindCharsInRange
  FUNCLIST_DIR	= $(WIN_DIR)/FunctionList
- GRID_DIR		= $(WIN_DIR)/Grid
- IMLIST_DIR		= $(WIN_DIR)/ImageListSet
+ GRID_DIR	= $(WIN_DIR)/Grid
+ IMLIST_DIR	= $(WIN_DIR)/ImageListSet
  OPENSAVE_DIR	= $(WIN_DIR)/OpenSaveFileDialog
  PREFERENCE_DIR	= $(WIN_DIR)/Preference
  PRJPANEL_DIR	= $(WIN_DIR)/ProjectPanel

@@ -25,6 +25,8 @@
 ; along with this program; if not, write to the Free Software
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+!include "FileFunc.nsh"			; for GetParameters, GetOptions
+
 Var themesParentPath
 Var doLocalConf
 Function un.onInit
@@ -118,11 +120,34 @@ SectionEnd
 
 Var keepUserData
 Function un.doYouReallyWantToKeepData
+	Push $R0
+	Push $R1
+
 	StrCpy $keepUserData "false"
-	MessageBox MB_YESNO "Would you like to keep your custom settings?" /SD IDYES IDYES skipRemoveUserData IDNO removeUserData 
+
+	${GetParameters} $R0
+	${GetOptions} "$R0" "/keepuserdata" $R1
+	${IfNot} ${Errors}
+		Goto skipRemoveUserData
+	${Else}
+		${GetOptions} "$R0" "/removeuserdata" $R1
+		${IfNot} ${Errors}
+			Goto removeUserData
+		${Else}
+			${IfNot} ${Silent}
+				MessageBox MB_YESNO "Would you like to keep your custom settings?" IDYES skipRemoveUserData IDNO removeUserData
+			${Else}
+				; Silent uninstallers will *remove* user data by default
+			${EndIf}
+		${EndIf}
+	${EndIf}
+
 skipRemoveUserData:
 	StrCpy $keepUserData "true"
 removeUserData:
+
+	Pop $R1
+	Pop $R0
 FunctionEnd
 
 

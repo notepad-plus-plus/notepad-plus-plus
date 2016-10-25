@@ -28,6 +28,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <tchar.h>
 #include <windows.h>
 #include <iso646.h>
 #include <cstdint>
@@ -45,25 +46,29 @@ const bool dirDown = false;
 #define BCKGRD_COLOR (RGB(255,102,102))
 #define TXT_COLOR    (RGB(255,255,255))
 
-#define generic_strtol wcstol
-#define generic_strncpy wcsncpy
-#define generic_stricmp wcsicmp
-#define generic_strncmp wcsncmp
-#define generic_strnicmp wcsnicmp
-#define generic_strncat wcsncat
-#define generic_strchr wcschr
-#define generic_atoi _wtoi
-#define generic_itoa _itow
-#define generic_atof _wtof
-#define generic_strtok wcstok
-#define generic_strftime wcsftime
-#define generic_fprintf fwprintf
-#define generic_sprintf swprintf
-#define generic_sscanf swscanf
-#define generic_fopen _wfopen
-#define generic_fgets fgetws
-#define generic_stat _wstat
+#define generic_strtol _tcstol
+#define generic_strncpy _tcsncpy
+#define generic_stricmp _tcsicmp
+#define generic_strncmp _tcsncmp
+#define generic_strnicmp _tcsnicmp
+#define generic_strncat _tcsncat
+#define generic_strchr _tcschr
+#define generic_atoi _ttoi
+#define generic_itoa _itot
+#define generic_atof _ttof
+#define generic_strtok _tcstok
+#define generic_strftime _tcsftime
+#define generic_fprintf _ftprintf
+#define generic_sprintf _stprintf
+#define generic_sscanf _stscanf
+#define generic_fopen _tfopen
+#define generic_fgets _fgetts
+#define generic_stat _tstat
+#ifdef UNICODE
 #define COPYDATA_FILENAMES COPYDATA_FILENAMESW
+#else
+#define COPYDATA_FILENAMES COPYDATA_FILENAMESA
+#endif
 
 typedef std::basic_string<TCHAR> generic_string;
 typedef std::basic_stringstream<TCHAR> generic_stringstream;

@@ -1,57 +1,79 @@
 version: 1.0.{build}
 image: Visual Studio 2013
 
+environment:
+    NPP_MSVC_VERSION: 12.0
+    NPP_BOOST_VERSION: 1.58.0
 
 clone_depth: 1
 
 platform:
-  - x64
-  - Win32
+    - x64
+    - Win32
 
 configuration:
-  - Unicode Release
-  - Unicode Debug
+    - Unicode Release
+    - Unicode Debug
 
 install:
-  - if "%platform%"=="x64"   set "platformVCVarsAll=amd64"
-  - if "%platform%"=="Win32" set "platformVCVarsAll=x86"
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" %platformVCVarsAll%
+    - if /I "%platform%"=="x64"   set "platformVCVarsAll=amd64"
+    - if /I "%platform%"=="Win32" set "platformVCVarsAll=x86"
+    - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" %platformVCVarsAll%
 
 build:
-  verbosity: minimal
+    verbosity: minimal
 
 build_script:
-  - cd c:\projects\notepad-plus-plus\scintilla\boostregex
-  - if "%platform%"=="x64" (set "platformBoost=-x64") else (set "platformBoost=")
-  - buildboost.bat "C:\Libraries\boost_1_62_0" %platformBoost%
-  
-  - cd c:\projects\notepad-plus-plus\scintilla\win32
-  - if "%configuration:Debug=%"=="%configuration%" (set "configurationScintilla=DEBUG=1") else (set "configurationScintilla=")
-  - nmake %configurationScintilla% -f scintilla.mak
-  
-  - cd c:\projects\notepad-plus-plus\PowerEditor\visual.net\
-  - msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform%"
+    - if defined NPP_BOOST_VERSION                      (set "NPP_BOOSTPATH_VERSION=_%NPP_BOOST_VERSION:.=_%") else (set "NPP_BOOSTPATH_VERSION=")
+    - if /I "%platform%"=="x64"                         (set "NPP_COUNT_OF_BITS=64"                          ) else (set "NPP_COUNT_OF_BITS=32"  )
+    - if /I "%platform%"=="x64"                         (set "NPP_BUILDTARGETPATH=AddressModel64"            ) else (set "NPP_BUILDTARGETPATH="  )
+    - if /I "%configuration:Debug=%"=="%configuration%" (set "NPP_SCINTILLA_CONFIG=DEBUG=1"                  ) else (set "NPP_SCINTILLA_CONFIG=" )
+
+    - set "NPP_PROJECTPATH=C:\Projects\notepad-plus-plus"
+    - set "NPP_BOOSTPATH=C:\Libraries\boost%NPP_BOOSTPATH_VERSION%"
+    - set "NPP_BOOSTLIBPATH=%NPP_BOOSTPATH%\lib%NPP_COUNT_OF_BITS%-msvc-%NPP_MSVC_VERSION%"
+    - set "NPP_BOOSTREGEX_PATHMAKEFILE=%NPP_PROJECTPATH%\scintilla\boostregex\boostpath.mak"
+
+    # Dump NPP_ environment variables for verification
+    - set NPP_
+
+    # Create makefile extension with all variables required by Scintilla makefile
+    - echo.BOOSTPATH=%NPP_BOOSTPATH:\=/%>"%NPP_BOOSTREGEX_PATHMAKEFILE%"
+    - echo.BOOSTLIBPATH=%NPP_BOOSTLIBPATH:\=/%>>"%NPP_BOOSTREGEX_PATHMAKEFILE%"
+
+    # Dump makefile extension contents for verification
+    - type "%NPP_BOOSTREGEX_PATHMAKEFILE%"
+
+    # Build Scintilla
+    - cd "%NPP_PROJECTPATH%\scintilla\win32"
+    - nmake %NPP_SCINTILLA_CONFIG% -f scintilla.mak
+
+    # Build Notepad++
+    - cd "%NPP_PROJECTPATH%\PowerEditor\visual.net\"
+    - msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform%"
 
 after_build:
-  - cd c:\projects\notepad-plus-plus\
-  - ps: >-
-      $nppFileName = "Notepad++.$env:PLATFORM.$env:CONFIGURATION.exe"
-      $sciFileName = "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
+    - cd c:\projects\notepad-plus-plus\
+    - ps: >-
 
-      if ($env:PLATFORM -eq "x64" -and $env:CONFIGURATION -eq "Unicode Release") {
-          Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
-      }
+        $nppFileName = "Notepad++.$env:PLATFORM.$env:CONFIGURATION.exe"
 
-      if ($env:PLATFORM -eq "x64" -and $env:CONFIGURATION -eq "Unicode Debug") {
-          Push-AppveyorArtifact "PowerEditor\visual.net\x64\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
-      }
+        $sciFileName = "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
 
-      if ($env:PLATFORM -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Release") {
-          Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
-      }
+        if ($env:PLATFORM -eq "x64" -and $env:CONFIGURATION -eq "Unicode Release") {
+            Push-AppveyorArtifact "PowerEditor\bin64\Notepad++.exe" -FileName "$nppFileName"
+        }
 
-      if ($env:PLATFORM -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Debug") {
-          Push-AppveyorArtifact "PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
-      }
+        if ($env:PLATFORM -eq "x64" -and $env:CONFIGURATION -eq "Unicode Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\x64\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
 
-      Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "$sciFileName"
+        if ($env:PLATFORM -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Release") {
+            Push-AppveyorArtifact "PowerEditor\bin\Notepad++.exe" -FileName "$nppFileName"
+        }
+
+        if ($env:PLATFORM -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Debug") {
+            Push-AppveyorArtifact "PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
+
+        Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "$sciFileName"

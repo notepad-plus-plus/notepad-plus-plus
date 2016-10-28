@@ -37,15 +37,21 @@
 using namespace std;
 
 
-
-
-
+// Only for 2 main Scintilla editors
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
 	//Important, keep track of which element generated the message
 	bool isFromPrimary = (_mainEditView.getHSelf() == notification->nmhdr.hwndFrom || _mainDocTab.getHSelf() == notification->nmhdr.hwndFrom);
 	bool isFromSecondary = !isFromPrimary && (_subEditView.getHSelf() == notification->nmhdr.hwndFrom || _subDocTab.getHSelf() == notification->nmhdr.hwndFrom);
-	ScintillaEditView * notifyView = isFromPrimary?&_mainEditView:&_subEditView;
+	
+	ScintillaEditView * notifyView = nullptr;
+	if (isFromPrimary)
+		notifyView = &_mainEditView;
+	else if (isFromSecondary)
+		notifyView = &_subEditView;
+	else
+		return FALSE;
+
 	DocTabView *notifyDocTab = isFromPrimary?&_mainDocTab:&_subDocTab;
 	TBHDR * tabNotification = (TBHDR*) notification;
 	switch (notification->nmhdr.code)
@@ -485,7 +491,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_pEditView->marginClick(notification->position, notification->modifiers);
 				if (_pDocMap)
 					_pDocMap->fold(lineClick, _pEditView->isFolded(lineClick));
-				_smartHighlighter.highlightView(_pEditView);
+
+				ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
+
+				_smartHighlighter.highlightView(_pEditView, unfocusView);
 			}
 			else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
 			{
@@ -692,6 +701,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case SCN_UPDATEUI:
 		{
 			NppParameters *nppParam = NppParameters::getInstance();
+			NppGUI & nppGui = const_cast<NppGUI &>(nppParam->getNppGUI());
 
 			// replacement for obsolete custom SCN_SCROLLED
 			if (notification->updated & SC_UPDATE_V_SCROLL)
@@ -705,12 +715,20 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (nppParam->_isFindReplacing)
 				break;
 
-			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf())
+			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf()) // notification come from unfocus view - both views ae visible
+			{
+				//ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
+				if (nppGui._smartHiliteOnAnotherView &&
+					_pEditView->getCurrentBufferID() != notifyView->getCurrentBufferID())
+				{
+					TCHAR selectedText[1024];
+					_pEditView->getGenericSelectedText(selectedText, sizeof(selectedText)/sizeof(TCHAR), false);
+					_smartHighlighter.highlightViewWithWord(notifyView, selectedText);
+				}
 				break;
+			}
 
 			braceMatch();
-
-			NppGUI & nppGui = const_cast<NppGUI &>(nppParam->getNppGUI());
 
 			if (nppGui._enableTagsMatchHilite)
 			{
@@ -723,7 +741,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (nppGui._disableSmartHiliteTmp)
 					nppGui._disableSmartHiliteTmp = false;
 				else
-					_smartHighlighter.highlightView(notifyView);
+				{
+					ScintillaEditView * anbotherView = isFromPrimary ? &_subEditView : &_mainEditView;
+					_smartHighlighter.highlightView(notifyView, anbotherView);
+				}
 			}
 
 			updateStatusBar();
@@ -799,7 +820,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_ZOOM:
 		{
-			_smartHighlighter.highlightView(notifyView);
+			ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
+			_smartHighlighter.highlightView(notifyView, unfocusView);
 			break;
 		}
 

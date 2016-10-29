@@ -89,6 +89,7 @@
       <PreprocessorDefinitions>TIXML_USE_STL;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\TinyXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,6 +104,7 @@
       <PreprocessorDefinitions>TIXML_USE_STL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\TinyXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,6 +121,7 @@
       <PreprocessorDefinitions>TIXML_USE_STL;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\TinyXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +140,7 @@
       <PreprocessorDefinitions>TIXML_USE_STL;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\PowerEditor\src\MISC\Common;..\..\..\PowerEditor\src\TinyXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

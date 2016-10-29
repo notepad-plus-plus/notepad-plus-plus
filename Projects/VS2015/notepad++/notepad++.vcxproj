@@ -187,13 +187,8 @@
       <AdditionalManifestFiles>..\..\..\PowerEditor\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy ..\..\..\PowerEditor\src\config.model.xml ..\bin\config.model.xml
-copy ..\..\..\PowerEditor\src\langs.model.xml ..\bin\langs.model.xml
-copy ..\..\..\PowerEditor\src\stylers.model.xml ..\bin\stylers.model.xml
-copy ..\..\..\PowerEditor\src\shortcuts.xml ..\bin\shortcuts.xml
-copy ..\..\..\PowerEditor\src\functionList.xml ..\bin\functionList.xml
-copy ..\..\..\PowerEditor\src\contextMenu.xml ..\bin\contextMenu.xml
-</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -234,13 +229,8 @@ copy ..\..\..\PowerEditor\src\contextMenu.xml ..\bin\contextMenu.xml
       <AdditionalManifestFiles>..\..\..\PowerEditor\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy ..\..\..\PowerEditor\src\config.model.xml ..\bin64\config.model.xml
-copy ..\..\..\PowerEditor\src\langs.model.xml ..\bin64\langs.model.xml
-copy ..\..\..\PowerEditor\src\stylers.model.xml ..\bin64\stylers.model.xml
-copy ..\..\..\PowerEditor\src\shortcuts.xml ..\bin64\shortcuts.xml
-copy ..\..\..\PowerEditor\src\functionList.xml ..\bin64\functionList.xml
-copy ..\..\..\PowerEditor\src\contextMenu.xml ..\bin64\contextMenu.xml
-</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -646,6 +636,26 @@ copy ..\..\..\PowerEditor\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ProjectReference Include="..\SciLexer\SciLexer.vcxproj">
       <Project>{b98320aa-1fe5-49e0-b8af-8d57adb090cc}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\PowerEditor\src\contextMenu.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\functionList.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\langs.model.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\shortcuts.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\stylers.model.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\PowerEditor\src\config.model.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

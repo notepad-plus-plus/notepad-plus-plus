@@ -1172,4 +1172,7 @@
       <Filter>Resource Files</Filter>
     </Manifest>
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\..\PowerEditor\src\config.model.xml" />
+  </ItemGroup>
 </Project>

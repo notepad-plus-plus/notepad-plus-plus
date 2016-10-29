@@ -49,8 +49,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		notifyView = &_mainEditView;
 	else if (isFromSecondary)
 		notifyView = &_subEditView;
-	else
-		return FALSE;
 
 	DocTabView *notifyDocTab = isFromPrimary?&_mainDocTab:&_subDocTab;
 	TBHDR * tabNotification = (TBHDR*) notification;
@@ -58,6 +56,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	{
 		case SCN_MODIFIED:
 		{
+			if (not notifyView)
+				return FALSE;
+
 			static bool prevWasEdit = false;
 			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))
 			{
@@ -543,6 +544,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_DOUBLECLICK:
 		{
+			if (not notifyView)
+				return FALSE;
+
 			if (notification->modifiers == SCMOD_CTRL)
 			{
 				const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
@@ -700,6 +704,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_UPDATEUI:
 		{
+			if (not notifyView)
+				return FALSE;
+
 			NppParameters *nppParam = NppParameters::getInstance();
 			NppGUI & nppGui = const_cast<NppGUI &>(nppParam->getNppGUI());
 
@@ -820,6 +827,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_ZOOM:
 		{
+			if (not notifyView)
+				return FALSE;
+
 			ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
 			_smartHighlighter.highlightView(notifyView, unfocusView);
 			break;
@@ -840,7 +850,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_PAINTED:
 		{
-			//--FLS: ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as doc. says
+			if (not notifyView)
+				return FALSE;
+
+			// ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines.
+			// Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as doc. says
 			if (_mainEditView.isWrapRestoreNeeded())
 			{
 				_mainEditView.restoreCurrentPos();
@@ -877,6 +891,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_HOTSPOTDOUBLECLICK:
 		{
+			if (not notifyView)
+				return FALSE;
+
 			// Save the current wordChars before setting a custom list
 			const size_t wordBufferSize = notifyView->execute(SCI_GETWORDCHARS);
 			char *wordChars = new char[wordBufferSize + 1];

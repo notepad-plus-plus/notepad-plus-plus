@@ -465,6 +465,9 @@
     <ClCompile Include="..\..\..\scintilla\boostregex\UTF8DocumentIterator.cxx">
       <Filter>Source Files\boostregex</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scintilla\lexlib\Accessor.h">
@@ -619,6 +622,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\scintilla\boostregex\AnsiDocumentIterator.h">
       <Filter>Header Files\boostregex</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

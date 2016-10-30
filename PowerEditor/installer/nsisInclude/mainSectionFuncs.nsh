@@ -52,18 +52,6 @@ Function setPathAndOptions
 FunctionEnd
 	
 Function copyCommonFiles
-	SetOverwrite on
-	SetOutPath "$TEMP\"
-	File "langsModel.xml"
-	File "configModel.xml"
-	File "stylesGlobalModel.xml"
-	File "stylesLexerModel.xml"
-	File "stylers_remove.xml"
-
-	File "..\bin\langs.model.xml"
-	File "..\bin\config.model.xml"
-	File "..\bin\stylers.model.xml"
-
 	SetOverwrite off
 	SetOutPath "$UPDATE_PATH\"
 	File "..\bin\contextMenu.xml"
@@ -72,7 +60,6 @@ Function copyCommonFiles
 	SetOverwrite on
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
-	File "..\bin\config.model.xml"
 	File "..\bin\stylers.model.xml"
 	File "..\bin\contextMenu.xml"
 	File "..\bin\functionList.xml"

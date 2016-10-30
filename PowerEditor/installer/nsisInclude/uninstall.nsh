@@ -119,7 +119,7 @@ SectionEnd
 Var keepUserData
 Function un.doYouReallyWantToKeepData
 	StrCpy $keepUserData "false"
-	MessageBox MB_YESNO "Would you like to keep your custom settings?" IDYES skipRemoveUserData IDNO removeUserData
+	MessageBox MB_YESNO "Would you like to keep your custom settings?" /SD IDNO IDYES skipRemoveUserData IDNO removeUserData
 skipRemoveUserData:
 	StrCpy $keepUserData "true"
 removeUserData:

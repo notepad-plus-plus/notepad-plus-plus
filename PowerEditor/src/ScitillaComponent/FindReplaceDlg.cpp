@@ -289,7 +289,7 @@ void FindReplaceDlg::fillFindHistory()
 	fillComboHistory(IDFINDWHAT, findHistory._findHistoryFinds);
 	fillComboHistory(IDREPLACEWITH, findHistory._findHistoryReplaces);
 	fillComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory._findHistoryFilters);
-    fillComboHistory(IDD_FINDINFILES_DIR_COMBO, findHistory._findHistoryPaths);
+	fillComboHistory(IDD_FINDINFILES_DIR_COMBO, findHistory._findHistoryPaths);
 
 	::SendDlgItemMessage(_hSelf, IDWRAP, BM_SETCHECK, findHistory._isWrap, 0);
 	::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, findHistory._isMatchWord, 0);
@@ -675,6 +675,24 @@ INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 }
 
 
+void FindReplaceDlg::fillSearchOptions()
+{
+	const int filterSize = 256;
+	TCHAR filters[filterSize];
+	TCHAR directory[MAX_PATH];
+	
+	::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
+	addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
+	_options._filters = filters;
+
+	::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
+	addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
+	_options._directory = directory;
+
+	if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
+		_options._directory += TEXT("\\");
+}
+
 INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
@@ -940,20 +958,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDD_FINDINFILES_FIND_BUTTON :
 				{
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 256;
-					TCHAR filters[filterSize+1];
-					filters[filterSize] = '\0';
-					TCHAR directory[MAX_PATH];
-					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
-					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
-					_options._filters = filters;
-
-					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
-					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
-					_options._directory = directory;
 					
-					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
-						_options._directory += TEXT("\\");
+					fillSearchOptions();
 
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
                    combo2ExtendedMode(IDFINDWHAT);
@@ -971,19 +977,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					LongRunningOperation op;
 					setStatusbarMessage(TEXT(""), FSNoMessage);
-					const int filterSize = 256;
-					TCHAR filters[filterSize];
-					TCHAR directory[MAX_PATH];
-					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
-					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
-					_options._filters = filters;
-
-					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
-					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
-					_options._directory = directory;
 					
-					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
-						_options._directory += TEXT("\\");
+					fillSearchOptions();
 
 					generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");
 					msg += _options._directory;
@@ -2269,9 +2264,27 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
     ::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), isEnable?SW_SHOW:SW_HIDE);
 }
 
-void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
+void FindReplaceDlg::getPatterns(SearchPathFilter & filter)
 {
-	cutString(_env->_filters.c_str(), patternVect);
+	auto excludeFilterIndex = _env->_filters.find_first_of(TEXT("|"));
+
+	if (excludeFilterIndex == _env->_filters.npos)
+	{
+		//it's a standard include only search pattern
+		cutString(_env->_filters.c_str(), filter._includePatterns);
+		return;
+	}
+
+	if (excludeFilterIndex > 0)
+	{
+		cutString(_env->_filters.substr(0, excludeFilterIndex).c_str(), filter._includePatterns);
+	}
+
+	//use *.* as include pattern if only exclude pattern is present
+	if (filter._includePatterns.empty())
+		filter._includePatterns.push_back(TEXT("*.*"));
+
+	cutString(_env->_filters.substr(excludeFilterIndex + 1).c_str(), filter._excludePatterns);
 }
 
 void FindReplaceDlg::saveInMacro(size_t cmd, int cmdType)

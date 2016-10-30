@@ -339,13 +339,13 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         if (globbing || ::PathIsDirectory(fileName.c_str()))
         {
             vector<generic_string> fileNames;
-            vector<generic_string> patterns;
+            SearchPathFilter patterns;
             if (globbing)
             {
                 const TCHAR * substring = wcsrchr(fileName.c_str(), TCHAR('\\'));
                 size_t pos = substring - fileName.c_str();
 
-                patterns.push_back(substring + 1);
+                patterns._includePatterns.push_back(substring + 1);
                 generic_string dir(fileName.c_str(), pos + 1); // use char * to evoke:
                                                                // string (const char* s, size_t n);
                                                                // and avoid to call (if pass string) :
@@ -359,7 +359,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
                 if (fileName[fileName.size() - 1] != '\\')
                     fileNameStr += TEXT("\\");
 
-                patterns.push_back(TEXT("*"));
+                patterns._includePatterns.push_back(TEXT("*"));
                 getMatchedFileNames(fileNameStr.c_str(), patterns, fileNames, true, false);
             }
 

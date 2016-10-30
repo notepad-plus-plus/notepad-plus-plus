@@ -189,8 +189,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		_notepad_plus_plus_core.loadCommandlineParams(cmdLine, cmdLineParams);
 
 	std::vector<generic_string> fileNames;
-	std::vector<generic_string> patterns;
-	patterns.push_back(TEXT("*.xml"));
+	SearchPathFilter patterns;
+	patterns._includePatterns.push_back(TEXT("*.xml"));
 
 	generic_string nppDir = pNppParams->getNppPath();
 

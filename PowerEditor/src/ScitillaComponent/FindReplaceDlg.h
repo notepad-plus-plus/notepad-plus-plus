@@ -268,7 +268,7 @@ public :
 	};
 	const TCHAR * getDir2Search() const {return _env->_directory.c_str();};
 
-	void getPatterns(std::vector<generic_string> & patternVect);
+	void getPatterns(SearchPathFilter& filter);
 
 	void launchFindInFilesDlg() {
 		doDialog(FINDINFILES_DLG);
@@ -335,6 +335,7 @@ public :
 	bool removeFinder(Finder *finder2remove);
 
 protected :
+	void fillSearchOptions();
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	static LONG_PTR originalFinderProc;
 

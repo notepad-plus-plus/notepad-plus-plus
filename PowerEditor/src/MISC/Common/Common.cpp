@@ -907,6 +907,25 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 	return false;
 }
 
+bool matchInList(const TCHAR *fileName, const SearchPathFilter & pathFilter)
+{
+	for (const generic_string &includePattern : pathFilter._includePatterns)
+	{
+		if (PathMatchSpec(fileName, includePattern.c_str()))
+		{
+			for (const generic_string &excludePattern : pathFilter._excludePatterns)
+			{
+				if (PathMatchSpec(fileName, excludePattern.c_str()))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+	return false;
+}
+
 generic_string GetLastErrorAsString(DWORD errorCode)
 {
 	generic_string errorMsg(_T(""));

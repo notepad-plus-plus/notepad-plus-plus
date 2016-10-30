@@ -16,18 +16,18 @@ configuration:
     - Unicode Debug
 
 install:
-    - if /I "%platform%"=="x64"   set "platformVCVarsAll=amd64"
-    - if /I "%platform%"=="Win32" set "platformVCVarsAll=x86"
+    - if /I "%platform%" EQU "x64"   set "platformVCVarsAll=amd64"
+    - if /I "%platform%" EQU "Win32" set "platformVCVarsAll=x86"
     - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" %platformVCVarsAll%
 
 build:
     verbosity: minimal
 
 build_script:
-    - if defined NPP_BOOST_VERSION                      (set "NPP_BOOSTPATH_VERSION=_%NPP_BOOST_VERSION:.=_%") else (set "NPP_BOOSTPATH_VERSION=")
-    - if /I "%platform%"=="x64"                         (set "NPP_COUNT_OF_BITS=64"                          ) else (set "NPP_COUNT_OF_BITS=32"  )
-    - if /I "%platform%"=="x64"                         (set "NPP_BUILDTARGETPATH=AddressModel64"            ) else (set "NPP_BUILDTARGETPATH="  )
-    - if /I "%configuration:Debug=%"=="%configuration%" (set "NPP_SCINTILLA_CONFIG=DEBUG=1"                  ) else (set "NPP_SCINTILLA_CONFIG=" )
+    - if defined NPP_BOOST_VERSION                         (set "NPP_BOOSTPATH_VERSION=_%NPP_BOOST_VERSION:.=_%") else (set "NPP_BOOSTPATH_VERSION=")
+    - if /I "%platform%" EQU "x64"                         (set "NPP_COUNT_OF_BITS=64"                          ) else (set "NPP_COUNT_OF_BITS=32"  )
+    - if /I "%platform%" EQU "x64"                         (set "NPP_BUILDTARGETPATH=AddressModel64"            ) else (set "NPP_BUILDTARGETPATH="  )
+    - if /I "%configuration:Debug=%" NEQ "%configuration%" (set "NPP_SCINTILLA_CONFIG=DEBUG=1"                  ) else (set "NPP_SCINTILLA_CONFIG=" )
 
     - set "NPP_PROJECTPATH=C:\Projects\notepad-plus-plus"
     - set "NPP_BOOSTPATH=C:\Libraries\boost%NPP_BOOSTPATH_VERSION%"

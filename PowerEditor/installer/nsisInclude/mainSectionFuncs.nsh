@@ -29,7 +29,6 @@ Var UPDATE_PATH
 Function setPathAndOptions
 	; Set Section properties
 	SetOverwrite on
-
 	StrCpy $UPDATE_PATH $INSTDIR
 		
 	SetOutPath "$INSTDIR\"

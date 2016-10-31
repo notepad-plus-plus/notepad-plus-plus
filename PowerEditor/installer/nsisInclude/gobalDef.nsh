@@ -42,5 +42,11 @@
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
+
+!ifdef ARCH64
+InstallDir "$PROGRAMFILES64\${APPNAME}"
+!else
 InstallDir "$PROGRAMFILES\${APPNAME}"
+!endif
+
 InstallDirRegKey HKLM "Software\${APPNAME}" ""

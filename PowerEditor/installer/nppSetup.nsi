@@ -96,8 +96,6 @@ Function .onInit
 	${If} ${RunningX64}
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
-		; change install dir 
-		StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
 		
 		; check if 32-bit version has been installed if yes, ask user to remove it
 		IfFileExists $PROGRAMFILES\${APPNAME}\notepad++.exe 0 noDelete32

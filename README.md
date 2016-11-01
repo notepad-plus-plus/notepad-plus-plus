@@ -35,8 +35,12 @@ like to debug Notepad++, but don't have boost.
 ## To build `notepad++.exe`:
 
  1. Open [`PowerEditor\visual.net\notepadPlus.vcxproj`](https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/visual.net/notepadPlus.vcxproj)
- 2. Build Notepad++ [like a normal Visual Studio project](https://msdn.microsoft.com/en-us/library/7s88b19e.aspx).
-
+ 2. Copy `SciLexer.dll` from `scintilla\bin\` to the same directory as `notepad++.exe`.
+    - For the `Unicode Release` configuration, the output directory
+      (where `notepad++.exe` is) is `PowerEditor\bin\`.
+    - For the `Unicode Debug` configuration, the output directory
+      (where `notepad++.exe` is) is `PowerEditor\visual.net\Unicode Debug\`.
+ 3. Build Notepad++ [like a normal Visual Studio project](https://msdn.microsoft.com/en-us/library/7s88b19e.aspx).
 
 
 ## To build `SciLexer.dll` with boost:
@@ -45,11 +49,12 @@ Here are the instructions to build SciLexer.dll (for both 32-bit & 64-bit) for N
 
  1. Download the [Boost source code](http://sourceforge.net/projects/boost/files/boost/1.55.0/).
     v1.55 should be used with VS 2013. Then unzip it. In my case, `boost_1_55_0` is copied in `C:\sources\`
- 2. Go to `scintilla\boostregex\` then run BuildBoost.bat with your boost path.
+ 2. You may need to follow this step- Open command prompt, run vcvarsall.bat (e.g. "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat").
+ 3. From *same* command prompt, Go to `scintilla\boostregex\` then run BuildBoost.bat with your boost path.
     In my case: `BuildBoost.bat C:\sources\boost_1_55_0`
 	If you are compiling a 64 bit Scintilla under your *VS2013 x64 Native tool command prompt*, add `-x64` flag.
 	In my case: `BuildBoost.bat C:\sources\boost_1_55_0 -x64`
- 3. Go in `scintilla\win32\` then run `nmake -f scintilla.mak`
+ 4. Go in `scintilla\win32\` then run `nmake -f scintilla.mak`
 
 
 
@@ -74,12 +79,6 @@ To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
  3. Build `SciLexer.dll` with one of the following commands:
     - `nmake NOBOOST=1 -f scintilla.mak`         (normal build)
     - `nmake NOBOOST=1 DEBUG=1 -f scintilla.mak` (debugging build)
-
- 4. Copy `SciLexer.dll` from `scintilla\bin\` to the same directory as `notepad++.exe`.
-    - For the `Unicode Release` configuration, the output directory
-      (where `notepad++.exe` is) is `PowerEditor\bin\`.
-    - For the `Unicode Debug` configuration, the output directory
-      (where `notepad++.exe` is) is `PowerEditor\visual.net\Unicode Debug\`.
 
 
 See the [Notepad++ official site](http://notepad-plus-plus.org/) for more information.

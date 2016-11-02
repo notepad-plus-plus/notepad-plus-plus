@@ -1386,9 +1386,10 @@ void FindReplaceDlg::quickFindAndMarkAll(generic_string search_str, bool bNoRefo
 		if (!bFindStatus && !bNoRefocus)
 		{
 			_options._quickFind = false;
-
+			_options._isWrapAround = true;
 			bFindStatus = processFindNext(_options._str2Search.c_str(), _env, &findStatus);
 			_options._quickFind = true;
+			_options._isWrapAround = false;
 		}
 
 		if (bFindStatus)

@@ -1,20 +1,10 @@
-Notepad++ 7.1 enhancements and bug-fixes:
+Notepad++ 7.2 enhancements and bug-fixes:
 
-1.  Fix x64 crash on macro recording.
-2.  Fix x64 crash on new language dialog of UDL.
-3.  Check plugin architecture (32-bit or 64-bit) before loading.
-4.  Enhance Smart Highlighting feature: 1. match case 2. whole word only 3. use find dialog settings for both.
-5.  Fix poor performance of hex XML entities.
-6.  Reshow CallTip text on separator character.
-7.  Skip Auto-Complete self-closing HTML tags (<br>, <base>, <track>... etc).
-8.  Fix 2 UI issues for RTL layout.
-9.  Fix Folder as Workspace toolbar button inconsist behaviour.
-10. Add option to skip word completion on numbers (default: ON).
-11. Fix bookmarks toggled off's bug.
-12. Sort plugin menu by plugin name.
-13. Installer: Add 64-bit/32-bit old install detection, and old installation removal ability.
-14. Installer: Ask user for keeping user data during uninstallation.
-15. Installer: Fix uninstaller bug to not remove themes files from APPDATA.
+1.  Add option for smart highlighting extension to anothe view.
+2.  Fix Installer for 64-bit fails with argument "/D".
+3.  Fix uninstaller silent mode issue.
+4.  Fix a tab settings regression.
+5.  Fix file not saving bug (Ensure backup directory exists).
 
 
 Included plugins:

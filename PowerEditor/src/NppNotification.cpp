@@ -739,14 +739,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			autoC->update(0);
 			
 			// update quick find marks when scrolling document
-			bool bFindNextInFocus = ::GetForegroundWindow() == _findReplaceDlg.getHSelf();
+			bool bFindRepDlgInFocus = ::GetForegroundWindow() == _findReplaceDlg.getHSelf();
 			if (::IsWindowVisible(_findReplaceDlg.getHSelf())
 				&& (notification->updated & SC_UPDATE_V_SCROLL)
 				&& _findReplaceDlg._options._quickFind
 				&& (::GetFocus() == _mainEditView.getHSelf()
-					|| bFindNextInFocus))
+					|| bFindRepDlgInFocus))
 			{
-				_findReplaceDlg.quickFindAndMarkAll({}, !bFindNextInFocus);
+				_findReplaceDlg.quickFindAndMarkAll({}, !bFindRepDlgInFocus);
 			}
 			break;
 		}

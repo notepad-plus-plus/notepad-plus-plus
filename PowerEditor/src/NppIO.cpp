@@ -1194,6 +1194,11 @@ bool Notepad_plus::fileSave(BufferID id)
 				}
 			}
 
+			// Expand any environment variables
+			TCHAR fn_bak_expanded[MAX_PATH] = { '\0' };
+			::ExpandEnvironmentStrings(fn_bak.c_str(), fn_bak_expanded, MAX_PATH);
+			fn_bak = fn_bak_expanded;
+
 			// Make sure the directory exists
 			if (!::PathFileExists(fn_bak.c_str()))
 			{

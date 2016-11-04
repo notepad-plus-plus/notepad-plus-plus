@@ -88,7 +88,7 @@
 						<nameExpr expr="\w+\Z" />
 					</className>
 					<function
-						mainExpr="^\s*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+\s+)?(function\s+)+(\w+(\s+\w+)?(\s+|\*\s+|\s+\*|\s+\*\s+))?(\w+\s*::)?[\w~]+\s*\([^\{]*\{"
+						mainExpr="^\s*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+\s+)?(function\s+)+(\w+(\s+\w+)?(\s+|\*\s+|\s+\*|\s+\*\s+))?(\w+\s*::)?(?!(?-i:if|while|for|switch)\b)[\w~]+\s*\([^\{]*\{"
 					>
 						<functionName>
 							<funcNameExpr expr="\w+\s*\([^\{]*" />
@@ -141,7 +141,7 @@
 						<nameExpr expr="\w+" />
 					</className>
 					<function
-						mainExpr="^[\t\x20]*((static|const|virtual)\s+)?(\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+))?(\w+\s*::)?(?!(if|while|for|switch)(\s+)?\()[\w~]+\s*\([^\)\(]*\)(\s*const\s*)?(\s*(final|override|final\s*override|override\s*final)\s*)?[\n\s]*\{"
+						mainExpr="^[\t\x20]*((static|const|virtual)\s+)?(\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+))?(\w+\s*::)?(?!(if|while|for|switch)\b)[\w~]+\s*\([^\)\(]*\)(\s*const\s*)?(\s*(final|override|final\s*override|override\s*final)\s*)?[\n\s]*\{"
 					>
 						<functionName>
 							<funcNameExpr expr="[\w~]+\s*\(" />
@@ -150,7 +150,7 @@
 					</function>
 				</classRange>
 				<function
-					mainExpr="^[\t\x20]*((static|const|virtual)\s+)?\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+)(\w+\s*::)?(?!(if|while|for|switch)(\s+)?\()\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{"
+					mainExpr="^[\t\x20]*((static|const|virtual)\s+)?\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+)(\w+\s*::)?(?!(if|while|for|switch)\b)\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{"
 				>
 					<functionName>
 						<nameExpr expr="\w+\s*\(" />

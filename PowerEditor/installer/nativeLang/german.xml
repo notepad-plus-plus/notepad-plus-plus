@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.0
-	last modified: 2016-09-25 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.2
+	last modified: 2016-11-04 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.0">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.2">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -290,18 +290,18 @@
 					<Item id="10003" name="In &amp;neue Instanz verschieben"/>
 					<Item id="10004" name="In neue Instan&amp;z duplizieren"/>
 
-					<Item id="45060" name="Big5 (Traditionell)"/>
-					<Item id="45061" name="GB2312 (Vereinfacht)"/>
-					<Item id="45054" name="OEM 861: Isländisch"/>
-					<Item id="45057" name="OEM 865: Nordisch"/>
-					<Item id="45053" name="OEM 860: Portugiesisch"/>
-					<Item id="45056" name="OEM 863: Französisch"/>
+					<Item id="45060" name="Big5 (Traditionell)"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="45061" name="GB2312 (Vereinfacht)"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="45054" name="OEM 861: Isländisch"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="45057" name="OEM 865: Nordisch"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="45053" name="OEM 860: Portugiesisch"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="45056" name="OEM 863: Französisch"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 
-                    <Item id="46033" name="Zusammengesetzt"/>
-					<Item id="46019" name="MS-INI-Datei"/>
-					<Item id="46015" name="MS-DOS-Stil"/>
-					<Item id="46016" name="Normaler Text"/>
-					<Item id="46017" name="Ressourcen-Datei"/>
+                    <Item id="46033" name="Zusammengesetzt"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="46019" name="MS-INI-Datei"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="46015" name="MS-DOS-Stil"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="46016" name="Normaler Text"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="46017" name="Ressourcen-Datei"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 
 					<Item id="46001" name="&amp;Stile …"/>
 					<Item id="46150" name="Eigene Sprache &amp;definieren …"/>
@@ -754,6 +754,7 @@
 					<Item id="6332" name="Groß-/Kleinschreibung beachten"/>
 					<Item id="6338" name="Übereinstimmung mit ganzem Wort"/>
 					<Item id="6339" name="Sucheinstellungen benutzen"/>
+					<Item id="6340" name="Andere Hervorhebung"/>
 					<Item id="6329" name="HTML-Hervorhebung"/>
 					<Item id="6327" name="Tags hervorheben"/>
 					<Item id="6328" name="Attribute hervorheben"/>
@@ -794,7 +795,6 @@
 					<Item id="6304" name="Zuletzt geöffnete Dateien"/>
 					<Item id="6306" name="Max. Menüeinträge:"/>
 					<Item id="6305" name="Beim Programmstart nicht überprüfen"/>
-					<Item id="-1"   name="Anzeige im Dateimenü"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="6429" name="Anzeige im Dateimenü"/>
 					<Item id="6424" name="Als Untermenü"/>
 					<Item id="6425" name="Nur Dateinamen"/>
@@ -823,6 +823,7 @@
 					<Item id="6809" name="Funktionsvervollständigung"/>
 					<Item id="6810" name="Wortvervollständigung"/>
 					<Item id="6816" name="Wort- und Funktionsvervollständigung"/>
+					<Item id="6824" name="Zahlen ignorieren"/>
 					<Item id="6811" name="ab"/>
 					<Item id="6813" name="Zeichen"/>
 					<Item id="6814" name="(mögliche Werte: 1–9)"/>
@@ -834,12 +835,6 @@
 					<Item id="6860" name="Zeichenpaar 1:"/>
 					<Item id="6863" name="Zeichenpaar 2:"/>
 					<Item id="6866" name="Zeichenpaar 3:"/>
-					<Item id="6861" name=""/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="6862" name=""/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="6864" name=""/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="6865" name=""/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="6867" name=""/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="6868" name=""/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</AutoCompletion>
 
 				<MultiInstance title="Mehrere Instanzen">
@@ -863,7 +858,6 @@
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
 					<Item id="6263" name="Aus"/>
 					<Item id="6267" name="Netzwerkpfad:"/>
- 					<!--Item id="6261" name="Bitte Notepad++ für die Änderungen neu starten."/-->
 				</Cloud>
 
 				<SearchEngine title="Suchmaschine">

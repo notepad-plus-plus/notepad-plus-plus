@@ -49,8 +49,13 @@ Here are the instructions to build SciLexer.dll (for both 32-bit & 64-bit) for N
     In my case: `BuildBoost.bat C:\sources\boost_1_55_0`
 	If you are compiling a 64 bit Scintilla under your *VS2013 x64 Native tool command prompt*, add `-x64` flag.
 	In my case: `BuildBoost.bat C:\sources\boost_1_55_0 -x64`
- 3. Go in `scintilla\win32\` then run `nmake -f scintilla.mak`
-
+ 3. You may need to follow this step- Open command prompt, run vcvarsall.bat (e.g. "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat").
+ 4. From *same* command prompt, Go in `scintilla\win32\` then run `nmake -f scintilla.mak`
+ 5. Copy `SciLexer.dll` from `scintilla\bin\` to the same directory as `notepad++.exe`.
+    - For the `Unicode Release` configuration, the output directory
+      (where `notepad++.exe` is) is `PowerEditor\bin\`.
+    - For the `Unicode Debug` configuration, the output directory
+      (where `notepad++.exe` is) is `PowerEditor\visual.net\Unicode Debug\`.
 
 
 ## To build `SciLexer.dll` *without* boost:

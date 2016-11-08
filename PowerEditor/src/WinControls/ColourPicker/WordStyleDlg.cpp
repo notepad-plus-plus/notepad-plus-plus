@@ -825,6 +825,7 @@ void WordStyleDlg::setVisualFromStyleList()
 		::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(ckwStr));
 	}
 
+	//Get Dialog Item
 	int showOption = shouldBeDisplayed?SW_SHOW:SW_HIDE;
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_DEF_KEYWORDS_EDIT), showOption);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_USER_KEYWORDS_EDIT),showOption);

@@ -32,13 +32,15 @@
 #include "Notepad_plus_msgs.h"
 #include "UniConversion.h"
 #include "LongRunningOperation.h"
-
+#include "Winuser.h"
 using namespace std;
 
 FindOption * FindReplaceDlg::_env;
 FindOption FindReplaceDlg::_options;
 
 #define SHIFTED 0x8000
+//Change 1
+const unsigned short MSB = 0x8000;
 
 void addText2Combo(const TCHAR * txt2add, HWND hCombo)
 {
@@ -635,6 +637,28 @@ void FindInFinderDlg::writeOptions()
 	_options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL_FIFOLDER);
 }
 
+//Change 2
+bool keyListener(short key)
+{
+	if (GetAsyncKeyState(key) && MSB) {
+		return true;
+	}
+	return false;
+}
+
+//Change 3
+void getKeyShortcut(UINT& message, WPARAM& wParam)
+{
+	//While Alt is pressed
+	while (keyListener(VK_MENU)) {
+		//if 'O' is pressed
+		if (keyListener(0x4F)) {
+			message = WM_COMMAND;
+			wParam = IDC_REPLACE_OPENEDFILES;
+		}
+	}
+}
+
 INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /*lParam*/)
 {
 	switch (message)
@@ -670,6 +694,9 @@ INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
+	//Change 4
+	getKeyShortcut(message, wParam);
+
 	switch (message) 
 	{
 		case WM_INITDIALOG :
@@ -735,8 +762,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			break;
 		}
 
+
 		case WM_ACTIVATE :
 		{
+
 			if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
 			{
 				CharacterRange cr = (*_ppEditView)->getSelection();
@@ -787,17 +816,20 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					(NppParameters::getInstance())->removeTransparent(_hSelf);
 				}
 			}
+
 			return TRUE;
 		}
 
 		case NPPM_MODELESSDIALOG :
 			return ::SendMessage(_hParent, NPPM_MODELESSDIALOG, wParam, lParam);
 
+
 		case WM_COMMAND : 
 		{
 			bool isMacroRecording = (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS);
 			NppParameters *nppParamInst = NppParameters::getInstance();
 			FindHistory & findHistory = nppParamInst->getFindHistory();
+
 			switch (wParam)
 			{
 //Single actions
@@ -828,6 +860,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppParamInst->_isFindReplacing = false;
 				}
 				return TRUE;
+
 
 				case IDREPLACE :
 				{
@@ -911,7 +944,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppParamInst->_isFindReplacing = false;
 				}
 				return TRUE;
-
+				//Find and replace
 				case IDD_FINDINFILES_REPLACEINFILES :
 				{
 					LongRunningOperation op;
@@ -951,7 +984,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					}
 				}
 				return TRUE;
-
+				//Replace All in All Files
 				case IDC_REPLACE_OPENEDFILES :
 				{
 					LongRunningOperation op;

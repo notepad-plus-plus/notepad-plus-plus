@@ -527,6 +527,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\ScitillaComponent\AutoCompletion.h" />
     <ClInclude Include="..\src\WinControls\FileBrowser\fileBrowser.h" />
     <ClInclude Include="..\src\WinControls\FileBrowser\fileBrowser_rc.h" />
+    <ClInclude Include="..\src\WinControls\FileBrowser\resource.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGrid.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGridWrapper.h" />
     <ClInclude Include="..\src\ScitillaComponent\Buffer.h" />

@@ -673,7 +673,10 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	}
 	command(IDM_VIEW_REFRESHTABAR);
 
-	if (NppParameters::getInstance()->getNppGUI()._quitOnEmpty)
+	//bool endIfLast = (BST_CHECKED == ::SendDlgItemMessage(_preference.getHSelf(), IDC_CHECK_CLOSEWHENLASTTAB, BM_GETCHECK, 0, 0));
+	bool endIfLast = _preference.closeWhenLastTab();
+
+	if (!NppParameters::getInstance()->getNppGUI()._quitOnEmpty && endIfLast)
 	{
 		// the user closed the last open tab
 		if (numInitialOpenBuffers == 1 && isEmpty() && !_isAttemptingCloseOnQuit)

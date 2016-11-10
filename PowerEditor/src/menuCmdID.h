@@ -300,8 +300,11 @@
     #define    IDM_VIEW_LWALIGN					  (IDM_VIEW + 47)
     #define    IDM_VIEW_LWINDENT				  (IDM_VIEW + 48)
     #define    IDM_VIEW_SUMMARY 				  (IDM_VIEW + 49)
+//CHANGE
+	#define	   IDM_VIEW_CLOSEWHENLAST		      (IDM_VIEW + 50)
 
-    #define    IDM_VIEW_FOLD                      (IDM_VIEW + 50)
+
+    #define    IDM_VIEW_FOLD                      (IDM_VIEW + 51)
         #define    IDM_VIEW_FOLD_1    (IDM_VIEW_FOLD + 1)
         #define    IDM_VIEW_FOLD_2    (IDM_VIEW_FOLD + 2)
         #define    IDM_VIEW_FOLD_3    (IDM_VIEW_FOLD + 3)

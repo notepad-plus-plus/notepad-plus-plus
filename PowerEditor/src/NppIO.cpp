@@ -87,7 +87,14 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 				else
 				{
 					changes.Pop(dwAction, wstrFilename);
-					if (lstrcmp(fullFileName, wstrFilename.GetString()) == 0)
+					generic_string fn = wstrFilename.GetString();
+
+					// Fix monitoring files which are under root problem
+					size_t pos = fn.find(TEXT("\\\\"));
+					if (pos == 2)
+						fn.replace(pos, 2, TEXT("\\"));
+
+					if (lstrcmp(fullFileName, fn.c_str()) == 0)
 					{
 						if (dwAction == FILE_ACTION_MODIFIED)
 						{
@@ -666,7 +673,10 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	}
 	command(IDM_VIEW_REFRESHTABAR);
 
-	if (NppParameters::getInstance()->getNppGUI()._quitOnEmpty)
+	//bool endIfLast = (BST_CHECKED == ::SendDlgItemMessage(_preference.getHSelf(), IDC_CHECK_CLOSEWHENLASTTAB, BM_GETCHECK, 0, 0));
+	bool endIfLast = _preference.closeWhenLastTab();
+
+	if (!NppParameters::getInstance()->getNppGUI()._quitOnEmpty && endIfLast)
 	{
 		// the user closed the last open tab
 		if (numInitialOpenBuffers == 1 && isEmpty() && !_isAttemptingCloseOnQuit)

@@ -238,6 +238,7 @@ public :
 		return static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETCURSEL, 0, 0));
 	};
 
+	bool closeWhenLastTab();
 	void showDialogByName(const TCHAR *name) const;
 	void setListSelection(size_t currentSel) const;
 

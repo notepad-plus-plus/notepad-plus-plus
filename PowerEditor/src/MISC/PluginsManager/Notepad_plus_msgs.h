@@ -325,44 +325,48 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	// otherwise it'll be shown.
 	// return value : the old status value
 
-	#define NPPM_ISSTATUSBARHIDDEN (NPPMSG + 75)
+	#define NPPM_CLOSEWHENLASTTAB (NPPMSG + 75)
+	//BOOL NPPM_CLOSEWHENLASTAB
+	//Flag to close the program when the last tab is closed.
+
+	#define NPPM_ISSTATUSBARHIDDEN (NPPMSG + 76)
 	// BOOL NPPM_ISSTATUSBARHIDDEN(0, 0)
 	// returned value : TRUE if STATUSBAR is hidden, otherwise FALSE
 
-	#define NPPM_GETSHORTCUTBYCMDID (NPPMSG + 76)
+	#define NPPM_GETSHORTCUTBYCMDID (NPPMSG + 77)
 	// BOOL NPPM_GETSHORTCUTBYCMDID(int cmdID, ShortcutKey *sk)
 	// get your plugin command current mapped shortcut into sk via cmdID
 	// You may need it after getting NPPN_READY notification
 	// returned value : TRUE if this function call is successful and shorcut is enable, otherwise FALSE
 
-	#define NPPM_DOOPEN (NPPMSG + 77)
+	#define NPPM_DOOPEN (NPPMSG + 78)
 	// BOOL NPPM_DOOPEN(0, const TCHAR *fullPathName2Open)
 	// fullPathName2Open indicates the full file path name to be opened.
 	// The return value is TRUE (1) if the operation is successful, otherwise FALSE (0).
 
-	#define NPPM_SAVECURRENTFILEAS (NPPMSG + 78)
+	#define NPPM_SAVECURRENTFILEAS (NPPMSG + 79)
 	// BOOL NPPM_SAVECURRENTFILEAS (BOOL asCopy, const TCHAR* filename)
 
-    #define NPPM_GETCURRENTNATIVELANGENCODING (NPPMSG + 79)
+    #define NPPM_GETCURRENTNATIVELANGENCODING (NPPMSG + 80)
 	// INT NPPM_GETCURRENTNATIVELANGENCODING(0, 0)
 	// returned value : the current native language enconding
 
-    #define NPPM_ALLOCATESUPPORTED   (NPPMSG + 80)
+    #define NPPM_ALLOCATESUPPORTED   (NPPMSG + 81)
     // returns TRUE if NPPM_ALLOCATECMDID is supported
     // Use to identify if subclassing is necessary
 
-	#define NPPM_ALLOCATECMDID   (NPPMSG + 81)
+	#define NPPM_ALLOCATECMDID   (NPPMSG + 82)
     // BOOL NPPM_ALLOCATECMDID(int numberRequested, int* startNumber)
     // sets startNumber to the initial command ID if successful
     // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
 
-	#define NPPM_ALLOCATEMARKER  (NPPMSG + 82)
+	#define NPPM_ALLOCATEMARKER  (NPPMSG + 83)
     // BOOL NPPM_ALLOCATEMARKER(int numberRequested, int* startNumber)
     // sets startNumber to the initial command ID if successful
     // Allocates a marker number to a plugin
     // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
 
-	#define NPPM_GETLANGUAGENAME  (NPPMSG + 83)
+	#define NPPM_GETLANGUAGENAME  (NPPMSG + 84)
 	// INT NPPM_GETLANGUAGENAME(int langType, TCHAR *langName)
 	// Get programing language name from the given language type (LangType)
 	// Return value is the number of copied character / number of character to copy (\0 is not included)
@@ -370,7 +374,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGENAME function the 2nd time
 	// by passing allocated buffer as argument langName
 
-	#define NPPM_GETLANGUAGEDESC  (NPPMSG + 84)
+	#define NPPM_GETLANGUAGEDESC  (NPPMSG + 85)
 	// INT NPPM_GETLANGUAGEDESC(int langType, TCHAR *langDesc)
 	// Get programing language short description from the given language type (LangType)
 	// Return value is the number of copied character / number of character to copy (\0 is not included)
@@ -378,45 +382,45 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGEDESC function the 2nd time
 	// by passing allocated buffer as argument langDesc
 
-	#define NPPM_SHOWDOCSWITCHER    (NPPMSG + 85)
+	#define NPPM_SHOWDOCSWITCHER    (NPPMSG + 86)
 	// VOID NPPM_ISDOCSWITCHERSHOWN(0, BOOL toShowOrNot)
 	// Send this message to show or hide doc switcher.
 	// if toShowOrNot is TRUE then show doc switcher, otherwise hide it.
 
-	#define NPPM_ISDOCSWITCHERSHOWN    (NPPMSG + 86)
+	#define NPPM_ISDOCSWITCHERSHOWN    (NPPMSG + 87)
 	// BOOL NPPM_ISDOCSWITCHERSHOWN(0, 0)
 	// Check to see if doc switcher is shown.
 
-	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 87)
+	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 88)
 	// BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
 	// Check to see if loading plugins from "%APPDATA%\Notepad++\plugins" is allowed.
 
-	#define NPPM_GETCURRENTVIEW    (NPPMSG + 88)
+	#define NPPM_GETCURRENTVIEW    (NPPMSG + 89)
 	// INT NPPM_GETCURRENTVIEW(0, 0)
 	// Return: current edit view of Notepad++. Only 2 possible values: 0 = Main, 1 = Secondary
 
-	#define NPPM_DOCSWITCHERDISABLECOLUMN    (NPPMSG + 89)
+	#define NPPM_DOCSWITCHERDISABLECOLUMN    (NPPMSG + 90)
 	// VOID NPPM_DOCSWITCHERDISABLECOLUMN(0, BOOL disableOrNot)
 	// Disable or enable extension column of doc switcher
 
-	#define NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR    (NPPMSG + 90)
+	#define NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR    (NPPMSG + 91)
 	// INT NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR(0, 0)
 	// Return: current editor default foreground color. You should convert the returned value in COLORREF
 
-	#define NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR    (NPPMSG + 91)
+	#define NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR    (NPPMSG + 92)
 	// INT NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR(0, 0)
 	// Return: current editor default background color. You should convert the returned value in COLORREF
 
-	#define NPPM_SETSMOOTHFONT    (NPPMSG + 92)
+	#define NPPM_SETSMOOTHFONT    (NPPMSG + 93)
 	// VOID NPPM_SETSMOOTHFONT(0, BOOL setSmoothFontOrNot)
 
-	#define NPPM_SETEDITORBORDEREDGE    (NPPMSG + 93)
+	#define NPPM_SETEDITORBORDEREDGE    (NPPMSG + 94)
 	// VOID NPPM_SETEDITORBORDEREDGE(0, BOOL withEditorBorderEdgeOrNot)
 
-	#define NPPM_SAVEFILE (NPPMSG + 94)
+	#define NPPM_SAVEFILE (NPPMSG + 95)
 	// VOID NPPM_SAVEFILE(0, const TCHAR *fileNameToSave)
 
-	#define NPPM_DISABLEAUTOUPDATE (NPPMSG + 95) // 2119 in decimal
+	#define NPPM_DISABLEAUTOUPDATE (NPPMSG + 96) // 2119 in decimal
 	// VOID NPPM_DISABLEAUTOUPDATE(0, 0)
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)

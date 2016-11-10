@@ -43,6 +43,7 @@ const int BLINKRATE_INTERVAL = 50;
 const int BORDERWIDTH_SMALLEST = 0;
 const int BORDERWIDTH_LARGEST = 30;
 const int BORDERWIDTH_INTERVAL = 1;
+bool isLastTabToCloseChecked = false;
 
 // This int encoding array is built from "EncodingUnit encodings[]" (see EncodingMapper.cpp)
 // And DefaultNewDocDlg will use "int encoding array" to get more info from "EncodingUnit encodings[]"
@@ -94,6 +95,11 @@ static int encodings[] = {
 	21866,
 	20866
 };
+
+bool PreferenceDlg::closeWhenLastTab()
+{
+	return isLastTabToCloseChecked;
+}
 
 INT_PTR CALLBACK PreferenceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -437,6 +443,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					getFocus();
 				}
 				return TRUE;
+
 				case IDC_CHECK_DOCSWITCH_NOEXTCOLUMN :
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH_NOEXTCOLUMN, BM_GETCHECK, 0, 0));
@@ -493,6 +500,15 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_DBCLICK2CLOSE :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_DBCLK2CLOSE, 0);
 					return TRUE;
+
+
+				case IDC_CHECK_CLOSEWHENLASTTAB:
+				{
+					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CLOSEWHENLASTTAB, BM_GETCHECK, 0, 0));
+					isLastTabToCloseChecked = isChecked;
+					::SendMessage(::GetParent(_hParent), NPPM_CLOSEWHENLASTTAB, 0, isChecked ? TRUE : FALSE);
+				}
+				return TRUE;
 
 				case IDC_CHECK_HIDE :
 				{

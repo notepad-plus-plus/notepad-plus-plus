@@ -270,6 +270,7 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		//Key Listener
 		case WM_NOTIFY :
 		{
 			if (wParam == IDC_WINDOWS_LIST)

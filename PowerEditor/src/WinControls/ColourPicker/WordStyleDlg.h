@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef WORD_STYLE_H
-#define WORD_STYLE_H
+#pragma once
 
 #include "ColourPicker.h"
 #include "WordStyleDlgRes.h"
@@ -238,5 +237,3 @@ private :
 		_isShownGOCtrls = show;
 	};
 };
-
-#endif //WORD_STYLE_H

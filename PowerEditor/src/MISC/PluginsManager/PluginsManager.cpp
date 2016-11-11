@@ -59,10 +59,14 @@ bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
     //::DestroyMenu(_pluginInfos[index]->_pluginMenu);
     //_pluginInfos[index]->_pluginMenu = NULL;
 
-    if (::FreeLibrary(_pluginInfos[index]->_hLib))
-        _pluginInfos[index]->_hLib = nullptr;
+	if (::FreeLibrary(_pluginInfos[index]->_hLib))
+	{
+		_pluginInfos[index]->_hLib = nullptr;
+		printStr(TEXT("we're good"));
+	}
     else
         printStr(TEXT("not ok"));
+
     //delete _pluginInfos[index];
 //      printInt(index);
     //vector<PluginInfo *>::iterator it = _pluginInfos.begin() + index;
@@ -139,7 +143,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 	PluginInfo *pi = new PluginInfo;
 	try
 	{
-		pi->_moduleName = PathFindFileName(pluginFilePath);
+		pi->_moduleName = pluginFileName;
 
 		if (GetBinaryArchitectureType(pluginFilePath) != ARCH_TYPE)
 			throw generic_string(ARCH_ERR_MSG);
@@ -267,7 +271,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, reinterpret_cast<LPARAM>(pDllName));
 
 		}
-		addInLoadedDlls(pluginFileName);
+		addInLoadedDlls(pluginFilePath, pluginFileName);
 		_pluginInfos.push_back(pi);
 		return static_cast<int32_t>(_pluginInfos.size() - 1);
 	}
@@ -625,7 +629,7 @@ generic_string PluginsManager::getLoadedPluginNames() const
 	generic_string pluginPaths;
 	for (size_t i = 0; i < _loadedDlls.size(); ++i)
 	{
-		pluginPaths += _loadedDlls[i];
+		pluginPaths += _loadedDlls[i]._fileName;
 		pluginPaths += TEXT(" ");
 	}
 	return pluginPaths;

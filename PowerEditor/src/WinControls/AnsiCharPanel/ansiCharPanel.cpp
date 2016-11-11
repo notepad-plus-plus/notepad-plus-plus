@@ -28,6 +28,7 @@
 
 #include "ansiCharPanel.h"
 #include "ScintillaEditView.h"
+#include "localization.h"
 
 void AnsiCharPanel::switchEncoding()
 {
@@ -41,6 +42,16 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
     {
         case WM_INITDIALOG :
         {
+			NppParameters *nppParam = NppParameters::getInstance();
+			NativeLangSpeaker *pNativeSpeaker = nppParam->getNativeLangSpeaker();
+			generic_string valStr = pNativeSpeaker->getAttrNameStr(TEXT("Value"), "AsciiInsertion", "ColumnVal");
+			generic_string hexStr = pNativeSpeaker->getAttrNameStr(TEXT("Hex"), "AsciiInsertion", "ColumnHex");
+			generic_string charStr = pNativeSpeaker->getAttrNameStr(TEXT("Character"), "AsciiInsertion", "ColumnChar");
+
+			_listView.addColumn(columnInfo(valStr, nppParam->_dpiManager.scaleX(45)));
+			_listView.addColumn(columnInfo(hexStr, nppParam->_dpiManager.scaleX(45)));
+			_listView.addColumn(columnInfo(charStr, nppParam->_dpiManager.scaleX(70)));
+
 			_listView.init(_hInst, _hSelf);
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 			_listView.setValues(codepage==-1?0:codepage);
@@ -71,7 +82,7 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					{
 						case VK_RETURN:
 						{
-							int i = ListView_GetSelectionMark(_listView.getHSelf());
+							int i = _listView.getSelectedIndex();
 
 							if (i == -1)
 								return TRUE;

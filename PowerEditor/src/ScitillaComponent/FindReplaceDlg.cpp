@@ -2516,7 +2516,6 @@ void FindInFinderDlg::doDialog(Finder *launcher, bool isRTL)
 	
 }
 
-
 void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 {
 	if (!isCreated())

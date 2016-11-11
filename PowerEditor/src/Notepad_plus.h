@@ -25,105 +25,35 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef NOTEPAD_PLUS_H
-#define NOTEPAD_PLUS_H
+#pragma once
 
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
-
-#ifndef DOCTABVIEW_H
 #include "DocTabView.h"
-#endif //DOCTABVIEW_H
-
-#ifndef SPLITTER_CONTAINER_H
 #include "SplitterContainer.h"
-#endif //SPLITTER_CONTAINER_H
-
-#ifndef FIND_REPLACE_DLG_H
 #include "FindReplaceDlg.h"
-#endif //FIND_REPLACE_DLG_H
-
-#ifndef ABOUT_DLG_H
 #include "AboutDlg.h"
-#endif //ABOUT_DLG_H
-
-#ifndef RUN_DLG_H
 #include "RunDlg.h"
-#endif //RUN_DLG_H
-
-#ifndef STATUS_BAR_H
 #include "StatusBar.h"
-#endif //STATUS_BAR_H
-
-#ifndef LASTRECENTFILELIST_H
 #include "lastRecentFileList.h"
-#endif //LASTRECENTFILELIST_H
-
-#ifndef GOTILINE_DLG_H
 #include "GoToLineDlg.h"
-#endif //GOTILINE_DLG_H
-
-#ifndef FINDCHARSINRANGE_DLG_H
 #include "FindCharsInRange.h"
-#endif //FINDCHARSINRANGE_DLG_H
-
-#ifndef COLUMNEDITOR_H
 #include "columnEditor.h"
-#endif //COLUMNEDITOR_H
-
-#ifndef WORD_STYLE_H
 #include "WordStyleDlg.h"
-#endif //WORD_STYLE_H
-
-#ifndef TRAY_ICON_CONTROLER_H
 #include "trayIconControler.h"
-#endif //TRAY_ICON_CONTROLER_H
-
-#ifndef PLUGINSMANAGER_H
 #include "PluginsManager.h"
-#endif //PLUGINSMANAGER_H
 /*
-#ifndef NOTEPAD_PLUS_MSGS_H
 #include "Notepad_plus_msgs.h"
-#endif //NOTEPAD_PLUS_MSGS_H
 */
-#ifndef PREFERENCE_DLG_H
 #include "preferenceDlg.h"
-#endif //PREFERENCE_DLG_H
-
-#ifndef WINDOWS_DLG_H
 #include "WindowsDlg.h"
-#endif //WINDOWS_DLG_H
-
-#ifndef RUN_MACRO_DLG_H
 #include "RunMacroDlg.h"
-#endif //RUN_MACRO_DLG_H
-
-#ifndef DOCKINGMANAGER_H
 #include "DockingManager.h"
-#endif //DOCKINGMANAGER_H
-
-#ifndef PROCESSUS_H
 #include "Processus.h"
-#endif //PROCESSUS_H
-
-#ifndef AUTOCOMPLETION_H
 #include "AutoCompletion.h"
-#endif //AUTOCOMPLETION_H
-
-#ifndef SMARTHIGHLIGHTER_H
 #include "SmartHighlighter.h"
-#endif //SMARTHIGHLIGHTER_H
-
-#ifndef SCINTILLACTRLS_H
 #include "ScintillaCtrls.h"
-#endif //SCINTILLACTRLS_H
-
-#ifndef SIZE_DLG_H
 #include "lesDlgs.h"
-#endif //SIZE_DLG_H
-
+#include "pluginsAdmin.h"
 #include "localization.h"
 #include "md5Dlgs.h"
 #include <vector>
@@ -354,6 +284,7 @@ private:
 	WordStyleDlg _configStyleDlg;
 	PreferenceDlg _preference;
 	FindCharsInRangeDlg _findCharsInRangeDlg;
+	PluginsAdminDlg _pluginsAdminDlg;
 
 	// a handle list of all the Notepad++ dialogs
 	std::vector<HWND> _hModelessDlgs;
@@ -668,4 +599,3 @@ private:
 };
 
 
-#endif //NOTEPAD_PLUS_H

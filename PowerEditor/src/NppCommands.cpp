@@ -61,6 +61,8 @@ void Notepad_plus::macroPlayback(Macro macro)
 	_playingBackMacro = false;
 }
 
+
+
 void Notepad_plus::command(int id)
 {
 	switch (id)
@@ -68,6 +70,18 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_NEW:
 		{
 			fileNew();
+			/*
+
+			bool isFirstTime = not _pluginsAdminDlg.isCreated();
+			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
+			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+			{
+				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
+				_pluginsAdminDlg.getPluginList();
+				_pluginsAdminDlg.loadFomList();
+			}
+			*/
 		}
 		break;
 

@@ -362,6 +362,9 @@
 // See shortcutRc.h
 //#define IDD_SHORTCUT_DLG      5000
 
+// See pluginsAdminRes.h
+//#define IDD_PLUGINSADMIN_DLG 5500
+
 // See preference.rc
 //#define IDD_PREFERENCE_BOX 6000
 

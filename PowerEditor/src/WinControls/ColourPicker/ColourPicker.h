@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef COLOUR_PICKER_H
-#define COLOUR_PICKER_H
+#pragma once
 
 #include "Window.h"
 
@@ -64,4 +63,3 @@ private :
 	void drawBackground(HDC hDC);
 };
 
-#endif // COLOUR_PICKER_H

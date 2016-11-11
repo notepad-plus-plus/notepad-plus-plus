@@ -265,6 +265,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_configStyleDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_preference.init(_pPublicInterface->getHinst(), hwnd);
+	_pluginsAdminDlg.init(_pPublicInterface->getHinst(), hwnd);
 
     //Marker Margin config
     _mainEditView.setMakerStyle(svp1._folderStyle);

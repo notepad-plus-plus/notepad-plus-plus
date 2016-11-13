@@ -521,7 +521,7 @@ private :
 
 
 
-const int MAX_LEXER_STYLE = 80;
+const int MAX_LEXER_STYLE = 100;
 
 struct LexerStylerArray
 {
@@ -1233,7 +1233,7 @@ private:
 };
 
 
-const int NB_LANG = 80;
+const int NB_LANG = 100;
 const bool DUP = true;
 const bool FREE = false;
 

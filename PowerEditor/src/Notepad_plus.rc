@@ -670,24 +670,32 @@ BEGIN
 
     POPUP "&Language"
     BEGIN
+        MENUITEM "ActionScript",            IDM_LANG_FLASH
         MENUITEM "Ada",                     IDM_LANG_ADA
+        MENUITEM "ASN.1",                   IDM_LANG_ASN1
         MENUITEM "ASP",                     IDM_LANG_ASP
         MENUITEM "Assembly",                IDM_LANG_ASM
         MENUITEM "AutoIt",                  IDM_LANG_AU3
-        MENUITEM "BaanC",                  IDM_LANG_BAANC
+        MENUITEM "AviSynth",                IDM_LANG_AVS
+        MENUITEM "BaanC",                   IDM_LANG_BAANC
         MENUITEM "Batch",                   IDM_LANG_BATCH
+        MENUITEM "Blitzbasic",              IDM_LANG_BLITZBASIC
         MENUITEM "C",                       IDM_LANG_C
         MENUITEM "C#",                      IDM_LANG_CS
         MENUITEM "C++",                     IDM_LANG_CPP
         MENUITEM "Caml",                    IDM_LANG_CAML
         MENUITEM "CMake",                   IDM_LANG_CMAKE
         MENUITEM "COBOL",                   IDM_LANG_COBOL
+        MENUITEM "CSound",                  IDM_LANG_CSOUND
         MENUITEM "CoffeeScript",            IDM_LANG_COFFEESCRIPT
         MENUITEM "CSS",                     IDM_LANG_CSS
         MENUITEM "D",                       IDM_LANG_D
         MENUITEM "Diff",                    IDM_LANG_DIFF
-        MENUITEM "ActionScript",            IDM_LANG_FLASH
+        MENUITEM "Erlang",                  IDM_LANG_ERLANG
+        MENUITEM "ESCRIPT",                 IDM_LANG_ESCRIPT
+        MENUITEM "Forth",                   IDM_LANG_FORTH
         MENUITEM "Fortran",                 IDM_LANG_FORTRAN
+        MENUITEM "Freebasic",               IDM_LANG_FREEBASIC
         MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
         MENUITEM "Haskell",                 IDM_LANG_HASKELL
         MENUITEM "HTML",                    IDM_LANG_HTML
@@ -700,35 +708,46 @@ BEGIN
         MENUITEM "JSP",                     IDM_LANG_JSP
         MENUITEM "KIXtart",                 IDM_LANG_KIX
         MENUITEM "LISP",                    IDM_LANG_LISP
+        MENUITEM "LaTeX",                   IDM_LANG_LATEX
         MENUITEM "Lua",                     IDM_LANG_LUA
         MENUITEM "Makefile",                IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                  IDM_LANG_MATLAB
+        MENUITEM "MMIXAL",                  IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
+        MENUITEM "Nimrod",                  IDM_LANG_NIMROD
+        MENUITEM "Nncrontab",               IDM_LANG_NNCRONTAB
         MENUITEM "Normal Text",             IDM_LANG_TEXT
         MENUITEM "NSIS",                    IDM_LANG_NSIS
         MENUITEM "Objective-C",             IDM_LANG_OBJC
+        MENUITEM "OScript",                 IDM_LANG_OSCRIPT
         MENUITEM "Pascal",                  IDM_LANG_PASCAL
         MENUITEM "Perl",                    IDM_LANG_PERL
         MENUITEM "PHP",                     IDM_LANG_PHP
         MENUITEM "PostScript",              IDM_LANG_PS
         MENUITEM "PowerShell",              IDM_LANG_POWERSHELL
         MENUITEM "Properties",              IDM_LANG_PROPS
+        MENUITEM "Purebasic",               IDM_LANG_PUREBASIC
         MENUITEM "Python",                  IDM_LANG_PYTHON
         MENUITEM "R",                       IDM_LANG_R
+        MENUITEM "REBOL",                   IDM_LANG_REBOL
+        MENUITEM "Registry",                IDM_LANG_REGISTRY
         MENUITEM "Resource file",           IDM_LANG_RC
         MENUITEM "Ruby",                    IDM_LANG_RUBY
+        MENUITEM "Rust",                    IDM_LANG_RUST
         MENUITEM "Shell",                   IDM_LANG_BASH
         MENUITEM "Scheme",                  IDM_LANG_SCHEME
         MENUITEM "Smalltalk",               IDM_LANG_SMALLTALK
+        MENUITEM "Spice",                   IDM_LANG_SPICE
         MENUITEM "SQL",                     IDM_LANG_SQL
 		MENUITEM "Swift",                  IDM_LANG_SWIFT
         MENUITEM "S-Record",                IDM_LANG_SREC
         MENUITEM "TCL",                     IDM_LANG_TCL
         MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
         MENUITEM "TeX",                     IDM_LANG_TEX
-        MENUITEM "Visual Basic",            IDM_LANG_VB
-        MENUITEM "VHDL",                    IDM_LANG_VHDL
+        MENUITEM "txt2tags",                IDM_LANG_TXT2TAGS
         MENUITEM "Verilog",                 IDM_LANG_VERILOG
+        MENUITEM "VHDL",                    IDM_LANG_VHDL
+        MENUITEM "Visual Basic",            IDM_LANG_VB
         MENUITEM "XML",                     IDM_LANG_XML
         MENUITEM "YAML",                    IDM_LANG_YAML
         MENUITEM SEPARATOR
@@ -740,16 +759,19 @@ BEGIN
     BEGIN
     POPUP "A"
     BEGIN
-		MENUITEM "ActionScript",          IDM_LANG_FLASH
+        MENUITEM "ActionScript",          IDM_LANG_FLASH
         MENUITEM "Ada",                   IDM_LANG_ADA
+        MENUITEM "ASN.1",                 IDM_LANG_ASN1
         MENUITEM "ASP",                   IDM_LANG_ASP
         MENUITEM "Assembly",              IDM_LANG_ASM
         MENUITEM "AutoIt",                IDM_LANG_AU3
+        MENUITEM "AviSynth",              IDM_LANG_AVS
     END
     POPUP "B"
     BEGIN
-        MENUITEM "BaanC",                    IDM_LANG_BAANC
-        MENUITEM "Batch",                     IDM_LANG_BATCH
+        MENUITEM "BaanC",                 IDM_LANG_BAANC
+        MENUITEM "Batch",                 IDM_LANG_BATCH
+        MENUITEM "Blitzbasic",            IDM_LANG_BLITZBASIC
     END
     POPUP "C"
     BEGIN
@@ -759,6 +781,7 @@ BEGIN
         MENUITEM "Caml",                  IDM_LANG_CAML
         MENUITEM "CMake",                 IDM_LANG_CMAKE
         MENUITEM "COBOL",                 IDM_LANG_COBOL
+        MENUITEM "CSound",                IDM_LANG_CSOUND
 		MENUITEM "CoffeeScript",          IDM_LANG_COFFEESCRIPT
         MENUITEM "CSS",                   IDM_LANG_CSS
     END
@@ -767,10 +790,17 @@ BEGIN
         MENUITEM "D",                     IDM_LANG_D
         MENUITEM "Diff",                  IDM_LANG_DIFF
     END
+    POPUP "E"
+    BEGIN
+        MENUITEM "Erlang",                IDM_LANG_ERLANG
+        MENUITEM "ESCRIPT",               IDM_LANG_ESCRIPT
+    END
     POPUP "F"
     BEGIN
+        MENUITEM "Forth",                 IDM_LANG_FORTH
         MENUITEM "Fortran (free form)",   IDM_LANG_FORTRAN
         MENUITEM "Fortran (fixed form)",  IDM_LANG_FORTRAN_77
+        MENUITEM "Freebasic",             IDM_LANG_FREEBASIC
     END
     MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
     POPUP "H"
@@ -794,6 +824,7 @@ BEGIN
     MENUITEM "KIXtart",                   IDM_LANG_KIX
     POPUP "L"
     BEGIN
+        MENUITEM "LaTeX",                 IDM_LANG_LATEX
         MENUITEM "LISP",                  IDM_LANG_LISP
         MENUITEM "Lua",                   IDM_LANG_LUA
     END
@@ -801,15 +832,22 @@ BEGIN
     BEGIN
         MENUITEM "Makefile",              IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                IDM_LANG_MATLAB
+        MENUITEM "MMIXAL",                IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",          IDM_LANG_ASCII
     END
     POPUP "N"
     BEGIN
+        MENUITEM "Nimrod",                IDM_LANG_NIMROD
+        MENUITEM "Nncrontab",             IDM_LANG_NNCRONTAB
         MENUITEM "Normal Text",           IDM_LANG_TEXT
         MENUITEM "NSIS",                  IDM_LANG_NSIS
     END
-    MENUITEM "Objective-C",               IDM_LANG_OBJC
-    POPUP "P"
+    POPUP "O"
+    BEGIN
+        MENUITEM "Objective-C",           IDM_LANG_OBJC
+        MENUITEM "OScript",               IDM_LANG_OSCRIPT
+    END
+	POPUP "P"
     BEGIN
         MENUITEM "Pascal",                IDM_LANG_PASCAL
         MENUITEM "Perl",                  IDM_LANG_PERL
@@ -817,19 +855,24 @@ BEGIN
         MENUITEM "PostScript",            IDM_LANG_PS
         MENUITEM "PowerShell",            IDM_LANG_POWERSHELL
         MENUITEM "Properties",            IDM_LANG_PROPS
+        MENUITEM "Purebasic",             IDM_LANG_PUREBASIC
         MENUITEM "Python",                IDM_LANG_PYTHON
     END
     POPUP "R"
     BEGIN
         MENUITEM "R",                     IDM_LANG_R
+        MENUITEM "REBOL",                 IDM_LANG_REBOL
+        MENUITEM "Registry",              IDM_LANG_REGISTRY
         MENUITEM "Resource file",         IDM_LANG_RC
         MENUITEM "Ruby",                  IDM_LANG_RUBY
+        MENUITEM "Rust",                  IDM_LANG_RUST
     END
     POPUP "S"
     BEGIN
         MENUITEM "Shell",                 IDM_LANG_BASH
         MENUITEM "Scheme",                IDM_LANG_SCHEME
         MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
+        MENUITEM "Spice",                 IDM_LANG_SPICE
         MENUITEM "SQL",                   IDM_LANG_SQL
 		MENUITEM "Swift",                IDM_LANG_SWIFT
         MENUITEM "S-Record",              IDM_LANG_SREC
@@ -839,6 +882,7 @@ BEGIN
         MENUITEM "TCL",                   IDM_LANG_TCL
         MENUITEM "Tektronix extended HEX",IDM_LANG_TEHEX
         MENUITEM "TeX",                   IDM_LANG_TEX
+        MENUITEM "txt2tags",              IDM_LANG_TXT2TAGS
     END
     POPUP "V"
     BEGIN

@@ -37,7 +37,7 @@ SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 
 
 !include "nsisInclude\winVer.nsh"
-!include "nsisInclude\gobalDef.nsh"
+!include "nsisInclude\globalDef.nsh"
 !include "nsisInclude\tools.nsh"
 !include "nsisInclude\uninstall.nsh"
 
@@ -97,6 +97,16 @@ Function .onInit
 	${If} ${RunningX64}
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
+		
+		; change to x64 install dir if needed
+		${If} "$InstDir" != ""
+			${If} "$InstDir" == "$PROGRAMFILES\${APPNAME}"
+				StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
+			${EndIf}
+			; else /D was used or last installation is not "$PROGRAMFILES\${APPNAME}"
+		${Else}
+			StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
+		${EndIf}
 		
 		; check if 32-bit version has been installed if yes, ask user to remove it
 		IfFileExists $PROGRAMFILES\${APPNAME}\notepad++.exe 0 noDelete32

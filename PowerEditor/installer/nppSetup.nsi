@@ -32,6 +32,7 @@
 !include "nsDialogs.nsh" ; allows creation of custom pages in the installer
 !include "Memento.nsh"   ; remember user selections in the installer across runs
 
+Unicode true			; Generate a Unicode installer. It can only be used outside of sections and functions and before any data is compressed.
 SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ;SetCompressor /FINAL lzma	; This reduces installer size by approx 15~18%
 

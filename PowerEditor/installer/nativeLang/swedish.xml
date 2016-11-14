@@ -116,10 +116,10 @@
 					<Item id="42066" name="Sortera rader som decimaltal (punkt) fallande"/>
 					<Item id="42016" name="VERSALER" />
 					<Item id="42017" name="gemener" />
-					<Item id="42067" name="Title Case"/>
-					<Item id="42068" name="Title Case (blend)"/>
-					<Item id="42069" name="Stor bokstav för varje mening - Sentence case"/>
-					<Item id="42070" name="Stor bokstav för varje mening - Sentence case (blend)"/>
+					<Item id="42067" name="Versal Enbart Första Bokstav I Varje Ord - Title Case"/>
+					<Item id="42068" name="VERSAL Första Bokstav I Varje Ord - Title Case (blandad)"/>
+					<Item id="42069" name="Versal enbart första bokstav i varje mening - Sentence case"/>
+					<Item id="42070" name="VERSAL första bokstav i varje mening - Sentence case (blandad)"/>
 					<Item id="42071" name="iNVERTERAD sTOR bOKSTAV"/>
 					<Item id="42072" name="sLUmpmäSSiG sTOr BOksTav"/> 
 					<Item id="42073" name="Öppna fil"/>

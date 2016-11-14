@@ -691,13 +691,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					}
 				}
 			}
-			else if (_isHotspotDblClicked)
-			{
-				auto pos = notifyView->execute(SCI_GETCURRENTPOS);
-				notifyView->execute(SCI_SETCURRENTPOS, pos);
-				notifyView->execute(SCI_SETANCHOR, pos);
-				_isHotspotDblClicked = false;
-			}
 
 			break;
 		}
@@ -932,10 +925,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					currentWord[lastCharIndex] = '\0';
 
 				::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
-				_isHotspotDblClicked = true;
 
 				// Re-set the previous wordChar list
 				notifyView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(wordChars));
+
+				// Select the entire link
+				notifyView->execute(SCI_SETANCHOR, startPos);
+				notifyView->execute(SCI_SETCURRENTPOS, endPos);
 			}
 
 			delete[] wordChars;

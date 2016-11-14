@@ -383,7 +383,6 @@ private:
 
 	// For hotspot
 	bool _linkTriggered = true;
-	bool _isHotspotDblClicked = false;
 	bool _isFolding = false;
 
 	//For Dynamic selection highlight

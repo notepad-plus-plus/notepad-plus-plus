@@ -37,7 +37,7 @@
 #include "TreeView.h"
 #include "fileBrowser_rc.h"
 
-#define FB_PANELTITLE     TEXT("Folder as Workspace")
+#define FB_PANELTITLE     TEXT("Folder as Workspace 2")
 /*
 #define PM_NEWFOLDERNAME         TEXT("Folder Name")
 #define PM_NEWPROJECTNAME        TEXT("Project Name")

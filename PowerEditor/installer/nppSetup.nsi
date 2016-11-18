@@ -31,6 +31,7 @@
 !include "MUI.nsh"       ; Modern UI
 !include "nsDialogs.nsh" ; allows creation of custom pages in the installer
 !include "Memento.nsh"   ; remember user selections in the installer across runs
+!include "FileFunc.nsh"
 
 SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ;SetCompressor /FINAL lzma	; This reduces installer size by approx 15~18%

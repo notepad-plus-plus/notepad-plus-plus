@@ -742,6 +742,7 @@ protected:
 
 	void setPythonLexer() {
 		setLexer(SCLEX_PYTHON, L_PYTHON, LIST_0 | LIST_1);
+		execute(SCI_STYLESETEOLFILLED, SCE_P_STRINGEOL, true);
 	};
 
 	void setBatchLexer() {

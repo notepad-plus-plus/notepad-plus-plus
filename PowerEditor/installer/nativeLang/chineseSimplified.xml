@@ -613,23 +613,23 @@
                     <Item id="6106" name="标签栏" />
                     <Item id="6107" name="缩小" />
                     <Item id="6108" name="锁定 (不允许拖放)" />
-                    <Item id="6109" name="绘制非激活标签背景" />
-                    <Item id="6110" name="为激活标签绘制橙色条" />
+                    <Item id="6109" name="非当前标签变暗" />
+                    <Item id="6110" name="为当前标签绘制颜色条" />
 
                     <Item id="6111" name="显示状态栏" />
                     <Item id="6112" name="标签显示关闭按钮" />
                     <Item id="6113" name="双击关闭标签" />
                     <Item id="6118" name="隐藏标签栏" />
-                    <Item id="6119" name="多行标签" />
-                    <Item id="6120" name="垂直方式" />
+                    <Item id="6119" name="多行显示" />
+                    <Item id="6120" name="垂直显示" />
 
-                    <Item id="6121" name="菜单栏" />
+                    <Item id="6121" name="关闭最后一个标签时退出" />
                     <Item id="6122" name="隐藏 (按下 Alt 或 F10 显示)" />
                     <Item id="6123" name="界面语言" />
 
                     <Item id="6125" name="文件列表面板" />
                     <Item id="6126" name="显示" />
-					<Item id="6127" name="隐藏后缀名栏"/>
+					<Item id="6127" name="隐藏扩展名栏"/>
                 </Global>
                 <Scintillas title="编辑">
                     <Item id="6216" name="插入符设置" />
@@ -812,10 +812,10 @@
                     <Item id="6256" name="允许选取多行"/>
                 </Delimiter>
 
-				<Cloud title="云端">
-                    <Item id="6262" name="云端存取设置"/>
-                    <Item id="6263" name="万里无云"/>
-                    <Item id="6267" name="设置你的云端路径:"/>
+				<Cloud title="云同步">
+                    <Item id="6262" name="云端同步设置"/>
+                    <Item id="6263" name="不使用云同步"/>
+                    <Item id="6267" name="设置你的云同步路径:"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
@@ -839,7 +839,7 @@
                     <Item id="6318" name="超链接设置" />
                     <Item id="6319" name="启用" />
                     <Item id="6320" name="不显示下划线" />
-                    <Item id="6322" name="会话文件后缀名" />
+                    <Item id="6322" name="会话文件扩展名:" />
                     <Item id="6323" name="启用 Notepad++ 自动更新" />
                     <Item id="6324" name="文档切换 (Ctrl+TAB)" />
                     <Item id="6331" name="在标题栏仅显示文件名" />
@@ -847,7 +847,7 @@
 					<Item id="6335" name="视反斜杠为 SQL 转义字符"/>
                     <Item id="6114" name="启用" />
                     <Item id="6115" name="自动缩进" />
-                    <Item id="6117" name="启用 MRU (Most Recently Used) 功能" />
+                    <Item id="6117" name="启用“最近使用优先”功能" />
                     <Item id="6337" name="工作区文件扩展名:"/>
                 </MISC>
             </Preference>
@@ -903,7 +903,7 @@
         <DocSwitcher>
             <PanelTitle name="文件列表"/>
             <ColumnName name="文件名"/>
-            <ColumnExt name="后缀名"/>
+            <ColumnExt name="扩展名"/>
         </DocSwitcher>
         <AsciiInsertion>
             <PanelTitle name="ASCII输入面板"/>

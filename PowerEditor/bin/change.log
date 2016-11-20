@@ -1,10 +1,8 @@
-Notepad++ 7.2 enhancements and bug-fixes:
+Notepad++ 7.2.1 bug-fixes:
 
-1.  Add option for smart highlighting extension to anothe view.
-2.  Fix Installer for 64-bit fails with argument "/D".
-3.  Fix uninstaller silent mode issue.
-4.  Fix a tab settings regression.
-5.  Fix file not saving bug (Ensure backup directory exists).
+1.  Fix x64 installer regression issue - install in "C:\Program Files" instead of "C:\Program Files (x86)"
+2.  Fix expanding environment variables regression in backup path.
+3.  Make installer Unicode again.
 
 
 Included plugins:

@@ -847,7 +847,7 @@
 					<Item id="6335" name="视反斜杠为 SQL 转义字符"/>
                     <Item id="6114" name="启用" />
                     <Item id="6115" name="自动缩进" />
-                    <Item id="6117" name="启用“最近使用优先”功能" />
+                    <Item id="6117" name="按最近使用顺序切换" />
                     <Item id="6337" name="工作区文件扩展名:"/>
                 </MISC>
             </Preference>
@@ -893,8 +893,8 @@
             <FileAlreadyOpenedInNpp title="" message="此文件已经在Notepad++中打开。" />
             <DeleteFileFailed title="删除文件" message="文件删除失败" />
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="您要打开的文件太大" message="$INT_REPLACE$ 文件将被打开.\r你确定打开它吗？" />
-            <SettingsOnCloudError title="云端设置" message="云端路径似乎设为只读存储器，或未给予写入权限的文件夹。\r您的云端设置将取消。\r请在首选项中重设相应值。"/>        
+            <NbFileToOpenImportantWarning title="即将打开的文件过多" message="$INT_REPLACE$ 文件即将打开。\r确定吗？" />
+            <SettingsOnCloudError title="云同步设置" message="云同步路径疑似设于只读存储器，或未给予写入权限的文件夹。\r云同步设置将取消。\r请在首选项中重设相应值。"/>        
             <FilePathNotFoundWarning title="文件打开" message="您尝试打开的文件并不存在。"/>
 			</MessageBox>
         <ClipboardHistory>
@@ -907,7 +907,7 @@
         </DocSwitcher>
         <AsciiInsertion>
             <PanelTitle name="ASCII输入面板"/>
-            <ColumnVal name="值"/>
+            <ColumnVal name="数值"/>
             <ColumnHex name="16进制码"/>
             <ColumnChar name="字符"/>
         </AsciiInsertion>

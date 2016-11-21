@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="6.9.2">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -19,9 +19,7 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-				    <!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
-                    <Item subMenuId="edit-onSelection" name="选择"/>
-                    <!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
+                    <Item subMenuId="edit-onSelection" name="对选中内容操作"/>
                     <Item subMenuId="file-openFolder" name="打开所在文件夹"/>
                     <Item subMenuId="file-closeMore" name="更多关闭方式"/>
                     <Item subMenuId="file-recentFiles" name="近期文件"/>
@@ -70,16 +68,13 @@
                 <Commands>
                     <Item id="41001" name="新建(&amp;N)" />
                     <Item id="41002" name="打开(&amp;O)" />
-                    <Item id="41019" name="文件管理器"/>
-                    <Item id="41020" name="命令行"/>
                     <Item id="41003" name="关闭" />
                     <Item id="41004" name="全部关闭(&amp;L)" />
                     <Item id="41005" name="关闭当前以外所有文件" />
-                    <Item id="41009" name="关闭左侧所有文件"/>
-                    <Item id="41018" name="关闭右侧所有文件"/>
                     <Item id="41006" name="保存(&amp;S)" />
                     <Item id="41007" name="全部保存(&amp;E)" />
                     <Item id="41008" name="另存为(&amp;A)..." />
+                    <Item id="41009" name="关闭左侧所有文件"/>
                     <Item id="41010" name="打印..." />
                     <Item id="1001" name="立即打印" />
                     <Item id="41011" name="退出(&amp;X)" />
@@ -89,9 +84,11 @@
                     <Item id="41015" name="拷贝另存为..." />
                     <Item id="41016" name="从磁盘删除" />
                     <Item id="41017" name="重命名..." />
+                    <Item id="41018" name="关闭右侧所有文件"/>
+                    <Item id="41019" name="文件管理器"/>
+                    <Item id="41020" name="命令行"/>
                     <Item id="41021" name="恢复最近关闭的文件" />
                     <Item id="41022" name="在工作区打开文件夹(&amp;W)"/>
-
                     <Item id="42001" name="剪切(&amp;T)" />
                     <Item id="42002" name="复制(&amp;C)" />
                     <Item id="42003" name="撤消(&amp;U)" />
@@ -99,7 +96,6 @@
                     <Item id="42005" name="粘贴(&amp;P)" />
                     <Item id="42006" name="删除(&amp;D)" />
                     <Item id="42007" name="全选(&amp;L)" />
-                    <Item id="42020" name="开始/结束 选择" />
                     <Item id="42008" name="插入制表符(缩进)" />
                     <Item id="42009" name="删除制表符(退格)" />
                     <Item id="42010" name="复制当前行" />
@@ -111,27 +107,11 @@
                     <Item id="42017" name="转成小写" />
                     <Item id="42018" name="开始录制(&amp;S)" />
                     <Item id="42019" name="停止录制(&amp;S)" />
+                    <Item id="42020" name="开始/结束 选择" />
                     <Item id="42021" name="回放(&amp;P)" />
                     <Item id="42022" name="添加/删除单行注释" />
                     <Item id="42023" name="区块注释" />
-                    <Item id="42047" name="清除区块注释" />
                     <Item id="42024" name="移除行尾空格" />
-                    <Item id="42042" name="移除行首空格" />
-                    <Item id="42043" name="移除行首和行尾空格" />
-                    <Item id="42044" name="EOL转空格" />
-                    <Item id="42045" name="移除非必需的空白和 EOL" />
-                    <Item id="42046" name="TAB 转空格" />
-                    <Item id="42054" name="空格转 TAB (全部)" />
-                    <Item id="42053" name="空格转 TAB (行首)" />
-                    <Item id="42038" name="粘贴HTML" />
-                    <Item id="42039" name="粘贴RTF" />
-                    <Item id="42048" name="复制二进制" />
-                    <Item id="42049" name="剪切二进制" />
-                    <Item id="42050" name="粘贴二进制" />
-                    <Item id="42037" name="列块模式..." />
-                    <Item id="42034" name="列块编辑..." />
-                    <Item id="42051" name="字符面版" />
-                    <Item id="42052" name="历史剪切板" />
                     <Item id="42025" name="保存录制宏" />
                     <Item id="42026" name="文字方向从右到左" />
                     <Item id="42027" name="文字方向从左到右" />
@@ -141,8 +121,27 @@
                     <Item id="42031" name="复制当前目录路径" />
                     <Item id="42032" name="重复运行宏..." />
                     <Item id="42033" name="清除只读标记" />
+                    <Item id="42034" name="列块编辑..." />
                     <Item id="42035" name="设置行注释" />
                     <Item id="42036" name="取消行注释" />
+                    <Item id="42037" name="列块模式..." />
+                    <Item id="42038" name="粘贴HTML" />
+                    <Item id="42039" name="粘贴RTF" />
+                    <Item id="42040" name="打开文件列表" />
+                    <Item id="42041" name="清除文件列表" />
+                    <Item id="42042" name="移除行首空格" />
+                    <Item id="42043" name="移除行首和行尾空格" />
+                    <Item id="42044" name="EOL转空格" />
+                    <Item id="42045" name="移除非必需的空白和 EOL" />
+                    <Item id="42046" name="TAB 转空格" />
+                    <Item id="42047" name="清除区块注释" />
+                    <Item id="42048" name="复制二进制" />
+                    <Item id="42049" name="剪切二进制" />
+                    <Item id="42050" name="粘贴二进制" />
+                    <Item id="42051" name="字符面版" />
+                    <Item id="42052" name="历史剪切板" />
+                    <Item id="42053" name="空格转 TAB (行首)" />
+                    <Item id="42054" name="空格转 TAB (全部)" />
                     <Item id="42055" name="移除空行" />
                     <Item id="42056" name="移除空行(包括空白字符)" />
                     <Item id="42057" name="在当前行上方插入空行"/>
@@ -155,6 +154,16 @@
                     <Item id="42064" name="降序排列小数（逗号作为小数点）" />
                     <Item id="42065" name="升序排列小数（句点作为小数点）" />
                     <Item id="42066" name="降序排列小数（句点作为小数点）" />
+                    <Item id="42067" name="每词转成仅首字母大写"/>
+                    <Item id="42068" name="每词的首字母转成大写"/>
+                    <Item id="42069" name="每句转成仅首字母大写"/>
+                    <Item id="42070" name="每句的首字母转成大写"/>
+                    <Item id="42071" name="大小写互换"/>
+                    <Item id="42072" name="随机大小写"/>
+                    <Item id="42073" name="打开文件"/>
+                    <Item id="42074" name="在文件管理器中打开包含文件夹"/>
+                    <Item id="42075" name="在线搜索"/>
+                    <Item id="42076" name="更改搜索引擎..."/>
                     <Item id="43001" name="查找(&amp;F)..." />
                     <Item id="43002" name="查找下一个(&amp;N)" />
                     <Item id="43003" name="替换..." />
@@ -169,17 +178,10 @@
                     <Item id="43013" name="在文件中查找" />
                     <Item id="43014" name="快速查找下一个" />
                     <Item id="43015" name="快速查找上一个" />
-                    <Item id="43016" name="全部标记" />
-                    <Item id="43017" name="全部取消" />
                     <Item id="43018" name="剪切书签行" />
                     <Item id="43019" name="复制书签行" />
                     <Item id="43020" name="粘贴(替换)书签行" />
                     <Item id="43021" name="删除书签行" />
-                    <Item id="43050" name="反向标记书签" />
-                    <Item id="43051" name="删除未标记行" />
-                    <Item id="43052" name="查找范围内的字符..." />
-                    <Item id="43053" name="选中所有匹配括号间字符"/>
-                    <Item id="43054" name="标记..." />
                     <Item id="43022" name="使用格式1" />
                     <Item id="43023" name="清除格式1" />
                     <Item id="43024" name="使用格式2" />
@@ -208,9 +210,13 @@
                     <Item id="43047" name="上一个寻找结果" />
                     <Item id="43048" name="选定并寻找下一个" />
                     <Item id="43049" name="选定并寻找上一个" />
+                    <Item id="43050" name="反向标记书签" />
+                    <Item id="43051" name="删除未标记行" />
+                    <Item id="43052" name="查找范围内的字符..." />
+                    <Item id="43053" name="选中所有匹配括号间字符"/>
+                    <Item id="43054" name="标记..." />
                     <Item id="44009" name="便签模式" />
                     <Item id="44010" name="折叠所有层次" />
-                    <Item id="44011" name="自定义语法对话框"/>
                     <Item id="44019" name="显示所有字符" />
                     <Item id="44020" name="显示缩进参考线" />
                     <Item id="44022" name="自动换行" />
@@ -221,8 +227,19 @@
                     <Item id="44029" name="展开所有层次" />
                     <Item id="44030" name="折叠当前层次" />
                     <Item id="44031" name="展开当前层次" />
+                    <Item id="44032" name="切换全屏模式" />
+                    <Item id="44033" name="恢复默认缩放" />
+                    <Item id="44034" name="总在最前" />
+                    <Item id="44035" name="垂直同步滚动" />
+                    <Item id="44036" name="水平同步滚动" />
+                    <Item id="44041" name="显示换行符" />
+                    <Item id="44042" name="隐藏行" />
                     <Item id="44049" name="摘要..." />
+                    <Item id="44072" name="激活从视图" />
                     <Item id="44080" name="文档结构图" />
+                    <Item id="44081" name="工程面板1" />
+                    <Item id="44082" name="工程面板2" />
+                    <Item id="44083" name="工程面板3" />
                     <Item id="44084" name="函数列表" />
                     <Item id="44085" name="文件夹工作区(&amp;W)"/>
                     <Item id="44086" name="标签页1"/>
@@ -236,16 +253,9 @@
                     <Item id="44094" name="标签页9"/>
                     <Item id="44095" name="下个标签页"/>
                     <Item id="44096" name="上个标签页"/>
-                    <Item id="44032" name="切换全屏模式" />
-                    <Item id="44033" name="恢复默认缩放" />
-                    <Item id="44034" name="总在最前" />
-                    <Item id="44035" name="垂直同步滚动" />
-                    <Item id="44036" name="水平同步滚动" />
-                    <Item id="44041" name="显示换行符" />
-                    <Item id="44072" name="激活从视图" />
-                    <Item id="44081" name="工程面板1" />
-                    <Item id="44082" name="工程面板2" />
-                    <Item id="44083" name="工程面板3" />
+                    <Item id="44097" name="监视日志 (tail -f)"/>
+                    <Item id="44098" name="前移标签"/>
+                    <Item id="44099" name="后移标签"/>
                     <Item id="45001" name="转换为 Windows 格式" />
                     <Item id="45002" name="转换为 UNIX 格式" />
                     <Item id="45003" name="转换为 MAC 格式" />
@@ -263,10 +273,9 @@
                     <Item id="10002" name="复制到另一视图" />
                     <Item id="10003" name="移动到新窗口" />
                     <Item id="10004" name="在新窗口中打开" />
-
                     <Item id="46001" name="语言格式设置..." />
-                    <Item id="46150" name="自定义语言格式..."/>
                     <Item id="46080" name="用户自定义" />
+                    <Item id="46150" name="自定义语言格式..."/>
                     <Item id="47000" name="关于 Notepad++..." />
                     <Item id="47001" name="Notepad++ 官方主页" />
                     <Item id="47002" name="Notepad++ 项目主页" />
@@ -274,47 +283,22 @@
                     <Item id="47004" name="Notepad++ 社区（论坛）" />
                     <Item id="47005" name="获取插件" />
                     <Item id="47006" name="升级 Notepad++" />
-                    <Item id="47008" name="帮助" />
                     <Item id="47009" name="设置更新代理服务器..." />
                     <Item id="47010" name="命令行参数..." />
                     <Item id="47011" name="在线支持" />
+                    <Item id="47012" name="调试信息..."/>
                     <Item id="48005" name="导入插件..." />
                     <Item id="48006" name="导入主题..." />
-                    <Item id="48018" name="编辑弹出菜单" />
                     <Item id="48009" name="管理快捷键..." />
                     <Item id="48011" name="首选项..." />
-                    <Item id="49000" name="运行(&amp;R)..." />					
-				
+                    <Item id="48016" name="管理快捷键..." />
+                    <Item id="48017" name="管理快捷键..." />
+                    <Item id="48018" name="编辑弹出菜单" />
+                    <Item id="49000" name="运行(&amp;R)..." />                    
                     <Item id="50000" name="函数自动完成" />
                     <Item id="50001" name="单词自动完成" />
                     <Item id="50002" name="函数参数提示" />
                     <Item id="50006" name="路径补全"/>
-                    <Item id="44042" name="隐藏行" />
-                    <Item id="42040" name="打开文件列表" />
-                    <Item id="42041" name="清除文件列表" />
-                    <Item id="48016" name="管理快捷键..." />
-                    <Item id="48017" name="管理快捷键..." />
-					<!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
-	                <Item id="42073" name="打开文件"/>
-	                <Item id="42074" name="在资源管理器中打开包含文件夹"/>
-	                <Item id="42075" name="上网搜索"/>
-	                <Item id="42076" name="更改搜索引擎..."/>
-
-                    <Item id="44097" name="监视日志 (tail -f)"/>
-                    <Item id="44098" name="前移标签"/>
-                    <Item id="44099" name="后移标签"/>
-
-                    <Item id="47012" name="调试信息..."/>
-					
-					<Item id="42067" name="首字母大写"/>
-                    <Item id="42068" name="首字母大写(混合)"/>
-                    <Item id="42069" name="句子首字母大写"/>
-                    <Item id="42070" name="句子首字母大写(混合)"/>
-                    <Item id="42071" name="大小写互换"/>
-                    <Item id="42072" name="随机大小写"/>
-                    <!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
-					
-					
                 </Commands>
             </Main>
             <Splitter>
@@ -342,8 +326,7 @@
                 <Item CMID="19" name="打开所在文件夹"/>
                 <Item CMID="20" name="打开所在文件夹(命令行)"/>
             </TabBar>
-
-			</Menu>
+        </Menu>
 
         <Dialog>
             <Find title="" titleFind="查找" titleReplace="替换" titleFindInFiles="文件查找" titleMark="标记">
@@ -359,7 +342,6 @@
                 <Item id="1614" name="计数" />
                 <Item id="1615" name="查找全部" />
                 <Item id="1616" name="标记所在行" />
-                <Item id="1617" name="高亮查询结果" />
                 <Item id="1618" name="清除上次标记" />
                 <Item id="1621" name="方向" />
                 <Item id="1611" name="替换为(&amp;P) :" />
@@ -372,7 +354,6 @@
                 <Item id="1633" name="清除" />
                 <Item id="1635" name="替换所有打开文件" />
                 <Item id="1636" name="查找所有打开文件" />
-                <Item id="1637" name="文件查找" />
                 <Item id="1654" name="文件类型 :" />
                 <Item id="1655" name="目录 :" />
                 <Item id="1656" name="全部查找" />
@@ -381,7 +362,7 @@
                 <Item id="1624" name="查找模式" />
                 <Item id="1625" name="普通" />
                 <Item id="1626" name="扩展 (\n, \r, \t, \0, \x...)" />
-                <Item id="1660" name="在文章替换" />
+                <Item id="1660" name="在文件中替换" />
                 <Item id="1661" name="当前文件夹" />
                 <Item id="1641" name="在当前文件中查找" />
                 <Item id="1686" name="透明度" />
@@ -461,15 +442,6 @@
                 <Item id="20011" name="透明度" />
                 <Item id="20015" name="导入..." />
                 <Item id="20016" name="导出..." />
-                <Item id="0" name="色彩格式" />
-                <Item id="1" name="前景颜色" />
-                <Item id="2" name="背景颜色" />
-                <Item id="3" name="字型格式" />
-                <Item id="4" name="字型名称：" />
-                <Item id="5" name="字型大小" />
-                <Item id="6" name="粗体" />
-                <Item id="7" name="斜体" />
-                <Item id="8" name="底线" />
                 <StylerDialog title="格式设计框">
                     <Item id="25030" name="字体:" />
                     <Item id="25006" name="前景颜色" />
@@ -525,7 +497,6 @@
                     <Item id="21425" name="中间:" />
                     <Item id="21426" name="结尾:" />
                     <Item id="21427" name="样式" />
-                    <Item id="21127" name="样式" />
                 </Folder>
                 <Keywords title="关键字列表">
                     <Item id="22101" name="第1组" />
@@ -642,23 +613,23 @@
                     <Item id="6106" name="标签栏" />
                     <Item id="6107" name="缩小" />
                     <Item id="6108" name="锁定 (不允许拖放)" />
-                    <Item id="6109" name="绘制非激活标签背景" />
-                    <Item id="6110" name="为激活标签绘制橙色条" />
+                    <Item id="6109" name="非当前标签变暗" />
+                    <Item id="6110" name="为当前标签绘制颜色条" />
 
                     <Item id="6111" name="显示状态栏" />
                     <Item id="6112" name="标签显示关闭按钮" />
                     <Item id="6113" name="双击关闭标签" />
                     <Item id="6118" name="隐藏标签栏" />
-                    <Item id="6119" name="多行标签" />
-                    <Item id="6120" name="垂直方式" />
+                    <Item id="6119" name="多行显示" />
+                    <Item id="6120" name="垂直显示" />
 
-                    <Item id="6121" name="菜单栏" />
+                    <Item id="6121" name="关闭最后一个标签时退出" />
                     <Item id="6122" name="隐藏 (按下 Alt 或 F10 显示)" />
                     <Item id="6123" name="界面语言" />
 
                     <Item id="6125" name="文件列表面板" />
                     <Item id="6126" name="显示" />
-					<Item id="6127" name="隐藏后缀名栏"/>
+					<Item id="6127" name="隐藏扩展名栏"/>
                 </Global>
                 <Scintillas title="编辑">
                     <Item id="6216" name="插入符设置" />
@@ -694,10 +665,8 @@
                     <Item id="6215" name="启用平滑字体" />
 
                     <Item id="6231" name="边框宽度" />
-					<!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
                     <Item id="6236" name="启用滚动超过最后一行"/>
 					<Item id="6235" name="无边框"/>
-                    <!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
 					
                 </Scintillas>
 
@@ -709,11 +678,9 @@
                     <Item id="6405" name="编码" />
                     <Item id="6406" name="ANSI" />
                     <Item id="6407" name="UTF-8 (无BOM)" />
-                    <!-- change  2016-10-07 21:15:18  version 7.0.0.0 -->
                     <Item id="6408" name="UTF-8 含 BOM"/>
                     <Item id="6409" name="UCS-2 Big Endian 含 BOM"/>
                     <Item id="6410" name="UCS-2 Little Endian 含 BOM"/>
-                    <!-- change  2016-10-07 21:15:18  version 7.0.0.0 -->
                     <Item id="6411" name="默认语言 :" />
                     <Item id="6419" name="新建文档" />
                     <Item id="6420" name="应用于打开 ANSI 文件" />
@@ -723,30 +690,37 @@
                     <Item id="6413" name="文件打开/保存路径" />
                     <Item id="6414" name="与当前文件一致" />
                     <Item id="6415" name="记住最后的操作路径" />
-					<!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
-                    <Item id="6430" name="使用新样式保存对话框(没有文件扩展名的功能)"/>
-                    <Item id="6431" name="拖放文件夹打开文件夹中所有文件，而不启动文件夹工作区"/>
-                    <!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
+                    <Item id="6430" name="使用新样式保存对话框(无文件扩展名功能)"/>
+                    <Item id="6431" name="拖放文件夹时开启文件夹中所有文件，而不开启文件夹工作区"/>
                 </DefaultDir>
 
                 <FileAssoc title="文件关联">
                     <Item id="4009" name="支持的扩展名 :" />
                     <Item id="4010" name="注册的扩展名 :" />
                 </FileAssoc>
-                <LangMenu title="语言">
+                <Language title="语言">
                     <Item id="6505" name="可用项" />
                     <Item id="6506" name="禁用项" />
                     <Item id="6507" name="紧凑语言菜单" />
                     <Item id="6508" name="程序语言菜单" />
+                    <Item id="6301" name="制表符设置"/>
+                    <Item id="6302" name="替换为空格"/>
+                    <Item id="6303" name="制表符宽度: "/>
                     <Item id="6510" name="使用默认值" />
-                </LangMenu>
+                </Language>
 
-                <TabSettings title="制表符设置">
-                    <Item id="6301" name="制表符设置" />
-                    <Item id="6302" name="转换为空格" />
-                    <Item id="6303" name="制表符宽度:" />
-                    <Item id="6510" name="使用默认值" />
-                </TabSettings>
+                <Highlighting title="高亮">
+                    <Item id="6333" name="智能高亮"/>
+                    <Item id="6326" name="启用智能高亮"/>
+                    <Item id="6332" name="区分大小写"/>
+                    <Item id="6338" name="仅匹配完整词"/>
+                    <Item id="6339" name="使用查找对话框设置"/>
+                    <Item id="6340" name="高亮延伸至另一窗口"/>
+                    <Item id="6329" name="高亮显示匹配标签"/>
+                    <Item id="6327" name="启用"/>
+                    <Item id="6328" name="高亮显示标签属性"/>
+                    <Item id="6330" name="高亮显示 注释/PHP/ASP 区域"/>
+                </Highlighting>
 
                 <Print title="打印">
                     <Item id="6601" name="打印行号" />
@@ -789,49 +763,6 @@
                     <Item id="6427" name="自定义最大长度:" />
                 </RecentFilesHistory>
 
-				<!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
-                <SearchEngine title="搜索引擎">
-                    <Item id="6271" name="搜索引擎(搜索互联网的命令)"/>
-                    <Item id="6272" name="DuckDuckGo"/>
-                    <Item id="6273" name="Google"/>
-                    <Item id="6274" name="Bing"/>
-                    <Item id="6275" name="雅虎!"/>
-                    <Item id="6276" name="设定你的搜索引擎:"/>
-                    <!-- Don't change anything after Example: -->
-                    <Item id="6278" name="例: https://www.google.com/search?q=$(CURRENT_WORD)"/>
-                </SearchEngine>
-                <!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
-				
-                <MISC title="其他">
-                    <Item id="6307" name="启用" />
-                    <Item id="6308" name="最小化到系统托盘" />
-                    <Item id="6312" name="自动检测文件状态" />
-                    <Item id="6313" name="自动更新文件" />
-                    <Item id="6314" name="备份" />
-                    <Item id="6325" name="更新后定位到末行" />
-                    <Item id="6318" name="超链接设置" />
-                    <Item id="6319" name="启用" />
-                    <Item id="6320" name="不显示下划线" />
-                    <Item id="6322" name="会话文件后缀名" />
-                    <Item id="6323" name="启用 Notepad++ 自动更新" />
-                    <Item id="6324" name="文档切换 (Ctrl+TAB)" />
-                    <Item id="6326" name="启用智能高亮" />
-                    <Item id="6329" name="高亮显示匹配标签" />
-                    <Item id="6327" name="启用" />
-                    <Item id="6328" name="高亮显示标签属性" />
-                    <Item id="6330" name="高亮显示 PHP/ASP 脚本区域" />
-                    <Item id="6331" name="在标题栏仅显示文件名" />
-                    <Item id="6332" name="区分大小写"/>
-                    <Item id="6333" name="智能高亮"/>
-					<Item id="6334" name="自动检测字符编码"/>
-					<Item id="6335" name="视反斜杠为 SQL 转义字符"/>
-                    <Item id="6114" name="启用" />
-                    <Item id="6115" name="自动缩进" />
-                    <Item id="6117" name="启用 MRU (Most Recently Used) 功能" />
-					<!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
-                    <Item id="6337" name="工作区文件扩展名:"/>
-                    <!-- new 2016-10-07 21:15:18  version 7.0.0.0 -->
-                </MISC>
                 <Backup title="备份">
                     <Item id="6801" name="备份" />
                     <Item id="6315" name="禁用" />
@@ -852,6 +783,7 @@
                     <Item id="6809" name="函数自动完成" />
                     <Item id="6810" name="单词自动完成" />
                     <Item id="6816" name="参数与单词"/>
+                    <Item id="6824" name="忽略数字"/>
                     <Item id="6811" name="从第" />
                     <Item id="6813" name="个字符开始" />
                     <Item id="6814" name="有效值 : 1 - 9" />
@@ -880,13 +812,44 @@
                     <Item id="6256" name="允许选取多行"/>
                 </Delimiter>
 
-				<Cloud title="云端">
-                    <Item id="6262" name="云端存取设置"/>
-                    <Item id="6263" name="万里无云"/>
-                    <Item id="6267" name="设置你的云端路径:"/>
+				<Cloud title="云同步">
+                    <Item id="6262" name="云端同步设置"/>
+                    <Item id="6263" name="不使用云同步"/>
+                    <Item id="6267" name="设置你的云同步路径:"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
+                <SearchEngine title="搜索引擎">
+                    <Item id="6271" name="搜索引擎(用于&quot;在线搜索&quot;操作)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="谷歌"/>
+                    <Item id="6274" name="必应"/>
+                    <Item id="6275" name="雅虎!"/>
+                    <Item id="6276" name="设定你的搜索引擎:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="例: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
+				
+                <MISC title="其他">
+                    <Item id="6307" name="启用" />
+                    <Item id="6308" name="最小化到系统托盘" />
+                    <Item id="6312" name="自动检测文件状态" />
+                    <Item id="6313" name="自动更新文件" />
+                    <Item id="6325" name="更新后定位到末行" />
+                    <Item id="6318" name="超链接设置" />
+                    <Item id="6319" name="启用" />
+                    <Item id="6320" name="不显示下划线" />
+                    <Item id="6322" name="会话文件扩展名:" />
+                    <Item id="6323" name="启用 Notepad++ 自动更新" />
+                    <Item id="6324" name="文档切换 (Ctrl+TAB)" />
+                    <Item id="6331" name="在标题栏仅显示文件名" />
+					<Item id="6334" name="自动检测字符编码"/>
+					<Item id="6335" name="视反斜杠为 SQL 转义字符"/>
+                    <Item id="6114" name="启用" />
+                    <Item id="6115" name="自动缩进" />
+                    <Item id="6117" name="按最近使用顺序切换" />
+                    <Item id="6337" name="工作区文件扩展名:"/>
+                </MISC>
             </Preference>
             <MultiMacro title="重复运行宏">
                 <Item id="1" name="运行" />
@@ -930,7 +893,9 @@
             <FileAlreadyOpenedInNpp title="" message="此文件已经在Notepad++中打开。" />
             <DeleteFileFailed title="删除文件" message="文件删除失败" />
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="您要打开的文件太大" message="$INT_REPLACE$ 文件将被打开.\r你确定打开它吗？" />
+            <NbFileToOpenImportantWarning title="即将打开的文件过多" message="$INT_REPLACE$ 文件即将打开。\r确定吗？" />
+            <SettingsOnCloudError title="云同步设置" message="云同步路径疑似设于只读存储器，或未给予写入权限的文件夹。\r云同步设置将取消。\r请在首选项中重设相应值。"/>        
+            <FilePathNotFoundWarning title="文件打开" message="您尝试打开的文件并不存在。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>
@@ -938,11 +903,11 @@
         <DocSwitcher>
             <PanelTitle name="文件列表"/>
             <ColumnName name="文件名"/>
-            <ColumnExt name="后缀名"/>
+            <ColumnExt name="扩展名"/>
         </DocSwitcher>
         <AsciiInsertion>
             <PanelTitle name="ASCII输入面板"/>
-            <ColumnVal name="值"/>
+            <ColumnVal name="数值"/>
             <ColumnHex name="16进制码"/>
             <ColumnChar name="字符"/>
         </AsciiInsertion>

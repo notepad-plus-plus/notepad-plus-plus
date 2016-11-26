@@ -255,8 +255,8 @@
                     <Item id="44082" name="Project Panel 2"/>
                     <Item id="44083" name="Project Panel 3"/>
                     <Item id="45001" name="Convert to Windows Format"/>
-                    <Item id="45002" name="Convert to UNIX Format"/>
-                    <Item id="45003" name="Convert to MAC Format"/>
+                    <Item id="45002" name="Convert to Unix Format"/>
+                    <Item id="45003" name="Convert to Mac Format"/>
                     <Item id="45004" name="Encode in ANSI"/>
                     <Item id="45005" name="Encode in UTF-8"/>
                     <Item id="45006" name="Encode in UCS-2 Big Endian"/>

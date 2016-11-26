@@ -176,7 +176,7 @@
                     <Item id="43020" name="Paste to (Replace) Bookmarked Lines"/>
                     <Item id="43021" name="Remove Bookmarked Lines"/>
                     <Item id="43051" name="Remove Unmarked Lines"/>
-                    <Item id="43050" name="Inverse Bookmark"/>
+                    <Item id="43050" name="Inverse Bookmarks"/>
                     <Item id="43052" name="Find characters in range..."/>
                     <Item id="43053" name="Select All Between Matching Braces"/>
                     <Item id="43009" name="Go to Matching Brace"/>

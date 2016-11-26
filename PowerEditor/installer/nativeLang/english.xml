@@ -816,7 +816,7 @@
                 <Cloud title="Cloud">
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
-                    <Item id="6267" name="Set your cloud location path here:"/>
+                    <Item id="6267" name="Cloud location path:"/>
                 </Cloud>
 				
                 <SearchEngine title="Search Engine">
@@ -825,7 +825,7 @@
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
                     <Item id="6275" name="Yahoo!"/>
-                    <Item id="6276" name="Set your search engine here:"/>
+                    <Item id="6276" name="Custom search engine:"/>
                     <!-- Don't change anything after Example: -->
                     <Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>

@@ -1,8 +1,8 @@
-Notepad++ 7.2.1 bug-fixes:
+Notepad++ 7.2.2 bug-fixes:
 
-1.  Fix x64 installer regression issue - install in "C:\Program Files" instead of "C:\Program Files (x86)"
-2.  Fix expanding environment variables regression in backup path.
-3.  Make installer Unicode again.
+1.  Fix auto-updater setting toggles between startups bug.
+2.  Fix "Replace All" button shortcut accelerator in Replce dialog not working regression.
+3.  Fix unusual plugin update prompt after upgrade to 7.2.1 version.
 
 
 Included plugins:

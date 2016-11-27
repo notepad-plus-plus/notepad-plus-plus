@@ -112,12 +112,12 @@
 				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
 			>
 				<classRange
-					mainExpr    ="^\s*(class|abstract\s+class|final\s+class)[\t\x20]+[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*(\s*|\s*(extends|implements|(extends\s+(\\|[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*)+\s+implements))\s+(\,\s*|(\\|[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*))+\s*)?\{"
+					mainExpr    ="^\s*(class|abstract\s+class|final\s+class|interface|trait)[\t\x20]+[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*(\s*|\s*(extends|implements|(extends\s+(\\|[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*)+\s+implements))\s+(\,\s*|(\\|[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*))+\s*)?\{"
 					openSymbole ="\{"
 					closeSymbole="\}"
 				>
 					<className>
-						<nameExpr expr="(class|abstract\s+class|final\s+class)\s+\w+" />
+						<nameExpr expr="(class|abstract\s+class|final\s+class|interface|trait)\s+\w+" />
 						<nameExpr expr="\s+\w+\Z" />
 						<nameExpr expr="\w+\Z" />
 					</className>
@@ -132,7 +132,7 @@
 					</function>
 				</classRange>
 				<function
-					mainExpr="^\s*function\s+\w+\("
+					mainExpr="^\s*function\s+\w+\s*\("
 				>
 					<functionName>
 						<nameExpr expr="(?!(if|while|for))\w+\s*\(" />
@@ -1167,15 +1167,15 @@
 				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
 			>
 				<function
-					mainExpr="((^|\s+|[;\}\.])([A-Za-z_]\w*\.)*[A-Za-z_]\w*\s*[=:]|^|[\s;\}]+)\s*function(\s+[A-Za-z_]?\w*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{"
+					mainExpr="((^|\s+|[;\}\.])([A-Za-z_$][\w$]*\.)*[A-Za-z_$][\w$]*\s*[=:]|^|[\s;\}]+)\s*function(\s+[A-Za-z_$][\w$]*)?\s*\([^\)\(]*\)[\n\s]*\{"
 				>
 					<functionName>
-						<nameExpr expr="[A-Za-z_]\w*\s*[=:]|[A-Za-z_]?\w*\s*\(" />
-						<nameExpr expr="[A-Za-z_]?\w*" />
+						<nameExpr expr="[A-Za-z_$][\w$]*\s*[=:]|[A-Za-z_$][\w$]*\s*\(" />
+						<nameExpr expr="[A-Za-z_$][\w$]*" />
 					</functionName>
 					<className>
-						<nameExpr expr="([A-Za-z_]\w*\.)*[A-Za-z_]\w*\." />
-						<nameExpr expr="([A-Za-z_]\w*\.)*[A-Za-z_]\w*" />
+						<nameExpr expr="([A-Za-z_$][\w$]*\.)*[A-Za-z_$][\w$]*\." />
+						<nameExpr expr="([A-Za-z_$][\w$]*\.)*[A-Za-z_$][\w$]*" />
 					</className>
 				</function>
 			</parser>

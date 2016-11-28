@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last modified:...: 21.11.2016 by RDD
+	Last modified:...: 28.11.2016 by RDD
 	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
 -->
 <NotepadPlus>
@@ -49,9 +49,9 @@
 					<Item subMenuId="search-bookmark" name="Отметки"/>
 				<!-- Меню "Изглед" -->
 					<Item subMenuId="view-showSymbol"  name="Показване на символи"/>
-					<Item subMenuId="view-zoom"	 name="Мащабиране"/>
+					<Item subMenuId="view-zoom"  name="Мащабиране"/>
 					<Item subMenuId="view-moveCloneDocument"  name="Текущ документ"/>
-					<Item subMenuId="view-tab"	name="Избор на раздел"/>
+					<Item subMenuId="view-tab"  name="Избор на раздел"/>
 					<Item subMenuId="view-collapseLevel" name="Свиване на ниво"/>
 					<Item subMenuId="view-uncollapseLevel" name="Разгъване на ниво"/>
 					<Item subMenuId="view-project" name="Проект"/>
@@ -60,13 +60,13 @@
 					<Item subMenuId="encoding-arabic"  name="Арабски"/>
 					<Item subMenuId="encoding-baltic"  name="Балтийски"/>
 					<Item subMenuId="encoding-celtic"  name="Келтски"/>
-					<Item subMenuId="encoding-cyrillic"	 name="Кирилица"/>
-					<Item subMenuId="encoding-centralEuropean"	name="Централноевропейски"/>
-					<Item subMenuId="encoding-chinese"	name="Китайски"/>
-					<Item subMenuId="encoding-easternEuropean"	name="Източноевропейски"/>
+					<Item subMenuId="encoding-cyrillic"  name="Кирилица"/>
+					<Item subMenuId="encoding-centralEuropean"  name="Централноевропейски"/>
+					<Item subMenuId="encoding-chinese"  name="Китайски"/>
+					<Item subMenuId="encoding-easternEuropean"  name="Източноевропейски"/>
 					<Item subMenuId="encoding-greek"  name="Гръцки"/>
 					<Item subMenuId="encoding-hebrew"  name="Иврит"/>
-					<Item subMenuId="encoding-japanese"	 name="Японски"/>
+					<Item subMenuId="encoding-japanese"  name="Японски"/>
 					<Item subMenuId="encoding-korean" name="Корейски"/>
 					<Item subMenuId="encoding-northEuropean" name="Северноевропейски"/>
 					<Item subMenuId="encoding-thai" name="Тайландски"/>
@@ -103,7 +103,7 @@
 					<Item id="41012" name="Зареждане на сесия..."/>
 					<Item id="41013" name="Запис на сесия..."/>
 					<Item id="41010" name="Печат..."/>
-					<Item id="1001"	 name="Бърз печат"/>
+					<Item id="1001"  name="Бърз печат"/>
 						<!-- Подменю "Последно използвани" -->
 					<Item id="41021" name="Отваряне на последно затворен файл"/>
 					<Item id="42040" name="Отваряне на всички файлове от списъка"/>
@@ -725,7 +725,7 @@
 					<Item id="6214" name="Оцветяване на текущия ред"/>
 					<Item id="6215" name="Заглаждане на шрифта"/>
 					<Item id="6234" name="Изключване на разширените функции за превъртане"/>
-					<Item id="6236" name="Превъртане след последната линия"/>
+					<Item id="6236" name="Превъртане след последният ред"/>
 				</Scintillas>
 					<!-- Нов документ -->
 				<NewDoc title="Нов документ">
@@ -777,7 +777,7 @@
 					<Item id="6303" name="Размер: "/>
 					<Item id="6302" name="Замяна с интервали"/>
 					<Item id="6510" name="Стойност по подразбиране"/>
-                                </Language>
+				</Language>
 					<!-- Оцветяване -->
 				<Highlighting title="Оцветяване">
 					<Item id="6333" name="Интелигентно оцветяване"/>
@@ -874,11 +874,10 @@
 					<Item id="6258" name="бла бла бла бла бла бла бла бла бла"/>
 				</Delimiter>
 					<!-- Облак -->
-				 <Cloud title="Облак">
+				<Cloud title="Облак">
 					<Item id="6262" name="Настройки за облачно синхронизирана папка"/>
 					<Item id="6263" name="Локално"/>
 					<Item id="6267" name="По избор"/>
-					<Item id="6261" name="Промените влизат в сила, след рестартиране на Notepad++."/>
 				</Cloud>
 					<!-- Търсеща машина -->
 				<SearchEngine title="Търсеща машина">
@@ -888,7 +887,7 @@
 					<Item id="6274" name="Bing"/>
 					<Item id="6275" name="Yahoo!"/>
 					<Item id="6276" name="Задаване на търсеща машина:"/>
-					<!-- ** Да не се променя нищо след Пример: ** -->
+						<!-- ** Да не се променя нищо след Пример: ** -->
 					<Item id="6278" name="Пример: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
 					<!-- Разни -->
@@ -1044,7 +1043,7 @@
 			<DocReloadWarning title="Презареждане" message="Сигурни ли сте, че искате да презаредите текущя документ и да загубите промените, направени с Notepad++?"/>
 			<FileLockedWarning title="Неуспешно записване" message="Моля, проверете дали този файл не е отворен от друга програма"/>
 			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
-			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла се провали"/>
+			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Твърде много файлове" message="Ще бъдат отворени $INT_REPLACE$ файла.&#x0A;Продължаване?"/>
 			<SettingsOnCloudError title="Настройки за облачно синхронизирана папка" message="Изглежда, че пътят на настройките за облака е зададен на устройство &quot;само за четене&quot; или на папка, изискваща права за запис.&#x0A;Вашите настройки ще бъдат отменени.&#x0A;Моля, върнете в първоначално състояние стойността им чрез опциите в &quot;Предпочитания...&quot;"/>

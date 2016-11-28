@@ -785,6 +785,7 @@
                     <Item id="6809" name="函式"/>
                     <Item id="6810" name="字詞"/>
                     <Item id="6816" name="函式與字詞"/>
+					<Item id="6824" name="忽略數字"/>
                     <Item id="6811" name="從第"/>
                     <Item id="6813" name="個字元開始"/>
                     <Item id="6814" name="有效值：1 - 9"/>

@@ -177,8 +177,11 @@ If ErrorLevel 1 goto End
 rem plugins manager and its updater 
 copy /Y "..\bin\plugins\PluginManager.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 goto End
+copy /Y "..\bin\plugins\Config\PluginManager.ini" .\zipped.package.release\plugins\Config\
+If ErrorLevel 1 goto End
 copy /Y "..\bin\updater\gpup.exe" .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
+
 
 
 rem localizations

@@ -195,6 +195,28 @@ HINSTANCE Command::run(HWND hWnd)
 	expandNppEnvironmentStrs(argsIntermediate, args2Exec, args2ExecLen, hWnd);
 
 	HINSTANCE res = ::ShellExecute(hWnd, TEXT("open"), cmd2Exec, args2Exec, TEXT("."), SW_SHOW);
+
+	// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
+	// If the function succeeds, it returns a value greater than 32.
+	// If the function fails, it returns an error value that indicates the cause of the failure.
+	int retResult = reinterpret_cast<int>(res);
+	if (retResult <= 32)
+	{
+		generic_string errorMsg;
+		errorMsg += GetLastErrorAsString(retResult);
+		errorMsg += TEXT("An attempt was made to execute the below command.");
+		errorMsg += TEXT("\n----------------------------------------------------------");
+		errorMsg += TEXT("\nCommand: ");
+		errorMsg += cmd2Exec;
+		errorMsg += TEXT("\nArguments: ");
+		errorMsg += args2Exec;
+		errorMsg += TEXT("\nError Code: ");
+		errorMsg += intToString(retResult);
+		errorMsg += TEXT("\n----------------------------------------------------------");
+
+		::MessageBox(hWnd, errorMsg.c_str(), TEXT("ShellExecute - ERROR"), MB_ICONINFORMATION | MB_APPLMODAL);
+	}
+
 	return res;
 }
 

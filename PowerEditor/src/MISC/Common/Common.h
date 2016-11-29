@@ -182,3 +182,8 @@ generic_string stringTakeWhileAdmissable(const generic_string& input, const gene
 double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd);
+
+generic_string GetLastErrorAsString(DWORD errorCode = 0);
+
+generic_string intToString(int val);
+generic_string uintToString(unsigned int val);

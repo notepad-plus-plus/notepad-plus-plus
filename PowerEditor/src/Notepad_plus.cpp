@@ -174,6 +174,11 @@ Notepad_plus::Notepad_plus()
 		is_admin = false;
 
 	_isAdministrator = is_admin ? true : false;
+
+	// Enable new style save dialog.
+	if (ver >= WV_VISTA) {
+		(NppParameters::getInstance())->setUseNewStyleSaveDlg(true);
+	}
 }
 
 Notepad_plus::~Notepad_plus()

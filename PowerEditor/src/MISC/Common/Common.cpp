@@ -180,7 +180,7 @@ generic_string folderBrowser(HWND parent, const generic_string & title, int outp
 		TCHAR szDisplayName[MAX_PATH];
 		info.pszDisplayName = szDisplayName;
 		info.lpszTitle = title.c_str();
-		info.ulFlags = 0;
+		info.ulFlags = BIF_USENEWUI | BIF_NONEWFOLDERBUTTON;
 		info.lpfn = BrowseCallbackProc;
 
 		TCHAR directory[MAX_PATH];

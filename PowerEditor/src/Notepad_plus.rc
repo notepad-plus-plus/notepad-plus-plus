@@ -62,6 +62,7 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_M30ICON                     ICON      "icons/npp.ico"
+IDI_OPEN_WITH_ICON              ICON      "icons/npp_open.ico"
 IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
 //IDI_JESUISCHARLIE               ICON      "icons/Je_suis_Charlie.ico"
 IDI_NEW_OFF_ICON                ICON      "icons/new_off.ico"

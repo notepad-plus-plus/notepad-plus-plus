@@ -28,13 +28,17 @@
 #ifndef SMARTHIGHLIGHTER_H
 #define SMARTHIGHLIGHTER_H
 
+#include "Common.h"
+
 class ScintillaEditView;
 class FindReplaceDlg;
 
 class SmartHighlighter {
 public:
 	explicit SmartHighlighter(FindReplaceDlg * pFRDlg);
-	void highlightView(ScintillaEditView * pHighlightView);
+	void highlightView(ScintillaEditView * pHighlightView, ScintillaEditView * unfocusView);
+	void highlightViewWithWord(ScintillaEditView * pHighlightView, const generic_string & word2Hilite);
+
 private:
 	FindReplaceDlg * _pFRDlg;
 };

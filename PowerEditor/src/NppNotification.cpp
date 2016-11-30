@@ -37,21 +37,28 @@
 using namespace std;
 
 
-
-
-
+// Only for 2 main Scintilla editors
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
 	//Important, keep track of which element generated the message
 	bool isFromPrimary = (_mainEditView.getHSelf() == notification->nmhdr.hwndFrom || _mainDocTab.getHSelf() == notification->nmhdr.hwndFrom);
 	bool isFromSecondary = !isFromPrimary && (_subEditView.getHSelf() == notification->nmhdr.hwndFrom || _subDocTab.getHSelf() == notification->nmhdr.hwndFrom);
-	ScintillaEditView * notifyView = isFromPrimary?&_mainEditView:&_subEditView;
+	
+	ScintillaEditView * notifyView = nullptr;
+	if (isFromPrimary)
+		notifyView = &_mainEditView;
+	else if (isFromSecondary)
+		notifyView = &_subEditView;
+
 	DocTabView *notifyDocTab = isFromPrimary?&_mainDocTab:&_subDocTab;
 	TBHDR * tabNotification = (TBHDR*) notification;
 	switch (notification->nmhdr.code)
 	{
 		case SCN_MODIFIED:
 		{
+			if (not notifyView)
+				return FALSE;
+
 			static bool prevWasEdit = false;
 			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))
 			{
@@ -485,7 +492,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_pEditView->marginClick(notification->position, notification->modifiers);
 				if (_pDocMap)
 					_pDocMap->fold(lineClick, _pEditView->isFolded(lineClick));
-				_smartHighlighter.highlightView(_pEditView);
+
+				ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
+
+				_smartHighlighter.highlightView(_pEditView, unfocusView);
 			}
 			else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
 			{
@@ -534,6 +544,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_DOUBLECLICK:
 		{
+			if (not notifyView)
+				return FALSE;
+
 			if (notification->modifiers == SCMOD_CTRL)
 			{
 				const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
@@ -678,20 +691,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					}
 				}
 			}
-			else if (_isHotspotDblClicked)
-			{
-				auto pos = notifyView->execute(SCI_GETCURRENTPOS);
-				notifyView->execute(SCI_SETCURRENTPOS, pos);
-				notifyView->execute(SCI_SETANCHOR, pos);
-				_isHotspotDblClicked = false;
-			}
 
 			break;
 		}
 
 		case SCN_UPDATEUI:
 		{
+			if (not notifyView)
+				return FALSE;
+
 			NppParameters *nppParam = NppParameters::getInstance();
+			NppGUI & nppGui = const_cast<NppGUI &>(nppParam->getNppGUI());
 
 			// replacement for obsolete custom SCN_SCROLLED
 			if (notification->updated & SC_UPDATE_V_SCROLL)
@@ -705,12 +715,20 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (nppParam->_isFindReplacing)
 				break;
 
-			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf())
+			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf()) // notification come from unfocus view - both views ae visible
+			{
+				//ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
+				if (nppGui._smartHiliteOnAnotherView &&
+					_pEditView->getCurrentBufferID() != notifyView->getCurrentBufferID())
+				{
+					TCHAR selectedText[1024];
+					_pEditView->getGenericSelectedText(selectedText, sizeof(selectedText)/sizeof(TCHAR), false);
+					_smartHighlighter.highlightViewWithWord(notifyView, selectedText);
+				}
 				break;
+			}
 
 			braceMatch();
-
-			NppGUI & nppGui = const_cast<NppGUI &>(nppParam->getNppGUI());
 
 			if (nppGui._enableTagsMatchHilite)
 			{
@@ -723,7 +741,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (nppGui._disableSmartHiliteTmp)
 					nppGui._disableSmartHiliteTmp = false;
 				else
-					_smartHighlighter.highlightView(notifyView);
+				{
+					ScintillaEditView * anbotherView = isFromPrimary ? &_subEditView : &_mainEditView;
+					_smartHighlighter.highlightView(notifyView, anbotherView);
+				}
 			}
 
 			updateStatusBar();
@@ -799,7 +820,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_ZOOM:
 		{
-			_smartHighlighter.highlightView(notifyView);
+			if (not notifyView)
+				return FALSE;
+
+			ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
+			_smartHighlighter.highlightView(notifyView, unfocusView);
 			break;
 		}
 
@@ -818,7 +843,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_PAINTED:
 		{
-			//--FLS: ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as doc. says
+			if (not notifyView)
+				return FALSE;
+
+			// ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines.
+			// Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as doc. says
 			if (_mainEditView.isWrapRestoreNeeded())
 			{
 				_mainEditView.restoreCurrentPos();
@@ -855,6 +884,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case SCN_HOTSPOTDOUBLECLICK:
 		{
+			if (not notifyView)
+				return FALSE;
+
 			// Save the current wordChars before setting a custom list
 			const size_t wordBufferSize = notifyView->execute(SCI_GETWORDCHARS);
 			char *wordChars = new char[wordBufferSize + 1];
@@ -893,10 +925,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					currentWord[lastCharIndex] = '\0';
 
 				::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
-				_isHotspotDblClicked = true;
 
 				// Re-set the previous wordChar list
 				notifyView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(wordChars));
+
+				// Select the entire link
+				notifyView->execute(SCI_SETANCHOR, startPos);
+				notifyView->execute(SCI_SETCURRENTPOS, endPos);
 			}
 
 			delete[] wordChars;

@@ -1631,14 +1631,18 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	return processRange(op, findReplaceInfo, pFindersInfo, pOptions, colourStyleID);
 }
 
-int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findReplaceInfo, const FindersInfo * pFindersInfo, const FindOption *opt, int colourStyleID)
+int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findReplaceInfo, const FindersInfo * pFindersInfo, const FindOption *opt, int colourStyleID, ScintillaEditView *view2Process)
 {
 	int nbProcessed = 0;
 	
 	if (!isCreated() && not findReplaceInfo._txt2find)
 		return nbProcessed;
 
-	if ((op == ProcessReplaceAll) && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
+	ScintillaEditView *pEditView = *_ppEditView;
+	if (view2Process)
+		pEditView = view2Process;
+
+	if ((op == ProcessReplaceAll) && pEditView->getCurrentBuffer()->isReadOnly())
 		return nbProcessed;
 
 	if (findReplaceInfo._startRange == findReplaceInfo._endRange)
@@ -1710,9 +1714,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	if (op == ProcessMarkAll && colourStyleID == -1)	//if marking, check if purging is needed
 	{
 		if (_env->_doPurge) {
-			(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
+			pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
 			if (_env->_doMarkLine)
-				(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+				pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 		}
 	}
 
@@ -1720,20 +1724,20 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	int targetEnd = 0;
 
 	//Initial range for searching
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
+	pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	
 	
 	bool findAllFileNameAdded = false;
 
 	while (targetStart != -1 && targetStart != -2)
 	{
-		targetStart = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, findReplaceInfo._startRange, findReplaceInfo._endRange);
+		targetStart = pEditView->searchInTarget(pTextFind, stringSizeFind, findReplaceInfo._startRange, findReplaceInfo._endRange);
 
 		// If we've not found anything, just break out of the loop
 		if (targetStart == -1 || targetStart == -2)
 			break;
 
-		targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+		targetEnd = int(pEditView->execute(SCI_GETTARGETEND));
 
 		if (targetEnd > findReplaceInfo._endRange) {	//we found a result but outside our range, therefore do not process it
 			break;
@@ -1757,9 +1761,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 					findAllFileNameAdded = true;
 				}
 
-				auto lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, targetStart);
-				int lend = static_cast<int32_t>((*_ppEditView)->execute(SCI_GETLINEENDPOSITION, lineNumber));
-				int lstart = static_cast<int32_t>((*_ppEditView)->execute(SCI_POSITIONFROMLINE, lineNumber));
+				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
+				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
 				int nbChar = lend - lstart;
 
 				// use the static buffer
@@ -1771,7 +1775,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				int start_mark = targetStart - lstart;
 				int end_mark = targetEnd - lstart;
 
-				(*_ppEditView)->getGenericText(lineBuf, 1024, lstart, lend, &start_mark, &end_mark);
+				pEditView->getGenericText(lineBuf, 1024, lstart, lend, &start_mark, &end_mark);
 
 				generic_string line = lineBuf;
 				line += TEXT("\r\n");
@@ -1796,9 +1800,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 					findAllFileNameAdded = true;
 				}
 
-				auto lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, targetStart);
-				int lend = static_cast<int32_t>((*_ppEditView)->execute(SCI_GETLINEENDPOSITION, lineNumber));
-				int lstart = static_cast<int32_t>((*_ppEditView)->execute(SCI_POSITIONFROMLINE, lineNumber));
+				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
+				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
 				int nbChar = lend - lstart;
 
 				// use the static buffer
@@ -1810,7 +1814,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				int start_mark = targetStart - lstart;
 				int end_mark = targetEnd - lstart;
 
-				(*_ppEditView)->getGenericText(lineBuf, 1024, lstart, lend, &start_mark, &end_mark);
+				pEditView->getGenericText(lineBuf, 1024, lstart, lend, &start_mark, &end_mark);
 
 				generic_string line = lineBuf;
 				line += TEXT("\r\n");
@@ -1834,9 +1838,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 			{
 				int replacedLength;
 				if (isRegExp)
-					replacedLength = (*_ppEditView)->replaceTargetRegExMode(pTextReplace);
+					replacedLength = pEditView->replaceTargetRegExMode(pTextReplace);
 				else
-					replacedLength = (*_ppEditView)->replaceTarget(pTextReplace);
+					replacedLength = pEditView->replaceTarget(pTextReplace);
 
 				replaceDelta = replacedLength - foundTextLen;
 				break; 
@@ -1850,17 +1854,17 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				// on the same line would simply not be shown.  This may have been fixed in later version of Scintilla.
 				if (foundTextLen > 0)  
 				{
-					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
-					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+					pEditView->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
+					pEditView->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				}
 
 				if (_env->_doMarkLine)
 				{
-					auto lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, targetStart);
-					auto state = (*_ppEditView)->execute(SCI_MARKERGET, lineNumber);
+					auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+					auto state = pEditView->execute(SCI_MARKERGET, lineNumber);
 
 					if (!(state & (1 << MARK_BOOKMARK)))
-						(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
+						pEditView->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
 				}
 				break; 
 			}
@@ -1870,8 +1874,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				// See comment by ProcessMarkAll
 				if (foundTextLen > 0)
 				{
-					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  colourStyleID);
-					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+					pEditView->execute(SCI_SETINDICATORCURRENT,  colourStyleID);
+					pEditView->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				}
 				break;
 			}
@@ -1881,8 +1885,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				// See comment by ProcessMarkAll
 				if (foundTextLen > 0)
 				{
-					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_SMART);
-					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+					pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_SMART);
+					pEditView->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				}
 				break;
 			}
@@ -1892,8 +1896,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				// See comment by ProcessMarkAll
 				if (foundTextLen > 0)
 				{
-					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_INC);
-					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+					pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_INC);
+					pEditView->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				}
 				break;
 			}

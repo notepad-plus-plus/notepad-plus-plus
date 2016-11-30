@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="6.8.2">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="7.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -31,6 +31,7 @@
 					<Item subMenuId="edit-eolConversion" name="Konvertering av radbyten" />
 					<Item subMenuId="edit-blankOperations" name="Blanksteg" />
 					<Item subMenuId="edit-pasteSpecial" name="Klistra in special" />
+					<Item subMenuId="edit-onSelection" name="För markerat"/> 
 					<Item subMenuId="search-markAll" name="Markera allt" />
 					<Item subMenuId="search-unmarkAll" name="Avmarkera allt" />
 					<Item subMenuId="search-jumpUp" name="Hoppa uppåt" />
@@ -69,20 +70,6 @@
 					<Item id="10002" name="Klona till annan vy" />
 					<Item id="10003" name="Flytta till ny instans" />
 					<Item id="10004" name="Klona till ny instans" />
-
-					<Item id="45060" name="Big5 (Traditionell)"/>
-					<Item id="45061" name="GB2312 (Förenklad)"/>
-					<Item id="45054" name="OEM 861: Isländsk"/>
-					<Item id="45057" name="OEM 865: Nordisk"/>
-					<Item id="45053" name="OEM 860: Portugisisk"/>
-					<Item id="45056" name="OEM 863: Fransk"/>
-
-					<Item id="46033" name="Assembler"/>
-					<Item id="46019" name="MS INI-fil"/>
-					<Item id="46015" name="MS-DOS-format"/>
-					<Item id="46016" name="Normal text"/>
-					<Item id="46017" name="Resursfil"/>
-
 					<Item id="41001" name="&amp;Ny" />
 					<Item id="41002" name="&amp;Öppna" />
 					<Item id="41003" name="S&amp;täng" />
@@ -127,8 +114,18 @@
 					<Item id="42064" name="Sortera rader som decimaltal (komma) fallande"/>
 					<Item id="42065" name="Sortera rader som decimaltal (punkt) stigande"/>
 					<Item id="42066" name="Sortera rader som decimaltal (punkt) fallande"/>
-					<Item id="42016" name="TILL VERSALER" />
-					<Item id="42017" name="till gemener" />
+					<Item id="42016" name="VERSALER" />
+					<Item id="42017" name="gemener" />
+					<Item id="42067" name="Versal Enbart Första Bokstav I Varje Ord - Title Case"/>
+					<Item id="42068" name="VERSAL Första Bokstav I Varje Ord - Title Case (blandad)"/>
+					<Item id="42069" name="Versal enbart första bokstav i varje mening - Sentence case"/>
+					<Item id="42070" name="VERSAL första bokstav i varje mening - Sentence case (blandad)"/>
+					<Item id="42071" name="iNVERTERAD sTOR bOKSTAV"/>
+					<Item id="42072" name="sLUmpmäSSiG sTOr BOksTav"/> 
+					<Item id="42073" name="Öppna fil"/>
+					<Item id="42074" name="Öppna innehållande mapp i Explorer"/>
+					<Item id="42075" name="Sök på Internet"/>
+					<Item id="42076" name="Ändra sökmotor..."/>
 					<Item id="42018" name="Starta &amp;inspelning" />
 					<Item id="42019" name="&amp;Stoppa inspelning" />
 					<Item id="42020" name="Markera start/slut" />
@@ -259,6 +256,9 @@
 					<Item id="44094" name="Flik nr. 9"/>
 					<Item id="44095" name="Nästa flik"/>
 					<Item id="44096" name="Föregående flik"/>
+					<Item id="44097" name="Övervakning (tail -f)"/>
+					<Item id="44098" name="Flytta flik framåt"/>
+					<Item id="44099" name="Flytta flik bakåt"/>
 					<Item id="45001" name="Konvertera till Windows-format" />
 					<Item id="45002" name="Konvertera till UNIX-format" />
 					<Item id="45003" name="Konvertera till MAC-format" />
@@ -282,7 +282,7 @@
 					<Item id="47003" name="Online-hjälp" />
 					<Item id="47004" name="Notepad++, forum"/>
 					<Item id="47011" name="Livesupport"/>
-					<Item id="47012" name="Felsökningsinformation"/>
+					<Item id="47012" name="Felsökningsinformation..."/>
 					<Item id="47005" name="Hämta fler tillägg" />
 					<Item id="47006" name="Uppdatera Notepad++" />
 					<Item id="47009" name="Ställ in uppdateringsproxy..."/>
@@ -609,7 +609,8 @@
 					<Item id="6118" name="Dölj" />
 					<Item id="6119" name="Flerradig" />
 					<Item id="6120" name="Vertikal" />
-					<Item id="6122"	name="Dölj (använd Alt eller F10 för att växla mellan dold och synlig)" />
+					<Item id="6121" name="Avsluta när sista fliken stängs"/>
+					<Item id="6122" name="Dölj (använd Alt eller F10 för att växla mellan dold och synlig)" />
 					<Item id="6123" name="Språk" />
 					<Item id="6125" name="Dokumentbläddrare" />
 					<Item id="6126" name="Visa" />
@@ -644,6 +645,7 @@
 					<Item id="6231" name="Kantbredd" />
 					<Item id="6234" name="Inaktivera utökade bläddringfunktioner (om du har problem med pekplattan)"/>
 					<Item id="6235" name="Ingen kant"/>
+					<Item id="6236" name="Möjliggör bläddring förbi sista raden"/> 
 					<Item id="6215" name="Aktivera utjämnade tecken"/>
 				</Scintillas>
 				<NewDoc title="Nytt dokument">
@@ -666,17 +668,30 @@
 					<Item id="6414" name="Använd det aktuella dokumentet"/>
 					<Item id="6415" name="Kom ihåg den senast använda mappen"/>
 					<Item id="6430" name="Använd modern stil på sparadialogen (utan funktion för filtillägg)"/>
+					<Item id="6431" name="Öppna alla filer i mapp istället för att starta en mapp som en arbetsyta när en mapp dras in"/> 
 				</DefaultDir>
 				<FileAssoc title="Filassociering">
 					<Item id="4009" name="Kompatibla filtillägg:" />
 					<Item id="4010" name="Registrerade filtillägg:" />
 				</FileAssoc>
-				<LangMenu title="Språkmenyn">
+				<Language title="Språk">
 					<Item id="6505" name="Tillgängliga" />
 					<Item id="6506" name="Avaktiverade" />
 					<Item id="6507" name="Gör menyn för programmeringsspråk kompakt" />
 					<Item id="6508" name="Språkmenyn" />
-				</LangMenu>
+				</Language>
+				<Highlighting title="Markering"> 
+					<Item id="6333" name="Smarta markeringar"/>
+					<Item id="6326" name="Aktivera smart markering"/>
+					<Item id="6332" name="Matcha skiftläge"/>
+					<Item id="6338" name="Matcha enbart hela ord"/> 
+					<Item id="6339" name="Använd inställningar från sökfönstret"/>
+					<Item id="6340" name="Markera en annan vy"/> 
+					<Item id="6329" name="Markera matchande taggar"/>
+					<Item id="6327" name="Aktivera"/>
+					<Item id="6328" name="Markera taggattribut"/>
+					<Item id="6330" name="Markera kommentar/php/asp-zon"/>
+				</Highlighting> 
 				<TabSettings title="Tabbinställningar">
 					<Item id="6301" name="Tabbinställningar"/>
 					<Item id="6302" name="Ersätt med mellanslag"/>
@@ -737,14 +752,7 @@
 					<Item id="6323" name="Automatisk uppdatering av Notepad++" />
 					<Item id="6324" name="Dokumentväxling (Ctrl+Tab)" />
 					<Item id="6325" name="Gå till den sista raden efter uppdatering" />
-					<Item id="6326" name="Aktivera smart markering" />
-					<Item id="6327" name="Aktivera" />
-					<Item id="6328" name="Markera taggattribut" />
-					<Item id="6329" name="Markera matchande taggar" />
-					<Item id="6330" name="Markera kommentar/php/asp-zon" />
 					<Item id="6331" name="Visa endast filnamn i titelrad" />
-					<Item id="6332" name="Matcha skiftläge" />
-					<Item id="6333" name="Smarta markeringar" />
 					<Item id="6334" name="Automatisk igenkänning av teckenkodning" />
 					<Item id="6335" name="Behandla omvänt snedstreck som escape-tecken för SQL" />
 					<Item id="6337" name="Filändelse för arbetsytafil:"/>
@@ -773,6 +781,7 @@
 					<Item id="6814" name="Giltigt värde: 1-9" />
 					<Item id="6815" name="Funktionsparameterhjälp vid inmatning" />
 					<Item id="6816" name="Funktion- och ordkomplettering"/>
+					<Item id="6824" name="Ignorera siffror"/>
 					<Item id="6851" name="Auto-infoga"/>
 					<Item id="6857" name="Sluttagg för html/xml"/>
 					<Item id="6858" name="Början"/>
@@ -798,8 +807,17 @@
 					<Item id="6262" name="Inställning för moln"/>
 					<Item id="6263" name="Inget moln"/>
 					<Item id="6267" name="Sätt sökväg till din moln-mapp här:"/>
-					<!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
 				</Cloud>
+				<SearchEngine title="Search Engine">
+					<Item id="6271" name="Sökmotor (för kommandot &quot;Sök på Internet&quot;)"/>
+					<Item id="6272" name="DuckDuckGo"/>
+					<Item id="6273" name="Google"/>
+					<Item id="6274" name="Bing"/>
+					<Item id="6275" name="Yahoo!"/>
+					<Item id="6276" name="Ange din sökmotor hör:"/>
+					<!-- Don't change anything after Example: -->
+					<Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+				</SearchEngine> 
 			</Preference>
 			<MultiMacro title="Kör ett makro flera gånger">
 				<Item id="1" name="Kör" />
@@ -829,6 +847,7 @@
 				<Item id="2032" name="Format" />
 				<Item id="2033" name="Siffra att infoga" />
 				<Item id="2035" name="Inledande nollor" />
+				<Item id="2036" name="Upprepa:"/> 
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>

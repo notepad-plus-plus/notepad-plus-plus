@@ -29,10 +29,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "7"
+!define APPVERSION "7.2.2"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 7
-!define VERSION_MINOR 0
+!define VERSION_MINOR 22
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -42,5 +42,7 @@
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
+
 InstallDir "$PROGRAMFILES\${APPNAME}"
+
 InstallDirRegKey HKLM "Software\${APPNAME}" ""

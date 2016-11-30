@@ -1,24 +1,9 @@
-Notepad++ 7 new features and bug-fixes:
+Notepad++ 7.2.2 bug-fixes:
 
-1.  64-bit build available.
-2.  Fix the DLL Hijacking Vulnerability of previous versions (by updating NSIS to v3.0).
-3.  Auto-updater improvement: periodical check can be disable via auto-update prompt dialog.
-4.  Installer enhancement: Check if Notepad++ is running and ask the user to close it before continue.
-5.  Enhancement: add conflict detection to Shortcut Mapper.
-6.  Fix auto-completion on XML comment <!-- comment --> and <?xml> tag bug.
-7.  Fix file saving crash which can be reproduced through a specific way to save file.
-8.  Fix a crash issue while UDL's user keyword list is too long.
-9.  Fix HDPI issues for some components (task list, margins and shortcut mapper).
-10. Add a new feature(optional) : Close the last document will quit Notepad++.
-11. Add more Change Case variants (Title Case, Sentence case, iVERT cASE, rANdOm caSe).
-12. Add Open file & open containing folder commands on selected file/folder name in text content.
-13. Add Search on Internet command on selected word(s) in text content.
-14. Add Scroll Tab Bar with mouse wheel capacity.
-15. Add commands for moving the current file tab Forward/Backward.
-16. Fix bug of monitoring not working for files under root.
-17. Ruby is supported by Function List.
-18. Added new option: Enable scrolling beyond last line.
-19. Add an option to restore old behaviour (open files in folder) while folder being dropped.
+1.  Fix auto-updater setting toggles between startups bug.
+2.  Fix "Replace All" button shortcut accelerator in Replce dialog not working regression.
+3.  Fix unusual plugin update prompt after upgrade to 7.2.1 version.
+
 
 Included plugins:
 

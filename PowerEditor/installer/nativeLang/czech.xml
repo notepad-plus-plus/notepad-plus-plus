@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.0.0  26/Sep/2016  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.1.0  1/Nov/2016  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.0.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.1.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -757,18 +757,27 @@
 					<Item id = "4009" name = "Podporované přípony:"/>
 					<Item id = "4010" name = "Zaregistr. přípony:"/>
 				</FileAssoc>
-				<LangMenu title = "Syntaxe">
+				<Language title = "Syntaxe">
 					<Item id = "6505" name = "Používané syntaxe"/>
 					<Item id = "6506" name = "Nepoužívané syntaxe"/>
 					<Item id = "6507" name = "Použít kompaktní menu pro syntaxe"/>
 					<Item id = "6508" name = "Nabídka syntaxí"/>
-				</LangMenu>
-				<TabSettings title = "Nastavení tabulátoru">
 					<Item id = "6301" name = "Nastavení tabulátoru"/>
 					<Item id = "6302" name = "Zaměnit za mezery"/>
 					<Item id = "6303" name = "Velikost tabulátoru:"/>
 					<Item id = "6510" name = "Použít implicitní"/>
-				</TabSettings>
+				</Language>
+				<Highlighting title = "Zvýrazňování">
+					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
+					<Item id = "6326" name = "Povolit"/>
+					<Item id = "6332" name = "Rozlišovat velká a malá písmena"/>
+					<Item id = "6338" name = "Rozlišovat pouze celá slova"/>
+					<Item id = "6339" name = "Užívat nastavení dialogu Najít"/>
+					<Item id = "6329" name = "Zvýrazňování odpovídajících značek"/>
+					<Item id = "6327" name = "Povolit"/>
+					<Item id = "6328" name = "Zvýrazňování atributů značek"/>
+					<Item id = "6330" name = "Zvýrazňování zón komentářů/php/asp"/>
+				</Highlighting>
 				<Print title = "Tisk">
 					<Item id = "6601" name = "Tisknout čísla řádků"/>
 					<Item id = "6602" name = "Možnosti barev"/>
@@ -823,14 +832,7 @@
 					<Item id = "6323" name = "Povolit autom. aktualizaci Notepadu++"/>
 					<Item id = "6324" name = "Přepínač dokumentů (Ctrl+TAB)"/>
 					<Item id = "6325" name = "Přejít na poslední řádek po aktualizaci"/>
-					<Item id = "6326" name = "Povolit"/>
-					<Item id = "6327" name = "Povolit"/>
-					<Item id = "6328" name = "Zvýrazňování atributů značek"/>
-					<Item id = "6329" name = "Zvýrazňování shody značek"/>
-					<Item id = "6330" name = "Zvýrazňování zón php/asp/komentářů"/>
 					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
-					<Item id = "6332" name = "Rozlišovat malá a VELKÁ písmena"/>
-					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
 					<Item id = "6334" name = "Automatická detekce kódóvání znaků"/>
 					<Item id = "6335" name = "Zpětné lomítko je escape znak pro SQL"/>
 					<Item id = "6337" name = "Přípona souboru pracovní plochy:"/>
@@ -860,6 +862,7 @@
 					<Item id = "6814" name = "Platný rozsah : 1 - 9"/>
 					<Item id = "6815" name = "Nápověda k parametrům funkcí při zadávaní"/>
 					<Item id = "6816" name = "Dokončování funkcí i slov"/>
+					<Item id = "6824" name = "Ignorovat čísla"/>
 					<Item id = "6851" name = "Automatické vkládání"/>
 					<Item id = "6857" name = "html/xml uzavír. tag"/>
 					<Item id = "6858" name = "Úvodní"/>

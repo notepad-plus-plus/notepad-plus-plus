@@ -31,13 +31,15 @@
 !include "MUI.nsh"       ; Modern UI
 !include "nsDialogs.nsh" ; allows creation of custom pages in the installer
 !include "Memento.nsh"   ; remember user selections in the installer across runs
+!include "FileFunc.nsh"
 
+Unicode true			; Generate a Unicode installer. It can only be used outside of sections and functions and before any data is compressed.
 SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ;SetCompressor /FINAL lzma	; This reduces installer size by approx 15~18%
 
 
 !include "nsisInclude\winVer.nsh"
-!include "nsisInclude\gobalDef.nsh"
+!include "nsisInclude\globalDef.nsh"
 !include "nsisInclude\tools.nsh"
 !include "nsisInclude\uninstall.nsh"
 
@@ -88,6 +90,7 @@ page Custom ExtraOptions
 Var diffArchDir2Remove
 Function .onInit
 
+	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
 	Call preventInstallInWin9x
 		
 	!insertmacro MUI_LANGDLL_DISPLAY
@@ -96,8 +99,16 @@ Function .onInit
 	${If} ${RunningX64}
 		; disable registry redirection (enable access to 64-bit portion of registry)
 		SetRegView 64
-		; change install dir 
-		StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
+		
+		; change to x64 install dir if needed
+		${If} "$InstDir" != ""
+			${If} "$InstDir" == "$PROGRAMFILES\${APPNAME}"
+				StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
+			${EndIf}
+			; else /D was used or last installation is not "$PROGRAMFILES\${APPNAME}"
+		${Else}
+			StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
+		${EndIf}
 		
 		; check if 32-bit version has been installed if yes, ask user to remove it
 		IfFileExists $PROGRAMFILES\${APPNAME}\notepad++.exe 0 noDelete32

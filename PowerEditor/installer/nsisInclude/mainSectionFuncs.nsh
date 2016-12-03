@@ -29,7 +29,6 @@ Var UPDATE_PATH
 Function setPathAndOptions
 	; Set Section properties
 	SetOverwrite on
-
 	StrCpy $UPDATE_PATH $INSTDIR
 		
 	SetOutPath "$INSTDIR\"
@@ -52,18 +51,6 @@ Function setPathAndOptions
 FunctionEnd
 	
 Function copyCommonFiles
-	SetOverwrite on
-	SetOutPath "$TEMP\"
-	File "langsModel.xml"
-	File "configModel.xml"
-	File "stylesGlobalModel.xml"
-	File "stylesLexerModel.xml"
-	File "stylers_remove.xml"
-
-	File "..\bin\langs.model.xml"
-	File "..\bin\config.model.xml"
-	File "..\bin\stylers.model.xml"
-
 	SetOverwrite off
 	SetOutPath "$UPDATE_PATH\"
 	File "..\bin\contextMenu.xml"
@@ -72,7 +59,6 @@ Function copyCommonFiles
 	SetOverwrite on
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
-	File "..\bin\config.model.xml"
 	File "..\bin\stylers.model.xml"
 	File "..\bin\contextMenu.xml"
 	File "..\bin\functionList.xml"
@@ -101,7 +87,7 @@ Function copyCommonFiles
 
 	; Copy all the language files to the temp directory
 	; than make them installed via option
-	SetOutPath "$TEMP\nppLocalization\"
+	SetOutPath "$PLUGINSDIR\nppLocalization\"
 	File ".\nativeLang\"
 
 	IfFileExists "$UPDATE_PATH\nativeLang.xml" 0 +2
@@ -111,8 +97,8 @@ Function copyCommonFiles
 		Delete "$INSTDIR\nativeLang.xml"
 
 	StrCmp $LANGUAGE ${LANG_ENGLISH} +3 0
-	CopyFiles "$TEMP\nppLocalization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
-	CopyFiles "$TEMP\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
+	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
+	CopyFiles "$PLUGINSDIR\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
 FunctionEnd
 
 	

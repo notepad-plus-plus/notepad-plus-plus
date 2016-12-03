@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
-<Node nodeName="NotepadPlus">
-    <Node nodeName="GUIConfigs" name="">
-        <Node nodeName="GUIConfig" name="name"/>
-    </Node>
-</Node>

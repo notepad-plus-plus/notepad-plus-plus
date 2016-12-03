@@ -73,8 +73,6 @@ copy /Y ..\bin\readme.txt .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist\
 If ErrorLevel 1 goto End
-copy /Y ..\src\config.model.xml .\minimalist\
-If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\minimalist\
@@ -98,8 +96,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\minimalist64\
-If ErrorLevel 1 goto End
-copy /Y ..\src\config.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\minimalist64\
 If ErrorLevel 1 goto End
@@ -146,8 +142,6 @@ copy /Y ..\bin\readme.txt .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\zipped.package.release\
 If ErrorLevel 1 goto End
-copy /Y ..\src\config.model.xml .\zipped.package.release\
-If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\zipped.package.release\
 If ErrorLevel 1 goto End
 copy /Y ..\src\stylers.model.xml .\zipped.package.release\
@@ -183,8 +177,11 @@ If ErrorLevel 1 goto End
 rem plugins manager and its updater 
 copy /Y "..\bin\plugins\PluginManager.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 goto End
+copy /Y "..\bin\plugins\Config\PluginManager.ini" .\zipped.package.release\plugins\Config\
+If ErrorLevel 1 goto End
 copy /Y "..\bin\updater\gpup.exe" .\zipped.package.release\updater\
 If ErrorLevel 1 goto End
+
 
 
 rem localizations
@@ -239,8 +236,6 @@ If ErrorLevel 1 goto End
 copy /Y ..\bin\readme.txt .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\bin\change.log .\zipped.package.release64\
-If ErrorLevel 1 goto End
-copy /Y ..\src\config.model.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End
 copy /Y ..\src\langs.model.xml .\zipped.package.release64\
 If ErrorLevel 1 goto End

@@ -12,6 +12,7 @@
 #include "../src/WinControls/ColourPicker/WordStyleDlg.rc"
 #include "../src/WinControls/DockingWnd/DockingGUIWidget.rc"
 #include "../src/WinControls/DocumentMap/documentMap.rc"
+#include "../src/WinControls/FileBrowser/fileBrowser.rc"
 #include "../src/WinControls/FindCharsInRange/findCharsInRange.rc"
 #include "../src/WinControls/FunctionList/functionListPanel.rc"
 #include "../src/WinControls/Grid/ShortcutMapper.rc"

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
-<Node nodeName="NotepadPlus">
-    <Node nodeName="LexerStyles">
-        <Node nodeName="LexerType" name="name">
-			<Node nodeName="WordsStyle" name="name"/>
-		</Node>
-    </Node>
-</Node>
-

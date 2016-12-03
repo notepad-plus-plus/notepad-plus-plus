@@ -32,7 +32,7 @@ Notepad++ wiki:
 	http://docs.notepad-plus-plus.org/
 
 Notepad++ support:
-	http://sourceforge.net/projects/notepad-plus/forums
+	https://notepad-plus-plus.org/community/
 
 
 Author:

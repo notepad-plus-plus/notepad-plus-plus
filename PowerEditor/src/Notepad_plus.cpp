@@ -1835,6 +1835,12 @@ int Notepad_plus::doCloseOrNot(const TCHAR *fn)
 	return doActionOrNot(TEXT("Keep non existing file"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 }
 
+int Notepad_plus::doCloseMultipleOrNot()
+{
+	TCHAR phrase[512] = TEXT("This may close multiple files.\rContinue?");
+	return doActionOrNot(TEXT("Close file(s)"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+}
+
 int Notepad_plus::doDeleteOrNot(const TCHAR *fn)
 {
 	TCHAR pattern[128] = TEXT("The file \"%s\"\rwill be moved to your Recycle Bin and this document will be closed.\rContinue?");

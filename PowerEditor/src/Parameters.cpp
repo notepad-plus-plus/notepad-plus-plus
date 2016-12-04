@@ -3791,6 +3791,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("ConfirmPrompt")))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				const TCHAR* val = n->Value();
+				if (val)
+				{
+					if (!lstrcmp(val, TEXT("yes")))
+						_nppGUI._enableConfirmPrompt = true;
+					else if (!lstrcmp(val, TEXT("no")))
+						_nppGUI._enableConfirmPrompt = false;
+				}
+			}
+		}
 		else if (!lstrcmp(nm, TEXT("TabBar")))
 		{
 			bool isFailed = false;
@@ -5101,6 +5116,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("StatusBar"));
 		const TCHAR *pStr = _nppGUI._statusBarShow ? TEXT("show") : TEXT("hide");
+		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+	}
+
+	// <GUIConfig name="ConfirmPrompt">no</GUIConfig>
+	{
+		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("ConfirmPrompt"));
+		const TCHAR *pStr = _nppGUI._enableConfirmPrompt ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
 	}
 

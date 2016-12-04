@@ -351,6 +351,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			bool showTool = nppGUI._toolbarShow;
 			bool showStatus = nppGUI._statusBarShow;
 			bool showMenu = nppGUI._menuBarShow;
+			bool enablePrompt = nppGUI._enableConfirmPrompt;
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDE, BM_SETCHECK, showTool?BST_UNCHECKED:BST_CHECKED, 0);
 			int ID2Check = 0;
@@ -382,6 +383,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWSTATUSBAR, BM_SETCHECK, showStatus, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDEMENUBAR, BM_SETCHECK, !showMenu, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLE_CONFIRM_PROMPT, BM_SETCHECK, enablePrompt, 0);
 
 			bool showDocSwitcher = ::SendMessage(::GetParent(_hParent), NPPM_ISDOCSWITCHERSHOWN, 0, 0) == TRUE;
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH, BM_SETCHECK, showDocSwitcher, 0);
@@ -430,6 +432,10 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					::SendMessage(::GetParent(_hParent), NPPM_HIDEMENU, 0, isChecked?TRUE:FALSE);
 				}
 				return TRUE;
+
+				case IDC_CHECK_ENABLE_CONFIRM_PROMPT :
+					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_ENABLE_CONFIRM_PROMPT, 0);
+					return TRUE;
 
 				case IDC_CHECK_DOCSWITCH :
 				{

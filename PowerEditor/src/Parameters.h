@@ -716,6 +716,8 @@ struct NppGUI final
 	bool _statusBarShow = true;
 	bool _menuBarShow = true;
 
+	bool _enableConfirmPrompt = false;
+
 	// 1st bit : draw top bar;
 	// 2nd bit : draw inactive tabs
 	// 3rd bit : enable drag & drop

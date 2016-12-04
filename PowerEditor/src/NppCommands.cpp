@@ -159,26 +159,36 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_FILE_CLOSEALL:
-		{
-			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
-			fileCloseAll(isSnapshotMode, false);
-            checkDocState();
+			if (!_isEnablePrompt || doCloseMultipleOrNot() == IDYES)
+			{
+				bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+				fileCloseAll(isSnapshotMode, false);
+				checkDocState();
+			}
 			break;
-		}
 
 		case IDM_FILE_CLOSEALL_BUT_CURRENT :
-			fileCloseAllButCurrent();
-            checkDocState();
+			if (!_isEnablePrompt || doCloseMultipleOrNot() == IDYES)
+			{
+				fileCloseAllButCurrent();
+				checkDocState();
+			}
 			break;
 
 		case IDM_FILE_CLOSEALL_TOLEFT :
-			fileCloseAllToLeft();
-			checkDocState();
+			if (!_isEnablePrompt || doCloseMultipleOrNot() == IDYES)
+			{
+				fileCloseAllToLeft();
+				checkDocState();
+			}
 			break;
 
 		case IDM_FILE_CLOSEALL_TORIGHT :
-			fileCloseAllToRight();
-			checkDocState();
+			if (!_isEnablePrompt || doCloseMultipleOrNot() == IDYES)
+			{
+				fileCloseAllToRight();
+				checkDocState();
+			}
 			break;
 
 		case IDM_FILE_SAVE :
@@ -2436,6 +2446,12 @@ void Notepad_plus::command(int id)
 			switchToFile(bufID);
             break;
         }
+
+		case IDM_SETTING_ENABLE_CONFIRM_PROMPT:
+		{
+			setEnablePrompt(!_isEnablePrompt);
+			break;
+		}
 
         case IDM_VIEW_GOTO_ANOTHER_VIEW:
             docGotoAnotherEditView(TransferMove);

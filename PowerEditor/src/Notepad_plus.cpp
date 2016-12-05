@@ -6455,6 +6455,10 @@ bool Notepad_plus::undoStreamComment()
 	const TCHAR *commentStart;
 	const TCHAR *commentEnd;
 
+	//--FLS: BlockToStreamComment:
+	const TCHAR *commentLineSybol;
+	generic_string symbol;
+
 	generic_string symbolStart;
 	generic_string symbolEnd;
 	const int charbufLen = 10;
@@ -6472,6 +6476,10 @@ bool Notepad_plus::undoStreamComment()
 		if (!userLangContainer)
 			return false;
 
+		//--FLS: BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
+		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		commentLineSybol = symbol.c_str();
+
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
 		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
@@ -6479,14 +6487,23 @@ bool Notepad_plus::undoStreamComment()
 	}
 	else
 	{
+		//--FLS: BlockToStreamComment: Next line needed to decide, if block-comment can be called below!
+		commentLineSybol = buf->getCommentLineSymbol();
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	if ((!commentStart) || (!commentStart[0]))
-		return false;
-	if ((!commentEnd) || (!commentEnd[0]))
-		return false;
+	// if ((!commentStart) || (!commentStart[0]))
+	//	 return false;
+	// if ((!commentEnd) || (!commentEnd[0]))
+	// 	return false;
+	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) 
+	{
+		if (!(!commentLineSybol || !commentLineSybol[0] || commentLineSybol == NULL))
+			return doBlockComment(cm_uncomment);
+		else
+			return false;
+	}
 
 	generic_string start_comment(commentStart);
 	generic_string end_comment(commentEnd);

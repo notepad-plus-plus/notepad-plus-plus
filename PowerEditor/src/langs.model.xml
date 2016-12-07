@@ -210,7 +210,7 @@
         <Language name="props" ext="properties" commentLine=";">
         </Language>
         <Language name="python" ext="py pyw" commentLine="#">
-            <Keywords name="instre1">and as assert break class continue def del elif else except exec False finally for from global if import in is lambda None not or pass print raise return True try while with yield</Keywords>
+            <Keywords name="instre1">and as assert break class continue def del elif else except exec False finally for from global if import in is lambda None not or pass print raise return True try while with yield async await</Keywords>
         </Language>
         <Language name="r" ext="r s splus" commentLine="#">
             <Keywords name="instre1">if else repeat while function for in next break TRUE FALSE NULL NA Inf NaN</Keywords>

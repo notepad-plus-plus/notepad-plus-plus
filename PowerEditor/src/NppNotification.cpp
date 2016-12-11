@@ -270,6 +270,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else
 				break;
 
+			// remove marks set by quick find
+			if (::IsWindowVisible(_findReplaceDlg.getHSelf()) && _findReplaceDlg._options._quickFind)
+			{
+				_findReplaceDlg.clearMarksByStyle(SCE_UNIVERSAL_FOUND_STYLE_INC);
+			}
+
 			switchEditViewTo(iView);
 			BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
 			if (bufid != BUFFER_INVALID)
@@ -278,6 +284,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufid, iView);
 				_isFolding = false;
 			}
+
 			break;
 		}
 
@@ -711,6 +718,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					addHotSpot();
 			}
 
+
 			// if it's searching/replacing, then do nothing
 			if (nppParam->_isFindReplacing)
 				break;
@@ -750,7 +758,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			updateStatusBar();
 			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 			autoC->update(0);
-
+			
+			// update quick find marks when scrolling document
+			bool bFindRepDlgInFocus = ::GetForegroundWindow() == _findReplaceDlg.getHSelf();
+			if (::IsWindowVisible(_findReplaceDlg.getHSelf())
+				&& (notification->updated & SC_UPDATE_V_SCROLL)
+				&& _findReplaceDlg._options._quickFind
+				&& (::GetFocus() == _mainEditView.getHSelf()
+					|| bFindRepDlgInFocus))
+			{
+				_findReplaceDlg.quickFindAndMarkAll({}, !bFindRepDlgInFocus);
+			}
 			break;
 		}
 

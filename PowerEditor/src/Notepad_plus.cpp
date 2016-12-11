@@ -3551,6 +3551,17 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	}
 	else	//open the document, also copying the position
 	{
+		// If both the views are visible then first save the position of non-edit view
+		// So that moving document between views does not lose caret position
+		// How it works =>
+		//		non-edit view becomes edit view as document from edit view is sent to non edit view
+		//		restoreCurrentPos is called on non-edit view, which will restore the position of
+		//		active document/tab on non-edit view  (whatever position we set in below if condition)
+		if (_pEditView->isVisible() && _pNonEditView->isVisible())
+		{
+			_pNonEditView->saveCurrentPos();
+		}
+
 		loadBufferIntoView(current, viewToGo);
 		Buffer *buf = MainFileManager->getBufferByID(current);
 		_pEditView->saveCurrentPos();	//allow copying of position

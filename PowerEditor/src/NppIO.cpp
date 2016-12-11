@@ -611,7 +611,10 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	scnN.nmhdr.idFrom = (uptr_t)id;
 	_pluginsManager.notify(&scnN);
 
-	//add to recent files if its an existing file
+	// Add to recent file history only if file is removed from all the views
+	// There might be cases when file is cloned/moved to view.
+	// Don't add to recent list unless file is removed from all the views
+	generic_string fileFullPath;
 	if (!buf->isUntitled())
 	{
 		// if the file doesn't exist, it could be redirected
@@ -626,7 +629,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		}
 
 		if (PathFileExists(buf->getFullPathName()))
-			_lastRecentFileList.add(buf->getFullPathName());
+			fileFullPath = buf->getFullPathName();
 
 		// We enable Wow64 system, if it was disabled
 		if (isWow64Off)
@@ -671,6 +674,11 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 			if (hiddenBufferID != BUFFER_INVALID)
 				_pFileSwitcherPanel->closeItem(hiddenBufferID, whichOne);
 		}
+
+		// Add to recent file only if file is removed and does not exist in any of the views
+		BufferID buffID = MainFileManager->getBufferFromName(fileFullPath.c_str());
+		if (buffID == BUFFER_INVALID && fileFullPath.length() > 0)
+			_lastRecentFileList.add(fileFullPath.c_str());
 	}
 	command(IDM_VIEW_REFRESHTABAR);
 

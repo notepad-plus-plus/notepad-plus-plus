@@ -1818,7 +1818,13 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				int lend = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
 				int lstart = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
 				int nbChar = lend - lstart;
-
+				if (_options._isFinderOnlyOneLineIfMultipleFinds)
+				{
+					if (lineNumber == oldLineNumber)
+						break;
+					else
+						oldLineNumber = lineNumber;
+				}
 				// use the static buffer
 				TCHAR lineBuf[1024];
 
@@ -2011,7 +2017,7 @@ void FindReplaceDlg::replaceAllInOpenedDocs()
 
 void FindReplaceDlg::removeAllFinders()
 {
-	for (int n = _finders.size() - 1; n >= 0; n--)
+  for (int n = static_cast<int32_t>(_finders.size()) - 1; n >= 0; n--)
 	{
 		::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_finders[n]->getHSelf());
 		_finders.erase(_finders.begin() + n);
@@ -2025,7 +2031,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	tTbData	data = { 0 };
 	if (_options._isFinderOnlyOne )
 	{
-		for (int n = _finders.size() - 1; n >= 0; n--)
+                for (int n = static_cast<int32_t>(_finders.size()) - 1; n >= 0; n--)
 		{
 			::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_finders[n]->getHSelf());
 			_finders.erase(_finders.begin() + n);
@@ -2034,8 +2040,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	}
 	else if (_options._isFinderUnique)
 	{
-		for (int n = _finders.size() - 1; n >= 0; n--)
-		{
+               for (int n = static_cast<int32_t>(_finders.size()) - 1; n >= 0; n--)
+               {
 			if (!lstrcmp(_options._str2Search.c_str(), _finders[n]->_pluginName.c_str()))
 			{
 				if (_pFinder == _finders[n])
@@ -2049,8 +2055,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	}
 	if (_options._isAutoCloseEmptyFinder)
 	{
-		for (int n = _finders.size() - 1; n >= 0; n--)
-		{
+               for (int n = static_cast<int32_t>(_finders.size()) - 1; n >= 0; n--)
+               {
 			if (_finders[n]->_nbFoundFiles == 0)
 			{
 				if (_pFinder == _finders[n])
@@ -2339,7 +2345,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_GOBACK_BUTTON), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);
-      ::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), isEnable?SW_SHOW:SW_HIDE);
+        ::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), isEnable?SW_SHOW:SW_HIDE);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)

@@ -791,7 +791,7 @@ struct NppGUI final
 
 	generic_string _definedSessionExt;
 	generic_string _definedWorkspaceExt;
-
+	
 	struct AutoUpdateOptions
 	{
 		bool _doAutoUpdate = true;
@@ -1069,10 +1069,10 @@ struct FindHistory final
 	enum searchMode{normal, extended, regExpr};
 	enum transparencyMode{none, onLossingFocus, persistant};
 
-	int _nbMaxFindHistoryPath    = 10;
-	int _nbMaxFindHistoryFilter  = 10;
-	int _nbMaxFindHistoryFind    = 10;
-	int _nbMaxFindHistoryReplace = 10;
+	int _nbMaxFindHistoryPath    = 30;
+	int _nbMaxFindHistoryFilter  = 30;
+	int _nbMaxFindHistoryFind    = 30;
+	int _nbMaxFindHistoryReplace = 30;
 
 	std::vector<generic_string> _findHistoryPaths;
 	std::vector<generic_string> _findHistoryFilters;
@@ -1095,6 +1095,11 @@ struct FindHistory final
 	bool _isDlgAlwaysVisible = false;
 	bool _isFilterFollowDoc = false;
 	bool _isFolderFollowDoc = false;
+
+	bool _isFinderUnique = true;
+	bool _isFinderOnlyOne = false;
+	bool _isFinderOnlyOneLineIfMultipleFinds = false;
+	bool _isAutoCloseEmptyFinder = false;
 };
 
 
@@ -1401,8 +1406,8 @@ public:
 
 	void setCmdlineParam(const CmdLineParams & cmdLineParams)
 	{
-		_cmdLineParams = cmdLineParams;
-	}
+			_cmdLineParams = cmdLineParams;
+		}
 	CmdLineParams & getCmdLineParams() {return _cmdLineParams;};
 
 	void setFileSaveDlgFilterIndex(int ln) {_fileSaveDlgFilterIndex = ln;};
@@ -1564,7 +1569,7 @@ private:
 	TiXmlDocument *_pXmlShortcutDoc = nullptr;
 	TiXmlDocument *_pXmlSessionDoc = nullptr;
 	TiXmlDocument *_pXmlBlacklistDoc = nullptr;
-	
+
 	TiXmlDocument *_importedULD[NB_MAX_IMPORTED_UDL];
 
 	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr;
@@ -1587,8 +1592,8 @@ private:
 	int _nbMaxRecentFile = 10;
 	bool _putRecentFileInSubMenu = false;
 	int _recentFileCustomLength = RECENTFILES_SHOWFULLPATH;	//	<0: Full File Path Name
-															//	=0: Only File Name
-															//	>0: Custom Entry Length
+									//	=0: Only File Name
+									//	>0: Custom Entry Length
 
 	FindHistory _findHistory;
 

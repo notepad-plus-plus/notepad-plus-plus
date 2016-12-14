@@ -29,20 +29,11 @@
 ${MementoSection} "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
-	
-	; There is no need to keep x86 NppShell_06.dll in 64 bit installer
-	; But in 32bit installer both the Dlls are required
-	; 	As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
-	
-	!ifdef ARCH64
+	${If} ${RunningX64}
 		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-	!else
-		${If} ${RunningX64}
-			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-		${Else}
-			File "..\bin\NppShell_06.dll"
-		${EndIf}
-	!endif
+	${Else}
+		File "..\bin\NppShell_06.dll"
+	${EndIf}
 	
 	Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
 ${MementoSectionEnd}
@@ -60,8 +51,6 @@ SectionGroup "Plugins" Plugins
 		Delete "$INSTDIR\plugins\PluginManager.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\PluginManager.dll"
-		SetOutPath "$UPDATE_PATH\plugins\Config"
-		File "..\bin\plugins\Config\PluginManager.ini"
 		SetOutPath "$INSTDIR\updater"
 		File "..\bin\updater\gpup.exe"
 	${MementoSectionEnd}
@@ -125,7 +114,6 @@ SectionGroup un.Plugins
 
 	Section un.PluginManager
 		Delete "$INSTDIR\plugins\PluginManager.dll"
-		Delete "$UPDATE_PATH\plugins\Config\PluginManager.ini"
 		Delete "$INSTDIR\updater\gpup.exe"
 		RMDir "$INSTDIR\updater\"
 	SectionEnd	

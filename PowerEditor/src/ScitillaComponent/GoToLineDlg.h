@@ -59,7 +59,7 @@ public :
     };
 
 protected :
-	enum mode {go2line, go2offsset};
+	enum mode {go2line, go2offsset, go2column}; //added extra mode for GoToColumn
 	mode _mode = go2line;
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -72,11 +72,21 @@ private :
         ::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, TEXT(""));
     };
 
+	void cleanColumnEdit() const {
+		::SetDlgItemText(_hSelf, ID_GOCOLUMN_EDIT, TEXT(""));
+	};
+
     int getLine() const {
         BOOL isSuccessful;
         int line = ::GetDlgItemInt(_hSelf, ID_GOLINE_EDIT, &isSuccessful, FALSE);
         return (isSuccessful?line:-1);
     };
 
+	// function to return value in column edit for go to column
+	int getColumn() const {
+		BOOL isSuccessful;
+		int column = ::GetDlgItemInt(_hSelf, ID_GOCOLUMN_EDIT, &isSuccessful, FALSE);
+		return (isSuccessful ? column : -1);
+	}
 };
 

@@ -1,8 +1,10 @@
-Notepad++ 7.2.2 bug-fixes:
+Notepad++ 7.2 enhancements and bug-fixes:
 
-1.  Fix auto-updater setting toggles between startups bug.
-2.  Fix "Replace All" button shortcut accelerator in Replce dialog not working regression.
-3.  Fix unusual plugin update prompt after upgrade to 7.2.1 version.
+1.  Add option for smart highlighting extension to anothe view.
+2.  Fix Installer for 64-bit fails with argument "/D".
+3.  Fix uninstaller silent mode issue.
+4.  Fix a tab settings regression.
+5.  Fix file not saving bug (Ensure backup directory exists).
 
 
 Included plugins:

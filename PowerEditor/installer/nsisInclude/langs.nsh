@@ -145,259 +145,259 @@ LangString langFileName ${LANG_ESTONIAN} "estonian.xml"
 SectionGroup "Localization" localization
 	SetOverwrite on
 	${MementoUnselectedSection} "Afrikaans" afrikaans
-		CopyFiles "$PLUGINSDIR\nppLocalization\afrikaans.xml" "$INSTDIR\localization\afrikaans.xml"
+		CopyFiles "$TEMP\nppLocalization\afrikaans.xml" "$INSTDIR\localization\afrikaans.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Albanian" albanian
-		CopyFiles "$PLUGINSDIR\nppLocalization\albanian.xml" "$INSTDIR\localization\albanian.xml"
+		CopyFiles "$TEMP\nppLocalization\albanian.xml" "$INSTDIR\localization\albanian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Arabic" arabic
-		CopyFiles "$PLUGINSDIR\nppLocalization\arabic.xml" "$INSTDIR\localization\arabic.xml"
+		CopyFiles "$TEMP\nppLocalization\arabic.xml" "$INSTDIR\localization\arabic.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Aragonese" aragonese
-		CopyFiles "$PLUGINSDIR\nppLocalization\aragonese.xml" "$INSTDIR\localization\aragonese.xml"
+		CopyFiles "$TEMP\nppLocalization\aragonese.xml" "$INSTDIR\localization\aragonese.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Aranese" aranese
-		CopyFiles "$PLUGINSDIR\nppLocalization\aranese.xml" "$INSTDIR\localization\aranese.xml"
+		CopyFiles "$TEMP\nppLocalization\aranese.xml" "$INSTDIR\localization\aranese.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Azerbaijani" azerbaijani
-		CopyFiles "$PLUGINSDIR\nppLocalization\azerbaijani.xml" "$INSTDIR\localization\azerbaijani.xml"
+		CopyFiles "$TEMP\nppLocalization\azerbaijani.xml" "$INSTDIR\localization\azerbaijani.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Basque" basque
-		CopyFiles "$PLUGINSDIR\nppLocalization\basque.xml" "$INSTDIR\localization\basque.xml"
+		CopyFiles "$TEMP\nppLocalization\basque.xml" "$INSTDIR\localization\basque.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Belarusian" belarusian
-		CopyFiles "$PLUGINSDIR\nppLocalization\belarusian.xml" "$INSTDIR\localization\belarusian.xml"
+		CopyFiles "$TEMP\nppLocalization\belarusian.xml" "$INSTDIR\localization\belarusian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Bengali" bengali
-		CopyFiles "$PLUGINSDIR\nppLocalization\bengali.xml" "$INSTDIR\localization\bengali.xml"
+		CopyFiles "$TEMP\nppLocalization\bengali.xml" "$INSTDIR\localization\bengali.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Bosnian" bosnian
-		CopyFiles "$PLUGINSDIR\nppLocalization\bosnian.xml" "$INSTDIR\localization\bosnian.xml"
+		CopyFiles "$TEMP\nppLocalization\bosnian.xml" "$INSTDIR\localization\bosnian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Brazilian Portuguese" brazilian_portuguese
-		CopyFiles "$PLUGINSDIR\nppLocalization\brazilian_portuguese.xml" "$INSTDIR\localization\brazilian_portuguese.xml"
+		CopyFiles "$TEMP\nppLocalization\brazilian_portuguese.xml" "$INSTDIR\localization\brazilian_portuguese.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Bulgarian" bulgarian
-		CopyFiles "$PLUGINSDIR\nppLocalization\bulgarian.xml" "$INSTDIR\localization\bulgarian.xml"
+		CopyFiles "$TEMP\nppLocalization\bulgarian.xml" "$INSTDIR\localization\bulgarian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Catalan" catalan
-		CopyFiles "$PLUGINSDIR\nppLocalization\catalan.xml" "$INSTDIR\localization\catalan.xml"
+		CopyFiles "$TEMP\nppLocalization\catalan.xml" "$INSTDIR\localization\catalan.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Chinese (Traditional)" chineseTraditional
-		CopyFiles "$PLUGINSDIR\nppLocalization\chinese.xml" "$INSTDIR\localization\chinese.xml"
+		CopyFiles "$TEMP\nppLocalization\chinese.xml" "$INSTDIR\localization\chinese.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Chinese (Simplified)" chineseSimplified
-		CopyFiles "$PLUGINSDIR\nppLocalization\chineseSimplified.xml" "$INSTDIR\localization\chineseSimplified.xml"
+		CopyFiles "$TEMP\nppLocalization\chineseSimplified.xml" "$INSTDIR\localization\chineseSimplified.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Corsican" corsican
-		CopyFiles "$PLUGINSDIR\nppLocalization\corsican.xml" "$INSTDIR\localization\corsican.xml"
+		CopyFiles "$TEMP\nppLocalization\corsican.xml" "$INSTDIR\localization\corsican.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Croatian" croatian
-		CopyFiles "$PLUGINSDIR\nppLocalization\croatian.xml" "$INSTDIR\localization\croatian.xml"
+		CopyFiles "$TEMP\nppLocalization\croatian.xml" "$INSTDIR\localization\croatian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Czech" czech
-		CopyFiles "$PLUGINSDIR\nppLocalization\czech.xml" "$INSTDIR\localization\czech.xml"
+		CopyFiles "$TEMP\nppLocalization\czech.xml" "$INSTDIR\localization\czech.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Danish" danish
-		CopyFiles "$PLUGINSDIR\nppLocalization\danish.xml" "$INSTDIR\localization\danish.xml"
+		CopyFiles "$TEMP\nppLocalization\danish.xml" "$INSTDIR\localization\danish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Dutch" dutch
-		CopyFiles "$PLUGINSDIR\nppLocalization\dutch.xml" "$INSTDIR\localization\dutch.xml"
+		CopyFiles "$TEMP\nppLocalization\dutch.xml" "$INSTDIR\localization\dutch.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "English (Customizable)" english_customizable
-		CopyFiles "$PLUGINSDIR\nppLocalization\english_customizable.xml" "$INSTDIR\localization\english_customizable.xml"
+		CopyFiles "$TEMP\nppLocalization\english_customizable.xml" "$INSTDIR\localization\english_customizable.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Esperanto" esperanto
-		CopyFiles "$PLUGINSDIR\nppLocalization\esperanto.xml" "$INSTDIR\localization\esperanto.xml"
+		CopyFiles "$TEMP\nppLocalization\esperanto.xml" "$INSTDIR\localization\esperanto.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Estonian" estonian
-		CopyFiles "$PLUGINSDIR\nppLocalization\estonian.xml" "$INSTDIR\localization\estonian.xml"
+		CopyFiles "$TEMP\nppLocalization\estonian.xml" "$INSTDIR\localization\estonian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Extremaduran" extremaduran
-		CopyFiles "$PLUGINSDIR\nppLocalization\extremaduran.xml" "$INSTDIR\localization\extremaduran.xml"
+		CopyFiles "$TEMP\nppLocalization\extremaduran.xml" "$INSTDIR\localization\extremaduran.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Farsi" farsi
-		CopyFiles "$PLUGINSDIR\nppLocalization\farsi.xml" "$INSTDIR\localization\farsi.xml"
+		CopyFiles "$TEMP\nppLocalization\farsi.xml" "$INSTDIR\localization\farsi.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Finnish" finnish
-		CopyFiles "$PLUGINSDIR\nppLocalization\finnish.xml" "$INSTDIR\localization\finnish.xml"
+		CopyFiles "$TEMP\nppLocalization\finnish.xml" "$INSTDIR\localization\finnish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Friulian" friulian
-		CopyFiles "$PLUGINSDIR\nppLocalization\friulian.xml" "$INSTDIR\localization\friulian.xml"
+		CopyFiles "$TEMP\nppLocalization\friulian.xml" "$INSTDIR\localization\friulian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "French" french 
-		CopyFiles "$PLUGINSDIR\nppLocalization\french.xml" "$INSTDIR\localization\french.xml"
+		CopyFiles "$TEMP\nppLocalization\french.xml" "$INSTDIR\localization\french.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Galician" galician
-		CopyFiles "$PLUGINSDIR\nppLocalization\galician.xml" "$INSTDIR\localization\galician.xml"
+		CopyFiles "$TEMP\nppLocalization\galician.xml" "$INSTDIR\localization\galician.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Georgian" georgian
-		CopyFiles "$PLUGINSDIR\nppLocalization\georgian.xml" "$INSTDIR\localization\georgian.xml"
+		CopyFiles "$TEMP\nppLocalization\georgian.xml" "$INSTDIR\localization\georgian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "German" german
-		CopyFiles "$PLUGINSDIR\nppLocalization\german.xml" "$INSTDIR\localization\german.xml"
+		CopyFiles "$TEMP\nppLocalization\german.xml" "$INSTDIR\localization\german.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Greek" greek
-		CopyFiles "$PLUGINSDIR\nppLocalization\greek.xml" "$INSTDIR\localization\greek.xml"
+		CopyFiles "$TEMP\nppLocalization\greek.xml" "$INSTDIR\localization\greek.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Gujarati" gujarati
-		CopyFiles "$PLUGINSDIR\nppLocalization\gujarati.xml" "$INSTDIR\localization\gujarati.xml"
+		CopyFiles "$TEMP\nppLocalization\gujarati.xml" "$INSTDIR\localization\gujarati.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Hebrew" hebrew
-		CopyFiles "$PLUGINSDIR\nppLocalization\hebrew.xml" "$INSTDIR\localization\hebrew.xml"
+		CopyFiles "$TEMP\nppLocalization\hebrew.xml" "$INSTDIR\localization\hebrew.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Hindi" hindi
-		CopyFiles "$PLUGINSDIR\nppLocalization\hindi.xml" "$INSTDIR\localization\hindi.xml"
+		CopyFiles "$TEMP\nppLocalization\hindi.xml" "$INSTDIR\localization\hindi.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Hungarian" hungarian
-		CopyFiles "$PLUGINSDIR\nppLocalization\hungarian.xml" "$INSTDIR\localization\hungarian.xml"
+		CopyFiles "$TEMP\nppLocalization\hungarian.xml" "$INSTDIR\localization\hungarian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Hungarian (ANSI)" hungarianA
-		CopyFiles "$PLUGINSDIR\nppLocalization\hungarianA.xml" "$INSTDIR\localization\hungarianA.xml"
+		CopyFiles "$TEMP\nppLocalization\hungarianA.xml" "$INSTDIR\localization\hungarianA.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Indonesian" indonesian
-		CopyFiles "$PLUGINSDIR\nppLocalization\indonesian.xml" "$INSTDIR\localization\indonesian.xml"
+		CopyFiles "$TEMP\nppLocalization\indonesian.xml" "$INSTDIR\localization\indonesian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Italian" italian
-		CopyFiles "$PLUGINSDIR\nppLocalization\italian.xml" "$INSTDIR\localization\italian.xml"
+		CopyFiles "$TEMP\nppLocalization\italian.xml" "$INSTDIR\localization\italian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Japanese" japanese
-		CopyFiles "$PLUGINSDIR\nppLocalization\japanese.xml" "$INSTDIR\localization\japanese.xml"
+		CopyFiles "$TEMP\nppLocalization\japanese.xml" "$INSTDIR\localization\japanese.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kazakh" kazakh
-		CopyFiles "$PLUGINSDIR\nppLocalization\kazakh.xml" "$INSTDIR\localization\kazakh.xml"
+		CopyFiles "$TEMP\nppLocalization\kazakh.xml" "$INSTDIR\localization\kazakh.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Korean" korean
-		CopyFiles "$PLUGINSDIR\nppLocalization\korean.xml" "$INSTDIR\localization\korean.xml"
+		CopyFiles "$TEMP\nppLocalization\korean.xml" "$INSTDIR\localization\korean.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kyrgyz" kyrgyz
-		CopyFiles "$PLUGINSDIR\nppLocalization\kyrgyz.xml" "$INSTDIR\localization\kyrgyz.xml"
+		CopyFiles "$TEMP\nppLocalization\kyrgyz.xml" "$INSTDIR\localization\kyrgyz.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Latvian" latvian
-		CopyFiles "$PLUGINSDIR\nppLocalization\latvian.xml" "$INSTDIR\localization\latvian.xml"
+		CopyFiles "$TEMP\nppLocalization\latvian.xml" "$INSTDIR\localization\latvian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Ligurian" ligurian
-		CopyFiles "$PLUGINSDIR\nppLocalization\ligurian.xml" "$INSTDIR\localization\ligurian.xml"
+		CopyFiles "$TEMP\nppLocalization\ligurian.xml" "$INSTDIR\localization\ligurian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Lithuanian" lithuanian
-		CopyFiles "$PLUGINSDIR\nppLocalization\lithuanian.xml" "$INSTDIR\localization\lithuanian.xml"
+		CopyFiles "$TEMP\nppLocalization\lithuanian.xml" "$INSTDIR\localization\lithuanian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Luxembourgish" luxembourgish
-		CopyFiles "$PLUGINSDIR\nppLocalization\luxembourgish.xml" "$INSTDIR\localization\luxembourgish.xml"
+		CopyFiles "$TEMP\nppLocalization\luxembourgish.xml" "$INSTDIR\localization\luxembourgish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Macedonian" macedonian
-		CopyFiles "$PLUGINSDIR\nppLocalization\macedonian.xml" "$INSTDIR\localization\macedonian.xml"
+		CopyFiles "$TEMP\nppLocalization\macedonian.xml" "$INSTDIR\localization\macedonian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Malay" malay
-		CopyFiles "$PLUGINSDIR\nppLocalization\malay.xml" "$INSTDIR\localization\malay.xml"
+		CopyFiles "$TEMP\nppLocalization\malay.xml" "$INSTDIR\localization\malay.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Marathi" marathi
-		CopyFiles "$PLUGINSDIR\nppLocalization\marathi.xml" "$INSTDIR\localization\marathi.xml"
+		CopyFiles "$TEMP\nppLocalization\marathi.xml" "$INSTDIR\localization\marathi.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Mongolian" mongolian
-		CopyFiles "$PLUGINSDIR\nppLocalization\mongolian.xml" "$INSTDIR\localization\mongolian.xml"
+		CopyFiles "$TEMP\nppLocalization\mongolian.xml" "$INSTDIR\localization\mongolian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Norwegian" norwegian
-		CopyFiles "$PLUGINSDIR\nppLocalization\norwegian.xml" "$INSTDIR\localization\norwegian.xml"
+		CopyFiles "$TEMP\nppLocalization\norwegian.xml" "$INSTDIR\localization\norwegian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Nynorsk" nynorsk
-		CopyFiles "$PLUGINSDIR\nppLocalization\nynorsk.xml" "$INSTDIR\localization\nynorsk.xml"
+		CopyFiles "$TEMP\nppLocalization\nynorsk.xml" "$INSTDIR\localization\nynorsk.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Occitan" occitan
-		CopyFiles "$PLUGINSDIR\nppLocalization\occitan.xml" "$INSTDIR\localization\occitan.xml"
+		CopyFiles "$TEMP\nppLocalization\occitan.xml" "$INSTDIR\localization\occitan.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Polish" polish
-		CopyFiles "$PLUGINSDIR\nppLocalization\polish.xml" "$INSTDIR\localization\polish.xml"
+		CopyFiles "$TEMP\nppLocalization\polish.xml" "$INSTDIR\localization\polish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Portuguese" portuguese
-		CopyFiles "$PLUGINSDIR\nppLocalization\portuguese.xml" "$INSTDIR\localization\portuguese.xml"
+		CopyFiles "$TEMP\nppLocalization\portuguese.xml" "$INSTDIR\localization\portuguese.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Punjabi" punjabi
-		CopyFiles "$PLUGINSDIR\nppLocalization\punjabi.xml" "$INSTDIR\localization\punjabi.xml"
+		CopyFiles "$TEMP\nppLocalization\punjabi.xml" "$INSTDIR\localization\punjabi.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kannada" kannada
-		CopyFiles "$PLUGINSDIR\nppLocalization\kannada.xml" "$INSTDIR\localization\kannada.xml"
+		CopyFiles "$TEMP\nppLocalization\kannada.xml" "$INSTDIR\localization\kannada.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Romanian" romanian
-		CopyFiles "$PLUGINSDIR\nppLocalization\romanian.xml" "$INSTDIR\localization\romanian.xml"
+		CopyFiles "$TEMP\nppLocalization\romanian.xml" "$INSTDIR\localization\romanian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Russian" russian
-		CopyFiles "$PLUGINSDIR\nppLocalization\russian.xml" "$INSTDIR\localization\russian.xml"
+		CopyFiles "$TEMP\nppLocalization\russian.xml" "$INSTDIR\localization\russian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Samogitian" samogitian
-		CopyFiles "$PLUGINSDIR\nppLocalization\samogitian.xml" "$INSTDIR\localization\samogitian.xml"
+		CopyFiles "$TEMP\nppLocalization\samogitian.xml" "$INSTDIR\localization\samogitian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Sardinian" sardinian
-		CopyFiles "$PLUGINSDIR\nppLocalization\sardinian.xml" "$INSTDIR\localization\sardinian.xml"
+		CopyFiles "$TEMP\nppLocalization\sardinian.xml" "$INSTDIR\localization\sardinian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Serbian" serbian
-		CopyFiles "$PLUGINSDIR\nppLocalization\serbian.xml" "$INSTDIR\localization\serbian.xml"
+		CopyFiles "$TEMP\nppLocalization\serbian.xml" "$INSTDIR\localization\serbian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Serbian (Cyrillic)" serbianCyrillic
-		CopyFiles "$PLUGINSDIR\nppLocalization\serbianCyrillic.xml" "$INSTDIR\localization\serbianCyrillic.xml"
+		CopyFiles "$TEMP\nppLocalization\serbianCyrillic.xml" "$INSTDIR\localization\serbianCyrillic.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Sinhala" sinhala
-		CopyFiles "$PLUGINSDIR\nppLocalization\sinhala.xml" "$INSTDIR\localization\sinhala.xml"
+		CopyFiles "$TEMP\nppLocalization\sinhala.xml" "$INSTDIR\localization\sinhala.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Slovak" slovak
-		CopyFiles "$PLUGINSDIR\nppLocalization\slovak.xml" "$INSTDIR\localization\slovak.xml"
+		CopyFiles "$TEMP\nppLocalization\slovak.xml" "$INSTDIR\localization\slovak.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Slovak (ANSI)" slovakA
-		CopyFiles "$PLUGINSDIR\nppLocalization\slovakA.xml" "$INSTDIR\localization\slovakA.xml"
+		CopyFiles "$TEMP\nppLocalization\slovakA.xml" "$INSTDIR\localization\slovakA.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Slovenian" slovenian
-		CopyFiles "$PLUGINSDIR\nppLocalization\slovenian.xml" "$INSTDIR\localization\slovenian.xml"
+		CopyFiles "$TEMP\nppLocalization\slovenian.xml" "$INSTDIR\localization\slovenian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Spanish" spanish
-		CopyFiles "$PLUGINSDIR\nppLocalization\spanish.xml" "$INSTDIR\localization\spanish.xml"
+		CopyFiles "$TEMP\nppLocalization\spanish.xml" "$INSTDIR\localization\spanish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Spanish_ar" spanish_ar
-		CopyFiles "$PLUGINSDIR\nppLocalization\spanish_ar.xml" "$INSTDIR\localization\spanish_ar.xml"
+		CopyFiles "$TEMP\nppLocalization\spanish_ar.xml" "$INSTDIR\localization\spanish_ar.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Swedish" swedish
-		CopyFiles "$PLUGINSDIR\nppLocalization\swedish.xml" "$INSTDIR\localization\swedish.xml"
+		CopyFiles "$TEMP\nppLocalization\swedish.xml" "$INSTDIR\localization\swedish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Tagalog" tagalog
-		CopyFiles "$PLUGINSDIR\nppLocalization\tagalog.xml" "$INSTDIR\localization\tagalog.xml"
+		CopyFiles "$TEMP\nppLocalization\tagalog.xml" "$INSTDIR\localization\tagalog.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Tajik" tajik
-		CopyFiles "$PLUGINSDIR\nppLocalization\tajikCyrillic.xml" "$INSTDIR\localization\tajikCyrillic.xml"
+		CopyFiles "$TEMP\nppLocalization\tajikCyrillic.xml" "$INSTDIR\localization\tajikCyrillic.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Tamil" tamil
-		CopyFiles "$PLUGINSDIR\nppLocalization\tamil.xml" "$INSTDIR\localization\tamil.xml"
+		CopyFiles "$TEMP\nppLocalization\tamil.xml" "$INSTDIR\localization\tamil.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Tatar" tatar
-		CopyFiles "$PLUGINSDIR\nppLocalization\tatar.xml" "$INSTDIR\localization\tatar.xml"
+		CopyFiles "$TEMP\nppLocalization\tatar.xml" "$INSTDIR\localization\tatar.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Telugu" telugu
-		CopyFiles "$PLUGINSDIR\nppLocalization\telugu.xml" "$INSTDIR\localization\telugu.xml"
+		CopyFiles "$TEMP\nppLocalization\telugu.xml" "$INSTDIR\localization\telugu.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Thai" thai
-		CopyFiles "$PLUGINSDIR\nppLocalization\thai.xml" "$INSTDIR\localization\thai.xml"
+		CopyFiles "$TEMP\nppLocalization\thai.xml" "$INSTDIR\localization\thai.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Turkish" turkish
-		CopyFiles "$PLUGINSDIR\nppLocalization\turkish.xml" "$INSTDIR\localization\turkish.xml"
+		CopyFiles "$TEMP\nppLocalization\turkish.xml" "$INSTDIR\localization\turkish.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Ukrainian" ukrainian
-		CopyFiles "$PLUGINSDIR\nppLocalization\ukrainian.xml" "$INSTDIR\localization\ukrainian.xml"
+		CopyFiles "$TEMP\nppLocalization\ukrainian.xml" "$INSTDIR\localization\ukrainian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Urdu" urdu
-		CopyFiles "$PLUGINSDIR\nppLocalization\urdu.xml" "$INSTDIR\localization\urdu.xml"
+		CopyFiles "$TEMP\nppLocalization\urdu.xml" "$INSTDIR\localization\urdu.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Uyghur" uyghur
-		CopyFiles "$PLUGINSDIR\nppLocalization\uyghur.xml" "$INSTDIR\localization\uyghur.xml"
+		CopyFiles "$TEMP\nppLocalization\uyghur.xml" "$INSTDIR\localization\uyghur.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Uzbek" uzbek
-		CopyFiles "$PLUGINSDIR\nppLocalization\uzbek.xml" "$INSTDIR\localization\uzbek.xml"
+		CopyFiles "$TEMP\nppLocalization\uzbek.xml" "$INSTDIR\localization\uzbek.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Uzbek (Cyrillic)" uzbekCyrillic
-		CopyFiles "$PLUGINSDIR\nppLocalization\uzbekCyrillic.xml" "$INSTDIR\localization\uzbekCyrillic.xml"
+		CopyFiles "$TEMP\nppLocalization\uzbekCyrillic.xml" "$INSTDIR\localization\uzbekCyrillic.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Vietnamese" vietnamese
-		CopyFiles "$PLUGINSDIR\nppLocalization\vietnamese.xml" "$INSTDIR\localization\vietnamese.xml"
+		CopyFiles "$TEMP\nppLocalization\vietnamese.xml" "$INSTDIR\localization\vietnamese.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Welsh" welsh
-		CopyFiles "$PLUGINSDIR\nppLocalization\welsh.xml" "$INSTDIR\localization\welsh.xml"
+		CopyFiles "$TEMP\nppLocalization\welsh.xml" "$INSTDIR\localization\welsh.xml"
 	${MementoSectionEnd}
 SectionGroupEnd
 

@@ -937,7 +937,7 @@ BEGIN
 END
 
 
-IDD_GOLINE DIALOGEX 26, 41, 261, 88
+IDD_GOLINE DIALOGEX 26, 41, 261, 115		//changed size to allow for extra input
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
 CAPTION "Go To..."
@@ -945,12 +945,15 @@ FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x0
 BEGIN
     CONTROL         "&Line",IDC_RADIO_GOTOLINE,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,5,9,80,10
     CONTROL         "&Offset",IDC_RADIO_GOTOOFFSET,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,98,9,80,10
-    LTEXT           "You are here :",ID_URHERE_STATIC,5,34,95,8,NOT WS_GROUP
-    LTEXT           "0123456789",ID_CURRLINE,100,34,45,8,NOT WS_GROUP
-    LTEXT           "You want to &go to :",ID_UGO_STATIC,5,51,95,8
-    EDITTEXT        ID_GOLINE_EDIT,98,49,71,12,ES_NUMBER
-    LTEXT           "You can't go further than :",ID_NOMORETHAN_STATIC,5,68,92,8,NOT WS_GROUP
-    LTEXT           "0123456789",ID_LASTLINE,100,68,45,8,NOT WS_GROUP
+    CONTROL         "&Column", IDC_RADIO_GOTOCOLUMN, "Button", BS_AUTORADIOBUTTON | WS_TABSTOP, 191,9,80,10	//add radio button to choose option
+    LTEXT           "You are here :",ID_URHERE_STATIC,5,34,95,8,NOT WS_GROUP	//object moved to allow extra input
+    LTEXT           "0123456789",ID_CURRLINE,100,34,90,8,NOT WS_GROUP	//object moved to allow extra input and extended to fit more text
+    LTEXT           "You want to &go to :",ID_UGO_STATIC,5,51,95,8	//object moved to allow extra input
+    EDITTEXT        ID_GOLINE_EDIT,98,49,71,12,ES_NUMBER	//object moved to allow extra input
+    LTEXT			"Column :",ID_COLUMN_STATIC,5,68,54,8 //add label for new input
+    EDITTEXT	    ID_GOCOLUMN_EDIT,98,66,71,12,ES_NUMBER //add input for column	
+    LTEXT           "You can't go further than :",ID_NOMORETHAN_STATIC,5,95,92,8,NOT WS_GROUP //object moved to allow extra input
+    LTEXT           "0123456789",ID_LASTLINE,100,95,90,8,NOT WS_GROUP	//object moved to allow extra input
     DEFPUSHBUTTON   "Go",IDOK,181,48,70,14,BS_NOTIFY
     PUSHBUTTON      "I'm going nowhere",IDCANCEL,181,66,70,14,BS_NOTIFY
 END

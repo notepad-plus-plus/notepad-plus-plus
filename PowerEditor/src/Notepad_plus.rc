@@ -674,6 +674,7 @@ BEGIN
         MENUITEM "ASP",                     IDM_LANG_ASP
         MENUITEM "Assembly",                IDM_LANG_ASM
         MENUITEM "AutoIt",                  IDM_LANG_AU3
+        MENUITEM "BaanC",                  IDM_LANG_BAANC
         MENUITEM "Batch",                   IDM_LANG_BATCH
         MENUITEM "C",                       IDM_LANG_C
         MENUITEM "C#",                      IDM_LANG_CS
@@ -741,7 +742,11 @@ BEGIN
         MENUITEM "Assembly",              IDM_LANG_ASM
         MENUITEM "AutoIt",                IDM_LANG_AU3
     END
-    MENUITEM "Batch",                     IDM_LANG_BATCH
+    POPUP "B"
+    BEGIN
+        MENUITEM "BaanC",                    IDM_LANG_BAANC
+        MENUITEM "Batch",                     IDM_LANG_BATCH
+    END
     POPUP "C"
     BEGIN
         MENUITEM "C",                     IDM_LANG_C

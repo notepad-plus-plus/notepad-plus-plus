@@ -2803,6 +2803,8 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_R;
 		case IDM_LANG_COFFEESCRIPT :
             return L_COFFEESCRIPT;
+		case IDM_LANG_BAANC:
+			return L_BAANC;
 
 		case IDM_LANG_USER :
             return L_USER;
@@ -3932,7 +3934,9 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	if (not isSingleLineAdvancedMode)
 	{
 		comment = commentLineSymbol;
-		comment += aSpace;
+
+		if (!(buf->getLangType() == L_BAANC)) // BaanC standardization - no space.
+			comment += aSpace;
 
 		comment_length = comment.length();
 	}
@@ -3961,7 +3965,9 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	//--FLS: count lines which were un-commented to decide if undoStreamComment() shall be called.
 	int nUncomments = 0;
 	//Some Lexers need line-comments at the beginning of a line.
-	const bool avoidIndent = buf->getLangType() == L_FORTRAN_77;
+	const bool avoidIndent = (buf->getLangType() == L_FORTRAN_77 || buf->getLangType() == L_BAANC);
+	//Some Lexers comment blank lines, per their standards.
+	const bool commentEmptyLines = (buf->getLangType() == L_BAANC);
 
     _pEditView->execute(SCI_BEGINUNDOACTION);
 
@@ -3971,14 +3977,16 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		size_t lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
 		size_t lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
 
-		// empty lines are not commented
-		if (lineIndent == lineEnd)
+		// empty lines are not commented, unless required by the language.
+		if (lineIndent == lineEnd && !commentEmptyLines)
 			continue;
 
 		if (avoidIndent)
 			lineIndent = lineStart;
 
-		size_t linebufferSize = lineEnd - lineIndent + 2;
+		//size_t linebufferSize = lineEnd - lineIndent + 2;
+		// Replace hard coded 2 (commentLineSymbol + aSpace) to comment_length.
+		size_t linebufferSize = lineEnd - lineIndent + comment_length;
 		TCHAR* linebuf = new TCHAR[linebufferSize];
 
 		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);
@@ -3993,9 +4001,11 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 				//--FLS: In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
 				//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
 				//if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
-				if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), comment_length - 1) == 0)
+				//if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), comment_length - 1) == 0)
+				if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length) == 0)
 				{
-					size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : comment_length - 1;
+					//size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : comment_length - 1;
+					size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length;
 
 					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
 					_pEditView->replaceSelWith("");

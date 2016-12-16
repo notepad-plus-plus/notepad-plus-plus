@@ -132,6 +132,7 @@ private :
     HWND _hFontNameCombo;
     HWND _hFontSizeCombo;
 	HWND _hSwitch2ThemeCombo;
+	HWND _hCheckEolFilled;
 
 	HWND _hFgColourStaticText;
 	HWND _hBgColourStaticText;
@@ -195,6 +196,7 @@ private :
 	void enableBg(bool isEnable) {
 		::EnableWindow(_pBgColour->getHSelf(), isEnable);
 		::EnableWindow(_hBgColourStaticText, isEnable);
+		::EnableWindow(_hCheckEolFilled, isEnable);
 	};
 
 	void enableFontName(bool isEnable) {

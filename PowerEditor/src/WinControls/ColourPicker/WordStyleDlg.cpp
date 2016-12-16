@@ -96,6 +96,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 
 			_hFgColourStaticText = ::GetDlgItem(_hSelf, IDC_FG_STATIC);
 			_hBgColourStaticText = ::GetDlgItem(_hSelf, IDC_BG_STATIC);
+			_hCheckEolFilled = ::GetDlgItem(_hSelf, IDC_EOLFILLED_CHECK);
 			_hFontNameStaticText = ::GetDlgItem(_hSelf, IDC_FONTNAME_STATIC);
 			_hFontSizeStaticText = ::GetDlgItem(_hSelf, IDC_FONTSIZE_STATIC);
 			_hStyleInfoStaticText = ::GetDlgItem(_hSelf, IDC_STYLEDESCRIPTION_STATIC);
@@ -227,6 +228,12 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 
 					case IDC_UNDERLINE_CHECK :
 						updateFontStyleStatus(UNDERLINE_STATUS);
+						notifyDataModified();
+						apply();
+						break;
+
+					case IDC_EOLFILLED_CHECK :
+						updateColour(C_BACKGROUND);
 						notifyDataModified();
 						apply();
 						break;
@@ -396,6 +403,8 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 											bool prevThemeState = _isThemeDirty;
 											setStyleListFromLexer(i);
 											_isThemeDirty = prevThemeState;
+											// EOLFILLED check not used for "Global Styles" (i = 0)
+											::ShowWindow(::GetDlgItem(_hSelf, IDC_EOLFILLED_CHECK), (i!=0) ? SW_SHOW : SW_HIDE);
 										}
 										break;
 									}
@@ -530,6 +539,15 @@ void WordStyleDlg::updateColour(bool which)
 			style._colorStyle |= COLORSTYLE_BACKGROUND;
 		else
 			style._colorStyle &= ~COLORSTYLE_BACKGROUND;
+
+		auto isChecked = ::SendMessage(_hCheckEolFilled, BM_GETCHECK, 0, 0);
+		if (isChecked != BST_INDETERMINATE)
+		{
+			if (isChecked == BST_CHECKED)
+				style._eolFilled = true;
+			else
+				style._eolFilled = false;
+		}
 	}
 }
 
@@ -747,6 +765,9 @@ void WordStyleDlg::setVisualFromStyleList()
 		_pBgColour->setColour(style._bgColor);
 		_pBgColour->setEnabled((style._colorStyle & COLORSTYLE_BACKGROUND) != 0);
 		isEnable = true;
+		int eolfilled = 0;
+		eolfilled = style._eolFilled;
+		::SendMessage(_hCheckEolFilled, BM_SETCHECK, eolfilled, 0);
 	}
 	enableBg(isEnable);
 

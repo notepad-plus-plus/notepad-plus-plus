@@ -305,6 +305,7 @@ struct Style
 	COLORREF _fgColor = COLORREF(STYLE_NOT_USED);
 	COLORREF _bgColor = COLORREF(STYLE_NOT_USED);
 	int _colorStyle = COLORSTYLE_ALL;
+	bool _eolFilled = false;
 	const TCHAR* _fontName = nullptr;
 	int _fontStyle = FONTSTYLE_NONE;
 	int _fontSize = STYLE_NOT_USED;
@@ -323,6 +324,7 @@ struct Style
 		_fgColor	  = style._fgColor;
 		_bgColor	  = style._bgColor;
 		_colorStyle   = style._colorStyle;
+		_eolFilled    = style._eolFilled;
 		_fontName	 = style._fontName;
 		_fontSize	 = style._fontSize;
 		_fontStyle	= style._fontStyle;
@@ -346,6 +348,7 @@ struct Style
 			_fgColor	  = style._fgColor;
 			_bgColor	  = style._bgColor;
 			_colorStyle   = style._colorStyle;
+			_eolFilled    = style._eolFilled;
 			_fontName	 = style._fontName;
 			_fontSize	 = style._fontSize;
 			_fontStyle	= style._fontStyle;

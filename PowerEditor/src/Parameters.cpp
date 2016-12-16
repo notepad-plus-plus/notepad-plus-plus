@@ -3334,6 +3334,13 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 			_styleArray[index]._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
 		}
 
+		str = element->Attribute(TEXT("eolfilled"));
+		if (str)
+		{
+			unsigned long result = hexStrVal(str);
+			_styleArray[index]._eolFilled = decStrVal(str);
+		}
+
 		str = element->Attribute(TEXT("colorStyle"));
 		if (str)
 		{
@@ -5988,6 +5995,7 @@ void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, 
 		TCHAR bgStr[7];
 		wsprintf(bgStr, TEXT("%.6X"), rgbVal);
 		element->SetAttribute(TEXT("bgColor"), bgStr);
+		element->SetAttribute(TEXT("eolfilled"), style2Write._eolFilled);
 	}
 
 	if (style2Write._colorStyle != COLORSTYLE_ALL)

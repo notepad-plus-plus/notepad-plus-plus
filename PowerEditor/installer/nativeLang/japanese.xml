@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.0">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="エンコード(&amp;M)"/>
                     <Item menuId="language" name="言語(&amp;L)"/>
                     <Item menuId="settings" name="設定(&amp;T)"/>
+                    <Item menuId="tools" name="ツール(&amp;O)"/>
                     <Item menuId="macro" name="マクロ"/>
                     <Item menuId="run" name="実行"/>
                     <Item idName="Plugins" name="プラグイン"/>
@@ -62,6 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="西ヨーロッパ語圏"/>
                     <Item subMenuId="encoding-vietnamese" name="ベトナム語"/>
                     <Item subMenuId="settings-import" name="インポート"/>
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -305,6 +307,9 @@
                     <Item id="48018" name="コンテキストメニューを編集"/>
                     <Item id="48009" name="ショートカット管理..."/>
                     <Item id="48011" name="環境設定..."/>
+                    <Item id="48501" name="生成..."/>
+                    <Item id="48502" name="ファイルから生成..."/>
+                    <Item id="48503" name="選択範囲から生成しクリップボードへ出力"/>
                     <Item id="49000" name="ファイル名を指定して実行(&amp;R)..."/>
 
                     <Item id="50000" name="関数名補完"/>
@@ -413,6 +418,18 @@
                 <Item id="2"    name="キャンセル"/>
                 <Item id="1904" name="登録..."/>
             </Run>
+
+            <MD5FromFilesDlg title="MD5値をファイルから生成">
+                <Item id="1922" name="ファイルを選択（複数可）..."/>
+                <Item id="1924" name="クリップボードへコピー"/>
+                <Item id="2"    name="閉じる"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="MD5値を生成">
+                <Item id="1932" name="行ごとに生成する"/>
+                <Item id="1934" name="クリップボードへコピー"/>
+                <Item id="2"    name="閉じる"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="スタイル設定">
                 <Item id="2"    name="キャンセル"/>
@@ -728,6 +745,7 @@
                     <Item id="6332" name="大/小文字を区別"/>
                     <Item id="6338" name="単語単位"/>
                     <Item id="6339" name="検索ダイアログの設定に従う"/>
+                    <Item id="6340" name="他のビューも強調する"/>
                     <Item id="6329" name="一致するタグの強調表示"/>
                     <Item id="6327" name="有効"/>
                     <Item id="6328" name="タグの属性を強調表示"/>
@@ -823,14 +841,16 @@
                     <Item id="6252" name="開始"/>
                     <Item id="6255" name="終了"/>
                     <Item id="6256" name="複数行を許可する"/>
+                    <Item id="6161" name="単語を構成する文字"/>
+                    <Item id="6162" name="標準の 単語を構成する文字 を使う"/>
+                    <Item id="6163" name="単語の一部と見なす文字を追加する
+（意味がわからないならば、標準のままにすべきです）"/>
                 </Delimiter>
 
                 <Cloud title="クラウド">
                     <Item id="6262" name="クラウド設定"/>
                     <Item id="6263" name="クラウドを使用しない"/>
                     <Item id="6267" name="クラウドのパスを指定:"/>
-                    <Item id="6261" name="変更を有効にするには再起動が必要です。"/>
-                        <!-- uncommented for japanese.xml -->
                 </Cloud>
 
                 <SearchEngine title="検索エンジン">
@@ -983,5 +1003,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+            <word-chars-list-tip value="この機能を使うと、標準の 単語を構成する文字 のリストに文字を追加できます。ダブルクリックでの単語選択や、「単語単位」での検索に影響します。"/>
+            <word-chars-list-warning-begin value="注意："/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$個の半角スペース"/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$個のタブ"/>
+            <word-chars-list-warning-end value=" が含まれています。"/>
+            <cloud-invalid-warning value="無効なパスです。"/>
+            <cloud-restart-warning value="変更を有効にするには再起動が必要です。"/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

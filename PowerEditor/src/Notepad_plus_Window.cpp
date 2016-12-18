@@ -308,6 +308,9 @@ bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const
 		if (_notepad_plus_plus_core.processIncrFindAccel(msg))
 			return true;
 
+		if (_notepad_plus_plus_core.processFindAccel(msg))
+			return true;
+
 		if (::IsDialogMessageW(_notepad_plus_plus_core._hModelessDlgs[i], msg))
 			return true;
 	}

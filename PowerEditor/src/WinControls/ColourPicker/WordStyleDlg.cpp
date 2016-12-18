@@ -765,9 +765,7 @@ void WordStyleDlg::setVisualFromStyleList()
 		_pBgColour->setColour(style._bgColor);
 		_pBgColour->setEnabled((style._colorStyle & COLORSTYLE_BACKGROUND) != 0);
 		isEnable = true;
-		int eolfilled = 0;
-		eolfilled = style._eolFilled;
-		::SendMessage(_hCheckEolFilled, BM_SETCHECK, eolfilled, 0);
+		::SendMessage(_hCheckEolFilled, BM_SETCHECK, (style._eolFilled ? 1 : 0), 0);
 	}
 	enableBg(isEnable);
 

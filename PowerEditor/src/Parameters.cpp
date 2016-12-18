@@ -3337,8 +3337,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		str = element->Attribute(TEXT("eolfilled"));
 		if (str)
 		{
-			unsigned long result = hexStrVal(str);
-			_styleArray[index]._eolFilled = decStrVal(str);
+			_styleArray[index]._eolFilled = (decStrVal(str) == 0 ? false : true);
 		}
 
 		str = element->Attribute(TEXT("colorStyle"));

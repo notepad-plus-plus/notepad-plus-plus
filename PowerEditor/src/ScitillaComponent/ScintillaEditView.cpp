@@ -450,10 +450,10 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 	    execute(SCI_STYLESETFORE, styleID, styleToSet._fgColor);
 
     if ( styleToSet._colorStyle & COLORSTYLE_BACKGROUND )
+    {
 	    execute(SCI_STYLESETBACK, styleID, styleToSet._bgColor);
-
-    if (styleToSet._colorStyle & COLORSTYLE_BACKGROUND)
         execute(SCI_STYLESETEOLFILLED, styleID, styleToSet._eolFilled);
+    }
 
     if (styleToSet._fontName && lstrcmp(styleToSet._fontName, TEXT("")) != 0)
 	{

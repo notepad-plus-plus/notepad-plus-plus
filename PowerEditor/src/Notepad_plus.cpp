@@ -2629,10 +2629,16 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	}
 }
 
+BOOL Notepad_plus::processFindAccel(MSG *msg) const
+{
+	if (not ::IsChild(_findReplaceDlg.getHSelf(), ::GetFocus()))
+		return FALSE;
+	return ::TranslateAccelerator(_findReplaceDlg.getHSelf(), _accelerator.getFindAccTable(), msg);
+}
 
 BOOL Notepad_plus::processIncrFindAccel(MSG *msg) const
 {
-	if (!::IsChild(_incrementFindDlg.getHSelf(), ::GetFocus()))
+	if (not ::IsChild(_incrementFindDlg.getHSelf(), ::GetFocus()))
 		return FALSE;
 	return ::TranslateAccelerator(_incrementFindDlg.getHSelf(), _accelerator.getIncrFindAccTable(), msg);
 }

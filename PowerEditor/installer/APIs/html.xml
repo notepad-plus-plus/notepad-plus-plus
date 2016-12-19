@@ -546,7 +546,7 @@
 		<KeyWord name="stress" />
 		<KeyWord name="strike" />
 		<KeyWord name="strong" />
-		<KeyWord name="style" />
+		<KeyWord name="style=&quot;&quot;" />
 		<KeyWord name="sub" />
 		<KeyWord name="summary" />
 		<KeyWord name="sup" />

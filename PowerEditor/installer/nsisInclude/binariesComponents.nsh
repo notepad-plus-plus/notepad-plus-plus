@@ -60,8 +60,6 @@ SectionGroup "Plugins" Plugins
 		Delete "$INSTDIR\plugins\PluginManager.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\PluginManager.dll"
-		SetOutPath "$UPDATE_PATH\plugins\Config"
-		File "..\bin\plugins\Config\PluginManager.ini"
 		SetOutPath "$INSTDIR\updater"
 		File "..\bin\updater\gpup.exe"
 	${MementoSectionEnd}
@@ -125,7 +123,6 @@ SectionGroup un.Plugins
 
 	Section un.PluginManager
 		Delete "$INSTDIR\plugins\PluginManager.dll"
-		Delete "$UPDATE_PATH\plugins\Config\PluginManager.ini"
 		Delete "$INSTDIR\updater\gpup.exe"
 		RMDir "$INSTDIR\updater\"
 	SectionEnd	

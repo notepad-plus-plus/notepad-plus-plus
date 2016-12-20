@@ -887,54 +887,28 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (not notifyView)
 				return FALSE;
 
-			// Save the current wordChars before setting a custom list
-			const size_t wordBufferSize = notifyView->execute(SCI_GETWORDCHARS);
-			char *wordChars = new char[wordBufferSize + 1];
-			notifyView->execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(wordChars));
-			wordChars[wordBufferSize] = '\0';
+			// Get the style and make sure it is a hotspot
+			auto style = notifyView->execute(SCI_GETSTYLEAT, notification->position);
+			if (not notifyView->execute(SCI_STYLEGETHOTSPOT, style))
+				break;
 
-			// Set a custom list for detecting links
-			notifyView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.,:?&@=/%#()"));
+			int startPos, endPos, docLen;
+			startPos = endPos = notification->position;
+			docLen = notifyView->getCurrentDocLen();
 
-			auto pos = notifyView->execute(SCI_GETCURRENTPOS);
-			int startPos = static_cast<int>(notifyView->execute(SCI_WORDSTARTPOSITION, pos, false));
-			int endPos = static_cast<int>(notifyView->execute(SCI_WORDENDPOSITION, pos, false));
+			// Walk backwards/forwards to get the contiguous text in the same style
+			while (startPos > 0 && notifyView->execute(SCI_GETSTYLEAT, startPos - 1) == style)
+				startPos--;
+			while (endPos < docLen && notifyView->execute(SCI_GETSTYLEAT, endPos) == style)
+				endPos++;
 
-			notifyView->execute(SCI_SETTARGETRANGE, startPos, endPos);
+			// Select the entire link
+			notifyView->execute(SCI_SETANCHOR, startPos);
+			notifyView->execute(SCI_SETCURRENTPOS, endPos);
 
-			int posFound = static_cast<int32_t>(notifyView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
-			if (posFound != -2)
-			{
-				if (posFound != -1)
-				{
-					startPos = int(notifyView->execute(SCI_GETTARGETSTART));
-					endPos = int(notifyView->execute(SCI_GETTARGETEND));
-				}
+			generic_string url = notifyView->getGenericTextAsString(startPos, endPos);
+			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), url.c_str(), NULL, NULL, SW_SHOW);
 
-				// Prevent buffer overflow in getGenericText().
-				if(endPos - startPos > 2*MAX_PATH)
-					endPos = startPos + 2*MAX_PATH;
-
-				TCHAR currentWord[2*MAX_PATH];
-
-				notifyView->getGenericText(currentWord, MAX_PATH*2, startPos, endPos);
-
-				// This treatment would fail on some valid URLs where there's actually supposed to be a comma or parenthesis at the end.
-				size_t lastCharIndex = _tcsnlen(currentWord, MAX_PATH*2) - 1;
-				if ((currentWord[lastCharIndex] == ',' || currentWord[lastCharIndex] == ')' || currentWord[lastCharIndex] == '('))
-					currentWord[lastCharIndex] = '\0';
-
-				::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
-
-				// Re-set the previous wordChar list
-				notifyView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(wordChars));
-
-				// Select the entire link
-				notifyView->execute(SCI_SETANCHOR, startPos);
-				notifyView->execute(SCI_SETCURRENTPOS, endPos);
-			}
-
-			delete[] wordChars;
 			break;
 		}
 

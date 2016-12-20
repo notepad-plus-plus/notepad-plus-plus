@@ -813,7 +813,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			bool isMacroRecording = (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS);
 			NppParameters *nppParamInst = NppParameters::getInstance();
 			FindHistory & findHistory = nppParamInst->getFindHistory();
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 //Single actions
 				case IDCANCEL:
@@ -843,6 +843,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					nppParamInst->_isFindReplacing = false;
 				}
 				return TRUE;
+
+				case IDM_SEARCH_FIND:
+					goToCenter();
+					return TRUE;
 
 				case IDREPLACE :
 				{

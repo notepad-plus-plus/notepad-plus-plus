@@ -27,12 +27,12 @@
 #pragma once
 
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.2.2")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.2")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("7.22\0")
-#define VERSION_DIGITALVALUE 7, 2, 2, 0
+#define VERSION_VALUE TEXT("7.2\0")
+#define VERSION_DIGITALVALUE 7, 2, 0, 0
 
 
 
@@ -303,6 +303,9 @@
 #define ID_NOMORETHAN_STATIC   (IDD_GOLINE + 6)
 #define IDC_RADIO_GOTOLINE   (IDD_GOLINE + 7)
 #define IDC_RADIO_GOTOOFFSET   (IDD_GOLINE + 8)
+#define IDC_RADIO_GOTOCOLUMN	(IDD_GOLINE + 9)
+#define ID_COLUMN_STATIC	(IDD_GOLINE + 10)
+#define ID_GOCOLUMN_EDIT	(IDD_GOLINE + 11)
 
 // voir columnEditor_rc.h
 //#define IDD_COLUMNEDIT   2020

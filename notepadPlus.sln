@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Notepad++", "PowerEditor\visual.net\notepadPlus.vcxproj", "{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Unicode Debug|x64 = Unicode Debug|x64
+		Unicode Debug|x86 = Unicode Debug|x86
+		Unicode Release|x64 = Unicode Release|x64
+		Unicode Release|x86 = Unicode Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|x64.ActiveCfg = Unicode Debug|x64
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|x64.Build.0 = Unicode Debug|x64
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|x86.ActiveCfg = Unicode Debug|Win32
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|x86.Build.0 = Unicode Debug|Win32
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|x64.ActiveCfg = Unicode Release|x64
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|x64.Build.0 = Unicode Release|x64
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|x86.ActiveCfg = Unicode Release|Win32
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|x86.Build.0 = Unicode Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

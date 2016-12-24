@@ -45,7 +45,6 @@ void Notepad_plus::macroPlayback(Macro macro)
 {
 	LongRunningOperation op;
 
-	_playingBackMacro = true;
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 
 	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)
@@ -57,7 +56,6 @@ void Notepad_plus::macroPlayback(Macro macro)
 	}
 
 	_pEditView->execute(SCI_ENDUNDOACTION);
-	_playingBackMacro = false;
 }
 
 void Notepad_plus::command(int id)
@@ -862,7 +860,9 @@ void Notepad_plus::command(int id)
 		case IDM_MACRO_PLAYBACKRECORDEDMACRO:
 			if (!_recordingMacro) // if we're not currently recording, then playback the recorded keystrokes
 			{
+				_playingBackMacro = true;
 				macroPlayback(_macro);
+				_playingBackMacro = false;
 			}
 			break;
 

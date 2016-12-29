@@ -2886,6 +2886,9 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+
+			// Send sizing info to make window fit (specially to show tool bar. Fixed issue #2600)
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 		}
 		break;
 
@@ -2907,6 +2910,9 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+
+			// Send sizing info to make window fit (specially to show tool bar. Fixed issue #2600)
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			fileOpen();
 		}
 		break;

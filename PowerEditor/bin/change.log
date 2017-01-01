@@ -1,8 +1,10 @@
-Notepad++ 7.2.2 bug-fixes:
+Notepad++ 7.3 new feature & bug-fixes:
 
-1.  Fix auto-updater setting toggles between startups bug.
-2.  Fix "Replace All" button shortcut accelerator in Replce dialog not working regression.
-3.  Fix unusual plugin update prompt after upgrade to 7.2.1 version.
+1.  Add MD5 functionalities.
+2.  Fix the problem of launch Notepad++ with Admin right after installation.
+3.  Fix a problem of recent file history - add to recent file history only if file is removed from all the views.
+4.  Get back Find dialog while you lost it (in a multi-screen + laptop configuration).
+5.  Fix long hyperlinks truncated problem.
 
 
 Included plugins:

@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="E&amp;ncoding"/>
                     <Item menuId="language" name="&amp;Language"/>
                     <Item menuId="settings" name="Se&amp;ttings"/>
+                    <Item menuId="tools" name="To&amp;ols"/>
                     <Item menuId="macro" name="Macro"/>
                     <Item menuId="run" name="Run"/>
                     <Item idName="Plugins" name="Plugins"/>
@@ -62,6 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
                     <Item subMenuId="settings-import"  name="Import"/>
+					<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -292,6 +294,9 @@
                     <Item id="48018" name="Edit Popup ContextMenu"/>
                     <Item id="48009" name="Shortcut Mapper..."/>
                     <Item id="48011" name="Preferences..."/>
+                    <Item id="48501" name="Generate..."/>
+                    <Item id="48502" name="Generate from files..."/>
+                    <Item id="48503" name="Generate into clipboard"/>
                     <Item id="49000" name="&amp;Run..."/>
 
                     <Item id="50000" name="Function Completion"/>
@@ -400,6 +405,18 @@
                 <Item id="2"    name="Cancel"/>
                 <Item id="1904" name="Save..."/>
             </Run>
+
+            <MD5FromFilesDlg title="Generate MD5 digest from files">
+                <Item id="1922" name="Choose files to generate MD5..."/>
+                <Item id="1924" name="Copy to Clipboard"/>
+                <Item id="2"    name="Close"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Generate MD5 digest">
+                <Item id="1932" name="Treat each line as a separate string"/>
+                <Item id="1934" name="Copy to Clipboard"/>
+                <Item id="2"    name="Close"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="Style Configurator">
                 <Item id="2"    name="Cancel"/>

@@ -551,7 +551,7 @@ struct NewDocDefaultSettings final
 };
 
 
-struct LangMenuItem
+struct LangMenuItem final
 {
 	LangType _langType;
 	int	_cmdID;
@@ -561,31 +561,29 @@ struct LangMenuItem
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
 };
 
-struct PrintSettings {
-	bool _printLineNumber;
-	int _printOption;
+struct PrintSettings final {
+	bool _printLineNumber = true;
+	int _printOption = SC_PRINT_COLOURONWHITE;
 
 	generic_string _headerLeft;
 	generic_string _headerMiddle;
 	generic_string _headerRight;
 	generic_string _headerFontName;
-	int _headerFontStyle;
-	int _headerFontSize;
+	int _headerFontStyle = 0;
+	int _headerFontSize = 0;
 
 	generic_string _footerLeft;
 	generic_string _footerMiddle;
 	generic_string _footerRight;
 	generic_string _footerFontName;
-	int _footerFontStyle;
-	int _footerFontSize;
+	int _footerFontStyle = 0;
+	int _footerFontSize = 0;
 
 	RECT _marge;
 
-	PrintSettings() : _printLineNumber(true), _printOption(SC_PRINT_NORMAL), _headerLeft(TEXT("")), _headerMiddle(TEXT("")), _headerRight(TEXT("")),\
-		_headerFontName(TEXT("")), _headerFontStyle(0), _headerFontSize(0),  _footerLeft(TEXT("")), _footerMiddle(TEXT("")), _footerRight(TEXT("")),\
-		_footerFontName(TEXT("")), _footerFontStyle(0), _footerFontSize(0) {
-			_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
-		};
+	PrintSettings() {
+		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
+	};
 
 	bool isHeaderPresent() const {
 		return ((_headerLeft != TEXT("")) || (_headerMiddle != TEXT("")) || (_headerRight != TEXT("")));

@@ -463,7 +463,7 @@ public:
 		return true;
 	};
 
-	long getSelectedLength() const
+	long getUnicodeSelectedLength() const
 	{
 		// return -1 if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))

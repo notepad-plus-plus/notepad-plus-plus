@@ -46,8 +46,9 @@ MenuPosition menuPos[] = {
 	{ 4, -1, -1, "encoding" },
 	{ 5, -1, -1, "language" },
 	{ 6, -1, -1, "settings" },
-	{ 7, -1, -1, "macro" },
-	{ 8, -1, -1, "run" },
+	{ 7, -1, -1, "tools" },
+	{ 8, -1, -1, "macro" },
+	{ 9, -1, -1, "run" },
 
 	{ 0,  2, -1, "file-openFolder" },
 	{ 0, 12, -1, "file-closeMore" },
@@ -97,6 +98,8 @@ MenuPosition menuPos[] = {
 	{ 4,  5, 15, "encoding-vietnamese" },
 
 	{ 6,  4, -1, "settings-import" },
+
+	{ 7,  0, -1, "tools-md5" },
 	{ -1, -1, -1, "" } // End of array
 };
 

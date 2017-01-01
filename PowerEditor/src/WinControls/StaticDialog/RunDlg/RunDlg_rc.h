@@ -15,8 +15,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef RUN_DLG_RC_H
-#define RUN_DLG_RC_H
+#pragma once
 
 #define	IDD_RUN_DLG      1900
 #define	IDC_BUTTON_FILE_BROWSER	(IDD_RUN_DLG + 1)
@@ -24,4 +23,3 @@
 #define	IDC_MAINTEXT_STATIC     (IDD_RUN_DLG + 3)
 #define	IDC_BUTTON_SAVE         (IDD_RUN_DLG + 4)
 
-#endif //RUN_DLG_RC_H

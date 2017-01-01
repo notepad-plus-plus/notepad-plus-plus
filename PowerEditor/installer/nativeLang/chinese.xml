@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="編碼(&amp;N)"/>
                     <Item menuId="language" name="語言(&amp;L)"/>
                     <Item menuId="settings" name="設定(&amp;T)"/>
+					<Item menuId="tools" name="工具(&amp;O)"/>
                     <Item menuId="macro" name="巨集(&amp;M)"/>
                     <Item menuId="run" name="執行(&amp;R)"/>
                     <Item idName="Plugins" name="外掛(&amp;P)"/>
@@ -62,7 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="西歐語系"/>
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
                     <Item subMenuId="settings-import"  name="匯入"/>
-
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -295,6 +296,9 @@
                     <Item id="48018" name="編輯彈跳選單"/>
                     <Item id="48009" name="快速鍵管理..."/>
                     <Item id="48011" name="使用者自訂..."/>
+                    <Item id="48501" name="計算生成..."/>
+                    <Item id="48502" name="從檔案生成..."/>
+                    <Item id="48503" name="直接生成至剪貼簿內"/>
                     <Item id="49000" name="執行(&amp;R)..."/>
                     <Item id="50000" name="函式自動完成"/>
                     <Item id="50001" name="字詞自動完成"/>
@@ -400,6 +404,18 @@
                 <Item id="2" name="取消"/>
                 <Item id="1904" name="儲存"/>
             </Run>
+			
+            <MD5FromFilesDlg title="從檔案計算生成 MD5">
+                <Item id="1922" name="從檔案生成 MD5..."/>
+                <Item id="1924" name="複製到剪貼簿"/>
+                <Item id="2"    name="關閉"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="計算生成 MD5">
+                <Item id="1932" name="將每一行視為獨立的字串"/>
+                <Item id="1934" name="複製到剪貼簿"/>
+                <Item id="2"    name="關閉"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="設定程式語言格式">
                 <Item id="2" name="取消"/>

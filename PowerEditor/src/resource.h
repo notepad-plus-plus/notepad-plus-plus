@@ -283,16 +283,17 @@
 #define IDC_EMAIL_ADDR        1703
 #define IDC_ONLINEHELP_ADDR 1704
 #define IDC_AUTHOR_NAME 1705
-#define IDC_BUILD_DATETIME 1706        //LS: CompileDateInAboutDialog: Automatically insert compile date as additional version info in About-dialog!
+#define IDC_BUILD_DATETIME 1706
 #define IDC_VERSION_BIT 1707
 
 #define IDD_DEBUGINFOBOX 1750
 #define IDC_DEBUGINFO_EDIT 1751
 #define IDC_DEBUGINFO_COPYLINK 1752
 
-//#define IDD_USER_DEFINE_BOX                  1800
-
-//#define IDD_RUN_DLG      1900
+//#define IDD_USER_DEFINE_BOX       1800
+//#define IDD_RUN_DLG               1900
+//#define IDD_MD5FROMFILES_DLG      1920
+//#define IDD_MD5FROMTEXT_DLG       1930
 
 #define IDD_GOLINE        2000
 #define ID_GOLINE_EDIT    (IDD_GOLINE + 1)
@@ -470,6 +471,7 @@
 #define MENUINDEX_FORMAT   4
 #define MENUINDEX_LANGUAGE 5
 #define MENUINDEX_SETTINGS 6
-#define MENUINDEX_MACRO    7
-#define MENUINDEX_RUN      8
-#define MENUINDEX_PLUGINS  9
+#define MENUINDEX_TOOLS    7
+#define MENUINDEX_MACRO    8
+#define MENUINDEX_RUN      9
+#define MENUINDEX_PLUGINS  10

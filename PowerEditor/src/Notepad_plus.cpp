@@ -630,6 +630,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
     _aboutDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_debugInfoDlg.init(_pPublicInterface->getHinst(), hwnd, _isAdministrator, _pluginsManager.getLoadedPluginNames());
 	_runDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_md5FromFilesDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_md5FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_runMacroDlg.init(_pPublicInterface->getHinst(), hwnd);
 
     //--User Define Dialog Section--//
@@ -3045,7 +3047,7 @@ void Notepad_plus::updateStatusBar()
 
 	_pEditView->getSelectedCount(selByte, selLine);
 
-	long selected_length = _pEditView->getSelectedLength();
+	long selected_length = _pEditView->getUnicodeSelectedLength();
 	if (selected_length != -1)
 		wsprintf(strSel, TEXT("Sel : %s | %s"), commafyInt(selected_length).c_str(), commafyInt(selLine).c_str());
 	else
@@ -5504,6 +5506,16 @@ bool Notepad_plus::reloadLang()
 	if (_runDlg.isCreated())
 	{
 		_nativeLangSpeaker.changeDlgLang(_runDlg.getHSelf(), "Run");
+	}
+
+	if (_md5FromFilesDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_md5FromFilesDlg.getHSelf(), "MD5FromFilesDlg");
+	}
+
+	if (_md5FromTextDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_md5FromTextDlg.getHSelf(), "MD5FromTextDlg");
 	}
 
 	if (_runMacroDlg.isCreated())

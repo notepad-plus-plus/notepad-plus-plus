@@ -15,15 +15,11 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef RUN_DLG_H
-#define RUN_DLG_H
+#pragma once
 
 #include <oleacc.h>
 #include "Common.h"
-
-#ifndef RUN_DLG_RC_H
 #include "RunDlg_rc.h"
-#endif //RUN_DLG_RC_H
 
 #define CURRENTWORD_MAXLENGTH 2048
 
@@ -70,4 +66,3 @@ private :
 	void removeTextFromCombo(const TCHAR *txt2Remove) const;
 };
 
-#endif //RUN_DLG_H

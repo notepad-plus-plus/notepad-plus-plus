@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="E&amp;ncodage"/>
                     <Item menuId="language" name="&amp;Langage"/>
                     <Item menuId="settings" name="&amp;Paramétrage"/>
+					<Item menuId="tools" name="&amp;Outils"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xécution"/>
                     <Item idName="Plugins" name="&amp;Compléments"/>
@@ -62,6 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Langues d’Europe occidentale"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamien"/>
                     <Item subMenuId="settings-import"  name="Importer"/>
+					<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -91,8 +93,8 @@
                     <Item id="41015" name="Enregistrer une copie..."/>
                     <Item id="41016" name="Supprimer"/>
                     <Item id="41017" name="Renommer..."/>
-																				<Item id="41021" name="Ouvrir le fichier récemment fermé"/>
-																				<Item id="41022" name="Ouvrir Dossier en tant qu'Espace de travail"/>
+                    <Item id="41021" name="Ouvrir le fichier récemment fermé"/>
+                    <Item id="41022" name="Ouvrir Dossier en tant qu'Espace de travail"/>
                     <Item id="42001" name="Cou&amp;per"/>
                     <Item id="42002" name="&amp;Copier"/>
                     <Item id="42003" name="&amp;Annuler"/>
@@ -245,7 +247,7 @@
                     <Item id="44083" name="Panneau de Projet #3"/>
                     <Item id="44080" name="Plan du Document"/>
                     <Item id="44084" name="Liste des Fonctions"/>
-																				<Item id="44085" name="Dossier en tant qu'Espace de travail"/>
+                    <Item id="44085" name="Dossier en tant qu'Espace de travail"/>
                     <Item id="44086" name="Onglet 1"/>
                     <Item id="44087" name="Onglet 2"/>
                     <Item id="44088" name="Onglet 3"/>
@@ -292,6 +294,9 @@
                     <Item id="48006" name="Importer un thème..."/>
                     <Item id="48009" name="Raccourcis clavier..."/>
                     <Item id="48011" name="Préférences..."/>
+                    <Item id="48501" name="Générer..."/>
+                    <Item id="48502" name="Générer depuis les fichiers..."/>
+                    <Item id="48503" name="Générer dans le presse-papiers"/>
                     <Item id="48016" name="Modifier/Supprimer Macro..."/>
                     <Item id="48017" name="Modifier/Supprimer Commande..."/>
                     <Item id="48018" name="Éditer le menu contextuel"/>
@@ -395,6 +400,18 @@
                 <Item id="1904" name="Enregistrer..."/>
                 <Item id="2" name="Annuler"/>
             </Run>
+			
+            <MD5FromFilesDlg title="Calculer les empreintes md5 depuis les fichiers">
+                <Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
+                <Item id="1924" name="Copier dans le presse-papiers"/>
+                <Item id="2"    name="Fermer"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Calculer l'empreinte md5">
+                <Item id="1932" name="Chaque ligne est une chaine de caractères"/>
+                <Item id="1934" name="Copier dans le presse-papiers"/>
+                <Item id="2"    name="Fermer"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="Configurateur de coloration syntaxique">
                 <Item id="2" name="Annuler"/>
@@ -616,7 +633,7 @@
                     <Item id="6118" name="Cacher"/>
                     <Item id="6119" name="Multiligne"/>
                     <Item id="6120" name="Verticale"/>
-																				<Item id="6121" name="Quitter lors de la fermeture de dernier onglet"/>
+                    <Item id="6121" name="Quitter lors de la fermeture de dernier onglet"/>
                     <Item id="6122" name="Cachée (Alt ou F10 pour afficher)"/>
                     <Item id="6123" name="Langue"/>
                     <Item id="6125" name="Commutateur de documents"/>

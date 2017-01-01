@@ -855,7 +855,17 @@ BEGIN
         MENUITEM "Edit Popup ContextMenu",      IDM_SETTING_EDITCONTEXTMENU
     END
 
-    POPUP "&Macro"
+	POPUP "T&ools"
+    BEGIN
+        POPUP "MD5"
+		BEGIN
+			MENUITEM "Generate...",                         IDM_TOOL_MD5_GENERATE
+			MENUITEM "Generate from files...",             IDM_TOOL_MD5_GENERATEFROMFILE
+			MENUITEM "Generate into clipboard",             IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
+        END
+    END
+	
+	POPUP "&Macro"
     BEGIN
         MENUITEM "Start Re&cording",                   IDM_MACRO_STARTRECORDINGMACRO
         MENUITEM "S&top Recording",                    IDM_MACRO_STOPRECORDINGMACRO
@@ -868,7 +878,17 @@ BEGIN
     BEGIN
         MENUITEM "&Run...",    IDM_EXECUTE
     END
-
+/*
+    POPUP "Tools"
+    BEGIN
+        POPUP "MD5"
+		BEGIN
+			MENUITEM "Generate...",                         IDM_TOOL_MD5_GENERATE
+			MENUITEM "Generate from a file...",             IDM_TOOL_MD5_GENERATEFROMFILE
+			MENUITEM "Generate into clipboard",             IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
+        END
+    END
+*/
     POPUP "&?"
     BEGIN
         //MENUITEM "Help Contents",              IDM_HELP

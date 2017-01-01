@@ -38,6 +38,7 @@
 #include "fileBrowser.h"
 #include "Sorters.h"
 #include "LongRunningOperation.h"
+#include "md5.h"
 
 using namespace std;
 
@@ -2471,6 +2472,49 @@ void Notepad_plus::command(int id)
 			switchEditViewTo(view_to_focus);
 			break;
 		}
+
+		case IDM_TOOL_MD5_GENERATE:
+		{
+			bool isFirstTime = !_md5FromTextDlg.isCreated();
+			_md5FromTextDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_md5FromTextDlg.getHSelf(), "MD5FromTextDlg");
+		}
+		break;
+
+		case IDM_TOOL_MD5_GENERATEFROMFILE:
+		{
+			bool isFirstTime = !_md5FromFilesDlg.isCreated();
+			_md5FromFilesDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_md5FromFilesDlg.getHSelf(), "MD5FromFilesDlg");
+		}
+		break;
+
+		case IDM_TOOL_MD5_GENERATEINTOCLIPBOARD:
+		{
+			if (_pEditView->execute(SCI_GETSELECTIONS) == 1)
+			{
+				size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
+				size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+
+				int32_t strLen = static_cast<int32_t>(selectionEnd - selectionStart);
+				if (strLen)
+				{
+					int strSize = strLen + 1;
+					char *selectedStr = new char[strSize];
+					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
+
+					MD5 md5;
+					std::string md5ResultA = md5.digestString(selectedStr);
+					std::wstring md5ResultW(md5ResultA.begin(), md5ResultA.end());
+					str2Clipboard(md5ResultW, _pPublicInterface->getHSelf());
+					
+					delete [] selectedStr;
+				}
+			}
+		}
+		break;
 
 		case IDM_DEBUGINFO:
 		{

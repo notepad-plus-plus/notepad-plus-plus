@@ -125,6 +125,7 @@
 #endif //SIZE_DLG_H
 
 #include "localization.h"
+#include "md5Dlgs.h"
 #include <vector>
 #include <iso646.h>
 
@@ -346,6 +347,8 @@ private:
     AboutDlg _aboutDlg;
 	DebugInfoDlg _debugInfoDlg;
 	RunDlg _runDlg;
+	MD5FromFilesDlg _md5FromFilesDlg;
+	MD5FromTextDlg _md5FromTextDlg;
     GoToLineDlg _goToLineDlg;
 	ColumnEditorDlg _colEditorDlg;
 	WordStyleDlg _configStyleDlg;

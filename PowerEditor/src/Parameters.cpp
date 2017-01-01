@@ -72,7 +72,7 @@ struct ScintillaKeyDefinition
 */
 static const WinMenuKeyDefinition winKeyDefs[] =
 {
-	// V_KEY,    COMMAND_ID,                                    Ctrl,  Alt,   Shift, cmdName
+	// V_KEY,    COMMAND_ID,                                   Ctrl,  Alt,   Shift, cmdName
 	// -------------------------------------------------------------------------------------
 	//
 	{ VK_N,       IDM_FILE_NEW,                                 true,  false, false, nullptr },
@@ -97,7 +97,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_P,       IDM_FILE_PRINT,                               true,  false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_PRINTNOW,                            false, false, false, nullptr },
 	{ VK_F4,      IDM_FILE_EXIT,                                false, true,  false, nullptr },
-	{ VK_T,       IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false, true,  TEXT("Restore Recent Closed File")},
+	{ VK_T,      IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false,  true, TEXT("Restore Recent Closed File")},
 
 //	{ VK_NULL,    IDM_EDIT_UNDO,                                false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_REDO,                                false, false, false, nullptr },
@@ -1120,8 +1120,8 @@ bool NppParameters::load()
 	}
 	else
 	{
-		getUserParametersFromXmlTree();
-	}
+				getUserParametersFromXmlTree();
+		}
 
 	//----------------------------//
 	// stylers.xml : for per user //
@@ -2223,6 +2223,22 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("dotMatchesNewline"));
 	if (boolStr)
 		_findHistory._dotMatchesNewline = !lstrcmp(TEXT("yes"), boolStr);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("finderUnique"));
+	if (boolStr)
+		_findHistory._isFinderUnique = !lstrcmp(TEXT("yes"), boolStr);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("finderOnlyOne"));
+	if (boolStr)
+		_findHistory._isFinderOnlyOne = !lstrcmp(TEXT("yes"), boolStr);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("finderOneIfMultipleFinds"));
+	if (boolStr)
+		_findHistory._isFinderOnlyOneLineIfMultipleFinds = !lstrcmp(TEXT("yes"), boolStr);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("finderAutoCloseEmpty"));
+	if (boolStr)
+		_findHistory._isAutoCloseEmptyFinder = !lstrcmp(TEXT("yes"), boolStr);
 }
 
 void NppParameters::feedShortcut(TiXmlNode *node)
@@ -3163,8 +3179,8 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 					id = globalMappper().keywordIdMapper[keywordsName];
 					if (_tcslen(kwl) < max_char)
 					{
-						lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[id], kwl);
-					}
+					lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[id], kwl);
+				}
 					else
 					{
 						lstrcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[id], TEXT("imported string too long, needs to be < max_char(30720)"));
@@ -5136,12 +5152,12 @@ void NppParameters::createXmlTreeFromGUIParams()
 		pStr = (_nppGUI._tabStatus & TAB_HIDE) ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("hide"), pStr);
 
-		pStr = (_nppGUI._tabStatus & TAB_QUITONEMPTY) ? TEXT("yes") : TEXT("no");
+			pStr = (_nppGUI._tabStatus & TAB_QUITONEMPTY) ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("quitOnEmpty"), pStr);
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
-	{
+		{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("ScintillaViewsSplitter"));
 		const TCHAR *pStr = _nppGUI._splitterPos == POS_VERTICAL ? TEXT("vertical") : TEXT("horizontal");
@@ -5168,7 +5184,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	}
 
 	// <GUIConfig name = "AppPosition" x = "3900" y = "446" width = "2160" height = "1380" isMaximized = "no" / >
-	{
+		{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("AppPosition"));
 		GUIConfigElement->SetAttribute(TEXT("x"), _nppGUI._appPos.left);
@@ -5179,7 +5195,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	}
 
 	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022">no</GUIConfig>
-	{
+		{
 		TiXmlElement *element = insertGUIConfigBoolNode(newGUIRoot, TEXT("noUpdate"), !_nppGUI._autoUpdateOpt._doAutoUpdate);
 		element->SetAttribute(TEXT("intervalDays"), _nppGUI._autoUpdateOpt._intervalDays);
 		element->SetAttribute(TEXT("nextUpdateDate"), _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
@@ -5187,22 +5203,22 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="Auto-detection">yes</GUIConfig>	
 	{
-		const TCHAR *pStr = TEXT("no");
-		switch (_nppGUI._fileAutoDetection)
-		{
-		case cdEnabled:
-			pStr = TEXT("yes");
-			break;
-		case cdAutoUpdate:
-			pStr = TEXT("auto");
-			break;
-		case cdGo2end:
-			pStr = TEXT("Update2End");
-			break;
-		case cdAutoUpdateGo2end:
-			pStr = TEXT("autoUpdate2End");
-			break;
-		}
+			const TCHAR *pStr = TEXT("no");
+			switch (_nppGUI._fileAutoDetection)
+			{
+				case cdEnabled:
+					pStr = TEXT("yes");
+					break;
+				case cdAutoUpdate:
+					pStr = TEXT("auto");
+					break;
+				case cdGo2end:
+					pStr = TEXT("Update2End");
+					break;
+				case cdAutoUpdateGo2end:
+					pStr = TEXT("autoUpdate2End");
+					break;
+			}
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Auto-detection"));
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
@@ -5228,7 +5244,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement * ele = insertGUIConfigBoolNode(newGUIRoot, TEXT("TagsMatchHighLight"), _nppGUI._enableTagsMatchHilite);
 		ele->SetAttribute(TEXT("TagAttrHighLight"), _nppGUI._enableTagAttrsHilite ? TEXT("yes") : TEXT("no"));
 		ele->SetAttribute(TEXT("HighLightNonHtmlZone"), _nppGUI._enableHiliteNonHTMLZone ? TEXT("yes") : TEXT("no"));
-	}
+		}
 
 	// <GUIConfig name = "RememberLastSession">yes< / GUIConfig>
 	{
@@ -5238,7 +5254,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	// <GUIConfig name = "DetectEncoding">yes< / GUIConfig>
 	{
 		insertGUIConfigBoolNode(newGUIRoot, TEXT("DetectEncoding"), _nppGUI._detectEncoding);
-	}
+		}
 
 	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" / >
 	{
@@ -5260,7 +5276,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	}
 
 	// <GUIConfig name="Print" lineNumber="no" printOption="0" headerLeft="$(FULL_CURRENT_PATH)" headerMiddle="" headerRight="$(LONG_DATE) $(TIME)" headerFontName="IBMPC" headerFontStyle="1" headerFontSize="8" footerLeft="" footerMiddle="-$(CURRENT_PRINTING_PAGE)-" footerRight="" footerFontName="" footerFontStyle="0" footerFontSize="9" margeLeft="0" margeTop="0" margeRight="0" margeBottom="0" />
-	{
+		{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Print"));
 		writePrintSetting(GUIConfigElement);
@@ -5290,11 +5306,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="URL">2</GUIConfig>
 	{
-		const TCHAR *pStr = TEXT("0");
-		if (_nppGUI._styleURL == 1)
-			pStr = TEXT("1");
-		else if (_nppGUI._styleURL == 2)
-			pStr = TEXT("2");
+			const TCHAR *pStr = TEXT("0");
+			if (_nppGUI._styleURL == 1)
+				pStr = TEXT("1");
+			else if (_nppGUI._styleURL == 2)
+				pStr = TEXT("2");
 
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("URL"));
@@ -5341,14 +5357,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("htmlXmlTag"), _nppGUI._matchedPairConf._doHtmlXmlTag ? TEXT("yes") : TEXT("no"));
 
 		TiXmlElement hist_element{ TEXT("") };
-		hist_element.SetValue(TEXT("UserDefinePair"));
-		for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)
-		{
-			int open = _nppGUI._matchedPairConf._matchedPairs[i].first;
-			int close = _nppGUI._matchedPairConf._matchedPairs[i].second;
+			hist_element.SetValue(TEXT("UserDefinePair"));
+			for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)
+			{
+				int open = _nppGUI._matchedPairConf._matchedPairs[i].first;
+				int close = _nppGUI._matchedPairConf._matchedPairs[i].second;
 
-			(hist_element.ToElement())->SetAttribute(TEXT("open"), open);
-			(hist_element.ToElement())->SetAttribute(TEXT("close"), close);
+				(hist_element.ToElement())->SetAttribute(TEXT("open"), open);
+				(hist_element.ToElement())->SetAttribute(TEXT("close"), close);
 			GUIConfigElement->InsertEndChild(hist_element);
 		}
 	}
@@ -5502,6 +5518,11 @@ bool NppParameters::writeFindHistory()
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparencyMode"), _findHistory._transparencyMode);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparency"), _findHistory._transparency);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("dotMatchesNewline"),		_findHistory._dotMatchesNewline?TEXT("yes"):TEXT("no"));
+
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("finderUnique"), _findHistory._isFinderUnique ? TEXT("yes") : TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("finderOnlyOne"), _findHistory._isFinderOnlyOne ? TEXT("yes") : TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("finderAutoCloseEmpty"), _findHistory._isAutoCloseEmptyFinder ? TEXT("yes") : TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("finderOneIfMultipleFinds"), _findHistory._isFinderOnlyOneLineIfMultipleFinds ? TEXT("yes") : TEXT("no"));
 
 	TiXmlElement hist_element{TEXT("")};
 

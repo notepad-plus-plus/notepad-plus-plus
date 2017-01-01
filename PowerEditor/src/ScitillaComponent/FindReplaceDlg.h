@@ -85,6 +85,10 @@ struct FindOption
 	bool _isInHiddenDir = false;
 	bool _dotMatchesNewline = false;
 	bool _isMatchLineNumber = true; // only for Find in Folder
+	bool _isFinderUnique = true;
+	bool _isFinderOnlyOne = false;
+	bool _isFinderOnlyOneLineIfMultipleFinds = false;
+	bool _isAutoCloseEmptyFinder = false;
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -110,8 +114,8 @@ class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
 public:
 	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
-		_markingsStruct._length = 0;
-		_markingsStruct._markings = NULL;
+		_MarkingsStruct._length = 0;
+		_MarkingsStruct._markings = NULL;
 	};
 
 	~Finder() {
@@ -155,7 +159,7 @@ private:
 	std::vector<SearchResultMarking> _markings1;
 	std::vector<SearchResultMarking> _markings2;
 	std::vector<SearchResultMarking>* _pMainMarkings = &_markings1;
-	SearchResultMarkings _markingsStruct;
+	SearchResultMarkings _MarkingsStruct;
 
 	ScintillaEditView _scintView;
 	unsigned int _nbFoundFiles = 0;
@@ -261,6 +265,8 @@ public :
 	void findAllIn(InWhat op);
 	void setSearchText(TCHAR * txt2find);
 
+	void removeAllFinders();
+
 	void gotoNextFoundResult(int direction = 0) {if (_pFinder) _pFinder->gotoNextFoundResult(direction);};
 
 	void putFindResult(int result) {
@@ -298,9 +304,9 @@ public :
 	}
 	void beginNewFilesSearch()
 	{
-		_pFinder->beginNewFilesSearch();
-		_pFinder->addSearchLine(getText2search().c_str());
-	}
+             		_pFinder->beginNewFilesSearch();
+        		_pFinder->addSearchLine(getText2search().c_str());
+        }
 
 	void finishFilesSearch(int count)
 	{
@@ -333,6 +339,7 @@ public :
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
+	bool doesFinderExist(){ return (_pFinder != NULL); }
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -352,6 +359,7 @@ private :
 	Finder  *_pFinder;
 
 	std::vector<Finder *> _findersOfFinder;
+	std::vector<Finder *> _finders;
 
 
 	bool _isRTL;
@@ -372,6 +380,7 @@ private :
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);
 	void enableFindInFilesFunc();
+        void disableFindersGroup(bool isDisable = true);
 	void enableMarkAllControls(bool isEnable);
 	void enableMarkFunc();
 

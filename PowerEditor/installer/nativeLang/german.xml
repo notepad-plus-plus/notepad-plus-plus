@@ -297,7 +297,7 @@
 					<Item id="45053" name="OEM 860: Portugiesisch"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="45056" name="OEM 863: Französisch"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 
-                    <Item id="46033" name="Zusammengesetzt"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
+                    <Item id="46033" name="Assembler"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="46019" name="MS-INI-Datei"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="46015" name="MS-DOS-Stil"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="46016" name="Normaler Text"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->

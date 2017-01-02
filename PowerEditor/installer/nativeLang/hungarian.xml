@@ -3,9 +3,9 @@
 <!-- Email: batagy.ford kukac gmail pont com -->
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation-->
-<!-- For Notepad++ Version 6.8.8, modified 2016.02.14 -->
+<!-- For Notepad++ Version 7.3.1, modified on 2017.01.18 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="6.8.8">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="7.3.1">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -17,6 +17,7 @@
                  <Item menuId="encoding" name="Kó&amp;dolás"/>
                  <Item menuId="language" name="Ny&amp;elv"/>
                  <Item menuId="settings" name="&amp;Beállítások"/>
+                 <Item menuId="tools" name="Es&amp;zközök"/>
                  <Item menuId="macro" name="&amp;Makró"/>
                  <Item menuId="run" name="F&amp;uttatás"/>
                  <Item idName="Plugins" name="Bő&amp;vítmények"/>
@@ -36,6 +37,7 @@
                     <Item subMenuId="edit-eolConversion" name="Sorvégződés átalakítása"/>
                     <Item subMenuId="edit-blankOperations" name="Elválasztó karakterek"/>
                     <Item subMenuId="edit-pasteSpecial" name="Speciális beillesztés"/>
+                    <Item subMenuId="edit-onSelection" name="Kijelölt szövegrészre"/>
                     <Item subMenuId="search-markAll" name="Összes kiemelése"/>
                     <Item subMenuId="search-unmarkAll" name="Kiemelések eltávolítása"/>
                     <Item subMenuId="search-jumpUp" name="Ugrás kiemelt szöveghez felfelé"/>
@@ -66,6 +68,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Nyugat-európai"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnami"/>
                     <Item subMenuId="settings-import" name="Importálás"/>
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -92,6 +95,7 @@
                     <Item id="41016" name="Törlés a merevlemezről"/>
                     <Item id="41017" name="Átnevezés..."/>
                     <Item id="41021" name="Utoljára bezárt fájl megnyitása"/>
+                    <Item id="41022" name="Mappa mint munkaterület megnyitása"/>
 
                     <Item id="42001" name="Kivágás"/>
                     <Item id="42002" name="Másolás"/>
@@ -118,6 +122,16 @@
                     <Item id="42066" name="Sorok rendezése csökkenő tizedes számok szerint (Tizedespont)"/>
                     <Item id="42016" name="Formázás nagybetűsre"/>
                     <Item id="42017" name="Formázás kisbetűsre"/>
+                    <Item id="42067" name="Szókezdő"/>
+                    <Item id="42068" name="Szókezdő (kevert)"/>
+                    <Item id="42069" name="Mondatkezdő"/>
+                    <Item id="42070" name="Mondatkezdő (kevert)"/>
+                    <Item id="42071" name="Megcserélés"/>
+                    <Item id="42072" name="Véletlenszerű"/>
+                    <Item id="42073" name="Fájl megnyitása"/>
+                    <Item id="42074" name="Tartalmazó mappa megnyitása"/>
+                    <Item id="42075" name="Keresés az Interneten"/>
+                    <Item id="42076" name="Keresőmotor beállítása..."/>
                     <Item id="42018" name="Makró rögzítése"/>
                     <Item id="42019" name="Rögzítés megállítása"/>
                     <Item id="42021" name="Makró futtatása"/>
@@ -225,6 +239,7 @@
                     <Item id="44049" name="Dokumentum statisztika..."/>
                     <Item id="44080" name="Dokumentum Térkép"/>
                     <Item id="44084" name="Függvény lista"/>
+                    <Item id="44085" name="Mappa mint munkaterület"/>
                     <Item id="44086" name="1. Fül"/>
                     <Item id="44087" name="2. Fül"/>
                     <Item id="44088" name="3. Fül"/>
@@ -236,6 +251,9 @@
                     <Item id="44094" name="9. Fül"/>
                     <Item id="44095" name="Következő fül"/>
                     <Item id="44096" name="Előző fül"/>
+                    <Item id="44097" name="Fájl követés (tail -f)"/>
+                    <Item id="44098" name="Fül mozgatása előre"/>
+                    <Item id="44099" name="Fül mozgatása hátra"/>
                     <Item id="44032" name="Teljes képernyős megjelenítés"/>
                     <Item id="44033" name="Alapértelmezett méret visszaállítása"/>
                     <Item id="44034" name="Mindig felül"/>
@@ -265,19 +283,6 @@
                     <Item id="10003" name="Mozgatás egy új program példányba"/>
                     <Item id="10004" name="Megnyitás egy új program példányban is"/>
 
-                    <Item id="45060" name="Big5 (Hagyományos)"/>
-                    <Item id="45061" name="GB2312 (Egyszerűsített)"/>
-                    <Item id="45054" name="OEM 861: Izlandi"/>
-                    <Item id="45057" name="OEM 865: Északi"/>
-                    <Item id="45053" name="OEM 860: Portugál"/>
-                    <Item id="45056" name="OEM 863: Francia"/>
-
-                    <Item id="46033" name="Assembly"/>
-                    <Item id="46019" name="MS INI fájl"/>
-                    <Item id="46015" name="MS-DOS stílus"/>
-                    <Item id="46016" name="Normál szöveg"/>
-                    <Item id="46017" name="Resource fájl"/>
-
                     <Item id="46001" name="Stílusok beállításai..."/>
                     <Item id="46150" name="Egyéni nyelv beállítása..."/>
                     <Item id="46015" name="MS-DOS stílus"/>
@@ -292,7 +297,7 @@
                     <Item id="47003" name="Online Súgó"/>
                     <Item id="47004" name="Notepad++ Fórum"/>
                     <Item id="47011" name="Élő üzenőfal támogatás"/>
-                    <Item id="47012" name="Debug adatok"/>
+                    <Item id="47012" name="Debug adatok..."/>
                     <Item id="47005" name="További bővítmények"/>
                     <Item id="47006" name="Notepad++ frissítése"/>
                     <Item id="47009" name="Proxy beállítások..."/>
@@ -301,6 +306,9 @@
                     <Item id="48018" name="Felugrómenü szerkesztése"/>
                     <Item id="48009" name="Billentyűparancsok beállítása..."/>
                     <Item id="48011" name="Program beállítások..."/>
+                    <Item id="48501" name="Generálás..."/>
+                    <Item id="48502" name="Generálás fájlokból..."/>
+                    <Item id="48503" name="Generálás a vágólapra"/>
                     <Item id="49000" name="Futtatás..."/>
 
                     <Item id="50000" name="Függvény kiegészítés (Nyelv függő)"/>
@@ -409,6 +417,18 @@
                 <Item id="2" name="Mégse"/>
                 <Item id="1904" name="Mentés..."/>
             </Run>
+
+            <MD5FromFilesDlg title="MD5 lenyomat generálása fájlokból">
+                <Item id="1922" name="Fájlok kiválasztása..."/>
+                <Item id="1924" name="Másolás a vágólapra"/>
+                <Item id="2"    name="Bezárás"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="MD5 lenyomat generálása">
+                <Item id="1932" name="Minden sor különálló elem legyen"/>
+                <Item id="1934" name="Másolás a vágólapra"/>
+                <Item id="2"    name="Bezárás"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="Stílusok beállításai">
               <Item id="2" name="Mégse"/>
@@ -633,6 +653,7 @@
                     <Item id="6118" name="Elrejtés"/>
                     <Item id="6119" name="Többsoros"/>
                     <Item id="6120" name="Függőleges"/>
+                    <Item id="6121" name="Kilépés az utolsó fül bezárásakor"/>
 
                     <Item id="6122" name="Menüsor elrejtése (Váltás: Alt vagy F10)"/>
                     <Item id="6123" name="Program megjelenésének nyelve"/>
@@ -640,7 +661,7 @@
                     <Item id="6126" name="Engedélyezés"/>
                     <Item id="6127" name="Kiterjesztés oszlop tiltása"/>
                 </Global>
-                <Scintillas title="Megjelenítés beállításai">
+                <Scintillas title="Megjelenítés">
                     <Item id="6216" name="Kurzor beállításai"/>
                     <Item id="6217" name="Szélesség:"/>
                     <Item id="6219" name="Villogás:"/>
@@ -674,6 +695,7 @@
                     <Item id="6215" name="Betűtípusok simítása"/>
                     <Item id="6231" name="Ablakkeret szélessége"/>
                     <Item id="6235" name="Él nélkül"/>
+                    <Item id="6236" name="Görgetés az utolsó sornál tovább"/>
                 </Scintillas>
 
                 <NewDoc title="Új dokumentum">
@@ -698,25 +720,36 @@
                     <Item id="6414" name="Ugyanott, mint a jelenlegi dokumentum"/>
                     <Item id="6415" name="Utoljára használt mappa megjegyzése"/>
                     <Item id="6430" name="Újabb típusú mentési ablak használata (fájl kiterjesztés nélküli funkció)"/>
+                    <Item id="6431" name="Mappa behúzásakor minden ottlévő fájl megnyitása, a Mappa mint Munkaterület helyett"/>
                 </DefaultDir>
 
                 <FileAssoc title="Fájl társítások">
                     <Item id="4009" name="Támogatott kiterj.:"/>
                     <Item id="4010" name="Társított kiterj.:"/>
                 </FileAssoc>
-                <LangMenu title="Nyelv menü">
+                <Language title="Nyelvek">
                     <Item id="6505" name="Elérhető nyelvek:"/>
                     <Item id="6506" name="Letiltott nyelvek:"/>
                     <Item id="6507" name="Rövidebb nyelv menü használata"/>
                     <Item id="6508" name="Nyelv menü"/>
-                </LangMenu>
-
-                <TabSettings title="Tabulátor beállítások">
                     <Item id="6301" name="Tabulátor beállításai"/>
                     <Item id="6302" name="Csere szóközre"/>
                     <Item id="6303" name="Tabulátor méret:"/>
                     <Item id="6510" name="Alapértelmezett"/>
-                </TabSettings>
+                </Language>
+
+                <Highlighting title="Kiemelés">
+                    <Item id="6333" name="Intelligens kiemelés"/>
+                    <Item id="6326" name="Engedélyezés"/>
+                    <Item id="6332" name="Kis- és nagybetű különbözik"/>
+                    <Item id="6338" name="Csak teljes szóra illeszkedés"/>
+                    <Item id="6339" name="Keresési beállítások használata"/>
+                    <Item id="6340" name="Kiemelés a másik nézetben"/>
+                    <Item id="6329" name="Nyitó és zárótagok kiemelése"/>
+                    <Item id="6327" name="Engedélyezés"/>
+                    <Item id="6328" name="Elem attribútumok kiemelése"/>
+                    <Item id="6330" name="Megjegyzés/PHP/ASP sáv kiemelése"/>
+                </Highlighting>
 
                 <Print title="Nyomtatás">
                     <Item id="6601" name="Sorok számozásának nyomtatása"/>
@@ -780,6 +813,7 @@
                     <Item id="6809" name="Függvény kiegészítés (Nyelv függő)"/>
                     <Item id="6810" name="Szó kiegészítés (Dokumentum függő)"/>
                     <Item id="6816" name="Függvény és szó kiegészítés"/>
+                    <Item id="6824" name="Számok kihagyása"/>
                     <Item id="6811" name="Honnan:"/>
                     <Item id="6813" name="karaktertől"/>
                     <Item id="6814" name="(Érvényes értékek: 1 - 9)"/>
@@ -806,6 +840,10 @@
                     <Item id="6252" name="Nyitótag"/>
                     <Item id="6255" name="Zárótag"/>
                     <Item id="6256" name="Többsoros blokk engedélyezése"/>
+                    <Item id="6161" name="Szókarakter lista"/>
+                    <Item id="6162" name="Alapértelmezett szókarakter lista használata"/>
+                    <Item id="6163" name="Egyéni karakterek hozzáadása a szóhoz
+(Csak akkor válassza, ha érti a működést)"/>
                     <Item id="6257" name="bla bla bla bla bla"/>
                     <Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla"/>
                 </Delimiter>
@@ -816,6 +854,17 @@
                     <Item id="6267" name="Felhőben tárolt beállítások elérési útja:"/>
                     <Item id="6261" name="Ehhez program újraindítás szükséges."/>
                 </Cloud>
+
+                <SearchEngine title="Keresőmotor">
+                    <Item id="6271" name="Keresőmotor (a &quot;Keresés az Interneten&quot; parancshoz)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Egyéni keresőmotor beállítása:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Például: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
 
                 <MISC title="Egyéb">
                     <Item id="6307" name="Engedélyezés"/>
@@ -829,16 +878,10 @@
                     <Item id="6322" name="Munkamenet kiterjesztése:"/>
                     <Item id="6323" name="Notepad++ frissítés engedélyezése"/>
                     <Item id="6324" name="Dokumentum váltó (Ctrl+TAB)"/>
-                    <Item id="6326" name="Engedélyezés"/>
-                    <Item id="6329" name="Nyitó és zárótagok kiemelése"/>
-                    <Item id="6327" name="Engedélyezés"/>
-                    <Item id="6328" name="Elem attribútumok kiemelése"/>
-                    <Item id="6330" name="Megjegyzés/PHP/ASP sáv kiemelése"/>
                     <Item id="6331" name="Csak a fájlnév megjelenítése a fejlécben"/>
-                    <Item id="6332" name="Kis- és nagybetű különbözik"/>
-                    <Item id="6333" name="Intelligens kiemelés"/>
                     <Item id="6334" name="Karakterkódolás automatikus felismerése"/>
                     <Item id="6335" name="SQL esetén a backslash értelmezése feloldójelként"/>
+                    <Item id="6337" name="Munkaterület fájl kiterjesztés:"/>
                     <Item id="6114" name="Engedélyezés"/>
                     <Item id="6115" name="Automatikus behúzás"/>
                     <Item id="6117" name="Lista sorrendje a használattól függ"/>
@@ -890,6 +933,7 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Túl sok fájl megnyitása" message = "$INT_REPLACE$ fájlt kíván megnyitni.&#x0A;&#x0A;Biztosan megnyitja mindet?"/>
             <SettingsOnCloudError title="Beállítások tárolása felhőben" message="Úgy tűnik, a felhőben tárolt beállítások elérési útja írásvédett meghajtóra mutat,&#x0A;vagy pedig a megadott mappa módosításához nincs megfelelő írási jog.&#x0A;A felhő beállítások törlődtek. Adja meg a megfelelő értéket a Beállításokban."/>
+            <FilePathNotFoundWarning title="Fájl megnyitás" message="A megnyitni kívánt fájl nem létezik."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Vágólap előzmények"/>
@@ -959,5 +1003,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+            <word-chars-list-tip value="Itt további karaktereket lehet hozzáadni a szókarakterekhez. Szókarakter: amely karakterek a szó részének minősülnek. Az opció dupla kattintású kijelölésnél, illetve keresésnél érvényes akkor ha a &quot;Csak teljes szóval megegyező találatok &quot; be van kapcsolva."/>
+            <word-chars-list-warning-begin value="Figyelem: "/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ szóközt"/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ tabulátort"/>
+            <word-chars-list-warning-end value=" tartalmaz a karakter lista."/>
+            <cloud-invalid-warning value="Érvénytelen út."/>
+            <cloud-restart-warning value="Ehhez Notepad++ újraindítás szükséges."/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

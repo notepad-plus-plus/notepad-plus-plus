@@ -1,8 +1,7 @@
-makefile was renewed after the v6.8.7 release.
+makefile was renewed after the v7.5.8 release.
 
 It was tested with a MinGW-w64 distribution containing
-GCC 5.2.0 (cross-compiled with i686-w64-mingw32 on Arch Linux) and
-GCC 4.9.2 (natively on Windows 7, will not work anymore with this version).
+GCC 8.1.0 with POSIX threads and DWARF (natively on Windows 7).
 
 The default make rule should suffice for building Notepad++,
 and copying the required .xml config files.

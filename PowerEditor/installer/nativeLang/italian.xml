@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.2.0
-    Last modified Sat, Nov 5th, 2016 by Luca Leonardi.
+    Italian translation for Notepad++ 7.3.0
+    Last modified Sat, Jan 3rd, 2017 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
@@ -13,15 +13,16 @@
                 <Entries>
                     <Item menuId = "file" name = "&amp;File" />
                     <Item menuId = "edit" name = "&amp;Modifica" />
-                    <Item menuId = "search" name = "C&amp;erca" />
+                    <Item menuId = "search" name = "&amp;Cerca" />
                     <Item menuId = "view" name = "&amp;Visualizza" />
-                    <Item menuId = "encoding" name = "For&amp;mato" />
+                    <Item menuId = "encoding" name = "Fo&amp;rmato" />
                     <Item menuId = "language" name = "&amp;Linguaggio" />
                     <Item menuId = "settings" name = "C&amp;onfigurazione" />
+                    <Item menuId = "tools" name = "&amp;Strumenti" />
                     <Item menuId = "macro" name = "Macro" />
                     <Item menuId = "run" name = "Esegui" />
                     <Item idName = "Plugins" name = "Plugin" />
-                    <Item idName = "Window" name = "Finestra" />
+                    <Item idName = "Window" name = "Fin&amp;estra" />
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -68,6 +69,7 @@
                     <Item subMenuId = "encoding-westernEuropean" name = "Europa Occidentale" />
                     <Item subMenuId = "encoding-vietnamese" name = "Vietnamita" />
                     <Item subMenuId = "settings-import" name = "Importa" />
+                    <Item subMenuId = "tools-md5" name = "MD5" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>
@@ -324,6 +326,10 @@
                     <Item id = "48016" name = "Modifica scorciatoie/Elimina macro..." />
                     <Item id = "48017" name = "Modifica scorciatoie/Elimina comando..." />
                     <Item id = "48018" name = "Modifica menu contestuale..." />
+                    
+                    <Item id = "48501" name = "Genera..." />
+                    <Item id = "48502" name = "Genera da file..." />
+                    <Item id = "48503" name = "Genera negli appunti" />
 
                     <Item id = "49000" name = "E&amp;segui..." />
 
@@ -424,6 +430,16 @@
                 <Item id = "2" name = "Annulla" />
                 <Item id = "1904" name = "Salva..." />
             </Run>
+            <MD5FromFilesDlg title = "Genera MD5 di file">
+                <Item id = "1922" name = "Scegli i file di cui generare MD5..." />
+                <Item id = "1924" name = "Copia negli appunti" />
+                <Item id = "2" name = "Chiudi" />
+            </MD5FromFilesDlg>
+            <MD5FromTextDlg title = "Genera MD5">
+                <Item id = "1932" name = "Considera ogni riga come una stringa separata" />
+                <Item id = "1934" name = "Copia negli appunti" />
+                <Item id = "2" name = "Chiudi" />
+            </MD5FromTextDlg>
             <StyleConfig title = "Configuratore di stili">
                 <Item id = "2" name = "Annulla" />
                 <Item id = "2301" name = "Salva &amp;&amp; Chiudi" />
@@ -655,7 +671,7 @@
                     <Item id = "6112" name = "Pulsante di chiusura su ogni scheda" />
                     <Item id = "6113" name = "Doppio click chiude una scheda" />
 
-                    <Item id = "6121" name = "Barra dei menu" />
+                    <Item id = "6121" name = "Esci alla chiusura dell'ultima scheda" />
 
                     <Item id = "6122" name = "Nascondi (Alt o F10 per mostrare)" />
                     <Item id = "6111" name = "Attiva barra di stato" />
@@ -750,7 +766,7 @@
                     <Item id = "6332" name = "L&apos;evidenziazione è case-sensitive" />
 					<Item id = "6338" name = "Identifica solo parole intere" />
 					<Item id = "6339" name = "Utilizza impostazioni finestra di ricerca" />
-                    <Item id = "6340" name = "Evidenzia anche nelle altre viste" />
+                    <Item id = "6340" name = "Evidenzia anche nell'altra vista" />
                     <Item id = "6329" name = "Evidenzia Tag Corrispondenti" />
                     <Item id = "6327" name = "Abilita" />
                     <Item id = "6328" name = "Evidenzia attributi" />

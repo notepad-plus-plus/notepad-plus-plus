@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.2.0
-    Last modified Sat, Nov 5th, 2016 by Luca Leonardi.
+    Italian translation for Notepad++ 7.3.1
+    Last modified Sat, Jan 3rd, 2017 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
@@ -13,15 +13,16 @@
                 <Entries>
                     <Item menuId = "file" name = "&amp;File" />
                     <Item menuId = "edit" name = "&amp;Modifica" />
-                    <Item menuId = "search" name = "C&amp;erca" />
+                    <Item menuId = "search" name = "&amp;Cerca" />
                     <Item menuId = "view" name = "&amp;Visualizza" />
-                    <Item menuId = "encoding" name = "For&amp;mato" />
+                    <Item menuId = "encoding" name = "Fo&amp;rmato" />
                     <Item menuId = "language" name = "&amp;Linguaggio" />
                     <Item menuId = "settings" name = "C&amp;onfigurazione" />
+                    <Item menuId = "tools" name = "&amp;Strumenti" />
                     <Item menuId = "macro" name = "Macro" />
                     <Item menuId = "run" name = "Esegui" />
                     <Item idName = "Plugins" name = "Plugin" />
-                    <Item idName = "Window" name = "Finestra" />
+                    <Item idName = "Window" name = "Fin&amp;estra" />
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -68,6 +69,7 @@
                     <Item subMenuId = "encoding-westernEuropean" name = "Europa Occidentale" />
                     <Item subMenuId = "encoding-vietnamese" name = "Vietnamita" />
                     <Item subMenuId = "settings-import" name = "Importa" />
+                    <Item subMenuId = "tools-md5" name = "MD5" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>
@@ -161,16 +163,16 @@
                     <Item id = "42065" name = "Ordina righe come valori decimali (punto) in modo crescente" />
                     <Item id = "42066" name = "Ordina righe come valori decimali (punto) in modo decrescente" />
 					
-					<Item id = "42067" name = "Iniziali Maiuscole" />
-					<Item id = "42068" name = "Iniziali Maiuscole (intelligente)" />
-					<Item id = "42069" name = "Frasi maiuscole" />
-					<Item id = "42070" name = "Frasi maiuscole (intelligente)" />
-					<Item id = "42071" name = "iNVERTI mAIUSCOLE/mINUSCOLE" />
-					<Item id = "42072" name = "mAiusCole/miNUScLE casUaLi" />
-					<Item id = "42073" name = "Apri come file" />
-					<Item id = "42074" name = "Apri cartella in Esplora Risorse" />
-					<Item id = "42075" name = "Cerca in Internet" />
-					<Item id = "42076" name = "Modifica motore di ricerca..." />
+                    <Item id = "42067" name = "Iniziali Maiuscole" />
+                    <Item id = "42068" name = "Iniziali Maiuscole (intelligente)" />
+                    <Item id = "42069" name = "Frasi maiuscole" />
+                    <Item id = "42070" name = "Frasi maiuscole (intelligente)" />
+                    <Item id = "42071" name = "iNVERTI mAIUSCOLE/mINUSCOLE" />
+                    <Item id = "42072" name = "mAiusCole/miNUScLE casUaLi" />
+                    <Item id = "42073" name = "Apri come file" />
+                    <Item id = "42074" name = "Apri cartella in Esplora Risorse" />
+                    <Item id = "42075" name = "Cerca in Internet" />
+                    <Item id = "42076" name = "Modifica motore di ricerca..." />
 
                     <Item id = "43001" name = "&amp;Trova..." />
                     <Item id = "43002" name = "Trova &amp;successivo" />
@@ -267,8 +269,8 @@
                     <Item id = "44095" name = "Scheda successiva" />
                     <Item id = "44096" name = "Scheda precedente" />
                     <Item id = "44097" name = "Monitora (tail -f)" />
-					<Item id = "44098" name = "Sposta scheda avanti" />
-					<Item id = "44099" name = "Sposta scheda indietro" />
+                    <Item id = "44098" name = "Sposta scheda avanti" />
+                    <Item id = "44099" name = "Sposta scheda indietro" />
 
                     <Item id = "45001" name = "Formato Windows" />
                     <Item id = "45002" name = "Formato UNIX" />
@@ -324,6 +326,10 @@
                     <Item id = "48016" name = "Modifica scorciatoie/Elimina macro..." />
                     <Item id = "48017" name = "Modifica scorciatoie/Elimina comando..." />
                     <Item id = "48018" name = "Modifica menu contestuale..." />
+                    
+                    <Item id = "48501" name = "Genera..." />
+                    <Item id = "48502" name = "Genera da file..." />
+                    <Item id = "48503" name = "Genera negli appunti" />
 
                     <Item id = "49000" name = "E&amp;segui..." />
 
@@ -424,6 +430,16 @@
                 <Item id = "2" name = "Annulla" />
                 <Item id = "1904" name = "Salva..." />
             </Run>
+            <MD5FromFilesDlg title = "Genera MD5 di file">
+                <Item id = "1922" name = "Scegli i file di cui generare MD5..." />
+                <Item id = "1924" name = "Copia negli appunti" />
+                <Item id = "2" name = "Chiudi" />
+            </MD5FromFilesDlg>
+            <MD5FromTextDlg title = "Genera MD5">
+                <Item id = "1932" name = "Considera ogni riga come una stringa separata" />
+                <Item id = "1934" name = "Copia negli appunti" />
+                <Item id = "2" name = "Chiudi" />
+            </MD5FromTextDlg>
             <StyleConfig title = "Configuratore di stili">
                 <Item id = "2" name = "Annulla" />
                 <Item id = "2301" name = "Salva &amp;&amp; Chiudi" />
@@ -655,7 +671,7 @@
                     <Item id = "6112" name = "Pulsante di chiusura su ogni scheda" />
                     <Item id = "6113" name = "Doppio click chiude una scheda" />
 
-                    <Item id = "6121" name = "Barra dei menu" />
+                    <Item id = "6121" name = "Esci alla chiusura dell'ultima scheda" />
 
                     <Item id = "6122" name = "Nascondi (Alt o F10 per mostrare)" />
                     <Item id = "6111" name = "Attiva barra di stato" />
@@ -750,7 +766,7 @@
                     <Item id = "6332" name = "L&apos;evidenziazione è case-sensitive" />
 					<Item id = "6338" name = "Identifica solo parole intere" />
 					<Item id = "6339" name = "Utilizza impostazioni finestra di ricerca" />
-                    <Item id = "6340" name = "Evidenzia anche nelle altre viste" />
+                    <Item id = "6340" name = "Evidenzia anche nell'altra vista" />
                     <Item id = "6329" name = "Evidenzia Tag Corrispondenti" />
                     <Item id = "6327" name = "Abilita" />
                     <Item id = "6328" name = "Evidenzia attributi" />
@@ -831,6 +847,9 @@
                     <Item id = "6252" name = "Apri" />
                     <Item id = "6255" name = "Chiudi" />
                     <Item id = "6256" name = "Permetti su più linee" />
+                    <Item id = "6161" name = "Lista caratteri delimitatori di parola" />
+                    <Item id = "6162" name = "Utilizza i delimitatori di parola standard" />
+                    <Item id = "6163" name = "Aggiungi i tuoi caratteri delimitatori di parola (non selezionarlo se non sai cosa stai facendo)" />
                     <Item id = "6257" name = "bla bla bla bla bla bla" />
                     <Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla" />
                 </Delimiter>
@@ -843,16 +862,16 @@
                     <Item id = "6261" name = "Riavvia Notepad++ per applicare le modifiche." />-->
                     <Item id = "6267" name = "Imposta qui il percorso della tua cartella cloud:" />
                 </Cloud>
-				<SearchEngine title = "Motore di ricerca" >
-					<Item id = "6271" name = "Motore Di Ricerca (per il commando 'Cerca in Internet')" />
-					<Item id = "6272" name = "DuckDuckGo" />
-					<Item id = "6273" name = "Google" />
-					<Item id = "6274" name = "Bing" />
-					<Item id = "6275" name = "Yahoo!" />
-					<Item id = "6276" name = "Imposta un motore di ricerca personalizzato:" />
-					<!-- Don’t change anything after Example: -->
-					<Item id = "6278" name="Esempio: https://www.google.com/search?q=$(CURRENT_WORD)" />
-				</SearchEngine>
+                <SearchEngine title = "Motore di ricerca" >
+                    <Item id = "6271" name = "Motore Di Ricerca (per il commando 'Cerca in Internet')" />
+                    <Item id = "6272" name = "DuckDuckGo" />
+                    <Item id = "6273" name = "Google" />
+                    <Item id = "6274" name = "Bing" />
+                    <Item id = "6275" name = "Yahoo!" />
+                    <Item id = "6276" name = "Imposta un motore di ricerca personalizzato:" />
+                    <!-- Don’t change anything after Example: -->
+                    <Item id = "6278" name="Esempio: https://www.google.com/search?q=$(CURRENT_WORD)" />
+                </SearchEngine>
                 <MISC title = "Varie">
                     <Item id = "6324" name = "Cambia Documento (Ctrl+TAB)" />
                     <Item id = "6114" name = "Abilita" />
@@ -990,5 +1009,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+            <word-chars-list-tip value = "Ti permette di includere caratteri addizionali nella lista di caratteri considerati una parola, quando effetti un doppio click per selezionare, o effetti una ricerca con l'opzone &quot;Solo parole intere&quot; selezionata" />
+            <word-chars-list-warning-begin value = "Attenzione: " />
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value = "$INT_REPLACE$ spazi" />
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value = "$INT_REPLACE$ tab" />
+            <word-chars-list-warning-end value = " nella tua lista catatteri." />
+            <cloud-invalid-warning value = "Percorso non valido." />
+            <cloud-restart-warning value = "Riavvia Notepad++ per applicare le modifiche." />
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

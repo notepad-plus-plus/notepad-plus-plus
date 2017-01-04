@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="格式(&amp;M)" />
                     <Item menuId="language" name="语言(&amp;L)" />
                     <Item menuId="settings" name="设置(&amp;T)" />
+                    <Item menuId="tools" name="工具(&amp;O)"/>
                     <Item menuId="macro" name="宏(&amp;O)" />
                     <Item menuId="run" name="运行(&amp;R)" />
                     <Item idName="Plugins" name="插件(&amp;P)" />
@@ -62,6 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="西欧语系" />
                     <Item subMenuId="encoding-vietnamese" name="越南文" />
                     <Item subMenuId="settings-import" name="导入" />
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -294,6 +296,9 @@
                     <Item id="48016" name="管理快捷键..." />
                     <Item id="48017" name="管理快捷键..." />
                     <Item id="48018" name="编辑弹出菜单" />
+                    <Item id="48501" name="生成..."/>
+                    <Item id="48502" name="从文件生成..."/>
+                    <Item id="48503" name="生成到剪贴板"/>
                     <Item id="49000" name="运行(&amp;R)..." />                    
                     <Item id="50000" name="函数自动完成" />
                     <Item id="50001" name="单词自动完成" />
@@ -390,6 +395,18 @@
                 <Item id="2005" name="目标位置 :" />
                 <Item id="2006" name="截止位置 :" />
             </GoToLine>
+
+            <MD5FromFilesDlg title="从文件生成MD5">
+                <Item id="1922" name="选择文件..."/>
+                <Item id="1924" name="复制到剪贴板"/>
+                <Item id="2"    name="关闭"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="生成MD5值">
+                <Item id="1932" name="按行分别生成"/>
+                <Item id="1934" name="复制到剪贴板"/>
+                <Item id="2"    name="关闭"/>
+            </MD5FromTextDlg>
 
             <Run title="运行...">
                 <Item id="1903" name="输入运行程序名" />

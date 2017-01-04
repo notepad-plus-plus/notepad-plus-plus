@@ -124,11 +124,13 @@ void MD5FromTextDlg::generateMD5()
 	int len = static_cast<int>(::SendMessage(::GetDlgItem(_hSelf, IDC_MD5_TEXT_EDIT), WM_GETTEXTLENGTH, 0, 0));
 	if (len)
 	{
-		char *text = new char[len + 1];
-		::GetDlgItemTextA(_hSelf, IDC_MD5_TEXT_EDIT, text, len + 1);
+		wchar_t *text = new wchar_t[len + 1];
+		::GetDlgItemText(_hSelf, IDC_MD5_TEXT_EDIT, text, len + 1);
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		const char *newText = wmc->wchar2char(text, SC_CP_UTF8);
 
 		MD5 md5;
-		char* md5Result = md5.digestString(text);
+		char* md5Result = md5.digestString(newText);
 		::SetDlgItemTextA(_hSelf, IDC_MD5_RESULT_FOMTEXT_EDIT, md5Result);
 
 		delete[] text;
@@ -144,13 +146,14 @@ void MD5FromTextDlg::generateMD5PerLine()
 	int len = static_cast<int>(::SendMessage(::GetDlgItem(_hSelf, IDC_MD5_TEXT_EDIT), WM_GETTEXTLENGTH, 0, 0));
 	if (len)
 	{
-		char *text = new char[len + 1];
-		::GetDlgItemTextA(_hSelf, IDC_MD5_TEXT_EDIT, text, len + 1);
+		wchar_t *text = new wchar_t[len + 1];
+		::GetDlgItemText(_hSelf, IDC_MD5_TEXT_EDIT, text, len + 1);
 
-		std::stringstream ss(text);
-		std::string aLine;
+		std::wstringstream ss(text);
+		std::wstring aLine;
 		std::string result;
 		MD5 md5;
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		while (std::getline(ss, aLine))
 		{
 			// getline() detect only '\n' but not "\r\n" under windows
@@ -162,7 +165,8 @@ void MD5FromTextDlg::generateMD5PerLine()
 				result += "\r\n";
 			else
 			{
-				char* md5Result = md5.digestString(const_cast<char *>(aLine.c_str()));
+				const char *newText = wmc->wchar2char(aLine.c_str(), SC_CP_UTF8);
+				char* md5Result = md5.digestString(newText);
 				result += md5Result;
 				result += "\r\n";
 			}

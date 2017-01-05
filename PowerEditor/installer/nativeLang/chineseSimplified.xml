@@ -9,11 +9,11 @@
                     <Item menuId="edit" name="编辑(&amp;E)" />
                     <Item menuId="search" name="搜索(&amp;S)" />
                     <Item menuId="view" name="视图(&amp;V)" />
-                    <Item menuId="encoding" name="格式(&amp;M)" />
+                    <Item menuId="encoding" name="编码(&amp;N)" />
                     <Item menuId="language" name="语言(&amp;L)" />
                     <Item menuId="settings" name="设置(&amp;T)" />
                     <Item menuId="tools" name="工具(&amp;O)"/>
-                    <Item menuId="macro" name="宏(&amp;O)" />
+                    <Item menuId="macro" name="宏(&amp;M)" />
                     <Item menuId="run" name="运行(&amp;R)" />
                     <Item idName="Plugins" name="插件(&amp;P)" />
                     <Item idName="Window" name="窗口(&amp;W)" />

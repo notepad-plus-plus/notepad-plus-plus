@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="エンコード(&amp;M)"/>
                     <Item menuId="language" name="言語(&amp;L)"/>
                     <Item menuId="settings" name="設定(&amp;T)"/>
+                    <Item menuId="tools" name="ツール(&amp;O)"/>
                     <Item menuId="macro" name="マクロ"/>
                     <Item menuId="run" name="実行"/>
                     <Item idName="Plugins" name="プラグイン"/>
@@ -62,6 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="西ヨーロッパ語圏"/>
                     <Item subMenuId="encoding-vietnamese" name="ベトナム語"/>
                     <Item subMenuId="settings-import" name="インポート"/>
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -305,6 +307,9 @@
                     <Item id="48018" name="コンテキストメニューを編集"/>
                     <Item id="48009" name="ショートカット管理..."/>
                     <Item id="48011" name="環境設定..."/>
+                    <Item id="48501" name="生成..."/>
+                    <Item id="48502" name="ファイルから生成..."/>
+                    <Item id="48503" name="選択範囲から生成しクリップボードへ出力"/>
                     <Item id="49000" name="ファイル名を指定して実行(&amp;R)..."/>
 
                     <Item id="50000" name="関数名補完"/>
@@ -413,6 +418,18 @@
                 <Item id="2"    name="キャンセル"/>
                 <Item id="1904" name="登録..."/>
             </Run>
+
+            <MD5FromFilesDlg title="MD5値をファイルから生成">
+                <Item id="1922" name="ファイルを選択（複数可）..."/>
+                <Item id="1924" name="クリップボードへコピー"/>
+                <Item id="2"    name="閉じる"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="MD5値を生成">
+                <Item id="1932" name="行ごとに生成する"/>
+                <Item id="1934" name="クリップボードへコピー"/>
+                <Item id="2"    name="閉じる"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="スタイル設定">
                 <Item id="2"    name="キャンセル"/>

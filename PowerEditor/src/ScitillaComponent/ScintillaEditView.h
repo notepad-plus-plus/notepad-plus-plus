@@ -95,6 +95,9 @@ const int CP_GREEK = 1253;
 #define LIST_4 16
 #define LIST_5 32
 #define LIST_6 64
+#define LIST_7 128
+#define LIST_8 256
+#define LIST_9 512 //#define LIST_6 64
 
 const bool fold_uncollapse = true;
 const bool fold_collapse = false;
@@ -865,6 +868,298 @@ protected:
 
     void setCoffeeScriptLexer() {
 		setLexer(SCLEX_COFFEESCRIPT, L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
+	};
+
+	void setA68kLexer() {
+		setLexer(SCLEX_A68K, L_A68K, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setAbaqusLexer() {
+		setLexer(SCLEX_ABAQUS, L_ABAQUS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setAPDLLexer() {
+		setLexer(SCLEX_APDL, L_APDL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setAsLexer() {
+		setLexer(SCLEX_AS, L_AS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7); 
+	};
+	
+	void setAsn1Lexer() {
+		setLexer(SCLEX_ASN1, L_ASN1, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4); 
+	};
+	
+	void setASYLexer() {
+		setLexer(SCLEX_ASYMPTOTE, L_ASYMPTOTE, LIST_0 | LIST_1); 
+	};
+	
+	void setAVELexer() {
+		setLexer(SCLEX_AVE, L_AVE, LIST_NONE); 
+	};
+	
+	void setAVSLexer() {
+		setLexer(SCLEX_AVS, L_AVS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setBaanLexer() {
+		setLexer(SCLEX_BAAN, L_BAAN, LIST_NONE); 
+	};
+	
+	void setBlitzBasicLexer() {
+		setLexer(SCLEX_BLITZBASIC, L_BLITZBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+	
+	void setPureBasicLexer() {
+		setLexer(SCLEX_PUREBASIC, L_PUREBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+	
+	void setFreeBasicLexer() {
+		setLexer(SCLEX_FREEBASIC, L_FREEBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+	
+	void setBibTeXLexer() {
+		setLexer(SCLEX_BIBTEX, L_BIBTEX, LIST_0); 
+	};
+	
+	void setBullantLexer() {
+		setLexer(SCLEX_BULLANT, L_BULLANT, LIST_0); 
+	};
+	
+	void setClwLexer() {
+		setLexer(SCLEX_CLW, L_CLW, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7 | LIST_8); 
+	};
+	
+	void setClwNoCaseLexer() {
+		setLexer(SCLEX_CLWNOCASE, L_CLWNOCASE, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7 | LIST_8); 
+	};
+	
+	void setConfLexer() {
+		setLexer(SCLEX_CONF, L_CONF, LIST_0 | LIST_1); 
+	};
+	
+	void setCPPNoCaseLexer() {
+		setLexer(SCLEX_CPPNOCASE, L_CPPNOCASE, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+	
+	void setNncrontabLexer() {
+		setLexer(SCLEX_NNCRONTAB, L_NNCRONTAB, LIST_0 | LIST_1 | LIST_2); 
+	};
+	
+	void setCsoundLexer() {
+		setLexer(SCLEX_CSOUND, L_CSOUND, LIST_0 | LIST_1 | LIST_2); 
+	};
+	
+	void setDMAPLexer() {
+		setLexer(SCLEX_DMAP, L_DMAP, LIST_0 | LIST_1 | LIST_2); 
+	};
+	
+	void setDMISLexer() {
+		setLexer(SCLEX_DMIS, L_DMIS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setECLLexer() {
+		setLexer(SCLEX_ECL, L_ECL, LIST_0); 
+	};
+	
+	void setEiffelLexer() {
+		setLexer(SCLEX_EIFFEL, L_EIFFEL, LIST_0); 
+	};
+	
+	void setEiffelkwLexer() {
+		setLexer(SCLEX_EIFFELKW, L_EIFFELKW, LIST_0); 
+	};
+	
+	void setErlangLexer() {
+		setLexer(SCLEX_ERLANG, L_ERLANG, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setESCRIPTLexer() {
+		setLexer(SCLEX_ESCRIPT, L_ESCRIPT, LIST_0 | LIST_1 | LIST_2); 
+	};
+	
+	void setFlagShipLexer() {
+		setLexer(SCLEX_FLAGSHIP, L_FLAGSHIP, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4); 
+	};
+	
+	void setForthLexer() {
+		setLexer(SCLEX_FORTH, L_FORTH, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setGAPLexer() {
+		setLexer(SCLEX_GAP, L_GAP, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+	
+	void setLiterateHaskellLexer() {
+		setLexer(SCLEX_LITERATEHASKELL, L_LITERATEHASKELL, LIST_0 | LIST_1 | LIST_2); 
+	};
+	
+	void setSrecLexer() {
+		setLexer(SCLEX_SREC, L_SREC, LIST_NONE); 
+	};
+	
+	void setIHexLexer() {
+		setLexer(SCLEX_IHEX, L_IHEX, LIST_NONE); 
+	};
+	
+	void setTEHexLexer() {
+		setLexer(SCLEX_TEHEX, L_TEHEX, LIST_NONE); 
+	};
+	
+	void setPHPSCRIPTLexer() {
+		setLexer(SCLEX_PHPSCRIPT, L_PHPSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setKVIrcLexer() {
+		setLexer(SCLEX_KVIRC, L_KVIRC, LIST_0 | LIST_1); 
+	};
+	
+	void setLatexLexer() {
+		setLexer(SCLEX_LATEX, L_LATEX, LIST_NONE); 
+	};
+	
+	void setLoutLexer() {
+		setLexer(SCLEX_LOUT, L_LOUT, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+	
+	void setMagikSFLexer() {
+		setLexer(SCLEX_MAGIK, L_MAGIK, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setMarkdownLexer() {
+		setLexer(SCLEX_MARKDOWN, L_MARKDOWN, LIST_NONE); 
+	};
+	
+	void setOctaveLexer() {
+		setLexer(SCLEX_OCTAVE, L_OCTAVE, LIST_0); 
+	};
+	
+	void setMETAPOSTLexer() {
+		setLexer(SCLEX_METAPOST, L_METAPOST, LIST_0 | LIST_1); 
+	};
+	
+	void setMMIXALLexer() {
+		setLexer(SCLEX_MMIXAL, L_MMIXAL, LIST_0 | LIST_1 | LIST_2); 
+	};
+	
+	void setModulaLexer() {
+		setLexer(SCLEX_MODULA, L_MODULA, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setLotLexer() {
+		setLexer(SCLEX_LOT, L_LOT, LIST_NONE); 
+	};
+	
+	void setMSSQLLexer() {
+		setLexer(SCLEX_MSSQL, L_MSSQL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6); 
+	};
+	
+	void setMySQLLexer() {
+		setLexer(SCLEX_MYSQL, L_MYSQL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7 | LIST_8); 
+	};
+	
+	void setNimrodLexer() {
+		setLexer(SCLEX_NIMROD, L_NIMROD, LIST_0); 
+	};
+	
+	void setOpalLexer() {
+		setLexer(SCLEX_OPAL, L_OPAL, LIST_0 | LIST_1); 
+	};
+	
+	void setOScriptLexer() {
+		setLexer(SCLEX_OSCRIPT, L_OSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setErrorListLexer() {
+		setLexer(SCLEX_ERRORLIST, L_ERRORLIST, LIST_NONE); 
+	};
+	
+	void setPBLexer() {
+		setLexer(SCLEX_POWERBASIC, L_POWERBASIC, LIST_0); 
+	};
+	
+	void setPLMLexer() {
+		setLexer(SCLEX_PLM, L_PLM, LIST_0); 
+	};
+	
+	void setPOLexer() {
+		setLexer(SCLEX_PO, L_PO, LIST_NONE); 
+	};
+	
+	void setPOVLexer() {
+		setLexer(SCLEX_POV, L_POV, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6 | LIST_7); 
+	};
+	
+	void setPowerProLexer() {
+		setLexer(SCLEX_POWERPRO, L_POWERPRO, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+	
+	void setProgressLexer() {
+		setLexer(SCLEX_PROGRESS, L_PROGRESS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4); 
+	};
+	
+	void setREBOLLexer() {
+		setLexer(SCLEX_REBOL, L_REBOL, LIST_0); 
+	};
+	
+	void setRegistryLexer() {
+		setLexer(SCLEX_REGISTRY, L_REGISTRY, LIST_NONE); 
+	};
+	
+	void setRustLexer() {
+		setLexer(SCLEX_RUST, L_RUST, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6); 
+	};
+	
+	void setScriptolLexer() {
+		setLexer(SCLEX_SCRIPTOL, L_SCRIPTOL, LIST_NONE); 
+	};
+	
+	void setSMLLexer() {
+		setLexer(SCLEX_SML, L_SML, LIST_0 | LIST_1 | LIST_2); 
+	};
+	
+	void setSorcLexer() {
+		setLexer(SCLEX_SORCUS, L_SORCUS, LIST_0 | LIST_1); 
+	};
+	
+	void setSpecmanLexer() {
+		setLexer(SCLEX_SPECMAN, L_SPECMAN, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4); 
+	};
+	
+	void setSpiceLexer() {
+		setLexer(SCLEX_SPICE, L_SPICE, LIST_0 | LIST_1 | LIST_2); 
+	};
+	
+	void setSTTXTLexer() {
+		setLexer(SCLEX_STTXT, L_STTXT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+	
+	void setTACLLexer() {
+		setLexer(SCLEX_TACL, L_TACL, LIST_0 | LIST_1 | LIST_2); 
+	};
+	
+	void setTADS3Lexer() {
+		setLexer(SCLEX_TADS3, L_TADS3, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+	
+	void setTALLexer() {
+		setLexer(SCLEX_TAL, L_TAL, LIST_0 | LIST_1); 
+	};
+	
+	void setTCMDLexer() {
+		setLexer(SCLEX_TCMD, L_TCMD, LIST_0 | LIST_1); 
+	};
+	
+	void setTxt2tagsLexer() {
+		setLexer(SCLEX_TXT2TAGS, L_TXT2TAGS, LIST_NONE); 
+	};
+	
+	void setVBScriptLexer() {
+		setLexer(SCLEX_VBSCRIPT, L_VBSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+	
+	void setVisualPrologLexer() {
+		setLexer(SCLEX_VISUALPROLOG, L_VISUALPROLOG, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
 	};
 
     //--------------------

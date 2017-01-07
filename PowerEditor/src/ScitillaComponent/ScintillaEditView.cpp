@@ -139,6 +139,79 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			SCLEX_CPP },
 {TEXT("javascript.js"), TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JAVASCRIPT,	SCLEX_CPP },
 {TEXT("fortran77"),		TEXT("Fortran fixed form"),	TEXT("Fortran fixed form source file"),					L_FORTRAN_77,	SCLEX_F77},
+{TEXT("a68k"),			TEXT("a68k"),				TEXT("a68k"),											L_A68K,			SCLEX_A68K},
+{TEXT("abaqus"),		TEXT("abaqus"),				TEXT("abaqus"),											L_ABAQUS,		SCLEX_ABAQUS},
+{TEXT("apdl"),			TEXT("apdl"),				TEXT("apdl"),											L_APDL,			SCLEX_APDL},
+{TEXT("as"),			TEXT("as"),					TEXT("as"),												L_AS,			SCLEX_AS},
+{TEXT("asn1"),			TEXT("asn1"),				TEXT("asn1"),											L_ASN1,			SCLEX_ASN1},
+{TEXT("asy"),			TEXT("asy"),				TEXT("asy"),											L_ASYMPTOTE,	SCLEX_ASYMPTOTE},
+{TEXT("ave"),			TEXT("ave"),				TEXT("ave"),											L_AVE,			SCLEX_AVE},
+{TEXT("avs"),			TEXT("avs"),				TEXT("avs"),											L_AVS,			SCLEX_AVS},
+{TEXT("baan"),			TEXT("baan"),				TEXT("baan"),											L_BAAN,			SCLEX_BAAN},
+{TEXT("blitzbasic"),	TEXT("blitzbasic"),			TEXT("blitzbasic"),										L_BLITZBASIC,	SCLEX_BLITZBASIC},
+{TEXT("purebasic"),		TEXT("purebasic"),			TEXT("purebasic"),										L_PUREBASIC,	SCLEX_PUREBASIC},
+{TEXT("freebasic"),		TEXT("freebasic"),			TEXT("freebasic"),										L_FREEBASIC,	SCLEX_FREEBASIC},
+{TEXT("bib"),			TEXT("bib"),				TEXT("bib"),											L_BIBTEX,		SCLEX_BIBTEX},
+{TEXT("bullant"),		TEXT("bullant"),			TEXT("bullant"),										L_BULLANT,		SCLEX_BULLANT},
+{TEXT("clarion"),		TEXT("clarion"),			TEXT("clarion"),										L_CLW,			SCLEX_CLW},
+{TEXT("clarionnocase"),	TEXT("clarionnocase"),		TEXT("clarionnocase"),									L_CLWNOCASE,	SCLEX_CLWNOCASE},
+{TEXT("conf"),			TEXT("conf"),				TEXT("conf"),											L_CONF,			SCLEX_CONF},
+{TEXT("cppnocase"),		TEXT("cppnocase"),			TEXT("cppnocase"),										L_CPPNOCASE,	SCLEX_CPPNOCASE},
+{TEXT("nncrontab"),		TEXT("nncrontab"),			TEXT("nncrontab"),										L_NNCRONTAB,	SCLEX_NNCRONTAB},
+{TEXT("csound"),		TEXT("csound"),				TEXT("csound"),											L_CSOUND,		SCLEX_CSOUND},
+{TEXT("DMAP"),			TEXT("DMAP"),				TEXT("DMAP"),											L_DMAP,			SCLEX_DMAP},
+{TEXT("DMIS"),			TEXT("DMIS"),				TEXT("DMIS"),											L_DMIS,			SCLEX_DMIS},
+{TEXT("ecl"),			TEXT("ecl"),				TEXT("ecl"),											L_ECL,			SCLEX_ECL},
+{TEXT("eiffel"),		TEXT("eiffel"),				TEXT("eiffel"),											L_EIFFEL,		SCLEX_EIFFEL},
+{TEXT("eiffelkw"),		TEXT("eiffelkw"),			TEXT("eiffelkw"),										L_EIFFELKW,		SCLEX_EIFFELKW},
+{TEXT("erlang"),		TEXT("erlang"),				TEXT("erlang"),											L_ERLANG,		SCLEX_ERLANG},
+{TEXT("escript"),		TEXT("escript"),			TEXT("escript"),										L_ESCRIPT,		SCLEX_ESCRIPT},
+{TEXT("flagship"),		TEXT("flagship"),			TEXT("flagship"),										L_FLAGSHIP,		SCLEX_FLAGSHIP},
+{TEXT("forth"),			TEXT("forth"),				TEXT("forth"),											L_FORTH,		SCLEX_FORTH},
+{TEXT("gap"),			TEXT("gap"),				TEXT("gap"),											L_GAP,			SCLEX_GAP},
+{TEXT("literatehaskell"),TEXT("literatehaskell"),	TEXT("literatehaskell"),								L_LITERATEHASKELL,SCLEX_LITERATEHASKELL},
+{TEXT("srec"),			TEXT("srec"),				TEXT("srec"),											L_SREC,			SCLEX_SREC},
+{TEXT("ihex"),			TEXT("ihex"),				TEXT("ihex"),											L_IHEX,			SCLEX_IHEX},
+{TEXT("tehex"),			TEXT("tehex"),				TEXT("tehex"),											L_TEHEX,		SCLEX_TEHEX},
+{TEXT("phpscript"),		TEXT("phpscript"),			TEXT("phpscript"),										L_PHPSCRIPT,	SCLEX_PHPSCRIPT},
+{TEXT("kvirc"),			TEXT("kvirc"),				TEXT("kvirc"),											L_KVIRC,		SCLEX_KVIRC},
+{TEXT("latex"),			TEXT("latex"),				TEXT("latex"),											L_LATEX,		SCLEX_LATEX},
+{TEXT("lout"),			TEXT("lout"),				TEXT("lout"),											L_LOUT,			SCLEX_LOUT},
+{TEXT("magiksf"),		TEXT("magiksf"),			TEXT("magiksf"),										L_MAGIK,		SCLEX_MAGIK},
+{TEXT("markdown"),		TEXT("markdown"),			TEXT("markdown"),										L_MARKDOWN,		SCLEX_MARKDOWN},
+{TEXT("octave"),		TEXT("octave"),				TEXT("octave"),											L_OCTAVE,		SCLEX_OCTAVE},
+{TEXT("metapost"),		TEXT("metapost"),			TEXT("metapost"),										L_METAPOST,		SCLEX_METAPOST},
+{TEXT("mmixal"),		TEXT("mmixal"),				TEXT("mmixal"),											L_MMIXAL,		SCLEX_MMIXAL},
+{TEXT("modula"),		TEXT("modula"),				TEXT("modula"),											L_MODULA,		SCLEX_MODULA},
+{TEXT("lot"),			TEXT("lot"),				TEXT("lot"),											L_LOT,			SCLEX_LOT},
+{TEXT("mssql"),			TEXT("mssql"),				TEXT("mssql"),											L_MSSQL,		SCLEX_MSSQL},
+{TEXT("mysql"),			TEXT("mysql"),				TEXT("mysql"),											L_MYSQL,		SCLEX_MYSQL},
+{TEXT("nimrod"),		TEXT("nimrod"),				TEXT("nimrod"),											L_NIMROD,		SCLEX_NIMROD},
+{TEXT("opal"),			TEXT("opal"),				TEXT("opal"),											L_OPAL,			SCLEX_OPAL},
+{TEXT("oscript"),		TEXT("oscript"),			TEXT("oscript"),										L_OSCRIPT,		SCLEX_OSCRIPT},
+{TEXT("errorlist"),		TEXT("errorlist"),			TEXT("errorlist"),										L_ERRORLIST,	SCLEX_ERRORLIST},
+{TEXT("powerbasic"),	TEXT("powerbasic"),			TEXT("powerbasic"),										L_POWERBASIC,	SCLEX_POWERBASIC},
+{TEXT("PL/M"),			TEXT("PL/M"),				TEXT("PL/M"),											L_PLM,			SCLEX_PLM},
+{TEXT("po"),			TEXT("po"),					TEXT("po"),												L_PO,			SCLEX_PO},
+{TEXT("pov"),			TEXT("pov"),				TEXT("pov"),											L_POV,			SCLEX_POV},
+{TEXT("powerpro"),		TEXT("powerpro"),			TEXT("powerpro"),										L_POWERPRO,		SCLEX_POWERPRO},
+{TEXT("progress"),		TEXT("progress"),			TEXT("progress"),										L_PROGRESS,		SCLEX_PROGRESS},
+{TEXT("rebol"),			TEXT("rebol"),				TEXT("rebol"),											L_REBOL,		SCLEX_REBOL},
+{TEXT("registry"),		TEXT("registry"),			TEXT("registry"),										L_REGISTRY,		SCLEX_REGISTRY},
+{TEXT("rust"),			TEXT("rust"),				TEXT("rust"),											L_RUST,			SCLEX_RUST},
+{TEXT("scriptol"),		TEXT("scriptol"),			TEXT("scriptol"),										L_SCRIPTOL,		SCLEX_SCRIPTOL},
+{TEXT("SML"),			TEXT("SML"),				TEXT("SML"),											L_SML,			SCLEX_SML},
+{TEXT("sorcins"),		TEXT("sorcins"),			TEXT("sorcins"),										L_SORCUS,		SCLEX_SORCUS},
+{TEXT("specman"),		TEXT("specman"),			TEXT("specman"),										L_SPECMAN,		SCLEX_SPECMAN},
+{TEXT("spice"),			TEXT("spice"),				TEXT("spice"),											L_SPICE,		SCLEX_SPICE},
+{TEXT("fcST"),			TEXT("fcST"),				TEXT("fcST"),											L_STTXT,		SCLEX_STTXT},
+{TEXT("TACL"),			TEXT("TACL"),				TEXT("TACL"),											L_TACL,			SCLEX_TACL},
+{TEXT("tads3"),			TEXT("tads3"),				TEXT("tads3"),											L_TADS3,		SCLEX_TADS3},
+{TEXT("TAL"),			TEXT("TAL"),				TEXT("TAL"),											L_TAL,			SCLEX_TAL},
+{TEXT("tcmd"),			TEXT("tcmd"),				TEXT("tcmd"),											L_TCMD,			SCLEX_TCMD},
+{TEXT("txt2tags"),		TEXT("txt2tags"),			TEXT("txt2tags"),										L_TXT2TAGS,		SCLEX_TXT2TAGS},
+{TEXT("vbscript"),		TEXT("vbscript"),			TEXT("vbscript"),										L_VBSCRIPT,		SCLEX_VBSCRIPT},
+{TEXT("visualprolog"),	TEXT("visualprolog"),		TEXT("visualprolog"),									L_VISUALPROLOG,	SCLEX_VISUALPROLOG},
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -1156,6 +1229,23 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE5], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE5);
 	}
+	if (whichList & LIST_7)
+	{
+		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE6], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE6);
+	}
+	if (whichList & LIST_8)
+	{
+		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE7], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE7);
+	}
+	//Scintilla : keyword list 0 to 8 (KEYWORDSET_MAX = 8)
+	//if (whichList & LIST_9)
+	//{
+	//	const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE8], CP_ACP);
+	//	setKeywords(langType, keyWords_char, LANG_INDEX_TYPE8);
+	//}
+
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 
@@ -1506,6 +1596,225 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_COFFEESCRIPT :
 			setCoffeeScriptLexer(); break;
+
+		case L_A68K :
+			setA68kLexer(); break;
+
+		case L_ABAQUS :
+			setAbaqusLexer(); break;
+
+		case L_APDL :
+			setAPDLLexer(); break;
+
+		case L_AS :
+			setAsLexer(); break;
+
+		case L_ASN1 :
+			setAsn1Lexer(); break;
+
+		case L_ASYMPTOTE :
+			setASYLexer(); break;
+
+		case L_AVE :
+			setAVELexer(); break;
+
+		case L_AVS :
+			setAVSLexer(); break;
+
+		case L_BAAN :
+			setBaanLexer(); break;
+
+		case L_BLITZBASIC :
+			setBlitzBasicLexer(); break;
+
+		case L_PUREBASIC :
+			setPureBasicLexer(); break;
+
+		case L_FREEBASIC :
+			setFreeBasicLexer(); break;
+
+		case L_BIBTEX :
+			setBibTeXLexer(); break;
+
+		case L_BULLANT :
+			setBullantLexer(); break;
+
+		case L_CLW :
+			setClwLexer(); break;
+
+		case L_CLWNOCASE :
+			setClwNoCaseLexer(); break;
+
+		case L_CONF :
+			setConfLexer(); break;
+
+		case L_CPPNOCASE :
+			setCPPNoCaseLexer(); break;
+
+		case L_NNCRONTAB :
+			setNncrontabLexer(); break;
+
+		case L_CSOUND :
+			setCsoundLexer(); break;
+
+		case L_DMAP :
+			setDMAPLexer(); break;
+
+		case L_DMIS :
+			setDMISLexer(); break;
+
+		case L_ECL :
+			setECLLexer(); break;
+
+		case L_EIFFEL :
+			setEiffelLexer(); break;
+
+		case L_EIFFELKW :
+			setEiffelkwLexer(); break;
+
+		case L_ERLANG :
+			setErlangLexer(); break;
+
+		case L_ESCRIPT :
+			setESCRIPTLexer(); break;
+
+		case L_FLAGSHIP :
+			setFlagShipLexer(); break;
+
+		case L_FORTH :
+			setForthLexer(); break;
+
+		case L_GAP :
+			setGAPLexer(); break;
+
+		case L_LITERATEHASKELL :
+			setLiterateHaskellLexer(); break;
+
+		case L_SREC :
+			setSrecLexer(); break;
+
+		case L_IHEX :
+			setIHexLexer(); break;
+
+		case L_TEHEX :
+			setTEHexLexer(); break;
+
+		case L_PHPSCRIPT :
+			setPHPSCRIPTLexer(); break;
+
+		case L_KVIRC :
+			setKVIrcLexer(); break;
+
+		case L_LATEX :
+			setLatexLexer(); break;
+
+		case L_LOUT :
+			setLoutLexer(); break;
+
+		case L_MAGIK :
+			setMagikSFLexer(); break;
+
+		case L_MARKDOWN :
+			setMarkdownLexer(); break;
+
+		case L_OCTAVE :
+			setOctaveLexer(); break;
+
+		case L_METAPOST :
+			setMETAPOSTLexer(); break;
+
+		case L_MMIXAL :
+			setMMIXALLexer(); break;
+
+		case L_MODULA :
+			setModulaLexer(); break;
+
+		case L_LOT :
+			setLotLexer(); break;
+
+		case L_MSSQL :
+			setMSSQLLexer(); break;
+
+		case L_MYSQL :
+			setMySQLLexer(); break;
+
+		case L_NIMROD :
+			setNimrodLexer(); break;
+
+		case L_OPAL :
+			setOpalLexer(); break;
+
+		case L_OSCRIPT :
+			setOScriptLexer(); break;
+
+		case L_ERRORLIST :
+			setErrorListLexer(); break;
+
+		case L_POWERBASIC :
+			setPBLexer(); break;
+
+		case L_PLM :
+			setPLMLexer(); break;
+
+		case L_PO :
+			setPOLexer(); break;
+
+		case L_POV :
+			setPOVLexer(); break;
+
+		case L_POWERPRO :
+			setPowerProLexer(); break;
+
+		case L_PROGRESS :
+			setProgressLexer(); break;
+
+		case L_REBOL :
+			setREBOLLexer(); break;
+
+		case L_REGISTRY :
+			setRegistryLexer(); break;
+
+		case L_RUST :
+			setRustLexer(); break;
+
+		case L_SCRIPTOL :
+			setScriptolLexer(); break;
+
+		case L_SML :
+			setSMLLexer(); break;
+
+		case L_SORCUS :
+			setSorcLexer(); break;
+
+		case L_SPECMAN :
+			setSpecmanLexer(); break;
+
+		case L_SPICE :
+			setSpiceLexer(); break;
+
+		case L_STTXT :
+			setSTTXTLexer(); break;
+
+		case L_TACL :
+			setTACLLexer(); break;
+
+		case L_TADS3 :
+			setTADS3Lexer(); break;
+
+		case L_TAL :
+			setTALLexer(); break;
+
+		case L_TCMD :
+			setTCMDLexer(); break;
+
+		case L_TXT2TAGS :
+			setTxt2tagsLexer(); break;
+
+		case L_VBSCRIPT :
+			setVBScriptLexer(); break;
+
+		case L_VISUALPROLOG :
+			setVisualPrologLexer(); break;
 
 		case L_TEXT :
 		default :

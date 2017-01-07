@@ -58,11 +58,11 @@ inline RECT &OffsetRect(RECT& rc, POINT pt) {
 
 // handy functions to take the min or max of a SIZE
 inline SIZE minsize(SIZE a, SIZE b) {
-	return GetSize(min((UINT)a.cx,(UINT)b.cx),min((UINT)a.cy,(UINT)b.cy));
+	return GetSize(min(a.cx, b.cx), min(a.cy, b.cy));
 }
 
 inline SIZE maxsize(SIZE a, SIZE b) {
-	return GetSize(max((UINT)a.cx,(UINT)b.cx),max((UINT)a.cy,(UINT)b.cy));
+	return GetSize(max(a.cx, b.cx), max(a.cy, b.cy));
 }
 
 //////////////////
@@ -225,7 +225,7 @@ struct NMWINMGR : public NMHDR {
 //
 class CWinMgr /*: public CObject*/ {
 public:
-	CWinMgr(WINRECT* map);
+	explicit CWinMgr(WINRECT* map);
 	virtual ~CWinMgr();
 
 	virtual void GetWindowPositions(HWND hWnd); // load map from window posns

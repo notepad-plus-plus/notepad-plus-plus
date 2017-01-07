@@ -26,17 +26,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef DOCKINGCONT
-#define DOCKINGCONT
-
-#ifndef RESOURCE_H
+#pragma once
 #include "resource.h"
-#endif //RESOURCE_H
-
-#ifndef DOCKING_H
 #include "Docking.h"
-#endif //DOCKING_H
-
 #include <vector>
 #include "StaticDialog.h"
 #include "Common.h"
@@ -113,7 +105,7 @@ public:
 		return _isFloating;
 	}
 
-	INT getElementCnt() {
+	size_t getElementCnt() {
 		return _vTbData.size();
 	}
 
@@ -142,7 +134,7 @@ public:
 	};
 
     virtual void destroy() {
-		for (INT iTb = _vTbData.size(); iTb > 0; iTb--)
+		for (int iTb = static_cast<int>(_vTbData.size()); iTb > 0; iTb--)
 		{
 			delete _vTbData[iTb-1];
 		}
@@ -243,6 +235,3 @@ private:
 	std::vector<tTbData *>		_vTbData;
 };
 
-
-
-#endif // DOCKINGCONT

@@ -4,7 +4,7 @@ By modifying this file, you can customize your context menu popuped as right cli
 It may be more convinient to access to your frequent used commands via context menu than via the top menu.
 
 Please check "How to Customize the Context Menu" on:
-http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Context_Menu
+http://docs.notepad-plus-plus.org/index.php/Context_Menu
 -->
 <NotepadPlus>
     <ScintillaContextMenu>
@@ -25,7 +25,7 @@ http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Context_Menu
 		
 		<!-- You can use command id to add the commands you want. 
 		Check english.xml to get commands id:
-		http://notepad-plus.svn.sourceforge.net/viewvc/notepad-plus/trunk/PowerEditor/installer/nativeLang/english.xml
+		https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/english.xml
 		
 		Use FolderName (optional) to create sub-menu. FolderName can be used in any type of item.
 		FolderName value can be in any language.
@@ -60,6 +60,9 @@ http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Context_Menu
         <Item id="0"/>
         <Item MenuEntryName="Edit" MenuItemName="UPPERCASE"/>
         <Item MenuEntryName="Edit" MenuItemName="lowercase"/>
+        <Item id="0"/>
+        <Item MenuEntryName="Edit" MenuItemName="Open File"/>
+        <Item MenuEntryName="Edit" MenuItemName="Search On Internet"/>
         <Item id="0"/>
         <Item MenuEntryName="Edit" MenuItemName="Toggle Single Line Comment"/>
         <Item MenuEntryName="Edit" MenuItemName="Block Comment"/>

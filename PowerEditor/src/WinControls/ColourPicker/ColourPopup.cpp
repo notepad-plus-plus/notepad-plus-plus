@@ -43,7 +43,7 @@ DWORD colourItems[] = {
 
 void ColourPopup::create(int dialogID) 
 {
-	_hSelf = ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent,  dlgProc, (LPARAM)this);
+	_hSelf = ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this));
 	
 	if (!_hSelf)
 	{
@@ -60,7 +60,7 @@ INT_PTR CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LP
 		case WM_MEASUREITEM:
 		{
 			RECT rc;
-			LPMEASUREITEMSTRUCT lpmis =  (LPMEASUREITEMSTRUCT) lParam; 
+			LPMEASUREITEMSTRUCT lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(lParam);
 			::GetWindowRect(::GetDlgItem(hwnd, lpmis->CtlID), &rc);
 			lpmis->itemHeight = (rc.bottom-rc.top)/6; 
 			lpmis->itemWidth = (rc.right-rc.left)/8;
@@ -69,9 +69,9 @@ INT_PTR CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LP
 
 		case WM_INITDIALOG :
 		{
-			ColourPopup *pColourPopup = (ColourPopup *)(lParam);
+			ColourPopup *pColourPopup = reinterpret_cast<ColourPopup *>(lParam);
 			pColourPopup->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)lParam);
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, static_cast<LONG_PTR>(lParam));
 			pColourPopup->run_dlgProc(message, wParam, lParam);
 			return TRUE;
 		}
@@ -96,8 +96,8 @@ INT_PTR CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			int nColor;
 			for (nColor = 0 ; nColor < int(sizeof(colourItems)/sizeof(DWORD)) ; ++nColor)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_ADDSTRING, nColor, (LPARAM) "");
-				::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_SETITEMDATA , nColor, (LPARAM) colourItems[nColor]);
+				::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_ADDSTRING, nColor, reinterpret_cast<LPARAM>(""));
+				::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_SETITEMDATA, nColor, static_cast<LPARAM>(colourItems[nColor]));
 			}
 			return TRUE;
 		}
@@ -218,8 +218,8 @@ INT_PTR CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
                 {
 			        if (HIWORD(wParam) == LBN_SELCHANGE)
 		            {
-                        int i = ::SendMessage((HWND)lParam, LB_GETCURSEL, 0L, 0L);
-                        _colour = ::SendMessage((HWND)lParam, LB_GETITEMDATA, i, 0L);
+                        auto i = ::SendMessage(reinterpret_cast<HWND>(lParam), LB_GETCURSEL, 0L, 0L);
+						_colour = static_cast<COLORREF>(::SendMessage(reinterpret_cast<HWND>(lParam), LB_GETITEMDATA, i, 0L));
 
                         ::SendMessage(_hParent, WM_PICKUP_COLOR, _colour, 0);
 					    return TRUE;
@@ -233,8 +233,7 @@ INT_PTR CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		case WM_ACTIVATE :
         {
 			if (LOWORD(wParam) == WA_INACTIVE)
-				//if (!isColourChooserLaunched)
-					::SendMessage(_hParent, WM_PICKUP_CANCEL, 0, 0);
+				::SendMessage(_hParent, WM_PICKUP_CANCEL, 0, 0);
 			return TRUE;
 		}
 		

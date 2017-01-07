@@ -37,125 +37,143 @@ SmartHighlighter::SmartHighlighter(FindReplaceDlg * pFRDlg)
 	//Nothing to do
 }
 
-void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
+void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView, const generic_string & word2Hilite)
 {
-	//Get selection
-	CharacterRange range = pHighlightView->getSelection();
-
-	//Clear marks
-	pHighlightView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
-
-	//If nothing selected, dont mark anything
-	if (range.cpMin == range.cpMax)
-	{
-		return;
-	}
-
-	int textlen = range.cpMax - range.cpMin + 1;
-
-	char * text2Find = new char[textlen];
-	pHighlightView->getSelectedText(text2Find, textlen, false);	//do not expand selection (false)
-
-	
-	//GETWORDCHARS for isQualifiedWord2() and isWordChar2()
-	int listCharSize = pHighlightView->execute(SCI_GETWORDCHARS, 0, 0);
-	char *listChar = new char[listCharSize+1];
-	pHighlightView->execute(SCI_GETWORDCHARS, 0, (LPARAM)listChar);
-	listChar[listCharSize] = '\0';
-	
-	bool valid = true;
-	//The word has to consist if wordChars only, and the characters before and after something else
-	if (!isQualifiedWord(text2Find, listChar))
-		valid = false;
-	else
-	{
-		UCHAR c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMax);
-		if (c)
-		{
-			if (isWordChar(char(c), listChar))
-				valid = false;
-		}
-		c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMin-1);
-		if (c)
-		{
-			if (isWordChar(char(c), listChar))
-				valid = false;
-		}
-	}
-	if (!valid) {
-		delete [] text2Find;
-		delete [] listChar;
-		return;
-	}
-
 	// save target locations for other search functions
-	int originalStartPos = (int)pHighlightView->execute(SCI_GETTARGETSTART);
-	int originalEndPos = (int)pHighlightView->execute(SCI_GETTARGETEND);
+	auto originalStartPos = pHighlightView->execute(SCI_GETTARGETSTART);
+	auto originalEndPos = pHighlightView->execute(SCI_GETTARGETEND);
 
 	// Get the range of text visible and highlight everything in it
-	int firstLine =		(int)pHighlightView->execute(SCI_GETFIRSTVISIBLELINE);
-	int nrLines =	min((int)pHighlightView->execute(SCI_LINESONSCREEN), MAXLINEHIGHLIGHT ) + 1;
-	int lastLine =		firstLine+nrLines;
-	int startPos =		0;
-	int endPos =		0;
-	int currentLine = firstLine;
+	auto firstLine = static_cast<int>(pHighlightView->execute(SCI_GETFIRSTVISIBLELINE));
+	auto nbLineOnScreen = pHighlightView->execute(SCI_LINESONSCREEN);
+	auto nrLines = min(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
+	auto lastLine = firstLine + nrLines;
+	int startPos = 0;
+	int endPos = 0;
+	auto currentLine = firstLine;
 	int prevDocLineChecked = -1;	//invalid start
+
+	// Determine mode for SmartHighlighting
+	bool isWordOnly = true;
+	bool isCaseSensentive = true;
 
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
-	FindOption fo;
-	fo._isMatchCase = nppGUI._smartHiliteCaseSensitive;
-	fo._isWholeWord = true;
-
-	const TCHAR * searchText = NULL;
-
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	unsigned int cp = pHighlightView->execute(SCI_GETCODEPAGE); 
-	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
-	searchText = text2FindW;
-
-	for(; currentLine < lastLine; ++currentLine)
+	if (nppGUI._smartHiliteUseFindSettings)
 	{
-		int docLine = (int)pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine);
+		// fetch find dialog's setting
+		NppParameters *nppParams = NppParameters::getInstance();
+		FindHistory &findHistory = nppParams->getFindHistory();
+		isWordOnly = findHistory._isMatchWord;
+		isCaseSensentive = findHistory._isMatchCase;
+	}
+	else
+	{
+		isWordOnly = nppGUI._smartHiliteWordOnly;
+		isCaseSensentive = nppGUI._smartHiliteCaseSensitive;
+	}
+
+	FindOption fo;
+	fo._isMatchCase = isCaseSensentive;
+	fo._isWholeWord = isWordOnly;
+
+	FindReplaceInfo frInfo;
+	frInfo._txt2find = word2Hilite.c_str();
+
+	for (; currentLine < lastLine; ++currentLine)
+	{
+		int docLine = static_cast<int>(pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine));
 		if (docLine == prevDocLineChecked)
 			continue;	//still on same line (wordwrap)
 		prevDocLineChecked = docLine;
-		startPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine);
-		endPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine+1);
-		if (endPos == -1) {	//past EOF
-			endPos = (int)pHighlightView->getCurrentDocLen() - 1;
-			_pFRDlg->processRange(ProcessMarkAll_2, searchText, NULL, startPos, endPos, NULL, &fo);
+		startPos = static_cast<int>(pHighlightView->execute(SCI_POSITIONFROMLINE, docLine));
+		endPos = static_cast<int>(pHighlightView->execute(SCI_POSITIONFROMLINE, docLine + 1));
+		
+		frInfo._startRange = startPos;
+		frInfo._endRange = endPos;
+		if (endPos == -1)
+		{	//past EOF
+			frInfo._endRange = pHighlightView->getCurrentDocLen() - 1;
+			_pFRDlg->processRange(ProcessMarkAll_2, frInfo, NULL, &fo, -1, pHighlightView);
 			break;
-		} else {
-			_pFRDlg->processRange(ProcessMarkAll_2, searchText, NULL, startPos, endPos, NULL, &fo);
+		}
+		else
+		{
+			_pFRDlg->processRange(ProcessMarkAll_2, frInfo, NULL, &fo, -1, pHighlightView);
 		}
 	}
 
 	// restore the original targets to avoid conflicts with the search/replace functions
-	pHighlightView->execute(SCI_SETTARGETSTART, originalStartPos);
-	pHighlightView->execute(SCI_SETTARGETEND, originalEndPos);
-	delete [] listChar;
+	pHighlightView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
 }
 
-bool SmartHighlighter::isQualifiedWord(const char *str, char *listChar) const
+void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, ScintillaEditView * unfocusView)
 {
-	for (size_t i = 0, len = strlen(str) ; i < len ; ++i)
-	{
-		if (!isWordChar(str[i], listChar))
-			return false;
-	}
-	return true;
-};
+	// Clear marks
+	pHighlightView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
 
-bool SmartHighlighter::isWordChar(char ch, char listChar[]) const
-{
-	
-	for (size_t i = 0, len = strlen(listChar) ; i < len ; ++i)
+	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+
+	// If nothing selected, dont mark anything
+	if (pHighlightView->execute(SCI_GETSELECTIONEMPTY) == 1)
 	{
-		if (ch == listChar[i])
+		if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible()
+			&& unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
 		{
-			return true;
+			unfocusView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
 		}
+		return;
 	}
-	return false;
-};
+
+	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
+	auto range = pHighlightView->getSelection();
+
+	// Determine mode for SmartHighlighting
+	bool isWordOnly = true;
+	bool isCaseSensentive = true;
+
+	if (nppGUI._smartHiliteUseFindSettings)
+	{
+		// fetch find dialog's setting
+		NppParameters *nppParams = NppParameters::getInstance();
+		FindHistory &findHistory = nppParams->getFindHistory();
+		isWordOnly = findHistory._isMatchWord;
+		isCaseSensentive = findHistory._isMatchCase;
+	}
+	else
+	{
+		isWordOnly = nppGUI._smartHiliteWordOnly;
+		isCaseSensentive = nppGUI._smartHiliteCaseSensitive;
+	}
+
+	// additional checks for wordOnly mode
+	// Make sure the "word" positions match the current selection
+	if (isWordOnly)
+	{
+		auto wordStart = pHighlightView->execute(SCI_WORDSTARTPOSITION, curPos, true);
+		auto wordEnd = pHighlightView->execute(SCI_WORDENDPOSITION, wordStart, true);
+
+		if (wordStart == wordEnd || wordStart != range.cpMin || wordEnd != range.cpMax)
+			return;
+	}
+
+	int textlen = range.cpMax - range.cpMin + 1;
+	char * text2Find = new char[textlen];
+	pHighlightView->getSelectedText(text2Find, textlen, false); //do not expand selection (false)
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	UINT cp = static_cast<UINT>(pHighlightView->execute(SCI_GETCODEPAGE));
+	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
+
+	highlightViewWithWord(pHighlightView, text2FindW);
+
+	if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible()
+		&& unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
+	{
+		// Clear marks
+		unfocusView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
+		highlightViewWithWord(unfocusView, text2FindW);
+	}
+
+	delete[] text2Find;
+}

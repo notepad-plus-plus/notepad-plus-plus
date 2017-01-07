@@ -125,6 +125,7 @@
 #endif //SIZE_DLG_H
 
 #include "localization.h"
+#include "md5Dlgs.h"
 #include <vector>
 #include <iso646.h>
 
@@ -185,7 +186,6 @@ struct VisibleGUIConf final
 		memset(&_winPlace, 0x0, sizeof(_winPlace));
 	}
 };
-
 
 class FileDialog;
 class Notepad_plus_Window;
@@ -251,10 +251,11 @@ public:
 	bool isFileSession(const TCHAR * filename);
 	bool isFileWorkspace(const TCHAR * filename);
 	void filePrint(bool showDialog);
-	bool saveScintillaParams();
+	void saveScintillasZoom();
 
 	bool saveGUIParams();
 	bool saveProjectPanelsParams();
+	bool saveFileBrowserParam();
 	void saveDockingParams();
     void saveUserDefineLangs();
     void saveShortcuts();
@@ -281,6 +282,7 @@ public:
 	bool loadSession(Session & session, bool isSnapshotMode = false);
 
 	void notifyBufferChanged(Buffer * buffer, int mask);
+	bool findInFinderFiles(FindersInfo *findInFolderInfo);
 	bool findInFiles();
 	bool replaceInFiles();
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
@@ -339,10 +341,14 @@ private:
 
 	// Dialog
 	FindReplaceDlg _findReplaceDlg;
+	FindInFinderDlg _findInFinderDlg;
+
 	FindIncrementDlg _incrementFindDlg;
     AboutDlg _aboutDlg;
 	DebugInfoDlg _debugInfoDlg;
 	RunDlg _runDlg;
+	MD5FromFilesDlg _md5FromFilesDlg;
+	MD5FromTextDlg _md5FromTextDlg;
     GoToLineDlg _goToLineDlg;
 	ColumnEditorDlg _colEditorDlg;
 	WordStyleDlg _configStyleDlg;
@@ -361,6 +367,8 @@ private:
 
 	bool _sysMenuEntering = false;
 
+	// make sure we don't recursively call doClose when closing the last file with -quitOnEmpty
+	bool _isAttemptingCloseOnQuit = false;
 
 	// For FullScreen/PostIt features
 	VisibleGUIConf	_beforeSpecialView;
@@ -373,9 +381,11 @@ private:
 	bool _playingBackMacro = false;
 	RunMacroDlg _runMacroDlg;
 
+	// For conflict detection when saving Macros or RunCommands
+	ShortcutMapper * _pShortcutMapper = nullptr;
+
 	// For hotspot
 	bool _linkTriggered = true;
-	bool _isHotspotDblClicked = false;
 	bool _isFolding = false;
 
 	//For Dynamic selection highlight
@@ -444,7 +454,7 @@ private:
 	bool reloadLang();
 	bool loadStyles();
 
-	int currentView(){
+	int currentView() {
 		return _activeView;
 	}
 
@@ -457,6 +467,8 @@ private:
 	}
 
 	bool canHideView(int whichOne);	//true if view can safely be hidden (no open docs etc)
+
+	bool isEmpty(); // true if we have 1 view with 1 clean, untitled doc
 
 	int switchEditViewTo(int gid);	//activate other view (set focus etc)
 
@@ -505,6 +517,7 @@ private:
 	enum LangType menuID2LangType(int cmdID);
 
 	BOOL processIncrFindAccel(MSG *msg) const;
+	BOOL processFindAccel(MSG *msg) const;
 
 	void checkMenuItem(int itemID, bool willBeChecked) const {
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
@@ -519,7 +532,7 @@ private:
     void bookmarkAdd(int lineno) const
 	{
 		if (lineno == -1)
-			lineno = _pEditView->getCurrentLineNumber();
+			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		if (!bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
 	}
@@ -527,15 +540,15 @@ private:
     void bookmarkDelete(int lineno) const
 	{
 		if (lineno == -1)
-			lineno = _pEditView->getCurrentLineNumber();
-		if ( bookmarkPresent(lineno))
+			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
+		while (bookmarkPresent(lineno))
 			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
 	}
 
     bool bookmarkPresent(int lineno) const
 	{
 		if (lineno == -1)
-			lineno = _pEditView->getCurrentLineNumber();
+			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	}
@@ -543,7 +556,7 @@ private:
     void bookmarkToggle(int lineno) const
 	{
 		if (lineno == -1)
-			lineno = _pEditView->getCurrentLineNumber();
+			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 
 		if (bookmarkPresent(lineno))
 			bookmarkDelete(lineno);
@@ -569,12 +582,12 @@ private:
     bool braceMatch();
 
     void activateNextDoc(bool direction);
-	void activateDoc(int pos);
+	void activateDoc(size_t pos);
 
 	void updateStatusBar();
 	size_t getSelectedCharNumber(UniMode);
 	size_t getCurrentDocCharCount(UniMode u);
-	int getSelectedAreas();
+	size_t getSelectedAreas();
 	size_t getSelectedBytes();
 	bool isFormatUnicode(UniMode);
 	int getBOMSize(UniMode);
@@ -621,7 +634,7 @@ private:
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
 	void launchFunctionList();
-	void launchFileBrowser();
+	void launchFileBrowser(const std::vector<generic_string> & folders);
 	void showAllQuotes() const;
 	static DWORD WINAPI threadTextPlayer(void *text2display);
 	static DWORD WINAPI threadTextTroller(void *params);
@@ -639,8 +652,14 @@ private:
 	}
 
 	static DWORD WINAPI backupDocument(void *params);
-	//static DWORD WINAPI monitorFileOnChange(void * params);
-	//static DWORD WINAPI monitorDirectoryOnChange(void * params);
+
+	static DWORD WINAPI monitorFileOnChange(void * params);
+	struct MonitorInfo final {
+		MonitorInfo(Buffer *buf, HWND nppHandle) :
+			_buffer(buf), _nppHandle(nppHandle) {};
+		Buffer *_buffer = nullptr;
+		HWND _nppHandle = nullptr;
+	};
 };
 
 

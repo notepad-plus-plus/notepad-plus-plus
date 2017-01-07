@@ -1,259 +1,382 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-For learning making your language parser, please check the following link:
-http://notepad-plus-plus.org/features/function-list.html
--->
+|   To learn how to make your own language parser, please check the following link:
+|       http://notepad-plus-plus.org/features/function-list.html
+\-->
 <NotepadPlus>
 	<functionList>
 		<associationMap>
-		<!-- langID:
-			L_TEXT: 0     L_PHP: 1        L_C: 2        L_CPP: 3       L_CS: 4         L_OBJC: 5
-			L_JAVA: 6     L_RC: 7         L_HTML: 8     L_XML: 9       L_MAKEFILE: 10  L_PASCAL: 11
-			L_BATCH:12    L_INI: 13       L_ASCII: 14   L_USER: 15     L_ASP: 16       L_SQL: 17
-			L_VB: 18      L_JS: 19        L_CSS: 20     L_PERL: 21     L_PYTHON: 22    L_LUA: 23
-			L_TEX: 24     L_FORTRAN: 25   L_BASH: 26    L_FLASH: 27    L_NSIS: 28      L_TCL: 29
-			L_LISP: 30    L_SCHEME: 31    L_ASM: 32     L_DIFF: 33     L_PROPS: 34     L_PS: 35
-			L_RUBY: 36    L_SMALLTALK:37  L_VHDL: 38    L_KIX: 39      L_AU3: 40       L_CAML: 41
-			L_ADA: 42     L_VERILOG: 43   L_MATLAB: 44  L_HASKELL: 45  L_INNO: 46      L_SEARCHRESULT: 47
-			L_CMAKE: 48   L_YAML: 49      L_COBOL 50    L_GUI4CLI: 51  L_D: 52         L_POWERSHELL: 53
-			L_R: 54       L_JSP: 55
-		-->
-			<association langID="1" id="php_function"/>
-			<association langID="2" id="c_function"/>
-			<association langID="3" id="c_cpp_function"/>
-			<association langID="4" id="cs_function"/>
-			<association langID="6" id="java"/>
-			<association langID="9" id="xml_node"/>
-			<association langID="12" id="batch_label"/>
-			<association langID="13" id="ini_section"/>
-			<association langID="19" id="js_function"/>
-			<association langID="21" id="perl_function"/>
-			<association langID="22" id="python_function"/>
-			<association langID="26" id="bash_function"/>
-			<association langID="28" id="nsis_syntax"/>
 		<!--
-			if langID cannot be found above, you can still set the file extensions
-			<association ext=".my_passer_ext1" id="my_passer_id"/>
-			<association ext=".my_passer_ext2" id="my_passer_id"/>
-			
-			for User Defined Languages:
-			<association userDefinedLangName="my user defined language" id="my_udl_passer_id"/>
-			<association userDefinedLangName="Autocad" id="my_autocad_passer_id"/>
+			langID:
+
+			Don't use L_JS (19) use L_JAVASCRIPT (58) instead!
+
+			L_ADA          = 42 | L_DIFF         = 33 | L_LISP         = 30 | L_SCHEME       = 31
+			L_ASCII        = 14 | L_EXTERNAL     = 60 | L_LUA          = 23 | L_SEARCHRESULT = 47
+			L_ASM          = 32 | L_FLASH        = 27 | L_MAKEFILE     = 10 | L_SMALLTALK    = 37
+			L_ASP          = 16 | L_FORTRAN      = 25 | L_MATLAB       = 44 | L_SQL          = 17
+			L_AU3          = 40 | L_FORTRAN_77   = 59 | L_NSIS         = 28 | L_TCL          = 29
+			L_BASH         = 26 | L_GUI4CLI      = 51 | L_OBJC         =  5 | L_TEX          = 24
+			L_BATCH        = 12 | L_HASKELL      = 45 | L_PASCAL       = 11 | L_TEXT         =  0
+			L_C            =  2 | L_HTML         =  8 | L_PERL         = 21 | L_USER         = 15
+			L_CAML         = 41 | L_INI          = 13 | L_PHP          =  1 | L_VB           = 18
+			L_CMAKE        = 48 | L_INNO         = 46 | L_POWERSHELL   = 53 | L_VERILOG      = 43
+			L_COBOL        = 50 | L_JAVA         =  6 | L_PROPS        = 34 | L_VHDL         = 38
+			L_COFFEESCRIPT = 56 | L_JAVASCRIPT   = 58 | L_PS           = 35 | L_XML          =  9
+			L_CPP          =  3 | L_JS           = 19 | L_PYTHON       = 22 | L_YAML         = 49
+			L_CS           =  4 | L_JSON         = 57 | L_R            = 54 |
+			L_CSS          = 20 | L_JSP          = 55 | L_RC           =  7 |
+			L_D            = 52 | L_KIX          = 39 | L_RUBY         = 36 |
+
+			 0 = L_TEXT         | 16 = L_ASP          | 32 = L_ASM          | 48 = L_CMAKE
+			 1 = L_PHP          | 17 = L_SQL          | 33 = L_DIFF         | 49 = L_YAML
+			 2 = L_C            | 18 = L_VB           | 34 = L_PROPS        | 50 = L_COBOL
+			 3 = L_CPP          | 19 = L_JS           | 35 = L_PS           | 51 = L_GUI4CLI
+			 4 = L_CS           | 20 = L_CSS          | 36 = L_RUBY         | 52 = L_D
+			 5 = L_OBJC         | 21 = L_PERL         | 37 = L_SMALLTALK    | 53 = L_POWERSHELL
+			 6 = L_JAVA         | 22 = L_PYTHON       | 38 = L_VHDL         | 54 = L_R
+			 7 = L_RC           | 23 = L_LUA          | 39 = L_KIX          | 55 = L_JSP
+			 8 = L_HTML         | 24 = L_TEX          | 40 = L_AU3          | 56 = L_COFFEESCRIPT
+			 9 = L_XML          | 25 = L_FORTRAN      | 41 = L_CAML         | 57 = L_JSON
+			10 = L_MAKEFILE     | 26 = L_BASH         | 42 = L_ADA          | 58 = L_JAVASCRIPT
+			11 = L_PASCAL       | 27 = L_FLASH        | 43 = L_VERILOG      | 59 = L_FORTRAN_77
+			12 = L_BATCH        | 28 = L_NSIS         | 44 = L_MATLAB       | 60 = L_EXTERNAL
+			13 = L_INI          | 29 = L_TCL          | 45 = L_HASKELL      |
+			14 = L_ASCII        | 30 = L_LISP         | 46 = L_INNO         |
+			15 = L_USER         | 31 = L_SCHEME       | 47 = L_SEARCHRESULT |
+
+			if langID cannot be found above, you can set the file extensions ...
+
+			<association id="my_parser_id" ext=".my_parser_ext1" />
+			<association id="my_parser_id" ext=".my_parser_ext2" />
+
+			and for User Defined Languages (UDL's) use ...
+
+			<association id="my_parser_id" userDefinedLangName="My UDL Name" />
 		-->
+			<association langID= "1" id="php_function" />
+			<association langID= "2" id="c_function" />
+			<association langID= "3" id="cpp_function" />
+			<association langID= "4" id="cs_function" />
+			<association langID= "6" id="java" />
+			<association langID= "9" id="xml_node" />
+			<association langID="12" id="batch_label" />
+			<association langID="13" id="ini_section" />
+			<association langID="21" id="perl_function" />
+			<association langID="22" id="python_function" />
+			<association langID="26" id="bash_function" />
+			<association langID="28" id="nsis_syntax" />
+			<association langID="36" id="ruby_function" />
+			<association langID="58" id="javascript_function" />
 
 		</associationMap>
 		<parsers>
 
-			<parser id="xml_node" displayName="XML Node" commentExpr="&lt;!--([^-]|-(?!-&gt;))*--&gt;">
+			<parser
+				id         ="php_function"
+				displayName="PHP"
+				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
+			>
+				<classRange
+					mainExpr    ="^\s*(class|abstract\s+class|final\s+class)[\t\x20]+[A-Za-z_\x7f-\xff][\w\x7f-\xff]*(\s*|\s*(extends|implements|(extends\s+(\\|[A-Za-z_\x7f-\xff][\w\x7f-\xff]*)+\s+implements))\s+(\,\s*|(\\|[A-Za-z_\x7f-\xff][\w\x7f-\xff]*))+\s*)?\{"
+					openSymbole ="\{"
+					closeSymbole="\}"
+				>
+					<className>
+						<nameExpr expr="(class|abstract\s+class|final\s+class)\s+\w+" />
+						<nameExpr expr="\s+\w+\Z" />
+						<nameExpr expr="\w+\Z" />
+					</className>
+					<function
+						mainExpr="^\s*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+\s+)?(function\s+)+(\w+(\s+\w+)?(\s+|\*\s+|\s+\*|\s+\*\s+))?(\w+\s*::)?(?!(if|while|for|switch))[\w~]+\s*\([^\{]*\{"
+					>
+						<functionName>
+							<funcNameExpr expr="(?!(if|while|for|switch))\w+\s*\([^\{]*" />
+							<!-- comment out the following node to display the method with parameters -->
+							<funcNameExpr expr="(?!(if|while|for|switch))\w+" />
+						</functionName>
+					</function>
+				</classRange>
+				<function
+					mainExpr="^\s*function\s+\w+\("
+				>
+					<functionName>
+						<nameExpr expr="(?!(if|while|for))\w+\s*\(" />
+						<nameExpr expr="(?!(if|while|for))\w+" />
+					</functionName>
+					<className>
+						<nameExpr expr="\w+(?=\s*::)" />
+					</className>
+				</function>
+			</parser>
+
+			<parser
+				id         ="c_function"
+				displayName="C source"
+				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
+			>
+				<function
+					mainExpr="^[\t\x20]*((static|const|virtual)\s+)?[\w:]+(\s+\w+)?(\s+|(\*|\*\*)\s+|\s+(\*|\*\*)|\s+(\*|\*\*)\s+)(\w+\s*::)?(?!(if|while|for))\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{"
+				>
+					<functionName>
+						<nameExpr expr="(?!(if|while|for))[\w~]+\s*\(" />
+						<nameExpr expr="(?!(if|while|for))[\w~]+" />
+					</functionName>
+				</function>
+			</parser>
+
+			<parser
+				id         ="cpp_function"
+				displayName="C++ Class"
+				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
+			>
+				<classRange
+					mainExpr    ="^[\t\x20]*(class|struct)[\t\x20]+\w+\s*(final)?\s*(:\s*(public|protected|private)\s+\w+\s*)?\{"
+					openSymbole ="\{"
+					closeSymbole="\}"
+				>
+					<className>
+						<nameExpr expr="(class|struct)[\t\x20]+\w+" />
+						<nameExpr expr="[\t\x20]+\w+" />
+						<nameExpr expr="\w+" />
+					</className>
+					<function
+						mainExpr="^[\t\x20]*((static|const|virtual)\s+)?(\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+))?(\w+\s*::)?(?!(if|while|for|switch))[\w~]+\s*\([^\)\(]*\)(\s*const\s*)?(\s*(final|override|final\s*override|override\s*final)\s*)?[\n\s]*\{"
+					>
+						<functionName>
+							<funcNameExpr expr="(?!(if|while|for|switch))[\w~]+\s*\(" />
+							<funcNameExpr expr="(?!(if|while|for|switch))[\w~]+" />
+						</functionName>
+					</function>
+				</classRange>
+				<function
+					mainExpr="^[\t\x20]*((static|const|virtual)\s+)?\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+)(\w+\s*::)?(?!(if|while|for))\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{"
+				>
+					<functionName>
+						<nameExpr expr="(?!(if|while|for))\w+\s*\(" />
+						<nameExpr expr="(?!(if|while|for))\w+" />
+					</functionName>
+					<className>
+						<nameExpr expr="\w+(?=\s*::)" />
+					</className>
+				</function>
+			</parser>
+
+			<parser
+				id         ="cs_function"
+				displayName="C# Class"
+				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
+			>
+				<classRange
+					mainExpr    ="^[\t\x20]*((public|protected|private|internal)\s+)?(\w+\s*)?(class|struct|interface)[\t\x20]+[^\{]+\{"
+					openSymbole ="\{"
+					closeSymbole="\}"
+				>
+					<className>
+						<nameExpr expr="(class|struct|interface)[\t\x20]+\w+" />
+						<nameExpr expr="[\t\x20]+\w+" />
+						<nameExpr expr="\w+" />
+					</className>
+					<function
+						mainExpr="^[^\S\r\n]*(?&lt;modifier1&gt;(?:public|protected|internal|private)\s*)?(?&lt;modifier2&gt;(?:new|static|virtual|sealed|override|abstract|extern)\s*)?(partial\s*)?(?&lt;type&gt;(?!(return|if|else))\w+(?&lt;genericType&gt;&lt;[\w,\s&lt;&gt;]+&gt;)?\s+)(?&lt;name&gt;\w+(?&lt;genericNameType&gt;&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)\((?&lt;params&gt;[\w\s,&lt;&gt;\[\]\:=\.]*)\)(?&lt;ctorChain&gt;\s*\:\s*(?:base|this)\s*\((?&lt;ctorParams&gt;[\w\s,&lt;&gt;\[\]\:=\.]*)\))?[\w\s&lt;&gt;\:,\(\)\[\]]*(?:\{|;)"
+					>
+						<functionName>
+							<funcNameExpr expr="(\w+(&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)\(" />
+							<funcNameExpr expr="(\w+(&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)" />
+						</functionName>
+					</function>
+				</classRange>
+			</parser>
+
+			<parser
+				id         ="java"
+				displayName="Java"
+				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*$)"
+			>
+				<classRange
+					mainExpr    ="^[\t\x20]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(class|enum|interface|@interface)\s+\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?(\s+extends\s+\w+)?(\s+implements\s+\w+(,\s*\w+)*)?\s*\{"
+					openSymbole ="\{"
+					closeSymbole="\}"
+				>
+					<className>
+						<nameExpr expr="(class|enum|interface|@interface)\s+\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?" />
+						<nameExpr expr="\s+\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?" />
+						<nameExpr expr="\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?" />
+					</className>
+					<function
+						mainExpr="^[\t\x20]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(\w*(\[\s*])*\s+)?(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?\s*\([^\)\(]*\)(\s+throws\s+\w+)?\s*\{"
+					>
+						<functionName>
+							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?\s*\(" />
+							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?" />
+						</functionName>
+					</function>
+				</classRange>
+			</parser>
+
+			<parser
+				id         ="xml_node"
+				displayName="XML Node"
+				commentExpr="&lt;!--([^-]|-(?!-&gt;))*--&gt;"
+			>
 				<!-- Only match nodes with at least one attribute -->
 				<function
-				    mainExpr="&lt;[\w\?]+[\t ]+\w+[\t ]*=[\t ]*&quot;[^&quot;]+&quot;"
-					displayMode="$functionName">
+					mainExpr="&lt;[\w\?]+[\t\x20]+\w+[\t\x20]*=[\t\x20]*&quot;[^&quot;]+&quot;"
+				>
 					<functionName>
-						<nameExpr expr="[^&lt;]*"/>
+						<nameExpr expr="[^&lt;]*" />
 					</functionName>
 				</function>
 			</parser>
 
-			<parser id="batch_label" displayName="BAT Label" commentExpr="((::.*?$)|(REM.*?$))">
+			<parser
+				id         ="batch_label"
+				displayName="BAT Label"
+				commentExpr="(?m-s)(::.*?$)|(REM.*?$)"
+			>
 				<function
-				    mainExpr="^[\t ]*:\w+"
-					displayMode="$functionName">
+					mainExpr="^[\t\x20]*:\w+"
+				>
 					<functionName>
-						<nameExpr expr="[^\t :]*"/>
+						<nameExpr expr="[^\t\x20:]*" />
 					</functionName>
 				</function>
 			</parser>
 
-			<parser id="ini_section" displayName="INI Section" commentExpr="((#.*?$)|(;.*?$))">
+			<parser
+				id         ="ini_section"
+				displayName="INI Section"
+				commentExpr="(?m-s:[#;].*?$)"
+			>
 				<function
-				    mainExpr="^[\t ]*[\[&quot;][\w_.; \(\)-]+[\]&quot;]"
-					displayMode="$functionName">
+					mainExpr="^[\t\x20]*[\[&quot;][\w.;\x20\(\)-]+[\]&quot;]"
+				>
 					<functionName>
-						<nameExpr expr="[^\[\]&quot;]*"/>
+						<nameExpr expr="[^\[\]&quot;]*" />
 					</functionName>
 				</function>
 			</parser>
 
-			<parser id="java" displayName="Java" commentExpr="((/\*.*?\*)/|(//.**$))">
-				<classRange mainExpr="^[\t ]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(class|enum|interface|@interface)\s+\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?(\s+extends\s+\w+)?(\s+implements\s+\w+(,\s*\w+)*)?\s*\{" openSymbole="\{" closeSymbole="\}">
-					<className>
-						<nameExpr expr="(class|enum|interface|@interface)\s+\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?"></nameExpr>
-						<nameExpr expr="\s+\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?"></nameExpr>
-						<nameExpr expr="\w+(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?"></nameExpr>
-					</className>
-					<function mainExpr="^[\t ]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(\w*(\[\s*])*\s+)?(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?\s*\([^\)\(]*\)(\s+throws\s+\w+)?\s*\{">
-						<functionName>
-							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?\s*\("></funcNameExpr>
-							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(&lt;\s*\w+(,\s*\w+)*\s*&gt;)?"></funcNameExpr>
-						</functionName>
-					</function>
-				</classRange>
-			</parser>
-
-			<parser id="c_function" displayName="C source" commentExpr="((/\*.*?\*)/|(//.*?$))">
+			<parser
+				id         ="perl_function"
+				displayName="Perl"
+			>
 				<function
-				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w:]+([\s]+[\w]+)?([\s]+|(\*|\*\*)[\s]+|[\s]+(\*|\*\*)|[\s]+(\*|\*\*)[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
-					displayMode="$functionName">
+					mainExpr="^\s*(?&lt;!#)\s*sub\s+\w+\s*\(?[^\)\(]*?\)?[\n\s]*\{"
+				>
 					<functionName>
-						<nameExpr expr="(?!(if|while|for))[\w_~]+[\s]*\("/>
-						<nameExpr expr="(?!(if|while|for))[\w_~]+"/>
-					</functionName>
-				</function>
-			</parser>
-			
-			
-			<parser id="js_function" displayName="Javascript" commentExpr="((/\*.*?\*)/|(//.*?$))">
-				<function
-				    mainExpr="((^|[\s]+|[;\}\.])([_A-Za-z][\w_]*\.)*[_A-Za-z][\w_]*[\s]*[=:]|^|[\s;\}]+)[\s]*function([\s]+[_A-Za-z]?[\w_]*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{"
-					displayMode="$className->$functionName">
-					<functionName>
-						<nameExpr expr="[_A-Za-z][\w_]*[\s]*[=:]|[_A-Za-z]?[\w_]*[\s]*\("/>
-						<nameExpr expr="[_A-Za-z]?[\w_]*"/>
+						<nameExpr expr="(sub\s+)?\K\w+" />
 					</functionName>
 					<className>
-						<nameExpr expr="([_A-Za-z][\w_]*\.)*[_A-Za-z][\w_]*\."/>
-						<nameExpr expr="([_A-Za-z][\w_]*\.)*[_A-Za-z][\w_]*"/>
+						<nameExpr expr="\w+(?=\s*::)" />
 					</className>
 				</function>
 			</parser>
-			
 
-			<parser id="c_cpp_function" displayName="C++ Class" commentExpr="((/\*.*?\*)/|(//.*?$))">
+			<parser
+				id         ="python_function"
+				displayName="Python class"
+				commentExpr="(?s:'''.*?''')|(?m-s:#.*?$)"
+			>
 				<classRange
-					mainExpr="^[\t ]*(class|struct)[\t ]+[\w]+[\s]*(final)?[\s]*(:[\s]*(public|protected|private)[\s]+[\w]+[\s]*)?\{"
-					openSymbole = "\{"
-					closeSymbole = "\}"
-					displayMode="node">
+					mainExpr    ="(?&lt;=^class\x20).*?(?=\n\S|\Z)"
+				>
 					<className>
-						<nameExpr expr="(class|struct)[\t ]+[\w]+"/>
-						<nameExpr expr="[\t ]+[\w]+"/>
-						<nameExpr expr="[\w]+"/>
+						<nameExpr expr="\w+(?=[\(|:])" />
 					</className>
 					<function
-						mainExpr="^[\t ]*((static|const|virtual)[\s]+)?([\w]+([\s]+[\w]+)?([\s]+|(\*|\*\*|&amp;)[\s]+|[\s]+(\*|\*\*|&amp;)|[\s]+(\*|\*\*|&amp;)[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?([\s]*(final|override|final[\s]*override|override[\s]*final)[\s]*)?[\n\s]*\{">
+						mainExpr="(?&lt;=def\x20).+?(?=:)"
+					>
 						<functionName>
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+[\s]*\("/>
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+"/>
+							<funcNameExpr expr=".*" />
 						</functionName>
 					</function>
 				</classRange>
 				<function
-				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w]+([\s]+[\w]+)?([\s]+|(\*|\*\*|&amp;)[\s]+|[\s]+(\*|\*\*|&amp;)|[\s]+(\*|\*\*|&amp;)[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
-					displayMode="$className->$functionName">
+					mainExpr="(?&lt;=def\x20).+?(?=:)"
+				>
 					<functionName>
-						<nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
-						<nameExpr expr="(?!(if|while|for))[\w_]+"/>
-					</functionName>
-					<className>
-						<nameExpr expr="[\w_]+(?=[\s]*::)"/>
-					</className>
-				</function>
-			</parser>
-			
-			<parser id="nsis_syntax" displayName="NSIS Syntax" commentExpr="((/\*.*?\*)/|(#.*?$)|(;.*?$))">
-				<function
-				    mainExpr="^[\t ]*(!macro|Function|Section|SectionGroup)[\t ]+[^\r\n]*$"
-					displayMode="$functionName">
-					<functionName>
-						<nameExpr expr="(?(?=[\t ]*!macro)[\t ]*!macro[\t ]+[^\s]+|[^\r\n]*)"/>
+						<nameExpr expr=".*" />
 					</functionName>
 				</function>
 			</parser>
-			
-			<parser id="perl_function" displayName="Perl">
-				<function mainExpr="^[\s]*(?&lt;!#)[\s]*sub[\s]+[\w]+[\s]*\(?[^\)\(]*?\)?[\n\s]*\{" displayMode="$className->$functionName">
-					<functionName>
-						<nameExpr expr="(sub[\s]+)?\K[\w]+"/>
-					</functionName>
-					<className>
-						<nameExpr expr="[\w]+(?=[\s]*::)"/>
-					</className>
-				</function>
-			</parser>
-			
-            <parser id="php_function" displayName="PHP" commentExpr="((/\*.*?\*)/|(//.*?$))">
-                <classRange
-                    mainExpr="^[\s]*(class|abstract[\s]+class|final[\s]+class)[\t ]+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*([\s]*|[\s]*(extends|implements|(extends[\s]+(\\|[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)+[\s]+implements))[\s]+(\,[\s]*|(\\|[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*))+[\s]*)?\{"
-                    openSymbole = "\{"
-                    closeSymbole = "\}"
-                    displayMode="node">
-                    <className>
-                        <nameExpr expr="(class|abstract[\s]+class|final[\s]+class)[\s]+[\w]+"/>
-                        <nameExpr expr="[\s]+[\w]+\Z"/>
-                        <nameExpr expr="[\w]+\Z"/>
-                    </className>
-                    <function
-                        mainExpr="^[\s]*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+[\s]+)?(function[\s]+)+([\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\{]*\{">
-                        <functionName>
-                            <funcNameExpr expr="(?!(if|while|for|switch))[\w_]+[\s]*\([^\{]*"/>
-                            <!-- comment below node if want display method with parmas -->
-                            <funcNameExpr expr="(?!(if|while|for|switch))[\w_]+"/>
-                        </functionName>
-                    </function>
-                </classRange>
-                <function
-                    mainExpr="^[\s]*function[\s]+\w+\("
 
-                    displayMode="$className->$functionName">
-                    <functionName>
-                        <nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
-                        <nameExpr expr="(?!(if|while|for))[\w_]+"/>
-                    </functionName>
-                    <className>
-                        <nameExpr expr="[\w_]+(?=[\s]*::)"/>
-                    </className>
-                </function>
-            </parser>
-			<parser id="bash_function" displayName="Shell" commentExpr="(#.*?$)">
+			<parser
+				id         ="bash_function"
+				displayName="Shell"
+				commentExpr="(?m-s:#.*?$)"
+			>
 				<function
-					mainExpr="^[\t ]*(function[\t\r\n ]*)?([a-zA-Z0-9_])+[\t\r\n ]*(\([^\)]*\))?[\t\r\n ]*(\{)[^(\})\r\n\t ]*"
-					displayMode="$functionName">
+					mainExpr="^[\t\x20]*(function[\t\r\n\x20]*)?(\w)+[\t\r\n\x20]*(\([^\)]*\))?[\t\r\n\x20]*(\{)[^(\})\r\n\t\x20]*"
+				>
 					<functionName>
-						<nameExpr expr="[^{]*"/>
+						<nameExpr expr="[^{]*" />
 					</functionName>
 				</function>
 			</parser>
-			<parser id="python_function" displayName="Python class" commentExpr="(#.*?$|'''.*?('''|\Z))">
-				<classRange mainExpr="(?&lt;=^class ).*?(?=\n\S|\Z)">
-					<className>
-						<nameExpr expr="\w+(?=[\(|:])"/>
-					</className>
-					<function mainExpr="(?&lt;=def ).+?(?=:)">
-						<functionName>
-							<funcNameExpr expr=".*"/>
-						</functionName>
-					</function>
-				</classRange>
-				<function mainExpr="(?&lt;=def ).+?(?=:)">
+
+			<parser
+				id         ="nsis_syntax"
+				displayName="NSIS Syntax"
+				commentExpr="(?s:/\*.*?\*/)|(?m-s:[#;].*?$)"
+			>
+				<function
+					mainExpr="^[\t\x20]*(!macro|Function|Section|SectionGroup)[\t\x20]+[^\r\n]*$"
+				>
 					<functionName>
-						<funcNameExpr expr=".*"/>
+						<nameExpr expr="(?(?=[\t\x20]*!macro)[\t\x20]*!macro[\t\x20]+[^\s]+|[^\r\n]*)" />
 					</functionName>
 				</function>
 			</parser>
-			
-			<parser id="cs_function" displayName="C# Class" commentExpr="((/\*.*?\*)/|(//.*?$))">
+
+			<parser
+				id         ="ruby_function"
+				displayName="Ruby"
+			>
+				<!-- within a class-->
 				<classRange
-					mainExpr="^[\t ]*((public|protected|private|internal)[\s]+)?([\w]+[\s]*)?(class|struct|interface)[\t ]+[^\{]+\{"
-					openSymbole = "\{"
-					closeSymbole = "\}"
-					displayMode="node">
+					mainExpr    ="(?&lt;=^class\x20).*?(?=\n\S|\Z)"
+				>
 					<className>
-						<nameExpr expr="(class|struct|interface)[\t ]+[\w]+"/>
-						<nameExpr expr="[\t ]+[\w]+"/>
-						<nameExpr expr="[\w]+"/>
+						<nameExpr expr="\w+" />
 					</className>
 					<function
-						mainExpr="^[^\S\r\n]*(?&lt;modifier1&gt;(?:public|protected|internal|private)\s*)?(?&lt;modifier2&gt;(?:new|static|virtual|sealed|override|abstract|extern)\s*)?(partial\s*)?(?&lt;type&gt;(?!(return|if|else))\w+(?&lt;genericType&gt;&lt;[\w,\s&lt;&gt;]+&gt;)?\s+)(?&lt;name&gt;\w+(?&lt;genericNameType&gt;&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)\((?&lt;params&gt;[\w\s,&lt;&gt;\[\]\:=\.]*)\)(?&lt;ctorChain&gt;\s*\:\s*(?:base|this)\s*\((?&lt;ctorParams&gt;[\w\s,&lt;&gt;\[\]\:=\.]*)\))?[\w\s&lt;&gt;\:,\(\)\[\]]*(?:\{|;)">
+						mainExpr="^\s*def\s+\w+"
+					>
 						<functionName>
-							<funcNameExpr expr="(\w+(&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)\("/>
-							<funcNameExpr expr="(\w+(&lt;[\w,\s&lt;&gt;]+&gt;)?\s?)"/>
+							<funcNameExpr expr="(?&lt;=def\s)\w+" />
 						</functionName>
 					</function>
 				</classRange>
-				<function mainExpr="">
+				<!-- without class-->
+				<function
+					mainExpr="^\s*def\s+\w+"
+				>
+					<functionName>
+						<nameExpr expr="(?&lt;=def\s)\w+" />
+					</functionName>
 				</function>
 			</parser>
+
+			<parser
+				id         ="javascript_function"
+				displayName="Javascript"
+				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
+			>
+				<function
+					mainExpr="((^|\s+|[;\}\.])([A-Za-z_]\w*\.)*[A-Za-z_]\w*\s*[=:]|^|[\s;\}]+)\s*function(\s+[A-Za-z_]?\w*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{"
+				>
+					<functionName>
+						<nameExpr expr="[A-Za-z_]\w*\s*[=:]|[A-Za-z_]?\w*\s*\(" />
+						<nameExpr expr="[A-Za-z_]?\w*" />
+					</functionName>
+					<className>
+						<nameExpr expr="([A-Za-z_]\w*\.)*[A-Za-z_]\w*\." />
+						<nameExpr expr="([A-Za-z_]\w*\.)*[A-Za-z_]\w*" />
+					</className>
+				</function>
+			</parser>
+            
 		</parsers>
 	</functionList>
 </NotepadPlus>

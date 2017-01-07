@@ -5,7 +5,7 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId="file" name = "&amp;فائل"/>/
+					<Item menuId="file" name = "&amp;فائل"/>
 					<Item menuId="edit" name = "&amp;ترميم"/>
 					<Item menuId="search" name = "&amp;تلاش"/>
 					<Item menuId="view" name = "&amp;نمائش"/>

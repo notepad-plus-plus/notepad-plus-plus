@@ -27,12 +27,12 @@
 #pragma once
 
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.8.9")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.3")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("6.89\0")
-#define VERSION_DIGITALVALUE 6, 8, 9, 0
+#define VERSION_VALUE TEXT("7.3\0")
+#define VERSION_DIGITALVALUE 7, 3, 0, 0
 
 
 
@@ -131,6 +131,7 @@
 #define IDI_UNSAVED_ICON     502
 #define IDI_READONLY_ICON     503
 #define IDI_FIND_RESULT_ICON  504
+#define IDI_MONITORING_ICON   505
 
 #define IDI_PROJECT_WORKSPACE        601
 #define IDI_PROJECT_WORKSPACEDIRTY    602
@@ -139,6 +140,8 @@
 #define IDI_PROJECT_FOLDERCLOSE        605
 #define IDI_PROJECT_FILE            606
 #define IDI_PROJECT_FILEINVALID        607
+#define IDI_FB_ROOTOPEN        608
+#define IDI_FB_ROOTCLOSE        609
 
 #define IDI_FUNCLIST_ROOT            620
 #define IDI_FUNCLIST_NODE            621
@@ -157,45 +160,47 @@
 #define IDC_MACRO_RECORDING 1408
 
 #define IDR_SAVEALL            1500
-#define IDR_CLOSEFILE        1501
-#define IDR_CLOSEALL        1502
-#define IDR_FIND                1503
+#define IDR_CLOSEFILE          1501
+#define IDR_CLOSEALL           1502
+#define IDR_FIND               1503
 #define IDR_REPLACE            1504
-#define IDR_ZOOMIN            1505
-#define IDR_ZOOMOUT        1506
-#define IDR_WRAP            1507
-#define IDR_INVISIBLECHAR    1508
+#define IDR_ZOOMIN             1505
+#define IDR_ZOOMOUT            1506
+#define IDR_WRAP               1507
+#define IDR_INVISIBLECHAR      1508
 #define IDR_INDENTGUIDE        1509
-#define IDR_SHOWPANNEL        1510
+#define IDR_SHOWPANNEL         1510
 #define IDR_STARTRECORD        1511
-#define IDR_STOPRECORD        1512
-#define IDR_PLAYRECORD        1513
-#define IDR_SAVERECORD        1514
-#define IDR_SYNCV        1515
-#define IDR_SYNCH        1516
-#define IDR_FILENEW        1517
-#define IDR_FILEOPEN    1518
-#define IDR_FILESAVE    1519
-#define IDR_PRINT        1520
-#define IDR_CUT            1521
-#define IDR_COPY        1522
-#define IDR_PASTE        1523
-#define IDR_UNDO        1524
-#define IDR_REDO        1525
-#define IDR_M_PLAYRECORD    1526
-#define IDR_DOCMAP        1527
-#define IDR_FUNC_LIST    1528
-#define IDR_CLOSETAB     1530
+#define IDR_STOPRECORD         1512
+#define IDR_PLAYRECORD         1513
+#define IDR_SAVERECORD         1514
+#define IDR_SYNCV              1515
+#define IDR_SYNCH              1516
+#define IDR_FILENEW            1517
+#define IDR_FILEOPEN           1518
+#define IDR_FILESAVE           1519
+#define IDR_PRINT              1520
+#define IDR_CUT                1521
+#define IDR_COPY               1522
+#define IDR_PASTE              1523
+#define IDR_UNDO               1524
+#define IDR_REDO               1525
+#define IDR_M_PLAYRECORD       1526
+#define IDR_DOCMAP             1527
+#define IDR_FUNC_LIST          1528
+#define IDR_FILEBROWSER        1529
+#define IDR_CLOSETAB           1530
 #define IDR_CLOSETAB_INACT     1531
 #define IDR_CLOSETAB_HOVER     1532
-#define IDR_CLOSETAB_PUSH     1533
-
-#define IDR_FUNC_LIST_ICO    1534
-#define IDR_DOCMAP_ICO        1535
-#define IDR_PROJECTPANEL_ICO        1536
-#define IDR_CLIPBOARDPANEL_ICO        1537
-#define IDR_ASCIIPANEL_ICO        1538
-#define IDR_DOCSWITCHER_ICO        1539
+#define IDR_CLOSETAB_PUSH      1533
+#define IDR_FUNC_LIST_ICO      1534
+#define IDR_DOCMAP_ICO         1535
+#define IDR_PROJECTPANEL_ICO   1536
+#define IDR_CLIPBOARDPANEL_ICO 1537
+#define IDR_ASCIIPANEL_ICO     1538
+#define IDR_DOCSWITCHER_ICO    1539
+#define IDR_FILEBROWSER_ICO    1540
+#define IDR_FILEMONITORING     1541
 
 #define ID_MACRO 20000
 #define ID_MACRO_LIMIT 20200
@@ -278,15 +283,17 @@
 #define IDC_EMAIL_ADDR        1703
 #define IDC_ONLINEHELP_ADDR 1704
 #define IDC_AUTHOR_NAME 1705
-#define IDC_BUILD_DATETIME 1706        //LS: CompileDateInAboutDialog: Automatically insert compile date as additional version info in About-dialog!
+#define IDC_BUILD_DATETIME 1706
+#define IDC_VERSION_BIT 1707
 
 #define IDD_DEBUGINFOBOX 1750
 #define IDC_DEBUGINFO_EDIT 1751
 #define IDC_DEBUGINFO_COPYLINK 1752
 
-//#define IDD_USER_DEFINE_BOX                  1800
-
-//#define IDD_RUN_DLG      1900
+//#define IDD_USER_DEFINE_BOX       1800
+//#define IDD_RUN_DLG               1900
+//#define IDD_MD5FROMFILES_DLG      1920
+//#define IDD_MD5FROMTEXT_DLG       1930
 
 #define IDD_GOLINE        2000
 #define ID_GOLINE_EDIT    (IDD_GOLINE + 1)
@@ -398,7 +405,11 @@
 	#define NPPM_INTERNAL_GETSCINTEDTVIEW           (NOTEPADPLUS_USER_INTERNAL + 37)
 	#define NPPM_INTERNAL_ENABLESNAPSHOT            (NOTEPADPLUS_USER_INTERNAL + 38)
 	#define NPPM_INTERNAL_SAVECURRENTSESSION        (NOTEPADPLUS_USER_INTERNAL + 39)
-
+	#define NPPM_INTERNAL_FINDINFINDERDLG           (NOTEPADPLUS_USER_INTERNAL + 40)
+	#define NPPM_INTERNAL_REMOVEFINDER               (NOTEPADPLUS_USER_INTERNAL + 41)
+	#define NPPM_INTERNAL_RELOADSCROLLTOEND			(NOTEPADPLUS_USER_INTERNAL + 42)  // Used by Monitoring feature
+	#define NPPM_INTERNAL_FINDKEYCONFLICTS          (NOTEPADPLUS_USER_INTERNAL + 43)
+	#define NPPM_INTERNAL_SCROLLBEYONDLASTLINE      (NOTEPADPLUS_USER_INTERNAL + 44)
 
     //wParam: 0
     //lParam: document new index
@@ -460,6 +471,7 @@
 #define MENUINDEX_FORMAT   4
 #define MENUINDEX_LANGUAGE 5
 #define MENUINDEX_SETTINGS 6
-#define MENUINDEX_MACRO    7
-#define MENUINDEX_RUN      8
-#define MENUINDEX_PLUGINS  9
+#define MENUINDEX_TOOLS    7
+#define MENUINDEX_MACRO    8
+#define MENUINDEX_RUN      9
+#define MENUINDEX_PLUGINS  10

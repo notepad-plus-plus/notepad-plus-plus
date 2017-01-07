@@ -26,41 +26,17 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SCINTILLA_EDIT_VIEW_H
-#define SCINTILLA_EDIT_VIEW_H
+#pragma once
 
-#ifndef SCINTILLA_H
+
 #include "Scintilla.h"
-#endif //SCINTILLA_H
-
-#ifndef SCINTILLA_REF_H
 #include "ScintillaRef.h"
-#endif //SCINTILLA_REF_H
-
-#ifndef SCILEXER_H
 #include "SciLexer.h"
-#endif //SCILEXER_H
-
-#ifndef BUFFER_H
 #include "Buffer.h"
-#endif //BUFFER_H
-
-#ifndef COLORS_H
 #include "colors.h"
-#endif //COLORS_H
-
-#ifndef USER_DEFINE_H
 #include "UserDefineDialog.h"
-#endif //USER_DEFINE_H
+#include "rgba_icons.h"
 
-#ifndef XPM_ICON_H
-#include "xpm_icons.h"
-#endif //XPM_ICON_H
-/*
-#ifndef RESOURCE_H
-#include "resource.h"
-#endif //RESOURCE_H
-*/
 
 #ifndef WM_MOUSEWHEEL
 #define WM_MOUSEWHEEL 0x020A
@@ -88,17 +64,18 @@ typedef void * SCINTILLA_PTR;
 
 #define WM_DOCK_USERDEFINE_DLG      (SCINTILLA_USER + 1)
 #define WM_UNDOCK_USERDEFINE_DLG    (SCINTILLA_USER + 2)
-#define WM_CLOSE_USERDEFINE_DLG		(SCINTILLA_USER + 3)
-#define WM_REMOVE_USERLANG		    (SCINTILLA_USER + 4)
-#define WM_RENAME_USERLANG			(SCINTILLA_USER + 5)
-#define WM_REPLACEALL_INOPENEDDOC	(SCINTILLA_USER + 6)
-#define WM_FINDALL_INOPENEDDOC  	(SCINTILLA_USER + 7)
-#define WM_DOOPEN				  	(SCINTILLA_USER + 8)
-#define WM_FINDINFILES			  	(SCINTILLA_USER + 9)
-#define WM_REPLACEINFILES		  	(SCINTILLA_USER + 10)
-#define WM_FINDALL_INCURRENTDOC	  	(SCINTILLA_USER + 11)
-#define WM_FRSAVE_INT	  	(SCINTILLA_USER + 12)
-#define WM_FRSAVE_STR	  	(SCINTILLA_USER + 13)
+#define WM_CLOSE_USERDEFINE_DLG     (SCINTILLA_USER + 3)
+#define WM_REMOVE_USERLANG          (SCINTILLA_USER + 4)
+#define WM_RENAME_USERLANG          (SCINTILLA_USER + 5)
+#define WM_REPLACEALL_INOPENEDDOC   (SCINTILLA_USER + 6)
+#define WM_FINDALL_INOPENEDDOC      (SCINTILLA_USER + 7)
+#define WM_DOOPEN                   (SCINTILLA_USER + 8)
+#define WM_FINDINFILES              (SCINTILLA_USER + 9)
+#define WM_REPLACEINFILES           (SCINTILLA_USER + 10)
+#define WM_FINDALL_INCURRENTDOC     (SCINTILLA_USER + 11)
+#define WM_FRSAVE_INT               (SCINTILLA_USER + 12)
+#define WM_FRSAVE_STR               (SCINTILLA_USER + 13)
+#define WM_FINDALL_INCURRENTFINDER  (SCINTILLA_USER + 14)
 
 const int NB_FOLDER_STATE = 7;
 
@@ -122,9 +99,17 @@ const int CP_GREEK = 1253;
 const bool fold_uncollapse = true;
 const bool fold_collapse = false;
 
-const bool UPPERCASE = true;
-const bool LOWERCASE = false;
-
+enum TextCase : UCHAR
+{
+	UPPERCASE,
+	LOWERCASE,
+	TITLECASE_FORCE,
+	TITLECASE_BLEND,
+	SENTENCECASE_FORCE,
+	SENTENCECASE_BLEND,
+	INVERTCASE,
+	RANDOMCASE
+};
 
 const UCHAR MASK_FORMAT = 0x03;
 const UCHAR MASK_ZERO_LEADING = 0x04;
@@ -137,8 +122,9 @@ const UCHAR BASE_02 = 0x03; // Bin
 const int MARK_BOOKMARK = 24;
 const int MARK_HIDELINESBEGIN = 23;
 const int MARK_HIDELINESEND = 22;
-//const int MARK_LINEMODIFIEDUNSAVED = 21;
-//const int MARK_LINEMODIFIEDSAVED = 20;
+const int MARK_HIDELINESUNDERLINE = 21;
+//const int MARK_LINEMODIFIEDUNSAVED = 20;
+//const int MARK_LINEMODIFIEDSAVED = 19;
 // 24 - 16 reserved for Notepad++ internal used
 // 15 - 0  are free to use for plugins
 
@@ -203,10 +189,7 @@ class ScintillaEditView : public Window
 {
 friend class Finder;
 public:
-	ScintillaEditView()
-		: Window(), _pScintillaFunc(NULL),_pScintillaPtr(NULL),
-		  _lineNumbersShown(false), _wrapRestoreNeeded(false), _beginSelectPosition(-1)
-	{
+	ScintillaEditView(): Window() {
 		++_refCount;
 	};
 
@@ -229,6 +212,7 @@ public:
 			}
 		}
 	};
+
 	virtual void destroy()
 	{
 		::DestroyWindow(_hSelf);
@@ -246,11 +230,11 @@ public:
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 
-	void getText(char *dest, int start, int end) const;
-	void getGenericText(TCHAR *dest, size_t destlen, int start, int end) const;
+	void getText(char *dest, size_t start, size_t end) const;
+	void getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(TCHAR *dest, size_t deslen, int start, int end, int *mstart, int *mend) const;
-	generic_string getGenericTextAsString(int start, int end) const;
-	void insertGenericTextFrom(int position, const TCHAR *text2insert) const;
+	generic_string getGenericTextAsString(size_t start, size_t end) const;
+	void insertGenericTextFrom(size_t position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
 	int getSelectedTextCount() {
@@ -264,17 +248,17 @@ public:
     char * getWordOnCaretPos(char * txt, int size);
     TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
-	int searchInTarget(const TCHAR * Text2Find, int lenOfText2Find, int fromPos, int toPos) const;
+	int searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appandGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const;
 	int replaceTarget(const TCHAR * str2replace, int fromTargetPos = -1, int toTargetPos = -1) const;
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
-	void showAutoComletion(int lenEntered, const TCHAR * list);
+	void showAutoComletion(size_t lenEntered, const TCHAR * list);
 	void showCallTip(int startPos, const TCHAR * def);
-	generic_string getLine(int lineNumber);
-	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
-	void addText(int length, const char *buf);
+	generic_string getLine(size_t lineNumber);
+	void getLine(size_t lineNumber, TCHAR * line, int lineBufferLen);
+	void addText(size_t length, const char *buf);
 
 	void insertNewLineAboveCurrentLine();
 	void insertNewLineBelowCurrentLine();
@@ -301,8 +285,8 @@ public:
 	};
 
 	void getWordToCurrentPos(TCHAR * str, int strLen) const {
-		int caretPos = execute(SCI_GETCURRENTPOS);
-		int startPos = static_cast<int>(execute(SCI_WORDSTARTPOSITION, caretPos, true));
+		auto caretPos = execute(SCI_GETCURRENTPOS);
+		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
 		str[0] = '\0';
 		if ((caretPos - startPos) < strLen)
@@ -336,9 +320,11 @@ public:
         else
 		{
 			int width = 3;
-			if (whichMarge == _SC_MARGE_SYBOLE || whichMarge == _SC_MARGE_FOLDER)
-				width = 14;
-            execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed?width:0);
+			if (whichMarge == _SC_MARGE_SYBOLE)
+				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 20 : 16;
+			else if (whichMarge == _SC_MARGE_FOLDER)
+				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 18 : 14;
+			execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 		}
     };
 
@@ -394,7 +380,7 @@ public:
 	};
 
 	void showIndentGuideLine(bool willBeShowed = true) {
-		execute(SCI_SETINDENTATIONGUIDES, (WPARAM)willBeShowed?(SC_IV_LOOKBOTH):(SC_IV_NONE));
+		execute(SCI_SETINDENTATIONGUIDES, willBeShowed ? SC_IV_LOOKBOTH : SC_IV_NONE);
 	};
 
 	bool isShownIndentGuide() const {
@@ -402,7 +388,7 @@ public:
 	};
 
     void wrap(bool willBeWrapped = true) {
-        execute(SCI_SETWRAPMODE, (WPARAM)willBeWrapped);
+        execute(SCI_SETWRAPMODE, willBeWrapped);
     };
 
     bool isWrap() const {
@@ -418,13 +404,13 @@ public:
 		execute(SCI_SETWRAPVISUALFLAGS, willBeShown?SC_WRAPVISUALFLAG_END:SC_WRAPVISUALFLAG_NONE);
     };
 
-	long getCurrentLineNumber()const {
-		return long(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
+	size_t getCurrentLineNumber()const {
+		return static_cast<size_t>(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
 	};
 
-	long lastZeroBasedLineNumber() const {
-		int endPos = execute(SCI_GETLENGTH);
-		return execute(SCI_LINEFROMPOSITION, endPos);
+	int32_t lastZeroBasedLineNumber() const {
+		auto endPos = execute(SCI_GETLENGTH);
+		return static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, endPos));
 	};
 
 	long getCurrentXOffset()const{
@@ -464,27 +450,27 @@ public:
 		// return false if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
 			return false;
-		long start = long(execute(SCI_GETSELECTIONSTART));
-		long end = long(execute(SCI_GETSELECTIONEND));
-		selByte = (start < end)?end-start:start-end;
+		long pStart = long(execute(SCI_GETSELECTIONSTART));
+		long pEnd = long(execute(SCI_GETSELECTIONEND));
+		selByte = pEnd - pStart;
 
-		start = long(execute(SCI_LINEFROMPOSITION, start));
-		end = long(execute(SCI_LINEFROMPOSITION, end));
-		selLine = (start < end)?end-start:start-end;
-		if (selLine)
+		long lStart = long(execute(SCI_LINEFROMPOSITION, pStart));
+		long lEnd = long(execute(SCI_LINEFROMPOSITION, pEnd));
+		selLine = lEnd - lStart;
+		if (selLine || selByte)
 			++selLine;
 
 		return true;
-    };
+	};
 
-	long getSelectedLength() const
+	long getUnicodeSelectedLength() const
 	{
 		// return -1 if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
 			return -1;
-		long size_selected = execute(SCI_GETSELTEXT);
+		auto size_selected = execute(SCI_GETSELTEXT);
 		char *selected = new char[size_selected + 1];
-		execute(SCI_GETSELTEXT, (WPARAM)0, (LPARAM)selected);
+		execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selected));
 		char *c = selected;
 		long length = 0;
 		while(*c != '\0')
@@ -539,14 +525,12 @@ public:
 
 	void expand(int &line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
 
-	void currentLineUp() const;
-	void currentLineDown() const;
-
 	std::pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;
     void currentLinesDown() const;
 
-	void convertSelectedTextTo(bool Case);
+	void changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const;
+	void convertSelectedTextTo(const TextCase & caseToConvert);
 	void setMultiSelections(const ColumnModeInfos & cmi);
 
     void convertSelectedTextToLowerCase() {
@@ -565,9 +549,17 @@ public:
 			execute(SCI_UPPERCASE);
 	};
 
+	void convertSelectedTextToNewerCase(const TextCase & caseToConvert) {
+		// if system is w2k or xp
+		if ((NppParameters::getInstance())->isTransparentAvailable())
+			convertSelectedTextTo(caseToConvert);
+		else
+			::MessageBox(_hSelf, TEXT("This function needs a newer OS version."), TEXT("Change Case Error"), MB_OK | MB_ICONHAND);
+	};
+
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(bool mode);
-	void fold(int line, bool mode);
+	void fold(size_t line, bool mode);
 	bool isFolded(int line){
 		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
 	};
@@ -591,7 +583,7 @@ public:
 		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
 	};
 
-	static LanguageName ScintillaEditView::langNames[L_EXTERNAL+1];
+	static LanguageName langNames[L_EXTERNAL+1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
 	BufferID getCurrentBufferID() { return _currentBufferID; };
@@ -639,7 +631,7 @@ public:
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) ||
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
-	void scrollPosToCenter(int pos);
+	void scrollPosToCenter(size_t pos);
 	generic_string getEOLString();
 	void setBorderEdge(bool doWithBorderEdge);
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
@@ -657,26 +649,26 @@ protected:
 	static LRESULT CALLBACK scintillaStatic_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	SCINTILLA_FUNC _pScintillaFunc;
-	SCINTILLA_PTR  _pScintillaPtr;
+	SCINTILLA_FUNC _pScintillaFunc = nullptr;
+	SCINTILLA_PTR  _pScintillaPtr = nullptr;
 	static WNDPROC _scintillaDefaultProc;
-	CallWindowProcFunc _callWindowProc;
+	CallWindowProcFunc _callWindowProc = nullptr;
 	BufferID attachDefaultDoc();
 
 	//Store the current buffer so it can be retrieved later
-	BufferID _currentBufferID;
-	Buffer * _currentBuffer;
+	BufferID _currentBufferID = nullptr;
+	Buffer * _currentBuffer = nullptr;
 
-    NppParameters *_pParameter;
-	int _codepage;
-	bool _lineNumbersShown;
-	bool _wrapRestoreNeeded;
+    NppParameters *_pParameter = nullptr;
+	int _codepage = CP_ACP;
+	bool _lineNumbersShown = false;
+	bool _wrapRestoreNeeded = false;
 
 	typedef std::unordered_map<int, Style> StyleMap;
 	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
 	BufferStyleMap _hotspotStyles;
 
-	int _beginSelectPosition;
+	int _beginSelectPosition = -1;
 
 //Lexers and Styling
 	void restyleBuffer();
@@ -727,8 +719,8 @@ protected:
 
 	void setSqlLexer() {
 		const bool kbBackSlash = NppParameters::getInstance()->getNppGUI()._backSlashIsEscapeCharacterForSql;
-		execute(SCI_SETPROPERTY, (WPARAM)"sql.backslash.escapes", kbBackSlash ? (LPARAM)"1" : (LPARAM)"0");
 		setLexer(SCLEX_SQL, L_SQL, LIST_0);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 	};
 
 	void setBashLexer() {
@@ -767,7 +759,11 @@ protected:
 	};
 
 	void setFortranLexer() {
-		setLexer(SCLEX_F77, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_FORTRAN, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
+	};
+
+	void setFortran77Lexer() {
+		setLexer(SCLEX_F77, L_FORTRAN_77, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setLispLexer(){
@@ -922,4 +918,3 @@ protected:
 	bool expandWordSelection();
 };
 
-#endif //SCINTILLA_EDIT_VIEW_H

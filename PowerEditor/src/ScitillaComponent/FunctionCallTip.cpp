@@ -91,14 +91,16 @@ void FunctionCallTip::setLanguageXML(TiXmlElement * pXmlKeyword) {
 	_funcName = 0;
 }
 
-bool FunctionCallTip::updateCalltip(int ch, bool needShown) {
-	if (!needShown && ch != _start && !isVisible())		//must be already visible
+bool FunctionCallTip::updateCalltip(int ch, bool needShown)
+{
+	if (not needShown && ch != _start && ch != _param && not isVisible())		//must be already visible
 		return false;
 
-	_curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	_curPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 
 	//recalculate everything
-	if (!getCursorFunction()) {	//cannot display calltip (anymore)
+	if (not getCursorFunction())
+	{	//cannot display calltip (anymore)
 		close();
 		return false;
 	}
@@ -116,7 +118,7 @@ void FunctionCallTip::showNextOverload() {
 void FunctionCallTip::showPrevOverload() {
 	if (!isVisible())
 		return;
-	_currentOverload = _currentOverload > 0?(_currentOverload-1) : _currentNrOverloads-1;
+	_currentOverload = _currentOverload > 0 ? (_currentOverload-1) : (_currentNrOverloads-1);
 	showCalltip();
 }
 
@@ -132,9 +134,9 @@ void FunctionCallTip::close()
 
 bool FunctionCallTip::getCursorFunction()
 {
-	int line = _pEditView->execute(SCI_LINEFROMPOSITION, _curPos);
-	int startpos = _pEditView->execute(SCI_POSITIONFROMLINE, line);
-	int endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
+	auto line = _pEditView->execute(SCI_LINEFROMPOSITION, _curPos);
+	int startpos = static_cast<int32_t>(_pEditView->execute(SCI_POSITIONFROMLINE, line));
+	int endpos = static_cast<int32_t>(_pEditView->execute(SCI_GETLINEENDPOSITION, line));
 	int len = endpos - startpos + 3;	//also take CRLF in account, even if not there
 	int offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
 	const int maxLen = 256;
@@ -163,7 +165,8 @@ bool FunctionCallTip::getCursorFunction()
         {
 			tokenLen = 0;
 			TCHAR * begin = lineData+i;
-            while ((isBasicWordChar(ch) || isAdditionalWordChar(ch)) && i < offset) {
+            while ((isBasicWordChar(ch) || isAdditionalWordChar(ch)) && i < offset)
+			{
 				++tokenLen;
 				++i;
 				ch = lineData[i];
@@ -195,9 +198,12 @@ bool FunctionCallTip::getCursorFunction()
 	for (size_t i = 0; i < vsize; ++i)
 	{
 		Token & curToken = tokenVector.at(i);
-		if (curToken.isIdentifier) {
-			curValue.lastIdentifier = i;
-		} else {
+		if (curToken.isIdentifier)
+		{
+			curValue.lastIdentifier = static_cast<int32_t>(i);
+		}
+		else
+		{
 			if (curToken.token[0] == _start)
 			{
 				++scopeLevel;
@@ -205,25 +211,37 @@ bool FunctionCallTip::getCursorFunction()
 				valueVec.push_back(newValue);	//store the current settings, so when this new function doesnt happen to be the 'real' one, we can restore everything
 				
 				curValue.scopeLevel = scopeLevel;
-				if (i > 0 && curValue.lastIdentifier == int(i)-1) {	//identifier must be right before (, else we have some expression like "( x + y() )"
+				if (i > 0 && curValue.lastIdentifier == static_cast<int32_t>(i) - 1)
+				{	//identifier must be right before (, else we have some expression like "( x + y() )"
 					curValue.lastFunctionIdentifier = curValue.lastIdentifier;
 					curValue.param = 0;
-				} else {	//some expression
+				}
+				else
+				{	//some expression
 					curValue.lastFunctionIdentifier = -1;
 				}
-			} else if (curToken.token[0] == _param && curValue.lastFunctionIdentifier > -1) {
+			}
+			else if (curToken.token[0] == _param && curValue.lastFunctionIdentifier > -1)
+			{
 				++curValue.param;
-			} else if (curToken.token[0] == _stop) {
+			}
+			else if (curToken.token[0] == _stop)
+			{
 				if (scopeLevel)	//scope cannot go below -1
 					scopeLevel--;
-				if (valueVec.size() > 0) {	//only pop level if scope was of actual function
+				if (valueVec.size() > 0)
+				{	//only pop level if scope was of actual function
 					curValue = valueVec.back();
 					valueVec.pop_back();
-				} else {
+				}
+				else
+				{
 					//invalidate curValue
 					curValue = FunctionValues();
 				}
-			} else if (curToken.token[0] == _terminal) {
+			}
+			else if (curToken.token[0] == _terminal)
+			{
 				//invalidate everything
 				valueVec.clear();
 				curValue = FunctionValues();
@@ -233,32 +251,40 @@ bool FunctionCallTip::getCursorFunction()
 	
 	bool res = false;
 
-	if (curValue.lastFunctionIdentifier == -1) {	//not in direct function. Start popping the stack untill we empty it, or a func IS found
-		while(curValue.lastFunctionIdentifier == -1 && valueVec.size() > 0) {
+	if (curValue.lastFunctionIdentifier == -1)
+	{	//not in direct function. Start popping the stack untill we empty it, or a func IS found
+		while(curValue.lastFunctionIdentifier == -1 && valueVec.size() > 0)
+		{
 			curValue = valueVec.back();
 			valueVec.pop_back();
 		}
 	}
-	if (curValue.lastFunctionIdentifier > -1) {
+	if (curValue.lastFunctionIdentifier > -1)
+	{
 		Token funcToken = tokenVector.at(curValue.lastFunctionIdentifier);
 		funcToken.token[funcToken.length] = 0;
 		_currentParam = curValue.param;
 
 		bool same = false;
-		if (_funcName) {
+		if (_funcName)
+		{
 			if(_ignoreCase)
 				same = testNameNoCase(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
 			else
 				same = generic_strncmp(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
 		}
-		if (!same) {	//check if we need to reload data
-			if (_funcName) {
+		if (!same)
+		{	//check if we need to reload data
+			if (_funcName)
+			{
 				delete [] _funcName;
 			}
 			_funcName = new TCHAR[funcToken.length+1];
 			lstrcpy(_funcName, funcToken.token);
 			res = loadFunction();
-		} else {
+		}
+		else
+		{
 			res = true;
 		}
 	}
@@ -276,7 +302,7 @@ bool FunctionCallTip::loadFunction()
 	//Iterate through all keywords and find the correct function keyword
 	TiXmlElement *funcNode = _pXmlKeyword;
 	
-	for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
+	for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")))
 	{
 		const TCHAR * name = NULL;
 		name = funcNode->Attribute(TEXT("name"));
@@ -340,7 +366,7 @@ bool FunctionCallTip::loadFunction()
 		++_currentNrOverloads;
 	}
 
-	_currentNrOverloads = (int)_overloads.size();
+	_currentNrOverloads = _overloads.size();
 
 	if (_currentNrOverloads == 0)	//malformed node
 		return false;
@@ -359,79 +385,59 @@ void FunctionCallTip::showCalltip()
 	//Check if the current overload still holds. If the current param exceeds amounti n overload, see if another one fits better (enough params)
 	stringVec & params = _overloads.at(_currentOverload);
 	size_t psize = params.size()+1;
-	if ((size_t)_currentParam >= psize) {
+	if ((size_t)_currentParam >= psize)
+	{
 		size_t osize = _overloads.size();
-		for(size_t i = 0; i < osize; ++i) {
+		for(size_t i = 0; i < osize; ++i)
+		{
 			psize = _overloads.at(i).size()+1;
-			if ((size_t)_currentParam < psize) {
-				_currentOverload = i;
+			if ((size_t)_currentParam < psize)
+			{
+				_currentOverload = static_cast<int32_t>(i);
 				break;
 			}
 		}
 	}
-	const TCHAR * curRetValText = _retVals.at(_currentOverload);
-	const TCHAR * curDescriptionText = _descriptions.at(_currentOverload);
-	bool hasDescr = true;
-	if (!curDescriptionText[0])
-		hasDescr = false;
 
-	int bytesNeeded = lstrlen(curRetValText) + lstrlen(_funcName) + 5;//'retval funcName (params)\0'
-	if (hasDescr)
-		bytesNeeded += lstrlen(curDescriptionText);
+	generic_stringstream callTipText;
 
-	size_t nrParams = params.size();
-	for(size_t i = 0; i < nrParams; ++i) {
-		bytesNeeded += lstrlen(params.at(i)) + 2;	//'param, '
+	if (_currentNrOverloads > 1)
+	{
+		callTipText << TEXT("\001") << _currentOverload + 1 << TEXT(" of ") << _currentNrOverloads << TEXT("\002");
 	}
 
-	if (_currentNrOverloads > 1) {
-		bytesNeeded += 24;	//  /\00001 of 00003\/
-	}
-
-	const int maxLen = 2048;
-	if (bytesNeeded >= maxLen)
-		return;
-
-	TCHAR textBuffer[maxLen];
-	textBuffer[0] = 0;
-
-	if (_currentNrOverloads > 1) {
-		wsprintf(textBuffer, TEXT("\001%u of %u\002"), _currentOverload+1, _currentNrOverloads);
-	}
-
-	lstrcat(textBuffer, curRetValText);
-	lstrcat(textBuffer, TEXT(" "));
-	lstrcat(textBuffer, _funcName);
-	lstrcat(textBuffer, TEXT(" ("));
+	callTipText << _retVals.at(_currentOverload) << TEXT(' ') << _funcName << TEXT(' ') << _start;
 
 	int highlightstart = 0;
 	int highlightend = 0;
-	for(size_t i = 0; i < nrParams; ++i) 
+	size_t nrParams = params.size();
+	for (size_t i = 0; i < nrParams; ++i)
 	{
 		if (int(i) == _currentParam) 
 		{
-			highlightstart = lstrlen(textBuffer);
+			highlightstart = static_cast<int>(callTipText.str().length());
 			highlightend = highlightstart + lstrlen(params.at(i));
 		}
-		lstrcat(textBuffer, params.at(i));
-		if (i < nrParams-1)
-			lstrcat(textBuffer, TEXT(", "));
+		callTipText << params.at(i);
+		if (i < nrParams - 1)
+			callTipText << _param << TEXT(' ');
 	}
 
-	lstrcat(textBuffer, TEXT(")"));
-	if (hasDescr) {
-		lstrcat(textBuffer, TEXT("\n"));
-		lstrcat(textBuffer, curDescriptionText);
+	callTipText << _stop;
+	if (_descriptions.at(_currentOverload)[0])
+	{
+		callTipText << TEXT("\n") << _descriptions.at(_currentOverload);
 	}
 
 	if (isVisible())
 		_pEditView->execute(SCI_CALLTIPCANCEL);
 	else
 		_startPos = _curPos;
-	_pEditView->showCallTip(_startPos, textBuffer);
+	_pEditView->showCallTip(_startPos, callTipText.str().c_str());
 
 	_selfActivated = true;
-	if (highlightstart != highlightend) {
+	if (highlightstart != highlightend)
+	{
 		_pEditView->execute(SCI_CALLTIPSETHLT, highlightstart, highlightend);
 	}
 }

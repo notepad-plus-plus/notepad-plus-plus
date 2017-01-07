@@ -86,7 +86,8 @@
 					<Item id="41015" name="Kopya Olarak Kaydet"/>
 					<Item id="41016" name="Diskten Sil"/>
 					<Item id="41017" name="Yeniden Adlandır"/>
-					<Item id="41021" name="Son Kapatılan Dosyaları Geri Yükle"/>
+					<Item id="41021" name="Son Kapatılan Dosyayı Geri Yükle"/>
+					<Item id="41022" name="Klasörü Çalışma Alanı Olarak Aç"/>
 
 					<Item id="42001" name="K&amp;es"/>
 					<Item id="42002" name="&amp;Kopyala"/>
@@ -848,6 +849,7 @@
 				<Item id="2030" name="Başlangıç sayısı:"/>
 				<Item id="2031" name="Artış miktarı:"/>
 				<Item id="2035" name="Başına sıfır ekle"/>
+				<Item id="2036" name="Tekrar :"/>
 				<Item id="2032" name="Biçim"/>
 				<Item id="2024" name="Onlu"/>
 				<Item id="2025" name="Sekizli"/>

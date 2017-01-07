@@ -78,7 +78,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 
 	_partWidthArray.clear();
 	if (nbParts > 0)
-		_partWidthArray.resize(nbParts, (int) defaultPartWidth);
+		_partWidthArray.resize(nbParts, defaultPartWidth);
 
     // Allocate an array for holding the right edge coordinates.
 	if (_partWidthArray.size())
@@ -128,14 +128,14 @@ void StatusBar::adjustParts(int clientWidth)
     // copy the coordinates to the array.
     int nWidth = std::max<int>(clientWidth - 20, 0);
 
-	for (int i = (int)_partWidthArray.size() - 1; i >= 0; i--)
+	for (int i = static_cast<int>(_partWidthArray.size()) - 1; i >= 0; i--)
     {
 		_lpParts[i] = nWidth;
 		nWidth -= _partWidthArray[i];
 	}
 
     // Tell the status bar to create the window parts.
-    ::SendMessage(_hSelf, SB_SETPARTS, (WPARAM)_partWidthArray.size(), (LPARAM)_lpParts);
+	::SendMessage(_hSelf, SB_SETPARTS, _partWidthArray.size(), reinterpret_cast<LPARAM>(_lpParts));
 }
 
 
@@ -148,7 +148,7 @@ bool StatusBar::setText(const TCHAR* str, int whichPart)
 		else
 			_lastSetText.clear();
 
-		return (TRUE == ::SendMessage(_hSelf, SB_SETTEXT, whichPart, (LPARAM)_lastSetText.c_str()));
+		return (TRUE == ::SendMessage(_hSelf, SB_SETTEXT, whichPart, reinterpret_cast<LPARAM>(_lastSetText.c_str())));
 	}
 	assert(false and "invalid status bar index");
 	return false;
@@ -162,5 +162,5 @@ bool StatusBar::setOwnerDrawText(const TCHAR* str)
 	else
 		_lastSetText.clear();
 
-	return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, (LPARAM)_lastSetText.c_str()) == TRUE);
+	return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, reinterpret_cast<LPARAM>(_lastSetText.c_str())) == TRUE);
 }

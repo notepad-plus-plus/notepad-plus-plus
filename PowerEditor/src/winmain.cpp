@@ -117,12 +117,14 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 	//the commandline generic_string is now a list of zero terminated strings concatenated, and the vector contains all the substrings
 }
 
-bool isInList(const TCHAR *token2Find, ParamVector & params) {
-	int nrItems = params.size();
+bool isInList(const TCHAR *token2Find, ParamVector & params)
+{
+	size_t nrItems = params.size();
 
-	for (int i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nrItems; ++i)
 	{
-		if (!lstrcmp(token2Find, params.at(i))) {
+		if (!lstrcmp(token2Find, params.at(i)))
+		{
 			params.erase(params.begin() + i);
 			return true;
 		}
@@ -133,9 +135,9 @@ bool isInList(const TCHAR *token2Find, ParamVector & params) {
 bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 {
 	value = TEXT("");
-	int nrItems = params.size();
+	size_t nrItems = params.size();
 
-	for (int i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nrItems; ++i)
 	{
 		const TCHAR * token = params.at(i);
 		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
@@ -150,14 +152,14 @@ bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 bool getParamValFromString(const TCHAR *str, ParamVector & params, generic_string & value)
 {
 	value = TEXT("");
-	int nrItems = params.size();
+	size_t nrItems = params.size();
 
-	for (int i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nrItems; ++i)
 	{
 		const TCHAR * token = params.at(i);
 		generic_string tokenStr = token;
-		int pos = tokenStr.find(str);
-		if (pos != -1 && pos == 0)
+		size_t pos = tokenStr.find(str);
+		if (pos != generic_string::npos && pos == 0)
 		{
 			value = (token + lstrlen(str));
 			params.erase(params.begin() + i);
@@ -298,6 +300,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
+    cmdLineParams._pos2go = getNumberFromParam('p', params, isParamePresent);
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
 	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
@@ -399,8 +402,8 @@ DEVOMER*/
 			fileNamesData.lpData = (void *)quotFileName.c_str();
 			fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
 
-			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&paramData);
-			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&fileNamesData);
+			::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
+			::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
 		}
 		return 0;
         }
@@ -408,15 +411,15 @@ DEVOMER*/
 
 	Notepad_plus_Window notepad_plus_plus;
 
-	NppGUI & nppGui = (NppGUI &)pNppParameters->getNppGUI();
+	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
 
 	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");
 
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
 
-	generic_string version = TEXT("-v");
-	version += VERSION_VALUE;
+	generic_string updaterParams = TEXT("-v");
+	updaterParams += VERSION_VALUE;
 
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
 
@@ -435,7 +438,11 @@ DEVOMER*/
 	bool isGtXP = ver > WV_XP;
 	if (TheFirstOne && isUpExist && doUpdate && isGtXP)
 	{
-		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
+		if (pNppParameters->isx64())
+		{
+			updaterParams += TEXT(" -px64");
+		}
+		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 		updater.run();
 
         // Update next update date
@@ -518,7 +525,7 @@ DEVOMER*/
 	{
 		TCHAR message[1024];	//TODO: sane number
 		wsprintf(message, TEXT("An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n")
-		TEXT("Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%08X"), ex.code(), ex.what(), (long)ex.where());
+			TEXT("Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%08X"), ex.code(), ex.what(), reinterpret_cast<long>(ex.where()));
 		::MessageBox(Notepad_plus_Window::gNppHWND, message, TEXT("Win32Exception"), MB_OK | MB_ICONERROR);
 		mdump.writeDump(ex.info());
 		doException(notepad_plus_plus);
@@ -534,5 +541,5 @@ DEVOMER*/
 		doException(notepad_plus_plus);
 	}
 
-	return (UINT)msg.wParam;
+	return static_cast<int>(msg.wParam);
 }

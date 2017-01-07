@@ -32,7 +32,7 @@ Opening a issue beforehand allows the administrators and the community to discus
 ### Guidelines for pull requests
 
 1. Respect Notepad++ coding style.
-2. Make a single change per commit.
+2. Make single commit per PR.
 3. Make your modification compact - don't reformat source code in your request. It makes code review more difficult.
 4. PR of reformatting (changing of ws/TAB, line endings or coding style) of source code won't be accepted. Use issue trackers for your request instead.
 
@@ -175,6 +175,18 @@ Function names are not separated from the first parenthesis.</h5>
     ...
     ```
 
+
+1. ##### Always use `C++ conversion` instead of `C-Style cast`. Generally, all the conversion among types should be avoided. If you have no choice, use C++ conversion.
+
+  * ###### Good:
+    ```cpp
+    char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, j));
+    ```
+
+  * ###### Bad:
+    ```cpp
+    char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
+    ```
 
 
 #### NAMING CONVENTIONS

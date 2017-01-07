@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="6.8.2">
+    <Native-Langue name="English" filename="english.xml" version="7.0">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="E&amp;ncoding"/>
                     <Item menuId="language" name="&amp;Language"/>
                     <Item menuId="settings" name="Se&amp;ttings"/>
+                    <Item menuId="tools" name="To&amp;ols"/>
                     <Item menuId="macro" name="Macro"/>
                     <Item menuId="run" name="Run"/>
                     <Item idName="Plugins" name="Plugins"/>
@@ -31,6 +32,7 @@
                     <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
                     <Item subMenuId="edit-blankOperations" name="Blank Operations"/>
                     <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
+                    <Item subMenuId="edit-onSelection" name="On Selection"/>
                     <Item subMenuId="search-markAll" name="Mark All"/>
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
@@ -61,6 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
                     <Item subMenuId="settings-import"  name="Import"/>
+					<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -87,6 +90,7 @@
                     <Item id="41016" name="Delete from Disk"/>
                     <Item id="41017" name="Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
+                    <Item id="41022" name="Open Folder as &amp;Workspace"/>
 
                     <Item id="42001" name="Cu&amp;t"/>
                     <Item id="42002" name="&amp;Copy"/>
@@ -113,6 +117,16 @@
                     <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
                     <Item id="42016" name="UPPERCASE"/>
                     <Item id="42017" name="lowercase"/>
+                    <Item id="42067" name="Title Case"/>
+                    <Item id="42068" name="Title Case (blend)"/>
+                    <Item id="42069" name="Sentence case"/>
+                    <Item id="42070" name="Sentence case (blend)"/>
+                    <Item id="42071" name="iNVERT cASE"/>
+                    <Item id="42072" name="ranDOm CasE"/>
+					<Item id="42073" name="Open File"/>
+					<Item id="42074" name="Open Containing Folder in Explorer"/>
+					<Item id="42075" name="Search on Internet"/>
+					<Item id="42076" name="Change Search Engine..."/>
                     <Item id="42018" name="&amp;Start Recording"/>
                     <Item id="42019" name="&amp;Stop Recording"/>
                     <Item id="42021" name="&amp;Playback"/>
@@ -217,6 +231,7 @@
                     <Item id="44049" name="Summary..."/>
                     <Item id="44080" name="Document Map"/>
                     <Item id="44084" name="Function List"/>
+                    <Item id="44085" name="Folder as &amp;Workspace"/>
                     <Item id="44086" name="1st Tab"/>
                     <Item id="44087" name="2nd Tab"/>
                     <Item id="44088" name="3rd Tab"/>
@@ -228,6 +243,9 @@
                     <Item id="44094" name="9th Tab"/>
                     <Item id="44095" name="Next Tab"/>
                     <Item id="44096" name="Previous Tab"/>
+                    <Item id="44097" name="Monitoring (tail -f)"/>
+                    <Item id="44098" name="Move Tab Forward"/>
+                    <Item id="44099" name="Move Tab Backward"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -257,19 +275,6 @@
                     <Item id="10003" name="Move to New Instance"/>
                     <Item id="10004" name="Open in New Instance"/>
 
-                    <Item id="45060" name="Big5 (Traditional)"/>
-                    <Item id="45061" name="GB2312 (Simplified)"/>
-                    <Item id="45054" name="OEM 861: Icelandic"/>
-                    <Item id="45057" name="OEM 865: Nordic"/>
-                    <Item id="45053" name="OEM 860: Portuguese"/>
-                    <Item id="45056" name="OEM 863: French"/>
-
-                    <Item id="46033" name="Assembly"/>
-                    <Item id="46019" name="MS INI file"/>
-                    <Item id="46015" name="MS-DOS Style"/>
-                    <Item id="46016" name="Normal Text"/>
-                    <Item id="46017" name="Resource file"/>
-
                     <Item id="46001" name="Style Configurator..."/>
                     <Item id="46150" name="Define your language..."/>
                     <Item id="46080" name="User-Defined"/>
@@ -280,6 +285,7 @@
                     <Item id="47003" name="Online Documentation"/>
 					<Item id="47004" name="Notepad++ Community (Forum)"/>
                     <Item id="47011" name="Live Support"/>
+                    <Item id="47012" name="Debug Info..."/>
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Update Notepad++"/>
                     <Item id="47009" name="Set Updater Proxy..."/>
@@ -288,6 +294,9 @@
                     <Item id="48018" name="Edit Popup ContextMenu"/>
                     <Item id="48009" name="Shortcut Mapper..."/>
                     <Item id="48011" name="Preferences..."/>
+                    <Item id="48501" name="Generate..."/>
+                    <Item id="48502" name="Generate from files..."/>
+                    <Item id="48503" name="Generate into clipboard"/>
                     <Item id="49000" name="&amp;Run..."/>
 
                     <Item id="50000" name="Function Completion"/>
@@ -396,6 +405,18 @@
                 <Item id="2"    name="Cancel"/>
                 <Item id="1904" name="Save..."/>
             </Run>
+
+            <MD5FromFilesDlg title="Generate MD5 digest from files">
+                <Item id="1922" name="Choose files to generate MD5..."/>
+                <Item id="1924" name="Copy to Clipboard"/>
+                <Item id="2"    name="Close"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Generate MD5 digest">
+                <Item id="1932" name="Treat each line as a separate string"/>
+                <Item id="1934" name="Copy to Clipboard"/>
+                <Item id="2"    name="Close"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="Style Configurator">
                 <Item id="2"    name="Cancel"/>
@@ -620,6 +641,7 @@
                     <Item id="6118" name="Hide"/>
                     <Item id="6119" name="Multi-line"/>
                     <Item id="6120" name="Vertical"/>
+                    <Item id="6121" name="Exit on close the last tab"/>
 
                     <Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="Localization"/>
@@ -661,6 +683,8 @@
                     <Item id="6214" name="Enable current line highlighting"/>
 					<Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
+                    <Item id="6235" name="No edge"/>
+                    <Item id="6236" name="Enable scrolling beyond last line"/>
                 </Scintillas>
 
                 <NewDoc title="New Document">
@@ -683,25 +707,37 @@
                     <Item id="6413" name="Default Directory (Open/Save)"/>
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
+                    <Item id="6430" name="Use new style save dialog (without file extension feature)"/>
+                    <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
                 </DefaultDir>
 
                 <FileAssoc title="File Association">
                     <Item id="4009" name="Supported extensions:"/>
                     <Item id="4010" name="Registered extensions:"/>
                 </FileAssoc>
-                <LangMenu title="Language Menu">
+                <Language title="Language">
                     <Item id="6505" name="Available items"/>
                     <Item id="6506" name="Disabled items"/>
                     <Item id="6507" name="Make language menu compact"/>
                     <Item id="6508" name="Language Menu"/>
-                </LangMenu>
-
-                <TabSettings title="Tab Settings">
-                    <Item id="6301" name="Tab Settings"/>
+					<Item id="6301" name="Tab Settings"/>
                     <Item id="6302" name="Replace by space"/>
                     <Item id="6303" name="Tab size: "/>
                     <Item id="6510" name="Use default value"/>
-                </TabSettings>
+                </Language>
+
+                <Highlighting title="Highlighting">
+                    <Item id="6333" name="Smart Highlighting"/>
+                    <Item id="6326" name="Enable smart highlighting"/>
+					<Item id="6332" name="Match case"/>
+					<Item id="6338" name="Match whole word only"/>
+					<Item id="6339" name="Use Find dialog settings"/>
+                    <Item id="6340" name="Highlight another view"/>
+                    <Item id="6329" name="Highlight Matching Tags"/>
+                    <Item id="6327" name="Enable"/>
+                    <Item id="6328" name="Highlight tag attributes"/>
+                    <Item id="6330" name="Highlight comment/php/asp zone"/>
+                </Highlighting>
 
                 <Print title="Print">
                     <Item id="6601" name="Print line number"/>
@@ -765,6 +801,7 @@
                     <Item id="6809" name="Function completion"/>
                     <Item id="6810" name="Word completion"/>
                     <Item id="6816" name="Function and word completion"/>
+                    <Item id="6824" name="Ignore numbers"/>
                     <Item id="6811" name="From"/>
                     <Item id="6813" name="th character"/>
                     <Item id="6814" name="Valid value: 1 - 9"/>
@@ -793,12 +830,22 @@
                     <Item id="6256" name="Allow on several lines"/>
                 </Delimiter>
 
-                 <Cloud title="Cloud">
+                <Cloud title="Cloud">
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
-                    <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
+				
+                <SearchEngine title="Search Engine">
+                    <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Set your search engine here:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
 
                 <MISC title="MISC.">
                     <Item id="6307" name="Enable"/>
@@ -812,16 +859,10 @@
                     <Item id="6322" name="Session file ext.:"/>
                     <Item id="6323" name="Enable Notepad++ auto-updater"/>
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
-                    <Item id="6326" name="Enable smart highlighting"/>
-                    <Item id="6329" name="Highlight Matching Tags"/>
-                    <Item id="6327" name="Enable"/>
-                    <Item id="6328" name="Highlight tag attributes"/>
-                    <Item id="6330" name="Highlight comment/php/asp zone"/>
                     <Item id="6331" name="Show only filename in title bar"/>
-                    <Item id="6332" name="Match case"/>
-                    <Item id="6333" name="Smart Highlighting"/>
                     <Item id="6334" name="Autodetect character encoding"/>
                     <Item id="6335" name="Treat backslash as escape character for SQL"/>
+                    <Item id="6337" name="Workspace file ext.:"/>
                     <Item id="6114" name="Enable"/>
                     <Item id="6115" name="Auto-indent"/>
                     <Item id="6117" name="Enable MRU behaviour"/>
@@ -872,6 +913,7 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
 			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

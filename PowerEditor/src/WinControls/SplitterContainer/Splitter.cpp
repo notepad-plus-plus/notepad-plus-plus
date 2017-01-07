@@ -239,9 +239,9 @@ LRESULT CALLBACK Splitter::staticWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LP
 	{
 		case WM_NCCREATE:
 		{
-			Splitter * pSplitter = (Splitter *)((LPCREATESTRUCT)lParam)->lpCreateParams;
+			Splitter * pSplitter = reinterpret_cast<Splitter *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
 			pSplitter->_hSelf = hWnd;
-			::SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)pSplitter);
+			::SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pSplitter));
 			return TRUE;
 		}
 		default:

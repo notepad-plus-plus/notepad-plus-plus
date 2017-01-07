@@ -42,7 +42,7 @@
 class SizeableDlg : public StaticDialog {
 	typedef StaticDialog MyBaseClass;
 public:
-	SizeableDlg(WINRECT* pWinMap);
+	explicit SizeableDlg(WINRECT* pWinMap);
 
 protected:
 	CWinMgr _winMgr;	  // window manager

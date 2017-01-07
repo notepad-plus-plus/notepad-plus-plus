@@ -116,18 +116,18 @@ void LastRecentFileList::updateMenu()
 			cleanFileList = TEXT("Empty Recent Files List");
 
 		if (!isSubMenuMode())
-			::InsertMenu(_hMenu, _posBase + 0, MF_BYPOSITION, UINT(-1), 0);
+			::InsertMenu(_hMenu, _posBase + 0, MF_BYPOSITION, static_cast<UINT_PTR>(-1), 0);
 
 		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_FILE_RESTORELASTCLOSEDFILE, openRecentClosedFile.c_str());
 		::InsertMenu(_hMenu, _posBase + 2, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFiles.c_str());
 		::InsertMenu(_hMenu, _posBase + 3, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileList.c_str());
-		::InsertMenu(_hMenu, _posBase + 4, MF_BYPOSITION, UINT(-1), 0);
+		::InsertMenu(_hMenu, _posBase + 4, MF_BYPOSITION, static_cast<UINT_PTR>(-1), 0);
 		_hasSeparators = true;
 
 		if (isSubMenuMode())
 		{
-			::InsertMenu(_hParentMenu, _posBase + 0, MF_BYPOSITION | MF_POPUP, UINT(_hMenu), (LPCTSTR)recentFileList.c_str());
-			::InsertMenu(_hParentMenu, _posBase + 1, MF_BYPOSITION, UINT(-1), 0);
+			::InsertMenu(_hParentMenu, _posBase + 0, MF_BYPOSITION | MF_POPUP, reinterpret_cast<UINT_PTR>(_hMenu), (LPCTSTR)recentFileList.c_str());
+			::InsertMenu(_hParentMenu, _posBase + 1, MF_BYPOSITION, static_cast<UINT_PTR>(-1), 0);
 		}
 		_pAccelerator->updateFullMenu();
 	}
@@ -195,11 +195,11 @@ void LastRecentFileList::remove(const TCHAR *fn)
 		remove(index);
 };
 
-void LastRecentFileList::remove(int index) 
+void LastRecentFileList::remove(size_t index) 
 {
 	if (_size == 0 || _locked)
 		return;
-	if (index > -1 && index < (int)_lrfl.size())
+	if (index < _lrfl.size())
 	{
 		::RemoveMenu(_hMenu, _lrfl.at(index)._id, MF_BYCOMMAND);
 		setAvailable(_lrfl.at(index)._id);

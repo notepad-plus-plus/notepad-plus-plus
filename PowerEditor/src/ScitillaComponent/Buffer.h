@@ -32,16 +32,17 @@
 class Notepad_plus;
 class Buffer;
 typedef Buffer* BufferID;	//each buffer has unique ID by which it can be retrieved
-#define BUFFER_INVALID	(BufferID)0
+#define BUFFER_INVALID	reinterpret_cast<BufferID>(0)
 
 typedef sptr_t Document;
 
 enum DocFileStatus
 {
-	DOC_REGULAR  = 0x01, // should not be combined with anything
-	DOC_UNNAMED  = 0x02, // not saved (new ##)
-	DOC_DELETED  = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
-	DOC_MODIFIED = 0x08  // File in environment has changed
+	DOC_REGULAR    = 0x01, // should not be combined with anything
+	DOC_UNNAMED    = 0x02, // not saved (new ##)
+	DOC_DELETED    = 0x04, // doesn't exist in environment anymore, but not DOC_UNNAMED
+	DOC_MODIFIED   = 0x08, // File in environment has changed
+	DOC_NEEDRELOAD = 0x10  // File is modified & needed to be reload (by log monitoring)
 };
 
 enum BufferStatusInfo
@@ -73,10 +74,10 @@ public:
 	//void activateBuffer(int index);
 	void checkFilesystemChanges();
 
-	int getNrBuffers() { return _nrBufs; };
+	size_t getNrBuffers() { return _nrBufs; };
 	int getBufferIndexByID(BufferID id);
-	Buffer * getBufferByIndex(int index);	//generates exception if index is invalid
-	Buffer * getBufferByID(BufferID id) {return (Buffer*)id;}
+	Buffer * getBufferByIndex(size_t index);
+	Buffer * getBufferByID(BufferID id) {return static_cast<Buffer*>(id);}
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
 
@@ -113,7 +114,7 @@ private:
 	~FileManager();
 	int detectCodepage(char* buf, size_t len);
 	bool loadFileData(Document doc, const TCHAR* filename, char* buffer, Utf8_16_Read* UnicodeConvertor, LangType & language, int & encoding, EolType & eolFormat);
-	LangType detectLanguageFromTextBegining(const unsigned char *data, unsigned int dataLen);
+	LangType detectLanguageFromTextBegining(const unsigned char *data, size_t dataLen);
 
 
 private:
@@ -134,7 +135,7 @@ private:
 
 class Buffer final
 {
-friend class FileManager;
+	friend class FileManager;
 public:
 	//Loading a document:
 	//constructor with ID.
@@ -167,21 +168,21 @@ public:
 
 	bool checkFileState();
 
-    bool isDirty() const {
-        return _isDirty;
-    }
+	bool isDirty() const {
+		return _isDirty;
+	}
 
-    bool isReadOnly() const {
-        return (_isUserReadOnly || _isFileReadOnly);
-    };
+	bool isReadOnly() const {
+		return (_isUserReadOnly || _isFileReadOnly);
+	};
 
 	bool isUntitled() const {
 		return (_currentStatus == DOC_UNNAMED);
 	}
 
 	bool getFileReadOnly() const {
-        return _isFileReadOnly;
-    }
+		return _isFileReadOnly;
+	}
 
 	void setFileReadOnly(bool ro) {
 		_isFileReadOnly = ro;
@@ -189,13 +190,13 @@ public:
 	}
 
 	bool getUserReadOnly() const {
-        return _isUserReadOnly;
-    }
+		return _isUserReadOnly;
+	}
 
 	void setUserReadOnly(bool ro) {
 		_isUserReadOnly = ro;
 		doNotify(BufferChangeReadonly);
-    }
+	}
 
 	EolType getEolFormat() const {
 		return _eolFormat;
@@ -234,7 +235,7 @@ public:
 
 	void setDirty(bool dirty);
 
-    void setPosition(const Position & pos, ScintillaEditView * identifier);
+	void setPosition(const Position & pos, ScintillaEditView * identifier);
 	Position & getPosition(ScintillaEditView * identifier);
 
 	void setHeaderLineState(const std::vector<size_t> & folds, ScintillaEditView * identifier);
@@ -266,7 +267,7 @@ public:
 		return l->_pCommentStart;
 	}
 
-    const TCHAR * getCommentEnd() const
+	const TCHAR * getCommentEnd() const
 	{
 		Lang *l = getCurrentLang();
 		if (!l)
@@ -316,16 +317,16 @@ public:
 
 	int getFileLength() const; // return file length. -1 if file is not existing.
 
-	enum fileTimeType {ft_created, ft_modified, ft_accessed};
+	enum fileTimeType { ft_created, ft_modified, ft_accessed };
 	generic_string getFileTime(fileTimeType ftt) const;
 
-    Lang * getCurrentLang() const;
+	Lang * getCurrentLang() const;
 
-	bool isModified() const {return _isModified;}
-	void setModifiedStatus(bool isModified) {_isModified = isModified;}
-	generic_string getBackupFileName() const {return _backupFileName;}
-	void setBackupFileName(generic_string fileName) {_backupFileName = fileName;}
-	time_t getLastModifiedTimestamp() const {return _timeStamp;}
+	bool isModified() const { return _isModified; }
+	void setModifiedStatus(bool isModified) { _isModified = isModified; }
+	generic_string getBackupFileName() const { return _backupFileName; }
+	void setBackupFileName(generic_string fileName) { _backupFileName = fileName; }
+	time_t getLastModifiedTimestamp() const { return _timeStamp; }
 
 	bool isLoadedDirty() const
 	{
@@ -337,10 +338,26 @@ public:
 		_isLoadedDirty = val;
 	}
 
+	void startMonitoring() { 
+		_isMonitoringOn = true; 
+		_eventHandle = ::CreateEvent(nullptr, TRUE, FALSE, nullptr);
+	};
+
+	HANDLE getMonitoringEvent() const {
+		return _eventHandle;
+	};
+
+	void stopMonitoring() { 
+		_isMonitoringOn = false;
+		::SetEvent(_eventHandle);
+		::CloseHandle(_eventHandle);
+	};
+
+	bool isMonitoringOn() const { return _isMonitoringOn; };
+	void updateTimeStamp();
+	void reload();
 
 private:
-	void updateTimeStamp();
-
 	int indexOfReference(const ScintillaEditView * identifier) const;
 
 	void setStatus(DocFileStatus status)
@@ -395,4 +412,8 @@ private:
 	generic_string _backupFileName;
 	bool _isModified = false;
 	bool _isLoadedDirty = false; // it's the indicator for finding buffer's initial state
+
+	// For the monitoring
+	HANDLE _eventHandle = nullptr;
+	bool _isMonitoringOn = false;
 };

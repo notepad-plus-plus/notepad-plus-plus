@@ -40,7 +40,7 @@ namespace // anonymous
 
 	struct PaintLocker final
 	{
-		PaintLocker(HWND handle)
+		explicit PaintLocker(HWND handle)
 			: handle(handle)
 		{
 			// disallow drawing on the window
@@ -94,7 +94,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 
 	NppParameters *pNppParams = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)pNppParams->getNppGUI();
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParams->getNppGUI());
 
 	if (cmdLineParams->_isNoPlugin)
 		_notepad_plus_plus_core._pluginsManager.disable();
@@ -306,6 +306,9 @@ bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const
 	for (size_t i = 0, len = _notepad_plus_plus_core._hModelessDlgs.size(); i < len; ++i)
 	{
 		if (_notepad_plus_plus_core.processIncrFindAccel(msg))
+			return true;
+
+		if (_notepad_plus_plus_core.processFindAccel(msg))
 			return true;
 
 		if (::IsDialogMessageW(_notepad_plus_plus_core._hModelessDlgs[i], msg))

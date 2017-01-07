@@ -1,17 +1,20 @@
-Notepad++ v6.8.9 bug-fixes and enhancements:
+Notepad++ 7.3 new feature & bug-fixes:
 
-1.  Fix Notepad++ hanging issue while user uses touchscreen to activate Notepad++ window.
-2.  HTML auto-close tag enhancement: Prevent <br>, <hr>, <img>, <link> and <meta> from being closed automatically.
-3.  Project enhancement: Allows user defined extension to associate workspace file. 
-4.  Make behavior of SHIFT+END and SHIFT+HOME more consistent when word wrapping is enabled.
-5.  Add new API NPPM_SAVEFILE (for plugins) to save any file, not only the focused one.
-6.  Add file extensions for FreePascal/Lazarus pascal, lex (as C).
-7.  Update keywords for C, C++, JavaScript, Python and YAML.
+1.  Add MD5 functionalities.
+2.  Fix the problem of launch Notepad++ with Admin right after installation.
+3.  Fix a problem of recent file history - add to recent file history only if file is removed from all the views.
+4.  Get back Find dialog while you lost it (in a multi-screen + laptop configuration).
+5.  Fix long hyperlinks truncated problem.
 
 
 Included plugins:
 
-1.  NppExport v0.2.8
-2.  Plugin Manager 1.3.5
-3.  Converter 3.0
-4.  Mime Tool 1.9
+1.  NppExport v0.2.8 (32-bit x86 only)
+2.  Plugin Manager 1.3.5 (32-bit x86 only)
+3.  Converter 4.2
+4.  Mime Tool 2.1
+
+
+Updater (Installer only):
+
+* WinGup v4.1

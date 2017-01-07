@@ -132,7 +132,7 @@ void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
 }
 
 
-void TabBar::setFont(TCHAR *fontName, size_t fontSize)
+void TabBar::setFont(TCHAR *fontName, int fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);
@@ -171,7 +171,7 @@ void TabBar::deletItemAt(size_t index)
 		if (_nbItem > 1)
 		{
 			RECT itemRect;
-			::SendMessage(_hSelf, TCM_GETITEMRECT, (WPARAM)index, (LPARAM)&itemRect);
+			::SendMessage(_hSelf, TCM_GETITEMRECT, index, reinterpret_cast<LPARAM>(&itemRect));
 			if (itemRect.left < 5) //if last visible tab, scroll left once (no more than 5px away should be safe, usually 2px depending on the drawing)
 			{
 				//To scroll the tab control to the left, use the WM_HSCROLL notification
@@ -194,7 +194,7 @@ void TabBar::deletItemAt(size_t index)
 void TabBar::setImageList(HIMAGELIST himl)
 {
 	_hasImgLst = true;
-	::SendMessage(_hSelf, TCM_SETIMAGELIST, 0, (LPARAM)himl);
+	::SendMessage(_hSelf, TCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
 }
 
 
@@ -291,11 +291,12 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 		NULL,
 		_hInst,
 		0);
+
 	if (!_tooltips)
 	{
 		throw std::runtime_error("TabBarPlus::init : tooltip CreateWindowEx() function return null");
 	}
-	::SendMessage(_hSelf, TCM_SETTOOLTIPS, (WPARAM)_tooltips, 0);
+	::SendMessage(_hSelf, TCM_SETTOOLTIPS, reinterpret_cast<WPARAM>(_tooltips), 0);
 
 	if (!_isTraditional)
     {
@@ -322,8 +323,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 		}
 		++_nbCtrl;
 
-        ::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
-	    _tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)TabBarPlus_Proc));
+		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+		_tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabBarPlus_Proc)));
     }
 
 	LOGFONT LogFont;
@@ -441,6 +442,96 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
+		case WM_MOUSEWHEEL:
+		{
+			// ..............................................................................
+			// MOUSEWHEEL:
+			// will scroll the tab bar area (similar to Firefox's tab scrolling),
+			// it only happens if not in multi-line mode and at least one tab is hidden
+			// ..............................................................................
+			// CTRL + MOUSEWHEEL:
+			// will do previous/next tab WITH scroll wrapping (endless loop)
+			// ..............................................................................
+			// SHIFT + MOUSEWHEEL:
+			// will do previous/next tab WITHOUT scroll wrapping (stops at first/last tab)
+			// ..............................................................................
+			// CTRL + SHIFT + MOUSEWHEEL:
+			// will switch to the first/last tab
+			// ..............................................................................
+
+			if (_isDragging)
+				return TRUE;
+
+			const bool isForward = ((short)HIWORD(wParam)) < 0; // wheel rotation towards the user will be considered as forward direction
+			const LRESULT lastTabIndex = ::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1;
+
+			if ((wParam & MK_CONTROL) && (wParam & MK_SHIFT))
+			{
+				::SendMessage(_hSelf, TCM_SETCURFOCUS, (isForward ? lastTabIndex : 0), 0);
+			}
+			else if (wParam & (MK_CONTROL | MK_SHIFT))
+			{
+				LRESULT tabIndex = ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0) + (isForward ? 1 : -1);
+				if (tabIndex < 0)
+				{
+					if (wParam & MK_CONTROL)
+						tabIndex = lastTabIndex; // wrap scrolling
+					else
+						return TRUE;
+				}
+				else if (tabIndex > lastTabIndex)
+				{
+					if (wParam & MK_CONTROL)
+						tabIndex = 0; // wrap scrolling
+					else
+						return TRUE;
+				}
+				::SendMessage(_hSelf, TCM_SETCURFOCUS, tabIndex, 0);
+			}
+			else if (not _isMultiLine) // don't scroll if in multi-line mode
+			{
+				RECT rcTabCtrl, rcLastTab;
+				::SendMessage(_hSelf, TCM_GETITEMRECT, lastTabIndex, reinterpret_cast<LPARAM>(&rcLastTab));
+				::GetClientRect(_hSelf, &rcTabCtrl);
+
+				// get index of the first visible tab
+				TC_HITTESTINFO hti;
+				LONG xy = NppParameters::getInstance()->_dpiManager.scaleX(12); // an arbitrary coordinate inside the first visible tab
+				hti.pt = { xy, xy };
+				LRESULT scrollTabIndex = ::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hti));
+
+				if (scrollTabIndex < 1 && (_isVertical ? rcLastTab.bottom < rcTabCtrl.bottom : rcLastTab.right < rcTabCtrl.right)) // nothing to scroll
+					return TRUE;
+
+				// maximal width/height of the msctls_updown32 class (arrow box in the tab bar), 
+				// this area may hide parts of the last tab and needs to be excluded
+				LONG maxLengthUpDownCtrl = NppParameters::getInstance()->_dpiManager.scaleX(44); // sufficient static value
+
+				// scroll forward as long as the last tab is hidden; scroll backward till the first tab
+				if ((_isVertical ? ((rcTabCtrl.bottom - rcLastTab.bottom) < maxLengthUpDownCtrl) : ((rcTabCtrl.right - rcLastTab.right) < maxLengthUpDownCtrl)) || not isForward)
+				{
+					if (isForward)
+						++scrollTabIndex;
+					else
+						--scrollTabIndex;
+
+					if (scrollTabIndex < 0 || scrollTabIndex > lastTabIndex)
+						return TRUE;
+
+					// clear hover state of the close button,
+					// WM_MOUSEMOVE won't handle this properly since the tab position will change
+					if (_isCloseHover)
+					{
+						_isCloseHover = false;
+						::InvalidateRect(_hSelf, &_currentHoverTabRect, false);
+					}
+
+					::SendMessage(_hSelf, WM_HSCROLL, MAKEWPARAM(SB_THUMBPOSITION, scrollTabIndex), 0);
+				}
+			}
+			return TRUE;
+		}
+
 		case WM_LBUTTONDOWN :
 		{
 			if (_drawTabCloseButton)
@@ -457,7 +548,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
             ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
-			int currentTabOn = ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0);
+			int currentTabOn = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
 			if (wParam == 2)
 				return TRUE;
@@ -524,7 +615,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				_currentHoverTabItem = getTabIndexAt(xPos, yPos);
 				if (_currentHoverTabItem != -1)
 				{
-					::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, (LPARAM)&_currentHoverTabRect);
+					::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
 					_isCloseHover = _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical);
 				}
 				else
@@ -758,7 +849,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 				barRect.bottom = barRect.top + topBarHeight;
 			}
 
-			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, (LPARAM)_hSelf))
+			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, reinterpret_cast<LPARAM>(_hSelf)))
 				hBrush = ::CreateSolidBrush(_activeTopBarFocusedColour); // #FAAA3C
 			else
 				hBrush = ::CreateSolidBrush(_activeTopBarUnfocusedColour); // #FAD296

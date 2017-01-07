@@ -35,7 +35,7 @@ void DocumentMap::reloadMap()
 	if (_pScintillaEditView && _ppEditView)
 	{
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
-		_pScintillaEditView->execute(SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
+		_pScintillaEditView->execute(SCI_SETDOCPOINTER, 0, static_cast<LPARAM>(currentDoc));
 
 		//
 		// sync with the current document
@@ -68,7 +68,7 @@ void DocumentMap::setSyntaxHiliting()
 
 bool DocumentMap::needToRecomputeWith()
 {
-	int currentZoom = (*_ppEditView)->execute(SCI_GETZOOM);
+	auto currentZoom = (*_ppEditView)->execute(SCI_GETZOOM);
 	if (_displayZoom != currentZoom)
 		return true;
 
@@ -152,7 +152,7 @@ void DocumentMap::wrapMap()
 
 		// update the wrap needed data
 		_displayWidth = editZoneWidth;
-		_displayZoom = (*_ppEditView)->execute(SCI_GETZOOM);
+		_displayZoom = static_cast<int32_t>((*_ppEditView)->execute(SCI_GETZOOM));
 		double zr = zoomRatio[_displayZoom + 10];
 
 		// compute doc map width: dzw/ezw = 1/zoomRatio
@@ -175,7 +175,7 @@ int DocumentMap::getEditorTextZoneWidth()
 	int marginWidths = 0;
 	for (int m = 0; m < 4; ++m)
 	{
-		marginWidths += (*_ppEditView)->execute(SCI_GETMARGINWIDTHN, m);
+		marginWidths += static_cast<int32_t>((*_ppEditView)->execute(SCI_GETMARGINWIDTHN, m));
 	}
 	return editorRect.right - editorRect.left - marginWidths;
 }
@@ -185,16 +185,16 @@ void DocumentMap::scrollMap()
 	if (_pScintillaEditView && _ppEditView)
 	{
 		// Visible document line for the code view (but not displayed line)
-		int firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-		int firstVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine);
-		int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
-		int lastVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + nbLine);
+		auto firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
+		auto firstVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine);
+		auto nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
+		auto lastVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + nbLine);
 
 		// Visible document line for the map view
-		int firstVisibleDisplayLineMap = _pScintillaEditView->execute(SCI_GETFIRSTVISIBLELINE);
-		int firstVisibleDocLineMap = _pScintillaEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap);
-		int nbLineMap = _pScintillaEditView->execute(SCI_LINESONSCREEN, firstVisibleDocLineMap);
-		int lastVisibleDocLineMap = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap + nbLineMap);
+		auto firstVisibleDisplayLineMap = _pScintillaEditView->execute(SCI_GETFIRSTVISIBLELINE);
+		auto firstVisibleDocLineMap = _pScintillaEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap);
+		auto nbLineMap = _pScintillaEditView->execute(SCI_LINESONSCREEN, firstVisibleDocLineMap);
+		auto lastVisibleDocLineMap = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap + nbLineMap);
 
 		// If part of editor view is out of map, then scroll map
 		if (lastVisibleDocLineMap < lastVisibleDocLine)
@@ -203,30 +203,30 @@ void DocumentMap::scrollMap()
 			_pScintillaEditView->execute(SCI_GOTOLINE, firstVisibleDocLine);
 
 		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
-		int higherY = 0;
-		int lowerY = 0;
+		LRESULT higherY = 0;
+		LRESULT lowerY = 0;
 		if (!(*_ppEditView)->isWrap())
 		{
-			int higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, firstVisibleDocLine);
-			int lowerPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, lastVisibleDocLine);
+			auto higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, firstVisibleDocLine);
+			auto lowerPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, lastVisibleDocLine);
 			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
 			lowerY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, lowerPos);
 			if (lowerY == 0)
 			{
-				int lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
+				auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
 				lowerY = nbLine * lineHeight + firstVisibleDocLine;
 			}
 		}
 		else
 		{
-			int higherPos = (*_ppEditView)->execute(SCI_POSITIONFROMPOINT, 0, 0);
+			auto higherPos = (*_ppEditView)->execute(SCI_POSITIONFROMPOINT, 0, 0);
 			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
-			int lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
+			auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
 			lowerY = nbLine * lineHeight + higherY;
 		}
 
 		// Update view zone in map
-		_vzDlg.drawZone(higherY, lowerY);		
+		_vzDlg.drawZone(static_cast<long>(higherY), static_cast<long>(lowerY));
 	}
 }
 
@@ -252,10 +252,10 @@ void DocumentMap::foldAll(bool mode)
 void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 {
 	// Visible line for the code view
-	int firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-	int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
-	int nbLine2go = (whichMode == perLine?1:nbLine);
-	(*_ppEditView)->execute(SCI_LINESCROLL, 0, (direction == moveDown)?nbLine2go:-nbLine2go);
+	auto firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
+	auto nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
+	auto nbLine2go = (whichMode == perLine ? 1 : nbLine);
+	(*_ppEditView)->execute(SCI_LINESCROLL, 0, (direction == moveDown) ? nbLine2go : -nbLine2go);
 
 	scrollMap();
 }
@@ -271,9 +271,9 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
     {
         case WM_INITDIALOG :
         {
-			HWND hwndScintilla = (HWND)::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, (LPARAM)_hSelf);
-			_pScintillaEditView = (ScintillaEditView *)::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, (LPARAM)hwndScintilla);
-			_pScintillaEditView->execute(SCI_SETZOOM, (WPARAM)-10, 0);
+			HWND hwndScintilla = reinterpret_cast<HWND>(::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, reinterpret_cast<LPARAM>(_hSelf)));
+			_pScintillaEditView = reinterpret_cast<ScintillaEditView *>(::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, reinterpret_cast<LPARAM>(hwndScintilla)));
+			_pScintillaEditView->execute(SCI_SETZOOM, static_cast<WPARAM>(-10), 0);
 			_pScintillaEditView->execute(SCI_SETVSCROLLBAR, FALSE, 0);
 			_pScintillaEditView->execute(SCI_SETHSCROLLBAR, FALSE, 0);
 
@@ -384,7 +384,7 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		{
 			int newPosY = HIWORD(lParam);
 			int currentCenterPosY = _vzDlg.getCurrentCenterPosY();
-			int pixelPerLine = _pScintillaEditView->execute(SCI_TEXTHEIGHT, 0); 
+			int pixelPerLine = static_cast<int32_t>(_pScintillaEditView->execute(SCI_TEXTHEIGHT, 0));
 			int jumpDistance = newPosY - currentCenterPosY;
 			int nbLine2jump = jumpDistance/pixelPerLine;
 			(*_ppEditView)->execute(SCI_LINESCROLL, 0, nbLine2jump);
@@ -514,19 +514,19 @@ LRESULT CALLBACK ViewZoneDlg::canvas_runProc(HWND hwnd, UINT message, WPARAM wPa
 		case WM_KEYDOWN:
 			if (wParam == VK_UP)
 			{
-				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, (WPARAM)moveUp, 0);
+				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 0);
 			}
 			if (wParam == VK_DOWN)
 			{
-				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, (WPARAM)moveDown, 0);
+				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 0);
 			}
 			if (wParam == VK_PRIOR)
 			{
-				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, (WPARAM)moveUp, 1);
+				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveUp), 1);
 			}
 			if (wParam == VK_NEXT)
 			{
-				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, (WPARAM)moveDown, 1);
+				::SendMessage(_hParent, DOCUMENTMAP_SCROLL, static_cast<WPARAM>(moveDown), 1);
 			}
 			break;
 

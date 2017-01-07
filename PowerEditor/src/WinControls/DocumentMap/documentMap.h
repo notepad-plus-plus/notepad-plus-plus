@@ -26,13 +26,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef DOCUMENTMAP_H
-#define  DOCUMENTMAP_H
+#pragma once
 
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "documentMap_rc.h"
 
 #define DM_PANELTITLE     TEXT("Document Map")
@@ -94,9 +90,7 @@ private :
 
 class DocumentMap : public DockingDlgInterface {
 public:
-	DocumentMap(): DockingDlgInterface(IDD_DOCUMENTMAP), _ppEditView(NULL),\
-		_pScintillaEditView(NULL), id4dockingCont(DM_NOFOCUSWHILECLICKINGCAPTION)
-	{};
+	DocumentMap(): DockingDlgInterface(IDD_DOCUMENTMAP) {};
 
 	void create(tTbData * data, bool isRTL = false) {
 		DockingDlgInterface::create(data, isRTL);
@@ -140,15 +134,12 @@ protected:
 	int getEditorTextZoneWidth();
 
 private:
-	ScintillaEditView **_ppEditView;
-	ScintillaEditView *_pScintillaEditView;
+	ScintillaEditView **_ppEditView = nullptr;
+	ScintillaEditView *_pScintillaEditView = nullptr;
 	ViewZoneDlg _vzDlg;
 
 	// for needToRecomputeWith function
-	int _displayZoom;
-	int _displayWidth;
-	generic_string id4dockingCont;
+	int _displayZoom = -1;
+	int _displayWidth = 0;
+	generic_string id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
 };
-
-
-#endif // DOCUMENTMAP_H

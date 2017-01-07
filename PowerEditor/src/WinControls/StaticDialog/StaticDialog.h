@@ -28,11 +28,9 @@
 #include "Notepad_plus_msgs.h"
 #include "Window.h"
 
-
 typedef HRESULT (WINAPI * ETDTProc) (HWND, DWORD);
 
 enum class PosAlign { left, right, top, bottom };
-
 
 struct DLGTEMPLATEEX
 {
@@ -49,8 +47,6 @@ struct DLGTEMPLATEEX
       // The structure has more fields but are variable length
 };
 
-
-
 class StaticDialog : public Window
 {
 public :
@@ -58,8 +54,7 @@ public :
 
 	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
 
-    virtual bool isCreated() const
-	{
+    virtual bool isCreated() const {
 		return (_hSelf != NULL);
 	}
 
@@ -75,7 +70,6 @@ public :
 	}
 
     virtual void destroy() override;
-
 
 protected:
 	RECT _rc;

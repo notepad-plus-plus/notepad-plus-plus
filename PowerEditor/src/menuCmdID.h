@@ -55,39 +55,40 @@
     #define    IDM_FILE_OPEN_FOLDER             (IDM_FILE + 19)
     #define    IDM_FILE_OPEN_CMD                (IDM_FILE + 20)
 	#define    IDM_FILE_RESTORELASTCLOSEDFILE   (IDM_FILE + 21)
+	#define    IDM_FILE_OPENFOLDERASWORSPACE    (IDM_FILE + 22)
 // IMPORTANT: If list above is modified, you have to change the following values:
  
 // To be updated if new menu item(s) is (are) added in menu "File"
-	#define    IDM_FILEMENU_LASTONE             IDM_FILE_RESTORELASTCLOSEDFILE
-
-	
+    #define    IDM_FILEMENU_LASTONE             IDM_FILE_OPENFOLDERASWORSPACE
 
 // 0 based position of command "Exit" including the bars in the file menu
 // and without counting "Recent files history" items
 
 // 0  New
 // 1  Open...
-// 2  Open Folder
-// 3  Reload from Disk
-// 4  Save
-// 5  Save As...
-// 6  Save a Copy As...
-// 7  Save All
-// 8  Rename...
-// 9  Close
-//10  Close All
-//11  Close More
-//12  Move to Recycle Bin
-//13  --------
-//14  Load Session...
-//15  Save Session...
-//16  --------
-//17  Print...
-//18  Print Now
-//19  --------
-//20  Exit
-    #define    IDM_FILEMENU_EXISTCMDPOSITION    20 
- 
+// 2  Open Containing Folder
+// 3  Open Folder as Workspace
+// 4  Reload from Disk
+// 5  Save
+// 6  Save As...
+// 7  Save a Copy As...
+// 8  Save All
+// 9  Rename...
+//10  Close
+//11  Close All
+//12  Close More
+//13  Move to Recycle Bin
+//14  --------
+//15  Load Session...
+//16  Save Session...
+//17  --------
+//18  Print...
+//19  Print Now
+//20  --------
+//21  Exit
+    #define    IDM_FILEMENU_EXISTCMDPOSITION    21
+
+
 #define    IDM_EDIT       (IDM + 2000)
     #define    IDM_EDIT_CUT                         (IDM_EDIT + 1) 
     #define    IDM_EDIT_COPY                        (IDM_EDIT + 2)
@@ -108,6 +109,12 @@
     #define    IDM_EDIT_LINE_DOWN                   (IDM_EDIT + 15)
     #define    IDM_EDIT_UPPERCASE                   (IDM_EDIT + 16)
     #define    IDM_EDIT_LOWERCASE                   (IDM_EDIT + 17)
+    #define    IDM_EDIT_PROPERCASE_FORCE            (IDM_EDIT + 67)
+    #define    IDM_EDIT_PROPERCASE_BLEND            (IDM_EDIT + 68)
+    #define    IDM_EDIT_SENTENCECASE_FORCE          (IDM_EDIT + 69)
+    #define    IDM_EDIT_SENTENCECASE_BLEND          (IDM_EDIT + 70)
+    #define    IDM_EDIT_INVERTCASE                  (IDM_EDIT + 71)
+    #define    IDM_EDIT_RANDOMCASE                  (IDM_EDIT + 72)
     #define    IDM_EDIT_REMOVEEMPTYLINES            (IDM_EDIT + 55)
     #define    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK   (IDM_EDIT + 56)
     #define    IDM_EDIT_BLANKLINEABOVECURRENT       (IDM_EDIT + 57)
@@ -120,6 +127,11 @@
 	#define    IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING	(IDM_EDIT + 64)
 	#define    IDM_EDIT_SORTLINES_DECIMALDOT_ASCENDING		(IDM_EDIT + 65)
 	#define    IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING		(IDM_EDIT + 66)
+
+	#define    IDM_EDIT_OPENASFILE                   (IDM_EDIT + 73)
+	#define    IDM_EDIT_OPENINFOLDER                 (IDM_EDIT + 74)
+	#define    IDM_EDIT_SEARCHONINTERNET             (IDM_EDIT + 75)
+	#define    IDM_EDIT_CHANGESEARCHENGINE           (IDM_EDIT + 76)
 
 // Menu macro
     #define    IDM_MACRO_STARTRECORDINGMACRO        (IDM_EDIT + 18)
@@ -319,7 +331,8 @@
 	#define    IDM_VIEW_PROJECT_PANEL_3           (IDM_VIEW + 83)
 
 	#define    IDM_VIEW_FUNC_LIST                 (IDM_VIEW + 84)
-	
+	#define    IDM_VIEW_FILEBROWSER               (IDM_VIEW + 85)
+
 	#define	   IDM_VIEW_TAB1					  (IDM_VIEW + 86)
 	#define	   IDM_VIEW_TAB2					  (IDM_VIEW + 87)
 	#define	   IDM_VIEW_TAB3					  (IDM_VIEW + 88)
@@ -331,6 +344,9 @@
 	#define	   IDM_VIEW_TAB9					  (IDM_VIEW + 94)
 	#define	   IDM_VIEW_TAB_NEXT				  (IDM_VIEW + 95)
 	#define	   IDM_VIEW_TAB_PREV				  (IDM_VIEW + 96)
+    #define    IDM_VIEW_MONITORING                (IDM_VIEW + 97)
+	#define	   IDM_VIEW_TAB_MOVEFORWARD			  (IDM_VIEW + 98)
+	#define	   IDM_VIEW_TAB_MOVEBACKWARD		  (IDM_VIEW + 99)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002
@@ -465,6 +481,7 @@
     #define    IDM_LANG_JSP                (IDM_LANG + 55)
 	#define    IDM_LANG_COFFEESCRIPT       (IDM_LANG + 56)
 	#define    IDM_LANG_JSON		       (IDM_LANG + 57)
+    #define    IDM_LANG_FORTRAN_77         (IDM_LANG + 58)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 65)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 79)
@@ -505,6 +522,12 @@
     #define	   IDM_SETTING_SHORTCUT_MAPPER_MACRO	(IDM_SETTING + 16)
 	#define	   IDM_SETTING_SHORTCUT_MAPPER_RUN		(IDM_SETTING + 17)
 	#define	   IDM_SETTING_EDITCONTEXTMENU  	    (IDM_SETTING + 18)
+
+#define    IDM_TOOL  (IDM + 8500)
+	#define	   IDM_TOOL_MD5_GENERATE  	            (IDM_TOOL + 1)
+	#define	   IDM_TOOL_MD5_GENERATEFROMFILE  	    (IDM_TOOL + 2)
+	#define	   IDM_TOOL_MD5_GENERATEINTOCLIPBOARD  	(IDM_TOOL + 3)
+
 
 #define    IDM_EXECUTE  (IDM + 9000)
 

@@ -52,8 +52,8 @@ public :
 		return oldColour;
 	};
 	void hookOn(HWND staticHandle) {
-		::SetWindowLongPtr(staticHandle, GWLP_USERDATA, (LONG_PTR)this);
-		_oldProc = (WNDPROC)::SetWindowLongPtr(staticHandle, GWLP_WNDPROC, (LONG_PTR)staticProc);
+		::SetWindowLongPtr(staticHandle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+		_oldProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(staticHandle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 	};
 private :
 	COLORREF _colour;
@@ -69,7 +69,7 @@ private :
 class WordStyleDlg : public StaticDialog
 {
 public :
-	WordStyleDlg():_isDirty(false), _isThemeDirty(false), _restoreInvalid(false), /*_isSync(true),*/ _isShownGOCtrls(false){};
+	WordStyleDlg() {};
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -99,7 +99,7 @@ public :
 
     virtual void redraw() const {
         _pFgColour->redraw();
-        _pBgColour->redraw();
+		_pBgColour->redraw();
 		::InvalidateRect(_hStyleInfoStaticText, NULL, TRUE);
 		::UpdateWindow(_hStyleInfoStaticText);
     };
@@ -115,17 +115,16 @@ public :
         NppParameters *nppParamInst = NppParameters::getInstance();
         ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
 		std::pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
-	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, (LPARAM)themeInfo.first.c_str());
+	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(themeInfo.first.c_str()));
     };
 
 
-
 private :
-    ColourPicker *_pFgColour;
-    ColourPicker *_pBgColour;
+    ColourPicker *_pFgColour = nullptr;
+    ColourPicker *_pBgColour = nullptr;
 
-    int _currentLexerIndex;
-	int _currentThemeIndex;
+    int _currentLexerIndex = 0;
+	int _currentThemeIndex = 0;
 
     HWND _hCheckBold;
     HWND _hCheckItalic;
@@ -148,21 +147,21 @@ private :
 	LexerStylerArray _styles2restored;
 	StyleArray _gstyles2restored;
 	GlobalOverride _gOverride2restored;
-	bool _restoreInvalid;
+	bool _restoreInvalid = false;
 
 	ColourStaticTextHooker colourHooker;
 
-	bool _isDirty;
-	bool _isThemeDirty;
-    //bool _isSync;
-	bool _isShownGOCtrls;
+	bool _isDirty = false;
+	bool _isThemeDirty = false;
+	bool _isShownGOCtrls = false;
 
 	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
 
 	Style & getCurrentStyler() {
-		int styleIndex = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
-		if (styleIndex == LB_ERR) styleIndex = 0;
+		int32_t styleIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0));
+		if (styleIndex == LB_ERR)
+			styleIndex = 0;
 
         if (_currentLexerIndex == 0)
 		{

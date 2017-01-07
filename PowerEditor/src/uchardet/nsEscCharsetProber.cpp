@@ -75,17 +75,13 @@ void nsEscCharSetProber::Reset(void)
 
 nsProbingState nsEscCharSetProber::HandleData(const char* aBuf, PRUint32 aLen)
 {
-  nsSMState codingState;
-  PRInt32 j;
-  PRUint32 i;
-
-  for ( i = 0; i < aLen && mState == eDetecting; i++)
+  for (PRUint32 i = 0; i < aLen && mState == eDetecting; i++)
   {
-    for (j = mActiveSM-1; j>= 0; j--)
+    for (PRInt32 j = mActiveSM-1; j>= 0; j--)
     {
       if (mCodingSM[j])
       {
-        codingState = mCodingSM[j]->NextState(aBuf[i]);
+        nsSMState codingState = mCodingSM[j]->NextState(aBuf[i]);
         if (codingState == eItsMe)
         {
           mState = eFoundIt;

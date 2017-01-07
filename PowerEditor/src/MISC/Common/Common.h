@@ -27,6 +27,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <sstream>
 #include <windows.h>
 #include <iso646.h>
 #include <cstdint>
@@ -65,12 +66,14 @@ const bool dirDown = false;
 #define COPYDATA_FILENAMES COPYDATA_FILENAMESW
 
 typedef std::basic_string<TCHAR> generic_string;
+typedef std::basic_stringstream<TCHAR> generic_stringstream;
 
-void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr = NULL);
+generic_string folderBrowser(HWND parent, const generic_string & title = TEXT(""), int outputCtrlID = 0, const TCHAR *defaultStr = NULL);
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir = NULL);
 
 void printInt(int int2print);
 void printStr(const TCHAR *str2print);
+generic_string commafyInt(size_t n);
 
 void writeLog(const TCHAR *logFileName, const char *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
@@ -98,7 +101,7 @@ public:
 
 	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
 	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
-	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL);
+	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn = -1, int *pLenOut = NULL);
 	const char * wchar2char(const wchar_t *wcStr, UINT codepage, long *mstart, long *mend);
 
 	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL)

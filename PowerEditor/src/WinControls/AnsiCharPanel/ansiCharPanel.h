@@ -77,7 +77,7 @@ protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	ScintillaEditView **_ppEditView;
+	ScintillaEditView **_ppEditView = nullptr;
 	ListView _listView;
 };
 #endif // ANSICHARPANEL_H

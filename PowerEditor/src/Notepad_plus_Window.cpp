@@ -148,11 +148,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		::SetWindowPlacement(_hSelf,&posInfo);
 	}
 
-
-	// avoid useless drawing
-	//PaintLocker paintLocker(_hSelf);
-
-	if (0 != (nppGUI._tabStatus & TAB_MULTILINE))
+	if ((nppGUI._tabStatus & TAB_MULTILINE) != 0)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
 
 	if (!nppGUI._menuBarShow)

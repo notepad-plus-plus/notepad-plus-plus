@@ -714,6 +714,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		_dockingManager.setActiveTab(cti._cont, cti._activeTab);
 	}
 
+	retrieveDefaultWordChars();
+
 	//Load initial docs into doctab
 	loadBufferIntoView(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);
@@ -721,6 +723,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
 	//::SetFocus(_mainEditView.getHSelf());
 	_mainEditView.getFocus();
+
 	return TRUE;
 }
 
@@ -3617,8 +3620,6 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 	}
 
 	notifyBufferActivated(id, whichOne);
-
-	//scnN.nmhdr.code = NPPN_DOCSWITCHINGIN;		//superseeded by NPPN_BUFFERACTIVATED
 	return true;
 }
 
@@ -3838,7 +3839,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	if (buf->isReadOnly())
 		return false;
 
-	//--LS: BlockToStreamComment:
+	//-- BlockToStreamComment:
 	const TCHAR *commentStart;
 	const TCHAR *commentEnd;
 	generic_string symbolStart;
@@ -6467,7 +6468,7 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 
 
 #pragma warning( disable : 4127 )
-//--FLS: undoStreamComment: New function to undo stream comment around or within selection end-points.
+//-- undoStreamComment: New function to undo stream comment around or within selection end-points.
 bool Notepad_plus::undoStreamComment()
 {
 	const TCHAR *commentStart;
@@ -6481,7 +6482,7 @@ bool Notepad_plus::undoStreamComment()
 	bool retVal = false;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
-	//--LS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	//-- Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
 	if (buf->isReadOnly())
 		return false;
 	if (buf->getLangType() == L_USER)
@@ -6661,5 +6662,65 @@ bool Notepad_plus::undoStreamComment()
 	}
 	while(1); //do as long as stream-comments are within selection
 	//return retVal;
-} //----- undoStreamComment() -------------------------------
+}
 
+void Notepad_plus::retrieveDefaultWordChars()
+{
+	auto defaultCharListLen = _mainEditView.execute(SCI_GETWORDCHARS);
+	char *defaultCharList = new char[defaultCharListLen + 1];
+	_mainEditView.execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+	_defaultCharList = defaultCharList;
+	delete[] defaultCharList;
+}
+
+void Notepad_plus::restoreDefaultWordChars()
+{
+	_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(_defaultCharList.c_str()));
+	_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(_defaultCharList.c_str()));
+}
+
+void Notepad_plus::addWordChars(const char *chars2add)
+{
+	size_t chars2addLen = strlen(chars2add);
+	if (not chars2addLen)
+		return;
+
+	auto oldCharListLen = _mainEditView.execute(SCI_GETWORDCHARS);
+	char *oldCharList = new char[oldCharListLen + 1];
+
+	_mainEditView.execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(oldCharList));
+	string chars2addStr;
+
+	for (size_t i = 0; i < chars2addLen; ++i)
+	{
+		bool found = false;
+		char char2check = chars2add[i];
+		for (auto j = 0; j < oldCharListLen; ++j)
+		{
+			char wordChar = oldCharList[j];
+			if (char2check == wordChar)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (not found)
+		{
+			chars2addStr.push_back(char2check);
+		}
+	}
+
+	if (not chars2addStr.empty())
+	{
+		string newCharList = oldCharList;
+		newCharList += chars2addStr;
+		//MessageBoxA(NULL, oldCharList, "AVANT", MB_OK);
+		_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
+		_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
+
+		//_mainEditView.execute(SCI_GETWORDCHARS, 0, (LPARAM)charList);
+		//MessageBoxA(NULL, charList, "APRES", MB_OK);
+	}
+
+	delete[] oldCharList;
+}

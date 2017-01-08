@@ -643,6 +643,11 @@ private:
 	static bool deleteForward(ScintillaEditView *pCurrentView, BufferID targetBufID);
 	static bool selectBack(ScintillaEditView *pCurrentView, BufferID targetBufID);
 
+	void retrieveDefaultWordChars();
+	std::string _defaultCharList;
+	void addWordChars(const char *chars2add);
+	void restoreDefaultWordChars();
+
 	static int getRandomNumber(int rangeMax = -1)
 	{
 		int randomNumber = rand();

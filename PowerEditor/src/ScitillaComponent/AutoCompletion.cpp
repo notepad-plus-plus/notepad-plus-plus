@@ -31,6 +31,7 @@
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
 
+
 using namespace std;
 
 static bool isInList(generic_string word, const vector<generic_string> & wordArray)
@@ -46,6 +47,19 @@ static bool isAllDigits(const generic_string &str)
 	return std::all_of(str.begin(), str.end(), ::isdigit);
 }
 
+static void sortKeyWords(bool _ignoreCase, vector<generic_string>& _keyWordArray)
+{
+	if (_ignoreCase)
+	{
+		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const generic_string& lhs, const generic_string& rhs) {
+			return _tcscmp(stringToUpper(lhs).c_str(), stringToUpper(rhs).c_str())<0;
+		});
+	}
+	else
+	{
+		std::sort(_keyWordArray.begin(), _keyWordArray.end());
+	}
+}
 
 bool AutoCompletion::showApiComplete()
 {
@@ -63,7 +77,7 @@ bool AutoCompletion::showApiComplete()
 	if (len >= _keyWordMaxLen)
 		return false;
 
-	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
@@ -94,19 +108,27 @@ bool AutoCompletion::showApiAndWordComplete()
 	bool canStop = false;
 	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
-		if (_keyWordArray[i].compare(0, len, beginChars) == 0)
+		bool _ignoreCaseMatch = false;
+		if (_ignoreCase)
+		{
+			generic_string expr(beginChars);
+			_ignoreCaseMatch = _tcsicmp(_keyWordArray[i].substr(0, len).c_str(), expr.c_str())==0;
+		}
+
+		if (_ignoreCaseMatch || (_keyWordArray[i].compare(0, len, beginChars) == 0))
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);
 			canStop = true;
 		}
-		else if (canStop) {
+		else if (canStop) 
+		{
 			// Early out since no more strings will match
 			break;
 		}
 	}
 
-	sort(wordArray.begin(), wordArray.end());
+	sortKeyWords(_ignoreCase, wordArray);
 
 	// Get word list
 	generic_string words;
@@ -115,10 +137,10 @@ bool AutoCompletion::showApiAndWordComplete()
 	{
 		words += wordArray[i];
 		if (i != len - 1)
-			words += TEXT(" ");
+			words += TEXT("\n");
 	}
 
-	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 	return true;
@@ -141,6 +163,10 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
+	if(_ignoreCase)
+	{
+		flags = SCFIND_WORDSTART | SCFIND_REGEXP | SCFIND_POSIX ;
+	}
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
 
@@ -347,8 +373,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		return true;
 	}
 
-	sort(wordArray.begin(), wordArray.end());
-
+	sortKeyWords(_ignoreCase, wordArray);
 	// Get word list
 	generic_string words(TEXT(""));
 
@@ -401,7 +426,6 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	TCHAR tag2find[] = TEXT("<[^\\s>]*");
-
 	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
 
 	if (targetStart == -1 || targetStart == -2)
@@ -862,14 +886,12 @@ bool AutoCompletion::setLanguage(LangType language) {
 						_keyWordMaxLen = len;
 				}
 			}
-		}
-
-		sort(_keyWordArray.begin(), _keyWordArray.end());
-
+		}	
+		sortKeyWords(_ignoreCase, _keyWordArray);
 		for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
 		{
 			_keyWords.append(_keyWordArray[i]);
-			_keyWords.append(TEXT(" "));
+			_keyWords.append(TEXT("\n"));
 		}
 	}
 	return _funcCompletionActive;

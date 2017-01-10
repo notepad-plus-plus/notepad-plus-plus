@@ -206,13 +206,12 @@
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy ..\src\config.model.xml ..\bin\config.model.xml
+      <Command>
 copy ..\src\langs.model.xml ..\bin\langs.model.xml
 copy ..\src\stylers.model.xml ..\bin\stylers.model.xml
 copy ..\src\shortcuts.xml ..\bin\shortcuts.xml
 copy ..\src\functionList.xml ..\bin\functionList.xml
 copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
-..\misc\vistaIconTool\changeIcon.bat "..\misc\vistaIconTool\ChangeIcon.exe" "$(OutDir)notepad++.exe"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -258,13 +257,12 @@ copy ..\src\contextMenu.xml ..\bin\contextMenu.xml
       <AdditionalManifestFiles>..\src\dpiAware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy ..\src\config.model.xml ..\bin64\config.model.xml
+      <Command>
 copy ..\src\langs.model.xml ..\bin64\langs.model.xml
 copy ..\src\stylers.model.xml ..\bin64\stylers.model.xml
 copy ..\src\shortcuts.xml ..\bin64\shortcuts.xml
 copy ..\src\functionList.xml ..\bin64\functionList.xml
 copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
-..\misc\vistaIconTool\changeIcon.bat "..\misc\vistaIconTool\ChangeIcon.exe" "$(OutDir)notepad++.exe"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

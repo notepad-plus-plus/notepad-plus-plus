@@ -26,13 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef BABYGRIDWRAPPER
-#define BABYGRIDWRAPPER
+#pragma once
 
-#ifndef BABYGRID_H
+#include "Parameters.h"
 #include "BabyGrid.h"
-#endif// BABYGRID_H
-
 #include "Window.h"
 
 class BabyGridWrapper : public Window
@@ -40,7 +37,7 @@ class BabyGridWrapper : public Window
 public :
 	BabyGridWrapper() : Window(){};
     ~BabyGridWrapper(){};
-	virtual void init(HINSTANCE hInst, HWND parent, int id);
+	virtual void init(HINSTANCE hInst, HWND parent, int16_t id);
 	virtual void destroy() {
 		::DestroyWindow(_hSelf);
 	};
@@ -155,5 +152,4 @@ private :
 	static bool _isRegistered;
 };
 
-#endif //BABYGRIDWRAPPER
 

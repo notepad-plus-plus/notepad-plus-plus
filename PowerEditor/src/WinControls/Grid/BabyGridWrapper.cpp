@@ -27,11 +27,12 @@
 
 
 #include "BabyGridWrapper.h"
+
 const TCHAR *babyGridClassName = TEXT("BABYGRID");
 
 bool BabyGridWrapper::_isRegistered = false;
 
-void BabyGridWrapper::init(HINSTANCE hInst, HWND parent, int id)
+void BabyGridWrapper::init(HINSTANCE hInst, HWND parent, int16_t id)
 {
 	Window::init(hInst, parent);
 

@@ -111,10 +111,10 @@ bool AutoCompletion::showApiAndWordComplete()
 	// Get word list
 	generic_string words;
 
-	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
+	for (size_t i = 0, wordArrayLen = wordArray.size(); i < wordArrayLen; ++i)
 	{
 		words += wordArray[i];
-		if (i != len - 1)
+		if (i != wordArrayLen - 1)
 			words += TEXT(" ");
 	}
 
@@ -352,10 +352,10 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	// Get word list
 	generic_string words(TEXT(""));
 
-	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
+	for (size_t i = 0, wordArrayLen = wordArray.size(); i < wordArrayLen; ++i)
 	{
 		words += wordArray[i];
-		if (i != wordArray.size()-1)
+		if (i != wordArrayLen -1)
 			words += TEXT(" ");
 	}
 

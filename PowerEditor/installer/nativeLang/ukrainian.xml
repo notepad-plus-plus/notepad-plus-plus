@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.0">
+    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -12,8 +12,9 @@
                     <Item menuId="encoding" name="Кодування"/>
                     <Item menuId="language" name="Мова"/>
                     <Item menuId="settings" name="Налаштування"/>
+                    <Item menuId="tools" name="Інструменти"/>
                     <Item menuId="macro" name="Макрос"/>
-                    <Item menuId="run" name="Запустити"/>
+                    <Item menuId="run" name="Виконати"/>
                     <Item idName="Plugins" name="Плагіни"/>
                     <Item idName="Window" name="Вікно"/>
                 </Entries>
@@ -62,6 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Західноєвропейська"/>
                     <Item subMenuId="encoding-vietnamese" name="В'єтнамська"/>
                     <Item subMenuId="settings-import"  name="Імпортувати"/>
+					<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -241,7 +243,7 @@
                     <Item id="44094" name="Вкладка 9"/>
                     <Item id="44095" name="Наступна вкладка"/>
                     <Item id="44096" name="Попередня вкладка"/>
-                    <Item id="44097" name="Моніторинг (слідом -f)"/>
+                    <Item id="44097" name="Моніторинг (tail -f)"/>
                     <Item id="44098" name="Посунути вкладку вперед"/>
                     <Item id="44099" name="Посунути вкладку назад"/>
                     <Item id="44032" name="На весь екран"/>
@@ -292,7 +294,10 @@
                     <Item id="48018" name="Змінити контекстне меню"/>
                     <Item id="48009" name="Гарячі клавіші..."/>
                     <Item id="48011" name="Налаштування..."/>
-                    <Item id="49000" name="Запуск..."/>
+                    <Item id="48501" name="Згенерувати..."/>
+                    <Item id="48502" name="Згенерувати із файлів..."/>
+                    <Item id="48503" name="Згенерувати в буфер обміну"/>
+                    <Item id="49000" name="Виконати..."/>
 
                     <Item id="50000" name="Завершення функцій"/>
                     <Item id="50001" name="Завершення слів"/>
@@ -400,6 +405,18 @@
                 <Item id="2"    name="Скасувати"/>
                 <Item id="1904" name="Зберегти..."/>
             </Run>
+
+            <MD5FromFilesDlg title="Згенерувати MD5-дайджест із файлів">
+                <Item id="1922" name="Вибрати файли для генерації MD5..."/>
+                <Item id="1924" name="Копіювати в буфер обміну"/>
+                <Item id="2"    name="Закрити"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Згенерувати MD5-дайджест">
+                <Item id="1932" name="Обробити кожен рядок як окремий"/>
+                <Item id="1934" name="Копіювати в буфер обміну"/>
+                <Item id="2"    name="Закрити"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="Визначення стилів">
                 <Item id="2"    name="Скасувати"/>
@@ -715,6 +732,7 @@
 					<Item id="6332" name="Враховувати регістр"/>
 					<Item id="6338" name="Лише цілі слова"/>
 					<Item id="6339" name="Використовувати налаштування діалогового вікна Пошук"/>
+                    <Item id="6340" name="Підсвічувати інший вигляд"/>
                     <Item id="6329" name="Підсвічувати парні теги"/>
                     <Item id="6327" name="Увімкнути"/>
                     <Item id="6328" name="Підсвічувати атрибути тегу"/>
@@ -810,6 +828,9 @@
                     <Item id="6252" name="Відкрити"/>
                     <Item id="6255" name="Закрити"/>
                     <Item id="6256" name="Дозволити захоплення кількох рядків"/>
+					<Item id="6161" name="Список символів"/>
+                    <Item id="6162" name="Використовувати цей список символів як типовий"/>
+                    <Item id="6163" name="Додавати свої символи як частину слова (не обирайте, якщо ви не знаєте, що робите)"/>
                 </Delimiter>
 
                 <Cloud title="Хмарне сховище">
@@ -965,5 +986,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+			<word-chars-list-tip value="Це дозволяє вам включати додатковий символ у поточні символи слова при подвійному натисканні для вибору, або пошуку за допомогою &quot;Лише цілі слова&quot; опції."/>
+            <word-chars-list-warning-begin value="Майте на увазі: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ пробіл(и)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
+			<word-chars-list-warning-end value="  у вашому списку символів."/>
+			<cloud-invalid-warning value="Неправильний шлях."/>
+			<cloud-restart-warning value="Перезапустіть Notepad++ для застосування змін."/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

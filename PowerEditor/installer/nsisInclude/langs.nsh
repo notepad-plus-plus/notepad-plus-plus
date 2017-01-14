@@ -81,6 +81,7 @@
   !insertmacro MUI_LANGUAGE "Bosnian"
   !insertmacro MUI_LANGUAGE "Mongolian"
   !insertmacro MUI_LANGUAGE "Estonian"
+  !insertmacro MUI_LANGUAGE "Corsican"
   
   ;!insertmacro MUI_LANGUAGE "Breton"
   ;!insertmacro MUI_LANGUAGE "Icelandic"
@@ -140,6 +141,7 @@ LangString langFileName ${LANG_LATVIAN} "Latvian.xml"
 LangString langFileName ${LANG_BOSNIAN} "bosnian.xml"
 LangString langFileName ${LANG_MONGOLIAN} "mongolian.xml"
 LangString langFileName ${LANG_ESTONIAN} "estonian.xml"
+LangString langFileName ${LANG_ESTONIAN} "corsican.xml"
 
 
 SectionGroup "Localization" localization
@@ -191,6 +193,9 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Corsican" corsican
 		CopyFiles "$PLUGINSDIR\nppLocalization\corsican.xml" "$INSTDIR\localization\corsican.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Corsican" corsican
+		CopyFiles "$TEMP\nppLocalization\corsican.xml" "$INSTDIR\localization\corsican.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Croatian" croatian
 		CopyFiles "$PLUGINSDIR\nppLocalization\croatian.xml" "$INSTDIR\localization\croatian.xml"

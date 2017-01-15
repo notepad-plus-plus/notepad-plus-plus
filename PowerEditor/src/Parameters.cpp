@@ -4676,6 +4676,24 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (themePath != NULL && themePath[0])
 				_nppGUI._themeName.assign(themePath);
 		}
+		else if (!lstrcmp(nm, TEXT("wordCharList")))
+		{
+			const TCHAR * value = element->Attribute(TEXT("useDefault"));
+			if (value && value[0])
+			{
+				if (lstrcmp(value, TEXT("yes")) == 0)
+					_nppGUI._isWordCharDefault = true;
+				else if (lstrcmp(value, TEXT("no")) == 0)
+					_nppGUI._isWordCharDefault = false;
+			}
+
+			const TCHAR *charsAddedW = element->Attribute(TEXT("charsAdded"));
+			if (charsAddedW)
+			{
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				_nppGUI._customWordChars = wmc->wchar2char(charsAddedW, SC_CP_UTF8);
+			}
+		}
 		else if (!lstrcmp(nm, TEXT("delimiterSelection")))
 		{
 			int leftmost = 0;
@@ -5414,6 +5432,16 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("stylerTheme"));
 		GUIConfigElement->SetAttribute(TEXT("path"), _nppGUI._themeName.c_str());
+	}
+
+	// <GUIConfig name="wordCharList" useDefault="yes" charsAdded=".$%"  />
+	{
+		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("wordCharList"));
+		GUIConfigElement->SetAttribute(TEXT("useDefault"), _nppGUI._isWordCharDefault ? TEXT("yes") : TEXT("no"));
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		const wchar_t* charsAddStr = wmc->char2wchar(_nppGUI._customWordChars.c_str(), SC_CP_UTF8);
+		GUIConfigElement->SetAttribute(TEXT("charsAdded"), charsAddStr);
 	}
 
 	// <GUIConfig name="delimiterSelection" leftmostDelimiter="40" rightmostDelimiter="41" delimiterSelectionOnEntireDocument="no" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="正體中文" filename="chinese.xml" version="7.0">
+    <Native-Langue name="正體中文" filename="chinese.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -827,6 +827,9 @@
                     <Item id="6252" name="起"/>
                     <Item id="6255" name="迄"/>
                     <Item id="6256" name="容許多行選取"/>
+					<Item id="6161" name="定義單字的字符 (Word character list)"/>
+                    <Item id="6162" name="使用原始的單字字符集（建議使用）"/>
+                    <Item id="6163" name="添加你的字符集（不建議選取如果你不了解這選項）"/>
                 </Delimiter>
 
 				<Cloud title="雲端">
@@ -981,5 +984,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+		<MiscStrings>
+			<word-chars-list-tip value="這允許你附加字符在當前單字字符集中，當滑鼠雙擊以進行選擇或以『僅符合整個單字』選項進行搜索。"/>
+			<word-chars-list-warning-begin value="警告："/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ 空白字元(space)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ 空白字元(TAB)"/>
+			<word-chars-list-warning-end value="  在你的單字字符集中。"/>
+			<cloud-invalid-warning value="無效路徑"/>
+			<cloud-restart-warning value="請重新啟動 Notepad++ 以讓改變生效"/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

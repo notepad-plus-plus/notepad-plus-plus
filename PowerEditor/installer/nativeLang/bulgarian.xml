@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last modified:...: 02.01.2017 by RDD
+	Last modified:...: 16.01.2017 by RDD
 	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
 -->
 <NotepadPlus>
@@ -77,7 +77,7 @@
 				<!-- Меню "Настройки" -->
 					<Item subMenuId="settings-import"  name="Внасяне"/>
 				<!-- Меню "Инструменти" -->
-					<Item subMenuId=tools-md5" name="MD5"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>
@@ -872,6 +872,10 @@
 					<Item id="6252" name="Отваряне"/>
 					<Item id="6255" name="Затваряне"/>
 					<Item id="6256" name="На няколко реда"/>
+					<Item id="6161" name="Списък със символи"/>
+					<Item id="6162" name="Използване на стандартния списък със символи както е"/>
+					<Item id="6163" name="Добавяне на символи като част от дума
+					(не го избирайте, освен ако не знаете какво правите)"/>
 					<Item id="6257" name="бла бла бла бла"/>
 					<Item id="6258" name="бла бла бла бла бла бла бла бла бла"/>
 				</Delimiter>
@@ -1042,6 +1046,17 @@
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+		<MiscStrings>
+			<word-chars-list-tip value="Това ви позволява при двойно щракане върху дума или при включена опция за търсене на &quot;Само цели думи&quot; да добавите допълнителни символи към нея."/>
+			<word-chars-list-warning-begin value="Бъдете внимателни: "/>
+				<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-space-warning value="$INT_REPLACE$ интервал(а)"/>
+				<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-tab-warning value="$INT_REPLACE$ отстъп(а)"/>
+			<word-chars-list-warning-end value="  във вашият списък със символи."/>
+			<cloud-invalid-warning value="Невалиден път."/>
+			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++."/>
+		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>
 			<PanelTitle name="Карта на документа"/>

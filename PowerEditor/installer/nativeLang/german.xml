@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.3
-	last modified: 2017-01-02 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.3.1
+	last modified: 2017-01-16 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.3">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.3.1">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -286,7 +286,7 @@
 					<Item id="44012" name="Zeilennummernrand ausb&amp;lenden"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="44013" name="Lesezeichenrand ausb&amp;lenden"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="44014" name="Codefaltung ausb&amp;lenden"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="47008" name="In&amp;halt …"/>							<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="47008" name="In&amp;halt …"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
 
 					<Item id="10001" name="In zweite Ansicht &amp;verschieben"/>
 					<Item id="10002" name="In zweite Ansicht &amp;duplizieren"/>
@@ -296,15 +296,15 @@
 					<Item id="45060" name="Big5 (Traditionell)"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="45061" name="GB2312 (Vereinfacht)"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="45054" name="OEM 861: Isländisch"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="45057" name="OEM 865: Nordisch"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="45057" name="OEM 865: Nordisch"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="45053" name="OEM 860: Portugiesisch"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="45056" name="OEM 863: Französisch"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 
                     <Item id="46033" name="Assembler"/>						<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="46019" name="MS-INI-Datei"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="46015" name="MS-DOS-Stil"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="46016" name="Normaler Text"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="46017" name="Ressourcen-Datei"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="46019" name="MS-INI-Datei"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="46015" name="MS-DOS-Stil"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="46016" name="Normaler Text"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="46017" name="Ressourcen-Datei"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 
 					<Item id="46001" name="&amp;Stile …"/>
 					<Item id="46150" name="Eigene Sprache &amp;definieren …"/>
@@ -407,13 +407,13 @@
 				<Item id="1641" name="Alle in aktiver &amp;Datei suchen"/>
 				<Item id="1686" name="Transparenz"/>
 				<Item id="1703" name="&amp;. findet \r und \n"/>
-				<Item id="1627" name="Unten"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
+				<Item id="1627" name="Unten"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 				<Item id="1637" name="In Dateien suchen"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 				<Item id="1640" name="Umschaltdialog"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 			</Find>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
-				<Item id="-1"   name="–"/>						<!-- kommt im englischen nicht oder nicht mehr vor -->
+				<Item id="-1"   name="–"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="2901" name="&amp;Nicht-ASCII-Zeichen (128–255)"/>
 				<Item id="2902" name="&amp;ASCII-Zeichen (0–127)"/>
@@ -748,7 +748,7 @@
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
 					<Item id="6430" name="Neuen Stilspeicherungsdialog benutzen (ohne Dateierweiterungen)"/>	
 					<Item id="6431" name="Alle Dateien im Verzeichnis öffnen anstatt das Start-Verzeichnis als Arbeitsbereich zu verwenden"/>
-					<Item id="6418" name="…"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="6418" name="…"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>
 
 				<FileAssoc title="Dateiverknüpfungen">
@@ -869,9 +869,12 @@
 					<Item id="6252" name="Anfang"/>
 					<Item id="6255" name="Ende"/>
 					<Item id="6256" name="Über mehrere Zeilen"/>
-					<Item id="6257" name="bla bla bla bla bla bla"/>								<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
-				</Delimiter>
+					<Item id="6257" name="bla bla bla bla bla bla"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>	<!-- kommt im englischen nicht oder nicht mehr vor -->
+					<Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
+					<Item id="6162" name="Verwende die ursprüngliche Liste der Wortzeichen"/>
+					<Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu
+(nicht verwenden wenn man nicht sicher ist)"/>				</Delimiter>
 
 				<Cloud title="Cloud-Einstellungen">
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
@@ -1026,5 +1029,16 @@
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+		<MiscStrings>
+			<word-chars-list-tip value="Das erlaubt es ein zusätzliches Zeichen zur aktuellen Liste der Wortzeichen durch Doppelklick auf die Auswahl hinzuzufügen oder mit der aktivierten Option &quot;Übereinstimmung mit ganzem Wort&quot;."/>
+			<word-chars-list-warning-begin value="Achtung: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-space-warning value="$INT_REPLACE$ Leerzeichen"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-tab-warning value="$INT_REPLACE$ Tab(s)"/>
+			<word-chars-list-warning-end value=" in der Liste der Wortzeichen."/>
+			<cloud-invalid-warning value="Ungültiger Pfad."/>
+			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
+		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

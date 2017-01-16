@@ -1948,7 +1948,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 
 	TiXmlElement *actView = sessionRoot->ToElement();
 	size_t index;
-	const TCHAR *str = actView->Attribute(TEXT("activeView"), (int *)&index);
+	const TCHAR *str = actView->Attribute(TEXT("activeView"), reinterpret_cast<int *>(&index));
 	if (str)
 	{
 		(*ptrSession)._activeView = index;
@@ -1962,14 +1962,15 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	{
 		if (viewRoots[k])
 		{
+			size_t index2;
 			TiXmlElement *actIndex = viewRoots[k]->ToElement();
-			str = actIndex->Attribute(TEXT("activeIndex"), (int *)&index);
+			str = actIndex->Attribute(TEXT("activeIndex"), reinterpret_cast<int *>(&index2));
 			if (str)
 			{
 				if (k == 0)
-					(*ptrSession)._activeMainIndex = index;
+					(*ptrSession)._activeMainIndex = index2;
 				else // k == 1
-					(*ptrSession)._activeSubIndex = index;
+					(*ptrSession)._activeSubIndex = index2;
 			}
 			for (TiXmlNode *childNode = viewRoots[k]->FirstChildElement(TEXT("File"));
 				childNode ;

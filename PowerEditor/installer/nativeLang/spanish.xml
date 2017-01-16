@@ -10,8 +10,9 @@
 					<Item menuId="search" name="&amp;Buscar"/>
 					<Item menuId="view" name="&amp;Vista"/>
 					<Item menuId="encoding" name="Co&amp;dificación"/>
-					<Item menuId="language" name="&amp;Lenguaje"/>
+					<Item menuId="language" name="&amp;idioma"/>
 					<Item menuId="settings" name="&amp;Configuración"/>
+					<Item menuId="tools" name="Herramientas"/>
 					<Item menuId="macro" name="Macro"/>
 					<Item menuId="run" name="Ejecutar"/>
 					<Item idName="Plugins" name="Plugins"/>
@@ -62,6 +63,7 @@
 					<Item subMenuId="encoding-westernEuropean" name="Europeo occidental"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
 					<Item subMenuId="settings-import" name="Importar"/>
+					<Item subMenuId="herramienta-md5" name="MD5"/>
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>
@@ -288,6 +290,9 @@
 					<Item id="48018" name="Editar menú emergente"/>
 					<Item id="48009" name="Enlaces directos..."/>
 					<Item id="48011" name="Preferencias..."/>
+					<Item id="48501" name="Generate..."/>
+					<Item id="48502" name="Generar de archivos..."/>
+					<Item id="48503" name="Generar en portapapeles"/>
 					<Item id="49000" name="&amp;Iniciar..."/>
 					<Item id="50000" name="Función completa"/>
 					<Item id="50001" name="Palabra completa"/>
@@ -390,6 +395,16 @@
 				<Item id="2" name="Cancelar"/>
 				<Item id="1904" name="Guardar..."/>
 			</Run>
+			<MD5FromFilesDlg title="Generar MD5 desde archivos">
+				<Item id="1922" name="Archivos para generar MD5..."/>
+				<Item id="1924" name="Copiar a portapapeles"/>
+				<Item id="2" name="Cerrar"/>
+			</MD5FromFilesDlg>
+			<MD5FromTextDlg title="Generar MD5">
+				<Item id="1932" name="Tratsr cada linea como una cadena"/>
+				<Item id="1934" name="Copiar a portapapelez"/>
+				<Item id="2" name="Cerrar"/>
+			</MD5FromTextDlg>
 			<StyleConfig title="Configurador de estilo">
 				<Item id="2" name="Cancelar"/>
 				<Item id="2301" name="Guardar &amp;&amp; Cerrar"/>
@@ -410,7 +425,7 @@
 					<Item id="2218" name="Subrayado"/>
 					<Item id="2219" name="Palabras clave predeterminadas"/>
 					<Item id="2221" name="Palabras clave definidas por el usuario"/>
-					<Item id="2225" name="Lenguaje:"/>
+					<Item id="2225" name="idioma:"/>
 					<Item id="2226" name="Globalizar color de fuentes"/>
 					<Item id="2227" name="Globalizar color de fondo"/>
 					<Item id="2228" name="Globalizar tipo de fuente"/>
@@ -426,7 +441,7 @@
 				<Item id="20003" name="Crear nuevo..."/>
 				<Item id="20004" name="Eliminar"/>
 				<Item id="20005" name="Guardar como..."/>
-				<Item id="20007" name="Lenguaje: "/>
+				<Item id="20007" name="idioma: "/>
 				<Item id="20009" name="Ext.:"/>
 				<Item id="20012" name="Ignorar MAY./min."/>
 				<Item id="20011" name="Transparencia"/>
@@ -660,7 +675,7 @@
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UCS-2 Big Endian"/>
 					<Item id="6410" name="UCS-2 Little Endian"/>
-					<Item id="6411" name="Lenguaje predeterminado:"/>
+					<Item id="6411" name="idioma predeterminado:"/>
 					<Item id="6419" name="Archivo nuevo"/>
 					<Item id="6420" name="Aplicar a los archivos ANSI abiertos"/>
 				</NewDoc>
@@ -675,18 +690,28 @@
 					<Item id="4009" name="Ext. soportadas:"/>
 					<Item id="4010" name="Ext. asociadas:"/>
 				</FileAssoc>
-				<LangMenu title="Menú de Lenguaje">
+				<Language title="Idioma">
 					<Item id="6505" name="Disponibles"/>
 					<Item id="6506" name="Desactivados"/>
-					<Item id="6507" name="Compactar el menú de lenguaje"/>
-					<Item id="6508" name="Menú de lenguaje"/>
-				</LangMenu>
-				<TabSettings title="Tabuladores">
+					<Item id="6507" name="Compactar el menú de idioma"/>
+					<Item id="6508" name="Menú de idioma"/>
 					<Item id="6301" name="Tabuladores"/>
 					<Item id="6302" name="Sustituir por espacios"/>
 					<Item id="6303" name="Tamaño: "/>
 					<Item id="6510" name="Usar valor por defecto"/>
-				</TabSettings>
+				</Language>
+				<Highlighting title="Highlighting">
+					<Item id="6333" name="Resaltado inteligente"/>
+					<Item id="6326" name="Habilitar resaltado inteligente"/>
+					<Item id="6332" name="Ajuste de fuente"/>
+					<Item id="6338" name="Solo con palabras enteras"/>
+					<Item id="6339" name="Configuración de búsqueda"/>
+					<Item id="6340" name="Resaltar otra vista"/>
+					<Item id="6329" name="Resaltar etiquetas coincidentes"/>
+					<Item id="6327" name="Habilitar"/>
+					<Item id="6328" name="Resaltar atributos de etiquetas"/>
+					<Item id="6330" name="Resaltar comentario/php/asp"/>
+				</Highlighting>
 				<Print title="Impresión">
 					<Item id="6601" name="Imprimir número de línea"/>
 					<Item id="6602" name="Opciones de color"/>
@@ -710,15 +735,6 @@
 					<Item id="6719" name="Pie de página"/>
 					<Item id="6720" name="Parte izquierda"/>
 					<Item id="6721" name="Parte central"/>
-					<Item id="6722" name="Parte derecha"/>
-					<Item id="6723" name="Añadir"/>
-					<Item id="6710" name="Parte media"/>
-					<Item id="6711" name="Parte derecha"/>
-					<Item id="6717" name="Negrita"/>
-					<Item id="6718" name="Cursiva"/>
-					<Item id="6719" name="Pié"/>
-					<Item id="6720" name="Parte izquierda"/>
-					<Item id="6721" name="Parte media"/>
 					<Item id="6722" name="Parte derecha"/>
 					<Item id="6723" name="Añadir"/>
 					<Item id="6725" name="Variable:"/>

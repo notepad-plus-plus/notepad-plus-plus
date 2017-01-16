@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
         Croatian localization for Notepad++
-        Last modified 14 September 2016 by Elvis Gambiraža
+        Last modified 9 January 2017 by Elvis Gambiraža
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="7.0">
+        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="7.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -16,6 +16,7 @@
                     <Item menuId="encoding" name="&amp;Format"/>
                     <Item menuId="language" name="&amp;Jezik sintaksi"/>
                     <Item menuId="settings" name="P&amp;ostavke"/>
+                    <Item menuId="tools" name="&amp;Alati"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="Po&amp;kreni"/>
                     <Item idName="Plugins" name="P&amp;riključci"/>
@@ -67,6 +68,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Zapadna Europa"/>
                     <Item subMenuId="encoding-vietnamese" name="Vijetnamski"/>
                     <Item subMenuId="settings-import" name="Uvoz"/>
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -322,6 +324,9 @@
                     <Item id="48018" name="Uredi skočni kontekstni izbornik"/>
                     <Item id="48009" name="Tipkovni prečaci..."/>
                     <Item id="48011" name="Postavke..."/>
+                    <Item id="48501" name="Generiraj..."/>
+                    <Item id="48502" name="Generiraj iz datoteka..."/>
+                    <Item id="48503" name="Generiraj u Clipboard"/>
                     <Item id="49000" name="&amp;Pokreni..."/>
 
                     <Item id="50000" name="Dopuna funkcija"/>
@@ -426,7 +431,7 @@
             <GoToLine title="Skoči na redak...">
                     <Item id="2007" name="Redak"/>
                     <Item id="2008" name="Pozicija"/>
-                    <Item id="1"    name="&amp;Kreni"/>
+                    <Item id="1"    name="Kreni"/>
                     <Item id="2"    name="Prekini"/>
                     <Item id="2004" name="Vi ste u retku broj:"/>
                     <Item id="2005" name="Želite u redak broj:"/>
@@ -440,6 +445,18 @@
                     <Item id="2"    name="Poništi"/>
                     <Item id="1904" name="Spremi..."/>
             </Run>
+
+            <MD5FromFilesDlg title="Generiraj MD5 sažetak iz datoteka">
+                    <Item id="1922" name="Izaberi datoteke za generiranje MD5..."/>
+                    <Item id="1924" name="Kopiraj u Clipboard"/>
+                    <Item id="2"    name="Zatvori"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Generiraj MD5 sažetak">
+                    <Item id="1932" name="Tretiraj svaku liniju kao poseban string"/>
+                    <Item id="1934" name="Kopiraj u Clipboard"/>
+                    <Item id="2"    name="Zatvori"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="Prilagodba stilova">
                     <Item id="1"    name="Isprobaj"/>
@@ -707,6 +724,7 @@
                     <Item id="6118" name="Sakrij"/>
                     <Item id="6119" name="U više redaka"/>
                     <Item id="6120" name="Okomito"/>
+                    <Item id="6121" name="Izlaz pri zatvaranju zadnje kartice"/>
 
                     <Item id="6121" name="Izbornička vrpca"/>
                     <Item id="6122" name="Sakrij (za promjenu koristite Alt ili F10)"/>
@@ -774,25 +792,36 @@
                     <Item id="6415" name="Upamti popis posljednje korištenih mapa"/>
                     <Item id="6418" name="..."/>
                     <Item id="6430" name="Upotrijebi novi dijalog spremanja stila (bez nastavka datoteke)"/>
+                    <Item id="6431" name="Otvori sve datoteke mape umjesto pokretanja 'Mapa kao radna površina' pri prenošenju mape"/>
                 </DefaultDir>
 
                 <FileAssoc title="Pridruživanje datoteka">
                     <Item id="4009" name="Podržani nastavci:"/>
                     <Item id="4010" name="Registrirani nastavci:"/>
                 </FileAssoc>
-                <LangMenu title="Sintaksa">
+                <Language title="Sintaksa">
                     <Item id="6505" name="Dostupno..."/>
                     <Item id="6506" name="Isključeno..."/>
                     <Item id="6507" name="Učini izbornik kompaktnim"/>
                     <Item id="6508" name="Izbornik jezika sintaksi"/>
-                </LangMenu>
-
-                <TabSettings title="Postavke tabulatora">
                     <Item id="6301" name="Postavke uvlaka"/>
                     <Item id="6302" name="Zamijeni razmacima"/>
                     <Item id="6303" name="Veličina uvlaka: "/>
                     <Item id="6510" name="Koristi zadanu vrijednost"/>
-                </TabSettings>
+                </Language>
+
+                <Highlighting title="Označavanje">
+                    <Item id="6333" name="Pametno označavanje"/>
+                    <Item id="6326" name="Omogući pametno označavanje"/>
+                    <Item id="6332" name="Razlikuj veliko/malo slovo"/>
+                    <Item id="6338" name="Traži samo cijele riječi"/>
+                    <Item id="6339" name="Koristi postavke dialoga Pretraživanja"/>
+                    <Item id="6340" name="Označi drugi pogled"/>
+                    <Item id="6329" name="Označi podudarne tagove"/>
+                    <Item id="6327" name="Omogući"/>
+                    <Item id="6328" name="Označi tag atribute"/>
+                    <Item id="6330" name="Označi područja komentara/php/asp"/>
+                </Highlighting>
 
                 <Print title="Ispis">
                     <Item id="6601" name="Ispiši brojeve redaka"/>
@@ -856,6 +885,7 @@
                     <Item id="6809" name="Dopunjavanje funkcija"/>
                     <Item id="6810" name="Dopunjavanje riječi"/>
                     <Item id="6816" name="Dopunjavanje funkcija i riječi"/>
+                    <Item id="6824" name="Ignoriraj brojeve"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name="-og znaka"/>
                     <Item id="6814" name="Moguća vrijednost: 1 - 9"/>

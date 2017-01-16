@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="6.8.6">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.0">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -31,6 +31,7 @@
 					<Item subMenuId="edit-eolConversion" name="Satır Sonunu Dönüştür"/>
 					<Item subMenuId="edit-blankOperations" name="Boşluk İşlemleri"/>
 					<Item subMenuId="edit-pasteSpecial" name="Özel Yapıştır"/>
+					<Item subMenuId="edit-onSelection" name="Seçilen Üzerinde"/>
 					<Item subMenuId="search-markAll" name="Tümünü İşaretle"/>
 					<Item subMenuId="search-unmarkAll" name="Tüm İşaretleri Kaldır"/>
 					<Item subMenuId="search-jumpUp" name="Yukarı Atla"/>
@@ -112,8 +113,18 @@
 					<Item id="42064" name="Virgüle Göre Ondalıklı Olarak Sırala (Azalan)"/>
 					<Item id="42065" name="Noktaya Göre Ondalıklı Olarak Sırala (Artan)"/>
 					<Item id="42066" name="Noktaya Göre Ondalıklı Olarak Sırala (Azalan)"/>
-					<Item id="42016" name="Büyük Harflere Çevir"/>
-					<Item id="42017" name="Küçük Harflere Çevir"/>
+					<Item id="42016" name="BÜYÜK HARFLERE ÇEVİR"/>
+					<Item id="42017" name="küçük harflere çevir"/>
+					<Item id="42067" name="Başlığa Çevir"/>
+                    <Item id="42068" name="Başlığa Çevir (Harmanla)"/>
+                    <Item id="42069" name="Cümleye Çevir"/>
+                    <Item id="42070" name="Cümleye Çevir (Harmanla)"/>
+                    <Item id="42071" name="tERS çEVİR"/>
+                    <Item id="42072" name="rastGELe ÇeviR"/>
+					<Item id="42073" name="Dosya Aç"/>
+					<Item id="42074" name="Bulunduğu Klasörü Windows Gezgini'nde Aç"/>
+					<Item id="42075" name="İnternette Ara"/>
+					<Item id="42076" name="Arama Motorunu Değiştir…"/>
 					<Item id="42018" name="Kaydı &amp;Başlat"/>
 					<Item id="42019" name="Kaydı &amp;Durdur"/>
 					<Item id="42021" name="&amp;Oynat"/>
@@ -218,6 +229,7 @@
 					<Item id="44049" name="Özet…"/>
 					<Item id="44080" name="Belge &amp;Haritası"/>
 					<Item id="44084" name="&amp;Fonksiyon Listesi"/>
+					<Item id="44085" name="&amp;Çalışma Alanı Klasörleri"/>
 					<Item id="44086" name="1. Sekme"/>
 					<Item id="44087" name="2. Sekme"/>
 					<Item id="44088" name="3. Sekme"/>
@@ -229,6 +241,9 @@
 					<Item id="44094" name="9. Sekme"/>
 					<Item id="44095" name="Sonraki Sekme"/>
 					<Item id="44096" name="Önceki Sekme"/>
+					<Item id="44097" name="Monitörleme (tail -f)"/>
+                    <Item id="44098" name="Sekmeyi İleriye Taşı"/>
+                    <Item id="44099" name="Sekmeyi Geriye Taşı"/>
 					<Item id="44032" name="Tam Ekran Modunu Aç/Kapat"/>
 					<Item id="44033" name="&amp;Varsayılan Uzaklığa Geri Dön"/>
 					<Item id="44034" name="Pencereyi Her Zaman Üstte Göster"/>
@@ -258,19 +273,6 @@
 					<Item id="10003" name="Yeni Uygulama Penceresine Taşı"/>
 					<Item id="10004" name="Yeni Uygulama Penceresinde Aç"/>
 
-					<Item id="45060" name="Big5 (Geleneksel)"/>
-                    <Item id="45061" name="GB2312 (Sadeleştirilmiş)"/>
-                    <Item id="45054" name="OEM 861: İzlandaca"/>
-                    <Item id="45057" name="OEM 865: İskandinavca"/>
-                    <Item id="45053" name="OEM 860: Portekizce"/>
-                    <Item id="45056" name="OEM 863: Fransızca"/>
-
-                    <Item id="46033" name="Assembly"/>
-                    <Item id="46019" name="MS INI dosyası"/>
-                    <Item id="46015" name="MS-DOS stili"/>
-                    <Item id="46016" name="Normal metin"/>
-                    <Item id="46017" name="Kaynak dosyası"/>
-
 					<Item id="46001" name="&amp;Stil Yapılandırıcı…"/>
 					<Item id="46150" name="Dil &amp;Tanımla"/>
 					<Item id="46080" name="Tanımlı Dili &amp;Kullan"/>
@@ -281,6 +283,7 @@
 					<Item id="47003" name="Çevrimiçi Belgelendirme"/>
 					<Item id="47004" name="Notepad++ Topluluğu (Forum)"/>
 					<Item id="47011" name="Canlı Destek"/>
+					<Item id="47012" name="Derleme Bilgileri…"/>
 					<Item id="47005" name="Eklenti Merkezi"/>
 					<Item id="47006" name="&amp;Güncellemeleri Denetle"/>
 					<Item id="47009" name="Güncelleme Proxy Sunucusu Ayarları…"/>
@@ -361,7 +364,7 @@
 			 	<Item id="1659" name="Gizli klasörlerde"/>
 			 	<Item id="1624" name="Arama Modu"/>
 			 	<Item id="1625" name="&amp;Normal"/>
-			 	<Item id="1626" name="&amp;Genişletilmiş (\r, \n, \t, \x…, \0)"/>
+			 	<Item id="1626" name="&amp;Genişletilmiş (\r, \n, \t, \0, \x…)"/>
 			 	<Item id="1660" name="Dosyalarda Değiştir"/>
 				<Item id="1661" name="Geçerli belgeyi takip et"/>
 			 	<Item id="1641" name="Geçerli Belgede Tümünü Bul"/>
@@ -621,6 +624,7 @@
 					<Item id="6118" name="Gizle"/>
 					<Item id="6119" name="Çoklu satır"/>
 					<Item id="6120" name="Dikey"/>
+					<Item id="6121" name="Kapatılan son sekmeden çık"/>
 
 					<Item id="6122" name="Gizle (Alt veya F10 tuşlarıyla göster/gizle)"/>
 					<Item id="6123" name="Yerelleştir"/>
@@ -662,13 +666,15 @@
 					<Item id="6214" name="Geçerli satırı vurgula"/>
 					<Item id="6215" name="Yumuşak yazı tipini etkinleştir"/>
 					<Item id="6231" name="Kenarlık Boyutu"/>
+					<Item id="6235" name="Kenarlık yok"/>
+                    <Item id="6236" name="Son satırın ötesine kaydırmayı etkinleştir"/>
 				</Scintillas>
 
 				<NewDoc title="Yeni Belge">
 					<Item id="6401" name="Biçim"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="UNIX"/>
-					<Item id="6404" name="Mac OS"/>
+					<Item id="6404" name="macOS"/>
 					<Item id="6405" name="Kodlama"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="BOM olmadan UTF-8"/>
@@ -684,26 +690,38 @@
 					<Item id="6413" name="Varsayılan Dizin (Aç/Kaydet)"/>
 					<Item id="6414" name="Geçerli belgeyi takip et"/>
 					<Item id="6415" name="Son kullanılan dizini hatırla"/>
+					<Item id="6430" name="Yeni stil kayıt diyalogunu kullan (dosya uzantısı özelliği olmadan)"/>
+                    <Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
 				</DefaultDir>
 
 				<FileAssoc title="Dosya İlişkilendirmeleri">
 					<Item id="4009" name="Desteklenen uzantılar:"/>
 					<Item id="4010" name="Kaydedilen uzantılar:"/>
 				</FileAssoc>
-				<LangMenu title="Dil Menüsü">
+				<Language title="Dil Menüsü">
 					<Item id="6505" name="Kullanılabilir öğeler:"/>
 					<Item id="6506" name="Devre dışı öğeler:"/>
 					<Item id="6507" name="Dil menüsünü kısalt"/>
 					<Item id="6508" name="Dil Menüsü"/>
-				</LangMenu>
-
-				<TabSettings title="Sekme Ayarları">
 					<Item id="6301" name="Sekme Ayarları"/>
-					<Item id="6302" name="Boşlukla değiştir"/>
-					<Item id="6303" name="Sekme boyutu:"/>
-					<Item id="6510" name="Varsayılan değeri kullan"/>
-				</TabSettings>
-
+                    <Item id="6302" name="Boşlukla değiştir"/>
+                    <Item id="6303" name="Sekme boyutu: "/>
+                    <Item id="6510" name="Varsayılan değeri kullan"/>
+				</Language>
+				
+				<Highlighting title="Vurgulama">
+                    <Item id="6333" name="Akıllı Vurgulama"/>
+                    <Item id="6326" name="Akıllı vurgulamayı etkinleştir"/>
+					<Item id="6332" name="Büyük/küçük harf eşleştir"/>
+					<Item id="6338" name="Sadece tam sözcükleri eşleştir"/>
+					<Item id="6339" name="Arama aracı ayarlarını kullan"/>
+					<Item id="6340" name="Diğer görünümü vurgula"/>
+                    <Item id="6329" name="Eşleşen Etiketleri Vurgula"/>
+                    <Item id="6327" name="Etkinleştir"/>
+                    <Item id="6328" name="Vurgu etiketi nitelikleri"/>
+                    <Item id="6330" name="Yorum/PHP/ASP etiketlerini vurgula"/>
+                </Highlighting>
+				
 				<Print title="Yazdır">
 					<Item id="6601" name="Satır numaralarını yazdır"/>
 					<Item id="6602" name="Renk Seçenekleri"/>
@@ -766,6 +784,7 @@
 					<Item id="6809" name="Fonksiyonu tamamla"/>
 					<Item id="6810" name="Kelimeyi tamamla"/>
 					<Item id="6816" name="Fonksiyonu ve kelimeyi tamamla"/>
+					<Item id="6824" name="Sayıları atla"/>
 					<Item id="6811" name="Başlangıç"/>
 					<Item id="6813" name=". karakter"/>
 					<Item id="6814" name="Geçerli değer: 1 - 9"/>
@@ -798,8 +817,18 @@
 					<Item id="6262" name="Buluta Yedekleme Ayarları"/>
 					<Item id="6263" name="Buluta yedekleme"/>
 					<Item id="6267" name="Bulutunuzun konumunu ayarlayın:"/>
-					<!--Item id="6261" name="Değişikliklerin etkili olabilmesi için lütfen Notepad++ uygulamasını yeniden başlatın./-->
 				</Cloud>
+				
+				<SearchEngine title="Arama Motoru">
+                    <Item id="6271" name="Arama Motoru (&quot;İnternette Ara&quot; Komutu İçin)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Arama motorunuzu buraya yazın:"/>
+                    <!-- "Örnek:" ifadesinden sonra herhangi bir değişiklik yapmayın -->
+                    <Item id="6278" name="Örnek: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
 
 				<MISC title="Karışık">
 					<Item id="6307" name="Etkin"/>
@@ -812,17 +841,11 @@
 					<Item id="6320" name="Alt çizgisiz"/>
 					<Item id="6322" name="Oturumun dosya uzantısı:"/>
 					<Item id="6323" name="Notepad++'ı otomatik güncelle"/>
-					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab) "/>
-					<Item id="6326" name="Akıllı vurgulama etkin"/>
-					<Item id="6329" name="Eşleşen Etiketleri Vurgula"/>
-					<Item id="6327" name="Etkin"/>
-					<Item id="6328" name="Etiket özniteliklerini vurgula"/>
-					<Item id="6330" name="Yorum/PHP/ASP bölgelerini vurgula"/>
+					<Item id="6324" name="Belge Değiştirici (Ctrl + Tab)"/>
 					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
-					<Item id="6332" name="Büyük/küçük harf eşleştir"/>
-					<Item id="6333" name="Akıllı Vurgulama"/>
 					<Item id="6334" name="Karakter kodlamasını otomatik olarak algıla"/>
 					<Item id="6335" name="SQL için kaçış karakteri olarak ters eğik çizgi kullan"/>
+					<Item id="6337" name="Çalışma alanı dosya uzantısı:"/>
 					<Item id="6114" name="Etkin"/>
 					<Item id="6115" name="Otomatik olarak girinti bırak"/>
 					<Item id="6117" name="MRU (en son kullanılan) davranışı etkin"/>
@@ -873,6 +896,7 @@
 			<!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
 			<NbFileToOpenImportantWarning title="Çok Fazla Sayıda Dosya Açıldı" message="$INT_REPLACE$ dosyası açılmak üzere. Devam etmek istiyor musunuz?"/>
 			<SettingsOnCloudError title="Bulut Ayarları" message="Buluta yedekleme konumu salt okunur olarak ayarlanmış\rveya klasöre yazma erişimi için ayrıcalık tanınmamış.\rBuluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum ayarlayın."/>
+			<FilePathNotFoundWarning title="Dosya Aç" message="Açmaya çalıştığınız dosya mevcut değil."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>

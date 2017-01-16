@@ -81,8 +81,7 @@
   !insertmacro MUI_LANGUAGE "Bosnian"
   !insertmacro MUI_LANGUAGE "Mongolian"
   !insertmacro MUI_LANGUAGE "Estonian"
-  
-  ;!insertmacro MUI_LANGUAGE "Breton"
+  !insertmacro MUI_LANGUAGE "Breton"
   ;!insertmacro MUI_LANGUAGE "Icelandic"
   ;!insertmacro MUI_LANGUAGE "Kurdish"
   ;!insertmacro MUI_LANGUAGE "Irish"
@@ -140,6 +139,7 @@ LangString langFileName ${LANG_LATVIAN} "Latvian.xml"
 LangString langFileName ${LANG_BOSNIAN} "bosnian.xml"
 LangString langFileName ${LANG_MONGOLIAN} "mongolian.xml"
 LangString langFileName ${LANG_ESTONIAN} "estonian.xml"
+LangString langFileName ${LANG_BRETON} "breton.xml"
 
 
 SectionGroup "Localization" localization
@@ -176,6 +176,9 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Brazilian Portuguese" brazilian_portuguese
 		CopyFiles "$PLUGINSDIR\nppLocalization\brazilian_portuguese.xml" "$INSTDIR\localization\brazilian_portuguese.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Breton" breton
+		CopyFiles "$PLUGINSDIR\nppLocalization\breton.xml" "$INSTDIR\localization\breton.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Bulgarian" bulgarian
 		CopyFiles "$PLUGINSDIR\nppLocalization\bulgarian.xml" "$INSTDIR\localization\bulgarian.xml"
@@ -435,6 +438,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.brazilian_portuguese
 		Delete "$INSTDIR\localization\brazilian_portuguese.xml"
+	SectionEnd
+	Section un.breton
+		Delete "$INSTDIR\localization\breton.xml"
 	SectionEnd
 	Section un.bulgarian
 		Delete "$INSTDIR\localization\bulgarian.xml"

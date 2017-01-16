@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.0">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -827,6 +827,9 @@
                     <Item id="6252" name="打开"/>
                     <Item id="6255" name="关闭"/>
                     <Item id="6256" name="允许选取多行"/>
+                    <Item id="6161" name="定义单词字符列表"/>
+                    <Item id="6162" name="使用默认的单词字符列表"/>
+                    <Item id="6163" name="添加字符列表（若不了解请勿选择）"/>
                 </Delimiter>
 
 				<Cloud title="云同步">
@@ -982,5 +985,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+            <word-chars-list-tip value="这允许您在双击选择或选中“全词匹配”选项的情况下,在当前单词字符列表中附加字符。"/>
+            <word-chars-list-warning-begin value="警告："/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ 空格"/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
+            <word-chars-list-warning-end value="  在你的字符列表中。"/>
+            <cloud-invalid-warning value="无效路径"/>
+            <cloud-restart-warning value="请重启Notepad++以生效"/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

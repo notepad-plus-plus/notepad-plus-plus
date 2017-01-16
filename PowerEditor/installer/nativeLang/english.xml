@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.0">
+    <Native-Langue name="English" filename="english.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -828,6 +828,10 @@
                     <Item id="6252" name="Open"/>
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>
+					<Item id="6161" name="Word character list"/>
+                    <Item id="6162" name="Use default Word character list as it is"/>
+                    <Item id="6163" name="Add your character as part of word
+(don't choose it unless you know what you're doing)"/>
                 </Delimiter>
 
                 <Cloud title="Cloud">
@@ -983,5 +987,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+			<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
+            <word-chars-list-warning-begin value="Be aware: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
+			<word-chars-list-warning-end value="  in your character list."/>
+			<cloud-invalid-warning value="Invalid path."/>
+			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

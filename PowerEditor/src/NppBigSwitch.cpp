@@ -1286,7 +1286,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SETCARETWIDTH:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+			const NppGUI & nppGUI = pNppParam->getNppGUI();
 
 			if (nppGUI._caretWidth < 4)
 			{
@@ -1329,9 +1329,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_SETWORDCHARS:
+		{
+			const NppGUI & nppGUI = pNppParam->getNppGUI();
+			if (nppGUI._isWordCharDefault)
+				restoreDefaultWordChars();
+			else
+				addCustomWordChars();
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_SETMULTISELCTION:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+			const NppGUI & nppGUI = pNppParam->getNppGUI();
 			_mainEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
 			_subEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
 			return TRUE;
@@ -1339,7 +1349,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SETCARETBLINKRATE:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+			const NppGUI & nppGUI = pNppParam->getNppGUI();
 			_mainEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
 			_subEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
 			return TRUE;
@@ -1459,13 +1469,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_GETCHECKDOCOPT:
 		{
-			return (LRESULT)(const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection;
+			return (LRESULT)(pNppParam->getNppGUI())._fileAutoDetection;
 		}
 
 		case NPPM_INTERNAL_SETCHECKDOCOPT:
 		{
 			// If nothing is changed by user, then we allow to set this value
-			if ((const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection == (const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetectionOriginalValue)
+			if ((const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection == (pNppParam->getNppGUI())._fileAutoDetectionOriginalValue)
 				(const_cast<NppGUI &>(pNppParam->getNppGUI()))._fileAutoDetection = (ChangeDetect)wParam;
 			return TRUE;
 		}
@@ -1753,7 +1763,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_SYSCOMMAND:
 		{
-			NppGUI & nppgui = const_cast<NppGUI &>((pNppParam->getNppGUI()));
+			const NppGUI & nppgui = (pNppParam->getNppGUI());
 			if (((nppgui._isMinimizedToTray && !_isAdministrator) || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
 			{
 				if (nullptr == _pTrayIco)
@@ -2035,7 +2045,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_ISSTATUSBARHIDDEN:
 		{
-			NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
+			const NppGUI & nppGUI = pNppParam->getNppGUI();
 			return !nppGUI._statusBarShow;
 		}
 
@@ -2220,7 +2230,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_ENTERMENULOOP:
 		{
-			NppGUI & nppgui = const_cast<NppGUI &>((pNppParam->getNppGUI()));
+			const NppGUI & nppgui = pNppParam->getNppGUI();
 			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
 				::SetMenu(hwnd, _mainMenuHandle);
 
@@ -2229,7 +2239,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case WM_EXITMENULOOP:
 		{
-			NppGUI & nppgui = const_cast<NppGUI &>((pNppParam->getNppGUI()));
+			const NppGUI & nppgui = pNppParam->getNppGUI();
 			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
 				::SetMenu(hwnd, NULL);
 			_sysMenuEntering = false;

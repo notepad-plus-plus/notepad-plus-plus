@@ -714,7 +714,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		_dockingManager.setActiveTab(cti._cont, cti._activeTab);
 	}
 
-	retrieveDefaultWordChars();
+	retrieveDefaultWordChars(nppGUI._defaultWordChars);
 
 	//Load initial docs into doctab
 	loadBufferIntoView(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
@@ -6664,40 +6664,47 @@ bool Notepad_plus::undoStreamComment()
 	//return retVal;
 }
 
-void Notepad_plus::retrieveDefaultWordChars()
+void Notepad_plus::retrieveDefaultWordChars(string & charList)
 {
 	auto defaultCharListLen = _mainEditView.execute(SCI_GETWORDCHARS);
 	char *defaultCharList = new char[defaultCharListLen + 1];
 	_mainEditView.execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
-	_defaultCharList = defaultCharList;
+	charList = defaultCharList;
 	delete[] defaultCharList;
 }
 
 void Notepad_plus::restoreDefaultWordChars()
 {
-	_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(_defaultCharList.c_str()));
-	_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(_defaultCharList.c_str()));
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+	_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._defaultWordChars.c_str()));
+	_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._defaultWordChars.c_str()));
 }
 
-void Notepad_plus::addWordChars(const char *chars2add)
+void Notepad_plus::setCustomWordChars()
 {
-	size_t chars2addLen = strlen(chars2add);
-	if (not chars2addLen)
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+	_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._customWordChars.c_str()));
+	_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._customWordChars.c_str()));
+}
+
+void Notepad_plus::addCustomWordChars()
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+
+	if (nppGUI._customWordChars.empty())
 		return;
 
-	auto oldCharListLen = _mainEditView.execute(SCI_GETWORDCHARS);
-	char *oldCharList = new char[oldCharListLen + 1];
-
-	_mainEditView.execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(oldCharList));
 	string chars2addStr;
-
-	for (size_t i = 0; i < chars2addLen; ++i)
+	for (size_t i = 0; i < nppGUI._customWordChars.length(); ++i)
 	{
 		bool found = false;
-		char char2check = chars2add[i];
-		for (auto j = 0; j < oldCharListLen; ++j)
+		char char2check = nppGUI._customWordChars[i];
+		for (size_t j = 0; j < nppGUI._defaultWordChars.length(); ++j)
 		{
-			char wordChar = oldCharList[j];
+			char wordChar = nppGUI._defaultWordChars[j];
 			if (char2check == wordChar)
 			{
 				found = true;
@@ -6712,15 +6719,10 @@ void Notepad_plus::addWordChars(const char *chars2add)
 
 	if (not chars2addStr.empty())
 	{
-		string newCharList = oldCharList;
+		string newCharList = nppGUI._defaultWordChars;
 		newCharList += chars2addStr;
-		//MessageBoxA(NULL, oldCharList, "AVANT", MB_OK);
+
 		_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
 		_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
-
-		//_mainEditView.execute(SCI_GETWORDCHARS, 0, (LPARAM)charList);
-		//MessageBoxA(NULL, charList, "APRES", MB_OK);
 	}
-
-	delete[] oldCharList;
 }

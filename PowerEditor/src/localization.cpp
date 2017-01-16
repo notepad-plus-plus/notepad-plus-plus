@@ -142,7 +142,7 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
     }
 }
 
-generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
+generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName) const
 {
 	if (!_nativeLangA) return TEXT("");
 	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
@@ -173,7 +173,7 @@ generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
 	return TEXT("");
 }
 
-generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) 
+generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
 {
 	if (!_nativeLangA)
 		return TEXT("");
@@ -206,6 +206,30 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID)
 	}
 	return TEXT("");
 }
+
+generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID) const
+{
+	if (not _nativeLangA)
+		return TEXT("");
+
+	if (not strID)
+		return TEXT("");
+
+	TiXmlNodeA *node = _nativeLangA->FirstChild("MiscStrings");
+	if (not node) return TEXT("");
+
+	node = node->FirstChild(strID);
+	if (not node) return TEXT("");
+
+	TiXmlElementA *element = node->ToElement();
+
+	const char *value = element->Attribute("value");
+	if (not value) return TEXT("");
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	return wmc->char2wchar(value, _nativeLangEncoding);
+}
+
 
 
 MenuPosition & getMenuPosition(const char *id)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.0">
+    <Native-Langue name="Français" filename="french.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -810,6 +810,10 @@
                     <Item id="6252" name="Début"/>
                     <Item id="6255" name="Fin"/>
                     <Item id="6256" name="Sur plusieurs lignes"/>
+					<Item id="6161" name="Liste des caractère de mot"/>
+                    <Item id="6162" name="Utiliser la liste originale des caractère de mot comme telle quelle"/>
+                    <Item id="6163" name="Inclure les caractères comme la partie des caractères de mot
+(Ne pas prendre cette option si tu ne sais pas ce qu'elle fait)"/>
                 </Delimiter>
 
 				<Cloud title="Cloud">
@@ -967,5 +971,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+			<word-chars-list-tip value="Cela te permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-cliquant pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/>
+            <word-chars-list-warning-begin value="Attention : "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ espace(s)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
+			<word-chars-list-warning-end value="  dans la liste des caractères de mot."/>
+			<cloud-invalid-warning value="Chemin invalide."/>
+			<cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

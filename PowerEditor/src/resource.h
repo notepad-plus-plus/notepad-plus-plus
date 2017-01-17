@@ -24,15 +24,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 #pragma once
 
-
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.3")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.3.1")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("7.3\0")
-#define VERSION_DIGITALVALUE 7, 3, 0, 0
+#define VERSION_VALUE TEXT("7.31\0")
+#define VERSION_DIGITALVALUE 7, 3, 1, 0
 
 
 

@@ -472,9 +472,7 @@ void Finder::gotoFoundLine()
 
 	// Then we colourise the double clicked line
 	setFinderStyle();
-	//_scintView.execute(SCI_SETLEXER, SCLEX_NULL);   // yniq - this line causes a bug!!! (last line suddenly belongs to file header level (?) instead of having level=0x400)
-													// later it affects DeleteResult and gotoNextFoundResult (assertions)
-													// fixed by calling setFinderStyle() in deleteResult()
+
 	_scintView.execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HIGHLIGHT_LINE, true);
 	_scintView.execute(SCI_STARTSTYLING, start, STYLING_MASK);
 	_scintView.execute(SCI_SETSTYLING, end - start + 2, SCE_SEARCHRESULT_HIGHLIGHT_LINE);

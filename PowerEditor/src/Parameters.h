@@ -775,7 +775,7 @@ struct NppGUI final
 	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
 	const NewDocDefaultSettings & getNewDocDefaultSettings() const {return _newDocDefaultSettings;};
 	std::vector<LangMenuItem> _excludedLangList;
-	bool _isLangMenuCompact = false;
+	bool _isLangMenuCompact = true;
 
 	PrintSettings _printSettings;
 	BackupFeature _backup = bak_none;

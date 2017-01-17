@@ -2889,7 +2889,7 @@ INT_PTR CALLBACK MultiInstDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-void DelimiterSettingsDlg::detectSpace(const char *text2Check, int & nbSp, int & nbTab)
+void DelimiterSettingsDlg::detectSpace(const char *text2Check, int & nbSp, int & nbTab) const
 {
 	nbSp = nbTab = 0;
 	for (size_t i = 0; i < strlen(text2Check); ++i)
@@ -3025,6 +3025,20 @@ generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) c
 	return msg;
 }
 
+void DelimiterSettingsDlg::setWarningIfNeed() const
+{
+	generic_string msg;
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
+	if (not nppGUI._isWordCharDefault)
+	{
+		int nbSp = 0;
+		int nbTab = 0;
+		detectSpace(nppGUI._customWordChars.c_str(), nbSp, nbTab);
+		msg = getWarningText(nbSp, nbTab);
+	}
+	::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
+}
+
 INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
@@ -3081,11 +3095,7 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, not nppGUI._isWordCharDefault ? BST_CHECKED : BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
 
-			int nbSp = 0;
-			int nbTab = 0;
-			detectSpace(nppGUI._customWordChars.c_str(), nbSp, nbTab);
-			generic_string msg = getWarningText(nbSp, nbTab);
-			::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
+			setWarningIfNeed();
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tip");
@@ -3147,15 +3157,7 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 						char customText[MAX_PATH];
 						::GetDlgItemTextA(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT, customText, MAX_PATH-1);
 						nppGUI._customWordChars = customText;
-
-						int nbSp = 0;
-						int nbTab = 0;
-						detectSpace(customText, nbSp, nbTab);
-						generic_string msg = getWarningText(nbSp, nbTab);
-						::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
-
-						if (not nppGUI._isWordCharDefault)
-							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
+						setWarningIfNeed();
 						return TRUE;
 					}
 
@@ -3183,21 +3185,21 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 
 				case IDC_RADIO_WORDCHAR_DEFAULT:
 				{
-					//::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_DEFAULT, BM_SETCHECK, BST_CHECKED, 0);
 					::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, BST_UNCHECKED, 0);
 					nppGUI._isWordCharDefault = true;
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+					::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, TEXT(""));
 					return TRUE;
 				}
 
 				case IDC_RADIO_WORDCHAR_CUSTOM:
 				{
 					::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_DEFAULT, BM_SETCHECK, BST_UNCHECKED, 0);
-					//::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, BST_CHECKED, 0);
 					nppGUI._isWordCharDefault = false;
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+					setWarningIfNeed();
 					return TRUE;
 				}
 

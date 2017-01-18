@@ -3,9 +3,9 @@
 <!-- Email: batagy.ford kukac gmail pont com -->
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation-->
-<!-- For Notepad++ Version 7.3, modified on 2017.01.02 -->
+<!-- For Notepad++ Version 7.3.1, modified on 2017.01.18 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="7.3">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="7.3.1">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -840,6 +840,10 @@
                     <Item id="6252" name="Nyitótag"/>
                     <Item id="6255" name="Zárótag"/>
                     <Item id="6256" name="Többsoros blokk engedélyezése"/>
+                    <Item id="6161" name="Szókarakter lista"/>
+                    <Item id="6162" name="Alapértelmezett szókarakter lista használata"/>
+                    <Item id="6163" name="Egyéni karakterek hozzáadása a szóhoz
+(Csak akkor válassza, ha érti a működést)"/>
                     <Item id="6257" name="bla bla bla bla bla"/>
                     <Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla"/>
                 </Delimiter>
@@ -999,5 +1003,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+            <word-chars-list-tip value="Itt további karaktereket lehet hozzáadni a szókarakterekhez. Szókarakter: amely karakterek a szó részének minősülnek. Az opció dupla kattintású kijelölésnél, illetve keresésnél érvényes akkor ha a &quot;Csak teljes szóval megegyező találatok &quot; be van kapcsolva."/>
+            <word-chars-list-warning-begin value="Figyelem: "/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ szóközt"/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ tabulátort"/>
+            <word-chars-list-warning-end value=" tartalmaz a karakter lista."/>
+            <cloud-invalid-warning value="Érvénytelen út."/>
+            <cloud-restart-warning value="Ehhez Notepad++ újraindítás szükséges."/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

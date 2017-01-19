@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.0">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -841,14 +841,16 @@
                     <Item id="6252" name="開始"/>
                     <Item id="6255" name="終了"/>
                     <Item id="6256" name="複数行を許可する"/>
+                    <Item id="6161" name="単語を構成する文字"/>
+                    <Item id="6162" name="標準の 単語を構成する文字 を使う"/>
+                    <Item id="6163" name="単語の一部と見なす文字を追加する
+（意味がわからないならば、標準のままにすべきです）"/>
                 </Delimiter>
 
                 <Cloud title="クラウド">
                     <Item id="6262" name="クラウド設定"/>
                     <Item id="6263" name="クラウドを使用しない"/>
                     <Item id="6267" name="クラウドのパスを指定:"/>
-                    <Item id="6261" name="変更を有効にするには再起動が必要です。"/>
-                        <!-- uncommented for japanese.xml -->
                 </Cloud>
 
                 <SearchEngine title="検索エンジン">
@@ -1001,5 +1003,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+            <word-chars-list-tip value="この機能を使うと、標準の 単語を構成する文字 のリストに文字を追加できます。ダブルクリックでの単語選択や、「単語単位」での検索に影響します。"/>
+            <word-chars-list-warning-begin value="注意："/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$個の半角スペース"/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$個のタブ"/>
+            <word-chars-list-warning-end value=" が含まれています。"/>
+            <cloud-invalid-warning value="無効なパスです。"/>
+            <cloud-restart-warning value="変更を有効にするには再起動が必要です。"/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

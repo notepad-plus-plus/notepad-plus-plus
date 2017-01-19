@@ -828,6 +828,9 @@ struct NppGUI final
 	generic_string _searchEngineCustom;
 
 	bool _isFolderDroppedOpenFiles = false;
+
+	bool _lineCommentAtStartOfLine = false;
+	bool _lineCommentBlankLines = false;
 };
 
 struct ScintillaViewParams

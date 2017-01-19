@@ -3861,7 +3861,8 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	//The ADVANCED MODE behaves the same way as the NORMAL MODE (comment/uncomment every single line in the selection range separately)
 	//but uses two smbols to accomplish this.
 	bool isSingleLineAdvancedMode = false;
-
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
+	
 	if (buf->getLangType() == L_USER)
 	{
 		UserLangContainer * userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
@@ -3971,10 +3972,10 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		size_t lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
 
 		// empty lines are not commented
-		if (lineIndent == lineEnd)
+		if (lineIndent == lineEnd && !nppGUI._lineCommentBlankLines )
 			continue;
 
-		if (avoidIndent)
+		if (avoidIndent || nppGUI._lineCommentAtStartOfLine)
 			lineIndent = lineStart;
 
 		size_t linebufferSize = lineEnd - lineIndent + 2;

@@ -41,9 +41,6 @@
 #include "WordStyleDlg.h"
 #include "trayIconControler.h"
 #include "PluginsManager.h"
-/*
-#include "Notepad_plus_msgs.h"
-*/
 #include "preferenceDlg.h"
 #include "WindowsDlg.h"
 #include "RunMacroDlg.h"

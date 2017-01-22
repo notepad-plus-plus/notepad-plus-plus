@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.0">
+    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -828,6 +828,9 @@
                     <Item id="6252" name="Відкрити"/>
                     <Item id="6255" name="Закрити"/>
                     <Item id="6256" name="Дозволити захоплення кількох рядків"/>
+					<Item id="6161" name="Список символів"/>
+                    <Item id="6162" name="Використовувати цей список символів як типовий"/>
+                    <Item id="6163" name="Додавати свої символи як частину слова (не обирайте, якщо ви не знаєте, що робите)"/>
                 </Delimiter>
 
                 <Cloud title="Хмарне сховище">
@@ -983,5 +986,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+			<word-chars-list-tip value="Це дозволяє вам включати додатковий символ у поточні символи слова при подвійному натисканні для вибору, або пошуку за допомогою &quot;Лише цілі слова&quot; опції."/>
+            <word-chars-list-warning-begin value="Майте на увазі: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ пробіл(и)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
+			<word-chars-list-warning-end value="  у вашому списку символів."/>
+			<cloud-invalid-warning value="Неправильний шлях."/>
+			<cloud-restart-warning value="Перезапустіть Notepad++ для застосування змін."/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

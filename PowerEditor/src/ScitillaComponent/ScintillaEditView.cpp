@@ -139,6 +139,8 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			SCLEX_CPP },
 {TEXT("javascript.js"), TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JAVASCRIPT,	SCLEX_CPP },
 {TEXT("fortran77"),		TEXT("Fortran fixed form"),	TEXT("Fortran fixed form source file"),					L_FORTRAN_77,	SCLEX_F77},
+{TEXT("less"),			TEXT("Less"),				TEXT("Less File"),                                      L_LESS,			SCLEX_CSS },
+{TEXT("scss"),			TEXT("SCSS"),				TEXT("SASS File"),						                L_SCSS,			SCLEX_CSS },
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -641,6 +643,15 @@ void ScintillaEditView::setJsonLexer()
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 }
+
+void ScintillaEditView::setCssLexer(LangType type) 
+{
+	setLexer(SCLEX_CSS, L_CSS, LIST_0 | LIST_1);
+	if (type == L_LESS) 
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.css.less.language"), reinterpret_cast<LPARAM>("1"));
+	else if (type == L_SCSS) 
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.css.scss.language"), reinterpret_cast<LPARAM>("1"));	
+};
 
 void ScintillaEditView::setEmbeddedPhpLexer()
 {
@@ -1347,7 +1358,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			setJsonLexer(); break;
 
 		case L_CSS :
-			setCssLexer(); break;
+		case L_LESS :
+		case L_SCSS :
+			setCssLexer(typeDoc); break;
 
 		case L_LUA :
 			setLuaLexer(); break;

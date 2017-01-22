@@ -2490,7 +2490,8 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 
 	if (type == L_C || type == L_CPP || type == L_JAVA || type == L_CS || type == L_OBJC ||
-		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || type == L_CSS)
+		type == L_PHP || type == L_JS || type == L_JAVASCRIPT || type == L_JSP || 
+		type == L_CSS || type == L_LESS || type == L_SCSS)
 	{
 		if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
 			(eolMode == SC_EOL_CR && ch == '\r'))
@@ -2713,7 +2714,11 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_JSP;
         case IDM_LANG_CSS :
             return L_CSS;
-        case IDM_LANG_LUA :
+		case IDM_LANG_LESS:
+			return L_LESS;
+		case IDM_LANG_SCSS:
+			return L_SCSS;
+		case IDM_LANG_LUA :
             return L_LUA;
         case IDM_LANG_PERL :
             return L_PERL;

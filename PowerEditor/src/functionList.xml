@@ -88,12 +88,12 @@
 						<nameExpr expr="\w+\Z" />
 					</className>
 					<function
-						mainExpr="^\s*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+\s+)?(function\s+)+(\w+(\s+\w+)?(\s+|\*\s+|\s+\*|\s+\*\s+))?(\w+\s*::)?(?!(if|while|for|switch))[\w~]+\s*\([^\{]*\{"
+						mainExpr="^\s*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+\s+)?(function\s+)+(\w+(\s+\w+)?(\s+|\*\s+|\s+\*|\s+\*\s+))?(\w+\s*::)?(?!(?-i:if|while|for|switch)\b)[\w~]+\s*\([^\{]*\{"
 					>
 						<functionName>
-							<funcNameExpr expr="(?!(if|while|for|switch))\w+\s*\([^\{]*" />
+							<funcNameExpr expr="\w+\s*\([^\{]*" />
 							<!-- comment out the following node to display the method with parameters -->
-							<funcNameExpr expr="(?!(if|while|for|switch))\w+" />
+							<funcNameExpr expr="\w+" />
 						</functionName>
 					</function>
 				</classRange>
@@ -101,8 +101,8 @@
 					mainExpr="^\s*function\s+\w+\("
 				>
 					<functionName>
-						<nameExpr expr="(?!(if|while|for))\w+\s*\(" />
-						<nameExpr expr="(?!(if|while|for))\w+" />
+						<nameExpr expr="\w+\s*\(" />
+						<nameExpr expr="\w+" />
 					</functionName>
 					<className>
 						<nameExpr expr="\w+(?=\s*::)" />
@@ -116,11 +116,11 @@
 				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
 			>
 				<function
-					mainExpr="^[\t\x20]*((static|const|virtual)\s+)?[\w:]+(\s+\w+)?(\s+|(\*|\*\*)\s+|\s+(\*|\*\*)|\s+(\*|\*\*)\s+)(\w+\s*::)?(?!(if|while|for))\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{"
+					mainExpr="^[\t\x20]*((static|const|virtual)\s+)?[\w:]+(\s+\w+)?(\s+|(\*|\*\*)\s+|\s+(\*|\*\*)|\s+(\*|\*\*)\s+)(\w+\s*::)?\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{"
 				>
 					<functionName>
-						<nameExpr expr="(?!(if|while|for))[\w~]+\s*\(" />
-						<nameExpr expr="(?!(if|while|for))[\w~]+" />
+						<nameExpr expr="[\w~]+\s*\(" />
+						<nameExpr expr="[\w~]+" />
 					</functionName>
 				</function>
 			</parser>
@@ -141,20 +141,20 @@
 						<nameExpr expr="\w+" />
 					</className>
 					<function
-						mainExpr="^[\t\x20]*((static|const|virtual)\s+)?(\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+))?(\w+\s*::)?(?!(if|while|for|switch))[\w~]+\s*\([^\)\(]*\)(\s*const\s*)?(\s*(final|override|final\s*override|override\s*final)\s*)?[\n\s]*\{"
+						mainExpr="^[\t\x20]*((static|const|virtual)\s+)?(\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+))?(\w+\s*::)?(?!(if|while|for|switch)\b)[\w~]+\s*\([^\)\(]*\)(\s*const\s*)?(\s*(final|override|final\s*override|override\s*final)\s*)?[\n\s]*\{"
 					>
 						<functionName>
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w~]+\s*\(" />
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w~]+" />
+							<funcNameExpr expr="[\w~]+\s*\(" />
+							<funcNameExpr expr="[\w~]+" />
 						</functionName>
 					</function>
 				</classRange>
 				<function
-					mainExpr="^[\t\x20]*((static|const|virtual)\s+)?\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+)(\w+\s*::)?(?!(if|while|for))\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{"
+					mainExpr="^[\t\x20]*((static|const|virtual)\s+)?\w+(\s+\w+)?(\s+|(\*|\*\*|&amp;)\s+|\s+(\*|\*\*|&amp;)|\s+(\*|\*\*|&amp;)\s+)(\w+\s*::)?(?!(if|while|for|switch)\b)\w+\s*\([^\)\(]*\)(\s*const\s*)?[\n\s]*\{"
 				>
 					<functionName>
-						<nameExpr expr="(?!(if|while|for))\w+\s*\(" />
-						<nameExpr expr="(?!(if|while|for))\w+" />
+						<nameExpr expr="\w+\s*\(" />
+						<nameExpr expr="\w+" />
 					</functionName>
 					<className>
 						<nameExpr expr="\w+(?=\s*::)" />

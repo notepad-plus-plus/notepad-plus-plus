@@ -11,9 +11,11 @@
 		- Synced with english.xml (easy to compare with diff tool such as Beyond compare)
 		- Update for v7.0 (added missing strings)
 		- Added/updated translation in such a way so that it should not run out of space for the control which has limited width
+	** Updated on 25/01/2017 by Rajendra Singh (singh.rajen15@gmail.com) **
+		- Added translation for new strings as per V7.3.1
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.0">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.3.1">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -25,6 +27,7 @@
           <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
           <Item menuId="language" name="&amp;भाषा"/>
           <Item menuId="settings" name="&amp;सेटिंग"/>
+	  <Item menuId="tools" name="टूल्स"/>
           <Item menuId="macro" name="मेक्रो"/>
           <Item menuId="run" name="चलाये"/>
           <Item idName="Plugins" name="प्लगिन्स"/>
@@ -76,6 +79,7 @@
           <Item subMenuId="encoding-westernEuropean" name="पश्चिमी यूरोपियन"/>
           <Item subMenuId="encoding-vietnamese" name="वियतनाम"/>
           <Item subMenuId="settings-import" name="आयात"/>
+		  <Item subMenuId="tools-md5"  name="MD5"/>
         </SubEntries>
 
         <!-- all menu item -->
@@ -306,6 +310,9 @@
 	  <Item id="48018" name="एडिट पॉपअप कॉन्टेक्स्ट मेनू"/>
           <Item id="48009" name="शॉर्टकट मेपर..."/>
           <Item id="48011" name="पसंदगी (Preferences)..."/>
+	  <Item id="48501" name="जनरेट करें..."/>
+	  <Item id="48502" name="फाइल्स से जनरेट करें..."/>
+	  <Item id="48503" name="क्लिपबोर्ड पर जनरेट करें"/>
           <Item id="49000" name="&amp;चलायें (Run)..."/>
 
           <Item id="50000" name="फंक्शन समापन"/>
@@ -413,6 +420,18 @@
         <Item id="2" name="रद्द करें"/>
         <Item id="1904" name="संग्रह..."/>
       </Run>
+
+	  <MD5FromFilesDlg title="फाइल्स से MD5 डाइजेस्ट जनरेट करें">
+		<Item id="1922" name="MD5 जनरेट करने के लिए फाइल्स चुनें..."/>
+		<Item id="1924" name="क्लिपबोर्ड पर कॉपी करें"/>
+		<Item id="2"    name="बंद करें"/>
+	  </MD5FromFilesDlg>
+
+	  <MD5FromTextDlg title="MD5 डाइजेस्ट जनरेट करें">
+		<Item id="1932" name="हरेक लाइन को अलग स्ट्रिंग्स मानें"/>
+		<Item id="1934" name="क्लिपबोर्ड पर कॉपी करें"/>
+		<Item id="2"    name="बंद करें"/>
+	  </MD5FromTextDlg>
 
       <StyleConfig title="स्टाइल कोन्फ़िगरेटर">
         <Item id="2" name="रद्द करें"/>
@@ -728,6 +747,7 @@
 	  <Item id="6332" name="केस मिलाएं (Match case)"/>
 	  <Item id="6338" name="केवल संपूर्ण शब्द मिलाएं"/>
 	  <Item id="6339" name="Find dialog की सेटिंग्स का प्रयोग करें"/>
+	  <Item id="6340" name="दूसरा व्यू हाईलाइट करें"/>
 	  <Item id="6329" name="मिलते टैग्स हाईलाईट करें"/>
 	  <Item id="6327" name="सक्रिय करें"/>
 	  <Item id="6328" name="टैग के attributes को हाईलाईट करें"/>
@@ -802,7 +822,7 @@
           <Item id="6814" name="वैलिड (वैध) वैल्यू: 1 - 9"/>
           <Item id="6815" name="इनपुट पर फंक्शन पैरामीटर्स हिंट"/>
           <Item id="6851" name="ऑटो-इन्सर्ट"/>
-          <Item id="6857" name=" html/xml close tag"/> <!-- Don't translate it. It may run out of space and close tag for xml/html is appropiate word -->
+          <Item id="6857" name=" html/xml close tag"/> <!-- Don't translate it. It may run out of space and close tag for xml/html is appropriate word -->
           <Item id="6858" name="खोलें"/>
           <Item id="6859" name="बंद करें"/>
           <Item id="6860" name="मिलान की गई जोड़ी 1:"/>
@@ -823,6 +843,10 @@
           <Item id="6252" name="खोलें"/>
           <Item id="6255" name="बंद करें"/>
           <Item id="6256" name="कई लाइनों पर अनुमति दें"/>
+		  <Item id="6161" name="शब्द अक्षर सूची"/>
+		  <Item id="6162" name="डिफ़ॉल्ट शब्द अक्षर सूची को अज इट इस प्रयोग करें"/>
+		  <Item id="6163" name="अपने अक्षर को शब्द के रूप में जोड़ें
+(अगर आप नहीं जानते कि आप क्या कर रहे हैं, इसे ना चुनें)"/>
         </Delimiter>
 
         <Cloud title="क्लाउड (Cloud)">
@@ -978,5 +1002,16 @@
         </FileMenu>
       </Menus>
     </ProjectManager>
+	<MiscStrings>
+		<word-chars-list-tip value="यह आपको वर्तमान शब्द अक्षरों में अतिरिक्त अक्षर जोड़ने देता है, जब चयन के लिए डबल क्लिक या ढूंढने के लिए &quot;Match whole word only&quot; ऑप्शन सिलेक्टेड है।"/>
+		<word-chars-list-warning-begin value="अवगत रहें: "/>
+		<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+		<word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
+		<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+		<word-chars-list-tab-warning value="$INT_REPLACE$ टैब(स)"/>
+		<word-chars-list-warning-end value="  आपके अक्षर सूची में।"/>
+		<cloud-invalid-warning value="इनवैलिड पाथ."/>
+		<cloud-restart-warning value="प्रभावी करने के लिए Notepad++ पुनः प्रारंभ करें।"/>
+	</MiscStrings>
   </Native-Langue>
 </NotepadPlus>

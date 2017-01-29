@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.3.1">
+    <Native-Langue name="Беларуская мова" filename="belarusian.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;File"/>
-                    <Item menuId="edit" name="&amp;Edit"/>
-                    <Item menuId="search" name="&amp;Search"/>
-                    <Item menuId="view" name="&amp;View"/>
-                    <Item menuId="encoding" name="E&amp;ncoding"/>
-                    <Item menuId="language" name="&amp;Language"/>
-                    <Item menuId="settings" name="Se&amp;ttings"/>
+                    <Item menuId="file" name="&amp;Файл"/>
+                    <Item menuId="edit" name="&amp;Змяніць"/>
+                    <Item menuId="search" name="По&amp;шук"/>
+                    <Item menuId="view" name="&amp;Выгляд"/>
+                    <Item menuId="encoding" name="&amp;Кадаванні"/>
+                    <Item menuId="language" name="&amp;Мова"/>
+                    <Item menuId="settings" name="На&amp;лады"/>
                     <Item menuId="tools" name="To&amp;ols"/>
                     <Item menuId="macro" name="Macro"/>
                     <Item menuId="run" name="Run"/>
@@ -20,280 +20,280 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Open Containing Folder"/>
-                    <Item subMenuId="file-closeMore" name="Close More"/>
-                    <Item subMenuId="file-recentFiles" name="Recent Files"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
-                    <Item subMenuId="edit-indent" name="Indent"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Convert Case to"/>
-                    <Item subMenuId="edit-lineOperations" name="Line Operations"/>
-                    <Item subMenuId="edit-comment" name="Comment/Uncomment"/>
-                    <Item subMenuId="edit-autoCompletion" name="Auto-Completion"/>
-                    <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
-                    <Item subMenuId="edit-blankOperations" name="Blank Operations"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
-                    <Item subMenuId="edit-onSelection" name="On Selection"/>
-                    <Item subMenuId="search-markAll" name="Mark All"/>
-                    <Item subMenuId="search-unmarkAll" name="Unmark All"/>
-                    <Item subMenuId="search-jumpUp" name="Jump Up"/>
-                    <Item subMenuId="search-jumpDown" name="Jump Down"/>
-                    <Item subMenuId="search-bookmark" name="Bookmark"/>
-                    <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
-                    <Item subMenuId="view-zoom"  name="Zoom"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
-                    <Item subMenuId="view-tab"  name="Tab"/>
-                    <Item subMenuId="view-collapseLevel" name="Collapse Level"/>
-                    <Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
-                    <Item subMenuId="view-project" name="Project"/>
-                    <Item subMenuId="encoding-characterSets"  name="Character Set"/>
-                    <Item subMenuId="encoding-arabic"  name="Arabic"/>
-                    <Item subMenuId="encoding-baltic"  name="Baltic"/>
-                    <Item subMenuId="encoding-celtic"  name="Celtic"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Cyrillic"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Central European"/>
-                    <Item subMenuId="encoding-chinese"  name="Chinese"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
-                    <Item subMenuId="encoding-greek"  name="Greek"/>
-                    <Item subMenuId="encoding-hebrew"  name="Hebrew"/>
-                    <Item subMenuId="encoding-japanese"  name="Japanese"/>
-                    <Item subMenuId="encoding-korean" name="Korean"/>
-                    <Item subMenuId="encoding-northEuropean" name="North European"/>
-                    <Item subMenuId="encoding-thai" name="Thai"/>
-                    <Item subMenuId="encoding-turkish" name="Turkish"/>
-                    <Item subMenuId="encoding-westernEuropean" name="Western European"/>
-                    <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
-                    <Item subMenuId="settings-import"  name="Import"/>
+                    <Item subMenuId="file-openFolder" name="Адкрыць папку размяшчэння"/>
+                    <Item subMenuId="file-closeMore" name="Закрыць яшчэ"/>
+                    <Item subMenuId="file-recentFiles" name="Нядаўнія файлы"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Капіяваць у буфер"/>
+                    <Item subMenuId="edit-indent" name="Водступ"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Пераўтварэнне рэгістра"/>
+                    <Item subMenuId="edit-lineOperations" name="Аперацыі з радкамі"/>
+                    <Item subMenuId="edit-comment" name="Каментаваць/Зняць каментар"/>
+                    <Item subMenuId="edit-autoCompletion" name="Аўтазавяршэнне"/>
+                    <Item subMenuId="edit-eolConversion" name="Пераўтварыць ў cімвал канца радка (EOL)"/>
+                    <Item subMenuId="edit-blankOperations" name="Аперацыі з Прабеламі"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Адмысловая ўстаўка"/>
+                    <Item subMenuId="edit-onSelection" name="У выбраным"/>
+                    <Item subMenuId="search-markAll" name="Пазначыць усё"/>
+                    <Item subMenuId="search-unmarkAll" name="Зняць усе пазнакі"/>
+                    <Item subMenuId="search-jumpUp" name="Уверх"/>
+                    <Item subMenuId="search-jumpDown" name="Уніз"/>
+                    <Item subMenuId="search-bookmark" name="Закладка"/>
+                    <Item subMenuId="view-showSymbol"  name="Паказаць сімвал"/>
+                    <Item subMenuId="view-zoom"  name="Маштаб"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Парамясціць/Кланаваць бягучы дакумент"/>
+                    <Item subMenuId="view-tab"  name="Укладка"/>
+                    <Item subMenuId="view-collapseLevel" name="Згарнуць узровень"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Разгарнуць узровень"/>
+                    <Item subMenuId="view-project" name="Праект"/>
+                    <Item subMenuId="encoding-characterSets"  name="Набор сімвалаў"/>
+                    <Item subMenuId="encoding-arabic"  name="Арабская"/>
+                    <Item subMenuId="encoding-baltic"  name="Балтыйская"/>
+                    <Item subMenuId="encoding-celtic"  name="Кельцкая"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Кірыліца"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Цэнтральная Еўропа"/>
+                    <Item subMenuId="encoding-chinese"  name="Кітайская"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Усходняя Еўропа"/>
+                    <Item subMenuId="encoding-greek"  name="Грэчаская"/>
+                    <Item subMenuId="encoding-hebrew"  name="Іўрыт"/>
+                    <Item subMenuId="encoding-japanese"  name="Японская"/>
+                    <Item subMenuId="encoding-korean" name="Карэйская"/>
+                    <Item subMenuId="encoding-northEuropean" name="Паўночная Еўропа"/>
+                    <Item subMenuId="encoding-thai" name="Тайская"/>
+                    <Item subMenuId="encoding-turkish" name="Турэцкая"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Заходняя Еўропа"/>
+                    <Item subMenuId="encoding-vietnamese" name="В'етнамская"/>
+                    <Item subMenuId="settings-import"  name="Імпарт"/>
 					<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="41001" name="&amp;New"/>
-                    <Item id="41002" name="&amp;Open"/>
-                    <Item id="41019" name="Explorer"/>
+                    <Item id="41001" name="&amp;Стварыць"/>
+                    <Item id="41002" name="&amp;Адкрыць"/>
+                    <Item id="41019" name="Праваднік"/>
                     <Item id="41020" name="cmd"/>
-                    <Item id="41003" name="Close"/>
-                    <Item id="41004" name="C&amp;lose All"/>
-                    <Item id="41005" name="Close All BUT Current Document"/>
-                    <Item id="41009" name="Close All to the Left"/>
-                    <Item id="41018" name="Close All to the Right"/>
-                    <Item id="41006" name="&amp;Save"/>
-                    <Item id="41007" name="Sav&amp;e All"/>
-                    <Item id="41008" name="Save &amp;As..."/>
-                    <Item id="41010" name="Print..."/>
-                    <Item id="1001"  name="Print Now"/>
-                    <Item id="41011" name="E&amp;xit"/>
-                    <Item id="41012" name="Load Session..."/>
-                    <Item id="41013" name="Save Session..."/>
-                    <Item id="41014" name="Reload from Disk"/>
-                    <Item id="41015" name="Save a Copy As..."/>
-                    <Item id="41016" name="Delete from Disk"/>
-                    <Item id="41017" name="Rename..."/>
-                    <Item id="41021" name="Restore Recent Closed File"/>
-                    <Item id="41022" name="Open Folder as &amp;Workspace"/>
+                    <Item id="41003" name="Закрыць"/>
+                    <Item id="41004" name="За&amp;крыць усё"/>
+                    <Item id="41005" name="Закрыць усё, акрамя бягучага дакумента"/>
+                    <Item id="41009" name="Закрыць усё з левага боку"/>
+                    <Item id="41018" name="Закрыць усё з правага боку"/>
+                    <Item id="41006" name="&amp;Захаваць"/>
+                    <Item id="41007" name="Зах&amp;аваць усё"/>
+                    <Item id="41008" name="Захаваць &amp;як..."/>
+                    <Item id="41010" name="Друк..."/>
+                    <Item id="1001"  name="Надрукаваць зараз"/>
+                    <Item id="41011" name="Вы&amp;хад"/>
+                    <Item id="41012" name="Загрузіць сесію..."/>
+                    <Item id="41013" name="Захаваць сесію..."/>
+                    <Item id="41014" name="Перазагрузіць з дыска"/>
+                    <Item id="41015" name="Захаваць копію як..."/>
+                    <Item id="41016" name="Выдаліць з дыска"/>
+                    <Item id="41017" name="Перайменаваць..."/>
+                    <Item id="41021" name="Аднавіць файл, які быў нядаўна закрыты"/>
+                    <Item id="41022" name="Адкрыць папку як Працоўную воб&amp;ласць"/>
 
-                    <Item id="42001" name="Cu&amp;t"/>
-                    <Item id="42002" name="&amp;Copy"/>
-                    <Item id="42003" name="&amp;Undo"/>
-                    <Item id="42004" name="&amp;Redo"/>
-                    <Item id="42005" name="&amp;Paste"/>
-                    <Item id="42006" name="&amp;Delete"/>
-                    <Item id="42007" name="Select A&amp;ll"/>
-                    <Item id="42020" name="Begin/End Select"/>
-                    <Item id="42008" name="Increase Line Indent"/>
-                    <Item id="42009" name="Decrease Line Indent"/>
-                    <Item id="42010" name="Duplicate Current Line"/>
-                    <Item id="42012" name="Split Lines"/>
-                    <Item id="42013" name="Join Lines"/>
-                    <Item id="42014" name="Move Up Current Line"/>
-                    <Item id="42015" name="Move Down Current Line"/>
-                    <Item id="42059" name="Sort Lines Lexicographically Ascending"/>
-                    <Item id="42060" name="Sort Lines Lexicographically Descending"/>
-                    <Item id="42061" name="Sort Lines As Integers Ascending"/>
-                    <Item id="42062" name="Sort Lines As Integers Descending"/>
-                    <Item id="42063" name="Sort Lines As Decimals (Comma) Ascending"/>
-                    <Item id="42064" name="Sort Lines As Decimals (Comma) Descending"/>
-                    <Item id="42065" name="Sort Lines As Decimals (Dot) Ascending"/>
-                    <Item id="42066" name="Sort Lines As Decimals (Dot) Descending"/>
-                    <Item id="42016" name="UPPERCASE"/>
-                    <Item id="42017" name="lowercase"/>
-                    <Item id="42067" name="Title Case"/>
-                    <Item id="42068" name="Title Case (blend)"/>
-                    <Item id="42069" name="Sentence case"/>
-                    <Item id="42070" name="Sentence case (blend)"/>
-                    <Item id="42071" name="iNVERT cASE"/>
-                    <Item id="42072" name="ranDOm CasE"/>
-					<Item id="42073" name="Open File"/>
-					<Item id="42074" name="Open Containing Folder in Explorer"/>
-					<Item id="42075" name="Search on Internet"/>
-					<Item id="42076" name="Change Search Engine..."/>
-                    <Item id="42018" name="&amp;Start Recording"/>
-                    <Item id="42019" name="&amp;Stop Recording"/>
-                    <Item id="42021" name="&amp;Playback"/>
-                    <Item id="42022" name="Toggle Single Line Comment"/>
-                    <Item id="42023" name="Block Comment"/>
-                    <Item id="42047" name="Block Uncomment"/>
-                    <Item id="42024" name="Trim Trailing Space"/>
-                    <Item id="42042" name="Trim Leading Space"/>
-                    <Item id="42043" name="Trim Leading and Trailing Space"/>
-                    <Item id="42044" name="EOL to Space"/>
-                    <Item id="42045" name="Remove Unnecessary Blank and EOL"/>
-                    <Item id="42046" name="TAB to Space"/>
-                    <Item id="42054" name="Space to TAB (All)"/>
-                    <Item id="42053" name="Space to TAB (Leading)"/>
-                    <Item id="42038" name="Paste HTML Content"/>
-                    <Item id="42039" name="Paste RTF Content"/>
-                    <Item id="42048" name="Copy Binary Content"/>
-                    <Item id="42049" name="Cut Binary Content"/>
-                    <Item id="42050" name="Paste Binary Content"/>
-                    <Item id="42037" name="Column Mode..."/>
-                    <Item id="42034" name="Column Editor..."/>
-                    <Item id="42051" name="Character Panel"/>
-                    <Item id="42052" name="Clipboard History"/>
-                    <Item id="42025" name="Save Currently Recorded Macro"/>
-                    <Item id="42026" name="Text Direction RTL"/>
-                    <Item id="42027" name="Text Direction LTR"/>
-                    <Item id="42028" name="Set Read-Only"/>
-                    <Item id="42029" name="Current File Path to Clipboard"/>
-                    <Item id="42030" name="Current Filename to Clipboard"/>
-                    <Item id="42031" name="Current Dir. Path to Clipboard"/>
-                    <Item id="42032" name="Run a Macro Multiple Times..."/>
-                    <Item id="42033" name="Clear Read-Only Flag"/>
-                    <Item id="42035" name="Single Line Comment"/>
-                    <Item id="42036" name="Single Line Uncomment"/>
-                    <Item id="42055" name="Remove Empty Lines"/>
-                    <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
-                    <Item id="42057" name="Insert Blank Line Above Current"/>
-                    <Item id="42058" name="Insert Blank Line Below Current"/>
-                    <Item id="43001" name="&amp;Find..."/>
-                    <Item id="43002" name="Find &amp;Next"/>
-                    <Item id="43003" name="Replace..."/>
-                    <Item id="43004" name="Go to..."/>
-                    <Item id="43005" name="Toggle Bookmark"/>
-                    <Item id="43006" name="Next Bookmark"/>
-                    <Item id="43007" name="Previous Bookmark"/>
-                    <Item id="43008" name="Clear All Bookmarks"/>
-                    <Item id="43018" name="Cut Bookmarked Lines"/>
-                    <Item id="43019" name="Copy Bookmarked Lines"/>
-                    <Item id="43020" name="Paste to (Replace) Bookmarked Lines"/>
-                    <Item id="43021" name="Remove Bookmarked Lines"/>
-                    <Item id="43051" name="Remove Unmarked Lines"/>
-                    <Item id="43050" name="Inverse Bookmark"/>
-                    <Item id="43052" name="Find characters in range..."/>
-                    <Item id="43053" name="Select All Between Matching Braces"/>
-                    <Item id="43009" name="Go to Matching Brace"/>
-                    <Item id="43010" name="Find Previous"/>
-                    <Item id="43011" name="&amp;Incremental Search"/>
-                    <Item id="43013" name="Find in Files"/>
-                    <Item id="43014" name="Find (Volatile) Next"/>
-                    <Item id="43015" name="Find (Volatile) Previous"/>
-                    <Item id="43022" name="Using 1st Style"/>
-                    <Item id="43023" name="Clear 1st Style"/>
-                    <Item id="43024" name="Using 2nd Style"/>
-                    <Item id="43025" name="Clear 2nd Style"/>
-                    <Item id="43026" name="Using 3rd Style"/>
-                    <Item id="43027" name="Clear 3rd Style"/>
-                    <Item id="43028" name="Using 4th Style"/>
-                    <Item id="43029" name="Clear 4th Style"/>
-                    <Item id="43030" name="Using 5th Style"/>
-                    <Item id="43031" name="Clear 5th Style"/>
-                    <Item id="43032" name="Clear All Styles"/>
-                    <Item id="43033" name="1st style"/>
-                    <Item id="43034" name="2nd style"/>
-                    <Item id="43035" name="3rd style"/>
-                    <Item id="43036" name="4th style"/>
-                    <Item id="43037" name="5th style"/>
-                    <Item id="43038" name="Find style"/>
-                    <Item id="43039" name="1st style"/>
-                    <Item id="43040" name="2nd style"/>
-                    <Item id="43041" name="3rd style"/>
-                    <Item id="43042" name="4th style"/>
-                    <Item id="43043" name="5th style"/>
-                    <Item id="43044" name="Find style"/>
-                    <Item id="43045" name="Search Results Window"/>
-                    <Item id="43046" name="Next Search Result"/>
-                    <Item id="43047" name="Previous Search Result"/>
-                    <Item id="43048" name="Select and Find Next"/>
-                    <Item id="43049" name="Select and Find Previous"/>
-					<Item id="43054" name="Mark..."/>
-                    <Item id="44009" name="Post-It"/>
-                    <Item id="44010" name="Fold All"/>
-                    <Item id="44019" name="Show All Characters"/>
-                    <Item id="44020" name="Show Indent Guide"/>
-                    <Item id="44022" name="Wrap"/>
-                    <Item id="44023" name="Zoom &amp;In Ctrl+Mouse Wheel Up"/>
-                    <Item id="44024" name="Zoom &amp;Out    Ctrl+Mouse Wheel Down"/>
-                    <Item id="44025" name="Show White Space and TAB"/>
-                    <Item id="44026" name="Show End of Line"/>
-                    <Item id="44029" name="Unfold All"/>
-                    <Item id="44030" name="Collapse Current Level"/>
-                    <Item id="44031" name="Uncollapse Current Level"/>
-                    <Item id="44049" name="Summary..."/>
-                    <Item id="44080" name="Document Map"/>
-                    <Item id="44084" name="Function List"/>
-                    <Item id="44085" name="Folder as &amp;Workspace"/>
-                    <Item id="44086" name="1st Tab"/>
-                    <Item id="44087" name="2nd Tab"/>
-                    <Item id="44088" name="3rd Tab"/>
-                    <Item id="44089" name="4th Tab"/>
-                    <Item id="44090" name="5th Tab"/>
-                    <Item id="44091" name="6th Tab"/>
-                    <Item id="44092" name="7th Tab"/>
-                    <Item id="44093" name="8th Tab"/>
-                    <Item id="44094" name="9th Tab"/>
-                    <Item id="44095" name="Next Tab"/>
-                    <Item id="44096" name="Previous Tab"/>
-                    <Item id="44097" name="Monitoring (tail -f)"/>
-                    <Item id="44098" name="Move Tab Forward"/>
-                    <Item id="44099" name="Move Tab Backward"/>
-                    <Item id="44032" name="Toggle Full Screen Mode"/>
-                    <Item id="44033" name="Restore Default Zoom"/>
-                    <Item id="44034" name="Always on Top"/>
-                    <Item id="44035" name="Synchronise Vertical Scrolling"/>
-                    <Item id="44036" name="Synchronise Horizontal Scrolling"/>
-                    <Item id="44041" name="Show Wrap Symbol"/>
-                    <Item id="44072" name="Focus on Another View"/>
-                    <Item id="44081" name="Project Panel 1"/>
-                    <Item id="44082" name="Project Panel 2"/>
-                    <Item id="44083" name="Project Panel 3"/>
-                    <Item id="45001" name="Convert to Windows Format"/>
-                    <Item id="45002" name="Convert to UNIX Format"/>
-                    <Item id="45003" name="Convert to MAC Format"/>
-                    <Item id="45004" name="Encode in ANSI"/>
-                    <Item id="45005" name="Encode in UTF-8"/>
-                    <Item id="45006" name="Encode in UCS-2 Big Endian"/>
-                    <Item id="45007" name="Encode in UCS-2 Little Endian"/>
-                    <Item id="45008" name="Encode in UTF-8 without BOM"/>
-                    <Item id="45009" name="Convert to ANSI"/>
-                    <Item id="45010" name="Convert to UTF-8 without BOM"/>
-                    <Item id="45011" name="Convert to UTF-8"/>
-                    <Item id="45012" name="Convert to UCS-2 Big Endian"/>
-                    <Item id="45013" name="Convert to UCS-2 Little Endian"/>
+                    <Item id="42001" name="Вы&amp;разаць"/>
+                    <Item id="42002" name="&amp;Капіяваць"/>
+                    <Item id="42003" name="&amp;Адмяніць"/>
+                    <Item id="42004" name="&amp;Паўтарыць"/>
+                    <Item id="42005" name="&amp;Уставіць"/>
+                    <Item id="42006" name="&amp;Выдаліць"/>
+                    <Item id="42007" name="Вылучыць у&amp;сё"/>
+                    <Item id="42020" name="Пачатак/канец вылучэння"/>
+                    <Item id="42008" name="Павялічыць водступ радка"/>
+                    <Item id="42009" name="Паменшыць водступ радка"/>
+                    <Item id="42010" name="Дубляваць бягучы радок"/>
+                    <Item id="42012" name="Раздзяліць радкі"/>
+                    <Item id="42013" name="Аб'яднаць радкі"/>
+                    <Item id="42014" name="Падняць уверх бягучы радок"/>
+                    <Item id="42015" name="Апусціць уніз бягучы радок"/>
+                    <Item id="42059" name="Сартаваць радкі па ўзрастанні"/>
+                    <Item id="42060" name="Сартаваць радкі па змяншэнні"/>
+                    <Item id="42061" name="Сартаваць радкі як цэлыя па ўзрастанні"/>
+                    <Item id="42062" name="Сартаваць радкі як цэлыя па змяншэнні"/>
+                    <Item id="42063" name="Сартаваць радкі як дзесятковыя (коска) па ўзрастанні"/>
+                    <Item id="42064" name="Сартаваць радкі як дзесятковыя (коска) па змяншэнні"/>
+                    <Item id="42065" name="Сартаваць радкі як дзесятковыя (кропка) па ўзрастанні"/>
+                    <Item id="42066" name="Сартаваць радкі як дзесятковыя (кропка) па змяншэнні"/>
+                    <Item id="42016" name="ВЯЛІКІМІ"/>
+                    <Item id="42017" name="маленькімі"/>
+                    <Item id="42067" name="Вялікія літары"/>
+                    <Item id="42068" name="Вялікія літары (змешаны)"/>
+                    <Item id="42069" name="Як у сказах"/>
+                    <Item id="42070" name="Як у сказах (змешаны)"/>
+                    <Item id="42071" name="зВАРОТНЫ пАРАДАК"/>
+                    <Item id="42072" name="выПАДковы пАРАдАК"/>
+					<Item id="42073" name="Адкрыць файл"/>
+					<Item id="42074" name="Адкрыць папку размяшчэння ў Правадніку"/>
+					<Item id="42075" name="Шукаць у інтэрнэце"/>
+					<Item id="42076" name="Змяніць спосаб пошуку..."/>
+                    <Item id="42018" name="&amp;Пачаць запіс"/>
+                    <Item id="42019" name="&amp;Спыніць запіс"/>
+                    <Item id="42021" name="&amp;Узнаўленне"/>
+                    <Item id="42022" name="Пераключыць у каментар аднаго радка"/>
+                    <Item id="42023" name="Закаментаваць блок"/>
+                    <Item id="42047" name="Зняць каментар з блока"/>
+                    <Item id="42024" name="Прыбраць канцавыя прабелы"/>
+                    <Item id="42042" name="Прыбраць прабелы з пачатку"/>
+                    <Item id="42043" name="Прыбраць прабелы з пачатку і ў канцы"/>
+                    <Item id="42044" name="Сімвал канца радка (EOL) у Прабел"/>
+                    <Item id="42045" name="Выдаліць не патрэбныя прабелы і сімвалы канца радка (EOL)"/>
+                    <Item id="42046" name="Табуляцыю у Прабел"/>
+                    <Item id="42054" name="Прабел у Табуляцыю (усе)"/>
+                    <Item id="42053" name="Прабел у Табуляцыю (у пачатку)"/>
+                    <Item id="42038" name="Уставіць змесціва HTML"/>
+                    <Item id="42039" name="Уставіць змесціва RTF"/>
+                    <Item id="42048" name="Капіяваць двайковае змесціва"/>
+                    <Item id="42049" name="Выразаць двайковае змесціва"/>
+                    <Item id="42050" name="Уставіць двайковае змесціва"/>
+                    <Item id="42037" name="Рэжым слупкоў..."/>
+                    <Item id="42034" name="Рэдактар слупкоў..."/>
+                    <Item id="42051" name="Панэль сімвалаў"/>
+                    <Item id="42052" name="Гісторыя буфера абмену"/>
+                    <Item id="42025" name="Захаваць бягучы запіс макраса"/>
+                    <Item id="42026" name="Тэкст пісьма справа налева"/>
+                    <Item id="42027" name="Тэкст пісьма злева направа"/>
+                    <Item id="42028" name="Толькі чытанне"/>
+                    <Item id="42029" name="Бягучы шлях файла ў буфер абмену"/>
+                    <Item id="42030" name="Бягучае імя файла ў буфер абмену"/>
+                    <Item id="42031" name="Бягучы шлях каталогу ў буфер абмену"/>
+                    <Item id="42032" name="Шматразовы запуск макраса..."/>
+                    <Item id="42033" name="Зняць атрыбут толькі на чытанне"/>
+                    <Item id="42035" name="Закаментаваць радок"/>
+                    <Item id="42036" name="Зняць каментар з радка"/>
+                    <Item id="42055" name="Выдаліць пустыя радкі"/>
+                    <Item id="42056" name="Выдаліць пустыя радкі (уключаючы пустыя сімвалы)"/>
+                    <Item id="42057" name="Уставіць пустыя радкі над бягучым"/>
+                    <Item id="42058" name="Уставіць пустыя радкі пад бягучым"/>
+                    <Item id="43001" name="&amp;Знайсці..."/>
+                    <Item id="43002" name="Знайсці &amp;наступны"/>
+                    <Item id="43003" name="Замяніць..."/>
+                    <Item id="43004" name="Перайсці да..."/>
+                    <Item id="43005" name="Пераключэнне закладкі"/>
+                    <Item id="43006" name="Наступная закладка"/>
+                    <Item id="43007" name="Папярэдняя закладка"/>
+                    <Item id="43008" name="Выдаліць усе закладкі"/>
+                    <Item id="43018" name="Выразаць закладзеныя радкі"/>
+                    <Item id="43019" name="Капіяваць закладзеныя радкі"/>
+                    <Item id="43020" name="Уставіць у (замяняючы) закладзеныя радкі"/>
+                    <Item id="43021" name="Выдаліць закладзеныя радкі"/>
+                    <Item id="43051" name="Выдаліць не пазначаныя радкі"/>
+                    <Item id="43050" name="Інвертаваць закладкі"/>
+                    <Item id="43052" name="Знайсці сімвалы ў дыяпазоне..."/>
+                    <Item id="43053" name="Вылучыць усё паміж парнымі дужкамі"/>
+                    <Item id="43009" name="Перайсці да парных дужак"/>
+                    <Item id="43010" name="Знайсці папярэдні"/>
+                    <Item id="43011" name="&amp;Пакрокавы пошук"/>
+                    <Item id="43013" name="Знайсці ў файлах"/>
+                    <Item id="43014" name="Знайсці тое ж самае далей"/>
+                    <Item id="43015" name="Знайсці тое ж самае папярэдняе"/>
+                    <Item id="43022" name="Выкарыстанне стылю 1"/>
+                    <Item id="43023" name="Ачысціць стыль 1"/>
+                    <Item id="43024" name="Выкарыстанне стылю 2"/>
+                    <Item id="43025" name="Ачысціць стыль 2"/>
+                    <Item id="43026" name="Выкарыстанне стылю 3"/>
+                    <Item id="43027" name="Ачысціць стыль 3"/>
+                    <Item id="43028" name="Выкарыстанне стылю 4"/>
+                    <Item id="43029" name="Ачысціць стыль 4"/>
+                    <Item id="43030" name="Выкарыстанне стылю 5"/>
+                    <Item id="43031" name="Ачысціць стыль 5"/>
+                    <Item id="43032" name="Ачысціць усе стылі"/>
+                    <Item id="43033" name="Стыль 1"/>
+                    <Item id="43034" name="Стыль 2"/>
+                    <Item id="43035" name="Стыль 3"/>
+                    <Item id="43036" name="Стыль 4"/>
+                    <Item id="43037" name="Стыль 5"/>
+                    <Item id="43038" name="Знайсці стыль"/>
+                    <Item id="43039" name="Стыль 1"/>
+                    <Item id="43040" name="Стыль 2"/>
+                    <Item id="43041" name="Стыль 3"/>
+                    <Item id="43042" name="Стыль 4"/>
+                    <Item id="43043" name="Стыль 5"/>
+                    <Item id="43044" name="Знайсці стыль"/>
+                    <Item id="43045" name="Акно вынікаў пошуку"/>
+                    <Item id="43046" name="Наступны вынік пошуку"/>
+                    <Item id="43047" name="Папярэдні вынік пошуку"/>
+                    <Item id="43048" name="Вылучыць і шукаць наступны"/>
+                    <Item id="43049" name="Вылучыць і шукаць папярэдні"/>
+					<Item id="43054" name="Пазнака..."/>
+                    <Item id="44009" name="Тэкст на ўсё акно"/>
+                    <Item id="44010" name="Згарнуць усё"/>
+                    <Item id="44019" name="Паказаць усе сімвалы"/>
+                    <Item id="44020" name="Паказваць водступы"/>
+                    <Item id="44022" name="Перанос радкоў"/>
+                    <Item id="44023" name="Павялічыць&amp;: Ctrl+колца мышкі ўверх"/>
+                    <Item id="44024" name="Павялічыць&amp;: Ctrl+колца мышкі ўніз"/>
+                    <Item id="44025" name="Паказваць Прабелы і Табуляцыю"/>
+                    <Item id="44026" name="Паказваць сімвал заканчэння радка"/>
+                    <Item id="44029" name="Разгарнуць усё"/>
+                    <Item id="44030" name="Згарнуць бягучы ўзровень"/>
+                    <Item id="44031" name="Разгарнуць бягучы ўзровень"/>
+                    <Item id="44049" name="Справаздача..."/>
+                    <Item id="44080" name="Карта дакумента"/>
+                    <Item id="44084" name="Спіс функцый"/>
+                    <Item id="44085" name="Папка ў выглядзе &amp;Працоўнай вобласці"/>
+                    <Item id="44086" name="1-ая ўкладка"/>
+                    <Item id="44087" name="2-ая ўкладка"/>
+                    <Item id="44088" name="3-яя ўкладка"/>
+                    <Item id="44089" name="4-ая ўкладка"/>
+                    <Item id="44090" name="5-ая ўкладка"/>
+                    <Item id="44091" name="6-ая ўкладка"/>
+                    <Item id="44092" name="7-ая ўкладка"/>
+                    <Item id="44093" name="8-ая ўкладка"/>
+                    <Item id="44094" name="9-ая ўкладка"/>
+                    <Item id="44095" name="Наступная ўкладка"/>
+                    <Item id="44096" name="Папярэдняя ўкладка"/>
+                    <Item id="44097" name="Маніторынг (tail -f)"/>
+                    <Item id="44098" name="Перамясціць укладку ўперад"/>
+                    <Item id="44099" name="Перамясціць укладку назад"/>
+                    <Item id="44032" name="Пераключыцца ў рэжым поўнага экрана"/>
+                    <Item id="44033" name="Аднавіць маштаб па змаўчанні"/>
+                    <Item id="44034" name="Заўсёды зверху"/>
+                    <Item id="44035" name="Сінхранізаваць вертыкальную прагортку&quot;"/>
+                    <Item id="44036" name="Сінхранізаваць гарызантальную прагортку&quot;"/>
+                    <Item id="44041" name="Паказваць сімвал пераносу радка"/>
+                    <Item id="44072" name="Сфакусавацца на іншым выглядзе"/>
+                    <Item id="44081" name="Панэль праекту 1"/>
+                    <Item id="44082" name="Панэль праекту 2"/>
+                    <Item id="44083" name="Панэль праекту 3"/>
+                    <Item id="45001" name="Канвертаваць ў фармат Windows"/>
+                    <Item id="45002" name="Канвертаваць ў фармат UNIX"/>
+                    <Item id="45003" name="Канвертаваць ў фармат MAC"/>
+                    <Item id="45004" name="Кадаваць у ANSI"/>
+                    <Item id="45005" name="Кадаваць у UTF-8"/>
+                    <Item id="45006" name="Кадаваць у UCS-2 Big Endian"/>
+                    <Item id="45007" name="Кадаваць у UCS-2 Little Endian"/>
+                    <Item id="45008" name="Кадаваць у UTF-8 без пазнакі BOM"/>
+                    <Item id="45009" name="Кадаваць у ANSI"/>
+                    <Item id="45010" name="Кадаваць у UTF-8 без пазнакі BOM"/>
+                    <Item id="45011" name="Кадаваць у UTF-8"/>
+                    <Item id="45012" name="Кадаваць у UCS-2 Big Endian"/>
+                    <Item id="45013" name="Кадаваць у UCS-2 Little Endian"/>
 
-                    <Item id="10001" name="Move to Other View"/>
-                    <Item id="10002" name="Clone to Other View"/>
-                    <Item id="10003" name="Move to New Instance"/>
-                    <Item id="10004" name="Open in New Instance"/>
+                    <Item id="10001" name="Перайсці да іншага выгляду"/>
+                    <Item id="10002" name="Кланаваць у іншы выгляд"/>
+                    <Item id="10003" name="Перайсці да новага экзэмпляра"/>
+                    <Item id="10004" name="Адкрыць у новым экзэмпляры"/>
 
-                    <Item id="46001" name="Style Configurator..."/>
-                    <Item id="46150" name="Define your language..."/>
-                    <Item id="46080" name="User-Defined"/>
-                    <Item id="47000" name="About Notepad++..."/>
-                    <Item id="47010" name="Command Line Arguments..."/>
-                    <Item id="47001" name="Notepad++ Home"/>
-                    <Item id="47002" name="Notepad++ Project Page"/>
-                    <Item id="47003" name="Online Documentation"/>
-					<Item id="47004" name="Notepad++ Community (Forum)"/>
-                    <Item id="47011" name="Live Support"/>
-                    <Item id="47012" name="Debug Info..."/>
-                    <Item id="47005" name="Get More Plugins"/>
-                    <Item id="47006" name="Update Notepad++"/>
-                    <Item id="47009" name="Set Updater Proxy..."/>
-                    <Item id="48005" name="Import Plugin(s) ..."/>
-                    <Item id="48006" name="Import Theme(s) ..."/>
-                    <Item id="48018" name="Edit Popup ContextMenu"/>
-                    <Item id="48009" name="Shortcut Mapper..."/>
-                    <Item id="48011" name="Preferences..."/>
+                    <Item id="46001" name="Канфігуратар стыляў..."/>
+                    <Item id="46150" name="Вызначце сваю мову..."/>
+                    <Item id="46080" name="Вызначаныя карыстальнікам"/>
+                    <Item id="47000" name="Пра Notepad++..."/>
+                    <Item id="47010" name="Аргументы каманднага радка..."/>
+                    <Item id="47001" name="Хатняя старонка Notepad++"/>
+                    <Item id="47002" name="Старонка праекта Notepad++"/>
+                    <Item id="47003" name="Дакументацыя ў сеціве"/>
+					<Item id="47004" name="Супольнасць Notepad++ (Форум)"/>
+                    <Item id="47011" name="Тэхнічная падтрымка"/>
+                    <Item id="47012" name="Адладачная інфармацыя..."/>
+                    <Item id="47005" name="Атрымаць больш модуляў"/>
+                    <Item id="47006" name="Абнавіць Notepad++"/>
+                    <Item id="47009" name="Прызначыць проксі абнаўлення..."/>
+                    <Item id="48005" name="Імпарт модуля(-ў)..."/>
+                    <Item id="48006" name="Імпарт тэмы(-аў)..."/>
+                    <Item id="48018" name="Змяніць кантэкстнае меню"/>
+                    <Item id="48009" name="Спалучэнні клавішаў..."/>
+                    <Item id="48011" name="Налады..."/>
                     <Item id="48501" name="Generate..."/>
                     <Item id="48502" name="Generate from files..."/>
                     <Item id="48503" name="Generate into clipboard"/>
@@ -313,97 +313,97 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Close"/>
-                    <Item CMID="1" name="Close All BUT This"/>
-                    <Item CMID="2" name="Save"/>
-                    <Item CMID="3" name="Save As..."/>
-                    <Item CMID="4" name="Print"/>
-                    <Item CMID="5" name="Move to Other View"/>
-                    <Item CMID="6" name="Clone to Other View"/>
-                    <Item CMID="7" name="Full File Path to Clipboard"/>
-                    <Item CMID="8" name="Filename to Clipboard"/>
-                    <Item CMID="9" name="Current Dir. Path to Clipboard"/>
-                    <Item CMID="10" name="Rename"/>
-                    <Item CMID="11" name="Move to Recycle Bin"/>
-                    <Item CMID="12" name="Read-Only"/>
-                    <Item CMID="13" name="Clear Read-Only Flag"/>
-                    <Item CMID="14" name="Move to New Instance"/>
-                    <Item CMID="15" name="Open in New Instance"/>
-                    <Item CMID="16" name="Reload"/>
-                    <Item CMID="17" name="Close All to the Left"/>
-                    <Item CMID="18" name="Close All to the Right"/>
-                    <Item CMID="19" name="Open Containing Folder in Explorer"/>
-                    <Item CMID="20" name="Open Containing Folder in cmd"/>
+                    <Item CMID="0" name="Закрыць"/>
+                    <Item CMID="1" name="Закрыць усё, АКРАМЯ бягучага"/>
+                    <Item CMID="2" name="Захаваць"/>
+                    <Item CMID="3" name="Захаваць як..."/>
+                    <Item CMID="4" name="Друк"/>
+                    <Item CMID="5" name="Перайсці да іншага выгляду"/>
+                    <Item CMID="6" name="Кланаваць у іншы выгляд"/>
+                    <Item CMID="7" name="Поўны шлях файла да буфера абмену"/>
+                    <Item CMID="8" name="Назву файла ў буфер абмену"/>
+                    <Item CMID="9" name="Бягучы шлях каталогу ў буфер абмену"/>
+                    <Item CMID="10" name="Перайменаваць"/>
+                    <Item CMID="11" name="Перамясціць у сметніцу"/>
+                    <Item CMID="12" name="Толькі чытанне"/>
+                    <Item CMID="13" name="Прыбраць атрыбут толькі на чытанне"/>
+                    <Item CMID="14" name="Перайсці да новага экзэмпляра"/>
+                    <Item CMID="15" name="Адкрыць у новым экзэмпляры"/>
+                    <Item CMID="16" name="Перазагрузіць"/>
+                    <Item CMID="17" name="Закрыць усё з левага боку"/>
+                    <Item CMID="18" name="Закрыць усё з правага боку"/>
+                    <Item CMID="19" name="Адкрыць папку размяшчэння ў Правадніку"/>
+                    <Item CMID="20" name="Адкрыць папку змесціва ў кам. радку"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
-                <Item id="1"    name="Find Next"/>
-                <Item id="2"    name="Close"/>
-                <Item id="1620" name="Find what:"/>
-                <Item id="1603" name="Match &amp;whole word only"/>
-                <Item id="1604" name="Match &amp;case"/>
-                <Item id="1605" name="Regular &amp;expression"/>
-                <Item id="1606" name="Wrap aroun&amp;d"/>
-                <Item id="1612" name="&amp;Up"/>
-                <Item id="1613" name="&amp;Down"/>
-                <Item id="1614" name="Count"/>
-                <Item id="1615" name="Find All"/>
-                <Item id="1616" name="Mark line"/>
-                <Item id="1618" name="Purge for each search"/>
-                <Item id="1621" name="Direction"/>
-                <Item id="1611" name="Re&amp;place with:"/>
-                <Item id="1608" name="&amp;Replace"/>
-                <Item id="1609" name="Replace &amp;All"/>
-                <Item id="1687" name="On losing focus"/>
-                <Item id="1688" name="Always"/>
-                <Item id="1632" name="In selection"/>
-                <Item id="1633" name="Clear"/>
-                <Item id="1635" name="Replace All in All Opened Documents"/>
-                <Item id="1636" name="Find All in All Opened Documents"/>
-                <Item id="1654" name="Filters:"/>
-                <Item id="1655" name="Directory:"/>
-                <Item id="1656" name="Find All"/>
-                <Item id="1658" name="In all sub-folders"/>
-                <Item id="1659" name="In hidden folders"/>
-                <Item id="1624" name="Search mode"/>
-                <Item id="1625" name="Normal"/>
-                <Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="Replace in Files"/>
-                <Item id="1661" name="Follow current doc."/>
-                <Item id="1641" name="Find All in Current Document"/>
-                <Item id="1686" name="Transparency"/>
-                <Item id="1703" name="&amp;. matches newline"/>
+            <Find title="" titleFind="Знайсці" titleReplace="Замяніць" titleFindInFiles="Знайсці ў файлах" titleMark="Пазнака">
+                <Item id="1"    name="Шукаць далей"/>
+                <Item id="2"    name="Закрыць"/>
+                <Item id="1620" name="Што шукаць :"/>
+                <Item id="1603" name="Толькі &amp;цэлыя словы"/>
+                <Item id="1604" name="Улічваць &amp;рэгістр"/>
+                <Item id="1605" name="Рэгулярныя в&amp;ыказванні"/>
+                <Item id="1606" name="Перанос с&amp;лоў"/>
+                <Item id="1612" name="&amp;Уверх"/>
+                <Item id="1613" name="У&amp;ніз"/>
+                <Item id="1614" name="Падлік"/>
+                <Item id="1615" name="Шукаць усё"/>
+                <Item id="1616" name="Пазнакі радкі"/>
+                <Item id="1618" name="Ачысціць для кожнага пошуку"/>
+                <Item id="1621" name="Накірунак"/>
+                <Item id="1611" name="За&amp;мяніць на:"/>
+                <Item id="1608" name="&amp;Замяніць"/>
+                <Item id="1609" name="Замяніць &amp;усё"/>
+                <Item id="1687" name="Калі не актыўна"/>
+                <Item id="1688" name="Заўсёды"/>
+                <Item id="1632" name="У вылучаным"/>
+                <Item id="1633" name="Ачысціць"/>
+                <Item id="1635" name="Ачысціць усё ў ва ўсіх адкрытых дакументах"/>
+                <Item id="1636" name="Знайсці ўсё ў ва ўсіх адкрытых дакументах"/>
+                <Item id="1654" name="Фільтры:"/>
+                <Item id="1655" name="Каталог:"/>
+                <Item id="1656" name="Шукаць усё"/>
+                <Item id="1658" name="Ва ўсіх падпапках"/>
+                <Item id="1659" name="У схаваных папках"/>
+                <Item id="1624" name="Рэжым пошуку"/>
+                <Item id="1625" name="Звычайны"/>
+                <Item id="1626" name="Пашыраны (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="Замяніць у файлах"/>
+                <Item id="1661" name="Наст. за бягучым дак."/>
+                <Item id="1641" name="Знайсці ўсё ў бягучым дакуменце"/>
+                <Item id="1686" name="Празрыстасць"/>
+                <Item id="1703" name="&amp;. адпавядае новаму радку"/>
             </Find>
 
-            <FindCharsInRange title="Find Characters in Range...">
-                <Item id="2" name="Close"/>
-                <Item id="2901" name="Non-ASCII Characters (128-255)"/>
-                <Item id="2902" name="ASCII Characters (0-127)"/>
-                <Item id="2903" name="My range:"/>
-                <Item id="2906" name="&amp;Up"/>
-                <Item id="2907" name="&amp;Down"/>
-                <Item id="2908" name="Direction"/>
-                <Item id="2909" name="Wra&amp;p around"/>
-                <Item id="2910" name="Find"/>
+            <FindCharsInRange title="Знайсці сімвалы ў дыяпазоне...">
+                <Item id="2" name="Закрыць"/>
+                <Item id="2901" name="Не ASCII сімвалы (128-255)"/>
+                <Item id="2902" name="Сімвалы ASCII (0-127)"/>
+                <Item id="2903" name="Мой дыяпазон:"/>
+                <Item id="2906" name="&amp;Уверх"/>
+                <Item id="2907" name="&amp;Уніз"/>
+                <Item id="2908" name="Накірунак"/>
+                <Item id="2909" name="Абцякан&amp;не тэкстам"/>
+                <Item id="2910" name="Знайсці"/>
             </FindCharsInRange>
 
-            <GoToLine title="Go to...">
-                <Item id="2007" name="Line"/>
-                <Item id="2008" name="Offset"/>
-                <Item id="1"    name="&amp;Go"/>
-                <Item id="2"    name="I'm going nowhere"/>
-                <Item id="2004" name="You are here:"/>
-                <Item id="2005" name="You want to go to:"/>
+            <GoToLine title="Перайсці да...">
+                <Item id="2007" name="Радок"/>
+                <Item id="2008" name="Зрух"/>
+                <Item id="1"    name="&amp;Наперад!"/>
+                <Item id="2"    name="Не хачу нікуды"/>
+                <Item id="2004" name="Вы тут:"/>
+                <Item id="2005" name="Хочаце прайсці да:"/>
                 <Item id="2006" name="You can't go further than:"/>
             </GoToLine>
 
-            <Run title="Run...">
-                <Item id="1903" name="The Program to Run"/>
-                <Item id="1"    name="Run"/>
-                <Item id="2"    name="Cancel"/>
-                <Item id="1904" name="Save..."/>
+            <Run title="Запуск...">
+                <Item id="1903" name="Увядзіце параметр запуску праграмы"/>
+                <Item id="1"    name="Запуск"/>
+                <Item id="2"    name="Адмена"/>
+                <Item id="1904" name="Захаваць..."/>
             </Run>
 
             <MD5FromFilesDlg title="Generate MD5 digest from files">
@@ -418,18 +418,18 @@
                 <Item id="2"    name="Close"/>
             </MD5FromTextDlg>
 
-            <StyleConfig title="Style Configurator">
+            <StyleConfig title="Канфігуратар стыляў">
                 <Item id="2"    name="Cancel"/>
                 <Item id="2301" name="Save &amp;&amp; Close"/>
                 <Item id="2303" name="Transparency"/>
                 <Item id="2306" name="Select theme: "/>
                 <SubDialog>
-                    <Item id="2204" name="Bold"/>
-                    <Item id="2205" name="Italic"/>
-                    <Item id="2206" name="Foreground colour"/>
-                    <Item id="2207" name="Background colour"/>
-                    <Item id="2208" name="Font name:"/>
-                    <Item id="2209" name="Font size:"/>
+                    <Item id="2204" name="Тоўсты"/>
+                    <Item id="2205" name="Курсіў"/>
+                    <Item id="2206" name="Колер пярэдняга плану"/>
+                    <Item id="2207" name="Колер задняга плану"/>
+                    <Item id="2208" name="Назва шрыфту:"/>
+                    <Item id="2209" name="Памер шрыфту:"/>
                     <Item id="2211" name="Style:"/>
                     <Item id="2212" name="Colour Style"/>
                     <Item id="2213" name="Font Style"/>
@@ -450,7 +450,7 @@
 
             </StyleConfig>
 
-            <UserDefine title="User-Defined">
+            <UserDefine title="Вызначаныя карыстальнікам">
                 <Item id="20001" name="Dock"/>
                 <Item id="20002" name="Rename"/>
                 <Item id="20003" name="Create New..."/>
@@ -480,24 +480,24 @@
                     <Item id="25013" name="Delimiter 6"/>
                     <Item id="25014" name="Delimiter 7"/>
                     <Item id="25015" name="Delimiter 8"/>
-                    <Item id="25018" name="Keyword 1"/>
-                    <Item id="25019" name="Keyword 2"/>
-                    <Item id="25020" name="Keyword 3"/>
-                    <Item id="25021" name="Keyword 4"/>
-                    <Item id="25022" name="Keyword 5"/>
-                    <Item id="25023" name="Keyword 6"/>
-                    <Item id="25024" name="Keyword 7"/>
-                    <Item id="25025" name="Keyword 8"/>
-                    <Item id="25016" name="Comment"/>
-                    <Item id="25017" name="Comment line"/>
+                    <Item id="25018" name="Ключавое слова 1"/>
+                    <Item id="25019" name="Ключавое слова 2"/>
+                    <Item id="25020" name="Ключавое слова 3"/>
+                    <Item id="25021" name="Ключавое слова 4"/>
+                    <Item id="25022" name="Ключавое слова 5"/>
+                    <Item id="25023" name="Ключавое слова 6"/>
+                    <Item id="25024" name="Ключавое слова 7"/>
+                    <Item id="25025" name="Ключавое слова 8"/>
+                    <Item id="25016" name="Каментар"/>
+                    <Item id="25017" name="Каментар радка"/>
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Numbers"/>
 					<Item id="1" name="OK"/>
                     <Item id="2" name="Cancel"/>
                 </StylerDialog>
-                <Folder title="Folder &amp;&amp; Default">
-                    <Item id="21101" name="Default style"/>
+                <Folder title="Папка па &amp;&amp; змаўчанні">
+                    <Item id="21101" name="Стыль па змаўчанні"/>
                     <Item id="21102" name="Styler"/>
                     <Item id="21105" name="Documentation:"/>
                     <Item id="21104" name="Temporary doc site:"/>
@@ -512,17 +512,17 @@
                     <Item id="21325" name="Middle:"/>
                     <Item id="21326" name="Close:"/>
                     <Item id="21327" name="Styler"/>
-                    <Item id="21420" name="Folding in comment style:"/>
+                    <Item id="21420" name="Згортванне ў стылі каментара:"/>
                     <Item id="21424" name="Open:"/>
                     <Item id="21425" name="Middle:"/>
                     <Item id="21426" name="Close:"/>
                     <Item id="21427" name="Styler"/>
                 </Folder>
-                <Keywords title="Keywords Lists">
-                    <Item id="22101" name="1st Group"/>
-                    <Item id="22201" name="2nd Group"/>
-                    <Item id="22301" name="3rd Group"/>
-                    <Item id="22401" name="4th Group"/>
+                <Keywords title="Спісы ключавых слоў">
+                    <Item id="22101" name="Першая група"/>
+                    <Item id="22201" name="Другая група"/>
+                    <Item id="22301" name="Трэцяя група"/>
+                    <Item id="22401" name="Чацвёртая група"/>
                     <Item id="22451" name="5th Group"/>
                     <Item id="22501" name="6th Group"/>
                     <Item id="22551" name="7th Group"/>
@@ -544,36 +544,36 @@
                     <Item id="22572" name="Styler"/>
                     <Item id="22622" name="Styler"/>
                 </Keywords>
-                <Comment title="Comment &amp;&amp; Number">
-                    <Item id="23003" name="Line comment position"/>
-                    <Item id="23004" name="Allow anywhere"/>
-                    <Item id="23005" name="Force at beginning of line"/>
-                    <Item id="23006" name="Allow preceeding whitespace"/>
-                    <Item id="23001" name="Allow folding of comments"/>
-                    <Item id="23326" name="Styler"/>
-                    <Item id="23323" name="Open"/>
-                    <Item id="23324" name="Continue character"/>
-                    <Item id="23325" name="Close"/>
-                    <Item id="23301" name="Comment line style"/>
-                    <Item id="23124" name="Styler"/>
-                    <Item id="23122" name="Open"/>
-                    <Item id="23123" name="Close"/>
-                    <Item id="23101" name="Comment style"/>
-                    <Item id="23201" name="Number style"/>
-                    <Item id="23220" name="Styler"/>
-                    <Item id="23230" name="Prefix 1"/>
-                    <Item id="23232" name="Prefix 2"/>
-                    <Item id="23234" name="Extras 1"/>
-                    <Item id="23236" name="Extras 2"/>
-                    <Item id="23238" name="Suffix 1"/>
-                    <Item id="23240" name="Suffix 2"/>
-                    <Item id="23242" name="Range:"/>
-                    <Item id="23244" name="Decimal separator"/>
-                    <Item id="23245" name="Dot"/>
-                    <Item id="23246" name="Comma"/>
-                    <Item id="23247" name="Both"/>
+                <Comment title="Каментары &amp;&amp; і нумар">
+                    <Item id="23003" name="Пазіцыя радка каментара"/>
+                    <Item id="23004" name="Дазволіць паўсюль"/>
+                    <Item id="23005" name="Размясціць на пачатку радка"/>
+                    <Item id="23006" name="Дазволіць прабелы на пачатку радка"/>
+                    <Item id="23001" name="Дазволіць згортванне каментароў"/>
+                    <Item id="23326" name="Стыль"/>
+                    <Item id="23323" name="Адкрыць"/>
+                    <Item id="23324" name="Сімвал працягу"/>
+                    <Item id="23325" name="Закрыць"/>
+                    <Item id="23301" name="Стыль радка каментара"/>
+                    <Item id="23124" name="Стыль"/>
+                    <Item id="23122" name="Адкрыць"/>
+                    <Item id="23123" name="Закрыць"/>
+                    <Item id="23101" name="Стыль каментара"/>
+                    <Item id="23201" name="Стыль нумару"/>
+                    <Item id="23220" name="Стыль"/>
+                    <Item id="23230" name="Прэфікс 1"/>
+                    <Item id="23232" name="Прэфікс 2"/>
+                    <Item id="23234" name="Дадатак 1"/>
+                    <Item id="23236" name="Дадатак 2"/>
+                    <Item id="23238" name="Суфікс 1"/>
+                    <Item id="23240" name="Суфікс 2"/>
+                    <Item id="23242" name="Дыяпазон:"/>
+                    <Item id="23244" name="Дзесятковы раздзяляльнік"/>
+                    <Item id="23245" name="Кропка"/>
+                    <Item id="23246" name="Коска"/>
+                    <Item id="23247" name="Абодва"/>
                 </Comment>
-                <Operator title="Operators &amp;&amp; Delimiter">
+                <Operator title="Аператары і &amp;&amp; раздзяляльнікі">
                     <Item id="24101" name="Operators style"/>
                     <Item id="24113" name="Styler"/>
                     <Item id="24116" name="Operators 1"/>
@@ -620,22 +620,22 @@
                     <Item id="24673" name="Styler"/>
                 </Operator>
             </UserDefine>
-            <Preference title="Preferences">
-                <Item id="6001" name="Close"/>
-                <Global title="General">
-                    <Item id="6101" name="Toolbar"/>
-                    <Item id="6102" name="Hide"/>
-                    <Item id="6103" name="Small icons"/>
-                    <Item id="6104" name="Big icons"/>
-                    <Item id="6105" name="Standard icons"/>
+            <Preference title="Налады">
+                <Item id="6001" name="Закрыць"/>
+                <Global title="Агульныя">
+                    <Item id="6101" name="Панэль прылад"/>
+                    <Item id="6102" name="Схаваць"/>
+                    <Item id="6103" name="Дробныя значкі"/>
+                    <Item id="6104" name="Буйныя значкі"/>
+                    <Item id="6105" name="Звычайныя значкі"/>
 
-                    <Item id="6106" name="Tab Bar"/>
-                    <Item id="6107" name="Reduce"/>
-                    <Item id="6108" name="Lock (no drag and drop)"/>
-                    <Item id="6109" name="Darken inactive tabs"/>
-                    <Item id="6110" name="Draw a coloured bar on active tab"/>
+                    <Item id="6106" name="Панэль укладак"/>
+                    <Item id="6107" name="Зменшыць"/>
+                    <Item id="6108" name="Забараніць перацягванне"/>
+                    <Item id="6109" name="Неактыўныя ўкладкі шэрага колеру"/>
+                    <Item id="6110" name="Ружовая лінія над актыўнай"/>
 
-                    <Item id="6111" name="Show status bar"/>
+                    <Item id="6111" name="Паказваць радок стану"/>
                     <Item id="6112" name="Show close button on each tab"/>
                     <Item id="6113" name="Double click to close document"/>
                     <Item id="6118" name="Hide"/>
@@ -650,7 +650,7 @@
                     <Item id="6126" name="Show"/>
                     <Item id="6127" name="Disable extension column"/>
                 </Global>
-                <Scintillas title="Editing">
+                <Scintillas title="Змяненне">
                     <Item id="6216" name="Caret Settings"/>
                     <Item id="6217" name="Width:"/>
                     <Item id="6219" name="Blink Rate:"/>
@@ -687,18 +687,18 @@
                     <Item id="6236" name="Enable scrolling beyond last line"/>
                 </Scintillas>
 
-                <NewDoc title="New Document">
-                    <Item id="6401" name="Format"/>
+                <NewDoc title="Стварыць дакумент">
+                    <Item id="6401" name="Фармат"/>
                     <Item id="6402" name="Windows"/>
                     <Item id="6403" name="Unix"/>
                     <Item id="6404" name="Mac"/>
-                    <Item id="6405" name="Encoding"/>
+                    <Item id="6405" name="Кадаванне"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8"/>
-                    <Item id="6408" name="UTF-8 with BOM"/>
-                    <Item id="6409" name="UCS-2 Big Endian with BOM"/>
-                    <Item id="6410" name="UCS-2 Little Endian with BOM"/>
-                    <Item id="6411" name="Default language:"/>
+                    <Item id="6408" name="UTF-8 з пазнакай BOM"/>
+                    <Item id="6409" name="UCS2 Big endian з пазнакай BOM"/>
+                    <Item id="6410" name="UCS2 small endian з пазнакай BOM"/>
+                    <Item id="6411" name="Мова па змаўчанні:"/>
                     <Item id="6419" name="New Document"/>
                     <Item id="6420" name="Apply to opened ANSI files"/>
                 </NewDoc>
@@ -711,9 +711,9 @@
                     <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
                 </DefaultDir>
 
-                <FileAssoc title="File Association">
-                    <Item id="4009" name="Supported extensions:"/>
-                    <Item id="4010" name="Registered extensions:"/>
+                <FileAssoc title="Асацыяцыі файлаў">
+                    <Item id="4009" name="Пашырэнні, якія падтрымліваюцца:"/>
+                    <Item id="4010" name="Зарэгістраваныя пашырэнні:"/>
                 </FileAssoc>
                 <Language title="Language">
                     <Item id="6505" name="Available items"/>
@@ -739,32 +739,32 @@
                     <Item id="6330" name="Highlight comment/php/asp zone"/>
                 </Highlighting>
 
-                <Print title="Print">
-                    <Item id="6601" name="Print line number"/>
-                    <Item id="6602" name="Colour Options"/>
-                    <Item id="6603" name="WYSIWYG"/>
-                    <Item id="6604" name="Invert"/>
-                    <Item id="6605" name="Black on white"/>
-                    <Item id="6606" name="No background colour"/>
-                    <Item id="6607" name="Marge Settings (Unit:mm)"/>
-                    <Item id="6612" name="Left"/>
-                    <Item id="6613" name="Top"/>
-                    <Item id="6614" name="Right"/>
-                    <Item id="6615" name="Bottom"/>
-                    <Item id="6706" name="Bold"/>
-                    <Item id="6707" name="Italic"/>
-                    <Item id="6708" name="Header"/>
-                    <Item id="6709" name="Left part"/>
-                    <Item id="6710" name="Middle part"/>
-                    <Item id="6711" name="Right part"/>
-                    <Item id="6717" name="Bold"/>
-                    <Item id="6718" name="Italic"/>
-                    <Item id="6719" name="Footer"/>
-                    <Item id="6720" name="Left part"/>
-                    <Item id="6721" name="Middle part"/>
-                    <Item id="6722" name="Right part"/>
-                    <Item id="6723" name="Add"/>
-                    <Item id="6725" name="Variable:"/>
+                <Print title="Друк">
+                    <Item id="6601" name="Друкаваць нумары радкоў"/>
+                    <Item id="6602" name="Каляровая схема"/>
+                    <Item id="6603" name="Як бачыце на экране"/>
+                    <Item id="6604" name="Інвертаваць"/>
+                    <Item id="6605" name="Чорным па белым"/>
+                    <Item id="6606" name="Не выкарыстоўваць колер фону"/>
+                    <Item id="6607" name="Налады водступаў (у мм)&quot;"/>
+                    <Item id="6612" name="Злева"/>
+                    <Item id="6613" name="Уверсе"/>
+                    <Item id="6614" name="Справа"/>
+                    <Item id="6615" name="Унізе"/>
+                    <Item id="6706" name="Тоўсты"/>
+                    <Item id="6707" name="Курсіў"/>
+                    <Item id="6708" name="Верхні калантытул"/>
+                    <Item id="6709" name="Левая частка"/>
+                    <Item id="6710" name="Сярэдняя частка"/>
+                    <Item id="6711" name="Правая частка"/>
+                    <Item id="6717" name="Тоўсты"/>
+                    <Item id="6718" name="Курсіў"/>
+                    <Item id="6719" name="Ніжні калантытул"/>
+                    <Item id="6720" name="Левая частка"/>
+                    <Item id="6721" name="Сярэдняя частка"/>
+                    <Item id="6722" name="Правая частка"/>
+                    <Item id="6723" name="Дадаць"/>
+                    <Item id="6725" name="Зменная:"/>
                     <Item id="6727" name="Here display your variable settings"/>
                     <Item id="6728" name="Header and Footer"/>
                 </Print>
@@ -851,7 +851,7 @@
                     <Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 
-                <MISC title="MISC.">
+                <MISC title="Рознае">
                     <Item id="6307" name="Enable"/>
                     <Item id="6308" name="Minimize to system tray"/>
                     <Item id="6312" name="File Status Auto-Detection"/>
@@ -872,20 +872,20 @@
                     <Item id="6117" name="Enable MRU behaviour"/>
                 </MISC>
             </Preference>
-            <MultiMacro title="Run a Macro Multiple Times">
-                <Item id="1" name="Run"/>
-                <Item id="2" name="Cancel"/>
-                <Item id="8006" name="Macro to run:"/>
-                <Item id="8001" name="Run"/>
-                <Item id="8005" name="times"/>
-                <Item id="8002" name="Run until the end of file"/>
+            <MultiMacro title="Шматразовы запуск макраса">
+                <Item id="1" name="Запуск"/>
+                <Item id="2" name="Адмена"/>
+                <Item id="8006" name="Макрас:"/>
+                <Item id="8001" name="Запуск"/>
+                <Item id="8005" name="разоў"/>
+                <Item id="8002" name="Выканаць да канца файла"/>
             </MultiMacro>
-            <Window title="Windows">
-                <Item id="1" name="Activate"/>
+            <Window title="Вокны">
+                <Item id="1" name="Актываваць"/>
                 <Item id="2" name="OK"/>
-                <Item id="7002" name="Save"/>
-                <Item id="7003" name="Close window(s)"/>
-                <Item id="7004" name="Sort tabs"/>
+                <Item id="7002" name="Захаваць"/>
+                <Item id="7003" name="Закрыць акно/вокны"/>
+                <Item id="7004" name="Сартаваць укладкі"/>
             </Window>
             <ColumnEditor title="Column Editor">
                 <Item id="2023" name="Text to Insert"/>

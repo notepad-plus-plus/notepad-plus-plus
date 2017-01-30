@@ -158,10 +158,16 @@ INT_PTR CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						if ((*_ppEditView)->execute(SCI_SELECTIONISRECTANGLE) || (*_ppEditView)->execute(SCI_GETSELECTIONS) > 1)
 						{
 							ColumnModeInfos colInfos = (*_ppEditView)->getColumnModeSelectInfo();
-							std::sort(colInfos.begin(), colInfos.end(), SortInPositionOrder());
-							(*_ppEditView)->columnReplace(colInfos, initialNumber, increaseNumber, repeat, format);
-							std::sort(colInfos.begin(), colInfos.end(), SortInSelectOrder());
-							(*_ppEditView)->setMultiSelections(colInfos);
+
+							// If there is no column mode info available, no need to do anything
+							// If required a message can be shown to user, that select column properly or something similar
+							if (colInfos.size() > 0)
+							{
+								std::sort(colInfos.begin(), colInfos.end(), SortInPositionOrder());
+								(*_ppEditView)->columnReplace(colInfos, initialNumber, increaseNumber, repeat, format);
+								std::sort(colInfos.begin(), colInfos.end(), SortInSelectOrder());
+								(*_ppEditView)->setMultiSelections(colInfos);
+							}
 						}
 						else
 						{

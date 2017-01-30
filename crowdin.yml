@@ -1,7 +1,0 @@
-files:
-  - source: /PowerEditor/installer/nativeLang/english.xml
-    translation: /%original_path%/%language%.%file_extension%
-    languages_mapping:
-      language:
-        be: belarusian
-        uk: ukrainian

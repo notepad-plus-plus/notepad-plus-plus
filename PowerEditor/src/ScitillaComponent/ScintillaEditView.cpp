@@ -2765,6 +2765,11 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 {
 	assert(repeat > 0);
 
+	// If there is no column mode info available, no need to do anything
+	// If required a message can be shown to user, that select column properly or something similar
+	// It is just a double check as taken in callee method (in case this method is called from multiple places)
+	if (cmi.size() <= 0)
+		return;
 	// 0000 00 00 : Dec BASE_10
 	// 0000 00 01 : Hex BASE_16
 	// 0000 00 10 : Oct BASE_08

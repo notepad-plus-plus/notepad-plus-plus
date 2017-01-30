@@ -85,7 +85,7 @@ page Custom ExtraOptions
 ;!insertmacro GetParameters
 
 
-!include "nsisInclude\langs.nsh"
+!include "nsisInclude\langs4Installer.nsh"
 
 Var diffArchDir2Remove
 Function .onInit
@@ -163,6 +163,7 @@ Section -"Notepad++" mainSection
 	
 SectionEnd
 
+!include "nsisInclude\langs4Npp.nsh"
 !include "nsisInclude\autoCompletion.nsh"
 !include "nsisInclude\themes.nsh"
 !include "nsisInclude\binariesComponents.nsh"

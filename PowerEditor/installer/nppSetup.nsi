@@ -163,6 +163,7 @@ Section -"Notepad++" mainSection
 	
 SectionEnd
 
+!include "nsisInclude\langs2.nsh"
 !include "nsisInclude\autoCompletion.nsh"
 !include "nsisInclude\themes.nsh"
 !include "nsisInclude\binariesComponents.nsh"

@@ -330,10 +330,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	if (nppGUI._multiInstSetting == multiInst)
 	{
 		isMultiInst = true;
-		// Only the first launch remembers the session
-		if (!TheFirstOne)
-			cmdLineParams._isNoSession = true;
 	}
+
+	// Only the first launch remembers the session
+	if (!TheFirstOne)
+		cmdLineParams._isNoSession = true;
 
 	generic_string quotFileName = TEXT("");
     // tell the running instance the FULL path to the new files to load

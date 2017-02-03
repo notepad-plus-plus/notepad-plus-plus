@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="&amp;Кодировки"/>
                     <Item menuId="language" name="&amp;Синтаксисы"/>
                     <Item menuId="settings" name="&amp;Опции"/>
+                    <Item menuId="tools" name="&amp;Инструменты"/>
                     <Item menuId="macro" name="&amp;Макросы"/>
                     <Item menuId="run" name="&amp;Запуск"/>
                     <Item idName="Plugins" name="Плаги&amp;ны"/>

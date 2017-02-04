@@ -574,7 +574,6 @@ private:
 	void retrieveDefaultWordChars(std::string & charList);
 	void addCustomWordChars();
 	void restoreDefaultWordChars();
-	void setCustomWordChars();
 
 	static int getRandomNumber(int rangeMax = -1)
 	{

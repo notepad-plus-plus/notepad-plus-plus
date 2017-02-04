@@ -6692,14 +6692,6 @@ void Notepad_plus::restoreDefaultWordChars()
 	_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._defaultWordChars.c_str()));
 }
 
-void Notepad_plus::setCustomWordChars()
-{
-	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
-	_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._customWordChars.c_str()));
-	_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._customWordChars.c_str()));
-}
-
 void Notepad_plus::addCustomWordChars()
 {
 	NppParameters *pNppParam = NppParameters::getInstance();

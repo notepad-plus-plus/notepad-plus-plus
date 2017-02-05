@@ -254,4 +254,10 @@ SectionGroup un.Themes
 	${endIf}
 	SectionEnd
 	
+	Section un.RemoveThemesDir
+		; As if all the files are deleted remove current dir
+		; if files are kept because of $keepUserData, current dir will not be deleted
+		RMDir "$themesParentPath\themes\"
+		RMDir "$themesParentPath\"
+	SectionEnd
 SectionGroupEnd

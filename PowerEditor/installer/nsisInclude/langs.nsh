@@ -405,7 +405,7 @@ SectionGroup "Localization" localization
 SectionGroupEnd
 
 SectionGroup un.localization
-	SetOverwrite on
+
 	Section un.afrikaans
 		Delete "$INSTDIR\localization\afrikaans.xml"
 	SectionEnd
@@ -511,7 +511,7 @@ SectionGroup un.localization
 	Section un.hebrew
 		Delete "$INSTDIR\localization\hebrew.xml"
 	SectionEnd
-		Section un.hindi
+	Section un.hindi
 		Delete "$INSTDIR\localization\hindi.xml"
 	SectionEnd
 	Section un.hungarian
@@ -663,5 +663,10 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.welsh
 		Delete "$INSTDIR\localization\welsh.xml"
+	SectionEnd
+	
+	Section un.RemoveLocalizationDir
+		; As if all the files are deleted remove current dir
+		RMDir "$INSTDIR\localization\"
 	SectionEnd
 SectionGroupEnd

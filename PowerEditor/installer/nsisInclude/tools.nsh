@@ -46,10 +46,24 @@ FunctionEnd
 
 ; Check if Notepad++ is running
 ; Created by Motaz Alnuweiri
+; Modified by Dr.Thril
 ; URL: http://nsis.sourceforge.net/Check_whether_your_application_is_running
 ;      http://nsis.sourceforge.net/Sharing_functions_between_Installer_and_Uninstaller
 
 ; Create CheckIfRunning shared function.
+
+; SimpChinese LangString
+LangString checkrunning 1033 "Cannot continue the installation: Notepad++ is running.$\n$\n\Please close Notepad++, then click ''Retry''."
+LangString checkrunning 2052 "安装程序无法继续：Notepad++ 正在运行。$\n$\n\请关闭后重试。"
+LangString Extra1 1033 "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device."
+LangString Extra1 2052 "不使用 %APPDATA% 保存设置$\n启用后，Notepad++ 的设置将会保存在安装目录下，如果你想在 USB 设备上使用 Notepad++，建议开启该项。"
+LangString Extra2 1033 "Allow plugins to be loaded from %APPDATA%\notepad++\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
+LangString Extra2 2052 "允许插件在 %APPDATA%\notepad++\plugins 加载$\n这可能会带来安全问题，如果你不知道你在做什么，请不要勾选。"
+LangString Extra3 1033 "Create Shortcut on Desktop"
+LangString Extra3 2052 "创建桌面快捷方式"
+Langstring chkwinver 1033 "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+Langstring chkwinver 2052 "这个版本的 Notepad++ 不兼容您的操作系统。$\n请下载 5.9 版本：$\nhttp://notepad-plus-plus.org/release/5.9"
+
 !macro CheckIfRunning un
 	Function ${un}CheckIfRunning
 		Check:
@@ -57,12 +71,9 @@ FunctionEnd
 		
 		IntCmp $R0 0 NotRunning
 			System::Call 'kernel32::CloseHandle(i $R0)'
-			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Cannot continue the installation: Notepad++ is running.\
-			          $\n$\n\
-                      Please close Notepad++, then click ''Retry''." IDRETRY Retry IDCANCEL Cancel
+			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP $(checkrunning) IDRETRY Retry IDCANCEL Cancel
 			Retry:
 				Goto Check
-			
 			Cancel:
 				Quit
 	
@@ -87,15 +98,15 @@ Function ExtraOptions
 		Abort
 	${EndIf}
 
-	${NSD_CreateCheckbox} 0 0 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device."
+	${NSD_CreateCheckbox} 0 0 100% 30u $(Extra1)
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
-	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\notepad++\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
+	${NSD_CreateCheckbox} 0 50 100% 30u $(Extra2)
 	Pop $PluginLoadFromUserDataCheckboxHandle
 	${NSD_OnClick} $PluginLoadFromUserDataCheckboxHandle OnChange_PluginLoadFromUserDataCheckBox
 	
-	${NSD_CreateCheckbox} 0 110 100% 30u "Create Shortcut on Desktop"
+	${NSD_CreateCheckbox} 0 110 100% 30u $(Extra3)
 	Pop $ShortcutCheckboxHandle
 	StrCmp $WinVer "8" 0 +2
 	${NSD_Check} $ShortcutCheckboxHandle
@@ -109,15 +120,15 @@ Function preventInstallInWin9x
 	${GetWindowsVersion} $WinVer
 	
 	StrCmp $WinVer "95" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK $(chkwinver)
 		Abort
 		
 	StrCmp $WinVer "98" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK $(chkwinver)
 		Abort
 		
 	StrCmp $WinVer "ME" 0 +3
-		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
+		MessageBox MB_OK $(chkwinver)
 		Abort
 FunctionEnd
 

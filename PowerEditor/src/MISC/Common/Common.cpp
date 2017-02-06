@@ -640,7 +640,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 	if (filenameLen > 0)
 	{
 		std::vector<TCHAR> vt(filenameLen + 1);
-		//--FLS: W removed from PathCompactPathExW due to compiler errors for ANSI version.
+		// W removed from PathCompactPathExW due to compiler errors for ANSI version.
 		PathCompactPathEx(&vt[0], filename.c_str(), filenameLen + 1, 0);
 		strTemp.append(convertFileName(vt.begin(), vt.begin() + lstrlen(&vt[0])));
 	}

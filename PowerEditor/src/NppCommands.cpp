@@ -1765,7 +1765,7 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_WRAP:
 		{
 			bool isWraped = !_pEditView->isWrap();
-			//--FLS: ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as Scintilla-Doc. says
+			// ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as Scintilla-Doc. says
 			if (!isWraped)
 			{
 				_mainEditView.saveCurrentPos();

@@ -1678,8 +1678,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 
 void ScintillaEditView::getCurrentFoldStates(std::vector<size_t> & lineStateVector)
 {
-	//-- FLS: xCodeOptimization1304: For active document get folding state from Scintilla.
-	//--      The code using SCI_CONTRACTEDFOLDNEXT is usually 10%-50% faster than checking each line of the document!!
+	// xCodeOptimization1304: For active document get folding state from Scintilla.
+	// The code using SCI_CONTRACTEDFOLDNEXT is usually 10%-50% faster than checking each line of the document!!
 	size_t contractedFoldHeaderLine = 0;
 
 	do {

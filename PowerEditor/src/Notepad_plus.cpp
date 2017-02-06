@@ -3886,7 +3886,7 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 {
 	Buffer * buf = _pEditView->getCurrentBuffer();
-	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	// Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
 	if (buf->isReadOnly())
 		return false;
 
@@ -3916,7 +3916,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 
 		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentLineSymbol = symbol.c_str();
-		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
+		// BlockToStreamComment: Needed to decide, if stream-comment can be called below!
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
 		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
@@ -3925,14 +3925,14 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	else
 	{
 		commentLineSymbol = buf->getCommentLineSymbol();
-		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
+		// BlockToStreamComment: Needed to decide, if stream-comment can be called below!
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
 	if ((!commentLineSymbol) || (!commentLineSymbol[0]) || (commentLineSymbol == NULL))
 	{
-	//--FLS: BlockToStreamComment: If there is no block-comment symbol, try the stream comment:
+	// BlockToStreamComment: If there is no block-comment symbol, try the stream comment:
 		if (!(!commentStart || !commentStart[0] || commentStart == NULL || !commentEnd || !commentEnd[0] || commentEnd == NULL))
 		{
 			if (currCommentMode == cm_comment)
@@ -3946,7 +3946,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 				//"undoStreamComment()" can be more flexible than "isSingleLineAdvancedMode = true", 
 				//since it can uncomment more embedded levels at once and the commentEnd symbol can be located everywhere. 
 				//But, depending on the selection start/end position, the first/last selected line may not be uncommented properly!
-				return undoStreamComment();
+				return undoStreamComment(false);
 				//isSingleLineAdvancedMode = true;
 			}
 			else if (currCommentMode == cm_toggle)
@@ -4005,7 +4005,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     // "caret return" is part of the last selected line
     if ((lines > 0) && (selectionEnd == static_cast<size_t>(_pEditView->execute(SCI_POSITIONFROMLINE, selEndLine))))
 		selEndLine--;
-	//--FLS: count lines which were un-commented to decide if undoStreamComment() shall be called.
+	// count lines which were un-commented to decide if undoStreamComment() shall be called.
 	int nUncomments = 0;
 	//Some Lexers need line-comments at the beginning of a line.
 	const bool avoidIndent = (buf->getLangType() == L_FORTRAN_77 || buf->getLangType() == L_BAANC);
@@ -4027,8 +4027,6 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		if (avoidIndent)
 			lineIndent = lineStart;
 
-		//size_t linebufferSize = lineEnd - lineIndent + 2;
-		// Replace hard coded 2 (commentLineSymbol + aSpace) to comment_length.
 		size_t linebufferSize = lineEnd - lineIndent + comment_length;
 		TCHAR* linebuf = new TCHAR[linebufferSize];
 
@@ -4041,13 +4039,10 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		{
 			if (not isSingleLineAdvancedMode)
 			{
-				//--FLS: In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
+				// In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
 				//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
-				//if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
-				//if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), comment_length - 1) == 0)
 				if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length) == 0)
 				{
-					//size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : comment_length - 1;
 					size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length;
 
 					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
@@ -4186,9 +4181,9 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     }
     _pEditView->execute(SCI_ENDUNDOACTION);
 
-	//--FLS: undoStreamComment: If there were no block-comments to un-comment try uncommenting of stream-comment.
+	// undoStreamComment: If there were no block-comments to un-comment try uncommenting of stream-comment.
 	if ((currCommentMode == cm_uncomment) && (nUncomments == 0)) {
-		return undoStreamComment();
+		return undoStreamComment(false);
 	}
     return true;
 }
@@ -4201,12 +4196,12 @@ bool Notepad_plus::doStreamComment()
 	generic_string symbolStart;
 	generic_string symbolEnd;
 
-	//--FLS: BlockToStreamComment:
-	const TCHAR *commentLineSybol;
+	// BlockToStreamComment:
+	const TCHAR *commentLineSymbol;
 	generic_string symbol;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
-	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	// Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
 	if (buf->isReadOnly())
 		return false;
 
@@ -4217,9 +4212,9 @@ bool Notepad_plus::doStreamComment()
 		if (!userLangContainer)
 			return false;
 
-		//--FLS: BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
+		// BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
 		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
-		commentLineSybol = symbol.c_str();
+		commentLineSymbol = symbol.c_str();
 
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
@@ -4228,19 +4223,15 @@ bool Notepad_plus::doStreamComment()
 	}
 	else
 	{
-		//--FLS: BlockToStreamComment: Next line needed to decide, if block-comment can be called below!
-		commentLineSybol = buf->getCommentLineSymbol();
+		// BlockToStreamComment: Next line needed to decide, if block-comment can be called below!
+		commentLineSymbol = buf->getCommentLineSymbol();
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	// if ((!commentStart) || (!commentStart[0]))
-	// 		return false;
-	// if ((!commentEnd) || (!commentEnd[0]))
-	// 		return false;
-	//--FLS: BlockToStreamComment: If there is no stream-comment symbol, try the block comment:
+	// BlockToStreamComment: If there is no stream-comment symbol, try the block comment:
 	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) {
-		if (!(!commentLineSybol || !commentLineSybol[0] || commentLineSybol == NULL))
+		if (!(!commentLineSymbol || !commentLineSymbol[0] || commentLineSymbol == NULL))
 			return doBlockComment(cm_comment);
 		else
 		return false;
@@ -6528,13 +6519,16 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 
 #pragma warning( disable : 4127 )
 //-- undoStreamComment: New function to undo stream comment around or within selection end-points.
-bool Notepad_plus::undoStreamComment()
+bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 {
 	const TCHAR *commentStart;
 	const TCHAR *commentEnd;
+	const TCHAR *commentLineSymbol;
 
 	generic_string symbolStart;
 	generic_string symbolEnd;
+	generic_string symbol;
+
 	const int charbufLen = 10;
     TCHAR charbuf[charbufLen];
 
@@ -6550,6 +6544,8 @@ bool Notepad_plus::undoStreamComment()
 		if (!userLangContainer)
 			return false;
 
+		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		commentLineSymbol = symbol.c_str();
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
 		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
@@ -6557,14 +6553,19 @@ bool Notepad_plus::undoStreamComment()
 	}
 	else
 	{
+		commentLineSymbol = buf->getCommentLineSymbol();
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	if ((!commentStart) || (!commentStart[0]))
-		return false;
-	if ((!commentEnd) || (!commentEnd[0]))
-		return false;
+
+	// BlockToStreamComment: If there is no stream-comment symbol and we came not from doBlockComment, try the block comment:
+	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) {
+		if (!(!commentLineSymbol || !commentLineSymbol[0] || commentLineSymbol == NULL) && tryBlockComment)
+			return doBlockComment(cm_uncomment);
+		else
+			return false;
+	}
 
 	generic_string start_comment(commentStart);
 	generic_string end_comment(commentEnd);

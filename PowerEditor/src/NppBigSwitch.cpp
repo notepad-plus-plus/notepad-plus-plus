@@ -123,6 +123,16 @@ LRESULT Notepad_plus_Window::runProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 	return FALSE;
 }
 
+// Used by NPPM_GETFILENAMEATCURSOR
+int CharacterIs(TCHAR c, TCHAR *any)
+{
+	int i;
+	for (i = 0; any[i] != 0; i++)
+	{
+		if (any[i] == c) return TRUE;
+	}
+	return FALSE;
+}
 
 LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -697,6 +707,58 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			lstrcpy(pTchar, str);
 			return TRUE;
+		}
+
+		case NPPM_GETFILENAMEATCURSOR: // wParam = buffer length, lParam = (TCHAR*)buffer
+		{
+			const int strSize = CURRENTWORD_MAXLENGTH;
+			TCHAR str[strSize];
+			TCHAR strLine[strSize];
+			size_t lineNumber;
+			int col;
+			int i;
+			int hasSlash;
+			TCHAR *pTchar = reinterpret_cast<TCHAR *>(lParam);
+
+			_pEditView->getGenericSelectedText(str, strSize); // this is either the selected text, or the word under the cursor if there is no selection
+			hasSlash = FALSE;
+			for (i = 0; str[i] != 0; i++) if (CharacterIs(str[i], TEXT("\\/"))) hasSlash = TRUE;
+
+			if (hasSlash == FALSE)
+			{
+				// it's not a full file name so try to find the beginning and ending of it
+				int start;
+				int end;
+				TCHAR *delimiters;
+
+				lineNumber = _pEditView->getCurrentLineNumber();
+				col = _pEditView->getCurrentColumnNumber();
+				_pEditView->getLine(lineNumber, strLine, strSize);
+
+				// find the start
+				start = col;
+				delimiters = TEXT(" \t[(\"<>");
+				while ((start > 0) && (CharacterIs(strLine[start], delimiters) == FALSE)) start--;
+				if (CharacterIs(strLine[start], delimiters)) start++;
+
+				// find the end
+				end = col;
+				delimiters = TEXT(" \t:()[]<>\"\r\n");
+				while ((strLine[end] != 0) && (CharacterIs(strLine[end], delimiters) == FALSE)) end++;
+
+				lstrcpyn(str, &strLine[start], end - start + 1);
+			}
+
+			if (lstrlen(str) >= int(wParam))	//buffer too small
+			{
+				::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETFILENAMEATCURSOR error"), MB_OK);
+				return FALSE;
+			}
+			else //buffer large enough, perform safe copy
+			{
+				lstrcpyn(pTchar, str, static_cast<int32_t>(wParam));
+				return TRUE;
+			}
 		}
 
 		case NPPM_GETNPPFULLFILEPATH:

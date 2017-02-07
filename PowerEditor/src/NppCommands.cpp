@@ -379,7 +379,7 @@ void Notepad_plus::command(int id)
 
 			HWND hwnd = _pPublicInterface->getHSelf();
 			TCHAR curentWord[CURRENTWORD_MAXLENGTH];
-			::SendMessage(hwnd, NPPM_GETCURRENTWORD, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
+			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
 			
 			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH];
 			if (id == IDM_EDIT_OPENINFOLDER)

@@ -1043,8 +1043,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 	EventReset reset(writeEvent); // Will reset event in destructor.
 	Buffer* buffer = getBufferByID(id);
-	bool isHidden = false;
-	bool isSys = false;
+	bool isHiddenOrSys = false;
 	DWORD attrib = 0;
 
 	TCHAR fullpath[MAX_PATH];
@@ -1060,13 +1059,9 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 		if (attrib != INVALID_FILE_ATTRIBUTES)
 		{
-			isHidden = (attrib & FILE_ATTRIBUTE_HIDDEN) != 0;
-			if (isHidden)
-				::SetFileAttributes(filename, attrib & ~FILE_ATTRIBUTE_HIDDEN);
-
-			isSys = (attrib & FILE_ATTRIBUTE_SYSTEM) != 0;
-			if (isSys)
-				::SetFileAttributes(filename, attrib & ~FILE_ATTRIBUTE_SYSTEM);
+			isHiddenOrSys = (attrib & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
+			if (isHiddenOrSys)
+				::SetFileAttributes(filename, attrib & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
 		}
 	}
 
@@ -1129,11 +1124,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			return false;
 		}
 
-		if (isHidden)
-			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_HIDDEN);
-
-		if (isSys)
-			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_SYSTEM);
+		if (isHiddenOrSys)
+			::SetFileAttributes(fullpath, attrib);
 
 		if (isCopy)
 		{

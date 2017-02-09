@@ -52,6 +52,8 @@
 #define FB_ADDFILE (WM_USER + 1024)
 #define FB_RMFILE  (WM_USER + 1025)
 #define FB_RNFILE  (WM_USER + 1026)
+#define FB_BEGINUPDATE  (WM_USER + 1027)
+#define FB_ENDUPDATE    (WM_USER + 1028)
 
 FileBrowser::~FileBrowser()
 {
@@ -153,6 +155,18 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			destroyMenus();
             break;
         }
+
+		case FB_BEGINUPDATE:
+		{
+			::SendMessage(_treeView.getHSelf(), WM_SETREDRAW, FALSE, 0);
+			break;
+		}
+
+		case FB_ENDUPDATE:
+		{
+			::SendMessage(_treeView.getHSelf(), WM_SETREDRAW, TRUE, 0);
+			break;
+		}
 
 		case FB_ADDFILE:
 		{
@@ -1470,13 +1484,15 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 					printStr(L"Queue overflowed.");
 				else
 				{
-					changes.Pop(dwAction, wstrFilename);
-					static generic_string oldName;
-					static std::vector<generic_string> file2Change;
-					file2Change.clear();
-
-					switch (dwAction)
+					SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_BEGINUPDATE, FALSE, 0);
+					while (changes.Pop(dwAction, wstrFilename) == true)
 					{
+						static generic_string oldName;
+						static std::vector<generic_string> file2Change;
+						file2Change.clear();
+
+						switch (dwAction)
+						{
 						case FILE_ACTION_ADDED:
 							file2Change.push_back(wstrFilename.GetString());
 							//thisFolderUpdater->updateTree(dwAction, file2Change);
@@ -1513,7 +1529,10 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 						default:
 							oldName = TEXT("");
 							break;
+						}
 					}
+					SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_ENDUPDATE, FALSE, 0);
+					Sleep(10); // prevent flicker
 				}
 			}
 			break;

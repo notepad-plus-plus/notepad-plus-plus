@@ -1550,6 +1550,8 @@ public:
 	}
 	DPIManager _dpiManager;
 
+	generic_string static getSpecialFolderLocation(int folderKind);
+
 
 private:
 	NppParameters();

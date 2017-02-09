@@ -942,20 +942,30 @@ bool NppParameters::reloadLang()
 	return loadOkay;
 }
 
+generic_string NppParameters::getSpecialFolderLocation(int folderKind)
+{
+	ITEMIDLIST *pidl;
+	const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, folderKind, &pidl);
+	if (!SUCCEEDED( specialLocationResult))
+		return generic_string();
+	
+	TCHAR path[MAX_PATH];
+	SHGetPathFromIDList(pidl, path);
+
+	return path;
+}
+
 
 generic_string NppParameters::getSettingsFolder()
 {
 	if (_isLocal)
 		return _nppPath;
 
-	ITEMIDLIST *pidl;
-	const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
-	if (!SUCCEEDED( specialLocationResult))
-		return generic_string();
+	generic_string settingsFolderPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
-	TCHAR tmp[MAX_PATH];
-	SHGetPathFromIDList(pidl, tmp);
-	generic_string settingsFolderPath{tmp};
+	if (settingsFolderPath.empty())
+		return _nppPath;
+
 	PathAppend(settingsFolderPath, TEXT("Notepad++"));
 	return settingsFolderPath;
 }
@@ -984,18 +994,12 @@ bool NppParameters::load()
 		// We check if OS is Vista or greater version
 		if (_winVersion >= WV_VISTA)
 		{
-			ITEMIDLIST *pidl;
-			const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
-			if (!SUCCEEDED( specialLocationResult))
-				return false;
-
-			TCHAR progPath[MAX_PATH];
-			SHGetPathFromIDList(pidl, progPath);
+			generic_string progPath = getSpecialFolderLocation(CSIDL_PROGRAM_FILES);
 			TCHAR nppDirLocation[MAX_PATH];
 			lstrcpy(nppDirLocation, _nppPath.c_str());
 			::PathRemoveFileSpec(nppDirLocation);
 
-			if  (lstrcmp(progPath, nppDirLocation) == 0)
+			if  (progPath == nppDirLocation)
 				_isLocal = false;
 		}
 	}
@@ -1006,14 +1010,7 @@ bool NppParameters::load()
 	}
 	else
 	{
-		ITEMIDLIST *pidl;
-		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
-		if (!SUCCEEDED( specialLocationResult))
-			return false;
-
-		TCHAR tmp[MAX_PATH];
-		SHGetPathFromIDList(pidl, tmp);
-		_userPath = tmp;
+		_userPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
 		PathAppend(_userPath, TEXT("Notepad++"));
 		_appdataNppDir = _userPath;

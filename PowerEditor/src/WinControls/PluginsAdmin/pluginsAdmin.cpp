@@ -187,24 +187,11 @@ long PluginsAdminDlg::searchFromCurrentSel(generic_string str2search, bool inWhi
 	return -1;
 }
 
-/*
-// Search only in the list of current panel 
-// return -1 if not found
-long PluginsAdminDlg::searchPlugin(generic_string str2search, bool isNextMode)
-{
-	// search in the names of plugins
-	long i = searchInNamesFromCurrentSel(str2search, isNextMode);
-
-	// if not found, search in description
-	if (i == -1)
-		i = searchInDescsFromCurrentSel(str2search, isNextMode);
-
-	return i;
-}
-*/
-
 void PluginsAdminDlg::create(int dialogID, bool isRTL)
 {
+	// get plugin installation path and launch mode (Admin or normal)
+	collectNppCurrentStatusInfos();
+
 	StaticDialog::create(dialogID, isRTL);
 
 	RECT rect;
@@ -334,11 +321,52 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 
 	goToCenter();
+}
+
+void PluginsAdminDlg::collectNppCurrentStatusInfos()
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	_nppCurrentStatus._nppInstallPath = pNppParam->getNppPath();
+
+	_nppCurrentStatus._isAppDataPluginsAllowed = ::SendMessage(_hParent, NPPM_GETAPPDATAPLUGINSALLOWED, 0, 0) == TRUE;
+	_nppCurrentStatus._appdataPath = pNppParam->getAppDataNppDir();
+	generic_string programFilesPath = NppParameters::getSpecialFolderLocation(CSIDL_PROGRAM_FILES);
+	_nppCurrentStatus._isInProgramFiles = (_nppCurrentStatus._nppInstallPath.find(programFilesPath) == 0);
 
 }
 
-bool PluginsAdminDlg::getPluginList()
+bool PluginsAdminDlg::installPlugins()
 {
+	return true;
+}
+
+bool PluginsAdminDlg::updatePlugins()
+{
+	return true;
+}
+
+bool PluginsAdminDlg::removePlugins()
+{
+	return true;
+}
+
+bool PluginsAdminDlg::downloadPluginList()
+{
+	// check on default location : %APPDATA%\Notepad++\plugins\config\pl\pl.json or NPP_INST_DIR\plugins\config\pl\pl.json
+
+
+	// if absent then download it
+
+
+	// check the update ofpl.json
+
+
+	// download update if present
+
+	// check integrity of pl.json
+
+	// load pl.json
+
 	generic_string pluginListXmlPath(TEXT("c:\\tmp\\pl.xml"));
 	_pPluginsXmlDoc = new TiXmlDocument(pluginListXmlPath);
 	if (not _pPluginsXmlDoc->LoadFile())
@@ -573,6 +601,20 @@ INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 				case IDC_PLUGINADM_RESEARCH_NEXT:
 					searchInPlugins(true);
 					return true;
+
+				case IDC_PLUGINADM_INSTALL:
+					installPlugins();
+					return true;
+
+				case IDC_PLUGINADM_UPDATE:
+					updatePlugins();
+					return true;
+
+				case IDC_PLUGINADM_REMOVE:
+					removePlugins();
+					return true;
+
+
 				default :
 					break;
 			}

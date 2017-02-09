@@ -71,14 +71,13 @@ void Notepad_plus::command(int id)
 		{
 			fileNew();
 			/*
-
 			bool isFirstTime = not _pluginsAdminDlg.isCreated();
 			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
 			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
 			{
 				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
-				_pluginsAdminDlg.getPluginList();
+				_pluginsAdminDlg.downloadPluginList();
 				_pluginsAdminDlg.loadFomList();
 			}
 			*/

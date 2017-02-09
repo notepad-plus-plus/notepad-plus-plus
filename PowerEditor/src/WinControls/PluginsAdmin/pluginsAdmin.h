@@ -72,6 +72,24 @@ struct LoadedPluginInfo
 	LoadedPluginInfo(const generic_string & fullFilePath, const generic_string & filename);
 };
 
+struct NppCurrentStatus
+{
+	bool _isAdminMode;              // can launch gitup en Admin mode directly
+
+	bool _isInProgramFiles;         // true: install/update/remove on "Program files" (ADMIN MODE)
+									// false: install/update/remove on NPP_INST or install on %APPDATA%, update/remove on %APPDATA% & NPP_INST (NORMAL MODE)
+									
+	bool _isAppDataPluginsAllowed;  // true: install on %APPDATA%, update / remove on %APPDATA% & "Program files" or NPP_INST
+
+	generic_string _nppInstallPath;
+	generic_string _appdataPath;
+
+	// it should determinate :
+	// 1. deployment location : %ProgramFile%   %appdata%   %other%
+	// 2. gitup launch mode:    ADM             ADM         NOMAL
+	bool shouldLaunchInAdmMode() { return _isInProgramFiles; };
+};
+
 class PluginsAdminDlg final : public StaticDialog
 {
 public :
@@ -103,11 +121,14 @@ public :
 
 	void switchDialog(int indexToSwitch);
 
-	bool getPluginList(); // call WinGup fo the 1st time
+	bool downloadPluginList(); // call GitUup for the 1st time
 	bool loadFomList();
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
+	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
 
-	//long searchPlugin(generic_string str2search, bool isNextMode);
+	bool installPlugins();
+	bool updatePlugins();
+	bool removePlugins();
 
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -127,6 +148,9 @@ private :
 
 	std::vector<LoadedPluginInfo> _loadedPluginInfos;
 
+	NppCurrentStatus _nppCurrentStatus;
+
+	void collectNppCurrentStatusInfos();
 	bool readFromXml();
 	bool searchInPlugins(bool isNextMode) const;
 	const bool inNames = true;

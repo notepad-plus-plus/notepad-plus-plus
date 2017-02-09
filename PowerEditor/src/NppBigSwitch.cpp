@@ -737,13 +737,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 				// find the start
 				start = col;
-				delimiters = TEXT(" \t[(");
+				delimiters = TEXT(" \t[(\"<>");
 				while ((start > 0) && (CharacterIs(strLine[start], delimiters) == FALSE)) start--;
 				if (CharacterIs(strLine[start], delimiters)) start++;
 
 				// find the end
 				end = col;
-				delimiters = TEXT(" \t:()[]\r\n");
+				delimiters = TEXT(" \t:()[]<>\"\r\n");
 				while ((strLine[end] != 0) && (CharacterIs(strLine[end], delimiters) == FALSE)) end++;
 
 				lstrcpyn(str, &strLine[start], end - start + 1);

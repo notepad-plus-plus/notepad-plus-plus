@@ -304,9 +304,9 @@ public :
 	}
 	void beginNewFilesSearch()
 	{
-            _pFinder->beginNewFilesSearch();
-            _pFinder->addSearchLine(getText2search().c_str());
-      }
+		_pFinder->beginNewFilesSearch();
+		_pFinder->addSearchLine(getText2search().c_str());
+	}
 
 	void finishFilesSearch(int count)
 	{

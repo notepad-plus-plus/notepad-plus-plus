@@ -5175,12 +5175,12 @@ void NppParameters::createXmlTreeFromGUIParams()
 		pStr = (_nppGUI._tabStatus & TAB_HIDE) ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("hide"), pStr);
 
-			pStr = (_nppGUI._tabStatus & TAB_QUITONEMPTY) ? TEXT("yes") : TEXT("no");
+		pStr = (_nppGUI._tabStatus & TAB_QUITONEMPTY) ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("quitOnEmpty"), pStr);
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
-		{
+	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("ScintillaViewsSplitter"));
 		const TCHAR *pStr = _nppGUI._splitterPos == POS_VERTICAL ? TEXT("vertical") : TEXT("horizontal");
@@ -5207,7 +5207,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	}
 
 	// <GUIConfig name = "AppPosition" x = "3900" y = "446" width = "2160" height = "1380" isMaximized = "no" / >
-		{
+	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("AppPosition"));
 		GUIConfigElement->SetAttribute(TEXT("x"), _nppGUI._appPos.left);
@@ -5218,7 +5218,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	}
 
 	// <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161022">no</GUIConfig>
-		{
+	{
 		TiXmlElement *element = insertGUIConfigBoolNode(newGUIRoot, TEXT("noUpdate"), !_nppGUI._autoUpdateOpt._doAutoUpdate);
 		element->SetAttribute(TEXT("intervalDays"), _nppGUI._autoUpdateOpt._intervalDays);
 		element->SetAttribute(TEXT("nextUpdateDate"), _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
@@ -5226,22 +5226,22 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="Auto-detection">yes</GUIConfig>	
 	{
-			const TCHAR *pStr = TEXT("no");
-			switch (_nppGUI._fileAutoDetection)
-			{
-				case cdEnabled:
-					pStr = TEXT("yes");
-					break;
-				case cdAutoUpdate:
-					pStr = TEXT("auto");
-					break;
-				case cdGo2end:
-					pStr = TEXT("Update2End");
-					break;
-				case cdAutoUpdateGo2end:
-					pStr = TEXT("autoUpdate2End");
-					break;
-			}
+		const TCHAR *pStr = TEXT("no");
+		switch (_nppGUI._fileAutoDetection)
+		{
+		case cdEnabled:
+			pStr = TEXT("yes");
+			break;
+		case cdAutoUpdate:
+			pStr = TEXT("auto");
+			break;
+		case cdGo2end:
+			pStr = TEXT("Update2End");
+			break;
+		case cdAutoUpdateGo2end:
+			pStr = TEXT("autoUpdate2End");
+			break;
+		}
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Auto-detection"));
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));

@@ -2701,7 +2701,7 @@ void FindReplaceDlg::showFindersGroup(bool isDisable)
     }
 }
 
-void FindReplaceDlg::disableFindersGroup(bool isDisable)
+void FindReplaceDlg::disableFindersGroup(bool )
 {
     if (_env->_isFinderOnlyOne)
     {

@@ -742,7 +742,7 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 }
 
 
-winVer getWindowsVersion()
+winVer NppParameters::getWindowsVersion()
 {
 	OSVERSIONINFOEX osvi;
 	SYSTEM_INFO si;
@@ -765,6 +765,24 @@ winVer getWindowsVersion()
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
+
+	switch (si.wProcessorArchitecture)
+	{
+	case PROCESSOR_ARCHITECTURE_IA64:
+		_platForm = PF_IA64;
+		break;
+
+	case PROCESSOR_ARCHITECTURE_AMD64:
+		_platForm = PF_X64;
+		break;
+
+	case PROCESSOR_ARCHITECTURE_INTEL:
+		_platForm = PF_X86;
+		break;
+
+	default:
+		_platForm = PF_UNKNOWN;
+	}
 
    switch (osvi.dwPlatformId)
    {
@@ -5884,6 +5902,22 @@ generic_string NppParameters:: getWinVersionStr() const
 		case WV_WIN81: return TEXT("Windows 8.1");
 		case WV_WIN10: return TEXT("Windows 10");
 		default: /*case WV_UNKNOWN:*/ return TEXT("Windows unknown version");
+	}
+}
+
+generic_string NppParameters::getWinVerBitStr() const
+{
+	switch (_platForm)
+	{
+	case PF_X86:
+		return TEXT("32-bit");
+
+	case PF_X64:
+	case PF_IA64:
+		return TEXT("64-bit");
+
+	default:
+		return TEXT("Unknown-bit");
 	}
 }
 

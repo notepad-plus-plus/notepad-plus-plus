@@ -1247,13 +1247,13 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					bool isChecked = isCheckedOrNot(IDC_FINDER_ONLY_ONE);
 					_options._isFinderOnlyOne = isChecked;
+					disableFindersGroup(isChecked);
 					return TRUE;
 				}
 				case IDC_FINDER_ONE_LINE_IF_MULTIPLE_FINDS:
 				{
 					bool isChecked = isCheckedOrNot(IDC_FINDER_ONE_LINE_IF_MULTIPLE_FINDS);
 					_options._isFinderOnlyOneLineIfMultipleFinds = isChecked;
-					disableFindersGroup(isChecked);
 					return TRUE;
 				}
 				case IDC_FINDER_AUTO_CLOSE_EMPTY:

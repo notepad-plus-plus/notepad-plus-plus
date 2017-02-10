@@ -72,7 +72,7 @@ struct ScintillaKeyDefinition
 */
 static const WinMenuKeyDefinition winKeyDefs[] =
 {
-	// V_KEY,    COMMAND_ID,                                   Ctrl,  Alt,   Shift, cmdName
+	// V_KEY,    COMMAND_ID,                                    Ctrl,  Alt,   Shift, cmdName
 	// -------------------------------------------------------------------------------------
 	//
 	{ VK_N,       IDM_FILE_NEW,                                 true,  false, false, nullptr },

@@ -381,6 +381,7 @@ private :
 	void enableFindInFilesControls(bool isEnable = true);
 	void enableFindInFilesFunc();
         void disableFindersGroup(bool isDisable = true);
+        void showFindersGroup(bool isDisable = true);
 	void enableMarkAllControls(bool isEnable);
 	void enableMarkFunc();
 

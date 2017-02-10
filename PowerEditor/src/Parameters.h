@@ -1570,7 +1570,7 @@ private:
 	TiXmlDocument *_pXmlShortcutDoc = nullptr;
 	TiXmlDocument *_pXmlSessionDoc = nullptr;
 	TiXmlDocument *_pXmlBlacklistDoc = nullptr;
-
+	
 	TiXmlDocument *_importedULD[NB_MAX_IMPORTED_UDL];
 
 	TiXmlDocumentA *_pXmlNativeLangDocA = nullptr;
@@ -1593,8 +1593,8 @@ private:
 	int _nbMaxRecentFile = 10;
 	bool _putRecentFileInSubMenu = false;
 	int _recentFileCustomLength = RECENTFILES_SHOWFULLPATH;	//	<0: Full File Path Name
-									//	=0: Only File Name
-									//	>0: Custom Entry Length
+															//	=0: Only File Name
+															//	>0: Custom Entry Length
 
 	FindHistory _findHistory;
 

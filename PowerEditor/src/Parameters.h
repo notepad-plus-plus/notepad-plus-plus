@@ -792,7 +792,7 @@ struct NppGUI final
 
 	generic_string _definedSessionExt;
 	generic_string _definedWorkspaceExt;
-	
+
 	struct AutoUpdateOptions
 	{
 		bool _doAutoUpdate = true;
@@ -1407,8 +1407,8 @@ public:
 
 	void setCmdlineParam(const CmdLineParams & cmdLineParams)
 	{
-			_cmdLineParams = cmdLineParams;
-		}
+		_cmdLineParams = cmdLineParams;
+	}
 	CmdLineParams & getCmdLineParams() {return _cmdLineParams;};
 
 	void setFileSaveDlgFilterIndex(int ln) {_fileSaveDlgFilterIndex = ln;};

@@ -7,7 +7,7 @@
 	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
 -->
 <NotepadPlus>
-	<Native-Langue name="Български" filename="bulgarian.xml">
+	<Native-Langue name="Български" filename="bulgarian.xml" >
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

@@ -1120,8 +1120,8 @@ bool NppParameters::load()
 	}
 	else
 	{
-				getUserParametersFromXmlTree();
-		}
+		getUserParametersFromXmlTree();
+	}
 
 	//----------------------------//
 	// stylers.xml : for per user //

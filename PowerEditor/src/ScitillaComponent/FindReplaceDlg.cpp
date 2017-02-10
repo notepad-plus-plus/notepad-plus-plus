@@ -1253,6 +1253,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				{
 					bool isChecked = isCheckedOrNot(IDC_FINDER_ONE_LINE_IF_MULTIPLE_FINDS);
 					_options._isFinderOnlyOneLineIfMultipleFinds = isChecked;
+					disableFindersGroup(isChecked);
 					return TRUE;
 				}
 				case IDC_FINDER_AUTO_CLOSE_EMPTY:
@@ -2269,7 +2270,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 
 	enableFindInFilesControls(false);
 	enableMarkAllControls(false);
-        disableFindersGroup(isEnable);
+        showFindersGroup(isEnable);
 	// replace controls
 	::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACE),hideOrShow);
@@ -2682,19 +2683,42 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 		return CallWindowProc((WNDPROC) originalFinderProc, hwnd, message, wParam, lParam);
 }
 
-void FindReplaceDlg::disableFindersGroup(bool isDisable)
+void FindReplaceDlg::showFindersGroup(bool isDisable)
 {
-    ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_MODE_STATIC), isDisable ? SW_HIDE : SW_SHOW  );
+    ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_MODE_STATIC), isDisable ? SW_HIDE : SW_SHOW);
     ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_UNIQUE), isDisable ? SW_HIDE : SW_SHOW);
     ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_ONLY_ONE), isDisable ? SW_HIDE : SW_SHOW);
     ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_ONE_LINE_IF_MULTIPLE_FINDS), isDisable ? SW_HIDE : SW_SHOW);
-    ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_AUTO_CLOSE_EMPTY), isDisable ? SW_HIDE : SW_SHOW);
+    if (_env->_isFinderOnlyOne)
+    {
+        ::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDER_UNIQUE), false);
+        ::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDER_AUTO_CLOSE_EMPTY), false);
+    }
+    else
+    {
+        ::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDER_UNIQUE), true);
+        ::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDER_AUTO_CLOSE_EMPTY), true);
+    }
+}
+
+void FindReplaceDlg::disableFindersGroup(bool isDisable)
+{
+    if (_env->_isFinderOnlyOne)
+    {
+        ::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDER_UNIQUE), false);
+        ::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDER_AUTO_CLOSE_EMPTY), false);
+    }
+    else
+    {
+        ::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDER_UNIQUE), true);
+        ::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDER_AUTO_CLOSE_EMPTY), true);
+    }
 }
 
 void FindReplaceDlg::enableFindInFilesFunc()
 {
 	enableFindInFilesControls();
-        disableFindersGroup(false);
+        showFindersGroup(false);
 	_currentStatus = FINDINFILES_DLG;
 	gotoCorrectTab();
 	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
@@ -2708,7 +2732,7 @@ void FindReplaceDlg::enableMarkFunc()
 {
 	enableFindInFilesControls(false);
 	enableMarkAllControls(true);
-        disableFindersGroup();
+        showFindersGroup();
 
 	// Replace controls to hide
 	::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE),SW_HIDE);

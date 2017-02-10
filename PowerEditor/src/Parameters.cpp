@@ -5267,7 +5267,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		TiXmlElement * ele = insertGUIConfigBoolNode(newGUIRoot, TEXT("TagsMatchHighLight"), _nppGUI._enableTagsMatchHilite);
 		ele->SetAttribute(TEXT("TagAttrHighLight"), _nppGUI._enableTagAttrsHilite ? TEXT("yes") : TEXT("no"));
 		ele->SetAttribute(TEXT("HighLightNonHtmlZone"), _nppGUI._enableHiliteNonHTMLZone ? TEXT("yes") : TEXT("no"));
-		}
+	}
 
 	// <GUIConfig name = "RememberLastSession">yes< / GUIConfig>
 	{
@@ -5277,7 +5277,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	// <GUIConfig name = "DetectEncoding">yes< / GUIConfig>
 	{
 		insertGUIConfigBoolNode(newGUIRoot, TEXT("DetectEncoding"), _nppGUI._detectEncoding);
-		}
+	}
 
 	// <GUIConfig name = "NewDocDefaultSettings" format = "0" encoding = "0" lang = "3" codepage = "-1" openAnsiAsUTF8 = "no" / >
 	{
@@ -5299,7 +5299,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 	}
 
 	// <GUIConfig name="Print" lineNumber="no" printOption="0" headerLeft="$(FULL_CURRENT_PATH)" headerMiddle="" headerRight="$(LONG_DATE) $(TIME)" headerFontName="IBMPC" headerFontStyle="1" headerFontSize="8" footerLeft="" footerMiddle="-$(CURRENT_PRINTING_PAGE)-" footerRight="" footerFontName="" footerFontStyle="0" footerFontSize="9" margeLeft="0" margeTop="0" margeRight="0" margeBottom="0" />
-		{
+	{
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Print"));
 		writePrintSetting(GUIConfigElement);
@@ -5329,11 +5329,11 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 	// <GUIConfig name="URL">2</GUIConfig>
 	{
-			const TCHAR *pStr = TEXT("0");
-			if (_nppGUI._styleURL == 1)
-				pStr = TEXT("1");
-			else if (_nppGUI._styleURL == 2)
-				pStr = TEXT("2");
+		const TCHAR *pStr = TEXT("0");
+		if (_nppGUI._styleURL == 1)
+			pStr = TEXT("1");
+		else if (_nppGUI._styleURL == 2)
+			pStr = TEXT("2");
 
 		TiXmlElement *GUIConfigElement = (newGUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("URL"));
@@ -5380,14 +5380,14 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("htmlXmlTag"), _nppGUI._matchedPairConf._doHtmlXmlTag ? TEXT("yes") : TEXT("no"));
 
 		TiXmlElement hist_element{ TEXT("") };
-			hist_element.SetValue(TEXT("UserDefinePair"));
-			for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)
-			{
-				int open = _nppGUI._matchedPairConf._matchedPairs[i].first;
-				int close = _nppGUI._matchedPairConf._matchedPairs[i].second;
+		hist_element.SetValue(TEXT("UserDefinePair"));
+		for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)
+		{
+			int open = _nppGUI._matchedPairConf._matchedPairs[i].first;
+			int close = _nppGUI._matchedPairConf._matchedPairs[i].second;
 
-				(hist_element.ToElement())->SetAttribute(TEXT("open"), open);
-				(hist_element.ToElement())->SetAttribute(TEXT("close"), close);
+			(hist_element.ToElement())->SetAttribute(TEXT("open"), open);
+			(hist_element.ToElement())->SetAttribute(TEXT("close"), close);
 			GUIConfigElement->InsertEndChild(hist_element);
 		}
 	}

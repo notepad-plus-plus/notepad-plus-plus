@@ -2689,6 +2689,7 @@ void FindReplaceDlg::showFindersGroup(bool isDisable)
     ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_UNIQUE), isDisable ? SW_HIDE : SW_SHOW);
     ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_ONLY_ONE), isDisable ? SW_HIDE : SW_SHOW);
     ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_ONE_LINE_IF_MULTIPLE_FINDS), isDisable ? SW_HIDE : SW_SHOW);
+    ::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDER_AUTO_CLOSE_EMPTY), isDisable ? SW_HIDE : SW_SHOW);
     if (_env->_isFinderOnlyOne)
     {
         ::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDER_UNIQUE), false);

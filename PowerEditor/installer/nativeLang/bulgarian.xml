@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last modified:...: 16.01.2017 by RDD
+	Last modified:...: 12.02.2017 by RDD
 	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
 -->
 <NotepadPlus>
@@ -1047,7 +1047,7 @@
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
-			<word-chars-list-tip value="Това ви позволява при двойно щракане върху дума или при включена опция за търсене на &quot;Само цели думи&quot; да добавите допълнителни символи към нея."/>
+			<word-chars-list-tip value="Позволява добавяне на допълнителни символи към дума, чрез двойно щракане върху нея или при включена опция за търсене на &quot;Само цели думи&quot;."/>
 			<word-chars-list-warning-begin value="Бъдете внимателни: "/>
 				<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<word-chars-list-space-warning value="$INT_REPLACE$ интервал(а)"/>

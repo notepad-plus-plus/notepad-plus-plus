@@ -32,7 +32,7 @@
                     <Item subMenuId="edit-eolConversion" name="Convertir les sauts de ligne"/>
                     <Item subMenuId="edit-blankOperations" name="Traitement des espacements"/>
                     <Item subMenuId="edit-pasteSpecial" name="Collage spécial"/>
-					<Item subMenuId="edit-onSelection" name="Sur la Selection"/>
+					<Item subMenuId="edit-onSelection" name="Pour la sélection"/>
                     <Item subMenuId="search-markAll" name="Marquer tout"/>
                     <Item subMenuId="search-unmarkAll" name="Enlever toutes les marques"/>
                     <Item subMenuId="search-jumpUp" name="Aller vers le haut"/>
@@ -93,7 +93,7 @@
                     <Item id="41015" name="Enregistrer une copie..."/>
                     <Item id="41016" name="Supprimer"/>
                     <Item id="41017" name="Renommer..."/>
-                    <Item id="41021" name="Ouvrir le fichier récemment fermé"/>
+                    <Item id="41021" name="Ouvrir le dernier fichier fermé"/>
                     <Item id="41022" name="Ouvrir Dossier en tant qu'Espace de travail"/>
                     <Item id="42001" name="Cou&amp;per"/>
                     <Item id="42002" name="&amp;Copier"/>
@@ -241,7 +241,7 @@
                     <Item id="44036" name="Défilement horizontal synchrone"/>
                     <Item id="44041" name="Afficher les marques de coupures de ligne"/>
                     <Item id="44042" name="Cacher les lignes"/>
-                    <Item id="44072" name="Basculer à l'autre vue"/>
+                    <Item id="44072" name="Basculer vers l'autre vue"/>
                     <Item id="44081" name="Panneau de Projet #1"/>
                     <Item id="44082" name="Panneau de Projet #2"/>
                     <Item id="44083" name="Panneau de Projet #3"/>
@@ -257,11 +257,11 @@
                     <Item id="44092" name="Onglet 7"/>
                     <Item id="44093" name="Onglet 8"/>
                     <Item id="44094" name="Onglet 9"/>
-                    <Item id="44095" name="Prochain Onglet"/>
-                    <Item id="44096" name="Onglet Précédant"/>
+                    <Item id="44095" name="Onglet suivant"/>
+                    <Item id="44096" name="Onglet précédent"/>
 					<Item id="44097" name="Surveillance de Log(tail -f)"/>
-					<Item id="44098" name="Onglet vers Avant"/>
-                    <Item id="44099" name="Onglet vers Après"/>
+					<Item id="44098" name="Déplacer vers l'avant"/>
+                    <Item id="44099" name="Déplacer vers l'arrière"/>
                     <Item id="45001" name="Convertir en Format Windows (CR+LF)"/>
                     <Item id="45002" name="Convertir en Format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en Format Mac (CR)"/>
@@ -286,9 +286,9 @@
                     <Item id="47005" name="Obtenir d'autres compléments"/>
                     <Item id="47006" name="Mettre à jour Notepad++"/>
                     <Item id="47008" name="Aide"/>
-                    <Item id="47009" name="Paramétrer le Proxy d'Updater..."/>
+                    <Item id="47009" name="Paramétrer le Proxy de mise à jour..."/>
 					<Item id="47010" name="Arguments de la Ligne de Commande..."/>
-					<Item id="47011" name="Support en Direct"/>
+					<Item id="47011" name="Support en direct"/>
 					<Item id="47012" name="Debug Info..."/>
                     <Item id="48005" name="Importer un complément..."/>
                     <Item id="48006" name="Importer un thème..."/>
@@ -377,7 +377,7 @@
                 <Item id="2" name="Fermer"/>
                 <Item id="2901" name="Caractères Non-ASCII (128-255)"/>
                 <Item id="2902" name="Caractères ASCII (0 - 127)"/>
-                <Item id="2903" name="Ma plage:"/>
+                <Item id="2903" name="Ma plage :"/>
                 <Item id="2906" name="Haut"/>
                 <Item id="2907" name="Bas"/>
                 <Item id="2908" name="Direction"/>
@@ -505,10 +505,10 @@
             <Item id="25026" name="Opérateur 1"/>
             <Item id="25027" name="Opérateur 2"/>
             <Item id="25028" name="Nombres"/>
-            <Item id="25029" name="Héberge:"/>
-            <Item id="25030" name="Police:"/>
-            <Item id="25031" name="Nom:"/>
-            <Item id="25032" name="Taille:"/>
+            <Item id="25029" name="Héberge :"/>
+            <Item id="25030" name="Police :"/>
+            <Item id="25031" name="Nom :"/>
+            <Item id="25032" name="Taille :"/>
 			<Item id="1" name="Enregistrer"/>
             <Item id="2" name="Annuler"/>
         </StylerDialog>
@@ -624,7 +624,7 @@
                     <Item id="6105" name="Icônes standards"/>
                     <Item id="6106" name="Barre d’onglets"/>
                     <Item id="6107" name="Réduire la taille"/>
-                    <Item id="6108" name="Verrouiller (pas de glisser-poser)"/>
+                    <Item id="6108" name="Verrouiller (pas de glisser-déposer)"/>
                     <Item id="6109" name="Colorer les onglets inactifs"/>
                     <Item id="6110" name="Barre colorée sur l’onglet actif"/>
                     <Item id="6111" name="Afficher la barre d'état"/>
@@ -633,7 +633,7 @@
                     <Item id="6118" name="Cacher"/>
                     <Item id="6119" name="Multiligne"/>
                     <Item id="6120" name="Verticale"/>
-                    <Item id="6121" name="Quitter lors de la fermeture de dernier onglet"/>
+                    <Item id="6121" name="Quitter lors de la fermeture du dernier onglet"/>
                     <Item id="6122" name="Cachée (Alt ou F10 pour afficher)"/>
                     <Item id="6123" name="Langue"/>
                     <Item id="6125" name="Commutateur de documents"/>
@@ -651,7 +651,7 @@
                     <Item id="6208" name="Afficher la marge droite"/>
                     <Item id="6209" name="Nombre de colonnes :"/>
 					<Item id="6234" name="Désactiver le défilement avancé
-(en cas du problème de touchpad)"/>
+(en cas de problème du touchpad)"/>
                     <Item id="6211" name="Largeur des lignes"/>
                     <Item id="6212" name="Afficher un filet vertical"/>
                     <Item id="6213" name="Colorer l’arrière-plan"/>
@@ -694,7 +694,7 @@
                     <Item id="6414" name="Utiliser celui du document actuel"/>
                     <Item id="6415" name="Mémoriser le dernier dossier utilisé"/>
 					<Item id="6430" name="Activer le nouveau style de dialogue d'enregistrement (sans l'extension de fichier supporté)"/>
-					<Item id="6431" name="Lors de drag and drop d'un dossier, ouvrir tous les fichier dans le dossier"/>
+					<Item id="6431" name="Lors de glisser-déposer d'un dossier, ouvrir tous les fichiers dans le dossier"/>
                 </DefaultDir>
 
                 <FileAssoc title="Extensions de fichier">
@@ -714,7 +714,7 @@
                 <Highlighting title="Coloration">
                     <Item id="6333" name="Sélectionner et montrer tout"/>
                     <Item id="6326" name="Activer le coloriage automatique"/>
-                    <Item id="6332" name="Case sensible"/>
+                    <Item id="6332" name="Sensible à la casse"/>
 					<Item id="6338" name="Mot entier uniquement"/>
 					<Item id="6339" name="Utiliser les paramètres de Recherche"/>
                     <Item id="6340" name="Sur l'autre vue également"/>
@@ -749,7 +749,7 @@
                     <Item id="6722" name="à droite"/>
                     <Item id="6723" name="Ajouter"/>
                     <Item id="6725" name="Variable :"/>
-                    <Item id="6727" name="Les variables paramétré sont affichées ici"/>
+                    <Item id="6727" name="Les variables paramétrées sont affichées ici"/>
                     <Item id="6728" name="Entête et pied de page"/>
                 </Print>
 
@@ -759,9 +759,9 @@
                     <Item id="6305" name="Ne pas vérifier au lancement"/>
                     <Item id="6429" name="Affichage"/>
                     <Item id="6424" name="Dans un sous-menu"/>
-                    <Item id="6425" name="Seul le nom du fichier"/>
+                    <Item id="6425" name="Nom du fichier seul"/>
                     <Item id="6426" name="Chemin complet du fichier"/>
-                    <Item id="6427" name="Adapter la longueur maximale :"/>
+                    <Item id="6427" name="Adapter la longueur maximale"/>
                 </RecentFilesHistory>
 
                 <Backup title="Sauvegarde">
@@ -785,11 +785,12 @@
                     <Item id="6810" name="Complétion de mot"/>
 					<Item id="6816" name="Complétion de fonction et de mot"/>
                     <Item id="6811" name="À partir du"/>
-                    <Item id="6813" name="è caractère"/>
+                    <Item id="6813" name="ème caractère"/>
                     <Item id="6814" name="Valeur possible : de 1 à 9"/>
                     <Item id="6815" name="Paramètres affichés durant la saisie"/>
+                    <Item id="6824" name="Ignorer les nombres"/>
                     <Item id="6851" name="Insertion automatique"/>
-                    <Item id="6857" name="balise fermante (html/xml)"/>
+                    <Item id="6857" name="Balise fermante (html/xml)"/>
                     <Item id="6858" name="Début"/>
                     <Item id="6859" name="Fin"/>
                     <Item id="6860" name="paire #1 :"/>
@@ -801,8 +802,8 @@
                     <Item id="6151" name="Options d'Instance Multiple"/>
                     <Item id="6152" name="Ouverture de session dans une nouvelle instance"/>
                     <Item id="6153" name="Toujours en mode instance multiple"/>
-                    <Item id="6154" name="Défaut (instance singulière)"/>
-                    <Item id="6155" name="* Afin de prendre en compte de la modification, redémarres Notepad++"/>
+                    <Item id="6154" name="Défaut (instance unique)"/>
+                    <Item id="6155" name="* Redémarrez Notepad++ pour prendre en compte la modification"/>
                 </MultiInstance>
 
                 <Delimiter title="Délimiteur">
@@ -810,16 +811,17 @@
                     <Item id="6252" name="Début"/>
                     <Item id="6255" name="Fin"/>
                     <Item id="6256" name="Sur plusieurs lignes"/>
-					<Item id="6161" name="Liste des caractère de mot"/>
-                    <Item id="6162" name="Utiliser la liste originale des caractère de mot comme telle quelle"/>
-                    <Item id="6163" name="Inclure les caractères comme la partie des caractères de mot
-(Ne pas prendre cette option si tu ne sais pas ce qu'elle fait)"/>
+					<Item id="6161" name="Liste des caractères de mot"/>
+                    <Item id="6162" name="Utiliser la liste d'origine des caractères de mot"/>
+                    <Item id="6163" name="Ajouter ces caractères comme caractères de mot
+(Ne pas utiliser cette option si vous ne savez pas ce qu'elle fait)"/>
                 </Delimiter>
 
 				<Cloud title="Cloud">
+                    <Item id="6261" name="Chemin invalide"/>
                     <Item id="6262" name="Sauvegarder les paramètres dans le cloud"/>
                     <Item id="6263" name="Par défaut"/>
-                    <Item id="6267" name="Le chemin d'accès de votre location de cloud :"/>
+                    <Item id="6267" name="Chemin d'accès de votre cloud :"/>
                     <!--Item id="6261" name="Please restart Notepad++ to take effect."/-->
                 </Cloud>
 
@@ -831,7 +833,7 @@
                     <Item id="6275" name="Yahoo!"/>
                     <Item id="6276" name="Votre Moteur de Recherche :"/>
                     <!-- Don't change anything after Example: -->
-                    <Item id="6278" name="Exemple: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                    <Item id="6278" name="Exemple : https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>
 
                 <MISC title="Divers">
@@ -845,14 +847,14 @@
                     <Item id="6318" name="Paramétrage de lien cliquable"/>
                     <Item id="6319" name="Activer"/>
                     <Item id="6320" name="Ne pas souligner"/>
-                    <Item id="6322" name="Ext fichier session :"/>
+                    <Item id="6322" name="Ext. fichier Session :"/>
                     <Item id="6323" name="Activer la mise à jour automatique"/>
                     <Item id="6324" name="Commutateur de documents (Ctrl+Tab)"/>
                     <Item id="6325" name="Aller à la dernière ligne après mise à jour"/>
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
 					<Item id="6334" name="Détecter l'encodage automatiquement"/>
 					<Item id="6335" name="Backslash : caractère d'échappement pour SQL"/>
-					<Item id="6337" name="Ext fichier Espace de travail :"/>
+					<Item id="6337" name="Ext. fichier Espace de travail :"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">
@@ -901,7 +903,7 @@
             <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir est trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts. Êtes-vous sûr de les ouvrir ?"/>
             <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. Veuillez le télécharger sur le site de Notepad++."/>
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
-            <FilePathNotFoundWarning title="Ouvrier" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
+            <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
         </MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papiers"/>
@@ -972,7 +974,7 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-			<word-chars-list-tip value="Cela te permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-cliquant pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/>
+			<word-chars-list-tip value="Ceci permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-clic pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/>
             <word-chars-list-warning-begin value="Attention : "/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ espace(s)"/>

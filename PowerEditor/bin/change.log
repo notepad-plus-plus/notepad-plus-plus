@@ -1,7 +1,17 @@
-Notepad++ 7.3.1 bug-fix & enhancement:
+Notepad++ 7.3.2 bug-fixs & enhancements:
 
-1.  Fix geneation of MD5 on Unicode bug.
-2.  Enhancement : make "Word characters list" customizable.
+1.  Fix crash issue on column mode editor.
+2.  Fix "Use new style save dialog" setting's regression.
+3.  Enhance "Open file" command - open a file from editor zone without selecting its full path.
+4.  Fix word char list settings not applying on next launch issue.
+5.  Fix block uncomment for line comment bug.
+6.  BaanC Language is surpported.
+7.  Add error notification on run dialog.
+8.  Fix the caret position not maintained issue between document move.
+9.  Fix caret goes to wrong position after word completion.
+10. Enhance Function List for supporting language.
+11. Add check mark in Language menu.
+12. Fix toolbar not showing issue while launching Notepad++ from system tray in some unknown configuration.
 
 
 Included plugins:

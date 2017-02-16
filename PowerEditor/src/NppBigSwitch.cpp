@@ -732,8 +732,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				TCHAR *delimiters;
 
 				lineNumber = _pEditView->getCurrentLineNumber();
+				int tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
 				col = _pEditView->getCurrentColumnNumber();
 				_pEditView->getLine(lineNumber, strLine, strSize);
+
+				for (int i = 0; i < col; i++) if (strLine[i] == '\t') col = col - tabWidth + 1;
 
 				// find the start
 				start = col;
@@ -746,7 +749,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				delimiters = TEXT(" \t:()[]<>\"\r\n");
 				while ((strLine[end] != 0) && (CharacterIs(strLine[end], delimiters) == FALSE)) end++;
 
-				lstrcpyn(str, &strLine[start], end - start + 1);
+				int out = 0;
+				TCHAR c;
+				TCHAR lc = 0;
+				for (i = start; i < end; i++)
+				{
+					c = strLine[i];
+					if ((lc == '\\') && (c == '\\'))
+					{
+						// replace '\\' with '\'
+						lc = 0;
+					}
+					else
+					{
+						lc = c;
+						str[out++] = c;
+					}
+				}
+				str[out] = 0;
 			}
 
 			if (lstrlen(str) >= int(wParam))	//buffer too small

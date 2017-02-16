@@ -416,9 +416,14 @@ void Notepad_plus::command(int id)
 				if ((id == IDM_EDIT_OPENASFILE &&
 					(not::PathFileExists(fullFilePath.c_str() + 1) || ::PathIsDirectory(fullFilePath.c_str() + 1))))
 				{
+					TCHAR err[CURRENTWORD_MAXLENGTH];
+					
+					lstrcpy(err, TEXT("The file '"));
+					lstrcat(err, fullFilePath.c_str());
+					lstrcat(err, TEXT("' doesn't exist."));
 					_nativeLangSpeaker.messageBox("FilePathNotFoundWarning",
 						_pPublicInterface->getHSelf(),
-						TEXT("The file you're trying to open doesn't exist."),
+						err,
 						TEXT("File Open"),
 						MB_OK | MB_APPLMODAL);
 					return;

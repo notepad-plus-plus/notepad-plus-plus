@@ -618,6 +618,11 @@ public:
 	};
 
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
+
+	void addCustomWordChars();
+	void restoreDefaultWordChars();
+	void setWordChars();
+
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
 	};
@@ -669,6 +674,8 @@ protected:
 	BufferStyleMap _hotspotStyles;
 
 	int _beginSelectPosition = -1;
+
+	static std::string _defaultCharList;
 
 //Lexers and Styling
 	void restyleBuffer();

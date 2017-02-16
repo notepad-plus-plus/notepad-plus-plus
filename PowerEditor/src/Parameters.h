@@ -761,7 +761,6 @@ struct NppGUI final
 	bool _backSlashIsEscapeCharacterForSql = true;
 
 	bool _isWordCharDefault = true;
-	std::string _defaultWordChars;
 	std::string _customWordChars;
 
 	// 0 : do nothing

@@ -437,11 +437,10 @@ private:
 	void setLangStatus(LangType langType);
 
 	void setDisplayFormat(EolType f);
-	int getCmdIDFromEncoding(int encoding) const;
 	void setUniModeText();
 	void checkLangsMenu(int id) const ;
     void setLanguage(LangType langType);
-	enum LangType menuID2LangType(int cmdID);
+	LangType menuID2LangType(int cmdID);
 
 	BOOL processIncrFindAccel(MSG *msg) const;
 	BOOL processFindAccel(MSG *msg) const;
@@ -533,7 +532,6 @@ private:
 	void doSynScorll(HWND hW);
 	void setWorkingDir(const TCHAR *dir);
 	bool str2Cliboard(const generic_string & str2cpy);
-	bool bin2Cliboard(const UCHAR *uchar2cpy, size_t length);
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
 	int getLangFromMenuName(const TCHAR * langName);
@@ -541,7 +539,6 @@ private:
 
     generic_string exts2Filters(generic_string exts) const;
 	int setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType = -1);
-	void markSelectedTextInc(bool enable);
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func
 	void drawTabbarColoursFromStylerArray();
@@ -569,10 +566,6 @@ private:
 	static bool deleteBack(ScintillaEditView *pCurrentView, BufferID targetBufID);
 	static bool deleteForward(ScintillaEditView *pCurrentView, BufferID targetBufID);
 	static bool selectBack(ScintillaEditView *pCurrentView, BufferID targetBufID);
-
-	void retrieveDefaultWordChars(std::string & charList);
-	void addCustomWordChars();
-	void restoreDefaultWordChars();
 
 	static int getRandomNumber(int rangeMax = -1)
 	{

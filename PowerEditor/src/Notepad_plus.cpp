@@ -715,8 +715,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		_dockingManager.setActiveTab(cti._cont, cti._activeTab);
 	}
 
-	retrieveDefaultWordChars(nppGUI._defaultWordChars);
-
 	//Load initial docs into doctab
 	loadBufferIntoView(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);
@@ -2686,38 +2684,40 @@ BOOL Notepad_plus::processIncrFindAccel(MSG *msg) const
 	return ::TranslateAccelerator(_incrementFindDlg.getHSelf(), _accelerator.getIncrFindAccTable(), msg);
 }
 
-void Notepad_plus::setLanguage(LangType langType) {
+void Notepad_plus::setLanguage(LangType langType)
+{
 	//Add logic to prevent changing a language when a document is shared between two views
 	//If so, release one document
 	bool reset = false;
 	Document prev = 0;
-	if (bothActive()) {
-		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID()) {
+	if (bothActive())
+	{
+		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID())
+		{
 			reset = true;
 			_subEditView.saveCurrentPos();
 			prev = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 		}
 	}
-	if (reset) {
+	
+	if (reset)
+	{
 		_mainEditView.getCurrentBuffer()->setLangType(langType);
-	} else {
-		/*
-		int mode = _pEditView->execute(SCI_GETMODEVENTMASK, 0, 0);
-		_pEditView->execute(SCI_SETMODEVENTMASK, 0, 0);
-		_pEditView->getCurrentBuffer()->setLangType(langType);
-		_pEditView->execute(SCI_SETMODEVENTMASK, mode, 0);
-		*/
+	}
+	else
+	{
 		_pEditView->getCurrentBuffer()->setLangType(langType);
 	}
 
-	if (reset) {
+	if (reset)
+	{
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
 		_subEditView.restoreCurrentPos();
 	}
 };
 
-enum LangType Notepad_plus::menuID2LangType(int cmdID)
+LangType Notepad_plus::menuID2LangType(int cmdID)
 {
 	switch (cmdID)
 	{
@@ -6724,57 +6724,3 @@ bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 	//return retVal;
 }
 
-void Notepad_plus::retrieveDefaultWordChars(string & charList)
-{
-	auto defaultCharListLen = _mainEditView.execute(SCI_GETWORDCHARS);
-	char *defaultCharList = new char[defaultCharListLen + 1];
-	_mainEditView.execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
-	charList = defaultCharList;
-	delete[] defaultCharList;
-}
-
-void Notepad_plus::restoreDefaultWordChars()
-{
-	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
-	_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._defaultWordChars.c_str()));
-	_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._defaultWordChars.c_str()));
-}
-
-void Notepad_plus::addCustomWordChars()
-{
-	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
-
-	if (nppGUI._customWordChars.empty())
-		return;
-
-	string chars2addStr;
-	for (size_t i = 0; i < nppGUI._customWordChars.length(); ++i)
-	{
-		bool found = false;
-		char char2check = nppGUI._customWordChars[i];
-		for (size_t j = 0; j < nppGUI._defaultWordChars.length(); ++j)
-		{
-			char wordChar = nppGUI._defaultWordChars[j];
-			if (char2check == wordChar)
-			{
-				found = true;
-				break;
-			}
-		}
-		if (not found)
-		{
-			chars2addStr.push_back(char2check);
-		}
-	}
-
-	if (not chars2addStr.empty())
-	{
-		string newCharList = nppGUI._defaultWordChars;
-		newCharList += chars2addStr;
-
-		_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
-		_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
-	}
-}

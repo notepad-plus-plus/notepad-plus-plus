@@ -1393,11 +1393,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_SETWORDCHARS:
 		{
-			const NppGUI & nppGUI = pNppParam->getNppGUI();
-			if (nppGUI._isWordCharDefault)
-				restoreDefaultWordChars();
-			else
-				addCustomWordChars();
+			_mainEditView.setWordChars();
+			_subEditView.setWordChars();
 			return TRUE;
 		}
 

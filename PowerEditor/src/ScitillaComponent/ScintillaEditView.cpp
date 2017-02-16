@@ -56,6 +56,8 @@ const int ScintillaEditView::_SC_MARGE_FOLDER = 2;
 //const int ScintillaEditView::_SC_MARGE_MODIFMARKER = 3;
 
 WNDPROC ScintillaEditView::_scintillaDefaultProc = NULL;
+string ScintillaEditView::_defaultCharList = "";
+
 /*
 SC_MARKNUM_*     | Arrow               Plus/minus           Circle tree                 Box tree
 -------------------------------------------------------------------------------------------------------------
@@ -283,6 +285,14 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	_callWindowProc = CallWindowProc;
 	_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(scintillaStatic_Proc)));
 
+	if (_defaultCharList.empty())
+	{
+		auto defaultCharListLen = execute(SCI_GETWORDCHARS);
+		char *defaultCharList = new char[defaultCharListLen + 1];
+		execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+		_defaultCharList = defaultCharList;
+		delete[] defaultCharList;
+	}
 	//Get the startup document and make a buffer for it so it can be accessed like a file
 	attachDefaultDoc();
 }
@@ -1182,6 +1192,57 @@ void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 	}
 }
 
+void ScintillaEditView::restoreDefaultWordChars()
+{
+	execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(_defaultCharList.c_str()));
+}
+
+void ScintillaEditView::addCustomWordChars()
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+
+	if (nppGUI._customWordChars.empty())
+		return;
+
+	string chars2addStr;
+	for (size_t i = 0; i < nppGUI._customWordChars.length(); ++i)
+	{
+		bool found = false;
+		char char2check = nppGUI._customWordChars[i];
+		for (size_t j = 0; j < _defaultCharList.length(); ++j)
+		{
+			char wordChar = _defaultCharList[j];
+			if (char2check == wordChar)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (not found)
+		{
+			chars2addStr.push_back(char2check);
+		}
+	}
+
+	if (not chars2addStr.empty())
+	{
+		string newCharList = _defaultCharList;
+		newCharList += chars2addStr;
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
+	}
+}
+
+void ScintillaEditView::setWordChars()
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+	if (nppGUI._isWordCharDefault)
+		restoreDefaultWordChars();
+	else
+		addCustomWordChars();
+}
+
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
     StyleArray & stylers = _pParameter->getMiscStylerArray();
@@ -1652,7 +1713,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
 	// defineDocType() function should be called here, but not be after the fold info loop
 	defineDocType(_currentBuffer->getLangType());
-    setTabSettings(_currentBuffer->getCurrentLang());
+
+	setWordChars();
 
 	if (_currentBuffer->getNeedsLexing()) {
 		restyleBuffer();

@@ -5466,7 +5466,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("delimiterSelection"));
 		GUIConfigElement->SetAttribute(TEXT("leftmostDelimiter"), _nppGUI._leftmostDelimiter);
 		GUIConfigElement->SetAttribute(TEXT("rightmostDelimiter"), _nppGUI._rightmostDelimiter);
-		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument);
+		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="multiInst" setting="0" />

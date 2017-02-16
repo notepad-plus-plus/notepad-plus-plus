@@ -732,11 +732,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				TCHAR *delimiters;
 
 				lineNumber = _pEditView->getCurrentLineNumber();
-				int tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
+				int tabWidth = static_cast<int>(_pEditView->execute(SCI_GETTABWIDTH));
 				col = _pEditView->getCurrentColumnNumber();
 				_pEditView->getLine(lineNumber, strLine, strSize);
 
-				for (int i = 0; i < col; i++) if (strLine[i] == '\t') col = col - tabWidth + 1;
+				for (i = 0; i < col; i++) if (strLine[i] == '\t') col = col - tabWidth + 1;
 
 				// find the start
 				start = col;

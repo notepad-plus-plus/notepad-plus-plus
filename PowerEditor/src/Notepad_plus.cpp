@@ -5081,7 +5081,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		// To notify plugins ro status is changed
 		SCNotification scnN;
 		scnN.nmhdr.hwndFrom = (void *)buffer->getID();
-		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTAUS_READONLY : 0) | (isDirty ? DOCSTAUS_BUFFERDIRTY : 0));
+		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTATUS_READONLY : 0) | (isDirty ? DOCSTATUS_BUFFERDIRTY : 0));
 		scnN.nmhdr.code = NPPN_READONLYCHANGED;
 		_pluginsManager.notify(&scnN);
 

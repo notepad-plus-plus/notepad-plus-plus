@@ -766,7 +766,7 @@ struct NppGUI final
 	// 0 : do nothing
 	// 1 : don't draw underline
 	// 2 : draw underline
-	int _styleURL = 0;
+	int _styleURL = 2;
 
 	NewDocDefaultSettings _newDocDefaultSettings;
 

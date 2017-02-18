@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Slovenian localization for Notepad++ v7.0
-        Last modified 15. Oct. 2016 by Vinko Kastelic
+        Slovenian localization for Notepad++ v7.3.1
+        Last modified 13. Feb. 2017 by Vinko Kastelic
         
 -->
 <NotepadPlus>
-    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.0">
+    <Native-Langue name="Slovenski jezik" filename="slovenian.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -17,6 +17,7 @@
                     <Item menuId="encoding" name="K&amp;odiranje"/>
                     <Item menuId="language" name="&amp;Sintaksa jezika"/>
                     <Item menuId="settings" name="Nas&amp;tavitve"/>
+	                 <Item menuId="tools" name="Oro&amp;dja"/>	
                     <Item menuId="macro" name="Makro"/>
                     <Item menuId="run" name="Poženi"/>
                     <Item idName="Plugins" name="Vtičniki"/>
@@ -67,6 +68,7 @@
 						<Item subMenuId="encoding-westernEuropean" name="zahodnoevropski"/>
 						<Item subMenuId="encoding-vietnamese" name="vietnamski"/>
 						<Item subMenuId="settings-import"  name="Uvozi"/>
+						<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -297,6 +299,9 @@
 						<Item id="48018" name="Uredi pojavno okno kontekstnega menija"/>
                     <Item id="48009" name="Bližnjice..."/>
                     <Item id="48011" name="Nastavitve..."/>
+						<Item id="48501" name="Generaj..."/>
+                    <Item id="48502" name="Generiraj iz datoteke..."/>
+                    <Item id="48503" name="Generiraj v odložišče"/>
                     <Item id="49000" name="&amp;Poženi ..."/>
 					
 						<Item id="50000" name="Dopolnjevanje funkcij"/>
@@ -405,6 +410,18 @@
                 <Item id="2"    name="Prekliči"/>
 					<Item id="1904" name="Shrani..."/>
              </Run>
+			 
+             <MD5FromFilesDlg title="Generiraj MD5 povzetek iz datotek">
+                 <Item id="1922" name="Izberite datoteke za generiranje MD5..."/>
+                 <Item id="1924" name="Kopiraj v odložišče"/>
+                 <Item id="2"    name="Zapri"/>
+             </MD5FromFilesDlg>
+
+             <MD5FromTextDlg title="Generiraj MD5 povzetek">
+                 <Item id="1932" name="Obravnavaj vsako vrstico kot ločen niz"/>
+                 <Item id="1934" name="Kopiraj v odložišče"/>
+                 <Item id="2"    name="Zapri"/>
+             </MD5FromTextDlg>
 
              <StyleConfig title="Prilagoditev sloga">
 					<Item id="2"    name="Prekliči"/>
@@ -703,29 +720,30 @@
 						<Item id="4009" name="Podprte pripone:"/>
 						<Item id="4010" name="Registrirane pripone:"/>
 					</FileAssoc>
-					<Language title="Jezik">					
+					<Language title="Jezikovni meni">					
 						<Item id="6505" name="Razpoložljive postavke"/>
 						<Item id="6506" name="Onemogočene postavke"/>
 						<Item id="6507" name="Strni jezikovni meni"/>
-						<Item id="6508" name="Jezikovni meni"/> 	
+						<Item id="6508" name="Jezikovni meni"/> 			
 						<Item id="6301" name="Nastavitve zavihka"/>
 						<Item id="6302" name="Zamenjaj s presledki"/>
 						<Item id="6303" name="Velikost zavihka: "/>
 						<Item id="6510" name="Uporabi privzeto vrednost"/>
-					</Language>
+			   	</Language>
 					
-					<Highlighting title="Highlighting">
-						<Item id="6333" name="Pametno poudarjanje"/>
-						<Item id="6326" name="Omogoči pametno poudarjanje"/>					
-						<Item id="6332" name="Razlikuj male/VELIKE črke"/>
-						<Item id="6338" name="Ujemanje samo cele besede"/>
-						<Item id="6339" name="Uporabi nastavitve pogovornega okna Najdi"/>
-						<Item id="6329" name="Poudari ujemajoče oznake"/>
-						<Item id="6327" name="Omogoči"/>
-						<Item id="6328" name="Poudari atribute oznake"/>
-						<Item id="6330" name="Poudari komentar/php/asp območja"/>											
-					</Highlighting>
-					
+                <Highlighting title="Poudarjanje">
+                    <Item id="6333" name="Pametno poudarjanje"/>
+                    <Item id="6326" name="Omogoči pametno poudarjanje"/>
+						<Item id="6332" name="Upoštevaj VELIKE/male črke"/>
+						<Item id="6338" name="Upoštevaj samo cele besede"/>
+						<Item id="6339" name="Uporabi pogovorno okno Najdi nastavitve"/>
+                    <Item id="6340" name="Poudari drug pogled"/>
+                    <Item id="6329" name="Poudari ujemajoče oznake"/>
+                    <Item id="6327" name="Omogoči"/>
+                    <Item id="6328" name="Poudari oznako atributov"/>
+                    <Item id="6330" name="Poudari komentar/php/asp območje"/>
+                </Highlighting>
+				
 					<Print title="Tiskanje">
 						<Item id="6601" name="Natisni številko vrstice"/>
 						<Item id="6602" name="Barvne možnosti"/>
@@ -788,7 +806,7 @@
 						<Item id="6809" name="Dopolnjevanje funkcij"/>
 						<Item id="6810" name="Dopolnjevanje besed"/>
 						<Item id="6816" name="Funkcija in beseda zaključka"/>
-                    <Item id="6824" name="Prezri številke"/>						
+						<Item id="6824" name="Prezri številke"/>
 						<Item id="6811" name="Od"/>
 						<Item id="6813" name=". znaka naprej"/>
 						<Item id="6814" name="Veljavna vrednost: 1 - 9"/>
@@ -815,6 +833,10 @@
                     <Item id="6252" name="Odpri"/>
                     <Item id="6255" name="Zapri"/>
                     <Item id="6256" name="Dovoli na več vrsticah"/>
+					   <Item id="6161" name="Besedni seznam znakov"/>
+                    <Item id="6162" name="Uporabi privzeti Besedni seznam znakov"/>
+                    <Item id="6163" name="Dodaj svoj znak kot del besede
+(izberite le če veste kaj počnete)"/>					
 					</Delimiter>			
 				
 					<Cloud title="Oblak">
@@ -845,14 +867,14 @@
 						<Item id="6320" name="Brez podčrtavanja"/>
 						<Item id="6322" name="Pripona datoteke seje:"/>
 						<Item id="6323" name="Omogoči samodejno posodabljanje Notepada++"/>
-						<Item id="6324" name="Preklopnik dokumentov (Ctrl+TAB)"/>		
-						<Item id="6331" name="V naslovni vrstici pokaži le ime datoteke"/>						
+						<Item id="6324" name="Preklopnik dokumentov (Ctrl+TAB)"/>
+						<Item id="6331" name="V naslovni vrstici pokaži le ime datoteke"/>
 						<Item id="6334" name="Samodejno zaznavanje kodiranja znakov"/>
 						<Item id="6335" name="Uporabite poševnico kot ubežni znak za SQL"/>
 						<Item id="6337" name="Delovni prostor pripone datoteke:"/>
 						<Item id="6114" name="Omogoči"/>
 						<Item id="6115" name="Samodejno zamikaj"/>
-						<Item id="6117" name="Omogoči MRU obnašanje"/>				
+						<Item id="6117" name="Omogoči MRU obnašanje"/>	
 					</MISC>
           </Preference>
 			<MultiMacro title="Večkratni zagon makra">
@@ -970,5 +992,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>	
+        <MiscStrings>
+			<word-chars-list-tip value="To vam omogoča vključevati dodatni znak v aktualnih besednih znakih med dvoklikom za izbiro ali iskanje z &quot;Ujemanje samo cele besede&quot; možnost preverbe."/>
+            <word-chars-list-warning-begin value="Zavedajte se: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
+			<word-chars-list-warning-end value="  na seznamu znakov."/>
+			<cloud-invalid-warning value="Neveljavna pot."/>
+			<cloud-restart-warning value="Za uveljavitev ponovno zaženite Notepad++."/>
+        </MiscStrings>					
     </Native-Langue>
 </NotepadPlus>

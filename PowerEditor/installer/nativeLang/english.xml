@@ -275,6 +275,23 @@
                     <Item id="10003" name="Move to New Instance"/>
                     <Item id="10004" name="Open in New Instance"/>
 
+                    <Item id="45060" name="Big5 (Traditional)"/>
+                    <Item id="45061" name="GB2312 (Simplified)"/>
+                    <Item id="45054" name="OEM 861 : Icelandic"/>
+                    <Item id="45057" name="OEM 865 : Nordic"/>
+                    <Item id="45053" name="OEM 860 : Portuguese"/>
+                    <Item id="45056" name="OEM 863 : French"/>
+
+                    <Item id="46033" name="Assembly"/>
+                    <Item id="46022" name="Batch"/>
+                    <Item id="46026" name="Fortran (free form)"/>
+                    <Item id="46019" name="INI file"/>
+                    <Item id="46015" name="MS-DOS Style"/>
+                    <Item id="46016" name="Normal Text"/>
+                    <Item id="46017" name="Resource file"/>
+                    <Item id="46027" name="Shell"/>
+                    <Item id="46058" name="Fortran (fixed form)"/>
+
                     <Item id="46001" name="Style Configurator..."/>
                     <Item id="46150" name="Define your language..."/>
                     <Item id="46080" name="User-Defined"/>
@@ -904,20 +921,51 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-            <NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
-            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <!-- Line feed code "\r" doesn't work here. Just start a new line, instead of "\r". -->
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message=
+"Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
+You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <NppHelpAbsentWarning title="File does not exist" message=
+"
+doesn't exist. Please download it on Notepad++ site."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message=
+"You should save the current modification.
+All the saved modifications can not be undone.
+
+Continue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message=
+"You should save the current modification.
+All the saved modifications can not be undone.
+
+Continue?"/>
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
+            <!-- &quot; means double-quotation (") -->
+            <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
-			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message=
+"$INT_REPLACE$ files are about to be opened.
+Are you sure to open them?"/>
+            <SettingsOnCloudError title="Settings on Cloud" message=
+"It seems the path of settings on cloud is set on a read only drive,
+or on a folder needed privilege right for writting access.
+Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
 			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
+
+            <!-- $STR_REPLACE$ is a place holder, don't translate it -->
+            <SortingError title="Sorting Error" message="Unable to perform numeric sort due to line $STR_REPLACE$."/>
+            <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
+            <OpenInAdminMode title="Save failed" message=
+"The file cannot be saved and it may be protected.
+Do you want to launch Notepad++ in Administrator mode?"/>
+            <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
+            <OpenInAdminModeWithoutCloseCurrent title="Save failed" message=
+"The file cannot be saved and it may be protected.
+Do you want to launch Notepad++ in Administrator mode?"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

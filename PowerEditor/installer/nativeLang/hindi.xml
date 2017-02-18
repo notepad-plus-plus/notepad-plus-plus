@@ -933,6 +933,7 @@
       <NbFileToOpenImportantWarning title="खोलने के लिए फ़ाइलों की राशि बहुत बड़ी है" message="$INT_REPLACE$ फ़ाइलों खुलने ही वाली हैं। आप उन्हें खोलने के लिए सुनिश्चित कर रहे हैं?"/>
       <SettingsOnCloudError title="क्लाउड (cloud) की सेटिंग्स" message="ऐसा लगता है कि क्लाउड (cloud) का सेटिंग पाथ रीड ओनली है या फिर आवश्यक फोल्डर पर राइट एक्सेस (write access) चाहिए। आपकी क्लाउड (cloud) की सेटिंग्स को रद्द कर दिया जायेगा। कृप्या प्रैफरेंसेज डायलॉग (preferences dialog) से एक सुसंगत (coherent ) मूल्य रीसेट करें।"/>
       <FilePathNotFoundWarning title="फाइल खोलें" message="आप जिस फ़ाइल को खोलने की कोशिश कर रहे हैं, वह मौजूद नहीं है।"/>
+      <SessionFileInvalidError title="सत्र लोड नहीं किया जा सका" message="सत्र फ़ाइल या तो अनुपयोगी है या मान्य नहीं है।"/>
     </MessageBox>
     <ClipboardHistory>
       <PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>

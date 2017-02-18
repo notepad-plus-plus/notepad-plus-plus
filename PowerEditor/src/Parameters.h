@@ -786,7 +786,7 @@ struct NppGUI final
 	AutocStatus _autocStatus = autoc_both;
 	size_t  _autocFromLen = 1;
 	bool _autocIgnoreNumbers = true;
-	bool _funcParams = false;
+	bool _funcParams = true;
 	MatchedPairConf _matchedPairConf;
 
 	generic_string _definedSessionExt;
@@ -802,7 +802,7 @@ struct NppGUI final
 	_autoUpdateOpt;
 
 	bool _doesExistUpdater = false;
-	int _caretBlinkRate = 250;
+	int _caretBlinkRate = 600;
 	int _caretWidth = 1;
 	bool _enableMultiSelection = false;
 

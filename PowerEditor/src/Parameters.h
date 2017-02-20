@@ -551,7 +551,7 @@ struct NewDocDefaultSettings final
 };
 
 
-struct LangMenuItem
+struct LangMenuItem final
 {
 	LangType _langType;
 	int	_cmdID;
@@ -561,31 +561,29 @@ struct LangMenuItem
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
 };
 
-struct PrintSettings {
-	bool _printLineNumber;
-	int _printOption;
+struct PrintSettings final {
+	bool _printLineNumber = true;
+	int _printOption = SC_PRINT_COLOURONWHITE;
 
 	generic_string _headerLeft;
 	generic_string _headerMiddle;
 	generic_string _headerRight;
 	generic_string _headerFontName;
-	int _headerFontStyle;
-	int _headerFontSize;
+	int _headerFontStyle = 0;
+	int _headerFontSize = 0;
 
 	generic_string _footerLeft;
 	generic_string _footerMiddle;
 	generic_string _footerRight;
 	generic_string _footerFontName;
-	int _footerFontStyle;
-	int _footerFontSize;
+	int _footerFontStyle = 0;
+	int _footerFontSize = 0;
 
 	RECT _marge;
 
-	PrintSettings() : _printLineNumber(true), _printOption(SC_PRINT_NORMAL), _headerLeft(TEXT("")), _headerMiddle(TEXT("")), _headerRight(TEXT("")),\
-		_headerFontName(TEXT("")), _headerFontStyle(0), _headerFontSize(0),  _footerLeft(TEXT("")), _footerMiddle(TEXT("")), _footerRight(TEXT("")),\
-		_footerFontName(TEXT("")), _footerFontStyle(0), _footerFontSize(0) {
-			_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
-		};
+	PrintSettings() {
+		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
+	};
 
 	bool isHeaderPresent() const {
 		return ((_headerLeft != TEXT("")) || (_headerMiddle != TEXT("")) || (_headerRight != TEXT("")));
@@ -762,6 +760,9 @@ struct NppGUI final
 	bool _delimiterSelectionOnEntireDocument = false;
 	bool _backSlashIsEscapeCharacterForSql = true;
 
+	bool _isWordCharDefault = true;
+	std::string _defaultWordChars;
+	std::string _customWordChars;
 
 	// 0 : do nothing
 	// 1 : don't draw underline
@@ -774,7 +775,7 @@ struct NppGUI final
 	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
 	const NewDocDefaultSettings & getNewDocDefaultSettings() const {return _newDocDefaultSettings;};
 	std::vector<LangMenuItem> _excludedLangList;
-	bool _isLangMenuCompact = false;
+	bool _isLangMenuCompact = true;
 
 	PrintSettings _printSettings;
 	BackupFeature _backup = bak_none;
@@ -1069,10 +1070,10 @@ struct FindHistory final
 	enum searchMode{normal, extended, regExpr};
 	enum transparencyMode{none, onLossingFocus, persistant};
 
-	int _nbMaxFindHistoryPath    = 10;
-	int _nbMaxFindHistoryFilter  = 10;
-	int _nbMaxFindHistoryFind    = 10;
-	int _nbMaxFindHistoryReplace = 10;
+	int _nbMaxFindHistoryPath    = 30;
+	int _nbMaxFindHistoryFilter  = 30;
+	int _nbMaxFindHistoryFind    = 30;
+	int _nbMaxFindHistoryReplace = 30;
 
 	std::vector<generic_string> _findHistoryPaths;
 	std::vector<generic_string> _findHistoryFilters;
@@ -1095,6 +1096,11 @@ struct FindHistory final
 	bool _isDlgAlwaysVisible = false;
 	bool _isFilterFollowDoc = false;
 	bool _isFolderFollowDoc = false;
+
+	bool _isFinderUnique = true;
+	bool _isFinderOnlyOne = false;
+	bool _isFinderOnlyOneLineIfMultipleFinds = false;
+	bool _isAutoCloseEmptyFinder = false;
 };
 
 
@@ -1475,6 +1481,7 @@ public:
 	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
 	winVer getWinVersion() const {return _winVersion;};
 	generic_string getWinVersionStr() const;
+	generic_string getWinVerBitStr() const;
 	FindHistory & getFindHistory() {return _findHistory;};
 	bool _isFindReplacing = false; // an on the fly variable for find/replace functions
 	void safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection);
@@ -1548,6 +1555,8 @@ public:
 		_nppGUI._useNewStyleSaveDlg = v;
 	}
 	DPIManager _dpiManager;
+
+	generic_string static getSpecialFolderLocation(int folderKind);
 
 
 private:
@@ -1660,6 +1669,7 @@ private:
 	bool _asNotepadStyle = false;
 
 	winVer _winVersion;
+	Platform _platForm;
 
 	NativeLangSpeaker *_pNativeLangSpeaker = nullptr;
 
@@ -1731,4 +1741,5 @@ private:
 	void initScintillaKeys();	//these functions have to be called first before any modifications are loaded
 	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName); // return -1 if not found
 	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName); // return -1 if not found
+	winVer getWindowsVersion();
 };

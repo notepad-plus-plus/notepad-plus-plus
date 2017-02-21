@@ -751,6 +751,7 @@ protected:
 
 	void setPythonLexer() {
 		setLexer(SCLEX_PYTHON, L_PYTHON, LIST_0 | LIST_1);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setBatchLexer() {

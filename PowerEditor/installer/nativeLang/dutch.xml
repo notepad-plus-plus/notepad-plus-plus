@@ -117,7 +117,7 @@
 					<Item id="42021" name="Macro &amp;afspelen"/>
 					<Item id="42022" name="Regels markeren als commentaar (vervangen)"/>
 					<Item id="42023" name="Selectie markeren als commentaar"/>
-					<Item id="42024" name="Ruimte voor regeleinden wissen"/>
+					<Item id="42024" name="Spaties voor regeleinden wissen"/>
 					<Item id="42025" name="Macro opsl&amp;aan"/>
 					<Item id="42026" name="Tekstrichting rechts-links"/>
 					<Item id="42027" name="Tekstrichting links-rechts"/>
@@ -136,7 +136,7 @@
 					<Item id="42040" name="Alle recentelijk geopende bestanden openen"/>
 					<Item id="42041" name="Bestandsgeschiedenis wissen"/>
 					<Item id="42042" name="Insprong wissen"/>
-					<Item id="42043" name="Insprong en ruimte voor regeleinden wissen"/>
+					<Item id="42043" name="Insprong en spaties voor regeleinden wissen"/>
 					<Item id="42044" name="Regeleinden omzetten in spaties"/>
 					<Item id="42045" name="Regeleinden en overbodige witruimte wissen"/>
 					<Item id="42046" name="Tabs omzetten in spaties"/>

@@ -92,7 +92,7 @@ INT_PTR CALLBACK FolderStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPA
         case WM_INITDIALOG :
         {
             _pageLink.init(_hInst, _hSelf);
-            _pageLink.create(::GetDlgItem(_hSelf, IDC_WEB_HELP_LINK), TEXT("http://udl20.weebly.com/"));
+            _pageLink.create(::GetDlgItem(_hSelf, IDC_WEB_HELP_LINK), TEXT("https://ivan-radic.github.io/udl-documentation/"));
             return TRUE;
         }
 

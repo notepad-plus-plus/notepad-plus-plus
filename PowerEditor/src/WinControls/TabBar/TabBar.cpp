@@ -241,27 +241,24 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	}
 	else //if (_isMultiLine)
 	{
+		LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
+		int marge = 0;
 		if (rowCount == 1)
 		{
-			LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
 			style &= ~TCS_BUTTONS;
-			::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
-
-			TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
 		}
 		else // (rowCount >= 2)
 		{
-			LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
 			style |= TCS_BUTTONS;
-			::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
-
-			const int marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
-			tabsHight = rowCount * (rowRect.bottom - rowRect.top + marge);
-			tabsHight += GetSystemMetrics(SM_CYEDGE);
-
-			rc2Ajust.top += tabsHight;
-			rc2Ajust.bottom -= tabsHight;
+			marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
 		}
+
+		::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
+		tabsHight = rowCount * (rowRect.bottom - rowRect.top + marge);
+		tabsHight += GetSystemMetrics(SM_CYEDGE);
+
+		rc2Ajust.top += tabsHight;
+		rc2Ajust.bottom -= tabsHight;
 	}
 }
 

@@ -2343,23 +2343,8 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETFOLDMARGINCOLOUR, true, foldMarginColor);
 	execute(SCI_SETFOLDMARGINHICOLOUR, true, foldMarginHiColor);
 
-	COLORREF foldfgColor = white;
-	COLORREF foldbgColor = grey;
-	i = stylers.getStylerIndexByName(TEXT("Fold"));
-	if (i != -1)
-	{
-		Style & style = stylers.getStyler(i);
-		foldfgColor = style._bgColor;
-		foldbgColor = style._fgColor;
-	}
-
-	COLORREF activeFoldFgColor = red;
-	i = stylers.getStylerIndexByName(TEXT("Fold active"));
-	if (i != -1)
-	{
-		Style & style = stylers.getStyler(i);
-		activeFoldFgColor = style._fgColor;
-	}
+	COLORREF foldfgColor = white, foldbgColor = grey, activeFoldFgColor = red;
+	getFoldColor(foldfgColor, foldbgColor, activeFoldFgColor);
 
 	ScintillaViewParams & svp = (ScintillaViewParams &)_pParameter->getSVP();
 	for (int j = 0 ; j < NB_FOLDER_STATE ; ++j)
@@ -3367,4 +3352,24 @@ void ScintillaEditView::setBorderEdge(bool doWithBorderEdge)
 
 	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
 	::SetWindowPos(_hSelf, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+}
+
+void ScintillaEditView::getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLORREF& activeFgColor)
+{
+	StyleArray & stylers = _pParameter->getMiscStylerArray();
+
+	int i = stylers.getStylerIndexByName(TEXT("Fold"));
+	if (i != -1)
+	{
+		Style & style = stylers.getStyler(i);
+		fgColor = style._bgColor;
+		bgColor = style._fgColor;
+	}
+
+	i = stylers.getStylerIndexByName(TEXT("Fold active"));
+	if (i != -1)
+	{
+		Style & style = stylers.getStyler(i);
+		activeFgColor = style._fgColor;
+	}
 }

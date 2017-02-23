@@ -66,7 +66,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
-	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE | TCS_BUTTONS : 0) : 0;
+	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE : 0) : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
         TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | vertical | multiLine;
@@ -221,20 +221,47 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	}
 	else if (_isVertical)
 	{
-		tabsHight  = rowCount * (rowRect.right - rowRect.left);
+		LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
+		if (rowCount == 1)
+		{
+			style &= ~TCS_BUTTONS;
+		}
+		else // (rowCount >= 2)
+		{
+			style |= TCS_BUTTONS;
+		}
+		::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
+
+		const int marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
+		tabsHight  = rowCount * (rowRect.right - rowRect.left + marge);
 		tabsHight += GetSystemMetrics(SM_CXEDGE);
 
 		rc2Ajust.left	+= tabsHight;
 		rc2Ajust.right	-= tabsHight;
 	}
-	else
+	else //if (_isMultiLine)
 	{
-		const int marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
-		tabsHight  = rowCount * (rowRect.bottom - rowRect.top + marge);
-		tabsHight += GetSystemMetrics(SM_CYEDGE);
+		if (rowCount == 1)
+		{
+			LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
+			style &= ~TCS_BUTTONS;
+			::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
 
-		rc2Ajust.top	+= tabsHight;
-		rc2Ajust.bottom -= tabsHight;
+			TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
+		}
+		else // (rowCount >= 2)
+		{
+			LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
+			style |= TCS_BUTTONS;
+			::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
+
+			const int marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
+			tabsHight = rowCount * (rowRect.bottom - rowRect.top + marge);
+			tabsHight += GetSystemMetrics(SM_CYEDGE);
+
+			rc2Ajust.top += tabsHight;
+			rc2Ajust.bottom -= tabsHight;
+		}
 	}
 }
 
@@ -259,10 +286,9 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
-	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE | TCS_BUTTONS : 0) : 0;
+	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE : 0) : 0;
 
-	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
-        TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
+	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE | TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
 
 	style |= TCS_OWNERDRAWFIXED;
 
@@ -415,7 +441,7 @@ void TabBarPlus::doMultiLine()
 	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
 		if (_hwndArray[i])
-			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE | TCS_BUTTONS);
+			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE);
 	}
 }
 

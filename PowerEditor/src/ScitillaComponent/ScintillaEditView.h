@@ -265,8 +265,6 @@ public:
 
 	void saveCurrentPos();
 	void restoreCurrentPos();
-	void saveCurrentFold();
-	void restoreCurrentFold();
 
 	void beginOrEndSelect();
 	bool beginEndSelectedIsStarted() const {
@@ -346,8 +344,12 @@ public:
 		{
 			display = true;
 		}
+
+		COLORREF foldfgColor = white, foldbgColor = grey, activeFoldFgColor = red;
+		getFoldColor(foldfgColor, foldbgColor, activeFoldFgColor);
+
 		for (int i = 0 ; i < NB_FOLDER_STATE ; ++i)
-			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], white, grey, white);
+			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], foldfgColor, foldbgColor, activeFoldFgColor);
 		showMargin(ScintillaEditView::_SC_MARGE_FOLDER, display);
     };
 
@@ -928,5 +930,6 @@ protected:
 
 	std::pair<int, int> getWordRange();
 	bool expandWordSelection();
+	void getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLORREF& activeFgColor);
 };
 

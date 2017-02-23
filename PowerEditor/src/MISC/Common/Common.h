@@ -187,3 +187,5 @@ generic_string GetLastErrorAsString(DWORD errorCode = 0);
 
 generic_string intToString(int val);
 generic_string uintToString(unsigned int val);
+
+HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);

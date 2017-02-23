@@ -2901,48 +2901,6 @@ void DelimiterSettingsDlg::detectSpace(const char *text2Check, int & nbSp, int &
 	}
 }
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
-{
-	if (!toolID || !hDlg || !pszText)
-	{
-		return NULL;
-	}
-
-	// Get the window of the tool.
-	HWND hwndTool = GetDlgItem(hDlg, toolID);
-	if (!hwndTool)
-	{
-		return NULL;
-	}
-
-	// Create the tooltip. g_hInst is the global instance handle.
-	HWND hwndTip = CreateWindowEx(NULL, TOOLTIPS_CLASS, NULL,
-		WS_POPUP | TTS_ALWAYSTIP | TTS_BALLOON,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		hDlg, NULL,
-		hInst, NULL);
-
-	if (!hwndTip)
-	{
-		return NULL;
-	}
-
-	// Associate the tooltip with the tool.
-	TOOLINFO toolInfo = { 0 };
-	toolInfo.cbSize = sizeof(toolInfo);
-	toolInfo.hwnd = hDlg;
-	toolInfo.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
-	toolInfo.uId = (UINT_PTR)hwndTool;
-	toolInfo.lpszText = pszText;
-	if (!SendMessage(hwndTip, TTM_ADDTOOL, 0, (LPARAM)&toolInfo))
-	{
-		DestroyWindow(hwndTip);
-		return NULL;
-	}
-	
-	return hwndTip;
-}
 
 generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) const
 {

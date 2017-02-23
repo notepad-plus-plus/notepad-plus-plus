@@ -32,6 +32,7 @@
 #include "Notepad_plus_msgs.h"
 #include "UniConversion.h"
 #include "LongRunningOperation.h"
+#include "localization.h"
 
 using namespace std;
 
@@ -234,6 +235,11 @@ FindReplaceDlg::~FindReplaceDlg()
 		delete _findersOfFinder[n];
 		_findersOfFinder.erase(_findersOfFinder.begin() + n);
 	}
+
+	if (_shiftTrickUpTip)
+		::DestroyWindow(_shiftTrickUpTip);
+	if (_shiftTrickDownTip)
+		::DestroyWindow(_shiftTrickDownTip);
 
 	delete[] _uniFileName;
 }
@@ -696,6 +702,26 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL), !_isRTL);
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
+
+			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			 generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
+			 if (tip2show.empty())
+				 tip2show = TEXT("Use Shift+Enter to search in the reverse set direction.");
+
+			 _shiftTrickUpTip = CreateToolTip(IDDIRECTIONUP, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			 _shiftTrickDownTip = CreateToolTip(IDDIRECTIONDOWN, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			 if (_shiftTrickUpTip && _shiftTrickDownTip)
+			 {
+				 SendMessage(_shiftTrickUpTip, TTM_ACTIVATE, TRUE, 0);
+				 SendMessage(_shiftTrickUpTip, TTM_SETMAXTIPWIDTH, 0, 200);
+				 // Make tip stay 30 seconds
+				 SendMessage(_shiftTrickUpTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+
+				 SendMessage(_shiftTrickDownTip, TTM_ACTIVATE, TRUE, 0);
+				 SendMessage(_shiftTrickDownTip, TTM_SETMAXTIPWIDTH, 0, 200);
+				 // Make tip stay 30 seconds
+				 SendMessage(_shiftTrickDownTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			 }
 
 			return TRUE;
 		}

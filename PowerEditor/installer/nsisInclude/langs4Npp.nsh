@@ -109,11 +109,11 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Finnish" finnish
 		CopyFiles "$PLUGINSDIR\nppLocalization\finnish.xml" "$INSTDIR\localization\finnish.xml"
 	${MementoSectionEnd}
-	${MementoUnselectedSection} "Friulian" friulian
-		CopyFiles "$PLUGINSDIR\nppLocalization\friulian.xml" "$INSTDIR\localization\friulian.xml"
-	${MementoSectionEnd}
 	${MementoUnselectedSection} "French" french 
 		CopyFiles "$PLUGINSDIR\nppLocalization\french.xml" "$INSTDIR\localization\french.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Friulian" friulian
+		CopyFiles "$PLUGINSDIR\nppLocalization\friulian.xml" "$INSTDIR\localization\friulian.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Galician" galician
 		CopyFiles "$PLUGINSDIR\nppLocalization\galician.xml" "$INSTDIR\localization\galician.xml"
@@ -139,9 +139,6 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Hungarian" hungarian
 		CopyFiles "$PLUGINSDIR\nppLocalization\hungarian.xml" "$INSTDIR\localization\hungarian.xml"
 	${MementoSectionEnd}
-	${MementoUnselectedSection} "Hungarian (ANSI)" hungarianA
-		CopyFiles "$PLUGINSDIR\nppLocalization\hungarianA.xml" "$INSTDIR\localization\hungarianA.xml"
-	${MementoSectionEnd}
 	${MementoUnselectedSection} "Indonesian" indonesian
 		CopyFiles "$PLUGINSDIR\nppLocalization\indonesian.xml" "$INSTDIR\localization\indonesian.xml"
 	${MementoSectionEnd}
@@ -150,6 +147,9 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Japanese" japanese
 		CopyFiles "$PLUGINSDIR\nppLocalization\japanese.xml" "$INSTDIR\localization\japanese.xml"
+	${MementoSectionEnd}
+	${MementoUnselectedSection} "Kannada" kannada
+		CopyFiles "$PLUGINSDIR\nppLocalization\kannada.xml" "$INSTDIR\localization\kannada.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Kazakh" kazakh
 		CopyFiles "$PLUGINSDIR\nppLocalization\kazakh.xml" "$INSTDIR\localization\kazakh.xml"
@@ -202,9 +202,6 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Punjabi" punjabi
 		CopyFiles "$PLUGINSDIR\nppLocalization\punjabi.xml" "$INSTDIR\localization\punjabi.xml"
 	${MementoSectionEnd}
-	${MementoUnselectedSection} "Kannada" kannada
-		CopyFiles "$PLUGINSDIR\nppLocalization\kannada.xml" "$INSTDIR\localization\kannada.xml"
-	${MementoSectionEnd}
 	${MementoUnselectedSection} "Romanian" romanian
 		CopyFiles "$PLUGINSDIR\nppLocalization\romanian.xml" "$INSTDIR\localization\romanian.xml"
 	${MementoSectionEnd}
@@ -228,9 +225,6 @@ SectionGroup "Localization" localization
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Slovak" slovak
 		CopyFiles "$PLUGINSDIR\nppLocalization\slovak.xml" "$INSTDIR\localization\slovak.xml"
-	${MementoSectionEnd}
-	${MementoUnselectedSection} "Slovak (ANSI)" slovakA
-		CopyFiles "$PLUGINSDIR\nppLocalization\slovakA.xml" "$INSTDIR\localization\slovakA.xml"
 	${MementoSectionEnd}
 	${MementoUnselectedSection} "Slovenian" slovenian
 		CopyFiles "$PLUGINSDIR\nppLocalization\slovenian.xml" "$INSTDIR\localization\slovenian.xml"
@@ -400,9 +394,6 @@ SectionGroup un.localization
 	Section un.hungarian
 		Delete "$INSTDIR\localization\hungarian.xml"
 	SectionEnd
-	Section un.hungarianA
-		Delete "$INSTDIR\localization\hungarianA.xml"
-	SectionEnd
 	Section un.indonesian
 		Delete "$INSTDIR\localization\indonesian.xml"
 	SectionEnd
@@ -411,6 +402,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.japanese
 		Delete "$INSTDIR\localization\japanese.xml"
+	SectionEnd
+	Section un.kannada
+		Delete "$INSTDIR\localization\kannada.xml"
 	SectionEnd
 	Section un.kazakh
 		Delete "$INSTDIR\localization\kazakh.xml"
@@ -457,9 +451,6 @@ SectionGroup un.localization
 	Section un.polish
 		Delete "$INSTDIR\localization\polish.xml"
 	SectionEnd
-	Section un.kannada
-		Delete "$INSTDIR\localization\kannada.xml"
-	SectionEnd
 	Section un.portuguese
 		Delete "$INSTDIR\localization\portuguese.xml"
 	SectionEnd
@@ -489,9 +480,6 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.slovak
 		Delete "$INSTDIR\localization\slovak.xml"
-	SectionEnd
-	Section un.slovakA
-		Delete "$INSTDIR\localization\slovakA.xml"
 	SectionEnd
 	Section un.slovenian
 		Delete "$INSTDIR\localization\slovenian.xml"

@@ -3,8 +3,8 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last modified:...: 12.02.2017 by RDD
-	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
+	Last revision:...: 25.02.2017 by RDD
+	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
 	<Native-Langue name="Български" filename="bulgarian.xml" >
@@ -1056,6 +1056,7 @@
 			<word-chars-list-warning-end value="  във вашият списък със символи."/>
 			<cloud-invalid-warning value="Невалиден път."/>
 			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++."/>
+			<shift-change-direction-tip value="Използване на Shift+Enter за търсене в обратна посока."/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

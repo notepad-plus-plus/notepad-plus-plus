@@ -2889,7 +2889,7 @@ INT_PTR CALLBACK MultiInstDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-void DelimiterSettingsDlg::detectSpace(const char *text2Check, int & nbSp, int & nbTab)
+void DelimiterSettingsDlg::detectSpace(const char *text2Check, int & nbSp, int & nbTab) const
 {
 	nbSp = nbTab = 0;
 	for (size_t i = 0; i < strlen(text2Check); ++i)
@@ -2901,48 +2901,6 @@ void DelimiterSettingsDlg::detectSpace(const char *text2Check, int & nbSp, int &
 	}
 }
 
-HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
-{
-	if (!toolID || !hDlg || !pszText)
-	{
-		return NULL;
-	}
-
-	// Get the window of the tool.
-	HWND hwndTool = GetDlgItem(hDlg, toolID);
-	if (!hwndTool)
-	{
-		return NULL;
-	}
-
-	// Create the tooltip. g_hInst is the global instance handle.
-	HWND hwndTip = CreateWindowEx(NULL, TOOLTIPS_CLASS, NULL,
-		WS_POPUP | TTS_ALWAYSTIP | TTS_BALLOON,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		hDlg, NULL,
-		hInst, NULL);
-
-	if (!hwndTip)
-	{
-		return NULL;
-	}
-
-	// Associate the tooltip with the tool.
-	TOOLINFO toolInfo = { 0 };
-	toolInfo.cbSize = sizeof(toolInfo);
-	toolInfo.hwnd = hDlg;
-	toolInfo.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
-	toolInfo.uId = (UINT_PTR)hwndTool;
-	toolInfo.lpszText = pszText;
-	if (!SendMessage(hwndTip, TTM_ADDTOOL, 0, (LPARAM)&toolInfo))
-	{
-		DestroyWindow(hwndTip);
-		return NULL;
-	}
-	
-	return hwndTip;
-}
 
 generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) const
 {
@@ -3025,6 +2983,20 @@ generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) c
 	return msg;
 }
 
+void DelimiterSettingsDlg::setWarningIfNeed() const
+{
+	generic_string msg;
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
+	if (not nppGUI._isWordCharDefault)
+	{
+		int nbSp = 0;
+		int nbTab = 0;
+		detectSpace(nppGUI._customWordChars.c_str(), nbSp, nbTab);
+		msg = getWarningText(nbSp, nbTab);
+	}
+	::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
+}
+
 INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
@@ -3081,11 +3053,7 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, not nppGUI._isWordCharDefault ? BST_CHECKED : BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
 
-			int nbSp = 0;
-			int nbTab = 0;
-			detectSpace(nppGUI._customWordChars.c_str(), nbSp, nbTab);
-			generic_string msg = getWarningText(nbSp, nbTab);
-			::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
+			setWarningIfNeed();
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tip");
@@ -3147,15 +3115,8 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 						char customText[MAX_PATH];
 						::GetDlgItemTextA(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT, customText, MAX_PATH-1);
 						nppGUI._customWordChars = customText;
-
-						int nbSp = 0;
-						int nbTab = 0;
-						detectSpace(customText, nbSp, nbTab);
-						generic_string msg = getWarningText(nbSp, nbTab);
-						::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
-
-						if (not nppGUI._isWordCharDefault)
-							::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
+						setWarningIfNeed();
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
 						return TRUE;
 					}
 
@@ -3183,21 +3144,21 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 
 				case IDC_RADIO_WORDCHAR_DEFAULT:
 				{
-					//::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_DEFAULT, BM_SETCHECK, BST_CHECKED, 0);
 					::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, BST_UNCHECKED, 0);
 					nppGUI._isWordCharDefault = true;
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+					::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, TEXT(""));
 					return TRUE;
 				}
 
 				case IDC_RADIO_WORDCHAR_CUSTOM:
 				{
 					::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_DEFAULT, BM_SETCHECK, BST_UNCHECKED, 0);
-					//::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, BST_CHECKED, 0);
 					nppGUI._isWordCharDefault = false;
 					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+					setWarningIfNeed();
 					return TRUE;
 				}
 

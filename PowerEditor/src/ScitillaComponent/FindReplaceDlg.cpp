@@ -32,6 +32,7 @@
 #include "Notepad_plus_msgs.h"
 #include "UniConversion.h"
 #include "LongRunningOperation.h"
+#include "localization.h"
 
 using namespace std;
 
@@ -235,7 +236,14 @@ FindReplaceDlg::~FindReplaceDlg()
 		_findersOfFinder.erase(_findersOfFinder.begin() + n);
 	}
 
+
 	_pFinder = 0;
+
+	if (_shiftTrickUpTip)
+		::DestroyWindow(_shiftTrickUpTip);
+	if (_shiftTrickDownTip)
+		::DestroyWindow(_shiftTrickDownTip);
+
 	delete[] _uniFileName;
 	_uniFileName = 0;
 }
@@ -253,7 +261,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	RECT rect;
 	//::GetWindowRect(_hSelf, &rect);
 	getClientRect(rect);
-	_tab.init(_hInst, _hSelf, false, false, true);
+	_tab.init(_hInst, _hSelf, false, true);
 	int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(13);
 	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 	
@@ -485,9 +493,7 @@ void Finder::gotoFoundLine()
 
 	// Then we colourise the double clicked line
 	setFinderStyle();
-	//_scintView.execute(SCI_SETLEXER, SCLEX_NULL);   // yniq - this line causes a bug!!! (last line suddenly belongs to file header level (?) instead of having level=0x400)
-													// later it affects DeleteResult and gotoNextFoundResult (assertions)
-													// fixed by calling setFinderStyle() in deleteResult()
+
 	_scintView.execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HIGHLIGHT_LINE, true);
 	_scintView.execute(SCI_STARTSTYLING, start, STYLING_MASK);
 	_scintView.execute(SCI_SETSTYLING, end - start + 2, SCE_SEARCHRESULT_HIGHLIGHT_LINE);
@@ -716,6 +722,26 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
 
+			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			 generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
+			 if (tip2show.empty())
+				 tip2show = TEXT("Use Shift+Enter to search in the reverse set direction.");
+
+			 _shiftTrickUpTip = CreateToolTip(IDDIRECTIONUP, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			 _shiftTrickDownTip = CreateToolTip(IDDIRECTIONDOWN, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			 if (_shiftTrickUpTip && _shiftTrickDownTip)
+			 {
+				 SendMessage(_shiftTrickUpTip, TTM_ACTIVATE, TRUE, 0);
+				 SendMessage(_shiftTrickUpTip, TTM_SETMAXTIPWIDTH, 0, 200);
+				 // Make tip stay 30 seconds
+				 SendMessage(_shiftTrickUpTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+
+				 SendMessage(_shiftTrickDownTip, TTM_ACTIVATE, TRUE, 0);
+				 SendMessage(_shiftTrickDownTip, TTM_SETMAXTIPWIDTH, 0, 200);
+				 // Make tip stay 30 seconds
+				 SendMessage(_shiftTrickDownTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			 }
+
 			return TRUE;
 		}
 
@@ -850,8 +876,20 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if (isMacroRecording)
 						saveInMacro(wParam, FR_OP_FIND);
 
+					bool direction_bak = _options._whichDirection;
+					// if shift-key is pressed, revert search direction
+					// if shift-key is not pressed, use the normal setting
+					SHORT shift = GetKeyState(VK_SHIFT);
+					if (shift & SHIFTED)
+					{
+						_options._whichDirection = !_options._whichDirection;
+					}
+
 					FindStatus findStatus = FSFound;
 					processFindNext(_options._str2Search.c_str(), _env, &findStatus);
+					// restore search direction which may have been overwritten because shift-key was pressed
+					_options._whichDirection = direction_bak;
+
 					if (findStatus == FSEndReached)
 						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."), FSEndReached);
 					else if (findStatus == FSTopReached)
@@ -2645,7 +2683,6 @@ void FindInFinderDlg::doDialog(Finder *launcher, bool isRTL)
 		::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_FINDINFINDER_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 	
 }
-
 
 void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 {

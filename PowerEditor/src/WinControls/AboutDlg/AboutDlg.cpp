@@ -161,6 +161,9 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			// OS version
 			_debugInfoStr += TEXT("OS : ");
 			_debugInfoStr += (NppParameters::getInstance())->getWinVersionStr();
+			_debugInfoStr += TEXT(" (");
+			_debugInfoStr += (NppParameters::getInstance())->getWinVerBitStr();
+			_debugInfoStr += TEXT(")");
 			_debugInfoStr += TEXT("\r\n");
 
 			// Plugins

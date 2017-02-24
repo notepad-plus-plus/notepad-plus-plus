@@ -377,17 +377,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		else if (::IsIconic(hNotepad_plus))
 			sw = SW_RESTORE;
 
-/* REMOVED
-		else
-			sw = SW_SHOW;
-
-		// IMPORTANT !!!
-		::ShowWindow(hNotepad_plus, sw);
-DEVOMER*/
-/* ADDED */
 		if (sw != 0)
 			::ShowWindow(hNotepad_plus, sw);
-/* DEDDA */
+
 		::SetForegroundWindow(hNotepad_plus);
 
 		if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system

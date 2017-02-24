@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.0">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -9,10 +9,11 @@
                     <Item menuId="edit" name="编辑(&amp;E)" />
                     <Item menuId="search" name="搜索(&amp;S)" />
                     <Item menuId="view" name="视图(&amp;V)" />
-                    <Item menuId="encoding" name="格式(&amp;M)" />
+                    <Item menuId="encoding" name="编码(&amp;N)" />
                     <Item menuId="language" name="语言(&amp;L)" />
                     <Item menuId="settings" name="设置(&amp;T)" />
-                    <Item menuId="macro" name="宏(&amp;O)" />
+                    <Item menuId="tools" name="工具(&amp;O)"/>
+                    <Item menuId="macro" name="宏(&amp;M)" />
                     <Item menuId="run" name="运行(&amp;R)" />
                     <Item idName="Plugins" name="插件(&amp;P)" />
                     <Item idName="Window" name="窗口(&amp;W)" />
@@ -62,6 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="西欧语系" />
                     <Item subMenuId="encoding-vietnamese" name="越南文" />
                     <Item subMenuId="settings-import" name="导入" />
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -294,6 +296,9 @@
                     <Item id="48016" name="管理快捷键..." />
                     <Item id="48017" name="管理快捷键..." />
                     <Item id="48018" name="编辑弹出菜单" />
+                    <Item id="48501" name="生成..."/>
+                    <Item id="48502" name="从文件生成..."/>
+                    <Item id="48503" name="生成到剪贴板"/>
                     <Item id="49000" name="运行(&amp;R)..." />                    
                     <Item id="50000" name="函数自动完成" />
                     <Item id="50001" name="单词自动完成" />
@@ -390,6 +395,18 @@
                 <Item id="2005" name="目标位置 :" />
                 <Item id="2006" name="截止位置 :" />
             </GoToLine>
+
+            <MD5FromFilesDlg title="从文件生成MD5">
+                <Item id="1922" name="选择文件..."/>
+                <Item id="1924" name="复制到剪贴板"/>
+                <Item id="2"    name="关闭"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="生成MD5值">
+                <Item id="1932" name="按行分别生成"/>
+                <Item id="1934" name="复制到剪贴板"/>
+                <Item id="2"    name="关闭"/>
+            </MD5FromTextDlg>
 
             <Run title="运行...">
                 <Item id="1903" name="输入运行程序名" />
@@ -810,6 +827,9 @@
                     <Item id="6252" name="打开"/>
                     <Item id="6255" name="关闭"/>
                     <Item id="6256" name="允许选取多行"/>
+                    <Item id="6161" name="定义单词字符列表"/>
+                    <Item id="6162" name="使用默认的单词字符列表"/>
+                    <Item id="6163" name="添加字符列表（若不了解请勿选择）"/>
                 </Delimiter>
 
 				<Cloud title="云同步">
@@ -965,5 +985,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+            <word-chars-list-tip value="这允许您在双击选择或选中“全词匹配”选项的情况下,在当前单词字符列表中附加字符。"/>
+            <word-chars-list-warning-begin value="警告："/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ 空格"/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
+            <word-chars-list-warning-end value="  在你的字符列表中。"/>
+            <cloud-invalid-warning value="无效路径"/>
+            <cloud-restart-warning value="请重启Notepad++以生效"/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

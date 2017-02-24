@@ -87,7 +87,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_S,       IDM_FILE_SAVEALL,                             true,  false, true,  nullptr },
 	{ VK_NULL,    IDM_FILE_RENAME,                              false, false, false, nullptr },
 	{ VK_W,       IDM_FILE_CLOSE,                               true,  false, false, nullptr },
-	{ VK_NULL,    IDM_FILE_CLOSEALL,                            false, false, false, nullptr },
+	{ VK_W,       IDM_FILE_CLOSEALL,                            true,  false, true,  nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_BUT_CURRENT,                false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_TOLEFT,                     false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_CLOSEALL_TORIGHT,                    false, false, false, nullptr },
@@ -742,7 +742,7 @@ generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) 
 }
 
 
-winVer getWindowsVersion()
+winVer NppParameters::getWindowsVersion()
 {
 	OSVERSIONINFOEX osvi;
 	SYSTEM_INFO si;
@@ -765,6 +765,24 @@ winVer getWindowsVersion()
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
+
+	switch (si.wProcessorArchitecture)
+	{
+	case PROCESSOR_ARCHITECTURE_IA64:
+		_platForm = PF_IA64;
+		break;
+
+	case PROCESSOR_ARCHITECTURE_AMD64:
+		_platForm = PF_X64;
+		break;
+
+	case PROCESSOR_ARCHITECTURE_INTEL:
+		_platForm = PF_X86;
+		break;
+
+	default:
+		_platForm = PF_UNKNOWN;
+	}
 
    switch (osvi.dwPlatformId)
    {
@@ -942,20 +960,30 @@ bool NppParameters::reloadLang()
 	return loadOkay;
 }
 
+generic_string NppParameters::getSpecialFolderLocation(int folderKind)
+{
+	ITEMIDLIST *pidl;
+	const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, folderKind, &pidl);
+	if (!SUCCEEDED( specialLocationResult))
+		return generic_string();
+	
+	TCHAR path[MAX_PATH];
+	SHGetPathFromIDList(pidl, path);
+
+	return path;
+}
+
 
 generic_string NppParameters::getSettingsFolder()
 {
 	if (_isLocal)
 		return _nppPath;
 
-	ITEMIDLIST *pidl;
-	const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
-	if (!SUCCEEDED( specialLocationResult))
-		return generic_string();
+	generic_string settingsFolderPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
-	TCHAR tmp[MAX_PATH];
-	SHGetPathFromIDList(pidl, tmp);
-	generic_string settingsFolderPath{tmp};
+	if (settingsFolderPath.empty())
+		return _nppPath;
+
 	PathAppend(settingsFolderPath, TEXT("Notepad++"));
 	return settingsFolderPath;
 }
@@ -984,18 +1012,12 @@ bool NppParameters::load()
 		// We check if OS is Vista or greater version
 		if (_winVersion >= WV_VISTA)
 		{
-			ITEMIDLIST *pidl;
-			const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_PROGRAM_FILES, &pidl);
-			if (!SUCCEEDED( specialLocationResult))
-				return false;
-
-			TCHAR progPath[MAX_PATH];
-			SHGetPathFromIDList(pidl, progPath);
+			generic_string progPath = getSpecialFolderLocation(CSIDL_PROGRAM_FILES);
 			TCHAR nppDirLocation[MAX_PATH];
 			lstrcpy(nppDirLocation, _nppPath.c_str());
 			::PathRemoveFileSpec(nppDirLocation);
 
-			if  (lstrcmp(progPath, nppDirLocation) == 0)
+			if  (progPath == nppDirLocation)
 				_isLocal = false;
 		}
 	}
@@ -1006,14 +1028,7 @@ bool NppParameters::load()
 	}
 	else
 	{
-		ITEMIDLIST *pidl;
-		const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
-		if (!SUCCEEDED( specialLocationResult))
-			return false;
-
-		TCHAR tmp[MAX_PATH];
-		SHGetPathFromIDList(pidl, tmp);
-		_userPath = tmp;
+		_userPath = getSpecialFolderLocation(CSIDL_APPDATA);
 
 		PathAppend(_userPath, TEXT("Notepad++"));
 		_appdataNppDir = _userPath;
@@ -1948,7 +1963,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 
 	TiXmlElement *actView = sessionRoot->ToElement();
 	size_t index;
-	const TCHAR *str = actView->Attribute(TEXT("activeView"), (int *)&index);
+	const TCHAR *str = actView->Attribute(TEXT("activeView"), reinterpret_cast<int *>(&index));
 	if (str)
 	{
 		(*ptrSession)._activeView = index;
@@ -1962,14 +1977,15 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	{
 		if (viewRoots[k])
 		{
+			size_t index2;
 			TiXmlElement *actIndex = viewRoots[k]->ToElement();
-			str = actIndex->Attribute(TEXT("activeIndex"), (int *)&index);
+			str = actIndex->Attribute(TEXT("activeIndex"), reinterpret_cast<int *>(&index2));
 			if (str)
 			{
 				if (k == 0)
-					(*ptrSession)._activeMainIndex = index;
+					(*ptrSession)._activeMainIndex = index2;
 				else // k == 1
-					(*ptrSession)._activeSubIndex = index;
+					(*ptrSession)._activeSubIndex = index2;
 			}
 			for (TiXmlNode *childNode = viewRoots[k]->FirstChildElement(TEXT("File"));
 				childNode ;
@@ -5467,7 +5483,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("delimiterSelection"));
 		GUIConfigElement->SetAttribute(TEXT("leftmostDelimiter"), _nppGUI._leftmostDelimiter);
 		GUIConfigElement->SetAttribute(TEXT("rightmostDelimiter"), _nppGUI._rightmostDelimiter);
-		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument);
+		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="multiInst" setting="0" />
@@ -5871,6 +5887,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_COFFEESCRIPT :
 			id = IDM_LANG_COFFEESCRIPT; break;
 
+		case L_BAANC:
+			id = IDM_LANG_BAANC; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 
@@ -5905,6 +5924,22 @@ generic_string NppParameters:: getWinVersionStr() const
 		case WV_WIN81: return TEXT("Windows 8.1");
 		case WV_WIN10: return TEXT("Windows 10");
 		default: /*case WV_UNKNOWN:*/ return TEXT("Windows unknown version");
+	}
+}
+
+generic_string NppParameters::getWinVerBitStr() const
+{
+	switch (_platForm)
+	{
+	case PF_X86:
+		return TEXT("32-bit");
+
+	case PF_X64:
+	case PF_IA64:
+		return TEXT("64-bit");
+
+	default:
+		return TEXT("Unknown-bit");
 	}
 }
 

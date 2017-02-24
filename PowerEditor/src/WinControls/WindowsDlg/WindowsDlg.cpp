@@ -274,12 +274,11 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 		{
 			if (wParam == IDC_WINDOWS_LIST)
 			{
-				NMHDR* pNMHDR = (NMHDR*)lParam;
+				NMHDR* pNMHDR = reinterpret_cast<NMHDR*>(lParam);
 				if (pNMHDR->code == LVN_GETDISPINFO)
 				{
 					NMLVDISPINFO *pLvdi = (NMLVDISPINFO *)pNMHDR;
-					//if(pLvdi->item.mask & LVIF_IMAGE)
-					//	;
+
 					if(pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;

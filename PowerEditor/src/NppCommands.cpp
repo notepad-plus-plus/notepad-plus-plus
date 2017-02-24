@@ -61,6 +61,8 @@ void Notepad_plus::macroPlayback(Macro macro)
 	_playingBackMacro = false;
 }
 
+
+
 void Notepad_plus::command(int id)
 {
 	switch (id)
@@ -68,6 +70,17 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_NEW:
 		{
 			fileNew();
+			/*
+			bool isFirstTime = not _pluginsAdminDlg.isCreated();
+			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
+			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+			{
+				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
+				_pluginsAdminDlg.downloadPluginList();
+				_pluginsAdminDlg.loadFomList();
+			}
+			*/
 		}
 		break;
 
@@ -365,7 +378,7 @@ void Notepad_plus::command(int id)
 
 			HWND hwnd = _pPublicInterface->getHSelf();
 			TCHAR curentWord[CURRENTWORD_MAXLENGTH];
-			::SendMessage(hwnd, NPPM_GETCURRENTWORD, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
+			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
 			
 			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH];
 			if (id == IDM_EDIT_OPENINFOLDER)
@@ -1752,7 +1765,7 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_WRAP:
 		{
 			bool isWraped = !_pEditView->isWrap();
-			//--FLS: ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as Scintilla-Doc. says
+			// ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as Scintilla-Doc. says
 			if (!isWraped)
 			{
 				_mainEditView.saveCurrentPos();
@@ -2768,6 +2781,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_R :
         case IDM_LANG_JSP :
 		case IDM_LANG_COFFEESCRIPT:
+		case IDM_LANG_BAANC:
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));
@@ -2872,6 +2886,9 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+
+			// Send sizing info to make window fit (specially to show tool bar. Fixed issue #2600)
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 		}
 		break;
 
@@ -2893,6 +2910,9 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+
+			// Send sizing info to make window fit (specially to show tool bar. Fixed issue #2600)
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			fileOpen();
 		}
 		break;

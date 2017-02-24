@@ -618,6 +618,11 @@ public:
 	};
 
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
+
+	void addCustomWordChars();
+	void restoreDefaultWordChars();
+	void setWordChars();
+
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
 	};
@@ -669,6 +674,8 @@ protected:
 	BufferStyleMap _hotspotStyles;
 
 	int _beginSelectPosition = -1;
+
+	static std::string _defaultCharList;
 
 //Lexers and Styling
 	void restyleBuffer();
@@ -865,6 +872,11 @@ protected:
 
     void setCoffeeScriptLexer() {
 		setLexer(SCLEX_COFFEESCRIPT, L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
+	};
+
+	void setBaanCLexer() {
+		setLexer(SCLEX_BAAN, L_BAANC, LIST_0 | LIST_1);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("styling.within.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
     //--------------------

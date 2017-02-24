@@ -68,7 +68,7 @@ public:
 	TabBar() : Window() {};
 	virtual ~TabBar() {};
 	virtual void destroy();
-	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false);
+	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
 	virtual void reSizeTo(RECT & rc2Ajust);
 	int insertAtEnd(const TCHAR *subTabName);
 	void activateAt(int index) const;
@@ -115,7 +115,6 @@ protected:
 	HFONT _hVerticalLargeFont = nullptr;
 
 	int _ctrlID = 0;
-	bool _isTraditional = false;
 
 	bool _isVertical = false;
 	bool _isMultiLine = false;
@@ -150,7 +149,7 @@ public :
         _doDragNDrop = justDoIt;
     };
 
-	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false);
+	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
 
 	virtual void destroy();
 

@@ -3130,6 +3130,7 @@
 		<KeyWord name="StringBuffer" />
 		<KeyWord name="StringBufferInputStream" />
 		<KeyWord name="StringBufferPool" />
+		<KeyWord name="StringBuilder" />
 		<KeyWord name="StringCharBuffer" />
 		<KeyWord name="StringCharacterIterator" />
 		<KeyWord name="StringCoding" />

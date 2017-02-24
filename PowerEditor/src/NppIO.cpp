@@ -1769,7 +1769,6 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 	if (fn == NULL)
 	{
 		FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
-		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 		const TCHAR *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
 		generic_string sessionExt = TEXT("");
 		if (*ext != '\0')
@@ -1779,6 +1778,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			sessionExt += ext;
 			fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
 		}
+		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 		sessionFileName = fDlg.doOpenSingleFileDlg();
 	}
 	else
@@ -1810,6 +1810,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			args += sessionFileName;
 			args += TEXT("\"");
 			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
+			result = true;
 		}
 		else
 		{
@@ -1823,6 +1824,14 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			}
 			if (!isAllSuccessful)
 				(NppParameters::getInstance())->writeSession(session2Load, sessionFileName);
+		}
+		if (result == false)
+		{
+			_nativeLangSpeaker.messageBox("SessionFileInvalidError",
+				NULL,
+				TEXT("Session file is either corrupted or not valid."),
+				TEXT("Could not Load Session"),
+				MB_OK);
 		}
 	}
 	return result;
@@ -1857,7 +1866,6 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
 	const TCHAR *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
 
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 	generic_string sessionExt = TEXT("");
 	if (*ext != '\0')
 	{
@@ -1866,6 +1874,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 		sessionExt += ext;
 		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
 	}
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 	sessionFileName = fDlg.doSaveDlg();
 
 	return fileSaveSession(nbFile, fileNames, sessionFileName);

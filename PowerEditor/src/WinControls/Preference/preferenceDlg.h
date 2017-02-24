@@ -200,8 +200,9 @@ private :
 	HWND _tip = nullptr;
 
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	void detectSpace(const char *text2Check, int & nbSp, int & nbTab);
+	void detectSpace(const char *text2Check, int & nbSp, int & nbTab) const;
 	generic_string getWarningText(size_t nbSp, size_t nbTab) const;
+	void setWarningIfNeed() const;
 };
 
 class SettingsOnCloudDlg : public StaticDialog

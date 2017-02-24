@@ -260,6 +260,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_configStyleDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_preference.init(_pPublicInterface->getHinst(), hwnd);
+	_pluginsAdminDlg.init(_pPublicInterface->getHinst(), hwnd);
 
     //Marker Margin config
     _mainEditView.setMakerStyle(svp1._folderStyle);
@@ -713,8 +714,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		ContainerTabInfo & cti = dmd._containerTabInfo[i];
 		_dockingManager.setActiveTab(cti._cont, cti._activeTab);
 	}
-
-	retrieveDefaultWordChars(nppGUI._defaultWordChars);
 
 	//Load initial docs into doctab
 	loadBufferIntoView(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
@@ -1932,6 +1931,9 @@ void Notepad_plus::checkDocState()
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
+	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
+	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);
+	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
 
 	enableConvertMenuItems(curBuf->getEolFormat());
 	checkUnicodeMenuItems();
@@ -1978,6 +1980,38 @@ void Notepad_plus::checkSyncState()
 	enableCommand(IDM_VIEW_SYNSCROLLH, canDoSync, MENU | TOOLBAR);
 }
 
+void doCheck(HMENU mainHandle, int id)
+{
+	MENUITEMINFO mii;
+	mii.cbSize = sizeof(MENUITEMINFO);
+	mii.fMask = MIIM_SUBMENU | MIIM_FTYPE | MIIM_ID | MIIM_STATE;
+
+	int count = ::GetMenuItemCount(mainHandle);
+	for (int i = 0; i < count; i++)
+	{
+		::GetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
+		if (mii.fType == MFT_RADIOCHECK || mii.fType == MFT_STRING)
+		{
+			if (mii.hSubMenu == 0)
+			{
+				if (mii.wID == (unsigned int)id)
+				{
+					::CheckMenuRadioItem(mainHandle, 0, count, i, MF_BYPOSITION);
+				}
+				else
+				{
+					mii.fState = 0;
+					::SetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
+				}
+			}
+			else
+			{
+				doCheck(mii.hSubMenu, id);
+			}
+		}
+	}
+}
+
 void Notepad_plus::checkLangsMenu(int id) const
 {
 	Buffer * curBuf = _pEditView->getCurrentBuffer();
@@ -1997,14 +2031,16 @@ void Notepad_plus::checkLangsMenu(int id) const
 					if (::GetMenuString(_mainMenuHandle, i, menuLangName, nbChar-1, MF_BYCOMMAND))
 						if (!lstrcmp(userLangName, menuLangName))
 						{
-							::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, i, MF_BYCOMMAND);
+							HMENU _langMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
+							doCheck(_langMenuHandle, i);
 							return;
 						}
 				}
 			}
 		}
 	}
-	::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, id, MF_BYCOMMAND);
+	HMENU _langMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
+	doCheck(_langMenuHandle, id);
 }
 
 generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
@@ -2648,38 +2684,40 @@ BOOL Notepad_plus::processIncrFindAccel(MSG *msg) const
 	return ::TranslateAccelerator(_incrementFindDlg.getHSelf(), _accelerator.getIncrFindAccTable(), msg);
 }
 
-void Notepad_plus::setLanguage(LangType langType) {
+void Notepad_plus::setLanguage(LangType langType)
+{
 	//Add logic to prevent changing a language when a document is shared between two views
 	//If so, release one document
 	bool reset = false;
 	Document prev = 0;
-	if (bothActive()) {
-		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID()) {
+	if (bothActive())
+	{
+		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID())
+		{
 			reset = true;
 			_subEditView.saveCurrentPos();
 			prev = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 		}
 	}
-	if (reset) {
+	
+	if (reset)
+	{
 		_mainEditView.getCurrentBuffer()->setLangType(langType);
-	} else {
-		/*
-		int mode = _pEditView->execute(SCI_GETMODEVENTMASK, 0, 0);
-		_pEditView->execute(SCI_SETMODEVENTMASK, 0, 0);
-		_pEditView->getCurrentBuffer()->setLangType(langType);
-		_pEditView->execute(SCI_SETMODEVENTMASK, mode, 0);
-		*/
+	}
+	else
+	{
 		_pEditView->getCurrentBuffer()->setLangType(langType);
 	}
 
-	if (reset) {
+	if (reset)
+	{
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
 		_subEditView.restoreCurrentPos();
 	}
 };
 
-enum LangType Notepad_plus::menuID2LangType(int cmdID)
+LangType Notepad_plus::menuID2LangType(int cmdID)
 {
 	switch (cmdID)
 	{
@@ -2797,6 +2835,8 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_R;
 		case IDM_LANG_COFFEESCRIPT :
             return L_COFFEESCRIPT;
+		case IDM_LANG_BAANC:
+			return L_BAANC;
 
 		case IDM_LANG_USER :
             return L_USER;
@@ -3548,6 +3588,17 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	}
 	else	//open the document, also copying the position
 	{
+		// If both the views are visible then first save the position of non-edit view
+		// So that moving document between views does not lose caret position
+		// How it works =>
+		//		non-edit view becomes edit view as document from edit view is sent to non edit view
+		//		restoreCurrentPos is called on non-edit view, which will restore the position of
+		//		active document/tab on non-edit view  (whatever position we set in below if condition)
+		if (_pEditView->isVisible() && _pNonEditView->isVisible())
+		{
+			_pNonEditView->saveCurrentPos();
+		}
+
 		loadBufferIntoView(current, viewToGo);
 		Buffer *buf = MainFileManager->getBufferByID(current);
 		_pEditView->saveCurrentPos();	//allow copying of position
@@ -3835,7 +3886,7 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 {
 	Buffer * buf = _pEditView->getCurrentBuffer();
-	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	// Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
 	if (buf->isReadOnly())
 		return false;
 
@@ -3865,7 +3916,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 
 		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentLineSymbol = symbol.c_str();
-		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
+		// BlockToStreamComment: Needed to decide, if stream-comment can be called below!
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
 		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
@@ -3874,14 +3925,14 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	else
 	{
 		commentLineSymbol = buf->getCommentLineSymbol();
-		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
+		// BlockToStreamComment: Needed to decide, if stream-comment can be called below!
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
 	if ((!commentLineSymbol) || (!commentLineSymbol[0]) || (commentLineSymbol == NULL))
 	{
-	//--FLS: BlockToStreamComment: If there is no block-comment symbol, try the stream comment:
+	// BlockToStreamComment: If there is no block-comment symbol, try the stream comment:
 		if (!(!commentStart || !commentStart[0] || commentStart == NULL || !commentEnd || !commentEnd[0] || commentEnd == NULL))
 		{
 			if (currCommentMode == cm_comment)
@@ -3895,7 +3946,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 				//"undoStreamComment()" can be more flexible than "isSingleLineAdvancedMode = true", 
 				//since it can uncomment more embedded levels at once and the commentEnd symbol can be located everywhere. 
 				//But, depending on the selection start/end position, the first/last selected line may not be uncommented properly!
-				return undoStreamComment();
+				return undoStreamComment(false);
 				//isSingleLineAdvancedMode = true;
 			}
 			else if (currCommentMode == cm_toggle)
@@ -3926,7 +3977,9 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	if (not isSingleLineAdvancedMode)
 	{
 		comment = commentLineSymbol;
-		comment += aSpace;
+
+		if (!(buf->getLangType() == L_BAANC)) // BaanC standardization - no space.
+			comment += aSpace;
 
 		comment_length = comment.length();
 	}
@@ -3952,10 +4005,12 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     // "caret return" is part of the last selected line
     if ((lines > 0) && (selectionEnd == static_cast<size_t>(_pEditView->execute(SCI_POSITIONFROMLINE, selEndLine))))
 		selEndLine--;
-	//--FLS: count lines which were un-commented to decide if undoStreamComment() shall be called.
+	// count lines which were un-commented to decide if undoStreamComment() shall be called.
 	int nUncomments = 0;
 	//Some Lexers need line-comments at the beginning of a line.
-	const bool avoidIndent = buf->getLangType() == L_FORTRAN_77;
+	const bool avoidIndent = (buf->getLangType() == L_FORTRAN_77 || buf->getLangType() == L_BAANC);
+	//Some Lexers comment blank lines, per their standards.
+	const bool commentEmptyLines = (buf->getLangType() == L_BAANC);
 
     _pEditView->execute(SCI_BEGINUNDOACTION);
 
@@ -3965,14 +4020,14 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		size_t lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
 		size_t lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
 
-		// empty lines are not commented
-		if (lineIndent == lineEnd)
+		// empty lines are not commented, unless required by the language.
+		if (lineIndent == lineEnd && !commentEmptyLines)
 			continue;
 
 		if (avoidIndent)
 			lineIndent = lineStart;
 
-		size_t linebufferSize = lineEnd - lineIndent + 2;
+		size_t linebufferSize = lineEnd - lineIndent + comment_length;
 		TCHAR* linebuf = new TCHAR[linebufferSize];
 
 		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);
@@ -3984,12 +4039,11 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		{
 			if (not isSingleLineAdvancedMode)
 			{
-				//--FLS: In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
+				// In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
 				//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
-				//if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
-				if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), comment_length - 1) == 0)
+				if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length) == 0)
 				{
-					size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : comment_length - 1;
+					size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length;
 
 					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
 					_pEditView->replaceSelWith("");
@@ -4127,9 +4181,9 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     }
     _pEditView->execute(SCI_ENDUNDOACTION);
 
-	//--FLS: undoStreamComment: If there were no block-comments to un-comment try uncommenting of stream-comment.
+	// undoStreamComment: If there were no block-comments to un-comment try uncommenting of stream-comment.
 	if ((currCommentMode == cm_uncomment) && (nUncomments == 0)) {
-		return undoStreamComment();
+		return undoStreamComment(false);
 	}
     return true;
 }
@@ -4142,12 +4196,12 @@ bool Notepad_plus::doStreamComment()
 	generic_string symbolStart;
 	generic_string symbolEnd;
 
-	//--FLS: BlockToStreamComment:
-	const TCHAR *commentLineSybol;
+	// BlockToStreamComment:
+	const TCHAR *commentLineSymbol;
 	generic_string symbol;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
-	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	// Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
 	if (buf->isReadOnly())
 		return false;
 
@@ -4158,9 +4212,9 @@ bool Notepad_plus::doStreamComment()
 		if (!userLangContainer)
 			return false;
 
-		//--FLS: BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
+		// BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
 		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
-		commentLineSybol = symbol.c_str();
+		commentLineSymbol = symbol.c_str();
 
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
@@ -4169,19 +4223,15 @@ bool Notepad_plus::doStreamComment()
 	}
 	else
 	{
-		//--FLS: BlockToStreamComment: Next line needed to decide, if block-comment can be called below!
-		commentLineSybol = buf->getCommentLineSymbol();
+		// BlockToStreamComment: Next line needed to decide, if block-comment can be called below!
+		commentLineSymbol = buf->getCommentLineSymbol();
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	// if ((!commentStart) || (!commentStart[0]))
-	// 		return false;
-	// if ((!commentEnd) || (!commentEnd[0]))
-	// 		return false;
-	//--FLS: BlockToStreamComment: If there is no stream-comment symbol, try the block comment:
+	// BlockToStreamComment: If there is no stream-comment symbol, try the block comment:
 	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) {
-		if (!(!commentLineSybol || !commentLineSybol[0] || commentLineSybol == NULL))
+		if (!(!commentLineSymbol || !commentLineSymbol[0] || commentLineSymbol == NULL))
 			return doBlockComment(cm_comment);
 		else
 		return false;
@@ -5031,7 +5081,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		// To notify plugins ro status is changed
 		SCNotification scnN;
 		scnN.nmhdr.hwndFrom = (void *)buffer->getID();
-		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTAUS_READONLY : 0) | (isDirty ? DOCSTAUS_BUFFERDIRTY : 0));
+		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTATUS_READONLY : 0) | (isDirty ? DOCSTATUS_BUFFERDIRTY : 0));
 		scnN.nmhdr.code = NPPN_READONLYCHANGED;
 		_pluginsManager.notify(&scnN);
 
@@ -6469,13 +6519,16 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 
 #pragma warning( disable : 4127 )
 //-- undoStreamComment: New function to undo stream comment around or within selection end-points.
-bool Notepad_plus::undoStreamComment()
+bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 {
 	const TCHAR *commentStart;
 	const TCHAR *commentEnd;
+	const TCHAR *commentLineSymbol;
 
 	generic_string symbolStart;
 	generic_string symbolEnd;
+	generic_string symbol;
+
 	const int charbufLen = 10;
     TCHAR charbuf[charbufLen];
 
@@ -6491,6 +6544,8 @@ bool Notepad_plus::undoStreamComment()
 		if (!userLangContainer)
 			return false;
 
+		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		commentLineSymbol = symbol.c_str();
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
 		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
@@ -6498,14 +6553,19 @@ bool Notepad_plus::undoStreamComment()
 	}
 	else
 	{
+		commentLineSymbol = buf->getCommentLineSymbol();
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	if ((!commentStart) || (!commentStart[0]))
-		return false;
-	if ((!commentEnd) || (!commentEnd[0]))
-		return false;
+
+	// BlockToStreamComment: If there is no stream-comment symbol and we came not from doBlockComment, try the block comment:
+	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) {
+		if (!(!commentLineSymbol || !commentLineSymbol[0] || commentLineSymbol == NULL) && tryBlockComment)
+			return doBlockComment(cm_uncomment);
+		else
+			return false;
+	}
 
 	generic_string start_comment(commentStart);
 	generic_string end_comment(commentEnd);
@@ -6664,65 +6724,3 @@ bool Notepad_plus::undoStreamComment()
 	//return retVal;
 }
 
-void Notepad_plus::retrieveDefaultWordChars(string & charList)
-{
-	auto defaultCharListLen = _mainEditView.execute(SCI_GETWORDCHARS);
-	char *defaultCharList = new char[defaultCharListLen + 1];
-	_mainEditView.execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
-	charList = defaultCharList;
-	delete[] defaultCharList;
-}
-
-void Notepad_plus::restoreDefaultWordChars()
-{
-	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
-	_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._defaultWordChars.c_str()));
-	_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._defaultWordChars.c_str()));
-}
-
-void Notepad_plus::setCustomWordChars()
-{
-	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
-	_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._customWordChars.c_str()));
-	_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(nppGUI._customWordChars.c_str()));
-}
-
-void Notepad_plus::addCustomWordChars()
-{
-	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
-
-	if (nppGUI._customWordChars.empty())
-		return;
-
-	string chars2addStr;
-	for (size_t i = 0; i < nppGUI._customWordChars.length(); ++i)
-	{
-		bool found = false;
-		char char2check = nppGUI._customWordChars[i];
-		for (size_t j = 0; j < nppGUI._defaultWordChars.length(); ++j)
-		{
-			char wordChar = nppGUI._defaultWordChars[j];
-			if (char2check == wordChar)
-			{
-				found = true;
-				break;
-			}
-		}
-		if (not found)
-		{
-			chars2addStr.push_back(char2check);
-		}
-	}
-
-	if (not chars2addStr.empty())
-	{
-		string newCharList = nppGUI._defaultWordChars;
-		newCharList += chars2addStr;
-
-		_mainEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
-		_subEditView.execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
-	}
-}

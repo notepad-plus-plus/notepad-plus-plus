@@ -174,6 +174,7 @@ void ShortcutMapper::fillOutBabyGrid()
 					isMarker = _babygrid.setMarker(false);
 			}
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), true);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), true);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 		case STATE_MACRO: {
@@ -192,6 +193,7 @@ void ShortcutMapper::fillOutBabyGrid()
 			}
             bool shouldBeEnabled = nrItems > 0;
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
 			break; }
 		case STATE_USER: {
@@ -210,6 +212,7 @@ void ShortcutMapper::fillOutBabyGrid()
 			}
             bool shouldBeEnabled = nrItems > 0;
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
 			break; }
 		case STATE_PLUGIN: {
@@ -228,6 +231,7 @@ void ShortcutMapper::fillOutBabyGrid()
 			}
             bool shouldBeEnabled = nrItems > 0;
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 		case STATE_SCINTILLA: {
@@ -255,6 +259,7 @@ void ShortcutMapper::fillOutBabyGrid()
 					isMarker = _babygrid.setMarker(false);
 			}
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), true);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), false);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 	}
@@ -352,6 +357,120 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					return TRUE;
 				}
 
+				case IDM_BABYGRID_CLEAR :
+				{
+					if (_babygrid.getNumberRows() < 1)
+						return TRUE;
+
+					NppParameters *nppParam = NppParameters::getInstance();
+					int row = _babygrid.getSelectedRow();
+					bool isModified = false;
+
+					switch(_currentState)
+					{
+						case STATE_MENU:
+						{
+							//Get CommandShortcut corresponding to row
+							vector<CommandShortcut> & shortcuts = nppParam->getUserShortcuts();
+							CommandShortcut csc = shortcuts[row - 1];
+							csc.clear();
+							shortcuts[row - 1] = csc;
+							//shortcut was altered
+							nppParam->addUserModifiedIndex(row-1);
+						
+							//save the current view
+							_lastHomeRow[_currentState] = _babygrid.getHomeRow();
+							_lastCursorRow[_currentState] = _babygrid.getSelectedRow();
+							fillOutBabyGrid();
+
+							isModified = true;
+
+							//Notify current Accelerator class to update everything
+							nppParam->getAccelerator()->updateShortcuts();
+							nppParam->setShortcutDirty();
+							break;
+						}
+						case STATE_MACRO: 
+						{
+							//Get MacroShortcut corresponding to row
+							vector<MacroShortcut> & shortcuts = nppParam->getMacroList();
+							MacroShortcut msc = shortcuts[row - 1];
+							msc.clear();
+							shortcuts[row - 1] = msc;
+							//save the current view
+							_lastHomeRow[_currentState] = _babygrid.getHomeRow();
+							_lastCursorRow[_currentState] = _babygrid.getSelectedRow();
+							fillOutBabyGrid();
+
+							isModified = true;
+
+							//Notify current Accelerator class to update everything
+							nppParam->getAccelerator()->updateShortcuts();
+							nppParam->setShortcutDirty();
+							break;
+						}
+						case STATE_USER: 
+						{
+							//Get UserCommand corresponding to row
+							vector<UserCommand> & shortcuts = nppParam->getUserCommandList();
+							UserCommand ucmd = shortcuts[row - 1];
+							ucmd.clear();
+						
+							//shortcut was altered
+							shortcuts[row - 1] = ucmd;
+
+							//save the current view
+							_lastHomeRow[_currentState] = _babygrid.getHomeRow();
+							_lastCursorRow[_currentState] = _babygrid.getSelectedRow();
+							fillOutBabyGrid();
+
+							isModified = true;
+
+							//Notify current Accelerator class to update everything
+							nppParam->getAccelerator()->updateShortcuts();
+							nppParam->setShortcutDirty();
+							break;
+						}
+						case STATE_PLUGIN: 
+						{
+							//Get PluginCmdShortcut corresponding to row
+							vector<PluginCmdShortcut> & shortcuts = nppParam->getPluginCommandList();
+							PluginCmdShortcut pcsc = shortcuts[row - 1];
+							pcsc.clear();
+							//shortcut was altered
+							nppParam->addPluginModifiedIndex(row-1);
+							shortcuts[row - 1] = pcsc;
+						
+							//save the current view
+							_lastHomeRow[_currentState] = _babygrid.getHomeRow();
+							_lastCursorRow[_currentState] = _babygrid.getSelectedRow();
+							fillOutBabyGrid();
+
+							isModified = true;
+
+							//Notify current Accelerator class to update everything
+							nppParam->getAccelerator()->updateShortcuts();
+							unsigned long cmdID = pcsc.getID();
+							ShortcutKey shortcut;
+							shortcut._isAlt = FALSE;
+							shortcut._isCtrl = FALSE;
+							shortcut._isShift = FALSE;
+							shortcut._key = '\0';
+
+							::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED, cmdID, reinterpret_cast<LPARAM>(&shortcut));
+							nppParam->setShortcutDirty();
+							break;
+						}
+						case STATE_SCINTILLA: 
+						{
+							// Do nothing
+							break;
+						}
+					}
+					if (not isModified)
+						::SendMessage(_hSelf, WM_COMMAND, MAKEWPARAM(IDD_BABYGRID_ID1, BGN_ROWCHANGED), row);
+					return TRUE;
+				}
 				case IDM_BABYGRID_MODIFY :
 				{
 					if (_babygrid.getNumberRows() < 1)
@@ -639,6 +758,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								vector<MenuItemUnit> itemUnitArray;
 								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, TEXT("Modify")));
 								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, TEXT("Delete")));
+								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_CLEAR, TEXT("Clear")));
 								_rightClickMenu.create(_hSelf, itemUnitArray);
 							}
 
@@ -646,10 +766,16 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							{
 								_rightClickMenu.enableItem(IDM_BABYGRID_MODIFY, false);
 								_rightClickMenu.enableItem(IDM_BABYGRID_DELETE, false);
+								_rightClickMenu.enableItem(IDM_BABYGRID_CLEAR, false);
 							}
 							else
 							{
 								_rightClickMenu.enableItem(IDM_BABYGRID_MODIFY, true);
+								_rightClickMenu.enableItem(IDM_BABYGRID_DELETE, true);
+								if (_currentState == STATE_SCINTILLA)
+									_rightClickMenu.enableItem(IDM_BABYGRID_CLEAR, false);
+								else
+									_rightClickMenu.enableItem(IDM_BABYGRID_CLEAR, true);
 								switch(_currentState) {
 									case STATE_MACRO:
 									case STATE_USER: {

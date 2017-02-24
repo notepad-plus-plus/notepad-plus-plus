@@ -183,7 +183,7 @@ TCHAR* FileDialog::doOpenSingleFileDlg()
 	} catch(std::exception e) {
 		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
 	} catch(...) {
-		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
+		::MessageBox(NULL, TEXT("doOpenSingleFileDlg crashes!!!"), TEXT(""), MB_OK);
 	}
 
 	::SetCurrentDirectory(dir); 

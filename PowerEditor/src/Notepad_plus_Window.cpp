@@ -294,6 +294,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		// Lauch backup task
 		_notepad_plus_plus_core.launchDocumentBackupTask();
 	}
+
+	// Make this call later to take effect
+	::SendMessage(_hSelf, NPPM_INTERNAL_SETWORDCHARS, 0, 0);
 }
 
 

@@ -129,7 +129,6 @@ void LastRecentFileList::updateMenu()
 			::InsertMenu(_hParentMenu, _posBase + 0, MF_BYPOSITION | MF_POPUP, reinterpret_cast<UINT_PTR>(_hMenu), (LPCTSTR)recentFileList.c_str());
 			::InsertMenu(_hParentMenu, _posBase + 1, MF_BYPOSITION, static_cast<UINT_PTR>(-1), 0);
 		}
-		_pAccelerator->updateFullMenu();
 	}
 	else if (_hasSeparators && _size == 0) 	//remove separators
 	{
@@ -150,6 +149,8 @@ void LastRecentFileList::updateMenu()
 			::RemoveMenu(_hMenu, 0, MF_BYPOSITION);
 		}
 	}
+
+	_pAccelerator->updateFullMenu();
 
 	//Remove all menu items
 	for(int i = 0; i < _size; ++i) 

@@ -174,6 +174,14 @@ public:
 
 	void setName(const TCHAR * name);
 
+	void clear(){
+		_keyCombo._isCtrl = false;
+		_keyCombo._isAlt = false;
+		_keyCombo._isShift = false;
+		_keyCombo._key = 0;
+		return;
+	}
+
 protected :
 	KeyCombo _keyCombo;
 	virtual INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);

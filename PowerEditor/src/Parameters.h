@@ -761,13 +761,12 @@ struct NppGUI final
 	bool _backSlashIsEscapeCharacterForSql = true;
 
 	bool _isWordCharDefault = true;
-	std::string _defaultWordChars;
 	std::string _customWordChars;
 
 	// 0 : do nothing
 	// 1 : don't draw underline
 	// 2 : draw underline
-	int _styleURL = 0;
+	int _styleURL = 2;
 
 	NewDocDefaultSettings _newDocDefaultSettings;
 
@@ -775,7 +774,7 @@ struct NppGUI final
 	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
 	const NewDocDefaultSettings & getNewDocDefaultSettings() const {return _newDocDefaultSettings;};
 	std::vector<LangMenuItem> _excludedLangList;
-	bool _isLangMenuCompact = false;
+	bool _isLangMenuCompact = true;
 
 	PrintSettings _printSettings;
 	BackupFeature _backup = bak_none;
@@ -787,7 +786,7 @@ struct NppGUI final
 	AutocStatus _autocStatus = autoc_both;
 	size_t  _autocFromLen = 1;
 	bool _autocIgnoreNumbers = true;
-	bool _funcParams = false;
+	bool _funcParams = true;
 	MatchedPairConf _matchedPairConf;
 
 	generic_string _definedSessionExt;
@@ -803,7 +802,7 @@ struct NppGUI final
 	_autoUpdateOpt;
 
 	bool _doesExistUpdater = false;
-	int _caretBlinkRate = 250;
+	int _caretBlinkRate = 600;
 	int _caretWidth = 1;
 	bool _enableMultiSelection = false;
 
@@ -1481,6 +1480,7 @@ public:
 	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
 	winVer getWinVersion() const {return _winVersion;};
 	generic_string getWinVersionStr() const;
+	generic_string getWinVerBitStr() const;
 	FindHistory & getFindHistory() {return _findHistory;};
 	bool _isFindReplacing = false; // an on the fly variable for find/replace functions
 	void safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection);
@@ -1554,6 +1554,8 @@ public:
 		_nppGUI._useNewStyleSaveDlg = v;
 	}
 	DPIManager _dpiManager;
+
+	generic_string static getSpecialFolderLocation(int folderKind);
 
 
 private:
@@ -1666,6 +1668,7 @@ private:
 	bool _asNotepadStyle = false;
 
 	winVer _winVersion;
+	Platform _platForm;
 
 	NativeLangSpeaker *_pNativeLangSpeaker = nullptr;
 
@@ -1737,4 +1740,5 @@ private:
 	void initScintillaKeys();	//these functions have to be called first before any modifications are loaded
 	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName); // return -1 if not found
 	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName); // return -1 if not found
+	winVer getWindowsVersion();
 };

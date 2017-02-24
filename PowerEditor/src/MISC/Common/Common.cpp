@@ -180,7 +180,7 @@ generic_string folderBrowser(HWND parent, const generic_string & title, int outp
 		TCHAR szDisplayName[MAX_PATH];
 		info.pszDisplayName = szDisplayName;
 		info.lpszTitle = title.c_str();
-		info.ulFlags = 0;
+		info.ulFlags = BIF_USENEWUI | BIF_NONEWFOLDERBUTTON;
 		info.lpfn = BrowseCallbackProc;
 
 		TCHAR directory[MAX_PATH];
@@ -640,7 +640,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 	if (filenameLen > 0)
 	{
 		std::vector<TCHAR> vt(filenameLen + 1);
-		//--FLS: W removed from PathCompactPathExW due to compiler errors for ANSI version.
+		// W removed from PathCompactPathExW due to compiler errors for ANSI version.
 		PathCompactPathEx(&vt[0], filename.c_str(), filenameLen + 1, 0);
 		strTemp.append(convertFileName(vt.begin(), vt.begin() + lstrlen(&vt[0])));
 	}
@@ -911,3 +911,67 @@ bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patt
 	return false;
 }
 
+generic_string GetLastErrorAsString(DWORD errorCode)
+{
+	generic_string errorMsg(_T(""));
+	// Get the error message, if any.
+	// If both error codes (passed error n GetLastError) are 0, then return empty
+	if (errorCode == 0)
+		errorCode = GetLastError();
+	if (errorCode == 0)
+		return errorMsg; //No error message has been recorded
+
+	LPWSTR messageBuffer = nullptr;
+	FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		nullptr, errorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&messageBuffer, 0, nullptr);
+
+	errorMsg += messageBuffer;
+
+	//Free the buffer.
+	LocalFree(messageBuffer);
+
+	return errorMsg;
+}
+
+HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
+{
+	if (!toolID || !hDlg || !pszText)
+	{
+		return NULL;
+	}
+
+	// Get the window of the tool.
+	HWND hwndTool = GetDlgItem(hDlg, toolID);
+	if (!hwndTool)
+	{
+		return NULL;
+	}
+
+	// Create the tooltip. g_hInst is the global instance handle.
+	HWND hwndTip = CreateWindowEx(NULL, TOOLTIPS_CLASS, NULL,
+		WS_POPUP | TTS_ALWAYSTIP | TTS_BALLOON,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		hDlg, NULL,
+		hInst, NULL);
+
+	if (!hwndTip)
+	{
+		return NULL;
+	}
+
+	// Associate the tooltip with the tool.
+	TOOLINFO toolInfo = { 0 };
+	toolInfo.cbSize = sizeof(toolInfo);
+	toolInfo.hwnd = hDlg;
+	toolInfo.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
+	toolInfo.uId = (UINT_PTR)hwndTool;
+	toolInfo.lpszText = pszText;
+	if (!SendMessage(hwndTip, TTM_ADDTOOL, 0, (LPARAM)&toolInfo))
+	{
+		DestroyWindow(hwndTip);
+		return NULL;
+	}
+
+	return hwndTip;
+}

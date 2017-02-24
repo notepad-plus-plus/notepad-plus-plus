@@ -12,29 +12,29 @@
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;Faili"/>
-                    <Item menuId="edit" name="&amp;Redigeeri"/>
+                    <Item menuId="file" name="&amp;Fail"/>
+                    <Item menuId="edit" name="&amp;Muuda"/>
                     <Item menuId="search" name="&amp;Otsing"/>
                     <Item menuId="view" name="&amp;Vaade"/>
                     <Item menuId="encoding" name="K&amp;odeering"/>
                     <Item menuId="language" name="&amp;Keel"/>
                     <Item menuId="settings" name="Se&amp;aded"/>
                     <Item menuId="macro" name="Makro"/>
-                    <Item menuId="run" name="Jooksma"/>
+                    <Item menuId="run" name="Käsklused"/>
                     <Item idName="Plugins" name="Pluginad"/>
                     <Item idName="Window" name="Aken"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
 					<Item subMenuId="file-openFolder" name="Avatud Sisaldavate Kausta"/>
-                    <Item subMenuId="file-closeMore" name="Close Rohkem"/>
-                    <Item subMenuId="file-recentFiles" name="viimastel Faili"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="kopeerida Lõikelauale"/>
+                    <Item subMenuId="file-closeMore" name="Sule"/>
+                    <Item subMenuId="file-recentFiles" name="Viimased failid"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Kopeeri lõikelauale"/>
                     <Item subMenuId="edit-indent" name="Taane"/>
                     <Item subMenuId="edit-convertCaseTo" name="Teisendada Juhtumi"/>
-                    <Item subMenuId="edit-lineOperations" name="Liin Toimingud"/>
-                    <Item subMenuId="edit-comment" name="Kommentaar / Eemaldamine Jaoks"/>
-                    <Item subMenuId="edit-autoCompletion" name="Auto-Lõpuleviimine"/>
+                    <Item subMenuId="edit-lineOperations" name="Liini Toimingud"/>
+                    <Item subMenuId="edit-comment" name="Komentaari muutmine"/>
+                    <Item subMenuId="edit-autoCompletion" name="Automaatne teksti lõpetamine"/>
                     <Item subMenuId="edit-eolConversion" name="EOL Konversioonide"/>
                     <Item subMenuId="edit-blankOperations" name="Tühjaks Toimingud"/>
                     <Item subMenuId="edit-pasteSpecial" name="Kleebi Eriline"/>
@@ -44,8 +44,8 @@
                     <Item subMenuId="search-jumpDown" name="Hüpata Alla"/>
                     <Item subMenuId="search-bookmark" name="Järjehoidja"/>
                     <Item subMenuId="view-showSymbol"  name="Näita Sümbol"/>
-                    <Item subMenuId="view-zoom"  name="suumi"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Liiguta / Kloonide Praegune dokument"/>
+                    <Item subMenuId="view-zoom"  name="Suumi"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Liigutage või eemaldage fail"/>
                     <Item subMenuId="view-tab"  name="Sakk"/>
                     <Item subMenuId="view-collapseLevel" name="Kahanda Tase"/>
                     <Item subMenuId="view-uncollapseLevel" name="Uncollapse Tase"/>
@@ -75,7 +75,7 @@
                     <Item id="41001" name="&amp;uus"/>
                     <Item id="41002" name="&amp;avatud"/>
                     <Item id="41019" name="Exploreri"/>
-                    <Item id="41020" name="Cmd"/>
+                    <Item id="41020" name="Käsurida"/>
                     <Item id="41003" name="Lähedal"/>
                     <Item id="41004" name="C&amp;ähedale Kõik"/>
                     <Item id="41005" name="Lähedale Kõik, Kuid Praegune Dokument"/>

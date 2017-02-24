@@ -4963,6 +4963,27 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
 }
 
+void Notepad_plus::prepareBufferChangedDialog(Buffer * buffer)
+{
+	// immediately show window if it was minimized before
+	if (::IsIconic(_pPublicInterface->getHSelf()))
+		::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
+
+	// switch to the file that changed
+	int index = _pDocTab->getIndexByBuffer(buffer->getID());
+	int iView = currentView();
+	if (index == -1)
+		iView = otherView();
+	activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+
+	// prevent flickering issue by "manually" clicking and activating the _pEditView
+	// (mouse events seem to get lost / improperly handled when showing the dialog)
+	auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	::PostMessage(_pEditView->getHSelf(), WM_LBUTTONDOWN, 0, 0);
+	::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+	::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+}
+
 void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 {
 	// To avoid to crash while MS-DOS style is set as default language,
@@ -4983,8 +5004,6 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	//Only event that applies to non-active Buffers
 	if (mask & BufferChangeStatus)
 	{	//reload etc
-		bool didDialog = false;
-		bool doCloseDoc = false;
 		switch(buffer->getStatus())
 		{
 			case DOC_UNNAMED: 	//nothing todo
@@ -4997,28 +5016,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
 				if (!autoUpdate || buffer->isDirty())
 				{
-                    // if file updating is not silently, we switch to the file to update.
-                    int index = _pDocTab->getIndexByBuffer(buffer->getID());
-				    int iView = currentView();
-				    if (index == -1)
-					    iView = otherView();
-				    activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+					prepareBufferChangedDialog(buffer);
 
-                    // Then we ask user to update
-					didDialog = true;
-					
-					// This section deal with the flicking issue which was caused by f2cd779 (discussed in detail @ #1018)
-					// Idea is :
-					//		1. First get the current caret position.
-					//		2. Send WM_LBUTTONDOWN and WM_LBUTTONUP message (which acts as double click at 0,0)
-					//		3. Now set caret back to original position.
-					//
-					auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-					::PostMessage(_pEditView->getHSelf(), WM_LBUTTONDOWN, 0, 0);
-					::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
-					::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
-					// Now the flickering issue is not seen.
-
+					// Then we ask user to update
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
 						break;	//abort
 				}
@@ -5050,41 +5050,25 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			}
 			case DOC_DELETED: 	//ask for keep
 			{
+				prepareBufferChangedDialog(buffer);
+
 				SCNotification scnN;
 				scnN.nmhdr.code = NPPN_FILEDELETED;
 				scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
 				scnN.nmhdr.idFrom = (uptr_t)buffer->getID();
 				_pluginsManager.notify(&scnN);
 
-				int index = _pDocTab->getIndexByBuffer(buffer->getID());
-				int iView = currentView();
-				if (index == -1)
-					iView = otherView();
-
-				activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
-				didDialog = true;
-				doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
+				int doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
 				if (doCloseDoc)
 				{
 					//close in both views, doing current view last since that has to remain opened
 					bool isSnapshotMode = nppGUI.isSnapshotMode();
 					doClose(buffer->getID(), otherView(), isSnapshotMode);
 					doClose(buffer->getID(), currentView(), isSnapshotMode);
+					return;
 				}
 				break;
 			}
-		}
-
-		if (didDialog)
-		{
-			auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-			::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
-			::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
-			if (::IsIconic(_pPublicInterface->getHSelf()))
-				::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
-
-			if (doCloseDoc) // buffer has been deleted, cannot (and no need to) go on
-				return;
 		}
 	}
 

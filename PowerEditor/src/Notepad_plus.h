@@ -207,6 +207,7 @@ public:
     void loadLastSession();
 	bool loadSession(Session & session, bool isSnapshotMode = false);
 
+	void prepareBufferChangedDialog(Buffer * buffer);
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFinderFiles(FindersInfo *findInFolderInfo);
 	bool findInFiles();

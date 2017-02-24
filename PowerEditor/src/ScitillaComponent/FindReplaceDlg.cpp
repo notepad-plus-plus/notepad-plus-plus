@@ -706,7 +706,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			 generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
 			 if (tip2show.empty())
-				 tip2show = TEXT("Use Shift+Enter to search in the reverse set direction.");
+				 tip2show = TEXT("Use Shift+Enter to search in the opposite direction.");
 
 			 _shiftTrickUpTip = CreateToolTip(IDDIRECTIONUP, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
 			 _shiftTrickDownTip = CreateToolTip(IDDIRECTIONDOWN, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
@@ -714,13 +714,13 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 {
 				 SendMessage(_shiftTrickUpTip, TTM_ACTIVATE, TRUE, 0);
 				 SendMessage(_shiftTrickUpTip, TTM_SETMAXTIPWIDTH, 0, 200);
-				 // Make tip stay 30 seconds
-				 SendMessage(_shiftTrickUpTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+				 // Make tip stay 15 seconds
+				 SendMessage(_shiftTrickUpTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
 
 				 SendMessage(_shiftTrickDownTip, TTM_ACTIVATE, TRUE, 0);
 				 SendMessage(_shiftTrickDownTip, TTM_SETMAXTIPWIDTH, 0, 200);
-				 // Make tip stay 30 seconds
-				 SendMessage(_shiftTrickDownTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+				 // Make tip stay 15 seconds
+				 SendMessage(_shiftTrickDownTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
 			 }
 
 			return TRUE;

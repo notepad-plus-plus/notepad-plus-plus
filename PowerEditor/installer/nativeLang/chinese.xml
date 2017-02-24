@@ -994,6 +994,7 @@
 			<word-chars-list-warning-end value="  在你的單字字符集中。"/>
 			<cloud-invalid-warning value="無效路徑"/>
 			<cloud-restart-warning value="請重新啟動 Notepad++ 以讓改變生效"/>
+			<shift-change-direction-tip value="Shift+Enter 相反方向搜尋"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

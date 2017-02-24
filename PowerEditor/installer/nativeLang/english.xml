@@ -998,6 +998,7 @@
 			<word-chars-list-warning-end value="  in your character list."/>
 			<cloud-invalid-warning value="Invalid path."/>
 			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

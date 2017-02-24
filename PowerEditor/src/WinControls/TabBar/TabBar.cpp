@@ -54,11 +54,11 @@ COLORREF TabBarPlus::_inactiveBgColour = RGB(192, 192, 192);
 HWND TabBarPlus::_hwndArray[nbCtrlMax] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 int TabBarPlus::_nbCtrl = 0;
 
-void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditional, bool isMultiLine)
+void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLine)
 {
 	Window::init(hInst, parent);
 	int vertical = isVertical?(TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY):0;
-	_isTraditional = isTraditional;
+
 	_isVertical = isVertical;
 	_isMultiLine = isMultiLine;
 
@@ -66,7 +66,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
-	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE : 0) : 0;
+	int multiLine = isMultiLine ? TCS_MULTILINE : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
         TCS_FOCUSNEVER | TCS_TABS | WS_TABSTOP | vertical | multiLine;
@@ -215,48 +215,33 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 
 	rowCount = TabCtrl_GetRowCount(_hSelf);
 	TabCtrl_GetItemRect(_hSelf, 0, &rowRect);
-	if (_isTraditional)
+
+	int larger = _isVertical ? rowRect.right : rowRect.bottom;
+	int smaller = _isVertical ? rowRect.left : rowRect.top;
+	int marge = 0;
+
+	LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
+	if (rowCount == 1)
 	{
-		TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
+		style &= ~TCS_BUTTONS;
 	}
-	else if (_isVertical)
+	else // (rowCount >= 2)
 	{
-		LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
-		if (rowCount == 1)
-		{
-			style &= ~TCS_BUTTONS;
-		}
-		else // (rowCount >= 2)
-		{
-			style |= TCS_BUTTONS;
-		}
-		::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
-
-		const int marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
-		tabsHight  = rowCount * (rowRect.right - rowRect.left + marge);
-		tabsHight += GetSystemMetrics(SM_CXEDGE);
-
-		rc2Ajust.left	+= tabsHight;
-		rc2Ajust.right	-= tabsHight;
+		style |= TCS_BUTTONS;
+		marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
 	}
-	else //if (_isMultiLine)
+
+	::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
+	tabsHight = rowCount * (larger - smaller + marge);
+	tabsHight += GetSystemMetrics(_isVertical ? SM_CXEDGE : SM_CYEDGE);
+
+	if (_isVertical)
 	{
-		LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
-		int marge = 0;
-		if (rowCount == 1)
-		{
-			style &= ~TCS_BUTTONS;
-		}
-		else // (rowCount >= 2)
-		{
-			style |= TCS_BUTTONS;
-			marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
-		}
-
-		::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
-		tabsHight = rowCount * (rowRect.bottom - rowRect.top + marge);
-		tabsHight += GetSystemMetrics(SM_CYEDGE);
-
+		rc2Ajust.left += tabsHight;
+		rc2Ajust.right -= tabsHight;
+	}
+	else
+	{
 		rc2Ajust.top += tabsHight;
 		rc2Ajust.bottom -= tabsHight;
 	}
@@ -271,11 +256,10 @@ void TabBarPlus::destroy()
 }
 
 
-void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditional, bool isMultiLine)
+void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isMultiLine)
 {
 	Window::init(hInst, parent);
 	int vertical = isVertical?(TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY):0;
-	_isTraditional = isTraditional;
 	_isVertical = isVertical;
 	_isMultiLine = isMultiLine;
 
@@ -283,7 +267,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
 	InitCommonControlsEx(&icce);
-	int multiLine = isMultiLine ? (_isTraditional ? TCS_MULTILINE : 0) : 0;
+	int multiLine = isMultiLine ? TCS_MULTILINE : 0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE | TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
 
@@ -322,34 +306,31 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	}
 	::SendMessage(_hSelf, TCM_SETTOOLTIPS, reinterpret_cast<WPARAM>(_tooltips), 0);
 
-	if (!_isTraditional)
-    {
-		if (!_hwndArray[_nbCtrl])
+	if (!_hwndArray[_nbCtrl])
+	{
+		_hwndArray[_nbCtrl] = _hSelf;
+		_ctrlID = _nbCtrl;
+	}
+	else
+	{
+		int i = 0;
+		bool found = false;
+		for ( ; i < nbCtrlMax && !found ; ++i)
+			if (!_hwndArray[i])
+				found = true;
+		if (!found)
 		{
-			_hwndArray[_nbCtrl] = _hSelf;
-			_ctrlID = _nbCtrl;
+			_ctrlID = -1;
+			destroy();
+			throw std::runtime_error("TabBarPlus::init : Tab Control error - Tab Control # is over its limit");
 		}
-		else
-		{
-			int i = 0;
-			bool found = false;
-			for ( ; i < nbCtrlMax && !found ; ++i)
-				if (!_hwndArray[i])
-					found = true;
-			if (!found)
-			{
-				_ctrlID = -1;
-				destroy();
-				throw std::runtime_error("TabBarPlus::init : Tab Control error - Tab Control # is over its limit");
-			}
-			_hwndArray[i] = _hSelf;
-			_ctrlID = i;
-		}
-		++_nbCtrl;
+		_hwndArray[i] = _hSelf;
+		_ctrlID = i;
+	}
+	++_nbCtrl;
 
-		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-		_tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabBarPlus_Proc)));
-    }
+	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+	_tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(TabBarPlus_Proc)));
 
 	LOGFONT LogFont;
 

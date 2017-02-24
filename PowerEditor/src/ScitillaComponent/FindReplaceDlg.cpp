@@ -257,7 +257,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	RECT rect;
 	//::GetWindowRect(_hSelf, &rect);
 	getClientRect(rect);
-	_tab.init(_hInst, _hSelf, false, false, true);
+	_tab.init(_hInst, _hSelf, false, true);
 	int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(13);
 	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 	

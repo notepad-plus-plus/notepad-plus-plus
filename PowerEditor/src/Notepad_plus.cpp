@@ -5001,6 +5001,18 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
                     // Then we ask user to update
 					didDialog = true;
 					
+					// This section deal with the flicking issue which was caused by f2cd779 (discussed in detail @ #1018)
+					// Idea is :
+					//		1. First get the current caret position.
+					//		2. Send WM_LBUTTONDOWN and WM_LBUTTONUP message (which acts as double click at 0,0)
+					//		3. Now set caret back to original position.
+					//
+					auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+					::PostMessage(_pEditView->getHSelf(), WM_LBUTTONDOWN, 0, 0);
+					::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+					::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+					// Now the flickering issue is not seen.
+
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
 						break;	//abort
 				}

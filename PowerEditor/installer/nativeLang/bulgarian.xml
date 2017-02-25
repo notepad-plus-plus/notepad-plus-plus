@@ -1056,7 +1056,7 @@
 			<word-chars-list-warning-end value="  във вашият списък със символи."/>
 			<cloud-invalid-warning value="Невалиден път."/>
 			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++."/>
-			<shift-change-direction-tip value="Използване на Shift+Enter за търсене в обратна посока."/>
+			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter."/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

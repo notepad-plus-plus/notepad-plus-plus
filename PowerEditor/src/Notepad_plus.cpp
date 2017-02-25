@@ -3127,77 +3127,68 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		else
 			switchEditViewTo(MAIN_VIEW);
 
+		/*
+		Scenarios 1: Open all files of folder instead of launching Folder as Workspace on folder dropping is checked
+		Case 1 : Only File(s) drop = > Open file(s)
+		Case 2: Only Folder(s) drop = > Open all the files from folder(s)
+		Case 3: Folder(s) + File(s) drop = > Open all the files from the folder along with other selected file(s).
+
+		Scenarios 2: Open all files of folder instead of launching Folder as Workspace on folder dropping is unchecked
+		Case 1 : Only File(s) drop = > Open file(s)
+		Case 2: Only Folder(s) drop = > Launch Folder as workspace and show all the files in it.
+		Case 3: Folder(s) + File(s) drop = > List all the files from the Folder(s) in the Folder as Workspace and open all other selected file(s).
+		*/
+
+		NppParameters *pNppParam = NppParameters::getInstance();
+		bool bOpenDroppedFolderFiles = pNppParam->getNppGUI()._isFolderDroppedOpenFiles;
+
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
 		BufferID lastOpened = BUFFER_INVALID;
 
-		vector<generic_string> folderPaths;
-		vector<generic_string> filePaths;
-		for (int i = 0; i < filesDropped; ++i)
+		// Scenarios 1: Always opens files irrespective of file/folder
+		if (bOpenDroppedFolderFiles)
 		{
-			TCHAR pathDropped[MAX_PATH];
-			::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
-			if (::PathIsDirectory(pathDropped))
-			{
-				size_t len = lstrlen(pathDropped);
-				if (len > 0 && pathDropped[len - 1] != TCHAR('\\'))
-				{
-					pathDropped[len] = TCHAR('\\');
-					pathDropped[len + 1] = TCHAR('\0');
-				}
-				folderPaths.push_back(pathDropped);
-			}
-			else
-			{
-				filePaths.push_back(pathDropped);
-			}
-		}
-		
-		NppParameters *pNppParam = NppParameters::getInstance();
-		bool isOldMode = pNppParam->getNppGUI()._isFolderDroppedOpenFiles;
-
-		if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
-		{
-
 			BufferID lastOpened = BUFFER_INVALID;
 			for (int i = 0; i < filesDropped; ++i)
 			{
-				TCHAR pathDropped[MAX_PATH];
+				TCHAR pathDropped[MAX_PATH] = { 0, };
 				::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
 				BufferID test = doOpen(pathDropped);
 				if (test != BUFFER_INVALID)
 					lastOpened = test;
 			}
-
-			if (lastOpened != BUFFER_INVALID)
-			{
-				switchToFile(lastOpened);
-			}
 		}
-		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() != 0)) // new mode && both folders & files
+		else
 		{
-			// display error & do nothing
-		}
-		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
-		{
-			// process new mode
-			launchFileBrowser(folderPaths);
-
-			/*
+			// Scenarios 2: Open Files/show Folder as workspace
+			vector<generic_string> folderPaths;
 			for (int i = 0; i < filesDropped; ++i)
 			{
-				if (not _pFileBrowser->isAlreadyExist(folderPaths[i]))
+				TCHAR pathDropped[MAX_PATH];
+				::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
+				if (::PathIsDirectory(pathDropped))
 				{
-					vector<generic_string> patterns2Match;
-					patterns2Match.push_back(TEXT("*.*"));
-
-					FolderInfo directoryStructure;
-					getDirectoryStructure(folderPaths[i].c_str(), patterns2Match, directoryStructure, true, false);
-					_pFileBrowser->setDirectoryStructure(directoryStructure);
+					size_t len = lstrlen(pathDropped);
+					if (len > 0 && pathDropped[len - 1] != TCHAR('\\'))
+					{
+						pathDropped[len] = TCHAR('\\');
+						pathDropped[len + 1] = TCHAR('\0');
+					}
+					folderPaths.push_back(pathDropped);		// Keep accumalating multiple folders here
 				}
-				int j = 0;
-				j++;
+				else
+				{
+					BufferID test = doOpen(pathDropped);	// Files keep opening here
+					if (test != BUFFER_INVALID)
+						lastOpened = test;
+				}
 			}
-			*/
+
+			if ((folderPaths.size() != 0))
+			{
+				// If Folder(s) is/are dropped, handle here => Folder as Workspace
+				launchFileBrowser(folderPaths);
+			}
 		}
 
 		if (lastOpened != BUFFER_INVALID) 

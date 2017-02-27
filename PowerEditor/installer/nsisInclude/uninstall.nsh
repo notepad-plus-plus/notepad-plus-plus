@@ -150,7 +150,7 @@ FunctionEnd
 	SetRegView 64
 !endif
 	DeleteRegKey HKLM "${UNINSTALL_REG_KEY}"
-	;DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
+	DeleteRegKey HKLM "SOFTWARE\${APPNAME}"
 	;DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
 !ifdef ARCH64
 	SetRegView 64

@@ -707,27 +707,15 @@
 			<parser
 				displayName="PERL"
 				id         ="perl_function"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?m-s:\x23.*$)                                  # Single Line Comment
-							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							sub
-							\s+
-							[A-Za-z_]\w*
-							\s*
-							\(
-							[^()]*
-							\)
-							\s*\{                                               # start of class body
-						"
+					mainExpr="^\s*(?&lt;!#)\s*sub\s+\w+\s*\(?[^\)\(]*?\)?[\n\s]*\{"
 				>
 					<functionName>
-						<nameExpr expr="(?:sub\s+)?\K[A-Za-z_]\w*" />
+						<nameExpr expr="(sub\s+)?\K\w+" />
 					</functionName>
 					<className>
-						<nameExpr expr="[A-Za-z_]\w*(?=\s*:{2})" />
+						<nameExpr expr="\w+(?=\s*::)" />
 					</className>
 				</function>
 			</parser>

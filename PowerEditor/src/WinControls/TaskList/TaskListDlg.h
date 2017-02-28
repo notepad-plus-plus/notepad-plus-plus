@@ -61,7 +61,7 @@ static LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam);
 class TaskListDlg : public StaticDialog
 {
 public :	
-        TaskListDlg() : StaticDialog() {};
+		TaskListDlg() : StaticDialog() { _instanceCount++; };
 		void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImgLst, bool dir) {
             Window::init(hInst, parent);
 			_hImalist = hImgLst;
@@ -81,5 +81,7 @@ private :
 	HHOOK _hHooker = nullptr;
 
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
+public:
+	static int _instanceCount;
 };
 

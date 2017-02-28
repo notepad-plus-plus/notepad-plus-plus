@@ -31,13 +31,18 @@
 #include "Parameters.h"
 #include "resource.h"
 
+int TaskListDlg::_instanceCount = 0;
+
 LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
 {
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
     {
 		::PostMessage(hWndServer, WM_RBUTTONUP, 0, 0);
     }        
-	
+	if ((nCode >= 0) && (wParam == WM_MOUSEWHEEL))
+	{
+		::PostMessage(hWndServer, WM_MOUSEWHEEL, 0, 0);
+	}
 	return ::CallNextHookEx(hook, nCode, wParam, lParam);
 }
 
@@ -93,6 +98,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 		{
 			_taskList.destroy();
 			::UnhookWindowsHookEx(_hHooker);
+			_instanceCount--;
 			return TRUE;
 		}
 
@@ -103,6 +109,11 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			return TRUE;
 		}
 		
+		case WM_MOUSEWHEEL:
+		{
+			::SendMessage(_taskList.getHSelf(), WM_MOUSEWHEEL, wParam, lParam);
+			return TRUE;
+		}
 
 		case WM_DRAWITEM :
 		{

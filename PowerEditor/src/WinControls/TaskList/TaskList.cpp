@@ -88,7 +88,6 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 
 	ListView_SetItemState(_hSelf, _currentIndex, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
 	ListView_SetBkColor(_hSelf, lightYellow);
-
 }
 
 void TaskList::destroy()
@@ -211,14 +210,14 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			else
 			{
 				int32_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
-				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);				
+				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
 				// tells what item(s) to be repainted
 				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
 				// repaint item(s)
 				UpdateWindow(_hSelf); 
 				ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
 				// tells what item(s) to be repainted
-				ListView_RedrawItems(_hSelf, selected, selected);				
+				ListView_RedrawItems(_hSelf, selected, selected);
 				// repaint item(s)
 				UpdateWindow(_hSelf);
 				_currentIndex = selected;

@@ -995,6 +995,7 @@
             <word-chars-list-warning-end value="  在你的字符列表中。"/>
             <cloud-invalid-warning value="无效路径"/>
             <cloud-restart-warning value="请重启Notepad++以生效"/>
+            <shift-change-direction-tip value="使用Shift+Enter反向查找"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

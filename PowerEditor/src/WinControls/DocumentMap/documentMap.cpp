@@ -59,6 +59,27 @@ void DocumentMap::reloadMap()
 	}
 }
 
+void DocumentMap::showInMapTemporarily(Buffer *buf2show, const ScintillaEditView *fromEditView)
+{
+	if (_pScintillaEditView && fromEditView)
+	{
+		_pScintillaEditView->execute(SCI_SETDOCPOINTER, 0, static_cast<LPARAM>(buf2show->getDocument()));
+		_pScintillaEditView->setCurrentBuffer(buf2show);
+
+		// folding
+		const std::vector<size_t> & lineStateVector = buf2show->getHeaderLineState(fromEditView);
+		_pScintillaEditView->syncFoldStateWith(lineStateVector);
+
+		// Wrapping
+		if (fromEditView->isWrap() && needToRecomputeWith(fromEditView))
+		{
+			wrapMap(fromEditView);
+		}
+
+		//scrollMap(fromEditView);
+	}
+}
+
 void DocumentMap::setSyntaxHiliting()
 {
 	Buffer *buf = _pScintillaEditView->getCurrentBuffer();
@@ -66,13 +87,15 @@ void DocumentMap::setSyntaxHiliting()
 	_pScintillaEditView->showMargin(ScintillaEditView::_SC_MARGE_FOLDER, false);
 }
 
-bool DocumentMap::needToRecomputeWith()
+bool DocumentMap::needToRecomputeWith(const ScintillaEditView *editView)
 {
-	auto currentZoom = (*_ppEditView)->execute(SCI_GETZOOM);
+	const ScintillaEditView *pEditView = editView ? editView : *_ppEditView;
+
+	auto currentZoom = pEditView->execute(SCI_GETZOOM);
 	if (_displayZoom != currentZoom)
 		return true;
 
-	int currentTextZoneWidth = getEditorTextZoneWidth();
+	int currentTextZoneWidth = getEditorTextZoneWidth(editView);
 	if (_displayWidth != currentTextZoneWidth)
 		return true;
 
@@ -141,18 +164,19 @@ sprintf(dchar, "%f", ddd);
 double zoomRatio[] = {1, 1, 1, 1, 1.5, 2, 2.5, 2.5, 3.5, 3.5,\
 4, 4.5, 5, 5, 5.5, 6, 6.5, 7, 7, 7.5, 8, 8.5, 8.5, 9.5, 9.5, 10, 10.5, 11, 11, 11.5, 12};
 
-void DocumentMap::wrapMap()
+void DocumentMap::wrapMap(const ScintillaEditView *editView)
 {
+	const ScintillaEditView *pEditView = editView ? editView : *_ppEditView;
 	RECT rect;
 	getClientRect(rect);
-	if ((*_ppEditView)->isWrap())
+	if (pEditView->isWrap())
 	{
 		// get current scintilla width W1
-		int editZoneWidth = getEditorTextZoneWidth();
+		int editZoneWidth = getEditorTextZoneWidth(editView);
 
 		// update the wrap needed data
 		_displayWidth = editZoneWidth;
-		_displayZoom = static_cast<int32_t>((*_ppEditView)->execute(SCI_GETZOOM));
+		_displayZoom = static_cast<int32_t>(pEditView->execute(SCI_GETZOOM));
 		double zr = zoomRatio[_displayZoom + 10];
 
 		// compute doc map width: dzw/ezw = 1/zoomRatio
@@ -162,39 +186,43 @@ void DocumentMap::wrapMap()
 		_pScintillaEditView->wrap(true);
 
 		// sync wrapping indent mode
-		_pScintillaEditView->execute(SCI_SETWRAPINDENTMODE, (*_ppEditView)->execute(SCI_GETWRAPINDENTMODE));
+		_pScintillaEditView->execute(SCI_SETWRAPINDENTMODE, pEditView->execute(SCI_GETWRAPINDENTMODE));
 
 	}
 }
 
-int DocumentMap::getEditorTextZoneWidth()
+int DocumentMap::getEditorTextZoneWidth(const ScintillaEditView *editView)
 {
+	const ScintillaEditView *pEditView = editView ? editView : *_ppEditView;
+
 	RECT editorRect;
-	(*_ppEditView)->getClientRect(editorRect);
+	pEditView->getClientRect(editorRect);
 
 	int marginWidths = 0;
 	for (int m = 0; m < 4; ++m)
 	{
-		marginWidths += static_cast<int32_t>((*_ppEditView)->execute(SCI_GETMARGINWIDTHN, m));
+		marginWidths += static_cast<int32_t>(pEditView->execute(SCI_GETMARGINWIDTHN, m));
 	}
 	return editorRect.right - editorRect.left - marginWidths;
 }
 
-void DocumentMap::scrollMap()
+void DocumentMap::scrollMap(const ScintillaEditView *editView)
 {
-	if (_pScintillaEditView && _ppEditView)
+	const ScintillaEditView *pEditView = editView ? editView : *_ppEditView;
+
+	if (_pScintillaEditView && pEditView)
 	{
 		// Visible document line for the code view (but not displayed line)
-		auto firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-		auto firstVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine);
-		auto nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
-		auto lastVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + nbLine);
+		auto firstVisibleDisplayLine = pEditView->execute(SCI_GETFIRSTVISIBLELINE);
+		auto firstVisibleDocLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine);
+		auto nbLine = pEditView->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
+		auto lastVisibleDocLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + nbLine);
 
 		// Visible document line for the map view
 		auto firstVisibleDisplayLineMap = _pScintillaEditView->execute(SCI_GETFIRSTVISIBLELINE);
 		auto firstVisibleDocLineMap = _pScintillaEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap);
 		auto nbLineMap = _pScintillaEditView->execute(SCI_LINESONSCREEN, firstVisibleDocLineMap);
-		auto lastVisibleDocLineMap = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap + nbLineMap);
+		auto lastVisibleDocLineMap = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap + nbLineMap);
 
 		// If part of editor view is out of map, then scroll map
 		if (lastVisibleDocLineMap < lastVisibleDocLine)
@@ -205,7 +233,7 @@ void DocumentMap::scrollMap()
 		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
 		LRESULT higherY = 0;
 		LRESULT lowerY = 0;
-		if (!(*_ppEditView)->isWrap())
+		if (not pEditView->isWrap())
 		{
 			auto higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, firstVisibleDocLine);
 			auto lowerPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, lastVisibleDocLine);
@@ -219,7 +247,7 @@ void DocumentMap::scrollMap()
 		}
 		else
 		{
-			auto higherPos = (*_ppEditView)->execute(SCI_POSITIONFROMPOINT, 0, 0);
+			auto higherPos = pEditView->execute(SCI_POSITIONFROMPOINT, 0, 0);
 			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
 			auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
 			lowerY = nbLine * lineHeight + higherY;

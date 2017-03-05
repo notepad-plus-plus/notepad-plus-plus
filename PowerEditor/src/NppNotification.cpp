@@ -148,6 +148,38 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			break;
 		}
 
+		case TCN_MOUSEHOVERING:
+		case TCN_MOUSEHOVERSWITCHING:
+		{
+			/*
+			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			{
+				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
+				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
+				if (pTabDocView)
+				{
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->tabOrigin);
+					Buffer * pBuf = MainFileManager->getBufferByID(id);
+					_pDocMap->showInMapTemporily(pBuf, notifyView);
+					_pDocMap->setSyntaxHiliting();
+				}
+			}
+			*/
+			break;
+		}
+
+		case TCN_MOUSELEAVING:
+		{
+			/*
+			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			{
+				_pDocMap->reloadMap();
+				_pDocMap->setSyntaxHiliting();
+			}
+			*/
+			break;
+		}
+
 		case TCN_TABDROPPEDOUTSIDE:
 		case TCN_TABDROPPED:
 		{

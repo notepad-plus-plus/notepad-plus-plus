@@ -43,6 +43,9 @@
 #define TCN_TABDROPPED (TCN_FIRST - 10)
 #define TCN_TABDROPPEDOUTSIDE (TCN_FIRST - 11)
 #define TCN_TABDELETE (TCN_FIRST - 12)
+#define TCN_MOUSEHOVERING (TCN_FIRST - 13)
+#define TCN_MOUSELEAVING (TCN_FIRST - 14)
+#define TCN_MOUSEHOVERSWITCHING (TCN_FIRST - 15)
 
 #define WM_TABSETSTYLE	(WM_APP + 0x024)
 
@@ -228,7 +231,7 @@ protected:
 	WNDPROC _tabBarDefaultProc = nullptr;
 
 	RECT _currentHoverTabRect;
-	int _currentHoverTabItem = -1;
+	int _currentHoverTabItem = -1; // -1 : no mouse on any tab
 
 	CloseButtonZone _closeButtonZone;
 	bool _isCloseHover = false;
@@ -284,4 +287,7 @@ protected:
 	    return (((screenPoint.x >= parentZone.left) && (screenPoint.x <= parentZone.right)) &&
 			    (screenPoint.y >= parentZone.top) && (screenPoint.y <= parentZone.bottom));
     }
+
+	void notify(int notifyCode, int tabIndex);
+	void trackMouseEvent(DWORD event2check);
 };

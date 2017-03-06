@@ -127,6 +127,12 @@ RECT TaskList::adjustSize()
 	ListView_SetColumnWidth(_hSelf, 0, _rc.right);
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 
+	// Ensure tasklist dialog does not exceed the current Display height and
+	// also leave some more space at bottom to avoid overlap at taskbar
+	if (_rc.bottom > _nCurrentDisplayMaxH - 120)
+	{
+		_rc.bottom = _nCurrentDisplayMaxH - 120;
+	}
 	reSizeTo(_rc);
 
 	// Task List's border is 1px smaller than ::GetSystemMetrics(SM_CYFRAME) returns
@@ -214,9 +220,10 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 				// tells what item(s) to be repainted
 				ListView_RedrawItems(_hSelf, selected, selected);
 				// repaint item(s)
-				UpdateWindow(_hSelf);              
+				UpdateWindow(_hSelf);
 				_currentIndex = selected;
 			}
+			ListView_EnsureVisible(_hSelf, _currentIndex, true);
 			return TRUE;
 		}
 
@@ -267,6 +274,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 						UpdateWindow(_hSelf);              
 						_currentIndex = selected;
 					}
+					ListView_EnsureVisible(_hSelf, _currentIndex, true);
 				}
 				else
 				{
@@ -281,3 +289,22 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	}
 }
 
+void TaskList::CalCurrentDisplayResolution()
+{
+	HMONITOR currentMonitor;	// Handle to monitor where npp is being displayed
+	MONITORINFO mi;				// Info of that monitor
+	currentMonitor = ::MonitorFromWindow(getHParent(), MONITOR_DEFAULTTONEAREST);	//should always be valid monitor handle
+	mi.cbSize = sizeof(MONITORINFO);
+	if (::GetMonitorInfo(currentMonitor, &mi) != FALSE)
+	{
+		_nCurrentDisplayMaxH = mi.rcMonitor.bottom - mi.rcMonitor.top;
+	}
+	else
+	{
+		// This is fall back option
+		// In case not able to get height for current display then get it for primary display
+		// So atleast size overflow can be avoided if npp is running on primary display
+
+		_nCurrentDisplayMaxH = ::GetSystemMetrics(SM_CYSCREEN);
+	}
+}

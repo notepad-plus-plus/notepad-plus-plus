@@ -2805,17 +2805,19 @@ void Notepad_plus::command(int id)
 			if (nbDoc > 1)
 			{
 				bool direction = (id == IDC_NEXT_DOC)?dirDown:dirUp;
-
 				if (!doTaskList)
 				{
 					activateNextDoc(direction);
 				}
 				else
 				{
-					TaskListDlg tld;
-					HIMAGELIST hImgLst = _docTabIconList.getHandle();
-					tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
-					tld.doDialog();
+					if (TaskListDlg::_instanceCount == 0)
+					{
+						TaskListDlg tld;
+						HIMAGELIST hImgLst = _docTabIconList.getHandle();
+						tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
+						tld.doDialog();
+					}
 				}
 			}
 			_linkTriggered = true;

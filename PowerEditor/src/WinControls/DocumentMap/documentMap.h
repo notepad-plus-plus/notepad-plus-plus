@@ -38,6 +38,8 @@
 #define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)
 
 class ScintillaEditView;
+class Buffer;
+
 const bool moveDown = true;
 const bool moveUp = false;
 
@@ -118,9 +120,10 @@ public:
 	}
 
 	void reloadMap();
-	void wrapMap();
+	void showInMapTemporarily(Buffer *buf2show, const ScintillaEditView *fromEditView);
+	void wrapMap(const ScintillaEditView *editView = nullptr);
 	void initWrapMap();
-	void scrollMap();
+	void scrollMap(const ScintillaEditView *editView = nullptr);
 	void scrollMap(bool direction, moveMode whichMode);
 	void doMove();
 	void fold(int line, bool foldOrNot);
@@ -130,8 +133,8 @@ public:
 
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	bool needToRecomputeWith();
-	int getEditorTextZoneWidth();
+	bool needToRecomputeWith(const ScintillaEditView *editView = nullptr);
+	int getEditorTextZoneWidth(const ScintillaEditView *editView = nullptr);
 
 private:
 	ScintillaEditView **_ppEditView = nullptr;

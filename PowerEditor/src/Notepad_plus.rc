@@ -699,7 +699,7 @@ BEGIN
 		MENUITEM "JSON",                    IDM_LANG_JSON
         MENUITEM "JSP",                     IDM_LANG_JSP
         MENUITEM "KIXtart",                 IDM_LANG_KIX
-        MENUITEM "LISP",                    IDM_LANG_LISP
+        MENUITEM "Common Lisp",             IDM_LANG_LISP
         MENUITEM "Lua",                     IDM_LANG_LUA
         MENUITEM "Makefile",                IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                  IDM_LANG_MATLAB
@@ -755,10 +755,10 @@ BEGIN
         MENUITEM "C",                     IDM_LANG_C
         MENUITEM "C#",                    IDM_LANG_CS
         MENUITEM "C++",                   IDM_LANG_CPP
-        MENUITEM "Caml",                  IDM_LANG_CAML
         MENUITEM "CMake",                 IDM_LANG_CMAKE
         MENUITEM "COBOL",                 IDM_LANG_COBOL
 		MENUITEM "CoffeeScript",          IDM_LANG_COFFEESCRIPT
+        MENUITEM "Common Lisp",           IDM_LANG_LISP
         MENUITEM "CSS",                   IDM_LANG_CSS
     END
     POPUP "D"
@@ -791,12 +791,8 @@ BEGIN
         MENUITEM "JSP",                   IDM_LANG_JSP
     END
     MENUITEM "KIXtart",                   IDM_LANG_KIX
-    POPUP "L"
-    BEGIN
-        MENUITEM "LISP",                  IDM_LANG_LISP
-        MENUITEM "Lua",                   IDM_LANG_LUA
-    END
-     POPUP "M"
+    MENUITEM "Lua",                       IDM_LANG_LUA
+    POPUP "M"
     BEGIN
         MENUITEM "Makefile",              IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                IDM_LANG_MATLAB
@@ -807,7 +803,11 @@ BEGIN
         MENUITEM "Normal Text",           IDM_LANG_TEXT
         MENUITEM "NSIS",                  IDM_LANG_NSIS
     END
-    MENUITEM "Objective-C",               IDM_LANG_OBJC
+    POPUP "O"
+    BEGIN
+        MENUITEM "Objective-C",           IDM_LANG_OBJC
+        MENUITEM "OCaml",                 IDM_LANG_CAML
+    END
     POPUP "P"
     BEGIN
         MENUITEM "Pascal",                IDM_LANG_PASCAL

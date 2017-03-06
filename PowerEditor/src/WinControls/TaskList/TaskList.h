@@ -44,6 +44,7 @@ public:
 		_rc.top = 0;
 		_rc.right = 150;
 		_rc.bottom = 0;
+		getCurrentDisplayResolution(_nCurrentDisplayMaxH, _nCurrentDisplayMaxW);
 	};
 
 	virtual ~TaskList() {};
@@ -69,10 +70,13 @@ protected:
 		return (((TaskList *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
 
+	void getCurrentDisplayResolution(int& nHeight, int& nWidth);
+
 	HFONT _hFont = nullptr;
 	HFONT _hFontSelected = nullptr;
 	int _nbItem = 0;
 	int _currentIndex = 0;
 	RECT _rc;
+	int _nCurrentDisplayMaxH, _nCurrentDisplayMaxW;
 };
 

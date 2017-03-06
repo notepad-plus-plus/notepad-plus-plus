@@ -70,6 +70,7 @@ public :
         };
         int doDialog(bool isRTL = false);
 		virtual void destroy() {};
+		void goToCenter();
 
 protected :
 	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);

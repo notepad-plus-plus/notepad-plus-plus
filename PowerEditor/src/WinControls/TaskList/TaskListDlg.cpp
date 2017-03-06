@@ -227,3 +227,20 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	::SetTextColor(hDC, textColor);
 	::DrawText(hDC, label, lstrlen(label), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 }
+
+void TaskListDlg::goToCenter()
+{
+	RECT rc;
+	::GetClientRect(_hParent, &rc);
+	POINT center;
+	center.x = rc.left + (rc.right - rc.left) / 2;
+	center.y = rc.top + (rc.bottom - rc.top) / 2;
+	::ClientToScreen(_hParent, &center);
+
+	int x = center.x - (_rc.right - _rc.left) / 2;
+	int y = center.y - (_rc.bottom - _rc.top) / 2;
+	if (y < 0)
+		y = 40;
+
+	::SetWindowPos(_hSelf, HWND_TOP, x, y, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW);
+}

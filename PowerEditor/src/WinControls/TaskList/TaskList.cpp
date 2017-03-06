@@ -88,6 +88,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 
 	ListView_SetItemState(_hSelf, _currentIndex, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
 	ListView_SetBkColor(_hSelf, lightYellow);
+
 }
 
 void TaskList::destroy()
@@ -127,6 +128,11 @@ RECT TaskList::adjustSize()
 	ListView_SetColumnWidth(_hSelf, 0, _rc.right);
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 
+	//if the tasklist exceeds the height of the display, leave some space at the bottom
+	if (_rc.bottom > ::GetSystemMetrics(SM_CYSCREEN) - 120)
+	{
+		_rc.bottom = ::GetSystemMetrics(SM_CYSCREEN) - 120;
+	}
 	reSizeTo(_rc);
 
 	// Task List's border is 1px smaller than ::GetSystemMetrics(SM_CYFRAME) returns
@@ -205,18 +211,19 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			else
 			{
 				int32_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
-				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
+				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);				
 				// tells what item(s) to be repainted
 				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
 				// repaint item(s)
 				UpdateWindow(_hSelf); 
 				ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
 				// tells what item(s) to be repainted
-				ListView_RedrawItems(_hSelf, selected, selected);
+				ListView_RedrawItems(_hSelf, selected, selected);				
 				// repaint item(s)
-				UpdateWindow(_hSelf);              
+				UpdateWindow(_hSelf);
 				_currentIndex = selected;
 			}
+			ListView_EnsureVisible(_hSelf, _currentIndex, true);
 			return TRUE;
 		}
 
@@ -267,6 +274,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 						UpdateWindow(_hSelf);              
 						_currentIndex = selected;
 					}
+					ListView_EnsureVisible(_hSelf, _currentIndex, true);
 				}
 				else
 				{

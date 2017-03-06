@@ -31,13 +31,25 @@
 #include "Parameters.h"
 #include "resource.h"
 
+int TaskListDlg::_instanceCount = 0;
+
 LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
 {
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
     {
 		::PostMessage(hWndServer, WM_RBUTTONUP, 0, 0);
     }        
-	
+	if ((nCode >= 0) && (wParam == WM_MOUSEWHEEL))
+	{
+		MSLLHOOKSTRUCT* pMD = (MSLLHOOKSTRUCT*)lParam;		
+		RECT rCtrl;
+		GetWindowRect(hWndServer, &rCtrl);
+		//to avoid duplicate messages, only send this message to the list control if it comes from outside the control window. if the message occurs whilst the mouse is inside the control, the control will have receive the mouse wheel message itself
+		if (false == PtInRect(&rCtrl, pMD->pt))
+		{
+			::PostMessage(hWndServer, WM_MOUSEWHEEL, (WPARAM)pMD->mouseData, MAKELPARAM(pMD->pt.x,pMD->pt.y));
+		}
+	}
 	return ::CallNextHookEx(hook, nCode, wParam, lParam);
 }
 
@@ -93,6 +105,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 		{
 			_taskList.destroy();
 			::UnhookWindowsHookEx(_hHooker);
+			_instanceCount--;
 			return TRUE;
 		}
 
@@ -103,6 +116,11 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			return TRUE;
 		}
 		
+		case WM_MOUSEWHEEL:
+		{
+			::SendMessage(_taskList.getHSelf(), WM_MOUSEWHEEL, wParam, lParam);
+			return TRUE;
+		}
 
 		case WM_DRAWITEM :
 		{

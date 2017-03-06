@@ -127,6 +127,11 @@ RECT TaskList::adjustSize()
 	ListView_SetColumnWidth(_hSelf, 0, _rc.right);
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 
+	//if the tasklist exceeds the height of the display, leave some space at the bottom
+	if (_rc.bottom > ::GetSystemMetrics(SM_CYSCREEN) - 120)
+	{
+		_rc.bottom = ::GetSystemMetrics(SM_CYSCREEN) - 120;
+	}
 	reSizeTo(_rc);
 
 	// Task List's border is 1px smaller than ::GetSystemMetrics(SM_CYFRAME) returns
@@ -214,9 +219,10 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 				// tells what item(s) to be repainted
 				ListView_RedrawItems(_hSelf, selected, selected);
 				// repaint item(s)
-				UpdateWindow(_hSelf);              
+				UpdateWindow(_hSelf);
 				_currentIndex = selected;
 			}
+			ListView_EnsureVisible(_hSelf, _currentIndex, true);
 			return TRUE;
 		}
 
@@ -267,6 +273,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 						UpdateWindow(_hSelf);              
 						_currentIndex = selected;
 					}
+					ListView_EnsureVisible(_hSelf, _currentIndex, true);
 				}
 				else
 				{

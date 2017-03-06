@@ -31,6 +31,8 @@
 #include "Parameters.h"
 #include "resource.h"
 
+int TaskListDlg::_instanceCount = 0;
+
 LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
 {
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
@@ -93,6 +95,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 		{
 			_taskList.destroy();
 			::UnhookWindowsHookEx(_hHooker);
+			_instanceCount--;
 			return TRUE;
 		}
 

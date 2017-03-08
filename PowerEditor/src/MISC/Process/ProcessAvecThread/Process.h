@@ -29,6 +29,7 @@
 #pragma once
 
 #include <windows.h>
+#include "Common.h"
 //#include <string>
 using namespace std;
 

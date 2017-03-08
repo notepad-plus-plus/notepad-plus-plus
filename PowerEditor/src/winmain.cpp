@@ -246,7 +246,7 @@ const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
 
 
-static void doException(Notepad_plus_Window & notepad_plus_plus)
+void doException(Notepad_plus_Window & notepad_plus_plus)
 {
 	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
 	::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);

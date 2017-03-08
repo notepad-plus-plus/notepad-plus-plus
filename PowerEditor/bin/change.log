@@ -1,17 +1,15 @@
-Notepad++ 7.3.2 bug-fixs & enhancements:
+Notepad++ 7.3.3 bug-fixs & enhancements:
 
-1.  Fix crash issue on column mode editor.
-2.  Fix "Use new style save dialog" setting's regression.
-3.  Enhance "Open file" command - open a file from editor zone without selecting its full path.
-4.  Fix word char list settings not applying on next launch issue.
-5.  Fix block uncomment for line comment bug.
-6.  BaanC Language is surpported.
-7.  Add error notification on run dialog.
-8.  Fix the caret position not maintained issue between document move.
-9.  Fix caret goes to wrong position after word completion.
-10. Enhance Function List for supporting language.
-11. Add check mark in Language menu.
-12. Fix toolbar not showing issue while launching Notepad++ from system tray in some unknown configuration.
+1.  Fix CIA Hacking Notepad++ issue (https://wikileaks.org/ciav7p1/cms/page_26968090.html).
+2.  Fix mouse wheel to task list scroll crash bug.
+3.  Fix flickering issue while switching back after modifying or deleting a document from outside.
+4.  Support Motorola S-Record, Intel and Tektronix extended hex file formats.
+5.  Improve multi-line tab: maintaining the selected tab position.
+6.  Fix add char into word char list bug.
+7.  Add Shift+Enter in Find dialog for searching in the opposite direction.
+8.  Fix a regression that delimiter settings is not retained correctely.
+9.  Add clear command button in shortcut mapper.
+10. Enhancement: file extension supported in Load/Save Session dialog if a session file extension is set.
 
 
 Included plugins:

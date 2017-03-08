@@ -1079,6 +1079,13 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 		{
 			throw generic_string(TEXT("Certificate checking error: the certificate is not matched."));
 		}
+
+		// Clean up.
+		if (pSignerInfo != NULL) LocalFree(pSignerInfo);
+		if (pCertContext != NULL) CertFreeCertificateContext(pCertContext);
+		if (hStore != NULL) CertCloseStore(hStore, 0);
+		if (hMsg != NULL) CryptMsgClose(hMsg);
+		if (szName != NULL) LocalFree(szName);
 	}
 	catch (generic_string s)
 	{

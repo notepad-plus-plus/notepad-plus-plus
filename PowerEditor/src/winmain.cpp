@@ -33,9 +33,53 @@
 typedef std::vector<const TCHAR*> ParamVector;
 
 
+namespace
+{
+
+
+void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppParameters* pNppParameters, winVer ver)
+{
+	#ifndef MSGFLT_ADD
+	const DWORD MSGFLT_ADD = 1;
+	#endif
+	#ifndef MSGFLT_ALLOW
+	const DWORD MSGFLT_ALLOW = 1;
+	#endif
+	// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA messages to this process (or window)
+	// This allows opening new files to already opened elevated Notepad++ process via explorer context menu.
+	if (ver >= WV_VISTA || ver == WV_UNKNOWN)
+	{
+		HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
+		if (hDll)
+		{
+			// According to MSDN ChangeWindowMessageFilter may not be supported in future versions of Windows,
+			// that is why we use ChangeWindowMessageFilterEx if it is available (windows version >= Win7).
+			if (pNppParameters->getWinVersion() == WV_VISTA)
+			{
+				typedef BOOL (WINAPI *MESSAGEFILTERFUNC)(UINT message,DWORD dwFlag);
+
+				MESSAGEFILTERFUNC func = (MESSAGEFILTERFUNC)::GetProcAddress( hDll, "ChangeWindowMessageFilter" );
+
+				if (func)
+					func(WM_COPYDATA, MSGFLT_ADD);
+			}
+			else
+			{
+				typedef BOOL (WINAPI *MESSAGEFILTERFUNCEX)(HWND hWnd,UINT message,DWORD action,VOID* pChangeFilterStruct);
+
+				MESSAGEFILTERFUNCEX func = (MESSAGEFILTERFUNCEX)::GetProcAddress( hDll, "ChangeWindowMessageFilterEx" );
+
+				if (func)
+					func(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL );
+			}
+		}
+	}
+}
+
+
 bool checkSingleFile(const TCHAR *commandLine)
 {
-	if (!commandLine || lstrlen(commandLine) == 0)
+	if (!commandLine || commandLine[0] == TEXT('\0'))
 		return false;
 
 	TCHAR fullpath[MAX_PATH] = {0};
@@ -242,7 +286,7 @@ const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
 
 
-static void doException(Notepad_plus_Window & notepad_plus_plus)
+void doException(Notepad_plus_Window & notepad_plus_plus)
 {
 	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
 	::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
@@ -264,6 +308,7 @@ static void doException(Notepad_plus_Window & notepad_plus_plus)
 }
 
 
+} // namespace
 
 
 
@@ -449,39 +494,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	try
 	{
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
-
-		// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA messages to this process (or window)
-		// This allows opening new files to already opened elevated Notepad++ process via explorer context menu.
-		if (ver >= WV_VISTA || ver == WV_UNKNOWN)
-		{
-			HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
-			if (hDll)
-			{
-				// According to MSDN ChangeWindowMessageFilter may not be supported in future versions of Windows,
-				// that is why we use ChangeWindowMessageFilterEx if it is available (windows version >= Win7).
-				if (pNppParameters->getWinVersion() == WV_VISTA)
-				{
-					typedef BOOL (WINAPI *MESSAGEFILTERFUNC)(UINT message,DWORD dwFlag);
-					const DWORD MSGFLT_ADD = 1;
-
-					MESSAGEFILTERFUNC func = (MESSAGEFILTERFUNC)::GetProcAddress( hDll, "ChangeWindowMessageFilter" );
-
-					if (func)
-						func(WM_COPYDATA, MSGFLT_ADD);
-				}
-				else
-				{
-					typedef BOOL (WINAPI *MESSAGEFILTERFUNCEX)(HWND hWnd,UINT message,DWORD action,VOID* pChangeFilterStruct);
-					const DWORD MSGFLT_ALLOW = 1;
-
-					MESSAGEFILTERFUNCEX func = (MESSAGEFILTERFUNCEX)::GetProcAddress( hDll, "ChangeWindowMessageFilterEx" );
-
-					if (func)
-						func(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL );
-				}
-			}
-		}
-
+		allowWmCopydataMessages(notepad_plus_plus, pNppParameters, ver);
 		bool going = true;
 		while (going)
 		{

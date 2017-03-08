@@ -39,6 +39,8 @@
 using namespace std;
 
 
+namespace // anonymous namespace
+{
 
 
 struct WinMenuKeyDefinition //more or less matches accelerator table definition, easy copy/paste
@@ -513,10 +515,8 @@ typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
 
 
-namespace // anonymous namespace
-{
 
-	static int strVal(const TCHAR *str, int base)
+	int strVal(const TCHAR *str, int base)
 	{
 		if (!str) return -1;
 		if (!str[0]) return 0;
@@ -529,17 +529,17 @@ namespace // anonymous namespace
 	}
 
 
-	static int decStrVal(const TCHAR *str)
+	int decStrVal(const TCHAR *str)
 	{
 		return strVal(str, 10);
 	}
 
-	static int hexStrVal(const TCHAR *str)
+	int hexStrVal(const TCHAR *str)
 	{
 		return strVal(str, 16);
 	}
 
-	static int getKwClassFromName(const TCHAR *str)
+	int getKwClassFromName(const TCHAR *str)
 	{
 		if (!lstrcmp(TEXT("instre1"), str)) return LANG_INDEX_INSTR;
 		if (!lstrcmp(TEXT("instre2"), str)) return LANG_INDEX_INSTR2;
@@ -556,13 +556,13 @@ namespace // anonymous namespace
 	}
 
 	
-	static inline size_t getAsciiLenFromBase64Len(size_t base64StrLen)
+	size_t getAsciiLenFromBase64Len(size_t base64StrLen)
 	{
 		return (base64StrLen % 4) ? 0 : (base64StrLen - base64StrLen / 4);
 	}
 
 
-	static int base64ToAscii(char *dest, const char *base64Str)
+	int base64ToAscii(char *dest, const char *base64Str)
 	{
 		static const int base64IndexArray[123] =
 		{

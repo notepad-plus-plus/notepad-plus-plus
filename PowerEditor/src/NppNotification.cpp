@@ -160,7 +160,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					BufferID id = pTabDocView->getBufferByIndex(tbHdr->tabOrigin);
 					Buffer * pBuf = MainFileManager->getBufferByID(id);
-					_pDocMap->showInMapTemporily(pBuf, notifyView);
+					_pDocMap->showInMapTemporarily(pBuf, notifyView);
 					_pDocMap->setSyntaxHiliting();
 				}
 			}

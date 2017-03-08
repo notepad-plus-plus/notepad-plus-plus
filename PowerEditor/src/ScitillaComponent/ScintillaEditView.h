@@ -130,6 +130,7 @@ const int MARK_HIDELINESUNDERLINE = 21;
 
 
 int getNbDigits(int aNum, int base);
+HMODULE loadSciLexerDll();
 
 TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
 

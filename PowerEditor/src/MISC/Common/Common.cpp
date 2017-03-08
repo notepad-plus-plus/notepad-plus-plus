@@ -975,3 +975,125 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
 
 	return hwndTip;
 }
+
+bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check)
+{
+	HCERTSTORE hStore = NULL;
+	HCRYPTMSG hMsg = NULL;
+	PCCERT_CONTEXT pCertContext = NULL;
+	BOOL result;
+	DWORD dwEncoding, dwContentType, dwFormatType;
+	PCMSG_SIGNER_INFO pSignerInfo = NULL;
+	DWORD dwSignerInfo;
+	CERT_INFO CertInfo;
+	LPTSTR szName = NULL;
+
+	generic_string subjectName;
+
+	try {
+		// Get message handle and store handle from the signed file.
+		result = CryptQueryObject(CERT_QUERY_OBJECT_FILE,
+			fullFilePath.c_str(),
+			CERT_QUERY_CONTENT_FLAG_PKCS7_SIGNED_EMBED,
+			CERT_QUERY_FORMAT_FLAG_BINARY,
+			0,
+			&dwEncoding,
+			&dwContentType,
+			&dwFormatType,
+			&hStore,
+			&hMsg,
+			NULL);
+
+		if (!result)
+		{
+			generic_string errorMessage = TEXT("Check certificate of ") + fullFilePath + TEXT(" : ");
+			errorMessage += GetLastErrorAsString(GetLastError());
+			throw errorMessage;
+		}
+
+		// Get signer information size.
+		result = CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, NULL, &dwSignerInfo);
+		if (!result)
+		{
+			generic_string errorMessage = TEXT("CryptMsgGetParam first call: ");
+			errorMessage += GetLastErrorAsString(GetLastError());
+			throw errorMessage;
+		}
+
+		// Allocate memory for signer information.
+		pSignerInfo = (PCMSG_SIGNER_INFO)LocalAlloc(LPTR, dwSignerInfo);
+		if (!pSignerInfo)
+		{
+			generic_string errorMessage = TEXT("CryptMsgGetParam memory allocation problem: ");
+			errorMessage += GetLastErrorAsString(GetLastError());
+			throw errorMessage;
+		}
+
+		// Get Signer Information.
+		result = CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, (PVOID)pSignerInfo, &dwSignerInfo);
+		if (!result)
+		{
+			generic_string errorMessage = TEXT("CryptMsgGetParam: ");
+			errorMessage += GetLastErrorAsString(GetLastError());
+			throw errorMessage;
+		}
+
+		// Search for the signer certificate in the temporary 
+		// certificate store.
+		CertInfo.Issuer = pSignerInfo->Issuer;
+		CertInfo.SerialNumber = pSignerInfo->SerialNumber;
+
+		pCertContext = CertFindCertificateInStore(hStore, X509_ASN_ENCODING | PKCS_7_ASN_ENCODING, 0, CERT_FIND_SUBJECT_CERT, (PVOID)&CertInfo, NULL);
+		if (not pCertContext)
+		{
+			generic_string errorMessage = TEXT("Certificate context: ");
+			errorMessage += GetLastErrorAsString(GetLastError());
+			throw errorMessage;
+		}
+
+		DWORD dwData;
+
+		// Get Subject name size.
+		dwData = CertGetNameString(pCertContext, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, NULL, 0);
+		if (dwData <= 1)
+		{
+			throw generic_string(TEXT("Certificate checking error: getting data size problem."));
+		}
+
+		// Allocate memory for subject name.
+		szName = (LPTSTR)LocalAlloc(LPTR, dwData * sizeof(TCHAR));
+		if (!szName)
+		{
+			throw generic_string(TEXT("Certificate checking error: memory allocation problem."));
+		}
+
+		// Get subject name.
+		if (CertGetNameString(pCertContext, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, szName, dwData) <= 1)
+		{
+			throw generic_string(TEXT("Cannot get certificate info."));
+		}
+
+		// check Subject name.
+		subjectName = szName;
+		if (subjectName != subjectName2check)
+		{
+			throw generic_string(TEXT("Certificate checking error: the certificate is not matched."));
+		}
+	}
+	catch (generic_string s)
+	{
+		// display error message
+		MessageBox(NULL, s.c_str(), TEXT("Certificate checking"), MB_OK);
+
+		// Clean up.
+		if (pSignerInfo != NULL) LocalFree(pSignerInfo);
+		if (pCertContext != NULL) CertFreeCertificateContext(pCertContext);
+		if (hStore != NULL) CertCloseStore(hStore, 0);
+		if (hMsg != NULL) CryptMsgClose(hMsg);
+		if (szName != NULL) LocalFree(szName);
+
+		return false;
+	}
+
+	return true;
+}

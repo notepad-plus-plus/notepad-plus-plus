@@ -38,15 +38,15 @@ using namespace std;
 // initialize the static variable
 
 // get full ScinLexer.dll path to avoid hijack
-TCHAR * getSciLexerFullPathName(TCHAR * moduleFileName, size_t len){
+TCHAR * getSciLexerFullPathName(TCHAR * moduleFileName, size_t len)
+{
 	::GetModuleFileName(NULL, moduleFileName, static_cast<int32_t>(len));
 	::PathRemoveFileSpec(moduleFileName);
 	::PathAppend(moduleFileName, TEXT("SciLexer.dll"));
 	return moduleFileName;
 };
 
-TCHAR moduleFileName[1024];
-HINSTANCE ScintillaEditView::_hLib = ::LoadLibrary(getSciLexerFullPathName(moduleFileName, 1024));
+HINSTANCE ScintillaEditView::_hLib = loadSciLexerDll();
 int ScintillaEditView::_refCount = 0;
 UserDefineDialog ScintillaEditView::_userDefineDlg;
 
@@ -172,6 +172,16 @@ int getNbDigits(int aNum, int base)
 		nbChiffre += 1;
 
 	return nbChiffre;
+}
+
+TCHAR moduleFileName[1024];
+HMODULE loadSciLexerDll()
+{
+	generic_string sciLexerPath = getSciLexerFullPathName(moduleFileName, 1024);
+
+	if (not isCertificateValidated(sciLexerPath, TEXT("Notepad++")))
+		return nullptr;
+	return ::LoadLibrary(sciLexerPath.c_str());
 }
 
 void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
@@ -1675,7 +1685,8 @@ void ScintillaEditView::restoreCurrentPos()
 	execute(SCI_SETANCHOR, pos._startPos);
 	execute(SCI_SETCURRENTPOS, pos._endPos);
 	execute(SCI_CANCEL);							//disable
-	if (!isWrap()) {	//only offset if not wrapping, otherwise the offset isnt needed at all
+	if (not isWrap()) //only offset if not wrapping, otherwise the offset isnt needed at all
+	{
 		execute(SCI_SETSCROLLWIDTH, pos._scrollWidth);
 		execute(SCI_SETXOFFSET, pos._xOffset);
 	}

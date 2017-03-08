@@ -75,8 +75,29 @@ void DocumentMap::showInMapTemporarily(Buffer *buf2show, const ScintillaEditView
 		{
 			wrapMap(fromEditView);
 		}
+		//_pScintillaEditView->restoreCurrentPos();
+		scrollMap(fromEditView);
 
-		//scrollMap(fromEditView);
+		/*
+		Buffer * buf = buf2show;
+		Position & pos = buf->getPosition(const_cast<ScintillaEditView *>(fromEditView));
+
+		_pScintillaEditView->execute(SCI_GOTOPOS, 0);	//make sure first line visible by setting caret there, will scroll to top of document
+
+		_pScintillaEditView->execute(SCI_SETSELECTIONMODE, pos._selMode);	//enable
+		_pScintillaEditView->execute(SCI_SETANCHOR, pos._startPos);
+		_pScintillaEditView->execute(SCI_SETCURRENTPOS, pos._endPos);
+		_pScintillaEditView->execute(SCI_CANCEL);							//disable
+		if (not _pScintillaEditView->isWrap()) //only offset if not wrapping, otherwise the offset isnt needed at all
+		{
+			_pScintillaEditView->execute(SCI_SETSCROLLWIDTH, pos._scrollWidth);
+			_pScintillaEditView->execute(SCI_SETXOFFSET, pos._xOffset);
+		}
+		_pScintillaEditView->execute(SCI_CHOOSECARETX); // choose current x position
+
+		int lineToShow = static_cast<int32_t>(_pScintillaEditView->execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine));
+		_pScintillaEditView->scroll(0, lineToShow);
+		*/
 	}
 }
 
@@ -205,7 +226,13 @@ int DocumentMap::getEditorTextZoneWidth(const ScintillaEditView *editView)
 	}
 	return editorRect.right - editorRect.left - marginWidths;
 }
-
+/*
+struct mapPosition {
+	int32_t _firstVisibleDocLine;
+	int32_t _nbLine;
+	int32_t _lastVisibleDocLine;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+};
+*/
 void DocumentMap::scrollMap(const ScintillaEditView *editView)
 {
 	const ScintillaEditView *pEditView = editView ? editView : *_ppEditView;

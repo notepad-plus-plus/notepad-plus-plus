@@ -33,6 +33,10 @@
 typedef std::vector<const TCHAR*> ParamVector;
 
 
+namespace
+{
+
+
 bool checkSingleFile(const TCHAR *commandLine)
 {
 	if (!commandLine || lstrlen(commandLine) == 0)
@@ -264,6 +268,7 @@ static void doException(Notepad_plus_Window & notepad_plus_plus)
 }
 
 
+} // namespace
 
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.3.1">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.3.3">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -934,6 +934,7 @@
             <NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルが開かれようとしています。¥r本当に開きますか?"/>
             <SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダに設定されているようです。クラウドの設定はキャンセルされます。環境設定画面で有効な設定にやり直してください。"/>
             <FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
+            <SessionFileInvalidError title="セッションを読み込めません" message="セッションファイルが破損しているか、正しい形式ではありません。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -1013,6 +1014,7 @@
             <word-chars-list-warning-end value=" が含まれています。"/>
             <cloud-invalid-warning value="無効なパスです。"/>
             <cloud-restart-warning value="変更を有効にするには再起動が必要です。"/>
+            <shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

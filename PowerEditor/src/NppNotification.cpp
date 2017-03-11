@@ -985,7 +985,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return FALSE;
 
 			// Get the style and make sure it is a hotspot
-			auto style = notifyView->execute(SCI_GETSTYLEAT, notification->position);
+			uint8_t style = static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, notification->position));
 			if (not notifyView->execute(SCI_STYLEGETHOTSPOT, style))
 				break;
 
@@ -994,9 +994,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			docLen = notifyView->getCurrentDocLen();
 
 			// Walk backwards/forwards to get the contiguous text in the same style
-			while (startPos > 0 && notifyView->execute(SCI_GETSTYLEAT, startPos - 1) == style)
+			while (startPos > 0 && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, startPos - 1)) == style)
 				startPos--;
-			while (endPos < docLen && notifyView->execute(SCI_GETSTYLEAT, endPos) == style)
+			while (endPos < docLen && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, endPos)) == style)
 				endPos++;
 
 			// Select the entire link

@@ -12,7 +12,7 @@ GPL License.
 Build Status
 ------------
 
-`VS2013` (via appveyor)  [![Build Status](https://ci.appveyor.com/api/projects/status/github/notepad-plus-plus/notepad-plus-plus)](https://ci.appveyor.com/project/donho/notepad-plus-plus)
+[![Appveyor build status](https://ci.appveyor.com/api/projects/status/github/notepad-plus-plus/notepad-plus-plus?branch=master&svg=true)](https://ci.appveyor.com/project/donho/notepad-plus-plus)
 
 To build Notepad++ from source:
 -------------------------------
@@ -43,7 +43,7 @@ like to debug Notepad++, but don't have boost.
 
 Here are the instructions to build SciLexer.dll (for both 32-bit & 64-bit) for Notepad++:
 
- 1. Download the [Boost source code](http://sourceforge.net/projects/boost/files/boost/1.55.0/).
+ 1. Download the [Boost source code](https://sourceforge.net/projects/boost/files/boost/1.55.0/).
     v1.55 should be used with VS 2013. Then unzip it. In my case, `boost_1_55_0` is copied in `C:\sources\`
  2. Go to `scintilla\boostregex\` then run BuildBoost.bat with your boost path.
     In my case: `BuildBoost.bat C:\sources\boost_1_55_0`
@@ -66,7 +66,7 @@ To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
       and click/select the result.
     - From an *already open* command prompt, run `vcvarsall.bat`
       (e.g. "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat").
-	  
+
 	For 64-bit, open *VS2013 x64 Native tool command prompt*.
 
  2. Change directory (`cd` or `pushd`) to `scintilla\win32\`
@@ -82,6 +82,6 @@ To build SciLexer.dll without PCRE support (for both 32-bit & 64-bit):
       (where `notepad++.exe` is) is `PowerEditor\visual.net\Unicode Debug\`.
 
 
-See the [Notepad++ official site](http://notepad-plus-plus.org/) for more information.
+See the [Notepad++ official site](https://notepad-plus-plus.org/) for more information.
 
-[Notepad++ Contributors](http://notepad-plus-plus.org/contributors)
+[Notepad++ Contributors](https://notepad-plus-plus.org/contributors)

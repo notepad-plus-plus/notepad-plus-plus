@@ -39,6 +39,10 @@
 #include "CharacterSet.h"
 #include "LexerModule.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 // The following definitions are a copy of the ones in FindReplaceDlg.h
 enum { searchHeaderLevel = SC_FOLDLEVELBASE + 1, fileHeaderLevel, resultLevel };
 

@@ -978,6 +978,7 @@ HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText)
 
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check)
 {
+	bool isOK = false;
 	HCERTSTORE hStore = NULL;
 	HCRYPTMSG hMsg = NULL;
 	PCCERT_CONTEXT pCertContext = NULL;
@@ -1080,27 +1081,27 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 			throw generic_string(TEXT("Certificate checking error: the certificate is not matched."));
 		}
 
-		// Clean up.
-		if (pSignerInfo != NULL) LocalFree(pSignerInfo);
-		if (pCertContext != NULL) CertFreeCertificateContext(pCertContext);
-		if (hStore != NULL) CertCloseStore(hStore, 0);
-		if (hMsg != NULL) CryptMsgClose(hMsg);
-		if (szName != NULL) LocalFree(szName);
+		isOK = true;
 	}
 	catch (generic_string s)
 	{
 		// display error message
 		MessageBox(NULL, s.c_str(), TEXT("Certificate checking"), MB_OK);
-
-		// Clean up.
-		if (pSignerInfo != NULL) LocalFree(pSignerInfo);
-		if (pCertContext != NULL) CertFreeCertificateContext(pCertContext);
-		if (hStore != NULL) CertCloseStore(hStore, 0);
-		if (hMsg != NULL) CryptMsgClose(hMsg);
-		if (szName != NULL) LocalFree(szName);
-
-		return false;
+	}
+	catch (...)
+	{
+		// Unknown error
+		generic_string errorMessage = TEXT("Unknown exception occured. ");
+		errorMessage += GetLastErrorAsString(GetLastError());
+		MessageBox(NULL, errorMessage.c_str(), TEXT("Certificate checking"), MB_OK);
 	}
 
-	return true;
+	// Clean up.
+	if (pSignerInfo != NULL) LocalFree(pSignerInfo);
+	if (pCertContext != NULL) CertFreeCertificateContext(pCertContext);
+	if (hStore != NULL) CertCloseStore(hStore, 0);
+	if (hMsg != NULL) CryptMsgClose(hMsg);
+	if (szName != NULL) LocalFree(szName);
+
+	return isOK;
 }

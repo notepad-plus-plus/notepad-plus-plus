@@ -39,6 +39,8 @@
 using namespace std;
 
 
+namespace // anonymous namespace
+{
 
 
 struct WinMenuKeyDefinition //more or less matches accelerator table definition, easy copy/paste
@@ -513,8 +515,6 @@ typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
 
 
-namespace // anonymous namespace
-{
 
 	static int strVal(const TCHAR *str, int base)
 	{

@@ -15,6 +15,12 @@
 #include "CaseFolder.h"
 #include <Document.h>
 
+
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
+
 class UTF8DocumentIterator : public std::iterator<std::bidirectional_iterator_tag, wchar_t>
 {
 public:
@@ -152,5 +158,9 @@ private:
         Document* m_doc;
 		static const unsigned char m_firstByteMask[];
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif // UTF8DOCUMENTITERATOR_H_3452843291318441149

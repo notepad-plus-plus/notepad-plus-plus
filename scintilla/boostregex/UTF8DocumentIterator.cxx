@@ -1,5 +1,8 @@
 ﻿#include "UTF8DocumentIterator.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
 
 void UTF8DocumentIterator::readCharacter()
 {

@@ -24,6 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 #pragma once
 
 #include "tinyxmlA.h"
@@ -137,10 +138,20 @@ struct Position
 };
 
 
+struct MapPosition
+{
+	int32_t _firstVisibleDocLine = -1;
+	int32_t _lastVisibleDocLine = -1;
+	int32_t _nbLine = -1;
+	int32_t _higherPos = -1;
+	bool isValid() { return _firstVisibleDocLine != -1; };
+};
+
+
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, int originalFileLastModifTimestamp) :
-		_encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp)
+	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, int originalFileLastModifTimestamp, const MapPosition & mapPos) :
+		_encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
@@ -157,6 +168,8 @@ struct sessionFileInfo : public Position
 
 	generic_string _backupFilePath;
 	time_t _originalFileLastModifTimestamp = 0;
+
+	MapPosition _mapPos;
 };
 
 

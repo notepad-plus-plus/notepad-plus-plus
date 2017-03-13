@@ -1601,6 +1601,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 			}
 
 			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
+			buf->setMapPosition(session._mainViewFiles[i]._mapPos._firstVisibleDocLine, session._mainViewFiles[i]._mapPos._lastVisibleDocLine, session._mainViewFiles[i]._mapPos._nbLine, session._mainViewFiles[i]._mapPos._higherPos);
 			buf->setLangType(typeToSet, pLn);
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
@@ -1704,6 +1705,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 			}
 
 			buf->setPosition(session._subViewFiles[k], &_subEditView);
+			buf->setMapPosition(session._subViewFiles[k]._mapPos._firstVisibleDocLine, session._subViewFiles[k]._mapPos._lastVisibleDocLine, session._subViewFiles[k]._mapPos._nbLine, session._subViewFiles[k]._mapPos._higherPos);
 			if (typeToSet == L_USER) {
 				if (!lstrcmp(pLn, TEXT("User Defined"))) {
 					pLn = TEXT("");	//default user defined

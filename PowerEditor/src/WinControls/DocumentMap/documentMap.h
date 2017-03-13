@@ -39,9 +39,11 @@
 
 class ScintillaEditView;
 class Buffer;
+struct MapPosition;
 
 const bool moveDown = true;
 const bool moveUp = false;
+
 
 enum moveMode {
 	perLine,
@@ -82,8 +84,8 @@ protected :
 	void drawPreviewZone(DRAWITEMSTRUCT *pdis);
 
 private :
-	HWND _viewZoneCanvas;
-	WNDPROC _canvasDefaultProc;
+	HWND _viewZoneCanvas = nullptr;
+	WNDPROC _canvasDefaultProc = nullptr;
 	
 	long _higherY;
 	long _lowerY;
@@ -120,16 +122,19 @@ public:
 	}
 
 	void reloadMap();
-	void showInMapTemporarily(Buffer *buf2show, const ScintillaEditView *fromEditView);
+	void showInMapTemporarily(Buffer *buf2show, ScintillaEditView *fromEditView);
 	void wrapMap(const ScintillaEditView *editView = nullptr);
 	void initWrapMap();
-	void scrollMap(const ScintillaEditView *editView = nullptr);
+	void scrollMap(ScintillaEditView *editView = nullptr);
 	void scrollMap(bool direction, moveMode whichMode);
+	void scrollMapWith(const MapPosition & mapPos, ScintillaEditView & editView);
 	void doMove();
 	void fold(int line, bool foldOrNot);
 	void foldAll(bool mode);
 	void setSyntaxHiliting();
 	void changeTextDirection(bool isRTL);
+	bool isTemporarilyShowing() const { return _isTemporarilyShowing; };
+	void setTemporarilyShowing(bool tempShowing) { _isTemporarilyShowing = tempShowing; }
 
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -140,6 +145,8 @@ private:
 	ScintillaEditView **_ppEditView = nullptr;
 	ScintillaEditView *_pScintillaEditView = nullptr;
 	ViewZoneDlg _vzDlg;
+
+	bool _isTemporarilyShowing = false;
 
 	// for needToRecomputeWith function
 	int _displayZoom = -1;

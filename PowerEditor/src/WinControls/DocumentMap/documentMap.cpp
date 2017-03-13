@@ -59,7 +59,7 @@ void DocumentMap::reloadMap()
 	}
 }
 
-void DocumentMap::showInMapTemporarily(Buffer *buf2show, const ScintillaEditView *fromEditView)
+void DocumentMap::showInMapTemporarily(Buffer *buf2show, ScintillaEditView *fromEditView)
 {
 	if (_pScintillaEditView && fromEditView)
 	{
@@ -75,29 +75,11 @@ void DocumentMap::showInMapTemporarily(Buffer *buf2show, const ScintillaEditView
 		{
 			wrapMap(fromEditView);
 		}
-		//_pScintillaEditView->restoreCurrentPos();
-		scrollMap(fromEditView);
-
-		/*
-		Buffer * buf = buf2show;
-		Position & pos = buf->getPosition(const_cast<ScintillaEditView *>(fromEditView));
-
-		_pScintillaEditView->execute(SCI_GOTOPOS, 0);	//make sure first line visible by setting caret there, will scroll to top of document
-
-		_pScintillaEditView->execute(SCI_SETSELECTIONMODE, pos._selMode);	//enable
-		_pScintillaEditView->execute(SCI_SETANCHOR, pos._startPos);
-		_pScintillaEditView->execute(SCI_SETCURRENTPOS, pos._endPos);
-		_pScintillaEditView->execute(SCI_CANCEL);							//disable
-		if (not _pScintillaEditView->isWrap()) //only offset if not wrapping, otherwise the offset isnt needed at all
-		{
-			_pScintillaEditView->execute(SCI_SETSCROLLWIDTH, pos._scrollWidth);
-			_pScintillaEditView->execute(SCI_SETXOFFSET, pos._xOffset);
-		}
-		_pScintillaEditView->execute(SCI_CHOOSECARETX); // choose current x position
-
-		int lineToShow = static_cast<int32_t>(_pScintillaEditView->execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine));
-		_pScintillaEditView->scroll(0, lineToShow);
-		*/
+		MapPosition mp = buf2show->getMapPosition();
+		if (mp.isValid())
+			scrollMapWith(mp, *fromEditView);
+		else
+			scrollMap(fromEditView);
 	}
 }
 
@@ -226,24 +208,18 @@ int DocumentMap::getEditorTextZoneWidth(const ScintillaEditView *editView)
 	}
 	return editorRect.right - editorRect.left - marginWidths;
 }
-/*
-struct mapPosition {
-	int32_t _firstVisibleDocLine;
-	int32_t _nbLine;
-	int32_t _lastVisibleDocLine;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-};
-*/
-void DocumentMap::scrollMap(const ScintillaEditView *editView)
+
+void DocumentMap::scrollMap(ScintillaEditView *editView)
 {
-	const ScintillaEditView *pEditView = editView ? editView : *_ppEditView;
+	ScintillaEditView *pEditView = editView ? editView : *_ppEditView;
 
 	if (_pScintillaEditView && pEditView)
 	{
 		// Visible document line for the code view (but not displayed line)
 		auto firstVisibleDisplayLine = pEditView->execute(SCI_GETFIRSTVISIBLELINE);
-		auto firstVisibleDocLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine);
-		auto nbLine = pEditView->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
-		auto lastVisibleDocLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + nbLine);
+		const auto firstVisibleDocLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine);
+		const auto nbLine = pEditView->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
+		const auto lastVisibleDocLine = pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + nbLine);
 
 		// Visible document line for the map view
 		auto firstVisibleDisplayLineMap = _pScintillaEditView->execute(SCI_GETFIRSTVISIBLELINE);
@@ -260,6 +236,7 @@ void DocumentMap::scrollMap(const ScintillaEditView *editView)
 		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
 		LRESULT higherY = 0;
 		LRESULT lowerY = 0;
+		auto higherPos = -1 ; // -1 => not pEditView->isWrap()
 		if (not pEditView->isWrap())
 		{
 			auto higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, firstVisibleDocLine);
@@ -274,10 +251,57 @@ void DocumentMap::scrollMap(const ScintillaEditView *editView)
 		}
 		else
 		{
-			auto higherPos = pEditView->execute(SCI_POSITIONFROMPOINT, 0, 0);
+			higherPos = pEditView->execute(SCI_POSITIONFROMPOINT, 0, 0);
 			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
 			auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
 			lowerY = nbLine * lineHeight + higherY;
+		}
+
+		// set current map position in buffer
+		Buffer *buffer = pEditView->getCurrentBuffer();
+		buffer->setMapPosition(firstVisibleDocLine, lastVisibleDocLine, nbLine, higherPos);
+
+		// Update view zone in map
+		_vzDlg.drawZone(static_cast<long>(higherY), static_cast<long>(lowerY));
+	}
+}
+
+void DocumentMap::scrollMapWith(const MapPosition & mapPos, ScintillaEditView & editView)
+{
+	if (_pScintillaEditView)
+	{
+		// Visible document line for the map view
+		auto firstVisibleDisplayLineMap = _pScintillaEditView->execute(SCI_GETFIRSTVISIBLELINE);
+		auto firstVisibleDocLineMap = _pScintillaEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap);
+		auto nbLineMap = _pScintillaEditView->execute(SCI_LINESONSCREEN, firstVisibleDocLineMap);
+		auto lastVisibleDocLineMap = editView.execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap + nbLineMap);
+
+		// If part of editor view is out of map, then scroll map
+		if (lastVisibleDocLineMap < mapPos._lastVisibleDocLine)
+			_pScintillaEditView->execute(SCI_GOTOLINE, mapPos._lastVisibleDocLine);
+		else
+			_pScintillaEditView->execute(SCI_GOTOLINE, mapPos._firstVisibleDocLine);
+
+		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
+		LRESULT higherY = 0;
+		LRESULT lowerY = 0;
+		if (mapPos._higherPos == -1) // mapPos._higherPos == -1 => not pEditView->isWrap()
+		{
+			auto higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, mapPos._firstVisibleDocLine);
+			auto lowerPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, mapPos._lastVisibleDocLine);
+			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
+			lowerY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, lowerPos);
+			if (lowerY == 0)
+			{
+				auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine);
+				lowerY = mapPos._nbLine * lineHeight + mapPos._firstVisibleDocLine;
+			}
+		}
+		else
+		{
+			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, mapPos._higherPos);
+			auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine);
+			lowerY = mapPos._nbLine * lineHeight + higherY;
 		}
 
 		// Update view zone in map

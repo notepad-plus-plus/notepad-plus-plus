@@ -2002,6 +2002,12 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
 					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
 
+					MapPosition mapPosition;
+					(childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDocLine"), &mapPosition._firstVisibleDocLine);
+					(childNode->ToElement())->Attribute(TEXT("mapLastVisibleDocLine"), &mapPosition._lastVisibleDocLine);
+					(childNode->ToElement())->Attribute(TEXT("mapNbLine"), &mapPosition._nbLine);
+					(childNode->ToElement())->Attribute(TEXT("mapHigherPos"), &mapPosition._higherPos);
+
 					const TCHAR *langName;
 					langName = (childNode->ToElement())->Attribute(TEXT("lang"));
 					int encoding = -1;
@@ -2011,7 +2017,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					int fileModifiedTimestamp = 0;
 					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestamp"), &fileModifiedTimestamp);
 
-					sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position, backupFilePath, fileModifiedTimestamp);
+					sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position, backupFilePath, fileModifiedTimestamp, mapPosition);
 
 					for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
 						markNode ;
@@ -2940,6 +2946,12 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), viewSessionFiles[i]._fileName.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp));
+				
+				// docMap 
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDocLine"), viewSessionFiles[i]._mapPos._lastVisibleDocLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapLastVisibleDocLine"), viewSessionFiles[i]._mapPos._lastVisibleDocLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapNbLine"), viewSessionFiles[i]._mapPos._nbLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHigherPos"), viewSessionFiles[i]._mapPos._higherPos);
 
 				for (size_t j = 0, len = viewSessionFiles[i]._marks.size() ; j < len ; ++j)
 				{

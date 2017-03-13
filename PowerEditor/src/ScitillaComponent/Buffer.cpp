@@ -468,34 +468,13 @@ void Buffer::setDeferredReload() // triggers a reload on the next Document acces
 }
 
 
-/*
-pair<size_t, bool> Buffer::getLineUndoState(size_t currentLine) const
+void Buffer::setMapPosition(int32_t firstVisibleDocLine, int32_t lastVisibleDocLine, int32_t nbLine, int32_t higherPos)
 {
-	for (size_t i = 0 ; i < _linesUndoState.size() ; i++)
-	{
-		if (_linesUndoState[i].first == currentLine)
-			return _linesUndoState[i].second;
-	}
-	return pair<size_t, bool>(0, false);
+	_mapPosition._firstVisibleDocLine = firstVisibleDocLine;
+	_mapPosition._lastVisibleDocLine = lastVisibleDocLine;
+	_mapPosition._nbLine = nbLine;
+	_mapPosition._higherPos = higherPos;
 }
-
-void Buffer::setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved)
-{
-	bool found = false;
-	for (size_t i = 0 ; i < _linesUndoState.size() ; i++)
-	{
-		if (_linesUndoState[i].first == currentLine)
-		{
-			_linesUndoState[i].second.first = undoLevel;
-			_linesUndoState[i].second.second = isSaved;
-		}
-	}
-	if (!found)
-	{
-		_linesUndoState.push_back(pair<size_t, pair<size_t, bool> >(currentLine, pair<size_t, bool>(undoLevel, false)));
-	}
-}
-*/
 
 //filemanager
 

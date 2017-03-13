@@ -162,6 +162,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					Buffer * pBuf = MainFileManager->getBufferByID(id);
 					_pDocMap->showInMapTemporarily(pBuf, notifyView);
 					_pDocMap->setSyntaxHiliting();
+
+					_pDocMap->setTemporarilyShowing(true);
 				}
 			}
 			*/
@@ -175,6 +177,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				_pDocMap->reloadMap();
 				_pDocMap->setSyntaxHiliting();
+
+				_pDocMap->setTemporarilyShowing(false);
 			}
 			*/
 			break;
@@ -906,7 +910,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_linkTriggered = false;
 			}
 
-			if (_pDocMap)
+			if (_pDocMap && (not _pDocMap->isClosed()) && _pDocMap->isVisible() && not _pDocMap->isTemporarilyShowing())
 			{
 				_pDocMap->wrapMap();
 				_pDocMap->scrollMap();

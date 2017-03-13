@@ -79,7 +79,7 @@ void allowWmCopydataMessages(Notepad_plus_Window& notepad_plus_plus, const NppPa
 
 bool checkSingleFile(const TCHAR *commandLine)
 {
-	if (!commandLine || lstrlen(commandLine) == 0)
+	if (!commandLine || commandLine[0] == TEXT('\0'))
 		return false;
 
 	TCHAR fullpath[MAX_PATH] = {0};

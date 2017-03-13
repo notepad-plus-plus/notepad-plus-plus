@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="7.0">
+	<Native-Langue name="Español" filename="spanish.xml" version="7.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -9,14 +9,14 @@
 					<Item menuId="edit" name="&amp;Editar"/>
 					<Item menuId="search" name="&amp;Buscar"/>
 					<Item menuId="view" name="&amp;Vista"/>
-					<Item menuId="encoding" name="Co&amp;dificación"/>
-					<Item menuId="language" name="&amp;idioma"/>
-					<Item menuId="settings" name="&amp;Configuración"/>
-					<Item menuId="tools" name="Herramientas"/>
-					<Item menuId="macro" name="Macro"/>
-					<Item menuId="run" name="Ejecutar"/>
-					<Item idName="Plugins" name="Plugins"/>
-					<Item idName="Window" name="Ventana"/>
+					<Item menuId="encoding" name="&amp;Codificación"/>
+					<Item menuId="language" name="&amp;Lenguaje"/>
+					<Item menuId="settings" name="C&amp;onfiguración"/>
+					<Item menuId="tools" name="&amp;Herramientas"/>
+					<Item menuId="macro" name="&amp;Macro"/>
+					<Item menuId="run" name="E&amp;jecutar"/>
+					<Item idName="Plugins" name="&amp;Plugins"/>
+					<Item idName="Window" name="Ve&amp;ntana"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
@@ -24,8 +24,8 @@
 					<Item subMenuId="file-closeMore" name="Cerrar más"/>
 					<Item subMenuId="file-recentFiles" name="Archivos recientes"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copiar al portapapeles"/>
-					<Item subMenuId="edit-indent" name="Sangría"/>
-					<Item subMenuId="edit-convertCaseTo" name="MAYÚSCULAS/Minúsculas"/>
+					<Item subMenuId="edit-indent" name="Tabulación"/>
+					<Item subMenuId="edit-convertCaseTo" name="MAYÚSCULAS/minúsculas"/>
 					<Item subMenuId="edit-lineOperations" name="Operaciones con líneas"/>
 					<Item subMenuId="edit-comment" name="Comentarios"/>
 					<Item subMenuId="edit-autorellenado" name="Auto-completar"/>
@@ -74,7 +74,7 @@
 					<Item id="41003" name="Cerrar"/>
 					<Item id="41004" name="C&amp;errar todas"/>
 					<Item id="41005" name="Cerrar las otras pestañas"/>
-					<Item id="41009" name="&amp;Guardar y cerrar"/>
+					<Item id="41009" name="Cerrar todo a la izquierda"/>
 					<Item id="41018" name="Cerrar todo a la derecha"/>
 					<Item id="41006" name="&amp;Guardar"/>
 					<Item id="41007" name="Guardar todo"/>
@@ -115,16 +115,16 @@
 					<Item id="42066" name="Ordenar líneas como decimales (punto) descendiente"/>
 					<Item id="42016" name="Convertir a MAYÚSCULAS"/>
 					<Item id="42017" name="Convertir a minúsculas"/>
-					<Item id="42067" name="Tamaño titulo"/>
-					<Item id="42068" name="Tamaño titulo (mixto)"/>
-					<Item id="42069" name="Tamaño frase"/>
-					<Item id="42070" name="Tamaño frase (mixto)"/>
-					<Item id="42071" name="iNVERTIR tAMAÑO"/>
-					<Item id="42072" name="tAmaÑO AleaTOrio"/>
+					<Item id="42067" name="Convertir A Modo Título"/>
+					<Item id="42068" name="Convertir A Modo Título (mezclar)"/>
+					<Item id="42069" name="Convertir a modo frase"/>
+					<Item id="42070" name="Convertir a modo frase (mezclar)"/>
+					<Item id="42071" name="iNVERTIR mayúsculas/MINÚSCULAS"/>
+					<Item id="42072" name="mAyúsculas/mInÚscuLAs ALeatoriO"/>
 					<Item id="42073" name="Abrir archivo"/>
 					<Item id="42074" name="Abrir carpeta contenedora en Explorer"/>
 					<Item id="42075" name="Buscar en Internet"/>
-					<Item id="42076" name="Cambiar máquina de búsqueda..."/>
+					<Item id="42076" name="Cambiar motor de búsqueda..."/>
 					<Item id="42018" name="&amp;Inicio de grabación"/>
 					<Item id="42019" name="&amp;Fin de grabación"/>
 					<Item id="42021" name="&amp;Reproducir"/>
@@ -134,7 +134,7 @@
 					<Item id="42024" name="Quitar espacios al final"/>
 					<Item id="42042" name="Cortar espacio al inicio"/>
 					<Item id="42043" name="Cortar espacios al inicio y al final"/>
-					<Item id="42044" name="Fin de linea -> espacio"/>
+					<Item id="42044" name="Fin de línea -> espacio"/>
 					<Item id="42045" name="Eliminar espacios innecesarios"/>
 					<Item id="42046" name="TAB a espacio"/>
 					<Item id="42054" name="Espacio a TAB (todo)"/>
@@ -229,7 +229,7 @@
 					<Item id="44049" name="Resumen..."/>
 					<Item id="44080" name="Mapa del documento"/>
 					<Item id="44084" name="Lista de funciones"/>
-					<Item id="44085" name="Carpeta &amp;de trabajo"/>
+					<Item id="44085" name="Carpeta como área &amp;de trabajo"/>
 					<Item id="44086" name="Pestaña 1"/>
 					<Item id="44087" name="Pestaña 2"/>
 					<Item id="44088" name="Pestaña 3"/>
@@ -272,10 +272,10 @@
 					<Item id="10003" name="Mover a una ventana nueva"/>
 					<Item id="10004" name="Abrir en una ventana nueva"/>
 					<Item id="46001" name="Configurador de estilo..."/>
-					<Item id="46150" name="Defina su idioma..."/>
+					<Item id="46150" name="Defina su lenguaje..."/>
 					<Item id="46080" name="Definido por el usuario"/>
-					<Item id="47000" name="Sobre Notepad++..."/>
-					<Item id="47010" name="Argumentos line de comandos..."/>
+					<Item id="47000" name="Acerca de Notepad++..."/>
+					<Item id="47010" name="Argumentos línea de comandos..."/>
 					<Item id="47001" name="Sitio de Notepad++"/>
 					<Item id="47002" name="Página de proyecto Notepad++"/>
 					<Item id="47003" name="Documentación online"/>
@@ -290,10 +290,10 @@
 					<Item id="48018" name="Editar menú emergente"/>
 					<Item id="48009" name="Enlaces directos..."/>
 					<Item id="48011" name="Preferencias..."/>
-					<Item id="48501" name="Generate..."/>
-					<Item id="48502" name="Generar de archivos..."/>
+					<Item id="48501" name="Generar..."/>
+					<Item id="48502" name="Generar desde archivos..."/>
 					<Item id="48503" name="Generar en portapapeles"/>
-					<Item id="49000" name="&amp;Iniciar..."/>
+					<Item id="49000" name="&amp;Ejecutar..."/>
 					<Item id="50000" name="Función completa"/>
 					<Item id="50001" name="Palabra completa"/>
 					<Item id="50002" name="Parámetros de función"/>
@@ -367,7 +367,7 @@
 				<Item id="1661" name="Seguir archivo actual"/>
 				<Item id="1641" name="Buscar solo en el archivo actual"/>
 				<Item id="1686" name="Transparencia"/>
-				<Item id="1703" name="&amp;. se ajusta a linea nueva"/>
+				<Item id="1703" name="&amp;. se ajusta a línea nueva"/>
 			</Find>
 			<FindCharsInRange title="Encontrar caracteres en rango...">
 				<Item id="2" name="Cerrar"/>
@@ -387,7 +387,7 @@
 				<Item id="2" name="Cancelar"/>
 				<Item id="2004" name="Línea actual:"/>
 				<Item id="2005" name="Ir a línea:"/>
-				<Item id="2006" name="Última linea:"/>
+				<Item id="2006" name="Última línea:"/>
 			</GoToLine>
 			<Run title="Run...">
 				<Item id="1903" name="Programa a ejecutar"/>
@@ -401,8 +401,8 @@
 				<Item id="2" name="Cerrar"/>
 			</MD5FromFilesDlg>
 			<MD5FromTextDlg title="Generar MD5">
-				<Item id="1932" name="Tratsr cada linea como una cadena"/>
-				<Item id="1934" name="Copiar a portapapelez"/>
+				<Item id="1932" name="Tratar cada línea como una cadena"/>
+				<Item id="1934" name="Copiar a portapapeles"/>
 				<Item id="2" name="Cerrar"/>
 			</MD5FromTextDlg>
 			<StyleConfig title="Configurador de estilo">
@@ -425,23 +425,23 @@
 					<Item id="2218" name="Subrayado"/>
 					<Item id="2219" name="Palabras clave predeterminadas"/>
 					<Item id="2221" name="Palabras clave definidas por el usuario"/>
-					<Item id="2225" name="idioma:"/>
-					<Item id="2226" name="Globalizar color de fuentes"/>
-					<Item id="2227" name="Globalizar color de fondo"/>
-					<Item id="2228" name="Globalizar tipo de fuente"/>
-					<Item id="2229" name="Globalizar tamaño de fuente"/>
-					<Item id="2230" name="Globalizar negritas"/>
-					<Item id="2231" name="Globalizar cursivas"/>
-					<Item id="2232" name="Globalizar subrayados"/>
+					<Item id="2225" name="Lenguaje:"/>
+					<Item id="2226" name="Habilitar color global de fuentes"/>
+					<Item id="2227" name="Habilitar color global de fondo"/>
+					<Item id="2228" name="Habilitar tipo global de fuente"/>
+					<Item id="2229" name="Habilitar tamaño global de fuente"/>
+					<Item id="2230" name="Habilitar estilo global en negrita"/>
+					<Item id="2231" name="Habilitar estilo global en cursiva"/>
+					<Item id="2232" name="Habilitar estilo global en subrayado"/>
 				</SubDialog>
 			</StyleConfig>
-			<UserDefine title="Definido por el Usuario">
-				<Item id="20001" name="Dock"/>
+			<UserDefine title="Lenguaje Definido por el Usuario">
+				<Item id="20001" name="Acoplar"/>
 				<Item id="20002" name="Renombrar"/>
 				<Item id="20003" name="Crear nuevo..."/>
 				<Item id="20004" name="Eliminar"/>
 				<Item id="20005" name="Guardar como..."/>
-				<Item id="20007" name="idioma: "/>
+				<Item id="20007" name="Lenguaje: "/>
 				<Item id="20009" name="Ext.:"/>
 				<Item id="20012" name="Ignorar MAY./min."/>
 				<Item id="20011" name="Transparencia"/>
@@ -456,7 +456,7 @@
 					<Item id="25001" name="Negrita"/>
 					<Item id="25002" name="Cursiva"/>
 					<Item id="25003" name="Subrayado"/>
-					<Item id="25029" name="Nido:"/>
+					<Item id="25029" name="Anidar:"/>
 					<Item id="25008" name="Delimitador 1"/>
 					<Item id="25009" name="Delimitador 2"/>
 					<Item id="25010" name="Delimitador 3"/>
@@ -465,27 +465,27 @@
 					<Item id="25013" name="Delimitador 6"/>
 					<Item id="25014" name="Delimitador 7"/>
 					<Item id="25015" name="Delimitador 8"/>
-					<Item id="25018" name="Clave 1"/>
-					<Item id="25019" name="Clave 2"/>
-					<Item id="25020" name="Clave 3"/>
-					<Item id="25021" name="Clave 4"/>
-					<Item id="25022" name="Clave 5"/>
-					<Item id="25023" name="Clave 6"/>
-					<Item id="25024" name="Clave 7"/>
-					<Item id="25025" name="Clave 8"/>
+					<Item id="25018" name="Palabras clave 1"/>
+					<Item id="25019" name="Palabras clave 2"/>
+					<Item id="25020" name="Palabras clave 3"/>
+					<Item id="25021" name="Palabras clave 4"/>
+					<Item id="25022" name="Palabras clave 5"/>
+					<Item id="25023" name="Palabras clave 6"/>
+					<Item id="25024" name="Palabras clave 7"/>
+					<Item id="25025" name="Palabras clave 8"/>
 					<Item id="25016" name="Comentario"/>
-					<Item id="25017" name="Linea de comentario"/>
-					<Item id="25026" name="Operador 1"/>
-					<Item id="25027" name="Operador 2"/>
-					<Item id="25028" name="Numeros"/>
+					<Item id="25017" name="Línea de comentario"/>
+					<Item id="25026" name="Operadores 1"/>
+					<Item id="25027" name="Operadores 2"/>
+					<Item id="25028" name="Números"/>
 					<Item id="1" name="OK"/>
 					<Item id="2" name="Cancelar"/>
 				</StylerDialog>
-				<Folder title="Carpeta &amp;&amp; por defecto">
+				<Folder title="Relieve sintáctico &amp;&amp; Valores por defecto">
 					<Item id="21101" name="Estilo por defecto"/>
 					<Item id="21201" name="Estilo"/>
 					<Item id="21105" name="Documentación:"/>
-					<Item id="21104" name="Sitio web temporal:"/>
+					<Item id="21104" name="Sitio web:"/>
 					<Item id="21106" name="Compactar el relieve (líneas vacías también)"/>
 					<Item id="21220" name="Relieve sintáctico modo 1:"/>
 					<Item id="21224" name="Abriendo:"/>
@@ -662,9 +662,9 @@
 					<Item id="6215" name="Suavizar la fuente"/>
 					<Item id="6231" name="Ancho del borde"/>
 					<Item id="6235" name="Sin borde"/>
-					<Item id="6236" name="Permitir rubrica tras la próxima línea"/>
+					<Item id="6236" name="Permitir desplazamiento tras la próxima línea"/>
 				</Scintillas>
-				<NewDoc title="Archivo nuevo/Carpeta predeterminada">
+				<NewDoc title="Archivo nuevo">
 					<Item id="6401" name="Formato"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
@@ -675,7 +675,7 @@
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UCS-2 Big Endian"/>
 					<Item id="6410" name="UCS-2 Little Endian"/>
-					<Item id="6411" name="idioma predeterminado:"/>
+					<Item id="6411" name="Lenguaje predeterminado:"/>
 					<Item id="6419" name="Archivo nuevo"/>
 					<Item id="6420" name="Aplicar a los archivos ANSI abiertos"/>
 				</NewDoc>
@@ -690,27 +690,27 @@
 					<Item id="4009" name="Ext. soportadas:"/>
 					<Item id="4010" name="Ext. asociadas:"/>
 				</FileAssoc>
-				<Language title="Idioma">
+				<Language title="Lenguaje">
 					<Item id="6505" name="Disponibles"/>
 					<Item id="6506" name="Desactivados"/>
-					<Item id="6507" name="Compactar el menú de idioma"/>
-					<Item id="6508" name="Menú de idioma"/>
+					<Item id="6507" name="Compactar el menú de lenguajes"/>
+					<Item id="6508" name="Menú de lenguaje"/>
 					<Item id="6301" name="Tabuladores"/>
 					<Item id="6302" name="Sustituir por espacios"/>
 					<Item id="6303" name="Tamaño: "/>
 					<Item id="6510" name="Usar valor por defecto"/>
 				</Language>
-				<Highlighting title="Highlighting">
+				<Highlighting title="Resaltado">
 					<Item id="6333" name="Resaltado inteligente"/>
 					<Item id="6326" name="Habilitar resaltado inteligente"/>
-					<Item id="6332" name="Ajuste de fuente"/>
-					<Item id="6338" name="Solo con palabras enteras"/>
-					<Item id="6339" name="Configuración de búsqueda"/>
+					<Item id="6332" name="Coincidir MAYÚSCULAS/minúsculas"/>
+					<Item id="6338" name="Solo palabras completas"/>
+					<Item id="6339" name="Usar configuración de búsqueda"/>
 					<Item id="6340" name="Resaltar otra vista"/>
 					<Item id="6329" name="Resaltar etiquetas coincidentes"/>
 					<Item id="6327" name="Habilitar"/>
 					<Item id="6328" name="Resaltar atributos de etiquetas"/>
-					<Item id="6330" name="Resaltar comentario/php/asp"/>
+					<Item id="6330" name="Resaltar zona comentario/php/asp"/>
 				</Highlighting>
 				<Print title="Impresión">
 					<Item id="6601" name="Imprimir número de línea"/>
@@ -765,8 +765,8 @@
 					<Item id="6804" name="Usar esta carpeta para las copias personalizadas"/>
 					<Item id="6803" name="Carpeta:"/>
 				</Backup>
-				<AutoCompletion title="Auto-completar">
-					<Item id="6807" name="Auto-completar"/>
+				<AutoCompletion title="Auto-completado">
+					<Item id="6807" name="Auto-completado"/>
 					<Item id="6808" name="Permitir Auto-completar siempre"/>
 					<Item id="6809" name="Auto-completar función"/>
 					<Item id="6810" name="Auto-completar palabra"/>
@@ -774,20 +774,20 @@
 					<Item id="6824" name="Ignorar números"/>
 					<Item id="6811" name="Desde"/>
 					<Item id="6813" name="º carácter"/>
-					<Item id="6814" name="Valor válido: 1 - 9"/>
-					<Item id="6815" name="Parámetros de función en entrada"/>
-					<Item id="6851" name="Auto-insertar"/>
-					<Item id="6857" name="pestaña de cierre html/xml"/>
+					<Item id="6814" name="Valores válidos: 1 - 9"/>
+					<Item id="6815" name="Sugerencias para los parámetros de la función"/>
+					<Item id="6851" name="Inserción/Cierre automático"/>
+					<Item id="6857" name="Etiquetas xml/html"/>
 					<Item id="6858" name="Abrir"/>
 					<Item id="6859" name="Cerrar"/>
-					<Item id="6860" name="Par ajustado 1:"/>
-					<Item id="6863" name="Par ajustado 2:"/>
-					<Item id="6866" name="Par ajustado 3:"/>
+					<Item id="6860" name="1º pareja:"/>
+					<Item id="6863" name="2º pareja:"/>
+					<Item id="6866" name="3º pareja:"/>
 				</AutoCompletion>
 				<MultiInstance title="Multi-Instancia">
-					<Item id="6151" name="Ajustar varias instancias"/>
+					<Item id="6151" name="Configuración de múltiples instancias"/>
 					<Item id="6152" name="Abrir sesión en nueva instancia de Notepad++"/>
-					<Item id="6153" name="Usar siempre modo multi instancia"/>
+					<Item id="6153" name="Usar siempre en modo multi-instancia"/>
 					<Item id="6154" name="Instancia única por defecto"/>
 					<Item id="6155" name="* La modificación de este ajuste necesita reiniciar Notepad++"/>
 				</MultiInstance>
@@ -796,19 +796,23 @@
 					<Item id="6252" name="Abrir"/>
 					<Item id="6255" name="Cerrar"/>
 					<Item id="6256" name="Permitir varias líneas"/>
+					<Item id="6161" name="Lista de caracteres de palabras"/>
+					<Item id="6162" name="Usar lista de caracteres de palabras sin cambios"/>
+					<Item id="6163" name="Agregar sus caracteres como parte de la palabra
+(No lo escoja a menos que sepa lo que está haciendo)"/>
 				</Delimiter>
 				<Cloud title="Nube">
 					<Item id="6262" name="Ajustes de nube"/>
 					<Item id="6263" name="Sin nube"/>
 					<Item id="6267" name="Indicar ubicación de la nube aquí:"/>
 				</Cloud>
-				<SearchEngine title="Máquina de búsqueda">
-					<Item id="6271" name="Máquina de búsqueda (para el comando de &quot;Buscar en internet&quot;)"/>
+				<SearchEngine title="Motor de búsqueda">
+					<Item id="6271" name="Motor de búsqueda (para el comando de &quot;Buscar en internet&quot;)"/>
 					<Item id="6272" name="DuckDuckGo"/>
 					<Item id="6273" name="Google"/>
 					<Item id="6274" name="Bing"/>
 					<Item id="6275" name="Yahoo!"/>
-					<Item id="6276" name="Indique máquina de búsqueda:"/>
+					<Item id="6276" name="Indique su motor de búsqueda aquí:"/>
 					<!-- No cambie nada tras el ejemplo: -->
 					<Item id="6278" name="Ejemplo: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine>
@@ -817,20 +821,20 @@
 					<Item id="6308" name="Minimizar a la bandeja del sistema"/>
 					<Item id="6312" name="Auto-detectar estado del archivo"/>
 					<Item id="6313" name="Actualizar sin notificar"/>
-					<Item id="6318" name="Ajustes de enlace clic"/>
+					<Item id="6318" name="Enlaces URL clickeables"/>
 					<Item id="6325" name="Ir a la última línea tras actualizar"/>
 					<Item id="6319" name="Permitir"/>
 					<Item id="6320" name="No subrayar"/>
-					<Item id="6322" name="Extensión del archivo:"/>
+					<Item id="6322" name="Extensión del archivo de sesión:"/>
 					<Item id="6323" name="Actualizar automáticamente Notepad++"/>
 					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
-					<Item id="6331" name="Mostrar sólo nombre de archivo"/>
+					<Item id="6331" name="Mostrar sólo nombre de archivo en el título de la ventana"/>
 					<Item id="6334" name="Autodetectar codificación"/>
 					<Item id="6335" name="Tratar barra invertida como carácter de escape para SQL"/>
-					<Item id="6337" name="Extensión archivo de trabajo.:"/>
+					<Item id="6337" name="Ext. del arch. área de trab.:"/>
 					<Item id="6114" name="Permitir"/>
-					<Item id="6115" name="Auto-guión"/>
-					<Item id="6117" name="Permitir comportamiento MRU"/>
+					<Item id="6115" name="Auto-indentar"/>
+					<Item id="6117" name="Ordenar por el usado más reciente"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Ejecución múltiple de macro">
@@ -865,22 +869,23 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Edición del Menú Contextual" message="Editar contextMenu.xml le permite modificar el menú contextual emergente.\rDeberá reiniciar Notepad++ para que tengan efecto los cambios."/>
-			<NppHelpAbsentWarning title="El archivo no existe" message="\rno existe. Puede descargarlo del sitio web de Notepad++."/>
-			<SaveCurrentModifWarning title="Guardar la modificación" message="Debe guardar la modificación.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>
-			<LoseUndoAbilityWarning title="No podrá deshacer" message="Debe guardar los cambios.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>
+			<ContextMenuXmlEditWarning title="Edición del Menú Contextual" message="Editar el archivo contextMenu.xml le permite modificar el menú contextual emergente.&#x0A;Deberá reiniciar Notepad++ para que tengan efecto los cambios."/>
+			<NppHelpAbsentWarning title="El archivo no existe" message="&#x0A;no existe. Puede descargarlo del sitio web de Notepad++."/>
+			<SaveCurrentModifWarning title="Guardar la modificación" message="Debe guardar la modificación.&#x0A;Los cambios realizados son irreversibles.&#x0A;&#x0A;Confirme continuar"/>
+			<LoseUndoAbilityWarning title="No podrá deshacer" message="Debe guardar los cambios.&#x0A;Los cambios realizados son irreversibles.&#x0A;&#x0A;Confirme continuar"/>
 			<CannotMoveDoc title="Nuevo documento de Notepad++" message="Guarde el documento modificado y vuelva a intentarlo."/>
 			<DocReloadWarning title="Reabrir" message="Confirme si desea volver a abrir el documento sin guardar los cambios"/>
 			<FileLockedWarning title="Imposible guardar" message="Compruebe si el archivo está abierto por otro programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El archivo ya está abierto en Notepad++."/>
 			<DeleteFileFailed title="Borrar archivo" message="Imposible borrar"/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<NbFileToOpenImportantWarning title="Demasiados archivos" message="$INT_REPLACE$ archivos serán abiertos.\rConfirme si desea hacerlo"/>
-			<SettingsOnCloudError title="Ajustes en la nube" message="Ha usado una unidad de solo lectura para ajustes en la nube,\ro una carpeta que necesita privilegios para escritura.\rSus ajustes en la nube se cancelarán. Por favor ajuste de nuevo desde Preferencias."/>
+			<NbFileToOpenImportantWarning title="Demasiados archivos" message="$INT_REPLACE$ archivos serán abiertos.&#x0A;Confirme si desea hacerlo"/>
+			<SettingsOnCloudError title="Ajustes en la nube" message="Ha usado una unidad de solo lectura para ajustes en la nube,&#x0A;o una carpeta que necesita privilegios para escritura.&#x0A;Sus ajustes en la nube se cancelarán. Por favor ajuste de nuevo desde Preferencias."/>
 			<FilePathNotFoundWarning title="File Open" message="El archivo que está intentando abrir no existe."/>
+			<SessionFileInvalidError title="No se pudo cargar la sesión" message="El archivo de sesión está corrupto o no es válido."/>
 		</MessageBox>
 		<ClipboardHistory>
-			<PanelTitle name="Historial"/>
+			<PanelTitle name="Historial de portapapeles"/>
 		</ClipboardHistory>
 		<DocSwitcher>
 			<PanelTitle name="Cambiar documento"/>
@@ -903,18 +908,18 @@
 		</FunctionList>
 		<ProjectManager>
 			<PanelTitle name="Proyecto"/>
-			<WorkspaceRootName name="Ubicación"/>
+			<WorkspaceRootName name="Área de trabajo"/>
 			<NewProjectName name="Nombre del proyecto"/>
 			<NewFolderName name="Nombre de carpeta"/>
 			<Menus>
 				<Entries>
-					<Item id="0" name="Ubicación"/>
+					<Item id="0" name="Área de trabajo"/>
 					<Item id="1" name="Editar"/>
 				</Entries>
 				<WorkspaceMenu>
-					<Item id="3122" name="Nueva ubicación"/>
-					<Item id="3123" name="Abrir ubicación"/>
-					<Item id="3124" name="Recargar ubicación"/>
+					<Item id="3122" name="Nueva área de trabajo"/>
+					<Item id="3123" name="Abrir área de trabajo"/>
+					<Item id="3124" name="Recargar área de trabajo"/>
 					<Item id="3125" name="Guardar"/>
 					<Item id="3126" name="Guardar como..."/>
 					<Item id="3127" name="Guardar copia como..."/>
@@ -947,5 +952,17 @@
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+		<MiscStrings>
+			<word-chars-list-tip value="Esto le permite incluir caracteres adicionales a los caracteres de la palabra actual al hacer doble click para seleccionar o buscar con la opción &quot;Solo palabras completas&quot; seleccionada."/>
+			<word-chars-list-warning-begin value="Cuidado: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-space-warning value="$INT_REPLACE$ espacio(s)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
+			<word-chars-list-warning-end value="  en su lista de caracteres."/>
+			<cloud-invalid-warning value="Ruta inválida."/>
+			<cloud-restart-warning value="Por favor reinicie Notepad++ para que tome efecto."/>
+			<shift-change-direction-tip value="Use Shift+Enter para buscar en la dirección contraria."/>
+		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

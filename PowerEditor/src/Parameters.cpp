@@ -2003,10 +2003,19 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
 
 					MapPosition mapPosition;
-					(childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDocLine"), &mapPosition._firstVisibleDocLine);
-					(childNode->ToElement())->Attribute(TEXT("mapLastVisibleDocLine"), &mapPosition._lastVisibleDocLine);
-					(childNode->ToElement())->Attribute(TEXT("mapNbLine"), &mapPosition._nbLine);
-					(childNode->ToElement())->Attribute(TEXT("mapHigherPos"), &mapPosition._higherPos);
+					int32_t mapPosVal;
+					const TCHAR *mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDocLine"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._firstVisibleDocLine = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapLastVisibleDocLine"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._lastVisibleDocLine = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapNbLine"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._nbLine = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapHigherPos"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._higherPos = mapPosVal;
 
 					const TCHAR *langName;
 					langName = (childNode->ToElement())->Attribute(TEXT("lang"));

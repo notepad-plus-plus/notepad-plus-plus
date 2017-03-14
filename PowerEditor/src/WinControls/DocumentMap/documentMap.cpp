@@ -236,7 +236,7 @@ void DocumentMap::scrollMap(ScintillaEditView *editView)
 		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
 		LRESULT higherY = 0;
 		LRESULT lowerY = 0;
-		auto higherPos = -1 ; // -1 => not pEditView->isWrap()
+		LRESULT higherPos = -1 ; // -1 => not pEditView->isWrap()
 		if (not pEditView->isWrap())
 		{
 			auto higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, firstVisibleDocLine);
@@ -252,14 +252,14 @@ void DocumentMap::scrollMap(ScintillaEditView *editView)
 		else
 		{
 			higherPos = pEditView->execute(SCI_POSITIONFROMPOINT, 0, 0);
-			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
+			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, static_cast<int32_t>(higherPos));
 			auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
 			lowerY = nbLine * lineHeight + higherY;
 		}
 
 		// set current map position in buffer
 		Buffer *buffer = pEditView->getCurrentBuffer();
-		buffer->setMapPosition(firstVisibleDocLine, lastVisibleDocLine, nbLine, higherPos);
+		buffer->setMapPosition(static_cast<int32_t>(firstVisibleDocLine), static_cast<int32_t>(lastVisibleDocLine), static_cast<int32_t>(nbLine), static_cast<int32_t>(higherPos));
 
 		// Update view zone in map
 		_vzDlg.drawZone(static_cast<long>(higherY), static_cast<long>(lowerY));
@@ -445,9 +445,7 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				default:
 					break;
-				
 			}
-	
 		}
 		return TRUE;
 
@@ -477,8 +475,6 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			(*_ppEditView)->mouseWheel(wParam, lParam);
 		}
 		return TRUE;
-
-
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);

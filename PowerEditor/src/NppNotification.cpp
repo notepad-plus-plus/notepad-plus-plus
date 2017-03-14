@@ -151,7 +151,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSEHOVERING:
 		case TCN_MOUSEHOVERSWITCHING:
 		{
-			///*
+			/*
 			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
@@ -176,13 +176,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					_pDocMap->setTemporarilyShowing(true);
 				}
 			}
-			//*/
+			*/
 			break;
 		}
 
 		case TCN_MOUSELEAVING:
 		{
-			///*
+			/*
 			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				_pDocMap->reloadMap();
@@ -190,7 +190,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				_pDocMap->setTemporarilyShowing(false);
 			}
-			//*/
+			*/
 			break;
 		}
 

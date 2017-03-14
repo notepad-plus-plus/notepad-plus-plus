@@ -151,7 +151,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSEHOVERING:
 		case TCN_MOUSEHOVERSWITCHING:
 		{
-			/*
+			///*
 			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
@@ -159,20 +159,30 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (pTabDocView)
 				{
 					BufferID id = pTabDocView->getBufferByIndex(tbHdr->tabOrigin);
-					Buffer * pBuf = MainFileManager->getBufferByID(id);
-					_pDocMap->showInMapTemporarily(pBuf, notifyView);
-					_pDocMap->setSyntaxHiliting();
+					Buffer *pBuf = MainFileManager->getBufferByID(id);
 
+					Buffer *currentBuf = getCurrentBuffer();
+
+					if (pBuf != currentBuf) // if hover on other tab
+					{
+						_pDocMap->showInMapTemporarily(pBuf, notifyView);
+						_pDocMap->setSyntaxHiliting();
+					}
+					else  // if hover on current active tab
+					{
+						_pDocMap->reloadMap();
+						_pDocMap->setSyntaxHiliting();
+					}
 					_pDocMap->setTemporarilyShowing(true);
 				}
 			}
-			*/
+			//*/
 			break;
 		}
 
 		case TCN_MOUSELEAVING:
 		{
-			/*
+			///*
 			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				_pDocMap->reloadMap();
@@ -180,7 +190,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				_pDocMap->setTemporarilyShowing(false);
 			}
-			*/
+			//*/
 			break;
 		}
 

@@ -596,20 +596,28 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if (wParam == 2)
 				return TRUE;
 
-            if (_doDragNDrop && !isMultiLine())
+            if (_doDragNDrop)
             {
-                _nSrcTab = _nTabDragged = currentTabOn;
+				// ::DragDetect does not work with TCS_BUTTONS
+				if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+				{
+					_mightBeDragging = true;
+				}
+				else
+				{
+					_nSrcTab = _nTabDragged = currentTabOn;
 
-                POINT point;
-			    point.x = LOWORD(lParam);
-			    point.y = HIWORD(lParam);
-				::ClientToScreen(hwnd, &point);
-			    if(::DragDetect(hwnd, point))
-			    {
-				    // Yes, we're beginning to drag, so capture the mouse...
-				    _isDragging = true;
-				    ::SetCapture(hwnd);
-			    }
+					POINT point;
+					point.x = LOWORD(lParam);
+					point.y = HIWORD(lParam);
+					::ClientToScreen(hwnd, &point);
+					if(::DragDetect(hwnd, point))
+					{
+						// Yes, we're beginning to drag, so capture the mouse...
+						_isDragging = true;
+						::SetCapture(hwnd);
+					}
+				}
             }
 
 			notify(NM_CLICK, currentTabOn);
@@ -626,6 +634,24 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 		//#define NPPM_INTERNAL_ISDRAGGING 40926
 		case WM_MOUSEMOVE :
 		{
+			if (_mightBeDragging && !_isDragging)
+			{
+				if (++_dragCount > 2)
+				{
+					int tabFocused = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURFOCUS, 0, 0));
+					int tabSelected = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+
+					// make sure the tab they are moving is active.
+					if (tabFocused != tabSelected)
+					{
+						setActiveTab(tabFocused);
+					}
+
+					_nSrcTab = _nTabDragged = tabFocused;
+					_isDragging = true;
+				}
+			}
+
 			POINT p;
 			p.x = LOWORD(lParam);
 			p.y = HIWORD(lParam);
@@ -732,6 +758,9 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONUP :
 		{
+			_mightBeDragging = false;
+			_dragCount = 0;
+
 			int xPos = LOWORD(lParam);
 			int yPos = HIWORD(lParam);
 			int currentTabOn = getTabIndexAt(xPos, yPos);

@@ -356,6 +356,9 @@
 //See fileBrowser_rc.h
 //#define IDD_FILEBROWSER 3500
 
+//See documentSnapshot_rc.h
+//#define IDD_DOCUMENSNAPSHOT 3600
+
 // See regExtDlg.h
 //#define IDD_REGEXT 4000
 

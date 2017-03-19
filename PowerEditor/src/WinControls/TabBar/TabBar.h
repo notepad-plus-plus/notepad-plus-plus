@@ -244,6 +244,8 @@ protected:
 	static LRESULT CALLBACK TabBarPlus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((TabBarPlus *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
+	void setActiveTab(int tabIndex);
+	void exchangeTabItemData(int oldTab, int newTab);
 	void exchangeItemData(POINT point);
 
 

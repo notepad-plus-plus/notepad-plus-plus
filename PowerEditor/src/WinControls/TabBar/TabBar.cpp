@@ -857,6 +857,19 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			rect.bottom += paddingDynamicTwoY;
 		}
 	}
+	
+	// the active tab's text with TCS_BUTTONS is lower than normal and gets clipped
+	if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+	{
+		if (_isVertical)
+		{
+			rect.left -= 2;
+		}
+		else
+		{
+			rect.top -= 2;
+		}
+	}
 
 	// draw highlights on tabs (top bar for active tab / darkened background for inactive tab)
 	RECT barRect = rect;

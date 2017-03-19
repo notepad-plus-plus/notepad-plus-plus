@@ -486,15 +486,15 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				return TRUE;
 
 			const bool isForward = ((short)HIWORD(wParam)) < 0; // wheel rotation towards the user will be considered as forward direction
-			const LRESULT lastTabIndex = ::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1;
+			const int lastTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1);
 
 			if ((wParam & MK_CONTROL) && (wParam & MK_SHIFT))
 			{
-				::SendMessage(_hSelf, TCM_SETCURFOCUS, (isForward ? lastTabIndex : 0), 0);
+				setActiveTab((isForward ? lastTabIndex : 0));
 			}
 			else if (wParam & (MK_CONTROL | MK_SHIFT))
 			{
-				LRESULT tabIndex = ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0) + (isForward ? 1 : -1);
+				int tabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0) + (isForward ? 1 : -1));
 				if (tabIndex < 0)
 				{
 					if (wParam & MK_CONTROL)
@@ -509,7 +509,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					else
 						return TRUE;
 				}
-				::SendMessage(_hSelf, TCM_SETCURFOCUS, tabIndex, 0);
+				setActiveTab(tabIndex);
 			}
 			else if (not _isMultiLine) // don't scroll if in multi-line mode
 			{
@@ -521,7 +521,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				TC_HITTESTINFO hti;
 				LONG xy = NppParameters::getInstance()->_dpiManager.scaleX(12); // an arbitrary coordinate inside the first visible tab
 				hti.pt = { xy, xy };
-				LRESULT scrollTabIndex = ::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hti));
+				int scrollTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hti)));
 
 				if (scrollTabIndex < 1 && (_isVertical ? rcLastTab.bottom < rcTabCtrl.bottom : rcLastTab.right < rcTabCtrl.right)) // nothing to scroll
 					return TRUE;

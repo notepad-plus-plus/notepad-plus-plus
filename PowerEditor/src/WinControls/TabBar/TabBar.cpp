@@ -476,7 +476,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			// will do previous/next tab WITH scroll wrapping (endless loop)
 			// ..............................................................................
 			// SHIFT + MOUSEWHEEL:
-			// will do previous/next tab WITHOUT scroll wrapping (stops at first/last tab)
+			// if _doDragNDrop is enabled, then moves the tab, otherwise switches 
+			// to previous/next tab WITHOUT scroll wrapping (stops at first/last tab)
 			// ..............................................................................
 			// CTRL + SHIFT + MOUSEWHEEL:
 			// will switch to the first/last tab
@@ -486,15 +487,34 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				return TRUE;
 
 			const bool isForward = ((short)HIWORD(wParam)) < 0; // wheel rotation towards the user will be considered as forward direction
-			const LRESULT lastTabIndex = ::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1;
+			const int lastTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETITEMCOUNT, 0, 0) - 1);
 
 			if ((wParam & MK_CONTROL) && (wParam & MK_SHIFT))
 			{
-				::SendMessage(_hSelf, TCM_SETCURFOCUS, (isForward ? lastTabIndex : 0), 0);
+				setActiveTab((isForward ? lastTabIndex : 0));
+			}
+			else if ((wParam & MK_SHIFT) && _doDragNDrop)
+			{
+				int oldTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+				int newTabIndex = oldTabIndex + (isForward ? 1 : -1);
+
+				if (newTabIndex < 0)
+				{
+					newTabIndex = lastTabIndex; // wrap scrolling
+				}
+				else if (newTabIndex > lastTabIndex)
+				{
+					newTabIndex = 0; // wrap scrolling
+				}
+
+				if (oldTabIndex != newTabIndex)
+				{
+					exchangeTabItemData(oldTabIndex, newTabIndex);
+				}
 			}
 			else if (wParam & (MK_CONTROL | MK_SHIFT))
 			{
-				LRESULT tabIndex = ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0) + (isForward ? 1 : -1);
+				int tabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0) + (isForward ? 1 : -1));
 				if (tabIndex < 0)
 				{
 					if (wParam & MK_CONTROL)
@@ -509,7 +529,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 					else
 						return TRUE;
 				}
-				::SendMessage(_hSelf, TCM_SETCURFOCUS, tabIndex, 0);
+				setActiveTab(tabIndex);
 			}
 			else if (not _isMultiLine) // don't scroll if in multi-line mode
 			{
@@ -521,7 +541,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				TC_HITTESTINFO hti;
 				LONG xy = NppParameters::getInstance()->_dpiManager.scaleX(12); // an arbitrary coordinate inside the first visible tab
 				hti.pt = { xy, xy };
-				LRESULT scrollTabIndex = ::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hti));
+				int scrollTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&hti)));
 
 				if (scrollTabIndex < 1 && (_isVertical ? rcLastTab.bottom < rcTabCtrl.bottom : rcLastTab.right < rcTabCtrl.right)) // nothing to scroll
 					return TRUE;
@@ -576,20 +596,28 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if (wParam == 2)
 				return TRUE;
 
-            if (_doDragNDrop && !isMultiLine())
+            if (_doDragNDrop)
             {
-                _nSrcTab = _nTabDragged = currentTabOn;
+				// ::DragDetect does not work with TCS_BUTTONS
+				if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+				{
+					_mightBeDragging = true;
+				}
+				else
+				{
+					_nSrcTab = _nTabDragged = currentTabOn;
 
-                POINT point;
-			    point.x = LOWORD(lParam);
-			    point.y = HIWORD(lParam);
-				::ClientToScreen(hwnd, &point);
-			    if(::DragDetect(hwnd, point))
-			    {
-				    // Yes, we're beginning to drag, so capture the mouse...
-				    _isDragging = true;
-				    ::SetCapture(hwnd);
-			    }
+					POINT point;
+					point.x = LOWORD(lParam);
+					point.y = HIWORD(lParam);
+					::ClientToScreen(hwnd, &point);
+					if(::DragDetect(hwnd, point))
+					{
+						// Yes, we're beginning to drag, so capture the mouse...
+						_isDragging = true;
+						::SetCapture(hwnd);
+					}
+				}
             }
 
 			notify(NM_CLICK, currentTabOn);
@@ -606,6 +634,24 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 		//#define NPPM_INTERNAL_ISDRAGGING 40926
 		case WM_MOUSEMOVE :
 		{
+			if (_mightBeDragging && !_isDragging)
+			{
+				if (++_dragCount > 2)
+				{
+					int tabFocused = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURFOCUS, 0, 0));
+					int tabSelected = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+
+					// make sure the tab they are moving is active.
+					if (tabFocused != tabSelected)
+					{
+						setActiveTab(tabFocused);
+					}
+
+					_nSrcTab = _nTabDragged = tabFocused;
+					_isDragging = true;
+				}
+			}
+
 			POINT p;
 			p.x = LOWORD(lParam);
 			p.y = HIWORD(lParam);
@@ -712,6 +758,9 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONUP :
 		{
+			_mightBeDragging = false;
+			_dragCount = 0;
+
 			int xPos = LOWORD(lParam);
 			int yPos = HIWORD(lParam);
 			int currentTabOn = getTabIndexAt(xPos, yPos);
@@ -855,6 +904,19 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			rect.right += paddingDynamicTwoX;
 			rect.top += paddingDynamicTwoY;
 			rect.bottom += paddingDynamicTwoY;
+		}
+	}
+	
+	// the active tab's text with TCS_BUTTONS is lower than normal and gets clipped
+	if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+	{
+		if (_isVertical)
+		{
+			rect.left -= 2;
+		}
+		else
+		{
+			rect.top -= 2;
 		}
 	}
 
@@ -1056,6 +1118,60 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 	}
 }
 
+void TabBarPlus::setActiveTab(int tabIndex)
+{
+	::SendMessage(_hSelf, TCM_SETCURFOCUS, tabIndex, 0);
+
+	// the TCS_BUTTONS style does not automatically send TCM_SETCURSEL & TCN_SELCHANGE
+	if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+	{
+		::SendMessage(_hSelf, TCM_SETCURSEL, tabIndex, 0);
+		notify(TCN_SELCHANGE, tabIndex);
+	}
+}
+
+void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
+{
+	//1. shift their data, and insert the source
+	TCITEM itemData_nDraggedTab, itemData_shift;
+	itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
+	const int stringSize = 256;
+	TCHAR str1[stringSize];
+	TCHAR str2[stringSize];
+
+	itemData_nDraggedTab.pszText = str1;
+	itemData_nDraggedTab.cchTextMax = (stringSize);
+
+	itemData_shift.pszText = str2;
+	itemData_shift.cchTextMax = (stringSize);
+
+	::SendMessage(_hSelf, TCM_GETITEM, oldTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+
+	if (oldTab > newTab)
+	{
+		for (int i = oldTab; i > newTab; i--)
+		{
+			::SendMessage(_hSelf, TCM_GETITEM, i - 1, reinterpret_cast<LPARAM>(&itemData_shift));
+			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+		}
+	}
+	else
+	{
+		for (int i = oldTab; i < newTab; ++i)
+		{
+			::SendMessage(_hSelf, TCM_GETITEM, i + 1, reinterpret_cast<LPARAM>(&itemData_shift));
+			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+		}
+	}
+	::SendMessage(_hSelf, TCM_SETITEM, newTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+
+	// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
+	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
+
+	//2. set to focus
+	setActiveTab(newTab);
+}
+
 void TabBarPlus::exchangeItemData(POINT point)
 {
 	// Find the destination tab...
@@ -1069,47 +1185,8 @@ void TabBarPlus::exchangeItemData(POINT point)
 
 		if (nTab != _nTabDragged)
 		{
-			//1. set to focus
-			::SendMessage(_hSelf, TCM_SETCURSEL, nTab, 0);
-
-			//2. shift their data, and insert the source
-			TCITEM itemData_nDraggedTab, itemData_shift;
-			itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
-			const int stringSize = 256;
-			TCHAR str1[stringSize];
-			TCHAR str2[stringSize];
-
-			itemData_nDraggedTab.pszText = str1;
-			itemData_nDraggedTab.cchTextMax = (stringSize);
-
-			itemData_shift.pszText = str2;
-			itemData_shift.cchTextMax = (stringSize);
-
-			::SendMessage(_hSelf, TCM_GETITEM, _nTabDragged, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
-
-			if (_nTabDragged > nTab)
-			{
-				for (int i = _nTabDragged ; i > nTab ; i--)
-				{
-					::SendMessage(_hSelf, TCM_GETITEM, i-1, reinterpret_cast<LPARAM>(&itemData_shift));
-					::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
-				}
-			}
-			else
-			{
-				for (int i = _nTabDragged ; i < nTab ; ++i)
-				{
-					::SendMessage(_hSelf, TCM_GETITEM, i+1, reinterpret_cast<LPARAM>(&itemData_shift));
-					::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
-				}
-			}
-			::SendMessage(_hSelf, TCM_SETITEM, nTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
-
-			//3. update the current index
+			exchangeTabItemData(_nTabDragged, nTab);
 			_nTabDragged = nTab;
-
-			// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
-			::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, _nTabDragged);
 		}
 	}
 	else

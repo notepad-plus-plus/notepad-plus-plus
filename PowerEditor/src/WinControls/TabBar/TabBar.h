@@ -223,6 +223,8 @@ protected:
     // it's the boss to decide if we do the drag N drop
     static bool _doDragNDrop;
 	// drag N drop members
+	bool _mightBeDragging;
+	int _dragCount;
 	bool _isDragging = false;
 	bool _isDraggingInside = false;
     int _nSrcTab = -1;

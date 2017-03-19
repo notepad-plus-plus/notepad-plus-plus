@@ -1056,6 +1056,60 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 	}
 }
 
+void TabBarPlus::setActiveTab(int tabIndex)
+{
+	::SendMessage(_hSelf, TCM_SETCURFOCUS, tabIndex, 0);
+
+	// the TCS_BUTTONS style does not automatically send TCM_SETCURSEL & TCN_SELCHANGE
+	if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+	{
+		::SendMessage(_hSelf, TCM_SETCURSEL, tabIndex, 0);
+		notify(TCN_SELCHANGE, tabIndex);
+	}
+}
+
+void TabBarPlus::exchangeTabItemData(int oldTab, int newTab)
+{
+	//1. shift their data, and insert the source
+	TCITEM itemData_nDraggedTab, itemData_shift;
+	itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
+	const int stringSize = 256;
+	TCHAR str1[stringSize];
+	TCHAR str2[stringSize];
+
+	itemData_nDraggedTab.pszText = str1;
+	itemData_nDraggedTab.cchTextMax = (stringSize);
+
+	itemData_shift.pszText = str2;
+	itemData_shift.cchTextMax = (stringSize);
+
+	::SendMessage(_hSelf, TCM_GETITEM, oldTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+
+	if (oldTab > newTab)
+	{
+		for (int i = oldTab; i > newTab; i--)
+		{
+			::SendMessage(_hSelf, TCM_GETITEM, i - 1, reinterpret_cast<LPARAM>(&itemData_shift));
+			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+		}
+	}
+	else
+	{
+		for (int i = oldTab; i < newTab; ++i)
+		{
+			::SendMessage(_hSelf, TCM_GETITEM, i + 1, reinterpret_cast<LPARAM>(&itemData_shift));
+			::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+		}
+	}
+	::SendMessage(_hSelf, TCM_SETITEM, newTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+
+	// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
+	::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, oldTab);
+
+	//2. set to focus
+	setActiveTab(newTab);
+}
+
 void TabBarPlus::exchangeItemData(POINT point)
 {
 	// Find the destination tab...
@@ -1069,47 +1123,8 @@ void TabBarPlus::exchangeItemData(POINT point)
 
 		if (nTab != _nTabDragged)
 		{
-			//1. set to focus
-			::SendMessage(_hSelf, TCM_SETCURSEL, nTab, 0);
-
-			//2. shift their data, and insert the source
-			TCITEM itemData_nDraggedTab, itemData_shift;
-			itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
-			const int stringSize = 256;
-			TCHAR str1[stringSize];
-			TCHAR str2[stringSize];
-
-			itemData_nDraggedTab.pszText = str1;
-			itemData_nDraggedTab.cchTextMax = (stringSize);
-
-			itemData_shift.pszText = str2;
-			itemData_shift.cchTextMax = (stringSize);
-
-			::SendMessage(_hSelf, TCM_GETITEM, _nTabDragged, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
-
-			if (_nTabDragged > nTab)
-			{
-				for (int i = _nTabDragged ; i > nTab ; i--)
-				{
-					::SendMessage(_hSelf, TCM_GETITEM, i-1, reinterpret_cast<LPARAM>(&itemData_shift));
-					::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
-				}
-			}
-			else
-			{
-				for (int i = _nTabDragged ; i < nTab ; ++i)
-				{
-					::SendMessage(_hSelf, TCM_GETITEM, i+1, reinterpret_cast<LPARAM>(&itemData_shift));
-					::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
-				}
-			}
-			::SendMessage(_hSelf, TCM_SETITEM, nTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
-
-			//3. update the current index
+			exchangeTabItemData(_nTabDragged, nTab);
 			_nTabDragged = nTab;
-
-			// Tell Notepad_plus to notifiy plugins that a D&D operation was done (so doc index has been changed)
-			::SendMessage(_hParent, NPPM_INTERNAL_DOCORDERCHANGED, 0, _nTabDragged);
 		}
 	}
 	else

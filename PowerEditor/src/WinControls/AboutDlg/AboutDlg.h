@@ -26,17 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef ABOUT_DLG_H
-#define ABOUT_DLG_H
+#pragma once
 
-#ifndef URLCTRL_INCLUDED
 #include "URLCtrl.h"
-#endif// URLCTRL_INCLUDED
-
-#ifndef RESOURCE_H
 #include "resource.h"
-#endif// RESOURCE_H
-
 #include "StaticDialog.h"
 
 #define LICENCE_TXT \
@@ -103,5 +96,3 @@ private:
 	URLCtrl _copyToClipboardLink;
 };
 
-
-#endif //ABOUT_DLG_H

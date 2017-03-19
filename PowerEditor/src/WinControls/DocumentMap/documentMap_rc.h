@@ -25,13 +25,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#ifndef DOCUMENTMAP_RC_H
-#define DOCUMENTMAP_RC_H
+#pragma once
 
 #define	IDD_DOCUMENTMAP      3300
 #define	IDD_VIEWZONE         3320
 #define	IDC_VIEWZONECANVAS    (IDD_VIEWZONE + 1)
-
-#endif // DOCUMENTMAP_RC_H
-

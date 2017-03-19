@@ -476,7 +476,8 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			// will do previous/next tab WITH scroll wrapping (endless loop)
 			// ..............................................................................
 			// SHIFT + MOUSEWHEEL:
-			// will do previous/next tab WITHOUT scroll wrapping (stops at first/last tab)
+			// if _doDragNDrop is enabled, then moves the tab, otherwise switches 
+			// to previous/next tab WITHOUT scroll wrapping (stops at first/last tab)
 			// ..............................................................................
 			// CTRL + SHIFT + MOUSEWHEEL:
 			// will switch to the first/last tab
@@ -491,6 +492,25 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			if ((wParam & MK_CONTROL) && (wParam & MK_SHIFT))
 			{
 				setActiveTab((isForward ? lastTabIndex : 0));
+			}
+			else if ((wParam & MK_SHIFT) && _doDragNDrop)
+			{
+				int oldTabIndex = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
+				int newTabIndex = oldTabIndex + (isForward ? 1 : -1);
+
+				if (newTabIndex < 0)
+				{
+					newTabIndex = lastTabIndex; // wrap scrolling
+				}
+				else if (newTabIndex > lastTabIndex)
+				{
+					newTabIndex = 0; // wrap scrolling
+				}
+
+				if (oldTabIndex != newTabIndex)
+				{
+					exchangeTabItemData(oldTabIndex, newTabIndex);
+				}
 			}
 			else if (wParam & (MK_CONTROL | MK_SHIFT))
 			{

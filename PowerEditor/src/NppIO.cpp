@@ -444,6 +444,10 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 		_subEditView.restoreCurrentPos();
 	}
+
+	// Once reload is complete, activate buffer which will take care of
+	// many settings such as update status bar, clickable link etc.
+	activateBuffer(id, currentView());
 	return res;
 }
 

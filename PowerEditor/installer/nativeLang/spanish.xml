@@ -10,7 +10,7 @@
 					<Item menuId="search" name="&amp;Buscar"/>
 					<Item menuId="view" name="&amp;Vista"/>
 					<Item menuId="encoding" name="Co&amp;dificación"/>
-					<Item menuId="language" name="&amp;idioma"/>
+					<Item menuId="language" name="&amp;Lenguaje"/>
 					<Item menuId="settings" name="&amp;Configuración"/>
 					<Item menuId="tools" name="Herramientas"/>
 					<Item menuId="macro" name="Macro"/>
@@ -272,7 +272,7 @@
 					<Item id="10003" name="Mover a una ventana nueva"/>
 					<Item id="10004" name="Abrir en una ventana nueva"/>
 					<Item id="46001" name="Configurador de estilo..."/>
-					<Item id="46150" name="Defina su idioma..."/>
+					<Item id="46150" name="Defina su lenguaje..."/>
 					<Item id="46080" name="Definido por el usuario"/>
 					<Item id="47000" name="Sobre Notepad++..."/>
 					<Item id="47010" name="Argumentos line de comandos..."/>
@@ -425,7 +425,7 @@
 					<Item id="2218" name="Subrayado"/>
 					<Item id="2219" name="Palabras clave predeterminadas"/>
 					<Item id="2221" name="Palabras clave definidas por el usuario"/>
-					<Item id="2225" name="idioma:"/>
+					<Item id="2225" name="Lenguaje:"/>
 					<Item id="2226" name="Globalizar color de fuentes"/>
 					<Item id="2227" name="Globalizar color de fondo"/>
 					<Item id="2228" name="Globalizar tipo de fuente"/>
@@ -441,7 +441,7 @@
 				<Item id="20003" name="Crear nuevo..."/>
 				<Item id="20004" name="Eliminar"/>
 				<Item id="20005" name="Guardar como..."/>
-				<Item id="20007" name="idioma: "/>
+				<Item id="20007" name="Lenguaje: "/>
 				<Item id="20009" name="Ext.:"/>
 				<Item id="20012" name="Ignorar MAY./min."/>
 				<Item id="20011" name="Transparencia"/>
@@ -675,7 +675,7 @@
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UCS-2 Big Endian"/>
 					<Item id="6410" name="UCS-2 Little Endian"/>
-					<Item id="6411" name="idioma predeterminado:"/>
+					<Item id="6411" name="Lenguaje predeterminado:"/>
 					<Item id="6419" name="Archivo nuevo"/>
 					<Item id="6420" name="Aplicar a los archivos ANSI abiertos"/>
 				</NewDoc>

@@ -643,6 +643,7 @@ public:
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
 	void changeTextDirection(bool isRTL);
 	bool isTextDirectionRTL() const;
+	void removeWindowBorder(bool mustRemove);
 
 protected:
 	static HINSTANCE _hLib;

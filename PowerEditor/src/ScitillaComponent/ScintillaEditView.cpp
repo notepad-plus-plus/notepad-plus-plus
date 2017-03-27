@@ -3323,6 +3323,19 @@ void ScintillaEditView::changeTextDirection(bool isRTL)
 	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
 }
 
+void ScintillaEditView::removeWindowBorder(bool mustRemove)
+{ //Called in DocTabView::reSizeTo
+	long exStyle = ::GetWindowLongPtr(_hSelf, GWL_EXSTYLE);
+
+	if (not mustRemove)
+		exStyle |= WS_EX_CLIENTEDGE;
+	else
+		exStyle &= ~WS_EX_CLIENTEDGE;
+
+	::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, exStyle);
+	::SetWindowPos(_hSelf, NULL, 0,0,0,0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+}
+
 generic_string ScintillaEditView::getEOLString()
 {
 	const int eol_mode = int(execute(SCI_GETEOLMODE));

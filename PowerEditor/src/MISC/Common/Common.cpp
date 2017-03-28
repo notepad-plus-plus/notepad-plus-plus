@@ -26,6 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <algorithm>
 #include <stdexcept>
+#include <sstream>
 #include <shlwapi.h>
 #include <shlobj.h>
 #include <uxtheme.h>
@@ -37,6 +38,7 @@
 
 WcharMbcsConvertor* WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
 
+typedef std::basic_stringstream<TCHAR> generic_stringstream;
 
 
 

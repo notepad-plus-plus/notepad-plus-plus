@@ -228,11 +228,11 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	else // (rowCount >= 2)
 	{
 		style |= TCS_BUTTONS;
-		marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
+		marge = (rowCount - 2) * 3; // in TCS_BUTTONS mode, each row has few pixels higher
 	}
 
 	::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
-	tabsHight = rowCount * (larger - smaller + marge);
+	tabsHight = rowCount * (larger - smaller) + marge;
 	tabsHight += GetSystemMetrics(_isVertical ? SM_CXEDGE : SM_CYEDGE);
 
 	if (_isVertical)

@@ -53,6 +53,40 @@ OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 !insertmacro CheckIfRunning ""
 !insertmacro CheckIfRunning "un."
 
+; Check if Notepad++ is running
+; Created by Motaz Alnuweiri
+
+; URL: http://nsis.sourceforge.net/Check_whether_your_application_is_running
+;      http://nsis.sourceforge.net/Sharing_functions_between_Installer_and_Uninstaller
+
+; Create CheckIfRunning shared function.
+!macro CheckIfRunning un
+	Function ${un}CheckIfRunning
+		Check:
+		System::Call 'kernel32::OpenMutex(i 0x100000, b 0, t "nppInstance") i .R0'
+		
+		IntCmp $R0 0 NotRunning
+			System::Call 'kernel32::CloseHandle(i $R0)'
+			MessageBox MB_RETRYCANCEL|MB_DEFBUTTON1|MB_ICONSTOP "Please close the following programs:\
+			          $\n$\n\
+                      Notepad++\
+					  $\n$\n\
+					  Then click ''Retry'' to continue." IDRETRY Retry IDCANCEL Cancel
+			Retry:
+				Goto Check
+			
+			Cancel:
+				Quit
+	
+		NotRunning:
+		
+	FunctionEnd
+!macroend
+ 
+; Insert CheckIfRunning function as an installer and uninstaller function.
+!insertmacro CheckIfRunning ""
+!insertmacro CheckIfRunning "un."
+
 ; Modern interface settings
 !define MUI_ICON ".\images\npp_inst.ico"
 !define MUI_UNICON ".\images\npp_inst.ico"

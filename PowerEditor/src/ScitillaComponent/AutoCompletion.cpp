@@ -132,11 +132,26 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	if (nppGUI._autocIgnoreNumbers && isAllDigits(beginChars))
 		return;
-
-	generic_string expr(TEXT("\\<"));
-	expr += beginChars;
-	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
-
+	
+	generic_string expr(TEXT(""));
+	if (_tcscmp(getApiFileName(), _T("ConTeXt")) == 0)
+	{
+		//The regex expression needs to be modified for ConTeXt lexers
+		if (beginChars[0] == '\\')
+			expr += TEXT("\\");
+		else
+			expr += TEXT("(?<!\\\\)"); //[^ \\\\]
+		expr += beginChars;
+		expr += TEXT("[^ \\\\%\\{\\}\\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
+	}
+	else
+	{
+		expr += TEXT("\\<");
+		expr += beginChars;
+		expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
+	}
+		
+	
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
@@ -736,6 +751,19 @@ void AutoCompletion::update(int character)
 
 	const int wordSize = 64;
 	TCHAR s[wordSize];
+
+	//add a backslash to character set if the lexer is ConTeXt
+	if (_tcscmp(getApiFileName(), _T("ConTeXt")) == 0)
+	{
+		auto defaultCharListLen = _pEditView->execute(SCI_GETWORDCHARS);
+		char *defaultCharList = new char[defaultCharListLen + 2];
+		_pEditView->execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+		defaultCharList[defaultCharListLen] = '\\';
+		defaultCharList[defaultCharListLen + 1] = '\0';
+		_pEditView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+		delete[] defaultCharList;
+	}
+
 	_pEditView->getWordToCurrentPos(s, wordSize);
 
 	if (lstrlen(s) >= int(nppGUI._autocFromLen))

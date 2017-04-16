@@ -65,7 +65,20 @@ bool AutoCompletion::showApiComplete()
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
+
+	//determine if the file is a tex file
+	const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
+	int fnsize = lstrlen(fn);
+	bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
+		&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
+
+	if (isTEX) { //if this is a TEX file
+		TCHAR initChars[2];
+		_pEditView->getGenericText(initChars, 2, startPos - 1, startPos);
+		if(initChars[0] == '\\')
+			_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
+	}else
+		_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
 	return true;
 }
@@ -120,7 +133,21 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+	
+	//determine if the file is a tex file
+	const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
+	int fnsize = lstrlen(fn);
+	bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
+		&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
+
+	if (isTEX) { //if this is a TEX file
+		TCHAR initChars[2];
+		_pEditView->getGenericText(initChars, 2, startPos - 1, startPos);
+		if (initChars[0] == '\\')
+			_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+	}else
+		_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+
 	return true;
 }
 
@@ -155,7 +182,18 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 			TCHAR w[bufSize];
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
 
-			if (!isInList(w, wordArray))
+			//determine if the file is a tex file
+			const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
+			int fnsize = lstrlen(fn);
+			bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
+				&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
+			if (isTEX) {
+				TCHAR w_zy[2];
+				_pEditView->getGenericText(w_zy, 2, wordStart - 1, wordEnd);
+				if (w_zy[0] == '\\' && !isInList(w, wordArray))
+					wordArray.push_back(w);
+			}
+			else if (!isInList(w, wordArray))
 				wordArray.push_back(w);
 		}
 		posFind = _pEditView->searchInTarget(expr.c_str(), static_cast<int32_t>(expr.length()), wordEnd, docLength);
@@ -361,7 +399,23 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+	
+
+	//determine if the file is a tex file
+	const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
+	int fnsize = lstrlen(fn);
+	bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
+		&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
+
+	if (isTEX) { //if this is a TEX file
+		TCHAR initChars[2];
+		_pEditView->getGenericText(initChars, 2, startPos - 1, startPos);
+		if (initChars[0] == '\\')
+			_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+	}
+	else
+		_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+
 	return true;
 }
 

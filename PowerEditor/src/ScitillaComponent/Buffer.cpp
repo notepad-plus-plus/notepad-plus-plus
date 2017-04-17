@@ -46,14 +46,8 @@ static const int LF = 0x0A;
 
 long Buffer::_recentTagCtr = 0;
 
-
-
-
-
-
 namespace // anonymous
 {
-
 	static EolType getEOLFormatForm(const char* const data, size_t length, EolType defvalue = EolType::osdefault)
 	{
 		assert(length == 0 or data != nullptr && "invalid buffer for getEOLFormatForm()");
@@ -74,19 +68,12 @@ namespace // anonymous
 
 		return defvalue; // fallback unknown
 	}
-
-
 } // anonymous namespace
-
-
 
 
 Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)
 	// type must be either DOC_REGULAR or DOC_UNNAMED
-	: _pManager(pManager)
-	, _id(id)
-	, _doc(doc)
-	, _lang(L_TEXT)
+	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT)
 {
 	NppParameters* pNppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings& ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
@@ -467,14 +454,6 @@ void Buffer::setDeferredReload() // triggers a reload on the next Document acces
 	doNotify(BufferChangeDirty);
 }
 
-
-void Buffer::setMapPosition(int32_t firstVisibleDocLine, int32_t lastVisibleDocLine, int32_t nbLine, int32_t higherPos)
-{
-	_mapPosition._firstVisibleDocLine = firstVisibleDocLine;
-	_mapPosition._lastVisibleDocLine = lastVisibleDocLine;
-	_mapPosition._nbLine = nbLine;
-	_mapPosition._higherPos = higherPos;
-}
 
 //filemanager
 

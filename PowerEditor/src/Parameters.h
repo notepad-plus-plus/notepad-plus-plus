@@ -144,6 +144,10 @@ struct MapPosition
 	int32_t _lastVisibleDocLine = -1;
 	int32_t _nbLine = -1;
 	int32_t _higherPos = -1;
+	int32_t _width = -1;
+	int32_t _height = -1;
+	int32_t _wrapIndentMode = -1;
+	bool _isWrap = false;
 	bool isValid() { return _firstVisibleDocLine != -1; };
 };
 

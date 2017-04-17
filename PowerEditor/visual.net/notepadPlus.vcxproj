@@ -285,6 +285,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\WinControls\DockingWnd\DockingSplitter.cpp" />
     <ClCompile Include="..\src\ScitillaComponent\DocTabView.cpp" />
     <ClCompile Include="..\src\WinControls\DocumentMap\documentMap.cpp" />
+    <ClCompile Include="..\src\WinControls\DocumentMap\documentSnapshot.cpp" />
     <ClCompile Include="..\src\EncodingMapper.cpp" />
     <ClCompile Include="..\src\WinControls\OpenSaveFileDialog\FileDialog.cpp" />
     <ClCompile Include="..\src\WinControls\FindCharsInRange\FindCharsInRange.cpp" />
@@ -494,6 +495,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ResourceCompile Include="..\src\ScitillaComponent\columnEditor.rc" />
     <ResourceCompile Include="..\src\WinControls\DockingWnd\DockingGUIWidget.rc" />
     <ResourceCompile Include="..\src\WinControls\DocumentMap\documentMap.rc" />
+    <ResourceCompile Include="..\src\WinControls\DocumentMap\documentSnapshot.rc" />
     <ResourceCompile Include="..\src\WinControls\FileBrowser\fileBrowser.rc" />
     <ResourceCompile Include="..\src\WinControls\FindCharsInRange\findCharsInRange.rc" />
     <ResourceCompile Include="..\src\ScitillaComponent\FindReplaceDlg.rc" />
@@ -556,6 +558,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\DockingWnd\DockingSplitter.h" />
     <ClInclude Include="..\src\ScitillaComponent\DocTabView.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentMap.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot.h" />
     <ClInclude Include="..\src\EncodingMapper.h" />
     <ClInclude Include="..\src\WinControls\OpenSaveFileDialog\FileDialog.h" />
     <ClInclude Include="..\src\MISC\FileNameStringSplitter.h" />

@@ -155,10 +155,10 @@ void TabBar::activateAt(int index) const
 		::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);
 
 	TBHDR nmhdr;
-	nmhdr.hdr.hwndFrom = _hSelf;
-	nmhdr.hdr.code = TCN_SELCHANGE;
-	nmhdr.hdr.idFrom = reinterpret_cast<UINT_PTR>(this);
-	nmhdr.tabOrigin = index;
+	nmhdr._hdr.hwndFrom = _hSelf;
+	nmhdr._hdr.code = TCN_SELCHANGE;
+	nmhdr._hdr.idFrom = reinterpret_cast<UINT_PTR>(this);
+	nmhdr._tabOrigin = index;
 }
 
 
@@ -426,10 +426,10 @@ void TabBarPlus::doMultiLine()
 void TabBarPlus::notify(int notifyCode, int tabIndex)
 {
 	TBHDR nmhdr;
-	nmhdr.hdr.hwndFrom = _hSelf;
-	nmhdr.hdr.code = notifyCode;
-	nmhdr.hdr.idFrom = reinterpret_cast<UINT_PTR>(this);
-	nmhdr.tabOrigin = tabIndex;
+	nmhdr._hdr.hwndFrom = _hSelf;
+	nmhdr._hdr.code = notifyCode;
+	nmhdr._hdr.idFrom = reinterpret_cast<UINT_PTR>(this);
+	nmhdr._tabOrigin = tabIndex;
 	::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmhdr));
 }
 
@@ -631,7 +631,6 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
-		//#define NPPM_INTERNAL_ISDRAGGING 40926
 		case WM_MOUSEMOVE :
 		{
 			if (_mightBeDragging && !_isDragging)

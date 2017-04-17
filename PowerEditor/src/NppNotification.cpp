@@ -158,7 +158,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
 				if (pTabDocView)
 				{
-					BufferID id = pTabDocView->getBufferByIndex(tbHdr->tabOrigin);
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
 					Buffer *pBuf = MainFileManager->getBufferByID(id);
 
 					Buffer *currentBuf = getCurrentBuffer();
@@ -177,12 +177,43 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 			}
 			*/
+
+			/*
+			if (true)
+			{
+				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
+				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
+				if (pTabDocView)
+				{
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
+					Buffer *pBuf = MainFileManager->getBufferByID(id);
+
+					Buffer *currentBuf = getCurrentBuffer();
+
+					RECT rect;
+					TabCtrl_GetItemRect(pTabDocView->getHSelf(), tbHdr->_tabOrigin, &rect);
+					POINT p;
+					p.x = rect.left;
+					p.y = rect.bottom;
+					::ClientToScreen(pTabDocView->getHSelf(), &p);
+
+					if (pBuf != currentBuf) // if hover on other tab
+					{
+						_documentSnapshot.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
+					}
+					else  // if hover on current active tab
+					{
+						_documentSnapshot.display(false);
+					}
+				}
+			}
+			*/
 			break;
 		}
 
 		case TCN_MOUSELEAVING:
 		{
-			/*
+			///*
 			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				_pDocMap->reloadMap();
@@ -190,7 +221,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				_pDocMap->setTemporarilyShowing(false);
 			}
-			*/
+			//*/
+
+
+			if (true)
+			{
+				_documentSnapshot.display(false);
+			}
 			break;
 		}
 
@@ -287,7 +324,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case TCN_TABDELETE:
 		{
-			int index = tabNotification->tabOrigin;
+			int index = tabNotification->_tabOrigin;
 			BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
 			Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
 			int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
@@ -316,6 +353,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else
 				break;
 
+			// save map position before switch to a new document
+			_documentSnapshot.saveCurrentSnapshot(*_pEditView);
+
 			switchEditViewTo(iView);
 			BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
 			if (bufid != BUFFER_INVALID)
@@ -324,6 +364,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufid, iView);
 				_isFolding = false;
 			}
+
+			if (true)
+			{
+				_documentSnapshot.display(false);
+			}
+
 			break;
 		}
 

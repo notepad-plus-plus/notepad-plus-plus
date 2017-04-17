@@ -57,8 +57,7 @@ public :
 
 	void doDialog();
 
-    virtual void destroy() {
-    };
+    virtual void destroy() {};
 
 	void drawZone(long hY, long lY) {
 		_higherY = hY;

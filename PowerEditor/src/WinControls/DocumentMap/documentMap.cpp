@@ -257,9 +257,13 @@ void DocumentMap::scrollMap(ScintillaEditView *editView)
 			lowerY = nbLine * lineHeight + higherY;
 		}
 
+		char toto[256];
+		sprintf(toto, "MAP : %d & %d\n\n", higherY, lowerY);
+		OutputDebugStringA(toto);
+
 		// set current map position in buffer
-		Buffer *buffer = pEditView->getCurrentBuffer();
-		buffer->setMapPosition(static_cast<int32_t>(firstVisibleDocLine), static_cast<int32_t>(lastVisibleDocLine), static_cast<int32_t>(nbLine), static_cast<int32_t>(higherPos));
+		//Buffer *buffer = pEditView->getCurrentBuffer();
+		//buffer->setMapPosition(static_cast<int32_t>(firstVisibleDocLine), static_cast<int32_t>(lastVisibleDocLine), static_cast<int32_t>(nbLine), static_cast<int32_t>(higherPos));
 
 		// Update view zone in map
 		_vzDlg.drawZone(static_cast<long>(higherY), static_cast<long>(lowerY));
@@ -272,6 +276,10 @@ void DocumentMap::scrollMapWith(const MapPosition & mapPos, ScintillaEditView & 
 	{
 		// Visible document line for the map view
 		auto firstVisibleDisplayLineMap = _pScintillaEditView->execute(SCI_GETFIRSTVISIBLELINE);
+		//char toto[256];
+		//sprintf(toto, "MAP : highfirstVisibleDisplayLineerY: %d\n", firstVisibleDisplayLine);
+		//OutputDebugStringA(toto);
+
 		auto firstVisibleDocLineMap = _pScintillaEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap);
 		auto nbLineMap = _pScintillaEditView->execute(SCI_LINESONSCREEN, firstVisibleDocLineMap);
 		auto lastVisibleDocLineMap = editView.execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap + nbLineMap);
@@ -303,6 +311,8 @@ void DocumentMap::scrollMapWith(const MapPosition & mapPos, ScintillaEditView & 
 			auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine);
 			lowerY = mapPos._nbLine * lineHeight + higherY;
 		}
+		//sprintf(toto, "MAP : %d & %d\n\n", higherY, lowerY);
+		//OutputDebugStringA(toto);
 
 		// Update view zone in map
 		_vzDlg.drawZone(static_cast<long>(higherY), static_cast<long>(lowerY));

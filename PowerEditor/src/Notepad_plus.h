@@ -52,6 +52,7 @@
 #include "lesDlgs.h"
 #include "pluginsAdmin.h"
 #include "localization.h"
+#include "documentSnapshot.h"
 #include "md5Dlgs.h"
 #include <vector>
 #include <iso646.h>
@@ -282,6 +283,7 @@ private:
 	PreferenceDlg _preference;
 	FindCharsInRangeDlg _findCharsInRangeDlg;
 	PluginsAdminDlg _pluginsAdminDlg;
+	DocumentSnapshot _documentSnapshot;
 
 	// a handle list of all the Notepad++ dialogs
 	std::vector<HWND> _hModelessDlgs;

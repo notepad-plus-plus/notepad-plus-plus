@@ -70,6 +70,7 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_NEW:
 		{
 			fileNew();
+
 			/*
 			bool isFirstTime = not _pluginsAdminDlg.isCreated();
 			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
@@ -2572,6 +2573,7 @@ void Notepad_plus::command(int id)
 					return;
 				}
 			}
+
 			if (doAboutDlg)
 			{
 				bool isFirstTime = !_aboutDlg.isCreated();

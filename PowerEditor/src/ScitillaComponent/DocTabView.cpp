@@ -229,3 +229,4 @@ void DocTabView::reSizeTo(RECT & rc)
 		_pView->reSizeTo(rc);
 	}
 }
+

@@ -80,6 +80,10 @@ public :
 
 	virtual void reSizeTo(RECT & rc);
 
+	const ScintillaEditView* getScintillaEditView() const {
+		return _pView;
+	};
+
 private :
 	ScintillaEditView *_pView;
 	static bool _hideTabBarStatus;

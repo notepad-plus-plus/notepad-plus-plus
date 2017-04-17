@@ -348,15 +348,13 @@ public:
 	bool isMonitoringOn() const { return _isMonitoringOn; };
 	void updateTimeStamp();
 	void reload();
-
-	void setMapPosition(int32_t firstVisibleDocLine, int32_t lastVisibleDocLine, int32_t nbLine, int32_t higherPos);
+	void setMapPosition(const MapPosition & mapPosition) { _mapPosition = mapPosition; };
 	MapPosition getMapPosition() { return _mapPosition; };
 
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 
-	void setStatus(DocFileStatus status)
-	{
+	void setStatus(DocFileStatus status) {
 		_currentStatus = status;
 		doNotify(BufferChangeStatus);
 	}

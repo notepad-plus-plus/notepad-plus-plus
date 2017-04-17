@@ -274,6 +274,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.cpp" />
     <ClCompile Include="..\src\ScitillaComponent\AutoCompletion.cpp" />
     <ClCompile Include="..\src\WinControls\AnsiCharPanel\asciiListView.cpp" />
+    <ClCompile Include="..\src\WinControls\DocumentMap\documentSnapshot.cpp" />
     <ClCompile Include="..\src\WinControls\Grid\BabyGrid.cpp" />
     <ClCompile Include="..\src\WinControls\Grid\BabyGridWrapper.cpp" />
     <ClCompile Include="..\src\ScitillaComponent\Buffer.cpp" />
@@ -504,6 +505,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ResourceCompile Include="..\src\ScitillaComponent\columnEditor.rc" />
     <ResourceCompile Include="..\src\WinControls\DockingWnd\DockingGUIWidget.rc" />
     <ResourceCompile Include="..\src\WinControls\DocumentMap\documentMap.rc" />
+    <ResourceCompile Include="..\src\WinControls\DocumentMap\documentSnapshot.rc" />
     <ResourceCompile Include="..\src\WinControls\FindCharsInRange\findCharsInRange.rc" />
     <ResourceCompile Include="..\src\ScitillaComponent\FindReplaceDlg.rc" />
     <ResourceCompile Include="..\src\WinControls\FunctionList\functionListPanel.rc" />
@@ -539,6 +541,8 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />
     <ClInclude Include="..\src\ScitillaComponent\AutoCompletion.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\asciiListView.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot_rc.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGrid.h" />
     <ClInclude Include="..\src\WinControls\Grid\BabyGridWrapper.h" />
     <ClInclude Include="..\src\ScitillaComponent\Buffer.h" />

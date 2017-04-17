@@ -59,8 +59,8 @@ const TCHAR TABBAR_INACTIVETEXT[64] = TEXT("Inactive tabs");
 
 struct TBHDR
 {
-	NMHDR hdr;
-	int tabOrigin;
+	NMHDR _hdr;
+	int _tabOrigin;
 };
 
 

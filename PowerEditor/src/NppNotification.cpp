@@ -213,7 +213,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case TCN_MOUSELEAVING:
 		{
-			///*
+			/*
 			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				_pDocMap->reloadMap();
@@ -221,13 +221,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				_pDocMap->setTemporarilyShowing(false);
 			}
-			//*/
 
-
-			if (true)
+			bool doSnapshot = true;
+			if (doSnapshot)
 			{
 				_documentSnapshot.display(false);
 			}
+			*/
 			break;
 		}
 
@@ -365,7 +365,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_isFolding = false;
 			}
 
-			if (true)
+			bool doSnapshot = true;
+			if (doSnapshot)
 			{
 				_documentSnapshot.display(false);
 			}

@@ -627,6 +627,16 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_RBUTTONDOWN :	//rightclick selects tab aswell
 		{
+			// TCS_BUTTONS doesn't select the tab
+			if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+			{
+				int nTab = getTabIndexAt(LOWORD(lParam), HIWORD(lParam));
+				if (nTab != -1 && nTab != static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0)))
+				{
+					setActiveTab(nTab);
+				}
+			}
+
 			::CallWindowProc(_tabBarDefaultProc, hwnd, WM_LBUTTONDOWN, wParam, lParam);
 			return TRUE;
 		}

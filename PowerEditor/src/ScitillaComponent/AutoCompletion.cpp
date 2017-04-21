@@ -46,6 +46,19 @@ static bool isAllDigits(const generic_string &str)
 	return std::all_of(str.begin(), str.end(), ::isdigit);
 }
 
+static void sortKeyWords(bool _ignoreCase, vector<generic_string>& _keyWordArray)
+{
+	if (_ignoreCase)
+	{
+		std::sort(_keyWordArray.begin(), _keyWordArray.end(), [](const generic_string& lhs, const generic_string& rhs) {
+			return _tcscmp(stringToUpper(lhs).c_str(), stringToUpper(rhs).c_str())<0;
+		});
+	}
+	else
+	{
+		std::sort(_keyWordArray.begin(), _keyWordArray.end());
+	}
+}
 
 bool AutoCompletion::showApiComplete()
 {
@@ -94,7 +107,12 @@ bool AutoCompletion::showApiAndWordComplete()
 	bool canStop = false;
 	for (size_t i = 0, kwlen = _keyWordArray.size(); i < kwlen; ++i)
 	{
-		if (_keyWordArray[i].compare(0, len, beginChars) == 0)
+		bool isKeywordMatch = false;
+		if (_ignoreCase)
+			isKeywordMatch = (stringToUpper(_keyWordArray[i]).compare(0, len, stringToUpper(beginChars)) == 0);
+		else
+			isKeywordMatch = (_keyWordArray[i].compare(0, len, beginChars) == 0);
+		if (isKeywordMatch)
 		{
 			if (!isInList(_keyWordArray[i], wordArray))
 				wordArray.push_back(_keyWordArray[i]);
@@ -106,7 +124,7 @@ bool AutoCompletion::showApiAndWordComplete()
 		}
 	}
 
-	sort(wordArray.begin(), wordArray.end());
+	sortKeyWords(_ignoreCase, wordArray);
 
 	// Get word list
 	generic_string words;
@@ -140,6 +158,8 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
+	if (_ignoreCase)
+		flags = SCFIND_WORDSTART | SCFIND_REGEXP | SCFIND_POSIX;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
@@ -347,7 +367,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		return true;
 	}
 
-	sort(wordArray.begin(), wordArray.end());
+	sortKeyWords(_ignoreCase, wordArray);
 
 	// Get word list
 	generic_string words(TEXT(""));
@@ -864,7 +884,7 @@ bool AutoCompletion::setLanguage(LangType language) {
 			}
 		}
 
-		sort(_keyWordArray.begin(), _keyWordArray.end());
+		sortKeyWords(_ignoreCase, _keyWordArray);
 
 		for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
 		{

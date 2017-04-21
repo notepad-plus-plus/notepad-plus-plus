@@ -58,6 +58,9 @@ http://docs.notepad-plus-plus.org/index.php/Context_Menu
 		<Item id="0"/>
         <Item MenuEntryName="Run" MenuItemName="Google Search"/>
         <Item id="0"/>
+        <Item MenuEntryName="Edit" MenuItemName="Sort Lines Lexicographically Ascending"/>
+        <Item MenuEntryName="Edit" MenuItemName="Sort Lines Lexicographically Descending"/>
+        <Item id="0"/>
         <Item MenuEntryName="Edit" MenuItemName="UPPERCASE"/>
         <Item MenuEntryName="Edit" MenuItemName="lowercase"/>
         <Item id="0"/>

@@ -859,7 +859,7 @@ static inline void ReColoringCheck(unsigned int & startPos, unsigned int & neste
     // nesting group is something like:
     // "first delimiter 'nested delimiter 1 /*nested delimiter 2*/ delimiter 1 again' first delimiter again"
     // if user is editing somewhere inside this group, than 'lastNestedGroup' provides info about nesting
-    // this is much more convinient that trying to obtain the same info from 'nestedVector'
+    // this is much more convenient that trying to obtain the same info from 'nestedVector'
     vector<nestedInfo>::iterator last;
     while (iter != nestedVector.end())
     {

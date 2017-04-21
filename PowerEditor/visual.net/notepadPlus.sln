@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Notepad++", "notepadPlus.vcxproj", "{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Unicode Debug|Win32 = Unicode Debug|Win32
+		Unicode Release|Win32 = Unicode Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|Win32.ActiveCfg = Unicode Debug|Win32
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Debug|Win32.Build.0 = Unicode Debug|Win32
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|Win32.ActiveCfg = Unicode Release|Win32
+		{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}.Unicode Release|Win32.Build.0 = Unicode Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

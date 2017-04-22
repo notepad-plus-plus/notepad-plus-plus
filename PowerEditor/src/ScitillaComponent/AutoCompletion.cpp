@@ -48,13 +48,14 @@ static bool isAllDigits(const generic_string &str)
 
 bool AutoCompletion::addLanguageCustomChars()
 {
-	if (_funcCalltip._additionalWordChar == TEXT(""))
+	if (_funcCalltip._additionalWordChar.empty())
 		return false;
 
 	string charList;
 	auto defaultCharListLen = _pEditView->execute(SCI_GETWORDCHARS);
 	char *defaultCharList = new char[defaultCharListLen + 1];
 	_pEditView->execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+	defaultCharList[defaultCharListLen] = '\0';
 	charList = defaultCharList;
 	delete[] defaultCharList;
 

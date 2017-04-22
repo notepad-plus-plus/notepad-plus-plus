@@ -46,6 +46,48 @@ static bool isAllDigits(const generic_string &str)
 	return std::all_of(str.begin(), str.end(), ::isdigit);
 }
 
+bool AutoCompletion::addLanguageCustomChars()
+{
+	if (_funcCalltip._additionalWordChar == TEXT(""))
+		return false;
+
+	string charList;
+	auto defaultCharListLen = _pEditView->execute(SCI_GETWORDCHARS);
+	char *defaultCharList = new char[defaultCharListLen + 1];
+	_pEditView->execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+	charList = defaultCharList;
+	delete[] defaultCharList;
+
+	string additionalWordChar = std::string(_funcCalltip._additionalWordChar.begin(), _funcCalltip._additionalWordChar.end());
+	string chars2addStr;
+	for (size_t i = 0; i < additionalWordChar.length(); ++i)
+	{
+		bool found = false;
+		char char2check = additionalWordChar[i];
+		for (size_t j = 0; j < charList.length(); ++j)
+		{
+			char wordChar = charList[j];
+			if (char2check == wordChar)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (not found)
+		{
+			chars2addStr.push_back(char2check);
+		}
+	}
+
+	if (not chars2addStr.empty())
+	{
+		charList += chars2addStr;
+		_pEditView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(charList.c_str()));
+		return true;
+	}
+
+	return false;
+}
 
 bool AutoCompletion::showApiComplete()
 {
@@ -734,6 +776,9 @@ void AutoCompletion::update(int character)
 	if (_pEditView->execute(SCI_AUTOCACTIVE) != 0)
 		return;
 
+	//If additionalWordChar defined for current Language include them in word characters list.
+	bool isCharsAdded = addLanguageCustomChars();
+	
 	const int wordSize = 64;
 	TCHAR s[wordSize];
 	_pEditView->getWordToCurrentPos(s, wordSize);
@@ -747,6 +792,10 @@ void AutoCompletion::update(int character)
 		else if (nppGUI._autocStatus == nppGUI.autoc_both)
 			showApiAndWordComplete();
 	}
+	
+	//After auto complete has been displayed default back to configured word characters.
+	if (isCharsAdded)
+		_pEditView->setWordChars();
 }
 
 void AutoCompletion::callTipClick(int direction) {

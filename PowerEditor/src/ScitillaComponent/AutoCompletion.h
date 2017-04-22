@@ -70,6 +70,8 @@ public:
 
 	bool setLanguage(LangType language);
 
+	//Add language defined additional word characters to current word characters
+	bool addLanguageCustomChars();
 	//AutoComplete from the list
 	bool showApiComplete();
 	//WordCompletion from the current file

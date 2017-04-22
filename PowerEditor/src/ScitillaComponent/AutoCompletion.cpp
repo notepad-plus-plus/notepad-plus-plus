@@ -95,9 +95,16 @@ bool AutoCompletion::showApiComplete()
 	if (!_funcCompletionActive)
 		return false;
 
+	//If additionalWordChar defined for current Language include them in word characters list.
+	bool isCharsAdded = addLanguageCustomChars();
+
 	// calculate entered word's length
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
+	
+	//After auto complete has been displayed default back to configured word characters.
+	if (isCharsAdded)
+		_pEditView->setWordChars();
 
 	if (curPos == startPos)
 		return false;
@@ -362,8 +369,15 @@ void AutoCompletion::showPathCompletion()
 
 bool AutoCompletion::showWordComplete(bool autoInsert)
 {
+	//If additionalWordChar defined for current Language include them in word characters list.
+	bool isCharsAdded = addLanguageCustomChars();
+
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
+
+	//After auto complete has been displayed default back to configured word characters.
+	if (isCharsAdded)
+		_pEditView->setWordChars();
 
 	if (curPos == startPos)
 		return false;

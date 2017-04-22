@@ -362,6 +362,7 @@ public:
 
 	void showWSAndTab(bool willBeShowed = true) {
 		execute(SCI_SETVIEWWS, willBeShowed?SCWS_VISIBLEALWAYS:SCWS_INVISIBLE);
+		execute(SCI_SETWHITESPACESIZE, 2, 0);
 	};
 
 	void showEOL(bool willBeShowed = true) {

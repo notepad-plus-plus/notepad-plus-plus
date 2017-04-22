@@ -70,8 +70,6 @@ public:
 
 	bool setLanguage(LangType language);
 
-	//Add language defined additional word characters to current word characters
-	bool addLanguageCustomChars();
 	//AutoComplete from the list
 	bool showApiComplete();
 	//WordCompletion from the current file
@@ -105,6 +103,8 @@ private:
 
 	FunctionCallTip _funcCalltip;
 
+	//Add language defined additional word characters to current word characters
+	bool addLanguageCustomChars();
 	const TCHAR * getApiFileName();
 	void getWordArray(std::vector<generic_string> & wordArray, TCHAR *beginChars);
 };

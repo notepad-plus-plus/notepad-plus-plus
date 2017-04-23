@@ -61,23 +61,11 @@ bool AutoCompletion::addLanguageCustomChars()
 
 	string additionalWordChar = std::string(_funcCalltip._additionalWordChar.begin(), _funcCalltip._additionalWordChar.end());
 	string chars2addStr;
-	for (size_t i = 0; i < additionalWordChar.length(); ++i)
+	size_t pos = 0;
+	while ((pos = additionalWordChar.find_first_not_of(charList, pos)) != string::npos)
 	{
-		bool found = false;
-		char char2check = additionalWordChar[i];
-		for (size_t j = 0; j < charList.length(); ++j)
-		{
-			char wordChar = charList[j];
-			if (char2check == wordChar)
-			{
-				found = true;
-				break;
-			}
-		}
-		if (not found)
-		{
-			chars2addStr.push_back(char2check);
-		}
+		chars2addStr.push_back(additionalWordChar[pos]);
+		pos++;
 	}
 
 	if (not chars2addStr.empty())

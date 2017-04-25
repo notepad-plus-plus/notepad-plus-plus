@@ -349,7 +349,7 @@ public:
 	void updateTimeStamp();
 	void reload();
 	void setMapPosition(const MapPosition & mapPosition) { _mapPosition = mapPosition; };
-	MapPosition getMapPosition() { return _mapPosition; };
+	MapPosition getMapPosition() const { return _mapPosition; };
 
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;

@@ -871,7 +871,7 @@ BEGIN
         POPUP "MD5"
 		BEGIN
 			MENUITEM "Generate...",                         IDM_TOOL_MD5_GENERATE
-			MENUITEM "Generate from files...",             IDM_TOOL_MD5_GENERATEFROMFILE
+			MENUITEM "Generate from files...",              IDM_TOOL_MD5_GENERATEFROMFILE
 			MENUITEM "Generate into clipboard",             IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
         END
     END
@@ -889,17 +889,7 @@ BEGIN
     BEGIN
         MENUITEM "&Run...",    IDM_EXECUTE
     END
-/*
-    POPUP "Tools"
-    BEGIN
-        POPUP "MD5"
-		BEGIN
-			MENUITEM "Generate...",                         IDM_TOOL_MD5_GENERATE
-			MENUITEM "Generate from a file...",             IDM_TOOL_MD5_GENERATEFROMFILE
-			MENUITEM "Generate into clipboard",             IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
-        END
-    END
-*/
+
     POPUP "&?"
     BEGIN
         //MENUITEM "Help Contents",              IDM_HELP
@@ -1002,6 +992,3 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     PUSHBUTTON      "+",IDC_RESTORE_BUTTON,0,0,12,10
 END
-
-// xp style
-//1 RT_MANIFEST "notepad++.exe.manifest"

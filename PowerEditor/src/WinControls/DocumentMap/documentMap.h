@@ -124,9 +124,9 @@ public:
 	void showInMapTemporarily(Buffer *buf2show, ScintillaEditView *fromEditView);
 	void wrapMap(const ScintillaEditView *editView = nullptr);
 	void initWrapMap();
-	void scrollMap(ScintillaEditView *editView = nullptr);
+	void scrollMap();
 	void scrollMap(bool direction, moveMode whichMode);
-	void scrollMapWith(const MapPosition & mapPos, ScintillaEditView & editView);
+	void scrollMapWith(const MapPosition & mapPos);
 	void doMove();
 	void fold(int line, bool foldOrNot);
 	void foldAll(bool mode);
@@ -142,7 +142,7 @@ protected:
 
 private:
 	ScintillaEditView **_ppEditView = nullptr;
-	ScintillaEditView *_pScintillaEditView = nullptr;
+	ScintillaEditView *_pMapView = nullptr;
 	ViewZoneDlg _vzDlg;
 
 	bool _isTemporarilyShowing = false;

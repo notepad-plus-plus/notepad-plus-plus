@@ -138,10 +138,10 @@ void DocumentSnapshot::scrollSnapshotWith(const MapPosition & mapPos)
 		//
 
 		// Get the first visible display line from the first visible document line
-		auto firstVisibleDisplayLine = _pScintillaEditView->execute(SCI_VISIBLEFROMDOCLINE, mapPos._firstVisibleDocLine);
+		//auto firstVisibleDisplayLine = _pScintillaEditView->execute(SCI_VISIBLEFROMDOCLINE, mapPos._firstVisibleDocLine);
 
 		// scroll to the first visible display line
-		_pScintillaEditView->execute(SCI_LINESCROLL, 0, firstVisibleDisplayLine);
+		_pScintillaEditView->execute(SCI_LINESCROLL, 0,mapPos._firstVisibleDisplayLine);
 		
 	}
 }
@@ -150,16 +150,17 @@ void DocumentSnapshot::saveCurrentSnapshot(ScintillaEditView & editView)
 {
 	if (_pScintillaEditView)
 	{
-		MapPosition mapPos;
+		Buffer *buffer = editView.getCurrentBuffer();
+		MapPosition mapPos = buffer->getMapPosition();
 
 		// First visible document line for scrolling to this line
-		auto firstVisibleDisplayLine = editView.execute(SCI_GETFIRSTVISIBLELINE);
-		mapPos._firstVisibleDocLine = static_cast<int32_t>(editView.execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine));
-		mapPos._nbLine = static_cast<int32_t>(editView.execute(SCI_LINESONSCREEN, firstVisibleDisplayLine));
-		mapPos._lastVisibleDocLine = static_cast<int32_t>(editView.execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + mapPos._nbLine));
+		mapPos._firstVisibleDisplayLine = static_cast<int32_t>(editView.execute(SCI_GETFIRSTVISIBLELINE));
+		mapPos._firstVisibleDocLine = static_cast<int32_t>(editView.execute(SCI_DOCLINEFROMVISIBLE, mapPos._firstVisibleDisplayLine));
+		mapPos._nbLine = static_cast<int32_t>(editView.execute(SCI_LINESONSCREEN, mapPos._firstVisibleDisplayLine));
+		mapPos._lastVisibleDocLine = static_cast<int32_t>(editView.execute(SCI_DOCLINEFROMVISIBLE, mapPos._firstVisibleDisplayLine + mapPos._nbLine));
 
-		int32_t lineHeight = static_cast<int32_t>(_pScintillaEditView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine));
-		mapPos._height = mapPos._nbLine * lineHeight;
+		auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine);
+		mapPos._height = static_cast<int32_t>(mapPos._nbLine * lineHeight);
 
 		// Width
 		RECT editorRect;
@@ -175,9 +176,12 @@ void DocumentSnapshot::saveCurrentSnapshot(ScintillaEditView & editView)
 
 		mapPos._wrapIndentMode = static_cast<int32_t>(editView.execute(SCI_GETWRAPINDENTMODE));
 		mapPos._isWrap = static_cast<int32_t>(editView.isWrap());
+		if (editView.isWrap())
+		{
+			mapPos._higherPos = static_cast<int32_t>(editView.execute(SCI_POSITIONFROMPOINT, 0, 0));
+		}
 
 		// set current map position in buffer
-		Buffer *buffer = editView.getCurrentBuffer();
 		buffer->setMapPosition(mapPos);
 	}
 }

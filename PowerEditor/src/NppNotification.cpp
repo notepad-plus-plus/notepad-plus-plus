@@ -36,6 +36,8 @@
 
 using namespace std;
 
+bool doSnapshot = true;
+bool doSnapshotOnMap = true;
 
 // Only for 2 main Scintilla editors
 BOOL Notepad_plus::notify(SCNotification *notification)
@@ -151,35 +153,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSEHOVERING:
 		case TCN_MOUSEHOVERSWITCHING:
 		{
-			/*
-			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
-			{
-				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
-				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
-				if (pTabDocView)
-				{
-					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
-					Buffer *pBuf = MainFileManager->getBufferByID(id);
-
-					Buffer *currentBuf = getCurrentBuffer();
-
-					if (pBuf != currentBuf) // if hover on other tab
-					{
-						_pDocMap->showInMapTemporarily(pBuf, notifyView);
-						_pDocMap->setSyntaxHiliting();
-					}
-					else  // if hover on current active tab
-					{
-						_pDocMap->reloadMap();
-						_pDocMap->setSyntaxHiliting();
-					}
-					_pDocMap->setTemporarilyShowing(true);
-				}
-			}
-			*/
-
-			/*
-			if (true)
+			if (doSnapshot)
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
 				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
@@ -207,27 +181,49 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					}
 				}
 			}
-			*/
+
+			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible() && doSnapshotOnMap)
+			{
+				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
+				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
+				if (pTabDocView)
+				{
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
+					Buffer *pBuf = MainFileManager->getBufferByID(id);
+
+					Buffer *currentBuf = getCurrentBuffer();
+
+					if (pBuf != currentBuf) // if hover on other tab
+					{
+						_pDocMap->showInMapTemporarily(pBuf, notifyView);
+						_pDocMap->setSyntaxHiliting();
+					}
+					else  // if hover on current active tab
+					{
+						_pDocMap->reloadMap();
+						_pDocMap->setSyntaxHiliting();
+					}
+					_pDocMap->setTemporarilyShowing(true);
+				}
+			}
+
 			break;
 		}
 
 		case TCN_MOUSELEAVING:
 		{
-			/*
-			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			if (doSnapshot)
+			{
+				_documentSnapshot.display(false);
+			}
+
+			if (doSnapshotOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				_pDocMap->reloadMap();
 				_pDocMap->setSyntaxHiliting();
 
 				_pDocMap->setTemporarilyShowing(false);
 			}
-
-			bool doSnapshot = true;
-			if (doSnapshot)
-			{
-				_documentSnapshot.display(false);
-			}
-			*/
 			break;
 		}
 

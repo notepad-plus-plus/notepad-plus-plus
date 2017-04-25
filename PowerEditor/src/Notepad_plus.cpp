@@ -1810,7 +1810,7 @@ void Notepad_plus::filePrint(bool showDialog)
 	int startPos = int(_pEditView->execute(SCI_GETSELECTIONSTART));
 	int endPos = int(_pEditView->execute(SCI_GETSELECTIONEND));
 
-	printer.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pEditView, showDialog, startPos, endPos);
+	printer.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pEditView, showDialog, startPos, endPos, _nativeLangSpeaker.isRTL());
 	printer.doPrint();
 }
 

@@ -3795,20 +3795,70 @@ std::string Editor::RangeText(int start, int end) const {
 	return std::string();
 }
 
+std::string Editor::LinkText(int s, int e, int caret, std::string entireLine) const {
+	if (entireLine.length() < 4 || entireLine.find("://") == std::string::npos) {
+		return std::string(); // no URL found
+	}
+
+	int start = s;
+	int end = e;
+
+	//search for a space on the left
+	for (int i = caret; i >= start; i--) {
+		try {
+			if (entireLine.at(i) == ' ') {
+				start = i + 1;
+				break;
+			}
+		}
+		catch (int e) {
+			break;
+		}
+	}
+
+	// on the right
+	for (int j = caret; j < end; j++) {
+		try {
+			if (entireLine.at(j) == ' ') {
+				end = j;
+				break;
+			}
+		}
+		catch (int e) {
+			break;
+		}
+		
+	}
+
+	if (start >= end) {
+		return std::string(); // caret was found on boundary of link
+	}
+
+	entireLine = entireLine.substr(start, end - start);
+
+	if (entireLine.find("://") == std::string::npos) {
+		// Caret wasn't found within a link.
+		return std::string();
+	}
+
+	return entireLine;
+}
+
 void Editor::CopySelectionRange(SelectionText *ss, bool allowLineCopy) {
 	if (sel.Empty()) {
 		if (allowLineCopy) {
+			int caretPosition = sel.MainCaret();
+
 			int currentLine = pdoc->LineFromPosition(sel.MainCaret());
 			int start = pdoc->LineStart(currentLine);
 			int end = pdoc->LineEnd(currentLine);
 
 			std::string text = RangeText(start, end);
-			if (pdoc->eolMode != SC_EOL_LF)
-				text.push_back('\r');
-			if (pdoc->eolMode != SC_EOL_CR)
-				text.push_back('\n');
+			text = LinkText(0, end - start, caretPosition - start, text);
+
+			if (text.empty()) return; // no link to copy
 			ss->Copy(text, pdoc->dbcsCodePage,
-				vs.styles[STYLE_DEFAULT].characterSet, false, true);
+				vs.styles[STYLE_DEFAULT].characterSet, sel.IsRectangular(), sel.selType == Selection::selLines);
 		}
 	} else {
 		std::string text;

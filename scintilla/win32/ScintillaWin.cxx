@@ -2090,11 +2090,9 @@ std::string ScintillaWin::CaseMapString(const std::string &s, int caseMapping) {
 
 void ScintillaWin::Copy() {
 	//Platform::DebugPrintf("Copy\n");
-	if (!sel.Empty()) {
-		SelectionText selectedText;
-		CopySelectionRange(&selectedText);
-		CopyToClipboard(selectedText);
-	}
+	SelectionText selectedText;
+	CopySelectionRange(&selectedText);
+	CopyToClipboard(selectedText);
 }
 
 void ScintillaWin::CopyAllowLine() {

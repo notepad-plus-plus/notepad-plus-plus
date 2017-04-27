@@ -36,9 +36,6 @@
 
 using namespace std;
 
-bool doSnapshot = true;
-bool doSnapshotOnMap = true;
-
 // Only for 2 main Scintilla editors
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
@@ -153,16 +150,22 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSEHOVERING:
 		case TCN_MOUSEHOVERSWITCHING:
 		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+			bool doSnapshot = pNppParam->getNppGUI()._isDocSnapshotOnTab;
+			bool doSnapshotOnMap = pNppParam->getNppGUI()._isDocSnapshotOnMap;
+
 			if (doSnapshot)
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
 				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
+
 				if (pTabDocView)
 				{
 					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
 					Buffer *pBuf = MainFileManager->getBufferByID(id);
 
-					Buffer *currentBuf = getCurrentBuffer();
+					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
+					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
 
 					RECT rect;
 					TabCtrl_GetItemRect(pTabDocView->getHSelf(), tbHdr->_tabOrigin, &rect);
@@ -171,7 +174,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					p.y = rect.bottom;
 					::ClientToScreen(pTabDocView->getHSelf(), &p);
 
-					if (pBuf != currentBuf) // if hover on other tab
+					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
 					{
 						_documentSnapshot.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
 					}
@@ -182,7 +185,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 			}
 
-			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible() && doSnapshotOnMap)
+			if (doSnapshotOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
 				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
@@ -191,9 +194,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
 					Buffer *pBuf = MainFileManager->getBufferByID(id);
 
-					Buffer *currentBuf = getCurrentBuffer();
+					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
+					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
 
-					if (pBuf != currentBuf) // if hover on other tab
+					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
 					{
 						_pDocMap->showInMapTemporarily(pBuf, notifyView);
 						_pDocMap->setSyntaxHiliting();
@@ -212,6 +216,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case TCN_MOUSELEAVING:
 		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+			bool doSnapshot = pNppParam->getNppGUI()._isDocSnapshotOnTab;
+			bool doSnapshotOnMap = pNppParam->getNppGUI()._isDocSnapshotOnMap;
+
 			if (doSnapshot)
 			{
 				_documentSnapshot.display(false);

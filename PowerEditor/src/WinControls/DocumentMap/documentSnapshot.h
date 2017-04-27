@@ -61,5 +61,5 @@ protected:
 	void goTo(POINT p);
 
 private:
-	ScintillaEditView *_pScintillaEditView = nullptr;
+	ScintillaEditView *_pSnapshotView = nullptr;
 };

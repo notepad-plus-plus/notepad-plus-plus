@@ -36,15 +36,15 @@ INT_PTR CALLBACK DocumentSnapshot::run_dlgProc(UINT message, WPARAM /*wParam*/, 
         case WM_INITDIALOG :
 		{
 			HWND hwndScintilla = reinterpret_cast<HWND>(::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, reinterpret_cast<LPARAM>(_hSelf)));
-			_pScintillaEditView = reinterpret_cast<ScintillaEditView *>(::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, reinterpret_cast<LPARAM>(hwndScintilla)));
-			_pScintillaEditView->execute(SCI_SETZOOM, static_cast<WPARAM>(-10), 0);
-			_pScintillaEditView->execute(SCI_SETVSCROLLBAR, FALSE, 0);
-			_pScintillaEditView->execute(SCI_SETHSCROLLBAR, FALSE, 0);
+			_pSnapshotView = reinterpret_cast<ScintillaEditView *>(::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, reinterpret_cast<LPARAM>(hwndScintilla)));
+			_pSnapshotView->execute(SCI_SETZOOM, static_cast<WPARAM>(-10), 0);
+			_pSnapshotView->execute(SCI_SETVSCROLLBAR, FALSE, 0);
+			_pSnapshotView->execute(SCI_SETHSCROLLBAR, FALSE, 0);
 
-			_pScintillaEditView->showIndentGuideLine(false);
+			_pSnapshotView->showIndentGuideLine(false);
 
-			::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, _rc.right - _rc.left, _rc.bottom - _rc.top, TRUE);
-			_pScintillaEditView->display();
+			::MoveWindow(_pSnapshotView->getHSelf(), 0, 0, _rc.right - _rc.left, _rc.bottom - _rc.top, TRUE);
+			_pSnapshotView->display();
 		}
 		break;
 	}
@@ -70,16 +70,16 @@ void DocumentSnapshot::goTo(POINT p)
 
 void DocumentSnapshot::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 {
-	if (_pScintillaEditView)
+	if (_pSnapshotView)
 	{
-		_pScintillaEditView->execute(SCI_SETDOCPOINTER, 0, static_cast<LPARAM>(buf->getDocument()));
-		_pScintillaEditView->setCurrentBuffer(buf);
+		_pSnapshotView->execute(SCI_SETDOCPOINTER, 0, static_cast<LPARAM>(buf->getDocument()));
+		_pSnapshotView->setCurrentBuffer(buf);
 
 		//
 		// folding
 		//
 		const std::vector<size_t> & lineStateVector = buf->getHeaderLineState(&scintSource);
-		_pScintillaEditView->syncFoldStateWith(lineStateVector);
+		_pSnapshotView->syncFoldStateWith(lineStateVector);
 
 		//
 		// Wraping & scrolling
@@ -88,23 +88,25 @@ void DocumentSnapshot::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 		if (mp.isValid())
 			scrollSnapshotWith(mp);
 
-		Buffer *buf = _pScintillaEditView->getCurrentBuffer();
-		_pScintillaEditView->defineDocType(buf->getLangType());
-		_pScintillaEditView->showMargin(ScintillaEditView::_SC_MARGE_FOLDER, false);
+		Buffer *buf = _pSnapshotView->getCurrentBuffer();
+		_pSnapshotView->defineDocType(buf->getLangType());
+		_pSnapshotView->showMargin(ScintillaEditView::_SC_MARGE_FOLDER, false);
 
-		_pScintillaEditView->showMargin(0, false);
-		_pScintillaEditView->showMargin(1, false);
-		_pScintillaEditView->showMargin(2, false);
-		_pScintillaEditView->showMargin(3, false);
+		_pSnapshotView->showMargin(0, false);
+		_pSnapshotView->showMargin(1, false);
+		_pSnapshotView->showMargin(2, false);
+		_pSnapshotView->showMargin(3, false);
 
+		_pSnapshotView->execute(SCI_SETREADONLY, true);
+		_pSnapshotView->execute(SCI_SETCARETSTYLE, CARETSTYLE_INVISIBLE);
+		Window::display();
 	}
-	Window::display();
 }
 
 
 void DocumentSnapshot::scrollSnapshotWith(const MapPosition & mapPos)
 {
-	if (_pScintillaEditView)
+	if (_pSnapshotView)
 	{
 		bool hasBeenChanged = false;
 		//
@@ -121,34 +123,31 @@ void DocumentSnapshot::scrollSnapshotWith(const MapPosition & mapPos)
 			hasBeenChanged = true;
 		}
 		if (hasBeenChanged)
-			::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, _rc.right - _rc.left, _rc.bottom - _rc.top, TRUE);
+			::MoveWindow(_pSnapshotView->getHSelf(), 0, 0, _rc.right - _rc.left, _rc.bottom - _rc.top, TRUE);
 		//
 		// Wrapping
 		//
-		_pScintillaEditView->wrap(mapPos._isWrap);
-		_pScintillaEditView->execute(SCI_SETWRAPINDENTMODE, mapPos._wrapIndentMode);
+		_pSnapshotView->wrap(mapPos._isWrap);
+		_pSnapshotView->execute(SCI_SETWRAPINDENTMODE, mapPos._wrapIndentMode);
 
 		//
 		// Reset to zero
 		//
-		_pScintillaEditView->execute(SCI_HOMEDISPLAY);
+		_pSnapshotView->execute(SCI_HOMEDISPLAY);
 
 		//
 		// Visible line for the code view
 		//
 
-		// Get the first visible display line from the first visible document line
-		//auto firstVisibleDisplayLine = _pScintillaEditView->execute(SCI_VISIBLEFROMDOCLINE, mapPos._firstVisibleDocLine);
-
 		// scroll to the first visible display line
-		_pScintillaEditView->execute(SCI_LINESCROLL, 0,mapPos._firstVisibleDisplayLine);
+		_pSnapshotView->execute(SCI_LINESCROLL, 0,mapPos._firstVisibleDisplayLine);
 		
 	}
 }
 
 void DocumentSnapshot::saveCurrentSnapshot(ScintillaEditView & editView)
 {
-	if (_pScintillaEditView)
+	if (_pSnapshotView)
 	{
 		Buffer *buffer = editView.getCurrentBuffer();
 		MapPosition mapPos = buffer->getMapPosition();
@@ -159,7 +158,7 @@ void DocumentSnapshot::saveCurrentSnapshot(ScintillaEditView & editView)
 		mapPos._nbLine = static_cast<int32_t>(editView.execute(SCI_LINESONSCREEN, mapPos._firstVisibleDisplayLine));
 		mapPos._lastVisibleDocLine = static_cast<int32_t>(editView.execute(SCI_DOCLINEFROMVISIBLE, mapPos._firstVisibleDisplayLine + mapPos._nbLine));
 
-		auto lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine);
+		auto lineHeight = _pSnapshotView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine);
 		mapPos._height = static_cast<int32_t>(mapPos._nbLine * lineHeight);
 
 		// Width

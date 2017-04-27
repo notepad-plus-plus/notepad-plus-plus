@@ -897,6 +897,8 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
             ::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL, BM_SETCHECK, nppGUI._backSlashIsEscapeCharacterForSql, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSNAPSHOT, BM_SETCHECK, nppGUI._isDocSnapshotOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSNAPSHOTONMAP, BM_SETCHECK, nppGUI._isDocSnapshotOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
 			
@@ -1076,6 +1078,18 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL :
 				{
 					nppGUI._backSlashIsEscapeCharacterForSql = isCheckedOrNot(IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL);
+					return TRUE;
+				}
+
+				case IDC_CHECK_ENABLEDOCSNAPSHOT:
+				{
+					nppGUI._isDocSnapshotOnTab = isCheckedOrNot(IDC_CHECK_ENABLEDOCSNAPSHOT);
+					return TRUE;
+				}
+
+				case IDC_CHECK_ENABLEDOCSNAPSHOTONMAP:
+				{
+					nppGUI._isDocSnapshotOnMap = isCheckedOrNot(IDC_CHECK_ENABLEDOCSNAPSHOTONMAP);
 					return TRUE;
 				}
 			}

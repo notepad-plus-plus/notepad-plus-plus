@@ -846,6 +846,9 @@ struct NppGUI final
 	generic_string _searchEngineCustom;
 
 	bool _isFolderDroppedOpenFiles = false;
+
+	bool _isDocSnapshotOnTab = true;
+	bool _isDocSnapshotOnMap = false;
 };
 
 struct ScintillaViewParams

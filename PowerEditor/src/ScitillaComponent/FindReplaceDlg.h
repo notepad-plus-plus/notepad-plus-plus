@@ -372,11 +372,20 @@ private :
 
 	
 
-	void enableReplaceFunc(bool isEnable);
+	void enableFindControls(bool isEnable);
+	void enableReplaceControls(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);
-	void enableFindInFilesFunc();
 	void enableMarkAllControls(bool isEnable);
+
+	void enableFindFunc();
+	void enableReplaceFunc();
+	void enableFindInFilesFunc();
 	void enableMarkFunc();
+
+	void setCloseButtonPos(RECT *pClosePos)
+	{
+		::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
+	}
 
 	void setDefaultButton(int nID) {
 		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);
@@ -385,7 +394,12 @@ private :
 	void gotoCorrectTab() {
 		auto currentIndex = _tab.getCurrentTabIndex();
 		if (currentIndex != _currentStatus)
+		{
 			_tab.activateAt(_currentStatus);
+			TCHAR label[MAX_PATH];
+			_tab.getCurrentTitle(label, MAX_PATH);
+			::SetWindowText(_hSelf, label);
+		}
 	};
 	
 	FindStatus getFindStatus() {

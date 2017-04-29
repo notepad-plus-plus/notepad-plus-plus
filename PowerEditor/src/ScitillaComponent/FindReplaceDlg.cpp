@@ -265,11 +265,13 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	const TCHAR *replace = TEXT("Replace");
 	const TCHAR *findInFiles = TEXT("Find in Files");
 	const TCHAR *mark = TEXT("Mark");
+	const TCHAR *removeLines = TEXT("Remove Lines");
 
 	_tab.insertAtEnd(find);
 	_tab.insertAtEnd(replace);
 	_tab.insertAtEnd(findInFiles);
 	_tab.insertAtEnd(mark);
+	_tab.insertAtEnd(removeLines);
 
 	_tab.reSizeTo(rect);
 	_tab.display();
@@ -683,8 +685,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			RECT arc;
 			::GetWindowRect(::GetDlgItem(_hSelf, IDCANCEL), &arc);
-			_findClosePos.bottom = _replaceClosePos.bottom = _findInFilesClosePos.bottom = arc.bottom - arc.top;
-			_findClosePos.right = _replaceClosePos.right = _findInFilesClosePos.right = arc.right - arc.left;
+			_findClosePos.bottom = _replaceClosePos.bottom = _findInFilesClosePos.bottom = _removeLinesClosePos.bottom = arc.bottom - arc.top;
+			_findClosePos.right = _replaceClosePos.right = _findInFilesClosePos.right = _removeLinesClosePos.right = arc.right - arc.left;
 
 			POINT p;
 			p.x = arc.left;
@@ -701,6 +703,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL), !_isRTL);
 			_findInFilesClosePos.left = p.x;
 			_findInFilesClosePos.top = p.y;
+
+			p = getTopPoint(::GetDlgItem(_hSelf, IDCCOUNTALL), !_isRTL);
+			_removeLinesClosePos.left = p.x;
+			_removeLinesClosePos.top = p.y;
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
@@ -1063,6 +1069,52 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 							else
 								wsprintf(moreInfo, TEXT("Replace All: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
+							result = moreInfo;
+						}
+						setStatusbarMessage(result, FSMessage);
+						//::SetFocus(_hSelf);
+						getFocus();
+					}
+				}
+				return TRUE;
+
+				case IDREMOVECONTAININGLINES:
+				{
+					LongRunningOperation op;
+					if (_currentStatus == REMOVELINES_DLG)
+					{
+						setStatusbarMessage(TEXT(""), FSNoMessage);
+						if ((*_ppEditView)->getCurrentBuffer()->isReadOnly())
+						{
+							generic_string errMsg = TEXT("Replace: Cannot replace text. The current document is read only.");
+							setStatusbarMessage(errMsg, FSNotFound);
+							return TRUE;
+						}
+
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo);
+						//HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+						//_options._str4Replace = getTextFromCombo(hReplaceCombo);
+						updateCombos();
+
+						nppParamInst->_isFindReplacing = true;
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE);
+						(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
+						int nbReplaced = processAll(ProcessRemoveContainingLines, &_options);
+						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
+						nppParamInst->_isFindReplacing = false;
+
+						generic_string result = TEXT("");
+						
+						if (nbReplaced < 0)
+							result = TEXT("Remove Containing Lines: The regular expression is malformed.");
+						else
+						{
+							TCHAR moreInfo[64];
+							if(nbReplaced == 1)
+								wsprintf(moreInfo, TEXT("Remove Containing Lines: %d occurrence was replaced."), nbReplaced);
+							else
+								wsprintf(moreInfo, TEXT("Remove Containing Lines: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
 							result = moreInfo;
 						}
 						setStatusbarMessage(result, FSMessage);
@@ -1607,7 +1659,7 @@ int FindReplaceDlg::markAllInc(const FindOption *opt)
 
 int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool isEntire, const FindersInfo *pFindersInfo, int colourStyleID)
 {
-	if (op == ProcessReplaceAll && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
+	if ((op == ProcessReplaceAll || op == ProcessRemoveContainingLines) && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
 		generic_string result = TEXT("Replace All: Cannot replace text. The current document is read only.");
 		setStatusbarMessage(result, FSNotFound);
@@ -1681,7 +1733,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	if (view2Process)
 		pEditView = view2Process;
 
-	if ((op == ProcessReplaceAll) && pEditView->getCurrentBuffer()->isReadOnly())
+	if ((op == ProcessReplaceAll || op == ProcessRemoveContainingLines) && pEditView->getCurrentBuffer()->isReadOnly())
 		return nbProcessed;
 
 	if (findReplaceInfo._startRange == findReplaceInfo._endRange)
@@ -1745,7 +1797,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 	// Allow empty matches, but not immediately after previous match for replace all or find all.
 	// Other search types should ignore empty matches completely.
-	if (op == ProcessReplaceAll || op == ProcessFindAll)
+	if (op == ProcessReplaceAll || op == ProcessRemoveContainingLines || op == ProcessFindAll)
 		flags |= SCFIND_REGEXP_EMPTYMATCH_NOTAFTERMATCH;
 	
 	
@@ -1887,6 +1939,53 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				// Adjust the next search range
 				nextStartRange = targetStart + replacedLength;
 				nextEndRange = findReplaceInfo._endRange + replacedLength;
+				break;
+			}
+
+			case ProcessRemoveContainingLines:
+			{
+				int deletionStartPos;
+				int deletionEndPos;
+				int lastLineInDocument = pEditView->lastZeroBasedLineNumber();
+				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				if (lineNumber == lastLineInDocument)
+				{
+					// Delete from the end of the line before lineNumber to the
+					// end of the last line. If lineNumber if the first line,
+					// start the deletion from the first character in the
+					// document.
+					if (lineNumber == 0)
+					{
+						deletionStartPos = 0;
+					}
+					else
+					{
+						deletionStartPos = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber - 1));
+					}
+					deletionEndPos = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
+				}
+				else
+				{
+					// Delete from the beginning of our line to the beginning
+					// of the next line
+					deletionStartPos = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
+					deletionEndPos = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber + 1));
+				}
+
+				int deletionLength = deletionEndPos - deletionStartPos;
+				pEditView->execute(SCI_DELETERANGE, deletionStartPos, deletionLength);
+
+				// Adjust the next search range
+				nextStartRange = deletionStartPos;
+				if (findReplaceInfo._endRange > deletionEndPos)
+				{
+					nextEndRange = findReplaceInfo._endRange - deletionLength;
+				}
+				else
+				{
+					nextEndRange = deletionEndPos;
+				}
+
 				break;
 			}
 
@@ -2271,6 +2370,22 @@ void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), hideOrShow);
 }
 
+void FindReplaceDlg::enableRemoveLinesControls(bool isEnable)
+{
+	int hideOrShow = isEnable ? SW_SHOW : SW_HIDE;
+
+	// Main action buttons
+	::ShowWindow(::GetDlgItem(_hSelf, IDREMOVECONTAININGLINES), hideOrShow);
+
+	// Wrap around checkbox
+	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), hideOrShow);
+
+	// Search direction
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), hideOrShow);
+}
+
 void FindReplaceDlg::enableFindFunc()
 {
 	_currentStatus = FIND_DLG;
@@ -2279,6 +2394,7 @@ void FindReplaceDlg::enableFindFunc()
 	enableReplaceControls(false);
 	enableFindInFilesControls(false);
 	enableMarkAllControls(false);
+	enableRemoveLinesControls(false);
 
 	enableFindControls(true);
 
@@ -2294,6 +2410,7 @@ void FindReplaceDlg::enableReplaceFunc()
 	enableFindControls(false);
 	enableFindInFilesControls(false);
 	enableMarkAllControls(false);
+	enableRemoveLinesControls(false);
 
 	enableReplaceControls(true);
 
@@ -2309,6 +2426,7 @@ void FindReplaceDlg::enableFindInFilesFunc()
 	enableFindControls(false);
 	enableReplaceControls(false);
 	enableMarkAllControls(false);
+	enableRemoveLinesControls(false);
 
 	enableFindInFilesControls(true);
 
@@ -2324,11 +2442,28 @@ void FindReplaceDlg::enableMarkFunc()
 	enableFindControls(false);
 	enableReplaceControls(false);
 	enableFindInFilesControls(false);
+	enableRemoveLinesControls(false);
 
 	enableMarkAllControls(true);
 
 	setCloseButtonPos(&_findInFilesClosePos);
 	setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
+}
+
+void FindReplaceDlg::enableRemoveLinesFunc()
+{
+	_currentStatus = REMOVELINES_DLG;
+	gotoCorrectTab();
+
+	enableFindControls(false);
+	enableReplaceControls(false);
+	enableFindInFilesControls(false);
+	enableMarkAllControls(false);
+
+	enableRemoveLinesControls(true);
+
+	setCloseButtonPos(&_removeLinesClosePos);
+	setDefaultButton(IDREMOVECONTAININGLINES);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
@@ -2514,6 +2649,31 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 					setStatusbarMessage(result, FSMessage);
 					break;
 				}
+				case IDREMOVECONTAININGLINES:
+				{
+					nppParamInst->_isFindReplacing = true;
+					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
+					int nbReplaced = processAll(ProcessRemoveContainingLines, _env);
+					(*_ppEditView)->execute(SCI_ENDUNDOACTION);
+					nppParamInst->_isFindReplacing = false;
+
+					generic_string result;
+
+					if (nbReplaced < 0)
+						result = TEXT("Remove Containing Lines: The regular expression is malformed.");
+					else
+					{
+						TCHAR moreInfo[64];
+						if (nbReplaced == 1)
+							wsprintf(moreInfo, TEXT("Remove Containing Lines: %d occurrence was replaced."), nbReplaced);
+						else
+							wsprintf(moreInfo, TEXT("Remove Containing Lines: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
+						result = moreInfo;
+					}
+
+					setStatusbarMessage(result, FSMessage);
+					break;
+				}
 				case IDCCOUNTALL :
 				{
 					int nbCounted = processAll(ProcessCountAll, _env);
@@ -2630,6 +2790,8 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 		enableFindInFilesFunc();
 	else if (whichType == MARK_DLG)
 		enableMarkFunc();
+	else if (whichType == REMOVELINES_DLG)
+		enableRemoveLinesFunc();
 	else
 		enableFindFunc();
 

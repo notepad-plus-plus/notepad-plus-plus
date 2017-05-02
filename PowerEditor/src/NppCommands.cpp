@@ -2439,7 +2439,6 @@ void Notepad_plus::command(int id)
 
         case IDM_SETTING_EDITCONTEXTMENU :
         {
-			generic_string warning, title;
 			_nativeLangSpeaker.messageBox("ContextMenuXmlEditWarning",
 				_pPublicInterface->getHSelf(),
 				TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu on edit zone.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."),

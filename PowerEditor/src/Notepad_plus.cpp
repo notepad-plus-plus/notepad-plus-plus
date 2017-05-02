@@ -3183,28 +3183,16 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() != 0)) // new mode && both folders & files
 		{
 			// display error & do nothing
+			_nativeLangSpeaker.messageBox("DroppingFolderAsProjetModeWarning",
+				_pPublicInterface->getHSelf(),
+				TEXT("You can drop only files or folders but not both, because you're in dropping Folder as Projet mode.\ryou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work."),
+				TEXT("Invalid action"),
+				MB_OK | MB_APPLMODAL);
 		}
 		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
 		{
 			// process new mode
 			launchFileBrowser(folderPaths);
-
-			/*
-			for (int i = 0; i < filesDropped; ++i)
-			{
-				if (not _pFileBrowser->isAlreadyExist(folderPaths[i]))
-				{
-					vector<generic_string> patterns2Match;
-					patterns2Match.push_back(TEXT("*.*"));
-
-					FolderInfo directoryStructure;
-					getDirectoryStructure(folderPaths[i].c_str(), patterns2Match, directoryStructure, true, false);
-					_pFileBrowser->setDirectoryStructure(directoryStructure);
-				}
-				int j = 0;
-				j++;
-			}
-			*/
 		}
 
 		if (lastOpened != BUFFER_INVALID) 

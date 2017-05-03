@@ -50,17 +50,17 @@
                     <Item subMenuId="encoding-baltic"  name="波羅的海文"/>
                     <Item subMenuId="encoding-celtic"  name="凱爾特文"/>
                     <Item subMenuId="encoding-cyrillic"  name="斯拉夫文"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="中歐語系"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="中歐語文"/>
                     <Item subMenuId="encoding-chinese"  name="中文"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="東歐語系"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="東歐語文"/>
                     <Item subMenuId="encoding-greek"  name="希臘文"/>
                     <Item subMenuId="encoding-hebrew"  name="希伯來文"/>
                     <Item subMenuId="encoding-japanese"  name="日文"/>
                     <Item subMenuId="encoding-korean" name="韓文"/>
-                    <Item subMenuId="encoding-northEuropean" name="北歐語系"/>
+                    <Item subMenuId="encoding-northEuropean" name="北歐語文"/>
                     <Item subMenuId="encoding-thai" name="泰文"/>
                     <Item subMenuId="encoding-turkish" name="土耳其文"/>
-                    <Item subMenuId="encoding-westernEuropean" name="西歐語系"/>
+                    <Item subMenuId="encoding-westernEuropean" name="西歐語文"/>
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
                     <Item subMenuId="settings-import"  name="匯入"/>
                     <Item subMenuId="tools-md5"  name="MD5"/>
@@ -275,6 +275,19 @@
                     <Item id="10002" name="複製到另一個視窗"/>
                     <Item id="10003" name="將此檔案移至新啟動的 Notepad++"/>
                     <Item id="10004" name="開啟此檔案到新啟動的 Notepad++"/>
+                    
+                    <Item id="45060" name="Big5（正體）"/>
+                    <Item id="45061" name="GB2312（簡體）"/>
+                    <Item id="45054" name="OEM 861：冰島文"/>
+                    <Item id="45057" name="OEM 865：北歐文字"/>
+                    <Item id="45053" name="OEM 860：葡萄牙文"/>
+                    <Item id="45056" name="OEM 863：法文"/>
+                    
+                    <!--<Item id="46033" name="Assembly"/>-->
+                    <Item id="46019" name="MS INI 檔案"/>
+                    <!--<Item id="46015" name="MS-DOS Style"/>-->
+                    <!--<Item id="46016" name="Normal Text"/>-->
+                    <!--<Item id="46017" name="Resource file"/>-->
 
                     <Item id="46001" name="設定程式語言格式..."/>
                     <Item id="46150" name="定義程式語言..."/>

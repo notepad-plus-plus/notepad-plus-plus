@@ -8,13 +8,13 @@
                     <Item menuId="file" name="Afaylu"/>
                     <Item menuId="edit" name="Taẓrigt"/>
                     <Item menuId="search" name="Nadi"/>
-                    <Item menuId="view" name="Abeqqeḍ"/>
+                    <Item menuId="view" name="Timeẓriwt"/>
                     <Item menuId="encoding" name="Asettengel"/>
-                    <Item menuId="language" name="Tameslayt"/>
+                    <Item menuId="language" name="Tutlayt"/>
                     <Item menuId="settings" name="Iɣewwaren"/>
-                    <Item menuId="macro" name="Macro"/>
+                    <Item menuId="macro" name="Amakṛu"/>
                     <Item menuId="run" name="Selkem "/>
-                    <Item idName="Plugins" name="Plugins"/>
+                    <Item idName="Plugins" name="Izegrar"/>
                     <Item idName="Window" name="Asfaylu"/>
                 </Entries>
 
@@ -22,10 +22,10 @@
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
                     <Item subMenuId="edit-indent" name="Asiẓi"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Err askil d"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Err asekkil d"/>
                     <Item subMenuId="edit-lineOperations" name="Ajerriḍ"/>
                     <Item subMenuId="edit-comment" name="Awennit"/>
-                    <Item subMenuId="edit-autoCompletion" name="Auto-Completion"/>
+                    <Item subMenuId="edit-autoCompletion" name="Taččart tawurmant"/>
                     <Item subMenuId="edit-eolConversion" name="Selket tineṭṭagin n ujerriḍ"/>
                     <Item subMenuId="edit-blankOperations" name="Selket isekkilen imlalen"/>
                     <Item subMenuId="edit-pasteSpecial" name="Asenteḍ imeẓli"/>

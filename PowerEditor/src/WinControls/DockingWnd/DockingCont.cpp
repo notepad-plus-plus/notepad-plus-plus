@@ -1423,7 +1423,7 @@ bool DockingCont::updateCaption()
 	if ((((tTbData*)tcItem.lParam)->uMask & DWS_ADDINFO) && 
 		(lstrlen(((tTbData*)tcItem.lParam)->pszAddInfo) != 0))
 	{
-		_pszCaption += TEXT(" - ");
+		_pszCaption += TEXT(" \u2014 ");
 		_pszCaption += ((tTbData*)tcItem.lParam)->pszAddInfo; 
 	}
 

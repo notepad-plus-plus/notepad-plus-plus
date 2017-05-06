@@ -1114,6 +1114,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 		buffer->setFileName(fullpath, language);
 		buffer->setDirty(false);
+		buffer->setLoadedDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		buffer->checkFileState();
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);

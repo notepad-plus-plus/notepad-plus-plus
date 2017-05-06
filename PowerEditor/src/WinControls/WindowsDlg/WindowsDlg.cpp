@@ -74,8 +74,8 @@ inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 
 struct NumericStringEquivalence
 {
-	bool operator()(const TCHAR* s1, const TCHAR* s2) const
-	{ return numstrcmp(s1, s2) < 0; }
+	int operator()(const TCHAR* s1, const TCHAR* s2) const
+	{ return numstrcmp(s1, s2); }
 	static inline int numstrcmp_get(const TCHAR **str, int *length)
 	{
 		const TCHAR *p = *str;
@@ -144,27 +144,35 @@ struct BufferEquivalent
 
 	bool compare(int i1, int i2) const
 	{
-		BufferID bid1 = _pTab->getBufferByIndex(i1);
-		BufferID bid2 = _pTab->getBufferByIndex(i2);
-		Buffer * b1 = MainFileManager->getBufferByID(bid1);
-		Buffer * b2 = MainFileManager->getBufferByID(bid2);
-		if (_iColumn == 0)
+		if (_iColumn >= 0 && _iColumn <= 2)
 		{
-			const TCHAR *s1 = b1->getFileName();
-			const TCHAR *s2 = b2->getFileName();
-			return _strequiv(s1, s2);
-		}
-		else if (_iColumn == 1)
-		{
+			BufferID bid1 = _pTab->getBufferByIndex(i1);
+			BufferID bid2 = _pTab->getBufferByIndex(i2);
+			Buffer * b1 = MainFileManager->getBufferByID(bid1);
+			Buffer * b2 = MainFileManager->getBufferByID(bid2);
+			
+			if (_iColumn == 0)
+			{
+				const TCHAR *s1 = b1->getFileName();
+				const TCHAR *s2 = b2->getFileName();
+				int result = _strequiv(s1, s2);
+				
+				if (result != 0) // default to filepath sorting when equivalent
+					return result < 0;
+			}
+			else if (_iColumn == 2)
+			{
+				auto t1 = b1->getLangType();
+				auto t2 = b2->getLangType();
+				
+				if (t1 != t2) // default to filepath sorting when equivalent
+					return (t1 < t2);
+			}
+			
+			 // _iColumn == 1
 			const TCHAR *s1 = b1->getFullPathName();
 			const TCHAR *s2 = b2->getFullPathName();
-			return _strequiv(s1, s2);	//we can compare the full path to sort on directory, since after sorting directories sorting files is the second thing to do (if directories are the same that is)
-		}
-		else if (_iColumn == 2)
-		{
-			auto t1 = b1->getLangType();
-			auto t2 = b2->getLangType();
-			return (t1 < t2); // yeah should be the name
+			return _strequiv(s1, s2) < 0;	//we can compare the full path to sort on directory, since after sorting directories sorting files is the second thing to do (if directories are the same that is)
 		}
 		return false;
 	}
@@ -255,9 +263,21 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 				}
 				case IDC_WINDOWS_SORT:
 				{
+					// they never set a column to sort by, so assume they wanted filename
+					if (_currentColumn == -1)
+					{
+						_currentColumn = 0;
+						_reverseSort = false;
+						_lastSort = _currentColumn;
+						
+						updateColumnNames();
+						doColumnSort();
+					}
+					
 					doSortToTabs();
-					_isSorted = false;
-					updateButtonState();
+					
+					// must re-sort because tab indexes changed
+					doColumnSort();
 					break;
 				}
 			}
@@ -344,31 +364,21 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					NMLISTVIEW *pNMLV = (NMLISTVIEW *)pNMHDR;
 					if (pNMLV->iItem == -1)
 					{
-						bool reverse = false;
-						int iColumn = pNMLV->iSubItem;
-						if (_lastSort == iColumn)
+						_currentColumn = pNMLV->iSubItem;
+						
+						if (_lastSort == _currentColumn)
 						{
-							reverse = true;
+							_reverseSort = true;
 							_lastSort = -1;
 						}
 						else
 						{
-							_lastSort = iColumn;
+							_reverseSort = false;
+							_lastSort = _currentColumn;
 						}
-						size_t i;
-						size_t n = _idxMap.size();
-						vector<int> sortMap;
-						sortMap.resize(n);
-						for (i = 0; i < n; ++i)
-							sortMap[_idxMap[i]] = ListView_GetItemState(_hList, i, LVIS_SELECTED);
-
-						stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, iColumn, reverse));
-						for (i = 0; i < n; ++i)
-							ListView_SetItemState(_hList, i, sortMap[_idxMap[i]] ? LVIS_SELECTED : 0, LVIS_SELECTED);
-
-						::InvalidateRect(_hList, &_rc, FALSE);
-						_isSorted = true;
-						updateButtonState();
+						
+						updateColumnNames();
+						doColumnSort();
 					}
 					return TRUE;
 				}
@@ -403,6 +413,26 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 	return MyBaseClass::run_dlgProc(message, wParam, lParam);
 }
 
+void WindowsDlg::doColumnSort()
+{
+	if (_currentColumn == -1)
+		return;
+	
+	size_t i;
+	size_t n = _idxMap.size();
+	vector<int> sortMap;
+	sortMap.resize(n);
+	for (i = 0; i < n; ++i)
+		sortMap[_idxMap[i]] = ListView_GetItemState(_hList, i, LVIS_SELECTED);
+
+	stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, _currentColumn, _reverseSort));
+	for (i = 0; i < n; ++i)
+		ListView_SetItemState(_hList, i, sortMap[_idxMap[i]] ? LVIS_SELECTED : 0, LVIS_SELECTED);
+
+	::InvalidateRect(_hList, &_rc, FALSE);
+	updateButtonState();
+}
+
 
 void WindowsDlg::updateButtonState()
 {
@@ -422,7 +452,7 @@ void WindowsDlg::updateButtonState()
 		else
 			EnableWindow(GetDlgItem(_hSelf, IDOK), FALSE);
 	}
-	EnableWindow(GetDlgItem(_hSelf, IDC_WINDOWS_SORT), _isSorted);
+	EnableWindow(GetDlgItem(_hSelf, IDC_WINDOWS_SORT), TRUE);
 }
 
 int WindowsDlg::doDialog(TiXmlNodeA *dlgNode)
@@ -482,7 +512,9 @@ BOOL WindowsDlg::onInitDialog()
 	// save min size for OK/Cancel buttons
 	_szMinButton = RectToSize(_winMgr.GetRect(IDOK));
 	_szMinListCtrl = RectToSize(_winMgr.GetRect(IDC_WINDOWS_LIST));
+	_currentColumn = -1;
 	_lastSort = -1;
+	_reverseSort = false;
 
 	_winMgr.CalcLayout(_hSelf);
 	_winMgr.SetWindowPositions(_hSelf);
@@ -492,25 +524,27 @@ BOOL WindowsDlg::onInitDialog()
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hList);
 	exStyle |= LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_DOUBLEBUFFER;
 	ListView_SetExtendedListViewStyle(_hList, exStyle);
+
 	RECT rc;
 	GetClientRect(_hList, &rc);
 	LONG width = rc.right - rc.left;
 
 	LVCOLUMN lvColumn;
 	memset(&lvColumn, 0, sizeof(lvColumn));
-	lvColumn.mask = LVCF_WIDTH|LVCF_TEXT|LVCF_SUBITEM|LVCF_FMT;
+	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
 	lvColumn.fmt = LVCFMT_LEFT;
-	lvColumn.pszText = TEXT("Name");
-	lvColumn.cx = width/4;
+
+	lvColumn.pszText = TEXT("\u21F5 Name");
+	lvColumn.cx = width / 4;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
 
-	lvColumn.pszText = TEXT("Path");
+	lvColumn.pszText = TEXT("\u21F5 Path");
 	lvColumn.cx = 300;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
-	lvColumn.pszText = TEXT("Type");
-	lvColumn.cx = 40;
+	lvColumn.pszText = TEXT("\u21F5 Type");
+	lvColumn.cx = 50;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
 
 	fitColumnsToSize();
@@ -527,6 +561,60 @@ BOOL WindowsDlg::onInitDialog()
 
 	doRefresh(true);
 	return TRUE;
+}
+
+void WindowsDlg::updateColumnNames()
+{
+	LVCOLUMN lvColumn;
+	memset(&lvColumn, 0, sizeof(lvColumn));
+	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
+	lvColumn.fmt = LVCFMT_LEFT;
+
+	if (_currentColumn != 0)
+	{
+		lvColumn.pszText = TEXT("\u21F5 Name");
+	}
+	else if (_reverseSort)
+	{
+		lvColumn.pszText = TEXT("\u25B3 Name");
+	}
+	else
+	{
+		lvColumn.pszText = TEXT("\u25BD Name");
+	}
+	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
+	SendMessage(_hList, LVM_SETCOLUMN, 0, LPARAM(&lvColumn));
+
+	if (_currentColumn != 1)
+	{
+		lvColumn.pszText = TEXT("\u21F5 Path");
+	}
+	else if (_reverseSort)
+	{
+		lvColumn.pszText = TEXT("\u25B3 Path");
+	}
+	else
+	{
+		lvColumn.pszText = TEXT("\u25BD Path");
+	}
+	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 1, 0));
+	SendMessage(_hList, LVM_SETCOLUMN, 1, LPARAM(&lvColumn));
+
+	lvColumn.fmt = LVCFMT_CENTER;
+	if (_currentColumn != 2)
+	{
+		lvColumn.pszText = TEXT("\u21F5 Type");
+	}
+	else if (_reverseSort)
+	{
+		lvColumn.pszText = TEXT("\u25B3 Type");
+	}
+	else
+	{
+		lvColumn.pszText = TEXT("\u25BD Type");
+	}
+	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
+	SendMessage(_hList, LVM_SETCOLUMN, 2, LPARAM(&lvColumn));
 }
 
 void WindowsDlg::onSize(UINT nType, int cx, int cy)

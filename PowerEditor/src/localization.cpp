@@ -46,8 +46,9 @@ MenuPosition menuPos[] = {
 	{ 4, -1, -1, "encoding" },
 	{ 5, -1, -1, "language" },
 	{ 6, -1, -1, "settings" },
-	{ 7, -1, -1, "macro" },
-	{ 8, -1, -1, "run" },
+	{ 7, -1, -1, "tools" },
+	{ 8, -1, -1, "macro" },
+	{ 9, -1, -1, "run" },
 
 	{ 0,  2, -1, "file-openFolder" },
 	{ 0, 12, -1, "file-closeMore" },
@@ -97,6 +98,8 @@ MenuPosition menuPos[] = {
 	{ 4,  5, 15, "encoding-vietnamese" },
 
 	{ 6,  4, -1, "settings-import" },
+
+	{ 7,  0, -1, "tools-md5" },
 	{ -1, -1, -1, "" } // End of array
 };
 
@@ -139,7 +142,7 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
     }
 }
 
-generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
+generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName) const
 {
 	if (!_nativeLangA) return TEXT("");
 	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
@@ -170,7 +173,7 @@ generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
 	return TEXT("");
 }
 
-generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) 
+generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
 {
 	if (!_nativeLangA)
 		return TEXT("");
@@ -203,6 +206,30 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID)
 	}
 	return TEXT("");
 }
+
+generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID) const
+{
+	if (not _nativeLangA)
+		return TEXT("");
+
+	if (not strID)
+		return TEXT("");
+
+	TiXmlNodeA *node = _nativeLangA->FirstChild("MiscStrings");
+	if (not node) return TEXT("");
+
+	node = node->FirstChild(strID);
+	if (not node) return TEXT("");
+
+	TiXmlElementA *element = node->ToElement();
+
+	const char *value = element->Attribute("value");
+	if (not value) return TEXT("");
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	return wmc->char2wchar(value, _nativeLangEncoding);
+}
+
 
 
 MenuPosition & getMenuPosition(const char *id)

@@ -24,6 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 #pragma once
 
 #include "tinyxmlA.h"
@@ -137,10 +138,26 @@ struct Position
 };
 
 
+struct MapPosition
+{
+	int32_t _firstVisibleDisplayLine = -1;
+
+	int32_t _firstVisibleDocLine = -1; // map
+	int32_t _lastVisibleDocLine = -1;  // map
+	int32_t _nbLine = -1;              // map
+	int32_t _higherPos = -1;           // map
+	int32_t _width = -1;
+	int32_t _height = -1;
+	int32_t _wrapIndentMode = -1;
+	bool _isWrap = false;
+	bool isValid() { return _firstVisibleDisplayLine != -1; };
+};
+
+
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, int originalFileLastModifTimestamp) :
-		_encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp)
+	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, int originalFileLastModifTimestamp, const MapPosition & mapPos) :
+		_encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
@@ -157,6 +174,8 @@ struct sessionFileInfo : public Position
 
 	generic_string _backupFilePath;
 	time_t _originalFileLastModifTimestamp = 0;
+
+	MapPosition _mapPos;
 };
 
 
@@ -551,7 +570,7 @@ struct NewDocDefaultSettings final
 };
 
 
-struct LangMenuItem
+struct LangMenuItem final
 {
 	LangType _langType;
 	int	_cmdID;
@@ -561,31 +580,29 @@ struct LangMenuItem
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
 };
 
-struct PrintSettings {
-	bool _printLineNumber;
-	int _printOption;
+struct PrintSettings final {
+	bool _printLineNumber = true;
+	int _printOption = SC_PRINT_COLOURONWHITE;
 
 	generic_string _headerLeft;
 	generic_string _headerMiddle;
 	generic_string _headerRight;
 	generic_string _headerFontName;
-	int _headerFontStyle;
-	int _headerFontSize;
+	int _headerFontStyle = 0;
+	int _headerFontSize = 0;
 
 	generic_string _footerLeft;
 	generic_string _footerMiddle;
 	generic_string _footerRight;
 	generic_string _footerFontName;
-	int _footerFontStyle;
-	int _footerFontSize;
+	int _footerFontStyle = 0;
+	int _footerFontSize = 0;
 
 	RECT _marge;
 
-	PrintSettings() : _printLineNumber(true), _printOption(SC_PRINT_NORMAL), _headerLeft(TEXT("")), _headerMiddle(TEXT("")), _headerRight(TEXT("")),\
-		_headerFontName(TEXT("")), _headerFontStyle(0), _headerFontSize(0),  _footerLeft(TEXT("")), _footerMiddle(TEXT("")), _footerRight(TEXT("")),\
-		_footerFontName(TEXT("")), _footerFontStyle(0), _footerFontSize(0) {
-			_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
-		};
+	PrintSettings() {
+		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
+	};
 
 	bool isHeaderPresent() const {
 		return ((_headerLeft != TEXT("")) || (_headerMiddle != TEXT("")) || (_headerRight != TEXT("")));
@@ -762,11 +779,13 @@ struct NppGUI final
 	bool _delimiterSelectionOnEntireDocument = false;
 	bool _backSlashIsEscapeCharacterForSql = true;
 
+	bool _isWordCharDefault = true;
+	std::string _customWordChars;
 
 	// 0 : do nothing
 	// 1 : don't draw underline
 	// 2 : draw underline
-	int _styleURL = 0;
+	int _styleURL = 2;
 
 	NewDocDefaultSettings _newDocDefaultSettings;
 
@@ -774,7 +793,7 @@ struct NppGUI final
 	void setTabReplacedBySpace(bool b) {_tabReplacedBySpace = b;};
 	const NewDocDefaultSettings & getNewDocDefaultSettings() const {return _newDocDefaultSettings;};
 	std::vector<LangMenuItem> _excludedLangList;
-	bool _isLangMenuCompact = false;
+	bool _isLangMenuCompact = true;
 
 	PrintSettings _printSettings;
 	BackupFeature _backup = bak_none;
@@ -786,7 +805,7 @@ struct NppGUI final
 	AutocStatus _autocStatus = autoc_both;
 	size_t  _autocFromLen = 1;
 	bool _autocIgnoreNumbers = true;
-	bool _funcParams = false;
+	bool _funcParams = true;
 	MatchedPairConf _matchedPairConf;
 
 	generic_string _definedSessionExt;
@@ -802,7 +821,7 @@ struct NppGUI final
 	_autoUpdateOpt;
 
 	bool _doesExistUpdater = false;
-	int _caretBlinkRate = 250;
+	int _caretBlinkRate = 600;
 	int _caretWidth = 1;
 	bool _enableMultiSelection = false;
 
@@ -827,6 +846,9 @@ struct NppGUI final
 	generic_string _searchEngineCustom;
 
 	bool _isFolderDroppedOpenFiles = false;
+
+	bool _isDocSnapshotOnTab = true;
+	bool _isDocSnapshotOnMap = false;
 };
 
 struct ScintillaViewParams
@@ -1475,6 +1497,7 @@ public:
 	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
 	winVer getWinVersion() const {return _winVersion;};
 	generic_string getWinVersionStr() const;
+	generic_string getWinVerBitStr() const;
 	FindHistory & getFindHistory() {return _findHistory;};
 	bool _isFindReplacing = false; // an on the fly variable for find/replace functions
 	void safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection);
@@ -1548,6 +1571,8 @@ public:
 		_nppGUI._useNewStyleSaveDlg = v;
 	}
 	DPIManager _dpiManager;
+
+	generic_string static getSpecialFolderLocation(int folderKind);
 
 
 private:
@@ -1660,6 +1685,7 @@ private:
 	bool _asNotepadStyle = false;
 
 	winVer _winVersion;
+	Platform _platForm;
 
 	NativeLangSpeaker *_pNativeLangSpeaker = nullptr;
 
@@ -1731,4 +1757,5 @@ private:
 	void initScintillaKeys();	//these functions have to be called first before any modifications are loaded
 	int getCmdIdFromMenuEntryItemName(HMENU mainMenuHadle, generic_string menuEntryName, generic_string menuItemName); // return -1 if not found
 	int getPluginCmdIdFromMenuEntryItemName(HMENU pluginsMenu, generic_string pluginName, generic_string pluginCmdName); // return -1 if not found
+	winVer getWindowsVersion();
 };

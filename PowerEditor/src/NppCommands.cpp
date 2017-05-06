@@ -38,6 +38,7 @@
 #include "fileBrowser.h"
 #include "Sorters.h"
 #include "LongRunningOperation.h"
+#include "md5.h"
 
 using namespace std;
 
@@ -60,6 +61,8 @@ void Notepad_plus::macroPlayback(Macro macro)
 	_playingBackMacro = false;
 }
 
+
+
 void Notepad_plus::command(int id)
 {
 	switch (id)
@@ -67,6 +70,18 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_NEW:
 		{
 			fileNew();
+
+			/*
+			bool isFirstTime = not _pluginsAdminDlg.isCreated();
+			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
+			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+			{
+				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
+				_pluginsAdminDlg.downloadPluginList();
+				_pluginsAdminDlg.loadFomList();
+			}
+			*/
 		}
 		break;
 
@@ -364,7 +379,7 @@ void Notepad_plus::command(int id)
 
 			HWND hwnd = _pPublicInterface->getHSelf();
 			TCHAR curentWord[CURRENTWORD_MAXLENGTH];
-			::SendMessage(hwnd, NPPM_GETCURRENTWORD, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
+			::SendMessage(hwnd, NPPM_GETFILENAMEATCURSOR, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(curentWord));
 			
 			TCHAR cmd2Exec[CURRENTWORD_MAXLENGTH];
 			if (id == IDM_EDIT_OPENINFOLDER)
@@ -1751,7 +1766,7 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_WRAP:
 		{
 			bool isWraped = !_pEditView->isWrap();
-			//--FLS: ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as Scintilla-Doc. says
+			// ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as Scintilla-Doc. says
 			if (!isWraped)
 			{
 				_mainEditView.saveCurrentPos();
@@ -2424,7 +2439,6 @@ void Notepad_plus::command(int id)
 
         case IDM_SETTING_EDITCONTEXTMENU :
         {
-			generic_string warning, title;
 			_nativeLangSpeaker.messageBox("ContextMenuXmlEditWarning",
 				_pPublicInterface->getHSelf(),
 				TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu on edit zone.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."),
@@ -2472,6 +2486,49 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_TOOL_MD5_GENERATE:
+		{
+			bool isFirstTime = !_md5FromTextDlg.isCreated();
+			_md5FromTextDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_md5FromTextDlg.getHSelf(), "MD5FromTextDlg");
+		}
+		break;
+
+		case IDM_TOOL_MD5_GENERATEFROMFILE:
+		{
+			bool isFirstTime = !_md5FromFilesDlg.isCreated();
+			_md5FromFilesDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_md5FromFilesDlg.getHSelf(), "MD5FromFilesDlg");
+		}
+		break;
+
+		case IDM_TOOL_MD5_GENERATEINTOCLIPBOARD:
+		{
+			if (_pEditView->execute(SCI_GETSELECTIONS) == 1)
+			{
+				size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
+				size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+
+				int32_t strLen = static_cast<int32_t>(selectionEnd - selectionStart);
+				if (strLen)
+				{
+					int strSize = strLen + 1;
+					char *selectedStr = new char[strSize];
+					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
+
+					MD5 md5;
+					std::string md5ResultA = md5.digestString(selectedStr);
+					std::wstring md5ResultW(md5ResultA.begin(), md5ResultA.end());
+					str2Clipboard(md5ResultW, _pPublicInterface->getHSelf());
+					
+					delete [] selectedStr;
+				}
+			}
+		}
+		break;
+
 		case IDM_DEBUGINFO:
 		{
 			_debugInfoDlg.doDialog();
@@ -2515,6 +2572,7 @@ void Notepad_plus::command(int id)
 					return;
 				}
 			}
+
 			if (doAboutDlg)
 			{
 				bool isFirstTime = !_aboutDlg.isCreated();
@@ -2602,11 +2660,11 @@ void Notepad_plus::command(int id)
 		case IDM_UPDATE_NPP :
 		case IDM_CONFUPDATERPROXY :
 		{
-			// wingup doesn't work with the obsolet security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
+			// wingup doesn't work with the obsolete security layer (API) under xp since downloadings are secured with SSL on notepad_plus_plus.org
 			winVer ver = NppParameters::getInstance()->getWinVersion();
 			if (ver <= WV_XP)
 			{
-				long res = ::MessageBox(NULL, TEXT("Notepad++ updater is not compatible with XP due to the obsolet security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"), TEXT("Notepad++ Updater"), MB_YESNO);
+				long res = ::MessageBox(NULL, TEXT("Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"), TEXT("Notepad++ Updater"), MB_YESNO);
 				if (res == IDYES)
 				{
 					::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/download/"), NULL, NULL, SW_SHOWNORMAL);
@@ -2724,6 +2782,10 @@ void Notepad_plus::command(int id)
         case IDM_LANG_R :
         case IDM_LANG_JSP :
 		case IDM_LANG_COFFEESCRIPT:
+		case IDM_LANG_BAANC:
+		case IDM_LANG_SREC:
+		case IDM_LANG_IHEX:
+		case IDM_LANG_TEHEX:
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));
@@ -2744,17 +2806,19 @@ void Notepad_plus::command(int id)
 			if (nbDoc > 1)
 			{
 				bool direction = (id == IDC_NEXT_DOC)?dirDown:dirUp;
-
 				if (!doTaskList)
 				{
 					activateNextDoc(direction);
 				}
 				else
 				{
-					TaskListDlg tld;
-					HIMAGELIST hImgLst = _docTabIconList.getHandle();
-					tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
-					tld.doDialog();
+					if (TaskListDlg::_instanceCount == 0)
+					{
+						TaskListDlg tld;
+						HIMAGELIST hImgLst = _docTabIconList.getHandle();
+						tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
+						tld.doDialog();
+					}
 				}
 			}
 			_linkTriggered = true;
@@ -2828,6 +2892,9 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+
+			// Send sizing info to make window fit (specially to show tool bar. Fixed issue #2600)
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 		}
 		break;
 
@@ -2849,6 +2916,9 @@ void Notepad_plus::command(int id)
 		{
 			NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+
+			// Send sizing info to make window fit (specially to show tool bar. Fixed issue #2600)
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			fileOpen();
 		}
 		break;

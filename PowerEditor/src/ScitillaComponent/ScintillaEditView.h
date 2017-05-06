@@ -130,6 +130,7 @@ const int MARK_HIDELINESUNDERLINE = 21;
 
 
 int getNbDigits(int aNum, int base);
+HMODULE loadSciLexerDll();
 
 TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
 
@@ -361,6 +362,7 @@ public:
 
 	void showWSAndTab(bool willBeShowed = true) {
 		execute(SCI_SETVIEWWS, willBeShowed?SCWS_VISIBLEALWAYS:SCWS_INVISIBLE);
+		execute(SCI_SETWHITESPACESIZE, 2, 0);
 	};
 
 	void showEOL(bool willBeShowed = true) {
@@ -463,7 +465,7 @@ public:
 		return true;
 	};
 
-	long getSelectedLength() const
+	long getUnicodeSelectedLength() const
 	{
 		// return -1 if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
@@ -618,6 +620,11 @@ public:
 	};
 
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
+
+	void addCustomWordChars();
+	void restoreDefaultWordChars();
+	void setWordChars();
+
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
 	};
@@ -669,6 +676,8 @@ protected:
 	BufferStyleMap _hotspotStyles;
 
 	int _beginSelectPosition = -1;
+
+	static std::string _defaultCharList;
 
 //Lexers and Styling
 	void restyleBuffer();
@@ -865,6 +874,23 @@ protected:
 
     void setCoffeeScriptLexer() {
 		setLexer(SCLEX_COFFEESCRIPT, L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
+	};
+
+	void setBaanCLexer() {
+		setLexer(SCLEX_BAAN, L_BAANC, LIST_0 | LIST_1);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("styling.within.preprocessor"), reinterpret_cast<LPARAM>("1"));
+	};
+
+	void setSrecLexer() {
+		setLexer(SCLEX_SREC, L_SREC, LIST_NONE);
+	};
+
+	void setIHexLexer() {
+		setLexer(SCLEX_IHEX, L_IHEX, LIST_NONE);
+	};
+
+	void setTEHexLexer() {
+		setLexer(SCLEX_TEHEX, L_TEHEX, LIST_NONE);
 	};
 
     //--------------------

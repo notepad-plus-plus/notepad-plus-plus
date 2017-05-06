@@ -674,6 +674,7 @@ BEGIN
         MENUITEM "ASP",                     IDM_LANG_ASP
         MENUITEM "Assembly",                IDM_LANG_ASM
         MENUITEM "AutoIt",                  IDM_LANG_AU3
+        MENUITEM "BaanC",                  IDM_LANG_BAANC
         MENUITEM "Batch",                   IDM_LANG_BATCH
         MENUITEM "C",                       IDM_LANG_C
         MENUITEM "C#",                      IDM_LANG_CS
@@ -692,6 +693,7 @@ BEGIN
         MENUITEM "HTML",                    IDM_LANG_HTML
 		MENUITEM "INI file",                IDM_LANG_INI
         MENUITEM "Inno Setup",              IDM_LANG_INNO
+        MENUITEM "Intel HEX",               IDM_LANG_IHEX
         MENUITEM "Java",                    IDM_LANG_JAVA
         MENUITEM "JavaScript",              IDM_LANG_JS
 		MENUITEM "JSON",                    IDM_LANG_JSON
@@ -719,7 +721,9 @@ BEGIN
         MENUITEM "Scheme",                  IDM_LANG_SCHEME
         MENUITEM "Smalltalk",               IDM_LANG_SMALLTALK
         MENUITEM "SQL",                     IDM_LANG_SQL
+        MENUITEM "S-Record",                IDM_LANG_SREC
         MENUITEM "TCL",                     IDM_LANG_TCL
+        MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
         MENUITEM "TeX",                     IDM_LANG_TEX
         MENUITEM "Visual Basic",            IDM_LANG_VB
         MENUITEM "VHDL",                    IDM_LANG_VHDL
@@ -741,7 +745,11 @@ BEGIN
         MENUITEM "Assembly",              IDM_LANG_ASM
         MENUITEM "AutoIt",                IDM_LANG_AU3
     END
-    MENUITEM "Batch",                     IDM_LANG_BATCH
+    POPUP "B"
+    BEGIN
+        MENUITEM "BaanC",                    IDM_LANG_BAANC
+        MENUITEM "Batch",                     IDM_LANG_BATCH
+    END
     POPUP "C"
     BEGIN
         MENUITEM "C",                     IDM_LANG_C
@@ -773,6 +781,7 @@ BEGIN
 	BEGIN
 		MENUITEM "INI file",              IDM_LANG_INI
 		MENUITEM "Inno Setup",            IDM_LANG_INNO
+		MENUITEM "Intel HEX",             IDM_LANG_IHEX
 	END
     POPUP "J"
     BEGIN
@@ -821,10 +830,12 @@ BEGIN
         MENUITEM "Scheme",                IDM_LANG_SCHEME
         MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
         MENUITEM "SQL",                   IDM_LANG_SQL
+        MENUITEM "S-Record",              IDM_LANG_SREC
     END
     POPUP "T"
     BEGIN
         MENUITEM "TCL",                   IDM_LANG_TCL
+        MENUITEM "Tektronix extended HEX",IDM_LANG_TEHEX
         MENUITEM "TeX",                   IDM_LANG_TEX
     END
     POPUP "V"
@@ -855,7 +866,17 @@ BEGIN
         MENUITEM "Edit Popup ContextMenu",      IDM_SETTING_EDITCONTEXTMENU
     END
 
-    POPUP "&Macro"
+	POPUP "T&ools"
+    BEGIN
+        POPUP "MD5"
+		BEGIN
+			MENUITEM "Generate...",                         IDM_TOOL_MD5_GENERATE
+			MENUITEM "Generate from files...",              IDM_TOOL_MD5_GENERATEFROMFILE
+			MENUITEM "Generate into clipboard",             IDM_TOOL_MD5_GENERATEINTOCLIPBOARD
+        END
+    END
+	
+	POPUP "&Macro"
     BEGIN
         MENUITEM "Start Re&cording",                   IDM_MACRO_STARTRECORDINGMACRO
         MENUITEM "S&top Recording",                    IDM_MACRO_STOPRECORDINGMACRO
@@ -971,6 +992,3 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     PUSHBUTTON      "+",IDC_RESTORE_BUTTON,0,0,12,10
 END
-
-// xp style
-//1 RT_MANIFEST "notepad++.exe.manifest"

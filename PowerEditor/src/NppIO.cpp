@@ -444,6 +444,10 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 		_subEditView.restoreCurrentPos();
 	}
+
+	// Once reload is complete, activate buffer which will take care of
+	// many settings such as update status bar, clickable link etc.
+	activateBuffer(id, currentView());
 	return res;
 }
 
@@ -611,7 +615,10 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	scnN.nmhdr.idFrom = (uptr_t)id;
 	_pluginsManager.notify(&scnN);
 
-	//add to recent files if its an existing file
+	// Add to recent file history only if file is removed from all the views
+	// There might be cases when file is cloned/moved to view.
+	// Don't add to recent list unless file is removed from all the views
+	generic_string fileFullPath;
 	if (!buf->isUntitled())
 	{
 		// if the file doesn't exist, it could be redirected
@@ -626,7 +633,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		}
 
 		if (PathFileExists(buf->getFullPathName()))
-			_lastRecentFileList.add(buf->getFullPathName());
+			fileFullPath = buf->getFullPathName();
 
 		// We enable Wow64 system, if it was disabled
 		if (isWow64Off)
@@ -671,6 +678,11 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 			if (hiddenBufferID != BUFFER_INVALID)
 				_pFileSwitcherPanel->closeItem(hiddenBufferID, whichOne);
 		}
+
+		// Add to recent file only if file is removed and does not exist in any of the views
+		BufferID buffID = MainFileManager->getBufferFromName(fileFullPath.c_str());
+		if (buffID == BUFFER_INVALID && fileFullPath.length() > 0)
+			_lastRecentFileList.add(fileFullPath.c_str());
 	}
 	command(IDM_VIEW_REFRESHTABAR);
 
@@ -1593,6 +1605,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 			}
 
 			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
+			buf->setMapPosition(session._mainViewFiles[i]._mapPos);
 			buf->setLangType(typeToSet, pLn);
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
@@ -1696,8 +1709,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 			}
 
 			buf->setPosition(session._subViewFiles[k], &_subEditView);
-			if (typeToSet == L_USER) {
-				if (!lstrcmp(pLn, TEXT("User Defined"))) {
+			buf->setMapPosition(session._subViewFiles[k]._mapPos);
+			if (typeToSet == L_USER)
+			{
+				if (!lstrcmp(pLn, TEXT("User Defined")))
+				{
 					pLn = TEXT("");	//default user defined
 				}
 			}
@@ -1761,7 +1777,6 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 	if (fn == NULL)
 	{
 		FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
-		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 		const TCHAR *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
 		generic_string sessionExt = TEXT("");
 		if (*ext != '\0')
@@ -1771,6 +1786,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			sessionExt += ext;
 			fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
 		}
+		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 		sessionFileName = fDlg.doOpenSingleFileDlg();
 	}
 	else
@@ -1802,6 +1818,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			args += sessionFileName;
 			args += TEXT("\"");
 			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
+			result = true;
 		}
 		else
 		{
@@ -1815,6 +1832,14 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			}
 			if (!isAllSuccessful)
 				(NppParameters::getInstance())->writeSession(session2Load, sessionFileName);
+		}
+		if (result == false)
+		{
+			_nativeLangSpeaker.messageBox("SessionFileInvalidError",
+				NULL,
+				TEXT("Session file is either corrupted or not valid."),
+				TEXT("Could not Load Session"),
+				MB_OK);
 		}
 	}
 	return result;
@@ -1849,7 +1874,6 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 	FileDialog fDlg(_pPublicInterface->getHSelf(), _pPublicInterface->getHinst());
 	const TCHAR *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
 
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 	generic_string sessionExt = TEXT("");
 	if (*ext != '\0')
 	{
@@ -1858,6 +1882,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 		sessionExt += ext;
 		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
 	}
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 	sessionFileName = fDlg.doSaveDlg();
 
 	return fileSaveSession(nbFile, fileNames, sessionFileName);

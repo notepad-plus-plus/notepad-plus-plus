@@ -26,18 +26,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef ANSICHARPANEL_H
-#define  ANSICHARPANEL_H
+#pragma once
 
 #include <windows.h>
 #include <commctrl.h>
 
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "ansiCharPanel_rc.h"
 #include "ListView.h"
+#include "asciiListView.h"
 
 #define AI_PROJECTPANELTITLE		TEXT("ASCII Insertion Panel")
 
@@ -78,6 +75,6 @@ protected:
 
 private:
 	ScintillaEditView **_ppEditView = nullptr;
-	ListView _listView;
+	AsciiListView _listView;
 };
-#endif // ANSICHARPANEL_H
+

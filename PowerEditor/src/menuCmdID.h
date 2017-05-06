@@ -482,6 +482,10 @@
 	#define    IDM_LANG_COFFEESCRIPT       (IDM_LANG + 56)
 	#define    IDM_LANG_JSON		       (IDM_LANG + 57)
     #define    IDM_LANG_FORTRAN_77         (IDM_LANG + 58)
+	#define    IDM_LANG_BAANC              (IDM_LANG + 59)
+    #define    IDM_LANG_SREC               (IDM_LANG + 60)
+    #define    IDM_LANG_IHEX               (IDM_LANG + 61)
+    #define    IDM_LANG_TEHEX              (IDM_LANG + 62)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 65)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 79)
@@ -522,6 +526,12 @@
     #define	   IDM_SETTING_SHORTCUT_MAPPER_MACRO	(IDM_SETTING + 16)
 	#define	   IDM_SETTING_SHORTCUT_MAPPER_RUN		(IDM_SETTING + 17)
 	#define	   IDM_SETTING_EDITCONTEXTMENU  	    (IDM_SETTING + 18)
+
+#define    IDM_TOOL  (IDM + 8500)
+	#define	   IDM_TOOL_MD5_GENERATE  	            (IDM_TOOL + 1)
+	#define	   IDM_TOOL_MD5_GENERATEFROMFILE  	    (IDM_TOOL + 2)
+	#define	   IDM_TOOL_MD5_GENERATEINTOCLIPBOARD  	(IDM_TOOL + 3)
+
 
 #define    IDM_EXECUTE  (IDM + 9000)
 

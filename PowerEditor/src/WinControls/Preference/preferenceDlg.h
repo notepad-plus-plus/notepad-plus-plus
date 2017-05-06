@@ -189,11 +189,20 @@ class DelimiterSettingsDlg : public StaticDialog
 {
 public :
 	DelimiterSettingsDlg() {};
+	~DelimiterSettingsDlg() {
+		if (_tip)
+			::DestroyWindow(_tip);
+	};
 
 private :
-	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	POINT _singleLineModePoint, _multiLineModePoint;
 	RECT _closerRect, _closerLabelRect;
+	HWND _tip = nullptr;
+
+	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void detectSpace(const char *text2Check, int & nbSp, int & nbTab) const;
+	generic_string getWarningText(size_t nbSp, size_t nbTab) const;
+	void setWarningIfNeed() const;
 };
 
 class SettingsOnCloudDlg : public StaticDialog
@@ -249,7 +258,6 @@ private :
 	void makeCategoryList();
 	int32_t getIndexFromName(const TCHAR *name) const;
 	void showDialogByIndex(size_t index) const;
-	//ControlsTab _ctrlTab;
 	WindowVector _wVector;
 	BarsDlg _barsDlg;
 	MarginsDlg _marginsDlg;

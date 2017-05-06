@@ -483,10 +483,10 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 // return true if one of CommandShortcuts is deleted. Otherwise false.
 void Accelerator::updateShortcuts() 
 {
-	vector<int> IFAccIds;
-	IFAccIds.push_back(IDM_SEARCH_FINDNEXT);
-	IFAccIds.push_back(IDM_SEARCH_FINDPREV);
-	IFAccIds.push_back(IDM_SEARCH_FINDINCREMENT);
+	vector<int> incrFindAccIds;
+	incrFindAccIds.push_back(IDM_SEARCH_FINDNEXT);
+	incrFindAccIds.push_back(IDM_SEARCH_FINDPREV);
+	incrFindAccIds.push_back(IDM_SEARCH_FINDINCREMENT);
 
 	NppParameters *pNppParam = NppParameters::getInstance();
 
@@ -503,8 +503,9 @@ void Accelerator::updateShortcuts()
 	if (_pAccelArray)
 		delete [] _pAccelArray;
 	_pAccelArray = new ACCEL[nbMenu+nbMacro+nbUserCmd+nbPluginCmd];
-	vector<ACCEL> IFAcc;
+	vector<ACCEL> incrFindAcc;
 
+	ACCEL *pSearchFindAccel = nullptr;
 	int offset = 0;
 	size_t i = 0;
 	//no validation performed, it might be that invalid shortcuts are being used by default. Allows user to 'hack', might be a good thing
@@ -512,13 +513,16 @@ void Accelerator::updateShortcuts()
 	{
 		if (shortcuts[i].isEnabled())
 		{
-			_pAccelArray[offset].cmd = (WORD)(shortcuts[i].getID());
+			_pAccelArray[offset].cmd = static_cast<WORD>(shortcuts[i].getID());
 			_pAccelArray[offset].fVirt = shortcuts[i].getAcceleratorModifiers();
 			_pAccelArray[offset].key = shortcuts[i].getKeyCombo()._key;
 
 			// Special extra handling for shortcuts shared by Incremental Find dialog
-			if (std::find(IFAccIds.begin(), IFAccIds.end(), shortcuts[i].getID()) != IFAccIds.end())
-				IFAcc.push_back(_pAccelArray[offset]);
+			if (std::find(incrFindAccIds.begin(), incrFindAccIds.end(), shortcuts[i].getID()) != incrFindAccIds.end())
+				incrFindAcc.push_back(_pAccelArray[offset]);
+
+			if (shortcuts[i].getID() == IDM_SEARCH_FIND)
+				pSearchFindAccel = &_pAccelArray[offset];
 
 			++offset;
 		}
@@ -569,14 +573,28 @@ void Accelerator::updateShortcuts()
 	if (_hIncFindAccTab)
 		::DestroyAcceleratorTable(_hIncFindAccTab);
 
-	size_t nb = IFAcc.size();
-	ACCEL *tmpAccelArray = new ACCEL[nb];
+	size_t nb = incrFindAcc.size();
+	ACCEL *tmpIncrFindAccelArray = new ACCEL[nb];
 	for (i = 0; i < nb; ++i)
 	{
-		tmpAccelArray[i] = IFAcc[i];
+		tmpIncrFindAccelArray[i] = incrFindAcc[i];
 	}
-	_hIncFindAccTab = ::CreateAcceleratorTable(tmpAccelArray, static_cast<int32_t>(nb));
-	delete [] tmpAccelArray;
+	_hIncFindAccTab = ::CreateAcceleratorTable(tmpIncrFindAccelArray, static_cast<int32_t>(nb));
+	delete [] tmpIncrFindAccelArray;
+
+	if (_hIncFindAccTab)
+		::DestroyAcceleratorTable(_hIncFindAccTab);
+
+
+	if (_hFindAccTab)
+		::DestroyAcceleratorTable(_hFindAccTab);
+	ACCEL *tmpFindAccelArray = new ACCEL[1];
+	if (pSearchFindAccel != nullptr)
+	{
+		tmpFindAccelArray[0] = *pSearchFindAccel;
+		_hFindAccTab = ::CreateAcceleratorTable(tmpFindAccelArray, 1);
+		delete[] tmpFindAccelArray;
+	}
 
 	return;
 }

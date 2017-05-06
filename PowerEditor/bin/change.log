@@ -1,8 +1,15 @@
-Notepad++ 7.2.2 bug-fixes:
+Notepad++ 7.3.3 bug-fixs & enhancements:
 
-1.  Fix auto-updater setting toggles between startups bug.
-2.  Fix "Replace All" button shortcut accelerator in Replce dialog not working regression.
-3.  Fix unusual plugin update prompt after upgrade to 7.2.1 version.
+1.  Fix CIA Hacking Notepad++ issue (https://wikileaks.org/ciav7p1/cms/page_26968090.html).
+2.  Fix mouse wheel to task list scroll crash bug.
+3.  Fix flickering issue while switching back after modifying or deleting a document from outside.
+4.  Support Motorola S-Record, Intel and Tektronix extended hex file formats.
+5.  Improve multi-line tab: maintaining the selected tab position.
+6.  Fix add char into word char list bug.
+7.  Add Shift+Enter in Find dialog for searching in the opposite direction.
+8.  Fix a regression that delimiter settings is not retained correctely.
+9.  Add clear command button in shortcut mapper.
+10. Enhancement: file extension supported in Load/Save Session dialog if a session file extension is set.
 
 
 Included plugins:

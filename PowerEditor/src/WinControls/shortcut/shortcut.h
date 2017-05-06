@@ -174,6 +174,14 @@ public:
 
 	void setName(const TCHAR * name);
 
+	void clear(){
+		_keyCombo._isCtrl = false;
+		_keyCombo._isAlt = false;
+		_keyCombo._isShift = false;
+		_keyCombo._key = 0;
+		return;
+	}
+
 protected :
 	KeyCombo _keyCombo;
 	virtual INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -340,12 +348,14 @@ private :
 class Accelerator { //Handles accelerator keys for Notepad++ menu, including custom commands
 friend class ShortcutMapper;
 public:
-	Accelerator() :_hAccelMenu(NULL), _hMenuParent(NULL), _hAccTable(NULL), _hIncFindAccTab(NULL), _pAccelArray(NULL), _nbAccelItems(0){};
+	Accelerator() {};
 	~Accelerator() {
 		if (_hAccTable)
 			::DestroyAcceleratorTable(_hAccTable);
 		if (_hIncFindAccTab)
 			::DestroyAcceleratorTable(_hIncFindAccTab);
+		if (_hFindAccTab)
+			::DestroyAcceleratorTable(_hFindAccTab);
 		if (_pAccelArray)
 			delete [] _pAccelArray;
 	};
@@ -356,17 +366,19 @@ public:
 	};
 	HACCEL getAccTable() const {return _hAccTable;};
 	HACCEL getIncrFindAccTable() const { return _hIncFindAccTab; };
+	HACCEL getFindAccTable() const { return _hFindAccTab; };
 
 	void updateShortcuts();
 	void updateFullMenu();
 
 private:
-	HMENU _hAccelMenu;
-	HWND _hMenuParent;
-	HACCEL _hAccTable;
-	HACCEL _hIncFindAccTab;
-	ACCEL *_pAccelArray;
-	int _nbAccelItems;
+	HMENU _hAccelMenu = nullptr;
+	HWND _hMenuParent = nullptr;
+	HACCEL _hAccTable = nullptr;
+	HACCEL _hIncFindAccTab = nullptr;
+	HACCEL _hFindAccTab = nullptr;
+	ACCEL *_pAccelArray = nullptr;
+	int _nbAccelItems = 0;
 
 	void updateMenuItemByCommand(CommandShortcut csc);
 };

@@ -139,3 +139,8 @@ PowerEditor/bin/SourceCodePro-Regular.ttf
 /PowerEditor/bin/libgcc_s_sjlj-1.dll
 /PowerEditor/bin/libstdc++-6.dll
 /PowerEditor/bin/libwinpthread-1.dll
+
+PowerEditor/src/MISC/md5/RCa06792
+*.db
+*.sln
+*.opendb

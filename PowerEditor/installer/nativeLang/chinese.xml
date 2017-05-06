@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="正體中文" filename="chinese.xml" version="7.0">
+    <Native-Langue name="正體中文" filename="chinese.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="編碼(&amp;N)"/>
                     <Item menuId="language" name="語言(&amp;L)"/>
                     <Item menuId="settings" name="設定(&amp;T)"/>
+					<Item menuId="tools" name="工具(&amp;O)"/>
                     <Item menuId="macro" name="巨集(&amp;M)"/>
                     <Item menuId="run" name="執行(&amp;R)"/>
                     <Item idName="Plugins" name="外掛(&amp;P)"/>
@@ -62,7 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="西歐語系"/>
                     <Item subMenuId="encoding-vietnamese" name="越南文"/>
                     <Item subMenuId="settings-import"  name="匯入"/>
-
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -295,6 +296,9 @@
                     <Item id="48018" name="編輯彈跳選單"/>
                     <Item id="48009" name="快速鍵管理..."/>
                     <Item id="48011" name="使用者自訂..."/>
+                    <Item id="48501" name="計算生成..."/>
+                    <Item id="48502" name="從檔案生成..."/>
+                    <Item id="48503" name="直接生成至剪貼簿內"/>
                     <Item id="49000" name="執行(&amp;R)..."/>
                     <Item id="50000" name="函式自動完成"/>
                     <Item id="50001" name="字詞自動完成"/>
@@ -400,6 +404,18 @@
                 <Item id="2" name="取消"/>
                 <Item id="1904" name="儲存"/>
             </Run>
+			
+            <MD5FromFilesDlg title="從檔案計算生成 MD5">
+                <Item id="1922" name="從檔案生成 MD5..."/>
+                <Item id="1924" name="複製到剪貼簿"/>
+                <Item id="2"    name="關閉"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="計算生成 MD5">
+                <Item id="1932" name="將每一行視為獨立的字串"/>
+                <Item id="1934" name="複製到剪貼簿"/>
+                <Item id="2"    name="關閉"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="設定程式語言格式">
                 <Item id="2" name="取消"/>
@@ -811,6 +827,9 @@
                     <Item id="6252" name="起"/>
                     <Item id="6255" name="迄"/>
                     <Item id="6256" name="容許多行選取"/>
+					<Item id="6161" name="定義單字的字符 (Word character list)"/>
+                    <Item id="6162" name="使用原始的單字字符集（建議使用）"/>
+                    <Item id="6163" name="添加你的字符集（不建議選取如果你不了解這選項）"/>
                 </Delimiter>
 
 				<Cloud title="雲端">
@@ -965,5 +984,17 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+		<MiscStrings>
+			<word-chars-list-tip value="這允許你附加字符在當前單字字符集中，當滑鼠雙擊以進行選擇或以『僅符合整個單字』選項進行搜索。"/>
+			<word-chars-list-warning-begin value="警告："/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ 空白字元(space)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ 空白字元(TAB)"/>
+			<word-chars-list-warning-end value="  在你的單字字符集中。"/>
+			<cloud-invalid-warning value="無效路徑"/>
+			<cloud-restart-warning value="請重新啟動 Notepad++ 以讓改變生效"/>
+			<shift-change-direction-tip value="Shift+Enter 相反方向搜尋"/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.1.0  1/Nov/2016  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.3.1  22/Jan/2017  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.1.0">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.3.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -17,6 +17,7 @@
 					<Item menuId="encoding" name = "For&amp;mát"/>
 					<Item menuId="language" name = "Synta&amp;xe"/>
 					<Item menuId="settings" name = "Nas&amp;tavení"/>
+					<Item menuId="tools" name = "Nástro&amp;je"/>
 					<Item menuId="macro" name = "Makro"/>
 					<Item menuId="run" name = "Spustit"/>
 					<Item idName="Plugins" name = "Pluginy"/>
@@ -68,6 +69,7 @@
 					<Item subMenuId="encoding-westernEuropean" name = "západoevropské jazyky (WE)"/>
 					<Item subMenuId="encoding-vietnamese" name = "vietnamština"/>
 					<Item subMenuId="settings-import" name = "Import"/>
+					<Item subMenuId="tools-md5"  name = "MD5"/>
 				</SubEntries>
 
 				<!-- all menu item -->
@@ -315,6 +317,9 @@
 					<Item id = "48009" name = "Asociace klávesových zkratek..."/>
 					<Item id = "48011" name = "Volby..."/>
 					<Item id = "48018" name = "Upravit vyskakovací kontextové menu..."/>
+					<Item id = "48501" name = "Generovat..."/>
+					<Item id = "48502" name = "Generovat ze souborů..."/>
+					<Item id = "48503" name = "Generovat z dat ve Schránce"/>
 					<Item id = "49000" name = "&amp;Spustit..."/>
 
 					<Item id = "50000" name = "Dokončování funkcí"/>
@@ -351,7 +356,7 @@
 					<Item CMID = "15" name = "Otevřít v nové instanci"/>
 					<Item CMID = "16" name = "Znovu načíst"/>
 					<Item CMID = "17" name = "Zavřít vše nalevo"/>
-                    <Item CMID = "18" name = "Zavřít vše napravo"/>
+					<Item CMID = "18" name = "Zavřít vše napravo"/>
 					<Item CMID = "19" name = "Otevřít složku obsahující akt. soubor v Exploreru"/>
 					<Item CMID = "20" name = "Otevřít složku obsahující akt. soubor v cmd"/>
 			</TabBar>
@@ -434,6 +439,19 @@
 				<Item id = "1903" name = "Program ke spuštění"/>
 				<Item id = "1904" name = "Uložit..."/>
 			</Run>
+			
+			
+			<MD5FromFilesDlg title = "Generování unikátního MD5 klíče ze souborů">
+				<Item id = "1922" name = "Vyberte soubory pro generování MD5..."/>
+				<Item id = "1924" name = "Kopírovat do Schránky"/>
+				<Item id = "2"    name = "Zavřít"/>
+			</MD5FromFilesDlg>
+
+			<MD5FromTextDlg title = "Generování unikátního MD5 klíče">
+				<Item id = "1932" name = "Brát každý řádek jako separátní textový řetězec"/>
+				<Item id = "1934" name = "Kopírovat do Schránky"/>
+				<Item id = "2"    name = "Zavřít"/>
+			</MD5FromTextDlg>
 
 			<StyleConfig title = "Upravit styl">
 				<Item id = "2" name = "Storno"/>
@@ -691,7 +709,7 @@
 					<Item id = "6118" name = "Skrýt"/>
 					<Item id = "6119" name = "Více řad"/>
 					<Item id = "6120" name = "Vertikální"/>
-					<Item id = "6121" name = "Ukončit program při uzavření poslední karty"/>
+					<Item id = "6121" name = "Ukončit při uzavření poslední karty"/>
 					<Item id = "6122" name = "Skrýt (klávesa Alt nebo F10 slouží k přepínání)"/>
 					<Item id = "6123" name = "Lokalizace"/>
 					<Item id = "6125" name = "Přepínač dokumentů"/>
@@ -773,6 +791,7 @@
 					<Item id = "6332" name = "Rozlišovat velká a malá písmena"/>
 					<Item id = "6338" name = "Rozlišovat pouze celá slova"/>
 					<Item id = "6339" name = "Užívat nastavení dialogu Najít"/>
+					<Item id = "6340" name = "Zvýraznění v jiném pohledu"/>
 					<Item id = "6329" name = "Zvýrazňování odpovídajících značek"/>
 					<Item id = "6327" name = "Povolit"/>
 					<Item id = "6328" name = "Zvýrazňování atributů značek"/>
@@ -816,7 +835,7 @@
 					<Item id = "6426" name = "Jméno souboru i s cestou"/>
 					<Item id = "6427" name = "Přizpůsobit max. délku položky:"/>
 					<Item id = "6429" name = "Zobrazení"/>
-                </RecentFilesHistory>
+				</RecentFilesHistory>
 				<MISC title = "Různé">
 					<Item id = "6114" name = "Povolit přepínání"/>
 					<Item id = "6115" name = "Automatické odsazování"/>
@@ -885,6 +904,10 @@
 					<Item id = "6256" name = "Povolit přes více řádků"/>
 					<Item id = "6257" name = "bla bla bla bla bla bla"/>
 					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
+					<Item id = "6161" name = "Seznam znaků pro Slova"/>
+					<Item id = "6162" name = "Použít implicitní seznam znaků pro Slova tak, jak je"/>
+					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást slova
+(nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
 				</Delimiter>
 				<Cloud title = "Cloud (i-úložišťě)">
 					<Item id = "6261" name = "Pro aktivaci změn prosím restartujte Notepad++."/>
@@ -1001,6 +1024,18 @@
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+		
+		<MiscStrings>
+			<word-chars-list-tip value = "Toto nastavení Vám dovolí začlenit další znak ke stávajícím znakům slova při výběru dvojklikem nebo při vyhledávání se zaškrtnutou možností &quot;Hledat pouze celá slova&quot;."/>
+			<word-chars-list-warning-begin value = "Berte na vědomí: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-space-warning value = "$INT_REPLACE$ mezeru(y)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-tab-warning value = "$INT_REPLACE$ tabulátor(y)"/>
+			<word-chars-list-warning-end value = "  ve Vašem seznamu znaků."/>
+			<cloud-invalid-warning value = "Neplatná cesta."/>
+			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
+		</MiscStrings>
 
 	</Native-Langue>
 </NotepadPlus>

@@ -24,15 +24,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 #pragma once
 
-
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.2.2")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.3.3")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("7.22\0")
-#define VERSION_DIGITALVALUE 7, 2, 2, 0
+#define VERSION_VALUE TEXT("7.33\0")
+#define VERSION_DIGITALVALUE 7, 3, 3, 0
 
 
 
@@ -283,16 +283,17 @@
 #define IDC_EMAIL_ADDR        1703
 #define IDC_ONLINEHELP_ADDR 1704
 #define IDC_AUTHOR_NAME 1705
-#define IDC_BUILD_DATETIME 1706        //LS: CompileDateInAboutDialog: Automatically insert compile date as additional version info in About-dialog!
+#define IDC_BUILD_DATETIME 1706
 #define IDC_VERSION_BIT 1707
 
 #define IDD_DEBUGINFOBOX 1750
 #define IDC_DEBUGINFO_EDIT 1751
 #define IDC_DEBUGINFO_COPYLINK 1752
 
-//#define IDD_USER_DEFINE_BOX                  1800
-
-//#define IDD_RUN_DLG      1900
+//#define IDD_USER_DEFINE_BOX       1800
+//#define IDD_RUN_DLG               1900
+//#define IDD_MD5FROMFILES_DLG      1920
+//#define IDD_MD5FROMTEXT_DLG       1930
 
 #define IDD_GOLINE        2000
 #define ID_GOLINE_EDIT    (IDD_GOLINE + 1)
@@ -355,11 +356,17 @@
 //See fileBrowser_rc.h
 //#define IDD_FILEBROWSER 3500
 
+//See documentSnapshot_rc.h
+//#define IDD_DOCUMENSNAPSHOT 3600
+
 // See regExtDlg.h
 //#define IDD_REGEXT 4000
 
 // See shortcutRc.h
 //#define IDD_SHORTCUT_DLG      5000
+
+// See pluginsAdminRes.h
+//#define IDD_PLUGINSADMIN_DLG 5500
 
 // See preference.rc
 //#define IDD_PREFERENCE_BOX 6000
@@ -409,6 +416,7 @@
 	#define NPPM_INTERNAL_RELOADSCROLLTOEND			(NOTEPADPLUS_USER_INTERNAL + 42)  // Used by Monitoring feature
 	#define NPPM_INTERNAL_FINDKEYCONFLICTS          (NOTEPADPLUS_USER_INTERNAL + 43)
 	#define NPPM_INTERNAL_SCROLLBEYONDLASTLINE      (NOTEPADPLUS_USER_INTERNAL + 44)
+	#define NPPM_INTERNAL_SETWORDCHARS              (NOTEPADPLUS_USER_INTERNAL + 45)
 
     //wParam: 0
     //lParam: document new index
@@ -470,6 +478,7 @@
 #define MENUINDEX_FORMAT   4
 #define MENUINDEX_LANGUAGE 5
 #define MENUINDEX_SETTINGS 6
-#define MENUINDEX_MACRO    7
-#define MENUINDEX_RUN      8
-#define MENUINDEX_PLUGINS  9
+#define MENUINDEX_TOOLS    7
+#define MENUINDEX_MACRO    8
+#define MENUINDEX_RUN      9
+#define MENUINDEX_PLUGINS  10

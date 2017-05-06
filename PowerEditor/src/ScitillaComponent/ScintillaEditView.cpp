@@ -38,15 +38,15 @@ using namespace std;
 // initialize the static variable
 
 // get full ScinLexer.dll path to avoid hijack
-TCHAR * getSciLexerFullPathName(TCHAR * moduleFileName, size_t len){
+TCHAR * getSciLexerFullPathName(TCHAR * moduleFileName, size_t len)
+{
 	::GetModuleFileName(NULL, moduleFileName, static_cast<int32_t>(len));
 	::PathRemoveFileSpec(moduleFileName);
 	::PathAppend(moduleFileName, TEXT("SciLexer.dll"));
 	return moduleFileName;
 };
 
-TCHAR moduleFileName[1024];
-HINSTANCE ScintillaEditView::_hLib = ::LoadLibrary(getSciLexerFullPathName(moduleFileName, 1024));
+HINSTANCE ScintillaEditView::_hLib = loadSciLexerDll();
 int ScintillaEditView::_refCount = 0;
 UserDefineDialog ScintillaEditView::_userDefineDlg;
 
@@ -56,6 +56,8 @@ const int ScintillaEditView::_SC_MARGE_FOLDER = 2;
 //const int ScintillaEditView::_SC_MARGE_MODIFMARKER = 3;
 
 WNDPROC ScintillaEditView::_scintillaDefaultProc = NULL;
+string ScintillaEditView::_defaultCharList = "";
+
 /*
 SC_MARKNUM_*     | Arrow               Plus/minus           Circle tree                 Box tree
 -------------------------------------------------------------------------------------------------------------
@@ -139,6 +141,10 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("json"),			TEXT("json"),				TEXT("JSON file"),										L_JSON,			SCLEX_CPP },
 {TEXT("javascript.js"), TEXT("JavaScript"),			TEXT("JavaScript file"),								L_JAVASCRIPT,	SCLEX_CPP },
 {TEXT("fortran77"),		TEXT("Fortran fixed form"),	TEXT("Fortran fixed form source file"),					L_FORTRAN_77,	SCLEX_F77},
+{TEXT("baanc"),			TEXT("BaanC"),				TEXT("BaanC File"),										L_BAANC,		SCLEX_BAAN },
+{TEXT("srec"),			TEXT("S-Record"),			TEXT("Motorola S-Record binary data"),					L_SREC,			SCLEX_SREC},
+{TEXT("ihex"),			TEXT("Intel HEX"),			TEXT("Intel HEX binary data"),							L_IHEX,			SCLEX_IHEX},
+{TEXT("tehex"),			TEXT("Tektronix extended HEX"),	TEXT("Tektronix extended HEX binary data"),			L_TEHEX,		SCLEX_TEHEX},
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -166,6 +172,16 @@ int getNbDigits(int aNum, int base)
 		nbChiffre += 1;
 
 	return nbChiffre;
+}
+
+TCHAR moduleFileName[1024];
+HMODULE loadSciLexerDll()
+{
+	generic_string sciLexerPath = getSciLexerFullPathName(moduleFileName, 1024);
+
+	if (not isCertificateValidated(sciLexerPath, TEXT("Notepad++")))
+		return nullptr;
+	return ::LoadLibrary(sciLexerPath.c_str());
 }
 
 void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
@@ -282,6 +298,15 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	_callWindowProc = CallWindowProc;
 	_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(scintillaStatic_Proc)));
 
+	if (_defaultCharList.empty())
+	{
+		auto defaultCharListLen = execute(SCI_GETWORDCHARS);
+		char *defaultCharList = new char[defaultCharListLen + 1];
+		execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+		defaultCharList[defaultCharListLen] = '\0';
+		_defaultCharList = defaultCharList;
+		delete[] defaultCharList;
+	}
 	//Get the startup document and make a buffer for it so it can be accessed like a file
 	attachDefaultDoc();
 }
@@ -1181,6 +1206,57 @@ void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 	}
 }
 
+void ScintillaEditView::restoreDefaultWordChars()
+{
+	execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(_defaultCharList.c_str()));
+}
+
+void ScintillaEditView::addCustomWordChars()
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+
+	if (nppGUI._customWordChars.empty())
+		return;
+
+	string chars2addStr;
+	for (size_t i = 0; i < nppGUI._customWordChars.length(); ++i)
+	{
+		bool found = false;
+		char char2check = nppGUI._customWordChars[i];
+		for (size_t j = 0; j < _defaultCharList.length(); ++j)
+		{
+			char wordChar = _defaultCharList[j];
+			if (char2check == wordChar)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (not found)
+		{
+			chars2addStr.push_back(char2check);
+		}
+	}
+
+	if (not chars2addStr.empty())
+	{
+		string newCharList = _defaultCharList;
+		newCharList += chars2addStr;
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(newCharList.c_str()));
+	}
+}
+
+void ScintillaEditView::setWordChars()
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+	if (nppGUI._isWordCharDefault)
+		restoreDefaultWordChars();
+	else
+		addCustomWordChars();
+}
+
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
     StyleArray & stylers = _pParameter->getMiscStylerArray();
@@ -1507,6 +1583,18 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_COFFEESCRIPT :
 			setCoffeeScriptLexer(); break;
 
+		case L_BAANC:
+			setBaanCLexer(); break;
+
+		case L_SREC :
+			setSrecLexer(); break;
+
+		case L_IHEX :
+			setIHexLexer(); break;
+
+		case L_TEHEX :
+			setTEHexLexer(); break;
+
 		case L_TEXT :
 		default :
 			if (typeDoc >= L_EXTERNAL && typeDoc < _pParameter->L_END)
@@ -1598,7 +1686,8 @@ void ScintillaEditView::restoreCurrentPos()
 	execute(SCI_SETANCHOR, pos._startPos);
 	execute(SCI_SETCURRENTPOS, pos._endPos);
 	execute(SCI_CANCEL);							//disable
-	if (!isWrap()) {	//only offset if not wrapping, otherwise the offset isnt needed at all
+	if (not isWrap()) //only offset if not wrapping, otherwise the offset isnt needed at all
+	{
 		execute(SCI_SETSCROLLWIDTH, pos._scrollWidth);
 		execute(SCI_SETXOFFSET, pos._xOffset);
 	}
@@ -1648,7 +1737,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
 	// defineDocType() function should be called here, but not be after the fold info loop
 	defineDocType(_currentBuffer->getLangType());
-    setTabSettings(_currentBuffer->getCurrentLang());
+
+	setWordChars();
 
 	if (_currentBuffer->getNeedsLexing()) {
 		restyleBuffer();
@@ -1674,8 +1764,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 
 void ScintillaEditView::getCurrentFoldStates(std::vector<size_t> & lineStateVector)
 {
-	//-- FLS: xCodeOptimization1304: For active document get folding state from Scintilla.
-	//--      The code using SCI_CONTRACTEDFOLDNEXT is usually 10%-50% faster than checking each line of the document!!
+	// xCodeOptimization1304: For active document get folding state from Scintilla.
+	// The code using SCI_CONTRACTEDFOLDNEXT is usually 10%-50% faster than checking each line of the document!!
 	size_t contractedFoldHeaderLine = 0;
 
 	do {
@@ -2761,6 +2851,11 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 {
 	assert(repeat > 0);
 
+	// If there is no column mode info available, no need to do anything
+	// If required a message can be shown to user, that select column properly or something similar
+	// It is just a double check as taken in callee method (in case this method is called from multiple places)
+	if (cmi.size() <= 0)
+		return;
 	// 0000 00 00 : Dec BASE_10
 	// 0000 00 01 : Hex BASE_16
 	// 0000 00 10 : Oct BASE_08

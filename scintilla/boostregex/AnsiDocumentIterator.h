@@ -1,6 +1,10 @@
 ﻿#ifndef ANSIDOCUMENTITERATOR_H_12481491281240
 #define ANSIDOCUMENTITERATOR_H_12481491281240
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 class AnsiDocumentIterator : public std::iterator<std::bidirectional_iterator_tag, char>
 {
 public:
@@ -90,5 +94,9 @@ private:
 	int m_end;
 	Document* m_doc;
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif

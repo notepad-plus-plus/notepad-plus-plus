@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="7.0">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="7.3.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -12,6 +12,7 @@
 					<Item menuId="encoding" name="&amp;Format" />
 					<Item menuId="language" name="S&amp;pråk" />
 					<Item menuId="settings" name="&amp;Inställningar" />
+					<Item menuId="tools" name="V&amp;erktyg"/>
 					<Item menuId="macro" name="&amp;Makro" />
 					<Item menuId="run" name="&amp;Kör" />
 					<Item idName="Plugins" name="&amp;Tillägg" />
@@ -62,6 +63,7 @@
 					<Item subMenuId="encoding-vietnamese" name="Vietnamesisk" />
 					<Item subMenuId="encoding-westernEuropean" name="Västeuropeisk" />
 					<Item subMenuId="settings-import" name="Importera" />
+					<Item subMenuId="tools-md5"  name="MD5"/>
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>
@@ -290,6 +292,9 @@
 					<Item id="48006" name="Importera teman..." />
 					<Item id="48009" name="Snabbkommandon..." />
 					<Item id="48011" name="Inställningar..." />
+					<Item id="48501" name="Generera..."/>
+					<Item id="48502" name="Generera från fil..."/>
+					<Item id="48503" name="Generera till urklipp"/>
 					<Item id="48016" name="Ändra genväg/Ta bort makro..." />
 					<Item id="48017" name="Ändra genväg/Ta bort kommando..." />
 					<Item id="48018" name="Redigera popup-meny" />
@@ -369,7 +374,17 @@
 				<Item id="2" name="Stäng" />
 				<Item id="1903" name="Programmet att köra" />
 				<Item id="1904" name="Spara..." />
-			</Run>
+			</Run>			
+			<MD5FromFilesDlg title="Generera MD5-summa från fil">
+				<Item id="1922" name="Välj filer att generera MD5 från..."/>
+				<Item id="1924" name="Kopiera till urklipp"/>
+				<Item id="2"    name="Stäng"/>
+			</MD5FromFilesDlg>			
+			<MD5FromTextDlg title="Generera MD5-summa">
+				<Item id="1932" name="Behandla varje rad som en separat sträng"/>
+				<Item id="1934" name="Kopiera till urklipp"/>
+				<Item id="2"    name="Stäng"/>
+			</MD5FromTextDlg>
 			<GoToLine title="Gå till rad...">
 				<Item id="1" name="&amp;Gå" />
 				<Item id="2" name="Stäng" />
@@ -802,21 +817,25 @@
 					<Item id="6252" name="Början"/>
 					<Item id="6255" name="Slutet"/>
 					<Item id="6256" name="Tillåt på flera rader"/>
+					<Item id="6161" name="Lista över ordtecken"/>
+					<Item id="6162" name="Använd den ursprungliga listan över ordtecken som den är"/>
+					<Item id="6163" name="Inkludera tecken som en del av ord
+(Använd inte detta om du inte vet vad du gör)"/>
 				</Delimiter>
 				<Cloud title="Moln">
 					<Item id="6262" name="Inställning för moln"/>
 					<Item id="6263" name="Inget moln"/>
 					<Item id="6267" name="Sätt sökväg till din moln-mapp här:"/>
 				</Cloud>
-				<SearchEngine title="Search Engine">
+				<SearchEngine title="Sökmotor">
 					<Item id="6271" name="Sökmotor (för kommandot &quot;Sök på Internet&quot;)"/>
 					<Item id="6272" name="DuckDuckGo"/>
 					<Item id="6273" name="Google"/>
 					<Item id="6274" name="Bing"/>
 					<Item id="6275" name="Yahoo!"/>
-					<Item id="6276" name="Ange din sökmotor hör:"/>
+					<Item id="6276" name="Ange din sökmotor här:"/>
 					<!-- Don't change anything after Example: -->
-					<Item id="6278" name="Example: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+					<Item id="6278" name="Exempel: https://www.google.com/search?q=$(CURRENT_WORD)"/>
 				</SearchEngine> 
 			</Preference>
 			<MultiMacro title="Kör ett makro flera gånger">
@@ -932,5 +951,16 @@
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+		<MiscStrings>
+			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söker med alternativet &quot;Matcha enbart hela ord&quot; valt."/>
+			<word-chars-list-warning-begin value="Observera: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-space-warning value="$INT_REPLACE$ mellanslag"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<word-chars-list-tab-warning value="$INT_REPLACE$ tabb(ar)"/>
+			<word-chars-list-warning-end value="  i din teckenlista."/>
+			<cloud-invalid-warning value="Felaktig sökväg."/>
+			<cloud-restart-warning value="Starta om Notepad++ för att ändringarna ska träda i kraft."/>
+		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

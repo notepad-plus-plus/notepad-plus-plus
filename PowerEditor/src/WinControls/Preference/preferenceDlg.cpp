@@ -31,6 +31,7 @@
 #include "preferenceDlg.h"
 #include "lesDlgs.h"
 #include "EncodingMapper.h"
+#include "localization.h"
 
 #define MyGetGValue(rgb)      (LOBYTE((rgb)>>8))
 
@@ -896,6 +897,8 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
             ::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL, BM_SETCHECK, nppGUI._backSlashIsEscapeCharacterForSql, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSNAPSHOT, BM_SETCHECK, nppGUI._isDocSnapshotOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSNAPSHOTONMAP, BM_SETCHECK, nppGUI._isDocSnapshotOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
 			
@@ -1075,6 +1078,18 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL :
 				{
 					nppGUI._backSlashIsEscapeCharacterForSql = isCheckedOrNot(IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL);
+					return TRUE;
+				}
+
+				case IDC_CHECK_ENABLEDOCSNAPSHOT:
+				{
+					nppGUI._isDocSnapshotOnTab = isCheckedOrNot(IDC_CHECK_ENABLEDOCSNAPSHOT);
+					return TRUE;
+				}
+
+				case IDC_CHECK_ENABLEDOCSNAPSHOTONMAP:
+				{
+					nppGUI._isDocSnapshotOnMap = isCheckedOrNot(IDC_CHECK_ENABLEDOCSNAPSHOTONMAP);
 					return TRUE;
 				}
 			}
@@ -2888,6 +2903,114 @@ INT_PTR CALLBACK MultiInstDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
+void DelimiterSettingsDlg::detectSpace(const char *text2Check, int & nbSp, int & nbTab) const
+{
+	nbSp = nbTab = 0;
+	for (size_t i = 0; i < strlen(text2Check); ++i)
+	{
+		if (text2Check[i] == ' ')
+			++nbSp;
+		else if (text2Check[i] == '\t')
+			++nbTab;
+	}
+}
+
+
+generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) const
+{
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+
+	generic_string msg;
+	if (nbSp && nbTab)
+	{
+		generic_string nbSpStr = std::to_wstring(nbSp);
+		generic_string nbTabStr = std::to_wstring(nbTab);
+		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin");
+		generic_string space = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-space-warning");
+		generic_string tab = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tab-warning");
+		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end");
+
+		if (not warnBegin.empty() && not space.empty() && not tab.empty() && not warnEnd.empty())
+		{
+			space = stringReplace(space, TEXT("$INT_REPLACE$"), nbSpStr);
+			tab = stringReplace(tab, TEXT("$INT_REPLACE$"), nbTabStr);
+			msg = warnBegin;
+			msg += space;
+			msg += TEXT(" && ");
+			msg += tab;
+			msg += warnEnd;
+		}
+		else
+		{
+			msg = TEXT("Be aware: ");
+			msg += nbSpStr;
+			msg += TEXT(" space(s) && ");
+			msg += std::to_wstring(nbTab);
+			msg += TEXT(" TAB(s) in your character list.");
+		}
+	}
+	else if (nbSp && not nbTab)
+	{
+		generic_string nbSpStr = std::to_wstring(nbSp);
+		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin");
+		generic_string space = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-space-warning");
+		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end");
+		if (not warnBegin.empty() && not space.empty() && not warnEnd.empty())
+		{
+			space = stringReplace(space, TEXT("$INT_REPLACE$"), nbSpStr);
+			msg = warnBegin;
+			msg += space;
+			msg += warnEnd;
+		}
+		else
+		{
+			msg = TEXT("Be aware: ");
+			msg += std::to_wstring(nbSp);
+			msg += TEXT(" space(s) in your character list.");
+		}
+	}
+	else if (not nbSp && nbTab)
+	{
+		generic_string nbTabStr = std::to_wstring(nbTab);
+		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin");
+		generic_string tab = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tab-warning");
+		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end");
+		if (not warnBegin.empty() && not tab.empty() && not warnEnd.empty())
+		{
+			tab = stringReplace(tab, TEXT("$INT_REPLACE$"), nbTabStr);
+			msg = warnBegin;
+			msg += tab;
+			msg += warnEnd;
+		}
+		else
+		{
+			msg = TEXT("Be aware: ");
+			msg += std::to_wstring(nbTab);
+			msg += TEXT(" TAB(s) in your character list.");
+		}
+	}
+	else //(not nbSp && not nbTab)
+	{
+		// do nothing
+	}
+
+	return msg;
+}
+
+void DelimiterSettingsDlg::setWarningIfNeed() const
+{
+	generic_string msg;
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
+	if (not nppGUI._isWordCharDefault)
+	{
+		int nbSp = 0;
+		int nbTab = 0;
+		detectSpace(nppGUI._customWordChars.c_str(), nbSp, nbTab);
+		msg = getWarningText(nbSp, nbTab);
+	}
+	::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, msg.c_str());
+}
+
 INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
@@ -2895,6 +3018,9 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 	{
 		case WM_INITDIALOG :
 		{
+			//
+			// Delimiter
+			//
 			TCHAR opener[2];
 			opener[0] = nppGUI._leftmostDelimiter;
 			opener[1] = '\0';
@@ -2902,7 +3028,7 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			closer[0] = nppGUI._rightmostDelimiter;
 			closer[1] = '\0';
 			bool onSeveralLines = nppGUI._delimiterSelectionOnEntireDocument;
-
+			
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_OPENDELIMITER, EM_LIMITTEXT, 1, 0);
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_CLOSEDELIMITER, EM_LIMITTEXT, 1, 0);
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_OPENDELIMITER, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(opener));
@@ -2932,6 +3058,31 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			::MoveWindow(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), p->x, p->y, _closerRect.right, _closerRect.bottom, TRUE);
 			::MoveWindow(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), p->x + _closerRect.right + 4, p->y + 4, _closerLabelRect.right, _closerLabelRect.bottom, TRUE);
 
+			//
+			// Word Char List
+			//
+			
+			::SetDlgItemTextA(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT, nppGUI._customWordChars.c_str());
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_DEFAULT, BM_SETCHECK, nppGUI._isWordCharDefault ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, not nppGUI._isWordCharDefault ? BST_CHECKED : BST_UNCHECKED, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+
+			setWarningIfNeed();
+
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tip");
+			if (tip2show.empty())
+				tip2show = TEXT("This allows you to include additional character into current word characters while double clicking for selection or searching with \"Match whole word only\" option checked.");
+
+			_tip = CreateToolTip(IDD_WORDCHAR_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			if (_tip)
+			{
+				SendMessage(_tip, TTM_ACTIVATE, TRUE, 0);
+				SendMessage(_tip, TTM_SETMAXTIPWIDTH, 0, 200);
+
+				// Make tip stay 30 seconds
+				SendMessage(_tip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((30000), (0)));
+			}
 			return TRUE;
 		}
 
@@ -2972,6 +3123,17 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 						nppGUI._rightmostDelimiter =  static_cast<char>(closer[0]);
 						return TRUE;
 					}
+
+					case  IDC_WORDCHAR_CUSTOM_EDIT:
+					{
+						char customText[MAX_PATH];
+						::GetDlgItemTextA(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT, customText, MAX_PATH-1);
+						nppGUI._customWordChars = customText;
+						setWarningIfNeed();
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
+						return TRUE;
+					}
+
 					default:
 						return FALSE;
 				}
@@ -2991,6 +3153,26 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 					::MoveWindow(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), p->x, p->y, _closerRect.right, _closerRect.bottom, TRUE);
 					::MoveWindow(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), p->x + _closerRect.right + 4, p->y + 4, _closerLabelRect.right, _closerLabelRect.bottom, TRUE);
 
+					return TRUE;
+				}
+
+				case IDC_RADIO_WORDCHAR_DEFAULT:
+				{
+					::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_CUSTOM, BM_SETCHECK, BST_UNCHECKED, 0);
+					nppGUI._isWordCharDefault = true;
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+					::SetDlgItemText(_hSelf, IDD_STATIC_WORDCHAR_WARNING, TEXT(""));
+					return TRUE;
+				}
+
+				case IDC_RADIO_WORDCHAR_CUSTOM:
+				{
+					::SendDlgItemMessage(_hSelf, IDC_RADIO_WORDCHAR_DEFAULT, BM_SETCHECK, BST_UNCHECKED, 0);
+					nppGUI._isWordCharDefault = false;
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETWORDCHARS, 0, 0);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_WORDCHAR_CUSTOM_EDIT), not nppGUI._isWordCharDefault);
+					setWarningIfNeed();
 					return TRUE;
 				}
 
@@ -3019,12 +3201,19 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 				TCHAR inputDirExpanded[MAX_PATH] = {'\0'};
 				::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(inputDir));
 				::ExpandEnvironmentStrings(inputDir, inputDirExpanded, MAX_PATH);
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 				if (::PathFileExists(inputDirExpanded))
 				{
 					nppGUI._cloudPath = inputDirExpanded;
 					nppParams->setCloudChoice(inputDirExpanded);
-
-					generic_string message = nppParams->isCloudPathChanged() ? TEXT("Please restart Notepad++ to take effect.") : TEXT("");
+					
+					generic_string message;
+					if (nppParams->isCloudPathChanged())
+					{
+						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning");
+						if (message.empty())
+							message = TEXT("Please restart Notepad++ to take effect.");
+					}
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 				}
 				else
@@ -3032,7 +3221,9 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_GETCHECK, 0, 0));
 					if (isChecked)
 					{
-						generic_string message = TEXT("Invalid path.");
+						generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning");
+						if (message.empty())
+							message = TEXT("Invalid path.");
 						::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 						nppParams->removeCloudChoice();
 					}
@@ -3075,7 +3266,14 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					nppGUI._cloudPath = TEXT("");
 					nppParams->removeCloudChoice();
 
-					generic_string message = nppParams->isCloudPathChanged() ? TEXT("Please restart Notepad++ to take effect.") : TEXT("");
+					generic_string message;
+					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+					if (nppParams->isCloudPathChanged())
+					{
+						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning");
+						if (message.empty())
+							message = TEXT("Please restart Notepad++ to take effect.");
+					}
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 
 					::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._cloudPath.c_str()));
@@ -3086,7 +3284,10 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 
 				case IDC_WITHCLOUD_RADIO:
 				{
-					generic_string message = TEXT("Invalid path.");
+					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+					generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning");
+					if (message.empty())
+						message = TEXT("Invalid path.");
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CLOUDPATH_EDIT), true);

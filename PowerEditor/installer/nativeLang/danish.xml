@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Dansk" filename="danish.xml" version="7.0">
+    <Native-Langue name="Dansk" filename="danish.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -12,6 +12,7 @@
                     <Item menuId="encoding" name="Kod&amp;ning"/>
                     <Item menuId="language" name="S&amp;prog"/>
                     <Item menuId="settings" name="Inds&amp;tillinger"/>
+                    <Item menuId="tools" name="Væ&amp;rktøjer"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="&amp;Kør"/>
                     <Item idName="Plugins" name="P&amp;lugins"/>
@@ -57,11 +58,12 @@
                     <Item subMenuId="encoding-japanese" name="Japansk"/>
                     <Item subMenuId="encoding-korean" name="Koreansk"/>
                     <Item subMenuId="encoding-northEuropean" name="Nordeuropæisk"/>
-                    <Item subMenuId="encoding-thai" name="Thailandsk"/>
+                    <Item subMenuId="encoding-thai" name="Thai"/>
                     <Item subMenuId="encoding-turkish" name="Tyrkisk"/>
                     <Item subMenuId="encoding-westernEuropean" name="Vesteuropæisk"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamesisk"/>
                     <Item subMenuId="settings-import" name="Importér"/>
+					<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -292,6 +294,9 @@
                     <Item id="48018" name="Rediger genvejsmenu"/>
                     <Item id="48009" name="Tastaturgenveje..."/>
                     <Item id="48011" name="Præferencer..."/>
+                    <Item id="48501" name="Generer..."/>
+                    <Item id="48502" name="Generer fra filer..."/>
+                    <Item id="48503" name="Generer ind i udklipsholder"/>
                     <Item id="49000" name="&amp;Kør..."/>
 
                     <Item id="50000" name="Fuldførelse af funktioner"/>
@@ -401,6 +406,18 @@
                 <Item id="1904" name="Gem..."/>
             </Run>
 
+            <MD5FromFilesDlg title="Generer MD5-digest fra filer">
+                <Item id="1922" name="Vælg filer til generering af MD5..."/>
+                <Item id="1924" name="Kopier til udklipsholder"/>
+                <Item id="2"    name="Luk"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Generer MD5-digest">
+                <Item id="1932" name="Behandl hver linje som en separat streng"/>
+                <Item id="1934" name="Kopier til udklipsholder"/>
+                <Item id="2"    name="Luk"/>
+            </MD5FromTextDlg>
+
             <StyleConfig title="Udseende-konfigurator">
                 <Item id="2"    name="Annuller"/>
                 <Item id="2301" name="Gem og luk"/>
@@ -416,10 +433,10 @@
                     <Item id="2211" name="Udseende:"/>
                     <Item id="2212" name="Farve udseende"/>
                     <Item id="2213" name="Skrifttype udseende"/>
-                    <Item id="2214" name="Standard endelse:"/>
+                    <Item id="2214" name="Standardendelse:"/>
                     <Item id="2216" name="Bruger endelse:"/>
                     <Item id="2218" name="Understreget"/>
-                    <Item id="2219" name="Standard nøgleord"/>
+                    <Item id="2219" name="Standardnøgleord"/>
                     <Item id="2221" name="Brugerdefinerede nøgleord"/>
                     <Item id="2225" name="Sprog:"/>
                     <Item id="2226" name="Global forgrundsfarve"/>
@@ -480,7 +497,7 @@
                     <Item id="2" name="Annuller"/>
                 </StylerDialog>
                 <Folder title="Mappe og standard">
-                    <Item id="21101" name="Standard udseende"/>
+                    <Item id="21101" name="Standardudseende"/>
                     <Item id="21102" name="Udseende"/>
                     <Item id="21105" name="Dokumentation:"/>
                     <Item id="21104" name="Midlertidigt websted for dokumentation:"/>
@@ -811,6 +828,10 @@
                     <Item id="6252" name="Åbn"/>
                     <Item id="6255" name="Luk"/>
                     <Item id="6256" name="Tillad på flere linjer"/>
+					<Item id="6161" name="Ordtegnsliste"/>
+                    <Item id="6162" name="Brug standardordtegnsliste som den er"/>
+                    <Item id="6163" name="Tilføj dine tegn som del af ord
+(vælg den kun hvis du ved hvad du gør)"/>
                 </Delimiter>
 
                 <Cloud title="Skyen">
@@ -844,7 +865,7 @@
                     <Item id="6324" name="Dokumentskifter (Ctrl+Tabulator)"/>
                     <Item id="6331" name="Vis kun filnavn i titellinjen"/>
                     <Item id="6334" name="Automatisk registrering af tegnkodning"/>
-                    <Item id="6335" name="Behandl omvendt skråstreg som undvige-tegn for SQL"/>
+                    <Item id="6335" name="Behandl omvendt skråstreg som undvigetegn for SQL"/>
                     <Item id="6337" name="Filtype for arbejdsområde:"/>
                     <Item id="6114" name="Aktivér"/>
                     <Item id="6115" name="Automatisk indrykning"/>
@@ -966,5 +987,16 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+			<word-chars-list-tip value="Det giver dig mulighed for at inkludere yderligere tegn i aktuelle ordtegn ved dobbeltklik til markering eller søgning når valgmuligheden &quot;Søg kun på hele ord&quot; er valgt til."/>
+            <word-chars-list-warning-begin value="OBS: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ mellemrum"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ tabulator(er)"/>
+			<word-chars-list-warning-end value="  i din tegnliste."/>
+			<cloud-invalid-warning value="Ugyldig sti."/>
+			<cloud-restart-warning value="Genstart venligst Notepad++ så ændringerne kan træde i kraft."/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

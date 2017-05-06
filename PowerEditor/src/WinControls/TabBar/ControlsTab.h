@@ -50,10 +50,10 @@ public :
 	ControlsTab() = default;
 	virtual ~ControlsTab() = default;
 
-	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false)
+	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false)
 	{
 		_isVertical = isVertical;
-		TabBar::init(hInst, hwnd, false, isTraditional, isMultiLine);
+		TabBar::init(hInst, hwnd, false, isMultiLine);
 	}
 
 	void createTabs(WindowVector & winVector);

@@ -26,7 +26,22 @@
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 Function LaunchNpp
-  Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
+  ;Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
+
+  ; create shortcut in temp with to launch as argument
+  CreateShortCut "$TEMP\notepad++.lnk" "$INSTDIR\notepad++.exe" "$INSTDIR\change.log"
+
+  ; Launch Notepad++ with same elevation as explorer
+  ; It will solve the drag an drop issue if explorer is running with lower privilege
+  Exec '"$WINDIR\explorer.exe" "$TEMP\notepad++.lnk"'
+
+  ; Caution : Please DONOT delete $TEMP\notepad++.lnk right after Exec command
+  ; In slower system it may take some time to open N++ while Exec command exist quickly
+  ; Also putting sleep does not make sense here as
+  ; 	- DONOT know how much to wait
+  ;		- Keeps installer UI open wait time period
+  ;		- If wait time is more, installer UI may become irresponsive
+
 FunctionEnd
 
 ; Check if Notepad++ is running
@@ -72,7 +87,7 @@ Function ExtraOptions
 		Abort
 	${EndIf}
 
-	${NSD_CreateCheckbox} 0 0 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device."
+	${NSD_CreateCheckbox} 0 0 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in a USB device."
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	

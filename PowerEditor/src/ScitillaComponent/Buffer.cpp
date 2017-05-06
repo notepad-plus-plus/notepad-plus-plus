@@ -46,14 +46,8 @@ static const int LF = 0x0A;
 
 long Buffer::_recentTagCtr = 0;
 
-
-
-
-
-
 namespace // anonymous
 {
-
 	static EolType getEOLFormatForm(const char* const data, size_t length, EolType defvalue = EolType::osdefault)
 	{
 		assert(length == 0 or data != nullptr && "invalid buffer for getEOLFormatForm()");
@@ -74,19 +68,12 @@ namespace // anonymous
 
 		return defvalue; // fallback unknown
 	}
-
-
 } // anonymous namespace
-
-
 
 
 Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)
 	// type must be either DOC_REGULAR or DOC_UNNAMED
-	: _pManager(pManager)
-	, _id(id)
-	, _doc(doc)
-	, _lang(L_TEXT)
+	: _pManager(pManager) , _id(id), _doc(doc), _lang(L_TEXT)
 {
 	NppParameters* pNppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings& ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
@@ -213,7 +200,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 			newLang = L_CMAKE;
 		else if ((!generic_stricmp(_fileName, TEXT("SConstruct"))) || (!generic_stricmp(_fileName, TEXT("SConscript"))) || (!generic_stricmp(_fileName, TEXT("wscript"))))
 			newLang = L_PYTHON;
-		else if (!generic_stricmp(_fileName, TEXT("Rakefile")))
+		else if ((!generic_stricmp(_fileName, TEXT("Rakefile"))) || (!generic_stricmp(_fileName, TEXT("Vagrantfile"))))
 			newLang = L_RUBY;
 	}
 
@@ -467,35 +454,6 @@ void Buffer::setDeferredReload() // triggers a reload on the next Document acces
 	doNotify(BufferChangeDirty);
 }
 
-
-/*
-pair<size_t, bool> Buffer::getLineUndoState(size_t currentLine) const
-{
-	for (size_t i = 0 ; i < _linesUndoState.size() ; i++)
-	{
-		if (_linesUndoState[i].first == currentLine)
-			return _linesUndoState[i].second;
-	}
-	return pair<size_t, bool>(0, false);
-}
-
-void Buffer::setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved)
-{
-	bool found = false;
-	for (size_t i = 0 ; i < _linesUndoState.size() ; i++)
-	{
-		if (_linesUndoState[i].first == currentLine)
-		{
-			_linesUndoState[i].second.first = undoLevel;
-			_linesUndoState[i].second.second = isSaved;
-		}
-	}
-	if (!found)
-	{
-		_linesUndoState.push_back(pair<size_t, pair<size_t, bool> >(currentLine, pair<size_t, bool>(undoLevel, false)));
-	}
-}
-*/
 
 //filemanager
 
@@ -1509,6 +1467,11 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		NppParameters *pNppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 		eolFormat = ndds._format;
+		//for empty files, set the encoding to the default for new files
+		if (fileSize == 0)
+		{
+			encoding = ndds._unicodeMode;
+		}
 	}
 	else
 	{

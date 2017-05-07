@@ -34,11 +34,7 @@
 #include "Common.h"
 #include "../Utf8.h"
 
-
 WcharMbcsConvertor* WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
-
-
-
 
 void printInt(int int2print)
 {

@@ -25,13 +25,13 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
+#include <memory>
 #include <shlwapi.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "Sorters.h"
 #include "tchar.h"
-#include <memory>
+#include "verifySignedFile.h"
 
 using namespace std;
 
@@ -152,6 +152,11 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 //const int MASK_GREEN = 0x00FF00;
 //const int MASK_BLUE  = 0x0000FF;
 
+const generic_string scintilla_signer_display_name = TEXT("Notepad++");
+const generic_string scintilla_signer_subject = TEXT("C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"");
+const generic_string scintilla_signer_key_id = TEXT("42C4C5846BB675C74E2B2C90C69AB44366401093");
+
+
 int getNbDigits(int aNum, int base)
 {
 	int nbChiffre = 1;
@@ -175,12 +180,20 @@ int getNbDigits(int aNum, int base)
 }
 
 TCHAR moduleFileName[1024];
+
 HMODULE loadSciLexerDll()
 {
 	generic_string sciLexerPath = getSciLexerFullPathName(moduleFileName, 1024);
 
-	if (not isCertificateValidated(sciLexerPath, TEXT("Notepad++")))
+	if (not VerifySignedLibrary(sciLexerPath, scintilla_signer_key_id, scintilla_signer_subject, scintilla_signer_display_name))
+	{
+		::MessageBox(NULL,
+			TEXT("Authenticode check failed: signature or signing certificate are not recognized"),
+			TEXT("Library verification failed"),
+			MB_OK | MB_ICONERROR);
 		return nullptr;
+	}
+
 	return ::LoadLibrary(sciLexerPath.c_str());
 }
 

@@ -351,6 +351,8 @@ public:
 	void setMapPosition(const MapPosition & mapPosition) { _mapPosition = mapPosition; };
 	MapPosition getMapPosition() const { return _mapPosition; };
 
+	void langHasBeenSetFromMenu() { _hasLangBeenSetFromMenu = true; };
+
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 
@@ -407,6 +409,8 @@ private:
 	// For the monitoring
 	HANDLE _eventHandle = nullptr;
 	bool _isMonitoringOn = false;
+
+	bool _hasLangBeenSetFromMenu = false;
 
 	MapPosition _mapPosition;
 };

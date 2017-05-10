@@ -63,4 +63,5 @@
 bool VerifySignedLibrary(const std::wstring& filepath,
                          const std::wstring& key_id_hex,
                          const std::wstring& cert_subject,
-                         const std::wstring& display_name);
+                         const std::wstring& display_name,
+                         bool doCheckRevocation);

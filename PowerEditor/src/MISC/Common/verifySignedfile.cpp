@@ -44,7 +44,8 @@ using namespace std;
 bool VerifySignedLibrary(const wstring& filepath,
                          const wstring& cert_key_id_hex,
                          const wstring& cert_subject,
-                         const wstring& cert_display_name)
+                         const wstring& cert_display_name,
+                         bool doCheckRevocation)
 {
 	wstring display_name;
 	wstring key_id_hex;
@@ -82,12 +83,12 @@ bool VerifySignedLibrary(const wstring& filepath,
 	DWORD netstatus;
 	QOCINFO oci;
 	oci.dwSize = sizeof(oci);
-	CONST TCHAR* msftTEXTest_site = TEXT("http://www.msfncsi.com/ncsi.txt");
+	CONST TCHAR* msftTEXTest_site = TEXT("http://www.msftncsi.com/ncsi.txt");
 	bool online = false;
 	online = (0 != IsNetworkAlive(&netstatus) );
 	online = online && ( 0 == GetLastError());
 	online = online && (0 == IsDestinationReachable(msftTEXTest_site, &oci));
-	if (!online)
+	if (!online || !doCheckRevocation)
 	{
 		winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;
 		OutputDebugString(TEXT("VerifyLibrary: system is offline - certificate revocation wont be checked\n"));
@@ -127,8 +128,8 @@ bool VerifySignedLibrary(const wstring& filepath,
 		BOOL result = ::CryptQueryObject(CERT_QUERY_OBJECT_FILE, filepath.c_str(),
 										 CERT_QUERY_CONTENT_FLAG_PKCS7_SIGNED_EMBED, CERT_QUERY_FORMAT_FLAG_BINARY, 0,
 										 &dwEncoding, &dwContentType, &dwFormatType,
-										 &hStore, &hMsg, NULL
-		);
+										 &hStore, &hMsg, NULL);
+
 		if (!result)
 		{
 			throw wstring( TEXT("Checking certificate of ") ) + filepath + TEXT(" : ") + GetLastErrorAsString(GetLastError());
@@ -148,7 +149,7 @@ bool VerifySignedLibrary(const wstring& filepath,
 			throw wstring( TEXT("Failed to allocate memory for signature processing"));
 		}
 
-		result = CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, (PVOID)pSignerInfo, &dwSignerInfo);
+		result = ::CryptMsgGetParam(hMsg, CMSG_SIGNER_INFO_PARAM, 0, (PVOID)pSignerInfo, &dwSignerInfo);
 		if (!result)
 		{
 			throw wstring( TEXT("CryptMsgGetParam: ")) + GetLastErrorAsString(GetLastError());
@@ -223,7 +224,10 @@ bool VerifySignedLibrary(const wstring& filepath,
 	} catch (...) {
 		// Unknown error
 		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
-		throw wstring( TEXT("Unknown exception occured. ")) + GetLastErrorAsString(GetLastError());
+		wstring errMsg(TEXT("Unknown exception occured. "));
+		errMsg += GetLastErrorAsString(GetLastError());
+		::MessageBox(NULL, TEXT("DLL signature verification failed"), errMsg.c_str(), MB_ICONERROR);
+		status = false;
 	}
 
 	// fields verifications
@@ -252,8 +256,6 @@ bool VerifySignedLibrary(const wstring& filepath,
 	if (pSignerInfo != NULL)  LocalFree(pSignerInfo);
 
 	return status;
-
-	////////////////////////
 }
 
 #undef VerifySignedLibrary_DISABLE_REVOCATION_CHECK

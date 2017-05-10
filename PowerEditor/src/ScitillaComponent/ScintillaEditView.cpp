@@ -185,7 +185,9 @@ HMODULE loadSciLexerDll()
 {
 	generic_string sciLexerPath = getSciLexerFullPathName(moduleFileName, 1024);
 
-	if (not VerifySignedLibrary(sciLexerPath, scintilla_signer_key_id, scintilla_signer_subject, scintilla_signer_display_name))
+	bool isOK = VerifySignedLibrary(sciLexerPath, scintilla_signer_key_id, scintilla_signer_subject, scintilla_signer_display_name, false);
+
+	if (!isOK)
 	{
 		::MessageBox(NULL,
 			TEXT("Authenticode check failed: signature or signing certificate are not recognized"),

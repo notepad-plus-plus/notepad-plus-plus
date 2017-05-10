@@ -57,7 +57,9 @@ bool VerifySignedLibrary(const wstring& filepath,
 	
 	OutputDebugString(dmsg.c_str());
 
-	////////////////////// Signature verification
+	//
+	// Signature verification
+	//
 
 	// Initialize the WINTRUST_FILE_INFO structure.
 	LPCWSTR pwszfilepath = filepath.c_str();
@@ -74,26 +76,29 @@ bool VerifySignedLibrary(const wstring& filepath,
 	winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_WHOLECHAIN;  // verify the whole certificate chain
 	winTEXTrust_data.pFile               = &file_data;
 
-#if defined( VerifySignedLibrary_DISABLE_REVOCATION_CHECK )
-	winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;
-	OutputDebugString(TEXT("VerifyLibrary: certificate revocation disabled at compile time\n"));
-#else
-	// if offline, revocation is not checked
-	// depending of windows version, this may introduce a latency on offline systems
-	DWORD netstatus;
-	QOCINFO oci;
-	oci.dwSize = sizeof(oci);
-	CONST TCHAR* msftTEXTest_site = TEXT("http://www.msftncsi.com/ncsi.txt");
-	bool online = false;
-	online = (0 != IsNetworkAlive(&netstatus) );
-	online = online && ( 0 == GetLastError());
-	online = online && (0 == IsDestinationReachable(msftTEXTest_site, &oci));
-	if (!online || !doCheckRevocation)
+	if (!doCheckRevocation)
 	{
 		winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;
-		OutputDebugString(TEXT("VerifyLibrary: system is offline - certificate revocation wont be checked\n"));
+		OutputDebugString(TEXT("VerifyLibrary: certificate revocation checking is disabled\n"));
 	}
-#endif
+	else
+	{
+		// if offline, revocation is not checked
+		// depending of windows version, this may introduce a latency on offline systems
+		DWORD netstatus;
+		QOCINFO oci;
+		oci.dwSize = sizeof(oci);
+		CONST TCHAR* msftTEXTest_site = TEXT("http://www.msftncsi.com/ncsi.txt");
+		bool online = false;
+		online = (0 != IsNetworkAlive(&netstatus));
+		online = online && (0 == GetLastError());
+		online = online && (0 == IsDestinationReachable(msftTEXTest_site, &oci));
+		if (!online)
+		{
+			winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_NONE;
+			OutputDebugString(TEXT("VerifyLibrary: system is offline - certificate revocation wont be checked\n"));
+		}
+	}
 
 	// Verify signature and cert-chain validity
 	GUID policy = WINTRUST_ACTION_GENERIC_VERIFY_V2;
@@ -115,8 +120,9 @@ bool VerifySignedLibrary(const wstring& filepath,
 		return false;
 	}
 
-	////////////////////// Certificate verification
-	
+	//
+	// Certificate verification
+	//
 	HCERTSTORE        hStore      = nullptr;
 	HCRYPTMSG         hMsg        = nullptr;
 	PCMSG_SIGNER_INFO pSignerInfo = nullptr;

@@ -3071,7 +3071,18 @@ void Notepad_plus::command(int id)
 				UserCommand ucmd = theUserCommands[i];
 
 				Command cmd(ucmd.getCmd());
-				cmd.run(_pPublicInterface->getHSelf());
+				int retResult = (int) cmd.run(_pPublicInterface->getHSelf());
+				
+				// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
+				// If the function succeeds, it returns a value greater than 32. 
+				// If the function fails, it returns an error value that indicates the cause of the failure. 
+				if (retResult <= 32)
+				{
+					::MessageBox(_pPublicInterface->getHSelf(),
+						TEXT("Could not perform requested operation. Please make sure required software for this operation is installed and try agian."),
+						TEXT("Error in performing operation"),
+						MB_OK | MB_APPLMODAL);
+				}
 			}
 			else if ((id >= ID_PLUGINS_CMD) && (id < ID_PLUGINS_CMD_LIMIT))
 			{

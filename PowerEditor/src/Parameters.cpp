@@ -4807,13 +4807,13 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optNameFolderDroppedOpenFiles)
 				_nppGUI._isFolderDroppedOpenFiles = (lstrcmp(optNameFolderDroppedOpenFiles, TEXT("yes")) == 0);
 
-			const TCHAR * optdocSnapshotOnTab = element->Attribute(TEXT("docSnapshotOnTab"));
-			if (optdocSnapshotOnTab)
-				_nppGUI._isDocSnapshotOnTab = (lstrcmp(optdocSnapshotOnTab, TEXT("yes")) == 0);
+			const TCHAR * optDocPeekOnTab = element->Attribute(TEXT("docPeekOnTab"));
+			if (optDocPeekOnTab)
+				_nppGUI._isDocPeekOnTab = (lstrcmp(optDocPeekOnTab, TEXT("yes")) == 0);
 
-			const TCHAR * optdocSnapshotOnMap = element->Attribute(TEXT("docSnapshotOnMap"));
-			if (optdocSnapshotOnTab)
-				_nppGUI._isDocSnapshotOnMap = (lstrcmp(optdocSnapshotOnMap, TEXT("yes")) == 0);
+			const TCHAR * optDocPeekOnMap = element->Attribute(TEXT("docPeekOnMap"));
+			if (optDocPeekOnMap)
+				_nppGUI._isDocPeekOnMap = (lstrcmp(optDocPeekOnMap, TEXT("yes")) == 0);
 
 		}
 	}
@@ -5536,8 +5536,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("newStyleSaveDlg"), _nppGUI._useNewStyleSaveDlg ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("docSnapshotOnTab"), _nppGUI._isDocSnapshotOnTab ? TEXT("yes") : TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("docSnapshotOnMap"), _nppGUI._isDocSnapshotOnMap ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("docPeekOnTab"), _nppGUI._isDocPeekOnTab ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("docPeekOnMap"), _nppGUI._isDocPeekOnMap ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />

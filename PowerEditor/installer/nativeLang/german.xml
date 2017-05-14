@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.3.2
-	last modified: 2017-02-27 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.3.3
+	last modified: 2017-05-14 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.3.1">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.3.3">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -912,7 +912,9 @@
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6115" name="Automatische Einrückung"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>
-				</MISC>
+					<Item id="6344" name="Momentaufnahme des Dokuments"/>
+					<Item id="6345" name="Momentaufnahme in Tab"/>
+					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/></MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
 				<Item id="1"    name="Ausfüh&amp;ren"/>

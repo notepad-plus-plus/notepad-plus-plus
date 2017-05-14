@@ -151,10 +151,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSEHOVERSWITCHING:
 		{
 			NppParameters *pNppParam = NppParameters::getInstance();
-			bool doSnapshot = pNppParam->getNppGUI()._isDocSnapshotOnTab;
-			bool doSnapshotOnMap = pNppParam->getNppGUI()._isDocSnapshotOnMap;
+			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
 
-			if (doSnapshot)
+			if (doPeekOnTab)
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
 				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
@@ -185,7 +185,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 			}
 
-			if (doSnapshotOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
 				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
@@ -217,15 +217,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSELEAVING:
 		{
 			NppParameters *pNppParam = NppParameters::getInstance();
-			bool doSnapshot = pNppParam->getNppGUI()._isDocSnapshotOnTab;
-			bool doSnapshotOnMap = pNppParam->getNppGUI()._isDocSnapshotOnMap;
+			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
 
-			if (doSnapshot)
+			if (doPeekOnTab)
 			{
 				_documentSnapshot.display(false);
 			}
 
-			if (doSnapshotOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				_pDocMap->reloadMap();
 				_pDocMap->setSyntaxHiliting();
@@ -368,13 +368,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufid, iView);
 				_isFolding = false;
 			}
-
-			bool doSnapshot = true;
-			if (doSnapshot)
-			{
-				_documentSnapshot.display(false);
-			}
-
+			_documentSnapshot.display(false);
 			break;
 		}
 

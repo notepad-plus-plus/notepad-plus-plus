@@ -1,7 +1,7 @@
 Notepad++ 7.4 new featurs/enhancements & bug-fixs:
 
-1.  Add document snapshot feature.
-2.  Add snapshot on document map feature.
+1.  Add document peek feature.
+2.  Add peek on document map feature.
 3.  Fix issue with clicking links in html/js/asp/php.
 4.  Fix folding vetical line loses colour after changing folding style via Preference dialog.
 5.  Enhance folding feature (multi-line quotes) for python.

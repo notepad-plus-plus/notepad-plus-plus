@@ -176,11 +176,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
 					{
-						_documentSnapshot.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
+						_documentPeeker.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
 					}
 					else  // if hover on current active tab
 					{
-						_documentSnapshot.display(false);
+						_documentPeeker.display(false);
 					}
 				}
 			}
@@ -222,7 +222,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (doPeekOnTab)
 			{
-				_documentSnapshot.display(false);
+				_documentPeeker.display(false);
 			}
 
 			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
@@ -358,7 +358,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				break;
 
 			// save map position before switch to a new document
-			_documentSnapshot.saveCurrentSnapshot(*_pEditView);
+			_documentPeeker.saveCurrentSnapshot(*_pEditView);
 
 			switchEditViewTo(iView);
 			BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
@@ -368,7 +368,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufid, iView);
 				_isFolding = false;
 			}
-			_documentSnapshot.display(false);
+			_documentPeeker.display(false);
 			break;
 		}
 

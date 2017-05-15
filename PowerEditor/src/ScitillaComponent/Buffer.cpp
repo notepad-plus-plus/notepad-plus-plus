@@ -1460,10 +1460,12 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		NppParameters *pNppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 		eolFormat = ndds._format;
+
 		//for empty files, set the encoding to the default for new files
 		if (fileSize == 0)
 		{
-			encoding = ndds._unicodeMode;
+			if (ndds._unicodeMode == uniCookie)
+				encoding = SC_CP_UTF8;
 		}
 	}
 	else

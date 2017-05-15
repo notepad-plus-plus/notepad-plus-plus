@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.3.1">
+    <Native-Langue name="English" filename="english.xml" version="7.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -904,10 +904,10 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-            <NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
-            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.&#x0A;You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <NppHelpAbsentWarning title="File does not exist" message="&#x0A;doesn't exist. Please download it on Notepad++ site."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.&#x0A;All the saved modifications can not be undone.&#x0A;&#x0A;Continue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.&#x0A;All the saved modifications can not be undone.&#x0A;&#x0A;Continue?"/>
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
@@ -915,10 +915,19 @@
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
-			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writing access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.&#x0A;Are you sure to open them?"/>
+			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,&#x0A;or on a folder needed privilege right for writting access.&#x0A;Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
 			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
-	    <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+			<SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+			<ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
+			
+			<!-- $STR_REPLACE$ is a place holder, don't translate it -->
+			<SortingError title="Sorting Error" message="Unable to perform numeric sort due to line $STR_REPLACE$."/>
+			<BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
+			<OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.&#x0A;Do you want to launch Notepad++ in Administrator mode?"/>
+			<OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/>
+			<OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.&#x0A;Do you want to launch Notepad++ in Administrator mode?"/>
+			<DroppingFolderAsProjetModeWarning title="Invalid action" message="You can drop only files or folders but not both, because you're in dropping Folder as Projet mode.&#x0A;You have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>

@@ -634,7 +634,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_md5FromFilesDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_md5FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_runMacroDlg.init(_pPublicInterface->getHinst(), hwnd);
-	_documentSnapshot.init(_pPublicInterface->getHinst(), hwnd);
+	_documentPeeker.init(_pPublicInterface->getHinst(), hwnd);
 
     //--User Define Dialog Section--//
 	int uddStatus = nppGUI._userDefineDlgStatus;

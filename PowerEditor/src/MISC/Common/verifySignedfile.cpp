@@ -45,7 +45,8 @@ bool VerifySignedLibrary(const wstring& filepath,
                          const wstring& cert_key_id_hex,
                          const wstring& cert_subject,
                          const wstring& cert_display_name,
-                         bool doCheckRevocation)
+                         bool doCheckRevocation,
+                         bool doCheckChainOfTrust)
 {
 	wstring display_name;
 	wstring key_id_hex;
@@ -100,24 +101,27 @@ bool VerifySignedLibrary(const wstring& filepath,
 		}
 	}
 
-	// Verify signature and cert-chain validity
-	GUID policy = WINTRUST_ACTION_GENERIC_VERIFY_V2;
-	LONG vtrust = ::WinVerifyTrust(NULL, &policy, &winTEXTrust_data );
-	
-	// Post check cleanup
-	winTEXTrust_data.dwStateAction = WTD_STATEACTION_CLOSE;
-	LONG t2 = ::WinVerifyTrust(NULL, &policy, &winTEXTrust_data);	
-    
-	if (vtrust)
+	if (doCheckChainOfTrust)
 	{
-		OutputDebugString(TEXT("VerifyLibrary: trust verification failed\n"));
-		return false;
-	}
+		// Verify signature and cert-chain validity
+		GUID policy = WINTRUST_ACTION_GENERIC_VERIFY_V2;
+		LONG vtrust = ::WinVerifyTrust(NULL, &policy, &winTEXTrust_data);
 
-	if (t2)
-	{
-		OutputDebugString(TEXT("VerifyLibrary: error encountered while cleaning up after WinVerifyTrust\n"));
-		return false;
+		// Post check cleanup
+		winTEXTrust_data.dwStateAction = WTD_STATEACTION_CLOSE;
+		LONG t2 = ::WinVerifyTrust(NULL, &policy, &winTEXTrust_data);
+
+		if (vtrust)
+		{
+			OutputDebugString(TEXT("VerifyLibrary: trust verification failed\n"));
+			return false;
+		}
+
+		if (t2)
+		{
+			OutputDebugString(TEXT("VerifyLibrary: error encountered while cleaning up after WinVerifyTrust\n"));
+			return false;
+		}
 	}
 
 	//

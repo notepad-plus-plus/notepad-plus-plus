@@ -154,12 +154,11 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	}
 		
 	
-	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
-
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 
-	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
+	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
+	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
 	
 	while (posFind != -1 && posFind != -2)

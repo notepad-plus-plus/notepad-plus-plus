@@ -48,7 +48,7 @@ const TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] =
 		TEXT(".ini"), TEXT(".inf")
 	},
 	{TEXT("c, c++, objc"),
-		TEXT(".h"), TEXT(".hh"), TEXT(".hpp"), TEXT(".hxx"), TEXT(".c"), TEXT(".cpp"), TEXT(".cxx"), TEXT(".cc"),
+		TEXT(".h"), TEXT(".hh"), TEXT(".hpp"), TEXT(".hxx"), TEXT(".c"), TEXT(".cpp"), TEXT(".cxx"), TEXT(".cc"),TEXT(".ctl"),
 		TEXT(".m"), TEXT(".mm"),
 		TEXT(".vcxproj"), TEXT(".vcproj"), TEXT(".props"), TEXT(".vsprops"), TEXT(".manifest")
 	},

@@ -1461,10 +1461,10 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 		eolFormat = ndds._format;
 
-		//for empty files, set the encoding to the default for new files
+		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it 
 		if (fileSize == 0)
 		{
-			if (ndds._unicodeMode == uniCookie)
+			if (ndds._unicodeMode == uniCookie && ndds._openAnsiAsUtf8)
 				encoding = SC_CP_UTF8;
 		}
 	}

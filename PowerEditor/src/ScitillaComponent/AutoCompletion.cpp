@@ -129,12 +129,6 @@ bool AutoCompletion::showApiAndWordComplete()
 
 void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
 {
-	//determine if the file is a tex file
-	const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
-	int fnsize = lstrlen(fn);
-	bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
-		&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
-	
 	const size_t bufSize = 256;
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 

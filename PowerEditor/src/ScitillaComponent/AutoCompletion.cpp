@@ -49,6 +49,7 @@ static bool isAllDigits(const generic_string &str)
 
 bool AutoCompletion::showApiComplete()
 {
+	//_pEditView->execute(SCI_APPENDTEXT, 20, reinterpret_cast<LPARAM>(_keyWords.c_str()));
 	if (!_funcCompletionActive)
 		return false;
 
@@ -65,28 +66,15 @@ bool AutoCompletion::showApiComplete()
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-
-	//determine if the file is a tex file
-	const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
-	int fnsize = lstrlen(fn);
-	bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
-		&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
-
-	if (isTEX) { //if this is a TEX file
-		TCHAR initChars[2];
-		_pEditView->getGenericText(initChars, 2, startPos - 1, startPos);
-		if(initChars[0] == '\\')
-			_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
-	}else
-		_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
+	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
 	return true;
 }
 
 bool AutoCompletion::showApiAndWordComplete()
 {
-	auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-	auto startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true);
+	int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true);
 
 	if (curPos == startPos)
 		return false;
@@ -133,20 +121,7 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	
-	//determine if the file is a tex file
-	const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
-	int fnsize = lstrlen(fn);
-	bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
-		&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
-
-	if (isTEX) { //if this is a TEX file
-		TCHAR initChars[2];
-		_pEditView->getGenericText(initChars, 2, startPos - 1, startPos);
-		if (initChars[0] == '\\')
-			_pEditView->showAutoComletion(curPos - startPos, words.c_str());
-	}else
-		_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 
 	return true;
 }
@@ -154,23 +129,45 @@ bool AutoCompletion::showApiAndWordComplete()
 
 void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
 {
+	//determine if the file is a tex file
+	const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
+	int fnsize = lstrlen(fn);
+	bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
+		&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
+	
 	const size_t bufSize = 256;
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
 	if (nppGUI._autocIgnoreNumbers && isAllDigits(beginChars))
 		return;
-
-	generic_string expr(TEXT("\\<"));
-	expr += beginChars;
-	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
+	
+	generic_string expr(TEXT(""));
+	if (_tcscmp(getApiFileName(), _T("ConTeXt")) == 0)
+	{
+		//The regex expression needs to be modified for ConTeXt lexers
+		if (isTEX && beginChars[0] == '\\')
+			expr += TEXT("\\");
+		else
+			expr += TEXT("(?<!\\\\)"); //[^ \\\\]
+		expr += beginChars;
+		expr += TEXT("[^ \\\\%\\{\\}\\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
+	}
+	else
+	{
+		expr += TEXT("\\<");
+		expr += beginChars;
+		expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
+	}
+		
+	
+	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 
-	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
-
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
 
+	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
+	
 	while (posFind != -1 && posFind != -2)
 	{
 		int wordStart = int(_pEditView->execute(SCI_GETTARGETSTART));
@@ -181,19 +178,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 		{
 			TCHAR w[bufSize];
 			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
-
-			//determine if the file is a tex file
-			const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
-			int fnsize = lstrlen(fn);
-			bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
-				&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
-			if (isTEX) {
-				TCHAR w_zy[2];
-				_pEditView->getGenericText(w_zy, 2, wordStart - 1, wordEnd);
-				if (w_zy[0] == '\\' && !isInList(w, wordArray))
-					wordArray.push_back(w);
-			}
-			else if (!isInList(w, wordArray))
+			if (!isInList(w, wordArray))
 				wordArray.push_back(w);
 		}
 		posFind = _pEditView->searchInTarget(expr.c_str(), static_cast<int32_t>(expr.length()), wordEnd, docLength);
@@ -399,22 +384,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	
-
-	//determine if the file is a tex file
-	const TCHAR *fn = ((_pEditView)->getCurrentBuffer())->getFileName();
-	int fnsize = lstrlen(fn);
-	bool isTEX = fnsize >= 4 && fn[fnsize - 1] == 'x' && fn[fnsize - 2] == 'e' \
-		&& fn[fnsize - 3] == 't' && fn[fnsize - 4] == '.';
-
-	if (isTEX) { //if this is a TEX file
-		TCHAR initChars[2];
-		_pEditView->getGenericText(initChars, 2, startPos - 1, startPos);
-		if (initChars[0] == '\\')
-			_pEditView->showAutoComletion(curPos - startPos, words.c_str());
-	}
-	else
-		_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 
 	return true;
 }
@@ -790,6 +760,19 @@ void AutoCompletion::update(int character)
 
 	const int wordSize = 64;
 	TCHAR s[wordSize];
+
+	//add a backslash to character set if the lexer is ConTeXt
+	if (_tcscmp(getApiFileName(), _T("ConTeXt")) == 0)
+	{
+		auto defaultCharListLen = _pEditView->execute(SCI_GETWORDCHARS);
+		char *defaultCharList = new char[defaultCharListLen + 2];
+		_pEditView->execute(SCI_GETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+		defaultCharList[defaultCharListLen] = '\\';
+		defaultCharList[defaultCharListLen + 1] = '\0';
+		_pEditView->execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>(defaultCharList));
+		delete[] defaultCharList;
+	}
+
 	_pEditView->getWordToCurrentPos(s, wordSize);
 
 	if (lstrlen(s) >= int(nppGUI._autocFromLen))

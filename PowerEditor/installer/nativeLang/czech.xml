@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.3.1  22/Jan/2017  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.4.0  17/May/2017  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.3.1">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.4.0">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -855,6 +855,9 @@
 					<Item id = "6334" name = "Automatická detekce kódóvání znaků"/>
 					<Item id = "6335" name = "Zpětné lomítko je escape znak pro SQL"/>
 					<Item id = "6337" name = "Přípona souboru pracovní plochy:"/>
+					<Item id = "6344" name = "Náhled na neaktivní dokument"/>
+					<Item id = "6345" name = "Na oušku (tab) dokumentu"/>
+					<Item id = "6346" name = "Na přehledné mapě dokumentu"/>
 				</MISC>
 				<Backup title = "Zálohování">
 					<Item id = "6219" name = "Uživatelsky definovaný adresář pro zálohování"/>
@@ -976,6 +979,8 @@
 			<NbFileToOpenImportantWarning title = "Velmi mnoho souborů k otevření" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
 			<SettingsOnCloudError title = "Nastavení cloudu" message = "Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
 			<FilePathNotFoundWarning title = "Otevření souboru" message = "Soubor, který se pokoušíte otevřít, neexistuje."/>
+			<SessionFileInvalidError title = "Relace nemohla být zavedena" message = "Soubor relace je buďto poškozen nebo je neplatný."/>
+			<DroppingFolderAsProjetModeWarning title = "Neplatná akce" message = "Můžete přetáhovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit 'Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)'."/>
 		</MessageBox>
 
 		<ProjectManager>
@@ -1035,6 +1040,7 @@
 			<word-chars-list-warning-end value = "  ve Vašem seznamu znaků."/>
 			<cloud-invalid-warning value = "Neplatná cesta."/>
 			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
+			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
 		</MiscStrings>
 
 	</Native-Langue>

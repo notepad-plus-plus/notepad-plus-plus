@@ -149,8 +149,15 @@ struct MapPosition
 	int32_t _width = -1;
 	int32_t _height = -1;
 	int32_t _wrapIndentMode = -1;
+
+	int64_t _KByteInDoc = _maxPeekLenInKB;
+
 	bool _isWrap = false;
-	bool isValid() { return _firstVisibleDisplayLine != -1; };
+	bool isValid() const { return (_firstVisibleDisplayLine != -1); };
+	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); }; // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
+
+private:
+	int64_t _maxPeekLenInKB = 512; // 512 KB
 };
 
 

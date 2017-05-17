@@ -68,6 +68,7 @@ void DocumentPeeker::goTo(POINT p)
 	::SetWindowPos(_hSelf, HWND_TOP, p.x, p.y + 10, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW);
 }
 
+
 void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 {
 	if (_pPeekerView)
@@ -85,8 +86,10 @@ void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 		// Wraping & scrolling
 		//
 		MapPosition mp = buf->getMapPosition();
-		if (mp.isValid())
+		if (mp.isValid() && mp.canScroll())
+		{
 			scrollSnapshotWith(mp);
+		}
 
 		Buffer *buf = _pPeekerView->getCurrentBuffer();
 		_pPeekerView->defineDocType(buf->getLangType());
@@ -140,7 +143,7 @@ void DocumentPeeker::scrollSnapshotWith(const MapPosition & mapPos)
 		//
 
 		// scroll to the first visible display line
-		_pPeekerView->execute(SCI_LINESCROLL, 0,mapPos._firstVisibleDisplayLine);
+		_pPeekerView->execute(SCI_LINESCROLL, 0, mapPos._firstVisibleDisplayLine);
 		
 	}
 }
@@ -179,6 +182,9 @@ void DocumentPeeker::saveCurrentSnapshot(ScintillaEditView & editView)
 		{
 			mapPos._higherPos = static_cast<int32_t>(editView.execute(SCI_POSITIONFROMPOINT, 0, 0));
 		}
+
+		// Length of document
+		mapPos._KByteInDoc = editView.getCurrentDocLen() / 1024;
 
 		// set current map position in buffer
 		buffer->setMapPosition(mapPos);

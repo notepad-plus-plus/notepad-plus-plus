@@ -1,3 +1,10 @@
+Notepad++ v7.4.1 bug-fixes:
+
+1.  Fix Notepad++ hanging issue on start up due to its connection on Internet - disable the certification chain verification.
+2.  Fix the opened zero length file not saving bug.
+3.  Improve Document Peeker performance issue for large files.
+
+
 Notepad++ 7.4 new featurs/enhancements & bug-fixes:
 
 1.  Add document peek feature (while mouse hovering on tab).

@@ -2006,6 +2006,23 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_GETSETTINGSDIR:
+		{
+			if (!lParam || !wParam)
+				return FALSE;
+
+			const generic_string settingsDir = pNppParam->getUserPath();
+
+			const size_t len = wParam;
+			if (len < settingsDir.length())
+				return FALSE;
+
+			TCHAR *settingsDirPtr = (TCHAR *)lParam;
+			::lstrcpy(settingsDirPtr, settingsDir.c_str());
+
+			return TRUE;
+		}
+
 		case NPPM_MSGTOPLUGIN :
 		{
 			return _pluginsManager.relayPluginMessages(message, wParam, lParam);

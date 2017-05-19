@@ -161,7 +161,7 @@
 					<Item id="42036" name="No comentar"/>
 					<Item id="42055" name="Eliminar líneas vacías"/>
 					<Item id="42056" name="Eliminar líneas vacías (y contenido en blanco)"/>
-					<Item id="42057" name="Insert línea en blanco encima de la actual"/>
+					<Item id="42057" name="Insertar línea en blanco encima de la actual"/>
 					<Item id="42058" name="Insertar línea en blanco bajo la actual"/>
 					<Item id="43001" name="&amp;Buscar..."/>
 					<Item id="43002" name="Buscar &amp;siguiente"/>

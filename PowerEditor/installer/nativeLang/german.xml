@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.4
-	last modified: 2017-05-18 by schnurlos (schnurlos@gmail.com)
+	last modified: 2017-05-19 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -963,8 +963,7 @@
 			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte&#x0A;auf ein Laufwerk nur mit Leserechten oder auf ein Verzeichnis&#x0A;ohne die erforderlichen Schreibrechte zeigen.&#x0A;Die Einstellungen in der Cloud werden abgebrochen.&#x0A;Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
 			<FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
 			<SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Sitzungsdatei ist entweder beschädigt oder ungültig."/>
-			<SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
-			<ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
+			<ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&#x0A;um in den Spalten-Modus zu wechseln."/>
 
 			<!-- $STR_REPLACE$ is a place holder, don't translate it -->
 			<SortingError title="Sortierung fehlgeschlagen" message="Kann aufgrund der Zeile $STR_REPLACE$ keine numerische Sortierung durchführen."/>

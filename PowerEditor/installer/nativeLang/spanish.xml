@@ -107,12 +107,12 @@
 					<Item id="42015" name="Bajar línea actual"/>
 					<Item id="42059" name="Ordenar líneas en sentido ascendente"/>
 					<Item id="42060" name="Ordenar líneas en sentido descendente"/>
-					<Item id="42061" name="Orden de líneas numérico ascendiente"/>
-					<Item id="42062" name="Orden de líneas numérico descendiente"/>
-					<Item id="42063" name="Ordenar líneas como decimales (coma) ascendiente"/>
-					<Item id="42064" name="Ordenar líneas como decimales (coma) descendiente"/>
-					<Item id="42065" name="Ordenar líneas como decimales (punto) ascendiente"/>
-					<Item id="42066" name="Ordenar líneas como decimales (punto) descendiente"/>
+					<Item id="42061" name="Orden de líneas numérico ascendente"/>
+					<Item id="42062" name="Orden de líneas numérico descendente"/>
+					<Item id="42063" name="Ordenar líneas como decimales (coma) ascendente"/>
+					<Item id="42064" name="Ordenar líneas como decimales (coma) descendente"/>
+					<Item id="42065" name="Ordenar líneas como decimales (punto) ascendente"/>
+					<Item id="42066" name="Ordenar líneas como decimales (punto) descendente"/>
 					<Item id="42016" name="Convertir a MAYÚSCULAS"/>
 					<Item id="42017" name="Convertir a minúsculas"/>
 					<Item id="42067" name="Convertir A Modo Título"/>

@@ -75,7 +75,7 @@ static void ColourisePowerShellDoc(unsigned int startPos, int length, int initSt
 			}
 		} else if (sc.state == SCE_POWERSHELL_STRING) {
 			// This is a doubles quotes string
-			if (sc.ch == '\"') {
+			if (sc.ch == '\"' && sc.chPrev != '`') {
 				sc.ForwardSetState(SCE_POWERSHELL_DEFAULT);
 			}
 		} else if (sc.state == SCE_POWERSHELL_CHARACTER) {

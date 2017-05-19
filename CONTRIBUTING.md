@@ -191,7 +191,7 @@ Function names are not separated from the first parenthesis.</h5>
 
 #### NAMING CONVENTIONS
 
-1. ##### Classes (camel case)
+1. ##### Classes (pascal case)
 
   * ###### Good:
     ```cpp
@@ -207,8 +207,8 @@ Function names are not separated from the first parenthesis.</h5>
     {};
     ```
 
-1. <h5>methods (camel case + begins with a lower case)<br>
-method parameters (camel case + begins with a lower case)</h5>
+1. <h5>methods (camel case)<br>
+method parameters (camel case)</h5>
 
   ```cpp
   void myMethod(uint myVeryLongParameter);

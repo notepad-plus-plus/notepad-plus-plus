@@ -734,6 +734,10 @@ void AutoCompletion::update(int character)
 	if (_pEditView->execute(SCI_AUTOCACTIVE) != 0)
 		return;
 
+	// let the plugins the possibility to simulate nppGUI._autocStatus == nppGUI.autoc_none
+	if (_disabledOnCharAdded)
+		return;
+
 	const int wordSize = 64;
 	TCHAR s[wordSize];
 	_pEditView->getWordToCurrentPos(s, wordSize);

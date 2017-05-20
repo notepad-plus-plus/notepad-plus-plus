@@ -86,6 +86,8 @@ public:
 	void callTipClick(int direction);
 	void getCloseTag(char *closeTag, size_t closeTagLen, size_t caretPos, bool isHTML);
 
+	bool _disabledOnCharAdded;
+
 private:
 	bool _funcCompletionActive = false;
 	ScintillaEditView * _pEditView = nullptr;

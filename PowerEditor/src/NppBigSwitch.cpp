@@ -476,6 +476,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_SETAUTOCOMPLETIONDISABLEDONCHARADDED:
+		{
+			bool isFromPrimary = _pEditView == &_mainEditView;
+			AutoCompletion * autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
+			autoC->_disabledOnCharAdded = bool(lParam != 0);
+			return !autoC->_disabledOnCharAdded;
+		}
+
 		case WM_SIZE:
 		{
 			RECT rc;

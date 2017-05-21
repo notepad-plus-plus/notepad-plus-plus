@@ -268,6 +268,8 @@
             <Keywords name="instre2"></Keywords>
             <Keywords name="type1"></Keywords>
         </Language>
+        <!-- User Defined Language -->
+        <Language name="udf"/>
 <!--
         <Language name="" ext="" commentLine="" commentStart="" commentEnd="">
             <Keywords name="instre1"></Keywords>

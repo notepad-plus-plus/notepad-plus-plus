@@ -250,7 +250,12 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 
 			_currentStatus = DOC_MODIFIED;
 			_timeStamp = buf.st_mtime;
-			doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+
+			if (_reloadFromDiskRequestGuard.try_lock())
+			{
+				doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+				_reloadFromDiskRequestGuard.unlock();
+			}
 			isOK = true;
 		}
 	}
@@ -273,10 +278,17 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 
 		if (mask != 0)
 		{
-			doNotify(mask);
-			isOK = true;
+			if (_reloadFromDiskRequestGuard.try_lock())
+			{
+				doNotify(mask);
+
+				_reloadFromDiskRequestGuard.unlock();
+
+				return true;
+			}
 		}
-		isOK = false;
+
+		return false;
 	}
 
 	if (isWow64Off)

@@ -25,6 +25,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #pragma once
+#include <mutex>
+
 #include "Utf8_16.h"
 
 
@@ -413,4 +415,6 @@ private:
 	bool _hasLangBeenSetFromMenu = false;
 
 	MapPosition _mapPosition;
+
+	std::mutex _reloadFromDiskRequestGuard;
 };

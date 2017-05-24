@@ -1709,7 +1709,7 @@ void ScintillaEditView::restoreCurrentPos()
 	execute(SCI_CHOOSECARETX); // choose current x position
 
 	int lineToShow = static_cast<int32_t>(execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine));
-	scroll(0, lineToShow);
+	LineScroll(0, lineToShow);
 }
 
 void ScintillaEditView::restyleBuffer() {
@@ -3002,7 +3002,7 @@ void ScintillaEditView::scrollPosToCenter(size_t pos)
 	else
 		middleLine = lastVisibleDocLine -  nbLine/2;
 	int nbLines2scroll =  line - middleLine;
-	scroll(0, nbLines2scroll);
+	LineScroll(0, nbLines2scroll);
 }
 
 void ScintillaEditView::hideLines()

@@ -1446,7 +1446,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_EOL2WS:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->GetLength());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
@@ -1455,7 +1455,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);
 			doTrim(lineHeader);
-			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->GetLength());
 			_pEditView->execute(SCI_LINESJOIN);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			break;
@@ -1708,9 +1708,9 @@ void Notepad_plus::command(int id)
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, false);
-			_mainEditView.showEOL(false);
+			_mainEditView.SetViewEOL(false);
 			_mainEditView.showWSAndTab(isChecked);
-			_subEditView.showEOL(false);
+			_subEditView.SetViewEOL(false);
 			_subEditView.showWSAndTab(isChecked);
 
             ScintillaViewParams & svp1 = (ScintillaViewParams &)(NppParameters::getInstance())->getSVP();
@@ -1725,8 +1725,8 @@ void Notepad_plus::command(int id)
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, false);
-			_mainEditView.showEOL(isChecked);
-			_subEditView.showEOL(isChecked);
+			_mainEditView.SetViewEOL(isChecked);
+			_subEditView.SetViewEOL(isChecked);
 			_mainEditView.showWSAndTab(false);
 			_subEditView.showWSAndTab(false);
 
@@ -2339,7 +2339,7 @@ void Notepad_plus::command(int id)
 				_pEditView->saveCurrentPos();
 
 				// Cut all text
-				int docLen = _pEditView->getCurrentDocLen();
+				int docLen = _pEditView->GetLength();
 				_pEditView->execute(SCI_COPYRANGE, 0, docLen);
 				_pEditView->execute(SCI_CLEARALL);
 

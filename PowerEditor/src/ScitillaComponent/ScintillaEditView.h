@@ -282,20 +282,16 @@ public:
 		return _beginSelectPosition != -1;
 	};
 
-	int getCurrentDocLen() const {
-		return int(execute(SCI_GETLENGTH));
-	};
-
 	CharacterRange getSelection() const {
 		CharacterRange crange;
-		crange.cpMin = long(execute(SCI_GETSELECTIONSTART));
-		crange.cpMax = long(execute(SCI_GETSELECTIONEND));
+		crange.cpMin = long(GetSelectionStart());
+		crange.cpMax = long(GetSelectionEnd());
 		return crange;
 	};
 
 	void getWordToCurrentPos(TCHAR * str, int strLen) const {
-		auto caretPos = execute(SCI_GETCURRENTPOS);
-		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
+		auto caretPos = GetCurrentPos();
+		auto startPos = WordStartPosition(caretPos, true);
 
 		str[0] = '\0';
 		if ((caretPos - startPos) < strLen)
@@ -308,10 +304,10 @@ public:
 
     static UserDefineDialog * getUserDefineDlg() {return &_userDefineDlg;};
 
-    void setCaretColorWidth(int color, int width = 1) const {
-        execute(SCI_SETCARETFORE, color);
-        execute(SCI_SETCARETWIDTH, width);
-    };
+	void setCaretColorWidth(int color, int width = 1) const {
+		SetCaretFore(color);
+		SetCaretWidth(width);
+	};
 
 	void beSwitched() {
 		_userDefineDlg.setScintilla(this);
@@ -333,13 +329,13 @@ public:
 				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 20 : 16;
 			else if (whichMarge == _SC_MARGE_FOLDER)
 				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 18 : 14;
-			execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
+			SetMarginWidthN(whichMarge, willBeShowed ? width : 0);
 		}
     };
 
-    bool hasMarginShowed(int witchMarge) {
-		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);
-    };
+	bool hasMarginShowed(int witchMarge) {
+		return (GetMarginWidthN(witchMarge) != 0);
+	};
 
     void updateBeginEndSelectPosition(const bool is_insert, const int position, const int length);
     void marginClick(int position, int modifiers);
@@ -368,108 +364,84 @@ public:
 	void setWrapMode(lineWrapMethod meth) {
 		int mode = (meth == LINEWRAP_ALIGNED)?SC_WRAPINDENT_SAME:\
 				(meth == LINEWRAP_INDENT)?SC_WRAPINDENT_INDENT:SC_WRAPINDENT_FIXED;
-		execute(SCI_SETWRAPINDENTMODE, mode);
+		SetWrapIndentMode(mode);
 	};
 
 
 	void showWSAndTab(bool willBeShowed = true) {
-		execute(SCI_SETVIEWWS, willBeShowed?SCWS_VISIBLEALWAYS:SCWS_INVISIBLE);
-		execute(SCI_SETWHITESPACESIZE, 2, 0);
-	};
-
-	void showEOL(bool willBeShowed = true) {
-		execute(SCI_SETVIEWEOL, willBeShowed);
+		SetViewWS(willBeShowed ? SCWS_VISIBLEALWAYS : SCWS_INVISIBLE);
+		SetWhitespaceSize(2);
 	};
 
 	bool isEolVisible() {
-		return (execute(SCI_GETVIEWEOL) != 0);
+		return (GetViewEOL() != 0);
 	};
+
 	void showInvisibleChars(bool willBeShowed = true) {
 		showWSAndTab(willBeShowed);
-		showEOL(willBeShowed);
+		SetViewEOL(willBeShowed);
 	};
 
 	bool isInvisibleCharsShown() {
-		return (execute(SCI_GETVIEWWS) != 0);
+		return (GetViewWS() != 0);
 	};
 
 	void showIndentGuideLine(bool willBeShowed = true) {
-		execute(SCI_SETINDENTATIONGUIDES, willBeShowed ? SC_IV_LOOKBOTH : SC_IV_NONE);
+		SetIndentationGuides(willBeShowed ? SC_IV_LOOKBOTH : SC_IV_NONE);
 	};
 
 	bool isShownIndentGuide() const {
-		return (execute(SCI_GETINDENTATIONGUIDES) != 0);
+		return (GetIndentationGuides() != 0);
 	};
 
-    void wrap(bool willBeWrapped = true) {
-        execute(SCI_SETWRAPMODE, willBeWrapped);
-    };
+	void wrap(bool willBeWrapped = true) {
+		SetWrapMode(willBeWrapped ? SC_WRAP_WORD : SC_WRAP_NONE);
+	};
 
-    bool isWrap() const {
-        return (execute(SCI_GETWRAPMODE) == SC_WRAP_WORD);
-    };
+	bool isWrap() const {
+		return (GetWrapMode() == SC_WRAP_WORD);
+	};
 
 	bool isWrapSymbolVisible() const {
-		return (execute(SCI_GETWRAPVISUALFLAGS) != SC_WRAPVISUALFLAG_NONE);
+		return (GetWrapVisualFlags() != SC_WRAPVISUALFLAG_NONE);
 	};
 
-    void showWrapSymbol(bool willBeShown = true) {
-		execute(SCI_SETWRAPVISUALFLAGSLOCATION, SC_WRAPVISUALFLAGLOC_DEFAULT);
-		execute(SCI_SETWRAPVISUALFLAGS, willBeShown?SC_WRAPVISUALFLAG_END:SC_WRAPVISUALFLAG_NONE);
-    };
+	void showWrapSymbol(bool willBeShown = true) {
+		SetWrapVisualFlagsLocation(SC_WRAPVISUALFLAGLOC_DEFAULT);
+		SetWrapVisualFlags(willBeShown ? SC_WRAPVISUALFLAG_END : SC_WRAPVISUALFLAG_NONE);
+	};
 
 	size_t getCurrentLineNumber()const {
-		return static_cast<size_t>(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
+		return static_cast<size_t>(LineFromPosition(GetCurrentPos()));
 	};
 
 	int32_t lastZeroBasedLineNumber() const {
-		auto endPos = execute(SCI_GETLENGTH);
-		return static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, endPos));
+		auto endPos = GetLength();
+		return static_cast<int32_t>(LineFromPosition(endPos));
 	};
 
-	long getCurrentXOffset()const{
-		return long(execute(SCI_GETXOFFSET));
+	int getCurrentPointX() const {
+		return PointXFromPosition(GetCurrentPos());
 	};
 
-	void setCurrentXOffset(long xOffset){
-		execute(SCI_SETXOFFSET,xOffset);
+	int getCurrentPointY() const {
+		return PointYFromPosition(GetCurrentPos());
 	};
 
-	void scroll(int column, int line){
-		execute(SCI_LINESCROLL, column, line);
+	int getCurrentColumnNumber() const {
+		return GetColumn(GetCurrentPos());
 	};
-
-	long getCurrentPointX()const{
-		return long (execute(SCI_POINTXFROMPOSITION, 0, execute(SCI_GETCURRENTPOS)));
-	};
-
-	long getCurrentPointY()const{
-		return long (execute(SCI_POINTYFROMPOSITION, 0, execute(SCI_GETCURRENTPOS)));
-	};
-
-	long getTextHeight()const{
-		return long(execute(SCI_TEXTHEIGHT));
-	};
-
-	void gotoLine(int line){
-		if (line < execute(SCI_GETLINECOUNT))
-			execute(SCI_GOTOLINE,line);
-	};
-
-	long getCurrentColumnNumber() const {
-        return long(execute(SCI_GETCOLUMN, execute(SCI_GETCURRENTPOS)));
-    };
 
 	bool getSelectedCount(int & selByte, int & selLine) const {
 		// return false if it's multi-selection or rectangle selection
-		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
+		if ((GetSelections() > 1) || SelectionIsRectangle())
 			return false;
-		long pStart = long(execute(SCI_GETSELECTIONSTART));
-		long pEnd = long(execute(SCI_GETSELECTIONEND));
+		int pStart = GetSelectionStart();
+		int pEnd = GetSelectionEnd();
 		selByte = pEnd - pStart;
 
-		long lStart = long(execute(SCI_LINEFROMPOSITION, pStart));
-		long lEnd = long(execute(SCI_LINEFROMPOSITION, pEnd));
+		int lStart = LineFromPosition(pStart);
+		int lEnd = LineFromPosition(pEnd);
 		selLine = lEnd - lStart;
 		if (selLine || selByte)
 			++selLine;
@@ -480,12 +452,12 @@ public:
 	long getUnicodeSelectedLength() const
 	{
 		// return -1 if it's multi-selection or rectangle selection
-		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
+		if ((GetSelections() > 1) || SelectionIsRectangle())
 			return -1;
-		auto size_selected = execute(SCI_GETSELTEXT);
-		char *selected = new char[size_selected + 1];
-		execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selected));
-		char *c = selected;
+
+		auto text = GetSelText();
+
+		const char *c = text.c_str();
 		long length = 0;
 		while(*c != '\0')
 		{
@@ -493,17 +465,12 @@ public:
 				++length;
 			++c;
 		}
-		delete [] selected;
 		return length;
-    }
+	}
 
 
-	long getLineLength(int line) const {
-		return long(execute(SCI_GETLINEENDPOSITION, line) - execute(SCI_POSITIONFROMLINE, line));
-	};
-
-	long getLineIndent(int line) const {
-		return long(execute(SCI_GETLINEINDENTATION, line));
+	int getLineLength(int line) const {
+		return GetLineEndPosition(line) - PositionFromLine(line);
 	};
 
 	void setLineIndent(int line, int indent) const;
@@ -518,21 +485,21 @@ public:
 		}
 		else
 		{
-			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, 0);
+			SetMarginWidthN(_SC_MARGE_LINENUMBER, 0);
 		}
 	}
 
 	void updateLineNumberWidth();
 
 	void setCurrentLineHiLiting(bool isHiliting, COLORREF bgColor) const {
-		execute(SCI_SETCARETLINEVISIBLE, isHiliting);
+		SetCaretLineVisible(isHiliting);
 		if (!isHiliting)
 			return;
-		execute(SCI_SETCARETLINEBACK, bgColor);
+		SetCaretLineBack(bgColor);
 	};
 
 	bool isCurrentLineHiLiting() const {
-		return (execute(SCI_GETCARETLINEVISIBLE) != 0);
+		return (GetCaretLineVisible() != 0);
 	};
 
 	void performGlobalStyles();
@@ -552,7 +519,7 @@ public:
 		if ((NppParameters::getInstance())->isTransparentAvailable())
 			convertSelectedTextTo(LOWERCASE);
 		else
-			execute(SCI_LOWERCASE);
+			LowerCase();
 	};
 
     void convertSelectedTextToUpperCase() {
@@ -560,7 +527,7 @@ public:
 		if ((NppParameters::getInstance())->isTransparentAvailable())
 			convertSelectedTextTo(UPPERCASE);
 		else
-			execute(SCI_UPPERCASE);
+			UpperCase();
 	};
 
 	void convertSelectedTextToNewerCase(const TextCase & caseToConvert) {
@@ -575,7 +542,7 @@ public:
 	void foldAll(bool mode);
 	void fold(size_t line, bool mode);
 	bool isFolded(int line){
-		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
+		return (GetFoldExpanded(line) != 0);
 	};
 	void foldCurrentPos(bool mode);
 	int getCodepage() const {return _codepage;};
@@ -592,9 +559,9 @@ public:
 	void foldChanged(int line, int levelNow, int levelPrev);
 	void clearIndicator(int indicatorNumber) {
 		int docStart = 0;
-		int docEnd = getCurrentDocLen();
-		execute(SCI_SETINDICATORCURRENT, indicatorNumber);
-		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
+		int docEnd = GetLength();
+		SetIndicatorCurrent(indicatorNumber);
+		IndicatorClearRange(docStart, docEnd - docStart);
 	};
 
 	static LanguageName langNames[L_EXTERNAL+1];

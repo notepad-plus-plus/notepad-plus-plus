@@ -437,7 +437,7 @@ bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, const As
 		return false;
 
 	// parse
-	int docLen = (*_ppEditView)->getCurrentDocLen();
+	int docLen = (*_ppEditView)->GetLength();
 	fp->parse(foundInfos, 0, docLen, _ppEditView);
 
 	return true;
@@ -448,7 +448,7 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 {
 	size_t cntOpen = 1;
 
-	int docLen = (*ppEditView)->getCurrentDocLen();
+	int docLen = (*ppEditView)->GetLength();
 
 	if (begin >= (size_t)docLen)
 		return docLen;

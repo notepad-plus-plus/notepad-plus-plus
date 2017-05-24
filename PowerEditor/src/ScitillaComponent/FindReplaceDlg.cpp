@@ -211,7 +211,7 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 		//use center
 		linesToScroll += static_cast<int>(linesVisible/2);
 	}
-	pEditView->scroll(0, linesToScroll);
+	pEditView->LineScroll(0, linesToScroll);
 
 	//Make sure the caret is visible, scroll horizontally (this will also fix wrapping problems)
 	pEditView->execute(SCI_GOTOPOS, posStart);

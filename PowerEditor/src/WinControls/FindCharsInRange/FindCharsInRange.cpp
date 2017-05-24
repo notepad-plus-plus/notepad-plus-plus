@@ -81,7 +81,7 @@ INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned char endRange, int startPos, bool direction, bool wrap)
 {
-	int totalSize = (*_ppEditView)->getCurrentDocLen();
+	int totalSize = (*_ppEditView)->GetLength();
 	if (startPos == -1)
 		startPos = direction==dirDown?0:totalSize-1;
 	if (startPos > totalSize)

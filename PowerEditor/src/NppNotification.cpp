@@ -985,7 +985,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			int startPos, endPos, docLen;
 			startPos = endPos = notification->position;
-			docLen = notifyView->getCurrentDocLen();
+			docLen = notifyView->GetLength();
 
 			// Walk backwards/forwards to get the contiguous text in the same style
 			while (startPos > 0 && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, startPos - 1)) == style)

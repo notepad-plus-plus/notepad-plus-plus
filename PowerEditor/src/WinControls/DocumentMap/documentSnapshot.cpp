@@ -184,7 +184,7 @@ void DocumentPeeker::saveCurrentSnapshot(ScintillaEditView & editView)
 		}
 
 		// Length of document
-		mapPos._KByteInDoc = editView.getCurrentDocLen() / 1024;
+		mapPos._KByteInDoc = editView.GetLength() / 1024;
 
 		// set current map position in buffer
 		buffer->setMapPosition(mapPos);

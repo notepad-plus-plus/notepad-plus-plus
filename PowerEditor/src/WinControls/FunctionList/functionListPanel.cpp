@@ -70,7 +70,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 {
 	size_t cntOpen = 1;
 
-	int docLen = (*_ppEditView)->getCurrentDocLen();
+	int docLen = (*_ppEditView)->GetLength();
 
 	if (begin >= (size_t)docLen)
 		return docLen;

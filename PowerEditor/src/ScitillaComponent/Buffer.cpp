@@ -847,7 +847,7 @@ bool FileManager::backupCurrentBuffer()
 			FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
 			if (fp)
 			{
-				int lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
+				int lengthDoc = _pNotepadPlus->_pEditView->GetLength();
 				char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
 				size_t items_written = 0;
 				if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
@@ -1038,7 +1038,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
 
-		int lengthDoc = _pscratchTilla->getCurrentDocLen();
+		int lengthDoc = _pscratchTilla->GetLength();
 		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
 		size_t items_written = 0;
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
@@ -1539,7 +1539,7 @@ int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy)
 int FileManager::docLength(Buffer* buffer) const
 {
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);
-	int docLen = _pscratchTilla->getCurrentDocLen();
+	int docLen = _pscratchTilla->GetLength();
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 	return docLen;
 }

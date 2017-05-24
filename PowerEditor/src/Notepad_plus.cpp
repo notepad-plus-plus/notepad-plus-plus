@@ -298,8 +298,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_subEditView.execute(SCI_SETEDGECOLUMN, svp1._edgeNbColumn);
 	_subEditView.execute(SCI_SETEDGEMODE, svp1._edgeMode);
 
-	_mainEditView.showEOL(svp1._eolShow);
-	_subEditView.showEOL(svp1._eolShow);
+	_mainEditView.SetViewEOL(svp1._eolShow);
+	_subEditView.SetViewEOL(svp1._eolShow);
 
 	_mainEditView.showWSAndTab(svp1._whiteSpaceShow);
 	_subEditView.showWSAndTab(svp1._whiteSpaceShow);
@@ -2533,7 +2533,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			// Get previous line's Indent
 			if (prevLine >= 0)
 			{
-				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+				indentAmountPrevLine = _pEditView->GetLineIndentation(prevLine);
 			}
 
 			// get previous char from current line
@@ -2598,7 +2598,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			// Get previous line's Indent
 			if (prevLine >= 0)
 			{
-				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+				indentAmountPrevLine = _pEditView->GetLineIndentation(prevLine);
 
 				auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
 				auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
@@ -2637,7 +2637,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				return;
 
 			// { is in another line, get its indentation
-			indentAmountPrevLine = _pEditView->getLineIndent(matchedPairLine);
+			indentAmountPrevLine = _pEditView->GetLineIndentation(matchedPairLine);
 
 			// aligned } indent with {
 			_pEditView->setLineIndent(curLine, indentAmountPrevLine);
@@ -2660,7 +2660,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 
 			if (prevLine >= 0)
 			{
-				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
+				indentAmountPrevLine = _pEditView->GetLineIndentation(prevLine);
 			}
 
 			if (indentAmountPrevLine > 0)
@@ -3112,7 +3112,7 @@ void Notepad_plus::updateStatusBar()
 
     TCHAR strDocLen[256];
 	wsprintf(strDocLen, TEXT("length : %s    lines : %s"),
-		commafyInt(_pEditView->getCurrentDocLen()).c_str(),
+		commafyInt(_pEditView->GetLength()).c_str(),
 		commafyInt(_pEditView->execute(SCI_GETLINECOUNT)).c_str());
 
     _statusBar.setText(strDocLen, STATUSBAR_DOC_SIZE);
@@ -4378,7 +4378,7 @@ void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 {
     auto position = _pEditView->execute(SCI_GETCURRENTPOS);
-	auto docLen = _pEditView->getCurrentDocLen();
+	auto docLen = _pEditView->GetLength();
 
     bool isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position) != 0;
     auto posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
@@ -4431,7 +4431,7 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 {
     auto position = _pEditView->execute(SCI_GETCURRENTPOS);
-	int docLen = _pEditView->getCurrentDocLen();
+	int docLen = _pEditView->GetLength();
 
     bool isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position) != 0;
     auto posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
@@ -4799,7 +4799,7 @@ void Notepad_plus::doSynScorll(HWND whichView)
     else
         return;
 
-	pView->scroll(column, line);
+	pView->LineScroll(column, line);
 }
 
 bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible)

@@ -463,7 +463,7 @@ private:
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		if (!bookmarkPresent(lineno))
-			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
+			_pEditView->MarkerAdd(lineno, MARK_BOOKMARK);
 	}
 
     void bookmarkDelete(int lineno) const
@@ -471,14 +471,14 @@ private:
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 		while (bookmarkPresent(lineno))
-			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
+			_pEditView->MarkerDelete(lineno, MARK_BOOKMARK);
 	}
 
     bool bookmarkPresent(int lineno) const
 	{
 		if (lineno == -1)
 			lineno = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
-		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
+		int state = _pEditView->MarkerGet(lineno);
 		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	}
 
@@ -496,7 +496,7 @@ private:
     void bookmarkNext(bool forwardScan);
 	void bookmarkClearAll() const
 	{
-		_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+		_pEditView->MarkerDeleteAll(MARK_BOOKMARK);
 	}
 
 	void copyMarkedLines();

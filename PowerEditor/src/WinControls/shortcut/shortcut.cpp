@@ -686,7 +686,7 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 		if (_macroType == mtUseSParameter)
 		{
 			char ansiBuffer[3];
-			::WideCharToMultiByte(static_cast<UINT>(pEditView->execute(SCI_GETCODEPAGE)), 0, _sParameter.c_str(), -1, ansiBuffer, 3, NULL, NULL);
+			::WideCharToMultiByte(static_cast<UINT>(pEditView->GetCodePage()), 0, _sParameter.c_str(), -1, ansiBuffer, 3, NULL, NULL);
 			auto lParam = reinterpret_cast<LPARAM>(ansiBuffer);
 			pEditView->execute(_message, _wParameter, lParam);
 		}

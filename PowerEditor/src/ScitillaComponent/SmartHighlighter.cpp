@@ -40,12 +40,12 @@ SmartHighlighter::SmartHighlighter(FindReplaceDlg * pFRDlg)
 void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView, const generic_string & word2Hilite)
 {
 	// save target locations for other search functions
-	auto originalStartPos = pHighlightView->execute(SCI_GETTARGETSTART);
-	auto originalEndPos = pHighlightView->execute(SCI_GETTARGETEND);
+	auto originalStartPos = pHighlightView->GetTargetStart();
+	auto originalEndPos = pHighlightView->GetTargetEnd();
 
 	// Get the range of text visible and highlight everything in it
-	auto firstLine = static_cast<int>(pHighlightView->execute(SCI_GETFIRSTVISIBLELINE));
-	auto nbLineOnScreen = pHighlightView->execute(SCI_LINESONSCREEN);
+	auto firstLine = pHighlightView->GetFirstVisibleLine();
+	auto nbLineOnScreen = pHighlightView->LinesOnScreen();;
 	auto nrLines = min(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
 	auto lastLine = firstLine + nrLines;
 	int startPos = 0;
@@ -82,12 +82,12 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 
 	for (; currentLine < lastLine; ++currentLine)
 	{
-		int docLine = static_cast<int>(pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine));
+		int docLine = pHighlightView->DocLineFromVisible(currentLine);
 		if (docLine == prevDocLineChecked)
 			continue;	//still on same line (wordwrap)
 		prevDocLineChecked = docLine;
-		startPos = static_cast<int>(pHighlightView->execute(SCI_POSITIONFROMLINE, docLine));
-		endPos = static_cast<int>(pHighlightView->execute(SCI_POSITIONFROMLINE, docLine + 1));
+		startPos = pHighlightView->PositionFromLine(docLine);
+		endPos = pHighlightView->PositionFromLine(docLine + 1);
 		
 		frInfo._startRange = startPos;
 		frInfo._endRange = endPos;
@@ -104,7 +104,7 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	}
 
 	// restore the original targets to avoid conflicts with the search/replace functions
-	pHighlightView->execute(SCI_SETTARGETRANGE, originalStartPos, originalEndPos);
+	pHighlightView->SetTargetRange(originalStartPos, originalEndPos);
 }
 
 void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, ScintillaEditView * unfocusView)
@@ -115,7 +115,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
 	// If nothing selected, dont mark anything
-	if (pHighlightView->execute(SCI_GETSELECTIONEMPTY) == 1)
+	if (pHighlightView->GetSelections() == 1)
 	{
 		if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible()
 			&& unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
@@ -125,7 +125,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 		return;
 	}
 
-	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
+	auto curPos = pHighlightView->GetCurrentPos();
 	auto range = pHighlightView->getSelection();
 
 	// Determine mode for SmartHighlighting
@@ -150,8 +150,8 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	// Make sure the "word" positions match the current selection
 	if (isWordOnly)
 	{
-		auto wordStart = pHighlightView->execute(SCI_WORDSTARTPOSITION, curPos, true);
-		auto wordEnd = pHighlightView->execute(SCI_WORDENDPOSITION, wordStart, true);
+		auto wordStart = pHighlightView->WordStartPosition(curPos, true);
+		auto wordEnd = pHighlightView->WordEndPosition(wordStart, true);
 
 		if (wordStart == wordEnd || wordStart != range.cpMin || wordEnd != range.cpMax)
 			return;
@@ -162,7 +162,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	pHighlightView->getSelectedText(text2Find, textlen, false); //do not expand selection (false)
 
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	UINT cp = static_cast<UINT>(pHighlightView->execute(SCI_GETCODEPAGE));
+	UINT cp = static_cast<UINT>(pHighlightView->GetCodePage());
 	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
 
 	highlightViewWithWord(pHighlightView, text2FindW);

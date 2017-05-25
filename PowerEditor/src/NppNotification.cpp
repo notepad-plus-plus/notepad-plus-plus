@@ -107,11 +107,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				BufferID id = BUFFER_INVALID;
 				if (notification->nmhdr.hwndFrom == _invisibleEditView.getHSelf())
 				{
-					id = MainFileManager->getBufferFromDocument(_invisibleEditView.execute(SCI_GETDOCPOINTER));
+					id = MainFileManager->getBufferFromDocument(_invisibleEditView.GetDocPointer());
 				}
 				else if (notification->nmhdr.hwndFrom == _fileEditView.getHSelf())
 				{
-					id = MainFileManager->getBufferFromDocument(_fileEditView.execute(SCI_GETDOCPOINTER));
+					id = MainFileManager->getBufferFromDocument(_fileEditView.GetDocPointer());
 				}
 				else
 					break;	//wrong scintilla
@@ -128,7 +128,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
 			if (isSnapshotMode && !isDirty)
 			{
-				bool canUndo = _pEditView->execute(SCI_CANUNDO) == TRUE;
+				bool canUndo = _pEditView->CanUndo();
 				if (!canUndo && buf->isLoadedDirty() && buf->isDirty())
 					isDirty = true;
 			}
@@ -379,9 +379,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				LPNMMOUSE lpnm = (LPNMMOUSE)notification;
 				if (lpnm->dwItemSpec == DWORD(STATUSBAR_TYPING_MODE))
 				{
-					bool isOverTypeMode = (_pEditView->execute(SCI_GETOVERTYPE) != 0);
-					_pEditView->execute(SCI_SETOVERTYPE, !isOverTypeMode);
-					_statusBar.setText((_pEditView->execute(SCI_GETOVERTYPE))?TEXT("OVR"):TEXT("INS"), STATUSBAR_TYPING_MODE);
+					bool isOverTypeMode = _pEditView->GetOvertype();
+					_pEditView->SetOvertype(!isOverTypeMode);
+					_statusBar.setText(_pEditView->GetOvertype() ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
 				}
 			}
 			else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf() && _activeView == SUB_VIEW)
@@ -576,7 +576,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else if (notification->nmhdr.hwndFrom == _subEditView.getHSelf())
 				switchEditViewTo(SUB_VIEW);
 
-			int lineClick = int(_pEditView->execute(SCI_LINEFROMPOSITION, notification->position));
+			int lineClick = _pEditView->LineFromPosition(notification->position);
 
 			if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
 			{
@@ -625,7 +625,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					maintainIndentation(static_cast<TCHAR>(notification->ch));
 
 				AutoCompletion * autoC = isFromPrimary ? &_autoCompleteMain : &_autoCompleteSub;
-				bool isColumnMode = _pEditView->execute(SCI_GETSELECTIONS) > 1; // Multi-Selection || Column mode)
+				bool isColumnMode = _pEditView->GetSelections() > 1; // Multi-Selection || Column mode)
 				if (nppGui._matchedPairConf.hasAnyPairsPair() && !isColumnMode)
 					autoC->insertMatchedChars(notification->ch, nppGui._matchedPairConf);
 				autoC->update(notification->ch);
@@ -642,41 +642,28 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
-				std::string bufstring;
-
 				size_t position_of_click;
 				// For some reason Ctrl+DoubleClick on an empty line means that notification->position == 1.
 				// In that case we use SCI_GETCURRENTPOS to get the position.
 				if (notification->position != -1)
 					position_of_click = notification->position;
 				else
-					position_of_click = _pEditView->execute(SCI_GETCURRENTPOS);
+					position_of_click = _pEditView->GetCurrentPos();
 
-				// Anonymous scope to limit use of the buf pointer (much easier to deal with std::string).
+				std::string bufstring;
+				if (nppGUI._delimiterSelectionOnEntireDocument)
 				{
-					char *buf;
+					// Get entire document.
+					bufstring = notifyView->GetText();
+				}
+				else
+				{
+					// Get single line.
+					bufstring = notifyView->GetCurLine();
 
-					if (nppGUI._delimiterSelectionOnEntireDocument)
-					{
-						// Get entire document.
-						auto length = notifyView->execute(SCI_GETLENGTH);
-						buf = new char[length + 1];
-						notifyView->execute(SCI_GETTEXT, length + 1, reinterpret_cast<LPARAM>(buf));
-					}
-					else
-					{
-						// Get single line.
-						auto length = notifyView->execute(SCI_GETCURLINE);
-						buf = new char[length + 1];
-						notifyView->execute(SCI_GETCURLINE, length, reinterpret_cast<LPARAM>(buf));
-
-						// Compute the position of the click (relative to the beginning of the line).
-						const auto line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
-						position_of_click = position_of_click - line_position;
-					}
-
-					bufstring = buf;
-					delete [] buf;
+					// Compute the position of the click (relative to the beginning of the line).
+					const auto line_position = notifyView->PositionFromLine(static_cast<int>(notifyView->getCurrentLineNumber()));
+					position_of_click = position_of_click - line_position;
 				}
 
 				int leftmost_position = -1;
@@ -771,14 +758,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					if (nppGUI._delimiterSelectionOnEntireDocument)
 					{
-						notifyView->execute(SCI_SETCURRENTPOS, rightmost_position);
-						notifyView->execute(SCI_SETANCHOR, leftmost_position + 1);
+						notifyView->SetCurrentPos(rightmost_position);
+						notifyView->SetAnchor(leftmost_position + 1);
 					}
 					else
 					{
-						const auto line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
-						notifyView->execute(SCI_SETCURRENTPOS, line_position + rightmost_position);
-						notifyView->execute(SCI_SETANCHOR, line_position + leftmost_position + 1);
+						const auto line_position = notifyView->PositionFromLine(static_cast<int>(notifyView->getCurrentLineNumber()));
+						notifyView->SetCurrentPos(line_position + rightmost_position);
+						notifyView->SetAnchor(line_position + leftmost_position + 1);
 					}
 				}
 			}
@@ -926,7 +913,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					notification->message,
 					notification->wParam,
 					notification->lParam,
-					static_cast<int32_t>(_pEditView->execute(SCI_GETCODEPAGE))
+					_pEditView->GetCodePage()
 				)
 			);
 			break;
@@ -979,8 +966,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return FALSE;
 
 			// Get the style and make sure it is a hotspot
-			uint8_t style = static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, notification->position));
-			if (not notifyView->execute(SCI_STYLEGETHOTSPOT, style))
+			uint8_t style = static_cast<uint8_t>(notifyView->GetStyleAt(notification->position));
+			if (not notifyView->StyleGetHotSpot(style))
 				break;
 
 			int startPos, endPos, docLen;
@@ -988,14 +975,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			docLen = notifyView->GetLength();
 
 			// Walk backwards/forwards to get the contiguous text in the same style
-			while (startPos > 0 && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, startPos - 1)) == style)
+			while (startPos > 0 && static_cast<uint8_t>(notifyView->GetStyleAt(startPos - 1)) == style)
 				startPos--;
-			while (endPos < docLen && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, endPos)) == style)
+			while (endPos < docLen && static_cast<uint8_t>(notifyView->GetStyleAt(endPos)) == style)
 				endPos++;
 
 			// Select the entire link
-			notifyView->execute(SCI_SETANCHOR, startPos);
-			notifyView->execute(SCI_SETCURRENTPOS, endPos);
+			notifyView->SetAnchor(startPos);
+			notifyView->SetCurrentPos(endPos);
 
 			generic_string url = notifyView->getGenericTextAsString(startPos, endPos);
 			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), url.c_str(), NULL, NULL, SW_SHOW);

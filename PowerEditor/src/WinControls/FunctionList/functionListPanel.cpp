@@ -84,7 +84,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
+	(*_ppEditView)->SetSearchFlags(flags);
 	int targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), begin, docLen);
 	int targetEnd = 0;
 
@@ -92,7 +92,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 	{
 		if (targetStart != -1 && targetStart != -2) // found open or close symbol
 		{
-			targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+			targetEnd = (*_ppEditView)->GetTargetEnd();
 
 			// Now we determinate the symbol (open or close)
 			int tmpStart = (*_ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
@@ -131,7 +131,7 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
+	(*_ppEditView)->SetSearchFlags(flags);
 	const TCHAR *regExpr2search = dataToSearch[0].c_str();
 	int targetStart = (*_ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
 
@@ -140,7 +140,7 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 		foundPos = -1;
 		return TEXT("");
 	}
-	int targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+	int targetEnd = (*_ppEditView)->GetTargetEnd();
 
 	if (dataToSearch.size() >= 2)
 	{
@@ -367,8 +367,8 @@ bool FunctionListPanel::openSelection(const TreeView & treeView)
 	if (pos == -1)
 		return false;
 
-	auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
-	(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
+	auto sci_line = (*_ppEditView)->LineFromPosition(pos);
+	(*_ppEditView)->EnsureVisible(sci_line);
 	(*_ppEditView)->scrollPosToCenter(pos);
 
 	return true;

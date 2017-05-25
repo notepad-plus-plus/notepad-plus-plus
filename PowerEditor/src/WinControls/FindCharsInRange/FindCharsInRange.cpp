@@ -52,7 +52,7 @@ INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, L
 
 				case ID_FINDCHAR_NEXT:
 				{
-					int currentPos = static_cast<int32_t>((*_ppEditView)->execute(SCI_GETCURRENTPOS));
+					int currentPos = (*_ppEditView)->GetCurrentPos();
 					unsigned char startRange = 0;
 					unsigned char endRange = 255;
 					bool direction = dirDown;
@@ -122,10 +122,10 @@ bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned cha
 	if (found != -1)
 	{
 		//printInt(found);
-		auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, found);
-		(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
-		(*_ppEditView)->execute(SCI_GOTOPOS, found);
-		(*_ppEditView)->execute(SCI_SETSEL, (direction == dirDown)?found:found+1, (direction == dirDown)?found+1:found);
+		auto sci_line = (*_ppEditView)->LineFromPosition(found);
+		(*_ppEditView)->EnsureVisible(sci_line);
+		(*_ppEditView)->GotoPos(found);
+		(*_ppEditView)->SetSel((direction == dirDown) ? found : found + 1, (direction == dirDown) ? found + 1 : found);
 	}
 	delete [] content;
 	return (found != -1);

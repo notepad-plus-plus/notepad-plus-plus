@@ -470,9 +470,9 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 {
 	_pNotepadPlus = pNotepadPlus;
 	_pscratchTilla = pscratchTilla;
-	_pscratchTilla->execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
-	_scratchDocDefault = (Document)_pscratchTilla->execute(SCI_GETDOCPOINTER);
-	_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, _scratchDocDefault);
+	_pscratchTilla->SetUndoCollection(false);	//dont store any undo information
+	_scratchDocDefault = _pscratchTilla->GetDocPointer();
+	_pscratchTilla->AddRefDocument(_scratchDocDefault);
 }
 
 void FileManager::checkFilesystemChanges()
@@ -531,7 +531,7 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 
 	if (!refs) // buffer can be deallocated
 	{
-		_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, buf->_doc);	//release for FileManager, Document is now gone
+		_pscratchTilla->ReleaseDocument(buf->_doc);	//release for FileManager, Document is now gone
 		_buffers.erase(_buffers.begin() + index);
 		delete buf;
 		_nrBufs--;
@@ -545,7 +545,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	bool ownDoc = false;
 	if (doc == NULL)
 	{
-		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);
+		doc = _pscratchTilla->CreateDocument();
 		ownDoc = true;
 	}
 
@@ -622,7 +622,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	else //failed loading, release document
 	{
 		if (ownDoc)
-			_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, doc);	//Failure, so release document
+			_pscratchTilla->ReleaseDocument(doc);	//Failure, so release document
 		return BUFFER_INVALID;
 	}
 }
@@ -848,7 +848,7 @@ bool FileManager::backupCurrentBuffer()
 			if (fp)
 			{
 				int lengthDoc = _pNotepadPlus->_pEditView->GetLength();
-				char* buf = (char*)_pNotepadPlus->_pEditView->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
+				const char* buf = _pNotepadPlus->_pEditView->GetCharacterPointer();	//to get characters directly from Scintilla buffer
 				size_t items_written = 0;
 				if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 				{
@@ -1036,10 +1036,10 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 	FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
 	if (fp)
 	{
-		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
+		_pscratchTilla->SetDocPointer(buffer->_doc);	//generate new document
 
 		int lengthDoc = _pscratchTilla->GetLength();
-		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
+		const char* buf = _pscratchTilla->GetCharacterPointer();	//to get characters directly from Scintilla buffer
 		size_t items_written = 0;
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 		{
@@ -1088,7 +1088,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 		if (isCopy)
 		{
-			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+			_pscratchTilla->SetDocPointer(_scratchDocDefault);
 
 			/* for saveAs it's not necessary since this action is for the "current" directory, so we let manage in SAVEPOINTREACHED event
 			generic_string backupFilePath = buffer->getBackupFileName();
@@ -1109,8 +1109,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		buffer->setDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		buffer->checkFileState();
-		_pscratchTilla->execute(SCI_SETSAVEPOINT);
-		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+		_pscratchTilla->SetSavePoint();
+		_pscratchTilla->SetDocPointer(_scratchDocDefault);
 
 		generic_string backupFilePath = buffer->getBackupFileName();
 		if (not backupFilePath.empty())
@@ -1179,7 +1179,7 @@ BufferID FileManager::newEmptyDocument()
 	wsprintf(nb, TEXT("%d"), nextUntitledNewNumber());
 	newTitle += nb;
 
-	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
+	Document doc = _pscratchTilla->CreateDocument();	//this already sets a reference for filemanager
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
@@ -1197,7 +1197,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	newTitle += nb;
 
 	if (!dontRef)
-		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
+		_pscratchTilla->AddRefDocument(doc);	//set reference for FileManager
 	Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
@@ -1339,19 +1339,19 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	}
 
 	//Setup scratchtilla for new filedata
-	_pscratchTilla->execute(SCI_SETSTATUS, SC_STATUS_OK); // reset error status
-	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
-	bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
+	_pscratchTilla->SetStatus(SC_STATUS_OK); // reset error status
+	_pscratchTilla->SetDocPointer(doc);
+	bool ro = _pscratchTilla->GetReadOnly();
 	if (ro)
 	{
-		_pscratchTilla->execute(SCI_SETREADONLY, false);
+		_pscratchTilla->SetReadOnly(false);
 	}
-	_pscratchTilla->execute(SCI_CLEARALL);
+	_pscratchTilla->ClearAll();
 
 
 	if (language < L_EXTERNAL)
 	{
-		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
+		_pscratchTilla->SetLexer(ScintillaEditView::langNames[language].lexerID);
 	}
 	else
 	{
@@ -1359,19 +1359,19 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		const char *pName = wmc->wchar2char(name, CP_ACP);
-		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
+		_pscratchTilla->SetLexerLanguage(pName);
 	}
 
 	if (encoding != -1)
-		_pscratchTilla->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
+		_pscratchTilla->SetCodePage(SC_CP_UTF8);
 
 	bool success = true;
 	EolType format = EolType::unknown;
 	__try
 	{
 		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
-		_pscratchTilla->execute(SCI_ALLOCATE, WPARAM(bufferSizeRequested));
-		if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)
+		_pscratchTilla->Allocate(static_cast<int>(bufferSizeRequested));
+		if (_pscratchTilla->GetStatus() != SC_STATUS_OK)
 			throw;
 
 		size_t lenFile = 0;
@@ -1413,14 +1413,14 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				if (encoding == SC_CP_UTF8)
 				{
 					// Pass through UTF-8 (this does not check validity of characters, thus inserting a multi-byte character in two halfs is working)
-					_pscratchTilla->execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
+					_pscratchTilla->AppendText(static_cast<int>(lenFile), data);
 				}
 				else
 				{
 					WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
 					int newDataLen = 0;
 					const char *newData = wmc->encode(encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
-					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
+					_pscratchTilla->AppendText(newDataLen, newData);
 				}
 
 				if (format == EolType::unknown)
@@ -1429,12 +1429,12 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 			else
 			{
 				lenConvert = unicodeConvertor->convert(data, lenFile);
-				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
+				_pscratchTilla->AppendText(static_cast<int>(lenConvert), unicodeConvertor->getNewBuf());
 				if (format == EolType::unknown)
 					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
 			}
 
-			if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)
+			if (_pscratchTilla->GetStatus() != SC_STATUS_OK)
 				throw;
 
 			if (incompleteMultibyteChar != 0)
@@ -1473,13 +1473,13 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		eolFormat = format;
 	}
 
-	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
-	_pscratchTilla->execute(SCI_SETSAVEPOINT);
+	_pscratchTilla->EmptyUndoBuffer();
+	_pscratchTilla->SetSavePoint();
 
 	if (ro)
-		_pscratchTilla->execute(SCI_SETREADONLY, true);
+		_pscratchTilla->SetReadOnly(true);
 
-	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+	_pscratchTilla->SetDocPointer(_scratchDocDefault);
 
 	return success;
 }
@@ -1538,8 +1538,8 @@ int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy)
 
 int FileManager::docLength(Buffer* buffer) const
 {
-	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);
+	_pscratchTilla->SetDocPointer(buffer->_doc);
 	int docLen = _pscratchTilla->GetLength();
-	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+	_pscratchTilla->SetDocPointer(_scratchDocDefault);
 	return docLen;
 }

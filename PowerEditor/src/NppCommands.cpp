@@ -47,7 +47,7 @@ void Notepad_plus::macroPlayback(Macro macro)
 	LongRunningOperation op;
 
 	_playingBackMacro = true;
-	_pEditView->execute(SCI_BEGINUNDOACTION);
+	_pEditView->BeginUndoAction();
 
 	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)
 	{
@@ -57,7 +57,7 @@ void Notepad_plus::macroPlayback(Macro macro)
 			_findReplaceDlg.execSavedCommand(step->_message, step->_lParameter, step->_sParameter);
 	}
 
-	_pEditView->execute(SCI_ENDUNDOACTION);
+	_pEditView->EndUndoAction();
 	_playingBackMacro = false;
 }
 
@@ -244,7 +244,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_REDO:
 		{
 			LongRunningOperation op;
-			_pEditView->execute(SCI_REDO);
+			_pEditView->Redo();
 			checkClipboard();
 			checkUndoState();
 			break;
@@ -263,7 +263,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_COPY_BINARY:
 		case IDM_EDIT_CUT_BINARY:
 		{
-			int textLen = static_cast<int32_t>(_pEditView->execute(SCI_GETSELTEXT, 0, 0)) - 1;
+			int textLen = _pEditView->GetSelText(nullptr) - 1;
 			if (!textLen)
 				return;
 
@@ -315,16 +315,16 @@ void Notepad_plus::command(int id)
 			CloseClipboard();
 
 			if (id == IDM_EDIT_CUT_BINARY)
-				_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+				_pEditView->ReplaceSel("");
 		}
 		break;
 
 		case IDM_EDIT_PASTE:
 		{
 			LongRunningOperation op;
-			int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
-			_pEditView->execute(SCI_PASTE);
-			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
+			int eolMode = _pEditView->GetEOLMode();
+			_pEditView->Paste();
+			_pEditView->ConvertEOLs(eolMode);
 		}
 		break;
 
@@ -352,8 +352,8 @@ void Notepad_plus::command(int id)
 							unsigned long *lpLen = (unsigned long *)GlobalLock(hglbLen);
 							if (lpLen != NULL)
 							{
-								_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
-								_pEditView->execute(SCI_ADDTEXT, *lpLen, reinterpret_cast<LPARAM>(lpchar));
+								_pEditView->ReplaceSel("");
+								_pEditView->AddText(static_cast<int>(*lpLen), lpchar);
 
 								GlobalUnlock(hglb);
 							}
@@ -361,7 +361,7 @@ void Notepad_plus::command(int id)
 					}
 					else
 					{
-						_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(lpchar));
+						_pEditView->ReplaceSel(lpchar);
 					}
 					GlobalUnlock(hglb);
 				}
@@ -374,7 +374,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_OPENINFOLDER:
 		case IDM_EDIT_OPENASFILE:
 		{
-			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
+			if (_pEditView->GetSelections() != 1) // Multi-Selection || Column mode || no selection
 				return;
 
 			HWND hwnd = _pPublicInterface->getHSelf();
@@ -432,7 +432,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_SEARCHONINTERNET:
 		{
-			if (_pEditView->execute(SCI_GETSELECTIONS) != 1) // Multi-Selection || Column mode || no selection
+			if (_pEditView->GetSelections() != 1) // Multi-Selection || Column mode || no selection
 				return;
 
 			const NppGUI & nppGui = (NppParameters::getInstance())->getNppGUI();
@@ -498,7 +498,7 @@ void Notepad_plus::command(int id)
 					// Call the application-defined ReplaceSelection
 					// function to insert the text and repaint the
 					// window.
-					_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(lptstr));
+					_pEditView->ReplaceSel(lptstr);
 
 					GlobalUnlock(hglb);
 				}
@@ -529,19 +529,19 @@ void Notepad_plus::command(int id)
 			size_t fromColumn = 0, toColumn = 0;
 
 			bool hasLineSelection = false;
-			if (_pEditView->execute(SCI_GETSELECTIONS) > 1)
+			if (_pEditView->GetSelections() > 1)
 			{
-				if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
+				if (_pEditView->SelectionIsRectangle())
 				{
 					ColumnModeInfos colInfos = _pEditView->getColumnModeSelectInfo();
 					int leftPos = colInfos.begin()->_selLpos;
 					int rightPos = colInfos.rbegin()->_selRpos;
 					int startPos = min(leftPos, rightPos);
 					int endPos = max(leftPos, rightPos);
-					fromLine = _pEditView->execute(SCI_LINEFROMPOSITION, startPos);
-					toLine = _pEditView->execute(SCI_LINEFROMPOSITION, endPos);
-					fromColumn = _pEditView->execute(SCI_GETCOLUMN, leftPos);
-					toColumn = _pEditView->execute(SCI_GETCOLUMN, rightPos);
+					fromLine = _pEditView->LineFromPosition(startPos);
+					toLine = _pEditView->LineFromPosition(endPos);
+					fromColumn = _pEditView->GetColumn(leftPos);
+					toColumn = _pEditView->GetColumn(rightPos);
 				}
 				else
 				{
@@ -550,8 +550,8 @@ void Notepad_plus::command(int id)
 			}
 			else
 			{
-				auto selStart = _pEditView->execute(SCI_GETSELECTIONSTART);
-				auto selEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+				auto selStart = _pEditView->GetSelectionStart();
+				auto selEnd = _pEditView->GetSelectionEnd();
 				hasLineSelection = selStart != selEnd;
 				if (hasLineSelection)
 				{
@@ -568,7 +568,7 @@ void Notepad_plus::command(int id)
 				{
 					// No selection.
 					fromLine = 0;
-					toLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+					toLine = _pEditView->GetLineCount() - 1;
 				}
 			}
 
@@ -577,7 +577,7 @@ void Notepad_plus::command(int id)
 								id == IDM_EDIT_SORTLINES_DECIMALCOMMA_DESCENDING ||
 								id == IDM_EDIT_SORTLINES_DECIMALDOT_DESCENDING;
 
-			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->BeginUndoAction();
 			std::unique_ptr<ISorter> pSorter;
 			if (id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_DESCENDING || id == IDM_EDIT_SORTLINES_LEXICOGRAPHIC_ASCENDING)
 			{
@@ -610,14 +610,14 @@ void Notepad_plus::command(int id)
 					0,
 					lineNo.c_str()); // We don't use intInfo since it would require casting size_t -> int.
 			}
-			_pEditView->execute(SCI_ENDUNDOACTION);
+			_pEditView->EndUndoAction();
 
 			if (hasLineSelection) // there was 1 selection, so we restore it
 			{
-				auto posStart = _pEditView->execute(SCI_POSITIONFROMLINE, fromLine);
-				auto posEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, toLine);
-				_pEditView->execute(SCI_SETSELECTIONSTART, posStart);
-				_pEditView->execute(SCI_SETSELECTIONEND, posEnd);
+				auto posStart = _pEditView->PositionFromLine(static_cast<int>(fromLine));
+				auto posEnd = _pEditView->GetLineEndPosition(static_cast<int>(toLine));
+				_pEditView->SetSelectionStart(posStart);
+				_pEditView->SetSelectionEnd(posEnd);
 			}
 		}
 		break;
@@ -850,24 +850,24 @@ void Notepad_plus::command(int id)
 			if (_recordingMacro)
 			{
 				// STOP !!!
-				_mainEditView.execute(SCI_STOPRECORD);
-				_subEditView.execute(SCI_STOPRECORD);
+				_mainEditView.StopRecord();
+				_subEditView.StopRecord();
 
-				_mainEditView.execute(SCI_SETCURSOR, static_cast<WPARAM>(SC_CURSORNORMAL));
-				_subEditView.execute(SCI_SETCURSOR, static_cast<WPARAM>(SC_CURSORNORMAL));
+				_mainEditView.SetCursor(SC_CURSORNORMAL);
+				_subEditView.SetCursor(SC_CURSORNORMAL);
 
 				_recordingMacro = false;
 				_runMacroDlg.initMacroList();
 			}
 			else
 			{
-				_mainEditView.execute(SCI_SETCURSOR, 9);
-				_subEditView.execute(SCI_SETCURSOR, 9);
+				_mainEditView.SetCursor(9);
+				_subEditView. SetCursor(9);
 				_macro.clear();
 
 				// START !!!
-				_mainEditView.execute(SCI_STARTRECORD);
-				_subEditView.execute(SCI_STARTRECORD);
+				_mainEditView.StartRecord();
+				_subEditView.StartRecord();
 				_recordingMacro = true;
 			}
 			checkMacroState();
@@ -1223,9 +1223,9 @@ void Notepad_plus::command(int id)
 			if (braceOpposite != -1)
 			{
 				if(id == IDM_SEARCH_GOTOMATCHINGBRACE)
-					_pEditView->execute(SCI_GOTOPOS, braceOpposite);
+					_pEditView->GotoPos(braceOpposite);
 				else
-					_pEditView->execute(SCI_SETSEL, min(braceAtCaret, braceOpposite), max(braceAtCaret, braceOpposite) + 1); // + 1 so we always include the ending brace in the selection.
+					_pEditView->SetSel(min(braceAtCaret, braceOpposite), max(braceAtCaret, braceOpposite) + 1); // + 1 so we always include the ending brace in the selection.
 			}
 			break;
 		}
@@ -1318,39 +1318,39 @@ void Notepad_plus::command(int id)
         }
 
 		case IDM_EDIT_SELECTALL:
-			_pEditView->execute(SCI_SELECTALL);
+			_pEditView->SelectAll();
 			checkClipboard();
 			break;
 
 		case IDM_EDIT_INS_TAB:
-			_pEditView->execute(SCI_TAB);
+			_pEditView->Tab();
 			break;
 
 		case IDM_EDIT_RMV_TAB:
-			_pEditView->execute(SCI_BACKTAB);
+			_pEditView->BackTab();
 			break;
 
 		case IDM_EDIT_DUP_LINE:
-			_pEditView->execute(SCI_LINEDUPLICATE);
+			_pEditView->LineDuplicate();
 			break;
 
 		case IDM_EDIT_SPLIT_LINES:
-			_pEditView->execute(SCI_TARGETFROMSELECTION);
-			if (_pEditView->execute(SCI_GETEDGEMODE) == EDGE_NONE)
+			_pEditView->TargetFromSelection();
+			if (_pEditView->GetEdgeMode() == EDGE_NONE)
 			{
-				_pEditView->execute(SCI_LINESSPLIT);
+				_pEditView->LinesSplit(0);
 			}
 			else
 			{
-				auto textWidth = _pEditView->execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, reinterpret_cast<LPARAM>("P"));
-				auto edgeCol = _pEditView->execute(SCI_GETEDGECOLUMN);
-				_pEditView->execute(SCI_LINESSPLIT, textWidth * edgeCol);
+				auto textWidth = _pEditView->TextWidth(STYLE_LINENUMBER, "P");
+				auto edgeCol = _pEditView->GetEdgeColumn();
+				_pEditView->LinesSplit(textWidth * edgeCol);
 			}
 			break;
 
 		case IDM_EDIT_JOIN_LINES:
-			_pEditView->execute(SCI_TARGETFROMSELECTION);
-			_pEditView->execute(SCI_LINESJOIN);
+			_pEditView->TargetFromSelection();
+			_pEditView->LinesJoin();
 			break;
 
 		case IDM_EDIT_LINE_UP:
@@ -1362,15 +1362,15 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_REMOVEEMPTYLINES:
-			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->BeginUndoAction();
 			removeEmptyLine(false);
-			_pEditView->execute(SCI_ENDUNDOACTION);
+			_pEditView->EndUndoAction();
 			break;
 
 		case IDM_EDIT_REMOVEEMPTYLINESWITHBLANK:
-			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->BeginUndoAction();
 			removeEmptyLine(true);
-			_pEditView->execute(SCI_ENDUNDOACTION);
+			_pEditView->EndUndoAction();
 			break;
 
 		case IDM_EDIT_UPPERCASE:
@@ -1426,38 +1426,38 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_TRIMTRAILING:
-			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->BeginUndoAction();
 			doTrim(lineTail);
-			_pEditView->execute(SCI_ENDUNDOACTION);
+			_pEditView->EndUndoAction();
 			break;
 
 		case IDM_EDIT_TRIMLINEHEAD:
-			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->BeginUndoAction();
 			doTrim(lineHeader);
-			_pEditView->execute(SCI_ENDUNDOACTION);
+			_pEditView->EndUndoAction();
 			break;
 
 		case IDM_EDIT_TRIM_BOTH:
-			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->BeginUndoAction();
 			doTrim(lineTail);
 			doTrim(lineHeader);
-			_pEditView->execute(SCI_ENDUNDOACTION);
+			_pEditView->EndUndoAction();
 			break;
 
 		case IDM_EDIT_EOL2WS:
-			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->GetLength());
-			_pEditView->execute(SCI_LINESJOIN);
-			_pEditView->execute(SCI_ENDUNDOACTION);
+			_pEditView->BeginUndoAction();
+			_pEditView->SetTargetRange(0, _pEditView->GetLength());
+			_pEditView->LinesJoin();
+			_pEditView->EndUndoAction();
 			break;
 
 		case IDM_EDIT_TRIMALL:
-			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->BeginUndoAction();
 			doTrim(lineTail);
 			doTrim(lineHeader);
-			_pEditView->execute(SCI_SETTARGETRANGE, 0, _pEditView->GetLength());
-			_pEditView->execute(SCI_LINESJOIN);
-			_pEditView->execute(SCI_ENDUNDOACTION);
+			_pEditView->SetTargetRange(0, _pEditView->GetLength());
+			_pEditView->LinesJoin();
+			_pEditView->EndUndoAction();
 			break;
 
 		case IDM_EDIT_TAB2SW:
@@ -1808,16 +1808,16 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_ZOOMIN:
 		{
-			_pEditView->execute(SCI_ZOOMIN);
+			_pEditView->ZoomIn();
 			break;
 		}
 		case IDM_VIEW_ZOOMOUT:
-			_pEditView->execute(SCI_ZOOMOUT);
+			_pEditView->ZoomOut();
 			break;
 
 		case IDM_VIEW_ZOOMRESTORE:
 			//Zoom factor of 0 points means default view
-			_pEditView->execute(SCI_SETZOOM, 0);//_zoomOriginalValue);
+			_pEditView->SetZoom(0);//_zoomOriginalValue);
 			break;
 
 		case IDM_VIEW_SYNSCROLLV:
@@ -1830,8 +1830,8 @@ void Notepad_plus::command(int id)
             _syncInfo._isSynScollV = isSynScollV;
 			if (_syncInfo._isSynScollV)
 			{
-				int mainCurrentLine = static_cast<int32_t>(_mainEditView.execute(SCI_GETFIRSTVISIBLELINE));
-				int subCurrentLine = static_cast<int32_t>(_subEditView.execute(SCI_GETFIRSTVISIBLELINE));
+				int mainCurrentLine = _mainEditView.GetFirstVisibleLine();
+				int subCurrentLine =_subEditView.GetFirstVisibleLine();
 				_syncInfo._line = mainCurrentLine - subCurrentLine;
 			}
 
@@ -1847,12 +1847,12 @@ void Notepad_plus::command(int id)
             _syncInfo._isSynScollH = isSynScollH;
 			if (_syncInfo._isSynScollH)
 			{
-				int mxoffset = static_cast<int32_t>(_mainEditView.execute(SCI_GETXOFFSET));
-				int pixel = static_cast<int32_t>(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
+				int mxoffset = _mainEditView.GetXOffset();
+				int pixel = _mainEditView.TextWidth(STYLE_DEFAULT, "P");
 				int mainColumn = mxoffset/pixel;
 
-				int sxoffset = static_cast<int32_t>(_subEditView.execute(SCI_GETXOFFSET));
-				pixel = int(_subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
+				int sxoffset = _subEditView.GetXOffset();
+				pixel = _subEditView.TextWidth(STYLE_DEFAULT, "P");
 				int subColumn = sxoffset/pixel;
 				_syncInfo._column = mainColumn - subColumn;
 			}
@@ -1901,8 +1901,8 @@ void Notepad_plus::command(int id)
 			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
 			auto nbChar = getCurrentDocCharCount(um);
 			int nbWord = wordCount();
-			auto nbLine = _pEditView->execute(SCI_GETLINECOUNT);
-			auto nbByte = _pEditView->execute(SCI_GETLENGTH);
+			auto nbLine = _pEditView->GetLineCount();
+			auto nbByte = _pEditView->GetLength();
 			auto nbSel = getSelectedCharNumber(um);
 			auto nbSelByte = getSelectedBytes();
 			auto nbRange = getSelectedAreas();
@@ -2001,7 +2001,7 @@ void Notepad_plus::command(int id)
 			{
 				LongRunningOperation op;
 				buf->setEolFormat(newFormat);
-				_pEditView->execute(SCI_CONVERTEOLS, static_cast<int>(buf->getEolFormat()));
+				_pEditView->ConvertEOLs(static_cast<int>(buf->getEolFormat()));
 			}
 
 			break;
@@ -2054,13 +2054,13 @@ void Notepad_plus::command(int id)
 					if (answer == IDYES)
 					{
 						fileSave();
-						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+						_pEditView->EmptyUndoBuffer();
 					}
 					else
 						return;
 				}
 
-				if (_pEditView->execute(SCI_CANUNDO) == TRUE)
+				if (_pEditView->CanUndo())
 				{
 					generic_string msg, title;
 					int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
@@ -2079,7 +2079,7 @@ void Notepad_plus::command(int id)
 				buf->setEncoding(-1);
 
 				if (um == uni8Bit)
-					_pEditView->execute(SCI_SETCODEPAGE, CP_ACP);
+					_pEditView->SetCodePage(CP_ACP);
 				else
 					buf->setUnicodeMode(um);
 				fileReload();
@@ -2169,13 +2169,13 @@ void Notepad_plus::command(int id)
                 if (answer == IDYES)
                 {
                     fileSave();
-					_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+					_pEditView->EmptyUndoBuffer();
                 }
                 else
                     return;
             }
 
-            if (_pEditView->execute(SCI_CANUNDO) == TRUE)
+            if (_pEditView->CanUndo())
             {
 				generic_string msg, title;
 				int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
@@ -2245,7 +2245,7 @@ void Notepad_plus::command(int id)
 					if (um != uni8Bit)
 					{
 						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
-						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+						_pEditView->EmptyUndoBuffer();
 						return;
 					}
 
@@ -2268,7 +2268,7 @@ void Notepad_plus::command(int id)
 					if (um != uni8Bit)
 					{
 						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
-						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+						_pEditView->EmptyUndoBuffer();
 						return;
 					}
 					break;
@@ -2291,7 +2291,7 @@ void Notepad_plus::command(int id)
 					if (um != uni8Bit)
 					{
 						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
-						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+						_pEditView->EmptyUndoBuffer();
 						return;
 					}
 					break;
@@ -2313,7 +2313,7 @@ void Notepad_plus::command(int id)
 					if (um != uni8Bit)
 					{
 						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
-						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+						_pEditView->EmptyUndoBuffer();
 						return;
 					}
 					break;
@@ -2340,15 +2340,15 @@ void Notepad_plus::command(int id)
 
 				// Cut all text
 				int docLen = _pEditView->GetLength();
-				_pEditView->execute(SCI_COPYRANGE, 0, docLen);
-				_pEditView->execute(SCI_CLEARALL);
+				_pEditView->CopyRange(0, docLen);
+				_pEditView->ClearAll();
 
 				// Change to the proper buffer, save buffer status
 
 				::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
 
 				// Paste the texte, restore buffer status
-				_pEditView->execute(SCI_PASTE);
+				_pEditView->Paste();
 				_pEditView->restoreCurrentPos();
 
 				// Restore the previous clipboard data
@@ -2358,7 +2358,7 @@ void Notepad_plus::command(int id)
 				::CloseClipboard();
 
 				//Do not free anything, EmptyClipboard does that
-				_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+				_pEditView->EmptyUndoBuffer();
 			}
 			break;
 		}
@@ -2506,24 +2506,20 @@ void Notepad_plus::command(int id)
 
 		case IDM_TOOL_MD5_GENERATEINTOCLIPBOARD:
 		{
-			if (_pEditView->execute(SCI_GETSELECTIONS) == 1)
+			if (_pEditView->GetSelections() == 1)
 			{
-				size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
-				size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+				size_t selectionStart = _pEditView->GetSelectionStart();
+				size_t selectionEnd = _pEditView->GetSelectionEnd();
 
 				int32_t strLen = static_cast<int32_t>(selectionEnd - selectionStart);
 				if (strLen)
 				{
-					int strSize = strLen + 1;
-					char *selectedStr = new char[strSize];
-					_pEditView->execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selectedStr));
+					auto selectedStr = _pEditView->GetSelText();
 
 					MD5 md5;
-					std::string md5ResultA = md5.digestString(selectedStr);
+					std::string md5ResultA = md5.digestString(selectedStr.c_str());
 					std::wstring md5ResultW(md5ResultA.begin(), md5ResultA.end());
 					str2Clipboard(md5ResultW, _pPublicInterface->getHSelf());
-					
-					delete [] selectedStr;
 				}
 			}
 		}
@@ -2539,7 +2535,7 @@ void Notepad_plus::command(int id)
 		{
 			bool doAboutDlg = false;
 			const int maxSelLen = 32;
-			auto textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
+			auto textLen = _pEditView->GetSelText(nullptr) - 1;
 			if (!textLen)
 				doAboutDlg = true;
 			if (textLen > maxSelLen)
@@ -3015,8 +3011,8 @@ void Notepad_plus::command(int id)
 			default:
 				mode = EDGE_NONE;
 			}
-			_mainEditView.execute(SCI_SETEDGEMODE, mode);
-			_subEditView.execute(SCI_SETEDGEMODE, mode);
+			_mainEditView.SetEdgeMode(mode);
+			_subEditView.SetEdgeMode(mode);
 		}
 		break;
 
@@ -3026,8 +3022,8 @@ void Notepad_plus::command(int id)
 		{
 			int mode = (id == IDM_VIEW_LWALIGN) ? SC_WRAPINDENT_SAME : \
 				(id == IDM_VIEW_LWINDENT) ? SC_WRAPINDENT_INDENT : SC_WRAPINDENT_FIXED;
-			_mainEditView.execute(SCI_SETWRAPINDENTMODE, mode);
-			_subEditView.execute(SCI_SETWRAPINDENTMODE, mode);
+			_mainEditView.SetWrapIndentMode(mode);
+			_subEditView.SetWrapIndentMode(mode);
 		}
 		break;
 

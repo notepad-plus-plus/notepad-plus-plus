@@ -343,7 +343,7 @@ size_t Printer::doPrint(bool justDoIt)
 	size_t pageNum = 1;
 	const TCHAR pageVar[] = TEXT("$(CURRENT_PRINTING_PAGE)");
 
-	_pSEView->execute(SCI_SETPRINTCOLOURMODE, nppGUI._printSettings._printOption); // setting mode once is enough
+	_pSEView->SetPrintColourMode(nppGUI._printSettings._printOption); // setting mode once is enough
 	while (lengthPrinted < lengthDoc) 
 	{
 		bool printPage = (!(_pdlg.Flags & PD_PAGENUMS) ||
@@ -499,7 +499,7 @@ size_t Printer::doPrint(bool justDoIt)
 	if (!nppGUI._printSettings._printLineNumber)
 		_pSEView->showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, isShown);
 
-	_pSEView->execute(SCI_FORMATRANGE, FALSE, 0);
+	_pSEView->FormatRange(false, nullptr);
 	::EndDoc(_pdlg.hDC);
 	::DeleteDC(_pdlg.hDC);
 

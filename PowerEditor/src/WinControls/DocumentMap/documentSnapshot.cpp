@@ -37,9 +37,9 @@ INT_PTR CALLBACK DocumentPeeker::run_dlgProc(UINT message, WPARAM /*wParam*/, LP
 		{
 			HWND hwndScintilla = reinterpret_cast<HWND>(::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, reinterpret_cast<LPARAM>(_hSelf)));
 			_pPeekerView = reinterpret_cast<ScintillaEditView *>(::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, reinterpret_cast<LPARAM>(hwndScintilla)));
-			_pPeekerView->execute(SCI_SETZOOM, static_cast<WPARAM>(-10), 0);
-			_pPeekerView->execute(SCI_SETVSCROLLBAR, FALSE, 0);
-			_pPeekerView->execute(SCI_SETHSCROLLBAR, FALSE, 0);
+			_pPeekerView->SetZoom(-10);
+			_pPeekerView->SetVScrollBar(false);
+			_pPeekerView->SetHScrollBar(false);
 
 			_pPeekerView->showIndentGuideLine(false);
 
@@ -73,7 +73,7 @@ void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 {
 	if (_pPeekerView)
 	{
-		_pPeekerView->execute(SCI_SETDOCPOINTER, 0, static_cast<LPARAM>(buf->getDocument()));
+		_pPeekerView->SetDocPointer(buf->getDocument());
 		_pPeekerView->setCurrentBuffer(buf);
 
 		//
@@ -100,8 +100,8 @@ void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 		_pPeekerView->showMargin(2, false);
 		_pPeekerView->showMargin(3, false);
 
-		_pPeekerView->execute(SCI_SETREADONLY, true);
-		_pPeekerView->execute(SCI_SETCARETSTYLE, CARETSTYLE_INVISIBLE);
+		_pPeekerView->SetReadOnly(true);
+		_pPeekerView->SetCaretStyle(CARETSTYLE_INVISIBLE);
 		Window::display();
 	}
 }
@@ -131,19 +131,19 @@ void DocumentPeeker::scrollSnapshotWith(const MapPosition & mapPos)
 		// Wrapping
 		//
 		_pPeekerView->wrap(mapPos._isWrap);
-		_pPeekerView->execute(SCI_SETWRAPINDENTMODE, mapPos._wrapIndentMode);
+		_pPeekerView->SetWrapIndentMode(mapPos._wrapIndentMode);
 
 		//
 		// Reset to zero
 		//
-		_pPeekerView->execute(SCI_HOMEDISPLAY);
+		_pPeekerView->HomeDisplay();
 
 		//
 		// Visible line for the code view
 		//
 
 		// scroll to the first visible display line
-		_pPeekerView->execute(SCI_LINESCROLL, 0, mapPos._firstVisibleDisplayLine);
+		_pPeekerView->LineScroll(0, mapPos._firstVisibleDisplayLine);
 		
 	}
 }
@@ -156,13 +156,13 @@ void DocumentPeeker::saveCurrentSnapshot(ScintillaEditView & editView)
 		MapPosition mapPos = buffer->getMapPosition();
 
 		// First visible document line for scrolling to this line
-		mapPos._firstVisibleDisplayLine = static_cast<int32_t>(editView.execute(SCI_GETFIRSTVISIBLELINE));
-		mapPos._firstVisibleDocLine = static_cast<int32_t>(editView.execute(SCI_DOCLINEFROMVISIBLE, mapPos._firstVisibleDisplayLine));
-		mapPos._nbLine = static_cast<int32_t>(editView.execute(SCI_LINESONSCREEN, mapPos._firstVisibleDisplayLine));
-		mapPos._lastVisibleDocLine = static_cast<int32_t>(editView.execute(SCI_DOCLINEFROMVISIBLE, mapPos._firstVisibleDisplayLine + mapPos._nbLine));
+		mapPos._firstVisibleDisplayLine = editView.GetFirstVisibleLine();
+		mapPos._firstVisibleDocLine = editView.DocLineFromVisible(mapPos._firstVisibleDisplayLine);
+		mapPos._nbLine = editView.LinesOnScreen();
+		mapPos._lastVisibleDocLine = editView.DocLineFromVisible(mapPos._firstVisibleDisplayLine + mapPos._nbLine);
 
-		auto lineHeight = _pPeekerView->execute(SCI_TEXTHEIGHT, mapPos._firstVisibleDocLine);
-		mapPos._height = static_cast<int32_t>(mapPos._nbLine * lineHeight);
+		auto lineHeight = _pPeekerView->TextHeight(mapPos._firstVisibleDocLine);
+		mapPos._height = mapPos._nbLine * lineHeight;
 
 		// Width
 		RECT editorRect;
@@ -170,17 +170,17 @@ void DocumentPeeker::saveCurrentSnapshot(ScintillaEditView & editView)
 		int marginWidths = 0;
 		for (int m = 0; m < 4; ++m)
 		{
-			marginWidths += static_cast<int32_t>(editView.execute(SCI_GETMARGINWIDTHN, m));
+			marginWidths += editView.GetMarginWidthN(m);
 		}
 		double editViewWidth = editorRect.right - editorRect.left - marginWidths;
 		double editViewHeight = editorRect.bottom - editorRect.top;
 		mapPos._width = static_cast<int32_t>((editViewWidth / editViewHeight) * static_cast<double>(mapPos._height));
 
-		mapPos._wrapIndentMode = static_cast<int32_t>(editView.execute(SCI_GETWRAPINDENTMODE));
-		mapPos._isWrap = static_cast<int32_t>(editView.isWrap());
+		mapPos._wrapIndentMode = editView.GetWrapIndentMode();
+		mapPos._isWrap = editView.isWrap();
 		if (editView.isWrap())
 		{
-			mapPos._higherPos = static_cast<int32_t>(editView.execute(SCI_POSITIONFROMPOINT, 0, 0));
+			mapPos._higherPos = editView.PositionFromPoint(0, 0);
 		}
 
 		// Length of document

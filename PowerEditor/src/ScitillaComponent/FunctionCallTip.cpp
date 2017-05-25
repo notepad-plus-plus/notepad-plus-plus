@@ -96,7 +96,7 @@ bool FunctionCallTip::updateCalltip(int ch, bool needShown)
 	if (not needShown && ch != _start && ch != _param && not isVisible())		//must be already visible
 		return false;
 
-	_curPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
+	_curPos = _pEditView->GetCurrentPos();
 
 	//recalculate everything
 	if (not getCursorFunction())
@@ -127,16 +127,16 @@ void FunctionCallTip::close()
 	if (!isVisible() || !_selfActivated)
 		return;
 
-	_pEditView->execute(SCI_CALLTIPCANCEL);
+	_pEditView->CallTipCancel();
 	_selfActivated = false;
 	_currentOverload = 0;
 }
 
 bool FunctionCallTip::getCursorFunction()
 {
-	auto line = _pEditView->execute(SCI_LINEFROMPOSITION, _curPos);
-	int startpos = static_cast<int32_t>(_pEditView->execute(SCI_POSITIONFROMLINE, line));
-	int endpos = static_cast<int32_t>(_pEditView->execute(SCI_GETLINEENDPOSITION, line));
+	auto line = _pEditView->LineFromPosition(_curPos);
+	int startpos = _pEditView->PositionFromLine(line);
+	int endpos = _pEditView->GetLineEndPosition(line);
 	int len = endpos - startpos + 3;	//also take CRLF in account, even if not there
 	int offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
 	const int maxLen = 256;
@@ -430,7 +430,7 @@ void FunctionCallTip::showCalltip()
 	}
 
 	if (isVisible())
-		_pEditView->execute(SCI_CALLTIPCANCEL);
+		_pEditView->CallTipCancel();
 	else
 		_startPos = _curPos;
 	_pEditView->showCallTip(_startPos, callTipText.str().c_str());
@@ -438,7 +438,7 @@ void FunctionCallTip::showCalltip()
 	_selfActivated = true;
 	if (highlightstart != highlightend)
 	{
-		_pEditView->execute(SCI_CALLTIPSETHLT, highlightstart, highlightend);
+		_pEditView->CallTipSetHlt(highlightstart, highlightend);
 	}
 }
 

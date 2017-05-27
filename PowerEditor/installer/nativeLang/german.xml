@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.4
-	last modified: 2017-05-19 by schnurlos (schnurlos@gmail.com)
+	last modified: 2017-05-27 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -713,8 +713,7 @@
 					<Item id="6207" name="Lesezeichenrand"/>
 					<Item id="6208" name="Randbegrenzung anzeigen"/>
 					<Item id="6209" name="Anzahl der Spalten:"/>
-					<Item id="6234" name="Flüssiges Scrollen deaktivieren
-(bei Touchpad-Problemen)"/>
+					<Item id="6234" name="Flüssiges Scrollen deaktivieren&#x0a;(bei Touchpad-Problemen)"/>
 
 					<Item id="6211" name="Rechter Rand"/>
 					<Item id="6212" name="Vertikale Linie"/>
@@ -747,7 +746,7 @@
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
 					<Item id="6430" name="Neuen Stilspeicherungsdialog benutzen (ohne Dateierweiterungen)"/>	
-					<Item id="6431" name="Alle Dateien im Verzeichnis öffnen anstatt das Start-Verzeichnis als Arbeitsbereich zu verwenden"/>
+					<Item id="6431" name="Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses"/>
 					<Item id="6418" name="…"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>
 
@@ -873,8 +872,7 @@
 					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>	<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
 					<Item id="6162" name="Verwende die ursprüngliche Liste der Wortzeichen"/>
-					<Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu
-(nicht verwenden wenn man nicht sicher ist)"/>				</Delimiter>
+					<Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu&#x0a;(nicht verwenden wenn man nicht sicher ist)"/>				</Delimiter>
 
 				<Cloud title="Cloud-Einstellungen">
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
@@ -948,7 +946,7 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0A;&#x0A;das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu starten,&#x0A;damit die Änderungen wirksam werden."/>
+			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0A;das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu&#x0A;starten, damit die Änderungen wirksam werden."/>
 			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien&#x0A;von der Notepad++-Website herunter."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;&#x0A;Fortfahren?"/>
 			<LoseUndoAbilityWarning title="Änderungen können nicht rückgängig gemacht werden" message="Diese Änderung kann nicht rückgängig gemacht werden.&#x0A;&#x0A;Fortfahren?"/>
@@ -971,7 +969,7 @@
 			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0A;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
 			<OpenInAdminModeFailed title="Starten im Administrator-Modus fehlgeschlagen" message="Notepad++ kann nicht im Administrator-Modus gestartet werden."/>
 			<OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0A;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
-			<DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&#x0A;Dafür muss &quot;Alle Dateien im Verzeichnis öffnen anstatt das Start-Verzeichnis als Arbeitsbereich zu verwenden&quot; im Bereich &quot;Standardverzeichnis&quot; der Einstellungen ausgewählt werden."/>
+			<DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&#x0A;Dafür muss &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im Bereich &quot;Standardverzeichnis&quot; der Einstellungen ausgewählt werden."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.3.1
-    Last modified Sat, Jan 3rd, 2017 by Luca Leonardi.
+    Italian translation for Notepad++ 7.4.1
+    Last modified Sat, May 27th, 2017 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
@@ -877,6 +877,10 @@
                     <Item id = "6114" name = "Abilita" />
                     <Item id = "6117" name = "Precedenza ai file più recenti" />
 
+                    <Item id = "6344" name = "Anteprima documenti" />
+                    <Item id = "6345" name = "Anteprima sulle schede" />
+                    <Item id = "6346" name = "Anteprima sulla mappa documento" />
+                    
                     <Item id = "6318" name = "Link Cliccabili" />
                     <Item id = "6319" name = "Abilita" />
                     <Item id = "6320" name = "Non sottolineare" />

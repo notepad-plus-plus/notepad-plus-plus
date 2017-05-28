@@ -229,6 +229,7 @@ protected:
 	bool _isDraggingInside = false;
     int _nSrcTab = -1;
 	int _nTabDragged = -1;
+	int _previousTabSwapped = -1;
 	POINT _draggingPoint; // coordinate of Screen
 	WNDPROC _tabBarDefaultProc = nullptr;
 

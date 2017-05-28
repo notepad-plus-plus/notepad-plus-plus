@@ -1194,13 +1194,24 @@ void TabBarPlus::exchangeItemData(POINT point)
 
 		if (nTab != _nTabDragged)
 		{
+			if (_previousTabSwapped == nTab)
+			{
+				return;
+			}
+
 			exchangeTabItemData(_nTabDragged, nTab);
+			_previousTabSwapped = _nTabDragged;
 			_nTabDragged = nTab;
+		}
+		else
+		{
+			_previousTabSwapped = -1;
 		}
 	}
 	else
 	{
 		//::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_TAB)));
+		_previousTabSwapped = -1;
 		_isDraggingInside = false;
 	}
 

@@ -610,6 +610,8 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmd
 
 	InsertMenu(hMenu, nIndex, MF_STRING|MF_BYPOSITION, idCmd++, m_szMenuTitle);
 
+	nIndex++;
+	InsertMenu(hMenu, nIndex, MF_STRING | MF_BYPOSITION, idCmd++, m_szMenuTitle);
 
 	if (m_showIcon) {
 		HBITMAP icon = NULL;
@@ -650,6 +652,9 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmd
 		}
 	}
 
+	nIndex++;
+	InsertMenu(hMenu, nIndex, MF_SEPARATOR | MF_BYPOSITION, 0, NULL);
+	
 	m_hMenu = hMenu;
 	m_menuID = idCmd;
 

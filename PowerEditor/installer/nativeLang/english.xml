@@ -462,7 +462,7 @@
                 <Item id="20011" name="Transparency"/>
                 <Item id="20015" name="Import..."/>
                 <Item id="20016" name="Export..."/>
-                <StylerDialog title="Styler Dialog">
+                <StylerDialog title="Styler">
                     <Item id="25030" name="Font options:"/>
                     <Item id="25006" name="Foreground colour"/>
                     <Item id="25007" name="Background colour"/>

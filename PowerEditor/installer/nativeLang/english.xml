@@ -422,7 +422,7 @@
                 <Item id="2"    name="Cancel"/>
                 <Item id="2301" name="Save &amp;&amp; Close"/>
                 <Item id="2303" name="Transparency"/>
-                <Item id="2306" name="Select theme: "/>
+                <Item id="2306" name="Select theme:"/>
                 <SubDialog>
                     <Item id="2204" name="Bold"/>
                     <Item id="2205" name="Italic"/>
@@ -456,7 +456,7 @@
                 <Item id="20003" name="Create New..."/>
                 <Item id="20004" name="Remove"/>
                 <Item id="20005" name="Save As..."/>
-                <Item id="20007" name="User language: "/>
+                <Item id="20007" name="User language:"/>
                 <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="Ignore case"/>
                 <Item id="20011" name="Transparency"/>
@@ -673,7 +673,7 @@
                     <Item id="6206" name="Display line numbers"/>
                     <Item id="6207" name="Display bookmarks"/>
                     <Item id="6208" name="Show vertical edge"/>
-                    <Item id="6209" name="Number of columns: "/>
+                    <Item id="6209" name="Number of columns:"/>
                     <Item id="6234" name="Disable advanced scrolling feature
 (if you have touchpad problem)"/>
 
@@ -722,7 +722,7 @@
                     <Item id="6508" name="Language Menu"/>
 					<Item id="6301" name="Tab Settings"/>
                     <Item id="6302" name="Replace by space"/>
-                    <Item id="6303" name="Tab size: "/>
+                    <Item id="6303" name="Tab size:"/>
                     <Item id="6510" name="Use default value"/>
                 </Language>
 
@@ -893,7 +893,7 @@
                 <Item id="2030" name="Initial number:"/>
                 <Item id="2031" name="Increase by:"/>
                 <Item id="2035" name="Leading zeros"/>
-                <Item id="2036" name="Repeat :"/>
+                <Item id="2036" name="Repeat:"/>
                 <Item id="2032" name="Format"/>
                 <Item id="2024" name="Dec"/>
                 <Item id="2025" name="Oct"/>

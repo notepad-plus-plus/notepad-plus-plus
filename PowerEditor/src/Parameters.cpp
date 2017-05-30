@@ -789,25 +789,55 @@ winVer NppParameters::getWindowsVersion()
 		case VER_PLATFORM_WIN32_NT:
 		{
 			if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0)
-				return WV_WIN10;
+			{
+				if (osvi.wProductType != VER_NT_WORKSTATION)
+					return WV_S2016;
+				else
+					return WV_WIN10;
+			}
 
 			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3)
-				return WV_WIN81;
+			{
+				if (osvi.wProductType != VER_NT_WORKSTATION)
+					return WV_S2012R2;
+				else
+					return WV_WIN81;
+			}
 
 			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2)
-				return WV_WIN8;
+			{
+				if (osvi.wProductType != VER_NT_WORKSTATION)
+					return WV_S2012;
+				else
+					return WV_WIN8;
+			}
 
 			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1)
-				return WV_WIN7;
+			{
+				if (osvi.wProductType != VER_NT_WORKSTATION)
+					return WV_S2008R2;
+				else
+					return WV_WIN7;
+			}
 
 			if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0)
-				return WV_VISTA;
+			{
+				if (osvi.wProductType != VER_NT_WORKSTATION)
+					return WV_S2008;
+				else
+					return WV_VISTA;
+			}
 
 			if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2)
 			{
-				if (osvi.wProductType == VER_NT_WORKSTATION && si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64)
+				if (GetSystemMetrics(SM_SERVERR2))
+					return WV_S2003R2;
+				if (osvi.wSuiteMask & VER_SUITE_WH_SERVER)
+					return WV_SHOME;
+				if (osvi.wProductType == VER_NT_WORKSTATION && si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64)
 					return WV_XPX64;
-				return WV_S2003;
+				else
+					return WV_S2003;
 			}
 
 			if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1)
@@ -5961,11 +5991,18 @@ generic_string NppParameters:: getWinVersionStr() const
 		case WV_W2K: return TEXT("Windows 2000");
 		case WV_XP: return TEXT("Windows XP");
 		case WV_S2003: return TEXT("Windows Server 2003");
-		case WV_XPX64: return TEXT("Windows XP 64 bits");
+		case WV_XPX64: return TEXT("Windows XP");			// bit info is taken care seperately
+		case WV_SHOME: return TEXT("Windows Home Server");
+		case WV_S2003R2: return TEXT("Windows Server 2003 R2");
 		case WV_VISTA: return TEXT("Windows Vista");
+		case WV_S2008: return TEXT("Windows Server 2008");
+		case WV_S2008R2: return TEXT("Windows Server 2008 R2");
 		case WV_WIN7: return TEXT("Windows 7");
+		case WV_S2012: return TEXT("Windows Server 2012");
 		case WV_WIN8: return TEXT("Windows 8");
+		case WV_S2012R2: return TEXT("Windows Server 2012 R2");
 		case WV_WIN81: return TEXT("Windows 8.1");
+		case WV_S2016: return TEXT("Windows Server 2016");
 		case WV_WIN10: return TEXT("Windows 10");
 		default: /*case WV_UNKNOWN:*/ return TEXT("Windows unknown version");
 	}

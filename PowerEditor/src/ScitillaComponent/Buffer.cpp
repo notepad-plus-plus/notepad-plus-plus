@@ -660,13 +660,21 @@ bool FileManager::reloadBuffer(BufferID id)
 
 	if (res)
 	{
+		NppParameters *pNppParamInst = NppParameters::getInstance();
+		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+
 		if (encoding == -1)
 		{
-			buf->setUnicodeMode(UnicodeConvertor.getEncoding());
+			UniMode um = UnicodeConvertor.getEncoding();
+			if (um == uni7Bit)
+				um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
+
+			buf->setUnicodeMode(um);
 		}
-		else
+		else // encoding != -1
 		{
-			buf->setEncoding(encoding);
+			// Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
+			buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
 			buf->setUnicodeMode(uniCookie);
 		}
 	}

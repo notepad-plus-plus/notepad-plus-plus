@@ -174,3 +174,39 @@ Function writeInstallInfoInRegistry
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 FunctionEnd
 
+Var count	; Though, there is no need to declare variable. It can be handled using register variables
+Var tempFile	; but people criticise that, so let's have variable here :(
+		
+!macro safeFileDelete filePath fileName
+
+	/*
+	Author: Rajendra Singh (singh.rajen15@gmail.com)
+	Usage:  
+		Syntax: ${safeFileDelete} "FilePath (without trailing slash)" "FileName"
+		Example: ${safeFileDelete} "C:\Users\Prince\Desktop\Installer" "Test.exe"
+	Description:
+		This macro tries to delete the file safely. First it will try to delete the file directly using API 'Delete'.
+		If this API fails due to any reason (e.g. file is in use), then move the file in %temp% folder.
+		To Move file API 'Rename' is used. Refer http://nsis.sourceforge.net/Docs/Chapter4.html for details.
+		API 'Rename' is more or less similar to Win API 'MoveFile' or 'MoveFileEx'.
+		After moving file to temp, hand over the file to OS by putting in pending items, so file will be deleted on next reboot
+	*/
+	
+	!define ID ${__LINE__}						; Use Line to avoid label duplication
+	IfFileExists ${filePath}\${fileName} 0 NotExistOrDeleted${ID}	; Check if file exists or not. If file does not exist, then exit
+	ClearErrors														; Before trying to delete clear previous error
+	Delete ${filePath}\${fileName}					; Try to delete the file directly
+	IfErrors 0 NotExistOrDeleted${ID}				; Check if file deleted or not (if file not deleted error flag will be set)
+		${ForEach} $count 1 20 + 1				; Loop to find suitable name in %temp% folder, I feel 20 iteration is enough (as user will not unistall npp 20 times in a day without restart)
+			StrCpy $tempFile "$TEMP\$count_${fileName}"	; get the temp name of a file
+			IfFileExists $tempFile +2 
+				${Break}
+		${Next}
+	Rename "${filePath}\${fileName}" "$tempFile"			; Move the file to %temp% .API 'Rename' fails if same file exists in the dest folder. This is avoided in above for loop
+	Delete /REBOOTOK $tempFile					; Ask OS to delete the file on next reboot
+	
+	NotExistOrDeleted${ID}:
+	!undef ID
+
+!macroend
+!define safeFileDelete "!insertmacro safeFileDelete"

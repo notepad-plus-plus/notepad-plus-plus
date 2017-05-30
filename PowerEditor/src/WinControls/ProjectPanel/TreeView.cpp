@@ -51,6 +51,9 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 	int itemHeight = NppParameters::getInstance()->_dpiManager.scaleY(CY_ITEMHEIGHT);
 	TreeView_SetItemHeight(_hSelf, itemHeight);
 
+	int iTVS_EX_DOUBLEBUFFER = 0x0004;
+	SendMessage(_hSelf, TVM_SETEXTENDEDSTYLE, iTVS_EX_DOUBLEBUFFER, iTVS_EX_DOUBLEBUFFER);
+
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 }

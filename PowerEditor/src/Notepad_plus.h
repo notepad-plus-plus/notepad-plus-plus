@@ -283,7 +283,7 @@ private:
 	PreferenceDlg _preference;
 	FindCharsInRangeDlg _findCharsInRangeDlg;
 	PluginsAdminDlg _pluginsAdminDlg;
-	DocumentSnapshot _documentSnapshot;
+	DocumentPeeker _documentPeeker;
 
 	// a handle list of all the Notepad++ dialogs
 	std::vector<HWND> _hModelessDlgs;

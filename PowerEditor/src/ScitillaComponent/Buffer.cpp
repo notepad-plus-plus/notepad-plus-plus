@@ -205,7 +205,8 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 	}
 
 	updateTimeStamp();
-	if (newLang != _lang || _lang == L_USER)
+
+	if (!_hasLangBeenSetFromMenu && (newLang != _lang || _lang == L_USER))
 	{
 		_lang = newLang;
 		doNotify(BufferChangeFilename | BufferChangeLanguage | BufferChangeTimestamp);
@@ -249,7 +250,12 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 
 			_currentStatus = DOC_MODIFIED;
 			_timeStamp = buf.st_mtime;
-			doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+
+			if (_reloadFromDiskRequestGuard.try_lock())
+			{
+				doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+				_reloadFromDiskRequestGuard.unlock();
+			}
 			isOK = true;
 		}
 	}
@@ -272,10 +278,17 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 
 		if (mask != 0)
 		{
-			doNotify(mask);
-			isOK = true;
+			if (_reloadFromDiskRequestGuard.try_lock())
+			{
+				doNotify(mask);
+
+				_reloadFromDiskRequestGuard.unlock();
+
+				return true;
+			}
 		}
-		isOK = false;
+
+		return false;
 	}
 
 	if (isWow64Off)
@@ -1001,8 +1014,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 	EventReset reset(writeEvent); // Will reset event in destructor.
 	Buffer* buffer = getBufferByID(id);
-	bool isHidden = false;
-	bool isSys = false;
+	bool isHiddenOrSys = false;
 	DWORD attrib = 0;
 
 	TCHAR fullpath[MAX_PATH];
@@ -1018,13 +1030,9 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 
 		if (attrib != INVALID_FILE_ATTRIBUTES)
 		{
-			isHidden = (attrib & FILE_ATTRIBUTE_HIDDEN) != 0;
-			if (isHidden)
-				::SetFileAttributes(filename, attrib & ~FILE_ATTRIBUTE_HIDDEN);
-
-			isSys = (attrib & FILE_ATTRIBUTE_SYSTEM) != 0;
-			if (isSys)
-				::SetFileAttributes(filename, attrib & ~FILE_ATTRIBUTE_SYSTEM);
+			isHiddenOrSys = (attrib & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM)) != 0;
+			if (isHiddenOrSys)
+				::SetFileAttributes(filename, attrib & ~(FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM));
 		}
 	}
 
@@ -1087,11 +1095,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			return false;
 		}
 
-		if (isHidden)
-			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_HIDDEN);
-
-		if (isSys)
-			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_SYSTEM);
+		if (isHiddenOrSys)
+			::SetFileAttributes(fullpath, attrib);
 
 		if (isCopy)
 		{
@@ -1467,10 +1472,12 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 		NppParameters *pNppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings(); // for ndds._format
 		eolFormat = ndds._format;
-		//for empty files, set the encoding to the default for new files
+
+		//for empty files, if the default for new files is UTF8, and "Apply to opened ANSI files" is set, apply it 
 		if (fileSize == 0)
 		{
-			encoding = ndds._unicodeMode;
+			if (ndds._unicodeMode == uniCookie && ndds._openAnsiAsUtf8)
+				encoding = SC_CP_UTF8;
 		}
 	}
 	else

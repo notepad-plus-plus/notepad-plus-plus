@@ -151,10 +151,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSEHOVERSWITCHING:
 		{
 			NppParameters *pNppParam = NppParameters::getInstance();
-			bool doSnapshot = pNppParam->getNppGUI()._isDocSnapshotOnTab;
-			bool doSnapshotOnMap = pNppParam->getNppGUI()._isDocSnapshotOnMap;
+			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
 
-			if (doSnapshot)
+			if (doPeekOnTab)
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
 				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
@@ -176,16 +176,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
 					{
-						_documentSnapshot.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
+						_documentPeeker.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
 					}
 					else  // if hover on current active tab
 					{
-						_documentSnapshot.display(false);
+						_documentPeeker.display(false);
 					}
 				}
 			}
 
-			if (doSnapshotOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
 				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
@@ -217,15 +217,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSELEAVING:
 		{
 			NppParameters *pNppParam = NppParameters::getInstance();
-			bool doSnapshot = pNppParam->getNppGUI()._isDocSnapshotOnTab;
-			bool doSnapshotOnMap = pNppParam->getNppGUI()._isDocSnapshotOnMap;
+			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
 
-			if (doSnapshot)
+			if (doPeekOnTab)
 			{
-				_documentSnapshot.display(false);
+				_documentPeeker.display(false);
 			}
 
-			if (doSnapshotOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				_pDocMap->reloadMap();
 				_pDocMap->setSyntaxHiliting();
@@ -358,7 +358,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				break;
 
 			// save map position before switch to a new document
-			_documentSnapshot.saveCurrentSnapshot(*_pEditView);
+			_documentPeeker.saveCurrentSnapshot(*_pEditView);
 
 			switchEditViewTo(iView);
 			BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
@@ -368,13 +368,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufid, iView);
 				_isFolding = false;
 			}
-
-			bool doSnapshot = true;
-			if (doSnapshot)
-			{
-				_documentSnapshot.display(false);
-			}
-
+			_documentPeeker.display(false);
 			break;
 		}
 

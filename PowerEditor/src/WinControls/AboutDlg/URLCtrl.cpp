@@ -235,7 +235,9 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		    // Draw the text!
             TCHAR szWinText[MAX_PATH];
             ::GetWindowText(hwnd, szWinText, MAX_PATH);
-            ::DrawText(hdc, szWinText, -1, &rect, dwDTStyle);
+	    ::DrawText(hdc, szWinText, -1, &rect, DT_CALCRECT);			// Get the required rect size. It does not draw text
+	    SetWindowPos(hwnd, NULL, 0, 0, rect.right, rect.bottom, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOREDRAW);	// This is must to set the required rect
+	    ::DrawText(hdc, szWinText, -1, &rect, dwDTStyle);			// Draw text (URL) here.
 
             ::SelectObject(hdc, hOld);
 
@@ -251,7 +253,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
             return ret;
         }
 	    // Provide a hand cursor when the mouse moves over us
-	    //case WM_SETCURSOR:
+	case WM_SETCURSOR:
         case WM_MOUSEMOVE:
         {
             if (_hCursor == 0)

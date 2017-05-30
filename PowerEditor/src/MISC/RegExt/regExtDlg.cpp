@@ -27,7 +27,7 @@
 #include "Common.h"
 #include "regExtDlg.h"
 #include "resource.h"
-
+#include "Shlobj.h"
 
 
 const TCHAR* nppName   = TEXT("Notepad++_file");
@@ -319,6 +319,11 @@ void RegExtDlg::addExt(TCHAR *ext)
 		::RegSetValueEx(hKey, nullptr, 0, REG_SZ, reinterpret_cast<const BYTE *>(nppName), (lstrlen(nppName) + 1) * sizeof(TCHAR));
 
 		::RegCloseKey(hKey);
+		
+		// Minimum supported client: Windows XP
+		// Whenever a file association is created or changed, notify the system that
+		// a change has been made by calling SHChangeNotify
+		SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_FLUSH, 0, 0);
 	}
 }
 
@@ -353,6 +358,11 @@ bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
 			::RegDeleteValue(hKey, nullptr);
 	}
 
+	// Minimum supported client: Windows XP
+	// Whenever a file association is created or changed, notify the system that
+	// a change has been made by calling SHChangeNotify
+	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_FLUSH, 0, 0);
+	
 	return true;
 }
 
@@ -401,7 +411,7 @@ void RegExtDlg::writeNppPath()
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
 
 			TCHAR nppPathParam[MAX_PATH] = TEXT("\"");
-			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\",0"));
+			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\",2"));
 
 			::RegSetValueEx(hKey, nullptr, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));
 		}

@@ -416,6 +416,7 @@ private:
 	int doSaveOrNot(const TCHAR *fn);
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
+	int doCloseMultipleOrNot();
 	int doDeleteOrNot(const TCHAR *fn);
 	int doActionOrNot(const TCHAR *title, const TCHAR *displayText, int type);
 

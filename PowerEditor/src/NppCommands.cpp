@@ -174,16 +174,20 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_FILE_CLOSEALL:
-		{
-			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
-			fileCloseAll(isSnapshotMode, false);
-            checkDocState();
+			if (doCloseMultipleOrNot() == IDYES)
+			{
+				bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+				fileCloseAll(isSnapshotMode, false);
+				checkDocState();
+			}
 			break;
-		}
 
 		case IDM_FILE_CLOSEALL_BUT_CURRENT :
-			fileCloseAllButCurrent();
-            checkDocState();
+			if (doCloseMultipleOrNot() == IDYES)
+			{
+				fileCloseAllButCurrent();
+				checkDocState();
+			}
 			break;
 
 		case IDM_FILE_CLOSEALL_TOLEFT :

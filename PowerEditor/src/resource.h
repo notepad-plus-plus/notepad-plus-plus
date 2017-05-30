@@ -41,6 +41,7 @@
 #endif
 
 #define IDI_M30ICON                100
+#define IDI_OPEN_WITH_ICON         104
 #define IDI_CHAMELEON            101
 //#define IDI_JESUISCHARLIE        102
 #define IDR_RT_MANIFEST         103

@@ -681,6 +681,15 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	{
 		case WM_INITDIALOG :
 		{
+			HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+			HWND hFiltersCombo = ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO);
+
+			HFONT hf = CreateFont(-12, 0, 0, 0, 0, FALSE, 0, 0, 0, 0, 0, 0, 0, _T("Courier New"));
+			SendMessage(hFindCombo, WM_SETFONT, (WPARAM)hf, MAKELPARAM(true, 0));
+			SendMessage(hReplaceCombo, WM_SETFONT, (WPARAM)hf, MAKELPARAM(true, 0));
+			SendMessage(hFiltersCombo, WM_SETFONT, (WPARAM)hf, MAKELPARAM(true, 0));
+
 			RECT arc;
 			::GetWindowRect(::GetDlgItem(_hSelf, IDCANCEL), &arc);
 			_findInFilesClosePos.bottom = _replaceClosePos.bottom = _findClosePos.bottom = arc.bottom - arc.top;

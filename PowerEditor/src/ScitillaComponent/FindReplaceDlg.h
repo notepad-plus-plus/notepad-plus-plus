@@ -369,7 +369,7 @@ private :
 	winVer _winVer;
 	StatusBar _statusBar;
 	FindStatus _statusbarFindStatus;
-
+	HFONT _hFont;
 	
 
 	void enableReplaceFunc(bool isEnable);

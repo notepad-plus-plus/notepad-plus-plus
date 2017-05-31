@@ -265,11 +265,13 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	const TCHAR *replace = TEXT("Replace");
 	const TCHAR *findInFiles = TEXT("Find in Files");
 	const TCHAR *mark = TEXT("Mark");
+	const TCHAR *removeLines = TEXT("Remove Lines");
 
 	_tab.insertAtEnd(find);
 	_tab.insertAtEnd(replace);
 	_tab.insertAtEnd(findInFiles);
 	_tab.insertAtEnd(mark);
+	_tab.insertAtEnd(removeLines);
 
 	_tab.reSizeTo(rect);
 	_tab.display();
@@ -683,45 +685,48 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			RECT arc;
 			::GetWindowRect(::GetDlgItem(_hSelf, IDCANCEL), &arc);
-			_findInFilesClosePos.bottom = _replaceClosePos.bottom = _findClosePos.bottom = arc.bottom - arc.top;
-			_findInFilesClosePos.right = _replaceClosePos.right = _findClosePos.right = arc.right - arc.left;
+			_findClosePos.bottom = _replaceClosePos.bottom = _findInFilesClosePos.bottom = _removeLinesClosePos.bottom = arc.bottom - arc.top;
+			_findClosePos.right = _replaceClosePos.right = _findInFilesClosePos.right = _removeLinesClosePos.right = arc.right - arc.left;
 
 			POINT p;
 			p.x = arc.left;
 			p.y = arc.top;
 			::ScreenToClient(_hSelf, &p);
 
+			// Calculate position of close button for each tab
 			p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL), !_isRTL);
+			_findClosePos.left = p.x;
+			_findClosePos.top = p.y + 10;
 			_replaceClosePos.left = p.x;
 			_replaceClosePos.top = p.y;
 
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL), !_isRTL);
-			 _findInFilesClosePos.left = p.x;
-			 _findInFilesClosePos.top = p.y;
+			p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL), !_isRTL);
+			_findInFilesClosePos.left = p.x;
+			_findInFilesClosePos.top = p.y;
 
-			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL), !_isRTL);
-			 _findClosePos.left = p.x;
-			 _findClosePos.top = p.y + 10;
+			p = getTopPoint(::GetDlgItem(_hSelf, IDCCOUNTALL), !_isRTL);
+			_removeLinesClosePos.left = p.x;
+			_removeLinesClosePos.top = p.y;
 
-			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			 generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
-			 if (tip2show.empty())
-				 tip2show = TEXT("Use Shift+Enter to search in the opposite direction.");
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
+			if (tip2show.empty())
+				tip2show = TEXT("Use Shift+Enter to search in the opposite direction.");
 
-			 _shiftTrickUpTip = CreateToolTip(IDDIRECTIONUP, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
-			 _shiftTrickDownTip = CreateToolTip(IDDIRECTIONDOWN, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
-			 if (_shiftTrickUpTip && _shiftTrickDownTip)
-			 {
-				 SendMessage(_shiftTrickUpTip, TTM_ACTIVATE, TRUE, 0);
-				 SendMessage(_shiftTrickUpTip, TTM_SETMAXTIPWIDTH, 0, 200);
-				 // Make tip stay 15 seconds
-				 SendMessage(_shiftTrickUpTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
+			_shiftTrickUpTip = CreateToolTip(IDDIRECTIONUP, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			_shiftTrickDownTip = CreateToolTip(IDDIRECTIONDOWN, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			if (_shiftTrickUpTip && _shiftTrickDownTip)
+			{
+				SendMessage(_shiftTrickUpTip, TTM_ACTIVATE, TRUE, 0);
+				SendMessage(_shiftTrickUpTip, TTM_SETMAXTIPWIDTH, 0, 200);
+				// Make tip stay 15 seconds
+				SendMessage(_shiftTrickUpTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
 
-				 SendMessage(_shiftTrickDownTip, TTM_ACTIVATE, TRUE, 0);
-				 SendMessage(_shiftTrickDownTip, TTM_SETMAXTIPWIDTH, 0, 200);
-				 // Make tip stay 15 seconds
-				 SendMessage(_shiftTrickDownTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
-			 }
+				SendMessage(_shiftTrickDownTip, TTM_ACTIVATE, TRUE, 0);
+				SendMessage(_shiftTrickDownTip, TTM_SETMAXTIPWIDTH, 0, 200);
+				// Make tip stay 15 seconds
+				SendMessage(_shiftTrickDownTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
+			}
 
 			return TRUE;
 		}
@@ -1064,6 +1069,52 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 								wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 							else
 								wsprintf(moreInfo, TEXT("Replace All: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
+							result = moreInfo;
+						}
+						setStatusbarMessage(result, FSMessage);
+						//::SetFocus(_hSelf);
+						getFocus();
+					}
+				}
+				return TRUE;
+
+				case IDREMOVECONTAININGLINES:
+				{
+					LongRunningOperation op;
+					if (_currentStatus == REMOVELINES_DLG)
+					{
+						setStatusbarMessage(TEXT(""), FSNoMessage);
+						if ((*_ppEditView)->getCurrentBuffer()->isReadOnly())
+						{
+							generic_string errMsg = TEXT("Replace: Cannot replace text. The current document is read only.");
+							setStatusbarMessage(errMsg, FSNotFound);
+							return TRUE;
+						}
+
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo);
+						//HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+						//_options._str4Replace = getTextFromCombo(hReplaceCombo);
+						updateCombos();
+
+						nppParamInst->_isFindReplacing = true;
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE);
+						(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
+						int nbReplaced = processAll(ProcessRemoveContainingLines, &_options);
+						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
+						nppParamInst->_isFindReplacing = false;
+
+						generic_string result = TEXT("");
+						
+						if (nbReplaced < 0)
+							result = TEXT("Remove Containing Lines: The regular expression is malformed.");
+						else
+						{
+							TCHAR moreInfo[64];
+							if(nbReplaced == 1)
+								wsprintf(moreInfo, TEXT("Remove Containing Lines: %d occurrence was replaced."), nbReplaced);
+							else
+								wsprintf(moreInfo, TEXT("Remove Containing Lines: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
 							result = moreInfo;
 						}
 						setStatusbarMessage(result, FSMessage);
@@ -1608,7 +1659,7 @@ int FindReplaceDlg::markAllInc(const FindOption *opt)
 
 int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool isEntire, const FindersInfo *pFindersInfo, int colourStyleID)
 {
-	if (op == ProcessReplaceAll && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
+	if ((op == ProcessReplaceAll || op == ProcessRemoveContainingLines) && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
 		generic_string result = TEXT("Replace All: Cannot replace text. The current document is read only.");
 		setStatusbarMessage(result, FSNotFound);
@@ -1682,7 +1733,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	if (view2Process)
 		pEditView = view2Process;
 
-	if ((op == ProcessReplaceAll) && pEditView->getCurrentBuffer()->isReadOnly())
+	if ((op == ProcessReplaceAll || op == ProcessRemoveContainingLines) && pEditView->getCurrentBuffer()->isReadOnly())
 		return nbProcessed;
 
 	if (findReplaceInfo._startRange == findReplaceInfo._endRange)
@@ -1746,7 +1797,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 	// Allow empty matches, but not immediately after previous match for replace all or find all.
 	// Other search types should ignore empty matches completely.
-	if (op == ProcessReplaceAll || op == ProcessFindAll)
+	if (op == ProcessReplaceAll || op == ProcessRemoveContainingLines || op == ProcessFindAll)
 		flags |= SCFIND_REGEXP_EMPTYMATCH_NOTAFTERMATCH;
 	
 	
@@ -1784,9 +1835,12 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		}
 
 		int foundTextLen = targetEnd - targetStart;
-		int replaceDelta = 0;
 
-				
+		// By default (if there is no replacement), the next range should start
+		// from the result onwards and end in the same place
+		int nextStartRange = targetStart + foundTextLen;
+		int nextEndRange = findReplaceInfo._endRange;
+
 		switch (op)
 		{
 			case ProcessFindAll: 
@@ -1882,8 +1936,57 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				else
 					replacedLength = pEditView->replaceTarget(pTextReplace);
 
-				replaceDelta = replacedLength - foundTextLen;
-				break; 
+				// Adjust the next search range
+				nextStartRange = targetStart + replacedLength;
+				nextEndRange = findReplaceInfo._endRange + replacedLength;
+				break;
+			}
+
+			case ProcessRemoveContainingLines:
+			{
+				int deletionStartPos;
+				int deletionEndPos;
+				int lastLineInDocument = pEditView->lastZeroBasedLineNumber();
+				auto lineNumber = pEditView->execute(SCI_LINEFROMPOSITION, targetStart);
+				if (lineNumber == lastLineInDocument)
+				{
+					// Delete from the end of the line before lineNumber to the
+					// end of the last line. If lineNumber if the first line,
+					// start the deletion from the first character in the
+					// document.
+					if (lineNumber == 0)
+					{
+						deletionStartPos = 0;
+					}
+					else
+					{
+						deletionStartPos = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber - 1));
+					}
+					deletionEndPos = static_cast<int32_t>(pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber));
+				}
+				else
+				{
+					// Delete from the beginning of our line to the beginning
+					// of the next line
+					deletionStartPos = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber));
+					deletionEndPos = static_cast<int32_t>(pEditView->execute(SCI_POSITIONFROMLINE, lineNumber + 1));
+				}
+
+				int deletionLength = deletionEndPos - deletionStartPos;
+				pEditView->execute(SCI_DELETERANGE, deletionStartPos, deletionLength);
+
+				// Adjust the next search range
+				nextStartRange = deletionStartPos;
+				if (findReplaceInfo._endRange > deletionEndPos)
+				{
+					nextEndRange = findReplaceInfo._endRange - deletionLength;
+				}
+				else
+				{
+					nextEndRange = deletionEndPos;
+				}
+
+				break;
 			}
 
 			case ProcessMarkAll: 
@@ -1958,13 +2061,13 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		}	
 		++nbProcessed;
 
+		findReplaceInfo._startRange = nextStartRange;
+		findReplaceInfo._endRange = nextEndRange;
+
         // After the processing of the last string occurence the search loop should be stopped
         // This helps to avoid the endless replacement during the EOL ("$") searching
-		if (targetStart + foundTextLen == findReplaceInfo._endRange)
+		if (findReplaceInfo._startRange >= findReplaceInfo._endRange)
             break;
-		
-		findReplaceInfo._startRange = targetStart + foundTextLen + replaceDelta;		//search from result onwards
-		findReplaceInfo._endRange += replaceDelta;									//adjust end of range in case of replace
 	}
 
 	delete [] pTextFind;
@@ -2179,94 +2282,188 @@ void FindReplaceDlg::setSearchText(TCHAR * txt2find) {
 	::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 }
 
-void FindReplaceDlg::enableReplaceFunc(bool isEnable) 
+void FindReplaceDlg::enableFindControls(bool isEnable)
 {
-	_currentStatus = isEnable?REPLACE_DLG:FIND_DLG;
-	int hideOrShow = isEnable?SW_SHOW:SW_HIDE;
-	RECT *pClosePos = isEnable?&_replaceClosePos:&_findClosePos;
+	int hideOrShow = isEnable ? SW_SHOW : SW_HIDE;
 
-	enableFindInFilesControls(false);
-	enableMarkAllControls(false);
-	// replace controls
-	::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACE),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEINSEL),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), hideOrShow);
+	// Main action buttons
+	::ShowWindow(::GetDlgItem(_hSelf, IDOK), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE), hideOrShow);
 
-	// find controls
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), !hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL),!hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE),!hideOrShow);
+	// Wrap around checkbox
+	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), hideOrShow);
 
-	gotoCorrectTab();
-
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
-
-	TCHAR label[MAX_PATH];
-	_tab.getCurrentTitle(label, MAX_PATH);
-	::SetWindowText(_hSelf, label);
-
-	setDefaultButton(IDOK);
+	// Search direction
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), hideOrShow);
 }
 
-void FindReplaceDlg::enableMarkAllControls(bool isEnable)
+void FindReplaceDlg::enableReplaceControls(bool isEnable)
 {
-	int hideOrShow = isEnable?SW_SHOW:SW_HIDE;
-	::ShowWindow(::GetDlgItem(_hSelf, IDCMARKALL),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_MARKLINE_CHECK),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_PURGE_CHECK),hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_CLEAR_ALL),hideOrShow);
+	int hideOrShow = isEnable ? SW_SHOW : SW_HIDE;
+
+	// Combo boxes (in addition to find) - replace
+	::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH), hideOrShow);
+
+	// Main action buttons
+	::ShowWindow(::GetDlgItem(_hSelf, IDOK), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACE), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES), hideOrShow);
+
+	// Replace in selection checkbox and groupbox
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), hideOrShow);
 
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), !hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), !hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), !hideOrShow);
+	// Wrap around checkbox
+	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), hideOrShow);
+
+	// Search direction
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), hideOrShow);
 }
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 {
-	// Hide Items
-	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDOK), isEnable?SW_HIDE:SW_SHOW);
+	int hideOrShow = isEnable ? SW_SHOW : SW_HIDE;
 
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_MARKLINE_CHECK), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_PURGE_CHECK), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_CLEAR_ALL), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDCMARKALL), isEnable?SW_HIDE:SW_SHOW);
+	// Combo boxes (in addition to find) - replace, filters
+	::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_STATIC), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO), hideOrShow);
 
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACE), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
+	// Directory in which to search
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_STATIC), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_BROWSE_BUTTON), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), hideOrShow);
 
-	// Show Items
-	if (isEnable)
-	{
-		::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH), SW_SHOW);
-	}
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_REPLACEINFILES), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_STATIC), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_STATIC), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_BROWSE_BUTTON), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_GOBACK_BUTTON), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);
-    ::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), isEnable?SW_SHOW:SW_HIDE);
+	// Main action buttons
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_REPLACEINFILES), hideOrShow);
+}
+
+void FindReplaceDlg::enableMarkAllControls(bool isEnable)
+{
+	int hideOrShow = isEnable ? SW_SHOW : SW_HIDE;
+
+	// Main action buttons
+	::ShowWindow(::GetDlgItem(_hSelf, IDCMARKALL), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_CLEAR_ALL), hideOrShow);
+
+	// Replace in selection checkbox (no groupbox)
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), hideOrShow);
+
+	// Mark-specific checkboxes
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_MARKLINE_CHECK), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_PURGE_CHECK), hideOrShow);
+
+	// Wrap around checkbox
+	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), hideOrShow);
+}
+
+void FindReplaceDlg::enableRemoveLinesControls(bool isEnable)
+{
+	int hideOrShow = isEnable ? SW_SHOW : SW_HIDE;
+
+	// Main action buttons
+	::ShowWindow(::GetDlgItem(_hSelf, IDREMOVECONTAININGLINES), hideOrShow);
+
+	// Wrap around checkbox
+	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), hideOrShow);
+
+	// Search direction
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), hideOrShow);
+}
+
+void FindReplaceDlg::enableFindFunc()
+{
+	_currentStatus = FIND_DLG;
+	gotoCorrectTab();
+
+	enableReplaceControls(false);
+	enableFindInFilesControls(false);
+	enableMarkAllControls(false);
+	enableRemoveLinesControls(false);
+
+	enableFindControls(true);
+
+	setCloseButtonPos(&_findClosePos);
+	setDefaultButton(IDOK);
+}
+
+void FindReplaceDlg::enableReplaceFunc()
+{
+	_currentStatus = REPLACE_DLG;
+	gotoCorrectTab();
+
+	enableFindControls(false);
+	enableFindInFilesControls(false);
+	enableMarkAllControls(false);
+	enableRemoveLinesControls(false);
+
+	enableReplaceControls(true);
+
+	setCloseButtonPos(&_replaceClosePos);
+	setDefaultButton(IDOK);
+}
+
+void FindReplaceDlg::enableFindInFilesFunc()
+{
+	_currentStatus = FINDINFILES_DLG;
+	gotoCorrectTab();
+
+	enableFindControls(false);
+	enableReplaceControls(false);
+	enableMarkAllControls(false);
+	enableRemoveLinesControls(false);
+
+	enableFindInFilesControls(true);
+
+	setCloseButtonPos(&_findInFilesClosePos);
+	setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
+}
+
+void FindReplaceDlg::enableMarkFunc()
+{
+	_currentStatus = MARK_DLG;
+	gotoCorrectTab();
+
+	enableFindControls(false);
+	enableReplaceControls(false);
+	enableFindInFilesControls(false);
+	enableRemoveLinesControls(false);
+
+	enableMarkAllControls(true);
+
+	setCloseButtonPos(&_findInFilesClosePos);
+	setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
+}
+
+void FindReplaceDlg::enableRemoveLinesFunc()
+{
+	_currentStatus = REMOVELINES_DLG;
+	gotoCorrectTab();
+
+	enableFindControls(false);
+	enableReplaceControls(false);
+	enableFindInFilesControls(false);
+	enableMarkAllControls(false);
+
+	enableRemoveLinesControls(true);
+
+	setCloseButtonPos(&_removeLinesClosePos);
+	setDefaultButton(IDREMOVECONTAININGLINES);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
@@ -2452,6 +2649,31 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 					setStatusbarMessage(result, FSMessage);
 					break;
 				}
+				case IDREMOVECONTAININGLINES:
+				{
+					nppParamInst->_isFindReplacing = true;
+					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
+					int nbReplaced = processAll(ProcessRemoveContainingLines, _env);
+					(*_ppEditView)->execute(SCI_ENDUNDOACTION);
+					nppParamInst->_isFindReplacing = false;
+
+					generic_string result;
+
+					if (nbReplaced < 0)
+						result = TEXT("Remove Containing Lines: The regular expression is malformed.");
+					else
+					{
+						TCHAR moreInfo[64];
+						if (nbReplaced == 1)
+							wsprintf(moreInfo, TEXT("Remove Containing Lines: %d occurrence was replaced."), nbReplaced);
+						else
+							wsprintf(moreInfo, TEXT("Remove Containing Lines: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
+						result = moreInfo;
+					}
+
+					setStatusbarMessage(result, FSMessage);
+					break;
+				}
 				case IDCCOUNTALL :
 				{
 					int nbCounted = processAll(ProcessCountAll, _env);
@@ -2562,12 +2784,16 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 		create(IDD_FIND_REPLACE_DLG, isRTL);
 	}
 
-	if (whichType == FINDINFILES_DLG)
+	if (whichType == REPLACE_DLG)
+		enableReplaceFunc();
+	else if (whichType == FINDINFILES_DLG)
 		enableFindInFilesFunc();
 	else if (whichType == MARK_DLG)
 		enableMarkFunc();
+	else if (whichType == REMOVELINES_DLG)
+		enableRemoveLinesFunc();
 	else
-		enableReplaceFunc(whichType == REPLACE_DLG);
+		enableFindFunc();
 
 	::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
     display(toShow);
@@ -2590,46 +2816,6 @@ LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wP
 		return CallWindowProc((WNDPROC) originalFinderProc, hwnd, message, wParam, lParam);
 }
 
-void FindReplaceDlg::enableFindInFilesFunc()
-{
-	enableFindInFilesControls();
-	_currentStatus = FINDINFILES_DLG;
-	gotoCorrectTab();
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
-	TCHAR label[MAX_PATH];
-	_tab.getCurrentTitle(label, MAX_PATH);
-	::SetWindowText(_hSelf, label);
-	setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
-}
-
-void FindReplaceDlg::enableMarkFunc()
-{
-	enableFindInFilesControls(false);
-	enableMarkAllControls(true);
-
-	// Replace controls to hide
-	::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACE),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEINSEL),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION),SW_HIDE);
-
-	// find controls to hide
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE),SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDOK),SW_HIDE);
-
-	_currentStatus = MARK_DLG;
-	gotoCorrectTab();
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
-	TCHAR label[MAX_PATH];
-	_tab.getCurrentTitle(label, MAX_PATH);
-	::SetWindowText(_hSelf, label);
-	setDefaultButton(IDCMARKALL);
-}
 void FindReplaceDlg::combo2ExtendedMode(int comboID)
 {
 	HWND hFindCombo = ::GetDlgItem(_hSelf, comboID);

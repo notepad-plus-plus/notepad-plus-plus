@@ -929,6 +929,7 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_FIND :
 		case IDM_SEARCH_REPLACE :
 		case IDM_SEARCH_MARK :
+		case IDM_SEARCH_REMOVE_CONTAINING_LINES :
 		{
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
@@ -940,6 +941,8 @@ void Notepad_plus::command(int id)
 				dlgID = REPLACE_DLG;
 			else if (id == IDM_SEARCH_MARK)
 				dlgID = MARK_DLG;
+			else if (id == IDM_SEARCH_REMOVE_CONTAINING_LINES)
+				dlgID = REMOVELINES_DLG;
 			_findReplaceDlg.doDialog(dlgID, _nativeLangSpeaker.isRTL());
 
 			_pEditView->getGenericSelectedText(str, strSize);

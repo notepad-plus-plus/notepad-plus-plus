@@ -184,6 +184,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_F3,      IDM_SEARCH_VOLATILE_FINDNEXT,                 true,  true,  false, nullptr },
 	{ VK_F3,      IDM_SEARCH_VOLATILE_FINDPREV,                 true,  true,  true,  nullptr },
 	{ VK_H,       IDM_SEARCH_REPLACE,                           true,  false, false, nullptr },
+	{ VK_L,       IDM_SEARCH_REMOVE_CONTAINING_LINES,           true, true, true, nullptr },
 	{ VK_I,       IDM_SEARCH_FINDINCREMENT,                     true,  true,  false, nullptr },
 	{ VK_F7,      IDM_FOCUS_ON_FOUND_RESULTS,                   false, false, false, nullptr },
 	{ VK_F4,      IDM_SEARCH_GOTOPREVFOUND,                     false, false, true,  nullptr },

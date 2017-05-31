@@ -39,7 +39,7 @@
 
 #define FINDREPLACE_MAXLENGTH 2048
 
-enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, MARK_DLG};
+enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, MARK_DLG, REMOVELINES_DLG};
 
 #define DIR_DOWN true
 #define DIR_UP false
@@ -64,7 +64,7 @@ struct TargetRange {
 
 enum SearchIncrementalType { NotIncremental, FirstIncremental, NextIncremental };
 enum SearchType { FindNormal, FindExtended, FindRegex };
-enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder };
+enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessRemoveContainingLines, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder };
 
 struct FindOption
 {
@@ -346,7 +346,7 @@ protected :
 private :
 
 	DIALOG_TYPE _currentStatus;
-	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos;
+	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos, _removeLinesClosePos;
 
 	ScintillaEditView **_ppEditView;
 	Finder  *_pFinder;
@@ -372,11 +372,22 @@ private :
 
 	
 
-	void enableReplaceFunc(bool isEnable);
+	void enableFindControls(bool isEnable);
+	void enableReplaceControls(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);
-	void enableFindInFilesFunc();
 	void enableMarkAllControls(bool isEnable);
+	void enableRemoveLinesControls(bool isEnable);
+
+	void enableFindFunc();
+	void enableReplaceFunc();
+	void enableFindInFilesFunc();
 	void enableMarkFunc();
+	void enableRemoveLinesFunc();
+
+	void setCloseButtonPos(RECT *pClosePos)
+	{
+		::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
+	}
 
 	void setDefaultButton(int nID) {
 		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);
@@ -385,7 +396,12 @@ private :
 	void gotoCorrectTab() {
 		auto currentIndex = _tab.getCurrentTabIndex();
 		if (currentIndex != _currentStatus)
+		{
 			_tab.activateAt(_currentStatus);
+			TCHAR label[MAX_PATH];
+			_tab.getCurrentTitle(label, MAX_PATH);
+			::SetWindowText(_hSelf, label);
+		}
 	};
 	
 	FindStatus getFindStatus() {

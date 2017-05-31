@@ -455,7 +455,7 @@ void PluginsManager::runPluginCommand(size_t i)
 			catch (...)
 			{
 				TCHAR funcInfo[128];
-				generic_sprintf(funcInfo, TEXT("runPluginCommand(size_t i : %d)"), i);
+				generic_sprintf(funcInfo, TEXT("runPluginCommand(size_t i : %ld)"), static_cast<long>(i));
 				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), funcInfo);
 			}
 		}
@@ -511,8 +511,8 @@ void PluginsManager::notify(const SCNotification *notification)
 			catch (...)
 			{
 				TCHAR funcInfo[256];
-				generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %d"),\
-					scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, scNotif.nmhdr.idFrom);
+				generic_sprintf(funcInfo, TEXT("notify(SCNotification *notification) : \r notification->nmhdr.code == %d\r notification->nmhdr.hwndFrom == %p\r notification->nmhdr.idFrom == %ld"),\
+					scNotif.nmhdr.code, scNotif.nmhdr.hwndFrom, static_cast<long>(scNotif.nmhdr.idFrom));
 				pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
 			}
 		}
@@ -537,7 +537,7 @@ void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam
 			catch (...)
 			{
 				TCHAR funcInfo[128];
-				generic_sprintf(funcInfo, TEXT("relayNppMessages(UINT Message : %d, WPARAM wParam : %d, LPARAM lParam : %d)"), Message, wParam, lParam);
+				generic_sprintf(funcInfo, TEXT("relayNppMessages(UINT Message : %d, WPARAM wParam : %lu, LPARAM lParam : %ld)"), Message, static_cast<unsigned long>(wParam), static_cast<long>(lParam));
 				pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
 			}
 		}
@@ -568,7 +568,7 @@ bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lPa
 				catch (...)
 				{
 					TCHAR funcInfo[128];
-					generic_sprintf(funcInfo, TEXT("relayPluginMessages(UINT Message : %d, WPARAM wParam : %d, LPARAM lParam : %d)"), Message, wParam, lParam);
+					generic_sprintf(funcInfo, TEXT("relayPluginMessages(UINT Message : %d, WPARAM wParam : %lu, LPARAM lParam : %ld)"), Message, static_cast<unsigned long>(wParam), static_cast<long>(lParam));
 					pluginCrashAlert(_pluginInfos[i]->_moduleName.c_str(), funcInfo);
 				}
 				return true;

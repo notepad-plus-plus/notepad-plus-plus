@@ -2113,7 +2113,7 @@ INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			TCHAR intStr[5];
 			for(size_t i = 6 ; i < 15 ; ++i)
 			{
-				wsprintf(intStr, TEXT("%d"), i);
+				wsprintf(intStr, TEXT("%ld"), static_cast<long>(i));
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTSIZE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(intStr));
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTSIZE, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(intStr));
 			}

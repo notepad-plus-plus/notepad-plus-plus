@@ -44,6 +44,7 @@ public:
 		_rc.top = 0;
 		_rc.right = 150;
 		_rc.bottom = 0;
+		CalCurrentDisplayResolution();
 	};
 
 	virtual ~TaskList() {};
@@ -69,10 +70,13 @@ protected:
 		return (((TaskList *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
 
+	void CalCurrentDisplayResolution();
+
 	HFONT _hFont = nullptr;
 	HFONT _hFontSelected = nullptr;
 	int _nbItem = 0;
 	int _currentIndex = 0;
 	RECT _rc;
+	int _nCurrentDisplayMaxH;
 };
 

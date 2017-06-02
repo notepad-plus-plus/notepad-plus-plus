@@ -248,6 +248,9 @@ void FileBrowser::initPopupMenus()
 	_hGlobalMenu = ::CreatePopupMenu();
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDROOT, TEXT("Add"));
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEALLROOTS, TEXT("Remove All"));
+	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
+	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COLLLAPSE, TEXT("Fold All"));
+	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_UNCOLLLAPSE, TEXT("Unfold All"));
 
 	_hRootMenu = ::CreatePopupMenu();
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, TEXT("Remove"));
@@ -257,6 +260,9 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COLLLAPSE, TEXT("Collapse Current Level"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_UNCOLLLAPSE, TEXT("Uncollapse Current Level"));
 
 	_hFolderMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
@@ -264,6 +270,9 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COLLLAPSE, TEXT("Collapse Current Level"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_UNCOLLLAPSE, TEXT("Uncollapse Current Level"));
 	
 	_hFileMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_OPENINNPP, TEXT("Open"));
@@ -273,6 +282,9 @@ void FileBrowser::initPopupMenus()
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COLLLAPSE, TEXT("Collapse Current Level"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_UNCOLLLAPSE, TEXT("Uncollapse Current Level"));
 }
 
 
@@ -596,6 +608,7 @@ void FileBrowser::showContextMenu(int x, int y)
 
 	if (tvHitInfo.hItem == nullptr)
 	{
+		_bIsHitOnTree = false;
 		TrackPopupMenu(_hGlobalMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
 	}
 	else
@@ -613,6 +626,7 @@ void FileBrowser::showContextMenu(int x, int y)
 		else //nodeType_file
 			hMenu = _hFileMenu;
 
+		_bIsHitOnTree = true;
 		TrackPopupMenu(hMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
 	}
 }
@@ -646,6 +660,62 @@ void FileBrowser::popupMenuCmd(int cmdID)
 					_treeView.removeItem(selectedNode);
 					break;
 				}
+			}
+		}
+		break;
+
+		case IDM_FILEBROWSER_COLLLAPSE:
+		{
+			// If not selected on Tree then Collapse all the folders
+			// Otherwise collapse respective folder(s)
+			if (_bIsHitOnTree == false)
+			{
+				for (int i = static_cast<int>(_folderUpdaters.size()) - 1; i >= 0; --i)
+				{
+					HTREEITEM root = getRootFromFullPath(_folderUpdaters[i]->_rootFolder._rootPath);
+					if (root)
+						_treeView.foldAll(root);
+				}
+			}
+			else
+			{
+				if (not selectedNode) return;
+
+				if (getNodeType(selectedNode) == browserNodeType_file)
+					selectedNode = _treeView.getParent(selectedNode);
+
+				if (selectedNode == nullptr)
+					return;
+
+				_treeView.fold(selectedNode);
+			}
+		}
+		break;
+
+		case IDM_FILEBROWSER_UNCOLLLAPSE:
+		{
+			// If not selected on Tree then uncollapse all the folders
+			// Otherwise uncollapse respective folder(s)
+			if (_bIsHitOnTree == false)
+			{
+				for (int i = static_cast<int>(_folderUpdaters.size()) - 1; i >= 0; --i)
+				{
+					HTREEITEM root = getRootFromFullPath(_folderUpdaters[i]->_rootFolder._rootPath);
+					if (root)
+						_treeView.expandAll(root);
+				}
+			}
+			else
+			{
+				if (not selectedNode) return;
+
+				if (getNodeType(selectedNode) == browserNodeType_file)
+					selectedNode = _treeView.getParent(selectedNode);
+
+				if (selectedNode == nullptr)
+					return;
+
+				_treeView.expand(selectedNode);
 			}
 		}
 		break;

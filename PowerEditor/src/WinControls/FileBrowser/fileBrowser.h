@@ -172,13 +172,14 @@ public:
 
 protected:
 	TreeView _treeView;
-	HIMAGELIST _hImaLst;
+	HIMAGELIST _hImaLst = NULL;
 
 	HMENU _hGlobalMenu = NULL;
 	HMENU _hRootMenu = NULL;
 	HMENU _hFolderMenu = NULL;
 	HMENU _hFileMenu = NULL;
 	std::vector<FolderUpdater *> _folderUpdaters;
+	bool _bIsHitOnTree = false;
 
 	void initPopupMenus();
 	void destroyMenus();

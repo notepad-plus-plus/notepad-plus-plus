@@ -126,7 +126,7 @@ public:
 	void addFileNameTitle(const TCHAR * fileName);
 	void addFileHitCount(int count);
 	void addSearchHitCount(int count, bool isMatchLines = false);
-	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline);
+	bool add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline);
 	void setFinderStyle();
 	void removeAll();
 	void openAll();

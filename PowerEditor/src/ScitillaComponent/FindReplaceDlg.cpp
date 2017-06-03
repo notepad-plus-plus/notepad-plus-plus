@@ -1838,8 +1838,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	
 	
 	bool findAllFileNameAdded = false;
+	bool cancel = false;
 
-	while (targetStart != -1 && targetStart != -2)
+	while (targetStart != -1 && targetStart != -2 && !cancel)
 	{
 		targetStart = pEditView->searchInTarget(pTextFind, stringSizeFind, findReplaceInfo._startRange, findReplaceInfo._endRange);
 
@@ -1892,7 +1893,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				SearchResultMarking srm;
 				srm._start = start_mark;
 				srm._end = end_mark;
-				_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
+				
+				cancel = !_pFinder->add(FoundInfo(targetStart, targetEnd, lineNumber + 1, pFileName), srm, line.c_str());
 
 				break; 
 			}
@@ -2840,29 +2842,38 @@ void Finder::addSearchHitCount(int count, bool isMatchLines)
 }
 
 
-void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
+bool Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 {
-	_pMainFoundInfos->push_back(fi);
-	generic_string str = TEXT("\tLine ");
-
-	TCHAR lnb[16];
-	wsprintf(lnb, TEXT("%d"), fi._lineNumber);
-	str += lnb;
-	str += TEXT(": ");
-	mi._start += static_cast<int32_t>(str.length());
-	mi._end += static_cast<int32_t>(str.length());
-	str += foundline;
-
-	if (str.length() >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+	try
 	{
-		const TCHAR * endOfLongLine = TEXT("...\r\n");
-		str = str.substr(0, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lstrlen(endOfLongLine) - 1);
-		str += endOfLongLine;
+		_pMainFoundInfos->push_back(fi);
+		generic_string str = TEXT("\tLine ");
+
+		TCHAR lnb[16];
+		wsprintf(lnb, TEXT("%d"), fi._lineNumber);
+		str += lnb;
+		str += TEXT(": ");
+		mi._start += static_cast<int32_t>(str.length());
+		mi._end += static_cast<int32_t>(str.length());
+		str += foundline;
+
+		if (str.length() >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+		{
+			const TCHAR * endOfLongLine = TEXT("...\r\n");
+			str = str.substr(0, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lstrlen(endOfLongLine) - 1);
+			str += endOfLongLine;
+		}
+		setFinderReadOnly(false);
+		_scintView.addGenericText(str.c_str(), &mi._start, &mi._end);
+		setFinderReadOnly(true);
+		_pMainMarkings->push_back(mi);
 	}
-	setFinderReadOnly(false);
-	_scintView.addGenericText(str.c_str(), &mi._start, &mi._end);
-	setFinderReadOnly(true);
-	_pMainMarkings->push_back(mi);
+	catch (std::bad_alloc e)
+	{
+		::MessageBox(NULL, TEXT("Too many search results"), TEXT("Notepad++"), MB_ICONINFORMATION | MB_OK);
+		return false;
+	}
+	return true;
 }
 
 void Finder::removeAll() 
@@ -2970,23 +2981,51 @@ void Finder::beginNewFilesSearch()
 
 void Finder::finishFilesSearch(int count, bool isMatchLines)
 {
+	size_t oldFoundInfosSize = 0;
+	size_t oldMarkingsSize = 0;
+
 	std::vector<FoundInfo>* _pOldFoundInfos;
 	std::vector<SearchResultMarking>* _pOldMarkings;
+
 	_pOldFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;
 	_pOldMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
-	
-	_pOldFoundInfos->insert(_pOldFoundInfos->begin(), _pMainFoundInfos->begin(), _pMainFoundInfos->end());
-	_pOldMarkings->insert(_pOldMarkings->begin(), _pMainMarkings->begin(), _pMainMarkings->end());
+
+	oldFoundInfosSize = _pOldFoundInfos->size();
+	oldMarkingsSize = _pOldMarkings->size();
+
+	try
+	{	
+		_pOldFoundInfos->insert(_pOldFoundInfos->begin(), _pMainFoundInfos->begin(), _pMainFoundInfos->end());
+		_pOldMarkings->insert(_pOldMarkings->begin(), _pMainMarkings->begin(), _pMainMarkings->end());
+
+		addSearchHitCount(count, isMatchLines);
+	}
+	catch (std::bad_alloc e)
+	{
+		// Remove the find results that allocation failed for
+		while (_pOldFoundInfos->size() > oldFoundInfosSize)
+		{
+			std::vector<FoundInfo>::reverse_iterator rit = _pOldFoundInfos->rbegin();
+			_pOldFoundInfos->erase(--rit.base());
+		}
+		while (_pOldMarkings->size() > oldMarkingsSize)
+		{
+			std::vector<SearchResultMarking>::reverse_iterator rit = _pOldMarkings->rbegin();
+			_pOldMarkings->erase(--rit.base());
+		}
+
+		addSearchHitCount(0, isMatchLines);
+		::MessageBox(NULL, _T("Too many search results"), _T("Notepad++"), MB_ICONINFORMATION | MB_OK);
+	}
 	_pMainFoundInfos->clear();
 	_pMainMarkings->clear();
 	_pMainFoundInfos = _pOldFoundInfos;
 	_pMainMarkings = _pOldMarkings;
-	
+
 	_markingsStruct._length = static_cast<long>(_pMainMarkings->size());
 	if (_pMainMarkings->size() > 0)
 		_markingsStruct._markings = &((*_pMainMarkings)[0]);
 
-	addSearchHitCount(count, isMatchLines);
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	_scintView.execute(SCI_SETLEXER, SCLEX_SEARCHRESULT);

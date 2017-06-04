@@ -30,6 +30,8 @@
 #include "TabBar.h"
 #include "Buffer.h"
 
+#include <list>
+
 const int SAVED_IMG_INDEX = 0;
 const int UNSAVED_IMG_INDEX = 1;
 const int REDONLY_IMG_INDEX = 2;
@@ -50,7 +52,10 @@ public :
 		TabBarPlus::init(hInst, parent);
 		_pView = pView;
 		if (pIconList)
+		{
 			TabBar::setImageList(pIconList->getHandle());
+			_pIconList = pIconList;
+		}
 		return;
 	};
 
@@ -87,4 +92,7 @@ public :
 private :
 	ScintillaEditView *_pView;
 	static bool _hideTabBarStatus;
+	IconList *_pIconList = NULL;
+
+	std::list<std::pair<int, generic_string>> _tabIconIdExtensionPairs;
 };

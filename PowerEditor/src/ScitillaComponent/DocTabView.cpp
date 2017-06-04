@@ -25,8 +25,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-
 #include "DocTabView.h"
 #include "ScintillaEditView.h"
 
@@ -91,7 +89,7 @@ BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not fo
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
-	for(size_t i = 0; i < _nbItem; ++i)
+	for (size_t i = 0; i < _nbItem; ++i)
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		BufferID id = reinterpret_cast<BufferID>(tie.lParam);
@@ -110,7 +108,7 @@ int DocTabView::getIndexByBuffer(BufferID id)
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
-	for(size_t i = 0; i < _nbItem; ++i)
+	for (size_t i = 0; i < _nbItem; ++i)
 	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		if (reinterpret_cast<BufferID>(tie.lParam) == id)
@@ -141,10 +139,20 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 	tie.lParam = -1;
 	tie.mask = 0;
 
+	TCHAR label[2 * MAX_PATH];
+
 	if (mask & BufferChangeReadonly || mask & BufferChangeDirty)
 	{
+		tie.mask |= TCIF_TEXT;
 		tie.mask |= TCIF_IMAGE;
-		tie.iImage = buffer->isDirty()?UNSAVED_IMG_INDEX:SAVED_IMG_INDEX;
+		tie.pszText = const_cast<TCHAR *>(label);
+
+		const TCHAR* in = buffer->getFileName();
+		TCHAR* out = label;
+		while (*in != 0)
+				*out++ = *in++;
+		if (buffer->isDirty())
+			*out++ = '*';
 		if (buffer->isMonitoringOn())
 		{
 			tie.iImage = MONITORING_IMG_INDEX;
@@ -153,7 +161,53 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 		{
 			tie.iImage = REDONLY_IMG_INDEX;
 		}
+		*out = '\0';
 	}
+	if (!buffer->isReadOnly() && !buffer->isMonitoringOn())
+	{
+		// Check if shell icon exists for extension
+		generic_string filename = buffer->getFileName();
+		generic_string extension;
+		int existingIcondId = -1;
+
+		size_t pos = filename.rfind(_T("."));
+		if (pos == generic_string::npos)
+			extension = _T("");
+		else
+			extension = filename.substr(pos);
+		for (std::list<std::pair<int, generic_string>>::const_iterator it = _tabIconIdExtensionPairs.begin();
+			it != _tabIconIdExtensionPairs.end(); it++)
+		{
+			if (extension == it->second)
+			{
+				existingIcondId = it->first;
+				break;
+			}
+		}
+
+		// Add icon if not allready exist
+		tie.mask |= TCIF_IMAGE;
+		if (existingIcondId == -1)
+		{
+			SHFILEINFO shfi;
+			DWORD_PTR ret = ::SHGetFileInfo(
+				buffer->getFileName(),
+				0,
+				&shfi,
+				sizeof(shfi),
+				SHGFI_ICON | SHGFI_USEFILEATTRIBUTES);
+			if (SUCCEEDED(ret))
+			{
+				int iconIndex = _pIconList->addIcon(shfi.hIcon);
+				tie.iImage = iconIndex;
+				_tabIconIdExtensionPairs.push_back(std::make_pair(iconIndex, extension));
+				TabBar::setImageList(_pIconList->getHandle());
+			}
+		}
+		else
+			tie.iImage = existingIcondId;
+	}
+
 
 	//We must make space for the added ampersand characters.
 	TCHAR encodedLabel[2 * MAX_PATH];
@@ -172,15 +226,17 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask)
 			//Tab's caption must be encoded like this because otherwise tab control would make tab too small or too big for the text.
 
 			while (*in != 0)
-			if (*in == '&')
-			{
-				*out++ = '&';
-				*out++ = '&';
-				while (*(++in) == '&')
+				if (*in == '&')
+				{
 					*out++ = '&';
-			}
-			else
-				*out++ = *in++;
+					*out++ = '&';
+					while (*(++in) == '&')
+						*out++ = '&';
+				}
+				else
+					*out++ = *in++;
+			if (buffer->isDirty())
+				*out++ = '*';
 			*out = '\0';
 		}
 	}
@@ -222,9 +278,9 @@ void DocTabView::reSizeTo(RECT & rc)
 	else
 	{
 		TabBar::reSizeTo(rc);
-		rc.left	 += borderWidth;
+		rc.left += borderWidth;
 		rc.right -= borderWidth * 2;
-		rc.top   += borderWidth;
+		rc.top += borderWidth;
 		rc.bottom -= (borderWidth * 2);
 		_pView->reSizeTo(rc);
 	}

@@ -49,7 +49,7 @@ void IconList::create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconI
 		addIcon(iconIDArray[i]);
 };
 
-void IconList::addIcon(int iconID) const 
+void IconList::addIcon(int iconID) 
 {
 	HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(iconID));
 	if (!hIcon)
@@ -57,7 +57,15 @@ void IconList::addIcon(int iconID) const
 
 	ImageList_AddIcon(_hImglst, hIcon);
 	::DestroyIcon(hIcon);
-};
+	_iconsCounter++;
+}
+
+int IconList::addIcon(HICON hIcon)
+{
+	ImageList_AddIcon(_hImglst, hIcon);
+	_iconsCounter++;
+	return _iconsCounter - 1;
+}
 
 bool IconList::changeIcon(int index, const TCHAR *iconLocation) const
 {
@@ -70,7 +78,7 @@ bool IconList::changeIcon(int index, const TCHAR *iconLocation) const
 	return (i == index);
 }
 
-void IconList::setIconSize(int size) const
+void IconList::setIconSize(int size)
 {
 	ImageList_SetIconSize(_hImglst, size, size);
 	for (int i = 0 ; i < _iconIDArraySize ; ++i)

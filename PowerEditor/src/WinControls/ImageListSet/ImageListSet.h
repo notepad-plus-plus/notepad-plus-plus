@@ -46,9 +46,10 @@ public :
 		ImageList_Destroy(_hImglst);
 	};
 	HIMAGELIST getHandle() const {return _hImglst;};
-	void addIcon(int iconID) const;
+	void addIcon(int iconID);
+	int addIcon(HICON hIcon);
 	bool changeIcon(int index, const TCHAR *iconLocation) const;
-	void setIconSize(int size) const;
+	void setIconSize(int size);
 
 private :
 	HIMAGELIST _hImglst = nullptr;
@@ -56,6 +57,7 @@ private :
 	int *_pIconIDArray = nullptr;
 	int _iconIDArraySize = 0;
 	int _iconSize = 0;
+	int _iconsCounter = 0;
 };
 
 typedef struct 

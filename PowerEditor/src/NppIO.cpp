@@ -1285,7 +1285,11 @@ bool Notepad_plus::fileSaveAll()
 		for(size_t i = 0; i < _mainDocTab.nbItem(); ++i)
 		{
 			BufferID idToSave = _mainDocTab.getBufferByIndex(i);
-			fileSave(idToSave);
+			if (false == fileSave(idToSave))
+			{
+				//prevent mulitple dialogs if the user clicks cancel
+				return false;
+			}
 		}
 	}
 
@@ -1294,7 +1298,11 @@ bool Notepad_plus::fileSaveAll()
 		for(size_t i = 0; i < _subDocTab.nbItem(); ++i)
 		{
 			BufferID idToSave = _subDocTab.getBufferByIndex(i);
-			fileSave(idToSave);
+			if (false == fileSave(idToSave))
+			{
+				//prevent mulitple dialogs if the user clicks cancel
+				return false;
+			}
 		}
 	}
 	checkDocState();

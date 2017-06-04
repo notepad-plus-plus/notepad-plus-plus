@@ -334,7 +334,7 @@
             <Find title="" titleFind="Localizar" titleReplace="Substituir" titleFindInFiles="Localizar em arquivos" titleMark="Marcar">
                 <Item id="1" name="Localizar próximo" />
                 <Item id="2" name="Fechar" />
-                <Item id="1620" name="Localizar :" />
+                <Item id="1620" name="Localizar:" />
                 <Item id="1603" name="Coincidir palavra inteira" />
                 <Item id="1604" name="Diferen&amp;ciar maiúsculas/minúsculas" />
                 <Item id="1605" name="&amp;Expressão regular" />
@@ -346,7 +346,7 @@
                 <Item id="1616" name="Marcar linha" />
                 <Item id="1618" name="Limpar marcadores" />
                 <Item id="1621" name="Direção" />
-                <Item id="1611" name="Substituir por :" />
+                <Item id="1611" name="Substituir por:" />
                 <Item id="1608" name="Substitui&amp;r" />
                 <Item id="1609" name="Substituir todos" />
                 <Item id="1687" name="Ao perder o foco" />
@@ -355,8 +355,8 @@
                 <Item id="1633" name="Limpar" />
                 <Item id="1635" name="Substituir todos em todos documentos abertos" />
                 <Item id="1636" name="Localizar todos em todos documentos abertos" />
-                <Item id="1654" name="Filtros :" />
-                <Item id="1655" name="Pasta :" />
+                <Item id="1654" name="Filtros:" />
+                <Item id="1655" name="Pasta:" />
                 <Item id="1656" name="Localizar todos" />
                 <Item id="1658" name="Incluir subpastas" />
                 <Item id="1659" name="Incluir pastas ocultas" />
@@ -391,9 +391,9 @@
                 <Item id="2008" name="Caractere" />
                 <Item id="1" name="&amp;Vai" />
                 <Item id="2" name="Cancelar" />
-                <Item id="2004" name="Você está aqui :" />
-                <Item id="2005" name="Você quer ir para :" />
-                <Item id="2006" name="Você não pode exceder :" />
+                <Item id="2004" name="Você está aqui:" />
+                <Item id="2005" name="Você quer ir para:" />
+                <Item id="2006" name="Você não pode exceder:" />
             </GoToLine>
             
             <Run title="Executar...">
@@ -413,17 +413,17 @@
                     <Item id="2205" name="Itálico" />
                     <Item id="2206" name="Cor da fonte" />
                     <Item id="2207" name="Cor do fundo" />
-                    <Item id="2208" name="Fonte :" />
-                    <Item id="2209" name="Tamanho :" />
-                    <Item id="2211" name="Local do estilo :" />
+                    <Item id="2208" name="Fonte:" />
+                    <Item id="2209" name="Tamanho:" />
+                    <Item id="2211" name="Local do estilo:" />
                     <Item id="2212" name="Estilo de cores" />
                     <Item id="2213" name="Estilo de fontes" />
-                    <Item id="2214" name="Extensão padrão :" />
-                    <Item id="2216" name="Extensão do usuário :" />
+                    <Item id="2214" name="Extensão padrão:" />
+                    <Item id="2216" name="Extensão do usuário:" />
                     <Item id="2218" name="Sublinhado" />
                     <Item id="2219" name="Palavras-chave padrão" />
                     <Item id="2221" name="Palavras-chave definidas pelo usuário" />
-                    <Item id="2225" name="Linguagem :" />
+                    <Item id="2225" name="Linguagem:" />
                     <Item id="2226" name="Habilitar cor de fonte global" />
                     <Item id="2227" name="Habilitar cor de fundo global" />
                     <Item id="2228" name="Habilitar fonte global" />
@@ -441,8 +441,8 @@
                 <Item id="20003" name="Criar novo..." />
                 <Item id="20004" name="Remover" />
                 <Item id="20005" name="Salvar como..." />
-                <Item id="20007" name="Linguagem do usuário : " />
-                <Item id="20009" name="Ext. :" />
+                <Item id="20007" name="Linguagem do usuário: " />
+                <Item id="20009" name="Ext.:" />
                 <Item id="20012" name="Não dif. maiúsc/minúsc" />
                 <Item id="20011" name="Transparência" />
                 <Item id="20015" name="Importar..." />
@@ -451,8 +451,8 @@
                 <Item id="1" name="Cor da fonte" />
                 <Item id="2" name="Cor do fundo" />
                 <Item id="3" name="Estilo da fonte" />
-                <Item id="4" name="Fonte :" />
-                <Item id="5" name="Tamanho da fonte :" />
+                <Item id="4" name="Fonte:" />
+                <Item id="5" name="Tamanho da fonte:" />
                 <Item id="6" name="Negrito" />
                 <Item id="7" name="Itálico" />
                 <Item id="8" name="Sublinhado" />
@@ -487,7 +487,7 @@
                     <Item id="25026" name="Operador 1"/>
                     <Item id="25027" name="Operador 2"/>
                     <Item id="25028" name="Números"/>
-					<Item id="1" name="OK"/>
+                    <Item id="1" name="OK"/>
                     <Item id="2" name="Cancelar"/>
                 </StylerDialog>
                 <Folder title="Dobrar &amp;&amp; Padrão">
@@ -543,8 +543,8 @@
                     <Item id="22622" name="Estilo"/>
                 </Keywords>
                 <Comment title="Comentários &amp;&amp; Números">
-                    <Item id="23113" name="Abrir comentário :" />
-                    <Item id="23115" name="Fechar comentário :" />
+                    <Item id="23113" name="Abrir comentário:" />
+                    <Item id="23115" name="Fechar comentário:" />
                     <Item id="23116" name="Palavra chave como símbolo" />
                     <Item id="23117" name="Palavras chave como símbolos" />
                     <Item id="23003" name="Posição do comentário de linha" />
@@ -652,8 +652,8 @@
                 </Global>
                 <Scintillas title="Editor">
                     <Item id="6216" name="Configurações do cursor" />
-                    <Item id="6217" name="Largura :" />
-                    <Item id="6219" name="Veloc. piscada :" />
+                    <Item id="6217" name="Largura:" />
+                    <Item id="6219" name="Veloc. piscada:" />
                     <Item id="6221" name="R" />
                     <Item id="6222" name="L" />
                     <Item id="6224" name="Multiedição" />
@@ -671,7 +671,7 @@
                     <Item id="6206" name="Exibir número das linhas" />
                     <Item id="6207" name="Exibir margem de marcadores" />
                     <Item id="6208" name="Exibir linha vertical" />
-                    <Item id="6209" name="Número da coluna : " />
+                    <Item id="6209" name="Número da coluna: " />
                     <Item id="6234" name="Desabilitar recurso avançado de rolagem
 (se você tem problema com touchpad)"/>
                     <Item id="6211" name="Delimitador de colunas" />
@@ -692,7 +692,7 @@
                     <Item id="6408" name="UTF-8" />
                     <Item id="6409" name="UCS2 Big Endian" />
                     <Item id="6410" name="UCS2 Small Endian" />
-                    <Item id="6411" name="Linguagem padrão :" />
+                    <Item id="6411" name="Linguagem padrão:" />
                     <Item id="6418" name="..." />
                     <Item id="6419" name="Novo Documento" />
                     <Item id="6420" name="Aplicar ao abrir arquivo ANSI" />
@@ -703,8 +703,8 @@
                     <Item id="6415" name="Lembrar último diretório" />
                 </DefaultDir>
                 <FileAssoc title="Tipos de Arquivos">
-                    <Item id="4009" name="Extensões suportadas :" />
-                    <Item id="4010" name="Extensões registradas :" />
+                    <Item id="4009" name="Extensões suportadas:" />
+                    <Item id="4010" name="Extensões registradas:" />
                 </FileAssoc>
                 <LangMenu title="Menu de Linguagem">
                     <Item id="6505" name="Itens disponíveis" />
@@ -743,7 +743,7 @@
                     <Item id="6721" name="Centro" />
                     <Item id="6722" name="Direita" />
                     <Item id="6723" name="Adicionar" />
-                    <Item id="6725" name="Variável :" />
+                    <Item id="6725" name="Variável:" />
                     <Item id="6727" name="Aqui aparece sua configuração variável"/>
                     <Item id="6728" name="Cabeçalho e rodapé" />
                 </Print>
@@ -771,7 +771,7 @@
                 <MISC title="Outras">
                     <Item id="6304" name="Histórico de arquivos" />
                     <Item id="6305" name="Não verificar ao iniciar" />
-                    <Item id="6306" name="Número máximo de arquivos : " />
+                    <Item id="6306" name="Número máximo de arquivos: " />
                     <Item id="6307" name="Habilitar" />
                     <Item id="6308" name="Minimizar na bandeja" />
                     <Item id="6309" name="Lembrar última sessão ao inicializar" />
@@ -781,7 +781,7 @@
                     <Item id="6325" name="Ir para a última linha depois de atualizar" />
                     <Item id="6319" name="Habilitar" />
                     <Item id="6320" name="Não sublinhar" />
-                    <Item id="6322" name="Extensão sessão :" />
+                    <Item id="6322" name="Extensão sessão:" />
                     <Item id="6323" name="Habilitar auto-atualização do Notepad++" />
                     <Item id="6324" name="Troca de documentos (Ctrl+Tab)" />
                     <Item id="6326" name="Habilitar destaque inteligente" />
@@ -810,7 +810,7 @@
                     <Item id="6316" name="Backup Simples" />
                     <Item id="6317" name="Backup Completo" />
                     <Item id="6804" name="Definir pasta de Backup" />
-                    <Item id="6803" name="Pasta :" />
+                    <Item id="6803" name="Pasta:" />
                 </Backup>
                 <AutoCompletion title="Autocompletar">
                     <Item id="6807" name="Autocompletar" />
@@ -820,7 +820,7 @@
                     <Item id="6816" name="Completar função e palavra"/>
                     <Item id="6811" name="A partir do" />
                     <Item id="6813" name="º caractere" />
-                    <Item id="6814" name="Valor válido : 1 - 9" />
+                    <Item id="6814" name="Valor válido: 1 - 9" />
                     <Item id="6815" name="Mostrar dica de parâmetro a cada entrada" />
                     <Item id="6851" name="Auto inserir" />
                     <Item id="6857" name=" fechamento de tag html/xml" />
@@ -841,7 +841,7 @@
             <MultiMacro title="Executar macro múltiplas vezes">
                 <Item id="1" name="Executar" />
                 <Item id="2" name="Cancelar" />
-                <Item id="8006" name="Macro a executar :" />
+                <Item id="8006" name="Macro a executar:" />
                 <Item id="8001" name="Executar" />
                 <Item id="8005" name="vez(es)" />
                 <Item id="8002" name="Executar até o final da linha" />
@@ -856,8 +856,8 @@
             <ColumnEditor title="Editor de Coluna">
                 <Item id="2023" name="Texto para inserir" />
                 <Item id="2033" name="Número para inserir" />
-                <Item id="2030" name="Número inicial :" />
-                <Item id="2031" name="Incrementar em :" />
+                <Item id="2030" name="Número inicial:" />
+                <Item id="2031" name="Incrementar em:" />
                 <Item id="2035" name="Usar zeros" />
                 <Item id="2032" name="Formato" />
                 <Item id="2024" name="Decimal" />
@@ -866,7 +866,7 @@
                 <Item id="2027" name="Binário" />
                 <Item id="1" name="OK" />
                 <Item id="2" name="Cancelar" />
-                <Item id="2036" name="Repetir :"/>
+                <Item id="2036" name="Repetir:"/>
             </ColumnEditor>
         </Dialog>
         <MessageBox>

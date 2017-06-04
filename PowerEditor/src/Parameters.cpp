@@ -2622,7 +2622,7 @@ bool NppParameters::exportUDLToFile(size_t langIndex2export, generic_string file
 	return result;
 }
 
-LangType NppParameters::getLangFromExt(const TCHAR *ext)
+LangType NppParameters::getLangFromExt(const TCHAR *ext, LangType defaultLang)
 {
 	int i = getNbLang();
 	i--;
@@ -2652,7 +2652,7 @@ LangType NppParameters::getLangFromExt(const TCHAR *ext)
 		if (isInList(ext, list.c_str()))
 			return l->getLangID();
 	}
-	return L_TEXT;
+	return defaultLang;
 }
 
 void NppParameters::setCloudChoice(const TCHAR *pathChoice)

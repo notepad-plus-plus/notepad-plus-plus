@@ -5930,7 +5930,7 @@ struct Quote
 
 
 
-const int nbQuote = 207;
+const int nbQuote = 209;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
@@ -6071,8 +6071,8 @@ Quote quotes[nbQuote] =
 	{"Anonymous #106", "When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car."},
 	{"Anonymous #107", "Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is."},
 	{"Anonymous #108", "I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard"},
-	//{"Anonymous #109", ""},
-	{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems."},
+	{"Anonymous #109", "What's the best thing about UDP jokes?\nI don't care if you get them."},
+	{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems"},
 	{"Anonymous #111", "I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul."},
 	{"Anonymous #112", "#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}"},
 	{"Anonymous #113", "Open source is communism.\nAt least it is what communism was meant to be."},
@@ -6091,7 +6091,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},
 	{"Anonymous #127", "Don't give up your dreams.\nKeep sleeping."},
 	{"Anonymous #128", "I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life."},
-	//{"Anonymous #129", ""},
+	{"Anonymous #129", "What is the most used language in programming?\n\nProfanity\n"},
 	{"Anonymous #130", "Common sense is so rare, it's kinda like a superpower..."},
 	{"Anonymous #131", "The best thing about a boolean is even if you are wrong, you are only off by a bit."},
 	{"Anonymous #132", "Benchmarks don't lie, but liars do benchmarks."},

@@ -990,9 +990,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return -1;
 
 			// get text of current scintilla
-			auto length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
+			size_t length = static_cast<size_t>(pSci->GetTextLength() + 1);
 			char* buffer = new char[length];
-			pSci->execute(SCI_GETTEXT, length, reinterpret_cast<LPARAM>(buffer));
+			pSci->GetText(static_cast<int>(length), buffer);
 
 			// convert here
 			UniMode unicodeMode = pSci->getCurrentBuffer()->getUnicodeMode();
@@ -1001,14 +1001,14 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			length = UnicodeConvertor.convert(buffer, length-1);
 
 			// set text in target
-			pSci->execute(SCI_CLEARALL);
+			pSci->ClearAll();
 			pSci->addText(length, UnicodeConvertor.getNewBuf());
-			pSci->execute(SCI_EMPTYUNDOBUFFER);
+			pSci->EmptyUndoBuffer();
 
-			pSci->execute(SCI_SETCODEPAGE);
+			pSci->SetCodePage(CP_ACP);
 
 			// set cursor position
-			pSci->execute(SCI_GOTOPOS);
+			pSci->GotoPos(0);
 
 			// clean buffer
 			delete [] buffer;
@@ -1028,21 +1028,21 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				return -1;
 
 			// get text of current scintilla
-			auto length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
+			size_t length = static_cast<size_t>(pSci->GetTextLength() + 1);
 			char* buffer = new char[length];
-			pSci->execute(SCI_GETTEXT, length, reinterpret_cast<LPARAM>(buffer));
+			pSci->GetText(static_cast<int>(length), buffer);
 
 			Utf8_16_Read UnicodeConvertor;
 			length = UnicodeConvertor.convert(buffer, length-1);
 
 			// set text in target
-			pSci->execute(SCI_CLEARALL);
+			pSci->ClearAll();
 			pSci->addText(length, UnicodeConvertor.getNewBuf());
 
-			pSci->execute(SCI_EMPTYUNDOBUFFER);
+			pSci->EmptyUndoBuffer();
 
 			// set cursor position
-			pSci->execute(SCI_GOTOPOS);
+			pSci->GotoPos(0);
 
 			// clean buffer
 			delete [] buffer;
@@ -1146,7 +1146,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					break;
 
 				int counter = 0;
-				int lastLine = static_cast<int32_t>(_pEditView->execute(SCI_GETLINECOUNT)) - 1;
+				int lastLine = _pEditView->GetLineCount() - 1;
 				int currLine = static_cast<int32_t>(_pEditView->getCurrentLineNumber());
 				int indexMacro = _runMacroDlg.getMacro2Exec();
 				int deltaLastLine = 0;
@@ -1160,7 +1160,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					m = ms[indexMacro].getMacro();
 				}
 
-				_pEditView->execute(SCI_BEGINUNDOACTION);
+				_pEditView->BeginUndoAction();
 				for (;;)
 				{
 					macroPlayback(m);
@@ -1173,7 +1173,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 					else // run until eof
 					{
 						bool cursorMovedUp = deltaCurrLine < 0;
-						deltaLastLine = static_cast<int32_t>(_pEditView->execute(SCI_GETLINECOUNT)) - 1 - lastLine;
+						deltaLastLine = _pEditView->GetLineCount() - 1 - lastLine;
 						deltaCurrLine = static_cast<int32_t>(_pEditView->getCurrentLineNumber()) - currLine;
 
 						if (( deltaCurrLine == 0 )	// line no. not changed?
@@ -1196,7 +1196,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 						}
 					}
 				}
-				_pEditView->execute(SCI_ENDUNDOACTION);
+				_pEditView->EndUndoAction();
 			}
 			break;
 		}
@@ -1352,17 +1352,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			if (nppGUI._caretWidth < 4)
 			{
-				_mainEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_LINE);
-				_subEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_LINE);
-				_mainEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
-				_subEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
+				_mainEditView.SetCaretStyle(CARETSTYLE_LINE);
+				_subEditView.SetCaretStyle(CARETSTYLE_LINE);
+				_mainEditView.SetCaretWidth(nppGUI._caretWidth);
+				_subEditView.SetCaretWidth(nppGUI._caretWidth);
 			}
 			else
 			{
-				_mainEditView.execute(SCI_SETCARETWIDTH, 1);
-				_subEditView.execute(SCI_SETCARETWIDTH, 1);
-				_mainEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK);
-				_subEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK);
+				_mainEditView.SetCaretWidth(1);
+				_subEditView.SetCaretWidth(1);
+				_mainEditView.SetCaretStyle(CARETSTYLE_BLOCK);
+				_subEditView.SetCaretStyle(CARETSTYLE_BLOCK);
 			}
 			return TRUE;
 		}
@@ -1370,8 +1370,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_SETSMOOTHFONT:
 		{
 			int param = (lParam == 0 ? SC_EFF_QUALITY_DEFAULT : SC_EFF_QUALITY_LCD_OPTIMIZED);
-			_mainEditView.execute(SCI_SETFONTQUALITY, param);
-			_subEditView.execute(SCI_SETFONTQUALITY, param);
+			_mainEditView.SetFontQuality(param);
+			_subEditView.SetFontQuality(param);
 			return TRUE;
 		}
 
@@ -1386,8 +1386,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_SCROLLBEYONDLASTLINE:
 		{
 			const bool endAtLastLine = not (pNppParam->getSVP())._scrollBeyondLastLine;
-			_mainEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
-			_subEditView.execute(SCI_SETENDATLASTLINE, endAtLastLine);
+			_mainEditView.SetEndAtLastLine(endAtLastLine);
+			_subEditView.SetEndAtLastLine(endAtLastLine);
 			return TRUE;
 		}
 
@@ -1401,16 +1401,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_SETMULTISELCTION:
 		{
 			const NppGUI & nppGUI = pNppParam->getNppGUI();
-			_mainEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
-			_subEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
+			_mainEditView.SetMultipleSelection(nppGUI._enableMultiSelection);
+			_subEditView.SetMultipleSelection(nppGUI._enableMultiSelection);
 			return TRUE;
 		}
 
 		case NPPM_INTERNAL_SETCARETBLINKRATE:
 		{
 			const NppGUI & nppGUI = pNppParam->getNppGUI();
-			_mainEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
-			_subEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
+			_mainEditView.SetCaretPeriod(nppGUI._caretBlinkRate);
+			_subEditView.SetCaretPeriod(nppGUI._caretBlinkRate);
 			return TRUE;
 		}
 
@@ -2256,8 +2256,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_SETTING_EDGE_SIZE:
 		{
 			ScintillaViewParams & svp = (ScintillaViewParams &)(NppParameters::getInstance())->getSVP();
-			_mainEditView.execute(SCI_SETEDGECOLUMN, svp._edgeNbColumn);
-			_subEditView.execute(SCI_SETEDGECOLUMN, svp._edgeNbColumn);
+			_mainEditView.SetEdgeColumn(svp._edgeNbColumn);
+			_subEditView.SetEdgeColumn(svp._edgeNbColumn);
 			break;
 		}
 

@@ -423,11 +423,11 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	bool subVisisble = (_subEditView.getCurrentBufferID() == id);
 	if (mainVisisble) {
 		_mainEditView.saveCurrentPos();
-		_mainEditView.execute(SCI_SETDOCPOINTER, 0, 0);
+		_mainEditView.SetDocPointer(0);
 	}
 	if (subVisisble) {
 		_subEditView.saveCurrentPos();
-		_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
+		_subEditView.SetDocPointer(0);
 	}
 
 	if (!mainVisisble && !subVisisble) {
@@ -437,11 +437,11 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	bool res = MainFileManager->reloadBuffer(id);
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
 	if (mainVisisble) {
-		_mainEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+		_mainEditView.SetDocPointer(pBuf->getDocument());
 		_mainEditView.restoreCurrentPos();
 	}
 	if (subVisisble) {
-		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+		_subEditView.SetDocPointer(pBuf->getDocument());
 		_subEditView.restoreCurrentPos();
 	}
 
@@ -1615,13 +1615,13 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 
 			//Force in the document so we can add the markers
 			//Don't use default methods because of performance
-			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			Document prevDoc = _mainEditView.GetDocPointer();
+			_mainEditView.SetDocPointer(buf->getDocument());
 			for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len ; ++j)
 			{
-				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i]._marks[j], MARK_BOOKMARK);
+				_mainEditView.MarkerAdd(static_cast<int>(session._mainViewFiles[i]._marks[j]), MARK_BOOKMARK);
 			}
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+			_mainEditView.SetDocPointer(prevDoc);
 			++i;
 		}
 		else
@@ -1725,13 +1725,13 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 
 			//Force in the document so we can add the markers
 			//Don't use default methods because of performance
-			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			Document prevDoc = _subEditView.GetDocPointer();
+			_subEditView.SetDocPointer(buf->getDocument());
 			for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len ; ++j)
 			{
-				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k]._marks[j], MARK_BOOKMARK);
+				_subEditView.MarkerAdd(static_cast<int>(session._subViewFiles[k]._marks[j]), MARK_BOOKMARK);
 			}
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+			_subEditView.SetDocPointer(prevDoc);
 
 			++k;
 		}

@@ -126,7 +126,7 @@ void AnsiCharPanel::insertChar(unsigned char char2insert) const
 	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 	if (codepage == -1)
 	{
-		bool isUnicode = ((*_ppEditView)->execute(SCI_GETCODEPAGE) == SC_CP_UTF8);
+		bool isUnicode = ((*_ppEditView)->GetCodePage() == SC_CP_UTF8);
 		if (isUnicode)
 		{
 			MultiByteToWideChar(0, 0, charStr, -1, wCharStr, sizeof(wCharStr));
@@ -143,8 +143,8 @@ void AnsiCharPanel::insertChar(unsigned char char2insert) const
 		MultiByteToWideChar(codepage, 0, charStr, -1, wCharStr, sizeof(wCharStr));
 		WideCharToMultiByte(CP_UTF8, 0, wCharStr, -1, multiByteStr, sizeof(multiByteStr), NULL, NULL);
 	}
-	(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+	(*_ppEditView)->ReplaceSel("");
 	size_t len = (char2insert < 128) ? 1 : strlen(multiByteStr);
-	(*_ppEditView)->execute(SCI_ADDTEXT, len, reinterpret_cast<LPARAM>(multiByteStr));
+	(*_ppEditView)->AddText(static_cast<int>(len), multiByteStr);
 	(*_ppEditView)->getFocus();
 }

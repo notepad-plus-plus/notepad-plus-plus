@@ -167,7 +167,7 @@ private:
 
 
 	void setFinderReadOnly(bool isReadOnly) {
-		_scintView.execute(SCI_SETREADONLY, isReadOnly);
+		_scintView.SetReadOnly(isReadOnly);
 	};
 
 	bool isLineActualSearchResult(const generic_string & s) const;

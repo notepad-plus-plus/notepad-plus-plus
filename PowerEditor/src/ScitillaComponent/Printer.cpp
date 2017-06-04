@@ -353,7 +353,7 @@ size_t Printer::doPrint(bool justDoIt)
 			printPage = false;		 
 
 		TCHAR pageString[32];
-		wsprintf(pageString, TEXT("%0d"), pageNum);
+		wsprintf(pageString, TEXT("%0ld"), static_cast<long>(pageNum));
 		
 		if (printPage) 
 		{

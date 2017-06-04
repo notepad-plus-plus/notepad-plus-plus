@@ -134,7 +134,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
 					{
 						auto lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
-						wsprintf(expandedStr, TEXT("%d"), lineNumber);
+						wsprintf(expandedStr, TEXT("%ld"), static_cast<long>(lineNumber));
 					}
 					else
 						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, CURRENTWORD_MAXLENGTH, reinterpret_cast<LPARAM>(expandedStr));

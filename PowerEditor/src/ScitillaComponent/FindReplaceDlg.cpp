@@ -2777,7 +2777,7 @@ void Finder::add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline)
 	generic_string str = TEXT("\tLine ");
 
 	TCHAR lnb[16];
-	wsprintf(lnb, TEXT("%d"), fi._lineNumber);
+	wsprintf(lnb, TEXT("%ld"), static_cast<long>(fi._lineNumber));
 	str += lnb;
 	str += TEXT(": ");
 	mi._start += static_cast<int32_t>(str.length());

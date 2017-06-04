@@ -4921,7 +4921,7 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {
 			somedirty = true;
 
 		const TCHAR * unitext = (docbuf->getUnicodeMode() != uni8Bit)?TEXT("_utf8"):TEXT("");
-		wsprintf(savePath, TEXT("%s\\%s%03d%s.dump"), outdir, fileprefix, i, unitext);
+		wsprintf(savePath, TEXT("%s\\%s%03ld%s.dump"), outdir, fileprefix, static_cast<long>(i), unitext);
 
 		bool res = MainFileManager->saveBuffer(docbuf->getID(), savePath);
 

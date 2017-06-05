@@ -2481,35 +2481,6 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 	return false;
 }
 
-int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char targetSymbol, char matchedSymbol)
-{
-	if (startPos == endPos)
-		return -1;
-
-	if (startPos > endPos) // backward
-	{
-		int balance = 0;
-		for (int i = int(startPos); i >= int(endPos); --i)
-		{
-			char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, i));
-			if (aChar == targetSymbol)
-			{
-				if (balance == 0)
-					return i;
-				--balance;
-			}
-			else if (aChar == matchedSymbol)
-			{
-				++balance;
-			}
-		}
-	}
-	else // forward - TODO
-	{
-	}
-	return -1;
-}
-
 void Notepad_plus::maintainIndentation(TCHAR ch)
 {
 	int eolMode = static_cast<int32_t>((_pEditView->execute(SCI_GETEOLMODE)));
@@ -2625,7 +2596,9 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			int startPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 			if (startPos != 0)
 				startPos -= 1;
-			int posFound = findMachedBracePos(startPos - 1, 0, '{', '}');
+
+			_pEditView->execute(SCI_COLOURISE, startPos, startPos+1);
+			LRESULT posFound = _pEditView->execute(SCI_BRACEMATCH, startPos, 0);
 
 			// if no { found, do nothing
 			if (posFound == -1)

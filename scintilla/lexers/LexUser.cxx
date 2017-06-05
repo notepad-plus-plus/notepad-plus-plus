@@ -624,6 +624,25 @@ static bool IsNumber(StyleContext & sc, vector<string> * numberTokens[], vvstrin
     }
 }
 
+static inline void AddSubGroupSpecialCharacter(const char * s, vector<string> & subvector)
+{
+    if (!strcmp(s, "EOL"))
+    {
+        subvector.push_back("\r\n");
+        subvector.push_back("\n");
+        subvector.push_back("\r");
+    }
+    else if (!strcmp(s, "WSP"))
+    {
+        subvector.push_back("\s");
+        subvector.push_back("\t");
+    }
+    else
+    {
+        subvector.push_back(s);
+    }
+}
+
 static inline void SubGroup(const char * s, vvstring & vec, bool group=false)
 {
     unsigned int length = strlen(s);
@@ -656,14 +675,7 @@ static inline void SubGroup(const char * s, vvstring & vec, bool group=false)
             {
                 if (*temp)
                 {
-                    if (!strcmp(temp, "EOL"))
-                    {
-                        subvector.push_back("\r\n");
-                        subvector.push_back("\n");
-                        subvector.push_back("\r");
-                    }
-                    else
-                        subvector.push_back(temp);
+                    AddSubGroupSpecialCharacter(temp, subvector);
 
                     index = 0;
                     for (unsigned int j=0; j<length; ++j)
@@ -675,14 +687,7 @@ static inline void SubGroup(const char * s, vvstring & vec, bool group=false)
                 temp[index++] = s[i];
                 if (*temp)
                 {
-                    if (!strcmp(temp, "EOL"))
-                    {
-                        subvector.push_back("\r\n");
-                        subvector.push_back("\n");
-                        subvector.push_back("\r");
-                    }
-                    else
-                        subvector.push_back(temp);
+                    AddSubGroupSpecialCharacter(temp, subvector);
                 }
             }
             else

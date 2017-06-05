@@ -64,7 +64,7 @@ struct TargetRange {
 
 enum SearchIncrementalType { NotIncremental, FirstIncremental, NextIncremental };
 enum SearchType { FindNormal, FindExtended, FindRegex };
-enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder };
+enum ProcessOperation { ProcessFindAll, ProcessFindAllInFiles, ProcessReplaceAll, ProcessReplaceAllInFiles, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt, ProcessFindInFinder };
 
 struct FindOption
 {
@@ -333,6 +333,8 @@ public :
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
+	void processMessageQueue(ProcessOperation op);
+	void updateProgressBar(ProcessOperation op, FindReplaceInfo & findReplaceInfo, const FindersInfo * pFindersInfo, int targetStart, const clock_t beginTime);
 
 protected :
 	void resizeDialogElements(LONG newWidth);
@@ -374,7 +376,7 @@ private :
 	winVer _winVer;
 	StatusBar _statusBar;
 	FindStatus _statusbarFindStatus;
-
+	bool _cancelOngoingFind = false;
 	
 
 	void enableReplaceFunc(bool isEnable);
@@ -382,6 +384,7 @@ private :
 	void enableFindInFilesFunc();
 	void enableMarkAllControls(bool isEnable);
 	void enableMarkFunc();
+	void enableAllFind(bool isEnable);
 
 	void setDefaultButton(int nID) {
 		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);

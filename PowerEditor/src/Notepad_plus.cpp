@@ -1514,7 +1514,7 @@ bool Notepad_plus::replaceInFiles()
 
 			FindersInfo findersInfo;
 			findersInfo._pFileName = fileNames.at(i).c_str();
-			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, true, &findersInfo);
+			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAllInFiles, FindReplaceDlg::_env, true, &findersInfo);
 			nbTotal += nbReplaced;
 			if (nbReplaced)
 			{
@@ -1685,7 +1685,7 @@ bool Notepad_plus::findInFiles()
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			FindersInfo findersInfo;
 			findersInfo._pFileName = fileNames.at(i).c_str();
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, FindReplaceDlg::_env, true, &findersInfo);
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAllInFiles, FindReplaceDlg::_env, true, &findersInfo);
 			if (closeBuf)
 				MainFileManager->closeBuffer(id, _pEditView);
 		}

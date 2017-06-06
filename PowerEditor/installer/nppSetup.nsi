@@ -91,6 +91,7 @@ page Custom ExtraOptions
 Var diffArchDir2Remove
 Function .onInit
 
+	SectionSetSize ${mainSection} 4500		; This is rough estimation of files present in function copyCommonFiles
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
 	Call preventInstallInWin9x
 		

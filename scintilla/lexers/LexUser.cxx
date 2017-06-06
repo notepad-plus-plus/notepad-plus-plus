@@ -2081,6 +2081,8 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
                         // no closing sequence, start over from default
                         sc.SetState(SCE_USER_STYLE_IDENTIFIER);
                         dontMove = true;
+                        if (sc.atLineEnd)
+                            checkEOL = EOL_SKIP_CHECK;
                         break;
                     }
                 }
@@ -2125,7 +2127,7 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
                         sc.SetState(SCE_USER_STYLE_IDENTIFIER);
                         dontMove = true;
                         if (sc.atLineEnd)
-                            checkEOL = true;
+                            checkEOL = EOL_SKIP_CHECK;
 
                         levelNext--;
                         if (levelMinCurrent > levelNext)
@@ -2150,7 +2152,7 @@ static void ColouriseUserDoc(Sci_PositionU startPos, Sci_Position length, int in
                         // no closing sequence, start over from default
                         sc.SetState(SCE_USER_STYLE_IDENTIFIER);
                         if (sc.atLineEnd)
-                            checkEOL = true;
+                            checkEOL = EOL_SKIP_CHECK;
 
                         dontMove = true;
                         levelNext--;

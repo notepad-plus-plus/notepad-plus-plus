@@ -1069,6 +1069,12 @@ fun void SetTargetRange=2686(position start, position end)
 # Retrieve the text in the target.
 get int GetTargetText=2687(, stringresult characters)
 
+# Make the target range start and end be the same as the selection range start and end.
+fun void TargetFromSelection=2287(,)
+
+# Sets the target to the whole document.
+fun void TargetWholeDocument=2690(,)
+
 # Replace the target text with the argument text.
 # Text is counted so it can contain NULs.
 # Returns the length of the replacement text.
@@ -1248,6 +1254,9 @@ fun int WordStartPosition=2266(position pos, bool onlyWordCharacters)
 # Get position of end of word.
 fun int WordEndPosition=2267(position pos, bool onlyWordCharacters)
 
+# Is the range start..end considered a word?
+fun bool IsRangeWord=2691(position start, position end)
+
 enu Wrap=SC_WRAP_
 val SC_WRAP_NONE=0
 val SC_WRAP_WORD=1
@@ -1402,9 +1411,6 @@ get int GetMultiPaste=2615(,)
 # Retrieve the value of a tag from a regular expression search.
 # Result is NUL-terminated.
 get int GetTag=2616(int tagNumber, stringresult tagValue)
-
-# Make the target range start and end be the same as the selection range start and end.
-fun void TargetFromSelection=2287(,)
 
 # Join the lines in the target.
 fun void LinesJoin=2288(,)
@@ -1785,7 +1791,7 @@ val CARET_STRICT=0x04
 val CARET_JUMPS=0x10
 # If CARET_EVEN is not set, instead of having symmetrical UZs,
 # the left and bottom UZs are extended up to right and top UZs respectively.
-# This way, we favour the displaying of useful information: the begining of lines,
+# This way, we favour the displaying of useful information: the beginning of lines,
 # where most code reside, and the lines after the caret, eg. the body of a function.
 val CARET_EVEN=0x08
 
@@ -2349,6 +2355,14 @@ fun void RotateSelection=2606(,)
 
 # Swap that caret and anchor of the main selection.
 fun void SwapMainAnchorCaret=2607(,)
+
+# Add the next occurrence of the main selection to the set of selections as main.
+# If the current selection is empty then select word around caret.
+fun void MultipleSelectAddNext=2688(,)
+
+# Add each occurrence of the main selection in the target to the set of selections.
+# If the current selection is empty then select word around caret.
+fun void MultipleSelectAddEach=2689(,)
 
 # Indicate that the internal state of a lexer has changed over a range and therefore
 # there may be a need to redraw.

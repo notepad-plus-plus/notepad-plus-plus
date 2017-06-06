@@ -744,7 +744,7 @@ void SurfaceGDI::RoundedRectangle(PRectangle rc, ColourDesired fore, ColourDesir
 		8, 8);
 }
 
-// Plot a point into a DWORD buffer symetrically to all 4 qudrants
+// Plot a point into a DWORD buffer symmetrically to all 4 quadrants
 static void AllFour(DWORD *pixels, int width, int height, int x, int y, DWORD val) {
 	pixels[y*width+x] = val;
 	pixels[y*width+width-1-x] = val;
@@ -987,7 +987,7 @@ void SurfaceGDI::MeasureWidths(Font &font_, const char *s, int len, XYPOSITION *
 		if (!::GetTextExtentExPointW(hdc, tbuf.buffer, tbuf.tlen, maxWidthMeasure, &fit, poses.buffer, &sz)) {
 			// Likely to have failed because on Windows 9x where function not available
 			// So measure the character widths by measuring each initial substring
-			// Turns a linear operation into a qudratic but seems fast enough on test files
+			// Turns a linear operation into a quadratic but seems fast enough on test files
 			for (int widthSS=0; widthSS < tbuf.tlen; widthSS++) {
 				::GetTextExtentPoint32W(hdc, tbuf.buffer, widthSS+1, &sz);
 				poses.buffer[widthSS] = sz.cx;
@@ -3053,7 +3053,7 @@ public:
 	// Use GetProcAddress to get a pointer to the relevant function.
 	virtual Function FindFunction(const char *name) {
 		if (h != NULL) {
-			// C++ standard doesn't like casts betwen function pointers and void pointers so use a union
+			// C++ standard doesn't like casts between function pointers and void pointers so use a union
 			union {
 				FARPROC fp;
 				Function f;

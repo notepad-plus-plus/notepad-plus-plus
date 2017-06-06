@@ -234,7 +234,7 @@ static const char * box_xpm[] = {
 
 - (void) showAutocompletion
 {
-	const char *words = "Babylon-5?1 Battlestar-Galactica Millenium-Falcon?2 Moya?2 Serenity Voyager";
+	const char *words = "Babylon-5?1 Battlestar-Galactica Millennium-Falcon?2 Moya?2 Serenity Voyager";
 	[mEditor setGeneralProperty: SCI_AUTOCSETIGNORECASE parameter: 1 value:0];
 	[mEditor setGeneralProperty: SCI_REGISTERIMAGE parameter: 1 value:(sptr_t)box_xpm];
 	const int imSize = 12;

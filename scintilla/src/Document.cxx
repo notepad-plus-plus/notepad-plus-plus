@@ -1603,7 +1603,7 @@ bool Document::IsWordEndAt(int pos) const {
  * ends and where the characters on the inside are word or punctuation characters.
  */
 bool Document::IsWordAt(int start, int end) const {
-	return IsWordStartAt(start) && IsWordEndAt(end);
+	return (start < end) && IsWordStartAt(start) && IsWordEndAt(end);
 }
 
 bool Document::MatchesWordOptions(bool word, bool wordStart, int pos, int length) const {
@@ -1646,10 +1646,13 @@ Document::CharacterExtracted Document::ExtractCharacter(int position) const {
  * Has not been tested with backwards DBCS searches yet.
  */
 long Document::FindText(int minPos, int maxPos, const char *search,
-                        bool caseSensitive, bool word, bool wordStart, bool regExp, int flags,
-                        int *length) {
+                        int flags, int *length) {
 	if (*length <= 0)
 		return minPos;
+	const bool caseSensitive = (flags & SCFIND_MATCHCASE) != 0;
+	const bool word = (flags & SCFIND_WHOLEWORD) != 0;
+	const bool wordStart = (flags & SCFIND_WORDSTART) != 0;
+	const bool regExp = (flags & SCFIND_REGEXP) != 0;
 	if (regExp) {
 		if (!regex)
 			regex = CreateRegexSearch(&charClass);

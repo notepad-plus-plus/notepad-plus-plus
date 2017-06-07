@@ -274,6 +274,15 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	_tab.reSizeTo(rect);
 	_tab.display();
 
+	_initialClientWidth = rect.right - rect.left;
+	
+	//fill min dialog size info
+	this->getWindowRect(_initialWindowRect);
+	_initialWindowRect.right = _initialWindowRect.right - _initialWindowRect.left;
+	_initialWindowRect.left = 0;
+	_initialWindowRect.bottom = _initialWindowRect.bottom - _initialWindowRect.top;
+	_initialWindowRect.top = 0;	
+
 	ETDTProc enableDlgTheme = (ETDTProc)::SendMessage(_hParent, NPPM_GETENABLETHEMETEXTUREFUNC, 0, 0);
 	if (enableDlgTheme)
 		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -675,10 +684,70 @@ INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 }
 
 
+void FindReplaceDlg::resizeDialogElements(LONG newWidth)
+{
+	//elements that need to be resized horizontally (all edit/combo boxes etc.)
+	const auto resizeWindowIDs = { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO };
+
+	//elements that need to be moved
+	const auto moveWindowIDs = {
+		IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK,IDD_FINDINFILES_RECURSIVE_CHECK, IDD_FINDINFILES_INHIDDENDIR_CHECK,
+		IDC_TRANSPARENT_GRPBOX, IDC_TRANSPARENT_CHECK, IDC_TRANSPARENT_LOSSFOCUS_RADIO, IDC_TRANSPARENT_ALWAYS_RADIO,
+		IDC_PERCENTAGE_SLIDER , IDC_REPLACEINSELECTION , IDC_IN_SELECTION_CHECK,
+
+		IDD_FINDINFILES_BROWSE_BUTTON, IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
+		IDREPLACE, IDREPLACEALL,IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDOK, IDCANCEL,
+	};
+
+	_deltaWidth = newWidth - _initialClientWidth;
+	auto addWidth = _deltaWidth - _lastDeltaWidth;
+	_lastDeltaWidth = _deltaWidth;
+
+	RECT rc;
+	for (int id : resizeWindowIDs)
+	{
+		HWND resizeHwnd = ::GetDlgItem(_hSelf, id);
+		::GetClientRect(resizeHwnd, &rc);
+		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | SWP_NOZORDER);
+	}
+
+	for (int moveWndID : moveWindowIDs)
+	{
+		HWND moveHwnd = GetDlgItem(_hSelf, moveWndID);
+		::GetWindowRect(moveHwnd, &rc);
+		::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rc, 2);
+
+		::SetWindowPos(moveHwnd, NULL, rc.left + addWidth, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		::InvalidateRect(moveHwnd, NULL, TRUE);
+	}
+
+	auto additionalWindowHwndsToResize = { _tab.getHSelf() , _statusBar.getHSelf() };
+	for (HWND resizeHwnd : additionalWindowHwndsToResize)
+	{
+		::GetClientRect(resizeHwnd, &rc);
+		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | SWP_NOZORDER);
+	}
+}
+
 INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
+		case WM_GETMINMAXINFO:
+		{
+			MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
+			mmi->ptMinTrackSize.y = _initialWindowRect.bottom;
+			mmi->ptMinTrackSize.x = _initialWindowRect.right;
+			mmi->ptMaxTrackSize.y = _initialWindowRect.bottom;
+			return 0;
+		}
+
+		case WM_SIZE:
+		{
+			resizeDialogElements(LOWORD(lParam));
+			return TRUE;
+		}
+
 		case WM_INITDIALOG :
 		{
 			RECT arc;
@@ -2204,7 +2273,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 
 	gotoCorrectTab();
 
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left + _deltaWidth, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
 
 	TCHAR label[MAX_PATH];
 	_tab.getCurrentTitle(label, MAX_PATH);
@@ -2595,7 +2664,7 @@ void FindReplaceDlg::enableFindInFilesFunc()
 	enableFindInFilesControls();
 	_currentStatus = FINDINFILES_DLG;
 	gotoCorrectTab();
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
 	TCHAR label[MAX_PATH];
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
@@ -2624,7 +2693,7 @@ void FindReplaceDlg::enableMarkFunc()
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
 	TCHAR label[MAX_PATH];
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);

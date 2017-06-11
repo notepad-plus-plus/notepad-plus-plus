@@ -68,6 +68,12 @@ const bool dirDown = false;
 typedef std::basic_string<TCHAR> generic_string;
 typedef std::basic_stringstream<TCHAR> generic_stringstream;
 
+struct SearchPathFilter final
+{
+	std::vector<generic_string> _includePatterns;
+	std::vector<generic_string> _excludePatterns;
+};
+
 generic_string folderBrowser(HWND parent, const generic_string & title = TEXT(""), int outputCtrlID = 0, const TCHAR *defaultStr = NULL);
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir = NULL);
 
@@ -92,6 +98,8 @@ std::string getFileContent(const TCHAR *file2read);
 generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath);
 void writeFileContent(const TCHAR *file2write, const char *content2write);
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
+
+bool matchInList(const TCHAR * fileName, const SearchPathFilter & patterns);
 
 class WcharMbcsConvertor final
 {

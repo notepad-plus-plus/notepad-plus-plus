@@ -882,6 +882,8 @@
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Det är för många filer att öppna" message="$INT_REPLACE$ filer är på väg att öppnas.\rÄr du säker på att du vill öppna dem?"/>
 			<SettingsOnCloudError title="Inställningar för moln" message="Det ser ut som att den inställda sökvägen till molnet är skrivskyddat, \reller krävs större rättigheter för att skriva. \rDina inställningar för molnet kommer att avbrytas. Återställ värdet i inställningarna."/>
+			<FilePathNotFoundWarning title="Öppna fil" message="Filen du försöker öppna existerar ej."/>
+			<SessionFileInvalidError title="Kunde inte ladda session" message="Sessionsfil är antingen korrupt eller felaktig."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -961,6 +963,7 @@
 			<word-chars-list-warning-end value="  i din teckenlista."/>
 			<cloud-invalid-warning value="Felaktig sökväg."/>
 			<cloud-restart-warning value="Starta om Notepad++ för att ändringarna ska träda i kraft."/>
+			<shift-change-direction-tip value="Använd Shift+Enter för att söka i motsatt riktning."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

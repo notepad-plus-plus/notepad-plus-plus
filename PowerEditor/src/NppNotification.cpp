@@ -177,6 +177,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
 					{
 						_documentPeeker.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
+						_pEditView->getFocus();
 					}
 					else  // if hover on current active tab
 					{

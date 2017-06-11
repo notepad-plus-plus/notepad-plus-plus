@@ -100,7 +100,6 @@ void DocumentPeeker::syncDisplay(Buffer *buf, ScintillaEditView & scintSource)
 		_pPeekerView->showMargin(2, false);
 		_pPeekerView->showMargin(3, false);
 
-		_pPeekerView->execute(SCI_SETREADONLY, true);
 		_pPeekerView->execute(SCI_SETCARETSTYLE, CARETSTYLE_INVISIBLE);
 		Window::display();
 	}

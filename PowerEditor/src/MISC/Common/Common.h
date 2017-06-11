@@ -165,11 +165,7 @@ private:
 #define MACRO_RECORDING_IN_PROGRESS 1
 #define MACRO_RECORDING_HAS_STOPPED 2
 
-#if _MSC_VER > 1400 // MS Compiler > VS 2005
-#define REBARBAND_SIZE REBARBANDINFO_V3_SIZE
-#else
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
-#endif
 
 generic_string PathRemoveFileSpec(generic_string & path);
 generic_string PathAppend(generic_string &strDest, const generic_string & str2append);

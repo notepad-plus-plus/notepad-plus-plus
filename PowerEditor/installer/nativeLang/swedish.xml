@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="7.3.1">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="7.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -385,7 +385,7 @@
 				<Item id="1934" name="Kopiera till urklipp"/>
 				<Item id="2"    name="Stäng"/>
 			</MD5FromTextDlg>
-			<GoToLine title="Gå till rad...">
+			<GoToLine title="Gå till...">
 				<Item id="1" name="&amp;Gå" />
 				<Item id="2" name="Stäng" />
 				<Item id="2004" name="Du är på rad:" />
@@ -658,7 +658,8 @@
 					<Item id="6229" name="Justerad" />
 					<Item id="6230" name="Indrag" />
 					<Item id="6231" name="Kantbredd" />
-					<Item id="6234" name="Inaktivera utökade bläddringfunktioner (om du har problem med pekplattan)"/>
+					<Item id="6234" name="Inaktivera utökade bläddringfunktioner 
+(om du har problem med pekplattan)"/>
 					<Item id="6235" name="Ingen kant"/>
 					<Item id="6236" name="Möjliggör bläddring förbi sista raden"/> 
 					<Item id="6215" name="Aktivera utjämnade tecken"/>
@@ -694,6 +695,10 @@
 					<Item id="6506" name="Avaktiverade" />
 					<Item id="6507" name="Gör menyn för programmeringsspråk kompakt" />
 					<Item id="6508" name="Språkmenyn" />
+					<Item id="6301" name="Tabbinställningar"/>
+					<Item id="6302" name="Ersätt med mellanslag"/>
+					<Item id="6303" name="Tabb-storlek: "/>
+					<Item id="6510" name="Använd standardvärdet" />
 				</Language>
 				<Highlighting title="Markering"> 
 					<Item id="6333" name="Smarta markeringar"/>
@@ -707,12 +712,6 @@
 					<Item id="6328" name="Markera taggattribut"/>
 					<Item id="6330" name="Markera kommentar/php/asp-zon"/>
 				</Highlighting> 
-				<TabSettings title="Tabbinställningar">
-					<Item id="6301" name="Tabbinställningar"/>
-					<Item id="6302" name="Ersätt med mellanslag"/>
-					<Item id="6303" name="Tabb-storlek: "/>
-					<Item id="6510" name="Använd standardvärdet" />
-				</TabSettings>
 				<Print title="Utskrift">
 					<Item id="6601" name="Skriv ut radnummer" />
 					<Item id="6602" name="Färginställningar" />
@@ -882,6 +881,8 @@
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Det är för många filer att öppna" message="$INT_REPLACE$ filer är på väg att öppnas.\rÄr du säker på att du vill öppna dem?"/>
 			<SettingsOnCloudError title="Inställningar för moln" message="Det ser ut som att den inställda sökvägen till molnet är skrivskyddat, \reller krävs större rättigheter för att skriva. \rDina inställningar för molnet kommer att avbrytas. Återställ värdet i inställningarna."/>
+			<FilePathNotFoundWarning title="Öppna fil" message="Filen du försöker öppna existerar ej."/>
+			<SessionFileInvalidError title="Kunde inte ladda session" message="Sessionsfil är antingen skadad eller ogiltig."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -961,6 +962,7 @@
 			<word-chars-list-warning-end value="  i din teckenlista."/>
 			<cloud-invalid-warning value="Felaktig sökväg."/>
 			<cloud-restart-warning value="Starta om Notepad++ för att ändringarna ska träda i kraft."/>
+			<shift-change-direction-tip value="Använd Shift+Enter för att söka i motsatt riktning."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

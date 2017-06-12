@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name = "Arabic" RTL="yes" filename="arabic.xml" >
-		<Menu>
-			<Main>
+    <Native-Langue name="Arabic" RTL="yes" filename="arabic.xml">
+        <Menu>
+            <Main>
                 <!-- Main Menu Entries -->
-				<Entries>
-					<Item menuId="file" name = "&amp;ملف"/>
-					<Item menuId="edit" name = "&amp;تحرير"/>
-					<Item menuId="search" name = "&amp;بحث"/>
-					<Item menuId="view" name = "&amp;عرض"/>
-					<Item menuId="encoding" name = "ت&amp;نسيق"/>
-					<Item menuId="language" name = "&amp;لغة البرمجة"/>
-					<Item menuId="settings" name = "&amp;إعدادات"/>
-					<Item menuId="macro" name = "ماكرو"/>
-					<Item menuId="run" name = "تشغيل"/>
-				</Entries>
+                <Entries>
+                    <Item menuId="file" name="&amp;ملف"/>
+                    <Item menuId="edit" name="&amp;تحرير"/>
+                    <Item menuId="search" name="&amp;بحث"/>
+                    <Item menuId="view" name="&amp;عرض"/>
+                    <Item menuId="encoding" name="ت&amp;نسيق"/>
+                    <Item menuId="language" name="&amp;لغة البرمجة"/>
+                    <Item menuId="settings" name="&amp;إعدادات"/>
+                    <Item menuId="macro" name="ماكرو"/>
+                    <Item menuId="run" name="تشغيل"/>
+                </Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -22,259 +22,239 @@
 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id = "41001" name = "&amp;جديد	Ctrl+N"/>
-                    <Item id = "41002" name = "&amp;فتح	Ctrl+O"/>
-                    <Item id = "41003" name = "إغلاق	Ctrl+W"/>
-                    <Item id = "41004" name = "إ&amp;غلاق الكل"/>
-                    <Item id = "41005" name = "إغلاق الكل ما عدا المستند الحالي"/>
-                    <Item id = "41006" name = "&amp;حفظ	Ctrl+S"/>
-                    <Item id = "41007" name = "حف&amp;ظ الكل	Ctrl+Shift+S"/>
-                    <Item id = "41008" name = "حفظ &amp;على..."/>
-                    <Item id = "41010" name = "طباعة...	Ctrl+P"/>
-                    <Item id = "41011" name = "خ&amp;روج"/>
+                    <Item id="41001" name="&amp;جديد	Ctrl+N"/>
+                    <Item id="41002" name="&amp;فتح	Ctrl+O"/>
+                    <Item id="41003" name="إغلاق	Ctrl+W"/>
+                    <Item id="41004" name="إ&amp;غلاق الكل"/>
+                    <Item id="41005" name="إغلاق الكل ما عدا المستند الحالي"/>
+                    <Item id="41006" name="&amp;حفظ	Ctrl+S"/>
+                    <Item id="41007" name="حف&amp;ظ الكل	Ctrl+Shift+S"/>
+                    <Item id="41008" name="حفظ &amp;على..."/>
+                    <Item id="41010" name="طباعة...	Ctrl+P"/>
+                    <Item id="41011" name="خ&amp;روج"/>
 
-                    <Item id = "41012" name = "تحميل جلسة..."/>
-                    <Item id = "41013" name = "حفظ جلسة..."/>
+                    <Item id="41012" name="تحميل جلسة..."/>
+                    <Item id="41013" name="حفظ جلسة..."/>
 
-                    <Item id = "42001" name = "ق&amp;ص	Ctrl+X"/>
-                    <Item id = "42002" name = "&amp;نسخ	Ctrl+C"/>
-                    <Item id = "42003" name = "&amp;تراجع	Ctrl+Z"/>
-                    <Item id = "42004" name = "&amp;تقدم	Ctrl+Y"/>
-                    <Item id = "42005" name = "&amp;لصق	Ctrl+V"/>
-                    <Item id = "42006" name = "&amp;حذف	Del"/>
-                    <Item id = "42007" name = "إختيار ال&amp;كل	Ctrl+A"/>
-                    <Item id = "42008" name = "إدخال تاب	TAB"/>
-                    <Item id = "42009" name = "ألغ تاب	Shift+TAB"/>
-                    <Item id = "42010" name = "مضاعفة السطر الحالي	Ctrl+D"/>
-                    <Item id = "42011" name = "أنقل السطر الحالي	Ctrl+T"/>
-                    <Item id = "42012" name = "تقسيم أسطر	Ctrl+I"/>
-                    <Item id = "42013" name = "ربط أسطر	Ctrl+J"/>
-                    <Item id = "42014" name = "نقل السطر الحالي إلى أعلى	Ctrl+Shift+Up"/>
-                    <Item id = "42015" name = "نقل السطر الحالي إلى أسفل	Ctrl+Shift+Down"/>
-                    <Item id = "42016" name = "أحرف إنجليزية كبيرة	Ctrl+Shift+U"/>
-                    <Item id = "42017" name = "أحرف إنجليزية صغيرة	Ctrl+U"/>
-                    <Item id = "42018" name = "&amp;بدء التسجيل	Ctrl+Shift+R"/>
-                    <Item id = "42019" name = "&amp;إيقاف التسجيل	Ctrl+Shift+R"/>
-                    <Item id = "42021" name = "&amp;إعادة	Ctrl+Shift+P"/>
-                    <Item id = "42022" name = "زمرة تعليق/إلغاء تعليق"/>
-                    <Item id = "42023" name = "تعليق مستمر"/>
-                    <Item id = "42024" name = "حذف المسافات بالنهاية"/>
-                    <Item id = "42025" name = "حفظ الماكرو الحالية المسجلة"/>
-                    <Item id = "42026" name = "اتجاه النص من اليمين إلى اليسار	Ctrl+Alt+R"/>
-                    <Item id = "42027" name = "اتجاه النص من اليسار إلى اليمين	Ctrl+Alt+L"/>
+                    <Item id="42001" name="ق&amp;ص	Ctrl+X"/>
+                    <Item id="42002" name="&amp;نسخ	Ctrl+C"/>
+                    <Item id="42003" name="&amp;تراجع	Ctrl+Z"/>
+                    <Item id="42004" name="&amp;تقدم	Ctrl+Y"/>
+                    <Item id="42005" name="&amp;لصق	Ctrl+V"/>
+                    <Item id="42006" name="&amp;حذف	Del"/>
+                    <Item id="42007" name="إختيار ال&amp;كل	Ctrl+A"/>
+                    <Item id="42008" name="إدخال تاب	TAB"/>
+                    <Item id="42009" name="ألغ تاب	Shift+TAB"/>
+                    <Item id="42010" name="مضاعفة السطر الحالي	Ctrl+D"/>
+                    <Item id="42011" name="أنقل السطر الحالي	Ctrl+T"/>
+                    <Item id="42012" name="تقسيم أسطر	Ctrl+I"/>
+                    <Item id="42013" name="ربط أسطر	Ctrl+J"/>
+                    <Item id="42014" name="نقل السطر الحالي إلى أعلى	Ctrl+Shift+Up"/>
+                    <Item id="42015" name="نقل السطر الحالي إلى أسفل	Ctrl+Shift+Down"/>
+                    <Item id="42016" name="أحرف إنجليزية كبيرة	Ctrl+Shift+U"/>
+                    <Item id="42017" name="أحرف إنجليزية صغيرة	Ctrl+U"/>
+                    <Item id="42018" name="&amp;بدء التسجيل	Ctrl+Shift+R"/>
+                    <Item id="42019" name="&amp;إيقاف التسجيل	Ctrl+Shift+R"/>
+                    <Item id="42021" name="&amp;إعادة	Ctrl+Shift+P"/>
+                    <Item id="42022" name="زمرة تعليق/إلغاء تعليق"/>
+                    <Item id="42023" name="تعليق مستمر"/>
+                    <Item id="42024" name="حذف المسافات بالنهاية"/>
+                    <Item id="42025" name="حفظ الماكرو الحالية المسجلة"/>
+                    <Item id="42026" name="اتجاه النص من اليمين إلى اليسار	Ctrl+Alt+R"/>
+                    <Item id="42027" name="اتجاه النص من اليسار إلى اليمين	Ctrl+Alt+L"/>
 
-                    <Item id = "43001" name = "&amp;بحث...	Ctrl+F"/>
-                    <Item id = "43002" name = "إيجاد &amp;التالي	F3"/>
-                    <Item id = "43003" name = "إستبدال...	Ctrl+H"/>
-                    <Item id = "43004" name = "الذهاب إلى السطر	Ctrl+G"/>
-                    <Item id = "43005" name = "ثبت المؤشر	Ctrl+F2"/>
-                    <Item id = "43006" name = "المؤشر التالي	F2"/>
-                    <Item id = "43007" name = "المؤشر اللاحق	Shift+F2"/>
-                    <Item id = "43008" name = "مسح جميع المؤشرات"/>
-                    <Item id = "43009" name = "إذهب إلى القوس المطابق	Ctrl+B"/>
-                    <Item id = "43010" name = "إيجاد السابق	Shift+F3"/>
-                    <Item id = "43013" name = "بحث في الملفات	Ctrl+Shift+F"/>
-
-
+                    <Item id="43001" name="&amp;بحث...	Ctrl+F"/>
+                    <Item id="43002" name="إيجاد &amp;التالي	F3"/>
+                    <Item id="43003" name="إستبدال...	Ctrl+H"/>
+                    <Item id="43004" name="الذهاب إلى السطر	Ctrl+G"/>
+                    <Item id="43005" name="ثبت المؤشر	Ctrl+F2"/>
+                    <Item id="43006" name="المؤشر التالي	F2"/>
+                    <Item id="43007" name="المؤشر اللاحق	Shift+F2"/>
+                    <Item id="43008" name="مسح جميع المؤشرات"/>
+                    <Item id="43009" name="إذهب إلى القوس المطابق	Ctrl+B"/>
+                    <Item id="43010" name="إيجاد السابق	Shift+F3"/>
+                    <Item id="43013" name="بحث في الملفات	Ctrl+Shift+F"/>
 
 
+                    <Item id="44010" name="لف الكل	Alt+0"/>
+                    <Item id="44011" name="تعريف حوار المستخدم"/>
 
 
+                    <Item id="44019" name="أظهر كل الأحرف"/>
+                    <Item id="44020" name="أظهر موجه الطلب"/>
+
+                    <Item id="44022" name="غلِّف"/>
+                    <Item id="44023" name="&amp;تصغير	Ctrl-Mouse Wheel Up"/>
+                    <Item id="44024" name="تك&amp;بير	Ctrl-Mouse Wheel Down"/>
+                    <Item id="44025" name="أظهر المسافات البيضاء و تاب"/>
+                    <Item id="44026" name="أظهر نهاية السطر"/>
 
 
+                    <Item id="44029" name="عدم لف الكل	Alt+Shift+0"/>
+                    <Item id="44030" name=" ألغي المستوى الحالي	Ctrl+Alt+F"/>
+                    <Item id="44031" name="لا تلغي المستوى الحالي	Ctrl+Alt+Shift+F"/>
+                    <Item id="44032" name="تكبير الشاشة 	F11"/>
+                    <Item id="44033" name="إعدادات التقريب الإفتراضية	Ctrl+/(keypad)"/>
+                    <Item id="44034" name="دائماً بالأعلى"/>
+                    <Item id="44035" name="تزامن التحريك العمودي"/>
+                    <Item id="44036" name="تزامن التحريك الأفقي"/>
+                    <Item id="45001" name="حول لصيغة ويندوز"/>
+                    <Item id="45002" name="حول لصيغة يونيكس"/>
+                    <Item id="45003" name="حول لصيغة ماكنتوش"/>
+                    <Item id="45004" name="رمز لـ ANSI"/>
+                    <Item id="45005" name="رمز لـ UTF-8"/>
+                    <Item id="45006" name=" رمز لـ (UCS-2 Big Endian)"/>
+                    <Item id="45007" name=" رمز لـ (UCS-2 Little Endian)"/>
+                    <Item id="45008" name=" رمز لـ (UTF-8 (without BOM))"/>
+
+                    <Item id="10001" name="إذهب إلى منظر آخر"/>
+                    <Item id="10002" name="انسخ إلى منظر آخر"/>
+
+                    <Item id="46001" name="نمط معرف ..."/>
+                    <Item id="47000" name="حول...	F1"/>
 
 
-                    <Item id = "44010" name = "لف الكل	Alt+0"/>
-                    <Item id = "44011" name = "تعريف حوار المستخدم"/>
+                    <Item id="48009" name="راسم الإختصار..."/>
 
-
-
-
-
-
-
-                    <Item id = "44019" name = "أظهر كل الأحرف"/>
-                    <Item id = "44020" name = "أظهر موجه الطلب"/>
-
-                    <Item id = "44022" name = "غلِّف"/>
-                    <Item id = "44023" name = "&amp;تصغير	Ctrl-Mouse Wheel Up"/>
-                    <Item id = "44024" name = "تك&amp;بير	Ctrl-Mouse Wheel Down"/>
-                    <Item id = "44025" name = "أظهر المسافات البيضاء و تاب"/>
-                    <Item id = "44026" name = "أظهر نهاية السطر"/>
-
-
-                    <Item id = "44029" name = "عدم لف الكل	Alt+Shift+0"/>
-                    <Item id = "44030" name = " ألغي المستوى الحالي	Ctrl+Alt+F"/>
-                    <Item id = "44031" name = "لا تلغي المستوى الحالي	Ctrl+Alt+Shift+F"/>
-                    <Item id = "44032" name = "تكبير الشاشة 	F11"/>
-                    <Item id = "44033" name = "إعدادات التقريب الإفتراضية	Ctrl+/(keypad)"/>
-                    <Item id = "44034" name = "دائماً بالأعلى"/>
-                    <Item id = "44035" name = "تزامن التحريك العمودي"/>
-                    <Item id = "44036" name = "تزامن التحريك الأفقي"/>
-                    <Item id = "45001" name = "حول لصيغة ويندوز"/>
-                    <Item id = "45002" name = "حول لصيغة يونيكس"/>
-                    <Item id = "45003" name = "حول لصيغة ماكنتوش"/>
-                    <Item id = "45004" name = "رمز لـ ANSI"/>
-                    <Item id = "45005" name = "رمز لـ UTF-8"/>
-                    <Item id = "45006" name = " رمز لـ (UCS-2 Big Endian)"/>
-                    <Item id = "45007" name = " رمز لـ (UCS-2 Little Endian)"/>
-                    <Item id = "45008" name = " رمز لـ (UTF-8 (without BOM))"/>
-
-                    <Item id = "10001" name = "إذهب إلى منظر آخر"/>
-                    <Item id = "10002" name = "انسخ إلى منظر آخر"/>
-
-                    <Item id = "46001" name = "نمط معرف ..."/>
-                    <Item id = "47000" name = "حول...	F1"/>
-
-
-
-
-
-
-
-
-
-                    <Item id = "48009" name = "راسم الإختصار..."/>
-
-                    <Item id = "49000" name = "&amp;تشغيل..."/>
+                    <Item id="49000" name="&amp;تشغيل..."/>
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID = "0" name = "اغلقني"/>
-                    <Item CMID = "1" name = "اغلقهم كلهم ماعداي"/>
-                    <Item CMID = "2" name = "احفظني"/>
-                    <Item CMID = "3" name = "احفظني باسم ..."/>
-                    <Item CMID = "4" name = "اطبعني"/>
-                    <Item CMID = "5" name = "اذهب الى منظر آخر"/>
-                    <Item CMID = "6" name = "انسخ الى منظر آخر"/>
+                <Item CMID="0" name="اغلقني"/>
+                <Item CMID="1" name="اغلقهم كلهم ماعداي"/>
+                <Item CMID="2" name="احفظني"/>
+                <Item CMID="3" name="احفظني باسم ..."/>
+                <Item CMID="4" name="اطبعني"/>
+                <Item CMID="5" name="اذهب الى منظر آخر"/>
+                <Item CMID="6" name="انسخ الى منظر آخر"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title = "جد... ">
-                <Item id = "1" name = "جِد التالي"/>
-                <Item id = "2" name = "اغلق"/>
-                <Item id = "1620" name = "ابحث عن:"/>
-                <Item id = "1603" name = "طابق &amp;كامل الكلمة فقط"/>
-                <Item id = "1604" name = "طابق &amp;حالة"/>
-                <Item id = "1605" name = "اعتيادي &amp;التعبير"/>
-                <Item id = "1606" name = "حول التغليف&amp;"/>
-                <Item id = "1612" name = "&amp;فوق"/>
-                <Item id = "1613" name = "&amp;اسفل"/>
-                <Item id = "1614" name = "عد"/>
-                <Item id = "1615" name = "جد الكل"/>
-                <Item id = "1616" name = "خط معلَّم"/>
-                <Item id = "1617" name = "أسلوب إيجاد النموذج"/>
-                <Item id = "1618" name = "إزلة لكل بحث"/>
-                <Item id = "1621" name = "اتجاه"/>
-                <Item id = "1611" name = "أعد&amp;استبدل بـ:"/>
-                <Item id = "1608" name = "&amp;اعد استبدال"/>
-                <Item id = "1609" name = "اعد استبدال &amp;الكل"/>
-			 	<Item id = "1623" name = "الوضوح"/>
-			 	<Item id = "1632" name = "في الإختيار"/>
-			 	<Item id = "1633" name = "امسح"/>
-			 	<Item id = "1635" name = "إستبدال الكل في جميع المستندات المفتوحة"/>
-			 	<Item id = "1636" name = "إيجاد الكل في جميع المستندات المفتوحة"/>
-			 	<Item id = "1637" name = "ابحث في الملف"/>
+            <Find title="جد... ">
+                <Item id="1" name="جِد التالي"/>
+                <Item id="2" name="اغلق"/>
+                <Item id="1620" name="ابحث عن:"/>
+                <Item id="1603" name="طابق &amp;كامل الكلمة فقط"/>
+                <Item id="1604" name="طابق &amp;حالة"/>
+                <Item id="1605" name="اعتيادي &amp;التعبير"/>
+                <Item id="1606" name="حول التغليف&amp;"/>
+                <Item id="1612" name="&amp;فوق"/>
+                <Item id="1613" name="&amp;اسفل"/>
+                <Item id="1614" name="عد"/>
+                <Item id="1615" name="جد الكل"/>
+                <Item id="1616" name="خط معلَّم"/>
+                <Item id="1617" name="أسلوب إيجاد النموذج"/>
+                <Item id="1618" name="إزلة لكل بحث"/>
+                <Item id="1621" name="اتجاه"/>
+                <Item id="1611" name="أعد&amp;استبدل بـ:"/>
+                <Item id="1608" name="&amp;اعد استبدال"/>
+                <Item id="1609" name="اعد استبدال &amp;الكل"/>
+                <Item id="1623" name="الوضوح"/>
+                <Item id="1632" name="في الإختيار"/>
+                <Item id="1633" name="امسح"/>
+                <Item id="1635" name="إستبدال الكل في جميع المستندات المفتوحة"/>
+                <Item id="1636" name="إيجاد الكل في جميع المستندات المفتوحة"/>
+                <Item id="1637" name="ابحث في الملف"/>
             </Find>
-            <Item id = "1640" name = "خيارات المحاورة"/>
-            <GoToLine title = "اذهب للسطر رقم ">
-                <Item id = "1" name = "&amp;اذهب!"/>
-                <Item id = "2" name = "أنا ذاهب للا مكان"/>
-                <Item id = "2004" name = "أنت هنا:"/>
-                <Item id = "2005" name = "أنت تريد الذهاب :"/>
-                <Item id = "2006" name = "أنت لا تستطيع الذهاب أكثر من: "/>
+            <Item id="1640" name="خيارات المحاورة"/>
+            <GoToLine title="اذهب للسطر رقم ">
+                <Item id="1" name="&amp;اذهب!"/>
+                <Item id="2" name="أنا ذاهب للا مكان"/>
+                <Item id="2004" name="أنت هنا:"/>
+                <Item id="2005" name="أنت تريد الذهاب :"/>
+                <Item id="2006" name="أنت لا تستطيع الذهاب أكثر من: "/>
             </GoToLine>
 
-            <Run title = "شغل ...">
-                <Item id = "1903" name = "اكتب برنامجك ليشغل هنا"/>
-                <Item id = "1" name = "شغل!"/>
-                <Item id = "2" name = "ألغي"/>
-                <Item id = "1904" name = "احفظ ..."/>
+            <Run title="شغل ...">
+                <Item id="1903" name="اكتب برنامجك ليشغل هنا"/>
+                <Item id="1" name="شغل!"/>
+                <Item id="2" name="ألغي"/>
+                <Item id="1904" name="احفظ ..."/>
             </Run>
 
-            <StyleConfig title = "معرف الأنماط">
-				<Item id = "1" name = "جربها!"/>
-				<Item id = "2" name = "ألغي"/>
-				<Item id = "2301" name = "احفظ &amp;&amp; أغلق"/>
-				<Item id = "2303" name = "الشفافية"/>
+            <StyleConfig title="معرف الأنماط">
+                <Item id="1" name="جربها!"/>
+                <Item id="2" name="ألغي"/>
+                <Item id="2301" name="احفظ &amp;&amp; أغلق"/>
+                <Item id="2303" name="الشفافية"/>
 
                 <SubDialog>
-                	<Item id = "2204" name = "غامق"/>
-                    <Item id = "2205" name = "مائل"/>
-                    <Item id = "2206" name = "اللون الأمامي"/>
-                    <Item id = "2207" name = "لون الخلفية"/>
-                    <Item id = "2208" name = "اسم الخط:"/>
-                    <Item id = "2209" name = "حجم الخط:"/>
-                    <Item id = "2210" name = "احذر: تعريف هذا النمط سيصبح التعريف الإعتيادي للإنماط المعرفة جميعها"/>
-                    <Item id = "2211" name = "نمط الوصف"/>
-                    <Item id = "2212" name = "نمط اللون"/>
-                    <Item id = "2213" name = "نمط الخط"/>
-                    <Item id = "2214" name = "خروج عادي:"/>
-                    <Item id = "2216" name = "خروج المستخدم:"/>
-                    <Item id = "2218" name = "خط بالأسفل"/>
-                    <Item id = "2219" name = "كلمات دالة اعتيادية"/>
-                    <Item id = "2221" name = "كلمات دالة معرفة من المستخدم"/>
+                    <Item id="2204" name="غامق"/>
+                    <Item id="2205" name="مائل"/>
+                    <Item id="2206" name="اللون الأمامي"/>
+                    <Item id="2207" name="لون الخلفية"/>
+                    <Item id="2208" name="اسم الخط:"/>
+                    <Item id="2209" name="حجم الخط:"/>
+                    <Item id="2210" name="احذر: تعريف هذا النمط سيصبح التعريف الإعتيادي للإنماط المعرفة جميعها"/>
+                    <Item id="2211" name="نمط الوصف"/>
+                    <Item id="2212" name="نمط اللون"/>
+                    <Item id="2213" name="نمط الخط"/>
+                    <Item id="2214" name="خروج عادي:"/>
+                    <Item id="2216" name="خروج المستخدم:"/>
+                    <Item id="2218" name="خط بالأسفل"/>
+                    <Item id="2219" name="كلمات دالة اعتيادية"/>
+                    <Item id="2221" name="كلمات دالة معرفة من المستخدم"/>
                 </SubDialog>
 
             </StyleConfig>
 
-            <UserDefine title = "معرف المستخدم">
-				<Item id = "20002" name = "اعادة تسمية"/>
-				<Item id = "20003" name = "جديدة..."/>
-				<Item id = "20004" name = "أزالة"/>
-				<Item id = "20005" name = "احفظ باسم ..."/>
-				<Item id = "20007" name = "لغة المستخدم: "/>
-				<Item id = "20009" name = "خروج:"/>
-				<Item id = "20012" name = "تجاهل الحالة"/>
-				<Item id = "20011" name = "الشفافية"/>
-				<Item id = "0" name = "نمط اللون"/>
-				<Item id = "1" name = "اللون الأمامي"/>
-				<Item id = "2" name = "لون الخلفية"/>
-				<Item id = "3" name = "نمط الخط"/>
-				<Item id = "4" name = "اسم الخط:"/>
-				<Item id = "5" name = "حجم الخط:"/>
-				<Item id = "6" name = "غامق"/>
-				<Item id = "7" name = "مائل"/>
-				<Item id = "8" name = "خط بالأسفل"/>
-                <Folder title = "المجلد &amp;&amp; الإفتراضي">
-					<Item id = "21101" name = "نمط الإعدادات القياسي"/>
-					<Item id = "21201" name = "فتح مجلد إعدادات الكلمات الدالة"/>
-					<Item id = "21301" name = "إغلاق مجلد إعدادات الكلمات الدالة"/>
+            <UserDefine title="معرف المستخدم">
+                <Item id="20002" name="اعادة تسمية"/>
+                <Item id="20003" name="جديدة..."/>
+                <Item id="20004" name="أزالة"/>
+                <Item id="20005" name="احفظ باسم ..."/>
+                <Item id="20007" name="لغة المستخدم: "/>
+                <Item id="20009" name="خروج:"/>
+                <Item id="20012" name="تجاهل الحالة"/>
+                <Item id="20011" name="الشفافية"/>
+                <Item id="0" name="نمط اللون"/>
+                <Item id="1" name="اللون الأمامي"/>
+                <Item id="2" name="لون الخلفية"/>
+                <Item id="3" name="نمط الخط"/>
+                <Item id="4" name="اسم الخط:"/>
+                <Item id="5" name="حجم الخط:"/>
+                <Item id="6" name="غامق"/>
+                <Item id="7" name="مائل"/>
+                <Item id="8" name="خط بالأسفل"/>
+                <Folder title="المجلد &amp;&amp; الإفتراضي">
+                    <Item id="21101" name="نمط الإعدادات القياسي"/>
+                    <Item id="21201" name="فتح مجلد إعدادات الكلمات الدالة"/>
+                    <Item id="21301" name="إغلاق مجلد إعدادات الكلمات الدالة"/>
                 </Folder>
-                <Keywords title = "قوائم الكلمات الدالة">
-					<Item id = "22101" name = "المجموعة الأولى"/>
-					<Item id = "22201" name = "المجموعة الثانية"/>
-					<Item id = "22301" name = "المجموعة الثالثة"/>
-					<Item id = "22401" name = "المجموعة الرابعة"/>
-					<Item id = "22113" name = "نمط البادئ"/>
-					<Item id = "22213" name = "نمط البادئ"/>
-					<Item id = "22313" name = "نمط البادئ"/>
-					<Item id = "22413" name = "نمط البادئ"/>
+                <Keywords title="قوائم الكلمات الدالة">
+                    <Item id="22101" name="المجموعة الأولى"/>
+                    <Item id="22201" name="المجموعة الثانية"/>
+                    <Item id="22301" name="المجموعة الثالثة"/>
+                    <Item id="22401" name="المجموعة الرابعة"/>
+                    <Item id="22113" name="نمط البادئ"/>
+                    <Item id="22213" name="نمط البادئ"/>
+                    <Item id="22313" name="نمط البادئ"/>
+                    <Item id="22413" name="نمط البادئ"/>
                 </Keywords>
-                <Comment title = "التعليق &amp;&amp; رقم">
-					<Item id = "23301" name = "تعليق سطر"/>
-					<Item id = "23101" name = "تعليق مجموعة"/>
-					<Item id = "23113" name = "فتح التعليق:"/>
-					<Item id = "23115" name = "غلق التعليق:"/>
-					<Item id = "23116" name = "عامل الكلمات الدالة كرموز"/>
-					<Item id = "23117" name = "عامل الكلمات الدالة كرموز"/>
-					<Item id = "23201" name = "رقم"/>
+                <Comment title="التعليق &amp;&amp; رقم">
+                    <Item id="23301" name="تعليق سطر"/>
+                    <Item id="23101" name="تعليق مجموعة"/>
+                    <Item id="23113" name="فتح التعليق:"/>
+                    <Item id="23115" name="غلق التعليق:"/>
+                    <Item id="23116" name="عامل الكلمات الدالة كرموز"/>
+                    <Item id="23117" name="عامل الكلمات الدالة كرموز"/>
+                    <Item id="23201" name="رقم"/>
                 </Comment>
-                <Operator title = "المشغلات">
-					<Item id = "24107" name = "المشغل"/>
-					<Item id = "24103" name = "الرموز المتوفرة"/>
-					<Item id = "24101" name = "المشغلات الناشطة"/>
-					<Item id = "24201" name = "ديليميتر 1"/>
-					<Item id = "24211" name = "الحد مفتوح:"/>
-					<Item id = "24214" name = "الحد مغلق:"/>
-					<Item id = "24301" name = "ديليميتر 2"/>
-					<Item id = "24311" name = "الحد مفتوح:"/>
-					<Item id = "24314" name = "الحد مغلق:"/>
+                <Operator title="المشغلات">
+                    <Item id="24107" name="المشغل"/>
+                    <Item id="24103" name="الرموز المتوفرة"/>
+                    <Item id="24101" name="المشغلات الناشطة"/>
+                    <Item id="24201" name="ديليميتر 1"/>
+                    <Item id="24211" name="الحد مفتوح:"/>
+                    <Item id="24214" name="الحد مغلق:"/>
+                    <Item id="24301" name="ديليميتر 2"/>
+                    <Item id="24311" name="الحد مفتوح:"/>
+                    <Item id="24314" name="الحد مغلق:"/>
                 </Operator>
             </UserDefine>
-		</Dialog>
+        </Dialog>
     </Native-Langue>
 </NotepadPlus>

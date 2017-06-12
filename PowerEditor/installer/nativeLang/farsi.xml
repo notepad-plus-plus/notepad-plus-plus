@@ -22,7 +22,7 @@
                     <Item subMenuId="file-openFolder" name="بازکردن پوشه محتویات"/>
                     <Item subMenuId="file-closeMore" name="بستن بیشتر"/>
                     <Item subMenuId="file-recentFiles" name="فایل های اخیر"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="کپی به کلیپ برد"/>
+                    <Item subMenuId="edit-copyToClipboard" name="کپی به کلیپ برد"/>
                     <Item subMenuId="edit-indent" name="لبه دادن"/>
                     <Item subMenuId="edit-convertCaseTo" name="تبدیل به"/>
                     <Item subMenuId="edit-lineOperations" name="عملکردهای خط"/>
@@ -37,31 +37,31 @@
                     <Item subMenuId="search-jumpUp" name="پرش بالا"/>
                     <Item subMenuId="search-jumpDown" name="پرش پایین"/>
                     <Item subMenuId="search-bookmark" name="بوکمارک"/>
-                    <Item subMenuId="view-showSymbol"  name="نمایش نماد"/>
-                    <Item subMenuId="view-zoom"  name="زوم"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="انتقال/شبیه سازی سند فعلی"/>
-                    <Item subMenuId="view-tab"  name="تب"/>
+                    <Item subMenuId="view-showSymbol" name="نمایش نماد"/>
+                    <Item subMenuId="view-zoom" name="زوم"/>
+                    <Item subMenuId="view-moveCloneDocument" name="انتقال/شبیه سازی سند فعلی"/>
+                    <Item subMenuId="view-tab" name="تب"/>
                     <Item subMenuId="view-collapseLevel" name="سطح بستن"/>
                     <Item subMenuId="view-uncollapseLevel" name="سطح بازکردن"/>
                     <Item subMenuId="view-project" name="پروژه"/>
-                    <Item subMenuId="encoding-characterSets"  name="تنظیم کاراکتر"/>
-                    <Item subMenuId="encoding-arabic"  name="عربی"/>
-                    <Item subMenuId="encoding-baltic"  name="بالتیک"/>
-                    <Item subMenuId="encoding-celtic"  name="سلتی"/>
-                    <Item subMenuId="encoding-cyrillic"  name="سیریلیک"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="اُروپای مرکزی"/>
-                    <Item subMenuId="encoding-chinese"  name="چینی"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="اُروپای شرقی"/>
-                    <Item subMenuId="encoding-greek"  name="یونانی"/>
-                    <Item subMenuId="encoding-hebrew"  name="عبری"/>
-                    <Item subMenuId="encoding-japanese"  name="ژاپنی"/>
+                    <Item subMenuId="encoding-characterSets" name="تنظیم کاراکتر"/>
+                    <Item subMenuId="encoding-arabic" name="عربی"/>
+                    <Item subMenuId="encoding-baltic" name="بالتیک"/>
+                    <Item subMenuId="encoding-celtic" name="سلتی"/>
+                    <Item subMenuId="encoding-cyrillic" name="سیریلیک"/>
+                    <Item subMenuId="encoding-centralEuropean" name="اُروپای مرکزی"/>
+                    <Item subMenuId="encoding-chinese" name="چینی"/>
+                    <Item subMenuId="encoding-easternEuropean" name="اُروپای شرقی"/>
+                    <Item subMenuId="encoding-greek" name="یونانی"/>
+                    <Item subMenuId="encoding-hebrew" name="عبری"/>
+                    <Item subMenuId="encoding-japanese" name="ژاپنی"/>
                     <Item subMenuId="encoding-korean" name="کره ای"/>
                     <Item subMenuId="encoding-northEuropean" name="اُروپای شمالی"/>
                     <Item subMenuId="encoding-thai" name="تایلندی"/>
                     <Item subMenuId="encoding-turkish" name="ترکی"/>
                     <Item subMenuId="encoding-westernEuropean" name="اُروپای غربی"/>
                     <Item subMenuId="encoding-vietnamese" name="ویتنامی"/>
-                    <Item subMenuId="settings-import"  name="واردکردن"/>
+                    <Item subMenuId="settings-import" name="واردکردن"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -79,7 +79,7 @@
                     <Item id="41007" name="ذخیره همه"/>
                     <Item id="41008" name="ذخیره بعنوان.."/>
                     <Item id="41010" name="چاپ.."/>
-                    <Item id="1001"  name="حالا چاپ کن"/>
+                    <Item id="1001" name="حالا چاپ کن"/>
                     <Item id="41011" name="خروج"/>
                     <Item id="41012" name="بارگیری جلسه..."/>
                     <Item id="41013" name="ذخیره جلسه..."/>
@@ -121,10 +121,10 @@
                     <Item id="42070" name="(اولین حرف هر جمله بزرگ (ترکیبی"/>
                     <Item id="42071" name="معکوس کردن حروف بزرگ و کوچک"/>
                     <Item id="42072" name="بزرگی و کوچکی حروف تصادفی"/>
-					<Item id="42073" name="بازکردن فایل"/>
-					<Item id="42074" name="بازکردن پوشه شامل در اکسپلورر"/>
-					<Item id="42075" name="جستجو در اینترنت"/>
-					<Item id="42076" name="تغییر موتور جستجو..."/>
+                    <Item id="42073" name="بازکردن فایل"/>
+                    <Item id="42074" name="بازکردن پوشه شامل در اکسپلورر"/>
+                    <Item id="42075" name="جستجو در اینترنت"/>
+                    <Item id="42076" name="تغییر موتور جستجو..."/>
                     <Item id="42018" name="شروع ضبط"/>
                     <Item id="42019" name="توقف ضبط"/>
                     <Item id="42021" name="پخش"/>
@@ -213,7 +213,7 @@
                     <Item id="43047" name="نتیجه جستجوی قبلی"/>
                     <Item id="43048" name="انتخاب و یافتن بعدی"/>
                     <Item id="43049" name="انتخاب و یافتن قبلی"/>
-					<Item id="43054" name="علامت گذاری..."/>
+                    <Item id="43054" name="علامت گذاری..."/>
                     <Item id="44009" name="حالت پست ایت"/>
                     <Item id="44010" name="بستن همه"/>
                     <Item id="44019" name="نمایش همه کاراکترها"/>
@@ -281,7 +281,7 @@
                     <Item id="47001" name="صفحه خانگی"/>
                     <Item id="47002" name="صفحه پروژه برنامه"/>
                     <Item id="47003" name="اسناد آنلاین"/>
-					<Item id="47004" name="انجمن برنامه"/>
+                    <Item id="47004" name="انجمن برنامه"/>
                     <Item id="47011" name="پشتیبانی زنده"/>
                     <Item id="47012" name="اطلاعات عیب یابی..."/>
                     <Item id="47005" name="دریافت افزونه ها..."/>
@@ -308,34 +308,34 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="بستن"/>
-                    <Item CMID="1" name="همه را جز این ببند"/>
-                    <Item CMID="2" name="ذخیره"/>
-                    <Item CMID="3" name="ذخیره بعنوان.."/>
-                    <Item CMID="4" name="چاپ"/>
-                    <Item CMID="5" name="انتقال به نمای دیگر"/>
-                    <Item CMID="6" name="شبیه سازی در نمای دیگر"/>
-                    <Item CMID="7" name="مسیر کامل فایل به کلیپ برد"/>
-                    <Item CMID="8" name="نام فایل به کلیپ برد"/>
-                    <Item CMID="9" name="مسیر دایرکتوری فعلی به کلیپ برد"/>
-                    <Item CMID="10" name="تغییرنام"/>
-                    <Item CMID="11" name="انتقال به سطل زباله"/>
-                    <Item CMID="12" name="فقط خواندنی"/>
-                    <Item CMID="13" name="پاکسازی نشانه فقط-خواندنی"/>
-                    <Item CMID="14" name="انتقال به نمونه جدید"/>
-                    <Item CMID="15" name="بازکردن در نمونه جدید"/>
-                    <Item CMID="16" name="بارگیری مجدد"/>
-                    <Item CMID="17" name="بستن همه به چپ"/>
-                    <Item CMID="18" name="بستن همه به راست"/>
-                    <Item CMID="19" name="بازکردن پوشه شامل در اکسپلورر"/>
-                    <Item CMID="20" name="بازکردن پوشه شامل در فرمان خطی"/>
+                <Item CMID="0" name="بستن"/>
+                <Item CMID="1" name="همه را جز این ببند"/>
+                <Item CMID="2" name="ذخیره"/>
+                <Item CMID="3" name="ذخیره بعنوان.."/>
+                <Item CMID="4" name="چاپ"/>
+                <Item CMID="5" name="انتقال به نمای دیگر"/>
+                <Item CMID="6" name="شبیه سازی در نمای دیگر"/>
+                <Item CMID="7" name="مسیر کامل فایل به کلیپ برد"/>
+                <Item CMID="8" name="نام فایل به کلیپ برد"/>
+                <Item CMID="9" name="مسیر دایرکتوری فعلی به کلیپ برد"/>
+                <Item CMID="10" name="تغییرنام"/>
+                <Item CMID="11" name="انتقال به سطل زباله"/>
+                <Item CMID="12" name="فقط خواندنی"/>
+                <Item CMID="13" name="پاکسازی نشانه فقط-خواندنی"/>
+                <Item CMID="14" name="انتقال به نمونه جدید"/>
+                <Item CMID="15" name="بازکردن در نمونه جدید"/>
+                <Item CMID="16" name="بارگیری مجدد"/>
+                <Item CMID="17" name="بستن همه به چپ"/>
+                <Item CMID="18" name="بستن همه به راست"/>
+                <Item CMID="19" name="بازکردن پوشه شامل در اکسپلورر"/>
+                <Item CMID="20" name="بازکردن پوشه شامل در فرمان خطی"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="یافتن" titleReplace="جایگزینی" titleFindInFiles="یافتن در فایل ها" titleMark="علامت گذاری">
-                <Item id="1"    name="یافتن بعدی"/>
-                <Item id="2"    name="بستن"/>
+                <Item id="1" name="یافتن بعدی"/>
+                <Item id="2" name="بستن"/>
                 <Item id="1620" name="یافتن:"/>
                 <Item id="1603" name="فقط تطبیق لغت کامل"/>
                 <Item id="1604" name="تطبیق حروف"/>
@@ -387,8 +387,8 @@
             <GoToLine title="برو به..">
                 <Item id="2007" name="خط"/>
                 <Item id="2008" name="آفست"/>
-                <Item id="1"    name="برو"/>
-                <Item id="2"    name="جایی نمی روم"/>
+                <Item id="1" name="برو"/>
+                <Item id="2" name="جایی نمی روم"/>
                 <Item id="2004" name="شما اینجا هستید:"/>
                 <Item id="2005" name="شما میخواهید بروید به:"/>
                 <Item id="2006" name="شما نمیتوانید بروید جلوتر از:"/>
@@ -396,13 +396,13 @@
 
             <Run title="اِجرا..">
                 <Item id="1903" name="برنامه برای اِجرا"/>
-                <Item id="1"    name="اِجرا"/>
-                <Item id="2"    name="لغو"/>
+                <Item id="1" name="اِجرا"/>
+                <Item id="2" name="لغو"/>
                 <Item id="1904" name="ذخیره.."/>
             </Run>
 
             <StyleConfig title="پیکربندی کننده سبک">
-                <Item id="2"    name="لغو"/>
+                <Item id="2" name="لغو"/>
                 <Item id="2301" name="ذخیره &amp;&amp; بستن"/>
                 <Item id="2303" name="پشت نمایی"/>
                 <Item id="2306" name="پوسته را انتخاب کنید:"/>
@@ -476,7 +476,7 @@
                     <Item id="25026" name="عملگر 1"/>
                     <Item id="25027" name="عملگر 2"/>
                     <Item id="25028" name="اعداد"/>
-					<Item id="1" name="تایید"/>
+                    <Item id="1" name="تایید"/>
                     <Item id="2" name="لغو"/>
                 </StylerDialog>
                 <Folder title="پوشه &amp;&amp; پیش فرض">
@@ -664,7 +664,7 @@
                     <Item id="6212" name="نوع خط"/>
                     <Item id="6213" name="حالت پس زمینه"/>
                     <Item id="6214" name="فعالسازی برجسته سازی خط فعلی"/>
-					<Item id="6215" name="فعالسازی نرمی فونت"/>
+                    <Item id="6215" name="فعالسازی نرمی فونت"/>
                     <Item id="6231" name="عرض کناره"/>
                     <Item id="6235" name="بدون لبه"/>
                     <Item id="6236" name="فعالسازی اسکرول بعد خط آخر"/>
@@ -703,7 +703,7 @@
                     <Item id="6506" name="آیتم های غیرفعال شده"/>
                     <Item id="6507" name="منوی زبان را کوچک کن"/>
                     <Item id="6508" name="منوی زبان"/>
-					<Item id="6301" name="تنظیمات تب"/>
+                    <Item id="6301" name="تنظیمات تب"/>
                     <Item id="6302" name="جایگزینی با فاصله"/>
                     <Item id="6303" name="اندازه تب:"/>
                     <Item id="6510" name="استفاده از مقدار پیش فرض"/>
@@ -712,9 +712,9 @@
                 <Highlighting title="برجسته سازی">
                     <Item id="6333" name="برجسته سازی هوشمند"/>
                     <Item id="6326" name="فعالسازی برجسته سازی هوشمند"/>
-					<Item id="6332" name="تطبیق حروف"/>
-					<Item id="6338" name="فقط تطبیق کامل کلمه"/>
-					<Item id="6339" name="از تنظیمات پنجره یافتن استفاده کن"/>
+                    <Item id="6332" name="تطبیق حروف"/>
+                    <Item id="6338" name="فقط تطبیق کامل کلمه"/>
+                    <Item id="6339" name="از تنظیمات پنجره یافتن استفاده کن"/>
                     <Item id="6329" name="تگ های مطابق را برجسته کن"/>
                     <Item id="6327" name="فعال کردن"/>
                     <Item id="6328" name="تگ های صفات را برجسته کن"/>
@@ -817,7 +817,7 @@
                     <Item id="6263" name="از اشبری استفاده نکن"/>
                     <Item id="6267" name="مکان مسیر اَبری خود را اینجا وارد کنید:"/>
                 </Cloud>
-				
+
                 <SearchEngine title="موتور جستجو">
                     <Item id="6271" name="(&quot;موتور جستجو (برای فرمان &quot;جستجو در اینترنت"/>
                     <Item id="6272" name="داک داک گو"/>
@@ -894,8 +894,8 @@
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="مقدار فایل ها برای بازشدن بزرگ هست" message="درصدد بازشدن هست $INT_REPLACE$ تعداد \rآیا میخواهید آنها را باز کنید؟"/>
-			<SettingsOnCloudError title="تنظیمات در اَبری" message="بنظر تنظیمات مسیر در اَبری در حالت فقط-خواندنی است یا،\rیا آن پوشه نیاز به سطح دسترسی بالاتر دارد\rتنظیمات اشبری لغو خواهد شد،لطفا مقدار همسان را در پنجره تنظیمات ریست کنید"/>
-			<FilePathNotFoundWarning title="بازکردن فایل" message="فایلی که سعی در باز کردن آن دارید،وجود ندارد"/>
+            <SettingsOnCloudError title="تنظیمات در اَبری" message="بنظر تنظیمات مسیر در اَبری در حالت فقط-خواندنی است یا،\rیا آن پوشه نیاز به سطح دسترسی بالاتر دارد\rتنظیمات اشبری لغو خواهد شد،لطفا مقدار همسان را در پنجره تنظیمات ریست کنید"/>
+            <FilePathNotFoundWarning title="بازکردن فایل" message="فایلی که سعی در باز کردن آن دارید،وجود ندارد"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="تاریخچه کلیپ برد"/>
@@ -916,8 +916,8 @@
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="لیست تابع"/>
-            <SortTip name="مرتبسازی" />
-            <ReloadTip name="بارگیری مجدد" />
+            <SortTip name="مرتبسازی"/>
+            <ReloadTip name="بارگیری مجدد"/>
         </FunctionList>
         <ProjectManager>
             <PanelTitle name="پروژه"/>

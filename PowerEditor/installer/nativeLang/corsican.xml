@@ -29,7 +29,7 @@
                     <Item subMenuId="file-openFolder" name="Apre u Cartulare Cuntenendu u Schedariu"/>
                     <Item subMenuId="file-closeMore" name="Chjode Altrimente"/>
                     <Item subMenuId="file-recentFiles" name="Schedarii Recenti"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Cupià ver di u Preme'Papei"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Cupià ver di u Preme'Papei"/>
                     <Item subMenuId="edit-indent" name="Indentazione"/>
                     <Item subMenuId="edit-convertCaseTo" name="Cunvertisce i Caratteri"/>
                     <Item subMenuId="edit-lineOperations" name="Operazioni nant'à a Linea"/>
@@ -44,32 +44,32 @@
                     <Item subMenuId="search-jumpUp" name="Andà Insù"/>
                     <Item subMenuId="search-jumpDown" name="Andà Inghjò"/>
                     <Item subMenuId="search-bookmark" name="Indetta"/>
-                    <Item subMenuId="view-showSymbol"  name="Affissà i Simbuli"/>
-                    <Item subMenuId="view-zoom"  name="Ingrandamentu"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Move/Duplicà u Ducumentu Attuale"/>
-                    <Item subMenuId="view-tab"  name="Unghjetta"/>
+                    <Item subMenuId="view-showSymbol" name="Affissà i Simbuli"/>
+                    <Item subMenuId="view-zoom" name="Ingrandamentu"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Move/Duplicà u Ducumentu Attuale"/>
+                    <Item subMenuId="view-tab" name="Unghjetta"/>
                     <Item subMenuId="view-collapseLevel" name="Ripiegà u Livellu"/>
                     <Item subMenuId="view-uncollapseLevel" name="Spiegà u Livellu"/>
                     <Item subMenuId="view-project" name="Prughjettu"/>
-                    <Item subMenuId="encoding-characterSets"  name="Inseme di Caratteri"/>
-                    <Item subMenuId="encoding-arabic"  name="Arabu"/>
-                    <Item subMenuId="encoding-baltic"  name="Balticu"/>
-                    <Item subMenuId="encoding-celtic"  name="Celtu"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Cirillicu"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Europeanu di u Centru"/>
-                    <Item subMenuId="encoding-chinese"  name="Chinese"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Europeanu di u Levante"/>
-                    <Item subMenuId="encoding-greek"  name="Grecu"/>
-                    <Item subMenuId="encoding-hebrew"  name="Ebreu"/>
-                    <Item subMenuId="encoding-japanese"  name="Giappunese"/>
+                    <Item subMenuId="encoding-characterSets" name="Inseme di Caratteri"/>
+                    <Item subMenuId="encoding-arabic" name="Arabu"/>
+                    <Item subMenuId="encoding-baltic" name="Balticu"/>
+                    <Item subMenuId="encoding-celtic" name="Celtu"/>
+                    <Item subMenuId="encoding-cyrillic" name="Cirillicu"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Europeanu di u Centru"/>
+                    <Item subMenuId="encoding-chinese" name="Chinese"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Europeanu di u Levante"/>
+                    <Item subMenuId="encoding-greek" name="Grecu"/>
+                    <Item subMenuId="encoding-hebrew" name="Ebreu"/>
+                    <Item subMenuId="encoding-japanese" name="Giappunese"/>
                     <Item subMenuId="encoding-korean" name="Cureanu"/>
                     <Item subMenuId="encoding-northEuropean" name="Europeanu di u Nordu"/>
                     <Item subMenuId="encoding-thai" name="Thai"/>
                     <Item subMenuId="encoding-turkish" name="Turcu"/>
                     <Item subMenuId="encoding-westernEuropean" name="Europeanu di u Punente"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
-                    <Item subMenuId="settings-import"  name="Impurtà"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="settings-import" name="Impurtà"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -87,7 +87,7 @@
                     <Item id="41007" name="Arregistrà &amp;Tuttu"/>
                     <Item id="41008" name="Arregistrà cù &amp;u Nome..."/>
                     <Item id="41010" name="&amp;Stampà..."/>
-                    <Item id="1001"  name="Stampà Subitu"/>
+                    <Item id="1001" name="Stampà Subitu"/>
                     <Item id="41011" name="&amp;Esce"/>
                     <Item id="41012" name="Caricà una Sessione..."/>
                     <Item id="41013" name="Arregistrà una Sessione..."/>
@@ -319,34 +319,34 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Chjode"/>
-                    <Item CMID="1" name="Chjode Tuttu FOR DI Què"/>
-                    <Item CMID="2" name="Arregistrà"/>
-                    <Item CMID="3" name="Arregistrà cù u Nome..."/>
-                    <Item CMID="4" name="Stampà"/>
-                    <Item CMID="5" name="Dispiazzà ver di l'Altra Vista"/>
-                    <Item CMID="6" name="Cupià in l'Altra Vista"/>
-                    <Item CMID="7" name="Passeghju Cumpletu ver di u Preme'papei"/>
-                    <Item CMID="8" name="Nome di Schedariu ver di u Preme'papei"/>
-                    <Item CMID="9" name="Cupià u Passeghju Cumpletu di u Cartulare Attuale"/>
-                    <Item CMID="10" name="Rinumà"/>
-                    <Item CMID="11" name="Dispiazzà ver di a Rumenzula"/>
-                    <Item CMID="12" name="Lettura-Sola"/>
-                    <Item CMID="13" name="Caccià a Marca di Lettura-Sola da u Ducumentu"/>
-                    <Item CMID="14" name="Dispiazzà ver di una Nova Finestra"/>
-                    <Item CMID="15" name="Apre in una Nova Finestra"/>
-                    <Item CMID="16" name="Ricaricà"/>
-                    <Item CMID="17" name="Chjode Tuttu à Manu Manca"/>
-                    <Item CMID="18" name="Chjode Tuttu à Manu Diritta"/>
-                    <Item CMID="19" name="Apre cù l'Espluratore u Cartulare Cuntenendu u Schedariu"/>
-                    <Item CMID="20" name="Apre cù l'Invitu di Cumanda u Cartulare Cuntenendu u Schedariu"/>
+                <Item CMID="0" name="Chjode"/>
+                <Item CMID="1" name="Chjode Tuttu FOR DI Què"/>
+                <Item CMID="2" name="Arregistrà"/>
+                <Item CMID="3" name="Arregistrà cù u Nome..."/>
+                <Item CMID="4" name="Stampà"/>
+                <Item CMID="5" name="Dispiazzà ver di l'Altra Vista"/>
+                <Item CMID="6" name="Cupià in l'Altra Vista"/>
+                <Item CMID="7" name="Passeghju Cumpletu ver di u Preme'papei"/>
+                <Item CMID="8" name="Nome di Schedariu ver di u Preme'papei"/>
+                <Item CMID="9" name="Cupià u Passeghju Cumpletu di u Cartulare Attuale"/>
+                <Item CMID="10" name="Rinumà"/>
+                <Item CMID="11" name="Dispiazzà ver di a Rumenzula"/>
+                <Item CMID="12" name="Lettura-Sola"/>
+                <Item CMID="13" name="Caccià a Marca di Lettura-Sola da u Ducumentu"/>
+                <Item CMID="14" name="Dispiazzà ver di una Nova Finestra"/>
+                <Item CMID="15" name="Apre in una Nova Finestra"/>
+                <Item CMID="16" name="Ricaricà"/>
+                <Item CMID="17" name="Chjode Tuttu à Manu Manca"/>
+                <Item CMID="18" name="Chjode Tuttu à Manu Diritta"/>
+                <Item CMID="19" name="Apre cù l'Espluratore u Cartulare Cuntenendu u Schedariu"/>
+                <Item CMID="20" name="Apre cù l'Invitu di Cumanda u Cartulare Cuntenendu u Schedariu"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Circà" titleReplace="Rimpiazzà" titleFindInFiles="Circà in Schedarii" titleMark="Marcà">
-                <Item id="1"    name="Circà Seguente"/>
-                <Item id="2"    name="Chjode"/>
+                <Item id="1" name="Circà Seguente"/>
+                <Item id="2" name="Chjode"/>
                 <Item id="1620" name="Cosa circà :"/>
                 <Item id="1603" name="&amp;Parolla sana deve currisponde"/>
                 <Item id="1604" name="&amp;Rispettà Maiuscule è minuscule"/>
@@ -398,8 +398,8 @@
             <GoToLine title="Andà à...">
                 <Item id="2007" name="Linea"/>
                 <Item id="2008" name="Offset"/>
-                <Item id="1"    name="&amp;Andà"/>
-                <Item id="2"    name="Ùn vocu inlocu"/>
+                <Item id="1" name="&amp;Andà"/>
+                <Item id="2" name="Ùn vocu inlocu"/>
                 <Item id="2004" name="Site quì :"/>
                 <Item id="2005" name="Vulete andà à :"/>
                 <Item id="2006" name="Ùn pudete andà più chì :"/>
@@ -407,25 +407,25 @@
 
             <Run title="Eseguisce...">
                 <Item id="1903" name="U Prugramma à Eseguisce"/>
-                <Item id="1"    name="Eseguisce"/>
-                <Item id="2"    name="Abbandunà"/>
+                <Item id="1" name="Eseguisce"/>
+                <Item id="2" name="Abbandunà"/>
                 <Item id="1904" name="Arregistrà..."/>
             </Run>
 
             <MD5FromFilesDlg title="Calculà l'impronta numerica MD5 à partesi di schedarii">
                 <Item id="1922" name="Sceglie i schedarii per calculà l'impronta..."/>
                 <Item id="1924" name="Cupià ver di u Preme'Papei"/>
-                <Item id="2"    name="Chjode"/>
+                <Item id="2" name="Chjode"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Calculà l'impronta numerica MD5">
                 <Item id="1932" name="Cunsiderà ogni linea cum'è una frasa separata"/>
                 <Item id="1934" name="Cupià ver di u Preme'Papei"/>
-                <Item id="2"    name="Chjode"/>
+                <Item id="2" name="Chjode"/>
             </MD5FromTextDlg>
 
             <StyleConfig title="Cunfiguratore di Stilu">
-                <Item id="2"    name="Abbandunà"/>
+                <Item id="2" name="Abbandunà"/>
                 <Item id="2301" name="Arregistrà &amp;&amp; Chjode"/>
                 <Item id="2303" name="Trasparenza"/>
                 <Item id="2306" name="Selezziunà u temu : "/>
@@ -947,8 +947,8 @@
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Lista di e Funzioni"/>
-            <SortTip name="Classificà" />
-            <ReloadTip name="Ricaricà" />
+            <SortTip name="Classificà"/>
+            <ReloadTip name="Ricaricà"/>
         </FunctionList>
         <ProjectManager>
             <PanelTitle name="Prughjettu"/>

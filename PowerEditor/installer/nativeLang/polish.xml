@@ -43,24 +43,24 @@
                     <Item subMenuId="view-collapseLevel" name="Zwiń poziom"/>
                     <Item subMenuId="view-uncollapseLevel" name="Rozwiń poziom"/>
                     <Item subMenuId="view-project" name="Projekt"/>
-                    <Item subMenuId="encoding-characterSets"  name="Zestaw znaków"/>
-                    <Item subMenuId="encoding-arabic"  name="Arabskie"/>
-                    <Item subMenuId="encoding-baltic"  name="Bałtyckie"/>
-                    <Item subMenuId="encoding-celtic"  name="Celtyckie"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Cyrylica"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Środkowoeuropejskie"/>
-                    <Item subMenuId="encoding-chinese"  name="Chińskie"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Wschodnioeuropejskie"/>
-                    <Item subMenuId="encoding-greek"  name="Greckie"/>
-                    <Item subMenuId="encoding-hebrew"  name="Hebrajskie"/>
-                    <Item subMenuId="encoding-japanese"  name="Japońskie"/>
+                    <Item subMenuId="encoding-characterSets" name="Zestaw znaków"/>
+                    <Item subMenuId="encoding-arabic" name="Arabskie"/>
+                    <Item subMenuId="encoding-baltic" name="Bałtyckie"/>
+                    <Item subMenuId="encoding-celtic" name="Celtyckie"/>
+                    <Item subMenuId="encoding-cyrillic" name="Cyrylica"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Środkowoeuropejskie"/>
+                    <Item subMenuId="encoding-chinese" name="Chińskie"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Wschodnioeuropejskie"/>
+                    <Item subMenuId="encoding-greek" name="Greckie"/>
+                    <Item subMenuId="encoding-hebrew" name="Hebrajskie"/>
+                    <Item subMenuId="encoding-japanese" name="Japońskie"/>
                     <Item subMenuId="encoding-korean" name="Koreańskie"/>
                     <Item subMenuId="encoding-northEuropean" name="Północnoeuropejskie"/>
                     <Item subMenuId="encoding-thai" name="Tajskie"/>
                     <Item subMenuId="encoding-turkish" name="Tureckie"/>
                     <Item subMenuId="encoding-westernEuropean" name="Zachodnioeuropejskie"/>
                     <Item subMenuId="encoding-vietnamese" name="Wietnamskie"/>
-                    <Item subMenuId="settings-import"  name="&amp;Import"/>
+                    <Item subMenuId="settings-import" name="&amp;Import"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -83,7 +83,7 @@
                     <Item id="41007" name="Zapisz wszystko"/>
                     <Item id="41008" name="Z&amp;apisz jako..."/>
                     <Item id="41010" name="&amp;Drukuj..."/>
-                    <Item id="1001"  name="Drukuj teraz!"/>
+                    <Item id="1001" name="Drukuj teraz!"/>
                     <Item id="41011" name="Za&amp;kończ"/>
                     <Item id="41012" name="Załaduj sesję..."/>
                     <Item id="41013" name="Zapisz sesję..."/>
@@ -255,7 +255,7 @@
                     <Item id="44094" name="9. Zakładka"/>
                     <Item id="44095" name="Kolejne zakładki"/>
                     <Item id="44096" name="Poprzednia zakładka"/>
-                    <Item id="44097" name="Monitorowanie pliku (tail -f)" />
+                    <Item id="44097" name="Monitorowanie pliku (tail -f)"/>
                     <Item id="44098" name="Przesuń zakładkę do przodu"/>
                     <Item id="44099" name="Przesuń zakładkę do tyłu"/>
                     <Item id="45001" name="Konwertuj na format Windows"/>
@@ -317,34 +317,34 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Zamknij mnie"/>
-                    <Item CMID="1" name="Zamknij wszystko poza mną"/>
-                    <Item CMID="2" name="Zapisz mnie"/>
-                    <Item CMID="3" name="Zapisz mnie jako..."/>
-                    <Item CMID="4" name="Wydrukuj mnie"/>
-                    <Item CMID="5" name="Pokaż/ukryj drugi widok"/>
-                    <Item CMID="6" name="Sklonuj do drugiego widoku"/>
-                    <Item CMID="7" name="Ścieżka pliku do schowka"/>
-                    <Item CMID="8" name="Nazwa pliku do schowka"/>
-                    <Item CMID="9" name="Ścieżka katalogu do schowka"/>
-                    <Item CMID="10" name="Zmień moją nazwę"/>
-                    <Item CMID="11" name="Usuń mnie z dysku"/>
-                    <Item CMID="12" name="Zablokuj edycję"/>
-                    <Item CMID="13" name="Włącz tryb 'tylko do odczytu'"/>
-                    <Item CMID="14" name="Przejdź do nowej instancji"/>
-                    <Item CMID="15" name="Otwórz w nowej instancji"/>
-                    <Item CMID="16" name="Odśwież"/>
-                    <Item CMID="17" name="Zamknij wszystko po lewej"/>
-                    <Item CMID="18" name="Zamknij wszystko po prawej"/>
-                    <Item CMID="19" name="Otwórz folder zawierający w Eksploratorze"/>
-                    <Item CMID="20" name="Otwórz folder zawierający w Konsoli Windows"/>
+                <Item CMID="0" name="Zamknij mnie"/>
+                <Item CMID="1" name="Zamknij wszystko poza mną"/>
+                <Item CMID="2" name="Zapisz mnie"/>
+                <Item CMID="3" name="Zapisz mnie jako..."/>
+                <Item CMID="4" name="Wydrukuj mnie"/>
+                <Item CMID="5" name="Pokaż/ukryj drugi widok"/>
+                <Item CMID="6" name="Sklonuj do drugiego widoku"/>
+                <Item CMID="7" name="Ścieżka pliku do schowka"/>
+                <Item CMID="8" name="Nazwa pliku do schowka"/>
+                <Item CMID="9" name="Ścieżka katalogu do schowka"/>
+                <Item CMID="10" name="Zmień moją nazwę"/>
+                <Item CMID="11" name="Usuń mnie z dysku"/>
+                <Item CMID="12" name="Zablokuj edycję"/>
+                <Item CMID="13" name="Włącz tryb 'tylko do odczytu'"/>
+                <Item CMID="14" name="Przejdź do nowej instancji"/>
+                <Item CMID="15" name="Otwórz w nowej instancji"/>
+                <Item CMID="16" name="Odśwież"/>
+                <Item CMID="17" name="Zamknij wszystko po lewej"/>
+                <Item CMID="18" name="Zamknij wszystko po prawej"/>
+                <Item CMID="19" name="Otwórz folder zawierający w Eksploratorze"/>
+                <Item CMID="20" name="Otwórz folder zawierający w Konsoli Windows"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="Szukaj..." titleFind="Szukaj" titleReplace="Zamień" titleFindInFiles="Szukaj w plikach" titleMark="Oznacz">
-                <Item id="1"    name="Szukaj"/>
-                <Item id="2"    name="Zamknij"/>
+                <Item id="1" name="Szukaj"/>
+                <Item id="2" name="Zamknij"/>
                 <Item id="1603" name="Znajdź tylko c&amp;ałe wyrazy"/>
                 <Item id="1604" name="&amp;Uwzględniaj wielkość liter"/>
                 <Item id="1605" name="&amp;Wyrażenia regularne"/>
@@ -695,7 +695,7 @@
                     <Item id="6413" name="Folder domyślny (otwórz/zapisz)"/>
                     <Item id="6414" name="Według bieżącego dokumentu"/>
                     <Item id="6415" name="Zapamiętaj ostatnio użyty folder"/>
-                    <Item id="6430" name="Użyj nowego stylu okna zapisywania (bez domyślnego rozszerzenia pliku)" />
+                    <Item id="6430" name="Użyj nowego stylu okna zapisywania (bez domyślnego rozszerzenia pliku)"/>
                 </DefaultDir>
 
                 <FileAssoc title="Powiązania plików">
@@ -807,7 +807,7 @@
                     <Item id="6256" name="Dopuszczaj wiele linii"/>
                 </Delimiter>
 
-                 <Cloud title="Chmura">
+                <Cloud title="Chmura">
                     <Item id="6262" name="Ustawienia chmury"/>
                     <Item id="6263" name="Nie używaj chmury"/>
                     <Item id="6267" name="Ustaw scieżkę do swojej chmury:"/>
@@ -918,8 +918,8 @@ Twoje ustawienia w chmurze zostaną anulowane. Zmień miejsce zapisu ustawień p
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Lista funkcji"/>
-            <SortTip name="Sortuj" />
-            <ReloadTip name="Odśwież" />
+            <SortTip name="Sortuj"/>
+            <ReloadTip name="Odśwież"/>
         </FunctionList>
         <FileBrowser>
             <PanelTitle name="Obszar roboczy"/>
@@ -948,7 +948,7 @@ Twoje ustawienia w chmurze zostaną anulowane. Zmień miejsce zapisu ustawień p
                     <Item id="3112" name="Dodaj folder"/>
                     <Item id="3113" name="Dodaj pliki..."/>
                     <Item id="3114" name="Usuń"/>
-                    <Item id="3117" name="Dodaj pliki z folderu..." />
+                    <Item id="3117" name="Dodaj pliki z folderu..."/>
                     <Item id="3118" name="Przesuń w górę"/>
                     <Item id="3119" name="Przesuń na dół"/>
                 </ProjectMenu>
@@ -957,7 +957,7 @@ Twoje ustawienia w chmurze zostaną anulowane. Zmień miejsce zapisu ustawień p
                     <Item id="3112" name="Dodaj folder"/>
                     <Item id="3113" name="Dodaj pliki..."/>
                     <Item id="3114" name="Usuń"/>
-                    <Item id="3117" name="Dodaj pliki z folderu..." />
+                    <Item id="3117" name="Dodaj pliki z folderu..."/>
                     <Item id="3118" name="Przesuń w górę"/>
                     <Item id="3119" name="Przesuń na dół"/>
                 </FolderMenu>

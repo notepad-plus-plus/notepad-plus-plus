@@ -1715,8 +1715,8 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                         // for delimiters that end with ((EOL))
                         if (newState != SCE_USER_STYLE_COMMENTLINE || (sc.ch != '\r' && sc.ch != '\n'))
                             sc.Forward(iter->length());
-                        if (sc.atLineStart)
-                            checkEOL = EOL_FORCE_CHECK;
+                        if (sc.atLineEnd)
+                            checkEOL = EOL_SKIP_CHECK;
 
                         // paint end of delimiter sequence
                         sc.SetState(newState);

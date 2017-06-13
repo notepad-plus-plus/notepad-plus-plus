@@ -63,7 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="西ヨーロッパ語圏"/>
                     <Item subMenuId="encoding-vietnamese" name="ベトナム語"/>
                     <Item subMenuId="settings-import" name="インポート"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -81,7 +81,7 @@
                     <Item id="41007" name="すべて保存(&amp;E)"/>
                     <Item id="41008" name="名前を付けて保存(&amp;A)..."/>
                     <Item id="41010" name="印刷..."/>
-                    <Item id="1001"  name="今すぐ印刷"/>
+                    <Item id="1001" name="今すぐ印刷"/>
                     <Item id="41011" name="終了(&amp;X)"/>
                     <Item id="41012" name="セッションを読み込む..."/>
                     <Item id="41013" name="セッションを保存..."/>
@@ -326,34 +326,34 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="閉じる"/>
-                    <Item CMID="1" name="他のタブをすべて閉じる"/>
-                    <Item CMID="2" name="上書き保存"/>
-                    <Item CMID="3" name="名前を付けて保存..."/>
-                    <Item CMID="4" name="印刷"/>
-                    <Item CMID="5" name="別のビューへ移動"/>
-                    <Item CMID="6" name="別のビューへ複製"/>
-                    <Item CMID="7" name="フルパスをコピー"/>
-                    <Item CMID="8" name="ファイル名をコピー"/>
-                    <Item CMID="9" name="ディレクトリをコピー"/>
-                    <Item CMID="10" name="名前の変更"/>
-                    <Item CMID="11" name="ゴミ箱に移動"/>
-                    <Item CMID="12" name="読み取り専用モード"/>
-                    <Item CMID="13" name="ファイルの読み取り専用を解除"/>
-                    <Item CMID="14" name="新しいウィンドウへ移動"/>
-                    <Item CMID="15" name="新しいウィンドウで開く"/>
-                    <Item CMID="16" name="再読み込み"/>
-                    <Item CMID="17" name="左をすべて閉じる"/>
-                    <Item CMID="18" name="右をすべて閉じる"/>
-                    <Item CMID="19" name="ファイルの場所をエクスプローラーで開く"/>
-                    <Item CMID="20" name="ファイルの場所をコマンドプロンプトで開く"/>
+                <Item CMID="0" name="閉じる"/>
+                <Item CMID="1" name="他のタブをすべて閉じる"/>
+                <Item CMID="2" name="上書き保存"/>
+                <Item CMID="3" name="名前を付けて保存..."/>
+                <Item CMID="4" name="印刷"/>
+                <Item CMID="5" name="別のビューへ移動"/>
+                <Item CMID="6" name="別のビューへ複製"/>
+                <Item CMID="7" name="フルパスをコピー"/>
+                <Item CMID="8" name="ファイル名をコピー"/>
+                <Item CMID="9" name="ディレクトリをコピー"/>
+                <Item CMID="10" name="名前の変更"/>
+                <Item CMID="11" name="ゴミ箱に移動"/>
+                <Item CMID="12" name="読み取り専用モード"/>
+                <Item CMID="13" name="ファイルの読み取り専用を解除"/>
+                <Item CMID="14" name="新しいウィンドウへ移動"/>
+                <Item CMID="15" name="新しいウィンドウで開く"/>
+                <Item CMID="16" name="再読み込み"/>
+                <Item CMID="17" name="左をすべて閉じる"/>
+                <Item CMID="18" name="右をすべて閉じる"/>
+                <Item CMID="19" name="ファイルの場所をエクスプローラーで開く"/>
+                <Item CMID="20" name="ファイルの場所をコマンドプロンプトで開く"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="検索" titleReplace="置換" titleFindInFiles="ファイル内検索" titleMark="マーキング">
-                <Item id="1"    name="次を検索"/>
-                <Item id="2"    name="閉じる"/>
+                <Item id="1" name="次を検索"/>
+                <Item id="2" name="閉じる"/>
                 <Item id="1620" name="検索文字列:"/>
                 <Item id="1603" name="単語単位(&amp;W)"/>
                 <Item id="1604" name="大/小文字を区別(&amp;C)"/>
@@ -405,8 +405,8 @@
             <GoToLine title="指定位置へジャンプ...">
                 <Item id="2007" name="行"/>
                 <Item id="2008" name="オフセット値"/>
-                <Item id="1"    name="ジャンプ(&amp;G)"/>
-                <Item id="2"    name="キャンセル"/>
+                <Item id="1" name="ジャンプ(&amp;G)"/>
+                <Item id="2" name="キャンセル"/>
                 <Item id="2004" name="現在位置:"/>
                 <Item id="2005" name="ジャンプ先:"/>
                 <Item id="2006" name="最終位置:"/>
@@ -414,25 +414,25 @@
 
             <Run title="実行...">
                 <Item id="1903" name="実行するファイル"/>
-                <Item id="1"    name="実行"/>
-                <Item id="2"    name="キャンセル"/>
+                <Item id="1" name="実行"/>
+                <Item id="2" name="キャンセル"/>
                 <Item id="1904" name="登録..."/>
             </Run>
 
             <MD5FromFilesDlg title="MD5値をファイルから生成">
                 <Item id="1922" name="ファイルを選択（複数可）..."/>
                 <Item id="1924" name="クリップボードへコピー"/>
-                <Item id="2"    name="閉じる"/>
+                <Item id="2" name="閉じる"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="MD5値を生成">
                 <Item id="1932" name="行ごとに生成する"/>
                 <Item id="1934" name="クリップボードへコピー"/>
-                <Item id="2"    name="閉じる"/>
+                <Item id="2" name="閉じる"/>
             </MD5FromTextDlg>
 
             <StyleConfig title="スタイル設定">
-                <Item id="2"    name="キャンセル"/>
+                <Item id="2" name="キャンセル"/>
                 <Item id="2301" name="保存して閉じる"/>
                 <Item id="2303" name="透明化"/>
                 <Item id="2306" name="テーマを選択:"/>
@@ -927,7 +927,7 @@
             <FileAlreadyOpenedInNpp title="" message="そのファイルは既にNotepad++で開かれています。"/>
             <DeleteFileFailed title="削除失敗" message="ファイルの削除に失敗しました。"/>
             <ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、'Alt+Mouse Selection'か、'Alt+Shift+Arrow key'を使用してください。"/>
-                <!-- added for japanese.xml -->
+            <!-- added for japanese.xml -->
 
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->

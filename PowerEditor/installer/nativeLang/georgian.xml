@@ -5,7 +5,7 @@
 	Contact Us: info@uglt.org
 -->
 <NotepadPlus>
-	<Native-Langue name="ქართული" filename="georgian.xml" >
+    <Native-Langue name="ქართული" filename="georgian.xml">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -25,7 +25,7 @@
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="edit-copyToClipboard"  name="ბუფერში კოპირება"/>
+                    <Item subMenuId="edit-copyToClipboard" name="ბუფერში კოპირება"/>
                     <Item subMenuId="edit-indent" name="აბზაცი"/>
                     <Item subMenuId="edit-convertCaseTo" name="რეგისტრის გადაყვანა"/>
                     <Item subMenuId="edit-lineOperations" name="სტრიქონის დამუშავება"/>
@@ -39,30 +39,30 @@
                     <Item subMenuId="search-jumpUp" name="სტილის ძებნა (მაღლა)"/>
                     <Item subMenuId="search-jumpDown" name="სტილის ძებნა (დაბლა)"/>
                     <Item subMenuId="search-bookmark" name="სანიშნი"/>
-                    <Item subMenuId="view-showSymbol"  name="სიმბოლოს ჩვენება"/>
-                    <Item subMenuId="view-zoom"  name="მასშტაბი"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="მიმდინარე დოკუმენტის გადატანა/კოპირება"/>
+                    <Item subMenuId="view-showSymbol" name="სიმბოლოს ჩვენება"/>
+                    <Item subMenuId="view-zoom" name="მასშტაბი"/>
+                    <Item subMenuId="view-moveCloneDocument" name="მიმდინარე დოკუმენტის გადატანა/კოპირება"/>
                     <Item subMenuId="view-collapseLevel" name="დონის ჩაშლა"/>
                     <Item subMenuId="view-uncollapseLevel" name="დონის აკეცვა"/>
                     <Item subMenuId="view-project" name="პროექტი"/>
-                    <Item subMenuId="encoding-characterSets"  name="კოდირება"/>
-                    <Item subMenuId="encoding-arabic"  name="არაბული"/>
-                    <Item subMenuId="encoding-baltic"  name="ბალტიკური"/>
-                    <Item subMenuId="encoding-celtic"  name="კელტური"/>
-                    <Item subMenuId="encoding-cyrillic"  name="კირილიცა"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="შუა ევროპული"/>
-                    <Item subMenuId="encoding-chinese"  name="ჩინური"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="აღმოსავლეთ ევროპული"/>
-                    <Item subMenuId="encoding-greek"  name="ბერძნული"/>
-                    <Item subMenuId="encoding-hebrew"  name="ებრაული"/>
-                    <Item subMenuId="encoding-japanese"  name="იაპონური"/>
+                    <Item subMenuId="encoding-characterSets" name="კოდირება"/>
+                    <Item subMenuId="encoding-arabic" name="არაბული"/>
+                    <Item subMenuId="encoding-baltic" name="ბალტიკური"/>
+                    <Item subMenuId="encoding-celtic" name="კელტური"/>
+                    <Item subMenuId="encoding-cyrillic" name="კირილიცა"/>
+                    <Item subMenuId="encoding-centralEuropean" name="შუა ევროპული"/>
+                    <Item subMenuId="encoding-chinese" name="ჩინური"/>
+                    <Item subMenuId="encoding-easternEuropean" name="აღმოსავლეთ ევროპული"/>
+                    <Item subMenuId="encoding-greek" name="ბერძნული"/>
+                    <Item subMenuId="encoding-hebrew" name="ებრაული"/>
+                    <Item subMenuId="encoding-japanese" name="იაპონური"/>
                     <Item subMenuId="encoding-korean" name="კორეული"/>
                     <Item subMenuId="encoding-northEuropean" name="ჩრდილო ევროპული"/>
                     <Item subMenuId="encoding-thai" name="ტაილანდური"/>
                     <Item subMenuId="encoding-turkish" name="თურქული"/>
                     <Item subMenuId="encoding-westernEuropean" name="დასავლეთ ევროპული"/>
                     <Item subMenuId="encoding-vietnamese" name="ვიეტნამური"/>
-                    <Item subMenuId="settings-import"  name="იმპორტი"/>
+                    <Item subMenuId="settings-import" name="იმპორტი"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -76,7 +76,7 @@
                     <Item id="41007" name="ყველაფრ&amp;ის შენახვა"/>
                     <Item id="41008" name="შენახვა &amp;როგორც..."/>
                     <Item id="41010" name="ბეჭდვა..."/>
-                    <Item id="1001"  name="მყისიერი ბეჭდვა"/>
+                    <Item id="1001" name="მყისიერი ბეჭდვა"/>
                     <Item id="41011" name="გამოს&amp;ვლა"/>
                     <Item id="41012" name="სესიის ჩატვირთვა..."/>
                     <Item id="41013" name="სესიის შენახვა..."/>
@@ -240,38 +240,38 @@
                     <Item id="44042" name="ხაზ(ებ)ის დამალვა"/>
                     <Item id="42040" name="ბოლოს გამოყენებული ფაილების გახსნა"/>
                     <Item id="42041" name="ბოლოს გამოყენებული ფაილების სიის წაშლა"/>
-					<Item id="48016" name="ცხელი კლავიშის ჩასწორება/მაკროს წაშლა..."/>
-					<Item id="48017" name="ცხელი კლავიშის ჩასწორება/ბრძანების წაშლა..."/>
+                    <Item id="48016" name="ცხელი კლავიშის ჩასწორება/მაკროს წაშლა..."/>
+                    <Item id="48017" name="ცხელი კლავიშის ჩასწორება/ბრძანების წაშლა..."/>
                     <Item id="48018" name="კონტექსტური მენიუს შეცვლა"/>
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="დახურვა"/>
-                    <Item CMID="1" name="ამის გარდა ყველას დახურვა"/>
-                    <Item CMID="2" name="შენახვა"/>
-                    <Item CMID="3" name="შენახვა როგორც..."/>
-                    <Item CMID="4" name="ბეჭდვა"/>
-                    <Item CMID="5" name="სხვა ხედში გადატანა"/>
-                    <Item CMID="6" name="სხვა ხედში კლონირება"/>
-                    <Item CMID="7" name="ფაილის მისამართის ბუფერში კოპირება"/>
-                    <Item CMID="8" name="ფაილის სახელის ბუფერში კოპირება"/>
-                    <Item CMID="9" name="მიმდინარე საქაღალდის მისამარის კოპირება"/>
-                    <Item CMID="10" name="სახელის შეცვლა"/>
-                    <Item CMID="11" name="წაშლა"/>
-                    <Item CMID="12" name="'მხოლოდ წაკითხვა'"/>
-                    <Item CMID="13" name="ატრიბუტის 'მხოლოდ წაკითხვა' წაშლა"/>
-                    <Item CMID="14" name="ახალ ფანჯარაში გადატანა"/>
-                    <Item CMID="15" name="ახალ ფანჯარაში გახსნა"/>
-                    <Item CMID="16" name="განახლება"/>
+                <Item CMID="0" name="დახურვა"/>
+                <Item CMID="1" name="ამის გარდა ყველას დახურვა"/>
+                <Item CMID="2" name="შენახვა"/>
+                <Item CMID="3" name="შენახვა როგორც..."/>
+                <Item CMID="4" name="ბეჭდვა"/>
+                <Item CMID="5" name="სხვა ხედში გადატანა"/>
+                <Item CMID="6" name="სხვა ხედში კლონირება"/>
+                <Item CMID="7" name="ფაილის მისამართის ბუფერში კოპირება"/>
+                <Item CMID="8" name="ფაილის სახელის ბუფერში კოპირება"/>
+                <Item CMID="9" name="მიმდინარე საქაღალდის მისამარის კოპირება"/>
+                <Item CMID="10" name="სახელის შეცვლა"/>
+                <Item CMID="11" name="წაშლა"/>
+                <Item CMID="12" name="'მხოლოდ წაკითხვა'"/>
+                <Item CMID="13" name="ატრიბუტის 'მხოლოდ წაკითხვა' წაშლა"/>
+                <Item CMID="14" name="ახალ ფანჯარაში გადატანა"/>
+                <Item CMID="15" name="ახალ ფანჯარაში გახსნა"/>
+                <Item CMID="16" name="განახლება"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="ძებნა" titleReplace="ჩანაცვლება" titleFindInFiles="ფაილში ძებნა" titleMark="დანიშვნა">
-                <Item id="1"    name="შემდეგი შედეგი"/>
-                <Item id="2"    name="დახურვა"/>
+                <Item id="1" name="შემდეგი შედეგი"/>
+                <Item id="2" name="დახურვა"/>
                 <Item id="1620" name="საძიებო სიტყვა:"/>
                 <Item id="1603" name="მხოლოდ ტექსტის &amp;სრული დამთხვევით"/>
                 <Item id="1604" name="რეგისტრის &amp;დამთხვევა"/>
@@ -312,8 +312,8 @@
             <GoToLine title="გადასვლა...">
                 <Item id="2007" name="ხაზზე"/>
                 <Item id="2008" name="სვეტში"/>
-                <Item id="1"    name="&amp;გადასვლა"/>
-                <Item id="2"    name="გაუქმება"/>
+                <Item id="1" name="&amp;გადასვლა"/>
+                <Item id="2" name="გაუქმება"/>
                 <Item id="2004" name="აქ ხართ:"/>
                 <Item id="2005" name="გსურთ, გადახვიდეთ:"/>
                 <Item id="2006" name="მაქსიმალური მნიშვნელობა:"/>
@@ -321,13 +321,13 @@
 
             <Run title="გაშვება...">
                 <Item id="1903" name="გასაშვები პროგრამა"/>
-                <Item id="1"    name="გაშვება"/>
-                <Item id="2"    name="გაუქმება"/>
+                <Item id="1" name="გაშვება"/>
+                <Item id="2" name="გაუქმება"/>
                 <Item id="1904" name="შენახვა..."/>
             </Run>
 
             <StyleConfig title="სტილის კონფიგურაცია">
-                <Item id="2"    name="გაუქმება"/>
+                <Item id="2" name="გაუქმება"/>
                 <Item id="2301" name="შენახვა და დახურვა"/>
                 <Item id="2303" name="გამჭვირვალობა"/>
                 <Item id="2306" name="გაფორმების მონიშვნა: "/>
@@ -368,37 +368,37 @@
                 <Item id="20011" name="გამჭვირვალობა"/>
                 <Item id="20015" name="იმპორტი..."/>
                 <Item id="20016" name="ექსპორტი..."/>
-				<StylerDialog title="სტილის კონფიგურაცია">
+                <StylerDialog title="სტილის კონფიგურაცია">
                     <Item id="25030" name="შრიფტის პარამეტრები:"/>
-					<Item id="25006" name="შრიფტის ფერი"/>
-					<Item id="25007" name="ფონის ფერი"/>
-					<Item id="25031" name="სახელი:"/>
-					<Item id="25032" name="ზომა:"/>
-					<Item id="25001" name="მუქი"/>
-					<Item id="25002" name="ირიბი"/>
-					<Item id="25003" name="ხაზგასმული"/>
-					<Item id="25029" name="დაჯგუფება:"/>
-					<Item id="25008" name="გამყოფი 1"/>
-					<Item id="25009" name="გამყოფი 2"/>
-					<Item id="25010" name="გამყოფი 3"/>
-					<Item id="25011" name="გამყოფი 4"/>
-					<Item id="25012" name="გამყოფი 5"/>
-					<Item id="25013" name="გამყოფი 6"/>
-					<Item id="25014" name="გამყოფი 7"/>
-					<Item id="25015" name="გამყოფი 8"/>
-					<Item id="25018" name="საკვანძო სიტყვა 1"/>
-					<Item id="25019" name="საკვანძო სიტყვა 2"/>
-					<Item id="25020" name="საკვანძო სიტყვა 3"/>
-					<Item id="25021" name="საკვანძო სიტყვა 4"/>
-					<Item id="25022" name="საკვანძო სიტყვა 5"/>
-					<Item id="25023" name="საკვანძო სიტყვა 6"/>
-					<Item id="25024" name="საკვანძო სიტყვა 7"/>
-					<Item id="25025" name="საკვანძო სიტყვა 8"/>
-					<Item id="25016" name="კომენტარი"/>
-					<Item id="25017" name="კომენტარის ხაზი"/>
-					<Item id="25026" name="ოპერატორი 1"/>
-					<Item id="25027" name="ოპერატორი 2"/>
-					<Item id="25028" name="ციფრები"/>
+                    <Item id="25006" name="შრიფტის ფერი"/>
+                    <Item id="25007" name="ფონის ფერი"/>
+                    <Item id="25031" name="სახელი:"/>
+                    <Item id="25032" name="ზომა:"/>
+                    <Item id="25001" name="მუქი"/>
+                    <Item id="25002" name="ირიბი"/>
+                    <Item id="25003" name="ხაზგასმული"/>
+                    <Item id="25029" name="დაჯგუფება:"/>
+                    <Item id="25008" name="გამყოფი 1"/>
+                    <Item id="25009" name="გამყოფი 2"/>
+                    <Item id="25010" name="გამყოფი 3"/>
+                    <Item id="25011" name="გამყოფი 4"/>
+                    <Item id="25012" name="გამყოფი 5"/>
+                    <Item id="25013" name="გამყოფი 6"/>
+                    <Item id="25014" name="გამყოფი 7"/>
+                    <Item id="25015" name="გამყოფი 8"/>
+                    <Item id="25018" name="საკვანძო სიტყვა 1"/>
+                    <Item id="25019" name="საკვანძო სიტყვა 2"/>
+                    <Item id="25020" name="საკვანძო სიტყვა 3"/>
+                    <Item id="25021" name="საკვანძო სიტყვა 4"/>
+                    <Item id="25022" name="საკვანძო სიტყვა 5"/>
+                    <Item id="25023" name="საკვანძო სიტყვა 6"/>
+                    <Item id="25024" name="საკვანძო სიტყვა 7"/>
+                    <Item id="25025" name="საკვანძო სიტყვა 8"/>
+                    <Item id="25016" name="კომენტარი"/>
+                    <Item id="25017" name="კომენტარის ხაზი"/>
+                    <Item id="25026" name="ოპერატორი 1"/>
+                    <Item id="25027" name="ოპერატორი 2"/>
+                    <Item id="25028" name="ციფრები"/>
                 </StylerDialog>
                 <Folder title="სტანდარტული">
                     <Item id="21101" name="სტანდარტული სტილის პარამეტრები"/>
@@ -589,16 +589,16 @@
                     <Item id="6804" name="რეზერვის საქაღალდე"/>
                     <Item id="6803" name="საქაღალდე:"/>
                     <Item id="6807" name="ავტ. დასრულება"/>
-	                <Item id="6808" name="ავტ.დასრულება ყოველი შეყვანისას"/>
+                    <Item id="6808" name="ავტ.დასრულება ყოველი შეყვანისას"/>
                     <Item id="6809" name="ფუნქციის დასრულება"/>
                     <Item id="6810" name="სიტყვის დასრულება"/>
                     <Item id="6811" name="#"/>
                     <Item id="6813" name="სიმბოლოდან"/>
                     <Item id="6814" name="მნიშვნელობა: 1 - 9"/>
                     <Item id="6815" name="ფუნქციის შეყვანისას პარამეტრების შეთავაზება"/>
-                 </Backup>
+                </Backup>
             </Preference>
-			<MultiMacro title="მაკროს რამდენჯერმე გაშვება">
+            <MultiMacro title="მაკროს რამდენჯერმე გაშვება">
                 <Item id="1" name="გაშვება"/>
                 <Item id="2" name="გაუქმება"/>
                 <Item id="8006" name="გასაშვები მაკრო:"/>

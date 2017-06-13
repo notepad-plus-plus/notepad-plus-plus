@@ -1,87 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Basque" filename="basque.xml" version="6.6.8">
-		<Menu>
-			<Main>
+    <Native-Langue name="Basque" filename="basque.xml" version="6.6.8">
+        <Menu>
+            <Main>
                 <!-- Main Menu Entries -->
-				<Entries>
-					<Item menuId="file" name="&amp;Agiria"/>
-					<Item menuId="edit" name="&amp;Editatu"/>
-					<Item menuId="search" name="Bilat&amp;u"/>
-					<Item menuId="view" name="&amp;Ikusi"/>
-					<Item menuId="encoding" name="K&amp;odeaketa"/>
-					<Item menuId="language" name="Hizku&amp;ntza"/>
-					<Item menuId="settings" name="E&amp;zarpenak"/>
-					<Item menuId="macro" name="&amp;Makroa"/>
-					<Item menuId="run" name="E&amp;kin"/>
-					<Item idName="Plugins" name="&amp;Pluginak"/>
-					<Item idName="Window" name="&amp;Leihoa"/>
-				</Entries>
+                <Entries>
+                    <Item menuId="file" name="&amp;Agiria"/>
+                    <Item menuId="edit" name="&amp;Editatu"/>
+                    <Item menuId="search" name="Bilat&amp;u"/>
+                    <Item menuId="view" name="&amp;Ikusi"/>
+                    <Item menuId="encoding" name="K&amp;odeaketa"/>
+                    <Item menuId="language" name="Hizku&amp;ntza"/>
+                    <Item menuId="settings" name="E&amp;zarpenak"/>
+                    <Item menuId="macro" name="&amp;Makroa"/>
+                    <Item menuId="run" name="E&amp;kin"/>
+                    <Item idName="Plugins" name="&amp;Pluginak"/>
+                    <Item idName="Window" name="&amp;Leihoa"/>
+                </Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item subMenuId="file-openFolder" name="Ireki Eduki Agiritegia"/>
-					<Item subMenuId="file-closeMore" name="Itxi Gehiago"/>
- 		            <Item subMenuId="file-recentFiles" name="Berrikiko Agiriak"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Kopiat&amp;u Gakora"/>
+                    <Item subMenuId="file-openFolder" name="Ireki Eduki Agiritegia"/>
+                    <Item subMenuId="file-closeMore" name="Itxi Gehiago"/>
+                    <Item subMenuId="file-recentFiles" name="Berrikiko Agiriak"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Kopiat&amp;u Gakora"/>
                     <Item subMenuId="edit-indent" name="Eskui&amp;neratzea"/>
                     <Item subMenuId="edit-convertCaseTo" name="Bihurtu hizkiak"/>
                     <Item subMenuId="edit-lineOperations" name="Lerro Eragiketak"/>
                     <Item subMenuId="edit-comment" name="Aipatu/Ezaipatu"/>
                     <Item subMenuId="edit-autoCompletion" name="Be&amp;rez-Osaketa"/>
                     <Item subMenuId="edit-eolConversion" name="E&amp;OL Bihurketa"/>
-					<Item subMenuId="edit-blankOperations" name="Tarte Eragiketak"/>
-					<Item subMenuId="edit-pasteSpecial" name="It&amp;satsi Berezia"/>
+                    <Item subMenuId="edit-blankOperations" name="Tarte Eragiketak"/>
+                    <Item subMenuId="edit-pasteSpecial" name="It&amp;satsi Berezia"/>
                     <Item subMenuId="search-markAll" name="Markatu Denak"/>
                     <Item subMenuId="search-unmarkAll" name="Ezmarkatu Denak"/>
                     <Item subMenuId="search-jumpUp" name="Jauzi Gora"/>
                     <Item subMenuId="search-jumpDown" name="Jauzi Behera"/>
                     <Item subMenuId="search-bookmark" name="Lastermarka"/>
-                    <Item subMenuId="view-showSymbol"  name="Erakutsi Sinboloa"/>
-                    <Item subMenuId="view-zoom"  name="Zooma"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Mugitu/Klonatu Oraingo Agiria"/>
-					<Item subMenuId="view-tab"  name="Hegatsa"/>
+                    <Item subMenuId="view-showSymbol" name="Erakutsi Sinboloa"/>
+                    <Item subMenuId="view-zoom" name="Zooma"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Mugitu/Klonatu Oraingo Agiria"/>
+                    <Item subMenuId="view-tab" name="Hegatsa"/>
                     <Item subMenuId="view-collapsLevel" name="&amp;Bildu Maila"/>
                     <Item subMenuId="view-uncollapseLevel" name="Ezbildu &amp;Maila"/>
-					<Item subMenuId="view-project" name="Egitasmoa"/>
-                    <Item subMenuId="encoding-characterSets"  name="&amp;Hizkikode Ezarpena"/>
-                    <Item subMenuId="encoding-arabic"  name="Arabiera"/>
-                    <Item subMenuId="encoding-baltic"  name="Baltikoa"/>
-                    <Item subMenuId="encoding-celtic"  name="Zeltiera"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Zirilikoa"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Europa Erdialdea"/>
-                    <Item subMenuId="encoding-chinese"  name="Txinera"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Europa Ekialdea"/>
-                    <Item subMenuId="encoding-greek"  name="Greziera"/>
-                    <Item subMenuId="encoding-hebrew"  name="Hebraiera"/>
-                    <Item subMenuId="encoding-japanese"  name="Japoniera"/>
+                    <Item subMenuId="view-project" name="Egitasmoa"/>
+                    <Item subMenuId="encoding-characterSets" name="&amp;Hizkikode Ezarpena"/>
+                    <Item subMenuId="encoding-arabic" name="Arabiera"/>
+                    <Item subMenuId="encoding-baltic" name="Baltikoa"/>
+                    <Item subMenuId="encoding-celtic" name="Zeltiera"/>
+                    <Item subMenuId="encoding-cyrillic" name="Zirilikoa"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Europa Erdialdea"/>
+                    <Item subMenuId="encoding-chinese" name="Txinera"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Europa Ekialdea"/>
+                    <Item subMenuId="encoding-greek" name="Greziera"/>
+                    <Item subMenuId="encoding-hebrew" name="Hebraiera"/>
+                    <Item subMenuId="encoding-japanese" name="Japoniera"/>
                     <Item subMenuId="encoding-korean" name="Koreaera"/>
                     <Item subMenuId="encoding-northEuropean" name="Ipar Europa"/>
                     <Item subMenuId="encoding-thai" name="Thailandiera"/>
                     <Item subMenuId="encoding-turkish" name="Turkiera"/>
                     <Item subMenuId="encoding-westernEuropean" name="Europa Mendebaldea"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamiera"/>
-                    <Item subMenuId="settings-import"  name="&amp;Inportatu"/>
-				</SubEntries>
+                    <Item subMenuId="settings-import" name="&amp;Inportatu"/>
+                </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Berria"/>
                     <Item id="41002" name="&amp;Ireki"/>
-					<Item id="41019" name="Esploratzailea"/>
+                    <Item id="41019" name="Esploratzailea"/>
                     <Item id="41020" name="cmd-a"/>
                     <Item id="41003" name="It&amp;xi"/>
                     <Item id="41004" name="I&amp;txi Denak"/>
                     <Item id="41005" name="Itxi De&amp;nak hau EZIK"/>
-					<Item id="41009" name="Itxi Ezkerreko Denak"/>
- 		            <Item id="41018" name="Itxi Eskuineko Denak"/>
+                    <Item id="41009" name="Itxi Ezkerreko Denak"/>
+                    <Item id="41018" name="Itxi Eskuineko Denak"/>
                     <Item id="41006" name="&amp;Gorde"/>
                     <Item id="41007" name="Gorde &amp;Denak"/>
                     <Item id="41008" name="Gorde &amp;Honela..."/>
                     <Item id="41010" name="Irarkitu&amp;..."/>
-                    <Item id="1001"  name="Irarkitu &amp;Orain!"/>
+                    <Item id="1001" name="Irarkitu &amp;Orain!"/>
                     <Item id="41011" name="I&amp;rten"/>
-					<Item id="41012" name="Gertatu &amp;Saioa..."/>
+                    <Item id="41012" name="Gertatu &amp;Saioa..."/>
                     <Item id="41013" name="Gorde S&amp;aioa..."/>
                     <Item id="41014" name="Birgertatu Diskatik"/>
                     <Item id="41015" name="Gorde &amp;Kopia Bat Honela..."/>
@@ -105,7 +105,7 @@
                     <Item id="42017" name="hizki-xehe"/>
                     <Item id="42018" name="&amp;Hasi Grabaketa "/>
                     <Item id="42019" name="&amp;Gelditu Grabaketa"/>
-					<Item id="42020" name="Hautapen Hasiera/Amaiera"/>
+                    <Item id="42020" name="Hautapen Hasiera/Amaiera"/>
                     <Item id="42021" name="&amp;Irakurri"/>
                     <Item id="42022" name="Blokea Aipatu/Ezaipatu"/>
                     <Item id="42023" name="Jario Aipamena"/>
@@ -119,29 +119,29 @@
                     <Item id="42031" name="Gakoratu Oraingo Zuzenbide Helburua"/>
                     <Item id="42032" name="Ekin Makro bat Anitz Aldiz..."/>
                     <Item id="42033" name="Garbitu Irakurtzeko-Bakarrik Marka"/>
-					<Item id="42035" name="Aipatu Blokea"/>
-					<Item id="42036" name="Ezaipatu Blokea"/>
-					<Item id="42037" name="Zutabe &amp;Modua..."/>
-					<Item id="42038" name="Itsatsi HTML Edukia"/>
-					<Item id="42039" name="Itsatsi RTF Edukia"/>
-					<Item id="42042" name="Moztu Hasiera Tartea"/>
-					<Item id="42043" name="Moztu Hasiera eta Amaiera Tartea"/>
-					<Item id="42044" name="EOL Tartera"/>
-					<Item id="42045" name="Kendu Ezbeharrezko tarteak eta EOL-ak"/>
-					<Item id="42046" name="TAB Tartera"/>
-					<Item id="42047" name="Jario Ezaipamena"/>
-					<Item id="42048" name="Kopiatu Eduki Binarioa"/>
-					<Item id="42049" name="Ebaki EdukiBinarioa"/>
-					<Item id="42050" name="Itsatsi Eduki Binarioa"/>
-					<Item id="42051" name="Hizkikode &amp;Panela"/>
-					<Item id="42052" name="Gako Historia"/>
-					<Item id="42053" name="Tartea TAB-ra (Burua)"/>
-     				<Item id="42054" name="TAB Tartera (Denak)"/>
-					<Item id="42055" name="Kendu Lerro Hutsak"/>
+                    <Item id="42035" name="Aipatu Blokea"/>
+                    <Item id="42036" name="Ezaipatu Blokea"/>
+                    <Item id="42037" name="Zutabe &amp;Modua..."/>
+                    <Item id="42038" name="Itsatsi HTML Edukia"/>
+                    <Item id="42039" name="Itsatsi RTF Edukia"/>
+                    <Item id="42042" name="Moztu Hasiera Tartea"/>
+                    <Item id="42043" name="Moztu Hasiera eta Amaiera Tartea"/>
+                    <Item id="42044" name="EOL Tartera"/>
+                    <Item id="42045" name="Kendu Ezbeharrezko tarteak eta EOL-ak"/>
+                    <Item id="42046" name="TAB Tartera"/>
+                    <Item id="42047" name="Jario Ezaipamena"/>
+                    <Item id="42048" name="Kopiatu Eduki Binarioa"/>
+                    <Item id="42049" name="Ebaki EdukiBinarioa"/>
+                    <Item id="42050" name="Itsatsi Eduki Binarioa"/>
+                    <Item id="42051" name="Hizkikode &amp;Panela"/>
+                    <Item id="42052" name="Gako Historia"/>
+                    <Item id="42053" name="Tartea TAB-ra (Burua)"/>
+                    <Item id="42054" name="TAB Tartera (Denak)"/>
+                    <Item id="42055" name="Kendu Lerro Hutsak"/>
                     <Item id="42056" name="Kendu Lerro Hutsak (Hizki Hutsak dituztenak)"/>
-					<Item id="42057" name="Txertatu Lerro Hutsa Oraingoaren Gainean"/>
- 		            <Item id="42058" name="Txertatu Lerro Hutsa Oraingoaren Azpian"/>
-					<Item id="43001" name="&amp;Bilatu..."/>
+                    <Item id="42057" name="Txertatu Lerro Hutsa Oraingoaren Gainean"/>
+                    <Item id="42058" name="Txertatu Lerro Hutsa Oraingoaren Azpian"/>
+                    <Item id="43001" name="&amp;Bilatu..."/>
                     <Item id="43002" name="Bilatu &amp;Hurrengoa"/>
                     <Item id="43003" name="&amp;Ordeztu..."/>
                     <Item id="43004" name="Joan Hona..."/>
@@ -190,15 +190,15 @@
                     <Item id="43048" name="Hautatu eta Bilatu Hurrengoa"/>
                     <Item id="43049" name="Hau&amp;tatu eta Bilatu Aurrekoa"/>
                     <Item id="43050" name="Alderantzizko Lastermarka"/>
-					<Item id="43051" name="Kendu Markatugabeko Lerroak"/>
-					<Item id="43052" name="Bilatu hizkikodeak mailan..."/>
-					<Item id="43053" name="Hautatu Berdin Denak Giltza artean"/>
+                    <Item id="43051" name="Kendu Markatugabeko Lerroak"/>
+                    <Item id="43052" name="Bilatu hizkikodeak mailan..."/>
+                    <Item id="43053" name="Hautatu Berdin Denak Giltza artean"/>
                     <Item id="44009" name="I&amp;ragarri"/>
                     <Item id="44010" name="Tolestu dena"/>
-					<Item id="44011" name="Erabiltzaileak Zehaztutako Elkarrizk."/>
-					<Item id="44012" name="Ezkutatu lerro zenbaki bazterra"/>
-					<Item id="44013" name="Ezkutatu lastermarka bazterra"/>
-					<Item id="44014" name="Ezkutatu agiritegi bazterra"/>
+                    <Item id="44011" name="Erabiltzaileak Zehaztutako Elkarrizk."/>
+                    <Item id="44012" name="Ezkutatu lerro zenbaki bazterra"/>
+                    <Item id="44013" name="Ezkutatu lastermarka bazterra"/>
+                    <Item id="44014" name="Ezkutatu agiritegi bazterra"/>
                     <Item id="44019" name="Erakutsi Hizkikode Guztiak"/>
                     <Item id="44020" name="Erakutsi Eskuineratze Gida"/>
                     <Item id="44022" name="&amp;Ingurapena"/>
@@ -215,24 +215,24 @@
                     <Item id="44035" name="Aldiberetu &amp;Zutikako Irriskatzea"/>
                     <Item id="44036" name="Aldiberetu &amp;Etzaneko Irriskatzea"/>
                     <Item id="44041" name="Inguratu Ikurra Erakutsi"/>
-					<Item id="44049" name="&amp;Laburpena..."/>
+                    <Item id="44049" name="&amp;Laburpena..."/>
                     <Item id="44072" name="Fokutu Beste Ikuspegian"/>
-					 <Item id="44080" name="Agiri Mapa"/>
-					<Item id="44081" name="Egitasmo Panela 1"/>
-					<Item id="44082" name="Egitasmo Panela 2"/>
-					<Item id="44083" name="Egitasmo Panela 3"/>
-					<Item id="44084" name="Eginkizun Zerrenda"/>
- 		            <Item id="44086" name="1. Hegatsa"/>
- 		            <Item id="44087" name="2. Hegatsa"/>
- 		            <Item id="44088" name="3. Hegatsa"/>
- 		            <Item id="44089" name="4. Hegatsa"/>
- 		            <Item id="44090" name="5. Hegatsa"/>
- 		            <Item id="44091" name="6. Hegatsa"/>
- 		            <Item id="44092" name="7. Hegatsa"/>
- 		            <Item id="44093" name="8. Hegatsa"/>
- 		            <Item id="44094" name="9. Hegatsa"/>
- 		            <Item id="44095" name="Hurrengo Hegatsa"/>
- 		            <Item id="44096" name="Aurreko Hegatsa"/>
+                    <Item id="44080" name="Agiri Mapa"/>
+                    <Item id="44081" name="Egitasmo Panela 1"/>
+                    <Item id="44082" name="Egitasmo Panela 2"/>
+                    <Item id="44083" name="Egitasmo Panela 3"/>
+                    <Item id="44084" name="Eginkizun Zerrenda"/>
+                    <Item id="44086" name="1. Hegatsa"/>
+                    <Item id="44087" name="2. Hegatsa"/>
+                    <Item id="44088" name="3. Hegatsa"/>
+                    <Item id="44089" name="4. Hegatsa"/>
+                    <Item id="44090" name="5. Hegatsa"/>
+                    <Item id="44091" name="6. Hegatsa"/>
+                    <Item id="44092" name="7. Hegatsa"/>
+                    <Item id="44093" name="8. Hegatsa"/>
+                    <Item id="44094" name="9. Hegatsa"/>
+                    <Item id="44095" name="Hurrengo Hegatsa"/>
+                    <Item id="44096" name="Aurreko Hegatsa"/>
                     <Item id="45001" name="Bihurtu &amp;Windows Heuskarrira"/>
                     <Item id="45002" name="Bihurtu &amp;UNIX Heuskarrira"/>
                     <Item id="45003" name="Bihurtu &amp;MAC Heuskarrira"/>
@@ -251,9 +251,9 @@
                     <Item id="10003" name="Mugitu Eskabide Berrira"/>
                     <Item id="10004" name="Ireki Eskabide Berrian"/>
                     <Item id="46001" name="&amp;Estilo Itxuratzailea..."/>
-					<Item id="46080" name="Erabiltzaileak Zehaztuta"/>
+                    <Item id="46080" name="Erabiltzaileak Zehaztuta"/>
                     <Item id="46150" name="Zehaztu zure hizkuntza..."/>
-					<Item id="47000" name="Notepad++ &amp;Buruz..."/>
+                    <Item id="47000" name="Notepad++ &amp;Buruz..."/>
                     <Item id="47001" name="Notepad++ Etxea"/>
                     <Item id="47002" name="Notepad++ Egitasmoaren &amp;Webgunea"/>
                     <Item id="47003" name="Online Laguntza"/>
@@ -261,50 +261,50 @@
                     <Item id="47005" name="Lortu &amp;Plugin Gehiago"/>
                     <Item id="47006" name="Eg&amp;uneratu Notepad++"/>
                     <Item id="47008" name="Laguntza Edukiak"/>
-					<Item id="47010" name="Komando Lerro Argumentuak..."/>
+                    <Item id="47010" name="Komando Lerro Argumentuak..."/>
                     <Item id="48005" name="Inportatu &amp;Plugina(k) ..."/>
                     <Item id="48006" name="Inportatu &amp;Gaia(k) ..."/>
                     <Item id="48009" name="Lastertekla &amp;Mapatzailea..."/>
                     <Item id="48011" name="&amp;Hobespenak..."/>
                     <Item id="48018" name="Editatu Oharleiho Hitzinguru-Menua"/>
-					<Item id="49000" name="&amp;Ekin..."/>
-					<Item id="50000" name="Eginkizun Osaketa"/>
+                    <Item id="49000" name="&amp;Ekin..."/>
+                    <Item id="50000" name="Eginkizun Osaketa"/>
                     <Item id="50001" name="Hitz Osaketa"/>
                     <Item id="50002" name="Eginkizun Parametro Iradokizuna"/>
-					<Item id="50006" name="Helburu Osaketa"/>
+                    <Item id="50006" name="Helburu Osaketa"/>
                     <Item id="42034" name="Zutabe Editatzailea..."/>
                     <Item id="42040" name="Ireki Azken Agiri G&amp;uztiak"/>
-					<Item id="42041" name="Hustu Azken Agirien &amp;Zerrenda"/>
-					<Item id="44042" name="Ezkutatu Lerroak"/>
-					<Item id="48016" name="Aldatu Lasterbidea/Ezabatu Makroa..."/>
-					<Item id="48017" name="Aldatu Lasterbidea/Ezabatu Komandoa..."/>
-					<Item id="48018" name="Editatu &amp;Oharleiho Hitzing-Menua"/>
+                    <Item id="42041" name="Hustu Azken Agirien &amp;Zerrenda"/>
+                    <Item id="44042" name="Ezkutatu Lerroak"/>
+                    <Item id="48016" name="Aldatu Lasterbidea/Ezabatu Makroa..."/>
+                    <Item id="48017" name="Aldatu Lasterbidea/Ezabatu Komandoa..."/>
+                    <Item id="48018" name="Editatu &amp;Oharleiho Hitzing-Menua"/>
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Itxi "/>
-                    <Item CMID="1" name="Itxi Denak HAU EZIK"/>
-                    <Item CMID="2" name="Gorde"/>
-                    <Item CMID="3" name="Gorde honela..."/>
-                    <Item CMID="4" name="Irarkitu"/>
-                    <Item CMID="5" name="Mugitu Beste Ikuspegira"/>
-                    <Item CMID="6" name="Klonatu Beste Ikuspegira"/>
-                    <Item CMID="7" name="Gakoratu Agiri Zuzenbide Osoa"/>
-                    <Item CMID="8" name="Gakoratu Agirizena"/>
-                    <Item CMID="9" name="Gakoratu Oraingo Zuz. Helburua"/>
-                    <Item CMID="10" name="Aldatu Izena"/>
-                    <Item CMID="11" name="Mugitu Birziklapen Ontzira"/>
-                    <Item CMID="12" name="Irakurtzeko-Bakarrik"/>
-                    <Item CMID="13" name="Garbitu Irakurtzeko-Bakarrik Ikurra"/>
-                    <Item CMID="14" name="Mugitu Eskabide Berrira"/>
-                    <Item CMID="15" name="Ireki Eskabide Berrian"/>
-					<Item CMID="16" name="Birgeratu"/>
-					<Item CMID="17" name="Itxi Ezkerreko denak"/>
-                    <Item CMID="18" name="Itxi Eskuineko denak"/>
-                    <Item CMID="19" name="Ireki Eduki Agiritegia Esploratzailean"/>
-                    <Item CMID="20" name="Ireki Eduki Agiritegia cmd-an"/>
+                <Item CMID="0" name="Itxi "/>
+                <Item CMID="1" name="Itxi Denak HAU EZIK"/>
+                <Item CMID="2" name="Gorde"/>
+                <Item CMID="3" name="Gorde honela..."/>
+                <Item CMID="4" name="Irarkitu"/>
+                <Item CMID="5" name="Mugitu Beste Ikuspegira"/>
+                <Item CMID="6" name="Klonatu Beste Ikuspegira"/>
+                <Item CMID="7" name="Gakoratu Agiri Zuzenbide Osoa"/>
+                <Item CMID="8" name="Gakoratu Agirizena"/>
+                <Item CMID="9" name="Gakoratu Oraingo Zuz. Helburua"/>
+                <Item CMID="10" name="Aldatu Izena"/>
+                <Item CMID="11" name="Mugitu Birziklapen Ontzira"/>
+                <Item CMID="12" name="Irakurtzeko-Bakarrik"/>
+                <Item CMID="13" name="Garbitu Irakurtzeko-Bakarrik Ikurra"/>
+                <Item CMID="14" name="Mugitu Eskabide Berrira"/>
+                <Item CMID="15" name="Ireki Eskabide Berrian"/>
+                <Item CMID="16" name="Birgeratu"/>
+                <Item CMID="17" name="Itxi Ezkerreko denak"/>
+                <Item CMID="18" name="Itxi Eskuineko denak"/>
+                <Item CMID="19" name="Ireki Eduki Agiritegia Esploratzailean"/>
+                <Item CMID="20" name="Ireki Eduki Agiritegia cmd-an"/>
             </TabBar>
         </Menu>
 
@@ -327,29 +327,29 @@
                 <Item id="1616" name="&amp;Markatu lerroa"/>
                 <Item id="1617" name="Estilo bilaketa lagina"/>
                 <Item id="1618" name="Garbitu bilaketa bakoitzean"/>
-				<Item id="1620" name="Zer bilatu:"/>
+                <Item id="1620" name="Zer bilatu:"/>
                 <Item id="1621" name="Norabidea"/>
-			 	<Item id="1623" name="Gardentasuna"/>
-			 	<Item id="1624" name="Bilaketa modua"/>
-			 	<Item id="1625" name="&amp;Arrunta"/>
-			 	<Item id="1626" name="H&amp;edatua (\n, \r, \t, \0, \x...)"/>
-			 	<Item id="1632" name="Aukeran"/>
-			 	<Item id="1633" name="&amp;Garbitu"/>
-			 	<Item id="1635" name="Ordeztu Denak &amp;Irekitako Agiri Guztietan"/>
-			 	<Item id="1636" name="Bilatu Denak &amp;Irekitako Agiri Guztietan"/>
-			 	<Item id="1637" name="Bilatu agirietan"/>
-			 	<Item id="1641" name="Bilatu Denak &amp;Oraingo Agirian"/>
-			 	<Item id="1654" name="Iragazkiak :"/>
-			 	<Item id="1655" name="Zuzenbidea :"/>
-			 	<Item id="1656" name="Bilatu &amp;Denak"/>
-			 	<Item id="1658" name="Azpiagiri guztietan"/>
-			 	<Item id="1659" name="Ezkutuko agiritegietan"/>
-			 	<Item id="1660" name="Ordeztu Agirietan"/>
+                <Item id="1623" name="Gardentasuna"/>
+                <Item id="1624" name="Bilaketa modua"/>
+                <Item id="1625" name="&amp;Arrunta"/>
+                <Item id="1626" name="H&amp;edatua (\n, \r, \t, \0, \x...)"/>
+                <Item id="1632" name="Aukeran"/>
+                <Item id="1633" name="&amp;Garbitu"/>
+                <Item id="1635" name="Ordeztu Denak &amp;Irekitako Agiri Guztietan"/>
+                <Item id="1636" name="Bilatu Denak &amp;Irekitako Agiri Guztietan"/>
+                <Item id="1637" name="Bilatu agirietan"/>
+                <Item id="1641" name="Bilatu Denak &amp;Oraingo Agirian"/>
+                <Item id="1654" name="Iragazkiak :"/>
+                <Item id="1655" name="Zuzenbidea :"/>
+                <Item id="1656" name="Bilatu &amp;Denak"/>
+                <Item id="1658" name="Azpiagiri guztietan"/>
+                <Item id="1659" name="Ezkutuko agiritegietan"/>
+                <Item id="1660" name="Ordeztu Agirietan"/>
                 <Item id="1661" name="Hurrengo oraingo agiriak"/>
-			 	<Item id="1686" name="Gardentasuna"/>
-			 	<Item id="1687" name="&amp;Foku galduan"/>
-			 	<Item id="1688" name="Beti&amp;k"/>
-				<Item id="1703" name="&amp;. bat dator lerro-berriarekin"/>
+                <Item id="1686" name="Gardentasuna"/>
+                <Item id="1687" name="&amp;Foku galduan"/>
+                <Item id="1688" name="Beti&amp;k"/>
+                <Item id="1703" name="&amp;. bat dator lerro-berriarekin"/>
 
 
             </Find>
@@ -363,32 +363,32 @@
                 <Item id="2006" name="Ezin zara hurrunago joan :"/>
             </GoToLine>
 
-			<FindCharsInRange title = "Bilatu Hizkikodeak Mailan...">
-				<Item id="2910" name="Bilatu"/>
-				<Item id="2" name="Itxi"/>
-				<Item id="2901" name="Ez-ASCII Hizkikodeak (128-255)"/>
-				<Item id="2902" name="ASCII Hizkikodeak (0 - 127)"/>
-				<Item id="2903" name="Nire Maila:"/>
-				<Item id="2906" name="Gora"/>
-				<Item id="2907" name="Behera"/>
-				<Item id="2908" name="Norantza"/>
-				<Item id="2909" name="Inguratu"/>
-			</FindCharsInRange>
+            <FindCharsInRange title="Bilatu Hizkikodeak Mailan...">
+                <Item id="2910" name="Bilatu"/>
+                <Item id="2" name="Itxi"/>
+                <Item id="2901" name="Ez-ASCII Hizkikodeak (128-255)"/>
+                <Item id="2902" name="ASCII Hizkikodeak (0 - 127)"/>
+                <Item id="2903" name="Nire Maila:"/>
+                <Item id="2906" name="Gora"/>
+                <Item id="2907" name="Behera"/>
+                <Item id="2908" name="Norantza"/>
+                <Item id="2909" name="Inguratu"/>
+            </FindCharsInRange>
 
             <Run title="Ekin...">
                 <Item id="1" name="Ekin!"/>
                 <Item id="2" name="Ezeztatu"/>
-				<Item id="1903" name="Ekiteko Programa "/>
+                <Item id="1903" name="Ekiteko Programa "/>
                 <Item id="1904" name="Gorde..."/>
             </Run>
 
             <StyleConfig title="Estilo Itxuratzailea">
-				<Item id="2" name="Ezeztatu"/>
-				<Item id="2301" name="Gorde eta Itxi"/>
-				<Item id="2303" name="Gardentasuna"/>
+                <Item id="2" name="Ezeztatu"/>
+                <Item id="2301" name="Gorde eta Itxi"/>
+                <Item id="2303" name="Gardentasuna"/>
                 <Item id="2306" name="Gaitu gaia: "/>
                 <SubDialog>
-                	<Item id="2204" name="Lodia"/>
+                    <Item id="2204" name="Lodia"/>
                     <Item id="2205" name="Etzana"/>
                     <Item id="2206" name="Kanpoalde margoa"/>
                     <Item id="2207" name="Barren margoa"/>
@@ -414,17 +414,17 @@
             </StyleConfig>
 
             <UserDefine title="Erabiltzaileak Zehaztuta">
-				<Item id="20001" name="Uztartu"/>
-				<Item id="20002" name="Izena Aldatu"/>
-				<Item id="20003" name="Sortu Berria..."/>
-				<Item id="20004" name="Kendu"/>
-				<Item id="20005" name="Gorde honela..."/>
-				<Item id="20007" name="Erabiltzaile hizkuntza : "/>
-				<Item id="20009" name="Luzap. :"/>
-				<Item id="20012" name="Ezikusi hizki larri-xeh."/>
-				<Item id="20011" name="Gardentasuna"/>
-				<Item id="20015" name="Inportatu..."/>
-				<Item id="20016" name="Esportatu..."/>
+                <Item id="20001" name="Uztartu"/>
+                <Item id="20002" name="Izena Aldatu"/>
+                <Item id="20003" name="Sortu Berria..."/>
+                <Item id="20004" name="Kendu"/>
+                <Item id="20005" name="Gorde honela..."/>
+                <Item id="20007" name="Erabiltzaile hizkuntza : "/>
+                <Item id="20009" name="Luzap. :"/>
+                <Item id="20012" name="Ezikusi hizki larri-xeh."/>
+                <Item id="20011" name="Gardentasuna"/>
+                <Item id="20015" name="Inportatu..."/>
+                <Item id="20016" name="Esportatu..."/>
                 <StylerDialog title="Estilotzaile Elkarrizketa">
                     <Item id="25030" name="Hizki aukerak:"/>
                     <Item id="25006" name="Gainalde margoa"/>
@@ -458,9 +458,9 @@
                     <Item id="25028" name="Zenbakiak"/>
                 </StylerDialog>
                 <Folder title="Agiritegia eta Berezkoa">
-					<Item id="21101" name="Berezko Estilo Ezarpenak"/>
-					<Item id="21201" name="Agiritegia Irekitzeko Hitzgako Ezarpenak"/>
-					<Item id="21301" name="Agiritegia Isteko Hitzgako Ezarpenak"/>
+                    <Item id="21101" name="Berezko Estilo Ezarpenak"/>
+                    <Item id="21201" name="Agiritegia Irekitzeko Hitzgako Ezarpenak"/>
+                    <Item id="21301" name="Agiritegia Isteko Hitzgako Ezarpenak"/>
                     <Item id="21104" name="Aldibaterako agiri gunea: "/>
                     <Item id="21105" name="Agiritza:"/>
                     <Item id="21102" name="Estilotzailea"/>
@@ -514,49 +514,49 @@
                 <Comment title="Aipamena eta Zenbakia">
                     <Item id="23001" name="Ahalbidetu aipamenen tolesdura"/>
                     <Item id="23002" name="Behartu lerro aipamenak lerro hasieran"/>
-					<Item id="23003" name="Lerro aipamen kokapena"/>
-					<Item id="23004" name="Ahalbidetu edonola"/>
-					<Item id="23005" name="Behartu lerroaren hasieran"/>
-					<Item id="23006" name="Ahalbidetu zuriune aurretik"/>
-					<Item id="23101" name="Aipatu Blokea"/>
-					<Item id="23113" name="Ireki Aipamena :"/>
-					<Item id="23115" name="Itxi Aipamena :"/>
-					<Item id="23116" name="Tratatu hitzgakoa ikur bezala"/>
-					<Item id="23117" name="Tratatu hitzgakoak ikurrak bezala"/>
+                    <Item id="23003" name="Lerro aipamen kokapena"/>
+                    <Item id="23004" name="Ahalbidetu edonola"/>
+                    <Item id="23005" name="Behartu lerroaren hasieran"/>
+                    <Item id="23006" name="Ahalbidetu zuriune aurretik"/>
+                    <Item id="23101" name="Aipatu Blokea"/>
+                    <Item id="23113" name="Ireki Aipamena :"/>
+                    <Item id="23115" name="Itxi Aipamena :"/>
+                    <Item id="23116" name="Tratatu hitzgakoa ikur bezala"/>
+                    <Item id="23117" name="Tratatu hitzgakoak ikurrak bezala"/>
                     <Item id="23124" name="Estilotzailea"/>
                     <Item id="23122" name="Ireki"/>
                     <Item id="23123" name="Itxi"/>
-					<Item id="23201" name="Zenbakia"/>
+                    <Item id="23201" name="Zenbakia"/>
                     <Item id="23220" name="Estilotzailea"/>
-					<Item id="23301" name="Aipatu Lerroa"/>
+                    <Item id="23301" name="Aipatu Lerroa"/>
                     <Item id="23326" name="Estilotzailea"/>
                     <Item id="23323" name="Ireki"/>
                     <Item id="23324" name="Jarraipen hizkia"/>
                     <Item id="23325" name="Itxi"/>
-					<Item id="23230" name="Aurrizkia 1:"/>
-					<Item id="23232" name="Aurrizkia 2:"/>
-					<Item id="23234" name="Gehigarriak 1:"/>
-					<Item id="23236" name="Gehigarriak 2:"/>
-					<Item id="23238" name="Atzizkia 1:"/>
-					<Item id="23240" name="Atzizkia 2:"/>
-					<Item id="23242" name="Maila : "/>
-					<Item id="23244" name="Hamarren banantzailea"/>
-					<Item id="23245" name="Puntu"/>
-					<Item id="23246" name="Kakotxa"/>
-					<Item id="23247" name="Biak"/>
-					<Item id="23301" name="Aipatu Lerroa"/>
+                    <Item id="23230" name="Aurrizkia 1:"/>
+                    <Item id="23232" name="Aurrizkia 2:"/>
+                    <Item id="23234" name="Gehigarriak 1:"/>
+                    <Item id="23236" name="Gehigarriak 2:"/>
+                    <Item id="23238" name="Atzizkia 1:"/>
+                    <Item id="23240" name="Atzizkia 2:"/>
+                    <Item id="23242" name="Maila : "/>
+                    <Item id="23244" name="Hamarren banantzailea"/>
+                    <Item id="23245" name="Puntu"/>
+                    <Item id="23246" name="Kakotxa"/>
+                    <Item id="23247" name="Biak"/>
+                    <Item id="23301" name="Aipatu Lerroa"/>
                 </Comment>
                 <Operator title="Eragileak">
-					<Item id="24107" name="Eragilea"/>
-					<Item id="24103" name="Sinbolo eskuragarriak"/>
-					<Item id="24101" name="Eragindako Eragileak"/>
-					<Item id="24201" name="Mugatzailea 1"/>
-					<Item id="24211" name="Muga irekita :"/>
-					<Item id="24214" name="Muga itxita :"/>
-					<Item id="24301" name="Mugatzailea 2"/>
-					<Item id="24311" name="Muga irekita :"/>
-					<Item id="24314" name="Muga itxita :"/>
-					<Item id="24113" name="Estilotzailea"/>
+                    <Item id="24107" name="Eragilea"/>
+                    <Item id="24103" name="Sinbolo eskuragarriak"/>
+                    <Item id="24101" name="Eragindako Eragileak"/>
+                    <Item id="24201" name="Mugatzailea 1"/>
+                    <Item id="24211" name="Muga irekita :"/>
+                    <Item id="24214" name="Muga itxita :"/>
+                    <Item id="24301" name="Mugatzailea 2"/>
+                    <Item id="24311" name="Muga irekita :"/>
+                    <Item id="24314" name="Muga itxita :"/>
+                    <Item id="24113" name="Estilotzailea"/>
                     <Item id="24116" name="Eragileak1"/>
                     <Item id="24117" name="Eragileak2 (banabtzaileak beharrezkoak)"/>
                     <Item id="24223" name="Estilotzailea"/>
@@ -603,49 +603,49 @@
                 </Operator>
                 <Item id="24001" name="Gaitu irten hizkikodea:"/>
             </UserDefine>
-			<Preference title="Hobespenak">
+            <Preference title="Hobespenak">
                 <Item id="6001" name="Itxi"/>
-				<Global title="Orokorra">
-					<Item id="6101" name="Tresnabarra"/>
-					<Item id="6102" name="Ezkutatu"/>
-					<Item id="6103" name="Ikur txikiak"/>
-	                <Item id="6104" name="Ikur handiak"/>
-					<Item id="6105" name="Ikur estandarrak"/>
-					<Item id="6106" name="Hegats barra"/>
-					<Item id="6107" name="Txikitu"/>
-					<Item id="6108" name="Blokeatu (arrastatu eta askatu)"/>
-					<Item id="6109" name="Ilundu jardungabeko hegatsak"/>
-					<Item id="6110" name="Margotu marra jarduneko hegatsean"/>
-					<Item id="6111" name="Erakutsi egoera barra "/>
-					<Item id="6112" name="Erakutsi itxi botoia hegats bakoitzean"/>
-					<Item id="6113" name="Klik bikoitza agiria isteko"/>
-					<Item id="6118" name="Ezkutatu"/>
-					<Item id="6119" name="Lerro-anitz"/>
-					<Item id="6120" name="Zutika"/>
-					<Item id="6121" name="Menu barra"/>
-					<Item id="6122" name="Ezkutatu (Alt edo F10 aldatzeko)"/>
-					<Item id="6123" name="Hizkuntza"/>
+                <Global title="Orokorra">
+                    <Item id="6101" name="Tresnabarra"/>
+                    <Item id="6102" name="Ezkutatu"/>
+                    <Item id="6103" name="Ikur txikiak"/>
+                    <Item id="6104" name="Ikur handiak"/>
+                    <Item id="6105" name="Ikur estandarrak"/>
+                    <Item id="6106" name="Hegats barra"/>
+                    <Item id="6107" name="Txikitu"/>
+                    <Item id="6108" name="Blokeatu (arrastatu eta askatu)"/>
+                    <Item id="6109" name="Ilundu jardungabeko hegatsak"/>
+                    <Item id="6110" name="Margotu marra jarduneko hegatsean"/>
+                    <Item id="6111" name="Erakutsi egoera barra "/>
+                    <Item id="6112" name="Erakutsi itxi botoia hegats bakoitzean"/>
+                    <Item id="6113" name="Klik bikoitza agiria isteko"/>
+                    <Item id="6118" name="Ezkutatu"/>
+                    <Item id="6119" name="Lerro-anitz"/>
+                    <Item id="6120" name="Zutika"/>
+                    <Item id="6121" name="Menu barra"/>
+                    <Item id="6122" name="Ezkutatu (Alt edo F10 aldatzeko)"/>
+                    <Item id="6123" name="Hizkuntza"/>
                     <Item id="6125" name="Agiri Aldatzailea"/>
                     <Item id="6126" name="Erakutsi"/>
-					<Item id="6127" name="Ezgaitu luzapen zutabea"/>
-				</Global>
+                    <Item id="6127" name="Ezgaitu luzapen zutabea"/>
+                </Global>
                 <Scintillas title="Editatu">
                     <Item id="6201" name="Agiritegi Bazter Estiloa"/>
                     <Item id="6202" name="Arrunta"/>
                     <Item id="6203" name="Gezia"/>
-	                <Item id="6204" name="Borobil zuhaitza"/>
+                    <Item id="6204" name="Borobil zuhaitza"/>
                     <Item id="6205" name="Kutxa zuhaitza"/>
-					<Item id="6206" name="Erakutsi lerro zenbakiak"/>
-					<Item id="6207" name="Erakutsi lastermarkak"/>
-					<Item id="6208" name="Erakutsi zutikako Hertza"/>
-					<Item id="6209" name="Zutabe zenbatekoa: "/>
-					<Item id="6211" name="Zutikako Hertz Ezarpena"/>
-					<Item id="6212" name="Lerro modua"/>
-					<Item id="6213" name="Barren modua"/>
-					<Item id="6214" name="Eragin oraingo lerro nabarmentzea"/>
-					<Item id="6216" name="Gehikizun ezarpenak"/>
-					<Item id="6217" name="Zabalera :"/>
-					<Item id="6219" name="Dizdira Maila :"/>
+                    <Item id="6206" name="Erakutsi lerro zenbakiak"/>
+                    <Item id="6207" name="Erakutsi lastermarkak"/>
+                    <Item id="6208" name="Erakutsi zutikako Hertza"/>
+                    <Item id="6209" name="Zutabe zenbatekoa: "/>
+                    <Item id="6211" name="Zutikako Hertz Ezarpena"/>
+                    <Item id="6212" name="Lerro modua"/>
+                    <Item id="6213" name="Barren modua"/>
+                    <Item id="6214" name="Eragin oraingo lerro nabarmentzea"/>
+                    <Item id="6216" name="Gehikizun ezarpenak"/>
+                    <Item id="6217" name="Zabalera :"/>
+                    <Item id="6219" name="Dizdira Maila :"/>
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
                     <Item id="6224" name="Editatze-Anitz Ezarpenak"/>
@@ -655,20 +655,20 @@
                     <Item id="6228" name="Berezkoa"/>
                     <Item id="6229" name="Lerrokatuta"/>
                     <Item id="6230" name="Elkarmarratuta"/>
-					<Item id="6234" name="Ezgaitu irristatze aurreratu ezaugarria (ikutpanel arazoak badituzu)"/>
+                    <Item id="6234" name="Ezgaitu irristatze aurreratu ezaugarria (ikutpanel arazoak badituzu)"/>
                 </Scintillas>
-				<NewDoc title="Agiri Berria/Berezko Zuzenbidea">
-					<Item id="6401" name="Heuskarria"/>
-					<Item id="6402" name="Windows"/>
-					<Item id="6403" name="Unix"/>
-	                <Item id="6404" name="Mac"/>
-					<Item id="6405" name="Kodeaketa"/>
-					<Item id="6406" name="ANSI"/>
-					<Item id="6407" name="UTF-8 BOM gabe"/>
-					<Item id="6408" name="UTF-8"/>
-					<Item id="6409" name="UCS-2 Big endian"/>
-					<Item id="6410" name="UCS-2 small endian"/>
-					<Item id="6411" name="Berezko hizkuntza:"/>
+                <NewDoc title="Agiri Berria/Berezko Zuzenbidea">
+                    <Item id="6401" name="Heuskarria"/>
+                    <Item id="6402" name="Windows"/>
+                    <Item id="6403" name="Unix"/>
+                    <Item id="6404" name="Mac"/>
+                    <Item id="6405" name="Kodeaketa"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="UTF-8 BOM gabe"/>
+                    <Item id="6408" name="UTF-8"/>
+                    <Item id="6409" name="UCS-2 Big endian"/>
+                    <Item id="6410" name="UCS-2 small endian"/>
+                    <Item id="6411" name="Berezko hizkuntza:"/>
                     <Item id="6413" name="Berezko Zuzenbidea (Ireki/Gorde)"/>
                     <Item id="6414" name="Jarraitu oraingo agiria"/>
                     <Item id="6415" name="Gogoratu erabilitako azken zuzenbidea"/>
@@ -678,11 +678,11 @@
                     <Item id="6424" name="Azpimenuan"/>
                     <Item id="6425" name="Agiri Izena Bakarrik"/>
                     <Item id="6426" name="Agiri Izen Helburu Osoa"/>
-					<Item id="6427" name="Norbereraratu Gehinezko Luzera"/>
+                    <Item id="6427" name="Norbereraratu Gehinezko Luzera"/>
                 </NewDoc>
-				<FileAssoc title="Agiri Elkarketa">
-					<Item id="4009" name="Onartutako Luzapenak:"/>
-					<Item id="4010" name="Erregis. Luzap.:"/>
+                <FileAssoc title="Agiri Elkarketa">
+                    <Item id="4009" name="Onartutako Luzapenak:"/>
+                    <Item id="4010" name="Erregis. Luzap.:"/>
                 </FileAssoc>
                 <LangMenu title="Hizkuntza Menua/Hegats Ezarpenak">
                     <Item id="6301" name="Hegats Ezarpenak"/>
@@ -695,122 +695,122 @@
                     <Item id="6510" name="Erabili berezko balioa"/>
                 </LangMenu>
 
-				<Print title="Irarketa">
-					<Item id="6601" name="Irarkitu lerro zenbakia"/>
-					<Item id="6602" name="Margo Aukerak"/>
-					<Item id="6603" name="WYSIWYG"/>
-					<Item id="6604" name="Alderantzizkatu"/>
-	                <Item id="6605" name="Beltza zurigainean"/>
-					<Item id="6606" name="Barren margogabea"/>
-					<Item id="6607" name="Bazter Ezarpena (mm)"/>
-					<Item id="6612" name="Ezker"/>
-					<Item id="6613" name="Goian"/>
-					<Item id="6614" name="Eskuin"/>
-					<Item id="6615" name="Behean"/>
-					<Item id="6706" name="Lodia"/>
-					<Item id="6707" name="Etzana"/>
-					<Item id="6708" name="Idazburua"/>
-					<Item id="6709" name="Ezkerraldea"/>
-	                <Item id="6710" name="Erdialdea"/>
-					<Item id="6711" name="Eskuinaldea"/>
-					<Item id="6717" name="Lodia"/>
-					<Item id="6718" name="Etzana"/>
-					<Item id="6719" name="Idazohina"/>
-					<Item id="6720" name="Ezkerraldea"/>
-	                <Item id="6721" name="Erdialdea"/>
-					<Item id="6722" name="Eskuinaldea"/>
-	                <Item id="6723" name="Gehitu"/>
-					<Item id="6725" name="Aldaera :"/>
+                <Print title="Irarketa">
+                    <Item id="6601" name="Irarkitu lerro zenbakia"/>
+                    <Item id="6602" name="Margo Aukerak"/>
+                    <Item id="6603" name="WYSIWYG"/>
+                    <Item id="6604" name="Alderantzizkatu"/>
+                    <Item id="6605" name="Beltza zurigainean"/>
+                    <Item id="6606" name="Barren margogabea"/>
+                    <Item id="6607" name="Bazter Ezarpena (mm)"/>
+                    <Item id="6612" name="Ezker"/>
+                    <Item id="6613" name="Goian"/>
+                    <Item id="6614" name="Eskuin"/>
+                    <Item id="6615" name="Behean"/>
+                    <Item id="6706" name="Lodia"/>
+                    <Item id="6707" name="Etzana"/>
+                    <Item id="6708" name="Idazburua"/>
+                    <Item id="6709" name="Ezkerraldea"/>
+                    <Item id="6710" name="Erdialdea"/>
+                    <Item id="6711" name="Eskuinaldea"/>
+                    <Item id="6717" name="Lodia"/>
+                    <Item id="6718" name="Etzana"/>
+                    <Item id="6719" name="Idazohina"/>
+                    <Item id="6720" name="Ezkerraldea"/>
+                    <Item id="6721" name="Erdialdea"/>
+                    <Item id="6722" name="Eskuinaldea"/>
+                    <Item id="6723" name="Gehitu"/>
+                    <Item id="6725" name="Aldaera :"/>
                     <Item id="6728" name="Idazburua eta Idazohina"/>
                 </Print>
 
-				<RecentFilesHistory title="Azken Agirien Historia">
-                   <Item id="6304" name="Azken Agirien Historia"/>
-                   <Item id="6306" name="Geh. sarrera zenbatekoa:"/>
-                   <Item id="6305" name="Ez egiaztatu abiarazterakoan"/>
-                   <Item id="6429" name="Erakutsi"/>
-                   <Item id="6424" name="Azpimenuan"/>
-                   <Item id="6425" name="Agiri Izena Bakarrik"/>
-                   <Item id="6426" name="Agiri Izen Helburu Osoa"/>
-                   <Item id="6427" name="Norbereratu Gehinezko Luzera:"/>
-               </RecentFilesHistory>
+                <RecentFilesHistory title="Azken Agirien Historia">
+                    <Item id="6304" name="Azken Agirien Historia"/>
+                    <Item id="6306" name="Geh. sarrera zenbatekoa:"/>
+                    <Item id="6305" name="Ez egiaztatu abiarazterakoan"/>
+                    <Item id="6429" name="Erakutsi"/>
+                    <Item id="6424" name="Azpimenuan"/>
+                    <Item id="6425" name="Agiri Izena Bakarrik"/>
+                    <Item id="6426" name="Agiri Izen Helburu Osoa"/>
+                    <Item id="6427" name="Norbereratu Gehinezko Luzera:"/>
+                </RecentFilesHistory>
 
- 		        <Backup title="Backup">
- 		            <Item id="6801" name="Babeskopia"/>
-					<Item id="6803" name="Zuzenbidea:"/>
-					<Item id="6804" name="Norbere Babeskopia Zuzenbidea"/>
- 		            <Item id="6315" name="Ezer ez"/>
- 		            <Item id="6316" name="Babeskopia Arrunta"/>
-					<Item id="6317" name="Babeskopia Berritsua"/>
-					<Item id="6817" name="Saio berehalakoa eta aldizkako babeskopia"/>
- 		            <Item id="6818" name="Gaitu saio berehalakoa eta aldizkako babeskopia"/>
- 		            <Item id="6819" name="Babeskopia epea"/>
- 		            <Item id="6821" name="segundu"/>
- 		            <Item id="6822" name="Babeskopia helburua:"/>
- 		        </Backup>
+                <Backup title="Backup">
+                    <Item id="6801" name="Babeskopia"/>
+                    <Item id="6803" name="Zuzenbidea:"/>
+                    <Item id="6804" name="Norbere Babeskopia Zuzenbidea"/>
+                    <Item id="6315" name="Ezer ez"/>
+                    <Item id="6316" name="Babeskopia Arrunta"/>
+                    <Item id="6317" name="Babeskopia Berritsua"/>
+                    <Item id="6817" name="Saio berehalakoa eta aldizkako babeskopia"/>
+                    <Item id="6818" name="Gaitu saio berehalakoa eta aldizkako babeskopia"/>
+                    <Item id="6819" name="Babeskopia epea"/>
+                    <Item id="6821" name="segundu"/>
+                    <Item id="6822" name="Babeskopia helburua:"/>
+                </Backup>
 
- 		        <AutoCompletion title="Berez-Osaketa">
- 		            <Item id="6807" name="Berez-Osaketa"/>
- 		            <Item id="6808" name="Gaitu berez-osaketa sarrera bakoitzean"/>
- 		            <Item id="6809" name="Eginkizun osaketa"/>
- 		            <Item id="6810" name="Hitz osaketa"/>
- 		            <Item id="6811" name="Hemendik"/>
- 		            <Item id="6813" name=".garren hizkia"/>
- 		            <Item id="6814" name="Baliozko Balioa: 1 - 9"/>
- 		            <Item id="6815" name="Eginkizun parametro iradokizuna sarreran"/>
-					<Item id="6816" name="Eginkizun eta hitz osaketa"/>
- 		            <Item id="6851" name="Berez-Txertatu"/>
- 		            <Item id="6857" name=" html/xml etiketa itxia"/>
- 		            <Item id="6858" name="Ireki"/>
- 		            <Item id="6859" name="Itxi"/>
- 		            <Item id="6860" name="Berdin parea 1:"/>
- 		            <Item id="6863" name="Berdin parea 2:"/>
- 		            <Item id="6866" name="Berdin parea 3:"/>
- 		        </AutoCompletion>
+                <AutoCompletion title="Berez-Osaketa">
+                    <Item id="6807" name="Berez-Osaketa"/>
+                    <Item id="6808" name="Gaitu berez-osaketa sarrera bakoitzean"/>
+                    <Item id="6809" name="Eginkizun osaketa"/>
+                    <Item id="6810" name="Hitz osaketa"/>
+                    <Item id="6811" name="Hemendik"/>
+                    <Item id="6813" name=".garren hizkia"/>
+                    <Item id="6814" name="Baliozko Balioa: 1 - 9"/>
+                    <Item id="6815" name="Eginkizun parametro iradokizuna sarreran"/>
+                    <Item id="6816" name="Eginkizun eta hitz osaketa"/>
+                    <Item id="6851" name="Berez-Txertatu"/>
+                    <Item id="6857" name=" html/xml etiketa itxia"/>
+                    <Item id="6858" name="Ireki"/>
+                    <Item id="6859" name="Itxi"/>
+                    <Item id="6860" name="Berdin parea 1:"/>
+                    <Item id="6863" name="Berdin parea 2:"/>
+                    <Item id="6866" name="Berdin parea 3:"/>
+                </AutoCompletion>
 
- 		        <MultiInstance title="Eskabide-Anitz">
- 		            <Item id="6151" name="Eskabide-Anitz ezarpenak"/>
- 		            <Item id="6152" name="Ireki saio Notepad++ eskabide berri batean"/>
- 		            <Item id="6153" name="Betik eskabide-anitz moduan"/>
- 		            <Item id="6154" name="Berezkoa (eskabide-bakarra)"/>
- 		            <Item id="6155" name="* Ezarpen honen aldaketak Notepad++ berrabiaraztea behar du"/>
- 		        </MultiInstance>
+                <MultiInstance title="Eskabide-Anitz">
+                    <Item id="6151" name="Eskabide-Anitz ezarpenak"/>
+                    <Item id="6152" name="Ireki saio Notepad++ eskabide berri batean"/>
+                    <Item id="6153" name="Betik eskabide-anitz moduan"/>
+                    <Item id="6154" name="Berezkoa (eskabide-bakarra)"/>
+                    <Item id="6155" name="* Ezarpen honen aldaketak Notepad++ berrabiaraztea behar du"/>
+                </MultiInstance>
 
- 		        <Delimiter title="Mugatzilea">
- 		            <Item id="6251" name="Mugatzaile hautapen ezarpenak (Ktrl + Sagu klik bikoitza)"/>
- 		            <Item id="6252" name="Ireki"/>
- 		            <Item id="6255" name="Itxi"/>
- 		            <Item id="6256" name="Ahalbidetu lerro ugaritan"/>
- 		        </Delimiter>
-				<Cloud title="Hodeia">
- 		                    <Item id="6262" name="Hodeiko ezarpenak"/>
- 		                    <Item id="6263" name="Hodeirik Ez"/>
- 		                    <Item id="6264" name="Dropbox"/>
- 		                    <Item id="6265" name="OneDrive"/>
- 		                    <Item id="6266" name="Google Drive"/>
- 		                    <!--Item id="6261" name="Mesedez berrabiarazi Notepad++ eragina izateko."/-->
- 		        </Cloud>
+                <Delimiter title="Mugatzilea">
+                    <Item id="6251" name="Mugatzaile hautapen ezarpenak (Ktrl + Sagu klik bikoitza)"/>
+                    <Item id="6252" name="Ireki"/>
+                    <Item id="6255" name="Itxi"/>
+                    <Item id="6256" name="Ahalbidetu lerro ugaritan"/>
+                </Delimiter>
+                <Cloud title="Hodeia">
+                    <Item id="6262" name="Hodeiko ezarpenak"/>
+                    <Item id="6263" name="Hodeirik Ez"/>
+                    <Item id="6264" name="Dropbox"/>
+                    <Item id="6265" name="OneDrive"/>
+                    <Item id="6266" name="Google Drive"/>
+                    <!--Item id="6261" name="Mesedez berrabiarazi Notepad++ eragina izateko."/-->
+                </Cloud>
 
-				<MISC title="Askotarikoa">
-					<Item id="6304" name="Historia Agiri Ezarpena"/>
-	                <Item id="6305" name="Ez egiaztatu abiatzerako orduan"/>
-					<Item id="6306" name="Geh. sarrera zenbatekoa:"/>
-					<Item id="6307" name="Gaitu"/>
-					<Item id="6308" name="Txikiengotu sistema erretilura"/>
-					<Item id="6309" name="Gogoratu oraingo saioa hurrengo ekinerako"/>
-					<Item id="6312" name="Agiri Egoera Berez-atzematea"/>
-					<Item id="6313" name="Eguneratu isilean"/>
-					<Item id="6114" name="Gaitu"/>
-					<Item id="6115" name="Berez-eskuineratu"/>
-					<Item id="6117" name="Gaitu MRU jokabidea agiri aldatzailerako"/>
-					<Item id="6318" name="Lotura klikagarrri ezarpenak"/>
-					<Item id="6319" name="Gaitu"/>
-					<Item id="6320" name="Ez azpimarratuta"/>
+                <MISC title="Askotarikoa">
+                    <Item id="6304" name="Historia Agiri Ezarpena"/>
+                    <Item id="6305" name="Ez egiaztatu abiatzerako orduan"/>
+                    <Item id="6306" name="Geh. sarrera zenbatekoa:"/>
+                    <Item id="6307" name="Gaitu"/>
+                    <Item id="6308" name="Txikiengotu sistema erretilura"/>
+                    <Item id="6309" name="Gogoratu oraingo saioa hurrengo ekinerako"/>
+                    <Item id="6312" name="Agiri Egoera Berez-atzematea"/>
+                    <Item id="6313" name="Eguneratu isilean"/>
+                    <Item id="6114" name="Gaitu"/>
+                    <Item id="6115" name="Berez-eskuineratu"/>
+                    <Item id="6117" name="Gaitu MRU jokabidea agiri aldatzailerako"/>
+                    <Item id="6318" name="Lotura klikagarrri ezarpenak"/>
+                    <Item id="6319" name="Gaitu"/>
+                    <Item id="6320" name="Ez azpimarratuta"/>
                     <Item id="6322" name="Saio agiri luzap.:"/>
-					<Item id="6323" name="Gaitu Notepad++ berez-eguneratzailea"/>
-					<Item id="6324" name="Agiri Aldatzailea (Ctrl+TAB)"/>
-					<Item id="6325" name="Azken lerrora joan eguneratu ondoren"/>
-					<Item id="6326" name="Gaitu nabarmentze adimentsua"/>
+                    <Item id="6323" name="Gaitu Notepad++ berez-eguneratzailea"/>
+                    <Item id="6324" name="Agiri Aldatzailea (Ctrl+TAB)"/>
+                    <Item id="6325" name="Azken lerrora joan eguneratu ondoren"/>
+                    <Item id="6326" name="Gaitu nabarmentze adimentsua"/>
                     <Item id="6327" name="Gaitu"/>
                     <Item id="6328" name="Nabarmendu etiketa ezaugarriak"/>
                     <Item id="6329" name="Nabarmendu Etiketak"/>
@@ -818,29 +818,29 @@
                     <Item id="6331" name="Erakutsi agirizena bakarrik izenburu-barran"/>
                     <Item id="6332" name="Nabarmendu hizki xehe-larri artean"/>
                     <Item id="6333" name="Nabarmentze Adimentsua"/>
-					<Item id="6334" name="Berez-atzeman hizki kodeaketa"/>
- 		            <Item id="6335" name="Tratatu ezkerbarra irten hizki bezala SQL hizki-koderako"/>
+                    <Item id="6334" name="Berez-atzeman hizki kodeaketa"/>
+                    <Item id="6335" name="Tratatu ezkerbarra irten hizki bezala SQL hizki-koderako"/>
 
                 </MISC>
 
             </Preference>
-			<MultiMacro title="Ekin Makroari Anintz Aldiz">
+            <MultiMacro title="Ekin Makroari Anintz Aldiz">
                 <Item id="1" name="Ekin"/>
                 <Item id="2" name="Ezeztatu"/>
                 <Item id="8001" name="Ekin"/>
-				<Item id="8002" name="Agiri amaierara arte ekin"/>
+                <Item id="8002" name="Agiri amaierara arte ekin"/>
                 <Item id="8005" name="aldiz"/>
-				<Item id="8006" name="Makroa ekiteko:"/>
+                <Item id="8006" name="Makroa ekiteko:"/>
 
             </MultiMacro>
-			<Window title="Leihoak">
+            <Window title="Leihoak">
                 <Item id="1" name="&amp;Eragin"/>
                 <Item id="2" name="&amp;Ongi"/>
                 <Item id="7002" name="&amp;Gorde"/>
                 <Item id="7003" name="It&amp;xi leihoa(k)"/>
                 <Item id="7004" name="&amp;Antola hegatsak"/>
             </Window>
-			<ColumnEditor title="Zutabe Editatzailea">
+            <ColumnEditor title="Zutabe Editatzailea">
                 <Item id="2023" name="Txertatzeko idazkia"/>
                 <Item id="2033" name="Txertatzeko zenbakia"/>
                 <Item id="2030" name="Hasierako zenbakia:"/>
@@ -851,92 +851,94 @@
                 <Item id="2025" name="Zor"/>
                 <Item id="2026" name="HSei"/>
                 <Item id="2027" name="Bit"/>
-				<Item id="1" name="Ongi"/>
-				<Item id="2" name="Ezeztatu"/>
+                <Item id="1" name="Ongi"/>
+                <Item id="2" name="Ezeztatu"/>
             </ColumnEditor>
-		</Dialog>
-		<MessageBox>
-		    <ContextMenuXmlEditWarning title="Hitzinguru Menua Editatzea" message="Hitzinguru Menua Editatzen.xml-ek Notepad++ oharleiho hitzinguru menua aldatzea ahalbidetzen dizu.\rNotepad++ berrabiarazi behar duzu eragina izateko hitzinguru Menua.xml aldatu ondoren."/>
-			<NppHelpAbsentWarning title="Agiria ez dago" message="\rEz dago. Mesedez jeitsi ezazu Notepad++ webgunetik."/>
-			<SaveCurrentModifWarning title="Gorde Oraingo Aldaketa" message="Oraingo aldaketa gorde behar duzu.
+        </Dialog>
+        <MessageBox>
+            <ContextMenuXmlEditWarning title="Hitzinguru Menua Editatzea" message="Hitzinguru Menua Editatzen.xml-ek Notepad++ oharleiho hitzinguru menua aldatzea ahalbidetzen dizu.\rNotepad++ berrabiarazi behar duzu eragina izateko hitzinguru Menua.xml aldatu ondoren."/>
+            <NppHelpAbsentWarning title="Agiria ez dago" message="\rEz dago. Mesedez jeitsi ezazu Notepad++ webgunetik."/>
+            <SaveCurrentModifWarning title="Gorde Oraingo Aldaketa" message="Oraingo aldaketa gorde behar duzu.
 			\rGordetako aldaketa guztiak ezin dira desegin.\r\rJarraitu?"/>
-			<LoseUndoAbilityWarning title="Galdu Desegin Gaitasun Gutxitzailea" message="Oraingo aldaketa gorde behar duzu.
+            <LoseUndoAbilityWarning title="Galdu Desegin Gaitasun Gutxitzailea" message="Oraingo aldaketa gorde behar duzu.
 			\rGordetako aldaketa guztiak ezin dira desegin.\r\rJarraitu?"/>
-			<CannotMoveDoc title="Mugitu Notepad++ Eskabide berrira" message="Agiria aldatuta dago, gorde eta saiatu berriro."/>
-			<DocReloadWarning title="Birgertatu" message="Zihur zaude oraingo agiria birgertatzea eta Notepad++ egindako aldaketak galtzea nahi dituzula?"/><FileLockedWarning title="Gordetze hutsegitea" message="Mesedez egiaztatu agiria beste programaren batean irekita dagoen"/><FileAlreadyOpenedInNpp title="" message="Agiria jadanik irekita dago hemen: Notepad++."/>
-			<FileLockedWarning title="Save failed" message="Mesedez egiaztatu agiri hau beste programaren batean irekita dagoen"/>
-			<FileAlreadyOpenedInNpp title="" message="Agiria jadanik irekita dago Notepad++."/>
-			<DeleteFileFailed title="Ezabatu Agiria" message="Ezabatu Agiria Hutsegitea"/>
+            <CannotMoveDoc title="Mugitu Notepad++ Eskabide berrira" message="Agiria aldatuta dago, gorde eta saiatu berriro."/>
+            <DocReloadWarning title="Birgertatu" message="Zihur zaude oraingo agiria birgertatzea eta Notepad++ egindako aldaketak galtzea nahi dituzula?"/>
+            <FileLockedWarning title="Gordetze hutsegitea" message="Mesedez egiaztatu agiria beste programaren batean irekita dagoen"/>
+            <FileAlreadyOpenedInNpp title="" message="Agiria jadanik irekita dago hemen: Notepad++."/>
+            <FileLockedWarning title="Save failed" message="Mesedez egiaztatu agiri hau beste programaren batean irekita dagoen"/>
+            <FileAlreadyOpenedInNpp title="" message="Agiria jadanik irekita dago Notepad++."/>
+            <DeleteFileFailed title="Ezabatu Agiria" message="Ezabatu Agiria Hutsegitea"/>
 
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<NbFileToOpenImportantWarning title="Irekitzeko agiri kopurua handiegia da" message="$INT_REPLACE$ agiri daude irekitzeko.\rZihur zaude irekitzea nahi dituzula?"/>
-		</MessageBox>
-		<ClipboardHistory>
- 		    <PanelTitle name="Gako Historia"/>
- 		</ClipboardHistory>
- 		    <DocSwitcher>
- 		    <PanelTitle name="Agiri Aldatzailea"/>
- 		    <ColumnName name="Izena"/>
- 		    <ColumnExt name="Luzap."/>
- 		</DocSwitcher>
- 		    <AsciiInsertion>
- 		    <PanelTitle name="ASCII Txertapen Panela"/>
- 		    <ColumnVal name="Balioa"/>
- 		    <ColumnChar name="Hizkia"/>
- 		</AsciiInsertion>
- 		    <DocumentMap>
- 		    <PanelTitle name="Agiri Mapa"/>
- 		    </DocumentMap>
- 		<FunctionList>
- 		    <PanelTitle name="Eginkizun Zerrenda"/>
- 		    <SortTip name="Anlotau" />
- 		    <ReloadTip name="Birgertatu" />
- 		</FunctionList>
-		<ProjectManager>
-		   <PanelTitle name="Egitasmoa"/>
-		   <WorkspaceRootName name="Laneremua"/>
-			<NewProjectName name="Egitasmo Izena"/>
-			<NewFolderName name="Agiritegi Izena"/>
-		   <Menus>
-		      <Entries>
-			      <Item id="0" name="Laneremua"/>
-				  <Item id="1" name="Editatu"/>
-			  </Entries>
-			  <WorkspaceMenu>
-			  	  <Item id="3121" name="Gehitu Egitasmo Berria"/>
-			      <Item id="3122" name="Laneremu Berria"/>
-				  <Item id="3123" name="Ireki Laneremua"/>
-				  <Item id="3124" name="Birgertau Laneremua"/>
-				  <Item id="3125" name="Gorde"/>
-				  <Item id="3126" name="Gorde Honela..."/>
-				  <Item id="3127" name="Gorde Kopia Bat Honela..."/>
-			  </WorkspaceMenu>
-			  <ProjectMenu>
-			      <Item id="3111" name="Berrizendatu"/>
-				  <Item id="3112" name="Gehitu Agiritegiak"/>
-				  <Item id="3113" name="Gehitu Agiriak..."/>
-				  <Item id="3114" name="Kendu"/>
-				  <Item id="3117" name="Gehitu Agiriak Zuzenbidetik..."/>
-				  <Item id="3118" name="Mugitu Gora"/>
-				  <Item id="3119" name="Mugitu Behera"/>
-		      </ProjectMenu>
-		      <FolderMenu>
-			      <Item id="3111" name="Berrizendatu"/>
-				  <Item id="3112" name="Gehitu Agiritegia"/>
-				  <Item id="3113" name="Gehitu Agiriak..."/>
-				  <Item id="3114" name="Kendu"/>
-				  <Item id="3117" name="Gehitu  Agiriak Zuzenbidetik..."/>
-				  <Item id="3118" name="Mugitu Gora"/>
-				  <Item id="3119" name="Mugitu Behera"/>
-		      </FolderMenu>
-		      <FileMenu>
-			      <Item id="3111" name="Berrizendatu"/>
-				  <Item id="3115" name="Kendu"/>
-				  <Item id="3116" name="Aldatu Agiri Helburua"/>
-				  <Item id="3118" name="Mugitu Gora"/>
-				  <Item id="3119" name="Mugitu Behera"/>
-		      </FileMenu>
-		   </Menus>
-		</ProjectManager>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <NbFileToOpenImportantWarning title="Irekitzeko agiri kopurua handiegia da" message="$INT_REPLACE$ agiri daude irekitzeko.\rZihur zaude irekitzea nahi dituzula?"/>
+        </MessageBox>
+        <ClipboardHistory>
+            <PanelTitle name="Gako Historia"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+            <PanelTitle name="Agiri Aldatzailea"/>
+            <ColumnName name="Izena"/>
+            <ColumnExt name="Luzap."/>
+        </DocSwitcher>
+        <AsciiInsertion>
+            <PanelTitle name="ASCII Txertapen Panela"/>
+            <ColumnVal name="Balioa"/>
+            <ColumnChar name="Hizkia"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="Agiri Mapa"/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="Eginkizun Zerrenda"/>
+            <SortTip name="Anlotau"/>
+            <ReloadTip name="Birgertatu"/>
+        </FunctionList>
+        <ProjectManager>
+            <PanelTitle name="Egitasmoa"/>
+            <WorkspaceRootName name="Laneremua"/>
+            <NewProjectName name="Egitasmo Izena"/>
+            <NewFolderName name="Agiritegi Izena"/>
+            <Menus>
+                <Entries>
+                    <Item id="0" name="Laneremua"/>
+                    <Item id="1" name="Editatu"/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3121" name="Gehitu Egitasmo Berria"/>
+                    <Item id="3122" name="Laneremu Berria"/>
+                    <Item id="3123" name="Ireki Laneremua"/>
+                    <Item id="3124" name="Birgertau Laneremua"/>
+                    <Item id="3125" name="Gorde"/>
+                    <Item id="3126" name="Gorde Honela..."/>
+                    <Item id="3127" name="Gorde Kopia Bat Honela..."/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="Berrizendatu"/>
+                    <Item id="3112" name="Gehitu Agiritegiak"/>
+                    <Item id="3113" name="Gehitu Agiriak..."/>
+                    <Item id="3114" name="Kendu"/>
+                    <Item id="3117" name="Gehitu Agiriak Zuzenbidetik..."/>
+                    <Item id="3118" name="Mugitu Gora"/>
+                    <Item id="3119" name="Mugitu Behera"/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="Berrizendatu"/>
+                    <Item id="3112" name="Gehitu Agiritegia"/>
+                    <Item id="3113" name="Gehitu Agiriak..."/>
+                    <Item id="3114" name="Kendu"/>
+                    <Item id="3117" name="Gehitu  Agiriak Zuzenbidetik..."/>
+                    <Item id="3118" name="Mugitu Gora"/>
+                    <Item id="3119" name="Mugitu Behera"/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="Berrizendatu"/>
+                    <Item id="3115" name="Kendu"/>
+                    <Item id="3116" name="Aldatu Agiri Helburua"/>
+                    <Item id="3118" name="Mugitu Gora"/>
+                    <Item id="3119" name="Mugitu Behera"/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
     </Native-Langue>
 </NotepadPlus>

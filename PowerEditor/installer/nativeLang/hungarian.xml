@@ -6,24 +6,24 @@
 <!-- For Notepad++ Version 7.3.1, modified on 2017.01.18 -->
 <NotepadPlus>
     <Native-Langue name="Magyar" filename="hungarian.xml" version="7.3.1">
-       <Menu>
-           <Main>
+        <Menu>
+            <Main>
                 <!-- Main Menu Entries -->
-              <Entries>
-                 <Item menuId="file" name="&amp;Fájl"/>
-                 <Item menuId="edit" name="&amp;Szerkesztés"/>
-                 <Item menuId="search" name="&amp;Keresés"/>
-                 <Item menuId="view" name="&amp;Nézet"/>
-                 <Item menuId="encoding" name="Kó&amp;dolás"/>
-                 <Item menuId="language" name="Ny&amp;elv"/>
-                 <Item menuId="settings" name="&amp;Beállítások"/>
-                 <Item menuId="tools" name="Es&amp;zközök"/>
-                 <Item menuId="macro" name="&amp;Makró"/>
-                 <Item menuId="run" name="F&amp;uttatás"/>
-                 <Item idName="Plugins" name="Bő&amp;vítmények"/>
-                 <Item idName="Window" name="&amp;Ablakok"/>
-              </Entries>
-              <!-- Sub Menu Entries -->
+                <Entries>
+                    <Item menuId="file" name="&amp;Fájl"/>
+                    <Item menuId="edit" name="&amp;Szerkesztés"/>
+                    <Item menuId="search" name="&amp;Keresés"/>
+                    <Item menuId="view" name="&amp;Nézet"/>
+                    <Item menuId="encoding" name="Kó&amp;dolás"/>
+                    <Item menuId="language" name="Ny&amp;elv"/>
+                    <Item menuId="settings" name="&amp;Beállítások"/>
+                    <Item menuId="tools" name="Es&amp;zközök"/>
+                    <Item menuId="macro" name="&amp;Makró"/>
+                    <Item menuId="run" name="F&amp;uttatás"/>
+                    <Item idName="Plugins" name="Bő&amp;vítmények"/>
+                    <Item idName="Window" name="&amp;Ablakok"/>
+                </Entries>
+                <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Tartalmazó mappa megnyitása"/>
                     <Item subMenuId="file-closeMore" name="Többi bezárása"/>
@@ -68,7 +68,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Nyugat-európai"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnami"/>
                     <Item subMenuId="settings-import" name="Importálás"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -86,7 +86,7 @@
                     <Item id="41007" name="Mind mentése"/>
                     <Item id="41008" name="Mentés másként..."/>
                     <Item id="41010" name="Nyomtatás..."/>
-                    <Item id="1001"  name="Nyomtatás közvetlenül"/>
+                    <Item id="1001" name="Nyomtatás közvetlenül"/>
                     <Item id="41011" name="Kilépés"/>
                     <Item id="41012" name="Munkamenet betöltése..."/>
                     <Item id="41013" name="Munkamenet mentése..."/>
@@ -321,36 +321,36 @@
                     <Item id="48016" name="Billentyűparancs módosítása / Makró törlése..."/>
                     <Item id="48017" name="Billentyűparancs módosítása / Parancs törlése..."/>
                 </Commands>
-          </Main>
-          <Splitter>
-          </Splitter>
+            </Main>
+            <Splitter>
+            </Splitter>
             <TabBar>
-                 <Item CMID="0" name="Bezárás"/>
-                 <Item CMID="1" name="Mind bezárása ennek a kivételével"/>
-                 <Item CMID="2" name="Mentés"/>
-                 <Item CMID="3" name="Mentés másként..."/>
-                 <Item CMID="4" name="Nyomtatás..."/>
-                 <Item CMID="5" name="Mozgatás a másik nézetbe"/>
-                 <Item CMID="6" name="Megnyitás a másik nézetben is"/>
-                 <Item CMID="7" name="Teljes elérési útvonal másolása a vágólapra"/>
-                 <Item CMID="8" name="Fájlnév másolása a vágólapra"/>
-                 <Item CMID="9" name="Mappa útvonalának másolása a vágólapra"/>
-                 <Item CMID="10" name="Átnevezés..."/>
-                 <Item CMID="11" name="Törlés"/>
-                 <Item CMID="12" name="Írásvédett"/>
-                 <Item CMID="13" name="Írásvédett attribútum törlése"/>
-                 <Item CMID="14" name="Mozgatás egy új program példányba"/>
-                 <Item CMID="15" name="Megnyitás egy új program példányban is"/>
-                 <Item CMID="16" name="Újbóli betöltés"/>
-                 <Item CMID="17" name="Balra lévő fülek bezárása"/>
-                 <Item CMID="18" name="Jobbra lévő fülek bezárása"/>
-                 <Item CMID="19" name="Tartalmazó mappa megnyitása Intézőben"/>
-                 <Item CMID="20" name="Tartalmazó mappa megnyitása parancssorban"/>
-           </TabBar>
-       </Menu>
+                <Item CMID="0" name="Bezárás"/>
+                <Item CMID="1" name="Mind bezárása ennek a kivételével"/>
+                <Item CMID="2" name="Mentés"/>
+                <Item CMID="3" name="Mentés másként..."/>
+                <Item CMID="4" name="Nyomtatás..."/>
+                <Item CMID="5" name="Mozgatás a másik nézetbe"/>
+                <Item CMID="6" name="Megnyitás a másik nézetben is"/>
+                <Item CMID="7" name="Teljes elérési útvonal másolása a vágólapra"/>
+                <Item CMID="8" name="Fájlnév másolása a vágólapra"/>
+                <Item CMID="9" name="Mappa útvonalának másolása a vágólapra"/>
+                <Item CMID="10" name="Átnevezés..."/>
+                <Item CMID="11" name="Törlés"/>
+                <Item CMID="12" name="Írásvédett"/>
+                <Item CMID="13" name="Írásvédett attribútum törlése"/>
+                <Item CMID="14" name="Mozgatás egy új program példányba"/>
+                <Item CMID="15" name="Megnyitás egy új program példányban is"/>
+                <Item CMID="16" name="Újbóli betöltés"/>
+                <Item CMID="17" name="Balra lévő fülek bezárása"/>
+                <Item CMID="18" name="Jobbra lévő fülek bezárása"/>
+                <Item CMID="19" name="Tartalmazó mappa megnyitása Intézőben"/>
+                <Item CMID="20" name="Tartalmazó mappa megnyitása parancssorban"/>
+            </TabBar>
+        </Menu>
 
-       <Dialog>
-            <Find title="" titleFind = "Keresés" titleReplace = "Csere" titleFindInFiles = "Keresés fájlokban" titleMark="Kiemelés">
+        <Dialog>
+            <Find title="" titleFind="Keresés" titleReplace="Csere" titleFindInFiles="Keresés fájlokban" titleMark="Kiemelés">
                 <Item id="1" name="Következő keresése"/>
                 <Item id="2" name="Bezárás"/>
                 <Item id="1620" name="Keresendő:"/>
@@ -421,20 +421,20 @@
             <MD5FromFilesDlg title="MD5 lenyomat generálása fájlokból">
                 <Item id="1922" name="Fájlok kiválasztása..."/>
                 <Item id="1924" name="Másolás a vágólapra"/>
-                <Item id="2"    name="Bezárás"/>
+                <Item id="2" name="Bezárás"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="MD5 lenyomat generálása">
                 <Item id="1932" name="Minden sor különálló elem legyen"/>
                 <Item id="1934" name="Másolás a vágólapra"/>
-                <Item id="2"    name="Bezárás"/>
+                <Item id="2" name="Bezárás"/>
             </MD5FromTextDlg>
 
             <StyleConfig title="Stílusok beállításai">
-              <Item id="2" name="Mégse"/>
-              <Item id="2301" name="Mentés és bezárás"/>
-              <Item id="2303" name="Átlátszó"/>
-              <Item id="2306" name="Téma kiválasztása: "/>
+                <Item id="2" name="Mégse"/>
+                <Item id="2301" name="Mentés és bezárás"/>
+                <Item id="2303" name="Átlátszó"/>
+                <Item id="2306" name="Téma kiválasztása: "/>
                 <SubDialog>
                     <Item id="2204" name="Félkövér"/>
                     <Item id="2205" name="Dőlt"/>
@@ -463,18 +463,18 @@
             </StyleConfig>
 
             <UserDefine title="Egyéni nyelv beállítása">
-              <Item id="20001" name="Csatolás"/>
-              <Item id="20002" name="Átnevezés"/>
-              <Item id="20003" name="Új létrehozása"/>
-              <Item id="20004" name="Eltávolítás"/>
-              <Item id="20005" name="Mentés másként"/>
-              <Item id="20007" name="Egyéni nyelv: "/>
-              <Item id="20009" name="Kiterj.:"/>
-              <Item id="20012" name="Kis, nagybetűs is"/>
-              <Item id="20011" name="Átlátszó"/>
-              <Item id="20015" name="Importálás..."/>
-              <Item id="20016" name="Exportálás..."/>
-              <StylerDialog title="Stílus beállítások">
+                <Item id="20001" name="Csatolás"/>
+                <Item id="20002" name="Átnevezés"/>
+                <Item id="20003" name="Új létrehozása"/>
+                <Item id="20004" name="Eltávolítás"/>
+                <Item id="20005" name="Mentés másként"/>
+                <Item id="20007" name="Egyéni nyelv: "/>
+                <Item id="20009" name="Kiterj.:"/>
+                <Item id="20012" name="Kis, nagybetűs is"/>
+                <Item id="20011" name="Átlátszó"/>
+                <Item id="20015" name="Importálás..."/>
+                <Item id="20016" name="Exportálás..."/>
+                <StylerDialog title="Stílus beállítások">
                     <Item id="25030" name="Betű stílus:"/>
                     <Item id="25006" name="Szöveg színe"/>
                     <Item id="25007" name="Háttér színe"/>
@@ -507,7 +507,7 @@
                     <Item id="25028" name="Számok"/>
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Mégse"/>
-              </StylerDialog>
+                </StylerDialog>
                 <Folder title="Alapstílus és Blokk">
                     <Item id="21101" name="Alapértelmezett stílus"/>
                     <Item id="21102" name="Stílus"/>
@@ -848,7 +848,7 @@
                     <Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla"/>
                 </Delimiter>
 
-                 <Cloud title="Felhő">
+                <Cloud title="Felhő">
                     <Item id="6262" name="Beállítások tárolása felhőben"/>
                     <Item id="6263" name="Ne használjon felhőt"/>
                     <Item id="6267" name="Felhőben tárolt beállítások elérési útja:"/>
@@ -885,7 +885,7 @@
                     <Item id="6114" name="Engedélyezés"/>
                     <Item id="6115" name="Automatikus behúzás"/>
                     <Item id="6117" name="Lista sorrendje a használattól függ"/>
-                    </MISC>
+                </MISC>
 
             </Preference>
             <MultiMacro title="Makró többszöri futtatása">
@@ -920,18 +920,18 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Felugrómenü szerkesztése" message = "A contextMenu.xml fájl szerkesztésével lehetőség van a jobb egérgomb megnyomására felbukkanó menü testreszabására.&#x0A;&#x0A;A módosítások érvénybe léptetéséhez a Notepad++ újraindítására van szükség."/>
-            <NppHelpAbsentWarning title="A fájl nem létezik" message = "&#x0A;nem létezik. Töltse le a Notepad++ honlapjáról."/>
-            <SaveCurrentModifWarning title="Módosítások mentése" message = "A jelenlegi módosítások elmentése javasolt.&#x0A;Az elmentett módosításokat nem lehet visszavonni.&#x0A;&#x0A;Biztosan folytatni kívánja?"/>
-            <LoseUndoAbilityWarning title="Visszavonási lehetőség elvesztése" message = "A jelenlegi módosítások elmentése javasolt.&#x0A;Az elmentett módosításokat nem lehet visszavonni.&#x0A;&#x0A;Biztosan folytatni kívánja?"/>
-            <CannotMoveDoc title="Mozgatás egy új program példányba" message = "A dokumentum módosult. Mentse, majd próbálja újra"/>
-            <DocReloadWarning title="Újbóli betöltés" message = "Szeretné újból betölteni a jelenlegi fájlt? A Notepad++ programmal végzett módosítások elvesznek."/>
-            <FileLockedWarning title="Sikertelen mentés" message = "Ellenőrizze, hogy ez a fájlt más program használja-e."/>
-            <FileAlreadyOpenedInNpp title="" message = "Ez a fájl már meg van nyitva a Notepad++ egyik példányában."/>
-            <DeleteFileFailed title="Sikertelen törlés" message = "A fájl törlése nem sikerült."/>
+            <ContextMenuXmlEditWarning title="Felugrómenü szerkesztése" message="A contextMenu.xml fájl szerkesztésével lehetőség van a jobb egérgomb megnyomására felbukkanó menü testreszabására.&#x0A;&#x0A;A módosítások érvénybe léptetéséhez a Notepad++ újraindítására van szükség."/>
+            <NppHelpAbsentWarning title="A fájl nem létezik" message="&#x0A;nem létezik. Töltse le a Notepad++ honlapjáról."/>
+            <SaveCurrentModifWarning title="Módosítások mentése" message="A jelenlegi módosítások elmentése javasolt.&#x0A;Az elmentett módosításokat nem lehet visszavonni.&#x0A;&#x0A;Biztosan folytatni kívánja?"/>
+            <LoseUndoAbilityWarning title="Visszavonási lehetőség elvesztése" message="A jelenlegi módosítások elmentése javasolt.&#x0A;Az elmentett módosításokat nem lehet visszavonni.&#x0A;&#x0A;Biztosan folytatni kívánja?"/>
+            <CannotMoveDoc title="Mozgatás egy új program példányba" message="A dokumentum módosult. Mentse, majd próbálja újra"/>
+            <DocReloadWarning title="Újbóli betöltés" message="Szeretné újból betölteni a jelenlegi fájlt? A Notepad++ programmal végzett módosítások elvesznek."/>
+            <FileLockedWarning title="Sikertelen mentés" message="Ellenőrizze, hogy ez a fájlt más program használja-e."/>
+            <FileAlreadyOpenedInNpp title="" message="Ez a fájl már meg van nyitva a Notepad++ egyik példányában."/>
+            <DeleteFileFailed title="Sikertelen törlés" message="A fájl törlése nem sikerült."/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Túl sok fájl megnyitása" message = "$INT_REPLACE$ fájlt kíván megnyitni.&#x0A;&#x0A;Biztosan megnyitja mindet?"/>
+            <NbFileToOpenImportantWarning title="Túl sok fájl megnyitása" message="$INT_REPLACE$ fájlt kíván megnyitni.&#x0A;&#x0A;Biztosan megnyitja mindet?"/>
             <SettingsOnCloudError title="Beállítások tárolása felhőben" message="Úgy tűnik, a felhőben tárolt beállítások elérési útja írásvédett meghajtóra mutat,&#x0A;vagy pedig a megadott mappa módosításához nincs megfelelő írási jog.&#x0A;A felhő beállítások törlődtek. Adja meg a megfelelő értéket a Beállításokban."/>
             <FilePathNotFoundWarning title="Fájl megnyitás" message="A megnyitni kívánt fájl nem létezik."/>
         </MessageBox>
@@ -954,8 +954,8 @@
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Függvény lista"/>
-            <SortTip name="Rendezés" />
-            <ReloadTip name="Újbóli betöltés" />
+            <SortTip name="Rendezés"/>
+            <ReloadTip name="Újbóli betöltés"/>
         </FunctionList>
         <ProjectManager>
             <PanelTitle name="Projekt"/>

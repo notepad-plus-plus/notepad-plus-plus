@@ -23,7 +23,7 @@
                     <Item subMenuId="file-openFolder" name="Відкрити теку розташування"/>
                     <Item subMenuId="file-closeMore" name="Закрити ще"/>
                     <Item subMenuId="file-recentFiles" name="Недавні файли"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Копіювати в буфер"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Копіювати в буфер"/>
                     <Item subMenuId="edit-indent" name="Абзац"/>
                     <Item subMenuId="edit-convertCaseTo" name="Змінити регістр"/>
                     <Item subMenuId="edit-lineOperations" name="Дії над рядком"/>
@@ -38,32 +38,32 @@
                     <Item subMenuId="search-jumpUp" name="Вгору"/>
                     <Item subMenuId="search-jumpDown" name="Вниз"/>
                     <Item subMenuId="search-bookmark" name="Закладка"/>
-                    <Item subMenuId="view-showSymbol"  name="Показати символ"/>
-                    <Item subMenuId="view-zoom"  name="Масштаб"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Перемістити/Клонувати поточний документ"/>
-                    <Item subMenuId="view-tab"  name="Вкладка"/>
+                    <Item subMenuId="view-showSymbol" name="Показати символ"/>
+                    <Item subMenuId="view-zoom" name="Масштаб"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Перемістити/Клонувати поточний документ"/>
+                    <Item subMenuId="view-tab" name="Вкладка"/>
                     <Item subMenuId="view-collapseLevel" name="Згорнути рівень"/>
                     <Item subMenuId="view-uncollapseLevel" name="Розгорнути рівень"/>
                     <Item subMenuId="view-project" name="Проект"/>
-                    <Item subMenuId="encoding-characterSets"  name="Кодування"/>
-                    <Item subMenuId="encoding-arabic"  name="Арабська"/>
-                    <Item subMenuId="encoding-baltic"  name="Балтійська"/>
-                    <Item subMenuId="encoding-celtic"  name="Кельтська"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Кирилиця"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Центральноєвропейська"/>
-                    <Item subMenuId="encoding-chinese"  name="Китайська"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Східноєвропейська"/>
-                    <Item subMenuId="encoding-greek"  name="Грецька"/>
-                    <Item subMenuId="encoding-hebrew"  name="Іврит"/>
-                    <Item subMenuId="encoding-japanese"  name="Японська"/>
+                    <Item subMenuId="encoding-characterSets" name="Кодування"/>
+                    <Item subMenuId="encoding-arabic" name="Арабська"/>
+                    <Item subMenuId="encoding-baltic" name="Балтійська"/>
+                    <Item subMenuId="encoding-celtic" name="Кельтська"/>
+                    <Item subMenuId="encoding-cyrillic" name="Кирилиця"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Центральноєвропейська"/>
+                    <Item subMenuId="encoding-chinese" name="Китайська"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Східноєвропейська"/>
+                    <Item subMenuId="encoding-greek" name="Грецька"/>
+                    <Item subMenuId="encoding-hebrew" name="Іврит"/>
+                    <Item subMenuId="encoding-japanese" name="Японська"/>
                     <Item subMenuId="encoding-korean" name="Корейська"/>
                     <Item subMenuId="encoding-northEuropean" name="Північноєвропейська"/>
                     <Item subMenuId="encoding-thai" name="Тайська"/>
                     <Item subMenuId="encoding-turkish" name="Турецька"/>
                     <Item subMenuId="encoding-westernEuropean" name="Західноєвропейська"/>
                     <Item subMenuId="encoding-vietnamese" name="В'єтнамська"/>
-                    <Item subMenuId="settings-import"  name="Імпортувати"/>
-					<Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="settings-import" name="Імпортувати"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -81,7 +81,7 @@
                     <Item id="41007" name="Зберегти все"/>
                     <Item id="41008" name="Зберегти як..."/>
                     <Item id="41010" name="Друк..."/>
-                    <Item id="1001"  name="Друкувати негайно"/>
+                    <Item id="1001" name="Друкувати негайно"/>
                     <Item id="41011" name="Вийти"/>
                     <Item id="41012" name="Завантажити сеанс..."/>
                     <Item id="41013" name="Зберегти сеанс..."/>
@@ -123,10 +123,10 @@
                     <Item id="42070" name="Як у реченнях (змішані)"/>
                     <Item id="42071" name="зВОРОТНІЙ пОРЯДОК"/>
                     <Item id="42072" name="виПАдковиЙ ПорЯдок"/>
-					<Item id="42073" name="Відкрити файл"/>
-					<Item id="42074" name="Відкрити теку в провіднику"/>
-					<Item id="42075" name="Пошук в Інтернеті"/>
-					<Item id="42076" name="Змінити пошуковий засіб..."/>
+                    <Item id="42073" name="Відкрити файл"/>
+                    <Item id="42074" name="Відкрити теку в провіднику"/>
+                    <Item id="42075" name="Пошук в Інтернеті"/>
+                    <Item id="42076" name="Змінити пошуковий засіб..."/>
                     <Item id="42018" name="Почати запис"/>
                     <Item id="42019" name="Зупинити запис"/>
                     <Item id="42021" name="Відтворити"/>
@@ -215,7 +215,7 @@
                     <Item id="43047" name="Попередній результат пошуку"/>
                     <Item id="43048" name="Вибрати й шукати далі"/>
                     <Item id="43049" name="Вибрати й шукати перед"/>
-					<Item id="43054" name="Знак..."/>
+                    <Item id="43054" name="Знак..."/>
                     <Item id="44009" name="Текст на все вікно"/>
                     <Item id="44010" name="Згорнути все"/>
                     <Item id="44019" name="Показати всі символи"/>
@@ -283,7 +283,7 @@
                     <Item id="47001" name="Домашня сторінка Notepad++"/>
                     <Item id="47002" name="Сторінка проекту Notepad++"/>
                     <Item id="47003" name="Документація в Інтернеті"/>
-					<Item id="47004" name="Спільнота (Форум) Notepad++"/>
+                    <Item id="47004" name="Спільнота (Форум) Notepad++"/>
                     <Item id="47011" name="Технічна підтримка"/>
                     <Item id="47012" name="Інформація налагодження..."/>
                     <Item id="47005" name="Отримати більше плагінів"/>
@@ -313,34 +313,34 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Закрити"/>
-                    <Item CMID="1" name="Закрити всі, крім поточної"/>
-                    <Item CMID="2" name="Зберегти"/>
-                    <Item CMID="3" name="Зберегти як..."/>
-                    <Item CMID="4" name="Друкувати"/>
-                    <Item CMID="5" name="Відкрити в іншому вікні"/>
-                    <Item CMID="6" name="Копіювати в інше вікно"/>
-                    <Item CMID="7" name="Повний шлях файлу до буфера обміну"/>
-                    <Item CMID="8" name="Назву файлу до буфера обміну"/>
-                    <Item CMID="9" name="Поточний шлях до буфера обміну"/>
-                    <Item CMID="10" name="Перейменувати"/>
-                    <Item CMID="11" name="Перемістити в смітник"/>
-                    <Item CMID="12" name="Лише читання"/>
-                    <Item CMID="13" name="Прибрати позначку „Лише читання“"/>
-                    <Item CMID="14" name="Перейти до нового екземпляра"/>
-                    <Item CMID="15" name="Відкрити в новому екземплярі"/>
-                    <Item CMID="16" name="Перезавантажити"/>
-                    <Item CMID="17" name="Закрити все зліва"/>
-                    <Item CMID="18" name="Закрити все справа"/>
-                    <Item CMID="19" name="Відкрити теку в провіднику"/>
-                    <Item CMID="20" name="Відкрити теку в cmd"/>
+                <Item CMID="0" name="Закрити"/>
+                <Item CMID="1" name="Закрити всі, крім поточної"/>
+                <Item CMID="2" name="Зберегти"/>
+                <Item CMID="3" name="Зберегти як..."/>
+                <Item CMID="4" name="Друкувати"/>
+                <Item CMID="5" name="Відкрити в іншому вікні"/>
+                <Item CMID="6" name="Копіювати в інше вікно"/>
+                <Item CMID="7" name="Повний шлях файлу до буфера обміну"/>
+                <Item CMID="8" name="Назву файлу до буфера обміну"/>
+                <Item CMID="9" name="Поточний шлях до буфера обміну"/>
+                <Item CMID="10" name="Перейменувати"/>
+                <Item CMID="11" name="Перемістити в смітник"/>
+                <Item CMID="12" name="Лише читання"/>
+                <Item CMID="13" name="Прибрати позначку „Лише читання“"/>
+                <Item CMID="14" name="Перейти до нового екземпляра"/>
+                <Item CMID="15" name="Відкрити в новому екземплярі"/>
+                <Item CMID="16" name="Перезавантажити"/>
+                <Item CMID="17" name="Закрити все зліва"/>
+                <Item CMID="18" name="Закрити все справа"/>
+                <Item CMID="19" name="Відкрити теку в провіднику"/>
+                <Item CMID="20" name="Відкрити теку в cmd"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Знайти" titleReplace="Замінити" titleFindInFiles="Знайти у файлах" titleMark="Позначки">
-                <Item id="1"    name="Знайти далі"/>
-                <Item id="2"    name="Закрити"/>
+                <Item id="1" name="Знайти далі"/>
+                <Item id="2" name="Закрити"/>
                 <Item id="1620" name="Що шукати:"/>
                 <Item id="1603" name="Лише цілі слова"/>
                 <Item id="1604" name="Враховувати регістр"/>
@@ -392,8 +392,8 @@
             <GoToLine title="Перехід до...">
                 <Item id="2007" name="Рядок"/>
                 <Item id="2008" name="Стовпчик"/>
-                <Item id="1"    name="Вперед!"/>
-                <Item id="2"    name="Не хочу нікуди"/>
+                <Item id="1" name="Вперед!"/>
+                <Item id="2" name="Не хочу нікуди"/>
                 <Item id="2004" name="Ми тут:"/>
                 <Item id="2005" name="Йдемо туди:"/>
                 <Item id="2006" name="Далі не пройти:"/>
@@ -401,25 +401,25 @@
 
             <Run title="Запустити...">
                 <Item id="1903" name="Введіть параметр запуску програми"/>
-                <Item id="1"    name="Пуск!"/>
-                <Item id="2"    name="Скасувати"/>
+                <Item id="1" name="Пуск!"/>
+                <Item id="2" name="Скасувати"/>
                 <Item id="1904" name="Зберегти..."/>
             </Run>
 
             <MD5FromFilesDlg title="Згенерувати MD5-дайджест із файлів">
                 <Item id="1922" name="Вибрати файли для генерації MD5..."/>
                 <Item id="1924" name="Копіювати в буфер обміну"/>
-                <Item id="2"    name="Закрити"/>
+                <Item id="2" name="Закрити"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Згенерувати MD5-дайджест">
                 <Item id="1932" name="Обробити кожен рядок як окремий"/>
                 <Item id="1934" name="Копіювати в буфер обміну"/>
-                <Item id="2"    name="Закрити"/>
+                <Item id="2" name="Закрити"/>
             </MD5FromTextDlg>
 
             <StyleConfig title="Визначення стилів">
-                <Item id="2"    name="Скасувати"/>
+                <Item id="2" name="Скасувати"/>
                 <Item id="2301" name="Зберегти і закрити"/>
                 <Item id="2303" name="Прозорість"/>
                 <Item id="2306" name="Вибрати тему: "/>
@@ -493,7 +493,7 @@
                     <Item id="25026" name="Оператор 1"/>
                     <Item id="25027" name="Оператор 2"/>
                     <Item id="25028" name="Числа"/>
-					<Item id="1" name="Гаразд"/>
+                    <Item id="1" name="Гаразд"/>
                     <Item id="2" name="Скасувати"/>
                 </StylerDialog>
                 <Folder title="Стандартний">
@@ -681,7 +681,7 @@
                     <Item id="6212" name="Лінія"/>
                     <Item id="6213" name="Тло"/>
                     <Item id="6214" name="Підсвічувати поточний рядок"/>
-					<Item id="6215" name="Згладжувати шрифти"/>
+                    <Item id="6215" name="Згладжувати шрифти"/>
                     <Item id="6231" name="Ширина меж"/>
                     <Item id="6235" name="Немає краю"/>
                     <Item id="6236" name="Прокручування за межі останнього рядка"/>
@@ -720,7 +720,7 @@
                     <Item id="6506" name="Вимкнені мови"/>
                     <Item id="6507" name="Компактне меню синтаксису"/>
                     <Item id="6508" name="Меню синтаксису"/>
-					<Item id="6301" name="Налаштування табуляції"/>
+                    <Item id="6301" name="Налаштування табуляції"/>
                     <Item id="6302" name="Замінити пробілом"/>
                     <Item id="6303" name="Розмір табуляції: "/>
                     <Item id="6510" name="Використовувати типове значення"/>
@@ -729,9 +729,9 @@
                 <Highlighting title="Підсвічування">
                     <Item id="6333" name="Підсвічування однакових слів"/>
                     <Item id="6326" name="Інтелектуальне підсвічування"/>
-					<Item id="6332" name="Враховувати регістр"/>
-					<Item id="6338" name="Лише цілі слова"/>
-					<Item id="6339" name="Використовувати налаштування діалогового вікна Пошук"/>
+                    <Item id="6332" name="Враховувати регістр"/>
+                    <Item id="6338" name="Лише цілі слова"/>
+                    <Item id="6339" name="Використовувати налаштування діалогового вікна Пошук"/>
                     <Item id="6340" name="Підсвічувати інший вигляд"/>
                     <Item id="6329" name="Підсвічувати парні теги"/>
                     <Item id="6327" name="Увімкнути"/>
@@ -828,7 +828,7 @@
                     <Item id="6252" name="Відкрити"/>
                     <Item id="6255" name="Закрити"/>
                     <Item id="6256" name="Дозволити захоплення кількох рядків"/>
-					<Item id="6161" name="Список символів"/>
+                    <Item id="6161" name="Список символів"/>
                     <Item id="6162" name="Використовувати цей список символів як типовий"/>
                     <Item id="6163" name="Додавати свої символи як частину слова (не обирайте, якщо ви не знаєте, що робите)"/>
                 </Delimiter>
@@ -838,7 +838,7 @@
                     <Item id="6263" name="Без хмари"/>
                     <Item id="6267" name="Шлях до свого хмарного сховища:"/>
                 </Cloud>
-				
+
                 <SearchEngine title="Пошуковий засіб">
                     <Item id="6271" name="Пошуковий засіб (для команди &quot;Пошук в Інтернеті&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -915,8 +915,8 @@
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті.\rВи дійсно хочете відкрити їх?"/>
-			<SettingsOnCloudError title="Налаштування в хмарі" message="Схоже, шлях налаштувань в хмарі встановлений на диск лише для читання,\r або в теку, яка потребує відповідних прав на запис. \r Ваші налаштування в хмарі будуть скасовані. Будь ласка, скиньте відповідні значення через діалог Налаштування."/>
-			<FilePathNotFoundWarning title="Відкриття файла" message="Файл, який ви намагаєтесь відкрити, не існує."/>
+            <SettingsOnCloudError title="Налаштування в хмарі" message="Схоже, шлях налаштувань в хмарі встановлений на диск лише для читання,\r або в теку, яка потребує відповідних прав на запис. \r Ваші налаштування в хмарі будуть скасовані. Будь ласка, скиньте відповідні значення через діалог Налаштування."/>
+            <FilePathNotFoundWarning title="Відкриття файла" message="Файл, який ви намагаєтесь відкрити, не існує."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Історія буфера"/>
@@ -937,8 +937,8 @@
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Список функцій"/>
-            <SortTip name="Сортувати" />
-            <ReloadTip name="Перезавантажити" />
+            <SortTip name="Сортувати"/>
+            <ReloadTip name="Перезавантажити"/>
         </FunctionList>
         <ProjectManager>
             <PanelTitle name="Проект"/>
@@ -987,15 +987,15 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-			<word-chars-list-tip value="Це дозволяє вам включати додатковий символ у поточні символи слова при подвійному натисканні для вибору, або пошуку за допомогою &quot;Лише цілі слова&quot; опції."/>
+            <word-chars-list-tip value="Це дозволяє вам включати додатковий символ у поточні символи слова при подвійному натисканні для вибору, або пошуку за допомогою &quot;Лише цілі слова&quot; опції."/>
             <word-chars-list-warning-begin value="Майте на увазі: "/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ пробіл(и)"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
-			<word-chars-list-warning-end value="  у вашому списку символів."/>
-			<cloud-invalid-warning value="Неправильний шлях."/>
-			<cloud-restart-warning value="Перезапустіть Notepad++ для застосування змін."/>
+            <word-chars-list-warning-end value="  у вашому списку символів."/>
+            <cloud-invalid-warning value="Неправильний шлях."/>
+            <cloud-restart-warning value="Перезапустіть Notepad++ для застосування змін."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

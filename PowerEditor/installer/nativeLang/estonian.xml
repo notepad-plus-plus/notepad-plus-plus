@@ -27,7 +27,7 @@ https://github.com/AndresTraks/
                     <Item subMenuId="file-openFolder" name="Ava faili sisaldav kaust"/>
                     <Item subMenuId="file-closeMore" name="Sule mitu"/>
                     <Item subMenuId="file-recentFiles" name="Viimatised failid"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Kopeeri lõikepuhvrisse"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Kopeeri lõikepuhvrisse"/>
                     <Item subMenuId="edit-indent" name="Taane"/>
                     <Item subMenuId="edit-convertCaseTo" name="Teisenda väike- ja suurtähtede vahel"/>
                     <Item subMenuId="edit-lineOperations" name="Rea toimingud"/>
@@ -42,33 +42,33 @@ https://github.com/AndresTraks/
                     <Item subMenuId="search-jumpUp" name="Eelmise juurde"/>
                     <Item subMenuId="search-jumpDown" name="Järgmise juurde"/>
                     <Item subMenuId="search-bookmark" name="Järjehoidja"/>
-                    <Item subMenuId="view-showSymbol"  name="Näita sümboleid"/>
-                    <Item subMenuId="view-zoom"  name="Suumi"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Liiguta või klooni praegune dokument"/>
-                    <Item subMenuId="view-tab"  name="Sakk"/>
+                    <Item subMenuId="view-showSymbol" name="Näita sümboleid"/>
+                    <Item subMenuId="view-zoom" name="Suumi"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Liiguta või klooni praegune dokument"/>
+                    <Item subMenuId="view-tab" name="Sakk"/>
                     <Item subMenuId="view-collapseLevel" name="Voldi taseme elemendid kokku"/>
                     <Item subMenuId="view-uncollapseLevel" name="Voldi taseme elemendid lahti"/>
                     <Item subMenuId="view-project" name="Projekt"/>
-                    <Item subMenuId="encoding-characterSets"  name="Märgistik"/>
-                    <Item subMenuId="encoding-characterSets"  name="Märgistik"/>
-                    <Item subMenuId="encoding-arabic"  name="Araabia"/>
-                    <Item subMenuId="encoding-baltic"  name="Balti"/>
-                    <Item subMenuId="encoding-celtic"  name="Keldi"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Kirillitsa"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Kesk-Euroopa"/>
-                    <Item subMenuId="encoding-chinese"  name="Hiina"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Ida-Euroopa"/>
-                    <Item subMenuId="encoding-greek"  name="Kreeka"/>
-                    <Item subMenuId="encoding-hebrew"  name="Heebrea"/>
-                    <Item subMenuId="encoding-japanese"  name="Jaapani"/>
+                    <Item subMenuId="encoding-characterSets" name="Märgistik"/>
+                    <Item subMenuId="encoding-characterSets" name="Märgistik"/>
+                    <Item subMenuId="encoding-arabic" name="Araabia"/>
+                    <Item subMenuId="encoding-baltic" name="Balti"/>
+                    <Item subMenuId="encoding-celtic" name="Keldi"/>
+                    <Item subMenuId="encoding-cyrillic" name="Kirillitsa"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Kesk-Euroopa"/>
+                    <Item subMenuId="encoding-chinese" name="Hiina"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Ida-Euroopa"/>
+                    <Item subMenuId="encoding-greek" name="Kreeka"/>
+                    <Item subMenuId="encoding-hebrew" name="Heebrea"/>
+                    <Item subMenuId="encoding-japanese" name="Jaapani"/>
                     <Item subMenuId="encoding-korean" name="Korea"/>
                     <Item subMenuId="encoding-northEuropean" name="Põhja-Euroopa"/>
                     <Item subMenuId="encoding-thai" name="Tai"/>
                     <Item subMenuId="encoding-turkish" name="Türgi"/>
                     <Item subMenuId="encoding-westernEuropean" name="Lääne-Euroopa"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnami"/>
-                    <Item subMenuId="settings-import"  name="Impordi"/>
-					<Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="settings-import" name="Impordi"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -86,7 +86,7 @@ https://github.com/AndresTraks/
                     <Item id="41007" name="Sal&amp;vesta kõik"/>
                     <Item id="41008" name="Salvesta &amp;nimega..."/>
                     <Item id="41010" name="Prindi..."/>
-                    <Item id="1001"  name="Prindi kohe"/>
+                    <Item id="1001" name="Prindi kohe"/>
                     <Item id="41011" name="V&amp;älju"/>
                     <Item id="41012" name="Laadi sessioon..."/>
                     <Item id="41013" name="Salvesta sessioon..."/>
@@ -104,7 +104,7 @@ https://github.com/AndresTraks/
                     <Item id="42005" name="K&amp;leebi"/>
                     <Item id="42006" name="K&amp;ustuta"/>
                     <Item id="42007" name="Vali k&amp;õik"/>
-					<Item id="42020" name="Valiku algus / lõpp"/>
+                    <Item id="42020" name="Valiku algus / lõpp"/>
                     <Item id="42008" name="Suurenda taanet"/>
                     <Item id="42009" name="Vähenda taanet"/>
                     <Item id="42010" name="Duplitseeri praegust rida"/>
@@ -128,10 +128,10 @@ https://github.com/AndresTraks/
                     <Item id="42070" name="Esisuurtähega (säilita järgnevad tähed)"/>
                     <Item id="42071" name="Vaheta suur- ja väiketähed"/>
                     <Item id="42072" name="Juhuslikud suur- ja väiketähed"/>
-					<Item id="42073" name="Ava fail"/>
-					<Item id="42074" name="Ava faili sisaldav kaust Exploreris"/>
-					<Item id="42075" name="Otsi internetist"/>
-					<Item id="42076" name="Vali otsimootor..."/>
+                    <Item id="42073" name="Ava fail"/>
+                    <Item id="42074" name="Ava faili sisaldav kaust Exploreris"/>
+                    <Item id="42075" name="Otsi internetist"/>
+                    <Item id="42076" name="Vali otsimootor..."/>
                     <Item id="42018" name="&amp;Alusta salvestamist"/>
                     <Item id="42019" name="&amp;Lõpeta salvestamine"/>
                     <Item id="42021" name="&amp;Taasesita"/>
@@ -220,7 +220,7 @@ https://github.com/AndresTraks/
                     <Item id="43047" name="Eelmine otsingutulemus"/>
                     <Item id="43048" name="Vali ja leia järgmine"/>
                     <Item id="43049" name="Vali ja leia eelmine"/>
-					<Item id="43054" name="Märgi..."/>
+                    <Item id="43054" name="Märgi..."/>
                     <Item id="44009" name="Märkmerežiim"/>
                     <Item id="44010" name="Voldi kõik kinni"/>
                     <Item id="44019" name="Näita kõiki sümboleid"/>
@@ -288,7 +288,7 @@ https://github.com/AndresTraks/
                     <Item id="47001" name="Veebisait"/>
                     <Item id="47002" name="Projekti leht"/>
                     <Item id="47003" name="Dokumentatsioon veebis"/>
-					<Item id="47004" name="Kogukond (foorum)"/>
+                    <Item id="47004" name="Kogukond (foorum)"/>
                     <Item id="47011" name="Tugi"/>
                     <Item id="47012" name="Silumisinfo..."/>
                     <Item id="47005" name="Leia veel pluginaid"/>
@@ -318,34 +318,34 @@ https://github.com/AndresTraks/
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Sule"/>
-                    <Item CMID="1" name="Sule kõik teised"/>
-                    <Item CMID="2" name="Salvesta"/>
-                    <Item CMID="3" name="Salvesta nimega..."/>
-                    <Item CMID="4" name="Prindi"/>
-                    <Item CMID="5" name="Liiguta teise vaatesse"/>
-                    <Item CMID="6" name="Klooni teise vaatesse"/>
-                    <Item CMID="7" name="Kopeeri faili rada lõikepuhvrisse"/>
-                    <Item CMID="8" name="Kopeeri faili nimi lõikepuhvrisse"/>
-                    <Item CMID="9" name="Kopeeri faili kausta rada lõikepuhvrisse"/>
-                    <Item CMID="10" name="Nimeta ümber"/>
-                    <Item CMID="11" name="Liiguta prügikasti"/>
-                    <Item CMID="12" name="Märgi fail kirjutuskaitstuks"/>
-                    <Item CMID="13" name="Eemalda faililt kirjutuskaitse atribuut"/>
-                    <Item CMID="14" name="Liiguta uude protsessi"/>
-                    <Item CMID="15" name="Ava uues protsessis"/>
-                    <Item CMID="16" name="Laadi uuesti"/>
-                    <Item CMID="17" name="Sule kõik vasakul pool"/>
-                    <Item CMID="18" name="Sule kõik paremal pool"/>
-                    <Item CMID="19" name="Ava faili sisaldav kaust Exploreris"/>
-                    <Item CMID="20" name="Ava faili sisaldav kaust käsureal"/>
+                <Item CMID="0" name="Sule"/>
+                <Item CMID="1" name="Sule kõik teised"/>
+                <Item CMID="2" name="Salvesta"/>
+                <Item CMID="3" name="Salvesta nimega..."/>
+                <Item CMID="4" name="Prindi"/>
+                <Item CMID="5" name="Liiguta teise vaatesse"/>
+                <Item CMID="6" name="Klooni teise vaatesse"/>
+                <Item CMID="7" name="Kopeeri faili rada lõikepuhvrisse"/>
+                <Item CMID="8" name="Kopeeri faili nimi lõikepuhvrisse"/>
+                <Item CMID="9" name="Kopeeri faili kausta rada lõikepuhvrisse"/>
+                <Item CMID="10" name="Nimeta ümber"/>
+                <Item CMID="11" name="Liiguta prügikasti"/>
+                <Item CMID="12" name="Märgi fail kirjutuskaitstuks"/>
+                <Item CMID="13" name="Eemalda faililt kirjutuskaitse atribuut"/>
+                <Item CMID="14" name="Liiguta uude protsessi"/>
+                <Item CMID="15" name="Ava uues protsessis"/>
+                <Item CMID="16" name="Laadi uuesti"/>
+                <Item CMID="17" name="Sule kõik vasakul pool"/>
+                <Item CMID="18" name="Sule kõik paremal pool"/>
+                <Item CMID="19" name="Ava faili sisaldav kaust Exploreris"/>
+                <Item CMID="20" name="Ava faili sisaldav kaust käsureal"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Otsi" titleReplace="Asenda" titleFindInFiles="Otsi failidest" titleMark="Märgi">
-                <Item id="1"    name="Leia järgmine"/>
-                <Item id="2"    name="Sule"/>
+                <Item id="1" name="Leia järgmine"/>
+                <Item id="2" name="Sule"/>
                 <Item id="1620" name="Otsingutermin:"/>
                 <Item id="1603" name="Otsi te&amp;rvet sõna"/>
                 <Item id="1604" name="&amp;Tõusutundlik"/>
@@ -397,8 +397,8 @@ https://github.com/AndresTraks/
             <GoToLine title="Mine reale...">
                 <Item id="2007" name="Rida"/>
                 <Item id="2008" name="Vahekaugus"/>
-                <Item id="1"    name="&amp;Mine"/>
-                <Item id="2"    name="Sule"/>
+                <Item id="1" name="&amp;Mine"/>
+                <Item id="2" name="Sule"/>
                 <Item id="2004" name="Oled siin:"/>
                 <Item id="2005" name="Kuhu minna:"/>
                 <Item id="2006" name="Viimane:"/>
@@ -406,25 +406,25 @@ https://github.com/AndresTraks/
 
             <Run title="Run...">
                 <Item id="1903" name="Käivitatav programm"/>
-                <Item id="1"    name="Käivita"/>
-                <Item id="2"    name="Loobu"/>
+                <Item id="1" name="Käivita"/>
+                <Item id="2" name="Loobu"/>
                 <Item id="1904" name="Salvesta..."/>
             </Run>
 
             <MD5FromFilesDlg title="Arvuta MD5-kontrollsumma failidest">
                 <Item id="1922" name="Vali failid, mille MD5 arvutada..."/>
                 <Item id="1924" name="Kopeeri lõikepuhvrisse"/>
-                <Item id="2"    name="Sule"/>
+                <Item id="2" name="Sule"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Arvuta MD5-kontrollsumma">
                 <Item id="1932" name="Arvuta iga rea jaoks eraldi"/>
                 <Item id="1934" name="Kopeeri lõikepuhvrisse"/>
-                <Item id="2"    name="Sule"/>
+                <Item id="2" name="Sule"/>
             </MD5FromTextDlg>
 
             <StyleConfig title="Stiilide seadistamine">
-                <Item id="2"    name="Loobu"/>
+                <Item id="2" name="Loobu"/>
                 <Item id="2301" name="Salvesta ja sule"/>
                 <Item id="2303" name="Läbipaistvus"/>
                 <Item id="2306" name="Vali teema: "/>
@@ -498,7 +498,7 @@ https://github.com/AndresTraks/
                     <Item id="25026" name="Operaator 1"/>
                     <Item id="25027" name="Operaator 2"/>
                     <Item id="25028" name="Arvud"/>
-					<Item id="1" name="Olgu"/>
+                    <Item id="1" name="Olgu"/>
                     <Item id="2" name="Loobu"/>
                 </StylerDialog>
                 <Folder title="Voltimine &amp;&amp; vaikimisi">
@@ -686,7 +686,7 @@ https://github.com/AndresTraks/
                     <Item id="6212" name="Märgi joon"/>
                     <Item id="6213" name="Märgi taust"/>
                     <Item id="6214" name="Tõsta esile praegune rida"/>
-					<Item id="6215" name="Kasuta  smooth font"/>
+                    <Item id="6215" name="Kasuta  smooth font"/>
                     <Item id="6231" name="Piirjoone laius"/>
                     <Item id="6235" name="Piirjooneta"/>
                     <Item id="6236" name="Luba viimasest reast edasi kerimine"/>
@@ -725,7 +725,7 @@ https://github.com/AndresTraks/
                     <Item id="6506" name="Välja lülitatud keeled"/>
                     <Item id="6507" name="Kompaktne keelemenüü"/>
                     <Item id="6508" name="Keelemenüü"/>
-					<Item id="6301" name="Tabeldusmärkide sätted"/>
+                    <Item id="6301" name="Tabeldusmärkide sätted"/>
                     <Item id="6302" name="Asenda tühikutega"/>
                     <Item id="6303" name="Tabeldusmärgi laius: "/>
                     <Item id="6510" name="Kasuta vaikeväärtust"/>
@@ -833,7 +833,7 @@ https://github.com/AndresTraks/
                     <Item id="6252" name="Algus"/>
                     <Item id="6255" name="Lõpp"/>
                     <Item id="6256" name="Luba valimine üle mitme rea"/>
-					<Item id="6161" name="Sõna tähemärkide loend"/>
+                    <Item id="6161" name="Sõna tähemärkide loend"/>
                     <Item id="6162" name="Kasuta vaikimisi tähemärkide loendit"/>
                     <Item id="6163" name="Lisa tähemärk sõna osana
 (lisa ainult siis, kui oled teadlik selle mõjust)"/>
@@ -944,8 +944,8 @@ Pärast faili salvestamist tuleb muudatuste rakendamiseks Notepad++ uuesti käiv
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Funktsioonide loend"/>
-            <SortTip name="Sordi" />
-            <ReloadTip name="Laadi uuesti" />
+            <SortTip name="Sordi"/>
+            <ReloadTip name="Laadi uuesti"/>
         </FunctionList>
         <ProjectManager>
             <PanelTitle name="Projekt"/>

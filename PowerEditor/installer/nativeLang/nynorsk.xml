@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Norsk-nynorsk" filename="nynorsk.xml" >
+    <Native-Langue name="Norsk-nynorsk" filename="nynorsk.xml">
 
-	<!-- Omsett av Thomas Bernes 2008-12
+        <!-- Omsett av Thomas Bernes 2008-12
          thomas.bernes@gmail.com         -->
 
         <Menu>
@@ -24,7 +24,7 @@
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="edit-copyToClipboard"  name="Kopier til utklippstavla"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Kopier til utklippstavla"/>
                     <Item subMenuId="edit-indent" name="Innnrykk"/>
                     <Item subMenuId="edit-convertCaseTo" name="Endre bokstavane til"/>
                     <Item subMenuId="edit-lineOperations" name="Rediger linjer"/>
@@ -38,30 +38,30 @@
                     <Item subMenuId="search-jumpUp" name="Gå opp"/>
                     <Item subMenuId="search-jumpDown" name="Gå ned"/>
                     <Item subMenuId="search-bookmark" name="Bokmerke"/>
-                    <Item subMenuId="view-showSymbol"  name="Vis symbol"/>
-                    <Item subMenuId="view-zoom"  name="Skalering"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Flytt/kopier aktivt dokument"/>
+                    <Item subMenuId="view-showSymbol" name="Vis symbol"/>
+                    <Item subMenuId="view-zoom" name="Skalering"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Flytt/kopier aktivt dokument"/>
                     <Item subMenuId="view-collapseLevel" name="Skjul nivå"/>
                     <Item subMenuId="view-uncollapseLevel" name="Vis nivå"/>
                     <Item subMenuId="view-project" name="Prosjekt"/>
-                    <Item subMenuId="encoding-characterSets"  name="Teiknsett"/>
-                    <Item subMenuId="encoding-arabic"  name="Arabisk"/>
-                    <Item subMenuId="encoding-baltic"  name="Baltisk"/>
-                    <Item subMenuId="encoding-celtic"  name="Keltisk"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Kyrillisk"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Sentral-europeisk"/>
-                    <Item subMenuId="encoding-chinese"  name="Kinesisk"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Aust-europeisk"/>
-                    <Item subMenuId="encoding-greek"  name="Gresk"/>
-                    <Item subMenuId="encoding-hebrew"  name="Hebraisk"/>
-                    <Item subMenuId="encoding-japanese"  name="Japansk"/>
+                    <Item subMenuId="encoding-characterSets" name="Teiknsett"/>
+                    <Item subMenuId="encoding-arabic" name="Arabisk"/>
+                    <Item subMenuId="encoding-baltic" name="Baltisk"/>
+                    <Item subMenuId="encoding-celtic" name="Keltisk"/>
+                    <Item subMenuId="encoding-cyrillic" name="Kyrillisk"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Sentral-europeisk"/>
+                    <Item subMenuId="encoding-chinese" name="Kinesisk"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Aust-europeisk"/>
+                    <Item subMenuId="encoding-greek" name="Gresk"/>
+                    <Item subMenuId="encoding-hebrew" name="Hebraisk"/>
+                    <Item subMenuId="encoding-japanese" name="Japansk"/>
                     <Item subMenuId="encoding-korean" name="Koreansk"/>
                     <Item subMenuId="encoding-northEuropean" name="Nord-europeisk"/>
                     <Item subMenuId="encoding-thai" name="Thai"/>
                     <Item subMenuId="encoding-turkish" name="Tyrkisk"/>
                     <Item subMenuId="encoding-westernEuropean" name="Vest-europeisk"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamesisk"/>
-                    <Item subMenuId="settings-import"  name="Import"/>
+                    <Item subMenuId="settings-import" name="Import"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -75,7 +75,7 @@
                     <Item id="41007" name="Lagr&amp;e alle"/>
                     <Item id="41008" name="Lagre &amp;som..."/>
                     <Item id="41010" name="Skriv ut..."/>
-                    <Item id="1001"  name="Skriv ut direkte"/>
+                    <Item id="1001" name="Skriv ut direkte"/>
                     <Item id="41011" name="A&amp;vslutt"/>
                     <Item id="41012" name="Opne økt..."/>
                     <Item id="41013" name="Lagre økt..."/>
@@ -111,11 +111,11 @@
                     <Item id="42045" name="Fjern tomrom og linjeskift som ikkje trengst"/>
                     <Item id="42046" name="Gjer om tabulatorar til mellomrom"/>
                     <Item id="42047" name="Gjer om mellomrom til tabulatorar"/>
-					<Item id="42048" name = "Kopier binært innhald"/>
-					<Item id="42049" name = "Klipp ut binært innhald"/>
-					<Item id="42050" name = "Lim inn binært innhald"/>
-					<Item id="42051" name = "Teiknliste"/>
-					<Item id="42052" name = "Utklippstavle"/>
+                    <Item id="42048" name="Kopier binært innhald"/>
+                    <Item id="42049" name="Klipp ut binært innhald"/>
+                    <Item id="42050" name="Lim inn binært innhald"/>
+                    <Item id="42051" name="Teiknliste"/>
+                    <Item id="42052" name="Utklippstavle"/>
                     <Item id="42024" name="Fjern mellomrom bak"/>
                     <Item id="42025" name="Lagre den nye makroen"/>
                     <Item id="42026" name="Tekstretning høgre-til-venstre"/>
@@ -128,9 +128,9 @@
                     <Item id="42033" name="Fjern merke for låsing"/>
                     <Item id="42035" name="Blokkommentar"/>
                     <Item id="42036" name="Fjern blokkommentar"/>
-					<Item id="42037" name = "Kolonnemodus..."/>
-					<Item id="42038" name = "Lim inn HTML-innhald"/>
-					<Item id="42039" name = "Lim inn RTF-innhald"/>
+                    <Item id="42037" name="Kolonnemodus..."/>
+                    <Item id="42038" name="Lim inn HTML-innhald"/>
+                    <Item id="42039" name="Lim inn RTF-innhald"/>
 
                     <Item id="43001" name="&amp;Søk..."/>
                     <Item id="43002" name="Søk etter &amp;neste"/>
@@ -181,8 +181,8 @@
                     <Item id="43048" name="Merk og søk etter neste"/>
                     <Item id="43049" name="Merk og søk etter førre"/>
                     <Item id="43050" name="Snu om på bokmerke"/>
-					<Item id="43051" name="Fjern umerka &amp;linjer"/>
-					<Item id="43052" name="Søk etter teikn..."/>
+                    <Item id="43051" name="Fjern umerka &amp;linjer"/>
+                    <Item id="43052" name="Søk etter teikn..."/>
                     <Item id="44009" name="Skjul meny- og statuslinjer"/>
                     <Item id="44010" name="Skjul alle nivå"/>
                     <Item id="44011" name="Tilpass..."/>
@@ -204,7 +204,7 @@
                     <Item id="44036" name="Synkroniser vassrett rulling"/>
                     <Item id="44041" name="Vis teikn for linjeskift"/>
                     <Item id="44072" name="Flytt til anna visning"/>
-					<Item id="44080" name="Dokumentkart"/>
+                    <Item id="44080" name="Dokumentkart"/>
                     <Item id="44081" name="Prosjektfane 1"/>
                     <Item id="44082" name="Prosjektfane 2"/>
                     <Item id="44083" name="Prosjektfane 3"/>
@@ -258,30 +258,30 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Lukk"/>
-                    <Item CMID="1" name="Lukk alle utanom det aktive dokumentet"/>
-                    <Item CMID="2" name="Lagre"/>
-                    <Item CMID="3" name="Lagre som..."/>
-                    <Item CMID="4" name="Skriv ut"/>
-                    <Item CMID="5" name="Flytt til anna vindauge"/>
-                    <Item CMID="6" name="Kopier til anna vindauge"/>
-                    <Item CMID="7" name="Kopier heile filstien til utklippstavla"/>
-                    <Item CMID="8" name="Kopier filnamnet til utklippstavla"/>
-                    <Item CMID="9" name="Kopier den aktive mappa til utklippstavla"/>
-                    <Item CMID="10" name="Gje nytt namn"/>
-                    <Item CMID="11" name="Slett"/>
-                    <Item CMID="12" name="Lås for redigering"/>
-                    <Item CMID="13" name="Fjern merke for låsing"/>
-                    <Item CMID="14" name="Flytt til nytt vindauge"/>
-                    <Item CMID="15" name="Opne i nytt vindauge"/>
-                    <Item CMID="16" name="Opne på nytt"/>
+                <Item CMID="0" name="Lukk"/>
+                <Item CMID="1" name="Lukk alle utanom det aktive dokumentet"/>
+                <Item CMID="2" name="Lagre"/>
+                <Item CMID="3" name="Lagre som..."/>
+                <Item CMID="4" name="Skriv ut"/>
+                <Item CMID="5" name="Flytt til anna vindauge"/>
+                <Item CMID="6" name="Kopier til anna vindauge"/>
+                <Item CMID="7" name="Kopier heile filstien til utklippstavla"/>
+                <Item CMID="8" name="Kopier filnamnet til utklippstavla"/>
+                <Item CMID="9" name="Kopier den aktive mappa til utklippstavla"/>
+                <Item CMID="10" name="Gje nytt namn"/>
+                <Item CMID="11" name="Slett"/>
+                <Item CMID="12" name="Lås for redigering"/>
+                <Item CMID="13" name="Fjern merke for låsing"/>
+                <Item CMID="14" name="Flytt til nytt vindauge"/>
+                <Item CMID="15" name="Opne i nytt vindauge"/>
+                <Item CMID="16" name="Opne på nytt"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Søk" titleReplace="Bytt ut med" titleFindInFiles="Søk i filer" titleMark="Merk">
-                <Item id="1"    name="Søk etter neste"/>
-                <Item id="2"    name="Lukk"/>
+                <Item id="1" name="Søk etter neste"/>
+                <Item id="2" name="Lukk"/>
                 <Item id="1620" name="Søk etter:"/>
                 <Item id="1603" name="Søk kun etter &amp;heile ord"/>
                 <Item id="1604" name="Skil mellom &amp;store/småe bokstavar"/>
@@ -322,8 +322,8 @@
             <GoToLine title="Gå til...">
                 <Item id="2007" name="Linje"/>
                 <Item id="2008" name="Uendra samanstilling"/>
-                <Item id="1"    name="&amp;Gå"/>
-                <Item id="2"    name="Avbryt"/>
+                <Item id="1" name="&amp;Gå"/>
+                <Item id="2" name="Avbryt"/>
                 <Item id="2004" name="Gjeldande linje:"/>
                 <Item id="2005" name="Gå til:"/>
                 <Item id="2006" name="Siste tilgjengelege linje:"/>
@@ -331,25 +331,25 @@
 
             <Run title="Køyr...">
                 <Item id="1903" name="Køyr program"/>
-                <Item id="1"    name="Køyr"/>
-                <Item id="2"    name="Avbryt"/>
+                <Item id="1" name="Køyr"/>
+                <Item id="2" name="Avbryt"/>
                 <Item id="1904" name="Lagre..."/>
             </Run>
 
-			<FindCharsInRange title = "Finn teikn i intervall">
-				<Item id = "2" name = "Lukk"/>
-				<Item id = "2901" name = "Ikkje-ASCII (128-255)"/>
-				<Item id = "2902" name = "ASCII (0-127)"/>
-				<Item id = "2903" name = "Intervall:"/>
-				<Item id = "2906" name = "Opp"/>
-				<Item id = "2907" name = "Ned"/>
-				<Item id = "2908" name = "Søkeretning"/>
-				<Item id = "2909" name = "Tekstbryting"/>
-				<Item id = "2910" name = "Søk"/>
-			</FindCharsInRange>
+            <FindCharsInRange title="Finn teikn i intervall">
+                <Item id="2" name="Lukk"/>
+                <Item id="2901" name="Ikkje-ASCII (128-255)"/>
+                <Item id="2902" name="ASCII (0-127)"/>
+                <Item id="2903" name="Intervall:"/>
+                <Item id="2906" name="Opp"/>
+                <Item id="2907" name="Ned"/>
+                <Item id="2908" name="Søkeretning"/>
+                <Item id="2909" name="Tekstbryting"/>
+                <Item id="2910" name="Søk"/>
+            </FindCharsInRange>
 
             <StyleConfig title="Stilinnstillingar">
-                <Item id="2"    name="Avbryt"/>
+                <Item id="2" name="Avbryt"/>
                 <Item id="2301" name="&amp;Lagre &amp; lukk"/>
                 <Item id="2303" name="Gjennomsiktig"/>
                 <Item id="2306" name="Vel tema: "/>
@@ -360,7 +360,7 @@
                     <Item id="2207" name="Bakgrunnsfarge"/>
                     <Item id="2208" name="Skrifttype:"/>
                     <Item id="2209" name="Storleik:"/>
-					<Item id="2211" name="Stil:"/>
+                    <Item id="2211" name="Stil:"/>
                     <Item id="2212" name="Farge"/>
                     <Item id="2213" name="Skrift"/>
                     <Item id="2214" name="Standard filending:"/>
@@ -381,8 +381,8 @@
             </StyleConfig>
 
             <UserDefine title="Brukardefinert">
-				<Item id="20001" name="Fest"/>
-				<Item id="20002" name="Gje nytt namn"/>
+                <Item id="20001" name="Fest"/>
+                <Item id="20002" name="Gje nytt namn"/>
                 <Item id="20003" name="Lag nytt..."/>
                 <Item id="20004" name="Fjern"/>
                 <Item id="20005" name="Lagre som..."/>
@@ -392,15 +392,15 @@
                 <Item id="20012" name="Store/småe bokstavar"/>
                 <Item id="20015" name="Importer..."/>
                 <Item id="20016" name="Eksporter..."/>
-                <Item id="0"     name="Fargestil"/>
-                <Item id="1"     name="Framgrunnsfarge"/>
-                <Item id="2"     name="Bakgrunnsfarge"/>
-                <Item id="3"     name="Skriftstil"/>
-                <Item id="4"     name="Skrifttype:"/>
-                <Item id="5"     name="Storleik:"/>
-                <Item id="6"     name="Utheva"/>
-                <Item id="7"     name="Kursiv"/>
-                <Item id="8"     name="Understreka"/>
+                <Item id="0" name="Fargestil"/>
+                <Item id="1" name="Framgrunnsfarge"/>
+                <Item id="2" name="Bakgrunnsfarge"/>
+                <Item id="3" name="Skriftstil"/>
+                <Item id="4" name="Skrifttype:"/>
+                <Item id="5" name="Storleik:"/>
+                <Item id="6" name="Utheva"/>
+                <Item id="7" name="Kursiv"/>
+                <Item id="8" name="Understreka"/>
                 <Folder title="Mappe &amp;&amp; standard">
                     <Item id="21101" name="Standard stilinnstillingar"/>
                     <Item id="21201" name="Opne mappa med nøkkelordalternativ"/>
@@ -463,7 +463,7 @@
                     <Item id="6121" name="Menylinje"/>
                     <Item id="6122" name="Skjul (bruk Alt eller F10 til å slå på/av)"/>
                     <Item id="6123" name="Språk"/>
-					<Item id="6125" name="Dokumentliste"/>
+                    <Item id="6125" name="Dokumentliste"/>
                     <Item id="6126" name="Skjul panel"/>
                 </Global>
                 <Scintillas title="Redigering">
@@ -485,7 +485,7 @@
                     <Item id="6228" name="Standard"/>
                     <Item id="6229" name="Juster"/>
                     <Item id="6230" name="Innrykk"/>
-					<Item id="6231" name ="Kanttjukkleik:"/>
+                    <Item id="6231" name="Kanttjukkleik:"/>
 
                     <Item id="6206" name="Vis linjenummer"/>
                     <Item id="6207" name="Vis bokmerke"/>
@@ -499,11 +499,11 @@
                 </Scintillas>
                 <NewDoc title="Nytt dokument">
 
-					<Item id="6304" name="Nyleg brukte filer"/>
-					<Item id="6305" name="Ikkje sjekk ved oppstart"/>
-					<Item id="6306" name="Ikkje vis fleire enn:"/>
+                    <Item id="6304" name="Nyleg brukte filer"/>
+                    <Item id="6305" name="Ikkje sjekk ved oppstart"/>
+                    <Item id="6306" name="Ikkje vis fleire enn:"/>
 
-                    <Item id = "-1"   name = "Vis"/>
+                    <Item id="-1" name="Vis"/>
                     <Item id="6401" name="Format"/>
                     <Item id="6402" name="Windows"/>
                     <Item id="6403" name="Unix"/>
@@ -520,10 +520,10 @@
                     <Item id="6415" name="Husk mappa som blei brukt sist"/>
                     <Item id="6419" name="Nytt dokument"/>
                     <Item id="6420" name="Bruk på opna ANSI-filer"/>
-					<Item id = "6424" name = "I undermeny"/>
-                    <Item id = "6425" name = "Berre filnamn"/>
-                    <Item id = "6426" name = "Fullstendig filsti og -namn"/>
-                    <Item id = "6427" name = "Ikkje lengre enn:"/>
+                    <Item id="6424" name="I undermeny"/>
+                    <Item id="6425" name="Berre filnamn"/>
+                    <Item id="6426" name="Fullstendig filsti og -namn"/>
+                    <Item id="6427" name="Ikkje lengre enn:"/>
 
                 </NewDoc>
                 <FileAssoc title="Programtilknytting">
@@ -566,8 +566,8 @@
                     <Item id="6722" name="Høgre"/>
                     <Item id="6723" name="Legg til"/>
                     <Item id="6725" name="Variabel:"/>
-					<Item id="6726" name=""/>
-					<Item id="6727" name="Førehandsvising:"/>
+                    <Item id="6726" name=""/>
+                    <Item id="6727" name="Førehandsvising:"/>
                     <Item id="6728" name="Topp- og botntekst"/>
                 </Print>
                 <MISC title="Ymse">

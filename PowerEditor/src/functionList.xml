@@ -15,39 +15,41 @@
 			Don't use L_JS (19) use L_JAVASCRIPT (58) instead!
 			Don't use L_USER and L_EXTERNAL, use extension or UDL name association instead!
 
-			L_ADA          = 42 | L_DIFF         = 33 | L_LISP         = 30 | L_SCHEME       = 31
-			L_ASCII        = 14 | L_EXTERNAL     = 60 | L_LUA          = 23 | L_SEARCHRESULT = 47
-			L_ASM          = 32 | L_FLASH        = 27 | L_MAKEFILE     = 10 | L_SMALLTALK    = 37
-			L_ASP          = 16 | L_FORTRAN      = 25 | L_MATLAB       = 44 | L_SQL          = 17
+			L_ADA          = 42 | L_DIFF         = 33 | L_LISP         = 30 | L_SEARCHRESULT = 47
+			L_ASCII        = 14 | L_EXTERNAL     = 64 | L_LUA          = 23 | L_SMALLTALK    = 37
+			L_ASM          = 32 | L_FLASH        = 27 | L_MAKEFILE     = 10 | L_SQL          = 17
+			L_ASP          = 16 | L_FORTRAN      = 25 | L_MATLAB       = 44 | L_SREC         = 61
 			L_AU3          = 40 | L_FORTRAN_77   = 59 | L_NSIS         = 28 | L_TCL          = 29
-			L_BASH         = 26 | L_GUI4CLI      = 51 | L_OBJC         =  5 | L_TEX          = 24
-			L_BATCH        = 12 | L_HASKELL      = 45 | L_PASCAL       = 11 | L_TEXT         =  0
-			L_C            =  2 | L_HTML         =  8 | L_PERL         = 21 | L_USER         = 15
-			L_CAML         = 41 | L_INI          = 13 | L_PHP          =  1 | L_VB           = 18
-			L_CMAKE        = 48 | L_INNO         = 46 | L_POWERSHELL   = 53 | L_VERILOG      = 43
-			L_COBOL        = 50 | L_JAVA         =  6 | L_PROPS        = 34 | L_VHDL         = 38
-			L_COFFEESCRIPT = 56 | L_JAVASCRIPT   = 58 | L_PS           = 35 | L_XML          =  9
-			L_CPP          =  3 | L_JS           = 19 | L_PYTHON       = 22 | L_YAML         = 49
-			L_CS           =  4 | L_JSON         = 57 | L_R            = 54 |
-			L_CSS          = 20 | L_JSP          = 55 | L_RC           =  7 |
-			L_D            = 52 | L_KIX          = 39 | L_RUBY         = 36 |
+			L_BAANC        = 60 | L_GUI4CLI      = 51 | L_OBJC         =  5 | L_TEHEX        = 63
+			L_BASH         = 26 | L_HASKELL      = 45 | L_PASCAL       = 11 | L_TEX          = 24
+			L_BATCH        = 12 | L_HTML         =  8 | L_PERL         = 21 | L_TEXT         =  0
+			L_C            =  2 | L_IHEX         = 62 | L_PHP          =  1 | L_USER         = 15
+			L_CAML         = 41 | L_INI          = 13 | L_POWERSHELL   = 53 | L_VB           = 18
+			L_CMAKE        = 48 | L_INNO         = 46 | L_PROPS        = 34 | L_VERILOG      = 43
+			L_COBOL        = 50 | L_JAVA         =  6 | L_PS           = 35 | L_VHDL         = 38
+			L_COFFEESCRIPT = 56 | L_JAVASCRIPT   = 58 | L_PYTHON       = 22 | L_XML          =  9
+			L_CPP          =  3 | L_JS           = 19 | L_R            = 54 | L_YAML         = 49
+			L_CS           =  4 | L_JSON         = 57 | L_RC           =  7 |
+			L_CSS          = 20 | L_JSP          = 55 | L_RUBY         = 36 |
+			L_D            = 52 | L_KIX          = 39 | L_SCHEME       = 31 |
 
-			 0 = L_TEXT         | 16 = L_ASP          | 32 = L_ASM          | 48 = L_CMAKE
-			 1 = L_PHP          | 17 = L_SQL          | 33 = L_DIFF         | 49 = L_YAML
-			 2 = L_C            | 18 = L_VB           | 34 = L_PROPS        | 50 = L_COBOL
-			 3 = L_CPP          | 19 = L_JS           | 35 = L_PS           | 51 = L_GUI4CLI
-			 4 = L_CS           | 20 = L_CSS          | 36 = L_RUBY         | 52 = L_D
-			 5 = L_OBJC         | 21 = L_PERL         | 37 = L_SMALLTALK    | 53 = L_POWERSHELL
-			 6 = L_JAVA         | 22 = L_PYTHON       | 38 = L_VHDL         | 54 = L_R
-			 7 = L_RC           | 23 = L_LUA          | 39 = L_KIX          | 55 = L_JSP
-			 8 = L_HTML         | 24 = L_TEX          | 40 = L_AU3          | 56 = L_COFFEESCRIPT
-			 9 = L_XML          | 25 = L_FORTRAN      | 41 = L_CAML         | 57 = L_JSON
-			10 = L_MAKEFILE     | 26 = L_BASH         | 42 = L_ADA          | 58 = L_JAVASCRIPT
-			11 = L_PASCAL       | 27 = L_FLASH        | 43 = L_VERILOG      | 59 = L_FORTRAN_77
-			12 = L_BATCH        | 28 = L_NSIS         | 44 = L_MATLAB       | 60 = L_EXTERNAL
-			13 = L_INI          | 29 = L_TCL          | 45 = L_HASKELL      |
-			14 = L_ASCII        | 30 = L_LISP         | 46 = L_INNO         |
-			15 = L_USER         | 31 = L_SCHEME       | 47 = L_SEARCHRESULT |
+			 0 = L_TEXT         | 17 = L_SQL          | 34 = L_PROPS        | 51 = L_GUI4CLI
+			 1 = L_PHP          | 18 = L_VB           | 35 = L_PS           | 52 = L_D
+			 2 = L_C            | 19 = L_JS           | 36 = L_RUBY         | 53 = L_POWERSHELL
+			 3 = L_CPP          | 20 = L_CSS          | 37 = L_SMALLTALK    | 54 = L_R
+			 4 = L_CS           | 21 = L_PERL         | 38 = L_VHDL         | 55 = L_JSP
+			 5 = L_OBJC         | 22 = L_PYTHON       | 39 = L_KIX          | 56 = L_COFFEESCRIPT
+			 6 = L_JAVA         | 23 = L_LUA          | 40 = L_AU3          | 57 = L_JSON
+			 7 = L_RC           | 24 = L_TEX          | 41 = L_CAML         | 58 = L_JAVASCRIPT
+			 8 = L_HTML         | 25 = L_FORTRAN      | 42 = L_ADA          | 59 = L_FORTRAN_77
+			 9 = L_XML          | 26 = L_BASH         | 43 = L_VERILOG      | 60 = L_BAANC
+			10 = L_MAKEFILE     | 27 = L_FLASH        | 44 = L_MATLAB       | 61 = L_SREC
+			11 = L_PASCAL       | 28 = L_NSIS         | 45 = L_HASKELL      | 62 = L_IHEX
+			12 = L_BATCH        | 29 = L_TCL          | 46 = L_INNO         | 63 = L_TEHEX
+			13 = L_INI          | 30 = L_LISP         | 47 = L_SEARCHRESULT | 64 = L_EXTERNAL
+			14 = L_ASCII        | 31 = L_SCHEME       | 48 = L_CMAKE        |
+			15 = L_USER         | 32 = L_ASM          | 49 = L_YAML         |
+			16 = L_ASP          | 33 = L_DIFF         | 50 = L_COBOL        |
 
 			if langID cannot be found above, you can set the file extensions ...
 
@@ -67,48 +69,66 @@
 				_function	parser has a function part only
 				_syntax		parser has both a class and function part
 		-->
-			<!-- ======================================================================== -->
-			<!--         ___ parserID                                                     -->
-			<!--         V                                                                -->
-			<association id=         "php_syntax"     langID= "1"                          />
-			<association id=           "c_function"   langID= "2"                          />
-			<association id=   "cplusplus_syntax"     langID= "3"                          />
-			<association id=      "csharp_class"      langID= "4"                          />
-			<association id=        "java_syntax"     langID= "6"                          />
-			<association id=         "xml_node"       langID= "9"                          />
-<!--		<association id="functionlist_syntax"     langID= "9"                          /> -->
-			<association id=       "batch_label"      langID="12"                          />
-			<association id=         "ini_section"    langID="13"                          />
-			<association id=        "perl_function"   langID="21"                          />
-			<association id=      "python_syntax"     langID="22"                          />
-			<association id=        "bash_function"   langID="26"                          />
-			<association id=        "nsis_syntax"     langID="28"                          />
-			<association id=    "assembly_subroutine" langID="32"                          />
-			<association id=        "ruby_syntax"     langID="36"                          />
-			<association id=     "autoit3_function"   langID="40"                          />
-			<association id=   "innosetup_syntax"     langID="46"                          />
-			<association id=  "powershell_function"   langID="53"                          />
-			<association id=  "javascript_function"   langID="58"                          />
-			<!-- ======================================================================== -->
-			<association id=         "krl_function"   userDefinedLangName="KRL"            />
-			<association id=         "krl_function"   ext=".src"                           />
-			<association id=         "krl_function"   ext=".sub"                           />
-			<!-- ======================================================================== -->
-			<association id=   "sinumerik_function"   userDefinedLangName="Sinumerik"      />
-			<association id=   "sinumerik_function"   ext=".arc"                           />
-			<!-- ======================================================================== -->
-			<association id=    "universe_basic"      userDefinedLangName="UniVerse BASIC" />
-			<association id=    "universe_basic"      ext=".bas"                           />
-			<!-- ======================================================================== -->
+			<!-- ============================================================================ -->
+			<!--         ___ parserID                                                         -->
+			<!--         V                                                                    -->
+			<association id=         "php_syntax"        langID= "1"                           />
+			<association id=           "c_function"      langID= "2"                           />
+			<association id=   "cplusplus_syntax"        langID= "3"                           />
+			<association id=      "csharp_class"         langID= "4"                           />
+			<association id=        "java_syntax"        langID= "6"                           />
+			<association id=         "xml_node"          langID= "9"                           />
+<!--		<association id="functionlist_syntax"        langID= "9"                           /> -->
+			<association id=       "batch_label"         langID="12"                           />
+			<association id=         "ini_section"       langID="13"                           />
+			<association id=       "plsql_syntax"        langID="17"                           />
+<!--!!-->	<association id=  "javascript_function"      langID="19"                           /> <!-- see https://notepad-plus-plus.org/community/topic/12697 -->
+			<association id=        "perl_function"      langID="21"                           />
+			<association id=      "python_syntax"        langID="22"                           />
+			<association id=     "fortran_freeform"      langID="25"                           />
+			<association id=        "bash_function"      langID="26"                           />
+			<association id=        "nsis_syntax"        langID="28"                           />
+			<association id=    "assembly_subroutine"    langID="32"                           />
+			<association id=        "ruby_syntax"        langID="36"                           />
+			<association id=     "autoit3_function"      langID="40"                           />
+			<association id=         "ada_syntax"        langID="42"                           />
+			<association id=     "haskell_function"      langID="45"                           />
+<!--		<association id=     "haskell_literate"      langID="45"                           /> -->
+<!--		<association id=     "haskell_literatelatex" langID="45"                           /> -->
+			<association id=   "innosetup_syntax"        langID="46"                           />
+			<association id=  "powershell_function"      langID="53"                           />
+			<association id=  "javascript_function"      langID="58"                           />
+			<association id=     "fortran_fixedform"     langID="59"                           />
+			<!-- ============================================================================ -->
+			<association id=  "autohotkey_syntax"        userDefinedLangName="AutoHotkey"      />
+			<association id=  "autohotkey_syntax"        ext=".ahk"                            />
+			<!-- ============================================================================ -->
+			<association id=         "krl_function"      userDefinedLangName="KRL"             />
+			<association id=         "krl_function"      ext=".src"                            />
+			<association id=         "krl_function"      ext=".sub"                            />
+			<!-- ============================================================================ -->
+			<association id=         "mox_syntax"        userDefinedLangName="MOX"             />
+			<association id=         "mox_syntax"        ext=".mox"                            />
+			<!-- ============================================================================ -->
+			<association id=       "rapid_syntax"        userDefinedLangName="RAPID"           />
+			<association id=       "rapid_syntax"        ext=".sys"                            />
+			<association id=       "rapid_syntax"        ext=".mod"                            />
+			<association id=       "rapid_syntax"        ext=".cfg"                            />
+			<!-- ============================================================================ -->
+			<association id=   "sinumerik_function"      userDefinedLangName="Sinumerik"       />
+			<association id=   "sinumerik_function"      ext=".arc"                            />
+			<!-- ============================================================================ -->
+			<association id=    "universe_basic"         userDefinedLangName="UniVerse BASIC"  />
+			<association id=    "universe_basic"         ext=".bas"                            />
+			<!-- ============================================================================ -->
 		</associationMap>
 		<parsers>
 
 			<!-- ========================================================= [ PHP ] -->
-			<!-- PHP - Personal Home Page / PHP Hypertext Preprocessor             -->
 
 			<parser
+				displayName="PHP - Personal Home Page / PHP Hypertext Preprocessor"
 				id         ="php_syntax"
-				displayName="PHP"
 				commentExpr="(?s:/\*.*?\*/)|(?m-s://.*?$)"
 			>
 				<classRange
@@ -149,7 +169,7 @@
 			<parser
 				displayName="C"
 				id         ="c_function"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
 								(?s:\x2F\x2A.*?\x2A\x2F)                        # Multi Line Comment
 							|	(?m-s:\x2F{2}.*$)                               # Single Line Comment
 							|	(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22)             # String Literal - Double Quoted
@@ -157,11 +177,11 @@
 							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
 							(?:                                                 # Declaration specifiers
-								\b
+								\b                                              # ensure leading word boundary
 								(?:
-									(?-i:auto|register|static|extern|typedef)   # Storage class specifier
+									(?-i:auto|register|static|extern|typedef)   # Storage-class specifier
 								|	(?:                                         # Type specifier
 										(?-i:void|char|short|int|long|float|double|(?:un)?signed)
 									|	(?-i:struct|union|enum)
@@ -171,7 +191,7 @@
 									)
 								|	(?'TYPE_QUALIFIER'(?-i:const|volatile))
 								)
-								\b
+								\b                                              # ensure trailing word boundary
 								\s*
 							)*
 							(?'DECLARATOR'
@@ -184,10 +204,10 @@
 									)*
 									(?:(?&amp;POINTER))?                        # Boost::Regex 1.58-1.59 do not correctly handle quantifiers on subroutine calls
 								)?
-								(?:                                             # 'DIRECT_DECLARATOR'
+								(?:                                             # Direct-declarator
 									\s*
 									(?'VALID_ID'                                # valid identifier, use as subroutine
-										\b(?!(?-i:
+										\b(?!(?-i:                              # keywords (case-sensitive), not to be used as identifier
 											auto
 										|	break
 										|	c(?:ase|har|on(?:st|ntinue))
@@ -213,7 +233,7 @@
 											|	Static_assert
 											|	Thread_local
 											)
-										)\b)                                    # keywords, not to be used as identifier
+										)\b)
 										[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*        # valid character combination for identifiers
 									)
 								|	\s*\(
@@ -234,7 +254,7 @@
 						"
 				>
 					<functionName>
-						<nameExpr expr="(?x)                                    # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
 								[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*
 								\s*\(                                           # start of parameters
 								(?s:.*?)                                        # whatever, until...
@@ -328,8 +348,9 @@
 				id         ="java_syntax"
 			>
 				<classRange
-					mainExpr    ="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?m)^[\t\x20]*                                      # leading whitespace
+					mainExpr    ="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)                                                # ^ and $ match at line breaks
+							^[\t\x20]*                                          # optional leading whitespace at start-of-line
 							(?:
 								(?-i:
 									abstract
@@ -351,7 +372,7 @@
 							\s+
 							(?'DECLARATOR'
 								(?'VALID_ID'                                    # valid identifier, use as subroutine
-									\b(?!(?-i:
+									\b(?!(?-i:                                  # keywords (case-sensitive), not to be used as identifier
 										a(?:bstract|ssert)
 									|	b(?:oolean|reak|yte)
 									|	c(?:ase|atch|har|lass|on(?:st|tinue))
@@ -368,7 +389,7 @@
 									|	th(?:is|rows?)|tr(?:ansient|y)
 									|	vo(?:id|latile)
 									|	while
-									)\b)                                        # keywords, not to be used as identifier
+									)\b)
 									[A-Za-z_]\w*                                # valid character combination for identifiers
 								)
 								(?:
@@ -415,7 +436,7 @@
 									\s*(?&amp;DECLARATOR)
 								)*
 							)?
-							\s*\{                                               # whatever, up till start-of-body indicator
+							\s*\{                                               # whatever, until start-of-body indicator
 						"
 					openSymbole ="\{"
 					closeSymbole="\}"
@@ -424,8 +445,8 @@
 						<nameExpr expr="(?-i:class|enum|@?interface)\s+\K\w+(?:\s*\x3C.*?\x3E)?" />
 					</className>
 					<function
-						mainExpr="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								^[\t\x20]*                                      # leading whitespace
+						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+								^[\t\x20]*                                      # optional leading whitespace at start-of-line
 								(?:
 									(?-i:
 										abstract
@@ -489,7 +510,7 @@
 								)
 								\s+
 								(?'VALID_ID'                                    # valid identifier, use as subroutine
-									\b(?!(?-i:
+									\b(?!(?-i:                                  # keywords (case-sensitive), not to be used as identifier
 										a(?:bstract|ssert)
 									|	b(?:oolean|reak|yte)
 									|	c(?:ase|atch|har|lass|on(?:st|tinue))
@@ -506,7 +527,7 @@
 									|	th(?:is|rows?)|tr(?:ansient|y)
 									|	vo(?:id|latile)
 									|	while
-									)\b)                                        # keywords, not to be used as identifier
+									)\b)
 									[A-Za-z_]\w*                                # valid character combination for identifiers
 								)
 								\s*\(                                           # start-of-parameters indicator
@@ -539,26 +560,25 @@
 			</parser>
 
 			<!-- ========================================================= [ XML ] -->
-			<!-- XML - eXtensible Markup Language                                  -->
 
 			<parser
-				displayName="XML Node"
+				displayName="XML Node - eXtensible Markup Language"
 				id         ="xml_node"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
 								(?:\x3C!--(?:[^\-]|-(?!-\x3E))*--\x3E)          # Multi Line Comment
 							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
 							\x3C                                                # begin of node
 							(?:
-								(?-i:\?XML)                                     # only name of root node is allowed to start with a question mark
+								(?i:\x3FXML)                                    # only name of root node is allowed to start with a question mark
 							|	\w+(?::\w+)?                                    # a node name can contain a colon e.g. `xs:schema`
 							)
 							(?:                                                 # match attributes
 								\s+                                             # at least one whitespace before attribute-name
 								\w+(?::\w+)?                                    # an attribute name can contain a colon e.g. `xmlns:xs`
-								\h*=\h*                                         # name-value separator can be surrounded by blanks
+								\h*=\h*                                         # name-value separator can be surrounded by whitespace
 								(?:                                             # quoted attribute value, embedded escaped quotes allowed...
 									\x22(?:[^\x22\x5C]|\x5C.)*?\x22             # ...double quoted...
 								|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27             # ...single quoted
@@ -571,20 +591,21 @@
 					</functionName>
 				</function>
 			</parser>
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			|   Show each FunctionList `association`-node as a leaf in an
 			|   `assiociationMap` branch and each `parser`-node as a leaf in a
 			|   `parsers` branch of the FunctionList tree
 			\-->
 			<parser
-				displayName="XML of Function List"
+				displayName="XML of Function List - eXtensible Markup Language"
 				id         ="functionlist_syntax"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
 								(?:\x3C!--(?:[^\-]|-(?!-\x3E))*--\x3E)          # Multi Line Comment
 							"
 			>
 				<classRange
-					mainExpr    ="(?xs)                                         # can span multiple lines
+					mainExpr    ="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?s)                                                # dot matches at line breaks
 							\x3C(?'COMPOUND'associationMap|parsers)\x3E         # begin of a `associationMap` or `parsers`-node
 							.*?                                                 # include anything between the node`s tags
 							\x3C/\k'COMPOUND'\x3E                               # end of the applicable node
@@ -598,11 +619,11 @@
 						<nameExpr expr="\w+" />
 					</className>
 					<function
-						mainExpr="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
 								\x3C(?:association|parser)                      # begin of a `association` or `parser`-node
 								(?:                                             # match attributes
 									\s+\w+                                      # at least one whitespace before attribute-name
-									\h*=\h*                                     # name-value separator can be surrounded by blanks
+									\h*=\h*                                     # name-value separator can be surrounded by whitespace
 									(?:                                         # quoted attribute value, embedded escaped quotes allowed...
 										\x22(?:[^\x22\x5C]|\x5C.)*?\x22         # ...double quoted...
 									|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27         # ...single quoted
@@ -618,7 +639,7 @@
 						|         make sure it's defined before the `id`-attribute.
 						\-->
 						<functionName>
-							<funcNameExpr expr="(?x)                            # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+							<funcNameExpr expr="(?x)                            # free-spacing (see `RegEx - Pattern Modifiers`)
 									(?:displayName|\bid)
 									\h*=\h*
 									(?:
@@ -627,7 +648,7 @@
 									)
 								"
 							/>
-							<funcNameExpr expr="(?&lt;=[\x22\x27])(?:[^\x22\x27\x5C]|\x5C.)*?(?=[\x22\x27])" />
+							<funcNameExpr expr="(?&lt;=(?'QT'[\x22\x27])).*?(?=\k'QT')" />
 						</functionName>
 					</function>
 				</classRange>
@@ -635,14 +656,14 @@
 				|   Fallback: show each `parser`-node as a leaf of the root in the FunctionList tree
 				\-->
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
 							\x3Cparser                                          # begin of a `parser`-node
 							(?:                                                 # match attributes
 								\s+\w+                                          # at least one whitespace before attribute-name
-								\h*=\h*                                         # name-value separator can be surrounded by blanks
-								(?:                                             # quoted attribute value, embedded escaped quotes allowed..
-									\x22(?:[^\x22\x5C]|\x5C.)*?\x22             # ...double quoted...
-								|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27             # ...single quoted
+								\h*=\h*                                         # name-value separator can be surrounded by whitespace
+								(?:                                             # quoted attribute value, embedded escaped quotes allowed
+									\x22(?:[^\x22\x5C]|\x5C.)*?\x22             # - double quoted
+								|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27             # - single quoted
 								)
 							)+                                                  # only match nodes with at least one attribute
 							\s*/?\x3E                                           # end of the `parser`-node-tag
@@ -653,7 +674,7 @@
 					\-->
 					<functionName>
 						<nameExpr expr="displayName\h*=\h*(?:\x22(?:[^\x22\x5C]|\x5C.)*?\x22|\x27(?:[^\x27\x5C]|\x5C.)*?\x27)" />
-						<nameExpr expr="(?&lt;=[\x22\x27])(?:[^\x22\x27\x5C]|\x5C.)*?(?=[\x22\x27])" />
+						<nameExpr expr="(?&lt;=(?'QT'[\x22\x27])).*?(?=\k'QT')" />
 					</functionName>
 				</function>
 			</parser>
@@ -663,71 +684,194 @@
 			<parser
 				displayName="Batch / Command Shell Script"
 				id         ="batch_label"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
 								(?m-s:(?i:REM)(?:\h.+)?$)                       # Single Line Comment 1
 							|	(?m-s::{2}.*$)                                  # Single Line Comment 2
 							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?m-s)                                              # enforce strict line by line search
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-s)                                              # ^ and $ match at line breaks, dot does not
 							^                                                   # label starts at the beginning of a line,...
 							\h*                                                 # ...can be preceded by blank characters and
 							:                                                   # ...starts with a colon
-							\K                                                  # keep the text matched so far, out of the overall match
+							\K                                                  # discard text matched so far
 							\w                                                  # a label name has to start with a word character,...
-							[\w.\-]+                                            # ...the remainder of the name can contain dots and minus signs and
+							[\w.\-]+                                            # ...the remainder of the name can also contain dots and minus signs and
 							\b                                                  # ...ends at a word boundary i.e. discard any trailing characters
 						"
 				/>
 			</parser>
 
 			<!-- ========================================= [ Initialisation File ] -->
-			<!-- File format used for: .INF / .INI / .REG / .editorconfig          -->
 
+			<!--
+			|   Note(s):
+			|   1)  File format used for files with extension .INF, .INI, .REG, .editorconfig;
+			\-->
 			<parser
 				displayName="INI Section"
 				id         ="ini_section"
-				commentExpr="(?x)
-								(?m-s:[;\#].*$)                                 # Single Line Comment
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m-s:[;\x23].*$)                               # Single Line Comment 1..2
 							"
 			>
 				<function
-					mainExpr="^\h*[\[&quot;][\w*.;\x20()\-]+[&quot;\]]"
+					mainExpr="^\h*[\[\x22][\w*.;\x20()\-]+[\x22\]]"
 				>
 					<functionName>
-						<nameExpr expr="[^[\]&quot;]*" />
+						<nameExpr expr="[^[\]\x22]*" />
+					</functionName>
+				</function>
+			</parser>
+
+			<!-- ========================================================= [ SQL ] -->
+
+			<!--
+			|   Based on:
+			|       https://notepad-plus-plus.org/community/topic/13393/function-list-and-pl-sql-packages
+			\-->
+			<parser
+				displayName="PL/SQL - Procedural Language/Structured Query Language"
+				id         ="plsql_syntax"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?s:\x2F\x2A.*?\x2A\x2F)                        # Multi Line Comment
+							|	(?m-s:-{2}.*$)                                  # Single Line Comment
+							"
+			>
+				<classRange
+					mainExpr    ="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?im)                                               # case-insensitive, ^ and $ match at line breaks
+							^\h*                                                # optional leading whitespace at start-of-line
+							CREATE\s+(?:OR\s+REPLACE\s+)?PACKAGE\s+(?:BODY\s+)? # start-of-package indicator
+							(?:(?&amp;VALID_ID)\.)?                             # schema name, optional
+							(?'PACKAGE_ID'                                      # package name, use for back-reference
+								(?'VALID_ID'                                    # valid identifier, use as subroutine
+									\b(?!(?i:                                   # keywords (case-insensitive), not to be used as identifier
+										A(?:L(?:L|TER)|N[DY]|SC?|T)
+									|	B(?:E(?:GI|TWEE)N|Y)
+									|	C(?:ASE|HECK|LUSTERS?|O(?:L(?:AUTH|UMNS)|MPRESS|NNECT)|R(?:ASH|EATE)|URRENT)
+									|	D(?:E(?:CLARE|FAULT|LETE|SC)|ISTINCT|ROP)
+									|	E(?:LSE|ND|X(?:C(?:EPTION|LUSIVE)|ISTS))
+									|	F(?:ETCH|OR|ROM)
+									|	G(?:OTO|R(?:ANT|OUP))
+									|	HAVING
+									|	I(?:DENTIFIED|[FNS]|N(?:DEX(?:ES)?|SERT|T(?:ERSECT|O)))
+									|	L(?:IKE|OCK)
+									|	M(?:INUS|ODE)
+									|	N(?:O(?:COMPRESS|T|WAIT)|ULL)
+									|	O(?:[FN]|PTION|R(?:DER)?|VERLAPS)
+									|	P(?:R(?:IOR|OCEDURE)|UBLIC)
+									|	RE(?:SOURCE|VOKE)
+									|	S(?:ELECT|HARE|IZE|QL|TART)
+									|	T(?:AB(?:AUTH|LE)|HEN|O)
+									|	U(?:NI(?:ON|QUE)|PDATE)
+									|	V(?:ALUES|IEWS?)
+									|	W(?:HE(?:N|RE)|ITH)
+									)\b)
+									[A-Za-z][\w\x23\x24]{0,29}                  # valid character combination for identifiers
+								)
+							)
+							(?s:.*?)                                            # whatever, until...
+							^\h*END\s+\k'PACKAGE_ID'\s*;                        # ...end-of-package indicator
+						"
+				>
+					<className>
+						<nameExpr expr="(?i)PACKAGE\s+\K(?:BODY\s+)?(?:\w+\.)?\w+" />
+					</className>
+					<function
+						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?im)                                           # case-insensitive, ^ and $ match at line breaks
+								^\h*                                            # optional leading whitespace at start-of-line
+								(?:FUNCTION|PROCEDURE)\s+
+								\K                                              # discard text matched so far
+								(?'VALID_ID'                                    # valid identifier, use as subroutine
+									\b(?!(?i:                                   # keywords (case-insensitive), not to be used as identifier
+										A(?:L(?:L|TER)|N[DY]|SC?|T)
+									|	B(?:E(?:GI|TWEE)N|Y)
+									|	C(?:ASE|HECK|LUSTERS?|O(?:L(?:AUTH|UMNS)|MPRESS|NNECT)|R(?:ASH|EATE)|URRENT)
+									|	D(?:E(?:CLARE|FAULT|LETE|SC)|ISTINCT|ROP)
+									|	E(?:LSE|ND|X(?:C(?:EPTION|LUSIVE)|ISTS))
+									|	F(?:ETCH|OR|ROM)
+									|	G(?:OTO|R(?:ANT|OUP))
+									|	HAVING
+									|	I(?:DENTIFIED|[FNS]|N(?:DEX(?:ES)?|SERT|T(?:ERSECT|O)))
+									|	L(?:IKE|OCK)
+									|	M(?:INUS|ODE)
+									|	N(?:O(?:COMPRESS|T|WAIT)|ULL)
+									|	O(?:[FN]|PTION|R(?:DER)?|VERLAPS)
+									|	P(?:R(?:IOR|OCEDURE)|UBLIC)
+									|	RE(?:SOURCE|VOKE)
+									|	S(?:ELECT|HARE|IZE|QL|TART)
+									|	T(?:AB(?:AUTH|LE)|HEN|O)
+									|	U(?:NI(?:ON|QUE)|PDATE)
+									|	V(?:ALUES|IEWS?)
+									|	W(?:HE(?:N|RE)|ITH)
+									)\b)
+									[A-Za-z][\w\x23\x24]{0,29}                  # valid character combination for identifiers
+								)
+								(?:\s*\([^()]*\))?                              # parentheses and parameters optional
+							"
+					>
+						<functionName>
+							<funcNameExpr expr="\w+" />
+						</functionName>
+					</function>
+				</classRange>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?im)                                               # case-insensitive, ^ and $ match at line breaks
+							^\h*                                                # optional leading whitespace at start-of-line
+							CREATE\s+(?:OR\s+REPLACE\s+)?(?:FUNCTION|PROCEDURE)\s+
+							\K                                                  # discard text matched so far
+							(?'VALID_ID'                                        # valid identifier, use as subroutine
+								\b(?!(?i:                                       # keywords (case-insensitive), not to be used as identifier
+									A(?:L(?:L|TER)|N[DY]|SC?|T)
+								|	B(?:E(?:GI|TWEE)N|Y)
+								|	C(?:ASE|HECK|LUSTERS?|O(?:L(?:AUTH|UMNS)|MPRESS|NNECT)|R(?:ASH|EATE)|URRENT)
+								|	D(?:E(?:CLARE|FAULT|LETE|SC)|ISTINCT|ROP)
+								|	E(?:LSE|ND|X(?:C(?:EPTION|LUSIVE)|ISTS))
+								|	F(?:ETCH|OR|ROM)
+								|	G(?:OTO|R(?:ANT|OUP))
+								|	HAVING
+								|	I(?:DENTIFIED|[FNS]|N(?:DEX(?:ES)?|SERT|T(?:ERSECT|O)))
+								|	L(?:IKE|OCK)
+								|	M(?:INUS|ODE)
+								|	N(?:O(?:COMPRESS|T|WAIT)|ULL)
+								|	O(?:[FN]|PTION|R(?:DER)?|VERLAPS)
+								|	P(?:R(?:IOR|OCEDURE)|UBLIC)
+								|	RE(?:SOURCE|VOKE)
+								|	S(?:ELECT|HARE|IZE|QL|TART)
+								|	T(?:AB(?:AUTH|LE)|HEN|O)
+								|	U(?:NI(?:ON|QUE)|PDATE)
+								|	V(?:ALUES|IEWS?)
+								|	W(?:HE(?:N|RE)|ITH)
+								)\b)
+								[A-Za-z][\w\x23\x24]{0,29}                      # valid character combination for identifiers
+							)
+							(?:\s*\([^()]*\))?                                  # parentheses and parameters optional
+						"
+				>
+					<functionName>
+						<nameExpr expr="\w+" />
 					</functionName>
 				</function>
 			</parser>
 
 			<!-- ======================================================== [ PERL ] -->
-			<!-- PERL - Practical Extraction and Reporting Language                -->
 
 			<parser
-				displayName="PERL"
+				displayName="PERL - Practical Extraction and Reporting Language"
 				id         ="perl_function"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?m-s:\x23.*$)                                  # Single Line Comment
-							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							sub
-							\s+
-							[A-Za-z_]\w*
-							\s*
-							\(
-							[^()]*
-							\)
-							\s*\{                                               # start of class body
-						"
+					mainExpr="^\s*(?&lt;!#)\s*sub\s+\w+\s*\(?[^()]*?\)?[\n\s]*\{"
 				>
 					<functionName>
-						<nameExpr expr="(?:sub\s+)?\K[A-Za-z_]\w*" />
+						<nameExpr expr="(sub\s+)?\K\w+" />
 					</functionName>
 					<className>
-						<nameExpr expr="[A-Za-z_]\w*(?=\s*:{2})" />
+						<nameExpr expr="\w+(?=\s*::)" />
 					</className>
 				</function>
 			</parser>
@@ -762,35 +906,109 @@
 				</function>
 			</parser>
 
+			<!-- ===================================================== [ Fortran ] -->
+
+			<!--
+			|   Based on:
+			|       https://notepad-plus-plus.org/community/topic/11059/custom-functions-list-rules
+			|       https://notepad-plus-plus.org/community/topic/13553/functionlist-xml-regular-expressions-not-parsing-properly
+			\-->
+			<parser
+				displayName="Fortran Free Form style - FORmula TRANslation"
+				id         ="fortran_freeform"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m-s:!.*$)                                     # Single Line Comment
+							"
+			>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?im-s)                                             # case-insensitive, ^ and $ match at line breaks, dot does not
+							^\h*                                                # optional leading whitespace at start-of-line
+							(?:
+								(?:
+									ELEMENTAL
+								|	(?:IM)?PURE
+								|	MODULE
+								|	(?:NON_)?RECURSIVE
+								)
+								\s+
+							)*
+							(?:FUNCTION|SUBROUTINE)\s+
+							\K                                                  # discard text matched so far
+							[A-Z]\w{0,62}                                       # valid character combination for identifiers
+							(?:\s*\([^()]*\))?                                  # optional paramater list
+						"
+				>
+					<!-- comment out the following node to display the method with its parameters -->
+					<functionName>
+						<nameExpr expr="\w+" />
+					</functionName>
+				</function>
+			</parser>
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<parser
+				displayName="Fortran Fixed Form style - FORmula TRANslation"
+				id         ="fortran_fixedform"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m-s:(?:!|^[Cc*].*$)                           # Single Line Comment 1..3
+							"
+			>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?im-s)                                             # case-insensitive, ^ and $ match at line breaks, dot does not
+							^\h*                                                # optional leading whitespace at start-of-line
+							(?:FUNCTION|SUBROUTINE)\s+
+							\K                                                  # discard text matched so far
+							[A-Z]\w{0,62}                                       # valid character combination for identifiers
+							(?:\s*\([^()]*\))?                                  # optional paramater list
+						"
+				>
+					<!-- comment out the following node to display the method with its parameters -->
+					<functionName>
+						<nameExpr expr="\w+" />
+					</functionName>
+				</function>
+			</parser>
+
 			<!-- ======================================================== [ Bash ] -->
-			<!-- BASH - Bourne-Again Shell                                         -->
 
 			<parser
-				displayName="Bash"
+				displayName="BASH - Bourne-Again SHell"
 				id         ="bash_function"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?-s:(?:^\x23[^!]|^\h*\x23|\h+\x23).*$)         # Single Line Comment
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?-s:(?:^\x23(?!!)|^\h*\x23|\h+\x23).*$)        # Single Line Comment 1..3
 							|	(?s:\x22(?:[^\x22\x5C]|\x5C.)*\x22)             # String Literal - Double Quoted
 							|	(?s:\x27[^\x27]*\x27)                           # String Literal - Single Quoted
-							|	(?s:                                            # Here Document (Type 1) and Here String
-									\x3C{2,3}\h*(?'HD1ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\b)[^\r\n]*\R
-									(?s:.*?)
-									\R\k'HD1ID'                                 # close with exactly the same identifier, in the first column
+							|	(?:                                             # Here Document (Type 1) and Here String
+									(?ms)                                       # - ^, $ and dot match at line breaks
+									\x3C{2,3}\h*                                # - start-of indicator
+									(?'HD1ID'                                   # - identifier, store for backreference
+										[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*        #   ...valid character combination for identifier
+										\b                                      #   ...ensure trailing word boundary
+									)
+									.*?                                         # - whatever, until...
+									^\k'HD1ID'                                  #   ...exactly the same identifier in the first column
 								)
-							|	(?s:                                            # Here Document (Type 2)
-									\x3C{2}-\h*(?'HD2ID'[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*\b)[^\r\n]*\R
-									(?s:.*?)
-									\R\h*\k'HD2ID'                              # close with exactly the same identifier
+							|	(?:                                             # Here Document (Type 2)
+									(?ms)                                       # - ^, $ and dot match at line breaks
+									\x3C{2}-\h*                                 # - start-of indicator
+									(?'HD2ID'                                   # - identifier, store for backreference
+										[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*        #   ...valid character combination for identifier
+										\b                                      #   ...ensure trailing word boundary
+									)
+									.*?                                         # - whatever, until...
+									^\h*\k'HD2ID'                               #   ...exactly the same identifier
 								)
 							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?m)^\h*                                            # optional leading whitespace
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)                                                # ^ and $ match at line breaks
+							^\h*                                                # optional leading whitespace at start-of-line
 							(?:
-								(?-i:function\s+)
+								(?-i:function)\s+
 								(?'VALID_ID'                                    # valid identifier, use as subroutine
-									\b(?!(?-i:
+									\b(?!(?-i:                                  # keywords (case-sensitive), not to be used as identifier
 										do(?:ne)?
 									|	el(?:if|se)|esac
 									|	f(?:i|or|unction)
@@ -799,19 +1017,19 @@
 									|	t(?:hen|ime)
 									|	until
 									|	while
-									)\b)                                        # keywords, not to be used as identifier
+									)\b)
 									[A-Za-z_\x7F-\xFF][\w\x7F-\xFF]*            # valid character combination for identifiers
 								)
-								(?:\s*\([^)]*?\))?                              # parentheses and parameters optional
+								(?:\s*\([^()]*?\))?                             # parentheses and parameters optional
 							|
 								(?&amp;VALID_ID)
-								\s*\([^)]*?\)                                   # parentheses required, parameters optional
+								\s*\([^()]*?\)                                  # parentheses required, parameters optional
 							)
 							[^{;]*?\{                                           # no semi-colon until start of body
 						"
 				>
 					<functionName>
-						<nameExpr expr="\b(?!function\b)\w+(?:\s*\([^)]*\))?" />
+						<nameExpr expr="\b(?!function\b)\w+(?:\s*\([^()]*\))?" />
 						<!-- comment out the following node to display the function with its parameters -->
 						<nameExpr expr="\w+(?=\b)" />
 					</functionName>
@@ -819,43 +1037,42 @@
 			</parser>
 
 			<!-- ======================================================== [ NSIS ] -->
-			<!-- NSIS - Nullsoft Scriptable Install System                         -->
 
 			<parser
-				displayName="NSIS"
+				displayName="NSIS - Nullsoft Scriptable Install System"
 				id         ="nsis_syntax"
 			>
 				<classRange
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							\b(?-i:SectionGroup)\b                              # open indicator
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							\b(?-i:SectionGroup)\b                              # start-of-group indicator
 							(?s:.*?)
-							\b(?-i:SectionGroupEnd)\b                           # close indicator
+							\b(?-i:SectionGroupEnd)\b                           # end-of-group indicator
 						"
 				>
 					<className>
-						<nameExpr expr="(?x)                                    # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?m-s)
-								SectionGroup\h+(?-i:/e\h+)?                     # start indicator and its optional switch
-								\K                                              # keep the text matched so far, out of the overall match
-								.+$                                             # whatever, till end-of-line
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m-s)                                          # ^ and $ match at line breaks, dot does not
+								SectionGroup\h+(?-i:/e\h+)?                     # start-of-group indicator and its optional switch
+								\K                                              # discard text matched so far
+								.+$                                             # whatever, until end-of-line
 							"
 						/>
 						<nameExpr expr="[^\r\n\x22]*" />
 					</className>
 					<function
-						mainExpr="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?m)
+						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m)                                            # ^ and $ match at line breaks
 								^(?'INDENT'\h*)                                 # optional leading whitespace at start-of-line
 								(?:
 									(?-i:!macro)
 									\h+                                         # required whitespace separator
-									\K                                          # keep the text matched so far, out of the overall match
+									\K                                          # discard text matched so far
 									[^\r\n]*$                                   # whatever, until end-of-line
 								|
 									(?'TAG'(?-i:Function|PageEx|Section))
 									\h+                                         # required whitespace separator
 									(?-i:/o\h+)?                                # optional switch
-									\K                                          # keep the text matched so far, out of the overall match
+									\K                                          # discard text matched so far
 									(?s:
 										.*?                                     # whatever,
 										(?=                                     # up till...
@@ -869,7 +1086,7 @@
 									\x7D                                        # end-of-open-element indicator
 									\h+                                         # required whitespace separator
 									(?-i:/o\h+)?                                # optional switch
-									\K                                          # keep the text matched so far, out of the overall match
+									\K                                          # discard text matched so far
 									(?s:
 										.*?                                     # whatever,
 										(?=                                     # up till...
@@ -881,8 +1098,8 @@
 							"
 					>
 						<functionName>
-							<funcNameExpr expr="(?x)                            # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-									(?m)
+							<funcNameExpr expr="(?x)                            # free-spacing (see `RegEx - Pattern Modifiers`)
+									(?m)                                        # ^ and $ match at line breaks
 									[^\r\n]+?                                   # whatever,
 									(?=                                         # up till...
 										\h*                                     # ...optional whitespace and...
@@ -898,19 +1115,19 @@
 					</function>
 				</classRange>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?m)
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)                                                # ^ and $ match at line breaks
 							^(?'INDENT'\h*)                                     # optional leading whitespace at start-of-line
 							(?:
 								(?-i:!macro)
 								\h+                                             # required whitespace separator
-								\K                                              # keep the text matched so far, out of the overall match
+								\K                                              # discard text matched so far
 								[^\r\n]*$                                       # whatever, until end-of-line
 							|
 								(?'TAG'(?-i:Function|PageEx|Section))
 								\h+                                             # required whitespace separator
 								(?-i:/o\h+)?                                    # optional switch
-								\K                                              # keep the text matched so far, out of the overall match
+								\K                                              # discard text matched so far
 								(?s:
 									.*?                                         # whatever,
 									(?=                                         # up till...
@@ -924,7 +1141,7 @@
 								\x7D                                            # end-of-open-element indicator
 								\h+                                             # required whitespace separator
 								(?-i:/o\h+)?                                    # optional switch
-								\K                                              # keep the text matched so far, out of the overall match
+								\K                                              # discard text matched so far
 								(?s:
 									.*?                                         # whatever,
 									(?=                                         # up till...
@@ -936,8 +1153,8 @@
 						"
 				>
 					<functionName>
-						<nameExpr expr="(?x)                                    # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?m)
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m)                                            # ^ and $ match at line breaks
 								[^\r\n]+?                                       # whatever,
 								(?=                                             # up till...
 									\h*                                         # ...optional whitespace and...
@@ -958,14 +1175,15 @@
 			<parser
 				displayName="Assembly"
 				id         ="assembly_subroutine"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
 								(?m-s:;.*$)                                     # Single Line Comment
 							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?m)^\h*                                            # optional leading whitespace
-							\K                                                  # keep the text matched so far, out of the overall match
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)                                                # ^ and $ match at line breaks
+							^\h*                                                # optional leading whitespace at start-of-line
+							\K                                                  # discard text matched so far
 							[A-Za-z_$][\w$]*                                    # valid character combination for labels
 							(?=:)                                               # up till the colon
 						"
@@ -1012,16 +1230,17 @@
 			<parser
 				displayName="AutoIt3"
 				id         ="autoit3_function"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
 								(?is:\x23cs.*?\x23ce)                           # Multi Line Comment
 							|	(?m-s:^\h*;.*?$)                                # Single Line Comment
 							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?m)^\h*                                            # optional leading whitespace
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)                                                # ^ and $ match at line breaks
+							^\h*                                                # optional leading whitespace at start-of-line
 							(?i:FUNC\s+)                                        # start-of-function indicator
-							\K                                                  # keep the text matched so far, out of the overall match
+							\K                                                  # discard text matched so far
 							[A-Za-z_]\w*                                        # valid character combination for identifiers
 							\s*\([^()]*?\)                                      # parentheses required, parameters optional
 						"
@@ -1033,38 +1252,238 @@
 				</function>
 			</parser>
 
+			<!-- ========================================================= [ ADA ] -->
+
+			<!--
+			|   Based on:
+			|       http://stackoverflow.com/questions/32126855/notepad-and-ada
+			\-->
+			<parser
+				displayName="ADA"
+				id         ="ada_syntax"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m-s:-{2}.*?$)                                 # Single Line Comment
+							"
+			>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							^\h*                                                # optional leading whitespace at start-of-line
+							(?:
+								(?-i:function)
+								\s+
+								(?'VALID_ID'                                    # valid identifier, use as subroutine
+									\b(?!(?-i:                                  # keywords (case-sensitive), not to be used as identifier
+										a(?:b(?:ort|s(?:tract)?)|cce(?:pt|ss)|l(?:iased|l)|nd|rray|t)
+									|	b(?:egin|ody)
+									|	c(?:ase|onstant)
+									|	d(?:eclare|el(?:ay|ta)|igits|o)
+									|	e(?:ls(?:e|if)|n(?:d|try)|x(?:ception|it))
+									|	f(?:or|unction)
+									|	g(?:eneric|oto)
+									|	i(?:[fs]|n(?:terface)?)
+									|	l(?:imited|oop)
+									|	mod
+									|	n(?:ew|ot|ull)
+									|	o(?:[fr]|thers|ut|verriding)
+									|	p(?:ackage|r(?:agma|ivate|o(?:cedure|tected)))
+									|	r(?:a(?:is|ng)e|e(?:cord|m|names|queue|turn|verse))
+									|	s(?:e(?:lect|parate)|ome|ubtype|ynchronized)
+									|	t(?:a(?:gged|sk)|erminate|hen|ype)
+									|	u(?:ntil|se)
+									|	w(?:h(?:en|ile)|ith)
+									|	xor
+									)\b)
+									[A-Za-z_]\w*                                # valid character combination for identifiers
+								)
+								(?'PARAMETERS'
+									\s*
+									\(                                          # start-of-parameters indicator
+									[^()]*                                      # parameters
+									\)                                          # end-of-parameters indicator
+								)?                                              # parentheses and parameters optional
+								\s*return                                       # function returns a value with...
+								\s+(?&amp;VALID_ID)                             # ...type-name
+							|
+								(?-i:procedure)
+								\s+(?&amp;VALID_ID)
+								(?:(?&amp;PARAMETERS))?                         # Boost::Regex 1.58-1.59 do not correctly handle quantifiers on subroutine calls
+							)
+							\s*(?-i:\bis\b)                                     # end-of-definition indicator
+						"
+				>
+					<functionName>
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?:function|procedure)\s+
+								\K                                              # discard text matched so far
+								[A-Za-z_]\w*
+								(?:\s*\([^()]*\))?                              # parentheses and parameters optional
+								(?=
+									\s*
+									\b(?:return|is)
+								)
+							"
+						/>
+						<!-- comment out the following node to display the method with its parameters -->
+<!--						<nameExpr expr="[A-Za-z_]\w*" /> -->
+					</functionName>
+				</function>
+			</parser>
+
+			<!-- ===================================================== [ Haskell ] -->
+
+			<!--
+			|   Based on:
+			|       https://notepad-plus-plus.org/community/topic/12972/trouble-with-defining-a-function-list-entry/7
+			|
+			|   By convention, the style of comment is indicated by the file extension,
+			|   with ".hs"  indicating a "usual"  Haskell file
+			|   and  ".lhs" indicating a literate Haskell file.
+			\-->
+			<parser
+				displayName="Haskell"
+				id         ="haskell_function"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?s:                                            # Multi Line Comment (nesting allowed)
+									\{-                                         # - start-of-comment indicator
+									(?>                                         # - followed by zero or more characters...
+										[^{-]                                   #   ...not part of the start indicator,
+									|	\{(?!-)                                 #   ...not being a start-of-comment indicator,
+									|	-(?!\})                                 #   ...not being an end-of-comment indicator and
+									|	(?R)                                    #   ...balancing through recursion (nesting)
+									)*
+									-\}                                         # - end-of-comment indicator
+								)
+							|	(?m-s:-{2}.*?$)                                 # Single Line Comment
+							"
+			>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-s)                                              # ^ and $ match at line breaks, dot does not
+							^                                                   # NO leading whitespace at start-of-line
+							[A-Za-z][\w\x27]*                                   # valid character combination for identifiers
+							\x20+::\x20
+							.*?$                                                # whatever, until end-of-line
+						"
+				>
+					<functionName>
+						<nameExpr expr="[A-Za-z][\w\x27]*" />
+					</functionName>
+				</function>
+			</parser>
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			|   The literate style encourages comments by making them the default.
+			|   A line in which ">" is the first character is treated as part of
+			|   the program; all other lines are comments.
+			\-->
+			<parser
+				displayName="Haskell - Literate Style"
+				id         ="haskell_literate"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?:                                             # Single Line Comment
+									(?m-s)                                      # - ^ and $ match at line breaks, dot does not
+									^(?!>)                                      # - NO greater-than at start-of-line
+									.+$                                         # - whatever, until end-of-line
+								)
+							"
+			>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-s)                                              # ^ and $ match at line breaks, dot does not
+							^\x3E\h*                                            # greater-than at start-of-line indicates program line
+							\K                                                  # discard text matched so far
+							[A-Za-z][\w\x27]*                                   # valid character combination for identifiers
+							\x20+::\x20
+							.*?$                                                # whatever, until end-of-line
+						"
+				>
+					<functionName>
+						<nameExpr expr="[A-Za-z][\w\x27]*" />
+					</functionName>
+				</function>
+			</parser>
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			|   An alternative style of literate programming is particularly
+			|   suitable for use with the LaTeX text processing system. In this
+			|   convention, only those parts of the literate program that are
+			|   entirely enclosed between \begin{code}...\end{code} delimiters
+			|   are treated as program text; all other lines are comments.
+			\-->
+			<parser
+				displayName="Haskell - Literate Style for LaTeX"
+				id         ="haskell_literatelatex"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?:                                             # Multi Line Comment
+									(?s)                                        # - dot matches line breaks
+									(?:	\A                                      # - from start-of-text...
+									|	\\end\{code\}                           #   ...or end-of-program indicator
+									)
+									.*?                                         # - whatever, until...
+									(?:	\\begin\{code\}                         #   ...start-of-program indicator
+									|	\Z                                      #   ...or end-of-text
+									)
+								)
+							"
+			>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-s)                                              # ^ and $ match at line breaks, dot does not
+							[A-Za-z][\w\x27]*                                   # valid character combination for identifiers
+							\x20+::\x20
+							.*?$                                                # whatever, until end-of-line
+						"
+				>
+					<functionName>
+						<nameExpr expr="[A-Za-z][\w\x27]*" />
+					</functionName>
+				</function>
+			</parser>
+
 			<!-- ================================================== [ Inno Setup ] -->
 
+			<!--
+			|   Note(s):
+			|   1)  The custom functions and procedures defined in the Code section are
+			|       displayed twice in the Function List tree when the Code section is
+			|       not the last section in the file.
+			\-->
 			<parser
 				displayName="Inno Setup"
 				id         ="innosetup_syntax"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?:                                             # Single Line Comment (SLC)
+									(?m-s)                                      # - ^ and $ match at line breaks, dot does not
+									(?:                                         # - start-of-comment for...
+										;                                       #   ...SLC Type 1 or
+									|	\x2F{2}                                 #   ...SLC Type 2
+									).*$                                        # - whatever, until end-of-line
+								)
+							"
 			>
 				<classRange
-					mainExpr    ="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?ms)
-							(?'SECTION_HEADER'
-								^                                               # header starts at beginning of a line
-								\[                                              # start of section header
-								(?-i:Code)                                      # `Code` section name
-								]                                               # end of section header
-							)
+					mainExpr    ="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?ms)                                               # ^, $ and dot match at line breaks
+							^                                                   # at start-of-line
+							\[                                                  # start-of-section-header indicator
+							(?-i:Code)                                          # `Code` section name, case-sensitive
+							]                                                   # end-of-section-header indicator
 							.*?                                                 # whatever, up till...
-							(?=                                                 # ...next valid section header or...
-								^                                               #    +-- header starts at beginning of a line
-								\[                                              #    +-- start-of-header indicator
-								(?-i:
-									Components|(?:Custom)?Messages
+							(?=                                                 # ...next valid section header
+								^                                               #    - header starts at beginning of a line
+								\[                                              #    - start-of-header indicator
+								(?-i:                                           #    - valid section names, case-sensitive
+									C(?:omponents|ustomMessages)
 								|	Dirs
 								|	Files
-								|	I(?:cons|nstallDelete)
+								|	I(?:cons|nstallDelete|NI|S(?:PP|SI))
 								|	Languages
+								|	Messages
 								|	R(?:egistry|un)
 								|	Setup
 								|	T(?:asks|ypes)
 								|	Uninstall(?:Delete|Run)
-								)                                               #    +-- valid section name
-								]                                               #    \-- end-of-header indicator
-							|	\Z                                              # ...end-of-file
+								)
+								]                                               #    - end-of-header indicator
+							|	\Z                                              # ...or end-of-text
 							)
 						"
 				>
@@ -1072,51 +1491,62 @@
 						<nameExpr expr="^\[\K[^\h\]]+(?=])" />
 					</className>
 					<function
-						mainExpr="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?m-s)^\h*                                      # optional leading whitespace
-								(?i:FUNCTION\h+)
-								(?'VALID_ID'
-									[A-Za-z_]\w*
+						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m-s)                                          # ^ and $ match at line breaks, dot does not
+								^\h*                                            # optional leading whitespace at start-of-line
+								(?:
+									(?i:FUNCTION)\h+
+									(?'VALID_ID'                                # valid identifier, use as subroutine
+										[A-Za-z_]\w*                            # valid character combination for identifiers
+									)
+									(?'PARAMETERS'                              # use as subroutine
+										\s*                                     # optional whitespace
+										\(                                      # start-of-parameter-list indicator
+										[^()]*                                  # optional parameters
+										\)                                      # end-of-parameter-list indicator
+									)
+									\s*:                                        # type indicator, optional leading whitespace
+									\s*[A-Za-z_]\w*                             # type identifier, optional leading whitespace
+								|
+									(?i:PROCEDURE)\h+
+									(?&amp;VALID_ID)
+									(?&amp;PARAMETERS)
 								)
-								\s*\(                                           # start-of-parameter-list indicator
-								[^()]*                                          # parameter list
-								\s*\)                                           # end-of-parameter-list indicator
-								\s*:                                            # type indicator
-								\s*[A-Za-z_]\w*                                 # type identifier
+								(?!\s*(?i:FORWARD))                             # discard forward declarations
 								\s*;                                            # end-of-statement indicator
 							"
 					>
 						<functionName>
-							<funcNameExpr expr="(?i:FUNCTION\h+)\K[A-Za-z_]\w*\s*\([^()]*\)" />
+							<funcNameExpr expr="(?i:FUNCTION|PROCEDURE)\h+\K[A-Za-z_]\w*\s*\([^()]*\)" />
 							<!-- comment out the following node to display the method with its parameters -->
-							<funcNameExpr expr="[A-Za-z_]\w*" />
+<!--							<funcNameExpr expr="[A-Za-z_]\w*" /> -->
 						</functionName>
 					</function>
 				</classRange>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?ms)
-							(?'SECTION_HEADER'
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?ms)                                               # ^, $ and dot match at line breaks
+							(?'SECTION_HEADER'                                  # use as subroutine
 								^                                               # header starts at beginning of a line
 								\[                                              # start-of-header indicator
-								(?-i:
-									Components|(?:Custom)?Messages
+								(?-i:                                           # valid section names, case-sensitive
+									C(?:omponents|ustomMessages)
 								|	Dirs
 								|	Files
-								|	I(?:cons|nstallDelete)
+								|	I(?:cons|nstallDelete|NI|S(?:PP|SI))
 								|	Languages
+								|	Messages
 								|	R(?:egistry|un)
 								|	Setup
 								|	T(?:asks|ypes)
 								|	Uninstall(?:Delete|Run)
-								)                                               # valid section name
+								)
 								]                                               # end-of-header indicator
 							)
 							.*?                                                 # whatever, up till...
-							(?=
-								(?&amp;SECTION_HEADER)                          # ...next valid section header,...
+							(?=	(?&amp;SECTION_HEADER)                          # ...next valid section header,...
 							|	^\[(?-i:Code)]                                  # ...`Code` section header or...
-							|	\Z                                              # ...end-of-file
+							|	\Z                                              # ...end-of-text
 							)
 						"
 				>
@@ -1131,23 +1561,22 @@
 			<parser
 				displayName="PowerShell"
 				id         ="powershell_function"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
 								(?s:\x3C\x23(?:[^\x23]|\x23[^\x3E])*\x23\x3E)   # Multi Line Comment
 							|	(?m-s:\x23.*$)                                  # Single Line Comment
 							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
 							\b
 							(?:function|filter)
 							\s+
 							(?:
-								[A-Za-z_]\w*
-								:
+								[A-Za-z_]\w*                                    # scope type identifier
+								:                                               # scope-type-function-/filter-identifier separator
 							)?
-							[A-Za-z_][\w\-]*
-							\s*
-							[({]
+							[A-Za-z_][\w\-]*                                    # valid character combination for identifiers
+							\s*[({]                                             # start-of-parameters or start-of-body indicator
 						"
 				>
 					<functionName>
@@ -1180,22 +1609,119 @@
 				</function>
 			</parser>
 
+			<!-- =================================================== [ Fortran77 ] -->
+
+			<!-- see [ Fortran ] -->
+
+			<!-- ========================================================= [ AHK ] -->
+
+			<!--
+			|   Based on:
+			|       https://autohotkey.com/board/topic/111969-notepad-function-list-xml/
+			|       https://autohotkey.com/boards/viewtopic.php?t=18960
+			|
+			|   Note(s):
+			|   1)  Single Line Comments are not automatically detected when using #CommentFlag.
+			\-->
+			<parser
+				displayName="AHK - AutoHotkey"
+				id         ="autohotkey_syntax"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?:                                             # Multi Line Comment
+									(?ms)                                       # - ^, $ and dot match at line breaks
+									^\x2F\x2A                                   # - start-of-comment indicator at start-of-line
+									.*?                                         # - whatever, until
+									^\x2A\x2F                                   # - end-of-comment indicator at start-of-line
+								)
+							|	(?m-s:;.*$)                                     # Single Line Comment
+							"
+			>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)                                                # ^ and $ match at line breaks
+							^                                                   # NO leading whitespace at start-of-line
+							(?:                                                 # Function
+								(?'VALID_ID'                                    # - valid identifier, use as subroutine
+									\b(?!(?i:                                   # - keywords (case-insensitive), not to be used as identifier
+										if|loop|while
+									)\b)
+									[\w$\xC0-\xFF]+                             # - valid character combination for identifiers
+								)
+								\s*\(                                           # - start-of-parameter-list indicator
+								[^)]*                                           # - optional parameters
+								\)                                              # - end-of-parameter-list indicator
+								\s*\{                                           # - start-of-body indicator
+							|                                                   # Label
+								(?&amp;VALID_ID)
+								\h*:\h*
+								$
+							|                                                   # Hotkey
+								[!\#\$*+\x3C\x3E\^~]*                           # - modifier(s)
+								(?&amp;VALID_ID)                                # - name of key
+								(?:                                             # - optional; second key
+									\h\x26\h                                    #   ...ampersand separator
+									(?&amp;VALID_ID)                            #   ...name of second key
+								)?
+								(?i:\hUP)?                                      # - optional; trigger on release
+								:{2}                                            # - end-of-hotkey indicator
+							|                                                   # Hotstring
+								:                                               # - start-of-hotstring indicator
+									(?i:                                        # - options (case-insensitive)
+										(?:	\x2A                                #   ...asterisk; no end char required for trigger
+										|	\x3F                                #   ...question mark; even trigger when inside other word
+										|	B                                   #   ...automatic backspacing
+										|	C                                   #   ...case-sensitive
+										|	O                                   #   ...omit ending character
+										|	R                                   #   ...raw replacement text
+										|	Z                                   #   ...reset recognizer after each trigger
+										)0?                                     #   ...turn off
+									|	C1                                      #   ...discard typed case
+									|	K(?:-1|\d+)                             #   ...key-delay; none or msec resp.
+									|	P\d+                                    #   ...priority
+									|	S[IPE]                                  #   ...set send method; input, play or event resp.
+									)*
+								:                                               # - options-abbreviation separator
+								(?&amp;VALID_ID)                                # - triggering abbreviation
+								:{2}                                            # - end-of-hotstring indicator
+							|                                                   # Directive Statement
+								\x23                                            # - start indicator
+								(?&amp;VALID_ID)
+							)
+						"
+				>
+					<functionName>
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m)                                            # ^ and $ match at line breaks
+								^                                               # NO leading whitespace at start-of-line
+								(?:	(?'VALID_ID'[\w\xC0-\xFF]+)\s*\([^)]*\)     # Function
+								|	(?&amp;VALID_ID)                            # Label
+								|                                               # Hotkey
+									[!\#\$*+\x3C\x3E\^~]*(?&amp;VALID_ID)(?:\h\x26\h(?&amp;VALID_ID))?(?i:\hUP)?
+								|                                               # Hotstring
+									:(?i:[\x2A\x3FBCORZ]0?|C1|K(?:-1|\d+)|P\d+|S[IPE])*:(?&amp;VALID_ID)
+								|	\x23(?&amp;VALID_ID)                        # Directive Statement
+								)
+							"
+						/>
+					</functionName>
+				</function>
+			</parser>
+
 			<!-- ========================================================= [ KRL ] -->
-			<!-- KRL - KUKA Robot Language                                         -->
 
 			<!--
 			|   https://notepad-plus-plus.org/community/topic/12264/function-list-for-new-language
 			\-->
 			<parser
-				displayName="KRL"
+				displayName="KRL - KUKA Robot Language"
 				id         ="krl_function"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
 								(?m-s:;.*$)                                     # Single Line Comment
 							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?i:
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?i:                                                # case-insensitive
 								(?:GLOBAL\h+)?
 								DEF                                             # start-of-procedure indicator, possible extended to...
 								(?:
@@ -1209,10 +1735,10 @@
 									)?
 								)?
 							)
-							\h+
-							\K                                                  # keep the text matched so far, out of the overall match
+							\h+                                                 # required whitespace separator
+							\K                                                  # discard text matched so far
 							(?'VALID_ID'                                        # valid identifier, use as subroutine
-								\b(?!(?i:
+								\b(?!(?i:                                       # keywords (case-insensitive), not to be used as identifier
 									AN(?:D|IN|OUT)
 								|	B(?:OOL|RAKE|_(?:AND|EXOR|NOT|OR))
 								|	C(?:ASE|AST_(?:FROM|TO)|HAR|IRC(?:_REL)?|ON(?:ST|TINUE)|_(?:DIS|ORI|PTP|VEL))
@@ -1232,10 +1758,10 @@
 								|	T(?:HEN|O|RIGGER|RUE)
 								|	UNTIL
 								|	W(?:AIT|HEN|HILE)
-								)\b)                                            # keywords, not to be used as identifier
+								)\b)
 								[$A-Za-z_\x7F-\xFF][$\w\x7F-\xFF]{0,23}         # valid character combination for identifiers
 							)
-							\h*\([^)]*\)
+							\h*\([^()]*\)
 						"
 				>
 					<!-- comment out the following node to display the method with its parameters -->
@@ -1245,8 +1771,219 @@
 				</function>
 			</parser>
 
+			<!-- ========================================================= [ MOX ] -->
+
+			<!--
+			|   Based on:
+			|       https://notepad-plus-plus.org/community/topic/13675/trouble-making-functionlist-parser-for-user-defined-language-mox
+			\-->
+			<parser
+				displayName="MOX"
+				id         ="mox_syntax"
+			>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)                                                # ^ and $ match at line breaks
+							^\h*                                                # optional leading whitespace at start-of-line
+							(?i:FUNCTION|METHOD|MACRO)                          # start-of indicator, case-insensitive
+							\s+                                                 # trailing whitespace required
+							\K                                                  # discard text matched so far
+							(?:(?&amp;VALID_ID)\.)*                             # optional class identifier prefix
+							(?'VALID_ID'                                        # valid identifier, use as subroutine
+								[A-Za-z_]\w*                                    # valid character combination for identifiers
+							)
+							\s*\(                                               # start-of-parameter-list indicator
+							[^)]*                                               # parameter list
+							\)                                                  # end-of-parameter-list indicator
+						"
+				>
+					<functionName>
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?:(?&amp;VALID_ID)\.)*                         # optional class identifier prefix
+								\K                                              # discard text matched so far
+								(?'VALID_ID'                                    # valid identifier, use as subroutine
+									[A-Za-z_]\w*                                # valid character combination for identifiers
+								)
+								\s*\(                                           # start-of-parameter-list indicator
+								[^)]*                                           # parameter list
+								\)                                              # end-of-parameter-list indicator
+							"
+						/>
+						<!-- comment out the following node to display the function with its parameters -->
+<!--						<nameExpr expr="[A-Za-z_]\w*" /> -->
+					</functionName>
+					<className>
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?'VALID_ID'                                    # valid identifier, use as subroutine
+									[A-Za-z_]\w*                                # valid character combination for identifiers
+								)
+								(?:\.(?&amp;VALID_ID))*                         # optional sub-class-name(s)
+								(?=\.)                                          # exclude last (sub-)class-method-name separator
+							"
+						/>
+					</className>
+				</function>
+			</parser>
+
+			<!-- ======================================================= [ RAPID ] -->
+
+			<!--
+			|   Based on:
+			|       https://sourceforge.net/projects/abb-rapid-function-list/
+			|       https://notepad-plus-plus.org/community/topic/10725/functionlist-for-rapid-abb-robots
+			|       https://notepad-plus-plus.org/community/topic/12264/function-list-for-new-language
+			\-->
+			<parser
+				displayName="RAPID - ABB Robot Programming Language"
+				id         ="rapid_syntax"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m-s:!.*$)                                     # Single Line Comment
+							|	(?:                                             # String Literal - Double Quoted
+									\x22                                        # - start-of-double-quoted-string indicator
+									(?:	[^\x22\x5C]                             # - skip invalid string characters,
+									|	\x22{2}                                 #   ...double quote escape sequence,
+									|	\x5C{2}                                 #   ...backslash escape sequence and
+									|	\x5C\d{2}                               #   ...character code sequence
+									)*                                          # - string can be empty
+									\x22                                        # - end-of-double-quoted-string indicator
+								)
+							"
+			>
+				<classRange
+					mainExpr    ="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?s)                                                # dot matches at line breaks
+							\b(?-i:MODULE)\h+                                   # start-of-module indicator (case-sensitive)
+							(?'VALID_ID'                                        # valid identifier, use as subroutine
+								\b(?!(?-i:                                      # keywords (case-sensitive), not to be used as identifier
+									A(?:LIAS|ND)
+								|	BACKWARD
+								|	C(?:ASE|ON(?:NECT|ST))
+								|	D(?:EFAULT|IV|O)
+								|	E(?:LSE(?:IF)?|ND(?:F(?:OR|UNC)|IF|MODULE|PROC|RECORD|T(?:EST|RAP)|WHILE)|RROR|XIT)
+								|	F(?:ALSE|OR|ROM|UNC)
+								|	GOTO
+								|	I(?:F|NOUT)
+								|	LOCAL
+								|	MOD(?:ULE)?
+								|	NO(?:STEPIN|T|VIEW)
+								|	X?OR
+								|	P(?:ERS|ROC)
+								|	R(?:AISE|E(?:ADONLY|CORD|T(?:RY|URN)))
+								|	S(?:TEP|YSMODULE)
+								|	T(?:EST|HEN|O|R(?:AP|UE|YNEXT))
+								|	UNDO
+								|	V(?:AR|IEWONLY)
+								|	W(?:HILE|ITH)
+								)\b)
+								[A-Za-zÀ-ÖØ-öø-ÿ][\wÀ-ÖØ-öø-ÿ]{0,31}            # valid character combination for identifiers
+							)
+							.+?                                                 # whatever (incl. line breaks) until...
+							\b(?-i:ENDMODULE)\b                                 # end-of-module indicator (case-sensitive)
+						"
+				>
+					<className>
+						<nameExpr expr="(?x)                                    # free-spacing (see `RegEx - Pattern Modifiers`)
+								\b(?-i:MODULE)\h+
+								[A-Za-zÀ-ÖØ-öø-ÿ][\wÀ-ÖØ-öø-ÿ]{0,31}
+								(?:\h*\([^()]*\))?                              # optional list of attributes
+							"
+						/>
+					</className>
+					<function
+						mainExpr="(?x)                                          # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?-i:
+									PROC
+								|	FUNC
+									\h+[a-z]+                                   # data type
+								)
+								\h+
+								(?'VALID_ID'                                    # valid identifier, use as subroutine
+									\b(?!(?-i:                                  # keywords (case-sensitive), not to be used as identifier
+										A(?:LIAS|ND)
+									|	BACKWARD
+									|	C(?:ASE|ON(?:NECT|ST))
+									|	D(?:EFAULT|IV|O)
+									|	E(?:LSE(?:IF)?|ND(?:F(?:OR|UNC)|IF|MODULE|PROC|RECORD|T(?:EST|RAP)|WHILE)|RROR|XIT)
+									|	F(?:ALSE|OR|ROM|UNC)
+									|	GOTO
+									|	I(?:F|NOUT)
+									|	LOCAL
+									|	MOD(?:ULE)?
+									|	NO(?:STEPIN|T|VIEW)
+									|	X?OR
+									|	P(?:ERS|ROC)
+									|	R(?:AISE|E(?:ADONLY|CORD|T(?:RY|URN)))
+									|	S(?:TEP|YSMODULE)
+									|	T(?:EST|HEN|O|R(?:AP|UE|YNEXT))
+									|	UNDO
+									|	V(?:AR|IEWONLY)
+									|	W(?:HILE|ITH)
+									)\b)
+									[A-Za-zÀ-ÖØ-öø-ÿ][\wÀ-ÖØ-öø-ÿ]{0,31}        # valid character combination for identifiers
+								)
+								\h*\([^()]*\)                                   # parentheses required, parameters optional
+							|	(?-i:
+									TRAP
+								|	RECORD
+								)
+								\h+(?&amp;VALID_ID)
+							"
+					>
+						<!-- comment out the following node to display the method with its parameters -->
+						<functionName>
+							<funcNameExpr expr=".+(?=\()" />
+						</functionName>
+					</function>
+				</classRange>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?-i:
+								PROC
+							|	FUNC
+								\h+[a-z]+                                       # data type
+							)
+							\h+
+							(?'VALID_ID'                                        # valid identifier, use as subroutine
+								\b(?!(?-i:                                      # keywords (case-sensitive), not to be used as identifier
+									A(?:LIAS|ND)
+								|	BACKWARD
+								|	C(?:ASE|ON(?:NECT|ST))
+								|	D(?:EFAULT|IV|O)
+								|	E(?:LSE(?:IF)?|ND(?:F(?:OR|UNC)|IF|MODULE|PROC|RECORD|T(?:EST|RAP)|WHILE)|RROR|XIT)
+								|	F(?:ALSE|OR|ROM|UNC)
+								|	GOTO
+								|	I(?:F|NOUT)
+								|	LOCAL
+								|	MOD(?:ULE)?
+								|	NO(?:STEPIN|T|VIEW)
+								|	X?OR
+								|	P(?:ERS|ROC)
+								|	R(?:AISE|E(?:ADONLY|CORD|T(?:RY|URN)))
+								|	S(?:TEP|YSMODULE)
+								|	T(?:EST|HEN|O|R(?:AP|UE|YNEXT))
+								|	UNDO
+								|	V(?:AR|IEWONLY)
+								|	W(?:HILE|ITH)
+								)\b)
+								[A-Za-zÀ-ÖØ-öø-ÿ][\wÀ-ÖØ-öø-ÿ]{0,31}            # valid character combination for identifiers
+							)
+							\h*\([^()]*\)                                       # parentheses required, parameters optional
+						|	(?-i:
+								TRAP
+							|	RECORD
+							)
+							\h+
+							(?&amp;VALID_ID)
+						"
+				>
+					<!-- comment out the following node to display the function with its parameters -->
+					<functionName>
+						<nameExpr expr=".+(?=\()" />
+					</functionName>
+				</function>
+			</parser>
+
 			<!-- =================================================== [ Sinumerik ] -->
-			<!-- Sinumerik - Siemens Numeric Control                               -->
 
 			<!--
 			|   https://notepad-plus-plus.org/community/topic/12520/function-list-for-simatic
@@ -1254,12 +1991,17 @@
 			|             two characters required before comment.
 			\-->
 			<parser
-				displayName="Sinumerik"
+				displayName="Sinumerik - Siemens Numeric Control"
 				id         ="sinumerik_function"
 				commentExpr="(?m-s:;(?!\$PATH).*?$)"
 			>
 				<function
-					mainExpr="(?m)^%_N_\K[A-Za-z_]\w*"
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m)                                                # ^ and $ match at line breaks
+							^%_N_                                               # function name prefix at start-of-line
+							\K                                                  # discard text matched so far
+							[A-Za-z_]\w*                                        # function name
+						"
 				/>
 			</parser>
 
@@ -1272,12 +2014,17 @@
 			<parser
 				displayName="UniVerse BASIC"
 				id         ="universe_basic"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?m-s:
-									(?:^|;)                                     # at start-of-line or after end-of-statement
-									\h*                                         # optional leading whitespace
-									(?-i:REM\b|\x24\x2A|[\x21\x2A])             # Single Line Comment 1..4
-									.*$                                         # whatever, until end-of-line
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?:                                             # Single Line Comment (SLC)
+									(?m-s)                                      # - ^ and $ match at line breaks, dot does not
+									(?:^|;)                                     # - at start-of-line or after end-of-statement
+									\h*                                         # - optional leading whitespace
+									(?-i:                                       # - case-sensitive start-of-comment indicator...
+										REM\b                                   #   ...for SLC Type 1,
+									|	\x24\x2A                                #   ...for SLC Type 2,
+									|	[\x21\x2A]                              #   ...for SLC Type 3 and 4
+									)
+									[^\r\n]*\R                                  # - whatever, until end-of-line
 								)
 							|	(?:\x22[^\x22\r\n]*\x22)                        # String Literal - Double Quoted
 							|	(?:\x27[^\x27\r\n]*\x27)                        # String Literal - Single Quoted
@@ -1285,11 +2032,16 @@
 							"
 			>
 				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							(?m-i)^                                             # case-sensitive, NO leading whitespace
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?m-i)                                              # ^ and $ match at line breaks, case-sensitive
+							^                                                   # NO leading whitespace at start-of-line
 							(?:
 								\d+\b(?=:?)                                     # completely numeric label, colon optional + discarded
 							|	[A-Za-z_][\w.$%]*(?=:)                          # alphanumeric label, colon required + discarded
+							|	(?:FUNCTION|SUBROUTINE)\h+
+								\K                                              # discard text matched so far
+								[A-Za-z_]\w*                                    # valid character combination for identifiers
+								(?:\h*\([^()\r\n]*\))?                          # parentheses and parameters optional
 							)
 						"
 				/>

@@ -247,7 +247,7 @@ bool VerifySignedLibrary(const wstring& filepath,
 		OutputDebugString(TEXT("VerifyLibrary: Invalid certificate display name\n"));
 	}
 
-	if ( status && !cert_subject.empty() && subject != subject)
+	if ( status && !cert_subject.empty() && cert_subject != subject)
 	{
 		status = false;
 		OutputDebugString(TEXT("VerifyLibrary: Invalid certificate subject\n"));

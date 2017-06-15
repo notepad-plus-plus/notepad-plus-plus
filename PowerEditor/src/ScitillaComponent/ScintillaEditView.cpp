@@ -152,9 +152,9 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 //const int MASK_GREEN = 0x00FF00;
 //const int MASK_BLUE  = 0x0000FF;
 
-const generic_string scintilla_signer_display_name = TEXT("Notepad++");
-const generic_string scintilla_signer_subject = TEXT("C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"");
-const generic_string scintilla_signer_key_id = TEXT("42C4C5846BB675C74E2B2C90C69AB44366401093");
+#define SCINTILLA_SIGNER_DISPLAY_NAME TEXT("Notepad++")
+#define SCINTILLA_SIGNER_SUBJECT TEXT("C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"")
+#define SCINTILLA_SIGNER_KEY_ID TEXT("42C4C5846BB675C74E2B2C90C69AB44366401093")
 
 
 int getNbDigits(int aNum, int base)
@@ -185,7 +185,7 @@ HMODULE loadSciLexerDll()
 {
 	generic_string sciLexerPath = getSciLexerFullPathName(moduleFileName, 1024);
 
-	bool isOK = VerifySignedLibrary(sciLexerPath, scintilla_signer_key_id, scintilla_signer_subject, scintilla_signer_display_name, false, false);
+	bool isOK = VerifySignedLibrary(sciLexerPath, SCINTILLA_SIGNER_KEY_ID, SCINTILLA_SIGNER_SUBJECT, SCINTILLA_SIGNER_DISPLAY_NAME, false, false);
 
 	if (!isOK)
 	{

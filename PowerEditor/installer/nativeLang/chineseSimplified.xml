@@ -869,6 +869,9 @@
                     <Item id="6115" name="自动缩进" />
                     <Item id="6117" name="按最近使用顺序切换" />
                     <Item id="6337" name="工作区文件扩展名:"/>
+                    <Item id="6344" name="文档速览图"/>
+                    <Item id="6345" name="在标签中启用速览"/>
+                    <Item id="6346" name="在文档结构图中启用速览"/>
                 </MISC>
             </Preference>
             <MultiMacro title="重复运行宏">

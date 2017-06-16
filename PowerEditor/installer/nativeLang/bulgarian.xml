@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 19.03.2017 by RDD
+	Last revision:...: 15.05.2017 by RDD
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -494,7 +494,7 @@
 				<Item id="20015" name="Внасяне..."/>
 				<Item id="20016" name="Изнасяне..."/>
 				<Item id="20001" name="Закачане"/>
-				<Item id="20012" name="Големи/малки букви"/>
+				<Item id="20012" name="Главни/малки букви"/>
 				<Item id="20009" name="разш.:"/>
 				<Item id="20002" name="Преименуване"/>
 				<Item id="20004" name="Премахване"/>
@@ -894,6 +894,9 @@
 					<Item id="6324" name="Превключване между раздели (Ctrl+Tab)"/>
 					<Item id="6114" name="Включено"/>
 					<Item id="6117" name="Приоритет на последно използваните"/>
+					<Item id="6344" name="Надникване в документи"/>
+					<Item id="6345" name="Надникване в раздел"/>
+					<Item id="6346" name="Надникване в &quot;Карта на документа&quot;"/>
 					<Item id="6318" name="Отваряне на Уеб-връзки"/>
 					<Item id="6319" name="Включено"/>
 					<Item id="6320" name="Без подчертаване"/>
@@ -901,12 +904,12 @@
 					<Item id="6307" name="Включено"/>
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последният ред"/>
-					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
 					<Item id="6115" name="Повтаряне на отстъпа от предния ред"/>
 					<Item id="6308" name="Намаляване в системната област"/>
 					<Item id="6331" name="Показване само името на файла в заглавната лента"/>
 					<Item id="6335" name="Обратно наклонена черта като превключващ знак за SQL"/>
+					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6322" name="Файлово разширение за сесии:"/>
 					<Item id="6337" name="Разширение за работно място:"/>
 				</MISC>
@@ -955,11 +958,11 @@
 				<Item id="1924" name="Копиране в системния буфер"/>
 				<Item id="2"	name="Затваряне"/>
 			</MD5FromFilesDlg>
-			<!-- Меню "Макроси" - "Многократно изпълнене..." -->
-			<MultiMacro title="Многократно стартиране на макрос">
+			<!-- Меню "Макроси" - "Многократно изпълнение..." -->
+			<MultiMacro title="Многократно изпълнение на макрос">
 				<Item id="8006" name="Макрос:"/>
-				<Item id="8001" name="Стартиране"/>
-				<Item id="8005" name="път/и"/>
+				<Item id="8001" name="Изпълняване"/>
+				<Item id="8005" name="път(и)"/>
 				<Item id="8002" name="Изпълняване до края на файла"/>
 				<Item id="1"	name="Стартиране"/>
 				<Item id="2"	name="Отказ"/>
@@ -1069,9 +1072,8 @@
 		</DocSwitcher>
 			<!-- Прозорци със съобщения -->
 		<MessageBox>
-			<ColumnModeTip title="Колонен режим" message="За преминаване в колонен режим използвайте: &#x0A;&#x0A;&quot;Alt + избор с мишката&quot;&#x0A;&quot;Alt + Shift + избор с мишката&quot;&#x0A;&quot;Alt + Shift + клавиш стрелка&quot;&#x0A;&#x0A;Не забравяйте, че първо трябва да натиснете клавиш Alt."/>
 			<ContextMenuXmlEditWarning title="Редактиране на контекстното меню" message="Редактирането на файла contextMenu.xml позволява да се промени контекстното меню на Notepad++&#x0A;&#x0A;Промените влизат в сила, след рестартиране на Notepad++"/>
-			<NppHelpAbsentWarning title="Несъществуващ файл" message=" не съществува. Моля, изтеглете го от сайта на Notepad++"/>
+			<NppHelpAbsentWarning title="Несъществуващ файл" message="&#x0A;не съществува. Моля, изтеглете го от сайта на Notepad++"/>
 			<SaveCurrentModifWarning title="Запис на текущите промени" message="Текущите промени трябва да бъдат записани.&#x0A;Записаните промени не могат да бъдат отменяни&#x0A;&#x0A;Продължаване?"/>
 			<LoseUndoAbilityWarning title="Загуба на възможността за отмяна" message="Текущите промени трябва да бъдат записани.&#x0A;Записаните промени не могат да бъдат отменяни&#x0A;&#x0A;Продължаване?"/>
 			<CannotMoveDoc title="Преместване в нов прозорец на Notepad++" message="Документа е променен, запишете го и опитайте отново."/>
@@ -1079,11 +1081,19 @@
 			<FileLockedWarning title="Неуспешно записване" message="Моля, проверете дали този файл не е отворен от друга програма"/>
 			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
 			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+				<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Твърде много файлове" message="Ще бъдат отворени $INT_REPLACE$ файла.&#x0A;Продължаване?"/>
 			<SettingsOnCloudError title="Настройки за облачно синхронизирана папка" message="Изглежда, че пътят на настройките за облака е зададен на устройство &quot;само за четене&quot; или на папка, изискваща права за запис.&#x0A;Вашите настройки ще бъдат отменени.&#x0A;Моля, върнете в първоначално състояние стойността им чрез опциите в &quot;Предпочитания...&quot;"/>
 			<FilePathNotFoundWarning title="Отваряне на файл" message="Файлът, който се опитвате да отворите не съществува."/>
 			<SessionFileInvalidError title="Неуспешно зареждане на сесия" message="Невалиден или повреден файл за сесия."/>
+			<ColumnModeTip title="Колонен режим" message="За преминаване в колонен режим използвайте: &#x0A;&#x0A;&quot;Alt + избор с мишката&quot;&#x0A;&quot;Alt + Shift + избор с мишката&quot;&#x0A;&quot;Alt + Shift + клавиш стрелка&quot;&#x0A;&#x0A;Не забравяйте, че първо трябва да натиснете клавиш Alt."/>
+				<!-- $STR_REPLACE$ is a place holder, don't translate it -->
+			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $STR_REPLACE$."/>
+			<BufferInvalidWarning title="Неуспешно записване" message="Не може да се запази: Невалиден буфер."/>
+			<OpenInAdminMode title="Неуспешно записване" message="Файлът може би е защитен и не може да се запази.&#x0A;Искате ли да стартирате Notepad++ с администраторски права?"/>
+			<OpenInAdminModeFailed title="Неуспешно стартиране с администраторски права" message="Notepad++ не може да бъде стартиран с администраторски права."/>
+			<OpenInAdminModeWithoutCloseCurrent title="Неуспешно записване" message="Файлът може би е защитен и не може да се запази.&#x0A;Искате ли да стартирате Notepad++ с администраторски права?"/>
+			<DroppingFolderAsProjetModeWarning title="Невалидно действие" message="Тъй като сте в режим &quot;Директория като работно място&quot;, можете да влачите само файлове или папки, но не и двете.&#x0A;&#x0A;За да разрешите това действие, трябва да включите опцията &quot;Отваряне на всички файлове от папката при влаченето ѝ в прозореца&quot; в секция &quot;Път по подразбиране&quot; на предпочитаните настройки."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

@@ -854,7 +854,7 @@ struct NppGUI final
 
 	bool _isFolderDroppedOpenFiles = false;
 
-	bool _isDocPeekOnTab = true;
+	bool _isDocPeekOnTab = false;
 	bool _isDocPeekOnMap = false;
 };
 
@@ -1283,7 +1283,7 @@ public:
 	{
 		for (int i = 0 ; i < _nbLang ; ++i)
 		{
-			if ((_langList[i]->_langID == langID) || (!_langList[i]))
+			if ( _langList[i] && _langList[i]->_langID == langID )
 				return _langList[i];
 		}
 		return nullptr;

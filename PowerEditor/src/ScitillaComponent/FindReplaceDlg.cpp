@@ -274,6 +274,15 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	_tab.reSizeTo(rect);
 	_tab.display();
 
+	_initialClientWidth = rect.right - rect.left;
+	
+	//fill min dialog size info
+	this->getWindowRect(_initialWindowRect);
+	_initialWindowRect.right = _initialWindowRect.right - _initialWindowRect.left;
+	_initialWindowRect.left = 0;
+	_initialWindowRect.bottom = _initialWindowRect.bottom - _initialWindowRect.top;
+	_initialWindowRect.top = 0;	
+
 	ETDTProc enableDlgTheme = (ETDTProc)::SendMessage(_hParent, NPPM_GETENABLETHEMETEXTUREFUNC, 0, 0);
 	if (enableDlgTheme)
 		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -313,9 +322,7 @@ void FindReplaceDlg::fillFindHistory()
 		::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)false);
 
 		//regex upward search is disable in v6.3 due to a regression
-		::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, BST_CHECKED, 0);
-		::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
-		::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)false);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), (BOOL)false);
 		
 		// If the search mode from history is regExp then enable the checkbox (. matches newline)
 		::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
@@ -675,10 +682,70 @@ INT_PTR CALLBACK FindInFinderDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 }
 
 
+void FindReplaceDlg::resizeDialogElements(LONG newWidth)
+{
+	//elements that need to be resized horizontally (all edit/combo boxes etc.)
+	const auto resizeWindowIDs = { IDFINDWHAT, IDREPLACEWITH, IDD_FINDINFILES_FILTERS_COMBO, IDD_FINDINFILES_DIR_COMBO };
+
+	//elements that need to be moved
+	const auto moveWindowIDs = {
+		IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK,IDD_FINDINFILES_RECURSIVE_CHECK, IDD_FINDINFILES_INHIDDENDIR_CHECK,
+		IDC_TRANSPARENT_GRPBOX, IDC_TRANSPARENT_CHECK, IDC_TRANSPARENT_LOSSFOCUS_RADIO, IDC_TRANSPARENT_ALWAYS_RADIO,
+		IDC_PERCENTAGE_SLIDER , IDC_REPLACEINSELECTION , IDC_IN_SELECTION_CHECK,
+
+		IDD_FINDINFILES_BROWSE_BUTTON, IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
+		IDREPLACE, IDREPLACEALL,IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDC_FINDPREV, IDOK, IDCANCEL,
+	};
+
+	_deltaWidth = newWidth - _initialClientWidth;
+	auto addWidth = _deltaWidth - _lastDeltaWidth;
+	_lastDeltaWidth = _deltaWidth;
+
+	RECT rc;
+	for (int id : resizeWindowIDs)
+	{
+		HWND resizeHwnd = ::GetDlgItem(_hSelf, id);
+		::GetClientRect(resizeHwnd, &rc);
+		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | SWP_NOZORDER);
+	}
+
+	for (int moveWndID : moveWindowIDs)
+	{
+		HWND moveHwnd = GetDlgItem(_hSelf, moveWndID);
+		::GetWindowRect(moveHwnd, &rc);
+		::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rc, 2);
+
+		::SetWindowPos(moveHwnd, NULL, rc.left + addWidth, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		::InvalidateRect(moveHwnd, NULL, TRUE);
+	}
+
+	auto additionalWindowHwndsToResize = { _tab.getHSelf() , _statusBar.getHSelf() };
+	for (HWND resizeHwnd : additionalWindowHwndsToResize)
+	{
+		::GetClientRect(resizeHwnd, &rc);
+		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | SWP_NOZORDER);
+	}
+}
+
 INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
+		case WM_GETMINMAXINFO:
+		{
+			MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>(lParam);
+			mmi->ptMinTrackSize.y = _initialWindowRect.bottom;
+			mmi->ptMinTrackSize.x = _initialWindowRect.right;
+			mmi->ptMaxTrackSize.y = _initialWindowRect.bottom;
+			return 0;
+		}
+
+		case WM_SIZE:
+		{
+			resizeDialogElements(LOWORD(lParam));
+			return TRUE;
+		}
+
 		case WM_INITDIALOG :
 		{
 			RECT arc;
@@ -708,8 +775,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 if (tip2show.empty())
 				 tip2show = TEXT("Use Shift+Enter to search in the opposite direction.");
 
-			 _shiftTrickUpTip = CreateToolTip(IDDIRECTIONUP, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
-			 _shiftTrickDownTip = CreateToolTip(IDDIRECTIONDOWN, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			 _shiftTrickUpTip = CreateToolTip(IDOK, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			 _shiftTrickDownTip = CreateToolTip(IDC_FINDPREV, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
 			 if (_shiftTrickUpTip && _shiftTrickDownTip)
 			 {
 				 SendMessage(_shiftTrickUpTip, TTM_ACTIVATE, TRUE, 0);
@@ -845,6 +912,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					setStatusbarMessage(generic_string(), FSNoMessage);
 					display(false);
 					break;
+				case IDC_FINDPREV:
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
 				{
 					setStatusbarMessage(generic_string(), FSNoMessage);
@@ -857,7 +925,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if (isMacroRecording)
 						saveInMacro(wParam, FR_OP_FIND);
 
-					bool direction_bak = _options._whichDirection;
+					bool direction_bak = DIR_UP;
+					if (LOWORD(wParam) == IDOK)
+						direction_bak = DIR_DOWN;
+					_options._whichDirection = direction_bak;
+
 					// if shift-key is pressed, revert search direction
 					// if shift-key is not pressed, use the normal setting
 					SHORT shift = GetKeyState(VK_SHIFT);
@@ -1189,15 +1261,13 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, _options._isWholeWord?BST_CHECKED:BST_UNCHECKED, 0);
 
 						//regex upward search is disable in v6.3 due to a regression
-						::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, BST_CHECKED, 0);
-						::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
 						_options._whichDirection = DIR_DOWN;
 					}
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)!isRegex);
 
 					//regex upward search is disable in v6.3 due to a regression
-					::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)!isRegex);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), (BOOL)!isRegex);
 					return TRUE; }
 
 				case IDWRAP :
@@ -2204,7 +2274,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 
 	gotoCorrectTab();
 
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left + _deltaWidth, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
 
 	TCHAR label[MAX_PATH];
 	_tab.getCurrentTitle(label, MAX_PATH);
@@ -2223,8 +2293,7 @@ void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), hideOrShow);
 
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), !hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), !hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), !hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), !hideOrShow);
 }
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
@@ -2243,8 +2312,8 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDCMARKALL), isEnable?SW_HIDE:SW_SHOW);
 
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), isEnable?SW_HIDE:SW_SHOW);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), isEnable ? SW_HIDE : SW_SHOW);
+	
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACE), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL), isEnable?SW_HIDE:SW_SHOW);
@@ -2533,7 +2602,7 @@ void FindReplaceDlg::initOptionsFromDlg()
 	_options._doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
 	_options._doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
 
-	_options._whichDirection = isCheckedOrNot(IDDIRECTIONDOWN);
+	_options._whichDirection = DIR_DOWN;
 	
 	_options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
 	_options._isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
@@ -2595,7 +2664,7 @@ void FindReplaceDlg::enableFindInFilesFunc()
 	enableFindInFilesControls();
 	_currentStatus = FINDINFILES_DLG;
 	gotoCorrectTab();
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
 	TCHAR label[MAX_PATH];
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
@@ -2624,7 +2693,7 @@ void FindReplaceDlg::enableMarkFunc()
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();
-	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
+	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left + _deltaWidth, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
 	TCHAR label[MAX_PATH];
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);

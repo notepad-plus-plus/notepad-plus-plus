@@ -335,6 +335,7 @@ public :
 	bool removeFinder(Finder *finder2remove);
 
 protected :
+	void resizeDialogElements(LONG newWidth);
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	static LONG_PTR originalFinderProc;
 
@@ -344,6 +345,10 @@ protected :
     void combo2ExtendedMode(int comboID);
 
 private :
+	RECT _initialWindowRect;
+	LONG _lastDeltaWidth;
+	LONG _deltaWidth;
+	LONG _initialClientWidth;
 
 	DIALOG_TYPE _currentStatus;
 	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos;

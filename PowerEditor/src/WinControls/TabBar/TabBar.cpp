@@ -598,26 +598,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
             if (_doDragNDrop)
             {
-				// ::DragDetect does not work with TCS_BUTTONS
-				if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
-				{
-					_mightBeDragging = true;
-				}
-				else
-				{
-					_nSrcTab = _nTabDragged = currentTabOn;
-
-					POINT point;
-					point.x = LOWORD(lParam);
-					point.y = HIWORD(lParam);
-					::ClientToScreen(hwnd, &point);
-					if(::DragDetect(hwnd, point))
-					{
-						// Yes, we're beginning to drag, so capture the mouse...
-						_isDragging = true;
-						::SetCapture(hwnd);
-					}
-				}
+				_mightBeDragging = true;
             }
 
 			notify(NM_CLICK, currentTabOn);
@@ -658,6 +639,12 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 					_nSrcTab = _nTabDragged = tabFocused;
 					_isDragging = true;
+					
+					// ::SetCapture is required for normal non-TLS_BUTTONS.
+					if (!(::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS))
+					{
+						::SetCapture(hwnd);
+					}
 				}
 			}
 
@@ -1194,13 +1181,24 @@ void TabBarPlus::exchangeItemData(POINT point)
 
 		if (nTab != _nTabDragged)
 		{
+			if (_previousTabSwapped == nTab)
+			{
+				return;
+			}
+
 			exchangeTabItemData(_nTabDragged, nTab);
+			_previousTabSwapped = _nTabDragged;
 			_nTabDragged = nTab;
+		}
+		else
+		{
+			_previousTabSwapped = -1;
 		}
 	}
 	else
 	{
 		//::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_TAB)));
+		_previousTabSwapped = -1;
 		_isDraggingInside = false;
 	}
 

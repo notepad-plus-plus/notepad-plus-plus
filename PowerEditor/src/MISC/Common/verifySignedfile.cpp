@@ -240,14 +240,16 @@ bool VerifySignedLibrary(const wstring& filepath,
 		status = false;
 	}
 
-	// fields verifications
+	//
+	// fields verifications - if status is true, and string to compare (from the parameter) is not empty, then do compare
+	//
 	if ( status && !cert_display_name.empty() && cert_display_name != display_name )
 	{
 		status = false;
 		OutputDebugString(TEXT("VerifyLibrary: Invalid certificate display name\n"));
 	}
 
-	if ( status && !cert_subject.empty() && subject != subject)
+	if ( status && !cert_subject.empty() && cert_subject != subject)
 	{
 		status = false;
 		OutputDebugString(TEXT("VerifyLibrary: Invalid certificate subject\n"));

@@ -374,6 +374,14 @@ void FindReplaceDlg::fillComboHistory(int id, const vector<generic_string> & str
 	{
 		addText2Combo(i->c_str(), hCombo);
 	}
+
+	//empty string is not added to CB items, so we need to set it manually
+	if (!strings.empty() && strings.begin()->empty())
+	{
+		SetWindowText(hCombo, _T(""));
+		return;
+	}
+
 	::SendMessage(hCombo, CB_SETCURSEL, 0, 0); // select first item
 }
 
@@ -383,13 +391,13 @@ void FindReplaceDlg::saveFindHistory()
 	if (! isCreated()) return;
 	FindHistory& findHistory = (NppParameters::getInstance())->getFindHistory();
 
-	saveComboHistory(IDD_FINDINFILES_DIR_COMBO, findHistory._nbMaxFindHistoryPath, findHistory._findHistoryPaths);
-	saveComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory._nbMaxFindHistoryFilter, findHistory._findHistoryFilters);
-	saveComboHistory(IDFINDWHAT,                    findHistory._nbMaxFindHistoryFind, findHistory._findHistoryFinds);
-	saveComboHistory(IDREPLACEWITH,                 findHistory._nbMaxFindHistoryReplace, findHistory._findHistoryReplaces);
+	saveComboHistory(IDD_FINDINFILES_DIR_COMBO, findHistory._nbMaxFindHistoryPath, findHistory._findHistoryPaths, false);
+	saveComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory._nbMaxFindHistoryFilter, findHistory._findHistoryFilters, true);
+	saveComboHistory(IDFINDWHAT,                    findHistory._nbMaxFindHistoryFind, findHistory._findHistoryFinds, false);
+	saveComboHistory(IDREPLACEWITH,                 findHistory._nbMaxFindHistoryReplace, findHistory._findHistoryReplaces, true);
 }
 
-int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string> & strings)
+int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string> & strings, bool saveEmpty)
 {
 	TCHAR text[FINDREPLACE_MAXLENGTH];
 	HWND hCombo = ::GetDlgItem(_hSelf, id);
@@ -400,6 +408,14 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string
 
     if (count)
         strings.clear();
+
+	if (saveEmpty)
+	{
+		if (::GetWindowTextLength(hCombo) == 0)
+		{
+			strings.push_back(generic_string());
+		}
+	}
 
     for (int i = 0 ; i < count ; ++i)
 	{

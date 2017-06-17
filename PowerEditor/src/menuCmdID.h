@@ -486,6 +486,7 @@
     #define    IDM_LANG_SREC               (IDM_LANG + 60)
     #define    IDM_LANG_IHEX               (IDM_LANG + 61)
     #define    IDM_LANG_TEHEX              (IDM_LANG + 62)
+    #define    IDM_LANG_SWIFT              (IDM_LANG + 63)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 65)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 79)

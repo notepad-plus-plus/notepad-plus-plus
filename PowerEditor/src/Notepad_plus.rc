@@ -721,6 +721,7 @@ BEGIN
         MENUITEM "Scheme",                  IDM_LANG_SCHEME
         MENUITEM "Smalltalk",               IDM_LANG_SMALLTALK
         MENUITEM "SQL",                     IDM_LANG_SQL
+		MENUITEM "Swiift",                  IDM_LANG_SWIFT
         MENUITEM "S-Record",                IDM_LANG_SREC
         MENUITEM "TCL",                     IDM_LANG_TCL
         MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
@@ -830,6 +831,7 @@ BEGIN
         MENUITEM "Scheme",                IDM_LANG_SCHEME
         MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
         MENUITEM "SQL",                   IDM_LANG_SQL
+		MENUITEM "Swiift",                IDM_LANG_SWIFT
         MENUITEM "S-Record",              IDM_LANG_SREC
     END
     POPUP "T"

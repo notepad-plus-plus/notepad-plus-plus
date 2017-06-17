@@ -2786,6 +2786,7 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_SREC:
 		case IDM_LANG_IHEX:
 		case IDM_LANG_TEHEX:
+		case IDM_LANG_SWIFT:
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));

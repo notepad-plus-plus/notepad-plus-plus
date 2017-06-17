@@ -2844,6 +2844,8 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_IHEX;
 		case IDM_LANG_TEHEX :
             return L_TEHEX;
+		case IDM_LANG_SWIFT:
+			return L_SWIFT;
 
 		case IDM_LANG_USER :
             return L_USER;

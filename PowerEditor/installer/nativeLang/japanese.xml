@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.3.3">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -388,6 +388,7 @@
                 <Item id="1641" name="現在の文書内で検索"/>
                 <Item id="1686" name="透明化"/>
                 <Item id="1703" name="&amp;.は改行と一致"/>
+                <Item id="1721" name="前を検索"/>
             </Find>
 
             <FindCharsInRange title="文字範囲を指定して検索...">
@@ -883,6 +884,9 @@
                     <Item id="6114" name="有効"/>
                     <Item id="6115" name="自動インデント"/>
                     <Item id="6117" name="最近使用した順で切り替える"/>
+                    <Item id="6344" name="タブのプレビュー"/>
+                    <Item id="6345" name="タブの近くに表示する"/>
+                    <Item id="6346" name="文書マップに表示する"/>
                 </MISC>
             </Preference>
             <MultiMacro title="指定マクロを複数回実行">

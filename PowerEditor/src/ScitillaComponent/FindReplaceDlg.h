@@ -346,7 +346,6 @@ protected :
 
 private :
 	RECT _initialWindowRect;
-	LONG _lastDeltaWidth;
 	LONG _deltaWidth;
 	LONG _initialClientWidth;
 

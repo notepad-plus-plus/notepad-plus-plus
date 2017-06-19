@@ -39,6 +39,8 @@
 using namespace std;
 
 
+namespace // anonymous namespace
+{
 
 
 struct WinMenuKeyDefinition //more or less matches accelerator table definition, easy copy/paste
@@ -513,10 +515,8 @@ typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
 
 
-namespace // anonymous namespace
-{
 
-	static int strVal(const TCHAR *str, int base)
+	int strVal(const TCHAR *str, int base)
 	{
 		if (!str) return -1;
 		if (!str[0]) return 0;
@@ -529,17 +529,17 @@ namespace // anonymous namespace
 	}
 
 
-	static int decStrVal(const TCHAR *str)
+	int decStrVal(const TCHAR *str)
 	{
 		return strVal(str, 10);
 	}
 
-	static int hexStrVal(const TCHAR *str)
+	int hexStrVal(const TCHAR *str)
 	{
 		return strVal(str, 16);
 	}
 
-	static int getKwClassFromName(const TCHAR *str)
+	int getKwClassFromName(const TCHAR *str)
 	{
 		if (!lstrcmp(TEXT("instre1"), str)) return LANG_INDEX_INSTR;
 		if (!lstrcmp(TEXT("instre2"), str)) return LANG_INDEX_INSTR2;
@@ -556,13 +556,13 @@ namespace // anonymous namespace
 	}
 
 	
-	static inline size_t getAsciiLenFromBase64Len(size_t base64StrLen)
+	size_t getAsciiLenFromBase64Len(size_t base64StrLen)
 	{
 		return (base64StrLen % 4) ? 0 : (base64StrLen - base64StrLen / 4);
 	}
 
 
-	static int base64ToAscii(char *dest, const char *base64Str)
+	int base64ToAscii(char *dest, const char *base64Str)
 	{
 		static const int base64IndexArray[123] =
 		{
@@ -2002,6 +2002,39 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
 					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
 
+					MapPosition mapPosition;
+					int32_t mapPosVal;
+					const TCHAR *mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDisplayLine"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._firstVisibleDisplayLine = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapFirstVisibleDocLine"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._firstVisibleDocLine = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapLastVisibleDocLine"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._lastVisibleDocLine = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapNbLine"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._nbLine = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapHigherPos"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._higherPos = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapWidth"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._width = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapHeight"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._height = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapKByteInDoc"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._KByteInDoc = mapPosVal;
+					mapPosStr = (childNode->ToElement())->Attribute(TEXT("mapWrapIndentMode"), &mapPosVal);
+					if (mapPosStr)
+						mapPosition._wrapIndentMode = mapPosVal;
+					const TCHAR *boolStr = (childNode->ToElement())->Attribute(TEXT("mapIsWrap"));
+					if (boolStr)
+						mapPosition._isWrap = (lstrcmp(TEXT("yes"), boolStr) == 0);
+
 					const TCHAR *langName;
 					langName = (childNode->ToElement())->Attribute(TEXT("lang"));
 					int encoding = -1;
@@ -2011,7 +2044,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					int fileModifiedTimestamp = 0;
 					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestamp"), &fileModifiedTimestamp);
 
-					sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position, backupFilePath, fileModifiedTimestamp);
+					sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position, backupFilePath, fileModifiedTimestamp, mapPosition);
 
 					for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
 						markNode ;
@@ -2957,6 +2990,18 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), viewSessionFiles[i]._fileName.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp));
+				
+				// docMap 
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), viewSessionFiles[i]._mapPos._firstVisibleDisplayLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDocLine"), viewSessionFiles[i]._mapPos._firstVisibleDocLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapLastVisibleDocLine"), viewSessionFiles[i]._mapPos._lastVisibleDocLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapNbLine"), viewSessionFiles[i]._mapPos._nbLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHigherPos"), viewSessionFiles[i]._mapPos._higherPos);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWidth"), viewSessionFiles[i]._mapPos._width);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapHeight"), viewSessionFiles[i]._mapPos._height);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapKByteInDoc"), static_cast<int>(viewSessionFiles[i]._mapPos._KByteInDoc));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("mapWrapIndentMode"), viewSessionFiles[i]._mapPos._wrapIndentMode);
+				fileNameNode->ToElement()->SetAttribute(TEXT("mapIsWrap"), viewSessionFiles[i]._mapPos._isWrap ? TEXT("yes") : TEXT("no"));
 
 				for (size_t j = 0, len = viewSessionFiles[i]._marks.size() ; j < len ; ++j)
 				{
@@ -3600,6 +3645,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("chinese.xml");
 	if (localizationCode == TEXT("zh") || localizationCode == TEXT("zh-cn"))
 		return TEXT("chineseSimplified.xml");
+	if (localizationCode == TEXT("co") || localizationCode == TEXT("co-fr"))
+		return TEXT("corsican.xml");
 	if (localizationCode == TEXT("hr"))
 		return TEXT("croatian.xml");
 	if (localizationCode == TEXT("cs"))
@@ -4781,6 +4828,14 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (optNameFolderDroppedOpenFiles)
 				_nppGUI._isFolderDroppedOpenFiles = (lstrcmp(optNameFolderDroppedOpenFiles, TEXT("yes")) == 0);
 
+			const TCHAR * optDocPeekOnTab = element->Attribute(TEXT("docPeekOnTab"));
+			if (optDocPeekOnTab)
+				_nppGUI._isDocPeekOnTab = (lstrcmp(optDocPeekOnTab, TEXT("yes")) == 0);
+
+			const TCHAR * optDocPeekOnMap = element->Attribute(TEXT("docPeekOnMap"));
+			if (optDocPeekOnMap)
+				_nppGUI._isDocPeekOnMap = (lstrcmp(optDocPeekOnMap, TEXT("yes")) == 0);
+
 		}
 	}
 }
@@ -5502,6 +5557,8 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("newStyleSaveDlg"), _nppGUI._useNewStyleSaveDlg ? TEXT("yes") : TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("isFolderDroppedOpenFiles"), _nppGUI._isFolderDroppedOpenFiles ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("docPeekOnTab"), _nppGUI._isDocPeekOnTab ? TEXT("yes") : TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("docPeekOnMap"), _nppGUI._isDocPeekOnMap ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="searchEngine" searchEngineChoice="2" searchEngineCustom="" />
@@ -5890,11 +5947,24 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_BAANC:
 			id = IDM_LANG_BAANC; break;
 
+		case L_SREC :
+			id = IDM_LANG_SREC; break;
+
+		case L_IHEX :
+			id = IDM_LANG_IHEX; break;
+
+		case L_TEHEX :
+			id = IDM_LANG_TEHEX; break;
+
+		case L_SWIFT:
+			id = IDM_LANG_SWIFT; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 
 		case L_TEXT :
 			id = IDM_LANG_TEXT;	break;
+
 
 		default :
 			if(lt >= L_EXTERNAL && lt < L_END)

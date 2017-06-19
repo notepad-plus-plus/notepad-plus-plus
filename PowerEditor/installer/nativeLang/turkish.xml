@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.0">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.3.1">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -12,6 +12,7 @@
 					<Item menuId="encoding" name="&amp;Kodlama"/>
 					<Item menuId="language" name="Dille&amp;r"/>
 					<Item menuId="settings" name="A&amp;yarlar"/>
+					<Item menuId="tools" name="Ar&amp;açlar"/>
 					<Item menuId="macro" name="&amp;Makrolar"/>
 					<Item menuId="run" name="&amp;Çalıştır"/>
 					<Item idName="Plugins" name="&amp;Eklentiler"/>
@@ -62,6 +63,7 @@
 					<Item subMenuId="encoding-westernEuropean" name="Batı Avrupa"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamca"/>
 					<Item subMenuId="settings-import" name="İçe Aktar"/>
+					<Item subMenuId="tools-md5"  name="MD5"/>
 				</SubEntries>
 
 				<!-- Tüm Menü Öğeleri -->
@@ -292,6 +294,9 @@
 					<Item id="48018" name="Açılır Bağlam Menüsünü Düzenle"/>
 					<Item id="48009" name="Kısayol Eşleyici…"/>
 					<Item id="48011" name="&amp;Tercihler…"/>
+                    <Item id="48501" name="Üret..."/>
+                    <Item id="48502" name="Dosyalardan üret..."/>
+                    <Item id="48503" name="Panoya üret"/>
 					<Item id="49000" name="&amp;Çalıştır…"/>
 
 					<Item id="50000" name="Fonksiyonu Tamamla"/>
@@ -400,6 +405,18 @@
 				<Item id="2" name="İptal"/>
 				<Item id="1904" name="Kaydet"/>
 			</Run>
+
+            <MD5FromFilesDlg title="Dosyalardan MD5 derlemeleri oluşitur">
+                <Item id="1922" name="MD5 derlemesi üretilecek dosyaları seç..."/>
+                <Item id="1924" name="Panoya kopyala"/>
+                <Item id="2"    name="Kapat"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="MD5 derlemesi üret">
+                <Item id="1932" name="Her bir satıra ayrı bir dize muamelesi yap"/>
+                <Item id="1934" name="Panoya kopyala"/>
+                <Item id="2"    name="Kapat"/>
+            </MD5FromTextDlg>
 
 			<StyleConfig title="Stil Yapılandırıcı">
 				<Item id="2" name="İptal"/>
@@ -811,6 +828,10 @@
 					<Item id="6252" name="Aç"/>
 					<Item id="6255" name="Kapat"/>
 					<Item id="6256" name="Birden çok satıra izin ver"/>
+					<Item id="6161" name="Kelime karakter listesi"/>
+                    <Item id="6162" name="Varsayılan kelime karakter listesini olduğu gibi kullan"/>
+                    <Item id="6163" name="Karakterini kelimenin bir parçası gibi ekle
+(ne yaptığını bilmiyorsan seçme)"/>
 				</Delimiter>
 
 				<Cloud title="Bulut">
@@ -897,6 +918,7 @@
 			<NbFileToOpenImportantWarning title="Çok Fazla Sayıda Dosya Açıldı" message="$INT_REPLACE$ dosyası açılmak üzere. Devam etmek istiyor musunuz?"/>
 			<SettingsOnCloudError title="Bulut Ayarları" message="Buluta yedekleme konumu salt okunur olarak ayarlanmış\rveya klasöre yazma erişimi için ayrıcalık tanınmamış.\rBuluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum ayarlayın."/>
 			<FilePathNotFoundWarning title="Dosya Aç" message="Açmaya çalıştığınız dosya mevcut değil."/>
+	    <SessionFileInvalidError title="Oturum Yüklenemedi" message="Oturum dosyası bozuk ya da geçersiz."/>		
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -966,5 +988,17 @@
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+		<MiscStrings>
+			<word-chars-list-tip value="Bu, şu anki karakterlere yeni karakter eklemenizi sağlar. Bunun için seçime çift tıklayabilir ya da &quot;Sadece tam sözcükleri eşleştir&quot; seçili olarak arama yaparken kullanabilirsiniz."/>
+            <word-chars-list-warning-begin value="Dikkat et: "/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ boşluk(lar)"/>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ SEKME(ler)"/>
+			<word-chars-list-warning-end value="  karakter listenizde."/>
+			<cloud-invalid-warning value="Geçersiz yol."/>
+			<cloud-restart-warning value="Etkin olması için Notepad++'yı tekrar başlat."/>
+			<shift-change-direction-tip value="Shift+Enter ile diğer yönde arama yapın."/>
+		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

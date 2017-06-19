@@ -82,6 +82,7 @@ protected :
 	virtual void onGetMinMaxInfo(MINMAXINFO* lpMMI);
 	virtual LRESULT onWinMgr(WPARAM wp, LPARAM lp);
 	virtual void destroy();
+	void updateColumnNames();
 	void fitColumnsToSize();
 	void resetSelection();
 	void doSave();
@@ -89,6 +90,7 @@ protected :
 	void doSortToTabs();
 	void updateButtonState();
 	void activateCurrent();
+	void doColumnSort();
 
 	HWND _hList = nullptr;
 	static RECT _lastKnownLocation;
@@ -96,8 +98,9 @@ protected :
 	SIZE _szMinListCtrl;
 	DocTabView *_pTab = nullptr;
 	std::vector<int> _idxMap;
+	int _currentColumn = -1;
 	int _lastSort = -1;
-	bool _isSorted = false;
+	bool _reverseSort = false;
 	TiXmlNodeA *_dlgNode = nullptr;
 
 private:

@@ -36,7 +36,6 @@
 
 using namespace std;
 
-
 // Only for 2 main Scintilla editors
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
@@ -148,6 +147,95 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			break;
 		}
 
+		case TCN_MOUSEHOVERING:
+		case TCN_MOUSEHOVERSWITCHING:
+		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
+
+			if (doPeekOnTab)
+			{
+				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
+				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
+
+				if (pTabDocView)
+				{
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
+					Buffer *pBuf = MainFileManager->getBufferByID(id);
+
+					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
+					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
+
+					RECT rect;
+					TabCtrl_GetItemRect(pTabDocView->getHSelf(), tbHdr->_tabOrigin, &rect);
+					POINT p;
+					p.x = rect.left;
+					p.y = rect.bottom;
+					::ClientToScreen(pTabDocView->getHSelf(), &p);
+
+					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
+					{
+						_documentPeeker.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
+						_pEditView->getFocus();
+					}
+					else  // if hover on current active tab
+					{
+						_documentPeeker.display(false);
+					}
+				}
+			}
+
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			{
+				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
+				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
+				if (pTabDocView)
+				{
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
+					Buffer *pBuf = MainFileManager->getBufferByID(id);
+
+					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
+					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
+
+					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
+					{
+						_pDocMap->showInMapTemporarily(pBuf, notifyView);
+						_pDocMap->setSyntaxHiliting();
+					}
+					else  // if hover on current active tab
+					{
+						_pDocMap->reloadMap();
+						_pDocMap->setSyntaxHiliting();
+					}
+					_pDocMap->setTemporarilyShowing(true);
+				}
+			}
+
+			break;
+		}
+
+		case TCN_MOUSELEAVING:
+		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
+
+			if (doPeekOnTab)
+			{
+				_documentPeeker.display(false);
+			}
+
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			{
+				_pDocMap->reloadMap();
+				_pDocMap->setSyntaxHiliting();
+
+				_pDocMap->setTemporarilyShowing(false);
+			}
+			break;
+		}
+
 		case TCN_TABDROPPEDOUTSIDE:
 		case TCN_TABDROPPED:
 		{
@@ -241,7 +329,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case TCN_TABDELETE:
 		{
-			int index = tabNotification->tabOrigin;
+			int index = tabNotification->_tabOrigin;
 			BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
 			Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
 			int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
@@ -270,6 +358,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else
 				break;
 
+			// save map position before switch to a new document
+			_documentPeeker.saveCurrentSnapshot(*_pEditView);
+
 			switchEditViewTo(iView);
 			BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
 			if (bufid != BUFFER_INVALID)
@@ -278,6 +369,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufid, iView);
 				_isFolding = false;
 			}
+			_documentPeeker.display(false);
 			break;
 		}
 
@@ -874,7 +966,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_linkTriggered = false;
 			}
 
-			if (_pDocMap)
+			if (_pDocMap && (not _pDocMap->isClosed()) && _pDocMap->isVisible() && not _pDocMap->isTemporarilyShowing())
 			{
 				_pDocMap->wrapMap();
 				_pDocMap->scrollMap();
@@ -888,7 +980,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return FALSE;
 
 			// Get the style and make sure it is a hotspot
-			auto style = notifyView->execute(SCI_GETSTYLEAT, notification->position);
+			uint8_t style = static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, notification->position));
 			if (not notifyView->execute(SCI_STYLEGETHOTSPOT, style))
 				break;
 
@@ -897,9 +989,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			docLen = notifyView->getCurrentDocLen();
 
 			// Walk backwards/forwards to get the contiguous text in the same style
-			while (startPos > 0 && notifyView->execute(SCI_GETSTYLEAT, startPos - 1) == style)
+			while (startPos > 0 && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, startPos - 1)) == style)
 				startPos--;
-			while (endPos < docLen && notifyView->execute(SCI_GETSTYLEAT, endPos) == style)
+			while (endPos < docLen && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, endPos)) == style)
 				endPos++;
 
 			// Select the entire link

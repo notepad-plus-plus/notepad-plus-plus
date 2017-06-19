@@ -444,6 +444,10 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 		_subEditView.restoreCurrentPos();
 	}
+
+	// Once reload is complete, activate buffer which will take care of
+	// many settings such as update status bar, clickable link etc.
+	activateBuffer(id, currentView());
 	return res;
 }
 
@@ -1601,6 +1605,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 			}
 
 			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
+			buf->setMapPosition(session._mainViewFiles[i]._mapPos);
 			buf->setLangType(typeToSet, pLn);
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
@@ -1704,8 +1709,11 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 			}
 
 			buf->setPosition(session._subViewFiles[k], &_subEditView);
-			if (typeToSet == L_USER) {
-				if (!lstrcmp(pLn, TEXT("User Defined"))) {
+			buf->setMapPosition(session._subViewFiles[k]._mapPos);
+			if (typeToSet == L_USER)
+			{
+				if (!lstrcmp(pLn, TEXT("User Defined")))
+				{
 					pLn = TEXT("");	//default user defined
 				}
 			}
@@ -1873,6 +1881,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 			sessionExt += TEXT(".");
 		sessionExt += ext;
 		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
+		fDlg.setExtIndex(0);		// 0 index for "custom extention types"
 	}
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 	sessionFileName = fDlg.doSaveDlg();

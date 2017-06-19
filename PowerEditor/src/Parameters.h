@@ -24,6 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 #pragma once
 
 #include "tinyxmlA.h"
@@ -137,10 +138,33 @@ struct Position
 };
 
 
+struct MapPosition
+{
+	int32_t _firstVisibleDisplayLine = -1;
+
+	int32_t _firstVisibleDocLine = -1; // map
+	int32_t _lastVisibleDocLine = -1;  // map
+	int32_t _nbLine = -1;              // map
+	int32_t _higherPos = -1;           // map
+	int32_t _width = -1;
+	int32_t _height = -1;
+	int32_t _wrapIndentMode = -1;
+
+	int64_t _KByteInDoc = _maxPeekLenInKB;
+
+	bool _isWrap = false;
+	bool isValid() const { return (_firstVisibleDisplayLine != -1); };
+	bool canScroll() const { return (_KByteInDoc < _maxPeekLenInKB); }; // _nbCharInDoc < _maxPeekLen : Don't scroll the document for the performance issue
+
+private:
+	int64_t _maxPeekLenInKB = 512; // 512 KB
+};
+
+
 struct sessionFileInfo : public Position
 {
-	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, int originalFileLastModifTimestamp) :
-		_encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp)
+	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, int originalFileLastModifTimestamp, const MapPosition & mapPos) :
+		_encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp), _mapPos(mapPos)
 	{
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
@@ -157,6 +181,8 @@ struct sessionFileInfo : public Position
 
 	generic_string _backupFilePath;
 	time_t _originalFileLastModifTimestamp = 0;
+
+	MapPosition _mapPos;
 };
 
 
@@ -827,6 +853,9 @@ struct NppGUI final
 	generic_string _searchEngineCustom;
 
 	bool _isFolderDroppedOpenFiles = false;
+
+	bool _isDocPeekOnTab = false;
+	bool _isDocPeekOnMap = false;
 };
 
 struct ScintillaViewParams
@@ -1259,7 +1288,7 @@ public:
 	{
 		for (int i = 0 ; i < _nbLang ; ++i)
 		{
-			if ((_langList[i]->_langID == langID) || (!_langList[i]))
+			if ( _langList[i] && _langList[i]->_langID == langID )
 				return _langList[i];
 		}
 		return nullptr;

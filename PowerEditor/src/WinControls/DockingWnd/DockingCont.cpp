@@ -568,7 +568,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	::DeleteObject(bgbrush);
 
 	// draw button
-	HDC			dcMem		= ::CreateCompatibleDC(NULL);
+	HDC dcMem = ::CreateCompatibleDC(NULL);
 
 	// select correct bitmap
 	if ((_isMouseOver == TRUE) && (_isMouseDown == TRUE))

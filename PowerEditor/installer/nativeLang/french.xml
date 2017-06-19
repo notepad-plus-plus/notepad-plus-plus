@@ -983,6 +983,7 @@
 			<word-chars-list-warning-end value="  dans la liste des caractères de mot."/>
 			<cloud-invalid-warning value="Chemin invalide."/>
 			<cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
+			<shift-change-direction-tip value="Shift+Enter est utilisé pour la recherche dans le sens inverse."/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

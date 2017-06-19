@@ -3,8 +3,8 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last modified:...: 12.02.2017 by RDD
-	Download:........: https://drive.google.com/file/d/0B2sYyYGUvu5dMEJYR2xMcWw2Nms
+	Last revision:...: 15.05.2017 by RDD
+	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
 	<Native-Langue name="Български" filename="bulgarian.xml" >
@@ -38,7 +38,7 @@
 					<Item subMenuId="edit-lineOperations" name="Редове"/>
 					<Item subMenuId="edit-comment" name="Коментари"/>
 					<Item subMenuId="edit-autoCompletion" name="Автоматично завършване"/>
-					<Item subMenuId="edit-eolConversion" name="Формат за край на реда"/>
+					<Item subMenuId="edit-eolConversion" name="Формат за край на ред"/>
 					<Item subMenuId="edit-blankOperations" name="Интервали"/>
 					<Item subMenuId="edit-pasteSpecial" name="Специално поставяне"/>
 					<Item subMenuId="edit-onSelection" name="При маркиране"/>
@@ -88,7 +88,7 @@
 					<Item id="41019" name="Отваряне на папката"/>
 					<Item id="41020" name="Отваряне в конзола cmd"/>
 					<!-- Меню "Файл" -->
-					<Item id="41022" name="Отваряне на &amp;директория като работно място"/>
+					<Item id="41022" name="Отваряне на &amp;директория"/>
 					<Item id="41014" name="Презареждане от носителя"/>
 					<Item id="41006" name="&amp;Запис"/>
 					<Item id="41008" name="Запис &amp;като..."/>
@@ -167,10 +167,10 @@
 					<Item id="50001" name="Завършване на дума"/>
 					<Item id="50002" name="Подсказка за функциите"/>
 					<Item id="50006" name="Завършване на път"/>
-						<!-- Подменю "Формат за край на реда" -->
-					<Item id="45001" name="Преобразуване в Windows формат"/>
-					<Item id="45002" name="Преобразуване в UNIX формат"/>
-					<Item id="45003" name="Преобразуване в MAC формат"/>
+						<!-- Подменю "Формат за край на ред" -->
+					<Item id="45001" name="Windows (CR LF)"/>
+					<Item id="45002" name="Unix (LF)"/>
+					<Item id="45003" name="Macintosh (CR)"/>
 						<!-- Подменю "Интервали" -->
 					<Item id="42024" name="Премахване на крайни интервали"/>
 					<Item id="42042" name="Премахване на начални интервали"/>
@@ -264,7 +264,7 @@
 					<Item id="44009" name="Прозорец без менюта"/>
 						<!-- Подменю "Показване на символи" -->
 					<Item id="44025" name="Интервали и табулации"/>
-					<Item id="44026" name="Край на реда"/>
+					<Item id="44026" name="Край на ред"/>
 					<Item id="44019" name="Всички знаци"/>
 					<Item id="44020" name="Линии за табулация"/>
 					<Item id="44041" name="Пренесени редове"/>
@@ -316,16 +316,16 @@
 				<!-- Меню "Изглед" край -->
 				<!-- Меню "Кодировки" начало -->
 					<Item id="45004" name="Кодиране в ANSI"/>
-					<Item id="45008" name="Кодиране в UTF-8 без BOM"/>
-					<Item id="45005" name="Кодиране в UTF-8"/>
-					<Item id="45006" name="Кодиране в UCS-2 Big Endian"/>
-					<Item id="45007" name="Кодиране в UCS-2 Little Endian"/>
+					<Item id="45008" name="Кодиране в UTF-8"/>
+					<Item id="45005" name="Кодиране в UTF-8-BOM"/>
+					<Item id="45006" name="Кодиране в UCS-2 BE BOM"/>
+					<Item id="45007" name="Кодиране в UCS-2 LE BOM"/>
 					<!-- Меню "Кодировки" -->
 					<Item id="45009" name="Преобразуване в ANSI"/>
-					<Item id="45010" name="Преобразуване в UTF-8 без BOM"/>
-					<Item id="45011" name="Преобразуване в UTF-8"/>
-					<Item id="45012" name="Преобразуване в UCS-2 Big Endian"/>
-					<Item id="45013" name="Преобразуване в UCS-2 Little Endian"/>
+					<Item id="45010" name="Преобразуване в UTF-8"/>
+					<Item id="45011" name="Преобразуване в UTF-8-BOM"/>
+					<Item id="45012" name="Преобразуване в UCS-2 BE BOM"/>
+					<Item id="45013" name="Преобразуване в UCS-2 LE BOM"/>
 				<!-- Меню "Кодировки" край -->
 				<!-- Меню "Синтаксис" начало -->
 					<Item id="46150" name="Дефиниране на синтаксис..."/>
@@ -360,7 +360,6 @@
 					<Item id="48017" name="Преки пътища и команди..."/>
 				<!-- Меню "Стартиране" край -->
 				<!-- Меню "?" начало -->
-					<Item id="47008" name="Помощно съдържание"/>
 					<Item id="47010" name="Параметри на командния ред..."/>
 					<Item id="47001" name="Notepad++ домашна страница"/>
 					<Item id="47002" name="Notepad++ страница на проекта"/>
@@ -373,8 +372,6 @@
 					<Item id="47011" name="Поддръжка в реално време"/>
 					<Item id="47012" name="Инфо за отстраняване на грешки..."/>
 				<!-- Меню "?" край -->
-					<Item id="43016" name="Маркиране на всичко"/>
-					<Item id="43017" name="Размаркиране на всичко"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -456,14 +453,11 @@
 				<Item id="1621" name="Посока"/>
 				<Item id="1612" name="На&amp;горе"/>
 				<Item id="1613" name="На&amp;долу"/>
-				<Item id="1623" name="Прозрачност"/>
 				<Item id="1687" name="При неактивност"/>
 				<Item id="1688" name="Винаги"/>
 				<Item id="1632" name="В избраното"/>
 				<Item id="1615" name="Намиране на всички"/>
-				<Item id="1617" name="Маркиране на резултатите"/>
 				<Item id="1611" name="З&amp;амяна с:"/>
-				<Item id="1637" name="Търсене във файлове"/>
 				<Item id="1656" name="Намиране на всички"/>
 				<Item id="1658" name="Във всички подпапки"/>
 				<Item id="1686" name="Прозрачност"/>
@@ -500,7 +494,7 @@
 				<Item id="20015" name="Внасяне..."/>
 				<Item id="20016" name="Изнасяне..."/>
 				<Item id="20001" name="Закачане"/>
-				<Item id="20012" name="Големи/малки букви"/>
+				<Item id="20012" name="Главни/малки букви"/>
 				<Item id="20009" name="разш.:"/>
 				<Item id="20002" name="Преименуване"/>
 				<Item id="20004" name="Премахване"/>
@@ -532,8 +526,8 @@
 					<Item id="25023" name="Ключови думи 6"/>
 					<Item id="25024" name="Ключови думи 7"/>
 					<Item id="25025" name="Ключови думи 8"/>
-					<Item id="25016" name="Коментари"/>
-					<Item id="25017" name="Ред за коментари"/>
+					<Item id="25016" name="Блоков коментар"/>
+					<Item id="25017" name="Линеен коментар"/>
 					<Item id="25026" name="Оператори 1"/>
 					<Item id="25027" name="Оператори 2"/>
 					<Item id="25028" name="Числа"/>
@@ -665,7 +659,6 @@
 					<Item id="24671" name="Превключване:"/>
 					<Item id="24672" name="Затваряне:"/>
 				</Operator>
-				<Item id="24001" name="Символ за превключване:"/>
 			</UserDefine>
 			<!-- Меню "Настройки" -->
 				<!-- "Предпочитания..." -->
@@ -732,17 +725,17 @@
 					<!-- Нов документ -->
 				<NewDoc title="Нов документ">
 					<Item id="6419" name="Нов документ"/>
-					<Item id="6401" name="Формат"/>
-					<Item id="6402" name="Windows"/>
-					<Item id="6404" name="Mac"/>
-					<Item id="6403" name="Unix"/>
+					<Item id="6401" name="Формат за край на ред"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
+					<Item id="6404" name="Macintosh (RF)"/>
 					<Item id="6405" name="Кодировка"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>
-					<Item id="6420" name="Прилагане в отворени ANSI файлове"/>
-					<Item id="6408" name="UTF-8 с BOM"/>
-					<Item id="6409" name="UCS-2 Big Endian с BOM"/>
-					<Item id="6410" name="UCS-2 Little Endian с BOM"/>
+					<Item id="6420" name="Прилагане в отв. ANSI файлове"/>
+					<Item id="6408" name="UTF-8-BOM"/>
+					<Item id="6409" name="UCS-2 Big Endian BOM"/>
+					<Item id="6410" name="UCS-2 Little Endian BOM"/>
 					<Item id="6411" name="Основен синтаксис:"/>
 				</NewDoc>
 					<!-- Път по подразбиране -->
@@ -751,7 +744,7 @@
 					<Item id="6414" name="Следване на текущия документ"/>
 					<Item id="6415" name="Запомняне на последно използваната директория"/>
 					<Item id="6430" name="Без избор на файлово разширение в прозореца за &quot;Запис като...&quot;"/>
-					<Item id="6431" name="Отваряне на всички файлове от папката при влачене в прозореца"/>
+					<Item id="6431" name="Отваряне на всички файлове от папката при влаченето ѝ в прозореца"/>
 				</DefaultDir>
 					<!-- История с отваряния -->
 				<RecentFilesHistory title="История с отваряния">
@@ -875,7 +868,7 @@
 					<Item id="6161" name="Списък със символи"/>
 					<Item id="6162" name="Използване на стандартния списък със символи както е"/>
 					<Item id="6163" name="Добавяне на символи като част от дума
-					(не го избирайте, освен ако не знаете какво правите)"/>
+					(не избирайте, освен ако не знаете какво правите)"/>
 					<Item id="6257" name="бла бла бла бла"/>
 					<Item id="6258" name="бла бла бла бла бла бла бла бла бла"/>
 				</Delimiter>
@@ -901,6 +894,9 @@
 					<Item id="6324" name="Превключване между раздели (Ctrl+Tab)"/>
 					<Item id="6114" name="Включено"/>
 					<Item id="6117" name="Приоритет на последно използваните"/>
+					<Item id="6344" name="Надникване в документи"/>
+					<Item id="6345" name="Надникване в раздел"/>
+					<Item id="6346" name="Надникване в &quot;Карта на документа&quot;"/>
 					<Item id="6318" name="Отваряне на Уеб-връзки"/>
 					<Item id="6319" name="Включено"/>
 					<Item id="6320" name="Без подчертаване"/>
@@ -908,12 +904,12 @@
 					<Item id="6307" name="Включено"/>
 					<Item id="6313" name="Тихо обновяване"/>
 					<Item id="6325" name="Превъртане до последният ред"/>
-					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6334" name="Автоматично определяне кодировката на знаците"/>
 					<Item id="6115" name="Повтаряне на отстъпа от предния ред"/>
 					<Item id="6308" name="Намаляване в системната област"/>
 					<Item id="6331" name="Показване само името на файла в заглавната лента"/>
 					<Item id="6335" name="Обратно наклонена черта като превключващ знак за SQL"/>
+					<Item id="6323" name="Автоматично обновяване на Notepad++"/>
 					<Item id="6322" name="Файлово разширение за сесии:"/>
 					<Item id="6337" name="Разширение за работно място:"/>
 				</MISC>
@@ -962,11 +958,11 @@
 				<Item id="1924" name="Копиране в системния буфер"/>
 				<Item id="2"	name="Затваряне"/>
 			</MD5FromFilesDlg>
-			<!-- Меню "Макроси" - "Многократно изпълнене..." -->
-			<MultiMacro title="Многократно стартиране на макрос">
+			<!-- Меню "Макроси" - "Многократно изпълнение..." -->
+			<MultiMacro title="Многократно изпълнение на макрос">
 				<Item id="8006" name="Макрос:"/>
-				<Item id="8001" name="Стартиране"/>
-				<Item id="8005" name="път/и"/>
+				<Item id="8001" name="Изпълняване"/>
+				<Item id="8005" name="път(и)"/>
 				<Item id="8002" name="Изпълняване до края на файла"/>
 				<Item id="1"	name="Стартиране"/>
 				<Item id="2"	name="Отказ"/>
@@ -1056,6 +1052,7 @@
 			<word-chars-list-warning-end value="  във вашият списък със символи."/>
 			<cloud-invalid-warning value="Невалиден път."/>
 			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++."/>
+			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter."/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>
@@ -1076,7 +1073,7 @@
 			<!-- Прозорци със съобщения -->
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Редактиране на контекстното меню" message="Редактирането на файла contextMenu.xml позволява да се промени контекстното меню на Notepad++&#x0A;&#x0A;Промените влизат в сила, след рестартиране на Notepad++"/>
-			<NppHelpAbsentWarning title="Несъществуващ файл" message=" не съществува. Моля, изтеглете го от сайта на Notepad++"/>
+			<NppHelpAbsentWarning title="Несъществуващ файл" message="&#x0A;не съществува. Моля, изтеглете го от сайта на Notepad++"/>
 			<SaveCurrentModifWarning title="Запис на текущите промени" message="Текущите промени трябва да бъдат записани.&#x0A;Записаните промени не могат да бъдат отменяни&#x0A;&#x0A;Продължаване?"/>
 			<LoseUndoAbilityWarning title="Загуба на възможността за отмяна" message="Текущите промени трябва да бъдат записани.&#x0A;Записаните промени не могат да бъдат отменяни&#x0A;&#x0A;Продължаване?"/>
 			<CannotMoveDoc title="Преместване в нов прозорец на Notepad++" message="Документа е променен, запишете го и опитайте отново."/>
@@ -1084,10 +1081,19 @@
 			<FileLockedWarning title="Неуспешно записване" message="Моля, проверете дали този файл не е отворен от друга програма"/>
 			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
 			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+				<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Твърде много файлове" message="Ще бъдат отворени $INT_REPLACE$ файла.&#x0A;Продължаване?"/>
 			<SettingsOnCloudError title="Настройки за облачно синхронизирана папка" message="Изглежда, че пътят на настройките за облака е зададен на устройство &quot;само за четене&quot; или на папка, изискваща права за запис.&#x0A;Вашите настройки ще бъдат отменени.&#x0A;Моля, върнете в първоначално състояние стойността им чрез опциите в &quot;Предпочитания...&quot;"/>
 			<FilePathNotFoundWarning title="Отваряне на файл" message="Файлът, който се опитвате да отворите не съществува."/>
+			<SessionFileInvalidError title="Неуспешно зареждане на сесия" message="Невалиден или повреден файл за сесия."/>
+			<ColumnModeTip title="Колонен режим" message="За преминаване в колонен режим използвайте: &#x0A;&#x0A;&quot;Alt + избор с мишката&quot;&#x0A;&quot;Alt + Shift + избор с мишката&quot;&#x0A;&quot;Alt + Shift + клавиш стрелка&quot;&#x0A;&#x0A;Не забравяйте, че първо трябва да натиснете клавиш Alt."/>
+				<!-- $STR_REPLACE$ is a place holder, don't translate it -->
+			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $STR_REPLACE$."/>
+			<BufferInvalidWarning title="Неуспешно записване" message="Не може да се запази: Невалиден буфер."/>
+			<OpenInAdminMode title="Неуспешно записване" message="Файлът може би е защитен и не може да се запази.&#x0A;Искате ли да стартирате Notepad++ с администраторски права?"/>
+			<OpenInAdminModeFailed title="Неуспешно стартиране с администраторски права" message="Notepad++ не може да бъде стартиран с администраторски права."/>
+			<OpenInAdminModeWithoutCloseCurrent title="Неуспешно записване" message="Файлът може би е защитен и не може да се запази.&#x0A;Искате ли да стартирате Notepad++ с администраторски права?"/>
+			<DroppingFolderAsProjetModeWarning title="Невалидно действие" message="Тъй като сте в режим &quot;Директория като работно място&quot;, можете да влачите само файлове или папки, но не и двете.&#x0A;&#x0A;За да разрешите това действие, трябва да включите опцията &quot;Отваряне на всички файлове от папката при влаченето ѝ в прозореца&quot; в секция &quot;Път по подразбиране&quot; на предпочитаните настройки."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

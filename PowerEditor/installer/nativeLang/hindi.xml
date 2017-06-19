@@ -13,9 +13,13 @@
 		- Added/updated translation in such a way so that it should not run out of space for the control which has limited width
 	** Updated on 25/01/2017 by Rajendra Singh (singh.rajen15@gmail.com) **
 		- Added translation for new strings as per V7.3.1
+	** Updated on 25/02/2017 by Rajendra Singh (singh.rajen15@gmail.com) **
+		- Added translation for new strings as per V7.3.2
+	** Updated on 14/05/2017 by Rajendra Singh (singh.rajen15@gmail.com) **
+		- Added translation for new strings as per V7.4
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.3.1">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.4">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -885,6 +889,9 @@
           <Item id="6114" name="सक्रिय"/>
           <Item id="6115" name="स्वचालित इंडेंट"/>
           <Item id="6117" name="MRU बिहेवीयर सक्रिय करें"/>
+          <Item id="6344" name="डॉक्यूमेंट पीकर"/>
+          <Item id="6345" name="पीक ऑन टैब"/>
+          <Item id="6346" name="पीक ऑन डॉक्यूमेंट मैप"/>
         </MISC>
       </Preference>
       <MultiMacro title="मेक्रो को कई बार चलायें">
@@ -1013,6 +1020,7 @@
 		<word-chars-list-warning-end value="  आपके अक्षर सूची में।"/>
 		<cloud-invalid-warning value="इनवैलिड पाथ."/>
 		<cloud-restart-warning value="प्रभावी करने के लिए Notepad++ पुनः प्रारंभ करें।"/>
+		<shift-change-direction-tip value="विपरीत दिशा में खोजने के लिए Shift+Enter का प्रयोग करें।"/>
 	</MiscStrings>
   </Native-Langue>
 </NotepadPlus>

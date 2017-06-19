@@ -1,24 +1,18 @@
-Notepad++ 7.3.2 bug-fixs & enhancements:
+Notepad++ 7.4.2 new featurs/enhancements & bug-fixes:
 
-1.  Fix crash issue on column mode editor.
-2.  Fix "Use new style save dialog" setting's regression.
-3.  Enhance "Open file" command - open a file from editor zone without selecting its full path.
-4.  Fix word char list settings not applying on next launch issue.
-5.  Fix block uncomment for line comment bug.
-6.  BaanC Language is surpported.
-7.  Add error notification on run dialog.
-8.  Fix the caret position not maintained issue between document move.
-9.  Fix caret goes to wrong position after word completion.
-10. Enhance Function List for supporting language.
-11. Add check mark in Language menu.
-12. Fix toolbar not showing issue while launching Notepad++ from system tray in some unknown configuration.
+1.  Add SWIFT language support.
+2.  Fix replace in files regression.
+3.  Enhance Find Replace dialog (resizable & remove search direction radio buttons).
+4.  Fix a crash issue while doing a column insertion on a CJK unicode document.
+5.  Fix repeated notification dialog for modification from outside of Notepad++.
+6.  Fix a visual glitchy during tab drag and drop.
 
 
 Included plugins:
 
 1.  NppExport v0.2.8 (32-bit x86 only)
 2.  Plugin Manager 1.3.5 (32-bit x86 only)
-3.  Converter 4.2
+3.  Converter 4.2.1
 4.  Mime Tool 2.1
 
 

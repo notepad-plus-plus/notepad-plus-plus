@@ -130,6 +130,7 @@ const int MARK_HIDELINESUNDERLINE = 21;
 
 
 int getNbDigits(int aNum, int base);
+HMODULE loadSciLexerDll();
 
 TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
 
@@ -265,8 +266,6 @@ public:
 
 	void saveCurrentPos();
 	void restoreCurrentPos();
-	void saveCurrentFold();
-	void restoreCurrentFold();
 
 	void beginOrEndSelect();
 	bool beginEndSelectedIsStarted() const {
@@ -346,8 +345,12 @@ public:
 		{
 			display = true;
 		}
+
+		COLORREF foldfgColor = white, foldbgColor = grey, activeFoldFgColor = red;
+		getFoldColor(foldfgColor, foldbgColor, activeFoldFgColor);
+
 		for (int i = 0 ; i < NB_FOLDER_STATE ; ++i)
-			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], white, grey, white);
+			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], foldfgColor, foldbgColor, activeFoldFgColor);
 		showMargin(ScintillaEditView::_SC_MARGE_FOLDER, display);
     };
 
@@ -361,6 +364,7 @@ public:
 
 	void showWSAndTab(bool willBeShowed = true) {
 		execute(SCI_SETVIEWWS, willBeShowed?SCWS_VISIBLEALWAYS:SCWS_INVISIBLE);
+		execute(SCI_SETWHITESPACESIZE, 2, 0);
 	};
 
 	void showEOL(bool willBeShowed = true) {
@@ -749,6 +753,7 @@ protected:
 
 	void setPythonLexer() {
 		setLexer(SCLEX_PYTHON, L_PYTHON, LIST_0 | LIST_1);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setBatchLexer() {
@@ -879,6 +884,18 @@ protected:
 		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("styling.within.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
+	void setSrecLexer() {
+		setLexer(SCLEX_SREC, L_SREC, LIST_NONE);
+	};
+
+	void setIHexLexer() {
+		setLexer(SCLEX_IHEX, L_IHEX, LIST_NONE);
+	};
+
+	void setTEHexLexer() {
+		setLexer(SCLEX_TEHEX, L_TEHEX, LIST_NONE);
+	};
+
     //--------------------
 
 	void setSearchResultLexer() {
@@ -928,5 +945,6 @@ protected:
 
 	std::pair<int, int> getWordRange();
 	bool expandWordSelection();
+	void getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLORREF& activeFgColor);
 };
 

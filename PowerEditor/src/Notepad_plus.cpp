@@ -634,6 +634,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_md5FromFilesDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_md5FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_runMacroDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_documentPeeker.init(_pPublicInterface->getHinst(), hwnd);
 
     //--User Define Dialog Section--//
 	int uddStatus = nppGUI._userDefineDlgStatus;
@@ -1809,7 +1810,7 @@ void Notepad_plus::filePrint(bool showDialog)
 	int startPos = int(_pEditView->execute(SCI_GETSELECTIONSTART));
 	int endPos = int(_pEditView->execute(SCI_GETSELECTIONEND));
 
-	printer.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pEditView, showDialog, startPos, endPos);
+	printer.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pEditView, showDialog, startPos, endPos, _nativeLangSpeaker.isRTL());
 	printer.doPrint();
 }
 
@@ -2837,6 +2838,14 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_COFFEESCRIPT;
 		case IDM_LANG_BAANC:
 			return L_BAANC;
+		case IDM_LANG_SREC :
+            return L_SREC;
+		case IDM_LANG_IHEX :
+            return L_IHEX;
+		case IDM_LANG_TEHEX :
+            return L_TEHEX;
+		case IDM_LANG_SWIFT:
+			return L_SWIFT;
 
 		case IDM_LANG_USER :
             return L_USER;
@@ -3176,28 +3185,16 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() != 0)) // new mode && both folders & files
 		{
 			// display error & do nothing
+			_nativeLangSpeaker.messageBox("DroppingFolderAsProjetModeWarning",
+				_pPublicInterface->getHSelf(),
+				TEXT("You can drop only files or folders but not both, because you're in dropping Folder as Projet mode.\ryou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work."),
+				TEXT("Invalid action"),
+				MB_OK | MB_APPLMODAL);
 		}
 		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
 		{
 			// process new mode
 			launchFileBrowser(folderPaths);
-
-			/*
-			for (int i = 0; i < filesDropped; ++i)
-			{
-				if (not _pFileBrowser->isAlreadyExist(folderPaths[i]))
-				{
-					vector<generic_string> patterns2Match;
-					patterns2Match.push_back(TEXT("*.*"));
-
-					FolderInfo directoryStructure;
-					getDirectoryStructure(folderPaths[i].c_str(), patterns2Match, directoryStructure, true, false);
-					_pFileBrowser->setDirectoryStructure(directoryStructure);
-				}
-				int j = 0;
-				j++;
-			}
-			*/
 		}
 
 		if (lastOpened != BUFFER_INVALID) 
@@ -4870,7 +4867,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 
 			generic_string	languageName = getLangFromMenu(buf);
 			const TCHAR *langName = languageName.c_str();
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
+			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()), buf->getMapPosition());
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			size_t maxLine = static_cast<size_t>(_invisibleEditView.execute(SCI_GETLINECOUNT));
@@ -4957,6 +4954,27 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
 }
 
+void Notepad_plus::prepareBufferChangedDialog(Buffer * buffer)
+{
+	// immediately show window if it was minimized before
+	if (::IsIconic(_pPublicInterface->getHSelf()))
+		::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
+
+	// switch to the file that changed
+	int index = _pDocTab->getIndexByBuffer(buffer->getID());
+	int iView = currentView();
+	if (index == -1)
+		iView = otherView();
+	activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+
+	// prevent flickering issue by "manually" clicking and activating the _pEditView
+	// (mouse events seem to get lost / improperly handled when showing the dialog)
+	auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	::PostMessage(_pEditView->getHSelf(), WM_LBUTTONDOWN, 0, 0);
+	::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+	::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+}
+
 void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 {
 	// To avoid to crash while MS-DOS style is set as default language,
@@ -4977,8 +4995,6 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	//Only event that applies to non-active Buffers
 	if (mask & BufferChangeStatus)
 	{	//reload etc
-		bool didDialog = false;
-		bool doCloseDoc = false;
 		switch(buffer->getStatus())
 		{
 			case DOC_UNNAMED: 	//nothing todo
@@ -4991,16 +5007,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
 				if (!autoUpdate || buffer->isDirty())
 				{
-                    // if file updating is not silently, we switch to the file to update.
-                    int index = _pDocTab->getIndexByBuffer(buffer->getID());
-				    int iView = currentView();
-				    if (index == -1)
-					    iView = otherView();
-				    activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+					prepareBufferChangedDialog(buffer);
 
-                    // Then we ask user to update
-					didDialog = true;
-					
+					// Then we ask user to update
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
 						break;	//abort
 				}
@@ -5032,41 +5041,25 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			}
 			case DOC_DELETED: 	//ask for keep
 			{
+				prepareBufferChangedDialog(buffer);
+
 				SCNotification scnN;
 				scnN.nmhdr.code = NPPN_FILEDELETED;
 				scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
 				scnN.nmhdr.idFrom = (uptr_t)buffer->getID();
 				_pluginsManager.notify(&scnN);
 
-				int index = _pDocTab->getIndexByBuffer(buffer->getID());
-				int iView = currentView();
-				if (index == -1)
-					iView = otherView();
-
-				activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
-				didDialog = true;
-				doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
+				int doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
 				if (doCloseDoc)
 				{
 					//close in both views, doing current view last since that has to remain opened
 					bool isSnapshotMode = nppGUI.isSnapshotMode();
 					doClose(buffer->getID(), otherView(), isSnapshotMode);
 					doClose(buffer->getID(), currentView(), isSnapshotMode);
+					return;
 				}
 				break;
 			}
-		}
-
-		if (didDialog)
-		{
-			auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-			::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
-			::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
-			if (::IsIconic(_pPublicInterface->getHSelf()))
-				::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
-
-			if (doCloseDoc) // buffer has been deleted, cannot (and no need to) go on
-				return;
 		}
 	}
 
@@ -5939,7 +5932,7 @@ struct Quote
 
 
 
-const int nbQuote = 205;
+const int nbQuote = 209;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
@@ -6059,7 +6052,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #85", "Race, religion, ethnic pride and nationalism etc... does nothing but teach you how to hate people that you've never met."},
 	{"Anonymous #86", "Farts are just the ghosts of the things we eat."},
 	{"Anonymous #87", "I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word."},
-	//{"Anonymous #88", ""},
+	{"Anonymous #88", "A foo walks into a bar,\ntakes a look around and\nsays \"Hello World!\"."},
 	{"Anonymous #89", "I'm drunk and you're still ugly."},
 	{"Anonymous #90", "Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments."},
 	{"Anonymous #91", "CV: ctrl-C, ctrl-V"},
@@ -6076,12 +6069,12 @@ Quote quotes[nbQuote] =
 	{"Anonymous #102", "If IE is brave enough to ask you to set it as your default browser,\ndon't tell me you dare not ask a girl out."},
 	{"Anonymous #103", "Turn on your brain, turn off TV."},
 	{"Anonymous #104", "The main idea of \"Inception\":\nif you run a VM inside a VM inside a VM inside a VM inside a VM,\neverything will be very slow."},
-	//{"Anonymous #105", ""},
+	{"Anonymous #105", "Q: What's the object-oriented way to become wealthy?\nA: Inheritance."},
 	{"Anonymous #106", "When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car."},
 	{"Anonymous #107", "Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is."},
 	{"Anonymous #108", "I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard"},
-	//{"Anonymous #109", ""},
-	{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems."},
+	{"Anonymous #109", "What's the best thing about UDP jokes?\nI don't care if you get them."},
+	{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems"},
 	{"Anonymous #111", "I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul."},
 	{"Anonymous #112", "#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}"},
 	{"Anonymous #113", "Open source is communism.\nAt least it is what communism was meant to be."},
@@ -6100,7 +6093,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},
 	{"Anonymous #127", "Don't give up your dreams.\nKeep sleeping."},
 	{"Anonymous #128", "I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life."},
-	//{"Anonymous #129", ""},
+	{"Anonymous #129", "What is the most used language in programming?\n\nProfanity\n"},
 	{"Anonymous #130", "Common sense is so rare, it's kinda like a superpower..."},
 	{"Anonymous #131", "The best thing about a boolean is even if you are wrong, you are only off by a bit."},
 	{"Anonymous #132", "Benchmarks don't lie, but liars do benchmarks."},

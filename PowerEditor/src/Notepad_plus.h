@@ -52,6 +52,7 @@
 #include "lesDlgs.h"
 #include "pluginsAdmin.h"
 #include "localization.h"
+#include "documentSnapshot.h"
 #include "md5Dlgs.h"
 #include <vector>
 #include <iso646.h>
@@ -207,6 +208,7 @@ public:
     void loadLastSession();
 	bool loadSession(Session & session, bool isSnapshotMode = false);
 
+	void prepareBufferChangedDialog(Buffer * buffer);
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFinderFiles(FindersInfo *findInFolderInfo);
 	bool findInFiles();
@@ -281,6 +283,7 @@ private:
 	PreferenceDlg _preference;
 	FindCharsInRangeDlg _findCharsInRangeDlg;
 	PluginsAdminDlg _pluginsAdminDlg;
+	DocumentPeeker _documentPeeker;
 
 	// a handle list of all the Notepad++ dialogs
 	std::vector<HWND> _hModelessDlgs;

@@ -684,7 +684,7 @@
 					<Item id="6413" name="Carpeta por defecto (Abrir/Guardar)"/>
 					<Item id="6414" name="Seguir documento actual"/>
 					<Item id="6415" name="Recordar última carpeta"/>
-					<Item id="6430" name="Usar nuevo estilo de diálogo Guardar (sin la función de extensión de archivo)"/>
+					<Item id="6430" name="Usar nuevo estilo de diálogo Guardar (sin función de extensión de archivo)"/>
 					<Item id="6431" name="Abrir todos los archivos de la carpeta en lugar de usar la carpeta como área de trabajo"/>
 				</DefaultDir>
 				<FileAssoc title="Asociación de archivos">
@@ -884,7 +884,16 @@
 			<SettingsOnCloudError title="Ajustes en la nube" message="Ha usado una unidad de solo lectura para ajustes en la nube,&#x0A;o una carpeta que necesita privilegios para escritura.&#x0A;Sus ajustes en la nube se cancelarán. Por favor ajuste de nuevo desde Preferencias."/>
 			<FilePathNotFoundWarning title="File Open" message="El archivo que está intentando abrir no existe."/>
 			<SessionFileInvalidError title="No se pudo cargar la sesión" message="El archivo de sesión está corrupto o no es válido."/>
-		</MessageBox>
+			<ColumnModeTip title="Column Mode Tip" message="Por favor use &quot;ALT+Seleccionar con el mouse&quot; or &quot;Alt+Shift+Teclas de flecha&quot; para cambiar a modo columna."/>
+			
+			<!-- $STR_REPLACE$ is a place holder, don't translate it -->
+			<SortingError title="Sorting Error" message="No se puede realizar ordenado numérico debido a la línea $STR_REPLACE$."/>
+			<BufferInvalidWarning title="Save failed" message="No se puede guardar: Buffer es inválido."/>
+			<OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.&#x0A;Do you want to launch Notepad++ in Administrator mode?"/>
+			<OpenInAdminModeFailed title="Abrir en modo administrador falló" message="Notepad++ no puede abrirse en modo Administrador."/>
+			<OpenInAdminModeWithoutCloseCurrent title="Falló guardado" message="The file cannot be saved and it may be protected.&#x0A;Do you want to launch Notepad++ in Administrator mode?"/>
+			<DroppingFolderAsProjetModeWarning title="Acción inválida" message="Puede soltar archivos o carpetas pero no ambos, ya que está en modo de soltar Carpeta como área de trabajo&#x0A;Tiene que habilitar la opción &quot;Abrir todos los archivos de la carpeta en lugar de usar carpeta como área de trabajo&quot; en la sección &quot;Carpeta por defecto&quot; de la ventana de Preferencias para que esta operación funcione."/>
+        </MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial de portapapeles"/>
 		</ClipboardHistory>

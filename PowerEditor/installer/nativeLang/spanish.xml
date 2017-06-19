@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Español" filename="spanish.xml" version="7.1">
+	<Native-Langue name="Español" filename="spanish.xml" version="7.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -28,7 +28,7 @@
 					<Item subMenuId="edit-convertCaseTo" name="MAYÚSCULAS/minúsculas"/>
 					<Item subMenuId="edit-lineOperations" name="Operaciones con líneas"/>
 					<Item subMenuId="edit-comment" name="Comentarios"/>
-					<Item subMenuId="edit-autorellenado" name="Auto-completar"/>
+					<Item subMenuId="edit-autoCompletion" name="Auto-completar"/>
 					<Item subMenuId="edit-eolConversion" name="Conversión fin de línea"/>
 					<Item subMenuId="edit-blankOperations" name="Operaciones de limpieza"/>
 					<Item subMenuId="edit-pasteSpecial" name="Pegado especial"/>
@@ -63,7 +63,7 @@
 					<Item subMenuId="encoding-westernEuropean" name="Europeo occidental"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
 					<Item subMenuId="settings-import" name="Importar"/>
-					<Item subMenuId="herramienta-md5" name="MD5"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>
@@ -177,12 +177,12 @@
 					<Item id="43021" name="Borrar líneas marcadas"/>
 					<Item id="43051" name="Quitar líneas no marcadas"/>
 					<Item id="43050" name="Invertir marcas"/>
-					<Item id="43052" name="Encontrar caracteres por tipo..."/>
+					<Item id="43052" name="Buscar caracteres por tipo..."/>
 					<Item id="43053" name="Seleccionar todo lo que coincida"/>
 					<Item id="43009" name="Ir al delimitador simétrico"/>
-					<Item id="43010" name="Encontrar anterior"/>
+					<Item id="43010" name="Buscar anterior"/>
 					<Item id="43011" name="&amp;Búsqueda incremental"/>
-					<Item id="43013" name="Encontrar en archivos"/>
+					<Item id="43013" name="Buscar en archivos"/>
 					<Item id="43014" name="Búsqueda volátil siguiente"/>
 					<Item id="43015" name="Búsqueda volátil anterior"/>
 					<Item id="43022" name="Aplicar el estilo 1"/>
@@ -201,18 +201,18 @@
 					<Item id="43035" name="Estilo 3"/>
 					<Item id="43036" name="Estilo 4"/>
 					<Item id="43037" name="Estilo 5"/>
-					<Item id="43038" name="Encontrar estilo"/>
+					<Item id="43038" name="Buscar estilo"/>
 					<Item id="43039" name="Estilo 1"/>
 					<Item id="43040" name="Estilo 2"/>
 					<Item id="43041" name="Estilo 3"/>
 					<Item id="43042" name="Estilo 4"/>
 					<Item id="43043" name="Estilo 5"/>
-					<Item id="43044" name="Encontrar estilo"/>
+					<Item id="43044" name="Buscar estilo"/>
 					<Item id="43045" name="Ventana de resultados de búsqueda"/>
 					<Item id="43046" name="Resultados de búsqueda siguiente"/>
 					<Item id="43047" name="Resultados de búsqueda anterior"/>
-					<Item id="43048" name="Seleccionar y encontrar siguiente"/>
-					<Item id="43049" name="Seleccionar y encontrar anterior"/>
+					<Item id="43048" name="Seleccionar y buscar siguiente"/>
+					<Item id="43049" name="Seleccionar y buscar anterior"/>
 					<Item id="43054" name="Marcar..."/>
 					<Item id="44009" name="Enviar"/>
 					<Item id="44010" name="Contraer todo"/>
@@ -331,8 +331,9 @@
 			</TabBar>
 		</Menu>
 		<Dialog>
-			<Find title="" titleFind="Buscar" titleReplace="Reemplazar" titleFindInFiles="Buscar en archivos">
-				<Item id="1" name="Buscar siguiente"/>
+			<Find title="" titleFind="Buscar" titleReplace="Reemplazar" titleFindInFiles="Buscar en archivos"  titleMark="Marcar">
+				<Item id="1721" name="< Anterior"/>
+				<Item id="1" name="Siguiente >"/>
 				<Item id="2" name="Cerrar"/>
 				<Item id="1620" name="Buscar:"/>
 				<Item id="1603" name="Solo &amp;palabras completas"/>
@@ -369,7 +370,7 @@
 				<Item id="1686" name="Transparencia"/>
 				<Item id="1703" name="&amp;. se ajusta a línea nueva"/>
 			</Find>
-			<FindCharsInRange title="Encontrar caracteres en rango...">
+			<FindCharsInRange title="Buscar caracteres en rango...">
 				<Item id="2" name="Cerrar"/>
 				<Item id="2901" name="Caracteres no-ASCII (128-255)"/>
 				<Item id="2902" name="Caracteres ASCII (0-127)"/>
@@ -378,7 +379,7 @@
 				<Item id="2907" name="&amp;Abajo"/>
 				<Item id="2908" name="Dirección"/>
 				<Item id="2909" name="Envolver"/>
-				<Item id="2910" name="Encontrar"/>
+				<Item id="2910" name="Buscar"/>
 			</FindCharsInRange>
 			<GoToLine title="Ir a línea...">
 				<Item id="2007" name="Línea"/>

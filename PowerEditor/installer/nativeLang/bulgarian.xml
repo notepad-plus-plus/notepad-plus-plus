@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 15.05.2017 by RDD
+	Last revision:...: 03.07.2017 by RDD
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -438,8 +438,9 @@
 				<Item id="1633" name="Изчистване"/>
 				<Item id="1616" name="Маркиране на реда"/>
 				<Item id="1618" name="Изчистване при всяко търсене"/>
-				<!-- Общи -->
-				<Item id="1"	name="Намиране на следващ"/>
+				<!-- Диалог за "Търсене, Замяна, Търсене във файлове, Маркиране" -->
+				<Item id="1"	name="&amp;Следващ"/>
+				<Item id="1721" name="&amp;Предходен"/>
 				<Item id="2"	name="Затваряне"/>
 				<Item id="1620" name="Търсене на:"/>
 				<Item id="1603" name="Само &amp;цели думи"/>
@@ -1052,7 +1053,8 @@
 			<word-chars-list-warning-end value="  във вашият списък със символи."/>
 			<cloud-invalid-warning value="Невалиден път."/>
 			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++."/>
-			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter."/>
+			<shift-change-direction-tip value="Enter: Търсене на следващ
+Shift+Enter: Търсене на предходен"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

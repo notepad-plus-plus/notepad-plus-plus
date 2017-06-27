@@ -770,6 +770,8 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
 
+			 ::SendMessage(GetDlgItem(_hSelf, IDC_PROGRESSBAR), PBM_SETPOS, static_cast<WPARAM>(0), 0);
+
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			 generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
 			 if (tip2show.empty())
@@ -908,6 +910,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			{
 //Single actions
 				case IDCANCEL:
+					_cancelOngoingFind = true;
 					(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
 					setStatusbarMessage(generic_string(), FSNoMessage);
 					display(false);
@@ -1678,7 +1681,7 @@ int FindReplaceDlg::markAllInc(const FindOption *opt)
 
 int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool isEntire, const FindersInfo *pFindersInfo, int colourStyleID)
 {
-	if (op == ProcessReplaceAll && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
+	if ((op == ProcessReplaceAll || op == ProcessReplaceAllInFiles) && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
 		generic_string result = TEXT("Replace All: Cannot replace text. The current document is read only.");
 		setStatusbarMessage(result, FSNotFound);
@@ -1721,7 +1724,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 	}
 	
 	//then readjust scope if the selection override is active and allowed
-	if ((pOptions->_isInSelection) && ((op == ProcessMarkAll) || ((op == ProcessReplaceAll) && (!isEntire))))	//if selection limiter and either mark all or replace all w/o entire document override
+	if ((pOptions->_isInSelection) && ((op == ProcessMarkAll) || ((op == ProcessReplaceAll || op == ProcessReplaceAllInFiles) && (!isEntire))))	//if selection limiter and either mark all or replace all w/o entire document override
 	{
 		startPosition = cr.cpMin;
 		endPosition = cr.cpMax;
@@ -1752,7 +1755,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	if (view2Process)
 		pEditView = view2Process;
 
-	if ((op == ProcessReplaceAll) && pEditView->getCurrentBuffer()->isReadOnly())
+	if ((op == ProcessReplaceAll || op == ProcessReplaceAllInFiles) && pEditView->getCurrentBuffer()->isReadOnly())
 		return nbProcessed;
 
 	if (findReplaceInfo._startRange == findReplaceInfo._endRange)
@@ -1786,7 +1789,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	}
 
 	TCHAR *pTextReplace = NULL;
-	if (op == ProcessReplaceAll)
+	if (op == ProcessReplaceAll || op == ProcessReplaceAllInFiles)
 	{
 		if (not findReplaceInfo._txt2replace)
 		{
@@ -1807,7 +1810,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 	if (pOptions->_searchType == FindExtended)
 	{
 		stringSizeFind = Searching::convertExtendedToString(pTextFind, pTextFind, static_cast<int32_t>(stringSizeFind));
-		if (op == ProcessReplaceAll)
+		if (op == ProcessReplaceAll || op == ProcessReplaceAllInFiles)
 			stringSizeReplace = Searching::convertExtendedToString(pTextReplace, pTextReplace, static_cast<int32_t>(stringSizeReplace));
 	}
 
@@ -1816,10 +1819,15 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 	// Allow empty matches, but not immediately after previous match for replace all or find all.
 	// Other search types should ignore empty matches completely.
-	if (op == ProcessReplaceAll || op == ProcessFindAll)
+	if (op == ProcessReplaceAll || op == ProcessFindAll || op == ProcessReplaceAllInFiles || op == ProcessFindAllInFiles)
 		flags |= SCFIND_REGEXP_EMPTYMATCH_NOTAFTERMATCH;
 	
-	
+	// Init progress bar
+	::SendMessage(GetDlgItem(_hSelf, IDC_PROGRESSBAR), PBM_SETPOS, static_cast<WPARAM>(0), 0);
+	const clock_t beginTime = clock();
+
+	// Disable all buttons during search
+	enableAllFind(false);
 
 	if (op == ProcessMarkAll && colourStyleID == -1)	//if marking, check if purging is needed
 	{
@@ -1835,7 +1843,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 	//Initial range for searching
 	pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	
+	_cancelOngoingFind = false;
 	
 	bool findAllFileNameAdded = false;
 
@@ -1856,10 +1864,19 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		int foundTextLen = targetEnd - targetStart;
 		int replaceDelta = 0;
 
+		if (nbProcessed % 100 == 0)
+			processMessageQueue(op);
+		
+		if (_cancelOngoingFind)
+			break;
+		// Update progress information
+		if (nbProcessed % 1000 == 1)
+			updateProgressBar(op,findReplaceInfo, pFindersInfo,targetStart, beginTime);
 				
 		switch (op)
 		{
-			case ProcessFindAll: 
+			case ProcessFindAll:
+			case ProcessFindAllInFiles:
 			{
 				const TCHAR *pFileName = TEXT("");
 				if (pFindersInfo && pFindersInfo->_pFileName)
@@ -1944,7 +1961,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 				break;
 			}
 
-			case ProcessReplaceAll: 
+			case ProcessReplaceAll:
+			case ProcessReplaceAllInFiles:
 			{
 				int replacedLength;
 				if (isRegExp)
@@ -2037,13 +2055,15 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		findReplaceInfo._endRange += replaceDelta;									//adjust end of range in case of replace
 	}
 
+	::SendMessage(GetDlgItem(_hSelf, IDC_PROGRESSBAR), PBM_SETPOS, static_cast<WPARAM>(100), 0);
+	enableAllFind(true);
 	delete [] pTextFind;
 	delete [] pTextReplace;
 
 	if (nbProcessed > 0)
 	{
 		Finder *pFinder = nullptr;
-		if (op == ProcessFindAll)
+		if (op == ProcessFindAll || op == ProcessFindAllInFiles)
 		{
 			pFinder = _pFinder;
 		}
@@ -2699,6 +2719,25 @@ void FindReplaceDlg::enableMarkFunc()
 	::SetWindowText(_hSelf, label);
 	setDefaultButton(IDCMARKALL);
 }
+
+void FindReplaceDlg::enableAllFind(bool isEnable)
+{
+	::EnableWindow(::GetDlgItem(_hSelf, IDOK), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_CLEAR_ALL), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDCCOUNTALL), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDREPLACE), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDREPLACEALL), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), isEnable);
+	::EnableWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_REPLACEINFILES), isEnable);
+	
+	
+}
+
 void FindReplaceDlg::combo2ExtendedMode(int comboID)
 {
 	HWND hFindCombo = ::GetDlgItem(_hSelf, comboID);
@@ -2777,6 +2816,61 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	RECT rect;
 	_statusBar.getClientRect(rect);
 	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+}
+
+void FindReplaceDlg::processMessageQueue(ProcessOperation op)
+{
+	if (op == ProcessFindAllInFiles || op == ProcessReplaceAllInFiles)
+		return;
+	MSG msg;
+	if (::PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
+	{
+		if (::GetMessage(&msg, NULL, 0, 0))
+		{
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
+		}
+	}
+}
+
+void FindReplaceDlg::updateProgressBar(ProcessOperation op, FindReplaceInfo & findReplaceInfo, const FindersInfo * pFindersInfo, int targetStart, const clock_t beginTime)
+{
+	double progress = 100.0*static_cast<double>(targetStart) / static_cast<double>(findReplaceInfo._endRange);
+	::SendMessage(GetDlgItem(_hSelf, IDC_PROGRESSBAR), PBM_SETPOS, static_cast<WPARAM>(progress), 0);
+
+	double elapsedSeconds = static_cast<double>((clock() - beginTime) / CLOCKS_PER_SEC);
+	if (progress > 1.0)
+	{
+		double onePercentElapsedTime = elapsedSeconds / progress;
+		double remainingSeconds = onePercentElapsedTime* (100.0 - progress);
+		generic_string result;
+
+		TCHAR moreInfo[FINDREPLACE_MAXLENGTH + MAX_PATH];
+		generic_string statusText = _T("");
+		if (pFindersInfo != nullptr && op != ProcessCountAll && op != ProcessMarkAll)
+		{
+			statusText = generic_string(pFindersInfo->_pFileName);
+			size_t backslashPos = statusText.find_last_of('\\');
+			if (backslashPos != generic_string::npos)
+				statusText = statusText.substr(backslashPos + 1);
+			statusText += __T(": ");
+		}
+		if (remainingSeconds < 60.0)
+		{
+			statusText += TEXT("Remaining time %d second(s)");
+			wsprintf(moreInfo, statusText.c_str(), static_cast<int>(remainingSeconds));
+		}
+		else
+		{
+			int nRemainingMinutes = static_cast<int>(remainingSeconds / 60.0);
+			int nRemainingSeconds = static_cast<int>(remainingSeconds) % 60;
+			statusText += TEXT("Remaining time %d minute(s) %d second(s)");
+			wsprintf(moreInfo, statusText.c_str(), nRemainingMinutes, nRemainingSeconds);
+		}
+		result = moreInfo;
+
+		setStatusbarMessage(result, FSMessage);
+	}
 }
 
 void Finder::addSearchLine(const TCHAR *searchName)

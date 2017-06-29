@@ -15,18 +15,19 @@ IF [%1]==[] (
   GOTO PARAMCONTINUE
 )
 
-IF NOT [%1]==[--toolset] (
-     SET BOOSTPATH=%1
-)
-
 IF [%1]==[--toolset] (
   SET MSVCTOOLSET=%2
+  SHIFT
   SHIFT
 )
 
 IF [%2]==[-x64] (
 	SET BUILDTARGETPARAM=architecture=ia64
 	SET BUILDTARGETPATH=architecture-ia64\
+)
+
+IF NOT [%1]==[] (
+	SET BOOSTPATH=%1
 )
 
 rem SHIFT

@@ -3113,7 +3113,6 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
             break; */
 		case WM_CREATE:
-			  lpcs = &cs;
 			  lpcs = (LPCREATESTRUCT)lParam;
 
 			  hInst = lpcs->hInstance;

@@ -323,19 +323,31 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 	TiXmlDocument *pXmlDocProject = new TiXmlDocument(projectFileName);
 	bool loadOkay = pXmlDocProject->LoadFile();
 	if (!loadOkay)
+	{
+		delete pXmlDocProject;
 		return false;
+	}
 
 	TiXmlNode *root = pXmlDocProject->FirstChild(TEXT("NotepadPlus"));
 	if (!root) 
+	{
+		delete pXmlDocProject;
 		return false;
+	}
 
 
 	TiXmlNode *childNode = root->FirstChildElement(TEXT("Project"));
 	if (!childNode) 
+	{
+		delete pXmlDocProject;
 		return false;
+	}
 
 	if (!::PathFileExists(projectFileName))
+	{
+		delete pXmlDocProject;
 		return false;
+	}
 
 	_treeView.removeAllItems();
 	_workSpaceFilePath = projectFileName;

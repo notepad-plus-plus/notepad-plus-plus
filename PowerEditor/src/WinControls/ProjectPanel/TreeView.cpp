@@ -118,7 +118,7 @@ LPARAM TreeView::getItemParam(HTREEITEM Item2Get) const
 generic_string TreeView::getItemDisplayName(HTREEITEM Item2Set) const
 {
 	if (not Item2Set)
-		return false;
+		return TEXT("");
 	TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
 	tvItem.hItem = Item2Set;

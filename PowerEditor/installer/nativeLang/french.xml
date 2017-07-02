@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.3.1">
+    <Native-Langue name="Français" filename="french.xml" version="7.4.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -336,6 +336,7 @@
         <Dialog>
             <Find title="" titleFind="Rechercher" titleReplace="Remplacer" titleFindInFiles="Rechercher dans les fichiers d'un dossier" titleMark="Marquer">
                 <Item id="1" name="Suivant"/>
+				<Item id="1721" name="Précédent"/>
                 <Item id="1603" name="Mot entier &amp;uniquement"/>
                 <Item id="1604" name="Respecter la &amp;casse"/>
                 <Item id="1605" name="&amp;Expression régulière"/>
@@ -983,7 +984,8 @@
 			<word-chars-list-warning-end value="  dans la liste des caractères de mot."/>
 			<cloud-invalid-warning value="Chemin invalide."/>
 			<cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
-			<shift-change-direction-tip value="Shift+Enter est utilisé pour la recherche dans le sens inverse."/>
+			<shift-change-direction-tip value="Enter : Suivant
+Shift+Enter : Précédent"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

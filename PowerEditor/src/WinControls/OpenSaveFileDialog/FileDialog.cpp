@@ -481,7 +481,7 @@ generic_string changeExt(generic_string fn, generic_string ext, bool forceReplac
 	auto index = fnExt.find_last_of(TEXT("."));
 	generic_string extension = TEXT(".");
 	extension += ext;
-	if (index == generic_string::npos)
+	if (index == generic_string::npos || fnExt.find_first_of(' ', index + 1) != generic_string::npos)
 	{
 		fnExt += extension;
 	}

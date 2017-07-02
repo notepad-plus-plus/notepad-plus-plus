@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="正體中文" filename="chinese.xml" version="7.3.1">
+    <Native-Langue name="正體中文" filename="chinese.xml" version="7.4.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -341,6 +341,7 @@
         <Dialog>
             <Find title="" titleFind="尋找" titleReplace="取代" titleFindInFiles="在檔案中尋找"  titleMark="標記">
                 <Item id="1" name="找下一個"/>
+                <Item id="1721" name="找上一個"/>
                 <Item id="2"    name="關閉"/>
                 <Item id="1620" name="尋找內容: "/>
                 <Item id="1603" name="僅符合整個單字(&amp;W)"/>
@@ -994,7 +995,8 @@
 			<word-chars-list-warning-end value="  在你的單字字符集中。"/>
 			<cloud-invalid-warning value="無效路徑"/>
 			<cloud-restart-warning value="請重新啟動 Notepad++ 以讓改變生效"/>
-			<shift-change-direction-tip value="Shift+Enter 相反方向搜尋"/>
+			<shift-change-direction-tip value="Enter: 找下一個
+Shift+Enter: 找上一個"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

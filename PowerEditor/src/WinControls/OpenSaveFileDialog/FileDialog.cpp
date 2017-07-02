@@ -63,7 +63,7 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	_ofn.nFileOffset  = 0;
 	_ofn.nFileExtension = 0;
 	_ofn.lpfnHook = NULL;
-	_ofn.lpstrDefExt = NULL;  // No default extension
+	_ofn.lpstrDefExt = L"*.txt";  // Set default ext to .txt
 	_ofn.lCustData = 0;
 	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | DS_CENTER | OFN_HIDEREADONLY;
 	_ofn.pvReserved = NULL;

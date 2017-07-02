@@ -950,13 +950,10 @@ void ScintillaEditView::setJsLexer()
 	LexerStyler *pNewStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(newLexerName);
 	if (pNewStyler) // New js styler is available, so we can use it do more modern styling
 	{
-		if (pNewStyler)
+		for (int i = 0, nb = pNewStyler->getNbStyler(); i < nb; ++i)
 		{
-			for (int i = 0, nb = pNewStyler->getNbStyler(); i < nb; ++i)
-			{
-				Style & style = pNewStyler->getStyler(i);
-				setStyle(style);
-			}
+			Style & style = pNewStyler->getStyler(i);
+			setStyle(style);
 		}
 
 		basic_string<char> keywordListInstruction("");

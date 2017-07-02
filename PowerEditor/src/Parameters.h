@@ -977,36 +977,14 @@ struct Lang final
 class UserLangContainer final
 {
 public:
-	UserLangContainer()
+	UserLangContainer() :_name(TEXT("new user define")), _ext(TEXT("")), _udlVersion(TEXT(""))
 	{
-		_name = TEXT("new user define");
-		_ext = TEXT("");
-		_udlVersion = TEXT("");
-		_allowFoldOfComments = false;
-		_forcePureLC = PURE_LC_NONE;
-		_decimalSeparator = DECSEP_DOT;
-		_foldCompact = false;
-		_isCaseIgnored = false;
-
-		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
-			*_keywordLists[i] = '\0';
-
-		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
-			_isPrefix[i] = false;
+		init();
 	}
 
 	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer) : _name(name), _ext(ext), _udlVersion(udlVer)
 	{
-		_allowFoldOfComments = false;
-		_forcePureLC = PURE_LC_NONE;
-		_decimalSeparator = DECSEP_DOT;
-		_foldCompact = false;
-
-		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
-			*_keywordLists[i] = '\0';
-
-		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
-			_isPrefix[i] = false;
+		init();
 	}
 
 	UserLangContainer & operator = (const UserLangContainer & ulc)
@@ -1072,6 +1050,21 @@ private:
 	friend class SymbolsStyleDialog;
 	friend class UserDefineDialog;
 	friend class StylerDlg;
+
+	void init()
+	{
+		_forcePureLC = PURE_LC_NONE;
+		_decimalSeparator = DECSEP_DOT;
+		_foldCompact = false;
+		_isCaseIgnored = false;
+		_allowFoldOfComments = false;
+
+		for (int i = 0; i < SCE_USER_KWLIST_TOTAL; ++i)
+			*_keywordLists[i] = '\0';
+
+		for (int i = 0; i < SCE_USER_TOTAL_KEYWORD_GROUPS; ++i)
+			_isPrefix[i] = false;
+	}
 };
 
 #define MAX_EXTERNAL_LEXER_NAME_LEN 16

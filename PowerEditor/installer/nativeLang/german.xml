@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.4
-	last modified: 2017-05-27 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.4.2
+	last modified: 2017-07-02 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -371,8 +371,9 @@
 
 		<Dialog>
 			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Hervorheben">
-				<Item id="1"    name="&amp;Weitersuchen"/>
-				<Item id="2"    name="&amp;Schließen"/>
+				<Item id="1"    name="&amp;Suchen >>"/>
+		                <Item id="1721" name="<< S&amp;uchen"/>
+				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="1620" name="Suchen &amp;nach:"/>
 				<Item id="1603" name="Nur &amp;ganze Wörter suchen"/>
 				<Item id="1604" name="Groß-/&amp;Kleinschreibung beachten"/>
@@ -1049,7 +1050,7 @@
 			<word-chars-list-warning-end value=" in der Liste der Wortzeichen."/>
 			<cloud-invalid-warning value="Ungültiger Pfad."/>
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
-			<shift-change-direction-tip value="Verwende Shift+Enter um die Suchrichtung zu ändern."/>
+			<shift-change-direction-tip value="Enter: Suche vorwärts, Shift+Enter: Suche rückwärts"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

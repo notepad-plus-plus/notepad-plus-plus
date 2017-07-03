@@ -104,6 +104,6 @@ protected:
 
 private:
 	VerticalFileSwitcherListView _fileListView;
-	HIMAGELIST _hImaLst;
+	HIMAGELIST _hImaLst = nullptr;
 };
 #endif // VERTICALFILESWITCHER_H

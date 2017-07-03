@@ -1299,19 +1299,10 @@ void SizeGrid(HWND hWnd,int /*SI*/)
 
 int FindLongestLine(HDC hdc,TCHAR* text,SIZE* size)
 {
-	int longest, lines;
+	int longest = 0;
      TCHAR temptext[1000];
      TCHAR *p;
-     longest=0;
-     lines=1;
 
-     for(size_t j=0, len=lstrlen(text); j<len; j++)
-     {
-      if(text[j]=='\n')
-          {
-           lines++;
-          }
-     }
      lstrcpy(temptext,text);
      p = generic_strtok(temptext, TEXT("\n"));
      while(p)
@@ -1324,7 +1315,7 @@ int FindLongestLine(HDC hdc,TCHAR* text,SIZE* size)
           p = generic_strtok('\0', TEXT("\n"));
          }
      return longest;
-    }
+}
 
 
 LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

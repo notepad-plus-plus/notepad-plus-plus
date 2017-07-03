@@ -130,7 +130,6 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;
-	bool isCaseSensentive = true;
 
 	if (nppGUI._smartHiliteUseFindSettings)
 	{
@@ -138,12 +137,10 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 		NppParameters *nppParams = NppParameters::getInstance();
 		FindHistory &findHistory = nppParams->getFindHistory();
 		isWordOnly = findHistory._isMatchWord;
-		isCaseSensentive = findHistory._isMatchCase;
 	}
 	else
 	{
 		isWordOnly = nppGUI._smartHiliteWordOnly;
-		isCaseSensentive = nppGUI._smartHiliteCaseSensitive;
 	}
 
 	// additional checks for wordOnly mode

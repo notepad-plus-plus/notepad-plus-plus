@@ -106,7 +106,7 @@ public:
 
 protected:
 	TreeView _treeView;
-	HIMAGELIST _hImaLst;
+	HIMAGELIST _hImaLst = nullptr;
 	HWND _hToolbarMenu = nullptr;
 	HMENU _hWorkSpaceMenu = nullptr;
 	HMENU _hProjectMenu = nullptr;

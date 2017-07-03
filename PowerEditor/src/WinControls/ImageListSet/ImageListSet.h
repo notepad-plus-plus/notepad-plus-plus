@@ -111,7 +111,6 @@ public :
 	};
 
 	unsigned int getNbCommand() const {return _nbCmd;};
-	int getCommandAt(int index) const {return _cmdArray[index];};
 	void resizeIcon(int size) {
 		reInit(size);
 	};
@@ -134,7 +133,6 @@ public :
 
 private :
 	ToolBarIconIDs _tbiis;
-	int _cmdArray[nbMax];
 	unsigned int _nbCmd;
 };
 

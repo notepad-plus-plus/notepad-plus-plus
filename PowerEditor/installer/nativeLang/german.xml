@@ -1050,7 +1050,7 @@
 			<word-chars-list-warning-end value=" in der Liste der Wortzeichen."/>
 			<cloud-invalid-warning value="Ungültiger Pfad."/>
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
-			<shift-change-direction-tip value="Verwende Shift+Enter um die Suchrichtung zu ändern."/>
+			<shift-change-direction-tip value="Enter: Suche vorwärts, Shift+Enter: Suche rückwärts"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

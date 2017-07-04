@@ -5,14 +5,14 @@
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;File"/>
-                    <Item menuId="edit" name="&amp;Edit"/>
-                    <Item menuId="search" name="&amp;Search"/>
-                    <Item menuId="view" name="&amp;View"/>
-                    <Item menuId="encoding" name="E&amp;ncoding"/>
-                    <Item menuId="language" name="&amp;Language"/>
-                    <Item menuId="settings" name="Se&amp;ttings"/>
-                    <Item menuId="tools" name="To&amp;ols"/>
+                    <Item menuId="file" name="File"/>
+                    <Item menuId="edit" name="Edit"/>
+                    <Item menuId="search" name="Search"/>
+                    <Item menuId="view" name="View"/>
+                    <Item menuId="encoding" name="Encoding"/>
+                    <Item menuId="language" name="Language"/>
+                    <Item menuId="settings" name="Settings"/>
+                    <Item menuId="tools" name="Tools"/>
                     <Item menuId="macro" name="Macro"/>
                     <Item menuId="run" name="Run"/>
                     <Item idName="Plugins" name="Plugins"/>
@@ -23,7 +23,7 @@
                     <Item subMenuId="file-openFolder" name="Open Containing Folder"/>
                     <Item subMenuId="file-closeMore" name="Close More"/>
                     <Item subMenuId="file-recentFiles" name="Recent Files"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Copy to Clipboard"/>
                     <Item subMenuId="edit-indent" name="Indent"/>
                     <Item subMenuId="edit-convertCaseTo" name="Convert Case to"/>
                     <Item subMenuId="edit-lineOperations" name="Line Operations"/>
@@ -38,51 +38,51 @@
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
                     <Item subMenuId="search-jumpDown" name="Jump Down"/>
                     <Item subMenuId="search-bookmark" name="Bookmark"/>
-                    <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
-                    <Item subMenuId="view-zoom"  name="Zoom"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
-                    <Item subMenuId="view-tab"  name="Tab"/>
+                    <Item subMenuId="view-showSymbol" name="Show Symbol"/>
+                    <Item subMenuId="view-zoom" name="Zoom"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Move/Clone Current Document"/>
+                    <Item subMenuId="view-tab" name="Tab"/>
                     <Item subMenuId="view-collapseLevel" name="Collapse Level"/>
                     <Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
                     <Item subMenuId="view-project" name="Project"/>
-                    <Item subMenuId="encoding-characterSets"  name="Character Set"/>
-                    <Item subMenuId="encoding-arabic"  name="Arabic"/>
-                    <Item subMenuId="encoding-baltic"  name="Baltic"/>
-                    <Item subMenuId="encoding-celtic"  name="Celtic"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Cyrillic"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Central European"/>
-                    <Item subMenuId="encoding-chinese"  name="Chinese"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
-                    <Item subMenuId="encoding-greek"  name="Greek"/>
-                    <Item subMenuId="encoding-hebrew"  name="Hebrew"/>
-                    <Item subMenuId="encoding-japanese"  name="Japanese"/>
+                    <Item subMenuId="encoding-characterSets" name="Character Set"/>
+                    <Item subMenuId="encoding-arabic" name="Arabic"/>
+                    <Item subMenuId="encoding-baltic" name="Baltic"/>
+                    <Item subMenuId="encoding-celtic" name="Celtic"/>
+                    <Item subMenuId="encoding-cyrillic" name="Cyrillic"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Central European"/>
+                    <Item subMenuId="encoding-chinese" name="Chinese"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Eastern European"/>
+                    <Item subMenuId="encoding-greek" name="Greek"/>
+                    <Item subMenuId="encoding-hebrew" name="Hebrew"/>
+                    <Item subMenuId="encoding-japanese" name="Japanese"/>
                     <Item subMenuId="encoding-korean" name="Korean"/>
                     <Item subMenuId="encoding-northEuropean" name="North European"/>
                     <Item subMenuId="encoding-thai" name="Thai"/>
                     <Item subMenuId="encoding-turkish" name="Turkish"/>
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
-                    <Item subMenuId="settings-import"  name="Import"/>
-					<Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="settings-import" name="Import"/>
+					<Item subMenuId="tools-md5" name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="41001" name="&amp;New"/>
-                    <Item id="41002" name="&amp;Open"/>
+                    <Item id="41001" name="New"/>
+                    <Item id="41002" name="Open"/>
                     <Item id="41019" name="Explorer"/>
                     <Item id="41020" name="cmd"/>
                     <Item id="41003" name="Close"/>
-                    <Item id="41004" name="C&amp;lose All"/>
+                    <Item id="41004" name="Close All"/>
                     <Item id="41005" name="Close All BUT Current Document"/>
                     <Item id="41009" name="Close All to the Left"/>
                     <Item id="41018" name="Close All to the Right"/>
-                    <Item id="41006" name="&amp;Save"/>
-                    <Item id="41007" name="Sav&amp;e All"/>
-                    <Item id="41008" name="Save &amp;As..."/>
+                    <Item id="41006" name="Save"/>
+                    <Item id="41007" name="Save All"/>
+                    <Item id="41008" name="Save As..."/>
                     <Item id="41010" name="Print..."/>
                     <Item id="1001"  name="Print Now"/>
-                    <Item id="41011" name="E&amp;xit"/>
+                    <Item id="41011" name="Exit"/>
                     <Item id="41012" name="Load Session..."/>
                     <Item id="41013" name="Save Session..."/>
                     <Item id="41014" name="Reload from Disk"/>
@@ -90,15 +90,15 @@
                     <Item id="41016" name="Delete from Disk"/>
                     <Item id="41017" name="Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
-                    <Item id="41022" name="Open Folder as &amp;Workspace"/>
+                    <Item id="41022" name="Open Folder as Workspace"/>
 
-                    <Item id="42001" name="Cu&amp;t"/>
-                    <Item id="42002" name="&amp;Copy"/>
-                    <Item id="42003" name="&amp;Undo"/>
-                    <Item id="42004" name="&amp;Redo"/>
-                    <Item id="42005" name="&amp;Paste"/>
-                    <Item id="42006" name="&amp;Delete"/>
-                    <Item id="42007" name="Select A&amp;ll"/>
+                    <Item id="42001" name="Cut"/>
+                    <Item id="42002" name="Copy"/>
+                    <Item id="42003" name="Undo"/>
+                    <Item id="42004" name="Redo"/>
+                    <Item id="42005" name="Paste"/>
+                    <Item id="42006" name="Delete"/>
+                    <Item id="42007" name="Select All"/>
                     <Item id="42020" name="Begin/End Select"/>
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
@@ -127,9 +127,9 @@
 					<Item id="42074" name="Open Containing Folder in Explorer"/>
 					<Item id="42075" name="Search on Internet"/>
 					<Item id="42076" name="Change Search Engine..."/>
-                    <Item id="42018" name="&amp;Start Recording"/>
-                    <Item id="42019" name="&amp;Stop Recording"/>
-                    <Item id="42021" name="&amp;Playback"/>
+                    <Item id="42018" name="Start Recording"/>
+                    <Item id="42019" name="Stop Recording"/>
+                    <Item id="42021" name="Playback"/>
                     <Item id="42022" name="Toggle Single Line Comment"/>
                     <Item id="42023" name="Block Comment"/>
                     <Item id="42047" name="Block Uncomment"/>
@@ -165,8 +165,8 @@
                     <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
                     <Item id="42057" name="Insert Blank Line Above Current"/>
                     <Item id="42058" name="Insert Blank Line Below Current"/>
-                    <Item id="43001" name="&amp;Find..."/>
-                    <Item id="43002" name="Find &amp;Next"/>
+                    <Item id="43001" name="Find..."/>
+                    <Item id="43002" name="Find Next"/>
                     <Item id="43003" name="Replace..."/>
                     <Item id="43004" name="Go to..."/>
                     <Item id="43005" name="Toggle Bookmark"/>
@@ -183,7 +183,7 @@
                     <Item id="43053" name="Select All Between Matching Braces"/>
                     <Item id="43009" name="Go to Matching Brace"/>
                     <Item id="43010" name="Find Previous"/>
-                    <Item id="43011" name="&amp;Incremental Search"/>
+                    <Item id="43011" name="Incremental Search"/>
                     <Item id="43013" name="Find in Files"/>
                     <Item id="43014" name="Find (Volatile) Next"/>
                     <Item id="43015" name="Find (Volatile) Previous"/>
@@ -221,8 +221,8 @@
                     <Item id="44019" name="Show All Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
                     <Item id="44022" name="Wrap"/>
-                    <Item id="44023" name="Zoom &amp;In Ctrl+Mouse Wheel Up"/>
-                    <Item id="44024" name="Zoom &amp;Out    Ctrl+Mouse Wheel Down"/>
+                    <Item id="44023" name="Zoom In Ctrl+Mouse Wheel Up"/>
+                    <Item id="44024" name="Zoom Out    Ctrl+Mouse Wheel Down"/>
                     <Item id="44025" name="Show White Space and TAB"/>
                     <Item id="44026" name="Show End of Line"/>
                     <Item id="44029" name="Unfold All"/>
@@ -231,7 +231,7 @@
                     <Item id="44049" name="Summary..."/>
                     <Item id="44080" name="Document Map"/>
                     <Item id="44084" name="Function List"/>
-                    <Item id="44085" name="Folder as &amp;Workspace"/>
+                    <Item id="44085" name="Folder as Workspace"/>
                     <Item id="44086" name="1st Tab"/>
                     <Item id="44087" name="2nd Tab"/>
                     <Item id="44088" name="3rd Tab"/>
@@ -297,7 +297,7 @@
                     <Item id="48501" name="Generate..."/>
                     <Item id="48502" name="Generate from files..."/>
                     <Item id="48503" name="Generate into clipboard"/>
-                    <Item id="49000" name="&amp;Run..."/>
+                    <Item id="49000" name="Run..."/>
 
                     <Item id="50000" name="Function Completion"/>
                     <Item id="50001" name="Word Completion"/>
@@ -339,24 +339,24 @@
 
         <Dialog>
             <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
-                <Item id="1"    name="Find  >>"/>
-                <Item id="1721" name="<<  Find"/>
+                <Item id="1"    name="Find  ›"/>
+				<Item id="1721" name="‹  Find"/>
                 <Item id="2"    name="Close"/>
                 <Item id="1620" name="Find what:"/>
-                <Item id="1603" name="Match &amp;whole word only"/>
-                <Item id="1604" name="Match &amp;case"/>
-                <Item id="1605" name="Regular &amp;expression"/>
-                <Item id="1606" name="Wrap aroun&amp;d"/>
-                <Item id="1612" name="&amp;Up"/>
-                <Item id="1613" name="&amp;Down"/>
+                <Item id="1603" name="Match whole word only"/>
+                <Item id="1604" name="Match case"/>
+                <Item id="1605" name="Regular expression"/>
+                <Item id="1606" name="Wrap around"/>
+                <Item id="1612" name="Up"/>
+                <Item id="1613" name="Down"/>
                 <Item id="1614" name="Count"/>
                 <Item id="1615" name="Find All"/>
                 <Item id="1616" name="Mark line"/>
                 <Item id="1618" name="Purge for each search"/>
                 <Item id="1621" name="Direction"/>
-                <Item id="1611" name="Re&amp;place with:"/>
-                <Item id="1608" name="&amp;Replace"/>
-                <Item id="1609" name="Replace &amp;All"/>
+                <Item id="1611" name="Replace with:"/>
+                <Item id="1608" name="Replace"/>
+                <Item id="1609" name="Replace All"/>
                 <Item id="1687" name="On losing focus"/>
                 <Item id="1688" name="Always"/>
                 <Item id="1632" name="In selection"/>
@@ -375,7 +375,7 @@
                 <Item id="1661" name="Follow current doc."/>
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparency"/>
-                <Item id="1703" name="&amp;. matches newline"/>
+                <Item id="1703" name=". matches newline"/>
             </Find>
 
             <FindCharsInRange title="Find Characters in Range...">
@@ -383,17 +383,17 @@
                 <Item id="2901" name="Non-ASCII Characters (128-255)"/>
                 <Item id="2902" name="ASCII Characters (0-127)"/>
                 <Item id="2903" name="My range:"/>
-                <Item id="2906" name="&amp;Up"/>
-                <Item id="2907" name="&amp;Down"/>
+                <Item id="2906" name="Up"/>
+                <Item id="2907" name="Down"/>
                 <Item id="2908" name="Direction"/>
-                <Item id="2909" name="Wra&amp;p around"/>
+                <Item id="2909" name="Wrap around"/>
                 <Item id="2910" name="Find"/>
             </FindCharsInRange>
 
             <GoToLine title="Go to...">
                 <Item id="2007" name="Line"/>
                 <Item id="2008" name="Offset"/>
-                <Item id="1"    name="&amp;Go"/>
+                <Item id="1"    name="Go"/>
                 <Item id="2"    name="I'm going nowhere"/>
                 <Item id="2004" name="You are here:"/>
                 <Item id="2005" name="You want to go to:"/>
@@ -421,7 +421,7 @@
 
             <StyleConfig title="Style Configurator">
                 <Item id="2"    name="Cancel"/>
-                <Item id="2301" name="Save &amp;&amp; Close"/>
+                <Item id="2301" name="Save && Close"/>
                 <Item id="2303" name="Transparency"/>
                 <Item id="2306" name="Select theme: "/>
                 <SubDialog>
@@ -497,7 +497,7 @@
 					<Item id="1" name="OK"/>
                     <Item id="2" name="Cancel"/>
                 </StylerDialog>
-                <Folder title="Folder &amp;&amp; Default">
+                <Folder title="Folder && Default">
                     <Item id="21101" name="Default style"/>
                     <Item id="21102" name="Styler"/>
                     <Item id="21105" name="Documentation:"/>
@@ -545,7 +545,7 @@
                     <Item id="22572" name="Styler"/>
                     <Item id="22622" name="Styler"/>
                 </Keywords>
-                <Comment title="Comment &amp;&amp; Number">
+                <Comment title="Comment && Number">
                     <Item id="23003" name="Line comment position"/>
                     <Item id="23004" name="Allow anywhere"/>
                     <Item id="23005" name="Force at beginning of line"/>
@@ -574,7 +574,7 @@
                     <Item id="23246" name="Comma"/>
                     <Item id="23247" name="Both"/>
                 </Comment>
-                <Operator title="Operators &amp;&amp; Delimiter">
+                <Operator title="Operators && Delimiter">
                     <Item id="24101" name="Operators style"/>
                     <Item id="24113" name="Styler"/>
                     <Item id="24116" name="Operators 1"/>
@@ -675,8 +675,7 @@
                     <Item id="6207" name="Display bookmarks"/>
                     <Item id="6208" name="Show vertical edge"/>
                     <Item id="6209" name="Number of columns: "/>
-                    <Item id="6234" name="Disable advanced scrolling feature
-(if you have touchpad problem)"/>
+                    <Item id="6234" name="Disable advanced scrolling feature&#x0a;(if you have touchpad problem)"/>
 
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6212" name="Line mode"/>
@@ -831,8 +830,7 @@
                     <Item id="6256" name="Allow on several lines"/>
 					<Item id="6161" name="Word character list"/>
                     <Item id="6162" name="Use default Word character list as it is"/>
-                    <Item id="6163" name="Add your character as part of word
-(don't choose it unless you know what you're doing)"/>
+                    <Item id="6163" name="Add your character as part of word&#x0a;(don't choose it unless you know what you're doing)"/>
                 </Delimiter>
 
                 <Cloud title="Cloud">
@@ -1002,8 +1000,7 @@
 			<word-chars-list-warning-end value="  in your character list."/>
 			<cloud-invalid-warning value="Invalid path."/>
 			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-			<shift-change-direction-tip value="Enter: Find Next
-Shift+Enter: Find Previous"/>
+			<shift-change-direction-tip value="Enter: Find Next&#x0a;Shift+Enter: Find Previous"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

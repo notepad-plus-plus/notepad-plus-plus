@@ -26,7 +26,6 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include <algorithm>
 #include "shortcut.h"
 #include "Parameters.h"
 #include "ScintillaEditView.h"
@@ -483,7 +482,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 // return true if one of CommandShortcuts is deleted. Otherwise false.
 void Accelerator::updateShortcuts() 
 {
-	vector<int> incrFindAccIds;
+	vector<UINT> incrFindAccIds;
 	incrFindAccIds.push_back(IDM_SEARCH_FINDNEXT);
 	incrFindAccIds.push_back(IDM_SEARCH_FINDPREV);
 	incrFindAccIds.push_back(IDM_SEARCH_FINDINCREMENT);

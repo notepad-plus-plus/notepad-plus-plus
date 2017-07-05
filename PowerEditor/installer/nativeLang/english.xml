@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.4">
+    <Native-Langue name="English" filename="english.xml" version="7.4.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -339,7 +339,8 @@
 
         <Dialog>
             <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
-                <Item id="1"    name="Find Next"/>
+                <Item id="1"    name="Find  >>"/>
+                <Item id="1721" name="<<  Find"/>
                 <Item id="2"    name="Close"/>
                 <Item id="1620" name="Find what:"/>
                 <Item id="1603" name="Match &amp;whole word only"/>
@@ -1001,7 +1002,8 @@
 			<word-chars-list-warning-end value="  in your character list."/>
 			<cloud-invalid-warning value="Invalid path."/>
 			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction."/>
+			<shift-change-direction-tip value="Enter: Find Next
+Shift+Enter: Find Previous"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -383,6 +383,14 @@ void FindReplaceDlg::fillComboHistory(int id, const vector<generic_string> & str
 	{
 		addText2Combo(i->c_str(), hCombo);
 	}
+
+	//empty string is not added to CB items, so we need to set it manually
+	if (!strings.empty() && strings.begin()->empty())
+	{
+		SetWindowText(hCombo, _T(""));
+		return;
+	}
+
 	::SendMessage(hCombo, CB_SETCURSEL, 0, 0); // select first item
 }
 
@@ -403,7 +411,7 @@ void FindReplaceDlg::saveFindHistory()
 
 }
 
-int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string> & strings)
+int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string> & strings, bool saveEmpty)
 {
 	TCHAR text[FINDREPLACE_MAXLENGTH];
 	HWND hCombo = ::GetDlgItem(_hSelf, id);
@@ -414,6 +422,14 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string
 
     if (count)
         strings.clear();
+
+	if (saveEmpty)
+	{
+		if (::GetWindowTextLength(hCombo) == 0)
+		{
+			strings.push_back(generic_string());
+		}
+	}
 
     for (int i = 0 ; i < count ; ++i)
 	{

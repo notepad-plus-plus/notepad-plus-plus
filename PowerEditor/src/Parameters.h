@@ -1098,10 +1098,10 @@ struct FindHistory final
 	enum searchMode{normal, extended, regExpr};
 	enum transparencyMode{none, onLossingFocus, persistant};
 
-	int _nbMaxFindHistoryPath    = 10;
-	int _nbMaxFindHistoryFilter  = 10;
-	int _nbMaxFindHistoryFind    = 10;
-	int _nbMaxFindHistoryReplace = 10;
+	int _nbMaxFindHistoryPath    = 30;
+	int _nbMaxFindHistoryFilter  = 30;
+	int _nbMaxFindHistoryFind    = 30;
+	int _nbMaxFindHistoryReplace = 30;
 
 	std::vector<generic_string> _findHistoryPaths;
 	std::vector<generic_string> _findHistoryFilters;
@@ -1124,6 +1124,11 @@ struct FindHistory final
 	bool _isDlgAlwaysVisible = false;
 	bool _isFilterFollowDoc = false;
 	bool _isFolderFollowDoc = false;
+
+	bool _isFinderUnique = true;
+	bool _isFinderOnlyOne = false;
+	bool _isFinderOnlyOneLineIfMultipleFinds = false;
+	bool _isAutoCloseEmptyFinder = false;
 };
 
 

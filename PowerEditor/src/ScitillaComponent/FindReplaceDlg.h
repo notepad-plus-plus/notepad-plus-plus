@@ -85,6 +85,10 @@ struct FindOption
 	bool _isInHiddenDir = false;
 	bool _dotMatchesNewline = false;
 	bool _isMatchLineNumber = true; // only for Find in Folder
+	bool _isFinderUnique = true;
+	bool _isFinderOnlyOne = false;
+	bool _isFinderOnlyOneLineIfMultipleFinds = false;
+	bool _isAutoCloseEmptyFinder = false;
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -261,6 +265,8 @@ public :
 	void findAllIn(InWhat op);
 	void setSearchText(TCHAR * txt2find);
 
+	void removeAllFinders();
+
 	void gotoNextFoundResult(int direction = 0) {if (_pFinder) _pFinder->gotoNextFoundResult(direction);};
 
 	void putFindResult(int result) {
@@ -331,8 +337,9 @@ public :
 
 	void execSavedCommand(int cmd, uptr_t intValue, generic_string stringValue);
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
-	Finder * createFinder();
+	Finder * createFinder(generic_string stringValue);
 	bool removeFinder(Finder *finder2remove);
+	bool doesFinderExist(){ return (_pFinder != NULL); }
 
 protected :
 	void resizeDialogElements(LONG newWidth);
@@ -357,6 +364,7 @@ private :
 	Finder  *_pFinder;
 
 	std::vector<Finder *> _findersOfFinder;
+	std::vector<Finder *> _finders;
 
 	HWND _shiftTrickUpTip = nullptr;
 	HWND _shiftTrickDownTip = nullptr;
@@ -380,6 +388,8 @@ private :
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);
 	void enableFindInFilesFunc();
+        void disableFindersGroup(bool isDisable = true);
+        void showFindersGroup(bool isEnable = true);
 	void enableMarkAllControls(bool isEnable);
 	void enableMarkFunc();
 

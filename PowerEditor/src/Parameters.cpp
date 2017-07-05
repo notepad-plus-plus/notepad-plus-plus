@@ -2271,6 +2271,23 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("dotMatchesNewline"));
 	if (boolStr)
 		_findHistory._dotMatchesNewline = (lstrcmp(TEXT("yes"), boolStr) == 0);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("finderUnique"));
+	if (boolStr)
+		_findHistory._isFinderUnique = (lstrcmp(TEXT("yes"), boolStr) == 0);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("finderOnlyOne"));
+	if (boolStr)
+		_findHistory._isFinderOnlyOne = (lstrcmp(TEXT("yes"), boolStr) == 0);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("finderOneIfMultipleFinds"));
+	if (boolStr)
+		_findHistory._isFinderOnlyOneLineIfMultipleFinds = (lstrcmp(TEXT("yes"), boolStr) == 0);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("finderAutoCloseEmpty"));
+	if (boolStr)
+		_findHistory._isAutoCloseEmptyFinder = (lstrcmp(TEXT("yes"), boolStr) == 0);
+
 }
 
 void NppParameters::feedShortcut(TiXmlNode *node)
@@ -5606,6 +5623,11 @@ bool NppParameters::writeFindHistory()
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparencyMode"), _findHistory._transparencyMode);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparency"), _findHistory._transparency);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("dotMatchesNewline"),		_findHistory._dotMatchesNewline?TEXT("yes"):TEXT("no"));
+
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("finderUnique"), _findHistory._isFinderUnique ? TEXT("yes") : TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("finderOnlyOne"), _findHistory._isFinderOnlyOne ? TEXT("yes") : TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("finderAutoCloseEmpty"), _findHistory._isAutoCloseEmptyFinder ? TEXT("yes") : TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("finderOneIfMultipleFinds"), _findHistory._isFinderOnlyOneLineIfMultipleFinds ? TEXT("yes") : TEXT("no"));
 
 	TiXmlElement hist_element{TEXT("")};
 

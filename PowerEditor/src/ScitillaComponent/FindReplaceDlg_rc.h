@@ -135,5 +135,11 @@
 #define IDREGEXP_FIFOLDER				1719
 #define IDREDOTMATCHNL_FIFOLDER			1720
 #define IDC_FINDPREV					1721
+#define IDC_FINDER_MODE_STATIC                  1722
+#define IDC_FINDER_UNIQUE                       1723
+#define IDC_FINDER_ONLY_ONE                     1724
+#define IDC_FINDER_ONE_LINE_IF_MULTIPLE_FINDS   1725
+#define IDC_FINDER_AUTO_CLOSE_EMPTY             1726
+
 
 #endif //FINDREPLACE_DLG_H

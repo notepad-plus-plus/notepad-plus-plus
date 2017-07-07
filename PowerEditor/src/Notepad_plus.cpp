@@ -5012,7 +5012,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 					// Then we ask user to update
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
 					{
-						// Since the file has but the user doesn't want to reload it, set state to dirty
+						// Since the file content has changed but the user doesn't want to reload it, set state to dirty
 						buffer->setDirty(true);
 
 						break;	//abort

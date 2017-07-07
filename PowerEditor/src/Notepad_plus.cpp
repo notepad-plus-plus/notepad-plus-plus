@@ -5018,7 +5018,12 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 					// Then we ask user to update
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
+					{
+						// Since the file content has changed but the user doesn't want to reload it, set state to dirty
+						buffer->setDirty(true);
+
 						break;	//abort
+					}
 				}
 				// Set _isLoadedDirty false so when the document clean state is reached the icon will be set to blue
 				buffer->setLoadedDirty(false);

@@ -236,7 +236,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 		case WM_FINDALL_INCURRENTFINDER:
 		{
 			FindersInfo *findInFolderInfo = reinterpret_cast<FindersInfo *>(wParam);
-			Finder * newFinder = _findReplaceDlg.createFinder();
+			Finder * newFinder = _findReplaceDlg.createFinder(findInFolderInfo->_findOption._str2Search);
 			
 			findInFolderInfo->_pDestFinder = newFinder;
 			bool isOK = findInFinderFiles(findInFolderInfo);
@@ -2310,6 +2310,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_REMOVEALLFINDERS:
+		{
+			_findReplaceDlg.removeAllFinders();
+			return TRUE;
+		}
 		default:
 		{
 			if (message == WDN_NOTIFY)

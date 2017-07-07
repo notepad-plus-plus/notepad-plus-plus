@@ -882,24 +882,16 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 			int iconDpiDynamicalY = NppParameters::getInstance()->_dpiManager.scaleY(7);
 			ImageList_Draw(hImageList, iPosImage, hDc, rc.left + 3, iconDpiDynamicalY, ILD_NORMAL);
-
-			if (isSelected)
-			{
 				rc.left += imageRect.right - imageRect.left + 5;
 			}
 		}
-	}
 
-	if (isSelected)
-	{
 		COLORREF _unselectedColor = RGB(0, 0, 0);
 		::SetTextColor(hDc, _unselectedColor);
-
 		// draw text
 		rc.top -= ::GetSystemMetrics(SM_CYEDGE);
 		::SelectObject(hDc, _hFont);
 		::DrawText(hDc, text, length, &rc, DT_SINGLELINE | DT_VCENTER | DT_NOPREFIX);
-	}
 
 	::RestoreDC(hDc, nSavedDC);
 }
@@ -935,7 +927,7 @@ INT_PTR CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(wndTabProc)));
 
 			// set min tab width
-			int tabDpiDynamicalMinWidth = NppParameters::getInstance()->_dpiManager.scaleY(24);
+			int tabDpiDynamicalMinWidth = NppParameters::getInstance()->_dpiManager.scaleX(100);
 			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiDynamicalMinWidth);
 
 			break;

@@ -473,7 +473,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_CHANGESEARCHENGINE:
 		{
 			command(IDM_SETTING_PREFERECE);
-			_preference.showDialogByName(TEXT("SearchEngine"));
+			_preference.showDialogByName(TEXT("searchOptions"));
 		}
 		break;
 

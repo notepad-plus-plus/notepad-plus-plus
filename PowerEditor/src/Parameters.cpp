@@ -4791,6 +4791,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR * searchEngineCustom = element->Attribute(TEXT("searchEngineCustom"));
 			if (searchEngineCustom && searchEngineCustom[0])
 				_nppGUI._searchEngineCustom = searchEngineCustom;
+			const TCHAR * multipleFinders = element->Attribute(TEXT("multipleFinders"));
+			if (multipleFinders && !lstrcmp(multipleFinders, TEXT("yes")))
+			_nppGUI._multipleFinders = true;
 		}
 		else if (!lstrcmp(nm, TEXT("MISC")))
 		{
@@ -5549,6 +5552,7 @@ void NppParameters::createXmlTreeFromGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("searchEngine"));
 		GUIConfigElement->SetAttribute(TEXT("searchEngineChoice"), _nppGUI._searchEngineChoice);
 		GUIConfigElement->SetAttribute(TEXT("searchEngineCustom"), _nppGUI._searchEngineCustom);
+		GUIConfigElement->SetAttribute(TEXT("multipleFinders"), _nppGUI._multipleFinders ? TEXT("yes") : TEXT("no"));
 	}
 
 	// <GUIConfig name="SmartHighLight" matchCase="no" wholeWordOnly="yes" useFindSettings="no" onAnotherView="no">yes</GUIConfig>

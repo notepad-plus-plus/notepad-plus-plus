@@ -214,10 +214,10 @@ private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-class SearchEngineChoiceDlg : public StaticDialog
+class searchOptionsChoiceDlg : public StaticDialog
 {
 public :
-	SearchEngineChoiceDlg() {};
+	searchOptionsChoiceDlg() {};
 
 private :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -274,6 +274,6 @@ private :
 	MultiInstDlg _multiInstDlg;
 	DelimiterSettingsDlg _delimiterSettingsDlg;
 	SettingsOnCloudDlg _settingsOnCloudDlg;
-	SearchEngineChoiceDlg _searchEngineDlg;
+	searchOptionsChoiceDlg _searchOptionsDlg;
 };
 

@@ -858,7 +858,7 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(TEXT("Cloud"), nameW);
 	}
 
-	changeDlgLang(preference._searchEngineDlg.getHSelf(), "SearchEngine", titre);
+	changeDlgLang(preference._searchOptionsDlg.getHSelf(), "SearchOptions", titre);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);

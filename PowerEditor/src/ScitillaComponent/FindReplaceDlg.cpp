@@ -236,12 +236,15 @@ FindReplaceDlg::~FindReplaceDlg()
 		_findersOfFinder.erase(_findersOfFinder.begin() + n);
 	}
 
+	_pFinder = 0;
+
 	if (_shiftTrickUpTip)
 		::DestroyWindow(_shiftTrickUpTip);
 	if (_shiftTrickDownTip)
 		::DestroyWindow(_shiftTrickDownTip);
 
 	delete[] _uniFileName;
+	_uniFileName = 0;
 }
 
 void FindReplaceDlg::create(int dialogID, bool isRTL) 
@@ -1050,6 +1053,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					nppParamInst->_isFindReplacing = true;
 					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_FIF);
+					::SendMessage(_hParent, NPPM_INTERNAL_SCINTILLAFINFERCLEARALL, 0, 0);
 					findAllIn(FILES_IN_DIR);
 					nppParamInst->_isFindReplacing = false;
 				}
@@ -2085,13 +2089,51 @@ void FindReplaceDlg::replaceAllInOpenedDocs()
 void FindReplaceDlg::findAllIn(InWhat op)
 {
 	bool justCreated = false;
-	if (!_pFinder)
+	tTbData	data = { 0 };
+    
+	if (!NppParameters::getInstance()->getNppGUI()._multipleFinders)
+	{
+        for (int n = static_cast<int32_t>(_finders.size()) - 1; n >= 0; n--)
+		{
+			::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_finders[n]->getHSelf());
+			_finders.erase(_finders.begin() + n);
+		}
+		_pFinder = nullptr;
+	}
+	else 
+	{
+        for (int n = static_cast<int32_t>(_finders.size()) - 1; n >= 0; n--)
+        {
+			if (!lstrcmp(_options._str2Search.c_str(), _finders[n]->_pluginName.c_str()))
+			{
+				if (_pFinder == _finders[n])
+				{
+					_pFinder = nullptr;
+				}
+				::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_finders[n]->getHSelf());
+				_finders.erase(_finders.begin() + n);
+			}
+		}
+	}
+	for (int n = static_cast<int32_t>(_finders.size()) - 1; n >= 0; n--)
+	{
+		if (_finders[n]->_nbFoundFiles == 0)
+		{
+			if (_pFinder == _finders[n])
+			{
+				_pFinder = nullptr;
+			}
+			::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_finders[n]->getHSelf());
+			_finders.erase(_finders.begin() + n);
+		}
+	}
+
+	if (NppParameters::getInstance()->getNppGUI()._multipleFinders || !_pFinder)
 	{
 		_pFinder = new Finder();
 		_pFinder->init(_hInst, _hSelf, _ppEditView);
-		_pFinder->setVolatiled(false);
+		_pFinder->setVolatiled(true);
 		
-		tTbData	data = {0};
 		_pFinder->create(&data, false);
 		::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 		// define the default docking behaviour
@@ -2104,7 +2146,9 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
 		data.dlgID = 0;
-		::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
+		data.pszName = const_cast<TCHAR *>(new TCHAR[_options._str2Search.length()]);
+		lstrcpy(const_cast<TCHAR *>(data.pszName), _options._str2Search.c_str());
+		_pFinder->_pluginName =_options._str2Search;
 
 		_pFinder->_scintView.init(_hInst, _pFinder->getHSelf());
 
@@ -2141,6 +2185,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		char ptrword[sizeof(void*)*2+1];
 		sprintf(ptrword, "%p", &_pFinder->_markingsStruct);
 		_pFinder->_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("@MarkingsStruct"), reinterpret_cast<LPARAM>(ptrword));
+		_finders.insert(_finders.end(),_pFinder);
 	}
 	
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
@@ -2160,7 +2205,12 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		if(_findAllResult == 1)
 			wsprintf(_findAllResultStr, TEXT("1 hit"));
 		else
-			wsprintf(_findAllResultStr, TEXT("%s hits"), commafyInt(_findAllResult).c_str());
+			wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
+		if (data.pszName)
+		{
+			data.pszAddInfo = const_cast<TCHAR *>(new TCHAR[40]);
+			lstrcpy(const_cast<TCHAR *>(data.pszAddInfo), _findAllResultStr);
+		}
 		if (_findAllResult) 
 		{
 			focusOnFinder();
@@ -2171,12 +2221,14 @@ void FindReplaceDlg::findAllIn(InWhat op)
 			::SendMessage(_hParent, NPPM_DMMSHOW, 0, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 			getFocus(); // no hits
 		}
+		if (data.pszName)
+			::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 	}
 	else // error - search folder doesn't exist
 		::SendMessage(_hSelf, WM_NEXTDLGCTL, reinterpret_cast<WPARAM>(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO)), TRUE);
 }
 
-Finder * FindReplaceDlg::createFinder()
+Finder * FindReplaceDlg::createFinder(generic_string str2Search)
 {
 	Finder *pFinder = new Finder();
 
@@ -2188,8 +2240,20 @@ Finder * FindReplaceDlg::createFinder()
 	// define the default docking behaviour
 	data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO;
 	data.hIconTab = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+        if (str2Search.length() > 0)
+        {
+            if (!data.pszAddInfo)
+            {
+		data.pszAddInfo = const_cast<TCHAR *>(new TCHAR[40]);
+		lstrcpy(const_cast<TCHAR *>(data.pszAddInfo), str2Search.c_str());
+            }
+            lstrcpy(const_cast<TCHAR *>(data.pszName), str2Search.c_str());
+        }
+        else
+        {
 	data.pszAddInfo = _findAllResultStr;
-
+            data.pszName = _findAllResultStr;
+        }
 	data.pszModuleName = TEXT("dummy");
 
 	// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -2263,6 +2327,17 @@ void FindReplaceDlg::setSearchText(TCHAR * txt2find) {
 		::SetDlgItemText(_hSelf, IDFINDWHAT, txt2find);
 	}
 	::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
+}
+
+void FindReplaceDlg::removeAllFinders()
+{
+    for (int n = static_cast<int32_t>(_finders.size()) - 1; n >= 0; n--)
+
+	{
+		::SendMessage(_hParent, NPPM_DMMHIDE, 0, (LPARAM)_finders[n]->getHSelf());
+		_finders.erase(_finders.begin() + n);
+	}
+	_pFinder = nullptr;
 }
 
 void FindReplaceDlg::enableReplaceFunc(bool isEnable) 
@@ -3122,6 +3197,14 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					return TRUE;
 				}
 
+				case NPPM_INTERNAL_REMOVEALLFINDERS:
+				{
+					::SendMessage(::GetParent(_hParent), NPPM_DMMHIDE, 0, (LPARAM)_hSelf);
+					setClosed(true);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_REMOVEALLFINDERS, 0, (LPARAM)_hSelf);
+					return TRUE;
+				}
+
 				default :
 				{
 					return FALSE;
@@ -3137,9 +3220,10 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				::GetCursorPos(&p);
 				ContextMenu scintillaContextmenu;
 				vector<MenuItemUnit> tmp;
-				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_FINDINFINDERDLG, TEXT("Find in this finder...")));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_FINDINFINDERDLG, TEXT("Find in results...")));
 				if (_canBeVolatiled)
-					tmp.push_back(MenuItemUnit(NPPM_INTERNAL_REMOVEFINDER, TEXT("Close this finder")));
+					tmp.push_back(MenuItemUnit(NPPM_INTERNAL_REMOVEFINDER, TEXT("Close")));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_REMOVEALLFINDERS, TEXT("Close all")));
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOLLAPSE, TEXT("Collapse all")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERUNCOLLAPSE, TEXT("Uncollapse all")));

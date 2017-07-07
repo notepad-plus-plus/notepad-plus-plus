@@ -851,6 +851,7 @@ struct NppGUI final
 	enum SearchEngineChoice{ se_custom = 0, se_duckDuckGo = 1, se_google = 2, se_bing = 3, se_yahoo = 4 };
 	SearchEngineChoice _searchEngineChoice = se_google;
 	generic_string _searchEngineCustom;
+	bool _multipleFinders = false;
 
 	bool _isFolderDroppedOpenFiles = false;
 
@@ -1098,10 +1099,10 @@ struct FindHistory final
 	enum searchMode{normal, extended, regExpr};
 	enum transparencyMode{none, onLossingFocus, persistant};
 
-	int _nbMaxFindHistoryPath    = 10;
-	int _nbMaxFindHistoryFilter  = 10;
-	int _nbMaxFindHistoryFind    = 10;
-	int _nbMaxFindHistoryReplace = 10;
+	int _nbMaxFindHistoryPath    = 30;
+	int _nbMaxFindHistoryFilter  = 30;
+	int _nbMaxFindHistoryFind    = 30;
+	int _nbMaxFindHistoryReplace = 30;
 
 	std::vector<generic_string> _findHistoryPaths;
 	std::vector<generic_string> _findHistoryFilters;

@@ -315,7 +315,10 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
-	LPTSTR cmdLine = ::GetCommandLine();
+	// Use a copy of the command line in order to preserve the original to be read by other processes.
+	LPTSTR cmdLine = _tcsdup(::GetCommandLine());
+	if(!cmdLine)
+		return -1;
 	ParamVector params;
 	parseCommandLine(cmdLine, params);
 

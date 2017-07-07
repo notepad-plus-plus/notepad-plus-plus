@@ -421,7 +421,7 @@
 
             <StyleConfig title="Style Configurator">
                 <Item id="2"    name="Cancel"/>
-                <Item id="2301" name="Save && Close"/>
+                <Item id="2301" name="Save & Close"/>
                 <Item id="2303" name="Transparency"/>
                 <Item id="2306" name="Select theme: "/>
                 <SubDialog>
@@ -497,7 +497,7 @@
                     <Item id="1" name="OK"/>
                     <Item id="2" name="Cancel"/>
                 </StylerDialog>
-                <Folder title="Folder && Default">
+                <Folder title="Folder & Default">
                     <Item id="21101" name="Default style"/>
                     <Item id="21102" name="Styler"/>
                     <Item id="21105" name="Documentation:"/>
@@ -545,7 +545,7 @@
                     <Item id="22572" name="Styler"/>
                     <Item id="22622" name="Styler"/>
                 </Keywords>
-                <Comment title="Comment && Number">
+                <Comment title="Comment & Number">
                     <Item id="23003" name="Line comment position"/>
                     <Item id="23004" name="Allow anywhere"/>
                     <Item id="23005" name="Force at beginning of line"/>
@@ -574,7 +574,7 @@
                     <Item id="23246" name="Comma"/>
                     <Item id="23247" name="Both"/>
                 </Comment>
-                <Operator title="Operators && Delimiter">
+                <Operator title="Operators & Delimiter">
                     <Item id="24101" name="Operators style"/>
                     <Item id="24113" name="Styler"/>
                     <Item id="24116" name="Operators 1"/>
@@ -675,7 +675,7 @@
                     <Item id="6207" name="Display bookmarks"/>
                     <Item id="6208" name="Show vertical edge"/>
                     <Item id="6209" name="Number of columns: "/>
-                    <Item id="6234" name="Disable advanced scrolling feature&#x0a;(if you have touchpad problem)"/>
+                    <Item id="6234" name="Disable advanced scrolling feature&#x0D;(if you have touchpad problem)"/>
 
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6212" name="Line mode"/>
@@ -830,7 +830,7 @@
                     <Item id="6256" name="Allow on several lines"/>
                     <Item id="6161" name="Word character list"/>
                     <Item id="6162" name="Use default Word character list as it is"/>
-                    <Item id="6163" name="Add your character as part of word&#x0a;(don't choose it unless you know what you're doing)"/>
+                    <Item id="6163" name="Add your character as part of word&#x0D;(don't choose, unless you know what you're doing)"/>
                 </Delimiter>
 
                 <Cloud title="Cloud">
@@ -906,10 +906,10 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-            <NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
-            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.&#x0D;You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <NppHelpAbsentWarning title="File does not exist" message="&#x0D;doesn't exist. Please download it on Notepad++ site."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.&#x0D;All the saved modifications can not be undone.&#x0D;&#x0D;Continue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.&#x0D;All the saved modifications can not be undone.&#x0D;&#x0D;Continue?"/>
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
@@ -917,8 +917,8 @@
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
-            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writing access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.&#x0D;Are you sure to open them?"/>
+            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,&#x0D;or on a folder needed privilege right for writing access.&#x0D;Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
             <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
         <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
         </MessageBox>
@@ -997,10 +997,10 @@
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-            <word-chars-list-warning-end value="  in your character list."/>
+            <word-chars-list-warning-end value=" in your character list."/>
             <cloud-invalid-warning value="Invalid path."/>
             <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-            <shift-change-direction-tip value="Enter: Find Next&#x0a;Shift+Enter: Find Previous"/>
+            <shift-change-direction-tip value="Enter: Find Next&#x0D;Shift+Enter: Find Previous"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

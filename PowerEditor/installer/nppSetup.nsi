@@ -37,6 +37,7 @@ Unicode true			; Generate a Unicode installer. It can only be used outside of se
 SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ;SetCompressor /FINAL lzma	; This reduces installer size by approx 15~18%
 
+Var allowAppDataPluginsLoading
 
 !include "nsisInclude\winVer.nsh"
 !include "nsisInclude\globalDef.nsh"
@@ -82,14 +83,21 @@ page Custom ExtraOptions
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "un.CheckIfRunning"
 !insertmacro MUI_UNPAGE_INSTFILES
 
-; TODO for optional arg
-;!insertmacro GetParameters
-
 
 !include "nsisInclude\langs4Installer.nsh"
 
 Var diffArchDir2Remove
 Function .onInit
+
+	${GetParameters} $R0 
+	${GetOptions} $R0 "/allowAppDataPluginsLoading" $R1 ;case insensitive 
+	IfErrors appdataLoadNo appdataLoadYes
+appdataLoadNo:
+	StrCpy $allowAppDataPluginsLoading "false"
+	Goto appdataLoadDone
+appdataLoadYes:
+	StrCpy $allowAppDataPluginsLoading "true"
+appdataLoadDone:
 
 	SectionSetSize ${mainSection} 4500		; This is rough estimation of files present in function copyCommonFiles
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.

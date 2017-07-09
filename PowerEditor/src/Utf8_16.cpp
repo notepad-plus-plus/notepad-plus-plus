@@ -181,7 +181,7 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 
 void Utf8_16_Read::determineEncoding()
 {
-	INT uniTest = IS_TEXT_UNICODE_STATISTICS;
+	// INT uniTest = IS_TEXT_UNICODE_STATISTICS;
 	m_eEncoding = uni8Bit;
 	m_nSkip = 0;
 
@@ -204,12 +204,14 @@ void Utf8_16_Read::determineEncoding()
 		m_eEncoding = uniUTF8;
 		m_nSkip = 3;
 	}
+    /* Fix wrong File encoding auto-detection problem : binary file is detected as UTF-16 little-endian
 	// try to detect UTF-16 little-endian without BOM
 	else if (m_nLen > 1 && m_nLen % 2 == 0 && m_pBuf[0] != NULL && m_pBuf[1] == NULL && IsTextUnicode(m_pBuf, static_cast<int32_t>(m_nLen), &uniTest))
 	{
 		m_eEncoding = uni16LE_NoBOM;
 		m_nSkip = 0;
 	}
+    */
 	/* UTF-16 big-endian without BOM detection is taken away scince this detection is very week
     // try to detect UTF-16 big-endian without BOM
     else if (m_nLen > 1 && m_pBuf[0] == NULL && m_pBuf[1] != NULL)

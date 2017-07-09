@@ -193,7 +193,7 @@ doDelete32:
 noDelete32:
 		
 	${Else}
-		MessageBox MB_OK "You cannot install Notepad++ 64-bit version on your 32-bit system.$\nPlease download and intall Notepad++ 32-bit version instead."
+		MessageBox MB_OK "You cannot install Notepad++ 64-bit version on your 32-bit system.$\nPlease download and install Notepad++ 32-bit version instead."
 		Abort
 	${EndIf}
 !else ; 32-bit installer

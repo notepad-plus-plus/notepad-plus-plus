@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation for Notepad++
-Updated 16.05.2017, v7.4
+Updated 10.07.2017, v7.4.2
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="7.4">
+	<Native-Langue name="Català" filename="catalan.xml" version="7.4.2">
 		<Menu>
 			<Main>
 				<Entries>
@@ -300,9 +300,9 @@ By Hiro5 <groccat at gmail>
 					<Item id="48005" name="Importa &amp;complements ..."/>
 					<Item id="48006" name="Importa &amp;temes ..."/>
 					<Item id="48018" name="Edita el menú contextual emergent"/>
-					<Item id="48501" name="Genera suma..."/>
-					<Item id="48502" name="Genera suma de fitxers..."/>
-					<Item id="48503" name="Genera i copia suma de selecció"/>
+					<Item id="48501" name="Genera..."/>
+					<Item id="48502" name="Genera dels fitxers..."/>
+					<Item id="48503" name="Genera de la selecció al porta-retalls"/>
 					<Item id="42018" name="&amp;Comença l'enregistrament"/>
 					<Item id="42019" name="&amp;Atura l'enregistrament"/>
 					<Item id="42021" name="&amp;Reprodueix"/>
@@ -353,7 +353,8 @@ By Hiro5 <groccat at gmail>
 			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
 				<Item id="1617" name="Estil de símbol trobat"/>
 				<Item id="1637" name="Cerca als fitxers"/>
-				<Item id="1"    name="Cerca el següent"/>
+				<Item id="1"    name="Cerca >>"/>
+				<Item id="1721" name="<< Cerca"/>
 				<Item id="1614" name="Compta coincidències"/>
 				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
 				<Item id="1641" name="Cerca-ho tot en el document actual"/>
@@ -417,13 +418,13 @@ By Hiro5 <groccat at gmail>
 				<Item id="1904" name="Desa..."/>
 				<Item id="2"    name="Atura"/>
 			</Run>
-			<MD5FromFilesDlg title="Genera resums MD5 de fitxers">
+			<MD5FromFilesDlg title="Genera resums MD5 dels fitxers">
 				<Item id="1922" name="Trieu els fitxers per generar els MD5..."/>
 				<Item id="1924" name="Copia al porta-retalls"/>
 				<Item id="2"    name="Tanca"/>
 			</MD5FromFilesDlg>
 			<MD5FromTextDlg title="Genera resums MD5">
-				<Item id="1932" name="Tracta cada línia com una cadena separada"/>
+				<Item id="1932" name="Tracta cada línia com un text per separat"/>
 				<Item id="1934" name="Copia al porta-retalls"/>
 				<Item id="2"    name="Tanca"/>
 			</MD5FromTextDlg>
@@ -986,7 +987,7 @@ By Hiro5 <groccat at gmail>
 			<word-chars-list-warning-end value=" en la llista de caràcters."/>
 			<cloud-invalid-warning value="El camí no és vàlid."/>
 			<cloud-restart-warning value="Reinicieu Notepad++ perquè faci efecte."/>
-			<shift-change-direction-tip value="Utilitza Maj.+Retorn per cercar en direcció contrària."/>
+			<shift-change-direction-tip value="Retorn: Cerca següent&#xD;Maj.+Retorn: Cerca anterior"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -56,15 +56,6 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\NppExport.dll"
 	${MementoSectionEnd}
 
-	${MementoSection} "Plugin Manager" PluginManager
-		Delete "$INSTDIR\plugins\PluginManager.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\PluginManager.dll"
-		SetOutPath "$UPDATE_PATH\plugins\Config"
-		File "..\bin\plugins\Config\PluginManager.ini"
-		SetOutPath "$INSTDIR\updater"
-		File "..\bin\updater\gpup.exe"
-	${MementoSectionEnd}
 !endif
 
 	${MementoSection} "Mime Tools" MimeTools
@@ -107,7 +98,6 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin\updater\README.md"
 !endif
 ${MementoSectionEnd}
-
 
 ;Uninstall section
 SectionGroup un.Plugins

@@ -86,7 +86,58 @@ page Custom ExtraOptions
 
 !include "nsisInclude\langs4Installer.nsh"
 
+
+
+
+!include "nsisInclude\mainSectionFuncs.nsh"
+
+Section -"Notepad++" mainSection
+
+	Call setPathAndOptions
+	
+	${If} $diffArchDir2Remove != ""
+		!insertmacro uninstallRegKey
+		!insertmacro uninstallDir $diffArchDir2Remove 
+	${endIf}
+
+	Call copyCommonFiles
+
+	Call removeUnstablePlugins
+
+	Call removeOldContextMenu
+	
+	Call shortcutLinkManagement
+	
+SectionEnd
+
+!include "nsisInclude\langs4Npp.nsh"
+!include "nsisInclude\autoCompletion.nsh"
+!include "nsisInclude\themes.nsh"
+!include "nsisInclude\binariesComponents.nsh"
+
+
+InstType "Minimalist"
+
+${MementoSectionDone}
+
+;--------------------------------
+  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
+  !insertmacro MUI_FUNCTION_DESCRIPTION_END
+;--------------------------------
+
+Section -FinishSection
+  Call writeInstallInfoInRegistry
+SectionEnd
+
+
 Var diffArchDir2Remove
+Var noUpdater
 Function .onInit
 
 	${GetParameters} $R0 
@@ -98,6 +149,20 @@ appdataLoadNo:
 appdataLoadYes:
 	StrCpy $allowAppDataPluginsLoading "true"
 appdataLoadDone:
+
+	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
+	IfErrors withUpdater withoutUpdater
+withUpdater:
+	StrCpy $noUpdater "false"
+	Goto updaterDone
+withoutUpdater:
+	StrCpy $noUpdater "true"
+updaterDone:
+
+${If} $noUpdater == "true"
+    !insertmacro UnSelectSection ${AutoUpdater}
+    SectionSetText ${AutoUpdater} ""
+${EndIf}
 
 	SectionSetSize ${mainSection} 4500		; This is rough estimation of files present in function copyCommonFiles
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
@@ -150,52 +215,6 @@ FunctionEnd
 Function .onInstSuccess
 	${MementoSectionSave}
 FunctionEnd
-
-
-!include "nsisInclude\mainSectionFuncs.nsh"
-
-Section -"Notepad++" mainSection
-
-	Call setPathAndOptions
-	
-	${If} $diffArchDir2Remove != ""
-		!insertmacro uninstallRegKey
-		!insertmacro uninstallDir $diffArchDir2Remove 
-	${endIf}
-
-	Call copyCommonFiles
-
-	Call removeUnstablePlugins
-
-	Call removeOldContextMenu
-	
-	Call shortcutLinkManagement
-	
-SectionEnd
-
-!include "nsisInclude\langs4Npp.nsh"
-!include "nsisInclude\autoCompletion.nsh"
-!include "nsisInclude\themes.nsh"
-!include "nsisInclude\binariesComponents.nsh"
-
-InstType "Minimalist"
-
-${MementoSectionDone}
-
-;--------------------------------
-  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
-  !insertmacro MUI_FUNCTION_DESCRIPTION_END
-;--------------------------------
-
-Section -FinishSection
-  Call writeInstallInfoInRegistry
-SectionEnd
 
 
 BrandingText "Don HO"

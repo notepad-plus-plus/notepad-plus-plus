@@ -1,12 +1,12 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.4.1
-    Last modified Sat, May 27th, 2017 by Luca Leonardi.
+    Italian translation for Notepad++ 7.4.2
+    Last modified Sat, Jul 9th, 2017 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
 <NotepadPlus>
-    <Native-Langue name = "Italiano" filename = "italian.xml" >
+    <Native-Langue name = "Italiano" filename = "italian.xml" version="7.4.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -366,7 +366,7 @@
         </Menu>
         <Dialog>
             <Find title = "" titleFind = "Trova" titleReplace = "Sostituisci" titleFindInFiles = "Cerca nei file" titleMark = "Evidenzia">>
-                <Item id = "1" name = "Trova successivo" />
+                <Item id = "1" name = "Successivo" />
                 <Item id = "2" name = "Chiudi" />
                 <Item id = "1603" name = "Solo &amp;parole intere" />
                 <Item id = "1604" name = "Distingui tra ma&amp;iuscole e minuscole" />
@@ -403,6 +403,7 @@
                 <Item id = "1687" name = "Se perde il focus" />
                 <Item id = "1688" name = "Sempre" />
                 <Item id = "1703" name = "&amp;. significa &apos;a capo&apos;" />
+                <Item id = "1721" name = "Precedente" />
             </Find>
             <FindCharsInRange title = "Cerca caratteri...">
                 <Item id = "2910" name = "Cerca" />
@@ -1023,6 +1024,8 @@
             <word-chars-list-warning-end value = " nella tua lista catatteri." />
             <cloud-invalid-warning value = "Percorso non valido." />
             <cloud-restart-warning value = "Riavvia Notepad++ per applicare le modifiche." />
+            <shift-change-direction-tip value = "Invio: Trova successivo
+Shift+Invio: Trova precedente" />
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

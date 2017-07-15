@@ -98,11 +98,18 @@ bool checkSingleFile(const TCHAR *commandLine)
 }
 
 //commandLine should contain path to n++ executable running
-void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
-	//params.erase(params.begin());
+void parseCommandLine(const TCHAR* cmdLine, ParamVector& paramVector)
+{
+	if (!cmdLine)
+		return;
+
+	TCHAR* commandLine = new TCHAR[lstrlen(cmdLine)];
+	lstrcpy(commandLine, cmdLine);
+
 	//remove the first element, since thats the path the the executable (GetCommandLine does that)
 	TCHAR stopChar = TEXT(' ');
-	if (commandLine[0] == TEXT('\"')) {
+	if (commandLine[0] == TEXT('\"'))
+	{
 		stopChar = TEXT('\"');
 		++commandLine;
 	}
@@ -134,31 +141,43 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 	size_t commandLength = lstrlen(commandLine);
 	for (size_t i = 0; i < commandLength; ++i)
 	{
-		switch(commandLine[i]) {
-			case '\"': {										//quoted filename, ignore any following whitespace
-				if (!isInFile) {	//" will always be treated as start or end of param, in case the user forgot to add an space
+		switch(commandLine[i])
+		{
+			case '\"': //quoted filename, ignore any following whitespace
+			{
+				if (!isInFile)	//" will always be treated as start or end of param, in case the user forgot to add an space
+				{
 					paramVector.push_back(commandLine+i+1);	//add next param(since zero terminated generic_string original, no overflow of +1)
 				}
 				isInFile = !isInFile;
 				isInWhiteSpace = false;
 				//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
 				commandLine[i] = 0;
-				break; }
-			case '\t':	//also treat tab as whitespace
-			case ' ': {
+			}
+			break;
+
+			case '\t': //also treat tab as whitespace
+			case ' ': 
+			{
 				isInWhiteSpace = true;
 				if (!isInFile)
-					commandLine[i] = 0;		//zap spaces into zero terminators, unless its part of a filename
-				break; }
-			default: {											//default TCHAR, if beginning of word, add it
-				if (!isInFile && isInWhiteSpace) {
+					commandLine[i] = 0;		//zap spaces into zero terminators, unless its part of a filename	
+			}
+			break;
+
+			default: //default TCHAR, if beginning of word, add it
+			{
+				if (!isInFile && isInWhiteSpace)
+				{
 					paramVector.push_back(commandLine+i);	//add next param
 					isInWhiteSpace = false;
 				}
-				break; }
+			}
 		}
 	}
 	//the commandline generic_string is now a list of zero terminated strings concatenated, and the vector contains all the substrings
+
+	delete commandLine;
 }
 
 bool isInList(const TCHAR *token2Find, ParamVector & params)

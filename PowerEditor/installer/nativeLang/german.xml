@@ -713,7 +713,7 @@
                     <Item id="6207" name="Lesezeichenrand"/>
                     <Item id="6208" name="Randbegrenzung anzeigen"/>
                     <Item id="6209" name="Anzahl der Spalten:"/>
-                    <Item id="6234" name="Flüssiges Scrollen deaktivieren&amp;#x0D;(bei Touchpad-Problemen)"/>
+                    <Item id="6234" name="Flüssiges Scrollen deaktivieren&#x0D;(bei Touchpad-Problemen)"/>
 
                     <Item id="6211" name="Rechter Rand"/>
                     <Item id="6212" name="Vertikale Linie"/>
@@ -870,7 +870,7 @@
                     <Item id="6256" name="Über mehrere Zeilen"/>
                     <Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
                     <Item id="6162" name="Verwende die ursprüngliche Liste der Wortzeichen"/>
-                    <Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu&amp;#x0D;(nicht verwenden, wenn man nicht sicher ist)"/>
+                    <Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu&#x0D;(nicht verwenden, wenn man nicht sicher ist)"/>
                     </Delimiter>
 
                 <Cloud title="Cloud-Einstellungen">
@@ -945,30 +945,30 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&amp;#x0D;das Kontextmenü von Notepad++ anpassen.&amp;#x0D;Nach dem Bearbeiten müssen Sie Notepad++ neu&amp;#x0D;starten, damit die Änderungen wirksam werden."/>
-            <NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&amp;#x0D;wurde nicht gefunden. Bitte laden Sie die Hilfedateien&amp;#x0D;von der Notepad++-Website herunter."/>
-            <SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&amp;#x0D;&amp;#x0D;Fortfahren?"/>
-            <LoseUndoAbilityWarning title="Änderungen können nicht rückgängig gemacht werden" message="Diese Änderung kann nicht rückgängig gemacht werden.&amp;#x0D;&amp;#x0D;Fortfahren?"/>
-            <CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert.&amp;#x0D;Bitte zuerst speichern und erneut versuchen."/>
-            <DocReloadWarning title="Datei wurde geändert!" message="Sind Sie sicher, dass Sie die Datei in der zuletzt&amp;#x0D;gespeicherten Version erneut laden und die&amp;#x0D;in Notepad++ gemachten Änderungen verwerfen wollen?"/>
-            <FileLockedWarning title="Speichern fehlgeschlagen!" message="Datei konnte von Notepad++ nicht gespeichert werden. &amp;#x0D;Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
+            <ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0D;das Kontextmenü von Notepad++ anpassen.&#x0D;Nach dem Bearbeiten müssen Sie Notepad++ neu&#x0D;starten, damit die Änderungen wirksam werden."/>
+            <NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0D;wurde nicht gefunden. Bitte laden Sie die Hilfedateien&#x0D;von der Notepad++-Website herunter."/>
+            <SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0D;&#x0D;Fortfahren?"/>
+            <LoseUndoAbilityWarning title="Änderungen können nicht rückgängig gemacht werden" message="Diese Änderung kann nicht rückgängig gemacht werden.&#x0D;&#x0D;Fortfahren?"/>
+            <CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert.&#x0D;Bitte zuerst speichern und erneut versuchen."/>
+            <DocReloadWarning title="Datei wurde geändert!" message="Sind Sie sicher, dass Sie die Datei in der zuletzt&#x0D;gespeicherten Version erneut laden und die&#x0D;in Notepad++ gemachten Änderungen verwerfen wollen?"/>
+            <FileLockedWarning title="Speichern fehlgeschlagen!" message="Datei konnte von Notepad++ nicht gespeichert werden. &#x0D;Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
             <FileAlreadyOpenedInNpp title="Datei bereits geöffnet" message="Die Datei ist bereits in Notepad++ geöffnet."/>
             <DeleteFileFailed title="Löschen fehlgeschlagen!" message="Datei konnte nicht gelöscht werden."/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.&amp;#x0D;Sind Sie sicher?"/>
-            <SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte&amp;#x0D;auf ein Laufwerk nur mit Leserechten oder auf ein Verzeichnis&amp;#x0D;ohne die erforderlichen Schreibrechte zeigen.&amp;#x0D;Die Einstellungen in der Cloud werden abgebrochen.&amp;#x0D;Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
+            <NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.&#x0D;Sind Sie sicher?"/>
+            <SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte&#x0D;auf ein Laufwerk nur mit Leserechten oder auf ein Verzeichnis&#x0D;ohne die erforderlichen Schreibrechte zeigen.&#x0D;Die Einstellungen in der Cloud werden abgebrochen.&#x0D;Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
             <FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
             <SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Sitzungsdatei ist entweder beschädigt oder ungültig."/>
-            <ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&amp;#x0D;um in den Spalten-Modus zu wechseln."/>
+            <ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&#x0D;um in den Spalten-Modus zu wechseln."/>
 
             <!-- $STR_REPLACE$ is a place holder, don't translate it -->
             <SortingError title="Sortierung fehlgeschlagen" message="Kann aufgrund der Zeile $STR_REPLACE$ keine numerische Sortierung durchführen."/>
             <BufferInvalidWarning title="Speichern fehlgeschlagen" message="Kann nicht speichern: Puffer ist ungültig."/>
-            <OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&amp;#x0D;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
+            <OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0D;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
             <OpenInAdminModeFailed title="Starten im Administrator-Modus fehlgeschlagen" message="Notepad++ kann nicht im Administrator-Modus gestartet werden."/>
-            <OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&amp;#x0D;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
-            <DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&amp;#x0D;Dafür muss &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im Bereich &quot;Standardverzeichnis&quot; der Einstellungen ausgewählt werden."/>
+            <OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0D;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
+            <DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&#x0D;Dafür muss &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im Bereich &quot;Standardverzeichnis&quot; der Einstellungen ausgewählt werden."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Zwischenablage"/>
@@ -1048,7 +1048,7 @@
             <word-chars-list-warning-end value=" in der Liste der Wortzeichen."/>
             <cloud-invalid-warning value="Ungültiger Pfad."/>
             <cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
-            <shift-change-direction-tip value="Enter: Suche vorwärts&amp;#x0D;Shift+Enter: Suche rückwärts"/>
+            <shift-change-direction-tip value="Enter: Suche vorwärts&#x0D;Shift+Enter: Suche rückwärts"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

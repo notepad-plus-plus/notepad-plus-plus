@@ -101,6 +101,7 @@ public:
 
     int loadPlugin(const TCHAR *pluginFilePath, std::vector<generic_string> & dll2Remove);
 	bool loadPlugins(const TCHAR *dir = NULL);
+	bool loadPluginsV2(const TCHAR *dir);
 
     bool unloadPlugin(int index, HWND nppHandle);
 

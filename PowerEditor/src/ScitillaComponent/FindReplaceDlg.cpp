@@ -713,16 +713,28 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 		IDREPLACE, IDREPLACEALL,IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDC_FINDPREV, IDOK, IDCANCEL,
 	};
 
-	_deltaWidth = newWidth - _initialClientWidth;
-	auto addWidth = _deltaWidth - _lastDeltaWidth;
-	_lastDeltaWidth = _deltaWidth;
+	const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+
+	auto newDeltaWidth = newWidth - _initialClientWidth;
+	auto addWidth = newDeltaWidth - _deltaWidth;
+	_deltaWidth = newDeltaWidth;
 
 	RECT rc;
 	for (int id : resizeWindowIDs)
 	{
 		HWND resizeHwnd = ::GetDlgItem(_hSelf, id);
 		::GetClientRect(resizeHwnd, &rc);
-		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | SWP_NOZORDER);
+
+		// Combo box for some reasons selects text on resize. So let's check befor resize if selection is present and clear it manually after resize.
+		DWORD endSelection = 0;
+		SendMessage(resizeHwnd, CB_GETEDITSEL, 0, (LPARAM)&endSelection);
+
+		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | flags);
+
+		if (endSelection == 0)
+		{
+			SendMessage(resizeHwnd, CB_SETEDITSEL, 0, 0);
+		}
 	}
 
 	for (int moveWndID : moveWindowIDs)
@@ -731,15 +743,14 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 		::GetWindowRect(moveHwnd, &rc);
 		::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rc, 2);
 
-		::SetWindowPos(moveHwnd, NULL, rc.left + addWidth, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-		::InvalidateRect(moveHwnd, NULL, TRUE);
+		::SetWindowPos(moveHwnd, NULL, rc.left + addWidth, rc.top, 0, 0, SWP_NOSIZE | flags);
 	}
 
 	auto additionalWindowHwndsToResize = { _tab.getHSelf() , _statusBar.getHSelf() };
 	for (HWND resizeHwnd : additionalWindowHwndsToResize)
 	{
 		::GetClientRect(resizeHwnd, &rc);
-		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | SWP_NOZORDER);
+		::SetWindowPos(resizeHwnd, NULL, 0, 0, rc.right + addWidth, rc.bottom, SWP_NOMOVE | flags);
 	}
 }
 

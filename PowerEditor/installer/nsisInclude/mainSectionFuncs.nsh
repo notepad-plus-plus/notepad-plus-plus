@@ -42,7 +42,7 @@ Function setPathAndOptions
 		CreateDirectory $UPDATE_PATH\plugins\config
 	${EndIf}
 	
-	${If} $allowPluginLoadFromUserDataChecked == ${BST_CHECKED}
+	${If} $allowAppDataPluginsLoading == "true"
 		File "..\bin\allowAppDataPlugins.xml"
 	${ELSE}
 		IfFileExists $INSTDIR\allowAppDataPlugins.xml 0 +2

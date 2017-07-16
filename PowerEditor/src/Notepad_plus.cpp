@@ -404,6 +404,13 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	if (appDataNpp[0] && isLoadFromAppDataAllow)
 		_pluginsManager.loadPlugins(appDataNpp);
 
+	generic_string localAppDataNppPluginsDir = pNppParam->getLocalAppDataNppDir();
+	if (!localAppDataNppPluginsDir.empty() && isLoadFromAppDataAllow)
+	{
+		PathAppend(localAppDataNppPluginsDir, TEXT("plugins"));
+		_pluginsManager.loadPluginsV2(localAppDataNppPluginsDir.c_str());
+	}
+
 	// Load plugins from its installation directory.
 	// All loaded dll will be ignored
 	_pluginsManager.loadPlugins();
@@ -5011,7 +5018,12 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 					// Then we ask user to update
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
+					{
+						// Since the file content has changed but the user doesn't want to reload it, set state to dirty
+						buffer->setDirty(true);
+
 						break;	//abort
+					}
 				}
 				// Set _isLoadedDirty false so when the document clean state is reached the icon will be set to blue
 				buffer->setLoadedDirty(false);
@@ -5760,6 +5772,10 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 	}
 
 	_pFileBrowser->display();
+
+	checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+	_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+	_pFileBrowser->setClosed(false);
 }
 
 

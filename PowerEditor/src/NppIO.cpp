@@ -1328,8 +1328,11 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	if (pfn)
 	{
-		BufferID other = _pNonDocTab->findBufferByName(pfn);
-		if (other == BUFFER_INVALID)	//can save, other view doesnt contain buffer
+		BufferID other = _pDocTab->findBufferByName(pfn);
+		if (other == BUFFER_INVALID)
+			other = _pNonDocTab->findBufferByName(pfn);
+
+		if (other == BUFFER_INVALID)	//can save, as both (same and other) view don't contain buffer
 		{
 			bool res = doSave(bufferID, pfn, isSaveCopy);
 			//buf->setNeedsLexing(true);	//commented to fix wrapping being removed after save as (due to SCI_CLEARSTYLE or something, seems to be Scintilla bug)

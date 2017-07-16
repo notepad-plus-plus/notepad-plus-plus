@@ -98,7 +98,7 @@
                     <Item id="42004" name="&amp;Redo"/>
                     <Item id="42005" name="&amp;Paste"/>
                     <Item id="42006" name="&amp;Delete"/>
-                    <Item id="42007" name="Select &amp;All"/>
+                    <Item id="42007" name="Select A&amp;ll"/>
                     <Item id="42020" name="Begin/End Select"/>
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
@@ -840,7 +840,7 @@
                 </Cloud>
                 
                 <SearchEngine title="Search Engine">
-                    <Item id="6271" name="Search Engine (for command &amp;quot;Search on Internet&amp;quot;)"/>
+                    <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -991,7 +991,7 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &amp;quot;Match whole word only&amp;quot; option checked."/>
+            <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
             <word-chars-list-warning-begin value="Be aware: "/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>

@@ -139,7 +139,7 @@
                     <Item id="42074" name="Ordner im Explorer öffnen"/>
                     <Item id="42075" name="Suche im Internet"/>
                     <Item id="42076" name="Andere Suchmaschine wählen …"/>
-                    <Item id="42018" name="Aufzeichnung &amp;starten"/>
+                    <Item id="42018" name="Aufzeichnung s&amp;tarten"/>
                     <Item id="42019" name="Aufzeichnung st&amp;oppen"/>
                     <Item id="42021" name="Makro ausfüh&amp;ren"/>
                     <Item id="42022" name="&amp;Zeilenweise Auskommentierung umschalten"/>
@@ -330,15 +330,15 @@
 
                     <Item id="49000" name="Externes Programm &amp;ausführen …"/>
 
-                    <Item id="50000" name="Funktionsvervollständigung"/>
-                    <Item id="50001" name="Wortvervollständigung"/>
-                    <Item id="50002" name="Funktionsparameter anzeigen"/>
-                    <Item id="50006" name="Dateipfad vervollständigen"/>
-                    <Item id="44042" name="Zeilen ausblenden"/>
-                    <Item id="42040" name="Alle zuletzt verwendeten Dateien öffnen"/>
-                    <Item id="42041" name="Liste löschen"/>
-                    <Item id="48016" name="Shortcut ändern/Makro löschen …"/>
-                    <Item id="48017" name="Shortcut ändern/Befehl löschen …"/>
+                    <Item id="50000" name="&amp;Funktionsvervollständigung"/>
+                    <Item id="50001" name="&amp;Wortvervollständigung"/>
+                    <Item id="50002" name="Funktions&amp;parameter anzeigen"/>
+                    <Item id="50006" name="&amp;Dateipfad vervollständigen"/>
+                    <Item id="44042" name="Zeilen &amp;ausblenden"/>
+                    <Item id="42040" name="Alle zule&amp;tzt verwendeten Dateien öffnen"/>
+                    <Item id="42041" name="L&amp;iste löschen"/>
+                    <Item id="48016" name="Shortcut &amp;ändern/Makro löschen …"/>
+                    <Item id="48017" name="Shortcut &amp;ändern/Befehl löschen …"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -418,8 +418,8 @@
                 <Item id="2901" name="&amp;Nicht-ASCII-Zeichen (128–255)"/>
                 <Item id="2902" name="&amp;ASCII-Zeichen (0–127)"/>
                 <Item id="2903" name="&amp;Benutzerdefiniert:"/>
-                <Item id="2906" name="&amp;Aufwärts"/>
-                <Item id="2907" name="&amp;Abwärts"/>
+                <Item id="2906" name="A&amp;ufwärts"/>
+                <Item id="2907" name="A&amp;bwärts"/>
                 <Item id="2908" name="Suchrichtung"/>
                 <Item id="2909" name="Am Ende von &amp;vorne beginnen"/>
                 <Item id="2910" name="&amp;Suchen"/>
@@ -880,7 +880,7 @@
                 </Cloud>
 
                 <SearchEngine title="Suchmaschine">
-                    <Item id="6271" name="Suchmaschine (für das Kommando &amp;quot;Suche im Internet&amp;quot;)"/>
+                    <Item id="6271" name="Suchmaschine (für das Kommando &quot;Suche im Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -960,7 +960,7 @@
             <SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte&amp;#x0D;auf ein Laufwerk nur mit Leserechten oder auf ein Verzeichnis&amp;#x0D;ohne die erforderlichen Schreibrechte zeigen.&amp;#x0D;Die Einstellungen in der Cloud werden abgebrochen.&amp;#x0D;Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
             <FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
             <SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Sitzungsdatei ist entweder beschädigt oder ungültig."/>
-            <ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &amp;quot;ALT+Maus Auswahl&amp;quot; oder &amp;quot;Alt+Shift+Pfeiltaste&amp;quot;&amp;#x0D;um in den Spalten-Modus zu wechseln."/>
+            <ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&amp;#x0D;um in den Spalten-Modus zu wechseln."/>
 
             <!-- $STR_REPLACE$ is a place holder, don't translate it -->
             <SortingError title="Sortierung fehlgeschlagen" message="Kann aufgrund der Zeile $STR_REPLACE$ keine numerische Sortierung durchführen."/>
@@ -968,7 +968,7 @@
             <OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&amp;#x0D;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
             <OpenInAdminModeFailed title="Starten im Administrator-Modus fehlgeschlagen" message="Notepad++ kann nicht im Administrator-Modus gestartet werden."/>
             <OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&amp;#x0D;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
-            <DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&amp;#x0D;Dafür muss &amp;quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&amp;quot; im Bereich &amp;quot;Standardverzeichnis&amp;quot; der Einstellungen ausgewählt werden."/>
+            <DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&amp;#x0D;Dafür muss &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im Bereich &quot;Standardverzeichnis&quot; der Einstellungen ausgewählt werden."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Zwischenablage"/>
@@ -1039,7 +1039,7 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <word-chars-list-tip value="Erlaubt ein zusätzliches Zeichen zur aktuellen Liste der Wortzeichen durch Doppelklick zur Auswahl hinzuzufügen, oder als Suche mit der aktivierten Option &amp;quot;Übereinstimmung mit ganzem Wort&amp;quot;."/>
+            <word-chars-list-tip value="Erlaubt ein zusätzliches Zeichen zur aktuellen Liste der Wortzeichen durch Doppelklick zur Auswahl hinzuzufügen, oder als Suche mit der aktivierten Option &quot;Übereinstimmung mit ganzem Wort&quot;."/>
             <word-chars-list-warning-begin value="Achtung: "/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ Leerzeichen"/>

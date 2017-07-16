@@ -388,7 +388,6 @@ public:
 	ScintillaAccelerator() {};
 	void init(std::vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent);
 	void updateKeys();
-	void updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skm);
 	size_t nbScintillas() { return _vScintillas.size(); };
 private:
 	HMENU _hAccelMenu = nullptr;

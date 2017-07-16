@@ -77,7 +77,7 @@ protected :
 private :
 	TaskList _taskList;
 	TaskListInfo _taskListInfo;
-	HIMAGELIST _hImalist;
+	HIMAGELIST _hImalist = nullptr;
 	bool _initDir = false;
 	HHOOK _hHooker = nullptr;
 

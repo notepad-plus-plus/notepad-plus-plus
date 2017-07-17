@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="7.4">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="7.4.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -332,7 +332,8 @@
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleMark="Markera">
-				<Item id="1" name="Sök &amp;nästa" />
+				<Item id="1" name="Sök  >>" />
+				<Item id="1721" name="<<  Sök" />
 				<Item id="2" name="Stäng" />
 				<Item id="1603" name="Sök &amp;hela ord" />
 				<Item id="1604" name="&amp;Matcha små/STORA bokstäver" />
@@ -374,12 +375,12 @@
 				<Item id="2" name="Stäng" />
 				<Item id="1903" name="Programmet att köra" />
 				<Item id="1904" name="Spara..." />
-			</Run>			
+			</Run>
 			<MD5FromFilesDlg title="Generera MD5-summa från fil">
 				<Item id="1922" name="Välj filer att generera MD5 från..."/>
 				<Item id="1924" name="Kopiera till urklipp"/>
 				<Item id="2"    name="Stäng"/>
-			</MD5FromFilesDlg>			
+			</MD5FromFilesDlg>
 			<MD5FromTextDlg title="Generera MD5-summa">
 				<Item id="1932" name="Behandla varje rad som en separat sträng"/>
 				<Item id="1934" name="Kopiera till urklipp"/>
@@ -711,7 +712,7 @@
 					<Item id="6327" name="Aktivera"/>
 					<Item id="6328" name="Markera taggattribut"/>
 					<Item id="6330" name="Markera kommentar/php/asp-zon"/>
-				</Highlighting> 
+				</Highlighting>
 				<Print title="Utskrift">
 					<Item id="6601" name="Skriv ut radnummer" />
 					<Item id="6602" name="Färginställningar" />
@@ -770,6 +771,9 @@
 					<Item id="6334" name="Automatisk igenkänning av teckenkodning" />
 					<Item id="6335" name="Behandla omvänt snedstreck som escape-tecken för SQL" />
 					<Item id="6337" name="Filändelse för arbetsytafil:"/>
+					<Item id="6344" name="Förhandsgranska dokument"/>
+					<Item id="6345" name="Förhandsgranska i flik"/>
+					<Item id="6346" name="Förhandsgranska i dokumentvy"/>
 				</MISC>
 				<Backup title="Säkerhetskopiering">
 					<Item id="6309" name="Kom ihåg nuvarande session vid nästa start" />
@@ -962,7 +966,8 @@
 			<word-chars-list-warning-end value="  i din teckenlista."/>
 			<cloud-invalid-warning value="Felaktig sökväg."/>
 			<cloud-restart-warning value="Starta om Notepad++ för att ändringarna ska träda i kraft."/>
-			<shift-change-direction-tip value="Använd Shift+Enter för att söka i motsatt riktning."/>
+			<shift-change-direction-tip value="Enter: Hitta nästa
+Shift+Enter: Hitta föregående"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

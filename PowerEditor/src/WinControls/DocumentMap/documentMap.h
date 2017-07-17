@@ -97,8 +97,8 @@ public:
 		data->pszAddInfo = id4dockingCont.c_str();
 	};
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
-		DockingDlgInterface::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView) {
+		DockingDlgInterface::init(hInst, hParent);
 		_ppEditView = ppEditView;
 	};
 
@@ -125,7 +125,7 @@ public:
 	void doMove();
 	void fold(int line, bool foldOrNot);
 	void foldAll(bool mode);
-	void setSyntaxHiliting();
+	void setSyntaxHighlighting();
 	void changeTextDirection(bool isRTL);
 
 protected:

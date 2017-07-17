@@ -39,8 +39,8 @@ class VerticalFileSwitcher : public DockingDlgInterface {
 public:
 	VerticalFileSwitcher(): DockingDlgInterface(IDD_FILESWITCHER_PANEL) {};
 
-	void init(HINSTANCE hInst, HWND hPere, HIMAGELIST hImaLst) {
-		DockingDlgInterface::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent, HIMAGELIST hImaLst) {
+		DockingDlgInterface::init(hInst, hParent);
 		_hImaLst = hImaLst;
 	};
 

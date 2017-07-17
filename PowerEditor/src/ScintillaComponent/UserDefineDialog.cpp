@@ -1425,24 +1425,24 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
         case WM_SIZE:
         {
-            int originalHight = _dlgPos.bottom; //- ((_status == DOCK)?_dlgPos.top:0);
-            _currentHight = HIWORD (lParam);
+            int originalHeight = _dlgPos.bottom; //- ((_status == DOCK)?_dlgPos.top:0);
+            _currentHeight = HIWORD (lParam);
 
-            int diff = _currentHight - _prevHightVal;
-            _prevHightVal = _currentHight;
+            int diff = _currentHeight - _prevHeightVal;
+            _prevHeightVal = _currentHeight;
 
-             int maxPos = originalHight - _currentHight;
+             int maxPos = originalHeight - _currentHeight;
             // Set the vertical scrolling range and page size
             SCROLLINFO si;
             si.cbSize = sizeof(si);
             si.fMask  = SIF_RANGE | SIF_PAGE;
             si.nMin   = 0;
-            si.nMax   = (_status == UNDOCK)?0:originalHight;
-            si.nPage  = _currentHight;
+            si.nMax   = (_status == UNDOCK)?0:originalHeight;
+            si.nPage  = _currentHeight;
             //si.nPos = 0;
             ::SetScrollInfo(_hSelf, SB_VERT, &si, TRUE);
 
-            if ((_yScrollPos >= maxPos) && (_currentHight < originalHight))
+            if ((_yScrollPos >= maxPos) && (_currentHeight < originalHeight))
             {
                 //int nDelta = min(max(maxPos/10,5), maxPos - _yScrollPos);
                 if (_yScrollPos > 0)
@@ -1457,9 +1457,9 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
         case WM_VSCROLL :
         {
-            int originalHight = _dlgPos.bottom;
+            int originalHeight = _dlgPos.bottom;
             int oldy = _yScrollPos;
-            int maxPos = originalHight - _currentHight;
+            int maxPos = originalHeight - _currentHeight;
 
             switch (LOWORD (wParam))
             {

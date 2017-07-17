@@ -104,10 +104,10 @@ void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
 	}
 }
 
-bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
+bool ToolBar::init( HINSTANCE hInst, HWND hParent, toolBarStatusType type, 
 					ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {
-	Window::init(hInst, hPere);
+	Window::init(hInst, hParent);
 	_state = type;
 	int iconSize = NppParameters::getInstance()->_dpiManager.scaleX(_state == TB_LARGE?32:16);
 
@@ -415,9 +415,9 @@ void ToolBar::addToRebar(ReBar * rebar)
 	_rbBand.fMask   = RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_IDEALSIZE | RBBIM_SIZE;
 }
 
-void ReBar::init(HINSTANCE hInst, HWND hPere)
+void ReBar::init(HINSTANCE hInst, HWND hParent)
 {
-	Window::init(hInst, hPere);
+	Window::init(hInst, hParent);
 	
 	_hSelf = CreateWindowEx(WS_EX_TOOLWINDOW,
 							REBARCLASSNAME,

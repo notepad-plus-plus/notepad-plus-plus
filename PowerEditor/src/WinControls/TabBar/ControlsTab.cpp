@@ -50,8 +50,8 @@ void ControlsTab::activateWindowAt(int index)
 void ControlsTab::reSizeTo(RECT & rc)
 {
 	TabBar::reSizeTo(rc);
-	rc.left += marge;
-	rc.top += marge;
+	rc.left += margin;
+	rc.top += margin;
 	
 	//-- We do those dirty things 
 	//-- because it's a "vertical" tab control

@@ -455,7 +455,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
                       }
                   else
                       {
-                       SetTextColor(gdc,RGB(0,0,0));//set black text for nonfocus grid hilight
+                       SetTextColor(gdc,RGB(0,0,0));//set black text for nonfocus grid highlight
                       }
                  }
              else
@@ -3249,7 +3249,7 @@ int BinarySearchListBox(HWND lbhWnd,TCHAR* searchtext)
      BOOL FOUND;
 
      FOUND=FALSE;
-     //get count of items in listbox
+     //get count of items in list-box
 	 lbcount = static_cast<int32_t>(SendMessage(lbhWnd, LB_GETCOUNT, 0, 0));
      if(lbcount == 0)
          {

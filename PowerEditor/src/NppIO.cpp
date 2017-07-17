@@ -1148,7 +1148,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
 	for (int32_t i = static_cast<int32_t>(_pDocTab->nbItem()) - 1; i >= 0; i--)	//close all from right to left
 	{
-		if (i == active)	//dont close active index
+		if (i == active)	//don't close active index
 		{
 			continue;
 		}

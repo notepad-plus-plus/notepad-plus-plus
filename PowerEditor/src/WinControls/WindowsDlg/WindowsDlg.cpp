@@ -435,7 +435,7 @@ bool WindowsDlg::changeDlgLang()
 {
 	if (!_dlgNode) return false;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 	int nativeLangEncoding = CP_ACP;
 	TiXmlDeclarationA *declaration =  _dlgNode->GetDocument()->FirstChild()->ToDeclaration();
 	if (declaration)

@@ -45,7 +45,7 @@ class ColumnEditorDlg : public StaticDialog
 public :
 	ColumnEditorDlg() : StaticDialog() {};
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
+	void init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView);
 
 	virtual void create(int dialogID, bool isRTL = false) {
 		StaticDialog::create(dialogID, isRTL);

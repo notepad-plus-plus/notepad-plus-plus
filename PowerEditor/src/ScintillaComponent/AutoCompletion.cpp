@@ -65,7 +65,7 @@ bool AutoCompletion::showApiComplete()
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
+	_pEditView->showAutoCompletion(curPos - startPos, _keyWords.c_str());
 
 	return true;
 }
@@ -120,7 +120,7 @@ bool AutoCompletion::showApiAndWordComplete()
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+	_pEditView->showAutoCompletion(curPos - startPos, words.c_str());
 	return true;
 }
 
@@ -313,7 +313,7 @@ void AutoCompletion::showPathCompletion()
 	// Show autocompletion box.
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, true);
-	_pEditView->showAutoComletion(rawPath.length(), autoCompleteEntries.c_str());
+	_pEditView->showAutoCompletion(rawPath.length(), autoCompleteEntries.c_str());
 	return;
 }
 
@@ -361,7 +361,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+	_pEditView->showAutoCompletion(curPos - startPos, words.c_str());
 	return true;
 }
 

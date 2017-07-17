@@ -42,7 +42,7 @@
 #define FL_SORTTIP        TEXT("sort")
 #define FL_RELOADTIP      TEXT("Reload")
 
-#define FL_FUCTIONLISTROOTNODE "FunctionList"
+#define FL_FUNCTIONLISTROOTNODE "FunctionList"
 #define FL_SORTLOCALNODENAME   "SortTip"
 #define FL_RELOADLOCALNODENAME "ReloadTip"
 
@@ -96,7 +96,7 @@ public:
 	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView),
 	_reloadTipStr(TEXT("Reload")), _sortTipStr(TEXT("Sort")) {};
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
+	void init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView);
 
     virtual void display(bool toShow = true) const {
         DockingDlgInterface::display(toShow);

@@ -93,10 +93,10 @@ generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath);
 void writeFileContent(const TCHAR *file2write, const char *content2write);
 bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
 
-class WcharMbcsConvertor final
+class WcharMbcsConverter final
 {
 public:
-	static WcharMbcsConvertor * getInstance() {return _pSelf;}
+	static WcharMbcsConverter * getInstance() {return _pSelf;}
 	static void destroyInstance() {delete _pSelf;}
 
 	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
@@ -112,10 +112,10 @@ public:
     }
 
 protected:
-	WcharMbcsConvertor() {}
-	~WcharMbcsConvertor() {}
+	WcharMbcsConverter() {}
+	~WcharMbcsConverter() {}
 
-	static WcharMbcsConvertor* _pSelf;
+	static WcharMbcsConverter* _pSelf;
 
 	template <class T>
 	class StringBuffer final
@@ -157,7 +157,7 @@ protected:
 
 private:
 	// Since there's no public ctor, we need to void the default assignment operator.
-	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&);
+	WcharMbcsConverter& operator= (const WcharMbcsConverter&);
 };
 
 

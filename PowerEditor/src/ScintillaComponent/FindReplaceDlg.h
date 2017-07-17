@@ -117,8 +117,8 @@ public:
 	~Finder() {
 		_scintView.destroy();
 	}
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
-		DockingDlgInterface::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView) {
+		DockingDlgInterface::init(hInst, hParent);
 		_ppEditView = ppEditView;
 	};
 
@@ -206,8 +206,8 @@ struct FindersInfo
 class FindInFinderDlg : public StaticDialog
 {
 public:
-	void init(HINSTANCE hInst, HWND hPere) {
-		Window::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent) {
+		Window::init(hInst, hParent);
 	};
 	void doDialog(Finder *launcher, bool isRTL = false);
 	FindOption & getOption() { return _options; }
@@ -235,8 +235,8 @@ public :
 	};
 	~FindReplaceDlg();
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
-		Window::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView) {
+		Window::init(hInst, hParent);
 		if (!ppEditView)
 			throw std::runtime_error("FindIncrementDlg::init : ppEditView is null.");
 		_ppEditView = ppEditView;
@@ -411,7 +411,7 @@ class FindIncrementDlg : public StaticDialog
 {
 public :
 	FindIncrementDlg() {};
-	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false);
+	void init(HINSTANCE hInst, HWND hParent, FindReplaceDlg *pFRDlg, bool isRTL = false);
 	virtual void destroy();
 	virtual void display(bool toShow = true) const;
 

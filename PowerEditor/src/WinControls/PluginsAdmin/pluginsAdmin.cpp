@@ -123,7 +123,7 @@ LoadedPluginInfo::LoadedPluginInfo(const generic_string & fullFilePath, const ge
 	_fullFilePath = fullFilePath;
 	_name = filename;
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 	const char *path = wmc->wchar2char(fullFilePath.c_str(), CP_ACP);
 	MD5 md5;
 	_id = wmc->char2wchar(md5.digestFile(path), CP_ACP);
@@ -212,31 +212,31 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 	_tab.reSizeTo(rect);
 	_tab.display();
 
-	const long marge = 10;
+	const long margin = 10;
 
-	const int topMarge = 42;
+	const int topMargin = 42;
 
 	HWND hResearchLabel = ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_STATIC);
 	RECT researchLabelRect;
 	::GetClientRect(hResearchLabel, &researchLabelRect);
 	researchLabelRect.left = rect.left;
-	researchLabelRect.top = topMarge + 2;
+	researchLabelRect.top = topMargin + 2;
 	::MoveWindow(hResearchLabel, researchLabelRect.left, researchLabelRect.top, researchLabelRect.right, researchLabelRect.bottom, TRUE);
 	::InvalidateRect(hResearchLabel, nullptr, TRUE);
 
 	HWND hResearchEdit = ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_EDIT);
 	RECT researchEditRect;
 	::GetClientRect(hResearchEdit, &researchEditRect);
-	researchEditRect.left = researchLabelRect.right + marge;
-	researchEditRect.top = topMarge;
+	researchEditRect.left = researchLabelRect.right + margin;
+	researchEditRect.top = topMargin;
 	::MoveWindow(hResearchEdit, researchEditRect.left, researchEditRect.top, researchEditRect.right, researchEditRect.bottom, TRUE);
 	::InvalidateRect(hResearchEdit, nullptr, TRUE);
 
 	HWND hNextButton = ::GetDlgItem(_hSelf, IDC_PLUGINADM_RESEARCH_NEXT);
 	RECT researchNextRect;
 	::GetClientRect(hNextButton, &researchNextRect);
-	researchNextRect.left = researchEditRect.left + researchEditRect.right + marge;
-	researchNextRect.top = topMarge;
+	researchNextRect.left = researchEditRect.left + researchEditRect.right + margin;
+	researchNextRect.top = topMargin;
 	::MoveWindow(hNextButton, researchNextRect.left, researchNextRect.top, researchNextRect.right, researchNextRect.bottom, TRUE);
 	::InvalidateRect(hNextButton, nullptr, TRUE);
 
@@ -244,8 +244,8 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 	RECT actionRect;
 	::GetClientRect(hActionButton, &actionRect);
 	long w = actionRect.right - actionRect.left;
-	actionRect.left = rect.right - w - marge;
-	actionRect.top = topMarge;
+	actionRect.left = rect.right - w - margin;
+	actionRect.top = topMargin;
 	::MoveWindow(hActionButton, actionRect.left, actionRect.top, actionRect.right, actionRect.bottom, TRUE);
 	::InvalidateRect(hActionButton, nullptr, TRUE);
 
@@ -264,18 +264,18 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 	RECT listRect = rect;
 	RECT descRect = rect;
 
-	long descHeight = rect.bottom / 3 - marge * 2;
-	long listHeight = (rect.bottom / 3) * 2 - marge * 3;
+	long descHeight = rect.bottom / 3 - margin * 2;
+	long listHeight = (rect.bottom / 3) * 2 - margin * 3;
 
-	listRect.top += marge;
+	listRect.top += margin;
 	listRect.bottom = listHeight;
-	listRect.left += marge;
-	listRect.right -= marge * 2;
+	listRect.left += margin;
+	listRect.right -= margin * 2;
 
-	descRect.top += listHeight + marge * 3;
+	descRect.top += listHeight + margin * 3;
 	descRect.bottom = descHeight;
-	descRect.left += marge;
-	descRect.right -= marge * 2;
+	descRect.left += margin;
+	descRect.right -= margin * 2;
 
 	NppParameters *nppParam = NppParameters::getInstance();
 	NativeLangSpeaker *pNativeSpeaker = nppParam->getNativeLangSpeaker();

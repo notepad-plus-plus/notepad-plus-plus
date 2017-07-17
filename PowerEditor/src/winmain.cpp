@@ -97,7 +97,7 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 				}
 				isInFile = !isInFile;
 				isInWhiteSpace = false;
-				//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
+				//because we don't want to leave in any quotes in the filename, remove them now (with zero terminator)
 				commandLine[i] = 0;
 				break; }
 			case '\t':	//also treat tab as whitespace
@@ -244,7 +244,7 @@ const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
 
 static void doException(Notepad_plus_Window & notepad_plus_plus)
 {
-	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
+	Win32Exception::removeHandler();	//disable exception handler after exception, we don't want corrupt data structurs to crash the exception handler
 	::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
 
 	TCHAR tmpDir[1024];
@@ -344,7 +344,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		const TCHAR * currentFile = params.at(i);
 		if (currentFile[0])
 		{
-			//check if relative or full path. Relative paths dont have a colon for driveletter
+			//check if relative or full path. Relative paths don't have a colon for driveletter
 
 			quotFileName += TEXT("\"");
 			quotFileName += relativeFilePathToFullFilePath(currentFile);

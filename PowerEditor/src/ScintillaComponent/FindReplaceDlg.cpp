@@ -299,7 +299,7 @@ void FindReplaceDlg::fillFindHistory()
 	::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, findHistory._isDirectionDown, 0);
 
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK, BM_SETCHECK, findHistory._isFifInHiddenFolder, 0);
-	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecuisive, 0);
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecursive, 0);
     ::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, BM_SETCHECK, findHistory._isFolderFollowDoc, 0);
 
 	::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, findHistory._searchMode == FindHistory::normal, 0);
@@ -424,7 +424,7 @@ bool Finder::notify(SCNotification *notification)
 	switch (notification->nmhdr.code)
 	{
 		case SCN_MARGINCLICK:
-			if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
+			if (notification->margin == ScintillaEditView::_SC_MARGIN_FOLDER)
 			{
 				_scintView.marginClick(notification->position, notification->modifiers);
 			}
@@ -1277,7 +1277,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				case IDD_FINDINFILES_RECURSIVE_CHECK :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						findHistory._isFifRecuisive = _options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
+						findHistory._isFifRecursive = _options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
 					
 				}
 				return TRUE;
@@ -2028,17 +2028,17 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->setFinderReadOnly(true);
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
-		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
+		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//don't store any undo information
 		_pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);
 		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
-		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
+		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGIN_FOLDER, true);
 
 		// get the width of FindDlg
 		RECT findRect;
 		::GetWindowRect(_pFinder->getHSelf(), &findRect);
 
 		// overwrite some default settings
-		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, false);
+		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGIN_SYMBOLE, false);
 		_pFinder->_scintView.setMakerStyle(FOLDER_STYLE_SIMPLE);
 
 		_pFinder->_scintView.display();
@@ -2119,17 +2119,17 @@ Finder * FindReplaceDlg::createFinder()
 	pFinder->setFinderReadOnly(true);
 	pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 	pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
-	pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
+	pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//don't store any undo information
 	pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);
 	pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
-	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
+	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGIN_FOLDER, true);
 
 	// get the width of FindDlg
 	RECT findRect;
 	::GetWindowRect(pFinder->getHSelf(), &findRect);
 
 	// overwrite some default settings
-	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, false);
+	pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGIN_SYMBOLE, false);
 	pFinder->_scintView.setMakerStyle(FOLDER_STYLE_SIMPLE);
 
 	pFinder->_scintView.display();
@@ -3092,9 +3092,9 @@ INT_PTR CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 	return FALSE;
 }
 
-void FindIncrementDlg::init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL)
+void FindIncrementDlg::init(HINSTANCE hInst, HWND hParent, FindReplaceDlg *pFRDlg, bool isRTL)
 {
-	Window::init(hInst, hPere);
+	Window::init(hInst, hParent);
 	if (!pFRDlg)
 		throw std::runtime_error("FindIncrementDlg::init : Parameter pFRDlg is null");
 
@@ -3151,7 +3151,7 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			bool updateSearch = false;
 			bool forward = true;
 			bool advance = false;
-			bool updateHiLight = false;
+			bool updateHighlight = false;
 			bool updateCase = false;
 
 			switch (LOWORD(wParam))
@@ -3188,18 +3188,18 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				case IDC_INCFINDMATCHCASE:
 					updateSearch = true;
 					updateCase = true;
-					updateHiLight = true;
+					updateHighlight = true;
 					break;
 
 				case IDC_INCFINDHILITEALL:
-					updateHiLight = true;
+					updateHighlight = true;
 					break;
 
 				case IDC_INCFINDTEXT:
 					if (HIWORD(wParam) == EN_CHANGE)
 					{
 						updateSearch = true;
-						updateHiLight = isCheckedOrNot(IDC_INCFINDHILITEALL);
+						updateHighlight = isCheckedOrNot(IDC_INCFINDHILITEALL);
 						updateCase = isCheckedOrNot(IDC_INCFINDMATCHCASE);
 						break;
 					}
@@ -3233,7 +3233,7 @@ INT_PTR CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				}
 			}
 
-			if (updateHiLight)
+			if (updateHighlight)
 			{
 				bool highlight = !str2Search.empty() &&
 					(BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0));
@@ -3268,7 +3268,7 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 	//Get selection
 	CharacterRange range = (*(_pFRDlg->_ppEditView))->getSelection();
 
-	//If nothing selected, dont mark anything
+	//If nothing selected, don't mark anything
 	if (range.cpMin == range.cpMax)
 		return;
 

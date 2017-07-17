@@ -26,31 +26,28 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SCINTILLACTRLS_H
-#define SCINTILLACTRLS_H
+#ifndef TRAY_ICON_CONTROLLER_H
+#define TRAY_ICON_CONTROLLER_H
 
-#include <vector>
 #include <windows.h>
 
-class ScintillaEditView;
+#define ADD     NIM_ADD
+#define REMOVE  NIM_DELETE
 
-class ScintillaCtrls {
-public :
-	void init(HINSTANCE hInst, HWND hNpp) {
-		_hInst = hInst;
-		_hParent = hNpp;
-	};
+// code d'erreur
+#define INCORRECT_OPERATION     1
+#define OPERATION_INCOHERENT    2
 
-	HWND createSintilla(HWND hParent);
-	ScintillaEditView * getScintillaEditViewFrom(HWND handle2Find);
-	bool destroyScintilla(HWND handle2Destroy);
-	void destroy();
-	
+class trayIconController
+{
+public:
+  trayIconController(HWND hwnd, UINT uID, UINT uCBMsg, HICON hicon, TCHAR *tip);
+  int doTrayIcon(DWORD op);
+  bool isInTray() const {return _isIconShowed;};
+
 private:
-	std::vector<ScintillaEditView *> _scintVector;
-	HINSTANCE _hInst;
-	HWND _hParent;
-	int getIndexFrom(HWND handle2Find);
+  NOTIFYICONDATA    _nid;
+  bool              _isIconShowed;
 };
 
-#endif //SCINTILLACTRLS_H
+#endif //TRAY_ICON_CONTROLLER_H

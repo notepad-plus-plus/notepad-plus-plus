@@ -60,7 +60,7 @@ INT_PTR CALLBACK MD5FromFilesDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 						std::wstring files2check, md5resultStr;
 						for (auto it = pfns->begin(); it != pfns->end(); ++it)
 						{
-							WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+							WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 							const char *path = wmc->wchar2char(it->c_str(), CP_ACP);
 							
 							MD5 md5;
@@ -126,7 +126,7 @@ void MD5FromTextDlg::generateMD5()
 	{
 		wchar_t *text = new wchar_t[len + 1];
 		::GetDlgItemText(_hSelf, IDC_MD5_TEXT_EDIT, text, len + 1);
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 		const char *newText = wmc->wchar2char(text, SC_CP_UTF8);
 
 		MD5 md5;
@@ -153,7 +153,7 @@ void MD5FromTextDlg::generateMD5PerLine()
 		std::wstring aLine;
 		std::string result;
 		MD5 md5;
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 		while (std::getline(ss, aLine))
 		{
 			// getline() detect only '\n' but not "\r\n" under windows

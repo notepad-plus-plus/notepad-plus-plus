@@ -106,7 +106,7 @@ RECT TaskList::adjustSize()
 	ListView_GetItemRect(_hSelf, 0, &rc, LVIR_ICON);
 	const int imgWidth = rc.right - rc.left;
 	const int aSpaceWidth = ListView_GetStringWidth(_hSelf, TEXT(" "));
-	const int leftMarge = ::GetSystemMetrics(SM_CXFRAME) * 2 + aSpaceWidth * 4;
+	const int leftMargin = ::GetSystemMetrics(SM_CXFRAME) * 2 + aSpaceWidth * 4;
 
 	// Temporary set "selected" font to get the worst case widths
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSelected), 0);
@@ -123,7 +123,7 @@ RECT TaskList::adjustSize()
 		_rc.bottom += rc.bottom - rc.top;
 	}
 
-	_rc.right = maxwidth + imgWidth + leftMarge;
+	_rc.right = maxwidth + imgWidth + leftMargin;
 	ListView_SetColumnWidth(_hSelf, 0, _rc.right);
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 

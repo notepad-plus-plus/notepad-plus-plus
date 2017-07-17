@@ -39,7 +39,7 @@
 #include "FindCharsInRange.h"
 #include "columnEditor.h"
 #include "WordStyleDlg.h"
-#include "trayIconControler.h"
+#include "trayIconController.h"
 #include "PluginsManager.h"
 #include "preferenceDlg.h"
 #include "WindowsDlg.h"
@@ -49,7 +49,7 @@
 #include "AutoCompletion.h"
 #include "SmartHighlighter.h"
 #include "ScintillaCtrls.h"
-#include "lesDlgs.h"
+#include "theDialogs.h"
 #include "pluginsAdmin.h"
 #include "localization.h"
 #include "md5Dlgs.h"
@@ -100,7 +100,7 @@ struct VisibleGUIConf final
 	//bool isToolbarShown;	//toolbar forcefully hidden by hiding rebar
 	DWORD_PTR preStyle = (WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
-	//used by postit only
+	//used by PostIt only
 	bool isTabbarShown = true;
 	bool isAlwaysOnTop = false;
 	bool isStatusbarShown = true;
@@ -147,7 +147,7 @@ public:
 
 	//! \name File Operations
 	//@{
-	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
+	//The doXXX functions apply to a single buffer and don't need to worry about views, with the exception of doClose, since closing one view doesnt have to mean the document is gone
 	BufferID doOpen(const generic_string& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, time_t fileNameTimestamp = 0);
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
@@ -333,7 +333,7 @@ private:
 
 	bool _isUDDocked = false;
 
-	trayIconControler* _pTrayIco = nullptr;
+	trayIconController* _pTrayIco = nullptr;
 	int _zoomOriginalValue = 0;
 
 	Accelerator _accelerator;
@@ -532,7 +532,7 @@ private:
 	void getMatchedFileNames(const TCHAR *dir, const std::vector<generic_string> & patterns, std::vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
 	void doSynScorll(HWND hW);
 	void setWorkingDir(const TCHAR *dir);
-	bool str2Cliboard(const generic_string & str2cpy);
+	bool str2Clipboard(const generic_string & str2cpy);
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
 	int getLangFromMenuName(const TCHAR * langName);

@@ -42,7 +42,7 @@ INT_PTR CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
 			generic_string buildTime = TEXT("Build time : ");
 
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 			buildTime +=  wmc->char2wchar(__DATE__, CP_ACP);
 			buildTime += TEXT(" - ");
 			buildTime +=  wmc->char2wchar(__TIME__, CP_ACP);
@@ -133,7 +133,7 @@ INT_PTR CALLBACK DebugInfoDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM /
 			// Build time
 			_debugInfoStr += TEXT("Build time : ");
 			generic_string buildTime;
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 			buildTime += wmc->char2wchar(__DATE__, CP_ACP);
 			buildTime += TEXT(" - ");
 			buildTime += wmc->char2wchar(__TIME__, CP_ACP);

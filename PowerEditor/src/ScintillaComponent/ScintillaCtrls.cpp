@@ -29,7 +29,7 @@
 #include "ScintillaCtrls.h"
 #include "ScintillaEditView.h"
 
-HWND ScintillaCtrls::createSintilla(HWND hParent) 
+HWND ScintillaCtrls::createScintilla(HWND hParent) 
 {
 	_hParent = hParent;
 	ScintillaEditView *scint = new ScintillaEditView;

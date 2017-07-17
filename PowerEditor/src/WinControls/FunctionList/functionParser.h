@@ -65,9 +65,9 @@ protected:
 class FunctionZoneParser : public FunctionParser
 {
 public:
-	FunctionZoneParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
+	FunctionZoneParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbol,	generic_string closeSymbol,
 		std::vector<generic_string> classNameExprArray, generic_string functionExpr, std::vector<generic_string> functionNameExprArray):
-		FunctionParser(id, displayName, commentExpr, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole) {};
+		FunctionParser(id, displayName, commentExpr, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbol(openSymbol), _closeSymbol(closeSymbol) {};
 
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 	
@@ -76,8 +76,8 @@ protected:
 
 private:
 	generic_string _rangeExpr;
-	generic_string _openSymbole;
-	generic_string _closeSymbole;
+	generic_string _openSymbol;
+	generic_string _closeSymbol;
 
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const std::vector< std::pair<int, int> > & commentZones, ScintillaEditView **ppEditView);
 };
@@ -98,9 +98,9 @@ public:
 class FunctionMixParser : public FunctionZoneParser
 {
 public:
-	FunctionMixParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
+	FunctionMixParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbol,	generic_string closeSymbol,
 		std::vector<generic_string> classNameExprArray, generic_string functionExpr, std::vector<generic_string> functionNameExprArray, FunctionUnitParser *funcUnitPaser):
-		FunctionZoneParser(id, displayName, commentExpr, rangeExpr,	openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(funcUnitPaser){};
+		FunctionZoneParser(id, displayName, commentExpr, rangeExpr,	openSymbol, closeSymbol, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(funcUnitPaser){};
 		
 	~FunctionMixParser()
 	{
@@ -154,7 +154,7 @@ private:
 	TiXmlDocument *_pXmlFuncListDoc = nullptr;
 
 	bool getFuncListFromXmlTree();
-	bool getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray);
+	bool getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymbolStr, generic_string &closeSymbolStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray);
 	bool getUnitPaserParameters(TiXmlNode *functionParser, generic_string &mainExprStr, std::vector<generic_string> &functionNameExprArray, std::vector<generic_string> &classNameExprArray);
 	FunctionParser * getParser(const AssociationInfo & assoInfo);
 };

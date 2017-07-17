@@ -34,9 +34,9 @@
 #include "ScintillaEditView.h"
 
 
-void ColumnEditorDlg::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) 
+void ColumnEditorDlg::init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView) 
 {
-	Window::init(hInst, hPere);
+	Window::init(hInst, hParent);
 	if (!ppEditView)
 		throw std::runtime_error("StaticDialog::init : ppEditView is null.");
 	_ppEditView = ppEditView;

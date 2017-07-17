@@ -157,7 +157,7 @@ bool FunctionCallTip::getCursorFunction()
 	std::vector< Token > tokenVector;
 	int tokenLen = 0;
 	TCHAR ch;
-	for (int i = 0; i < offset; ++i) 	//we dont care about stuff after the offset
+	for (int i = 0; i < offset; ++i) 	//we don't care about stuff after the offset
     {
 		//tokenVector.push_back(pair(lineData+i, len));
 		ch = lineData[i];
@@ -382,7 +382,7 @@ void FunctionCallTip::showCalltip()
 		return;
 	}
 
-	//Check if the current overload still holds. If the current param exceeds amounti n overload, see if another one fits better (enough params)
+	//Check if the current overload still holds. If the current param exceeds amount in overload, see if another one fits better (enough params)
 	stringVec & params = _overloads.at(_currentOverload);
 	size_t psize = params.size()+1;
 	if ((size_t)_currentParam >= psize)

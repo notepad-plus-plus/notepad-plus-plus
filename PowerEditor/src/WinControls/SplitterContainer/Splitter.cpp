@@ -48,15 +48,15 @@ Splitter::Splitter()
 }
 
 
-void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSplitRatio, DWORD dwFlags)
+void Splitter::init( HINSTANCE hInst, HWND hParent, int splitterSize, double iSplitRatio, DWORD dwFlags)
 {
-	if (hPere == NULL)
-		throw std::runtime_error("Splitter::init : Parameter hPere is null");
+	if (hParent == NULL)
+		throw std::runtime_error("Splitter::init : Parameter hParent is null");
 
 	if (iSplitRatio < 0)
 		throw std::runtime_error("Splitter::init : Parameter iSplitRatio shoulds be 0 < ratio < 100");
 
-	Window::init(hInst, hPere);
+	Window::init(hInst, hParent);
 	_spiltterSize = splitterSize;
 
 	WNDCLASSEX wcex;
@@ -64,7 +64,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize, double iSpli
 	DWORD dwStyle   = WS_CHILD | WS_VISIBLE;
 
 
-	_hParent = hPere;
+	_hParent = hParent;
 	_dwFlags = dwFlags;
 
 	if (_dwFlags & SV_FIXED)

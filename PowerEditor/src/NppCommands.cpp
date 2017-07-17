@@ -910,17 +910,17 @@ void Notepad_plus::command(int id)
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			if (id == IDM_EDIT_FULLPATHTOCLIP)
 			{
-				str2Cliboard(buf->getFullPathName());
+				this->str2Clipboard(buf->getFullPathName());
 			}
 			else if (id == IDM_EDIT_CURRENTDIRTOCLIP)
 			{
 				generic_string dir(buf->getFullPathName());
 				PathRemoveFileSpec(dir);
-				str2Cliboard(dir);
+				this->str2Clipboard(dir);
 			}
 			else if (id == IDM_EDIT_FILENAMETOCLIP)
 			{
-				str2Cliboard(buf->getFileName());
+				this->str2Clipboard(buf->getFileName());
 			}
 		}
 		break;
@@ -1649,7 +1649,7 @@ void Notepad_plus::command(int id)
 		}
 
 
-		case IDM_VIEW_DRAWTABBAR_INACIVETAB:
+		case IDM_VIEW_DRAWTABBAR_INACTIVETAB:
 		{
 			TabBarPlus::setDrawInactiveTab(!TabBarPlus::drawInactiveTab());
 			break;
@@ -1660,7 +1660,7 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN :
+		case IDM_VIEW_DRAWTABBAR_CLOSEBUTTON :
 		{
 			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton());
 
@@ -2521,7 +2521,7 @@ void Notepad_plus::command(int id)
 					MD5 md5;
 					std::string md5ResultA = md5.digestString(selectedStr);
 					std::wstring md5ResultW(md5ResultA.begin(), md5ResultA.end());
-					str2Clipboard(md5ResultW, _pPublicInterface->getHSelf());
+					::str2Clipboard(md5ResultW, _pPublicInterface->getHSelf());
 					
 					delete [] selectedStr;
 				}
@@ -2583,7 +2583,7 @@ void Notepad_plus::command(int id)
 						char *authorName = "«J¤µ§^";
 						HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
 
-						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+						WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 						const wchar_t *authorNameW = wmc->char2wchar(authorName, NPP_CP_BIG5);
 						::SetWindowText(hItem, authorNameW);
 					}
@@ -2790,7 +2790,7 @@ void Notepad_plus::command(int id)
             setLanguage(menuID2LangType(id));
 			if (_pDocMap)
 			{
-				_pDocMap->setSyntaxHiliting();
+				_pDocMap->setSyntaxHighlighting();
 			}
 		}
         break;
@@ -2947,9 +2947,9 @@ void Notepad_plus::command(int id)
 		{
 			int margin;
 			if (id == IDM_VIEW_LINENUMBER)
-				margin = ScintillaEditView::_SC_MARGE_LINENUMBER;
+				margin = ScintillaEditView::_SC_MARGIN_LINENUMBER;
 			else //if (id == IDM_VIEW_SYMBOLMARGIN)
-				margin = ScintillaEditView::_SC_MARGE_SYBOLE;
+				margin = ScintillaEditView::_SC_MARGIN_SYMBOLE;
 
 			if (_mainEditView.hasMarginShowed(margin))
 			{
@@ -2964,16 +2964,16 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_VIEW_FOLDERMAGIN_SIMPLE:
-		case IDM_VIEW_FOLDERMAGIN_ARROW:
-		case IDM_VIEW_FOLDERMAGIN_CIRCLE:
-		case IDM_VIEW_FOLDERMAGIN_BOX:
-		case IDM_VIEW_FOLDERMAGIN:
+		case IDM_VIEW_FOLDERMARGIN_SIMPLE:
+		case IDM_VIEW_FOLDERMARGIN_ARROW:
+		case IDM_VIEW_FOLDERMARGIN_CIRCLE:
+		case IDM_VIEW_FOLDERMARGIN_BOX:
+		case IDM_VIEW_FOLDERMARGIN:
 		{
-			folderStyle fStyle = (id == IDM_VIEW_FOLDERMAGIN_SIMPLE) ? FOLDER_STYLE_SIMPLE : \
-				(id == IDM_VIEW_FOLDERMAGIN_ARROW) ? FOLDER_STYLE_ARROW : \
-				(id == IDM_VIEW_FOLDERMAGIN_CIRCLE) ? FOLDER_STYLE_CIRCLE : \
-				(id == IDM_VIEW_FOLDERMAGIN) ? FOLDER_STYLE_NONE : FOLDER_STYLE_BOX;
+			folderStyle fStyle = (id == IDM_VIEW_FOLDERMARGIN_SIMPLE) ? FOLDER_STYLE_SIMPLE : \
+				(id == IDM_VIEW_FOLDERMARGIN_ARROW) ? FOLDER_STYLE_ARROW : \
+				(id == IDM_VIEW_FOLDERMARGIN_CIRCLE) ? FOLDER_STYLE_CIRCLE : \
+				(id == IDM_VIEW_FOLDERMARGIN) ? FOLDER_STYLE_NONE : FOLDER_STYLE_BOX;
 
 			_mainEditView.setMakerStyle(fStyle);
 			_subEditView.setMakerStyle(fStyle);
@@ -2982,9 +2982,9 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_CURLINE_HILITING:
 		{
-			COLORREF colour = (NppParameters::getInstance())->getCurLineHilitingColour();
-			_mainEditView.setCurrentLineHiLiting(!_pEditView->isCurrentLineHiLiting(), colour);
-			_subEditView.setCurrentLineHiLiting(!_pEditView->isCurrentLineHiLiting(), colour);
+			COLORREF colour = (NppParameters::getInstance())->getCurLineHighlightingColour();
+			_mainEditView.setCurrentLineHighlighting(!_pEditView->isCurrentLineHighlighting(), colour);
+			_subEditView.setCurrentLineHighlighting(!_pEditView->isCurrentLineHighlighting(), colour);
 		}
 		break;
 
@@ -3040,7 +3040,7 @@ void Notepad_plus::command(int id)
 				_pEditView->getCurrentBuffer()->setLangType(L_USER, langName);
 				if (_pDocMap)
 				{
-					_pDocMap->setSyntaxHiliting();
+					_pDocMap->setSyntaxHighlighting();
 				}
 			}
 			else if ((id >= IDM_LANG_EXTERNAL) && (id <= IDM_LANG_EXTERNAL_LIMIT))
@@ -3048,7 +3048,7 @@ void Notepad_plus::command(int id)
 				setLanguage((LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL));
 				if (_pDocMap)
 				{
-					_pDocMap->setSyntaxHiliting();
+					_pDocMap->setSyntaxHighlighting();
 				}
 			}
 			else if ((id >= ID_MACRO) && (id < ID_MACRO_LIMIT))

@@ -259,7 +259,7 @@ struct DockingManagerData final
 	int _leftWidth = 200;
 	int _rightWidth = 200;
 	int _topHeight = 200;
-	int _bottomHight = 200;
+	int _bottomHeight = 200;
 
 	std::vector<FloatingWindowInfo> _flaotingWindowInfo;
 	std::vector<PluginDlgDockingInfo> _pluginDockInfo;
@@ -579,10 +579,10 @@ struct PrintSettings final {
 	int _footerFontStyle = 0;
 	int _footerFontSize = 0;
 
-	RECT _marge;
+	RECT _margin;
 
 	PrintSettings() {
-		_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
+		_margin.left = 0; _margin.top = 0; _margin.right = 0; _margin.bottom = 0;
 	};
 
 	bool isHeaderPresent() const {
@@ -593,8 +593,8 @@ struct PrintSettings final {
 		return ((_footerLeft != TEXT("")) || (_footerMiddle != TEXT("")) || (_footerRight != TEXT("")));
 	};
 
-	bool isUserMargePresent() const {
-		return ((_marge.left != 0) || (_marge.top != 0) || (_marge.right != 0) || (_marge.bottom != 0));
+	bool isUserMarginPresent() const {
+		return ((_margin.left != 0) || (_margin.top != 0) || (_margin.right != 0) || (_margin.bottom != 0));
 	};
 };
 
@@ -742,18 +742,18 @@ struct NppGUI final
 	bool _isCmdlineNosessionActivated = false; // used for if -nosession is indicated on the launch time
 	bool _detectEncoding = true;
 	bool _doTaskList = true;
-	bool _maitainIndent = true;
-	bool _enableSmartHilite = true;
+	bool _maintainIndent = true;
+	bool _enableSmartHighlight = true;
 
-	bool _smartHiliteCaseSensitive = false;
-	bool _smartHiliteWordOnly = true;
-	bool _smartHiliteUseFindSettings = false;
-	bool _smartHiliteOnAnotherView = false;
+	bool _smartHighlightCaseSensitive = false;
+	bool _smartHighlightWordOnly = true;
+	bool _smartHighlightUseFindSettings = false;
+	bool _smartHighlightOnAnotherView = false;
 
-	bool _disableSmartHiliteTmp = false;
-	bool _enableTagsMatchHilite = true;
-	bool _enableTagAttrsHilite = true;
-	bool _enableHiliteNonHTMLZone = false;
+	bool _disableSmartHighlightTmp = false;
+	bool _enableTagsMatchHighlight = true;
+	bool _enableTagAttrsHighlight = true;
+	bool _enableHighlightNonHTMLZone = false;
 	bool _styleMRU = true;
 	char _leftmostDelimiter = '(';
 	char _rightmostDelimiter = ')';
@@ -837,7 +837,7 @@ struct ScintillaViewParams
 	lineWrapMethod _lineWrapMethod = LINEWRAP_ALIGNED;
 	bool _foldMarginShow = true;
 	bool _indentGuideLineShow = true;
-	bool _currentLineHilitingShow = true;
+	bool _currentLineHighlightingShow = true;
 	bool _wrapSymbolShow = false;
 	bool _doWrap = false;
 	int _edgeMode = EDGE_NONE;
@@ -1085,7 +1085,7 @@ struct FindHistory final
 	bool _isDirectionDown = true;
 	bool _dotMatchesNewline = false;
 
-	bool _isFifRecuisive = true;
+	bool _isFifRecursive = true;
 	bool _isFifInHiddenFolder = false;
 
 	searchMode _searchMode = normal;
@@ -1323,7 +1323,7 @@ public:
 	bool writeProjectPanelsSettings() const;
 	bool writeFileBrowserSettings(const std::vector<generic_string> & rootPath, const generic_string & latestSelectedItemPath) const;
 
-	TiXmlNode* getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName, const TCHAR *attributName, const TCHAR *attributVal) const;
+	TiXmlNode* getChildElementByAttribute(TiXmlNode *parent, const TCHAR *childName, const TCHAR *attributeName, const TCHAR *attributeVal) const;
 
 	bool writeScintillaParams();
 	void createXmlTreeFromGUIParams();
@@ -1337,8 +1337,8 @@ public:
 	StyleArray & getMiscStylerArray() {return _widgetStyleArray;};
 	GlobalOverride & getGlobalOverrideStyle() {return _nppGUI._globalOverride;};
 
-	COLORREF getCurLineHilitingColour();
-	void setCurLineHilitingColour(COLORREF colour2Set);
+	COLORREF getCurLineHighlightingColour();
+	void setCurLineHighlightingColour(COLORREF colour2Set);
 
 	void setFontList(HWND hWnd);
 	bool isInFontList(const generic_string fontName2Search) const;
@@ -1440,7 +1440,7 @@ public:
 	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
 	const TCHAR * getWorkSpaceFilePath(int i) const {
 		if (i < 0 || i > 2) return nullptr;
-		return _workSpaceFilePathes[i].c_str();
+		return _workSpaceFilePaths[i].c_str();
 	}
 	const std::vector<generic_string> getFileBrowserRoots() const { return _fileBrowserRoot; };
 	void setWorkSpaceFilePath(int i, const TCHAR *wsFile);
@@ -1456,14 +1456,14 @@ public:
 	int langTypeToCommandID(LangType lt) const;
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
 
-	struct FindDlgTabTitiles final {
+	struct FindDlgTabTitles final {
 		generic_string _find;
 		generic_string _replace;
 		generic_string _findInFiles;
 		generic_string _mark;
 	};
 
-	FindDlgTabTitiles & getFindDlgTabTitiles() { return _findDlgTabTitiles;};
+	FindDlgTabTitles & getFindDlgTabTitles() { return _findDlgTabTitles;};
 
 	bool asNotepadStyle() const {return _asNotepadStyle;};
 
@@ -1652,14 +1652,14 @@ private:
 	generic_string _stylerPath;
 	generic_string _appdataNppDir; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"
 	generic_string _currentDirectory;
-	generic_string _workSpaceFilePathes[3];
+	generic_string _workSpaceFilePaths[3];
 
 	std::vector<generic_string> _fileBrowserRoot;
 
 	Accelerator *_pAccelerator;
 	ScintillaAccelerator * _pScintAccelerator;
 
-	FindDlgTabTitiles _findDlgTabTitiles;
+	FindDlgTabTitles _findDlgTabTitles;
 	bool _asNotepadStyle = false;
 
 	winVer _winVersion;

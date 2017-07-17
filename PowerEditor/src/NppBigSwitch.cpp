@@ -556,7 +556,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					char *fileNamesA = static_cast<char *>(pCopyData->lpData);
 					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
-					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 					const wchar_t *fileNamesW = wmc->char2wchar(fileNamesA, CP_ACP);
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
 					break;
@@ -996,13 +996,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			// convert here
 			UniMode unicodeMode = pSci->getCurrentBuffer()->getUnicodeMode();
-			Utf8_16_Write UnicodeConvertor;
-			UnicodeConvertor.setEncoding(unicodeMode);
-			length = UnicodeConvertor.convert(buffer, length-1);
+			Utf8_16_Write UnicodeConverter;
+			UnicodeConverter.setEncoding(unicodeMode);
+			length = UnicodeConverter.convert(buffer, length-1);
 
 			// set text in target
 			pSci->execute(SCI_CLEARALL);
-			pSci->addText(length, UnicodeConvertor.getNewBuf());
+			pSci->addText(length, UnicodeConverter.getNewBuf());
 			pSci->execute(SCI_EMPTYUNDOBUFFER);
 
 			pSci->execute(SCI_SETCODEPAGE);
@@ -1032,12 +1032,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			char* buffer = new char[length];
 			pSci->execute(SCI_GETTEXT, length, reinterpret_cast<LPARAM>(buffer));
 
-			Utf8_16_Read UnicodeConvertor;
-			length = UnicodeConvertor.convert(buffer, length-1);
+			Utf8_16_Read UnicodeConverter;
+			length = UnicodeConverter.convert(buffer, length-1);
 
 			// set text in target
 			pSci->execute(SCI_CLEARALL);
-			pSci->addText(length, UnicodeConvertor.getNewBuf());
+			pSci->addText(length, UnicodeConverter.getNewBuf());
 
 			pSci->execute(SCI_EMPTYUNDOBUFFER);
 
@@ -1048,7 +1048,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			delete [] buffer;
 
 			// set new encoding if BOM was changed by other programms
-			UniMode um = UnicodeConvertor.getEncoding();
+			UniMode um = UnicodeConverter.getEncoding();
 			(pSci->getCurrentBuffer())->setUnicodeMode(um);
 			(pSci->getCurrentBuffer())->setDirty(true);
 			return um;
@@ -1203,7 +1203,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_CREATESCINTILLAHANDLE:
 		{
-			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?hwnd:reinterpret_cast<HWND>(lParam)));
+			return (LRESULT)_scintillaCtrls4Plugins.createScintilla((lParam == NULL?hwnd:reinterpret_cast<HWND>(lParam)));
 		}
 
 		case NPPM_INTERNAL_GETSCINTEDTVIEW:
@@ -1679,7 +1679,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 
 			if (_pDocMap)
-				_pDocMap->setSyntaxHiliting();
+				_pDocMap->setSyntaxHighlighting();
 
 			// Notify plugins of update to styles xml
 			SCNotification scnN;
@@ -1722,7 +1722,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 				if (nppgui._rememberLastSession)
 				{
 					getCurrentOpenedFiles(currentSession, true);
-					//Lock the recent file list so it isnt populated with opened files
+					//Lock the recent file list so it isn't populated with opened files
 					//Causing them to show on restart even though they are loaded by session
 					_lastRecentFileList.setLock(true);	//only lock when the session is remembered
 				}
@@ -1826,7 +1826,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (((nppgui._isMinimizedToTray && !_isAdministrator) || _pPublicInterface->isPrelaunch()) && (wParam == SC_MINIMIZE))
 			{
 				if (nullptr == _pTrayIco)
-					_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
+					_pTrayIco = new trayIconController(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 
 				_pTrayIco->doTrayIcon(ADD);
 				::ShowWindow(hwnd, SW_HIDE);

@@ -38,7 +38,7 @@ class ScintillaEditView;
 class XmlMatchedTagsHighlighter {
 public:
 	explicit XmlMatchedTagsHighlighter(ScintillaEditView *pEditView):_pEditView(pEditView){};
-	void tagMatch(bool doHiliteAttr);
+	void tagMatch(bool doHighlightAttr);
 	
 private:
 	ScintillaEditView *_pEditView;

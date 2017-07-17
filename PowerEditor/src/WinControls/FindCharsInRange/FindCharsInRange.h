@@ -42,8 +42,8 @@ class FindCharsInRangeDlg : public StaticDialog
 public :
 	FindCharsInRangeDlg() : StaticDialog() {};
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
-		Window::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView) {
+		Window::init(hInst, hParent);
 		if (!ppEditView)
 			throw std::runtime_error("FindCharsInRangeDlg::init : ppEditView is null.");
 		_ppEditView = ppEditView;

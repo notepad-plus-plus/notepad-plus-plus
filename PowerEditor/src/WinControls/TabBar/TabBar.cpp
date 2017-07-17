@@ -198,16 +198,16 @@ void TabBar::setImageList(HIMAGELIST himl)
 }
 
 
-void TabBar::reSizeTo(RECT & rc2Ajust)
+void TabBar::reSizeTo(RECT & rc2Adjust)
 {
 	RECT rowRect;
-	int rowCount, tabsHight;
+	int rowCount, tabsHeight;
 
 	// Important to do that!
 	// Otherwise, the window(s) it contains will take all the resouce of CPU
 	// We don't need to resize the contained windows if they are even invisible anyway
-	display(rc2Ajust.right > 10);
-	RECT rc = rc2Ajust;
+	display(rc2Adjust.right > 10);
+	RECT rc = rc2Adjust;
 	Window::reSizeTo(rc);
 
 	// Do our own calculations because TabCtrl_AdjustRect doesn't work
@@ -218,7 +218,7 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 
 	int larger = _isVertical ? rowRect.right : rowRect.bottom;
 	int smaller = _isVertical ? rowRect.left : rowRect.top;
-	int marge = 0;
+	int margin = 0;
 
 	LONG_PTR style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
 	if (rowCount == 1)
@@ -228,22 +228,22 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	else // (rowCount >= 2)
 	{
 		style |= TCS_BUTTONS;
-		marge = 3; // in TCS_BUTTONS mode, each row has few pixels higher
+		margin = 3; // in TCS_BUTTONS mode, each row has few pixels higher
 	}
 
 	::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
-	tabsHight = rowCount * (larger - smaller + marge);
-	tabsHight += GetSystemMetrics(_isVertical ? SM_CXEDGE : SM_CYEDGE);
+	tabsHeight = rowCount * (larger - smaller + margin);
+	tabsHeight += GetSystemMetrics(_isVertical ? SM_CXEDGE : SM_CYEDGE);
 
 	if (_isVertical)
 	{
-		rc2Ajust.left += tabsHight;
-		rc2Ajust.right -= tabsHight;
+		rc2Adjust.left += tabsHeight;
+		rc2Adjust.right -= tabsHeight;
 	}
 	else
 	{
-		rc2Ajust.top += tabsHight;
-		rc2Ajust.bottom -= tabsHight;
+		rc2Adjust.top += tabsHeight;
+		rc2Adjust.bottom -= tabsHeight;
 	}
 }
 

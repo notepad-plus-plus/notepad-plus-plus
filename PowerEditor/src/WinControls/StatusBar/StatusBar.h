@@ -41,7 +41,7 @@ class StatusBar final : public Window
 public:
 	virtual ~StatusBar();
 
-	void init(HINSTANCE hInst, HWND hPere, int nbParts);
+	void init(HINSTANCE hInst, HWND hParent, int nbParts);
 
 	bool setPartWidth(int whichPart, int width);
 
@@ -56,7 +56,7 @@ public:
 
 
 private:
-	virtual void init(HINSTANCE hInst, HWND hPere) override;
+	virtual void init(HINSTANCE hInst, HWND hParent) override;
 
 private:
     std::vector<int> _partWidthArray;

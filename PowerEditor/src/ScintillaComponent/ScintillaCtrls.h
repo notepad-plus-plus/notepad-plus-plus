@@ -26,29 +26,31 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include "trayIconControler.h"
+#ifndef SCINTILLACTRLS_H
+#define SCINTILLACTRLS_H
 
-trayIconControler::trayIconControler(HWND hwnd, UINT uID, UINT uCBMsg, HICON hicon, TCHAR *tip)
-{
-  _nid.cbSize = sizeof(_nid);
-  _nid.hWnd = hwnd;
-  _nid.uID = uID;
-  _nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-  _nid.uCallbackMessage = uCBMsg;
-  _nid.hIcon = hicon;
-  lstrcpy(_nid.szTip, tip);
-  
-  ::RegisterWindowMessage(TEXT("TaskbarCreated"));
-  _isIconShowed = false;
-}
+#include <vector>
+#include <windows.h>
 
-int trayIconControler::doTrayIcon(DWORD op)
-{
-  if ((op != ADD)&&(op != REMOVE)) return INCORRECT_OPERATION;
-  if (((_isIconShowed)&&(op == ADD))||((!_isIconShowed)&&(op == REMOVE)))
-    return OPERATION_INCOHERENT;
-  ::Shell_NotifyIcon(op, &_nid);
-  _isIconShowed = !_isIconShowed;
+class ScintillaEditView;
 
-  return 0;
-}
+class ScintillaCtrls {
+public :
+	void init(HINSTANCE hInst, HWND hNpp) {
+		_hInst = hInst;
+		_hParent = hNpp;
+	};
+
+	HWND createScintilla(HWND hParent);
+	ScintillaEditView * getScintillaEditViewFrom(HWND handle2Find);
+	bool destroyScintilla(HWND handle2Destroy);
+	void destroy();
+	
+private:
+	std::vector<ScintillaEditView *> _scintVector;
+	HINSTANCE _hInst;
+	HWND _hParent;
+	int getIndexFrom(HWND handle2Find);
+};
+
+#endif //SCINTILLACTRLS_H

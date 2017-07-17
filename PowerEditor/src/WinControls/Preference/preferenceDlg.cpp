@@ -29,7 +29,7 @@
 #include <shlobj.h>
 #include <uxtheme.h>
 #include "preferenceDlg.h"
-#include "lesDlgs.h"
+#include "theDialogs.h"
 #include "EncodingMapper.h"
 #include "localization.h"
 
@@ -260,7 +260,7 @@ int32_t PreferenceDlg::getIndexFromName(const TCHAR *name) const
 
 void PreferenceDlg::setListSelection(size_t currentSel) const
 {
-	// Stupid LB API doesn't allow LB_SETSEL to be used on single select listbox, so we do it in a hard way
+	// Stupid LB API doesn't allow LB_SETSEL to be used on single select list-box, so we do it in a hard way
 	TCHAR selStr[256];
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETTEXT, currentSel, reinterpret_cast<LPARAM>(selStr));
 	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SELECTSTRING, currentSel, reinterpret_cast<LPARAM>(selStr));
@@ -492,11 +492,11 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					return TRUE;
 					
 				case IDC_CHECK_DRAWINACTIVE :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_INACIVETAB, 0);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_INACTIVETAB, 0);
 					return TRUE;
 					
 				case IDC_CHECK_ENABLETABCLOSE :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN, 0);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_CLOSEBUTTON, 0);
 					return TRUE;
 
 				case IDC_CHECK_DBCLICK2CLOSE :
@@ -611,7 +611,7 @@ void MarginsDlg::initScintParam()
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SMOOTHFONT, BM_SETCHECK, svp._doSmoothFont, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_SETCHECK, svp._lineNumberMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
-	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHighlightingShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_SCROLLBEYONDLASTLINE, BM_SETCHECK, svp._scrollBeyondLastLine, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_DISABLEADVANCEDSCROLL, BM_SETCHECK, svp._disableAdvancedScrolling, 0);
 
@@ -717,7 +717,7 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					return TRUE;
 
 				case IDC_CHECK_CURRENTLINEHILITE:
-					svp._currentLineHilitingShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_GETCHECK, 0, 0));
+					svp._currentLineHighlightingShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, 0);
 					return TRUE;
 
@@ -742,24 +742,24 @@ INT_PTR CALLBACK MarginsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 
 				case IDC_RADIO_SIMPLE:
 					svp._folderStyle = FOLDER_STYLE_SIMPLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_SIMPLE, 0);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMARGIN_SIMPLE, 0);
 					return TRUE;
 				case IDC_RADIO_ARROW:
 					svp._folderStyle = FOLDER_STYLE_ARROW;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_ARROW, 0);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMARGIN_ARROW, 0);
 					return TRUE;
 				case IDC_RADIO_CIRCLE:
 					svp._folderStyle = FOLDER_STYLE_CIRCLE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_CIRCLE, 0);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMARGIN_CIRCLE, 0);
 					return TRUE;
 				case IDC_RADIO_BOX:
 					svp._folderStyle = FOLDER_STYLE_BOX;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_BOX, 0);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMARGIN_BOX, 0);
 					return TRUE;
 					
 				case IDC_RADIO_FOLDMARGENONE:
 					svp._folderStyle = FOLDER_STYLE_NONE;
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN, 0);
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMARGIN, 0);
 					return TRUE;
 					
 				case IDC_CHECK_SHOWVERTICALEDGE:
@@ -925,7 +925,7 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_WORKSPACEFILEEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._definedWorkspaceExt.c_str()));
 			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maintainIndent, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, nppGUI._styleMRU, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHORTTITLE, BM_SETCHECK, nppGUI._shortTitlebar, 0);
 
@@ -1055,7 +1055,7 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 
 				case IDC_CHECK_MAINTAININDENT :
 				{
-					nppGUI._maitainIndent = !nppGUI._maitainIndent;
+					nppGUI._maintainIndent = !nppGUI._maintainIndent;
 					return TRUE;
 				}
 
@@ -1914,23 +1914,23 @@ INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/*
 	{
 		case WM_INITDIALOG :
 		{
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, nppGUI._enableSmartHilite, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE, BM_SETCHECK, nppGUI._smartHiliteCaseSensitive, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY, BM_SETCHECK, nppGUI._smartHiliteWordOnly, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS, BM_SETCHECK, nppGUI._smartHiliteUseFindSettings, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEANOTHERRVIEW, BM_SETCHECK, nppGUI._smartHiliteOnAnotherView, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, nppGUI._enableSmartHighlight, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE, BM_SETCHECK, nppGUI._smartHighlightCaseSensitive, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY, BM_SETCHECK, nppGUI._smartHighlightWordOnly, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS, BM_SETCHECK, nppGUI._smartHighlightUseFindSettings, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEANOTHERRVIEW, BM_SETCHECK, nppGUI._smartHighlightOnAnotherView, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGSMATCHHILITE, BM_SETCHECK, nppGUI._enableTagsMatchHilite, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE, BM_SETCHECK, nppGUI._enableTagAttrsHilite, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE, BM_SETCHECK, nppGUI._enableHiliteNonHTMLZone, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGSMATCHHILITE, BM_SETCHECK, nppGUI._enableTagsMatchHighlight, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE, BM_SETCHECK, nppGUI._enableTagAttrsHighlight, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE, BM_SETCHECK, nppGUI._enableHighlightNonHTMLZone, 0);
 
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHilite);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHighlight);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHighlight);
 
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY), nppGUI._enableSmartHilite);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS), nppGUI._enableSmartHilite);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEANOTHERRVIEW), nppGUI._enableSmartHilite);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHighlight);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY), nppGUI._enableSmartHighlight);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS), nppGUI._enableSmartHighlight);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEANOTHERRVIEW), nppGUI._enableSmartHighlight);
 
 			ETDTProc enableDlgTheme = reinterpret_cast<ETDTProc>(pNppParam->getEnableThemeDlgTexture());
 			if (enableDlgTheme)
@@ -1945,16 +1945,16 @@ INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/*
             {
 				case IDC_CHECK_ENABLSMARTHILITE:
 				{
-					nppGUI._enableSmartHilite = !nppGUI._enableSmartHilite;
-					if (!nppGUI._enableSmartHilite)
+					nppGUI._enableSmartHighlight = !nppGUI._enableSmartHighlight;
+					if (!nppGUI._enableSmartHighlight)
 					{
 						//HWND grandParent = ::GetParent(_hParent);
 						//::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					}
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY), nppGUI._enableSmartHilite);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS), nppGUI._enableSmartHilite);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEANOTHERRVIEW), nppGUI._enableSmartHilite);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHighlight);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY), nppGUI._enableSmartHighlight);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS), nppGUI._enableSmartHighlight);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITEANOTHERRVIEW), nppGUI._enableSmartHighlight);
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					return TRUE;
@@ -1962,11 +1962,11 @@ INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/*
 
 				case IDC_CHECK_SMARTHILITECASESENSITIVE:
 				{
-					nppGUI._smartHiliteCaseSensitive = isCheckedOrNot(IDC_CHECK_SMARTHILITECASESENSITIVE);
-					if (nppGUI._smartHiliteCaseSensitive)
+					nppGUI._smartHighlightCaseSensitive = isCheckedOrNot(IDC_CHECK_SMARTHILITECASESENSITIVE);
+					if (nppGUI._smartHighlightCaseSensitive)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS, BM_SETCHECK, false, 0);
-						nppGUI._smartHiliteUseFindSettings = false;
+						nppGUI._smartHighlightUseFindSettings = false;
 					}
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
@@ -1974,11 +1974,11 @@ INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/*
 				}
 				case IDC_CHECK_SMARTHILITEWHOLEWORDONLY:
 				{
-					nppGUI._smartHiliteWordOnly = isCheckedOrNot(IDC_CHECK_SMARTHILITEWHOLEWORDONLY);
-					if (nppGUI._smartHiliteWordOnly)
+					nppGUI._smartHighlightWordOnly = isCheckedOrNot(IDC_CHECK_SMARTHILITEWHOLEWORDONLY);
+					if (nppGUI._smartHighlightWordOnly)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEUSEFINDSETTINGS, BM_SETCHECK, false, 0);
-						nppGUI._smartHiliteUseFindSettings = false;
+						nppGUI._smartHighlightUseFindSettings = false;
 					}
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
@@ -1986,13 +1986,13 @@ INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/*
 				}
 				case IDC_CHECK_SMARTHILITEUSEFINDSETTINGS:
 				{
-					nppGUI._smartHiliteUseFindSettings = isCheckedOrNot(IDC_CHECK_SMARTHILITEUSEFINDSETTINGS);
-					if (nppGUI._smartHiliteUseFindSettings)
+					nppGUI._smartHighlightUseFindSettings = isCheckedOrNot(IDC_CHECK_SMARTHILITEUSEFINDSETTINGS);
+					if (nppGUI._smartHighlightUseFindSettings)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE, BM_SETCHECK, false, 0);
 						::SendDlgItemMessage(_hSelf, IDC_CHECK_SMARTHILITEWHOLEWORDONLY, BM_SETCHECK, false, 0);
-						nppGUI._smartHiliteCaseSensitive = false;
-						nppGUI._smartHiliteWordOnly = false;
+						nppGUI._smartHighlightCaseSensitive = false;
+						nppGUI._smartHighlightWordOnly = false;
 					}
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
@@ -2000,7 +2000,7 @@ INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/*
 				}
 				case IDC_CHECK_SMARTHILITEANOTHERRVIEW:
 				{
-					nppGUI._smartHiliteOnAnotherView = isCheckedOrNot(IDC_CHECK_SMARTHILITEANOTHERRVIEW);
+					nppGUI._smartHighlightOnAnotherView = isCheckedOrNot(IDC_CHECK_SMARTHILITEANOTHERRVIEW);
 
 					HWND grandParent = ::GetParent(_hParent);
 					::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
@@ -2009,21 +2009,21 @@ INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/*
 
 				case IDC_CHECK_ENABLTAGSMATCHHILITE:
 				{
-					nppGUI._enableTagsMatchHilite = !nppGUI._enableTagsMatchHilite;
-					if (!nppGUI._enableTagsMatchHilite)
+					nppGUI._enableTagsMatchHighlight = !nppGUI._enableTagsMatchHighlight;
+					if (!nppGUI._enableTagsMatchHighlight)
 					{
 						HWND grandParent = ::GetParent(_hParent);
 						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATORTAGMATCH, 0, 0);
 					}
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHilite);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHighlight);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHighlight);
 					return TRUE;
 				}
 
 				case IDC_CHECK_ENABLTAGATTRHILITE:
 				{
-					nppGUI._enableTagAttrsHilite = !nppGUI._enableTagAttrsHilite;
-					if (!nppGUI._enableTagAttrsHilite)
+					nppGUI._enableTagAttrsHighlight = !nppGUI._enableTagAttrsHighlight;
+					if (!nppGUI._enableTagAttrsHighlight)
 					{
 						HWND grandParent = ::GetParent(_hParent);
 						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATORTAGATTR, 0, 0);
@@ -2033,7 +2033,7 @@ INT_PTR CALLBACK Highlighting::run_dlgProc(UINT message, WPARAM wParam, LPARAM/*
 
 				case IDC_CHECK_HIGHLITENONEHTMLZONE:
 				{
-					nppGUI._enableHiliteNonHTMLZone = !nppGUI._enableHiliteNonHTMLZone;
+					nppGUI._enableHighlightNonHTMLZone = !nppGUI._enableHighlightNonHTMLZone;
 					return TRUE;
 				}
 			}
@@ -2085,10 +2085,10 @@ INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 
-			::SetDlgItemInt(_hSelf, IDC_EDIT_ML, nppGUI._printSettings._marge.left, FALSE);
-			::SetDlgItemInt(_hSelf, IDC_EDIT_MR, nppGUI._printSettings._marge.right, FALSE);
-			::SetDlgItemInt(_hSelf, IDC_EDIT_MT, nppGUI._printSettings._marge.top, FALSE);
-			::SetDlgItemInt(_hSelf, IDC_EDIT_MB,  nppGUI._printSettings._marge.bottom, FALSE);
+			::SetDlgItemInt(_hSelf, IDC_EDIT_ML, nppGUI._printSettings._margin.left, FALSE);
+			::SetDlgItemInt(_hSelf, IDC_EDIT_MR, nppGUI._printSettings._margin.right, FALSE);
+			::SetDlgItemInt(_hSelf, IDC_EDIT_MT, nppGUI._printSettings._margin.top, FALSE);
+			::SetDlgItemInt(_hSelf, IDC_EDIT_MB,  nppGUI._printSettings._margin.bottom, FALSE);
 			::SetDlgItemText(_hSelf, IDC_EDIT_HLEFT, nppGUI._printSettings._headerLeft.c_str());
 			::SetDlgItemText(_hSelf, IDC_EDIT_HMIDDLE, nppGUI._printSettings._headerMiddle.c_str());
 			::SetDlgItemText(_hSelf, IDC_EDIT_HRIGHT, nppGUI._printSettings._headerRight.c_str());
@@ -2161,19 +2161,19 @@ INT_PTR CALLBACK PrintSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPAR
 				switch (LOWORD(wParam))
 				{
 					case  IDC_EDIT_ML:
-						nppGUI._printSettings._marge.left = ::GetDlgItemInt(_hSelf, IDC_EDIT_ML, NULL, FALSE);
+						nppGUI._printSettings._margin.left = ::GetDlgItemInt(_hSelf, IDC_EDIT_ML, NULL, FALSE);
 						return TRUE;
 
 					case  IDC_EDIT_MR:
-						nppGUI._printSettings._marge.right = ::GetDlgItemInt(_hSelf, IDC_EDIT_MR, NULL, FALSE);
+						nppGUI._printSettings._margin.right = ::GetDlgItemInt(_hSelf, IDC_EDIT_MR, NULL, FALSE);
 						return TRUE;
 
 					case IDC_EDIT_MT :
-						nppGUI._printSettings._marge.top = ::GetDlgItemInt(_hSelf, IDC_EDIT_MT, NULL, FALSE);
+						nppGUI._printSettings._margin.top = ::GetDlgItemInt(_hSelf, IDC_EDIT_MT, NULL, FALSE);
 						return TRUE;
 
 					case IDC_EDIT_MB :
-						nppGUI._printSettings._marge.bottom = ::GetDlgItemInt(_hSelf, IDC_EDIT_MB, NULL, FALSE);
+						nppGUI._printSettings._margin.bottom = ::GetDlgItemInt(_hSelf, IDC_EDIT_MB, NULL, FALSE);
 						return TRUE;
 
 					default :

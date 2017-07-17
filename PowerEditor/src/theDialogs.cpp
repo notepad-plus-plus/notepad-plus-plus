@@ -27,7 +27,7 @@
 
 
 
-#include "lesDlgs.h"
+#include "theDialogs.h"
 #include "resource.h"
 #include "menuCmdID.h"
 
@@ -143,7 +143,7 @@ INT_PTR CALLBACK ButtonDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
                     int cmd = 0;
                     if (isFullScreen && isPostIt)
                     {
-                        // remove postit firstly
+                        // remove PostIt firstly
                         cmd = IDM_VIEW_POSTIT;
                     }
                     else if (isFullScreen)

@@ -35,7 +35,7 @@
 #include "../Utf8.h"
 
 
-WcharMbcsConvertor* WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
+WcharMbcsConverter* WcharMbcsConverter::_pSelf = new WcharMbcsConverter;
 
 
 
@@ -386,7 +386,7 @@ generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand
 }
 
 
-const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage, int lenMbcs, int *pLenWc, int *pBytesNotProcessed)
+const wchar_t * WcharMbcsConverter::char2wchar(const char * mbcs2Convert, UINT codepage, int lenMbcs, int *pLenWc, int *pBytesNotProcessed)
 {
 	// Do not process NULL pointer
 	if (!mbcs2Convert)
@@ -457,7 +457,7 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 
 // "mstart" and "mend" are pointers to indexes in mbcs2Convert,
 // which are converted to the corresponding indexes in the returned wchar_t string.
-const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage, int *mstart, int *mend)
+const wchar_t * WcharMbcsConverter::char2wchar(const char * mbcs2Convert, UINT codepage, int *mstart, int *mend)
 {
 	// Do not process NULL pointer
 	if (!mbcs2Convert) return NULL;
@@ -489,7 +489,7 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 }
 
 
-const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, int lenWc, int *pLenMbcs)
+const char* WcharMbcsConverter::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, int lenWc, int *pLenMbcs)
 {
 	if (nullptr == wcharStr2Convert)
 		return nullptr;
@@ -509,7 +509,7 @@ const char* WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UIN
 }
 
 
-const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, long *mstart, long *mend)
+const char * WcharMbcsConverter::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, long *mstart, long *mend)
 {
 	if (nullptr == wcharStr2Convert)
 		return nullptr;

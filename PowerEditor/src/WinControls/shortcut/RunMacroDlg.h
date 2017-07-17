@@ -43,8 +43,8 @@ public :
 	~RunMacroDlg() {
 	};
 
-	void init(HINSTANCE hInst, HWND hPere/*, ScintillaEditView **ppEditView*/) {
-		Window::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent/*, ScintillaEditView **ppEditView*/) {
+		Window::init(hInst, hParent);
 	};
 
 	void doDialog(bool isRTL = false) {

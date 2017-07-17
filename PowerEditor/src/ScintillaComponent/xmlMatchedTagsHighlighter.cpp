@@ -578,7 +578,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findText(const 
 	return returnValue;
 }
 
-void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr) 
+void XmlMatchedTagsHighlighter::tagMatch(bool doHighlightAttr) 
 {
 	// Clean up all marks of previous action
 	_pEditView->clearIndicator(SCE_UNIVERSAL_TAGMATCH);
@@ -635,8 +635,8 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenEnd - openTagTailLen, openTagTailLen);
 
         
-        // Colouising its attributs
-        if (doHiliteAttr)
+        // Colouising its attributes
+        if (doHighlightAttr)
 		{
 			vector< pair<int, int> > attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
 			_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);

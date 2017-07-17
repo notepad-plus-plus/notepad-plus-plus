@@ -46,7 +46,7 @@
 
 #define WM_TABSETSTYLE	(WM_APP + 0x024)
 
-const int marge = 8;
+const int margin = 8;
 const int nbCtrlMax = 10;
 
 const TCHAR TABBAR_ACTIVEFOCUSEDINDCATOR[64] = TEXT("Active tab focused indicator");
@@ -69,7 +69,7 @@ public:
 	virtual ~TabBar() {};
 	virtual void destroy();
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isMultiLine = false);
-	virtual void reSizeTo(RECT & rc2Ajust);
+	virtual void reSizeTo(RECT & rc2Adjust);
 	int insertAtEnd(const TCHAR *subTabName);
 	void activateAt(int index) const;
 	void getCurrentTitle(TCHAR *title, int titleLen);

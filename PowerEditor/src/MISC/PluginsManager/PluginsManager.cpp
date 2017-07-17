@@ -197,7 +197,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 
 			ExternalLangContainer *containers[30];
 
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 			for (int x = 0; x < numLexers; ++x)
 			{
 				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);

@@ -131,7 +131,7 @@ const int MARK_HIDELINESUNDERLINE = 21;
 
 int getNbDigits(int aNum, int base);
 
-TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
+TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbDigits, bool isZeroLeading);
 
 typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
 
@@ -219,7 +219,7 @@ public:
 		_hSelf = NULL;
 	};
 
-	virtual void init(HINSTANCE hInst, HWND hPere);
+	virtual void init(HINSTANCE hInst, HWND hParent);
 
 	LRESULT execute(UINT Msg, WPARAM wParam=0, LPARAM lParam=0) const {
 		return _pScintillaFunc(_pScintillaPtr, Msg, wParam, lParam);
@@ -249,12 +249,12 @@ public:
     TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
 	int searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
-	void appandGenericText(const TCHAR * text2Append) const;
+	void appendGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const;
 	int replaceTarget(const TCHAR * str2replace, int fromTargetPos = -1, int toTargetPos = -1) const;
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
-	void showAutoComletion(size_t lenEntered, const TCHAR * list);
+	void showAutoCompletion(size_t lenEntered, const TCHAR * list);
 	void showCallTip(int startPos, const TCHAR * def);
 	generic_string getLine(size_t lineNumber);
 	void getLine(size_t lineNumber, TCHAR * line, int lineBufferLen);
@@ -308,28 +308,28 @@ public:
 		_userDefineDlg.setScintilla(this);
 	};
 
-    //Marge member and method
-    static const int _SC_MARGE_LINENUMBER;
-    static const int _SC_MARGE_SYBOLE;
-    static const int _SC_MARGE_FOLDER;
-	//static const int _SC_MARGE_MODIFMARKER;
+    //Margin member and method
+    static const int _SC_MARGIN_LINENUMBER;
+    static const int _SC_MARGIN_SYMBOLE;
+    static const int _SC_MARGIN_FOLDER;
+	//static const int _SC_MARGIN_MODIFMARKER;
 
-    void showMargin(int whichMarge, bool willBeShowed = true) {
-        if (whichMarge == _SC_MARGE_LINENUMBER)
+    void showMargin(int whichMargin, bool willBeShowed = true) {
+        if (whichMargin == _SC_MARGIN_LINENUMBER)
 			showLineNumbersMargin(willBeShowed);
         else
 		{
 			int width = 3;
-			if (whichMarge == _SC_MARGE_SYBOLE)
+			if (whichMargin == _SC_MARGIN_SYMBOLE)
 				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 20 : 16;
-			else if (whichMarge == _SC_MARGE_FOLDER)
+			else if (whichMargin == _SC_MARGIN_FOLDER)
 				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 18 : 14;
-			execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
+			execute(SCI_SETMARGINWIDTHN, whichMargin, willBeShowed ? width : 0);
 		}
     };
 
-    bool hasMarginShowed(int witchMarge) {
-		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);
+    bool hasMarginShowed(int whichMargin) {
+		return (execute(SCI_GETMARGINWIDTHN, whichMargin, 0) != 0);
     };
 
     void updateBeginEndSelectPosition(const bool is_insert, const int position, const int length);
@@ -348,7 +348,7 @@ public:
 		}
 		for (int i = 0 ; i < NB_FOLDER_STATE ; ++i)
 			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], white, grey, white);
-		showMargin(ScintillaEditView::_SC_MARGE_FOLDER, display);
+		showMargin(ScintillaEditView::_SC_MARGIN_FOLDER, display);
     };
 
 
@@ -504,20 +504,20 @@ public:
 		}
 		else
 		{
-			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, 0);
+			execute(SCI_SETMARGINWIDTHN, _SC_MARGIN_LINENUMBER, 0);
 		}
 	}
 
 	void updateLineNumberWidth();
 
-	void setCurrentLineHiLiting(bool isHiliting, COLORREF bgColor) const {
-		execute(SCI_SETCARETLINEVISIBLE, isHiliting);
-		if (!isHiliting)
+	void setCurrentLineHighlighting(bool isHighlighting, COLORREF bgColor) const {
+		execute(SCI_SETCARETLINEVISIBLE, isHighlighting);
+		if (!isHighlighting)
 			return;
 		execute(SCI_SETCARETLINEBACK, bgColor);
 	};
 
-	bool isCurrentLineHiLiting() const {
+	bool isCurrentLineHighlighting() const {
 		return (execute(SCI_GETCARETLINEVISIBLE) != 0);
 	};
 
@@ -899,7 +899,7 @@ protected:
 		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, 0);
 	};
 
-	bool isNeededFolderMarge(LangType typeDoc) const {
+	bool isNeededFolderMargin(LangType typeDoc) const {
 		switch (typeDoc)
 		{
 			case L_ASCII:

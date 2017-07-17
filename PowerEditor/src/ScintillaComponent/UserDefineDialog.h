@@ -319,10 +319,10 @@ friend class ScintillaEditView;
 public :
     UserDefineDialog();
     ~UserDefineDialog();
-    void init(HINSTANCE hInst, HWND hPere, ScintillaEditView *pSev) {
+    void init(HINSTANCE hInst, HWND hParent, ScintillaEditView *pSev) {
         if (!_pScintilla)
         {
-            Window::init(hInst, hPere);
+            Window::init(hInst, hParent);
             _pScintilla = pSev;
         }
     };
@@ -384,9 +384,9 @@ private :
     SymbolsStyleDialog      _symbolsStyleDlg;
     bool _status = UNDOCK;
     RECT _dlgPos;
-    int _currentHight = 0;
+    int _currentHeight = 0;
     int _yScrollPos = 0;
-    int _prevHightVal = 0;
+    int _prevHeightVal = 0;
     bool _isDirty = false;
     void getActualPosSize() {
         ::GetWindowRect(_hSelf, &_dlgPos);

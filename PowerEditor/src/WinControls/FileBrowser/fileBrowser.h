@@ -136,8 +136,8 @@ class FileBrowser : public DockingDlgInterface {
 public:
 	FileBrowser(): DockingDlgInterface(IDD_FILEBROWSER) {};
 	~FileBrowser();
-	void init(HINSTANCE hInst, HWND hPere) {
-		DockingDlgInterface::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent) {
+		DockingDlgInterface::init(hInst, hParent);
 	}
 
     virtual void display(bool toShow = true) const {

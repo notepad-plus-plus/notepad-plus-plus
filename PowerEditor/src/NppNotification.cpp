@@ -487,7 +487,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			int lineClick = int(_pEditView->execute(SCI_LINEFROMPOSITION, notification->position));
 
-			if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
+			if (notification->margin == ScintillaEditView::_SC_MARGIN_FOLDER)
 			{
 				_pEditView->marginClick(notification->position, notification->modifiers);
 				if (_pDocMap)
@@ -497,7 +497,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				_smartHighlighter.highlightView(_pEditView, unfocusView);
 			}
-			else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
+			else if ((notification->margin == ScintillaEditView::_SC_MARGIN_SYMBOLE) && !notification->modifiers)
 			{
 				if (!_pEditView->markerMarginClick(lineClick))
 					bookmarkToggle(lineClick);
@@ -529,7 +529,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (!_recordingMacro && !_playingBackMacro) // No macro recording or playing back
 			{
 				const NppGUI & nppGui = NppParameters::getInstance()->getNppGUI();
-				bool indentMaintain = nppGui._maitainIndent;
+				bool indentMaintain = nppGui._maintainIndent;
 				if (indentMaintain)
 					maintainIndentation(static_cast<TCHAR>(notification->ch));
 
@@ -718,7 +718,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (notification->nmhdr.hwndFrom != _pEditView->getHSelf()) // notification come from unfocus view - both views ae visible
 			{
 				//ScintillaEditView * unfocusView = isFromPrimary ? &_subEditView : &_mainEditView;
-				if (nppGui._smartHiliteOnAnotherView &&
+				if (nppGui._smartHighlightOnAnotherView &&
 					_pEditView->getCurrentBufferID() != notifyView->getCurrentBufferID())
 				{
 					TCHAR selectedText[1024];
@@ -730,16 +730,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			braceMatch();
 
-			if (nppGui._enableTagsMatchHilite)
+			if (nppGui._enableTagsMatchHighlight)
 			{
-				XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
-				xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
+				XmlMatchedTagsHighlighter xmlTagMatchHighlightr(_pEditView);
+				xmlTagMatchHighlightr.tagMatch(nppGui._enableTagAttrsHighlight);
 			}
 
-			if (nppGui._enableSmartHilite)
+			if (nppGui._enableSmartHighlight)
 			{
-				if (nppGui._disableSmartHiliteTmp)
-					nppGui._disableSmartHiliteTmp = false;
+				if (nppGui._disableSmartHighlightTmp)
+					nppGui._disableSmartHighlightTmp = false;
 				else
 				{
 					ScintillaEditView * anbotherView = isFromPrimary ? &_subEditView : &_mainEditView;

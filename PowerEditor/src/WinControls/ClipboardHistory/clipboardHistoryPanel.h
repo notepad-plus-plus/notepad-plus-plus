@@ -70,8 +70,8 @@ class ClipboardHistoryPanel : public DockingDlgInterface {
 public:
 	ClipboardHistoryPanel(): DockingDlgInterface(IDD_CLIPBOARDHISTORY_PANEL), _ppEditView(NULL), _hwndNextCbViewer(NULL), _lbBgColor(-1), _lbFgColor(-1) {};
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
-		DockingDlgInterface::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView) {
+		DockingDlgInterface::init(hInst, hParent);
 		_ppEditView = ppEditView;
 	};
 /*

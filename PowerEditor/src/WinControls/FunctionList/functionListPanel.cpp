@@ -310,9 +310,9 @@ void FunctionListPanel::reload()
 }
 
 
-void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
+void FunctionListPanel::init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView)
 {
-	DockingDlgInterface::init(hInst, hPere);
+	DockingDlgInterface::init(hInst, hParent);
 	_ppEditView = ppEditView;
 	bool doLocalConf = (NppParameters::getInstance())->isLocal();
 
@@ -612,8 +612,8 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 			// tips text for toolbar buttons
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
-			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
+			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
+			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUNCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
 
 			_hSearchEdit = CreateWindowEx(0, L"Edit", NULL,
                                    WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL,

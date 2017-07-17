@@ -37,7 +37,7 @@ SmartHighlighter::SmartHighlighter(FindReplaceDlg * pFRDlg)
 	//Nothing to do
 }
 
-void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView, const generic_string & word2Hilite)
+void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView, const generic_string & word2Highlight)
 {
 	// save target locations for other search functions
 	auto originalStartPos = pHighlightView->execute(SCI_GETTARGETSTART);
@@ -59,7 +59,7 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
-	if (nppGUI._smartHiliteUseFindSettings)
+	if (nppGUI._smartHighlightUseFindSettings)
 	{
 		// fetch find dialog's setting
 		NppParameters *nppParams = NppParameters::getInstance();
@@ -69,8 +69,8 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	}
 	else
 	{
-		isWordOnly = nppGUI._smartHiliteWordOnly;
-		isCaseSensentive = nppGUI._smartHiliteCaseSensitive;
+		isWordOnly = nppGUI._smartHighlightWordOnly;
+		isCaseSensentive = nppGUI._smartHighlightCaseSensitive;
 	}
 
 	FindOption fo;
@@ -78,7 +78,7 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	fo._isWholeWord = isWordOnly;
 
 	FindReplaceInfo frInfo;
-	frInfo._txt2find = word2Hilite.c_str();
+	frInfo._txt2find = word2Highlight.c_str();
 
 	for (; currentLine < lastLine; ++currentLine)
 	{
@@ -114,10 +114,10 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
-	// If nothing selected, dont mark anything
+	// If nothing selected, don't mark anything
 	if (pHighlightView->execute(SCI_GETSELECTIONEMPTY) == 1)
 	{
-		if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible()
+		if (nppGUI._smartHighlightOnAnotherView && unfocusView && unfocusView->isVisible()
 			&& unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
 		{
 			unfocusView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
@@ -132,7 +132,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	bool isWordOnly = true;
 	bool isCaseSensentive = true;
 
-	if (nppGUI._smartHiliteUseFindSettings)
+	if (nppGUI._smartHighlightUseFindSettings)
 	{
 		// fetch find dialog's setting
 		NppParameters *nppParams = NppParameters::getInstance();
@@ -142,8 +142,8 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	}
 	else
 	{
-		isWordOnly = nppGUI._smartHiliteWordOnly;
-		isCaseSensentive = nppGUI._smartHiliteCaseSensitive;
+		isWordOnly = nppGUI._smartHighlightWordOnly;
+		isCaseSensentive = nppGUI._smartHighlightCaseSensitive;
 	}
 
 	// additional checks for wordOnly mode
@@ -161,13 +161,13 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 	char * text2Find = new char[textlen];
 	pHighlightView->getSelectedText(text2Find, textlen, false); //do not expand selection (false)
 
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 	UINT cp = static_cast<UINT>(pHighlightView->execute(SCI_GETCODEPAGE));
 	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
 
 	highlightViewWithWord(pHighlightView, text2FindW);
 
-	if (nppGUI._smartHiliteOnAnotherView && unfocusView && unfocusView->isVisible()
+	if (nppGUI._smartHighlightOnAnotherView && unfocusView && unfocusView->isVisible()
 		&& unfocusView->getCurrentBufferID() != pHighlightView->getCurrentBufferID())
 	{
 		// Clear marks

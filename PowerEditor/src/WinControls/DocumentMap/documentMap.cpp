@@ -59,11 +59,11 @@ void DocumentMap::reloadMap()
 	}
 }
 
-void DocumentMap::setSyntaxHiliting()
+void DocumentMap::setSyntaxHighlighting()
 {
 	Buffer *buf = _pScintillaEditView->getCurrentBuffer();
 	_pScintillaEditView->defineDocType(buf->getLangType());
-	_pScintillaEditView->showMargin(ScintillaEditView::_SC_MARGE_FOLDER, false);
+	_pScintillaEditView->showMargin(ScintillaEditView::_SC_MARGIN_FOLDER, false);
 }
 
 bool DocumentMap::needToRecomputeWith()
@@ -286,7 +286,7 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_vzDlg.doDialog();
 			(NppParameters::getInstance())->SetTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
 
-			setSyntaxHiliting();
+			setSyntaxHighlighting();
 			
 			_pScintillaEditView->showMargin(0, false);
 			_pScintillaEditView->showMargin(1, false);
@@ -330,7 +330,7 @@ INT_PTR CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					_vzDlg.display();
 					reloadMap();
-					setSyntaxHiliting();
+					setSyntaxHighlighting();
 					return TRUE;
 				}
 

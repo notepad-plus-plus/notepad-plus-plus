@@ -126,10 +126,10 @@ public :
 		return _tbiis[i]._stdIcon;
 	};
 
-	bool replaceIcon(int witchList, int iconIndex, const TCHAR *iconLocation) const {
-		if ((witchList != HLIST_DEFAULT) && (witchList != HLIST_HOT) && (witchList != HLIST_DISABLE))
+	bool replaceIcon(int whichList, int iconIndex, const TCHAR *iconLocation) const {
+		if ((whichList != HLIST_DEFAULT) && (whichList != HLIST_HOT) && (whichList != HLIST_DISABLE))
 			return false;
-		return _iconListVector[witchList].changeIcon(iconIndex, iconLocation);
+		return _iconListVector[whichList].changeIcon(iconIndex, iconLocation);
 	};
 
 private :

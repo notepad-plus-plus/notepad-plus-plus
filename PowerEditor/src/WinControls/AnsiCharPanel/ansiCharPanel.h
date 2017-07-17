@@ -44,8 +44,8 @@ class AnsiCharPanel : public DockingDlgInterface {
 public:
 	AnsiCharPanel(): DockingDlgInterface(IDD_ANSIASCII_PANEL) {};
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
-		DockingDlgInterface::init(hInst, hPere);
+	void init(HINSTANCE hInst, HWND hParent, ScintillaEditView **ppEditView) {
+		DockingDlgInterface::init(hInst, hParent);
 		_ppEditView = ppEditView;
 	};
 /*

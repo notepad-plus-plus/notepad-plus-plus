@@ -462,7 +462,7 @@ void Buffer::setHideLineChanged(bool isHide, int location)
 
 void Buffer::setDeferredReload() // triggers a reload on the next Document access
 {
-	_isDirty = false;	//when reloading, just set to false, since it sohuld be marked as clean
+	_isDirty = false;	//when reloading, just set to false, since it should be marked as clean
 	_needReloading = true;
 	doNotify(BufferChangeDirty);
 }
@@ -511,7 +511,7 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 {
 	_pNotepadPlus = pNotepadPlus;
 	_pscratchTilla = pscratchTilla;
-	_pscratchTilla->execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
+	_pscratchTilla->execute(SCI_SETUNDOCOLLECTION, false);	//don't store any undo information
 	_scratchDocDefault = (Document)_pscratchTilla->execute(SCI_GETDOCPOINTER);
 	_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, _scratchDocDefault);
 }
@@ -603,12 +603,12 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		lstrcpy(fullpath, filename); // we restore fullpath with filename, in our case is "new  #"
 	}
 
-	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
+	Utf8_16_Read UnicodeConverter;	//declare here so we can get information after loading is done
 
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
 	EolType bkformat = EolType::unknown;
 	LangType detectedLang = L_TEXT;
-	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConvertor, detectedLang, encoding, bkformat);
+	bool res = loadFileData(doc, backupFileName ? backupFileName : fullpath, data, &UnicodeConverter, detectedLang, encoding, bkformat);
 	if (res)
 	{
 		Buffer* newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -641,7 +641,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 
 		if (encoding == -1)
 		{
-			UniMode um = UnicodeConvertor.getEncoding();
+			UniMode um = UnicodeConverter.getEncoding();
 			if (um == uni7Bit)
 				um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
 
@@ -673,8 +673,8 @@ bool FileManager::reloadBuffer(BufferID id)
 {
 	Buffer* buf = getBufferByID(id);
 	Document doc = buf->getDocument();
-	Utf8_16_Read UnicodeConvertor;
-	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
+	Utf8_16_Read UnicodeConverter;
+	buf->_canNotify = false;	//disable notify during file load, we don't want dirty to be triggered
 	int encoding = buf->getEncoding();
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
 	EolType bkformat;
@@ -684,14 +684,14 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->setLoadedDirty(false);	// Since the buffer will be reloaded from the disk, and it will be clean (not dirty), we can set _isLoadedDirty false safetly.
 								// Set _isLoadedDirty false before calling "_pscratchTilla->execute(SCI_CLEARALL);" in loadFileData() to avoid setDirty in SCN_SAVEPOINTREACHED / SCN_SAVEPOINTLEFT
 
-	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConvertor, lang, encoding, bkformat);
+	bool res = loadFileData(doc, buf->getFullPathName(), data, &UnicodeConverter, lang, encoding, bkformat);
 	buf->_canNotify = true;
 
 	if (res)
 	{
 		if (encoding == -1)
 		{
-			buf->setUnicodeMode(UnicodeConvertor.getEncoding());
+			buf->setUnicodeMode(UnicodeConverter.getEncoding());
 		}
 		else
 		{
@@ -758,13 +758,13 @@ For existing file (c:\tmp\foo.h)
 	In the next session, Notepad++
 	1. load backup\FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776) if exist, otherwise load FILENAME (c:\tmp\foo.h).
 	2. if backup\FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776) is loaded, set it dirty (red).
-	3. if backup\FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776) is loaded, last modif timestamp of FILENAME (c:\tmp\foo.h), compare with tracked timestamp (in session.xml).
+	3. if backup\FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776) is loaded, last modified timestamp of FILENAME (c:\tmp\foo.h), compare with tracked timestamp (in session.xml).
 	4. in the case of unequal result, tell user the FILENAME (c:\tmp\foo.h) was modified. ask user if he want to reload FILENAME(c:\tmp\foo.h)
 
 	- Editing
 	when a file starts being modified, a file will be created with name: FILENAME@CREATION_TIMESTAMP (backup\foo.h@198776)
 	the Buffer object will associate with this FILENAME@CREATION_TIMESTAMP file (backup\foo.h@198776).
-	1. sync: (each 3-5 second) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notificatin).
+	1. sync: (each 3-5 second) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notification).
 	2. sync: each save file, or close file, the backup file will be deleted (if buffer is not dirty).
 	3. before switch off to another tab (or close files on exit), check 1 & 2 (sync with backup).
 
@@ -782,7 +782,7 @@ For untitled document (new  4)
 	- Editing
 	when a untitled document starts being modified, a backup file will be created with name: UNTITLED_NAME@CREATION_TIMESTAMP (backup\new  4@198776)
 	the Buffer object will associate with this UNTITLED_NAME@CREATION_TIMESTAMP file (backup\new  4@198776).
-	1. sync: (each 3-5 second) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notificatin).
+	1. sync: (each 3-5 second) backup file will be saved, if buffer is dirty, and modification is present (a bool on modified notification).
 	2. sync: if untitled document is saved, or closed, the backup file will be deleted.
 	3. before switch off to another tab (or close documents on exit), check 1 & 2 (sync with backup).
 
@@ -803,7 +803,7 @@ bool FileManager::backupCurrentBuffer()
 		if (buffer->isModified()) // buffer dirty and modified, write the backup file
 		{
 			// Synchronization
-			// This method is called from 2 differents place, so synchronization is important
+			// This method is called from 2 different places, so synchronization is important
 			HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
 			if (not writeEvent)
 			{
@@ -823,7 +823,7 @@ bool FileManager::backupCurrentBuffer()
 					return false;
 				}
 
-				// unlocled here, set to non-signaled state, to block all threads
+				// unlocked here, set to non-signaled state, to block all threads
 				if (not ::ResetEvent(writeEvent))
 				{
 					printStr(TEXT("ResetEvent problem in backupCurrentBuffer()!"));
@@ -835,8 +835,8 @@ bool FileManager::backupCurrentBuffer()
 			if (mode == uniCookie)
 				mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
 
-			Utf8_16_Write UnicodeConvertor;
-			UnicodeConvertor.setEncoding(mode);
+			Utf8_16_Write UnicodeConverter;
+			UnicodeConverter.setEncoding(mode);
 			int encoding = buffer->getEncoding();
 
 			generic_string backupFilePath = buffer->getBackupFileName();
@@ -885,7 +885,7 @@ bool FileManager::backupCurrentBuffer()
 				::SetFileAttributes(fullpath, dwFileAttribs);
 			}
 
-			FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
+			FILE *fp = UnicodeConverter.fopen(fullpath, TEXT("wb"));
 			if (fp)
 			{
 				int lengthDoc = _pNotepadPlus->_pEditView->getCurrentDocLen();
@@ -893,13 +893,13 @@ bool FileManager::backupCurrentBuffer()
 				size_t items_written = 0;
 				if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 				{
-					items_written = UnicodeConvertor.fwrite(buf, lengthDoc);
+					items_written = UnicodeConverter.fwrite(buf, lengthDoc);
 					if (lengthDoc == 0)
 						items_written = 1;
 				}
 				else
 				{
-					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 					int grabSize;
 					for (int i = 0; i < lengthDoc; i += grabSize)
 					{
@@ -911,12 +911,12 @@ bool FileManager::backupCurrentBuffer()
 						int incompleteMultibyteChar = 0;
 						const char *newData = wmc->encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
 						grabSize -= incompleteMultibyteChar;
-						items_written = UnicodeConvertor.fwrite(newData, newDataLen);
+						items_written = UnicodeConverter.fwrite(newData, newDataLen);
 					}
 					if (lengthDoc == 0)
 						items_written = 1;
 				}
-				UnicodeConvertor.fclose();
+				UnicodeConverter.fclose();
 
 				// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
 				if(items_written == 1) // backup file has been saved
@@ -999,7 +999,7 @@ bool FileManager::deleteCurrentBufferBackup()
 			return false;
 		}
 
-		// unlocled here, set to non-signaled state, to block all threads
+		// unlocked here, set to non-signaled state, to block all threads
 		::ResetEvent(writeEvent);
 	}
 
@@ -1037,7 +1037,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 			return false;
 		}
 
-		// unlocled here, set to non-signaled state, to block all threads
+		// unlocked here, set to non-signaled state, to block all threads
 		::ResetEvent(writeEvent);
 	}
 
@@ -1074,12 +1074,12 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 	if (mode == uniCookie)
 		mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
 
-	Utf8_16_Write UnicodeConvertor;
-	UnicodeConvertor.setEncoding(mode);
+	Utf8_16_Write UnicodeConverter;
+	UnicodeConverter.setEncoding(mode);
 
 	int encoding = buffer->getEncoding();
 
-	FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
+	FILE *fp = UnicodeConverter.fopen(fullpath, TEXT("wb"));
 	if (fp)
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
@@ -1089,13 +1089,13 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		size_t items_written = 0;
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 		{
-			items_written = UnicodeConvertor.fwrite(buf, lengthDoc);
+			items_written = UnicodeConverter.fwrite(buf, lengthDoc);
 			if (lengthDoc == 0)
 				items_written = 1;
 		}
 		else
 		{
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 			int grabSize;
 			for (int i = 0; i < lengthDoc; i += grabSize)
 			{
@@ -1107,7 +1107,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 				int incompleteMultibyteChar = 0;
 				const char *newData = wmc->encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
 				grabSize -= incompleteMultibyteChar;
-				items_written = UnicodeConvertor.fwrite(newData, newDataLen);
+				items_written = UnicodeConverter.fwrite(newData, newDataLen);
 			}
 			if (lengthDoc == 0)
 				items_written = 1;
@@ -1116,7 +1116,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		// check the language du fichier
 		LangType language = detectLanguageFromTextBegining((unsigned char *)buf, lengthDoc);
 
-		UnicodeConvertor.fclose();
+		UnicodeConverter.fclose();
 
 		// Error, we didn't write the entire document to disk.
 		// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
@@ -1360,7 +1360,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 	return L_TEXT;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConverter, LangType & language, int & encoding, EolType & eolFormat)
 {
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (not fp)
@@ -1406,7 +1406,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	{
 		int id = language - L_EXTERNAL;
 		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		WcharMbcsConverter *wmc = WcharMbcsConverter::getInstance();
 		const char *pName = wmc->wchar2char(name, CP_ACP);
 		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, reinterpret_cast<LPARAM>(pName));
 	}
@@ -1466,7 +1466,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 				}
 				else
 				{
-					WcharMbcsConvertor* wmc = WcharMbcsConvertor::getInstance();
+					WcharMbcsConverter* wmc = WcharMbcsConverter::getInstance();
 					int newDataLen = 0;
 					const char *newData = wmc->encode(encoding, SC_CP_UTF8, data, static_cast<int32_t>(lenFile), &newDataLen, &incompleteMultibyteChar);
 					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, reinterpret_cast<LPARAM>(newData));
@@ -1477,10 +1477,10 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 			}
 			else
 			{
-				lenConvert = unicodeConvertor->convert(data, lenFile);
-				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConvertor->getNewBuf()));
+				lenConvert = unicodeConverter->convert(data, lenFile);
+				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, reinterpret_cast<LPARAM>(unicodeConverter->getNewBuf()));
 				if (format == EolType::unknown)
-					format = getEOLFormatForm(unicodeConvertor->getNewBuf(), unicodeConvertor->getNewSize(), EolType::unknown);
+					format = getEOLFormatForm(unicodeConverter->getNewBuf(), unicodeConverter->getNewSize(), EolType::unknown);
 			}
 
 			if (_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK)

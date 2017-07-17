@@ -654,7 +654,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 {
 	_currentLexerIndex = index;
 
-	// Fill out Styles listbox
+	// Fill out Styles list-box
 	// Before filling out, we clean it
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_RESETCONTENT, 0, 0);
 

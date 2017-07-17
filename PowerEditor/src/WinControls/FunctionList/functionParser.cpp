@@ -61,11 +61,11 @@ bool FunctionParsersManager::init(generic_string xmlPath, ScintillaEditView ** p
 	return loadOkay;
 }
 
-bool FunctionParsersManager::getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray)
+bool FunctionParsersManager::getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymbolStr, generic_string &closeSymbolStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray)
 {
 	const TCHAR *mainExpr = NULL;
-	const TCHAR *openSymbole = NULL;
-	const TCHAR *closeSymbole = NULL;
+	const TCHAR *openSymbol = NULL;
+	const TCHAR *closeSymbol = NULL;
 	const TCHAR *functionExpr = NULL;
 
 	mainExpr = (classRangeParser->ToElement())->Attribute(TEXT("mainExpr"));
@@ -73,13 +73,13 @@ bool FunctionParsersManager::getZonePaserParameters(TiXmlNode *classRangeParser,
 		return false;
 	mainExprStr = mainExpr;
 
-	openSymbole = (classRangeParser->ToElement())->Attribute(TEXT("openSymbole"));
-	if (openSymbole && openSymbole[0])
-		openSymboleStr = openSymbole;
+	openSymbol = (classRangeParser->ToElement())->Attribute(TEXT("openSymbol"));
+	if (openSymbol && openSymbol[0])
+		openSymbolStr = openSymbol;
 
-	closeSymbole = (classRangeParser->ToElement())->Attribute(TEXT("closeSymbole"));
-	if (closeSymbole && closeSymbole[0])
-		closeSymboleStr = closeSymbole;
+	closeSymbol = (classRangeParser->ToElement())->Attribute(TEXT("closeSymbol"));
+	if (closeSymbol && closeSymbol[0])
+		closeSymbolStr = closeSymbol;
 
 	TiXmlNode *classNameParser = classRangeParser->FirstChild(TEXT("className"));
 	if (classNameParser)
@@ -205,8 +205,8 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 		TiXmlNode *functionParser = childNode->FirstChild(TEXT("function"));
 		if (classRangeParser && functionParser)
 		{
-			generic_string mainExpr, openSymbole, closeSymbole, functionExpr;
-			getZonePaserParameters(classRangeParser, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
+			generic_string mainExpr, openSymbol, closeSymbol, functionExpr;
+			getZonePaserParameters(classRangeParser, mainExpr, openSymbol, closeSymbol, classNameExprArray, functionExpr, functionNameExprArray);
 			
 			generic_string mainExpr2;
 			std::vector<generic_string> classNameExprArray2;
@@ -214,13 +214,13 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 			getUnitPaserParameters(functionParser, mainExpr2, functionNameExprArray2, classNameExprArray2);
 			FunctionUnitParser *funcUnitPaser = new FunctionUnitParser(id, displayName, commentExpr.c_str(), mainExpr2.c_str(), functionNameExprArray2, classNameExprArray2);
 
-			_parsers.push_back(new FunctionMixParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray, funcUnitPaser));
+			_parsers.push_back(new FunctionMixParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbol.c_str(), closeSymbol.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray, funcUnitPaser));
 		}
 		else if (classRangeParser)
 		{
-			generic_string mainExpr, openSymbole, closeSymbole, functionExpr;
-			getZonePaserParameters(classRangeParser, mainExpr, openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray);
-			_parsers.push_back(new FunctionZoneParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbole.c_str(), closeSymbole.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray));
+			generic_string mainExpr, openSymbol, closeSymbol, functionExpr;
+			getZonePaserParameters(classRangeParser, mainExpr, openSymbol, closeSymbol, classNameExprArray, functionExpr, functionNameExprArray);
+			_parsers.push_back(new FunctionZoneParser(id, displayName, commentExpr.c_str(), mainExpr.c_str(), openSymbol.c_str(), closeSymbol.c_str(), classNameExprArray, functionExpr.c_str(), functionNameExprArray));
 		}
 		else if (functionParser)
 		{
@@ -521,9 +521,9 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 		generic_string classStructName = parseSubLevel(targetStart, targetEnd, _classNameExprArray, foundPos, ppEditView);
 		
 
-		if (not _openSymbole.empty() && not _closeSymbole.empty())
+		if (not _openSymbol.empty() && not _closeSymbol.empty())
 		{
-			targetEnd = static_cast<int32_t>(getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), commentZones, ppEditView));
+			targetEnd = static_cast<int32_t>(getBodyClosePos(targetEnd, _openSymbol.c_str(), _closeSymbol.c_str(), commentZones, ppEditView));
 		}
 
 		if (targetEnd > int(end)) //we found a result but outside our range, therefore do not process it

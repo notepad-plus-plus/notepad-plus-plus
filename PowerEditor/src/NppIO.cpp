@@ -539,7 +539,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 					TCHAR nppFullPath[MAX_PATH];
 					::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 
-					BufferID bufferID = bufferID = _pEditView->getCurrentBufferID();
+					BufferID bufferID = _pEditView->getCurrentBufferID();
 					Buffer * buf = MainFileManager->getBufferByID(bufferID);
 
 					//process the fileNamePath into LRF

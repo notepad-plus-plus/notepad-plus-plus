@@ -96,8 +96,8 @@ scintilla/boostregex/boostpath.mak
 Thumbs.db
 
 #-- Folder config file
-Desktop.ini
-folder-*.ico
+[Dd]esktop.ini
+[Ff]older-*.ico
 
 #-- Recycle Bin used on file shares
 $RECYCLE.BIN/

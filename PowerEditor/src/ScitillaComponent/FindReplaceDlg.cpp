@@ -1628,29 +1628,30 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 		// If the next find is the same as the last, then perform the replacement
 		if (nextFind.cpMin == currentSelection.cpMin && nextFind.cpMax == currentSelection.cpMax)
 		{
-			int stringSizeFind = lstrlen(txt2find);
-			int stringSizeReplace = lstrlen(txt2replace);
-
-			TCHAR *pTextFind = new TCHAR[stringSizeFind + 1];
-			TCHAR *pTextReplace = new TCHAR[stringSizeReplace + 1];
-			lstrcpy(pTextFind, txt2find);
-			lstrcpy(pTextReplace, txt2replace);
-		
 			bool isRegExp = replaceOptions._searchType == FindRegex;
 
 			int start = currentSelection.cpMin;
 			int replacedLen = 0;
 			if (isRegExp)
 			{
-				replacedLen = (*_ppEditView)->replaceTargetRegExMode(pTextReplace);
+				replacedLen = (*_ppEditView)->replaceTargetRegExMode(txt2replace);
 			}
 			else
 			{
 				if (replaceOptions._searchType == FindExtended)
 				{
-					Searching::convertExtendedToString(pTextReplace, pTextReplace, stringSizeReplace);
+					int stringSizeReplace = lstrlen(txt2replace);
+					TCHAR *pText2ReplaceExtended = new TCHAR[stringSizeReplace + 1];
+					Searching::convertExtendedToString(txt2replace, pText2ReplaceExtended, stringSizeReplace);
+
+					replacedLen = (*_ppEditView)->replaceTarget(pText2ReplaceExtended);
+
+					delete[] pText2ReplaceExtended;
 				}
-				replacedLen = (*_ppEditView)->replaceTarget(pTextReplace);
+				else
+				{
+					replacedLen = (*_ppEditView)->replaceTarget(txt2replace);
+				}
 			}
 			(*_ppEditView)->execute(SCI_SETSEL, start + replacedLen, start + replacedLen);
 						

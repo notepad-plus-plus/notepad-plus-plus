@@ -269,10 +269,10 @@ Credits:
             <WordsStyle name="DEFAULT" styleID="0" fgColor="F8F8F2" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="75715E" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
             <WordsStyle name="COMMAND" styleID="2" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
-            <WordsStyle name="HEADER" styleID="3" fgColor="" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
-            <WordsStyle name="POSITION" styleID="4" fgColor="" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
-            <WordsStyle name="DELETED" styleID="5" fgColor="" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
-            <WordsStyle name="ADDED" styleID="6" fgColor="" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
+            <WordsStyle name="HEADER" styleID="3" fgColor="66D9EF" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
+            <WordsStyle name="POSITION" styleID="4" fgColor="FD971F" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
+            <WordsStyle name="DELETED" styleID="5" fgColor="F92672" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
+            <WordsStyle name="ADDED" styleID="6" fgColor="A6E22E" bgColor="272822" fontName="" fontStyle="" fontSize="10" />
         </LexerType>
         <LexerType name="nfo" desc="Dos Style" ext="">
             <WordsStyle name="DEFAULT" styleID="32" fgColor="F8F8F2" bgColor="272822" />

@@ -78,6 +78,16 @@ public :
 		return _hideTabBarStatus;
 	};
 
+	static bool setOpenTabsNextToActiveOne(bool openTabsNextToActiveOne) {
+		bool temp = _openTabsNextToActiveOne;
+		_openTabsNextToActiveOne = openTabsNextToActiveOne;
+		return temp; 
+	};
+
+	static bool getOpenTabsNextToActiveOne() {
+		return _openTabsNextToActiveOne;
+	};
+
 	virtual void reSizeTo(RECT & rc);
 
 	const ScintillaEditView* getScintillaEditView() const {
@@ -87,4 +97,5 @@ public :
 private :
 	ScintillaEditView *_pView;
 	static bool _hideTabBarStatus;
+	static bool _openTabsNextToActiveOne;
 };

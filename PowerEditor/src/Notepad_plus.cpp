@@ -359,6 +359,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 	drawTabbarColoursFromStylerArray();
 
+	DocTabView::setOpenTabsNextToActiveOne((tabBarStatus & TAB_OPENNEXTTOACTIVE) != 0);
+
     //--Splitter Section--//
 	bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
 
@@ -775,7 +777,8 @@ bool Notepad_plus::saveGUIParams()
 						(TabBarPlus::isVertical() ? TAB_VERTICAL:0) | \
 						(TabBarPlus::isMultiLine() ? TAB_MULTILINE:0) |\
 						(nppGUI._tabStatus & TAB_HIDE) | \
-						(nppGUI._tabStatus & TAB_QUITONEMPTY);
+						(nppGUI._tabStatus & TAB_QUITONEMPTY) | \
+						(DocTabView::getOpenTabsNextToActiveOne() ? TAB_OPENNEXTTOACTIVE : 0);
 	nppGUI._splitterPos = _subSplitter.isVertical()?POS_VERTICAL:POS_HORIZOTAL;
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
 	bool b = udd->isDocked();

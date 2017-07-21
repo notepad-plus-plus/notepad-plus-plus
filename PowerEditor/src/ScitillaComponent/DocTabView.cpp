@@ -36,6 +36,7 @@
 
 
 bool DocTabView::_hideTabBarStatus = false;
+bool DocTabView::_openTabsNextToActiveOne = false;
 
 void DocTabView::addBuffer(BufferID buffer)
 {
@@ -53,7 +54,17 @@ void DocTabView::addBuffer(BufferID buffer)
 	tie.iImage = index;
 	tie.pszText = const_cast<TCHAR *>(buf->getFileName());
 	tie.lParam = reinterpret_cast<LPARAM>(buffer);
-	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
+
+	size_t newTabIndex;
+
+	if (DocTabView::getOpenTabsNextToActiveOne())
+		newTabIndex = getCurrentTabIndex() + 1;
+	else
+		newTabIndex = _nbItem;
+
+	_nbItem++;
+
+	::SendMessage(_hSelf, TCM_INSERTITEM, newTabIndex, reinterpret_cast<LPARAM>(&tie));
 	bufferUpdated(buf, BufferChangeMask);
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);

@@ -3970,6 +3970,17 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				else
 					isFailed = true;
 			}
+
+			val = element->Attribute(TEXT("openNextToActive"));
+			if (val)
+			{
+				if (!lstrcmp(val, TEXT("yes")))
+					_nppGUI._tabStatus |= TAB_OPENNEXTTOACTIVE;
+				else if (!lstrcmp(val, TEXT("no")))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
+			}
 			if (isFailed)
 				_nppGUI._tabStatus = oldValue;
 
@@ -5235,6 +5246,9 @@ void NppParameters::createXmlTreeFromGUIParams()
 
 		pStr = (_nppGUI._tabStatus & TAB_QUITONEMPTY) ? TEXT("yes") : TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("quitOnEmpty"), pStr);
+
+		pStr = (_nppGUI._tabStatus & TAB_OPENNEXTTOACTIVE) ? TEXT("yes") : TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("openNextToActive"), pStr);
 	}
 
 	// <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>

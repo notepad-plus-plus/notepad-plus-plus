@@ -1661,6 +1661,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_VIEW_OPEN_TAB_NEXT_TO_ACTIVE:
+		{
+			DocTabView::setOpenTabsNextToActiveOne(!DocTabView::getOpenTabsNextToActiveOne());
+			break;
+		}
+
 		case IDM_VIEW_DRAWTABBAR_CLOSEBOTTUN :
 		{
 			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton());

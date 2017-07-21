@@ -378,6 +378,7 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_VERTICAL, BM_SETCHECK, tabBarStatus & TAB_VERTICAL, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_MULTILINE, BM_SETCHECK, tabBarStatus & TAB_MULTILINE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_LAST_EXIT, BM_SETCHECK, tabBarStatus & TAB_QUITONEMPTY, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_OPEN_NEXT_TO_ACTIVE, BM_SETCHECK, tabBarStatus & TAB_OPENNEXTTOACTIVE, 0);
 			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_HIDE, BM_SETCHECK, tabBarStatus & TAB_HIDE, 0);
 			::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
@@ -478,6 +479,11 @@ INT_PTR CALLBACK BarsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				}
 				return TRUE;
 
+				case IDC_CHECK_TAB_OPEN_NEXT_TO_ACTIVE:
+				{
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_OPEN_TAB_NEXT_TO_ACTIVE, 0);
+				}
+				return TRUE;
 
 				case IDC_CHECK_REDUCE :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);

@@ -1937,13 +1937,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_MONITORING:
 		{
-			static HANDLE hThread = nullptr;
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
 			if (curBuf->isMonitoringOn())
 			{
 				curBuf->stopMonitoring();
-				::CloseHandle(hThread);
-				hThread = nullptr;
 				checkMenuItem(IDM_VIEW_MONITORING, false);
 				_toolBar.setCheck(IDM_VIEW_MONITORING, false);
 				curBuf->setUserReadOnly(false);
@@ -1963,7 +1960,8 @@ void Notepad_plus::command(int id)
 						curBuf->setUserReadOnly(true);
 						
 						MonitorInfo *monitorInfo = new MonitorInfo(curBuf, _pPublicInterface->getHSelf());
-						hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
+						HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
+						::CloseHandle(hThread);
 						checkMenuItem(IDM_VIEW_MONITORING, true);
 						_toolBar.setCheck(IDM_VIEW_MONITORING, true);
 					}

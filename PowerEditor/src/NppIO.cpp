@@ -648,7 +648,11 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	if (buf->isMonitoringOn())
 	{
 		// turn off monitoring
-		command(IDM_VIEW_MONITORING);
+		//command(IDM_VIEW_MONITORING);
+		buf->stopMonitoring();
+		checkMenuItem(IDM_VIEW_MONITORING, false);
+		_toolBar.setCheck(IDM_VIEW_MONITORING, false);
+		buf->setUserReadOnly(false);
 	}
 
 	//Do all the works

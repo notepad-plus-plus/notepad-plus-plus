@@ -152,7 +152,15 @@ void TabBar::setFont(TCHAR *fontName, int fontSize)
 void TabBar::activateAt(int index) const
 {
 	if (getCurrentTabIndex() != index)
+	{
+		// TCS_BUTTONS needs both set or two tabs can appear selected
+		if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+		{
+			::SendMessage(_hSelf, TCM_SETCURFOCUS, index, 0);
+		}
+
 		::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);
+	}
 
 	TBHDR nmhdr;
 	nmhdr._hdr.hwndFrom = _hSelf;

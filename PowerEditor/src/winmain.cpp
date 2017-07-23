@@ -98,61 +98,65 @@ bool checkSingleFile(const TCHAR *commandLine)
 }
 
 //commandLine should contain path to n++ executable running
-void parseCommandLine(const TCHAR* cmdLine, ParamVector& paramVector)
+void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 {
-	if (!cmdLine)
+	if (!commandLine)
 		return;
 
-	TCHAR* commandLine = new TCHAR[lstrlen(cmdLine)];
-	lstrcpy(commandLine, cmdLine);
+	TCHAR* cmdLine = new TCHAR[lstrlen(commandLine) + 1];
+	lstrcpy(cmdLine, commandLine);
+
+	TCHAR* cmdLinePtr = cmdLine;
 
 	//remove the first element, since thats the path the the executable (GetCommandLine does that)
 	TCHAR stopChar = TEXT(' ');
-	if (commandLine[0] == TEXT('\"'))
+	if (cmdLinePtr[0] == TEXT('\"'))
 	{
 		stopChar = TEXT('\"');
-		++commandLine;
+		++cmdLinePtr;
 	}
 	//while this is not really DBCS compliant, space and quote are in the lower 127 ASCII range
-	while(commandLine[0] && commandLine[0] != stopChar)
+	while(cmdLinePtr[0] && cmdLinePtr[0] != stopChar)
     {
-		++commandLine;
+		++cmdLinePtr;
     }
 
     // For unknown reason, the following command :
     // c:\NppDir>notepad++
     // (without quote) will give string "notepad++\0notepad++\0"
     // To avoid the unexpected behaviour we check the end of string before increasing the pointer
-    if (commandLine[0] != '\0')
-	    ++commandLine;	//advance past stopChar
+    if (cmdLinePtr[0] != '\0')
+	    ++cmdLinePtr;	//advance past stopChar
 
 	//kill remaining spaces
-	while(commandLine[0] == TEXT(' '))
-		++commandLine;
+	while(cmdLinePtr[0] == TEXT(' '))
+		++cmdLinePtr;
 
-	bool isFile = checkSingleFile(commandLine);	//if the commandline specifies only a file, open it as such
-	if (isFile) {
-		paramVector.push_back(commandLine);
+	bool isFile = checkSingleFile(cmdLinePtr);	//if the commandline specifies only a file, open it as such
+	if (isFile)
+	{
+		paramVector.push_back(cmdLinePtr);
+		delete[] cmdLine;
 		return;
 	}
 	bool isInFile = false;
 	bool isInWhiteSpace = true;
 	paramVector.clear();
-	size_t commandLength = lstrlen(commandLine);
+	size_t commandLength = lstrlen(cmdLinePtr);
 	for (size_t i = 0; i < commandLength; ++i)
 	{
-		switch(commandLine[i])
+		switch(cmdLinePtr[i])
 		{
 			case '\"': //quoted filename, ignore any following whitespace
 			{
 				if (!isInFile)	//" will always be treated as start or end of param, in case the user forgot to add an space
 				{
-					paramVector.push_back(commandLine+i+1);	//add next param(since zero terminated generic_string original, no overflow of +1)
+					paramVector.push_back(cmdLinePtr+i+1);	//add next param(since zero terminated generic_string original, no overflow of +1)
 				}
 				isInFile = !isInFile;
 				isInWhiteSpace = false;
 				//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
-				commandLine[i] = 0;
+				cmdLinePtr[i] = 0;
 			}
 			break;
 
@@ -161,7 +165,7 @@ void parseCommandLine(const TCHAR* cmdLine, ParamVector& paramVector)
 			{
 				isInWhiteSpace = true;
 				if (!isInFile)
-					commandLine[i] = 0;		//zap spaces into zero terminators, unless its part of a filename	
+					cmdLinePtr[i] = 0;		//zap spaces into zero terminators, unless its part of a filename	
 			}
 			break;
 
@@ -169,7 +173,7 @@ void parseCommandLine(const TCHAR* cmdLine, ParamVector& paramVector)
 			{
 				if (!isInFile && isInWhiteSpace)
 				{
-					paramVector.push_back(commandLine+i);	//add next param
+					paramVector.push_back(cmdLinePtr+i);	//add next param
 					isInWhiteSpace = false;
 				}
 			}
@@ -177,7 +181,7 @@ void parseCommandLine(const TCHAR* cmdLine, ParamVector& paramVector)
 	}
 	//the commandline generic_string is now a list of zero terminated strings concatenated, and the vector contains all the substrings
 
-	delete commandLine;
+	delete [] cmdLine;
 }
 
 bool isInList(const TCHAR *token2Find, ParamVector & params)

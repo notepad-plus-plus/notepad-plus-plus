@@ -896,6 +896,89 @@ protected:
 		setLexer(SCLEX_TEHEX, L_TEHEX, LIST_NONE);
 	};
 
+	void setAsn1Lexer() {
+		setLexer(SCLEX_ASN1, L_ASN1, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+
+	void setAVSLexer() {
+		setLexer(SCLEX_AVS, L_AVS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
+	};
+
+	void setBlitzBasicLexer() {
+		setLexer(SCLEX_BLITZBASIC, L_BLITZBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+
+	void setPureBasicLexer() {
+		setLexer(SCLEX_PUREBASIC, L_PUREBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+
+	void setFreeBasicLexer() {
+		setLexer(SCLEX_FREEBASIC, L_FREEBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+
+	void setCsoundLexer() {
+		setLexer(SCLEX_CSOUND, L_CSOUND, LIST_0 | LIST_1 | LIST_2);
+		execute(SCI_STYLESETEOLFILLED, SCE_CSOUND_STRINGEOL, true);
+	};
+
+	void setErlangLexer() {
+		setLexer(SCLEX_ERLANG, L_ERLANG, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+
+	void setESCRIPTLexer() {
+		setLexer(SCLEX_ESCRIPT, L_ESCRIPT, LIST_0 | LIST_1 | LIST_2); 
+	};
+
+	void setForthLexer() {
+		setLexer(SCLEX_FORTH, L_FORTH, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
+	};
+
+	void setLatexLexer() {
+		setLexer(SCLEX_LATEX, L_LATEX, LIST_NONE); 
+	};
+
+	void setMMIXALLexer() {
+		setLexer(SCLEX_MMIXAL, L_MMIXAL, LIST_0 | LIST_1 | LIST_2); 
+	};
+
+	void setNimrodLexer() {
+		setLexer(SCLEX_NIMROD, L_NIMROD, LIST_0);
+	};
+
+	void setNncrontabLexer() {
+		setLexer(SCLEX_NNCRONTAB, L_NNCRONTAB, LIST_0 | LIST_1 | LIST_2); 
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
+	};
+
+	void setOScriptLexer() {
+		setLexer(SCLEX_OSCRIPT, L_OSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$"));
+	};
+
+	void setREBOLLexer() {
+		setLexer(SCLEX_REBOL, L_REBOL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.’+-*&|=_~"));
+	};
+
+	void setRegistryLexer() {
+		setLexer(SCLEX_REGISTRY, L_REGISTRY, LIST_NONE); 
+	};
+
+	void setRustLexer() {
+		setLexer(SCLEX_RUST, L_RUST, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6); 
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
+	};
+
+	void setSpiceLexer() {
+		setLexer(SCLEX_SPICE, L_SPICE, LIST_0 | LIST_1 | LIST_2); 
+	};
+
+	void setTxt2tagsLexer() {
+		setLexer(SCLEX_TXT2TAGS, L_TXT2TAGS, LIST_NONE); 
+	};
+
     //--------------------
 
 	void setSearchResultLexer() {

@@ -2787,6 +2787,25 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_IHEX:
 		case IDM_LANG_TEHEX:
 		case IDM_LANG_SWIFT:
+        case IDM_LANG_ASN1 :
+        case IDM_LANG_AVS :
+        case IDM_LANG_BLITZBASIC :
+        case IDM_LANG_PUREBASIC :
+        case IDM_LANG_FREEBASIC :
+        case IDM_LANG_CSOUND :
+        case IDM_LANG_ERLANG :
+        case IDM_LANG_ESCRIPT :
+        case IDM_LANG_FORTH :
+        case IDM_LANG_LATEX :
+        case IDM_LANG_MMIXAL :
+        case IDM_LANG_NIMROD :
+        case IDM_LANG_NNCRONTAB :
+        case IDM_LANG_OSCRIPT :
+        case IDM_LANG_REBOL :
+        case IDM_LANG_REGISTRY :
+        case IDM_LANG_RUST :
+        case IDM_LANG_SPICE :
+        case IDM_LANG_TXT2TAGS :
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));

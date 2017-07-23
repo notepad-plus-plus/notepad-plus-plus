@@ -2853,6 +2853,44 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_TEHEX;
 		case IDM_LANG_SWIFT:
 			return L_SWIFT;
+        case IDM_LANG_ASN1 :
+            return L_ASN1;
+        case IDM_LANG_AVS :
+            return L_AVS;
+        case IDM_LANG_BLITZBASIC :
+            return L_BLITZBASIC;
+        case IDM_LANG_PUREBASIC :
+            return L_PUREBASIC;
+        case IDM_LANG_FREEBASIC :
+            return L_FREEBASIC;
+        case IDM_LANG_CSOUND :
+            return L_CSOUND;
+        case IDM_LANG_ERLANG :
+            return L_ERLANG;
+        case IDM_LANG_ESCRIPT :
+            return L_ESCRIPT;
+        case IDM_LANG_FORTH :
+            return L_FORTH;
+        case IDM_LANG_LATEX :
+            return L_LATEX;
+        case IDM_LANG_MMIXAL :
+            return L_MMIXAL;
+        case IDM_LANG_NIMROD :
+            return L_NIMROD;
+        case IDM_LANG_NNCRONTAB :
+            return L_NNCRONTAB;
+        case IDM_LANG_OSCRIPT :
+            return L_OSCRIPT;
+        case IDM_LANG_REBOL :
+            return L_REBOL;
+        case IDM_LANG_REGISTRY :
+            return L_REGISTRY;
+        case IDM_LANG_RUST :
+            return L_RUST;
+        case IDM_LANG_SPICE :
+            return L_SPICE;
+        case IDM_LANG_TXT2TAGS :
+            return L_TXT2TAGS;
 
 		case IDM_LANG_USER :
             return L_USER;

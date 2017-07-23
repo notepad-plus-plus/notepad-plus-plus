@@ -487,13 +487,32 @@
     #define    IDM_LANG_IHEX               (IDM_LANG + 61)
     #define    IDM_LANG_TEHEX              (IDM_LANG + 62)
     #define    IDM_LANG_SWIFT              (IDM_LANG + 63)
+    #define    IDM_LANG_ASN1               (IDM_LANG + 64)
+    #define    IDM_LANG_AVS                (IDM_LANG + 65)
+    #define    IDM_LANG_BLITZBASIC         (IDM_LANG + 66)
+    #define    IDM_LANG_PUREBASIC          (IDM_LANG + 67)
+    #define    IDM_LANG_FREEBASIC          (IDM_LANG + 68)
+    #define    IDM_LANG_CSOUND             (IDM_LANG + 69)
+    #define    IDM_LANG_ERLANG             (IDM_LANG + 70)
+    #define    IDM_LANG_ESCRIPT            (IDM_LANG + 71)
+    #define    IDM_LANG_FORTH              (IDM_LANG + 72)
+    #define    IDM_LANG_LATEX              (IDM_LANG + 73)
+    #define    IDM_LANG_MMIXAL             (IDM_LANG + 74)
+    #define    IDM_LANG_NIMROD             (IDM_LANG + 75)
+    #define    IDM_LANG_NNCRONTAB          (IDM_LANG + 76)
+    #define    IDM_LANG_OSCRIPT            (IDM_LANG + 77)
+    #define    IDM_LANG_REBOL              (IDM_LANG + 78)
+    #define    IDM_LANG_REGISTRY           (IDM_LANG + 79)
+    #define    IDM_LANG_RUST               (IDM_LANG + 80)
+    #define    IDM_LANG_SPICE              (IDM_LANG + 81)
+    #define    IDM_LANG_TXT2TAGS           (IDM_LANG + 82)
 
-    #define    IDM_LANG_EXTERNAL           (IDM_LANG + 65)
-    #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 79)
+    #define    IDM_LANG_EXTERNAL           (IDM_LANG + 165)
+    #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 179)
 
-    #define    IDM_LANG_USER               (IDM_LANG + 80)     //46080
-    #define    IDM_LANG_USER_LIMIT         (IDM_LANG + 110)    //46110
-    #define    IDM_LANG_USER_DLG           (IDM_LANG + 150)
+    #define    IDM_LANG_USER               (IDM_LANG + 180)     //46180
+    #define    IDM_LANG_USER_LIMIT         (IDM_LANG + 210)     //46210
+    #define    IDM_LANG_USER_DLG           (IDM_LANG + 250)
 
     
     

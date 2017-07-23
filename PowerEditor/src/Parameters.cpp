@@ -5941,6 +5941,63 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_SWIFT:
 			id = IDM_LANG_SWIFT; break;
 
+		case L_ASN1 :
+			id = IDM_LANG_ASN1; break;
+
+        case L_AVS :
+			id = IDM_LANG_AVS; break;
+
+		case L_BLITZBASIC :
+			id = IDM_LANG_BLITZBASIC; break;
+
+		case L_PUREBASIC :
+			id = IDM_LANG_PUREBASIC; break;
+
+		case L_FREEBASIC :
+			id = IDM_LANG_FREEBASIC; break;
+
+		case L_CSOUND :
+			id = IDM_LANG_CSOUND; break;
+
+		case L_ERLANG :
+			id = IDM_LANG_ERLANG; break;
+
+		case L_ESCRIPT :
+			id = IDM_LANG_ESCRIPT; break;
+
+		case L_FORTH :
+			id = IDM_LANG_FORTH; break;
+
+		case L_LATEX :
+			id = IDM_LANG_LATEX; break;
+
+		case L_MMIXAL :
+			id = IDM_LANG_MMIXAL; break;
+
+		case L_NIMROD :
+			id = IDM_LANG_NIMROD; break;
+
+		case L_NNCRONTAB :
+			id = IDM_LANG_NNCRONTAB; break;
+
+		case L_OSCRIPT :
+			id = IDM_LANG_OSCRIPT; break;
+
+		case L_REBOL :
+			id = IDM_LANG_REBOL; break;
+
+		case L_REGISTRY :
+			id = IDM_LANG_REGISTRY; break;
+
+		case L_RUST :
+			id = IDM_LANG_RUST; break;
+
+		case L_SPICE :
+			id = IDM_LANG_SPICE; break;
+
+		case L_TXT2TAGS :
+			id = IDM_LANG_TXT2TAGS; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

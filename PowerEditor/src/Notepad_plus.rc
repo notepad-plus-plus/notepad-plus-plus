@@ -694,7 +694,8 @@ BEGIN
         MENUITEM "Erlang",                  IDM_LANG_ERLANG
         MENUITEM "ESCRIPT",                 IDM_LANG_ESCRIPT
         MENUITEM "Forth",                   IDM_LANG_FORTH
-        MENUITEM "Fortran",                 IDM_LANG_FORTRAN
+        MENUITEM "Fortran (free form)",     IDM_LANG_FORTRAN
+        MENUITEM "Fortran (fixed form)",    IDM_LANG_FORTRAN_77
         MENUITEM "Freebasic",               IDM_LANG_FREEBASIC
         MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
         MENUITEM "Haskell",                 IDM_LANG_HASKELL

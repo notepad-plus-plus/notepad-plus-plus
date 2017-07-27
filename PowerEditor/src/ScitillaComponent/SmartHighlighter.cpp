@@ -46,8 +46,8 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	// Get the range of text visible and highlight everything in it
 	auto firstLine = static_cast<int>(pHighlightView->execute(SCI_GETFIRSTVISIBLELINE));
 	auto nbLineOnScreen = pHighlightView->execute(SCI_LINESONSCREEN);
-	auto nrLines = min(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
-	auto lastLine = firstLine + nrLines;
+	auto nbLines = min(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
+	auto lastLine = firstLine + nbLines;
 	int startPos = 0;
 	int endPos = 0;
 	auto currentLine = firstLine;

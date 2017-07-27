@@ -489,14 +489,14 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 
 void FileManager::checkFilesystemChanges()
 {
-	for (int i = int(_nrBufs) - 1; i >= 0 ; i--)
+	for (int i = int(_nbBufs) - 1; i >= 0 ; i--)
     {
-        if (i >= int(_nrBufs))
+        if (i >= int(_nbBufs))
         {
-            if (_nrBufs == 0)
+            if (_nbBufs == 0)
                 return;
 
-            i = int(_nrBufs) - 1;
+            i = int(_nbBufs) - 1;
         }
         _buffers[i]->checkFileState();	//something has changed. Triggers update automatically
 	}
@@ -505,7 +505,7 @@ void FileManager::checkFilesystemChanges()
 
 int FileManager::getBufferIndexByID(BufferID id)
 {
-	for(size_t i = 0; i < _nrBufs; ++i)
+	for(size_t i = 0; i < _nbBufs; ++i)
 	{
 		if (_buffers[i]->_id == id)
 			return static_cast<int>(i);
@@ -546,7 +546,7 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 		_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, buf->_doc);	//release for FileManager, Document is now gone
 		_buffers.erase(_buffers.begin() + index);
 		delete buf;
-		_nrBufs--;
+		_nbBufs--;
 	}
 }
 
@@ -597,8 +597,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 			newBuf->_timeStamp = fileNameTimestamp;
 
 		_buffers.push_back(newBuf);
-		++_nrBufs;
-		Buffer* buf = _buffers.at(_nrBufs - 1);
+		++_nbBufs;
+		Buffer* buf = _buffers.at(_nbBufs - 1);
 
 		// restore the encoding (ANSI based) while opening the existing file
 		NppParameters *pNppParamInst = NppParameters::getInstance();
@@ -1196,7 +1196,7 @@ BufferID FileManager::newEmptyDocument()
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
-	++_nrBufs;
+	++_nbBufs;
 	++_nextBufferID;
 	return id;
 }
@@ -1214,7 +1214,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	BufferID id = static_cast<BufferID>(newBuf);
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
-	++_nrBufs;
+	++_nbBufs;
 
 	if (!dontIncrease)
 		++_nextBufferID;
@@ -1517,7 +1517,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 
 BufferID FileManager::getBufferFromDocument(Document doc)
 {
-	for (size_t i = 0; i < _nrBufs; ++i)
+	for (size_t i = 0; i < _nbBufs; ++i)
 	{
 		if (_buffers[i]->_doc == doc)
 			return _buffers[i]->_id;

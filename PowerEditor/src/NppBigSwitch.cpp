@@ -177,7 +177,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			generic_string name{userLangName};
 
 			//loop through buffers and reset the language (L_USER, TEXT("")) if (L_USER, name)
-			for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 			{
 				Buffer* buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && name == buf->getUserDefineLangName())
@@ -195,7 +195,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			generic_string newName{ reinterpret_cast<TCHAR *>(wParam) };
 
 			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
-			for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 			{
 				Buffer* buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && oldName == buf->getUserDefineLangName())

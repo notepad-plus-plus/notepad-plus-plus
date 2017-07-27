@@ -111,14 +111,14 @@ bool FunctionCallTip::updateCalltip(int ch, bool needShown)
 void FunctionCallTip::showNextOverload() {
 	if (!isVisible())
 		return;
-	_currentOverload = (_currentOverload+1) % _currentNrOverloads;
+	_currentOverload = (_currentOverload+1) % _currentNbOverloads;
 	showCalltip();
 }
 
 void FunctionCallTip::showPrevOverload() {
 	if (!isVisible())
 		return;
-	_currentOverload = _currentOverload > 0 ? (_currentOverload-1) : (_currentNrOverloads-1);
+	_currentOverload = _currentOverload > 0 ? (_currentOverload-1) : (_currentNbOverloads-1);
 	showCalltip();
 }
 
@@ -363,12 +363,12 @@ bool FunctionCallTip::loadFunction()
 		_overloads.push_back(paramVec);
 		paramVec.clear();
 
-		++_currentNrOverloads;
+		++_currentNbOverloads;
 	}
 
-	_currentNrOverloads = _overloads.size();
+	_currentNbOverloads = _overloads.size();
 
-	if (_currentNrOverloads == 0)	//malformed node
+	if (_currentNbOverloads == 0)	//malformed node
 		return false;
 
 	return true;
@@ -376,7 +376,7 @@ bool FunctionCallTip::loadFunction()
 
 void FunctionCallTip::showCalltip() 
 {
-	if (_currentNrOverloads == 0)
+	if (_currentNbOverloads == 0)
     {
 		//ASSERT
 		return;
@@ -401,17 +401,17 @@ void FunctionCallTip::showCalltip()
 
 	generic_stringstream callTipText;
 
-	if (_currentNrOverloads > 1)
+	if (_currentNbOverloads > 1)
 	{
-		callTipText << TEXT("\001") << _currentOverload + 1 << TEXT(" of ") << _currentNrOverloads << TEXT("\002");
+		callTipText << TEXT("\001") << _currentOverload + 1 << TEXT(" of ") << _currentNbOverloads << TEXT("\002");
 	}
 
 	callTipText << _retVals.at(_currentOverload) << TEXT(' ') << _funcName << TEXT(' ') << _start;
 
 	int highlightstart = 0;
 	int highlightend = 0;
-	size_t nrParams = params.size();
-	for (size_t i = 0; i < nrParams; ++i)
+	size_t nbParams = params.size();
+	for (size_t i = 0; i < nbParams; ++i)
 	{
 		if (int(i) == _currentParam) 
 		{
@@ -419,7 +419,7 @@ void FunctionCallTip::showCalltip()
 			highlightend = highlightstart + lstrlen(params.at(i));
 		}
 		callTipText << params.at(i);
-		if (i < nrParams - 1)
+		if (i < nbParams - 1)
 			callTipText << _param << TEXT(' ');
 	}
 
@@ -448,7 +448,7 @@ void FunctionCallTip::reset() {
 	//_curPos = 0;
 	_startPos = 0;
 	_overloads.clear();
-	_currentNrOverloads = 0;
+	_currentNbOverloads = 0;
 	_retVals.clear();
 	_descriptions.clear();
 }

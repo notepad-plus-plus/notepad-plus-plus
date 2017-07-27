@@ -1906,7 +1906,7 @@ void Notepad_plus::checkDocState()
 	bool isFileExisting = PathFileExists(curBuf->getFullPathName()) != FALSE;
 	if (!isCurrentDirty)
 	{
-		for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+		for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 		{
 			if (MainFileManager->getBufferByIndex(i)->isDirty())
 			{
@@ -4959,7 +4959,7 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {
 	TCHAR savePath[MAX_PATH] = {0};
 
 	//rescue primary
-	for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+	for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 	{
 		Buffer * docbuf = MainFileManager->getBufferByIndex(i);
 		if (!docbuf->isDirty())	//skip saved documents

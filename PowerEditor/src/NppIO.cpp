@@ -643,7 +643,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		}
 	}
 
-	size_t nrDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
+	size_t nbDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
 
 	if (buf->isMonitoringOn())
 	{
@@ -658,7 +658,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	//Do all the works
 	bool isBufRemoved = removeBufferFromView(id, whichOne);
 	BufferID hiddenBufferID = BUFFER_INVALID;
-	if (nrDocs == 1 && canHideView(whichOne))
+	if (nbDocs == 1 && canHideView(whichOne))
 	{	//close the view if both visible
 		hideView(whichOne);
 

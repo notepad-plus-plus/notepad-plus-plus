@@ -3089,12 +3089,12 @@ void ScintillaEditView::hideLines()
 	int endLine = static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONEND)));
 	//perform range check: cannot hide very first and very last lines
 	//Offset them one off the edges, and then check if they are within the reasonable
-	int nrLines = static_cast<int32_t>(execute(SCI_GETLINECOUNT));
-	if (nrLines < 3)
+	int nbLines = static_cast<int32_t>(execute(SCI_GETLINECOUNT));
+	if (nbLines < 3)
 		return;	//cannot possibly hide anything
 	if (!startLine)
 		++startLine;
-	if (endLine == (nrLines-1))
+	if (endLine == (nbLines-1))
 		--endLine;
 
 	if (startLine > endLine)

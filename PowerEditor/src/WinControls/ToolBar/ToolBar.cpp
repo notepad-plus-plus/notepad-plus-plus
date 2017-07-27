@@ -120,15 +120,15 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 	InitCommonControlsEx(&icex);
 
 	//Create the list of buttons
-	_nrButtons    = arraySize;
-	_nrDynButtons = _vDynBtnReg.size();
-	_nrTotalButtons = _nrButtons + (_nrDynButtons ? _nrDynButtons + 1 : 0);
-	_pTBB = new TBBUTTON[_nrTotalButtons];	//add one for the extra separator
+	_nbButtons    = arraySize;
+	_nbDynButtons = _vDynBtnReg.size();
+	_nbTotalButtons = _nbButtons + (_nbDynButtons ? _nbDynButtons + 1 : 0);
+	_pTBB = new TBBUTTON[_nbTotalButtons];	//add one for the extra separator
 
 	int cmd = 0;
 	int bmpIndex = -1, style;
 	size_t i = 0;
-	for (; i < _nrButtons ; ++i)
+	for (; i < _nbButtons ; ++i)
 	{
 		cmd = buttonUnitArray[i]._cmdID;
 		if (cmd != 0)
@@ -149,7 +149,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 		_pTBB[i].iString = 0;
 	}
 
-	if (_nrDynButtons > 0) {
+	if (_nbDynButtons > 0) {
 		//add separator
 		_pTBB[i].iBitmap = 0;
 		_pTBB[i].idCommand = 0;
@@ -159,7 +159,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 		_pTBB[i].iString = 0;
 		++i;
 		//add plugin buttons
-		for (size_t j = 0; j < _nrDynButtons ; ++j, ++i)
+		for (size_t j = 0; j < _nbDynButtons ; ++j, ++i)
 		{
 			cmd = _vDynBtnReg[j].message;
 			++bmpIndex;
@@ -192,7 +192,7 @@ void ToolBar::destroy() {
 int ToolBar::getWidth() const {
 	RECT btnRect;
 	int totalWidth = 0;
-	for(size_t i = 0; i < _nrCurrentButtons; ++i) {
+	for(size_t i = 0; i < _nbCurrentButtons; ++i) {
 		::SendMessage(_hSelf, TB_GETITEMRECT, i, reinterpret_cast<LPARAM>(&btnRect));
 		totalWidth += btnRect.right - btnRect.left;
 	}
@@ -249,7 +249,7 @@ void ToolBar::reset(bool create)
 	if(create && _hSelf) {
 		//Store current button state information
 		TBBUTTON tempBtn;
-		for(size_t i = 0; i < _nrCurrentButtons; ++i)
+		for(size_t i = 0; i < _nbCurrentButtons; ++i)
 		{
 			::SendMessage(_hSelf, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&tempBtn));
 			_pTBB[i].fsState = tempBtn.fsState;
@@ -298,7 +298,7 @@ void ToolBar::reset(bool create)
 		//TBADDBITMAP addbmp = {_hInst, 0};
 		TBADDBITMAP addbmp = {0, 0};
 		TBADDBITMAP addbmpdyn = {0, 0};
-		for (size_t i = 0 ; i < _nrButtons ; ++i)
+		for (size_t i = 0 ; i < _nbButtons ; ++i)
 		{
 			int icoID = _toolBarIcons.getStdIconAt(static_cast<int32_t>(i));
 			HBITMAP hBmp = static_cast<HBITMAP>(::LoadImage(_hInst, MAKEINTRESOURCE(icoID), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
@@ -307,9 +307,9 @@ void ToolBar::reset(bool create)
 			//addbmp.nID = _toolBarIcons.getStdIconAt(i);
 			::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 		}
-		if (_nrDynButtons > 0)
+		if (_nbDynButtons > 0)
 		{
-			for (size_t j = 0; j < _nrDynButtons; ++j)
+			for (size_t j = 0; j < _nbDynButtons; ++j)
 			{
 				addbmpdyn.nID = reinterpret_cast<UINT_PTR>(_vDynBtnReg.at(j).hBmp);
 				::SendMessage(_hSelf, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmpdyn));
@@ -319,11 +319,11 @@ void ToolBar::reset(bool create)
 
 	if (create)
 	{	//if the toolbar has been recreated, readd the buttons
-		size_t nrBtnToAdd = (_state == TB_STANDARD?_nrTotalButtons:_nrButtons);
-		_nrCurrentButtons = nrBtnToAdd;
+		size_t nbBtnToAdd = (_state == TB_STANDARD?_nbTotalButtons:_nbButtons);
+		_nbCurrentButtons = nbBtnToAdd;
 		WORD btnSize = (_state == TB_LARGE?32:16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , 0, MAKELONG(btnSize, btnSize));
-		::SendMessage(_hSelf, TB_ADDBUTTONS, nrBtnToAdd, reinterpret_cast<LPARAM>(_pTBB));
+		::SendMessage(_hSelf, TB_ADDBUTTONS, nbBtnToAdd, reinterpret_cast<LPARAM>(_pTBB));
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
 
@@ -359,7 +359,7 @@ void ToolBar::doPopop(POINT chevPoint)
 
 	size_t start = 0;
 	RECT btnRect = {0,0,0,0};
-	while(start < _nrCurrentButtons)
+	while(start < _nbCurrentButtons)
 	{
 		::SendMessage(_hSelf, TB_GETITEMRECT, start, reinterpret_cast<LPARAM>(&btnRect));
 		if(btnRect.right > width)
@@ -367,11 +367,11 @@ void ToolBar::doPopop(POINT chevPoint)
 		++start;
 	}
 
-	if (start < _nrCurrentButtons)
+	if (start < _nbCurrentButtons)
 	{	//some buttons are hidden
 		HMENU menu = ::CreatePopupMenu();
 		generic_string text;
-		while (start < _nrCurrentButtons)
+		while (start < _nbCurrentButtons)
 		{
 			int cmd = _pTBB[start].idCommand;
 			getNameStrFromCmd(cmd, text);

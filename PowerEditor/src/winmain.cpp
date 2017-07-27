@@ -186,9 +186,9 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 
 bool isInList(const TCHAR *token2Find, ParamVector & params)
 {
-	size_t nrItems = params.size();
+	size_t nbItems = params.size();
 
-	for (size_t i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nbItems; ++i)
 	{
 		if (!lstrcmp(token2Find, params.at(i)))
 		{
@@ -202,9 +202,9 @@ bool isInList(const TCHAR *token2Find, ParamVector & params)
 bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 {
 	value = TEXT("");
-	size_t nrItems = params.size();
+	size_t nbItems = params.size();
 
-	for (size_t i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nbItems; ++i)
 	{
 		const TCHAR * token = params.at(i);
 		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
@@ -219,9 +219,9 @@ bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 bool getParamValFromString(const TCHAR *str, ParamVector & params, generic_string & value)
 {
 	value = TEXT("");
-	size_t nrItems = params.size();
+	size_t nbItems = params.size();
 
-	for (size_t i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nbItems; ++i)
 	{
 		const TCHAR * token = params.at(i);
 		generic_string tokenStr = token;
@@ -405,9 +405,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 	generic_string quotFileName = TEXT("");
     // tell the running instance the FULL path to the new files to load
-	size_t nrFilesToOpen = params.size();
+	size_t nbFilesToOpen = params.size();
 
-	for (size_t i = 0; i < nrFilesToOpen; ++i)
+	for (size_t i = 0; i < nbFilesToOpen; ++i)
 	{
 		const TCHAR * currentFile = params.at(i);
 		if (currentFile[0])
@@ -434,38 +434,38 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
         if (hNotepad_plus)
         {
-		// First of all, destroy static object NppParameters
-		pNppParameters->destroyInstance();
-		MainFileManager->destroyInstance();
+			// First of all, destroy static object NppParameters
+			pNppParameters->destroyInstance();
+			MainFileManager->destroyInstance();
 
-		int sw = 0;
+			int sw = 0;
 
-		if (::IsZoomed(hNotepad_plus))
-			sw = SW_MAXIMIZE;
-		else if (::IsIconic(hNotepad_plus))
-			sw = SW_RESTORE;
+			if (::IsZoomed(hNotepad_plus))
+				sw = SW_MAXIMIZE;
+			else if (::IsIconic(hNotepad_plus))
+				sw = SW_RESTORE;
 
-		if (sw != 0)
-			::ShowWindow(hNotepad_plus, sw);
+			if (sw != 0)
+				::ShowWindow(hNotepad_plus, sw);
 
-		::SetForegroundWindow(hNotepad_plus);
+			::SetForegroundWindow(hNotepad_plus);
 
-		if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
-		{
-			COPYDATASTRUCT paramData;
-			paramData.dwData = COPYDATA_PARAMS;
-			paramData.lpData = &cmdLineParams;
-			paramData.cbData = sizeof(cmdLineParams);
+			if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
+			{
+				COPYDATASTRUCT paramData;
+				paramData.dwData = COPYDATA_PARAMS;
+				paramData.lpData = &cmdLineParams;
+				paramData.cbData = sizeof(cmdLineParams);
 
-			COPYDATASTRUCT fileNamesData;
-			fileNamesData.dwData = COPYDATA_FILENAMES;
-			fileNamesData.lpData = (void *)quotFileName.c_str();
-			fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
+				COPYDATASTRUCT fileNamesData;
+				fileNamesData.dwData = COPYDATA_FILENAMES;
+				fileNamesData.lpData = (void *)quotFileName.c_str();
+				fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
 
-			::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
-			::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
-		}
-		return 0;
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
+			}
+			return 0;
         }
 	}
 

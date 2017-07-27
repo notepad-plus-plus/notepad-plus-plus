@@ -76,7 +76,7 @@ public:
 	//void activateBuffer(int index);
 	void checkFilesystemChanges();
 
-	size_t getNrBuffers() { return _nrBufs; };
+	size_t getNbBuffers() { return _nbBufs; };
 	int getBufferIndexByID(BufferID id);
 	Buffer * getBufferByIndex(size_t index);
 	Buffer * getBufferByID(BufferID id) {return static_cast<Buffer*>(id);}
@@ -127,7 +127,7 @@ private:
 	Document _scratchDocDefault;
 	std::vector<Buffer*> _buffers;
 	BufferID _nextBufferID = 0;
-	size_t _nrBufs = 0;
+	size_t _nbBufs = 0;
 };
 
 #define MainFileManager FileManager::getInstance()

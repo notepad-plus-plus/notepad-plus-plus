@@ -1709,9 +1709,9 @@ bool NppParameters::getBlackListFromXmlTree()
 
 void NppParameters::initMenuKeys()
 {
-	int nrCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
+	int nbCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
 	WinMenuKeyDefinition wkd;
-	for(int i = 0; i < nrCommands; ++i)
+	for(int i = 0; i < nbCommands; ++i)
 	{
 		wkd = winKeyDefs[i];
 		Shortcut sc((wkd.specialName ? wkd.specialName : TEXT("")), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
@@ -1721,13 +1721,13 @@ void NppParameters::initMenuKeys()
 
 void NppParameters::initScintillaKeys() {
 
-	int nrCommands = sizeof(scintKeyDefs)/sizeof(ScintillaKeyDefinition);
+	int nbCommands = sizeof(scintKeyDefs)/sizeof(ScintillaKeyDefinition);
 
 	//Warning! Matching function have to be consecutive
 	ScintillaKeyDefinition skd;
 	int prevIndex = -1;
 	int prevID = -1;
-	for(int i = 0; i < nrCommands; ++i)
+	for(int i = 0; i < nbCommands; ++i)
 	{
 		skd = scintKeyDefs[i];
 		if (skd.functionId == prevID)

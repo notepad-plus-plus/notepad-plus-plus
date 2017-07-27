@@ -145,30 +145,7 @@ KeyIDNAME namedKeyArray[] = {
 {TEXT("<>"), VK_OEM_102},
 };
 
-#define nrKeys sizeof(namedKeyArray)/sizeof(KeyIDNAME)
-
-/*
-TCHAR vKeyArray[][KEY_STR_LEN] = \
-{TEXT(""), TEXT("BACKSPACE"), TEXT("TAB"), TEXT("ENTER"), TEXT("PAUSE"), TEXT("CAPS LOCK"), TEXT("ESC"), TEXT("SPACEBAR"), TEXT("PAGE UP"), TEXT("PAGE DOWN"),\
-"END", TEXT("HOME"), TEXT("LEFT ARROW"), TEXT("UP ARROW"), TEXT("RIGHT ARROW"), TEXT("DOWN ARROW"), TEXT("INS"), TEXT("DEL"),\
-"0", TEXT("1"), TEXT("2"), TEXT("3"), TEXT("4"), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"),\
-"A", TEXT("B"), TEXT("C"), TEXT("D"), TEXT("E"), TEXT("F"), TEXT("G"), TEXT("H"), TEXT("I"), TEXT("J"), TEXT("K"), TEXT("L"), TEXT("M"),\
-"N", TEXT("O"), TEXT("P"), TEXT("Q"), TEXT("R"), TEXT("S"), TEXT("T"), TEXT("U"), TEXT("V"), TEXT("W"), TEXT("X"), TEXT("Y"), TEXT("Z"),\
-"NUMPAD0", TEXT("NUMPAD1"), TEXT("NUMPAD2"), TEXT("NUMPAD3"), TEXT("NUMPAD4"),\
-"NUMPAD5", TEXT("NUMPAD6"), TEXT("NUMPAD7"), TEXT("NUMPAD8"), TEXT("NUMPAD9"),\
-"F1", TEXT("F2"), TEXT("F3"), TEXT("F4"), TEXT("F5"), TEXT("F6"),\
-"F7", TEXT("F8"), TEXT("F9"), TEXT("F10"), TEXT("F11"), TEXT("F12")};
-
-UCHAR vkeyValue[] = {\
-0x00, 0x08, 0x09, 0x0D, 0x13, 0x14, 0x1B, 0x20, 0x21, 0x22,\
-0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x2D, 0x2E, 0x30, 0x31,\
-0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x41, 0x42,\
-0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C,\
-0x4D, 0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56,\
-0x57, 0x58, 0x59, 0x5A, 0x60, 0x61, 0x62, 0x63, 0x64, 0x65,\
-0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75,\
-0x76, 0x77, 0x78, 0x79, 0x7A, 0x7B};
-*/
+#define nbKeys sizeof(namedKeyArray)/sizeof(KeyIDNAME)
 
 generic_string Shortcut::toString() const
 {
@@ -287,7 +264,7 @@ void getKeyStrFromVal(UCHAR keyVal, generic_string & str)
 	str = TEXT("");
 	bool found = false;
 	int i;
-	for (i = 0; i < nrKeys; ++i) {
+	for (i = 0; i < nbKeys; ++i) {
 		if (keyVal == namedKeyArray[i].id) {
 			found = true;
 			break;
@@ -395,7 +372,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_SHIFT_CHECK, BM_SETCHECK, _keyCombo._isShift?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 			int iFound = -1;
-			for (size_t i = 0 ; i < nrKeys ; ++i)
+			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(namedKeyArray[i].name));
 
@@ -822,7 +799,7 @@ void ScintillaKeyMap::showCurrentSettings() {
 	::SendDlgItemMessage(_hSelf, IDC_CTRL_CHECK,	BM_SETCHECK, _keyCombo._isCtrl?BST_CHECKED:BST_UNCHECKED, 0);
 	::SendDlgItemMessage(_hSelf, IDC_ALT_CHECK,		BM_SETCHECK, _keyCombo._isAlt?BST_CHECKED:BST_UNCHECKED, 0);
 	::SendDlgItemMessage(_hSelf, IDC_SHIFT_CHECK,	BM_SETCHECK, _keyCombo._isShift?BST_CHECKED:BST_UNCHECKED, 0);
-	for (size_t i = 0 ; i < nrKeys ; ++i)
+	for (size_t i = 0 ; i < nbKeys ; ++i)
 	{
 		if (_keyCombo._key == namedKeyArray[i].id)
 		{
@@ -847,7 +824,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _name);
 			_keyCombo = _keyCombos[0];
 
-			for (size_t i = 0 ; i < nrKeys ; ++i)
+			for (size_t i = 0 ; i < nbKeys ; ++i)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(namedKeyArray[i].name));
 			}

@@ -121,10 +121,10 @@ private :
 	ToolBarIcons _toolBarIcons;
 	toolBarStatusType _state = TB_SMALL;
 	std::vector<tDynamicList> _vDynBtnReg;
-	size_t _nrButtons = 0;
-	size_t _nrDynButtons = 0;
-	size_t _nrTotalButtons = 0;
-	size_t _nrCurrentButtons = 0;
+	size_t _nbButtons = 0;
+	size_t _nbDynButtons = 0;
+	size_t _nbTotalButtons = 0;
+	size_t _nbCurrentButtons = 0;
 	ReBar * _pRebar = nullptr;
 	REBARBANDINFO _rbBand;
     std::vector<iconLocator> _customIconVect;

@@ -30,7 +30,7 @@
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
 
-typedef std::vector<const TCHAR*> ParamVector;
+typedef std::vector<generic_string> ParamVector;
 
 
 namespace
@@ -190,7 +190,7 @@ bool isInList(const TCHAR *token2Find, ParamVector & params)
 
 	for (size_t i = 0; i < nbItems; ++i)
 	{
-		if (!lstrcmp(token2Find, params.at(i)))
+		if (!lstrcmp(token2Find, params.at(i).c_str()))
 		{
 			params.erase(params.begin() + i);
 			return true;
@@ -206,7 +206,7 @@ bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 
 	for (size_t i = 0; i < nbItems; ++i)
 	{
-		const TCHAR * token = params.at(i);
+		const TCHAR * token = params.at(i).c_str();
 		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
 			value = (token+2);
 			params.erase(params.begin() + i);
@@ -223,7 +223,7 @@ bool getParamValFromString(const TCHAR *str, ParamVector & params, generic_strin
 
 	for (size_t i = 0; i < nbItems; ++i)
 	{
-		const TCHAR * token = params.at(i);
+		const TCHAR * token = params.at(i).c_str();
 		generic_string tokenStr = token;
 		size_t pos = tokenStr.find(str);
 		if (pos != generic_string::npos && pos == 0)
@@ -409,7 +409,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 	for (size_t i = 0; i < nbFilesToOpen; ++i)
 	{
-		const TCHAR * currentFile = params.at(i);
+		const TCHAR * currentFile = params.at(i).c_str();
 		if (currentFile[0])
 		{
 			//check if relative or full path. Relative paths dont have a colon for driveletter

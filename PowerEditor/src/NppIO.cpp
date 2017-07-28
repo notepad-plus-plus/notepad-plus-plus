@@ -244,6 +244,11 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 					}
 				}
 			}
+			else
+			{
+				wsprintf(str2display, TEXT("\"%s\" cannot be opened:\nFolder \"%s\" doesn't exist."), longFileName, longFileDir.c_str());
+				::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Cannot opened"), MB_OK);
+			}
 
 			if (!isCreateFileSuccessful)
 			{

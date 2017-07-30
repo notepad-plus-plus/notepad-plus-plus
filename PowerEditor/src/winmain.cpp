@@ -141,8 +141,8 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 	}
 	bool isInFile = false;
 	bool isInWhiteSpace = true;
-	paramVector.clear();
 	size_t commandLength = lstrlen(cmdLinePtr);
+	std::vector<TCHAR *> args;
 	for (size_t i = 0; i < commandLength; ++i)
 	{
 		switch(cmdLinePtr[i])
@@ -151,7 +151,7 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 			{
 				if (!isInFile)	//" will always be treated as start or end of param, in case the user forgot to add an space
 				{
-					paramVector.push_back(cmdLinePtr+i+1);	//add next param(since zero terminated generic_string original, no overflow of +1)
+					args.push_back(cmdLinePtr+i+1);	//add next param(since zero terminated original, no overflow of +1)
 				}
 				isInFile = !isInFile;
 				isInWhiteSpace = false;
@@ -173,14 +173,13 @@ void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
 			{
 				if (!isInFile && isInWhiteSpace)
 				{
-					paramVector.push_back(cmdLinePtr+i);	//add next param
+					args.push_back(cmdLinePtr+i);	//add next param
 					isInWhiteSpace = false;
 				}
 			}
 		}
 	}
-	//the commandline generic_string is now a list of zero terminated strings concatenated, and the vector contains all the substrings
-
+	paramVector.assign(args.begin(), args.end());
 	delete [] cmdLine;
 }
 

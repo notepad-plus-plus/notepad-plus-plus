@@ -95,6 +95,7 @@
                     <Item id="41017" name="Renommer..."/>
                     <Item id="41021" name="Ouvrir le dernier fichier fermé"/>
                     <Item id="41022" name="Ouvrir Dossier en tant qu'Espace de travail"/>
+                    <Item id="41023" name="Ouvrir dans l'application par défaut"/>
                     <Item id="42001" name="Cou&amp;per"/>
                     <Item id="42002" name="&amp;Copier"/>
                     <Item id="42003" name="&amp;Annuler"/>
@@ -331,6 +332,7 @@
                     <Item CMID="18" name="Fermer les onglets sur la droite"/>
                     <Item CMID="19" name="Ouvrir le répertoire du fichier en cours dans Explorer"/>
                     <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans cmd"/>
+					<Item CMID="21" name="Ouvrir dans l'application par défaut"/>
             </TabBar>
         </Menu>
         <Dialog>

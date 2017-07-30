@@ -49,6 +49,7 @@
 #include "functionListPanel.h"
 #include "fileBrowser.h"
 #include "LongRunningOperation.h"
+#include "Common.h"
 
 using namespace std;
 
@@ -1942,6 +1943,8 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
+
+	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
 
 	enableConvertMenuItems(curBuf->getEolFormat());
 	checkUnicodeMenuItems();

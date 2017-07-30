@@ -105,6 +105,34 @@ void Notepad_plus::command(int id)
 		}
 		break;
 		
+		case IDM_FILE_OPEN_DEFAULT_VIEWER:
+		{
+			// Opens file in its default viewer. 
+            // Has the same effect as double–clicking this file in Windows Explorer.
+            BufferID buf = _pEditView->getCurrentBufferID();
+			HINSTANCE res = ::ShellExecute(NULL, TEXT("open"), buf->getFullPathName(), NULL, NULL, SW_SHOW);
+
+			// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
+			// If the function succeeds, it returns a value greater than 32.
+			// If the function fails, it returns an error value that indicates the cause of the failure.
+			int retResult = reinterpret_cast<int>(res);
+			if (retResult <= 32)
+			{
+				generic_string errorMsg;
+				errorMsg += GetLastErrorAsString(retResult);
+				errorMsg += TEXT("An attempt was made to execute the below command.");
+				errorMsg += TEXT("\n----------------------------------------------------------");
+				errorMsg += TEXT("\nCommand: ");
+				errorMsg += buf->getFullPathName();
+				errorMsg += TEXT("\nError Code: ");
+				errorMsg += intToString(retResult);
+				errorMsg += TEXT("\n----------------------------------------------------------");
+				
+				::MessageBox(_pPublicInterface->getHSelf(), errorMsg.c_str(), TEXT("ShellExecute - ERROR"), MB_ICONINFORMATION | MB_APPLMODAL);
+			}
+		}
+		break;
+
 		case IDM_FILE_OPENFOLDERASWORSPACE:
 		{
 			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), TEXT("Select a folder to add in Folder as Workspace panel"));

@@ -1942,6 +1942,7 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
+	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isFileExisting, MENU);
 
 	enableConvertMenuItems(curBuf->getEolFormat());
 	checkUnicodeMenuItems();

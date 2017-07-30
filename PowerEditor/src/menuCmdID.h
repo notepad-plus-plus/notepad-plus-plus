@@ -56,10 +56,11 @@
     #define    IDM_FILE_OPEN_CMD                (IDM_FILE + 20)
 	#define    IDM_FILE_RESTORELASTCLOSEDFILE   (IDM_FILE + 21)
 	#define    IDM_FILE_OPENFOLDERASWORSPACE    (IDM_FILE + 22)
+    #define    IDM_FILE_OPEN_DEFAULT_VIEWER     (IDM_FILE + 23)
 // IMPORTANT: If list above is modified, you have to change the following values:
  
 // To be updated if new menu item(s) is (are) added in menu "File"
-    #define    IDM_FILEMENU_LASTONE             IDM_FILE_OPENFOLDERASWORSPACE
+    #define    IDM_FILEMENU_LASTONE             IDM_FILE_OPEN_DEFAULT_VIEWER
 
 // 0 based position of command "Exit" including the bars in the file menu
 // and without counting "Recent files history" items
@@ -68,25 +69,26 @@
 // 1  Open...
 // 2  Open Containing Folder
 // 3  Open Folder as Workspace
-// 4  Reload from Disk
-// 5  Save
-// 6  Save As...
-// 7  Save a Copy As...
-// 8  Save All
-// 9  Rename...
-//10  Close
-//11  Close All
-//12  Close More
-//13  Move to Recycle Bin
-//14  --------
-//15  Load Session...
-//16  Save Session...
-//17  --------
-//18  Print...
-//19  Print Now
-//20  --------
-//21  Exit
-    #define    IDM_FILEMENU_EXISTCMDPOSITION    21
+// 4  Open in Default Viewer
+// 5  Reload from Disk
+// 6  Save
+// 7  Save As...
+// 8  Save a Copy As...
+// 9  Save All
+//10  Rename...
+//11  Close
+//12  Close All
+//13  Close More
+//14  Move to Recycle Bin
+//15  --------
+//16  Load Session...
+//17  Save Session...
+//18  --------
+//19  Print...
+//20  Print Now
+//21  --------
+//22  Exit
+    #define    IDM_FILEMENU_EXISTCMDPOSITION    22
 
 
 #define    IDM_EDIT       (IDM + 2000)

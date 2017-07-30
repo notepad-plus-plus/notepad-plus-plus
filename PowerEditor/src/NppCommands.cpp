@@ -105,6 +105,15 @@ void Notepad_plus::command(int id)
 		}
 		break;
 		
+		case IDM_FILE_OPEN_DEFAULT_VIEWER:
+		{
+			// Opens file in its default viewer. 
+            // Has the same effect as double–clicking this file in Windows Explorer.
+            BufferID buf = _pEditView->getCurrentBufferID();
+			ShellExecute(NULL, NULL, buf->getFullPathName(), NULL, NULL, SW_SHOW);
+		}
+		break;
+
 		case IDM_FILE_OPENFOLDERASWORSPACE:
 		{
 			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), TEXT("Select a folder to add in Folder as Workspace panel"));

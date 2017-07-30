@@ -91,7 +91,7 @@
                     <Item id="41017" name="Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
                     <Item id="41022" name="Open Folder as &amp;Workspace"/>
-
+                    <Item id="41023" name="Open in Default Viewer"/>
                     <Item id="42001" name="Cu&amp;t"/>
                     <Item id="42002" name="&amp;Copy"/>
                     <Item id="42003" name="&amp;Undo"/>
@@ -334,6 +334,7 @@
                     <Item CMID="18" name="Close All to the Right"/>
                     <Item CMID="19" name="Open Containing Folder in Explorer"/>
                     <Item CMID="20" name="Open Containing Folder in cmd"/>
+					<Item CMID="21" name="Open in Default Viewer"/>
             </TabBar>
         </Menu>
 

@@ -90,8 +90,8 @@ public:
 	};
 
 	void setActiveTb(tTbData* pTbData);
-	void setActiveTb(INT iItem);
-	INT getActiveTb();
+	void setActiveTb(int iItem);
+	int getActiveTb();
 	tTbData * getDataOfActiveTb();
 	std::vector<tTbData *> getDataOfAllTb() {
 		return _vTbData;
@@ -163,18 +163,18 @@ protected :
 	void onSize();
 
 	// functions for caption handling and drawing
-	eMousePos isInRect(HWND hwnd, INT x, INT y);
+	eMousePos isInRect(HWND hwnd, int x, int y);
 
 	// handling of toolbars
 	void doClose();
 
 	// return new item
-	INT  SearchPosInTab(tTbData* pTbData);
-	void SelectTab(INT iTab);
+	int  searchPosInTab(tTbData* pTbData);
+	void selectTab(int iTab);
 
-	INT  hideToolbar(tTbData* pTbData, BOOL hideClient = TRUE);
+	int  hideToolbar(tTbData* pTbData, BOOL hideClient = TRUE);
 	void viewToolbar(tTbData *pTbData);
-	INT  removeTab(tTbData* pTbData) {
+	int  removeTab(tTbData* pTbData) {
 		return hideToolbar(pTbData, FALSE);
 	};
 

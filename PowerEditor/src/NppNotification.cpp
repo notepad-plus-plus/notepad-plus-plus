@@ -32,6 +32,7 @@
 #include "VerticalFileSwitcher.h"
 #include "ProjectPanel.h"
 #include "documentMap.h"
+#include "Common.h"
 #include <stack>
 
 using namespace std;
@@ -563,8 +564,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
-            _tabPopupMenu.enableItem(IDM_FILE_OPEN_DEFAULT_VIEWER, isFileExisting);
-            
+
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(buf->getFullPathName()));
+
 			bool isDirty = buf->isDirty();
 			bool isUntitled = buf->isUntitled();
 			_tabPopupMenu.enableItem(IDM_VIEW_GOTO_NEW_INSTANCE, !(isDirty||isUntitled));

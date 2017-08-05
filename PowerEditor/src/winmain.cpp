@@ -306,6 +306,8 @@ const TCHAR FLAG_HELP[] = TEXT("--help");
 const TCHAR FLAG_ALWAYS_ON_TOP[] = TEXT("-alwaysOnTop");
 const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
+const TCHAR FLAG_FUNCLSTEXPORT[] = TEXT("-export=functionList");
+
 
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
@@ -352,6 +354,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	bool isParamePresent;
 	bool showHelp = isInList(FLAG_HELP, params);
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
+	bool doFunctionListExport = isInList(FLAG_FUNCLSTEXPORT, params);
 
 	CmdLineParams cmdLineParams;
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
@@ -377,12 +380,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
+	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
+	bool doUpdate = nppGui._autoUpdateOpt._doAutoUpdate;
+
+	if (doFunctionListExport) // export functionlist feature will serialize fuctionlist on the disk, then exit Notepad++. So it's important to not launch into existing instance, and keep it silent.
+	{
+		isMultiInst = true;
+		doUpdate = false;
+		cmdLineParams._isNoSession = true;
+	}
 
 	if (cmdLineParams._localizationPath != TEXT(""))
 	{
 		pNppParameters->setStartWithLocFileName(cmdLineParams._localizationPath);
 	}
 	pNppParameters->load();
+
+	pNppParameters->setFunctionListExportBoolean(doFunctionListExport);
 
 	// override the settings if notepad style is present
 	if (pNppParameters->asNotepadStyle())
@@ -470,8 +484,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 	Notepad_plus_Window notepad_plus_plus;
 
-	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
-
 	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");
 
@@ -481,8 +493,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	updaterParams += VERSION_VALUE;
 
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
-
-    bool doUpdate = nppGui._autoUpdateOpt._doAutoUpdate;
 
     if (doUpdate) // check more detail
     {

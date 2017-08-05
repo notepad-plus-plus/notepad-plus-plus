@@ -323,6 +323,7 @@
     
 	#define    IDM_VIEW_FILESWITCHER_PANEL        (IDM_VIEW + 70)
 	#define    IDM_VIEW_SWITCHTO_OTHER_VIEW       (IDM_VIEW + 72)
+	#define    IDM_EXPORT_FUNC_LIST_AND_QUIT      (IDM_VIEW + 73)
 
 	#define    IDM_VIEW_DOC_MAP                   (IDM_VIEW + 80)
 

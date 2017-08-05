@@ -1470,10 +1470,16 @@ public:
 
 	void setWorkingDir(const TCHAR * newPath);
 
-	void setStartWithLocFileName(generic_string locPath)
-	{
+	void setStartWithLocFileName(generic_string locPath) {
 		_startWithLocFileName = locPath;
-	}
+	};
+
+	void setFunctionListExportBoolean(bool doIt) {
+		_doFunctionListExport = doIt;
+	};
+	bool doFunctionListExport() const {
+		return _doFunctionListExport;
+	};
 
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
 	int langTypeToCommandID(LangType lt) const;
@@ -1659,6 +1665,7 @@ private:
 
 	LocalizationSwitcher _localizationSwitcher;
 	generic_string _startWithLocFileName;
+	bool _doFunctionListExport = false;
 
 	ThemeSwitcher _themeSwitcher;
 
@@ -1722,17 +1729,11 @@ private:
 	void feedFindHistoryParameters(TiXmlNode *node);
 	void feedProjectPanelsParameters(TiXmlNode *node);
 	void feedFileBrowserParameters(TiXmlNode *node);
-
 	bool feedStylerArray(TiXmlNode *node);
-	void getAllWordStyles(TCHAR *lexerName, TiXmlNode *lexerNode);
-
 	bool feedUserLang(TiXmlNode *node);
-
-	int getIndexFromKeywordListName(const TCHAR *name);
 	void feedUserStyles(TiXmlNode *node);
 	void feedUserKeywordList(TiXmlNode *node);
 	void feedUserSettings(TiXmlNode *node);
-
 	void feedShortcut(TiXmlNode *node);
 	void feedMacros(TiXmlNode *node);
 	void feedUserCmds(TiXmlNode *node);

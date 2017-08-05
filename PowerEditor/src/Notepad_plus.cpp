@@ -3497,11 +3497,20 @@ int Notepad_plus::switchEditViewTo(int gid)
 	{
 		_pDocMap->initWrapMap();
 	}
-
-	// Before switching off, synchronize backup file
-	MainFileManager->backupCurrentBuffer();
-
-	notifyBufferActivated(_pEditView->getCurrentBufferID(), currentView());
+	if (_pNonEditView->getCurrentBufferID() != _pEditView->getCurrentBufferID())
+	{
+		// We are switching to a different file in another view
+		// Before switching off, synchronize backup file
+		MainFileManager->backupCurrentBuffer();
+		notifyBufferActivated(_pEditView->getCurrentBufferID(), currentView());
+	}
+	else
+	{
+		// We are switching to the same file in another view
+		// Make sure the colors of the tab controls match
+		::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);
+		::InvalidateRect(_subDocTab.getHSelf(), NULL, FALSE);
+	}
 	return oldView;
 }
 

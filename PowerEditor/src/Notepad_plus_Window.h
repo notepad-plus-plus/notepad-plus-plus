@@ -33,29 +33,31 @@ const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
 notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEsterEggName | -qtText | -qfCntentFileName] [filePath]\r\
 \r\
-    --help : This help message\r\
-    -multiInst : Launch another Notepad++ instance\r\
-    -noPlugin : Launch Notepad++ without loading any plugin\r\
-    -l : Open filePath by applying indicated programming language\r\
-    -L : Apply indicated localization, langCode is browser language code\r\
-    -n : Scroll to indicated line on filePath\r\
-    -c : Scroll to indicated column on filePath\r\
-    -p : Scroll to indicated position on filePath\r\
-    -x : Move Notepad++ to indicated left side position on the screen\r\
-    -y : Move Notepad++ to indicated top position on the screen\r\
-    -nosession : Launch Notepad++ without previous session\r\
-    -notabbar : Launch Notepad++ without tabbar\r\
-    -ro : Make the filePath read only\r\
-    -systemtray : Launch Notepad++ directly in system tray\r\
-    -loadingTime : Display Notepad++ loading time\r\
-    -alwaysOnTop : Make Notepad++ always on top\r\
-    -openSession : Open a session. filePath must be a session file\r\
-    -r : Open files recursively. This argument will be ignored\r\
-         if filePath contain no wildcard character\r\
-    -qn : Launch ghost typing to display easter egg via its name\r\
-    -qt : Launch ghost typing to display a text via the given text\r\
-    -qf : Launch ghost typing to display a file content via the file path\r\
-    filePath : file or folder name to open (absolute or relative path name)\r\
+--help :\t\tThis help message\r\
+-multiInst :\tLaunch another Notepad++ instance\r\
+-noPlugin :\tLaunch Notepad++ without loading any plugin\r\
+-l :\t\tOpen filePath by applying indicated programming language\r\
+-L :\t\tApply indicated localization, langCode is browser \r\
+    \t\tlanguage code\r\
+-n :\t\tScroll to indicated line on filePath\r\
+-c :\t\tScroll to indicated column on filePath\r\
+-p :\t\tScroll to indicated position on filePath\r\
+-x :\t\tMove Notepad++ to indicated left side position on \r\
+    \t\tthe screen\r\
+-y :\t\tMove Notepad++ to indicated top position on the screen\r\
+-nosession :\tLaunch Notepad++ without previous session\r\
+-notabbar :\tLaunch Notepad++ without tabbar\r\
+-ro :\t\tMake the filePath read only\r\
+-systemtray :\tLaunch Notepad++ directly in system tray\r\
+-loadingTime :\tDisplay Notepad++ loading time\r\
+-alwaysOnTop :\tMake Notepad++ always on top\r\
+-openSession :\tOpen a session. filePath must be a session file\r\
+-r :\t\tOpen files recursively. This argument will be ignored\r\
+    \t\tif filePath contain no wildcard character\r\
+-qn :\t\tLaunch ghost typing to display easter egg via its name\r\
+-qt :\t\tLaunch ghost typing to display a text via the given text\r\
+-qf :\t\tLaunch ghost typing to display a file content via the file path\r\
+filePath :\t\tFile or folder name to open (absolute or relative path name)\
 ");
 
 

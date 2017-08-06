@@ -307,7 +307,7 @@ const TCHAR FLAG_ALWAYS_ON_TOP[] = TEXT("-alwaysOnTop");
 const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
 const TCHAR FLAG_FUNCLSTEXPORT[] = TEXT("-export=functionList");
-
+const TCHAR FLAG_PRINTANDQUIT[] = TEXT("-quickPrint");
 
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
@@ -355,6 +355,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	bool showHelp = isInList(FLAG_HELP, params);
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
 	bool doFunctionListExport = isInList(FLAG_FUNCLSTEXPORT, params);
+	bool doPrintAndQuit = isInList(FLAG_PRINTANDQUIT, params);
 
 	CmdLineParams cmdLineParams;
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
@@ -368,12 +369,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._isRecursive = isInList(FLAG_RECURSIVE, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);
+	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
+
+	// getNumberFromParam should be run at the end, to not consuming the other params
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
     cmdLineParams._pos2go = getNumberFromParam('p', params, isParamePresent);
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
-	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
 
 
 	if (showHelp)
@@ -383,7 +386,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
 	bool doUpdate = nppGui._autoUpdateOpt._doAutoUpdate;
 
-	if (doFunctionListExport) // export functionlist feature will serialize fuctionlist on the disk, then exit Notepad++. So it's important to not launch into existing instance, and keep it silent.
+	if (doFunctionListExport || doPrintAndQuit) // export functionlist feature will serialize fuctionlist on the disk, then exit Notepad++. So it's important to not launch into existing instance, and keep it silent.
 	{
 		isMultiInst = true;
 		doUpdate = false;
@@ -397,6 +400,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	pNppParameters->load();
 
 	pNppParameters->setFunctionListExportBoolean(doFunctionListExport);
+	pNppParameters->setPrintAndExitBoolean(doPrintAndQuit);
 
 	// override the settings if notepad style is present
 	if (pNppParameters->asNotepadStyle())

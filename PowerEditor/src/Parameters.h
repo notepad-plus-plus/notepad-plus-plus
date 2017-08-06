@@ -1481,6 +1481,13 @@ public:
 		return _doFunctionListExport;
 	};
 
+	void setPrintAndExitBoolean(bool doIt) {
+		_doPrintAndExit = doIt;
+	};
+	bool doPrintAndExit() const {
+		return _doPrintAndExit;
+	};
+
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
 	int langTypeToCommandID(LangType lt) const;
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
@@ -1666,6 +1673,7 @@ private:
 	LocalizationSwitcher _localizationSwitcher;
 	generic_string _startWithLocFileName;
 	bool _doFunctionListExport = false;
+	bool _doPrintAndExit = false;
 
 	ThemeSwitcher _themeSwitcher;
 

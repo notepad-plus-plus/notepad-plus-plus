@@ -31,7 +31,7 @@
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEsterEggName | -qtText | -qfCntentFileName] [filePath]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEsterEggName | -qtText | -qfCntentFileName] [-quickPrint] [filePath]\r\
 \r\
     --help : This help message\r\
     -multiInst : Launch another Notepad++ instance\r\
@@ -55,6 +55,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
     -qn : Launch ghost typing to display easter egg via its name\r\
     -qt : Launch ghost typing to display a text via the given text\r\
     -qf : Launch ghost typing to display a file content via the file path\r\
+    -qickPrint : Print the file given as argument then quit Notepad++\r\
     filePath : file or folder name to open (absolute or relative path name)\r\
 ");
 

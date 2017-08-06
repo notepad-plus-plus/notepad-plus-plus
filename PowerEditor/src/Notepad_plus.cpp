@@ -3510,6 +3510,8 @@ int Notepad_plus::switchEditViewTo(int gid)
 		// Make sure the colors of the tab controls match
 		::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);
 		::InvalidateRect(_subDocTab.getHSelf(), NULL, FALSE);
+		// Make sure that plugins still get notified
+		doNotifyBufferActivated(_pEditView->getCurrentBufferID());
 	}
 	return oldView;
 }
@@ -5232,11 +5234,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);
 	::InvalidateRect(_subDocTab.getHSelf(), NULL, FALSE);
 
-	SCNotification scnN;
-	scnN.nmhdr.code = NPPN_BUFFERACTIVATED;
-	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-	scnN.nmhdr.idFrom = (uptr_t)bufid;
-	_pluginsManager.notify(&scnN);
+	doNotifyBufferActivated(bufid);
 
 	if (_pFileSwitcherPanel)
 	{
@@ -5255,6 +5253,14 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	}
 
 	_linkTriggered = true;
+}
+
+void Notepad_plus::doNotifyBufferActivated(BufferID bufid) {
+	SCNotification scnN;
+	scnN.nmhdr.code = NPPN_BUFFERACTIVATED;
+	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+	scnN.nmhdr.idFrom = (uptr_t)bufid;
+	_pluginsManager.notify(&scnN);
 }
 
 void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams)

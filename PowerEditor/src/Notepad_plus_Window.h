@@ -55,7 +55,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
     -qn : Launch ghost typing to display easter egg via its name\r\
     -qt : Launch ghost typing to display a text via the given text\r\
     -qf : Launch ghost typing to display a file content via the file path\r\
-    -qickPrint : Print the file given as argument then quit Notepad++\r\
+    -quickPrint : Print the file given as argument then quit Notepad++\r\
     filePath : file or folder name to open (absolute or relative path name)\r\
 ");
 

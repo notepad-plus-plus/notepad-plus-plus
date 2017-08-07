@@ -42,10 +42,6 @@
 
 class ScintillaEditView;
 
-struct FuncInfo {
-	generic_string _displayText;
-	size_t _offsetPos;
-};
 /*
 1. global function + object + methods: Tree view of 2 levels - only the leaf contains the position info
 root
@@ -115,8 +111,6 @@ public:
 	bool serialize(const generic_string & outputFilename = TEXT(""));
 	void addEntry(const TCHAR *node, const TCHAR *displayText, size_t pos);
 	void removeAllEntries();
-	void removeEntry();
-	void modifyEntry();
 	void searchFuncAndSwitchView();
 
 protected:
@@ -133,11 +127,10 @@ private:
 	generic_string _sortTipStr;
 	generic_string _reloadTipStr;
 
-	std::vector<foundInfo> _funcinfos;
+	std::vector<foundInfo> _foundFuncInfos;
 
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;
-	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeParams> _treeParams;
 	HIMAGELIST _hTreeViewImaLst;

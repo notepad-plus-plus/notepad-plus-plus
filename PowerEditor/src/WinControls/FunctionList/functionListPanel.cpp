@@ -251,10 +251,10 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 	if (!f)
 		return false;
 
-	for (const auto & info : _funcinfos)
+	for (const auto & info : _foundFuncInfos)
 	{
 		generic_string entryName;
-		if (info._pos2 != -1)
+		if (!info._data2.empty())
 		{
 			entryName = info._data2;
 			entryName += TEXT("=>");
@@ -290,7 +290,7 @@ void FunctionListPanel::reload()
 	::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
 	setSort(false);
 
-	_funcinfos.clear();
+	_foundFuncInfos.clear();
 
 	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
 	const TCHAR *fn = currentBuf->getFileName();
@@ -306,30 +306,30 @@ void FunctionListPanel::reload()
 
 	TCHAR *ext = ::PathFindExtension(fn);
 
-	bool parsedOK = _funcParserMgr.parse(_funcinfos, AssociationInfo(-1, langID, ext, udln));
+	bool parsedOK = _funcParserMgr.parse(_foundFuncInfos, AssociationInfo(-1, langID, ext, udln));
 	if (parsedOK)
 	{
 		_treeView.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
 	}
 
-	for (size_t i = 0, len = _funcinfos.size(); i < len; ++i)
+	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
 	{
 		// no 2 level
 		bool b = false;
 		if (b)
 		{
 			generic_string entryName = TEXT("");
-			if (_funcinfos[i]._pos2 != -1)
+			if (!_foundFuncInfos[i]._data2.empty())
 			{
-				entryName = _funcinfos[i]._data2;
+				entryName = _foundFuncInfos[i]._data2;
 				entryName += TEXT("=>");
 			}
-			entryName += _funcinfos[i]._data;
-			addEntry(NULL, entryName.c_str(), _funcinfos[i]._pos);
+			entryName += _foundFuncInfos[i]._data;
+			addEntry(NULL, entryName.c_str(), _foundFuncInfos[i]._pos);
 		}
 		else
 		{
-			addEntry(_funcinfos[i]._data2.c_str(), _funcinfos[i]._data.c_str(), _funcinfos[i]._pos);
+			addEntry(_foundFuncInfos[i]._data2.c_str(), _foundFuncInfos[i]._data.c_str(), _foundFuncInfos[i]._pos);
 		}
 	}
 

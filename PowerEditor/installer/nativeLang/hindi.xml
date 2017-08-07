@@ -202,12 +202,12 @@
           <Item id="43052" name="रेंज में अक्षर का पता लगाएं..."/>
           <Item id="43053" name="मैचिंग ब्रेकेट के बीच में सभी का चयन करें"/>
           <Item id="43009" name="मिलते ब्रेकेट पर जाओ"/>
-          <Item id="43010" name="अगला खोजें"/>
+          <Item id="43010" name="पिछला खोजें"/>
           <Item id="43011" name="&amp;इंक्रीमेंटल खोज"/>
           <Item id="43013" name="फ़ाईलों मे खोजें"/>
           <Item id="43014" name="अगला (Volatile) खोजें"/>
-          <Item id="43015" name="अगला (Volatile) खोजें"/>
-	  <Item id="43022" name="१ला स्टाईल ईस्तेमाल करके"/>
+          <Item id="43015" name="पिछला (Volatile) खोजें"/>
+          <Item id="43022" name="१ला स्टाईल ईस्तेमाल करके"/>
           <Item id="43023" name="१ला स्टाईल निकालें"/>
           <Item id="43024" name="2रा स्टाईल ईस्तेमाल करके"/>
           <Item id="43025" name="2रा स्टाईल निकालें"/>
@@ -386,7 +386,7 @@
         <Item id="1654" name="फिल्टर्स"/>
         <Item id="1655" name="डायरेक्टरी"/>
         <Item id="1656" name="सब ख़ोजें"/>
-        <Item id="1658" name="सभी (sub-folders) सब फ़ोल्डर्स में"/>
+        <Item id="1658" name="सभी सब फ़ोल्डर्स में"/>
         <Item id="1659" name="छिपे फ़ोल्डर्स में"/>
         <Item id="1624" name="सर्च मोड"/>
         <Item id="1625" name="सामान्य"/>
@@ -1021,7 +1021,8 @@
 		<word-chars-list-warning-end value="  आपके अक्षर सूची में।"/>
 		<cloud-invalid-warning value="इनवैलिड पाथ."/>
 		<cloud-restart-warning value="प्रभावी करने के लिए Notepad++ पुनः प्रारंभ करें।"/>
-		<shift-change-direction-tip value="विपरीत दिशा में खोजने के लिए Shift+Enter का प्रयोग करें।"/>
+		<shift-change-direction-tip value="Enter: अगला खोजें
+Shift+Enter: पिछला खोजें"/>
 	</MiscStrings>
   </Native-Langue>
 </NotepadPlus>

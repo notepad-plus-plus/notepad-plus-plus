@@ -19,7 +19,7 @@
 		- Added translation for new strings as per V7.4
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.4">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -111,7 +111,7 @@
           <Item id="41017" name="पुनःनामांकन..."/>
           <Item id="41021" name="हाल ही में बंद फाइल को पुनः खोलें"/>
           <Item id="41022" name="फोल्डर वर्कस्पेस की तरह खोलें "/>
-
+          <Item id="41023" name="डिफ़ॉल्ट व्यूअर में खोलें"/>
           <Item id="42001" name="&amp;कट (Cut)"/>
           <Item id="42002" name="&amp;कॉपी (Copy)"/>
           <Item id="42003" name="&amp;पूर्ववत करें (Undo)"/>
@@ -202,12 +202,12 @@
           <Item id="43052" name="रेंज में अक्षर का पता लगाएं..."/>
           <Item id="43053" name="मैचिंग ब्रेकेट के बीच में सभी का चयन करें"/>
           <Item id="43009" name="मिलते ब्रेकेट पर जाओ"/>
-          <Item id="43010" name="अगला खोजें"/>
+          <Item id="43010" name="पिछला खोजें"/>
           <Item id="43011" name="&amp;इंक्रीमेंटल खोज"/>
           <Item id="43013" name="फ़ाईलों मे खोजें"/>
           <Item id="43014" name="अगला (Volatile) खोजें"/>
-          <Item id="43015" name="अगला (Volatile) खोजें"/>
-	  <Item id="43022" name="१ला स्टाईल ईस्तेमाल करके"/>
+          <Item id="43015" name="पिछला (Volatile) खोजें"/>
+          <Item id="43022" name="१ला स्टाईल ईस्तेमाल करके"/>
           <Item id="43023" name="१ला स्टाईल निकालें"/>
           <Item id="43024" name="2रा स्टाईल ईस्तेमाल करके"/>
           <Item id="43025" name="2रा स्टाईल निकालें"/>
@@ -354,26 +354,24 @@
         <Item CMID="18" name="दाएं और सभी बंद करें"/>
         <Item CMID="19" name="धारक फोल्डर को एक्स्प्लोरर में खोलें"/>
         <Item CMID="20" name="धारक फोल्डर को cmd में खोलें"/>
+	<Item CMID="21" name="डिफ़ॉल्ट व्यूअर में खोलें"/>
       </TabBar>
     </Menu>
 
     <Dialog>
       <Find title="" titleFind="ख़ोजें" titleReplace="बदलें (replace)" titleFindInFiles="फाईल मे ख़ोजें" titleMark="चिन्हित">
-        <Item id="1"    name="खोजें >>"/>
-        <Item id="1721" name="<< खोजें"/>
+        <Item id="1"    name="अगला खोजें"/>
+        <Item id="1722" name="विपरीत दिशा में"/>
         <Item id="2" name="बंद करें"/>
         <Item id="1620" name="क्या खोजें:"/>
         <Item id="1603" name="&amp;पुरा शब्द मिलायें"/>
         <Item id="1604" name="&amp;केस (case) मिलायें"/>
         <Item id="1605" name="&amp;रेग्युलर एक्स्प्रेशन"/>
         <Item id="1606" name="&amp;आजुबाजु लपेटें"/>
-        <Item id="1612" name="&amp;उपर"/>
-        <Item id="1613" name="&amp;नीचे"/>
         <Item id="1614" name="गिनती"/>
         <Item id="1615" name="सब ख़ोजें"/>
         <Item id="1616" name="लाईन चिन्हित करें"/>
         <Item id="1618" name="हरेक खोज साफ़ (Purge) करें"/>
-        <Item id="1621" name="दिशा"/>
         <Item id="1611" name="&amp;के साथ बदलें:"/>
         <Item id="1608" name="&amp;बदलें"/>
         <Item id="1609" name="&amp;सब बदलें"/>
@@ -386,7 +384,7 @@
         <Item id="1654" name="फिल्टर्स"/>
         <Item id="1655" name="डायरेक्टरी"/>
         <Item id="1656" name="सब ख़ोजें"/>
-        <Item id="1658" name="सभी (sub-folders) सब फ़ोल्डर्स में"/>
+        <Item id="1658" name="सभी सब फ़ोल्डर्स में"/>
         <Item id="1659" name="छिपे फ़ोल्डर्स में"/>
         <Item id="1624" name="सर्च मोड"/>
         <Item id="1625" name="सामान्य"/>

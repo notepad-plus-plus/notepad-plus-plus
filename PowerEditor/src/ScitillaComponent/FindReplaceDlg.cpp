@@ -993,6 +993,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 						_options._str2Search = getTextFromCombo(hFindCombo);
 						_options._str4Replace = getTextFromCombo(hReplaceCombo);
+						if (isCheckedOrNot(IDC_REPLACE_BACKWARDS))
+							_options._whichDirection = DIR_UP;
+						else
+							_options._whichDirection = DIR_DOWN;
 						updateCombos();
 
 						nppParamInst->_isFindReplacing = true;
@@ -1143,6 +1147,10 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						_options._str2Search = getTextFromCombo(hFindCombo);
 						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 						_options._str4Replace = getTextFromCombo(hReplaceCombo);
+						if (isCheckedOrNot(IDC_REPLACE_BACKWARDS))
+							_options._whichDirection = DIR_UP;
+						else
+							_options._whichDirection = DIR_DOWN;
 						updateCombos();
 
 						nppParamInst->_isFindReplacing = true;
@@ -2294,6 +2302,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_BACKWARDS), hideOrShow);
 
 	// find controls
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), !hideOrShow);
@@ -2322,6 +2331,7 @@ void FindReplaceDlg::enableMarkAllControls(bool isEnable)
 
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_DIR_STATIC), !hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), !hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_BACKWARDS), !hideOrShow);
 }
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
@@ -2346,6 +2356,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_BACKWARDS), isEnable ? SW_HIDE : SW_SHOW);
 
 	// Show Items
 	if (isEnable)
@@ -2483,6 +2494,10 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 					processFindNext(_env->_str2Search.c_str());
 					nppParamInst->_isFindReplacing = false;
 					break;
+				case IDC_FINDPREV:
+					nppParamInst->_isFindReplacing = true;
+					processFindNext(_env->_str2Search.c_str());
+					nppParamInst->_isFindReplacing = false;
 				case IDREPLACE:
 					nppParamInst->_isFindReplacing = true;
 					processReplace(_env->_str2Search.c_str(), _env->_str4Replace.c_str(), _env);
@@ -2718,6 +2733,7 @@ void FindReplaceDlg::enableMarkFunc()
 	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL),SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE),SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDOK),SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_BACKWARDS), SW_HIDE);
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();

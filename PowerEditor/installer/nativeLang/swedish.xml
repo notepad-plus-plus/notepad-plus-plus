@@ -369,6 +369,8 @@
 				<Item id="1687" name="Vid förlorad fokus" />
 				<Item id="1688" name="Alltid" />
 				<Item id="1703" name="&amp;. omfattar ny rad" />
+				<Item id="1721" name="Sök föregående" />
+				<Item id="1722" name="Ersätt backlänges" />
 			</Find>
 			<Run title="Kör...">
 				<Item id="1" name="Kör" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="正體中文" filename="chinese.xml" version="7.4.2">
+    <Native-Langue name="正體中文" filename="chinese.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -341,20 +341,17 @@
         <Dialog>
             <Find title="" titleFind="尋找" titleReplace="取代" titleFindInFiles="在檔案中尋找"  titleMark="標記">
                 <Item id="1" name="找下一個"/>
-                <Item id="1721" name="找上一個"/>
+                <Item id="1722" name="往上搜尋"/>
                 <Item id="2"    name="關閉"/>
                 <Item id="1620" name="尋找內容: "/>
                 <Item id="1603" name="僅符合整個單字(&amp;W)"/>
                 <Item id="1604" name="區分大小寫(&amp;C)"/>
                 <Item id="1605" name="規則運算式(&amp;E)"/>
                 <Item id="1606" name="循環(&amp;D)"/>
-                <Item id="1612" name="上(&amp;U)"/>
-                <Item id="1613" name="下(&amp;D)"/>
                 <Item id="1614" name="數量"/>
                 <Item id="1615" name="全部尋找"/>
                 <Item id="1616" name="標記該行"/>
                 <Item id="1618" name="每次搜尋都重新標記"/>
-                <Item id="1621" name="方向"/>
                 <Item id="1611" name="取代為: "/>
                 <Item id="1608" name="取代(&amp;R)"/>
                 <Item id="1609" name="全部取代(&amp;A)"/>
@@ -995,8 +992,7 @@
 			<word-chars-list-warning-end value="  在你的單字字符集中。"/>
 			<cloud-invalid-warning value="無效路徑"/>
 			<cloud-restart-warning value="請重新啟動 Notepad++ 以讓改變生效"/>
-			<shift-change-direction-tip value="Enter: 找下一個
-Shift+Enter: 找上一個"/>
+			<shift-change-direction-tip value="使用 Shift + Enter 以相反方向進行搜索"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

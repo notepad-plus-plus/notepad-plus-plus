@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english_customizable.xml" version="7.4.2">
+    <Native-Langue name="English" filename="english_customizable.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -339,21 +339,18 @@
 
         <Dialog>
             <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
-                <Item id="1"    name="Find  >>"/>
-                <Item id="1721" name="<<  Find"/>
+                <Item id="1"    name="Find Next"/>
+                <Item id="1722" name="Backward direction"/>
                 <Item id="2"    name="Close"/>
                 <Item id="1620" name="Find what:"/>
                 <Item id="1603" name="Match &amp;whole word only"/>
                 <Item id="1604" name="Match &amp;case"/>
                 <Item id="1605" name="Regular &amp;expression"/>
                 <Item id="1606" name="Wrap aroun&amp;d"/>
-                <Item id="1612" name="&amp;Up"/>
-                <Item id="1613" name="&amp;Down"/>
                 <Item id="1614" name="Count"/>
                 <Item id="1615" name="Find All"/>
                 <Item id="1616" name="Mark line"/>
                 <Item id="1618" name="Purge for each search"/>
-                <Item id="1621" name="Direction"/>
                 <Item id="1611" name="Re&amp;place with:"/>
                 <Item id="1608" name="&amp;Replace"/>
                 <Item id="1609" name="Replace &amp;All"/>
@@ -1002,8 +999,7 @@
 			<word-chars-list-warning-end value="  in your character list."/>
 			<cloud-invalid-warning value="Invalid path."/>
 			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-			<shift-change-direction-tip value="Enter: Find Next
-Shift+Enter: Find Previous"/>
+			<shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

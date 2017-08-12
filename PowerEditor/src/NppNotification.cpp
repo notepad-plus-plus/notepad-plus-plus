@@ -32,6 +32,7 @@
 #include "VerticalFileSwitcher.h"
 #include "ProjectPanel.h"
 #include "documentMap.h"
+#include "Common.h"
 #include <stack>
 
 using namespace std;
@@ -514,7 +515,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (!_tabPopupMenu.isCreated())
 			{
-				std::vector<MenuItemUnit> itemUnitArray;
+				// IMPORTANT: If list below is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
+                std::vector<MenuItemUnit> itemUnitArray;
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left")));
@@ -529,6 +531,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, TEXT("Open in Default Viewer")));
+				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY,   TEXT("Read-Only")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear Read-Only Flag")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
@@ -540,6 +544,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to Other View")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in New Instance")));
+				// IMPORTANT: If list above is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
 
 				_tabPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
 				_nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());
@@ -559,6 +564,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
+
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(buf->getFullPathName()));
 
 			bool isDirty = buf->isDirty();
 			bool isUntitled = buf->isUntitled();

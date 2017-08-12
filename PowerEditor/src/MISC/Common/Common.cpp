@@ -1101,3 +1101,28 @@ bool isCertificateValidated(const generic_string & fullFilePath, const generic_s
 
 	return isOK;
 }
+
+bool isAssoCommandExisting(LPCTSTR FullPathName)
+{
+	bool isAssoCommandExisting = false;
+
+	bool isFileExisting = PathFileExists(FullPathName) != FALSE;
+
+	if (isFileExisting)
+	{
+		PTSTR ext = PathFindExtension(FullPathName);
+
+		HRESULT hres;
+		wchar_t buffer[MAX_PATH] = TEXT("");
+		DWORD bufferLen = MAX_PATH;
+
+		// check if association exist
+		hres = AssocQueryString(ASSOCF_VERIFY|ASSOCF_INIT_IGNOREUNKNOWN, ASSOCSTR_COMMAND, ext, NULL, buffer, &bufferLen);
+        
+        isAssoCommandExisting = (hres == S_OK)                  // check if association exist and no error
+			&& (buffer != NULL)                                 // check if buffer is not NULL
+			&& (wcsstr(buffer, TEXT("notepad++.exe")) == NULL); // check association with notepad++
+        
+	}
+	return isAssoCommandExisting;
+}

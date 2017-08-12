@@ -187,3 +187,4 @@ generic_string uintToString(unsigned int val);
 HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
 
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
+bool isAssoCommandExisting(LPCTSTR FullPathName);

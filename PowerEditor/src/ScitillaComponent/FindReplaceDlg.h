@@ -358,7 +358,6 @@ private :
 	std::vector<Finder *> _findersOfFinder;
 
 	HWND _shiftTrickUpTip = nullptr;
-	HWND _shiftTrickDownTip = nullptr;
 
 
 	bool _isRTL;

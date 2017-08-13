@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 03.07.2017 by RDD
+	Last revision:...: 13.08.2017 by RDD
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -88,6 +88,7 @@
 					<Item id="41019" name="Отваряне на папката"/>
 					<Item id="41020" name="Отваряне в конзола cmd"/>
 					<!-- Меню "Файл" -->
+					<Item id="41023" name="Отваряне по подразбиране"/>
 					<Item id="41022" name="Отваряне на &amp;директория"/>
 					<Item id="41014" name="Презареждане от носителя"/>
 					<Item id="41006" name="&amp;Запис"/>
@@ -390,6 +391,7 @@
 					<Item CMID="4"  name="Печат"/>
 					<Item CMID="19" name="Отваряне папката на файла"/>
 					<Item CMID="20" name="Отваряне папката на файла в cmd"/>
+					<Item CMID="21" name="Отваряне по подразбиране"/>
 					<Item CMID="12" name="Само за четене"/>
 					<Item CMID="13" name="Премахване на &quot;Само за четене&quot;"/>
 					<Item CMID="7"  name="Копиране пълния път на файла"/>
@@ -439,10 +441,10 @@
 				<Item id="1616" name="Маркиране на реда"/>
 				<Item id="1618" name="Изчистване при всяко търсене"/>
 				<!-- Диалог за "Търсене, Замяна, Търсене във файлове, Маркиране" -->
-				<Item id="1"	name="&amp;Следващ"/>
-				<Item id="1721" name="&amp;Предходен"/>
+				<Item id="1"	name="Намиране на &amp;следващ"/>
 				<Item id="2"	name="Затваряне"/>
 				<Item id="1620" name="Търсене на:"/>
+				<Item id="1722" name="Обратна посока"/>
 				<Item id="1603" name="Само &amp;цели думи"/>
 				<Item id="1604" name="Главни / малки букви"/>
 				<Item id="1606" name="&amp;Кръгово търсене"/>
@@ -451,9 +453,6 @@
 				<Item id="1626" name="Разширен (\n, \r, \t, \0, \x...)"/>
 				<Item id="1605" name="Регулярен &amp;израз"/>
 				<Item id="1703" name=". и &amp;нов ред"/>
-				<Item id="1621" name="Посока"/>
-				<Item id="1612" name="На&amp;горе"/>
-				<Item id="1613" name="На&amp;долу"/>
 				<Item id="1687" name="При неактивност"/>
 				<Item id="1688" name="Винаги"/>
 				<Item id="1632" name="В избраното"/>
@@ -1053,8 +1052,7 @@
 			<word-chars-list-warning-end value="  във вашият списък със символи."/>
 			<cloud-invalid-warning value="Невалиден път."/>
 			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++."/>
-			<shift-change-direction-tip value="Enter: Търсене на следващ
-Shift+Enter: Търсене на предходен"/>
+			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter."/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>
@@ -1091,11 +1089,11 @@ Shift+Enter: Търсене на предходен"/>
 			<ColumnModeTip title="Колонен режим" message="За преминаване в колонен режим използвайте: &#x0A;&#x0A;&quot;Alt + избор с мишката&quot;&#x0A;&quot;Alt + Shift + избор с мишката&quot;&#x0A;&quot;Alt + Shift + клавиш стрелка&quot;&#x0A;&#x0A;Не забравяйте, че първо трябва да натиснете клавиш Alt."/>
 				<!-- $STR_REPLACE$ is a place holder, don't translate it -->
 			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $STR_REPLACE$."/>
-			<BufferInvalidWarning title="Неуспешно записване" message="Не може да се запази: Невалиден буфер."/>
-			<OpenInAdminMode title="Неуспешно записване" message="Файлът може би е защитен и не може да се запази.&#x0A;Искате ли да стартирате Notepad++ с администраторски права?"/>
+			<BufferInvalidWarning title="Неуспешен запис" message="Не може да се запази: Невалиден буфер."/>
+			<OpenInAdminMode title="Неуспешен запис" message="Файлът може би е защитен и не може да се запази.&#x0A;Искате ли да стартирате Notepad++ с администраторски права?"/>
 			<OpenInAdminModeFailed title="Неуспешно стартиране с администраторски права" message="Notepad++ не може да бъде стартиран с администраторски права."/>
-			<OpenInAdminModeWithoutCloseCurrent title="Неуспешно записване" message="Файлът може би е защитен и не може да се запази.&#x0A;Искате ли да стартирате Notepad++ с администраторски права?"/>
-			<DroppingFolderAsProjetModeWarning title="Невалидно действие" message="Тъй като сте в режим &quot;Директория като работно място&quot;, можете да влачите само файлове или папки, но не и двете.&#x0A;&#x0A;За да разрешите това действие, трябва да включите опцията &quot;Отваряне на всички файлове от папката при влаченето ѝ в прозореца&quot; в секция &quot;Път по подразбиране&quot; на предпочитаните настройки."/>
+			<OpenInAdminModeWithoutCloseCurrent title="Неуспешен запис" message="Файлът може би е защитен и не може да се запази.&#x0A;Искате ли да стартирате Notepad++ с администраторски права?"/>
+			<DroppingFolderAsProjetModeWarning title="Невалидно действие" message="Тъй като сте в режим &quot;Директория като работно място&quot;, можете да влачите само файлове или само папки, но не и двете.&#x0A;&#x0A;За да разрешите това действие, трябва да включите опцията &quot;Отваряне на всички файлове от папката при влаченето ѝ в прозореца&quot; в секция &quot;Път по подразбиране&quot; на предпочитаните настройки."/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

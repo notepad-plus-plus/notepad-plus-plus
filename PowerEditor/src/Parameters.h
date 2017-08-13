@@ -874,7 +874,7 @@ struct ScintillaViewParams
 	int _zoom = 0;
 	int _zoom2 = 0;
 	bool _whiteSpaceShow = false;
-	bool _eolShow;
+	bool _eolShow = false;
 	int _borderWidth = 2;
 	bool _scrollBeyondLastLine = false;
 	bool _disableAdvancedScrolling = false;

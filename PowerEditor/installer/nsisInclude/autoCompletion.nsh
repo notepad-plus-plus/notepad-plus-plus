@@ -209,10 +209,6 @@ SectionGroup un.autoCompletionComponent
 		Delete "$INSTDIR\plugins\APIs\nsis.xml"
 	SectionEnd
 	
-	Section un.AWK
-		Delete "$INSTDIR\plugins\APIs\awk.xml"
-	SectionEnd
-	
 	Section un.CMAKE
 		Delete "$INSTDIR\plugins\APIs\cmake.xml"
 	SectionEnd	

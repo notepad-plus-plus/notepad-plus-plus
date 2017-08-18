@@ -4347,7 +4347,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("langsExcluded")))
 		{
 			// TODO
-			int g0 = 0; // up to  8
+			int g0 = 0; // up to 8
 			int g1 = 0; // up to 16
 			int g2 = 0; // up to 24
 			int g3 = 0; // up to 32
@@ -4355,6 +4355,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			int g5 = 0; // up to 48
 			int g6 = 0; // up to 56
 			int g7 = 0; // up to 64
+			int g8 = 0; // up to 72
+			int g9 = 0; // up to 80
+			int g10= 0; // up to 88
+			int g11= 0; // up to 96
+			int g12= 0; // up to 104
 
 			// TODO some refactoring needed here....
 			{
@@ -4398,6 +4403,31 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				{
 					if (i <= 255)
 						g7 = i;
+				}
+				if (element->Attribute(TEXT("gr8"), &i))
+				{
+					if (i <= 255)
+						g8 = i;
+				}
+				if (element->Attribute(TEXT("gr9"), &i))
+				{
+					if (i <= 255)
+						g9 = i;
+				}
+				if (element->Attribute(TEXT("gr10"), &i))
+				{
+					if (i <= 255)
+						g10 = i;
+				}
+				if (element->Attribute(TEXT("gr11"), &i))
+				{
+					if (i <= 255)
+						g11 = i;
+				}
+				if (element->Attribute(TEXT("gr12"), &i))
+				{
+					if (i <= 255)
+						g12 = i;
 				}
 			}
 
@@ -4461,6 +4491,46 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 56 ; i < 64 ; ++i)
 			{
 				if (mask & g7)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 64; i < 72; ++i)
+			{
+				if (mask & g8)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 72; i < 80; ++i)
+			{
+				if (mask & g9)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 80; i < 88; ++i)
+			{
+				if (mask & g10)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 88; i < 96; ++i)
+			{
+				if (mask & g11)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 96; i < 104; ++i)
+			{
+				if (mask & g12)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
 				mask <<= 1;
 			}
@@ -5722,7 +5792,7 @@ void NppParameters::writePrintSetting(TiXmlElement *element)
 
 void NppParameters::writeExcludedLangList(TiXmlElement *element)
 {
-	int g0 = 0; // up to  8
+	int g0 = 0; // up to 8
 	int g1 = 0; // up to 16
 	int g2 = 0; // up to 24
 	int g3 = 0; // up to 32
@@ -5730,6 +5800,13 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 	int g5 = 0; // up to 48
 	int g6 = 0; // up to 56
 	int g7 = 0; // up to 64
+	int g8 = 0; // up to 72
+	int g9 = 0; // up to 80
+	int g10= 0; // up to 88
+	int g11= 0; // up to 96
+	int g12= 0; // up to 104
+
+	const int groupNbMember = 8;
 
 	for (size_t i = 0, len = _nppGUI._excludedLangList.size(); i < len ; ++i)
 	{
@@ -5737,8 +5814,8 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 		if (langType >= L_EXTERNAL && langType < L_END)
 			continue;
 
-		int nGrp = langType / 8;
-		int nMask = 1 << langType % 8;
+		int nGrp = langType / groupNbMember;
+		int nMask = 1 << langType % groupNbMember;
 
 
 		switch (nGrp)
@@ -5767,6 +5844,21 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 			case 7 :
 				g7 |= nMask;
 				break;
+			case 8:
+				g8 |= nMask;
+				break;
+			case 9:
+				g9 |= nMask;
+				break;
+			case 10:
+				g10 |= nMask;
+				break;
+			case 11:
+				g11 |= nMask;
+				break;
+			case 12:
+				g12 |= nMask;
+				break;
 		}
 	}
 
@@ -5778,6 +5870,11 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 	element->SetAttribute(TEXT("gr5"), g5);
 	element->SetAttribute(TEXT("gr6"), g6);
 	element->SetAttribute(TEXT("gr7"), g7);
+	element->SetAttribute(TEXT("gr8"), g8);
+	element->SetAttribute(TEXT("gr9"), g9);
+	element->SetAttribute(TEXT("gr10"), g10);
+	element->SetAttribute(TEXT("gr11"), g11);
+	element->SetAttribute(TEXT("gr12"), g12);
 }
 
 TiXmlElement * NppParameters::insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHAR *name, bool bVal)

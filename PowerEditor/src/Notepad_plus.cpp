@@ -397,10 +397,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_scintillaCtrls4Plugins.init(_pPublicInterface->getHinst(), hwnd);
 	_pluginsManager.init(nppData);
 
-	// Load plugins firstly from "%APPDATA%/Notepad++/plugins"
-	// if Notepad++ is not in localConf mode.
+	// If Notepad++ is not in localConf mode, load plugins firstly from "%APPDATA%/Notepad++/plugins"
 	// All the dll loaded are marked.
 	bool isLoadFromAppDataAllow = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETAPPDATAPLUGINSALLOWED, 0, 0) == TRUE;
+
 	const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
 	if (appDataNpp[0] && isLoadFromAppDataAllow)
 		_pluginsManager.loadPlugins(appDataNpp);

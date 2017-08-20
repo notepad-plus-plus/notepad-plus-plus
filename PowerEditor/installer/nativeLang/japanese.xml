@@ -289,8 +289,8 @@
                     <Item id="46017" name="リソースファイル"/>
 
                     <Item id="46001" name="スタイル設定..."/>
-                    <Item id="46150" name="言語を定義..."/>
-                    <Item id="46080" name="ユーザー定義"/>
+                    <Item id="46250" name="言語を定義..."/>
+                    <Item id="46180" name="ユーザー定義"/>
                     <Item id="47000" name="Notepad++について..."/>
                     <Item id="47010" name="コマンドライン引数..."/>
                     <Item id="47001" name="Notepad++のサイト"/>

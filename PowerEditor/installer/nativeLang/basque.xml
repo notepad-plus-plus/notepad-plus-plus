@@ -251,8 +251,8 @@
                     <Item id="10003" name="Mugitu Eskabide Berrira"/>
                     <Item id="10004" name="Ireki Eskabide Berrian"/>
                     <Item id="46001" name="&amp;Estilo Itxuratzailea..."/>
-					<Item id="46080" name="Erabiltzaileak Zehaztuta"/>
-                    <Item id="46150" name="Zehaztu zure hizkuntza..."/>
+					<Item id="46180" name="Erabiltzaileak Zehaztuta"/>
+                    <Item id="46250" name="Zehaztu zure hizkuntza..."/>
 					<Item id="47000" name="Notepad++ &amp;Buruz..."/>
                     <Item id="47001" name="Notepad++ Etxea"/>
                     <Item id="47002" name="Notepad++ Egitasmoaren &amp;Webgunea"/>

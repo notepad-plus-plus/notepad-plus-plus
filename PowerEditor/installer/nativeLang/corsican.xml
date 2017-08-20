@@ -283,9 +283,9 @@
                     <Item id="10004" name="Apre in una Nova Finestra"/>
 
                     <Item id="46001" name="&amp;Cunfiguratore di Stilu..."/>
-                    <Item id="46150" name="Definisce u vostru linguaghju..."/>
                     <Item id="46250" name="Definisce u vostru linguaghju..."/>
-                    <Item id="46080" name="Definitu da l'Utilizatore"/>
+                    <Item id="46250" name="Definisce u vostru linguaghju..."/>
+                    <Item id="46180" name="Definitu da l'Utilizatore"/>
                     <Item id="46180" name="Definitu da l'Utilizatore"/>
                     <Item id="47000" name="Apprupositu di Notepad++..."/>
                     <Item id="47010" name="Argumenti di Linea di Cummanda..."/>

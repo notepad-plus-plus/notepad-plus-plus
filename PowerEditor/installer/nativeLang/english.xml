@@ -276,8 +276,8 @@
                     <Item id="10004" name="Open in New Instance"/>
 
                     <Item id="46001" name="Style Configurator..."/>
-                    <Item id="46150" name="Define your language..."/>
-                    <Item id="46080" name="User-Defined"/>
+                    <Item id="46250" name="Define your language..."/>
+                    <Item id="46180" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++..."/>
                     <Item id="47010" name="Command Line Arguments..."/>
                     <Item id="47001" name="Notepad++ Home"/>

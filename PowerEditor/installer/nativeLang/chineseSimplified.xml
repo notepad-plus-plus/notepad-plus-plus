@@ -276,8 +276,8 @@
                     <Item id="10003" name="移动到新窗口" />
                     <Item id="10004" name="在新窗口中打开" />
                     <Item id="46001" name="语言格式设置..." />
-                    <Item id="46080" name="用户自定义" />
-                    <Item id="46150" name="自定义语言格式..."/>
+                    <Item id="46180" name="用户自定义" />
+                    <Item id="46250" name="自定义语言格式..."/>
                     <Item id="47000" name="关于 Notepad++..." />
                     <Item id="47001" name="Notepad++ 官方主页" />
                     <Item id="47002" name="Notepad++ 项目主页" />

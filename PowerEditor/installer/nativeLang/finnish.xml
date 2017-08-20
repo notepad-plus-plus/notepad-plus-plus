@@ -262,8 +262,8 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="45012" name="Muunna koodaukseen UCS-2 Big Endian"/>
 					<Item id="45013" name="Muunna koodaukseen UCS-2 Little Endian"/>
 					<Item id="46001" name="Mukauta tyyliä..." />
-					<Item id="46080" name="Mukautettu" />
-					<Item id="46150" name="Määrittele oma koodikieli..." />
+					<Item id="46180" name="Mukautettu" />
+					<Item id="46250" name="Määrittele oma koodikieli..." />
 					<Item id="47000" name="Tietoja ohjelmasta"/>
 					<Item id="47001" name="Notepad++ Kotisivu"/>
 					<Item id="47002" name="Notepad++ Projektisivu"/>

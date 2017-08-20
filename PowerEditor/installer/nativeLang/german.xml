@@ -307,8 +307,8 @@
 					<Item id="46017" name="Ressourcen-Datei"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 
 					<Item id="46001" name="&amp;Stile …"/>
-					<Item id="46150" name="Eigene Sprache &amp;definieren …"/>
-					<Item id="46080" name="Benutzerdefiniert"/>
+					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
+					<Item id="46180" name="Benutzerdefiniert"/>
 					<Item id="47000" name="&amp;Info …"/>
 					<Item id="47010" name="&amp;Kommandozeilenparameter …"/>
 					<Item id="47001" name="Notepad++ im &amp;Web"/>

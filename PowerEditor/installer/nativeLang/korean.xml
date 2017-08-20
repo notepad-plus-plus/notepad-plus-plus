@@ -273,8 +273,8 @@
   <Item id="10003" name="새 창으로 이동(창 이동)"/> 
   <Item id="10004" name="새 창에서 열기(창 복사)"/> 
   <Item id="46001" name="스타일 설정..."/> 
-  <Item id="46150" name="언어 정의..."/> 
-  <Item id="46080" name="사용자 정의"/> 
+  <Item id="46250" name="언어 정의..."/> 
+  <Item id="46180" name="사용자 정의"/> 
   <Item id="47000" name="Notepad++ 정보"/>
   <Item id="47010" name="명령줄 옵션..."/>
   <Item id="47001" name="Notepad++ 홈페이지"/> 

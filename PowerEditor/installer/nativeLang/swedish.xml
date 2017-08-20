@@ -275,8 +275,8 @@
 					<Item id="45012" name="Konvertera till Big Endian" />
 					<Item id="45013" name="Konvertera till Little Endian" />
 					<Item id="46001" name="Konfigurera programspråk" />
-					<Item id="46080" name="Användardefinierad" />
-					<Item id="46150" name="Definiera ditt språk..." />
+					<Item id="46180" name="Användardefinierad" />
+					<Item id="46250" name="Definiera ditt språk..." />
 					<Item id="47000" name="Om Notepad++..." />
 					<Item id="47010" name="Kommandoradsargument"/>
 					<Item id="47001" name="Notepad++, officiell hemsida" />

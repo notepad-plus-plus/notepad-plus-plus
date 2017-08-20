@@ -277,8 +277,8 @@
                     <Item id="45012" name="Convertir en UTF-16BE"/>
                     <Item id="45013" name="Convertir en UTF-16LE"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
-                    <Item id="46150" name="Définissez votre langage..."/>
-                    <Item id="46080" name="Langage utilisateur"/>
+                    <Item id="46250" name="Définissez votre langage..."/>
+                    <Item id="46180" name="Langage utilisateur"/>
                     <Item id="47000" name="À propos de Notepad++..."/>
                     <Item id="47001" name="Site officiel Notepad++"/>
                     <Item id="47002" name="Projet de développement de Notepad++"/>

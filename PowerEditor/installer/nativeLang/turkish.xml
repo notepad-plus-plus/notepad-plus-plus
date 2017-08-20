@@ -276,8 +276,8 @@
 					<Item id="10004" name="Yeni Uygulama Penceresinde Aç"/>
 
 					<Item id="46001" name="&amp;Stil Yapılandırıcı…"/>
-					<Item id="46150" name="Dil &amp;Tanımla"/>
-					<Item id="46080" name="Tanımlı Dili &amp;Kullan"/>
+					<Item id="46250" name="Dil &amp;Tanımla"/>
+					<Item id="46180" name="Tanımlı Dili &amp;Kullan"/>
 					<Item id="47000" name="Notepad++ &amp;Hakkında…"/>
 					<Item id="47010" name="Komut Satırı Değişkenleri…"/>
 					<Item id="47001" name="Notepad++ &amp;Ana Sayfası"/>

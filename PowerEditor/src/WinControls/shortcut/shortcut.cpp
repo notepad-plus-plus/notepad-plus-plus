@@ -955,3 +955,32 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 
 	//return FALSE;
 }
+
+CommandShortcut::CommandShortcut(Shortcut sc, long id) :	Shortcut(sc), _id(id) {
+	if ( _id < IDM_EDIT)
+		_category = TEXT("File");
+	else if ( _id < IDM_SEARCH)
+		_category = TEXT("Edit");
+	else if (_id >= IDM_EDIT_AUTOCOMPLETE and _id <= IDM_EDIT_AUTOCOMPLETE_PATH)
+		_category = TEXT("Edit");
+	else if ( _id < IDM_VIEW)
+		_category = TEXT("Search");
+	else if ( _id < IDM_FORMAT)
+		_category = TEXT("View");
+	else if ( _id >= IDM_VIEW_GOTO_ANOTHER_VIEW and _id <= IDM_VIEW_LOAD_IN_NEW_INSTANCE)
+		_category = TEXT("View");
+	else if ( _id < IDM_LANG)
+		_category = TEXT("Format");
+	else if ( _id < IDM_ABOUT)
+		_category = TEXT("Lang");
+	else if ( _id < IDM_SETTING)
+		_category = TEXT("About");
+	else if ( _id < IDM_TOOL)
+		_category = TEXT("Setting");
+	else if ( _id < IDM_EXECUTE)
+		_category = TEXT("Tool");
+	else if ( _id < IDM_EXECUTE)
+		_category = TEXT("Tool");
+	else
+		_category = TEXT("Execute");
+}

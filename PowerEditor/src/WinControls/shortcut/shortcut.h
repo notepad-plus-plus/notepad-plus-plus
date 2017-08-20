@@ -194,35 +194,7 @@ protected :
 		 
 class CommandShortcut : public Shortcut {
 public:
-	CommandShortcut(Shortcut sc, long id) :	Shortcut(sc), _id(id) {
-		long category_id = _id - _id % 500;
-		switch (category_id){
-			case IDM_FILE : 
-				_category = TEXT("File"); break;
-			case IDM_EDIT : 
-				_category = TEXT("Edit"); break;
-			case IDM_EDIT_AUTOCOMPLETE :
-				_category = TEXT("Edit"); break;
-			case IDM_SEARCH:
-				_category = TEXT("Search"); break;
-			case IDM_VIEW : 
-				_category = TEXT("View"); break;
-			case IDM_FORMAT : 
-				_category = TEXT("Format"); break;
-			case IDM_LANG : 
-				_category = TEXT("Lang"); break;
-			case IDM_ABOUT : 
-				_category = TEXT("About"); break;
-			case IDM_SETTING : 
-				_category = TEXT("Setting"); break;
-			case IDM_TOOL : 
-				_category = TEXT("Tool"); break; 
-			case IDM_EXECUTE : 
-				_category = TEXT("Execute"); break; 
-			default :
-				_category = TEXT(""); break;
-		}
-	};
+	CommandShortcut(Shortcut sc, long id);
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
 	const TCHAR * getCategory() const { return _category.c_str(); };

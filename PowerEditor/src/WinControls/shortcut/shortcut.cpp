@@ -979,8 +979,6 @@ CommandShortcut::CommandShortcut(Shortcut sc, long id) :	Shortcut(sc), _id(id) {
 		_category = TEXT("Setting");
 	else if ( _id < IDM_EXECUTE)
 		_category = TEXT("Tool");
-	else if ( _id < IDM_EXECUTE)
-		_category = TEXT("Tool");
 	else
 		_category = TEXT("Execute");
 }

@@ -300,6 +300,8 @@ private:
 	// make sure we don't recursively call doClose when closing the last file with -quitOnEmpty
 	bool _isAttemptingCloseOnQuit = false;
 
+	bool _isEnablePrompt = false;
+
 	// For FullScreen/PostIt features
 	VisibleGUIConf	_beforeSpecialView;
 	void fullScreenToggle();
@@ -416,6 +418,7 @@ private:
 	int doSaveOrNot(const TCHAR *fn);
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
+	int doCloseMultipleOrNot();
 	int doDeleteOrNot(const TCHAR *fn);
 	int doActionOrNot(const TCHAR *title, const TCHAR *displayText, int type);
 
@@ -577,6 +580,8 @@ private:
 			return randomNumber;
 		return (rand() % rangeMax);
 	}
+
+	void setEnablePrompt(bool b);
 
 	static DWORD WINAPI backupDocument(void *params);
 

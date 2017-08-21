@@ -376,6 +376,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, NppParameters::getInstance()->_dpiManager.scaleX(30));
     _statusBar.display(willBeShown);
 
+	_isEnablePrompt = nppGUI._enableConfirmPrompt;
+
     _pMainWindow = &_mainDocTab;
 
 	_dockingManager.init(_pPublicInterface->getHinst(), hwnd, &_pMainWindow);
@@ -766,6 +768,7 @@ bool Notepad_plus::saveGUIParams()
 	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
+	nppGUI._enableConfirmPrompt = _isEnablePrompt;
 
 	nppGUI._tabStatus = (TabBarPlus::doDragNDropOrNot()?TAB_DRAWTOPBAR:0) | \
 						(TabBarPlus::drawTopBar()?TAB_DRAGNDROP:0) | \
@@ -1846,6 +1849,12 @@ int Notepad_plus::doCloseOrNot(const TCHAR *fn)
 	TCHAR phrase[512];
 	wsprintf(phrase, pattern, fn);
 	return doActionOrNot(TEXT("Keep non existing file"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+}
+
+int Notepad_plus::doCloseMultipleOrNot()
+{
+	TCHAR phrase[512] = TEXT("This may close multiple files.\rContinue ? ");
+	return doActionOrNot(TEXT("Close file(s)"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 }
 
 int Notepad_plus::doDeleteOrNot(const TCHAR *fn)
@@ -3092,6 +3101,9 @@ size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
  	}
 }
 
+void Notepad_plus::setEnablePrompt(bool b) {
+	_isEnablePrompt = b;
+}
 
 bool Notepad_plus::isFormatUnicode(UniMode u)
 {

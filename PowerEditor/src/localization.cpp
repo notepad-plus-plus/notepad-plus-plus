@@ -51,8 +51,8 @@ MenuPosition menuPos[] = {
 	{ 9, -1, -1, "run" },
 
 	{ 0,  2, -1, "file-openFolder" },
-	{ 0, 12, -1, "file-closeMore" },
-	{ 0, 21, -1, "file-recentFiles" },
+	{ 0, 13, -1, "file-closeMore" },
+	{ 0, 22, -1, "file-recentFiles" },
 
 	{ 1, 10, -1, "edit-copyToClipboard" },
 	{ 1, 11, -1, "edit-indent" },

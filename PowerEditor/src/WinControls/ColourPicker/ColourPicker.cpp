@@ -112,11 +112,8 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 		case WM_LBUTTONDOWN:
 		{
 			RECT rc;
-			POINT p;
 			Window::getClientRect(rc);
-			::InflateRect(&rc, -2, -2);
-			p.x = rc.left;
-			p.y = rc.top + rc.bottom;
+			POINT p { rc.left, rc.bottom };
 			::ClientToScreen(_hSelf, &p);
 
 			if (!_pColourPopup)

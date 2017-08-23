@@ -26,19 +26,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include <iostream>
-#include <stdexcept>
 #include "ColourPopup.h"
+#include "Parameters.h"
 
-DWORD colourItems[] = {
-	RGB(  0,   0,   0),	RGB( 64,   0,   0),	RGB(128,   0,   0),	RGB(128,  64,  64),	RGB(255,   0,   0),	RGB(255, 128, 128),
-	RGB(255, 255, 128),	RGB(255, 255,   0),	RGB(255, 128,  64),	RGB(255, 128,   0),	RGB(128,  64,   0),	RGB(128, 128,   0),
-	RGB(128, 128,  64),	RGB(  0,  64,   0),	RGB(  0, 128,   0),	RGB(  0, 255,   0),	RGB(128, 255,   0),	RGB(128, 255, 128),
-	RGB(  0, 255, 128),	RGB(  0, 255,  64),	RGB(  0, 128, 128),	RGB(  0, 128,  64),	RGB(  0,  64,  64),	RGB(128, 128, 128),
-	RGB( 64, 128, 128),	RGB(  0,   0, 128),	RGB(  0,   0, 255),	RGB(  0,  64, 128),	RGB(  0, 255, 255), RGB(128, 255, 255),
-	RGB(  0, 128, 255),	RGB(  0, 128, 192),	RGB(128, 128, 255),	RGB(  0,   0, 160),	RGB(  0,   0,  64),	RGB(192, 192, 192),
-	RGB( 64,   0,  64),	RGB( 64,   0,  64),	RGB(128,   0, 128),	RGB(128,   0,  64),	RGB(128, 128, 192),	RGB(255, 128, 192),
-	RGB(255, 128, 255),	RGB(255,   0, 255), RGB(255,   0, 128),	RGB(128,   0, 255), RGB( 64,   0, 128),	RGB(255, 255, 255),
+COLORREF arrCustColors[16] = {
+	RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF),
+	RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF),
+	RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF),
+	RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF), RGB(0xFF,0xFF,0xFF),
 };
 
 void ColourPopup::create(int dialogID) 
@@ -93,11 +88,12 @@ INT_PTR CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	{
 		case WM_INITDIALOG:
 		{
-			int nColor;
-			for (nColor = 0 ; nColor < int(sizeof(colourItems)/sizeof(DWORD)) ; ++nColor)
+			const ThemeColorPalette & colorPalette = NppParameters::getInstance()->getThemeColorPalette();
+
+			for (size_t nColor = 0; nColor < colorPalette.getSize(); ++nColor)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_ADDSTRING, nColor, reinterpret_cast<LPARAM>(""));
-				::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_SETITEMDATA, nColor, static_cast<LPARAM>(colourItems[nColor]));
+				::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_SETITEMDATA, nColor, colorPalette.getColor(nColor));
 			}
 			return TRUE;
 		}
@@ -183,20 +179,14 @@ INT_PTR CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
                 case IDOK :
 			    {
 					//isColourChooserLaunched = true;
-					CHOOSECOLOR cc;                 // common dialog box structure 
-					static COLORREF acrCustClr[16] = {
-						RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),\
-						RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),\
-						RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),\
-						RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),RGB(0xFF,0xFF,0xFF),\
-					}; // array of custom colors 
+					CHOOSECOLOR cc; // common dialog box structure 
 
 					// Initialize CHOOSECOLOR 
 					::ZeroMemory(&cc, sizeof(cc));
 					cc.lStructSize = sizeof(cc);
 					cc.hwndOwner = _hParent;
 
-					cc.lpCustColors = (LPDWORD) acrCustClr;
+					cc.lpCustColors = arrCustColors;
 					cc.rgbResult = _colour;
 					cc.Flags = CC_FULLOPEN | CC_RGBINIT;
 
@@ -232,11 +222,63 @@ INT_PTR CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		
 		case WM_ACTIVATE :
         {
-			if (LOWORD(wParam) == WA_INACTIVE)
-				::SendMessage(_hParent, WM_PICKUP_CANCEL, 0, 0);
-			return TRUE;
+			switch (LOWORD(wParam))
+			{
+				case WA_INACTIVE:
+				{
+					::SendMessage(_hParent, WM_PICKUP_CANCEL, 0, 0);
+					return FALSE;
+				}
+
+				case WA_ACTIVE:
+				{
+					const ThemeColorPalette & colorPalette = NppParameters::getInstance()->getThemeColorPalette();
+
+					for (size_t nColor = 0; nColor < colorPalette.getSize(); ++nColor)
+						::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_SETITEMDATA, nColor, colorPalette.getColor(nColor));
+
+					return FALSE;
+				}
+
+				default:
+					return TRUE;
+			}
 		}
-		
+
+		case WM_CONTEXTMENU:
+		{
+			if (::GetDlgCtrlID(reinterpret_cast<HWND>(wParam)) == IDC_COLOUR_LIST)
+			{
+				ThemeColorPalette & colorPalette = NppParameters::getInstance()->getThemeColorPalette();
+
+				POINT pt {LOWORD(lParam), HIWORD(lParam)};
+				::ScreenToClient(reinterpret_cast<HWND>(wParam), &pt);
+
+				intptr_t itemIndex = ::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_ITEMFROMPOINT, 0, MAKELPARAM(pt.x, pt.y));
+				if (HIWORD(itemIndex) || LOWORD(itemIndex) < 0 || LOWORD(itemIndex) >= colorPalette.getSize())
+					return TRUE;
+
+				CHOOSECOLOR cc;
+				::ZeroMemory(&cc, sizeof(cc));
+
+				cc.lStructSize = sizeof(cc);
+				cc.hwndOwner = _hParent;
+				cc.lpCustColors = arrCustColors;
+				cc.rgbResult = colorPalette.getColor(LOWORD(itemIndex));
+				cc.Flags = CC_FULLOPEN | CC_RGBINIT;
+
+				display(false);
+
+				if (ChooseColor(&cc) == TRUE)
+					colorPalette.setColor(LOWORD(itemIndex), cc.rgbResult);
+
+				display(true);
+
+				return TRUE;
+			}
+			return FALSE;
+		}
+
 	}
 	return FALSE;
 }

@@ -925,4 +925,14 @@ Installation:
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="073642" bgColor="93A1A1" />
     </GlobalStyles>
+    <ColorPalette>
+        <Colors name="Set 1" color1="000000" color2="400000" color3="800000" color4="804040" color5="FF0000" color6="FF8080" />
+        <Colors name="Set 2" color1="FFFF80" color2="FFFF00" color3="FF8040" color4="FF8000" color5="804000" color6="808000" />
+        <Colors name="Set 3" color1="808040" color2="004000" color3="008000" color4="00FF00" color5="80FF00" color6="80FF80" />
+        <Colors name="Set 4" color1="00FF80" color2="00FF40" color3="008080" color4="008040" color5="004040" color6="808080" />
+        <Colors name="Set 5" color1="408080" color2="000080" color3="0000FF" color4="004080" color5="00FFFF" color6="80FFFF" />
+        <Colors name="Set 6" color1="0080FF" color2="0080C0" color3="8080FF" color4="0000A0" color5="000040" color6="C0C0C0" />
+        <Colors name="Set 7" color1="400040" color2="400040" color3="800080" color4="800040" color5="8080C0" color6="FF80C0" />
+        <Colors name="Set 8" color1="FF80FF" color2="FF00FF" color3="FF0080" color4="8000FF" color5="400080" color6="FFFFFF" />
+    </ColorPalette>
 </NotepadPlus>

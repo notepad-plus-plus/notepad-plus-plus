@@ -1803,7 +1803,17 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						HMENU menu = HMENU(::SendMessage(grandParent, NPPM_INTERNAL_GETMENU, 0, 0));
 						HMENU subMenu = ::GetSubMenu(menu, MENUINDEX_LANGUAGE);
-						::InsertMenu(subMenu, static_cast<int32_t>(iAdd - 1), MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
+
+						// Add back a languge menu item always before the 3 last items:
+						// 1. -----------------------
+						// 2. Define your language...
+						// 3. User-Defined
+						int nbItem = ::GetMenuItemCount(subMenu);
+
+						if (nbItem < 3)
+							return FALSE;
+
+						::InsertMenu(subMenu, nbItem - 3, MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
 					}
 					::DrawMenuBar(grandParent);
 					return TRUE;

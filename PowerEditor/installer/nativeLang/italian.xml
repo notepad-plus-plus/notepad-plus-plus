@@ -303,8 +303,8 @@
                     <Item id = "46017" name = "File di risorse" />
                     <Item id = "46019" name = "File MS INI" />
                     <Item id = "46033" name = "Assembly" />
-                    <Item id = "46080" name = "Definito dall&apos;utente" />
-                    <Item id = "46150" name = "Definisci il tuo linguaggio..." />
+                    <Item id = "46180" name = "Definito dall&apos;utente" />
+                    <Item id = "46250" name = "Definisci il tuo linguaggio..." />
 
                     <Item id = "47000" name = "Informazioni su..." />
                     <Item id = "47001" name = "Sito web Notepad++" />

@@ -277,8 +277,8 @@
                     <Item id="10004" name="開啟此檔案到新啟動的 Notepad++"/>
 
                     <Item id="46001" name="設定程式語言格式..."/>
-                    <Item id="46150" name="定義程式語言..."/>
-                    <Item id="46080" name="使用者自訂"/>
+                    <Item id="46250" name="定義程式語言..."/>
+                    <Item id="46180" name="使用者自訂"/>
                     <Item id="47000" name="關於 Notepad++..."/>
                     <Item id="47001" name="Notepad++ 官方網站"/>
                     <Item id="47002" name="Notepad++ 專案頁（GitHub）"/>
@@ -901,10 +901,18 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以變更 Notepad++ 快顯功能表。\r修改 contextMenu.xml 後必須重啟 Notepad++ 才會生效。"/>
-            <NppHelpAbsentWarning title="檔案不存在" message="\r不存在。請在 Notepad++ 網站下載它。"/>
-            <SaveCurrentModifWarning title="儲存目前修改" message="您必須儲存目前修改。\r所有存儲修改將無法復原。\r\r確定繼續?"/>
-            <LoseUndoAbilityWarning title="失去復原能力警告" message="您必須儲存目前修改。\r所有存儲修改將無法復原。\r\r確定繼續?"/>
+            <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以變更 Notepad++ 快顯功能表。
+修改 contextMenu.xml 後必須重啟 Notepad++ 才會生效。"/>
+            <NppHelpAbsentWarning title="檔案不存在" message="
+不存在。請在 Notepad++ 網站下載它。"/>
+            <SaveCurrentModifWarning title="儲存目前修改" message="您必須儲存目前修改。
+所有存儲修改將無法復原。
+
+確定繼續?"/>
+            <LoseUndoAbilityWarning title="失去復原能力警告" message="您必須儲存目前修改。
+所有存儲修改將無法復原。
+
+確定繼續?"/>
             <CannotMoveDoc title="移至新 Notepad++ 執行個體" message="文件已更動，儲存後再試。"/>
             <DocReloadWarning title="重新載入" message="確定要重新載入目前文件，並忽略在 Notepad++ 中所做的修改？"/>
             <FileLockedWarning title="儲存失敗" message="請確認此檔案是否正由其他程式開啟"/>
@@ -912,8 +920,11 @@
             <DeleteFileFailed title="刪除檔案" message="檔案刪除失敗"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="檔案開啟數量過多" message="$INT_REPLACE$ 檔案將開啟。\r確定要開啟它們？"/>
-            <SettingsOnCloudError title="雲端設定" message="雲端路徑似乎設成唯讀磁碟，或是資料夾需要寫入權限。\r您的雲端設定將被取消。\r請在「喜好設定」對話框重設相關設定值。"/>
+            <NbFileToOpenImportantWarning title="檔案開啟數量過多" message="$INT_REPLACE$ 檔案將開啟。
+確定要開啟它們？"/>
+            <SettingsOnCloudError title="雲端設定" message="雲端路徑似乎設成唯讀磁碟，或是資料夾需要寫入權限。
+您的雲端設定將被取消。
+請在「喜好設定」對話框重設相關設定值。"/>
 			<FilePathNotFoundWarning title="開啟檔案" message="你試圖開啟的文件不存在。"/>
         </MessageBox>
 		<ClipboardHistory>

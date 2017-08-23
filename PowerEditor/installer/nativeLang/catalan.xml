@@ -292,8 +292,8 @@ By Hiro5 <groccat at gmail>
 					<Item id="46015" name="MS-DOS (estil)"/>
 					<Item id="46016" name="Normal (document de text)"/>
 					<Item id="46017" name="RC (fitxer de recursos)"/>
-					<Item id="46080" name="D&amp;efinit per l'usuari"/>
-					<Item id="46150" name="Definiu el llenguatge..."/>
+					<Item id="46180" name="D&amp;efinit per l'usuari"/>
+					<Item id="46250" name="Definiu el llenguatge..."/>
 					<Item id="48011" name="&amp;Preferències..."/>
 					<Item id="46001" name="&amp;Configuració d'estil..."/>
 					<Item id="48009" name="&amp;Editor de tecles de dreceres..."/>

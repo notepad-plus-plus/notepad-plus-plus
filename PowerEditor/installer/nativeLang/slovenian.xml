@@ -281,8 +281,8 @@
                     <Item id="10004" name="Odpri v novi pojavitvi"/>
 								
                     <Item id="46001" name="Nastavljanje sloga..."/>
-						<Item id="46150" name="Določite svoj jezik..."/>
-                    <Item id="46080" name="Uporabniško določeno"/>
+						<Item id="46250" name="Določite svoj jezik..."/>
+                    <Item id="46180" name="Uporabniško določeno"/>
                     <Item id="47000" name="Vizitka Notepad++ ..."/>
 						<Item id="47010" name="Argumenti ukazne vrstice..."/>
                     <Item id="47001" name="Domača stran Notepad++"/>

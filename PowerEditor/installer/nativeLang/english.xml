@@ -276,8 +276,8 @@
                     <Item id="10004" name="Open in New Instance"/>
 
                     <Item id="46001" name="Style Configurator..."/>
-                    <Item id="46150" name="Define your language..."/>
-                    <Item id="46080" name="User-Defined"/>
+                    <Item id="46250" name="Define your language..."/>
+                    <Item id="46180" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++..."/>
                     <Item id="47010" name="Command Line Arguments..."/>
                     <Item id="47001" name="Notepad++ Home"/>
@@ -906,10 +906,18 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-            <NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
-            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
+You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <NppHelpAbsentWarning title="File does not exist" message="
+doesn't exist. Please download it on Notepad++ site."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.
+All the saved modifications can not be undone.
+
+Continue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.
+All the saved modifications can not be undone.
+
+Continue?"/>
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
@@ -917,8 +925,11 @@
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
-			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writing access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
+Are you sure to open them?"/>
+			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
+or on a folder needed privilege right for writing access.
+Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
 			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
 	    <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
         </MessageBox>

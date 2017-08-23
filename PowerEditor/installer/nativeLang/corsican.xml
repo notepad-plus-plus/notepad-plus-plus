@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Corsican translation for Notepad++
+		- Updated on August 19th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.5
 		- Updated on April 30th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.3.3
 		- Created on September 14th, 2016 by Patriccollu di Santa Maria è Sichè for version 6.9.2
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.3.3">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -97,7 +98,7 @@
                     <Item id="41017" name="&amp;Rinumà..."/>
                     <Item id="41021" name="Apre u Schedariu Chjosu Pocu Fà"/>
                     <Item id="41022" name="Apre u Cartulare cum'è Spaziu di &amp;Travagliu"/>
-
+                    <Item id="41023" name="Apre in l'Appiecazione Predefinita"/>
                     <Item id="42001" name="&amp;Taglià"/>
                     <Item id="42002" name="&amp;Cupià"/>
                     <Item id="42003" name="&amp;Disfà"/>
@@ -282,8 +283,10 @@
                     <Item id="10004" name="Apre in una Nova Finestra"/>
 
                     <Item id="46001" name="&amp;Cunfiguratore di Stilu..."/>
-                    <Item id="46150" name="Definisce u vostru linguaghju..."/>
-                    <Item id="46080" name="Definitu da l'Utilizatore"/>
+                    <Item id="46250" name="Definisce u vostru linguaghju..."/>
+                    <Item id="46250" name="Definisce u vostru linguaghju..."/>
+                    <Item id="46180" name="Definitu da l'Utilizatore"/>
+                    <Item id="46180" name="Definitu da l'Utilizatore"/>
                     <Item id="47000" name="Apprupositu di Notepad++..."/>
                     <Item id="47010" name="Argumenti di Linea di Cummanda..."/>
                     <Item id="47001" name="Pagina d'accolta di Notepad++..."/>
@@ -340,12 +343,14 @@
                     <Item CMID="18" name="Chjode Tuttu à Manu Diritta"/>
                     <Item CMID="19" name="Apre cù l'Espluratore u Cartulare Cuntenendu u Schedariu"/>
                     <Item CMID="20" name="Apre cù l'Invitu di Cumanda u Cartulare Cuntenendu u Schedariu"/>
+                    <Item CMID="21" name="Apre in l'Appiecazione Predefinita"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Circà" titleReplace="Rimpiazzà" titleFindInFiles="Circà in Schedarii" titleMark="Marcà">
                 <Item id="1"    name="Circà Seguente"/>
+                <Item id="1722" name="Circà à l'Arritrosa"/>
                 <Item id="2"    name="Chjode"/>
                 <Item id="1620" name="Cosa circà :"/>
                 <Item id="1603" name="&amp;Parolla sana deve currisponde"/>
@@ -366,8 +371,8 @@
                 <Item id="1688" name="Sempre"/>
                 <Item id="1632" name="In a selezzione"/>
                 <Item id="1633" name="Squassà"/>
-                <Item id="1635" name="Rimpiazzà Tutti in Tutti i Schedarii Aperti"/>
-                <Item id="1636" name="Circà Tutti in Tutti i Schedarii Aperti"/>
+                <Item id="1635" name="Rimpiazzà Tutti in Tutti i Ducumenti Aperti"/>
+                <Item id="1636" name="Circà Tutti in Tutti i Ducumenti Aperti"/>
                 <Item id="1654" name="Filtri :"/>
                 <Item id="1655" name="Cartulare :"/>
                 <Item id="1656" name="Circà Tutti"/>
@@ -377,7 +382,7 @@
                 <Item id="1625" name="Nurmale"/>
                 <Item id="1626" name="Allungatu (\n, \r, \t, \0, \x...)"/>
                 <Item id="1660" name="Rimpiazzà in Schedarii"/>
-                <Item id="1661" name="Seguità ducumentu attuale"/>
+                <Item id="1661" name="Seguità ducum. attuale"/>
                 <Item id="1641" name="Circà Tutti in Ducumentu Attuale"/>
                 <Item id="1686" name="Trasparenza"/>
                 <Item id="1703" name="&amp;. cum'è nova linea"/>
@@ -464,7 +469,7 @@
                 <Item id="20005" name="Arregistrà cù N..."/>
                 <Item id="20007" name="Linguaghju : "/>
                 <Item id="20009" name="Est. :"/>
-                <Item id="20012" name="Rispettà MAIU/minus"/>
+                <Item id="20012" name="Rispettà MAIU/minu"/>
                 <Item id="20011" name="Trasparenza"/>
                 <Item id="20015" name="Impurtà..."/>
                 <Item id="20016" name="Espurtà..."/>

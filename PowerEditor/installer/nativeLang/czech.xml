@@ -225,7 +225,7 @@
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
 					<Item id = "44010" name = "Sbalit vše"/>
 					<Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>
-					<Item id = "46150" name = "Definovat vlastní syntaxi..."/>
+					<Item id = "46250" name = "Definovat vlastní syntaxi..."/>
 					<Item id = "44012" name = "Skrýt okrajový pruh s čísly řádků"/>
 					<Item id = "44013" name = "Skrýt okrajový pruh se záložkami"/>
 					<Item id = "44014" name = "Skrýt okrajový pruh pro sbalení/rozbalení"/>
@@ -298,7 +298,7 @@
 					<Item id = "46017" name = "Resource soubor"/>
 					<Item id = "46019" name = "MS INI soubor"/>
 					<Item id = "46033" name = "Sestavení"/>
-					<Item id = "46080" name = "Vlastní"/>
+					<Item id = "46180" name = "Vlastní"/>
 					<Item id = "47000" name = "O Notepadu++	..."/>
 					<Item id = "47001" name = "N++ - domovská stránka"/>
 					<Item id = "47002" name = "N++ - stránka projektu"/>

@@ -252,8 +252,8 @@
                     <Item id="10004" name="Clonează în Instanţă Nouă"/>
 
                     <Item id="46001" name="Configurator de Stiluri..."/>
-                   <Item id="46150" name="Defineşte Limbajul Tău..."/>
-                    <Item id="46080" name="Definit de Utilizator..."/>
+                   <Item id="46250" name="Defineşte Limbajul Tău..."/>
+                    <Item id="46180" name="Definit de Utilizator..."/>
                     <Item id="47000" name="Despre Notepad++..."/>
                     <Item id="47001" name="Situl Notepad++"/>
                     <Item id="47002" name="Pagina Proiectului Notepad++"/>

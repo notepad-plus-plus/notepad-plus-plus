@@ -121,6 +121,24 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 		case WM_COMMAND :
 		{
+			// Handle File association list extension
+			if (LOWORD(wParam) == IDC_REGEXT_LANGEXT_LIST || LOWORD(wParam) == IDC_REGEXT_REGISTEREDEXTS_LIST)
+			{
+				// On double click an item in the list then toggle the item between both lists
+				// by simulating "<-" or "->" button clicked
+				if (HIWORD(wParam) == LBN_DBLCLK)
+				{
+					// Check whether click happened on a item not in empty area
+					if (-1 != ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETCURSEL, 0, 0))
+					{
+						HWND(lParam) == ::GetDlgItem(_hSelf, IDC_REGEXT_LANGEXT_LIST) ?
+							::SendMessage(_hSelf, WM_COMMAND, IDC_ADDFROMLANGEXT_BUTTON, 0) :
+							::SendMessage(_hSelf, WM_COMMAND, IDC_REMOVEEXT_BUTTON, 0);
+					}
+					return TRUE;
+				}
+			}
+
 			switch (wParam)
 			{
 				case IDC_ADDFROMLANGEXT_BUTTON :

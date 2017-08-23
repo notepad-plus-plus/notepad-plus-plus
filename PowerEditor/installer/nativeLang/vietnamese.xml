@@ -252,8 +252,8 @@
                     <Item id="10004" name="Mở trong trường hợp mới"/>
 
                     <Item id="46001" name="Cấu hình giao diện..."/>
-					<Item id="46150" name="Xác định ngôn ngữ của bạn..."/>
-                    <Item id="46080" name="Người dùng định nghĩa"/>
+					<Item id="46250" name="Xác định ngôn ngữ của bạn..."/>
+                    <Item id="46180" name="Người dùng định nghĩa"/>
                     <Item id="47000" name="Về Notepad ++..."/>
                     <Item id="47001" name="Trang chủ Notepad++"/>
                     <Item id="47002" name="Trang dự án Notepad++"/>

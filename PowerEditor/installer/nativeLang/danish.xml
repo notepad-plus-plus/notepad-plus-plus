@@ -276,8 +276,8 @@
                     <Item id="10004" name="Åbn i ny instans"/>
 
                     <Item id="46001" name="Udseende-konfigurator..."/>
-                    <Item id="46150" name="Definer dit sprog..."/>
-                    <Item id="46080" name="Brugerdefineret"/>
+                    <Item id="46250" name="Definer dit sprog..."/>
+                    <Item id="46180" name="Brugerdefineret"/>
                     <Item id="47000" name="Om Notepad++..."/>
                     <Item id="47010" name="Kommandolinjeparametre..."/>
                     <Item id="47001" name="Notepad++ hjem"/>

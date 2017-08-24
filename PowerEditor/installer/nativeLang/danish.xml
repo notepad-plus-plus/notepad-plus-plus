@@ -906,10 +906,18 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Redigering af genvejsmenu" message="Ved redigering af contextMenu.xml kan du ændre genvejsmenuen i Notepad++.\rDu skal genstarte Notepad++ før ændringerne i contextMenu.xml træder i kraft."/>
-            <NppHelpAbsentWarning title="Filen findes ikke" message="\rfindes ikke. Download den venligst fra Notepad++'s websted."/>
-            <SaveCurrentModifWarning title="Gem aktuelle ændring" message="Du bør gemme den aktuelle ændring.\rAlle gemte ændringer kan ikke fortrydes.\r\rFortsæt?"/>
-            <LoseUndoAbilityWarning title="Advarsel om at miste fortryd" message="Du bør gemme den aktuelle ændring.\rAlle gemte ændringer kan ikke fortrydes.\r\rFortsæt?"/>
+            <ContextMenuXmlEditWarning title="Redigering af genvejsmenu" message="Ved redigering af contextMenu.xml kan du ændre genvejsmenuen i Notepad++.
+Du skal genstarte Notepad++ før ændringerne i contextMenu.xml træder i kraft."/>
+            <NppHelpAbsentWarning title="Filen findes ikke" message="
+findes ikke. Download den venligst fra Notepad++'s websted."/>
+            <SaveCurrentModifWarning title="Gem aktuelle ændring" message="Du bør gemme den aktuelle ændring.
+Alle gemte ændringer kan ikke fortrydes.
+
+Fortsæt?"/>
+            <LoseUndoAbilityWarning title="Advarsel om at miste fortryd" message="Du bør gemme den aktuelle ændring.
+Alle gemte ændringer kan ikke fortrydes.
+
+Fortsæt?"/>
             <CannotMoveDoc title="Flyt til ny instans af Notepad++" message="Dokument er ændret. Gem det og prøv igen."/>
             <DocReloadWarning title="Genindlæs" message="Er du sikker på, at du vil genindlæse den aktuelle fil og miste de ændringer der er lavet i Notepad++?"/>
             <FileLockedWarning title="Gemning mislykkedes" message="Tjek venligst om filen allerede er åbnet i et andet program"/>
@@ -917,8 +925,11 @@
             <DeleteFileFailed title="Slet fil" message="Sletning af filen mislykkedes"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Du er ved at åbne et stort antal filer" message="$INT_REPLACE$ filer er ved at blive åbnet.\rEr du sikker på, at du vil åbne dem?"/>
-			<SettingsOnCloudError title="Indstillinger i skyen" message="Det ser ud til at stien af indstillinger i skyen er sat på et skrivebeskyttet drev,\reller på en mappe som kræver priviligerede rettigheder for at få skriveadgang.\rDine indstillinger på sky annulleres. Nulstil venligst en relateret værdi i dialogen Præferencer."/>
+            <NbFileToOpenImportantWarning title="Du er ved at åbne et stort antal filer" message="$INT_REPLACE$ filer er ved at blive åbnet.
+Er du sikker på, at du vil åbne dem?"/>
+			<SettingsOnCloudError title="Indstillinger i skyen" message="Det ser ud til at stien af indstillinger i skyen er sat på et skrivebeskyttet drev,
+eller på en mappe som kræver priviligerede rettigheder for at få skriveadgang.
+Dine indstillinger på sky annulleres. Nulstil venligst en relateret værdi i dialogen Præferencer."/>
 			<FilePathNotFoundWarning title="Åbning af fil" message="Filen du prøver at åbne findes ikke."/>
 	    <SessionFileInvalidError title="Kunne ikke indlæse session" message="Sessionsfilen er enten ødelagt eller ugyldig."/>
         </MessageBox>

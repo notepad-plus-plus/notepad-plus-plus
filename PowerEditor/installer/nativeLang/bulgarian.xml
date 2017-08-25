@@ -1090,7 +1090,7 @@
 			<FileLockedWarning title="Неуспешно записване" message="Моля, проверете дали този файл не е отворен от друга програма"/>
 			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
 			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>
-				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
+				<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Твърде много файлове" message="Ще бъдат отворени $INT_REPLACE$ файла.
 Продължаване?"/>
 			<SettingsOnCloudError title="Настройки за облачно синхронизирана папка" message="Изглежда, че пътят на настройките за облака е зададен на устройство &quot;само за четене&quot; или на папка, изискваща права за запис.
@@ -1105,7 +1105,7 @@
 &quot;Alt + Shift + клавиш стрелка&quot;
 
 Не забравяйте, че първо трябва да натиснете клавиш Alt."/>
-				<!-- $STR_REPLACE$ е контейнер, не се превежда -->
+				<!-- $STR_REPLACE$ is a place holder, don't translate it -->
 			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $STR_REPLACE$."/>
 			<BufferInvalidWarning title="Неуспешен запис" message="Не може да се запази: Невалиден буфер."/>
 			<OpenInAdminMode title="Неуспешен запис" message="Файлът може би е защитен и не може да се запази.

@@ -1033,14 +1033,18 @@ bool NppParameters::load()
 		PathAppend(_userPath, TEXT("Notepad++"));
 		_appdataNppDir = _userPath;
 
+		// Plugin System V1
 		if (!PathFileExists(_userPath.c_str()))
 			::CreateDirectory(_userPath.c_str(), NULL);
+
+		// Plugin System V2
+		_localAppdataNppDir = getSpecialFolderLocation(CSIDL_LOCAL_APPDATA);
+		PathAppend(_localAppdataNppDir, TEXT("Notepad++"));
+		if (!PathFileExists(_localAppdataNppDir.c_str()))
+			::CreateDirectory(_localAppdataNppDir.c_str(), NULL);
 	}
 	
-	_localAppdataNppDir = getSpecialFolderLocation(CSIDL_LOCAL_APPDATA);
-	PathAppend(_localAppdataNppDir, TEXT("Notepad++"));
-	if (!PathFileExists(_localAppdataNppDir.c_str()))
-		::CreateDirectory(_localAppdataNppDir.c_str(), NULL);
+
 
 	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
 

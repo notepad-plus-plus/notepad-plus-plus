@@ -532,7 +532,7 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 		scannedZones.push_back(pair<int, int>(targetStart, targetEnd));
 
 		int foundTextLen = targetEnd - targetStart;
-		if (targetStart + foundTextLen == int(end))
+		if (targetStart + (foundTextLen-1) == int(end))
             break;
 
 		// Begin to search all method inside

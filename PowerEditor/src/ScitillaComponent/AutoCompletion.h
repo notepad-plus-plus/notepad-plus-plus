@@ -56,8 +56,6 @@ private:
 
 class AutoCompletion {
 public:
-	enum ActiveCompletion {CompletionNone = 0, CompletionAuto, CompletionWord, CompletionFunc, CompletionPath};
-
 	explicit AutoCompletion(ScintillaEditView * pEditView): _pEditView(pEditView), _funcCalltip(pEditView) {
 		//Do not load any language yet
 		_insertedMatchedChars.init(_pEditView);

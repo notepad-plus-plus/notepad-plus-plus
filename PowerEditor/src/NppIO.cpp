@@ -244,6 +244,11 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 					}
 				}
 			}
+			else
+			{
+				wsprintf(str2display, TEXT("\"%s\" cannot be opened:\nFolder \"%s\" doesn't exist."), longFileName, longFileDir.c_str());
+				::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Cannot open file"), MB_OK);
+			}
 
 			if (!isCreateFileSuccessful)
 			{
@@ -539,7 +544,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 					TCHAR nppFullPath[MAX_PATH];
 					::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
 
-					BufferID bufferID = bufferID = _pEditView->getCurrentBufferID();
+					BufferID bufferID = _pEditView->getCurrentBufferID();
 					Buffer * buf = MainFileManager->getBufferByID(bufferID);
 
 					//process the fileNamePath into LRF
@@ -643,18 +648,22 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 		}
 	}
 
-	size_t nrDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
+	size_t nbDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
 
 	if (buf->isMonitoringOn())
 	{
 		// turn off monitoring
-		command(IDM_VIEW_MONITORING);
+		//command(IDM_VIEW_MONITORING);
+		buf->stopMonitoring();
+		checkMenuItem(IDM_VIEW_MONITORING, false);
+		_toolBar.setCheck(IDM_VIEW_MONITORING, false);
+		buf->setUserReadOnly(false);
 	}
 
 	//Do all the works
 	bool isBufRemoved = removeBufferFromView(id, whichOne);
 	BufferID hiddenBufferID = BUFFER_INVALID;
-	if (nrDocs == 1 && canHideView(whichOne))
+	if (nbDocs == 1 && canHideView(whichOne))
 	{	//close the view if both visible
 		hideView(whichOne);
 
@@ -1328,8 +1337,11 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	if (pfn)
 	{
-		BufferID other = _pNonDocTab->findBufferByName(pfn);
-		if (other == BUFFER_INVALID)	//can save, other view doesnt contain buffer
+		BufferID other = _pDocTab->findBufferByName(pfn);
+		if (other == BUFFER_INVALID)
+			other = _pNonDocTab->findBufferByName(pfn);
+
+		if (other == BUFFER_INVALID)	//can save, as both (same and other) view don't contain buffer
 		{
 			bool res = doSave(bufferID, pfn, isSaveCopy);
 			//buf->setNeedsLexing(true);	//commented to fix wrapping being removed after save as (due to SCI_CLEARSTYLE or something, seems to be Scintilla bug)

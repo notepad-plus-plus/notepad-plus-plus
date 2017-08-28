@@ -78,7 +78,7 @@ private:
 	ContextMenu _rightClickMenu;
 
 	GridState _currentState;
-	HWND _hTabCtrl;
+	HWND _hTabCtrl = nullptr;
 
 	TCHAR tabNames[5][maxTabName];
 

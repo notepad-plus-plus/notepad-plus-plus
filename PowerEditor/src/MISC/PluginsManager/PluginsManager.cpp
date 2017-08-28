@@ -343,6 +343,77 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 	return true;
 }
 
+bool PluginsManager::loadPluginsV2(const TCHAR* dir)
+{
+	if (_isDisabled || !dir || !dir[0])
+		return false;
+
+	NppParameters * nppParams = NppParameters::getInstance();
+
+	vector<generic_string> dllNames;
+	vector<generic_string> dll2Remove;
+
+	generic_string pluginsFolderFilter = dir;
+	PathAppend(pluginsFolderFilter, TEXT("*.*"));
+
+	WIN32_FIND_DATA foundData;
+	HANDLE hFindFolder = ::FindFirstFile(pluginsFolderFilter.c_str(), &foundData);
+	HANDLE hFindDll = INVALID_HANDLE_VALUE;
+
+	// get plugin folder
+	if (hFindFolder != INVALID_HANDLE_VALUE && (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+	{
+		generic_string pluginsFullPathFilter = dir;
+		PathAppend(pluginsFullPathFilter, foundData.cFileName);
+		generic_string pluginsFolderPath = pluginsFullPathFilter;
+		generic_string  dllName = foundData.cFileName;
+		dllName += TEXT(".dll");
+		PathAppend(pluginsFullPathFilter, dllName);
+
+		// get plugin
+		hFindDll = ::FindFirstFile(pluginsFullPathFilter.c_str(), &foundData);
+		if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+		{
+			dllNames.push_back(pluginsFullPathFilter);
+
+			PluginList & pl = nppParams->getPluginList();
+			pl.add(foundData.cFileName, false);
+		}
+
+		// get plugin folder
+		while (::FindNextFile(hFindFolder, &foundData))
+		{
+			generic_string pluginsFullPathFilter2 = dir;
+			PathAppend(pluginsFullPathFilter2, foundData.cFileName);
+			generic_string pluginsFolderPath2 = pluginsFullPathFilter2;
+			generic_string  dllName2 = foundData.cFileName;
+			dllName2 += TEXT(".dll");
+			PathAppend(pluginsFullPathFilter2, dllName2);
+
+			// get plugin
+			hFindDll = ::FindFirstFile(pluginsFullPathFilter2.c_str(), &foundData);
+			if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				dllNames.push_back(pluginsFullPathFilter2);
+
+				PluginList & pl = nppParams->getPluginList();
+				pl.add(foundData.cFileName, false);
+			}
+		}
+
+	}
+	::FindClose(hFindFolder);
+	::FindClose(hFindDll);
+
+
+	for (size_t i = 0, len = dllNames.size(); i < len; ++i)
+	{
+		loadPlugin(dllNames[i].c_str(), dll2Remove);
+	}
+
+	return true;
+}
+
 // return true if cmdID found and its shortcut is enable
 // false otherwise
 bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)

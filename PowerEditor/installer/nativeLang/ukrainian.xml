@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.3.1">
+    <Native-Langue name="Українська" filename="ukrainian.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -91,7 +91,7 @@
                     <Item id="41017" name="Перейменувати..."/>
                     <Item id="41021" name="Відкрити останній закритий файл"/>
                     <Item id="41022" name="Відкрити теки як робочу область"/>
-
+                    <Item id="41023" name="Відкрити в типовому засобі перегляду"/>
                     <Item id="42001" name="Вирізати"/>
                     <Item id="42002" name="Копіювати"/>
                     <Item id="42003" name="Скасувати"/>
@@ -276,11 +276,11 @@
                     <Item id="10004" name="Відкрити в новому екземплярі"/>
 
                     <Item id="46001" name="Конфігуратор стилю..."/>
-                    <Item id="46150" name="Визначити мову..."/>
-                    <Item id="46080" name="Визначено користувачем"/>
+                    <Item id="46250" name="Визначити мову..."/>
+                    <Item id="46180" name="Визначено користувачем"/>
                     <Item id="47000" name="Про Notepad++..."/>
                     <Item id="47010" name="Аргументи командного рядка..."/>
-                    <Item id="47001" name="Домашня сторінка Notepad++"/>
+                    <Item id="47001" name="Домівка Notepad++"/>
                     <Item id="47002" name="Сторінка проекту Notepad++"/>
                     <Item id="47003" name="Документація в Інтернеті"/>
 					<Item id="47004" name="Спільнота (Форум) Notepad++"/>
@@ -334,36 +334,35 @@
                     <Item CMID="18" name="Закрити все справа"/>
                     <Item CMID="19" name="Відкрити теку в провіднику"/>
                     <Item CMID="20" name="Відкрити теку в cmd"/>
+					<Item CMID="21" name="Відкрити в типовому засобі перегляду"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Знайти" titleReplace="Замінити" titleFindInFiles="Знайти у файлах" titleMark="Позначки">
                 <Item id="1"    name="Знайти далі"/>
-                <Item id="2"    name="Закрити"/>
+                <Item id="1722" name="Зворотній напрямок"/>
+                <Item id="2"    name="Закр."/>
                 <Item id="1620" name="Що шукати:"/>
                 <Item id="1603" name="Лише цілі слова"/>
                 <Item id="1604" name="Враховувати регістр"/>
                 <Item id="1605" name="Регулярний вираз"/>
                 <Item id="1606" name="Циклічний пошук"/>
-                <Item id="1612" name="Вгору"/>
-                <Item id="1613" name="Вниз"/>
                 <Item id="1614" name="Підрахунок"/>
-                <Item id="1615" name="Шукати все"/>
+                <Item id="1615" name="Знайти все!"/>
                 <Item id="1616" name="Позначки рядка"/>
                 <Item id="1618" name="Очищати для кожного пошуку"/>
-                <Item id="1621" name="Напрямок"/>
                 <Item id="1611" name="Замінити на:"/>
                 <Item id="1608" name="Замінити"/>
                 <Item id="1609" name="Замінити все"/>
                 <Item id="1687" name="Вимкнути"/>
                 <Item id="1688" name="Завжди"/>
                 <Item id="1632" name="У вибраному"/>
-                <Item id="1633" name="Прибрати"/>
+                <Item id="1633" name="Стерти"/>
                 <Item id="1635" name="Замінити все в активних документах"/>
                 <Item id="1636" name="Знайти все в активних документах"/>
                 <Item id="1654" name="Фільтри:"/>
-                <Item id="1655" name="Тека:"/>
+                <Item id="1655" name="Директорія:"/>
                 <Item id="1656" name="Знайти все!"/>
                 <Item id="1658" name="У всіх підтеках"/>
                 <Item id="1659" name="У прихованих теках"/>
@@ -869,6 +868,9 @@
                     <Item id="6114" name="Увімкнути"/>
                     <Item id="6115" name="Авто-відступ"/>
                     <Item id="6117" name="Побудувати список по мірі використання"/>
+                    <Item id="6344" name="Вибір документа"/>
+                    <Item id="6345" name="Обрати у вкладці"/>
+                    <Item id="6346" name="Обрати в схемі документа"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Багаторазовий запуск макросу">
@@ -903,10 +905,18 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Зміна contextMenu" message="Зміна contextMenu.xml дозволяє вам змінювати випадаюче меню Notepad++.\rДля застосування змін необхідно перезапустити Notepad++."/>
-            <NppHelpAbsentWarning title="Файл не існує" message="\rне існує. Завантажте його на сайті Notepad++."/>
-            <SaveCurrentModifWarning title="Зберегти поточну модифікацію" message="Ви повинні зберегти поточну модифікацію.\rВсі збережені модифікації не можуть бути відновлені.\r\rПродовжити?"/>
-            <LoseUndoAbilityWarning title="Втрата можливості відміни" message="Ви повинні зберегти поточні зміни.\rВсі збережені зміни неможливо відмінити.\r\rПродовжити?"/>
+            <ContextMenuXmlEditWarning title="Зміна contextMenu" message="Зміна contextMenu.xml дозволяє вам змінювати випадаюче меню Notepad++.
+Для застосування змін необхідно перезапустити Notepad++."/>
+            <NppHelpAbsentWarning title="Файл не існує" message="
+не існує. Завантажте його на сайті Notepad++."/>
+            <SaveCurrentModifWarning title="Зберегти поточну модифікацію" message="Ви повинні зберегти поточні зміни.
+Всі збережені зміни неможливо відмінити.
+
+Продовжити?"/>
+            <LoseUndoAbilityWarning title="Втрата можливості відміни" message="Ви повинні зберегти поточні зміни.
+Всі збережені зміни неможливо відмінити.
+
+Продовжити?"/>
             <CannotMoveDoc title="Перемістити в новий зразок Notepad++" message="Документ змінений. Збережіть його і спробуйте знову."/>
             <DocReloadWarning title="Перезавантажити" message="Ви дійсно хочете перезавантажити поточний файл і втратити зміни, зроблені в Notepad++?"/>
             <FileLockedWarning title="Збереження невдале" message="Перевірте, чи цей файл не відкритий в іншій програмі"/>
@@ -914,9 +924,13 @@
             <DeleteFileFailed title="Видалення файлу" message="Не вдалося вилучити файл"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті.\rВи дійсно хочете відкрити їх?"/>
-			<SettingsOnCloudError title="Налаштування в хмарі" message="Схоже, шлях налаштувань в хмарі встановлений на диск лише для читання,\r або в теку, яка потребує відповідних прав на запис. \r Ваші налаштування в хмарі будуть скасовані. Будь ласка, скиньте відповідні значення через діалог Налаштування."/>
+            <NbFileToOpenImportantWarning title="Надто велика кількість файлів для відкриття" message="$INT_REPLACE$ файлів невдовзі будуть відкриті.
+Ви дійсно хочете відкрити їх?"/>
+			<SettingsOnCloudError title="Налаштування в хмарі" message="Схоже, шлях налаштувань в хмарі встановлений на диск лише для читання,
+або в теку, яка потребує відповідних прав на запис.
+Ваші налаштування в хмарі будуть скасовані. Будь ласка, скиньте відповідні значення через діалог Налаштування."/>
 			<FilePathNotFoundWarning title="Відкриття файла" message="Файл, який ви намагаєтесь відкрити, не існує."/>
+	    <SessionFileInvalidError title="Не вдалося завантажити сеанс" message="Файл сеансу пошкоджений, або недійсний."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Історія буфера"/>
@@ -987,7 +1001,7 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-			<word-chars-list-tip value="Це дозволяє вам включати додатковий символ у поточні символи слова при подвійному натисканні для вибору, або пошуку за допомогою &quot;Лише цілі слова&quot; опції."/>
+			<word-chars-list-tip value="Це дозволяє вам включати додатковий символ у поточні символи слова при подвійному натисканні для вибору, або пошуку за допомогою параметру „Лише цілі слова“."/>
             <word-chars-list-warning-begin value="Майте на увазі: "/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ пробіл(и)"/>
@@ -996,6 +1010,7 @@
 			<word-chars-list-warning-end value="  у вашому списку символів."/>
 			<cloud-invalid-warning value="Неправильний шлях."/>
 			<cloud-restart-warning value="Перезапустіть Notepad++ для застосування змін."/>
+			<shift-change-direction-tip value="Використовуйте Shift + Enter для пошуку в зворотному напрямку"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

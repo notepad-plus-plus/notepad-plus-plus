@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="7.3.1">
+    <Native-Langue name="Français" filename="french.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -95,6 +95,7 @@
                     <Item id="41017" name="Renommer..."/>
                     <Item id="41021" name="Ouvrir le dernier fichier fermé"/>
                     <Item id="41022" name="Ouvrir Dossier en tant qu'Espace de travail"/>
+                    <Item id="41023" name="Ouvrir dans l'application par défaut"/>
                     <Item id="42001" name="Cou&amp;per"/>
                     <Item id="42002" name="&amp;Copier"/>
                     <Item id="42003" name="&amp;Annuler"/>
@@ -276,8 +277,8 @@
                     <Item id="45012" name="Convertir en UTF-16BE"/>
                     <Item id="45013" name="Convertir en UTF-16LE"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
-                    <Item id="46150" name="Définissez votre langage..."/>
-                    <Item id="46080" name="Langage utilisateur"/>
+                    <Item id="46250" name="Définissez votre langage..."/>
+                    <Item id="46180" name="Langage utilisateur"/>
                     <Item id="47000" name="À propos de Notepad++..."/>
                     <Item id="47001" name="Site officiel Notepad++"/>
                     <Item id="47002" name="Projet de développement de Notepad++"/>
@@ -331,11 +332,13 @@
                     <Item CMID="18" name="Fermer les onglets sur la droite"/>
                     <Item CMID="19" name="Ouvrir le répertoire du fichier en cours dans Explorer"/>
                     <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans cmd"/>
+					<Item CMID="21" name="Ouvrir dans l'application par défaut"/>
             </TabBar>
         </Menu>
         <Dialog>
             <Find title="" titleFind="Rechercher" titleReplace="Remplacer" titleFindInFiles="Rechercher dans les fichiers d'un dossier" titleMark="Marquer">
                 <Item id="1" name="Suivant"/>
+				<Item id="1722" name="Rechercher vers l'arrière"/>
                 <Item id="1603" name="Mot entier &amp;uniquement"/>
                 <Item id="1604" name="Respecter la &amp;casse"/>
                 <Item id="1605" name="&amp;Expression régulière"/>
@@ -343,14 +346,11 @@
                 <Item id="1608" name="&amp;Remplacer"/>
                 <Item id="1609" name="Remplacer &amp;tout"/>
                 <Item id="1611" name="Rem&amp;placer par :"/>
-                <Item id="1612" name="&amp;Haut"/>
-                <Item id="1613" name="&amp;Bas"/>
                 <Item id="1614" name="Compter"/>
                 <Item id="1615" name="Rechercher tout"/>
                 <Item id="1616" name="Marquer les lignes"/>
                 <Item id="1618" name="Purger à chaque fois"/>
                 <Item id="1620" name="Recherche :"/>
-                <Item id="1621" name="Direction"/>
                 <Item id="1624" name="Mode de recherche"/>
                 <Item id="1625" name="Mode normal"/>
                 <Item id="1626" name="Mode étendu (\n, \r, \t, \0, \x...)"/>
@@ -983,7 +983,7 @@
 			<word-chars-list-warning-end value="  dans la liste des caractères de mot."/>
 			<cloud-invalid-warning value="Chemin invalide."/>
 			<cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
-			<shift-change-direction-tip value="Shift+Enter est utilisé pour la recherche dans le sens inverse."/>
+			<shift-change-direction-tip value="Utilisez Shift + Enter pour rechercher dans le sens inverse"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

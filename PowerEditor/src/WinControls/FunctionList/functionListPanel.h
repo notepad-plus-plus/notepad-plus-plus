@@ -25,15 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#pragma once
 
-#ifndef FUNCLISTPANEL_H
-#define FUNCLISTPANEL_H
-
-//#include <windows.h>
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "functionListPanel_rc.h"
 #include "functionParser.h"
 #include "TreeView.h"
@@ -48,10 +42,6 @@
 
 class ScintillaEditView;
 
-struct FuncInfo {
-	generic_string _displayText;
-	size_t _offsetPos;
-};
 /*
 1. global function + object + methods: Tree view of 2 levels - only the leaf contains the position info
 root
@@ -118,10 +108,9 @@ public:
 	// functionalities
 	void sortOrUnsort();
 	void reload();
+	bool serialize(const generic_string & outputFilename = TEXT(""));
 	void addEntry(const TCHAR *node, const TCHAR *displayText, size_t pos);
 	void removeAllEntries();
-	void removeEntry();
-	void modifyEntry();
 	void searchFuncAndSwitchView();
 
 protected:
@@ -138,9 +127,10 @@ private:
 	generic_string _sortTipStr;
 	generic_string _reloadTipStr;
 
+	std::vector<foundInfo> _foundFuncInfos;
+
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;
-	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeParams> _treeParams;
 	HIMAGELIST _hTreeViewImaLst;
@@ -154,4 +144,4 @@ private:
 	bool shouldSort();
 	void setSort(bool isEnabled);
 };
-#endif // FUNCLISTPANEL_H
+

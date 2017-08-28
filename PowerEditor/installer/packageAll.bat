@@ -43,9 +43,6 @@ If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\updater\libcurl.dll
 If ErrorLevel 1 goto End
 
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\updater\gpup.exe
-If ErrorLevel 1 goto End
-
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\NppExport.dll
 If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\mimeTools.dll
@@ -53,8 +50,6 @@ signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://not
 If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\NppConverter.dll
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\NppConverter.dll
-If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\PluginManager.dll
 If ErrorLevel 1 goto End
 
 :NoSign
@@ -172,16 +167,6 @@ copy /Y "..\bin64\plugins\mimeTools.dll" .\zipped.package.release64\plugins\
 If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\NppConverter.dll" .\zipped.package.release64\plugins\
 If ErrorLevel 1 goto End
-
-
-rem plugins manager and its updater 
-copy /Y "..\bin\plugins\PluginManager.dll" .\zipped.package.release\plugins\
-If ErrorLevel 1 goto End
-copy /Y "..\bin\plugins\Config\PluginManager.ini" .\zipped.package.release\plugins\Config\
-If ErrorLevel 1 goto End
-copy /Y "..\bin\updater\gpup.exe" .\zipped.package.release\updater\
-If ErrorLevel 1 goto End
-
 
 
 rem localizations

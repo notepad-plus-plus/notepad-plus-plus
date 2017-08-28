@@ -49,6 +49,7 @@
 #include "functionListPanel.h"
 #include "fileBrowser.h"
 #include "LongRunningOperation.h"
+#include "Common.h"
 
 using namespace std;
 
@@ -396,13 +397,20 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_scintillaCtrls4Plugins.init(_pPublicInterface->getHinst(), hwnd);
 	_pluginsManager.init(nppData);
 
-	// Load plugins firstly from "%APPDATA%/Notepad++/plugins"
-	// if Notepad++ is not in localConf mode.
+	// If Notepad++ is not in localConf mode, load plugins firstly from "%APPDATA%/Notepad++/plugins"
 	// All the dll loaded are marked.
 	bool isLoadFromAppDataAllow = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETAPPDATAPLUGINSALLOWED, 0, 0) == TRUE;
+
 	const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
 	if (appDataNpp[0] && isLoadFromAppDataAllow)
 		_pluginsManager.loadPlugins(appDataNpp);
+
+	generic_string localAppDataNppPluginsDir = pNppParam->getLocalAppDataNppDir();
+	if (!localAppDataNppPluginsDir.empty() && isLoadFromAppDataAllow)
+	{
+		PathAppend(localAppDataNppPluginsDir, TEXT("plugins"));
+		_pluginsManager.loadPluginsV2(localAppDataNppPluginsDir.c_str());
+	}
 
 	// Load plugins from its installation directory.
 	// All loaded dll will be ignored
@@ -1899,7 +1907,7 @@ void Notepad_plus::checkDocState()
 	bool isFileExisting = PathFileExists(curBuf->getFullPathName()) != FALSE;
 	if (!isCurrentDirty)
 	{
-		for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+		for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 		{
 			if (MainFileManager->getBufferByIndex(i)->isDirty())
 			{
@@ -1935,6 +1943,8 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
+
+	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
 
 	enableConvertMenuItems(curBuf->getEolFormat());
 	checkUnicodeMenuItems();
@@ -2844,7 +2854,48 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_IHEX;
 		case IDM_LANG_TEHEX :
             return L_TEHEX;
-
+		case IDM_LANG_SWIFT:
+			return L_SWIFT;
+        case IDM_LANG_ASN1 :
+            return L_ASN1;
+        case IDM_LANG_AVS :
+            return L_AVS;
+        case IDM_LANG_BLITZBASIC :
+            return L_BLITZBASIC;
+        case IDM_LANG_PUREBASIC :
+            return L_PUREBASIC;
+        case IDM_LANG_FREEBASIC :
+            return L_FREEBASIC;
+        case IDM_LANG_CSOUND :
+            return L_CSOUND;
+        case IDM_LANG_ERLANG :
+            return L_ERLANG;
+        case IDM_LANG_ESCRIPT :
+            return L_ESCRIPT;
+        case IDM_LANG_FORTH :
+            return L_FORTH;
+        case IDM_LANG_LATEX :
+            return L_LATEX;
+        case IDM_LANG_MMIXAL :
+            return L_MMIXAL;
+        case IDM_LANG_NIMROD :
+            return L_NIMROD;
+        case IDM_LANG_NNCRONTAB :
+            return L_NNCRONTAB;
+        case IDM_LANG_OSCRIPT :
+            return L_OSCRIPT;
+        case IDM_LANG_REBOL :
+            return L_REBOL;
+        case IDM_LANG_REGISTRY :
+            return L_REGISTRY;
+        case IDM_LANG_RUST :
+            return L_RUST;
+        case IDM_LANG_SPICE :
+            return L_SPICE;
+        case IDM_LANG_TXT2TAGS :
+            return L_TXT2TAGS;
+        case IDM_LANG_VISUALPROLOG:
+            return L_VISUALPROLOG;
 		case IDM_LANG_USER :
             return L_USER;
 		default: {
@@ -4912,7 +4963,7 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {
 	TCHAR savePath[MAX_PATH] = {0};
 
 	//rescue primary
-	for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+	for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 	{
 		Buffer * docbuf = MainFileManager->getBufferByIndex(i);
 		if (!docbuf->isDirty())	//skip saved documents
@@ -5009,7 +5060,12 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 					// Then we ask user to update
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
+					{
+						// Since the file content has changed but the user doesn't want to reload it, set state to dirty
+						buffer->setDirty(true);
+
 						break;	//abort
+					}
 				}
 				// Set _isLoadedDirty false so when the document clean state is reached the icon will be set to blue
 				buffer->setLoadedDirty(false);
@@ -5196,7 +5252,8 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	_linkTriggered = true;
 }
 
-void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams) {
+void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams)
+{
 	if (!commandLine || ! pCmdParams)
 		return;
 
@@ -5758,6 +5815,10 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 	}
 
 	_pFileBrowser->display();
+
+	checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+	_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+	_pFileBrowser->setClosed(false);
 }
 
 
@@ -5930,11 +5991,12 @@ struct Quote
 
 
 
-const int nbQuote = 207;
+const int nbQuote = 210;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
 	{"Notepad++ #2", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
+	{"Notepad++ #3", "The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n"},
 	{"Richard Stallman?", "If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent."},
 	{"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 	{"L. Peter Deutsch", "To iterate is human, to recurse divine."},
@@ -6071,8 +6133,8 @@ Quote quotes[nbQuote] =
 	{"Anonymous #106", "When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car."},
 	{"Anonymous #107", "Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is."},
 	{"Anonymous #108", "I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard"},
-	//{"Anonymous #109", ""},
-	{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems."},
+	{"Anonymous #109", "What's the best thing about UDP jokes?\nI don't care if you get them."},
+	{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems"},
 	{"Anonymous #111", "I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul."},
 	{"Anonymous #112", "#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}"},
 	{"Anonymous #113", "Open source is communism.\nAt least it is what communism was meant to be."},
@@ -6091,7 +6153,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},
 	{"Anonymous #127", "Don't give up your dreams.\nKeep sleeping."},
 	{"Anonymous #128", "I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life."},
-	//{"Anonymous #129", ""},
+	{"Anonymous #129", "What is the most used language in programming?\n\nProfanity\n"},
 	{"Anonymous #130", "Common sense is so rare, it's kinda like a superpower..."},
 	{"Anonymous #131", "The best thing about a boolean is even if you are wrong, you are only off by a bit."},
 	{"Anonymous #132", "Benchmarks don't lie, but liars do benchmarks."},

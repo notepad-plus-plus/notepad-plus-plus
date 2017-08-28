@@ -81,6 +81,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_O,       IDM_FILE_OPEN,                                true,  false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_OPEN_FOLDER,                         false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_OPEN_CMD,                            false, false, false, nullptr },
+	{ VK_NULL,    IDM_FILE_OPEN_DEFAULT_VIEWER,                 false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_OPENFOLDERASWORSPACE,                false, false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_RELOAD,                              false, false, false, nullptr },
 	{ VK_S,       IDM_FILE_SAVE,                                true,  false, false, nullptr },
@@ -467,7 +468,6 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 	{TEXT("SCI_VCHOMEWRAPEXTEND"),        SCI_VCHOMEWRAPEXTEND,        false, false, true,  VK_HOME,     0},
 	{TEXT("SCI_VCHOMERECTEXTEND"),        SCI_VCHOMERECTEXTEND,        false, true,  true,  VK_HOME,     0},
 	{TEXT("SCI_VCHOMEWRAP"),              SCI_VCHOMEWRAP,              false, false, false, VK_HOME,     0},
-	{TEXT("SCI_VCHOMEWRAPEXTEND"),        SCI_VCHOMEWRAPEXTEND,        false, false, false, 0,           0},
 	{TEXT("SCI_LINEEND"),                 SCI_LINEEND,                 false, false, false, 0,           0},
 	{TEXT("SCI_LINEENDWRAPEXTEND"),       SCI_LINEENDWRAPEXTEND,       false, false, true,  VK_END,      0},
 	{TEXT("SCI_LINEENDRECTEXTEND"),       SCI_LINEENDRECTEXTEND,       false, true,  true,  VK_END,      0},
@@ -1033,9 +1033,18 @@ bool NppParameters::load()
 		PathAppend(_userPath, TEXT("Notepad++"));
 		_appdataNppDir = _userPath;
 
+		// Plugin System V1
 		if (!PathFileExists(_userPath.c_str()))
 			::CreateDirectory(_userPath.c_str(), NULL);
+
+		// Plugin System V2
+		_localAppdataNppDir = getSpecialFolderLocation(CSIDL_LOCAL_APPDATA);
+		PathAppend(_localAppdataNppDir, TEXT("Notepad++"));
+		if (!PathFileExists(_localAppdataNppDir.c_str()))
+			::CreateDirectory(_localAppdataNppDir.c_str(), NULL);
 	}
+	
+
 
 	_sessionPath = _userPath; // Session stock the absolute file path, it should never be on cloud
 
@@ -1705,9 +1714,9 @@ bool NppParameters::getBlackListFromXmlTree()
 
 void NppParameters::initMenuKeys()
 {
-	int nrCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
+	int nbCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
 	WinMenuKeyDefinition wkd;
-	for(int i = 0; i < nrCommands; ++i)
+	for(int i = 0; i < nbCommands; ++i)
 	{
 		wkd = winKeyDefs[i];
 		Shortcut sc((wkd.specialName ? wkd.specialName : TEXT("")), wkd.isCtrl, wkd.isAlt, wkd.isShift, static_cast<unsigned char>(wkd.vKey));
@@ -1717,13 +1726,13 @@ void NppParameters::initMenuKeys()
 
 void NppParameters::initScintillaKeys() {
 
-	int nrCommands = sizeof(scintKeyDefs)/sizeof(ScintillaKeyDefinition);
+	int nbCommands = sizeof(scintKeyDefs)/sizeof(ScintillaKeyDefinition);
 
 	//Warning! Matching function have to be consecutive
 	ScintillaKeyDefinition skd;
 	int prevIndex = -1;
 	int prevID = -1;
-	for(int i = 0; i < nrCommands; ++i)
+	for(int i = 0; i < nbCommands; ++i)
 	{
 		skd = scintKeyDefs[i];
 		if (skd.functionId == prevID)
@@ -4342,7 +4351,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("langsExcluded")))
 		{
 			// TODO
-			int g0 = 0; // up to  8
+			int g0 = 0; // up to 8
 			int g1 = 0; // up to 16
 			int g2 = 0; // up to 24
 			int g3 = 0; // up to 32
@@ -4350,6 +4359,11 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			int g5 = 0; // up to 48
 			int g6 = 0; // up to 56
 			int g7 = 0; // up to 64
+			int g8 = 0; // up to 72
+			int g9 = 0; // up to 80
+			int g10= 0; // up to 88
+			int g11= 0; // up to 96
+			int g12= 0; // up to 104
 
 			// TODO some refactoring needed here....
 			{
@@ -4393,6 +4407,31 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				{
 					if (i <= 255)
 						g7 = i;
+				}
+				if (element->Attribute(TEXT("gr8"), &i))
+				{
+					if (i <= 255)
+						g8 = i;
+				}
+				if (element->Attribute(TEXT("gr9"), &i))
+				{
+					if (i <= 255)
+						g9 = i;
+				}
+				if (element->Attribute(TEXT("gr10"), &i))
+				{
+					if (i <= 255)
+						g10 = i;
+				}
+				if (element->Attribute(TEXT("gr11"), &i))
+				{
+					if (i <= 255)
+						g11 = i;
+				}
+				if (element->Attribute(TEXT("gr12"), &i))
+				{
+					if (i <= 255)
+						g12 = i;
 				}
 			}
 
@@ -4456,6 +4495,46 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			for (int i = 56 ; i < 64 ; ++i)
 			{
 				if (mask & g7)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 64; i < 72; ++i)
+			{
+				if (mask & g8)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 72; i < 80; ++i)
+			{
+				if (mask & g9)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 80; i < 88; ++i)
+			{
+				if (mask & g10)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 88; i < 96; ++i)
+			{
+				if (mask & g11)
+					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
+				mask <<= 1;
+			}
+
+			mask = 1;
+			for (int i = 96; i < 104; ++i)
+			{
+				if (mask & g12)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
 				mask <<= 1;
 			}
@@ -5717,7 +5796,7 @@ void NppParameters::writePrintSetting(TiXmlElement *element)
 
 void NppParameters::writeExcludedLangList(TiXmlElement *element)
 {
-	int g0 = 0; // up to  8
+	int g0 = 0; // up to 8
 	int g1 = 0; // up to 16
 	int g2 = 0; // up to 24
 	int g3 = 0; // up to 32
@@ -5725,6 +5804,13 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 	int g5 = 0; // up to 48
 	int g6 = 0; // up to 56
 	int g7 = 0; // up to 64
+	int g8 = 0; // up to 72
+	int g9 = 0; // up to 80
+	int g10= 0; // up to 88
+	int g11= 0; // up to 96
+	int g12= 0; // up to 104
+
+	const int groupNbMember = 8;
 
 	for (size_t i = 0, len = _nppGUI._excludedLangList.size(); i < len ; ++i)
 	{
@@ -5732,8 +5818,8 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 		if (langType >= L_EXTERNAL && langType < L_END)
 			continue;
 
-		int nGrp = langType / 8;
-		int nMask = 1 << langType % 8;
+		int nGrp = langType / groupNbMember;
+		int nMask = 1 << langType % groupNbMember;
 
 
 		switch (nGrp)
@@ -5762,6 +5848,21 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 			case 7 :
 				g7 |= nMask;
 				break;
+			case 8:
+				g8 |= nMask;
+				break;
+			case 9:
+				g9 |= nMask;
+				break;
+			case 10:
+				g10 |= nMask;
+				break;
+			case 11:
+				g11 |= nMask;
+				break;
+			case 12:
+				g12 |= nMask;
+				break;
 		}
 	}
 
@@ -5773,6 +5874,11 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 	element->SetAttribute(TEXT("gr5"), g5);
 	element->SetAttribute(TEXT("gr6"), g6);
 	element->SetAttribute(TEXT("gr7"), g7);
+	element->SetAttribute(TEXT("gr8"), g8);
+	element->SetAttribute(TEXT("gr9"), g9);
+	element->SetAttribute(TEXT("gr10"), g10);
+	element->SetAttribute(TEXT("gr11"), g11);
+	element->SetAttribute(TEXT("gr12"), g12);
 }
 
 TiXmlElement * NppParameters::insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHAR *name, bool bVal)
@@ -5934,11 +6040,75 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_TEHEX :
 			id = IDM_LANG_TEHEX; break;
 
+		case L_SWIFT:
+			id = IDM_LANG_SWIFT; break;
+
+		case L_ASN1 :
+			id = IDM_LANG_ASN1; break;
+
+        case L_AVS :
+			id = IDM_LANG_AVS; break;
+
+		case L_BLITZBASIC :
+			id = IDM_LANG_BLITZBASIC; break;
+
+		case L_PUREBASIC :
+			id = IDM_LANG_PUREBASIC; break;
+
+		case L_FREEBASIC :
+			id = IDM_LANG_FREEBASIC; break;
+
+		case L_CSOUND :
+			id = IDM_LANG_CSOUND; break;
+
+		case L_ERLANG :
+			id = IDM_LANG_ERLANG; break;
+
+		case L_ESCRIPT :
+			id = IDM_LANG_ESCRIPT; break;
+
+		case L_FORTH :
+			id = IDM_LANG_FORTH; break;
+
+		case L_LATEX :
+			id = IDM_LANG_LATEX; break;
+
+		case L_MMIXAL :
+			id = IDM_LANG_MMIXAL; break;
+
+		case L_NIMROD :
+			id = IDM_LANG_NIMROD; break;
+
+		case L_NNCRONTAB :
+			id = IDM_LANG_NNCRONTAB; break;
+
+		case L_OSCRIPT :
+			id = IDM_LANG_OSCRIPT; break;
+
+		case L_REBOL :
+			id = IDM_LANG_REBOL; break;
+
+		case L_REGISTRY :
+			id = IDM_LANG_REGISTRY; break;
+
+		case L_RUST :
+			id = IDM_LANG_RUST; break;
+
+		case L_SPICE :
+			id = IDM_LANG_SPICE; break;
+
+		case L_TXT2TAGS :
+			id = IDM_LANG_TXT2TAGS; break;
+
+		case L_VISUALPROLOG:
+			id = IDM_LANG_VISUALPROLOG; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 
 		case L_TEXT :
 			id = IDM_LANG_TEXT;	break;
+
 
 		default :
 			if(lt >= L_EXTERNAL && lt < L_END)

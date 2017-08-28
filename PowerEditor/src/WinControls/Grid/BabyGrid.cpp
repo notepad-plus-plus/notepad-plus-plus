@@ -1299,19 +1299,10 @@ void SizeGrid(HWND hWnd,int /*SI*/)
 
 int FindLongestLine(HDC hdc,TCHAR* text,SIZE* size)
 {
-	int longest, lines;
+	int longest = 0;
      TCHAR temptext[1000];
      TCHAR *p;
-     longest=0;
-     lines=1;
 
-     for(size_t j=0, len=lstrlen(text); j<len; j++)
-     {
-      if(text[j]=='\n')
-          {
-           lines++;
-          }
-     }
      lstrcpy(temptext,text);
      p = generic_strtok(temptext, TEXT("\n"));
      while(p)
@@ -1324,7 +1315,7 @@ int FindLongestLine(HDC hdc,TCHAR* text,SIZE* size)
           p = generic_strtok('\0', TEXT("\n"));
          }
      return longest;
-    }
+}
 
 
 LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -3029,91 +3020,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 
-/*        case WM_SIZE: //obsolete
-            {
-             static int SI,cheight;
-             static int savewidth,saveheight;
-             int intin,intout;
-             SI=SelfIndex;
-
-
-
-
-
-             if(BGHS[SI].SIZING)
-                 {
-                  BGHS[SI].SIZING = FALSE;
-                  break;
-                 }
-                  ShowHscroll(hWnd,SI);
-                  ShowVscroll(hWnd,SI);
-
-             if((BGHS[SI].SHOWINTEGRALROWS)&&(BGHS[SI].VSCROLL))
-                 {
-                  saveheight=HIWORD(lParam);
-                  intin=saveheight;
-                  savewidth=LOWORD(lParam);
-                  cheight=HIWORD(lParam);
-                  cheight-=BGHS[SI].titleheight;
-                  cheight-=BGHS[SI].headerrowheight;
-
-                      {
-                       int sbheight;
-                       sbheight=GetSystemMetrics(SM_CYHSCROLL);
-                       if(BGHS[SI].HSCROLL)
-                           {
-                            cheight-=sbheight;
-                           }
-                       if(BGHS[SI].VSCROLL)
-                           {
-                            RECT grect,prect;
-                            GetClientRect(hWnd,&grect);
-                            GetClientRect(GetParent(hWnd),&prect);
-                            if((grect.right+sbheight) < prect.right)
-                                {
-                                 savewidth+=sbheight;
-                                }
-                           }
-
-                      }
-
-
-
-                  if(cheight <= BGHS[SI].rowheight)
-                      {
-                       break;
-                      }
-                  else
-                      {
-                       //calculate fractional part of cheight/rowheight
-                       int remainder,nrows;
-                       nrows=(int)(cheight/BGHS[SI].rowheight);
-                       remainder=cheight-(nrows * BGHS[SI].rowheight);
-                       //make the window remainder pixels shorter
-                       saveheight -= remainder;
-                       saveheight +=4; //+=4
-                       intout=saveheight;
-                       WINDOWPLACEMENT wp;
-                       RECT crect;
-                       wp.length = sizeof(wp);
-                       GetWindowPlacement(hWnd,&wp);
-                       crect=wp.rcNormalPosition;
-                       crect.bottom=intout;
-					   //crect.bottom = NppParameters::getInstance()->_dpiManager.ScaleY(intout);
-                       crect.right=savewidth;
-                       BGHS[SI].SIZING = TRUE;
-
-                       BGHS[SI].wannabeheight = HIWORD(lParam);
-                       BGHS[SI].wannabewidth = LOWORD(lParam);
-					   //NppParameters::getInstance()->_dpiManager.ScaleRect(&crect);
-                       MoveWindow(hWnd,crect.left,crect.top,crect.right,crect.bottom,TRUE);
-                      }
-                 }
-
-            }
-            break; */
 		case WM_CREATE:
-			  lpcs = &cs;
 			  lpcs = (LPCREATESTRUCT)lParam;
 
 			  hInst = lpcs->hInstance;

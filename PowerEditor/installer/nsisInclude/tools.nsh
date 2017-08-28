@@ -100,6 +100,9 @@ Function ExtraOptions
 	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\notepad++\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
 	Pop $PluginLoadFromUserDataCheckboxHandle
 	${NSD_OnClick} $PluginLoadFromUserDataCheckboxHandle OnChange_PluginLoadFromUserDataCheckBox
+	${If} $allowAppDataPluginsLoading == "true"
+		${NSD_Check} $PluginLoadFromUserDataCheckboxHandle
+	${EndIf}
 	
 	${NSD_CreateCheckbox} 0 110 100% 30u "Create Shortcut on Desktop"
 	Pop $ShortcutCheckboxHandle
@@ -138,6 +141,12 @@ FunctionEnd
 
 Function OnChange_PluginLoadFromUserDataCheckBox
 	${NSD_GetState} $PluginLoadFromUserDataCheckboxHandle $allowPluginLoadFromUserDataChecked
+	
+	${If} $allowPluginLoadFromUserDataChecked == ${BST_CHECKED}
+		StrCpy $allowAppDataPluginsLoading "true"
+	${ELSE}
+		StrCpy $allowAppDataPluginsLoading "false"
+	${EndIf}
 FunctionEnd
 
 Function OnChange_ShortcutCheckBox

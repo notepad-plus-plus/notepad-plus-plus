@@ -224,6 +224,56 @@ void FunctionListPanel::sortOrUnsort()
 	}
 }
 
+bool FunctionListPanel::serialize(const generic_string & outputFilename)
+{
+	generic_string fname;
+	if (outputFilename.empty()) // if outputFilename is not given, get the current file path by adding the file extension
+	{
+		Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+		const TCHAR *fullFilePath = currentBuf->getFullPathName();
+
+		// Export function list from an existing file 
+		bool exportFuncntionList = (NppParameters::getInstance())->doFunctionListExport();
+		if (exportFuncntionList && ::PathFileExists(fullFilePath))
+		{
+			fname = fullFilePath;
+			fname += TEXT(".result");
+		}
+		else
+			return false;
+	}
+	else
+	{
+		fname = outputFilename;
+	}
+
+	FILE * f = generic_fopen(fname.c_str(), TEXT("w+"));
+	if (!f)
+		return false;
+
+	for (const auto & info : _foundFuncInfos)
+	{
+		generic_string entryName;
+		if (!info._data2.empty())
+		{
+			entryName = info._data2;
+			entryName += TEXT("=>");
+		}
+		entryName += info._data;
+		entryName += TEXT("\n");
+
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		UINT cp = static_cast<UINT>((*_ppEditView)->execute(SCI_GETCODEPAGE));
+		const char *textA = wmc->wchar2char(entryName.c_str(), cp);
+		string entryNameA = textA;
+
+		fwrite(entryNameA.c_str(), sizeof(entryNameA.c_str()[0]), entryNameA.length(), f);
+	}
+	fflush(f);
+	fclose(f);
+	return true;
+}
+
 void FunctionListPanel::reload()
 {
 	// clean up
@@ -240,50 +290,55 @@ void FunctionListPanel::reload()
 	::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
 	setSort(false);
 
-	vector<foundInfo> fi;
+	_foundFuncInfos.clear();
 
-	const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
-	LangType langID = ((*_ppEditView)->getCurrentBuffer())->getLangType();
+	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+	const TCHAR *fn = currentBuf->getFileName();
+	LangType langID = currentBuf->getLangType();
 	if (langID == L_JAVASCRIPT)
 		langID = L_JS;
 
 	const TCHAR *udln = NULL;
 	if (langID == L_USER)
 	{
-		udln = ((*_ppEditView)->getCurrentBuffer())->getUserDefineLangName();
+		udln = currentBuf->getUserDefineLangName();
 	}
 
 	TCHAR *ext = ::PathFindExtension(fn);
 
-	if (_funcParserMgr.parse(fi, AssociationInfo(-1, langID, ext, udln)))
+	bool parsedOK = _funcParserMgr.parse(_foundFuncInfos, AssociationInfo(-1, langID, ext, udln));
+	if (parsedOK)
 	{
 		_treeView.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
 	}
 
-	for (size_t i = 0, len = fi.size(); i < len; ++i)
+	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
 	{
 		// no 2 level
 		bool b = false;
 		if (b)
 		{
 			generic_string entryName = TEXT("");
-			if (fi[i]._pos2 != -1)
+			if (!_foundFuncInfos[i]._data2.empty())
 			{
-				entryName = fi[i]._data2;
+				entryName = _foundFuncInfos[i]._data2;
 				entryName += TEXT("=>");
 			}
-			entryName += fi[i]._data;
-			addEntry(NULL, entryName.c_str(), fi[i]._pos);
+			entryName += _foundFuncInfos[i]._data;
+			addEntry(NULL, entryName.c_str(), _foundFuncInfos[i]._pos);
 		}
 		else
 		{
-			addEntry(fi[i]._data2.c_str(), fi[i]._data.c_str(), fi[i]._pos);
+			addEntry(_foundFuncInfos[i]._data2.c_str(), _foundFuncInfos[i]._data.c_str(), _foundFuncInfos[i]._pos);
 		}
 	}
+
 	HTREEITEM root = _treeView.getRoot();
-	const TCHAR *fullFilePath = ((*_ppEditView)->getCurrentBuffer())->getFullPathName();
+	
 	if (root)
 	{
+		Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+		const TCHAR *fullFilePath = currentBuf->getFullPathName();
 		_treeView.setItemParam(root, fullFilePath);
 		TreeParams *previousParams = getFromStateArray(fullFilePath);
 		if (!previousParams)

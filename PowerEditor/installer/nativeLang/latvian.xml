@@ -255,8 +255,8 @@
 					<Item id="10004" name="Atvērt jaunā instancē (programmā)"/>
 
 					<Item id="46001" name="Stilu izveide..."/>
-					<Item id="46150" name="Izveidot savu valodas aprakstu ..."/>
-					<Item id="46080" name="Lietotāja definēta"/>
+					<Item id="46250" name="Izveidot savu valodas aprakstu ..."/>
+					<Item id="46180" name="Lietotāja definēta"/>
 					<Item id="47000" name="Par Notepad++..."/>
                     <Item id="47010" name="Komandrindas parametri..."/>
 					<Item id="47001" name="Notepad++ mājaslapa"/>

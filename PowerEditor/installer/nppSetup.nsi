@@ -37,6 +37,7 @@ Unicode true			; Generate a Unicode installer. It can only be used outside of se
 SetCompressor /SOLID lzma	; This reduces installer size by approx 30~35%
 ;SetCompressor /FINAL lzma	; This reduces installer size by approx 15~18%
 
+Var allowAppDataPluginsLoading
 
 !include "nsisInclude\winVer.nsh"
 !include "nsisInclude\globalDef.nsh"
@@ -82,65 +83,10 @@ page Custom ExtraOptions
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "un.CheckIfRunning"
 !insertmacro MUI_UNPAGE_INSTFILES
 
-; TODO for optional arg
-;!insertmacro GetParameters
-
 
 !include "nsisInclude\langs4Installer.nsh"
 
-Var diffArchDir2Remove
-Function .onInit
 
-	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
-	Call preventInstallInWin9x
-		
-	!insertmacro MUI_LANGDLL_DISPLAY
-
-!ifdef ARCH64
-	${If} ${RunningX64}
-		; disable registry redirection (enable access to 64-bit portion of registry)
-		SetRegView 64
-		
-		; change to x64 install dir if needed
-		${If} "$InstDir" != ""
-			${If} "$InstDir" == "$PROGRAMFILES\${APPNAME}"
-				StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
-			${EndIf}
-			; else /D was used or last installation is not "$PROGRAMFILES\${APPNAME}"
-		${Else}
-			StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
-		${EndIf}
-		
-		; check if 32-bit version has been installed if yes, ask user to remove it
-		IfFileExists $PROGRAMFILES\${APPNAME}\notepad++.exe 0 noDelete32
-		MessageBox MB_YESNO "You are trying to install 64-bit version while 32-bit version is already installed. Would you like to remove Notepad++ 32 bit version before proceeding further?$\n(Your custom config files will be kept)" /SD IDYES IDYES doDelete32 IDNO noDelete32 ;IDYES remove
-doDelete32:
-		StrCpy $diffArchDir2Remove $PROGRAMFILES\${APPNAME}
-noDelete32:
-		
-	${Else}
-		MessageBox MB_OK "You cannot install Notepad++ 64-bit version on your 32-bit system.$\nPlease download and intall Notepad++ 32-bit version instead."
-		Abort
-	${EndIf}
-!else ; 32-bit installer
-	${If} ${RunningX64}
-		; check if 64-bit version has been installed if yes, ask user to remove it
-		IfFileExists $PROGRAMFILES64\${APPNAME}\notepad++.exe 0 noDelete64
-		MessageBox MB_YESNO "You are trying to install 32-bit version while 64-bit version is already installed. Would you like to remove Notepad++ 64 bit version before proceeding further?$\n(Your custom config files will be kept)"  /SD IDYES IDYES doDelete64 IDNO noDelete64
-doDelete64:
-		StrCpy $diffArchDir2Remove $PROGRAMFILES64\${APPNAME}
-noDelete64:
-	${EndIf}
-
-!endif
-
-	${MementoSectionRestore}
-
-FunctionEnd
-
-Function .onInstSuccess
-	${MementoSectionSave}
-FunctionEnd
 
 
 !include "nsisInclude\mainSectionFuncs.nsh"
@@ -169,6 +115,7 @@ SectionEnd
 !include "nsisInclude\themes.nsh"
 !include "nsisInclude\binariesComponents.nsh"
 
+
 InstType "Minimalist"
 
 ${MementoSectionDone}
@@ -187,6 +134,87 @@ ${MementoSectionDone}
 Section -FinishSection
   Call writeInstallInfoInRegistry
 SectionEnd
+
+
+Var diffArchDir2Remove
+Var noUpdater
+Function .onInit
+
+	${GetParameters} $R0 
+	${GetOptions} $R0 "/allowAppDataPluginsLoading" $R1 ;case insensitive 
+	IfErrors appdataLoadNo appdataLoadYes
+appdataLoadNo:
+	StrCpy $allowAppDataPluginsLoading "false"
+	Goto appdataLoadDone
+appdataLoadYes:
+	StrCpy $allowAppDataPluginsLoading "true"
+appdataLoadDone:
+
+	${GetOptions} $R0 "/noUpdater" $R1 ;case insensitive 
+	IfErrors withUpdater withoutUpdater
+withUpdater:
+	StrCpy $noUpdater "false"
+	Goto updaterDone
+withoutUpdater:
+	StrCpy $noUpdater "true"
+updaterDone:
+
+${If} $noUpdater == "true"
+    !insertmacro UnSelectSection ${AutoUpdater}
+    SectionSetText ${AutoUpdater} ""
+${EndIf}
+
+	SectionSetSize ${mainSection} 4500		; This is rough estimation of files present in function copyCommonFiles
+	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
+	Call preventInstallInWin9x
+		
+	!insertmacro MUI_LANGDLL_DISPLAY
+
+!ifdef ARCH64
+	${If} ${RunningX64}
+		; disable registry redirection (enable access to 64-bit portion of registry)
+		SetRegView 64
+		
+		; change to x64 install dir if needed
+		${If} "$InstDir" != ""
+			${If} "$InstDir" == "$PROGRAMFILES\${APPNAME}"
+				StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
+			${EndIf}
+			; else /D was used or last installation is not "$PROGRAMFILES\${APPNAME}"
+		${Else}
+			StrCpy $INSTDIR "$PROGRAMFILES64\${APPNAME}"
+		${EndIf}
+		
+		; check if 32-bit version has been installed if yes, ask user to remove it
+		IfFileExists $PROGRAMFILES\${APPNAME}\notepad++.exe 0 noDelete32
+		MessageBox MB_YESNO "You are trying to install 64-bit version while 32-bit version is already installed. Would you like to remove Notepad++ 32 bit version before proceeding further?$\n(Your custom config files will be kept)" /SD IDYES IDYES doDelete32 IDNO noDelete32 ;IDYES remove
+doDelete32:
+		StrCpy $diffArchDir2Remove $PROGRAMFILES\${APPNAME}
+noDelete32:
+		
+	${Else}
+		MessageBox MB_OK "You cannot install Notepad++ 64-bit version on your 32-bit system.$\nPlease download and install Notepad++ 32-bit version instead."
+		Abort
+	${EndIf}
+!else ; 32-bit installer
+	${If} ${RunningX64}
+		; check if 64-bit version has been installed if yes, ask user to remove it
+		IfFileExists $PROGRAMFILES64\${APPNAME}\notepad++.exe 0 noDelete64
+		MessageBox MB_YESNO "You are trying to install 32-bit version while 64-bit version is already installed. Would you like to remove Notepad++ 64 bit version before proceeding further?$\n(Your custom config files will be kept)"  /SD IDYES IDYES doDelete64 IDNO noDelete64
+doDelete64:
+		StrCpy $diffArchDir2Remove $PROGRAMFILES64\${APPNAME}
+noDelete64:
+	${EndIf}
+
+!endif
+
+	${MementoSectionRestore}
+
+FunctionEnd
+
+Function .onInstSuccess
+	${MementoSectionSave}
+FunctionEnd
 
 
 BrandingText "Don HO"

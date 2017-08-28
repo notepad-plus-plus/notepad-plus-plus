@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.3.2
-	last modified: 2017-02-27 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.5
+	last modified: 2017-08-13 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.3.1">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.5">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -307,8 +307,8 @@
 					<Item id="46017" name="Ressourcen-Datei"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 
 					<Item id="46001" name="&amp;Stile …"/>
-					<Item id="46150" name="Eigene Sprache &amp;definieren …"/>
-					<Item id="46080" name="Benutzerdefiniert"/>
+					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
+					<Item id="46180" name="Benutzerdefiniert"/>
 					<Item id="47000" name="&amp;Info …"/>
 					<Item id="47010" name="&amp;Kommandozeilenparameter …"/>
 					<Item id="47001" name="Notepad++ im &amp;Web"/>
@@ -371,20 +371,18 @@
 
 		<Dialog>
 			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Hervorheben">
-				<Item id="1"    name="&amp;Weitersuchen"/>
-				<Item id="2"    name="&amp;Schließen"/>
+				<Item id="1"    name="&amp;Suche vorwärts"/>
+				<Item id="1722" name="&amp;Rückwärts suchen"/>
+				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="1620" name="Suchen &amp;nach:"/>
 				<Item id="1603" name="Nur &amp;ganze Wörter suchen"/>
 				<Item id="1604" name="Groß-/&amp;Kleinschreibung beachten"/>
 				<Item id="1605" name="&amp;Reguläre Ausdrücke"/>
 				<Item id="1606" name="Am Ende von vorne &amp;beginnen"/>
-				<Item id="1612" name="R&amp;ückwärts"/>
-				<Item id="1613" name="&amp;Vorwärts"/>
 				<Item id="1614" name="Z&amp;ählen"/>
 				<Item id="1615" name="&amp;Alle suchen"/>
 				<Item id="1616" name="&amp;Lesezeichen setzen"/>
 				<Item id="1618" name="Für &amp;jede Suche löschen"/>
-				<Item id="1621" name="Suchrichtung"/>
 				<Item id="1611" name="Erset&amp;zen durch:"/>
 				<Item id="1608" name="&amp;Ersetzen"/>
 				<Item id="1609" name="Alle erse&amp;tzen"/>
@@ -713,8 +711,7 @@
 					<Item id="6207" name="Lesezeichenrand"/>
 					<Item id="6208" name="Randbegrenzung anzeigen"/>
 					<Item id="6209" name="Anzahl der Spalten:"/>
-					<Item id="6234" name="Flüssiges Scrollen deaktivieren
-(bei Touchpad-Problemen)"/>
+					<Item id="6234" name="Flüssiges Scrollen deaktivieren&#x0a;(bei Touchpad-Problemen)"/>
 
 					<Item id="6211" name="Rechter Rand"/>
 					<Item id="6212" name="Vertikale Linie"/>
@@ -747,7 +744,7 @@
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
 					<Item id="6430" name="Neuen Stilspeicherungsdialog benutzen (ohne Dateierweiterungen)"/>	
-					<Item id="6431" name="Alle Dateien im Verzeichnis öffnen anstatt das Start-Verzeichnis als Arbeitsbereich zu verwenden"/>
+					<Item id="6431" name="Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses"/>
 					<Item id="6418" name="…"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>
 
@@ -873,8 +870,7 @@
 					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>	<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
 					<Item id="6162" name="Verwende die ursprüngliche Liste der Wortzeichen"/>
-					<Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu
-(nicht verwenden wenn man nicht sicher ist)"/>				</Delimiter>
+					<Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu&#x0a;(nicht verwenden wenn man nicht sicher ist)"/>				</Delimiter>
 
 				<Cloud title="Cloud-Einstellungen">
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
@@ -912,7 +908,9 @@
 					<Item id="6114" name="Aktivieren"/>
 					<Item id="6115" name="Automatische Einrückung"/>
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>
-				</MISC>
+					<Item id="6344" name="Momentaufnahme des Dokuments"/>
+					<Item id="6345" name="Momentaufnahme in Tab"/>
+					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/></MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
 				<Item id="1"    name="Ausfüh&amp;ren"/>
@@ -946,21 +944,30 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu starten, damit die Änderungen wirksam werden."/>
-			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien von der Notepad++-Website herunter."/>
-			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;Fortfahren?"/>
-			<LoseUndoAbilityWarning title="Änderungen können nicht rückgängig gemacht werden" message="Diese Änderung kann nicht rückgängig gemacht werden.&#x0A;Fortfahren?"/>
-			<CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert. Bitte zuerst speichern und erneut versuchen."/>
-			<DocReloadWarning title="Datei wurde geändert!" message="Sind Sie sicher, dass Sie die Datei in der zuletzt gespeicherten Version erneut laden und die in Notepad++ gemachten Änderungen verwerfen wollen?"/>
+			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0A;das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu&#x0A;starten, damit die Änderungen wirksam werden."/>
+			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien&#x0A;von der Notepad++-Website herunter."/>
+			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;&#x0A;Fortfahren?"/>
+			<LoseUndoAbilityWarning title="Änderungen können nicht rückgängig gemacht werden" message="Diese Änderung kann nicht rückgängig gemacht werden.&#x0A;&#x0A;Fortfahren?"/>
+			<CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert.&#x0A;Bitte zuerst speichern und erneut versuchen."/>
+			<DocReloadWarning title="Datei wurde geändert!" message="Sind Sie sicher, dass Sie die Datei in der zuletzt&#x0A;gespeicherten Version erneut laden und die&#x0A;in Notepad++ gemachten Änderungen verwerfen wollen?"/>
 			<FileLockedWarning title="Speichern fehlgeschlagen!" message="Datei konnte von Notepad++ nicht gespeichert werden. &#x0A;Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
 			<FileAlreadyOpenedInNpp title="Datei bereits geöffnet" message="Die Datei ist bereits in Notepad++ geöffnet."/>
 			<DeleteFileFailed title="Löschen fehlgeschlagen!" message="Datei konnte nicht gelöscht werden."/>
 
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.&#x0A;Sind Sie sicher?"/>
-			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte auf ein Laufwerk nur mit Leserechten,\roder auf ein Verzeichnis ohne die erforderlichen Schreibrechte zeigen.\rDie Einstellungen in der Cloud werden abgebrochen. Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
+			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte&#x0A;auf ein Laufwerk nur mit Leserechten oder auf ein Verzeichnis&#x0A;ohne die erforderlichen Schreibrechte zeigen.&#x0A;Die Einstellungen in der Cloud werden abgebrochen.&#x0A;Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
 			<FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
-		<SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Sitzungsdatei ist entweder beschädigt oder ungültig."/>
+			<SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Sitzungsdatei ist entweder beschädigt oder ungültig."/>
+			<ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&#x0A;um in den Spalten-Modus zu wechseln."/>
+
+			<!-- $STR_REPLACE$ is a place holder, don't translate it -->
+			<SortingError title="Sortierung fehlgeschlagen" message="Kann aufgrund der Zeile $STR_REPLACE$ keine numerische Sortierung durchführen."/>
+			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Kann nicht speichern: Puffer ist ungültig."/>
+			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0A;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
+			<OpenInAdminModeFailed title="Starten im Administrator-Modus fehlgeschlagen" message="Notepad++ kann nicht im Administrator-Modus gestartet werden."/>
+			<OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0A;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
+			<DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&#x0A;Dafür muss &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im Bereich &quot;Standardverzeichnis&quot; der Einstellungen ausgewählt werden."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>
@@ -1040,7 +1047,7 @@
 			<word-chars-list-warning-end value=" in der Liste der Wortzeichen."/>
 			<cloud-invalid-warning value="Ungültiger Pfad."/>
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
-			<shift-change-direction-tip value="Verwende Shift+Enter um die Suchrichtung zu ändern."/>
+			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

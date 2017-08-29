@@ -746,7 +746,7 @@
 						<nameExpr expr="\w+(?=[\(|:])" />
 					</className>
 					<function
-						mainExpr="(?&lt;=def\x20).+?(?=:)"
+						mainExpr="(?&lt;=\sdef\x20).+?(?=:)"
 					>
 						<functionName>
 							<funcNameExpr expr=".*" />
@@ -754,13 +754,14 @@
 					</function>
 				</classRange>
 				<function
-					mainExpr="(?&lt;=def\x20).+?(?=:)"
+					mainExpr="(?&lt;=\sdef\x20).+?(?=:)"
 				>
 					<functionName>
 						<nameExpr expr=".*" />
 					</functionName>
 				</function>
 			</parser>
+
 
 			<!-- ======================================================== [ Bash ] -->
 			<!-- BASH - Bourne-Again Shell                                         -->

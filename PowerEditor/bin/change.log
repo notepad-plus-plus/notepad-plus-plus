@@ -1,21 +1,17 @@
-Notepad++ 7.5 new featurs/enhancements & bug-fixes:
+Notepad++ 7.5.1 new featurs/enhancements & bug-fixes:
 
-1.  Add new languages support: ASN.1, AviSynth, Blitz Basic, Csound, Erlang, escript, Forth, FreeBASIC, LaTeX, MMIX, Nimrod, nnCron, OScript, PureBasic, Rebol, registry, Rust, SPICE, txt2tags
-2.  Add "Open file in its default viewer" command.
-3.  Add "-quickPrint" command line argument: Launch Notepad++, print document & exit.
-4.  Add /noUpdater argument for installer to not install updater (useful in silent mode).
-5.  Add new installer argument /allowAppDataPluginsLoading.
-6.  Roll back to 1 "Find next" button in Find/Replace dialog, due to the inconsistence after removal of direction option.
-7.  Enhancement: empty fields "Replace with" and "Filters" of Find/Replace dialog are remembered in the next session.
-8.  Fix text selection in combo boxes of find/replace dialog problem on resizing.
-9.  Fix the issue of passing non-exist folder via command line without any warning.
-10. Fix multi-line tab button remaining pushed issue while switching off.
-11. Fix TAB key wired behavior on find/replace dialog's transparency radio button.
-12. Fix click on tab without hitting close button but close file issue.
-13. Fix Notepad++ modifying command line arguments issue (command line arguments could be visualized by system tools).
-14. Fix file not dirty while its content changed on the hard drive.
-15. Fix saved duplicated file in the same view issue.
-16. Fix "Folder as Workspace" toolbar button not activated after dropping folder issue.
+1.  Fix some excluded language cannot be remembered bug.
+2.  Fix a localization regression bug.
+3.  Fix the bug that Notepad++ create "%APPDATA%\local\notepad++" folder in local conf mode.
+4.  Add Visual Prolog language support.
+5.  Add auto-completion support for batch file (*.bat).
+6.  Enhance Function List for PHP and JavaScript.
+7.  Enhance Shortcut Mapper by adding category column.
+8.  Make double click work for language menu disabling/enabling in preferences dialog.
+9.  Make double click work to improve file extension movement in Preferences dialog.
+10. Fix bug: language menu item is restored back on the wrong zone.
+11. Add a spiritual quote.
+
 
 
 Included plugins:

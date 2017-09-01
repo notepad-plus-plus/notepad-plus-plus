@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Dansk" filename="danish.xml" version="7.3.1">
+    <Native-Langue name="Dansk" filename="danish.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -91,7 +91,7 @@
                     <Item id="41017" name="Omdøb..."/>
                     <Item id="41021" name="Åbn senest lukkede fil"/>
                     <Item id="41022" name="Åbn mappe som &amp;arbejdsområde"/>
-
+                    <Item id="41023" name="Åbn i standardfremviser"/>
                     <Item id="42001" name="&amp;Klip"/>
                     <Item id="42002" name="K&amp;opier"/>
                     <Item id="42003" name="&amp;Fortryd"/>
@@ -276,8 +276,8 @@
                     <Item id="10004" name="Åbn i ny instans"/>
 
                     <Item id="46001" name="Udseende-konfigurator..."/>
-                    <Item id="46150" name="Definer dit sprog..."/>
-                    <Item id="46080" name="Brugerdefineret"/>
+                    <Item id="46250" name="Definer dit sprog..."/>
+                    <Item id="46180" name="Brugerdefineret"/>
                     <Item id="47000" name="Om Notepad++..."/>
                     <Item id="47010" name="Kommandolinjeparametre..."/>
                     <Item id="47001" name="Notepad++ hjem"/>
@@ -334,25 +334,24 @@
                     <Item CMID="18" name="Luk alle til højre"/>
                     <Item CMID="19" name="Åbn indeholdende mappe i Stifinder"/>
                     <Item CMID="20" name="Åbn indeholdende mappe i Kommandoprompt"/>
+					<Item CMID="21" name="Åbn i standardfremviser"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Søg" titleReplace="Erstat" titleFindInFiles="Søg i filer" titleMark="Mærk">
                 <Item id="1"    name="Find næste"/>
+                <Item id="1722" name="Baglæns retning"/>
                 <Item id="2"    name="Luk"/>
                 <Item id="1620" name="Søg efter:"/>
                 <Item id="1603" name="Søg kun på &amp;hele ord"/>
                 <Item id="1604" name="&amp;Forskel på store og små bogstaver"/>
                 <Item id="1605" name="Regulær&amp;e udtryk"/>
                 <Item id="1606" name="Forfra &amp;når slutningen er nået"/>
-                <Item id="1612" name="&amp;Op"/>
-                <Item id="1613" name="&amp;Ned"/>
                 <Item id="1614" name="Tæl"/>
                 <Item id="1615" name="Find alle"/>
                 <Item id="1616" name="Mærk linje"/>
                 <Item id="1618" name="Ryd mellem hver søgning"/>
-                <Item id="1621" name="Retning"/>
                 <Item id="1611" name="Erstat &amp;med:"/>
                 <Item id="1608" name="E&amp;rstat"/>
                 <Item id="1609" name="Erstat &amp;alle"/>
@@ -870,6 +869,9 @@
                     <Item id="6114" name="Aktivér"/>
                     <Item id="6115" name="Automatisk indrykning"/>
                     <Item id="6117" name="Aktivér MRU-adfærd"/>
+                    <Item id="6344" name="Dokumentkigger"/>
+                    <Item id="6345" name="Kig på faneblad"/>
+                    <Item id="6346" name="Kig på dokumentoversigt"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Kør en makro flere gange">
@@ -904,10 +906,18 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Redigering af genvejsmenu" message="Ved redigering af contextMenu.xml kan du ændre genvejsmenuen i Notepad++.\rDu skal genstarte Notepad++ før ændringerne i contextMenu.xml træder i kraft."/>
-            <NppHelpAbsentWarning title="Filen findes ikke" message="\rfindes ikke. Download den venligst fra Notepad++'s websted."/>
-            <SaveCurrentModifWarning title="Gem aktuelle ændring" message="Du bør gemme den aktuelle ændring.\rAlle gemte ændringer kan ikke fortrydes.\r\rFortsæt?"/>
-            <LoseUndoAbilityWarning title="Advarsel om at miste fortryd" message="Du bør gemme den aktuelle ændring.\rAlle gemte ændringer kan ikke fortrydes.\r\rFortsæt?"/>
+            <ContextMenuXmlEditWarning title="Redigering af genvejsmenu" message="Ved redigering af contextMenu.xml kan du ændre genvejsmenuen i Notepad++.
+Du skal genstarte Notepad++ før ændringerne i contextMenu.xml træder i kraft."/>
+            <NppHelpAbsentWarning title="Filen findes ikke" message="
+findes ikke. Download den venligst fra Notepad++'s websted."/>
+            <SaveCurrentModifWarning title="Gem aktuelle ændring" message="Du bør gemme den aktuelle ændring.
+Alle gemte ændringer kan ikke fortrydes.
+
+Fortsæt?"/>
+            <LoseUndoAbilityWarning title="Advarsel om at miste fortryd" message="Du bør gemme den aktuelle ændring.
+Alle gemte ændringer kan ikke fortrydes.
+
+Fortsæt?"/>
             <CannotMoveDoc title="Flyt til ny instans af Notepad++" message="Dokument er ændret. Gem det og prøv igen."/>
             <DocReloadWarning title="Genindlæs" message="Er du sikker på, at du vil genindlæse den aktuelle fil og miste de ændringer der er lavet i Notepad++?"/>
             <FileLockedWarning title="Gemning mislykkedes" message="Tjek venligst om filen allerede er åbnet i et andet program"/>
@@ -915,9 +925,13 @@
             <DeleteFileFailed title="Slet fil" message="Sletning af filen mislykkedes"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Du er ved at åbne et stort antal filer" message="$INT_REPLACE$ filer er ved at blive åbnet.\rEr du sikker på, at du vil åbne dem?"/>
-			<SettingsOnCloudError title="Indstillinger i skyen" message="Det ser ud til at stien af indstillinger i skyen er sat på et skrivebeskyttet drev,\reller på en mappe som kræver priviligerede rettigheder for at få skriveadgang.\rDine indstillinger på sky annulleres. Nulstil venligst en relateret værdi i dialogen Præferencer."/>
+            <NbFileToOpenImportantWarning title="Du er ved at åbne et stort antal filer" message="$INT_REPLACE$ filer er ved at blive åbnet.
+Er du sikker på, at du vil åbne dem?"/>
+			<SettingsOnCloudError title="Indstillinger i skyen" message="Det ser ud til at stien af indstillinger i skyen er sat på et skrivebeskyttet drev,
+eller på en mappe som kræver priviligerede rettigheder for at få skriveadgang.
+Dine indstillinger på sky annulleres. Nulstil venligst en relateret værdi i dialogen Præferencer."/>
 			<FilePathNotFoundWarning title="Åbning af fil" message="Filen du prøver at åbne findes ikke."/>
+	    <SessionFileInvalidError title="Kunne ikke indlæse session" message="Sessionsfilen er enten ødelagt eller ugyldig."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Udklipsholder historik"/>
@@ -997,6 +1011,7 @@
 			<word-chars-list-warning-end value="  i din tegnliste."/>
 			<cloud-invalid-warning value="Ugyldig sti."/>
 			<cloud-restart-warning value="Genstart venligst Notepad++ så ændringerne kan træde i kraft."/>
+			<shift-change-direction-tip value="Brug Skift + Enter for at søge i den modsatte retning"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

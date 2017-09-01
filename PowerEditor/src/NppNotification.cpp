@@ -32,10 +32,10 @@
 #include "VerticalFileSwitcher.h"
 #include "ProjectPanel.h"
 #include "documentMap.h"
+#include "Common.h"
 #include <stack>
 
 using namespace std;
-
 
 // Only for 2 main Scintilla editors
 BOOL Notepad_plus::notify(SCNotification *notification)
@@ -151,19 +151,55 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case TCN_MOUSEHOVERING:
 		case TCN_MOUSEHOVERSWITCHING:
 		{
-			/*
-			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			NppParameters *pNppParam = NppParameters::getInstance();
+			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
+
+			if (doPeekOnTab)
+			{
+				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
+				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
+
+				if (pTabDocView)
+				{
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
+					Buffer *pBuf = MainFileManager->getBufferByID(id);
+
+					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
+					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
+
+					RECT rect;
+					TabCtrl_GetItemRect(pTabDocView->getHSelf(), tbHdr->_tabOrigin, &rect);
+					POINT p;
+					p.x = rect.left;
+					p.y = rect.bottom;
+					::ClientToScreen(pTabDocView->getHSelf(), &p);
+
+					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
+					{
+						_documentPeeker.doDialog(p, pBuf, *(const_cast<ScintillaEditView*>(pTabDocView->getScintillaEditView())));
+						_pEditView->getFocus();
+					}
+					else  // if hover on current active tab
+					{
+						_documentPeeker.display(false);
+					}
+				}
+			}
+
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				TBHDR *tbHdr = reinterpret_cast<TBHDR *>(notification);
 				DocTabView *pTabDocView = isFromPrimary ? &_mainDocTab : (isFromSecondary ? &_subDocTab : nullptr);
 				if (pTabDocView)
 				{
-					BufferID id = pTabDocView->getBufferByIndex(tbHdr->tabOrigin);
+					BufferID id = pTabDocView->getBufferByIndex(tbHdr->_tabOrigin);
 					Buffer *pBuf = MainFileManager->getBufferByID(id);
 
-					Buffer *currentBuf = getCurrentBuffer();
+					Buffer *currentBufMain = _mainEditView.getCurrentBuffer();
+					Buffer *currentBufSub = _subEditView.getCurrentBuffer();
 
-					if (pBuf != currentBuf) // if hover on other tab
+					if (pBuf != currentBufMain && pBuf != currentBufSub) // if hover on other tab
 					{
 						_pDocMap->showInMapTemporarily(pBuf, notifyView);
 						_pDocMap->setSyntaxHiliting();
@@ -176,21 +212,28 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					_pDocMap->setTemporarilyShowing(true);
 				}
 			}
-			*/
+
 			break;
 		}
 
 		case TCN_MOUSELEAVING:
 		{
-			/*
-			if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
+			NppParameters *pNppParam = NppParameters::getInstance();
+			bool doPeekOnTab = pNppParam->getNppGUI()._isDocPeekOnTab;
+			bool doPeekOnMap = pNppParam->getNppGUI()._isDocPeekOnMap;
+
+			if (doPeekOnTab)
+			{
+				_documentPeeker.display(false);
+			}
+
+			if (doPeekOnMap && _pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 			{
 				_pDocMap->reloadMap();
 				_pDocMap->setSyntaxHiliting();
 
 				_pDocMap->setTemporarilyShowing(false);
 			}
-			*/
 			break;
 		}
 
@@ -287,7 +330,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		case TCN_TABDELETE:
 		{
-			int index = tabNotification->tabOrigin;
+			int index = tabNotification->_tabOrigin;
 			BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
 			Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
 			int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
@@ -316,6 +359,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else
 				break;
 
+			// save map position before switch to a new document
+			_documentPeeker.saveCurrentSnapshot(*_pEditView);
+
 			switchEditViewTo(iView);
 			BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
 			if (bufid != BUFFER_INVALID)
@@ -324,6 +370,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				activateBuffer(bufid, iView);
 				_isFolding = false;
 			}
+			_documentPeeker.display(false);
 			break;
 		}
 
@@ -468,7 +515,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (!_tabPopupMenu.isCreated())
 			{
-				std::vector<MenuItemUnit> itemUnitArray;
+				// IMPORTANT: If list below is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
+                std::vector<MenuItemUnit> itemUnitArray;
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left")));
@@ -483,6 +531,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_FOLDER, TEXT("Open Containing Folder in Explorer")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_CMD, TEXT("Open Containing Folder in cmd")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_OPEN_DEFAULT_VIEWER, TEXT("Open in Default Viewer")));
+				itemUnitArray.push_back(MenuItemUnit(0, NULL));
 				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY,   TEXT("Read-Only")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear Read-Only Flag")));
 				itemUnitArray.push_back(MenuItemUnit(0, NULL));
@@ -494,6 +544,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to Other View")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in New Instance")));
+				// IMPORTANT: If list above is modified, you have to change the value of tabContextMenuItemPos[] in localization.cpp file
 
 				_tabPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
 				_nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());
@@ -513,6 +564,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			bool isFileExisting = PathFileExists(buf->getFullPathName()) != FALSE;
 			_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 			_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
+
+			_tabPopupMenu.enableItem(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(buf->getFullPathName()));
 
 			bool isDirty = buf->isDirty();
 			bool isUntitled = buf->isUntitled();
@@ -934,7 +987,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return FALSE;
 
 			// Get the style and make sure it is a hotspot
-			auto style = notifyView->execute(SCI_GETSTYLEAT, notification->position);
+			uint8_t style = static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, notification->position));
 			if (not notifyView->execute(SCI_STYLEGETHOTSPOT, style))
 				break;
 
@@ -943,9 +996,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			docLen = notifyView->getCurrentDocLen();
 
 			// Walk backwards/forwards to get the contiguous text in the same style
-			while (startPos > 0 && notifyView->execute(SCI_GETSTYLEAT, startPos - 1) == style)
+			while (startPos > 0 && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, startPos - 1)) == style)
 				startPos--;
-			while (endPos < docLen && notifyView->execute(SCI_GETSTYLEAT, endPos) == style)
+			while (endPos < docLen && static_cast<uint8_t>(notifyView->execute(SCI_GETSTYLEAT, endPos)) == style)
 				endPos++;
 
 			// Select the entire link

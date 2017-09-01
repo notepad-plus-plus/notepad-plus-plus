@@ -212,7 +212,7 @@ tTbData* DockingCont::findToolbarByName(TCHAR* pszName)
 
 void DockingCont::setActiveTb(tTbData* pTbData)
 {
-	int iItem = SearchPosInTab(pTbData);
+	int iItem = searchPosInTab(pTbData);
 	setActiveTb(iItem);
 }
 
@@ -221,7 +221,7 @@ void DockingCont::setActiveTb(int iItem)
 	//if ((iItem != -1) && (iItem < ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0)))
 	if (iItem < ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0))
 	{
-		SelectTab(iItem);
+		selectTab(iItem);
 	}
 }
 
@@ -658,7 +658,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			info.pt.y = HIWORD(lParam);
 			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
-			SelectTab(iItem);
+			selectTab(iItem);
 			_beginDrag = FALSE;
 			return TRUE;
 		}
@@ -678,7 +678,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 			info.pt.y = HIWORD(lParam);
 			iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
-			SelectTab(iItem);
+			selectTab(iItem);
 
 			// get data and hide toolbar
 			tcItem.mask		= TCIF_PARAM;
@@ -707,7 +707,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 			if ((_beginDrag == TRUE) && (wParam == MK_LBUTTON))
 			{
-				SelectTab(iItem);
+				selectTab(iItem);
 
 				// send moving message to parent window
 				_dragFromTab = TRUE;
@@ -811,7 +811,7 @@ LRESULT DockingCont::runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 				info.pt.y = HIWORD(lParam);
 				iItem = static_cast<int32_t>(::SendMessage(hwnd, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&info)));
 
-				SelectTab(iItem);
+				selectTab(iItem);
 			}
 			break;
 		}
@@ -1146,7 +1146,7 @@ void DockingCont::doClose()
 		TCITEM		tcItem		= {0};
 
 		// get item data
-		SelectTab(iItemOff);
+		selectTab(iItemOff);
 		tcItem.mask	= TCIF_PARAM;
 		::SendMessage(_hContTab, TCM_GETITEM, iItemOff, reinterpret_cast<LPARAM>(&tcItem));
 		if (!tcItem.lParam)
@@ -1186,7 +1186,7 @@ void DockingCont::showToolbar(tTbData* pTbData, BOOL state)
 
 int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 {
-	int iItem = SearchPosInTab(pTbData);
+	int iItem = searchPosInTab(pTbData);
 
 	// delete item
 	if (TRUE == ::SendMessage(_hContTab, TCM_DELETEITEM, iItem, 0))
@@ -1206,7 +1206,7 @@ int DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 
 			// activate new selected item and view plugin dialog
 			_prevItem = iItem;
-			SelectTab(iItem);
+			selectTab(iItem);
 
 			// hide tabs if only one element
 			if (iItemCnt == 1)
@@ -1256,7 +1256,7 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 	}
 
 	// create new tab if it not exists
-	int iTabPos = SearchPosInTab(pTbData);
+	int iTabPos = searchPosInTab(pTbData);
 	tcItem.mask			= TCIF_PARAM;
 	tcItem.lParam = reinterpret_cast<LPARAM>(pTbData);
 
@@ -1264,13 +1264,13 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 	{
 		// set only params and text even if icon available
 		::SendMessage(_hContTab, TCM_INSERTITEM, iItemCnt, reinterpret_cast<LPARAM>(&tcItem));
-		SelectTab(iItemCnt);
+		selectTab(iItemCnt);
 	}
 	// if exists select it and update data
 	else
 	{
 		::SendMessage(_hContTab, TCM_SETITEM, iTabPos, reinterpret_cast<LPARAM>(&tcItem));
-		SelectTab(iTabPos);
+		selectTab(iTabPos);
 	}
 
 	// show dialog and notify parent to update dialog view
@@ -1284,7 +1284,7 @@ void DockingCont::viewToolbar(tTbData *pTbData)
 	onSize();
 }
 
-int DockingCont::SearchPosInTab(tTbData* pTbData)
+int DockingCont::searchPosInTab(tTbData* pTbData)
 {
 	TCITEM tcItem = {0};
 	int iItemCnt = static_cast<int32_t>(::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0));
@@ -1303,7 +1303,7 @@ int DockingCont::SearchPosInTab(tTbData* pTbData)
 	return -1;
 }
 
-void DockingCont::SelectTab(int iTab)
+void DockingCont::selectTab(int iTab)
 {
 	if (iTab != -1)
 	{

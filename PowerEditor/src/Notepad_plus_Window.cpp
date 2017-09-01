@@ -297,6 +297,12 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	// Make this call later to take effect
 	::SendMessage(_hSelf, NPPM_INTERNAL_SETWORDCHARS, 0, 0);
+
+	if (pNppParams->doFunctionListExport())
+		::SendMessage(_hSelf, NPPM_INTERNAL_EXPORTFUNCLISTANDQUIT, 0, 0);
+
+	if (pNppParams->doPrintAndExit())
+		::SendMessage(_hSelf, NPPM_INTERNAL_PRNTANDQUIT, 0, 0);
 }
 
 

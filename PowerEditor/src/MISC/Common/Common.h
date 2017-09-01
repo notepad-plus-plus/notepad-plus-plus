@@ -115,6 +115,11 @@ protected:
 	WcharMbcsConvertor() {}
 	~WcharMbcsConvertor() {}
 
+	// Since there's no public ctor, we need to void the default assignment operator and copy ctor.
+	// Since these are marked as deleted does not matter under which access specifier are kept
+	WcharMbcsConvertor(const WcharMbcsConvertor&) = delete;
+	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&) = delete;
+
 	static WcharMbcsConvertor* _pSelf;
 
 	template <class T>
@@ -154,10 +159,6 @@ protected:
 
 	StringBuffer<char> _multiByteStr;
 	StringBuffer<wchar_t> _wideCharStr;
-
-private:
-	// Since there's no public ctor, we need to void the default assignment operator.
-	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&);
 };
 
 
@@ -165,11 +166,7 @@ private:
 #define MACRO_RECORDING_IN_PROGRESS 1
 #define MACRO_RECORDING_HAS_STOPPED 2
 
-#if _MSC_VER > 1400 // MS Compiler > VS 2005
-#define REBARBAND_SIZE REBARBANDINFO_V3_SIZE
-#else
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
-#endif
 
 generic_string PathRemoveFileSpec(generic_string & path);
 generic_string PathAppend(generic_string &strDest, const generic_string & str2append);
@@ -191,3 +188,4 @@ generic_string uintToString(unsigned int val);
 HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
 
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
+bool isAssoCommandExisting(LPCTSTR FullPathName);

@@ -897,6 +897,8 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DETECTENCODING, BM_SETCHECK, nppGUI._detectEncoding, 0);
             ::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL, BM_SETCHECK, nppGUI._backSlashIsEscapeCharacterForSql, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKER, BM_SETCHECK, nppGUI._isDocPeekOnTab ? BST_CHECKED : BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCPEEKONMAP, BM_SETCHECK, nppGUI._isDocPeekOnMap ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
 			
@@ -1076,6 +1078,18 @@ INT_PTR CALLBACK SettingsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL :
 				{
 					nppGUI._backSlashIsEscapeCharacterForSql = isCheckedOrNot(IDC_CHECK_BACKSLASHISESCAPECHARACTERFORSQL);
+					return TRUE;
+				}
+
+				case IDC_CHECK_ENABLEDOCPEEKER:
+				{
+					nppGUI._isDocPeekOnTab = isCheckedOrNot(IDC_CHECK_ENABLEDOCPEEKER);
+					return TRUE;
+				}
+
+				case IDC_CHECK_ENABLEDOCPEEKONMAP:
+				{
+					nppGUI._isDocPeekOnMap = isCheckedOrNot(IDC_CHECK_ENABLEDOCPEEKONMAP);
 					return TRUE;
 				}
 			}
@@ -1601,16 +1615,6 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				// Lang Menu
 				if (LOWORD(wParam) == IDC_LIST_DISABLEDLANG || LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
 				{
-					HWND hEnableList = ::GetDlgItem(_hSelf, IDC_LIST_ENABLEDLANG);
-					HWND hDisableList = ::GetDlgItem(_hSelf, IDC_LIST_DISABLEDLANG);
-					if (HIWORD(wParam) == LBN_DBLCLK)
-					{
-						if (HWND(lParam) == hEnableList)
-							::SendMessage(_hSelf, WM_COMMAND, IDC_BUTTON_REMOVE, 0);
-						else if (HWND(lParam) == hDisableList)
-							::SendMessage(_hSelf, WM_COMMAND, IDC_BUTTON_RESTORE, 0);
-						return TRUE;
-					}
 					int idButton2Enable;
 					int idButton2Disable;
 
@@ -1685,6 +1689,27 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 
             }
+
+			// Check if it is double click
+			else if (HIWORD(wParam) == LBN_DBLCLK)
+			{
+				// Lang Menu
+				if (LOWORD(wParam) == IDC_LIST_DISABLEDLANG || LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
+				{
+					// On double click an item, the item should be moved
+					// from one list to other list
+
+					HWND(lParam) == ::GetDlgItem(_hSelf, IDC_LIST_ENABLEDLANG) ?
+						::SendMessage(_hSelf, WM_COMMAND, IDC_BUTTON_REMOVE, 0) :
+						::SendMessage(_hSelf, WM_COMMAND, IDC_BUTTON_RESTORE, 0);
+					return TRUE;
+				}
+
+				// Tab setting - Double click is not used at this moment
+				/*else if (LOWORD(wParam) == IDC_LIST_TABSETTNG)
+				{
+				}*/
+			}
 
 			switch (wParam)
             {
@@ -1778,7 +1803,17 @@ INT_PTR CALLBACK LangMenuDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						HMENU menu = HMENU(::SendMessage(grandParent, NPPM_INTERNAL_GETMENU, 0, 0));
 						HMENU subMenu = ::GetSubMenu(menu, MENUINDEX_LANGUAGE);
-						::InsertMenu(subMenu, static_cast<int32_t>(iAdd - 1), MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
+
+						// Add back a languge menu item always before the 3 last items:
+						// 1. -----------------------
+						// 2. Define your language...
+						// 3. User-Defined
+						int nbItem = ::GetMenuItemCount(subMenu);
+
+						if (nbItem < 3)
+							return FALSE;
+
+						::InsertMenu(subMenu, nbItem - 3, MF_BYPOSITION, lmi._cmdID, lmi._langName.c_str());
 					}
 					::DrawMenuBar(grandParent);
 					return TRUE;

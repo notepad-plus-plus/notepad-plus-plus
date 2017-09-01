@@ -70,6 +70,7 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_NEW:
 		{
 			fileNew();
+
 			/*
 			bool isFirstTime = not _pluginsAdminDlg.isCreated();
 			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
@@ -104,6 +105,34 @@ void Notepad_plus::command(int id)
 		}
 		break;
 		
+		case IDM_FILE_OPEN_DEFAULT_VIEWER:
+		{
+			// Opens file in its default viewer. 
+            // Has the same effect as double–clicking this file in Windows Explorer.
+            BufferID buf = _pEditView->getCurrentBufferID();
+			HINSTANCE res = ::ShellExecute(NULL, TEXT("open"), buf->getFullPathName(), NULL, NULL, SW_SHOW);
+
+			// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
+			// If the function succeeds, it returns a value greater than 32.
+			// If the function fails, it returns an error value that indicates the cause of the failure.
+			int retResult = reinterpret_cast<int>(res);
+			if (retResult <= 32)
+			{
+				generic_string errorMsg;
+				errorMsg += GetLastErrorAsString(retResult);
+				errorMsg += TEXT("An attempt was made to execute the below command.");
+				errorMsg += TEXT("\n----------------------------------------------------------");
+				errorMsg += TEXT("\nCommand: ");
+				errorMsg += buf->getFullPathName();
+				errorMsg += TEXT("\nError Code: ");
+				errorMsg += intToString(retResult);
+				errorMsg += TEXT("\n----------------------------------------------------------");
+				
+				::MessageBox(_pPublicInterface->getHSelf(), errorMsg.c_str(), TEXT("ShellExecute - ERROR"), MB_ICONINFORMATION | MB_APPLMODAL);
+			}
+		}
+		break;
+
 		case IDM_FILE_OPENFOLDERASWORSPACE:
 		{
 			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), TEXT("Select a folder to add in Folder as Workspace panel"));
@@ -1936,13 +1965,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_MONITORING:
 		{
-			static HANDLE hThread = nullptr;
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
 			if (curBuf->isMonitoringOn())
 			{
 				curBuf->stopMonitoring();
-				::CloseHandle(hThread);
-				hThread = nullptr;
 				checkMenuItem(IDM_VIEW_MONITORING, false);
 				_toolBar.setCheck(IDM_VIEW_MONITORING, false);
 				curBuf->setUserReadOnly(false);
@@ -1962,7 +1988,8 @@ void Notepad_plus::command(int id)
 						curBuf->setUserReadOnly(true);
 						
 						MonitorInfo *monitorInfo = new MonitorInfo(curBuf, _pPublicInterface->getHSelf());
-						hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
+						HANDLE hThread = ::CreateThread(NULL, 0, monitorFileOnChange, (void *)monitorInfo, 0, NULL); // will be deallocated while quitting thread
+						::CloseHandle(hThread);
 						checkMenuItem(IDM_VIEW_MONITORING, true);
 						_toolBar.setCheck(IDM_VIEW_MONITORING, true);
 					}
@@ -2438,7 +2465,6 @@ void Notepad_plus::command(int id)
 
         case IDM_SETTING_EDITCONTEXTMENU :
         {
-			generic_string warning, title;
 			_nativeLangSpeaker.messageBox("ContextMenuXmlEditWarning",
 				_pPublicInterface->getHSelf(),
 				TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu on edit zone.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."),
@@ -2572,6 +2598,7 @@ void Notepad_plus::command(int id)
 					return;
 				}
 			}
+
 			if (doAboutDlg)
 			{
 				bool isFirstTime = !_aboutDlg.isCreated();
@@ -2785,9 +2812,34 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_SREC:
 		case IDM_LANG_IHEX:
 		case IDM_LANG_TEHEX:
+		case IDM_LANG_SWIFT:
+        case IDM_LANG_ASN1 :
+        case IDM_LANG_AVS :
+        case IDM_LANG_BLITZBASIC :
+        case IDM_LANG_PUREBASIC :
+        case IDM_LANG_FREEBASIC :
+        case IDM_LANG_CSOUND :
+        case IDM_LANG_ERLANG :
+        case IDM_LANG_ESCRIPT :
+        case IDM_LANG_FORTH :
+        case IDM_LANG_LATEX :
+        case IDM_LANG_MMIXAL :
+        case IDM_LANG_NIMROD :
+        case IDM_LANG_NNCRONTAB :
+        case IDM_LANG_OSCRIPT :
+        case IDM_LANG_REBOL :
+        case IDM_LANG_REGISTRY :
+        case IDM_LANG_RUST :
+        case IDM_LANG_SPICE :
+        case IDM_LANG_TXT2TAGS :
+        case IDM_LANG_VISUALPROLOG:
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));
+			// Manually set language, don't change language even file extension changes.
+			Buffer *buffer = _pEditView->getCurrentBuffer();
+			buffer->langHasBeenSetFromMenu();
+
 			if (_pDocMap)
 			{
 				_pDocMap->setSyntaxHiliting();

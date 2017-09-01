@@ -284,12 +284,12 @@
                     <Item id="10004" name="Megnyitás egy új program példányban is"/>
 
                     <Item id="46001" name="Stílusok beállításai..."/>
-                    <Item id="46150" name="Egyéni nyelv beállítása..."/>
+                    <Item id="46250" name="Egyéni nyelv beállítása..."/>
                     <Item id="46015" name="MS-DOS stílus"/>
                     <Item id="46016" name="Normál szöveg"/>
                     <Item id="46017" name="RC erőforrás fájl"/>
                     <Item id="46019" name="MS INI fájl"/>
-                    <Item id="46080" name="Egyéni nyelv"/>
+                    <Item id="46180" name="Egyéni nyelv"/>
                     <Item id="47000" name="Névjegy..."/>
                     <Item id="47010" name="Parancssori kapcsolók..."/>
                     <Item id="47001" name="Notepad++ honlapja"/>

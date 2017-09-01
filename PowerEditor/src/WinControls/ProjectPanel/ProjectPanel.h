@@ -26,14 +26,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef PROJECTPANEL_H
-#define  PROJECTPANEL_H
+#pragma once
 
-//#include <windows.h>
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "TreeView.h"
 #include "ProjectPanel_rc.h"
 
@@ -68,6 +63,7 @@ enum NodeType {
 };
 
 class TiXmlNode;
+class FileDialog;
 
 class ProjectPanel : public DockingDlgInterface {
 public:
@@ -110,7 +106,7 @@ public:
 
 protected:
 	TreeView _treeView;
-	HIMAGELIST _hImaLst;
+	HIMAGELIST _hImaLst = nullptr;
 	HWND _hToolbarMenu = nullptr;
 	HMENU _hWorkSpaceMenu = nullptr;
 	HMENU _hProjectMenu = nullptr;
@@ -141,6 +137,7 @@ protected:
 	void showContextMenu(int x, int y);
 	generic_string getAbsoluteFilePath(const TCHAR * relativePath);
 	void openSelectFile();
+	void setFileExtFilter(FileDialog & fDlg);
 };
 
 class FileRelocalizerDlg : public StaticDialog
@@ -167,5 +164,3 @@ private :
 	generic_string _fullFilePath;
 
 };
-
-#endif // PROJECTPANEL_H

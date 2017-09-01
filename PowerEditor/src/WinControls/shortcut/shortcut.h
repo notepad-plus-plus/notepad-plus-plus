@@ -32,6 +32,7 @@
 #include "Scintilla.h"
 #include "StaticDialog.h"
 #include "Common.h"
+#include "menuCmdID.h"
 
 const size_t nameLenMax = 64;
 
@@ -193,12 +194,14 @@ protected :
 		 
 class CommandShortcut : public Shortcut {
 public:
-	CommandShortcut(Shortcut sc, long id) :	Shortcut(sc), _id(id) {};
+	CommandShortcut(Shortcut sc, long id);
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
+	const TCHAR * getCategory() const { return _category.c_str(); };
 
 private :
 	unsigned long _id;
+	generic_string _category;
 };
 
 
@@ -388,7 +391,6 @@ public:
 	ScintillaAccelerator() {};
 	void init(std::vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent);
 	void updateKeys();
-	void updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skm);
 	size_t nbScintillas() { return _vScintillas.size(); };
 private:
 	HMENU _hAccelMenu = nullptr;

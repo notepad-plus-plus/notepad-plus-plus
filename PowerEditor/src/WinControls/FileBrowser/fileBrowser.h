@@ -172,7 +172,7 @@ public:
 
 protected:
 	TreeView _treeView;
-	HIMAGELIST _hImaLst;
+	HIMAGELIST _hImaLst = nullptr;
 
 	HMENU _hGlobalMenu = NULL;
 	HMENU _hRootMenu = NULL;
@@ -186,7 +186,6 @@ protected:
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
-	POINT getMenuDisplayPoint(int iButton);
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);

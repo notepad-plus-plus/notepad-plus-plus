@@ -323,19 +323,31 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 	TiXmlDocument *pXmlDocProject = new TiXmlDocument(projectFileName);
 	bool loadOkay = pXmlDocProject->LoadFile();
 	if (!loadOkay)
+	{
+		delete pXmlDocProject;
 		return false;
+	}
 
 	TiXmlNode *root = pXmlDocProject->FirstChild(TEXT("NotepadPlus"));
 	if (!root) 
+	{
+		delete pXmlDocProject;
 		return false;
+	}
 
 
 	TiXmlNode *childNode = root->FirstChildElement(TEXT("Project"));
 	if (!childNode) 
+	{
+		delete pXmlDocProject;
 		return false;
+	}
 
 	if (!::PathFileExists(projectFileName))
+	{
+		delete pXmlDocProject;
 		return false;
+	}
 
 	_treeView.removeAllItems();
 	_workSpaceFilePath = projectFileName;
@@ -917,7 +929,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			}
 
 			FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
-			fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+			setFileExtFilter(fDlg);
 			if (TCHAR *fn = fDlg.doOpenSingleFileDlg())
 			{
 				if (!openWorkSpace(fn))
@@ -1043,7 +1055,8 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
 {
 	FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
-	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+	setFileExtFilter(fDlg);
+	fDlg.setExtIndex(0);		// 0 index for "custom extention" type if any else for "All types *.*"
 
 	if (TCHAR *fn = fDlg.doSaveDlg())
 	{
@@ -1056,6 +1069,20 @@ bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
 		return true;
 	}
 	return false;
+}
+
+void ProjectPanel::setFileExtFilter(FileDialog & fDlg)
+{
+	const TCHAR *ext = NppParameters::getInstance()->getNppGUI()._definedWorkspaceExt.c_str();
+	generic_string workspaceExt = TEXT("");
+	if (*ext != '\0')
+	{
+		if (*ext != '.')
+			workspaceExt += TEXT(".");
+		workspaceExt += ext;
+		fDlg.setExtFilter(TEXT("Workspace file"), workspaceExt.c_str(), NULL);
+	}
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 }
 
 void ProjectPanel::addFiles(HTREEITEM hTreeItem)

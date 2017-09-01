@@ -108,11 +108,13 @@ void ShortcutMapper::initBabyGrid() {
 	
 	_babygrid.reSizeToWH(rect);
 	_babygrid.hideCursor();
-	_babygrid.makeColAutoWidth();
+	_babygrid.makeColAutoWidth(false);
 	_babygrid.setAutoRow(false);
 	_babygrid.setColsNumbered(false);
 	_babygrid.setColWidth(0, NppParameters::getInstance()->_dpiManager.scaleX(30));
-	_babygrid.setColWidth(1, NppParameters::getInstance()->_dpiManager.scaleX(250));
+	_babygrid.setColWidth(1, NppParameters::getInstance()->_dpiManager.scaleX(290));
+	_babygrid.setColWidth(2, NppParameters::getInstance()->_dpiManager.scaleX(140));
+	_babygrid.setColWidth(3, NppParameters::getInstance()->_dpiManager.scaleX(40));
 	_babygrid.setHeaderHeight(NppParameters::getInstance()->_dpiManager.scaleY(21));
 	_babygrid.setRowHeight(NppParameters::getInstance()->_dpiManager.scaleY(21));
 
@@ -128,40 +130,42 @@ void ShortcutMapper::fillOutBabyGrid()
 	_babygrid.clear();
 	_babygrid.setInitialContent(true);
 
-	size_t nrItems = 0;
-
-	switch(_currentState) {
-		case STATE_MENU: {
-			nrItems = nppParam->getUserShortcuts().size();
-			_babygrid.setLineColNumber(nrItems, 2);
-			break; }
-		case STATE_MACRO: {
-			nrItems = nppParam->getMacroList().size();
-			_babygrid.setLineColNumber(nrItems, 2);
-			break; }
-		case STATE_USER: {
-			nrItems = nppParam->getUserCommandList().size();
-			_babygrid.setLineColNumber(nrItems, 2);
-			break; }
-		case STATE_PLUGIN: {
-			nrItems = nppParam->getPluginCommandList().size();
-			_babygrid.setLineColNumber(nrItems, 2);
-			break; }
-		case STATE_SCINTILLA: {
-			nrItems = nppParam->getScintillaKeyList().size();
-			_babygrid.setLineColNumber(nrItems, 2);
-			break; }
-	}
+	size_t nbItems = 0;
 
 	_babygrid.setText(0, 1, TEXT("Name"));
 	_babygrid.setText(0, 2, TEXT("Shortcut"));
+	
+	switch(_currentState) {
+		case STATE_MENU: {
+			nbItems = nppParam->getUserShortcuts().size();
+			_babygrid.setLineColNumber(nbItems, 3);
+			_babygrid.setText(0, 3, TEXT("Category"));
+			break; }
+		case STATE_MACRO: {
+			nbItems = nppParam->getMacroList().size();
+			_babygrid.setLineColNumber(nbItems, 2);
+			break; }
+		case STATE_USER: {
+			nbItems = nppParam->getUserCommandList().size();
+			_babygrid.setLineColNumber(nbItems, 2);
+			break; }
+		case STATE_PLUGIN: {
+			nbItems = nppParam->getPluginCommandList().size();
+			_babygrid.setLineColNumber(nbItems, 3);
+			_babygrid.setText(0, 3, TEXT("Plugin"));
+			break; }
+		case STATE_SCINTILLA: {
+			nbItems = nppParam->getScintillaKeyList().size();
+			_babygrid.setLineColNumber(nbItems, 2);
+			break; }
+	}
 
 	bool isMarker = false;
 
 	switch(_currentState) {
 		case STATE_MENU: {
 			vector<CommandShortcut> & cshortcuts = nppParam->getUserShortcuts();
-			for(size_t i = 0; i < nrItems; ++i)
+			for(size_t i = 0; i < nbItems; ++i)
 			{
 				if (findKeyConflicts(nullptr, cshortcuts[i].getKeyCombo(), i))
 					isMarker = _babygrid.setMarker(true);
@@ -169,7 +173,7 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				if (cshortcuts[i].isEnabled()) //avoid empty strings for better performance
 					_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
-
+				_babygrid.setText(i+1, 3, cshortcuts[i].getCategory());
 				if (isMarker)
 					isMarker = _babygrid.setMarker(false);
 			}
@@ -179,7 +183,7 @@ void ShortcutMapper::fillOutBabyGrid()
 			break; }
 		case STATE_MACRO: {
 			vector<MacroShortcut> & cshortcuts = nppParam->getMacroList();
-			for(size_t i = 0; i < nrItems; ++i)
+			for(size_t i = 0; i < nbItems; ++i)
 			{
 				if (findKeyConflicts(nullptr, cshortcuts[i].getKeyCombo(), i))
 					isMarker = _babygrid.setMarker(true);
@@ -191,14 +195,14 @@ void ShortcutMapper::fillOutBabyGrid()
 				if (isMarker)
 					isMarker = _babygrid.setMarker(false);
 			}
-            bool shouldBeEnabled = nrItems > 0;
+            bool shouldBeEnabled = nbItems > 0;
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
 			break; }
 		case STATE_USER: {
 			vector<UserCommand> & cshortcuts = nppParam->getUserCommandList();
-			for(size_t i = 0; i < nrItems; ++i)
+			for(size_t i = 0; i < nbItems; ++i)
 			{
 				if (findKeyConflicts(nullptr, cshortcuts[i].getKeyCombo(), i))
 					isMarker = _babygrid.setMarker(true);
@@ -210,14 +214,14 @@ void ShortcutMapper::fillOutBabyGrid()
 				if (isMarker)
 					isMarker = _babygrid.setMarker(false);
 			}
-            bool shouldBeEnabled = nrItems > 0;
+            bool shouldBeEnabled = nbItems > 0;
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
 			break; }
 		case STATE_PLUGIN: {
 			vector<PluginCmdShortcut> & cshortcuts = nppParam->getPluginCommandList();
-			for(size_t i = 0; i < nrItems; ++i)
+			for(size_t i = 0; i < nbItems; ++i)
 			{
 				if (findKeyConflicts(nullptr, cshortcuts[i].getKeyCombo(), i))
 					isMarker = _babygrid.setMarker(true);
@@ -225,18 +229,19 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				if (cshortcuts[i].isEnabled()) //avoid empty strings for better performance
 					_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
+				_babygrid.setText(i+1, 3, cshortcuts[i].getModuleName());
 
 				if (isMarker)
 					isMarker = _babygrid.setMarker(false);
 			}
-            bool shouldBeEnabled = nrItems > 0;
+            bool shouldBeEnabled = nbItems > 0;
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_CLEAR), shouldBeEnabled);
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 		case STATE_SCINTILLA: {
 			vector<ScintillaKeyMap> & cshortcuts = nppParam->getScintillaKeyList();
-			for(size_t i = 0; i < nrItems; ++i)
+			for(size_t i = 0; i < nbItems; ++i)
 			{
 				if (cshortcuts[i].isEnabled())
 				{
@@ -263,7 +268,7 @@ void ShortcutMapper::fillOutBabyGrid()
             ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 	}
-	if (nrItems > 0)
+	if (nbItems > 0)
 		//restore the last view
 		_babygrid.setLastView(_lastHomeRow[_currentState], _lastCursorRow[_currentState]);
 	else
@@ -882,8 +887,8 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 			case STATE_MENU:
 			{
 				vector<CommandShortcut> & vShortcuts = nppParam->getUserShortcuts();
-				size_t nrItems = vShortcuts.size();
-				for (size_t itemIndex = 0; itemIndex < nrItems; ++itemIndex)
+				size_t nbItems = vShortcuts.size();
+				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
 					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;
@@ -916,8 +921,8 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 			case STATE_MACRO:
 			{
 				vector<MacroShortcut> & vShortcuts = nppParam->getMacroList();
-				size_t nrItems = vShortcuts.size();
-				for (size_t itemIndex = 0; itemIndex < nrItems; ++itemIndex)
+				size_t nbItems = vShortcuts.size();
+				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
 					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;
@@ -950,8 +955,8 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 			case STATE_USER:
 			{
 				vector<UserCommand> & vShortcuts = nppParam->getUserCommandList();
-				size_t nrItems = vShortcuts.size();
-				for (size_t itemIndex = 0; itemIndex < nrItems; ++itemIndex)
+				size_t nbItems = vShortcuts.size();
+				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
 					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;
@@ -984,8 +989,8 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 			case STATE_PLUGIN:
 			{
 				vector<PluginCmdShortcut> & vShortcuts = nppParam->getPluginCommandList();
-				size_t nrItems = vShortcuts.size();
-				for (size_t itemIndex = 0; itemIndex < nrItems; ++itemIndex)
+				size_t nbItems = vShortcuts.size();
+				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
 					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;
@@ -1018,8 +1023,8 @@ bool ShortcutMapper::findKeyConflicts(__inout_opt generic_string * const keyConf
 			case STATE_SCINTILLA:
 			{
 				vector<ScintillaKeyMap> & vShortcuts = nppParam->getScintillaKeyList();
-				size_t nrItems = vShortcuts.size();
-				for (size_t itemIndex = 0; itemIndex < nrItems; ++itemIndex)
+				size_t nbItems = vShortcuts.size();
+				for (size_t itemIndex = 0; itemIndex < nbItems; ++itemIndex)
 				{
 					if (not vShortcuts[itemIndex].isEnabled()) //no key assignment
 						continue;

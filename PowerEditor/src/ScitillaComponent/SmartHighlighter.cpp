@@ -46,8 +46,8 @@ void SmartHighlighter::highlightViewWithWord(ScintillaEditView * pHighlightView,
 	// Get the range of text visible and highlight everything in it
 	auto firstLine = static_cast<int>(pHighlightView->execute(SCI_GETFIRSTVISIBLELINE));
 	auto nbLineOnScreen = pHighlightView->execute(SCI_LINESONSCREEN);
-	auto nrLines = min(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
-	auto lastLine = firstLine + nrLines;
+	auto nbLines = min(nbLineOnScreen, MAXLINEHIGHLIGHT) + 1;
+	auto lastLine = firstLine + nbLines;
 	int startPos = 0;
 	int endPos = 0;
 	auto currentLine = firstLine;
@@ -130,7 +130,6 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;
-	bool isCaseSensentive = true;
 
 	if (nppGUI._smartHiliteUseFindSettings)
 	{
@@ -138,12 +137,10 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 		NppParameters *nppParams = NppParameters::getInstance();
 		FindHistory &findHistory = nppParams->getFindHistory();
 		isWordOnly = findHistory._isMatchWord;
-		isCaseSensentive = findHistory._isMatchCase;
 	}
 	else
 	{
 		isWordOnly = nppGUI._smartHiliteWordOnly;
-		isCaseSensentive = nppGUI._smartHiliteCaseSensitive;
 	}
 
 	// additional checks for wordOnly mode

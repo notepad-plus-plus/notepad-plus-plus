@@ -177,7 +177,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			generic_string name{userLangName};
 
 			//loop through buffers and reset the language (L_USER, TEXT("")) if (L_USER, name)
-			for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 			{
 				Buffer* buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && name == buf->getUserDefineLangName())
@@ -195,7 +195,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			generic_string newName{ reinterpret_cast<TCHAR *>(wParam) };
 
 			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
-			for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+			for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 			{
 				Buffer* buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && oldName == buf->getUserDefineLangName())
@@ -468,6 +468,25 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			_pluginsManager.notify(&scnN);
 			return TRUE;
 		}
+
+		case NPPM_INTERNAL_EXPORTFUNCLISTANDQUIT:
+		{
+			checkMenuItem(IDM_VIEW_FUNC_LIST, true);
+			_toolBar.setCheck(IDM_VIEW_FUNC_LIST, true);
+			launchFunctionList();
+			_pFuncList->setClosed(false);
+			_pFuncList->serialize();
+
+			::PostMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_FILE_EXIT, 0);
+		}
+		break;
+
+		case NPPM_INTERNAL_PRNTANDQUIT:
+		{
+			::PostMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_FILE_PRINTNOW, 0);
+			::PostMessage(_pPublicInterface->getHSelf(), WM_COMMAND, IDM_FILE_EXIT, 0);
+		}
+		break;
 
 		case NPPM_DISABLEAUTOUPDATE:
 		{

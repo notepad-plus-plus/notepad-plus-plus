@@ -25,6 +25,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #pragma once
+#include <mutex>
+
 #include "Utf8_16.h"
 
 
@@ -74,7 +76,7 @@ public:
 	//void activateBuffer(int index);
 	void checkFilesystemChanges();
 
-	size_t getNrBuffers() { return _nrBufs; };
+	size_t getNbBuffers() { return _nbBufs; };
 	int getBufferIndexByID(BufferID id);
 	Buffer * getBufferByIndex(size_t index);
 	Buffer * getBufferByID(BufferID id) {return static_cast<Buffer*>(id);}
@@ -125,7 +127,7 @@ private:
 	Document _scratchDocDefault;
 	std::vector<Buffer*> _buffers;
 	BufferID _nextBufferID = 0;
-	size_t _nrBufs = 0;
+	size_t _nbBufs = 0;
 };
 
 #define MainFileManager FileManager::getInstance()
@@ -348,15 +350,15 @@ public:
 	bool isMonitoringOn() const { return _isMonitoringOn; };
 	void updateTimeStamp();
 	void reload();
+	void setMapPosition(const MapPosition & mapPosition) { _mapPosition = mapPosition; };
+	MapPosition getMapPosition() const { return _mapPosition; };
 
-	void setMapPosition(int32_t firstVisibleDocLine, int32_t lastVisibleDocLine, int32_t nbLine, int32_t higherPos);
-	MapPosition getMapPosition() { return _mapPosition; };
+	void langHasBeenSetFromMenu() { _hasLangBeenSetFromMenu = true; };
 
 private:
 	int indexOfReference(const ScintillaEditView * identifier) const;
 
-	void setStatus(DocFileStatus status)
-	{
+	void setStatus(DocFileStatus status) {
 		_currentStatus = status;
 		doNotify(BufferChangeStatus);
 	}
@@ -410,5 +412,9 @@ private:
 	HANDLE _eventHandle = nullptr;
 	bool _isMonitoringOn = false;
 
+	bool _hasLangBeenSetFromMenu = false;
+
 	MapPosition _mapPosition;
+
+	std::mutex _reloadFromDiskRequestGuard;
 };

@@ -44,6 +44,8 @@ class LastRecentFileList
 public:
 	LastRecentFileList() {
 		_userMax = (NppParameters::getInstance())->getNbMaxRecentFile();
+		for (int i = 0; i < NB_MAX_LRF_FILE; i++)
+			_idFreeArray[i] = false;
 	};
 
 	void initMenu(HMENU hMenu, int idBase, int posBase, Accelerator *accelerator, bool doSubMenu = false);

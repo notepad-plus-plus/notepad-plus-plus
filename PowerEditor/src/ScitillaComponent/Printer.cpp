@@ -38,7 +38,7 @@ void replaceStr(generic_string & str, generic_string str2BeReplaced, generic_str
 		str.replace(pos, str2BeReplaced.length(), replacement);
 }
 
-void Printer::init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos)
+void Printer::init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos, bool isRTL)
 {
 	_pSEView = pSEView;
 	_startPos = startPos;
@@ -72,6 +72,7 @@ void Printer::init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool 
 		// Don't display dialog box, just use the default printer and options
 		_pdlg.Flags |= PD_RETURNDEFAULT;
 	}
+	_isRTL = isRTL;
 }
 
 
@@ -342,6 +343,7 @@ size_t Printer::doPrint(bool justDoIt)
 	size_t pageNum = 1;
 	const TCHAR pageVar[] = TEXT("$(CURRENT_PRINTING_PAGE)");
 
+	_pSEView->execute(SCI_SETPRINTCOLOURMODE, nppGUI._printSettings._printOption); // setting mode once is enough
 	while (lengthPrinted < lengthDoc) 
 	{
 		bool printPage = (!(_pdlg.Flags & PD_PAGENUMS) ||
@@ -364,7 +366,7 @@ size_t Printer::doPrint(bool justDoIt)
 				::SetTextColor(_pdlg.hDC, RGB(0, 0, 0));
 				::SetBkColor(_pdlg.hDC, RGB(255, 255, 255));
 
-				UINT oldTASettings = ::SetTextAlign(_pdlg.hDC, TA_BOTTOM);
+				UINT oldTASettings = ::SetTextAlign(_pdlg.hDC, _isRTL ? TA_RTLREADING | TA_BOTTOM : TA_BOTTOM);
 				RECT rcw = {frPrint.rc.left, frPrint.rc.top - headerLineHeight - headerLineHeight / 2,
 							frPrint.rc.right, frPrint.rc.top - headerLineHeight / 2};
 				rcw.bottom = rcw.top + headerLineHeight;
@@ -422,7 +424,6 @@ size_t Printer::doPrint(bool justDoIt)
 		
 		frPrint.chrg.cpMin = lengthPrinted;
 		frPrint.chrg.cpMax = lengthDoc;
-		_pSEView->execute(SCI_SETPRINTCOLOURMODE, nppGUI._printSettings._printOption);
 		lengthPrinted = long(_pSEView->execute(SCI_FORMATRANGE, printPage, reinterpret_cast<LPARAM>(&frPrint)));
 
 		if (printPage) 
@@ -434,7 +435,7 @@ size_t Printer::doPrint(bool justDoIt)
 				::SetTextColor(_pdlg.hDC, RGB(0, 0, 0));
 				::SetBkColor(_pdlg.hDC, RGB(255, 255, 255));
 
-				UINT oldta = ::SetTextAlign(_pdlg.hDC, TA_TOP);
+				UINT oldta = ::SetTextAlign(_pdlg.hDC, _isRTL ? TA_RTLREADING | TA_TOP : TA_TOP);
 				RECT rcw = {frPrint.rc.left, frPrint.rc.bottom + footerLineHeight / 2,
 					        frPrint.rc.right, frPrint.rc.bottom + footerLineHeight + footerLineHeight / 2};
 

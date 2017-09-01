@@ -285,8 +285,8 @@
                     <Item id="46017" name="Plik zasobów"/>
                     <Item id="46019" name="Plik MS INI"/>
                     <Item id="46033" name="Assembler"/>
-                    <Item id="46080" name="Zdefiniowane przez użytkownika"/>
-                    <Item id="46150" name="Zdefiniuj własny język..."/>
+                    <Item id="46180" name="Zdefiniowane przez użytkownika"/>
+                    <Item id="46250" name="Zdefiniuj własny język..."/>
 
                     <Item id="47000" name="O programie..."/>
                     <Item id="47001" name="Strona główna programu"/>

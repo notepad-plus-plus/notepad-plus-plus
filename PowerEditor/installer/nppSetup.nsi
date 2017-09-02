@@ -91,24 +91,6 @@ page Custom ExtraOptions
 
 !include "nsisInclude\mainSectionFuncs.nsh"
 
-Section -"Notepad++" mainSection
-
-	Call setPathAndOptions
-	
-	${If} $diffArchDir2Remove != ""
-		!insertmacro uninstallRegKey
-		!insertmacro uninstallDir $diffArchDir2Remove 
-	${endIf}
-
-	Call copyCommonFiles
-
-	Call removeUnstablePlugins
-
-	Call removeOldContextMenu
-	
-	Call shortcutLinkManagement
-	
-SectionEnd
 
 !include "nsisInclude\langs4Npp.nsh"
 !include "nsisInclude\autoCompletion.nsh"
@@ -212,11 +194,32 @@ noDelete64:
 
 FunctionEnd
 
+
+Section -"Notepad++" mainSection
+
+	Call setPathAndOptions
+	
+	${If} $diffArchDir2Remove != ""
+		!insertmacro uninstallRegKey
+		!insertmacro uninstallDir $diffArchDir2Remove 
+	${endIf}
+
+	Call copyCommonFiles
+
+	Call removeUnstablePlugins
+
+	Call removeOldContextMenu
+	
+	Call shortcutLinkManagement
+	
+SectionEnd
+
+
 Function .onInstSuccess
 	${MementoSectionSave}
 FunctionEnd
 
 
-BrandingText "Don HO"
+BrandingText "Je code donc je suis"
 
 ; eof

@@ -228,7 +228,7 @@ bool VerifySignedLibrary(const wstring& filepath,
 		display_name = display_name_buffer.get();
 
 	} catch (wstring s) {
-		::MessageBox(NULL, TEXT("DLL signature verification failed"), s.c_str(), MB_ICONERROR);
+		::MessageBox(NULL, s.c_str(), TEXT("DLL signature verification failed"), MB_ICONERROR);
 		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
 		status = false;
 	} catch (...) {
@@ -236,7 +236,7 @@ bool VerifySignedLibrary(const wstring& filepath,
 		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
 		wstring errMsg(TEXT("Unknown exception occured. "));
 		errMsg += GetLastErrorAsString(GetLastError());
-		::MessageBox(NULL, TEXT("DLL signature verification failed"), errMsg.c_str(), MB_ICONERROR);
+		::MessageBox(NULL, errMsg.c_str(), TEXT("DLL signature verification failed"), MB_ICONERROR);
 		status = false;
 	}
 

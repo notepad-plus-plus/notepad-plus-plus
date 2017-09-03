@@ -5991,7 +5991,7 @@ struct Quote
 
 
 
-const int nbQuote = 210;
+const int nbQuote = 205;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
@@ -6113,7 +6113,6 @@ Quote quotes[nbQuote] =
 	{"Anonymous #86", "Farts are just the ghosts of the things we eat."},
 	{"Anonymous #87", "I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word."},
 	{"Anonymous #88", "A foo walks into a bar,\ntakes a look around and\nsays \"Hello World!\"."},
-	{"Anonymous #89", "I'm drunk and you're still ugly."},
 	{"Anonymous #90", "Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments."},
 	{"Anonymous #91", "CV: ctrl-C, ctrl-V"},
 	{"Anonymous #92", "Mondays are not so bad.\nIt's your job that sucks."},
@@ -6127,7 +6126,6 @@ Quote quotes[nbQuote] =
 	{"Anonymous #100", "Dear YouTube,\nI can deal with Ads.\nI can deal with Buffer.\nBut when Ads buffer, I suffer."},
 	{"Anonymous #101", "It's always sad when a man and his dick share only one brain...\nand it turns out to be the dick's."},
 	{"Anonymous #102", "If IE is brave enough to ask you to set it as your default browser,\ndon't tell me you dare not ask a girl out."},
-	{"Anonymous #103", "Turn on your brain, turn off TV."},
 	{"Anonymous #104", "The main idea of \"Inception\":\nif you run a VM inside a VM inside a VM inside a VM inside a VM,\neverything will be very slow."},
 	{"Anonymous #105", "Q: What's the object-oriented way to become wealthy?\nA: Inheritance."},
 	{"Anonymous #106", "When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car."},
@@ -6180,11 +6178,9 @@ Quote quotes[nbQuote] =
 	{"Anonymous #153", "You are not fat, you are just more visible."},
 	{"Anonymous #154", "Minimalist\n (.   .)\n  )   (\n (  Y  )\nASCII Art"},
 	{"Internet #1", "If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing." },
-	{"Louis C.K.", "I'm a good citizen. I'm a good father. I recycle and I masturbate."},
 	{"Mary Oliver", "Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift."},
 	{"Floor", "If you fall, I will be there."},
 	{"Simon Amstell", "If you have some problem in your life and need to deal with it, then use religion, that's fine.\nI use Google."},
-	{"James Bond", "James, James Bond."},
 	{"Albert Einstein", "Only 3 things are infinite:\n1. Universe.\n2. Human Stupidity.\n3. Winrar's free trial."},
 	{"Terry Pratchett", "Artificial Intelligence is no match for natural stupidity."},
 	{"Stewart Brand", "Once a new technology starts rolling, if you're not part of the steamroller,\nyou're part of the road."},
@@ -6192,10 +6188,9 @@ Quote quotes[nbQuote] =
 	{"Jan L. A. van de Snepscheut", "In theory, there is no difference between theory and practice. But, in practice, there is."},
 	{"Jessica Gaston", "One man's crappy software is another man's full time job."},
 	{"Barack Obama", "Yes, we scan!"},
-	{"George W. Bush", "Where is my Nobel prize?\nI bombed people too."},
+	{"xkcd.com", "int getRandomNumber()\n{\n    return 4; //chosen by fair dice roll, guaranteed to be random.\n}\n"},
 	{"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 	{"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
-	{"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company)\nto shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 	{"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 	{"Mark Twain", "Censorship is telling a man he can't have a steak just because a baby can't chew it."},
 	{"Friedrich Nietzsche", "There is not enough love and goodness in the world to permit giving any of it away to imaginary beings."},

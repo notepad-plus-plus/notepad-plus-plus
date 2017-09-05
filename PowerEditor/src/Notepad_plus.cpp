@@ -5991,13 +5991,13 @@ struct Quote
 
 
 
-const int nbQuote = 205;
+const int nbQuote = 200;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
 	{"Notepad++ #2", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 	{"Notepad++ #3", "The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n"},
-	{"Richard Stallman?", "If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent."},
+	{"Richard Stallman", "If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent."},
 	{"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 	{"L. Peter Deutsch", "To iterate is human, to recurse divine."},
 	{"Seymour Cray", "The trouble with programmers is that you can never tell what a programmer is doing until it's too late."},
@@ -6035,7 +6035,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #6", "Going to Mc Donald's for a salad is like going to a whore for a hug."},
 	{"Anonymous #7", "I need a six month holiday, TWICE A YEAR!"},
 	{"Anonymous #8", "Everything is a knife if you're strong enough."},
-	{"Anonymous #9", "I just read a list of \"the 100 things to do before you die\". I'm pretty surprised \"yell for help\" wasn't one of them..."},
+	//{"Anonymous #9", ""},
 	{"Anonymous #10", "Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!"},
 	{"Anonymous #11", "We stopped checking for monsters under our bed, when we realized they were inside us."},
 	{"Anonymous #12", "I would rather check my facebook than face my checkbook."},
@@ -6043,13 +6043,13 @@ Quote quotes[nbQuote] =
 	{"Anonymous #14", "A better world is where chickens can cross the road without having their motives questioned."},
 	{"Anonymous #15", "If I didn't drink, how would my friends know I love them at 2 AM?"},
 	{"Anonymous #16", "Q: How do you generate a random string?\nA: Put a Windows user in front of vi, and tell him to exit."},
-	{"Anonymous #17", "All you need is love,\nall you want is sex,\nall you have is porn.\n"},
+	//{"Anonymous #17", ""},
 	{"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
-	{"Anonymous #19", "F_CK: All I need is U."},
+	//{"Anonymous #19", ""},
 	{"Anonymous #20", "Never make eye contact while eating a banana."},
 	{"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
 	{"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},
-	{"Anonymous #23", "Everybody talks about leaving a better planet for the children.\nWhy nobody tries to leave better children to the planet?"},
+	//{"Anonymous #23", ""},
 	{"Anonymous #24", "An Architect's dream is an Engineer's nightmare."},
 	{"Anonymous #25", "In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
 	{"Anonymous #26", "I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one."},
@@ -6143,7 +6143,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #118", "I love necrophilia, but i can't stand the awkward silences."},
 	{"Anonymous #119", "\"I'm gonna Google that. BING that, Bing that, sorry.\"\n- The CEO of Bing (many times per day still)"},
 	{"Anonymous #120", "Life is what happens to you while you're looking at your smartphone."},
-	{"Anonymous #121", "Thing to do today:\n1. Get up\n2. Go back to bed"},
+	//{"Anonymous #121", ""},
 	{"Anonymous #122", "Nerd?\nI prefer the term \"Intellectual badass\"."},
 	{"Anonymous #123", "How can you face your problem if your problem is your face?"},
 	{"Anonymous #124", "You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion."},

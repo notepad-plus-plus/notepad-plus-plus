@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.4.2  23/Jul/2017  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.5.1  5/Sep/2017  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.4.2">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.5.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -97,6 +97,7 @@
 					<Item id = "41020" name = "cmd"/>
 					<Item id = "41021" name = "Znovuotevřít aktuálně zavřený soubor"/>
 					<Item id = "41022" name = "Otevřít složku jako pracovní plochu"/>
+					<Item id = "41023" name = "Otevřít v implicitním prohlížeči"/>
 					<Item id = "42001" name = "Vyjmou&amp;t"/>
 					<Item id = "42002" name = "&amp;Kopírovat"/>
 					<Item id = "42003" name = "&amp;Zpět"/>
@@ -359,13 +360,17 @@
 					<Item CMID = "18" name = "Zavřít vše napravo"/>
 					<Item CMID = "19" name = "Otevřít složku obsahující akt. soubor v Exploreru"/>
 					<Item CMID = "20" name = "Otevřít složku obsahující akt. soubor v cmd"/>
+					<Item CMID = "21" name = "Otevřít v implicitním prohlížeči"/>
 			</TabBar>
 		</Menu>
 
 		<Dialog>
 
 			<Find title = "" titleFind = "Najít" titleReplace = "Nahradit" titleFindInFiles = "Najít v souborech" titleMark="Označit">
+				<!--
 				<Item id = "1" name = "Najít &gt;&gt;"/>
+				-->
+				<Item id = "1" name = "Najít >>"/>
 				<Item id = "2" name = "Zavřít"/>
 				<Item id = "1620" name = "Najít:"/>
 				<Item id = "1603" name = "Hledat &amp;pouze celá slova"/>
@@ -406,7 +411,10 @@
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
 				<Item id = "1686" name = "Průhle&amp;dnost"/>
 				<Item id = "1703" name = "&amp;. označuje nový řádek"/>
+				<!--
 				<Item id = "1721" name = "&lt;&lt; Najít"/>
+				-->
+				<Item id = "1722" name = "Zpětný směr"/>
 			</Find>
 
 			<FindCharsInRange title = "Najít znaky z rozsahu...">

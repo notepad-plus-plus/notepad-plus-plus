@@ -89,6 +89,7 @@
 			<association id=   "innosetup_syntax"     langID="46"                          />
 			<association id=  "powershell_function"   langID="53"                          />
 			<association id=  "javascript_function"   langID="58"                          />
+			<association id=       "baanc_function"   langID="60"                          />
 			<!-- ======================================================================== -->
 			<association id=         "krl_function"   userDefinedLangName="KRL"            />
 			<association id=         "krl_function"   ext=".src"                           />
@@ -1293,6 +1294,32 @@
 							)
 						"
 				/>
+			</parser>
+			
+			<!-- ======================================================= [ BaanC ] --> 
+			<parser
+				displayName="BaanC"
+				id         ="baanc_function"
+				commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
+								(?m-s:\x7C.*$)                                  # Single Line Comment
+							"
+			>
+				<function
+					mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+							(?im)                                               # case-insensitive, ^ and $ match at line breaks
+							^\h*                                                # optional leading whitespace at start-of-line
+							(?i:function)\s+
+							(?:extern\s+)?
+							(?:(?:boolean|double|long|string|void|domain\s+[A-Za-z_]\w*)\s+)?
+							\K
+							\w+(?:\s*\.\s*\w+)*
+							\s*\(
+						"
+				>
+					<functionName>
+						<nameExpr expr="\w+(?:\s*\.\s*\w+)*" />
+					</functionName>
+				</function>
 			</parser>
 
 			<!-- ================================================================= -->

@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5
-	last modified: 2017-08-13 by schnurlos (schnurlos@gmail.com)
+	last modified: 2017-09-07 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -678,7 +678,7 @@
 					<Item id="6118" name="Ausblenden"/>
 					<Item id="6119" name="Mehrzeilig"/>
 					<Item id="6120" name="Vertikal"/>
-					<Item id="6121" name="Programm beim Schließen des letzten Tabs beenden"/>
+					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
 
 					<Item id="6122" name="Menüleiste ausblenden (wechseln: Alt oder F10)"/>
 					<Item id="6123" name="Sprache der Benutzeroberfläche"/>

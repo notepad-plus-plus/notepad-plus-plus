@@ -695,16 +695,16 @@ BEGIN
         MENUITEM "Caml",                    IDM_LANG_CAML
         MENUITEM "CMake",                   IDM_LANG_CMAKE
         MENUITEM "COBOL",                   IDM_LANG_COBOL
-        MENUITEM "CSound",                  IDM_LANG_CSOUND
         MENUITEM "CoffeeScript",            IDM_LANG_COFFEESCRIPT
+        MENUITEM "CSound",                  IDM_LANG_CSOUND
         MENUITEM "CSS",                     IDM_LANG_CSS
         MENUITEM "D",                       IDM_LANG_D
         MENUITEM "Diff",                    IDM_LANG_DIFF
         MENUITEM "Erlang",                  IDM_LANG_ERLANG
         MENUITEM "ESCRIPT",                 IDM_LANG_ESCRIPT
         MENUITEM "Forth",                   IDM_LANG_FORTH
-        MENUITEM "Fortran (free form)",     IDM_LANG_FORTRAN
         MENUITEM "Fortran (fixed form)",    IDM_LANG_FORTRAN_77
+        MENUITEM "Fortran (free form)",     IDM_LANG_FORTRAN
         MENUITEM "Freebasic",               IDM_LANG_FREEBASIC
         MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
         MENUITEM "Haskell",                 IDM_LANG_HASKELL
@@ -717,14 +717,14 @@ BEGIN
 		MENUITEM "JSON",                    IDM_LANG_JSON
         MENUITEM "JSP",                     IDM_LANG_JSP
         MENUITEM "KIXtart",                 IDM_LANG_KIX
-        MENUITEM "LISP",                    IDM_LANG_LISP
         MENUITEM "LaTeX",                   IDM_LANG_LATEX
+        MENUITEM "LISP",                    IDM_LANG_LISP
         MENUITEM "Lua",                     IDM_LANG_LUA
         MENUITEM "Makefile",                IDM_LANG_MAKEFILE
         MENUITEM "Matlab",                  IDM_LANG_MATLAB
         MENUITEM "MMIXAL",                  IDM_LANG_MMIXAL
         MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
-        MENUITEM "Nimrod",                  IDM_LANG_NIMROD
+        MENUITEM "Nim",                     IDM_LANG_NIMROD
         MENUITEM "Nncrontab",               IDM_LANG_NNCRONTAB
         MENUITEM "Normal Text",             IDM_LANG_TEXT
         MENUITEM "NSIS",                    IDM_LANG_NSIS
@@ -744,17 +744,17 @@ BEGIN
         MENUITEM "Resource file",           IDM_LANG_RC
         MENUITEM "Ruby",                    IDM_LANG_RUBY
         MENUITEM "Rust",                    IDM_LANG_RUST
-        MENUITEM "Shell",                   IDM_LANG_BASH
         MENUITEM "Scheme",                  IDM_LANG_SCHEME
+        MENUITEM "Shell",                   IDM_LANG_BASH
         MENUITEM "Smalltalk",               IDM_LANG_SMALLTALK
         MENUITEM "Spice",                   IDM_LANG_SPICE
         MENUITEM "SQL",                     IDM_LANG_SQL
-		MENUITEM "Swift",                  IDM_LANG_SWIFT
         MENUITEM "S-Record",                IDM_LANG_SREC
+        MENUITEM "Swift",                   IDM_LANG_SWIFT
         MENUITEM "TCL",                     IDM_LANG_TCL
         MENUITEM "Tektronix extended HEX",  IDM_LANG_TEHEX
         MENUITEM "TeX",                     IDM_LANG_TEX
-        MENUITEM "txt2tags",                IDM_LANG_TXT2TAGS
+        MENUITEM "Txt2tags",                IDM_LANG_TXT2TAGS
         MENUITEM "Verilog",                 IDM_LANG_VERILOG
         MENUITEM "VHDL",                    IDM_LANG_VHDL
         MENUITEM "Visual Basic",            IDM_LANG_VB
@@ -792,8 +792,8 @@ BEGIN
         MENUITEM "Caml",                  IDM_LANG_CAML
         MENUITEM "CMake",                 IDM_LANG_CMAKE
         MENUITEM "COBOL",                 IDM_LANG_COBOL
-        MENUITEM "CSound",                IDM_LANG_CSOUND
 		MENUITEM "CoffeeScript",          IDM_LANG_COFFEESCRIPT
+        MENUITEM "CSound",                IDM_LANG_CSOUND
         MENUITEM "CSS",                   IDM_LANG_CSS
     END
     POPUP "D"
@@ -809,8 +809,8 @@ BEGIN
     POPUP "F"
     BEGIN
         MENUITEM "Forth",                 IDM_LANG_FORTH
-        MENUITEM "Fortran (free form)",   IDM_LANG_FORTRAN
         MENUITEM "Fortran (fixed form)",  IDM_LANG_FORTRAN_77
+        MENUITEM "Fortran (free form)",   IDM_LANG_FORTRAN
         MENUITEM "Freebasic",             IDM_LANG_FREEBASIC
     END
     MENUITEM "Gui4Cli",                   IDM_LANG_GUI4CLI
@@ -848,7 +848,7 @@ BEGIN
     END
     POPUP "N"
     BEGIN
-        MENUITEM "Nimrod",                IDM_LANG_NIMROD
+        MENUITEM "Nim",                   IDM_LANG_NIMROD
         MENUITEM "Nncrontab",             IDM_LANG_NNCRONTAB
         MENUITEM "Normal Text",           IDM_LANG_TEXT
         MENUITEM "NSIS",                  IDM_LANG_NSIS
@@ -880,27 +880,27 @@ BEGIN
     END
     POPUP "S"
     BEGIN
-        MENUITEM "Shell",                 IDM_LANG_BASH
         MENUITEM "Scheme",                IDM_LANG_SCHEME
+        MENUITEM "Shell",                 IDM_LANG_BASH
         MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
         MENUITEM "Spice",                 IDM_LANG_SPICE
         MENUITEM "SQL",                   IDM_LANG_SQL
-		MENUITEM "Swift",                IDM_LANG_SWIFT
         MENUITEM "S-Record",              IDM_LANG_SREC
+		MENUITEM "Swift",                IDM_LANG_SWIFT
     END
     POPUP "T"
     BEGIN
         MENUITEM "TCL",                   IDM_LANG_TCL
         MENUITEM "Tektronix extended HEX",IDM_LANG_TEHEX
         MENUITEM "TeX",                   IDM_LANG_TEX
-        MENUITEM "txt2tags",              IDM_LANG_TXT2TAGS
+        MENUITEM "Txt2tags",              IDM_LANG_TXT2TAGS
     END
     POPUP "V"
     BEGIN
+        MENUITEM "Verilog",               IDM_LANG_VERILOG
+        MENUITEM "VHDL",                  IDM_LANG_VHDL
         MENUITEM "Visual Basic",          IDM_LANG_VB
         MENUITEM "Visual Prolog",         IDM_LANG_VISUALPROLOG
-        MENUITEM "VHDL",                  IDM_LANG_VHDL
-        MENUITEM "Verilog",               IDM_LANG_VERILOG
     END
     MENUITEM "XML",                       IDM_LANG_XML
     MENUITEM "YAML",                      IDM_LANG_YAML

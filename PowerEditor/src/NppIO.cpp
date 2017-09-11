@@ -597,7 +597,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 	return res;
 }
 
-void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
+void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup, bool notify)
 {
 	DocTabView *tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
 	int i = tabToClose->getIndexByBuffer(id);
@@ -615,10 +615,12 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 
 	// Notify plugins that current file is about to be closed
 	SCNotification scnN;
-	scnN.nmhdr.code = NPPN_FILEBEFORECLOSE;
-	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-	scnN.nmhdr.idFrom = (uptr_t)id;
-	_pluginsManager.notify(&scnN);
+	if (notify) {
+		scnN.nmhdr.code = NPPN_FILEBEFORECLOSE;
+		scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+		scnN.nmhdr.idFrom = (uptr_t)id;
+		_pluginsManager.notify(&scnN);
+	}
 
 	// Add to recent file history only if file is removed from all the views
 	// There might be cases when file is cloned/moved to view.
@@ -675,8 +677,10 @@ void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 	// Notify plugins that current file is closed
 	if (isBufRemoved)
 	{
-		scnN.nmhdr.code = NPPN_FILECLOSED;
-		_pluginsManager.notify(&scnN);
+		if (notify) {
+			scnN.nmhdr.code = NPPN_FILECLOSED;
+			_pluginsManager.notify(&scnN);
+		}
 
 		// The document could be clonned.
 		// if the same buffer ID is not found then remove the entry from File Switcher Panel

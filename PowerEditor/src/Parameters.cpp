@@ -2458,7 +2458,7 @@ void NppParameters::feedScintKeys(TiXmlNode *node)
 				KeyCombo kc;
 				for (TiXmlNode *nextNode = childNode->FirstChildElement(TEXT("NextKey"));
 					nextNode ;
-					nextNode = childNode->NextSibling(TEXT("NextKey")) )
+					nextNode = nextNode->NextSibling(TEXT("NextKey")))
 				{
 					const TCHAR *str = (nextNode->ToElement())->Attribute(TEXT("Ctrl"));
 					if (!str)

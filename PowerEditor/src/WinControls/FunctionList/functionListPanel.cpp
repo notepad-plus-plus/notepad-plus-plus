@@ -25,11 +25,13 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
+#include "json.hpp"
 #include "functionListPanel.h"
 #include "ScintillaEditView.h"
 #include "localization.h"
+#include <fstream>
 
+using nlohmann::json;
 using namespace std;
 
 #define CX_BITMAP         16
@@ -38,6 +40,7 @@ using namespace std;
 #define INDEX_ROOT        0
 #define INDEX_NODE        1
 #define INDEX_LEAF        2
+
 
 void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText, size_t pos)
 {
@@ -224,53 +227,77 @@ void FunctionListPanel::sortOrUnsort()
 	}
 }
 
+
 bool FunctionListPanel::serialize(const generic_string & outputFilename)
 {
-	generic_string fname;
+	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+	const TCHAR* fileNameLabel = currentBuf->getFileName();
+
+	generic_string fname2write;
 	if (outputFilename.empty()) // if outputFilename is not given, get the current file path by adding the file extension
 	{
-		Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
 		const TCHAR *fullFilePath = currentBuf->getFullPathName();
 
 		// Export function list from an existing file 
 		bool exportFuncntionList = (NppParameters::getInstance())->doFunctionListExport();
 		if (exportFuncntionList && ::PathFileExists(fullFilePath))
 		{
-			fname = fullFilePath;
-			fname += TEXT(".result");
+			fname2write = fullFilePath;
+			fname2write += TEXT(".result");
+			fname2write += TEXT(".json");
 		}
 		else
 			return false;
 	}
 	else
 	{
-		fname = outputFilename;
+		fname2write = outputFilename;
 	}
 
-	FILE * f = generic_fopen(fname.c_str(), TEXT("w+"));
-	if (!f)
-		return false;
+	const char* rootLabel = "root";
+	const char* branchesLabel = "branches";
+	const char* leavesLabel = "leaves";
+	const char* nameLabel = "name";
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	json j;
+	j[rootLabel] = wmc->wchar2char(fileNameLabel, CP_ACP);
 
 	for (const auto & info : _foundFuncInfos)
 	{
-		generic_string entryName;
-		if (!info._data2.empty())
+		std::string leafName = wmc->wchar2char(info._data.c_str(), CP_ACP);
+
+		if (!info._data2.empty()) // node
 		{
-			entryName = info._data2;
-			entryName += TEXT("=>");
+			bool isFound = false;
+			std::string nodeName = wmc->wchar2char(info._data2.c_str(), CP_ACP);
+
+			for (auto & i : j[branchesLabel])
+			{
+				if (nodeName == i[nameLabel])
+				{
+					i[leavesLabel].push_back(leafName.c_str());
+					isFound = true;
+					break;
+				}
+			}
+
+			if (!isFound)
+			{
+				json aNode = { { leavesLabel, json::array() },{ nameLabel, nodeName.c_str() } };
+				aNode[leavesLabel].push_back(leafName.c_str());
+				j[branchesLabel].push_back(aNode);
+			}
 		}
-		entryName += info._data;
-		entryName += TEXT("\n");
-
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		UINT cp = static_cast<UINT>((*_ppEditView)->execute(SCI_GETCODEPAGE));
-		const char *textA = wmc->wchar2char(entryName.c_str(), cp);
-		string entryNameA = textA;
-
-		fwrite(entryNameA.c_str(), sizeof(entryNameA.c_str()[0]), entryNameA.length(), f);
+		else // leaf
+		{
+			j[leavesLabel].push_back(leafName.c_str());
+		}
 	}
-	fflush(f);
-	fclose(f);
+
+	std::ofstream file(fname2write);
+	file << j;
+
 	return true;
 }
 
@@ -314,7 +341,7 @@ void FunctionListPanel::reload()
 
 	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
 	{
-		// no 2 level
+		// no 2 levels
 		bool b = false;
 		if (b)
 		{

@@ -78,6 +78,7 @@
 			<association id=         "xml_node"       langID= "9"                          />
 			<association id=       "batch_label"      langID="12"                          />
 			<association id=         "ini_section"    langID="13"                          />
+			<association id=       "plsql_function"   langID="17"                          />
 			<association id=        "perl_function"   langID="21"                          />
 			<association id=      "python_syntax"     langID="22"                          />
 			<association id=        "bash_function"   langID="26"                          />
@@ -107,6 +108,20 @@
 			<!-- ======================================================================== -->
 		</associationMap>
 		<parsers>
+
+			<!-- ========================================================= [ PL/SQL ] -->
+			<parser id="plsql_function" displayName="PL/SQL" commentExpr="((/\*.*?\*)/|(//.*?$))">
+        			<function
+				    mainExpr="((PROCEDURE)|(FUNCTION))[\s]+[A-Za-z][\w_]*([\s]*\([^\)]*\)[\s]*)?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"
+				    displayMode="$className->$functionName"
+			 	>
+					<functionName>
+						<nameExpr expr="[\s]+[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"/>
+						<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]*;)|([\s]*([ia]s))|([\s]+(RETURN)([\s]+[\w%\.]+)+(([\s]*;)|([\s]+([ia]s)))))"/>
+						<nameExpr expr="[A-Za-z][\w_]*([\s]*\([^\)]*\))?(([\s]+(RETURN)([\s]+[\w%\.]+)+))*"/>
+					</functionName>
+				</function>
+			</parser>
 
 			<!-- ========================================================= [ PHP ] -->
 			<!-- PHP - Personal Home Page / PHP Hypertext Preprocessor             -->

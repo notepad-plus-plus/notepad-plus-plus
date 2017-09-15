@@ -5991,7 +5991,7 @@ struct Quote
 
 
 
-const int nbQuote = 200;
+const int nbQuote = 199;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
@@ -6145,6 +6145,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #120", "Life is what happens to you while you're looking at your smartphone."},
 	//{"Anonymous #121", ""},
 	{"Anonymous #122", "Nerd?\nI prefer the term \"Intellectual badass\"."},
+	//{"Anonymous #123", ""},
 	{"Anonymous #124", "You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion."},
 	{"Anonymous #125", "Pooping with the door opened is the meaning of true freedom."},
 	{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},

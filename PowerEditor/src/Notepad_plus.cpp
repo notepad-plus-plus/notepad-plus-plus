@@ -5991,7 +5991,7 @@ struct Quote
 
 
 
-const int nbQuote = 200;
+const int nbQuote = 199;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
@@ -6075,7 +6075,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #47", "Kids are like farts.\nYou can only stand yours."},
 	{"Anonymous #48", "If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography."},
 	{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars."},
-	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in britain and try to get a bunch of gold... it's like history but opposite."},
+	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in Britain and try to get a bunch of gold... it's like history but opposite."},
 	{"Anonymous #51", "I don't need a stable relationship,\nI just need a stable Internet connection."},
 	{"Anonymous #52", "What's the difference between religion and bullshit?\nThe bull."},
 	{"Anonymous #53", "Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML"},
@@ -6145,7 +6145,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #120", "Life is what happens to you while you're looking at your smartphone."},
 	//{"Anonymous #121", ""},
 	{"Anonymous #122", "Nerd?\nI prefer the term \"Intellectual badass\"."},
-	{"Anonymous #123", "How can you face your problem if your problem is your face?"},
+	//{"Anonymous #123", ""},
 	{"Anonymous #124", "You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion."},
 	{"Anonymous #125", "Pooping with the door opened is the meaning of true freedom."},
 	{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},

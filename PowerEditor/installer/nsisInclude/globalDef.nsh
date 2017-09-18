@@ -29,10 +29,43 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "7.5.1"
-!define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
-!define VERSION_MAJOR 7
-!define VERSION_MINOR 51
+; ------------------------------------------------------------------------
+; Get Notepad++ version from the notepad++ binary
+
+!ifdef ARCH64
+	!getdllversion "..\bin64\notepad++.exe" nppVer_
+!else
+	!getdllversion "..\bin\notepad++.exe" nppVer_
+!endif
+
+!define APPVERSION		${nppVer_1}.${nppVer_2}		; 7.5
+!define VERSION_MAJOR		${nppVer_1}			; 7
+!define VERSION_MINOR		${nppVer_2}			; 5
+
+!if ${nppVer_3} != 0
+	!undef APPVERSION
+	!define APPVERSION	${nppVer_1}.${nppVer_2}.${nppVer_3}	; 7.5.1
+
+	!undef VERSION_MINOR
+	!define VERSION_MINOR	${nppVer_2}${nppVer_3}			; 51
+!endif
+
+!if ${nppVer_4} != 0
+	!undef APPVERSION
+	!define APPVERSION	${nppVer_1}.${nppVer_2}.${nppVer_3}.${nppVer_4}	; 7.5.1.3
+
+	!undef VERSION_MINOR
+	!define VERSION_MINOR	${nppVer_2}${nppVer_3}${nppVer_4}		; 513
+!endif
+
+; ------------------------------------------------------------------------
+
+!define APPNAMEANDVERSION	"${APPNAME} v${APPVERSION}"
+!define CompanyName		"Don HO don.h@free.fr"
+!define Description		"Notepad++ : a free (GNU) source code editor"
+!define Version		"${nppVer_1}.${nppVer_2}.${nppVer_3}.${nppVer_4}"
+!define ProdVer		"${VERSION_MAJOR}.${VERSION_MINOR}"
+!define LegalCopyright		"Copyleft 1998-2017 by Don HO"
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 

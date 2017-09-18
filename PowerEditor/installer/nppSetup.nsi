@@ -86,13 +86,7 @@ page Custom ExtraOptions
 
 
 !include "nsisInclude\langs4Installer.nsh"
-
-
-
-
 !include "nsisInclude\mainSectionFuncs.nsh"
-
-
 !include "nsisInclude\langs4Npp.nsh"
 !include "nsisInclude\autoCompletion.nsh"
 !include "nsisInclude\themes.nsh"
@@ -121,6 +115,27 @@ SectionEnd
 
 Var diffArchDir2Remove
 Var noUpdater
+
+Section -"Notepad++" mainSection
+
+	Call setPathAndOptions
+
+	${If} $diffArchDir2Remove != ""
+		!insertmacro uninstallRegKey
+		!insertmacro uninstallDir $diffArchDir2Remove
+	${endIf}
+
+	Call copyCommonFiles
+
+	Call removeUnstablePlugins
+
+	Call removeOldContextMenu
+
+	Call shortcutLinkManagement
+
+SectionEnd
+
+
 Function .onInit
 
 	${GetParameters} $R0 
@@ -194,26 +209,6 @@ noDelete64:
 	${MementoSectionRestore}
 
 FunctionEnd
-
-
-Section -"Notepad++" mainSection
-
-	Call setPathAndOptions
-	
-	${If} $diffArchDir2Remove != ""
-		!insertmacro uninstallRegKey
-		!insertmacro uninstallDir $diffArchDir2Remove 
-	${endIf}
-
-	Call copyCommonFiles
-
-	Call removeUnstablePlugins
-
-	Call removeOldContextMenu
-	
-	Call shortcutLinkManagement
-	
-SectionEnd
 
 
 Function .onInstSuccess

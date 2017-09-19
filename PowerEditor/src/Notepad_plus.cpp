@@ -5990,8 +5990,7 @@ struct Quote
 
 
 
-
-const int nbQuote = 199;
+const int nbQuote = 203;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
@@ -6020,7 +6019,8 @@ Quote quotes[nbQuote] =
 	{"Steve Jobs", "Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas."},
 	{"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
 	{"Robin Williams", "God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time."},
-	{"Darth Vader", "You don't get to 500 million star systems without making a few enemies."},
+	{"Darth Vader", "Strong people don't put others down.\nThey lift them up." },
+	{"Darth Vader #2", "You don't get to 500 million star systems without making a few enemies."},
 	{"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
 	{"Jean-Claude van Damme", "A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life."},
 	{"Michael Feldman", "Java is, in many ways, C++--."},
@@ -6035,7 +6035,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #6", "Going to Mc Donald's for a salad is like going to a whore for a hug."},
 	{"Anonymous #7", "I need a six month holiday, TWICE A YEAR!"},
 	{"Anonymous #8", "Everything is a knife if you're strong enough."},
-	//{"Anonymous #9", ""},
+	{"Anonymous #9", "I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala."},
 	{"Anonymous #10", "Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!"},
 	{"Anonymous #11", "We stopped checking for monsters under our bed, when we realized they were inside us."},
 	{"Anonymous #12", "I would rather check my facebook than face my checkbook."},
@@ -6043,9 +6043,9 @@ Quote quotes[nbQuote] =
 	{"Anonymous #14", "A better world is where chickens can cross the road without having their motives questioned."},
 	{"Anonymous #15", "If I didn't drink, how would my friends know I love them at 2 AM?"},
 	{"Anonymous #16", "Q: How do you generate a random string?\nA: Put a Windows user in front of vi, and tell him to exit."},
-	//{"Anonymous #17", ""},
+	{"Anonymous #17", "Pros and cons of making food.\nPros: food\nCons : making\n"},
 	{"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
-	//{"Anonymous #19", ""},
+	{"Anonymous #19", "People who say they give 110%\ndon't really understand how percentages work."},
 	{"Anonymous #20", "Never make eye contact while eating a banana."},
 	{"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
 	{"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},

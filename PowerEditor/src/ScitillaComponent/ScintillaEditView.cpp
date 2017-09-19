@@ -206,6 +206,10 @@ HMODULE loadSciLexerDll()
 {
 	generic_string sciLexerPath = getSciLexerFullPathName(moduleFileName, 1024);
 
+	// Do not check dll signature if npp is running in debug mode
+	// This is helpful for developers to skip signature checking
+	// while analyzing issue or modifying the lexer dll
+#ifndef _DEBUG
 	bool isOK = VerifySignedLibrary(sciLexerPath, SCINTILLA_SIGNER_KEY_ID, SCINTILLA_SIGNER_SUBJECT, SCINTILLA_SIGNER_DISPLAY_NAME, false, false);
 
 	if (!isOK)
@@ -216,6 +220,7 @@ HMODULE loadSciLexerDll()
 			MB_OK | MB_ICONERROR);
 		return nullptr;
 	}
+#endif // !_DEBUG
 
 	return ::LoadLibrary(sciLexerPath.c_str());
 }

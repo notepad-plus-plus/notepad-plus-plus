@@ -64,6 +64,7 @@ OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP ".\images\headerLeft.bmp" ; optional
 !define MUI_ABORTWARNING
+!define MUI_COMPONENTSPAGE_SMALLDESC ;Show components page with a small description and big box for components
 
 
 !insertmacro MUI_PAGE_WELCOME

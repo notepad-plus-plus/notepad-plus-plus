@@ -31,7 +31,7 @@
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEsterEggName | -qtText | -qfCntentFileName] [-quickPrint] [filePath]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEasterEggName | -qtText | -qfCntentFileName] [-quickPrint] [filePath]\r\
 \r\
     --help : This help message\r\
     -multiInst : Launch another Notepad++ instance\r\

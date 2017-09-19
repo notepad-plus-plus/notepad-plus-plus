@@ -70,16 +70,14 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_NEW:
 		{
 			fileNew();
-
 			/*
-			bool isFirstTime = not _pluginsAdminDlg.isCreated();
+			bool isFirstTime = ! _pluginsAdminDlg.isCreated();
 			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
 			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
 			{
 				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
-				_pluginsAdminDlg.downloadPluginList();
-				_pluginsAdminDlg.loadFomList();
+				_pluginsAdminDlg.updateListAndLoadFromJson();
 			}
 			*/
 		}

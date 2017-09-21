@@ -46,7 +46,7 @@ struct PluginUpdateInfo
 	generic_string author;
 	generic_string md5;
 	generic_string alias;
-	generic_string download;
+	generic_string repository;
 
 	generic_string describe();
 };
@@ -98,7 +98,6 @@ public :
 		_availableListView.destroy();
 		_updateListView.destroy();
 		_installedListView.destroy();
-		if (_pPluginsXmlDoc) delete _pPluginsXmlDoc;
 	}
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -121,8 +120,7 @@ public :
 
 	void switchDialog(int indexToSwitch);
 
-	bool downloadPluginList(); // call GitUup for the 1st time
-	bool loadFomList();
+	bool updateListAndLoadFromJson(); // call GitUup for the 1st time
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
 	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
 
@@ -143,7 +141,6 @@ private :
 	std::vector<PluginUpdateInfo> _updatePluginList;
 	std::vector<PluginUpdateInfo> _installedPluginList;
 
-	TiXmlDocument *_pPluginsXmlDoc = nullptr;
 	PluginsManager *_pPluginsManager = nullptr;
 
 	std::vector<LoadedPluginInfo> _loadedPluginInfos;
@@ -151,7 +148,6 @@ private :
 	NppCurrentStatus _nppCurrentStatus;
 
 	void collectNppCurrentStatusInfos();
-	bool readFromXml();
 	bool searchInPlugins(bool isNextMode) const;
 	const bool inNames = true;
 	const bool inDescs = false;

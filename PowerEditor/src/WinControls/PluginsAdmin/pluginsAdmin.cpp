@@ -25,7 +25,10 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "json.hpp"
 #include <algorithm>
+#include <iostream>
+#include <fstream>
 #include <string>
 #include <cctype>
 #include <shlobj.h>
@@ -38,6 +41,7 @@
 #include "md5.h"
 
 using namespace std;
+using nlohmann::json;
 
 void Version::setVersionFrom(generic_string filePath)
 {
@@ -350,7 +354,55 @@ bool PluginsAdminDlg::removePlugins()
 	return true;
 }
 
-bool PluginsAdminDlg::downloadPluginList()
+
+bool loadFromJson(std::vector<PluginUpdateInfo> & pl, const json& j)
+{
+	if (j.empty())
+		return false;
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+
+	json jArray = j["npp-plugins"];
+	if (jArray.empty() || jArray.type() != json::value_t::array)
+		return false;
+
+	for (auto& i : jArray)
+	{
+		PluginUpdateInfo pi;
+		string s = i["folder-name"];
+		std::wstring val = wmc->char2wchar(s.c_str(), CP_ACP);
+		pi.name = val;
+
+		s = i["display-name"];
+		val = wmc->char2wchar(s.c_str(), CP_ACP);
+		pi.alias = val;
+
+		s = i["author"];
+		val = wmc->char2wchar(s.c_str(), CP_ACP);
+		pi.author = val;
+
+		s = i["description"];
+		val = wmc->char2wchar(s.c_str(), CP_ACP);
+		pi.description = val;
+
+		s = i["repository"];
+		val = wmc->char2wchar(s.c_str(), CP_ACP);
+		pi.repository = val;
+
+		s = i["homepage"];
+		val = wmc->char2wchar(s.c_str(), CP_ACP);
+		pi.homepage = val;
+
+		s = i["version"];
+		val = wmc->char2wchar(s.c_str(), CP_ACP);
+		pi.version = val;
+
+		pl.push_back(pi);
+	}
+	return true;
+}
+
+bool PluginsAdminDlg::updateListAndLoadFromJson()
 {
 	// check on default location : %APPDATA%\Notepad++\plugins\config\pl\pl.json or NPP_INST_DIR\plugins\config\pl\pl.json
 
@@ -358,7 +410,7 @@ bool PluginsAdminDlg::downloadPluginList()
 	// if absent then download it
 
 
-	// check the update ofpl.json
+	// check the update of pl.json
 
 
 	// download update if present
@@ -366,123 +418,13 @@ bool PluginsAdminDlg::downloadPluginList()
 	// check integrity of pl.json
 
 	// load pl.json
+	// 
+	generic_string nppPluginListJsonPath = TEXT("C:\\tmp\\nppPluginList.json");
+	ifstream nppPluginListJson(nppPluginListJsonPath);
+	json pluginsJson;
+	nppPluginListJson >> pluginsJson;
 
-	generic_string pluginListXmlPath(TEXT("c:\\tmp\\pl.xml"));
-	_pPluginsXmlDoc = new TiXmlDocument(pluginListXmlPath);
-	if (not _pPluginsXmlDoc->LoadFile())
-		return false;
-
-	return true;
-}
-
-bool PluginsAdminDlg::readFromXml()
-{
-	TiXmlNode *root = _pPluginsXmlDoc->FirstChild(TEXT("NotepadPlus"));
-	if (not root)
-		return false;
-
-	_availablePluginList.clear();
-
-	for (TiXmlNode *childNode = root->FirstChildElement(TEXT("plugin"));
-		childNode;
-		childNode = childNode->NextSibling(TEXT("plugin")))
-	{
-		PluginUpdateInfo pui;
-		const TCHAR *name = (childNode->ToElement())->Attribute(TEXT("name"));
-		if (name)
-		{
-			pui.name = name;
-		}
-		else
-		{
-			continue;
-		}
-			
-		const TCHAR *version = (childNode->ToElement())->Attribute(TEXT("version"));
-		if (version)
-		{
-			pui.version = version;
-		}
-		else
-		{
-			continue;
-		}
-		const TCHAR *homepage = (childNode->ToElement())->Attribute(TEXT("homepage"));
-		if (homepage)
-		{
-			pui.homepage = homepage;
-		}
-		const TCHAR *sourceUrl = (childNode->ToElement())->Attribute(TEXT("sourceUrl"));
-		if (sourceUrl)
-		{
-			pui.sourceUrl = sourceUrl;
-		}
-		const TCHAR *description = (childNode->ToElement())->Attribute(TEXT("description"));
-		if (description)
-		{
-			pui.description = description;
-		}
-		const TCHAR *author = (childNode->ToElement())->Attribute(TEXT("author"));
-		if (author)
-		{
-			pui.author = author;
-		}
-		else
-		{
-			continue;
-		}
-		const TCHAR *md5 = (childNode->ToElement())->Attribute(TEXT("md5"));
-		if (md5)
-		{
-			pui.md5 = md5;
-		}
-		else
-		{
-			continue;
-		}
-		const TCHAR *alias = (childNode->ToElement())->Attribute(TEXT("alias"));
-		if (alias)
-		{
-			pui.alias = alias;
-		}
-		const TCHAR *download = (childNode->ToElement())->Attribute(TEXT("download"));
-		if (download)
-		{
-			pui.download = download;
-		}
-		else
-		{
-			continue;
-		}
-
-		_availablePluginList.push_back(pui);
-	}
-	return true;
-}
-
-bool PluginsAdminDlg::loadFomList()
-{
-	if (not _pPluginsXmlDoc)
-		return false;
-
-	if (not readFromXml())
-		return false;
-
-
-	size_t i = 0;
-	// all - installed = available
-	for (auto it = _availablePluginList.begin(); it != _availablePluginList.end(); ++it)
-	{
-		vector<generic_string> values2Add;
-
-		values2Add.push_back(it->name);
-		values2Add.push_back(it->version);
-		values2Add.push_back(TEXT("Yes"));
-
-		_availableListView.addLine(values2Add, i++);
-	}
-
-	getLoadedPluginInfos();
+	loadFromJson(_availablePluginList, pluginsJson);
 
 	return true;
 }

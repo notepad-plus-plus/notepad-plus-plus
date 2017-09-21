@@ -5990,8 +5990,7 @@ struct Quote
 
 
 
-
-const int nbQuote = 200;
+const int nbQuote = 203;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
@@ -6020,7 +6019,8 @@ Quote quotes[nbQuote] =
 	{"Steve Jobs", "Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas."},
 	{"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
 	{"Robin Williams", "God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time."},
-	{"Darth Vader", "You don't get to 500 million star systems without making a few enemies."},
+	{"Darth Vader", "Strong people don't put others down.\nThey lift them up." },
+	{"Darth Vader #2", "You don't get to 500 million star systems without making a few enemies."},
 	{"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
 	{"Jean-Claude van Damme", "A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life."},
 	{"Michael Feldman", "Java is, in many ways, C++--."},
@@ -6035,7 +6035,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #6", "Going to Mc Donald's for a salad is like going to a whore for a hug."},
 	{"Anonymous #7", "I need a six month holiday, TWICE A YEAR!"},
 	{"Anonymous #8", "Everything is a knife if you're strong enough."},
-	//{"Anonymous #9", ""},
+	{"Anonymous #9", "I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala."},
 	{"Anonymous #10", "Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!"},
 	{"Anonymous #11", "We stopped checking for monsters under our bed, when we realized they were inside us."},
 	{"Anonymous #12", "I would rather check my facebook than face my checkbook."},
@@ -6043,9 +6043,9 @@ Quote quotes[nbQuote] =
 	{"Anonymous #14", "A better world is where chickens can cross the road without having their motives questioned."},
 	{"Anonymous #15", "If I didn't drink, how would my friends know I love them at 2 AM?"},
 	{"Anonymous #16", "Q: How do you generate a random string?\nA: Put a Windows user in front of vi, and tell him to exit."},
-	//{"Anonymous #17", ""},
+	{"Anonymous #17", "Pros and cons of making food.\nPros: food\nCons : making\n"},
 	{"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
-	//{"Anonymous #19", ""},
+	{"Anonymous #19", "People who say they give 110%\ndon't really understand how percentages work."},
 	{"Anonymous #20", "Never make eye contact while eating a banana."},
 	{"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
 	{"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},
@@ -6075,7 +6075,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #47", "Kids are like farts.\nYou can only stand yours."},
 	{"Anonymous #48", "If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography."},
 	{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars."},
-	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in britain and try to get a bunch of gold... it's like history but opposite."},
+	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in Britain and try to get a bunch of gold... it's like history but opposite."},
 	{"Anonymous #51", "I don't need a stable relationship,\nI just need a stable Internet connection."},
 	{"Anonymous #52", "What's the difference between religion and bullshit?\nThe bull."},
 	{"Anonymous #53", "Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML"},
@@ -6145,7 +6145,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #120", "Life is what happens to you while you're looking at your smartphone."},
 	//{"Anonymous #121", ""},
 	{"Anonymous #122", "Nerd?\nI prefer the term \"Intellectual badass\"."},
-	{"Anonymous #123", "How can you face your problem if your problem is your face?"},
+	//{"Anonymous #123", ""},
 	{"Anonymous #124", "You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion."},
 	{"Anonymous #125", "Pooping with the door opened is the meaning of true freedom."},
 	{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},

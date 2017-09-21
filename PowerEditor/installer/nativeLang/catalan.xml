@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation for Notepad++
-Updated 10.07.2017, v7.4.2
+Updated 21.09.2017, v7.5.1
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
-	<Native-Langue name="Català" filename="catalan.xml" version="7.4.2">
+	<Native-Langue name="Català" filename="catalan.xml" version="7.5.1">
 		<Menu>
 			<Main>
 				<Entries>
@@ -73,6 +73,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="41002" name="&amp;Obre..."/>
 					<Item id="41019" name="Explorador de Windows"/>
 					<Item id="41020" name="Indicador d'ordres"/>
+					<Item id="41023" name="Obre amb el visualitzador per defecte"/>
 					<Item id="41022" name="Obre carpeta de treball"/>
 					<Item id="41014" name="&amp;Recarrega des del disc"/>
 					<Item id="41006" name="&amp;Desa"/>
@@ -338,6 +339,7 @@ By Hiro5 <groccat at gmail>
 				<Item CMID="4"  name="&amp;Imprimeix..."/>
 				<Item CMID="19" name="Obre la carpeta contenidora amb l'Explorador"/>
 				<Item CMID="20" name="Obre la carpeta contenidora amb l'Indicador d'ordres"/>
+				<Item CMID="21" name="Obre amb el visualitzador per defecte"/>
 				<Item CMID="12" name="&amp;Mode de Només-Lectura"/>
 				<Item CMID="13" name="Treu m&amp;arca de Només-Lectura"/>
 				<Item CMID="7"  name="Copia el camí sence&amp;r d'aquest fitxer"/>
@@ -353,8 +355,8 @@ By Hiro5 <groccat at gmail>
 			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
 				<Item id="1617" name="Estil de símbol trobat"/>
 				<Item id="1637" name="Cerca als fitxers"/>
-				<Item id="1"    name="Cerca >>"/>
-				<Item id="1721" name="<< Cerca"/>
+				<Item id="1"    name="Cerca següent"/>
+				<Item id="1722" name="Inverteix direcció"/>
 				<Item id="1614" name="Compta coincidències"/>
 				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
 				<Item id="1641" name="Cerca-ho tot en el document actual"/>
@@ -384,9 +386,6 @@ By Hiro5 <groccat at gmail>
 				<Item id="1626" name="Estès (\n, \r, \t, \0, \x...)"/>
 				<Item id="1605" name="Expressió regular"/>
 				<Item id="1703" name="&amp;. cerca nova línia"/>
-				<Item id="1621" name="Direcció"/>
-				<Item id="1612" name="Amu&amp;nt"/>
-				<Item id="1613" name="A&amp;vall"/>
 				<Item id="1623" name=" "/>
 				<Item id="1686" name="Transparència"/>
 				<Item id="1687" name="En perdre el focus"/>
@@ -987,7 +986,7 @@ By Hiro5 <groccat at gmail>
 			<word-chars-list-warning-end value=" en la llista de caràcters."/>
 			<cloud-invalid-warning value="El camí no és vàlid."/>
 			<cloud-restart-warning value="Reinicieu Notepad++ perquè faci efecte."/>
-			<shift-change-direction-tip value="Retorn: Cerca següent&#xD;Maj.+Retorn: Cerca anterior"/>
+			<shift-change-direction-tip value="Utilitza Maj.+Retorn per cercar en direcció contrària"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

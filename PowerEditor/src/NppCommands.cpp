@@ -2139,12 +2139,12 @@ void Notepad_plus::command(int id)
         case IDM_FORMAT_ISO_8859_7  :
         case IDM_FORMAT_ISO_8859_8  :
         case IDM_FORMAT_ISO_8859_9  :
-        case IDM_FORMAT_ISO_8859_10 :
-        case IDM_FORMAT_ISO_8859_11 :
+        //case IDM_FORMAT_ISO_8859_10 :
+        //case IDM_FORMAT_ISO_8859_11 :
         case IDM_FORMAT_ISO_8859_13 :
         case IDM_FORMAT_ISO_8859_14 :
         case IDM_FORMAT_ISO_8859_15 :
-        case IDM_FORMAT_ISO_8859_16 :
+        //case IDM_FORMAT_ISO_8859_16 :
         case IDM_FORMAT_DOS_437 :
         case IDM_FORMAT_DOS_720 :
         case IDM_FORMAT_DOS_737 :

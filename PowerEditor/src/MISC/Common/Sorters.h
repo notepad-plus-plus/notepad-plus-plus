@@ -46,7 +46,7 @@ protected:
 
 	generic_string getSortKey(const generic_string& input)
 	{
-		if (isSortingSpecificColumns())
+		if (isSortingSpecificColumns() && _toColumn < input.length())
 		{
 			return input.substr(_fromColumn, 1 + _toColumn - _fromColumn);
 		}

@@ -294,7 +294,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 
 	_availableListView.init(_hInst, _hSelf);
 	_availableListView.reSizeTo(listRect);
-	//_availableListView.display();
 	
 	_updateListView.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_updateListView.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
@@ -303,7 +302,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 
 	_updateListView.init(_hInst, _hSelf);
 	_updateListView.reSizeTo(listRect);
-	//_updateListView.display(false);
 
 	_installedListView.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_installedListView.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
@@ -312,7 +310,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 
 	_installedListView.init(_hInst, _hSelf);
 	_installedListView.reSizeTo(listRect);
-	//_installedListView.display(false);
 
 	HWND hDesc = ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT);
 	::MoveWindow(hDesc, descRect.left, descRect.top, descRect.right, descRect.bottom, TRUE);
@@ -365,42 +362,42 @@ bool loadFromJson(std::vector<PluginUpdateInfo> & pl, const json& j)
 	json jArray = j["npp-plugins"];
 	if (jArray.empty() || jArray.type() != json::value_t::array)
 		return false;
-
-	for (auto& i : jArray)
+	
+	for (const auto& i : jArray)
 	{
-		PluginUpdateInfo pi;
-		string s = i["folder-name"];
-		std::wstring val = wmc->char2wchar(s.c_str(), CP_ACP);
-		pi.name = val;
+		try {
+			PluginUpdateInfo pi;
 
-		s = i["display-name"];
-		val = wmc->char2wchar(s.c_str(), CP_ACP);
-		pi.alias = val;
+			string valStr = i.at("folder-name").get<std::string>();
+			pi.name = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
-		s = i["author"];
-		val = wmc->char2wchar(s.c_str(), CP_ACP);
-		pi.author = val;
+			valStr = i.at("display-name").get<std::string>();
+			pi.alias = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
-		s = i["description"];
-		val = wmc->char2wchar(s.c_str(), CP_ACP);
-		pi.description = val;
+			valStr = i.at("author").get<std::string>();
+			pi.author = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
-		s = i["repository"];
-		val = wmc->char2wchar(s.c_str(), CP_ACP);
-		pi.repository = val;
+			valStr = i.at("description").get<std::string>();
+			pi.description = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
-		s = i["homepage"];
-		val = wmc->char2wchar(s.c_str(), CP_ACP);
-		pi.homepage = val;
+			valStr = i.at("repository").get<std::string>();
+			pi.repository = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
-		s = i["version"];
-		val = wmc->char2wchar(s.c_str(), CP_ACP);
-		pi.version = val;
+			valStr = i.at("homepage").get<std::string>();
+			pi.homepage = wmc->char2wchar(valStr.c_str(), CP_ACP);
 
-		pl.push_back(pi);
+
+			pl.push_back(pi);
+		}
+		catch (...) // Every field is mandatory. If one of property is missing, an exception is thrown then this plugin will be ignored
+		{
+			continue; 
+		}
 	}
 	return true;
 }
+
+
 
 bool PluginsAdminDlg::updateListAndLoadFromJson()
 {
@@ -426,7 +423,24 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 
 	loadFromJson(_availablePluginList, pluginsJson);
 
+	// update available list view
+	updateAvailableListView();
+
 	return true;
+}
+
+void PluginsAdminDlg::updateAvailableListView()
+{
+	size_t i = 0;
+	//
+	for (const auto& pui : _availablePluginList)
+	{
+		vector<generic_string> values2Add;
+		values2Add.push_back(pui.name);
+		values2Add.push_back(pui.version);
+		values2Add.push_back(TEXT("Yes"));
+		_availableListView.addLine(values2Add, i++);
+	}
 }
 
 bool PluginsAdminDlg::getLoadedPluginInfos()
@@ -466,6 +480,9 @@ bool PluginsAdminDlg::searchInPlugins(bool isNextMode) const
 
 void PluginsAdminDlg::switchDialog(int indexToSwitch)
 {
+	std::vector<PluginUpdateInfo>* pUpiList = nullptr;
+	ListView* pListView = nullptr;
+
 	bool showAvailable, showUpdate, showInstalled;
 	switch (indexToSwitch)
 	{
@@ -473,18 +490,24 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 			showAvailable = true;
 			showUpdate = false;
 			showInstalled = false;
+			pUpiList = &_availablePluginList;
+			pListView = &_availableListView;
 			break;
 
 		case 1: // to be updated plugins
 			showAvailable = false;
 			showUpdate = true;
 			showInstalled = false;
+			pUpiList = &_updatePluginList;
+			pListView = &_updateListView;
 			break;
 
 		case 2: // installed plugin
 			showAvailable = false;
 			showUpdate = false;
 			showInstalled = true;
+			pUpiList = &_installedPluginList;
+			pListView = &_installedListView;
 			break;
 
 		default:
@@ -507,6 +530,13 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	_availableListView.display(showAvailable);
 	_updateListView.display(showUpdate);
 	_installedListView.display(showInstalled);
+
+	generic_string desc;
+	long infoIndex = pListView->getSelectedIndex();
+	if (infoIndex != -1)
+		desc = pUpiList->at(infoIndex).describe();
+
+	::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 }
 
 INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

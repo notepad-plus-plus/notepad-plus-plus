@@ -121,6 +121,8 @@ public :
 	void switchDialog(int indexToSwitch);
 
 	bool updateListAndLoadFromJson(); // call GitUup for the 1st time
+	void updateAvailableListView();
+
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
 	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
 

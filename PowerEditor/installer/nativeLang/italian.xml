@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <!--
-    Italian translation for Notepad++ 7.4.2
-    Last modified Sat, Jul 9th, 2017 by Luca Leonardi.
+    Italian translation for Notepad++ 7.5.1
+    Last modified Sat, Sep 27th, 2017 by Luca Leonardi.
     Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/tree/master/PowerEditor/installer/nativeLang
 -->
@@ -96,6 +96,7 @@
                     <Item id = "41020" name = "Prompt dei comandi" />
                     <Item id = "41021" name = "Ripristina i file recenti" />
                     <Item id = "41022" name = "Apri cartella come workspace" />
+                    <Item id = "41023" name = "Apri con il visualizzatore predefinito" />
 
                     <Item id = "42001" name = "Tag&amp;lia" />
                     <Item id = "42002" name = "&amp;Copia" />
@@ -362,6 +363,7 @@
                 <Item CMID = "18" name = "Chiudi tutte a destra" />
                 <Item CMID = "19" name = "Apri cartella file in Esplora risorse" />
                 <Item CMID = "20" name = "Apri prompt dei comandi in cartella file" />
+                <Item CMID = "21" name = "Apri con il visualizzatore predefinito" />
             </TabBar>
         </Menu>
         <Dialog>
@@ -404,6 +406,7 @@
                 <Item id = "1688" name = "Sempre" />
                 <Item id = "1703" name = "&amp;. significa &apos;a capo&apos;" />
                 <Item id = "1721" name = "Precedente" />
+                <Item id = "1722" name = "Direzione inversa" />
             </Find>
             <FindCharsInRange title = "Cerca caratteri...">
                 <Item id = "2910" name = "Cerca" />

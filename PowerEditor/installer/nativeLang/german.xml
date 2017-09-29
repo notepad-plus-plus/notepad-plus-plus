@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5
-	last modified: 2017-09-07 by schnurlos (schnurlos@gmail.com)
+	last modified: 2017-09-29 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -371,7 +371,7 @@
 
 		<Dialog>
 			<Find title="Suchen und ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Hervorheben">
-				<Item id="1"    name="&amp;Suche vorwärts"/>
+				<Item id="1"    name="&amp;Suche weiter"/>
 				<Item id="1722" name="&amp;Rückwärts suchen"/>
 				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="1620" name="Suchen &amp;nach:"/>

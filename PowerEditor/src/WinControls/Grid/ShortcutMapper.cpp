@@ -121,13 +121,10 @@ void ShortcutMapper::initBabyGrid() {
 	
 	_babygrid.reSizeToWH(rect);
 	_babygrid.hideCursor();
-	_babygrid.makeColAutoWidth(false);
-	_babygrid.setAutoRow(false);
+	_babygrid.makeColAutoWidth(true);
+	_babygrid.setAutoRow(true);
 	_babygrid.setColsNumbered(false);
-	_babygrid.setColWidth(0, NppParameters::getInstance()->_dpiManager.scaleX(30));
-	_babygrid.setColWidth(1, NppParameters::getInstance()->_dpiManager.scaleX(290));
-	_babygrid.setColWidth(2, NppParameters::getInstance()->_dpiManager.scaleX(140));
-	_babygrid.setColWidth(3, NppParameters::getInstance()->_dpiManager.scaleX(40));
+	_babygrid.setColWidth(0, NppParameters::getInstance()->_dpiManager.scaleX(30));  // Force the first col to be small, others col will be automatically sized
 	_babygrid.setHeaderHeight(NppParameters::getInstance()->_dpiManager.scaleY(21));
 	_babygrid.setRowHeight(NppParameters::getInstance()->_dpiManager.scaleY(21));
 
@@ -338,6 +335,12 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			fillOutBabyGrid();
 			_babygrid.display();	
 			goToCenter();
+
+			RECT rect;
+			Window::getClientRect(rect);
+			_clientWidth = rect.right - rect.left;
+			_clientHeight = rect.bottom - rect.top;
+
 			return TRUE;
 		}
 
@@ -348,6 +351,45 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			_hGridFonts.clear();
 			_hGridFonts.shrink_to_fit();
+			break;
+		}
+
+		case WM_SIZE:
+		{
+			LONG newWidth = LOWORD(lParam);
+			LONG newHeight = HIWORD(lParam);
+			RECT rect;
+
+			LONG addWidth = newWidth - _clientWidth;
+			LONG addHeight = newHeight - _clientHeight;
+			_clientWidth = newWidth;
+			_clientHeight = newHeight;
+
+			getClientRect(rect);
+			_babygrid.reSizeToWH(rect);
+			
+			//elements that need to be moved
+			const auto moveWindowIDs = {
+				IDM_BABYGRID_MODIFY, IDM_BABYGRID_CLEAR, IDM_BABYGRID_DELETE, IDOK
+			};
+			const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
+			Window::getClientRect(rect);
+
+			for (int moveWndID : moveWindowIDs)
+			{
+				HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
+				::GetWindowRect(moveHwnd, &rect);
+				::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
+				::SetWindowPos(moveHwnd, NULL, rect.left + addWidth, rect.top + addHeight, 0, 0, SWP_NOSIZE | flags);
+			}
+			// Move and resize IDC_BABYGRID_INFO
+			// Move the Y position, Resize the width
+			HWND resizeHwnd = ::GetDlgItem(_hSelf, IDC_BABYGRID_INFO);
+			::GetWindowRect(resizeHwnd, &rect);
+			::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
+			::SetWindowPos(resizeHwnd, NULL, rect.left, rect.top + addHeight, rect.right - rect.left + addWidth, rect.bottom - rect.top, flags);
+
+			break;
 		}
 		break;
 

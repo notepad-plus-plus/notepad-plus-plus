@@ -90,6 +90,8 @@ private:
 		GFONT_ROWS,
 		MAX_GRID_FONTS
 	};
+	LONG _clientWidth;
+	LONG _clientHeight;
 
 	void initTabs();
 	void initBabyGrid();

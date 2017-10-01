@@ -445,12 +445,12 @@ void PluginsAdminDlg::updateAvailableListView()
 
 bool PluginsAdminDlg::getLoadedPluginInfos()
 {
-	if (not _pPluginsManager)
+	if (!_pPluginsManager)
 		return false;
 
-	for (auto it = _pPluginsManager->_loadedDlls.begin(); it != _pPluginsManager->_loadedDlls.end(); ++it)
+	for (const auto& i : _pPluginsManager->_loadedDlls)
 	{
-		LoadedPluginInfo lpi(it->_fullFilePath, it->_fileName);
+		LoadedPluginInfo lpi(i._fullFilePath, i._fileName);
 		_loadedPluginInfos.push_back(lpi);
 	}
 

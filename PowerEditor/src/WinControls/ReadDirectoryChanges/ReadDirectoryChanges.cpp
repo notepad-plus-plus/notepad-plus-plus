@@ -34,8 +34,8 @@ using namespace ReadDirectoryChangesPrivate;
 ///////////////////////////////////////////////////////////////////////////
 // CReadDirectoryChanges
 
-CReadDirectoryChanges::CReadDirectoryChanges(int nMaxCount)
-	: m_Notifications(nMaxCount)
+CReadDirectoryChanges::CReadDirectoryChanges()
+	: m_Notifications()
 {
 	m_hThread	= NULL;
 	m_dwThreadId= 0;
@@ -101,12 +101,4 @@ bool  CReadDirectoryChanges::Pop(DWORD& dwAction, CStringW& wstrFilename)
 	wstrFilename = pair.second;
 
 	return true;
-}
-
-bool CReadDirectoryChanges::CheckOverflow()
-{
-	bool b = m_Notifications.overflow();
-	if (b)
-		m_Notifications.clear();
-	return b;
 }

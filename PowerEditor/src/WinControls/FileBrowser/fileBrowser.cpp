@@ -1354,11 +1354,9 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 			{
 				DWORD dwAction;
 				CStringW wstrFilename;
-				if (changes.CheckOverflow())
-					printStr(L"Queue overflowed.");
-				else
+				// Process all available changes, ignore User actions
+				while (changes.Pop(dwAction, wstrFilename))
 				{
-					changes.Pop(dwAction, wstrFilename);
 					static generic_string oldName;
 					static std::vector<generic_string> file2Change;
 					file2Change.clear();

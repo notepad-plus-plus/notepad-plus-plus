@@ -678,7 +678,7 @@
 					mainExpr    ="(?&lt;=^class\x20).*?(?=\n\S|\Z)"
 				>
 					<className>
-						<nameExpr expr="\w+(?=[\(|:])" />
+						<nameExpr expr="\w+(?=\s*[\(|:])" />
 					</className>
 					<function
 						mainExpr="(?&lt;=def\x20).+?(?=:)"

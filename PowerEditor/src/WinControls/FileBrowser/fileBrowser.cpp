@@ -1430,6 +1430,50 @@ bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> &
 }
 */
 
+static void processChange(HWND notifyWindow, DWORD dwAction, const CStringW& wstrFilename)
+{
+	static generic_string oldName;
+	static std::vector<generic_string> file2Change;
+	file2Change.clear();
+
+	switch (dwAction)
+	{
+	case FILE_ACTION_ADDED:
+		file2Change.push_back(wstrFilename.GetString());
+		::SendMessage(notifyWindow, FB_ADDFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
+		oldName = TEXT("");
+		break;
+
+	case FILE_ACTION_REMOVED:
+		file2Change.push_back(wstrFilename.GetString());
+		::SendMessage(notifyWindow, FB_RMFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
+		oldName = TEXT("");
+		break;
+
+	case FILE_ACTION_MODIFIED:
+		oldName = TEXT("");
+		break;
+
+	case FILE_ACTION_RENAMED_OLD_NAME:
+		oldName = wstrFilename.GetString();
+		break;
+
+	case FILE_ACTION_RENAMED_NEW_NAME:
+		if (not oldName.empty())
+		{
+			file2Change.push_back(oldName);
+			file2Change.push_back(wstrFilename.GetString());
+			::SendMessage(notifyWindow, FB_RNFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
+		}
+		oldName = TEXT("");
+		break;
+
+	default:
+		oldName = TEXT("");
+		break;
+	}
+}
+
 DWORD WINAPI FolderUpdater::watching(void *params)
 {
 	FolderUpdater *thisFolderUpdater = (FolderUpdater *)params;
@@ -1448,6 +1492,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 
 	bool toBeContinued = true;
 
+	HWND notifyWindow = (thisFolderUpdater->_pFileBrowser)->getHSelf();
 	while (toBeContinued)
 	{
 		DWORD waitStatus = ::WaitForMultipleObjects(_countof(changeHandles), changeHandles, FALSE, INFINITE);
@@ -1463,54 +1508,10 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 			{
 				DWORD dwAction;
 				CStringW wstrFilename;
-				if (changes.CheckOverflow())
-					printStr(L"Queue overflowed.");
-				else
+				// Process all available changes, ignore User actions
+				while (changes.Pop(dwAction, wstrFilename))
 				{
-					changes.Pop(dwAction, wstrFilename);
-					static generic_string oldName;
-					static std::vector<generic_string> file2Change;
-					file2Change.clear();
-
-					switch (dwAction)
-					{
-						case FILE_ACTION_ADDED:
-							file2Change.push_back(wstrFilename.GetString());
-							//thisFolderUpdater->updateTree(dwAction, file2Change);
-							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_ADDFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
-							oldName = TEXT("");
-							break;
-
-						case FILE_ACTION_REMOVED:
-							file2Change.push_back(wstrFilename.GetString());
-							//thisFolderUpdater->updateTree(dwAction, file2Change);
-							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RMFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
-							oldName = TEXT("");
-							break;
-
-						case FILE_ACTION_MODIFIED:
-							oldName = TEXT("");
-							break;
-
-						case FILE_ACTION_RENAMED_OLD_NAME:
-							oldName = wstrFilename.GetString();
-							break;
-
-						case FILE_ACTION_RENAMED_NEW_NAME:
-							if (not oldName.empty())
-							{
-								file2Change.push_back(oldName);
-								file2Change.push_back(wstrFilename.GetString());
-								//thisFolderUpdater->updateTree(dwAction, file2Change);
-								::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RNFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
-							}
-							oldName = TEXT("");
-							break;
-
-						default:
-							oldName = TEXT("");
-							break;
-					}
+					processChange(notifyWindow, dwAction, wstrFilename);
 				}
 			}
 			break;

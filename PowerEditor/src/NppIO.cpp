@@ -39,6 +39,30 @@
 
 using namespace std;
 
+static void processChange(HWND notifyWindow, const TCHAR *fullFileName, Buffer *buf,
+	DWORD dwAction, const CStringW& wstrFilename)
+{
+	generic_string fn = wstrFilename.GetString();
+
+	// Fix monitoring files which are under root problem
+	size_t pos = fn.find(TEXT("\\\\"));
+	if (pos == 2)
+		fn.replace(pos, 2, TEXT("\\"));
+
+	if (lstrcmp(fullFileName, fn.c_str()) == 0)
+	{
+		if (dwAction == FILE_ACTION_MODIFIED)
+		{
+			::PostMessage(notifyWindow, NPPM_INTERNAL_RELOADSCROLLTOEND, reinterpret_cast<WPARAM>(buf), 0);
+		}
+		else if ((dwAction == FILE_ACTION_REMOVED) || (dwAction == FILE_ACTION_RENAMED_OLD_NAME))
+		{
+			// File is deleted or renamed - quit monitoring thread and close file
+			::PostMessage(notifyWindow, NPPM_MENUCOMMAND, 0, IDM_VIEW_MONITORING);
+			::PostMessage(notifyWindow, NPPM_INTERNAL_CHECKDOCSTATUS, 0, 0);
+		}
+	}
+}
 
 DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 {
@@ -83,31 +107,10 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 			{
 				DWORD dwAction;
 				CStringW wstrFilename;
-				if (changes.CheckOverflow())
-					printStr(L"Queue overflowed.");
-				else
+				// Process all available changes, ignore User actions
+				while (changes.Pop(dwAction, wstrFilename))
 				{
-					changes.Pop(dwAction, wstrFilename);
-					generic_string fn = wstrFilename.GetString();
-
-					// Fix monitoring files which are under root problem
-					size_t pos = fn.find(TEXT("\\\\"));
-					if (pos == 2)
-						fn.replace(pos, 2, TEXT("\\"));
-
-					if (lstrcmp(fullFileName, fn.c_str()) == 0)
-					{
-						if (dwAction == FILE_ACTION_MODIFIED)
-						{
-							::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, reinterpret_cast<WPARAM>(buf), 0);
-						}
-						else if ((dwAction == FILE_ACTION_REMOVED) || (dwAction == FILE_ACTION_RENAMED_OLD_NAME))
-						{
-							// File is deleted or renamed - quit monitoring thread and close file
-							::PostMessage(h, NPPM_MENUCOMMAND, 0, IDM_VIEW_MONITORING);
-							::PostMessage(h, NPPM_INTERNAL_CHECKDOCSTATUS, 0, 0);
-						}
-					}
+					processChange(h, fullFileName, buf, dwAction, wstrFilename);
 				}
 			}
 			break;

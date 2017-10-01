@@ -37,7 +37,9 @@ enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTIL
 
 class ShortcutMapper : public StaticDialog {
 public:
-	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {};
+	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {
+		_shortcutFilter = TEXT("");
+	};
 	~ShortcutMapper() {};
 
 	void init(HINSTANCE hInst, HWND parent, GridState initState = STATE_MENU) {
@@ -62,6 +64,10 @@ public:
 	bool findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
 							const KeyCombo & itemKeyCombo, const size_t & itemIndex) const;
 
+	generic_string ShortcutMapper::getTextFromCombo(HWND hCombo);
+	bool ShortcutMapper::isFilterValid(Shortcut);
+	bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc);
+
 protected :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -74,6 +80,8 @@ private:
 
 	const static int _nbTab = 5;
 	generic_string _tabNames[_nbTab];
+	generic_string _shortcutFilter;
+	std::vector<size_t> _shortcutIndex;
 
 	//save/restore the last view
 	std::vector<size_t> _lastHomeRow;

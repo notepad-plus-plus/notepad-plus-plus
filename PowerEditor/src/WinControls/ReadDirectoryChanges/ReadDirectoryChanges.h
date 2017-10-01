@@ -99,8 +99,8 @@ namespace ReadDirectoryChangesPrivate
 ///				{
 ///					DWORD dwAction;
 ///					CStringW wstrFilename;
-///					changes.Pop(dwAction, wstrFilename);
-///					wprintf(L"%s %s\n", ExplainAction(dwAction), wstrFilename);
+///					while (changes.Pop(dwAction, wstrFilename))
+///						wprintf(L"%s %s\n", ExplainAction(dwAction), wstrFilename);
 ///				}
 ///				break;
 ///			case WAIT_OBJECT_0 + _countof(handles):
@@ -116,7 +116,7 @@ namespace ReadDirectoryChangesPrivate
 class CReadDirectoryChanges
 {
 public:
-	CReadDirectoryChanges(int nMaxChanges=1000);
+	CReadDirectoryChanges();
 	~CReadDirectoryChanges();
 
 	void Init();
@@ -147,9 +147,6 @@ public:
 
 	// "Push" is for usage by ReadChangesRequest.  Not intended for external usage.
 	void Push(DWORD dwAction, CStringW& wstrFilename);
-
-	// Check if the queue overflowed. If so, clear it and return true.
-	bool CheckOverflow();
 
 	unsigned int GetThreadId() { return m_dwThreadId; }
 

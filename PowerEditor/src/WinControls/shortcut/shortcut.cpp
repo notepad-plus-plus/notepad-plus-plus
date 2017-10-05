@@ -408,6 +408,10 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled()?SW_HIDE:SW_SHOW);
 			updateConflictState();
 			goToCenter();
+
+			NativeLangSpeaker * _nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			_nativeLangSpeaker->changeDlgLang(_hSelf, "Shortcut");
+
 			return TRUE;
 		}
 
@@ -860,8 +864,11 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 
 			showCurrentSettings();
 			validateDialog();
-
 			goToCenter();
+
+			NativeLangSpeaker * _nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			_nativeLangSpeaker->changeDlgLang(_hSelf, "Shortcut");
+
 			return TRUE;
 		}
 

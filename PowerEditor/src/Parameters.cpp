@@ -99,7 +99,7 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_P,       IDM_FILE_PRINT,                               true,  false, false, nullptr },
 	{ VK_NULL,    IDM_FILE_PRINTNOW,                            false, false, false, nullptr },
 	{ VK_F4,      IDM_FILE_EXIT,                                false, true,  false, nullptr },
-	{ VK_T,       IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false, true,  TEXT("Restore Recent Closed File")},
+	{ VK_T,       IDM_FILE_RESTORELASTCLOSEDFILE,               true,  false, true,  nullptr },
 
 //	{ VK_NULL,    IDM_EDIT_UNDO,                                false, false, false, nullptr },
 //	{ VK_NULL,    IDM_EDIT_REDO,                                false, false, false, nullptr },
@@ -1087,7 +1087,9 @@ bool NppParameters::load()
 
 		if (generic_stat(langs_xml_path.c_str(), &buf)==0)
 			if (buf.st_size == 0)
-				doRecover = ::MessageBox(NULL, TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"), TEXT("Configurator"),MB_YESNO);
+				doRecover = _pNativeLangSpeaker->messageBox("ConfiguratorLangXMLWarning", NULL,
+					TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"),
+					TEXT("Configurator"), MB_YESNO | MB_ICONEXCLAMATION);
 	}
 	else
 		doRecover = true;
@@ -1105,7 +1107,8 @@ bool NppParameters::load()
 	bool loadOkay = _pXmlDoc->LoadFile();
 	if (!loadOkay)
 	{
-		::MessageBox(NULL, TEXT("Load langs.xml failed!"), TEXT("Configurator"),MB_OK);
+		_pNativeLangSpeaker->messageBox("ConfiguratorLangXMLError", NULL,
+			TEXT("Load langs.xml failed!"), TEXT("Configurator"), MB_OK | MB_ICONERROR);
 		delete _pXmlDoc;
 		_pXmlDoc = nullptr;
 		isAllLaoded = false;
@@ -1161,7 +1164,8 @@ bool NppParameters::load()
 	loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
-		::MessageBox(NULL, TEXT("Load stylers.xml failed!"), _stylerPath.c_str(), MB_OK);
+		_pNativeLangSpeaker->messageBox("ConfiguratorStyleXMLError", NULL,
+			TEXT("Load stylers.xml failed!"), _stylerPath.c_str(), MB_OK | MB_ICONERROR);
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
 		isAllLaoded = false;

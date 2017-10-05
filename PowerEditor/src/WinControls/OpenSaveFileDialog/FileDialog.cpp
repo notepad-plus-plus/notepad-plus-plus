@@ -181,9 +181,9 @@ TCHAR* FileDialog::doOpenSingleFileDlg()
 			params->setWorkingDir(dir);
 		}
 	} catch(std::exception e) {
-		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
+		::MessageBoxA(NULL, e.what(), "Exception", MB_OK | MB_ICONERROR);
 	} catch(...) {
-		::MessageBox(NULL, TEXT("doOpenSingleFileDlg crashes!!!"), TEXT(""), MB_OK);
+		::MessageBox(NULL, TEXT("doOpenSingleFileDlg crashes!!!"), TEXT(""), MB_OK | MB_ICONERROR);
 	}
 
 	::SetCurrentDirectory(dir); 
@@ -269,9 +269,9 @@ TCHAR * FileDialog::doSaveDlg()
 			params->setWorkingDir(dir);
 		}
 	} catch(std::exception e) {
-		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
+		::MessageBoxA(NULL, e.what(), "Exception", MB_OK | MB_ICONERROR);
 	} catch(...) {
-		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
+		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK | MB_ICONERROR);
 	}
 
 	::SetCurrentDirectory(dir); 

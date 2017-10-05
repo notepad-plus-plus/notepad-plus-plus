@@ -1866,9 +1866,49 @@ void Notepad_plus::command(int id)
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
 			int fileLen = curBuf->getFileLength();
 
+			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
+			auto nbChar = getCurrentDocCharCount(um);
+			int nbWord = wordCount();
+			auto nbLine = _pEditView->execute(SCI_GETLINECOUNT);
+			auto nbByte = _pEditView->execute(SCI_GETLENGTH);
+			auto nbSel = getSelectedCharNumber(um);
+			auto nbSelByte = getSelectedBytes();
+			auto nbRange = getSelectedAreas();
+
+			generic_string charsNum = commafyInt(nbChar);
+			generic_string wordsNum = commafyInt(nbWord);
+			generic_string linsNum = commafyInt(static_cast<int>(nbLine));
+			generic_string byteNum = commafyInt(nbByte);
+			generic_string selNum = commafyInt(nbSel);
+			generic_string selByteNum = commafyInt(nbSelByte);
+			generic_string rangeNum = commafyInt(nbRange);
+
 			if (fileLen != -1)
 			{
-				TCHAR *filePathLabel = TEXT("Full file path: ");
+				generic_string fullPath = curBuf->getFullPathName();
+				generic_string created = curBuf->getFileTime(Buffer::ft_created);
+				generic_string modified = curBuf->getFileTime(Buffer::ft_modified);
+				generic_string fileLenght = commafyInt(static_cast<UINT64>(fileLen));
+
+				const TCHAR *parms[11] = { 
+					fullPath.c_str(),
+					created.c_str(),
+					modified.c_str(),
+					fileLenght.c_str(),
+					charsNum.c_str(),
+					wordsNum.c_str(),
+					linsNum.c_str(),
+					byteNum.c_str(),
+					selNum.c_str(),
+					selByteNum.c_str(),
+					rangeNum.c_str()
+				};
+
+				_nativeLangSpeaker.messageBox("NppSummaryFile", _pPublicInterface->getHSelf(),
+					TEXT("Full file path: $0$\rCreated: $1$\rModified: $2$\rFile length (in byte): $3$\r\rCharacters (without blanks): $4$\rWords: $5$\rLines: $6$\rCurrent document length: $7$\r$8$ selected characters ($9$ bytes) in $10$ ranges"),
+					TEXT("Summary"), MB_OK | MB_APPLMODAL, 11, parms);
+
+				/*TCHAR *filePathLabel = TEXT("Full file path: ");
 				TCHAR *fileCreateTimeLabel = TEXT("Created: ");
 				TCHAR *fileModifyTimeLabel = TEXT("Modified: ");
 				TCHAR *fileLenLabel = TEXT("File length (in byte): ");
@@ -1888,24 +1928,32 @@ void Notepad_plus::command(int id)
 				characterNumber += fileLenLabel;
 				characterNumber += commafyInt(static_cast<UINT64>(fileLen)).c_str();
 				characterNumber += TEXT("\r");
-				characterNumber += TEXT("\r");
+				characterNumber += TEXT("\r");*/
 			}
-			TCHAR *nbCharLabel = TEXT("Characters (without blanks): ");
+			else
+			{
+				const TCHAR *parms[7] = {
+					charsNum.c_str(),
+					wordsNum.c_str(),
+					linsNum.c_str(),
+					byteNum.c_str(),
+					selNum.c_str(),
+					selByteNum.c_str(),
+					rangeNum.c_str()
+				};
+
+				_nativeLangSpeaker.messageBox("NppSummary", _pPublicInterface->getHSelf(),
+					TEXT("Characters (without blanks): $0$\rWords: $1$\rLines: $2$\rCurrent document length: $3$\r$4$ selected characters ($5$ bytes) in $6$ ranges"),
+					TEXT("Summary"), MB_OK | MB_APPLMODAL, 7, parms);
+			}
+
+			/*TCHAR *nbCharLabel = TEXT("Characters (without blanks): ");
 			TCHAR *nbWordLabel = TEXT("Words: ");
 			TCHAR *nbLineLabel = TEXT("Lines: ");
 			TCHAR *nbByteLabel = TEXT("Current document length: ");
 			TCHAR *nbSelLabel1 = TEXT(" selected characters (");
 			TCHAR *nbSelLabel2 = TEXT(" bytes) in ");
 			TCHAR *nbRangeLabel = TEXT(" ranges");
-
-			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
-			auto nbChar = getCurrentDocCharCount(um);
-			int nbWord = wordCount();
-			auto nbLine = _pEditView->execute(SCI_GETLINECOUNT);
-			auto nbByte = _pEditView->execute(SCI_GETLENGTH);
-			auto nbSel = getSelectedCharNumber(um);
-			auto nbSelByte = getSelectedBytes();
-			auto nbRange = getSelectedAreas();
 
 			characterNumber += nbCharLabel;
 			characterNumber += commafyInt(nbChar).c_str();
@@ -1931,7 +1979,7 @@ void Notepad_plus::command(int id)
 			characterNumber += nbRangeLabel;
 			characterNumber += TEXT("\r");
 
-			::MessageBox(_pPublicInterface->getHSelf(), characterNumber.c_str(), TEXT("Summary"), MB_OK|MB_APPLMODAL);
+			::MessageBox(_pPublicInterface->getHSelf(), characterNumber.c_str(), TEXT("Summary"), MB_OK|MB_APPLMODAL);*/
 		}
 		break;
 
@@ -1955,7 +2003,9 @@ void Notepad_plus::command(int id)
 				{
 					if (curBuf->isDirty())
 					{
-						::MessageBox(_pPublicInterface->getHSelf(), TEXT("The document is dirty. Please save the modification before monitoring it."), TEXT("Monitoring problem"), MB_OK);
+						_nativeLangSpeaker.messageBox("MonitoringDirtyWarning", _pPublicInterface->getHSelf(),
+							TEXT("The document is dirty. Please save the modification before monitoring it."),
+							TEXT("Monitoring problem"), MB_OK | MB_ICONEXCLAMATION);
 					}
 					else
 					{
@@ -1970,7 +2020,9 @@ void Notepad_plus::command(int id)
 				}
 				else
 				{
-					::MessageBox(_pPublicInterface->getHSelf(), TEXT("The file should exist to be monitored."), TEXT("Monitoring problem"), MB_OK);
+					_nativeLangSpeaker.messageBox("MonitoringFileError", _pPublicInterface->getHSelf(),
+						TEXT("The file should exist to be monitored."),
+						TEXT("Monitoring problem"), MB_OK | MB_ICONERROR);
 				}
 			}
 
@@ -2049,7 +2101,7 @@ void Notepad_plus::command(int id)
 						NULL,
 						TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 						TEXT("Save Current Modification"),
-						MB_YESNO);
+						MB_YESNO | MB_ICONEXCLAMATION);
 
 					if (answer == IDYES)
 					{
@@ -2067,7 +2119,7 @@ void Notepad_plus::command(int id)
 						NULL,
 						TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 						TEXT("Lose Undo Ability Waning"),
-						MB_YESNO);
+						MB_YESNO | MB_ICONEXCLAMATION);
 					if (answer == IDYES)
 					{
 						// Do nothing
@@ -2164,7 +2216,7 @@ void Notepad_plus::command(int id)
 					NULL,
 					TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 					TEXT("Save Current Modification"),
-					MB_YESNO);
+					MB_YESNO | MB_ICONEXCLAMATION);
 
                 if (answer == IDYES)
                 {
@@ -2182,7 +2234,7 @@ void Notepad_plus::command(int id)
 					NULL,
 					TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 					TEXT("Lose Undo Ability Waning"),
-					MB_YESNO);
+					MB_YESNO | MB_ICONEXCLAMATION);
 
                 if (answer != IDYES)
                     return;
@@ -2420,8 +2472,8 @@ void Notepad_plus::command(int id)
             GridState st = id==IDM_SETTING_SHORTCUT_MAPPER_MACRO?STATE_MACRO:id==IDM_SETTING_SHORTCUT_MAPPER_RUN?STATE_USER:STATE_MENU;
 			ShortcutMapper shortcutMapper;
             shortcutMapper.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), st);
-            _nativeLangSpeaker.changeShortcutmapperLang(&shortcutMapper);
 			shortcutMapper.doDialog(_nativeLangSpeaker.isRTL());
+			_nativeLangSpeaker.changeShortcutMapperLang(&shortcutMapper);
 			shortcutMapper.destroy();
 			break;
 		}
@@ -2443,7 +2495,7 @@ void Notepad_plus::command(int id)
 				_pPublicInterface->getHSelf(),
 				TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu on edit zone.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."),
 				TEXT("Editing contextMenu"),
-				MB_OK|MB_APPLMODAL);
+				MB_OK | MB_APPLMODAL | MB_ICONINFORMATION);
 
             NppParameters *pNppParams = NppParameters::getInstance();
             BufferID bufID = doOpen((pNppParams->getContextMenuPath()));
@@ -2664,7 +2716,9 @@ void Notepad_plus::command(int id)
 			winVer ver = NppParameters::getInstance()->getWinVersion();
 			if (ver <= WV_XP)
 			{
-				long res = ::MessageBox(NULL, TEXT("Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"), TEXT("Notepad++ Updater"), MB_YESNO);
+				int res = _nativeLangSpeaker.messageBox("UpdaterCompatible", _pPublicInterface->getHSelf(),
+					TEXT("Notepad++ updater is not compatible with XP due to the obsolet security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"),
+					TEXT("Notepad++ Updater"), MB_YESNO | MB_ICONQUESTION);
 				if (res == IDYES)
 				{
 					::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/download/"), NULL, NULL, SW_SHOWNORMAL);
@@ -2879,7 +2933,7 @@ void Notepad_plus::command(int id)
 				if (dlgNode)
 					dlgNode = _nativeLangSpeaker.searchDlgNode(dlgNode, "Window");
 			}
-			_windowsDlg.doDialog(dlgNode);
+			_windowsDlg.doDialog(dlgNode, _nativeLangSpeaker.isRTL());
 		}
 		break;
 

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.4">
+    <!--
+    URL: https://www.w3schools.com/xml/xml_syntax.asp
+    - &#xD;  is (\r) new line 
+    - &gt;   is (>) and &lt; is (<)
+    - &amp;  is (&)
+    - &apos; is (')
+    - &quot; is (")
+    -->
+    <Native-Langue name="English" filename="english.xml" RTL="no" version="7.4.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -18,6 +26,7 @@
                     <Item idName="Plugins" name="Plugins"/>
                     <Item idName="Window" name="Window"/>
                 </Entries>
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Open Containing Folder"/>
@@ -310,8 +319,10 @@
                     <Item id="48017" name="Modify Shortcut/Delete Command..."/>
                 </Commands>
             </Main>
+
             <Splitter>
             </Splitter>
+
             <TabBar>
                     <Item CMID="0" name="Close"/>
                     <Item CMID="1" name="Close All BUT This"/>
@@ -339,7 +350,8 @@
 
         <Dialog>
             <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
-                <Item id="1"    name="Find Next"/>
+                <Item id="1"    name="Find &gt;&gt;"/>
+                <Item id="1721" name="&lt;&lt; Find"/>
                 <Item id="2"    name="Close"/>
                 <Item id="1620" name="Find what:"/>
                 <Item id="1603" name="Match &amp;whole word only"/>
@@ -375,7 +387,76 @@
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparency"/>
                 <Item id="1703" name="&amp;. matches newline"/>
+                <Strings>
+                    <FoundBegin name="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached." />
+                    <FoundEnd name="Find: Found the 1st occurrence from the top. The end of the document has been reached." />
+                    <ReplaceReadOnlyError name="Replace: Cannot replace text. The current document is read only." />
+                    <ReplaceBegin name="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached." />
+                    <ReplaceEnd name="Replace: Replaced the 1st occurrence from the top. The end of document has been reached." />
+                    <ReplaceOneReplaced name="Replace: 1 occurrence was replaced." />
+                    <ReplaceNextFound name="The next occurrence found" />
+                    <ReplaceNoOccurrenceFound name="Replace: no occurrence was found." />
+                    <ReplaceNextNotFound name="The next occurrence not found" />
+                    <ReplaceAllRegexMalformed name="Replace All: The regular expression is malformed." />
+                    <ReplaceAllOneReplaced name="Replace All: %d occurrence was replaced." />
+                    <ReplaceAllManyReplaced name="Replace All: %s occurrences were replaced." />
+                    <ReplaceAllReadOnly name="Replace All: Cannot replace text. The current document is read only." />
+                    <CountRegexMalformed name="Count: The regular expression to search is malformed." />
+                    <CountOneMatch name="Count: %d match." />
+                    <CountManyMatchs name="Count: %s matches." />
+                    <MarkRegexMalformed name="Mark: The regular expression to search is malformed." />
+                    <MarkOneMatch name="Mark: %d match." />
+                    <MarkManyMatchs name="Mark: %s matches." />
+                    <SelectFolderToSearch name="Select a folder to search from" />
+                    <FindError name="Find: Can't find the text &quot;%s&quot;" />
+                    <FindRegexInvalid name="Find: Invalid regular expression" />
+                    <ReplaceOpenedFilesRegexMalformed name="Replace in Opened Files: The regular expression to search is formed badly" />
+                    <ReplaceOpenedFiles name="Replace in Opened Files: %s occurrences replaced." />
+                </Strings>
             </Find>
+
+            <Finder>
+                <Strings>
+                    <SearchLine name="Search &quot;%s&quot;" />
+                    <FileHit name="(1 hit)" />
+                    <FileHits name="(%i hits)" />
+                    <SearchHitFilter name="- Line Filter Mode: only display the filtered results" />
+                    <SearchHitFile name="(1 hit in 1 file%s)" />
+                    <SearchHitFiles name="(1 hit in %i files%s)" />
+                    <SearchHitsFile name="(%i hits in 1 file%s)" />
+                    <SearchHitsFiles name="(%i1 hits in %i2 files%s)" />
+                </Strings>
+                <Menu>
+                    <Item id="1064" name="Find in this finder..."/>
+                    <Item id="1065" name="Close this finder"/>
+                    <Item id="1032" name="Collapse all"/>
+                    <Item id="1033" name="Uncollapse all"/>
+                    <Item id="1040" name="Copy"/>
+                    <Item id="1041" name="Select all"/>
+                    <Item id="1051" name="Clear all"/>
+                    <Item id="1058" name="Open all"/>
+                </Menu>
+            </Finder>
+
+            <FindIncrement>
+                <Strings>
+                    <NotFound name="Phrase not found" />
+                    <TopReached name="Reached top of page, continued from bottom" />
+                    <EndReached name="Reached end of page, continued from top" />
+                    <FindMatch name="%d match." />
+                    <FindMatchs name="%s matchs." />
+                </Strings>
+            </FindIncrement>
+
+            <Progress>
+                <Strings>
+                    <CancelButton name="Cancel" />
+                    <DefaultMessage name="Operation progress..." />
+                    <CancelMessage name="Cancelling operation, please wait..." />
+                    <FindInFilesMessage name="Find In Files progress..." />
+                    <ReplaceInFilesMessage name="Replace In Files progress..." />
+                </Strings>
+            </Progress>
 
             <FindCharsInRange title="Find Characters in Range...">
                 <Item id="2" name="Close"/>
@@ -389,11 +470,25 @@
                 <Item id="2910" name="Find"/>
             </FindCharsInRange>
 
+            <FindInFinder title="Find in finder">
+                <Item id="1" name="Find all"/>
+                <Item id="2" name="Close"/>
+                <Item id="1711" name="&amp;Find what :"/>
+                <Item id="1713" name="Search only in found lines"/>
+                <Item id="1714" name="Match &amp;whole word only"/>
+                <Item id="1715" name="Match &amp;case"/>
+                <Item id="1716" name="Search Mode"/>
+                <Item id="1717" name="&amp;Normal"/>
+                <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1719" name="Re&amp;gular expression"/>
+                <Item id="1720" name="&amp;. matches newline"/>
+            </FindInFinder>
+
             <GoToLine title="Go to...">
                 <Item id="2007" name="Line"/>
                 <Item id="2008" name="Offset"/>
                 <Item id="1"    name="&amp;Go"/>
-                <Item id="2"    name="I'm going nowhere"/>
+                <Item id="2"    name="Cancel"/>
                 <Item id="2004" name="You are here:"/>
                 <Item id="2005" name="You want to go to:"/>
                 <Item id="2006" name="You can't go further than:"/>
@@ -447,7 +542,6 @@
                     <Item id="2231" name="Enable global italic font style"/>
                     <Item id="2232" name="Enable global underline font style"/>
                 </SubDialog>
-
             </StyleConfig>
 
             <UserDefine title="User-Defined">
@@ -462,6 +556,11 @@
                 <Item id="20011" name="Transparency"/>
                 <Item id="20015" name="Import..."/>
                 <Item id="20016" name="Export..."/>
+                <StringDialog title="String Dialog">
+                    <Item id="1" name="OK"/>
+                    <Item id="2" name="Cancel"/>
+                    <Item id="26001" name="Name: "/>
+                </StringDialog>
                 <StylerDialog title="Styler Dialog">
                     <Item id="25030" name="Font options:"/>
                     <Item id="25006" name="Foreground colour"/>
@@ -551,22 +650,22 @@
                     <Item id="23006" name="Allow preceeding whitespace"/>
                     <Item id="23001" name="Allow folding of comments"/>
                     <Item id="23326" name="Styler"/>
-                    <Item id="23323" name="Open"/>
-                    <Item id="23324" name="Continue character"/>
-                    <Item id="23325" name="Close"/>
+                    <Item id="23323" name="Open:"/>
+                    <Item id="23324" name="Continue character:"/>
+                    <Item id="23325" name="Close:"/>
                     <Item id="23301" name="Comment line style"/>
                     <Item id="23124" name="Styler"/>
-                    <Item id="23122" name="Open"/>
-                    <Item id="23123" name="Close"/>
+                    <Item id="23122" name="Open:"/>
+                    <Item id="23123" name="Close:"/>
                     <Item id="23101" name="Comment style"/>
                     <Item id="23201" name="Number style"/>
                     <Item id="23220" name="Styler"/>
-                    <Item id="23230" name="Prefix 1"/>
-                    <Item id="23232" name="Prefix 2"/>
-                    <Item id="23234" name="Extras 1"/>
-                    <Item id="23236" name="Extras 2"/>
-                    <Item id="23238" name="Suffix 1"/>
-                    <Item id="23240" name="Suffix 2"/>
+                    <Item id="23230" name="Prefix 1:"/>
+                    <Item id="23232" name="Prefix 2:"/>
+                    <Item id="23234" name="Extras 1:"/>
+                    <Item id="23236" name="Extras 2:"/>
+                    <Item id="23238" name="Suffix 1:"/>
+                    <Item id="23240" name="Suffix 2:"/>
                     <Item id="23242" name="Range:"/>
                     <Item id="23244" name="Decimal separator"/>
                     <Item id="23245" name="Dot"/>
@@ -619,7 +718,16 @@
                     <Item id="24672" name="Close:"/>
                     <Item id="24673" name="Styler"/>
                 </Operator>
+                <Strings>
+                    <Dock name="Dock"/>
+                    <UnDock name="Undock"/>
+                    <Name name="Name: "/>
+                    <RenameTitle name="Rename Current Language Name"/>
+                    <SaveTitle name="Save Current Language Name As..."/>
+                    <NewTitle name="Create New Language..."/>
+                </Strings>
             </UserDefine>
+            
             <Preference title="Preferences">
                 <Item id="6001" name="Close"/>
                 <Global title="General">
@@ -643,13 +751,14 @@
                     <Item id="6120" name="Vertical"/>
                     <Item id="6121" name="Exit on close the last tab"/>
 
-                    <Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
+                    <Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="Localization"/>
 
                     <Item id="6125" name="Document List Panel"/>
                     <Item id="6126" name="Show"/>
                     <Item id="6127" name="Disable extension column"/>
                 </Global>
+
                 <Scintillas title="Editing">
                     <Item id="6216" name="Caret Settings"/>
                     <Item id="6217" name="Width:"/>
@@ -674,8 +783,7 @@
                     <Item id="6207" name="Display bookmarks"/>
                     <Item id="6208" name="Show vertical edge"/>
                     <Item id="6209" name="Number of columns: "/>
-                    <Item id="6234" name="Disable advanced scrolling feature
-(if you have touchpad problem)"/>
+                    <Item id="6234" name="Disable advanced scrolling feature (if you have touchpad problem)"/>
 
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6212" name="Line mode"/>
@@ -715,6 +823,7 @@
                     <Item id="4009" name="Supported extensions:"/>
                     <Item id="4010" name="Registered extensions:"/>
                 </FileAssoc>
+
                 <Language title="Language">
                     <Item id="6505" name="Available items"/>
                     <Item id="6506" name="Disabled items"/>
@@ -830,8 +939,7 @@
                     <Item id="6256" name="Allow on several lines"/>
 					<Item id="6161" name="Word character list"/>
                     <Item id="6162" name="Use default Word character list as it is"/>
-                    <Item id="6163" name="Add your character as part of word
-(don't choose it unless you know what you're doing)"/>
+                    <Item id="6163" name="Add your character as part of word (don't choose it unless you know what you're doing)"/>
                 </Delimiter>
 
                 <Cloud title="Cloud">
@@ -875,21 +983,24 @@
                     <Item id="6346" name="Peek on document map"/>
                 </MISC>
             </Preference>
+
             <MultiMacro title="Run a Macro Multiple Times">
-                <Item id="1" name="Run"/>
-                <Item id="2" name="Cancel"/>
+                <Item id="1"    name="Run"/>
+                <Item id="2"    name="Cancel"/>
                 <Item id="8006" name="Macro to run:"/>
                 <Item id="8001" name="Run"/>
                 <Item id="8005" name="times"/>
                 <Item id="8002" name="Run until the end of file"/>
             </MultiMacro>
+
             <Window title="Windows">
-                <Item id="1" name="Activate"/>
-                <Item id="2" name="OK"/>
+                <Item id="1"    name="Activate"/>
+                <Item id="2"    name="OK"/>
                 <Item id="7002" name="Save"/>
                 <Item id="7003" name="Close window(s)"/>
                 <Item id="7004" name="Sort tabs"/>
             </Window>
+
             <ColumnEditor title="Column Editor">
                 <Item id="2023" name="Text to Insert"/>
                 <Item id="2033" name="Number to Insert"/>
@@ -902,49 +1013,104 @@
                 <Item id="2025" name="Oct"/>
                 <Item id="2026" name="Hex"/>
                 <Item id="2027" name="Bin"/>
-                <Item id="1" name="OK"/>
-                <Item id="2" name="Cancel"/>
+                <Item id="1"    name="OK"/>
+                <Item id="2"    name="Cancel"/>
             </ColumnEditor>
+
+			<Shortcut title="Shortcut">
+                <Item id="1"    name="OK"/>
+                <Item id="2"    name="Cancel"/>
+                <Item id="5006" name="Name :"/>
+                <Item id="5008" name="Add"/>
+                <Item id="5009" name="Remove"/>
+                <Item id="5010" name="Apply"/>
+			</Shortcut>
         </Dialog>
+
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-            <NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
-            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <!-- Any word start and end with $ is a place holder, don't translate it -->
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.&#xD;You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <NppHelpAbsentWarning title="File does not exist" message="&#xD;doesn't exist. Please download it on Notepad++ site."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.&#xD;All the saved modifications can not be undone.&#xD;&#xD;Continue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.&#xD;All the saved modifications can not be undone.&#xD;&#xD;Continue?"/>
             <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
             <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
+            <ShortcutMapperDelete title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
+            <FileTooBigWarning title="File size problem" message="File is too big to be opened by Notepad++"/>
+            <FolderBrowserFolderExists title="" message="A sub-folder of the folder you want to open exists.&#xD;Please remove it from the panel before you add this one."/>
+            <FindReplaceInFilesWarning title="Are you sure?" message="Are you sure you want to replace all occurrences in:&#xD;$0$&#xD;for file type: $1$"/>
+            <ClipboardError title="Notepad++" message="Error placing text in clipboard."/>
+            <TransparentWarning title="Transparent" message="It seems you still use a prehistoric system, This feature works only on a modern system, sorry."/>
+            <RangeValueWarning title="Range Value problem" message="You should type between from 0 to 255."/>
+            <MonitoringDirtyWarning title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
+            <MonitoringFileError title="Monitoring problem" message="The file should exist to be monitored."/>
+            <UpdaterCompatible title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolet security layer under XP.&#xD;Do you want to go to Notepad++ page to download the latest version?"/>
+            <CreateNewFile title="Create new file" message="$0$ doesn't exist. Create it?"/>
+            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$0$&quot;"/>
+            <FileOpenError title="Error" message="Can not open file &quot;$0$&quot;"/>
+            <WorkspaceModified title="" message="The workspace was modified. Do you want to save it?"/>
+            <WorkspaceError title="" message="Your workspace was not saved."/>
+            <ProjectNewWorkspace title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
+            <ProjectOpenWorkspace title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
+            <ProjectOpenWorkspaceWarning title="Open Workspace" message="The workspace could not be opened.&#xD;It seems the file to open is not a valid project file."/>
+            <ProjectReloadWorkspace title="Reload Workspace" message="The current workspace was modified. Reloading will discard all modifications.&#xD;Do you want to continue?"/>
+            <ProjectReloadWorkspaceWarning title="Reload Workspace" message="Cannot find the file to reload."/>
+            <ProjectRemoveFolder title="Remove folder from project" message="All the sub-items will be removed.&#xD;Are you sure you want to remove this folder from the project?"/>
+            <ProjectRemoveFile title="Remove file from project" message="Are you sure you want to remove this file from the project?"/>
+            <ConfiguratorLangXMLWarning title="Configurator" message="Load langs.xml failed!&#xD;Do you want to recover your langs.xml?"/>
+            <ConfiguratorLangXMLError title="Configurator" message="Load langs.xml failed!"/>
+            <ConfiguratorStyleXMLError title="" message="Load langs.xml failed!"/>
+            <LanguageRemove title="Remove the current language" message="Are you sure?"/>
+            <LanguageNameWarning title="Warning" message="This name is used by another language,&#xD;please give another one."/>
+            <RecoveryData title="Recovery initiating" message="Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."/>
+            <RecoverySuccess title="Recovery success" message="Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.&#xD;You can find the results at :&#xD;$0$"/>
+            <RecoveryFailed title="Recovery failure" message="Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."/>
+            <NppSave title="Save" message="Save file &quot;$0$&quot; ?"/>
+            <NppSaveBackup title="Save" message="Your backup file cannot be found (deleted from outside).&#xD;Save it otherwise your data will be lost&#xD;Do you want to save file &quot;$0$&quot; ?"/>
+            <NppReload title="Reload" message="$0$&#xD;&#xD;This file has been modified by another program.&#xD;Do you want to reload it?"/>
+            <NppReloadDirty title="Reload" message="$0$&#xD;&#xD;This file has been modified by another program.&#xD;Do you want to reload it and lose the changes made in Notepad++?"/>
+            <NppKeep title="Keep non existing file" message="The file &quot;$0$&quot; doesn't exist anymore.&#xD;Keep this file in editor?"/>
+            <NppDelete title="Delete file" message="The file &quot;$0$&quot;&#xD;will be moved to your Recycle Bin and this document will be closed.&#xD;Continue?"/>
+            <NppSummary title="Summary" message="Characters (without blanks): $0$&#xD;Words: $1$&#xD;Lines: $2$&#xD;Current document length: $3$&#xD;$4$ selected characters ($5$ bytes) in $6$ ranges"/>
+            <NppSummaryFile title="Summary" message="Full file path: $0$&#xD;Created: $1$&#xD;Modified: $2$&#xD;File length (in byte): $3$&#xD;&#xD;Characters (without blanks): $4$&#xD;Words: $5$&#xD;Lines: $6$&#xD;Current document length: $7$&#xD;$8$ selected characters ($9$ bytes) in $10$ ranges"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
-			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writing access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.&#xD;Are you sure to open them?"/>
+			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,&#xD;or on a folder needed privilege right for writing access.&#xD;Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
 			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
-	    <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+	        <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
         </MessageBox>
+
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
         </ClipboardHistory>
+
         <DocSwitcher>
             <PanelTitle name="Doc Switcher"/>
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
         </DocSwitcher>
+
         <AsciiInsertion>
             <PanelTitle name="ASCII Insertion Panel"/>
             <ColumnVal name="Value"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Character"/>
         </AsciiInsertion>
+
         <DocumentMap>
             <PanelTitle name="Document Map"/>
         </DocumentMap>
+
         <FunctionList>
             <PanelTitle name="Function List"/>
             <SortTip name="Sort" />
             <ReloadTip name="Reload" />
         </FunctionList>
+
         <ProjectManager>
             <PanelTitle name="Project"/>
             <WorkspaceRootName name="Workspace"/>
@@ -991,6 +1157,51 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
+
+        <FileBrowser>
+            <PanelTitle name="Folder as Workspace"/>
+            <AddRootMsg name="Select a folder to add in Folder as Workspace panel"/>
+            <Menus>
+                <Entries>
+                    <Item id="3511" name="Remove"/>
+                    <Item id="3512" name="Remove All"/>
+                    <Item id="3513" name="Add"/>
+                    <Item id="3514" name="Run by system"/>
+                    <Item id="3515" name="Open"/>
+                    <Item id="3516" name="Copy path"/>
+                    <Item id="3517" name="Find in Files..."/>
+                    <Item id="3518" name="Explorer here"/>
+                    <Item id="3519" name="CMD here"/>
+                </Entries>
+            </Menus>
+        </FileBrowser>
+
+        <ShortcutMapper>
+            <Title name="Shortcut Mapper"/>
+            <ColumnName name="Name"/>
+            <ColumnShortcut name="Shortcut"/>
+            <Conflict name="No shortcut conflicts for this item."/>
+            <NoConflict name="No conflicts . . ."/>
+            <Dialog>
+                <Item id="2602" name="Modify"/>
+                <Item id="2603" name="Delete"/>
+                <Item id="2606" name="Clear"/>
+                <Item id="1"    name="Close"/>
+            </Dialog>
+            <Tabs>
+                <Item id="0" name="Main menu"/>
+                <Item id="1" name="Macros"/>
+                <Item id="2" name="Run commands"/>
+                <Item id="3" name="Plugin commands"/>
+                <Item id="4" name="Scintilla commands"/>
+            </Tabs>
+            <Menu>
+                <Item id="2602" name="Modify"/>
+				<Item id="2603" name="Delete"/>
+				<Item id="2606" name="Clear"/>
+			</Menu>
+        </ShortcutMapper>
+
         <MiscStrings>
 			<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
             <word-chars-list-warning-begin value="Be aware: "/>
@@ -1002,6 +1213,8 @@
 			<cloud-invalid-warning value="Invalid path."/>
 			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
 			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction."/>
+            <buffer-error-msg name="Failed to save file.&#xD;Not enough space on disk to save file?"/>
         </MiscStrings>
+
     </Native-Langue>
 </NotepadPlus>

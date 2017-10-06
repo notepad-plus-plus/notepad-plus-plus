@@ -132,14 +132,20 @@ void ShortcutMapper::fillOutBabyGrid()
 
 	size_t nbItems = 0;
 
-	_babygrid.setText(0, 1, TEXT("Name"));
-	_babygrid.setText(0, 2, TEXT("Shortcut"));
+	NativeLangSpeaker *_nativeLangSpeaker = nppParam->getNativeLangSpeaker();
+	generic_string mameStr = _nativeLangSpeaker->getShortcutMapperLangStr("ColumnName", TEXT("Name"));
+	generic_string shortcutStr = _nativeLangSpeaker->getShortcutMapperLangStr("ColumnShortcut", TEXT("Shortcut"));
+	generic_string categoryStr = _nativeLangSpeaker->getShortcutMapperLangStr("ColumnCategory", TEXT("Category"));
+	generic_string pluginStr = _nativeLangSpeaker->getShortcutMapperLangStr("ColumnPlugin", TEXT("Plugin"));
+  
+	_babygrid.setText(0, 1, mameStr.c_str());
+	_babygrid.setText(0, 2, shortcutStr.c_str());
 	
 	switch(_currentState) {
 		case STATE_MENU: {
 			nbItems = nppParam->getUserShortcuts().size();
 			_babygrid.setLineColNumber(nbItems, 3);
-			_babygrid.setText(0, 3, TEXT("Category"));
+			_babygrid.setText(0, 3, categoryStr.c_str());
 			break; }
 		case STATE_MACRO: {
 			nbItems = nppParam->getMacroList().size();
@@ -152,7 +158,7 @@ void ShortcutMapper::fillOutBabyGrid()
 		case STATE_PLUGIN: {
 			nbItems = nppParam->getPluginCommandList().size();
 			_babygrid.setLineColNumber(nbItems, 3);
-			_babygrid.setText(0, 3, TEXT("Plugin"));
+			_babygrid.setText(0, 3, pluginStr.c_str());
 			break; }
 		case STATE_SCINTILLA: {
 			nbItems = nppParam->getScintillaKeyList().size();
@@ -283,6 +289,12 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 	{
 		case WM_INITDIALOG :
 		{
+			NativeLangSpeaker * _nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			_nativeLangSpeaker->changeShortcutMapperLang(this);
+
+			_defaultInfo = _nativeLangSpeaker->getShortcutMapperLangStr("Conflict", _defaultInfo.c_str());
+			_assignInfo = _nativeLangSpeaker->getShortcutMapperLangStr("NoConflict", _assignInfo.c_str());
+
 			initBabyGrid();
 			initTabs();
 			fillOutBabyGrid();

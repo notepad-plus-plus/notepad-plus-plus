@@ -35,6 +35,7 @@
 #include "tchar.h"
 #include "SciLexer.h"
 #include <unordered_map>
+#include "localization.h"
 
 class ScintillaEditView;
 class UserLangContainer;
@@ -404,7 +405,7 @@ class StringDlg : public StaticDialog
 {
 public :
     StringDlg() : StaticDialog() {};
-    void init(HINSTANCE hInst, HWND parent, TCHAR *title, TCHAR *staticName, TCHAR *text2Set, int txtLen = 0) {
+    void init(HINSTANCE hInst, HWND parent, const TCHAR *title, const TCHAR *staticName, const TCHAR *text2Set, int txtLen = 0) {
         Window::init(hInst, parent);
         _title = title;
         _static = staticName;
@@ -412,8 +413,21 @@ public :
         _txtLen = txtLen;
     };
 
-    INT_PTR doDialog() {
-        return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent,  dlgProc, reinterpret_cast<LPARAM>(this));
+	INT_PTR doDialog() {
+		NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		bool isRTL = _nativeLangSpeaker->isRTL();
+
+		if (isRTL)
+		{
+			DLGTEMPLATE *pMyDlgTemplate = NULL;
+			HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_STRING_DLG, &pMyDlgTemplate);
+			INT_PTR result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+			::GlobalFree(hMyDlgTemplate);
+			return result;
+		}
+		else
+			return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STRING_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+
     };
 
     virtual void destroy() {};
@@ -428,31 +442,48 @@ private :
     int _txtLen = 0;
 };
 
-class StylerDlg
+class StylerDlg : public StaticDialog
 {
 public:
-    StylerDlg( HINSTANCE hInst, HWND parent, int stylerIndex = 0, int enabledNesters = -1):
-        _hInst(hInst), _parent(parent), _stylerIndex(stylerIndex), _enabledNesters(enabledNesters) {
-        _pFgColour = new ColourPicker;
-        _pBgColour = new ColourPicker;
-        _initialStyle = SharedParametersDialog::_pUserLang->_styleArray.getStyler(stylerIndex);
-    };
-
-    ~StylerDlg() {
-        _pFgColour->destroy();
-        _pBgColour->destroy();
-        delete _pFgColour;
-        delete _pBgColour;
+	StylerDlg() : StaticDialog() {};
+	void init(HINSTANCE hInst, HWND parent, int stylerIndex = 0, int enabledNesters = -1) {
+		Window::init(hInst, parent);
+		_stylerIndex = stylerIndex;
+		_enabledNesters = enabledNesters;
+		_pFgColour = new ColourPicker;
+		_pBgColour = new ColourPicker;
+		_initialStyle = SharedParametersDialog::_pUserLang->_styleArray.getStyler(stylerIndex);
 	};
 
-    long doDialog() {
-		return long(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), _parent, dlgProc, reinterpret_cast<LPARAM>(this)));
+	~StylerDlg() {
+		_pFgColour->destroy();
+		_pBgColour->destroy();
+		delete _pFgColour;
+		delete _pBgColour;
+	}
+
+	virtual void destroy() {};
+
+	INT_PTR doDialog() {
+		NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		bool isRTL = _nativeLangSpeaker->isRTL();
+
+		if (isRTL)
+		{
+			DLGTEMPLATE *pMyDlgTemplate = NULL;
+			HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_STYLER_POPUP_DLG, &pMyDlgTemplate);
+			INT_PTR result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+			::GlobalFree(hMyDlgTemplate);
+			return result;
+		}
+		else
+			return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_STYLER_POPUP_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
 
-    static INT_PTR CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+protected:
+    INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
 public:
-    HINSTANCE _hInst;
-    HWND _parent;
     int _stylerIndex;
     int _enabledNesters;
     ColourPicker * _pFgColour;

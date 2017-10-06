@@ -258,7 +258,9 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 				case IDC_BUTTON_SAVE :
 				{
-					std::vector<UserCommand> & theUserCmds = (NppParameters::getInstance())->getUserCommandList();
+					NppParameters *nppParams = NppParameters::getInstance();
+					std::vector<UserCommand> & theUserCmds = nppParams->getUserCommandList();
+					NativeLangSpeaker *_nativeLangSpeaker = nppParams->getNativeLangSpeaker();
 
 					int nbCmd = static_cast<int32_t>(theUserCmds.size());
 
@@ -268,7 +270,7 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					UserCommand uc(Shortcut(), cmd, cmdID);
 					uc.init(_hInst, _hSelf);
 
-					if (uc.doDialog() != -1)
+					if (uc.doDialog(_nativeLangSpeaker->isRTL()) != -1)
 					{
 						HMENU mainMenu = reinterpret_cast<HMENU>(::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0));
 						HMENU hRunMenu = ::GetSubMenu(mainMenu, MENUINDEX_RUN);
@@ -280,13 +282,11 @@ INT_PTR CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 						theUserCmds.push_back(uc);
 						::InsertMenu(hRunMenu, posBase + nbCmd, MF_BYPOSITION, cmdID, uc.toMenuItemString().c_str());
 
-						NppParameters* nppParams = NppParameters::getInstance();
                         if (nbCmd == 0)
                         {
                             // Insert the separator and modify/delete command
 							::InsertMenu(hRunMenu, posBase + nbCmd + 1, MF_BYPOSITION, static_cast<unsigned int>(-1), 0);
-							NativeLangSpeaker *pNativeLangSpeaker = nppParams->getNativeLangSpeaker();
-							generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
+							generic_string nativeLangShortcutMapperMacro = _nativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
 							if (nativeLangShortcutMapperMacro == TEXT(""))
 								nativeLangShortcutMapperMacro = TEXT("Modify Shortcut/Delete Command...");
 

@@ -313,7 +313,11 @@ const TCHAR FLAG_PRINTANDQUIT[] = TEXT("-quickPrint");
 void doException(Notepad_plus_Window & notepad_plus_plus)
 {
 	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
-	::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
+	NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	HWND _nppSelf = Notepad_plus_Window::gNppHWND;
+	_nativeLangSpeaker->messageBox("RecoveryData", _nppSelf,
+		TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."),
+		TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
 
 	TCHAR tmpDir[1024];
 	GetTempPath(1024, tmpDir);
@@ -323,12 +327,17 @@ void doException(Notepad_plus_Window & notepad_plus_plus)
 	bool res = notepad_plus_plus.emergency(emergencySavedDir);
 	if (res)
 	{
-		generic_string displayText = TEXT("Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at :\r\n");
-		displayText += emergencySavedDir;
-		::MessageBox(Notepad_plus_Window::gNppHWND, displayText.c_str(), TEXT("Recovery success"), MB_OK | MB_ICONINFORMATION);
+		const TCHAR *parms[1] = { emergencySavedDir.c_str() };
+		_nativeLangSpeaker->messageBox("RecoverySuccess",
+ _nppSelf,
+
+			TEXT("Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\rYou can find the results at :\r$0$"),
+			TEXT("Recovery success"), MB_OK | MB_ICONINFORMATION, 1, parms);
 	}
 	else
-		::MessageBox(Notepad_plus_Window::gNppHWND, TEXT("Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."), TEXT("Recovery failure"), MB_OK | MB_ICONERROR);
+		_nativeLangSpeaker->messageBox("RecoveryFailed", _nppSelf,
+			TEXT("Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."),
+			TEXT("Recovery failure"), MB_OK | MB_ICONERROR);
 }
 
 
@@ -380,7 +389,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 
 	if (showHelp)
-		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
+		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK | MB_ICONINFORMATION);
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
@@ -554,12 +563,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		TCHAR str[50] = TEXT("God Damned Exception : ");
 		TCHAR code[10];
 		wsprintf(code, TEXT("%d"), i);
-		::MessageBox(Notepad_plus_Window::gNppHWND, lstrcat(str, code), TEXT("Int Exception"), MB_OK);
+		::MessageBox(Notepad_plus_Window::gNppHWND, lstrcat(str, code), TEXT("Int Exception"), MB_OK | MB_ICONERROR);
 		doException(notepad_plus_plus);
 	}
 	catch (std::runtime_error & ex)
 	{
-		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "Runtime Exception", MB_OK);
+		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "Runtime Exception", MB_OK | MB_ICONERROR);
 		doException(notepad_plus_plus);
 	}
 	catch (const Win32Exception & ex)
@@ -573,12 +582,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	}
 	catch (std::exception & ex)
 	{
-		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "General Exception", MB_OK);
+		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "General Exception", MB_OK | MB_ICONERROR);
 		doException(notepad_plus_plus);
 	}
 	catch (...) // this shouldnt ever have to happen
 	{
-		::MessageBoxA(Notepad_plus_Window::gNppHWND, "An exception that we did not yet found its name is just caught", "Unknown Exception", MB_OK);
+		::MessageBoxA(Notepad_plus_Window::gNppHWND, "An exception that we did not yet found its name is just caught", "Unknown Exception", MB_OK | MB_ICONERROR);
 		doException(notepad_plus_plus);
 	}
 

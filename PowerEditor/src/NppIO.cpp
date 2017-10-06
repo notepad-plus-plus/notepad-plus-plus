@@ -222,15 +222,19 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 	{
 		if (!PathFileExists(longFileName) && !globbing)
 		{
-			TCHAR str2display[MAX_PATH*2];
 			generic_string longFileDir(longFileName);
 			PathRemoveFileSpec(longFileDir);
+			const TCHAR *parms[1] = { longFileName };
 
 			bool isCreateFileSuccessful = false;
 			if (PathFileExists(longFileDir.c_str()))
 			{
-				wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
-				if (::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
+				int result = _nativeLangSpeaker.messageBox("CreateNewFile",
+ _pPublicInterface->getHSelf(),
+
+					TEXT("$0$ doesn't exist. Create it?"),
+					TEXT("Create new file"), MB_YESNO | MB_ICONQUESTION, 1, parms);
+				if (result == IDYES)
 				{
 					bool res = MainFileManager->createEmptyFile(longFileName);
 					if (res)
@@ -239,8 +243,11 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 					}
 					else
 					{
-						wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
-						::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_OK);
+						_nativeLangSpeaker.messageBox("CreateNewFileError",
+ _pPublicInterface->getHSelf(),
+
+							TEXT("Cannot create the file \"$0$\""),
+							TEXT("Create new file"), MB_OK | MB_ICONERROR, 1, parms);
 					}
 				}
 			}
@@ -389,11 +396,12 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         }
         else
         {
-            generic_string msg = TEXT("Can not open file \"");
-            msg += longFileName;
-            msg += TEXT("\".");
-            ::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), TEXT("ERROR"), MB_OK);
-            _isFileOpening = false;
+			const TCHAR *parms[1] = { longFileName };
+			_nativeLangSpeaker.messageBox("FileOpenError",
+ _pPublicInterface->getHSelf(),
+				TEXT("Can not open file \"$0$\""), TEXT("Error"), MB_OK | MB_ICONERROR, 1, parms);
+			
+			_isFileOpening = false;
 
             scnN.nmhdr.code = NPPN_FILELOADFAILED;
             _pluginsManager.notify(&scnN);
@@ -900,10 +908,15 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 					if(!activateBuffer(id, SUB_VIEW))
 						switchEditViewTo(MAIN_VIEW);
 
-					TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"%s\" ?");
+					const TCHAR *params[1] = { buf->getFullPathName() };
+					int res = _nativeLangSpeaker.messageBox("NppSaveBackup", _pPublicInterface->getHSelf(),
+						TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"$0$\" ?"),
+						TEXT("Save"), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL, 1, params);
+
+					/*TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"%s\" ?");
 					TCHAR phrase[512];
 					wsprintf(phrase, pattern, buf->getFullPathName());
-					int res = doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+					int res = doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);*/
 					//int res = doSaveOrNot(buf->getFullPathName());
 					if (res == IDYES)
 					{
@@ -953,10 +966,15 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 					activateBuffer(id, SUB_VIEW);
 					switchEditViewTo(SUB_VIEW);
 
-					TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"%s\" ?");
+					const TCHAR *params[1] = { buf->getFullPathName() };
+					int res = _nativeLangSpeaker.messageBox("NppSaveBackup", _pPublicInterface->getHSelf(),
+						TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"$0$\" ?"),
+						TEXT("Save"), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL, 1, params);
+
+					/*TCHAR pattern[140] = TEXT("Your backup file cannot be found (deleted from outside).\rSave it otherwise your data will be lost\rDo you want to save file \"%s\" ?");
 					TCHAR phrase[512];
 					wsprintf(phrase, pattern, buf->getFullPathName());
-					int res = doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+					int res = doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);*/
 					//int res = doSaveOrNot(buf->getFullPathName());
 					if (res == IDYES)
 					{

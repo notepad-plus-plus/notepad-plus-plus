@@ -131,8 +131,17 @@ public:
 		return !(a == b);
 	};
 
-	virtual INT_PTR doDialog()
+	virtual INT_PTR doDialog(bool isRTL = false)
 	{
+		if (isRTL)
+		{
+			DLGTEMPLATE *pMyDlgTemplate = NULL;
+			HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_SHORTCUT_DLG, &pMyDlgTemplate);
+			int result = static_cast<int32_t>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
+			::GlobalFree(hMyDlgTemplate);
+			return result;
+		}
+
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
 
@@ -236,8 +245,17 @@ public:
 	generic_string toString() const;
 	generic_string toString(size_t index) const;
 
-	INT_PTR doDialog()
+	INT_PTR doDialog(bool isRTL = false)
 	{
+		if (isRTL)
+		{
+			DLGTEMPLATE *pMyDlgTemplate = NULL;
+			HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_SHORTCUTSCINT_DLG, &pMyDlgTemplate);
+			int result = static_cast<int32_t>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
+			::GlobalFree(hMyDlgTemplate);
+			return result;
+		}
+
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
 

@@ -245,34 +245,46 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 void FileBrowser::initPopupMenus()
 {
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+
+	generic_string remove_root_folder = pNativeSpeaker->getFileBrowserLangMenuStr("Entries", IDM_FILEBROWSER_REMOVEROOTFOLDER, FB_REMOVEROOTFOLDER);
+	generic_string remove_all_roots = pNativeSpeaker->getFileBrowserLangMenuStr("Entries", IDM_FILEBROWSER_REMOVEALLROOTS, FB_REMOVEALLROOTS);
+	generic_string add_root = pNativeSpeaker->getFileBrowserLangMenuStr("Entries", IDM_FILEBROWSER_ADDROOT, FB_ADDROOT);
+	generic_string shell_execute = pNativeSpeaker->getFileBrowserLangMenuStr("Entries", IDM_FILEBROWSER_SHELLEXECUTE, FB_SHELLEXECUTE);
+	generic_string open_in_npp = pNativeSpeaker->getFileBrowserLangMenuStr("Entries", IDM_FILEBROWSER_OPENINNPP, FB_OPENINNPP);
+	generic_string copye_path = pNativeSpeaker->getFileBrowserLangMenuStr("Entries", IDM_FILEBROWSER_COPYEPATH, FB_COPYEPATH);
+	generic_string find_in_files = pNativeSpeaker->getFileBrowserLangMenuStr("Entries", IDM_FILEBROWSER_FINDINFILES, FB_FINDINFILES);
+	generic_string explorer_here = pNativeSpeaker->getFileBrowserLangMenuStr("Entries", IDM_FILEBROWSER_EXPLORERHERE, FB_EXPLORERHERE);
+	generic_string cmd_here = pNativeSpeaker->getFileBrowserLangMenuStr("Entries", IDM_FILEBROWSER_CMDHERE, FB_CMDHERE);
+
 	_hGlobalMenu = ::CreatePopupMenu();
-	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDROOT, TEXT("Add"));
-	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEALLROOTS, TEXT("Remove All"));
+	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDROOT, add_root.c_str());
+	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEALLROOTS, remove_all_roots.c_str());
 
 	_hRootMenu = ::CreatePopupMenu();
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, TEXT("Remove"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, remove_root_folder.c_str());
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, TEXT("Find in Files..."));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, copye_path.c_str());
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, find_in_files.c_str());
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorer_here.c_str());
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmd_here.c_str());
 
 	_hFolderMenu = ::CreatePopupMenu();
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, TEXT("Find in Files..."));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, copye_path.c_str());
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, find_in_files.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorer_here.c_str());
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmd_here.c_str());
 	
 	_hFileMenu = ::CreatePopupMenu();
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_OPENINNPP, TEXT("Open"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_OPENINNPP, open_in_npp.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_SHELLEXECUTE, TEXT("Run by system"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, copye_path.c_str());
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_SHELLEXECUTE, shell_execute.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, explorer_here.c_str());
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, cmd_here.c_str());
 }
 
 
@@ -722,7 +734,9 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_ADDROOT:
 		{
-			generic_string folderPath = folderBrowser(_hParent, TEXT("Select a folder to add in Folder as Workspace panel"));
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			generic_string addRootStr = pNativeSpeaker->getAttrNameStr(TEXT("Select a folder to add in Folder as Workspace panel"), "FileBrowser", "AddRootMsg");
+			generic_string folderPath = folderBrowser(_hParent, addRootStr);
 			if (not folderPath.empty())
 			{
 				addRootFolder(folderPath);
@@ -926,7 +940,12 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 			
 			if (isRelatedRootFolder(rootFolderPath, _folderUpdaters[i]->_rootFolder._rootPath))
 			{
-				::MessageBox(_hParent, TEXT("A sub-folder of the folder you want to open exists.\rPlease remove it from the panel before you add this one."), rootFolderPath.c_str(), MB_OK);
+				NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+				_nativeLangSpeaker->messageBox("FolderBrowserFolderExists",
+					_hParent,
+					TEXT("A sub-folder of the folder you want to open exists.\rPlease remove it from the panel before you add this one."),
+					rootFolderPath.c_str(),
+					MB_OK | MB_ICONEXCLAMATION);
 				return;
 			}
 		}

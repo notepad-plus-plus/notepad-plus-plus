@@ -29,7 +29,6 @@
 #include "documentMap.h"
 #include "ScintillaEditView.h"
 
-
 void DocumentMap::reloadMap()
 {
 	if (_pMapView && _ppEditView)

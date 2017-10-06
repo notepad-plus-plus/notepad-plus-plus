@@ -455,9 +455,19 @@ void WindowsDlg::updateButtonState()
 	EnableWindow(GetDlgItem(_hSelf, IDC_WINDOWS_SORT), TRUE);
 }
 
-int WindowsDlg::doDialog(TiXmlNodeA *dlgNode)
+int WindowsDlg::doDialog(TiXmlNodeA *dlgNode, bool isRTL)
 {
 	_dlgNode = dlgNode;
+
+	if (isRTL)
+	{
+		DLGTEMPLATE *pMyDlgTemplate = NULL;
+		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_WINDOWS, &pMyDlgTemplate);
+		int result = static_cast<int32_t>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
+		::GlobalFree(hMyDlgTemplate);
+		return result;
+	}
+
 	return static_cast<int>(DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
 };
 

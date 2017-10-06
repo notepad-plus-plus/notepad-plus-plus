@@ -60,11 +60,19 @@ public:
 	generic_string getNativeLangMenuString(int itemID) const;
 	void changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans);
 	void changeShortcutLang();
-	void changeShortcutmapperLang(ShortcutMapper * sm);
+	void changeShortcutMapperLang(ShortcutMapper * shortcutMapper);
+	generic_string getShortcutMapperLangMenuStr(int cmdID, const TCHAR * defaultStr) const;
+	generic_string getShortcutMapperLangStr(const char * nodeName, const TCHAR * defaultStr) const;
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
     void changeUserDefineLang(UserDefineDialog *userDefineDlg);
-	void changeUserDefineLangPopupDlg(HWND hDlg);
+	generic_string getUserDefineLangStr(const char * nodeName, const TCHAR * defaultStr) const;
+	void changeUserDefineLangPopupDlg(HWND hDlg, const char * nodeName);
     void changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg);
+	generic_string getFindReplaceDlgStr(const char * nodeName, const TCHAR * defaultStr) const;
+	generic_string getFinderMenuStr(int cmdID, const TCHAR * defaultStr) const;
+	generic_string getFinderStr(const char * nodeName, const TCHAR * defaultStr) const;
+	generic_string getFindIncrementDlgStr(const char * nodeName, const TCHAR * defaultStr) const;
+	generic_string getProgressDlgStr(const char * nodeName, const TCHAR * defaultStr) const;
     void changePrefereceDlgLang(PreferenceDlg & preference);
     bool isRTL() const {
         return _isRTL;
@@ -83,11 +91,12 @@ public:
     };
 	bool getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message);
 	generic_string getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
-	//generic_string getFileBrowserLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
+	generic_string getFileBrowserLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
 	generic_string getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name = NULL) const;
 	generic_string getLocalizedStrFromID(const char *strID) const;
 
 	int messageBox(const char *msgBoxTagName, HWND hWnd, const TCHAR *message, const TCHAR *title, int msgBoxType, int intInfo = 0, const TCHAR *strInfo = NULL);
+	int messageBox(const char * msgBoxTagName, HWND hWnd, const TCHAR * defaultMessage, const TCHAR * defaultTitle, int msgBoxType, int parmsCount, const TCHAR **parmsStrs);
 private:
 	TiXmlNodeA *_nativeLangA;
 	int _nativeLangEncoding;

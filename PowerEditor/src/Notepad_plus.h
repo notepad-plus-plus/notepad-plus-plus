@@ -417,6 +417,7 @@ private:
 	int doReloadOrNot(const TCHAR *fn, bool dirty);
 	int doCloseOrNot(const TCHAR *fn);
 	int doDeleteOrNot(const TCHAR *fn);
+	int doSaveBackupOrNot(const TCHAR * fn);
 	int doActionOrNot(const TCHAR *title, const TCHAR *displayText, int type);
 
 	void enableMenu(int cmdID, bool doEnable) const;

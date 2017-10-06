@@ -274,16 +274,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			TCHAR str[strSize];
 			Finder *launcher = reinterpret_cast<Finder *>(wParam);
 
-			bool isFirstTime = not _findInFinderDlg.isCreated();
+			//bool isFirstTime = not _findInFinderDlg.isCreated();
 
 			_findInFinderDlg.doDialog(launcher, _nativeLangSpeaker.isRTL());
 
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str);
 			setFindReplaceFolderFilter(NULL, NULL);
-
-			if (isFirstTime)
-				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
 
 			return TRUE;
 		}
@@ -693,7 +690,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(fileStr) >= int(wParam))
 				{
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM error"), MB_OK);
+					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM error"), MB_OK | MB_ICONERROR);
 					return FALSE;
 				}
 			}
@@ -714,7 +711,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(str) >= int(wParam))	//buffer too small
 				{
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETCURRENTWORD error"), MB_OK);
+					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETCURRENTWORD error"), MB_OK | MB_ICONERROR);
 					return FALSE;
 				}
 				else //buffer large enough, perform safe copy
@@ -770,7 +767,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			if (lstrlen(str) >= int(wParam))	//buffer too small
 			{
-				::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETFILENAMEATCURSOR error"), MB_OK);
+				::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETFILENAMEATCURSOR error"), MB_OK | MB_ICONERROR);
 				return FALSE;
 			}
 			else //buffer large enough, perform safe copy
@@ -797,7 +794,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(str) >= int(wParam))
 				{
-					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETNPPDIRECTORY error"), MB_OK);
+					::MessageBox(hwnd, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETNPPDIRECTORY error"), MB_OK | MB_ICONERROR);
 					return FALSE;
 				}
 			}
@@ -1809,7 +1806,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 							hwnd,
 							TEXT("It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."),
 							TEXT("Settings on Cloud"),
-							MB_OK | MB_APPLMODAL);
+							MB_OK | MB_APPLMODAL | MB_ICONERROR);
 						pNppParam->removeCloudChoice();
 					}
 				}

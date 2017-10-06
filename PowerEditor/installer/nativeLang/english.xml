@@ -132,10 +132,10 @@
                     <Item id="42070" name="Sentence case (blend)"/>
                     <Item id="42071" name="iNVERT cASE"/>
                     <Item id="42072" name="ranDOm CasE"/>
-					<Item id="42073" name="Open File"/>
-					<Item id="42074" name="Open Containing Folder in Explorer"/>
-					<Item id="42075" name="Search on Internet"/>
-					<Item id="42076" name="Change Search Engine..."/>
+                    <Item id="42073" name="Open File"/>
+                    <Item id="42074" name="Open Containing Folder in Explorer"/>
+                    <Item id="42075" name="Search on Internet"/>
+                    <Item id="42076" name="Change Search Engine..."/>
                     <Item id="42018" name="&amp;Start Recording"/>
                     <Item id="42019" name="&amp;Stop Recording"/>
                     <Item id="42021" name="&amp;Playback"/>
@@ -224,7 +224,7 @@
                     <Item id="43047" name="Previous Search Result"/>
                     <Item id="43048" name="Select and Find Next"/>
                     <Item id="43049" name="Select and Find Previous"/>
-					<Item id="43054" name="Mark..."/>
+                    <Item id="43054" name="Mark..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
                     <Item id="44019" name="Show All Characters"/>
@@ -345,7 +345,7 @@
                     <Item CMID="18" name="Close All to the Right"/>
                     <Item CMID="19" name="Open Containing Folder in Explorer"/>
                     <Item CMID="20" name="Open Containing Folder in cmd"/>
-					<Item CMID="21" name="Open in Default Viewer"/>
+                    <Item CMID="21" name="Open in Default Viewer"/>
             </TabBar>
         </Menu>
 
@@ -1078,8 +1078,8 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.&#xD;Are you sure to open them?"/>
             <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,&#xD;or on a folder needed privilege right for writing access.&#xD;Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
-			      <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
-	          <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+            <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
+            <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
         </MessageBox>
 
         <ClipboardHistory>
@@ -1178,6 +1178,8 @@
             <Title name="Shortcut Mapper"/>
             <ColumnName name="Name"/>
             <ColumnShortcut name="Shortcut"/>
+            <ColumnCategory name="Category"/>
+            <ColumnPlugin name="Plugin"/>
             <Conflict name="No shortcut conflicts for this item."/>
             <NoConflict name="No conflicts . . ."/>
             <Dialog>
@@ -1195,22 +1197,22 @@
             </Tabs>
             <Menu>
                 <Item id="2602" name="Modify"/>
-				<Item id="2603" name="Delete"/>
-				<Item id="2606" name="Clear"/>
-			</Menu>
+                <Item id="2603" name="Delete"/>
+                <Item id="2606" name="Clear"/>
+            </Menu>
         </ShortcutMapper>
 
         <MiscStrings>
-		      	<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
+            <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
             <word-chars-list-warning-begin value="Be aware: "/>
-		      	<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
-		      	<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-		      	<word-chars-list-warning-end value="  in your character list."/>
-		      	<cloud-invalid-warning value="Invalid path."/>
-		      	<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-		      	<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction."/>
+            <word-chars-list-warning-end value="  in your character list."/>
+            <cloud-invalid-warning value="Invalid path."/>
+            <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+            <shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction."/>
             <buffer-error-msg name="Failed to save file.&#xD;Not enough space on disk to save file?"/>
         </MiscStrings>
 

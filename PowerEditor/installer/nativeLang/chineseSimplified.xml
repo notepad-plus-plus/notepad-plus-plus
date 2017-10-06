@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.3.1">
+    <Native-Langue name="简体中文" filename="chineseSimplified.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -91,6 +91,7 @@
                     <Item id="41020" name="命令行"/>
                     <Item id="41021" name="恢复最近关闭的文件" />
                     <Item id="41022" name="在工作区打开文件夹(&amp;W)"/>
+					<Item id="41023" name="使用默认查看器打开"/>
                     <Item id="42001" name="剪切(&amp;T)" />
                     <Item id="42002" name="复制(&amp;C)" />
                     <Item id="42003" name="撤消(&amp;U)" />
@@ -276,8 +277,8 @@
                     <Item id="10003" name="移动到新窗口" />
                     <Item id="10004" name="在新窗口中打开" />
                     <Item id="46001" name="语言格式设置..." />
-                    <Item id="46080" name="用户自定义" />
-                    <Item id="46150" name="自定义语言格式..."/>
+                    <Item id="46180" name="用户自定义" />
+                    <Item id="46250" name="自定义语言格式..."/>
                     <Item id="47000" name="关于 Notepad++..." />
                     <Item id="47001" name="Notepad++ 官方主页" />
                     <Item id="47002" name="Notepad++ 项目主页" />
@@ -336,19 +337,17 @@
         <Dialog>
             <Find title="" titleFind="查找" titleReplace="替换" titleFindInFiles="文件查找" titleMark="标记">
                 <Item id="1" name="查找下一个" />
+                <Item id="1722" name="反向查找" />
                 <Item id="2" name="取消" />
                 <Item id="1620" name="查找目标 :" />
                 <Item id="1603" name="全词匹配(&amp;W)" />
                 <Item id="1604" name="匹配大小写(&amp;C)" />
                 <Item id="1605" name="正则表达式(&amp;E)" />
                 <Item id="1606" name="循环查找(&amp;D)" />
-                <Item id="1612" name="向上(&amp;U)" />
-                <Item id="1613" name="向下(&amp;D)" />
                 <Item id="1614" name="计数" />
                 <Item id="1615" name="查找全部" />
                 <Item id="1616" name="标记所在行" />
                 <Item id="1618" name="清除上次标记" />
-                <Item id="1621" name="方向" />
                 <Item id="1611" name="替换为(&amp;P) :" />
                 <Item id="1608" name="替换(&amp;R)" />
                 <Item id="1609" name="全部替换(&amp;A)" />
@@ -869,6 +868,9 @@
                     <Item id="6115" name="自动缩进" />
                     <Item id="6117" name="按最近使用顺序切换" />
                     <Item id="6337" name="工作区文件扩展名:"/>
+                    <Item id="6344" name="文档速览图"/>
+                    <Item id="6345" name="在标签中启用速览"/>
+                    <Item id="6346" name="在文档结构图中启用速览"/>
                 </MISC>
             </Preference>
             <MultiMacro title="重复运行宏">

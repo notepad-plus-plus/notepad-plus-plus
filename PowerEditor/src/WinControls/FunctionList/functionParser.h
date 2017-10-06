@@ -49,6 +49,7 @@ public:
 	virtual void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) = 0;
 	void funcParse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""), const std::vector< std::pair<int, int> > * commentZones = NULL);
 	bool isInZones(int pos2Test, const std::vector< std::pair<int, int> > & zones);
+	virtual ~FunctionParser() {};
 protected:
 	generic_string _id;
 	generic_string _displayName;

@@ -1,5 +1,5 @@
 version: 1.0.{build}
-image: Visual Studio 2013
+image: Visual Studio 2015
 
 
 clone_depth: 1
@@ -15,7 +15,7 @@ configuration:
 install:
     - if "%platform%"=="x64" set archi=amd64
     - if "%platform%"=="Win32" set archi=x86
-    - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" %archi%
+    - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %archi%
 
 build:
     verbosity: minimal
@@ -26,7 +26,7 @@ build_script:
     - if "%configuration%"=="Unicode Release" set scintilla_debug=
     - nmake NOBOOST=1 %scintilla_debug% -f scintilla.mak
     - cd c:\projects\notepad-plus-plus\PowerEditor\visual.net\
-    - msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform%"
+    - msbuild notepadPlus.vs2015.vcxproj /p:configuration="%configuration%" /p:platform="%platform%"
 
 after_build:
     - cd c:\projects\notepad-plus-plus\

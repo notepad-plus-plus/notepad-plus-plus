@@ -25,11 +25,13 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
+#include "json.hpp"
 #include "functionListPanel.h"
 #include "ScintillaEditView.h"
 #include "localization.h"
+#include <fstream>
 
+using nlohmann::json;
 using namespace std;
 
 #define CX_BITMAP         16
@@ -38,6 +40,7 @@ using namespace std;
 #define INDEX_ROOT        0
 #define INDEX_NODE        1
 #define INDEX_LEAF        2
+
 
 void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText, size_t pos)
 {
@@ -224,6 +227,80 @@ void FunctionListPanel::sortOrUnsort()
 	}
 }
 
+
+bool FunctionListPanel::serialize(const generic_string & outputFilename)
+{
+	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+	const TCHAR* fileNameLabel = currentBuf->getFileName();
+
+	generic_string fname2write;
+	if (outputFilename.empty()) // if outputFilename is not given, get the current file path by adding the file extension
+	{
+		const TCHAR *fullFilePath = currentBuf->getFullPathName();
+
+		// Export function list from an existing file 
+		bool exportFuncntionList = (NppParameters::getInstance())->doFunctionListExport();
+		if (exportFuncntionList && ::PathFileExists(fullFilePath))
+		{
+			fname2write = fullFilePath;
+			fname2write += TEXT(".result");
+			fname2write += TEXT(".json");
+		}
+		else
+			return false;
+	}
+	else
+	{
+		fname2write = outputFilename;
+	}
+
+	const char* rootLabel = "root";
+	const char* branchesLabel = "branches";
+	const char* leavesLabel = "leaves";
+	const char* nameLabel = "name";
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	json j;
+	j[rootLabel] = wmc->wchar2char(fileNameLabel, CP_ACP);
+
+	for (const auto & info : _foundFuncInfos)
+	{
+		std::string leafName = wmc->wchar2char(info._data.c_str(), CP_ACP);
+
+		if (!info._data2.empty()) // node
+		{
+			bool isFound = false;
+			std::string nodeName = wmc->wchar2char(info._data2.c_str(), CP_ACP);
+
+			for (auto & i : j[branchesLabel])
+			{
+				if (nodeName == i[nameLabel])
+				{
+					i[leavesLabel].push_back(leafName.c_str());
+					isFound = true;
+					break;
+				}
+			}
+
+			if (!isFound)
+			{
+				json aNode = { { leavesLabel, json::array() },{ nameLabel, nodeName.c_str() } };
+				aNode[leavesLabel].push_back(leafName.c_str());
+				j[branchesLabel].push_back(aNode);
+			}
+		}
+		else // leaf
+		{
+			j[leavesLabel].push_back(leafName.c_str());
+		}
+	}
+
+	std::ofstream file(fname2write);
+	file << j;
+
+	return true;
+}
+
 void FunctionListPanel::reload()
 {
 	// clean up
@@ -240,50 +317,55 @@ void FunctionListPanel::reload()
 	::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
 	setSort(false);
 
-	vector<foundInfo> fi;
+	_foundFuncInfos.clear();
 
-	const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
-	LangType langID = ((*_ppEditView)->getCurrentBuffer())->getLangType();
+	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+	const TCHAR *fn = currentBuf->getFileName();
+	LangType langID = currentBuf->getLangType();
 	if (langID == L_JAVASCRIPT)
 		langID = L_JS;
 
 	const TCHAR *udln = NULL;
 	if (langID == L_USER)
 	{
-		udln = ((*_ppEditView)->getCurrentBuffer())->getUserDefineLangName();
+		udln = currentBuf->getUserDefineLangName();
 	}
 
 	TCHAR *ext = ::PathFindExtension(fn);
 
-	if (_funcParserMgr.parse(fi, AssociationInfo(-1, langID, ext, udln)))
+	bool parsedOK = _funcParserMgr.parse(_foundFuncInfos, AssociationInfo(-1, langID, ext, udln));
+	if (parsedOK)
 	{
 		_treeView.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
 	}
 
-	for (size_t i = 0, len = fi.size(); i < len; ++i)
+	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
 	{
-		// no 2 level
+		// no 2 levels
 		bool b = false;
 		if (b)
 		{
 			generic_string entryName = TEXT("");
-			if (fi[i]._pos2 != -1)
+			if (!_foundFuncInfos[i]._data2.empty())
 			{
-				entryName = fi[i]._data2;
+				entryName = _foundFuncInfos[i]._data2;
 				entryName += TEXT("=>");
 			}
-			entryName += fi[i]._data;
-			addEntry(NULL, entryName.c_str(), fi[i]._pos);
+			entryName += _foundFuncInfos[i]._data;
+			addEntry(NULL, entryName.c_str(), _foundFuncInfos[i]._pos);
 		}
 		else
 		{
-			addEntry(fi[i]._data2.c_str(), fi[i]._data.c_str(), fi[i]._pos);
+			addEntry(_foundFuncInfos[i]._data2.c_str(), _foundFuncInfos[i]._data.c_str(), _foundFuncInfos[i]._pos);
 		}
 	}
+
 	HTREEITEM root = _treeView.getRoot();
-	const TCHAR *fullFilePath = ((*_ppEditView)->getCurrentBuffer())->getFullPathName();
+	
 	if (root)
 	{
+		Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+		const TCHAR *fullFilePath = currentBuf->getFullPathName();
 		_treeView.setItemParam(root, fullFilePath);
 		TreeParams *previousParams = getFromStateArray(fullFilePath);
 		if (!previousParams)

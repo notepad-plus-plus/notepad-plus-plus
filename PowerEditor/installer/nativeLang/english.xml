@@ -8,7 +8,7 @@
     - &apos; is (')
     - &quot; is (")
     -->
-    <Native-Langue name="English" filename="english.xml" RTL="no" version="7.4.1">
+    <Native-Langue name="English" filename="english.xml" version="7.4.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -100,7 +100,7 @@
                     <Item id="41017" name="Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
                     <Item id="41022" name="Open Folder as &amp;Workspace"/>
-
+                    <Item id="41023" name="Open in Default Viewer"/>
                     <Item id="42001" name="Cu&amp;t"/>
                     <Item id="42002" name="&amp;Copy"/>
                     <Item id="42003" name="&amp;Undo"/>
@@ -285,8 +285,8 @@
                     <Item id="10004" name="Open in New Instance"/>
 
                     <Item id="46001" name="Style Configurator..."/>
-                    <Item id="46150" name="Define your language..."/>
-                    <Item id="46080" name="User-Defined"/>
+                    <Item id="46250" name="Define your language..."/>
+                    <Item id="46180" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++..."/>
                     <Item id="47010" name="Command Line Arguments..."/>
                     <Item id="47001" name="Notepad++ Home"/>
@@ -345,26 +345,24 @@
                     <Item CMID="18" name="Close All to the Right"/>
                     <Item CMID="19" name="Open Containing Folder in Explorer"/>
                     <Item CMID="20" name="Open Containing Folder in cmd"/>
+					<Item CMID="21" name="Open in Default Viewer"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
-                <Item id="1"    name="Find &gt;&gt;"/>
-                <Item id="1721" name="&lt;&lt; Find"/>
+                <Item id="1"    name="Find Next"/>
+                <Item id="1722" name="Backward direction"/>
                 <Item id="2"    name="Close"/>
                 <Item id="1620" name="Find what:"/>
                 <Item id="1603" name="Match &amp;whole word only"/>
                 <Item id="1604" name="Match &amp;case"/>
                 <Item id="1605" name="Regular &amp;expression"/>
                 <Item id="1606" name="Wrap aroun&amp;d"/>
-                <Item id="1612" name="&amp;Up"/>
-                <Item id="1613" name="&amp;Down"/>
                 <Item id="1614" name="Count"/>
                 <Item id="1615" name="Find All"/>
                 <Item id="1616" name="Mark line"/>
                 <Item id="1618" name="Purge for each search"/>
-                <Item id="1621" name="Direction"/>
                 <Item id="1611" name="Re&amp;place with:"/>
                 <Item id="1608" name="&amp;Replace"/>
                 <Item id="1609" name="Replace &amp;All"/>
@@ -1079,9 +1077,9 @@
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.&#xD;Are you sure to open them?"/>
-			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,&#xD;or on a folder needed privilege right for writing access.&#xD;Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
-			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
-	        <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,&#xD;or on a folder needed privilege right for writing access.&#xD;Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+			      <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
+	          <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
         </MessageBox>
 
         <ClipboardHistory>
@@ -1203,16 +1201,16 @@
         </ShortcutMapper>
 
         <MiscStrings>
-			<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
+		      	<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
             <word-chars-list-warning-begin value="Be aware: "/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+		      	<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+		      	<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-			<word-chars-list-warning-end value="  in your character list."/>
-			<cloud-invalid-warning value="Invalid path."/>
-			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-			<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction."/>
+		      	<word-chars-list-warning-end value="  in your character list."/>
+		      	<cloud-invalid-warning value="Invalid path."/>
+		      	<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+		      	<shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction."/>
             <buffer-error-msg name="Failed to save file.&#xD;Not enough space on disk to save file?"/>
         </MiscStrings>
 

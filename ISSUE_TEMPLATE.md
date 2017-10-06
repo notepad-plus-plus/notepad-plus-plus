@@ -14,7 +14,7 @@
 <!--- What did you expect to happen -->
 
 ### Actual Behavior
-<!--- What actually happend -->
+<!--- What actually happened -->
 
 ### Debug Information
 <!--- Debug Info can be found under under the "?" menu -->

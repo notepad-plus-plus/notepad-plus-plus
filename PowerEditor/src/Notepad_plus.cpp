@@ -49,6 +49,7 @@
 #include "functionListPanel.h"
 #include "fileBrowser.h"
 #include "LongRunningOperation.h"
+#include "Common.h"
 
 using namespace std;
 
@@ -401,13 +402,20 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_scintillaCtrls4Plugins.init(_pPublicInterface->getHinst(), hwnd);
 	_pluginsManager.init(nppData);
 
-	// Load plugins firstly from "%APPDATA%/Notepad++/plugins"
-	// if Notepad++ is not in localConf mode.
+	// If Notepad++ is not in localConf mode, load plugins firstly from "%APPDATA%/Notepad++/plugins"
 	// All the dll loaded are marked.
 	bool isLoadFromAppDataAllow = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETAPPDATAPLUGINSALLOWED, 0, 0) == TRUE;
+
 	const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
 	if (appDataNpp[0] && isLoadFromAppDataAllow)
 		_pluginsManager.loadPlugins(appDataNpp);
+
+	generic_string localAppDataNppPluginsDir = pNppParam->getLocalAppDataNppDir();
+	if (!localAppDataNppPluginsDir.empty() && isLoadFromAppDataAllow)
+	{
+		PathAppend(localAppDataNppPluginsDir, TEXT("plugins"));
+		_pluginsManager.loadPluginsV2(localAppDataNppPluginsDir.c_str());
+	}
 
 	// Load plugins from its installation directory.
 	// All loaded dll will be ignored
@@ -1954,7 +1962,7 @@ void Notepad_plus::checkDocState()
 	bool isFileExisting = PathFileExists(curBuf->getFullPathName()) != FALSE;
 	if (!isCurrentDirty)
 	{
-		for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+		for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 		{
 			if (MainFileManager->getBufferByIndex(i)->isDirty())
 			{
@@ -1990,6 +1998,8 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
 	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
+
+	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
 
 	enableConvertMenuItems(curBuf->getEolFormat());
 	checkUnicodeMenuItems();
@@ -2899,7 +2909,48 @@ LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_IHEX;
 		case IDM_LANG_TEHEX :
             return L_TEHEX;
-
+		case IDM_LANG_SWIFT:
+			return L_SWIFT;
+        case IDM_LANG_ASN1 :
+            return L_ASN1;
+        case IDM_LANG_AVS :
+            return L_AVS;
+        case IDM_LANG_BLITZBASIC :
+            return L_BLITZBASIC;
+        case IDM_LANG_PUREBASIC :
+            return L_PUREBASIC;
+        case IDM_LANG_FREEBASIC :
+            return L_FREEBASIC;
+        case IDM_LANG_CSOUND :
+            return L_CSOUND;
+        case IDM_LANG_ERLANG :
+            return L_ERLANG;
+        case IDM_LANG_ESCRIPT :
+            return L_ESCRIPT;
+        case IDM_LANG_FORTH :
+            return L_FORTH;
+        case IDM_LANG_LATEX :
+            return L_LATEX;
+        case IDM_LANG_MMIXAL :
+            return L_MMIXAL;
+        case IDM_LANG_NIMROD :
+            return L_NIMROD;
+        case IDM_LANG_NNCRONTAB :
+            return L_NNCRONTAB;
+        case IDM_LANG_OSCRIPT :
+            return L_OSCRIPT;
+        case IDM_LANG_REBOL :
+            return L_REBOL;
+        case IDM_LANG_REGISTRY :
+            return L_REGISTRY;
+        case IDM_LANG_RUST :
+            return L_RUST;
+        case IDM_LANG_SPICE :
+            return L_SPICE;
+        case IDM_LANG_TXT2TAGS :
+            return L_TXT2TAGS;
+        case IDM_LANG_VISUALPROLOG:
+            return L_VISUALPROLOG;
 		case IDM_LANG_USER :
             return L_USER;
 		default: {
@@ -4967,7 +5018,7 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {
 	TCHAR savePath[MAX_PATH] = {0};
 
 	//rescue primary
-	for (size_t i = 0; i < MainFileManager->getNrBuffers(); ++i)
+	for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 	{
 		Buffer * docbuf = MainFileManager->getBufferByIndex(i);
 		if (!docbuf->isDirty())	//skip saved documents
@@ -5064,7 +5115,12 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 					// Then we ask user to update
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
+					{
+						// Since the file content has changed but the user doesn't want to reload it, set state to dirty
+						buffer->setDirty(true);
+
 						break;	//abort
+					}
 				}
 				// Set _isLoadedDirty false so when the document clean state is reached the icon will be set to blue
 				buffer->setLoadedDirty(false);
@@ -5251,7 +5307,8 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	_linkTriggered = true;
 }
 
-void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams) {
+void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams)
+{
 	if (!commandLine || ! pCmdParams)
 		return;
 
@@ -5813,6 +5870,10 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 	}
 
 	_pFileBrowser->display();
+
+	checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+	_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+	_pFileBrowser->setClosed(false);
 }
 
 
@@ -5987,13 +6048,13 @@ struct Quote
 
 
 
-
-const int nbQuote = 209;
+const int nbQuote = 203;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
 	{"Notepad++ #2", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
-	{"Richard Stallman?", "If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent."},
+	{"Notepad++ #3", "The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n"},
+	{"Richard Stallman", "If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent."},
 	{"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 	{"L. Peter Deutsch", "To iterate is human, to recurse divine."},
 	{"Seymour Cray", "The trouble with programmers is that you can never tell what a programmer is doing until it's too late."},
@@ -6016,13 +6077,15 @@ Quote quotes[nbQuote] =
 	{"Steve Jobs", "Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas."},
 	{"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
 	{"Robin Williams", "God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time."},
-	{"Darth Vader", "You don't get to 500 million star systems without making a few enemies."},
+	{"Darth Vader", "Strong people don't put others down.\nThey lift them up." },
+	{"Darth Vader #2", "You don't get to 500 million star systems without making a few enemies."},
 	{"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
 	{"Jean-Claude van Damme", "A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life."},
 	{"Michael Feldman", "Java is, in many ways, C++--."},
 	{"Don Ho", "Je mange donc je chie."},
 	{"Don Ho #2", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
 	{"Don Ho #3", "Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street."},
+	{"Don Ho #4", "Poor countries' museums vs. rich countries' museums:\nThe first show what they have left.\nThe second show what they have stolen."},
 	{"Anonymous #1", "An opinion without 3.14 is just an onion."},
 	{"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
 	{"Anonymous #3", "I'm not totally useless. I can be used as a bad example."},
@@ -6031,7 +6094,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #6", "Going to Mc Donald's for a salad is like going to a whore for a hug."},
 	{"Anonymous #7", "I need a six month holiday, TWICE A YEAR!"},
 	{"Anonymous #8", "Everything is a knife if you're strong enough."},
-	{"Anonymous #9", "I just read a list of \"the 100 things to do before you die\". I'm pretty surprised \"yell for help\" wasn't one of them..."},
+	{"Anonymous #9", "I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala."},
 	{"Anonymous #10", "Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!"},
 	{"Anonymous #11", "We stopped checking for monsters under our bed, when we realized they were inside us."},
 	{"Anonymous #12", "I would rather check my facebook than face my checkbook."},
@@ -6039,13 +6102,13 @@ Quote quotes[nbQuote] =
 	{"Anonymous #14", "A better world is where chickens can cross the road without having their motives questioned."},
 	{"Anonymous #15", "If I didn't drink, how would my friends know I love them at 2 AM?"},
 	{"Anonymous #16", "Q: How do you generate a random string?\nA: Put a Windows user in front of vi, and tell him to exit."},
-	{"Anonymous #17", "All you need is love,\nall you want is sex,\nall you have is porn.\n"},
+	{"Anonymous #17", "Pros and cons of making food.\nPros: food\nCons : making\n"},
 	{"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
-	{"Anonymous #19", "F_CK: All I need is U."},
+	{"Anonymous #19", "People who say they give 110%\ndon't really understand how percentages work."},
 	{"Anonymous #20", "Never make eye contact while eating a banana."},
 	{"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
 	{"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},
-	{"Anonymous #23", "Everybody talks about leaving a better planet for the children.\nWhy nobody tries to leave better children to the planet?"},
+	//{"Anonymous #23", ""},
 	{"Anonymous #24", "An Architect's dream is an Engineer's nightmare."},
 	{"Anonymous #25", "In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
 	{"Anonymous #26", "I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one."},
@@ -6071,7 +6134,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #47", "Kids are like farts.\nYou can only stand yours."},
 	{"Anonymous #48", "If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography."},
 	{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars."},
-	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in britain and try to get a bunch of gold... it's like history but opposite."},
+	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in Britain and try to get a bunch of gold... it's like history but opposite."},
 	{"Anonymous #51", "I don't need a stable relationship,\nI just need a stable Internet connection."},
 	{"Anonymous #52", "What's the difference between religion and bullshit?\nThe bull."},
 	{"Anonymous #53", "Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML"},
@@ -6109,13 +6172,12 @@ Quote quotes[nbQuote] =
 	{"Anonymous #86", "Farts are just the ghosts of the things we eat."},
 	{"Anonymous #87", "I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word."},
 	{"Anonymous #88", "A foo walks into a bar,\ntakes a look around and\nsays \"Hello World!\"."},
-	{"Anonymous #89", "I'm drunk and you're still ugly."},
 	{"Anonymous #90", "Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments."},
 	{"Anonymous #91", "CV: ctrl-C, ctrl-V"},
 	{"Anonymous #92", "Mondays are not so bad.\nIt's your job that sucks."},
 	{"Anonymous #93", "[In a job interview]\nInterviewer: What's your greatest weakness?\nCandidate: Honesty.\nInterviewer: I don't think honesty is a weakness.\nCandidate: I don't give a fuck what you think."},
 	{"Anonymous #94", "Hey, I just met you\nAnd this is crazy\nHere's my number 127.0.0.1\nPing me maybe?"},
-	{"Anonymous #95", "YES!\nI'm a programmer, and\nNO!\nIt doesn't mean that I have to fix your PC!"},
+	//{"Anonymous #95", ""},
 	{"Anonymous #96", "Code for 6 minutes, debug for 6 hours."},
 	{"Anonymous #97", "Real Programmers don't comment their code.\nIf it was hard to write, it should be hard to read."},
 	{"Anonymous #98", "My neighbours listen to good music.\nWhether they like it or not."},
@@ -6123,7 +6185,6 @@ Quote quotes[nbQuote] =
 	{"Anonymous #100", "Dear YouTube,\nI can deal with Ads.\nI can deal with Buffer.\nBut when Ads buffer, I suffer."},
 	{"Anonymous #101", "It's always sad when a man and his dick share only one brain...\nand it turns out to be the dick's."},
 	{"Anonymous #102", "If IE is brave enough to ask you to set it as your default browser,\ndon't tell me you dare not ask a girl out."},
-	{"Anonymous #103", "Turn on your brain, turn off TV."},
 	{"Anonymous #104", "The main idea of \"Inception\":\nif you run a VM inside a VM inside a VM inside a VM inside a VM,\neverything will be very slow."},
 	{"Anonymous #105", "Q: What's the object-oriented way to become wealthy?\nA: Inheritance."},
 	{"Anonymous #106", "When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car."},
@@ -6141,9 +6202,9 @@ Quote quotes[nbQuote] =
 	{"Anonymous #118", "I love necrophilia, but i can't stand the awkward silences."},
 	{"Anonymous #119", "\"I'm gonna Google that. BING that, Bing that, sorry.\"\n- The CEO of Bing (many times per day still)"},
 	{"Anonymous #120", "Life is what happens to you while you're looking at your smartphone."},
-	{"Anonymous #121", "Thing to do today:\n1. Get up\n2. Go back to bed"},
+	//{"Anonymous #121", ""},
 	{"Anonymous #122", "Nerd?\nI prefer the term \"Intellectual badass\"."},
-	{"Anonymous #123", "How can you face your problem if your problem is your face?"},
+	//{"Anonymous #123", ""},
 	{"Anonymous #124", "You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion."},
 	{"Anonymous #125", "Pooping with the door opened is the meaning of true freedom."},
 	{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},
@@ -6176,11 +6237,9 @@ Quote quotes[nbQuote] =
 	{"Anonymous #153", "You are not fat, you are just more visible."},
 	{"Anonymous #154", "Minimalist\n (.   .)\n  )   (\n (  Y  )\nASCII Art"},
 	{"Internet #1", "If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing." },
-	{"Louis C.K.", "I'm a good citizen. I'm a good father. I recycle and I masturbate."},
 	{"Mary Oliver", "Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift."},
 	{"Floor", "If you fall, I will be there."},
 	{"Simon Amstell", "If you have some problem in your life and need to deal with it, then use religion, that's fine.\nI use Google."},
-	{"James Bond", "James, James Bond."},
 	{"Albert Einstein", "Only 3 things are infinite:\n1. Universe.\n2. Human Stupidity.\n3. Winrar's free trial."},
 	{"Terry Pratchett", "Artificial Intelligence is no match for natural stupidity."},
 	{"Stewart Brand", "Once a new technology starts rolling, if you're not part of the steamroller,\nyou're part of the road."},
@@ -6188,10 +6247,9 @@ Quote quotes[nbQuote] =
 	{"Jan L. A. van de Snepscheut", "In theory, there is no difference between theory and practice. But, in practice, there is."},
 	{"Jessica Gaston", "One man's crappy software is another man's full time job."},
 	{"Barack Obama", "Yes, we scan!"},
-	{"George W. Bush", "Where is my Nobel prize?\nI bombed people too."},
+	{"xkcd.com", "int getRandomNumber()\n{\n    return 4; //chosen by fair dice roll, guaranteed to be random.\n}\n"},
 	{"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 	{"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
-	{"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company)\nto shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 	{"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 	{"Mark Twain", "Censorship is telling a man he can't have a steak just because a baby can't chew it."},
 	{"Friedrich Nietzsche", "There is not enough love and goodness in the world to permit giving any of it away to imaginary beings."},

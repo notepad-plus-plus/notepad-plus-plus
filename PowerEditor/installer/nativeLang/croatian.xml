@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
         Croatian localization for Notepad++
-        Last modified 9 January 2017 by Elvis Gambiraža
+        Last modified 20 August 2017 by Elvis Gambiraža
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="7.3">
+        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -96,7 +96,7 @@
                     <Item id="41017" name="Pre&amp;imenuj..."/>
                     <Item id="41021" name="Vrati nedavno zatvorene datoteke"/>
                     <Item id="41022" name="Otvori mapu kao &amp;radnu površinu"/>
-
+                    <Item id="41023" name="Otvori u zadanom pregledniku"/>
                     <Item id="42001" name="Iz&amp;reži"/>
                     <Item id="42002" name="&amp;Kopiraj"/>
                     <Item id="42003" name="Po&amp;ništi"/>
@@ -304,8 +304,8 @@
                     <Item id="46017" name="Datoteka resursa"/>
 
                     <Item id="46001" name="Postavke stilova..."/>
-                    <Item id="46150" name="Definiraj svoj jezik sintaksi..."/>
-                    <Item id="46080" name="Korisnički definirano"/>
+                    <Item id="46250" name="Definiraj svoj jezik sintaksi..."/>
+                    <Item id="46180" name="Korisnički definirano"/>
                     <Item id="47000" name="O programu..."/>
                     <Item id="47010" name="Argumenti komandne linije..."/>
                     <Item id="47001" name="Web stranica Notepad++"/>
@@ -364,12 +364,14 @@
                     <Item CMID="18" name="Zatvori sve s desne strane"/>
                     <Item CMID="19" name="Otvori mapu s datotekom u Exploreru"/>
                     <Item CMID="20" name="Otvori mapu s datotekom u komandnoj liniji"/>
+                    <Item CMID="21" name="Otvori u zadanom pregledniku"/>
             </TabBar>
         </Menu>
 
         <Dialog>
             <Find title="" titleFind="Pronađi" titleReplace="Zamijeni" titleFindInFiles="Pronađi u datotekama" titleMark="Označi">
                     <Item id="1"    name="Pronađi sljedeće"/>
+                    <Item id="1722" name="Obratni smjer"/>
                     <Item id="2"    name="Zatvori"/>
                     <Item id="1620" name="Pronađi:"/>
                     <Item id="1603" name="Samo &amp;cijele riječi"/>
@@ -914,6 +916,10 @@
                     <Item id="6256" name="Dopustiti na više redaka"/>
                     <Item id="6257" name="Za programiranje"/>
                     <Item id="6258" name="U ime Oca i Sina i Duha Svetoga Enter."/>
+                    <Item id="6161" name="Popis znakova za Riječi"/>
+                    <Item id="6162" name="Koristi zadani popis znakova za Riječi kakav je"/>
+                    <Item id="6163" name="Dodaj svoj znak kao dio riječi (nemojte odabrati ako ne znate što radite)"/>
+
                 </Delimiter>
 
                 <Cloud title="Oblak">
@@ -964,6 +970,9 @@
                     <Item id="6114" name="Uključi sklopku"/>
                     <Item id="6115" name="Automatska uvlaka redaka"/>
                     <Item id="6117" name="Koristi povijest dokumenata"/>
+                    <Item id="6344" name="Kratki pogled na dokument"/>
+                    <Item id="6345" name="Pogled na karticu"/>
+                    <Item id="6346" name="Pogled na mapu dokumenata"/>
                 </MISC>
 
 
@@ -1013,7 +1022,8 @@
                     <!-- $INT_REPLACE$ is a place holder, don't translate it -->
                     <NbFileToOpenImportantWarning title="Broj datoteka za otvaranje je prevelik" message="$INT_REPLACE$ datoteka će se otvoriti.\rŽelite li ih zaista otvoriti?"/>
                     <SettingsOnCloudError title="Podešavanje oblaka" message="Izgleda da je put u podešavanju oblaka postavljen na pogon samo za čitanje,\rili na mapu koja zahtijeva posebne ovlasti za pisanje.\rVaše postavke oblaka će biti poništene. Molim, resetirajte koherentnu vrijednost preko dijaloga Postavke."/>
-                    <FilePathNotFoundWarning title="File Open" message="Datoteka koju pokušavate otvoriti ne postoji."/>
+                    <FilePathNotFoundWarning title="Otvaranje datoteke" message="Datoteka koju pokušavate otvoriti ne postoji."/>
+                    <SessionFileInvalidError title="Ne mogu učitati sesiju" message="Session file is either corrupted or not valid."/>
             </MessageBox>
             <ClipboardHistory>
                     <PanelTitle name="Povijest međuspremnika"/>
@@ -1083,5 +1093,17 @@
                         </FileMenu>
                     </Menus>
             </ProjectManager>
+            <MiscStrings>
+                        <word-chars-list-tip value="Ovo omogućuje da uključiti dodatni znak u sadašnje znakove riječi, s dvostrukim klikom na izbor ili pretragom sa &quot;Traži samo cijele riječi&quot; opcijom označenom."/>
+                        <word-chars-list-warning-begin value="Budite upozoreni: "/>
+                        <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+                        <word-chars-list-space-warning value="$INT_REPLACE$ razmak(i)"/>
+                        <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+                        <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(ovi)"/>
+                        <word-chars-list-warning-end value="  u vašem popisu znakova."/>
+                        <cloud-invalid-warning value="Neispravan put."/>
+                        <cloud-restart-warning value="Ponovno pokrenite Notepad++ kako bi stupilo na snagu."/>
+			<shift-change-direction-tip value="Upotrijebite Shift + Enter za traženje u suprotnom smjeru."/>
+            </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

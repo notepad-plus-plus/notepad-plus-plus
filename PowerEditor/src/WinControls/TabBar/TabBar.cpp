@@ -152,7 +152,15 @@ void TabBar::setFont(TCHAR *fontName, int fontSize)
 void TabBar::activateAt(int index) const
 {
 	if (getCurrentTabIndex() != index)
+	{
+		// TCS_BUTTONS needs both set or two tabs can appear selected
+		if (::GetWindowLongPtr(_hSelf, GWL_STYLE) & TCS_BUTTONS)
+		{
+			::SendMessage(_hSelf, TCM_SETCURFOCUS, index, 0);
+		}
+
 		::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);
+	}
 
 	TBHDR nmhdr;
 	nmhdr._hdr.hwndFrom = _hSelf;
@@ -775,6 +783,17 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				{
 					notify(TCN_TABDELETE, currentTabOn);
 					_whichCloseClickDown = -1;
+
+					// Get the next tab at same position
+					// If valid tab is found then
+					//	 update the current hover tab RECT (_currentHoverTabRect)
+					//	 update close hover flag (_isCloseHover), so that x will be highlighted or not based on new _currentHoverTabRect
+					int nextTab = getTabIndexAt(xPos, yPos);
+					if (nextTab != -1)
+					{
+						::SendMessage(_hSelf, TCM_GETITEMRECT, nextTab, reinterpret_cast<LPARAM>(&_currentHoverTabRect));
+						_isCloseHover = _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect, _isVertical);
+					}
 					return TRUE;
 				}
 				_whichCloseClickDown = -1;

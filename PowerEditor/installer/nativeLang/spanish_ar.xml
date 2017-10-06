@@ -247,8 +247,8 @@
 					<Item id="10004" name="Abrir en una ventana nueva"/>
 
 					<Item id="46001" name="Configurador de estilo..."/>
-					<Item id="46150" name="Lenguaje definido por el usuario..."/>
-                    <Item id="46080" name="Definido por el usuario"/>
+					<Item id="46250" name="Lenguaje definido por el usuario..."/>
+                    <Item id="46180" name="Definido por el usuario"/>
 					<Item id="47000" name="Acerca de Notepad++..."/>
 					<Item id="47001" name="Web de Notepad++"/>
 					<Item id="47002" name="Proyecto Notepad++ en Sourceforge"/>

@@ -252,8 +252,8 @@
                     <Item id="10004" name="Abrir numa Nova Instância"/>
 
 					<Item id="46001" name="Configurador do Estilo..."/>
-					<Item id="46150" name="Defina o seu idioma..."/>
-					<Item id="46080" name="Definida pelo Utilizador"/>
+					<Item id="46250" name="Defina o seu idioma..."/>
+					<Item id="46180" name="Definida pelo Utilizador"/>
                     <Item id="47000" name="Sobre o Notepad++..."/>
 					<Item id="47010" name="Argumentos da Linha de Comando..."/>
                     <Item id="47001" name="Página da Notepad++"/>

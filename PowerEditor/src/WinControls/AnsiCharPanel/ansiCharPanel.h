@@ -48,11 +48,7 @@ public:
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
 	};
-/*
-    virtual void display(bool toShow = true) const {
-        DockingDlgInterface::display(toShow);
-    };
-*/
+
     void setParent(HWND parent2set){
         _hParent = parent2set;
     };

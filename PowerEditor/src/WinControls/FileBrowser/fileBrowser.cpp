@@ -1047,9 +1047,8 @@ vector<generic_string> FileBrowser::getRoots() const
 {
 	vector<generic_string> roots;
 
-	HTREEITEM node = nullptr;
 	for (HTREEITEM hItemNode = _treeView.getRoot();
-		hItemNode != nullptr && node == nullptr;
+		hItemNode != nullptr;
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
 		TVITEM tvItem;
@@ -1107,9 +1106,8 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 	}
 	else
 	{
-		HTREEITEM childNodeFound = nullptr;
 		for (HTREEITEM hItemNode = _treeView.getChildFrom(node);
-			hItemNode != NULL && childNodeFound == nullptr;
+			hItemNode != NULL ;
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
 			TCHAR textBuffer[MAX_PATH];
@@ -1147,9 +1145,8 @@ HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::
 	}
 	else
 	{
-		HTREEITEM childNodeFound = nullptr;
 		for (HTREEITEM hItemNode = _treeView.getChildFrom(node);
-			hItemNode != NULL && childNodeFound == nullptr;
+			hItemNode != NULL;
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
 			TCHAR textBuffer[MAX_PATH];

@@ -115,6 +115,11 @@ protected:
 	WcharMbcsConvertor() {}
 	~WcharMbcsConvertor() {}
 
+	// Since there's no public ctor, we need to void the default assignment operator and copy ctor.
+	// Since these are marked as deleted does not matter under which access specifier are kept
+	WcharMbcsConvertor(const WcharMbcsConvertor&) = delete;
+	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&) = delete;
+
 	static WcharMbcsConvertor* _pSelf;
 
 	template <class T>
@@ -154,10 +159,6 @@ protected:
 
 	StringBuffer<char> _multiByteStr;
 	StringBuffer<wchar_t> _wideCharStr;
-
-private:
-	// Since there's no public ctor, we need to void the default assignment operator.
-	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&);
 };
 
 
@@ -187,3 +188,4 @@ generic_string uintToString(unsigned int val);
 HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
 
 bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
+bool isAssoCommandExisting(LPCTSTR FullPathName);

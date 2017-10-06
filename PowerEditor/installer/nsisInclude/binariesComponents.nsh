@@ -56,15 +56,6 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\NppExport.dll"
 	${MementoSectionEnd}
 
-	${MementoSection} "Plugin Manager" PluginManager
-		Delete "$INSTDIR\plugins\PluginManager.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\PluginManager.dll"
-		SetOutPath "$UPDATE_PATH\plugins\Config"
-		File "..\bin\plugins\Config\PluginManager.ini"
-		SetOutPath "$INSTDIR\updater"
-		File "..\bin\updater\gpup.exe"
-	${MementoSectionEnd}
 !endif
 
 	${MementoSection} "Mime Tools" MimeTools
@@ -86,6 +77,21 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\NppConverter.dll"
 !endif
 	${MementoSectionEnd}
+	/*
+	${MementoSection} "Decent Spell-Checking" DSpellCheck
+		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+		SetOutPath "$INSTDIR\plugins"
+!ifdef ARCH64
+		File "..\bin64\plugins\DSpellCheck.dll"
+		File "..\bin64\plugins\Config\Hunspell\en_US.aff"
+		File "..\bin64\plugins\Config\Hunspell\en_US.dic"
+!else
+		File "..\bin\plugins\DSpellCheck.dll"
+		File "..\bin\plugins\Config\Hunspell\en_US.aff"
+		File "..\bin\plugins\Config\Hunspell\en_US.dic"
+!endif
+	${MementoSectionEnd}
+	*/
 SectionGroupEnd
 
 ${MementoSection} "Auto-Updater" AutoUpdater
@@ -108,7 +114,6 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 !endif
 ${MementoSectionEnd}
 
-
 ;Uninstall section
 SectionGroup un.Plugins
 	Section un.NppExport
@@ -128,7 +133,15 @@ SectionGroup un.Plugins
 		Delete "$UPDATE_PATH\plugins\Config\PluginManager.ini"
 		Delete "$INSTDIR\updater\gpup.exe"
 		RMDir "$INSTDIR\updater\"
-	SectionEnd	
+	SectionEnd
+	
+/* 	Section un.DSpellCheck
+		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+		Delete "$UPDATE_PATH\plugins\Config\DSpellCheck.ini"
+		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.aff"
+		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.dic"
+		RMDir "$INSTDIRplugins\Config\Hunspell\"
+	SectionEnd	 */
 
 SectionGroupEnd
 

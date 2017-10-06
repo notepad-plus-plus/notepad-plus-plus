@@ -30,7 +30,7 @@
 #include "Win32Exception.h"	//Win32 exception
 #include "MiniDumper.h"			//Write dump files
 
-typedef std::vector<const TCHAR*> ParamVector;
+typedef std::vector<generic_string> ParamVector;
 
 
 namespace
@@ -98,76 +98,98 @@ bool checkSingleFile(const TCHAR *commandLine)
 }
 
 //commandLine should contain path to n++ executable running
-void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
-	//params.erase(params.begin());
+void parseCommandLine(const TCHAR* commandLine, ParamVector& paramVector)
+{
+	if (!commandLine)
+		return;
+
+	TCHAR* cmdLine = new TCHAR[lstrlen(commandLine) + 1];
+	lstrcpy(cmdLine, commandLine);
+
+	TCHAR* cmdLinePtr = cmdLine;
+
 	//remove the first element, since thats the path the the executable (GetCommandLine does that)
 	TCHAR stopChar = TEXT(' ');
-	if (commandLine[0] == TEXT('\"')) {
+	if (cmdLinePtr[0] == TEXT('\"'))
+	{
 		stopChar = TEXT('\"');
-		++commandLine;
+		++cmdLinePtr;
 	}
 	//while this is not really DBCS compliant, space and quote are in the lower 127 ASCII range
-	while(commandLine[0] && commandLine[0] != stopChar)
+	while(cmdLinePtr[0] && cmdLinePtr[0] != stopChar)
     {
-		++commandLine;
+		++cmdLinePtr;
     }
 
     // For unknown reason, the following command :
     // c:\NppDir>notepad++
     // (without quote) will give string "notepad++\0notepad++\0"
     // To avoid the unexpected behaviour we check the end of string before increasing the pointer
-    if (commandLine[0] != '\0')
-	    ++commandLine;	//advance past stopChar
+    if (cmdLinePtr[0] != '\0')
+	    ++cmdLinePtr;	//advance past stopChar
 
 	//kill remaining spaces
-	while(commandLine[0] == TEXT(' '))
-		++commandLine;
+	while(cmdLinePtr[0] == TEXT(' '))
+		++cmdLinePtr;
 
-	bool isFile = checkSingleFile(commandLine);	//if the commandline specifies only a file, open it as such
-	if (isFile) {
-		paramVector.push_back(commandLine);
+	bool isFile = checkSingleFile(cmdLinePtr);	//if the commandline specifies only a file, open it as such
+	if (isFile)
+	{
+		paramVector.push_back(cmdLinePtr);
+		delete[] cmdLine;
 		return;
 	}
 	bool isInFile = false;
 	bool isInWhiteSpace = true;
-	paramVector.clear();
-	size_t commandLength = lstrlen(commandLine);
+	size_t commandLength = lstrlen(cmdLinePtr);
+	std::vector<TCHAR *> args;
 	for (size_t i = 0; i < commandLength; ++i)
 	{
-		switch(commandLine[i]) {
-			case '\"': {										//quoted filename, ignore any following whitespace
-				if (!isInFile) {	//" will always be treated as start or end of param, in case the user forgot to add an space
-					paramVector.push_back(commandLine+i+1);	//add next param(since zero terminated generic_string original, no overflow of +1)
+		switch(cmdLinePtr[i])
+		{
+			case '\"': //quoted filename, ignore any following whitespace
+			{
+				if (!isInFile)	//" will always be treated as start or end of param, in case the user forgot to add an space
+				{
+					args.push_back(cmdLinePtr+i+1);	//add next param(since zero terminated original, no overflow of +1)
 				}
 				isInFile = !isInFile;
 				isInWhiteSpace = false;
 				//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
-				commandLine[i] = 0;
-				break; }
-			case '\t':	//also treat tab as whitespace
-			case ' ': {
+				cmdLinePtr[i] = 0;
+			}
+			break;
+
+			case '\t': //also treat tab as whitespace
+			case ' ': 
+			{
 				isInWhiteSpace = true;
 				if (!isInFile)
-					commandLine[i] = 0;		//zap spaces into zero terminators, unless its part of a filename
-				break; }
-			default: {											//default TCHAR, if beginning of word, add it
-				if (!isInFile && isInWhiteSpace) {
-					paramVector.push_back(commandLine+i);	//add next param
+					cmdLinePtr[i] = 0;		//zap spaces into zero terminators, unless its part of a filename	
+			}
+			break;
+
+			default: //default TCHAR, if beginning of word, add it
+			{
+				if (!isInFile && isInWhiteSpace)
+				{
+					args.push_back(cmdLinePtr+i);	//add next param
 					isInWhiteSpace = false;
 				}
-				break; }
+			}
 		}
 	}
-	//the commandline generic_string is now a list of zero terminated strings concatenated, and the vector contains all the substrings
+	paramVector.assign(args.begin(), args.end());
+	delete [] cmdLine;
 }
 
 bool isInList(const TCHAR *token2Find, ParamVector & params)
 {
-	size_t nrItems = params.size();
+	size_t nbItems = params.size();
 
-	for (size_t i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nbItems; ++i)
 	{
-		if (!lstrcmp(token2Find, params.at(i)))
+		if (!lstrcmp(token2Find, params.at(i).c_str()))
 		{
 			params.erase(params.begin() + i);
 			return true;
@@ -179,11 +201,11 @@ bool isInList(const TCHAR *token2Find, ParamVector & params)
 bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 {
 	value = TEXT("");
-	size_t nrItems = params.size();
+	size_t nbItems = params.size();
 
-	for (size_t i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nbItems; ++i)
 	{
-		const TCHAR * token = params.at(i);
+		const TCHAR * token = params.at(i).c_str();
 		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
 			value = (token+2);
 			params.erase(params.begin() + i);
@@ -196,11 +218,11 @@ bool getParamVal(TCHAR c, ParamVector & params, generic_string & value)
 bool getParamValFromString(const TCHAR *str, ParamVector & params, generic_string & value)
 {
 	value = TEXT("");
-	size_t nrItems = params.size();
+	size_t nbItems = params.size();
 
-	for (size_t i = 0; i < nrItems; ++i)
+	for (size_t i = 0; i < nbItems; ++i)
 	{
-		const TCHAR * token = params.at(i);
+		const TCHAR * token = params.at(i).c_str();
 		generic_string tokenStr = token;
 		size_t pos = tokenStr.find(str);
 		if (pos != generic_string::npos && pos == 0)
@@ -284,6 +306,8 @@ const TCHAR FLAG_HELP[] = TEXT("--help");
 const TCHAR FLAG_ALWAYS_ON_TOP[] = TEXT("-alwaysOnTop");
 const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
+const TCHAR FLAG_FUNCLSTEXPORT[] = TEXT("-export=functionList");
+const TCHAR FLAG_PRINTANDQUIT[] = TEXT("-quickPrint");
 
 
 void doException(Notepad_plus_Window & notepad_plus_plus)
@@ -339,6 +363,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	bool isParamePresent;
 	bool showHelp = isInList(FLAG_HELP, params);
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
+	bool doFunctionListExport = isInList(FLAG_FUNCLSTEXPORT, params);
+	bool doPrintAndQuit = isInList(FLAG_PRINTANDQUIT, params);
 
 	CmdLineParams cmdLineParams;
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
@@ -352,24 +378,38 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._isRecursive = isInList(FLAG_RECURSIVE, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);
+	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
+
+	// getNumberFromParam should be run at the end, to not consuming the other params
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
     cmdLineParams._pos2go = getNumberFromParam('p', params, isParamePresent);
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
-	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
 
 
 	if (showHelp)
 		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK | MB_ICONINFORMATION);
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
+	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
+	bool doUpdate = nppGui._autoUpdateOpt._doAutoUpdate;
+
+	if (doFunctionListExport || doPrintAndQuit) // export functionlist feature will serialize fuctionlist on the disk, then exit Notepad++. So it's important to not launch into existing instance, and keep it silent.
+	{
+		isMultiInst = true;
+		doUpdate = false;
+		cmdLineParams._isNoSession = true;
+	}
 
 	if (cmdLineParams._localizationPath != TEXT(""))
 	{
 		pNppParameters->setStartWithLocFileName(cmdLineParams._localizationPath);
 	}
 	pNppParameters->load();
+
+	pNppParameters->setFunctionListExportBoolean(doFunctionListExport);
+	pNppParameters->setPrintAndExitBoolean(doPrintAndQuit);
 
 	// override the settings if notepad style is present
 	if (pNppParameters->asNotepadStyle())
@@ -391,11 +431,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 	generic_string quotFileName = TEXT("");
     // tell the running instance the FULL path to the new files to load
-	size_t nrFilesToOpen = params.size();
+	size_t nbFilesToOpen = params.size();
 
-	for (size_t i = 0; i < nrFilesToOpen; ++i)
+	for (size_t i = 0; i < nbFilesToOpen; ++i)
 	{
-		const TCHAR * currentFile = params.at(i);
+		const TCHAR * currentFile = params.at(i).c_str();
 		if (currentFile[0])
 		{
 			//check if relative or full path. Relative paths dont have a colon for driveletter
@@ -420,44 +460,42 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
         if (hNotepad_plus)
         {
-		// First of all, destroy static object NppParameters
-		pNppParameters->destroyInstance();
-		MainFileManager->destroyInstance();
+			// First of all, destroy static object NppParameters
+			pNppParameters->destroyInstance();
+			MainFileManager->destroyInstance();
 
-		int sw = 0;
+			int sw = 0;
 
-		if (::IsZoomed(hNotepad_plus))
-			sw = SW_MAXIMIZE;
-		else if (::IsIconic(hNotepad_plus))
-			sw = SW_RESTORE;
+			if (::IsZoomed(hNotepad_plus))
+				sw = SW_MAXIMIZE;
+			else if (::IsIconic(hNotepad_plus))
+				sw = SW_RESTORE;
 
-		if (sw != 0)
-			::ShowWindow(hNotepad_plus, sw);
+			if (sw != 0)
+				::ShowWindow(hNotepad_plus, sw);
 
-		::SetForegroundWindow(hNotepad_plus);
+			::SetForegroundWindow(hNotepad_plus);
 
-		if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
-		{
-			COPYDATASTRUCT paramData;
-			paramData.dwData = COPYDATA_PARAMS;
-			paramData.lpData = &cmdLineParams;
-			paramData.cbData = sizeof(cmdLineParams);
+			if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
+			{
+				COPYDATASTRUCT paramData;
+				paramData.dwData = COPYDATA_PARAMS;
+				paramData.lpData = &cmdLineParams;
+				paramData.cbData = sizeof(cmdLineParams);
 
-			COPYDATASTRUCT fileNamesData;
-			fileNamesData.dwData = COPYDATA_FILENAMES;
-			fileNamesData.lpData = (void *)quotFileName.c_str();
-			fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
+				COPYDATASTRUCT fileNamesData;
+				fileNamesData.dwData = COPYDATA_FILENAMES;
+				fileNamesData.lpData = (void *)quotFileName.c_str();
+				fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
 
-			::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
-			::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
-		}
-		return 0;
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&paramData));
+				::SendMessage(hNotepad_plus, WM_COPYDATA, reinterpret_cast<WPARAM>(hInstance), reinterpret_cast<LPARAM>(&fileNamesData));
+			}
+			return 0;
         }
 	}
 
 	Notepad_plus_Window notepad_plus_plus;
-
-	NppGUI & nppGui = const_cast<NppGUI &>(pNppParameters->getNppGUI());
 
 	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");
@@ -468,8 +506,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	updaterParams += VERSION_VALUE;
 
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
-
-    bool doUpdate = nppGui._autoUpdateOpt._doAutoUpdate;
 
     if (doUpdate) // check more detail
     {

@@ -25,7 +25,10 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "json.hpp"
 #include <algorithm>
+#include <iostream>
+#include <fstream>
 #include <string>
 #include <cctype>
 #include <shlobj.h>
@@ -38,6 +41,7 @@
 #include "md5.h"
 
 using namespace std;
+using nlohmann::json;
 
 void Version::setVersionFrom(generic_string filePath)
 {
@@ -290,7 +294,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 
 	_availableListView.init(_hInst, _hSelf);
 	_availableListView.reSizeTo(listRect);
-	//_availableListView.display();
 	
 	_updateListView.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_updateListView.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
@@ -299,7 +302,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 
 	_updateListView.init(_hInst, _hSelf);
 	_updateListView.reSizeTo(listRect);
-	//_updateListView.display(false);
 
 	_installedListView.addColumn(columnInfo(pluginStr, nppParam->_dpiManager.scaleX(200)));
 	_installedListView.addColumn(columnInfo(vesionStr, nppParam->_dpiManager.scaleX(100)));
@@ -308,7 +310,6 @@ void PluginsAdminDlg::create(int dialogID, bool isRTL)
 
 	_installedListView.init(_hInst, _hSelf);
 	_installedListView.reSizeTo(listRect);
-	//_installedListView.display(false);
 
 	HWND hDesc = ::GetDlgItem(_hSelf, IDC_PLUGINADM_EDIT);
 	::MoveWindow(hDesc, descRect.left, descRect.top, descRect.right, descRect.bottom, TRUE);
@@ -350,7 +351,55 @@ bool PluginsAdminDlg::removePlugins()
 	return true;
 }
 
-bool PluginsAdminDlg::downloadPluginList()
+
+bool loadFromJson(std::vector<PluginUpdateInfo> & pl, const json& j)
+{
+	if (j.empty())
+		return false;
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+
+	json jArray = j["npp-plugins"];
+	if (jArray.empty() || jArray.type() != json::value_t::array)
+		return false;
+	
+	for (const auto& i : jArray)
+	{
+		try {
+			PluginUpdateInfo pi;
+
+			string valStr = i.at("folder-name").get<std::string>();
+			pi.name = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("display-name").get<std::string>();
+			pi.alias = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("author").get<std::string>();
+			pi.author = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("description").get<std::string>();
+			pi.description = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("repository").get<std::string>();
+			pi.repository = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+			valStr = i.at("homepage").get<std::string>();
+			pi.homepage = wmc->char2wchar(valStr.c_str(), CP_ACP);
+
+
+			pl.push_back(pi);
+		}
+		catch (...) // Every field is mandatory. If one of property is missing, an exception is thrown then this plugin will be ignored
+		{
+			continue; 
+		}
+	}
+	return true;
+}
+
+
+
+bool PluginsAdminDlg::updateListAndLoadFromJson()
 {
 	// check on default location : %APPDATA%\Notepad++\plugins\config\pl\pl.json or NPP_INST_DIR\plugins\config\pl\pl.json
 
@@ -358,7 +407,7 @@ bool PluginsAdminDlg::downloadPluginList()
 	// if absent then download it
 
 
-	// check the update ofpl.json
+	// check the update of pl.json
 
 
 	// download update if present
@@ -366,135 +415,42 @@ bool PluginsAdminDlg::downloadPluginList()
 	// check integrity of pl.json
 
 	// load pl.json
+	// 
+	generic_string nppPluginListJsonPath = TEXT("C:\\tmp\\nppPluginList.json");
+	ifstream nppPluginListJson(nppPluginListJsonPath);
+	json pluginsJson;
+	nppPluginListJson >> pluginsJson;
 
-	generic_string pluginListXmlPath(TEXT("c:\\tmp\\pl.xml"));
-	_pPluginsXmlDoc = new TiXmlDocument(pluginListXmlPath);
-	if (not _pPluginsXmlDoc->LoadFile())
-		return false;
+	loadFromJson(_availablePluginList, pluginsJson);
+
+	// update available list view
+	updateAvailableListView();
 
 	return true;
 }
 
-bool PluginsAdminDlg::readFromXml()
+void PluginsAdminDlg::updateAvailableListView()
 {
-	TiXmlNode *root = _pPluginsXmlDoc->FirstChild(TEXT("NotepadPlus"));
-	if (not root)
-		return false;
-
-	_availablePluginList.clear();
-
-	for (TiXmlNode *childNode = root->FirstChildElement(TEXT("plugin"));
-		childNode;
-		childNode = childNode->NextSibling(TEXT("plugin")))
-	{
-		PluginUpdateInfo pui;
-		const TCHAR *name = (childNode->ToElement())->Attribute(TEXT("name"));
-		if (name)
-		{
-			pui.name = name;
-		}
-		else
-		{
-			continue;
-		}
-			
-		const TCHAR *version = (childNode->ToElement())->Attribute(TEXT("version"));
-		if (version)
-		{
-			pui.version = version;
-		}
-		else
-		{
-			continue;
-		}
-		const TCHAR *homepage = (childNode->ToElement())->Attribute(TEXT("homepage"));
-		if (homepage)
-		{
-			pui.homepage = homepage;
-		}
-		const TCHAR *sourceUrl = (childNode->ToElement())->Attribute(TEXT("sourceUrl"));
-		if (sourceUrl)
-		{
-			pui.sourceUrl = sourceUrl;
-		}
-		const TCHAR *description = (childNode->ToElement())->Attribute(TEXT("description"));
-		if (description)
-		{
-			pui.description = description;
-		}
-		const TCHAR *author = (childNode->ToElement())->Attribute(TEXT("author"));
-		if (author)
-		{
-			pui.author = author;
-		}
-		else
-		{
-			continue;
-		}
-		const TCHAR *md5 = (childNode->ToElement())->Attribute(TEXT("md5"));
-		if (md5)
-		{
-			pui.md5 = md5;
-		}
-		else
-		{
-			continue;
-		}
-		const TCHAR *alias = (childNode->ToElement())->Attribute(TEXT("alias"));
-		if (alias)
-		{
-			pui.alias = alias;
-		}
-		const TCHAR *download = (childNode->ToElement())->Attribute(TEXT("download"));
-		if (download)
-		{
-			pui.download = download;
-		}
-		else
-		{
-			continue;
-		}
-
-		_availablePluginList.push_back(pui);
-	}
-	return true;
-}
-
-bool PluginsAdminDlg::loadFomList()
-{
-	if (not _pPluginsXmlDoc)
-		return false;
-
-	if (not readFromXml())
-		return false;
-
-
 	size_t i = 0;
-	// all - installed = available
-	for (auto it = _availablePluginList.begin(); it != _availablePluginList.end(); ++it)
+	//
+	for (const auto& pui : _availablePluginList)
 	{
 		vector<generic_string> values2Add;
-
-		values2Add.push_back(it->name);
-		values2Add.push_back(it->version);
+		values2Add.push_back(pui.name);
+		values2Add.push_back(pui.version);
 		values2Add.push_back(TEXT("Yes"));
-
 		_availableListView.addLine(values2Add, i++);
 	}
-
-	getLoadedPluginInfos();
-
-	return true;
 }
 
 bool PluginsAdminDlg::getLoadedPluginInfos()
 {
-	if (not _pPluginsManager)
+	if (!_pPluginsManager)
 		return false;
 
-	for (auto it = _pPluginsManager->_loadedDlls.begin(); it != _pPluginsManager->_loadedDlls.end(); ++it)
+	for (const auto& i : _pPluginsManager->_loadedDlls)
 	{
-		LoadedPluginInfo lpi(it->_fullFilePath, it->_fileName);
+		LoadedPluginInfo lpi(i._fullFilePath, i._fileName);
 		_loadedPluginInfos.push_back(lpi);
 	}
 
@@ -524,6 +480,9 @@ bool PluginsAdminDlg::searchInPlugins(bool isNextMode) const
 
 void PluginsAdminDlg::switchDialog(int indexToSwitch)
 {
+	std::vector<PluginUpdateInfo>* pUpiList = nullptr;
+	ListView* pListView = nullptr;
+
 	bool showAvailable, showUpdate, showInstalled;
 	switch (indexToSwitch)
 	{
@@ -531,18 +490,24 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 			showAvailable = true;
 			showUpdate = false;
 			showInstalled = false;
+			pUpiList = &_availablePluginList;
+			pListView = &_availableListView;
 			break;
 
 		case 1: // to be updated plugins
 			showAvailable = false;
 			showUpdate = true;
 			showInstalled = false;
+			pUpiList = &_updatePluginList;
+			pListView = &_updateListView;
 			break;
 
 		case 2: // installed plugin
 			showAvailable = false;
 			showUpdate = false;
 			showInstalled = true;
+			pUpiList = &_installedPluginList;
+			pListView = &_installedListView;
 			break;
 
 		default:
@@ -565,6 +530,13 @@ void PluginsAdminDlg::switchDialog(int indexToSwitch)
 	_availableListView.display(showAvailable);
 	_updateListView.display(showUpdate);
 	_installedListView.display(showInstalled);
+
+	generic_string desc;
+	long infoIndex = pListView->getSelectedIndex();
+	if (infoIndex != -1)
+		desc = pUpiList->at(infoIndex).describe();
+
+	::SetDlgItemText(_hSelf, IDC_PLUGINADM_EDIT, desc.c_str());
 }
 
 INT_PTR CALLBACK PluginsAdminDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

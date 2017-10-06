@@ -224,7 +224,7 @@
 					<Item id = "46015" name = "MS-DOS стили"/>
 					<Item id = "46016" name = "Жөнөкөй Текст"/>
 					<Item id = "46017" name = "RC Resource файлы"/>
-					<Item id = "46080" name = "Же&amp;ке тескөө"/>
+					<Item id = "46180" name = "Же&amp;ке тескөө"/>
 				</Commands>
             </Main>
             <Splitter>

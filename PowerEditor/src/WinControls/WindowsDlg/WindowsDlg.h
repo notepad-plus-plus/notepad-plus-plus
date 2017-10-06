@@ -116,6 +116,6 @@ public:
 	void initPopupMenu(HMENU hMenu, DocTabView *pTab);
 
 private:
-	HMENU _hMenu;
+	HMENU _hMenu = nullptr;
 };
 

@@ -59,7 +59,7 @@ private:
 	stringVec _retVals;				//vector of overload return values/types
 	std::vector<stringVec> _overloads;	//vector of overload params (=vector)
 	stringVec _descriptions;		//vecotr of function descriptions
-	size_t _currentNrOverloads = 0;		//current amount of overloads
+	size_t _currentNbOverloads = 0;		//current amount of overloads
 	size_t _currentOverload = 0;			//current chosen overload
 	int _currentParam = 0;				//current highlighted param
 

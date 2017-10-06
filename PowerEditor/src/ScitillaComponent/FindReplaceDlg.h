@@ -346,7 +346,6 @@ protected :
 
 private :
 	RECT _initialWindowRect;
-	LONG _lastDeltaWidth;
 	LONG _deltaWidth;
 	LONG _initialClientWidth;
 
@@ -359,7 +358,6 @@ private :
 	std::vector<Finder *> _findersOfFinder;
 
 	HWND _shiftTrickUpTip = nullptr;
-	HWND _shiftTrickDownTip = nullptr;
 
 
 	bool _isRTL;
@@ -401,7 +399,7 @@ private :
 	void updateCombo(int comboID);
 	void fillFindHistory();
     void fillComboHistory(int id, const std::vector<generic_string> & strings);
-	int saveComboHistory(int id, int maxcount, std::vector<generic_string> & strings);
+	int saveComboHistory(int id, int maxcount, std::vector<generic_string> & strings, bool saveEmpty);
 	static const int FR_OP_FIND = 1;
 	static const int FR_OP_REPLACE = 2;
 	static const int FR_OP_FIF = 4;

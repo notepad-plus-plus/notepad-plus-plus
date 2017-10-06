@@ -128,6 +128,11 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\cmake.xml"
 	${MementoSectionEnd}
+
+	${MementoSection} "BATCH" BATCH
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File ".\APIs\batch.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 
@@ -209,11 +214,11 @@ SectionGroup un.autoCompletionComponent
 		Delete "$INSTDIR\plugins\APIs\nsis.xml"
 	SectionEnd
 	
-	Section un.AWK
-		Delete "$INSTDIR\plugins\APIs\awk.xml"
-	SectionEnd
-	
 	Section un.CMAKE
 		Delete "$INSTDIR\plugins\APIs\cmake.xml"
-	SectionEnd	
+	SectionEnd
+
+	Section un.BATCH
+		Delete "$INSTDIR\plugins\APIs\batch.xml"
+	SectionEnd
 SectionGroupEnd

@@ -71,7 +71,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
                     <Item subMenuId="settings-import" name="استيراد"/>
-					<Item subMenuId="tools-md5" name="MD5"/>
+                    <Item subMenuId="tools-md5" name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -131,10 +131,10 @@
                     <Item id="42070" name="حالة أحرف الجملة (مختلط)"/>
                     <Item id="42071" name="عكس حالة الأحرف"/>
                     <Item id="42072" name="حالة أحرف عشوائية"/>
-					<Item id="42073" name="فتح ملف"/>
-					<Item id="42074" name="فتح مجلد الهدف في مستعرض الملفات"/>
-					<Item id="42075" name="البحث في الإنترنت"/>
-					<Item id="42076" name="تغيير محرك البحث..."/>
+                    <Item id="42073" name="فتح ملف"/>
+                    <Item id="42074" name="فتح مجلد الهدف في مستعرض الملفات"/>
+                    <Item id="42075" name="البحث في الإنترنت"/>
+                    <Item id="42076" name="تغيير محرك البحث..."/>
                     <Item id="42018" name="&amp;بدء التسجيل"/>
                     <Item id="42019" name="إ&amp;يقاف التسجيل"/>
                     <Item id="42021" name="إ&amp;عادة التشغيل"/>
@@ -223,7 +223,7 @@
                     <Item id="43047" name="نتيجة البحث السابقة"/>
                     <Item id="43048" name="تحديد وبحث عن التالي"/>
                     <Item id="43049" name="تحديد وبحث عن السابق"/>
-					<Item id="43054" name="وضع علامة..."/>
+                    <Item id="43054" name="وضع علامة..."/>
                     <Item id="44009" name="تثبيت كملاحظة"/>
                     <Item id="44010" name="طي الكل"/>
                     <Item id="44019" name="إظهار كل الأحرف"/>
@@ -349,8 +349,8 @@
 
         <Dialog>
             <Find title="" titleFind="بحث" titleReplace="استبدال" titleFindInFiles="بحث في الملفات" titleMark="وضع علامة">
-                <Item id="1" name="بحث &gt;&gt;"/>
-                <Item id="1721" name="&lt;&lt; بحث"/>
+                <Item id="1" name="بحث عن التالي"/>
+		<Item id="1722" name="اتجاه معاكس"/>
                 <Item id="2" name="إغلاق"/>
                 <Item id="1620" name="البحث عن:"/>
                 <Item id="1603" name="مطابقة ال&amp;كلمة بالكامل فقط"/>
@@ -788,7 +788,7 @@
                     <Item id="6212" name="وضع السطر"/>
                     <Item id="6213" name="وضع الخلفية"/>
                     <Item id="6214" name="تمكين تمييز السطر الحالي"/>
-					<Item id="6215" name="تمكين الخط السلس"/>
+                    <Item id="6215" name="تمكين الخط السلس"/>
                     <Item id="6231" name="عرض الإطار"/>
                     <Item id="6235" name="إخفاء الحافة"/>
                     <Item id="6236" name="تمكين التمرير إلى ما بعد السطر الأخير"/>
@@ -828,7 +828,7 @@
                     <Item id="6506" name="العناصر المعطلة"/>
                     <Item id="6507" name="إجعل قائمة اللغة مدمجة"/>
                     <Item id="6508" name="قائمة اللغة"/>
-					<Item id="6301" name="إعدادات Tab"/>
+                    <Item id="6301" name="إعدادات Tab"/>
                     <Item id="6302" name="استبدال بمسافة"/>
                     <Item id="6303" name="حجم Tab: "/>
                     <Item id="6510" name="استخدم القيمة الافتراضية"/>
@@ -837,9 +837,9 @@
                 <Highlighting title="التمييز">
                     <Item id="6333" name="التمييز الذكي"/>
                     <Item id="6326" name="تمكين التمييز الذكي"/>
-					<Item id="6332" name="مطابقة حالة الأحرف"/>
-					<Item id="6338" name="مطابقة الكلمة بالكامل فقط"/>
-					<Item id="6339" name="استخدم إعدادات مرابع حوار بحث"/>
+                    <Item id="6332" name="مطابقة حالة الأحرف"/>
+                    <Item id="6338" name="مطابقة الكلمة بالكامل فقط"/>
+                    <Item id="6339" name="استخدم إعدادات مرابع حوار بحث"/>
                     <Item id="6340" name="تمييز العرض الآخر"/>
                     <Item id="6329" name="تمييز الوسوم المطابقة"/>
                     <Item id="6327" name="تمكين"/>
@@ -936,7 +936,7 @@
                     <Item id="6252" name="البداية"/>
                     <Item id="6255" name="النهاية"/>
                     <Item id="6256" name="السماح على عدة أسطر"/>
-					<Item id="6161" name="قائمة أحرف الكلمة"/>
+                    <Item id="6161" name="قائمة أحرف الكلمة"/>
                     <Item id="6162" name="استخدم قائمة أحرف الكلمة الافتراضية كما هي"/>
                     <Item id="6163" name="إضافة الحرف الخاص بك كجزء من الكلمة&#xA;(لا تقم باختيارها إلا إذا كنت تعرف ماذا تفعل)"/>
                 </Delimiter>
@@ -1016,14 +1016,14 @@
                 <Item id="2" name="إلغاء"/>
             </ColumnEditor>
 
-			<Shortcut title="الاختصار">
+            <Shortcut title="الاختصار">
                 <Item id="1" name="موافق"/>
                 <Item id="2" name="إلغاء"/>
                 <Item id="5006" name="الاسم :"/>
                 <Item id="5008" name="إضافة"/>
                 <Item id="5009" name="إزالة"/>
                 <Item id="5010" name="تطبيق"/>
-			</Shortcut>
+            </Shortcut>
         </Dialog>
 
         <MessageBox>
@@ -1078,9 +1078,9 @@
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="حجم الملفات المطلوب فتحها كبير جداً" message="$INT_REPLACE$ ملفات سوف يتم فتحها.&#xA;هل تريد بالتأكيد فتح هذه الملفات؟"/>
-			<SettingsOnCloudError title="إعدادات التخزين السحابي" message="يبدو أن مسار الإعدادات على التخزين السحابي تم تعيينه على قرص للقراءة فقط، &#xA;أو على مجلد يحتاج صلاحيات للكتابة. &#xA;سيتم إلغاء إعداداتك على التخزين السحابي. الرجاء إعادة تعيين قيمة أفضل من خلال مربع حوال تفضيلات."/>
-			<FilePathNotFoundWarning title="فتح ملف" message="الملف الذي تحاول فتحه غير موجود."/>
-	        <SessionFileInvalidError title="لا يمكن تحميل الجلسة" message="ملف الجلسة إما تالم أو غير صالح."/>
+            <SettingsOnCloudError title="إعدادات التخزين السحابي" message="يبدو أن مسار الإعدادات على التخزين السحابي تم تعيينه على قرص للقراءة فقط، &#xA;أو على مجلد يحتاج صلاحيات للكتابة. &#xA;سيتم إلغاء إعداداتك على التخزين السحابي. الرجاء إعادة تعيين قيمة أفضل من خلال مربع حوال تفضيلات."/>
+            <FilePathNotFoundWarning title="فتح ملف" message="الملف الذي تحاول فتحه غير موجود."/>
+            <SessionFileInvalidError title="لا يمكن تحميل الجلسة" message="ملف الجلسة إما تالم أو غير صالح."/>
         </MessageBox>
 
         <ClipboardHistory>
@@ -1179,6 +1179,8 @@
             <Title name="مخطط الاختصارات"/>
             <ColumnName name="الاسم"/>
             <ColumnShortcut name="الاختصار"/>
+            <ColumnCategory name="الفئة"/>
+            <ColumnPlugin name="الإضافة"/>
             <Conflict name="لا يوجد أي تعارض في الاختصار لهذا العنصر."/>
             <NoConflict name="لا تعارض. . ."/>
             <Dialog>
@@ -1196,22 +1198,22 @@
             </Tabs>
             <Menu>
                 <Item id="2602" name="تعديل"/>
-				<Item id="2603" name="حذف"/>
-				<Item id="2606" name="مسح"/>
-			</Menu>
+                <Item id="2603" name="حذف"/>
+                <Item id="2606" name="مسح"/>
+		</Menu>
         </ShortcutMapper>
 
         <MiscStrings>
-			<word-chars-list-tip value="تسمح لك بإدراج أحرف إضافية إلى أحرف الكلمة الحالية أثناء النقر المزدوج للتحديد أو البحث عندما تكون &quot;مطابقة الكلمة بالكامل فقط&quot; محددة."/>
+            <word-chars-list-tip value="تسمح لك بإدراج أحرف إضافية إلى أحرف الكلمة الحالية أثناء النقر المزدوج للتحديد أو البحث عندما تكون &quot;مطابقة الكلمة بالكامل فقط&quot; محددة."/>
             <word-chars-list-warning-begin value="كن حذراً: "/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ مسافات"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-			<word-chars-list-warning-end value="  في قائمة الأحرف الخاصة بك."/>
-			<cloud-invalid-warning value="مسار غير صالح."/>
-			<cloud-restart-warning value="الرجاء إعادة تشغيل Notepad++ لتطبيق التغييرات."/>
-			<shift-change-direction-tip value="استخدم Shift+Enter للبحث في الاتجاه المعاكس."/>
+            <word-chars-list-warning-end value="  في قائمة الأحرف الخاصة بك."/>
+            <cloud-invalid-warning value="مسار غير صالح."/>
+            <cloud-restart-warning value="الرجاء إعادة تشغيل Notepad++ لتطبيق التغييرات."/>
+            <shift-change-direction-tip value="استخدم Shift+Enter للبحث في الاتجاه المعاكس."/>
             <buffer-error-msg name="فشل حفظ الملف.&#xA;لا يوجد مساحة كافية على القرص لحفظ الملف؟"/>
         </MiscStrings>
 

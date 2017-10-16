@@ -26,7 +26,7 @@ build_script:
     - if "%configuration%"=="Unicode Release" set scintilla_debug=
     - nmake NOBOOST=1 %scintilla_debug% -f scintilla.mak
     - cd c:\projects\notepad-plus-plus\PowerEditor\visual.net\
-    - msbuild notepadPlus.vs2015.vcxproj /p:configuration="%configuration%" /p:platform="%platform%"
+    - msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 after_build:
     - cd c:\projects\notepad-plus-plus\

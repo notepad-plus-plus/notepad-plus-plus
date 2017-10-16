@@ -74,6 +74,8 @@ public:
 
 	LPARAM getLParamFromIndex(int itemIndex) const;
 
+	std::vector<size_t> getCheckedIndexes() const;
+
 	virtual void init(HINSTANCE hInst, HWND hwnd);
 	virtual void destroy();
 

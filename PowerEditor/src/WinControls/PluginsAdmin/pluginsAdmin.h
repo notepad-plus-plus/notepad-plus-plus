@@ -36,21 +36,6 @@
 
 class PluginsManager;
 
-struct PluginUpdateInfo
-{
-	generic_string name;
-	generic_string version;
-	generic_string homepage;
-	generic_string sourceUrl;
-	generic_string description;
-	generic_string author;
-	generic_string md5;
-	generic_string alias;
-	generic_string repository;
-
-	generic_string describe();
-};
-
 struct Version
 {
 	unsigned long _major = 0;
@@ -61,15 +46,24 @@ struct Version
 	generic_string toString();
 };
 
-struct LoadedPluginInfo
+struct PluginUpdateInfo
 {
 	generic_string _fullFilePath;
 
 	generic_string _id;
-	generic_string _name; // found from id/hash (or product name - retrieved from binary) or file name 
+	generic_string _name;
 	Version _version;
+	generic_string _homepage;
+	generic_string _sourceUrl;
+	generic_string _description;
+	generic_string _author;
+	generic_string _md5;
+	generic_string _alias;
+	generic_string _repository;
 
-	LoadedPluginInfo(const generic_string & fullFilePath, const generic_string & filename);
+	generic_string describe();
+	PluginUpdateInfo() {};
+	PluginUpdateInfo(const generic_string& fullFilePath, const generic_string& fileName);
 };
 
 struct NppCurrentStatus
@@ -122,6 +116,8 @@ public :
 
 	bool updateListAndLoadFromJson(); // call GitUup for the 1st time
 	void updateAvailableListView();
+	void updateInstalledListView();
+	void updateUpdateListView();
 
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
 	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
@@ -139,14 +135,11 @@ private :
 	ListView _availableListView;
 	ListView _updateListView;
 	ListView _installedListView;
-	std::vector<PluginUpdateInfo> _availablePluginList;
-	std::vector<PluginUpdateInfo> _updatePluginList;
-	std::vector<PluginUpdateInfo> _installedPluginList;
+	std::vector<PluginUpdateInfo> _availablePluginList; // All plugins (pluginList.json) - installed plugins 
+	std::vector<PluginUpdateInfo> _updatePluginList;    // A list returned by gitup.exe
+	std::vector<PluginUpdateInfo> _installedPluginList; // for each installed plugin, check its json file
 
 	PluginsManager *_pPluginsManager = nullptr;
-
-	std::vector<LoadedPluginInfo> _loadedPluginInfos;
-
 	NppCurrentStatus _nppCurrentStatus;
 
 	void collectNppCurrentStatusInfos();
@@ -157,9 +150,12 @@ private :
 	long searchInNamesFromCurrentSel(generic_string str2search, bool isNextMode) const {
 		return searchFromCurrentSel(str2search, inNames, isNextMode);
 	};
+
 	long searchInDescsFromCurrentSel(generic_string str2search, bool isNextMode) const {
 		return searchFromCurrentSel(str2search, inDescs, isNextMode);
 	};
-	bool getLoadedPluginInfos();
+
+	bool loadFromPluginInfos();
+	bool checkUpdates();
 };
 

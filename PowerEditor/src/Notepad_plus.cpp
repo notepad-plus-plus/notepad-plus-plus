@@ -6055,7 +6055,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #25", "In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
 	{"Anonymous #26", "I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one."},
 	{"Anonymous #27", "I don't have a problem with caffeine.\nI have a problem without caffeine."},
-	{"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 (seven ate nine) while 6 and 9 were flirting."},
+	{"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 while 6 and 9 were flirting."},
 	{"Anonymous #30", "Why do Java developers wear glasses?\nBecause they don't C#."},
 	{"Anonymous #31", "A baby's laughter is one of the most beautiful sounds you will ever hear. Unless it's 3 AM. And you're home alone. And you don't have a baby."},
 	{"Anonymous #32", "Two bytes meet. The first byte asks, \"You look terrible. Are you OK?\"\nThe second byte replies, \"No, just feeling a bit off.\""},

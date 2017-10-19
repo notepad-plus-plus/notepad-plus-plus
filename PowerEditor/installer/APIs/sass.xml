@@ -1,0 +1,40 @@
+<NotepadPlus>
+<UserLang name="SCSS" ext="scss">
+<Settings>
+<Global caseIgnored="yes"/>
+<TreatAsSymbol comment="no" commentLine="no"/>
+<Prefix words1="no" words2="no" words3="yes" words4="yes"/>
+</Settings>
+<KeywordLists>
+<Keywords name="Delimiters">'"0'"0</Keywords>
+<Keywords name="Folder+">{</Keywords>
+<Keywords name="Folder-">}</Keywords>
+<Keywords name="Operators">' % ( ) , : ;</Keywords>
+<Keywords name="Comment">1/* 2*/ 0//</Keywords>
+<Keywords name="Words1">
+azimuth background background-attachment background-color background-image background-position background-repeat background-size border border-bottom border-bottom-color border-bottom-style border-bottom-width border-collapse border-color border-left border-left-color border-left-style border-left-width border-radius border-right border-right-color border-right-style border-right-width border-spacing border-style border-top border-top-color border-top-style border-top-width border-width bottom caption-side clear clip color content counter-increment counter-reset cue cue-after cue-before cursor direction display elevation empty-cells filter float font font-family font-size font-size-adjust font-stretch font-style font-variant font-weight height left letter-spacing line-height list-style list-style-image list-style-position list-style-type margin margin-bottom margin-left margin-right margin-top marker-offset marks max-height max-width min-height min-width orphans outline outline-color outline-style outline-width overflow padding padding-bottom padding-left padding-right padding-top page page-break-after page-break-before page-break-inside pause pause-after pause-before pitch pitch-range play-during position quotes richness right size speak speak-header speak-numeral speak-punctuation speech-rate stress table-layout text-align text-decoration text-indent text-shadow text-transform top unicode-bidi vertical-align visibility voice-family volume white-space widows width word-spacing z-index
+</Keywords>
+<Keywords name="Words2">
+active after before checked disabled empty enabled first first-child first-letter first-line first-of-type focus hover lang last-child last-of-type left link not only-child only-of-type nth-child right root target visited
+</Keywords>
+<Keywords name="Words3">. # div span a html body textarea input label * &</Keywords>
+<Keywords name="Words4">@ $</Keywords>
+</KeywordLists>
+<Styles>
+<WordsStyle name="DEFAULT" styleID="11" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0"/>
+<WordsStyle name="FOLDEROPEN" styleID="12" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0"/>
+<WordsStyle name="FOLDERCLOSE" styleID="13" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0"/>
+<WordsStyle name="KEYWORD1" styleID="5" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="1"/>
+<WordsStyle name="KEYWORD2" styleID="6" fgColor="FF0080" bgColor="FFFFFF" fontName="" fontStyle="1"/>
+<WordsStyle name="KEYWORD3" styleID="7" fgColor="800000" bgColor="FFFFFF" fontName="" fontStyle="1"/>
+<WordsStyle name="KEYWORD4" styleID="8" fgColor="FF0000" bgColor="FFFFFF" fontName="" fontStyle="0"/>
+<WordsStyle name="COMMENT" styleID="1" fgColor="00AA00" bgColor="FFFFFF" fontName="" fontStyle="0"/>
+<WordsStyle name="COMMENT LINE" styleID="2" fgColor="00AA00" bgColor="FFFFFF" fontName="" fontStyle="0"/>
+<WordsStyle name="NUMBER" styleID="4" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0"/>
+<WordsStyle name="OPERATOR" styleID="10" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="1"/>
+<WordsStyle name="DELIMINER1" styleID="14" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="1"/>
+<WordsStyle name="DELIMINER2" styleID="15" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="1"/>
+<WordsStyle name="DELIMINER3" styleID="16" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0"/>
+</Styles>
+</UserLang>
+</NotepadPlus>

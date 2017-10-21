@@ -418,7 +418,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 }
 
 
-bool Notepad_plus::doReload(BufferID id, bool alert)
+bool Notepad_plus::doReload(BufferID id, bool alert, bool forceEncodeMode, UniMode encodeMode, int encoding)
 {
 	if (alert)
 	{
@@ -429,6 +429,11 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 			MB_YESNO | MB_ICONEXCLAMATION | MB_APPLMODAL);
 		if (answer != IDYES)
 			return false;
+	}
+	if (forceEncodeMode)
+	{
+		id->setUnicodeMode(encodeMode);
+		id->setEncoding(encoding);
 	}
 
 	//In order to prevent Scintilla from restyling the entire document,
@@ -448,7 +453,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		return MainFileManager->reloadBufferDeferred(id);
 	}
 
-	bool res = MainFileManager->reloadBuffer(id);
+	bool res = MainFileManager->reloadBuffer(id, forceEncodeMode);
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
 	if (mainVisisble) {
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
@@ -1505,9 +1510,15 @@ bool Notepad_plus::fileReload()
 {
 	assert(_pEditView != nullptr);
 	BufferID buf = _pEditView->getCurrentBufferID();
-	return doReload(buf, buf->isDirty());
+	return doReload(buf, buf->isDirty(), false);
 }
 
+bool Notepad_plus::fileReloadWithSpecificEncode(UniMode EncodeMode, int Encoding)
+{
+	assert(_pEditView != nullptr);
+	BufferID buf = _pEditView->getCurrentBufferID();
+	return doReload(buf, buf->isDirty(), true, EncodeMode, Encoding);
+}
 
 bool Notepad_plus::isFileSession(const TCHAR * filename) {
 	// if file2open matches the ext of user defined session file ext, then it'll be opened as a session

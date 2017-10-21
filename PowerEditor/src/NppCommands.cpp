@@ -2131,21 +2131,17 @@ void Notepad_plus::command(int id)
 						return;
 				}
 
-				buf->setEncoding(-1);
 
 				if (um == uni8Bit)
 					_pEditView->execute(SCI_SETCODEPAGE, CP_ACP);
-				else
-					buf->setUnicodeMode(um);
-				fileReload();
+
+				fileReloadWithSpecificEncode(um, -1);
 			}
 			else
 			{
 				if (buf->getUnicodeMode() != um)
 				{
-					buf->setUnicodeMode(um);
-					if (shoulBeDirty)
-						buf->setDirty(true);
+					fileReloadWithSpecificEncode(um, -1);
 				}
 			}
 			break;
@@ -2242,9 +2238,7 @@ void Notepad_plus::command(int id)
 
             if (not buf->isDirty())
             {
-				buf->setEncoding(encoding);
-				buf->setUnicodeMode(uniCookie);
-				fileReload();
+				fileReloadWithSpecificEncode(uniCookie, encoding);
             }
 			break;
 		}
@@ -2260,6 +2254,8 @@ void Notepad_plus::command(int id)
 			Buffer *buf = _pEditView->getCurrentBuffer();
             UniMode um = buf->getUnicodeMode();
             int encoding = buf->getEncoding();
+            bool shoulBeDirty = true;
+			UniMode newUm;
 
 			switch(id)
 			{
@@ -2296,7 +2292,8 @@ void Notepad_plus::command(int id)
 
 					if (um != uni8Bit)
 					{
-						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
+                        buf->setUnicodeMode(uniCookie);
+                        buf->setDirty(true);
 						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
@@ -2319,7 +2316,8 @@ void Notepad_plus::command(int id)
 
 					if (um != uni8Bit)
 					{
-						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
+                        buf->setUnicodeMode(uniUTF8);
+                        buf->setDirty(true);
 						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
@@ -2342,7 +2340,8 @@ void Notepad_plus::command(int id)
 
 					if (um != uni8Bit)
 					{
-						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
+                        buf->setUnicodeMode(uni16BE);
+                        buf->setDirty(true);
 						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
@@ -2364,7 +2363,8 @@ void Notepad_plus::command(int id)
 						return;
 					if (um != uni8Bit)
 					{
-						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
+                        buf->setUnicodeMode(uni16LE);
+                        buf->setDirty(true);
 						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
@@ -2372,7 +2372,7 @@ void Notepad_plus::command(int id)
 				}
 			}
 
-			if (idEncoding != -1)
+			if (idEncoding != -1) // "Encode in ANSI" or "Encode From ANSI"
 			{
 				// Save the current clipboard content
 				::OpenClipboard(_pPublicInterface->getHSelf());
@@ -2397,7 +2397,36 @@ void Notepad_plus::command(int id)
 
 				// Change to the proper buffer, save buffer status
 
-				::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
+                switch (idEncoding)
+                {
+                    case IDM_FORMAT_AS_UTF_8:
+                        shoulBeDirty = um != uni8Bit;
+                        newUm = uniCookie;
+                        break;
+
+                    case IDM_FORMAT_UTF_8:
+                        shoulBeDirty = true;
+                        newUm = uniUTF8;
+                        break;
+
+                    case IDM_FORMAT_UCS_2BE:
+                        shoulBeDirty = true;
+                        newUm = uni16BE;
+                        break;
+
+                    case IDM_FORMAT_UCS_2LE:
+                        shoulBeDirty = true;
+                        newUm = uni16LE;
+                        break;
+
+                    default : // IDM_FORMAT_ANSI
+                        shoulBeDirty = um != uniCookie;
+                        newUm = uni8Bit;
+                }
+
+                buf->setUnicodeMode(newUm);
+                if (shoulBeDirty)
+                    buf->setDirty(true);
 
 				// Paste the texte, restore buffer status
 				_pEditView->execute(SCI_PASTE);

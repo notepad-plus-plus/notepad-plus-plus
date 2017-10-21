@@ -28,8 +28,16 @@ const Utf8_16::utf8 Utf8_16::k_Boms[][3] = {
 
 // ==================================================================
 
-Utf8_16_Read::Utf8_16_Read() {
-	m_eEncoding		= uni8Bit;
+Utf8_16_Read::Utf8_16_Read(bool forceEncodeMode, UniMode encoding) {
+	if (forceEncodeMode)
+	{
+		m_eEncoding = encoding;
+	}
+	else
+	{
+		m_eEncoding = uni8Bit;
+	}
+	
 	m_nAllocatedBufSize = 0;
 	m_nNewBufSize   = 0;
 	m_pNewBuf		= NULL;
@@ -121,7 +129,7 @@ u78 Utf8_16_Read::utf8_7bits_8bits()
 	return ascii8bits;
 }
 
-size_t Utf8_16_Read::convert(char* buf, size_t len)
+size_t Utf8_16_Read::convert(char* buf, size_t len, bool forceEncodeMode)
 {
 	// bugfix by Jens Lorenz
 	static	size_t nSkip = 0;
@@ -132,7 +140,14 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 
 	if (m_bFirstRead == true)
     {
-		determineEncoding();
+		if (forceEncodeMode)
+        {
+			ForceEncoding(m_eEncoding);
+        }
+        else
+        {
+            determineEncoding();
+        }
 		nSkip = m_nSkip;
 		m_bFirstRead = false;
 	}
@@ -189,6 +204,48 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 	nSkip = 0;
 
 	return m_nNewBufSize;
+}
+
+void Utf8_16_Read::ForceEncoding(UniMode unicodeMode)
+{
+	m_eEncoding = uni8Bit;
+	m_nSkip = 0;
+    switch (unicodeMode)
+    {
+        case uni16BE: // detect UTF-16 big-endian with BOM
+	    	m_eEncoding = uni16BE;
+	    	m_nSkip = 2;
+	    	break;
+        case uni16LE: // detect UTF-16 little-endian with BOM
+	    	m_eEncoding = uni16LE;
+	    	m_nSkip = 2;
+	    	break;
+        case uniUTF8:// detect UTF-8 with BOM
+	    	m_eEncoding = uniUTF8;
+	    	m_nSkip = 3;
+	    	break;
+	    case uni16LE_NoBOM: // try to detect UTF-16 little-endian without BOM
+	    	m_eEncoding = uni16LE_NoBOM;
+	    	m_nSkip = 0;
+	    	break;
+        case uni16BE_NoBOM:
+        // try to detect UTF-16 big-endian without BOM
+	    	m_eEncoding = uni16BE_NoBOM;
+	    	m_nSkip = 0;
+	    	break;
+        case uniCookie:
+	    	m_eEncoding = uniCookie;
+	    	m_nSkip = 0;
+	    	break;
+        case uni8Bit:
+	    	m_eEncoding = uni8Bit;
+	    	m_nSkip = 0;
+	    	break;
+        case uni7Bit:
+	    	m_eEncoding = uni7Bit;
+	    	m_nSkip = 0;
+	    	break;
+	}
 }
 
 

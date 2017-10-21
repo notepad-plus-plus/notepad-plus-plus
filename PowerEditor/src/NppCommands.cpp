@@ -2261,21 +2261,17 @@ void Notepad_plus::command(int id)
 						return;
 				}
 
-				buf->setEncoding(-1);
 
 				if (um == uni8Bit)
 					_pEditView->execute(SCI_SETCODEPAGE, CP_ACP);
-				else
-					buf->setUnicodeMode(um);
-				fileReload();
+
+				fileReloadWithSpecificEncode(um, -1);
 			}
 			else
 			{
 				if (buf->getUnicodeMode() != um)
 				{
-					buf->setUnicodeMode(um);
-					if (shoulBeDirty)
-						buf->setDirty(true);
+					fileReloadWithSpecificEncode(um, -1);
 				}
 			}
 			break;
@@ -2372,9 +2368,7 @@ void Notepad_plus::command(int id)
 
             if (not buf->isDirty())
             {
-				buf->setEncoding(encoding);
-				buf->setUnicodeMode(uniCookie);
-				fileReload();
+				fileReloadWithSpecificEncode(uniCookie, encoding);
             }
 			break;
 		}

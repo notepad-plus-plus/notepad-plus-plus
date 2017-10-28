@@ -43,12 +43,6 @@ static HHOOK	hookMouse		= NULL;
 
 static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
 {
-    if(nCode < 0)
-    {
-		::CallNextHookEx(hookMouse, nCode, wParam, lParam);
-        return 0;
-    }
-
     switch (wParam)
     {
 		case WM_MOUSEMOVE:
@@ -1079,13 +1073,10 @@ void DockingCont::onSize()
 		else
 		{
 			// update floating size
-			if (_isFloating == true)
+			for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
 			{
-				for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
-				{
-					getWindowRect(_vTbData[iTb]->rcFloat);
-				}
-			}			
+				getWindowRect(_vTbData[iTb]->rcFloat);
+			}
 
 			// draw caption
 			if (iItemCnt >= 2)

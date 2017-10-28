@@ -501,7 +501,7 @@ bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
 		{
 			selectItem(hTreeParent2ndInserted);
 		}
-		else if (itemSelected == 2)
+		else
 		{
 			selectItem(hTreeParent1stInserted);
 		}

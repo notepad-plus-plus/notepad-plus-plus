@@ -97,7 +97,7 @@ public:
 	{
 		RECT rc;
 		::GetClientRect(_hSelf, &rc);
-		if (::IsWindowVisible(_hSelf) == TRUE)
+		if (::IsWindowVisible(_hSelf) != FALSE)
 			return (rc.bottom - rc.top);
 		return 0;
 	}

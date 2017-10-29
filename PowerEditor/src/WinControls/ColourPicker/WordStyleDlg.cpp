@@ -435,7 +435,7 @@ INT_PTR CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 									int tabColourIndex;
 									if ((tabColourIndex = whichTabColourIndex()) != -1)
 									{
-										tabColourIndex = tabColourIndex == (TabBarPlus::inactiveText ? TabBarPlus::inactiveBg : tabColourIndex);
+										tabColourIndex = (tabColourIndex == TabBarPlus::inactiveText ? TabBarPlus::inactiveBg : tabColourIndex);
 										TabBarPlus::setColour(_pBgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
 									}
 									apply();

@@ -33,7 +33,7 @@
 
 int TaskListDlg::_instanceCount = 0;
 
-LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
     {
@@ -98,7 +98,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 #ifndef WH_MOUSE_LL
 #define WH_MOUSE_LL 14
 #endif
-			_hHooker = ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProc, _hInst, 0);
+			_hHooker = ::SetWindowsHookEx(WH_MOUSE_LL, hookProc, _hInst, 0);
 			hook = _hHooker;
 			return FALSE;
 		}

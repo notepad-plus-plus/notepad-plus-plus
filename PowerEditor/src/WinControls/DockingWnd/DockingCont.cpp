@@ -41,26 +41,25 @@ using namespace std;
 static HWND		hWndServer		= NULL;
 static HHOOK	hookMouse		= NULL;
 
-static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 {
-    if(nCode < 0)
-    {
-		::CallNextHookEx(hookMouse, nCode, wParam, lParam);
-        return 0;
-    }
-
-    switch (wParam)
-    {
+	if (nCode >= 0)
+	{
+		switch (wParam)
+		{
 		case WM_MOUSEMOVE:
 		case WM_NCMOUSEMOVE:
 			::PostMessage(hWndServer, UINT(wParam), 0, 0);
 			break;
+
 		case WM_LBUTTONUP:
 		case WM_NCLBUTTONUP:
 			::PostMessage(hWndServer, UINT(wParam), 0, 0);
 			break;
-        default: 
+
+		default:
 			break;
+		}
 	}
 
 	return ::CallNextHookEx(hookMouse, nCode, wParam, lParam);
@@ -218,7 +217,6 @@ void DockingCont::setActiveTb(tTbData* pTbData)
 
 void DockingCont::setActiveTb(int iItem)
 {
-	//if ((iItem != -1) && (iItem < ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0)))
 	if (iItem < ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0))
 	{
 		selectTab(iItem);
@@ -302,7 +300,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 
 				// start hooking
 				hWndServer		= _hCaption;
-				hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, 0);
+				hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, hookProcMouse, _hInst, 0);
 
 				if (!hookMouse)
 				{

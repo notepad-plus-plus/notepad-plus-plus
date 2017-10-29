@@ -51,7 +51,7 @@ static HWND		hWndServer		= NULL;
 static HHOOK	hookMouse		= NULL;
 static HHOOK	hookKeyboard	= NULL;
 
-static LRESULT CALLBACK hookProcMouse(INT nCode, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 {
     if (nCode >= 0)
     {
@@ -61,10 +61,12 @@ static LRESULT CALLBACK hookProcMouse(INT nCode, WPARAM wParam, LPARAM lParam)
 			case WM_NCMOUSEMOVE:
 				::SendMessage(hWndServer, static_cast<UINT>(wParam), 0, 0);
 				break;
+
 			case WM_LBUTTONUP:
 			case WM_NCLBUTTONUP:
 				::SendMessage(hWndServer, static_cast<UINT>(wParam), 0, 0);
 				return TRUE;
+
 			default:
 				break;
 		}
@@ -72,7 +74,7 @@ static LRESULT CALLBACK hookProcMouse(INT nCode, WPARAM wParam, LPARAM lParam)
 	return ::CallNextHookEx(hookMouse, nCode, wParam, lParam);
 }
 
-static LRESULT CALLBACK hookProcKeyboard(INT nCode, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK hookProcKeyboard(int nCode, WPARAM wParam, LPARAM lParam)
 {
     if (nCode >= 0)
     {
@@ -258,7 +260,7 @@ void Gripper::create()
 	::SetWindowPos(_pCont->getHSelf(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 	::SetCapture(_hSelf);
 	winVer ver = (NppParameters::getInstance())->getWinVersion();
-	hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, 0);
+	hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, hookProcMouse, _hInst, 0);
 
     if (!hookMouse)
     {
@@ -270,7 +272,7 @@ void Gripper::create()
 
 	if (ver != WV_UNKNOWN && ver < WV_VISTA)
 	{
-		hookKeyboard = ::SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC)hookProcKeyboard, _hInst, 0);
+		hookKeyboard = ::SetWindowsHookEx(WH_KEYBOARD_LL, hookProcKeyboard, _hInst, 0);
 		if (!hookKeyboard)
 		{
 			DWORD dwError = ::GetLastError();

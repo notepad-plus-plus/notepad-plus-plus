@@ -42,10 +42,10 @@ BOOL DockingManager::_isRegistered = FALSE;
 static	HWND			hWndServer	= NULL;
 //Next hook in line
 static	HHOOK			gWinCallHook = NULL;
-LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK focusWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 
 // Callback function that handles messages (to test focus)
-LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK focusWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if (nCode == HC_ACTION && hWndServer)
 	{
@@ -164,7 +164,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 		hWndServer = _hSelf;
 	CoInitialize(NULL);
 	if (!gWinCallHook)	//only set if not already done
-		gWinCallHook = ::SetWindowsHookEx(WH_CALLWNDPROC, FocusWndProc, hInst, GetCurrentThreadId());
+		gWinCallHook = ::SetWindowsHookEx(WH_CALLWNDPROC, focusWndProc, hInst, GetCurrentThreadId());
 
 	if (!gWinCallHook)
 	{

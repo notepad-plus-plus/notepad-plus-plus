@@ -1077,13 +1077,10 @@ void DockingCont::onSize()
 		else
 		{
 			// update floating size
-			if (_isFloating == true)
+			for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
 			{
-				for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
-				{
-					getWindowRect(_vTbData[iTb]->rcFloat);
-				}
-			}			
+				getWindowRect(_vTbData[iTb]->rcFloat);
+			}
 
 			// draw caption
 			if (iItemCnt >= 2)

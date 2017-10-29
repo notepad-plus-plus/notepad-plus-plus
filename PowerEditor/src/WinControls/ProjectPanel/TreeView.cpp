@@ -495,16 +495,16 @@ bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
 	removeItem(itemGoDown);
 
 	// Restore the selection if needed
-	if (itemSelected != 0)
+	switch (itemSelected)
 	{
-		if (itemSelected == 1)
-		{
+		case 1:
 			selectItem(hTreeParent2ndInserted);
-		}
-		else if (itemSelected == 2)
-		{
+			break;
+		case 2:
 			selectItem(hTreeParent1stInserted);
-		}
+			break;
+		default:
+			break;
 	}
 	return true;
 }

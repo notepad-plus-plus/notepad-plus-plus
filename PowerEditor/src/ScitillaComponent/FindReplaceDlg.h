@@ -242,7 +242,7 @@ public :
 		_ppEditView = ppEditView;
 	};
 
-	virtual void create(int dialogID, bool isRTL = false);
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
 	
 	void initOptionsFromDlg();
 

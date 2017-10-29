@@ -97,7 +97,7 @@ public :
         Window::init(hInst, parent);
 	};
 
-	virtual void create(int dialogID, bool isRTL = false);
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
 
     void doDialog(bool isRTL = false) {
     	if (!isCreated())

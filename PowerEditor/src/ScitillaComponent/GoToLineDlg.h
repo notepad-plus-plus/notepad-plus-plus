@@ -42,8 +42,8 @@ public :
 		_ppEditView = ppEditView;
 	};
 
-	virtual void create(int dialogID, bool isRTL = false) {
-		StaticDialog::create(dialogID, isRTL);
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
+		StaticDialog::create(dialogID, isRTL, msgDestParent);
 	};
 
 	void doDialog(bool isRTL = false) {

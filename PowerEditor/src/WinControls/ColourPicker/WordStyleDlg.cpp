@@ -836,9 +836,9 @@ void WordStyleDlg::setVisualFromStyleList()
 }
 
 
-void WordStyleDlg::create(int dialogID, bool isRTL)
+void WordStyleDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 {
-	StaticDialog::create(dialogID, isRTL);
+	StaticDialog::create(dialogID, isRTL, msgDestParent);
 
 	if ((NppParameters::getInstance())->isTransparentAvailable())
 	{

@@ -242,9 +242,9 @@ FindReplaceDlg::~FindReplaceDlg()
 	delete[] _uniFileName;
 }
 
-void FindReplaceDlg::create(int dialogID, bool isRTL) 
+void FindReplaceDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 {
-	StaticDialog::create(dialogID, isRTL);
+	StaticDialog::create(dialogID, isRTL, msgDestParent);
 	fillFindHistory();
 	_currentStatus = REPLACE_DLG;
 	initOptionsFromDlg();

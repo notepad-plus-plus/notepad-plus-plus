@@ -203,12 +203,12 @@ long PluginsAdminDlg::searchFromCurrentSel(generic_string str2search, bool inWhi
 	return -1;
 }
 
-void PluginsAdminDlg::create(int dialogID, bool isRTL)
+void PluginsAdminDlg::create(int dialogID, bool isRTL, bool msgDestParent)
 {
 	// get plugin installation path and launch mode (Admin or normal)
 	collectNppCurrentStatusInfos();
 
-	StaticDialog::create(dialogID, isRTL);
+	StaticDialog::create(dialogID, isRTL, msgDestParent);
 
 	RECT rect;
 	getClientRect(rect);

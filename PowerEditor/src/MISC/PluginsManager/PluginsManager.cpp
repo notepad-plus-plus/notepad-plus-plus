@@ -256,7 +256,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		_pluginInfos.push_back(pi);
 		return static_cast<int32_t>(_pluginInfos.size() - 1);
 	}
-	catch (std::exception e)
+	catch (std::exception& e)
 	{
 		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
 		return -1;
@@ -519,7 +519,7 @@ void PluginsManager::runPluginCommand(size_t i)
 			{
 				_pluginsCommands[i]._pFunc();
 			}
-			catch (std::exception e)
+			catch (std::exception& e)
 			{
 				::MessageBoxA(NULL, e.what(), "PluginsManager::runPluginCommand Exception", MB_OK);
 			}
@@ -546,7 +546,7 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 				{
 					_pluginsCommands[i]._pFunc();
 				}
-				catch (std::exception e)
+				catch (std::exception& e)
 				{
 					::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
 				}
@@ -575,7 +575,7 @@ void PluginsManager::notify(const SCNotification *notification)
 			{
 				_pluginInfos[i]->_pBeNotified(&scNotif);
 			}
-			catch (std::exception e)
+			catch (std::exception& e)
 			{
 				::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
 			}
@@ -601,7 +601,7 @@ void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam
 			{
 				_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
 			}
-			catch (std::exception e)
+			catch (std::exception& e)
 			{
 				::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
 			}
@@ -632,7 +632,7 @@ bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
 				}
-				catch (std::exception e)
+				catch (std::exception& e)
 				{
 					::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
 				}

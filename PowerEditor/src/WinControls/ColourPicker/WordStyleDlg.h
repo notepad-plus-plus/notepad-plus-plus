@@ -97,8 +97,8 @@ public :
 	};
 
     virtual void redraw(bool forceUpdate = false) const {
-        _pFgColour->redraw();
-		_pBgColour->redraw();
+        _pFgColour->redraw(forceUpdate);
+		_pBgColour->redraw(forceUpdate);
 		::InvalidateRect(_hStyleInfoStaticText, NULL, TRUE);
 		::UpdateWindow(_hStyleInfoStaticText);
     };

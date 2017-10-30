@@ -122,8 +122,8 @@ void SplitterContainer::redraw(bool forceUpdate) const
 {
 	assert(_pWin0 != nullptr);
 	assert(_pWin1 != nullptr);
-	_pWin0->redraw(true);
-	_pWin1->redraw(true);
+	_pWin0->redraw(forceUpdate);
+	_pWin1->redraw(forceUpdate);
 }
 
 

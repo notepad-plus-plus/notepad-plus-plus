@@ -25,6 +25,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include <WindowsX.h>
 
 #include "ProjectPanel.h"
 #include "resource.h"
@@ -43,9 +44,6 @@
 #define INDEX_CLOSED_NODE    4
 #define INDEX_LEAF           5
 #define INDEX_LEAF_INVALID   6
-
-#define GET_X_LPARAM(lp)     LOWORD(lp)
-#define GET_Y_LPARAM(lp)     HIWORD(lp)
 
 INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -133,7 +131,30 @@ INT_PTR CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
         case WM_CONTEXTMENU:
 			if (!_treeView.isDragging())
-				showContextMenu(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+			{
+				int xPos = GET_X_LPARAM(lParam);
+				int yPos = GET_Y_LPARAM(lParam);
+
+				// If the context menu is generated from the keyboard, then we
+				// should display it at the location of the current selection
+				if (xPos == -1 && yPos == -1)
+				{
+					HTREEITEM selectedItem = _treeView.getSelection();
+
+					if (selectedItem)
+					{
+						RECT selectedItemRect;
+						if (TreeView_GetItemRect(_treeView.getHSelf(), selectedItem, &selectedItemRect, TRUE))
+						{
+							showContextMenuFromMenuKey(selectedItem, (selectedItemRect.left + selectedItemRect.right) / 2, (selectedItemRect.top + selectedItemRect.bottom) / 2);
+						}
+					}
+				}
+				else
+				{
+					showContextMenu(xPos, yPos);
+				}
+			}
         return TRUE;
 
 		case WM_COMMAND:
@@ -763,20 +784,42 @@ void ProjectPanel::showContextMenu(int x, int y)
 	{
 		// Make item selected
 		_treeView.selectItem(tvHitInfo.hItem);
-
-		// get clicked item type
-		NodeType nodeType = getNodeType(tvHitInfo.hItem);
-		HMENU hMenu = NULL;
-		if (nodeType == nodeType_root)
-			hMenu = _hWorkSpaceMenu;
-		else if (nodeType == nodeType_project)
-			hMenu = _hProjectMenu;
-		else if (nodeType == nodeType_folder)
-			hMenu = _hFolderMenu;
-		else //nodeType_file
-			hMenu = _hFileMenu;
+		HMENU hMenu = getMenuHandler(tvHitInfo.hItem);
 		TrackPopupMenu(hMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
 	}
+}
+
+void ProjectPanel::showContextMenuFromMenuKey(HTREEITEM selectedItem, int x, int y)
+{
+	POINT p;
+	p.x = x;
+	p.y = y;
+
+	ClientToScreen(_treeView.getHSelf(), &p);
+
+	if (selectedItem != NULL)
+	{
+		HMENU hMenu = getMenuHandler(selectedItem);
+		TrackPopupMenu(hMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
+	}
+}
+
+HMENU ProjectPanel::getMenuHandler(HTREEITEM selectedItem)
+{
+	// get clicked item type
+	NodeType nodeType = getNodeType(selectedItem);
+	HMENU hMenu = NULL;
+
+	if (nodeType == nodeType_root)
+		hMenu = _hWorkSpaceMenu;
+	else if (nodeType == nodeType_project)
+		hMenu = _hProjectMenu;
+	else if (nodeType == nodeType_folder)
+		hMenu = _hFolderMenu;
+	else //nodeType_file
+		hMenu = _hFileMenu;
+
+	return hMenu;
 }
 
 POINT ProjectPanel::getMenuDisplayPoint(int iButton)

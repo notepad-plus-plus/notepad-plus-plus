@@ -58,7 +58,7 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 
 	//MessageBox(NULL, folderToMonitor, TEXT("folderToMonitor"), MB_OK);
 	
-	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_FILE_NAME;
+	const DWORD dwNotificationFlags = FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_SIZE;
 
 	// Create the monitor and add directory to watch.
 	CReadDirectoryChanges changes;

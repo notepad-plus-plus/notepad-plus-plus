@@ -91,7 +91,7 @@
 					<Item id="41017" name="Yeniden Adlandır"/>
 					<Item id="41021" name="Son Kapatılan Dosyayı Geri Yükle"/>
 					<Item id="41022" name="Klasörü Çalışma Alanı Olarak Aç"/>
-
+					<Item id="41023" name="Varsayılan Görüntüleyicide Aç"/>
 					<Item id="42001" name="K&amp;es"/>
 					<Item id="42002" name="&amp;Kopyala"/>
 					<Item id="42003" name="&amp;Geri Al"/>
@@ -334,25 +334,24 @@
 				<Item CMID="18" name="Sağdaki Sekmeleri Kapat"/>
 				<Item CMID="19" name="Dosya Konumunu Windows Gezgini'nde Aç"/>
 				<Item CMID="20" name="Dosya Konumunu Komut İstemi'nde Aç"/>
+				<Item CMID="21" name="Varsayılan Görüntüleyicide Aç"/>
 			</TabBar>
 		</Menu>
 
 		<Dialog>
 			<Find title="" titleFind="Bul" titleReplace="Değiştir" titleFindInFiles="Dosyalarda Bul" titleMark="İşaretle">
 				<Item id="1" name="&amp;Sonrakini Bul"/>
+				<Item id="1722" name="Geriye Doğru"/>
 				<Item id="2" name="&amp;Kapat"/>
 				<Item id="1620" name="A&amp;ranan:"/>
 				<Item id="1603" name="Sadece &amp;tam sözcükleri eşleştir"/>
 				<Item id="1604" name="Büyük/küçük harf &amp;eşleştir"/>
 				<Item id="1605" name="Dü&amp;zenli ifade"/>
 				<Item id="1606" name="Aramayı sür&amp;dür"/>
-				<Item id="1612" name="&amp;Yukarı"/>
-				<Item id="1613" name="&amp;Aşağı"/>
 				<Item id="1614" name="Say"/>
 				<Item id="1615" name="Tümünü &amp;Bul"/>
 				<Item id="1616" name="Satırı işaretle"/>
 				<Item id="1618" name="Her arama için temizle"/>
-				<Item id="1621" name="Yön"/>
 				<Item id="1611" name="De&amp;ğiştir:"/>
 				<Item id="1608" name="&amp;Değiştir"/>
 				<Item id="1609" name="Tü&amp;münü Değiştir"/>
@@ -870,6 +869,9 @@
 					<Item id="6114" name="Etkin"/>
 					<Item id="6115" name="Otomatik olarak girinti bırak"/>
 					<Item id="6117" name="MRU (en son kullanılan) davranışı etkin"/>
+					<Item id="6344" name="Belge İzleyici"/>
+                    <Item id="6345" name="Sekmede İzle"/>
+                    <Item id="6346" name="Belge Haritasında İzle"/>
 				</MISC>
 			</Preference>
 			<MultiMacro title="Makroyu Birden Çok Kez Çalıştır">
@@ -904,10 +906,18 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek Notepad++ sağ tık bağlam menüsü değiştirilebilir. Değişikliklerin etkin olması için Notepad++ yeniden başlatılmalıdır."/>
-			<NppHelpAbsentWarning title="Dosya Bulunamadı" message=" dosyası bulunamadı. Lütfen Notepad++ web sitesinden indirin."/>
-			<SaveCurrentModifWarning title="Geçerli Düzenlemeyi Kaydet" message="Yaptığınız değişiklikleri kaydetmelisiniz. Kaydedilen değişiklikler geri alınamaz. Devam etmek istiyor musunuz?"/>
-			<LoseUndoAbilityWarning title="Geri Alma Olanağını Yitirme Uyarısı" message="Yaptığınız değişiklikleri kaydetmelisiniz. Kaydedilen değişiklikler geri alınamaz. Devam etmek istiyor musunuz?"/>
+			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek Notepad++ sağ tık bağlam menüsü değiştirilebilir.
+Değişikliklerin etkin olması için Notepad++ yeniden başlatılmalıdır."/>
+			<NppHelpAbsentWarning title="Dosya Bulunamadı" message=" 
+dosyası bulunamadı. Lütfen Notepad++ web sitesinden indirin."/>
+			<SaveCurrentModifWarning title="Geçerli Düzenlemeyi Kaydet" message="Yaptığınız değişiklikleri kaydetmelisiniz. 
+Kaydedilen değişiklikler geri alınamaz. 
+
+Devam etmek istiyor musunuz?"/>
+			<LoseUndoAbilityWarning title="Geri Alma Olanağını Yitirme Uyarısı" message="Yaptığınız değişiklikleri kaydetmelisiniz. 
+Kaydedilen değişiklikler geri alınamaz. 
+
+Devam etmek istiyor musunuz?"/>
 			<CannotMoveDoc title="Yeni Notepad++ Penceresine Taşı" message="Belge değiştirilmiş, kaydedip yeniden deneyin."/>
 			<DocReloadWarning title="Yeniden Yükle" message="Geçerli dosyayı yeniden yüklerseniz yaptığınız değişiklikler kaybolacak. Devam etmek istiyor musunuz?"/>
 			<FileLockedWarning title="Kaydedilemedi" message="Dosyanın başka bir yazılım tarafından kullanılmadığından emin olun."/>
@@ -915,8 +925,11 @@
 			<DeleteFileFailed title="Dosya Sil" message="Dosya silinemedi"/>
 
 			<!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
-			<NbFileToOpenImportantWarning title="Çok Fazla Sayıda Dosya Açıldı" message="$INT_REPLACE$ dosyası açılmak üzere. Devam etmek istiyor musunuz?"/>
-			<SettingsOnCloudError title="Bulut Ayarları" message="Buluta yedekleme konumu salt okunur olarak ayarlanmış\rveya klasöre yazma erişimi için ayrıcalık tanınmamış.\rBuluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum ayarlayın."/>
+			<NbFileToOpenImportantWarning title="Çok Fazla Sayıda Dosya Açıldı" message="$INT_REPLACE$ dosyası açılmak üzere. 
+Devam etmek istiyor musunuz?"/>
+			<SettingsOnCloudError title="Bulut Ayarları" message="Buluta yedekleme konumu salt okunur olarak ayarlanmış 
+veya klasöre yazma erişimi için ayrıcalık tanınmamış.
+Buluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum ayarlayın."/>
 			<FilePathNotFoundWarning title="Dosya Aç" message="Açmaya çalıştığınız dosya mevcut değil."/>
 	    <SessionFileInvalidError title="Oturum Yüklenemedi" message="Oturum dosyası bozuk ya da geçersiz."/>		
 		</MessageBox>
@@ -998,7 +1011,7 @@
 			<word-chars-list-warning-end value="  karakter listenizde."/>
 			<cloud-invalid-warning value="Geçersiz yol."/>
 			<cloud-restart-warning value="Etkin olması için Notepad++'yı tekrar başlat."/>
-			<shift-change-direction-tip value="Shift+Enter ile diğer yönde arama yapın."/>
+			<shift-change-direction-tip value="Shift + Enter ile diğer yönde arama yapın."/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

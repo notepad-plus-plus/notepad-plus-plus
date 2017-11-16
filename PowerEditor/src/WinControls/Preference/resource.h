@@ -37,8 +37,12 @@
 #define _USE_ATTRIBUTES_FOR_SAL         0
 #define __drv_typeConst                 0
 #define PSAPI_VERSION                   1
+#ifndef CREATEPROCESS_MANIFEST_RESOURCE_ID
 #define CREATEPROCESS_MANIFEST_RESOURCE_ID 1
+#endif
+#ifndef MINIMUM_RESERVED_MANIFEST_RESOURCE_ID
 #define MINIMUM_RESERVED_MANIFEST_RESOURCE_ID 1
+#endif
 #define SW_SHOWNORMAL                   1
 #define SW_NORMAL                       1
 #define SHOW_OPENWINDOW                 1
@@ -211,7 +215,9 @@
 #define VFFF_ISSHAREDFILE               0x0001
 #define VFF_CURNEDEST                   0x0001
 #define VIFF_FORCEINSTALL               0x0001
+#ifndef ISOLATIONAWARE_MANIFEST_RESOURCE_ID
 #define ISOLATIONAWARE_MANIFEST_RESOURCE_ID 2
+#endif
 #define SW_SHOWMINIMIZED                2
 #define SHOW_ICONWINDOW                 2
 #define SW_OTHERZOOM                    2

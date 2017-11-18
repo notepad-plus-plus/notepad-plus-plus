@@ -33,6 +33,22 @@ public :
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	hashType _ht = hash_md5;
+
+	LRESULT run_textEditProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK HashPathEditStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+	{
+		const auto dlg = (HashFromFilesDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		return (dlg->run_textEditProc(dlg->_oldHashPathEditProc, hwnd, message, wParam, lParam));
+	};
+	static LRESULT CALLBACK HashResultStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+	{
+		const auto dlg = (HashFromFilesDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		return (dlg->run_textEditProc(dlg->_oldHashResultProc, hwnd, message, wParam, lParam));
+	};
+
+private :
+	WNDPROC _oldHashPathEditProc = nullptr;
+	WNDPROC _oldHashResultProc = nullptr;
 };
 
 class HashFromTextDlg : public StaticDialog
@@ -49,5 +65,21 @@ public :
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	hashType _ht = hash_md5;
+
+	LRESULT run_textEditProc(WNDPROC oldEditProc, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK HashTextEditStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+	{
+		const auto dlg = (HashFromTextDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		return (dlg->run_textEditProc(dlg->_oldHashTextEditProc, hwnd, message, wParam, lParam));
+	};
+	static LRESULT CALLBACK HashResultStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+	{
+		const auto dlg = (HashFromTextDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		return (dlg->run_textEditProc(dlg->_oldHashResultProc, hwnd, message, wParam, lParam));
+	};
+
+private :
+	WNDPROC _oldHashTextEditProc = nullptr;
+	WNDPROC _oldHashResultProc = nullptr;
 };
 

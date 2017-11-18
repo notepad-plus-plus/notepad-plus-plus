@@ -44,5 +44,15 @@ public :
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+	LRESULT MD5TextEditRunProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK MD5TextEditStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
+	{
+		return (((MD5FromTextDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->MD5TextEditRunProc(hwnd, message, wParam, lParam));
+	};
+
+private :
+	HWND _hMD5TextEdit = nullptr;
+	WNDPROC _MD5TextEditProc = nullptr;
 };
 

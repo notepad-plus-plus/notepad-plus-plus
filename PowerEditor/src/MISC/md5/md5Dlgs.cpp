@@ -192,6 +192,13 @@ INT_PTR CALLBACK MD5FromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				DEFAULT_PITCH | FF_DONTCARE, "Courier New");
 			::SendMessage(::GetDlgItem(_hSelf, IDC_MD5_TEXT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(hFont), TRUE);
 			::SendMessage(::GetDlgItem(_hSelf, IDC_MD5_RESULT_FOMTEXT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(hFont), TRUE);
+
+			_hMD5TextEdit = ::GetDlgItem(_hSelf, IDC_MD5_TEXT_EDIT);
+			if (NULL != _hMD5TextEdit)
+			{
+				::SetWindowLongPtr(_hMD5TextEdit, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+				_MD5TextEditProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hMD5TextEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(MD5TextEditStaticProc)));
+			}
 		}
 		return TRUE;
 
@@ -253,6 +260,27 @@ INT_PTR CALLBACK MD5FromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		}
 	}
 	return FALSE;	
+}
+
+LRESULT MD5FromTextDlg::MD5TextEditRunProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_CHAR:
+		{
+			// Select All if Ctrl + A
+			if (wParam == 1)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_MD5_TEXT_EDIT, EM_SETSEL, 0, -1);
+				return TRUE;
+			}
+			break;
+		}
+
+		default:
+			break;
+	}
+	return _MD5TextEditProc(hwnd, message, wParam, lParam);
 }
 
 void MD5FromTextDlg::doDialog(bool isRTL)

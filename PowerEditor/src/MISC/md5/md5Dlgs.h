@@ -49,5 +49,14 @@ public :
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	hashType _ht = hash_md5;
+
+	LRESULT HashTextEditRunProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK HashTextEditStaticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
+	{
+		return (((HashFromTextDlg *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->HashTextEditRunProc(hwnd, message, wParam, lParam));
+	};
+
+private :
+	WNDPROC _HashTextEditProc = nullptr;
 };
 

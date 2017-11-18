@@ -265,8 +265,15 @@ INT_PTR CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 			HFONT hFont = ::CreateFontA(fontDpiDynamicalHeight, 0, 0, 0, 0, FALSE, FALSE, FALSE, ANSI_CHARSET,
 				OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 				DEFAULT_PITCH | FF_DONTCARE, "Courier New");
-			::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(hFont), TRUE);
-			::SendMessage(::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT), WM_SETFONT, reinterpret_cast<WPARAM>(hFont), TRUE);
+
+			const HWND hHashResultFromTextEdit = ::GetDlgItem(_hSelf, IDC_HASH_RESULT_FOMTEXT_EDIT);
+			const HWND hHashTextEdit = ::GetDlgItem(_hSelf, IDC_HASH_TEXT_EDIT);
+
+			::SendMessage(hHashResultFromTextEdit, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), TRUE);
+			::SendMessage(hHashTextEdit, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), TRUE);
+
+			::SetWindowLongPtr(hHashTextEdit, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+			_HashTextEditProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(hHashTextEdit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(HashTextEditStaticProc)));
 		}
 		return TRUE;
 
@@ -332,6 +339,27 @@ INT_PTR CALLBACK HashFromTextDlg::run_dlgProc(UINT message, WPARAM wParam, LPARA
 void HashFromTextDlg::setHashType(hashType hashType2set)
 {
 	_ht = hashType2set;
+}
+
+LRESULT HashFromTextDlg::HashTextEditRunProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		case WM_CHAR:
+		{
+			// Select All if Ctrl + A
+			if (wParam == 1)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_HASH_TEXT_EDIT, EM_SETSEL, 0, -1);
+				return TRUE;
+			}
+			break;
+		}
+
+		default:
+			break;
+	}
+	return ::CallWindowProc(_HashTextEditProc, hwnd, message, wParam, lParam);
 }
 
 void HashFromTextDlg::doDialog(bool isRTL)

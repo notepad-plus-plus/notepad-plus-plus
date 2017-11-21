@@ -1917,7 +1917,8 @@ void Notepad_plus::command(int id)
 				characterNumber += TEXT("\r");
 				characterNumber += TEXT("\r");
 			}
-			TCHAR *nbCharLabel = TEXT("Characters (without blanks): ");
+			TCHAR *nbCharLabel = TEXT("Characters: ");
+			TCHAR *nbCharLabelNoSpace = TEXT("Characters (without spaces): ");
 			TCHAR *nbWordLabel = TEXT("Words: ");
 			TCHAR *nbLineLabel = TEXT("Lines: ");
 			TCHAR *nbByteLabel = TEXT("Current document length: ");
@@ -1927,6 +1928,7 @@ void Notepad_plus::command(int id)
 
 			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
 			auto nbChar = getCurrentDocCharCount(um);
+			auto nbCharNoSpace = getCurrentDocCharCountNoSpace(um);
 			int nbWord = wordCount();
 			auto nbLine = _pEditView->execute(SCI_GETLINECOUNT);
 			auto nbByte = _pEditView->execute(SCI_GETLENGTH);
@@ -1937,6 +1939,13 @@ void Notepad_plus::command(int id)
 			characterNumber += nbCharLabel;
 			characterNumber += commafyInt(nbChar).c_str();
 			characterNumber += TEXT("\r");
+
+			if (um == uniUTF8 || um == uniCookie)
+			{
+				characterNumber += nbCharLabelNoSpace;
+				characterNumber += commafyInt(nbCharNoSpace).c_str();
+				characterNumber += TEXT("\r");
+			}
 
 			characterNumber += nbWordLabel;
 			characterNumber += commafyInt(nbWord).c_str();

@@ -516,6 +516,7 @@ private:
 	void updateStatusBar();
 	size_t getSelectedCharNumber(UniMode);
 	size_t getCurrentDocCharCount(UniMode u);
+	size_t getCurrentDocCharCountNoSpace(UniMode u);
 	size_t getSelectedAreas();
 	size_t getSelectedBytes();
 	bool isFormatUnicode(UniMode);

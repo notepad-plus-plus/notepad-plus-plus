@@ -3033,21 +3033,20 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 #ifdef _OPENMP
 #include <omp.h>
 #endif
-static inline size_t countUtf8Characters(unsigned char *buf, size_t pos, size_t endpos)
+static inline size_t countUtf8Characters(unsigned char *buf, size_t pos, size_t endpos, bool includeSpace)
 {
 	size_t result = 0;
 	while(pos < endpos)
 	{
 		unsigned char c = buf[pos++];
 		if ((c&0xc0) == 0x80 // do not count unexpected continuation bytes (this handles the case where an UTF-8 character is split in the middle)
-			|| c == '\n' || c == '\r') continue; // do not count end of lines
+			|| c == '\n' || c == '\r' || (!includeSpace && isspace(c))) continue; // do not count end of lines
 		if (c >= 0xc0) 
 			pos += utflen[(c & 0x30) >>  4];
 		++result;
 	}
 	return result;
 }
-
 
 size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 {
@@ -3081,18 +3080,56 @@ size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 				size_t chunk_size = endpos/num_threads;
 				size_t pos = chunk_size*thread_num;
 				size_t endpos_local = (thread_num == num_threads-1) ? endpos : pos+chunk_size;
-				result = countUtf8Characters(buf, pos, endpos_local);
+				result = countUtf8Characters(buf, pos, endpos_local, true);
 			}
 		}
 		else
 #endif
 		{
-			result = countUtf8Characters(buf, 0, endpos);
+			result = countUtf8Characters(buf, 0, endpos, true);
 		}
  		return result;
  	}
 }
 
+size_t Notepad_plus::getCurrentDocCharCountNoSpace(UniMode u)
+{
+	if (u != uniUTF8 && u != uniCookie)
+	{
+		return 0;
+	}
+	else
+	{
+		// Note that counting is not well defined for invalid UTF-8 characters.
+		// This method is O(filelength) regardless of the number of characters we count (due to SCI_GETCHARACTERPOINTER);
+		// it would not be appropriate for counting characters in a small selection.
+		size_t result = 0;
+
+		size_t endpos = _pEditView->execute(SCI_GETLENGTH);
+		unsigned char* buf = (unsigned char*)_pEditView->execute(SCI_GETCHARACTERPOINTER); // Scintilla doc said the pointer can be invalidated by any other "execute"
+
+#ifdef _OPENMP // parallel counting of characters with OpenMP
+		if (endpos > 50000) // starting threads takes time; for small files it is better to simply count in one thread
+		{
+#pragma omp parallel reduction(+: result)
+			{
+				// split in chunks of same size (except last chunk if it's not evenly divisible)
+				unsigned int num_threads = omp_get_num_threads();
+				unsigned int thread_num = omp_get_thread_num();
+				size_t chunk_size = endpos / num_threads;
+				size_t pos = chunk_size*thread_num;
+				size_t endpos_local = (thread_num == num_threads - 1) ? endpos : pos + chunk_size;
+				result = countUtf8Characters(buf, pos, endpos_local, false);
+			}
+		}
+		else
+#endif
+		{
+			result = countUtf8Characters(buf, 0, endpos, false);
+		}
+		return result;
+	}
+}
 
 bool Notepad_plus::isFormatUnicode(UniMode u)
 {

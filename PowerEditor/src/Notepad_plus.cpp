@@ -2516,6 +2516,20 @@ int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char target
 	}
 	else // forward - TODO
 	{
+		int balance = 0;
+		for (int i = (int)startPos; i <= (int)endPos; ++i) {
+			char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, i));
+			if (aChar == targetSymbol) 
+			{
+				++balance;
+			}
+			else if (aChar == matchedSymbol) 
+			{
+				if (balance == 0)
+					return i;
+				--balance;
+			}
+		}
 	}
 	return -1;
 }

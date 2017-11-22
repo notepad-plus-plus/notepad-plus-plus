@@ -127,6 +127,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 
 	auto curPos = pHighlightView->execute(SCI_GETCURRENTPOS);
 	auto range = pHighlightView->getSelection();
+	int textlen = range.cpMax - range.cpMin + 1;
 
 	// Determine mode for SmartHighlighting
 	bool isWordOnly = true;
@@ -153,8 +154,14 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView, Scintil
 		if (wordStart == wordEnd || wordStart != range.cpMin || wordEnd != range.cpMax)
 			return;
 	}
-
-	int textlen = range.cpMax - range.cpMin + 1;
+	else
+	{
+		auto line = pHighlightView->execute(SCI_LINEFROMPOSITION, curPos);
+		auto lineLength = pHighlightView->execute(SCI_LINELENGTH, line);
+		if (textlen > lineLength)
+			return;
+	}
+	
 	char * text2Find = new char[textlen];
 	pHighlightView->getSelectedText(text2Find, textlen, false); //do not expand selection (false)
 

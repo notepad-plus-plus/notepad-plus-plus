@@ -301,6 +301,7 @@
                 <Item id="1661" name="Ikuti dok. aktif"/>
 			 	<Item id="1641" name="Cari Semua dalam Dokumen Ini"/>
 			 	<Item id="1686" name="Transparansi"/>
+				<Item id="1722" name="Cari ke belakang"/>
             </Find>
             <GoToLine title="Pergi ke...">
                 <Item id="2007" name="Baris"/>

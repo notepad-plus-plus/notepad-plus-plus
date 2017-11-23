@@ -71,7 +71,7 @@ void Notepad_plus::command(int id)
 		{
 			fileNew();
 
-			/*
+			///*
 			bool isFirstTime = ! _pluginsAdminDlg.isCreated();
 			_pluginsAdminDlg.setPluginsManager(&_pluginsManager);
 			_pluginsAdminDlg.doDialog(_nativeLangSpeaker.isRTL());
@@ -80,7 +80,7 @@ void Notepad_plus::command(int id)
 				_nativeLangSpeaker.changeConfigLang(_pluginsAdminDlg.getHSelf());
 				_pluginsAdminDlg.updateListAndLoadFromJson();
 			}
-			*/
+			//*/
 		}
 		break;
 

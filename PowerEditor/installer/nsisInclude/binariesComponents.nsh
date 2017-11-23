@@ -77,7 +77,7 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\NppConverter.dll"
 !endif
 	${MementoSectionEnd}
-	/*
+
 	${MementoSection} "Decent Spell-Checking" DSpellCheck
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -91,7 +91,7 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\Config\Hunspell\en_US.dic"
 !endif
 	${MementoSectionEnd}
-	*/
+
 SectionGroupEnd
 
 ${MementoSection} "Auto-Updater" AutoUpdater

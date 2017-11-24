@@ -1330,8 +1330,7 @@ void SCI_METHOD LexerCPP::Fold(unsigned int startPos, int length, int initStyle,
 					if (!inLineComment) { //bracket not in singleline comment
 						if (chNext2 == '{') {
 							levelNext++;
-						}
-						else if (chNext2 == '}') {
+						} else if (chNext2 == '}') {
 							levelNext--;
 						}
 					}

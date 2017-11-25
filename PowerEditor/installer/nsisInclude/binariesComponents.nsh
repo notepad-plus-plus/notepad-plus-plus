@@ -102,14 +102,12 @@ ${MementoSection} "Auto-Updater" AutoUpdater
 	File "..\bin64\updater\libcurl.dll"
 	File "..\bin64\updater\gup.xml"
 	File "..\bin64\updater\LICENSE"
-	File "..\bin64\updater\gpl.txt"
 	File "..\bin64\updater\README.md"
 !else
 	File "..\bin\updater\GUP.exe"
 	File "..\bin\updater\libcurl.dll"
 	File "..\bin\updater\gup.xml"
 	File "..\bin\updater\LICENSE"
-	File "..\bin\updater\gpl.txt"
 	File "..\bin\updater\README.md"
 !endif
 ${MementoSectionEnd}

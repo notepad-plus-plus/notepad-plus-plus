@@ -260,8 +260,8 @@
                     <Item id="44094" name="Onglet 9"/>
                     <Item id="44095" name="Onglet suivant"/>
                     <Item id="44096" name="Onglet précédent"/>
-					<Item id="44097" name="Surveillance de Log(tail -f)"/>
-					<Item id="44098" name="Déplacer vers l'avant"/>
+		    <Item id="44097" name="Surveillance de Log(tail -f)"/>
+		    <Item id="44098" name="Déplacer vers l'avant"/>
                     <Item id="44099" name="Déplacer vers l'arrière"/>
                     <Item id="45001" name="Convertir en Format Windows (CR+LF)"/>
                     <Item id="45002" name="Convertir en Format UNIX (LF)"/>
@@ -288,9 +288,9 @@
                     <Item id="47006" name="Mettre à jour Notepad++"/>
                     <Item id="47008" name="Aide"/>
                     <Item id="47009" name="Paramétrer le Proxy de mise à jour..."/>
-					<Item id="47010" name="Arguments de la Ligne de Commande..."/>
-					<Item id="47011" name="Support en direct"/>
-					<Item id="47012" name="Debug Info..."/>
+		    <Item id="47010" name="Arguments de la Ligne de Commande..."/>
+		    <Item id="47011" name="Support en direct"/>
+		    <Item id="47012" name="Debug Info..."/>
                     <Item id="48005" name="Importer un complément..."/>
                     <Item id="48006" name="Importer un thème..."/>
                     <Item id="48009" name="Raccourcis clavier..."/>
@@ -332,13 +332,13 @@
                     <Item CMID="18" name="Fermer les onglets sur la droite"/>
                     <Item CMID="19" name="Ouvrir le répertoire du fichier en cours dans Explorer"/>
                     <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans cmd"/>
-					<Item CMID="21" name="Ouvrir dans l'application par défaut"/>
+		    <Item CMID="21" name="Ouvrir dans l'application par défaut"/>
             </TabBar>
         </Menu>
         <Dialog>
             <Find title="" titleFind="Rechercher" titleReplace="Remplacer" titleFindInFiles="Rechercher dans les fichiers d'un dossier" titleMark="Marquer">
                 <Item id="1" name="Suivant"/>
-				<Item id="1722" name="Rechercher vers l'arrière"/>
+		<Item id="1722" name="Rechercher vers l'arrière"/>
                 <Item id="1603" name="Mot entier &amp;uniquement"/>
                 <Item id="1604" name="Respecter la &amp;casse"/>
                 <Item id="1605" name="&amp;Expression régulière"/>
@@ -376,7 +376,7 @@
             <FindCharsInRange title="Rechercher des caractères dans une plage">
                 <Item id="2" name="Fermer"/>
                 <Item id="2901" name="Caractères Non-ASCII (128-255)"/>
-                <Item id="2902" name="Caractères ASCII (0 - 127)"/>
+                <Item id="2902" name="Caractères ASCII (0-127)"/>
                 <Item id="2903" name="Ma plage :"/>
                 <Item id="2906" name="Haut"/>
                 <Item id="2907" name="Bas"/>
@@ -401,14 +401,14 @@
                 <Item id="2" name="Annuler"/>
             </Run>
 			
-            <MD5FromFilesDlg title="Calculer les empreintes md5 depuis les fichiers">
+            <MD5FromFilesDlg title="Calculer les empreintes MD5 depuis les fichiers">
                 <Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
                 <Item id="1924" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="Calculer l'empreinte md5">
-                <Item id="1932" name="Chaque ligne est une chaine de caractères"/>
+            <MD5FromTextDlg title="Calculer l'empreinte MD5">
+                <Item id="1932" name="Traiter chaque ligne comme une chaine de caractères"/>
                 <Item id="1934" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </MD5FromTextDlg>
@@ -891,20 +891,24 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <CannotMoveDoc title="Déplacement vers une nouvelle instance Notepad++" message="Le document est en cours d'utilisation, le sauvegarder puis réessayer."/>
-            <ColumnModeTip title="Sélection en mode colonnes" message="Utiliser 'Alt+sélection souris' ou 'Alt+Maj+flêches' pour activer le mode colonne."/>
-            <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de contextMenu.xml vous permet de modifier la fenêtre de menu contextuel de Notepad++. Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
-            <DeleteFileFailed title="Suppression du fichier" message="La suppression du fichier a échoué."/>
-            <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++ ?"/>
-            <FileAlreadyOpenedInNpp title="" message="Le fichier est toujours ouvert dans Notepad++."/>
-            <FileLockedWarning title="Échec de la sauvegarde" message="Veuillez vérifier si ce fichier est ouvert par un autre programme"/>
-            <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir est trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts. Êtes-vous sûr de les ouvrir ?"/>
+	    <ContextMenuXmlEditWarning title="Édition du Menu Contextuel" message="L'édition de contextMenu.xml vous permet de modifier la fenêtre de menu contextuel de Notepad++. Vous devez redémarrer votre Notepad++ pour prendre en compte les modifications du fichier."/>
             <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. Veuillez le télécharger sur le site de Notepad++."/>
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
-            <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
-        </MessageBox>
+	    <LoseUndoAbilityWarning title="Perte de la capacité d'annulation" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>  
+            <CannotMoveDoc title="Déplacement vers une nouvelle instance Notepad++" message="Le document est en cours d'utilisation, le sauvegarder puis réessayer."/>	   
+            <DocReloadWarning title="Recharger" message="Êtes-vous sûr de vouloir recharger le fichier en cours et de perdre les modifications apportées dans Notepad++ ?"/>
+            <FileLockedWarning title="Échec de la sauvegarde" message="Veuillez vérifier si ce fichier est ouvert par un autre programme"/>
+            <FileAlreadyOpenedInNpp title="" message="Le fichier est toujours ouvert dans Notepad++."/>
+  	    <DeleteFileFailed title="Suppression du fichier" message="La suppression du fichier a échoué."/>
+	              
+	    <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <NbFileToOpenImportantWarning title="Quantité de fichiers à ouvrir est trop grande." message="$INT_REPLACE$ fichiers sont sur le point d'être ouverts. Êtes-vous sûr de les ouvrir ?"/>
+            <SettingsOnCloudError title="Settings on Cloud" message="Il semble que le chemin des réglages sur le cloud soit vers un disque en lecture seule,
+ou sur un dossier nécessitant des droits pour l'accès à l'écriture.
+Vos réglages sur le cloud vont être annulés. Veuillez réinitialiser à une valeur cohérente via la boite de dialogues Préferences."/>
+	    <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
+           <SessionFileInvalidError title="Could not Load Session" message="Le fichier de la session est soit corrompu soit non valide."/>
+	</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papiers"/>
         </ClipboardHistory>
@@ -974,16 +978,16 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-			<word-chars-list-tip value="Ceci permet d'inclure des caractères supplémentaires dans les caractères de mot courants, lors de double-clic pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/>
+			<word-chars-list-tip value="Ceci permet d'inclure des caractères supplémentaires dans les caractères du mot courant, lors de double-clic pour la sélection ou la recherche avec l'option &quot;Mot entier uniquement&quot;."/>
             <word-chars-list-warning-begin value="Attention : "/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ espace(s)"/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-			<word-chars-list-warning-end value="  dans la liste des caractères de mot."/>
+			<word-chars-list-warning-end value="  dans votre liste des caractères."/>
 			<cloud-invalid-warning value="Chemin invalide."/>
 			<cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
-			<shift-change-direction-tip value="Utilisez Shift + Enter pour rechercher dans le sens inverse"/>
+			<shift-change-direction-tip value="Utilisez Shift + Entrée pour rechercher dans le sens inverse"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

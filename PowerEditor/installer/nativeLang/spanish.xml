@@ -241,7 +241,7 @@
 					<Item id="44094" name="Pestaña 9"/>
 					<Item id="44095" name="Pestaña siguiente"/>
 					<Item id="44096" name="Pestaña anterior"/>
-					<Item id="44097" name="Monitorizando (cola -f)"/>
+					<Item id="44097" name="Monitorizando (tail -f)"/>
 					<Item id="44098" name="Mover pestaña adelante"/>
 					<Item id="44099" name="Mover pestaña atrás"/>
 					<Item id="44032" name="Pantalla completa o no"/>

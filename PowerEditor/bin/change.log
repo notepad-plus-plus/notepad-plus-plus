@@ -1,17 +1,13 @@
-Notepad++ 7.5.1 new featurs/enhancements & bug-fixes:
+Notepad++ 7.5.2 new features/enhancements & bug-fixes:
 
-1.  Fix some excluded language cannot be remembered bug.
-2.  Fix a localization regression bug.
-3.  Fix the bug that Notepad++ create "%APPDATA%\local\notepad++" folder in local conf mode.
-4.  Add Visual Prolog language support.
-5.  Add auto-completion support for batch file (*.bat).
-6.  Enhance Function List for PHP and JavaScript.
-7.  Enhance Shortcut Mapper by adding category column.
-8.  Make double click work for language menu disabling/enabling in preferences dialog.
-9.  Make double click work to improve file extension movement in Preferences dialog.
-10. Fix bug: language menu item is restored back on the wrong zone.
-11. Add a spiritual quote.
-
+1.  Fixed hanging issue while modifying JavaScript TAB settings.
+2.  Add DSpellCheck plugin into distribution.
+3.  Add version and other info into installer.
+4.  Fix an issue while installing a x64 version, x86 version (if it exists) is not removed - and vice versa.
+5.  Fix display glitch of certificate checking error message.
+6.  Remove unused/empty entries from shortcut mapper.
+7.  Add BaanC function list feature.
+8.  Add batch auto-completion into installer.
 
 
 Included plugins:
@@ -19,8 +15,8 @@ Included plugins:
 1.  NppExport v0.2.8 (32-bit x86 only)
 2.  Converter 4.2.1
 3.  Mime Tool 2.1
-
+4.  DSpellCheck 1.3.2
 
 Updater (Installer only):
 
-* WinGup v4.1
+* WinGup v4.2

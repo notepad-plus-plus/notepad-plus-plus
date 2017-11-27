@@ -201,7 +201,7 @@ Function removeUnstablePlugins
 		MessageBox MB_OK "Due to the stability issue,$\nNppQCP.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
 		Delete "$INSTDIR\plugins\NppQCP.dll"
-		
+	/*
 	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +11
 		MessageBox MB_YESNOCANCEL "Due to the stability issue, DSpellCheck.dll will be moved to the directory $\"disabled$\".$\nChoose Cancel to keep it for this installation.$\nChoose No to keep it forever." /SD IDYES IDNO never IDCANCEL donothing ;IDYES remove
 		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
@@ -210,6 +210,7 @@ Function removeUnstablePlugins
 	never:
 		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\DSpellCheck2.dll"
 		Goto donothing
+	*/
 	donothing:
 FunctionEnd
 

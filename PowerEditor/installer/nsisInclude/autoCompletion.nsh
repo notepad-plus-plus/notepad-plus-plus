@@ -133,6 +133,11 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\batch.xml"
 	${MementoSectionEnd}
+	
+	${MementoSection} "BaanC" BaanC
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File ".\APIs\BaanC.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 
@@ -220,5 +225,9 @@ SectionGroup un.autoCompletionComponent
 
 	Section un.BATCH
 		Delete "$INSTDIR\plugins\APIs\batch.xml"
+	SectionEnd
+	
+	Section un.BaanC
+		Delete "$INSTDIR\plugins\APIs\BaanC.xml"
 	SectionEnd
 SectionGroupEnd

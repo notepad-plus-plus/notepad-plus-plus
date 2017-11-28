@@ -444,6 +444,10 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 	// load pl.json
 	// 
 	generic_string nppPluginListJsonPath = TEXT("C:\\tmp\\nppPluginList.json");
+
+	if (!::PathFileExists(nppPluginListJsonPath.c_str()))
+		return false;
+
 	ifstream nppPluginListJson(nppPluginListJsonPath);
 	json pluginsJson;
 	nppPluginListJson >> pluginsJson;

@@ -1,0 +1,53 @@
+// This file is part of Notepad++ project
+// Copyright (C)2003 Don HO <don.h@free.fr>
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) any later version.
+//
+// Note that the GPL places important restrictions on "derived works", yet
+// it does not provide a detailed definition of that term.  To avoid      
+// misunderstandings, we consider an application to constitute a          
+// "derivative work" for the purpose of this license if it does any of the
+// following:                                                             
+// 1. Integrates source code from Notepad++.
+// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
+//    installer, such as those produced by InstallShield.
+// 3. Links to a library or executes a program that does any of the above.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+#include "windows.h"
+#include "pluginsAdminRes.h"
+
+#ifndef IDC_STATIC 
+#define IDC_STATIC -1
+#endif
+
+IDD_PLUGINSADMIN_DLG DIALOGEX 36, 44, 500, 300
+STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Plugins Manager"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+	RTEXT           "Research: ",IDC_PLUGINADM_RESEARCH_STATIC,50,38,50,8
+	EDITTEXT        IDC_PLUGINADM_RESEARCH_EDIT,160,35,150,14,ES_AUTOHSCROLL
+	PUSHBUTTON      "Next", IDC_PLUGINADM_RESEARCH_NEXT,332,35,57,14
+	PUSHBUTTON      "Install", IDC_PLUGINADM_INSTALL,432,35,57,14
+	PUSHBUTTON      "Update", IDC_PLUGINADM_UPDATE,432,35,57,14
+	PUSHBUTTON      "Remove", IDC_PLUGINADM_REMOVE,432,35,57,14
+	//LISTBOX         IDC_PLUGINADM_LISTVIEW,30,20,78,120,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+	EDITTEXT        IDC_PLUGINADM_EDIT,30,160,220,80,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_BORDER | WS_VSCROLL
+	PUSHBUTTON      "Close", IDCANCEL,332,270,57,14
+    PUSHBUTTON      "Settings",IDC_PLUGINADM_SETTINGS_BUTTON,255,270,69,14
+END
+

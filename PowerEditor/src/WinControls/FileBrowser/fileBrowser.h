@@ -63,6 +63,8 @@
 //#define PM_MOVEDOWNENTRY           TEXT("Move Down\tCtrl+Down")
 
 class TiXmlNode;
+class FileBrowser;
+class FolderInfo;
 
 class FileInfo final
 {
@@ -158,7 +160,7 @@ public:
 	void addRootFolder(generic_string);
 
 	HTREEITEM getRootFromFullPath(const generic_string & rootPath) const;
-	HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string);
+	HTREEITEM findChildNodeFromName(HTREEITEM parent, generic_string);
 
 	bool addInTree(generic_string rootPath, generic_string addItemFullPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
 	HTREEITEM findInTree(generic_string rootPath, HTREEITEM node, std::vector<generic_string> linarPathArray);
@@ -170,7 +172,7 @@ public:
 
 protected:
 	TreeView _treeView;
-	HIMAGELIST _hImaLst;
+	HIMAGELIST _hImaLst = nullptr;
 
 	HMENU _hGlobalMenu = NULL;
 	HMENU _hRootMenu = NULL;
@@ -184,7 +186,6 @@ protected:
 
 	BrowserNodeType getNodeType(HTREEITEM hItem);
 	void popupMenuCmd(int cmdID);
-	POINT getMenuDisplayPoint(int iButton);
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);

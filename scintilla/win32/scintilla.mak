@@ -51,6 +51,9 @@ LDFLAGS=$(LDDEBUG) $(LDFLAGS)
 CXXFLAGS=$(CXXFLAGS) $(CXXNDEBUG)
 !ENDIF
 
+#unconditionally use scintilla namespace
+CXXFLAGS=$(CXXFLAGS) -DSCI_NAMESPACE
+
 INCLUDEDIRS=-I../include -I../src -I../lexlib
 CXXFLAGS=$(CXXFLAGS) $(INCLUDEDIRS)
 

@@ -62,9 +62,7 @@
 	-->
 	<!--MessageBoxTitle isModal="yes" extraCmd="36950" extraCmdButtonLabel="Maybe" ecWparam="0" ecLparam="0">Notepad++ update</MessageBoxTitle-->
 	<!--MessageBoxTitle isModal="no" extraCmd="" ecWparam="" ecLparam="">Notepad++ update</MessageBoxTitle-->
-	
-	<!-- extraCmd="2119" : while user click "Never" button, 2119 (NPPM_DISABLEAUTOUPDATE) will be sent to Notepad++ via SendMessage() to disable Auto-Updater's periodical detection -->
-	<MessageBoxTitle isModal="no" extraCmd="2119">Notepad++ update</MessageBoxTitle>
+	<MessageBoxTitle isModal="no">Notepad++ update</MessageBoxTitle>
 
 	<!-- optional. YES by default.
 	This parameter can hide all the network error message. 

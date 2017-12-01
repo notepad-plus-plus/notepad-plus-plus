@@ -49,6 +49,7 @@
 #include "functionListPanel.h"
 #include "fileBrowser.h"
 #include "LongRunningOperation.h"
+#include "Common.h"
 
 using namespace std;
 
@@ -202,7 +203,7 @@ Notepad_plus::~Notepad_plus()
 LRESULT Notepad_plus::init(HWND hwnd)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
 
 	// Menu
 	_mainMenuHandle = ::GetMenu(hwnd);
@@ -260,6 +261,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_configStyleDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_preference.init(_pPublicInterface->getHinst(), hwnd);
+	_pluginsAdminDlg.init(_pPublicInterface->getHinst(), hwnd);
 
     //Marker Margin config
     _mainEditView.setMakerStyle(svp1._folderStyle);
@@ -273,6 +275,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 	_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
+
+	_mainEditView.execute(SCI_SETENDATLASTLINE, not svp1._scrollBeyondLastLine);
+	_subEditView.execute(SCI_SETENDATLASTLINE, not svp1._scrollBeyondLastLine);
 
 	if (svp1._doSmoothFont)
 	{
@@ -306,7 +311,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainEditView.performGlobalStyles();
 	_subEditView.performGlobalStyles();
 
-	_zoomOriginalValue = _pEditView->execute(SCI_GETZOOM);
+	_zoomOriginalValue = static_cast<int32_t>(_pEditView->execute(SCI_GETZOOM));
 	_mainEditView.execute(SCI_SETZOOM, svp1._zoom);
 	_subEditView.execute(SCI_SETZOOM, svp1._zoom2);
 
@@ -332,12 +337,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	if (_toReduceTabBar)
 	{
-		HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+		HFONT hf = static_cast<HFONT>(::GetStockObject(DEFAULT_GUI_FONT));
 
 		if (hf)
 		{
-			::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
-			::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
+			::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
+			::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 		}
 		int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(22);
 		int tabDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(45);
@@ -392,13 +397,20 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_scintillaCtrls4Plugins.init(_pPublicInterface->getHinst(), hwnd);
 	_pluginsManager.init(nppData);
 
-	// Load plugins firstly from "%APPDATA%/Notepad++/plugins"
-	// if Notepad++ is not in localConf mode.
+	// If Notepad++ is not in localConf mode, load plugins firstly from "%APPDATA%/Notepad++/plugins"
 	// All the dll loaded are marked.
 	bool isLoadFromAppDataAllow = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETAPPDATAPLUGINSALLOWED, 0, 0) == TRUE;
+
 	const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
 	if (appDataNpp[0] && isLoadFromAppDataAllow)
 		_pluginsManager.loadPlugins(appDataNpp);
+
+	generic_string localAppDataNppPluginsDir = pNppParam->getLocalAppDataNppDir();
+	if (!localAppDataNppPluginsDir.empty() && isLoadFromAppDataAllow)
+	{
+		PathAppend(localAppDataNppPluginsDir, TEXT("plugins"));
+		_pluginsManager.loadPluginsV2(localAppDataNppPluginsDir.c_str());
+	}
 
 	// Load plugins from its installation directory.
 	// All loaded dll will be ignored
@@ -418,15 +430,15 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	size_t const posBase = 6;
 	size_t nbMacro = macros.size();
 	if (nbMacro >= 1)
-		::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
+		::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
 	for (size_t i = 0 ; i < nbMacro ; ++i)
-		::InsertMenu(hMacroMenu, posBase + i, MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
+		::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + i), MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
 
     if (nbMacro >= 1)
     {
-        ::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, (unsigned int)-1, 0);
-        ::InsertMenu(hMacroMenu, posBase + nbMacro + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, TEXT("Modify Shortcut/Delete Macro..."));
+        ::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + nbMacro + 1), MF_BYPOSITION, static_cast<UINT>(-1), 0);
+        ::InsertMenu(hMacroMenu, static_cast<UINT>(posBase + nbMacro + 2), MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, TEXT("Modify Shortcut/Delete Macro..."));
     }
 
 	// Run Menu
@@ -435,17 +447,17 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	int const runPosBase = 2;
 	size_t nbUserCommand = userCommands.size();
 	if (nbUserCommand >= 1)
-		::InsertMenu(hRunMenu, runPosBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
+		::InsertMenu(hRunMenu, runPosBase - 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
 	for (size_t i = 0 ; i < nbUserCommand ; ++i)
 	{
-		::InsertMenu(hRunMenu, runPosBase + i, MF_BYPOSITION, ID_USER_CMD + i, userCommands[i].toMenuItemString().c_str());
+		::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + i), MF_BYPOSITION, ID_USER_CMD + i, userCommands[i].toMenuItemString().c_str());
 	}
 
     if (nbUserCommand >= 1)
     {
-		::InsertMenu(hRunMenu, runPosBase + nbUserCommand + 1, MF_BYPOSITION, (unsigned int)-1, 0);
-        ::InsertMenu(hRunMenu, runPosBase + nbUserCommand + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, TEXT("Modify Shortcut/Delete Command..."));
+		::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + nbUserCommand + 1), MF_BYPOSITION,  static_cast<UINT>(-1), 0);
+        ::InsertMenu(hRunMenu, static_cast<UINT>(runPosBase + nbUserCommand + 2), MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, TEXT("Modify Shortcut/Delete Command..."));
     }
 
 	// Updater menu item
@@ -627,7 +639,10 @@ LRESULT Notepad_plus::init(HWND hwnd)
     _aboutDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_debugInfoDlg.init(_pPublicInterface->getHinst(), hwnd, _isAdministrator, _pluginsManager.getLoadedPluginNames());
 	_runDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_md5FromFilesDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_md5FromTextDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_runMacroDlg.init(_pPublicInterface->getHinst(), hwnd);
+	_documentPeeker.init(_pPublicInterface->getHinst(), hwnd);
 
     //--User Define Dialog Section--//
 	int uddStatus = nppGUI._userDefineDlgStatus;
@@ -716,6 +731,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
 	//::SetFocus(_mainEditView.getHSelf());
 	_mainEditView.getFocus();
+
 	return TRUE;
 }
 
@@ -747,7 +763,7 @@ void Notepad_plus::killAllChildren()
 
 bool Notepad_plus::saveGUIParams()
 {
-	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
@@ -759,7 +775,8 @@ bool Notepad_plus::saveGUIParams()
 						(TabBarPlus::isDbClk2Close()?TAB_DBCLK2CLOSE:0) | \
 						(TabBarPlus::isVertical() ? TAB_VERTICAL:0) | \
 						(TabBarPlus::isMultiLine() ? TAB_MULTILINE:0) |\
-						(nppGUI._tabStatus & TAB_HIDE);
+						(nppGUI._tabStatus & TAB_HIDE) | \
+						(nppGUI._tabStatus & TAB_QUITONEMPTY);
 	nppGUI._splitterPos = _subSplitter.isVertical()?POS_VERTICAL:POS_HORIZOTAL;
 	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
 	bool b = udd->isDocked();
@@ -778,8 +795,8 @@ bool Notepad_plus::saveGUIParams()
 	nppGUI._isMaximized = ((IsZoomed(_pPublicInterface->getHSelf()) != 0) || (posInfo.flags & WPF_RESTORETOMAXIMIZED));
 
 	saveDockingParams();
-
-	return (NppParameters::getInstance())->writeGUIParams();
+	(NppParameters::getInstance())->createXmlTreeFromGUIParams();
+	return true;
 }
 
 bool Notepad_plus::saveProjectPanelsParams()
@@ -815,7 +832,7 @@ bool Notepad_plus::saveFileBrowserParam()
 
 void Notepad_plus::saveDockingParams()
 {
-	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
+	NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 
 	// Save the docking information
 	nppGUI._dockingData._leftWidth		= _dockingManager.getDockedContSize(CONT_LEFT);
@@ -842,7 +859,7 @@ void Notepad_plus::saveDockingParams()
 		{
 			if (vDataVis[j]->pszName && vDataVis[j]->pszName[0])
 			{
-				PluginDlgDockingInfo pddi(vDataVis[j]->pszModuleName, vDataVis[j]->dlgID, i, vDataVis[j]->iPrevCont, true);
+				PluginDlgDockingInfo pddi(vDataVis[j]->pszModuleName, vDataVis[j]->dlgID, int32_t(i), vDataVis[j]->iPrevCont, true);
 				vPluginDockInfo.push_back(pddi);
 			}
 		}
@@ -854,7 +871,7 @@ void Notepad_plus::saveDockingParams()
 		{
 			if ((vDataAll[j]->pszName && vDataAll[j]->pszName[0]) && (!vCont[i]->isTbVis(vDataAll[j])))
 			{
-				PluginDlgDockingInfo pddi(vDataAll[j]->pszModuleName, vDataAll[j]->dlgID, i, vDataAll[j]->iPrevCont, false);
+				PluginDlgDockingInfo pddi(vDataAll[j]->pszModuleName, vDataAll[j]->dlgID, int32_t(i), vDataAll[j]->iPrevCont, false);
 				vPluginDockInfo.push_back(pddi);
 			}
 		}
@@ -864,12 +881,12 @@ void Notepad_plus::saveDockingParams()
 		{
 			RECT	rc;
 			vCont[i]->getWindowRect(rc);
-			FloatingWindowInfo fwi(i, rc.left, rc.top, rc.right, rc.bottom);
+			FloatingWindowInfo fwi(int32_t(i), rc.left, rc.top, rc.right, rc.bottom);
 			vFloatingWindowInfo.push_back(fwi);
 		}
 
 		// save the active tab
-		ContainerTabInfo act(i, vCont[i]->getActiveTb());
+		ContainerTabInfo act(int32_t(i), vCont[i]->getActiveTb());
 		nppGUI._dockingData._containerTabInfo.push_back(act);
 	}
 
@@ -961,12 +978,12 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 		return -1;
 	const int blockSize = 1024; // To ensure that length is long enough to capture the encoding in html
 	char data[blockSize];
-	int lenFile = fread(data, 1, blockSize, f);
+	size_t lenFile = fread(data, 1, blockSize, f);
 	fclose(f);
 
 	// Put data in _invisibleEditView
 	_invisibleEditView.execute(SCI_CLEARALL);
-    _invisibleEditView.execute(SCI_APPENDTEXT, lenFile, (LPARAM)data);
+	_invisibleEditView.execute(SCI_APPENDTEXT, lenFile, reinterpret_cast<LPARAM>(data));
 
 	const char *encodingAliasRegExpr = "[a-zA-Z0-9_-]+";
 
@@ -976,25 +993,25 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 
 		const char *xmlHeaderRegExpr = "<?xml[ \\t]+version[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]+encoding[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]*.*?>";
 
-        int startPos = 0;
-		int endPos = lenFile-1;
+        size_t startPos = 0;
+		size_t endPos = lenFile-1;
 		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
 		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);
 
-		int posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(xmlHeaderRegExpr), (LPARAM)xmlHeaderRegExpr);
+		auto posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(xmlHeaderRegExpr), reinterpret_cast<LPARAM>(xmlHeaderRegExpr));
 		if (posFound != -1 && posFound != -2)
 		{
             const char *encodingBlockRegExpr = "encoding[ \\t]*=[ \\t]*\"[^\".]+\"";
-            _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingBlockRegExpr), (LPARAM)encodingBlockRegExpr);
+			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingBlockRegExpr), reinterpret_cast<LPARAM>(encodingBlockRegExpr));
 
             const char *encodingRegExpr = "\".+\"";
-            _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingRegExpr), (LPARAM)encodingRegExpr);
+			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingRegExpr), reinterpret_cast<LPARAM>(encodingRegExpr));
 
-			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingAliasRegExpr), (LPARAM)encodingAliasRegExpr);
+			_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingAliasRegExpr), reinterpret_cast<LPARAM>(encodingAliasRegExpr));
 
             startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
-			endPos = int(_invisibleEditView.execute(SCI_GETTARGETEND));
+			endPos = _invisibleEditView.execute(SCI_GETTARGETEND);
 
             char encodingStr[128];
             _invisibleEditView.getText(encodingStr, startPos, endPos);
@@ -1014,25 +1031,25 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 		const char *encodingStrRE = "[^ \\t=]+";
 
         int startPos = 0;
-		int endPos = lenFile-1;
+		auto endPos = lenFile - 1;
 		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
 		_invisibleEditView.execute(SCI_SETTARGETRANGE, startPos, endPos);
 
-		int posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr), (LPARAM)htmlHeaderRegExpr);
+		int posFound = static_cast<int32_t>(_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr), reinterpret_cast<LPARAM>(htmlHeaderRegExpr)));
 
 		if (posFound == -1 || posFound == -2)
 		{
-			posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr2), (LPARAM)htmlHeaderRegExpr2);
+			posFound = static_cast<int32_t>(_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr2), reinterpret_cast<LPARAM>(htmlHeaderRegExpr2)));
 			if (posFound == -1 || posFound == -2)
 				return -1;
 		}
-		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetBlock), (LPARAM)charsetBlock);
-		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(intermediaire), (LPARAM)intermediaire);
-		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingStrRE), (LPARAM)encodingStrRE);
+		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetBlock), reinterpret_cast<LPARAM>(charsetBlock));
+		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(intermediaire), reinterpret_cast<LPARAM>(intermediaire));
+		_invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingStrRE), reinterpret_cast<LPARAM>(encodingStrRE));
 
         startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
-		endPos = int(_invisibleEditView.execute(SCI_GETTARGETEND));
+		endPos = _invisibleEditView.execute(SCI_GETTARGETEND);
 
         char encodingStr[128];
         _invisibleEditView.getText(encodingStr, startPos, endPos);
@@ -1058,13 +1075,13 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
     if (_mainWindowStatus & WindowMainActive)
     {
-		for (int i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
+		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
 	    {
 			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
 				continue;
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			UINT cp = static_cast<UINT>(_invisibleEditView.execute(SCI_GETCODEPAGE));
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			_invisibleEditView.setCurrentBuffer(pBuf);
 		    _invisibleEditView.execute(SCI_BEGINUNDOACTION);
@@ -1075,13 +1092,13 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
 	if (_mainWindowStatus & WindowSubActive)
     {
-		for (int i = 0, len = _subDocTab.nbItem(); i < len; ++i)
+		for (size_t i = 0, len = _subDocTab.nbItem(); i < len; ++i)
 	    {
 			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
 				continue;
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			UINT cp = static_cast<UINT>(_invisibleEditView.execute(SCI_GETCODEPAGE));
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			_invisibleEditView.setCurrentBuffer(pBuf);
 		    _invisibleEditView.execute(SCI_BEGINUNDOACTION);
@@ -1102,7 +1119,7 @@ bool Notepad_plus::replaceInOpenedFiles() {
 		if (nbTotal)
 			enableCommand(IDM_FILE_SAVEALL, true, MENU | TOOLBAR);
 		TCHAR result[64];
-		wsprintf(result, TEXT("Replace in Opened Files: %d occurrences replaced."), nbTotal);
+		wsprintf(result, TEXT("Replace in Opened Files: %s occurrences replaced."), commafyInt(nbTotal).c_str());
 		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 	}
 	return true;
@@ -1111,20 +1128,18 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
 void Notepad_plus::wsTabConvert(spaceTab whichWay)
 {
-    int tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
-    int currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	int tabWidth = static_cast<int32_t>(_pEditView->execute(SCI_GETTABWIDTH));
+	int currentPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
     int lastLine = _pEditView->lastZeroBasedLineNumber();
-    int docLength = int(_pEditView->execute(SCI_GETLENGTH)) + 1;
+	int docLength = static_cast<int32_t>(_pEditView->execute(SCI_GETLENGTH) + 1);
     if (docLength < 2)
         return;
 
     int count = 0;
     int column = 0;
-    int counter = 0;
     int newCurrentPos = 0;
-    int tabStop = tabWidth - 1;   // remember, counting from zero !
+	int tabStop = static_cast<int32_t>(tabWidth - 1);   // remember, counting from zero !
     bool onlyLeading = false;
-    bool nonSpaceFound = false;
     vector<int> bookmarks;
     vector<int> folding;
 
@@ -1141,7 +1156,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
     char * source = new char[docLength];
     if (source == NULL)
         return;
-    _pEditView->execute(SCI_GETTEXT, docLength, (LPARAM)source);
+	_pEditView->execute(SCI_GETTEXT, docLength, reinterpret_cast<LPARAM>(source));
 
     if (whichWay == tab2Space)
     {
@@ -1176,8 +1191,8 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
             {
                 if (source[i] == '\t')
                 {
-                    size_t insertTabs = tabWidth - (column % tabWidth);
-                    for (size_t j = 0; j<insertTabs; ++j)
+                    int insertTabs = tabWidth - (column % tabWidth);
+                    for (int j = 0; j < insertTabs; ++j)
                     {
                         *dest++ = ' ';
                         if (i <= currentPos)
@@ -1206,6 +1221,8 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
         case space2TabAll:
         {
             bool nextChar = false;
+			int counter = 0;
+			bool nonSpaceFound = false;
             for (int i=0; source[i] != '\0'; ++i)
             {
                 if (nonSpaceFound == false)
@@ -1308,7 +1325,7 @@ void Notepad_plus::wsTabConvert(spaceTab whichWay)
     }
 
     _pEditView->execute(SCI_BEGINUNDOACTION);
-    _pEditView->execute(SCI_SETTEXT, 0, (LPARAM)destination);
+	_pEditView->execute(SCI_SETTEXT, 0, reinterpret_cast<LPARAM>(destination));
     _pEditView->execute(SCI_GOTOPOS, newCurrentPos);
 
     for (size_t i=0; i<bookmarks.size(); ++i)
@@ -1499,7 +1516,7 @@ bool Notepad_plus::replaceInFiles()
 		{
 			Buffer * pBuf = MainFileManager->getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			auto cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			_invisibleEditView.setCurrentBuffer(pBuf);
 
@@ -1518,7 +1535,7 @@ bool Notepad_plus::replaceInFiles()
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
-			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
+			progress.setPercent(int32_t((i * 100) / filesCount), fileNames.at(i).c_str());
 		}
 		else
 		{
@@ -1533,7 +1550,7 @@ bool Notepad_plus::replaceInFiles()
 	_pEditView = pOldView;
 
 	TCHAR msg[128];
-	wsprintf(msg, TEXT("Replace in Files: %d occurrences replaced"), nbTotal);
+	wsprintf(msg, TEXT("Replace in Files: %s occurrences replaced"), commafyInt(nbTotal).c_str());
 	_findReplaceDlg.setStatusbarMessage(msg, FSMessage);
 
 	return true;
@@ -1587,7 +1604,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 		{
 			Buffer * pBuf = MainFileManager->getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			auto cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 
 			findInFolderInfo->_pFileName = fileNames.at(i).c_str();
@@ -1598,7 +1615,7 @@ bool Notepad_plus::findInFinderFiles(FindersInfo *findInFolderInfo)
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
-			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
+			progress.setPercent(int32_t((i * 100) / filesCount), fileNames.at(i).c_str());
 		}
 		else
 		{
@@ -1672,7 +1689,7 @@ bool Notepad_plus::findInFiles()
 		{
 			Buffer * pBuf = MainFileManager->getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			auto cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			FindersInfo findersInfo;
 			findersInfo._pFileName = fileNames.at(i).c_str();
@@ -1683,7 +1700,7 @@ bool Notepad_plus::findInFiles()
 		if (i == updateOnCount)
 		{
 			updateOnCount += filesPerPercent;
-			progress.setPercent((i * 100) / filesCount, fileNames.at(i).c_str());
+			progress.setPercent(int32_t((i * 100) / filesCount), fileNames.at(i).c_str());
 		}
 		else
 		{
@@ -1722,11 +1739,11 @@ bool Notepad_plus::findInOpenedFiles()
 
     if (_mainWindowStatus & WindowMainActive)
     {
-		for (int i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
+		for (size_t i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
 	    {
 			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			auto cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			FindersInfo findersInfo;
 			findersInfo._pFileName = pBuf->getFullPathName();
@@ -1736,11 +1753,11 @@ bool Notepad_plus::findInOpenedFiles()
 
     if (_mainWindowStatus & WindowSubActive)
     {
-		for (int i = 0, len2 = _subDocTab.nbItem(); i < len2 ; ++i)
+		for (size_t i = 0, len2 = _subDocTab.nbItem(); i < len2 ; ++i)
 	    {
 			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			auto cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			FindersInfo findersInfo;
 			findersInfo._pFileName = pBuf->getFullPathName();
@@ -1775,7 +1792,7 @@ bool Notepad_plus::findInCurrentFile()
 	_findReplaceDlg.beginNewFilesSearch();
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-	int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+	UINT cp = static_cast<UINT>(_invisibleEditView.execute(SCI_GETCODEPAGE));
 	_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 	FindersInfo findersInfo;
 	findersInfo._pFileName = pBuf->getFullPathName();
@@ -1801,7 +1818,7 @@ void Notepad_plus::filePrint(bool showDialog)
 	int startPos = int(_pEditView->execute(SCI_GETSELECTIONSTART));
 	int endPos = int(_pEditView->execute(SCI_GETSELECTIONEND));
 
-	printer.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pEditView, showDialog, startPos, endPos);
+	printer.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pEditView, showDialog, startPos, endPos, _nativeLangSpeaker.isRTL());
 	printer.doPrint();
 }
 
@@ -1873,6 +1890,12 @@ void Notepad_plus::checkClipboard()
 	enableCommand(IDM_EDIT_DELETE, hasSelection, MENU | TOOLBAR);
 	enableCommand(IDM_EDIT_UPPERCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_LOWERCASE, hasSelection, MENU);
+	enableCommand(IDM_EDIT_PROPERCASE_FORCE, hasSelection, MENU);
+	enableCommand(IDM_EDIT_PROPERCASE_BLEND, hasSelection, MENU);
+	enableCommand(IDM_EDIT_SENTENCECASE_FORCE, hasSelection, MENU);
+	enableCommand(IDM_EDIT_SENTENCECASE_BLEND, hasSelection, MENU);
+	enableCommand(IDM_EDIT_INVERTCASE, hasSelection, MENU);
+	enableCommand(IDM_EDIT_RANDOMCASE, hasSelection, MENU);
 }
 
 void Notepad_plus::checkDocState()
@@ -1884,7 +1907,7 @@ void Notepad_plus::checkDocState()
 	bool isFileExisting = PathFileExists(curBuf->getFullPathName()) != FALSE;
 	if (!isCurrentDirty)
 	{
-		for (int i = 0; i < MainFileManager->getNrBuffers(); ++i)
+		for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
 		{
 			if (MainFileManager->getBufferByIndex(i)->isDirty())
 			{
@@ -1917,6 +1940,11 @@ void Notepad_plus::checkDocState()
 
 	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
 	enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
+	enableCommand(IDM_FILE_OPEN_CMD, isFileExisting, MENU);
+	enableCommand(IDM_FILE_OPEN_FOLDER, isFileExisting, MENU);
+	enableCommand(IDM_FILE_RELOAD, isFileExisting, MENU);
+
+	enableCommand(IDM_FILE_OPEN_DEFAULT_VIEWER, isAssoCommandExisting(curBuf->getFullPathName()), MENU);
 
 	enableConvertMenuItems(curBuf->getEolFormat());
 	checkUnicodeMenuItems();
@@ -1963,6 +1991,38 @@ void Notepad_plus::checkSyncState()
 	enableCommand(IDM_VIEW_SYNSCROLLH, canDoSync, MENU | TOOLBAR);
 }
 
+void doCheck(HMENU mainHandle, int id)
+{
+	MENUITEMINFO mii;
+	mii.cbSize = sizeof(MENUITEMINFO);
+	mii.fMask = MIIM_SUBMENU | MIIM_FTYPE | MIIM_ID | MIIM_STATE;
+
+	int count = ::GetMenuItemCount(mainHandle);
+	for (int i = 0; i < count; i++)
+	{
+		::GetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
+		if (mii.fType == MFT_RADIOCHECK || mii.fType == MFT_STRING)
+		{
+			if (mii.hSubMenu == 0)
+			{
+				if (mii.wID == (unsigned int)id)
+				{
+					::CheckMenuRadioItem(mainHandle, 0, count, i, MF_BYPOSITION);
+				}
+				else
+				{
+					mii.fState = 0;
+					::SetMenuItemInfo(mainHandle, i, MF_BYPOSITION, &mii);
+				}
+			}
+			else
+			{
+				doCheck(mii.hSubMenu, id);
+			}
+		}
+	}
+}
+
 void Notepad_plus::checkLangsMenu(int id) const
 {
 	Buffer * curBuf = _pEditView->getCurrentBuffer();
@@ -1982,14 +2042,16 @@ void Notepad_plus::checkLangsMenu(int id) const
 					if (::GetMenuString(_mainMenuHandle, i, menuLangName, nbChar-1, MF_BYCOMMAND))
 						if (!lstrcmp(userLangName, menuLangName))
 						{
-							::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, i, MF_BYCOMMAND);
+							HMENU _langMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
+							doCheck(_langMenuHandle, i);
 							return;
 						}
 				}
 			}
 		}
 	}
-	::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, id, MF_BYCOMMAND);
+	HMENU _langMenuHandle = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
+	doCheck(_langMenuHandle, id);
 }
 
 generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
@@ -2112,8 +2174,8 @@ void Notepad_plus::pasteToMarkedLines()
 
 void Notepad_plus::deleteMarkedline(int ln)
 {
-	int lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
-	int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
+	int lineLen = static_cast<int32_t>(_pEditView->execute(SCI_LINELENGTH, ln));
+	int lineBegin = static_cast<int32_t>(_pEditView->execute(SCI_POSITIONFROMLINE, ln));
 
 	bookmarkDelete(ln);
 	TCHAR emptyString[2] = TEXT("");
@@ -2138,16 +2200,16 @@ void Notepad_plus::inverseMarks()
 
 void Notepad_plus::replaceMarkedline(int ln, const TCHAR *str)
 {
-	int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
-	int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, ln);
+	int lineBegin = static_cast<int32_t>(_pEditView->execute(SCI_POSITIONFROMLINE, ln));
+	int lineEnd = static_cast<int32_t>(_pEditView->execute(SCI_GETLINEENDPOSITION, ln));
 
 	_pEditView->replaceTarget(str, lineBegin, lineEnd);
 }
 
 generic_string Notepad_plus::getMarkedLine(int ln)
 {
-	int lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
-	int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
+	auto lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
+	auto lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
 
 	TCHAR * buf = new TCHAR[lineLen+1];
 	_pEditView->getGenericText(buf, lineLen + 1, lineBegin, lineBegin + lineLen);
@@ -2231,9 +2293,9 @@ void Notepad_plus::setDisplayFormat(EolType format)
 	const TCHAR* str = TEXT("??");
 	switch (format)
 	{
-		case EolType::windows: str = TEXT("Dos\\Windows"); break;
-		case EolType::macos:   str = TEXT("Macintosh"); break;
-		case EolType::unix:    str = TEXT("UNIX"); break;
+		case EolType::windows: str = TEXT("Windows (CR LF)"); break;
+		case EolType::macos:   str = TEXT("Macintosh (CR)"); break;
+		case EolType::unix:    str = TEXT("Unix (LF)"); break;
 		case EolType::unknown: str = TEXT("Unknown"); assert(false);  break;
 	}
 	_statusBar.setText(str, STATUSBAR_EOF_FORMAT);
@@ -2292,7 +2354,7 @@ void Notepad_plus::addHotSpot()
 {
 	int startPos = 0;
 	int endPos = -1;
-	int endStyle = _pEditView->execute(SCI_GETENDSTYLED);
+	auto endStyle = _pEditView->execute(SCI_GETENDSTYLED);
 
 	_pEditView->getVisibleStartAndEndPosition(&startPos, &endPos);
 
@@ -2323,7 +2385,7 @@ void Notepad_plus::addHotSpot()
 	else if (type == L_PS)
 		mask = 16;
 
-	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
+	int posFound = static_cast<int32_t>(_pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
 
 	while (posFound != -1 && posFound != -2)
 	{
@@ -2361,7 +2423,7 @@ void Notepad_plus::addHotSpot()
 			Style hotspotStyle;
 
 			hotspotStyle._styleID = static_cast<int>(style_hotspot);
-			_pEditView->execute(SCI_STYLEGETFONT, idStyleMSBunset, (LPARAM)fontNameA);
+			_pEditView->execute(SCI_STYLEGETFONT, idStyleMSBunset, reinterpret_cast<LPARAM>(fontNameA));
 			TCHAR *generic_fontname = new TCHAR[128];
 
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -2369,13 +2431,13 @@ void Notepad_plus::addHotSpot()
 			lstrcpy(generic_fontname, fontNameW);
 			hotspotStyle._fontName = generic_fontname;
 
-			hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyleMSBunset);
-			hotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyleMSBunset);
-			hotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyleMSBunset);
+			hotspotStyle._fgColor = static_cast<COLORREF>(_pEditView->execute(SCI_STYLEGETFORE, idStyleMSBunset));
+			hotspotStyle._bgColor = static_cast<COLORREF>(_pEditView->execute(SCI_STYLEGETBACK, idStyleMSBunset));
+			hotspotStyle._fontSize = static_cast<int32_t>(_pEditView->execute(SCI_STYLEGETSIZE, idStyleMSBunset));
 
-			int isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyleMSBunset);
-			int isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyleMSBunset);
-			int isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyleMSBunset);
+			auto isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyleMSBunset);
+			auto isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyleMSBunset);
+			auto isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyleMSBunset);
 			hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 
 			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
@@ -2399,7 +2461,7 @@ void Notepad_plus::addHotSpot()
 
 		_pEditView->execute(SCI_SETTARGETRANGE, posFound + foundTextLen, endPos);
 
-		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
+		posFound = static_cast<int32_t>(_pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), reinterpret_cast<LPARAM>(URL_REG_EXPR)));
 	}
 
 	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);
@@ -2411,17 +2473,17 @@ bool Notepad_plus::isConditionExprLine(int lineNumber)
 	if (lineNumber < 0 || lineNumber > _pEditView->execute(SCI_GETLINECOUNT))
 		return false;
 
-	int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
-	int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
+	auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, lineNumber);
+	auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, lineNumber);
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
 	_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 	const char ifElseForWhileExpr[] = "((else[ \t]+)?if|for|while)[ \t]*[(].*[)][ \t]*|else[ \t]*";
 
-	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(ifElseForWhileExpr), (LPARAM)ifElseForWhileExpr);
+	auto posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(ifElseForWhileExpr), reinterpret_cast<LPARAM>(ifElseForWhileExpr));
 	if (posFound != -1 && posFound != -2)
 	{
-		int end = int(_pEditView->execute(SCI_GETTARGETEND));
+		auto end = _pEditView->execute(SCI_GETTARGETEND);
 		if (end == endPos)
 			return true;
 	}
@@ -2434,13 +2496,12 @@ int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char target
 	if (startPos == endPos)
 		return -1;
 
-	int balance = 0;
-
 	if (startPos > endPos) // backward
 	{
-		for (int i = startPos; i >= int(endPos); --i)
+		int balance = 0;
+		for (int i = int(startPos); i >= int(endPos); --i)
 		{
-			char aChar = (char)_pEditView->execute(SCI_GETCHARAT, i);
+			char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, i));
 			if (aChar == targetSymbol)
 			{
 				if (balance == 0)
@@ -2461,11 +2522,11 @@ int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char target
 
 void Notepad_plus::maintainIndentation(TCHAR ch)
 {
-	int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
-	int curLine = int(_pEditView->getCurrentLineNumber());
+	int eolMode = static_cast<int32_t>((_pEditView->execute(SCI_GETEOLMODE)));
+	int curLine = static_cast<int32_t>((_pEditView->getCurrentLineNumber()));
 	int prevLine = curLine - 1;
 	int indentAmountPrevLine = 0;
-	int tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
+	int tabWidth = static_cast<int32_t>(_pEditView->execute(SCI_GETTABWIDTH));
 
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 
@@ -2486,9 +2547,9 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			}
 
 			// get previous char from current line
-			int prevPos = _pEditView->execute(SCI_GETCURRENTPOS) - (eolMode == SC_EOL_CRLF ? 3 : 2);
+			int prevPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS)) - (eolMode == SC_EOL_CRLF ? 3 : 2);
 			UCHAR prevChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, prevPos);
-			int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+			auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
 			UCHAR nextChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, curPos);
 
 			if (prevChar == '{')
@@ -2503,7 +2564,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 					else
 						eolChars = "\r";
 
-					_pEditView->execute(SCI_INSERTTEXT, _pEditView->execute(SCI_GETCURRENTPOS), (LPARAM)eolChars);
+					_pEditView->execute(SCI_INSERTTEXT, _pEditView->execute(SCI_GETCURRENTPOS), reinterpret_cast<LPARAM>(eolChars));
 					_pEditView->setLineIndent(curLine + 1, indentAmountPrevLine);
 				}
 				_pEditView->setLineIndent(curLine, indentAmountPrevLine + tabWidth);
@@ -2530,10 +2591,10 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 		else if (ch == '{')
 		{
 			// if no character in front of {, aligned with prev line's indentation
-			int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, curLine);
-			int endPos = _pEditView->execute(SCI_GETCURRENTPOS);
+			auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, curLine);
+			LRESULT endPos = _pEditView->execute(SCI_GETCURRENTPOS);
 
-			for (int i = endPos - 2; i > 0 && i > startPos; --i)
+			for (LRESULT i = endPos - 2; i > 0 && i > startPos; --i)
 			{
 				UCHAR aChar = (UCHAR)_pEditView->execute(SCI_GETCHARAT, i);
 				if (aChar != ' ' && aChar != '\t')
@@ -2549,14 +2610,14 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				indentAmountPrevLine = _pEditView->getLineIndent(prevLine);
 
-				int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
-				int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
+				auto startPos = _pEditView->execute(SCI_POSITIONFROMLINE, prevLine);
+				auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, prevLine);
 				_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP | SCFIND_POSIX);
 				_pEditView->execute(SCI_SETTARGETRANGE, startPos, endPos);
 
 				const char braceExpr[] = "[ \t]*\\{.*";
 
-				int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(braceExpr), (LPARAM)braceExpr);
+				int posFound = static_cast<int32_t>(_pEditView->execute(SCI_SEARCHINTARGET, strlen(braceExpr), reinterpret_cast<LPARAM>(braceExpr)));
 				if (posFound != -1 && posFound != -2)
 				{
 					int end = int(_pEditView->execute(SCI_GETTARGETEND));
@@ -2571,7 +2632,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 		else if (ch == '}')
 		{
 			// Look backward for the pair {
-			int startPos = _pEditView->execute(SCI_GETCURRENTPOS);
+			int startPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 			if (startPos != 0)
 				startPos -= 1;
 			int posFound = findMachedBracePos(startPos - 1, 0, '{', '}');
@@ -2581,7 +2642,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 				return;
 
 			// if { is in the same line, do nothing
-			int matchedPairLine = _pEditView->execute(SCI_LINEFROMPOSITION, posFound);
+			int matchedPairLine = static_cast<int32_t>(_pEditView->execute(SCI_LINEFROMPOSITION, posFound));
 			if (matchedPairLine == curLine)
 				return;
 
@@ -2620,46 +2681,54 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 	}
 }
 
+BOOL Notepad_plus::processFindAccel(MSG *msg) const
+{
+	if (not ::IsChild(_findReplaceDlg.getHSelf(), ::GetFocus()))
+		return FALSE;
+	return ::TranslateAccelerator(_findReplaceDlg.getHSelf(), _accelerator.getFindAccTable(), msg);
+}
 
 BOOL Notepad_plus::processIncrFindAccel(MSG *msg) const
 {
-	if (!::IsChild(_incrementFindDlg.getHSelf(), ::GetFocus()))
+	if (not ::IsChild(_incrementFindDlg.getHSelf(), ::GetFocus()))
 		return FALSE;
 	return ::TranslateAccelerator(_incrementFindDlg.getHSelf(), _accelerator.getIncrFindAccTable(), msg);
 }
 
-void Notepad_plus::setLanguage(LangType langType) {
+void Notepad_plus::setLanguage(LangType langType)
+{
 	//Add logic to prevent changing a language when a document is shared between two views
 	//If so, release one document
 	bool reset = false;
 	Document prev = 0;
-	if (bothActive()) {
-		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID()) {
+	if (bothActive())
+	{
+		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID())
+		{
 			reset = true;
 			_subEditView.saveCurrentPos();
 			prev = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 		}
 	}
-	if (reset) {
+	
+	if (reset)
+	{
 		_mainEditView.getCurrentBuffer()->setLangType(langType);
-	} else {
-		/*
-		int mode = _pEditView->execute(SCI_GETMODEVENTMASK, 0, 0);
-		_pEditView->execute(SCI_SETMODEVENTMASK, 0, 0);
-		_pEditView->getCurrentBuffer()->setLangType(langType);
-		_pEditView->execute(SCI_SETMODEVENTMASK, mode, 0);
-		*/
+	}
+	else
+	{
 		_pEditView->getCurrentBuffer()->setLangType(langType);
 	}
 
-	if (reset) {
+	if (reset)
+	{
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
 		_subEditView.restoreCurrentPos();
 	}
 };
 
-enum LangType Notepad_plus::menuID2LangType(int cmdID)
+LangType Notepad_plus::menuID2LangType(int cmdID)
 {
 	switch (cmdID)
 	{
@@ -2777,7 +2846,56 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_R;
 		case IDM_LANG_COFFEESCRIPT :
             return L_COFFEESCRIPT;
-
+		case IDM_LANG_BAANC:
+			return L_BAANC;
+		case IDM_LANG_SREC :
+            return L_SREC;
+		case IDM_LANG_IHEX :
+            return L_IHEX;
+		case IDM_LANG_TEHEX :
+            return L_TEHEX;
+		case IDM_LANG_SWIFT:
+			return L_SWIFT;
+        case IDM_LANG_ASN1 :
+            return L_ASN1;
+        case IDM_LANG_AVS :
+            return L_AVS;
+        case IDM_LANG_BLITZBASIC :
+            return L_BLITZBASIC;
+        case IDM_LANG_PUREBASIC :
+            return L_PUREBASIC;
+        case IDM_LANG_FREEBASIC :
+            return L_FREEBASIC;
+        case IDM_LANG_CSOUND :
+            return L_CSOUND;
+        case IDM_LANG_ERLANG :
+            return L_ERLANG;
+        case IDM_LANG_ESCRIPT :
+            return L_ESCRIPT;
+        case IDM_LANG_FORTH :
+            return L_FORTH;
+        case IDM_LANG_LATEX :
+            return L_LATEX;
+        case IDM_LANG_MMIXAL :
+            return L_MMIXAL;
+        case IDM_LANG_NIMROD :
+            return L_NIMROD;
+        case IDM_LANG_NNCRONTAB :
+            return L_NNCRONTAB;
+        case IDM_LANG_OSCRIPT :
+            return L_OSCRIPT;
+        case IDM_LANG_REBOL :
+            return L_REBOL;
+        case IDM_LANG_REGISTRY :
+            return L_REGISTRY;
+        case IDM_LANG_RUST :
+            return L_RUST;
+        case IDM_LANG_SPICE :
+            return L_SPICE;
+        case IDM_LANG_TXT2TAGS :
+            return L_TXT2TAGS;
+        case IDM_LANG_VISUALPROLOG:
+            return L_VISUALPROLOG;
 		case IDM_LANG_USER :
             return L_USER;
 		default: {
@@ -2816,12 +2934,12 @@ void Notepad_plus::setTitle()
 	if (_isAdministrator)
 		result += TEXT(" [Administrator]");
 
-	::SendMessage(_pPublicInterface->getHSelf(), WM_SETTEXT, 0, (LPARAM)result.c_str());
+	::SendMessage(_pPublicInterface->getHSelf(), WM_SETTEXT, 0, reinterpret_cast<LPARAM>(result.c_str()));
 }
 
 void Notepad_plus::activateNextDoc(bool direction)
 {
-	int nbDoc = _pDocTab->nbItem();
+	int nbDoc = static_cast<int32_t>(_pDocTab->nbItem());
 
     int curIndex = _pDocTab->getCurrentTabIndex();
     curIndex += (direction == dirUp)?-1:1;
@@ -2837,7 +2955,7 @@ void Notepad_plus::activateNextDoc(bool direction)
 		if (viewVisible(otherView()))
 		{
 			switchEditViewTo(otherView());
-			nbDoc = _pDocTab->nbItem();
+			nbDoc = static_cast<int32_t>(_pDocTab->nbItem());
 		}
 		curIndex = nbDoc - 1;
 	}
@@ -2846,17 +2964,17 @@ void Notepad_plus::activateNextDoc(bool direction)
 	activateBuffer(id, currentView());
 }
 
-void Notepad_plus::activateDoc(int pos)
+void Notepad_plus::activateDoc(size_t pos)
 {
-	int nbDoc = _pDocTab->nbItem();
-	if (pos == _pDocTab->getCurrentTabIndex())
+	size_t nbDoc = _pDocTab->nbItem();
+	if (pos == static_cast<size_t>(_pDocTab->getCurrentTabIndex()))
 	{
 		Buffer * buf = _pEditView->getCurrentBuffer();
 		buf->increaseRecentTag();
 		return;
 	}
 
-	if (pos >= 0 && pos < nbDoc)
+	if (pos < nbDoc)
 	{
 		BufferID id = _pDocTab->getBufferByIndex(pos);
 		activateBuffer(id, currentView());
@@ -2869,7 +2987,7 @@ static const char utflen[] = {1,1,2,3};
 size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 {
 	size_t result = 0;
-	int numSel = _pEditView->execute(SCI_GETSELECTIONS);
+	int numSel = static_cast<int32_t>(_pEditView->execute(SCI_GETSELECTIONS));
 	if (u == uniUTF8 || u == uniCookie)
 	{
 		for (int i=0; i < numSel; ++i)
@@ -2884,7 +3002,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 					size_t endpos = _pEditView->execute(SCI_GETLINESELENDPOSITION, j);
 					for (size_t pos = stpos; pos < endpos; ++pos)
 					{
-						unsigned char c = 0xf0 & (unsigned char)_pEditView->execute(SCI_GETCHARAT, pos);
+						unsigned char c = 0xf0 & static_cast<unsigned char>(_pEditView->execute(SCI_GETCHARAT, pos));
 						if (c >= 0xc0)
 							pos += utflen[(c & 0x30) >>  4];
 						++result;
@@ -2915,7 +3033,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 #ifdef _OPENMP
 #include <omp.h>
 #endif
-static inline size_t countUtf8Characters(unsigned char *buf, int pos, int endpos)
+static inline size_t countUtf8Characters(unsigned char *buf, size_t pos, size_t endpos)
 {
 	size_t result = 0;
 	while(pos < endpos)
@@ -2923,7 +3041,8 @@ static inline size_t countUtf8Characters(unsigned char *buf, int pos, int endpos
 		unsigned char c = buf[pos++];
 		if ((c&0xc0) == 0x80 // do not count unexpected continuation bytes (this handles the case where an UTF-8 character is split in the middle)
 			|| c == '\n' || c == '\r') continue; // do not count end of lines
-		if (c >= 0xc0) pos += utflen[(c & 0x30) >>  4];
+		if (c >= 0xc0) 
+			pos += utflen[(c & 0x30) >>  4];
 		++result;
 	}
 	return result;
@@ -2935,11 +3054,11 @@ size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 	if (u != uniUTF8 && u != uniCookie)
 	{
 		size_t numLines = _pEditView->execute(SCI_GETLINECOUNT);
-		int result = _pEditView->execute(SCI_GETLENGTH);
+		auto result = _pEditView->execute(SCI_GETLENGTH);
 		size_t lines = numLines==0?0:numLines-1;
 		if (_pEditView->execute(SCI_GETEOLMODE) == SC_EOL_CRLF) lines *= 2;
 		result -= lines;
-		return ((int)result < 0)?0:result;
+		return (result < 0) ? 0 : result;
 	}
  	else
  	{
@@ -2994,9 +3113,9 @@ int Notepad_plus::getBOMSize(UniMode u)
 	}
 }
 
-int Notepad_plus::getSelectedAreas()
+size_t Notepad_plus::getSelectedAreas()
 {
-	int numSel = _pEditView->execute(SCI_GETSELECTIONS);
+	size_t numSel = _pEditView->execute(SCI_GETSELECTIONS);
 	if (numSel == 1) // either 0 or 1 selection
 		return (_pEditView->execute(SCI_GETSELECTIONNSTART, 0) == _pEditView->execute(SCI_GETSELECTIONNEND, 0)) ? 0 : 1;
 	return (_pEditView->execute(SCI_SELECTIONISRECTANGLE)) ? 1 : numSel;
@@ -3004,9 +3123,9 @@ int Notepad_plus::getSelectedAreas()
 
 size_t Notepad_plus::getSelectedBytes()
 {
-	int numSel = _pEditView->execute(SCI_GETSELECTIONS);
+	size_t numSel = _pEditView->execute(SCI_GETSELECTIONS);
 	size_t result = 0;
-	for (int i = 0; i < numSel; ++i)
+	for (size_t i = 0; i < numSel; ++i)
 		result += (_pEditView->execute(SCI_GETSELECTIONNEND, i) - _pEditView->execute(SCI_GETSELECTIONNSTART, i));
 	return result;
 }
@@ -3029,21 +3148,24 @@ void Notepad_plus::updateStatusBar()
 
 	_pEditView->getSelectedCount(selByte, selLine);
 
-	long selected_length = _pEditView->getSelectedLength();
+	long selected_length = _pEditView->getUnicodeSelectedLength();
 	if (selected_length != -1)
-		wsprintf(strSel, TEXT("Sel : %d | %d"), selected_length, selLine);
+		wsprintf(strSel, TEXT("Sel : %s | %s"), commafyInt(selected_length).c_str(), commafyInt(selLine).c_str());
 	else
 		wsprintf(strSel, TEXT("Sel : %s"), TEXT("N/A"));
 
-    wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    %s"),\
-        (_pEditView->getCurrentLineNumber() + 1), \
-        (_pEditView->getCurrentColumnNumber() + 1),\
-        strSel);
+	wsprintf(strLnCol, TEXT("Ln : %s    Col : %s    %s"),
+		commafyInt(_pEditView->getCurrentLineNumber() + 1).c_str(),
+		commafyInt(_pEditView->getCurrentColumnNumber() + 1).c_str(),
+		strSel);
 
     _statusBar.setText(strLnCol, STATUSBAR_CUR_POS);
 
     TCHAR strDocLen[256];
-	wsprintf(strDocLen, TEXT("length : %d    lines : %d"), _pEditView->getCurrentDocLen(), _pEditView->execute(SCI_GETLINECOUNT));
+	wsprintf(strDocLen, TEXT("length : %s    lines : %s"),
+		commafyInt(_pEditView->getCurrentDocLen()).c_str(),
+		commafyInt(_pEditView->execute(SCI_GETLINECOUNT)).c_str());
+
     _statusBar.setText(strDocLen, STATUSBAR_DOC_SIZE);
     _statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
 }
@@ -3088,7 +3210,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			}
 		}
 		
-		bool isOldMode = false;
+		NppParameters *pNppParam = NppParameters::getInstance();
+		bool isOldMode = pNppParam->getNppGUI()._isFolderDroppedOpenFiles;
 
 		if (isOldMode || folderPaths.size() == 0) // old mode or new mode + only files
 		{
@@ -3111,28 +3234,16 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() != 0)) // new mode && both folders & files
 		{
 			// display error & do nothing
+			_nativeLangSpeaker.messageBox("DroppingFolderAsProjetModeWarning",
+				_pPublicInterface->getHSelf(),
+				TEXT("You can drop only files or folders but not both, because you're in dropping Folder as Projet mode.\ryou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work."),
+				TEXT("Invalid action"),
+				MB_OK | MB_APPLMODAL);
 		}
 		else if (not isOldMode && (folderPaths.size() != 0 && filePaths.size() == 0)) // new mode && only folders
 		{
 			// process new mode
 			launchFileBrowser(folderPaths);
-
-			/*
-			for (int i = 0; i < filesDropped; ++i)
-			{
-				if (not _pFileBrowser->isAlreadyExist(folderPaths[i]))
-				{
-					vector<generic_string> patterns2Match;
-					patterns2Match.push_back(TEXT("*.*"));
-
-					FolderInfo directoryStructure;
-					getDirectoryStructure(folderPaths[i].c_str(), patterns2Match, directoryStructure, true, false);
-					_pFileBrowser->setDirectoryStructure(directoryStructure);
-				}
-				int j = 0;
-				j++;
-			}
-			*/
 		}
 
 		if (lastOpened != BUFFER_INVALID) 
@@ -3254,6 +3365,17 @@ bool Notepad_plus::canHideView(int whichOne)
 	return canHide;
 }
 
+bool Notepad_plus::isEmpty()
+{
+	if (bothActive()) return false;
+
+	DocTabView * tabToCheck = (_mainWindowStatus & WindowMainActive) ? &_mainDocTab : &_subDocTab;
+	
+	Buffer * buf = MainFileManager->getBufferByID(tabToCheck->getBufferByIndex(0));
+	bool isEmpty = ((tabToCheck->nbItem() == 1) && !buf->isDirty() && buf->isUntitled());
+	return isEmpty;
+}
+
 void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 {
 	DocTabView * tabToOpen = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
@@ -3328,7 +3450,7 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
 		{
 			int toActivate = 0;
 			//activate next doc, otherwise prev if not possible
-			if (active == tabToClose->nbItem() - 1) //prev
+			if (size_t(active) == tabToClose->nbItem() - 1) //prev
 			{
 				toActivate = active - 1;
 			}
@@ -3512,6 +3634,17 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	}
 	else	//open the document, also copying the position
 	{
+		// If both the views are visible then first save the position of non-edit view
+		// So that moving document between views does not lose caret position
+		// How it works =>
+		//		non-edit view becomes edit view as document from edit view is sent to non edit view
+		//		restoreCurrentPos is called on non-edit view, which will restore the position of
+		//		active document/tab on non-edit view  (whatever position we set in below if condition)
+		if (_pEditView->isVisible() && _pNonEditView->isVisible())
+		{
+			_pNonEditView->saveCurrentPos();
+		}
+
 		loadBufferIntoView(current, viewToGo);
 		Buffer *buf = MainFileManager->getBufferByID(current);
 		_pEditView->saveCurrentPos();	//allow copying of position
@@ -3584,8 +3717,6 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 	}
 
 	notifyBufferActivated(id, whichOne);
-
-	//scnN.nmhdr.code = NPPN_DOCSWITCHINGIN;		//superseeded by NPPN_BUFFERACTIVATED
 	return true;
 }
 
@@ -3604,9 +3735,9 @@ void Notepad_plus::performPostReload(int whichOne) {
 
 void Notepad_plus::bookmarkNext(bool forwardScan)
 {
-	int lineno = _pEditView->getCurrentLineNumber();
+	size_t lineno = _pEditView->getCurrentLineNumber();
 	int sci_marker = SCI_MARKERNEXT;
-	int lineStart = lineno + 1;	//Scan starting from next line
+	size_t lineStart = lineno + 1;	//Scan starting from next line
 	int lineRetry = 0;				//If not found, try from the beginning
 	if (!forwardScan)
     {
@@ -3800,19 +3931,29 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 
 bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 {
-	//--LS: BlockToStreamComment:
+	Buffer * buf = _pEditView->getCurrentBuffer();
+	// Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	if (buf->isReadOnly())
+		return false;
+
+	//-- BlockToStreamComment:
 	const TCHAR *commentStart;
 	const TCHAR *commentEnd;
 	generic_string symbolStart;
 	generic_string symbolEnd;
 
-	const TCHAR *commentLineSybol;
+	const TCHAR *commentLineSymbol;
 	generic_string symbol;
 
-	Buffer * buf = _pEditView->getCurrentBuffer();
-	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
-	if (buf->isReadOnly())
-		return false;
+	//Single Line Comment/Uncomment/Toggle can have two modes:
+	// * a NORMAL MODE which uses a commentLineSymbol to comment/uncomment code per line, and
+	// * an ADVANCED MODE which uses commentStart and commentEnd symbols to comment/uncomment code per line.
+	//The NORMAL MODE is used for all Lexers which have a commentLineSymbol defined.
+	//The ADVANCED MODE is only available for Lexers which do not have a commentLineSymbol but commentStreamSymbols (start/end) defined.
+	//The ADVANCED MODE behaves the same way as the NORMAL MODE (comment/uncomment every single line in the selection range separately)
+	//but uses two smbols to accomplish this.
+	bool isSingleLineAdvancedMode = false;
+
 	if (buf->getLangType() == L_USER)
 	{
 		UserLangContainer * userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
@@ -3820,8 +3961,8 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			return false;
 
 		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
-		commentLineSybol = symbol.c_str();
-		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
+		commentLineSymbol = symbol.c_str();
+		// BlockToStreamComment: Needed to decide, if stream-comment can be called below!
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
 		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
@@ -3829,24 +3970,35 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	}
 	else
 	{
-		commentLineSybol = buf->getCommentLineSymbol();
-		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
+		commentLineSymbol = buf->getCommentLineSymbol();
+		// BlockToStreamComment: Needed to decide, if stream-comment can be called below!
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	if ((!commentLineSybol) || (!commentLineSybol[0]) || (commentLineSybol == NULL))
+	if ((!commentLineSymbol) || (!commentLineSymbol[0]) || (commentLineSymbol == NULL))
 	{
-	//--FLS: BlockToStreamComment: If there is no block-comment symbol, try the stream comment:
+	// BlockToStreamComment: If there is no block-comment symbol, try the stream comment:
 		if (!(!commentStart || !commentStart[0] || commentStart == NULL || !commentEnd || !commentEnd[0] || commentEnd == NULL))
 		{
-			if ((currCommentMode == cm_comment))
+			if (currCommentMode == cm_comment)
 			{
-				return doStreamComment();
+				//Do an advanced "Single Line Comment" by using stream-comment symbols (start/end) per line in this case.
+				isSingleLineAdvancedMode = true;
+				//return doStreamComment(); //Use "Block Comment" for this.
 			}
 			else if (currCommentMode == cm_uncomment)
 			{
-				return undoStreamComment();
+				//"undoStreamComment()" can be more flexible than "isSingleLineAdvancedMode = true", 
+				//since it can uncomment more embedded levels at once and the commentEnd symbol can be located everywhere. 
+				//But, depending on the selection start/end position, the first/last selected line may not be uncommented properly!
+				return undoStreamComment(false);
+				//isSingleLineAdvancedMode = true;
+			}
+			else if (currCommentMode == cm_toggle)
+			{
+				//Do an advanced "Toggle Single Line Comment" by using stream-comment symbols (start/end) per line in this case.
+				isSingleLineAdvancedMode = true;
 			}
 			else
 				return false;
@@ -3855,84 +4007,214 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			return false;
 	}
 
-    generic_string comment(commentLineSybol);
-    comment += TEXT(" ");
+	//For Single Line NORMAL MODE
+	generic_string comment;
+	size_t comment_length = 0;
 
-    size_t comment_length = comment.length();
+	//For Single Line ADVANCED MODE
+	generic_string advCommentStart;
+	generic_string advCommentEnd;
+	size_t advCommentStart_length = 0;
+	size_t advCommentEnd_length = 0;
+
+	const TCHAR aSpace[] { TEXT(" ") };
+
+	//Only values that have passed through will be assigned, to be sure they are valid!
+	if (not isSingleLineAdvancedMode)
+	{
+		comment = commentLineSymbol;
+
+		if (!(buf->getLangType() == L_BAANC)) // BaanC standardization - no space.
+			comment += aSpace;
+
+		comment_length = comment.length();
+	}
+	else // isSingleLineAdvancedMode
+	{
+		advCommentStart = commentStart;
+		advCommentStart += aSpace;
+		advCommentEnd = aSpace;
+		advCommentEnd += commentEnd;
+
+		advCommentStart_length = advCommentStart.length();
+		advCommentEnd_length = advCommentEnd.length();
+	}
+
     size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
     size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
     size_t caretPosition = _pEditView->execute(SCI_GETCURRENTPOS);
     // checking if caret is located in _beginning_ of selected block
     bool move_caret = caretPosition < selectionEnd;
-    int selStartLine = _pEditView->execute(SCI_LINEFROMPOSITION, selectionStart);
-    int selEndLine = _pEditView->execute(SCI_LINEFROMPOSITION, selectionEnd);
+	int selStartLine = static_cast<int32_t>(_pEditView->execute(SCI_LINEFROMPOSITION, selectionStart));
+	int selEndLine = static_cast<int32_t>(_pEditView->execute(SCI_LINEFROMPOSITION, selectionEnd));
     int lines = selEndLine - selStartLine;
-    size_t firstSelLineStart = _pEditView->execute(SCI_POSITIONFROMLINE, selStartLine);
     // "caret return" is part of the last selected line
     if ((lines > 0) && (selectionEnd == static_cast<size_t>(_pEditView->execute(SCI_POSITIONFROMLINE, selEndLine))))
 		selEndLine--;
-	//--FLS: count lines which were un-commented to decide if undoStreamComment() shall be called.
+	// count lines which were un-commented to decide if undoStreamComment() shall be called.
 	int nUncomments = 0;
+	//Some Lexers need line-comments at the beginning of a line.
+	const bool avoidIndent = (buf->getLangType() == L_FORTRAN_77 || buf->getLangType() == L_BAANC);
+	//Some Lexers comment blank lines, per their standards.
+	const bool commentEmptyLines = (buf->getLangType() == L_BAANC);
+
     _pEditView->execute(SCI_BEGINUNDOACTION);
 
     for (int i = selStartLine; i <= selEndLine; ++i)
 	{
-		int lineStart = _pEditView->execute(SCI_POSITIONFROMLINE, i);
-        int lineIndent = lineStart;
-        int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
+		size_t lineStart = _pEditView->execute(SCI_POSITIONFROMLINE, i);
+		size_t lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
+		size_t lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
 
-		size_t linebufferSize = lineEnd - lineStart + 2;
+		// empty lines are not commented, unless required by the language.
+		if (lineIndent == lineEnd && !commentEmptyLines)
+			continue;
+
+		if (avoidIndent)
+			lineIndent = lineStart;
+
+		size_t linebufferSize = lineEnd - lineIndent + comment_length;
 		TCHAR* linebuf = new TCHAR[linebufferSize];
 
-		Lang *lang = _pEditView->getCurrentBuffer()->getCurrentLang();
-		bool isFortran = lang == NULL?false:lang->_langID == L_FORTRAN_77;
-		if (!isFortran)
-			lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
 		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);
 
         generic_string linebufStr = linebuf;
 		delete [] linebuf;
 
-        // empty lines are not commented
-        if (linebufStr.length() < 1)
-			continue;
-
-   		if (currCommentMode != cm_comment)
+   		if (currCommentMode != cm_comment) // uncomment/toggle
 		{
-			//--FLS: In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
-			//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
-			//if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
-			if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), comment_length -1) == 0)
+			if (not isSingleLineAdvancedMode)
 			{
-				int len = (generic_strnicmp(linebufStr.substr(0, comment_length).c_str(),comment.c_str(), comment_length) == 0)?comment_length:comment_length - 1;
+				// In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
+				//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
+				if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length) == 0)
+				{
+					size_t len = linebufStr[comment_length - 1] == aSpace[0] ? comment_length : !(buf->getLangType() == L_BAANC) ? comment_length - 1 : comment_length;
 
-				_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
+					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
 					_pEditView->replaceSelWith("");
 
-					if (i == selStartLine) // is this the first selected line?
-					selectionStart -= len;
-				selectionEnd -= len; // every iteration
-				++nUncomments;
+					// SELECTION RANGE ADJUSTMENT .......................
+					if (i == selStartLine) // first selected line
+					{
+						if (selectionStart > lineIndent + len)
+							selectionStart -= len;
+						else if (selectionStart > lineIndent)
+							selectionStart = lineIndent;
+					} // ................................................
+					if (i == selEndLine) // last selected line
+					{
+						if (selectionEnd > lineIndent + len)
+							selectionEnd -= len;
+						else if (selectionEnd > lineIndent)
+						{
+							selectionEnd = lineIndent;
+							if (lineIndent == lineStart && i != selStartLine)
+								++selectionEnd; // avoid caret return in this case
+						}
+					} // ................................................
+					else // every iteration except the last selected line
+						selectionEnd -= len;
+					// ..................................................
+
+					++nUncomments;
 					continue;
+				}
 			}
-		}
-		if ((currCommentMode == cm_toggle) || (currCommentMode == cm_comment))
+			else // isSingleLineAdvancedMode
+			{
+				if ((generic_strnicmp(linebufStr.c_str(), advCommentStart.c_str(), advCommentStart_length - 1) == 0) &&
+					(generic_strnicmp(linebufStr.substr(linebufStr.length() - advCommentEnd_length + 1, advCommentEnd_length - 1).c_str(), advCommentEnd.substr(1, advCommentEnd_length - 1).c_str(), advCommentEnd_length - 1) == 0))
+				{
+					size_t startLen = linebufStr[advCommentStart_length - 1] == aSpace[0] ? advCommentStart_length : advCommentStart_length - 1;
+					size_t endLen = linebufStr[linebufStr.length() - advCommentEnd_length] == aSpace[0] ? advCommentEnd_length : advCommentEnd_length - 1;
+
+					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + startLen);
+					_pEditView->replaceSelWith("");
+					_pEditView->execute(SCI_SETSEL, lineEnd - startLen - endLen, lineEnd - startLen);
+					_pEditView->replaceSelWith("");
+
+					// SELECTION RANGE ADJUSTMENT .......................
+					if (i == selStartLine) // first selected line
+					{
+						if (selectionStart > lineEnd - endLen)
+							selectionStart = lineEnd - startLen - endLen;
+						else if (selectionStart > lineIndent + startLen)
+							selectionStart -= startLen;
+						else if (selectionStart > lineIndent)
+							selectionStart = lineIndent;
+					} // ................................................
+					if (i == selEndLine) // last selected line
+					{
+						if (selectionEnd > lineEnd)
+							selectionEnd -= (startLen + endLen);
+						else if (selectionEnd > lineEnd - endLen)
+							selectionEnd = lineEnd - startLen - endLen;
+						else if (selectionEnd > lineIndent + startLen)
+							selectionEnd -= startLen;
+						else if (selectionEnd > lineIndent)
+						{
+							selectionEnd = lineIndent;
+							if (lineIndent == lineStart && i != selStartLine)
+								++selectionEnd; // avoid caret return in this case
+						}
+					} // ................................................
+					else // every iteration except the last selected line
+						selectionEnd -= (startLen + endLen);
+					// ..................................................
+
+					++nUncomments;
+					continue;
+				}
+			}
+		} // uncomment/toggle
+
+		if (currCommentMode != cm_uncomment) // comment/toggle
 		{
-			if (i == selStartLine) // is this the first selected line?
-				selectionStart += comment_length;
-			selectionEnd += comment_length; // every iteration
-			_pEditView->insertGenericTextFrom(lineIndent, comment.c_str());
-		}
-     }
-    // after uncommenting selection may promote itself to the lines
-    // before the first initially selected line;
-    // another problem - if only comment symbol was selected;
-    if (selectionStart < firstSelLineStart)
-	{
-        if (selectionStart >= selectionEnd - (comment_length - 1))
-			selectionEnd = firstSelLineStart;
-        selectionStart = firstSelLineStart;
-    }
+			if (not isSingleLineAdvancedMode)
+			{
+				_pEditView->insertGenericTextFrom(lineIndent, comment.c_str());
+
+				// SELECTION RANGE ADJUSTMENT .......................
+				if (i == selStartLine) // first selected line
+				{
+					if (selectionStart >= lineIndent)
+						selectionStart += comment_length;
+				} // ................................................
+				if (i == selEndLine) // last selected line
+				{
+					if (selectionEnd >= lineIndent)
+						selectionEnd += comment_length;
+				} // ................................................
+				else // every iteration except the last selected line
+					selectionEnd += comment_length;
+				// ..................................................
+			}
+			else // isSingleLineAdvancedMode
+			{
+				_pEditView->insertGenericTextFrom(lineIndent, advCommentStart.c_str());
+				_pEditView->insertGenericTextFrom(lineEnd + advCommentStart_length, advCommentEnd.c_str());
+
+				// SELECTION RANGE ADJUSTMENT .......................
+				if (i == selStartLine) // first selected line
+				{
+					if (selectionStart >= lineIndent)
+						selectionStart += advCommentStart_length;
+				} // ................................................
+				if (i == selEndLine) // last selected line
+				{
+					if (selectionEnd > lineEnd)
+						selectionEnd += (advCommentStart_length + advCommentEnd_length);
+					else if (selectionEnd >= lineIndent)
+						selectionEnd += advCommentStart_length;
+				} // ................................................
+				else // every iteration except the last selected line
+					selectionEnd += (advCommentStart_length + advCommentEnd_length);
+				// ..................................................
+			}
+		} // comment/toggle
+	} // for (...)
+
     if (move_caret)
 	{
         // moving caret to the beginning of selected block
@@ -3945,9 +4227,9 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     }
     _pEditView->execute(SCI_ENDUNDOACTION);
 
-	//--FLS: undoStreamComment: If there were no block-comments to un-comment try uncommenting of stream-comment.
+	// undoStreamComment: If there were no block-comments to un-comment try uncommenting of stream-comment.
 	if ((currCommentMode == cm_uncomment) && (nUncomments == 0)) {
-		return undoStreamComment();
+		return undoStreamComment(false);
 	}
     return true;
 }
@@ -3960,12 +4242,12 @@ bool Notepad_plus::doStreamComment()
 	generic_string symbolStart;
 	generic_string symbolEnd;
 
-	//--FLS: BlockToStreamComment:
-	const TCHAR *commentLineSybol;
+	// BlockToStreamComment:
+	const TCHAR *commentLineSymbol;
 	generic_string symbol;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
-	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	// Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
 	if (buf->isReadOnly())
 		return false;
 
@@ -3976,9 +4258,9 @@ bool Notepad_plus::doStreamComment()
 		if (!userLangContainer)
 			return false;
 
-		//--FLS: BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
+		// BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
 		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
-		commentLineSybol = symbol.c_str();
+		commentLineSymbol = symbol.c_str();
 
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
@@ -3987,19 +4269,15 @@ bool Notepad_plus::doStreamComment()
 	}
 	else
 	{
-		//--FLS: BlockToStreamComment: Next line needed to decide, if block-comment can be called below!
-		commentLineSybol = buf->getCommentLineSymbol();
+		// BlockToStreamComment: Next line needed to decide, if block-comment can be called below!
+		commentLineSymbol = buf->getCommentLineSymbol();
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	// if ((!commentStart) || (!commentStart[0]))
-	// 		return false;
-	// if ((!commentEnd) || (!commentEnd[0]))
-	// 		return false;
-	//--FLS: BlockToStreamComment: If there is no stream-comment symbol, try the block comment:
+	// BlockToStreamComment: If there is no stream-comment symbol, try the block comment:
 	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) {
-		if (!(!commentLineSybol || !commentLineSybol[0] || commentLineSybol == NULL))
+		if (!(!commentLineSymbol || !commentLineSymbol[0] || commentLineSymbol == NULL))
 			return doBlockComment(cm_comment);
 		else
 		return false;
@@ -4022,7 +4300,7 @@ bool Notepad_plus::doStreamComment()
 	// if there is no selection?
 	if (selectionEnd - selectionStart <= 0)
 	{
-		int selLine = _pEditView->execute(SCI_LINEFROMPOSITION, selectionStart);
+		auto selLine = _pEditView->execute(SCI_LINEFROMPOSITION, selectionStart);
 		selectionStart = _pEditView->execute(SCI_GETLINEINDENTPOSITION, selLine);
 		selectionEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, selLine);
 	}
@@ -4045,13 +4323,12 @@ bool Notepad_plus::doStreamComment()
 	return true;
 }
 
-bool Notepad_plus::saveScintillaParams()
+void Notepad_plus::saveScintillasZoom()
 {
 	NppParameters * pNppParam = NppParameters::getInstance();
 	ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
-	svp._zoom = int(_mainEditView.execute(SCI_GETZOOM));
-	svp._zoom2 = int(_subEditView.execute(SCI_GETZOOM));
-	return (NppParameters::getInstance())->writeScintillaParams(svp);
+	svp._zoom = static_cast<int>(_mainEditView.execute(SCI_GETZOOM));
+	svp._zoom2 = static_cast<int>(_subEditView.execute(SCI_GETZOOM));
 }
 
 bool Notepad_plus::addCurrentMacro()
@@ -4059,7 +4336,7 @@ bool Notepad_plus::addCurrentMacro()
 	NppParameters* nppParams = NppParameters::getInstance();
 	vector<MacroShortcut> & theMacros = nppParams->getMacroList();
 
-	int nbMacro = theMacros.size();
+	int nbMacro = static_cast<int32_t>(theMacros.size());
 
 	int cmdID = ID_MACRO + nbMacro;
 	MacroShortcut ms(Shortcut(), _macro, cmdID);
@@ -4071,10 +4348,10 @@ bool Notepad_plus::addCurrentMacro()
 		int const posBase = 6;	//separator at index 5
 		if (nbMacro == 0)
 		{
-			::InsertMenu(hMacroMenu, posBase-1, MF_BYPOSITION, (unsigned int)-1, 0);	//no separator yet, add one
+			::InsertMenu(hMacroMenu, posBase-1, MF_BYPOSITION, static_cast<UINT>(-1), 0);	//no separator yet, add one
 
             // Insert the separator and modify/delete command
-			::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, (unsigned int)-1, 0);
+			::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, static_cast<UINT>(-1), 0);
 
 			NativeLangSpeaker *pNativeLangSpeaker = nppParams->getNativeLangSpeaker();
 			generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
@@ -4124,22 +4401,22 @@ bool Notepad_plus::switchToFile(BufferID id)
 
 void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 {
-	size_t currentNbDoc = _pDocTab->nbItem();
-	size_t nonCurrentNbDoc = _pNonDocTab->nbItem();
+	int currentNbDoc = static_cast<int32_t>(_pDocTab->nbItem());
+	int nonCurrentNbDoc = static_cast<int32_t>(_pNonDocTab->nbItem());
 
 	tli->_currentIndex = 0;
 
 	if (!viewVisible(otherView()))
 		nonCurrentNbDoc = 0;
 
-	for (size_t i = 0 ; i < currentNbDoc ; ++i)
+	for (int i = 0 ; i < currentNbDoc ; ++i)
 	{
 		BufferID bufID = _pDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager->getBufferByID(bufID);
 		int status = b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved);
 		tli->_tlfsLst.push_back(TaskLstFnStatus(currentView(), i, b->getFullPathName(), status, (void *)bufID));
 	}
-	for (size_t i = 0 ; i < nonCurrentNbDoc ; ++i)
+	for (int i = 0 ; i < nonCurrentNbDoc ; ++i)
 	{
 		BufferID bufID = _pNonDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager->getBufferByID(bufID);
@@ -4151,12 +4428,12 @@ void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 
 bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 {
-    int position = _pEditView->execute(SCI_GETCURRENTPOS);
-	int docLen = _pEditView->getCurrentDocLen();
+    auto position = _pEditView->execute(SCI_GETCURRENTPOS);
+	auto docLen = _pEditView->getCurrentDocLen();
 
-    BOOL isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position);
-    int posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
-    int posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
+    bool isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position) != 0;
+    auto posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
+    auto posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
 
 	// pre-condition
 	if ((posStart == 0) && (posEnd == docLen - 1))
@@ -4167,7 +4444,7 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 		if (!isWrap)
 			return false;
 
-		isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  docLen - 1);
+		isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  docLen - 1) != 0;
 		posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  docLen - 1);
 	}
 
@@ -4182,17 +4459,17 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 		}
 	}
 
-    int newPos = posStart - 1;
+    auto newPos = posStart - 1;
     posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
     posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
 
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
-		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+		NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 		nppGUI._disableSmartHiliteTmp = true;
 
-        int currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
+        auto currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
 	    _pEditView->execute(SCI_ENSUREVISIBLE, currentline);	// make sure target line is unfolded
 
 		_pEditView->execute(SCI_SETSEL, posEnd, posStart);
@@ -4204,12 +4481,12 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 
 bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 {
-    int position = _pEditView->execute(SCI_GETCURRENTPOS);
+    auto position = _pEditView->execute(SCI_GETCURRENTPOS);
 	int docLen = _pEditView->getCurrentDocLen();
 
-    BOOL isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position);
-    int posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
-    int posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
+    bool isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position) != 0;
+    auto posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
+    auto posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
 
 	// pre-condition
 	if ((posStart == 0) && (posEnd == docLen - 1))
@@ -4220,7 +4497,7 @@ bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 		if (!isWrap)
 			return false;
 
-		isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  0);
+		isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  0) != 0;
 		posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, 0);
 	}
 
@@ -4235,17 +4512,17 @@ bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 			posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, 0);
 		}
     }
-    int newPos = posEnd;
+    auto newPos = posEnd;
     posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
     posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
 
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
-		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+		NppGUI & nppGUI = const_cast<NppGUI &>((NppParameters::getInstance())->getNppGUI());
 		nppGUI._disableSmartHiliteTmp = true;
 
-        int currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
+        auto currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
 	    _pEditView->execute(SCI_ENSUREVISIBLE, currentline);	// make sure target line is unfolded
 
 		_pEditView->execute(SCI_SETSEL, posStart, posEnd);
@@ -4405,7 +4682,7 @@ void Notepad_plus::postItToggle()
 	NppParameters * pNppParam = NppParameters::getInstance();
 	if (!_beforeSpecialView.isPostIt)	// PostIt disabled, enable it
 	{
-		NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+		NppGUI & nppGUI = const_cast<NppGUI &>(pNppParam->getNppGUI());
 		// get current status before switch to postIt
 		//check these always
 		{
@@ -4529,19 +4806,19 @@ void Notepad_plus::doSynScorll(HWND whichView)
 		if (_syncInfo._isSynScollV)
 		{
 			// Compute for Line
-			mainCurrentLine = _mainEditView.execute(SCI_GETFIRSTVISIBLELINE);
-			subCurrentLine = _subEditView.execute(SCI_GETFIRSTVISIBLELINE);
+			mainCurrentLine = static_cast<int32_t>(_mainEditView.execute(SCI_GETFIRSTVISIBLELINE));
+			subCurrentLine = static_cast<int32_t>(_subEditView.execute(SCI_GETFIRSTVISIBLELINE));
 			line = mainCurrentLine - _syncInfo._line - subCurrentLine;
 		}
 		if (_syncInfo._isSynScollH)
 		{
 			// Compute for Column
-			mxoffset = _mainEditView.execute(SCI_GETXOFFSET);
-			pixel = int(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
+			mxoffset = static_cast<int32_t>(_mainEditView.execute(SCI_GETXOFFSET));
+			pixel = static_cast<int32_t>(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
 			mainColumn = mxoffset/pixel;
 
-			sxoffset = _subEditView.execute(SCI_GETXOFFSET);
-			pixel = int(_subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
+			sxoffset = static_cast<int32_t>(_subEditView.execute(SCI_GETXOFFSET));
+			pixel = static_cast<int32_t>(_subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
 			subColumn = sxoffset/pixel;
 			column = mainColumn - _syncInfo._column - subColumn;
 		}
@@ -4552,19 +4829,19 @@ void Notepad_plus::doSynScorll(HWND whichView)
 		if (_syncInfo._isSynScollV)
 		{
 			// Compute for Line
-			mainCurrentLine = _mainEditView.execute(SCI_GETFIRSTVISIBLELINE);
-			subCurrentLine = _subEditView.execute(SCI_GETFIRSTVISIBLELINE);
+			mainCurrentLine = static_cast<int32_t>(_mainEditView.execute(SCI_GETFIRSTVISIBLELINE));
+			subCurrentLine = static_cast<int32_t>(_subEditView.execute(SCI_GETFIRSTVISIBLELINE));
 			line = subCurrentLine + _syncInfo._line - mainCurrentLine;
 		}
 		if (_syncInfo._isSynScollH)
 		{
 			// Compute for Column
-			mxoffset = _mainEditView.execute(SCI_GETXOFFSET);
-			pixel = int(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
+			mxoffset = static_cast<int32_t>(_mainEditView.execute(SCI_GETXOFFSET));
+			pixel = static_cast<int32_t>(_mainEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
 			mainColumn = mxoffset/pixel;
 
-			sxoffset = _subEditView.execute(SCI_GETXOFFSET);
-			pixel = int(_subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
+			sxoffset = static_cast<int32_t>(_subEditView.execute(SCI_GETXOFFSET));
+			pixel = static_cast<int32_t>(_subEditView.execute(SCI_TEXTWIDTH, STYLE_DEFAULT, reinterpret_cast<LPARAM>("P")));
 			subColumn = sxoffset/pixel;
 			column = subColumn + _syncInfo._column - mainColumn;
 		}
@@ -4620,11 +4897,11 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 	docTab[1] = &_subDocTab;
 	for (size_t k = 0; k < nbElem; ++k)
 	{
-		for (int i = 0, len = docTab[k]->nbItem(); i < len ; ++i)
+		for (size_t i = 0, len = docTab[k]->nbItem(); i < len ; ++i)
 		{
 			BufferID bufID = docTab[k]->getBufferByIndex(i);
 			ScintillaEditView *editView = k == 0?&_mainEditView:&_subEditView;
-			int activeIndex = int(k == 0?session._activeMainIndex:session._activeSubIndex);
+			size_t activeIndex = k == 0 ? session._activeMainIndex : session._activeSubIndex;
 			vector<sessionFileInfo> *viewFiles = (vector<sessionFileInfo> *)(k == 0?&(session._mainViewFiles):&(session._subViewFiles));
 
 			Buffer * buf = MainFileManager->getBufferByID(bufID);
@@ -4639,14 +4916,14 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 
 			generic_string	languageName = getLangFromMenu(buf);
 			const TCHAR *langName = languageName.c_str();
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
+			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()), buf->getMapPosition());
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
+			size_t maxLine = static_cast<size_t>(_invisibleEditView.execute(SCI_GETLINECOUNT));
 
-			for (int j = 0 ; j < maxLine ; ++j)
+			for (size_t j = 0 ; j < maxLine ; ++j)
 			{
-				if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
+				if ((_invisibleEditView.execute(SCI_MARKERGET, j) & (1 << MARK_BOOKMARK)) != 0)
 				{
 					sfi._marks.push_back(j);
 				}
@@ -4686,7 +4963,8 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {
 	TCHAR savePath[MAX_PATH] = {0};
 
 	//rescue primary
-	for (int i = 0; i < MainFileManager->getNrBuffers(); ++i) {
+	for (size_t i = 0; i < MainFileManager->getNbBuffers(); ++i)
+	{
 		Buffer * docbuf = MainFileManager->getBufferByIndex(i);
 		if (!docbuf->isDirty())	//skip saved documents
 			continue;
@@ -4725,6 +5003,27 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
 }
 
+void Notepad_plus::prepareBufferChangedDialog(Buffer * buffer)
+{
+	// immediately show window if it was minimized before
+	if (::IsIconic(_pPublicInterface->getHSelf()))
+		::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
+
+	// switch to the file that changed
+	int index = _pDocTab->getIndexByBuffer(buffer->getID());
+	int iView = currentView();
+	if (index == -1)
+		iView = otherView();
+	activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+
+	// prevent flickering issue by "manually" clicking and activating the _pEditView
+	// (mouse events seem to get lost / improperly handled when showing the dialog)
+	auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	::PostMessage(_pEditView->getHSelf(), WM_LBUTTONDOWN, 0, 0);
+	::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+	::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+}
+
 void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 {
 	// To avoid to crash while MS-DOS style is set as default language,
@@ -4745,14 +5044,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	//Only event that applies to non-active Buffers
 	if (mask & BufferChangeStatus)
 	{	//reload etc
-		bool didDialog = false;
-		bool doCloseDoc = false;
 		switch(buffer->getStatus())
 		{
 			case DOC_UNNAMED: 	//nothing todo
-			{
-				break;
-			}
 			case DOC_REGULAR: 	//nothing todo
 			{
 				break;
@@ -4762,18 +5056,16 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
 				if (!autoUpdate || buffer->isDirty())
 				{
-                    // if file updating is not silently, we switch to the file to update.
-                    int index = _pDocTab->getIndexByBuffer(buffer->getID());
-				    int iView = currentView();
-				    if (index == -1)
-					    iView = otherView();
-				    activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+					prepareBufferChangedDialog(buffer);
 
-                    // Then we ask user to update
-					didDialog = true;
-					
+					// Then we ask user to update
 					if (doReloadOrNot(buffer->getFullPathName(), buffer->isDirty()) != IDYES)
+					{
+						// Since the file content has changed but the user doesn't want to reload it, set state to dirty
+						buffer->setDirty(true);
+
 						break;	//abort
+					}
 				}
 				// Set _isLoadedDirty false so when the document clean state is reached the icon will be set to blue
 				buffer->setLoadedDirty(false);
@@ -4803,41 +5095,25 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 			}
 			case DOC_DELETED: 	//ask for keep
 			{
+				prepareBufferChangedDialog(buffer);
+
 				SCNotification scnN;
 				scnN.nmhdr.code = NPPN_FILEDELETED;
 				scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
 				scnN.nmhdr.idFrom = (uptr_t)buffer->getID();
 				_pluginsManager.notify(&scnN);
 
-				int index = _pDocTab->getIndexByBuffer(buffer->getID());
-				int iView = currentView();
-				if (index == -1)
-					iView = otherView();
-
-				activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
-				didDialog = true;
-				doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
+				int doCloseDoc = doCloseOrNot(buffer->getFullPathName()) == IDNO;
 				if (doCloseDoc)
 				{
 					//close in both views, doing current view last since that has to remain opened
 					bool isSnapshotMode = nppGUI.isSnapshotMode();
 					doClose(buffer->getID(), otherView(), isSnapshotMode);
 					doClose(buffer->getID(), currentView(), isSnapshotMode);
+					return;
 				}
 				break;
 			}
-		}
-
-		if (didDialog)
-		{
-			int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-			::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
-			::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
-			if (::IsIconic(_pPublicInterface->getHSelf()))
-				::ShowWindow(_pPublicInterface->getHSelf(), SW_RESTORE);
-
-			if (doCloseDoc) // buffer has been deleted, cannot (and no need to) go on
-				return;
 		}
 	}
 
@@ -4852,7 +5128,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		// To notify plugins ro status is changed
 		SCNotification scnN;
 		scnN.nmhdr.hwndFrom = (void *)buffer->getID();
-		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTAUS_READONLY : 0) | (isDirty ? DOCSTAUS_BUFFERDIRTY : 0));
+		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTATUS_READONLY : 0) | (isDirty ? DOCSTATUS_BUFFERDIRTY : 0));
 		scnN.nmhdr.code = NPPN_READONLYCHANGED;
 		_pluginsManager.notify(&scnN);
 
@@ -4976,13 +5252,13 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	_linkTriggered = true;
 }
 
-void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams) {
+void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams)
+{
 	if (!commandLine || ! pCmdParams)
 		return;
 
 	NppParameters *nppParams = NppParameters::getInstance();
 	FileNameStringSplitter fnss(commandLine);
-	const TCHAR *pFn = NULL;
 
 	// loading file as session file is allowed only when there is only one file
 	if (pCmdParams->_isSessionFile && fnss.size() == 1)
@@ -5005,7 +5281,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 	BufferID lastOpened = BUFFER_INVALID;
 	for (int i = 0, len = fnss.size(); i < len ; ++i)
 	{
-		pFn = fnss.getFileName(i);
+		const TCHAR *pFn = fnss.getFileName(i);
 		if (!pFn) return;
 
 		BufferID bufID = doOpen(pFn, recursive, readOnly);
@@ -5036,7 +5312,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 			}
             else
             {
-                int pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
+                auto pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
                 _pEditView->execute(SCI_GOTOPOS, pos);
             }
 
@@ -5331,6 +5607,16 @@ bool Notepad_plus::reloadLang()
 		_nativeLangSpeaker.changeDlgLang(_runDlg.getHSelf(), "Run");
 	}
 
+	if (_md5FromFilesDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_md5FromFilesDlg.getHSelf(), "MD5FromFilesDlg");
+	}
+
+	if (_md5FromTextDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_md5FromTextDlg.getHSelf(), "MD5FromTextDlg");
+	}
+
 	if (_runMacroDlg.isCreated())
 	{
 		_nativeLangSpeaker.changeDlgLang(_runMacroDlg.getHSelf(), "MultiMacro");
@@ -5368,7 +5654,7 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		tTbData	data = {0};
 		_pClipboardHistoryPanel->create(&data);
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pClipboardHistoryPanel->getHSelf());
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pClipboardHistoryPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_CLIPBOARDPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -5386,7 +5672,7 @@ void Notepad_plus::launchClipboardHistoryPanel()
 			lstrcpy(title, title_temp.c_str());
 			data.pszName = title;
 		}
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
 		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
@@ -5410,7 +5696,7 @@ void Notepad_plus::launchFileSwitcherPanel()
 		tTbData	data = {0};
 		_pFileSwitcherPanel->create(&data);
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pFileSwitcherPanel->getHSelf());
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileSwitcherPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCSWITCHER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -5429,7 +5715,7 @@ void Notepad_plus::launchFileSwitcherPanel()
 			lstrcpy(title, title_temp.c_str());
 			data.pszName = title;
 		}
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
 		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
@@ -5451,7 +5737,7 @@ void Notepad_plus::launchAnsiCharPanel()
 		tTbData	data = {0};
 		_pAnsiCharPanel->create(&data);
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pAnsiCharPanel->getHSelf());
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pAnsiCharPanel->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_ASCIIPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -5470,7 +5756,7 @@ void Notepad_plus::launchAnsiCharPanel()
 			lstrcpy(title, title_temp.c_str());
 			data.pszName = title;
 		}
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
 		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
@@ -5494,7 +5780,7 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 		_pFileBrowser->create(&data);
 		data.pszName = TEXT("ST");
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pFileBrowser->getHSelf());
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileBrowser->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_FILEBROWSER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -5514,7 +5800,7 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 			lstrcpy(title, title_temp.c_str());
 			data.pszName = title;
 		}
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
 		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
@@ -5529,6 +5815,10 @@ void Notepad_plus::launchFileBrowser(const vector<generic_string> & folders)
 	}
 
 	_pFileBrowser->display();
+
+	checkMenuItem(IDM_VIEW_FILEBROWSER, true);
+	_toolBar.setCheck(IDM_VIEW_FILEBROWSER, true);
+	_pFileBrowser->setClosed(false);
 }
 
 
@@ -5547,7 +5837,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		(*pProjPanel)->create(&data);
 		data.pszName = TEXT("ST");
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)(*pProjPanel)->getHSelf());
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>((*pProjPanel)->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_PROJECTPANEL_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -5567,7 +5857,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 			lstrcpy(title, title_temp.c_str());
 			data.pszName = title;
 		}
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
 		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
 		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
@@ -5595,7 +5885,7 @@ void Notepad_plus::launchDocMap()
 		tTbData	data = {0};
 		_pDocMap->create(&data);
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pDocMap->getHSelf());
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pDocMap->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCMAP_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -5614,7 +5904,7 @@ void Notepad_plus::launchDocMap()
 			lstrcpy(title, title_temp.c_str());
 			data.pszName = title;
 		}
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 	}
 
 	_pDocMap->initWrapMap();
@@ -5635,7 +5925,7 @@ void Notepad_plus::launchFunctionList()
 		tTbData	data = {0};
 		_pFuncList->create(&data);
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pFuncList->getHSelf());
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFuncList->getHSelf()));
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_FUNC_LIST_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -5656,7 +5946,7 @@ void Notepad_plus::launchFunctionList()
 			data.pszName = title;
 		}
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
 		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
 
@@ -5700,12 +5990,13 @@ struct Quote
 
 
 
-
 const int nbQuote = 203;
 Quote quotes[nbQuote] =
 {
 	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
 	{"Notepad++ #2", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
+	{"Notepad++ #3", "The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n"},
+	{"Richard Stallman", "If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent."},
 	{"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 	{"L. Peter Deutsch", "To iterate is human, to recurse divine."},
 	{"Seymour Cray", "The trouble with programmers is that you can never tell what a programmer is doing until it's too late."},
@@ -5727,15 +6018,16 @@ Quote quotes[nbQuote] =
 	{"Church of Emacs", "vi has two modes - \"beep repeatedly\" and \"break everything\"."},
 	{"Steve Jobs", "Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas."},
 	{"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
-	{"brotips #1212", "Cheating is like eating fast food: you do it, you enjoy it, and then you feel like shit."},
 	{"Robin Williams", "God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time."},
-	{"Darth Vader", "You don't get to 500 million star systems without making a few enemies."},
+	{"Darth Vader", "Strong people don't put others down.\nThey lift them up." },
+	{"Darth Vader #2", "You don't get to 500 million star systems without making a few enemies."},
 	{"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
 	{"Jean-Claude van Damme", "A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life."},
 	{"Michael Feldman", "Java is, in many ways, C++--."},
 	{"Don Ho", "Je mange donc je chie."},
 	{"Don Ho #2", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
 	{"Don Ho #3", "Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street."},
+	{"Don Ho #4", "Poor countries' museums vs. rich countries' museums:\nThe first show what they have left.\nThe second show what they have stolen."},
 	{"Anonymous #1", "An opinion without 3.14 is just an onion."},
 	{"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
 	{"Anonymous #3", "I'm not totally useless. I can be used as a bad example."},
@@ -5744,26 +6036,26 @@ Quote quotes[nbQuote] =
 	{"Anonymous #6", "Going to Mc Donald's for a salad is like going to a whore for a hug."},
 	{"Anonymous #7", "I need a six month holiday, TWICE A YEAR!"},
 	{"Anonymous #8", "Everything is a knife if you're strong enough."},
-	{"Anonymous #9", "I just read a list of \"the 100 things to do before you die\". I'm pretty surprised \"yell for help\" wasn't one of them..."},
+	{"Anonymous #9", "I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala."},
 	{"Anonymous #10", "Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!"},
 	{"Anonymous #11", "We stopped checking for monsters under our bed, when we realized they were inside us."},
 	{"Anonymous #12", "I would rather check my facebook than face my checkbook."},
 	{"Anonymous #13", "Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper."},
 	{"Anonymous #14", "A better world is where chickens can cross the road without having their motives questioned."},
 	{"Anonymous #15", "If I didn't drink, how would my friends know I love them at 2 AM?"},
-	//{"Anonymous #16", ""},
-	{"Anonymous #17", "All you need is love,\nall you want is sex,\nall you have is porn.\n"},
+	{"Anonymous #16", "Q: How do you generate a random string?\nA: Put a Windows user in front of vi, and tell him to exit."},
+	{"Anonymous #17", "Pros and cons of making food.\nPros: food\nCons : making\n"},
 	{"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
-	{"Anonymous #19", "F_CK: All I need is U."},
+	{"Anonymous #19", "People who say they give 110%\ndon't really understand how percentages work."},
 	{"Anonymous #20", "Never make eye contact while eating a banana."},
 	{"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
 	{"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},
-	{"Anonymous #23", "Everybody talks about leaving a better planet for the children.\nWhy nobody tries to leave better children to the planet?"},
+	//{"Anonymous #23", ""},
 	{"Anonymous #24", "An Architect's dream is an Engineer's nightmare."},
 	{"Anonymous #25", "In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
 	{"Anonymous #26", "I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one."},
 	{"Anonymous #27", "I don't have a problem with caffeine.\nI have a problem without caffeine."},
-	{"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 (seven ate nine) while 6 and 9 were flirting."},
+	{"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 while 6 and 9 were flirting."},
 	{"Anonymous #30", "Why do Java developers wear glasses?\nBecause they don't C#."},
 	{"Anonymous #31", "A baby's laughter is one of the most beautiful sounds you will ever hear. Unless it's 3 AM. And you're home alone. And you don't have a baby."},
 	{"Anonymous #32", "Two bytes meet. The first byte asks, \"You look terrible. Are you OK?\"\nThe second byte replies, \"No, just feeling a bit off.\""},
@@ -5784,7 +6076,7 @@ Quote quotes[nbQuote] =
 	{"Anonymous #47", "Kids are like farts.\nYou can only stand yours."},
 	{"Anonymous #48", "If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography."},
 	{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars."},
-	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in britain and try to get a bunch of gold... it's like history but opposite."},
+	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in Britain and try to get a bunch of gold... it's like history but opposite."},
 	{"Anonymous #51", "I don't need a stable relationship,\nI just need a stable Internet connection."},
 	{"Anonymous #52", "What's the difference between religion and bullshit?\nThe bull."},
 	{"Anonymous #53", "Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML"},
@@ -5821,14 +6113,13 @@ Quote quotes[nbQuote] =
 	{"Anonymous #85", "Race, religion, ethnic pride and nationalism etc... does nothing but teach you how to hate people that you've never met."},
 	{"Anonymous #86", "Farts are just the ghosts of the things we eat."},
 	{"Anonymous #87", "I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word."},
-	//{"Anonymous #88", ""},
-	{"Anonymous #89", "I'm drunk and you're still ugly."},
+	{"Anonymous #88", "A foo walks into a bar,\ntakes a look around and\nsays \"Hello World!\"."},
 	{"Anonymous #90", "Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments."},
 	{"Anonymous #91", "CV: ctrl-C, ctrl-V"},
 	{"Anonymous #92", "Mondays are not so bad.\nIt's your job that sucks."},
 	{"Anonymous #93", "[In a job interview]\nInterviewer: What's your greatest weakness?\nCandidate: Honesty.\nInterviewer: I don't think honesty is a weakness.\nCandidate: I don't give a fuck what you think."},
 	{"Anonymous #94", "Hey, I just met you\nAnd this is crazy\nHere's my number 127.0.0.1\nPing me maybe?"},
-	{"Anonymous #95", "YES!\nI'm a programmer, and\nNO!\nIt doesn't mean that I have to fix your PC!"},
+	//{"Anonymous #95", ""},
 	{"Anonymous #96", "Code for 6 minutes, debug for 6 hours."},
 	{"Anonymous #97", "Real Programmers don't comment their code.\nIf it was hard to write, it should be hard to read."},
 	{"Anonymous #98", "My neighbours listen to good music.\nWhether they like it or not."},
@@ -5836,14 +6127,13 @@ Quote quotes[nbQuote] =
 	{"Anonymous #100", "Dear YouTube,\nI can deal with Ads.\nI can deal with Buffer.\nBut when Ads buffer, I suffer."},
 	{"Anonymous #101", "It's always sad when a man and his dick share only one brain...\nand it turns out to be the dick's."},
 	{"Anonymous #102", "If IE is brave enough to ask you to set it as your default browser,\ndon't tell me you dare not ask a girl out."},
-	{"Anonymous #103", "Turn on your brain, turn off TV."},
 	{"Anonymous #104", "The main idea of \"Inception\":\nif you run a VM inside a VM inside a VM inside a VM inside a VM,\neverything will be very slow."},
-	//{"Anonymous #105", ""},
+	{"Anonymous #105", "Q: What's the object-oriented way to become wealthy?\nA: Inheritance."},
 	{"Anonymous #106", "When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car."},
 	{"Anonymous #107", "Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is."},
 	{"Anonymous #108", "I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard"},
-	//{"Anonymous #109", ""},
-	{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems."},
+	{"Anonymous #109", "What's the best thing about UDP jokes?\nI don't care if you get them."},
+	{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems"},
 	{"Anonymous #111", "I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul."},
 	{"Anonymous #112", "#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}"},
 	{"Anonymous #113", "Open source is communism.\nAt least it is what communism was meant to be."},
@@ -5854,15 +6144,15 @@ Quote quotes[nbQuote] =
 	{"Anonymous #118", "I love necrophilia, but i can't stand the awkward silences."},
 	{"Anonymous #119", "\"I'm gonna Google that. BING that, Bing that, sorry.\"\n- The CEO of Bing (many times per day still)"},
 	{"Anonymous #120", "Life is what happens to you while you're looking at your smartphone."},
-	{"Anonymous #121", "Thing to do today:\n1. Get up\n2. Go back to bed"},
+	//{"Anonymous #121", ""},
 	{"Anonymous #122", "Nerd?\nI prefer the term \"Intellectual badass\"."},
-	{"Anonymous #123", "How can you face your problem if your problem is your face?"},
+	//{"Anonymous #123", ""},
 	{"Anonymous #124", "You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion."},
 	{"Anonymous #125", "Pooping with the door opened is the meaning of true freedom."},
 	{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},
 	{"Anonymous #127", "Don't give up your dreams.\nKeep sleeping."},
 	{"Anonymous #128", "I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life."},
-	//{"Anonymous #129", ""},
+	{"Anonymous #129", "What is the most used language in programming?\n\nProfanity\n"},
 	{"Anonymous #130", "Common sense is so rare, it's kinda like a superpower..."},
 	{"Anonymous #131", "The best thing about a boolean is even if you are wrong, you are only off by a bit."},
 	{"Anonymous #132", "Benchmarks don't lie, but liars do benchmarks."},
@@ -5888,11 +6178,10 @@ Quote quotes[nbQuote] =
 	{"Anonymous #152", "A SQL query goes into a bar, walks up to two tables and asks, \"Can I join you?\""},
 	{"Anonymous #153", "You are not fat, you are just more visible."},
 	{"Anonymous #154", "Minimalist\n (.   .)\n  )   (\n (  Y  )\nASCII Art"},
-	{"Louis C.K.", "I'm a good citizen. I'm a good father. I recycle and I masturbate."},
+	{"Internet #1", "If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing." },
 	{"Mary Oliver", "Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift."},
 	{"Floor", "If you fall, I will be there."},
 	{"Simon Amstell", "If you have some problem in your life and need to deal with it, then use religion, that's fine.\nI use Google."},
-	{"James Bond", "James, James Bond."},
 	{"Albert Einstein", "Only 3 things are infinite:\n1. Universe.\n2. Human Stupidity.\n3. Winrar's free trial."},
 	{"Terry Pratchett", "Artificial Intelligence is no match for natural stupidity."},
 	{"Stewart Brand", "Once a new technology starts rolling, if you're not part of the steamroller,\nyou're part of the road."},
@@ -5900,10 +6189,9 @@ Quote quotes[nbQuote] =
 	{"Jan L. A. van de Snepscheut", "In theory, there is no difference between theory and practice. But, in practice, there is."},
 	{"Jessica Gaston", "One man's crappy software is another man's full time job."},
 	{"Barack Obama", "Yes, we scan!"},
-	{"George W. Bush", "Where is my Nobel prize?\nI bombed people too."},
+	{"xkcd.com", "int getRandomNumber()\n{\n    return 4; //chosen by fair dice roll, guaranteed to be random.\n}\n"},
 	{"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 	{"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
-	{"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company)\nto shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 	{"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 	{"Mark Twain", "Censorship is telling a man he can't have a steak just because a baby can't chew it."},
 	{"Friedrich Nietzsche", "There is not enough love and goodness in the world to permit giving any of it away to imaginary beings."},
@@ -5959,12 +6247,13 @@ bool isInList(int elem, vector<int> elemList)
 DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 {
 	// random seed generation needs only one time.
-	srand((unsigned int)time(NULL));
+	srand(static_cast<UINT>(time(NULL)));
 
-	HWND hNpp = ((TextPlayerParams *)params)->_nppHandle;
-	ScintillaEditView *pCurrentView = ((TextPlayerParams *)params)->_pCurrentView;
-	const char *text2display = ((TextPlayerParams *)params)->_text2display;
-	bool shouldBeTrolling = ((TextPlayerParams *)params)->_shouldBeTrolling;
+	TextPlayerParams* textPlayerParams = static_cast<TextPlayerParams*>(params);
+	HWND hNpp = textPlayerParams->_nppHandle;
+	ScintillaEditView *pCurrentView = textPlayerParams->_pCurrentView;
+	const char *text2display = textPlayerParams->_text2display;
+	bool shouldBeTrolling = textPlayerParams->_shouldBeTrolling;
 
 	// Open a new document
     ::SendMessage(hNpp, NPPM_MENUCOMMAND, 0, IDM_FILE_NEW);
@@ -6029,7 +6318,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 		if (currentBufID != targetBufID)
 			return TRUE;
 
-        ::SendMessage(curScintilla, SCI_APPENDTEXT, 1, (LPARAM)charToShow);
+		::SendMessage(curScintilla, SCI_APPENDTEXT, 1, reinterpret_cast<LPARAM>(charToShow));
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
 
 		previousChar = text2display[i];
@@ -6039,12 +6328,12 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
     }
 
 	//writeLog(TEXT("c:\\tmp\\log.txt"), "\n\n\n\n");
-	const char * quoter = ((TextPlayerParams *)params)->_quoter;
+	const char * quoter = textPlayerParams->_quoter;
 	string quoter_str = quoter;
 	size_t pos = quoter_str.find("Anonymous");
 	if (pos == string::npos)
 	{
-		::SendMessage(curScintilla, SCI_APPENDTEXT, 3, (LPARAM)"\n- ");
+		::SendMessage(curScintilla, SCI_APPENDTEXT, 3, reinterpret_cast<LPARAM>("\n- "));
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
 
 		// Display quoter
@@ -6060,7 +6349,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 			if (currentBufID != targetBufID)
 				return TRUE;
 
-			::SendMessage(curScintilla, SCI_APPENDTEXT, 1, (LPARAM)charToShow);
+			::SendMessage(curScintilla, SCI_APPENDTEXT, 1, reinterpret_cast<LPARAM>(charToShow));
 			::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
 
 		}
@@ -6072,15 +6361,16 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 
 DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 {
-	WaitForSingleObject(((TextTrollerParams *)params)->_mutex, INFINITE);
+	TextTrollerParams *textTrollerParams = static_cast<TextTrollerParams *>(params);
+	WaitForSingleObject(textTrollerParams->_mutex, INFINITE);
 
 	// random seed generation needs only one time.
-	srand((unsigned int)time(NULL));
+	srand(static_cast<UINT>(time(NULL)));
 
-	ScintillaEditView *pCurrentView = ((TextTrollerParams *)params)->_pCurrentView;
-	const char *text2display = ((TextTrollerParams *)params)->_text2display;
+	ScintillaEditView *pCurrentView = textTrollerParams->_pCurrentView;
+	const char *text2display = textTrollerParams->_text2display;
 	HWND curScintilla = pCurrentView->getHSelf();
-	BufferID targetBufID = ((TextTrollerParams *)params)->_targetBufID;
+	BufferID targetBufID = textTrollerParams->_targetBufID;
 
 	for (size_t i = 0, len = strlen(text2display); i < len; ++i)
     {
@@ -6094,10 +6384,10 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 		BufferID currentBufID = pCurrentView->getCurrentBufferID();
 		if (currentBufID != targetBufID)
 		{
-			ReleaseMutex(((TextTrollerParams *)params)->_mutex);
+			ReleaseMutex(textTrollerParams->_mutex);
 			return TRUE;
 		}
-        ::SendMessage(curScintilla, SCI_APPENDTEXT, 1, (LPARAM)charToShow);
+		::SendMessage(curScintilla, SCI_APPENDTEXT, 1, reinterpret_cast<LPARAM>(charToShow));
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
     }
 	//writeLog(TEXT("c:\\tmp\\log.txt"), text2display);
@@ -6135,7 +6425,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	}
 	else
 	{
-		int currentPos = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONSTART, 0, 0);
+		auto currentPos = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONSTART, 0, 0);
 		::SendMessage(pCurrentView->getHSelf(), SCI_SETSELECTION, currentPos, currentPos - strlen(text2display));
 		BufferID currentBufID = pCurrentView->getCurrentBufferID();
 		if (currentBufID != targetBufID)
@@ -6145,7 +6435,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 		::SendMessage(pCurrentView->getHSelf(), SCI_DELETEBACK, 0, 0);
 	}
 
-	ReleaseMutex(((TextTrollerParams *)params)->_mutex);
+	ReleaseMutex(textTrollerParams->_mutex);
 	return TRUE;
 }
 
@@ -6179,8 +6469,8 @@ bool Notepad_plus::selectBack(ScintillaEditView *pCurrentView, BufferID targetBu
 {
 	int ranNum = getRandomNumber(maxRange - 100);
 	BufferID currentBufID = pCurrentView->getCurrentBufferID();
-	int currentPos = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONSTART, 0, 0);
-	int currentAnchor = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONEND, 0, 0);
+	auto currentPos = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONSTART, 0, 0);
+	auto currentAnchor = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONEND, 0, 0);
 	Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);
 	if (currentBufID != targetBufID)
 		return false;
@@ -6200,7 +6490,7 @@ int Notepad_plus::getQuoteIndexFrom(const char *quoter) const
 
 	if (stricmp(quoter, "random") == 0)
 	{
-		srand((unsigned int)time(NULL));
+		srand(static_cast<UINT>(time(NULL)));
 		return getRandomNumber(nbQuote);
 	}
 
@@ -6259,7 +6549,7 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 		if (timer < 1000)
 			timer = 1000;
 
-		::Sleep(timer);
+		::Sleep(DWORD(timer));
 
 		nppParam = NppParameters::getInstance();
 		if (!nppParam)
@@ -6277,21 +6567,24 @@ DWORD WINAPI Notepad_plus::backupDocument(void * /*param*/)
 
 
 #pragma warning( disable : 4127 )
-//--FLS: undoStreamComment: New function to undo stream comment around or within selection end-points.
-bool Notepad_plus::undoStreamComment()
+//-- undoStreamComment: New function to undo stream comment around or within selection end-points.
+bool Notepad_plus::undoStreamComment(bool tryBlockComment)
 {
 	const TCHAR *commentStart;
 	const TCHAR *commentEnd;
+	const TCHAR *commentLineSymbol;
 
 	generic_string symbolStart;
 	generic_string symbolEnd;
+	generic_string symbol;
+
 	const int charbufLen = 10;
     TCHAR charbuf[charbufLen];
 
 	bool retVal = false;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
-	//--LS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	//-- Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
 	if (buf->isReadOnly())
 		return false;
 	if (buf->getLangType() == L_USER)
@@ -6300,6 +6593,8 @@ bool Notepad_plus::undoStreamComment()
 		if (!userLangContainer)
 			return false;
 
+		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		commentLineSymbol = symbol.c_str();
 		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
 		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
@@ -6307,28 +6602,33 @@ bool Notepad_plus::undoStreamComment()
 	}
 	else
 	{
+		commentLineSymbol = buf->getCommentLineSymbol();
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	if ((!commentStart) || (!commentStart[0]))
-		return false;
-	if ((!commentEnd) || (!commentEnd[0]))
-		return false;
+
+	// BlockToStreamComment: If there is no stream-comment symbol and we came not from doBlockComment, try the block comment:
+	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) {
+		if (!(!commentLineSymbol || !commentLineSymbol[0] || commentLineSymbol == NULL) && tryBlockComment)
+			return doBlockComment(cm_uncomment);
+		else
+			return false;
+	}
 
 	generic_string start_comment(commentStart);
 	generic_string end_comment(commentEnd);
 	generic_string white_space(TEXT(" "));
-	int start_comment_length = start_comment.length();
-	int end_comment_length = end_comment.length();
+	size_t start_comment_length = start_comment.length();
+	size_t end_comment_length = end_comment.length();
 
 	// do as long as stream-comments are within selection
 	do
 	{
-		int selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
-		int selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
-		int caretPosition = _pEditView->execute(SCI_GETCURRENTPOS);
-		int docLength = (_pEditView->execute(SCI_GETLENGTH));
+		auto selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
+		auto selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+		auto caretPosition = _pEditView->execute(SCI_GETCURRENTPOS);
+		auto docLength = _pEditView->execute(SCI_GETLENGTH);
 
 		// checking if caret is located in _beginning_ of selected block
 		bool move_caret = caretPosition < selectionEnd;
@@ -6364,14 +6664,12 @@ bool Notepad_plus::undoStreamComment()
 
 		//-- Check, if selectionStart or selectionEnd is within a stream comment -----
 		//   or if the selection includes a complete stream-comment!! ----------------
-		bool blnCommentFound = false;
 
 		//-- First, check if there is a stream-comment around the selectionStart position:
 		if ((blnStartCommentBefore[iSelStart] && blnEndCommentAfter[iSelStart])
 			&& (!blnEndCommentBefore[iSelStart] || (posStartCommentBefore[iSelStart] >= posEndCommentBefore[iSelStart]))
 			&& (!blnStartCommentAfter[iSelStart] || (posEndCommentAfter[iSelStart] <= posStartCommentAfter[iSelStart])))
 		{
-				blnCommentFound = true;
 				posStartComment = posStartCommentBefore[iSelStart];
 				posEndComment   = posEndCommentAfter[iSelStart];
 		}
@@ -6393,7 +6691,6 @@ bool Notepad_plus::undoStreamComment()
 				&& (!blnEndCommentBefore[iSelEnd] || (posStartCommentBefore[iSelEnd] >= posEndCommentBefore[iSelEnd]))
 				&& (!blnStartCommentAfter[iSelEnd] || (posEndCommentAfter[iSelEnd] <= posStartCommentAfter[iSelEnd])))
 			{
-					blnCommentFound = true;
 					posStartComment = posStartCommentBefore[iSelEnd];
 					posEndComment   = posEndCommentAfter[iSelEnd];
 			}
@@ -6402,7 +6699,6 @@ bool Notepad_plus::undoStreamComment()
 				&& (blnEndCommentBefore[iSelEnd] && (posEndCommentBefore[iSelEnd] >  selectionStart)))
 			{
 					//-- If there are more than one stream-comment within the selection, take the first one after selectionStart!!
-					blnCommentFound = true;
 					posStartComment = posStartCommentAfter[iSelStart];
 					posEndComment   = posEndCommentAfter[iSelStart];
 			}
@@ -6414,8 +6710,8 @@ bool Notepad_plus::undoStreamComment()
 		//-- Ok, there are valid start-comment and valid end-comment around the caret-position.
 		//   Now, un-comment stream-comment:
 		retVal = true;
-		int startCommentLength = start_comment_length;
-		int endCommentLength = end_comment_length;
+		int startCommentLength = static_cast<int32_t>(start_comment_length);
+		int endCommentLength = static_cast<int32_t>(end_comment_length);
 
 		//-- First delete end-comment, so that posStartCommentBefore does not change!
 		//-- Get character before end-comment to decide, if there is a white character before the end-comment, which will be removed too!
@@ -6428,7 +6724,7 @@ bool Notepad_plus::undoStreamComment()
 		//-- Delete end stream-comment string ---------
 		_pEditView->execute(SCI_BEGINUNDOACTION);
 		_pEditView->execute(SCI_SETSEL, posEndComment, posEndComment + endCommentLength);
-		_pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
+		_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
 
 		//-- Get character after start-comment to decide, if there is a white character after the start-comment, which will be removed too!
 		_pEditView->getGenericText(charbuf, charbufLen, posStartComment+startCommentLength, posStartComment+startCommentLength+1);
@@ -6437,7 +6733,7 @@ bool Notepad_plus::undoStreamComment()
 
 		//-- Delete starting stream-comment string ---------
 		_pEditView->execute(SCI_SETSEL, posStartComment, posStartComment + startCommentLength);
-		_pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
+		_pEditView->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
 		_pEditView->execute(SCI_ENDUNDOACTION);
 
 		//-- Reset selection before calling the routine
@@ -6446,20 +6742,20 @@ bool Notepad_plus::undoStreamComment()
 		if (selectionStart > posStartComment)
 		{
 			if (selectionStart >= posStartComment+startCommentLength)
-				selectionStartMove = -(int)startCommentLength;
+				selectionStartMove = -static_cast<int>(startCommentLength);
 			else
-				selectionStartMove = -(int)(selectionStart - posStartComment);
+				selectionStartMove = -static_cast<int>(selectionStart - posStartComment);
 		}
 		else
 			selectionStartMove = 0;
 
 		//   selectionEnd
 		if (selectionEnd >= posEndComment+endCommentLength)
-			selectionEndMove = -(int)(startCommentLength+endCommentLength);
+			selectionEndMove = -static_cast<int>(startCommentLength+endCommentLength);
 		else if (selectionEnd <= posEndComment)
-			selectionEndMove = -(int)startCommentLength;
+			selectionEndMove = -static_cast<int>(startCommentLength);
 		else
-			selectionEndMove = -(int)(startCommentLength + (selectionEnd - posEndComment));
+			selectionEndMove = -static_cast<int>(startCommentLength + (selectionEnd - posEndComment));
 
 		//-- Reset selection of text without deleted stream-comment-string
 		if (move_caret)
@@ -6475,5 +6771,5 @@ bool Notepad_plus::undoStreamComment()
 	}
 	while(1); //do as long as stream-comments are within selection
 	//return retVal;
-} //----- undoStreamComment() -------------------------------
+}
 

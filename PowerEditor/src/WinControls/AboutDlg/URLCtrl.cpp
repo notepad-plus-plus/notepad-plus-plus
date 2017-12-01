@@ -120,10 +120,10 @@ void URLCtrl::create(HWND itemHandle, TCHAR * link, COLORREF linkColor)
 	_visitedColor = RGB(128,0,128);
 
 	// subclass the static control
-    _oldproc = (WNDPROC)::SetWindowLongPtr(itemHandle, GWLP_WNDPROC, (LONG_PTR)URLCtrlProc);
+	_oldproc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(itemHandle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(URLCtrlProc)));
 
 	// associate the URL structure with the static control
-    ::SetWindowLongPtr(itemHandle, GWLP_USERDATA, (LONG_PTR)this);
+	::SetWindowLongPtr(itemHandle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 
 	// save hwnd
 	_hSelf = itemHandle;
@@ -140,10 +140,10 @@ void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
     _linkColor = RGB(0,0,255);
 
 	// subclass the static control
-    _oldproc = (WNDPROC)::SetWindowLongPtr(itemHandle, GWLP_WNDPROC, (LONG_PTR)URLCtrlProc);
+	_oldproc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(itemHandle, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(URLCtrlProc)));
 
 	// associate the URL structure with the static control
-    ::SetWindowLongPtr(itemHandle, GWLP_USERDATA, (LONG_PTR)this);
+	::SetWindowLongPtr(itemHandle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 
 	// save hwnd
 	_hSelf = itemHandle;
@@ -197,7 +197,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	    // colours, and with an underline text style
 	    case WM_PAINT:
         {
-			DWORD dwStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
+			DWORD dwStyle = static_cast<DWORD>(::GetWindowLongPtr(hwnd, GWL_STYLE));
 		    DWORD dwDTStyle = DT_SINGLELINE;
 
 		    //Test if centered horizontally or vertically

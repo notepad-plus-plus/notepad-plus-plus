@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef DOCKING_H
-#define DOCKING_H
+#pragma once
 
 #include <windows.h>
 
@@ -84,5 +83,3 @@ typedef struct {
 #define	HIT_TEST_THICKNESS		20
 #define SPLITTER_WIDTH			4
 
-
-#endif // DOCKING_H

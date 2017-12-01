@@ -121,7 +121,7 @@ WINRECT* CWinMgr::FindRect(int nID)
 {
 	assert(m_map);
 	for (WINRECT* w=m_map; !w->IsEnd(); ++w) {
-		if (w->GetID()==(UINT)nID)
+		if (w->GetID() == static_cast<UINT>(nID))
 			return w;
 	}
 	return NULL;
@@ -388,9 +388,10 @@ BOOL CWinMgr::SendGetSizeInfo(SIZEINFO& szi, HWND hWnd, UINT nID)
 	nmw.idFrom = nID;							// ID of child I'm computing
 	nmw.sizeinfo = szi;						// copy
 
-	if (!SendMessage(hWnd, WM_WINMGR, nID, (LPARAM)&nmw) && !nmw.processed) {
+	if (!SendMessage(hWnd, WM_WINMGR, nID, reinterpret_cast<LPARAM>(&nmw)) && !nmw.processed)
+	{
 		HWND hwndChild = ::GetDlgItem(hWnd, nID);
-		if (!hwndChild || !::SendMessage(hwndChild,WM_WINMGR,nID,(LPARAM)&nmw))
+		if (!hwndChild || !::SendMessage(hwndChild, WM_WINMGR, nID, reinterpret_cast<LPARAM>(&nmw)))
 			return FALSE;
 	}
 	szi = nmw.sizeinfo; // copy back to caller's struct
@@ -421,22 +422,30 @@ void CWinMgr::GetMinMaxInfo(HWND hWnd, SIZEINFO& szi)
 	// Add extra space for frame/dialog screen junk.
 	DWORD dwStyle = GetStyle(hWnd);
 	DWORD dwExStyle = GetExStyle(hWnd);
-	if (dwStyle & WS_VISIBLE) {
+	if (dwStyle & WS_VISIBLE)
+	{
 		SIZE& szMin = szi.szMin; // ref!
-		if (!(dwStyle & WS_CHILD)) {
+		if (!(dwStyle & WS_CHILD))
+		{
 			if (dwStyle & WS_CAPTION)
 				szMin.cy += GetSystemMetrics(SM_CYCAPTION);
 			if (::GetMenu(hWnd))
 				szMin.cy += GetSystemMetrics(SM_CYMENU);
 		}
-		if (dwStyle & WS_THICKFRAME) {
+
+		if (dwStyle & WS_THICKFRAME)
+		{
 			szMin.cx += 2*GetSystemMetrics(SM_CXSIZEFRAME);
 			szMin.cy += 2*GetSystemMetrics(SM_CYSIZEFRAME);
-		} else if (dwStyle & WS_BORDER) {
+		}
+		else if (dwStyle & WS_BORDER)
+		{
 			szMin.cx += 2*GetSystemMetrics(SM_CXBORDER);
 			szMin.cy += 2*GetSystemMetrics(SM_CYBORDER);
 		}
-		if (dwExStyle & WS_EX_CLIENTEDGE) {
+
+		if (dwExStyle & WS_EX_CLIENTEDGE)
+		{
 			szMin.cx += 2*GetSystemMetrics(SM_CXEDGE);
 			szMin.cy += 2*GetSystemMetrics(SM_CYEDGE);
 		}
@@ -459,17 +468,21 @@ void CWinMgr::MoveRect(WINRECT* pwrcMove, POINT ptMove, HWND pParentWnd)
 
 	RECT& rcNext = next->GetRect();
 	RECT& rcPrev = prev->GetRect();
-	if (bIsRow) {
+	if (bIsRow)
+	{
 		// a row can only be moved up or down
 		ptMove.x = 0;
 		rcPrev.bottom += ptMove.y;
 		rcNext.top += ptMove.y;
-	} else {
+	}
+	else
+	{
 		// a column can only be moved left or right
 		ptMove.y = 0;
 		rcPrev.right += ptMove.x;
 		rcNext.left += ptMove.x;
 	}
+
 	OffsetRect(pwrcMove->GetRect(), ptMove);
 	if (prev->IsGroup())
 		CalcGroup(prev, pParentWnd);

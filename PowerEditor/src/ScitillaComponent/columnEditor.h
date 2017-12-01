@@ -25,14 +25,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#pragma once
 
-#ifndef COLUMNEDITOR_H
-#define COLUMNEDITOR_H
-
-#ifndef COLUMNEDITOR_RC_H
 #include "columnEditor_rc.h"
-#endif //COLUMNEDITOR_RC_H
-
 #include "StaticDialog.h"
 
 class ScintillaEditView;
@@ -47,8 +42,8 @@ public :
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
-	virtual void create(int dialogID, bool isRTL = false) {
-		StaticDialog::create(dialogID, isRTL);
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
+		StaticDialog::create(dialogID, isRTL, msgDestParent);
 	};
 
 	void doDialog(bool isRTL = false) {
@@ -70,8 +65,8 @@ protected :
 
 private :
 
-    ScintillaEditView **_ppEditView;
+    ScintillaEditView **_ppEditView = nullptr;
 
 
 };
-#endif// COLUMNEDITOR_H
+

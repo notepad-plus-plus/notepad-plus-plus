@@ -200,7 +200,7 @@
                     <Item id="44010" name="Fechar Tudo"/>
 					<Item id="44019" name="Mostrar Todos os Carateres"/>
 					<Item id="44020" name="Mostrar Guia de Indentação"/>
-                    <Item id="44022" name="Procura Contínua"/>
+                    <Item id="44022" name="Moldar Texto"/>
                     <Item id="44023" name="Zoom &amp;+ Ctrl+Roda do Rato p/ Cima"/>
                     <Item id="44024" name="Zoom &amp;- Ctrl+Roda do Rato p/ Baixo"/>
                     <Item id="44025" name="Mostrar Espaços e Tabulações"/>
@@ -227,7 +227,7 @@
                     <Item id="44034" name="Sempre no Topo"/>
 					<Item id="44035" name="Sincronizar Deslocamento Vertical"/>
                     <Item id="44036" name="Sincronizar Deslocamento Horizontal"/>
-                    <Item id="44041" name="Mostrar Símbolo da Procura Contínua"/>
+                    <Item id="44041" name="Mostrar Símbolo da Moldar Texto"/>
                     <Item id="44072" name="Alternar Separador"/>
 					<Item id="44081" name="Painel do Projeto 1"/>
 					<Item id="44082" name="Painel do Projeto 2"/>
@@ -252,8 +252,8 @@
                     <Item id="10004" name="Abrir numa Nova Instância"/>
 
 					<Item id="46001" name="Configurador do Estilo..."/>
-					<Item id="46150" name="Defina o seu idioma..."/>
-					<Item id="46080" name="Definida pelo Utilizador"/>
+					<Item id="46250" name="Defina o seu idioma..."/>
+					<Item id="46180" name="Definida pelo Utilizador"/>
                     <Item id="47000" name="Sobre o Notepad++..."/>
 					<Item id="47010" name="Argumentos da Linha de Comando..."/>
                     <Item id="47001" name="Página da Notepad++"/>
@@ -317,7 +317,7 @@
 				<Item id="1603" name="Corresponder à &amp;Palavra Completa"/>
                 <Item id="1604" name="Corresponder &amp;MAI/MIN"/>
                 <Item id="1605" name="&amp;Expressão Regular "/>
-                <Item id="1606" name="&amp;Procura Contínua"/>
+                <Item id="1606" name="&amp;Moldar Texto"/>
 				<Item id="1612" name="&amp;Para cima"/>
                 <Item id="1613" name="&amp;Para baixo"/>
                 <Item id="1614" name="Contar"/>

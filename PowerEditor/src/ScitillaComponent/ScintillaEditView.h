@@ -26,41 +26,17 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SCINTILLA_EDIT_VIEW_H
-#define SCINTILLA_EDIT_VIEW_H
+#pragma once
 
-#ifndef SCINTILLA_H
+
 #include "Scintilla.h"
-#endif //SCINTILLA_H
-
-#ifndef SCINTILLA_REF_H
 #include "ScintillaRef.h"
-#endif //SCINTILLA_REF_H
-
-#ifndef SCILEXER_H
 #include "SciLexer.h"
-#endif //SCILEXER_H
-
-#ifndef BUFFER_H
 #include "Buffer.h"
-#endif //BUFFER_H
-
-#ifndef COLORS_H
 #include "colors.h"
-#endif //COLORS_H
-
-#ifndef USER_DEFINE_H
 #include "UserDefineDialog.h"
-#endif //USER_DEFINE_H
+#include "rgba_icons.h"
 
-#ifndef XPM_ICON_H
-#include "xpm_icons.h"
-#endif //XPM_ICON_H
-/*
-#ifndef RESOURCE_H
-#include "resource.h"
-#endif //RESOURCE_H
-*/
 
 #ifndef WM_MOUSEWHEEL
 #define WM_MOUSEWHEEL 0x020A
@@ -123,9 +99,17 @@ const int CP_GREEK = 1253;
 const bool fold_uncollapse = true;
 const bool fold_collapse = false;
 
-const bool UPPERCASE = true;
-const bool LOWERCASE = false;
-
+enum TextCase : UCHAR
+{
+	UPPERCASE,
+	LOWERCASE,
+	TITLECASE_FORCE,
+	TITLECASE_BLEND,
+	SENTENCECASE_FORCE,
+	SENTENCECASE_BLEND,
+	INVERTCASE,
+	RANDOMCASE
+};
 
 const UCHAR MASK_FORMAT = 0x03;
 const UCHAR MASK_ZERO_LEADING = 0x04;
@@ -138,13 +122,15 @@ const UCHAR BASE_02 = 0x03; // Bin
 const int MARK_BOOKMARK = 24;
 const int MARK_HIDELINESBEGIN = 23;
 const int MARK_HIDELINESEND = 22;
-//const int MARK_LINEMODIFIEDUNSAVED = 21;
-//const int MARK_LINEMODIFIEDSAVED = 20;
+const int MARK_HIDELINESUNDERLINE = 21;
+//const int MARK_LINEMODIFIEDUNSAVED = 20;
+//const int MARK_LINEMODIFIEDSAVED = 19;
 // 24 - 16 reserved for Notepad++ internal used
 // 15 - 0  are free to use for plugins
 
 
 int getNbDigits(int aNum, int base);
+HMODULE loadSciLexerDll();
 
 TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
 
@@ -204,10 +190,7 @@ class ScintillaEditView : public Window
 {
 friend class Finder;
 public:
-	ScintillaEditView()
-		: Window(), _pScintillaFunc(NULL),_pScintillaPtr(NULL),
-		  _lineNumbersShown(false), _wrapRestoreNeeded(false), _beginSelectPosition(-1)
-	{
+	ScintillaEditView(): Window() {
 		++_refCount;
 	};
 
@@ -248,11 +231,11 @@ public:
 	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
 	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 
-	void getText(char *dest, int start, int end) const;
-	void getGenericText(TCHAR *dest, size_t destlen, int start, int end) const;
+	void getText(char *dest, size_t start, size_t end) const;
+	void getGenericText(TCHAR *dest, size_t destlen, size_t start, size_t end) const;
 	void getGenericText(TCHAR *dest, size_t deslen, int start, int end, int *mstart, int *mend) const;
-	generic_string getGenericTextAsString(int start, int end) const;
-	void insertGenericTextFrom(int position, const TCHAR *text2insert) const;
+	generic_string getGenericTextAsString(size_t start, size_t end) const;
+	void insertGenericTextFrom(size_t position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
 	int getSelectedTextCount() {
@@ -266,25 +249,23 @@ public:
     char * getWordOnCaretPos(char * txt, int size);
     TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
-	int searchInTarget(const TCHAR * Text2Find, int lenOfText2Find, int fromPos, int toPos) const;
+	int searchInTarget(const TCHAR * Text2Find, size_t lenOfText2Find, size_t fromPos, size_t toPos) const;
 	void appandGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append) const;
 	void addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const;
 	int replaceTarget(const TCHAR * str2replace, int fromTargetPos = -1, int toTargetPos = -1) const;
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
-	void showAutoComletion(int lenEntered, const TCHAR * list);
+	void showAutoComletion(size_t lenEntered, const TCHAR * list);
 	void showCallTip(int startPos, const TCHAR * def);
-	generic_string getLine(int lineNumber);
-	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
-	void addText(int length, const char *buf);
+	generic_string getLine(size_t lineNumber);
+	void getLine(size_t lineNumber, TCHAR * line, int lineBufferLen);
+	void addText(size_t length, const char *buf);
 
 	void insertNewLineAboveCurrentLine();
 	void insertNewLineBelowCurrentLine();
 
 	void saveCurrentPos();
 	void restoreCurrentPos();
-	void saveCurrentFold();
-	void restoreCurrentFold();
 
 	void beginOrEndSelect();
 	bool beginEndSelectedIsStarted() const {
@@ -303,8 +284,8 @@ public:
 	};
 
 	void getWordToCurrentPos(TCHAR * str, int strLen) const {
-		int caretPos = execute(SCI_GETCURRENTPOS);
-		int startPos = static_cast<int>(execute(SCI_WORDSTARTPOSITION, caretPos, true));
+		auto caretPos = execute(SCI_GETCURRENTPOS);
+		auto startPos = execute(SCI_WORDSTARTPOSITION, caretPos, true);
 
 		str[0] = '\0';
 		if ((caretPos - startPos) < strLen)
@@ -338,9 +319,11 @@ public:
         else
 		{
 			int width = 3;
-			if (whichMarge == _SC_MARGE_SYBOLE || whichMarge == _SC_MARGE_FOLDER)
-				width = 14;
-            execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed?width:0);
+			if (whichMarge == _SC_MARGE_SYBOLE)
+				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 20 : 16;
+			else if (whichMarge == _SC_MARGE_FOLDER)
+				width = NppParameters::getInstance()->_dpiManager.scaleX(100) >= 150 ? 18 : 14;
+			execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed ? width : 0);
 		}
     };
 
@@ -362,8 +345,12 @@ public:
 		{
 			display = true;
 		}
+
+		COLORREF foldfgColor = white, foldbgColor = grey, activeFoldFgColor = red;
+		getFoldColor(foldfgColor, foldbgColor, activeFoldFgColor);
+
 		for (int i = 0 ; i < NB_FOLDER_STATE ; ++i)
-			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], white, grey, white);
+			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], foldfgColor, foldbgColor, activeFoldFgColor);
 		showMargin(ScintillaEditView::_SC_MARGE_FOLDER, display);
     };
 
@@ -377,6 +364,7 @@ public:
 
 	void showWSAndTab(bool willBeShowed = true) {
 		execute(SCI_SETVIEWWS, willBeShowed?SCWS_VISIBLEALWAYS:SCWS_INVISIBLE);
+		execute(SCI_SETWHITESPACESIZE, 2, 0);
 	};
 
 	void showEOL(bool willBeShowed = true) {
@@ -396,7 +384,7 @@ public:
 	};
 
 	void showIndentGuideLine(bool willBeShowed = true) {
-		execute(SCI_SETINDENTATIONGUIDES, (WPARAM)willBeShowed?(SC_IV_LOOKBOTH):(SC_IV_NONE));
+		execute(SCI_SETINDENTATIONGUIDES, willBeShowed ? SC_IV_LOOKBOTH : SC_IV_NONE);
 	};
 
 	bool isShownIndentGuide() const {
@@ -404,7 +392,7 @@ public:
 	};
 
     void wrap(bool willBeWrapped = true) {
-        execute(SCI_SETWRAPMODE, (WPARAM)willBeWrapped);
+        execute(SCI_SETWRAPMODE, willBeWrapped);
     };
 
     bool isWrap() const {
@@ -420,13 +408,13 @@ public:
 		execute(SCI_SETWRAPVISUALFLAGS, willBeShown?SC_WRAPVISUALFLAG_END:SC_WRAPVISUALFLAG_NONE);
     };
 
-	long getCurrentLineNumber()const {
-		return long(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
+	size_t getCurrentLineNumber()const {
+		return static_cast<size_t>(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
 	};
 
-	long lastZeroBasedLineNumber() const {
-		int endPos = execute(SCI_GETLENGTH);
-		return execute(SCI_LINEFROMPOSITION, endPos);
+	int32_t lastZeroBasedLineNumber() const {
+		auto endPos = execute(SCI_GETLENGTH);
+		return static_cast<int32_t>(execute(SCI_LINEFROMPOSITION, endPos));
 	};
 
 	long getCurrentXOffset()const{
@@ -479,14 +467,14 @@ public:
 		return true;
 	};
 
-	long getSelectedLength() const
+	long getUnicodeSelectedLength() const
 	{
 		// return -1 if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
 			return -1;
-		long size_selected = execute(SCI_GETSELTEXT);
+		auto size_selected = execute(SCI_GETSELTEXT);
 		char *selected = new char[size_selected + 1];
-		execute(SCI_GETSELTEXT, (WPARAM)0, (LPARAM)selected);
+		execute(SCI_GETSELTEXT, 0, reinterpret_cast<LPARAM>(selected));
 		char *c = selected;
 		long length = 0;
 		while(*c != '\0')
@@ -545,7 +533,8 @@ public:
     void currentLinesUp() const;
     void currentLinesDown() const;
 
-	void convertSelectedTextTo(bool Case);
+	void changeCase(__inout wchar_t * const strWToConvert, const int & nbChars, const TextCase & caseToConvert) const;
+	void convertSelectedTextTo(const TextCase & caseToConvert);
 	void setMultiSelections(const ColumnModeInfos & cmi);
 
     void convertSelectedTextToLowerCase() {
@@ -564,9 +553,17 @@ public:
 			execute(SCI_UPPERCASE);
 	};
 
+	void convertSelectedTextToNewerCase(const TextCase & caseToConvert) {
+		// if system is w2k or xp
+		if ((NppParameters::getInstance())->isTransparentAvailable())
+			convertSelectedTextTo(caseToConvert);
+		else
+			::MessageBox(_hSelf, TEXT("This function needs a newer OS version."), TEXT("Change Case Error"), MB_OK | MB_ICONHAND);
+	};
+
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(bool mode);
-	void fold(int line, bool mode);
+	void fold(size_t line, bool mode);
 	bool isFolded(int line){
 		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
 	};
@@ -590,7 +587,7 @@ public:
 		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
 	};
 
-	static LanguageName ScintillaEditView::langNames[L_EXTERNAL+1];
+	static LanguageName langNames[L_EXTERNAL+1];
 
 	void bufferUpdated(Buffer * buffer, int mask);
 	BufferID getCurrentBufferID() { return _currentBufferID; };
@@ -625,6 +622,11 @@ public:
 	};
 
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
+
+	void addCustomWordChars();
+	void restoreDefaultWordChars();
+	void setWordChars();
+
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
 	};
@@ -638,7 +640,7 @@ public:
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) ||
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
-	void scrollPosToCenter(int pos);
+	void scrollPosToCenter(size_t pos);
 	generic_string getEOLString();
 	void setBorderEdge(bool doWithBorderEdge);
 	void sortLines(size_t fromLine, size_t toLine, ISorter *pSort);
@@ -656,26 +658,28 @@ protected:
 	static LRESULT CALLBACK scintillaStatic_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-	SCINTILLA_FUNC _pScintillaFunc;
-	SCINTILLA_PTR  _pScintillaPtr;
+	SCINTILLA_FUNC _pScintillaFunc = nullptr;
+	SCINTILLA_PTR  _pScintillaPtr = nullptr;
 	static WNDPROC _scintillaDefaultProc;
-	CallWindowProcFunc _callWindowProc;
+	CallWindowProcFunc _callWindowProc = nullptr;
 	BufferID attachDefaultDoc();
 
 	//Store the current buffer so it can be retrieved later
-	BufferID _currentBufferID;
-	Buffer * _currentBuffer;
+	BufferID _currentBufferID = nullptr;
+	Buffer * _currentBuffer = nullptr;
 
-    NppParameters *_pParameter;
-	int _codepage;
-	bool _lineNumbersShown;
-	bool _wrapRestoreNeeded;
+    NppParameters *_pParameter = nullptr;
+	int _codepage = CP_ACP;
+	bool _lineNumbersShown = false;
+	bool _wrapRestoreNeeded = false;
 
 	typedef std::unordered_map<int, Style> StyleMap;
 	typedef std::unordered_map<BufferID, StyleMap*> BufferStyleMap;
 	BufferStyleMap _hotspotStyles;
 
-	int _beginSelectPosition;
+	int _beginSelectPosition = -1;
+
+	static std::string _defaultCharList;
 
 //Lexers and Styling
 	void restyleBuffer();
@@ -726,8 +730,8 @@ protected:
 
 	void setSqlLexer() {
 		const bool kbBackSlash = NppParameters::getInstance()->getNppGUI()._backSlashIsEscapeCharacterForSql;
-		execute(SCI_SETPROPERTY, (WPARAM)"sql.backslash.escapes", kbBackSlash ? (LPARAM)"1" : (LPARAM)"0");
 		setLexer(SCLEX_SQL, L_SQL, LIST_0);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("sql.backslash.escapes"), reinterpret_cast<LPARAM>(kbBackSlash ? "1" : "0"));
 	};
 
 	void setBashLexer() {
@@ -749,6 +753,7 @@ protected:
 
 	void setPythonLexer() {
 		setLexer(SCLEX_PYTHON, L_PYTHON, LIST_0 | LIST_1);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.quotes.python"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setBatchLexer() {
@@ -874,6 +879,110 @@ protected:
 		setLexer(SCLEX_COFFEESCRIPT, L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
 	};
 
+	void setBaanCLexer() {
+		setLexer(SCLEX_BAAN, L_BAANC, LIST_0 | LIST_1);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("styling.within.preprocessor"), reinterpret_cast<LPARAM>("1"));
+	};
+
+	void setSrecLexer() {
+		setLexer(SCLEX_SREC, L_SREC, LIST_NONE);
+	};
+
+	void setIHexLexer() {
+		setLexer(SCLEX_IHEX, L_IHEX, LIST_NONE);
+	};
+
+	void setTEHexLexer() {
+		setLexer(SCLEX_TEHEX, L_TEHEX, LIST_NONE);
+	};
+
+	void setAsn1Lexer() {
+		setLexer(SCLEX_ASN1, L_ASN1, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+
+	void setAVSLexer() {
+		setLexer(SCLEX_AVS, L_AVS, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
+	};
+
+	void setBlitzBasicLexer() {
+		setLexer(SCLEX_BLITZBASIC, L_BLITZBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+
+	void setPureBasicLexer() {
+		setLexer(SCLEX_PUREBASIC, L_PUREBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+
+	void setFreeBasicLexer() {
+		setLexer(SCLEX_FREEBASIC, L_FREEBASIC, LIST_0 | LIST_1 | LIST_2 | LIST_3); 
+	};
+
+	void setCsoundLexer() {
+		setLexer(SCLEX_CSOUND, L_CSOUND, LIST_0 | LIST_1 | LIST_2);
+		execute(SCI_STYLESETEOLFILLED, SCE_CSOUND_STRINGEOL, true);
+	};
+
+	void setErlangLexer() {
+		setLexer(SCLEX_ERLANG, L_ERLANG, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5); 
+	};
+
+	void setESCRIPTLexer() {
+		setLexer(SCLEX_ESCRIPT, L_ESCRIPT, LIST_0 | LIST_1 | LIST_2); 
+	};
+
+	void setForthLexer() {
+		setLexer(SCLEX_FORTH, L_FORTH, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
+	};
+
+	void setLatexLexer() {
+		setLexer(SCLEX_LATEX, L_LATEX, LIST_NONE); 
+	};
+
+	void setMMIXALLexer() {
+		setLexer(SCLEX_MMIXAL, L_MMIXAL, LIST_0 | LIST_1 | LIST_2); 
+	};
+
+	void setNimrodLexer() {
+		setLexer(SCLEX_NIMROD, L_NIMROD, LIST_0);
+	};
+
+	void setNncrontabLexer() {
+		setLexer(SCLEX_NNCRONTAB, L_NNCRONTAB, LIST_0 | LIST_1 | LIST_2); 
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%-"));
+	};
+
+	void setOScriptLexer() {
+		setLexer(SCLEX_OSCRIPT, L_OSCRIPT, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$"));
+	};
+
+	void setREBOLLexer() {
+		setLexer(SCLEX_REBOL, L_REBOL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.’+-*&|=_~"));
+	};
+
+	void setRegistryLexer() {
+		setLexer(SCLEX_REGISTRY, L_REGISTRY, LIST_NONE); 
+	};
+
+	void setRustLexer() {
+		setLexer(SCLEX_RUST, L_RUST, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6); 
+		execute(SCI_SETWORDCHARS, 0, reinterpret_cast<LPARAM>("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#"));
+	};
+
+	void setSpiceLexer() {
+		setLexer(SCLEX_SPICE, L_SPICE, LIST_0 | LIST_1 | LIST_2); 
+	};
+
+	void setTxt2tagsLexer() {
+		setLexer(SCLEX_TXT2TAGS, L_TXT2TAGS, LIST_NONE); 
+	};
+
+	void setVisualPrologLexer() {
+		setLexer(SCLEX_VISUALPROLOG, L_VISUALPROLOG, LIST_0 | LIST_1 | LIST_2 | LIST_3);
+	}
+
     //--------------------
 
 	void setSearchResultLexer() {
@@ -923,6 +1032,6 @@ protected:
 
 	std::pair<int, int> getWordRange();
 	bool expandWordSelection();
+	void getFoldColor(COLORREF& fgColor, COLORREF& bgColor, COLORREF& activeFgColor);
 };
 
-#endif //SCINTILLA_EDIT_VIEW_H

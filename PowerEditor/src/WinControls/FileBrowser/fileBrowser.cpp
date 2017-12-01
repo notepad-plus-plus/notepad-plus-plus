@@ -42,12 +42,12 @@
 #define INDEX_OPEN_ROOT      0
 #define INDEX_CLOSE_ROOT     1
 #define INDEX_OPEN_NODE	     2
-#define INDEX_CLOSE_NODE    3
+#define INDEX_CLOSE_NODE     3
 #define INDEX_LEAF           4
 
 
-#define GET_X_LPARAM(lp)                        ((int)(short)LOWORD(lp))
-#define GET_Y_LPARAM(lp)                        ((int)(short)HIWORD(lp))
+#define GET_X_LPARAM(lp) static_cast<short>(LOWORD(lp))
+#define GET_Y_LPARAM(lp) static_cast<short>(HIWORD(lp))
 
 #define FB_ADDFILE (WM_USER + 1024)
 #define FB_RMFILE  (WM_USER + 1025)
@@ -245,51 +245,34 @@ INT_PTR CALLBACK FileBrowser::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 void FileBrowser::initPopupMenus()
 {
-	//NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-/*
-	generic_string removeFolderFromFileBrowser = pNativeSpeaker->getProjectPanelLangMenuStr("FileBrowserContextMenu", IDM_FILEBROWSER_REMOVEROOTFOLDER, FB_REMOVEROOT);	
-	generic_string edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_RENAME, PM_EDITRENAME);
-	generic_string edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_NEWFOLDER, PM_EDITNEWFOLDER);
-	generic_string edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_FILEBROWSER_ADDFILES, PM_EDITADDFILES);
-
-	
-	edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_RENAME, PM_EDITRENAME);
-	edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_NEWFOLDER, PM_EDITNEWFOLDER);
-	edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_ADDFILES, PM_EDITADDFILES);
-	edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_FILEBROWSER_DELETEFOLDER, PM_EDITREMOVE);
-*/
 	_hGlobalMenu = ::CreatePopupMenu();
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDROOT, TEXT("Add"));
 	::InsertMenu(_hGlobalMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEALLROOTS, TEXT("Remove All"));
 
 	_hRootMenu = ::CreatePopupMenu();
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_REMOVEROOTFOLDER, TEXT("Remove"));
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, TEXT("Find in Files..."));
-	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
 
 	_hFolderMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_FINDINFILES, TEXT("Find in Files..."));
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
-	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_NEWFOLDER,     edit_addfolder.c_str());
-	//::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_ADDFILES,      edit_addfiles.c_str());
 	
 	_hFileMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_OPENINNPP, TEXT("Open"));
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_COPYEPATH, TEXT("Copy path"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_SHELLEXECUTE, TEXT("Run by system"));
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, static_cast<UINT>(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_EXPLORERHERE, TEXT("Explorer here"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_CMDHERE, TEXT("CMD here"));
-	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_DELETEFILE, edit_remove.c_str());
-	//::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_FILEBROWSER_MODIFYFILEPATH, edit_modifyfile.c_str());
 }
 
 
@@ -376,7 +359,7 @@ generic_string FileBrowser::getNodePath(HTREEITEM node) const
 	}
 
 
-	for (long i = fullPathArray.size() - 1; i >= 0; --i)
+	for (int i = int(fullPathArray.size()) - 1; i >= 0; --i)
 	{
 		fullPath += fullPathArray[i];
 		if (i != 0)
@@ -400,7 +383,7 @@ void FileBrowser::openSelectFile()
 	if (::PathIsDirectory(fullPath.c_str()))
 		return;
 
-	::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fullPath.c_str()));
+	::SendMessage(_hParent, NPPM_DOOPEN, 0, reinterpret_cast<LPARAM>(fullPath.c_str()));
 }
 
 
@@ -439,7 +422,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				{
 					// Get the old label
 					tvItem.hItem = _treeView.getSelection();
-					::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+					::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 					size_t len = lstrlen(tvItem.pszText);
 
 					// Find the position of old label in File path
@@ -465,7 +448,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				}
 
 				// For File, Folder and Project
-				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0,(LPARAM)(&(tvnotif->item)));
+				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0, reinterpret_cast<LPARAM>(&(tvnotif->item)));
 			}
 			break;
 
@@ -485,7 +468,7 @@ void FileBrowser::notified(LPNMHDR notification)
 				else
 					return;
 				lpGetInfoTip->pszText = (LPTSTR)tipStr.c_str();
-				lpGetInfoTip->cchTextMax = tipStr.size();
+				lpGetInfoTip->cchTextMax = static_cast<int>(tipStr.size());
 			}
 			break;
 
@@ -580,7 +563,7 @@ BrowserNodeType FileBrowser::getNodeType(HTREEITEM hItem)
 	TVITEM tvItem;
 	tvItem.hItem = hItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
-	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 	// File
 	if (tvItem.iImage == INDEX_LEAF)
@@ -712,7 +695,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 		{
 			if (not selectedNode) return;
 			generic_string path = getNodePath(selectedNode);
-			::SendMessage(_hParent, NPPM_LAUNCHFINDINFILESDLG, (WPARAM)path.c_str(), 0);
+			::SendMessage(_hParent, NPPM_LAUNCHFINDINFILESDLG, reinterpret_cast<WPARAM>(path.c_str()), 0);
 		}
 		break;
 
@@ -724,7 +707,7 @@ void FileBrowser::popupMenuCmd(int cmdID)
 
 		case IDM_FILEBROWSER_REMOVEALLROOTS:
 		{
-			for (int i = _folderUpdaters.size() - 1; i >= 0; --i)
+			for (int i = static_cast<int>(_folderUpdaters.size()) - 1; i >= 0; --i)
 			{
 				_folderUpdaters[i]->stopWatcher();
 
@@ -1009,7 +992,7 @@ HTREEITEM FileBrowser::getRootFromFullPath(const generic_string & rootPath) cons
 		tvItem.mask = TVIF_PARAM;
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.hItem = hItemNode;
-		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 		if (tvItem.lParam != 0 && rootPath == *((generic_string *)tvItem.lParam))
 			node = hItemNode;
@@ -1031,7 +1014,7 @@ HTREEITEM FileBrowser::findChildNodeFromName(HTREEITEM parent, generic_string la
 		tvItem.pszText = textBuffer;
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.hItem = hItemNode;
-		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 		if (label == tvItem.pszText)
 		{
@@ -1045,16 +1028,15 @@ vector<generic_string> FileBrowser::getRoots() const
 {
 	vector<generic_string> roots;
 
-	HTREEITEM node = nullptr;
 	for (HTREEITEM hItemNode = _treeView.getRoot();
-		hItemNode != nullptr && node == nullptr;
+		hItemNode != nullptr;
 		hItemNode = _treeView.getNextSibling(hItemNode))
 	{
 		TVITEM tvItem;
 		tvItem.mask = TVIF_PARAM;
 		tvItem.cchTextMax = MAX_PATH;
 		tvItem.hItem = hItemNode;
-		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 		roots.push_back(*((generic_string *)tvItem.lParam));
 	}
@@ -1105,9 +1087,8 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 	}
 	else
 	{
-		HTREEITEM childNodeFound = nullptr;
 		for (HTREEITEM hItemNode = _treeView.getChildFrom(node);
-			hItemNode != NULL && childNodeFound == nullptr;
+			hItemNode != NULL ;
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
 			TCHAR textBuffer[MAX_PATH];
@@ -1116,7 +1097,7 @@ bool FileBrowser::addInTree(generic_string rootPath, generic_string addItemFullP
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
 			tvItem.hItem = hItemNode;
-			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 			if (linarPathArray[0] == tvItem.pszText)
 			{
@@ -1145,9 +1126,8 @@ HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::
 	}
 	else
 	{
-		HTREEITEM childNodeFound = nullptr;
 		for (HTREEITEM hItemNode = _treeView.getChildFrom(node);
-			hItemNode != NULL && childNodeFound == nullptr;
+			hItemNode != NULL;
 			hItemNode = _treeView.getNextSibling(hItemNode))
 		{
 			TCHAR textBuffer[MAX_PATH];
@@ -1156,7 +1136,7 @@ HTREEITEM FileBrowser::findInTree(generic_string rootPath, HTREEITEM node, std::
 			tvItem.pszText = textBuffer;
 			tvItem.cchTextMax = MAX_PATH;
 			tvItem.hItem = hItemNode;
-			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, (LPARAM)&tvItem);
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 			if (linarPathArray[0] == tvItem.pszText)
 			{
@@ -1360,7 +1340,7 @@ bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> &
 	// case FILE_ACTION_ADDED:
 	// swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
 	// printStr(msg2show);
-	//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, (LPARAM)wstrFilename.GetString());
+	//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, reinterpret_cast<LPARAM>(wstrFilename.GetString()));
 	// break;
 
 	// case FILE_ACTION_REMOVED:
@@ -1497,14 +1477,14 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 						case FILE_ACTION_ADDED:
 							file2Change.push_back(wstrFilename.GetString());
 							//thisFolderUpdater->updateTree(dwAction, file2Change);
-							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_ADDFILE, (WPARAM)nullptr, (LPARAM)&file2Change);
+							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_ADDFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							oldName = TEXT("");
 							break;
 
 						case FILE_ACTION_REMOVED:
 							file2Change.push_back(wstrFilename.GetString());
 							//thisFolderUpdater->updateTree(dwAction, file2Change);
-							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RMFILE, (WPARAM)nullptr, (LPARAM)&file2Change);
+							::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RMFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							oldName = TEXT("");
 							break;
 
@@ -1522,7 +1502,7 @@ DWORD WINAPI FolderUpdater::watching(void *params)
 								file2Change.push_back(oldName);
 								file2Change.push_back(wstrFilename.GetString());
 								//thisFolderUpdater->updateTree(dwAction, file2Change);
-								::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RNFILE, (WPARAM)nullptr, (LPARAM)&file2Change);
+								::SendMessage((thisFolderUpdater->_pFileBrowser)->getHSelf(), FB_RNFILE, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(&file2Change));
 							}
 							oldName = TEXT("");
 							break;

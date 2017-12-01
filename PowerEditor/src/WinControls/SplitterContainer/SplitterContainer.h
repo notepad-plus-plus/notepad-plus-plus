@@ -58,7 +58,7 @@ public :
 
 	virtual void display(bool toShow = true) const;
 
-	virtual void redraw() const;
+	virtual void redraw(bool forceUpdate = false) const;
 
 	void setWin0(Window* pWin)
 	{

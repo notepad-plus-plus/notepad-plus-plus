@@ -49,3 +49,4 @@ static inline int min(unsigned int a, unsigned int b) {
 
 // from MinGW include/driverspecs.h
 #define __inout
+#define __inout_opt

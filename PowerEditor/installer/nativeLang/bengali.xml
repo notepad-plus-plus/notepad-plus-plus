@@ -261,8 +261,8 @@
                     <Item id="10004" name="নতুন উদাহরণস্বরূপ খুলুন"/>
 
                     <Item id="46001" name="কনফিগারেশন শৈলী"/>
-					<Item id="46150" name="আপনার ভাষা নির্ধারণ করুন ..."/>
-                    <Item id="46080" name="ব্যবহারকারী সংজ্ঞায়িত(User Defined)"/>
+					<Item id="46250" name="আপনার ভাষা নির্ধারণ করুন ..."/>
+                    <Item id="46180" name="ব্যবহারকারী সংজ্ঞায়িত(User Defined)"/>
                     <Item id="47000" name="Notepad++ আমার ..."/>
                     <Item id="47001" name="Notepad++ বাড়ি"/>
                     <Item id="47002" name="Notepad++ প্রকল্প পাতা"/>

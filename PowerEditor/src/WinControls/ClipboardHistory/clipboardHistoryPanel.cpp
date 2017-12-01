@@ -62,7 +62,7 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 					{
 						for (size_t i = 0 ; i < (*lpLen) ; ++i)
 						{
-							clipboardData.push_back((unsigned char)lpchar[i]);
+							clipboardData.push_back(static_cast<unsigned char>(lpchar[i]));
 						}
 						GlobalUnlock(hglb); 
 					}
@@ -73,7 +73,7 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 				int nbBytes = (lstrlenW(lpWchar) + 1) * sizeof(wchar_t);
 				for (int i = 0 ; i < nbBytes ; ++i)
 				{
-					clipboardData.push_back((unsigned char)lpchar[i]);
+					clipboardData.push_back(static_cast<unsigned char>(lpchar[i]));
 				}
 			}
 			GlobalUnlock(hglb); 
@@ -152,7 +152,7 @@ int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardData cbd)
 
 			if (found)
 			{
-				iFound = i;
+				iFound = static_cast<int32_t>(i);
 				break;
 			}
 		}
@@ -173,7 +173,7 @@ void ClipboardHistoryPanel::addToClipboadHistory(ClipboardData cbd)
 
 	StringArray sa(cbd, MAX_DISPLAY_LENGTH);
 	TCHAR *displayStr = (TCHAR *)sa.getPointer();
-	::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_INSERTSTRING, 0, (LPARAM)displayStr);
+	::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_INSERTSTRING, 0, reinterpret_cast<LPARAM>(displayStr));
 }
 
 
@@ -207,8 +207,8 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
         }
 
 		case WM_CHANGECBCHAIN:
-			if (_hwndNextCbViewer == (HWND)wParam)
-				_hwndNextCbViewer = (HWND)lParam;
+			if (_hwndNextCbViewer == reinterpret_cast<HWND>(wParam))
+				_hwndNextCbViewer = reinterpret_cast<HWND>(lParam);
 			else if (_hwndNextCbViewer)
 				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
 			return TRUE;
@@ -235,27 +235,27 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 				{
 					if (HIWORD(wParam) == LBN_DBLCLK)
 					{
-						int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
+						auto i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
 						if (i != LB_ERR)
 						{
 							int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 							if (codepage == -1)
 							{
-								int cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
-								codepage = cp==SC_CP_UTF8?SC_CP_UTF8:0;
+								auto cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
+								codepage = cp == SC_CP_UTF8 ? SC_CP_UTF8 : 0;
 							}
 							else
 								codepage = SC_CP_UTF8;
 
 							ByteArray ba(_clipboardDataVector[i]);
 
-							int nbChar = WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), ba.getLength(), NULL, 0, NULL, NULL);
+							int nbChar = WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), static_cast<int32_t>(ba.getLength()), NULL, 0, NULL, NULL);
 
 							char *c = new char[nbChar+1];
-							WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), ba.getLength(), c, nbChar+1, NULL, NULL);
+							WideCharToMultiByte(codepage, 0, (wchar_t *)ba.getPointer(), static_cast<int32_t>(ba.getLength()), c, nbChar + 1, NULL, NULL);
 
-							(*_ppEditView)->execute(SCI_REPLACESEL, 0, (LPARAM)"");
-							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), (LPARAM)c);
+							(*_ppEditView)->execute(SCI_REPLACESEL, 0, reinterpret_cast<LPARAM>(""));
+							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), reinterpret_cast<LPARAM>(c));
 							(*_ppEditView)->getFocus();
 							delete [] c;
 						}
@@ -273,28 +273,17 @@ INT_PTR CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam,
 			::MoveWindow(::GetDlgItem(_hSelf, IDC_LIST_CLIPBOARD), 0, 0, width, height, TRUE);
             break;
         }
-/*
-		case WM_VKEYTOITEM:
-		{
-			if (LOWORD(wParam) == VK_RETURN)
-			{
-				int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
-				printInt(i);
-				return TRUE;
-			}//return TRUE;
-			break;
-		}
-*/
+
 		case WM_CTLCOLORLISTBOX:
 		{
 			if (_lbBgColor != -1)
-				return (LRESULT)::CreateSolidBrush((COLORREF)_lbBgColor);
+				return reinterpret_cast<LRESULT>(::CreateSolidBrush(_lbBgColor));
 			break;
 		}
 
 		case WM_DRAWITEM:
 		{
-			drawItem((DRAWITEMSTRUCT *)lParam);
+			drawItem(reinterpret_cast<DRAWITEMSTRUCT *>(lParam));
 			break;
 		}
         default :

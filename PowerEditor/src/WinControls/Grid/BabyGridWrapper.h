@@ -26,13 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef BABYGRIDWRAPPER
-#define BABYGRIDWRAPPER
+#pragma once
 
-#ifndef BABYGRID_H
+#include "Parameters.h"
 #include "BabyGrid.h"
-#endif// BABYGRID_H
-
 #include "Window.h"
 
 class BabyGridWrapper : public Window
@@ -40,7 +37,7 @@ class BabyGridWrapper : public Window
 public :
 	BabyGridWrapper() : Window(){};
     ~BabyGridWrapper(){};
-	virtual void init(HINSTANCE hInst, HWND parent, int id);
+	virtual void init(HINSTANCE hInst, HWND parent, int16_t id);
 	virtual void destroy() {
 		::DestroyWindow(_hSelf);
 	};
@@ -49,7 +46,7 @@ public :
 	};
 
 	void setCursorColour(COLORREF coulour) {
-		::SendMessage(_hSelf, BGM_SETCURSORCOLOR, (WPARAM)coulour, 0);
+		::SendMessage(_hSelf, BGM_SETCURSORCOLOR, coulour, 0);
 	};
 
 	void hideCursor() {
@@ -62,9 +59,9 @@ public :
 
 	void setText(size_t row, size_t col, const TCHAR *text) {
 		_BGCELL cell;
-		cell.row = row;
-		cell.col = col;
-		::SendMessage(_hSelf, BGM_SETCELLDATA, (WPARAM)&cell, (LPARAM)text);
+		cell.row = int(row);
+		cell.col = int(col);
+		::SendMessage(_hSelf, BGM_SETCELLDATA, reinterpret_cast<WPARAM>(&cell), reinterpret_cast<LPARAM>(text));
 	};
 
 	void makeColAutoWidth(bool autoWidth = true) {
@@ -72,14 +69,14 @@ public :
 	};
 
 	int getSelectedRow() {
-		return ::SendMessage(_hSelf, BGM_GETROW, 0, 0);
+		return (int)::SendMessage(_hSelf, BGM_GETROW, 0, 0);
 	};
 
 	void deleteCell(int row, int col) {
 		_BGCELL cell;
 		cell.row = row;
 		cell.col = col;
-		::SendMessage(_hSelf, BGM_DELETECELL, (WPARAM)&cell, 0);
+		::SendMessage(_hSelf, BGM_DELETECELL, reinterpret_cast<WPARAM>(&cell), 0);
 	};
 
 	void setColWidth(unsigned int col, unsigned int width) {
@@ -90,9 +87,69 @@ public :
 		::SendMessage(_hSelf, BGM_CLEARGRID, 0, 0);
 	};
 
+	int getNumberRows() const {
+		return (int)::SendMessage(_hSelf, BGM_GETROWS, 0, 0);
+	};
+
+	int getHomeRow() const {
+		return (int)::SendMessage(_hSelf, BGM_GETHOMEROW, 0, 0);
+	};
+
+	void setLastView(const size_t homeRow, const size_t cursorRow) const {
+		::SendMessage(_hSelf, BGM_SETLASTVIEW, homeRow, cursorRow);
+	};
+
+	void updateView() const {
+		::SendMessage(_hSelf, WM_PAINT, 0, 0);
+	};
+
+	void setHighlightColorNoFocus(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR_NOFOCUS, color, 0);
+	};
+
+	void setProtectColor(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETPROTECTCOLOR, color, 0);
+	};
+
+	void setHighlightColorProtect(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR_PROTECT, color, 0);
+	};
+
+	void setHighlightColorProtectNoFocus(const COLORREF color) const {
+		::SendMessage(_hSelf, BGM_SETHILIGHTCOLOR_PROTECT_NOFOCUS, color, 0);
+	};
+
+	bool setMarker(const bool isMarker) const {
+		::SendMessage(_hSelf, BGM_SETPROTECT, isMarker, 0);
+		return isMarker;
+	};
+
+	void setAutoRow(const bool isAutoRow) const {
+		::SendMessage(_hSelf, BGM_AUTOROW, isAutoRow, 0);
+	};
+
+	void setInitialContent(const bool isInitialContent) const {
+		::SendMessage(_hSelf, BGM_SETINITIALCONTENT, isInitialContent, 0);
+	};
+
+	void setHeaderFont(const HFONT & hFont) const {
+		::SendMessage(_hSelf, BGM_SETHEADINGFONT, reinterpret_cast<WPARAM>(hFont), 0);
+	};
+
+	void setRowFont(const HFONT & hFont) const {
+		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), 0);
+	};
+
+	void setHeaderHeight(const size_t headerHeight) const {
+		::SendMessage(_hSelf, BGM_SETHEADERROWHEIGHT, headerHeight, 0);
+	};
+
+	void setRowHeight(const size_t rowHeight) const {
+		::SendMessage(_hSelf, BGM_SETROWHEIGHT, rowHeight, 0);
+	};
+
 private :
 	static bool _isRegistered;
 };
 
-#endif //BABYGRIDWRAPPER
 

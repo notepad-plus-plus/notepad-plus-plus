@@ -27,6 +27,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <sstream>
 #include <windows.h>
 #include <iso646.h>
 #include <cstdint>
@@ -65,12 +66,14 @@ const bool dirDown = false;
 #define COPYDATA_FILENAMES COPYDATA_FILENAMESW
 
 typedef std::basic_string<TCHAR> generic_string;
+typedef std::basic_stringstream<TCHAR> generic_stringstream;
 
 generic_string folderBrowser(HWND parent, const generic_string & title = TEXT(""), int outputCtrlID = 0, const TCHAR *defaultStr = NULL);
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir = NULL);
 
 void printInt(int int2print);
 void printStr(const TCHAR *str2print);
+generic_string commafyInt(size_t n);
 
 void writeLog(const TCHAR *logFileName, const char *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
@@ -98,7 +101,7 @@ public:
 
 	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
 	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
-	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL);
+	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn = -1, int *pLenOut = NULL);
 	const char * wchar2char(const wchar_t *wcStr, UINT codepage, long *mstart, long *mend);
 
 	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL)
@@ -111,6 +114,11 @@ public:
 protected:
 	WcharMbcsConvertor() {}
 	~WcharMbcsConvertor() {}
+
+	// Since there's no public ctor, we need to void the default assignment operator and copy ctor.
+	// Since these are marked as deleted does not matter under which access specifier are kept
+	WcharMbcsConvertor(const WcharMbcsConvertor&) = delete;
+	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&) = delete;
 
 	static WcharMbcsConvertor* _pSelf;
 
@@ -151,10 +159,6 @@ protected:
 
 	StringBuffer<char> _multiByteStr;
 	StringBuffer<wchar_t> _wideCharStr;
-
-private:
-	// Since there's no public ctor, we need to void the default assignment operator.
-	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&);
 };
 
 
@@ -162,11 +166,7 @@ private:
 #define MACRO_RECORDING_IN_PROGRESS 1
 #define MACRO_RECORDING_HAS_STOPPED 2
 
-#if _MSC_VER > 1400 // MS Compiler > VS 2005
-#define REBARBAND_SIZE REBARBANDINFO_V3_SIZE
-#else
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
-#endif
 
 generic_string PathRemoveFileSpec(generic_string & path);
 generic_string PathAppend(generic_string &strDest, const generic_string & str2append);
@@ -179,3 +179,13 @@ generic_string stringTakeWhileAdmissable(const generic_string& input, const gene
 double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd);
+
+generic_string GetLastErrorAsString(DWORD errorCode = 0);
+
+generic_string intToString(int val);
+generic_string uintToString(unsigned int val);
+
+HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
+
+bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
+bool isAssoCommandExisting(LPCTSTR FullPathName);

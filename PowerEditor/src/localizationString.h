@@ -110,6 +110,8 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Cymraeg"), TEXT("welsh.xml")},
 	{TEXT("eesti keel"), TEXT("estonian.xml")},
 	{TEXT("Тоҷик"), TEXT("tajikCyrillic.xml")},
-	{ TEXT("татарча"), TEXT("tatar.xml") },
-	{TEXT("ਪੰਜਾਬੀ"), TEXT("punjabi.xml")}
+	{TEXT("татарча"), TEXT("tatar.xml")},
+	{TEXT("ਪੰਜਾਬੀ"), TEXT("punjabi.xml")},
+	{TEXT("Corsu"), TEXT("corsican.xml")},
+	{TEXT("Brezhoneg"), TEXT("breton.xml")}
 };

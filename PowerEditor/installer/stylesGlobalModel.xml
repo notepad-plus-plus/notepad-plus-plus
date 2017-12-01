@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
-<Node nodeName="NotepadPlus">
-    <Node nodeName="GlobalStyles">
-        <Node nodeName="WidgetStyle" name="name" />
-    </Node>
-</Node>
-

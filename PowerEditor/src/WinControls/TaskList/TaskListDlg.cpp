@@ -31,13 +31,26 @@
 #include "Parameters.h"
 #include "resource.h"
 
-LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
+int TaskListDlg::_instanceCount = 0;
+
+LRESULT CALLBACK hookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
     {
 		::PostMessage(hWndServer, WM_RBUTTONUP, 0, 0);
-    }        
-	
+    }
+	else if ((nCode >= 0) && (wParam == WM_MOUSEWHEEL) && windowsVersion >= WV_WIN10)
+	{
+		MSLLHOOKSTRUCT* pMD = (MSLLHOOKSTRUCT*)lParam;
+		RECT rCtrl;
+		GetWindowRect(hWndServer, &rCtrl);
+		//to avoid duplicate messages, only send this message to the list control if it comes from outside the control window. if the message occurs whilst the mouse is inside the control, the control will have receive the mouse wheel message itself
+		if (false == PtInRect(&rCtrl, pMD->pt))
+		{
+			::PostMessage(hWndServer, WM_MOUSEWHEEL, (WPARAM)pMD->mouseData, MAKELPARAM(pMD->pt.x, pMD->pt.y));
+		}
+	}
+
 	return ::CallNextHookEx(hook, nCode, wParam, lParam);
 }
 
@@ -47,11 +60,11 @@ LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
 	{
 		DLGTEMPLATE *pMyDlgTemplate = NULL;
 		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_VALUE_DLG, &pMyDlgTemplate);
-		int result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  dlgProc, (LPARAM)this);
+		int result = static_cast<int32_t>(::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
 		::GlobalFree(hMyDlgTemplate);
 		return result;
 	}
-	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_TASKLIST_DLG), _hParent,  dlgProc, (LPARAM)this);
+	return static_cast<int32_t>(::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_TASKLIST_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
 }
 
 INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
@@ -60,8 +73,8 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 	{
 		case WM_INITDIALOG :
 		{
-			::SendMessage(_hParent, WM_GETTASKLISTINFO, (WPARAM)&_taskListInfo, 0);
-			int nbTotal = _taskListInfo._tlfsLst.size();
+			::SendMessage(_hParent, WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&_taskListInfo), 0);
+			int nbTotal = static_cast<int32_t>(_taskListInfo._tlfsLst.size());
 
 			int i2set = _taskListInfo._currentIndex + (_initDir == dirDown?1:-1);
 			
@@ -72,7 +85,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 				i2set = 0;
 
 			_taskList.init(_hInst, _hSelf, _hImalist, nbTotal, i2set);
-			_taskList.setFont(TEXT("Verdana"), 14);
+			_taskList.setFont(TEXT("Verdana"), NppParameters::getInstance()->_dpiManager.scaleY(14));
 			_rc = _taskList.adjustSize();
 
 			reSizeTo(_rc);
@@ -80,11 +93,12 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 
 			_taskList.display(true);
 			hWndServer = _hSelf;
+			windowsVersion = NppParameters::getInstance()->getWinVersion();
 
 #ifndef WH_MOUSE_LL
 #define WH_MOUSE_LL 14
 #endif
-			_hHooker = ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProc, _hInst, 0);
+			_hHooker = ::SetWindowsHookEx(WH_MOUSE_LL, hookProc, _hInst, 0);
 			hook = _hHooker;
 			return FALSE;
 		}
@@ -93,6 +107,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 		{
 			_taskList.destroy();
 			::UnhookWindowsHookEx(_hHooker);
+			_instanceCount--;
 			return TRUE;
 		}
 
@@ -103,6 +118,11 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			return TRUE;
 		}
 		
+		case WM_MOUSEWHEEL:
+		{
+			::SendMessage(_taskList.getHSelf(), WM_MOUSEWHEEL, wParam, lParam);
+			return TRUE;
+		}
 
 		case WM_DRAWITEM :
 		{
@@ -116,7 +136,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			{
 				case LVN_GETDISPINFO:
 				{
-					LV_ITEM &lvItem = reinterpret_cast<LV_DISPINFO*>((LV_DISPINFO FAR *)lParam)->item;
+					LV_ITEM &lvItem = reinterpret_cast<LV_DISPINFO*>(reinterpret_cast<LV_DISPINFO FAR *>(lParam))->item;
 
 					TaskLstFnStatus & fileNameStatus = _taskListInfo._tlfsLst[lvItem.iItem];
 
@@ -145,7 +165,7 @@ INT_PTR CALLBACK TaskListDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lP
 			{
 				case ID_PICKEDUP :
 				{
-					int listIndex = lParam;
+					auto listIndex = lParam;
 					int view2set = _taskListInfo._tlfsLst[listIndex]._iView;
 					int index2Switch = _taskListInfo._tlfsLst[listIndex]._docIndex;
 					::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
@@ -172,7 +192,9 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	int nItem = lpDrawItemStruct->itemID;
 	const TCHAR *label = _taskListInfo._tlfsLst[nItem]._fn.c_str();
 	int iImage = _taskListInfo._tlfsLst[nItem]._status;
-	
+
+	const int aSpaceWidth = ListView_GetStringWidth(_taskList.getHSelf(), TEXT(" "));
+
 	COLORREF textColor = darkGrey;
 	int imgStyle = ILD_SELECTED;
 
@@ -189,25 +211,19 @@ void TaskListDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	HIMAGELIST hImgLst = _taskList.getImgLst();
 
 	IMAGEINFO info;
-	ImageList_GetImageInfo(hImgLst, iImage, &info);
+	::ImageList_GetImageInfo(hImgLst, iImage, &info);
 
 	RECT & imageRect = info.rcImage;
-	//int yPos = (rect.top + (rect.bottom - rect.top)/2 + (isSelected?0:2)) - (imageRect.bottom - imageRect.top)/2;
-	
-	SIZE charPixel;
-	::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
-	int spaceUnit = charPixel.cx;
-	int marge = spaceUnit;
+	// center icon position, prefer bottom orientation
+	imageRect.top = ((rect.bottom - rect.top) - (imageRect.bottom - imageRect.top) + 1) / 2;
 
-	rect.left += marge;
-	ImageList_Draw(hImgLst, iImage, hDC, rect.left, rect.top, imgStyle);
-	rect.left += imageRect.right - imageRect.left + spaceUnit * 2;
+	rect.left += aSpaceWidth;
+	::ImageList_Draw(hImgLst, iImage, hDC, rect.left, rect.top + imageRect.top, imgStyle);
+	rect.left += imageRect.right - imageRect.left + aSpaceWidth * 2;
 
 	//
 	// DRAW TEXT
 	//
 	::SetTextColor(hDC, textColor);
-	rect.top -= ::GetSystemMetrics(SM_CYEDGE);
-		
 	::DrawText(hDC, label, lstrlen(label), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 }

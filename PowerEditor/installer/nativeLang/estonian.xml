@@ -1,903 +1,1008 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-*Estonian language file for Notepad++*
-
-	** Created By:- Yusuf Mullaji *
-		Email Id-> yusufmullaji@rocketmail.com
-
+Estonian translation by Andres Traks
+https://github.com/AndresTraks/
 -->
 <NotepadPlus>
-    <Native-Langue name="Estonian" filename="Estonian.xml" version="6.5.2">
+    <Native-Langue name="Estonian" filename="estonian.xml" version="7.3.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;Faili"/>
+                    <Item menuId="file" name="&amp;Fail"/>
                     <Item menuId="edit" name="&amp;Redigeeri"/>
-                    <Item menuId="search" name="&amp;Otsing"/>
+                    <Item menuId="search" name="&amp;Otsi"/>
                     <Item menuId="view" name="&amp;Vaade"/>
-                    <Item menuId="encoding" name="K&amp;odeering"/>
+                    <Item menuId="encoding" name="Ko&amp;deering"/>
                     <Item menuId="language" name="&amp;Keel"/>
-                    <Item menuId="settings" name="Se&amp;aded"/>
+                    <Item menuId="settings" name="&amp;Sätted"/>"/>
+                    <Item menuId="tools" name="T&amp;ööriistad"/>
                     <Item menuId="macro" name="Makro"/>
-                    <Item menuId="run" name="Jooksma"/>
+                    <Item menuId="run" name="Käivita"/>
                     <Item idName="Plugins" name="Pluginad"/>
                     <Item idName="Window" name="Aken"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item subMenuId="file-openFolder" name="Avatud Sisaldavate Kausta"/>
-                    <Item subMenuId="file-closeMore" name="Close Rohkem"/>
-                    <Item subMenuId="file-recentFiles" name="viimastel Faili"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="kopeerida Lõikelauale"/>
+                    <Item subMenuId="file-openFolder" name="Ava faili sisaldav kaust"/>
+                    <Item subMenuId="file-closeMore" name="Sule mitu"/>
+                    <Item subMenuId="file-recentFiles" name="Viimatised failid"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Kopeeri lõikepuhvrisse"/>
                     <Item subMenuId="edit-indent" name="Taane"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Teisendada Juhtumi"/>
-                    <Item subMenuId="edit-lineOperations" name="Liin Toimingud"/>
-                    <Item subMenuId="edit-comment" name="Kommentaar / Eemaldamine Jaoks"/>
-                    <Item subMenuId="edit-autoCompletion" name="Auto-Lõpuleviimine"/>
-                    <Item subMenuId="edit-eolConversion" name="EOL Konversioonide"/>
-                    <Item subMenuId="edit-blankOperations" name="Tühjaks Toimingud"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Kleebi Eriline"/>
-                    <Item subMenuId="search-markAll" name="Mark Kõik"/>
-                    <Item subMenuId="search-unmarkAll" name="Tühista kõik"/>
-                    <Item subMenuId="search-jumpUp" name="Hüpata Üles"/>
-                    <Item subMenuId="search-jumpDown" name="Hüpata Alla"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Teisenda väike- ja suurtähtede vahel"/>
+                    <Item subMenuId="edit-lineOperations" name="Rea toimingud"/>
+                    <Item subMenuId="edit-comment" name="Kommentaariks muutmine"/>
+                    <Item subMenuId="edit-autoCompletion" name="Automaattäitmine"/>
+                    <Item subMenuId="edit-eolConversion" name="Realõpu konverteerimine"/>
+                    <Item subMenuId="edit-blankOperations" name="Tühimike toimingud"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Kleebi eriliselt"/>
+                    <Item subMenuId="edit-onSelection" name="Valiku toimingud"/>
+                    <Item subMenuId="search-markAll" name="Tõsta kõik esile"/>
+                    <Item subMenuId="search-unmarkAll" name="Tühista esiletõstmine"/>
+                    <Item subMenuId="search-jumpUp" name="Eelmise juurde"/>
+                    <Item subMenuId="search-jumpDown" name="Järgmise juurde"/>
                     <Item subMenuId="search-bookmark" name="Järjehoidja"/>
-                    <Item subMenuId="view-showSymbol"  name="Näita Sümbol"/>
-                    <Item subMenuId="view-zoom"  name="suumi"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Liiguta / Kloonide Praegune dokument"/>
+                    <Item subMenuId="view-showSymbol"  name="Näita sümboleid"/>
+                    <Item subMenuId="view-zoom"  name="Suumi"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Liiguta või klooni praegune dokument"/>
                     <Item subMenuId="view-tab"  name="Sakk"/>
-                    <Item subMenuId="view-collapseLevel" name="Kahanda Tase"/>
-                    <Item subMenuId="view-uncollapseLevel" name="Uncollapse Tase"/>
+                    <Item subMenuId="view-collapseLevel" name="Voldi taseme elemendid kokku"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Voldi taseme elemendid lahti"/>
                     <Item subMenuId="view-project" name="Projekt"/>
-                    <Item subMenuId="encoding-characterSets"  name="Märkide Määra"/>
+                    <Item subMenuId="encoding-characterSets"  name="Märgistik"/>
+                    <Item subMenuId="encoding-characterSets"  name="Märgistik"/>
                     <Item subMenuId="encoding-arabic"  name="Araabia"/>
                     <Item subMenuId="encoding-baltic"  name="Balti"/>
                     <Item subMenuId="encoding-celtic"  name="Keldi"/>
-                    <Item subMenuId="encoding-cyrillic"  name="Kürillose"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="Euroopalist keskset"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Kirillitsa"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Kesk-Euroopa"/>
                     <Item subMenuId="encoding-chinese"  name="Hiina"/>
                     <Item subMenuId="encoding-easternEuropean"  name="Ida-Euroopa"/>
                     <Item subMenuId="encoding-greek"  name="Kreeka"/>
                     <Item subMenuId="encoding-hebrew"  name="Heebrea"/>
                     <Item subMenuId="encoding-japanese"  name="Jaapani"/>
-                    <Item subMenuId="encoding-korean" name="Korean"/>
-                    <Item subMenuId="encoding-northEuropean" name="Põhja- Euroopa"/>
+                    <Item subMenuId="encoding-korean" name="Korea"/>
+                    <Item subMenuId="encoding-northEuropean" name="Põhja-Euroopa"/>
                     <Item subMenuId="encoding-thai" name="Tai"/>
                     <Item subMenuId="encoding-turkish" name="Türgi"/>
                     <Item subMenuId="encoding-westernEuropean" name="Lääne-Euroopa"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnami"/>
                     <Item subMenuId="settings-import"  name="Impordi"/>
+					<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="41001" name="&amp;uus"/>
-                    <Item id="41002" name="&amp;avatud"/>
-                    <Item id="41019" name="Exploreri"/>
-                    <Item id="41020" name="Cmd"/>
-                    <Item id="41003" name="Lähedal"/>
-                    <Item id="41004" name="C&amp;ähedale Kõik"/>
-                    <Item id="41005" name="Lähedale Kõik, Kuid Praegune Dokument"/>
-                    <Item id="41009" name="Sulge Kõik Vasakule"/>
-                    <Item id="41018" name="Sulge Kõik Kuni õige"/>
-                    <Item id="41006" name="&amp;Säästa"/>
-                    <Item id="41007" name="Sal&amp;vesta Kõik"/>
-                    <Item id="41008" name="Salvesta&amp; Kui..."/>
+                    <Item id="41001" name="&amp;Uus"/>
+                    <Item id="41002" name="&amp;Ava"/>
+                    <Item id="41019" name="Exploreris"/>
+                    <Item id="41020" name="Käsureal"/>
+                    <Item id="41003" name="Sule"/>
+                    <Item id="41004" name="Su&amp;le kõik"/>
+                    <Item id="41005" name="Sule kõik peale praeguse dokumendi"/>
+                    <Item id="41009" name="Sule kõik vasakul pool"/>
+                    <Item id="41018" name="Sule kõik paremal pool"/>
+                    <Item id="41006" name="&amp;Salvesta"/>
+                    <Item id="41007" name="Sal&amp;vesta kõik"/>
+                    <Item id="41008" name="Salvesta &amp;nimega..."/>
                     <Item id="41010" name="Prindi..."/>
-                    <Item id="1001"  name="Prindi Nüüd"/>
+                    <Item id="1001"  name="Prindi kohe"/>
                     <Item id="41011" name="V&amp;älju"/>
-                    <Item id="41012" name="Laadige Sessioon..."/>
-                    <Item id="41013" name="Salvesta seanss..."/>
-                    <Item id="41014" name="Reload Pärit Kettalt"/>
-                    <Item id="41015" name="Säästa Kopeeri Nagu..."/>
-                    <Item id="41016" name="Kustutada Pärit Ketta"/>
+                    <Item id="41012" name="Laadi sessioon..."/>
+                    <Item id="41013" name="Salvesta sessioon..."/>
+                    <Item id="41014" name="Laadi kettalt uuesti"/>
+                    <Item id="41015" name="Salvesta koopia nimega..."/>
+                    <Item id="41016" name="Kustuta kettalt"/>
                     <Item id="41017" name="Muuda nime..."/>
+                    <Item id="41021" name="Ava viimati suletud fail"/>
+                    <Item id="41022" name="Ava kaust &amp;tööruumina"/>
 
                     <Item id="42001" name="L&amp;õika"/>
-                    <Item id="42002" name="&amp;Koopia"/>
-                    <Item id="42003" name="&amp;Tühistama"/>
-                    <Item id="42004" name="&amp;Tee Uuesti"/>
-                    <Item id="42005" name="&amp;Pasta"/>
-                    <Item id="42006" name="&amp;Kustutada"/>
-                    <Item id="42007" name="LlVali K&amp; õik"/>
-					<Item id="42020" name="Alustada / Lõpp Select"/>
-                    <Item id="42008" name="Suurendada Taandridu"/>
-                    <Item id="42009" name="Vähenemine Taandridu"/>
-                    <Item id="42010" name="Duplikaat Hetke Liin"/>
-                    <Item id="42012" name="Spliti Liinid"/>
-                    <Item id="42013" name="Liituda Liinid"/>
-                    <Item id="42014" name="Liiguta üles Hetke Liin"/>
-                    <Item id="42015" name="Liiguta Alla Hetke Liin"/>
-                    <Item id="42016" name="SUURTÄHTI"/>
+                    <Item id="42002" name="&amp;Kopeeri"/>
+                    <Item id="42003" name="&amp;Võta tagasi"/>
+                    <Item id="42004" name="&amp;Tee uuesti"/>
+                    <Item id="42005" name="K&amp;leebi"/>
+                    <Item id="42006" name="K&amp;ustuta"/>
+                    <Item id="42007" name="Vali k&amp;õik"/>
+					<Item id="42020" name="Valiku algus / lõpp"/>
+                    <Item id="42008" name="Suurenda taanet"/>
+                    <Item id="42009" name="Vähenda taanet"/>
+                    <Item id="42010" name="Duplitseeri praegust rida"/>
+                    <Item id="42012" name="Murra rida kaheks"/>
+                    <Item id="42013" name="Liida read kokku"/>
+                    <Item id="42014" name="Liiguta rida üles"/>
+                    <Item id="42015" name="Liiguta rida alla"/>
+                    <Item id="42059" name="Sordi read tähestiku järjekorras"/>
+                    <Item id="42060" name="Sordi read tähestiku järjekorras kahanevalt"/>
+                    <Item id="42061" name="Sordi read täisarvu väärtuse järgi"/>
+                    <Item id="42062" name="Sordi read täisarvu väärtuse järgi kahanevalt"/>
+                    <Item id="42063" name="Sordi read komaga reaalarvu väärtuse järgi"/>
+                    <Item id="42064" name="Sordi read komaga reaalarvu väärtuse järgi kahanevalt"/>
+                    <Item id="42065" name="Sordi read punktiga reaalarvu väärtuse järgi"/>
+                    <Item id="42066" name="Sordi read punktiga reaalarvu väärtuse järgi kahanevalt"/>
+                    <Item id="42016" name="SUURTÄHED"/>
                     <Item id="42017" name="väiketähed"/>
-                    <Item id="42018" name="&amp;Alguse Salvestamines"/>
-                    <Item id="42019" name="&amp;Lõpeta Salvestamines"/>
-                    <Item id="42021" name="&amp;Taasesitus"/>
-                    <Item id="42022" name="Tumblerid ühtse Liin Kommentaar"/>
-                    <Item id="42023" name="Plokk Kommentaar"/>
-                    <Item id="42047" name="Plokk Eemaldamine Jaoks"/>
-                    <Item id="42024" name="Kärbi Lõpust Tühikud"/>
-                    <Item id="42042" name="Kärbi Juhtivaid Kosmos"/>
-                    <Item id="42043" name="Kärbi Juhtivaid ja Lõpust Tühikud"/>
-                    <Item id="42044" name="EOL Et Kosmos"/>
-                    <Item id="42045" name="Eemalda Tarbetuid Blank Ja EOL"/>
-                    <Item id="42046" name="TAB Kosmos"/>
-                    <Item id="42054" name="Kosmos Et TAB (kõik)"/>
-                    <Item id="42053" name="Kosmos Et Tab (juhtivaid)"/>
-                    <Item id="42038" name="Pasta HTML Sisu"/>
-                    <Item id="42039" name="Pasta RTF Sisu"/>
-                    <Item id="42048" name="Kopeeri Binaarsisu Sisu"/>
-                    <Item id="42049" name="Lõika Binaarsisu Sisu"/>
-                    <Item id="42050" name="Pasta Binaarsisu Sisu"/>
-                    <Item id="42037" name="Kolonn Režiimi..."/>
-                    <Item id="42034" name="Kolonn Redaktor..."/>
-                    <Item id="42051" name="Märkide Paneel"/>
-                    <Item id="42052" name="Lõikelaua Ajalugu"/>
-                    <Item id="42025" name="Säästa Praegu On Salv.aeg Makro"/>
-                    <Item id="42026" name="Tekst Suund RTL"/>
-                    <Item id="42027" name="Tekst Suund LTR"/>
-                    <Item id="42028" name="Määra Kirjutuskaitstud"/>
-                    <Item id="42029" name="Aktiivne Faili Tee Ja Lõikelauale"/>
-                    <Item id="42030" name="Aktiivne Failinimi Ja Lõikelauale"/>
-                    <Item id="42031" name="Current Rež.Tee Ja Lõikelauale"/>
-                    <Item id="42032" name="Joosta Makro Mitme Korda..."/>
-                    <Item id="42033" name="Selge Kirjutuskaitstud Lipp"/>
-                    <Item id="42035" name="Ühtse Liin Kommentaar"/>
-                    <Item id="42036" name="Ühtse Liin eemaldamine jaoks"/>
-                    <Item id="42055" name="Eemalda Tühi Liinid"/>
-                    <Item id="42056" name="Eemalda Tühi Liinid (Sisaldav Tühi Tähemärki)"/>
-                    <Item id="42057" name="Sisestamise Tühi Liin kohal Praegune"/>
-					<Item id="42058" name="Sisestamise Tuhi Liin Lõõtsa Praegune"/>
-					<Item id="42059" name="Sort Liinid in Kasvavas Järjekorras"/>
-					<Item id="42060" name="Sort Liinid in Kasvav Järjekord"/>
-                    <Item id="43001" name="&amp;Leia..."/>
-                    <Item id="43002" name="Otsi &amp;Järgmine"/>
-                    <Item id="43003" name="Asendama..."/>
-                    <Item id="43004" name="Go to..."/>
-                    <Item id="43005" name="Lülita Järjehoidjat"/>
-                    <Item id="43006" name="Järgmine Järjehoidja"/>
-                    <Item id="43007" name="Eelmine Järjehoidja"/>
-                    <Item id="43008" name="Kustuta kõik Järjehoidjate"/>
-                    <Item id="43018" name="Lõika Järjehoidja Liinid"/>
-                    <Item id="43019" name="Kopeeri Järjehoidja Liinid"/>
-                    <Item id="43020" name="Pasta Ja (Vahetage) Järjehoidja Liinid"/>
-					<Item id="43021" name="Eemaldama Järjehoidja Liinid"/>
-					<Item id="43051" name="Eemaldama Tähistamata Liinid"/>
-                    <Item id="43050" name="Inversio Järjehoidja"/>
-					<Item id="43052" name="Leia Tähemärki In Vahemikus..."/>
-                    <Item id="43053" name="Vali kõik Aastatel Vastavuse Suka"/>
-                    <Item id="43009" name="Go to Vastavuse Suka"/>
-                    <Item id="43010" name="Otsi Eelmine"/>
-                    <Item id="43011" name="&amp;Lisanduv Otsing"/>
-                    <Item id="43013" name="Otsi Failidest"/>
-                    <Item id="43014" name="Otsi (Lenduvad) Järgmine"/>
-                    <Item id="43015" name="Otsi (Lenduvad) eelmine"/>
-                    <Item id="43016" name="Märgi kõik"/>
-                    <Item id="43017" name="Valikära kõik"/>
-                    <Item id="43022" name="Kasutades 1st Stiili"/>
-                    <Item id="43023" name="Selge 1st Stiili"/>
-                    <Item id="43024" name="Kasutades 2nd Stiili"/>
-                    <Item id="43025" name="Selge 2nd Stiili"/>
-                    <Item id="43026" name="Kasutades 3rd Stiili"/>
-                    <Item id="43027" name="Selge 3rd Stiili"/>
-                    <Item id="43028" name="Kasutades 4th Stiili"/>
-                    <Item id="43029" name="Selge 4th Stiili"/>
-                    <Item id="43030" name="Kasutades 5th Stiili"/>
-                    <Item id="43031" name="Selge 5th Stiili"/>
-                    <Item id="43032" name="Selge kõik Stiili"/>
-                    <Item id="43033" name="1st Stiili"/>
-                    <Item id="43034" name="2nd Stiili"/>
-                    <Item id="43035" name="3rd Stiili"/>
-                    <Item id="43036" name="4th Stiili"/>
-                    <Item id="43037" name="5th Stiili"/>
-                    <Item id="43038" name="Find Stiili"/>
-                    <Item id="43039" name="1st Stiili"/>
-                    <Item id="43040" name="2nd Stiili"/>
-                    <Item id="43041" name="3rd Stiili"/>
-                    <Item id="43042" name="4th Stiili"/>
-                    <Item id="43043" name="5th Stiili"/>
-                    <Item id="43044" name="Leia Stiili"/>
-                    <Item id="43045" name="Otsing Tulemused Aken"/>
-                    <Item id="43046" name="Järgmine Otsingu Tulemus"/>
-                    <Item id="43047" name="Eelmine Otsingu Tulemus"/>
-                    <Item id="43048" name="Vali Ja Otsi Järgmine"/>
-                    <Item id="43049" name="vali Ja Leida Eelmine"/>
-                    <Item id="44009" name="Posti-It"/>
-                    <Item id="44010" name="Murra Kõik"/>
-                    <Item id="44019" name="Näita Kõiki Tähemärki"/>
-                    <Item id="44020" name="Näita Taane Juhend"/>
-                    <Item id="44022" name="Mähis"/>
-                    <Item id="44023" name="Suumige &amp; Ctrl+Mouse Wheel Up"/>
-                    <Item id="44024" name="Vähenda &amp; Ctrl+Mouse Wheel Down"/>
-                    <Item id="44025" name="Näita Valge Kosmos Ja TAB"/>
-                    <Item id="44026" name="Näita Lõpp Of Liin"/>
-                    <Item id="44029" name="Paljastama Kõik"/>
-                    <Item id="44030" name="Ahenda Hetke Tase"/>
-                    <Item id="44031" name="Uncollapse Hetke Tase"/>
-                    <Item id="44049" name="Kokkuvõte.."/>
-                    <Item id="44080" name="Dokumendi Kaart"/>
-                    <Item id="44084" name="Funktsioon Nimekiri"/>
-                    <Item id="44086" name="1st Tab"/>
-                    <Item id="44087" name="2nd Tab"/>
-                    <Item id="44088" name="3rd Tab"/>
-                    <Item id="44089" name="4th Tab"/>
-                    <Item id="44090" name="5th Tab"/>
-                    <Item id="44091" name="6th Tab"/>
-                    <Item id="44092" name="7th Tab"/>
-                    <Item id="44093" name="8th Tab"/>
-                    <Item id="44094" name="9th Tab"/>
-                    <Item id="44095" name="Next Tab"/>
-                    <Item id="44096" name="Previous Tab"/>
-                    <Item id="44032" name="Tumblerid Täisekraanrežiim"/>
-                    <Item id="44033" name="Taastada Vaikimisi Suumi"/>
-                    <Item id="44034" name="Alati Pealmine"/>
-                    <Item id="44035" name="Sünkroonida Vertikaalne Kerimine"/>
-                    <Item id="44036" name="Sünkroonida horisontaalne Kerimine"/>
-                    <Item id="44041" name="Näita Mähis Sümbol"/>
-                    <Item id="44072" name="Keskenduda Veel üks Vaatan"/>
-                    <Item id="44081" name="Projekt Paneel 1"/>
-                    <Item id="44082" name="Projekt Paneel 2"/>
-                    <Item id="44083" name="Projekt Paneel 3"/>
-                    <Item id="45001" name="Teisendada Kuni Windows Formaat"/>
-                    <Item id="45002" name="Teisendada Kuni UNIX Formaat"/>
-                    <Item id="45003" name="Teisendada Kuni MAC Formaat"/>
-                    <Item id="45004" name="kodeerida Sisse ANSI"/>
-                    <Item id="45005" name="Kodeerida Sisse UTF-8"/>
-                    <Item id="45006" name="Kodeerida Sisse UCS-2 Big Endian"/>
-                    <Item id="45007" name="Kodeerida Sisse UCS-2 Little Endian"/>
-                    <Item id="45008" name="Kodeerida Sisse UTF-8 without BOM"/>
-                    <Item id="45009" name="Teisendada Kuni ANSI"/>
-                    <Item id="45010" name="Teisendada Kuni UTF-8 without BOM"/>
-                    <Item id="45011" name="Teisendada Kuni UTF-8"/>
-                    <Item id="45012" name="Teisendada Kuni UCS-2 Big Endian"/>
-                    <Item id="45013" name="Teisendada Kuni UCS-2 Little Endian"/>
+                    <Item id="42067" name="Läbiva Suurtähega"/>
+                    <Item id="42068" name="Läbiva Suurtähega (säilita järgnevad tähed)"/>
+                    <Item id="42069" name="Esisuurtähega"/>
+                    <Item id="42070" name="Esisuurtähega (säilita järgnevad tähed)"/>
+                    <Item id="42071" name="Vaheta suur- ja väiketähed"/>
+                    <Item id="42072" name="Juhuslikud suur- ja väiketähed"/>
+					<Item id="42073" name="Ava fail"/>
+					<Item id="42074" name="Ava faili sisaldav kaust Exploreris"/>
+					<Item id="42075" name="Otsi internetist"/>
+					<Item id="42076" name="Vali otsimootor..."/>
+                    <Item id="42018" name="&amp;Alusta salvestamist"/>
+                    <Item id="42019" name="&amp;Lõpeta salvestamine"/>
+                    <Item id="42021" name="&amp;Taasesita"/>
+                    <Item id="42022" name="Lisa/eemalda ühe rea kommentaar"/>
+                    <Item id="42023" name="Plokk-kommentaar"/>
+                    <Item id="42047" name="Eemalda plokk-kommentaar"/>
+                    <Item id="42024" name="Eemalda tühimik lõpust"/>
+                    <Item id="42042" name="Eemalda tühimik algusest"/>
+                    <Item id="42043" name="Eemalda tühimik algusest ja lõpust"/>
+                    <Item id="42044" name="Realõpud tühikuteks"/>
+                    <Item id="42045" name="Eemalda ebavajalikud tühimikud ja realõpud"/>
+                    <Item id="42046" name="Tabeldusmärgid tühikuteks"/>
+                    <Item id="42054" name="Tühikud tabeldusmärkideks (kõik)"/>
+                    <Item id="42053" name="Tühikud tabeldusmärkideks (algusest)"/>
+                    <Item id="42038" name="Kleebi HTML-sisu"/>
+                    <Item id="42039" name="Kleebi RTF-sisu"/>
+                    <Item id="42048" name="Kopeeri binaarne sisu"/>
+                    <Item id="42049" name="Lõika binaarne sisu"/>
+                    <Item id="42050" name="Kleebi binaarne sisu"/>
+                    <Item id="42037" name="Tulbarežiim..."/>
+                    <Item id="42034" name="Tulba redigeerimine..."/>
+                    <Item id="42051" name="Tähemärkide paneel"/>
+                    <Item id="42052" name="Lõikepuhvri ajalugu"/>
+                    <Item id="42025" name="Salvesta praegune makro otseteena"/>
+                    <Item id="42026" name="Teksti suund paremalt vasakule"/>
+                    <Item id="42027" name="Teksti suund vasakult paremale"/>
+                    <Item id="42028" name="Märgi fail kirjutuskaitstuks"/>
+                    <Item id="42029" name="Kopeeri faili rada lõikepuhvrisse"/>
+                    <Item id="42030" name="Kopeeri faili nimi lõikepuhvrisse"/>
+                    <Item id="42031" name="Kopeeri faili kausta rada lõikepuhvrisse"/>
+                    <Item id="42032" name="Taasesita makro mitu korda..."/>
+                    <Item id="42033" name="Eemalda faililt kirjutuskaitse atribuut"/>
+                    <Item id="42035" name="Ühe rea kommentaar"/>
+                    <Item id="42036" name="Eemalda ühe rea kommentaar"/>
+                    <Item id="42055" name="Kustuta tühjad read"/>
+                    <Item id="42056" name="Kustuta tühjad read ja tühimikega read"/>
+                    <Item id="42057" name="Sisesta tühi rida praeguse rea ette"/>
+                    <Item id="42058" name="Sisesta tühi rida praeguse rea järele"/>
+                    <Item id="43001" name="&amp;Otsi..."/>
+                    <Item id="43002" name="Leia &amp;järgmine"/>
+                    <Item id="43003" name="Asenda..."/>
+                    <Item id="43004" name="Mine asukohta..."/>
+                    <Item id="43005" name="Lisa / eemalda järjehoidja"/>
+                    <Item id="43006" name="Järgmine järjehoidja"/>
+                    <Item id="43007" name="Eelmine järjehoidja"/>
+                    <Item id="43008" name="Eemalda kõik järjehoidjad"/>
+                    <Item id="43018" name="Lõika järjehoidjatega read"/>
+                    <Item id="43019" name="Kopeeri järjehoidjatega read"/>
+                    <Item id="43020" name="Kleebi üle (asenda) järjehoidjatega read"/>
+                    <Item id="43021" name="Kustuta järjehoidjatega read"/>
+                    <Item id="43051" name="Kustuta järjehoidjateta read"/>
+                    <Item id="43050" name="Vaheta järjehoidjatega read"/>
+                    <Item id="43052" name="Otsi tähemärke vahemikus..."/>
+                    <Item id="43053" name="Vali kõik sulgude vahel"/>
+                    <Item id="43009" name="Mine vastava sulu juurde"/>
+                    <Item id="43010" name="Leia eelmine"/>
+                    <Item id="43011" name="&amp;Inkrementaalne otsing"/>
+                    <Item id="43013" name="Otsi failidest"/>
+                    <Item id="43014" name="Leia järgmine kursorialune"/>
+                    <Item id="43015" name="Leia eelmine kursorialune"/>
+                    <Item id="43022" name="Kasutades 1. stiili"/>
+                    <Item id="43023" name="Tühista 1. stiil"/>
+                    <Item id="43024" name="Kasutades 2. stiili"/>
+                    <Item id="43025" name="Tühista 2. stiil"/>
+                    <Item id="43026" name="Kasutades 3. stiili"/>
+                    <Item id="43027" name="Tühista 3. stiil"/>
+                    <Item id="43028" name="Kasutades 4. stiili"/>
+                    <Item id="43029" name="Tühista 4. stiil"/>
+                    <Item id="43030" name="Kasutades 5. stiili"/>
+                    <Item id="43031" name="Tühista 5. stiil"/>
+                    <Item id="43032" name="Tühista kõik stiilid"/>
+                    <Item id="43033" name="1. stiil"/>
+                    <Item id="43034" name="2. stiil"/>
+                    <Item id="43035" name="3. stiil"/>
+                    <Item id="43036" name="4. stiil"/>
+                    <Item id="43037" name="5. stiil"/>
+                    <Item id="43038" name="Otsingu stiil"/>
+                    <Item id="43039" name="1. stiil"/>
+                    <Item id="43040" name="2. stiil"/>
+                    <Item id="43041" name="3. stiil"/>
+                    <Item id="43042" name="4. stiil"/>
+                    <Item id="43043" name="5. stiil"/>
+                    <Item id="43044" name="Otsingu stiil"/>
+                    <Item id="43045" name="Otsingutulemuste aken"/>
+                    <Item id="43046" name="Järgmine otsingutulemus"/>
+                    <Item id="43047" name="Eelmine otsingutulemus"/>
+                    <Item id="43048" name="Vali ja leia järgmine"/>
+                    <Item id="43049" name="Vali ja leia eelmine"/>
+					<Item id="43054" name="Märgi..."/>
+                    <Item id="44009" name="Märkmerežiim"/>
+                    <Item id="44010" name="Voldi kõik kinni"/>
+                    <Item id="44019" name="Näita kõiki sümboleid"/>
+                    <Item id="44020" name="Näita taande abijooni"/>
+                    <Item id="44022" name="Rea mähkimine"/>
+                    <Item id="44023" name="Suumi &amp;sisse    Ctrl+Hiire kerimine üles"/>
+                    <Item id="44024" name="Suumi &amp;välja    Ctrl+Hiire kerimine alla"/>
+                    <Item id="44025" name="Näita tühimikke ja tabeldusmärke"/>
+                    <Item id="44026" name="Näita realõppe"/>
+                    <Item id="44029" name="Voldi kõik lahti"/>
+                    <Item id="44030" name="Voldi praegune tase kinni"/>
+                    <Item id="44031" name="Voldi praegune tase lahti"/>
+                    <Item id="44049" name="Kokkuvõte..."/>
+                    <Item id="44080" name="Dokumendi kaart"/>
+                    <Item id="44084" name="Funktsioonide loend"/>
+                    <Item id="44085" name="Kaust &amp;tööruumina"/>
+                    <Item id="44086" name="1. sakk"/>
+                    <Item id="44087" name="2. sakk"/>
+                    <Item id="44088" name="3. sakk"/>
+                    <Item id="44089" name="4. sakk"/>
+                    <Item id="44090" name="5. sakk"/>
+                    <Item id="44091" name="6. sakk"/>
+                    <Item id="44092" name="7. sakk"/>
+                    <Item id="44093" name="8. sakk"/>
+                    <Item id="44094" name="9. sakk"/>
+                    <Item id="44095" name="Järgmine sakk"/>
+                    <Item id="44096" name="Eelmine sakk"/>
+                    <Item id="44097" name="Faili jälgimine (tail -f)"/>
+                    <Item id="44098" name="Liiguta sakk edasi"/>
+                    <Item id="44099" name="Liiguta sakk tagasi"/>
+                    <Item id="44032" name="Täisekraani režiim"/>
+                    <Item id="44033" name="Taasta algne suumimistase"/>
+                    <Item id="44034" name="Alati pealmine"/>
+                    <Item id="44035" name="Sünkrooni vertikaalne kerimine"/>
+                    <Item id="44036" name="Sünkrooni horisontaalne kerimine"/>
+                    <Item id="44041" name="Näita rea mähkimise sümbolit"/>
+                    <Item id="44072" name="Mine teisele vaatele"/>
+                    <Item id="44081" name="Projekti paneel 1"/>
+                    <Item id="44082" name="Projekti paneel 2"/>
+                    <Item id="44083" name="Projekti paneel 3"/>
+                    <Item id="45001" name="Konverteeri Windowsi vormingusse"/>
+                    <Item id="45002" name="Konverteeri UNIXi vormingusse"/>
+                    <Item id="45003" name="Konverteeri MACi vormingusse"/>
+                    <Item id="45004" name="Kodeeri ANSI vormingusse"/>
+                    <Item id="45005" name="Kodeeri UTF-8 vormingusse"/>
+                    <Item id="45006" name="Kodeeri UCS-2 jämedaotsalisse vormingusse"/>
+                    <Item id="45007" name="Kodeeri UCS-2 peeneotsalisse vormingusse"/>
+                    <Item id="45008" name="Kodeeri UTF-8 baidijärjestuse tähiseta vormingusse"/>
+                    <Item id="45009" name="Konverteeri ANSI vormingusse"/>
+                    <Item id="45010" name="Konverteeri UTF-8 baidijärjestuse tähiseta vormingusse"/>
+                    <Item id="45011" name="Konverteeri UTF-8 vormingusse"/>
+                    <Item id="45012" name="Konverteeri UCS-2 jämedaotsalisse vormingusse"/>
+                    <Item id="45013" name="Konverteeri UCS-2 peeneotsalisse vormingusse"/>
 
-                    <Item id="10001" name="Liigu Kuni Muu Vaatan"/>
-                    <Item id="10002" name="Kloon Kuni Muu Vaatan"/>
-                    <Item id="10003" name="Liigu Kuni Uus Astme"/>
-                    <Item id="10004" name="Avada Sisse Uus Astme"/>
+                    <Item id="10001" name="Liiguta teise vaatesse"/>
+                    <Item id="10002" name="Klooni teise vaatesse"/>
+                    <Item id="10003" name="Liiguta uude protsessi"/>
+                    <Item id="10004" name="Ava uues protsessis"/>
 
-                    <Item id="46001" name="Stiil Konfiguraator..."/>
-					<Item id="46150" name="Määratle Oma Keel..."/>
-                    <Item id="46080" name="Kasutaja Määratud"/>
-                    <Item id="47000" name="Umbes Notepad++..."/>
-                    <Item id="47001" name="Notepad++ Kodus"/>
-                    <Item id="47002" name="Notepad++ Projekt Lehele"/>
-                    <Item id="47003" name="Online Dokumentatsioon"/>
-                    <Item id="47004" name="Foorum"/>
-                    <Item id="47005" name="Hangi Rohkem Plugins"/>
-                    <Item id="47006" name="Uuendada Notepad++"/>
-                    <Item id="47008" name="Abi Sisu"/>
-                    <Item id="47009" name="Määra Updateri Proxy..."/>
-                    <Item id="48005" name="Impordi Plugin(s) ..."/>
-                    <Item id="48006" name="Impordi Theme(s) ..."/>
-                    <Item id="48018" name="Redigeeri Popup Kontekstimenüüst"/>
-                    <Item id="48009" name="Otsetee Kaardistaja..."/>
-                    <Item id="48011" name="Eelistusi(preferences)..."/>
-                    <Item id="49000" name="&amp;Jooksma(run)..."/>
+                    <Item id="46001" name="Stiilide seadistamine..."/>
+                    <Item id="46250" name="Defineeri enda keel..."/>
+                    <Item id="46180" name="Kasutaja määratud"/>
+                    <Item id="47000" name="Teave Notepad++-i kohta..."/>
+                    <Item id="47010" name="Käsurea parameetrid..."/>
+                    <Item id="47001" name="Veebisait"/>
+                    <Item id="47002" name="Projekti leht"/>
+                    <Item id="47003" name="Dokumentatsioon veebis"/>
+					<Item id="47004" name="Kogukond (foorum)"/>
+                    <Item id="47011" name="Tugi"/>
+                    <Item id="47012" name="Silumisinfo..."/>
+                    <Item id="47005" name="Leia veel pluginaid"/>
+                    <Item id="47006" name="Värskenda Notepad++-i"/>
+                    <Item id="47009" name="Seadista proksiserver värskendamiseks..."/>
+                    <Item id="48005" name="Pluginate importimine..."/>
+                    <Item id="48006" name="Kujunduste importimine..."/>
+                    <Item id="48018" name="Redigeeri kontekstimenüüd"/>
+                    <Item id="48009" name="Otseteede klahvid..."/>
+                    <Item id="48011" name="Eelistused..."/>
+                    <Item id="48501" name="Arvuta..."/>
+                    <Item id="48502" name="Arvuta failidest..."/>
+                    <Item id="48503" name="Arvuta ja pane lõikepuhvrisse"/>
+                    <Item id="49000" name="&amp;Käivita..."/>
 
-                    <Item id="50000" name="Funktsioon Valmimise"/>
-                    <Item id="50001" name="Wordi Valmimise"/>
-                    <Item id="50002" name="Funktsioon Parameetrid Vihje"/>
-                    <Item id="50006" name="Tee Valmimise"/>
-                    <Item id="44042" name="Peida Liinid"/>
-                    <Item id="42040" name="Ava Kõik Hiljutine Failid"/>
-                    <Item id="42041" name="Tühi Hiljutiste Failide Nimekiri"/>
-                    <Item id="48016" name="Muutma Otsetee/Delete Makro..."/>
-                    <Item id="48017" name="Muutma Otsetee/Delete Käsk..."/>
+                    <Item id="50000" name="Funktsioonide lõpetamine"/>
+                    <Item id="50001" name="Sõnade lõpetamine"/>
+                    <Item id="50002" name="Funktsiooni parameetrite pakkumine"/>
+                    <Item id="50006" name="Failiradade lõpetamine"/>
+                    <Item id="44042" name="Peida read"/>
+                    <Item id="42040" name="Ava kõik viimatised failid"/>
+                    <Item id="42041" name="Ava viimatiste failide loend"/>
+                    <Item id="48016" name="Redigeeri / kustuta makrode otseteesid..."/>
+                    <Item id="48017" name="Redigeeri / kustuta käskluste otseteesid..."/>
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Lähedal"/>
-                    <Item CMID="1" name="Sulge Kõik Kuid Seda"/>
-                    <Item CMID="2" name="Säästa"/>
-                    <Item CMID="3" name="Säästa Nagu..."/>
+                    <Item CMID="0" name="Sule"/>
+                    <Item CMID="1" name="Sule kõik teised"/>
+                    <Item CMID="2" name="Salvesta"/>
+                    <Item CMID="3" name="Salvesta nimega..."/>
                     <Item CMID="4" name="Prindi"/>
-                    <Item CMID="5" name="Liigu Kuni Muu Vaatan"/>
-                    <Item CMID="6" name="Kloon Kuni Muu Vaatan"/>
-                    <Item CMID="7" name="Full Faili Tee Kuni Lõikelauale"/>
-                    <Item CMID="8" name="Failinimi Kuni Lõikelauale"/>
-                    <Item CMID="9" name="Praeguse Dir. Tee Kuni Lõikelauale"/>
-                    <Item CMID="10" name="Nimeta"/>
-                    <Item CMID="11" name="Liigu Kuni Recycle Bin"/>
-                    <Item CMID="12" name="Lugege Only"/>
-                    <Item CMID="13" name="Selge  Lugege Only Lipu"/>
-                    <Item CMID="14" name="Liigu Kuni Uus Astme"/>
-                    <Item CMID="15" name="Avada Sisse Uus Astme"/>
-                    <Item CMID="16" name="Asendusostu"/>
-					<Item CMID="17" name="Sulge Kõik Vasakule"/>
-                    <Item CMID="18" name="Sulge Kõik Artiklist Paremal"/>
-					<Item CMID="19" name="Avada Sisaldavad Kausta Sisse Exploreri"/>
-                    <Item CMID="20" name="Avada Sisaldavad Kausta Sisse cmd"/>
+                    <Item CMID="5" name="Liiguta teise vaatesse"/>
+                    <Item CMID="6" name="Klooni teise vaatesse"/>
+                    <Item CMID="7" name="Kopeeri faili rada lõikepuhvrisse"/>
+                    <Item CMID="8" name="Kopeeri faili nimi lõikepuhvrisse"/>
+                    <Item CMID="9" name="Kopeeri faili kausta rada lõikepuhvrisse"/>
+                    <Item CMID="10" name="Nimeta ümber"/>
+                    <Item CMID="11" name="Liiguta prügikasti"/>
+                    <Item CMID="12" name="Märgi fail kirjutuskaitstuks"/>
+                    <Item CMID="13" name="Eemalda faililt kirjutuskaitse atribuut"/>
+                    <Item CMID="14" name="Liiguta uude protsessi"/>
+                    <Item CMID="15" name="Ava uues protsessis"/>
+                    <Item CMID="16" name="Laadi uuesti"/>
+                    <Item CMID="17" name="Sule kõik vasakul pool"/>
+                    <Item CMID="18" name="Sule kõik paremal pool"/>
+                    <Item CMID="19" name="Ava faili sisaldav kaust Exploreris"/>
+                    <Item CMID="20" name="Ava faili sisaldav kaust käsureal"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
-                <Item id="1"    name="Leia Järgmise"/>
-                <Item id="2"    name="Sulge"/>
-                <Item id="1620" name="Leia Mida:"/>
-                <Item id="1603" name="Sobima &amp;Terve Sõna Vaid"/>
-                <Item id="1604" name="Sobima &amp;Juhtum"/>
-                <Item id="1605" name="Regulaarne &amp;väljendus"/>
-                <Item id="1606" name="Mähi ümbe&amp;r"/>
-                <Item id="1612" name="&amp;Ules"/>
+            <Find title="" titleFind="Otsi" titleReplace="Asenda" titleFindInFiles="Otsi failidest" titleMark="Märgi">
+                <Item id="1"    name="Leia järgmine"/>
+                <Item id="2"    name="Sule"/>
+                <Item id="1620" name="Otsingutermin:"/>
+                <Item id="1603" name="Otsi te&amp;rvet sõna"/>
+                <Item id="1604" name="&amp;Tõusutundlik"/>
+                <Item id="1605" name="Re&amp;gulaaravaldis"/>
+                <Item id="1606" name="&amp;Jätka algusest"/>
+                <Item id="1612" name="&amp;Üles"/>
                 <Item id="1613" name="&amp;Alla"/>
-                <Item id="1614" name="Loota"/>
-                <Item id="1615" name="Leia Kõik"/>
-                <Item id="1616" name="Märgi Liin"/>
-                <Item id="1617" name="Stiili Leitud žetooni"/>
-                <Item id="1618" name="Purge Eest Iga Otsing"/>
+                <Item id="1614" name="Loe kokku"/>
+                <Item id="1615" name="Leia kõik"/>
+                <Item id="1616" name="Märgi read"/>
+                <Item id="1618" name="Eemalda märkimised enne uut otsingut"/>
                 <Item id="1621" name="Suund"/>
-                <Item id="1611" name="Ase&amp;ndada koos:"/>
-                <Item id="1608" name="Asendada&amp;"/>
-                <Item id="1609" name="Asendada&amp;Kõik"/>
-                <Item id="1623" name="Läbipaistvus"/>
-                <Item id="1687" name="On Tähelepanu Hajub"/>
+                <Item id="1611" name="A&amp;sendus:"/>
+                <Item id="1608" name="As&amp;enda"/>
+                <Item id="1609" name="Asenda &amp;kõik"/>
+                <Item id="1687" name="Fookuse kaotamisel"/>
                 <Item id="1688" name="Alati"/>
-                <Item id="1632" name="Sisse Valikut"/>
-                <Item id="1633" name="Selge"/>
-                <Item id="1635" name="Asenda Kokkuvõttes Avas Dokumente"/>
-                <Item id="1636" name="Leia Kokkuvõttes Avatud Dokumente"/>
-                <Item id="1637" name="Otsi Failidest"/>
+                <Item id="1632" name="Valikus"/>
+                <Item id="1633" name="Eemalda märkimised"/>
+                <Item id="1635" name="Asenda kõik avatud dokumentides"/>
+                <Item id="1636" name="Leia kõik avatud dokumentides"/>
                 <Item id="1654" name="Filtrid:"/>
-                <Item id="1655" name="Kataloog:"/>
-                <Item id="1656" name="Leia Kõik"/>
-                <Item id="1658" name="Kõigil Allkataloogid"/>
-                <Item id="1659" name="Sisse Peidetud Kaustad"/>
-                <Item id="1624" name="Search mode"/>
-                <Item id="1625" name="Normaalne"/>
-                <Item id="1626" name="Pikendatud (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="Asenda Sisse Failidest"/>
-                <Item id="1661" name="Jälgi Praeguse doc."/>
-                <Item id="1641" name="Leia kõik Sisse Praegune Dokument"/>
+                <Item id="1655" name="Kaust:"/>
+                <Item id="1656" name="Leia kõik"/>
+                <Item id="1658" name="Kõigis alamkaustades"/>
+                <Item id="1659" name="Peidetud kaustades"/>
+                <Item id="1624" name="Otsingurežiim"/>
+                <Item id="1625" name="Tavaline"/>
+                <Item id="1626" name="Laiendatud (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="Asenda failides"/>
+                <Item id="1661" name="Järgi praegust dokumenti"/>
+                <Item id="1641" name="Leia kõik praeguses dokumendis"/>
                 <Item id="1686" name="Läbipaistvus"/>
-				<Item id="1703" name="&amp;. Sobib Reavahetus"/>
+                <Item id="1703" name="&amp;. vastab realõpule"/>
             </Find>
-            <GoToLine title="Go to...">
-                <Item id="2007" name="Liin"/>
-                <Item id="2008" name="Korvama"/>
-                <Item id="1"    name="&amp;Minna"/>
-                <Item id="2"    name="Ma Lähen Mitte Kusagil"/>
-                <Item id="2004" name="Olete Siin:"/>
-                <Item id="2005" name="Sa Tahad Minna Kuni:"/>
-                <Item id="2006" name="Sa EiSaa Minna Kaugemale Kui:"/>
+
+            <FindCharsInRange title="Otsi tähemärke vahemikus...">
+                <Item id="2" name="Sule"/>
+                <Item id="2901" name="Mitte-ASCII tähemärgid (128–255)"/>
+                <Item id="2902" name="ASCII tähemärgid (0–127)"/>
+                <Item id="2903" name="Kohandatud:"/>
+                <Item id="2906" name="&amp;Üles"/>
+                <Item id="2907" name="&amp;Alla"/>
+                <Item id="2908" name="Suund"/>
+                <Item id="2909" name="&amp;Jätka algusest"/>
+                <Item id="2910" name="Otsi"/>
+            </FindCharsInRange>
+
+            <GoToLine title="Mine reale...">
+                <Item id="2007" name="Rida"/>
+                <Item id="2008" name="Vahekaugus"/>
+                <Item id="1"    name="&amp;Mine"/>
+                <Item id="2"    name="Sule"/>
+                <Item id="2004" name="Oled siin:"/>
+                <Item id="2005" name="Kuhu minna:"/>
+                <Item id="2006" name="Viimane:"/>
             </GoToLine>
 
             <Run title="Run...">
-                <Item id="1903" name="The Programmil Töötada"/>
-                <Item id="1"    name="Jooks"/>
-                <Item id="2"    name="Tühista"/>
-                <Item id="1904" name="Säästa..."/>
+                <Item id="1903" name="Käivitatav programm"/>
+                <Item id="1"    name="Käivita"/>
+                <Item id="2"    name="Loobu"/>
+                <Item id="1904" name="Salvesta..."/>
             </Run>
 
-            <StyleConfig title="Style Configurator">
-                <Item id="2"    name="Tühista"/>
-                <Item id="2301" name="Säästa &amp;&amp; Lähedal"/>
+            <MD5FromFilesDlg title="Arvuta MD5-kontrollsumma failidest">
+                <Item id="1922" name="Vali failid, mille MD5 arvutada..."/>
+                <Item id="1924" name="Kopeeri lõikepuhvrisse"/>
+                <Item id="2"    name="Sule"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Arvuta MD5-kontrollsumma">
+                <Item id="1932" name="Arvuta iga rea jaoks eraldi"/>
+                <Item id="1934" name="Kopeeri lõikepuhvrisse"/>
+                <Item id="2"    name="Sule"/>
+            </MD5FromTextDlg>
+
+            <StyleConfig title="Stiilide seadistamine">
+                <Item id="2"    name="Loobu"/>
+                <Item id="2301" name="Salvesta ja sule"/>
                 <Item id="2303" name="Läbipaistvus"/>
-                <Item id="2306" name="Valimiseks Theme: "/>
+                <Item id="2306" name="Vali teema: "/>
                 <SubDialog>
-                    <Item id="2204" name="Julge"/>
-                    <Item id="2205" name="Kursiiv"/>
-                    <Item id="2206" name="Esiplaani Värvi"/>
-                    <Item id="2207" name="Taustavärvi"/>
-                    <Item id="2208" name="Fonti Nimi:"/>
-                    <Item id="2209" name="Fondi Suurus:"/>
-					<Item id="2211" name="Stiili:"/>
-                    <Item id="2212" name="Värv Stiili"/>
-                    <Item id="2213" name="Fonti Stiili"/>
-                    <Item id="2214" name="Vaikimisi ext.:"/>
-                    <Item id="2216" name="Kasutaja ext.:"/>
-                    <Item id="2218" name="Alajoon"/>
-                    <Item id="2219" name="Vaikimisi Märksõnade"/>
-                    <Item id="2221" name="Kasutaja Määratletud Märksõnade"/>
+                    <Item id="2204" name="Paks"/>
+                    <Item id="2205" name="Kaldkiri"/>
+                    <Item id="2206" name="Teksti värv"/>
+                    <Item id="2207" name="Tausta värv"/>
+                    <Item id="2208" name="Fondi nimi:"/>
+                    <Item id="2209" name="Fondi suurus:"/>
+                    <Item id="2211" name="Stiil:"/>
+                    <Item id="2212" name="Värvi stiil"/>
+                    <Item id="2213" name="Fondi stiil"/>
+                    <Item id="2214" name="Vaikimisi faililaiend:"/>
+                    <Item id="2216" name="Kohandatud laiend:"/>
+                    <Item id="2218" name="Allajoonitud"/>
+                    <Item id="2219" name="Vaikimisi märksõnad"/>
+                    <Item id="2221" name="Kohandatud märksõnad"/>
                     <Item id="2225" name="Keel:"/>
-                    <Item id="2226" name="Võimalda Globaalse Esiplaani Värvi"/>
-                    <Item id="2227" name="Võimalda Globaalse Tagapõhi Värvi"/>
-                    <Item id="2228" name="Võimalda Globaalse Fondi"/>
-                    <Item id="2229" name="Võimalda Globaalse Fondi Suurust"/>
-                    <Item id="2230" name="Võimalda Globaalse Julge Stiili"/>
-                    <Item id="2231" name="Võimalda Globaalse Kaldkirjas Stiili"/>
-                    <Item id="2232" name="Võimalda Globaalse Alajoone Stiili"/>
+                    <Item id="2226" name="Määra teksti värv kõikjale"/>
+                    <Item id="2227" name="Määra tausta värv kõikjale"/>
+                    <Item id="2228" name="Määra font kõikjale"/>
+                    <Item id="2229" name="Määra fondi suurus kõikjale"/>
+                    <Item id="2230" name="Määra paksu teksti stiil kõikjale"/>
+                    <Item id="2231" name="Määra kaldkirja stiil kõikjale"/>
+                    <Item id="2232" name="Määra allajoonitud kirja stiil kõikjale"/>
                 </SubDialog>
 
             </StyleConfig>
 
-            <UserDefine title="User-Defined">
-				<Item id="20001" name="Dokk"/>
-                <Item id="20002" name="Nimeta"/>
-                <Item id="20003" name="Loo Uus..."/>
-                <Item id="20004" name="Eemalda"/>
-                <Item id="20005" name="Päästa Nii..."/>
-                <Item id="20007" name="Kasutaja Keeles: "/>
-                <Item id="20009" name="Ext.:"/>
-                <Item id="20012" name="Ignoreeri Asjas"/>
+            <UserDefine title="Kohandatud">
+                <Item id="20001" name="Doki"/>
+                <Item id="20002" name="Nimeta ümber"/>
+                <Item id="20003" name="Loo uus..."/>
+                <Item id="20004" name="Kustuta"/>
+                <Item id="20005" name="Salvesta nimega..."/>
+                <Item id="20007" name="Kohandatud keel: "/>
+                <Item id="20009" name="Laiend:"/>
+                <Item id="20012" name="Mitte-tõstutundlik"/>
                 <Item id="20011" name="Läbipaistvus"/>
                 <Item id="20015" name="Impordi..."/>
                 <Item id="20016" name="Ekspordi..."/>
-				<StylerDialog title="Styler Dialog">
-                    <Item id="25030" name="Fonti Valikud:"/>
-					<Item id="25006" name="Esiplaani Värvi"/>
-					<Item id="25007" name="Taustavärvi"/>
-					<Item id="25031" name="Nimi:"/>
-					<Item id="25032" name="Suurus:"/>
-					<Item id="25001" name="Julge"/>
-					<Item id="25002" name="Kursiiv"/>
-					<Item id="25003" name="Alajoon"/>
-					<Item id="25029" name="Pesitsevate:"/>
-					<Item id="25008" name="Eraldajaks 1"/>
-					<Item id="25009" name="Eraldajaks 2"/>
-					<Item id="25010" name="Eraldajaks 3"/>
-					<Item id="25011" name="Eraldajaks 4"/>
-					<Item id="25012" name="Eraldajaks 5"/>
-					<Item id="25013" name="Eraldajaks 6"/>
-					<Item id="25014" name="Eraldajaks 7"/>
-					<Item id="25015" name="Eraldajaks 8"/>
-					<Item id="25018" name="Võtmesõna 1"/>
-					<Item id="25019" name="Võtmesõna 2"/>
-					<Item id="25020" name="Võtmesõna 3"/>
-					<Item id="25021" name="Võtmesõna 4"/>
-					<Item id="25022" name="Võtmesõna 5"/>
-					<Item id="25023" name="Võtmesõna 6"/>
-					<Item id="25024" name="Võtmesõna 7"/>
-					<Item id="25025" name="Võtmesõna 8"/>
-					<Item id="25016" name="Kommentaar"/>
-					<Item id="25017" name="Kommentaar Liin"/>
-					<Item id="25026" name="Käitaja 1"/>
-					<Item id="25027" name="Käitaja 2"/>
-					<Item id="25028" name="Numbrid"/>
+                <StylerDialog title="Stiili redigeerimine">
+                    <Item id="25030" name="Fondi valikud:"/>
+                    <Item id="25006" name="Teksti värv"/>
+                    <Item id="25007" name="Tausta värv"/>
+                    <Item id="25031" name="Nimi:"/>
+                    <Item id="25032" name="Suurus:"/>
+                    <Item id="25001" name="Paks"/>
+                    <Item id="25002" name="Kaldkiri"/>
+                    <Item id="25003" name="Allajoonitud"/>
+                    <Item id="25029" name="Alamelemendid:"/>
+                    <Item id="25008" name="Eraldaja 1"/>
+                    <Item id="25009" name="Eraldaja 2"/>
+                    <Item id="25010" name="Eraldaja 3"/>
+                    <Item id="25011" name="Eraldaja 4"/>
+                    <Item id="25012" name="Eraldaja 5"/>
+                    <Item id="25013" name="Eraldaja 6"/>
+                    <Item id="25014" name="Eraldaja 7"/>
+                    <Item id="25015" name="Eraldaja 8"/>
+                    <Item id="25018" name="Märksõna 1"/>
+                    <Item id="25019" name="Märksõna 2"/>
+                    <Item id="25020" name="Märksõna 3"/>
+                    <Item id="25021" name="Märksõna 4"/>
+                    <Item id="25022" name="Märksõna 5"/>
+                    <Item id="25023" name="Märksõna 6"/>
+                    <Item id="25024" name="Märksõna 7"/>
+                    <Item id="25025" name="Märksõna 8"/>
+                    <Item id="25016" name="Kommentaar"/>
+                    <Item id="25017" name="Kommentaari rida"/>
+                    <Item id="25026" name="Operaator 1"/>
+                    <Item id="25027" name="Operaator 2"/>
+                    <Item id="25028" name="Arvud"/>
+					<Item id="1" name="Olgu"/>
+                    <Item id="2" name="Loobu"/>
                 </StylerDialog>
-                <Folder title="Folder &amp;&amp; Default">
-                    <Item id="21101" name="Vaikimisi Stiil"/>
-                    <Item id="21102" name="Styler"/>
-                    <Item id="21105" name="Dokumendid:"/>
-                    <Item id="21104" name="Ajutine doc Sait:"/>
-                    <Item id="21106" name="Kordset Kompaktne (Fold Tühjad Liinid Liiga)"/>
-					<Item id="21220" name="Folding Sisse Koodi 1 Stiili:"/>
-					<Item id="21224" name="Avatud:"/>
-                    <Item id="21225" name="Lähis:"/>
-                    <Item id="21226" name="Sulge:"/>
-                    <Item id="21227" name="Styler"/>
-					<Item id="21320" name="Folding Koodi 2 Stiili (Eraldajad Vaja):"/>
-					<Item id="21324" name="Avatud:"/>
-                    <Item id="21325" name="Lähis:"/>
-                    <Item id="21326" name="Sulge:"/>
-                    <Item id="21327" name="Styler"/>
-                    <Item id="21420" name="Folding Sisse Märkusega Stiili:"/>
-                    <Item id="21424" name="Avatud:"/>
-                    <Item id="21425" name="Lähis:"/>
-                    <Item id="21426" name="Sulge:"/>
-                    <Item id="21127" name="Styler"/>
+                <Folder title="Voltimine &amp;&amp; vaikimisi">
+                    <Item id="21101" name="Vaikestiil"/>
+                    <Item id="21102" name="Stiil"/>
+                    <Item id="21105" name="Dokumentatsioon:"/>
+                    <Item id="21104" name="Ajutine dokumentatsioon:"/>
+                    <Item id="21106" name="Voldi kompaktselt (voldi ka tühjad read)"/>
+                    <Item id="21220" name="Koodi voltimine 1. stiiliga:"/>
+                    <Item id="21224" name="Algus:"/>
+                    <Item id="21225" name="Keskosa:"/>
+                    <Item id="21226" name="Lõpp:"/>
+                    <Item id="21227" name="Stiil"/>
+                    <Item id="21320" name="Koodi voltimine 2. stiiliga (nõuab eraldajat):"/>
+                    <Item id="21324" name="Algus:"/>
+                    <Item id="21325" name="Keskosa:"/>
+                    <Item id="21326" name="Lõpp:"/>
+                    <Item id="21327" name="Stiil"/>
+                    <Item id="21420" name="Voltimine kommentaari stiilis:"/>
+                    <Item id="21424" name="Algus:"/>
+                    <Item id="21425" name="Keskosa:"/>
+                    <Item id="21426" name="Lõpp:"/>
+                    <Item id="21427" name="Stiil"/>
                 </Folder>
-                <Keywords title="Keywords Lists">
-                    <Item id="22101" name="1st Grupp"/>
-                    <Item id="22201" name="2nd Grupp"/>
-                    <Item id="22301" name="3rd Grupp"/>
-                    <Item id="22401" name="4th Grupp"/>
-                    <Item id="22451" name="5th Grupp"/>
-                    <Item id="22501" name="6th Grupp"/>
-                    <Item id="22551" name="7th Grupp"/>
-                    <Item id="22601" name="8th Grupp"/>
-                    <Item id="22121" name=""/>
-                    <Item id="22221" name="Prefiks Režiimi"/>
-                    <Item id="22321" name="Prefiks Režiimi"/>
-                    <Item id="22421" name="Prefiks Režiimi"/>
-                    <Item id="22471" name="Prefiks Režiimi"/>
-                    <Item id="22521" name="Prefiks Režiimi"/>
-                    <Item id="22571" name="Prefiks Režiimi"/>
-                    <Item id="22621" name="Prefiks Režiimi"/>
-					<Item id="22122" name="Styler"/>
-                    <Item id="22222" name="Styler"/>
-                    <Item id="22322" name="Styler"/>
-                    <Item id="22422" name="Styler"/>
-                    <Item id="22472" name="Styler"/>
-                    <Item id="22522" name="Styler"/>
-                    <Item id="22572" name="Styler"/>
-                    <Item id="22622" name="Styler"/>
+                <Keywords title="Märksõnade loendid">
+                    <Item id="22101" name="1. grupp"/>
+                    <Item id="22201" name="2. grupp"/>
+                    <Item id="22301" name="3. grupp"/>
+                    <Item id="22401" name="4. grupp"/>
+                    <Item id="22451" name="5. grupp"/>
+                    <Item id="22501" name="6. grupp"/>
+                    <Item id="22551" name="7. grupp"/>
+                    <Item id="22601" name="8. grupp"/>
+                    <Item id="22121" name="Eesliite režiim"/>
+                    <Item id="22221" name="Eesliite režiim"/>
+                    <Item id="22321" name="Eesliite režiim"/>
+                    <Item id="22421" name="Eesliite režiim"/>
+                    <Item id="22471" name="Eesliite režiim"/>
+                    <Item id="22521" name="Eesliite režiim"/>
+                    <Item id="22571" name="Eesliite režiim"/>
+                    <Item id="22621" name="Eesliite režiim"/>
+                    <Item id="22122" name="Stiil"/>
+                    <Item id="22222" name="Stiil"/>
+                    <Item id="22322" name="Stiil"/>
+                    <Item id="22422" name="Stiil"/>
+                    <Item id="22472" name="Stiil"/>
+                    <Item id="22522" name="Stiil"/>
+                    <Item id="22572" name="Stiil"/>
+                    <Item id="22622" name="Stiil"/>
                 </Keywords>
-                <Comment title="Comment &amp;&amp; Number">
-                    <Item id="23003" name="Liin Kommentaar Asendis"/>
-                    <Item id="23004" name="Laske Kõikjal"/>
-                    <Item id="23005" name="Force Alguses Liin"/>
-                    <Item id="23006" name="Laske eelneval Tühimärke"/>
-                    <Item id="23001" name="Laske Of Voltimine Kommentaare"/>
-                    <Item id="23326" name="Styler"/>
-                    <Item id="23323" name="Avatud"/>
-                    <Item id="23324" name="Jätka Iseloomu"/>
-                    <Item id="23325" name="Lähedal"/>
-                    <Item id="23301" name="Kommentaar Joone Stiili"/>
-                    <Item id="23124" name="Styler"/>
-                    <Item id="23122" name="Avatud"/>
-                    <Item id="23123" name="Lähedal"/>
-                    <Item id="23101" name="Kommentaar Stiili"/>
-                    <Item id="23201" name="Arv Stilli"/>
-                    <Item id="23220" name="Styler"/>
-                    <Item id="23230" name="Prefiks 1"/>
-                    <Item id="23232" name="Prefiks 2"/>
-                    <Item id="23234" name="Lisad 1"/>
-                    <Item id="23236" name="Lisad 2"/>
-                    <Item id="23238" name="Sufiks 1"/>
-                    <Item id="23240" name="Sufiks 2"/>
-                    <Item id="23242" name="Hinnaklass:"/>
-                    <Item id="23244" name="Kümnendkoha Eraldaja"/>
-                    <Item id="23245" name="Dot"/>
+                <Comment title="Kommentaar &amp;&amp; arvud">
+                    <Item id="23003" name="Rea kommentaari asukoht"/>
+                    <Item id="23004" name="Luba kõikjal"/>
+                    <Item id="23005" name="Ainult rea alguses"/>
+                    <Item id="23006" name="Luba tühimikuga alguses"/>
+                    <Item id="23001" name="Luba kommentaaride voltimist"/>
+                    <Item id="23326" name="Stiil"/>
+                    <Item id="23323" name="Algus"/>
+                    <Item id="23324" name="Jätkamise sümbol"/>
+                    <Item id="23325" name="Lõpp"/>
+                    <Item id="23301" name="Kommentaari rea stiil"/>
+                    <Item id="23124" name="Stiil"/>
+                    <Item id="23122" name="Algus"/>
+                    <Item id="23123" name="Lõpp"/>
+                    <Item id="23101" name="Kommentaari stiil"/>
+                    <Item id="23201" name="Arvu stiil"/>
+                    <Item id="23220" name="Stiil"/>
+                    <Item id="23230" name="Eesliide 1"/>
+                    <Item id="23232" name="Eesliide 2"/>
+                    <Item id="23234" name="Lisamärgid 1"/>
+                    <Item id="23236" name="Lisamärgid 2"/>
+                    <Item id="23238" name="Järelliide 1"/>
+                    <Item id="23240" name="Järelliide 2"/>
+                    <Item id="23242" name="Vahemik:"/>
+                    <Item id="23244" name="Komakoha eraldaja"/>
+                    <Item id="23245" name="Punkt"/>
                     <Item id="23246" name="Koma"/>
-                    <Item id="23247" name="Mõlemal"/>
+                    <Item id="23247" name="Mõlemad"/>
                 </Comment>
-                <Operator title="Operators &amp;&amp; Delimiter">
-                    <Item id="24101" name="Käitajad Stiili"/>
-					<Item id="24113" name="Styler"/>
-					<Item id="24116" name="Käitajad 1"/>
-					<Item id="24117" name="Käitajad 2 (Eraldajad Vaja)"/>
-                    <Item id="24201" name="Eraldajaks 1 style"/>
-					<Item id="24220" name="Avatud:"/>
-                    <Item id="24221" name="Põgeneda:"/>
-                    <Item id="24222" name="Lähedal:"/>
-                    <Item id="24223" name="Styler"/>
-                    <Item id="24301" name="Eraldajaks 2 style"/>
-					<Item id="24320" name="Avatud:"/>
-                    <Item id="24321" name="Põgeneda:"/>
-                    <Item id="24322" name="Lähedal:"/>
-                    <Item id="24323" name="Styler"/>
-                    <Item id="24401" name="Eraldajaks 3 style"/>
-					<Item id="24420" name="Avatud:"/>
-                    <Item id="24421" name="Põgeneda:"/>
-                    <Item id="24422" name="Lähedal:"/>
-                    <Item id="24423" name="Styler"/>
-                    <Item id="24451" name="Eraldajaks 4 style"/>
-					<Item id="24470" name="Avatud:"/>
-                    <Item id="24471" name="Põgeneda:"/>
-                    <Item id="24472" name="Lähedal:"/>
-                    <Item id="24473" name="Styler"/>
-                    <Item id="24501" name="Eraldajaks 5 style"/>
-					<Item id="24520" name="Avatud:"/>
-                    <Item id="24521" name="Põgeneda:"/>
-                    <Item id="24522" name="Lähedal:"/>
-                    <Item id="24523" name="Styler"/>
-                    <Item id="24551" name="Eraldajaks 6 style"/>
-					<Item id="24570" name="Avatud:"/>
-                    <Item id="24571" name="Põgeneda:"/>
-                    <Item id="24572" name="Lähedal:"/>
-                    <Item id="24573" name="Styler"/>
-                    <Item id="24601" name="Eraldajaks 7 style"/>
-					<Item id="24620" name="Avatud:"/>
-                    <Item id="24621" name="Põgeneda:"/>
-                    <Item id="24622" name="Lähedal:"/>
-                    <Item id="24623" name="Styler"/>
-                    <Item id="24651" name="Eraldajaks 8 style"/>
-					<Item id="24670" name="Avatud:"/>
-                    <Item id="24671" name="Põgeneda:"/>
-                    <Item id="24672" name="Lähedal:"/>
-                    <Item id="24673" name="Styler"/>
+                <Operator title="Operaatorid &amp;&amp; eraldajad">
+                    <Item id="24101" name="Operaatori stiil"/>
+                    <Item id="24113" name="Stiil"/>
+                    <Item id="24116" name="Operaatorid 1"/>
+                    <Item id="24117" name="Operaatorid 2 (nõuab eraldajat)"/>
+                    <Item id="24201" name="Eraldaja 1 stiil"/>
+                    <Item id="24220" name="Algus:"/>
+                    <Item id="24221" name="Lõpumärk:"/>
+                    <Item id="24222" name="Lõpp:"/>
+                    <Item id="24223" name="Stiil"/>
+                    <Item id="24301" name="Eraldaja 2 stiil"/>
+                    <Item id="24320" name="Algus:"/>
+                    <Item id="24321" name="Lõpumärk:"/>
+                    <Item id="24322" name="Lõpp:"/>
+                    <Item id="24323" name="Stiil"/>
+                    <Item id="24401" name="Eraldaja 3 stiil"/>
+                    <Item id="24420" name="Algus:"/>
+                    <Item id="24421" name="Lõpumärk:"/>
+                    <Item id="24422" name="Lõpp:"/>
+                    <Item id="24423" name="Stiil"/>
+                    <Item id="24451" name="Eraldaja 4 stiil"/>
+                    <Item id="24470" name="Algus:"/>
+                    <Item id="24471" name="Lõpumärk:"/>
+                    <Item id="24472" name="Lõpp:"/>
+                    <Item id="24473" name="Stiil"/>
+                    <Item id="24501" name="Eraldaja 5 stiil"/>
+                    <Item id="24520" name="Algus:"/>
+                    <Item id="24521" name="Lõpumärk:"/>
+                    <Item id="24522" name="Lõpp:"/>
+                    <Item id="24523" name="Stiil"/>
+                    <Item id="24551" name="Eraldaja 6 stiil"/>
+                    <Item id="24570" name="Algus:"/>
+                    <Item id="24571" name="Lõpumärk:"/>
+                    <Item id="24572" name="Lõpp:"/>
+                    <Item id="24573" name="Stiil"/>
+                    <Item id="24601" name="Eraldaja 7 stiil"/>
+                    <Item id="24620" name="Algus:"/>
+                    <Item id="24621" name="Lõpumärk:"/>
+                    <Item id="24622" name="Lõpp:"/>
+                    <Item id="24623" name="Stiil"/>
+                    <Item id="24651" name="Eraldaja 8 stiil"/>
+                    <Item id="24670" name="Algus:"/>
+                    <Item id="24671" name="Lõpumärk:"/>
+                    <Item id="24672" name="Lõpp:"/>
+                    <Item id="24673" name="Stiil"/>
                 </Operator>
-                <Item id="24001" name="Võimalda Paomärk:"/>
             </UserDefine>
-            <Preference title="Preferences">
-                <Item id="6001" name="Lähedal"/>
-                <Global title="General">
+            <Preference title="Eelistused">
+                <Item id="6001" name="Sule"/>
+                <Global title="Üldine">
                     <Item id="6101" name="Tööriistariba"/>
-                    <Item id="6102" name="Peita"/>
-                    <Item id="6103" name="Väike Ikooni"/>
-                    <Item id="6104" name="Suur Ikooni"/>
-                    <Item id="6105" name="Standardi Ikooni"/>
+                    <Item id="6102" name="Peida"/>
+                    <Item id="6103" name="Väikesed ikoonid"/>
+                    <Item id="6104" name="Suured ikoonid"/>
+                    <Item id="6105" name="Tavasuuruses ikoonid"/>
 
-                    <Item id="6106" name="Sakk Baar"/>
-                    <Item id="6107" name="Vähendama"/>
-                    <Item id="6108" name="Lukusta (no drag and drop)"/>
-                    <Item id="6109" name="Tumedamaks Inaktiivne Sakke"/>
-                    <Item id="6110" name="Joonista Värviline Baar Aktiivne Sakk"/>
+                    <Item id="6106" name="Sakkide riba"/>
+                    <Item id="6107" name="Vähenda"/>
+                    <Item id="6108" name="Lukusta (keela pukseerimine)"/>
+                    <Item id="6109" name="Tumenda mitte-aktiivsed sakid"/>
+                    <Item id="6110" name="Värviline riba aktiivse saki kohal"/>
 
-                    <Item id="6111" name="Olekuriba Näitamine"/>
-                    <Item id="6112" name="Näita Sulgemisnupu Iga Sakk"/>
-                    <Item id="6113" name="Topeltklikk Kuni Sulgeda Dokument"/>
-                    <Item id="6118" name="Peita"/>
-                    <Item id="6119" name="Mitme-Line"/>
+                    <Item id="6111" name="Näita olekuriba"/>
+                    <Item id="6112" name="Näita iga saki juures sulgemisnuppu"/>
+                    <Item id="6113" name="Topeltklõps faili sulgemiseks"/>
+                    <Item id="6118" name="Peida"/>
+                    <Item id="6119" name="Mitmerealine"/>
                     <Item id="6120" name="Vertikaalne"/>
+                    <Item id="6121" name="Välju viimase saki sulgemisel"/>
 
-                    <Item id="6121" name="Menüüriba"/>
-                    <Item id="6122" name="Peita (kasutus Alt or F10 Lülitada Klahviga)"/>
-                    <Item id="6123" name="Lokalisatsiooni"/>
+                    <Item id="6122" name="Peida (kuvamiseks vajuta alt-klahvi või F10-t)"/>
+                    <Item id="6123" name="Lokaliseerimine"/>
 
-					<Item id="6125" name="Dokumentide Nimekiri Paneel"/>
+                    <Item id="6125" name="Dokumentide loendi paneel"/>
                     <Item id="6126" name="Näita"/>
+                    <Item id="6127" name="Peia faililaiendi tulp"/>
                 </Global>
-                <Scintillas title="Editing">
-                    <Item id="6216" name="Caret Seaded"/>
+                <Scintillas title="Redigeerimine">
+                    <Item id="6216" name="Kursori sätted"/>
                     <Item id="6217" name="Laius:"/>
-                    <Item id="6219" name="Pilgut Määr:"/>
-                    <Item id="6221" name="F"/>
-                    <Item id="6222" name="S"/>
-                    <Item id="6224" name="Multi-Redigeerimine Seaded"/>
-                    <Item id="6225" name="Võimalda (Ctrl+Mouse Kliki/Valik)"/>
-                    <Item id="6201" name="Kausta Marginaal Stiili"/>
-                    <Item id="6202" name="Lihtsat"/>
-                    <Item id="6203" name="Nool"/>
-                    <Item id="6204" name="Ringist Puu"/>
-                    <Item id="6205" name="Kasti Puu"/>
+                    <Item id="6219" name="Vilkumissagedus:"/>
+                    <Item id="6221" name="+"/>
+                    <Item id="6222" name="-"/>
+                    <Item id="6224" name="Mitmik-redigeerimise sätted"/>
+                    <Item id="6225" name="Võimalda (Ctrl+hiireklikk/valik)"/>
+                    <Item id="6201" name="Voltimisnuppude stiil"/>
+                    <Item id="6202" name="Lihtne"/>
+                    <Item id="6203" name="Nooled"/>
+                    <Item id="6204" name="Ringidega puu"/>
+                    <Item id="6205" name="Kastidega puu"/>
                     <Item id="6226" name="Puudub"/>
 
-                    <Item id="6227" name="Liin Mähi"/>
-                    <Item id="6228" name="Vaikimisi"/>
+                    <Item id="6227" name="Rea mähkimine"/>
+                    <Item id="6228" name="Vaikeväärtus"/>
                     <Item id="6229" name="Joondatud"/>
-                    <Item id="6230" name="Taane"/>
+                    <Item id="6230" name="Taandega"/>
 
-                    <Item id="6206" name="Kuva Liin Numbrid"/>
-                    <Item id="6207" name="Kuva Järjehoidjaid"/>
-                    <Item id="6208" name="Näita Vertical Edge"/>
-                    <Item id="6209" name="Näita Of Veergude: "/>
+                    <Item id="6206" name="Näita reanumbreid"/>
+                    <Item id="6207" name="Näita järjehoidjaid"/>
+                    <Item id="6208" name="Näita rea lõpu joont"/>
+                    <Item id="6209" name="Rea pikkus: "/>
+                    <Item id="6234" name="Lülita kerimine välja
+(kui puuteplaadiga on probleeme)"/>
 
-                    <Item id="6211" name="Vertical Edge Seaded"/>
-                    <Item id="6212" name="Liin Režiimil"/>
-                    <Item id="6213" name="Taustrežiimil"/>
-                    <Item id="6214" name="Võimalda Aktiivse Rea Esiletõstu"/>
-
-					<Item id="6231" name="Äärise Laius"/>
+                    <Item id="6211" name="Rea lõpu joone sätted"/>
+                    <Item id="6212" name="Märgi joon"/>
+                    <Item id="6213" name="Märgi taust"/>
+                    <Item id="6214" name="Tõsta esile praegune rida"/>
+					<Item id="6215" name="Kasuta  smooth font"/>
+                    <Item id="6231" name="Piirjoone laius"/>
+                    <Item id="6235" name="Piirjooneta"/>
+                    <Item id="6236" name="Luba viimasest reast edasi kerimine"/>
                 </Scintillas>
 
-                <NewDoc title="New Document">
-                    <Item id="6401" name="Formaat"/>
+                <NewDoc title="Uus dokument">
+                    <Item id="6401" name="Vorming"/>
                     <Item id="6402" name="Windows"/>
                     <Item id="6403" name="Unix"/>
                     <Item id="6404" name="Mac"/>
-                    <Item id="6405" name="Kodeerimine"/>
+                    <Item id="6405" name="Kodeering"/>
                     <Item id="6406" name="ANSI"/>
-                    <Item id="6407" name="UTF-8 without BOM"/>
-                    <Item id="6408" name="UTF-8"/>
-                    <Item id="6409" name="UCS-2 Big Endian"/>
-                    <Item id="6410" name="UCS-2 Little Endian"/>
-                    <Item id="6411" name="Vaikimisi Keel:"/>
-                    <Item id="6419" name="Uus Dokument"/>
-                    <Item id="6420" name="Kanna Avas ANSI Faili"/>
+                    <Item id="6407" name="UTF-8"/>
+                    <Item id="6408" name="UTF-8 baidijärjestuse tähisega"/>
+                    <Item id="6409" name="UCS-2 jämedaotsaline baidijärjestuse tähisega"/>
+                    <Item id="6410" name="UCS-2 peeneotsaline baidijärjestuse tähisega"/>
+                    <Item id="6411" name="Vaikekeel:"/>
+                    <Item id="6419" name="Uus dokument"/>
+                    <Item id="6420" name="Rakenda avatud ANSI-failidele"/>
                 </NewDoc>
 
-                <DefaultDir title="Default Directory">
-                    <Item id="6413" name="Vaikimisi Kataloog (Avatud/Säästa)"/>
-                    <Item id="6414" name="Jälgi Parajasti Avatud Dokumendi"/>
-                    <Item id="6415" name="Mäleta Viimatikuulatud Kataloog"/>
+                <DefaultDir title="Vaikekaust">
+                    <Item id="6413" name="Vaikekaust (avamisel ja salvestamisel)"/>
+                    <Item id="6414" name="Kasuta avatud dokumendi kausta"/>
+                    <Item id="6415" name="Jäta meelde viimati kasutatud kaust"/>
+                    <Item id="6430" name="Kasuta uues stiilis salvestamise dialoogi (faililaiendi täiendusteta)"/>
+                    <Item id="6431" name="Kausta pukseerimisel ava kõik kaustas asuvad failid tööruumina avamise asemel"/>
                 </DefaultDir>
 
-                <FileAssoc title="File Association">
-                    <Item id="4009" name="Toetatud exts:"/>
-                    <Item id="4010" name="Registreeritud exts:"/>
+                <FileAssoc title="Failiseosed">
+                    <Item id="4009" name="Toetatud laiendid:"/>
+                    <Item id="4010" name="Registreeritud laiendid:"/>
                 </FileAssoc>
-                <LangMenu title="Language Menu">
-                    <Item id="6505" name="Saadaval Kirjed"/>
-                    <Item id="6506" name="Puudega Kirjed"/>
-                    <Item id="6507" name="Teha Keel Menüü Kompaktne"/>
-                    <Item id="6508" name="Keel Menüü"/>
-                </LangMenu>
+                <Language title="Keel">
+                    <Item id="6505" name="Kasutatavad keeled"/>
+                    <Item id="6506" name="Välja lülitatud keeled"/>
+                    <Item id="6507" name="Kompaktne keelemenüü"/>
+                    <Item id="6508" name="Keelemenüü"/>
+					<Item id="6301" name="Tabeldusmärkide sätted"/>
+                    <Item id="6302" name="Asenda tühikutega"/>
+                    <Item id="6303" name="Tabeldusmärgi laius: "/>
+                    <Item id="6510" name="Kasuta vaikeväärtust"/>
+                </Language>
 
-                <TabSettings title="Tab Settings">
-                    <Item id="6301" name="Sakk Seaded"/>
-                    <Item id="6302" name="Vahetage Tühik"/>
-                    <Item id="6303" name="Sakk Suurus: "/>
-                    <Item id="6510" name="Kasuta Vaikeväärtus"/>
-                </TabSettings>
+                <Highlighting title="Esiletõstmine">
+                    <Item id="6333" name="Tark esiletõstmine"/>
+                    <Item id="6326" name="Luba tark esiletõstmine"/>
+                    <Item id="6332" name="Tõstutundlik"/>
+                    <Item id="6338" name="Otsi tervet sõna"/>
+                    <Item id="6339" name="Kasuta otsingudialoogi sätteid"/>
+                    <Item id="6340" name="Tõsta muu vaade esile"/>
+                    <Item id="6329" name="Teineteisele vastavate märgendite esiletõstmine"/>
+                    <Item id="6327" name="Võimalda"/>
+                    <Item id="6328" name="Tõsta esile märgendi atribuudid"/>
+                    <Item id="6330" name="Tõsta esile kommentaari/PHP/ASP ala"/>
+                </Highlighting>
 
-                <Print title="Print">
-                    <Item id="6601" name="Prindi Liin Arv"/>
-                    <Item id="6602" name="Värv Valikud"/>
+                <Print title="Printimine">
+                    <Item id="6601" name="Prindi reanumbrid"/>
+                    <Item id="6602" name="Värvi valikud"/>
                     <Item id="6603" name="WYSIWYG"/>
-                    <Item id="6604" name="Teistpidi"/>
-                    <Item id="6605" name="Mustana Valgel"/>
-                    <Item id="6606" name="No Taustavärvi"/>
-                    <Item id="6607" name="ühendamise Seadistused (Unit:mm)"/>
+                    <Item id="6604" name="Pööra ümber"/>
+                    <Item id="6605" name="Mustvalge"/>
+                    <Item id="6606" name="Taustavärvita"/>
+                    <Item id="6607" name="Lisaruum äärtes (ühik: mm)"/>
                     <Item id="6612" name="Vasak"/>
-                    <Item id="6613" name="Toülemisep"/>
-                    <Item id="6614" name="õigus"/>
+                    <Item id="6613" name="Ülemine"/>
+                    <Item id="6614" name="Parem"/>
                     <Item id="6615" name="Alumine"/>
-                    <Item id="6706" name="Julge"/>
-                    <Item id="6707" name="Kursiiv"/>
-                    <Item id="6708" name="Päise"/>
-                    <Item id="6709" name="Vasak Osa"/>
-                    <Item id="6710" name="Keset Osa"/>
-                    <Item id="6711" name="õigus Osa"/>
-                    <Item id="6717" name="Julge"/>
-                    <Item id="6718" name="Kursiiv"/>
-                    <Item id="6719" name="Jaluse"/>
-                    <Item id="6720" name="Vasak Osa"/>
-                    <Item id="6721" name="Keset Osa"/>
-                    <Item id="6722" name="õigus Osa"/>
-                    <Item id="6723" name="Lisada"/>
-                    <Item id="6725" name="Muutuv:"/>
-					<Item id="6727" name="Siin Kuvada Muutuja Seaded"/>
-                    <Item id="6728" name="Päis ja Jalus"/>
+                    <Item id="6706" name="Paks"/>
+                    <Item id="6707" name="Kaldkiri"/>
+                    <Item id="6708" name="Päis"/>
+                    <Item id="6709" name="Vasak osa"/>
+                    <Item id="6710" name="Keskmine osa"/>
+                    <Item id="6711" name="Parem osa"/>
+                    <Item id="6717" name="Paks"/>
+                    <Item id="6718" name="Kaldkiri"/>
+                    <Item id="6719" name="Jalus"/>
+                    <Item id="6720" name="Vasak osa"/>
+                    <Item id="6721" name="Keskmine osa"/>
+                    <Item id="6722" name="Parem osa"/>
+                    <Item id="6723" name="Lisa"/>
+                    <Item id="6725" name="Muutuja:"/>
+                    <Item id="6727" name="Siin kuvatakse muutuja sätteid"/>
+                    <Item id="6728" name="Päis ja jalus"/>
                 </Print>
 
-                <RecentFilesHistory title="Recent Files History">
-                    <Item id="6304" name="Hiljutine Failid Ajalugu"/>
-                    <Item id="6306" name="Max. Sissesõitude Arv:"/>
-                    <Item id="6305" name="Ärge Vaadake Ravile Turuletuleku Ajal Aeg"/>
+                <RecentFilesHistory title="Viimatiste failide ajalugu">
+                    <Item id="6304" name="Viimatiste failide ajalugu"/>
+                    <Item id="6306" name="Maksimaalne kirjete arv:"/>
+                    <Item id="6305" name="Ära kontrolli käivitamisel"/>
                     <Item id="6429" name="Kuva"/>
                     <Item id="6424" name="Alammenüüs"/>
-                    <Item id="6425" name="Vaid Faili Nime"/>
-                    <Item id="6426" name="Full Faili Nimi Tee"/>
-                    <Item id="6427" name="Kohanda Maksimaalne Pikkus:"/>
+                    <Item id="6425" name="Ainult faili nimi"/>
+                    <Item id="6426" name="Faili nimi koos rajaga"/>
+                    <Item id="6427" name="Kohanda maksimaalset pikkust:"/>
                 </RecentFilesHistory>
 
-                <Backup title="Backup">
-                    <Item id="6801" name="Varunda"/>
-                    <Item id="6315" name="Puudub"/>
-                    <Item id="6316" name="Lihtsat Varukoopia"/>
-                    <Item id="6317" name="Paljusõnaline Varukoopia"/>
-                    <Item id="6804" name="Custom Varunda Kataloog"/>
-                    <Item id="6803" name="Kataloog:"/>
+                <Backup title="Varundamine">
+                    <Item id="6817" name="Sessiooni hetktõmmised ja perioodiline varundamine"/>
+                    <Item id="6818" name="Võimalda sessiooni hetktõmmised ja perioodiline varundamine"/>
+                    <Item id="6819" name="Varunda iga"/>
+                    <Item id="6821" name="sekundi järel"/>
+                    <Item id="6822" name="Varunduskaust:"/>
+                    <Item id="6309" name="Jäta praegune sessioon järgmiseks käivituseks meelde"/>
+                    <Item id="6801" name="Varundamine"/>
+                    <Item id="6315" name="Ei tehta"/>
+                    <Item id="6316" name="Lihtne varundus"/>
+                    <Item id="6317" name="Üksikasjalik varundus"/>
+                    <Item id="6804" name="Kohandatud varunduskaust"/>
+                    <Item id="6803" name="Kaust:"/>
                 </Backup>
 
-                <AutoCompletion title="Auto-Completion">
-                    <Item id="6807" name="Auto-Lõpuleviimine"/>
-                    <Item id="6808" name="Võimalda Automaatse Lõpuleviimise Iga Sisendi"/>
-                    <Item id="6809" name="Funktsioon Lõpetamist"/>
-                    <Item id="6810" name="Sõna Lõpetamist"/>
-                    <Item id="6811" name="Pärit"/>
-                    <Item id="6813" name="th Iseloom"/>
-                    <Item id="6814" name="Valid Väärtus: 1 - 9"/>
-                    <Item id="6815" name="Funktsioon Parameetrid Vihje Sisend"/>
-                    <Item id="6851" name="Auto-Lisada"/>
-                    <Item id="6857" name=" html/xml Lähedale Sildi"/>
-                    <Item id="6858" name="Avatud"/>
-                    <Item id="6859" name="Lähedale"/>
-                    <Item id="6860" name="ühilduv Paar 1:"/>
-                    <Item id="6863" name="ühilduv Paar 2:"/>
-                    <Item id="6866" name="ühilduv Paar 3:"/>
+                <AutoCompletion title="Automaattäitmine">
+                    <Item id="6807" name="Automaattäitmine"/>
+                    <Item id="6808" name="Luba automaattäitmine iga sisendi puhul"/>
+                    <Item id="6809" name="Funktsioonide lõpetamine"/>
+                    <Item id="6810" name="Sõnade lõpetamine"/>
+                    <Item id="6816" name="Funktsioonide ja sõnade lõpetamine"/>
+                    <Item id="6824" name="Jäta arvud vahele"/>
+                    <Item id="6811" name="Alates"/>
+                    <Item id="6813" name=". märgist"/>
+                    <Item id="6814" name="Lubatud väärtused 1–9"/>
+                    <Item id="6815" name="Funktsiooni parameetrite pakkumine"/>
+                    <Item id="6851" name="Automaatsisestus"/>
+                    <Item id="6857" name="HTML-i/XML-i lõpumärgend"/>
+                    <Item id="6858" name="Algus"/>
+                    <Item id="6859" name="Lõpp"/>
+                    <Item id="6860" name="Vastav paar 1:"/>
+                    <Item id="6863" name="Vastav paar 2:"/>
+                    <Item id="6866" name="Vastav paar 3:"/>
                 </AutoCompletion>
 
-                <MultiInstance title="Multi-Instance">
-                    <Item id="6151" name="Multi-Astme Seaded"/>
-                    <Item id="6152" name="Avatud Istungil Uus Isend of Notepad++"/>
-                    <Item id="6153" name="Alati Mitme Astme Režiimil"/>
-                    <Item id="6154" name="Vaikimisi (Mono-Astme)"/>
-                    <Item id="6155" name="* Muutmise See Seade Vajab Taaskäivitamist Notepad++"/>
+                <MultiInstance title="Mitu protsessi">
+                    <Item id="6151" name="Mitme protsessi sätted"/>
+                    <Item id="6152" name="Ava sessioon uues Notepad++-i protsessis"/>
+                    <Item id="6153" name="Luba alati mitu protsessi"/>
+                    <Item id="6154" name="Vaikeväärtus (üks protsess)"/>
+                    <Item id="6155" name="* Selle sätte muutmine nõuab Notepad++-i taaskäivitamist"/>
                 </MultiInstance>
 
-                <Delimiter title="Delimiter">
-                    <Item id="6251" name="Eraldajaks Valiku Seaded(Ctrl + Mouse Topeltklõpsu)"/>
-                    <Item id="6252" name="Avatud"/>
-                    <Item id="6255" name="Lähedal"/>
-                    <Item id="6256" name="Laske Erinevatel Liinidel"/>
+                <Delimiter title="Eraldaja">
+                    <Item id="6251" name="Sulgudevahelise valiku sätted (Ctrl + Hiire topeltklõps)"/>
+                    <Item id="6252" name="Algus"/>
+                    <Item id="6255" name="Lõpp"/>
+                    <Item id="6256" name="Luba valimine üle mitme rea"/>
+					<Item id="6161" name="Sõna tähemärkide loend"/>
+                    <Item id="6162" name="Kasuta vaikimisi tähemärkide loendit"/>
+                    <Item id="6163" name="Lisa tähemärk sõna osana
+(lisa ainult siis, kui oled teadlik selle mõjust)"/>
                 </Delimiter>
 
-                <MISC title="MISC.">
+                <Cloud title="Pilv">
+                    <Item id="6262" name="Seadistuse salvestamine pilves"/>
+                    <Item id="6263" name="Ära salvesta"/>
+                    <Item id="6267" name="Vali pilve asukoht:"/>
+                </Cloud>
+
+                <SearchEngine title="Otsimootor">
+                    <Item id="6271" name="Otsimootor (käsk &quot;Otsi internetist&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Määra otsimootor siin:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Näide: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
+
+                <MISC title="Muu">
                     <Item id="6307" name="Võimalda"/>
-                    <Item id="6308" name="Minimeeri Kuni Süsteemse Salve"/>
-                    <Item id="6309" name="Mäleta Praeguse Seansi Järgmisel Käivitamisel"/>
-                    <Item id="6312" name="Faili Staatus Auto-Tuvastamise"/>
-                    <Item id="6313" name="Uuenda Vaikides"/>
-                    <Item id="6318" name="Klikitav Lingi Seaded"/>
-                    <Item id="6325" name="Leidke Viimane Rida Pärast Uuendamist"/>
-                    <Item id="6319" name="Enable"/>
-                    <Item id="6320" name="No underline"/>
-                    <Item id="6322" name="Session file ext.:"/>
-                    <Item id="6323" name="Enable Notepad++ auto-updater"/>
-                    <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
-                    <Item id="6326" name="Enable smart highlighting"/>
-                    <Item id="6329" name="Highlight Matching Tags"/>
-                    <Item id="6327" name="Enable"/>
-                    <Item id="6328" name="Highlight tag attributes"/>
-                    <Item id="6330" name="Highlight comment/php/asp zone"/>
-                    <Item id="6331" name="Show only filename in title bar"/>
-                    <Item id="6332" name="Match case"/>
-                    <Item id="6333" name="Smart Highlighting"/>
-					<Item id="6334" name="Autodetect character encoding"/>
-                    <Item id="6114" name="Võimalda"/>
-                    <Item id="6115" name="Auto-Indent"/>
-                    <Item id="6117" name="Võimalda MRU Käitumine"/>
+                    <Item id="6308" name="Minimeeri süsteemisalve"/>
+                    <Item id="6312" name="Faili oleku automaatne tuvastamine"/>
+                    <Item id="6313" name="Värskenda vaikselt"/>
+                    <Item id="6318" name="Hüperlinkide avamise sätted"/>
+                    <Item id="6325" name="Keri pärast värskendamist viimasele reale"/>
+                    <Item id="6319" name="Luba avamine"/>
+                    <Item id="6320" name="Ära kriipsuta alla"/>
+                    <Item id="6322" name="Sessiooni faili laiend:"/>
+                    <Item id="6323" name="Luba Notepad++-i automaatne värskendamine"/>
+                    <Item id="6324" name="Dokumentide vahel liikumine (Ctrl+Tabeldusklahv)"/>
+                    <Item id="6331" name="Näita tiitliribal ainult failinime"/>
+                    <Item id="6334" name="Tuvasta teksti kodeering automaatselt"/>
+                    <Item id="6335" name="Arvesta kaldkriipsu SQL-is lõpumärgina"/>
+                    <Item id="6337" name="Tööruumi faili laiend:"/>
+                    <Item id="6114" name="Luba"/>
+                    <Item id="6115" name="Automaatne taane"/>
+                    <Item id="6117" name="Kasuta viimatisi dokumente"/>
                 </MISC>
             </Preference>
-            <MultiMacro title="Run a Macro Multiple Times">
-                <Item id="1" name="Jooks"/>
-                <Item id="2" name="Tühistama"/>
-                <Item id="8006" name="Makro Kuni Joosta:"/>
-                <Item id="8001" name="Jooks"/>
-                <Item id="8005" name="Korda"/>
-                <Item id="8002" name="Jooks Lõpuni Faili"/>
+            <MultiMacro title="Taasesita makro mitu korda">
+                <Item id="1" name="Taasesita"/>
+                <Item id="2" name="Loobu"/>
+                <Item id="8006" name="Makro:"/>
+                <Item id="8001" name="Taasesita"/>
+                <Item id="8005" name="korda"/>
+                <Item id="8002" name="Taasesita faili lõpuni"/>
             </MultiMacro>
-            <Window title="Windows">
-                <Item id="1" name="Aktiveerige"/>
-                <Item id="2" name="OK"/>
-                <Item id="7002" name="Säästa"/>
-                <Item id="7003" name="Lähedal Aknad(s)"/>
-                <Item id="7004" name="Sorteeri Sakke"/>
+            <Window title="Aknad">
+                <Item id="1" name="Aktiveeri"/>
+                <Item id="2" name="Olgu"/>
+                <Item id="7002" name="Salvesta"/>
+                <Item id="7003" name="Sule"/>
+                <Item id="7004" name="Sordi sakid"/>
             </Window>
-            <ColumnEditor title="Column Editor">
-                <Item id="2023" name="Tekst Mis Lisatakse"/>
-                <Item id="2033" name="Arv Mis Lisatakse"/>
-                <Item id="2030" name="Esialgne Arv:"/>
-                <Item id="2031" name="Suurenema:"/>
-                <Item id="2035" name="Alustatakse Nullidega"/>
-                <Item id="2032" name="Formaat"/>
-                <Item id="2024" name="Dec"/>
-                <Item id="2025" name="Oct"/>
-                <Item id="2026" name="Hex"/>
-                <Item id="2027" name="Bin"/>
-                <Item id="1" name="OK"/>
-                <Item id="2" name="Tühistama"/>
+            <ColumnEditor title="Tulpade redigeerimine">
+                <Item id="2023" name="Sisesta tekst"/>
+                <Item id="2033" name="Sisesta arv"/>
+                <Item id="2030" name="Esimene arv:"/>
+                <Item id="2031" name="Liidetav:"/>
+                <Item id="2035" name="Eelnevad nullid"/>
+                <Item id="2036" name="Korda:"/>
+                <Item id="2032" name="Vorming"/>
+                <Item id="2024" name="Detsimaalne"/>
+                <Item id="2025" name="Oktaalne"/>
+                <Item id="2026" name="Heksadets."/>
+                <Item id="2027" name="Binaarne"/>
+                <Item id="1" name="Olgu"/>
+                <Item id="2" name="Loobu"/>
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-            <NppHelpAbsentWarning title="File does not exist" message="\doesn't exist. Please download it on Notepad++ site."/>
-            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
-            <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
-            <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-            <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
-            <DeleteFileFailed title="Delete File" message="Delete File failed"/>
+            <ContextMenuXmlEditWarning title="Kontekstimenüü redigeerimine" message="Faili contextMenu.xml kaudu saab muuta Notepad++-i kontekstimenüü kirjeid.
+Pärast faili salvestamist tuleb muudatuste rakendamiseks Notepad++ uuesti käivitada."/>
+            <NppHelpAbsentWarning title="Faili pole olemas" message="\rei eksisteeri. Palun laadi see alla Notepad++-i veebisaidilt."/>
+            <SaveCurrentModifWarning title="Salvesta praegune muudatus" message="Praegune muudatus tuleks salvestada.\rKõiki salvestatud muudatusi ei saa tagasi võtta.\r\rKas soovid jätkata?"/>
+            <LoseUndoAbilityWarning title="Tagasi võtmise võimalus kaob" message="Praegune muudatus tuleks salvestada.\rKõiki salvestatud muudatusi ei saa tagasi võtta.\r\rKas soovid jätkata?"/>
+            <CannotMoveDoc title="Uude Notepad++-i protsessi liigutamine" message="Dokumenti on muudetud, salvesta see ja proovi uuesti."/>
+            <DocReloadWarning title="Uuesti laadimine" message="Kas soovid kindlasti lahtioleva faili uuesti laadida? Tehtud muudatused ei jää alles."/>
+            <FileLockedWarning title="Salvestamine ebaõnnestus" message="Fail võib olla avatud mõnes muus programmis"/>
+            <FileAlreadyOpenedInNpp title="" message="Fail on juba Notepad++-is avatud."/>
+            <DeleteFileFailed title="Faili kustutamine" message="Faili kustutamine ebaõnnestus"/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
+            <NbFileToOpenImportantWarning title="Avatavate failide arv on liiga suur" message="Kas soovid kindlasti avada $INT_REPLACE$ faili?"/>
+            <SettingsOnCloudError title="Sätted pilves" message="Paistab, et pilv on seadistatud kirjutuskaitsega kaustas\rvõi kaustas, millele puudub kirjutamise õigus.\rPilve sätted tühistatakse. Palun vali eelistustes sobiv kaust."/>
+            <FilePathNotFoundWarning title="Faili avamine" message="Avatavat faili pole olemas."/>
         </MessageBox>
         <ClipboardHistory>
-			<PanelTitle name="Lõikepuhvri Ajaloo"/>
+            <PanelTitle name="Lõikepuhvri ajalugu"/>
         </ClipboardHistory>
         <DocSwitcher>
-			<PanelTitle name="Doc Lülitaja"/>
-			<ColumnName name="Nimi"/>
-			<ColumnExt name="Ext."/>
+            <PanelTitle name="Dokumentide vahetamine"/>
+            <ColumnName name="Nimi"/>
+            <ColumnExt name="Laiend"/>
         </DocSwitcher>
         <AsciiInsertion>
-			<PanelTitle name="ASCII Insertion Paneel"/>
-			<ColumnVal name="Väärtus"/>
-			<ColumnHex name="Hex"/>
-			<ColumnChar name="Iseloom"/>
+            <PanelTitle name="Tähemärkide sisestamine"/>
+            <ColumnVal name="Väärtus"/>
+            <ColumnHex name="Heksadetsimaalne"/>
+            <ColumnChar name="Tähemärk"/>
         </AsciiInsertion>
         <DocumentMap>
-			<PanelTitle name="Dokumendi Kaart"/>
+            <PanelTitle name="Dokumendi kaart"/>
         </DocumentMap>
         <FunctionList>
-			<PanelTitle name="Funktsioon Nimekiri"/>
-			<SortTip name="Sort" />
-			<ReloadTip name="Asendusostu" />
+            <PanelTitle name="Funktsioonide loend"/>
+            <SortTip name="Sordi" />
+            <ReloadTip name="Laadi uuesti" />
         </FunctionList>
         <ProjectManager>
             <PanelTitle name="Projekt"/>
-            <WorkspaceRootName name="Tööruumi"/>
-            <NewProjectName name="Projekt Nimi"/>
-            <NewFolderName name="Failid Nimi"/>
+            <WorkspaceRootName name="Tööruum"/>
+            <NewProjectName name="Projekti nimi"/>
+            <NewFolderName name="Folder Name"/>
             <Menus>
                 <Entries>
-                    <Item id="0" name="Tööruumi"/>
+                    <Item id="0" name="Tööruum"/>
                     <Item id="1" name="Redigeeri"/>
                 </Entries>
                 <WorkspaceMenu>
-                    <Item id="3122" name="Uus Tööruumi"/>
-                    <Item id="3123" name="Avatud Tööruumi"/>
-                    <Item id="3124" name="Asendusostu Tööruumi"/>
-                    <Item id="3125" name="Säästa"/>
-                    <Item id="3126" name="Säästa Nii..."/>
-                    <Item id="3127" name="Säästa Kopeeri Nagu..."/>
-                    <Item id="3121" name="Lisada Uus Projekt"/>
+                    <Item id="3122" name="Uus tööruum"/>
+                    <Item id="3123" name="Ava tööruum"/>
+                    <Item id="3124" name="Laadi tööruum uuesti"/>
+                    <Item id="3125" name="Salvesta"/>
+                    <Item id="3126" name="Salvesta nimega..."/>
+                    <Item id="3127" name="Salvesta koopia nimega..."/>
+                    <Item id="3121" name="Lisa uus projekt"/>
                 </WorkspaceMenu>
                 <ProjectMenu>
-                    <Item id="3111" name="Nimeta"/>
-                    <Item id="3112" name="Lisada Kausta"/>
-                    <Item id="3113" name="Lisada Faili..."/>
-                    <Item id="3117" name="Lisada Failid Kataloog..."/>
-                    <Item id="3114" name="Eemaldama"/>
+                    <Item id="3111" name="Nimeta ümber"/>
+                    <Item id="3112" name="Lisa kaust"/>
+                    <Item id="3113" name="Lisa faile..."/>
+                    <Item id="3117" name="Lisa faile kaustast..."/>
+                    <Item id="3114" name="Eemalda"/>
                     <Item id="3118" name="Liiguta üles"/>
-                    <Item id="3119" name="Liiguta Alla"/>
+                    <Item id="3119" name="Liiguta alla"/>
                 </ProjectMenu>
                 <FolderMenu>
-                    <Item id="3111" name="Nimeta"/>
-                    <Item id="3112" name="Lisada Failid"/>
-                    <Item id="3113" name="Lisada Failid..."/>
-                    <Item id="3117" name="Lisada Failid Kataloog..."/>
-                    <Item id="3114" name="Eemaldama"/>
+                    <Item id="3111" name="Nimeta ümber"/>
+                    <Item id="3112" name="Lisa kaust"/>
+                    <Item id="3113" name="Lisa faile..."/>
+                    <Item id="3117" name="Lisa faile kaustast..."/>
+                    <Item id="3114" name="Eemalda"/>
                     <Item id="3118" name="Liiguta üles"/>
-                    <Item id="3119" name="Liiguta Alla"/>
+                    <Item id="3119" name="Liiguta alla"/>
                 </FolderMenu>
                 <FileMenu>
-                    <Item id="3111" name="Nimeta"/>
-                    <Item id="3115" name="Eemaldama"/>
-                    <Item id="3116" name="Muuda Faili Tee"/>
+                    <Item id="3111" name="Nimeta ümber"/>
+                    <Item id="3115" name="Eemalda"/>
+                    <Item id="3116" name="Muuda faili rada"/>
                     <Item id="3118" name="Liiguta üles"/>
-                    <Item id="3119" name="Liiguta Alla"/>
+                    <Item id="3119" name="Liiguta alla"/>
                 </FileMenu>
             </Menus>
         </ProjectManager>
+        <MiscStrings>
+            <word-chars-list-tip value="Siin saab lisada tähemärke sõna tähemärkide loendisse, kui kasutada topeltklõpsuga valimist või otsimist terve sõna kaupa."/>
+            <word-chars-list-warning-begin value="Teadmiseks: "/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-space-warning value="$INT_REPLACE$ tühik(ut)"/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <word-chars-list-tab-warning value="$INT_REPLACE$ tabeldusmärk(i)"/>
+            <word-chars-list-warning-end value=" tähemärkide loendis."/>
+            <cloud-invalid-warning value="Vigane rada."/>
+            <cloud-restart-warning value="Palun taaskäivita muudatuste rakendamiseks Notepad++."/>
+        </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

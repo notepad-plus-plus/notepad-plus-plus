@@ -118,12 +118,12 @@ void SplitterContainer::display(bool toShow) const
 }
 
 
-void SplitterContainer::redraw() const
+void SplitterContainer::redraw(bool forceUpdate) const
 {
 	assert(_pWin0 != nullptr);
 	assert(_pWin1 != nullptr);
-	_pWin0->redraw(true);
-	_pWin1->redraw(true);
+	_pWin0->redraw(forceUpdate);
+	_pWin1->redraw(forceUpdate);
 }
 
 
@@ -159,9 +159,9 @@ LRESULT CALLBACK SplitterContainer::staticWinProc(HWND hwnd, UINT message, WPARA
 	{
 		case WM_NCCREATE:
 		{
-			pSplitterContainer = (SplitterContainer *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
+			pSplitterContainer = reinterpret_cast<SplitterContainer *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
 			pSplitterContainer->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)pSplitterContainer);
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pSplitterContainer));
 			return TRUE;
 		}
 
@@ -315,7 +315,7 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 				? (pt.x < 0 ? _pWin0 : _pWin1)
 				: (pt.y < 0 ? _pWin0 : _pWin1);
 
-			::SendMessage(parent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, (LPARAM)targetWindow->getHSelf());
+			::SendMessage(parent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, reinterpret_cast<LPARAM>(targetWindow->getHSelf()));
 			::SendMessage(parent, WM_COMMAND, IDM_FILE_NEW, 0);
 			return TRUE;
 		}

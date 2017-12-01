@@ -24,11 +24,16 @@ LOBJS=\
 
 INCLUDEDIRS=$(INCLUDEDIRS) -I$(BOOSTPATH)
 
+!IFDEF BUILDTARGETPATH
+CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX
+!ELSE
 CXXFLAGS=$(CXXFLAGS) -DSCI_OWNREGEX -arch:IA32
+!ENDIF
+
 !IFDEF DEBUG
 LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTLIBPATH)\debug\link-static\runtime-link-static\threading-multi
 !ELSE
-LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTLIBPATH)\release\link-static\runtime-link-static\threading-multi
+LDFLAGS=$(LDFLAGS) -LIBPATH:$(BOOSTLIBPATH)\release\$(BUILDTARGETPATH)link-static\runtime-link-static\threading-multi
 !ENDIF
 
 

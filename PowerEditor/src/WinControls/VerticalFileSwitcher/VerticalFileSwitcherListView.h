@@ -69,7 +69,7 @@ public:
 		ListView_DeleteColumn(_hSelf, i);
 	};
 	int nbSelectedFiles() const {
-		return SendMessage(_hSelf, LVM_GETSELECTEDCOUNT, 0, 0);
+		return static_cast<int32_t>(SendMessage(_hSelf, LVM_GETSELECTEDCOUNT, 0, 0));
 	};
 
 	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const;

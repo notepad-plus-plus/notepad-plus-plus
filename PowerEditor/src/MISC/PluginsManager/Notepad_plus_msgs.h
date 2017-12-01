@@ -39,12 +39,18 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_ASM, L_DIFF, L_PROPS, L_PS, L_RUBY, L_SMALLTALK, L_VHDL, L_KIX, L_AU3,\
 			   L_CAML, L_ADA, L_VERILOG, L_MATLAB, L_HASKELL, L_INNO, L_SEARCHRESULT,\
 			   L_CMAKE, L_YAML, L_COBOL, L_GUI4CLI, L_D, L_POWERSHELL, L_R, L_JSP,\
-			   L_COFFEESCRIPT, L_JSON, L_JAVASCRIPT, L_FORTRAN_77,\
+			   L_COFFEESCRIPT, L_JSON, L_JAVASCRIPT, L_FORTRAN_77, L_BAANC, L_SREC,\
+			   L_IHEX, L_TEHEX, L_SWIFT,\
+			   L_ASN1, L_AVS, L_BLITZBASIC, L_PUREBASIC, L_FREEBASIC, \
+			   L_CSOUND, L_ERLANG, L_ESCRIPT, L_FORTH, L_LATEX, \
+			   L_MMIXAL, L_NIMROD, L_NNCRONTAB, L_OSCRIPT, L_REBOL, \
+			   L_REGISTRY, L_RUST, L_SPICE, L_TXT2TAGS, L_VISUALPROLOG,\
 			   // Don't use L_JS, use L_JAVASCRIPT instead
 			   // The end of enumated language type, so it should be always at the end
 			   L_EXTERNAL};
 
 enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10};
+enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 
 
 
@@ -213,7 +219,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	// returned value : TRUE if tab bar is hidden, otherwise FALSE
 
 	#define NPPM_GETPOSFROMBUFFERID (NPPMSG + 57)
-	// INT NPPM_GETPOSFROMBUFFERID(INT bufferID, INT priorityView)
+	// INT NPPM_GETPOSFROMBUFFERID(UINT_PTR bufferID, INT priorityView)
 	// Return VIEW|INDEX from a buffer ID. -1 if the bufferID non existing
 	// if priorityView set to SUB_VIEW, then SUB_VIEW will be search firstly
 	//
@@ -223,11 +229,11 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	//  SUB_VIEW  1
 
 	#define NPPM_GETFULLPATHFROMBUFFERID (NPPMSG + 58)
-	// INT NPPM_GETFULLPATHFROMBUFFERID(INT bufferID, TCHAR *fullFilePath)
+	// INT NPPM_GETFULLPATHFROMBUFFERID(UINT_PTR bufferID, TCHAR *fullFilePath)
 	// Get full path file name from a bufferID.
 	// Return -1 if the bufferID non existing, otherwise the number of TCHAR copied/to copy
 	// User should call it with fullFilePath be NULL to get the number of TCHAR (not including the nul character),
-	// allocate fullFilePath with the return values + 1, then call it again to get  full path file name
+	// allocate fullFilePath with the return values + 1, then call it again to get full path file name
 
 	#define NPPM_GETBUFFERIDFROMPOS (NPPMSG + 59)
 	// LRESULT NPPM_GETBUFFERIDFROMPOS(INT index, INT iView)
@@ -240,20 +246,20 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	// Returns active Buffer
 
 	#define NPPM_RELOADBUFFERID (NPPMSG + 61)
-	// VOID NPPM_RELOADBUFFERID(0, 0)
+	// VOID NPPM_RELOADBUFFERID(UINT_PTR bufferID, BOOL alert)
 	// Reloads Buffer
 	// wParam: Buffer to reload
 	// lParam: 0 if no alert, else alert
 
 
 	#define NPPM_GETBUFFERLANGTYPE (NPPMSG + 64)
-	// INT NPPM_GETBUFFERLANGTYPE(INT bufferID, 0)
+	// INT NPPM_GETBUFFERLANGTYPE(UINT_PTR bufferID, 0)
 	// wParam: BufferID to get LangType from
 	// lParam: 0
 	// Returns as int, see LangType. -1 on error
 
 	#define NPPM_SETBUFFERLANGTYPE (NPPMSG + 65)
-	// BOOL NPPM_SETBUFFERLANGTYPE(INT bufferID, INT langType)
+	// BOOL NPPM_SETBUFFERLANGTYPE(UINT_PTR bufferID, INT langType)
 	// wParam: BufferID to set LangType of
 	// lParam: LangType
 	// Returns TRUE on success, FALSE otherwise
@@ -261,13 +267,13 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	// L_USER and L_EXTERNAL are not supported
 
 	#define NPPM_GETBUFFERENCODING (NPPMSG + 66)
-	// INT NPPM_GETBUFFERENCODING(INT bufferID, 0)
+	// INT NPPM_GETBUFFERENCODING(UINT_PTR bufferID, 0)
 	// wParam: BufferID to get encoding from
 	// lParam: 0
 	// returns as int, see UniMode. -1 on error
 
 	#define NPPM_SETBUFFERENCODING (NPPMSG + 67)
-	// BOOL NPPM_SETBUFFERENCODING(INT bufferID, INT encoding)
+	// BOOL NPPM_SETBUFFERENCODING(UINT_PTR bufferID, INT encoding)
 	// wParam: BufferID to set encoding of
 	// lParam: encoding
 	// Returns TRUE on success, FALSE otherwise
@@ -275,29 +281,18 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	// Can only be done on new, unedited files
 
 	#define NPPM_GETBUFFERFORMAT (NPPMSG + 68)
-	// INT NPPM_GETBUFFERFORMAT(INT bufferID, 0)
-	// wParam: BufferID to get format from
+	// INT NPPM_GETBUFFERFORMAT(UINT_PTR bufferID, 0)
+	// wParam: BufferID to get EolType format from
 	// lParam: 0
-	// returns as int, see formatType. -1 on error
+	// returns as int, see EolType format. -1 on error
 
 	#define NPPM_SETBUFFERFORMAT (NPPMSG + 69)
-	// BOOL NPPM_SETBUFFERFORMAT(INT bufferID, INT format)
-	// wParam: BufferID to set format of
+	// BOOL NPPM_SETBUFFERFORMAT(UINT_PTR bufferID, INT format)
+	// wParam: BufferID to set EolType format of
 	// lParam: format
 	// Returns TRUE on success, FALSE otherwise
-	// use int, see formatType
+	// use int, see EolType format
 
-/*
-	#define NPPM_ADDREBAR (NPPMSG + 57)
-	// BOOL NPPM_ADDREBAR(0, REBARBANDINFO *)
-	// Returns assigned ID in wID value of struct pointer
-	#define NPPM_UPDATEREBAR (NPPMSG + 58)
-	// BOOL NPPM_ADDREBAR(INT ID, REBARBANDINFO *)
-	//Use ID assigned with NPPM_ADDREBAR
-	#define NPPM_REMOVEREBAR (NPPMSG + 59)
-	// BOOL NPPM_ADDREBAR(INT ID, 0)
-	//Use ID assigned with NPPM_ADDREBAR
-*/
 
 	#define NPPM_HIDETOOLBAR (NPPMSG + 70)
 	// BOOL NPPM_HIDETOOLBAR(0, BOOL hideOrNot)
@@ -333,7 +328,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	// BOOL NPPM_GETSHORTCUTBYCMDID(int cmdID, ShortcutKey *sk)
 	// get your plugin command current mapped shortcut into sk via cmdID
 	// You may need it after getting NPPN_READY notification
-	// returned value : TRUE if this function call is successful and shorcut is enable, otherwise FALSE
+	// returned value : TRUE if this function call is successful and shortcut is enable, otherwise FALSE
 
 	#define NPPM_DOOPEN (NPPMSG + 77)
 	// BOOL NPPM_DOOPEN(0, const TCHAR *fullPathName2Open)
@@ -345,7 +340,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 
     #define NPPM_GETCURRENTNATIVELANGENCODING (NPPMSG + 79)
 	// INT NPPM_GETCURRENTNATIVELANGENCODING(0, 0)
-	// returned value : the current native language enconding
+	// returned value : the current native language encoding
 
     #define NPPM_ALLOCATESUPPORTED   (NPPMSG + 80)
     // returns TRUE if NPPM_ALLOCATECMDID is supported
@@ -364,7 +359,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 
 	#define NPPM_GETLANGUAGENAME  (NPPMSG + 83)
 	// INT NPPM_GETLANGUAGENAME(int langType, TCHAR *langName)
-	// Get programing language name from the given language type (LangType)
+	// Get programming language name from the given language type (LangType)
 	// Return value is the number of copied character / number of character to copy (\0 is not included)
 	// You should call this function 2 times - the first time you pass langName as NULL to get the number of characters to copy.
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGENAME function the 2nd time
@@ -372,7 +367,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 
 	#define NPPM_GETLANGUAGEDESC  (NPPMSG + 84)
 	// INT NPPM_GETLANGUAGEDESC(int langType, TCHAR *langDesc)
-	// Get programing language short description from the given language type (LangType)
+	// Get programming language short description from the given language type (LangType)
 	// Return value is the number of copied character / number of character to copy (\0 is not included)
 	// You should call this function 2 times - the first time you pass langDesc as NULL to get the number of characters to copy.
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGEDESC function the 2nd time
@@ -427,6 +422,7 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	#define NPPM_GETEXTPART				(RUNCOMMAND_USER + EXT_PART)
 	#define NPPM_GETCURRENTWORD			(RUNCOMMAND_USER + CURRENT_WORD)
 	#define NPPM_GETNPPDIRECTORY		(RUNCOMMAND_USER + NPP_DIRECTORY)
+	#define NPPM_GETFILENAMEATCURSOR	(RUNCOMMAND_USER + GETFILENAMEATCURSOR)
 	// BOOL NPPM_GETXXXXXXXXXXXXXXXX(size_t strLen, TCHAR *str)
 	// where str is the allocated TCHAR array,
 	//	     strLen is the allocated array size
@@ -440,6 +436,8 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	// INT NPPM_GETCURRENTCOLUMN(0, 0)
 	// return the caret current position column
 
+	#define NPPM_GETNPPFULLFILEPATH			(RUNCOMMAND_USER + NPP_FULL_FILE_PATH)
+
 		#define VAR_NOT_RECOGNIZED 0
 		#define FULL_CURRENT_PATH 1
 		#define CURRENT_DIRECTORY 2
@@ -450,6 +448,8 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 		#define NPP_DIRECTORY 7
 		#define CURRENT_LINE 8
 		#define CURRENT_COLUMN 9
+		#define NPP_FULL_FILE_PATH 10
+		#define GETFILENAMEATCURSOR 11
 
 
 // Notification code
@@ -541,10 +541,10 @@ enum winVer{ WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, W
 	//scnNotification->nmhdr.hwndFrom = bufferID;
 	//scnNotification->nmhdr.idFrom = docStatus;
 		// where bufferID is BufferID
-		//       docStatus can be combined by DOCSTAUS_READONLY and DOCSTAUS_BUFFERDIRTY
+		//       docStatus can be combined by DOCSTATUS_READONLY and DOCSTATUS_BUFFERDIRTY
 
-		#define DOCSTAUS_READONLY 1
-		#define DOCSTAUS_BUFFERDIRTY 2
+		#define DOCSTATUS_READONLY 1
+		#define DOCSTATUS_BUFFERDIRTY 2
 
 	#define NPPN_DOCORDERCHANGED (NPPN_FIRST + 17)  // To notify plugins that document order is changed
 	//scnNotification->nmhdr.code = NPPN_DOCORDERCHANGED;

@@ -39,7 +39,12 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 		if (wordArray[i] == word)
 			return true;
 	return false;
-};
+}
+
+static bool isAllDigits(const generic_string &str)
+{
+	return std::all_of(str.begin(), str.end(), ::isdigit);
+}
 
 
 bool AutoCompletion::showApiComplete()
@@ -67,8 +72,8 @@ bool AutoCompletion::showApiComplete()
 
 bool AutoCompletion::showApiAndWordComplete()
 {
-	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
-	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
+	auto curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	auto startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true);
 
 	if (curPos == startPos)
 		return false;
@@ -106,10 +111,10 @@ bool AutoCompletion::showApiAndWordComplete()
 	// Get word list
 	generic_string words;
 
-	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
+	for (size_t i = 0, wordArrayLen = wordArray.size(); i < wordArrayLen; ++i)
 	{
 		words += wordArray[i];
-		if (i != len - 1)
+		if (i != wordArrayLen - 1)
 			words += TEXT(" ");
 	}
 
@@ -123,6 +128,10 @@ bool AutoCompletion::showApiAndWordComplete()
 void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
 {
 	const size_t bufSize = 256;
+	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+
+	if (nppGUI._autocIgnoreNumbers && isAllDigits(beginChars))
+		return;
 
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
@@ -133,7 +142,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	int posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);
+	int posFind = _pEditView->searchInTarget(expr.c_str(), int(expr.length()), 0, docLength);
 
 	while (posFind != -1 && posFind != -2)
 	{
@@ -149,7 +158,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 			if (!isInList(w, wordArray))
 				wordArray.push_back(w);
 		}
-		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
+		posFind = _pEditView->searchInTarget(expr.c_str(), static_cast<int32_t>(expr.length()), wordEnd, docLength);
 	}
 }
 
@@ -244,10 +253,10 @@ void AutoCompletion::showPathCompletion()
 	// Get current line (at most MAX_PATH characters "backwards" from current caret).
 	generic_string currentLine;
 	{
-		const long bufSize = MAX_PATH;
+		const size_t bufSize = MAX_PATH;
 		TCHAR buf[bufSize + 1];
-		const int currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
-		const int startPos = max(0, currentPos - bufSize);
+		const size_t currentPos = static_cast<size_t>(_pEditView->execute(SCI_GETCURRENTPOS));
+		const auto startPos = max(0, currentPos - bufSize);
 		_pEditView->getGenericText(buf, bufSize + 1, startPos, currentPos);
 		currentLine = buf;
 	}
@@ -333,8 +342,8 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	if (wordArray.size() == 1 && autoInsert)
 	{
-		_pEditView->replaceTargetRegExMode(wordArray[0].c_str(), startPos, curPos);
-		_pEditView->execute(SCI_GOTOPOS, startPos + wordArray[0].length());
+		int replacedLength = _pEditView->replaceTargetRegExMode(wordArray[0].c_str(), startPos, curPos);
+		_pEditView->execute(SCI_GOTOPOS, startPos + replacedLength);
 		return true;
 	}
 
@@ -343,10 +352,10 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	// Get word list
 	generic_string words(TEXT(""));
 
-	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
+	for (size_t i = 0, wordArrayLen = wordArray.size(); i < wordArrayLen; ++i)
 	{
 		words += wordArray[i];
-		if (i != wordArray.size()-1)
+		if (i != wordArrayLen -1)
 			words += TEXT(" ");
 	}
 
@@ -370,10 +379,29 @@ bool AutoCompletion::showFunctionComplete()
 
 void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos, bool isHTML)
 {
+	if (isHTML)
+	{
+		// Skip if caretPos is within any scripting language
+		int style = static_cast<int>(_pEditView->execute(SCI_GETSTYLEAT, caretPos));
+		if (style >= SCE_HJ_START)
+			return;
+	}
+
+	char prev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 2));
+	char prevprev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 3));
+
+	// Closing a tag (i.e. "-->") will be ignored
+	if (prevprev == '-' && prev == '-')
+		return;
+
+	// "<toto/>" and "<toto arg="0" />" will be ignored
+	if (prev == '/')
+		return;
+
 	int flags = SCFIND_REGEXP | SCFIND_POSIX;
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	TCHAR tag2find[] = TEXT("<[^\\s>]*");
-	
+
 	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
 
 	if (targetStart == -1 || targetStart == -2)
@@ -393,12 +421,20 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (tagHead[1] == '/') // "</toto>" will be ignored
 		return;
 
+	if (tagHead[1] == '?') // "<?" (Processing Instructions) will be ignored
+		return;
+
 	if (strncmp(tagHead, "<!--", 4) == 0) // Comments will be ignored
 		return;
 
-	if (isHTML) // for HTML: "br", "hr", "img", "link", "!doctype" and "meta" will be ignored
+	if (isHTML) // for HTML: ignore void elements
 	{
-		char *disallowedTags[] = { "br", "hr", "img", "link", "meta", "!doctype" };
+		// https://www.w3.org/TR/html5/syntax.html#void-elements
+		char *disallowedTags[] = {
+				"area", "base", "br", "col", "embed", "hr", "img", "input",
+				"keygen", "link", "meta", "param", "source", "track", "wbr",
+				"!doctype"
+			};
 		size_t disallowedTagsLen = sizeof(disallowedTags) / sizeof(char *);
 		for (size_t i = 0; i < disallowedTagsLen; ++i)
 		{
@@ -406,12 +442,6 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 				return;
 		}
 	}
-
-	char tagTail[2];
-	_pEditView->getText(tagTail, caretPos-2, caretPos-1);
-
-	if (tagTail[0] == '/') // "<toto/>" and "<toto arg="0" />" will be ignored
-		return;
 
 	closeTag[0] = '<';
 	closeTag[1] = '/';
@@ -428,12 +458,12 @@ void InsertedMatchedChars::removeInvalidElements(MatchedCharInserted mci)
 	}
 	else
 	{
-		for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
+		for (int i = int(_insertedMatchedChars.size()) - 1; i >= 0; --i)
 		{
 			if (_insertedMatchedChars[i]._pos < mci._pos)
 			{
-				int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, mci._pos);
-				int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
+				auto posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, mci._pos);
+				auto startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
 
 				if (posToDetectLine != startPosLine) //not in the same line
 				{
@@ -461,22 +491,22 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 {
 	if (isEmpty())
 		return -1;
-	int posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
+	auto posToDetectLine = _pEditView->execute(SCI_LINEFROMPOSITION, posToDetect);
 
-	for (int i = _insertedMatchedChars.size() - 1; i >= 0; --i)
+	for (int i = int32_t(_insertedMatchedChars.size()) - 1; i >= 0; --i)
 	{
 		if (_insertedMatchedChars[i]._c == startChar)
 		{
 			if (_insertedMatchedChars[i]._pos < posToDetect)
 			{
-				int startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
+				auto startPosLine = _pEditView->execute(SCI_LINEFROMPOSITION, _insertedMatchedChars[i]._pos);
 				if (posToDetectLine == startPosLine)
 				{
-					int endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
+					auto endPos = _pEditView->execute(SCI_GETLINEENDPOSITION, startPosLine);
 
 					for (int j = posToDetect; j <= endPos; ++j)
 					{
-						char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
+						char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, j));
 
 						if (aChar != ' ') // non space is not allowed
 						{
@@ -511,11 +541,11 @@ int InsertedMatchedChars::search(char startChar, char endChar, int posToDetect)
 void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & matchedPairConf)
 {
 	const vector< pair<char, char> > & matchedPairs = matchedPairConf._matchedPairs;
-	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	int caretPos = static_cast<int32_t>(_pEditView->execute(SCI_GETCURRENTPOS));
 	char *matchedChars = NULL;
 
-	char charPrev = (char)_pEditView->execute(SCI_GETCHARAT, caretPos - 2);
-	char charNext = (char)_pEditView->execute(SCI_GETCHARAT, caretPos);
+	char charPrev = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos - 2));
+	char charNext = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, caretPos));
 
 	bool isCharPrevBlank = (charPrev == ' ' || charPrev == '\t' || charPrev == '\n' || charPrev == '\r' || charPrev == '\0');
 	int docLen = _pEditView->getCurrentDocLen();
@@ -531,7 +561,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			{
 				char userMatchedChar[2] = { '\0', '\0' };
 				userMatchedChar[0] = matchedPairs[i].second;
-				_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
+				_pEditView->execute(SCI_INSERTTEXT, caretPos, reinterpret_cast<LPARAM>(userMatchedChar));
 				return;
 			}
 		}
@@ -539,7 +569,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 	// if there's no user defined matched pair found, continue to check notepad++'s one
 
-	
+
 	char closeTag[tagMaxLen];
 	closeTag[0] = '\0';
 	switch (character)
@@ -551,7 +581,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 				{
 					matchedChars = ")";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -562,7 +592,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 				if (isCharNextBlank || isInSandwich)
 				{
 					matchedChars = "]";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -573,7 +603,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 				if (isCharNextBlank || isInSandwich)
 				{
 					matchedChars = "}";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -583,7 +613,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			{
 				if (!_insertedMatchedChars.isEmpty())
 				{
-					int pos = _insertedMatchedChars.search('"', char(character), caretPos);
+					int pos = _insertedMatchedChars.search('"', static_cast<char>(character), caretPos);
 					if (pos != -1)
 					{
 						_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -598,7 +628,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
 				{
 					matchedChars = "\"";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -607,7 +637,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 			{
 				if (!_insertedMatchedChars.isEmpty())
 				{
-					int pos = _insertedMatchedChars.search('\'', char(character), caretPos);
+					int pos = _insertedMatchedChars.search('\'', static_cast<char>(character), caretPos);
 					if (pos != -1)
 					{
 						_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -622,7 +652,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					(charPrev == '{' && isCharNextBlank) || (isCharPrevBlank && charNext == '}'))
 				{
 					matchedChars = "'";
-					_insertedMatchedChars.add(MatchedCharInserted(char(character), caretPos - 1));
+					_insertedMatchedChars.add(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 				}
 			}
 		break;
@@ -663,7 +693,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 					startChar = '{';
 				}
 
-				int pos = _insertedMatchedChars.search(startChar, char(character), caretPos);
+				int pos = _insertedMatchedChars.search(startChar, static_cast<char>(character), caretPos);
 				if (pos != -1)
 				{
 					_pEditView->execute(SCI_DELETERANGE, pos, 1);
@@ -675,11 +705,11 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 
 		default:
 			if (!_insertedMatchedChars.isEmpty())
-				_insertedMatchedChars.removeInvalidElements(MatchedCharInserted(char(character), caretPos - 1));
+				_insertedMatchedChars.removeInvalidElements(MatchedCharInserted(static_cast<char>(character), caretPos - 1));
 	}
 
 	if (matchedChars)
-		_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)matchedChars);
+		_pEditView->execute(SCI_INSERTTEXT, caretPos, reinterpret_cast<LPARAM>(matchedChars));
 }
 
 

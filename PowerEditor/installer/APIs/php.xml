@@ -998,8 +998,9 @@
 		</KeyWord>
 		<KeyWord name="class_alias" func="yes">
 			<Overload retVal="bool">
-				<Param name="[string original"/>
-				<Param name="[string alias]]"/>
+				<Param name="string original"/>
+				<Param name="string alias"/>
+				<Param name="[bool autoload=true]"/>
 			</Overload>
 		</KeyWord>
 		<KeyWord name="class_exists" func="yes">

@@ -46,7 +46,7 @@ class ScintillaEditView;
 class ByteArray {
 public:
 	ByteArray():_pBytes(NULL), _length(0) {};
-	ByteArray(ClipboardData cd);
+	explicit ByteArray(ClipboardData cd);
 	
 	~ByteArray() {
 		if (_pBytes)

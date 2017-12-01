@@ -26,21 +26,11 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef FIND_REPLACE_DLG_H
-#define FIND_REPLACE_DLG_H
+#pragma once
 
-#ifndef FINDREPLACE_DLG_H
 #include "FindReplaceDlg_rc.h"
-#endif //FINDREPLACE_DLG_H
-
-#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#endif //SCINTILLA_EDIT_VIEW_H
-
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "BoostRegexSearch.h"
 #include "StatusBar.h"
 
@@ -119,9 +109,9 @@ private:
 class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
 public:
-	Finder() : DockingDlgInterface(IDD_FINDRESULT), _pMainFoundInfos(&_foundInfos1), _pMainMarkings(&_markings1) {
-		_MarkingsStruct._length = 0;
-		_MarkingsStruct._markings = NULL;
+	Finder() : DockingDlgInterface(IDD_FINDRESULT) {
+		_markingsStruct._length = 0;
+		_markingsStruct._markings = NULL;
 	};
 
 	~Finder() {
@@ -144,8 +134,8 @@ public:
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count, bool isMatchLines = false);
 	void gotoNextFoundResult(int direction);
-	void GotoFoundLine();
-	void DeleteResult();
+	void gotoFoundLine();
+	void deleteResult();
 	std::vector<generic_string> getResultFilePaths() const;
 	bool canFind(const TCHAR *fileName, size_t lineNumber) const;
 	void setVolatiled(bool val) { _canBeVolatiled = val; };
@@ -158,20 +148,20 @@ private:
 
 	enum { searchHeaderLevel = SC_FOLDLEVELBASE + 1, fileHeaderLevel, resultLevel };
 
-	ScintillaEditView **_ppEditView;
+	ScintillaEditView **_ppEditView = nullptr;
 	std::vector<FoundInfo> _foundInfos1;
 	std::vector<FoundInfo> _foundInfos2;
-	std::vector<FoundInfo>* _pMainFoundInfos;
+	std::vector<FoundInfo>* _pMainFoundInfos = &_foundInfos1;
 	std::vector<SearchResultMarking> _markings1;
 	std::vector<SearchResultMarking> _markings2;
-	std::vector<SearchResultMarking>* _pMainMarkings;
-	SearchResultMarkings _MarkingsStruct;
+	std::vector<SearchResultMarking>* _pMainMarkings = &_markings1;
+	SearchResultMarkings _markingsStruct;
 
 	ScintillaEditView _scintView;
 	unsigned int _nbFoundFiles = 0;
 
-	int _lastFileHeaderPos;
-	int _lastSearchHeaderPos;
+	int _lastFileHeaderPos = 0;
+	int _lastSearchHeaderPos = 0;
 
 	bool _canBeVolatiled = true;
 
@@ -252,7 +242,7 @@ public :
 		_ppEditView = ppEditView;
 	};
 
-	virtual void create(int dialogID, bool isRTL = false);
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true);
 	
 	void initOptionsFromDlg();
 
@@ -265,7 +255,7 @@ public :
 	
 
 	int processAll(ProcessOperation op, const FindOption *opt, bool isEntire = false, const FindersInfo *pFindersInfo = nullptr, int colourStyleID = -1);
-	int processRange(ProcessOperation op, FindReplaceInfo & findReplaceInfo, const FindersInfo *pFindersInfo, const FindOption *opt = NULL, int colourStyleID = -1);
+	int processRange(ProcessOperation op, FindReplaceInfo & findReplaceInfo, const FindersInfo *pFindersInfo, const FindOption *opt = nullptr, int colourStyleID = -1, ScintillaEditView *view2Process = nullptr);
 
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
@@ -321,7 +311,7 @@ public :
 		// Show finder and set focus
 		if (_pFinder) 
 		{
-			::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
+			::SendMessage(_hParent, NPPM_DMMSHOW, 0, reinterpret_cast<LPARAM>(_pFinder->getHSelf()));
 			_pFinder->_scintView.getFocus();
 		}
 	};
@@ -339,12 +329,13 @@ public :
 		}
 	};
 
-	void execSavedCommand(int cmd, int intValue, generic_string stringValue);
+	void execSavedCommand(int cmd, uptr_t intValue, generic_string stringValue);
 	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
 	Finder * createFinder();
 	bool removeFinder(Finder *finder2remove);
 
 protected :
+	void resizeDialogElements(LONG newWidth);
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	static LONG_PTR originalFinderProc;
 
@@ -354,6 +345,9 @@ protected :
     void combo2ExtendedMode(int comboID);
 
 private :
+	RECT _initialWindowRect;
+	LONG _deltaWidth;
+	LONG _initialClientWidth;
 
 	DIALOG_TYPE _currentStatus;
 	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos;
@@ -362,6 +356,8 @@ private :
 	Finder  *_pFinder;
 
 	std::vector<Finder *> _findersOfFinder;
+
+	HWND _shiftTrickUpTip = nullptr;
 
 
 	bool _isRTL;
@@ -386,11 +382,11 @@ private :
 	void enableMarkFunc();
 
 	void setDefaultButton(int nID) {
-		SendMessage(_hSelf, DM_SETDEFID, (WPARAM)nID, 0L);
+		SendMessage(_hSelf, DM_SETDEFID, nID, 0L);
 	};
 
 	void gotoCorrectTab() {
-		int currentIndex = _tab.getCurrentTabIndex();
+		auto currentIndex = _tab.getCurrentTabIndex();
 		if (currentIndex != _currentStatus)
 			_tab.activateAt(_currentStatus);
 	};
@@ -403,12 +399,12 @@ private :
 	void updateCombo(int comboID);
 	void fillFindHistory();
     void fillComboHistory(int id, const std::vector<generic_string> & strings);
-	int saveComboHistory(int id, int maxcount, std::vector<generic_string> & strings);
+	int saveComboHistory(int id, int maxcount, std::vector<generic_string> & strings, bool saveEmpty);
 	static const int FR_OP_FIND = 1;
 	static const int FR_OP_REPLACE = 2;
 	static const int FR_OP_FIF = 4;
 	static const int FR_OP_GLOBAL = 8;
-	void saveInMacro(int cmd, int cmdType);
+	void saveInMacro(size_t cmd, int cmdType);
 	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 
 };
@@ -417,13 +413,13 @@ private :
 class FindIncrementDlg : public StaticDialog
 {
 public :
-	FindIncrementDlg() : _pFRDlg(NULL), _pRebar(NULL), _findStatus(FSFound) {};
+	FindIncrementDlg() {};
 	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false);
 	virtual void destroy();
 	virtual void display(bool toShow = true) const;
 
 	void setSearchText(const TCHAR * txt2find, bool) {
-		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, (LPARAM)txt2find);
+		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(txt2find));
 	};
 
 	void setFindStatus(FindStatus iStatus, int nbCounted);
@@ -434,11 +430,11 @@ public :
 
 	void addToRebar(ReBar * rebar);
 private :
-	bool _isRTL;
-	FindReplaceDlg *_pFRDlg;
-	FindStatus _findStatus;
+	bool _isRTL = false;
+	FindReplaceDlg *_pFRDlg = nullptr;
+	FindStatus _findStatus = FSFound;
 
-	ReBar * _pRebar;
+	ReBar * _pRebar = nullptr;
 	REBARBANDINFO _rbBand;
 
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -449,7 +445,7 @@ private :
 class Progress
 {
 public:
-	Progress(HINSTANCE hInst);
+	explicit Progress(HINSTANCE hInst);
 	~Progress();
 
 	HWND open(HWND hCallerWnd = NULL, const TCHAR* header = NULL);
@@ -465,7 +461,7 @@ public:
 	void setInfo(const TCHAR *info) const
 	{
 		if (_hwnd)
-			::SendMessage(_hPText, WM_SETTEXT, 0, (LPARAM)info);
+			::SendMessage(_hPText, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(info));
 	}
 
 	void setPercent(unsigned percent, const TCHAR *fileName) const;
@@ -503,4 +499,3 @@ private:
 	HWND _hBtn;
 };
 
-#endif //FIND_REPLACE_DLG_H

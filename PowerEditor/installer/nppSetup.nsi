@@ -98,32 +98,16 @@ page Custom ExtraOptions
 
 !include "nsisInclude\langs4Installer.nsh"
 
-
-
-
 !include "nsisInclude\mainSectionFuncs.nsh"
-
 
 !include "nsisInclude\langs4Npp.nsh"
 !include "nsisInclude\autoCompletion.nsh"
-!include "nsisInclude\themes.nsh"
+
 !include "nsisInclude\binariesComponents.nsh"
 
 
 InstType "Minimalist"
 
-${MementoSectionDone}
-
-;--------------------------------
-  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
-  !insertmacro MUI_FUNCTION_DESCRIPTION_END
-;--------------------------------
 
 Section -FinishSection
   Call writeInstallInfoInRegistry
@@ -225,6 +209,41 @@ Section -"Notepad++" mainSection
 	Call shortcutLinkManagement
 	
 SectionEnd
+
+!include "nsisInclude\themes.nsh"
+
+${MementoSection} "Context Menu Entry" explorerContextMenu
+	SetOverwrite try
+	SetOutPath "$INSTDIR\"
+	
+	; There is no need to keep x86 NppShell_06.dll in 64 bit installer
+	; But in 32bit installer both the Dlls are required
+	; 	As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
+	
+	!ifdef ARCH64
+		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+	!else
+		${If} ${RunningX64}
+			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+		${Else}
+			File "..\bin\NppShell_06.dll"
+		${EndIf}
+	!endif
+	Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
+${MementoSectionEnd}
+
+${MementoSectionDone}
+
+;--------------------------------
+  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
+  !insertmacro MUI_FUNCTION_DESCRIPTION_END
+;--------------------------------
 
 
 Function .onInstSuccess

@@ -25,28 +25,6 @@
 ; along with this program; if not, write to the Free Software
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-${MementoSection} "Context Menu Entry" explorerContextMenu
-	SetOverwrite try
-	SetOutPath "$INSTDIR\"
-	
-	; There is no need to keep x86 NppShell_06.dll in 64 bit installer
-	; But in 32bit installer both the Dlls are required
-	; 	As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
-	
-	!ifdef ARCH64
-		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-	!else
-		${If} ${RunningX64}
-			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
-		${Else}
-			File "..\bin\NppShell_06.dll"
-		${EndIf}
-	!endif
-	
-	Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
-${MementoSectionEnd}
-
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
 !ifndef ARCH64
@@ -133,13 +111,13 @@ SectionGroup un.Plugins
 		RMDir "$INSTDIR\updater\"
 	SectionEnd
 	
-/* 	Section un.DSpellCheck
+ 	Section un.DSpellCheck
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 		Delete "$UPDATE_PATH\plugins\Config\DSpellCheck.ini"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.aff"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.dic"
 		RMDir "$INSTDIRplugins\Config\Hunspell\"
-	SectionEnd	 */
+	SectionEnd
 
 SectionGroupEnd
 

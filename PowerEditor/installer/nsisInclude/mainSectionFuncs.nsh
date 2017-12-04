@@ -210,8 +210,8 @@ Function removeUnstablePlugins
 	never:
 		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\DSpellCheck2.dll"
 		Goto donothing
-	*/
 	donothing:
+	*/
 FunctionEnd
 
 Function removeOldContextMenu

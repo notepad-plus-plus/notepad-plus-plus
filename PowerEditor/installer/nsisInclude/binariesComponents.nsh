@@ -61,10 +61,12 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 !ifdef ARCH64
 		File "..\bin64\plugins\DSpellCheck.dll"
+		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
 		File "..\bin64\plugins\Config\Hunspell\en_US.aff"
 		File "..\bin64\plugins\Config\Hunspell\en_US.dic"
 !else
 		File "..\bin\plugins\DSpellCheck.dll"
+		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
 		File "..\bin\plugins\Config\Hunspell\en_US.aff"
 		File "..\bin\plugins\Config\Hunspell\en_US.dic"
 !endif

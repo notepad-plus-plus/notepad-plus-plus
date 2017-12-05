@@ -1,3 +1,10 @@
+Notepad++ 7.5.3 bug-fixes:
+
+1.  Fix shell extension registration failure in installer.
+2.  Fix theme files installation failure in installer. 
+3.  Fix DSpellCheck incomplete installation in installer.
+
+
 Notepad++ 7.5.2 new features/enhancements & bug-fixes:
 
 1.  Fixed hanging issue while modifying JavaScript TAB settings.

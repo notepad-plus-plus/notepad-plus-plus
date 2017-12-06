@@ -67,6 +67,7 @@ struct DOREGSTRUCT {
 	LPCTSTR	lpszValueName;
 	DWORD	type;
 	LPCTSTR	szData;
+	BOOL	bSkipExisting;
 };
 
 //---------------------------------------------------------------------------
@@ -150,27 +151,27 @@ BOOL RegisterServer() {
 	GetModuleFileName(_hModule, szModule, MAX_PATH);
 
 	static DOREGSTRUCT ClsidEntries[] = {
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s"),									NULL,					REG_SZ,		szShellExtensionTitle},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					NULL,					REG_SZ,		szModule},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					TEXT("ThreadingModel"),	REG_SZ,		TEXT("Apartment")},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s"),									NULL,					REG_SZ,		szShellExtensionTitle,	FALSE},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					NULL,					REG_SZ,		szModule,				FALSE},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					TEXT("ThreadingModel"),	REG_SZ,		TEXT("Apartment"),		FALSE},
 
 		//Settings
 		// Context menu
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Title"),			REG_SZ,		szDefaultMenutext},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Path"),			REG_SZ,		szDefaultPath},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Custom"),			REG_SZ,		szDefaultCustomcommand},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("ShowIcon"),		REG_DWORD,	(LPTSTR)&showIcon},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Title"),			REG_SZ,		szDefaultMenutext,		TRUE},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Path"),			REG_SZ,		szDefaultPath,			FALSE},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Custom"),			REG_SZ,		szDefaultCustomcommand,	FALSE},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("ShowIcon"),		REG_DWORD,	(LPTSTR)&showIcon,		FALSE},
 		// Icon
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Dynamic"),		REG_DWORD,	(LPTSTR)&isDynamic},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Maxtext"),		REG_DWORD,	(LPTSTR)&maxText},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Dynamic"),		REG_DWORD,	(LPTSTR)&isDynamic,		FALSE},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Maxtext"),		REG_DWORD,	(LPTSTR)&maxText,		FALSE},
 
 		//Registration
 		// Context menu
-		{HKEY_CLASSES_ROOT,	szShellExtensionKey,	NULL,					REG_SZ,		szGUID},
+		{HKEY_CLASSES_ROOT,	szShellExtensionKey,								NULL,					REG_SZ,		szGUID,					FALSE},
 		// Icon
-		//{HKEY_CLASSES_ROOT,	TEXT("Notepad++_file\\shellex\\IconHandler"),		NULL,					REG_SZ,		szGUID},
+		//{HKEY_CLASSES_ROOT,	TEXT("Notepad++_file\\shellex\\IconHandler"),		NULL,					REG_SZ,		szGUID,				FALSE},
 
-		{NULL,				NULL,												NULL,					REG_SZ,		NULL}
+		{NULL,				NULL,												NULL,					REG_SZ,		NULL,					FALSE}
 	};
 
 	// First clear any old entries
@@ -182,6 +183,13 @@ BOOL RegisterServer() {
 		lResult = RegCreateKeyEx(ClsidEntries[i].hRootKey, szSubKey, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &hKey, &dwDisp);
 		if (NOERROR == lResult) {
 			TCHAR szData[MAX_PATH];
+			if (ClsidEntries[i].bSkipExisting) {
+				DWORD lpType, lpcbData = MAX_PATH;
+				lResult = RegQueryValueEx(hKey, ClsidEntries[i].lpszValueName, 0, &lpType, (LPBYTE)szData, &lpcbData);
+				if (NOERROR == lResult && lpcbData > 1) {
+					continue;
+				}
+			}
 			// If necessary, create the value string
 			if (ClsidEntries[i].type == REG_SZ) {
 				wsprintf(szData, ClsidEntries[i].szData, szModule);

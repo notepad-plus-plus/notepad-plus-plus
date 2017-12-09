@@ -3,7 +3,7 @@
 	<AutoComplete>
 		<KeyWord name="abstract" />
 		<KeyWord name="as" />
-		<KeyWord name="asyc" />
+		<KeyWord name="async" />
 		<KeyWord name="await" />
 		<KeyWord name="base" />
 		<KeyWord name="bool" />

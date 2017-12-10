@@ -3,9 +3,9 @@
 <!-- Email: batagy.ford kukac gmail pont com -->
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
 <!-- Forum topic: https://notepad-plus-plus.org/community/topic/80/hungarian-translation-->
-<!-- For Notepad++ Version 7.3.1, modified on 2017.01.18 -->
+<!-- For Notepad++ Version 7.5.3, modified on 2017.12.10 -->
 <NotepadPlus>
-    <Native-Langue name="Magyar" filename="hungarian.xml" version="7.3.1">
+    <Native-Langue name="Magyar" filename="hungarian.xml" version="7.5.3">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -96,7 +96,7 @@
                     <Item id="41017" name="Átnevezés..."/>
                     <Item id="41021" name="Utoljára bezárt fájl megnyitása"/>
                     <Item id="41022" name="Mappa mint munkaterület megnyitása"/>
-
+                    <Item id="41023" name="Megnyitás alapértelmezett programban"/>
                     <Item id="42001" name="Kivágás"/>
                     <Item id="42002" name="Másolás"/>
                     <Item id="42003" name="Visszavonás"/>
@@ -285,10 +285,6 @@
 
                     <Item id="46001" name="Stílusok beállításai..."/>
                     <Item id="46250" name="Egyéni nyelv beállítása..."/>
-                    <Item id="46015" name="MS-DOS stílus"/>
-                    <Item id="46016" name="Normál szöveg"/>
-                    <Item id="46017" name="RC erőforrás fájl"/>
-                    <Item id="46019" name="MS INI fájl"/>
                     <Item id="46180" name="Egyéni nyelv"/>
                     <Item id="47000" name="Névjegy..."/>
                     <Item id="47010" name="Parancssori kapcsolók..."/>
@@ -346,25 +342,24 @@
                  <Item CMID="18" name="Jobbra lévő fülek bezárása"/>
                  <Item CMID="19" name="Tartalmazó mappa megnyitása Intézőben"/>
                  <Item CMID="20" name="Tartalmazó mappa megnyitása parancssorban"/>
+                 <Item CMID="21" name="Megnyitás alapértelmezett programban"/>
            </TabBar>
        </Menu>
 
        <Dialog>
             <Find title="" titleFind = "Keresés" titleReplace = "Csere" titleFindInFiles = "Keresés fájlokban" titleMark="Kiemelés">
                 <Item id="1" name="Következő keresése"/>
+                <Item id="1722" name="Visszafelé irányban"/>
                 <Item id="2" name="Bezárás"/>
                 <Item id="1620" name="Keresendő:"/>
                 <Item id="1603" name="Csak teljes szóval megegyező találatok"/>
                 <Item id="1604" name="Kis- és nagybetűk megkülönböztetése"/>
                 <Item id="1605" name="Reguláris kifejezés"/>
                 <Item id="1606" name="Az egész dokumentumban"/>
-                <Item id="1612" name="Vissza"/>
-                <Item id="1613" name="Előre"/>
                 <Item id="1614" name="Számlálás"/>
                 <Item id="1615" name="Összes keresése"/>
                 <Item id="1616" name="Sorok megjelölése"/>
                 <Item id="1618" name="Előző jelölések eltávolítása"/>
-                <Item id="1621" name="Irány"/>
                 <Item id="1611" name="Csere erre:"/>
                 <Item id="1608" name="Csere"/>
                 <Item id="1609" name="Összes cseréje"/>
@@ -885,6 +880,9 @@
                     <Item id="6114" name="Engedélyezés"/>
                     <Item id="6115" name="Automatikus behúzás"/>
                     <Item id="6117" name="Lista sorrendje a használattól függ"/>
+                    <Item id="6344" name="Dokumentum előnézet"/>
+                    <Item id="6345" name="Előnézeti kép"/>
+                    <Item id="6346" name="Előnézeti kép a Dokumentum térképen"/>
                     </MISC>
 
             </Preference>
@@ -920,10 +918,18 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="Felugrómenü szerkesztése" message = "A contextMenu.xml fájl szerkesztésével lehetőség van a jobb egérgomb megnyomására felbukkanó menü testreszabására.&#x0A;&#x0A;A módosítások érvénybe léptetéséhez a Notepad++ újraindítására van szükség."/>
-            <NppHelpAbsentWarning title="A fájl nem létezik" message = "&#x0A;nem létezik. Töltse le a Notepad++ honlapjáról."/>
-            <SaveCurrentModifWarning title="Módosítások mentése" message = "A jelenlegi módosítások elmentése javasolt.&#x0A;Az elmentett módosításokat nem lehet visszavonni.&#x0A;&#x0A;Biztosan folytatni kívánja?"/>
-            <LoseUndoAbilityWarning title="Visszavonási lehetőség elvesztése" message = "A jelenlegi módosítások elmentése javasolt.&#x0A;Az elmentett módosításokat nem lehet visszavonni.&#x0A;&#x0A;Biztosan folytatni kívánja?"/>
+            <ContextMenuXmlEditWarning title="Felugrómenü szerkesztése" message = "A contextMenu.xml fájl szerkesztésével a jobb egérgomb menüje módosítható.
+A módosítások érvénybe léptetéséhez a Notepad++ újraindítására van szükség."/>
+            <NppHelpAbsentWarning title="A fájl nem létezik" message = "
+nem létezik. Töltse le a Notepad++ honlapjáról."/>
+            <SaveCurrentModifWarning title="Módosítások mentése" message="A jelenlegi módosítások elmentése javasolt.
+Az elmentett módosításokat nem lehet visszavonni.
+
+Folytatni kívánja?"/>
+            <LoseUndoAbilityWarning title="Visszavonási lehetőség elvesztése" message="A jelenlegi módosítások elmentése javasolt.
+Az elmentett módosításokat nem lehet visszavonni.
+
+Folytatni kívánja?"/>
             <CannotMoveDoc title="Mozgatás egy új program példányba" message = "A dokumentum módosult. Mentse, majd próbálja újra"/>
             <DocReloadWarning title="Újbóli betöltés" message = "Szeretné újból betölteni a jelenlegi fájlt? A Notepad++ programmal végzett módosítások elvesznek."/>
             <FileLockedWarning title="Sikertelen mentés" message = "Ellenőrizze, hogy ez a fájlt más program használja-e."/>
@@ -931,9 +937,13 @@
             <DeleteFileFailed title="Sikertelen törlés" message = "A fájl törlése nem sikerült."/>
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Túl sok fájl megnyitása" message = "$INT_REPLACE$ fájlt kíván megnyitni.&#x0A;&#x0A;Biztosan megnyitja mindet?"/>
-            <SettingsOnCloudError title="Beállítások tárolása felhőben" message="Úgy tűnik, a felhőben tárolt beállítások elérési útja írásvédett meghajtóra mutat,&#x0A;vagy pedig a megadott mappa módosításához nincs megfelelő írási jog.&#x0A;A felhő beállítások törlődtek. Adja meg a megfelelő értéket a Beállításokban."/>
+            <NbFileToOpenImportantWarning title="Túl sok fájl megnyitása" message = "$INT_REPLACE$ fájlt kíván megnyitni.
+Biztosan megnyitja mindet?"/>
+            <SettingsOnCloudError title="Beállítások tárolása felhőben" message="Úgy tűnik, a felhőben tárolt beállítások elérési útja írásvédett meghajtóra mutat,
+vagy pedig a megadott mappa módosításához nincs megfelelő írási jog.
+A felhő beállítások törlődtek. Adja meg a megfelelő értéket a Beállításokban."/>
             <FilePathNotFoundWarning title="Fájl megnyitás" message="A megnyitni kívánt fájl nem létezik."/>
+            <SessionFileInvalidError title="Munkamenet nem betölthető" message="A munkamenet fájl korrupt vagy nem érvényes."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Vágólap előzmények"/>
@@ -1013,6 +1023,7 @@
             <word-chars-list-warning-end value=" tartalmaz a karakter lista."/>
             <cloud-invalid-warning value="Érvénytelen út."/>
             <cloud-restart-warning value="Ehhez Notepad++ újraindítás szükséges."/>
+            <shift-change-direction-tip value="Shift + Enter használható az ellenkező irányú kereséshez"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

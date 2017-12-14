@@ -5,14 +5,14 @@
 	<AutoComplete language="COBOL">
 		<KeyWord name="3-D" />
 		<KeyWord name="ABS" func="yes">
-			<Overload retVal="Integer/Numeric" descr="absolute value of <number>">
+			<Overload retVal="Integer/Numeric" descr="absolute value of &lt;number&gt;">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="ACCEPT" />
 		<KeyWord name="ACCESS" />
 		<KeyWord name="ACOS" func="yes">
-			<Overload retVal="Numeric" descr="trigonometric arc-cosine, or inverse cosine, of <cosine>">
+			<Overload retVal="Numeric" descr="trigonometric arc-cosine, or inverse cosine, of &lt;cosine&gt;">
 				<Param name="cosine" />
 			</Overload>
 		</KeyWord>
@@ -35,7 +35,7 @@
 		<KeyWord name="ALTERNATE" />
 		<KeyWord name="AND" />
 		<KeyWord name="ANNUITY" func="yes">
-			<Overload retVal="Numeric" descr="numeric value approximating the ratio of an annuity paid at the specified <interest-rate> for each of the specified <number-of-periods>">
+			<Overload retVal="Numeric" descr="numeric value approximating the ratio of an annuity paid at the specified &lt;interest-rate&gt; for each of the specified &lt;number-of-periods&gt;">
 				<Param name="interest-rate" />
 				<Param name="number-of-periods" />
 			</Overload>
@@ -50,14 +50,14 @@
 		<KeyWord name="AS" />
 		<KeyWord name="ASCENDING" />
 		<KeyWord name="ASIN" func="yes">
-			<Overload retVal="Numeric" descr="trigonometric arc-sine, or inverse sine, of <sine>">
+			<Overload retVal="Numeric" descr="trigonometric arc-sine, or inverse sine, of &lt;sine&gt;">
 				<Param name="sine" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="ASSIGN" />
 		<KeyWord name="AT" />
 		<KeyWord name="ATAN" func="yes">
-			<Overload retVal="Numeric" descr="trigonometric arc-tangent, or inverse tangent, of <tangent>">
+			<Overload retVal="Numeric" descr="trigonometric arc-tangent, or inverse tangent, of &lt;tangent&gt;">
 				<Param name="tangent" />
 			</Overload>
 		</KeyWord>
@@ -94,7 +94,7 @@
 		<KeyWord name="BOLD" />
 		<KeyWord name="BOOLEAN" />
 		<KeyWord name="BOOLEAN-OF-INTEGER" func="yes">
-			<Overload retVal="Boolean" descr="boolean item of usage bit representing the binary value of <integer> with the given <length>">
+			<Overload retVal="Boolean" descr="boolean item of usage bit representing the binary value of &lt;integer&gt; with the given &lt;length&gt;">
 				<Param name="integer" />
 				<Param name="length" />
 			</Overload>
@@ -104,9 +104,9 @@
 		<KeyWord name="BUSY" />
 		<KeyWord name="BY" />
 		<KeyWord name="BYTE-LENGTH" func="yes">
-			<Overload retVal="Integer" descr="length (in bytes) of <item>">
+			<Overload retVal="Integer" descr="length (in bytes) of &lt;item&gt;">
 				<Param name="item" />
-				<-- not known to be supported by any compiler <Param name="[PHYSICAL]" /> -->
+				<!-- not known to be supported by any compiler <Param name="[PHYSICAL]" /> -->
 			</Overload>
 		</KeyWord>
 		<KeyWord name="C01" />
@@ -132,12 +132,12 @@
 		<KeyWord name="CH" />
 		<KeyWord name="CHAINING" />
 		<KeyWord name="CHAR" func="yes">
-			<Overload retVal="Alphanumeric" descr="character in the ordinal position specified by <integer> from the current alphanumeric COLLATING SEQUENCE">
+			<Overload retVal="Alphanumeric" descr="character in the ordinal position specified by &lt;integer&gt; from the current alphanumeric COLLATING SEQUENCE">
 				<Param name="integer" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="CHAR-NATIONAL" func="yes">
-			<Overload retVal="National" descr="character in the ordinal position specified by <integer> from the current national COLLATING SEQUENCE">
+			<Overload retVal="National" descr="character in the ordinal position specified by &lt;integer&gt; from the current national COLLATING SEQUENCE">
 				<Param name="integer" />
 			</Overload>
 		</KeyWord>
@@ -158,7 +158,7 @@
 		<KeyWord name="COLUMN" />
 		<KeyWord name="COLUMNS" />
 		<KeyWord name="COMBINED-DATETIME" func="yes">
-			<Overload retVal="Numeric" descr="combines <integer-date> and <standard-numeric-time> into a single numeric item from which both date and time components can be derived">
+			<Overload retVal="Numeric" descr="combines &lt;integer-date&gt; and &lt;standard-numeric-time&gt; into a single numeric item from which both date and time components can be derived">
 				<Param name="integer-date" />
 				<Param name="standard-numeric-time" />
 			</Overload>
@@ -184,7 +184,7 @@
 		<KeyWord name="COMPUTATIONAL-X" />
 		<KeyWord name="COMPUTE" />
 		<KeyWord name="CONCATENATE" func="yes">
-			<Overload retVal="Alphanumeric" descr="concatenates the <string>, ... items together into a single string result">
+			<Overload retVal="Alphanumeric" descr="concatenates the &lt;string&gt;, ... items together into a single string result">
 				<Param name="string" />
 				<Param name="..." />
 			</Overload>
@@ -203,7 +203,7 @@
 		<KeyWord name="CORR" />
 		<KeyWord name="CORRESPONDING" />
 		<KeyWord name="COS" func="yes">
-			<Overload retVal="Numeric" descr="trigonometric cosine of <angle>">
+			<Overload retVal="Numeric" descr="trigonometric cosine of &lt;angle&gt;">
 				<Param name="angle" />
 			</Overload>
 		</KeyWord>
@@ -225,12 +225,12 @@
 		<KeyWord name="DATE-COMPILED" />
 		<KeyWord name="DATE-MODIFIED" />
 		<KeyWord name="DATE-OF-INTEGER" func="yes">
-			<Overload retVal="Integer" descr="converts <integer-date> (in the Gregorian calendar) to standard date form (YYYYMMDD)">
+			<Overload retVal="Integer" descr="converts &lt;integer-date&gt; (in the Gregorian calendar) to standard date form (YYYYMMDD)">
 				<Param name="integer-date" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="DATE-TO-YYYYMMDD" func="yes">
-			<Overload retVal="Integer" descr="convert the six-digit Gregorian date <yymmdd> to a seven-digit numeric Julian format with optional <yy-cutoff> to delineate centuries">
+			<Overload retVal="Integer" descr="convert the six-digit Gregorian date &lt;yymmdd&gt; to a seven-digit numeric Julian format with optional &lt;yy-cutoff&gt; to delineate centuries">
 				<Param name="yymmdd" />
 				<Param name="[yy-cutoff, default: 50]" />
 				<Param name="[yy-execution-time, default: now]" />
@@ -239,13 +239,13 @@
 		<KeyWord name="DATE-WRITTEN" />
 		<KeyWord name="DAY" />
 		<KeyWord name="DAY-OF-INTEGER" func="yes">
-			<Overload retVal="Integer" descr="convert <integer> to calendar date in yyyyddd (i.e. Julian) format">
+			<Overload retVal="Integer" descr="convert &lt;integer&gt; to calendar date in yyyyddd (i.e. Julian) format">
 				<Param name="integer" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="DAY-OF-WEEK" />
 		<KeyWord name="DAY-TO-YYYYDDD" func="yes">
-			<Overload retVal="Integer" descr="convert the five-digit Julian date <yyddd> to a seven-digit numeric Julian format with optional <yy-cutoff> to delineate centuries">
+			<Overload retVal="Integer" descr="convert the five-digit Julian date &lt;yyddd&gt; to a seven-digit numeric Julian format with optional &lt;yy-cutoff&gt; to delineate centuries">
 				<Param name="yyddd" />
 				<Param name="[yy-cutoff, default: 50]" />
 				<Param name="[yy-execution-time, default: now]" />
@@ -278,7 +278,7 @@
 		<KeyWord name="DISABLE" />
 		<KeyWord name="DISPLAY" />
 		<KeyWord name="DISPLAY-OF" func="yes">
-			<Overload retVal="Alphanumeric" descr="convert <national-string> to the alphanumeric coded character set representation">
+			<Overload retVal="Alphanumeric" descr="convert &lt;national-string&gt; to the alphanumeric coded character set representation">
 				<Param name="national-string" />
 				<Param name="[replacement-char]" />
 			</Overload>
@@ -361,12 +361,12 @@
 		<KeyWord name="EXEC" />
 		<KeyWord name="EXIT" />
 		<KeyWord name="EXP" func="yes">
-			<Overload retVal="Numeric" descr="approximation of e raised to the power of <number>">
+			<Overload retVal="Numeric" descr="approximation of e raised to the power of &lt;number&gt;">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="EXP10" func="yes">
-			<Overload retVal="Numeric" descr="approximation of 10 raised to the power of <number>">
+			<Overload retVal="Numeric" descr="approximation of 10 raised to the power of &lt;number&gt;">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
@@ -375,7 +375,7 @@
 		<KeyWord name="EXTERNAL" />
 		<!-- <KeyWord name="F" /> -->
 		<KeyWord name="FACTORIAL" func="yes">
-			<Overload retVal="Integer" descr="factorial of <number>">
+			<Overload retVal="Integer" descr="factorial of &lt;number&gt;">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
@@ -408,18 +408,18 @@
 		<KeyWord name="FOREVER" />
 		<KeyWord name="FORMAT" />
 		<KeyWord name="FORMATTED-CURRENT-DATE" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="current date and time provided by the system at run-time, formatted according to <date-and-time-format>">
+			<Overload retVal="Alphanumeric/National" descr="current date and time provided by the system at run-time, formatted according to &lt;date-and-time-format&gt;">
 				<Param name="date-and-time-format" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="FORMATTED-DATE" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="<integer-date>, formatted according to <date-format>">
+			<Overload retVal="Alphanumeric/National" descr="&lt;integer-date&gt;, formatted according to &lt;date-format&gt;">
 				<Param name="date-format" />
 				<Param name="integer-date" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="FORMATTED-DATETIME" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="<integer-date> and <standard-numeric-time>, formatted according to <date-and-time-format> with optional <offset> from UTC in minutes">
+			<Overload retVal="Alphanumeric/National" descr="&lt;integer-date&gt; and &lt;standard-numeric-time&gt;, formatted according to &lt;date-and-time-format&gt; with optional &lt;offset&gt; from UTC in minutes">
 				<Param name="date-and-time-format" />
 				<Param name="integer-date" />
 				<Param name="standard-numeric-time" />
@@ -427,7 +427,7 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="FORMATTED-TIME" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="<standard-numeric-time>, formatted according to <time-format> with optional <offset> from UTC in minutes">
+			<Overload retVal="Alphanumeric/National" descr="&lt;standard-numeric-time&gt;, formatted according to &lt;time-format&gt; with optional &lt;offset&gt; from UTC in minutes">
 				<Param name="time-format" />>
 				<Param name="standard-numeric-time" />
 				<Param name="[offset | SYSTEM-OFFSET]" />
@@ -435,7 +435,7 @@
 		</KeyWord>
 		<KeyWord name="FORMFEED" />
 		<KeyWord name="FRACTION-PART" func="yes">
-			<Overload retVal="Numeric" descr="portion of <number> that occurs to the right of the decimal point">
+			<Overload retVal="Numeric" descr="portion of &lt;number&gt; that occurs to the right of the decimal point">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
@@ -463,7 +463,7 @@
 		<KeyWord name="HIGH-VALUE" />
 		<KeyWord name="HIGH-VALUES" />
 		<KeyWord name="HIGHEST-ALGEBRAIC" func="yes">
-			<Overload retVal="Integer/Numeric" descr="highest value that could possibly be stored in the specified <numeric-identifier>">
+			<Overload retVal="Integer/Numeric" descr="highest value that could possibly be stored in the specified &lt;numeric-identifier&gt;">
 				<Param name="numeric-identifier" />
 			</Overload>
 		</KeyWord>
@@ -495,33 +495,33 @@
 		<KeyWord name="INSPECT" />
 		<KeyWord name="INSTALLATION" />
 		<KeyWord name="INTEGER" func="yes">
-			<Overload retVal="Integer" descr="greatest integer value that is less than or equal to <number>">
+			<Overload retVal="Integer" descr="greatest integer value that is less than or equal to &lt;number&gt;">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="INTEGER-OF-BOOLEAN" func="yes">
-			<Overload retVal="Integer" descr="numeric value of <boolean-item>">
+			<Overload retVal="Integer" descr="numeric value of &lt;boolean-item&gt;">
 				<Param name="boolean-item" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="INTEGER-OF-DATE" func="yes">
-			<Overload retVal="Integer" descr="converts <yyyymmdd> to an internal integer-date">
+			<Overload retVal="Integer" descr="converts &lt;yyyymmdd&gt; to an internal integer-date">
 				<Param name="yyyymmdd" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="INTEGER-OF-DAY" func="yes">
-			<Overload retVal="Integer" descr="converts <yyyyddd> to an internal integer-date">
+			<Overload retVal="Integer" descr="converts &lt;yyyyddd&gt; to an internal integer-date">
 				<Param name="yyyyddd" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="INTEGER-OF-FORMATTED-DATE" func="yes">
-			<Overload retVal="Integer" descr="converts <date> in specified <format> to an internal integer-date">
+			<Overload retVal="Integer" descr="converts &lt;date&gt; in specified &lt;format&gt; to an internal integer-date">
 				<Param name="format" />
 				<Param name="date" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="INTEGER-PART" func="yes">
-			<Overload retVal="Integer" descr="portion of <number> that occurs to the left of the decimal point">
+			<Overload retVal="Integer" descr="portion of &lt;number&gt; that occurs to the left of the decimal point">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
@@ -551,13 +551,13 @@
 		<KeyWord name="LEADING" />
 		<KeyWord name="LEFT" />
 		<KeyWord name="LENGTH" func="yes">
-			<Overload retVal="Integer" descr="returns the length (in character positions) of the specified <item>">
+			<Overload retVal="Integer" descr="returns the length (in character positions) of the specified &lt;item&gt;">
 				<Param name="item" />
-				<-- not known to be supported by any compiler <Param name="[PHYSICAL]" /> -->
+				<!-- not known to be supported by any compiler <Param name="[PHYSICAL]" /> -->
 			</Overload>
 		</KeyWord>
 		<KeyWord name="LENGTH-AN" func="yes">
-			<Overload retVal="Integer" descr="returns the length (in bytes) of the specified <item>">
+			<Overload retVal="Integer" descr="returns the length (in bytes) of the specified &lt;item&gt;">
 				<Param name="item" />
 			</Overload>
 		</KeyWord>
@@ -574,38 +574,38 @@
 		<KeyWord name="LOCAL-STORAGE" />
 		<KeyWord name="LOCALE" />
 		<KeyWord name="LOCALE-COMPARE" func="yes">
-			<Overload retVal="Alphanumeric" descr="character '=' or '<' or '>' indicating the result of comparing <argument-1> and <argument-2> using a culturally-preferred ordering defined by a <locale>">
+			<Overload retVal="Alphanumeric" descr="character '=' or '&lt;' or '&gt;' indicating the result of comparing &lt;argument-1&gt; and &lt;argument-2&gt; using a culturally-preferred ordering defined by a &lt;locale&gt;">
 				<Param name="argument-1" />
 				<Param name="argument-2" />
 				<Param name="[locale, default: current]" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="LOCALE-DATE" func="yes">
-			<Overload retVal="Alphanumeric" descr="format <yyyymmdd> according to <locale>">
+			<Overload retVal="Alphanumeric" descr="format &lt;yyyymmdd&gt; according to &lt;locale&gt;">
 				<Param name="yyyymmdd" />
 				<Param name="[locale, default: current]" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="LOCALE-TIME" func="yes">
-			<Overload retVal="Alphanumeric" descr="format <time> (HHMM or HHMMSS) according to <locale>">
+			<Overload retVal="Alphanumeric" descr="format &lt;time&gt; (HHMM or HHMMSS) according to &lt;locale&gt;">
 				<Param name="time" />
 				<Param name="[locale, default: current]" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="LOCALE-TIME-FROM-SECONDS" func="yes">
-			<Overload retVal="Alphanumeric" descr="format <integer-time> (internal-format) according to <locale>">
+			<Overload retVal="Alphanumeric" descr="format &lt;integer-time&gt; (internal-format) according to &lt;locale&gt;">
 				<Param name="integer-time" />
 				<Param name="[locale, default: current]" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="LOCK" />
 		<KeyWord name="LOG" func="yes">
-			<Overload retVal="Numeric" descr="base e logarithm of <number>">
+			<Overload retVal="Numeric" descr="base e logarithm of &lt;number&gt;">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="LOG10" func="yes">
-			<Overload retVal="Numeric" descr="base 10 logarithm of <number>">
+			<Overload retVal="Numeric" descr="base 10 logarithm of &lt;number&gt;">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
@@ -613,12 +613,12 @@
 		<KeyWord name="LOW-VALUE" />
 		<KeyWord name="LOW-VALUES" />
 		<KeyWord name="LOWER-CASE" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="character string that contains <string> with any uppercase letters replaced by their corresponding lowercase letters">
+			<Overload retVal="Alphanumeric/National" descr="character string that contains &lt;string&gt; with any uppercase letters replaced by their corresponding lowercase letters">
 				<Param name="string" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="LOWEST-ALGEBRAIC" func="yes">
-			<Overload retVal="Integer/Numeric" descr="lowest value that could possibly be stored in the specified <numeric-identifier>">
+			<Overload retVal="Integer/Numeric" descr="lowest value that could possibly be stored in the specified &lt;numeric-identifier&gt;">
 				<Param name="numeric-identifier" />
 			</Overload>
 		</KeyWord>
@@ -661,7 +661,7 @@
 		</KeyWord>
 		<KeyWord name="MINUS" />
 		<KeyWord name="MOD" func="yes">
-			<Overload retVal="Integer" descr="remainder from the division of <value> by <modulus>">
+			<Overload retVal="Integer" descr="remainder from the division of &lt;value&gt; by &lt;modulus&gt;">
 				<Param name="value" />
 				<Param name="modulus" />
 			</Overload>
@@ -702,7 +702,7 @@
 		<KeyWord name="NATIONAL" />
 		<KeyWord name="NATIONAL-EDITED" />
 		<KeyWord name="NATIONAL-OF" func="yes">
-			<Overload retVal="National" descr="convert <alphanumeric-string> to the national coded character set representation">
+			<Overload retVal="National" descr="convert &lt;alphanumeric-string&gt; to the national coded character set representation">
 				<Param name="alphanumeric-string" />
 				<Param name="[replacement-char]" />
 			</Overload>
@@ -734,19 +734,19 @@
 			<Overload retVal="Alphanumeric" descr="character used to separate the thousands digit groupings in a numeric value according to the current locale"/>
 		</KeyWord>
 		<KeyWord name="NUMVAL" func="yes">
-			<Overload retVal="Numeric" descr="corresponding numeric value for <string>">
+			<Overload retVal="Numeric" descr="corresponding numeric value for &lt;string&gt;">
 				<Param name="string" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="NUMVAL-C" func="yes">
-			<Overload retVal="Numeric" descr="corresponding numeric value for <string>, case-sensitive if ANYCASE not given">
+			<Overload retVal="Numeric" descr="corresponding numeric value for &lt;string&gt;, case-sensitive if ANYCASE not given">
 				<Param name="string (may contain currency-symbol)" />
 				<Param name="[currency-symbol if not default | LOCALE [locale-name] ]" />
 				<Param name="[ANYCASE]" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="NUMVAL-F" func="yes">
-			<Overload retVal="Numeric" descr="corresponding numeric value for <floating-point-string>">
+			<Overload retVal="Numeric" descr="corresponding numeric value for &lt;floating-point-string&gt;">
 				<Param name="floating-point-string" />
 			</Overload>
 		</KeyWord>
@@ -766,18 +766,18 @@
 		<KeyWord name="OPTIONS" />
 		<KeyWord name="OR" />
 		<KeyWord name="ORD" func="yes">
-			<Overload retVal="Integer" descr="ordinal position in the program character set corresponding to <char>">
+			<Overload retVal="Integer" descr="ordinal position in the program character set corresponding to &lt;char&gt;">
 				<Param name="char" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="ORD-MAX" func="yes">
-			<Overload retVal="Integer" descr="max. ordinal position in the program character set corresponding to list of <char>">
+			<Overload retVal="Integer" descr="max. ordinal position in the program character set corresponding to list of &lt;char&gt;">
 				<Param name="char" />
 				<Param name="..." />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="ORD-MIN" func="yes">
-			<Overload retVal="Integer" descr="min. ordinal position in the program character set corresponding to list of <char>">
+			<Overload retVal="Integer" descr="min. ordinal position in the program character set corresponding to list of &lt;char&gt;">
 				<Param name="char" />
 				<Param name="..." />
 			</Overload>
@@ -811,7 +811,7 @@
 		<KeyWord name="PREFIXED" />
 		<KeyWord name="PRESENT" />
 		<KeyWord name="PRESENT-VALUE" func="yes">
-			<Overload retVal="Numeric" descr="approximation of the present value of a series of future period-end <amount> arguments at a <discount-rate>">
+			<Overload retVal="Numeric" descr="approximation of the present value of a series of future period-end &lt;amount&gt; arguments at a &lt;discount-rate&gt;">
 				<Param name="discount-rate" />
 				<Param name="amount" />
 				<Param name="..." />
@@ -840,12 +840,12 @@
 		<KeyWord name="RAISE" />
 		<KeyWord name="RAISING" />
 		<KeyWord name="RANDOM" func="yes">
-			<Overload retVal="Numeric" descr="pseudo-random number from a rectangular distribution with optional <seed>">
+			<Overload retVal="Numeric" descr="pseudo-random number from a rectangular distribution with optional &lt;seed&gt;">
 				<Param name="[seed]" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="RANGE" func="yes">
-			<Overload retVal="Integer/Numeric" descr="value of the maximum <argument> minus the value of the minimum <argument>">
+			<Overload retVal="Integer/Numeric" descr="value of the maximum &lt;argument&gt; minus the value of the minimum &lt;argument&gt;">
 				<Param name="argument" />
 				<Param name="..." />
 			</Overload>
@@ -865,7 +865,7 @@
 		<KeyWord name="RELATIVE" />
 		<KeyWord name="RELEASE" />
 		<KeyWord name="REM" func="yes">
-			<Overload retVal="Numeric" descr="remainder of <number> divided by <divisor>">
+			<Overload retVal="Numeric" descr="remainder of &lt;number&gt; divided by &lt;divisor&gt;">
 				<Param name="number" />
 				<Param name="divisor" />
 			</Overload>
@@ -891,7 +891,7 @@
 		<KeyWord name="RETURN-CODE-UNSIGNED" />
 		<KeyWord name="RETURNING" />
 		<KeyWord name="REVERSE" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="reverse representation with same length of <string>">
+			<Overload retVal="Alphanumeric/National" descr="reverse representation with same length of &lt;string&gt;">
 				<Param name="string" />
 			</Overload>
 		</KeyWord>
@@ -916,7 +916,7 @@
 		<KeyWord name="SEARCH" />
 		<KeyWord name="SECONDS" />
 		<KeyWord name="SECONDS-FROM-FORMATTED-TIME" func="yes">
-			<Overload retVal="Numeric" descr="decode <time> according to <format> (a time format or a combined date and time format)">
+			<Overload retVal="Numeric" descr="decode &lt;time&gt; according to &lt;format&gt; (a time format or a combined date and time format)">
 				<Param name="format" />
 				<Param name="time" />
 			</Overload>
@@ -943,13 +943,13 @@
 		<KeyWord name="SHIFT-OUT" />
 		<KeyWord name="SHORT" />
 		<KeyWord name="SIGN" func="yes">
-			<Overload retVal="Integer" descr="sign representation of <number> as -1, 0, 1">
+			<Overload retVal="Integer" descr="sign representation of &lt;number&gt; as -1, 0, 1">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="SIGNED" />
 		<KeyWord name="SIN" func="yes">
-			<Overload retVal="Numeric" descr="trigonometric sine of the specified <angle>">
+			<Overload retVal="Numeric" descr="trigonometric sine of the specified &lt;angle&gt;">
 				<Param name="angle" />
 			</Overload>
 		</KeyWord>
@@ -973,7 +973,7 @@
 		<KeyWord name="SPECIAL-NAMES" />
 		<KeyWord name="SQL" />
 		<KeyWord name="SQRT" func="yes">
-			<Overload retVal="Numeric" descr="approximation of the square root of <number>">
+			<Overload retVal="Numeric" descr="approximation of the square root of &lt;number&gt;">
 				<Param name="number" />
 			</Overload>
 		</KeyWord>
@@ -982,7 +982,7 @@
 		<KeyWord name="STANDARD-2" />
 		<KeyWord name="STANDARD-BINARY" />
 		<KeyWord name="STANDARD-COMPARE" func="yes">
-			<Overload retVal="Alphanumeric" descr="comparision result of <string-1> and <string-2> using culturally-sensitive <ordering-table> with specified <ordering-level>">
+			<Overload retVal="Alphanumeric" descr="comparision result of &lt;string-1&gt; and &lt;string-2&gt; using culturally-sensitive &lt;ordering-table&gt; with specified &lt;ordering-level&gt;">
 				<Param name="string-1" />
 				<Param name="string-2" />
 				<Param name="[ordering-table, default: ISO14651_20xx_TABLE1]" />
@@ -991,7 +991,7 @@
 		</KeyWord>
 		<KeyWord name="STANDARD-DECIMAL" />
 		<KeyWord name="STANDARD-DEVIATION" func="yes">
-			<Overload retVal="Alphanumeric" descr="statistical standard deviation of the list of <number> arguments">
+			<Overload retVal="Alphanumeric" descr="statistical standard deviation of the list of &lt;number&gt; arguments">
 				<Param name="number" />
 				<Param name="..." />
 			</Overload>
@@ -1005,7 +1005,7 @@
 		<KeyWord name="STEP" />
 		<KeyWord name="STOP" />
 		<KeyWord name="STORED-CHAR-LENGTH" func="yes">
-			<Overload retVal="Integer" descr="length (in bytes) of the specified <string>, minus the total number of trailing spaces">
+			<Overload retVal="Integer" descr="length (in bytes) of the specified &lt;string&gt;, minus the total number of trailing spaces">
 				<Param name="string" />
 			</Overload>
 		</KeyWord>
@@ -1016,7 +1016,7 @@
 		<KeyWord name="SUB-QUEUE-2" />
 		<KeyWord name="SUB-QUEUE-3" />
 		<KeyWord name="SUBSTITUTE" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="specified <string>, replaced with all occurrences of the <from> strings (case-sensitive) with the corresponding <to> strings">
+			<Overload retVal="Alphanumeric/National" descr="specified &lt;string&gt;, replaced with all occurrences of the &lt;from&gt; strings (case-sensitive) with the corresponding &lt;to&gt; strings">
 				<Param name="string" />
 				<Param name="from" />
 				<Param name="to" />
@@ -1024,7 +1024,7 @@
 			</Overload>
 		</KeyWord>
 		<KeyWord name="SUBSTITUTE-CASE" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="specified <string>, replaced with all occurrences of the <from> strings (case-insensitive) with the corresponding <to> strings">
+			<Overload retVal="Alphanumeric/National" descr="specified &lt;string&gt;, replaced with all occurrences of the &lt;from&gt; strings (case-insensitive) with the corresponding &lt;to&gt; strings">
 				<Param name="param" />
 				<Param name="from" />
 				<Param name="to" />
@@ -1032,7 +1032,7 @@
 		</KeyWord>
 		<KeyWord name="SUBTRACT" />
 		<KeyWord name="SUM" func="yes">
-			<Overload retVal="Integer/Numeric" descr="sum of the <number> arguments">
+			<Overload retVal="Integer/Numeric" descr="sum of the &lt;number&gt; arguments">
 				<Param name="number" />
 				<Param name="..." />
 			</Overload>
@@ -1092,7 +1092,7 @@
 		<KeyWord name="TALLY" />
 		<KeyWord name="TALLYING" />
 		<KeyWord name="TAN" func="yes">
-			<Overload retVal="Numeric" descr="trigonometric tangent of the specified <angle>">
+			<Overload retVal="Numeric" descr="trigonometric tangent of the specified &lt;angle&gt;">
 				<Param name="angle" />
 			</Overload>
 		</KeyWord>
@@ -1101,35 +1101,35 @@
 		<KeyWord name="TERMINATE" />
 		<KeyWord name="TEST" />
 		<KeyWord name="TEST-DATE-YYYYMMDD" func="yes">
-			<Overload retVal="Integer" descr="check if supplied <yyyyddd> is valid, returns 0 (=ok), 1 (=error year), 2 (=error month) or 3 (=error date)">
+			<Overload retVal="Integer" descr="check if supplied &lt;yyyyddd&gt; is valid, returns 0 (=ok), 1 (=error year), 2 (=error month) or 3 (=error date)">
 				<Param name="yyyymmdd" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="TEST-DAY-YYYYDDD" func="yes">
-			<Overload retVal="Integer" descr="check if supplied <yyyyddd> is valid, returns 0 (=ok), 1 (=error year), 2 (=error day)">
+			<Overload retVal="Integer" descr="check if supplied &lt;yyyyddd&gt; is valid, returns 0 (=ok), 1 (=error year), 2 (=error day)">
 				<Param name="yyyyddd" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="TEST-FORMATTED-DATETIME" func="yes">
-			<Overload retVal="Integer" descr="check whether <data-item> is valid according to the specified <format> (a date, a time, or a combined date and time format), returns 0 if valid, character-position otherwise">
+			<Overload retVal="Integer" descr="check whether &lt;data-item&gt; is valid according to the specified &lt;format&gt; (a date, a time, or a combined date and time format), returns 0 if valid, character-position otherwise">
 				<Param name="format" />
 				<Param name="data-item" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="TEST-NUMVAL" func="yes">
-			<Overload retVal="Integer" descr="check if <string> is appropriate for use as the <string> argument for NUMVAL, returns 0 (=ok) or error position">
+			<Overload retVal="Integer" descr="check if &lt;string&gt; is appropriate for use as the &lt;string&gt; argument for NUMVAL, returns 0 (=ok) or error position">
 				<Param name="string" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="TEST-NUMVAL-C" func="yes">
-			<Overload retVal="Integer" descr="check if <string> is appropriate for use as the <string> argument for NUMVAL-C, case-sensitive if ANYCASE not given, returns 0 (=ok) or error position">
+			<Overload retVal="Integer" descr="check if &lt;string&gt; is appropriate for use as the &lt;string&gt; argument for NUMVAL-C, case-sensitive if ANYCASE not given, returns 0 (=ok) or error position">
 				<Param name="string (may contain currency-symbol)" />
 				<Param name="[currency-symbol if not default | LOCALE [locale-name] ]" />
 				<Param name="[ANYCASE]" />
 			</Overload>
 		</KeyWord>
 		<KeyWord name="TEST-NUMVAL-F" func="yes">
-			<Overload retVal="Integer" descr="check if <string> is appropriate for use as the <string> argument for NUMVAL-F, returns 0 (=ok) or error position">
+			<Overload retVal="Integer" descr="check if &lt;string&gt; is appropriate for use as the &lt;string&gt; argument for NUMVAL-F, returns 0 (=ok) or error position">
 				<Param name="string" />
 			</Overload>
 		</KeyWord>
@@ -1148,7 +1148,7 @@
 		<KeyWord name="TRAILING" />
 		<KeyWord name="TRANSFORM" />
 		<KeyWord name="TRIM" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="remove leading or trailing spaces, or both, from <string>">
+			<Overload retVal="Alphanumeric/National" descr="remove leading or trailing spaces, or both, from &lt;string&gt;">
 				<Param name="string" />
 				<Param name="[LEADING or TRAILING, default: both]" />
 			</Overload>
@@ -1170,7 +1170,7 @@
 		<KeyWord name="UP" />
 		<KeyWord name="UPON" />
 		<KeyWord name="UPPER-CASE" func="yes">
-			<Overload retVal="Alphanumeric/National" descr="character string that contains <string> with any lowercase letters replaced by their corresponding uppercase letters">
+			<Overload retVal="Alphanumeric/National" descr="character string that contains &lt;string&gt; with any lowercase letters replaced by their corresponding uppercase letters">
 				<Param name="string" />
 			</Overload>
 		</KeyWord>
@@ -1196,7 +1196,7 @@
 		<KeyWord name="VALUE" />
 		<KeyWord name="VALUES" />
 		<KeyWord name="VARIANCE" func="yes">
-			<Overload retVal="Numeric" descr="statistical variance of the specified list of <number> arguments">
+			<Overload retVal="Numeric" descr="statistical variance of the specified list of &lt;number&gt; arguments">
 				<Param name="number" />
 				<Param name="..." />
 			</Overload>
@@ -1231,7 +1231,7 @@
 		<KeyWord name="XML-TEXT" />
 		<!-- <KeyWord name="Y" /> -->
 		<KeyWord name="YEAR-TO-YYYY" func="yes">
-			<Overload retVal="Integer" descr="convert yy to yyyy with optional <yy-cutoff> to delineate centuries">
+			<Overload retVal="Integer" descr="convert yy to yyyy with optional &lt;yy-cutoff&gt; to delineate centuries">
 				<Param name="yy" />
 				<Param name="[yy-cutoff, default: 50]" />
 				<Param name="[yy-execution-time, default: now]" />

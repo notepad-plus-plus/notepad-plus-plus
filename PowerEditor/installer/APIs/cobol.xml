@@ -428,7 +428,7 @@
 		</KeyWord>
 		<KeyWord name="FORMATTED-TIME" func="yes">
 			<Overload retVal="Alphanumeric/National" descr="&lt;standard-numeric-time&gt;, formatted according to &lt;time-format&gt; with optional &lt;offset&gt; from UTC in minutes">
-				<Param name="time-format" />>
+				<Param name="time-format" />
 				<Param name="standard-numeric-time" />
 				<Param name="[offset | SYSTEM-OFFSET]" />
 			</Overload>

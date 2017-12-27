@@ -564,6 +564,10 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 
 void PluginsManager::notify(const SCNotification *notification)
 {
+	if (_noMoreNotification) // this boolean should be enabled after NPPN_SHUTDOWN has been sent
+		return;
+	_noMoreNotification = notification->nmhdr.code == NPPN_SHUTDOWN;
+
 	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 	{
         if (_pluginInfos[i]->_hLib)

@@ -137,6 +137,7 @@ private:
 	bool _isDisabled = false;
 	IDAllocator _dynamicIDAlloc;
 	IDAllocator _markerAlloc;
+	bool _noMoreNotification = false;
 
 	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature)
 	{

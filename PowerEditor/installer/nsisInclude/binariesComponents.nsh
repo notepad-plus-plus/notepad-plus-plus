@@ -118,7 +118,7 @@ SectionGroup un.Plugins
 		Delete "$UPDATE_PATH\plugins\Config\DSpellCheck.ini"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.aff"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.dic"
-		RMDir "$INSTDIRplugins\Config\Hunspell\"
+		RMDir /r "$INSTDIR\plugins\Config"			; Remove Config folder recursively only if empty
 	SectionEnd
 
 SectionGroupEnd

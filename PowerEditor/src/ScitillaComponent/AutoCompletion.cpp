@@ -135,7 +135,7 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
-	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]+");
+	expr += TEXT("[^ \\t\\n\\r.,;:\"(){}#$%&*-@^¹|`~\\\\=<>'+!\\[\\]]+");
 
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 

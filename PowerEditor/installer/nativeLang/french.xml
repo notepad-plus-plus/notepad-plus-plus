@@ -376,7 +376,7 @@
             <FindCharsInRange title="Rechercher des caractères dans une plage">
                 <Item id="2" name="Fermer"/>
                 <Item id="2901" name="Caractères Non-ASCII (128-255)"/>
-                <Item id="2902" name="Caractères ASCII (0 - 127)"/>
+                <Item id="2902" name="Caractères ASCII (0-127)"/>
                 <Item id="2903" name="Ma plage :"/>
                 <Item id="2906" name="Haut"/>
                 <Item id="2907" name="Bas"/>
@@ -401,14 +401,14 @@
                 <Item id="2" name="Annuler"/>
             </Run>
 			
-            <MD5FromFilesDlg title="Calculer les empreintes md5 depuis les fichiers">
+            <MD5FromFilesDlg title="Calculer les empreintes MD5 depuis les fichiers">
                 <Item id="1922" name="Choisir les fichiers pour générer les empreintes..."/>
                 <Item id="1924" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </MD5FromFilesDlg>
 
-            <MD5FromTextDlg title="Calculer l'empreinte md5">
-                <Item id="1932" name="Chaque ligne est une chaine de caractères"/>
+            <MD5FromTextDlg title="Calculer l'empreinte MD5">
+                <Item id="1932" name="Traiter chaque ligne comme une chaine de caractères"/>
                 <Item id="1934" name="Copier dans le presse-papiers"/>
                 <Item id="2"    name="Fermer"/>
             </MD5FromTextDlg>
@@ -980,10 +980,10 @@
             <word-chars-list-space-warning value="$INT_REPLACE$ espace(s)"/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-			<word-chars-list-warning-end value="  dans la liste des caractères de mot."/>
+			<word-chars-list-warning-end value="  dans votre liste des caractères."/>
 			<cloud-invalid-warning value="Chemin invalide."/>
 			<cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
-			<shift-change-direction-tip value="Utilisez Shift + Enter pour rechercher dans le sens inverse"/>
+			<shift-change-direction-tip value="Utilisez Shift + Entrée pour rechercher dans le sens inverse"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

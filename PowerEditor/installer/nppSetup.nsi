@@ -100,18 +100,12 @@ page Custom ExtraOptions
 
 !include "nsisInclude\mainSectionFuncs.nsh"
 
-!include "nsisInclude\langs4Npp.nsh"
 !include "nsisInclude\autoCompletion.nsh"
 
 !include "nsisInclude\binariesComponents.nsh"
 
 
 InstType "Minimalist"
-
-
-Section -FinishSection
-  Call writeInstallInfoInRegistry
-SectionEnd
 
 
 Var diffArchDir2Remove
@@ -142,7 +136,7 @@ ${If} $noUpdater == "true"
     SectionSetText ${AutoUpdater} ""
 ${EndIf}
 
-	SectionSetSize ${mainSection} 4500		; This is rough estimation of files present in function copyCommonFiles
+	Call SetRoughEstimation		; This is rough estimation of files present in function copyCommonFiles
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
 	Call preventInstallInWin9x
 		
@@ -210,6 +204,18 @@ Section -"Notepad++" mainSection
 	
 SectionEnd
 
+; Please **DONOT** move this function (SetRoughEstimation) anywhere else
+; Just keep it right after the "mainSection" section
+; Otherwise rough estimation for copyCommonFiles will not be set
+; which will become reason for showing 0.0KB size on components section page
+
+Function SetRoughEstimation
+	SectionSetSize ${mainSection} 4500		; This is rough estimation of files present in function copyCommonFiles
+FunctionEnd
+
+
+!include "nsisInclude\langs4Npp.nsh"
+
 !include "nsisInclude\themes.nsh"
 
 ${MementoSection} "Context Menu Entry" explorerContextMenu
@@ -250,6 +256,15 @@ Function .onInstSuccess
 	${MementoSectionSave}
 FunctionEnd
 
+
+; Keep "FinishSection" section in the last so that
+; writing installation info happens in the last
+; Specially for writing registry "EstimatedSize"
+; which is visible in control panel in column named "size"
+
+Section -FinishSection
+  Call writeInstallInfoInRegistry
+SectionEnd
 
 BrandingText "Je code donc je suis"
 

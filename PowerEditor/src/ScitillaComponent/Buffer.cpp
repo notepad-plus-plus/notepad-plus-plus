@@ -648,7 +648,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
 	int encoding = buf->getEncoding();
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
-	EolType bkformat;
+	EolType bkformat = EolType::unknown;
 	LangType lang = buf->getLangType();
 
 
@@ -669,6 +669,10 @@ bool FileManager::reloadBuffer(BufferID id)
 			buf->setEncoding(encoding);
 			buf->setUnicodeMode(uniCookie);
 		}
+
+		// Since the buffer will be reloaded from the disk, EOL might have been changed
+		if (bkformat != EolType::unknown)
+			buf->setEolFormat(bkformat);
 	}
 	return res;
 }

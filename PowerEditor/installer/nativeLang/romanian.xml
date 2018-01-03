@@ -20,7 +20,7 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Deschide folderul gazdă"/>
+                    <Item subMenuId="file-openFolder" name="Deschidere folder gazdă"/>
                     <Item subMenuId="file-closeMore" name="Închidere multiplă"/>
                     <Item subMenuId="file-recentFiles" name="Fişiere recente"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Copiere în Clipboard"/>
@@ -68,19 +68,19 @@
                 <!-- all menu item -->
                 <Commands>
                     <Item id="41001" name="&amp;Nou"/>
-                    <Item id="41002" name="&amp;Deschide"/>
+                    <Item id="41002" name="&amp;Deschidere"/>
                     <Item id="41019" name="Explorator"/>
                     <Item id="41020" name="cmd"/>
-                    <Item id="41003" name="Închide"/>
-                    <Item id="41004" name="În&amp;chide toate"/>
-                    <Item id="41005" name="Închide toate fără documentul curent"/>
-                    <Item id="41009" name="Închide toate spre stânga"/>
-                    <Item id="41018" name="Închide toate spre dreapta"/>
+                    <Item id="41003" name="Închidere"/>
+                    <Item id="41004" name="În&amp;chidere toate"/>
+                    <Item id="41005" name="Închidere toate fără documentul curent"/>
+                    <Item id="41009" name="Închidere toate spre stânga"/>
+                    <Item id="41018" name="Închidere toate spre dreapta"/>
                     <Item id="41006" name="&amp;Salvare"/>
                     <Item id="41007" name="Salvar&amp;e toate"/>
                     <Item id="41008" name="S&amp;alvare ca..."/>
                     <Item id="41010" name="Tipărire..."/>
-                    <Item id="1001"  name="Tipăreşte acum"/>
+                    <Item id="1001"  name="Tipărire acum"/>
                     <Item id="41011" name="I&amp;eşire"/>
                     <Item id="41012" name="Încărcare sesiune..."/>
                     <Item id="41013" name="Salvare sesiune..."/>
@@ -89,8 +89,8 @@
                     <Item id="41016" name="Ştergere de pe disc"/>
                     <Item id="41017" name="Redenumire..."/>
                     <Item id="41021" name="Restaurare fişiere închise recent"/>
-                    <Item id="41022" name="Deschide folderul ca spaţiu de lucru"/>
-                    <Item id="41023" name="Deschide în vizualizatorul implicit"/>
+                    <Item id="41022" name="Deschidere folder ca spaţiu de lucru"/>
+                    <Item id="41023" name="Deschidere în vizualizatorul implicit"/>
                     <Item id="42001" name="Dec&amp;upare"/>
                     <Item id="42002" name="&amp;Copiere"/>
                     <Item id="42003" name="A&amp;nulare"/>
@@ -98,7 +98,7 @@
                     <Item id="42005" name="&amp;Lipire"/>
                     <Item id="42006" name="Şter&amp;gere"/>
                     <Item id="42007" name="Selectare t&amp;ot"/>
-                    <Item id="42020" name="Selectare Început/Sfârşit"/>
+                    <Item id="42020" name="Selectare început/sfârşit"/>
                     <Item id="42008" name="Mărire indentare linie"/>
                     <Item id="42009" name="Reducere indentare linie"/>
                     <Item id="42010" name="Duplicare linie curentă"/>
@@ -122,8 +122,8 @@
                     <Item id="42070" name="Prima literă din propoziție mare (îmbinare)"/>
                     <Item id="42071" name="iNVERsARE LiTEre"/>
                     <Item id="42072" name="LiTerE AleaTOarE"/>
-		    <Item id="42073" name="Deschide fișier"/>
-		    <Item id="42074" name="Deschide dosar gazdă în Explorer"/>
+		    <Item id="42073" name="Deschidere fișier"/>
+		    <Item id="42074" name="Deschidere dosar gazdă în Explorer"/>
 		    <Item id="42075" name="Caută pe Internet"/>
 		    <Item id="42076" name="Schimbare motor de căutare..."/>
                     <Item id="42018" name="S&amp;tart înregistrare"/>
@@ -142,7 +142,7 @@
                     <Item id="42053" name="Spaţii în TAB (început)"/>
                     <Item id="42038" name="Lipire conţinut HTML"/>
                     <Item id="42039" name="Lipire conţint RTF"/>
-                    <Item id="42048" name="Copire conţinut binar"/>
+                    <Item id="42048" name="Copiere conţinut binar"/>
                     <Item id="42049" name="Decupare conţinut binar"/>
                     <Item id="42050" name="Lipire conţinut binar"/>
                     <Item id="42037" name="Mod coloană..."/>
@@ -220,8 +220,8 @@
                     <Item id="44019" name="Afişare toate caracterele"/>
                     <Item id="44020" name="Afişare ghidaj indentare"/>
                     <Item id="44022" name="Limitare margine linii"/>
-                    <Item id="44023" name="&amp;Mărire Ctrl+Rotiţă maus sus"/>
-                    <Item id="44024" name="Micşo&amp;rare Ctrl+Rotiţă maus jos"/>
+                    <Item id="44023" name="&amp;Mărire Ctrl+rotiţă maus sus"/>
+                    <Item id="44024" name="Micşo&amp;rare Ctrl+rotiţă maus jos"/>
                     <Item id="44025" name="Afişare spaţii libere şi TAB"/>
                     <Item id="44026" name="Afişare sfârşit linie (EOL)"/>
                     <Item id="44029" name="Depliere toate"/>
@@ -247,7 +247,7 @@
                     <Item id="44099" name="Mutare Tab înapoi"/>
                     <Item id="44032" name="Comutare ecran complet"/>
                     <Item id="44033" name="Restaurare dimensiune afișare"/>
-                    <Item id="44034" name="Întotdeuna deasupra"/>
+                    <Item id="44034" name="Întotdeauna deasupra"/>
                     <Item id="44035" name="Sincronizare derulare verticală"/>
                     <Item id="44036" name="Sincronizare derulare orizontală"/>
                     <Item id="44041" name="Afișare simbol limitare"/>
@@ -272,14 +272,14 @@
                     <Item id="10001" name="Mutare în alt panou"/>
                     <Item id="10002" name="Clonare în alt panou"/>
                     <Item id="10003" name="Mutare în instanţă nouă"/>
-                    <Item id="10004" name="Deschide în instanţă nouă"/>
+                    <Item id="10004" name="Deschidere în instanţă nouă"/>
 
                     <Item id="46001" name="Configurator stil..."/>
-                    <Item id="46150" name="Definiţi limbajul dvs..."/>
+                    <Item id="46150" name="Definire limbaj..."/>
                     <Item id="46080" name="Definit de utilizator"/>
                     <Item id="47000" name="Despre Notepad++..."/>
                     <Item id="47010" name="Argumente linie de comandă..."/>
-                    <Item id="47001" name="Pagina web Notepad++"/>
+                    <Item id="47001" name="Pagină web Notepad++"/>
                     <Item id="47002" name="Pagină proiect Notepad++"/>
                     <Item id="47003" name="Documentaţie online"/>
                     <Item id="47004" name="Comunitatea Notepad++ (Forum)"/>
@@ -302,8 +302,8 @@
                     <Item id="50001" name="Completare cuvinte"/>
                     <Item id="50002" name="Sugestii parametri funcţii"/>
                     <Item id="50006" name="Completare căi"/>
-                    <Item id="44042" name="Ascunde liniile"/>
-                    <Item id="42040" name="Deschide toate fişierele recente"/>
+                    <Item id="44042" name="Ascundere linii"/>
+                    <Item id="42040" name="Deschidere toate fişierele recente"/>
                     <Item id="42041" name="Golire listă fişiere recente"/>
                     <Item id="48016" name="Modificare scurtătură/Ştergere macro..."/>
                     <Item id="48017" name="Modificare scurtătură/Ştergere comandă..."/>
@@ -312,8 +312,8 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Închide"/>
-                    <Item CMID="1" name="Închide toate fără acesta"/>
+                    <Item CMID="0" name="Închidere"/>
+                    <Item CMID="1" name="Închidere toate fără acesta"/>
                     <Item CMID="2" name="Salvare"/>
                     <Item CMID="3" name="Salvare ca..."/>
                     <Item CMID="4" name="Tipărire"/>
@@ -327,18 +327,18 @@
                     <Item CMID="12" name="Doar-citire"/>
                     <Item CMID="13" name="Anulare stare doar-citire"/>
                     <Item CMID="14" name="Mutare în instanţă nouă"/>
-                    <Item CMID="15" name="Deschide în instanţă nouă"/>
+                    <Item CMID="15" name="Deschidere în instanţă nouă"/>
                     <Item CMID="16" name="Reîncărcare"/>
-		    <Item CMID="17" name="Închide toate spre stânga"/>
-                    <Item CMID="18" name="Închide toate spre dreapta"/>
-                    <Item CMID="19" name="Deschide folderul gazdă în Explorer"/>
-                    <Item CMID="20" name="Deschide folderul gazdă în cmd"/>
+		    <Item CMID="17" name="Închidere toate spre stânga"/>
+                    <Item CMID="18" name="Închidere toate spre dreapta"/>
+                    <Item CMID="19" name="Deschidere folder gazdă în Explorer"/>
+                    <Item CMID="20" name="Deschidere folder gazdă în cmd"/>
             </TabBar>
         </Menu>
         <Dialog>
             <Find title="" titleFind="Căutare" titleReplace="Înlocuire" titleFindInFiles="Căutare în fişiere" titleMark="Marcare">
                 <Item id="1"    name="Următorul"/>
-                <Item id="2"    name="Închide"/>
+                <Item id="2"    name="Închidere"/>
                 <Item id="1603" name="Potrivire &amp;numai cuvinte întregi"/>
                 <Item id="1604" name="Potrivire &amp;litere"/>
                 <Item id="1605" name="&amp;Expresie regulată"/>
@@ -375,8 +375,8 @@
                 <Item id="1686" name="Transparenţă"/>
 		<Item id="1703" name="&amp;. este \r şi \n"/>
             </Find>
-            <FindCharsInRange title="Find Characters in Range...">
-                <Item id="2" name="Închide"/>
+            <FindCharsInRange title="Căutare caractere în interval...">
+                <Item id="2" name="Închidere"/>
                 <Item id="2901" name="Caractere Non-ASCII (128-255)"/>
                 <Item id="2902" name="Caractere ASCII (0-127)"/>
                 <Item id="2903" name="În intervalul:"/>
@@ -399,7 +399,7 @@
             </GoToLine>
 
             <Run title="Executare...">
-                <Item id="1903" name="Programul de executat"/>
+                <Item id="1903" name="Program de executat"/>
                 <Item id="1"    name="Executare"/>
                 <Item id="2"    name="Anulare"/>
                 <Item id="1904" name="Salvare..."/>
@@ -408,13 +408,13 @@
             <MD5FromFilesDlg title="Generare sumă de control MD5 din fișiere">
                 <Item id="1922" name="Alegere fișiere pentru generare MD5..."/>
                 <Item id="1924" name="Copiere în memorie"/>
-                <Item id="2"    name="Închide"/>
+                <Item id="2"    name="Închidere"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generate sumă de control MD5">
                 <Item id="1932" name="Consideră fiecare linie ca un șir separat"/>
                 <Item id="1934" name="Copiere în memorie"/>
-                <Item id="2"    name="Închide"/>
+                <Item id="2"    name="Închidere"/>
             </MD5FromTextDlg>
           
             <StyleConfig title="Configurator stil">
@@ -604,7 +604,7 @@
 		    <Item id="24551" name="Stil separator 6"/>
 		    <Item id="24570" name="Deschidere:"/>
 		    <Item id="24571" name="Escape:"/>
-	            <Item id="24572" name="Închidere:"/>
+	        <Item id="24572" name="Închidere:"/>
 		    <Item id="24573" name="Stilizare"/>
 		    <Item id="24601" name="Stil separator 7"/>
 		    <Item id="24620" name="Deschidere:"/>
@@ -620,7 +620,7 @@
 
             </UserDefine>
             <Preference title="Preferinţe">
-                <Item id="6001" name="Închide"/>
+                <Item id="6001" name="Închidere"/>
                 <Global title="Generale">
                     <Item id="6101" name="Bară unelte"/>
                     <Item id="6102" name="Ascunde"/>
@@ -637,12 +637,12 @@
                     <Item id="6111" name="Afişare bară de stare"/>
                     <Item id="6112" name="Afişare buton închidere pe fiecare filă"/>
                     <Item id="6113" name="Închidere document cu dublu clic"/>
-                    <Item id="6118" name="Ascunde"/>
+                    <Item id="6118" name="Ascundere"/>
                     <Item id="6119" name="Multi-linie"/>
                     <Item id="6120" name="Verticală"/>
                     <Item id="6121" name="Ieșire la închiderea ultimei file"/>
                  
-                    <Item id="6122" name="Ascunde bară meniu (comutare cu Alt sau F10)"/>
+                    <Item id="6122" name="Ascundere bară meniu (comutare cu Alt sau F10)"/>
                     <Item id="6123" name="Localizare"/>
 
 		    <Item id="6125" name="Panou listă documente"/>
@@ -707,7 +707,7 @@
                     <Item id="6414" name="Folder document curent"/>
                     <Item id="6415" name="Memorare ultimul folder folosit"/>
                     <Item id="6430" name="Utilizare stil nou dialog salvare (fără extensii predefinite)" />
-                    <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
+                    <Item id="6431" name="La plasarea unui folder deschide fișierele din el în loc de a-l lansa ca spațiu de lucru"/>
                 </DefaultDir>
 
                 <FileAssoc title="Asociere fişiere">
@@ -816,10 +816,10 @@
 
                 <MultiInstance title="Instanţe multiple">
                     <Item id="6151" name="Setări instanţe multiple"/>
-                    <Item id="6152" name="Deschide sesiune în instanţă nouă Notepad++"/>
+                    <Item id="6152" name="Deschidere sesiune în instanţă nouă Notepad++"/>
                     <Item id="6153" name="Totdeauna în mod instanţă multiplă"/>
                     <Item id="6154" name="Implicit (instanţă unică)"/>
-                    <Item id="6155" name="* Modificarea acestor setări solicită restartarea Notepad++"/>
+                    <Item id="6155" name="* Modificarea acestor setări solicită repornirea Notepad++"/>
                 </MultiInstance>
 
                 <Delimiter title="Separatori">
@@ -828,7 +828,7 @@
                     <Item id="6255" name="Sfârşit"/>
                     <Item id="6256" name="Permite pe linii multiple"/>
 		    <Item id="6161" name="Listă caractere"/>
-                    <Item id="6162" name="Folosire listă carcatere implicită așa cum e"/>
+                    <Item id="6162" name="Folosire listă caractere implicită așa cum e"/>
                     <Item id="6163" name="Adăugare caractere personale la listă
 (nu alegeți decât dacă știți bine ce înseamnă)"/>
                 </Delimiter>
@@ -885,7 +885,7 @@
                 <Item id="1" name="Activare"/>
                 <Item id="2" name="OK"/>
                 <Item id="7002" name="Salvare"/>
-                <Item id="7003" name="Închide selectate"/>
+                <Item id="7003" name="Închidere selectate"/>
                 <Item id="7004" name="Sortare ferestre"/>
             </Window>
             <ColumnEditor title="Editor coloane">
@@ -908,17 +908,17 @@
             <ContextMenuXmlEditWarning title="Editare meniu contextual" message="Editarea fişierului contextMenu.xml vă permite să modificaţi meniul contextual al Notepad++.
 Trebuie să reporniţi Notepad++ pentru a se aplica modificările efectuate în contextMenu.xml."/>
             <NppHelpAbsentWarning title="Fişierul nu există" message=" nu există. Vă rugăm să-l descărcaţi de pe site-ul Notepad++."/>
-            <SaveCurrentModifWarning title="Salvare modificare curentă" message="Ar trebui să salvaţi modificările curente. Toate modificările salvate nu vor putea fi refăcute. Continuaţi?"/>
-            <LoseUndoAbilityWarning title="Atenţionare pierdere abilitate revenire" message="Ar trebui să salvaţi modificările curente. Toate modificările salvate nu vor putea fi refăcute. Continuaţi?"/>
+            <SaveCurrentModifWarning title="Salvare modificare curentă" message="Ar trebui să salvaţi modificările curente. Toate modificările salvate nu vor putea fi refăcute. Continuaţi ?"/>
+            <LoseUndoAbilityWarning title="Atenţionare pierdere abilitate revenire" message="Ar trebui să salvaţi modificările curente. Toate modificările salvate nu vor putea fi refăcute. Continuaţi ?"/>
             <CannotMoveDoc title="Mutare în instanţă nouă Notepad++" message="Documentul este modificat, salvaţi-l şi încercaţi din nou."/>
-            <DocReloadWarning title="Reîncărcare" message="Sunteţi sigur că doriţi să reîncărcaţi fişierul curent şi să pierdeţi modificările efectuate în Notepad++?"/>
+            <DocReloadWarning title="Reîncărcare" message="Sunteţi sigur că doriţi să reîncărcaţi fişierul curent şi să pierdeţi modificările efectuate în Notepad++ ?"/>
             <FileLockedWarning title="Salvare eşuată" message="Verificaţi dacă acest fişier nu este accesat şi de un alt program"/>
             <FileAlreadyOpenedInNpp title="" message="Fişierul este deja deschis în Notepad++."/>
             <DeleteFileFailed title="Ştergere fişier" message="Ştergere fişier eşuată"/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Numărul fişierelor de deschis este prea mare" message="$INT_REPLACE$ fişiere sunt pe cale să fie deschise. Sunteţi sigur că doriţi să le deschideţi?"/>
+            <NbFileToOpenImportantWarning title="Numărul fişierelor de deschis este prea mare" message="$INT_REPLACE$ fişiere sunt pe cale să fie deschise. Sunteţi sigur că doriţi să le deschideţi ?"/>
 	    <SettingsOnCloudError title="Setări pentru Cloud" message="Calea setărilor pentru Cloud este stabilită pe o unitate doar cu drepturi de citire sau un folder are nevoie de drepturi de acces pentru scriere. Setările pentru cloud vor fi anulate. Reintroduceţi o cale validă în panoul Preferinţe."/>
-	    <FilePathNotFoundWarning title="Deschide fișier" message="Fișierul pe care doriți să-l deschideți nu există."/>
+	    <FilePathNotFoundWarning title="Deschidere fișier" message="Fișierul pe care doriți să-l deschideți nu există."/>
 	    <SessionFileInvalidError title="Nu s-a putut încărca sesiunea" message="Sesiunea fișierului este fie coruptă fie invalidă."/>
         </MessageBox>
         <ClipboardHistory>
@@ -955,11 +955,11 @@ Trebuie să reporniţi Notepad++ pentru a se aplica modificările efectuate în 
                 </Entries>
                 <WorkspaceMenu>
                     <Item id="3122" name="Spaţiu de lucru nou"/>
-                    <Item id="3123" name="Deschide spaţiu de lucru"/>
+                    <Item id="3123" name="Deschidere spaţiu de lucru"/>
                     <Item id="3124" name="Reîncărcate spaţiu de lucru"/>
                     <Item id="3125" name="Salvare"/>
                     <Item id="3126" name="Salvare ca..."/>
-                    <Item id="3127" name="Salvare o copie ca..."/>
+                    <Item id="3127" name="Salvare copie ca..."/>
                     <Item id="3121" name="Adăugare proiect nou"/>
                 </WorkspaceMenu>
                 <ProjectMenu>
@@ -990,7 +990,7 @@ Trebuie să reporniţi Notepad++ pentru a se aplica modificările efectuate în 
             </Menus>
         </ProjectManager>
         <MiscStrings>
-	    <word-chars-list-tip value="Se permite includerea de caractere adiționale în lista curentă de caractere când se dă dublu-clic pe o selectare la căutarea cu opțiunea &quot;Potrivire doar cuvinte&quot; activată."/>
+	    <word-chars-list-tip value="Se permite includerea de caractere adiționale în lista curentă de caractere când se dă dublu clic pe o selectare la căutarea cu opțiunea &quot;Potrivire doar cuvinte&quot; activată."/>
             <word-chars-list-warning-begin value="Atenție: "/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ spațiu(i)"/>

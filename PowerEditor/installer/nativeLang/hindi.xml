@@ -19,7 +19,7 @@
 		- Added translation for new strings as per V7.4
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5.4">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -280,13 +280,13 @@
           <Item id="45002" name="UNIX फॉर्मेट में रूपांतरित करें"/>
           <Item id="45003" name="MAC फॉर्मेट में रूपांतरित करें"/>
           <Item id="45004" name="ANSI में एन्कोड करें"/>
-          <Item id="45005" name="UTF-8 में एन्कोड करें"/>
+          <Item id="45005" name="UTF-8-BOM में एन्कोड करें"/>
           <Item id="45006" name="UCS-2 Big Endian में एन्कोड करें"/>
           <Item id="45007" name="UCS-2 Little Endian में एन्कोड करें"/>
-          <Item id="45008" name="UTF-8 without BOM में एन्कोड करें"/>
+          <Item id="45008" name="UTF-8 में एन्कोड करें"/>
           <Item id="45009" name="ANSI में रूपांतरित करें"/>
-          <Item id="45010" name="UTF-8 without BOM में रूपांतरित करें"/>
-          <Item id="45011" name="UTF-8 में रूपांतरित करें"/>
+          <Item id="45010" name="UTF-8 में रूपांतरित करें"/>
+          <Item id="45011" name="UTF-8-BOM में रूपांतरित करें"/>
           <Item id="45012" name="UCS-2 Big Endian में रूपांतरित करें"/>
           <Item id="45013" name="UCS-2 Little Endian में रूपांतरित करें"/>
 

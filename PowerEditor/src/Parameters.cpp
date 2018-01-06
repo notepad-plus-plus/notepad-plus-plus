@@ -652,7 +652,7 @@ typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
 {
 	TCHAR str2scan[MAX_PATH];
-	lstrcpy(str2scan, str2cut);
+	lstrcpyn(str2scan, str2cut, MAX_PATH);
 	size_t len = lstrlen(str2scan);
 	bool isProcessing = false;
 	TCHAR *pBegin = nullptr;

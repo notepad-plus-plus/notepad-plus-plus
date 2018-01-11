@@ -651,38 +651,25 @@ typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
 void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
 {
-	TCHAR str2scan[MAX_PATH];
-	lstrcpy(str2scan, str2cut);
-	size_t len = lstrlen(str2scan);
-	bool isProcessing = false;
-	TCHAR *pBegin = nullptr;
+	if (str2cut == nullptr) return;
 
-	for (size_t i = 0 ; i <= len ; ++i)
+	const TCHAR *pBegin = str2cut;
+	const TCHAR *pEnd = pBegin;
+
+	while (*pEnd != '\0')
 	{
-		switch(str2scan[i])
+		if (_istspace(*pEnd))
 		{
-			case ' ':
-			case '\0':
-			{
-				if (isProcessing)
-				{
-					str2scan[i] = '\0';
-					patternVect.push_back(pBegin);
-					isProcessing = false;
-				}
-				break;
-			}
-
-			default:
-			{
-				if (!isProcessing)
-				{
-					isProcessing = true;
-					pBegin = str2scan+i;
-				}
-			}
+			if (pBegin != pEnd)
+				patternVect.emplace_back(pBegin, pEnd);
+			pBegin = pEnd + 1;
+		
 		}
+		++pEnd;
 	}
+
+	if (pBegin != pEnd)
+		patternVect.emplace_back(pBegin, pEnd);
 }
 
 

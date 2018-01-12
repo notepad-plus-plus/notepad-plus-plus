@@ -601,31 +601,13 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		Buffer* buf = _buffers.at(_nbBufs - 1);
 
 		// restore the encoding (ANSI based) while opening the existing file
-		NppParameters *pNppParamInst = NppParameters::getInstance();
-		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
-		buf->setUnicodeMode(ndds._unicodeMode);
 		buf->setEncoding(-1);
 
 		// if no file extension, and the language has been detected,  we use the detected value
 		if ((buf->getLangType() == L_TEXT) && (detectedLang != L_TEXT))
 			buf->setLangType(detectedLang);
 
-		if (encoding == -1)
-		{
-			UniMode um = UnicodeConvertor.getEncoding();
-			if (um == uni7Bit)
-				um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
-
-			buf->setUnicodeMode(um);
-		}
-		else // encoding != -1
-		{
-            // Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
-            buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
-            buf->setUnicodeMode(uniCookie);
-		}
-
-		buf->setEolFormat(bkformat);
+		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, encoding, bkformat);
 
 		//determine buffer properties
 		++_nextBufferID;
@@ -660,21 +642,35 @@ bool FileManager::reloadBuffer(BufferID id)
 
 	if (res)
 	{
-		if (encoding == -1)
-		{
-			buf->setUnicodeMode(UnicodeConvertor.getEncoding());
-		}
-		else
-		{
-			buf->setEncoding(encoding);
-			buf->setUnicodeMode(uniCookie);
-		}
-
-		// Since the buffer will be reloaded from the disk, EOL might have been changed
-		if (bkformat != EolType::unknown)
-			buf->setEolFormat(bkformat);
+		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, encoding, bkformat);
 	}
 	return res;
+}
+
+
+void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat)
+{
+	if (encoding == -1)
+	{
+		NppParameters *pNppParamInst = NppParameters::getInstance();
+		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+
+		UniMode um = UnicodeConvertor.getEncoding();
+		if (um == uni7Bit)
+			um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
+
+		buf->setUnicodeMode(um);
+	}
+	else
+	{
+		// Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
+		buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
+		buf->setUnicodeMode(uniCookie);
+	}
+
+	// Since the buffer will be reloaded from the disk, EOL might have been changed
+	if (bkformat != EolType::unknown)
+		buf->setEolFormat(bkformat);
 }
 
 

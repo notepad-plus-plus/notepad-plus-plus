@@ -3629,6 +3629,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("bosnian.xml");
 	if (localizationCode == TEXT("pt-br"))
 		return TEXT("brazilian_portuguese.xml");
+	if (localizationCode == TEXT("br-fr"))
+		return TEXT("breton.xml");
 	if (localizationCode == TEXT("bg"))
 		return TEXT("bulgarian.xml");
 	if (localizationCode == TEXT("ca"))
@@ -3649,6 +3651,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("dutch.xml");
 	if (localizationCode == TEXT("eo"))
 		return TEXT("esperanto.xml");
+	if (localizationCode == TEXT("et"))
+		return TEXT("estonian.xml");
 	if (localizationCode == TEXT("fa"))
 		return TEXT("farsi.xml");
 	if (localizationCode == TEXT("fi"))
@@ -3665,6 +3669,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("german.xml");
 	if (localizationCode == TEXT("el"))
 		return TEXT("greek.xml");
+	if (localizationCode == TEXT("gu"))
+		return TEXT("gujarati.xml");
 	if (localizationCode == TEXT("he"))
 		return TEXT("hebrew.xml");
 	if (localizationCode == TEXT("hi"))
@@ -3677,6 +3683,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("italian.xml");
 	if (localizationCode == TEXT("ja"))
 		return TEXT("japanese.xml");
+	if (localizationCode == TEXT("kn"))
+		return TEXT("kannada.xml");
 	if (localizationCode == TEXT("kk"))
 		return TEXT("kazakh.xml");
 	if (localizationCode == TEXT("ko") || localizationCode == TEXT("ko-kp") || localizationCode == TEXT("ko-kr"))
@@ -3693,6 +3701,10 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("macedonian.xml");
 	if (localizationCode == TEXT("ms"))
 		return TEXT("malay.xml");
+	if (localizationCode == TEXT("mr"))
+		return TEXT("marathi.xml");
+	if (localizationCode == TEXT("mn"))
+		return TEXT("mongolian.xml");
 	if (localizationCode == TEXT("no") || localizationCode == TEXT("nb"))
 		return TEXT("norwegian.xml");
 	if (localizationCode == TEXT("nn"))
@@ -3701,8 +3713,10 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("occitan.xml");
 	if (localizationCode == TEXT("pl"))
 		return TEXT("polish.xml");
-	if (localizationCode == TEXT("pt"))
+	if (localizationCode == TEXT("pt") || localizationCode == TEXT("pt-pt"))
 		return TEXT("portuguese.xml");
+	if (localizationCode == TEXT("pa") || localizationCode == TEXT("pa-in"))
+		return TEXT("punjabi.xml");
 	if (localizationCode == TEXT("ro") || localizationCode == TEXT("ro-mo"))
 		return TEXT("romanian.xml");
 	if (localizationCode == TEXT("ru") || localizationCode == TEXT("ru-mo"))
@@ -3711,6 +3725,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("sardinian.xml");
 	if (localizationCode == TEXT("sr"))
 		return TEXT("serbian.xml");
+	if (localizationCode == TEXT("sr-cyrl-ba") || localizationCode == TEXT("sr-cyrl-sp"))
+		return TEXT("serbianCyrillic.xml");
 	if (localizationCode == TEXT("si"))
 		return TEXT("sinhala.xml");
 	if (localizationCode == TEXT("sk"))
@@ -3725,8 +3741,12 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("swedish.xml");
 	if (localizationCode == TEXT("tl"))
 		return TEXT("tagalog.xml");
+	if (localizationCode == TEXT("tg-cyrl-tj"))
+		return TEXT("tajikCyrillic.xml");
 	if (localizationCode == TEXT("ta"))
 		return TEXT("tamil.xml");
+	if (localizationCode == TEXT("tt"))
+		return TEXT("tatar.xml");
 	if (localizationCode == TEXT("te"))
 		return TEXT("telugu.xml");
 	if (localizationCode == TEXT("th"))
@@ -3735,8 +3755,18 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("turkish.xml");
 	if (localizationCode == TEXT("uk"))
 		return TEXT("ukrainian.xml");
+	if (localizationCode == TEXT("ur") || localizationCode == TEXT("ur-pk"))
+		return TEXT("urdu.xml");
+	if (localizationCode == TEXT("ug-cn"))
+		return TEXT("uyghur.xml");
 	if (localizationCode == TEXT("uz"))
 		return TEXT("uzbek.xml");
+	if (localizationCode == TEXT("uz-cyrl-uz"))
+		return TEXT("uzbekCyrillic.xml");
+	if (localizationCode == TEXT("vi") || localizationCode == TEXT("vi-vn"))
+		return TEXT("vietnamese.xml");
+	if (localizationCode == TEXT("cy-gb"))
+		return TEXT("welsh.xml");
 
 	return generic_string();
 }

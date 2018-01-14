@@ -71,7 +71,7 @@ bool VerifySignedLibrary(const wstring& filepath,
 	// Initialise WinTrust data	
 	WINTRUST_DATA winTEXTrust_data = { 0 };
 	winTEXTrust_data.cbStruct = sizeof(winTEXTrust_data);
-	winTEXTrust_data.dwUIChoice          = WTD_UI_NONE;	         // do not display optionnal dialog boxes
+	winTEXTrust_data.dwUIChoice          = WTD_UI_NONE;	         // do not display optional dialog boxes
 	winTEXTrust_data.dwUnionChoice       = WTD_CHOICE_FILE;        // we are not checking catalog signed files
 	winTEXTrust_data.dwStateAction       = WTD_STATEACTION_VERIFY; // only checking
 	winTEXTrust_data.fdwRevocationChecks = WTD_REVOKE_WHOLECHAIN;  // verify the whole certificate chain
@@ -227,14 +227,14 @@ bool VerifySignedLibrary(const wstring& filepath,
 		}
 		display_name = display_name_buffer.get();
 
-	} catch (wstring s) {
+	} catch (const wstring& s) {
 		::MessageBox(NULL, s.c_str(), TEXT("DLL signature verification failed"), MB_ICONERROR);
 		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
 		status = false;
 	} catch (...) {
 		// Unknown error
 		OutputDebugString(TEXT("VerifyLibrary: error while getting certificate informations\n"));
-		wstring errMsg(TEXT("Unknown exception occured. "));
+		wstring errMsg(TEXT("Unknown exception occurred. "));
 		errMsg += GetLastErrorAsString(GetLastError());
 		::MessageBox(NULL, errMsg.c_str(), TEXT("DLL signature verification failed"), MB_ICONERROR);
 		status = false;

@@ -342,6 +342,7 @@ void FunctionListPanel::reload()
 	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
 	{
 		// no 2 levels
+		/*
 		bool b = false;
 		if (b)
 		{
@@ -355,6 +356,7 @@ void FunctionListPanel::reload()
 			addEntry(NULL, entryName.c_str(), _foundFuncInfos[i]._pos);
 		}
 		else
+		*/
 		{
 			addEntry(_foundFuncInfos[i]._data2.c_str(), _foundFuncInfos[i]._data.c_str(), _foundFuncInfos[i]._pos);
 		}

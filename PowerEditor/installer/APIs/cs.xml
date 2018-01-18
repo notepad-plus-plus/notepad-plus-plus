@@ -276,7 +276,7 @@
 		<KeyWord name="long" />
 		<KeyWord name="Microsoft.CSharp" />
 		<KeyWord name="Microsoft.JScript" />
-		<KeyWord name="MicroadditionalWordChar="." isoft.VisualBasic" />
+		<KeyWord name="Microsoft.VisualBasic" />
 		<KeyWord name="Microsoft.Vsa" />
 		<KeyWord name="Microsoft.Win32" />
 		<KeyWord name="namespace" />

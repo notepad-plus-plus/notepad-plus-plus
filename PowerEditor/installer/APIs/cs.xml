@@ -19,19 +19,28 @@
 		<KeyWord name="Console" />
 		<KeyWord name="Console.Write" func="yes">
 			<Overload retVal="void" >
-				<Param name="char[] buffer, int index, int count" />
+				<Param name="char[] buffer" />
+				<Param name="int index" />
+				<Param name="int count" />
 			</Overload>
 			<Overload retVal="void">
-				<Param name="string format, params object[] arg"/>
+				<Param name="string format"/>
+				<Param name="params object[] arg" />
 			</Overload>
 			<Overload retVal="void">
-				<Param name="string format, object arg0" />
+				<Param name="string format" />
+				<Param name="object arg0" />
 			</Overload>
 			<Overload retVal="void">
-				<Param name="string format, object arg0, object arg1" />
+				<Param name="string format" />
+				<Param name="object arg0" />
+				<Param name="object arg1" />
 			</Overload>
 			<Overload retVal="void">
-				<Param name="string format, object arg0, object arg1, object arg2" />
+				<Param name="string format" />
+				<Param name="object arg0" />
+				<Param name="object arg1" />
+				<Param name="object arg2" />
 			</Overload>
 			<Overload retVal="void">
 				<Param name="bool value" />
@@ -75,19 +84,28 @@
 				<Param name="..." />
 			</Overload>
 			<Overload retVal="void" >
-				<Param name="char[] buffer, int index, int count" />
+				<Param name="char[] buffer" />
+				<Param name="int index" />
+				<Param name="int count" />
 			</Overload>
 			<Overload retVal="void">
-				<Param name="string format, params object[] arg"/>
+				<Param name="string format"/>
+				<Param name="params object[] arg" />
 			</Overload>
 			<Overload retVal="void">
-				<Param name="string format, object arg0" />
+				<Param name="string format" />
+				<Param name="object arg0" />
 			</Overload>
 			<Overload retVal="void">
-				<Param name="string format, object arg0, object arg1" />
+				<Param name="string format" />
+				<Param name="object arg0" />
+				<Param name="object arg1" />
 			</Overload>
 			<Overload retVal="void">
-				<Param name="string format, object arg0, object arg1, object arg2" />
+				<Param name="string format" />
+				<Param name="object arg0" />
+				<Param name="object arg1" />
+				<Param name="object arg2" />
 			</Overload>
 			<Overload retVal="void">
 				<Param name="bool value" />
@@ -126,96 +144,96 @@
 				<Param name="uint value" />
 			</Overload>
 		</KeyWord>
-		<keyWord name="Console.Read" func="yes">
+		<KeyWord name="Console.Read" func="yes">
 			<Overload retVal="int" >
 				<Param name="..."/>
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.ReadLine" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.ReadLine" func="yes">
 			<Overload retVal="string" >
 				<Param name="..."/>
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.ReadKey" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.ReadKey" func="yes">
 			<Overload retVal="ConsoleKeyInfo" >
 				<Param name="..."/>
 			</Overload>
 			<Overload retVal="ConsoleKeyInfo" >
 				<Param name="bool intercept" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.Beep" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.Beep" func="yes">
 			<Overload retVal="void" >
 				<Param name="..."/>
 			</Overload>
 			<Overload retVal="void" >
-				<Param name="int frequency, int duration" />
+				<Param name="int frequency" />
+				<Param name="int duration" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.SetWindowSize" func="yes">
-			<Overload retVal="void" >
-				<Param name="int width, int height" />
-			</Overload>
-		</keyWord>
-		<keyWord name="Console.SetIn" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.SetIn" func="yes">
 			<Overload retVal="void" >
 				<Param name="TextWriter newOut" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.SetOut" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.SetOut" func="yes">
 			<Overload retVal="void" >
 				<Param name="TextWriter newOut" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.SetError" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.SetError" func="yes">
 			<Overload retVal="void" >
 				<Param name="TextWriter newError" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.SetWindowPosition" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.SetWindowPosition" func="yes">
 			<Overload retVal="void" >
-				<Param name="int left, int top" />
+				<Param name="int left" />
+				<Param name="int top" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.SetCursorPosition" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.SetCursorPosition" func="yes">
 			<Overload retVal="void" >
-				<Param name="int left, int top" />
+				<Param name="int left" />
+				<Param name="int top" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.SetBufferSize" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.SetBufferSize" func="yes">
 			<Overload retVal="void" >
-				<Param name="int width, int height" />
+				<Param name="int width" />
+				<Param name="int height" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.SetWindowSize" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.SetWindowSize" func="yes">
 			<Overload retVal="void" >
-				<Param name="int width, int height" />
+				<Param name="int width" />
+				<Param name="int height" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.OpenStandardOutput" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.OpenStandardOutput" func="yes">
 			<Overload retVal="Stream" >
 				<Param name="..." />
 			</Overload>
 			<Overload retVal="Stream" >
 				<Param name="int bufferSize" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.OpenStandardError" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.OpenStandardError" func="yes">
 			<Overload retVal="Stream" >
 				<Param name="..." />
 			</Overload>
 			<Overload retVal="Stream" >
 				<Param name="int bufferSize" />
 			</Overload>
-		</keyWord>
-		<keyWord name="Console.OpenStandardInput" func="yes">
+		</KeyWord>
+		<KeyWord name="Console.OpenStandardInput" func="yes">
 			<Overload retVal="Stream" >
 				<Param name="..." />
 			</Overload>
 			<Overload retVal="Stream" >
 				<Param name="int bufferSize" />
 			</Overload>
-		</keyWord>
+		</KeyWord>
 		<KeyWord name="const" />
 		<KeyWord name="continue" />
 		<KeyWord name="DateTime" />
@@ -413,14 +431,14 @@
 		<KeyWord name="TextWriter" />
 		<KeyWord name="this" />
 		<KeyWord name="throw" />
-		<keyWord name="Thread.Sleep" func="yes">
+		<KeyWord name="Thread.Sleep" func="yes">
 			<Overload retVal="void" >
 				<Param name="int millisecondsTimeout"/>
 			</Overload>
 			<Overload retVal="void" >
 				<Param name="TimeSpan timeout" />
 			</Overload>
-		</keyWord>
+		</KeyWord>
 		<KeyWord name="true" />
 		<KeyWord name="try" />
 		<KeyWord name="typeof" />

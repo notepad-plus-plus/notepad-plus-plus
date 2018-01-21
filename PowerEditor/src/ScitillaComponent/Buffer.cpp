@@ -1088,8 +1088,15 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
 		if(items_written != 1)
 		{
-			if(error_msg != NULL)
-				*error_msg = TEXT("Failed to save file.\nNot enough space on disk to save file?");
+			if (error_msg != NULL)
+			{
+				NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+				*error_msg = _nativeLangSpeaker->getLocalizedStrFromID("buffer-error-msg");
+
+				if (error_msg->empty()) {
+					*error_msg = TEXT("Failed to save file.\nNot enough space on disk to save file?");
+				}
+			}
 
 			// set to signaled state via destructor EventReset.
 			return false;
@@ -1325,6 +1332,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
 {
+	NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (not fp)
 		return false;
@@ -1338,7 +1346,9 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
 	if (bufferSizeRequested > INT_MAX)
 	{
-		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File size problem"), MB_OK|MB_APPLMODAL);
+		_nativeLangSpeaker->messageBox("FileSizeTooBigWarning", NULL, 
+			TEXT("File is too big to be opened by Notepad++"), 
+			TEXT("File size problem"), MB_OK | MB_APPLMODAL);
 		/*
 		_nativeLangSpeaker.messageBox("NbFileToOpenImportantWarning",
 										_pPublicInterface->getHSelf(),
@@ -1460,7 +1470,9 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	}
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
-		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
+		_nativeLangSpeaker->messageBox("FileOpenTooBigWarning", NULL,
+			TEXT("File is too big to be opened by Notepad++"),
+			TEXT("File open problem"), MB_OK | MB_APPLMODAL);
 		success = false;
 	}
 

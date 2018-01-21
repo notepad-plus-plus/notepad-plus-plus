@@ -132,14 +132,19 @@ void ShortcutMapper::fillOutBabyGrid()
 
 	size_t nbItems = 0;
 
-	_babygrid.setText(0, 1, TEXT("Name"));
-	_babygrid.setText(0, 2, TEXT("Shortcut"));
-	
+	NativeLangSpeaker *_nativeLangSpeaker = nppParam->getNativeLangSpeaker();
+	generic_string nameStr = _nativeLangSpeaker->getShortcutMapperLangStr("ColumnName", TEXT("Name"));
+	generic_string shortcutStr = _nativeLangSpeaker->getShortcutMapperLangStr("ColumnShortcut", TEXT("Shortcut"));
+
+	_babygrid.setText(0, 1, nameStr.c_str());
+	_babygrid.setText(0, 2, shortcutStr.c_str());
+
 	switch(_currentState) {
 		case STATE_MENU: {
 			nbItems = nppParam->getUserShortcuts().size();
 			_babygrid.setLineColNumber(nbItems, 3);
-			_babygrid.setText(0, 3, TEXT("Category"));
+			generic_string categoryStr = _nativeLangSpeaker->getShortcutMapperLangStr("ColumnCategory", TEXT("Category"));
+			_babygrid.setText(0, 3, categoryStr.c_str());
 			break; }
 		case STATE_MACRO: {
 			nbItems = nppParam->getMacroList().size();
@@ -152,7 +157,8 @@ void ShortcutMapper::fillOutBabyGrid()
 		case STATE_PLUGIN: {
 			nbItems = nppParam->getPluginCommandList().size();
 			_babygrid.setLineColNumber(nbItems, 3);
-			_babygrid.setText(0, 3, TEXT("Plugin"));
+			generic_string pluginStr = _nativeLangSpeaker->getShortcutMapperLangStr("ColumnPlugin", TEXT("Plugin"));
+			_babygrid.setText(0, 3, pluginStr.c_str());
 			break; }
 		case STATE_SCINTILLA: {
 			nbItems = nppParam->getScintillaKeyList().size();
@@ -279,10 +285,16 @@ void ShortcutMapper::fillOutBabyGrid()
 
 INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
+	NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+
 	switch (message) 
 	{
 		case WM_INITDIALOG :
 		{
+			_nativeLangSpeaker->changeShortcutMapperLang(this);
+			_defaultInfo = _nativeLangSpeaker->getShortcutMapperLangStr("Conflict", TEXT("No shortcut conflicts for this item."));
+			_assignInfo = _nativeLangSpeaker->getShortcutMapperLangStr("NoConflict", TEXT("No conflicts . . ."));
+
 			initBabyGrid();
 			initTabs();
 			fillOutBabyGrid();
@@ -636,7 +648,8 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					if (_babygrid.getNumberRows() < 1)
 						return TRUE;
 
-					if (::MessageBox(_hSelf, TEXT("Are you sure you want to delete this shortcut?"), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
+					int result = _nativeLangSpeaker->messageBox("ShortcutMapperDelete", _hSelf, TEXT("Are you sure you want to delete this shortcut?"), TEXT("Are you sure?"), MB_OKCANCEL);
+					if (result  == IDOK)
 					{
 						NppParameters *nppParam = NppParameters::getInstance();
 						const int row = _babygrid.getSelectedRow();
@@ -760,10 +773,14 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							::GetCursorPos(&p);
 							if (!_rightClickMenu.isCreated())
 							{
+								generic_string modifyStr = _nativeLangSpeaker->getShortcutMapperLangMenuStr(IDM_BABYGRID_MODIFY, TEXT("Modify"));
+								generic_string deleteStr = _nativeLangSpeaker->getShortcutMapperLangMenuStr(IDM_BABYGRID_DELETE, TEXT("Delete"));
+								generic_string clearStr = _nativeLangSpeaker->getShortcutMapperLangMenuStr(IDM_BABYGRID_CLEAR, TEXT("Clear"));
+
 								vector<MenuItemUnit> itemUnitArray;
-								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, TEXT("Modify")));
-								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, TEXT("Delete")));
-								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_CLEAR, TEXT("Clear")));
+								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, modifyStr));
+								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, deleteStr));
+								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_CLEAR, clearStr));
 								_rightClickMenu.create(_hSelf, itemUnitArray);
 							}
 

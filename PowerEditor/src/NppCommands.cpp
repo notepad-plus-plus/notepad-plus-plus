@@ -134,7 +134,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_OPENFOLDERASWORSPACE:
 		{
-			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), TEXT("Select a folder to add in Folder as Workspace panel"));
+			generic_string addRootStr = _nativeLangSpeaker.getAttrNameStr(TEXT("Select a folder to add in Folder as Workspace panel"), "FileBrowser", "AddRootMsg");
+			generic_string folderPath = folderBrowser(_pPublicInterface->getHSelf(), addRootStr);
 			if (not folderPath.empty())
 			{
 				if (_pFileBrowser == nullptr) // first launch, check in params to open folders
@@ -1893,38 +1894,6 @@ void Notepad_plus::command(int id)
 			Buffer * curBuf = _pEditView->getCurrentBuffer();
 			int fileLen = curBuf->getFileLength();
 
-			if (fileLen != -1)
-			{
-				TCHAR *filePathLabel = TEXT("Full file path: ");
-				TCHAR *fileCreateTimeLabel = TEXT("Created: ");
-				TCHAR *fileModifyTimeLabel = TEXT("Modified: ");
-				TCHAR *fileLenLabel = TEXT("File length (in byte): ");
-
-				characterNumber += filePathLabel;
-				characterNumber += curBuf->getFullPathName();
-				characterNumber += TEXT("\r");
-
-				characterNumber += fileCreateTimeLabel;
-				characterNumber += curBuf->getFileTime(Buffer::ft_created);
-				characterNumber += TEXT("\r");
-
-				characterNumber += fileModifyTimeLabel;
-				characterNumber += curBuf->getFileTime(Buffer::ft_modified);
-				characterNumber += TEXT("\r");
-
-				characterNumber += fileLenLabel;
-				characterNumber += commafyInt(static_cast<UINT64>(fileLen)).c_str();
-				characterNumber += TEXT("\r");
-				characterNumber += TEXT("\r");
-			}
-			TCHAR *nbCharLabel = TEXT("Characters (without blanks): ");
-			TCHAR *nbWordLabel = TEXT("Words: ");
-			TCHAR *nbLineLabel = TEXT("Lines: ");
-			TCHAR *nbByteLabel = TEXT("Current document length: ");
-			TCHAR *nbSelLabel1 = TEXT(" selected characters (");
-			TCHAR *nbSelLabel2 = TEXT(" bytes) in ");
-			TCHAR *nbRangeLabel = TEXT(" ranges");
-
 			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
 			auto nbChar = getCurrentDocCharCount(um);
 			int nbWord = wordCount();
@@ -1934,31 +1903,55 @@ void Notepad_plus::command(int id)
 			auto nbSelByte = getSelectedBytes();
 			auto nbRange = getSelectedAreas();
 
-			characterNumber += nbCharLabel;
-			characterNumber += commafyInt(nbChar).c_str();
-			characterNumber += TEXT("\r");
+			generic_string charsNum = commafyInt(nbChar);
+			generic_string wordsNum = commafyInt(nbWord);
+			generic_string linsNum = commafyInt(static_cast<int>(nbLine));
+			generic_string byteNum = commafyInt(nbByte);
+			generic_string selNum = commafyInt(nbSel);
+			generic_string selByteNum = commafyInt(nbSelByte);
+			generic_string rangeNum = commafyInt(nbRange);
 
-			characterNumber += nbWordLabel;
-			characterNumber += commafyInt(nbWord).c_str();
-			characterNumber += TEXT("\r");
+			if (fileLen != -1)
+			{
+				generic_string fullPath = curBuf->getFullPathName();
+				generic_string created = curBuf->getFileTime(Buffer::ft_created);
+				generic_string modified = curBuf->getFileTime(Buffer::ft_modified);
+				generic_string fileLenght = commafyInt(static_cast<UINT64>(fileLen));
 
-			characterNumber += nbLineLabel;
-			characterNumber += commafyInt(static_cast<int>(nbLine)).c_str();
-			characterNumber += TEXT("\r");
+				const TCHAR *parms[11] = { 
+					fullPath.c_str(),
+					created.c_str(),
+					modified.c_str(),
+					fileLenght.c_str(),
+					charsNum.c_str(),
+					wordsNum.c_str(),
+					linsNum.c_str(),
+					byteNum.c_str(),
+					selNum.c_str(),
+					selByteNum.c_str(),
+					rangeNum.c_str()
+				};
 
-			characterNumber += nbByteLabel;
-			characterNumber += commafyInt(nbByte).c_str();
-			characterNumber += TEXT("\r");
+				_nativeLangSpeaker.messageBox("NppSummaryFile", _pPublicInterface->getHSelf(),
+					TEXT("Full file path: $0$\rCreated: $1$\rModified: $2$\rFile length (in byte): $3$\r\rCharacters (without blanks): $4$\rWords: $5$\rLines: $6$\rCurrent document length: $7$\r$8$ selected characters ($9$ bytes) in $10$ ranges"),
+					TEXT("Summary"), MB_OK | MB_APPLMODAL, 11, parms);
+			}
+			else
+			{
+				const TCHAR *parms[7] = {
+					charsNum.c_str(),
+					wordsNum.c_str(),
+					linsNum.c_str(),
+					byteNum.c_str(),
+					selNum.c_str(),
+					selByteNum.c_str(),
+					rangeNum.c_str()
+				};
 
-			characterNumber += commafyInt(nbSel).c_str();
-			characterNumber += nbSelLabel1;
-			characterNumber += commafyInt(nbSelByte).c_str();
-			characterNumber += nbSelLabel2;
-			characterNumber += commafyInt(nbRange).c_str();
-			characterNumber += nbRangeLabel;
-			characterNumber += TEXT("\r");
-
-			::MessageBox(_pPublicInterface->getHSelf(), characterNumber.c_str(), TEXT("Summary"), MB_OK|MB_APPLMODAL);
+				_nativeLangSpeaker.messageBox("NppSummary", _pPublicInterface->getHSelf(),
+					TEXT("Characters (without blanks): $0$\rWords: $1$\rLines: $2$\rCurrent document length: $3$\r$4$ selected characters ($5$ bytes) in $6$ ranges"),
+					TEXT("Summary"), MB_OK | MB_APPLMODAL, 7, parms);
+			}
 		}
 		break;
 
@@ -1979,7 +1972,9 @@ void Notepad_plus::command(int id)
 				{
 					if (curBuf->isDirty())
 					{
-						::MessageBox(_pPublicInterface->getHSelf(), TEXT("The document is dirty. Please save the modification before monitoring it."), TEXT("Monitoring problem"), MB_OK);
+						_nativeLangSpeaker.messageBox("MonitoringDirtyWarning", _pPublicInterface->getHSelf(),
+							TEXT("The document is dirty. Please save the modification before monitoring it."),
+							TEXT("Monitoring problem"), MB_OK);
 					}
 					else
 					{
@@ -1995,7 +1990,9 @@ void Notepad_plus::command(int id)
 				}
 				else
 				{
-					::MessageBox(_pPublicInterface->getHSelf(), TEXT("The file should exist to be monitored."), TEXT("Monitoring problem"), MB_OK);
+					_nativeLangSpeaker.messageBox("MonitoringFileError", _pPublicInterface->getHSelf(),
+						TEXT("The file should exist to be monitored."),
+						TEXT("Monitoring problem"), MB_OK);
 				}
 			}
 
@@ -2445,7 +2442,7 @@ void Notepad_plus::command(int id)
             GridState st = id==IDM_SETTING_SHORTCUT_MAPPER_MACRO?STATE_MACRO:id==IDM_SETTING_SHORTCUT_MAPPER_RUN?STATE_USER:STATE_MENU;
 			ShortcutMapper shortcutMapper;
             shortcutMapper.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), st);
-            _nativeLangSpeaker.changeShortcutmapperLang(&shortcutMapper);
+            _nativeLangSpeaker.changeShortcutMapperLang(&shortcutMapper);
 			shortcutMapper.doDialog(_nativeLangSpeaker.isRTL());
 			shortcutMapper.destroy();
 			break;
@@ -2464,11 +2461,9 @@ void Notepad_plus::command(int id)
 
         case IDM_SETTING_EDITCONTEXTMENU :
         {
-			_nativeLangSpeaker.messageBox("ContextMenuXmlEditWarning",
-				_pPublicInterface->getHSelf(),
+			_nativeLangSpeaker.messageBox("ContextMenuXmlEditWarning", _pPublicInterface->getHSelf(),
 				TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu on edit zone.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."),
-				TEXT("Editing contextMenu"),
-				MB_OK|MB_APPLMODAL);
+				TEXT("Editing contextMenu"), MB_OK | MB_APPLMODAL);
 
             NppParameters *pNppParams = NppParameters::getInstance();
             BufferID bufID = doOpen((pNppParams->getContextMenuPath()));
@@ -2689,7 +2684,9 @@ void Notepad_plus::command(int id)
 			winVer ver = NppParameters::getInstance()->getWinVersion();
 			if (ver <= WV_XP)
 			{
-				long res = ::MessageBox(NULL, TEXT("Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"), TEXT("Notepad++ Updater"), MB_YESNO);
+				int res = _nativeLangSpeaker.messageBox("UpdaterCompatible", _pPublicInterface->getHSelf(),
+								TEXT("Notepad++ updater is not compatible with XP due to the obsolet security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"),
+								TEXT("Notepad++ Updater"), MB_YESNO);
 				if (res == IDYES)
 				{
 					::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/download/"), NULL, NULL, SW_SHOWNORMAL);

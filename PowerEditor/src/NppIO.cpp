@@ -225,12 +225,14 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 			TCHAR str2display[MAX_PATH*2];
 			generic_string longFileDir(longFileName);
 			PathRemoveFileSpec(longFileDir);
+			const TCHAR *parms[1] = {longFileName};
 
 			bool isCreateFileSuccessful = false;
 			if (PathFileExists(longFileDir.c_str()))
 			{
-				wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
-				if (::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
+				int result = _nativeLangSpeaker.messageBox("CreateNewFile", _pPublicInterface->getHSelf(),
+								TEXT("$0$ doesn't exist. Create it?"), TEXT("Create new file"), MB_YESNO, 1, parms);
+				if (result == IDYES)
 				{
 					bool res = MainFileManager->createEmptyFile(longFileName);
 					if (res)
@@ -239,8 +241,8 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 					}
 					else
 					{
-						wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
-						::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_OK);
+						_nativeLangSpeaker.messageBox("CreateNewFileError",_pPublicInterface->getHSelf(),
+							TEXT("Cannot create the file \"$0$\""), TEXT("Create new file"), MB_OK, 1, parms);
 					}
 				}
 			}

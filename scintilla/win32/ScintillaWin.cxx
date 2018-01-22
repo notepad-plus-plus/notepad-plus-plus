@@ -1446,14 +1446,14 @@ sptr_t ScintillaWin::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam
 
 		case WM_UNICHAR:
 			if (wParam == UNICODE_NOCHAR) {
-				return TRUE;
+				return 1;
 			} else if (lastKeyDownConsumed) {
 				return 1;
 			} else {
 				wchar_t wcs[3] = {0};
 				unsigned int wclen = UTF16FromUTF32Character(wParam, wcs);
 				AddCharUTF16(wcs, wclen);
-				return FALSE;
+				return 0;
 			}
 
 		case WM_SYSKEYDOWN:

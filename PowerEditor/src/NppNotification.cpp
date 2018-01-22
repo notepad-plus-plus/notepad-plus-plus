@@ -847,6 +847,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 
 			updateStatusBar();
+			updateFunctionList();
 			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 			autoC->update(0);
 

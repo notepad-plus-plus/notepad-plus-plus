@@ -514,6 +514,7 @@ private:
 	void activateDoc(size_t pos);
 
 	void updateStatusBar();
+	void updateFunctionList();
 	size_t getSelectedCharNumber(UniMode);
 	size_t getCurrentDocCharCount(UniMode u);
 	size_t getSelectedAreas();

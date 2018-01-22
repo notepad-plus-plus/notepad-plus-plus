@@ -26,13 +26,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef DOCUMENTMAP_H
-#define  DOCUMENTMAP_H
+#pragma once
 
-#ifndef DOCKINGDLGINTERFACE_H
 #include "DockingDlgInterface.h"
-#endif //DOCKINGDLGINTERFACE_H
-
 #include "documentMap_rc.h"
 
 #define DM_PANELTITLE     TEXT("Document Map")
@@ -42,8 +38,12 @@
 #define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)
 
 class ScintillaEditView;
+class Buffer;
+struct MapPosition;
+
 const bool moveDown = true;
 const bool moveUp = false;
+
 
 enum moveMode {
 	perLine,
@@ -57,8 +57,7 @@ public :
 
 	void doDialog();
 
-    virtual void destroy() {
-    };
+    virtual void destroy() {};
 
 	void drawZone(long hY, long lY) {
 		_higherY = hY;
@@ -84,8 +83,8 @@ protected :
 	void drawPreviewZone(DRAWITEMSTRUCT *pdis);
 
 private :
-	HWND _viewZoneCanvas;
-	WNDPROC _canvasDefaultProc;
+	HWND _viewZoneCanvas = nullptr;
+	WNDPROC _canvasDefaultProc = nullptr;
 	
 	long _higherY;
 	long _lowerY;
@@ -94,9 +93,7 @@ private :
 
 class DocumentMap : public DockingDlgInterface {
 public:
-	DocumentMap(): DockingDlgInterface(IDD_DOCUMENTMAP), _ppEditView(NULL),\
-		_pScintillaEditView(NULL), id4dockingCont(DM_NOFOCUSWHILECLICKINGCAPTION)
-	{};
+	DocumentMap(): DockingDlgInterface(IDD_DOCUMENTMAP) {};
 
 	void create(tTbData * data, bool isRTL = false) {
 		DockingDlgInterface::create(data, isRTL);
@@ -124,31 +121,34 @@ public:
 	}
 
 	void reloadMap();
-	void wrapMap();
+	void showInMapTemporarily(Buffer *buf2show, ScintillaEditView *fromEditView);
+	void wrapMap(const ScintillaEditView *editView = nullptr);
 	void initWrapMap();
 	void scrollMap();
 	void scrollMap(bool direction, moveMode whichMode);
+	void scrollMapWith(const MapPosition & mapPos);
 	void doMove();
 	void fold(int line, bool foldOrNot);
 	void foldAll(bool mode);
 	void setSyntaxHiliting();
 	void changeTextDirection(bool isRTL);
+	bool isTemporarilyShowing() const { return _isTemporarilyShowing; };
+	void setTemporarilyShowing(bool tempShowing) { _isTemporarilyShowing = tempShowing; }
 
 protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	bool needToRecomputeWith();
-	int getEditorTextZoneWidth();
+	bool needToRecomputeWith(const ScintillaEditView *editView = nullptr);
+	int getEditorTextZoneWidth(const ScintillaEditView *editView = nullptr);
 
 private:
-	ScintillaEditView **_ppEditView;
-	ScintillaEditView *_pScintillaEditView;
+	ScintillaEditView **_ppEditView = nullptr;
+	ScintillaEditView *_pMapView = nullptr;
 	ViewZoneDlg _vzDlg;
 
+	bool _isTemporarilyShowing = false;
+
 	// for needToRecomputeWith function
-	int _displayZoom;
-	int _displayWidth;
-	generic_string id4dockingCont;
+	int _displayZoom = -1;
+	int _displayWidth = 0;
+	generic_string id4dockingCont = DM_NOFOCUSWHILECLICKINGCAPTION;
 };
-
-
-#endif // DOCUMENTMAP_H

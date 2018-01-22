@@ -42,13 +42,13 @@ void RunMacroDlg::initMacroList()
 	::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_RESETCONTENT, 0, 0);
 
 	if (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS, 0, 0) == MACRO_RECORDING_HAS_STOPPED)
-		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("Current recorded macro"));
+		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("Current recorded macro")));
 
 	for (size_t i = 0, len = macroList.size(); i < len ; ++i)
-		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, (LPARAM)macroList[i].getName());
+		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(macroList[i].getName()));
 
 	::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_SETCURSEL, 0, 0);
-	m_macroIndex = 0;
+	_macroIndex = 0;
 }
 
 INT_PTR CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
@@ -58,8 +58,8 @@ INT_PTR CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 		case WM_INITDIALOG :
 		{
 			initMacroList();
-			::SetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, m_Times, FALSE);
-			switch ( m_Mode )
+			::SetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, _times, FALSE);
+			switch (_mode)
 			{
 				case RM_RUN_MULTI:
 					check(IDC_M_RUN_MULTI);
@@ -98,12 +98,12 @@ INT_PTR CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				case IDOK :
 					if ( isCheckedOrNot(IDC_M_RUN_MULTI) )
 					{
-						m_Mode = RM_RUN_MULTI;
-						m_Times = ::GetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, NULL, FALSE);
+						_mode = RM_RUN_MULTI;
+						_times = ::GetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, NULL, FALSE);
 					}
 					else if ( isCheckedOrNot(IDC_M_RUN_EOF) )
 					{
-						m_Mode = RM_RUN_EOF;
+						_mode = RM_RUN_EOF;
 					}
 
 					if (::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCOUNT, 0, 0))
@@ -114,7 +114,7 @@ INT_PTR CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 				default:
 					if ((HIWORD(wParam) == CBN_SELCHANGE) && (LOWORD(wParam) == IDC_MACRO_COMBO))
 					{
-						m_macroIndex = ::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCURSEL, 0, 0);
+						_macroIndex = static_cast<int32_t>(::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_GETCURSEL, 0, 0));
 						return TRUE;
 					}
 			}
@@ -141,5 +141,5 @@ void RunMacroDlg::check(int id)
 int RunMacroDlg::getMacro2Exec() const 
 {
 	bool isCurMacroPresent = ::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS, 0, 0) == MACRO_RECORDING_HAS_STOPPED;
-	return isCurMacroPresent?(m_macroIndex - 1):m_macroIndex;
+	return isCurMacroPresent?(_macroIndex - 1):_macroIndex;
 }

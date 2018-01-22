@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+***********************************************************************************
+	Punjabi language binary translations file for Notepad++ ::
+
+	Created By:- Vipul Y. Tailor
+	Email id- vipul.tailor@hotmail.com
+************************************************************************************
+	
+-->
+
+<NotepadPlus>
+    <Native-Langue name="ਪੰਜਾਬੀ ਦੇ" filename="punjabi.xml" version="6.8.2">
+        <Menu>
+            <Main>
+                <!-- Main Menu Entries -->
+                <Entries>
+                    <Item menuId="file" name="&amp;ਫਾਇਲ"/>
+                    <Item menuId="edit" name="&amp;ਸੋਧ"/>
+                    <Item menuId="search" name="&amp;ਖੋਜ"/>
+                    <Item menuId="view" name="&amp;ਵੇਖੋ"/>
+                    <Item menuId="encoding" name="&amp;ਇੰਕੋਡਿੰਗ"/>
+                    <Item menuId="language" name="&amp;ਭਾਸ਼ਾ"/>
+                    <Item menuId="settings" name="&amp;ਸੈਟਿੰਗ"/>
+                    <Item menuId="macro" name="ਮੈਕਰੋ"/>
+                    <Item menuId="run" name="ਰਨ"/>
+                    <Item idName="Plugins" name="ਪਲੱਗਇਨ"/>
+                    <Item idName="Window" name="ਝਰੋਖਾ"/>
+                </Entries>
+                <!-- Sub Menu Entries -->
+                 <SubEntries>
+                    <Item subMenuId="file-openFolder" name="ਓਪਨ ਰੱਖਣ ਫੋਲਡਰ"/>
+                    <Item subMenuId="file-closeMore" name="ਬੰਦ ਕਰੋ ਹੋਰ"/>
+                    <Item subMenuId="file-recentFiles" name="ਹਾਲੀਆ ਫਾਇਲ"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਕਰੋ"/>
+                    <Item subMenuId="edit-indent" name="ਹਾਸ਼ੀਏ"/>
+                    <Item subMenuId="edit-convertCaseTo" name="ਨੂੰ ਕੇਸ ਬਦਲੋ"/>
+                    <Item subMenuId="edit-lineOperations" name="ਲਾਈਨ ਓਪਰੇਸ਼ਨ"/>
+                    <Item subMenuId="edit-comment" name="ਟਿੱਪਣੀ / ਹਟਾਓ"/>
+                    <Item subMenuId="edit-autoCompletion" name="ਆਟੋ ਪੂਰਨ"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL ਤਬਦੀਲੀ"/>
+                    <Item subMenuId="edit-blankOperations" name="ਖਾਲੀ ਓਪਰੇਸ਼ਨ"/>
+                    <Item subMenuId="edit-pasteSpecial" name="ਵਿਸ਼ੇਸ਼ ਚਿਪਕਾਉ"/>
+                    <Item subMenuId="search-markAll" name="ਮਰਕੁਸ ਸਾਰੇ"/>
+                    <Item subMenuId="search-unmarkAll" name="ਮਾਰਕ ਸਾਰੇ"/>
+                    <Item subMenuId="search-jumpUp" name="ਨੂੰ ਇਸ 'ਤੇ ਜਾਓ"/>
+                    <Item subMenuId="search-jumpDown" name="ਥੱਲੇ ਇਸ 'ਤੇ ਜਾਓ"/>
+                    <Item subMenuId="search-bookmark" name="ਬੁੱਕਮਾਰਕ"/>
+                    <Item subMenuId="view-showSymbol"  name="ਵੇਖਾਓ ਨਿਸ਼ਾਨ"/>
+                    <Item subMenuId="view-zoom"  name="ਜ਼ੂਮ"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="ਭੇਜੋ / ਕਲੋਨ ਮੌਜੂਦਾ ਦਸਤਾਵੇਜ਼"/>
+                    <Item subMenuId="view-tab"  name="ਟੈਬ"/>
+                    <Item subMenuId="view-collapseLevel" name="ਕੋਲ੍ਲਾਪ੍ਸੇ ਲੇਵੇਲ "/>
+                    <Item subMenuId="view-uncollapseLevel" name="ਉਨ੍ਕੋਲ੍ਲਾਪ੍ਸੇ (Uncollapse) ਲੇਵੇਲ"/>
+                    <Item subMenuId="view-project" name="ਪ੍ਰੋਜੈਕਟ"/>
+                    <Item subMenuId="encoding-characterSets"  name="ਅੱਖਰ ਸੈੱਟ"/>
+                    <Item subMenuId="encoding-arabic"  name="ਅਰਬੀ"/>
+                    <Item subMenuId="encoding-baltic"  name="ਬਾਲਟਿਕ"/>
+                    <Item subMenuId="encoding-celtic"  name="ਚੇਲ੍ਟਿਕ"/>
+			
+                    <Item subMenuId="encoding-cyrillic"  name="ਕ੍ਯ੍ਰਿਲ੍ਲਿਕ "/>
+                    <Item subMenuId="encoding-centralEuropean"  name="ਮੱਧ ਯੂਰਪੀ"/>
+                    <Item subMenuId="encoding-chinese"  name="ਚੀਨੀ"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="ਪੂਰਬੀ ਯੂਰਪੀ"/>
+                    <Item subMenuId="encoding-greek"  name="ਯੂਨਾਨੀ"/>
+                    <Item subMenuId="encoding-hebrew"  name="ਹਿਬਰੂ"/>
+                    <Item subMenuId="encoding-japanese"  name="ਜਪਾਨੀ"/>
+                    <Item subMenuId="encoding-korean" name="ਕੋਰੀਆਈ"/>
+                    <Item subMenuId="encoding-northEuropean" name="ਉੱਤਰੀ ਯੂਰਪੀ"/>
+                    <Item subMenuId="encoding-thai" name="ਥਾਈ"/>
+                    <Item subMenuId="encoding-turkish" name="ਤੁਰਕ"/>
+                    <Item subMenuId="encoding-westernEuropean" name="ਪੱਛਮੀ ਯੂਰਪੀ"/>
+                    <Item subMenuId="encoding-vietnamese" name="ਵੀਅਤਨਾਮੀ"/>
+                    <Item subMenuId="settings-import"  name="ਇੰਪੋਰਟ"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                   <Commands>
+                    <Item id="41001" name="&amp;ਨ੍ਯੂ"/>
+                    <Item id="41002" name="&amp;ਓਪਨ"/>
+                    <Item id="41019" name="ਐਕਸਪਲੋਰਰ"/>
+                    <Item id="41020" name="ਦੇ ਸੀ.ਐਮ.ਡੀ."/>
+                    <Item id="41003" name="ਬੰਦ ਕਰੋ"/>
+                    <Item id="41004" name="&amp;ਬੰਦ ਕਰੋ ਸਾਰੇ"/>
+                    <Item id="41005" name="ਸਾਰੇ ਪਰ ਮੌਜੂਦਾ ਦਸਤਾਵੇਜ਼ ਬੰਦ ਕਰੋ"/>
+                    <Item id="41009" name="ਖੱਬੇ ਕਰਨ ਲਈ ਸਾਰੇ ਬੰਦ ਕਰੋ"/>
+                    <Item id="41018" name="ਸੱਜੇ ਕਰਨ ਲਈ ਸਾਰੇ ਬੰਦ ਕਰੋ"/>
+                    <Item id="41006" name="&amp;ਸੰਭਾਲੋ"/>
+                    <Item id="41007" name="&amp;ਸੰਭਾਲੋ ਸਾਰੇ"/>
+                    <Item id="41008" name="&amp;ਨਾਤੇ ਸੰਭਾਲੋ ..."/>
+                    <Item id="41010" name="ਪ੍ਰਿੰਟ ..."/>
+                    <Item id="1001"  name="ਹੁਣ ਪ੍ਰਿੰਟ ਕਰੋ"/>
+                    <Item id="41011" name="&amp;ਨਿਕਾਸ"/>
+                    <Item id="41012" name="ਲੋਡ ਸੈਸ਼ਨ..."/>
+                    <Item id="41013" name="ਸੰਭਾਲੋ ਸੈਸ਼ਨ..."/>
+                    <Item id="41014" name="ਡਿਸਕ ਤੱਕ ਲੋਡ"/>
+                    <Item id="41015" name="ਦੇ ਰੂਪ ਵਿੱਚ ਨਕਲ ਸੰਭਾਲੋ ..."/>
+                    <Item id="41016" name="ਡਿਸਕ ਤੱਕ ਹਟਾਓ"/>
+                    <Item id="41017" name="ਬਦਲੋ ..."/>
+                    <Item id="41021" name="ਹਾਲੀਆ ਬੰਦ ਫਾਇਲ ਮੁੜ"/>
+
+                    <Item id="42001" name="&amp;ਕੱਟੋ"/>
+                    <Item id="42002" name="&amp;ਕਾਪੀ"/>
+                    <Item id="42003" name="&amp;ਵਾਪਿਸ"/>
+                    <Item id="42004" name="&amp;ਮੁੜ"/>
+                    <Item id="42005" name="&amp;ਚੇਪੋ"/>
+                    <Item id="42006" name="&amp;ਹਟਾਓ"/>
+                    <Item id="42007" name="ਸਾਰੇ ਦੀ ਚੋਣ ਕਰੋ"/>
+                    <Item id="42020" name="ਸ਼ੁਰੂ/ਅੰਤ ਚੁਣੋ"/>
+                    <Item id="42008" name="ਲਾਈਨ ਹਾਸ਼ੀਏ ਵਧਾਓ"/>
+                    <Item id="42009" name="ਲਾਈਨ ਹਾਸ਼ੀਏ ਘਟਾਓ"/>
+                    <Item id="42010" name="ਮੌਜੂਦਾ ਲਾਈਨ ਡੁਪਲੀਕੇਟ"/>
+                    <Item id="42012" name="ਸ੍ਪ੍ਲਿਟ ਲਾਈਨਜ਼"/>
+                    <Item id="42013" name="ਲਾਈਨਜ਼ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋ ਜਾਓ"/>
+                    <Item id="42014" name="ਵਰਤਮਾਨ ਲਾਈਨ ਉੱਪਰ ਭੇਜੋ"/>
+                    <Item id="42015" name="ਮੌਜੂਦਾ ਲਾਈਨ ਥੱਲੇ ਭੇਜੋ"/>
+					<Item id="42059" name="ਲਾਈਨਜ਼ ਲੇਕ੍ਸਿਕੋਗ੍ਰਾਫਿਕੈਲ੍ਲ੍ਯ ਵੱਧਦਾਕ੍ਰਮ ਲੜੀਬੱਧ ਕਰੋ"/>
+					<Item id="42060" name="ਕ੍ਰਮਬੱਧ ਲਾਈਨਜ਼ ਲੇਕ੍ਸਿਕੋਗ੍ਰਾਫਿਕੈਲ੍ਲ੍ਯ ਘੱਟਦਾ"/>
+					<Item id="42061" name="ਪੂਰਨ ਵੱਧਦਾ ਦੇ ਨਾਤੇ ਕ੍ਰਮਬੱਧ ਲਾਈਨਜ਼"/>
+					<Item id="42062" name="ਪੂਰਨ ਘੱਟਦਾ ਦੇ ਨਾਤੇ ਕ੍ਰਮਬੱਧ ਲਾਈਨਜ਼"/>
+					<Item id="42063" name="ਰਲਖਣਾ (ਕਾਮਿਆ) ਵੱਧਦਾਕ੍ਰਮ ਦੇ ਨਾਤੇ ਕ੍ਰਮਬੱਧ ਲਾਈਨਜ਼"/>
+					<Item id="42064" name="ਰਲਖਣਾ (ਕਾਮਿਆ) ਘੱਟਦਾ ਦੇ ਨਾਤੇ ਕ੍ਰਮਬੱਧ ਲਾਈਨਜ਼"/>
+					<Item id="42065" name="ਰਲਖਣਾ (ਡਾਟ) ਵੱਧਦਾਕ੍ਰਮ ਦੇ ਨਾਤੇ ਕ੍ਰਮਬੱਧ ਲਾਈਨਜ਼"/>
+					<Item id="42066" name="ਰਲਖਣਾ (ਡਾਟ) ਘੱਟਦਾ ਦੇ ਨਾਤੇ ਕ੍ਰਮਬੱਧ ਲਾਈਨਜ਼"/>
+					<Item id="42016" name="ਵੱਡੇ"/>
+					<Item id="42017" name="ਅੱਖਰ"/>
+					<Item id="42018" name="&amp; ਸ਼ੁਰੂ ਰਿਕਾਰਡਿੰਗ"/>
+					<Item id="42019" name="&amp; ਰੋਕੋ ਰਿਕਾਰਡਿੰਗ"/>
+					<Item id="42021" name="&amp; ਪਲੇਅਬੈਕ"/>
+					<Item id="42022" name="ਬਦਲੋ ਸਿੰਗਲ ਲਾਈਨ ਟਿੱਪਣੀ"/>
+					<Item id="42023" name="ਬਲਾਕ ਟਿੱਪਣੀ"/>
+					<Item id="42047" name="ਬਲਾਕ ਵਿੱਚ"/>
+					<Item id="42024" name="ਛੀਟਕੇ ਪਿੱਛੇ ਸਪੇਸ"/>
+					<Item id="42042" name="ਛੀਟਕੇ ਲੀਡਿੰਗ ਸਪੇਸ"/>
+					<Item id="42043" name="ਛੀਟਕੇ ਅਗਵਾਈ ਕਰਨ ਅਤੇ ਪਿੱਛੇ ਸਪੇਸ"/>
+					<Item id="42044" name="EOL ਸਪੇਸ ਨੂੰ"/>
+					<Item id="42045" name="ਹਟਾਓ ਬੇਲੋੜੀ ਖਾਲੀ ਹੈ ਅਤੇ EOL"/>
+					<Item id="42046" name="ਟੈਬ ਸਪੇਸ ਨੂੰ"/>
+					<Item id="42054" name="ਟੈਬ ਨੂੰ ਸਪੇਸ (ਸਾਰੇ)"/>
+					<Item id="42053" name="ਟੈਬ ਨੂੰ ਸਪੇਸ (ਲੀਡਿੰਗ)"/>
+					<Item id="42038" name="ਚੇਪੋ HTML ਸਮੱਗਰੀ"/>
+					<Item id="42039" name="ਚੇਪੋ RTF ਸਮੱਗਰੀ"/>
+					<Item id="42048" name="ਕਾਪੀ ਬਾਈਨਰੀ ਸਮੱਗਰੀ"/>
+					<Item id="42049" name="ਬਾਇਨਰੀ ਸਮੱਗਰੀ ਕੱਟੋ"/>
+					<Item id="42050" name="ਬਾਇਨਰੀ ਸਮੱਗਰੀ ਚੇਪੋ"/>
+					<Item id="42037" name="ਕਾਲਮ ਢੰਗ ..."/>
+					<Item id="42034" name="ਕਾਲਮ ਸੰਪਾਦਕ ..."/>
+					<Item id="42051" name="ਅੱਖਰ ਪੈਨਲ"/>
+					<Item id="42052" name="ਕਲਿੱਪਬੋਰਡ ਅਤੀਤ"/>
+					<Item id="42025" name="ਵਰਤਮਾਨ ਵਿੱਚ ਸੰਭਾਲੋ ਰਿਕਾਰਡ ਮੈਕਰੋ"/>
+					<Item id="42026" name="ਪਾਠ ਦੀ ਦਿਸ਼ਾ RTL"/>
+					<Item id="42027" name="ਪਾਠ ਦੀ ਦਿਸ਼ਾ LTR"/>
+					<Item id="42028" name="ਸੈੱਟ ਸਿਰਫ-ਪੜਨ ਲਈ"/>
+					<Item id="42029" name="ਕਲਿੱਪਬੋਰਡ ਮੌਜੂਦਾ ਫਾਇਲ ਮਾਰਗ"/>
+					<Item id="42030" name="ਮੌਜੂਦਾ ਫਾਇਲ ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ"/>
+					<Item id="42031" name="ਮੌਜੂਦਾ ਦੀਰ ਕਲਿੱਪਬੋਰਡ. ਮਾਰਗ"/>
+					<Item id="42032" name="ਇੱਕ ਮੈਕਰੋ ਕਈ ਵਾਰ ਚਲਾਓ ..."/>
+					<Item id="42033" name="ਆਸਮਾਨ ਸਾਫ ਸਿਰਫ-ਪੜਨ ਲਈ ਝੰਡਾ"/>
+					<Item id="42035" name="ਸਿੰਗਲ ਲਾਈਨ ਟਿੱਪਣੀ"/>
+					<Item id="42036" name="ਸਿੰਗਲ ਲਾਈਨ ਹਟਾਓ"/>
+					<Item id="42055" name="ਖਾਲੀ ਲਾਈਨਜ਼ ਹਟਾਓ"/>
+					<Item id="42056" name="ਹਟਾਓ ਖਾਲੀ ਲਾਈਨਜ਼ (ਖਾਲੀ ਅੱਖਰ ਰੱਖਣ)"/>
+					<Item id="42057" name="ਵਰਤਮਾਨ ਦੇ ਉੱਪਰ ਖਾਲੀ ਲਾਈਨ ਸ਼ਾਮਲ ਕਰੋ"/>
+					<Item id="42058" name="ਵਰਤਮਾਨ ਹੇਠ ਖਾਲੀ ਲਾਈਨ ਸ਼ਾਮਲ ਕਰੋ"/>
+					<Item id="43001" name="&amp;ਲੱਭੋ ..."/>
+					<Item id="43002" name="ਤਲਾਸ਼ੋ &amp; ਅੱਗੇ"/>
+					<Item id="43003" name="ਤਬਦੀਲ ..."/>
+					<Item id="43004" name="ਜਾਓ ..."/>
+					<Item id="43005" name="ਬਦਲੋ ਬੁੱਕਮਾਰਕ"/>
+					<Item id="43006" name="ਅੱਗੇ ਬੁੱਕਮਾਰਕ"/>
+					<Item id="43007" name="ਪਿਛਲੇ ਬੁੱਕਮਾਰਕ"/>
+					<Item id="43008" name="ਆਸਮਾਨ ਸਾਫ ਸਭ ਬੁੱਕਮਾਰਕ"/>
+					<Item id="43018" name="ਕੱਟੋ ਬੁੱਕਮਾਰਕ ਲਾਈਨਜ਼"/>
+					<Item id="43019" name="ਕਾਪੀ ਬੁੱਕਮਾਰਕ ਲਾਈਨਜ਼"/>
+					<Item id="43020" name="(ਤਬਦੀਲ) ਬੁੱਕਮਾਰਕ ਲਾਈਨਜ਼ ਨੂੰ ਚਿਪਕਾਉ"/>
+					<Item id="43021" name="ਬੁੱਕਮਾਰਕ ਲਾਈਨਜ਼ ਹਟਾਓ"/>
+					<Item id="43051" name="ਅਚਿੰਨ੍ਹਿਤ ਲਾਈਨਜ਼ ਹਟਾਓ"/>
+					<Item id="43050" name="ਉਲਟ ਬੁੱਕਮਾਰਕ"/>
+					<Item id="43052" name="ਸੀਮਾ ਵਿਚ ਅੱਖਰ ਲੱਭੋ ..."/>
+					<Item id="43053" name="ਮਿਲਦੇ ਚ ਵਿਚਕਾਰ ਸਾਰੇ ਦੀ ਚੋਣ ਕਰੋ"/>
+					<Item id="43009" name="ਬ੍ਰੇਸ ਮਿਲਾਉਣ ਲਈ ਜਾਓ"/>
+					<Item id="43010" name="ਪਿਛਲਾ ਲੱਭੋ"/>
+					<Item id="43011" name="&amp;ਲਗਾਤਾਰ ਖੋਜ"/>
+					<Item id="43013" name="ਫਾਇਲ ਵਿੱਚ ਲੱਭੋ"/>
+					<Item id="43014" name="ਤਲਾਸ਼ੋ (ਅਸਥਿਰ) ਅੱਗੇ"/>
+					<Item id="43015" name="ਪਿਛਲਾ ਲੱਭੋ (ਅਸਥਿਰ)"/>
+					<Item id="43022" name="1 ਸ਼ੈਲੀ ਦਾ ਇਸਤੇਮਾਲ"/>
+					<Item id="43023" name="ਆਸਮਾਨ ਸਾਫ 1 ਸ਼ੈਲੀ"/>
+					<Item id="43024" name="2 ਸ਼ੈਲੀ ਦਾ ਇਸਤੇਮਾਲ"/>
+					<Item id="43025" name="ਆਸਮਾਨ ਸਾਫ 2 ਸ਼ੈਲੀ"/>
+					<Item id="43026" name="3 ਸ਼ੈਲੀ ਦਾ ਇਸਤੇਮਾਲ"/>
+					<Item id="43027" name="ਆਸਮਾਨ ਸਾਫ 3 ਸ਼ੈਲੀ"/>
+					<Item id="43028" name="4 ਸ਼ੈਲੀ ਦਾ ਇਸਤੇਮਾਲ"/>
+					<Item id="43029" name="ਆਸਮਾਨ ਸਾਫ 4 ਸ਼ੈਲੀ"/>
+					<Item id="43030" name="5 ਸ਼ੈਲੀ ਦਾ ਇਸਤੇਮਾਲ"/>
+					<Item id="43031" name="ਆਸਮਾਨ ਸਾਫ 5 ਸ਼ੈਲੀ"/>
+					<Item id="43032" name="ਸਾਰੇ Styles ਸਾਫ਼"/>
+					<Item id="43033" name="1 ਸ਼ੈਲੀ"/>
+					<Item id="43034" name="2 ਸ਼ੈਲੀ"/>
+                    <Item id="43035" name="3 ਸ਼ੈਲੀ"/>
+                    <Item id="43036" name="4 ਸ਼ੈਲੀ"/>
+                    <Item id="43037" name="5 ਸ਼ੈਲੀ"/>
+                    <Item id="43038" name="ਸ਼ੈਲੀ ਲੱਭੋ"/>
+                    <Item id="43039" name="1 ਸ਼ੈਲੀ"/>
+                    <Item id="43040" name="2 ਸ਼ੈਲੀ"/>
+                    <Item id="43041" name="3 ਸ਼ੈਲੀ"/>
+                    <Item id="43042" name="4 ਸ਼ੈਲੀ"/>
+                    <Item id="43043" name="5 ਸ਼ੈਲੀ"/>
+                    <Item id="43044" name="ਸ਼ੈਲੀ ਲੱਭੋ"/>
+                    <Item id="43045" name="ਖੋਜ ਨਤੀਜੇ ਝਰੋਖਾ"/>
+                    <Item id="43046" name="ਅੱਗੇ ਖੋਜ ਨਤੀਜਾ"/>
+                    <Item id="43047" name="ਪਿਛਲੇ ਖੋਜ ਨਤੀਜਾ"/>
+                    <Item id="43048" name="ਦੀ ਚੋਣ ਕਰੋ ਅਤੇ ਅੱਗੇ ਲੱਭੋ"/>
+                    <Item id="43049" name="ਦੀ ਚੋਣ ਕਰੋ ਅਤੇ ਪਿਛਲੇ ਲੱਭੋ"/>
+					<Item id="43054" name="ਮਰਕੁਸ ..."/>
+                    <Item id="44009" name="ਪੋਸਟ-ਇਹ"/>
+                    <Item id="44010" name="ਸਾਰੇ ਫੋਲਡ"/>
+                    <Item id="44019" name="ਸਾਰੇ ਅੱਖਰ ਦਿਖਾਓ"/>
+                    <Item id="44020" name="ਵੇਖਾਓ ਹਾਸ਼ੀਏ ਗਾਈਡ"/>
+                    <Item id="44022" name="ਸਮੇਟੋ"/>
+                    <Item id="44023" name="ਜ਼ੂਮ &amp; Ctrl + ਮਾਊਸ ਵੀਲ ਉੱਤਰ ਪ੍ਰਦੇਸ਼ ਵਿਚ"/>
+                    <Item id="44024" name="ਜ਼ੂਮ &amp; Ctrl + ਮਾਊਸ ਵੀਲ ਡਾਊਨ"/>
+                    <Item id="44025" name="ਵ੍ਹਾਈਟ ਸਪੇਸ ਅਤੇ ਟੈਬ ਵੇਖੋ"/>
+                    <Item id="44026" name="ਲਾਈਨ ਦੇ ਅੰਤ ਦਿਖਾਓ"/>
+                    <Item id="44029" name="ਸਾਰੇ ਜਪਿ"/>
+                    <Item id="44030" name="ਮੌਜੂਦਾ ਪੱਧਰ ਸਮੇਟੋ"/>
+                    <Item id="44031" name="ਉਨ੍ਕੋਲ੍ਲਾਪ੍ਸੇ ਮੌਜੂਦਾ ਪੱਧਰ"/>
+                    <Item id="44049" name="ਸੰਖੇਪ ..."/>
+                    <Item id="44080" name="ਦਸਤਾਵੇਜ਼ ਨਕਸ਼ਾ"/>
+                    <Item id="44084" name="ਫੰਕਸ਼ਨ ਸੂਚੀ"/>
+                    <Item id="44086" name="1 ਟੈਬ"/>
+                    <Item id="44087" name="2 ਟੈਬ "/>
+                    <Item id="44088" name="3 ਟੈਬ"/>
+                    <Item id="44089" name="4 ਟੈਬ"/>
+                    <Item id="44090" name="5 ਟੈਬ"/>
+                    <Item id="44091" name="6 ਟੈਬ"/>
+                    <Item id="44092" name="7 ਟੈਬ"/>
+                    <Item id="44093" name="8 ਟੈਬ"/>
+                    <Item id="44094" name="9 ਟੈਬ"/>
+                    <Item id="44095" name="ਅੱਗੇ ਟੈਬ"/>
+                    <Item id="44096" name="ਪਿਛਲੀ ਟੈਬ"/>
+                    <Item id="44032" name="ਬਦਲੋ ਨੂੰ ਪੂਰੀ ਸਕਰੀਨ"/>
+                    <Item id="44033" name="ਮੂਲ ਜ਼ੂਮ ਮੁੜ"/>
+                    <Item id="44034" name="ਹਮੇਸ਼ਾ ਸਿਖਰ 'ਤੇ"/>
+                    <Item id="44035" name="ਵਰਟੀਕਲ ਸਕਰੋਲਿੰਗ ਸ੍ਯ੍ਨਚ੍ਰੋਨਿਸੇ"/>
+                    <Item id="44036" name="ਹਰੀਜ਼ਟਲ ਸਕਰੋਲਿੰਗ ਸ੍ਯ੍ਨਚ੍ਰੋਨਿਸੇ"/>
+                    <Item id="44041" name="ਵੇਖਾਓ ਸਮੇਟੋ ਨਿਸ਼ਾਨ"/>
+                    <Item id="44072" name="ਹੋਰ ਝਲਕ 'ਤੇ ਫੋਕਸ"/>
+                    <Item id="44081" name="ਪ੍ਰੋਜੈਕਟ ਪੈਨਲ 1"/>
+                    <Item id="44082" name="ਪ੍ਰੋਜੈਕਟ ਪੈਨਲ 2"/>
+                    <Item id="44083" name="ਪ੍ਰੋਜੈਕਟ ਪੈਨਲ 3"/>
+                    <Item id="45001" name="Windows | ਵਿਨ੍ਦੋਵ੍ਸ  ਨੂੰ ਫਾਰਮੈਟ ਕਰਨ ਬਦਲੋ"/>
+                    <Item id="45002" name="UNIX | ਉਨਿਕ੍ਸ   ਫਾਰਮੈਟ ਨੂੰ ਬਦਲੋ"/>
+                    <Item id="45003" name=" MAC | ਮਾਕ ਫਾਰਮੈਟ ਨੂੰ ਬਦਲੋ"/>
+                    <Item id="45004" name="ANSI ਵਿੱਚ ਇੰਕੋਡ"/>
+                    <Item id="45005" name="UTF-8 ਵਿੱਚ ਇੰਕੋਡ"/>
+                    <Item id="45006" name="Ucs-2 ਵੱਡੇ ਏਡੀਅਨ ਵਿਚ ਇੰਕੋਡ"/>
+                    <Item id="45007" name="Ucs-2 Little ਏਡੀਅਨ ਵਿਚ ਇੰਕੋਡ"/>
+                    <Item id="45008" name="BOM ਬਿਨਾ UTF-8 ਵਿੱਚ ਇੰਕੋਡ ਕਰੋ"/>
+                    <Item id="45009" name="ANSI ਨੂੰ ਬਦਲੋ"/>
+                    <Item id="45010" name="BOM ਬਿਨਾ UTF-8 ਲਈ ਬਦਲੋ"/>
+                    <Item id="45011" name="UTF-8 ਲਈ ਬਦਲੋ"/>
+                    <Item id="45012" name="Ucs-2 ਵੱਡੇ ਏਡੀਅਨ ਨੂੰ ਬਦਲੋ"/>
+                    <Item id="45013" name="Ucs-2 Little ਏਡੀਅਨ ਨੂੰ ਬਦਲੋ"/>
+
+                    <Item id="10001" name="ਹੋਰ ਦੇਖੋ ਭੇਜੋ"/>
+                    <Item id="10002" name="ਹੋਰ ਦੇਖੋ ਨੂੰ ਕਲੋਨ"/>
+                    <Item id="10003" name="ਨ੍ਯੂ ਮਿਸਾਲ ਭੇਜੋ"/>
+                    <Item id="10004" name="ਨ੍ਯੂ ਮੌਕੇ ਵਿੱਚ ਓਪਨ"/>
+
+                    <Item id="45060" name="Big5 (ਪਾਰੰਪਰਕ)"/>
+                    <Item id="45061" name="GB2312 (ਸਰਲੀਕ੍ਰਿਤ)"/>
+					<Item id="45054" name="OEM 861: Icelandic"/>
+                    <Item id="45057" name="OEM 865: Nordic"/>
+                    <Item id="45053" name="OEM 860: ਪੁਰਤਗਾਲੀ"/>
+                    <Item id="45056" name="OEM 863: French"/>
+
+                    <Item id="46033" name="ਵਿਧਾਨ ਸਭਾ"/>
+                    <Item id="46019" name="MS INI ਫਾਇਲ"/>
+                    <Item id="46015" name="MS-DOS ਸ਼ੈਲੀ"/>
+                    <Item id="46016" name="ਸਧਾਰਨ ਪਾਠ"/>
+                    <Item id="46017" name="ਸਰੋਤ ਫਾਇਲ"/>
+
+                    <Item id="46001" name="ਸ਼ੈਲੀ ਸੰਰਚਨਾ ..."/>
+                    <Item id="46250" name="ਆਪਣੀ ਭਾਸ਼ਾ ਪਰਭਾਸ਼ਿਤ ..."/>
+                    <Item id="46180" name="ਯੂਜ਼ਰ-ਪ੍ਰਭਾਸ਼ਿਤ"/>
+                    <Item id="47000" name="++ ਨੋਟਪੈਡ ਬਾਰੇ ..."/>
+                    <Item id="47010" name="ਹੁਕਮ ਲਾਈਨ ਆਰਗੂਮਿੰਟ ..."/>
+                    <Item id="47001" name="ਨੋਟਪੈਡ ++ ਮੁੱਖ"/>
+                    <Item id="47002" name="ਨੋਟਪੈਡ ++ ਪ੍ਰੋਜੈਕਟ ਪੰਨਾ"/>
+                    <Item id="47003" name="ਆਨਲਾਈਨ ਦਸਤਾਵੇਜ਼"/>
+					<Item id="47004" name="ਨੋਟਪੈਡ ++ ਕਮਿਊਨਿਟੀ (ਫੋਰਮ)"/>
+                    <Item id="47011" name="ਲਾਈਵ ਸਹਿਯੋਗ"/>
+                    <Item id="47005" name="ਹੋਰ ਪਲੱਗਇਨ ਲਵੋ"/>
+                    <Item id="47006" name="ਅੱਪਡੇਟ ਨੋਟਪੈਡ ++"/>
+                    <Item id="47009" name="ਅੱਪਡੇਟਰ ਪਰਾਕਸੀ ਸੈੱਟ ..."/>
+                    <Item id="48005" name="ਅਯਾਤ ਪਲੱਗਇਨ (ਹਵਾਈਅੱਡੇ) ..."/>
+                    <Item id="48006" name="ਅਯਾਤ ਥੀਮ (ਹਵਾਈਅੱਡੇ) ..."/>
+                    <Item id="48018" name="ਸੋਧ ਪੋਪਅੱਪ ਕੋਨ੍ਤੇਕ੍ਸ੍ਤ੍ਮੇਨੁ"/>
+                    <Item id="48009" name="ਸ਼ਾਰਟਕੱਟ ਮੈਪਰ ..."/>
+                    <Item id="48011" name="ਪਸੰਦ ..."/>
+                    <Item id="49000" name="&amp; ਚਲਾਓ ..."/>
+
+                    <Item id="50000" name="ਫੰਕਸ਼ਨ ਨੂੰ ਪੂਰਾ"/>
+                    <Item id="50001" name="ਬਚਨ ਨੂੰ ਪੂਰਾ"/>
+                    <Item id="50002" name="ਫੰਕਸ਼ਨ ਪੈਰਾਮੀਟਰ ਇਸ਼ਾਰਾ"/>
+                    <Item id="50006" name="ਮਾਰਗ ਨੂੰ ਪੂਰਾ"/>
+                    <Item id="44042" name="ਓਹਲੇ ਲਾਈਨਜ਼"/>
+                    <Item id="42040" name="ਓਪਨ ਸਾਰੇ ਹਾਲੀਆ ਫਾਇਲ"/>
+                    <Item id="42041" name="ਖਾਲੀ ਹਾਲੀਆ ਫਾਇਲ ਸੂਚੀ"/>
+                    <Item id="48016" name="ਸ਼ਾਰਟਕੱਟ ਤਬਦੀਲੀ / ਮੈਕਰੋ ਹਟਾਓ ..."/>
+                    <Item id="48017" name="ਸ਼ਾਰਟਕੱਟ / ਸੋਧ ਲਈ ਹੁਕਮ ਹਟਾਓ ..."/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+           <TabBar>
+                    <Item CMID="0" name="ਬੰਦ ਕਰੋ"/>
+                    <Item CMID="1" name="ਬੰਦ ਕਰੋ ਸਾਰੇ ਪਰ ਇਸ"/>
+                    <Item CMID="2" name="ਸੰਭਾਲੋ"/>
+                    <Item CMID="3" name="ਨਾਤੇ ਸੰਭਾਲੋ ..."/>
+                    <Item CMID="4" name="ਪ੍ਰਿੰਟ"/>
+                    <Item CMID="5" name="ਹੋਰ ਦੇਖੋ ਭੇਜੋ"/>
+                    <Item CMID="6" name="ਹੋਰ ਦੇਖੋ ਨੂੰ ਕਲੋਨ"/>
+                    <Item CMID="7" name="ਪੂਰਾ ਫਾਇਲ ਮਾਰਗ ਕਲਿੱਪਬੋਰਡ"/>
+                    <Item CMID="8" name="ਫਾਇਲ ਕਲਿੱਪਬੋਰਡ ਨੂੰ"/>
+                    <Item CMID="9" name="ਮੌਜੂਦਾ ਦੀਰ. ਮਾਰਗ ਕਲਿੱਪਬੋਰਡ ਨੂੰ"/>
+                    <Item CMID="10" name="ਬਦਲੋ"/>
+                    <Item CMID="11" name="ਬਿਨ ਨੂੰ ਰੀਸਾਈਕਲ ਕਰਨ ਭੇਜੋ"/>
+                    <Item CMID="12" name="ਸਿਰਫ-ਪੜਨ ਲਈ"/>
+                    <Item CMID="13" name="ਆਸਮਾਨ ਸਾਫ ਸਿਰਫ-ਪੜਨ ਲਈ ਝੰਡਾ"/>
+                    <Item CMID="14" name="ਨ੍ਯੂ ਮਿਸਾਲ ਭੇਜੋ"/>
+                    <Item CMID="15" name="ਨ੍ਯੂ ਮੌਕੇ ਵਿੱਚ ਓਪਨ"/>
+                    <Item CMID="16" name="ਲੋਡ"/>
+                    <Item CMID="17" name="ਖੱਬੇ ਕਰਨ ਲਈ ਸਾਰੇ ਬੰਦ ਕਰੋ"/>
+                    <Item CMID="18" name="ਸੱਜੇ ਕਰਨ ਲਈ ਸਾਰੇ ਬੰਦ ਕਰੋ"/>
+                    <Item CMID="19" name="ਐਕਸਪਲੋਰਰ ਵਿੱਚ ਫੋਲਡਰ ਰੱਖਣ ਖੋਲ੍ਹੋ"/>
+                    <Item CMID="20" name="ਸੀ.ਐਮ.ਡੀ. ਵਿੱਚ ਫੋਲਡਰ ਰੱਖਣ ਖੋਲ੍ਹੋ"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
+                <Item id="1"    name="ਅੱਗੇ ਲੱਭੋ"/>
+                <Item id="2"    name="ਬੰਦ ਕਰੋ"/>
+                <Item id="1620" name="ਕੀ ਲੱਭੋ:"/>
+                <Item id="1603" name="ਮੈਚ &amp; ਸਾਰੀ ਸ਼ਬਦ ਨੂੰ ਸਿਰਫ"/>
+                <Item id="1604" name="ਮੈਚ &amp; ਮਾਮਲੇ '"/>
+                <Item id="1605" name="ਰੈਗੂਲਰ &amp; ਸਮੀਕਰਨ"/>
+                <Item id="1606" name="ਆਲੇ-ਦੁਆਲੇ ਦੇ ਸਮੇਟਣਾ"/>
+                <Item id="1612" name="&amp; ਉੱਪਰ"/>
+                <Item id="1613" name="&amp;ਡਾਊਨ"/>
+                <Item id="1614" name="ਗਿਣਤੀ"/>
+                <Item id="1615" name="ਸਾਰੇ ਲੱਭੋ"/>
+                <Item id="1616" name="ਮਰਕੁਸ ਲਾਈਨ"/>
+                <Item id="1618" name="ਹਰ ਇੱਕ ਦੀ ਖੋਜ ਲਈ ਅਲੱਗ"/>
+                <Item id="1621" name="ਦਿਸ਼ਾ"/>
+                <Item id="1611" name="ਮੁੜ &amp; ਜਗ੍ਹਾ ਦੇ ਨਾਲ:"/>
+                <Item id="1608" name="&amp; ਤਬਦੀਲ"/>
+                <Item id="1609" name="ਤਬਦੀਲ &amp; ਸਾਰੇ"/>
+                <Item id="1687" name="ਗੁਆਉਣ ਫੋਕਸ 'ਤੇ"/>
+                <Item id="1688" name="ਹਮੇਸ਼ਾ"/>
+                <Item id="1632" name="ਚੋਣ ਵਿੱਚ"/>
+                <Item id="1633" name="ਆਸਮਾਨ ਸਾਫ"/>
+                <Item id="1635" name="ਸਾਰੇ ਖੋਲਿਆ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਸਾਰੇ ਤਬਦੀਲ"/>
+                <Item id="1636" name="ਸਾਰੇ ਖੋਲਿਆ ਦਸਤਾਵੇਜ਼ ਦੇ ਸਾਰੇ ਲੱਭੋ"/>
+                <Item id="1654" name="ਫਿਲਟਰ:"/>
+                <Item id="1655" name="ਫਿਲਟਰ:"/>
+                <Item id="1656" name="ਸਾਰੇ ਲੱਭੋ"/>
+                <Item id="1658" name="ਸਾਰੇ ਸਬ-ਫੋਲਡਰ ਵਿੱਚ"/>
+                <Item id="1659" name="ਲੁਕੇ ਫੋਲਡਰ ਵਿੱਚ"/>
+                <Item id="1624" name="ਖੋਜ ਮੋਡ"/>
+                <Item id="1625" name="ਸਧਾਰਨ"/>
+                <Item id="1626" name="ਏਕ੍ਸ੍ਤੇੰਦੇਦ (Extended) (\r, \n, \t, \x..., \0)"/>
+                <Item id="1660" name="ਫਾਇਲ ਵਿੱਚ ਤਬਦੀਲ"/>
+                <Item id="1661" name="ਮੌਜੂਦਾ doc ਦੀ ਪਾਲਣਾ ਕਰੋ."/>
+                <Item id="1641" name="ਮੌਜੂਦਾ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਸਾਰੇ ਲੱਭੋ"/>
+                <Item id="1686" name="ਪਾਰਦਰਸ਼ਤਾ"/>
+                <Item id="1703" name="&amp;. ਲਾਈਨ ਨਾਲ ਮਿਲਦਾ ਹੈ"/>
+            </Find>
+            <FindCharsInRange title="Find Characters in Range...">
+                <Item id="2" name="ਬੰਦ ਕਰੋ"/>
+                <Item id="2901" name="ਗੈਰ-ASCII ਅੱਖਰ (128-255)"/>
+                <Item id="2902" name="ASCII ਅੱਖਰ (0-127)"/>
+                <Item id="2903" name="ਮੇਰੀ ਸੀਮਾ:"/>
+                <Item id="2906" name="&amp; ਉੱਪਰ"/>
+                <Item id="2907" name="&amp;ਡਾਊਨ"/>
+                <Item id="2908" name="ਦਿਸ਼ਾ"/>
+                <Item id="2909" name="ਆਲੇ-ਦੁਆਲੇ ਦੇ ਸਮੇਟਣਾ"/>
+                <Item id="2910" name="ਲੱਭੋ"/>
+            </FindCharsInRange>
+
+            <GoToLine title="Go to...">
+                <Item id="2007" name="ਲਾਈਨ"/>
+                <Item id="2008" name="ਆਫਸੈੱਟ"/>
+                <Item id="1"    name="&amp; ਜਾਓ"/>
+                <Item id="2"    name="ਮੈਨੂੰ ਕਿਤੇ ਜਾ ਰਿਹਾ ਹੈ"/>
+                <Item id="2004" name="ਤੁਸੀਂ ਇੱਥੇ ਹੋ:"/>
+                <Item id="2005" name="ਤੁਹਾਨੂੰ ਕਰਨ ਲਈ ਜਾਣਾ ਚਾਹੁੰਦੇ ਹੋ:"/>
+                <Item id="2006" name="ਤੁਹਾਨੂੰ ਵੱਧ ਹੋਰ ਅੱਗੇ ਜਾਣ ਦੀ ਨਹੀ ਕਰ ਸਕਦੇ ਹੋ:"/>
+            </GoToLine>
+
+            <Run title="Run...">
+                <Item id="1903" name="ਕਾਰਜ ਨੂੰ ਚਲਾਉਣ ਲਈ"/>
+                <Item id="1"    name="ਚਲਾਓ"/>
+                <Item id="2"    name="ਰੱਦ ਕਰੋ"/>
+                <Item id="1904" name="ਸੰਭਾਲੋ ..."/>
+            </Run>
+
+            <StyleConfig title="Style Configurator">
+                <Item id="2"    name="ਰੱਦ ਕਰੋ"/>
+                <Item id="2301" name="ਸੰਭਾਲੋ ਅਤੇ amp; &amp; ਬੰਦ ਕਰੋ"/>
+                <Item id="2303" name="ਪਾਰਦਰਸ਼ਤਾ"/>
+                <Item id="2306" name="ਚੁਣੋ ਥੀਮ:"/>
+                <SubDialog>
+                    <Item id="2204" name="ਬੋਲਡ"/>
+                    <Item id="2205" name="ਇਟੈਲਿਕ "/>
+                    <Item id="2206" name="ਮੁੱਖਭੂਮੀ ਰੰਗ"/>
+                    <Item id="2207" name="ਪਿੱਠਭੂਮੀ ਦਾ ਰੰਗ"/>
+                    <Item id="2208" name="ਫੋਟ ਦਾ ਨਾਮ"/>
+                    <Item id="2209" name="ਫੋਟ ਦਾ ਆਕਾਰ:"/>
+                    <Item id="2211" name="ਸ਼ੈਲੀ:"/>
+                    <Item id="2212" name="ਰੰਗ ਸ਼ੈਲੀ"/>
+                    <Item id="2213" name="ਫੋਟ ਸ਼ੈਲੀ"/>
+                    <Item id="2214" name="ਡਿਫਾਲਟ ਐਕਸਟੈਨਸ਼ਨ:."/>
+                    <Item id="2214" name="ਯੂਜ਼ਰ ਐਕਸਟੈਨਸ਼ਨ:."/>
+                    <Item id="2216" name="ਯੂਜ਼ਰ ਐਕਸਟੈਨਸ਼ਨ .:"/>
+                    <Item id="2218" name="ਹੇਠ ਰੇਖਾ"/>
+                    <Item id="2219" name="ਮੂਲ ਸ਼ਬਦ"/>
+                    <Item id="2221" name="ਯੂਜ਼ਰ-ਪ੍ਰਭਾਸ਼ਿਤ ਸ਼ਬਦ"/>
+                    <Item id="2225" name="ਭਾਸ਼ਾ:"/>
+                    <Item id="2226" name="ਗਲੋਬਲ ਅਗਲੇ ਰੰਗ ਯੋਗ"/>
+                    <Item id="2227" name="ਗਲੋਬਲ ਦੀ ਪਿੱਠਭੂਮੀ ਦਾ ਰੰਗ ਯੋਗ"/>
+                    <Item id="2228" name="ਗਲੋਬਲ ਫੋਟ ਯੋਗ"/>
+                    <Item id="2229" name="ਗਲੋਬਲ ਫੋਟ ਦਾ ਆਕਾਰ ਯੋਗ"/>
+                    <Item id="2230" name="ਗਲੋਬਲ ਬੋਲਡ ਫੋਟ ਸ਼ੈਲੀ ਨੂੰ ਯੋਗ ਕਰੋ"/>
+                    <Item id="2231" name="ਗਲੋਬਲ ਤਿਰਛੇ ਫੋਟ ਸ਼ੈਲੀ ਨੂੰ ਯੋਗ ਕਰੋ"/>
+                    <Item id="2232" name="ਗਲੋਬਲ ਰੇਖਾ ਫੋਟ ਸ਼ੈਲੀ ਨੂੰ ਯੋਗ ਕਰੋ"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title="User-Defined">
+                <Item id="20001" name="ਤਰਦਾ"/>
+                <Item id="20002" name="ਬਦਲੋ"/>
+                <Item id="20003" name="ਨਿਊ ਬਣਾਓ ..."/>
+                <Item id="20004" name="ਹਟਾਓ"/>
+                <Item id="20005" name="ਨਾਤੇ ਸੰਭਾਲੋ ..."/>
+                <Item id="20007" name="ਯੂਜ਼ਰ ਭਾਸ਼ਾ:"/>
+                <Item id="20009" name="ਐਕਸਟੈਨਸ਼ਨ .:"/>
+                <Item id="20012" name="ਕੇਸ ਦੀ ਅਣਡਿੱਠਾ"/>
+                <Item id="20011" name="ਪਾਰਦਰਸ਼ਤਾ"/>
+                <Item id="20015" name="ਇੰਪੋਰਟ ..."/>
+                <Item id="20016" name="ਐਕਸਪੋਰਟ ..."/>
+                <StylerDialog title="Styler Dialog">
+                    <Item id="25030" name="ਫੋਟ ਚੋਣ:"/>
+                    <Item id="25006" name="ਮੁੱਖਭੂਮੀ ਰੰਗ"/>
+                    <Item id="25007" name="ਪਿੱਠਭੂਮੀ ਦਾ ਰੰਗ"/>
+                    <Item id="25031" name="ਨਾਮ:"/>
+                    <Item id="25032" name="ਆਕਾਰ:"/>
+                    <Item id="25001" name="ਬੋਲਡ"/>
+                    <Item id="25002" name="ਇਟੈਲਿਕ (Italic)"/>
+                    <Item id="25003" name="ਹੇਠ ਰੇਖਾ"/>
+                    <Item id="25029" name="ਆਲ੍ਹਣੇ:"/>
+                    <Item id="25008" name="ਦੇਲਿਮਿਟਰ  (Delimiter) 1"/>
+                    <Item id="25009" name="ਦੇਲਿਮਿਟਰ  (Delimiter) 2"/>
+                    <Item id="25010" name="ਦੇਲਿਮਿਟਰ  (Delimiter) 3"/>
+                    <Item id="25011" name="ਦੇਲਿਮਿਟਰ  (Delimiter) 4"/>
+                    <Item id="25012" name="ਦੇਲਿਮਿਟਰ  (Delimiter) 5"/>
+                    <Item id="25013" name="ਦੇਲਿਮਿਟਰ  (Delimiter) 6"/>
+                    <Item id="25014" name="ਦੇਲਿਮਿਟਰ  (Delimiter) 7"/>
+                    <Item id="25015" name="ਦੇਲਿਮਿਟਰ  (Delimiter) 8"/>
+                    <Item id="25018" name="ਕੀਵਰਡ 1"/>
+                    <Item id="25019" name="ਕੀਵਰਡ 2"/>
+                    <Item id="25020" name="ਕੀਵਰਡ 3"/>
+                    <Item id="25021" name="ਕੀਵਰਡ  4"/>
+                    <Item id="25022" name="ਕੀਵਰਡ  5"/>
+                    <Item id="25023" name="ਕੀਵਰਡ  6"/>
+                    <Item id="25024" name="ਕੀਵਰਡ  7"/>
+                    <Item id="25025" name="ਕੀਵਰਡ  8"/>
+                    <Item id="25016" name="ਟਿੱਪਣੀ"/>
+                    <Item id="25017" name="ਟਿੱਪਣੀ ਲਾਈਨ"/>
+                    <Item id="25026" name="ਆਪਰੇਟਰ 1"/>
+                    <Item id="25027" name="ਆਪਰੇਟਰ 2"/>
+                    <Item id="25028" name="ਨੰਬਰ"/>
+					<Item id="1" name="ਠੀਕ ਹੈ"/>
+                    <Item id="2" name="ਰੱਦ ਕਰੋ"/>
+                </StylerDialog>
+                 <Folder title="Folder &amp;&amp; Default">
+                    <Item id="21101" name="ਮੂਲ ਸ਼ੈਲੀ"/>
+                    <Item id="21102" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="21105" name="ਦਸਤਾਵੇਜ਼:"/>
+                    <Item id="21104" name="ਤੇਮ੍ਪੋਰਾਰੀ ਡਾਕ ਸੀਤੇ (Temporary doc site):"/>
+                    <Item id="21106" name="ਕੌਮਪੈਕਟ (ਵੀ ਖਾਲੀ ਲਾਈਨ ਫੋਲਡ) ਫੋਲਡ"/>
+                    <Item id="21220" name="ਕੋਡ 1 ਸ਼ੈਲੀ ਵਿੱਚ ਤਹਿ ਕਰਣਾ:"/>
+                    <Item id="21224" name="ਖੋਲ੍ਹੋ:"/>
+                    <Item id="21225" name="ਮਿਡਲ:"/>
+                    <Item id="21226" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="21227" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="21320" name="ਕੋਡ 2 ਸ਼ੈਲੀ (ਵੱਖਰੇਵੇ ਦੀ ਲੋੜ) ਵਿਚ ਤਹਿ ਕਰਣਾ:"/>
+                    <Item id="21324" name="ਖੋਲ੍ਹੋ:"/>
+                    <Item id="21325" name="ਮਿਡਲ:"/>
+                    <Item id="21326" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="21327" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="21420" name="ਟਿੱਪਣੀ ਸ਼ੈਲੀ ਵਿੱਚ ਤਹਿ ਕਰਣਾ:"/>
+                    <Item id="21424" name="ਖੋਲ੍ਹੋ:"/>
+                    <Item id="21425" name="ਮਿਡਲ:"/>
+                    <Item id="21426" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="21427" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                </Folder>
+                <Keywords title="Keywords Lists">
+                    <Item id="22101" name="1 ਗਰੁੱਪ"/>
+                    <Item id="22201" name="2 ਗਰੁੱਪ"/>
+                    <Item id="22301" name="3 ਗਰੁੱਪ"/>
+                    <Item id="22401" name="4 ਗਰੁੱਪ"/>
+                    <Item id="22451" name="5 ਗਰੁੱਪ"/>
+                    <Item id="22501" name="6 ਗਰੁੱਪ"/>
+                    <Item id="22551" name="7 ਗਰੁੱਪ"/>
+                    <Item id="22601" name="8 ਗਰੁੱਪ"/>
+                    <Item id="22121" name="ਅਗੇਤਰ ਢੰਗ"/>
+                    <Item id="22221" name="ਅਗੇਤਰ ਢੰਗ"/>
+                    <Item id="22321" name="ਅਗੇਤਰ ਢੰਗ"/>
+                    <Item id="22421" name="ਅਗੇਤਰ ਢੰਗ"/>
+                    <Item id="22471" name="ਅਗੇਤਰ ਢੰਗ"/>
+                    <Item id="22521" name="ਅਗੇਤਰ ਢੰਗ"/>
+                    <Item id="22571" name="ਅਗੇਤਰ ਢੰਗ"/>
+                    <Item id="22621" name="ਅਗੇਤਰ ਢੰਗ"/>
+                    <Item id="22122" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="22222" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="22322" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="22422" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="22472" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="22522" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="22572" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="22622" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                </Keywords>
+                <Comment title="Comment &amp;&amp; Number">
+                    <Item id="23003" name="ਲਾਈਨ ਟਿੱਪਣੀ ਸਥਿਤੀ"/>
+                    <Item id="23004" name="ਕਿਤੇ ਵੀ ਇਜ਼ਾਜਤ"/>
+                    <Item id="23005" name="ਲਾਈਨ ਦੇ ਸ਼ੁਰੂ 'ਤੇ ਫੋਰਸ"/>
+                    <Item id="23006" name="ਦਆਲ੍ਲੋਵ ਪ੍ਰੇਕੀਡਿੰਗ ਵਹਿਤੇਸ੍ਪੇਸ "/>
+                    <Item id="23001" name="ਟਿੱਪਣੀ ਦੇ ਤਹਿ ਕਰਣਾ ਦੀ ਇਜ਼ਾਜਤ"/>
+                    <Item id="23326" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="23323" name="ਓਪਨ"/>
+                    <Item id="23324" name="ਅੱਖਰ ਜਾਰੀ ਰੱਖੋ"/>
+                    <Item id="23325" name="ਬੰਦ ਕਰੋ"/>
+                    <Item id="23301" name="ਕੋਮ੍ਮੇੰਟ ਲੀਨੇ ਸ੍ਟੀਲੇ "/>
+                    <Item id="23124" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="23122" name="ਓਪਨ"/>
+                    <Item id="23123" name="ਬੰਦ ਕਰੋ"/>
+                    <Item id="23101" name="ਟਿੱਪਣੀ ਸ਼ੈਲੀ"/>
+                    <Item id="23201" name="ਨੰਬਰ ਸ਼ੈਲੀ"/>
+                    <Item id="23220" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="23230" name="ਅਗੇਤਰ 1"/>
+                    <Item id="23232" name="ਅਗੇਤਰ 2"/>
+                    <Item id="23234" name="ਵਾਧੂ 1"/>
+                    <Item id="23236" name="ਵਾਧੂ 2"/>
+                    <Item id="23238" name="ਪਿਛੇਤਰ 1"/>
+                    <Item id="23240" name="ਪਿਛੇਤਰ 2"/>
+                    <Item id="23242" name="ਸੀਮਾ:"/>
+                    <Item id="23244" name="ਦਸ਼ਮਲਵ ਵੱਖਰੇ"/>
+                    <Item id="23245" name="ਡਾਟ"/>
+                    <Item id="23246" name="ਕਾਮਾ"/>
+                    <Item id="23247" name="ਦੋਨੋ"/>
+                </Comment>
+                 <Operator title="Operators &amp;&amp; Delimiter">
+                    <Item id="24101" name="ਚਾਲਕ ਸ਼ੈਲੀ"/>
+                    <Item id="24113" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="24116" name="ਚਾਲਕ 1"/>
+                    <Item id="24117" name="ਚਾਲਕ 2 (ਵੱਖਰੇਵੇ ਦੀ ਲੋੜ ਹੈ)"/>
+                    <Item id="24201" name="ਦੇਲਿਮਿਟਰ (Delimiter) 1 ਸ਼ੈਲੀ"/>
+                    <Item id="24220" name="ਓਪਨ:"/>
+                    <Item id="24221" name="ਏਸ੍ਕੈਪੇ:"/>
+                    <Item id="24222" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="24223" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="24301" name="ਦੇਲਿਮਿਟਰ (Delimiter) 2 ਸ਼ੈਲੀ"/>
+                    <Item id="24320" name="ਓਪਨ:"/>
+                    <Item id="24321" name="ਏਸ੍ਕੈਪੇ:"/>
+                    <Item id="24322" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="24323" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="24401" name="ਦੇਲਿਮਿਟਰ (Delimiter) 3 ਸ਼ੈਲੀ"/>
+                    <Item id="24420" name="ਓਪਨ:"/>
+                    <Item id="24421" name="ਏਸ੍ਕੈਪੇ:"/>
+                    <Item id="24422" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="24423" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="24451" name="ਦੇਲਿਮਿਟਰ (Delimiter) 4 ਸ਼ੈਲੀ"/>
+                    <Item id="24470" name="ਓਪਨ:"/>
+                    <Item id="24471" name="ਏਸ੍ਕੈਪੇ:"/>
+                    <Item id="24472" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="24473" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="24501" name="ਦੇਲਿਮਿਟਰ (Delimiter) 5 ਸ਼ੈਲੀ"/>
+                    <Item id="24520" name="ਓਪਨ:"/>
+                    <Item id="24521" name="ਏਸ੍ਕੈਪੇ:"/>
+                    <Item id="24522" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="24523" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="24551" name="ਦੇਲਿਮਿਟਰ (Delimiter) 6 ਸ਼ੈਲੀ"/>
+                    <Item id="24570" name="ਓਪਨ:"/>
+                    <Item id="24571" name="ਏਸ੍ਕੈਪੇ:"/>
+                    <Item id="24572" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="24573" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="24601" name="ਦੇਲਿਮਿਟਰ (Delimiter) 7 ਸ਼ੈਲੀ"/>
+                    <Item id="24620" name="ਓਪਨ:"/>
+                    <Item id="24621" name="ਏਸ੍ਕੈਪੇ:"/>
+                    <Item id="24622" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="24623" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                    <Item id="24651" name="ਦੇਲਿਮਿਟਰ (Delimiter) 8 ਸ਼ੈਲੀ"/>
+                    <Item id="24670" name="ਓਪਨ:"/>
+                    <Item id="24671" name="ਏਸ੍ਕੈਪੇ:"/>
+                    <Item id="24672" name="ਬੰਦ ਕਰੋ:"/>
+                    <Item id="24673" name="ਸ੍ਟੀਲੇਰ (Styler)"/>
+                </Operator>
+            </UserDefine>
+            <Preference title="Preferences">
+                <Item id="6001" name="Close"/>
+                    <Global title="General">
+                    <Item id="6101" name="ਟੂਲਬਾਰ"/>
+                    <Item id="6102" name="ਓਹਲੇ"/>
+                    <Item id="6103" name="ਛੋਟੇ ਆਈਕਾਨ"/>
+                    <Item id="6104" name="ਵੱਡੇ ਆਈਕਾਨ"/>
+                    <Item id="6105" name="ਮਿਆਰੀ ਆਈਕਾਨ"/>
+
+                    <Item id="6106" name="ਟੈਬ ਬਾਰ"/>
+                    <Item id="6107" name="ਘਟਾਓ"/>
+                    <Item id="6108" name="ਲਾਕ (ਕੋਈ ਚੁੱਕੋ ਅਤੇ)"/>
+                    <Item id="6109" name="ਸਰਗਰਮ ਟੈਬ ਦਾ ਗੂਡ਼ਾਪਨ"/>
+                    <Item id="6110" name="ਸਰਗਰਮ ਟੈਬ 'ਤੇ ਇੱਕ ਰੰਗ ਪੱਟੀ ਬਣਾਉ"/>
+
+                    <Item id="6111" name="ਵੇਖਾਓ ਨੂੰ ਸਥਿਤੀ ਪੱਟੀ"/>
+                    <Item id="6112" name="ਹਰ ਇੱਕ ਟੈਬ ਤੇ ਬੰਦ ਕਰੋ ਬਟਨ ਨੂੰ ਦਿਖਾਓ"/>
+                    <Item id="6113" name="ਦੋਹਰਾ ਦਸਤਾਵੇਜ਼ ਨੂੰ ਬੰਦ ਕਰਨ ਲਈ ਕਲਿੱਕ ਕਰੋ"/>
+                    <Item id="6118" name="ਓਹਲੇ"/>
+                    <Item id="6119" name="ਮਲਟੀ-ਲਾਈਨ"/>
+                    <Item id="6120" name="ਵਰਟੀਕਲ"/>
+
+                    <Item id="6122" name="ਓਹਲੇ (ਵਰਤਣ ਲਈ Alt ਜ F10 ਤਬਦੀਲ ਕਰਨ ਲਈ ਕੁੰਜੀ)"/>
+                    <Item id="6123" name="ਅਨੁਵਾਦ"/>
+
+                    <Item id="6125" name="ਦਸਤਾਵੇਜ਼ ਸੂਚੀ ਪੈਨਲ"/>
+                    <Item id="6126" name="ਵੇਖਾਓ"/>
+                    <Item id="6127" name="ਅਯੋਗ ਐਕਸ਼ਟੇਸ਼ਨ ਕਾਲਮ"/>
+                </Global>
+               <Scintillas title="Editing">
+                    <Item id="6216" name="ਕੈਰੇਟ ਸੈਟਿੰਗ"/>
+                    <Item id="6217" name="ਚੌੜਾਈ:"/>
+                    <Item id="6219" name="ਝਪਕਣੀ ਦਰ:"/>
+                    <Item id="6221" name="ਫਾਰੇਨਹਾਇਟ"/>
+                    <Item id="6222" name="S"/>
+                    <Item id="6224" name="ਮਲਟੀ-ਸੋਧ ਸੈਟਿੰਗ"/>
+                    <Item id="6225" name="ਯੋਗ (Ctrl + ਮਾਉਸ ਨੂੰ ਕਲਿੱਕ ਕਰੋ / ਚੋਣ)"/>
+                    <Item id="6201" name="ਫੋਲਡਰ ਅੰਤਰ ਸ਼ੈਲੀ"/>
+                    <Item id="6202" name="ਸਧਾਰਨ"/>
+                    <Item id="6203" name="ਤੀਰ"/>
+                    <Item id="6204" name="ਸਰਕਲ ਦੇ ਰੁੱਖ"/>
+                    <Item id="6205" name="ਬਾਕਸ ਦੇ ਰੁੱਖ"/>
+                    <Item id="6226" name="ਕੋਈ"/>
+
+                    <Item id="6227" name="ਲਾਈਨ ਸਮੇਟੋ"/>
+                    <Item id="6228" name="ਮੂਲ"/>
+                    <Item id="6229" name="ਮਿਲਾਉਣੀ"/>
+                    <Item id="6230" name="ਹਾਸ਼ੀਏ"/>
+
+                    <Item id="6206" name="ਡਿਸਪਲੇਅ ਲਾਈਨ ਨੰਬਰ"/>
+                    <Item id="6207" name="ਡਿਸਪਲੇਅ ਬੁੱਕਮਾਰਕ"/>
+                    <Item id="6208" name="ਲੰਬਕਾਰੀ ਕਿਨਾਰੇ ਦਿਖਾਓ"/>
+                    <Item id="6209" name="ਕਾਲਮ ਦੀ ਗਿਣਤੀ: "/>
+                    <Item id="6234" name="ਤਕਨੀਕੀ ਸਕਰੋਲਿੰਗ ਫੀਚਰ ਆਯੋਗ (ਤੁਹਾਨੂੰ ਟੱਚਪੈਡ ਸਮੱਸਿਆ ਹੈ, ਜੇ)"/>
+
+                    <Item id="6211" name="ਵਰਟੀਕਲ ਕੋਨਾ ਸੈਟਿੰਗ"/>
+                    <Item id="6212" name="ਲਾਈਨ ਮੋਡ"/>
+                    <Item id="6213" name="ਪਿੱਠਭੂਮੀ ਢੰਗ"/>
+                    <Item id="6214" name="ਮੌਜੂਦਾ ਲਾਈਨ ਉਭਾਰਨ ਚਾਲੂ ਕਰ"/>
+					<Item id="6215" name="ਨਿਰਵਿਘਨ ਫੋਟ ਯੋਗ"/>
+                    <Item id="6231" name="ਬਾਰਡਰ ਚੌੜਾਈ"/>
+                </Scintillas>
+
+                  <NewDoc title="New Document">
+                    <Item id="6401" name="ਫਾਰਮੈਟ"/>
+                    <Item id="6402" name="ਵਿਨ੍ਦੋਵ੍ਸ (Windows)"/>
+                    <Item id="6403" name="ਯੂਨੈਕਸ"/>
+                    <Item id="6404" name="ਮੈਕ"/>
+                    <Item id="6405" name="ਇੰਕੋਡਿੰਗ"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="UTF-8"/>
+                    <Item id="6408" name="UTF-8 BOM ਨਾਲ"/>
+                    <Item id="6409" name="BOM ਨਾਲ ucs-2 ਵੱਡੇ ਏਡੀਅਨ"/>
+                    <Item id="6410" name="BOM ਨਾਲ ucs-2 Little ਏਡੀਅਨ"/>
+                    <Item id="6411" name="ਮੂਲ ਭਾਸ਼ਾ:"/>
+                    <Item id="6419" name="ਨਿਊ ਦਸਤਾਵੇਜ਼"/>
+                    <Item id="6420" name="ਖੋਲ੍ਹਿਆ ANSI ਫਾਇਲ ਨੂੰ ਲਾਗੂ"/>
+                </NewDoc>
+
+                <DefaultDir title="Default Directory">
+                    <Item id="6413" name="ਮੂਲ ਡਾਇਰੈਕਟਰੀ (ਓਪਨ / ਸੰਭਾਲੋ)"/>
+                    <Item id="6414" name="ਮੌਜੂਦਾ ਦਸਤਾਵੇਜ਼ ਦੀ ਪਾਲਣਾ ਕਰੋ"/>
+                    <Item id="6415" name="ਆਖਰੀ ਵਰਤੀ ਜਾਦੀ ਡਾਇਰੈਕਟਰੀ ਨੂੰ ਯਾਦ ਰੱਖੋ"/>
+                </DefaultDir>
+
+                <FileAssoc title="File Association">
+                    <Item id="4009" name="ਸਹਾਇਕ ਇਕਸਟੈਨਸ਼ਨ:"/>
+                    <Item id="4010" name="ਰਜਿਸਟਰਡ ਇਕਸਟੈਨਸ਼ਨ:"/>
+                </FileAssoc>
+                <LangMenu title="Language Menu">
+                    <Item id="6505" name="ਉਪਲੱਬਧ ਇਕਾਈ"/>
+                    <Item id="6506" name="ਅਯੋਗ ਇਕਾਈ"/>
+                    <Item id="6507" name="ਭਾਸ਼ਾ ਮੇਨੂ ਸੰਖੇਪ ਬਣਾਓ"/>
+                    <Item id="6508" name="ਭਾਸ਼ਾ ਮੇਨੂ"/>
+                </LangMenu>
+
+                <TabSettings title="Tab Settings">
+                    <Item id="6301" name="ਟੈਬ ਸੈਟਿੰਗ"/>
+                    <Item id="6302" name="ਸਪੇਸ ਦੇ ਕੇ ਤਬਦੀਲ"/>
+                    <Item id="6303" name="ਟੈਬ ਦਾ ਆਕਾਰ: "/>
+                    <Item id="6510" name="ਵਰਤੋ ਮੂਲ ਮੁੱਲ"/>
+                </TabSettings>
+
+                <Print title="Print">
+                    <Item id="6601" name="ਪ੍ਰਿੰਟ ਲਾਈਨ ਦਾ ਨੰਬਰ"/>
+                    <Item id="6602" name="ਰੰਗ ਚੋਣ"/>
+                    <Item id="6603" name="WYSIWYG"/>
+                    <Item id="6604" name="ਉਲਟ"/>
+                    <Item id="6605" name="ਚਿੱਟੇ ਤੇ ਕਾਲੇ"/>
+                    <Item id="6606" name="ਕੋਈ ਪਿੱਠਭੂਮੀ ਦੇ ਰੰਗ"/>
+                    <Item id="6607" name="ਮਰਗੇ  ਸੈਟਿੰਗ (ਯੂਨਿਟ: ਮਿਲੀਮੀਟਰ) | (Unit:mm)"/>
+                    <Item id="6612" name="ਖੱਬੇ"/>
+                    <Item id="6613" name="ਸਿਖਰ"/>
+                    <Item id="6614" name="ਸੱਜੇ"/>
+                    <Item id="6615" name="ਤਲ"/>
+                    <Item id="6706" name="ਬੋਲਡ"/>
+                    <Item id="6707" name="ਇਟੈਲਿਕ (Italic)"/>
+                    <Item id="6708" name="ਸਿਰਲੇਖ"/>
+                    <Item id="6709" name="ਖੱਬੇ ਹਿੱਸਾ"/>
+                    <Item id="6710" name="ਮਿਡਲ ਹਿੱਸਾ"/>
+                    <Item id="6711" name="ਸੱਜਾ ਹਿੱਸਾ"/>
+                    <Item id="6717" name="ਬੋਲਡ"/>
+                    <Item id="6718" name="ਇਟੈਲਿਕ (Italic)"/>
+                    <Item id="6719" name="ਪਦਲੇਖ"/>
+                    <Item id="6720" name="ਖੱਬੇ ਹਿੱਸਾ"/>
+                    <Item id="6721" name="ਮਿਡਲ ਹਿੱਸਾ"/>
+                    <Item id="6722" name="ਸੱਜਾ ਹਿੱਸਾ"/>
+                    <Item id="6723" name="ਸ਼ਾਮਲ ਕਰੋ"/>
+                    <Item id="6725" name="ਅਸਥਿਰ:"/>
+                    <Item id="6727" name="ਇੱਥੇ ਤੁਹਾਡੀ ਵੇਰੀਏਬਲ ਦੀ ਸੈਟਿੰਗ ਵੇਖਾਉਣ"/>
+                    <Item id="6728" name="ਸਿਰਲੇਖ ਅਤੇ ਪਦਲੇਖ"/>
+                </Print>
+
+                <RecentFilesHistory title="Recent Files History">
+                    <Item id="6304" name="ਤਾਜ਼ਾ ਫਾਇਲ ਅਤੀਤ"/>
+                    <Item id="6306" name="ਮੈਕਸ. ਇੰਦਰਾਜ਼ ਦੀ ਗਿਣਤੀ:"/>
+                    <Item id="6305" name="ਸ਼ੁਰੂ ਵੇਲੇ 'ਤੇ ਚੈੱਕ ਨਾ ਕਰੋ"/>
+                    <Item id="6429" name="ਡਿਸਪਲੇਅ"/>
+                    <Item id="6424" name="ਸਬ ਵਿੱਚ"/>
+                    <Item id="6425" name="ਕੇਵਲ ਫਾਇਲ ਦਾ ਨਾਮ"/>
+                    <Item id="6426" name="ਪੂਰਾ ਫਾਇਲ ਦਾ ਨਾਮ ਮਾਰਗ"/>
+                    <Item id="6427" name="ਵੱਧ ਲੰਬਾਈ ਸੋਧ:"/>
+                </RecentFilesHistory>
+
+                <Backup title="Backup">
+                    <Item id="6817" name="ਸੈਸ਼ਨ ਦੀ ਤਸਵੀਰ ਅਤੇ ਅੰਤਰਾਲ ਬੈਕਅੱਪ"/>
+                    <Item id="6818" name="ਸ਼ੈਸ਼ਨ ਨੂੰ ਸਨੈਪਸ਼ਾਟ ਅਤੇ ਅੰਤਰਾਲ ਬੈਕਅੱਪ ਯੋਗ"/>
+                    <Item id="6819" name="ਹਰ ਵਿਚ ਬੈਕਅੱਪ"/>
+                    <Item id="6821" name="ਸਕਿੰਟ"/>
+                    <Item id="6822" name="ਬੈਕਅੱਪ ਮਾਰਗ:"/>
+                    <Item id="6309" name="ਅੱਗੇ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਮੌਜੂਦਾ ਸ਼ੈਸ਼ਨ ਨੂੰ ਯਾਦ ਰੱਖੋ"/>
+                    <Item id="6801" name="ਬੈਕਅੱਪ"/>
+                    <Item id="6315" name="ਕੋਈ"/>
+                    <Item id="6316" name="ਸਧਾਰਨ ਬੈਕਅੱਪ"/>
+                    <Item id="6317" name="ਵੱਧ ਜਾਣਕਾਰੀ ਬੈਕਅੱਪ"/>
+                    <Item id="6804" name="ਕਸਟਮ ਬੈਕਅੱਪ ਡਾਇਰੈਕਟਰੀ"/>
+                    <Item id="6803" name="ਡਾਇਰੈਕਟਰੀ:"/>
+                </Backup>
+
+                <AutoCompletion title="Auto-Completion">
+                    <Item id="6807" name="ਆਟੋ ਪੂਰਨ"/>
+                    <Item id="6808" name="ਹਰ ਇੰਪੁੱਟ 'ਤੇ ਆਟੋ ਪੂਰਨ ਕਰਨ ਯੋਗ ਕਰੋ"/>
+                    <Item id="6809" name="ਫੰਕਸ਼ਨ ਮੁਕੰਮਲ"/>
+                    <Item id="6810" name="ਸ਼ਬਦ ਪੂਰਤੀ"/>
+                    <Item id="6816" name="ਫੰਕਸ਼ਨ ਅਤੇ ਸ਼ਬਦ ਨੂੰ ਮੁਕੰਮਲ"/>
+                    <Item id="6811" name="ਤੱਕ"/>
+                    <Item id="6813" name="ਫਰਬਰੀ ਅੱਖਰ"/>
+                    <Item id="6814" name="ਯੋਗ ਕੀਮਤ: 1 - 9"/>
+                    <Item id="6815" name="ਫੰਕਸ਼ਨ ਪੈਰਾਮੀਟਰ ਇੰਪੁੱਟ 'ਤੇ ਸੰਕੇਤ"/>
+                    <Item id="6851" name="ਆਟੋ-ਸੰਮਿਲਿਤ"/>
+                    <Item id="6857" name="HTML / XML ਦੇ ਨੇੜੇ ਟੈਗ"/>
+                    <Item id="6858" name="ਓਪਨ"/>
+                    <Item id="6859" name="ਬੰਦ ਕਰੋ"/>
+                    <Item id="6860" name="ਮੇਲ ਜੋੜਾ 1:"/>
+                    <Item id="6863" name="ਮੇਲ ਜੋੜਾ  2:"/>
+                    <Item id="6866" name="ਮੇਲ ਜੋੜਾ  3:"/>
+                </AutoCompletion>
+
+                <MultiInstance title="Multi-Instance">
+                    <Item id="6151" name="ਮਲਟੀ-ਮਿਸਾਲ ਸੈਟਿੰਗ ਨੂੰ"/>
+                    <Item id="6152" name="ਨੋਟਪੈਡ ਦੀ ਇੱਕ ਨਵ ਮੌਕੇ ਵਿੱਚ ਓਪਨ ਸ਼ੈਸ਼ਨ ਨੂੰ ++"/>
+                    <Item id="6153" name="ਹਮੇਸ਼ਾ ਬਹੁ-ਮਿਸਾਲ ਮੋਡ ਵਿੱਚ"/>
+                    <Item id="6154" name="ਮੂਲ (ਮੋਨੋ-ਮਿਸਾਲ)"/>
+                    <Item id="6155" name="* ਇਸ ਸੈਟਿੰਗ ਦਾ ਦੇ ਸੋਧ ਨੋਟਪੈਡ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੈ ++"/>
+                </MultiInstance>
+
+                <Delimiter title="Delimiter">
+                    <Item id="6251" name="ਦੇਲਿਮਿਟਰ (Delimiter) ਚੋਣ ਸੈਟਿੰਗ ਨੂੰ (Ctrl + ਮਾਊਸ ਨੂੰ ਦੋ ਵਾਰ ਕਲਿੱਕ)"/>
+                    <Item id="6252" name="ਓਪਨ"/>
+                    <Item id="6255" name="ਬੰਦ ਕਰੋ"/>
+                    <Item id="6256" name="ਕਈ ਤਰਜ਼ 'ਤੇ ਇਜ਼ਾਜਤ"/>
+                </Delimiter>
+
+                 <Cloud title="Cloud">
+                    <Item id="6262" name="ਬੱਦਲ 'ਤੇ ਸੈਟਿੰਗ"/>
+                    <Item id="6263" name="ਕੋਈ ਕ੍ਲਾਉਡ"/>
+                    <Item id="6267" name="ਇੱਥੇ ਤੁਹਾਡੀ ਬੱਦਲ ਸਥਿਤੀ ਦੇ ਮਾਰਗ ਸੈੱਟ:"/>
+                    <!--Item id="6261" name="ਨੂੰ ਲਾਗੂ ਕਰਨ ਲਈ ਨੋਟਪੈਡ ++ ਚਾਲੂ ਕਰੋ."/-->
+                </Cloud>
+
+                <MISC title="MISC.">
+                    <Item id="6307" name="ਯੋਗ"/>
+                    <Item id="6308" name="ਸਿਸਟਮ ਟਰੇ ਨੂੰ ਨਿਊਨਤਮ"/>
+                    <Item id="6312" name="ਫਾਇਲ ਹਾਲਤ ਸਵੈ-ਖੋਜ"/>
+                    <Item id="6313" name="ਚੁੱਪ ਅੱਪਡੇਟ"/>
+                    <Item id="6318" name="ਕਲਿੱਕਯੋਗ ਲਿੰਕ ਸੈਟਿੰਗ"/>
+                    <Item id="6325" name="ਅੱਪਡੇਟ ਬਾਅਦ ਆਖਰੀ ਲਾਈਨ ਨੂੰ ਸਕ ੋਲ ਕਰੋ"/>
+                    <Item id="6319" name="ਯੋਗ"/>
+                    <Item id="6320" name="ਕੋਈ ਰੇਖਾ"/>
+                    <Item id="6322" name="ਅਜਲਾਸ ਫਾਇਲ ਐਕਸਟੈਨਸ਼ਨ .:"/>
+                    <Item id="6323" name="ਨੋਟਪੈਡ ++ ਆਟੋ-ਅੱਪਡੇਟਰ ਯੋਗ"/>
+                    <Item id="6324" name="ਦਸਤਾਵੇਜ਼ ਸਵਿੱਚਰ (Ctrl + ਟੈਬ)"/>
+                    <Item id="6326" name="ਸਮਾਰਟ ਉਭਾਰਨ ਚਾਲੂ ਕਰ"/>
+                    <Item id="6329" name="ਹਾਈਲਾਈਟ ਮੇਲਣ ਟੈਗਸ"/>
+                    <Item id="6327" name="ਯੋਗ"/>
+                    <Item id="6328" name="ਹਾਈਲਾਈਟ ਟੈਗ ਗੁਣ"/>
+                    <Item id="6330" name="ਹਾਈਲਾਈਟ ਟਿੱਪਣੀ / PHP / ASP ਜ਼ੋਨ"/>
+                    <Item id="6331" name="ਸਿਰਲੇਖ ਪੱਟੀ ਵਿੱਚ ਸਿਰਫ ਫਾਇਲ ਦਿਖਾਓ"/>
+                    <Item id="6332" name="ਮੈਚ ਦਾ ਕੇਸ"/>
+                    <Item id="6333" name="ਸਮਾਰਟ ਉਘਾੜਨ"/>
+                    <Item id="6334" name="Autodetect ਅੱਖਰ ਇੰਕੋਡਿੰਗ"/>
+                    <Item id="6335" name="SQL ਲਈ ਇਸਕੇਪ ਅੱਖਰ ਦੇ ਤੌਰ ਤੇ ਰੀੜ ਦੀ ਬੈਕਸਲੈਸ਼"/>
+                    <Item id="6114" name="ਯੋਗ"/>
+                    <Item id="6115" name="ਆਟੋ-ਹਾਸ਼ੀਏ"/>
+                    <Item id="6117" name="MRU ਵਿਵਹਾਰ ਯੋਗ"/>
+                </MISC>
+            </Preference>
+         <MultiMacro title="Run a Macro Multiple Times">
+                <Item id="1" name="ਚਲਾਓ"/>
+                <Item id="2" name="ਰੱਦ ਕਰੋ"/>
+                <Item id="8006" name="ਨੂੰ ਚਲਾਉਣ ਲਈ ਮੈਕਰੋ:"/>
+                <Item id="8001" name="ਚਲਾਓ"/>
+                <Item id="8005" name="ਵਾਰ"/>
+                <Item id="8002" name="ਫਾਇਲ ਦੇ ਅੰਤ ਹੋਣ ਤੱਕ ਚਲਾਓ"/>
+            </MultiMacro>
+            <Window title="Windows">
+                <Item id="1" name="ਸਰਗਰਮ"/>
+                <Item id="2" name="ਠੀਕ ਹੈ"/>
+                <Item id="7002" name="ਸੰਭਾਲੋ"/>
+                <Item id="7003" name="ਝਰੋਖਾ ਬੰਦ ਕਰੋ (ਹਵਾਈਅੱਡੇ)"/>
+                <Item id="7004" name="ਲੜੀਬੱਧ ਟੈਬ"/>
+            </Window>
+            <ColumnEditor title="Column Editor">
+                <Item id="2023" name="ਪਾਠ ਨੂੰ ਸ਼ਾਮਲ ਕਰਨ ਲਈ"/>
+                <Item id="2033" name="ਨੰਬਰ ਨੂੰ ਸ਼ਾਮਲ ਕਰਨ ਲਈ"/>
+                <Item id="2030" name="ਸ਼ੁਰੂਆਤੀ ਗਿਣਤੀ:"/>
+                <Item id="2031" name="ਕੇ ਵਾਧਾ:"/>
+                <Item id="2035" name="ਮਨੁਖ ਨੂੰ"/>
+                <Item id="2032" name="ਫਾਰਮੈਟ"/>
+                <Item id="2024" name="ਦਸੰਬਰ ਨੂੰ"/>
+                <Item id="2025" name="ਅਕਤੂਬਰ"/>
+                <Item id="2026" name="ਹੈਕਸਾ"/>
+                <Item id="2027" name="ਬਿਨ"/>
+                <Item id="1" name="ਠੀਕ ਹੈ"/>
+                <Item id="2" name="ਰੱਦ ਕਰੋ"/>
+            </ColumnEditor>
+        </Dialog>
+        <MessageBox>
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+            <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+            <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+            <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
+            <DeleteFileFailed title="Delete File" message="Delete File failed"/>
+
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
+			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,\ror on a folder needed privilege right for writting access.\rYour settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
+        </MessageBox>
+       <ClipboardHistory>
+            <PanelTitle name="ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਅਤੀਤ"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+            <PanelTitle name="ਡਾਕ (Doc) ਸਵਿੱਚਰ"/>
+            <ColumnName name="ਨਾਮੇ "/>
+            <ColumnExt name="ਏਕ੍ਸਟ  (Ext.)"/>
+        </DocSwitcher>
+        <AsciiInsertion>
+            <PanelTitle name="ASCII ਇੰਸੇਰ੍ਤਿਓਂ  ਪੈਨੇਲ "/>
+            <ColumnVal name="ਵਾਲੁਏ"/>
+            <ColumnHex name="ਹੈਕਸਾ(Hex)"/>
+            <ColumnChar name="ਚਾਰਾਕ੍ਟਰ"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="ਦੋਛੁਮੇੰਟ ਮਾਪ  "/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="ਫੁਨ੍ਕ੍ਤਿਓਂ  ਲਿਸਟ "/>
+            <SortTip name="ਸੋਰਤ" />
+            <ReloadTip name="ਰੇਲੋਆਦ" />
+        </FunctionList>
+        <ProjectManager>
+            <PanelTitle name="ਪ੍ਰੋਜੇਕ੍ਟ "/>
+            <WorkspaceRootName name="ਵੋਰ੍ਕ੍ਸ੍ਪੇਸ"/>
+            <NewProjectName name="ਪ੍ਰੋਜੇਕ੍ਟ ਨਾਮੇ "/>
+            <NewFolderName name="ਫੋਲਡਰ ਨਾਮੇ "/>
+            <Menus>
+                <Entries>
+                    <Item id="0" name="ਵੋਰ੍ਕ੍ਸ੍ਪੇਸ "/>
+                    <Item id="1" name="ਏਡੀਟ "/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3122" name="ਨ੍ਯੂ ਵੋਰ੍ਕ੍ਸ੍ਪੇਸ "/>
+                    <Item id="3123" name="ਓਪੇਨ ਵੋਰ੍ਕ੍ਸ੍ਪੇਸ "/>
+                    <Item id="3124" name="ਰੇਲੋਆਦ ਵੋਰ੍ਕ੍ਸ੍ਪੇਸ "/>
+                    <Item id="3125" name="ਸਵੈ "/>
+                    <Item id="3126" name="ਸਵੈ ਆਸ ..."/>
+                    <Item id="3127" name="ਸਵੈ ਆ ਕਾਪੀ ਆਸ ..."/>
+                    <Item id="3121" name="ਅੱਡ ਨ੍ਯੂ ਪ੍ਰੋਜੇਕ੍ਟ "/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="ਰੇਨਾਮੇ"/>
+                    <Item id="3112" name="ਅੱਡ ਫੋਲਡਰ  "/>
+                    <Item id="3113" name="ਅੱਡ ਫਿਲੇਸ..."/>
+                    <Item id="3117" name="ਅੱਡ ਫਿਲੇਸ ਫ੍ਰਾਮ ਦਿਰੇਕ੍ਟਰੀ..."/>
+                    <Item id="3114" name="ਰੇਮੋਵੇ "/>
+                    <Item id="3118" name="ਮੋਵੇ ਉਪ "/>
+                    <Item id="3119" name="ਮੋਵੇ ਦੋਵਂ "/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="ਰੇਨਾਮੇ"/>
+                    <Item id="3112" name="ਅੱਡ ਫੋਲਡਰ   "/>
+                    <Item id="3113" name="ਅੱਡ ਫਿਲੇਸ... "/>
+                    <Item id="3117" name="ਅੱਡ ਫਿਲੇਸ ਫ੍ਰਾਮ ਦਿਰੇਕ੍ਟਰੀ... "/>
+                    <Item id="3114" name="ਰੇਮੋਵੇ "/>
+                    <Item id="3118" name="ਮੋਵੇ ਉਪ "/>
+                    <Item id="3119" name="ਮੋਵੇ ਦੋਵਂ "/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="ਰੇਨਾਮੇ"/>
+                    <Item id="3115" name="ਰੇਮੋਵੇ"/>
+                    <Item id="3116" name="ਮੋਦੀਫ੍ਯ ਫੀਲੇ ਪਾਠ"/>
+                    <Item id="3118" name="ਮੋਵੇ ਉਪ "/>
+                    <Item id="3119" name="ਮੋਵੇ ਦੋਵਂ "/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
+    </Native-Langue>
+</NotepadPlus>

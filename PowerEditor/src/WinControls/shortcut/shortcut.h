@@ -26,19 +26,13 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef SHORTCUTS_H
-#define SHORTCUTS_H
+#pragma once
 
-#ifndef IDD_SHORTCUT_DLG
 #include "shortcutRc.h"
-#endif //IDD_SHORTCUT_DLG
-
-#ifndef SCINTILLA_H
 #include "Scintilla.h"
-#endif //SCINTILLA_H
-
 #include "StaticDialog.h"
 #include "Common.h"
+#include "menuCmdID.h"
 
 const size_t nameLenMax = 64;
 
@@ -46,7 +40,7 @@ class NppParameters;
 
 void getKeyStrFromVal(UCHAR keyVal, generic_string & str);
 void getNameStrFromCmd(DWORD cmd, generic_string & str);
-static int keyTranslate(int keyIn) {
+static size_t keyTranslate(size_t keyIn) {
 	switch (keyIn) {
 		case VK_DOWN:		return SCK_DOWN;
 		case VK_UP:			return SCK_UP;
@@ -139,7 +133,7 @@ public:
 
 	virtual INT_PTR doDialog()
 	{
-		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent,  dlgProc, (LPARAM)this);
+		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
 
 	virtual bool isValid() const { //valid should only be used in cases where the shortcut isEnabled().
@@ -181,22 +175,33 @@ public:
 
 	void setName(const TCHAR * name);
 
+	void clear(){
+		_keyCombo._isCtrl = false;
+		_keyCombo._isAlt = false;
+		_keyCombo._isShift = false;
+		_keyCombo._key = 0;
+		return;
+	}
+
 protected :
 	KeyCombo _keyCombo;
 	virtual INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	bool _canModifyName;
 	TCHAR _name[nameLenMax];		//normal name is plain text (for display purposes)
 	TCHAR _menuName[nameLenMax];	//menu name has ampersands for quick keys
+	void updateConflictState(const bool endSession = false) const;
 };
 		 
 class CommandShortcut : public Shortcut {
 public:
-	CommandShortcut(Shortcut sc, long id) :	Shortcut(sc), _id(id) {};
+	CommandShortcut(Shortcut sc, long id);
 	unsigned long getID() const {return _id;};
 	void setID(unsigned long id) { _id = id;};
+	const TCHAR * getCategory() const { return _category.c_str(); };
 
 private :
 	unsigned long _id;
+	generic_string _category;
 };
 
 
@@ -206,43 +211,44 @@ public:
 		_keyCombos.clear();
 		_keyCombos.push_back(_keyCombo);
 		_keyCombo._key = 0;
-		size = 1;
+		_size = 1;
 	};
 	unsigned long getScintillaKeyID() const {return _scintillaKeyID;};
 	int getMenuCmdID() const {return _menuCmdID;};
-	int toKeyDef(int index) const {
+	size_t toKeyDef(size_t index) const {
 		KeyCombo kc = _keyCombos[index];
 		int keymod = (kc._isCtrl?SCMOD_CTRL:0) | (kc._isAlt?SCMOD_ALT:0) | (kc._isShift?SCMOD_SHIFT:0);
-		return keyTranslate((int)kc._key) + (keymod << 16);
+		return keyTranslate(kc._key) + (keymod << 16);
 	};
 
-	KeyCombo getKeyComboByIndex(int index) const;
+	KeyCombo getKeyComboByIndex(size_t index) const;
 	void setKeyComboByIndex(int index, KeyCombo combo);
-	void removeKeyComboByIndex(int index);
+	void removeKeyComboByIndex(size_t index);
 	void clearDups() {
-		if (size > 1)
+		if (_size > 1)
 			_keyCombos.erase(_keyCombos.begin()+1, _keyCombos.end());
-		size = 1;
+		_size = 1;
 	};
 	int addKeyCombo(KeyCombo combo);
 	bool isEnabled() const;
 	size_t getSize() const;
 
 	generic_string toString() const;
-	generic_string toString(int index) const;
+	generic_string toString(size_t index) const;
 
 	INT_PTR doDialog()
 	{
-		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent,  dlgProc, (LPARAM)this);
+		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
     };
 
 	//only compares the internal KeyCombos, nothing else
 	friend inline const bool operator==(const ScintillaKeyMap & a, const ScintillaKeyMap & b) {
-		bool equal = a.size == b.size;
+		bool equal = a._size == b._size;
 		if (!equal)
 			return false;
 		size_t i = 0;
-		while(equal && (i < a.size)) {
+		while(equal && (i < a._size))
+		{
 			equal = 
 				(a._keyCombos[i]._isCtrl	== b._keyCombos[i]._isCtrl) && 
 				(a._keyCombos[i]._isAlt		== b._keyCombos[i]._isAlt) && 
@@ -261,7 +267,7 @@ private:
 	unsigned long _scintillaKeyID;
 	int _menuCmdID;
 	std::vector<KeyCombo> _keyCombos;
-	size_t size;
+	size_t _size;
 	void applyToCurrentIndex();
 	void validateDialog();
 	void showCurrentSettings();
@@ -276,25 +282,25 @@ class ScintillaEditView;
 
 struct recordedMacroStep {
 	enum MacroTypeIndex {mtUseLParameter, mtUseSParameter, mtMenuCommand, mtSavedSnR};
-	
-	int message;
-	long wParameter;
-	long lParameter;
-	generic_string sParameter;
-	MacroTypeIndex MacroType;
-	
-	recordedMacroStep(int iMessage, long wParam, long lParam, int codepage);
-	recordedMacroStep(int iCommandID) : message(0), wParameter(iCommandID), lParameter(0), MacroType(mtMenuCommand) {};
 
-	recordedMacroStep(int iMessage, long wParam, long lParam, const TCHAR *sParam, int type)
-		: message(iMessage), wParameter(wParam), lParameter(lParam), MacroType(MacroTypeIndex(type)){
-			sParameter = (sParam)?generic_string(sParam):TEXT("");	
+	int _message = 0;
+	uptr_t _wParameter = 0;
+	uptr_t _lParameter = 0;
+	generic_string _sParameter;
+	MacroTypeIndex _macroType = mtMenuCommand;
+	
+	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, int codepage);
+	explicit recordedMacroStep(int iCommandID): _wParameter(iCommandID) {};
+
+	recordedMacroStep(int iMessage, uptr_t wParam, uptr_t lParam, const TCHAR *sParam, int type)
+		: _message(iMessage), _wParameter(wParam), _lParameter(lParam), _macroType(MacroTypeIndex(type)){
+			_sParameter = (sParam)?generic_string(sParam):TEXT("");	
 	};
 
 	bool isValid() const {
 		return true;
 	};
-	bool isPlayable() const {return MacroType <= mtMenuCommand;};
+	bool isPlayable() const {return _macroType <= mtMenuCommand;};
 
 	void PlayBack(Window* pNotepad, ScintillaEditView *pEditView);
 };
@@ -345,12 +351,14 @@ private :
 class Accelerator { //Handles accelerator keys for Notepad++ menu, including custom commands
 friend class ShortcutMapper;
 public:
-	Accelerator() :_hAccelMenu(NULL), _hMenuParent(NULL), _hAccTable(NULL), _hIncFindAccTab(NULL), _pAccelArray(NULL), _nbAccelItems(0){};
+	Accelerator() {};
 	~Accelerator() {
 		if (_hAccTable)
 			::DestroyAcceleratorTable(_hAccTable);
 		if (_hIncFindAccTab)
 			::DestroyAcceleratorTable(_hIncFindAccTab);
+		if (_hFindAccTab)
+			::DestroyAcceleratorTable(_hFindAccTab);
 		if (_pAccelArray)
 			delete [] _pAccelArray;
 	};
@@ -361,34 +369,33 @@ public:
 	};
 	HACCEL getAccTable() const {return _hAccTable;};
 	HACCEL getIncrFindAccTable() const { return _hIncFindAccTab; };
+	HACCEL getFindAccTable() const { return _hFindAccTab; };
 
 	void updateShortcuts();
 	void updateFullMenu();
 
 private:
-	HMENU _hAccelMenu;
-	HWND _hMenuParent;
-	HACCEL _hAccTable;
-	HACCEL _hIncFindAccTab;
-	ACCEL *_pAccelArray;
-	int _nbAccelItems;
+	HMENU _hAccelMenu = nullptr;
+	HWND _hMenuParent = nullptr;
+	HACCEL _hAccTable = nullptr;
+	HACCEL _hIncFindAccTab = nullptr;
+	HACCEL _hFindAccTab = nullptr;
+	ACCEL *_pAccelArray = nullptr;
+	int _nbAccelItems = 0;
 
 	void updateMenuItemByCommand(CommandShortcut csc);
 };
 
 class ScintillaAccelerator {	//Handles accelerator keys for scintilla
 public:
-	ScintillaAccelerator() : _nrScintillas(0) {};
+	ScintillaAccelerator() {};
 	void init(std::vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent);
 	void updateKeys();
-	void updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skm);
+	size_t nbScintillas() { return _vScintillas.size(); };
 private:
-	HMENU _hAccelMenu;
-	HWND _hMenuParent;
+	HMENU _hAccelMenu = nullptr;
+	HWND _hMenuParent = nullptr;
 	std::vector<HWND> _vScintillas;
-	int _nrScintillas;
 
 	void updateMenuItemByID(ScintillaKeyMap skm, int id);
 };
-
-#endif //SHORTCUTS_H

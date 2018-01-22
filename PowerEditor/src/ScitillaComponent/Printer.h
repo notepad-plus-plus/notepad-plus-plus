@@ -46,7 +46,7 @@ class Printer
 {
 public :
 	Printer(){};
-	void init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos);
+	void init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos, bool isRTL = false);
 	size_t doPrint() {
 		if (!::PrintDlg(&_pdlg))
 				return 0;
@@ -57,10 +57,11 @@ public :
 
 private :
 	PRINTDLG _pdlg;
-	ScintillaEditView *_pSEView;
-	size_t _startPos;
-	size_t _endPos;
-	size_t _nbPageTotal;
+	ScintillaEditView *_pSEView = nullptr;
+	size_t _startPos = 0;
+	size_t _endPos = 0;
+	size_t _nbPageTotal =0;
+	bool _isRTL = false;
 };
 
 #endif //PRINTER_H

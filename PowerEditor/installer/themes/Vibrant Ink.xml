@@ -4,7 +4,7 @@ Style Name: Port VibrantInk
 Description: Based on the Textmate theme VibrantInk (http://alternateidea.com/blog/articles/2006/01/03/textmate-vibrant-ink-theme-and-prototype-bundle) by Justin Palmer
 File name: 			stylers.xml
 Created by:			tyler (tyler at impoverishedgourmet.com)
-Featured language:	Php, Css, Javascript, Html, XML, others? 
+Featured language:	Php, Css, JavaScript, Html, XML, others? 
 Note:				Feel free to modify this style and re-release it.  Any additions to languages or syntax to bring it closer to VibrantInk would be appreciated.
 					This style available under the terms of the GNU Free License.
 
@@ -77,7 +77,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="EDF8F9" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DEFAULT" styleID="11" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
-            <WordsStyle name="TYPE WORD" styleID="16" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="TYPE WORD" styleID="16" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" keywordClass="type1" />
             <WordsStyle name="NUMBER" styleID="4" fgColor="FF8000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING" styleID="6" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CHARACTER" styleID="7" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -185,11 +185,12 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="COMMENTLINE" styleID="125" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
             <WordsStyle name="OPERATOR" styleID="127" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="JavaScript" ext="">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="46" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="KEYWORD" styleID="47" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="3" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SINGLESTRING" styleID="49" fgColor="FFFF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SYMBOLS" styleID="50" fgColor="999966" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
@@ -225,6 +226,7 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="ATTRIBUTEUNKNOWN" styleID="4" fgColor="99CC99" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SGMLDEFAULT" styleID="21" fgColor="FFFFFF" bgColor="707070" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="CDATA" styleID="17" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="ENTITY" styleID="10" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
         </LexerType>
         <LexerType name="ini" desc="ini file" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
@@ -287,15 +289,15 @@ http://sourceforge.net/donate/index.php?group_id=95717
         </LexerType>
         <LexerType name="pascal" desc="Pascal" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="PREPROCESSOR" styleID="9" fgColor="EDF8F9" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="IDENTIFIER" styleID="11" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
-            <WordsStyle name="NUMBER" styleID="4" fgColor="FF8000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="CHARACTER" styleID="7" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="OPERATOR" styleID="10" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="REGEX" styleID="14" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="COMMENT" styleID="1" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
-            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
+            <WordsStyle name="PREPROCESSOR" styleID="5" fgColor="EDF8F9" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="1" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="9" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="NUMBER" styleID="7" fgColor="FF8000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CHARACTER" styleID="12" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="13" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="ASM" styleID="14" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="2" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
+            <WordsStyle name="COMMENT LINE" styleID="4" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
             <WordsStyle name="COMMENT DOC" styleID="3" fgColor="9933CC" bgColor="707070" fontName="" fontStyle="0" fontSize="8" />
         </LexerType>
         <LexerType name="perl" desc="Perl" ext="">
@@ -426,6 +428,23 @@ http://sourceforge.net/donate/index.php?group_id=95717
             <WordsStyle name="HERE Q" styleID="13" fgColor="99CC99" bgColor="0000FF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="fortran" desc="Fortran" ext="">
+            <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
+            <WordsStyle name="NUMBER" styleID="2" fgColor="FF8000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="3" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING2" styleID="4" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="STRINGEOL" styleID="5" fgColor="808040" bgColor="000000" fontName="" fontStyle="2" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="6" fgColor="FFCC00" bgColor="000000" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="IDENTIFIER" styleID="7" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="8" fgColor="FF6600" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="FUNCTION1" styleID="9" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
+            <WordsStyle name="FUNCTION2" styleID="10" fgColor="0080C0" bgColor="000000" fontName="" fontStyle="1" fontSize="" keywordClass="type1" />
+            <WordsStyle name="PREPROCESSOR" styleID="11" fgColor="800000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR2" styleID="12" fgColor="66FF00" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="LABEL" styleID="13" fgColor="FFFFFF" bgColor="FF80FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="CONTINUATION" styleID="14" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
+        </LexerType>
+        <LexerType name="fortran77" desc="Fortran (fixed form)" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="FFFFFF" bgColor="000000" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="9933CC" bgColor="000000" fontName="" fontStyle="0" fontSize="8" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="FF8000" bgColor="000000" fontName="" fontStyle="0" fontSize="" />

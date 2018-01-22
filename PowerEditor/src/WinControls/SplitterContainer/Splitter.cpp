@@ -25,6 +25,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <iostream>
+#include <stdexcept>
 #include <windows.h>
 #include "Splitter.h"
 
@@ -238,9 +239,9 @@ LRESULT CALLBACK Splitter::staticWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LP
 	{
 		case WM_NCCREATE:
 		{
-			Splitter * pSplitter = (Splitter *)((LPCREATESTRUCT)lParam)->lpCreateParams;
+			Splitter * pSplitter = reinterpret_cast<Splitter *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
 			pSplitter->_hSelf = hWnd;
-			::SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)pSplitter);
+			::SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pSplitter));
 			return TRUE;
 		}
 		default:

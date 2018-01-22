@@ -25,8 +25,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-
+#include <stdexcept>
 #include "TaskList.h"
 #include "TaskListDlg_rc.h"
 #include "colors.h"
@@ -61,7 +60,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
                                 0,
                                 0,
                                 _hParent, 
-                                (HMENU) NULL, 
+                                NULL, 
                                 hInst,
                                 NULL);
 	if (!_hSelf)
@@ -69,8 +68,8 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 		throw std::runtime_error("TaskList::init : CreateWindowEx() function return null");
 	}
 
-	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
-	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));
+	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(staticProc)));
 
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
 	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT ;
@@ -106,37 +105,41 @@ RECT TaskList::adjustSize()
 	RECT rc;
 	ListView_GetItemRect(_hSelf, 0, &rc, LVIR_ICON);
 	const int imgWidth = rc.right - rc.left;
-	const int leftMarge = 30;
-	const int xpBottomMarge = 5;
-	const int w7BottomMarge = 15;
+	const int aSpaceWidth = ListView_GetStringWidth(_hSelf, TEXT(" "));
+	const int leftMarge = ::GetSystemMetrics(SM_CXFRAME) * 2 + aSpaceWidth * 4;
 
 	// Temporary set "selected" font to get the worst case widths
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSelected), 0);
 	int maxwidth = -1;
 
-	_rc.left = 0;
-	_rc.top = 0;
-	_rc.bottom = 0;
+	_rc = { 0, 0, 0, 0 };
+	TCHAR buf[MAX_PATH];
 	for (int i = 0 ; i < _nbItem ; ++i)
 	{
-		TCHAR buf[MAX_PATH];
 		ListView_GetItemText(_hSelf, i, 0, buf, MAX_PATH);
 		int width = ListView_GetStringWidth(_hSelf, buf);
 		if (width > maxwidth)
 			maxwidth = width;
 		_rc.bottom += rc.bottom - rc.top;
 	}
+
 	_rc.right = maxwidth + imgWidth + leftMarge;
 	ListView_SetColumnWidth(_hSelf, 0, _rc.right);
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 
+	//if the tasklist exceeds the height of the display, leave some space at the bottom
+	if (_rc.bottom > ::GetSystemMetrics(SM_CYSCREEN) - 120)
+	{
+		_rc.bottom = ::GetSystemMetrics(SM_CYSCREEN) - 120;
+	}
 	reSizeTo(_rc);
-	winVer ver = (NppParameters::getInstance())->getWinVersion();
-	_rc.bottom += (ver <= WV_XP && ver != WV_UNKNOWN)?xpBottomMarge:w7BottomMarge;
+
+	// Task List's border is 1px smaller than ::GetSystemMetrics(SM_CYFRAME) returns
+	_rc.bottom += (::GetSystemMetrics(SM_CYFRAME) - 1) * 2;
 	return _rc;
 }
 
-void TaskList::setFont(TCHAR *fontName, size_t fontSize)
+void TaskList::setFont(TCHAR *fontName, int fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);
@@ -191,7 +194,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			short zDelta = (short) HIWORD(wParam);
 			if (zDelta > 0)
 			{
-				size_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
+				int32_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
 				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
 				// tells what item(s) to be repainted
 				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
@@ -206,7 +209,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{
-				size_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
+				int32_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
 				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
 				// tells what item(s) to be repainted
 				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
@@ -216,9 +219,10 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 				// tells what item(s) to be repainted
 				ListView_RedrawItems(_hSelf, selected, selected);
 				// repaint item(s)
-				UpdateWindow(_hSelf);              
+				UpdateWindow(_hSelf);
 				_currentIndex = selected;
 			}
+			ListView_EnsureVisible(_hSelf, _currentIndex, true);
 			return TRUE;
 		}
 
@@ -240,7 +244,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 					if (((msg->wParam == VK_TAB) && (0x80 & GetKeyState(VK_SHIFT))) ||
 					    (msg->wParam == VK_UP))
 					{ 
-						size_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
+						int32_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
 						ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
 						// tells what item(s) to be repainted
 						ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
@@ -256,7 +260,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 					// VK_DOWN and VK_RIGHT do the same as VK_TAB does
 					else if ((msg->wParam == VK_TAB) || (msg->wParam == VK_DOWN))
 					{
-						size_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
+						int32_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
 						ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
 						// tells what item(s) to be repainted
 						ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
@@ -269,6 +273,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 						UpdateWindow(_hSelf);              
 						_currentIndex = selected;
 					}
+					ListView_EnsureVisible(_hSelf, _currentIndex, true);
 				}
 				else
 				{

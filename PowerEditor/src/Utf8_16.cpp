@@ -205,7 +205,7 @@ void Utf8_16_Read::determineEncoding()
 		m_nSkip = 3;
 	}
 	// try to detect UTF-16 little-endian without BOM
-	else if (m_nLen > 1 && m_nLen % 2 == 0 && m_pBuf[0] != NULL && m_pBuf[1] == NULL && IsTextUnicode(m_pBuf, m_nLen, &uniTest))
+	else if (m_nLen > 1 && m_nLen % 2 == 0 && m_pBuf[0] != NULL && m_pBuf[1] == NULL && IsTextUnicode(m_pBuf, static_cast<int32_t>(m_nLen), &uniTest))
 	{
 		m_eEncoding = uni16LE_NoBOM;
 		m_nSkip = 0;
@@ -231,7 +231,7 @@ void Utf8_16_Read::determineEncoding()
 	}
 }
 
-UniMode Utf8_16_Read::determineEncoding(const unsigned char *buf, int bufLen)
+UniMode Utf8_16_Read::determineEncoding(const unsigned char *buf, size_t bufLen)
 {
     // detect UTF-16 big-endian with BOM
 	if (bufLen > 1 && buf[0] == k_Boms[uni16BE][0] && buf[1] == k_Boms[uni16BE][1])

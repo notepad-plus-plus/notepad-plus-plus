@@ -24,12 +24,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#pragma once;
+
+#pragma once
+
 class ScintillaEditView;
 class TiXmlDocument;
 class TiXmlNode;
-
-
 
 struct foundInfo final
 {
@@ -49,6 +49,7 @@ public:
 	virtual void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) = 0;
 	void funcParse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""), const std::vector< std::pair<int, int> > * commentZones = NULL);
 	bool isInZones(int pos2Test, const std::vector< std::pair<int, int> > & zones);
+	virtual ~FunctionParser() {};
 protected:
 	generic_string _id;
 	generic_string _displayName;
@@ -78,7 +79,6 @@ private:
 	generic_string _rangeExpr;
 	generic_string _openSymbole;
 	generic_string _closeSymbole;
-	generic_string _functionExpr;
 
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const std::vector< std::pair<int, int> > & commentZones, ScintillaEditView **ppEditView);
 };

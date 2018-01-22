@@ -23,6 +23,7 @@ distribution.
 */
 
 
+#include <sstream>
 #include "tinyxml.h"
 
 //#define DEBUG_PARSER
@@ -174,7 +175,7 @@ const TCHAR* TiXmlBase::SkipWhiteSpace( const TCHAR* p )
 		int c = in->peek();
 		if ( !IsWhiteSpace( c ) )
 			return true;
-		*tag += (TCHAR)in->get();
+		*tag += static_cast<TCHAR>(in->get());
 	}
 }
 
@@ -187,7 +188,7 @@ const TCHAR* TiXmlBase::SkipWhiteSpace( const TCHAR* p )
 			return true;
 
 		in->get();
-		*tag += (TCHAR)c;
+		*tag += static_cast<TCHAR>(c);
 	}
 	return false;
 }
@@ -231,23 +232,24 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 		const TCHAR* end = generic_strchr(p+3, TEXT(';'));
 		if (end && end - p <= 3 + 4)
 		{
-			int val;
-			if (generic_sscanf(p+3, TEXT("%x"), &val) == 1)
+			TCHAR* hexend;
+			auto val = generic_strtol(p + 3, &hexend, 16);
+			if (hexend == end)
 			{
-				*value = (TCHAR)val;
+				*value = static_cast<TCHAR>(val);
 				return end + 1;
 			}
 		}
 	}
 
 	// Now try to match it.
-	for( i=0; i<NUM_ENTITY; ++i )
+	for (i=0; i<NUM_ENTITY; ++i)
 	{
 		if ( generic_strncmp( entity[i].str, p, entity[i].strLength ) == 0 )
 		{
-			assert( (unsigned int)lstrlen( entity[i].str ) == entity[i].strLength );
+			assert(static_cast<unsigned int>(lstrlen(entity[i].str)) == entity[i].strLength );
 			*value = entity[i].chr;
-			return ( p + entity[i].strLength );
+			return (p + entity[i].strLength);
 		}
 	}
 
@@ -378,11 +380,11 @@ void TiXmlDocument::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 
 	while ( in->good() )
 	{
-		int tagIndex = tag->length();
+		size_t tagIndex = tag->length();
 		while ( in->good() && in->peek() != '>' )
 		{
 			int c = in->get();
-			(*tag) += (TCHAR) c;
+			(*tag) += static_cast<TCHAR>(c);
 		}
 
 		if ( in->good() )
@@ -576,7 +578,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 	while( in->good() )
 	{
 		int c = in->get();
-		(*tag) += (TCHAR) c ;
+		(*tag) += static_cast<TCHAR>(c);
 		
 		if ( c == '>' )
 			break;
@@ -619,7 +621,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 			// We should be at a "<", regardless.
 			if ( !in->good() ) return;
 			assert( in->peek() == '<' );
-			int tagIndex = tag->length();
+			size_t tagIndex = tag->length();
 
 			bool closingTag = false;
 			bool firstCharFound = false;
@@ -634,7 +636,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 				if ( c == '>' )
 					break;
 
-				*tag += (TCHAR)c;
+				*tag += static_cast<TCHAR>(c);
 				in->get();
 
 				if ( !firstCharFound && c != '<' && !IsWhiteSpace( c ) )
@@ -650,7 +652,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 			{
 				int c = in->get();
 				assert( c == '>' );
-				*tag += (TCHAR)c;
+				*tag += static_cast<TCHAR>(c);
 
 				// We are done, once we've found our closing tag.
 				return;
@@ -859,7 +861,7 @@ void TiXmlUnknown::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 	while ( in->good() )
 	{
 		int c = in->get();	
-		(*tag) += (TCHAR)c;
+		(*tag) += static_cast<TCHAR>(c);
 
 		if ( c == '>' )
 		{
@@ -911,7 +913,7 @@ void TiXmlComment::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 	while ( in->good() )
 	{
 		int c = in->get();	
-		(*tag) += (TCHAR)c;
+		(*tag) += static_cast<TCHAR>(c);
 
 		if ( c == '>' 
 			 && tag->at( tag->length() - 2 ) == '-'
@@ -1030,7 +1032,7 @@ void TiXmlText::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 		if ( c == '<' )
 			return;
 
-		(*tag) += (TCHAR)c;
+		(*tag) += static_cast<TCHAR>(c);
 		in->get();
 	}
 }
@@ -1060,7 +1062,7 @@ void TiXmlDeclaration::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 	while ( in->good() )
 	{
 		int c = in->get();
-		(*tag) += (TCHAR)c;
+		(*tag) += static_cast<TCHAR>(c);
 
 		if ( c == '>' )
 		{
@@ -1133,7 +1135,7 @@ const TCHAR* TiXmlDeclaration::Parse( const TCHAR* p, TiXmlParsingData* data )
 
 bool TiXmlText::Blank() const
 {
-	for ( unsigned int i=0, len=value.length(); i<len; i++ )
+	for (size_t i = 0, len = value.length(); i < len; i++)
 		if ( !isspace( value[i] ) )
 			return false;
 	return true;

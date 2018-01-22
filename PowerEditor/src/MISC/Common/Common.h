@@ -27,6 +27,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <sstream>
 #include <windows.h>
 #include <iso646.h>
 #include <cstdint>
@@ -44,59 +45,35 @@ const bool dirDown = false;
 #define BCKGRD_COLOR (RGB(255,102,102))
 #define TXT_COLOR    (RGB(255,255,255))
 
-#ifdef UNICODE
-	#define NppMainEntry wWinMain
-	#define generic_strtol wcstol
-	#define generic_strncpy wcsncpy
-	#define generic_stricmp wcsicmp
-	#define generic_strncmp wcsncmp
-	#define generic_strnicmp wcsnicmp
-	#define generic_strncat wcsncat
-	#define generic_strchr wcschr
-	#define generic_atoi _wtoi
-	#define generic_itoa _itow
-	#define generic_atof _wtof
-	#define generic_strtok wcstok
-	#define generic_strftime wcsftime
-	#define generic_fprintf fwprintf
-	#define generic_sprintf swprintf
-	#define generic_sscanf swscanf
-	#define generic_fopen _wfopen
-	#define generic_fgets fgetws
-	#define generic_stat _wstat
-	#define generic_sprintf swprintf
-	#define COPYDATA_FILENAMES COPYDATA_FILENAMESW
-#else
-	#define NppMainEntry WinMain
-	#define generic_strtol strtol
-	#define generic_strncpy strncpy
-	#define generic_stricmp stricmp
-	#define generic_strncmp strncmp
-	#define generic_strnicmp strnicmp
-	#define generic_strncat strncat
-	#define generic_strchr strchr
-	#define generic_atoi atoi
-	#define generic_itoa itoa
-	#define generic_atof atof
-	#define generic_strtok strtok
-	#define generic_strftime strftime
-	#define generic_fprintf fprintf
-	#define generic_sprintf sprintf
-	#define generic_sscanf sscanf
-	#define generic_fopen fopen
-	#define generic_fgets fgets
-	#define generic_stat _stat
-	#define generic_sprintf sprintf
-	#define COPYDATA_FILENAMES COPYDATA_FILENAMESA
-#endif
+#define generic_strtol wcstol
+#define generic_strncpy wcsncpy
+#define generic_stricmp wcsicmp
+#define generic_strncmp wcsncmp
+#define generic_strnicmp wcsnicmp
+#define generic_strncat wcsncat
+#define generic_strchr wcschr
+#define generic_atoi _wtoi
+#define generic_itoa _itow
+#define generic_atof _wtof
+#define generic_strtok wcstok
+#define generic_strftime wcsftime
+#define generic_fprintf fwprintf
+#define generic_sprintf swprintf
+#define generic_sscanf swscanf
+#define generic_fopen _wfopen
+#define generic_fgets fgetws
+#define generic_stat _wstat
+#define COPYDATA_FILENAMES COPYDATA_FILENAMESW
 
 typedef std::basic_string<TCHAR> generic_string;
+typedef std::basic_stringstream<TCHAR> generic_stringstream;
 
-void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr = NULL);
+generic_string folderBrowser(HWND parent, const generic_string & title = TEXT(""), int outputCtrlID = 0, const TCHAR *defaultStr = NULL);
 generic_string getFolderName(HWND parent, const TCHAR *defaultDir = NULL);
 
 void printInt(int int2print);
 void printStr(const TCHAR *str2print);
+generic_string commafyInt(size_t n);
 
 void writeLog(const TCHAR *logFileName, const char *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
@@ -114,7 +91,7 @@ generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generi
 std::string getFileContent(const TCHAR *file2read);
 generic_string relativeFilePathToFullFilePath(const TCHAR *relativeFilePath);
 void writeFileContent(const TCHAR *file2write, const char *content2write);
-
+bool matchInList(const TCHAR *fileName, const std::vector<generic_string> & patterns);
 
 class WcharMbcsConvertor final
 {
@@ -124,7 +101,7 @@ public:
 
 	const wchar_t * char2wchar(const char *mbStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL);
 	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
-	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn=-1, int *pLenOut=NULL);
+	const char * wchar2char(const wchar_t *wcStr, UINT codepage, int lenIn = -1, int *pLenOut = NULL);
 	const char * wchar2char(const wchar_t *wcStr, UINT codepage, long *mstart, long *mend);
 
 	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode, int lenIn=-1, int *pLenOut=NULL, int *pBytesNotProcessed=NULL)
@@ -137,6 +114,11 @@ public:
 protected:
 	WcharMbcsConvertor() {}
 	~WcharMbcsConvertor() {}
+
+	// Since there's no public ctor, we need to void the default assignment operator and copy ctor.
+	// Since these are marked as deleted does not matter under which access specifier are kept
+	WcharMbcsConvertor(const WcharMbcsConvertor&) = delete;
+	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&) = delete;
 
 	static WcharMbcsConvertor* _pSelf;
 
@@ -177,10 +159,6 @@ protected:
 
 	StringBuffer<char> _multiByteStr;
 	StringBuffer<wchar_t> _wideCharStr;
-
-private:
-	// Since there's no public ctor, we need to void the default assignment operator.
-	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&);
 };
 
 
@@ -188,11 +166,7 @@ private:
 #define MACRO_RECORDING_IN_PROGRESS 1
 #define MACRO_RECORDING_HAS_STOPPED 2
 
-#if _MSC_VER > 1400 // MS Compiler > VS 2005
-#define REBARBAND_SIZE REBARBANDINFO_V3_SIZE
-#else
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
-#endif
 
 generic_string PathRemoveFileSpec(generic_string & path);
 generic_string PathAppend(generic_string &strDest, const generic_string & str2append);
@@ -205,3 +179,13 @@ generic_string stringTakeWhileAdmissable(const generic_string& input, const gene
 double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
 
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd);
+
+generic_string GetLastErrorAsString(DWORD errorCode = 0);
+
+generic_string intToString(int val);
+generic_string uintToString(unsigned int val);
+
+HWND CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, const PTSTR pszText);
+
+bool isCertificateValidated(const generic_string & fullFilePath, const generic_string & subjectName2check);
+bool isAssoCommandExisting(LPCTSTR FullPathName);

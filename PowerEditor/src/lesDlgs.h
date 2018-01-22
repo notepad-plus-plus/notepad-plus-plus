@@ -36,7 +36,7 @@ const int DEFAULT_NB_NUMBER = 2;
 class ValueDlg : public StaticDialog
 {
 public :
-        ValueDlg() : StaticDialog(), _nbNumber(DEFAULT_NB_NUMBER) {};
+        ValueDlg() : StaticDialog() {};
         void init(HINSTANCE hInst, HWND parent, int valueToSet, const TCHAR *text);
         int doDialog(POINT p, bool isRTL = false);
 		void setNBNumber(int nbNumber) {
@@ -50,8 +50,8 @@ protected :
 	INT_PTR CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
 
 private :
-	int _nbNumber;
-    int _defaultValue;
+	int _nbNumber = DEFAULT_NB_NUMBER;
+    int _defaultValue = 0;
 	generic_string _name;
 	POINT _p;
 };

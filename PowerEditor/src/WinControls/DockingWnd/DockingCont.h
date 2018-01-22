@@ -26,17 +26,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef DOCKINGCONT
-#define DOCKINGCONT
-
-#ifndef RESOURCE_H
+#pragma once
 #include "resource.h"
-#endif //RESOURCE_H
-
-#ifndef DOCKING_H
 #include "Docking.h"
-#endif //DOCKING_H
-
 #include <vector>
 #include "StaticDialog.h"
 #include "Common.h"
@@ -98,8 +90,8 @@ public:
 	};
 
 	void setActiveTb(tTbData* pTbData);
-	void setActiveTb(INT iItem);
-	INT getActiveTb();
+	void setActiveTb(int iItem);
+	int getActiveTb();
 	tTbData * getDataOfActiveTb();
 	std::vector<tTbData *> getDataOfAllTb() {
 		return _vTbData;
@@ -113,7 +105,7 @@ public:
 		return _isFloating;
 	}
 
-	INT getElementCnt() {
+	size_t getElementCnt() {
 		return _vTbData.size();
 	}
 
@@ -142,7 +134,7 @@ public:
 	};
 
     virtual void destroy() {
-		for (INT iTb = _vTbData.size(); iTb > 0; iTb--)
+		for (int iTb = static_cast<int>(_vTbData.size()); iTb > 0; iTb--)
 		{
 			delete _vTbData[iTb-1];
 		}
@@ -171,18 +163,18 @@ protected :
 	void onSize();
 
 	// functions for caption handling and drawing
-	eMousePos isInRect(HWND hwnd, INT x, INT y);
+	eMousePos isInRect(HWND hwnd, int x, int y);
 
 	// handling of toolbars
 	void doClose();
 
 	// return new item
-	INT  SearchPosInTab(tTbData* pTbData);
-	void SelectTab(INT iTab);
+	int  searchPosInTab(tTbData* pTbData);
+	void selectTab(int iTab);
 
-	INT  hideToolbar(tTbData* pTbData, BOOL hideClient = TRUE);
+	int  hideToolbar(tTbData* pTbData, BOOL hideClient = TRUE);
 	void viewToolbar(tTbData *pTbData);
-	INT  removeTab(tTbData* pTbData) {
+	int  removeTab(tTbData* pTbData) {
 		return hideToolbar(pTbData, FALSE);
 	};
 
@@ -243,6 +235,3 @@ private:
 	std::vector<tTbData *>		_vTbData;
 };
 
-
-
-#endif // DOCKINGCONT

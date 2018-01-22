@@ -40,7 +40,7 @@ namespace // anonymous
 
 	struct PaintLocker final
 	{
-		PaintLocker(HWND handle)
+		explicit PaintLocker(HWND handle)
 			: handle(handle)
 		{
 			// disallow drawing on the window
@@ -94,7 +94,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 
 	NppParameters *pNppParams = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI &)pNppParams->getNppGUI();
+	NppGUI & nppGUI = const_cast<NppGUI &>(pNppParams->getNppGUI());
 
 	if (cmdLineParams->_isNoPlugin)
 		_notepad_plus_plus_core._pluginsManager.disable();
@@ -148,11 +148,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		::SetWindowPlacement(_hSelf,&posInfo);
 	}
 
-
-	// avoid useless drawing
-	//PaintLocker paintLocker(_hSelf);
-
-	if (0 != (nppGUI._tabStatus & TAB_MULTILINE))
+	if ((nppGUI._tabStatus & TAB_MULTILINE) != 0)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
 
 	if (!nppGUI._menuBarShow)
@@ -298,6 +294,15 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		// Lauch backup task
 		_notepad_plus_plus_core.launchDocumentBackupTask();
 	}
+
+	// Make this call later to take effect
+	::SendMessage(_hSelf, NPPM_INTERNAL_SETWORDCHARS, 0, 0);
+
+	if (pNppParams->doFunctionListExport())
+		::SendMessage(_hSelf, NPPM_INTERNAL_EXPORTFUNCLISTANDQUIT, 0, 0);
+
+	if (pNppParams->doPrintAndExit())
+		::SendMessage(_hSelf, NPPM_INTERNAL_PRNTANDQUIT, 0, 0);
 }
 
 
@@ -306,6 +311,9 @@ bool Notepad_plus_Window::isDlgsMsg(MSG *msg) const
 	for (size_t i = 0, len = _notepad_plus_plus_core._hModelessDlgs.size(); i < len; ++i)
 	{
 		if (_notepad_plus_plus_core.processIncrFindAccel(msg))
+			return true;
+
+		if (_notepad_plus_plus_core.processFindAccel(msg))
 			return true;
 
 		if (::IsDialogMessageW(_notepad_plus_plus_core._hModelessDlgs[i], msg))

@@ -23,7 +23,7 @@ Bug reports are appreciated. Following a few guidelines listed below will help s
 
 ## Pull Requests
 
-Your pull requests are welcome; however, they may not be accepted for various reasons. If you want to rename some graphic items or fix typos, please create the issue instead of the pull requests. All Pull Requests, except for translations and user documentation, need to be attached to a issue on GitHub. For Pull Requests regarding enhancements and questions, the issue must first be approved by one of project's administrators before being merged into the project. An approved issue will have the label `Accepted`. For issues that have not been accepted, you may request to be assigned to that issue.
+Your pull requests are welcome; however, they may not be accepted for various reasons. If you want to make some GUI enhancement like renaming some graphic items or fixing typos, please create the issue instead of the pull requests. All Pull Requests, except for translations and user documentation, need to be attached to a issue on GitHub. For Pull Requests regarding enhancements and questions, the issue must first be approved by one of project's administrators before being merged into the project. An approved issue will have the label `Accepted`. For issues that have not been accepted, you may request to be assigned to that issue.
 
 Opening a issue beforehand allows the administrators and the community to discuss bugs and enhancements before work begins, preventing wasted effort.
 
@@ -32,7 +32,7 @@ Opening a issue beforehand allows the administrators and the community to discus
 ### Guidelines for pull requests
 
 1. Respect Notepad++ coding style.
-2. Make a single change per commit.
+2. Make single commit per PR.
 3. Make your modification compact - don't reformat source code in your request. It makes code review more difficult.
 4. PR of reformatting (changing of ws/TAB, line endings or coding style) of source code won't be accepted. Use issue trackers for your request instead.
 
@@ -175,6 +175,18 @@ Function names are not separated from the first parenthesis.</h5>
     ...
     ```
 
+
+1. ##### Always use `C++ conversion` instead of `C-Style cast`. Generally, all the conversion among types should be avoided. If you have no choice, use C++ conversion.
+
+  * ###### Good:
+    ```cpp
+    char aChar = static_cast<char>(_pEditView->execute(SCI_GETCHARAT, j));
+    ```
+
+  * ###### Bad:
+    ```cpp
+    char aChar = (char)_pEditView->execute(SCI_GETCHARAT, j);
+    ```
 
 
 #### NAMING CONVENTIONS

@@ -25,21 +25,15 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#pragma once
 
-#ifndef DOCTABVIEW_H
-#define DOCTABVIEW_H
-
-#ifndef TAB_BAR_H
 #include "TabBar.h"
-#endif //TAB_BAR_H
-
-#ifndef BUFFER_H
 #include "Buffer.h"
-#endif //BUFFER_H
 
 const int SAVED_IMG_INDEX = 0;
 const int UNSAVED_IMG_INDEX = 1;
 const int REDONLY_IMG_INDEX = 2;
+const int MONITORING_IMG_INDEX = 3;
 
 class DocTabView : public TabBarPlus
 {
@@ -70,9 +64,9 @@ public :
 	BufferID findBufferByName(const TCHAR * fullfilename);	//-1 if not found, something else otherwise
 
 	int getIndexByBuffer(BufferID id);
-	BufferID getBufferByIndex(int index);
+	BufferID getBufferByIndex(size_t index);
 
-	void setBuffer(int index, BufferID id);
+	void setBuffer(size_t index, BufferID id);
 
 	static bool setHideTabBarStatus(bool hideOrNot) {
 		bool temp = _hideTabBarStatus;
@@ -86,9 +80,11 @@ public :
 
 	virtual void reSizeTo(RECT & rc);
 
+	const ScintillaEditView* getScintillaEditView() const {
+		return _pView;
+	};
+
 private :
 	ScintillaEditView *_pView;
 	static bool _hideTabBarStatus;
 };
-
-#endif //DOCTABVIEW_H

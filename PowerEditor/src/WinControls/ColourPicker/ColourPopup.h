@@ -24,6 +24,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
 #pragma once
 #include "ColourPopupResource.h"
 #include "resource.h"
@@ -31,7 +33,6 @@
 
 #define WM_PICKUP_COLOR  (COLOURPOPUP_USER + 1)
 #define WM_PICKUP_CANCEL (COLOURPOPUP_USER + 2)
-
 
 
 class ColourPopup : public Window

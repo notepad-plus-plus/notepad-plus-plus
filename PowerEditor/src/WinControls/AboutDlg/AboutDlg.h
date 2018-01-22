@@ -26,17 +26,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef ABOUT_DLG_H
-#define ABOUT_DLG_H
+#pragma once
 
-#ifndef URLCTRL_INCLUDED
 #include "URLCtrl.h"
-#endif// URLCTRL_INCLUDED
-
-#ifndef RESOURCE_H
 #include "resource.h"
-#endif// RESOURCE_H
-
 #include "StaticDialog.h"
 
 #define LICENCE_TXT \
@@ -53,7 +46,6 @@ GNU General Public License for more details. \r\n\
 You should have received a copy of the GNU General Public License \
 along with this program; if not, write to the Free Software \
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.")
-
 
 
 class AboutDlg : public StaticDialog
@@ -76,4 +68,31 @@ private :
     URLCtrl _pageLink;
 };
 
-#endif //ABOUT_DLG_H
+
+class DebugInfoDlg : public StaticDialog
+{
+public:
+	DebugInfoDlg() : StaticDialog() {};
+
+	void init(HINSTANCE hInst, HWND parent, bool isAdmin, generic_string loadedPlugins) {
+		_isAdmin = isAdmin;
+		_loadedPlugins = loadedPlugins;
+		Window::init(hInst, parent);
+	};
+
+	void doDialog();
+
+	virtual void destroy() {
+		_copyToClipboardLink.destroy();
+	};
+
+protected:
+	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	generic_string _debugInfoStr;
+	bool _isAdmin = false;
+	generic_string _loadedPlugins;
+	URLCtrl _copyToClipboardLink;
+};
+

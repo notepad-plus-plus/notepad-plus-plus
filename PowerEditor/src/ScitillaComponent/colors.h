@@ -64,9 +64,6 @@ const COLORREF extremeLitePurple        = RGB(0xF8, 0xE8, 0xFF);
 const COLORREF veryLitePurple           = RGB(0xE7, 0xD8, 0xE9);
 const COLORREF liteBerge				= RGB(0xFE, 0xFC, 0xF5);
 const COLORREF berge					= RGB(0xFD, 0xF8, 0xE3);
-/*
-#define RGB2int(color) 
-    (((((long)color) & 0x0000FF) << 16) | ((((long)color) & 0x00FF00)) | ((((long)color) & 0xFF0000) >> 16))
-*/
+
 #endif //COLORS_H
 

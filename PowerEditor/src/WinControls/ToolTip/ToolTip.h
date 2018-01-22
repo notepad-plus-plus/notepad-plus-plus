@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2017 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,8 +26,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef __TOOLTIP_H__
-#define __TOOLTIP_H__
+#pragma once
 
 #include <windows.h>
 #include <commctrl.h>
@@ -36,7 +35,7 @@
 class ToolTip : public Window
 {
 public :
-	ToolTip() : _bTrackMouse(FALSE) {};
+	ToolTip() {};
     
 	void destroy(){
 		::DestroyWindow(_hSelf);
@@ -52,15 +51,13 @@ public:
 	void Show(RECT rectTitle, const TCHAR* pszTitleText, int iXOff = 0, int iWidthOff = 0);
 
 protected:
-    WNDPROC		_defaultProc;
-	BOOL		_bTrackMouse;
+    WNDPROC		_defaultProc = nullptr;
+	BOOL		_bTrackMouse = FALSE;
 	TOOLINFO	_ti;
 
     static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
         return (((ToolTip *)(::GetWindowLongPtr(hwnd, GWLP_USERDATA)))->runProc(Message, wParam, lParam));
     };
 	LRESULT runProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	void SendHitMessage();
 };
 
-#endif // __TOOLTIP_H__

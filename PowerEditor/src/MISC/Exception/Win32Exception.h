@@ -50,7 +50,7 @@ public:
 	EXCEPTION_POINTERS* info()  const         { return _info;     }
 
 protected:
-    Win32Exception(EXCEPTION_POINTERS * info);	//Constructor only accessible by exception handler
+    explicit Win32Exception(EXCEPTION_POINTERS * info);	//Constructor only accessible by exception handler
     static void			translate(unsigned code, EXCEPTION_POINTERS * info);
 
 private:
@@ -68,7 +68,7 @@ public:
     bool				isWrite()    const { return _isWrite;    }
     ExceptionAddress	badAddress() const { return _badAddress; }
 private:
-    Win32AccessViolation(EXCEPTION_POINTERS * info);
+    explicit Win32AccessViolation(EXCEPTION_POINTERS * info);
 
     bool _isWrite;
     ExceptionAddress _badAddress;

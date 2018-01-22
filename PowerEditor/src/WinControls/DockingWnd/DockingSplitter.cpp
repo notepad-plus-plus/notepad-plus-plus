@@ -27,6 +27,7 @@
 
 
 
+#include <stdexcept>
 #include "DockingSplitter.h"
 #include "Notepad_plus_msgs.h"
 #include "Parameters.h"
@@ -41,7 +42,7 @@ static HHOOK	hookMouse		= NULL;
 #define WH_MOUSE_LL 14
 #endif
 
-static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK hookProcMouse(int nCode, WPARAM wParam, LPARAM lParam)
 {
     if(nCode >= 0)
     {
@@ -49,12 +50,14 @@ static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
 		{
 			case WM_MOUSEMOVE:
 			case WM_NCMOUSEMOVE:
-				::PostMessage(hWndMouse, wParam, 0, 0);
+				::PostMessage(hWndMouse, static_cast<UINT>(wParam), 0, 0);
 				break;
+
 			case WM_LBUTTONUP:
 			case WM_NCLBUTTONUP:
-				::PostMessage(hWndMouse, wParam, 0, 0);
+				::PostMessage(hWndMouse, static_cast<UINT>(wParam), 0, 0);
 				return TRUE;
+
 			default:
 				break;
 		}
@@ -129,13 +132,13 @@ LRESULT CALLBACK DockingSplitter::staticWinProc(HWND hwnd, UINT message, WPARAM 
 	switch (message)
 	{
 		case WM_NCCREATE :
-			pDockingSplitter = (DockingSplitter *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
+			pDockingSplitter = reinterpret_cast<DockingSplitter *>(reinterpret_cast<LPCREATESTRUCT>(lParam)->lpCreateParams);
 			pDockingSplitter->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)pDockingSplitter);
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pDockingSplitter));
 			return TRUE;
 
 		default :
-			pDockingSplitter = (DockingSplitter *)::GetWindowLongPtr(hwnd, GWLP_USERDATA);
+			pDockingSplitter = reinterpret_cast<DockingSplitter *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
 			if (!pDockingSplitter)
 				return ::DefWindowProc(hwnd, message, wParam, lParam);
 			return pDockingSplitter->runProc(hwnd, message, wParam, lParam);
@@ -150,7 +153,7 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 		case WM_LBUTTONDOWN:
 		{
 			hWndMouse = hwnd;
-			hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, 0);
+			hookMouse = ::SetWindowsHookEx(WH_MOUSE_LL, hookProcMouse, _hInst, 0);
 			if (!hookMouse)
 			{
 				DWORD dwError = ::GetLastError();
@@ -191,11 +194,11 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 
 				if ((_flags & DMS_HORIZONTAL) && (_ptOldPos.y != pt.y))
 				{
-					::SendMessage(_hMessage, DMM_MOVE_SPLITTER, (WPARAM)_ptOldPos.y - pt.y, (LPARAM)_hSelf);
+					::SendMessage(_hMessage, DMM_MOVE_SPLITTER, _ptOldPos.y - pt.y, reinterpret_cast<LPARAM>(_hSelf));
 				}
 				else if (_ptOldPos.x != pt.x)
 				{
-					::SendMessage(_hMessage, DMM_MOVE_SPLITTER, (WPARAM)_ptOldPos.x - pt.x, (LPARAM)_hSelf);
+					::SendMessage(_hMessage, DMM_MOVE_SPLITTER, _ptOldPos.x - pt.x, reinterpret_cast<LPARAM>(_hSelf));
 				}
 				_ptOldPos = pt;
 			}

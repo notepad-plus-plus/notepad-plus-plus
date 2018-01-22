@@ -3,10 +3,11 @@
 	<AutoComplete>
 		<KeyWord name="abstract" />
 		<KeyWord name="as" />
+		<KeyWord name="async" />
+		<KeyWord name="await" />
 		<KeyWord name="base" />
 		<KeyWord name="bool" />
 		<KeyWord name="break" />
-		<KeyWord name="byte" />
 		<KeyWord name="byte" />
 		<KeyWord name="case" />
 		<KeyWord name="catch" />
@@ -32,7 +33,6 @@
 		<KeyWord name="Dictionary.ValueCollection.Enumerator" />
 		<KeyWord name="do" />
 		<KeyWord name="double" />
-		<KeyWord name="double" />
 		<KeyWord name="else" />
 		<KeyWord name="enum" />
 		<KeyWord name="EqualityComparer" />
@@ -45,9 +45,9 @@
 		<KeyWord name="finally" />
 		<KeyWord name="fixed" />
 		<KeyWord name="float" />
-		<KeyWord name="float" />
 		<KeyWord name="for" />
 		<KeyWord name="foreach" />
+		<KeyWord name="get" />
 		<KeyWord name="goto" />
 		<KeyWord name="ICollection" />
 		<KeyWord name="IComparer" />
@@ -85,7 +85,6 @@
 		<KeyWord name="new" />
 		<KeyWord name="null" />
 		<KeyWord name="object" />
-		<KeyWord name="object" />
 		<KeyWord name="operator" />
 		<KeyWord name="out" />
 		<KeyWord name="override" />
@@ -99,8 +98,8 @@
 		<KeyWord name="ref" />
 		<KeyWord name="return" />
 		<KeyWord name="sbyte" />
-		<KeyWord name="sbyte" />
 		<KeyWord name="sealed" />
+		<KeyWord name="set" />
 		<KeyWord name="short" />
 		<KeyWord name="sizeof" />
 		<KeyWord name="SortedDictionary" />
@@ -225,6 +224,8 @@
 		<KeyWord name="unsafe" />
 		<KeyWord name="ushort" />
 		<KeyWord name="using" />
+		<KeyWord name="using static" />
+		<KeyWord name="var" />
 		<KeyWord name="virtual" />
 		<KeyWord name="void" />
 		<KeyWord name="volatile" />

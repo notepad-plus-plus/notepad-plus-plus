@@ -49,8 +49,8 @@ public :
 		_ppEditView = ppEditView;
 	};
 
-	virtual void create(int dialogID, bool isRTL = false) {
-		StaticDialog::create(dialogID, isRTL);
+	virtual void create(int dialogID, bool isRTL = false, bool msgDestParent = true) {
+		StaticDialog::create(dialogID, isRTL, msgDestParent);
 	};
 
 	void doDialog(bool isRTL = false) {
@@ -67,7 +67,7 @@ protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
-    ScintillaEditView **_ppEditView;
+    ScintillaEditView **_ppEditView = nullptr;
 	bool findCharInRange(unsigned char beginRange, unsigned char endRange, int startPos, bool direction, bool wrap);
 	bool getRangeFromUI(unsigned char & startRange, unsigned char & endRange);
 	void getDirectionFromUI(bool & whichDirection, bool & isWrap);

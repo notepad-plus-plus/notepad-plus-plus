@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-        Croatian localization for Notepad++ v.6.7
-        Last modified 2 November 2014 by Elvis Gambiraža
-        Najnoviji prijevod: http://www.pravastvar.com/lokalizacija/
+        Croatian localization for Notepad++
+        Last modified 20 August 2017 by Elvis Gambiraža
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="6.7">
+        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -17,6 +16,7 @@
                     <Item menuId="encoding" name="&amp;Format"/>
                     <Item menuId="language" name="&amp;Jezik sintaksi"/>
                     <Item menuId="settings" name="P&amp;ostavke"/>
+                    <Item menuId="tools" name="&amp;Alati"/>
                     <Item menuId="macro" name="&amp;Makro"/>
                     <Item menuId="run" name="Po&amp;kreni"/>
                     <Item idName="Plugins" name="P&amp;riključci"/>
@@ -37,6 +37,7 @@
                     <Item subMenuId="edit-eolConversion" name="Kraj retka"/>
                     <Item subMenuId="edit-blankOperations" name="Praznine"/>
                     <Item subMenuId="edit-pasteSpecial" name="Umetanje posebno"/>
+                    <Item subMenuId="edit-onSelection" name="Pri označavanju"/>
                     <Item subMenuId="search-markAll" name="Označi sve"/>
                     <Item subMenuId="search-unmarkAll" name="Poništi oznake"/>
                     <Item subMenuId="search-jumpUp" name="Skoči gore"/>
@@ -67,6 +68,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Zapadna Europa"/>
                     <Item subMenuId="encoding-vietnamese" name="Vijetnamski"/>
                     <Item subMenuId="settings-import" name="Uvoz"/>
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -92,7 +94,9 @@
                     <Item id="41015" name="Spre&amp;mi kopiju kao..."/>
                     <Item id="41016" name="Izbriši s &amp;diska"/>
                     <Item id="41017" name="Pre&amp;imenuj..."/>
-
+                    <Item id="41021" name="Vrati nedavno zatvorene datoteke"/>
+                    <Item id="41022" name="Otvori mapu kao &amp;radnu površinu"/>
+                    <Item id="41023" name="Otvori u zadanom pregledniku"/>
                     <Item id="42001" name="Iz&amp;reži"/>
                     <Item id="42002" name="&amp;Kopiraj"/>
                     <Item id="42003" name="Po&amp;ništi"/>
@@ -109,8 +113,26 @@
                     <Item id="42013" name="Spoji retke"/>
                     <Item id="42014" name="Tekući redak pomakni Gore"/>
                     <Item id="42015" name="Tekući redak pomakni Dolje"/>
+                    <Item id="42059" name="Sortiraj retke leksikografski Rastuće"/>
+                    <Item id="42060" name="Sortiraj retke leksikografski Padajuće"/>
+                    <Item id="42061" name="Sortiraj retke kao cijele brojeve Rastuće"/>
+                    <Item id="42062" name="Sortiraj retke kao cijele brojeve Padajuće"/>
+                    <Item id="42063" name="Sortiraj retke kao decimalne brojeve (zarez) Rastuće"/>
+                    <Item id="42064" name="Sortiraj retke kao decimalne brojeve (zarez) Padajuće"/>
+                    <Item id="42065" name="Sortiraj retke kao decimalne brojeve (točka) Rastuće"/>
+                    <Item id="42066" name="Sortiraj retke kao decimalne brojeve (točka) Padajuće"/>
                     <Item id="42016" name="VELIKA SLOVA"/>
                     <Item id="42017" name="mala slova"/>
+                    <Item id="42067" name="Kao Naslovi"/>
+                    <Item id="42068" name="Kao Naslovi (miješano)"/>
+                    <Item id="42069" name="Kao rečenica"/>
+                    <Item id="42070" name="Kao rečenica (miješano)"/>
+                    <Item id="42071" name="oBRATNO"/>
+                    <Item id="42072" name="sluČAjnO"/>
+                    <Item id="42073" name="Otvori datoteku"/>
+                    <Item id="42074" name="Otvori sadržavajuću mapu u Exploreru"/>
+                    <Item id="42075" name="Traži na Internetu"/>
+                    <Item id="42076" name="Promijeni tražilicu..."/>
                     <Item id="42018" name="&amp;Započni snimanje"/>
                     <Item id="42019" name="Za&amp;ustavi snimanje"/>
                     <Item id="42021" name="&amp;Prikaži snimljeno"/>
@@ -203,7 +225,7 @@
                     <Item id="43047" name="Prethodni rezultat pretraživanja"/>
                     <Item id="43048" name="Izaberi i pronađi sljedeće"/>
                     <Item id="43049" name="Izaberi i pronađi prethodno"/>
-
+                    <Item id="43054" name="Označi..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Smotaj sve"/>
                     <Item id="44011" name="Korisnički zadani dijalog..."/>
@@ -223,6 +245,7 @@
                     <Item id="44049" name="Svojstva dokumenta..."/>
                     <Item id="44080" name="Pregledna mapa dokumenta"/>
                     <Item id="44084" name="Popis funkcija"/>
+                    <Item id="44085" name="Mapa kao &amp;radna površina"/>
                     <Item id="44086" name="1. uvlaka"/>
                     <Item id="44087" name="2. uvlaka"/>
                     <Item id="44088" name="3. uvlaka"/>
@@ -234,6 +257,9 @@
                     <Item id="44094" name="9. uvlaka"/>
                     <Item id="44095" name="Sljedeća uvlaka"/>
                     <Item id="44096" name="Prethodna uvlaka"/>
+                    <Item id="44097" name="Nadzor (dodatak -f)"/>
+                    <Item id="44098" name="Premjesti karticu naprijed"/>
+                    <Item id="44099" name="Premjesti karticu natrag"/>
                     <Item id="44032" name="Cijeli zaslon"/>
                     <Item id="44033" name="Vrati izvorne postavke uvećavanja"/>
                     <Item id="44034" name="Uvijek na vrhu"/>
@@ -258,32 +284,36 @@
                     <Item id="45011" name="Pretvori u UTF-8"/>
                     <Item id="45012" name="Pretvori u UCS-2 Big Endian"/>
                     <Item id="45013" name="Pretvori u UCS-2 Little Endian"/>
-                    <Item id="45053" name="OEM 860: Portugalski"/>
-                    <Item id="45054" name="OEM 861: Islandski"/>
-                    <Item id="45056" name="OEM 863: Francuski"/>
-                    <Item id="45057" name="OEM 865: Nordijski"/>
-                    <Item id="45060" name="Big5 (Tradicionalni)"/>
-                    <Item id="45061" name="GB2312 (Pojednostavljeni)"/>
 
                     <Item id="10001" name="Premjesti u drugi prikaz"/>
                     <Item id="10002" name="Kloniraj u drugi prikaz"/>
                     <Item id="10003" name="Premjesti u novu instancu"/>
                     <Item id="10004" name="Otvori u novoj instanci"/>
 
-                    <Item id="46001" name="Postavke stilova..."/>
-                    <Item id="46150" name="Definiraj svoj jezik sintaksi..."/>
+                    <Item id="45060" name="Big5 (Tradicionalni)"/>
+                    <Item id="45061" name="GB2312 (Pojednostavljeni)"/>
+                    <Item id="45054" name="OEM 861: Islandski"/>
+                    <Item id="45057" name="OEM 865: Nordijski"/>
+                    <Item id="45053" name="OEM 860: Portugalski"/>
+                    <Item id="45056" name="OEM 863: Francuski"/>
+
+                    <Item id="46033" name="Asembler"/>
+                    <Item id="46019" name="MS INI datoteka"/>
                     <Item id="46015" name="MS-DOS stil"/>
                     <Item id="46016" name="Normalni tekst"/>
                     <Item id="46017" name="Datoteka resursa"/>
-                    <Item id="46019" name="MS INI datoteka"/>
-                    <Item id="46033" name="Asembler"/>
-                    <Item id="46080" name="Korisnički definirano"/>
+
+                    <Item id="46001" name="Postavke stilova..."/>
+                    <Item id="46250" name="Definiraj svoj jezik sintaksi..."/>
+                    <Item id="46180" name="Korisnički definirano"/>
                     <Item id="47000" name="O programu..."/>
                     <Item id="47010" name="Argumenti komandne linije..."/>
                     <Item id="47001" name="Web stranica Notepad++"/>
                     <Item id="47002" name="Stranica projekta Notepad++"/>
                     <Item id="47003" name="Online dokumentacija"/>
-                    <Item id="47004" name="Forum"/>
+                    <Item id="47004" name="Notepad++ zajednica (Forum)"/>
+                    <Item id="47011" name="Podrška uživo"/>
+                    <Item id="47012" name="Debug Info..."/>
                     <Item id="47005" name="Dodatni priključci"/>
                     <Item id="47006" name="Ažuriraj Notepad++"/>
                     <Item id="47007" name="Wiki FAQ"/>
@@ -294,6 +324,9 @@
                     <Item id="48018" name="Uredi skočni kontekstni izbornik"/>
                     <Item id="48009" name="Tipkovni prečaci..."/>
                     <Item id="48011" name="Postavke..."/>
+                    <Item id="48501" name="Generiraj..."/>
+                    <Item id="48502" name="Generiraj iz datoteka..."/>
+                    <Item id="48503" name="Generiraj u Clipboard"/>
                     <Item id="49000" name="&amp;Pokreni..."/>
 
                     <Item id="50000" name="Dopuna funkcija"/>
@@ -331,12 +364,14 @@
                     <Item CMID="18" name="Zatvori sve s desne strane"/>
                     <Item CMID="19" name="Otvori mapu s datotekom u Exploreru"/>
                     <Item CMID="20" name="Otvori mapu s datotekom u komandnoj liniji"/>
+                    <Item CMID="21" name="Otvori u zadanom pregledniku"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Pronađi" titleReplace="Zamijeni" titleFindInFiles="Pronađi u datotekama">
+            <Find title="" titleFind="Pronađi" titleReplace="Zamijeni" titleFindInFiles="Pronađi u datotekama" titleMark="Označi">
                     <Item id="1"    name="Pronađi sljedeće"/>
+                    <Item id="1722" name="Obratni smjer"/>
                     <Item id="2"    name="Zatvori"/>
                     <Item id="1620" name="Pronađi:"/>
                     <Item id="1603" name="Samo &amp;cijele riječi"/>
@@ -380,7 +415,6 @@
             </Find>
 
             <FindCharsInRange title="Pronađi znakove u rasponu...">
-                    <Item id="2910" name="Pronađi"/>
                     <Item id="2" name="Zatvori"/>
                     <Item id="2901" name="Ne-ASCII znakovi (128-255)"/>
                     <Item id="2902" name="ASCII znakovi (0-127)"/>
@@ -389,6 +423,8 @@
                     <Item id="2907" name="Na dolje"/>
                     <Item id="2908" name="Smjer"/>
                     <Item id="2909" name="Sve"/>
+                    <Item id="2910" name="Pronađi"/>
+
             </FindCharsInRange>
 
             <DocSwitcher title="Promjena dokumenta...">
@@ -397,7 +433,7 @@
             <GoToLine title="Skoči na redak...">
                     <Item id="2007" name="Redak"/>
                     <Item id="2008" name="Pozicija"/>
-                    <Item id="1"    name="&amp;Kreni"/>
+                    <Item id="1"    name="Kreni"/>
                     <Item id="2"    name="Prekini"/>
                     <Item id="2004" name="Vi ste u retku broj:"/>
                     <Item id="2005" name="Želite u redak broj:"/>
@@ -411,6 +447,18 @@
                     <Item id="2"    name="Poništi"/>
                     <Item id="1904" name="Spremi..."/>
             </Run>
+
+            <MD5FromFilesDlg title="Generiraj MD5 sažetak iz datoteka">
+                    <Item id="1922" name="Izaberi datoteke za generiranje MD5..."/>
+                    <Item id="1924" name="Kopiraj u Clipboard"/>
+                    <Item id="2"    name="Zatvori"/>
+            </MD5FromFilesDlg>
+
+            <MD5FromTextDlg title="Generiraj MD5 sažetak">
+                    <Item id="1932" name="Tretiraj svaku liniju kao poseban string"/>
+                    <Item id="1934" name="Kopiraj u Clipboard"/>
+                    <Item id="2"    name="Zatvori"/>
+            </MD5FromTextDlg>
 
             <StyleConfig title="Prilagodba stilova">
                     <Item id="1"    name="Isprobaj"/>
@@ -500,6 +548,8 @@
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Brojevi"/>
+                    <Item id="1" name="U redu"/>
+                    <Item id="2" name="Poništi"/>
                 </StylerDialog>
                 <CreateNewLanguage title="Kreiranje novog jezika...">
                     <Item id="1"     name="U redu"/>
@@ -527,7 +577,6 @@
                     <Item id="21425" name="Sredina:"/>
                     <Item id="21426" name="Zatvaranje:"/>
                     <Item id="21427" name="Stil"/>
-                    <Item id="21127" name="Stilovi"/>
                     <Item id="21201" name="Postavke ključnih riječi otvorene mape"/>
                     <Item id="21301" name="Postavke ključnih riječi zatvorene mape"/>
                 </Folder>
@@ -677,6 +726,7 @@
                     <Item id="6118" name="Sakrij"/>
                     <Item id="6119" name="U više redaka"/>
                     <Item id="6120" name="Okomito"/>
+                    <Item id="6121" name="Izlaz pri zatvaranju zadnje kartice"/>
 
                     <Item id="6121" name="Izbornička vrpca"/>
                     <Item id="6122" name="Sakrij (za promjenu koristite Alt ili F10)"/>
@@ -715,7 +765,10 @@
                     <Item id="6212" name="Okomita crta"/>
                     <Item id="6213" name="Pozadina u boji"/>
                     <Item id="6214" name="Istakni trenutno aktivni redak"/>
+                    <Item id="6215" name="Uključi glatki font"/>
                     <Item id="6231" name="Širina margine"/>
+                    <Item id="6235" name="Bez ruba"/>
+                    <Item id="6236" name="Omogući klizanje nakon zadnjeg retka"/>
                 </Scintillas>
 
                 <NewDoc title="Novi dokument">
@@ -726,9 +779,9 @@
                     <Item id="6405" name="Kodiranje"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8 bez BOM-a"/>
-                    <Item id="6408" name="UTF-8"/>
-                    <Item id="6409" name="UCS-2 Big Endian"/>
-                    <Item id="6410" name="UCS-2 Little Endian"/>
+                    <Item id="6408" name="UTF-8 sa BOM-om"/>
+                    <Item id="6409" name="UCS-2 Big Endian sa BOM-om"/>
+                    <Item id="6410" name="UCS-2 Little Endian sa BOM-om"/>
                     <Item id="6411" name="Zadana sintaksa:"/>
                     <Item id="6419" name="Novi dokument"/>
                     <Item id="6420" name="Primijeni na otvorene ANSI datoteke"/>
@@ -740,25 +793,37 @@
                     <Item id="6414" name="Sukladno tekućem dokumentu"/>
                     <Item id="6415" name="Upamti popis posljednje korištenih mapa"/>
                     <Item id="6418" name="..."/>
+                    <Item id="6430" name="Upotrijebi novi dijalog spremanja stila (bez nastavka datoteke)"/>
+                    <Item id="6431" name="Otvori sve datoteke mape umjesto pokretanja 'Mapa kao radna površina' pri prenošenju mape"/>
                 </DefaultDir>
 
                 <FileAssoc title="Pridruživanje datoteka">
                     <Item id="4009" name="Podržani nastavci:"/>
                     <Item id="4010" name="Registrirani nastavci:"/>
                 </FileAssoc>
-                <LangMenu title="Sintaksa">
+                <Language title="Sintaksa">
                     <Item id="6505" name="Dostupno..."/>
                     <Item id="6506" name="Isključeno..."/>
                     <Item id="6507" name="Učini izbornik kompaktnim"/>
                     <Item id="6508" name="Izbornik jezika sintaksi"/>
-                    <Item id="6510" name="Koristi zadanu vrijednost"/>
-                </LangMenu>
-
-                <TabSettings title="Postavke tabulatora">
                     <Item id="6301" name="Postavke uvlaka"/>
                     <Item id="6302" name="Zamijeni razmacima"/>
                     <Item id="6303" name="Veličina uvlaka: "/>
-                </TabSettings>
+                    <Item id="6510" name="Koristi zadanu vrijednost"/>
+                </Language>
+
+                <Highlighting title="Označavanje">
+                    <Item id="6333" name="Pametno označavanje"/>
+                    <Item id="6326" name="Omogući pametno označavanje"/>
+                    <Item id="6332" name="Razlikuj veliko/malo slovo"/>
+                    <Item id="6338" name="Traži samo cijele riječi"/>
+                    <Item id="6339" name="Koristi postavke dialoga Pretraživanja"/>
+                    <Item id="6340" name="Označi drugi pogled"/>
+                    <Item id="6329" name="Označi podudarne tagove"/>
+                    <Item id="6327" name="Omogući"/>
+                    <Item id="6328" name="Označi tag atribute"/>
+                    <Item id="6330" name="Označi područja komentara/php/asp"/>
+                </Highlighting>
 
                 <Print title="Ispis">
                     <Item id="6601" name="Ispiši brojeve redaka"/>
@@ -822,6 +887,7 @@
                     <Item id="6809" name="Dopunjavanje funkcija"/>
                     <Item id="6810" name="Dopunjavanje riječi"/>
                     <Item id="6816" name="Dopunjavanje funkcija i riječi"/>
+                    <Item id="6824" name="Ignoriraj brojeve"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name="-og znaka"/>
                     <Item id="6814" name="Moguća vrijednost: 1 - 9"/>
@@ -850,6 +916,10 @@
                     <Item id="6256" name="Dopustiti na više redaka"/>
                     <Item id="6257" name="Za programiranje"/>
                     <Item id="6258" name="U ime Oca i Sina i Duha Svetoga Enter."/>
+                    <Item id="6161" name="Popis znakova za Riječi"/>
+                    <Item id="6162" name="Koristi zadani popis znakova za Riječi kakav je"/>
+                    <Item id="6163" name="Dodaj svoj znak kao dio riječi (nemojte odabrati ako ne znate što radite)"/>
+
                 </Delimiter>
 
                 <Cloud title="Oblak">
@@ -858,8 +928,20 @@
                     <Item id="6264" name="Dropbox"/>
                     <Item id="6265" name="OneDrive"/>
                     <Item id="6266" name="Google Drive"/>
-                    <!--Item id="6261" name="Molim restartajte Notepad++ kako bi proradilo."/-->
+                    <Item id="6267" name="Upiši put lokacije oblaka ovdje:"/>
+                    <Item id="6261" name="Molim restartajte Notepad++ kako bi proradilo."/>
                 </Cloud>
+
+                <SearchEngine title="Tražilica">
+                    <Item id="6271" name="Tražilica (za naredbu &quot;Traži na Internetu&quot;)"/>
+                    <Item id="6272" name="DuckDuckGo"/>
+                    <Item id="6273" name="Google"/>
+                    <Item id="6274" name="Bing"/>
+                    <Item id="6275" name="Yahoo!"/>
+                    <Item id="6276" name="Postavi svoju tražilicu ovdje:"/>
+                    <!-- Don't change anything after Example: -->
+                    <Item id="6278" name="Primjer: https://www.google.com/search?q=$(CURRENT_WORD)"/>
+                </SearchEngine>
 
                 <MISC title="Razno">
                     <Item id="6307" name="Uključi"/>
@@ -884,9 +966,13 @@
                     <Item id="6333" name="Inteligentno isticanje"/>
                     <Item id="6334" name="Automatski detektiraj enkoding"/>
                     <Item id="6335" name="Tretiraj backslash kao escape karakter za SQL"/>
+                    <Item id="6337" name="Nastavak datoteke radne površine:"/>
                     <Item id="6114" name="Uključi sklopku"/>
                     <Item id="6115" name="Automatska uvlaka redaka"/>
                     <Item id="6117" name="Koristi povijest dokumenata"/>
+                    <Item id="6344" name="Kratki pogled na dokument"/>
+                    <Item id="6345" name="Pogled na karticu"/>
+                    <Item id="6346" name="Pogled na mapu dokumenata"/>
                 </MISC>
 
 
@@ -912,6 +998,7 @@
                     <Item id="2030" name="Početna znamenka:"/>
                     <Item id="2031" name="Povećavanje za:"/>
                     <Item id="2035" name="Vodeće nule"/>
+                    <Item id="2036" name="Ponovi:"/>
                     <Item id="2032" name="Format"/>
                     <Item id="2024" name="Dec"/>
                     <Item id="2025" name="Oct"/>
@@ -934,6 +1021,9 @@
 
                     <!-- $INT_REPLACE$ is a place holder, don't translate it -->
                     <NbFileToOpenImportantWarning title="Broj datoteka za otvaranje je prevelik" message="$INT_REPLACE$ datoteka će se otvoriti.\rŽelite li ih zaista otvoriti?"/>
+                    <SettingsOnCloudError title="Podešavanje oblaka" message="Izgleda da je put u podešavanju oblaka postavljen na pogon samo za čitanje,\rili na mapu koja zahtijeva posebne ovlasti za pisanje.\rVaše postavke oblaka će biti poništene. Molim, resetirajte koherentnu vrijednost preko dijaloga Postavke."/>
+                    <FilePathNotFoundWarning title="Otvaranje datoteke" message="Datoteka koju pokušavate otvoriti ne postoji."/>
+                    <SessionFileInvalidError title="Ne mogu učitati sesiju" message="Session file is either corrupted or not valid."/>
             </MessageBox>
             <ClipboardHistory>
                     <PanelTitle name="Povijest međuspremnika"/>
@@ -1003,5 +1093,17 @@
                         </FileMenu>
                     </Menus>
             </ProjectManager>
+            <MiscStrings>
+                        <word-chars-list-tip value="Ovo omogućuje da uključiti dodatni znak u sadašnje znakove riječi, s dvostrukim klikom na izbor ili pretragom sa &quot;Traži samo cijele riječi&quot; opcijom označenom."/>
+                        <word-chars-list-warning-begin value="Budite upozoreni: "/>
+                        <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+                        <word-chars-list-space-warning value="$INT_REPLACE$ razmak(i)"/>
+                        <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+                        <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(ovi)"/>
+                        <word-chars-list-warning-end value="  u vašem popisu znakova."/>
+                        <cloud-invalid-warning value="Neispravan put."/>
+                        <cloud-restart-warning value="Ponovno pokrenite Notepad++ kako bi stupilo na snagu."/>
+			<shift-change-direction-tip value="Upotrijebite Shift + Enter za traženje u suprotnom smjeru."/>
+            </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

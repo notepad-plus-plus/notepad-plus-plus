@@ -25,11 +25,13 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
+#include "json.hpp"
 #include "functionListPanel.h"
 #include "ScintillaEditView.h"
 #include "localization.h"
+#include <fstream>
 
+using nlohmann::json;
 using namespace std;
 
 #define CX_BITMAP         16
@@ -39,11 +41,12 @@ using namespace std;
 #define INDEX_NODE        1
 #define INDEX_LEAF        2
 
+
 void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText, size_t pos)
 {
 	HTREEITEM itemParent = NULL;
 	TCHAR posStr[32];
-	generic_itoa(pos, posStr, 10);
+	generic_itoa(static_cast<int32_t>(pos), posStr, 10);
 	HTREEITEM root = _treeView.getRoot();
 
 	if (nodeName != NULL && *nodeName != '\0')
@@ -108,7 +111,7 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 		else // nothing found
 		{
 			cntOpen = 0; // get me out of here
-			targetEnd = begin;
+			targetEnd = static_cast<int32_t>(begin);
 		}
 
 		targetStart = (*_ppEditView)->searchInTarget(exprToSearch.c_str(), exprToSearch.length(), targetEnd, docLen);
@@ -199,7 +202,7 @@ void FunctionListPanel::sortOrUnsort()
 	else
 	{
 		TCHAR text2search[MAX_PATH] ;
-		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2search);
+		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
 
 		if (text2search[0] == '\0') // main view
 		{
@@ -224,6 +227,80 @@ void FunctionListPanel::sortOrUnsort()
 	}
 }
 
+
+bool FunctionListPanel::serialize(const generic_string & outputFilename)
+{
+	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+	const TCHAR* fileNameLabel = currentBuf->getFileName();
+
+	generic_string fname2write;
+	if (outputFilename.empty()) // if outputFilename is not given, get the current file path by adding the file extension
+	{
+		const TCHAR *fullFilePath = currentBuf->getFullPathName();
+
+		// Export function list from an existing file 
+		bool exportFuncntionList = (NppParameters::getInstance())->doFunctionListExport();
+		if (exportFuncntionList && ::PathFileExists(fullFilePath))
+		{
+			fname2write = fullFilePath;
+			fname2write += TEXT(".result");
+			fname2write += TEXT(".json");
+		}
+		else
+			return false;
+	}
+	else
+	{
+		fname2write = outputFilename;
+	}
+
+	const char* rootLabel = "root";
+	const char* branchesLabel = "branches";
+	const char* leavesLabel = "leaves";
+	const char* nameLabel = "name";
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	json j;
+	j[rootLabel] = wmc->wchar2char(fileNameLabel, CP_ACP);
+
+	for (const auto & info : _foundFuncInfos)
+	{
+		std::string leafName = wmc->wchar2char(info._data.c_str(), CP_ACP);
+
+		if (!info._data2.empty()) // node
+		{
+			bool isFound = false;
+			std::string nodeName = wmc->wchar2char(info._data2.c_str(), CP_ACP);
+
+			for (auto & i : j[branchesLabel])
+			{
+				if (nodeName == i[nameLabel])
+				{
+					i[leavesLabel].push_back(leafName.c_str());
+					isFound = true;
+					break;
+				}
+			}
+
+			if (!isFound)
+			{
+				json aNode = { { leavesLabel, json::array() },{ nameLabel, nodeName.c_str() } };
+				aNode[leavesLabel].push_back(leafName.c_str());
+				j[branchesLabel].push_back(aNode);
+			}
+		}
+		else // leaf
+		{
+			j[leavesLabel].push_back(leafName.c_str());
+		}
+	}
+
+	std::ofstream file(fname2write);
+	file << j;
+
+	return true;
+}
+
 void FunctionListPanel::reload()
 {
 	// clean up
@@ -232,69 +309,74 @@ void FunctionListPanel::reload()
 	if (isOK)
 	{
 		TCHAR text2Search[MAX_PATH];
-		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2Search);
+		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2Search));
 		bool isSorted =  shouldSort();
 		addInStateArray(currentTree, text2Search, isSorted);
 	}
 	removeAllEntries();
-	::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)TEXT(""));
+	::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
 	setSort(false);
 
-	vector<foundInfo> fi;
+	_foundFuncInfos.clear();
 
-	const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
-	LangType langID = ((*_ppEditView)->getCurrentBuffer())->getLangType();
+	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+	const TCHAR *fn = currentBuf->getFileName();
+	LangType langID = currentBuf->getLangType();
 	if (langID == L_JAVASCRIPT)
 		langID = L_JS;
 
 	const TCHAR *udln = NULL;
 	if (langID == L_USER)
 	{
-		udln = ((*_ppEditView)->getCurrentBuffer())->getUserDefineLangName();
+		udln = currentBuf->getUserDefineLangName();
 	}
 
 	TCHAR *ext = ::PathFindExtension(fn);
 
-	if (_funcParserMgr.parse(fi, AssociationInfo(-1, langID, ext, udln)))
+	bool parsedOK = _funcParserMgr.parse(_foundFuncInfos, AssociationInfo(-1, langID, ext, udln));
+	if (parsedOK)
 	{
 		_treeView.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
 	}
 
-	for (size_t i = 0, len = fi.size(); i < len; ++i)
+	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
 	{
-		// no 2 level
+		// no 2 levels
 		bool b = false;
 		if (b)
 		{
 			generic_string entryName = TEXT("");
-			if (fi[i]._pos2 != -1)
+			if (!_foundFuncInfos[i]._data2.empty())
 			{
-				entryName = fi[i]._data2;
+				entryName = _foundFuncInfos[i]._data2;
 				entryName += TEXT("=>");
 			}
-			entryName += fi[i]._data;
-			addEntry(NULL, entryName.c_str(), fi[i]._pos);
+			entryName += _foundFuncInfos[i]._data;
+			addEntry(NULL, entryName.c_str(), _foundFuncInfos[i]._pos);
 		}
 		else
 		{
-			addEntry(fi[i]._data2.c_str(), fi[i]._data.c_str(), fi[i]._pos);
+			addEntry(_foundFuncInfos[i]._data2.c_str(), _foundFuncInfos[i]._data.c_str(), _foundFuncInfos[i]._pos);
 		}
 	}
+
 	HTREEITEM root = _treeView.getRoot();
-	const TCHAR *fullFilePath = ((*_ppEditView)->getCurrentBuffer())->getFullPathName();
+	
 	if (root)
 	{
+		Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
+		const TCHAR *fullFilePath = currentBuf->getFullPathName();
 		_treeView.setItemParam(root, fullFilePath);
 		TreeParams *previousParams = getFromStateArray(fullFilePath);
 		if (!previousParams)
 		{
-			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)TEXT(""));
+			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
 			setSort(false);
 			_treeView.expand(root);
 		}
 		else
 		{
-			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)(previousParams->_searchParameters)._text2Find.c_str());
+			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, reinterpret_cast<LPARAM>((previousParams->_searchParameters)._text2Find.c_str()));
 
 			_treeView.restoreFoldingStateFrom(previousParams->_treeState, root);
 
@@ -314,7 +396,6 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 {
 	DockingDlgInterface::init(hInst, hPere);
 	_ppEditView = ppEditView;
-	bool isOK = false;
 	bool doLocalConf = (NppParameters::getInstance())->isLocal();
 
 	if (!doLocalConf)
@@ -329,12 +410,12 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 			if (PathFileExists(funcListDefaultXmlPath.c_str()))
 			{
 				::CopyFile(funcListDefaultXmlPath.c_str(), funcListXmlPath.c_str(), TRUE);
-				isOK = _funcParserMgr.init(funcListXmlPath, ppEditView);
+				_funcParserMgr.init(funcListXmlPath, ppEditView);
 			}
 		}
 		else
 		{
-			isOK = _funcParserMgr.init(funcListXmlPath, ppEditView);
+			_funcParserMgr.init(funcListXmlPath, ppEditView);
 		}
 	}
 	else
@@ -343,11 +424,9 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 		PathAppend(funcListDefaultXmlPath, TEXT("functionList.xml"));
 		if (PathFileExists(funcListDefaultXmlPath.c_str()))
 		{
-			isOK = _funcParserMgr.init(funcListDefaultXmlPath, ppEditView);
+			_funcParserMgr.init(funcListDefaultXmlPath, ppEditView);
 		}
 	}
-
-	//return isOK;
 }
 
 bool FunctionListPanel::openSelection(const TreeView & treeView)
@@ -355,14 +434,14 @@ bool FunctionListPanel::openSelection(const TreeView & treeView)
 	TVITEM tvItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
 	tvItem.hItem = treeView.getSelection();
-	::SendMessage(treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+	::SendMessage(treeView.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
 
 	if (tvItem.iImage == INDEX_ROOT || tvItem.iImage == INDEX_NODE)
 	{
 		return false;
 	}
 
-	generic_string *posStr = (generic_string *)tvItem.lParam;
+	generic_string *posStr = reinterpret_cast<generic_string *>(tvItem.lParam);
 	if (!posStr)
 		return false;
 
@@ -370,7 +449,7 @@ bool FunctionListPanel::openSelection(const TreeView & treeView)
 	if (pos == -1)
 		return false;
 
-	int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
+	auto sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
 	(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
 	(*_ppEditView)->scrollPosToCenter(pos);
 
@@ -472,7 +551,7 @@ BOOL FunctionListPanel::setTreeViewImageList(int root_id, int node_id, int leaf_
 void FunctionListPanel::searchFuncAndSwitchView()
 {
 	TCHAR text2search[MAX_PATH] ;
-	::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2search);
+	::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
 	bool doSort = shouldSort();
 
 	if (text2search[0] == '\0')
@@ -522,7 +601,7 @@ bool FunctionListPanel::shouldSort()
 	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO);
 	tbbuttonInfo.dwMask = TBIF_STATE;
 
-	::SendMessage(_hToolbarMenu, TB_GETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, (LPARAM)&tbbuttonInfo);
+	::SendMessage(_hToolbarMenu, TB_GETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, reinterpret_cast<LPARAM>(&tbbuttonInfo));
 
 	return (tbbuttonInfo.fsState & TBSTATE_CHECKED) != 0;
 }
@@ -533,7 +612,7 @@ void FunctionListPanel::setSort(bool isEnabled)
 	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO);
 	tbbuttonInfo.dwMask = TBIF_STATE;
 	tbbuttonInfo.fsState = isEnabled ? TBSTATE_ENABLED | TBSTATE_CHECKED : TBSTATE_ENABLED;
-	::SendMessage(_hToolbarMenu, TB_SETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, (LPARAM)&tbbuttonInfo);
+	::SendMessage(_hToolbarMenu, TB_SETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, reinterpret_cast<LPARAM>(&tbbuttonInfo));
 }
 
 INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -546,7 +625,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			// if the text not found modify the background color of the editor
 			static HBRUSH hBrushBackground = CreateSolidBrush(BCKGRD_COLOR);
 			TCHAR text2search[MAX_PATH] ;
-			::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2search);
+			::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, reinterpret_cast<LPARAM>(text2search));
 			if (text2search[0] == '\0')
 			{
 				return FALSE; // no text, use the default color
@@ -575,18 +654,17 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			// Create toolbar menu
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
-								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
+								   0,0,0,0,_hSelf,nullptr, _hInst, NULL);
 
-			//::GetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC);
-			oldFunclstToolbarProc = (WNDPROC)::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, (LONG_PTR)funclstToolbarProc);
+			oldFunclstToolbarProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(funclstToolbarProc)));
 			TBBUTTON tbButtons[3];
 
 			// Add the bmap image into toolbar's imagelist
 			TBADDBITMAP addbmp = {_hInst, 0};
 			addbmp.nID = IDI_FUNCLIST_SORTBUTTON;
-			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, (LPARAM)&addbmp);
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 			addbmp.nID = IDI_FUNCLIST_RELOADBUTTON;
-			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, (LPARAM)&addbmp);
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, reinterpret_cast<LPARAM>(&addbmp));
 
 			// Place holder of search text field
 			tbButtons[0].idCommand = 0;
@@ -599,17 +677,17 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			tbButtons[1].iBitmap = 0;
 			tbButtons[1].fsState = TBSTATE_ENABLED;
 			tbButtons[1].fsStyle = BTNS_CHECK | BTNS_AUTOSIZE;
-			tbButtons[1].iString = (INT_PTR)TEXT("");
+			tbButtons[1].iString = reinterpret_cast<INT_PTR>(TEXT(""));
 
 			tbButtons[2].idCommand = IDC_RELOADBUTTON_FUNCLIST;
 			tbButtons[2].iBitmap = 1;
 			tbButtons[2].fsState = TBSTATE_ENABLED;
 			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[2].iString = (INT_PTR)TEXT("");
+			tbButtons[2].iString = reinterpret_cast<INT_PTR>(TEXT(""));
 
-			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
-			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, (WPARAM)0, (LPARAM)MAKELONG(16, 16));
-			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON), (LPARAM)&tbButtons);
+			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
+			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE, 0, MAKELONG(16, 16));
+			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS, sizeof(tbButtons) / sizeof(TBBUTTON), reinterpret_cast<LPARAM>(&tbButtons));
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
 
 			ShowWindow(_hToolbarMenu, SW_SHOW);
@@ -622,11 +700,11 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 			_hSearchEdit = CreateWindowEx(0, L"Edit", NULL,
                                    WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL,
                                    2, 2, editWidth, editHeight,
-                                   _hToolbarMenu, (HMENU) IDC_SEARCHFIELD_FUNCLIST, _hInst, 0 );
+                                   _hToolbarMenu, reinterpret_cast<HMENU>(IDC_SEARCHFIELD_FUNCLIST), _hInst, 0 );
 
 			HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 			if (hf)
-				::SendMessage(_hSearchEdit, WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
+				::SendMessage(_hSearchEdit, WM_SETFONT, reinterpret_cast<WPARAM>(hf), MAKELPARAM(TRUE, 0));
 
 			_treeViewSearchResult.init(_hInst, _hSelf, IDC_LIST_FUNCLIST_AUX);
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);

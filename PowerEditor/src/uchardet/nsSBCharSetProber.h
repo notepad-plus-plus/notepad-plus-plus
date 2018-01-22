@@ -84,7 +84,7 @@ public:
   // prober has a hard-coded call to FilterWithoutEnglishLetters which gets rid
   // of the English letters.
   PRBool KeepEnglishLetters() {return mModel->keepEnglishLetter;} // (not implemented)
-  nsSingleByteCharSetProber operator=(const nsSingleByteCharSetProber&){};
+  nsSingleByteCharSetProber operator=(const nsSingleByteCharSetProber&) = delete;
 
 #ifdef DEBUG_chardet
   virtual void  DumpStatus();

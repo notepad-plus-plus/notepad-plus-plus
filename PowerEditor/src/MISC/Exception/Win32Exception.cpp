@@ -56,12 +56,16 @@ Win32Exception::Win32Exception(EXCEPTION_POINTERS * info)
 
 void Win32Exception::installHandler()
 {
+#ifndef __MINGW32__
 	_set_se_translator(Win32Exception::translate);
+#endif
 }
 
 void  Win32Exception::removeHandler()
 {
+#ifndef __MINGW32__
 	_set_se_translator(NULL);
+#endif
 }
 
 void Win32Exception::translate(unsigned code, EXCEPTION_POINTERS * info)

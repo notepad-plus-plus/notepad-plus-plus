@@ -9,7 +9,7 @@
 //TCS_BOTTOM = 300
 //LVS_EX_BORDERSELECT = 500
 //TBSTYLE_EX_HIDECLIPPEDBUTTONS = 501
-#define _WIN32_IE 0x501
+//#define _WIN32_IE 0x501
 //Theme (uxtheme)
 #define _WIN32_WINNT 0x0501
 
@@ -41,11 +41,12 @@ static inline int min(unsigned int a, unsigned int b) {
 }
 
 //__try and __except dont work in gcc, so heres some defines to take em out
-#define __try
-#define __except(x)	if(false)
-
-#define GetExceptionCode()			0
-#define GetExceptionInformation()	NULL
+#define __try		try
+#define __except(x)	catch(...)
 
 //Missing unicode CRT funcs
-double _wtof(const wchar_t * string);
+//double _wtof(const wchar_t * string);
+
+// from MinGW include/driverspecs.h
+#define __inout
+#define __inout_opt

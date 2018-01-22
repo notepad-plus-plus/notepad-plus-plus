@@ -30,7 +30,7 @@
 
 #include <windows.h>
 #include <commctrl.h>
-#include "window.h"
+#include "Window.h"
 #include "Common.h"
 
 struct TreeStateNode {
@@ -51,10 +51,14 @@ public:
 	virtual void destroy();
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
 	bool setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr);
+	LPARAM getItemParam(HTREEITEM Item2Get) const;
+	generic_string getItemDisplayName(HTREEITEM Item2Set) const;
 	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
-	
+	bool renameItem(HTREEITEM Item2Set, const TCHAR *newName);
+	void makeLabelEditable(bool toBeEnabled);
+
 	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {
 		return TreeView_GetChild(_hSelf, hTreeItem);
 	};

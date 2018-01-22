@@ -46,12 +46,13 @@ MenuPosition menuPos[] = {
 	{ 4, -1, -1, "encoding" },
 	{ 5, -1, -1, "language" },
 	{ 6, -1, -1, "settings" },
-	{ 7, -1, -1, "macro" },
-	{ 8, -1, -1, "run" },
+	{ 7, -1, -1, "tools" },
+	{ 8, -1, -1, "macro" },
+	{ 9, -1, -1, "run" },
 
-	{ 0, 2, -1, "file-openFolder" },
-	{ 0, 11, -1, "file-closeMore" },
-	{ 0, 20, -1, "file-recentFiles" },
+	{ 0,  2, -1, "file-openFolder" },
+	{ 0, 13, -1, "file-closeMore" },
+	{ 0, 22, -1, "file-recentFiles" },
 
 	{ 1, 10, -1, "edit-copyToClipboard" },
 	{ 1, 11, -1, "edit-indent" },
@@ -62,6 +63,7 @@ MenuPosition menuPos[] = {
 	{ 1, 16, -1, "edit-eolConversion" },
 	{ 1, 17, -1, "edit-blankOperations" },
 	{ 1, 18, -1, "edit-pasteSpecial" },
+	{ 1, 19, -1, "edit-onSelection" },
 
 	{ 2, 18, -1, "search-markAll" },
 	{ 2, 19, -1, "search-unmarkAll" },
@@ -69,33 +71,35 @@ MenuPosition menuPos[] = {
 	{ 2, 21, -1, "search-jumpDown" },
 	{ 2, 23, -1, "search-bookmark" },
 
-	{ 3, 4, -1, "view-showSymbol" },
-	{ 3, 5, -1, "view-zoom" },
-	{ 3, 6, -1, "view-moveCloneDocument" },
-	{ 3, 7, -1, "view-tab" },
+	{ 3,  4, -1, "view-showSymbol" },
+	{ 3,  5, -1, "view-zoom" },
+	{ 3,  6, -1, "view-moveCloneDocument" },
+	{ 3,  7, -1, "view-tab" },
 	{ 3, 16, -1, "view-collapseLevel" },
 	{ 3, 17, -1, "view-uncollapseLevel" },
 	{ 3, 21, -1, "view-project" },
 
-	{ 4, 5, -1, "encoding-characterSets" },
-	{ 4, 5, 0, "encoding-arabic" },
-	{ 4, 5, 1, "encoding-baltic" },
-	{ 4, 5, 2, "encoding-celtic" },
-	{ 4, 5, 3, "encoding-cyrillic" },
-	{ 4, 5, 4, "encoding-centralEuropean" },
-	{ 4, 5, 5, "encoding-chinese" },
-	{ 4, 5, 6, "encoding-easternEuropean" },
-	{ 4, 5, 7, "encoding-greek" },
-	{ 4, 5, 8, "encoding-hebrew" },
-	{ 4, 5, 9, "encoding-japanese" },
-	{ 4, 5, 10, "encoding-korean" },
-	{ 4, 5, 11, "encoding-northEuropean" },
-	{ 4, 5, 12, "encoding-thai" },
-	{ 4, 5, 13, "encoding-turkish" },
-	{ 4, 5, 14, "encoding-westernEuropean" },
-	{ 4, 5, 15, "encoding-vietnamese" },
+	{ 4,  5, -1, "encoding-characterSets" },
+	{ 4,  5,  0, "encoding-arabic" },
+	{ 4,  5,  1, "encoding-baltic" },
+	{ 4,  5,  2, "encoding-celtic" },
+	{ 4,  5,  3, "encoding-cyrillic" },
+	{ 4,  5,  4, "encoding-centralEuropean" },
+	{ 4,  5,  5, "encoding-chinese" },
+	{ 4,  5,  6, "encoding-easternEuropean" },
+	{ 4,  5,  7, "encoding-greek" },
+	{ 4,  5,  8, "encoding-hebrew" },
+	{ 4,  5,  9, "encoding-japanese" },
+	{ 4,  5, 10, "encoding-korean" },
+	{ 4,  5, 11, "encoding-northEuropean" },
+	{ 4,  5, 12, "encoding-thai" },
+	{ 4,  5, 13, "encoding-turkish" },
+	{ 4,  5, 14, "encoding-westernEuropean" },
+	{ 4,  5, 15, "encoding-vietnamese" },
 
-	{ 6, 4, -1, "settings-import" },
+	{ 6,  4, -1, "settings-import" },
+
+	{ 7,  0, -1, "tools-md5" },
 	{ -1, -1, -1, "" } // End of array
 };
 
@@ -138,7 +142,7 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
     }
 }
 
-generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
+generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName) const
 {
 	if (!_nativeLangA) return TEXT("");
 	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
@@ -169,7 +173,7 @@ generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
 	return TEXT("");
 }
 
-generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) 
+generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
 {
 	if (!_nativeLangA)
 		return TEXT("");
@@ -202,6 +206,30 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID)
 	}
 	return TEXT("");
 }
+
+generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID) const
+{
+	if (not _nativeLangA)
+		return TEXT("");
+
+	if (not strID)
+		return TEXT("");
+
+	TiXmlNodeA *node = _nativeLangA->FirstChild("MiscStrings");
+	if (not node) return TEXT("");
+
+	node = node->FirstChild(strID);
+	if (not node) return TEXT("");
+
+	TiXmlElementA *element = node->ToElement();
+
+	const char *value = element->Attribute("value");
+	if (not value) return TEXT("");
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	return wmc->char2wchar(value, _nativeLangEncoding);
+}
+
 
 
 MenuPosition & getMenuPosition(const char *id)
@@ -336,27 +364,32 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 
 static const int tabContextMenuItemPos[] =
 {
+//  +-------------- The order in tab menu (NppNotification.cpp : if (!_tabPopupMenu.isCreated())
+//  |
+//  |       +------ Number in english.xml (<language>.xml) : <TabBar>
+//  |       |
 	0,   // 0 : Close
 	1,   // 1 : Close ALL BUT This
 	4,   // 2 : Save
 	5,   // 3 : Save As
 	9,   // 4 : Print
-	21,  // 5 : Move to Other View
-	22,  // 6 : Clone to Other View
-	17,  // 7 : Full File Path to Clipboard
-	18,  // 8 : Filename to Clipboard
-	19,  // 9 : Current Dir. Path to Clipboard
+	23,  // 5 : Move to Other View
+	24,  // 6 : Clone to Other View
+	19,  // 7 : Full File Path to Clipboard
+	20,  // 8 : Filename to Clipboard
+	21,  // 9 : Current Dir. Path to Clipboard
 	6,   // 10: Rename
 	7,   // 11: Move to Recycle Bin
-	14,  // 12: Read-Only
-	15,  // 13: Clear Read-Only Flag
-	23,  // 14: Move to New Instance
-	24,  // 15: Open to New Instance
+	16,  // 12: Read-Only
+	17,  // 13: Clear Read-Only Flag
+	25,  // 14: Move to New Instance
+	26,  // 15: Open to New Instance
 	8,   // 16: Reload
 	2,   // 17: Close ALL to the Left
 	3,   // 18: Close ALL to the Right
 	11,  // 19: Open Containing Folder in Explorer
 	12,  // 20: Open Containing Folder in cmd
+    14,  // 21: Open in Default Viewer
 	-1   //-------End
 };
 
@@ -723,7 +756,7 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 
 void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference) 
 {
-	int currentSel = preference.getListSelectedIndex();
+	auto currentSel = preference.getListSelectedIndex();
 	changeDlgLang(preference.getHSelf(), "Preference");
 
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -769,18 +802,18 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(TEXT("FileAssoc"), nameW);
 	}
 
-	changeDlgLang(preference._langMenuDlg.getHSelf(), "LangMenu", titre);
+	changeDlgLang(preference._langMenuDlg.getHSelf(), "Language", titre);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference.renameDialogTitle(TEXT("LangMenu"), nameW);
+		preference.renameDialogTitle(TEXT("Language"), nameW);
 	}
 
-	changeDlgLang(preference._tabSettings.getHSelf(), "TabSettings", titre);
+	changeDlgLang(preference._highlighting.getHSelf(), "Highlighting", titre);
 	if (titre[0] != '\0')
 	{
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference.renameDialogTitle(TEXT("TabSettings"), nameW);
+		preference.renameDialogTitle(TEXT("Highlighting"), nameW);
 	}
 
 	changeDlgLang(preference._printSettingsDlg.getHSelf(), "Print", titre);
@@ -830,6 +863,13 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(TEXT("Cloud"), nameW);
 	}
 
+	changeDlgLang(preference._searchEngineDlg.getHSelf(), "SearchEngine", titre);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("SearchEngine"), nameW);
+	}
+
 	preference.setListSelection(currentSel);
 }
 
@@ -840,8 +880,6 @@ void NativeLangSpeaker::changeShortcutLang()
 	NppParameters * pNppParam = NppParameters::getInstance();
 	vector<CommandShortcut> & mainshortcuts = pNppParam->getUserShortcuts();
 	vector<ScintillaKeyMap> & scinshortcuts = pNppParam->getScintillaKeyList();
-	int mainSize = (int)mainshortcuts.size();
-	int scinSize = (int)scinshortcuts.size();
 
 	TiXmlNodeA *shortcuts = _nativeLangA->FirstChild("Shortcuts");
 	if (!shortcuts) return;
@@ -860,7 +898,8 @@ void NativeLangSpeaker::changeShortcutLang()
 		int index, id;
 		if (element->Attribute("index", &index) && element->Attribute("id", &id))
 		{
-			if (index > -1 && index < mainSize) { //valid index only
+			if (index > -1 && static_cast<size_t>(index) < mainshortcuts.size()) //valid index only
+			{
 				const char *name = element->Attribute("name");
 				CommandShortcut & csc = mainshortcuts[index];
 				if (csc.getID() == (unsigned long)id) 
@@ -891,7 +930,8 @@ void NativeLangSpeaker::changeShortcutLang()
 		int index;
 		if (element->Attribute("index", &index))
 		{
-			if (index > -1 && index < scinSize) { //valid index only
+			if (index > -1 && static_cast<size_t>(index) < scinshortcuts.size()) //valid index only
+			{
 				const char *name = element->Attribute("name");
 				ScintillaKeyMap & skm = scinshortcuts[index];
 
@@ -1060,6 +1100,44 @@ generic_string NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeNa
 	}
 	return defaultStr;
 }
+/*
+generic_string NativeLangSpeaker::getFileBrowserLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const
+{
+	if (!_nativeLangA) return defaultStr;
+
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("FileBrowser");
+	if (!targetNode) return defaultStr;
+
+	targetNode = targetNode->FirstChild("Menus");
+	if (!targetNode) return defaultStr;
+
+	targetNode = targetNode->FirstChild(nodeName);
+	if (!targetNode) return defaultStr;
+
+	const char *name = NULL;
+	for (TiXmlNodeA *childNode = targetNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSibling("Item"))
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		const char *idStr = element->Attribute("id", &id);
+
+		if (idStr && id == cmdID)
+		{
+			name = element->Attribute("name");
+			break;
+		}
+	}
+
+	if (name && name[0])
+	{
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		return wmc->char2wchar(name, _nativeLangEncoding);
+	}
+	return defaultStr;
+}
+*/
 
 generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name) const
 {

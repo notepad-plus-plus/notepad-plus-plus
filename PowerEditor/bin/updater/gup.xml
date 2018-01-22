@@ -53,12 +53,16 @@
 	<!-- Optional.
 	This is the title to display on the message box title bar.
 	
-	If extraCmd is set (parameter is present and the value is not empty), the 3rd button "Cancel" will be appear (beside "Yes" and "No" button).
+	If isModal value is "yes", then Asking Update dialog  will be modal. If the value is set "no" or isModal attribute is absent, this dialog will be non modal.
+	If extraCmd is set (parameter is present and the value is not empty), the 3rd button "Never" will be appear (beside "Yes" and "No" button).
 	extraCmd is the Windows Message (a numeric value) to notify your application that Cancel button is clicked by user.
+	extraCmdButtonLabel is the 3rd buttons label. If its value is empty or this attribute is absent, then the default value "Never" will be used.
 	extraCmd will be sent (with its wParam and lParam) to the handle of application indicated in ClassName2Close.
 	extraCmd, ecWparam and ecLparam are optional.
 	-->
-	<MessageBoxTitle extraCmd="" ecWparam="" ecLparam="">Notepad++ update</MessageBoxTitle>
+	<!--MessageBoxTitle isModal="yes" extraCmd="36950" extraCmdButtonLabel="Maybe" ecWparam="0" ecLparam="0">Notepad++ update</MessageBoxTitle-->
+	<!--MessageBoxTitle isModal="no" extraCmd="" ecWparam="" ecLparam="">Notepad++ update</MessageBoxTitle-->
+	<MessageBoxTitle isModal="no">Notepad++ update</MessageBoxTitle>
 
 	<!-- optional. YES by default.
 	This parameter can hide all the network error message. 

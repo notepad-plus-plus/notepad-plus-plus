@@ -15,15 +15,11 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef RUN_DLG_H
-#define RUN_DLG_H
+#pragma once
 
-#include <Oleacc.h>
+#include <oleacc.h>
 #include "Common.h"
-
-#ifndef RUN_DLG_RC_H
 #include "RunDlg_rc.h"
-#endif //RUN_DLG_RC_H
 
 #define CURRENTWORD_MAXLENGTH 2048
 
@@ -34,6 +30,7 @@ const TCHAR fileNamePart[] = TEXT("NAME_PART");
 const TCHAR fileExtPart[] = TEXT("EXT_PART");
 const TCHAR currentWord[] = TEXT("CURRENT_WORD");
 const TCHAR nppDir[] = TEXT("NPP_DIRECTORY");
+const TCHAR nppFullFilePath[] = TEXT("NPP_FULL_FILE_PATH");
 const TCHAR currentLine[] = TEXT("CURRENT_LINE");
 const TCHAR currentColumn[] = TEXT("CURRENT_COLUMN");
 
@@ -43,8 +40,8 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 class Command {
 public :
 	Command(){};
-	Command(TCHAR *cmd) : _cmdLine(cmd){};
-	Command(generic_string cmd) : _cmdLine(cmd){};
+	explicit Command(TCHAR *cmd) : _cmdLine(cmd){};
+	explicit Command(generic_string cmd) : _cmdLine(cmd){};
 	HINSTANCE run(HWND hWnd);
 
 protected :
@@ -59,10 +56,7 @@ public :
 	RunDlg() : StaticDialog() {};
 
 	void doDialog(bool isRTL = false);
-
-    virtual void destroy() {
-
-    };
+    virtual void destroy() {};
 
 protected :
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -72,4 +66,3 @@ private :
 	void removeTextFromCombo(const TCHAR *txt2Remove) const;
 };
 
-#endif //RUN_DLG_H

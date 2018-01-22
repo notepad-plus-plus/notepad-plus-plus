@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<AutoComplete>
-		<KeyWord name="&lt;% Option Explicit %&gt;" />
-		<KeyWord name="&lt;%@ language=&quot;vbscript&quot; %&gt" />
 		<KeyWord name="Abs" />
 		<KeyWord name="adModeRead" />
 		<KeyWord name="adModeReadWrite" />
 		<KeyWord name="ADODB.Connection" />
 		<KeyWord name="ADODB.Recordset" />
 		<KeyWord name="adOpenDynamic" />
-		<KeyWord name="adOpenForwardOnly = 0" />
+		<KeyWord name="adOpenForwardOnly" />
 		<KeyWord name="adOpenKeyset" />
 		<KeyWord name="adOpenStatic" />
 		<KeyWord name="ALL_RAW" />
@@ -83,8 +81,7 @@
 		<KeyWord name="Dict.RemoveAll" />
 		<KeyWord name="Dim" />
 		<KeyWord name="Directory" />
-		<KeyWord name="Do Until" />
-		<KeyWord name="Do While" />
+		<KeyWord name="Until" />
 		<KeyWord name="Do" />
 		<KeyWord name="Drive.AvailableSpace" />
 		<KeyWord name="Drive.DriveLetter" />
@@ -101,14 +98,12 @@
 		<KeyWord name="Drives.Count" />
 		<KeyWord name="Drives.Item" />
 		<KeyWord name="Else" />
-		<KeyWord name="End Class" />
-		<KeyWord name="End Function" />
-		<KeyWord name="End If" />
-		<KeyWord name="End Property" />
-		<KeyWord name="End Select" />
-		<KeyWord name="End Sub" />
-		<KeyWord name="End Type" />
-		<KeyWord name="End With" />
+		<KeyWord name="Function" />
+		<KeyWord name="If" />
+		<KeyWord name="Property" />
+		<KeyWord name="Select" />
+		<KeyWord name="Sub" />
+		<KeyWord name="Type" />
 		<KeyWord name="Eqv" />
 		<KeyWord name="Erase" />
 		<KeyWord name="Err" />
@@ -123,11 +118,7 @@
 		<KeyWord name="Excel.Application" />
 		<KeyWord name="Execute" />
 		<KeyWord name="ExecuteGlobal" />
-		<KeyWord name="Exit Do" />
-		<KeyWord name="Exit For" />
-		<KeyWord name="Exit Function" />
-		<KeyWord name="Exit Property" />
-		<KeyWord name="Exit Sub" />
+		<KeyWord name="For" />
 		<KeyWord name="Exp" />
 		<KeyWord name="False" />
 		<KeyWord name="File.Attributes" />
@@ -195,17 +186,14 @@
 		<KeyWord name="Folders.Add" />
 		<KeyWord name="Folders.Count" />
 		<KeyWord name="Folders.Item" />
-		<KeyWord name="For () = () To () Step ()" />
-		<KeyWord name="For () = () To ()" />
-		<KeyWord name="For Each () In ()" />
-		<KeyWord name="For" />
+		<KeyWord name="Step" />
+		<KeyWord name="Each" />
 		<KeyWord name="ForAppending" />
 		<KeyWord name="FormatCurrency" />
 		<KeyWord name="FormatDateTime" />
 		<KeyWord name="FormatNumber" />
 		<KeyWord name="FormatPercent" />
 		<KeyWord name="ForWriting" />
-		<KeyWord name="Function" />
 		<KeyWord name="GATEWAY_INTERFACE" />
 		<KeyWord name="GetLocale" />
 		<KeyWord name="GetObject" />
@@ -221,9 +209,6 @@
 		<KeyWord name="HTTPS_SECRET_KEYSIZE" />
 		<KeyWord name="HTTPS_SERVER_ISSUER" />
 		<KeyWord name="HTTPS_SERVER_SUBJECT" />
-		<KeyWord name="If Then Else" />
-		<KeyWord name="If Then" />
-		<KeyWord name="If" />
 		<KeyWord name="Imp" />
 		<KeyWord name="InputBox" />
 		<KeyWord name="INSTANCE_ID" />
@@ -268,34 +253,26 @@
 		<KeyWord name="Nothing" />
 		<KeyWord name="Now" />
 		<KeyWord name="Oct" />
-		<KeyWord name="On Error Goto 0" />
-		<KeyWord name="On Error Resume Next" />
-		<KeyWord name="On Error" />
-		<KeyWord name="Option Explicit" />
+		<KeyWord name="Goto" />
+		<KeyWord name="Resume" />
+		<KeyWord name="Error" />
+		<KeyWord name="Explicit" />
 		<KeyWord name="Or" />
 		<KeyWord name="Outlook.Application" />
 		<KeyWord name="PATH_INFO" />
 		<KeyWord name="PATH_TRANSLATEDPrivate" />
-		<KeyWord name="Private Const" />
-		<KeyWord name="Private Function" />
-		<KeyWord name="Private Property Get" />
-		<KeyWord name="Private Property Let" />
-		<KeyWord name="Private Property Set" />
-		<KeyWord name="Private Sub Class_Terminate" />
-		<KeyWord name="Private Sub object_Initialize" />
-		<KeyWord name="Private Sub" />
+		<KeyWord name="Const" />
 		<KeyWord name="Property Get" />
 		<KeyWord name="Property Let" />
 		<KeyWord name="Property Set" />
-		<KeyWord name="Public Const" />
-		<KeyWord name="Public Default Property Get" />
-		<KeyWord name="Public Default Property Let" />
-		<KeyWord name="Public Default Sub" />
-		<KeyWord name="Public Function" />
-		<KeyWord name="Public Property Get" />
-		<KeyWord name="Public Property Let" />
-		<KeyWord name="Public Property Set" />
-		<KeyWord name="Public Sub" />
+		<KeyWord name="Sub Class_Terminate" />
+		<KeyWord name="Sub object_Initialize" />
+		<KeyWord name="Get" />
+		<KeyWord name="Let" />
+		<KeyWord name="Set" />
+		<KeyWord name="Default Property Get" />
+		<KeyWord name="Default Property Let" />
+		<KeyWord name="Default Sub" />
 		<KeyWord name="Public" />
 		<KeyWord name="QUERY_STRING" />
 		<KeyWord name="Randomize" />
@@ -378,7 +355,6 @@
 		<KeyWord name="Session.StaticObjects" />
 		<KeyWord name="Session.Timeout" />
 		<KeyWord name="Set oRegExp = New RegExp" />
-		<KeyWord name="Set" />
 		<KeyWord name="SetLocale" />
 		<KeyWord name="Sgn" />
 		<KeyWord name="Sin" />
@@ -388,7 +364,6 @@
 		<KeyWord name="StrComp" />
 		<KeyWord name="String" />
 		<KeyWord name="StrReverse" />
-		<KeyWord name="Sub" />
 		<KeyWord name="System" />
 		<KeyWord name="Tan" />
 		<KeyWord name="Terminate" />

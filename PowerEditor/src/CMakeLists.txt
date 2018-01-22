@@ -1,182 +1,363 @@
 # @file:<dictaolib-root>/CMakeLists.txt
 
 # TODO
-# - Move defs XX_INCLUDE_DIR, XX_LIBRARIES, XX_LIBRARY_DIRS to the subdirector?es'
-#   scripts. I could not find a way to export a variables defined in a subscript
+# - Move defs XX_INCLUDE_DIR, XX_LIBRARIES, XX_LIBRARY_DIRS to the subdirectories
+#   scripts. I could not find a way to export variables defined in a subscript
 #   so as a workaround, I define the variables myself in the top script. This is
 #   not optimal.
+#
 
-# 
+cmake_minimum_required(VERSION 3.4)
 
 PROJECT(Notepad++)
 
 SET(projIncludDir	../../scintilla/include/
 					./
-					./ScitillaComponent/
-					./WinControls/
 					./WinControls/AboutDlg/
-					./WinControls/ColourPicker/
-					./WinControls/ContextMenu/
-					./WinControls/DockingWnd/
-					./WinControls/Grid/
+					./WinControls/
 					./WinControls/ImageListSet/
 					./WinControls/OpenSaveFileDialog/
-					./WinControls/Preference/
-					./WinControls/shortcut/
 					./WinControls/SplitterContainer/
 					./WinControls/StaticDialog/
-					./WinControls/StaticDialog/RunDlg
-					./WinControls/StatusBar/
 					./WinControls/TabBar/
-					./WinControls/TaskList/
 					./WinControls/ToolBar/
-					./WinControls/TrayIcon/
-					./WinControls/TreeView/
-					./WinControls/WindowsDlg/
+					./MISC/Process/
+					./ScitillaComponent/
 					./MISC/
-					./MISC/PluginsManager/
-					./MISC/RegExt/
 					./MISC/SysMsg/
-					./TinyXml/)
+					./WinControls/StatusBar/
+					./WinControls/StaticDialog/RunDlg/
+					./tinyxml/
+					./WinControls/ColourPicker/
+					./Win32Explr/
+					./MISC/RegExt/
+					./WinControls/TrayIcon/
+					./WinControls/shortcut/
+					./WinControls/Grid/
+					./WinControls/ContextMenu/
+					./MISC/PluginsManager/
+					./WinControls/Preference/
+					./WinControls/WindowsDlg/
+					./WinControls/TaskList/
+					./WinControls/DockingWnd/
+					./WinControls/ToolTip/
+					./MISC/Exception/
+					./MISC/Common/
+					./tinyxml/tinyXmlA/
+					./WinControls/AnsiCharPanel/
+					./WinControls/ClipboardHistory/
+					./WinControls/FindCharsInRange/
+					./WinControls/VerticalFileSwitcher/
+					./WinControls/ProjectPanel/
+					./WinControls/DocumentMap/
+					./WinControls/FunctionList/
+					./uchardet/
+					./WinControls/FileBrowser/
+					./WinControls/ReadDirectoryChanges/)
 
-set(parameters ./Parameters.h ./Parameters.cpp)
 
-set(scintilla ./ScitillaComponent/ScintillaEditView.h ./ScitillaComponent/ScintillaEditView.cpp)
-set(buffer	 ./ScitillaComponent/ScintillaEditView.h ./ScitillaComponent/ScintillaEditView.cpp)
-
-set(tinystr ./TinyXml/tinystr.h ./TinyXml/tinystr.cpp)
-set(tinyxml ./TinyXml/tinyxml.h ./TinyXml/tinyxml.cpp)
-set(tinyxmlerror ./TinyXml/tinyxmlerror.cpp)
-set(tinyxmlparser ./TinyXml/tinyxmlparser.cpp)
-SET (tinyxmlObjs ${tinystr} ${tinyxml} ${tinyxmlerror} ${tinyxmlparser})
-
-SET(objs	./winmain.cpp
-			./Notepad_plus.cpp
-			./Notepad_plus.h
-
-			./UniConversion.cpp
-			./UniConversion.h
-			./Utf8_16.cpp
-			./Utf8_16.h
-
-			
-			
-			./ScitillaComponent/DocTabView.cpp
-			./ScitillaComponent/DocTabView.h
-			./ScitillaComponent/FindReplaceDlg.cpp
-			./ScitillaComponent/FindReplaceDlg.h
-			./ScitillaComponent/GoToLineDlg.cpp
-			./ScitillaComponent/GoToLineDlg.h
-			./ScitillaComponent/Printer.cpp
-			./ScitillaComponent/Printer.h
-			./ScitillaComponent/UserDefineDialog.cpp
-			./ScitillaComponent/UserDefineDialog.h
+SET(src_files
+			./MISC/Common/LongRunningOperation.cpp
+			./MISC/Common/mutex.cpp
+			./MISC/Process/Processus.cpp
 			./WinControls/AboutDlg/AboutDlg.cpp
-			./WinControls/AboutDlg/AboutDlg.h
-			./WinControls/AboutDlg/URLCtrl.cpp
-			./WinControls/AboutDlg/URLCtrl.h
-			./WinControls/ColourPicker/ColourPicker.cpp
-			./WinControls/ColourPicker/ColourPicker.h
-			./WinControls/ColourPicker/ColourPopup.cpp
-			./WinControls/ColourPicker/ColourPopup.h
-			#./WinControls/ColourPicker/FontPreviewCombo.cpp
-			./WinControls/ColourPicker/WordStyleDlg.cpp
-			./WinControls/ColourPicker/WordStyleDlg.h
-			./WinControls/DockingWnd/DockingCont.cpp
-			./WinControls/DockingWnd/DockingCont.h
-			./WinControls/DockingWnd/DockingManager.cpp
-			./WinControls/DockingWnd/DockingManager.h
-			./WinControls/DockingWnd/DockingSplitter.cpp
-			./WinControls/DockingWnd/DockingSplitter.h
-			#./WinControls/DockingWnd/DropData.cpp
-			./WinControls/DockingWnd/Gripper.cpp
-			./WinControls/DockingWnd/Gripper.h
-			./WinControls/DockingWnd/common_func.cpp
-			./WinControls/DockingWnd/common_func.h
+			./WinControls/AnsiCharPanel/ansiCharPanel.cpp
+			./ScitillaComponent/AutoCompletion.cpp
+			./WinControls/FileBrowser/fileBrowser.cpp
 			./WinControls/Grid/BabyGrid.cpp
-			./WinControls/Grid/BabyGrid.h
 			./WinControls/Grid/BabyGridWrapper.cpp
-			./WinControls/Grid/BabyGridWrapper.h
-			./WinControls/Grid/ShortcutMapper.cpp
-			./WinControls/Grid/ShortcutMapper.h
-			./WinControls/ImageListSet/ImageListSet.cpp
-			./WinControls/ImageListSet/ImageListSet.h
-			./WinControls/OpenSaveFileDialog/FileDialog.cpp
-			./WinControls/OpenSaveFileDialog/FileDialog.h
-			./WinControls/Preference/preferenceDlg.cpp
-			./WinControls/Preference/preferenceDlg.h
-			./WinControls/shortcut/shortcut.cpp
-			./WinControls/shortcut/shortcut.h
-			./WinControls/shortcut/RunMacroDlg.cpp
-			./WinControls/shortcut/RunMacroDlg.h
-			./WinControls/SplitterContainer/Splitter.cpp
-			./WinControls/SplitterContainer/Splitter.h
-			./WinControls/SplitterContainer/SplitterContainer.cpp
-			./WinControls/SplitterContainer/SplitterContainer.h
-			./WinControls/StaticDialog/StaticDialog.cpp
-			./WinControls/StaticDialog/StaticDialog.h
-			./WinControls/StaticDialog/RunDlg/RunDlg.cpp
-			./WinControls/StaticDialog/RunDlg/RunDlg.h
-			./WinControls/StatusBar/StatusBar.cpp
-			./WinControls/StatusBar/StatusBar.h
-			./WinControls/TabBar/TabBar.cpp
-			./WinControls/TabBar/TabBar.h
+			./ScitillaComponent/Buffer.cpp
+			./uchardet/CharDistribution.cpp
+			./WinControls/ClipboardHistory/clipboardHistoryPanel.cpp
+			./WinControls/ColourPicker/ColourPicker.cpp
+			./WinControls/ColourPicker/ColourPopup.cpp
+			./ScitillaComponent/columnEditor.cpp
+			./MISC/Common/Common.cpp
+			./WinControls/ContextMenu/ContextMenu.cpp
+			./WinControls/ReadDirectoryChanges/ReadDirectoryChanges.cpp
+			./WinControls/ReadDirectoryChanges/ReadDirectoryChangesPrivate.cpp
 			./WinControls/TabBar/ControlsTab.cpp
-			./WinControls/TabBar/ControlsTab.h
-			./WinControls/TaskList/TaskList.cpp
-			./WinControls/TaskList/TaskList.h
-			./WinControls/ToolBar/ToolBar.cpp
-			./WinControls/ToolBar/ToolBar.h
-			./WinControls/TrayIcon/trayIconControler.cpp
-			./WinControls/TrayIcon/trayIconControler.h
-			./WinControls/TreeView/TreeView.cpp
-			./WinControls/TreeView/TreeView.h
-			./WinControls/WindowsDlg/SizeableDlg.cpp
-			./WinControls/WindowsDlg/SizeableDlg.h
-			./WinControls/WindowsDlg/WindowsDlg.cpp
-			./WinControls/WindowsDlg/WindowsDlg.h
-			./WinControls/WindowsDlg/WinMgr.cpp
-			./WinControls/WindowsDlg/WinMgr.h
-			./WinControls/WindowsDlg/WinRect.cpp
-			./MISC/PluginsManager/PluginsManager.cpp
-			./MISC/PluginsManager/PluginsManager.h
+			./WinControls/DockingWnd/DockingCont.cpp
+			./WinControls/DockingWnd/DockingManager.cpp
+			./WinControls/DockingWnd/DockingSplitter.cpp
+			./ScitillaComponent/DocTabView.cpp
+			./WinControls/DocumentMap/documentMap.cpp
+			./EncodingMapper.cpp
+			./WinControls/OpenSaveFileDialog/FileDialog.cpp
+			./WinControls/FindCharsInRange/FindCharsInRange.cpp
+			./ScitillaComponent/FindReplaceDlg.cpp
+			./ScitillaComponent/FunctionCallTip.cpp
+			./WinControls/FunctionList/functionListPanel.cpp
+			./WinControls/FunctionList/functionParser.cpp
+			./ScitillaComponent/GoToLineDlg.cpp
+			./WinControls/DockingWnd/Gripper.cpp
+			./MISC/PluginsManager/IDAllocator.cpp
+			./WinControls/ImageListSet/ImageListSet.cpp
+			./uchardet/JpCntx.cpp
+			./uchardet/LangBulgarianModel.cpp
+			./uchardet/LangCyrillicModel.cpp
+			./uchardet/LangGreekModel.cpp
+			./uchardet/LangHebrewModel.cpp
+			./uchardet/LangHungarianModel.cpp
+			./uchardet/LangThaiModel.cpp
+			./lastRecentFileList.cpp
+			./lesDlgs.cpp
+			./WinControls/AnsiCharPanel/ListView.cpp
+			./localization.cpp
+			./MISC/Exception/MiniDumper.cpp
+			./Notepad_plus.cpp
+			./Notepad_plus_Window.cpp
+			./NppBigSwitch.cpp
+			./NppCommands.cpp
+			./NppIO.cpp
+			./NppNotification.cpp
+			./uchardet/nsBig5Prober.cpp
+			./uchardet/nsCharSetProber.cpp
+			./uchardet/nsEscCharsetProber.cpp
+			./uchardet/nsEscSM.cpp
+			./uchardet/nsEUCJPProber.cpp
+			./uchardet/nsEUCKRProber.cpp
+			./uchardet/nsEUCTWProber.cpp
+			./uchardet/nsGB2312Prober.cpp
+			./uchardet/nsHebrewProber.cpp
+			./uchardet/nsLatin1Prober.cpp
+			./uchardet/nsMBCSGroupProber.cpp
+			./uchardet/nsMBCSSM.cpp
+			./uchardet/nsSBCharSetProber.cpp
+			./uchardet/nsSBCSGroupProber.cpp
+			./uchardet/nsSJISProber.cpp
+			./uchardet/nsUniversalDetector.cpp
+			./uchardet/nsUTF8Prober.cpp
+			./Parameters.cpp
+			./Misc/PluginsManager/PluginsManager.cpp
+			./WinControls/Preference/preferenceDlg.cpp
+			./ScitillaComponent/Printer.cpp
+			./WinControls/ProjectPanel/ProjectPanel.cpp
 			./MISC/RegExt/regExtDlg.cpp
-			./MISC/RegExt/regExtDlg.h
-			./MISC/SysMsg/SysMsg.cpp
-			./MISC/SysMsg/SysMsg.h
-			${tinyxmlObjs}
+			./WinControls/StaticDialog/RunDlg/RunDlg.cpp
+			./WinControls/shortcut/RunMacroDlg.cpp
+			./ScitillaComponent/ScintillaCtrls.cpp
+			./ScitillaComponent/ScintillaEditView.cpp
+			./WinControls/shortcut/shortcut.cpp
+			./WinControls/Grid/ShortcutMapper.cpp
+			./WinControls/WindowsDlg/SizeableDlg.cpp
+			./ScitillaComponent/SmartHighlighter.cpp
+			./WinControls/SplitterContainer/Splitter.cpp
+			./WinControls/SplitterContainer/SplitterContainer.cpp
+			./WinControls/StaticDialog/StaticDialog.cpp
+			./WinControls/StatusBar/StatusBar.cpp
+			./WinControls/TabBar/TabBar.cpp
+			./WinControls/TaskList/TaskList.cpp
+			./WinControls/TaskList/TaskListDlg.cpp
+			./TinyXml/tinystr.cpp
+			./TinyXml/tinyXmlA/tinystrA.cpp
+			./TinyXml/tinyxml.cpp
+			./TinyXml/tinyXmlA/tinyxmlA.cpp
+			./TinyXml/tinyxmlerror.cpp
+			./TinyXml/tinyXmlA/tinyxmlerrorA.cpp
+			./TinyXml/tinyxmlparser.cpp
+			./TinyXml/tinyXmlA/tinyxmlparserA.cpp
+			./WinControls/ToolBar/ToolBar.cpp
+			./WinControls/ToolTip/ToolTip.cpp
+			./WinControls/TrayIcon/trayIconControler.cpp
+			./WinControls/ProjectPanel/TreeView.cpp
+			./uchardet/uchardet.cpp
+			./UniConversion.cpp
+			./WinControls/AboutDlg/URLCtrl.cpp
+			./ScitillaComponent/UserDefineDialog.cpp
+			./Utf8_16.cpp
+			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher.cpp
+			./WinControls/VerticalFileSwitcher/VerticalFileSwitcherListView.cpp
+			./MISC/Exception/Win32Exception.cpp
+			./WinControls/WindowsDlg/WindowsDlg.cpp
+			./winmain.cpp
+			./WinControls/WindowsDlg/WinMgr.cpp
+			./WinControls/WindowsDlg/WinRect.cpp
+			./WinControls/ColourPicker/WordStyleDlg.cpp
+			./ScitillaComponent/xmlMatchedTagsHighlighter.cpp
+			./dpiAware.manifest
+			./notepad++.exe.manifest
+)
 
+SET(include_files
+			./MISC/Common/LongRunningOperation.h
+			./MISC/Common/mutex.h
+			./MISC/Common/mutex.hxx
+			./MISC/Process/Processus.h
+			./WinControls/AboutDlg/AboutDlg.h
+			./WinControls/AnsiCharPanel/ansiCharPanel.h
+			./ScitillaComponent/AutoCompletion.h
+			./WinControls/FileBrowser/fileBrowser.h
+			./WinControls/FileBrowser/fileBrowser_rc.h
+			./WinControls/Grid/BabyGrid.h
+			./WinControls/Grid/BabyGridWrapper.h
+			./ScitillaComponent/Buffer.h
+			./uchardet/CharDistribution.h
+			./WinControls/ClipboardHistory/clipboardHistoryPanel.h
+			./WinControls/ClipboardHistory/clipboardHistoryPanel_rc.h
+			./ScitillaComponent/colors.h
+			./WinControls/ColourPicker/ColourPicker.h
+			./WinControls/ColourPicker/ColourPopup.h
+			./ScitillaComponent/columnEditor.h
+			./MISC/Common/Common.h
+			./WinControls/ContextMenu/ContextMenu.h
+			./WinControls/ReadDirectoryChanges/ReadDirectoryChanges.h
+			./WinControls/ReadDirectoryChanges/ReadDirectoryChangesPrivate.h
+			./WinControls/ReadDirectoryChanges/ThreadSafeQueue.h
+			./WinControls/TabBar/ControlsTab.h
+			./WinControls/DockingWnd/Docking.h
+			./WinControls/DockingWnd/DockingCont.h
+			./WinControls/DockingWnd/DockingDlgInterface.h
+			./WinControls/DockingWnd/DockingManager.h
+			./WinControls/DockingWnd/dockingResource.h
+			./WinControls/DockingWnd/DockingSplitter.h
+			./ScitillaComponent/DocTabView.h
+			./WinControls/DocumentMap/documentMap.h
+			./EncodingMapper.h
+			./WinControls/OpenSaveFileDialog/FileDialog.h
+			./MISC/FileNameStringSplitter.h
+			./WinControls/FindCharsInRange/FindCharsInRange.h
+			./ScitillaComponent/FindReplaceDlg.h
+			./ScitillaComponent/FunctionCallTip.h
+			./WinControls/FunctionList/functionListPanel.h
+			./WinControls/FunctionList/functionListPanel_rc.h
+			./WinControls/FunctionList/functionParser.h
+			./ScitillaComponent/GoToLineDlg.h
+			./WinControls/DockingWnd/Gripper.h
+			./MISC/PluginsManager/IDAllocator.h
+			./WinControls/ImageListSet/ImageListSet.h
+			./uchardet/JpCntx.h
+			./lastRecentFileList.h
+			./lesDlgs.h
+			./WinControls/AnsiCharPanel/ListView.h
+			./localization.h
+			./localizationstring.h
+			./menuCmdID.h
+			./MISC/Exception/MiniDumper.h
+			./Notepad_plus.h
+			./MISC/PluginsManager/Notepad_plus_msgs.h
+			./Notepad_plus_Window.h
+			./uchardet/nsBig5Prober.h
+			./uchardet/nsCharSetProber.h
+			./uchardet/nsCodingStateMachine.h
+			./uchardet/nscore.h
+			./uchardet/nsEscCharsetProber.h
+			./uchardet/nsEUCJPProber.h
+			./uchardet/nsEUCKRProber.h
+			./uchardet/nsEUCTWProber.h
+			./uchardet/nsGB2312Prober.h
+			./uchardet/nsHebrewProber.h
+			./uchardet/nsLatin1Prober.h
+			./uchardet/nsMBCSGroupProber.h
+			./uchardet/nsPkgInt.h
+			./uchardet/nsSBCharSetProber.h
+			./uchardet/nsSBCSGroupProber.h
+			./uchardet/nsSJISProber.h
+			./uchardet/nsUniversalDetector.h
+			./uchardet/nsUTF8Prober.h
+			./Parameters.h
+			./MISC/PluginsManager/PluginInterface.h
+			./MISC/PluginsManager/PluginsManager.h
+			./WinControls/Preference/preferenceDlg.h
+			./ScitillaComponent/Printer.h
+			./uchardet/prmem.h
+			./WinControls/ProjectPanel/ProjectPanel.h
+			./WinControls/ProjectPanel/ProjectPanel_rc.h
+			./MISC/RegExt/regExtDlg.h
+			./MISC/RegExt/regExtDlgRc.h
+			./resource.h
+			./WinControls/StaticDialog/RunDlg/RunDlg.h
+			./WinControls/shortcut/RunMacroDlg.h
+			./WinControls/shortcut/RunMacroDlg_rc.h
+			./ScitillaComponent/ScintillaCtrls.h
+			./ScitillaComponent/ScintillaEditView.h
+			./WinControls/shortcut/shortcut.h
+			./WinControls/Grid/ShortcutMapper.h
+			./WinControls/Grid/ShortcutMapper_rc.h
+			./WinControls/WindowsDlg/SizeableDlg.h
+			./ScitillaComponent/SmartHighlighter.h
+			./WinControls/SplitterContainer/Splitter.h
+			./WinControls/SplitterContainer/SplitterContainer.h
+			./WinControls/StaticDialog/StaticDialog.h
+			./WinControls/StatusBar/StatusBar.h
+			./WinControls/TabBar/TabBar.h
+			./WinControls/TaskList/TaskList.h
+			./WinControls/TaskList/TaskListDlg.h
+			./WinControls/TaskList/TaskListDlg_rc.h
+			./TinyXml/tinystr.h
+			./TinyXml/tinyXmlA/tinystrA.h
+			./TinyXml/tinyxml.h
+			./TinyXml/tinyXmlA/tinyxmlA.h
+			./WinControls/ToolBar/ToolBar.h
+			./WinControls/ToolTip/ToolTip.h
+			./WinControls/TrayIcon/trayIconControler.h
+			./WinControls/ProjectPanel/TreeView.h
+			./uchardet/uchardet.h
+			./UniConversion.h
+			./WinControls/AboutDlg/URLCtrl.h
+			./ScitillaComponent/UserDefineDialog.h
+			./ScitillaComponent/UserDefineLangReference.h
+			./ScitillaComponent/UserDefineResource.h
+			./Utf8_16.h
+			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher.h
+			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher_rc.h
+			./WinControls/VerticalFileSwitcher/VerticalFileSwitcherListView.h
+			./MISC/Exception/Win32Exception.h
+			./WinControls/Window.h
+			./WinControls/WindowsDlg/WindowsDlg.h
+			./WinControls/WindowsDlg/WindowsDlgRc.h
+			./WinControls/WindowsDlg/WinMgr.h
+			./WinControls/ColourPicker/WordStyleDlg.h
+			./ScitillaComponent/xmlMatchedTagsHighlighter.h
+			./rgba_icons.h
 )
 
 
-SET(rcFiles	./Notepad_plus.rc
-			./ScitillaComponent/FindReplaceDlg.rc
-			./ScitillaComponent/UserDefineDialog.rc
+SET(rcFiles
+			./WinControls/AnsiCharPanel/ansiCharPanel.rc
+			./WinControls/ClipboardHistory/clipboardHistoryPanel.rc
 			./WinControls/ColourPicker/ColourPopup.rc
-			./WinControls/ColourPicker/WordStyleDlg.rc
+			./ScitillaComponent/columnEditor.rc
 			./WinControls/DockingWnd/DockingGUIWidget.rc
-			./WinControls/Grid/ShortcutMapper.rc
+			./WinControls/DocumentMap/documentMap.rc
+			./WinControls/FileBrowser/fileBrowser.rc
+			./WinControls/FindCharsInRange/findCharsInRange.rc
+			./ScitillaComponent/FindReplaceDlg.rc
+			./WinControls/FunctionList/functionListPanel.rc
+			./Notepad_plus.rc
 			./WinControls/Preference/preference.rc
+			./WinControls/ProjectPanel/ProjectPanel.rc
+			./MISC/RegExt/regExtDlg.rc
+			./WinControls/StaticDialog/RunDlg/RunDlg.rc
 			./WinControls/shortcut/RunMacroDlg.rc
 			./WinControls/shortcut/shortcut.rc
-			./WinControls/StaticDialog/RunDlg/RunDlg.rc
+			./WinControls/Grid/ShortcutMapper.rc
 			./WinControls/TaskList/TaskListDlg.rc
+			./ScitillaComponent/UserDefineDialog.rc
+			./WinControls/VerticalFileSwitcher/VerticalFileSwitcher.rc
 			./WinControls/WindowsDlg/WindowsDlg.rc
-
+			./WinControls/ColourPicker/WordStyleDlg.rc
 )
-SET(vendorIncludDir ../../../vendor/Gemalto/Current/SDK_IASAPI/Output/include)
 
-IF (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+IF (WIN32)
 	SET(option WIN32)
-	SET(win32_LIBRARIES comctl32.lib shlwapi.lib shell32.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib)
-	#SET(defs -DUNICODE -D_UNICODE)
-ENDIF (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+	SET(win32_LIBRARIES comctl32 shlwapi dbghelp)
+if ( MSVC )
+	#do not use for mingw builds
+	SET(CMAKE_CXX_FLAGS "/EHa /MP /W4")
+	SET(defs -DUNICODE -D_UNICODE -D_WIN32_WINNT=0x501 -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -D_CRT_NON_CONFORMING_SWPRINTFS )
+else ( MSVC )
+	# For possible MinGW compilation
+	SET(CMAKE_CXX_FLAGS "-include../gcc/include/various.h -std=c++14 -fpermissive")
+	SET(defs -DUNICODE -D_UNICODE -D_USE_64BIT_TIME_T -DTIXML_USE_STL -DTIXMLA_USE_STL )
+endif ( MSVC )
+ENDIF (WIN32)
 
-#ADD_DEFINITIONS(${defs})
+ADD_DEFINITIONS(${defs})
 
 INCLUDE_DIRECTORIES(${projIncludDir})
 
-ADD_EXECUTABLE(notepad++ ${option} ${objs} ${rcFiles})
+ADD_EXECUTABLE(notepad++ ${option} ${src_files} ${include_files} ${rcFiles})
 
 TARGET_LINK_LIBRARIES (notepad++ ${win32_LIBRARIES})
 

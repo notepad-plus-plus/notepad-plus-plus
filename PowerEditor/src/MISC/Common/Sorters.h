@@ -122,12 +122,18 @@ class NumericSorter : public ISorter
 public:
 	NumericSorter(bool isDescending, size_t fromColumn, size_t toColumn) : ISorter(isDescending, fromColumn, toColumn)
 	{
-		_usLocale = ::_wcreate_locale(LC_NUMERIC, TEXT("en-US"));
+#ifdef __MINGW32__
+		_usLocale = NULL;
+#else
+		_usLocale = ::_create_locale(LC_NUMERIC, "en-US");
+#endif
 	};
 
 	~NumericSorter()
 	{
+#ifndef __MINGW32__
 		::_free_locale(_usLocale);
+#endif
 	}
 	
 	std::vector<generic_string> sort(std::vector<generic_string> lines) override

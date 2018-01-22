@@ -129,7 +129,6 @@
 		<KeyWord name="UNIVERSAL" />
 		<KeyWord name="__DATA__" />
 		<KeyWord name="__END__" />
-		<KeyWord name="__END__" />
 		<KeyWord name="__FILE__" />
 		<KeyWord name="__LINE__" />
 		<KeyWord name="__PACKAGE__" />

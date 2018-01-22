@@ -940,8 +940,8 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 			
 			if (isRelatedRootFolder(rootFolderPath, _folderUpdaters[i]->_rootFolder._rootPath))
 			{
-				NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-				_nativeLangSpeaker->messageBox("FolderBrowserFolderExists", _hParent,
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+				pNativeSpeaker->messageBox("FolderBrowserFolderExists", _hParent,
 					TEXT("A sub-folder of the folder you want to open exists.\rPlease remove it from the panel before you add this one."),
 					rootFolderPath.c_str(), MB_OK);
 				return;

@@ -1111,7 +1111,6 @@ bool Notepad_plus::replaceInOpenedFiles() {
 	_invisibleEditView.setCurrentBuffer(oldBuf);
 	_pEditView = pOldView;
 
-
 	if (nbTotal < 0) {
 		generic_string msg = _nativeLangSpeaker.getFindReplaceDlgStr("ReplaceOpenedFilesRegexMalformed", TEXT("Replace in Opened Files: The regular expression to search is formed badly"));
 		_findReplaceDlg.setStatusbarMessage(msg.c_str(), FSNotFound);
@@ -1123,6 +1122,7 @@ bool Notepad_plus::replaceInOpenedFiles() {
 		TCHAR result[64];
 		generic_string msg = _nativeLangSpeaker.getFindReplaceDlgStr("ReplaceOpenedFiles", TEXT("Replace in Opened Files: %s occurrences replaced."));
 		wsprintf(result, msg.c_str(), commafyInt(nbTotal).c_str());
+		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 	}
 	return true;
 }

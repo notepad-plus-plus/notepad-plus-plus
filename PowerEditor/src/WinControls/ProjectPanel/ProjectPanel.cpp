@@ -161,12 +161,12 @@ void ProjectPanel::checkIfNeedSave(const TCHAR *title)
 	if (_isDirty)
 	{
 		display();
-		NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		int res = _nativeLangSpeaker->messageBox("WorkspaceModified", _hSelf, TEXT("The workspace was modified. Do you want to save it?"), title, MB_YESNO | MB_ICONQUESTION);		
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		int res = pNativeSpeaker->messageBox("WorkspaceModified", _hSelf, TEXT("The workspace was modified. Do you want to save it?"), title, MB_YESNO | MB_ICONQUESTION);		
 		if (res == IDYES)
 		{
 			if (!saveWorkSpace())
-				_nativeLangSpeaker->messageBox("WorkspaceError", _hSelf, TEXT("Your workspace was not saved."), title, MB_YESNO | MB_ICONERROR);
+				pNativeSpeaker->messageBox("WorkspaceError", _hSelf, TEXT("Your workspace was not saved."), title, MB_YESNO | MB_ICONERROR);
 		}
 		//else if (res == IDNO)
 			// Don't save so do nothing here
@@ -791,7 +791,7 @@ HTREEITEM ProjectPanel::addFolder(HTREEITEM hTreeItem, const TCHAR *folderName)
 
 void ProjectPanel::popupMenuCmd(int cmdID)
 {
-	NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 
 	// get selected item handle
 	HTREEITEM hTreeItem = _treeView.getSelection();
@@ -833,7 +833,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			HTREEITEM root = _treeView.getRoot();
 
-			generic_string newProjectLabel = _nativeLangSpeaker->getAttrNameStr(PM_NEWPROJECTNAME, "ProjectManager", "NewProjectName");
+			generic_string newProjectLabel = pNativeSpeaker->getAttrNameStr(PM_NEWPROJECTNAME, "ProjectManager", "NewProjectName");
 			HTREEITEM addedItem = _treeView.addItem(newProjectLabel.c_str(),  root, INDEX_PROJECT);
 			setWorkSpaceDirty(true);
 			_treeView.expand(hTreeItem);
@@ -845,7 +845,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = _nativeLangSpeaker->messageBox("ProjectNewWorkspace", _hSelf,
+				int res = pNativeSpeaker->messageBox("ProjectNewWorkspace", _hSelf,
 					TEXT("The current workspace was modified. Do you want to save the current project?"),
 					TEXT("New Workspace"), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
@@ -874,7 +874,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_NEWFOLDER :
 		{
-			generic_string newFolderLabel = _nativeLangSpeaker->getAttrNameStr(PM_NEWFOLDERNAME, "ProjectManager", "NewFolderName");
+			generic_string newFolderLabel = pNativeSpeaker->getAttrNameStr(PM_NEWFOLDERNAME, "ProjectManager", "NewFolderName");
 			addFolder(hTreeItem, newFolderLabel.c_str());
 			setWorkSpaceDirty(true);
 		}
@@ -914,7 +914,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = _nativeLangSpeaker->messageBox("ProjectOpenWorkspace", _hSelf,
+				int res = pNativeSpeaker->messageBox("ProjectOpenWorkspace", _hSelf,
 					TEXT("The current workspace was modified. Do you want to save the current project?"),
 					TEXT("Open Workspace"), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
@@ -939,7 +939,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			{
 				if (!openWorkSpace(fn))
 				{
-					_nativeLangSpeaker->messageBox("ProjectOpenWorkspaceWarning", _hSelf,
+					pNativeSpeaker->messageBox("ProjectOpenWorkspaceWarning", _hSelf,
 						TEXT("The workspace could not be opened.\rIt seems the file to open is not a valid project file."),
 						TEXT("Open Workspace"), MB_OK);
 					return;
@@ -952,7 +952,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = _nativeLangSpeaker->messageBox("ProjectReloadWorkspace", _hSelf,
+				int res = pNativeSpeaker->messageBox("ProjectReloadWorkspace", _hSelf,
 					TEXT("The current workspace was modified. Reloading will discard all modifications.\rDo you want to continue?"),
 					TEXT("Reload Workspace"), MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
@@ -971,7 +971,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			}
 			else
 			{
-				_nativeLangSpeaker->messageBox("ProjectReloadWorkspaceWarning", _hSelf,
+				pNativeSpeaker->messageBox("ProjectReloadWorkspaceWarning", _hSelf,
 					TEXT("Cannot find the file to reload."),
 					TEXT("Reload Workspace"), MB_OK | MB_ICONEXCLAMATION | MB_APPLMODAL);
 			}
@@ -995,7 +995,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 			if (_treeView.getChildFrom(hTreeItem) != NULL)
 			{
-				int res = _nativeLangSpeaker->messageBox("ProjectRemoveFolder", _hSelf,
+				int res = pNativeSpeaker->messageBox("ProjectRemoveFolder", _hSelf,
 					TEXT("All the sub-items will be removed.\rAre you sure you want to remove this folder from the project?"),
 					TEXT("Remove folder from project"), MB_YESNO);
 				if (res == IDYES)
@@ -1018,7 +1018,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			HTREEITEM parent = _treeView.getParent(hTreeItem);
 
-			int res = _nativeLangSpeaker->messageBox("ProjectRemoveFile", _hSelf,
+			int res = pNativeSpeaker->messageBox("ProjectRemoveFile", _hSelf,
 				TEXT("Are you sure you want to remove this file from the project?"),
 				TEXT("Remove file from project"), MB_YESNO);
 			if (res == IDYES)

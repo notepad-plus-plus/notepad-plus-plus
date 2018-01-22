@@ -1090,8 +1090,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		{
 			if (error_msg != NULL)
 			{
-				NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-				*error_msg = _nativeLangSpeaker->getLocalizedStrFromID("buffer-error-msg");
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+				*error_msg = pNativeSpeaker->getLocalizedStrFromID("buffer-error-msg");
 
 				if (error_msg->empty()) {
 					*error_msg = TEXT("Failed to save file.\nNot enough space on disk to save file?");
@@ -1332,7 +1332,7 @@ LangType FileManager::detectLanguageFromTextBegining(const unsigned char *data, 
 
 bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data, Utf8_16_Read * unicodeConvertor, LangType & language, int & encoding, EolType & eolFormat)
 {
-	NativeLangSpeaker *_nativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (not fp)
 		return false;
@@ -1346,7 +1346,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
 	if (bufferSizeRequested > INT_MAX)
 	{
-		_nativeLangSpeaker->messageBox("FileSizeTooBigWarning", NULL, 
+		pNativeSpeaker->messageBox("FileSizeTooBigWarning", NULL, 
 			TEXT("File is too big to be opened by Notepad++"), 
 			TEXT("File size problem"), MB_OK | MB_APPLMODAL);
 		/*
@@ -1470,7 +1470,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	}
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
-		_nativeLangSpeaker->messageBox("FileOpenTooBigWarning", NULL,
+		pNativeSpeaker->messageBox("FileOpenTooBigWarning", NULL,
 			TEXT("File is too big to be opened by Notepad++"),
 			TEXT("File open problem"), MB_OK | MB_APPLMODAL);
 		success = false;

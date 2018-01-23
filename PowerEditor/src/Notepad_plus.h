@@ -309,6 +309,7 @@ private:
 	Macro _macro;
 	bool _recordingMacro = false;
 	bool _playingBackMacro = false;
+	bool _recordingSaved = false;
 	RunMacroDlg _runMacroDlg;
 
 	// For conflict detection when saving Macros or RunCommands

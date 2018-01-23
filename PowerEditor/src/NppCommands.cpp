@@ -897,6 +897,7 @@ void Notepad_plus::command(int id)
 				_subEditView.execute(SCI_STARTRECORD);
 				_recordingMacro = true;
 			}
+			_recordingSaved = false;
 			checkMacroState();
 			break;
 		}
@@ -928,7 +929,11 @@ void Notepad_plus::command(int id)
 		case IDM_MACRO_SAVECURRENTMACRO :
 		{
 			if (addCurrentMacro())
+			{
+				_recordingSaved = true;
 				_runMacroDlg.initMacroList();
+				checkMacroState();
+			}
 			break;
 		}
 		case IDM_EDIT_FULLPATHTOCLIP :

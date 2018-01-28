@@ -648,7 +648,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
 	int encoding = buf->getEncoding();
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
-	EolType bkformat;
+	EolType bkformat = EolType::unknown;
 	LangType lang = buf->getLangType();
 
 
@@ -662,13 +662,23 @@ bool FileManager::reloadBuffer(BufferID id)
 	{
 		if (encoding == -1)
 		{
-			buf->setUnicodeMode(UnicodeConvertor.getEncoding());
+			NppParameters *pNppParamInst = NppParameters::getInstance();
+			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+
+			UniMode um = UnicodeConvertor.getEncoding();
+			if (um == uni7Bit)
+				um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
+
+			buf->setUnicodeMode(um);
 		}
 		else
 		{
-			buf->setEncoding(encoding);
+			// Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
+			buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
 			buf->setUnicodeMode(uniCookie);
 		}
+
+		buf->setEolFormat(bkformat);
 	}
 	return res;
 }

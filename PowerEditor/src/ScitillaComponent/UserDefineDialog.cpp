@@ -977,7 +977,7 @@ void UserDefineDialog::reloadLangCombo()
 {
     NppParameters *pNppParam = NppParameters::getInstance();
     ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_RESETCONTENT, 0, 0);
-	::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("User Define Language")));
+	::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("User Defined Language")));
     for (int i = 0, nb = pNppParam->getNbUserLang(); i < nb ; ++i)
     {
         UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);

@@ -51,7 +51,7 @@ public:
 
 private:
 	std::vector<MatchedCharInserted> _insertedMatchedChars;
-	ScintillaEditView * _pEditView;
+	ScintillaEditView * _pEditView = nullptr;;
 };
 
 class AutoCompletion {

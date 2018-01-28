@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.5">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.5.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -919,22 +919,32 @@
             </ColumnEditor>
         </Dialog>
         <MessageBox>
-            <ContextMenuXmlEditWarning title="警告: コンテキストメニューの編集" message="contextMenu.xmlを編集することで、Notepad++のポップアップメニューを変更できます。変更を適用するには、編集後Notepad++を再起動する必要があります。"/>
-            <NppHelpAbsentWarning title="警告: ファイルが存在しません" message="が存在しません。Notepad++のサイトからダウンロードしてください。"/>
-            <SaveCurrentModifWarning title="警告: 現在の変更を保存" message="現在の変更を保存する必要があります。保存したすべての変更は取り消すことはできません。続行しますか?"/>
-            <LoseUndoAbilityWarning title="警告: 元に戻すの履歴が失われます" message="現在の変更を保存する必要があります。保存したすべての変更は取り消すことはできません。続行しますか?"/>
+            <ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
+変更を適用するには、保存後、Notepad++を再起動して下さい。"/>
+            <NppHelpAbsentWarning title="警告: ファイルが存在しません" message="
+が存在しません。Notepad++のサイトからダウンロードしてください。"/>
+            <SaveCurrentModifWarning title="警告: 現在の変更を保存" message="現在の変更を保存する必要があります。
+保存したすべての変更は取り消すことはできません。
+
+続行しますか?"/>
+            <LoseUndoAbilityWarning title="警告: 元に戻すの履歴が失われます" message="現在の変更を保存する必要があります。
+保存したすべての変更は取り消すことはできません。
+
+続行しますか?"/>
             <CannotMoveDoc title="新しいウィンドウに移動" message="ドキュメントが変更されました。保存してやり直してください。"/>
             <DocReloadWarning title="再読み込み" message="変更が失われますが、このドキュメントを本当に開き直しますか?"/>
             <FileLockedWarning title="警告: 保存失敗" message="このファイルを別のプログラムで開いていないか確認してください。"/>
             <FileAlreadyOpenedInNpp title="" message="そのファイルは既にNotepad++で開かれています。"/>
             <DeleteFileFailed title="削除失敗" message="ファイルの削除に失敗しました。"/>
-            <ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、'Alt+Mouse Selection'か、'Alt+Shift+Arrow key'を使用してください。"/>
+            <ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、Altを押しながらマウスで選択するか、Alt+Shift+矢印キー を使用してください。"/>
                 <!-- added for japanese.xml -->
 
 
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルが開かれようとしています。¥r本当に開きますか?"/>
-            <SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダに設定されているようです。クラウドの設定はキャンセルされます。環境設定画面で有効な設定にやり直してください。"/>
+            <NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルを開こうとしています。
+本当に開きますか?"/>
+            <SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダに設定されています。
+クラウドの設定はキャンセルされます。環境設定画面で正しい場所を指定し直して下さい。"/>
             <FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
             <SessionFileInvalidError title="セッションを読み込めません" message="セッションファイルが破損しているか、正しい形式ではありません。"/>
         </MessageBox>

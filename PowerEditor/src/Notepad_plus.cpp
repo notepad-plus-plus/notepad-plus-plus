@@ -508,7 +508,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		}
 	}
 
-	// Add User Define Languages Entry
+	// Add User Defined Languages Entry
 	int udlpos = ::GetMenuItemCount(hLangMenu) - 1;
 
 	for (int i = 0, len = pNppParam->getNbUserLang(); i < len ; ++i)

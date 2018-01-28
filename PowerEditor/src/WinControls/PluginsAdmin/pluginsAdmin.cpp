@@ -37,6 +37,7 @@
 #include "pluginsAdmin.h"
 #include "ScintillaEditView.h"
 #include "localization.h"
+#include "Processus.h"
 #include "PluginsManager.h"
 #include "md5.h"
 
@@ -351,9 +352,30 @@ void PluginsAdminDlg::collectNppCurrentStatusInfos()
 bool PluginsAdminDlg::installPlugins()
 {
 	vector<size_t> indexes = _availableListView.getCheckedIndexes();
+
+	NppParameters *pNppParameters = NppParameters::getInstance();
+	generic_string updaterDir = pNppParameters->getNppPath();
+	updaterDir += TEXT("\\updater\\");
+
+	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
+	generic_string updaterParams = TEXT("-unzipTo -clean ");
+
 	for (auto i : indexes)
 	{
-		printStr(_availablePluginList[i]._name .c_str());
+		//printStr(_availablePluginList[i]._name .c_str());
+
+		// add folder to operate
+		generic_string destFolder = pNppParameters->getAppDataNppDir();
+		PathAppend(destFolder, _availablePluginList[i]._name);
+		
+		updaterParams += destFolder;
+
+		// add zipFile's url
+		updaterParams += TEXT(" ");
+		updaterParams += _availablePluginList[i]._repository;
+
+		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
+		updater.run();
 	}
 	return true;
 }
@@ -361,9 +383,28 @@ bool PluginsAdminDlg::installPlugins()
 bool PluginsAdminDlg::updatePlugins()
 {
 	vector<size_t> indexes = _updateListView.getCheckedIndexes();
+
+	NppParameters *pNppParameters = NppParameters::getInstance();
+	generic_string updaterDir = pNppParameters->getNppPath();
+	updaterDir += TEXT("\\updater\\");
+
+	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
+	generic_string updaterParams = TEXT("-unzipTo -clean ");
+
 	for (auto i : indexes)
 	{
-		printStr(_updatePluginList[i]._fullFilePath.c_str());
+		// add folder to operate
+		generic_string destFolder = pNppParameters->getAppDataNppDir();
+		PathAppend(destFolder, _availablePluginList[i]._name);
+
+		updaterParams += destFolder;
+
+		// add zipFile's url
+		updaterParams += TEXT(" ");
+		updaterParams += _availablePluginList[i]._repository;
+
+		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
+		updater.run();
 	}
 	return true;
 }
@@ -371,9 +412,26 @@ bool PluginsAdminDlg::updatePlugins()
 bool PluginsAdminDlg::removePlugins()
 {
 	vector<size_t> indexes = _installedListView.getCheckedIndexes();
+
+	NppParameters *pNppParameters = NppParameters::getInstance();
+	generic_string updaterDir = pNppParameters->getNppPath();
+	updaterDir += TEXT("\\updater\\");
+
+	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
+	generic_string updaterParams = TEXT("-clean ");
+
 	for (auto i : indexes)
 	{
-		printStr(_installedPluginList[i]._fullFilePath.c_str());
+		//printStr(_installedPluginList[i]._fullFilePath.c_str());
+
+		// add folder to operate
+		generic_string destFolder = pNppParameters->getAppDataNppDir();
+		PathAppend(destFolder, _availablePluginList[i]._name);
+
+		updaterParams += destFolder;
+
+		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
+		updater.run();
 	}
 	return true;
 }

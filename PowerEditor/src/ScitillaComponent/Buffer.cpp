@@ -691,7 +691,6 @@ bool FileManager::deleteFile(BufferID id)
 
 	if (!PathFileExists(fileNamePath.c_str()))
 		return false;
-	//return ::DeleteFile(fileNamePath) != 0;
 
 	SHFILEOPSTRUCT fileOpStruct = {0};
 	fileOpStruct.hwnd = NULL;

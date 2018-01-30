@@ -56,7 +56,7 @@ LocalizationSwitcher::LocalizationDefinition localizationDefs[] =
 	{TEXT("Occitan"), TEXT("occitan.xml")},
 	{TEXT("ไทย"), TEXT("thai.xml")},
 	{TEXT("Furlan"), TEXT("friulian.xml")},
-	{TEXT("الْعَرَبيّة"), TEXT("arabic.xml")},
+	{TEXT("العربية"), TEXT("arabic.xml")},
 	{TEXT("Suomi"), TEXT("finnish.xml")},
 	{TEXT("Lietuvių"), TEXT("lithuanian.xml")},
 	{TEXT("Ελληνικά"), TEXT("greek.xml")},

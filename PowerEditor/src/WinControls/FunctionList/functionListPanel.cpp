@@ -295,7 +295,7 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 		}
 	}
 
-	std::ofstream file(fname2write);
+	std::ofstream file(wmc.wchar2char(fname2write.c_str(), CP_ACP));
 	file << j;
 
 	return true;

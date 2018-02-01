@@ -117,14 +117,14 @@ public:
 	}
 
 	// Called by QueueUserAPC to start orderly shutdown.
-	static void CALLBACK TerminateProc(__in  ULONG_PTR arg)
+	static void CALLBACK TerminateProc(  ULONG_PTR arg)
 	{
 		CReadChangesServer* pServer = reinterpret_cast<CReadChangesServer*>(arg);
 		pServer->RequestTermination();
 	}
 
 	// Called by QueueUserAPC to add another directory.
-	static void CALLBACK AddDirectoryProc(__in  ULONG_PTR arg)
+	static void CALLBACK AddDirectoryProc(  ULONG_PTR arg)
 	{
 		CReadChangesRequest* pRequest = reinterpret_cast<CReadChangesRequest*>(arg);
 		pRequest->m_pServer->AddDirectory(pRequest);

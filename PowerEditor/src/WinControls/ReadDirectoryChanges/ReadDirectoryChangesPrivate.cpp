@@ -27,6 +27,7 @@
 //	See ReadMe.txt for overview information.
 
 #include <shlwapi.h>
+#include <cassert>
 #include "ReadDirectoryChanges.h"
 #include "ReadDirectoryChangesPrivate.h"
 
@@ -61,7 +62,7 @@ CReadChangesRequest::CReadChangesRequest(CReadChangesServer* pServer, LPCTSTR sz
 CReadChangesRequest::~CReadChangesRequest()
 {
 	// RequestTermination() must have been called successfully.
-	_ASSERTE(m_hDirectory == NULL);
+	assert(m_hDirectory == NULL);
 }
 
 
@@ -124,7 +125,7 @@ VOID CALLBACK CReadChangesRequest::NotificationCompletion(
 
 	// Can't use sizeof(FILE_NOTIFY_INFORMATION) because
 	// the structure is padded to 16 bytes.
-	_ASSERTE((dwNumberOfBytesTransfered == 0) ||
+	assert((dwNumberOfBytesTransfered == 0) ||
 		(dwNumberOfBytesTransfered >= offsetof(FILE_NOTIFY_INFORMATION, FileName) + sizeof(WCHAR)));
 
 	pBlock->BackupBuffer(dwNumberOfBytesTransfered);

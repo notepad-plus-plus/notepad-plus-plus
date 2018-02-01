@@ -1555,8 +1555,10 @@ bool StringDlg::isAllowed(const generic_string & txt)
 {
 	for (auto ch : txt)
 	{
+	#ifndef __MINGW32__
 		if (std::find(_restrictedChars.cbegin(), _restrictedChars.cend(), ch) != _restrictedChars.cend())
 			return false;
+	#endif
 	}
 	return true;
 }

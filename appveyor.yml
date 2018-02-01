@@ -1,31 +1,44 @@
-version: 7.6.{build}
+version: 7.8.{build}
 image: Visual Studio 2017
 
-platform:
-    - x64
-    - Win32
+
+environment:
+  matrix:
+    - platform: Win32
+      archi: x86
+      platform_input: Win32
+
+    - platform: x64
+      archi: amd64
+      platform_input: x64
+
+    - platform: mingw-w64_810_X64
+      platform_input: mingw
 
 configuration:
     - Unicode Release
     - Unicode Debug
 
 install:
-    - if "%platform%"=="x64" set archi=amd64
-    - if "%platform%"=="x64" set platform_input=x64
-
-    - if "%platform%"=="Win32" set archi=x86
-    - if "%platform%"=="Win32" set platform_input=Win32
-
-    - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
+    - if "%Platform%"=="mingw-w64_810_X64" set PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+    - if "%archi%" NEQ "" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
 
 
 build_script:
+    - ps: |
+          Write-Output "Configuration: $env:CONFIGURATION"
+          Write-Output "Platform: $env:PLATFORM"
+
     - cd "%APPVEYOR_BUILD_FOLDER%"\scintilla\win32
     - if "%configuration%"=="Unicode Debug" set scintilla_debug=DEBUG=1
     - if "%configuration%"=="Unicode Release" set scintilla_debug=
-    - nmake SUPPORT_XP=1 %scintilla_debug% -f scintilla.mak
+    - if "%archi%" NEQ "" nmake SUPPORT_XP=1 %scintilla_debug% -f scintilla.mak
+    - if "%Platform%"=="mingw-w64_810_X64" mingw32-make -j%NUMBER_OF_PROCESSORS%
+    
     - cd "%APPVEYOR_BUILD_FOLDER%"\PowerEditor\visual.net\
-    - msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    - if "%archi%" NEQ "" msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform_input%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    - if "%Platform%"=="mingw-w64_810_X64" cd c:\projects\notepad-plus-plus\PowerEditor\gcc\ & mingw32-make -j%NUMBER_OF_PROCESSORS%
+
 
 after_build:
     - cd "%APPVEYOR_BUILD_FOLDER%"
@@ -46,6 +59,11 @@ after_build:
 
         if ($env:PLATFORM_INPUT -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
+        }
+
+        if ($env:PLATFORM_INPUT -eq "mingw") {
+            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP.exe" -FileName "$nppFileName"
+            Push-AppveyorArtifact "PowerEditor\bin\NotepadPP.exe_dynamic" -FileName "$nppFileName_dynamic"
         }
 
         Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"

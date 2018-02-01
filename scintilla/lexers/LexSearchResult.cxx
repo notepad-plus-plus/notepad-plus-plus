@@ -110,7 +110,7 @@ static void ColouriseSearchResultDoc(Sci_PositionU startPos, Sci_Position length
 		return;
 
 	SearchResultMarkings* pMarkings = NULL;
-	sscanf(addrMarkingsStruct, "%p", &pMarkings);
+	sscanf(addrMarkingsStruct, "%p", (void**)&pMarkings);
 
 	for (size_t i = startPos; i < startPos + length; i++) {
 		lineBuffer[linePos++] = styler[i];

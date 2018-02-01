@@ -1313,7 +1313,7 @@ int FindLongestLine(HDC hdc,TCHAR* text,SIZE* size)
               {
                longest=size->cx;
               }
-          p = generic_strtok('\0', TEXT("\n"));
+          p = generic_strtok(TEXT('\0'), TEXT("\n"));
          }
      return longest;
 }

@@ -112,8 +112,12 @@ static WORD getBinaryArchitectureType(const TCHAR *filePath)
 	return machine_type;
 }
 
-#define	LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR	0x00000100
-#define	LOAD_LIBRARY_SEARCH_DEFAULT_DIRS	0x00001000
+#ifndef LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR
+	#define	LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR	0x00000100
+#endif
+#ifndef LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR
+	#define	LOAD_LIBRARY_SEARCH_DEFAULT_DIRS	0x00001000
+#endif
 
 int PluginsManager::loadPlugin(const TCHAR *pluginFilePath)
 {

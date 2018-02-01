@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.5.4">
+    <Native-Langue name="English" filename="english.xml" version="7.5.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1012,6 +1012,7 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
 			<cloud-invalid-warning value="Invalid path."/>
 			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
 			<shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
+			<1-to-2-buttons-tip value="2 find buttons mode"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

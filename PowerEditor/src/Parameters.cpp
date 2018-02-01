@@ -2281,6 +2281,10 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("dotMatchesNewline"));
 	if (boolStr)
 		_findHistory._dotMatchesNewline = (lstrcmp(TEXT("yes"), boolStr) == 0);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("isSearch2ButtonsMode"));
+	if (boolStr)
+		_findHistory._isSearch2ButtonsMode = (lstrcmp(TEXT("yes"), boolStr) == 0);
 }
 
 void NppParameters::feedShortcut(TiXmlNode *node)
@@ -5716,6 +5720,7 @@ bool NppParameters::writeFindHistory()
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparencyMode"), _findHistory._transparencyMode);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparency"), _findHistory._transparency);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("dotMatchesNewline"),		_findHistory._dotMatchesNewline?TEXT("yes"):TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("isSearch2ButtonsMode"),		_findHistory._isSearch2ButtonsMode?TEXT("yes"):TEXT("no"));
 
 	TiXmlElement hist_element{TEXT("")};
 

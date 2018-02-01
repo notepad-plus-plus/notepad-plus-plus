@@ -1091,6 +1091,8 @@ struct FindHistory final
 	enum searchMode{normal, extended, regExpr};
 	enum transparencyMode{none, onLossingFocus, persistant};
 
+	bool _isSearch2ButtonsMode = false;
+
 	int _nbMaxFindHistoryPath    = 10;
 	int _nbMaxFindHistoryFilter  = 10;
 	int _nbMaxFindHistoryFind    = 10;

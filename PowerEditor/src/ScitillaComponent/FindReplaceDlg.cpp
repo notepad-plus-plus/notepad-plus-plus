@@ -239,6 +239,9 @@ FindReplaceDlg::~FindReplaceDlg()
 	if (_shiftTrickUpTip)
 		::DestroyWindow(_shiftTrickUpTip);
 
+	if (_2ButtonsTip)
+		::DestroyWindow(_2ButtonsTip);
+
 	delete[] _uniFileName;
 }
 
@@ -311,6 +314,9 @@ void FindReplaceDlg::fillFindHistory()
 	::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, findHistory._searchMode == FindHistory::extended, 0);
 	::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, findHistory._searchMode == FindHistory::regExpr, 0);
 	::SendDlgItemMessage(_hSelf, IDREDOTMATCHNL, BM_SETCHECK, findHistory._dotMatchesNewline, 0);
+
+	::SendDlgItemMessage(_hSelf, IDC_2_BUTTONS_MODE, BM_SETCHECK, findHistory._isSearch2ButtonsMode, 0);
+
 	if (findHistory._searchMode == FindHistory::regExpr)
 	{
 		//regex doesn't allow wholeword
@@ -707,6 +713,7 @@ void FindReplaceDlg::resizeDialogElements(LONG newWidth)
 
 		IDD_FINDINFILES_BROWSE_BUTTON, IDCMARKALL, IDC_CLEAR_ALL, IDCCOUNTALL, IDC_FINDALL_OPENEDFILES, IDC_FINDALL_CURRENTFILE,
 		IDREPLACE, IDREPLACEALL,IDC_REPLACE_OPENEDFILES, IDD_FINDINFILES_FIND_BUTTON, IDD_FINDINFILES_REPLACEINFILES, IDOK, IDCANCEL,
+		IDC_FINDPREV, IDC_FINDNEXT, IDC_2_BUTTONS_MODE
 	};
 
 	const UINT flags = SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS;
@@ -794,11 +801,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 _findClosePos.top = p.y + 10;
 
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			 generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
-			 if (tip2show.empty())
-				 tip2show = TEXT("Use Shift+Enter to search in the opposite direction.");
+			 generic_string searchButtonTip = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
+			 if (searchButtonTip.empty())
+				 searchButtonTip = TEXT("Use Shift+Enter to search in the opposite direction.");
 
-			 _shiftTrickUpTip = CreateToolTip(IDOK, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
+			 _shiftTrickUpTip = CreateToolTip(IDOK, _hSelf, _hInst, const_cast<PTSTR>(searchButtonTip.c_str()));
 
 			 if (_shiftTrickUpTip)
 			 {
@@ -808,6 +815,19 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				 SendMessage(_shiftTrickUpTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
 			 }
 
+			 generic_string checkboxTip = pNativeSpeaker->getLocalizedStrFromID("1-to-2-buttons-tip");
+			 if (checkboxTip.empty())
+				 checkboxTip = TEXT("2 find buttons mode");
+
+			 _2ButtonsTip = CreateToolTip(IDC_2_BUTTONS_MODE, _hSelf, _hInst, const_cast<PTSTR>(checkboxTip.c_str()));
+
+			 if (_2ButtonsTip)
+			 {
+				 SendMessage(_2ButtonsTip, TTM_ACTIVATE, TRUE, 0);
+				 SendMessage(_2ButtonsTip, TTM_SETMAXTIPWIDTH, 0, 200);
+				 // Make tip stay 15 seconds
+				 SendMessage(_2ButtonsTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
+			 }
 			return TRUE;
 		}
 
@@ -925,12 +945,25 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			switch (LOWORD(wParam))
 			{
 //Single actions
+				case IDC_2_BUTTONS_MODE:
+				{
+					bool is2ButtonsMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
+					findHistory._isSearch2ButtonsMode = is2ButtonsMode;
+
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), is2ButtonsMode ? SW_SHOW : SW_HIDE);
+					::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), is2ButtonsMode ? SW_SHOW : SW_HIDE);
+					::ShowWindow(::GetDlgItem(_hSelf, IDOK), is2ButtonsMode ? SW_HIDE : SW_SHOW);
+				}
+				break;
+
 				case IDCANCEL:
 					(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
 					setStatusbarMessage(generic_string(), FSNoMessage);
 					display(false);
 					break;
 
+				case IDC_FINDPREV:
+				case IDC_FINDNEXT:
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
 				{
 					setStatusbarMessage(generic_string(), FSNoMessage);
@@ -945,12 +978,23 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 					bool direction_bak = _options._whichDirection;
 
-					// if shift-key is pressed, revert search direction
-					// if shift-key is not pressed, use the normal setting
-					SHORT shift = GetKeyState(VK_SHIFT);
-					if (shift & SHIFTED)
+					if (LOWORD(wParam) == IDC_FINDPREV)
 					{
-						_options._whichDirection = !_options._whichDirection;
+						_options._whichDirection = DIR_UP;
+					}
+					else if (LOWORD(wParam) == IDC_FINDNEXT)
+					{
+						_options._whichDirection = DIR_DOWN;
+					}
+					else // IDOK
+					{
+						// if shift-key is pressed, revert search direction
+						// if shift-key is not pressed, use the normal setting
+						SHORT shift = GetKeyState(VK_SHIFT);
+						if (shift & SHIFTED)
+						{
+							_options._whichDirection = !_options._whichDirection;
+						}
 					}
 
 					FindStatus findStatus = FSFound;
@@ -2282,6 +2326,12 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION),hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_SHOW);
+	bool is2ButtonMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDOK), is2ButtonMode ? SW_HIDE : SW_SHOW);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), !is2ButtonMode ? SW_HIDE : SW_SHOW);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), !is2ButtonMode ? SW_HIDE : SW_SHOW);
+
 
 	// find controls
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), !hideOrShow);
@@ -2319,7 +2369,24 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDOK), isEnable?SW_HIDE:SW_SHOW);
+
+	if (isEnable)
+	{
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_HIDE);
+		::ShowWindow(::GetDlgItem(_hSelf, IDOK), SW_HIDE);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), SW_HIDE);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), SW_HIDE);
+	}
+	else
+	{
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_SHOW);
+		bool is2ButtonMode = isCheckedOrNot(IDC_2_BUTTONS_MODE);
+
+		::ShowWindow(::GetDlgItem(_hSelf, IDOK), is2ButtonMode ? SW_HIDE : SW_SHOW);
+
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), !is2ButtonMode ? SW_HIDE : SW_SHOW);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), !is2ButtonMode ? SW_HIDE : SW_SHOW);
+	}
 
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_MARKLINE_CHECK), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_PURGE_CHECK), isEnable?SW_HIDE:SW_SHOW);
@@ -2703,6 +2770,9 @@ void FindReplaceDlg::enableMarkFunc()
 	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL),SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE),SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDOK),SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_2_BUTTONS_MODE), SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDPREV), SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDNEXT), SW_HIDE);
 
 	_currentStatus = MARK_DLG;
 	gotoCorrectTab();

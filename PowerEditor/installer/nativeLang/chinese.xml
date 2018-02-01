@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-    <Native-Langue name="正體中文" filename="chinese.xml" version="7.5">
+    <Native-Langue name="正體中文" filename="chinese.xml" version="7.5.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -1004,6 +1004,7 @@
 			<cloud-invalid-warning value="無效路徑"/>
 			<cloud-restart-warning value="請重新啟動 Notepad++ 以讓改變生效"/>
 			<shift-change-direction-tip value="使用 Shift + Enter 以相反方向進行搜索"/>
+			<1-to-2-buttons-tip value="2個按鈕模式"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

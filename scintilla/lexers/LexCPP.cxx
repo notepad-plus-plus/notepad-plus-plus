@@ -1327,10 +1327,12 @@ void SCI_METHOD LexerCPP::Fold(unsigned int startPos, int length, int initStyle,
 			} else {
 				if ((ch == '/') && (chNext == '/')) {
 					char chNext2 = styler.SafeGetCharAt(i + 2);
-					if (chNext2 == '{') {
-						levelNext++;
-					} else if (chNext2 == '}') {
-						levelNext--;
+					if (!inLineComment) { //bracket not in singleline comment
+						if (chNext2 == '{') {
+							levelNext++;
+						} else if (chNext2 == '}') {
+							levelNext--;
+						}
 					}
 				}
 			}
@@ -1348,7 +1350,7 @@ void SCI_METHOD LexerCPP::Fold(unsigned int startPos, int length, int initStyle,
 				}
 			}
 		}
-		if (options.foldSyntaxBased && (style == SCE_C_OPERATOR)) {
+		if (options.foldSyntaxBased && (style == SCE_C_OPERATOR) && !inLineComment) { //bracket not in singleline comment
 			if (ch == '{' || ch == '[') {
 				// Measure the minimum before a '{' to allow
 				// folding on "} else {"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.5
-	last modified: 2017-09-29 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.5.5
+	last modified: 2018-02-19 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.5">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.5.5">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -104,7 +104,7 @@
 					<Item id="41017" name="Um&amp;benennen …"/>
 					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
 					<Item id="41022" name="Verzeichnis als Arbeitsbereich öffnen"/>
-
+					<Item id="41023" name="Im Standard-Betrachter öffnen"/>
 					<Item id="42001" name="Aus&amp;schneiden"/>
 					<Item id="42002" name="&amp;Kopieren"/>
 					<Item id="42003" name="&amp;Rückgängig"/>
@@ -273,13 +273,13 @@
 					<Item id="45002" name="Konvertiere zu &amp;UNIX (LF)"/>
 					<Item id="45003" name="Konvertiere zu &amp;Mac (CR)"/>
 					<Item id="45004" name="&amp;ANSI"/>
-					<Item id="45005" name="UTF-&amp;8"/>
+					<Item id="45005" name="UTF-&amp;8-BOM"/>
 					<Item id="45006" name="UCS-2 &amp;Big Endian"/>
 					<Item id="45007" name="UCS-2 &amp;Little Endian"/>
-					<Item id="45008" name="UTF-8 &amp;ohne BOM"/>
+					<Item id="45008" name="UT&amp;F-8"/>
 					<Item id="45009" name="Ko&amp;nvertiere zu ANSI"/>
-					<Item id="45010" name="Kon&amp;vertiere zu UTF-8 ohne BOM"/>
-					<Item id="45011" name="Konv&amp;ertiere zu UTF-8"/>
+					<Item id="45010" name="Kon&amp;vertiere zu UTF-8"/>
+					<Item id="45011" name="Konv&amp;ertiere zu UTF-8-BOM"/>
 					<Item id="45012" name="Konve&amp;rtiere zu UCS-2 Big Endian"/>
 					<Item id="45013" name="Konver&amp;tiere zu UCS-2 Little Endian"/>
 					<Item id="44011" name="Benutzerdefinierte Spra&amp;che …"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
@@ -366,6 +366,8 @@
 				<Item CMID="18" name="Dateien rech&amp;ts schließen"/>
 				<Item CMID="19" name="Ordner im E&amp;xplorer öffnen"/>
 				<Item CMID="20" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
+				<Item CMID="21" name="Im Standard-Betrachter öffnen"/>
+
 			</TabBar>
 		</Menu>
 
@@ -483,9 +485,35 @@
 					<Item id="2231" name="Kursivschrift als Standard setzen"/>
 					<Item id="2232" name="Unterstrichen als Standard setzen"/>
 				</SubDialog>
-
 			</StyleConfig>
-
+			<ShortcutMapper title="Tastatur-Kürzel">
+				<Item id="2602" name="Ändern"/>
+				<Item id="2603" name="Entfernen"/>
+				<Item id="2606" name="Löschen"/>
+				<Item id="2607" name="Filter: "/>
+				<Item id="1" name="Schliessen"/>
+				<ColumnName name="Name"/>
+				<ColumnShortcut name="Kürzel"/>
+				<ColumnCategory name="Kategorie"/>
+				<ColumnPlugin name="Plugin"/>
+				<MainMenuTab name="Hauptmenü"/>
+				<MacrosTab name="Makros"/>
+				<RunCommandsTab name="Kommandos ausführen"/>
+				<PluginCommandsTab name="Plugin-Kommandos"/>
+				<ScintillaCommandsTab name="Scintilla-Kommandos"/>
+				<ConflictInfoOk name="Keine Konflikte mit diese Tastenkürzel."/>
+				<ConflictInfoEditing name="Keine Konflikte …"/>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Kürzel">
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Abbruch"/>
+				<Item id="5006" name="Name"/>
+				<Item id="5008" name="Hinzufügen"/>
+				<Item id="5009" name="Entfernen"/>
+				<Item id="5010" name="Übernehmen"/>
+				<Item id="5007" name="Das wird das Tastenkürzel für diesen Befehl entfernen"/>
+				<Item id="5012" name="KONFLIKT GEFUNDEN!"/>
+			</ShortcutMapperSubDialg>
 			<UserDefine title="Benutzerdefinierte Sprache">
 				<Item id="20001" name="Andocken"/>
 				<Item id="20002" name="Umbenennen"/>
@@ -680,7 +708,7 @@
 					<Item id="6120" name="Vertikal"/>
 					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
 
-					<Item id="6122" name="Menüleiste ausblenden (wechseln: Alt oder F10)"/>
+					<Item id="6122" name="Menüleiste ausblenden (Umschalten mit Alt oder F10)"/>
 					<Item id="6123" name="Sprache der Benutzeroberfläche"/>
 
 					<Item id="6125" name="Liste der geöffneten Dateien"/>
@@ -870,7 +898,8 @@
 					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>	<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
 					<Item id="6162" name="Verwende die ursprüngliche Liste der Wortzeichen"/>
-					<Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu&#x0a;(nicht verwenden wenn man nicht sicher ist)"/>				</Delimiter>
+					<Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu&#x0a;(nicht verwenden wenn man nicht sicher ist)"/>
+				</Delimiter>
 
 				<Cloud title="Cloud-Einstellungen">
 					<Item id="6262" name="Einstellungen in der Cloud speichern"/>
@@ -910,7 +939,8 @@
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>
 					<Item id="6344" name="Momentaufnahme des Dokuments"/>
 					<Item id="6345" name="Momentaufnahme in Tab"/>
-					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/></MISC>
+					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
+				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
 				<Item id="1"    name="Ausfüh&amp;ren"/>
@@ -943,7 +973,7 @@
 				<Item id="2"    name="Abbre&amp;chen"/>
 			</ColumnEditor>
 		</Dialog>
-		<MessageBox>
+		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0A;das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu&#x0A;starten, damit die Änderungen wirksam werden."/>
 			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien&#x0A;von der Notepad++-Website herunter."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;&#x0A;Fortfahren?"/>
@@ -954,11 +984,46 @@
 			<FileAlreadyOpenedInNpp title="Datei bereits geöffnet" message="Die Datei ist bereits in Notepad++ geöffnet."/>
 			<DeleteFileFailed title="Löschen fehlgeschlagen!" message="Datei konnte nicht gelöscht werden."/>
 
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.&#x0A;Sind Sie sicher?"/>
 			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte&#x0A;auf ein Laufwerk nur mit Leserechten oder auf ein Verzeichnis&#x0A;ohne die erforderlichen Schreibrechte zeigen.&#x0A;Die Einstellungen in der Cloud werden abgebrochen.&#x0A;Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
 			<FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
 			<SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Sitzungsdatei ist entweder beschädigt oder ungültig."/>
+			<DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Mann kann entweder Dateien oder Verzeichnisse ablegen aber nicht beides zugleich,&#x0A;weil das Programm im 'Ablegen als Projekt' -Modus ist.&#x0A;Dazu muss man &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot;&#x0A;im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs aktivieren."/>
+			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
+			<ColumnModeTip title="Tip zum Spalten-Modus" message="Bitte &quot;ALT+Mauswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot; verwenden um in den Spalten-Modus zu wechseln."/>
+			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Puffer."/>
+			<DoSaveOrNot title="Speichern" message="Speichere Datei &quot;$STR_REPLACE$&quot; ?"/>
+			<DoCloseOrNot title="Nicht existierende Datei behalten" message="Die Datei &quot;$STR_REPLACE$&quot; existiert nicht mehr.&#x0A;Soll die Datei im Editor behalten werden?"/>
+			<DoDeleteOrNot title="Datei löschen" message="Die Datei &quot;$STR_REPLACE$&quot;&#x0A;wird in den Papierkorb verschoben und diese Dokument wird geschlossen.&#x0A;Fortfahren?"/>
+			<NoBackupDoSaveFile title="Speichern" message="Die Sicherungsdatei konnte nicht gefunden werden (wurde anderwärtig gelöscht).&#x0A;Speichern oder die Daten gehen verloren.&#x0A;Soll die Datei &quot;$STR_REPLACE$&quot; gespeichert werden?"/>
+			<DoReloadOrNot title="Erneut laden" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Diese Datei wurde durch ein anderes Programm geändert.&#x0A;Soll die Datei erneut geladen werden?"/>
+			<DoReloadOrNotAndLooseChange title="Erneut laden" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Diese Datei wurde durch ein anderes Programm geändert.&#x0A;Soll die Datei erneut geladen werden?"/>
+			<PrehistoricSystemDetected title="Altes Betriebssystem festgestellt" message="Anscheinend wird hier ein veraltetest Betriebssystem verwendet - diese Funktion geht leider nur mit einem modernen Betriebssystem."/>
+			<XpUpdaterProblem title="Automatisches Update" message="Die Update-Funktion von Notepad++ ist mit Windows XP wegen fehlender Sicherheitsebene nicht kompatibel.&#x0A;Soll auf die Homepage von Notepad++ gewechselt werden um die aktuellste Version herunterzuladen?"/>
+			<DocTooDirtyToMonitor title="Überwachungsproblem" message="Die Datei ist unsauber. Bitte vor der Überwachung die Änderungen speichern."/>
+			<DocNoExistToMonitor title="Überwachungsproblem" message="Die Datei muss existieren um übewacht werden zu können."/>
+			<FileTooBigToOpene title="Problem mit Dateigröße" message="Die Datei ist zu groß um mit Notepad++ geöffnet zu werden."/>
+			<CreateNewFileOrNot title="Neue Datei erstellen" message="&quot;$INT_REPLACE$&quot; existiert nicht. Soll die Datei erstellt werden?"/>
+			<CreateNewFileError title="Neue Datei erstellen" message="Kann Datei &quot;$INT_REPLACE$&quot; nicht erstellen."/>
+			<OpenFileError title="Fehler" message="Kann Datei &quot;$INT_REPLACE$&quot; nicht öffnen."/>
+			<FileBackupFailed title="Sicherung fehlgeschlagen" message="Die vorherige Version der Datei konnte nicht in das Sicherungsverzeichnis &quot;$INT_REPLACE$&quot; gespeichert werden.&#x0A;&#x0A;Soll die Datei trotzdem gespeichert werden?"/>
+			<LoadStylersFailed title="Laden von 'stylers.xml' fehlgeschlagen" message="Das Laden der Datei &quot;$INT_REPLACE$&quot; ist fehlgeschlagen!"/>
+			<LoadLangsFailed title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!&#x0A;Soll die Datei 'langs.xml' wieder hergestellt werden?"/>
+			<LoadLangsFailedFinal title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!"/>
+			<FolderAsWorspaceSubfolderExists title="'Verzeichnis als Arbeitsbereich'-Problem" message="Ein Unterverzeichnis existiert im Verzeichnis das hinzugefügt werden soll.&#x0A;Bitte diese Verzeichnis vorher entfernen bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Der Arbeitsbereich wurde geändert. Soll er jetzt gespeichert werden?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Der Arbeitsbereich wurde nicht gespeichert."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Offener Arbeitsbereich" message="Der aktuelle Arbeitsbereich wurde geändert. Soll das aktuelle Projekt gespeichert werden?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Neuer Arbeitsbereich" message="Der aktuelle Arbeitsbereich wurde geändert. Soll das aktuelle Projekt gespeichert werden?"/>
+			<ProjectPanelOpenFailed title="Offener Arbeitsbereich" message="Der Arbeitsbereich konnte nicht geöffnet werden.&#x0A;Anscheinend ist die Datei keine gültige Projektdatei."/>
+			<ProjectPanelRemoveFolderFromProject title="Verzeichnis aus Projekt entfernen" message="Alle Untereinträge werden gelöscht.&#x0A;Soll dieses Verzeichnis wirklich aus dem Projekt entfernt werden?"/>
+			<ProjectPanelRemoveFileFromProject title="Datei aus Projekt entfernen" message="Soll diese Datei wirklich aus dem Projekt entfernt werden?"/>
+			<ProjectPanelReloadError title="Arbeitsbereich neu laden" message="Kann Datei zum neu laden nicht finden."/>
+			<ProjectPanelReloadDirty title="Arbeitsbereich neu laden" message="Der aktuelle Arbeitsbereich wurde verändert. Ein Neuladen verwirft alle bisher gemachten Änderungen.&#x0A;Soll fortgefahren werden?"/>
+			<UDLNewNameError title="UDL-Fehler" message="Dieser Name wird bereits von einer anderen Sprache verwendet.&#x0A;Bitte daher eine anderen Namen wählen."/>
+			<UDLRemoveCurrentLang title="Aktuelle Sprache löschen" message="Wirklich löschen?"/>
+			<SCMapperDoDeleteOrNot title="Wirklich?" message="Soll das Tastenkürzel wirklich gelöscht werden?"/>
+			<FindCharRangeValueError title="Problem mit Wertebereich" message="Der Wert muss zwischen 0 und 255 liegen."/>
 			<ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&#x0A;um in den Spalten-Modus zu wechseln."/>
 
 			<!-- $STR_REPLACE$ is a place holder, don't translate it -->
@@ -991,6 +1056,21 @@
 			<SortTip name="Sortieren"/>
 			<ReloadTip name="Neu laden"/>
 		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Verzeichnis als Arbeitsbereich"/>
+			<SelectFolderFromBrowserString name="Wähle ein Verzeichnis zum Hinzufügen zum Arbeitsbereich"/>
+			<Menus>
+				<Item id="3511" name="Entfernen"/>
+				<Item id="3512" name="Alle entfernen"/>
+				<Item id="3513" name="Hinzufügen"/>
+				<Item id="3514" name="Vom System gestartet"/>
+				<Item id="3515" name="Öffnen"/>
+				<Item id="3516" name="Pfad kopieren"/>
+				<Item id="3517" name="In Dateien suchen …"/>
+				<Item id="3518" name="Hier anzeigen"/>
+				<Item id="3519" name="Kommandozeile hier"/>
+			</Menus>
+		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Projektverwaltung"/>
 			<WorkspaceRootName name="Arbeitsbereich"/>
@@ -1047,7 +1127,35 @@
 			<word-chars-list-warning-end value=" in der Liste der Wortzeichen."/>
 			<cloud-invalid-warning value="Ungültiger Pfad."/>
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
+			<cloud-select-folder value="Verzeichnis wählen von wo/wohin Notepad++ seine Einstellungen liest bzw. schreibt"/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
+			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>			
+			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
+			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>			
+			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>
+			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
+			<find-status-replaceinfiles-re-malformed value="Ersetzen in geöffneten Dateien: Der Ausdruck ist nicht passend"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Vorkommen wurde ersetzt"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
+			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
+			<find-status-invalid-re value="Suche: Üngültiger Ausdruck"/>
+			<find-status-mark-1-match value="1 Treffer"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ Treffer"/>
+			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
+			<find-status-count-1-match value="Zähler: 1 Treffer"/>
+			<find-status-count-nb-matches value="Zähler: $INT_REPLACE$ Treffer"/>
+			<find-status-replaceall-re-malformed value="Alle ersetzen: Der Ausdruck ist nicht passend"/>
+			<find-status-replaceall-1-replaced value="Alle ersetzen: 1 Vorkommen wurde ersetzt"/>
+			<find-status-replaceall-nb-replaced value="Alle ersetzen: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
+			<find-status-replaceall-readonly value="Alle ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
+			<find-status-replace-end-reached value="Ersetzen: 1. Vorkommen von oben wurde ersetzt. Das Ende des Dokumentes wurde erreicht"/>
+			<find-status-replace-top-reached value="Ersetzen: 1. Vorkommen von unten wurde ersetzt. Der Anfang des Dokumentes wurde erreicht"/>
+			<find-status-relaced-next-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Nächster Treffer gefunden"/>
+			<find-status-relaced-next-not-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Kein weiterer Treffer gefunden"/>
+			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
+			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
+			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ Übereinstimmungen"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

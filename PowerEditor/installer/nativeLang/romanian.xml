@@ -908,15 +908,15 @@
             <ContextMenuXmlEditWarning title="Editare meniu contextual" message="Editarea fişierului contextMenu.xml vă permite să modificaţi meniul contextual al Notepad++.
 Trebuie să reporniţi Notepad++ pentru a se aplica modificările efectuate în contextMenu.xml."/>
             <NppHelpAbsentWarning title="Fişierul nu există" message=" nu există. Vă rugăm să-l descărcaţi de pe site-ul Notepad++."/>
-            <SaveCurrentModifWarning title="Salvare modificare curentă" message="Ar trebui să salvaţi modificările curente. Toate modificările salvate nu vor putea fi refăcute. Continuaţi ?"/>
-            <LoseUndoAbilityWarning title="Atenţionare pierdere abilitate revenire" message="Ar trebui să salvaţi modificările curente. Toate modificările salvate nu vor putea fi refăcute. Continuaţi ?"/>
+            <SaveCurrentModifWarning title="Salvare modificare curentă" message="Ar trebui să salvaţi modificările curente. Toate modificările salvate nu vor putea fi refăcute. Continuaţi?"/>
+            <LoseUndoAbilityWarning title="Atenţionare pierdere abilitate revenire" message="Ar trebui să salvaţi modificările curente. Toate modificările salvate nu vor putea fi refăcute. Continuaţi?"/>
             <CannotMoveDoc title="Mutare în instanţă nouă Notepad++" message="Documentul este modificat, salvaţi-l şi încercaţi din nou."/>
-            <DocReloadWarning title="Reîncărcare" message="Sunteţi sigur că doriţi să reîncărcaţi fişierul curent şi să pierdeţi modificările efectuate în Notepad++ ?"/>
+            <DocReloadWarning title="Reîncărcare" message="Sunteţi sigur că doriţi să reîncărcaţi fişierul curent şi să pierdeţi modificările efectuate în Notepad++?"/>
             <FileLockedWarning title="Salvare eşuată" message="Verificaţi dacă acest fişier nu este accesat şi de un alt program"/>
             <FileAlreadyOpenedInNpp title="" message="Fişierul este deja deschis în Notepad++."/>
             <DeleteFileFailed title="Ştergere fişier" message="Ştergere fişier eşuată"/>
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="Numărul fişierelor de deschis este prea mare" message="$INT_REPLACE$ fişiere sunt pe cale să fie deschise. Sunteţi sigur că doriţi să le deschideţi ?"/>
+            <NbFileToOpenImportantWarning title="Numărul fişierelor de deschis este prea mare" message="$INT_REPLACE$ fişiere sunt pe cale să fie deschise. Sunteţi sigur că doriţi să le deschideţi?"/>
 	    <SettingsOnCloudError title="Setări pentru Cloud" message="Calea setărilor pentru Cloud este stabilită pe o unitate doar cu drepturi de citire sau un folder are nevoie de drepturi de acces pentru scriere. Setările pentru cloud vor fi anulate. Reintroduceţi o cale validă în panoul Preferinţe."/>
 	    <FilePathNotFoundWarning title="Deschidere fișier" message="Fișierul pe care doriți să-l deschideți nu există."/>
 	    <SessionFileInvalidError title="Nu s-a putut încărca sesiunea" message="Sesiunea fișierului este fie coruptă fie invalidă."/>

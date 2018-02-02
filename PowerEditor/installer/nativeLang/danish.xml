@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Dansk" filename="danish.xml" version="7.5">
+    <Native-Langue name="Dansk" filename="danish.xml" version="7.5.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -40,7 +40,7 @@
                     <Item subMenuId="search-bookmark" name="Bogmærke"/>
                     <Item subMenuId="view-showSymbol" name="Vis symbol"/>
                     <Item subMenuId="view-zoom" name="Zoom"/>
-                    <Item subMenuId="view-moveCloneDocument" name="Flyt/klon aktuelle dokument"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Flyt/klon nuværende dokument"/>
                     <Item subMenuId="view-tab" name="Faneblad"/>
                     <Item subMenuId="view-collapseLevel" name="Sammenfold niveau"/>
                     <Item subMenuId="view-uncollapseLevel" name="Udfold niveau"/>
@@ -74,7 +74,7 @@
                     <Item id="41020" name="Kommandoprompt"/>
                     <Item id="41003" name="Luk"/>
                     <Item id="41004" name="&amp;Luk alle"/>
-                    <Item id="41005" name="Luk alle, undtagen aktuelle dokument"/>
+                    <Item id="41005" name="Luk alle, undtagen nuværende dokument"/>
                     <Item id="41009" name="Luk alle til venstre"/>
                     <Item id="41018" name="Luk alle til højre"/>
                     <Item id="41006" name="&amp;Gem"/>
@@ -102,13 +102,13 @@
                     <Item id="42020" name="Start/afslut markering"/>
                     <Item id="42008" name="Forøg linjeindrykning"/>
                     <Item id="42009" name="Formindsk linjeindrykning"/>
-                    <Item id="42010" name="Dupliker aktuel linje"/>
+                    <Item id="42010" name="Dupliker nuværende linje"/>
                     <Item id="42012" name="Opdel linjer"/>
                     <Item id="42013" name="Sammenføj linjer"/>
-                    <Item id="42014" name="Flyt aktuel linje op"/>
-                    <Item id="42015" name="Flyt aktuel linje ned"/>
-                    <Item id="42059" name="Sortér linjer alfabetiske (stigende)"/>
-                    <Item id="42060" name="Sortér linjer alfabetiske (faldende)"/>
+                    <Item id="42014" name="Flyt nuværende linje op"/>
+                    <Item id="42015" name="Flyt nuværende linje ned"/>
+                    <Item id="42059" name="Sortér linjer leksikografisk (stigende)"/>
+                    <Item id="42060" name="Sortér linjer leksikografisk (faldende)"/>
                     <Item id="42061" name="Sortér linjer som heltal (stigende)"/>
                     <Item id="42062" name="Sortér linjer som heltal (faldende)"/>
                     <Item id="42063" name="Sortér linjer som decimaltal med komma (stigende)"/>
@@ -150,21 +150,21 @@
                     <Item id="42034" name="Kolonne-redigering..."/>
                     <Item id="42051" name="Tegnpanel"/>
                     <Item id="42052" name="Udklipsholder historik"/>
-                    <Item id="42025" name="Gem aktuelle makro-optagelse"/>
+                    <Item id="42025" name="Gem nuværende makro-optagelse"/>
                     <Item id="42026" name="Tekstretning (højre til venstre)"/>
                     <Item id="42027" name="Tekstretning (venstre til højre)"/>
                     <Item id="42028" name="Sæt skrivebeskyttelse"/>
-                    <Item id="42029" name="Aktuel filsti til udklipsholder"/>
-                    <Item id="42030" name="Aktuel filnavn til udklipsholder"/>
-                    <Item id="42031" name="Aktuel mappesti til udklipsholder"/>
+                    <Item id="42029" name="Nuværende filsti til udklipsholder"/>
+                    <Item id="42030" name="Nuværende filnavn til udklipsholder"/>
+                    <Item id="42031" name="Nuværende mappesti til udklipsholder"/>
                     <Item id="42032" name="Kør en makro flere gange..."/>
                     <Item id="42033" name="Fjern skrivebeskyttelse"/>
                     <Item id="42035" name="Én-kommentar-linje til"/>
                     <Item id="42036" name="Én-kommentar-linje fra"/>
                     <Item id="42055" name="Fjern tomme linjer"/>
                     <Item id="42056" name="Fjern tomme linjer (som indeholder blanktegn)"/>
-                    <Item id="42057" name="Indsæt tom linje over aktuel"/>
-                    <Item id="42058" name="Indsæt tom linje under aktuel"/>
+                    <Item id="42057" name="Indsæt tom linje over nuværende"/>
+                    <Item id="42058" name="Indsæt tom linje under nuværende"/>
                     <Item id="43001" name="&amp;Søg..."/>
                     <Item id="43002" name="Find &amp;næste"/>
                     <Item id="43003" name="Erstat..."/>
@@ -226,8 +226,8 @@
                     <Item id="44025" name="Vis blanktegn og tabulator"/>
                     <Item id="44026" name="Vis linjeskift"/>
                     <Item id="44029" name="Udfold alle"/>
-                    <Item id="44030" name="Sammenfold aktuelle niveau"/>
-                    <Item id="44031" name="Udfold aktuelle niveau"/>
+                    <Item id="44030" name="Sammenfold nuværende niveau"/>
+                    <Item id="44031" name="Udfold nuværende niveau"/>
                     <Item id="44049" name="Opsummering..."/>
                     <Item id="44080" name="Dokumentoversigt"/>
                     <Item id="44084" name="Funktionsliste"/>
@@ -260,13 +260,13 @@
                     <Item id="45002" name="Konverter til UNIX-format"/>
                     <Item id="45003" name="Konverter til Mac-format"/>
                     <Item id="45004" name="Kod i ANSI"/>
-                    <Item id="45005" name="Kod i UTF-8"/>
+                    <Item id="45005" name="Kod i UTF-8-BOM"/>
                     <Item id="45006" name="Kod i UCS-2 big endian"/>
                     <Item id="45007" name="Kod i UCS-2 little endian"/>
-                    <Item id="45008" name="Kod i UTF-8 uden BOM"/>
+                    <Item id="45008" name="Kod i UTF-8"/>
                     <Item id="45009" name="Konverter til ANSI"/>
-                    <Item id="45010" name="Konverter til UTF-8 uden BOM"/>
-                    <Item id="45011" name="Konverter til UTF-8"/>
+                    <Item id="45010" name="Konverter til UTF-8"/>
+                    <Item id="45011" name="Konverter til UTF-8-BOM"/>
                     <Item id="45012" name="Konverter til UCS-2 big endian"/>
                     <Item id="45013" name="Konverter til UCS-2 little endian"/>
 
@@ -345,8 +345,8 @@
                 <Item id="2"    name="Luk"/>
                 <Item id="1620" name="Søg efter:"/>
                 <Item id="1603" name="Søg kun på &amp;hele ord"/>
-                <Item id="1604" name="&amp;Forskel på store og små bogstaver"/>
-                <Item id="1605" name="Regulær&amp;e udtryk"/>
+                <Item id="1604" name="Forskel på store og små &amp;bogstaver"/>
+                <Item id="1605" name="Regulære &amp;udtryk"/>
                 <Item id="1606" name="Forfra &amp;når slutningen er nået"/>
                 <Item id="1614" name="Tæl"/>
                 <Item id="1615" name="Find alle"/>
@@ -354,7 +354,7 @@
                 <Item id="1618" name="Ryd mellem hver søgning"/>
                 <Item id="1611" name="Erstat &amp;med:"/>
                 <Item id="1608" name="E&amp;rstat"/>
-                <Item id="1609" name="Erstat &amp;alle"/>
+                <Item id="1609" name="&amp;Erstat alle"/>
                 <Item id="1687" name="Ved mistet fokus"/>
                 <Item id="1688" name="Altid"/>
                 <Item id="1632" name="I markering"/>
@@ -370,8 +370,8 @@
                 <Item id="1625" name="Normal"/>
                 <Item id="1626" name="Udvidet (\n, \r, \t, \0, \u, \x...)"/>
                 <Item id="1660" name="Erstat i filer"/>
-                <Item id="1661" name="Følg aktuelle dok."/>
-                <Item id="1641" name="Find &amp;alle i aktuelle dokument"/>
+                <Item id="1661" name="Følg nuværende dok."/>
+                <Item id="1641" name="&amp;Find alle i nuværende dokument"/>
                 <Item id="1686" name="Gennemsigtig"/>
                 <Item id="1703" name="&amp;. finder linjeskift"/>
             </Find>
@@ -704,7 +704,7 @@
 
                 <DefaultDir title="Standardmappe">
                     <Item id="6413" name="Standardmappe (åbn/gem)"/>
-                    <Item id="6414" name="Følg aktuelle dokument"/>
+                    <Item id="6414" name="Følg nuværende dokument"/>
                     <Item id="6415" name="Husk sidste anvendte mappe"/>
                     <Item id="6430" name="Brug dialog med nyt udseende (uden filtype funktionalitet)"/>
                     <Item id="6431" name="Åbn alle mappens filer ved slip af mappe, fremfor at starte mappe som arbejdsområde"/>
@@ -785,7 +785,7 @@
                     <Item id="6819" name="Sikkerhedskopier hvert"/>
                     <Item id="6821" name="sekunder"/>
                     <Item id="6822" name="Sti til sikkerhedskopiering:"/>
-                    <Item id="6309" name="Husk aktuelle session til næste opstart"/>
+                    <Item id="6309" name="Husk nuværende session til næste opstart"/>
                     <Item id="6801" name="Sikkerhedskopiering"/>
                     <Item id="6315" name="Ingen"/>
                     <Item id="6316" name="Simpel sikkerhedskopiering"/>
@@ -910,16 +910,16 @@
 Du skal genstarte Notepad++ før ændringerne i contextMenu.xml træder i kraft."/>
             <NppHelpAbsentWarning title="Filen findes ikke" message="
 findes ikke. Download den venligst fra Notepad++'s websted."/>
-            <SaveCurrentModifWarning title="Gem aktuelle ændring" message="Du bør gemme den aktuelle ændring.
+            <SaveCurrentModifWarning title="Gem nuværende ændring" message="Du bør gemme den nuværende ændring.
 Alle gemte ændringer kan ikke fortrydes.
 
 Fortsæt?"/>
-            <LoseUndoAbilityWarning title="Advarsel om at miste fortryd" message="Du bør gemme den aktuelle ændring.
+            <LoseUndoAbilityWarning title="Advarsel om at miste fortryd" message="Du bør gemme den nuværende ændring.
 Alle gemte ændringer kan ikke fortrydes.
 
 Fortsæt?"/>
             <CannotMoveDoc title="Flyt til ny instans af Notepad++" message="Dokument er ændret. Gem det og prøv igen."/>
-            <DocReloadWarning title="Genindlæs" message="Er du sikker på, at du vil genindlæse den aktuelle fil og miste de ændringer der er lavet i Notepad++?"/>
+            <DocReloadWarning title="Genindlæs" message="Er du sikker på, at du vil genindlæse den nuværende fil og miste de ændringer der er lavet i Notepad++?"/>
             <FileLockedWarning title="Gemning mislykkedes" message="Tjek venligst om filen allerede er åbnet i et andet program"/>
             <FileAlreadyOpenedInNpp title="" message="Filen er allerede åbnet i Notepad++."/>
             <DeleteFileFailed title="Slet fil" message="Sletning af filen mislykkedes"/>
@@ -1002,7 +1002,7 @@ Dine indstillinger på sky annulleres. Nulstil venligst en relateret værdi i di
             </Menus>
         </ProjectManager>
         <MiscStrings>
-			<word-chars-list-tip value="Det giver dig mulighed for at inkludere yderligere tegn i aktuelle ordtegn ved dobbeltklik til markering eller søgning når valgmuligheden &quot;Søg kun på hele ord&quot; er valgt til."/>
+			<word-chars-list-tip value="Det giver dig mulighed for at inkludere yderligere tegn i nuværende ordtegn ved dobbeltklik til markering eller søgning når valgmuligheden &quot;Søg kun på hele ord&quot; er valgt til."/>
             <word-chars-list-warning-begin value="OBS: "/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ mellemrum"/>
@@ -1012,6 +1012,7 @@ Dine indstillinger på sky annulleres. Nulstil venligst en relateret værdi i di
 			<cloud-invalid-warning value="Ugyldig sti."/>
 			<cloud-restart-warning value="Genstart venligst Notepad++ så ændringerne kan træde i kraft."/>
 			<shift-change-direction-tip value="Brug Skift + Enter for at søge i den modsatte retning"/>
+			<1-to-2-buttons-tip value="2 find-knapper-tilstand"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.5
-	last modified: 2017-09-29 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.5.5
+	last modified: 2018-02-02 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -12,7 +12,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Deutsch" filename="german.xml" version="7.5">
+	<Native-Langue name="Deutsch" filename="german.xml" version="7.5.5">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -273,13 +273,13 @@
 					<Item id="45002" name="Konvertiere zu &amp;UNIX (LF)"/>
 					<Item id="45003" name="Konvertiere zu &amp;Mac (CR)"/>
 					<Item id="45004" name="&amp;ANSI"/>
-					<Item id="45005" name="UTF-&amp;8"/>
+					<Item id="45005" name="UTF-&amp;8-BOM"/>
 					<Item id="45006" name="UCS-2 &amp;Big Endian"/>
 					<Item id="45007" name="UCS-2 &amp;Little Endian"/>
-					<Item id="45008" name="UTF-8 &amp;ohne BOM"/>
+					<Item id="45008" name="UT&amp;F-8"/>
 					<Item id="45009" name="Ko&amp;nvertiere zu ANSI"/>
-					<Item id="45010" name="Kon&amp;vertiere zu UTF-8 ohne BOM"/>
-					<Item id="45011" name="Konv&amp;ertiere zu UTF-8"/>
+					<Item id="45010" name="Kon&amp;vertiere zu UTF-8"/>
+					<Item id="45011" name="Konv&amp;ertiere zu UTF-8-BOM"/>
 					<Item id="45012" name="Konve&amp;rtiere zu UCS-2 Big Endian"/>
 					<Item id="45013" name="Konver&amp;tiere zu UCS-2 Little Endian"/>
 					<Item id="44011" name="Benutzerdefinierte Spra&amp;che …"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
@@ -1048,6 +1048,7 @@
 			<cloud-invalid-warning value="Ungültiger Pfad."/>
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
+			<1-to-2-buttons-tip value="Modus mit 2 Suchknöpfen"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

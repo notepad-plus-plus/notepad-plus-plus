@@ -96,7 +96,7 @@ BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) //-1 if not fo
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		BufferID id = reinterpret_cast<BufferID>(tie.lParam);
 		Buffer * buf = MainFileManager->getBufferByID(id);
-		if (!lstrcmp(fullfilename, buf->getFullPathName()))
+		if (OrdinalIgnoreCaseCompareStrings(fullfilename, buf->getFullPathName()) == 0)
 		{
 			return id;
 		}

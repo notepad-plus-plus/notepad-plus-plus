@@ -178,6 +178,8 @@ generic_string stringJoin(const std::vector<generic_string>& strings, const gene
 generic_string stringTakeWhileAdmissable(const generic_string& input, const generic_string& admissable);
 double stodLocale(const generic_string& str, _locale_t loc, size_t* idx = NULL);
 
+int OrdinalIgnoreCaseCompareStrings(LPCTSTR sz1, LPCTSTR sz2);
+
 bool str2Clipboard(const generic_string &str2cpy, HWND hwnd);
 
 generic_string GetLastErrorAsString(DWORD errorCode = 0);

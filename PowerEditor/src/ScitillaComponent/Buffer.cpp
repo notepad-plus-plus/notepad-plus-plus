@@ -194,13 +194,13 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 
 	if (newLang == defaultLang || newLang == L_TEXT)	//language can probably be refined
 	{
-		if ((!generic_stricmp(_fileName, TEXT("makefile"))) || (!generic_stricmp(_fileName, TEXT("GNUmakefile"))))
+		if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("makefile")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("GNUmakefile")) == 0))
 			newLang = L_MAKEFILE;
-		else if (!generic_stricmp(_fileName, TEXT("CmakeLists.txt")))
+		else if (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("CmakeLists.txt")) == 0)
 			newLang = L_CMAKE;
-		else if ((!generic_stricmp(_fileName, TEXT("SConstruct"))) || (!generic_stricmp(_fileName, TEXT("SConscript"))) || (!generic_stricmp(_fileName, TEXT("wscript"))))
+		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("SConstruct")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("SConscript")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("wscript")) == 0))
 			newLang = L_PYTHON;
-		else if ((!generic_stricmp(_fileName, TEXT("Rakefile"))) || (!generic_stricmp(_fileName, TEXT("Vagrantfile"))))
+		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Rakefile")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Vagrantfile")) == 0))
 			newLang = L_RUBY;
 	}
 
@@ -1507,7 +1507,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 
 	for(size_t i = 0; i < _buffers.size(); i++)
 	{
-		if (!lstrcmpi(name, _buffers.at(i)->getFullPathName()))
+		if (OrdinalIgnoreCaseCompareStrings(name, _buffers.at(i)->getFullPathName()) == 0)
 			return _buffers.at(i)->getID();
 	}
 	return BUFFER_INVALID;

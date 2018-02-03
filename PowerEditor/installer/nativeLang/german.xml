@@ -911,7 +911,8 @@
 					<Item id="6117" name="In Reihenfolge der Benutzung"/>
 					<Item id="6344" name="Momentaufnahme des Dokuments"/>
 					<Item id="6345" name="Momentaufnahme in Tab"/>
-					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/></MISC>
+					<Item id="6346" name="Momentaufnahme in Miniaturansicht"/>
+				</MISC>
 			</Preference>
 			<MultiMacro title="Makro mehrfach ausführen">
 				<Item id="1"    name="Ausfüh&amp;ren"/>

@@ -1409,7 +1409,7 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 			}
 			else if (isRecursive)
 			{
-				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
+				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0))
 				{
 					generic_string pathDir(dir);
 					pathDir += foundData.cFileName;
@@ -1438,7 +1438,7 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 			}
 			else if (isRecursive)
 			{
-				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
+				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0))
 				{
 					generic_string pathDir(dir);
 					pathDir += foundData.cFileName;

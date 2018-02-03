@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.5.4">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.5.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -260,15 +260,15 @@
                     <Item id="45002" name="Unixフォーマット(LF)に変換"/>
                     <Item id="45003" name="Macフォーマット(CR)に変換"/>
                     <Item id="45004" name="ANSI"/>
-                    <Item id="45005" name="UTF-8"/>
-                    <Item id="45006" name="UCS-2 Big Endian"/>
-                    <Item id="45007" name="UCS-2 Little Endian"/>
-                    <Item id="45008" name="UTF-8(BOMなし)"/>
+                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45006" name="UCS-2 BE BOM"/>
+                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="ANSI に変換"/>
-                    <Item id="45010" name="UTF-8 (BOMなし) に変換"/>
-                    <Item id="45011" name="UTF-8 に変換"/>
-                    <Item id="45012" name="UCS-2 Big Endian に変換"/>
-                    <Item id="45013" name="UCS-2 Little Endian に変換"/>
+                    <Item id="45010" name="UTF-8 に変換"/>
+                    <Item id="45011" name="UTF-8-BOM に変換"/>
+                    <Item id="45012" name="UCS-2 BE BOM に変換"/>
+                    <Item id="45013" name="UCS-2 LE BOM に変換"/>
 
                     <Item id="10001" name="別のビューへ移動"/>
                     <Item id="10002" name="別のビューへ複製"/>
@@ -459,9 +459,36 @@
                     <Item id="2231" name="斜体を他のスタイルにも適用"/>
                     <Item id="2232" name="下線を他のスタイルにも適用"/>
                 </SubDialog>
-
             </StyleConfig>
 
+            <ShortcutMapper title="ショートカット管理">
+                <Item id="2602" name="変更"/>
+                <Item id="2603" name="行を削除"/>
+                <Item id="2606" name="解除"/>
+                <Item id="2607" name="フィルタ："/>
+                <Item id="1" name="閉じる"/>
+                <ColumnName name="項目"/>
+                <ColumnShortcut name="ショートカット"/>
+                <ColumnCategory name="カテゴリー"/>
+                <ColumnPlugin name="プラグイン"/>
+                <MainMenuTab name="メインメニュー"/>
+                <MacrosTab name="マクロ"/>
+                <RunCommandsTab name="実行"/>
+                <PluginCommandsTab name="プラグイン"/>
+                <ScintillaCommandsTab name="エディター"/>
+                <ConflictInfoOk name="この項目と競合するショートカットはありません。"/>
+                <ConflictInfoEditing name="競合しません..."/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="ショートカット">
+                <Item id="1" name="OK"/>
+                <Item id="2" name="キャンセル"/>
+                <Item id="5006" name="項目"/>
+                <Item id="5008" name="追加"/>
+                <Item id="5009" name="削除"/>
+                <Item id="5010" name="適用"/>
+                <Item id="5007" name="ショートカットが解除されます"/>
+                <Item id="5012" name="競合します！"/>
+            </ShortcutMapperSubDialg>
             <UserDefine title="ユーザー定義">
                 <Item id="20001" name="ドック"/>
                 <Item id="20002" name="名前の変更"/>
@@ -655,7 +682,7 @@
                     <Item id="6120" name="縦に表示する"/>
                     <Item id="6121" name="最後のタブを閉じると終了する"/>
 
-                    <Item id="6122" name="メニューを隠す(再表示するにはAltかF10を押す)"/>
+                    <Item id="6122" name="メインメニューを隠す（表示するには Alt か F10 を押す）"/>
                     <Item id="6123" name="言語"/>
 
                     <Item id="6125" name="文書一覧"/>
@@ -719,7 +746,7 @@
                     <Item id="6413" name="既定ディレクトリ(開く/保存)"/>
                     <Item id="6414" name="現在の文書に従う"/>
                     <Item id="6415" name="最後に使ったディレクトリ"/>
-                    <Item id="6430" name="新しいスタイルの保存ダイアログを使う"/>
+                    <Item id="6430" name="新しいファイルダイアログ（拡張子なしでも保存。Unix 式のパス区切りも開く）"/>
                     <Item id="6431" name="フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く"/>
                 </DefaultDir>
 
@@ -918,7 +945,7 @@
                 <Item id="2" name="キャンセル"/>
             </ColumnEditor>
         </Dialog>
-        <MessageBox>
+        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
 変更を適用するには、保存後、Notepad++を再起動して下さい。"/>
             <NppHelpAbsentWarning title="警告: ファイルが存在しません" message="
@@ -936,17 +963,72 @@
             <FileLockedWarning title="警告: 保存失敗" message="このファイルを別のプログラムで開いていないか確認してください。"/>
             <FileAlreadyOpenedInNpp title="" message="そのファイルは既にNotepad++で開かれています。"/>
             <DeleteFileFailed title="削除失敗" message="ファイルの削除に失敗しました。"/>
-            <ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、Altを押しながらマウスで選択するか、Alt+Shift+矢印キー を使用してください。"/>
-                <!-- added for japanese.xml -->
 
-
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="大量のファイルを開こうとしています" message="$INT_REPLACE$ 個のファイルを開こうとしています。
 本当に開きますか?"/>
             <SettingsOnCloudError title="警告: クラウド設定" message="クラウドのパスが、読み込み専用ドライブか、書き込み権限が必要なフォルダに設定されています。
 クラウドの設定はキャンセルされます。環境設定画面で正しい場所を指定し直して下さい。"/>
+
             <FilePathNotFoundWarning title="警告: ファイルを開く" message="指定されたファイルは存在しません。"/>
             <SessionFileInvalidError title="セッションを読み込めません" message="セッションファイルが破損しているか、正しい形式ではありません。"/>
+            <DroppingFolderAsProjetModeWarning title="無効な操作です" message="「フォルダーをプロジェクトとして開く」設定になっているため、ファイルとフォルダーを同時にドロップして開くことはできません。
+この操作を使いたい場合、「環境設定」を開き、「既定のディレクトリ」の「フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く」を有効にして下さい。"/>
+            <SortingError title="ソートエラー" message="行番号 $INT_REPLACE$ が原因でソートを実行できませんでした。"/>
+            <ColumnModeTip title="矩形モード" message="矩形モードに切り替えるには、Altを押しながらマウスで選択するか、Alt+Shift+矢印キー を使用してください。"/>
+            <BufferInvalidWarning title="保存に失敗しました" message="バッファーが不正のため保存できませんでした。"/>
+            <DoSaveOrNot title="保存" message="&quot;$STR_REPLACE$&quot; を保存しますか？"/>
+            <DoCloseOrNot title="存在しないファイル" message="&quot;$STR_REPLACE$&quot; は存在しません。
+このファイルをエディターで保持し続けますか？"/>
+            <DoDeleteOrNot title="ファイルを削除" message="&quot;$STR_REPLACE$&quot;
+は ごみ箱 に移動され、この文書も閉じられます。
+処理を続けてもよろしいですか？"/>
+            <NoBackupDoSaveFile title="保存" message="ファイルのバックアップが見つかりません（外部で削除されました）。
+保存しない場合、この文書は失われます。
+&quot;$STR_REPLACE$&quot; を保存しますか？"/>
+            <DoReloadOrNot title="再読み込み" message="&quot;$STR_REPLACE$&quot;
+
+このファイルは他のプログラムによって変更されました。
+再読み込みしますか？"/>
+            <DoReloadOrNotAndLooseChange title="再読み込み" message="&quot;$STR_REPLACE$&quot;
+
+このファイルは他のプログラムによって変更されました。
+Notepad++ で行った変更は破棄されますが、再読み込みしますか？"/>
+            <PrehistoricSystemDetected title="古いシステムです" message="システムが古いため、この機能は利用できません。"/>
+            <XpUpdaterProblem title="Notepad++ アップデーター" message="Notepad++ アップデーターは XP では利用できません。これは XP のセキュリティー機能が古いためです。
+Notepad++ のダウンロードページを開きますか？"/>
+            <DocTooDirtyToMonitor title="ファイル監視" message="この文書は変更されています。監視を始める前に保存をして下さい。"/>
+            <DocNoExistToMonitor title="ファイル監視" message="監視対象のファイルが存在しません。"/>
+            <FileTooBigToOpene title="ファイルサイズ" message="ファイルサイズが大きいため Notepad++ で開けません。"/>
+            <CreateNewFileOrNot title="新しいファイルを作成" message="&quot;$STR_REPLACE$&quot; は存在しません。作成しますか？"/>
+            <CreateNewFileError title="新しいファイルを作成" message="ファイルを作成できませんでした：&quot;$STR_REPLACE$&quot;"/>
+            <OpenFileError title="エラー" message="ファイルを開けませんでした：&quot;$STR_REPLACE$&quot;"/>
+            <FileBackupFailed title="バックアップに失敗" message="前の版のファイルをバックアップディレクトリーに保存できませんでした：&quot;$STR_REPLACE$&quot;
+
+現在のファイルを保存してもよろしいですか？"/>
+            <LoadStylersFailed title="stylers.xml の読み込みに失敗" message="&quot;$STR_REPLACE$&quot; の読み込みに失敗しました。"/>
+            <LoadLangsFailed title="ユーザー定義" message="langs.xml の読み込みに失敗しました。
+langs.xml を復元しますか？"/>
+            <LoadLangsFailedFinal title="ユーザー定義" message="langs.xml の読み込みに失敗しました。"/>
+            <FolderAsWorspaceSubfolderExists title="フォルダーをワークスペースとして開く" message="追加しようとしているフォルダーのサブフォルダーが、すでにワークスペースに存在します。
+該当フォルダーのルートをパネルから取り除いてから、フォルダー &quot;$STR_REPLACE$&quot; を追加して下さい。"/>
+
+            <ProjectPanelChanged title="$STR_REPLACE$" message="ワークスペースは変更されています。保存しますか？"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="ワークスペースは保存されませんでした。"/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="ワークスペースを開く" message="現在のワークスペースは変更されています。現在のプロジェクトを保存しますか？"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="新規ワークスペース" message="現在のワークスペースは変更されています。現在のプロジェクトを保存しますか？"/>
+            <ProjectPanelOpenFailed title="ワークスペースを開く" message="ワークスペースを開くことができませんでした。
+開こうとしているファイルが正常なプロジェクトファイルではないようです。"/>
+            <ProjectPanelRemoveFolderFromProject title="プロジェクトからフォルダーを取り除く" message="フォルダー内のすべての要素が取り除かれます。
+プロジェクトから本当にこのフォルダーを取り除いてよろしいですか？"/>
+            <ProjectPanelRemoveFileFromProject title="ファイルをプロジェクトから取り除く" message="プロジェクトから本当にこのファイルを取り除いてよろしいですか？"/>
+            <ProjectPanelReloadError title="ワークスペースを再読み込み" message="再読み込みするファイルが見つかりません。"/>
+            <ProjectPanelReloadDirty title="ワークスペースを再読み込み" message="現在のワークスペースは変更されています。再読み込みをするとすべての変更が失われます。
+処理を続けてもよろしいですか？"/>
+            <UDLNewNameError title="ユーザー定義 エラー" message="この名前は他の言語に使用されています。
+違う名前にして下さい。"/>
+            <UDLRemoveCurrentLang title="現在の言語を削除" message="よろしいですか？"/>
+            <SCMapperDoDeleteOrNot title="よろしいですか？" message="このショートカットを削除してよろしいですか？"/>
+            <FindCharRangeValueError title="数値範囲" message="0 から 255 の値を入力して下さい。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -970,6 +1052,21 @@
             <SortTip name="ソート"/>
             <ReloadTip name="再読み込み"/>
         </FunctionList>
+        <FolderAsWorkspace>
+            <PanelTitle name="ワークスペース フォルダー"/>
+            <SelectFolderFromBrowserString name="ワークスペース フォルダーに追加するフォルダーを選択"/>
+            <Menus>
+                <Item id="3511" name="取り除く"/>
+                <Item id="3512" name="すべて取り除く"/>
+                <Item id="3513" name="追加"/>
+                <Item id="3514" name="システムで実行する"/>
+                <Item id="3515" name="開く"/>
+                <Item id="3516" name="パスをコピー"/>
+                <Item id="3517" name="複数ファイル内を検索..."/>
+                <Item id="3518" name="エクスプローラーを開く"/>
+                <Item id="3519" name="コマンドプロンプトを開く"/>
+            </Menus>
+        </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="プロジェクト"/>
             <WorkspaceRootName name="ワークスペース"/>
@@ -994,7 +1091,7 @@
                     <Item id="3112" name="フォルダを追加"/>
                     <Item id="3113" name="ファイルを追加..."/>
                     <Item id="3117" name="ディレクトリからファイルを追加..."/>
-                    <Item id="3114" name="削除"/>
+                    <Item id="3114" name="取り除く"/>
                     <Item id="3118" name="上へ移動"/>
                     <Item id="3119" name="下へ移動"/>
                 </ProjectMenu>
@@ -1003,13 +1100,13 @@
                     <Item id="3112" name="フォルダを追加"/>
                     <Item id="3113" name="ファイルを追加..."/>
                     <Item id="3117" name="ディレクトリからファイルを追加..."/>
-                    <Item id="3114" name="削除"/>
+                    <Item id="3114" name="取り除く"/>
                     <Item id="3118" name="上へ移動"/>
                     <Item id="3119" name="下へ移動"/>
                 </FolderMenu>
                 <FileMenu>
                     <Item id="3111" name="名前の変更"/>
-                    <Item id="3115" name="削除"/>
+                    <Item id="3115" name="取り除く"/>
                     <Item id="3116" name="ファイルのパスを変更"/>
                     <Item id="3118" name="上へ移動"/>
                     <Item id="3119" name="下へ移動"/>
@@ -1026,7 +1123,34 @@
             <word-chars-list-warning-end value=" が含まれています。"/>
             <cloud-invalid-warning value="無効なパスです。"/>
             <cloud-restart-warning value="変更を有効にするには再起動が必要です。"/>
+            <cloud-select-folder value="Notepad++ が設定を読み書きするフォルダーを選択してください。"/>
             <shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
+            <two-find-buttons-tip value="検索ボタンを2個に分ける"/>
+            <find-status-top-reached value="検索：末尾からの最初の一致です。文書の先頭を通過しました"/>
+            <find-status-end-reached value="検索：先頭からの最初の一致です。文書の末尾を通過しました"/>
+            <find-status-replaceinfiles-1-replaced value="複数ファイル内を検索：1 件を置換しました"/>
+            <find-status-replaceinfiles-nb-replaced value="複数ファイル内を検索：$INT_REPLACE$ 件を置換しました"/>
+            <find-status-replaceinfiles-re-malformed value="すべての文書で置換：正規表現が不正な形式です"/>
+            <find-status-replaceinopenedfiles-1-replaced value="すべての文書で置換：1 件を置換しました"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="すべての文書で置換：$INT_REPLACE$ 件を置換しました"/>
+            <find-status-mark-re-malformed value="マーク：検索語の正規表現が不正な形式です"/>
+            <find-status-invalid-re value="検索：不正な正規表現です"/>
+            <find-status-mark-1-match value="1 件の一致"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ 件の一致"/>
+            <find-status-count-re-malformed value="数える：検索語の正規表現が不正な形式です"/>
+            <find-status-count-1-match value="数える：1 件の一致"/>
+            <find-status-count-nb-matches value="数える：$INT_REPLACE$ 件の一致"/>
+            <find-status-replaceall-re-malformed value="すべて置換：正規表現が不正な形式です"/>
+            <find-status-replaceall-1-replaced value="すべて置換：1 件を置換しました"/>
+            <find-status-replaceall-nb-replaced value="すべて置換：$INT_REPLACE$ 件を置換しました"/>
+            <find-status-replaceall-readonly value="すべて置換：置換できません。この文書は読み取り専用です"/>
+            <find-status-replace-end-reached value="置換：先頭からの最初の一致を置換しました。文書の末尾を通過しました"/>
+            <find-status-replace-top-reached value="置換：末尾からの最初の一致を置換しました。文書の先頭を通過しました"/>
+            <find-status-relaced-next-found value="置換：1 件を置換しました。次の一致が見つかりました"/>
+            <find-status-relaced-next-not-found value="置換：1 件を置換しました。一致するものはありません"/>
+            <find-status-replace-not-found value="置換：一致するものはありません"/>
+            <find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
+            <find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

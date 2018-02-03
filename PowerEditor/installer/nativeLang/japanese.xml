@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="Japanese" filename="japanese.xml" version="7.5.4">
+    <Native-Langue name="Japanese" filename="japanese.xml" version="7.5.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -260,15 +260,15 @@
                     <Item id="45002" name="Unixフォーマット(LF)に変換"/>
                     <Item id="45003" name="Macフォーマット(CR)に変換"/>
                     <Item id="45004" name="ANSI"/>
-                    <Item id="45005" name="UTF-8"/>
-                    <Item id="45006" name="UCS-2 Big Endian"/>
-                    <Item id="45007" name="UCS-2 Little Endian"/>
-                    <Item id="45008" name="UTF-8(BOMなし)"/>
+                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45006" name="UCS-2 BE BOM"/>
+                    <Item id="45007" name="UCS-2 LE BOM"/>
+                    <Item id="45008" name="UTF-8"/>
                     <Item id="45009" name="ANSI に変換"/>
-                    <Item id="45010" name="UTF-8 (BOMなし) に変換"/>
-                    <Item id="45011" name="UTF-8 に変換"/>
-                    <Item id="45012" name="UCS-2 Big Endian に変換"/>
-                    <Item id="45013" name="UCS-2 Little Endian に変換"/>
+                    <Item id="45010" name="UTF-8 に変換"/>
+                    <Item id="45011" name="UTF-8-BOM に変換"/>
+                    <Item id="45012" name="UCS-2 BE BOM に変換"/>
+                    <Item id="45013" name="UCS-2 LE BOM に変換"/>
 
                     <Item id="10001" name="別のビューへ移動"/>
                     <Item id="10002" name="別のビューへ複製"/>
@@ -1027,6 +1027,7 @@
             <cloud-invalid-warning value="無効なパスです。"/>
             <cloud-restart-warning value="変更を有効にするには再起動が必要です。"/>
             <shift-change-direction-tip value="Shift+Enter で逆方向に検索します"/>
+            <1-to-2-buttons-tip value="検索ボタンを2個に分ける"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

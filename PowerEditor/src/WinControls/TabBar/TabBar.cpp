@@ -859,7 +859,6 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (nTab < 0)
 	{
 		::MessageBox(NULL, TEXT("nTab < 0"), TEXT(""), MB_OK);
-		//return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 	}
 	bool isSelected = (nTab == ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 

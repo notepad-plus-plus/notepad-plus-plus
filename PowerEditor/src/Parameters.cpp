@@ -509,144 +509,132 @@ static const ScintillaKeyDefinition scintKeyDefs[] =
 
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
+int strVal(const TCHAR *str, int base)
+{
+	if (!str) return -1;
+	if (!str[0]) return 0;
 
-
-
-
-
-
-
-	int strVal(const TCHAR *str, int base)
-	{
-		if (!str) return -1;
-		if (!str[0]) return 0;
-
-		TCHAR *finStr;
-		int result = generic_strtol(str, &finStr, base);
-		if (*finStr != '\0')
-			return -1;
-		return result;
-	}
-
-
-	int decStrVal(const TCHAR *str)
-	{
-		return strVal(str, 10);
-	}
-
-	int hexStrVal(const TCHAR *str)
-	{
-		return strVal(str, 16);
-	}
-
-	int getKwClassFromName(const TCHAR *str)
-	{
-		if (!lstrcmp(TEXT("instre1"), str)) return LANG_INDEX_INSTR;
-		if (!lstrcmp(TEXT("instre2"), str)) return LANG_INDEX_INSTR2;
-		if (!lstrcmp(TEXT("type1"), str)) return LANG_INDEX_TYPE;
-		if (!lstrcmp(TEXT("type2"), str)) return LANG_INDEX_TYPE2;
-		if (!lstrcmp(TEXT("type3"), str)) return LANG_INDEX_TYPE3;
-		if (!lstrcmp(TEXT("type4"), str)) return LANG_INDEX_TYPE4;
-		if (!lstrcmp(TEXT("type5"), str)) return LANG_INDEX_TYPE5;
-
-		if ((str[1] == '\0') && (str[0] >= '0') && (str[0] <= '8')) // up to KEYWORDSET_MAX
-			return str[0] - '0';
-
+	TCHAR *finStr;
+	int result = generic_strtol(str, &finStr, base);
+	if (*finStr != '\0')
 		return -1;
-	}
+	return result;
+}
+
+
+int decStrVal(const TCHAR *str)
+{
+	return strVal(str, 10);
+}
+
+int hexStrVal(const TCHAR *str)
+{
+	return strVal(str, 16);
+}
+
+int getKwClassFromName(const TCHAR *str)
+{
+	if (!lstrcmp(TEXT("instre1"), str)) return LANG_INDEX_INSTR;
+	if (!lstrcmp(TEXT("instre2"), str)) return LANG_INDEX_INSTR2;
+	if (!lstrcmp(TEXT("type1"), str)) return LANG_INDEX_TYPE;
+	if (!lstrcmp(TEXT("type2"), str)) return LANG_INDEX_TYPE2;
+	if (!lstrcmp(TEXT("type3"), str)) return LANG_INDEX_TYPE3;
+	if (!lstrcmp(TEXT("type4"), str)) return LANG_INDEX_TYPE4;
+	if (!lstrcmp(TEXT("type5"), str)) return LANG_INDEX_TYPE5;
+
+	if ((str[1] == '\0') && (str[0] >= '0') && (str[0] <= '8')) // up to KEYWORDSET_MAX
+		return str[0] - '0';
+
+	return -1;
+}
 
 	
-	size_t getAsciiLenFromBase64Len(size_t base64StrLen)
+size_t getAsciiLenFromBase64Len(size_t base64StrLen)
+{
+	return (base64StrLen % 4) ? 0 : (base64StrLen - base64StrLen / 4);
+}
+
+
+int base64ToAscii(char *dest, const char *base64Str)
+{
+	static const int base64IndexArray[123] =
 	{
-		return (base64StrLen % 4) ? 0 : (base64StrLen - base64StrLen / 4);
-	}
+		-1, -1, -1, -1, -1, -1, -1, -1,
+		-1, -1, -1, -1, -1, -1, -1, -1,
+		-1, -1, -1, -1, -1, -1, -1, -1,
+		-1, -1, -1, -1, -1, -1, -1, -1,
+		-1, -1, -1, -1, -1, -1, -1, -1,
+		-1, -1, -1, 62, -1, -1, -1, 63,
+		52, 53, 54, 55 ,56, 57, 58, 59,
+		60, 61, -1, -1, -1, -1, -1, -1,
+		-1,  0,  1,  2,  3,  4,  5,  6,
+			7,  8,  9, 10, 11, 12, 13, 14,
+		15, 16, 17, 18, 19, 20, 21, 22,
+		23, 24, 25, -1, -1, -1, -1 ,-1,
+		-1, 26, 27, 28, 29, 30, 31, 32,
+		33, 34, 35, 36, 37, 38, 39, 40,
+		41, 42, 43, 44, 45, 46, 47, 48,
+		49, 50, 51
+	};
 
+	size_t b64StrLen = strlen(base64Str);
+	size_t nbLoop = b64StrLen / 4;
 
-	int base64ToAscii(char *dest, const char *base64Str)
+	size_t i = 0;
+	int k = 0;
+
+	enum {b64_just, b64_1padded, b64_2padded} padd = b64_just;
+	for ( ; i < nbLoop ; i++)
 	{
-		static const int base64IndexArray[123] =
+		size_t j = i * 4;
+		UCHAR uc0, uc1, uc2, uc3, p0, p1;
+
+		uc0 = (UCHAR)base64IndexArray[base64Str[j]];
+		uc1 = (UCHAR)base64IndexArray[base64Str[j+1]];
+		uc2 = (UCHAR)base64IndexArray[base64Str[j+2]];
+		uc3 = (UCHAR)base64IndexArray[base64Str[j+3]];
+
+		if ((uc0 == -1) || (uc1 == -1) || (uc2 == -1) || (uc3 == -1))
+			return -1;
+
+		if (base64Str[j+2] == '=') // && (uc3 == '=')
 		{
-			-1, -1, -1, -1, -1, -1, -1, -1,
-			-1, -1, -1, -1, -1, -1, -1, -1,
-			-1, -1, -1, -1, -1, -1, -1, -1,
-			-1, -1, -1, -1, -1, -1, -1, -1,
-			-1, -1, -1, -1, -1, -1, -1, -1,
-			-1, -1, -1, 62, -1, -1, -1, 63,
-			52, 53, 54, 55 ,56, 57, 58, 59,
-			60, 61, -1, -1, -1, -1, -1, -1,
-			-1,  0,  1,  2,  3,  4,  5,  6,
-			 7,  8,  9, 10, 11, 12, 13, 14,
-			15, 16, 17, 18, 19, 20, 21, 22,
-			23, 24, 25, -1, -1, -1, -1 ,-1,
-			-1, 26, 27, 28, 29, 30, 31, 32,
-			33, 34, 35, 36, 37, 38, 39, 40,
-			41, 42, 43, 44, 45, 46, 47, 48,
-			49, 50, 51
-		};
-
-		size_t b64StrLen = strlen(base64Str);
-		size_t nbLoop = b64StrLen / 4;
-
-		size_t i = 0;
-		int k = 0;
-
-		enum {b64_just, b64_1padded, b64_2padded} padd = b64_just;
-		for ( ; i < nbLoop ; i++)
+			uc2 = uc3 = 0;
+			padd = b64_2padded;
+		}
+		else if (base64Str[j+3] == '=')
 		{
-			size_t j = i * 4;
-			UCHAR uc0, uc1, uc2, uc3, p0, p1;
-
-			uc0 = (UCHAR)base64IndexArray[base64Str[j]];
-			uc1 = (UCHAR)base64IndexArray[base64Str[j+1]];
-			uc2 = (UCHAR)base64IndexArray[base64Str[j+2]];
-			uc3 = (UCHAR)base64IndexArray[base64Str[j+3]];
-
-			if ((uc0 == -1) || (uc1 == -1) || (uc2 == -1) || (uc3 == -1))
-				return -1;
-
-			if (base64Str[j+2] == '=') // && (uc3 == '=')
-			{
-				uc2 = uc3 = 0;
-				padd = b64_2padded;
-			}
-			else if (base64Str[j+3] == '=')
-			{
-				uc3 = 0;
-				padd = b64_1padded;
-			}
-
-			p0 = uc0 << 2;
-			p1 = uc1 << 2;
-			p1 >>= 6;
-			dest[k++] = p0 | p1;
-
-			p0 = uc1 << 4;
-			p1 = uc2 << 2;
-			p1 >>= 4;
-			dest[k++] = p0 | p1;
-
-			p0 = uc2 << 6;
-			p1 = uc3;
-			dest[k++] = p0 | p1;
+			uc3 = 0;
+			padd = b64_1padded;
 		}
 
-		//dest[k] = '\0';
-		if (padd == b64_1padded)
-		//	dest[k-1] = '\0';
-			return k-1;
-		else if (padd == b64_2padded)
-		//	dest[k-2] = '\0';
-			return k-2;
+		p0 = uc0 << 2;
+		p1 = uc1 << 2;
+		p1 >>= 6;
+		dest[k++] = p0 | p1;
 
-		return k;
+		p0 = uc1 << 4;
+		p1 = uc2 << 2;
+		p1 >>= 4;
+		dest[k++] = p0 | p1;
+
+		p0 = uc2 << 6;
+		p1 = uc3;
+		dest[k++] = p0 | p1;
 	}
 
+	//dest[k] = '\0';
+	if (padd == b64_1padded)
+	//	dest[k-1] = '\0';
+		return k-1;
+	else if (padd == b64_2padded)
+	//	dest[k-2] = '\0';
+		return k-2;
+
+	return k;
+}
+
 } // anonymous namespace
-
-
-
-
-
 
 
 void cutString(const TCHAR* str2cut, vector<generic_string>& patternVect)
@@ -891,16 +879,25 @@ NppParameters::~NppParameters()
 }
 
 
-bool NppParameters::reloadStylers(TCHAR *stylePath)
+bool NppParameters::reloadStylers(TCHAR* stylePath)
 {
 	if (_pXmlUserStylerDoc)
 		delete _pXmlUserStylerDoc;
 
-	_pXmlUserStylerDoc = new TiXmlDocument(stylePath?stylePath:_stylerPath);
+	const TCHAR* stylePathToLoad = stylePath != nullptr ? stylePath : _stylerPath.c_str();
+	_pXmlUserStylerDoc = new TiXmlDocument(stylePathToLoad);
+
 	bool loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
-		::MessageBox(NULL, TEXT("Load stylers.xml failed!"), stylePath, MB_OK);
+		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
+			NULL,
+			TEXT("Load \"$INT_REPLACE$\" failed!"),
+			TEXT("Load stylers.xml failed"),
+			MB_OK,
+			0,
+			stylePathToLoad);
+
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
 		return false;
@@ -1083,7 +1080,11 @@ bool NppParameters::load()
 
 		if (generic_stat(langs_xml_path.c_str(), &buf)==0)
 			if (buf.st_size == 0)
-				doRecover = ::MessageBox(NULL, TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"), TEXT("Configurator"),MB_YESNO);
+				doRecover = _pNativeLangSpeaker->messageBox("LoadLangsFailed",
+					NULL,
+					TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"),
+					TEXT("Configurator"),
+					MB_YESNO);
 	}
 	else
 		doRecover = true;
@@ -1101,7 +1102,12 @@ bool NppParameters::load()
 	bool loadOkay = _pXmlDoc->LoadFile();
 	if (!loadOkay)
 	{
-		::MessageBox(NULL, TEXT("Load langs.xml failed!"), TEXT("Configurator"),MB_OK);
+		_pNativeLangSpeaker->messageBox("LoadLangsFailedFinal",
+			NULL,
+			TEXT("Load langs.xml failed!"),
+			TEXT("Configurator"),
+			MB_OK);
+
 		delete _pXmlDoc;
 		_pXmlDoc = nullptr;
 		isAllLaoded = false;
@@ -1157,7 +1163,14 @@ bool NppParameters::load()
 	loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
-		::MessageBox(NULL, TEXT("Load stylers.xml failed!"), _stylerPath.c_str(), MB_OK);
+		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
+			NULL,
+			TEXT("Load \"$INT_REPLACE$\" failed!"),
+			TEXT("Load stylers.xml failed"),
+			MB_OK,
+			0,
+			_stylerPath.c_str());
+
 		delete _pXmlUserStylerDoc;
 		_pXmlUserStylerDoc = NULL;
 		isAllLaoded = false;

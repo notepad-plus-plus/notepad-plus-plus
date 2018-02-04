@@ -815,7 +815,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				 SendMessage(_shiftTrickUpTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
 			 }
 
-			 generic_string checkboxTip = pNativeSpeaker->getLocalizedStrFromID("1-to-2-buttons-tip");
+			 generic_string checkboxTip = pNativeSpeaker->getLocalizedStrFromID("two-find-buttons-tip");
 			 if (checkboxTip.empty())
 				 checkboxTip = TEXT("2 find buttons mode");
 

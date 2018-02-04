@@ -63,7 +63,7 @@
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
                     <Item subMenuId="settings-import"  name="Import"/>
-					<Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -123,10 +123,10 @@
                     <Item id="42070" name="Sentence case (blend)"/>
                     <Item id="42071" name="iNVERT cASE"/>
                     <Item id="42072" name="ranDOm CasE"/>
-					<Item id="42073" name="Open File"/>
-					<Item id="42074" name="Open Containing Folder in Explorer"/>
-					<Item id="42075" name="Search on Internet"/>
-					<Item id="42076" name="Change Search Engine..."/>
+                    <Item id="42073" name="Open File"/>
+                    <Item id="42074" name="Open Containing Folder in Explorer"/>
+                    <Item id="42075" name="Search on Internet"/>
+                    <Item id="42076" name="Change Search Engine..."/>
                     <Item id="42018" name="&amp;Start Recording"/>
                     <Item id="42019" name="&amp;Stop Recording"/>
                     <Item id="42021" name="&amp;Playback"/>
@@ -215,7 +215,7 @@
                     <Item id="43047" name="Previous Search Result"/>
                     <Item id="43048" name="Select and Find Next"/>
                     <Item id="43049" name="Select and Find Previous"/>
-					<Item id="43054" name="Mark..."/>
+                    <Item id="43054" name="Mark..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
                     <Item id="44019" name="Show All Characters"/>
@@ -283,7 +283,7 @@
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ Project Page"/>
                     <Item id="47003" name="Online Documentation"/>
-					<Item id="47004" name="Notepad++ Community (Forum)"/>
+                    <Item id="47004" name="Notepad++ Community (Forum)"/>
                     <Item id="47011" name="Live Support"/>
                     <Item id="47012" name="Debug Info..."/>
                     <Item id="47005" name="Get More Plugins"/>
@@ -334,7 +334,7 @@
                     <Item CMID="18" name="Close All to the Right"/>
                     <Item CMID="19" name="Open Containing Folder in Explorer"/>
                     <Item CMID="20" name="Open Containing Folder in cmd"/>
-					<Item CMID="21" name="Open in Default Viewer"/>
+                    <Item CMID="21" name="Open in Default Viewer"/>
             </TabBar>
         </Menu>
 
@@ -492,7 +492,7 @@
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
                     <Item id="25028" name="Numbers"/>
-					<Item id="1" name="OK"/>
+                    <Item id="1" name="OK"/>
                     <Item id="2" name="Cancel"/>
                 </StylerDialog>
                 <Folder title="Folder &amp;&amp; Default">
@@ -680,7 +680,7 @@
                     <Item id="6212" name="Line mode"/>
                     <Item id="6213" name="Background mode"/>
                     <Item id="6214" name="Enable current line highlighting"/>
-					<Item id="6215" name="Enable smooth font"/>
+                    <Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
                     <Item id="6236" name="Enable scrolling beyond last line"/>
@@ -719,7 +719,7 @@
                     <Item id="6506" name="Disabled items"/>
                     <Item id="6507" name="Make language menu compact"/>
                     <Item id="6508" name="Language Menu"/>
-					<Item id="6301" name="Tab Settings"/>
+                    <Item id="6301" name="Tab Settings"/>
                     <Item id="6302" name="Replace by space"/>
                     <Item id="6303" name="Tab size: "/>
                     <Item id="6510" name="Use default value"/>
@@ -728,9 +728,9 @@
                 <Highlighting title="Highlighting">
                     <Item id="6333" name="Smart Highlighting"/>
                     <Item id="6326" name="Enable smart highlighting"/>
-					<Item id="6332" name="Match case"/>
-					<Item id="6338" name="Match whole word only"/>
-					<Item id="6339" name="Use Find dialog settings"/>
+                    <Item id="6332" name="Match case"/>
+                    <Item id="6338" name="Match whole word only"/>
+                    <Item id="6339" name="Use Find dialog settings"/>
                     <Item id="6340" name="Highlight another view"/>
                     <Item id="6329" name="Highlight Matching Tags"/>
                     <Item id="6327" name="Enable"/>
@@ -827,7 +827,7 @@
                     <Item id="6252" name="Open"/>
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>
-					<Item id="6161" name="Word character list"/>
+                    <Item id="6161" name="Word character list"/>
                     <Item id="6162" name="Use default Word character list as it is"/>
                     <Item id="6163" name="Add your character as part of word
 (don't choose it unless you know what you're doing)"/>
@@ -838,7 +838,7 @@
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
                 </Cloud>
-				
+                
                 <SearchEngine title="Search Engine">
                     <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -905,7 +905,7 @@
                 <Item id="2" name="Cancel"/>
             </ColumnEditor>
         </Dialog>
-        <MessageBox>
+        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
 You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
             <NppHelpAbsentWarning title="File does not exist" message="
@@ -923,15 +923,52 @@ Continue?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
-
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
 Are you sure to open them?"/>
-			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
+            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
 or on a folder needed privilege right for writing access.
 Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
-			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
-	    <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+            <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
+            <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+            <DroppingFolderAsProjetModeWarning title="Invalid action" message="You can drop only files or folders but not both, because you're in dropping Folder as Projet mode.
+you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+            <SortingError title="Sorting Error" message="Unable to perform numeric sort due to line $STR_REPLACE$."/>
+            <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
+            <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
+            <DoSaveOrNot title="Save" message="Save file &quot;$STR_REPLACE$&quot; ?"/>
+            <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
+Keep this file in editor?"/>
+            <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
+will be moved to your Recycle Bin and this document will be closed.
+Continue?"/>
+            <NoBackupDoSaveFile title="Save" message="Your backup file cannot be found (deleted from outside).
+Save it otherwise your data will be lost
+Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
+            <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
+
+This file has been modified by another program.
+Do you want to reload it?"/>
+            <DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
+
+This file has been modified by another program.
+Do you want to reload it and lose the changes made in Notepad++?"/>
+            <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system, This feature works only on a modern system, sorry."/>
+            <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
+Do you want to go to Notepad++ page to download the latest version?"/>
+            <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
+            <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
+            <FileTooBigToOpene title="File size problem" message="File is too big to be opened by Notepad++"/>
+            <CreateNewFileOrNot title="Create new file" message="&quot;$INT_REPLACE$&quot; doesn't exist. Create it?."/>
+            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$INT_REPLACE$&quot;."/>
+            <OpenFileError title="ERROR" message="Can not open file &quot;$INT_REPLACE$&quot;."/>
+            <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$INT_REPLACE$&quot;.
+
+Do you want to save the current file anyways?"/>
+            <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$INT_REPLACE$&quot; failed!"/>
+            <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
+Do you want to recover your langs.xml?"/>
+            <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1002,17 +1039,17 @@ Your settings on cloud will be canceled. Please reset a coherent value via Prefe
             </Menus>
         </ProjectManager>
         <MiscStrings>
-			<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
+            <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
             <word-chars-list-warning-begin value="Be aware: "/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-			<word-chars-list-warning-end value="  in your character list."/>
-			<cloud-invalid-warning value="Invalid path."/>
-			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-			<shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
-			<1-to-2-buttons-tip value="2 find buttons mode"/>
+            <word-chars-list-warning-end value="  in your character list."/>
+            <cloud-invalid-warning value="Invalid path."/>
+            <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+            <shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
+            <two-find-buttons-tip value="2 find buttons mode"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

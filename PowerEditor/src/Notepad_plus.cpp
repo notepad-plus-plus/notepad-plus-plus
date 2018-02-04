@@ -1824,41 +1824,55 @@ void Notepad_plus::filePrint(bool showDialog)
 
 int Notepad_plus::doSaveOrNot(const TCHAR *fn)
 {
-	TCHAR pattern[64] = TEXT("Save file \"%s\" ?");
-	TCHAR phrase[512];
-	wsprintf(phrase, pattern, fn);
-	return doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+	return _nativeLangSpeaker.messageBox("DoSaveOrNot",
+		_pPublicInterface->getHSelf(),
+		TEXT("Save file \"$STR_REPLACE$\" ?"),
+		TEXT("Save"),
+		MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL,
+		0, // not used
+		fn);
 }
 
 int Notepad_plus::doReloadOrNot(const TCHAR *fn, bool dirty)
 {
-	TCHAR* pattern = TEXT("%s\r\rThis file has been modified by another program.\rDo you want to reload it%s?");
-	TCHAR* lose_info_str = dirty ? TEXT(" and lose the changes made in Notepad++") : TEXT("");
-	TCHAR phrase[512];
-	wsprintf(phrase, pattern, fn, lose_info_str);
-	int icon = dirty ? MB_ICONEXCLAMATION : MB_ICONQUESTION;
-	return doActionOrNot(TEXT("Reload"), phrase, MB_YESNO | MB_APPLMODAL | icon);
+	if (dirty)
+		return _nativeLangSpeaker.messageBox("DoReloadOrNotAndLooseChange",
+			_pPublicInterface->getHSelf(),
+			TEXT("\"$STR_REPLACE$\"\r\rThis file has been modified by another program.\rDo you want to reload it and lose the changes made in Notepad++?"),
+			TEXT("Reload"),
+			MB_YESNO | MB_APPLMODAL | MB_ICONEXCLAMATION,
+			0, // not used
+			fn);
+	else
+		return _nativeLangSpeaker.messageBox("DoReloadOrNot",
+			_pPublicInterface->getHSelf(),
+			TEXT("\"$STR_REPLACE$\"\r\rThis file has been modified by another program.\rDo you want to reload it?"),
+			TEXT("Reload"),
+			MB_YESNO | MB_APPLMODAL | MB_ICONQUESTION,
+			0, // not used
+			fn);
 }
 
 int Notepad_plus::doCloseOrNot(const TCHAR *fn)
 {
-	TCHAR pattern[128] = TEXT("The file \"%s\" doesn't exist anymore.\rKeep this file in editor?");
-	TCHAR phrase[512];
-	wsprintf(phrase, pattern, fn);
-	return doActionOrNot(TEXT("Keep non existing file"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+	return _nativeLangSpeaker.messageBox("DoCloseOrNot",
+		_pPublicInterface->getHSelf(),
+		TEXT("The file \"$STR_REPLACE$\" doesn't exist anymore.\rKeep this file in editor?"),
+		TEXT("Keep non existing file"),
+		MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
+		0, // not used
+		fn);
 }
 
 int Notepad_plus::doDeleteOrNot(const TCHAR *fn)
 {
-	TCHAR pattern[128] = TEXT("The file \"%s\"\rwill be moved to your Recycle Bin and this document will be closed.\rContinue?");
-	TCHAR phrase[512];
-	wsprintf(phrase, pattern, fn);
-	return doActionOrNot(TEXT("Delete file"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
-}
-
-int Notepad_plus::doActionOrNot(const TCHAR *title, const TCHAR *displayText, int type)
-{
-	return ::MessageBox(_pPublicInterface->getHSelf(), displayText, title, type);
+	return _nativeLangSpeaker.messageBox("DoDeleteOrNot",
+		_pPublicInterface->getHSelf(),
+		TEXT("The file \"$STR_REPLACE$\"\rwill be moved to your Recycle Bin and this document will be closed.\rContinue?"),
+		TEXT("Delete file"),
+		MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL,
+		0, // not used
+		fn);
 }
 
 void Notepad_plus::enableMenu(int cmdID, bool doEnable) const
@@ -5873,7 +5887,12 @@ void Notepad_plus::launchDocMap()
 {
 	if (!(NppParameters::getInstance())->isTransparentAvailable())
 	{
-		::MessageBox(NULL, TEXT("It seems you still use a prehistoric system, This feature works only on a modern system, sorry."), TEXT(""), MB_OK);
+		_nativeLangSpeaker.messageBox("PrehistoricSystemDetected",
+			_pPublicInterface->getHSelf(),
+			TEXT("It seems you still use a prehistoric system, This feature works only on a modern system, sorry."),
+			TEXT("Prehistoric system detected"),
+			MB_OK);
+
 		return;
 	}
 
@@ -5961,10 +5980,6 @@ void Notepad_plus::launchFunctionList()
 }
 
 
-
-
-
-
 struct TextPlayerParams
 {
 	HWND _nppHandle;
@@ -5987,8 +6002,6 @@ struct Quote
 	const char *_quoter;
 	const char *_quote;
 };
-
-
 
 const int nbQuote = 203;
 Quote quotes[nbQuote] =

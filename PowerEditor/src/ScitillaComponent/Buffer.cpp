@@ -1337,14 +1337,13 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
 	if (bufferSizeRequested > INT_MAX)
 	{
-		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File size problem"), MB_OK|MB_APPLMODAL);
-		/*
-		_nativeLangSpeaker.messageBox("NbFileToOpenImportantWarning",
-										_pPublicInterface->getHSelf(),
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		pNativeSpeaker->messageBox("FileTooBigToOpene",
+										NULL,
 										TEXT("File is too big to be opened by Notepad++"),
-										TEXT("File open problem"),
+										TEXT("File size problem"),
 										MB_OK|MB_APPLMODAL);
-		*/
+
 		fclose(fp);
 		return false;
 	}
@@ -1459,7 +1458,12 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	}
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
-		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		pNativeSpeaker->messageBox("FileTooBigToOpene",
+			NULL,
+			TEXT("File is too big to be opened by Notepad++"),
+			TEXT("File size problem"),
+			MB_OK | MB_APPLMODAL);
 		success = false;
 	}
 

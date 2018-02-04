@@ -1984,7 +1984,11 @@ void Notepad_plus::command(int id)
 				{
 					if (curBuf->isDirty())
 					{
-						::MessageBox(_pPublicInterface->getHSelf(), TEXT("The document is dirty. Please save the modification before monitoring it."), TEXT("Monitoring problem"), MB_OK);
+						_nativeLangSpeaker.messageBox("DocTooDirtyToMonitor",
+							_pPublicInterface->getHSelf(),
+							TEXT("The document is dirty. Please save the modification before monitoring it."),
+							TEXT("Monitoring problem"),
+							MB_OK);
 					}
 					else
 					{
@@ -2000,7 +2004,11 @@ void Notepad_plus::command(int id)
 				}
 				else
 				{
-					::MessageBox(_pPublicInterface->getHSelf(), TEXT("The file should exist to be monitored."), TEXT("Monitoring problem"), MB_OK);
+					_nativeLangSpeaker.messageBox("DocNoExistToMonitor",
+						_pPublicInterface->getHSelf(),
+						TEXT("The file should exist to be monitored."),
+						TEXT("Monitoring problem"),
+						MB_OK);
 				}
 			}
 
@@ -2076,7 +2084,7 @@ void Notepad_plus::command(int id)
 				if (buf->isDirty())
 				{
 					int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWarning",
-						NULL,
+						_pPublicInterface->getHSelf(),
 						TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 						TEXT("Save Current Modification"),
 						MB_YESNO);
@@ -2094,7 +2102,7 @@ void Notepad_plus::command(int id)
 				{
 					generic_string msg, title;
 					int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
-						NULL,
+						_pPublicInterface->getHSelf(),
 						TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 						TEXT("Lose Undo Ability Waning"),
 						MB_YESNO);
@@ -2191,7 +2199,7 @@ void Notepad_plus::command(int id)
             {
 				generic_string warning, title;
 				int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWarning",
-					NULL,
+					_pPublicInterface->getHSelf(),
 					TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 					TEXT("Save Current Modification"),
 					MB_YESNO);
@@ -2209,7 +2217,7 @@ void Notepad_plus::command(int id)
             {
 				generic_string msg, title;
 				int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
-					NULL,
+					_pPublicInterface->getHSelf(),
 					TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 					TEXT("Lose Undo Ability Waning"),
 					MB_YESNO);
@@ -2665,6 +2673,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_CMDLINEARGUMENTS:
 		{
+			// No translattable
 			::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
 			break;
 		}
@@ -2694,7 +2703,12 @@ void Notepad_plus::command(int id)
 			winVer ver = NppParameters::getInstance()->getWinVersion();
 			if (ver <= WV_XP)
 			{
-				long res = ::MessageBox(NULL, TEXT("Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"), TEXT("Notepad++ Updater"), MB_YESNO);
+				long res = _nativeLangSpeaker.messageBox("XpUpdaterProblem",
+					_pPublicInterface->getHSelf(),
+					TEXT("Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.\rDo you want to go to Notepad++ page to download the latest version?"),
+					TEXT("Notepad++ Updater"),
+					MB_YESNO);
+
 				if (res == IDYES)
 				{
 					::ShellExecute(NULL, TEXT("open"), TEXT("https://notepad-plus-plus.org/download/"), NULL, NULL, SW_SHOWNORMAL);

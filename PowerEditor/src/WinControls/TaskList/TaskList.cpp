@@ -139,7 +139,7 @@ RECT TaskList::adjustSize()
 	return _rc;
 }
 
-void TaskList::setFont(TCHAR *fontName, int fontSize)
+void TaskList::setFont(const TCHAR *fontName, int fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);

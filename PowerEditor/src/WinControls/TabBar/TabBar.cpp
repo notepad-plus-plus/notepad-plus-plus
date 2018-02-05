@@ -132,7 +132,7 @@ void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
 }
 
 
-void TabBar::setFont(TCHAR *fontName, int fontSize)
+void TabBar::setFont(const TCHAR *fontName, int fontSize)
 {
 	if (_hFont)
 		::DeleteObject(_hFont);

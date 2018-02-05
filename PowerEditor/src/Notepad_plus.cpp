@@ -2592,7 +2592,7 @@ void Notepad_plus::maintainIndentation(TCHAR ch)
 			{
 				if (nextChar == '}')
 				{
-					char *eolChars;
+					const char *eolChars;
 					if (eolMode == SC_EOL_CRLF)
 						eolChars = "\r\n";
 					else if (eolMode == SC_EOL_LF)
@@ -6233,7 +6233,7 @@ static const QuoteParams quotes[] =
 
 
 const int nbWtf = 5;
-wchar_t* wtf[nbWtf] =
+const wchar_t* wtf[nbWtf] =
 {
 	TEXT("WTF?!"),
 	TEXT("lol"),

@@ -142,7 +142,7 @@ bool findStrNoCase(const generic_string & strHaystack, const generic_string & st
 	auto it = std::search(
 		strHaystack.begin(), strHaystack.end(),
 		strNeedle.begin(), strNeedle.end(),
-		[](char ch1, char ch2){return std::toupper(ch1) == std::toupper(ch2); }
+		[](TCHAR ch1, TCHAR ch2){return _totupper(ch1) == _totupper(ch2); }
 	);
 	return (it != strHaystack.end());
 }

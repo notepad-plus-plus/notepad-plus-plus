@@ -24,6 +24,7 @@ distribution.
 
 
 #include <sstream>
+#include <tchar.h>
 #include "tinyxml.h"
 
 //#define DEBUG_PARSER
@@ -156,7 +157,7 @@ const TCHAR* TiXmlBase::SkipWhiteSpace( const TCHAR* p )
 	}
 	while ( p && *p )
 	{
-		if ( isspace( *p ) || *p == '\n' || *p =='\r' )		// Still using old rules for white space.
+		if ( _istspace( *p ) || *p == '\n' || *p =='\r' )		// Still using old rules for white space.
 			++p;
 		else
 			break;
@@ -204,10 +205,10 @@ const TCHAR* TiXmlBase::ReadName( const TCHAR* p, TIXML_STRING * name )
 	// hyphens, or colons. (Colons are valid ony for namespaces,
 	// but tinyxml can't tell namespaces from names.)
 	if (    p && *p 
-		 && ( isalpha( (UCHAR) *p ) || *p == '_' ) )
+		 && ( _istalpha( *p ) || *p == '_' ) )
 	{
 		while(		p && *p
-				&&	(		isalnum( (UCHAR ) *p ) 
+				&&	(		_istalnum( *p ) 
 						 || *p == '_'
 						 || *p == '-'
 						 || *p == '.'
@@ -270,7 +271,7 @@ bool TiXmlBase::StringEqual( const TCHAR* p,
 		return false;
 	}
 
-    if ( tolower( *p ) == tolower( *tag ) )
+    if ( _totlower( *p ) == _totlower( *tag ) )
 	{
 		const TCHAR* q = p;
 
@@ -289,7 +290,7 @@ bool TiXmlBase::StringEqual( const TCHAR* p,
 		}
 		else
 		{
-			while ( *q && *tag && tolower( *q ) == tolower( *tag ) )
+			while ( *q && *tag && _totlower( *q ) == _totlower( *tag ) )
 			{
 				++q;
 				++tag;
@@ -338,7 +339,7 @@ const TCHAR* TiXmlBase::ReadText(	const TCHAR* p,
 				whitespace = true;
 				++p;
 			}
-			else if ( isspace( *p ) )
+			else if ( _istspace( *p ) )
 			{
 				whitespace = true;
 				++p;
@@ -533,7 +534,7 @@ TiXmlNode* TiXmlNode::Identify( const TCHAR* p )
 		#endif
 		returnNode = new TiXmlDeclaration();
 	}
-	else if (    isalpha( *(p+1) )
+	else if (    _istalpha( *(p+1) )
 			  || *(p+1) == '_' )
 	{
 		#ifdef DEBUG_PARSER
@@ -1013,7 +1014,7 @@ const TCHAR* TiXmlAttribute::Parse( const TCHAR* p, TiXmlParsingData* data )
 		// its best, even without them.
 		value = TEXT("");
 		while (    p && *p										// existence
-				&& !isspace( *p ) && *p != '\n' && *p != '\r'	// whitespace
+				&& !_istspace( *p ) && *p != '\n' && *p != '\r'	// whitespace
 				&& *p != '/' && *p != '>' )						// tag end
 		{
 			value += *p;
@@ -1126,7 +1127,7 @@ const TCHAR* TiXmlDeclaration::Parse( const TCHAR* p, TiXmlParsingData* data )
 		else
 		{
 			// Read over whatever it is.
-			while( p && *p && *p != '>' && !isspace( *p ) )
+			while( p && *p && *p != '>' && !_istspace( *p ) )
 				++p;
 		}
 	}
@@ -1136,7 +1137,7 @@ const TCHAR* TiXmlDeclaration::Parse( const TCHAR* p, TiXmlParsingData* data )
 bool TiXmlText::Blank() const
 {
 	for (size_t i = 0, len = value.length(); i < len; i++)
-		if ( !isspace( value[i] ) )
+		if ( !_istspace( value[i] ) )
 			return false;
 	return true;
 }

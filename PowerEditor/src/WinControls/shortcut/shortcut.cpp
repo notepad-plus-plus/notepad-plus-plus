@@ -27,6 +27,7 @@
 
 
 #include <algorithm>
+#include <array>
 #include "shortcut.h"
 #include "Parameters.h"
 #include "ScintillaEditView.h"
@@ -472,10 +473,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 // return true if one of CommandShortcuts is deleted. Otherwise false.
 void Accelerator::updateShortcuts() 
 {
-	vector<int> incrFindAccIds;
-	incrFindAccIds.push_back(IDM_SEARCH_FINDNEXT);
-	incrFindAccIds.push_back(IDM_SEARCH_FINDPREV);
-	incrFindAccIds.push_back(IDM_SEARCH_FINDINCREMENT);
+	const array<unsigned long, 3> incrFindAccIds = { IDM_SEARCH_FINDNEXT, IDM_SEARCH_FINDPREV, IDM_SEARCH_FINDINCREMENT };
 
 	NppParameters *pNppParam = NppParameters::getInstance();
 

@@ -766,7 +766,9 @@ COLORREF getCtrlBgColor(HWND hWnd)
 
 generic_string stringToUpper(generic_string strToConvert)
 {
-    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), ::toupper);
+    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), 
+        [](TCHAR ch){ return static_cast<TCHAR>(_totupper(ch)); }
+    );
     return strToConvert;
 }
 

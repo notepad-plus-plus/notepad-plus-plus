@@ -35,6 +35,7 @@
 #include "RunDlg.h"
 #include "ReadDirectoryChanges.h"
 #include "menuCmdID.h"
+#include "Parameters.h"
 
 #define CX_BITMAP         16
 #define CY_BITMAP         16
@@ -739,53 +740,6 @@ void FileBrowser::popupMenuCmd(int cmdID)
 				::ShellExecute(NULL, TEXT("open"), path.c_str(), NULL, NULL, SW_SHOWNORMAL);
 		}
 		break;
-
-	/*
-		case IDM_FILEBROWSER_RENAME :
-			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);
-		break;
-		
-
-
-
-		
-
-		case IDM_FILEBROWSER_DELETEFOLDER :
-		{
-			HTREEITEM parent = _treeView.getParent(hTreeItem);
-
-			if (_treeView.getChildFrom(hTreeItem) != NULL)
-			{
-				TCHAR str2display[MAX_PATH] = TEXT("All the sub-items will be removed.\rAre you sure you want to remove this folder from the project?");
-				if (::MessageBox(_hSelf, str2display, TEXT("Remove folder from project"), MB_YESNO) == IDYES)
-				{
-					_treeView.removeItem(hTreeItem);
-					//_folderUpdaters[0].stopWatcher();
-				}
-			}
-			else
-			{
-				_treeView.removeItem(hTreeItem);
-			}
-			if (getNodeType(parent) == browserNodeType_folder)
-				_treeView.setItemImage(parent, INDEX_CLOSED_NODE, INDEX_CLOSED_NODE);
-		}
-		break;
-
-		case IDM_FILEBROWSER_DELETEFILE :
-		{
-			HTREEITEM parent = _treeView.getParent(hTreeItem);
-
-			TCHAR str2display[MAX_PATH] = TEXT("Are you sure you want to remove this file from the project?");
-			if (::MessageBox(_hSelf, str2display, TEXT("Remove file from project"), MB_YESNO) == IDYES)
-			{
-				_treeView.removeItem(hTreeItem);
-				if (getNodeType(parent) == browserNodeType_folder)
-					_treeView.setItemImage(parent, INDEX_CLOSED_NODE, INDEX_CLOSED_NODE);
-			}
-		}
-		break;
-		*/
 	}
 }
 
@@ -926,7 +880,13 @@ void FileBrowser::addRootFolder(generic_string rootFolderPath)
 			
 			if (isRelatedRootFolder(rootFolderPath, _folderUpdaters[i]->_rootFolder._rootPath))
 			{
-				::MessageBox(_hParent, TEXT("A sub-folder of the folder you want to open exists.\rPlease remove it from the panel before you add this one."), rootFolderPath.c_str(), MB_OK);
+				NppParameters::getInstance()->getNativeLangSpeaker()->messageBox("FolderAsWorspaceSubfolderExists",
+					_hParent,
+					TEXT("A sub-folder of the folder you want to add exists.\rPlease remove it from the panel before you add folder \"$STR_REPLACE$\"."),
+					TEXT("Folder as Worspace adding folder problem"),
+					MB_OK,
+					0, // not used
+					rootFolderPath.c_str());
 				return;
 			}
 		}
@@ -1330,105 +1290,6 @@ LPCWSTR explainAction(DWORD dwAction)
 	}
 };
 
-/*
-bool FolderUpdater::updateTree(DWORD action, const std::vector<generic_string> & file2Change)
-{
-	
-	// TCHAR msg2show[1024];
-	// switch (action)
-	// {
-	// case FILE_ACTION_ADDED:
-	// swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
-	// printStr(msg2show);
-	//::PostMessage(thisFolderUpdater->_hFileBrowser, FB_ADDFILE, nullptr, reinterpret_cast<LPARAM>(wstrFilename.GetString()));
-	// break;
-
-	// case FILE_ACTION_REMOVED:
-	// swprintf(msg2show, L"%s %s\n", explainAction(action), file2Change[0].c_str());
-	// printStr(msg2show);
-
-	// break;
-
-	// case FILE_ACTION_RENAMED_NEW_NAME:
-	// swprintf(msg2show, L"%s from %s \rto %s", explainAction(action), file2Change[0].c_str(), file2Change[1].c_str());
-	// printStr(msg2show);
-
-	// break;
-
-	// default:
-	// break;
-	// }
-	
-	generic_string separator = TEXT("\\\\");
-
-	size_t sepPos = file2Change[0].find(separator);
-	if (sepPos == generic_string::npos)
-		return false;
-
-	generic_string pathSuffix = file2Change[0].substr(sepPos + separator.length(), file2Change[0].length() - 1);
-
-	// remove prefix of file/folder in changeInfo, splite the remained path
-	vector<generic_string> linarPathArray = split(pathSuffix, '\\');
-
-	if (action == FILE_ACTION_ADDED)
-	{
-		generic_string rootPath = file2Change[0].substr(0, sepPos);
-		generic_string path = rootPath;
-		// search recursively and modify the tree structure
-		//bool foundAndModified = _rootFolder.addToStructure(path, linarPathArray);
-		bool foundAndModified = true;
-		if (foundAndModified)
-		{
-			generic_string addedFilePath = file2Change[0].substr(0, sepPos + 1);
-			addedFilePath += pathSuffix;
-			bool isAdded = _pFileBrowser->addInTree(rootPath, addedFilePath, nullptr, linarPathArray);
-			if (not isAdded)
-				MessageBox(NULL, addedFilePath.c_str(), TEXT("file/folder is not added"), MB_OK);
-		}
-		else
-			printStr(TEXT("addToStructure pb"));
-	}
-	else if (action == FILE_ACTION_REMOVED)
-	{
-		generic_string rootPath = file2Change[0].substr(0, sepPos);
-		// search recursively and modify the tree structure
-		//bool foundAndModified = _rootFolder.removeFromStructure(linarPathArray);
-		bool foundAndModified = true;
-		if (foundAndModified)
-		{
-			bool isRemoved = _pFileBrowser->deleteFromTree(rootPath, nullptr, linarPathArray);
-			if (not isRemoved)
-				MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
-		}
-		else
-			printStr(TEXT("removeFromStructure pb"));
-	}
-	else if (action == FILE_ACTION_RENAMED_NEW_NAME)
-	{
-		generic_string rootPath = file2Change[0].substr(0, sepPos);
-
-		size_t sepPos2 = file2Change[1].find(separator);
-		if (sepPos2 == generic_string::npos)
-			return false;
-
-		generic_string pathSuffix2 = file2Change[1].substr(sepPos2 + separator.length(), file2Change[1].length() - 1);
-		vector<generic_string> linarPathArray2 = split(pathSuffix2, '\\');
-
-		//bool foundAndModified = _rootFolder.renameInStructure(linarPathArray, linarPathArray2);
-		bool foundAndModified = true;
-		if (foundAndModified)
-		{
-			bool isRenamed = _pFileBrowser->renameInTree(rootPath, nullptr, linarPathArray, linarPathArray2);
-			if (not isRenamed)
-				MessageBox(NULL, file2Change[0].c_str(), TEXT("file/folder is not removed"), MB_OK);
-		}
-		else
-			printStr(TEXT("removeFromStructure pb"));
-	}
-
-	return true;
-}
-*/
 
 DWORD WINAPI FolderUpdater::watching(void *params)
 {

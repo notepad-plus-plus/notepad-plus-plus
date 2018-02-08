@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.5
-	last modified: 2018-02-02 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-02-08 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -945,7 +945,7 @@
 				<Item id="2"    name="Abbre&amp;chen"/>
 			</ColumnEditor>
 		</Dialog>
-		<MessageBox>
+		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0A;das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu&#x0A;starten, damit die Änderungen wirksam werden."/>
 			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien&#x0A;von der Notepad++-Website herunter."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;&#x0A;Fortfahren?"/>
@@ -956,11 +956,45 @@
 			<FileAlreadyOpenedInNpp title="Datei bereits geöffnet" message="Die Datei ist bereits in Notepad++ geöffnet."/>
 			<DeleteFileFailed title="Löschen fehlgeschlagen!" message="Datei konnte nicht gelöscht werden."/>
 
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.&#x0A;Sind Sie sicher?"/>
 			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte&#x0A;auf ein Laufwerk nur mit Leserechten oder auf ein Verzeichnis&#x0A;ohne die erforderlichen Schreibrechte zeigen.&#x0A;Die Einstellungen in der Cloud werden abgebrochen.&#x0A;Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
 			<FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
 			<SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Sitzungsdatei ist entweder beschädigt oder ungültig."/>
+			<DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Mann kann entweder Dateien oder Verzeichnisse ablegen aber nicht beides zugleich,&#x0A;weil das Programm im 'Ablegen als Projekt' -Modus ist.&#x0A;Dazu muss man &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot;&#x0A;im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs aktivieren."/>
+			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $STR_REPLACE$."/>
+			<ColumnModeTip title="Tip zum Spalten-Modus" message="Bitte &quot;ALT+Mauswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot; verwenden um in den Spalten-Modus zu wechseln."/>
+			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Puffer."/>
+			<DoSaveOrNot title="Speichern" message="Speichere Datei &quot;$STR_REPLACE$&quot; ?"/>
+			<DoCloseOrNot title="Nicht existierende Datei behalten" message="Die Datei &quot;$STR_REPLACE$&quot; existiert nicht mehr.&#x0A;Soll die Datei im Editor behalten werden?"/>
+			<DoDeleteOrNot title="Datei löschen" message="Die Datei &quot;$STR_REPLACE$&quot;&#x0A;wird in den Papierkorb verschoben und diese Dokument wird geschlossen.&#x0A;Fortfahren?"/>
+			<NoBackupDoSaveFile title="Speichern" message="Die Sicherungsdatei konnte nicht gefunden werden (wurde anderwärtig gelöscht).&#x0A;Speichern oder die Daten gehen verloren.&#x0A;Soll die Datei &quot;$STR_REPLACE$&quot; gespeichert werden?"/>
+			<DoReloadOrNot title="Erneut laden" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Diese Datei wurde durch ein anderes Programm geändert.&#x0A;Soll die Datei erneut geladen werden?"/>
+			<DoReloadOrNotAndLooseChange title="Erneut laden" message="&quot;$STR_REPLACE$&quot;&#x0A;&#x0A;Diese Datei wurde durch ein anderes Programm geändert.&#x0A;Soll die Datei erneut geladen werden?"/>
+			<PrehistoricSystemDetected title="Altes Betriebssystem festgestellt" message="Anscheinend wird hier ein veraltetest Betriebssystem verwendet - diese Funktion geht leider nur mit einem modernen Betriebssystem."/>
+			<XpUpdaterProblem title="Automatisches Update" message="Die Update-Funktion von Notepad++ ist mit Windows XP wegen fehlender Sicherheitsebene nicht kompatibel.&#x0A;Soll auf die Homepage von Notepad++ gewechselt werden um die aktuellste Version herunterzuladen?"/>
+			<DocTooDirtyToMonitor title="Überwachungsproblem" message="Die Datei ist unsauber. Bitte vor der Überwachung die Änderungen speichern."/>
+			<DocNoExistToMonitor title="Überwachungsproblem" message="Die Datei muss existieren um übewacht werden zu können."/>
+			<FileTooBigToOpene title="Problem mit Dateigröße" message="Die Datei ist zu groß um mit Notepad++ geöffnet zu werden."/>
+			<CreateNewFileOrNot title="Neue Datei erstellen" message="&quot;$INT_REPLACE$&quot; existiert nicht. Soll die Datei erstellt werden?"/>
+			<CreateNewFileError title="Neue Datei erstellen" message="Kann Datei &quot;$INT_REPLACE$&quot; nicht erstellen."/>
+			<OpenFileError title="Fehler" message="Kann Datei &quot;$INT_REPLACE$&quot; nicht öffnen."/>
+			<FileBackupFailed title="Sicherung fehlgeschlagen" message="Die vorherige Version der Datei konnte nicht in das Sicherungsverzeichnis &quot;$INT_REPLACE$&quot; gespeichert werden.&#x0A;&#x0A;Soll die Datei trotzdem gespeichert werden?"/>
+			<LoadStylersFailed title="Laden von 'stylers.xml' fehlgeschlagen" message="Das Laden der Datei &quot;$INT_REPLACE$&quot; ist fehlgeschlagen!"/>
+			<LoadLangsFailed title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!&#x0A;Soll die Datei 'langs.xml' wieder hergestellt werden?"/>
+			<LoadLangsFailedFinal title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!"/>
+			<FolderAsWorspaceSubfolderExists title="'Verzeichnis als Arbeitsbereich'-Problem" message="Ein Unterverzeichnis existiert im Verzeichnis das hinzugefügt werden soll.&#x0A;Bitte das Unterverzeichnis vorher entfernen bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Der Arbeitsbereich wurde geändert. Soll er jetzt gespeichert werden?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Der Arbeitsbereich wurde nicht gespeichert."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Offener Arbeitsbereich" message="Der aktuelle Arbeitsbereich wurde geändert. Soll das aktuelle Projekt gespeichert werden?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Neuer Arbeitsbereich" message="Der aktuelle Arbeitsbereich wurde geändert. Soll das aktuelle Projekt gespeichert werden?"/>
+			<ProjectPanelOpenFailed title="Offener Arbeitsbereich" message="Der Arbeitsbereich konnte nicht geöffnet werden.&#x0A;Anscheinend ist die Datei keine gültige Projektdatei."/>
+			<ProjectPanelRemoveFolderFromProject title="Verzeichnis aus Projekt entfernen" message="Alle Untereinträge werden gelöscht.&#x0A;Soll dieses Verzeichnis wirklich aus dem Projekt entfernt werden?"/>
+			<ProjectPanelRemoveFileFromProject title="Datei aus Projekt entfernen" message="Soll diese Datei wirklich aus dem Projekt entfernt werden?"/>
+			<ProjectPanelReloadError title="Arbeitsbereich neu laden" message="Kann Datei zum neu laden nicht finden."/>
+			<ProjectPanelReloadDirty title="Arbeitsbereich neu laden" message="Der aktuelle Arbeitsbereich wurde verändert. Ein Neuladen verwirft alle bisher gemachten Änderungen.&#x0A;Soll fortgefahren werden?"/>
+			<UDLNewNameError title="UDL-Fehler" message="Dieser Name wird bereits von einer anderen Sprache verwendet.&#x0A;Bitte daher eine anderen Namen wählen."/>
+			<UDLRemoveCurrentLang title="Aktuelle Sprache löschen" message="Wirklich löschen?"/>
+			<FindCharRangeValueError title="Problem mit Wertebereich" message="Der Wert muss zwischen 0 und 255 liegen."/>
 			<ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&#x0A;um in den Spalten-Modus zu wechseln."/>
 
 			<!-- $STR_REPLACE$ is a place holder, don't translate it -->
@@ -993,6 +1027,21 @@
 			<SortTip name="Sortieren"/>
 			<ReloadTip name="Neu laden"/>
 		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Verzeichnis als Arbeitsbereich"/>
+			<SelectFolderFromBrowserString name="Wähle ein Verzeichnis zum Hinzufügen zum Arbeitsbereich"/>
+			<Menus>
+				<Item id="3511" name="Entfernen"/>
+				<Item id="3512" name="Alle entfernen"/>
+				<Item id="3513" name="Hinzufügen"/>
+				<Item id="3514" name="Vom System gestartet"/>
+				<Item id="3515" name="Öffnen"/>
+				<Item id="3516" name="Pfad kopieren"/>
+				<Item id="3517" name="In Dateien suchen …"/>
+				<Item id="3518" name="Hier anzeigen"/>
+				<Item id="3519" name="Kommandozeile hier"/>
+			</Menus>
+		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Projektverwaltung"/>
 			<WorkspaceRootName name="Arbeitsbereich"/>

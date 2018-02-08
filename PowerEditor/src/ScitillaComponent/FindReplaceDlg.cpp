@@ -1121,15 +1121,6 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					msg += TEXT("\rfor file type : ");
 					msg += _options._filters[0]?_options._filters:TEXT("*.*");
 					int res = ::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2);
-					/*
-					NppParameters::getInstance()->getNativeLangSpeaker()->messageBox("FolderAsWorspaceSubfolderExists",
-						_hParent,
-						TEXT("A sub-folder of the folder you want to add exists.\rPlease remove it from the panel before you add folder \"$STR_REPLACE$\"."),
-						TEXT("Folder as Worspace adding folder problem"),
-						MB_OK,
-						0, // not used
-						_options._directory.c_str());
-					*/
 					if (res == IDOK)
 					{
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);

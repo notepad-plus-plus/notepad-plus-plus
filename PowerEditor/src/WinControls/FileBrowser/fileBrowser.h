@@ -37,30 +37,16 @@
 #include "TreeView.h"
 #include "fileBrowser_rc.h"
 
-#define FB_PANELTITLE     TEXT("Folder as Workspace")
-/*
-#define PM_NEWFOLDERNAME         TEXT("Folder Name")
-#define PM_NEWPROJECTNAME        TEXT("Project Name")
-
-#define PM_SAVEWORKSPACE           TEXT("Save")
-#define PM_SAVEASWORKSPACE         TEXT("Save As...")
-#define PM_SAVEACOPYASWORKSPACE    TEXT("Save a Copy As...")
-#define PM_NEWPROJECTWORKSPACE     TEXT("Add New Project")
-
-#define PM_EDITRENAME              TEXT("Rename")
-#define PM_EDITNEWFOLDER           TEXT("Add Folder")
-#define PM_EDITADDFILES            TEXT("Add Files...")
-#define PM_EDITADDFILESRECUSIVELY  TEXT("Add Files from Directory...")
-*/
-#define FB_REMOVEROOT              TEXT("Remove")
-
-//#define PM_EDITMODIFYFILE          TEXT("Copy path")
-
-//#define PM_WORKSPACEMENUENTRY      TEXT("Workspace")
-//#define PM_EDITMENUENTRY           TEXT("Edit")
-
-//#define PM_MOVEUPENTRY             TEXT("Move Up\tCtrl+Up")
-//#define PM_MOVEDOWNENTRY           TEXT("Move Down\tCtrl+Down")
+#define FB_PANELTITLE         TEXT("Folder as Workspace")
+#define FB_ADDROOT            TEXT("Add")
+#define FB_REMOVEALLROOTS     TEXT("Remove All")
+#define FB_REMOVEROOTFOLDER   TEXT("Remove")
+#define FB_COPYEPATH          TEXT("Copy path")
+#define FB_FINDINFILES        TEXT("Find in Files...")
+#define FB_EXPLORERHERE       TEXT("Explorer here")
+#define FB_CMDHERE            TEXT("CMD here")
+#define FB_OPENINNPP          TEXT("Open")
+#define FB_SHELLEXECUTE       TEXT("Run by system")
 
 class TiXmlNode;
 class FileBrowser;

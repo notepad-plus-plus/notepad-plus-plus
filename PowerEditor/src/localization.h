@@ -83,7 +83,7 @@ public:
     };
 	bool getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message);
 	generic_string getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
-	//generic_string getFileBrowserLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
+	generic_string getFileBrowserLangMenuStr(int cmdID, const TCHAR *defaultStr) const;
 	generic_string getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name = NULL) const;
 	generic_string getLocalizedStrFromID(const char *strID) const;
 

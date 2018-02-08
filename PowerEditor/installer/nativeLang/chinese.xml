@@ -91,6 +91,7 @@
                     <Item id="41017" name="檔案重新命名..."/>
                     <Item id="41021" name="重新開啟最近關閉檔案"/>
                     <Item id="41022" name="在工作區開啟文件夾(&amp;W)"/>
+                    <Item id="41023" name="開啟在內定查看器中"/>
                     <Item id="42001" name="剪下(&amp;T)"/>
                     <Item id="42002" name="複製(&amp;C)"/>
                     <Item id="42003" name="還原(&amp;U)"/>
@@ -335,6 +336,7 @@
                     <Item CMID="18" name="關閉右側所有檔案"/>
                     <Item CMID="19" name="開啟此資料夾於檔案總管"/>
                     <Item CMID="20" name="開啟此資料夾於主控台 (Console)"/>
+                    <Item CMID="21" name="開啟在內定查看器中"/>
             </TabBar>
         </Menu>
 

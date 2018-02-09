@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.5
-	last modified: 2018-02-08 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-02-09 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -1099,7 +1099,7 @@
 			<cloud-invalid-warning value="Ungültiger Pfad."/>
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
-			<1-to-2-buttons-tip value="Modus mit 2 Suchknöpfen"/>
+			<two-find-buttons-tip="Modus mit 2 Suchknöpfen"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -104,7 +104,7 @@
 					<Item id="41017" name="Um&amp;benennen …"/>
 					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
 					<Item id="41022" name="Verzeichnis als Arbeitsbereich öffnen"/>
-
+					<Item id="41023" name="Im Standard-Betrachter öffnen"/>
 					<Item id="42001" name="Aus&amp;schneiden"/>
 					<Item id="42002" name="&amp;Kopieren"/>
 					<Item id="42003" name="&amp;Rückgängig"/>
@@ -366,6 +366,8 @@
 				<Item CMID="18" name="Dateien rech&amp;ts schließen"/>
 				<Item CMID="19" name="Ordner im E&amp;xplorer öffnen"/>
 				<Item CMID="20" name="Kommandozeile im aktuellen &amp;Ordner öffnen"/>
+				<Item CMID="21" name="Im Standard-Betrachter öffnen"/>
+
 			</TabBar>
 		</Menu>
 

@@ -1099,7 +1099,7 @@
 			<cloud-invalid-warning value="Ungültiger Pfad."/>
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
-			<two-find-buttons-tip="Modus mit 2 Suchknöpfen"/>
+			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

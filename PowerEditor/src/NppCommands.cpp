@@ -2458,7 +2458,6 @@ void Notepad_plus::command(int id)
             GridState st = id==IDM_SETTING_SHORTCUT_MAPPER_MACRO?STATE_MACRO:id==IDM_SETTING_SHORTCUT_MAPPER_RUN?STATE_USER:STATE_MENU;
 			ShortcutMapper shortcutMapper;
             shortcutMapper.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), st);
-            _nativeLangSpeaker.changeShortcutmapperLang(&shortcutMapper);
 			shortcutMapper.doDialog(_nativeLangSpeaker.isRTL());
 			shortcutMapper.destroy();
 			break;

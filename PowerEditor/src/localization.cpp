@@ -944,34 +944,27 @@ void NativeLangSpeaker::changeShortcutLang()
 
 }
 
-void NativeLangSpeaker::changeShortcutmapperLang(ShortcutMapper * sm)
+generic_string NativeLangSpeaker::getShortcutMapperLangStr(const char *nodeName, const TCHAR *defaultStr) const
 {
-	if (!_nativeLangA) return;
+	if (!_nativeLangA) return defaultStr;
 
-	TiXmlNodeA *shortcuts = _nativeLangA->FirstChild("Dialog");
-	if (!shortcuts) return;
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("Dialog");
+	if (!targetNode) return defaultStr;
 
-	shortcuts = shortcuts->FirstChild("ShortcutMapper");
-	if (!shortcuts) return;
+	targetNode = targetNode->FirstChild("ShortcutMapper");
+	if (!targetNode) return defaultStr;
 
-	for (TiXmlNodeA *childNode = shortcuts->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	targetNode = targetNode->FirstChild(nodeName);
+	if (!targetNode) return defaultStr;
+
+	const char *name = (targetNode->ToElement())->Attribute("name");
+	if (name && name[0])
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int index;
-		if (element->Attribute("index", &index))
-		{
-			if (index > -1 && index < 5)  //valid index only
-			{
-				const char *name = element->Attribute("name");
-
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				const wchar_t * nameW = wmc->char2wchar(name, _nativeLangEncoding);
-				sm->translateTab(index, nameW);
-			}
-		}
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		return wmc->char2wchar(name, _nativeLangEncoding);
 	}
+
+	return defaultStr;
 }
 
 

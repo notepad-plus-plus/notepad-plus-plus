@@ -447,6 +447,31 @@
                     <Item id="2232" name="啟用共用底線字"/>
                 </SubDialog>
             </StyleConfig>
+            <ShortcutMapper title="快速鍵管理">
+                <Item id="2602" name="修改"/>
+                <Item id="2603" name="刪除"/>
+                <Item id="2606" name="清除"/>
+                <Item id="1" name="關閉"/>
+                <ColumnName name="名稱"/>
+                <ColumnShortcut name="快速鍵"/>
+                <ColumnCategory name="類別"/>
+                <ColumnPlugin name="外掛"/>
+                <MainMenuTab name="主選單"/>
+                <MacrosTab name="巨集"/>
+                <RunCommandsTab name="自訂指令"/>
+                <PluginCommandsTab name="外掛指令"/>
+                <ScintillaCommandsTab name="Scintilla 指令"/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="快速鍵設定">
+                <Item id="1" name="確認"/>
+                <Item id="2" name="取消"/>
+                <Item id="5006" name="名稱"/>
+                <Item id="5008" name="增加"/>
+                <Item id="5009" name="移除"/>
+                <Item id="5010" name="套用"/>
+                <Item id="5007" name="這將會移除快速鍵"/>
+                <Item id="5012" name="快速鍵重複定義"/>
+            </ShortcutMapperSubDialg>
             <UserDefine title="自訂程式語言">
                 <Item id="20001" name="停靠面板"/>
                 <Item id="20002" name="重新命名"/>

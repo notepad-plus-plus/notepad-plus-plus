@@ -446,9 +446,33 @@
                     <Item id="2231" name="Enable global italic font style"/>
                     <Item id="2232" name="Enable global underline font style"/>
                 </SubDialog>
-
             </StyleConfig>
 
+            <ShortcutMapper title="Shortcut Mapper">
+                <Item id="2602" name="Modify"/>
+                <Item id="2603" name="Delete"/>
+                <Item id="2606" name="Clear"/>
+                <Item id="1" name="Close"/>
+                <ColumnName name="Name"/>
+                <ColumnShortcut name="Shortcut"/>
+                <ColumnCategory name="Category"/>
+                <ColumnPlugin name="Plugin"/>
+                <MainMenuTab name="Main menu"/>
+                <MacrosTab name="Macros"/>
+                <RunCommandsTab name="Run commands"/>
+                <PluginCommandsTab name="Plugin commands"/>
+                <ScintillaCommandsTab name="Scintilla commands"/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="Shortcut">
+                <Item id="1" name="OK"/>
+                <Item id="2" name="Cancel"/>
+                <Item id="5006" name="Name"/>
+                <Item id="5008" name="Add"/>
+                <Item id="5009" name="Remove"/>
+                <Item id="5010" name="Apply"/>
+                <Item id="5007" name="This will remove the accelerator"/>
+                <Item id="5012" name="CONFLICT FOUND!"/>
+            </ShortcutMapperSubDialg>
             <UserDefine title="User-Defined">
                 <Item id="20001" name="Dock"/>
                 <Item id="20002" name="Rename"/>
@@ -987,6 +1011,7 @@ Do you want to continue?"/>
             <UDLNewNameError title="UDL Error" message="This name is used by another language,
 please give another one."/>
             <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
+            <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
             <FindCharRangeValueError title="Range Value problem" message="You should type between from 0 to 255."/>
         </MessageBox>
         <ClipboardHistory>

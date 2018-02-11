@@ -770,6 +770,12 @@ generic_string stringToUpper(generic_string strToConvert)
     return strToConvert;
 }
 
+generic_string stringToLower(generic_string strToConvert)
+{
+    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), ::towlower);
+    return strToConvert;
+}
+
 
 generic_string stringReplace(generic_string subject, const generic_string& search, const generic_string& replace)
 {

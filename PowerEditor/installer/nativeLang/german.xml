@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.5
-	last modified: 2018-02-09 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-02-11 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -485,9 +485,32 @@
 					<Item id="2231" name="Kursivschrift als Standard setzen"/>
 					<Item id="2232" name="Unterstrichen als Standard setzen"/>
 				</SubDialog>
-
 			</StyleConfig>
-
+			<ShortcutMapper title="Tastatur-Kürzel">
+				<Item id="2602" name="Ändern"/>
+				<Item id="2603" name="Entfernen"/>
+				<Item id="2606" name="Löschen"/>
+				<Item id="1" name="Schliessen"/>
+				<ColumnName name="Name"/>
+				<ColumnShortcut name="Kürzel"/>
+				<ColumnCategory name="Kategorie"/>
+				<ColumnPlugin name="Plugin"/>
+				<MainMenuTab name="Hauptmenü"/>
+				<MacrosTab name="Macros"/>
+				<RunCommandsTab name="Kommandos ausführen"/>
+				<PluginCommandsTab name="Plugin-Kommandos"/>
+				<ScintillaCommandsTab name="Scintilla-Kommandos"/>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Kürzel">
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Abbruch"/>
+				<Item id="5006" name="Name"/>
+				<Item id="5008" name="Hinzufügen"/>
+				<Item id="5009" name="Entfernen"/>
+				<Item id="5010" name="Übernehmen"/>
+				<Item id="5007" name="Das wird das Tastenkürzel entfernen"/>
+				<Item id="5012" name="KONFLIKT GEFUNDEN!"/>
+			</ShortcutMapperSubDialg>
 			<UserDefine title="Benutzerdefinierte Sprache">
 				<Item id="20001" name="Andocken"/>
 				<Item id="20002" name="Umbenennen"/>
@@ -996,6 +1019,7 @@
 			<ProjectPanelReloadDirty title="Arbeitsbereich neu laden" message="Der aktuelle Arbeitsbereich wurde verändert. Ein Neuladen verwirft alle bisher gemachten Änderungen.&#x0A;Soll fortgefahren werden?"/>
 			<UDLNewNameError title="UDL-Fehler" message="Dieser Name wird bereits von einer anderen Sprache verwendet.&#x0A;Bitte daher eine anderen Namen wählen."/>
 			<UDLRemoveCurrentLang title="Aktuelle Sprache löschen" message="Wirklich löschen?"/>
+			<SCMapperDoDeleteOrNot title="Wirklich?" message="Soll das Tastenkürzel wirklich gelöscht werden?"/>
 			<FindCharRangeValueError title="Problem mit Wertebereich" message="Der Wert muss zwischen 0 und 255 liegen."/>
 			<ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&#x0A;um in den Spalten-Modus zu wechseln."/>
 

@@ -5,18 +5,18 @@
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="Файл"/>
-                    <Item menuId="edit" name="Редагувати"/>
-                    <Item menuId="search" name="Пошук"/>
-                    <Item menuId="view" name="Вигляд"/>
-                    <Item menuId="encoding" name="Кодування"/>
-                    <Item menuId="language" name="Мова"/>
-                    <Item menuId="settings" name="Налаштування"/>
-                    <Item menuId="tools" name="Інструменти"/>
-                    <Item menuId="macro" name="Макрос"/>
-                    <Item menuId="run" name="Виконати"/>
-                    <Item idName="Plugins" name="Плагіни"/>
-                    <Item idName="Window" name="Вікно"/>
+                    <Item menuId="file" name="&amp;Файл"/>
+                    <Item menuId="edit" name="&amp;Редагувати"/>
+                    <Item menuId="search" name="По&amp;шук"/>
+                    <Item menuId="view" name="&amp;Вигляд"/>
+                    <Item menuId="encoding" name="&amp;Кодування"/>
+                    <Item menuId="language" name="&amp;Синтаксис"/>
+                    <Item menuId="settings" name="&amp;Налаштування"/>
+                    <Item menuId="tools" name="Інстр&amp;ументи"/>
+                    <Item menuId="macro" name="&amp;Макроси"/>
+                    <Item menuId="run" name="&amp;Виконати"/>
+                    <Item idName="Plugins" name="Плагі&amp;ни"/>
+                    <Item idName="Window" name="Вкл&amp;адки"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
@@ -634,7 +634,7 @@
                     <Item id="6109" name="Неактивні вкладки сірі"/>
                     <Item id="6110" name="Оранжева лінія згори"/>
 
-                    <Item id="6111" name="Рядок стану"/>
+                    <Item id="6111" name="Показувати рядок стану"/>
                     <Item id="6112" name="Кнопка закриття на кожній вкладці"/>
                     <Item id="6113" name="Закривати подвійним клацанням"/>
                     <Item id="6118" name="Приховати"/>
@@ -838,13 +838,13 @@
                     <Item id="6267" name="Шлях до свого хмарного сховища:"/>
                 </Cloud>
 				
-                <SearchEngine title="Пошуковий засіб">
-                    <Item id="6271" name="Пошуковий засіб (для команди &quot;Пошук в Інтернеті&quot;)"/>
+                <SearchEngine title="Пошукова система">
+                    <Item id="6271" name="Пошукова система (для команди &quot;Пошук в Інтернеті&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
                     <Item id="6275" name="Yahoo!"/>
-                    <Item id="6276" name="Встановіть пошуковий засіб тут:"/>
+                    <Item id="6276" name="Встановіть пошукову систему тут:"/>
                     <!-- Don't change anything after Example: -->
                     <Item id="6278" name="Зразок: https://www.google.com/search?q=$(CURRENT_WORD)"/>
                 </SearchEngine>

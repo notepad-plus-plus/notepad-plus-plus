@@ -97,28 +97,53 @@ LRESULT VerticalFileSwitcherListView::runProc(HWND hwnd, UINT Message, WPARAM wP
 
 void VerticalFileSwitcherListView::initList()
 {
-	TaskListInfo taskListInfo;
-	static HWND nppHwnd = ::GetParent(_hParent);
-	::SendMessage(nppHwnd, WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), TRUE);
-
+	HWND colHeader = reinterpret_cast<HWND>(SendMessage(_hSelf, LVM_GETHEADER, 0, 0));
+	int columnCount = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
+	
 	NppParameters *nppParams = NppParameters::getInstance();
 	NativeLangSpeaker *pNativeSpeaker = nppParams->getNativeLangSpeaker();
 	
 	bool isExtColumn = !nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
 	
-	RECT rc;
-	::GetClientRect(_hParent, &rc);
-	int totalWidth = rc.right - rc.left;
-
-	generic_string nameStr = pNativeSpeaker->getAttrNameStr(TEXT("Name"), FS_ROOTNODE, FS_CLMNNAME);
-	
-	insertColumn(nameStr.c_str(), (isExtColumn ? totalWidth - 50 : totalWidth), 0);
-
-	if (isExtColumn)
+	// check if columns need to be added
+	if (columnCount <= 1)
 	{
-		generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
-		insertColumn(extStr.c_str(), 50, 1);
+		RECT rc;
+		::GetClientRect(_hParent, &rc);
+		int totalWidth = rc.right - rc.left;
+		
+		if (columnCount == 0)
+		{
+			generic_string nameStr = pNativeSpeaker->getAttrNameStr(TEXT("Name"), FS_ROOTNODE, FS_CLMNNAME);
+			insertColumn(nameStr.c_str(), (isExtColumn ? totalWidth - 50 : totalWidth), 0);
+		}
+		
+		if (isExtColumn)
+		{
+			// resize "Name" column when "exts" won't fit
+			LVCOLUMN lvc;
+			SendMessage(_hSelf, LVM_GETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvc));
+			
+			if (lvc.cx + 50 > totalWidth)
+			{
+				lvc.cx = totalWidth - 50;
+				SendMessage(_hSelf, LVM_SETCOLUMN, 0, reinterpret_cast<LPARAM>(&lvc));
+			}
+			
+			generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
+			insertColumn(extStr.c_str(), 50, 1);
+		}
 	}
+	
+	// "exts" was disabled
+	if (columnCount >= 2 && !isExtColumn)
+	{
+		ListView_DeleteColumn(_hSelf, 1);
+	}
+	
+	TaskListInfo taskListInfo;
+	static HWND nppHwnd = ::GetParent(_hParent);
+	::SendMessage(nppHwnd, WM_GETTASKLISTINFO, reinterpret_cast<WPARAM>(&taskListInfo), TRUE);
 
 	for (size_t i = 0, len = taskListInfo._tlfsLst.size(); i < len ; ++i)
 	{

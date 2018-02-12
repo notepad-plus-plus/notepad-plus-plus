@@ -34,25 +34,40 @@
 
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
-	LPNMLISTVIEW pnmListView = (LPNMLISTVIEW)lParamSort;
+	sortCompareData* sortData = (sortCompareData*)lParamSort;
 	TCHAR str1[MAX_PATH];
 	TCHAR str2[MAX_PATH];
 
-	ListView_GetItemText(pnmListView->hdr.hwndFrom, lParam1, pnmListView->iSubItem, str1, sizeof(str1));
-	ListView_GetItemText(pnmListView->hdr.hwndFrom, lParam2, pnmListView->iSubItem, str2, sizeof(str2));
-
-	LVCOLUMN lvc;
-	lvc.mask = LVCF_FMT;
-	::SendMessage(pnmListView->hdr.hwndFrom, LVM_GETCOLUMN, pnmListView->iSubItem, reinterpret_cast<LPARAM>(&lvc));
-	bool isDirectionUp = (HDF_SORTUP & lvc.fmt) != 0;
+	ListView_GetItemText(sortData->hListView, lParam1, sortData->columnIndex, str1, sizeof(str1));
+	ListView_GetItemText(sortData->hListView, lParam2, sortData->columnIndex, str2, sizeof(str2));
 
 	int result = lstrcmp(str1, str2);
 
-	if (isDirectionUp)
+	if (sortData->sortDirection == SORT_DIRECTION_UP)
 		return result;
 
 	return (0 - result);
 };
+
+void VerticalFileSwitcher::startColumnSort()
+{
+	// reset sorting if exts column was just disabled
+	HWND colHeader = reinterpret_cast<HWND>(SendMessage(_fileListView.getHSelf(), LVM_GETHEADER, 0, 0));
+	int columnCount = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
+	if (_lastSortingColumn >= columnCount)
+	{
+		_lastSortingColumn = 0;
+		_lastSortingDirection = SORT_DIRECTION_NONE;
+	}
+
+	if (_lastSortingDirection != SORT_DIRECTION_NONE)
+	{
+		sortCompareData sortData = {_fileListView.getHSelf(), _lastSortingColumn, _lastSortingDirection};
+		ListView_SortItemsEx(_fileListView.getHSelf(), ListViewCompareProc, reinterpret_cast<LPARAM>(&sortData));
+	}
+	
+	updateHeaderArrow();
+}
 
 INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -146,8 +161,17 @@ INT_PTR CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, 
 				case LVN_COLUMNCLICK:
 				{
 					LPNMLISTVIEW pnmLV = (LPNMLISTVIEW)lParam;
-					setHeaderOrder(pnmLV);
-					ListView_SortItemsEx(pnmLV->hdr.hwndFrom, ListViewCompareProc, reinterpret_cast<LPARAM>(pnmLV));
+					_lastSortingDirection = setHeaderOrder(pnmLV->iSubItem);
+					_lastSortingColumn = pnmLV->iSubItem;
+					if (_lastSortingDirection != SORT_DIRECTION_NONE)
+					{
+						startColumnSort();
+					}
+					else
+					{
+						_fileListView.reload();
+						updateHeaderArrow();
+					}
 					return TRUE;
 				}
 				case LVN_KEYDOWN:
@@ -220,51 +244,65 @@ void VerticalFileSwitcher::activateDoc(TaskLstFnStatus *tlfs) const
 	::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
 }
 
-int VerticalFileSwitcher::setHeaderOrder(LPNMLISTVIEW pnm_list_view)
+int VerticalFileSwitcher::setHeaderOrder(int columnIndex)
 {
-	HWND hListView, colHeader;
+	HWND hListView = _fileListView.getHSelf();
 	LVCOLUMN lvc;
-	int q, cols;
-	int index = pnm_list_view->iSubItem;
-
 	lvc.mask = LVCF_FMT;
-	hListView = pnm_list_view->hdr.hwndFrom;
-	SendMessage(hListView, LVM_GETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
-	if(HDF_SORTUP & lvc.fmt)
+	
+	//strip HDF_SORTUP and HDF_SORTDOWN from old sort column
+	if (_lastSortingColumn != columnIndex && _lastSortingDirection != SORT_DIRECTION_NONE)
 	{
-		//set the opposite arrow
-		lvc.fmt = lvc.fmt & (~HDF_SORTUP) | HDF_SORTDOWN; //turns off sort-up, turns on sort-down
-		SendMessage(hListView, LVM_SETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
-		//use any sorting you would use, e.g. the LVM_SORTITEMS message
+		HWND colHeader = reinterpret_cast<HWND>(SendMessage(hListView, LVM_GETHEADER, 0, 0));
+		int columnCount = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
+		if (_lastSortingColumn < columnCount)
+		{
+			// Get current fmt
+			SendMessage(hListView, LVM_GETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
+			
+			// remove both sort-up and sort-down
+			lvc.fmt = lvc.fmt & (~HDF_SORTUP) & (~HDF_SORTDOWN);
+			SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
+		}
+		
+		_lastSortingDirection = SORT_DIRECTION_NONE;
+	}
+	
+	if (_lastSortingDirection == SORT_DIRECTION_NONE)
+	{
+		return SORT_DIRECTION_UP;
+	}
+	
+	if (_lastSortingDirection == SORT_DIRECTION_UP)
+	{
 		return SORT_DIRECTION_DOWN;
 	}
 
-	if(HDF_SORTDOWN & lvc.fmt)
-    {
-		//the opposite
-		lvc.fmt = lvc.fmt & (~HDF_SORTDOWN) | HDF_SORTUP;
-		SendMessage(hListView, LVM_SETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
-		return SORT_DIRECTION_UP;
-    }
-  
-	// this is the case our clicked column wasn't the one being sorted up until now
-	// so first  we need to iterate through all columns and send LVM_SETCOLUMN to them with fmt set to NOT include these HDFs
-	colHeader = reinterpret_cast<HWND>(SendMessage(hListView, LVM_GETHEADER, 0, 0));
-	cols = static_cast<int32_t>(SendMessage(colHeader, HDM_GETITEMCOUNT, 0, 0));
-	for (q = 0; q < cols; ++q)
-	{
-		//Get current fmt
-		SendMessage(hListView, LVM_GETCOLUMN, q, reinterpret_cast<LPARAM>(&lvc));
-		//remove both sort-up and sort-down
-		lvc.fmt = lvc.fmt & (~HDF_SORTUP) & (~HDF_SORTDOWN);
-		SendMessage(hListView, LVM_SETCOLUMN, q, reinterpret_cast<LPARAM>(&lvc));
-	}
-	
-	//read current fmt from clicked column
-	SendMessage(hListView, LVM_GETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
-	// then set whichever arrow you feel like and send LVM_SETCOLUMN to this particular column
-	lvc.fmt = lvc.fmt | HDF_SORTUP;
-	SendMessage(hListView, LVM_SETCOLUMN, index, reinterpret_cast<LPARAM>(&lvc));
+	//if (_lastSortingDirection == SORT_DIRECTION_DOWN)
+	return SORT_DIRECTION_NONE;
+}
 
-	return SORT_DIRECTION_UP;
+void VerticalFileSwitcher::updateHeaderArrow()
+{
+	HWND hListView = _fileListView.getHSelf();
+	LVCOLUMN lvc;
+	lvc.mask = LVCF_FMT;
+	
+	SendMessage(hListView, LVM_GETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
+	
+	if (_lastSortingDirection == SORT_DIRECTION_UP)
+	{
+		lvc.fmt = lvc.fmt | HDF_SORTUP & ~HDF_SORTDOWN;
+		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
+	}
+	else if (_lastSortingDirection == SORT_DIRECTION_DOWN)
+	{
+		lvc.fmt = lvc.fmt & ~HDF_SORTUP | HDF_SORTDOWN;
+		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
+	}
+	else if (_lastSortingDirection == SORT_DIRECTION_NONE)
+	{
+		lvc.fmt = lvc.fmt & (~HDF_SORTUP) & (~HDF_SORTDOWN);
+		SendMessage(hListView, LVM_SETCOLUMN, _lastSortingColumn, reinterpret_cast<LPARAM>(&lvc));
+	}
 }

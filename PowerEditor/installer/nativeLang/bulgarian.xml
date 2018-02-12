@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 11.02.2018 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 12.02.2018 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -1093,7 +1093,7 @@
 			<word-chars-list-warning-end value="  във вашият списък със символи."/>
 			<cloud-invalid-warning value="Невалиден път."/>
 			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++."/>
-			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift + Enter."/>
+			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter."/>
 			<two-find-buttons-tip value="Режим за търсене с два бутона"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
@@ -1148,8 +1148,8 @@
 			<ColumnModeTip title="Колонен режим" message="За преминаване в колонен режим използвайте:
 
 &quot;Alt + избор с мишката&quot;
-&quot;Alt + Shift  избор с мишката&quot;
-&quot;Alt + Shift  клавиш стрелка&quot;
+&quot;Alt + Shift + избор с мишката&quot;
+&quot;Alt + Shift + клавиш стрелка&quot;
 
 Не забравяйте, че първо трябва да натиснете клавиш Alt."/>
 			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $STR_REPLACE$."/>

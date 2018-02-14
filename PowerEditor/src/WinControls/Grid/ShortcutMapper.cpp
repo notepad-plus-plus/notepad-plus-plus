@@ -134,7 +134,10 @@ void ShortcutMapper::initBabyGrid() {
 	_babygrid.setHighlightColorProtect(RGB(244,10,20));
 	_babygrid.setHighlightColorProtectNoFocus(RGB(230,194,190));
 
-	NppParameters::getInstance()->getNativeLangSpeaker()->changeDlgLang(_hSelf, "ShortcutMapper");
+	NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance()->getNativeLangSpeaker();
+	nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapper");
+	_conflictInfoOk = nativeLangSpeaker->getShortcutMapperLangStr("ConflictInfoOk", TEXT("No shortcut conflicts for this item."));
+	_conflictInfoEditing = nativeLangSpeaker->getShortcutMapperLangStr("ConflictInfoEditing", TEXT("No conflicts . . ."));
 }
 
 generic_string ShortcutMapper::getTextFromCombo(HWND hCombo)
@@ -537,7 +540,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			if (isConflict)
 				::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(conflictInfo.c_str()));
 			else
-				::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_assignInfo.c_str()));
+				::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_conflictInfoEditing.c_str()));
 
 			return TRUE;
 		}
@@ -1079,7 +1082,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							}
 
 							if (conflictInfo.empty())
-								::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_defaultInfo.c_str()));
+								::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(_conflictInfoOk.c_str()));
 							else
 								::SendDlgItemMessage(_hSelf, IDC_BABYGRID_INFO, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(conflictInfo.c_str()));
 

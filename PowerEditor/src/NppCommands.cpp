@@ -1014,10 +1014,15 @@ void Notepad_plus::command(int id)
 			FindStatus status = FSNoMessage;
 			_findReplaceDlg.processFindNext(s.c_str(), &op, &status);
 			if (status == FSEndReached)
-				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."), FSEndReached);
+			{
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-top-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."));
+				_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
+			}
 			else if (status == FSTopReached)
-				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."), FSTopReached);
-			break;
+			{
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-bottom-begin-reached", TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."));
+				_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
+			}
 		}
 		break;
 
@@ -1043,22 +1048,30 @@ void Notepad_plus::command(int id)
 			FindStatus status = FSNoMessage;
 			_findReplaceDlg.processFindNext(str, &op, &status);
 			if (status == FSEndReached)
-				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."), FSEndReached);
+			{
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-top-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."));
+				_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
+			}
 			else if (status == FSTopReached)
-				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."), FSTopReached);
-			break;
+			{
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-bottom-begin-reached", TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."));
+				_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
+			}
         }
+		break;
 
 		case IDM_SEARCH_GOTONEXTFOUND:
 		{
 			_findReplaceDlg.gotoNextFoundResult();
-			break;
 		}
+		break;
+
 		case IDM_SEARCH_GOTOPREVFOUND:
 		{
 			_findReplaceDlg.gotoNextFoundResult(-1);
-			break;
 		}
+		break;
+
 		case IDM_FOCUS_ON_FOUND_RESULTS:
 		{
 			if (GetFocus() == _findReplaceDlg.getHFindResults())
@@ -1066,8 +1079,8 @@ void Notepad_plus::command(int id)
 				switchEditViewTo(currentView());
 			else
 				_findReplaceDlg.focusOnFinder();
-			break;
 		}
+		break;
 
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
 		case IDM_SEARCH_VOLATILE_FINDPREV :
@@ -1082,12 +1095,17 @@ void Notepad_plus::command(int id)
 			FindStatus status = FSNoMessage;
 			_findReplaceDlg.processFindNext(text2Find, &op, &status);
 			if (status == FSEndReached)
-				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."), FSEndReached);
+			{
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-top-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."));
+				_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
+			}
 			else if (status == FSTopReached)
-				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."), FSTopReached);
-
-			break;
+			{
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-bottom-begin-reached", TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."));
+				_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
+			}
 		}
+		break;
 
 		case IDM_SEARCH_MARKALLEXT1 :
 		case IDM_SEARCH_MARKALLEXT2 :
@@ -1122,8 +1140,9 @@ void Notepad_plus::command(int id)
 			{
 				_findReplaceDlg.markAll(text2Find, styleID, lstrlen(text2Find) == lstrlen(text2Find2));
 			}
-			break;
 		}
+		break;
+
 		case IDM_SEARCH_UNMARKALLEXT1 :
 		case IDM_SEARCH_UNMARKALLEXT2 :
 		case IDM_SEARCH_UNMARKALLEXT3 :
@@ -1143,8 +1162,8 @@ void Notepad_plus::command(int id)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
 			_pEditView->clearIndicator(styleID);
-			break;
 		}
+		break;
 
 		case IDM_SEARCH_GONEXTMARKER1 :
 		case IDM_SEARCH_GONEXTMARKER2 :
@@ -1168,9 +1187,8 @@ void Notepad_plus::command(int id)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE;
 
 			goToNextIndicator(styleID);
-
-			break;
 		}
+		break;
 
 		case IDM_SEARCH_GOPREVMARKER1 :
 		case IDM_SEARCH_GOPREVMARKER2 :
@@ -1193,10 +1211,9 @@ void Notepad_plus::command(int id)
 			else // (id == IDM_SEARCH_GOPREVMARKER_DEF)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE;
 
-			goToPreviousIndicator(styleID);
-
-			break;
+			goToPreviousIndicator(styleID);	
 		}
+		break;
 
 		case IDM_SEARCH_CLEARALLMARKS :
 		{
@@ -1205,8 +1222,8 @@ void Notepad_plus::command(int id)
 			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_EXT3);
 			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_EXT4);
 			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_EXT5);
-			break;
 		}
+		break;
 
         case IDM_SEARCH_GOTOLINE :
 		{
@@ -1214,8 +1231,8 @@ void Notepad_plus::command(int id)
 			_goToLineDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
 				_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
-			break;
 		}
+		break;
 
 		case IDM_SEARCH_FINDCHARINRANGE :
 		{
@@ -1223,8 +1240,8 @@ void Notepad_plus::command(int id)
 			_findCharsInRangeDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
 				_nativeLangSpeaker.changeDlgLang(_findCharsInRangeDlg.getHSelf(), "FindCharsInRange");
-			break;
 		}
+		break;
 
         case IDM_EDIT_COLUMNMODETIP :
 		{
@@ -1233,8 +1250,8 @@ void Notepad_plus::command(int id)
 					TEXT("Please use \"ALT+Mouse Selection\" or \"Alt+Shift+Arrow key\" to switch to column mode."),
 					TEXT("Column Mode Tip"),
 					MB_OK|MB_APPLMODAL);
-			break;
 		}
+		break;
 
         case IDM_EDIT_COLUMNMODE :
 		{
@@ -1242,8 +1259,8 @@ void Notepad_plus::command(int id)
 			_colEditorDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
 				_nativeLangSpeaker.changeDlgLang(_colEditorDlg.getHSelf(), "ColumnEditor");
-			break;
 		}
+		break;
 
 		case IDM_SEARCH_GOTOMATCHINGBRACE :
 		case IDM_SEARCH_SELECTMATCHINGBRACES :
@@ -1259,8 +1276,8 @@ void Notepad_plus::command(int id)
 				else
 					_pEditView->execute(SCI_SETSEL, min(braceAtCaret, braceOpposite), max(braceAtCaret, braceOpposite) + 1); // + 1 so we always include the ending brace in the selection.
 			}
-			break;
 		}
+		break;
 
         case IDM_SEARCH_TOGGLE_BOOKMARK :
 	        bookmarkToggle(-1);
@@ -1345,9 +1362,8 @@ void Notepad_plus::command(int id)
 			}
 			checkMenuItem(IDM_LANG_USER_DLG, !isUDDlgVisible);
 			_toolBar.setCheck(IDM_LANG_USER_DLG, !isUDDlgVisible);
-
-            break;
         }
+		break;
 
 		case IDM_EDIT_SELECTALL:
 			_pEditView->execute(SCI_SELECTALL);

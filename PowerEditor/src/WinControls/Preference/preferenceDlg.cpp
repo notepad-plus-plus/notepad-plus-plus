@@ -2946,11 +2946,12 @@ generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) c
 	{
 		generic_string nbSpStr = std::to_wstring(nbSp);
 		generic_string nbTabStr = std::to_wstring(nbTab);
-		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin");
-		generic_string space = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-space-warning");
-		generic_string tab = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tab-warning");
-		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end");
+		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin", TEXT(""));
+		generic_string space = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-space-warning", TEXT(""));
+		generic_string tab = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tab-warning", TEXT(""));
+		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end", TEXT(""));
 
+		// half translation is not allowed
 		if (not warnBegin.empty() && not space.empty() && not tab.empty() && not warnEnd.empty())
 		{
 			space = stringReplace(space, TEXT("$INT_REPLACE$"), nbSpStr);
@@ -2973,9 +2974,11 @@ generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) c
 	else if (nbSp && not nbTab)
 	{
 		generic_string nbSpStr = std::to_wstring(nbSp);
-		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin");
-		generic_string space = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-space-warning");
-		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end");
+		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin", TEXT(""));
+		generic_string space = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-space-warning", TEXT(""));
+		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end", TEXT(""));
+
+		// half translation is not allowed
 		if (not warnBegin.empty() && not space.empty() && not warnEnd.empty())
 		{
 			space = stringReplace(space, TEXT("$INT_REPLACE$"), nbSpStr);
@@ -2993,9 +2996,11 @@ generic_string DelimiterSettingsDlg::getWarningText(size_t nbSp, size_t nbTab) c
 	else if (not nbSp && nbTab)
 	{
 		generic_string nbTabStr = std::to_wstring(nbTab);
-		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin");
-		generic_string tab = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tab-warning");
-		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end");
+		generic_string warnBegin = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-begin", TEXT(""));
+		generic_string tab = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tab-warning", TEXT(""));
+		generic_string warnEnd = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-warning-end", TEXT(""));
+
+		// half translation is not allowed
 		if (not warnBegin.empty() && not tab.empty() && not warnEnd.empty())
 		{
 			tab = stringReplace(tab, TEXT("$INT_REPLACE$"), nbTabStr);
@@ -3091,9 +3096,7 @@ INT_PTR CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT message, WPARAM wParam, 
 			setWarningIfNeed();
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tip");
-			if (tip2show.empty())
-				tip2show = TEXT("This allows you to include additional character into current word characters while double clicking for selection or searching with \"Match whole word only\" option checked.");
+			generic_string tip2show = pNativeSpeaker->getLocalizedStrFromID("word-chars-list-tip", TEXT("This allows you to include additional character into current word characters while double clicking for selection or searching with \"Match whole word only\" option checked."));
 
 			_tip = CreateToolTip(IDD_WORDCHAR_QUESTION_BUTTON, _hSelf, _hInst, const_cast<PTSTR>(tip2show.c_str()));
 			if (_tip)
@@ -3231,9 +3234,7 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					generic_string message;
 					if (nppParams->isCloudPathChanged())
 					{
-						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning");
-						if (message.empty())
-							message = TEXT("Please restart Notepad++ to take effect.");
+						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
 					}
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 				}
@@ -3242,9 +3243,8 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_WITHCLOUD_RADIO, BM_GETCHECK, 0, 0));
 					if (isChecked)
 					{
-						generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning");
-						if (message.empty())
-							message = TEXT("Invalid path.");
+						generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
+
 						::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 						nppParams->removeCloudChoice();
 					}
@@ -3280,6 +3280,7 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 
 		case WM_COMMAND:
 		{
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			switch (wParam)
 			{
 				case IDC_NOCLOUD_RADIO:
@@ -3288,13 +3289,11 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 					nppParams->removeCloudChoice();
 
 					generic_string message;
-					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 					if (nppParams->isCloudPathChanged())
 					{
-						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning");
-						if (message.empty())
-							message = TEXT("Please restart Notepad++ to take effect.");
+						message = pNativeSpeaker->getLocalizedStrFromID("cloud-restart-warning", TEXT("Please restart Notepad++ to take effect."));
 					}
+					// else set empty string
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 
 					::SendDlgItemMessage(_hSelf, IDC_CLOUDPATH_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(nppGUI._cloudPath.c_str()));
@@ -3305,10 +3304,7 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 
 				case IDC_WITHCLOUD_RADIO:
 				{
-					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-					generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning");
-					if (message.empty())
-						message = TEXT("Invalid path.");
+					generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-invalid-warning", TEXT("Invalid path."));
 					::SetDlgItemText(_hSelf, IDC_SETTINGSONCLOUD_WARNING_STATIC, message.c_str());
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CLOUDPATH_EDIT), true);
@@ -3318,7 +3314,8 @@ INT_PTR CALLBACK SettingsOnCloudDlg::run_dlgProc(UINT message, WPARAM wParam, LP
 
 				case IDD_CLOUDPATH_BROWSE_BUTTON:
 				{
-					folderBrowser(_hSelf, TEXT("Select a folder from/to where Notepad++ reads/writes its settings"), IDC_CLOUDPATH_EDIT);
+					generic_string message = pNativeSpeaker->getLocalizedStrFromID("cloud-select-folder", TEXT("Select a folder from/to where Notepad++ reads/writes its settings"));
+					folderBrowser(_hSelf, message, IDC_CLOUDPATH_EDIT);
 				}
 				break;
 

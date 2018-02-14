@@ -452,6 +452,7 @@
                 <Item id="2602" name="Modify"/>
                 <Item id="2603" name="Delete"/>
                 <Item id="2606" name="Clear"/>
+                <Item id="2607" name="Filter: "/>
                 <Item id="1" name="Close"/>
                 <ColumnName name="Name"/>
                 <ColumnShortcut name="Shortcut"/>
@@ -462,6 +463,8 @@
                 <RunCommandsTab name="Run commands"/>
                 <PluginCommandsTab name="Plugin commands"/>
                 <ScintillaCommandsTab name="Scintilla commands"/>
+                <ConflictInfoOk name="No shortcut conflicts for this item."/>
+                <ConflictInfoEditing name="No conflicts . . ."/>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Shortcut">
                 <Item id="1" name="OK"/>
@@ -1107,8 +1110,39 @@ please give another one."/>
             <word-chars-list-warning-end value="  in your character list."/>
             <cloud-invalid-warning value="Invalid path."/>
             <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+            <cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/>
             <shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
             <two-find-buttons-tip value="2 find buttons mode"/>
+            
+            <find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
+            <find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
+            <find-status-find-from-top-end-reached value="Find: Found the 1st occurrence from the top. The end of document has been reached"/>
+            <find-status-find-from-bottom-begin-reached value="Find: Found the 1st occurrence from the bottom. The begin of document has been reached"/>
+            <find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
+            <find-status-replaceinfiles-nb-replaced value="Replace in Files: $INT_REPLACE$ occurrences were replaced"/>
+            <find-status-replaceinfiles-re-malformed value="Replace in Opened Files: The regular expression is malformed"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
+            <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
+            <find-status-invalid-re value="Find: Invalid regular expression"/>
+            <find-status-mark-1-match value="1 match"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ matches"/>
+            <find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>
+            <find-status-count-1-match value="Count: 1 match"/>
+            <find-status-count-nb-matches value="Count: $INT_REPLACE$ matches"/>
+            <find-status-replaceall-re-malformed value="Replace All: The regular expression is malformed"/>
+            <find-status-replaceall-1-replaced value="Replace All: 1 occurrence was replaced"/>
+            <find-status-replaceall-nb-replaced value="Replace All: $INT_REPLACE$ occurrences were replaced"/>
+            <ind-status-replaceall-readonly value="Replace All: Cannot replace text. The current document is read only"/>
+            <find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
+            <find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
+            <find-status-relaced-next-found value="Replace: 1 occurrence was replaced. The next occurence found"/>
+            <find-status-relaced-next-not-found value="Replace: 1 occurrence was replaced. The next occurence not found"/>
+            <find-status-replace-not-found value="Replace: no occurrence was found"/>
+            <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
+            <find-status-cannot-find value="Find: Can't find the text &quot;$STR_REPLACE$&quot;"/>
+            <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ matches"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

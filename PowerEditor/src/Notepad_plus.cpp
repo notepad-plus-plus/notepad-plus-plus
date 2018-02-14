@@ -1113,13 +1113,25 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
 
 	if (nbTotal < 0)
-		_findReplaceDlg.setStatusbarMessage(TEXT("Replace in Opened Files: The regular expression to search is formed badly"), FSNotFound);
+	{
+		generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-replaceinfiles-re-malformed", TEXT("Replace in Opened Files: The regular expression is malformed."));
+		_findReplaceDlg.setStatusbarMessage(msg, FSNotFound);
+	}
 	else
 	{
 		if (nbTotal)
 			enableCommand(IDM_FILE_SAVEALL, true, MENU | TOOLBAR);
-		TCHAR result[64];
-		wsprintf(result, TEXT("Replace in Opened Files: %s occurrences replaced."), commafyInt(nbTotal).c_str());
+
+		generic_string result;
+		if (nbTotal == 1)
+		{
+			result = _nativeLangSpeaker.getLocalizedStrFromID("find-status-replaceinopenedfiles-1-replaced", TEXT("Replace in Opened Files: 1 occurrence was replaced."));
+		}
+		else
+		{
+			result = _nativeLangSpeaker.getLocalizedStrFromID("find-status-replaceinopenedfiles-nb-replaced", TEXT("Replace in Opened Files: $INT_REPLACE$ occurrences were replaced."));
+			result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbTotal));
+		}
 		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 	}
 	return true;
@@ -1549,9 +1561,17 @@ bool Notepad_plus::replaceInFiles()
 	_invisibleEditView.setCurrentBuffer(oldBuf);
 	_pEditView = pOldView;
 
-	TCHAR msg[128];
-	wsprintf(msg, TEXT("Replace in Files: %s occurrences replaced"), commafyInt(nbTotal).c_str());
-	_findReplaceDlg.setStatusbarMessage(msg, FSMessage);
+	generic_string result;
+	if (nbTotal == 1)
+	{
+		result = _nativeLangSpeaker.getLocalizedStrFromID("find-status-replaceinfiles-1-replaced", TEXT("Replace in Files: 1 occurrence was replaced."));
+	}
+	else
+	{
+		result = _nativeLangSpeaker.getLocalizedStrFromID("find-status-replaceinfiles-nb-replaced", TEXT("Replace in Files: $INT_REPLACE$ occurrences were replaced."));
+		result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbTotal));
+	}
+	_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 
 	return true;
 }

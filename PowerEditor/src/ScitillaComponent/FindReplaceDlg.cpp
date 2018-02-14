@@ -801,9 +801,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			 _findClosePos.top = p.y + 10;
 
 			 NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			 generic_string searchButtonTip = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip");
-			 if (searchButtonTip.empty())
-				 searchButtonTip = TEXT("Use Shift+Enter to search in the opposite direction.");
+			 generic_string searchButtonTip = pNativeSpeaker->getLocalizedStrFromID("shift-change-direction-tip", TEXT("Use Shift+Enter to search in the opposite direction."));
 
 			 _shiftTrickUpTip = CreateToolTip(IDOK, _hSelf, _hInst, const_cast<PTSTR>(searchButtonTip.c_str()));
 
@@ -815,9 +813,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				 SendMessage(_shiftTrickUpTip, TTM_SETDELAYTIME, TTDT_AUTOPOP, MAKELPARAM((15000), (0)));
 			 }
 
-			 generic_string checkboxTip = pNativeSpeaker->getLocalizedStrFromID("two-find-buttons-tip");
-			 if (checkboxTip.empty())
-				 checkboxTip = TEXT("2 find buttons mode");
+			 generic_string checkboxTip = pNativeSpeaker->getLocalizedStrFromID("two-find-buttons-tip", TEXT("2 find buttons mode"));
 
 			 _2ButtonsTip = CreateToolTip(IDC_2_BUTTONS_MODE, _hSelf, _hInst, const_cast<PTSTR>(checkboxTip.c_str()));
 
@@ -1002,10 +998,17 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					// restore search direction which may have been overwritten because shift-key was pressed
 					_options._whichDirection = direction_bak;
 
+					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 					if (findStatus == FSEndReached)
-						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."), FSEndReached);
+					{
+						generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."));
+						setStatusbarMessage(msg, FSEndReached);
+					}
 					else if (findStatus == FSTopReached)
-						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."), FSTopReached);
+					{
+						generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-top-reached", TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."));
+						setStatusbarMessage(msg, FSTopReached);
+					}
 
 					nppParamInst->_isFindReplacing = false;
 				}
@@ -1166,8 +1169,9 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						setStatusbarMessage(TEXT(""), FSNoMessage);
 						if ((*_ppEditView)->getCurrentBuffer()->isReadOnly())
 						{
-							generic_string errMsg = TEXT("Replace: Cannot replace text. The current document is read only.");
-							setStatusbarMessage(errMsg, FSNotFound);
+							NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+							generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-readonly", TEXT("Replace: Cannot replace text. The current document is read only."));
+							setStatusbarMessage(msg, FSNotFound);
 							return TRUE;
 						}
 
@@ -1184,21 +1188,25 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 						nppParamInst->_isFindReplacing = false;
 
-						generic_string result = TEXT("");
-						
+						generic_string result;
+						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 						if (nbReplaced < 0)
-							result = TEXT("Replace All: The regular expression is malformed.");
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-re-malformed", TEXT("Replace All: The regular expression is malformed."));
+						}
 						else
 						{
-							TCHAR moreInfo[64];
-							if(nbReplaced == 1)
-								wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
+							if (nbReplaced == 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-1-replaced", TEXT("Replace All: 1 occurrence was replaced."));
+							}
 							else
-								wsprintf(moreInfo, TEXT("Replace All: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
-							result = moreInfo;
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-nb-replaced", TEXT("Replace All: $INT_REPLACE$ occurrences were replaced."));
+								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbReplaced));
+							}	
 						}
 						setStatusbarMessage(result, FSMessage);
-						//::SetFocus(_hSelf);
 						getFocus();
 					}
 				}
@@ -1214,22 +1222,28 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						_options._str2Search = getTextFromCombo(hFindCombo);
 
 						int nbCounted = processAll(ProcessCountAll, &_options);
-						generic_string result = TEXT("");
 
+						generic_string result;
+						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 						if (nbCounted < 0)
-							result = TEXT("Count: The regular expression to search is malformed.");
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-re-malformed", TEXT("Count: The regular expression to search is malformed."));
+						}
 						else
 						{
-							TCHAR moreInfo[128];
 							if (nbCounted == 1)
-								wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-1-match", TEXT("Count: 1 match."));
+							}
 							else
-								wsprintf(moreInfo, TEXT("Count: %s matches."), commafyInt(nbCounted).c_str());
-							result = moreInfo;
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-nb-matches", TEXT("Count: $INT_REPLACE$ matches."));
+								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbCounted));
+							}
 						}
+
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
 						setStatusbarMessage(result, FSMessage);
-						//::SetFocus(_hSelf);
 						getFocus();
 					}
 				}
@@ -1248,20 +1262,26 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 						nppParamInst->_isFindReplacing = true;
 						int nbMarked = processAll(ProcessMarkAll, &_options);
 						nppParamInst->_isFindReplacing = false;
-						generic_string result = TEXT("");
+						
+						generic_string result;
+						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 						if (nbMarked < 0)
-							result = TEXT("Mark: The regular expression to search is malformed.");
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-re-malformed", TEXT("Mark: The regular expression to search is malformed."));
+						}
 						else
 						{
-							TCHAR moreInfo[128];
-							if(nbMarked == 1)
-								wsprintf(moreInfo, TEXT("Mark: %d match."), nbMarked);
+							if (nbMarked == 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("1 match."));
+							}
 							else
-								wsprintf(moreInfo, TEXT("Mark: %s matches."), commafyInt(nbMarked).c_str());
-							result = moreInfo;
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("$INT_REPLACE$ matches."));
+								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
+							}
 						}
 						setStatusbarMessage(result, FSMessage);
-						//::SetFocus(_hSelf);
 						getFocus();
 					}
 				}
@@ -1578,15 +1598,15 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			//failed, or failed twice with wrap
 			if (NotIncremental == pOptions->_incrementalType) //incremental search doesnt trigger messages
 			{	
-				generic_string msg = TEXT("Find: Can't find the text \"");
-				msg += stringReplace(txt2find, TEXT("&"), TEXT("&&"));
-				msg += TEXT("\"");
+				generic_string newTxt2find = stringReplace(txt2find, TEXT("&"), TEXT("&&"));
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+				generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-cannot-find", TEXT("Find: Can't find the text \"$STR_REPLACE$\""));
+				msg = stringReplace(msg, TEXT("$STR_REPLACE$"), newTxt2find);
 				setStatusbarMessage(msg, FSNotFound);
 				
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 				if (!::IsWindowVisible(_hSelf))
 				{
-					//::SetFocus((*_ppEditView)->getHSelf());
 					(*_ppEditView)->getFocus();
 				}
 				else
@@ -1600,7 +1620,9 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	}
 	else if (posFind == -2) // Invalid Regular expression
 	{
-		setStatusbarMessage(TEXT("Find: Invalid regular expression"), FSNotFound);
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
+		setStatusbarMessage(msg, FSNotFound);
 		return false;
 	}
 
@@ -1641,8 +1663,9 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 
 	if ((*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
-		generic_string errMsg = TEXT("Replace: Cannot replace text. The current document is read only.");
-		setStatusbarMessage(errMsg, FSNotFound);
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-readonly", TEXT("Replace: Cannot replace text. The current document is read only."));
+		setStatusbarMessage(msg, FSNotFound);
 		return false;
 	}
 
@@ -1686,29 +1709,38 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 				}
 			}
 			(*_ppEditView)->execute(SCI_SETSEL, start + replacedLen, start + replacedLen);
-						
+
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			// Do the next find
 			moreMatches = processFindNext(txt2find, &replaceOptions, &status, FINDNEXTTYPE_REPLACENEXT);
 
 			if (status == FSEndReached)
 			{
-				setStatusbarMessage(TEXT("Replace: Replaced the 1st occurrence from the top. The end of document has been reached."), FSEndReached);
+				generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-end-reached", TEXT("Replace: Replaced the 1st occurrence from the top. The end of document has been reached."));
+				setStatusbarMessage(msg, FSEndReached);
 			}
 			else if (status == FSTopReached)
 			{
-				setStatusbarMessage(TEXT("Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached."), FSTopReached);
+				generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-top-reached", TEXT("Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached."));
+				setStatusbarMessage(msg, FSTopReached);
 			}
 			else
 			{
-				generic_string msg = TEXT("Replace: 1 occurrence was replaced. ");
-				msg += moreMatches?TEXT("The next occurence found"):TEXT("The next occurence not found");
+				generic_string msg;
+				if (moreMatches)
+					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-found", TEXT("Replace: 1 occurrence was replaced. The next occurence found"));
+				else
+					msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaced-next-not-found", TEXT("Replace: 1 occurrence was replaced. The next occurence not found"));
+
 				setStatusbarMessage(msg, FSMessage);
 			}
 		}
 	}
 	else
 	{
-		setStatusbarMessage(TEXT("Replace: no occurrence was found."), FSNotFound);
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replace-not-found", TEXT("Replace: no occurrence was found."));
+		setStatusbarMessage(msg, FSNotFound);
 	}
 
 	return moreMatches;	
@@ -1740,8 +1772,9 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 {
 	if (op == ProcessReplaceAll && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
-		generic_string result = TEXT("Replace All: Cannot replace text. The current document is read only.");
-		setStatusbarMessage(result, FSNotFound);
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-readonly", TEXT("Replace All: Cannot replace text. The current document is read only."));
+		setStatusbarMessage(msg, FSNotFound);
 		return 0;
 	}
 
@@ -2585,41 +2618,53 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 					nppParamInst->_isFindReplacing = false;
 
 					generic_string result;
-					
+					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 					if (nbReplaced < 0)
-						result = TEXT("Replace All: The regular expression is malformed.");
+					{
+						result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-re-malformed", TEXT("Replace All: The regular expression is malformed."));
+					}
 					else
 					{
-						TCHAR moreInfo[64];
 						if (nbReplaced == 1)
-							wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-1-replaced", TEXT("Replace All: 1 occurrence was replaced."));
+						}
 						else
-							wsprintf(moreInfo, TEXT("Replace All: %s occurrences were replaced."), commafyInt(nbReplaced).c_str());
-						result = moreInfo;
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-nb-replaced", TEXT("Replace All: $INT_REPLACE$ occurrences were replaced."));
+							result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbReplaced));
+						}
 					}
 					
 					setStatusbarMessage(result, FSMessage);
 					break;
 				}
+
 				case IDCCOUNTALL :
 				{
 					int nbCounted = processAll(ProcessCountAll, _env);
 					generic_string result;
-
+					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 					if (nbCounted < 0)
-						result = TEXT("Count: The regular expression to search is malformed.");
+					{
+						result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-re-malformed", TEXT("Count: The regular expression to search is malformed."));
+					}
 					else
 					{
-						TCHAR moreInfo[128];
 						if (nbCounted == 1)
-							wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-1-match", TEXT("Count: 1 match."));
+						}
 						else
-							wsprintf(moreInfo, TEXT("Count: %s matches."), commafyInt(nbCounted).c_str());
-						result = moreInfo;
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-nb-matches", TEXT("Count: $INT_REPLACE$ matches."));
+							result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbCounted));
+						}
 					}
 					setStatusbarMessage(result, FSMessage);
 					break;
 				}
+
 				case IDCMARKALL:
 				{
 					nppParamInst->_isFindReplacing = true;
@@ -2627,17 +2672,25 @@ void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string s
 					nppParamInst->_isFindReplacing = false;
 					generic_string result;
 
+					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 					if (nbMarked < 0)
 					{
-						result = TEXT("Mark: The regular expression to search is malformed.");
+						result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-re-malformed", TEXT("Mark: The regular expression to search is malformed."));
 					}
 					else
 					{
 						TCHAR moreInfo[128];
+						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+						generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
 						if (nbMarked <= 1)
-							wsprintf(moreInfo, TEXT("%d match."), nbMarked);
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("1 match."));
+						}
 						else
-							wsprintf(moreInfo, TEXT("%s matches."), commafyInt(nbMarked).c_str());
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("$INT_REPLACE$ matches."));
+							result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
+						}
 						result = moreInfo;
 					}
 

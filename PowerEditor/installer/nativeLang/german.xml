@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.5
-	last modified: 2018-02-11 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-02-15 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -490,16 +490,19 @@
 				<Item id="2602" name="Ändern"/>
 				<Item id="2603" name="Entfernen"/>
 				<Item id="2606" name="Löschen"/>
+				<Item id="2607" name="Filter: "/>
 				<Item id="1" name="Schliessen"/>
 				<ColumnName name="Name"/>
 				<ColumnShortcut name="Kürzel"/>
 				<ColumnCategory name="Kategorie"/>
 				<ColumnPlugin name="Plugin"/>
 				<MainMenuTab name="Hauptmenü"/>
-				<MacrosTab name="Macros"/>
+				<MacrosTab name="Makros"/>
 				<RunCommandsTab name="Kommandos ausführen"/>
 				<PluginCommandsTab name="Plugin-Kommandos"/>
 				<ScintillaCommandsTab name="Scintilla-Kommandos"/>
+				<ConflictInfoOk name="Keine Konflikte mit diese Tastenkürzel."/>
+				<ConflictInfoEditing name="Keine Konflikte …"/>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Kürzel">
 				<Item id="1" name="OK"/>
@@ -1124,8 +1127,39 @@
 			<word-chars-list-warning-end value=" in der Liste der Wortzeichen."/>
 			<cloud-invalid-warning value="Ungültiger Pfad."/>
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
+			<cloud-select-folder value="Verzeichnis wählen von wo/wohin Notepad++ seine Einstellungen liest bzw. schreibt"/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
 			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
+			
+			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
+			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>
+			<find-status-find-from-top-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht"/>
+			<find-status-find-from-bottom-begin-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht"/>
+			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>
+			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
+			<find-status-replaceinfiles-re-malformed value="Ersetzen in geöffneten Dateien: Der Ausdruck ist nicht passend"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Ersetzen in geöffneten Dateien: 1 Vorkommen wurde ersetzt"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Ersetzen in geöffneten Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
+			<find-status-mark-re-malformed value="Achtung: Der Ausdruck für die Suche ist nicht passend"/>
+			<find-status-invalid-re value="Suche: Üngültiger Ausdruck"/>
+			<find-status-mark-1-match value="1 Treffer"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ Treffer"/>
+			<find-status-count-re-malformed value="Zähler: Der Ausdruck für die Suche ist nicht passend"/>
+			<find-status-count-1-match value="Zähler: 1 Treffer"/>
+			<find-status-count-nb-matches value="Zähler: $INT_REPLACE$ Treffer"/>
+			<find-status-replaceall-re-malformed value="Alle ersetzen: Der Ausdruck ist nicht passend"/>
+			<find-status-replaceall-1-replaced value="Alle ersetzen: 1 Vorkommen wurde ersetzt"/>
+			<find-status-replaceall-nb-replaced value="Alle ersetzen: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
+			<find-status-replaceall-readonly value="Alle ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
+			<find-status-replace-end-reached value="Ersetzen: 1. Vorkommen von oben wurde ersetzt. Das Ende des Dokumentes wurde erreicht"/>
+			<find-status-replace-top-reached value="Ersetzen: 1. Vorkommen von unten wurde ersetzt. Der Anfang des Dokumentes wurde erreicht"/>
+			<find-status-relaced-next-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Nächster Treffer gefunden"/>
+			<find-status-relaced-next-not-found value="Ersetzen: 1 Vorkommen wurde ersetzt. Kein weiterer Treffer gefunden"/>
+			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
+			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
+			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
+			<find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ Übereinstimmungen"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

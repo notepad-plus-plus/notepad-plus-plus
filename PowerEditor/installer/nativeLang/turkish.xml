@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.3.1">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.5.5">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -260,13 +260,13 @@
 					<Item id="45002" name="UNIX Biçimine Dönüştür"/>
 					<Item id="45003" name="Mac OS Biçimine Dönüştür"/>
 					<Item id="45004" name="ANSI Olarak Kodla"/>
-					<Item id="45005" name="UTF-8 Olarak Kodla"/>
+					<Item id="45005" name="UTF-8 BOM Olarak Kodla"/>
 					<Item id="45006" name="UCS-2 Big-Endian Olarak Kodla"/>
 					<Item id="45007" name="UCS-2 Little-Endian Olarak Kodla"/>
-					<Item id="45008" name="BOM Olmadan UTF-8 Olarak Kodla"/>
+					<Item id="45008" name="UTF-8 Olarak Kodla"/>
 					<Item id="45009" name="ANSI'ye Dönüştür"/>
-					<Item id="45010" name="BOM Olmadan UTF-8'e Dönüştür"/>
-					<Item id="45011" name="UTF-8'e Dönüştür"/>
+					<Item id="45010" name="UTF-8'e Dönüştür"/>
+					<Item id="45011" name="UTF-8 BOM'a Dönüştür"/>
 					<Item id="45012" name="UCS-2 Big-Endian'a Dönüştür"/>
 					<Item id="45013" name="UCS-2 Little-Endian'a Dönüştür"/>
 
@@ -348,10 +348,13 @@
 				<Item id="1604" name="Büyük/küçük harf &amp;eşleştir"/>
 				<Item id="1605" name="Dü&amp;zenli ifade"/>
 				<Item id="1606" name="Aramayı sür&amp;dür"/>
+				
+				
 				<Item id="1614" name="Say"/>
 				<Item id="1615" name="Tümünü &amp;Bul"/>
 				<Item id="1616" name="Satırı işaretle"/>
 				<Item id="1618" name="Her arama için temizle"/>
+				
 				<Item id="1611" name="De&amp;ğiştir:"/>
 				<Item id="1608" name="&amp;Değiştir"/>
 				<Item id="1609" name="Tü&amp;münü Değiştir"/>
@@ -1012,6 +1015,7 @@ Buluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum aya
 			<cloud-invalid-warning value="Geçersiz yol."/>
 			<cloud-restart-warning value="Etkin olması için Notepad++'yı tekrar başlat."/>
 			<shift-change-direction-tip value="Shift + Enter ile diğer yönde arama yapın."/>
+			<1-to-2-buttons-tip value="2 Bul Düğmesi Modu"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

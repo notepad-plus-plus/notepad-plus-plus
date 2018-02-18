@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.5.1  5/Sep/2017  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.5.5  19/Feb/2018  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.5.1">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -144,7 +144,7 @@
 					<Item id = "42048" name = "Kopírovat binární obsah"/>
 					<Item id = "42049" name = "Vyjmout binární obsah"/>
 					<Item id = "42050" name = "Vložit binární obsah"/>
-					<Item id = "42051" name = "Panel znaků"/>
+					<Item id = "42051" name = "Panel ASCII znaků"/>
 					<Item id = "42052" name = "Historie Schránky"/>
 					<Item id = "42053" name = "Mezery na tabulátory (úvodní)"/>
 					<Item id = "42054" name = "Mezery na tabulátory (všechny)"/>
@@ -272,13 +272,13 @@
 					<Item id = "45002" name = "Konvertovat do formátu UNIX"/>
 					<Item id = "45003" name = "Konvertovat do formátu MAC"/>
 					<Item id = "45004" name = "Změnit kódování na ANSI"/>
-					<Item id = "45005" name = "Změnit kódování na UTF-8"/>
+					<Item id = "45005" name = "Změnit kódování na UTF-8 s BOM"/>
 					<Item id = "45006" name = "Změnit kódování na UCS-2 Big Endian"/>
 					<Item id = "45007" name = "Změnit kódování na UCS-2 Little Endian"/>
-					<Item id = "45008" name = "Změnit kódování na UTF-8 (bez BOM)"/>
+					<Item id = "45008" name = "Změnit kódování na UTF-8 bez BOM"/>
 					<Item id = "45009" name = "Konvertovat do ANSI"/>
-					<Item id = "45010" name = "Konvertovat do UTF-8 (bez BOM)"/>
-					<Item id = "45011" name = "Konvertovat do UTF-8"/>
+					<Item id = "45010" name = "Konvertovat do UTF-8 bez BOM"/>
+					<Item id = "45011" name = "Konvertovat do UTF-8 s BOM"/>
 					<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
 					<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
 					<Item id = "45060" name = "Big5 (tradiční)"/>
@@ -492,6 +492,36 @@
 					<Item id = "2232" name = "Povolit globálně podtržený styl písma"/>
 				</SubDialog>
 			</StyleConfig>
+			
+			<ShortcutMapper title = "Asociace klávesových zkratek">
+				<Item id = "2602" name = "Změnit"/>
+				<Item id = "2603" name = "Odstranit"/>
+				<Item id = "2606" name = "Vypnout"/>
+				<Item id = "2607" name = "Filtrovat: "/>
+				<Item id = "1" name = "Zavřít"/>
+				<ColumnName name = "Název"/>
+				<ColumnShortcut name = "Zkratka"/>
+				<ColumnCategory name = "Kategorie"/>
+				<ColumnPlugin name = "Plugin"/>
+				<MainMenuTab name = "Hlavní menu"/>
+				<MacrosTab name = "Makra"/>
+				<RunCommandsTab name = "Spouštěcí povely"/>
+				<PluginCommandsTab name = "Pluginové povely"/>
+				<ScintillaCommandsTab name = "Scintilla povely"/>
+				<ConflictInfoOk name = "Nezjištěny žádné kolize pro tuto položku."/>
+				<ConflictInfoEditing name = "Nekoliduje s ničím . . ."/>
+			</ShortcutMapper>
+			
+			<ShortcutMapperSubDialg title="Zkratka">
+				<Item id = "1" name = "OK"/>
+				<Item id = "2" name = "Storno"/>
+				<Item id = "5006" name = "Název"/>
+				<Item id = "5008" name = "Přidat"/>
+				<Item id = "5009" name = "Odebrat"/>
+				<Item id = "5010" name = "Použít"/>
+				<Item id = "5007" name = "Toto odstraní klávesovou zkratku příkazu"/>
+				<Item id = "5012" name = "NALEZENA KOLIZE!"/>
+			</ShortcutMapperSubDialg>
 
 			<UserDefine title = "Uživatelské nastavení">
 				<Item id = "20001" name = "Dokovat"/>
@@ -719,7 +749,7 @@
 					<Item id = "6119" name = "Více řad"/>
 					<Item id = "6120" name = "Vertikální"/>
 					<Item id = "6121" name = "Ukončit při uzavření poslední karty"/>
-					<Item id = "6122" name = "Skrýt (klávesa Alt nebo F10 slouží k přepínání)"/>
+					<Item id = "6122" name = "Skrýt hl. menu (klávesa Alt nebo F10 slouží k přepínání)"/>
 					<Item id = "6123" name = "Lokalizace"/>
 					<Item id = "6125" name = "Přepínač dokumentů"/>
 					<Item id = "6126" name = "Zobrazit"/>
@@ -990,7 +1020,85 @@
 			<FilePathNotFoundWarning title = "Otevření souboru" message = "Soubor, který se pokoušíte otevřít, neexistuje."/>
 			<SessionFileInvalidError title = "Relace nemohla být zavedena" message = "Soubor relace je buďto poškozen nebo je neplatný."/>
 			<DroppingFolderAsProjetModeWarning title = "Neplatná akce" message = "Můžete přetáhovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit 'Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)'."/>
+			<SortingError title = "Chyba třídění" message = "Nebylo možné provést numerické setřídění kvůli řádku $INT_REPLACE$."/>
+			<ColumnModeTip title = "Tip k sloupcovému režimu" message = "Použijte prosím &quot;výběr ALT+Myš&quot; nebo &quot;Alt+Shift+KurzorováŠipka&quot; k zapnutí sloupcového režimu."/>
+			<BufferInvalidWarning title = "Ukládání selhalo" message = "Nelze uložit: Neplatná vyrovnávací paměť."/>
+			<DoSaveOrNot title = "Ukládání" message = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
+			<DoCloseOrNot title = "Zachování neexistujícího souboru" message = "Soubor &quot;$STR_REPLACE$&quot; již neexistuje. Keep this file in editor?"/>
+			<DoDeleteOrNot title = "Smazání souboru" message = "Soubor &quot;$STR_REPLACE$&quot; bude přemístěn do Koše a tento dokument bude uzavřen. Pokračovat?"/>
+			<NoBackupDoSaveFile title = "Ukládání" message = "Váš soubor pro zálohu není k nalezení (byl smazán z vnějšku). Vytvořte zálohu, jinak budou Vaše data ztracena. Chcete uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title = "Znovuotevření" message = "&quot;$STR_REPLACE$&quot;  Tento soubor byl změněn jiným programem. Chcete jej znovu načíst?"/>
+			<DoReloadOrNotAndLooseChange title = "Znovuotevření" message = "&quot;$STR_REPLACE$&quot;  Tento soubor byl změněn jiným programem. Chcete jej znovu načíst a ztratit tak všechny změny provedené v Notepadu++?"/>
+			<PrehistoricSystemDetected title = "Detekován příliš starý systém" message = "Vypadá to, že používáte příliš starý operační systém. Je nám líto, ale tato funkce je podporována pouze na novějších systémech."/>
+			<XpUpdaterProblem title = "Aktualizační program Notepadu++" message = "Aktualizační program Notepadu++ není kompatibilní s Windows XP vzhledem k zastaralé bezpečnostní vrstvě tohoto systému. Chcete místo toho přejít na webové stránky Notepadu++, odkud si můžete sami stáhnout poslední verzi Notepadu++?"/>
+			<DocTooDirtyToMonitor title = "Chyba sledování stavu" message = "Dokument je v nekonzistentním stavu. Uložte prosím změny v dokumentu před zapnutím sledování jeho stavu."/>
+			<DocNoExistToMonitor title = "Problém se sledováním stavu" message = "Soubor musí existovat, aby jej bylo možné sledovat."/>
+			<FileTooBigToOpene title = "Problém s velikostí souboru" message = "Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>
+			<CreateNewFileOrNot title = "Vytvoření nového souboru" message = "&quot;$INT_REPLACE$&quot; neexistuje. Chcete jej vytvořit?"/>
+			<CreateNewFileError title = "Vytvoření nového souboru" message = "Není možné vytvořit soubor &quot;$INT_REPLACE$&quot;."/>
+			<OpenFileError title = "CHYBA" message = "Není možné otevřít soubor &quot;$INT_REPLACE$&quot;."/>
+			<FileBackupFailed title = "Selhání zálohování souboru" message = "Předchozí verzi souboru se nepodařilo uložit do adresáře se zálohami &quot;$INT_REPLACE$&quot;. Budete chtít přesto uložit aktuální verzi souboru?"/>
+			<LoadStylersFailed title = "Selhání načtení stylers.xml" message = "Nepodařilo se načíst &quot;$INT_REPLACE$&quot;!"/>
+			<LoadLangsFailed title = "Konfigurátor" message = "Nepodařilo se načíst langs.xml! Chcete obnovit Váš soubor langs.xml?"/>
+			<LoadLangsFailedFinal title = "Konfigurátor" message = "Nepodařilo se načíst soubor langs.xml!"/>
+			<FolderAsWorspaceSubfolderExists title = "Problém s přidávaním složek do Složky jako pracovní plochy" message = "Podsložka složky, kterou chcete přidat, již existuje. Odeberte její kořenovou složku prosím z panelu předtím, než přidáte složku &quot;$STR_REPLACE$&quot;."/>
+			<ProjectPanelChanged title = "$STR_REPLACE$" message = "Pracovní plocha byla modifikována. Přejete si ji uložit?"/>
+			<ProjectPanelChangedSaveError title = "$STR_REPLACE$" message = "Vaše pracovní plocha nebyla uložena."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title = "Otevření pracovní plochy" message = "Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title = "Nová pracovní plocha" message = "Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
+			<ProjectPanelOpenFailed title = "Otevření pracovní plochy" message = "Pracovní plocha nemohla být načtena. Vypadá to, že soubor k otevření není platnou pracovní plochou."/>
+			<ProjectPanelRemoveFolderFromProject title = "Odebrání složky z projektu" message = "Všechny podsložky budou odebrány. Jste si jisti, že chcete odebrat tuto složku z projektu?"/>
+			<ProjectPanelRemoveFileFromProject title = "Odebrání souboru z projektu" message = "Jste si jisti, že chcete odebrat tento soubor z projektu?"/>
+			<ProjectPanelReloadError title = "Znovuotevření pracovní plochy" message = "Soubor k opětovnému načtení nebyl nalezen."/>
+			<ProjectPanelReloadDirty title = "Znovuotevření pracovní plochy" message = "Nyní používaná pracovní plocha byla modifikována. Opětovným načtením přijdete o všechny provedené změny. Chcete pokračovat?"/>
+			<UDLNewNameError title = "Chyba UDL" message = "Toto jméno je již využíváno jiným jazykem/syntaxí, prosím zadejte jiné."/>
+			<UDLRemoveCurrentLang title = "Odstranění aktuální syntaxe" message = "Jste si jisti?"/>
+			<SCMapperDoDeleteOrNot title = "Jste si jisti?" message = "Jste si jisti, že chcete smazat tuto klávesovou zkratku?"/>
+			<FindCharRangeValueError title = "Problém s rozsahem hodnoty" message = "Měli byste napsat hodnotu z rozsahu 0 až 255."/>
 		</MessageBox>
+		
+		<ClipboardHistory>
+			<PanelTitle name="Historie Schránky"/>
+		</ClipboardHistory>
+		
+		<DocSwitcher>
+			<PanelTitle name="Přepínač dokumentů"/>
+			<ColumnName name="Jméno"/>
+			<ColumnExt name="Příp."/>
+		</DocSwitcher>
+		
+		<AsciiInsertion>
+			<PanelTitle name="Panel ASCII znaků"/>
+			<ColumnVal name="Hodnota"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Znak"/>
+		</AsciiInsertion>
+		
+		<DocumentMap>
+			<PanelTitle name="Mapa dokumentu"/>
+		</DocumentMap>
+		
+		<FunctionList>
+			<PanelTitle name="Seznam funkcí"/>
+			<SortTip name="Setřídit" />
+			<ReloadTip name="Znovu načíst" />
+		</FunctionList>
+		
+		<FolderAsWorkspace>
+			<PanelTitle name="Složka jako Pracovní plocha"/>
+			<SelectFolderFromBrowserString name="Vyberte složku, kterou chcete přidat do Pracovní plochy"/>
+			<Menus>
+				<Item id="3511" name="Odebrat"/>
+				<Item id="3512" name="Odebrat vše"/>
+				<Item id="3513" name="Přidat"/>
+				<Item id="3514" name="Spustit systémem"/>
+				<Item id="3515" name="Otevřít"/>
+				<Item id="3516" name="Kopírovat cestu"/>
+				<Item id="3517" name="Najít v souborech..."/>
+				<Item id="3518" name="Průzkumník zde"/>
+				<Item id="3519" name="CMD zde"/>
+			</Menus>
+		</FolderAsWorkspace>
 
 		<ProjectManager>
 			<PanelTitle name = "Projekt"/>
@@ -1049,7 +1157,35 @@
 			<word-chars-list-warning-end value = "  ve Vašem seznamu znaků."/>
 			<cloud-invalid-warning value = "Neplatná cesta."/>
 			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
+			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
+			<two-find-buttons-tip value = "Mód s dvěma vyhledávacími tlačítky"/>
+			<find-status-top-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
+			<find-status-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
+			<find-status-replaceinfiles-1-replaced value = "Nahrazování v souborech: 1 výskyt nahrazen"/>
+			<find-status-replaceinfiles-nb-replaced value = "Nahrazování v souborech: $INT_REPLACE$ výskytů nahrazeno"/>
+			<find-status-replaceinfiles-re-malformed value = "Nahrazování v otevřených souborech: Regulární výraz je vadný"/>
+			<find-status-replaceinopenedfiles-1-replaced value = "Nahrazování v otevřených souborech: 1 výskyt nahrazen"/>
+			<find-status-replaceinopenedfiles-nb-replaced value = "Nahrazování v otevřených souborech: $INT_REPLACE$ výskytů nahrazeno"/>
+			<find-status-mark-re-malformed value = "Označování: Regulární výraz pro vyhledávání je vadný"/>
+			<find-status-invalid-re value = "Vyhledávání: Neplatný regulární výraz"/>
+			<find-status-mark-1-match value = "1 nález"/>
+			<find-status-mark-nb-matches value = "$INT_REPLACE$ nálezů"/>
+			<find-status-count-re-malformed value = "Počet: Regulární výraz pro vyhledávání je vadný"/>
+			<find-status-count-1-match value = "Počet: 1 nález"/>
+			<find-status-count-nb-matches value = "Počet: $INT_REPLACE$ nálezů"/>
+			<find-status-replaceall-re-malformed value = "Nahradit vše: Regulární výraz je vadný"/>
+			<find-status-replaceall-1-replaced value = "Nahrazování všeho: 1 výskyt nahrazen"/>
+			<find-status-replaceall-nb-replaced value = "Nahrazování všeho: $INT_REPLACE$ výskytů nahrazeno"/>
+			<find-status-replaceall-readonly value = "Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
+			<find-status-replace-end-reached value = "Nahrazování: Nahrazen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
+			<find-status-replace-top-reached value = "Nahrazování: Nahrazen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
+			<find-status-relaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen"/>
+			<find-status-relaced-next-not-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nenalezen"/>
+			<find-status-replace-not-found value = "Nahrazování: žádný výskyt nebyl nalezen"/>
+			<find-status-replace-readonly value = "Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
+			<find-status-cannot-find value = "Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>
+			<find-status-mark-nb-matches value = "$INT_REPLACE$ nálezů"/>
 		</MiscStrings>
 
 	</Native-Langue>

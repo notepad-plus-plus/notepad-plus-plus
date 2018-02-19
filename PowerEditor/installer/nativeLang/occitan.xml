@@ -487,7 +487,7 @@
 				<Item id="5008" name="Ajustar"/>
 				<Item id="5009" name="Tirar"/>
 				<Item id="5010" name="Aplicar"/>
-				<Item id="5007" name="Aquò levarà l'accelerator"/>
+				<Item id="5007" name="Aquò levarà l'acorchi d'aquela comanda"/>
 				<Item id="5012" name="CONFLICTE TRAPAT !"/>
 			</ShortcutMapperSubDialg>
 
@@ -684,7 +684,7 @@
 					<Item id="6120" name="Vertical"/>
 
 					<Item id="6121" name="Quitar en tampant lo darrièr onglet"/>
-					<Item id="6122" name="Amagar (utilizar Alt o F10 per Mostrar)"/>
+					<Item id="6122" name="Amagar la barra d'estat (utilizar Alt o F10 per Mostrar)"/>
 					<Item id="6123" name="Lenga"/>
 
 					<Item id="6125" name="Panèl Lista de documents"/>
@@ -970,7 +970,7 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<SessionFileInvalidError title="Impossible de cargar la session" message="Lo fichièr de session es siá compromés, siá invalid."/>
 			<DroppingFolderAsProjetModeWarning title="Accion invalida" message="Podètz depausar sonque de fichièrs o de dorsièrs, mas pas los dos perqué sètz dins lo mòde Dorsièr coma espaci de trabalh.
 			devètz activar &quot;Dobrir totes los fichièrs del dorsièr al moment del rebalar-depausar&quot; dins la seccion &quot;Dorsièr per defaut&quot; de la fenèstra Preferéncias per que fonccione."/>
-			<SortingError title="Error de triada" message="Impossible d'ordenar numericament a causa de la linha $STR_REPLACE$."/>
+			<SortingError title="Error de triada" message="Impossible d'ordenar numericament a causa de la linha $INT_REPLACE$."/>
 			<ColumnModeTip title="Astúcias per mòde colomna" message="Utilisatz &quot;ALT + Seleccion&quot; o &quot;Alt+Maj.+Sageta&quot; per passar en mòde colomna."/>
 			<BufferInvalidWarning title="L'enregistrament poguèt pas capitar" message="Es impossible de salvar : Lo buffer es invalid."/>
 			<DoSaveOrNot title="Salvar" message="Salvar lo fichièr &quot;$STR_REPLACE$&quot; ?"/>
@@ -1004,7 +1004,7 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			Volètz recuperar lo vòstre langs.xml ?"/>
 			<LoadLangsFailedFinal title="Configurator" message="Lo cargament de langs.xml a pas capitat !"/>
 			<FolderAsWorspaceSubfolderExists title="Problèma de Dorsièr coma espaci de trabalh" message="Un sos-dorsièr del dorsièr que volètz apondre exista.
-			Mercés de lo tirar del panèl abans d'apondre &quot;$STR_REPLACE$&quot;."/>
+			Mercés de tirar son dorsièr racina del panèl abans d'apondre &quot;$STR_REPLACE$&quot;."/>
 
 			<ProjectPanelChanged title="$STR_REPLACE$" message="L'espaci de trabalh a estat modificat. Lo volètz salvar ?"/>
 			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Lo vòstre espaci de trabalh foguèt pas salvat."/>
@@ -1140,7 +1140,7 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<find-status-replaceall-re-malformed value="Remplaçar tot : Expression regulara invalida"/>
 			<find-status-replaceall-1-replaced value="Remplaçar tot : 1 ocurréncia remplaçada"/>
 			<find-status-replaceall-nb-replaced value="Remplaçar tot : $INT_REPLACE$ ocurréncias remplaçadas"/>
-			<ind-status-replaceall-readonly value="Remplaçar tot : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
+			<find-status-replaceall-readonly value="Remplaçar tot : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
 			<find-status-replace-end-reached value="Remplaçar : 1èra ocurréncia dempuèi lo naut remplaçada. Fin del document atenguda"/>
 			<find-status-replace-top-reached value="Remplaçar : 1èra ocurréncia dempuèi lo bas remplaçada. Debuta del document atenguda."/>
 			<find-status-relaced-next-found value="Remplaçar : 1 occurrence was replaced. Ocurréncia seguenta trobada"/>
@@ -1148,7 +1148,6 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			<find-status-replace-not-found value="Remplaçar : cap d'ocurrénia trobada"/>
 			<find-status-replace-readonly value="Remplaçar : Impossible de remplaçar lo tèxt. Lo document actiu es en lectura sola"/>
 			<find-status-cannot-find value="Recèrca : Impossible de trobar lo tèxt &quot;$STR_REPLACE$&quot;"/>
-			<find-status-mark-re-malformed value="Marca-paginas : L'expression regulara de cercar es mal formada"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ ocurréncias"/>
 		</MiscStrings>
 	</Native-Langue>

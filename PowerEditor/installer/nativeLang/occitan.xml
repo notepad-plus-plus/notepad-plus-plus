@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Occitan" filename="occitan.xml" >
+	<Native-Langue name="Occitan" filename="occitan.xml" version="7.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

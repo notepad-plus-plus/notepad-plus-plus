@@ -946,15 +946,15 @@ bool NppParameters::reloadLang()
 
 generic_string NppParameters::getSpecialFolderLocation(int folderKind)
 {
-	ITEMIDLIST *pidl;
-	const HRESULT specialLocationResult = SHGetSpecialFolderLocation(NULL, folderKind, &pidl);
-	if (!SUCCEEDED( specialLocationResult))
-		return generic_string();
-	
 	TCHAR path[MAX_PATH];
-	SHGetPathFromIDList(pidl, path);
+	const HRESULT specialLocationResult = SHGetFolderPath(nullptr, folderKind, nullptr, SHGFP_TYPE_CURRENT, path);
 
-	return path;
+	generic_string result;
+	if (SUCCEEDED(specialLocationResult))
+	{
+		result = path;
+	}
+	return result;
 }
 
 

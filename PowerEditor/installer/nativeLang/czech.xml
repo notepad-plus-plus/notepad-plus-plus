@@ -272,13 +272,13 @@
 					<Item id = "45002" name = "Konvertovat do formátu UNIX"/>
 					<Item id = "45003" name = "Konvertovat do formátu MAC"/>
 					<Item id = "45004" name = "Změnit kódování na ANSI"/>
-					<Item id = "45005" name = "Změnit kódování na UTF-8"/>
+					<Item id = "45005" name = "Změnit kódování na UTF-8 s BOM"/>
 					<Item id = "45006" name = "Změnit kódování na UCS-2 Big Endian"/>
 					<Item id = "45007" name = "Změnit kódování na UCS-2 Little Endian"/>
-					<Item id = "45008" name = "Změnit kódování na UTF-8 (bez BOM)"/>
+					<Item id = "45008" name = "Změnit kódování na UTF-8 bez BOM"/>
 					<Item id = "45009" name = "Konvertovat do ANSI"/>
-					<Item id = "45010" name = "Konvertovat do UTF-8 (bez BOM)"/>
-					<Item id = "45011" name = "Konvertovat do UTF-8"/>
+					<Item id = "45010" name = "Konvertovat do UTF-8 bez BOM"/>
+					<Item id = "45011" name = "Konvertovat do UTF-8 s BOM"/>
 					<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
 					<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
 					<Item id = "45060" name = "Big5 (tradiční)"/>
@@ -519,7 +519,7 @@
 				<Item id = "5008" name = "Přidat"/>
 				<Item id = "5009" name = "Odebrat"/>
 				<Item id = "5010" name = "Použít"/>
-				<Item id = "5007" name = "Toto odstraní zkratku"/>
+				<Item id = "5007" name = "Toto odstraní klávesovou zkratku příkazu"/>
 				<Item id = "5012" name = "NALEZENA KOLIZE!"/>
 			</ShortcutMapperSubDialg>
 
@@ -1020,7 +1020,7 @@
 			<FilePathNotFoundWarning title = "Otevření souboru" message = "Soubor, který se pokoušíte otevřít, neexistuje."/>
 			<SessionFileInvalidError title = "Relace nemohla být zavedena" message = "Soubor relace je buďto poškozen nebo je neplatný."/>
 			<DroppingFolderAsProjetModeWarning title = "Neplatná akce" message = "Můžete přetáhovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit 'Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)'."/>
-			<SortingError title = "Chyba třídění" message = "Nebylo možné provést numerické setřídění kvůli řádku $STR_REPLACE$."/>
+			<SortingError title = "Chyba třídění" message = "Nebylo možné provést numerické setřídění kvůli řádku $INT_REPLACE$."/>
 			<ColumnModeTip title = "Tip k sloupcovému režimu" message = "Použijte prosím &quot;výběr ALT+Myš&quot; nebo &quot;Alt+Shift+KurzorováŠipka&quot; k zapnutí sloupcového režimu."/>
 			<BufferInvalidWarning title = "Ukládání selhalo" message = "Nelze uložit: Neplatná vyrovnávací paměť."/>
 			<DoSaveOrNot title = "Ukládání" message = "Uložit soubor &quot;$STR_REPLACE$&quot; ?"/>
@@ -1041,7 +1041,7 @@
 			<LoadStylersFailed title = "Selhání načtení stylers.xml" message = "Nepodařilo se načíst &quot;$INT_REPLACE$&quot;!"/>
 			<LoadLangsFailed title = "Konfigurátor" message = "Nepodařilo se načíst langs.xml! Chcete obnovit Váš soubor langs.xml?"/>
 			<LoadLangsFailedFinal title = "Konfigurátor" message = "Nepodařilo se načíst soubor langs.xml!"/>
-			<FolderAsWorspaceSubfolderExists title = "Problém s přidávaním složek ve Složce jako pracovní ploše" message = "Podsložka složky, kterou chcete přidat, již existuje. Odeberte ji prosím z panelu předtím, než přidáte složku &quot;$STR_REPLACE$&quot;."/>
+			<FolderAsWorspaceSubfolderExists title = "Problém s přidávaním složek do Složky jako pracovní plochy" message = "Podsložka složky, kterou chcete přidat, již existuje. Odeberte její kořenovou složku prosím z panelu předtím, než přidáte složku &quot;$STR_REPLACE$&quot;."/>
 			<ProjectPanelChanged title = "$STR_REPLACE$" message = "Pracovní plocha byla modifikována. Přejete si ji uložit?"/>
 			<ProjectPanelChangedSaveError title = "$STR_REPLACE$" message = "Vaše pracovní plocha nebyla uložena."/>
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title = "Otevření pracovní plochy" message = "Nyní používaná pracovní plocha byla modifikována. Přejete si uložit současný projekt?"/>
@@ -1162,8 +1162,6 @@
 			<two-find-buttons-tip value = "Mód s dvěma vyhledávacími tlačítky"/>
 			<find-status-top-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
 			<find-status-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
-			<find-status-find-from-top-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
-			<find-status-find-from-bottom-begin-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
 			<find-status-replaceinfiles-1-replaced value = "Nahrazování v souborech: 1 výskyt nahrazen"/>
 			<find-status-replaceinfiles-nb-replaced value = "Nahrazování v souborech: $INT_REPLACE$ výskytů nahrazeno"/>
 			<find-status-replaceinfiles-re-malformed value = "Nahrazování v otevřených souborech: Regulární výraz je vadný"/>
@@ -1187,9 +1185,7 @@
 			<find-status-replace-not-found value = "Nahrazování: žádný výskyt nebyl nalezen"/>
 			<find-status-replace-readonly value = "Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-cannot-find value = "Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>
-			<find-status-mark-re-malformed value = "Označování: Regulární výraz pro vyhledávání je vadný"/>
 			<find-status-mark-nb-matches value = "$INT_REPLACE$ nálezů"/>
-			
 		</MiscStrings>
 
 	</Native-Langue>

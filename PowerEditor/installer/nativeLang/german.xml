@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.5
-	last modified: 2018-02-16 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-02-19 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -511,7 +511,7 @@
 				<Item id="5008" name="Hinzufügen"/>
 				<Item id="5009" name="Entfernen"/>
 				<Item id="5010" name="Übernehmen"/>
-				<Item id="5007" name="Das wird das Tastenkürzel entfernen"/>
+				<Item id="5007" name="Das wird das Tastenkürzel für diesen Befehl entfernen"/>
 				<Item id="5012" name="KONFLIKT GEFUNDEN!"/>
 			</ShortcutMapperSubDialg>
 			<UserDefine title="Benutzerdefinierte Sprache">
@@ -708,7 +708,7 @@
 					<Item id="6120" name="Vertikal"/>
 					<Item id="6121" name="Beim Schließen des letzten Tabs beenden"/>
 
-					<Item id="6122" name="Menüleiste ausblenden (wechseln: Alt oder F10)"/>
+					<Item id="6122" name="Menüleiste ausblenden (Umschalten mit Alt oder F10)"/>
 					<Item id="6123" name="Sprache der Benutzeroberfläche"/>
 
 					<Item id="6125" name="Liste der geöffneten Dateien"/>
@@ -989,7 +989,7 @@
 			<FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
 			<SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Sitzungsdatei ist entweder beschädigt oder ungültig."/>
 			<DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Mann kann entweder Dateien oder Verzeichnisse ablegen aber nicht beides zugleich,&#x0A;weil das Programm im 'Ablegen als Projekt' -Modus ist.&#x0A;Dazu muss man &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot;&#x0A;im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs aktivieren."/>
-			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $STR_REPLACE$."/>
+			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
 			<ColumnModeTip title="Tip zum Spalten-Modus" message="Bitte &quot;ALT+Mauswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot; verwenden um in den Spalten-Modus zu wechseln."/>
 			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Puffer."/>
 			<DoSaveOrNot title="Speichern" message="Speichere Datei &quot;$STR_REPLACE$&quot; ?"/>
@@ -1010,7 +1010,7 @@
 			<LoadStylersFailed title="Laden von 'stylers.xml' fehlgeschlagen" message="Das Laden der Datei &quot;$INT_REPLACE$&quot; ist fehlgeschlagen!"/>
 			<LoadLangsFailed title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!&#x0A;Soll die Datei 'langs.xml' wieder hergestellt werden?"/>
 			<LoadLangsFailedFinal title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!"/>
-			<FolderAsWorspaceSubfolderExists title="'Verzeichnis als Arbeitsbereich'-Problem" message="Ein Unterverzeichnis existiert im Verzeichnis das hinzugefügt werden soll.&#x0A;Bitte das Unterverzeichnis vorher entfernen bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
+			<FolderAsWorspaceSubfolderExists title="'Verzeichnis als Arbeitsbereich'-Problem" message="Ein Unterverzeichnis existiert im Verzeichnis das hinzugefügt werden soll.&#x0A;Bitte diese Verzeichnis vorher entfernen bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
 			<ProjectPanelChanged title="$STR_REPLACE$" message="Der Arbeitsbereich wurde geändert. Soll er jetzt gespeichert werden?"/>
 			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Der Arbeitsbereich wurde nicht gespeichert."/>
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Offener Arbeitsbereich" message="Der aktuelle Arbeitsbereich wurde geändert. Soll das aktuelle Projekt gespeichert werden?"/>
@@ -1129,12 +1129,9 @@
 			<cloud-restart-warning value="Zum Übernehmen Notepad++ bitte neu starten."/>
 			<cloud-select-folder value="Verzeichnis wählen von wo/wohin Notepad++ seine Einstellungen liest bzw. schreibt"/>
 			<shift-change-direction-tip value="Shift+Enter verwenden um die Suchrichtung umzudrehen."/>
-			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>
-			
+			<two-find-buttons-tip value="Modus mit 2 Suchknöpfen"/>			
 			<find-status-top-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht."/>
-			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>
-			<find-status-find-from-top-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht"/>
-			<find-status-find-from-bottom-begin-reached value="Suche: Erster Treffer von unten. Der Anfang des Dokumentes wurde erreicht"/>
+			<find-status-end-reached value="Suche: Erster Treffer von oben. Das Ende des Dokumentes wurde erreicht."/>			
 			<find-status-replaceinfiles-1-replaced value="Ersetzen in Dateien: 1 Vorkommen wurde ersetzt"/>
 			<find-status-replaceinfiles-nb-replaced value="Ersetzen in Dateien: $INT_REPLACE$ Vorkommen wurden ersetzt"/>
 			<find-status-replaceinfiles-re-malformed value="Ersetzen in geöffneten Dateien: Der Ausdruck ist nicht passend"/>

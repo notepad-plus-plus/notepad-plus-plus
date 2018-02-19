@@ -39,6 +39,7 @@ class ShortcutMapper : public StaticDialog {
 public:
 	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {
 		_shortcutFilter = TEXT("");
+		_dialogInitDone = false;
 	};
 	~ShortcutMapper() {};
 
@@ -100,6 +101,9 @@ private:
 	};
 	LONG _clientWidth;
 	LONG _clientHeight;
+	LONG _initClientWidth;
+	LONG _initClientHeight;
+	bool _dialogInitDone;
 
 	void initTabs();
 	void initBabyGrid();

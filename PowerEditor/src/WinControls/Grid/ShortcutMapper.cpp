@@ -425,7 +425,23 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_clientWidth = rect.right - rect.left;
 			_clientHeight = rect.bottom - rect.top;
 
+			int cy_border = GetSystemMetrics(SM_CYFRAME);
+			int cy_caption = GetSystemMetrics(SM_CYCAPTION);
+			_initClientWidth = _clientWidth;
+			_initClientHeight = _clientHeight + cy_caption + cy_border;
+			_dialogInitDone = true;
+
 			return TRUE;
+		}
+		case WM_GETMINMAXINFO :
+		{
+			MINMAXINFO* mmi = (MINMAXINFO*)lParam;
+			if (_dialogInitDone)
+			{
+				mmi->ptMinTrackSize.x = _initClientWidth;
+				mmi->ptMinTrackSize.y = _initClientHeight;
+			}
+			return 0;
 		}
 
 		case WM_DESTROY:
@@ -464,7 +480,7 @@ INT_PTR CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 				HWND moveHwnd = ::GetDlgItem(_hSelf, moveWndID);
 				::GetWindowRect(moveHwnd, &rect);
 				::MapWindowPoints(NULL, _hSelf, (LPPOINT)&rect, 2);
-				::SetWindowPos(moveHwnd, NULL, rect.left + addWidth, rect.top + addHeight, 0, 0, SWP_NOSIZE | flags);
+				::SetWindowPos(moveHwnd, NULL, rect.left + addWidth / 2, rect.top + addHeight, 0, 0, SWP_NOSIZE | flags);
 			}
 			HWND moveHwnd = ::GetDlgItem(_hSelf, IDC_BABYGRID_STATIC);
 			::GetWindowRect(moveHwnd, &rect);

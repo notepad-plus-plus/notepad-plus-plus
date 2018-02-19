@@ -262,15 +262,15 @@
                     <Item id="45002" name="轉換成 UNIX 格式"/>
                     <Item id="45003" name="轉換成 Mac 格式"/>
                     <Item id="45004" name="編譯成 ANSI 碼"/>
-                    <Item id="45005" name="編譯成 UTF-8 碼"/>
+                    <Item id="45005" name="編譯成 UTF-8 碼〈BOM 檔首〉"/>
                     <Item id="45006" name="編譯成 UCS-2 Big Endian 碼"/>
                     <Item id="45007" name="編譯成 UCS-2 Little Endian 碼"/>
-                    <Item id="45008" name="編譯成 UTF-8 碼〈檔首無 BOM〉"/>
+                    <Item id="45008" name="編譯成 UTF-8 碼"/>
                     <Item id="45009" name="轉換至 ANSI 碼格式"/>
-                    <Item id="45011" name="轉換至 UTF-8 碼格式"/>
+                    <Item id="45010" name="轉換至 UTF-8 碼格式"/>
+                    <Item id="45011" name="轉換至 UTF-8 碼格式〈BOM 檔首〉"/>
                     <Item id="45012" name="轉換至 UCS-2 Big Endian 碼格式"/>
                     <Item id="45013" name="轉換至 UCS-2 Little Endian 碼格式"/>
-                    <Item id="45010" name="轉換至 UTF-8 碼格式〈檔首無 BOM〉"/>
 
                     <Item id="10001" name="移至另一個視窗"/>
                     <Item id="10002" name="複製到另一個視窗"/>
@@ -345,7 +345,7 @@
                 <Item id="1" name="找下一個"/>
                 <Item id="1722" name="往上搜尋"/>
                 <Item id="2"    name="關閉"/>
-                <Item id="1620" name="尋找內容: "/>
+                <Item id="1620" name="尋找內容： "/>
                 <Item id="1603" name="僅符合整個單字(&amp;W)"/>
                 <Item id="1604" name="區分大小寫(&amp;C)"/>
                 <Item id="1605" name="規則運算式(&amp;E)"/>
@@ -354,7 +354,7 @@
                 <Item id="1615" name="全部尋找"/>
                 <Item id="1616" name="標記該行"/>
                 <Item id="1618" name="每次搜尋都重新標記"/>
-                <Item id="1611" name="取代為: "/>
+                <Item id="1611" name="取代為： "/>
                 <Item id="1608" name="取代(&amp;R)"/>
                 <Item id="1609" name="全部取代(&amp;A)"/>
                 <Item id="1687" name="當視窗失焦"/>
@@ -393,9 +393,9 @@
                 <Item id="2008" name="位移"/>
                 <Item id="1" name="走吧！"/>
                 <Item id="2" name="我那兒也不去"/>
-                <Item id="2004" name="您目前的所在位置："/>
-                <Item id="2005" name="您要前往:"/>
-                <Item id="2006" name="您不能超過："/>
+                <Item id="2004" name="你目前的所在位置："/>
+                <Item id="2005" name="你要前往:"/>
+                <Item id="2006" name="你不能超過："/>
             </GoToLine>
 
             <Run title="執行...">
@@ -451,6 +451,7 @@
                 <Item id="2602" name="修改"/>
                 <Item id="2603" name="刪除"/>
                 <Item id="2606" name="清除"/>
+                <Item id="2607" name="濾鏡："/>
                 <Item id="1" name="關閉"/>
                 <ColumnName name="名稱"/>
                 <ColumnShortcut name="快速鍵"/>
@@ -461,6 +462,8 @@
                 <RunCommandsTab name="自訂指令"/>
                 <PluginCommandsTab name="外掛指令"/>
                 <ScintillaCommandsTab name="Scintilla 指令"/>
+                <ConflictInfoOk name="此項目沒有快速鍵重複定義"/>
+                <ConflictInfoEditing name="無快速鍵重複定義 . . ."/>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="快速鍵設定">
                 <Item id="1" name="確認"/>
@@ -478,7 +481,7 @@
                 <Item id="20003" name="建立..."/>
                 <Item id="20004" name="刪除"/>
                 <Item id="20005" name="另存..."/>
-                <Item id="20007" name="自訂語言: "/>
+                <Item id="20007" name="自訂語言： "/>
                 <Item id="20009" name="副檔名"/>
                 <Item id="20012" name="不分大小寫"/>
                 <Item id="20011" name="透明度"/>
@@ -679,7 +682,7 @@
                 </Global>
                 <Scintillas title="編輯">
                     <Item id="6216" name="游標設定"/>
-                    <Item id="6217" name="寬: "/>
+                    <Item id="6217" name="寬： "/>
                     <Item id="6219" name="閃爍頻率:"/>
                     <Item id="6221" name="快"/>
                     <Item id="6222" name="慢"/>
@@ -703,7 +706,6 @@
                     <Item id="6209" name="字元數:"/>
                     <Item id="6234" name="關閉進階捲動功能
 (若有觸控板問題)"/>
-
                     <Item id="6211" name="邊緣線設定"/>
                     <Item id="6212" name="垂直線模式"/>
                     <Item id="6213" name="背景色模式"/>
@@ -748,7 +750,7 @@
                     <Item id="6508" name="程式語言選單"/>
 					<Item id="6301" name="跳格設定"/>
                     <Item id="6302" name="以空格取代"/>
-                    <Item id="6303" name="跳格大小: "/>
+                    <Item id="6303" name="跳格大小： "/>
                     <Item id="6510" name="使用預設值"/>
                 </Language>
 
@@ -932,11 +934,11 @@
 修改 contextMenu.xml 後必須重啟 Notepad++ 才會生效。"/>
             <NppHelpAbsentWarning title="檔案不存在" message="
 不存在。請在 Notepad++ 網站下載它。"/>
-            <SaveCurrentModifWarning title="儲存目前修改" message="您必須儲存目前修改。
+            <SaveCurrentModifWarning title="儲存目前修改" message="你必須儲存目前修改。
 所有存儲修改將無法復原。
 
 確定繼續?"/>
-            <LoseUndoAbilityWarning title="失去復原能力警告" message="您必須儲存目前修改。
+            <LoseUndoAbilityWarning title="失去復原能力警告" message="你必須儲存目前修改。
 所有存儲修改將無法復原。
 
 確定繼續?"/>
@@ -950,9 +952,68 @@
             <NbFileToOpenImportantWarning title="檔案開啟數量過多" message="$INT_REPLACE$ 檔案將開啟。
 確定要開啟它們？"/>
             <SettingsOnCloudError title="雲端設定" message="雲端路徑似乎設成唯讀磁碟，或是資料夾需要寫入權限。
-您的雲端設定將被取消。
+你的雲端設定將被取消。
 請在「喜好設定」對話框重設相關設定值。"/>
 			<FilePathNotFoundWarning title="開啟檔案" message="你試圖開啟的文件不存在。"/>
+            <SessionFileInvalidError title="無法開啟檔案組群" message="組群檔無效。"/>
+            <DroppingFolderAsProjetModeWarning title="操作無效" message="你只能單獨拖放文件或目錄，但不能同時拖放，因為你目前的模式是『拖放目錄為文件夾工作區』。
+你必須在喜好設定對話框的「預設資料夾」中啟用『拖放文件夾開啟文件夾中所有文件，而不啟動文件夾工作區』才能使此操作成功。"/>
+            <SortingError title="排序錯誤" message="由於第 $INT_REPLACE$ 行無法執行數字排序。"/>
+            <ColumnModeTip title="列模式選取提示" message="請使用『ALT +鼠標選擇』或『Alt + Shift +箭頭鍵』切換到列模式選取。"/>
+            <BufferInvalidWarning title="儲存失敗" message="Cannot save: Buffer is invalid."/>
+            <DoSaveOrNot title="儲存" message="儲存檔案 &quot;$STR_REPLACE$&quot;？"/>
+            <DoCloseOrNot title="保留已不存在的文件" message="檔案 &quot;$STR_REPLACE$&quot; 已不存在。
+在編輯器中保存這個文件？"/>
+            <DoDeleteOrNot title="刪除檔案" message="檔案 &quot;$STR_REPLACE$&quot;
+將被移至資源回收桶，並且此文檔將被關閉。
+確定繼續？"/>
+            <NoBackupDoSaveFile title="儲存" message="你的備份文件無法找到（從外部刪除）。
+建議你保存它，否則你的數據將會遺失。
+是否要保存檔案 &quot;$STR_REPLACE$&quot;？"/>
+            <DoReloadOrNot title="重新載入" message="&quot;$STR_REPLACE$&quot;
+
+此文件內容已在其他程式中修改。
+重新載入？"/>
+            <DoReloadOrNotAndLooseChange title="重新載入" message="&quot;$STR_REPLACE$&quot;
+
+此文件內容已在其他程式中修改。
+你想重新載入並遺失在 Notepad++ 中所做的更改嗎？"/>
+            <PrehistoricSystemDetected title="偵測到史前的老舊系統" message="看來你還在使用史前的老舊系統，這個功能只適用於現代系統，抱歉。"/>
+            <XpUpdaterProblem title="Notepad++ 更新程式" message="更新程序與 XP 陳舊的保全系統不兼容。
+你要直接到 Notepad++ 網頁下載最新版本嗎？"/>
+            <DocTooDirtyToMonitor title="監控錯誤" message="文件已修改而尚未儲存。 在監視之前請儲存修改。"/>
+            <DocNoExistToMonitor title="監控錯誤" message="該文件必須存在以進行監視。"/>
+            <FileTooBigToOpene title="文件太大" message="文件太大，無法用 Notepad++ 打開。"/>
+            <CreateNewFileOrNot title="開新檔案" message="&quot;$INT_REPLACE$&quot; 不存在。 開新檔案？"/>
+            <CreateNewFileError title="開新檔案" message="無法創建新檔 &quot;$INT_REPLACE$&quot;."/>
+            <OpenFileError title="錯誤" message="無法開啟 &quot;$INT_REPLACE$&quot;"/>
+            <FileBackupFailed title="文件備份失敗" message="以前版本的檔案無法保存到 &quot;$INT_REPLACE$&quot; 的備份目錄中。
+
+你想保存當前文件嗎？"/>
+            <LoadStylersFailed title="載入 stylers.xml 失敗" message="載入 &quot;$INT_REPLACE$&quot; 失敗!"/>
+            <LoadLangsFailed title="配置" message="載入 langs.xml 失敗!
+你要恢復 langs.xml?"/>
+            <LoadLangsFailedFinal title="配置" message="載入 langs.xml 失敗!"/>
+            <FolderAsWorspaceSubfolderExists title="文件夾工作區加入錯誤" message="您想要添加的目錄已以子目錄型態存在中。
+請先將其根目錄從文件夾工作區中移除，如你欲添加此目錄 &quot;$STR_REPLACE$&quot;."/>
+
+            <ProjectPanelChanged title="$STR_REPLACE$" message="工作區已被修改。 你想保存它嗎？"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="工作區修改儲存失敗。"/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="開啟工作區" message="目前的工作區已被修改。 你想儲存目前的專案嗎？"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作區" message="目前的工作區已被修改。 你想儲存目前的專案嗎？"/>
+            <ProjectPanelOpenFailed title="開啟工作區" message="工作區無法打開。
+要載入的檔案似乎不是有效的專案文件檔。"/>
+            <ProjectPanelRemoveFolderFromProject title="從專案中刪除文件夾" message="所有的子目錄將被刪除。
+你確定要從專案中刪除此文件夾嗎？"/>
+            <ProjectPanelRemoveFileFromProject title="從專案中移除文件" message="確定從專案中刪除這個文件嗎？"/>
+            <ProjectPanelReloadError title="重新載入工作區" message="無法找到要重新載入的檔案。"/>
+            <ProjectPanelReloadDirty title="重新載入工作區" message="當前的工作區已被修改。 重新載入將放棄所有修改。
+重新載入？"/>
+            <UDLNewNameError title="自訂程式語言錯誤" message="這個名字被另一種語言使用，
+請另行命名。"/>
+            <UDLRemoveCurrentLang title="刪除目前的自訂程式語言" message="你確定？"/>
+            <SCMapperDoDeleteOrNot title="你確定？" message="你確定要刪除這個快速鍵嗎？"/>
+            <FindCharRangeValueError title="輸入值範圍錯誤" message="你的輸入值應該在 0 到 255 之間。"/>
         </MessageBox>
 		<ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
@@ -976,6 +1037,21 @@
             <SortTip name="排序" />
             <ReloadTip name="重新載入" />
         </FunctionList>
+        <FolderAsWorkspace>
+            <PanelTitle name="文件夾工作區"/>
+            <SelectFolderFromBrowserString name="選擇一個目錄加入到文件夾工作區"/>
+            <Menus>
+                <Item id="3511" name="移除"/>
+                <Item id="3512" name="全部移除"/>
+                <Item id="3513" name="加入"/>
+                <Item id="3514" name="（系統）執行"/>
+                <Item id="3515" name="開啟"/>
+                <Item id="3516" name="複製文件路徑"/>
+                <Item id="3517" name="在檔案中尋找..."/>
+                <Item id="3518" name="在此開啟 Explorer"/>
+                <Item id="3519" name="在此開啟 CMD"/>
+            </Menus>
+        </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="專案"/>
             <WorkspaceRootName name="工作區"/>
@@ -1030,8 +1106,34 @@
 			<word-chars-list-warning-end value="  在你的單字字符集中。"/>
 			<cloud-invalid-warning value="無效路徑"/>
 			<cloud-restart-warning value="請重新啟動 Notepad++ 以讓改變生效"/>
+            <cloud-select-folder value="選擇一個文件夾，以便 Notepad++ 從中讀取/寫入其設定"/>
 			<shift-change-direction-tip value="使用 Shift + Enter 以相反方向進行搜索"/>
-			<1-to-2-buttons-tip value="2個按鈕模式"/>
+			<two-find-buttons-tip value="2個按鈕模式"/>
+            <find-status-top-reached value="搜尋： 從底部找到了相符的字串。搜尋已抵達文件初"/>
+            <find-status-end-reached value="搜尋： 從上端找到了相符的字串。搜尋已抵達文件末"/>
+            <find-status-replaceinfiles-1-replaced value="在檔案中取代： 取代了 1 個字串"/>
+            <find-status-replaceinfiles-nb-replaced value="在檔案中取代： 取代了 $INT_REPLACE$ 個字串"/>
+            <find-status-replaceinfiles-re-malformed value="在所有開啟文件中取代：無效的規則運算式"/>
+            <find-status-replaceinopenedfiles-1-replaced value="在所有開啟文件中取代： 取代了 1 個字串"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="在所有開啟文件中取代： 取代了 $INT_REPLACE$ 個字串"/>
+            <find-status-mark-re-malformed value="Mark：無效的規則運算式"/>
+            <find-status-invalid-re value="搜尋：無效的規則運算式"/>
+            <find-status-mark-1-match value="1 個相符"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ 個相符"/>
+            <find-status-count-re-malformed value="標記：無效的規則運算式"/>
+            <find-status-count-1-match value="標記： 1 個相符"/>
+            <find-status-count-nb-matches value="標記： $INT_REPLACE$ 個相符"/>
+            <find-status-replaceall-re-malformed value="全部取代：無效的規則運算式"/>
+            <find-status-replaceall-1-replaced value="全部取代： 取代了 1 個字串"/>
+            <find-status-replaceall-nb-replaced value="全部取代： 取代了 $INT_REPLACE$ 個字串"/>
+            <find-status-replaceall-readonly value="全部取代：檔案唯讀，無法取代字串"/>
+            <find-status-replace-end-reached value="取代： 從上端取代了 1 個相符了相符的字串。搜尋已抵達文件末"/>
+            <find-status-replace-top-reached value="取代： 從底部取代了 1 個相符的字串。搜尋已抵達文件初"/>
+            <find-status-replaced-next-found value="取代： 取代了 1 個字串。找到了下一個字串"/>
+            <find-status-replaced-next-not-found value="取代： 取代了 1 個字串。找不到下一個字串"/>
+            <find-status-replace-not-found value="取代： 找不到搜尋字串"/>
+            <find-status-replace-readonly value="取代：檔案唯讀，無法取代字串"/>
+            <find-status-cannot-find value="搜尋： 找不到搜尋字串 &quot;$STR_REPLACE$&quot;"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

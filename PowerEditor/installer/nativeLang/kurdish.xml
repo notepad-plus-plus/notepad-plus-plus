@@ -1,50 +1,50 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="7.5.5">
+    <Native-Langue name="كوردی" filename="kurdish.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item menuId="file" name="&amp;File"/>
-                    <Item menuId="edit" name="&amp;Edit"/>
-                    <Item menuId="search" name="&amp;Search"/>
-                    <Item menuId="view" name="&amp;View"/>
+                    <Item menuId="file" name="&amp;پەڕگە"/>
+                    <Item menuId="edit" name="&amp;دەستكاری"/>
+                    <Item menuId="search" name="&amp;گەڕان"/>
+                    <Item menuId="view" name="&amp;بینین"/>
                     <Item menuId="encoding" name="E&amp;ncoding"/>
-                    <Item menuId="language" name="&amp;Language"/>
-                    <Item menuId="settings" name="Se&amp;ttings"/>
-                    <Item menuId="tools" name="To&amp;ols"/>
-                    <Item menuId="macro" name="Macro"/>
-                    <Item menuId="run" name="Run"/>
-                    <Item idName="Plugins" name="Plugins"/>
-                    <Item idName="Window" name="Window"/>
+                    <Item menuId="language" name="&amp;زمانەكان"/>
+                    <Item menuId="settings" name="&amp;ڕێكخستنەكان"/>
+                    <Item menuId="tools" name="ئام&amp;رازەكان"/>
+                    <Item menuId="macro" name="ماكرۆ"/>
+                    <Item menuId="run" name="به‌ڕێوه‌به‌ردن"/>
+                    <Item idName="Plugins" name="پێوەكراوەكان"/>
+                    <Item idName="Window" name="پەنجەرە"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-openFolder" name="Open Containing Folder"/>
-                    <Item subMenuId="file-closeMore" name="Close More"/>
-                    <Item subMenuId="file-recentFiles" name="Recent Files"/>
-                    <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
-                    <Item subMenuId="edit-indent" name="Indent"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Convert Case to"/>
-                    <Item subMenuId="edit-lineOperations" name="Line Operations"/>
+                    <Item subMenuId="file-openFolder" name="كردنەوەی بوخچەی لەخۆگرتوو"/>
+                    <Item subMenuId="file-closeMore" name="داخستنی زیاتر"/>
+                    <Item subMenuId="file-recentFiles" name="پەڕگەكانی بەم دوواییە"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="لەبەرگرتنەوە"/>
+                    <Item subMenuId="edit-indent" name="خۆڕاگر"/>
+                    <Item subMenuId="edit-convertCaseTo" name="گۆڕینی حاڵەت بۆ"/>
+                    <Item subMenuId="edit-lineOperations" name="هێلی كردار"/>
                     <Item subMenuId="edit-comment" name="Comment/Uncomment"/>
-                    <Item subMenuId="edit-autoCompletion" name="Auto-Completion"/>
+                    <Item subMenuId="edit-autoCompletion" name="خودكار-كۆتایی"/>
                     <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
-                    <Item subMenuId="edit-blankOperations" name="Blank Operations"/>
-                    <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
-                    <Item subMenuId="edit-onSelection" name="On Selection"/>
-                    <Item subMenuId="search-markAll" name="Mark All"/>
-                    <Item subMenuId="search-unmarkAll" name="Unmark All"/>
-                    <Item subMenuId="search-jumpUp" name="Jump Up"/>
-                    <Item subMenuId="search-jumpDown" name="Jump Down"/>
-                    <Item subMenuId="search-bookmark" name="Bookmark"/>
-                    <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
-                    <Item subMenuId="view-zoom"  name="Zoom"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
-                    <Item subMenuId="view-tab"  name="Tab"/>
+                    <Item subMenuId="edit-blankOperations" name="كردارە بەتاڵەكان"/>
+                    <Item subMenuId="edit-pasteSpecial" name="لكاندنی تایبەت"/>
+                    <Item subMenuId="edit-onSelection" name="لە هەڵبژاردن"/>
+                    <Item subMenuId="search-markAll" name="دەستنیشانكردنی هەموو"/>
+                    <Item subMenuId="search-unmarkAll" name="لادانی هەموو"/>
+                    <Item subMenuId="search-jumpUp" name="بازدان بۆ سەرەوە"/>
+                    <Item subMenuId="search-jumpDown" name="بازدان بۆ خوارەوە"/>
+                    <Item subMenuId="search-bookmark" name="شوێندۆز"/>
+                    <Item subMenuId="view-showSymbol"  name="بینینی هێما"/>
+                    <Item subMenuId="view-zoom"  name="زووم"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="گواستنەوە/لێكچوونی بەڵگەنامەی ئێستا"/>
+                    <Item subMenuId="view-tab"  name="تاب"/>
                     <Item subMenuId="view-collapseLevel" name="Collapse Level"/>
                     <Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
-                    <Item subMenuId="view-project" name="Project"/>
+                    <Item subMenuId="view-project" name="پڕۆژە"/>
                     <Item subMenuId="encoding-characterSets"  name="Character Set"/>
                     <Item subMenuId="encoding-arabic"  name="Arabic"/>
                     <Item subMenuId="encoding-baltic"  name="Baltic"/>
@@ -62,44 +62,44 @@
                     <Item subMenuId="encoding-turkish" name="Turkish"/>
                     <Item subMenuId="encoding-westernEuropean" name="Western European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
-                    <Item subMenuId="settings-import"  name="Import"/>
-                    <Item subMenuId="tools-md5"  name="MD5"/>
+                    <Item subMenuId="settings-import"  name="هاورده‌"/>
+					<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id="41001" name="&amp;New"/>
-                    <Item id="41002" name="&amp;Open"/>
-                    <Item id="41019" name="Explorer"/>
+                    <Item id="41001" name="&amp;نوێ"/>
+                    <Item id="41002" name="&amp;كردنەوە"/>
+                    <Item id="41019" name="دۆزه‌ر"/>
                     <Item id="41020" name="cmd"/>
-                    <Item id="41003" name="Close"/>
-                    <Item id="41004" name="C&amp;lose All"/>
+                    <Item id="41003" name="داخستن"/>
+                    <Item id="41004" name="د&amp;اخستنی هەموو"/>
                     <Item id="41005" name="Close All BUT Current Document"/>
-                    <Item id="41009" name="Close All to the Left"/>
-                    <Item id="41018" name="Close All to the Right"/>
-                    <Item id="41006" name="&amp;Save"/>
-                    <Item id="41007" name="Sav&amp;e All"/>
-                    <Item id="41008" name="Save &amp;As..."/>
-                    <Item id="41010" name="Print..."/>
-                    <Item id="1001"  name="Print Now"/>
-                    <Item id="41011" name="E&amp;xit"/>
-                    <Item id="41012" name="Load Session..."/>
-                    <Item id="41013" name="Save Session..."/>
-                    <Item id="41014" name="Reload from Disk"/>
-                    <Item id="41015" name="Save a Copy As..."/>
-                    <Item id="41016" name="Delete from Disk"/>
-                    <Item id="41017" name="Rename..."/>
-                    <Item id="41021" name="Restore Recent Closed File"/>
-                    <Item id="41022" name="Open Folder as &amp;Workspace"/>
-                    <Item id="41023" name="Open in Default Viewer"/>
-                    <Item id="42001" name="Cu&amp;t"/>
-                    <Item id="42002" name="&amp;Copy"/>
-                    <Item id="42003" name="&amp;Undo"/>
-                    <Item id="42004" name="&amp;Redo"/>
-                    <Item id="42005" name="&amp;Paste"/>
-                    <Item id="42006" name="&amp;Delete"/>
-                    <Item id="42007" name="Select A&amp;ll"/>
-                    <Item id="42020" name="Begin/End Select"/>
+                    <Item id="41009" name="داخستنی هەموو بۆ لای چەپ"/>
+                    <Item id="41018" name="داخستنی هەموو بۆ لای ڕاست"/>
+                    <Item id="41006" name="&amp;پاشەكەوتكردن"/>
+                    <Item id="41007" name="پاشە&amp;كەوتكردنی هەموو"/>
+                    <Item id="41008" name="پاشەكەوتكردن &amp;لە..."/>
+                    <Item id="41010" name="چاپكردن..."/>
+                    <Item id="1001"  name="چاپكردن ئێستا"/>
+                    <Item id="41011" name="د&amp;ەرەوە"/>
+                    <Item id="41012" name="باركردنی وانە(كۆڕ)  ..."/>
+                    <Item id="41013" name="پاشەكەوتكردنی وانە (كۆر)..."/>
+                    <Item id="41014" name="باركردنەوە لە دیسك"/>
+                    <Item id="41015" name="پاشەكەوتكردنی لەبەرگرتنەوە لە..."/>
+                    <Item id="41016" name="سڕینەوە لە دیسك"/>
+                    <Item id="41017" name="ناونانه‌وه‌..."/>
+                    <Item id="41021" name="هێنانەوەی پەڕگە داخراوەكانی ئەم دوواییە"/>
+                    <Item id="41022" name="كردنەوەی بوخچە لە &amp;Workspace"/>
+                    <Item id="41023" name="كردنەوە لە بنەڕەتی بینەر"/>
+                    <Item id="42001" name="بڕ&amp;ین"/>
+                    <Item id="42002" name="&amp;لەبەرگرتنەوە"/>
+                    <Item id="42003" name="&amp;هه‌ڵوه‌شاندنه‌وه‌"/>
+                    <Item id="42004" name="&amp;كردنه‌وه"/>
+                    <Item id="42005" name="&amp;لكاندن"/>
+                    <Item id="42006" name="&amp;سڕینەوە"/>
+                    <Item id="42007" name="دەستنیشانكردنی&amp;هەموو"/>
+                    <Item id="42020" name="دەسپێك/كۆتایی دەستنیشانكردن"/>
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>
@@ -123,13 +123,13 @@
                     <Item id="42070" name="Sentence case (blend)"/>
                     <Item id="42071" name="iNVERT cASE"/>
                     <Item id="42072" name="ranDOm CasE"/>
-                    <Item id="42073" name="Open File"/>
-                    <Item id="42074" name="Open Containing Folder in Explorer"/>
-                    <Item id="42075" name="Search on Internet"/>
-                    <Item id="42076" name="Change Search Engine..."/>
-                    <Item id="42018" name="&amp;Start Recording"/>
-                    <Item id="42019" name="&amp;Stop Recording"/>
-                    <Item id="42021" name="&amp;Playback"/>
+					<Item id="42073" name="كردنەوەی پەڕگە"/>
+					<Item id="42074" name="كردنەوەی بوخچەی پەیوەندیدار لە دۆزەر"/>
+					<Item id="42075" name="گەڕان لە ئینتەرنێت"/>
+					<Item id="42076" name="گۆڕینی بزوێنەری گەڕان..."/>
+                    <Item id="42018" name="&amp;دەستپێكردنی تۆماركردن"/>
+                    <Item id="42019" name="&amp;وەستاندنی تۆماركردن"/>
+                    <Item id="42021" name="&amp;دەستپێكردن بۆ دواوە"/>
                     <Item id="42022" name="Toggle Single Line Comment"/>
                     <Item id="42023" name="Block Comment"/>
                     <Item id="42047" name="Block Uncomment"/>
@@ -165,18 +165,18 @@
                     <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
                     <Item id="42057" name="Insert Blank Line Above Current"/>
                     <Item id="42058" name="Insert Blank Line Below Current"/>
-                    <Item id="43001" name="&amp;Find..."/>
-                    <Item id="43002" name="Find &amp;Next"/>
-                    <Item id="43003" name="Replace..."/>
-                    <Item id="43004" name="Go to..."/>
-                    <Item id="43005" name="Toggle Bookmark"/>
-                    <Item id="43006" name="Next Bookmark"/>
-                    <Item id="43007" name="Previous Bookmark"/>
-                    <Item id="43008" name="Clear All Bookmarks"/>
-                    <Item id="43018" name="Cut Bookmarked Lines"/>
-                    <Item id="43019" name="Copy Bookmarked Lines"/>
-                    <Item id="43020" name="Paste to (Replace) Bookmarked Lines"/>
-                    <Item id="43021" name="Remove Bookmarked Lines"/>
+                    <Item id="43001" name="&amp;گەڕان..."/>
+                    <Item id="43002" name="گەڕان &amp;داهاتوو"/>
+                    <Item id="43003" name="گۆڕین..."/>
+                    <Item id="43004" name="بڕۆ بۆ..."/>
+                    <Item id="43005" name="زامنكردنی شوێندۆز"/>
+                    <Item id="43006" name="شوێندۆزی داهاتوو"/>
+                    <Item id="43007" name="شوێندۆزی پێشوو"/>
+                    <Item id="43008" name="پاكردنەوەی هەموو شوێندۆزەكان"/>
+                    <Item id="43018" name="بڕینی هێلەكانی شوێندۆز"/>
+                    <Item id="43019" name="لەبەرگرتنەوەی هێلەكانی شوێندۆز"/>
+                    <Item id="43020" name="لكاندن بۆ (گۆڕین) هێلەكانی شوێندۆز"/>
+                    <Item id="43021" name="سڕینەوەی هێلەكانی شوێندۆز"/>
                     <Item id="43051" name="Remove Unmarked Lines"/>
                     <Item id="43050" name="Inverse Bookmark"/>
                     <Item id="43052" name="Find characters in range..."/>
@@ -210,12 +210,12 @@
                     <Item id="43042" name="4th style"/>
                     <Item id="43043" name="5th style"/>
                     <Item id="43044" name="Find style"/>
-                    <Item id="43045" name="Search Results Window"/>
-                    <Item id="43046" name="Next Search Result"/>
-                    <Item id="43047" name="Previous Search Result"/>
-                    <Item id="43048" name="Select and Find Next"/>
-                    <Item id="43049" name="Select and Find Previous"/>
-                    <Item id="43054" name="Mark..."/>
+                    <Item id="43045" name="گەڕان لە ئەنجامی پەنجەرە"/>
+                    <Item id="43046" name="گەڕان لە ئەنجامی داهاتوو"/>
+                    <Item id="43047" name="گەڕان لە ئەنجامی پێشوو"/>
+                    <Item id="43048" name="دەستنیشانكردن لەگەڵ گەڕان لە داهاتوو"/>
+                    <Item id="43049" name="دەستنیشانكردن لەگەڵ گەڕان لە پێشوو"/>
+					<Item id="43054" name="نیشانە..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
                     <Item id="44019" name="Show All Characters"/>
@@ -229,9 +229,9 @@
                     <Item id="44030" name="Collapse Current Level"/>
                     <Item id="44031" name="Uncollapse Current Level"/>
                     <Item id="44049" name="Summary..."/>
-                    <Item id="44080" name="Document Map"/>
-                    <Item id="44084" name="Function List"/>
-                    <Item id="44085" name="Folder as &amp;Workspace"/>
+                    <Item id="44080" name="نەخشەی بەڵگەنامە"/>
+                    <Item id="44084" name="لیستی فرمانەكان"/>
+                    <Item id="44085" name="بوخچە لە &amp;Workspace"/>
                     <Item id="44086" name="1st Tab"/>
                     <Item id="44087" name="2nd Tab"/>
                     <Item id="44088" name="3rd Tab"/>
@@ -241,14 +241,14 @@
                     <Item id="44092" name="7th Tab"/>
                     <Item id="44093" name="8th Tab"/>
                     <Item id="44094" name="9th Tab"/>
-                    <Item id="44095" name="Next Tab"/>
-                    <Item id="44096" name="Previous Tab"/>
+                    <Item id="44095" name="تابی داهاتوو"/>
+                    <Item id="44096" name="تابی پێشوو"/>
                     <Item id="44097" name="Monitoring (tail -f)"/>
-                    <Item id="44098" name="Move Tab Forward"/>
-                    <Item id="44099" name="Move Tab Backward"/>
-                    <Item id="44032" name="Toggle Full Screen Mode"/>
-                    <Item id="44033" name="Restore Default Zoom"/>
-                    <Item id="44034" name="Always on Top"/>
+                    <Item id="44098" name="گواستنەوەی تاب بۆ پێشەوە"/>
+                    <Item id="44099" name="گواستنەوەی تاب بۆ دواوە"/>
+                    <Item id="44032" name="زامنكردنی شێوازی پڕ بە ڕوونما"/>
+                    <Item id="44033" name="گەڕاندنەوەی بنەڕەتی زووم"/>
+                    <Item id="44034" name="هەمیشە لەسەرەوە"/>
                     <Item id="44035" name="Synchronise Vertical Scrolling"/>
                     <Item id="44036" name="Synchronise Horizontal Scrolling"/>
                     <Item id="44041" name="Show Wrap Symbol"/>
@@ -260,13 +260,13 @@
                     <Item id="45002" name="Convert to UNIX Format"/>
                     <Item id="45003" name="Convert to MAC Format"/>
                     <Item id="45004" name="Encode in ANSI"/>
-                    <Item id="45005" name="Encode in UTF-8-BOM"/>
+                    <Item id="45005" name="Encode in UTF-8"/>
                     <Item id="45006" name="Encode in UCS-2 Big Endian"/>
                     <Item id="45007" name="Encode in UCS-2 Little Endian"/>
-                    <Item id="45008" name="Encode in UTF-8"/>
+                    <Item id="45008" name="Encode in UTF-8 without BOM"/>
                     <Item id="45009" name="Convert to ANSI"/>
-                    <Item id="45010" name="Convert to UTF-8"/>
-                    <Item id="45011" name="Convert to UTF-8-BOM"/>
+                    <Item id="45010" name="Convert to UTF-8 without BOM"/>
+                    <Item id="45011" name="Convert to UTF-8"/>
                     <Item id="45012" name="Convert to UCS-2 Big Endian"/>
                     <Item id="45013" name="Convert to UCS-2 Little Endian"/>
 
@@ -278,34 +278,34 @@
                     <Item id="46001" name="Style Configurator..."/>
                     <Item id="46250" name="Define your language..."/>
                     <Item id="46180" name="User-Defined"/>
-                    <Item id="47000" name="About Notepad++..."/>
+                    <Item id="47000" name="دەربارەی Notepad++..."/>
                     <Item id="47010" name="Command Line Arguments..."/>
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ Project Page"/>
                     <Item id="47003" name="Online Documentation"/>
-                    <Item id="47004" name="Notepad++ Community (Forum)"/>
-                    <Item id="47011" name="Live Support"/>
+					<Item id="47004" name="Notepad++ Community (Forum)"/>
+                    <Item id="47011" name="پشتگیری ڕاستەوخۆ"/>
                     <Item id="47012" name="Debug Info..."/>
-                    <Item id="47005" name="Get More Plugins"/>
-                    <Item id="47006" name="Update Notepad++"/>
+                    <Item id="47005" name="پێوەكراوی زیاتر"/>
+                    <Item id="47006" name="نوێكردنەوەی Notepad++"/>
                     <Item id="47009" name="Set Updater Proxy..."/>
-                    <Item id="48005" name="Import Plugin(s) ..."/>
-                    <Item id="48006" name="Import Theme(s) ..."/>
+                    <Item id="48005" name="بەرزكردنەوەی پێوەكراوەكان(s) ..."/>
+                    <Item id="48006" name="هاوردەكردنی قالبەكان(s) ..."/>
                     <Item id="48018" name="Edit Popup ContextMenu"/>
                     <Item id="48009" name="Shortcut Mapper..."/>
-                    <Item id="48011" name="Preferences..."/>
+                    <Item id="48011" name="بژاردەكان..."/>
                     <Item id="48501" name="Generate..."/>
                     <Item id="48502" name="Generate from files..."/>
                     <Item id="48503" name="Generate into clipboard"/>
-                    <Item id="49000" name="&amp;Run..."/>
+                    <Item id="49000" name="&amp;به‌ڕێوه‌به‌ردن..."/>
 
                     <Item id="50000" name="Function Completion"/>
                     <Item id="50001" name="Word Completion"/>
                     <Item id="50002" name="Function Parameters Hint"/>
                     <Item id="50006" name="Path Completion"/>
-                    <Item id="44042" name="Hide Lines"/>
-                    <Item id="42040" name="Open All Recent Files"/>
-                    <Item id="42041" name="Empty Recent Files List"/>
+                    <Item id="44042" name="شاردنەوەی هێلەكان"/>
+                    <Item id="42040" name="كردنەوەی هەموو پەڕگەكانی بەم دوواییە"/>
+                    <Item id="42041" name="لیستی پەڕگەكانی بەم دوواییە بەتاڵە"/>
                     <Item id="48016" name="Modify Shortcut/Delete Macro..."/>
                     <Item id="48017" name="Modify Shortcut/Delete Command..."/>
                 </Commands>
@@ -313,115 +313,115 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item CMID="0" name="Close"/>
+                    <Item CMID="0" name="داخستن"/>
                     <Item CMID="1" name="Close All BUT This"/>
-                    <Item CMID="2" name="Save"/>
-                    <Item CMID="3" name="Save As..."/>
-                    <Item CMID="4" name="Print"/>
-                    <Item CMID="5" name="Move to Other View"/>
-                    <Item CMID="6" name="Clone to Other View"/>
+                    <Item CMID="2" name="پاشەكەوتكردن"/>
+                    <Item CMID="3" name="پاشەكەوتكردن لە..."/>
+                    <Item CMID="4" name="چاپكردن"/>
+                    <Item CMID="5" name="گواستنەوە بۆ بینینی زیاتر"/>
+                    <Item CMID="6" name="لێكچوون بۆ بینینی زیاتر"/>
                     <Item CMID="7" name="Full File Path to Clipboard"/>
                     <Item CMID="8" name="Filename to Clipboard"/>
                     <Item CMID="9" name="Current Dir. Path to Clipboard"/>
-                    <Item CMID="10" name="Rename"/>
-                    <Item CMID="11" name="Move to Recycle Bin"/>
+                    <Item CMID="10" name="ناونانه‌وه‌"/>
+                    <Item CMID="11" name="گواستنەوە بۆ تەنەكەی خۆڵ"/>
                     <Item CMID="12" name="Read-Only"/>
                     <Item CMID="13" name="Clear Read-Only Flag"/>
                     <Item CMID="14" name="Move to New Instance"/>
                     <Item CMID="15" name="Open in New Instance"/>
-                    <Item CMID="16" name="Reload"/>
-                    <Item CMID="17" name="Close All to the Left"/>
-                    <Item CMID="18" name="Close All to the Right"/>
-                    <Item CMID="19" name="Open Containing Folder in Explorer"/>
-                    <Item CMID="20" name="Open Containing Folder in cmd"/>
-                    <Item CMID="21" name="Open in Default Viewer"/>
+                    <Item CMID="16" name="باركردنەوە"/>
+                    <Item CMID="17" name="داخستنی هەموو بۆ لای چەپ"/>
+                    <Item CMID="18" name="داخستنی هەموو بۆ لای ڕاست"/>
+                    <Item CMID="19" name="كردنەوەی بوخچەی پەیوەندیدار لە دۆزه‌ر"/>
+                    <Item CMID="20" name="كردنەوەی بوخچەی پەیوەندیدار لە cmd"/>
+					<Item CMID="21" name="كردنەوە لە بنەڕەتی بینین"/>
             </TabBar>
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
-                <Item id="1"    name="Find Next"/>
+            <Find title="" titleFind="گەڕان" titleReplace="گۆڕین" titleFindInFiles="گەڕان لە پەڕگە" titleMark="نیشانكردن">
+                <Item id="1"    name="گەڕان لە داهاتوو"/>
                 <Item id="1722" name="Backward direction"/>
-                <Item id="2"    name="Close"/>
-                <Item id="1620" name="Find what:"/>
+                <Item id="2"    name="داخستن"/>
+                <Item id="1620" name="گەڕان لە:"/>
                 <Item id="1603" name="Match &amp;whole word only"/>
                 <Item id="1604" name="Match &amp;case"/>
                 <Item id="1605" name="Regular &amp;expression"/>
                 <Item id="1606" name="Wrap aroun&amp;d"/>
-                <Item id="1614" name="Count"/>
-                <Item id="1615" name="Find All"/>
-                <Item id="1616" name="Mark line"/>
+                <Item id="1614" name="ژماردن"/>
+                <Item id="1615" name="گەڕان لە هەموو"/>
+                <Item id="1616" name="نیشانكردنی هێل"/>
                 <Item id="1618" name="Purge for each search"/>
-                <Item id="1611" name="Re&amp;place with:"/>
-                <Item id="1608" name="&amp;Replace"/>
-                <Item id="1609" name="Replace &amp;All"/>
+                <Item id="1611" name="گۆ&amp;ڕین بۆ:"/>
+                <Item id="1608" name="&amp;گۆڕین"/>
+                <Item id="1609" name="گۆڕینی &amp;هەموو"/>
                 <Item id="1687" name="On losing focus"/>
-                <Item id="1688" name="Always"/>
-                <Item id="1632" name="In selection"/>
-                <Item id="1633" name="Clear"/>
-                <Item id="1635" name="Replace All in All Opened Documents"/>
-                <Item id="1636" name="Find All in All Opened Documents"/>
-                <Item id="1654" name="Filters:"/>
-                <Item id="1655" name="Directory:"/>
-                <Item id="1656" name="Find All"/>
-                <Item id="1658" name="In all sub-folders"/>
-                <Item id="1659" name="In hidden folders"/>
-                <Item id="1624" name="Search mode"/>
-                <Item id="1625" name="Normal"/>
+                <Item id="1688" name="هەمیشە"/>
+                <Item id="1632" name="لە دیاریكردن"/>
+                <Item id="1633" name="پاكردنەوە"/>
+                <Item id="1635" name="گۆڕینی گشتی لە گشت بەڵگەنامە كراوەكان"/>
+                <Item id="1636" name="گەڕان لە گشتی لە گشت بەڵگەنامە كراوەكان"/>
+                <Item id="1654" name="فلتەرەكان:"/>
+                <Item id="1655" name="پێڕست:"/>
+                <Item id="1656" name="گەڕان لەهەموو"/>
+                <Item id="1658" name="لە هەموو بوخچە لاوەكیەكان"/>
+                <Item id="1659" name="لە هەموو بوخچە شاراوەكان"/>
+                <Item id="1624" name="شێوازی گەڕان"/>
+                <Item id="1625" name="ئاسایی"/>
                 <Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
-                <Item id="1660" name="Replace in Files"/>
-                <Item id="1661" name="Follow current doc."/>
-                <Item id="1641" name="Find All in Current Document"/>
-                <Item id="1686" name="Transparency"/>
+                <Item id="1660" name="گۆڕین لە پەڕگە"/>
+                <Item id="1661" name="شوێنكەوتنی بەڵگەنامەی ئێستا."/>
+                <Item id="1641" name="گەڕان لە بەڵگەنامەكانی ئێستا"/>
+                <Item id="1686" name="ڕوونی"/>
                 <Item id="1703" name="&amp;. matches newline"/>
             </Find>
 
             <FindCharsInRange title="Find Characters in Range...">
-                <Item id="2" name="Close"/>
+                <Item id="2" name="داخستن"/>
                 <Item id="2901" name="Non-ASCII Characters (128-255)"/>
                 <Item id="2902" name="ASCII Characters (0-127)"/>
                 <Item id="2903" name="My range:"/>
-                <Item id="2906" name="&amp;Up"/>
-                <Item id="2907" name="&amp;Down"/>
-                <Item id="2908" name="Direction"/>
+                <Item id="2906" name="&amp;سەرەوە"/>
+                <Item id="2907" name="&amp;خوارەوە"/>
+                <Item id="2908" name="ئاڕاستە"/>
                 <Item id="2909" name="Wra&amp;p around"/>
-                <Item id="2910" name="Find"/>
+                <Item id="2910" name="گەڕان"/>
             </FindCharsInRange>
 
-            <GoToLine title="Go to...">
-                <Item id="2007" name="Line"/>
-                <Item id="2008" name="Offset"/>
-                <Item id="1"    name="&amp;Go"/>
+            <GoToLine title="بڕۆ بۆ...">
+                <Item id="2007" name="هێل"/>
+                <Item id="2008" name="پارسەنگ"/>
+                <Item id="1"    name="&amp;بڕۆ"/>
                 <Item id="2"    name="I'm going nowhere"/>
-                <Item id="2004" name="You are here:"/>
-                <Item id="2005" name="You want to go to:"/>
+                <Item id="2004" name="تۆ لێرەیت:"/>
+                <Item id="2005" name="تۆ دەتەوێت بڕۆیت بۆ:"/>
                 <Item id="2006" name="You can't go further than:"/>
             </GoToLine>
 
-            <Run title="Run...">
+            <Run title="به‌ڕێوه‌به‌ردن...">
                 <Item id="1903" name="The Program to Run"/>
-                <Item id="1"    name="Run"/>
-                <Item id="2"    name="Cancel"/>
-                <Item id="1904" name="Save..."/>
+                <Item id="1"    name="به‌ڕێوه‌به‌ردن"/>
+                <Item id="2"    name="هه‌ڵوه‌شاندنه‌وه"/>
+                <Item id="1904" name="پاشەكەوتكردن..."/>
             </Run>
 
             <MD5FromFilesDlg title="Generate MD5 digest from files">
                 <Item id="1922" name="Choose files to generate MD5..."/>
                 <Item id="1924" name="Copy to Clipboard"/>
-                <Item id="2"    name="Close"/>
+                <Item id="2"    name="داخستن"/>
             </MD5FromFilesDlg>
 
             <MD5FromTextDlg title="Generate MD5 digest">
                 <Item id="1932" name="Treat each line as a separate string"/>
                 <Item id="1934" name="Copy to Clipboard"/>
-                <Item id="2"    name="Close"/>
+                <Item id="2"    name="داخستن"/>
             </MD5FromTextDlg>
 
             <StyleConfig title="Style Configurator">
-                <Item id="2"    name="Cancel"/>
-                <Item id="2301" name="Save &amp;&amp; Close"/>
-                <Item id="2303" name="Transparency"/>
-                <Item id="2306" name="Select theme: "/>
+                <Item id="2"    name="هه‌ڵوه‌شاندنه‌وه"/>
+                <Item id="2301" name="پاشەكەوتكردن &amp;&amp; داخستن"/>
+                <Item id="2303" name="ڕوونی"/>
+                <Item id="2306" name="دیاریكردنی قالب: "/>
                 <SubDialog>
                     <Item id="2204" name="Bold"/>
                     <Item id="2205" name="Italic"/>
@@ -437,7 +437,7 @@
                     <Item id="2218" name="Underline"/>
                     <Item id="2219" name="Default keywords"/>
                     <Item id="2221" name="User-defined keywords"/>
-                    <Item id="2225" name="Language:"/>
+                    <Item id="2225" name="زمان:"/>
                     <Item id="2226" name="Enable global foreground colour"/>
                     <Item id="2227" name="Enable global background colour"/>
                     <Item id="2228" name="Enable global font"/>
@@ -446,48 +446,21 @@
                     <Item id="2231" name="Enable global italic font style"/>
                     <Item id="2232" name="Enable global underline font style"/>
                 </SubDialog>
+
             </StyleConfig>
 
-            <ShortcutMapper title="Shortcut Mapper">
-                <Item id="2602" name="Modify"/>
-                <Item id="2603" name="Delete"/>
-                <Item id="2606" name="Clear"/>
-                <Item id="2607" name="Filter: "/>
-                <Item id="1" name="Close"/>
-                <ColumnName name="Name"/>
-                <ColumnShortcut name="Shortcut"/>
-                <ColumnCategory name="Category"/>
-                <ColumnPlugin name="Plugin"/>
-                <MainMenuTab name="Main menu"/>
-                <MacrosTab name="Macros"/>
-                <RunCommandsTab name="Run commands"/>
-                <PluginCommandsTab name="Plugin commands"/>
-                <ScintillaCommandsTab name="Scintilla commands"/>
-                <ConflictInfoOk name="No shortcut conflicts for this item."/>
-                <ConflictInfoEditing name="No conflicts . . ."/>
-            </ShortcutMapper>
-            <ShortcutMapperSubDialg title="Shortcut">
-                <Item id="1" name="OK"/>
-                <Item id="2" name="Cancel"/>
-                <Item id="5006" name="Name"/>
-                <Item id="5008" name="Add"/>
-                <Item id="5009" name="Remove"/>
-                <Item id="5010" name="Apply"/>
-                <Item id="5007" name="This will remove shorcut from this command"/>
-                <Item id="5012" name="CONFLICT FOUND!"/>
-            </ShortcutMapperSubDialg>
-            <UserDefine title="User-Defined">
+            <UserDefine title="پێناسەی بەكارهێنەر">
                 <Item id="20001" name="Dock"/>
-                <Item id="20002" name="Rename"/>
-                <Item id="20003" name="Create New..."/>
-                <Item id="20004" name="Remove"/>
-                <Item id="20005" name="Save As..."/>
-                <Item id="20007" name="User language: "/>
-                <Item id="20009" name="Ext.:"/>
-                <Item id="20012" name="Ignore case"/>
-                <Item id="20011" name="Transparency"/>
-                <Item id="20015" name="Import..."/>
-                <Item id="20016" name="Export..."/>
+                <Item id="20002" name="ناونانه‌وه‌"/>
+                <Item id="20003" name="دروستكردنی نوێ..."/>
+                <Item id="20004" name="لابردن"/>
+                <Item id="20005" name="پاشەكەوتكردن لە..."/>
+                <Item id="20007" name="زمانی بەكارهێنەر: "/>
+                <Item id="20009" name="دەرەوە.:"/>
+                <Item id="20012" name="پشتگوێخستنی حاڵەت"/>
+                <Item id="20011" name="ڕوونی"/>
+                <Item id="20015" name="هاورده‌..."/>
+                <Item id="20016" name="هه‌نارده..."/>
                 <StylerDialog title="Styler Dialog">
                     <Item id="25030" name="Font options:"/>
                     <Item id="25006" name="Foreground colour"/>
@@ -518,12 +491,12 @@
                     <Item id="25017" name="Comment line"/>
                     <Item id="25026" name="Operator 1"/>
                     <Item id="25027" name="Operator 2"/>
-                    <Item id="25028" name="Numbers"/>
-                    <Item id="1" name="OK"/>
-                    <Item id="2" name="Cancel"/>
+                    <Item id="25028" name="ژمارەكان"/>
+					<Item id="1" name="باشە"/>
+                    <Item id="2" name="هەڵوەشاندنەوە"/>
                 </StylerDialog>
-                <Folder title="Folder &amp;&amp; Default">
-                    <Item id="21101" name="Default style"/>
+                <Folder title="بوخچەی &amp;&amp; بنەڕەت">
+                    <Item id="21101" name="ستایلی بنەڕەت"/>
                     <Item id="21102" name="Styler"/>
                     <Item id="21105" name="Documentation:"/>
                     <Item id="21104" name="Temporary doc site:"/>
@@ -574,7 +547,7 @@
                     <Item id="23003" name="Line comment position"/>
                     <Item id="23004" name="Allow anywhere"/>
                     <Item id="23005" name="Force at beginning of line"/>
-                    <Item id="23006" name="Allow preceding whitespace"/>
+                    <Item id="23006" name="Allow preceeding whitespace"/>
                     <Item id="23001" name="Allow folding of comments"/>
                     <Item id="23326" name="Styler"/>
                     <Item id="23323" name="Open"/>
@@ -646,14 +619,14 @@
                     <Item id="24673" name="Styler"/>
                 </Operator>
             </UserDefine>
-            <Preference title="Preferences">
-                <Item id="6001" name="Close"/>
-                <Global title="General">
-                    <Item id="6101" name="Toolbar"/>
-                    <Item id="6102" name="Hide"/>
-                    <Item id="6103" name="Small icons"/>
-                    <Item id="6104" name="Big icons"/>
-                    <Item id="6105" name="Standard icons"/>
+            <Preference title="بژاردەكان">
+                <Item id="6001" name="داخستن"/>
+                <Global title="گشتی">
+                    <Item id="6101" name="تووڵامراز"/>
+                    <Item id="6102" name="شاردنەوە"/>
+                    <Item id="6103" name="ئایكۆنی بچووك"/>
+                    <Item id="6104" name="ئایكۆنی گەورە"/>
+                    <Item id="6105" name="ئایكۆنی ستاندارد"/>
 
                     <Item id="6106" name="Tab Bar"/>
                     <Item id="6107" name="Reduce"/>
@@ -669,14 +642,14 @@
                     <Item id="6120" name="Vertical"/>
                     <Item id="6121" name="Exit on close the last tab"/>
 
-                    <Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
+                    <Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="Localization"/>
 
                     <Item id="6125" name="Document List Panel"/>
                     <Item id="6126" name="Show"/>
                     <Item id="6127" name="Disable extension column"/>
                 </Global>
-                <Scintillas title="Editing">
+                <Scintillas title="دەستكاریەكان">
                     <Item id="6216" name="Caret Settings"/>
                     <Item id="6217" name="Width:"/>
                     <Item id="6219" name="Blink Rate:"/>
@@ -707,13 +680,13 @@
                     <Item id="6212" name="Line mode"/>
                     <Item id="6213" name="Background mode"/>
                     <Item id="6214" name="Enable current line highlighting"/>
-                    <Item id="6215" name="Enable smooth font"/>
+					<Item id="6215" name="Enable smooth font"/>
                     <Item id="6231" name="Border Width"/>
                     <Item id="6235" name="No edge"/>
                     <Item id="6236" name="Enable scrolling beyond last line"/>
                 </Scintillas>
 
-                <NewDoc title="New Document">
+                <NewDoc title="بەڵگەنامەی نوێ">
                     <Item id="6401" name="Format"/>
                     <Item id="6402" name="Windows"/>
                     <Item id="6403" name="Unix"/>
@@ -729,7 +702,7 @@
                     <Item id="6420" name="Apply to opened ANSI files"/>
                 </NewDoc>
 
-                <DefaultDir title="Default Directory">
+                <DefaultDir title="ڕێبەری بنەڕەت">
                     <Item id="6413" name="Default Directory (Open/Save)"/>
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
@@ -737,16 +710,16 @@
                     <Item id="6431" name="Open all files of folder instead of launching Folder as Workspace on folder dropping"/>
                 </DefaultDir>
 
-                <FileAssoc title="File Association">
+                <FileAssoc title="كۆمەڵە پەڕگەكان">
                     <Item id="4009" name="Supported extensions:"/>
                     <Item id="4010" name="Registered extensions:"/>
                 </FileAssoc>
-                <Language title="Language">
+                <Language title="زمان">
                     <Item id="6505" name="Available items"/>
                     <Item id="6506" name="Disabled items"/>
                     <Item id="6507" name="Make language menu compact"/>
                     <Item id="6508" name="Language Menu"/>
-                    <Item id="6301" name="Tab Settings"/>
+					<Item id="6301" name="Tab Settings"/>
                     <Item id="6302" name="Replace by space"/>
                     <Item id="6303" name="Tab size: "/>
                     <Item id="6510" name="Use default value"/>
@@ -755,9 +728,9 @@
                 <Highlighting title="Highlighting">
                     <Item id="6333" name="Smart Highlighting"/>
                     <Item id="6326" name="Enable smart highlighting"/>
-                    <Item id="6332" name="Match case"/>
-                    <Item id="6338" name="Match whole word only"/>
-                    <Item id="6339" name="Use Find dialog settings"/>
+					<Item id="6332" name="Match case"/>
+					<Item id="6338" name="Match whole word only"/>
+					<Item id="6339" name="Use Find dialog settings"/>
                     <Item id="6340" name="Highlight another view"/>
                     <Item id="6329" name="Highlight Matching Tags"/>
                     <Item id="6327" name="Enable"/>
@@ -765,7 +738,7 @@
                     <Item id="6330" name="Highlight comment/php/asp zone"/>
                 </Highlighting>
 
-                <Print title="Print">
+                <Print title="چاپكردن">
                     <Item id="6601" name="Print line number"/>
                     <Item id="6602" name="Colour Options"/>
                     <Item id="6603" name="WYSIWYG"/>
@@ -795,7 +768,7 @@
                     <Item id="6728" name="Header and Footer"/>
                 </Print>
 
-                <RecentFilesHistory title="Recent Files History">
+                <RecentFilesHistory title="مێژووی پەڕگەكانی بەم دوواییە">
                     <Item id="6304" name="Recent Files History"/>
                     <Item id="6306" name="Max. number of entries:"/>
                     <Item id="6305" name="Don't check at launch time"/>
@@ -806,7 +779,7 @@
                     <Item id="6427" name="Customize Maximum Length:"/>
                 </RecentFilesHistory>
 
-                <Backup title="Backup">
+                <Backup title="یەدەگ(باك ئەپ)">
                     <Item id="6817" name="Session snapshot and periodic backup"/>
                     <Item id="6818" name="Enable session snapshot and periodic backup"/>
                     <Item id="6819" name="Backup in every"/>
@@ -854,19 +827,19 @@
                     <Item id="6252" name="Open"/>
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>
-                    <Item id="6161" name="Word character list"/>
+					<Item id="6161" name="Word character list"/>
                     <Item id="6162" name="Use default Word character list as it is"/>
                     <Item id="6163" name="Add your character as part of word
 (don't choose it unless you know what you're doing)"/>
                 </Delimiter>
 
-                <Cloud title="Cloud">
+                <Cloud title="هەوری">
                     <Item id="6262" name="Settings on cloud"/>
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
                 </Cloud>
-                
-                <SearchEngine title="Search Engine">
+				
+                <SearchEngine title="بزوێنەری گەڕان">
                     <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
@@ -887,7 +860,7 @@
                     <Item id="6319" name="Enable"/>
                     <Item id="6320" name="No underline"/>
                     <Item id="6322" name="Session file ext.:"/>
-                    <Item id="6323" name="Enable Notepad++ auto-updater"/>
+                    <Item id="6323" name="چالاكردنی نوێكردنەوەی Notepad++ بەشێوەیەكی خودكار"/>
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
                     <Item id="6331" name="Show only filename in title bar"/>
                     <Item id="6334" name="Autodetect character encoding"/>
@@ -909,12 +882,12 @@
                 <Item id="8005" name="times"/>
                 <Item id="8002" name="Run until the end of file"/>
             </MultiMacro>
-            <Window title="Windows">
-                <Item id="1" name="Activate"/>
-                <Item id="2" name="OK"/>
-                <Item id="7002" name="Save"/>
-                <Item id="7003" name="Close window(s)"/>
-                <Item id="7004" name="Sort tabs"/>
+            <Window title="پەنجەرەكان">
+                <Item id="1" name="چالاكردن"/>
+                <Item id="2" name="باشە"/>
+                <Item id="7002" name="پاشەكەوتكردن"/>
+                <Item id="7003" name="داخستنی پەنجەرە(s)"/>
+                <Item id="7004" name="ڕیزكردنی تابەكان"/>
             </Window>
             <ColumnEditor title="Column Editor">
                 <Item id="2023" name="Text to Insert"/>
@@ -928,11 +901,11 @@
                 <Item id="2025" name="Oct"/>
                 <Item id="2026" name="Hex"/>
                 <Item id="2027" name="Bin"/>
-                <Item id="1" name="OK"/>
-                <Item id="2" name="Cancel"/>
+                <Item id="1" name="باشە"/>
+                <Item id="2" name="هەڵوەشاندنەوە"/>
             </ColumnEditor>
         </Dialog>
-        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MessageBox>
             <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.
 You have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
             <NppHelpAbsentWarning title="File does not exist" message="
@@ -950,72 +923,15 @@ Continue?"/>
             <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
-            
+
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.
 Are you sure to open them?"/>
-            <SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
+			<SettingsOnCloudError title="Settings on Cloud" message="It seems the path of settings on cloud is set on a read only drive,
 or on a folder needed privilege right for writing access.
 Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
-            <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
-            <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
-            <DroppingFolderAsProjetModeWarning title="Invalid action" message="You can drop only files or folders but not both, because you're in dropping Folder as Project mode.
-you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
-            <SortingError title="Sorting Error" message="Unable to perform numeric sort due to line $INT_REPLACE$."/>
-            <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
-            <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
-            <DoSaveOrNot title="Save" message="Save file &quot;$STR_REPLACE$&quot; ?"/>
-            <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
-Keep this file in editor?"/>
-            <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
-will be moved to your Recycle Bin and this document will be closed.
-Continue?"/>
-            <NoBackupDoSaveFile title="Save" message="Your backup file cannot be found (deleted from outside).
-Save it otherwise your data will be lost
-Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
-            <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
-
-This file has been modified by another program.
-Do you want to reload it?"/>
-            <DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
-
-This file has been modified by another program.
-Do you want to reload it and lose the changes made in Notepad++?"/>
-            <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system, This feature works only on a modern system, sorry."/>
-            <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
-Do you want to go to Notepad++ page to download the latest version?"/>
-            <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
-            <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
-            <FileTooBigToOpene title="File size problem" message="File is too big to be opened by Notepad++"/>
-            <CreateNewFileOrNot title="Create new file" message="&quot;$INT_REPLACE$&quot; doesn't exist. Create it?."/>
-            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$INT_REPLACE$&quot;."/>
-            <OpenFileError title="ERROR" message="Can not open file &quot;$INT_REPLACE$&quot;."/>
-            <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$INT_REPLACE$&quot;.
-
-Do you want to save the current file anyways?"/>
-            <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$INT_REPLACE$&quot; failed!"/>
-            <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
-Do you want to recover your langs.xml?"/>
-            <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/>
-            <FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="A sub-folder of the folder you want to add exists.
-Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/>
-
-            <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/>
-            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
-            <ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
-            <ProjectPanelOpenFailed title="Open Workspace" message="The workspace could not be opened.
-It seems the file to open is not a valid project file."/>
-            <ProjectPanelRemoveFolderFromProject title="Remove folder from project" message="All the sub-items will be removed.
-Are you sure you want to remove this folder from the project?"/>
-            <ProjectPanelRemoveFileFromProject title="Remove file from project" message="Are you sure you want to remove this file from the project?"/>
-            <ProjectPanelReloadError title="Reload Workspace" message="Cannot find the file to reload."/>
-            <ProjectPanelReloadDirty title="Reload Workspace" message="The current workspace was modified. Reloading will discard all modifications.
-Do you want to continue?"/>
-            <UDLNewNameError title="UDL Error" message="This name is used by another language,
-please give another one."/>
-            <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
-            <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
-            <FindCharRangeValueError title="Range Value problem" message="You should type between from 0 to 255."/>
+			<FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
+	    <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1032,113 +948,70 @@ please give another one."/>
             <ColumnChar name="Character"/>
         </AsciiInsertion>
         <DocumentMap>
-            <PanelTitle name="Document Map"/>
+            <PanelTitle name="نەخشەی بەڵگەنامە"/>
         </DocumentMap>
         <FunctionList>
-            <PanelTitle name="Function List"/>
-            <SortTip name="Sort" />
-            <ReloadTip name="Reload" />
+            <PanelTitle name="لیستی فەرمانەكان"/>
+            <SortTip name="ڕیزكردن" />
+            <ReloadTip name="باركردنەوە" />
         </FunctionList>
-        <FolderAsWorkspace>
-            <PanelTitle name="Folder as Workspace"/>
-            <SelectFolderFromBrowserString name="Select a folder to add in Folder as Workspace panel"/>
-            <Menus>
-                <Item id="3511" name="Remove"/>
-                <Item id="3512" name="Remove All"/>
-                <Item id="3513" name="Add"/>
-                <Item id="3514" name="Run by system"/>
-                <Item id="3515" name="Open"/>
-                <Item id="3516" name="Copy path"/>
-                <Item id="3517" name="Find in Files..."/>
-                <Item id="3518" name="Explorer here"/>
-                <Item id="3519" name="CMD here"/>
-            </Menus>
-        </FolderAsWorkspace>
         <ProjectManager>
-            <PanelTitle name="Project"/>
+            <PanelTitle name="پڕۆژە"/>
             <WorkspaceRootName name="Workspace"/>
-            <NewProjectName name="Project Name"/>
-            <NewFolderName name="Folder Name"/>
+            <NewProjectName name="ناوی پڕۆژە"/>
+            <NewFolderName name="ناوی بوخچە"/>
             <Menus>
                 <Entries>
                     <Item id="0" name="Workspace"/>
-                    <Item id="1" name="Edit"/>
+                    <Item id="1" name="دەستكاری"/>
                 </Entries>
                 <WorkspaceMenu>
                     <Item id="3122" name="New Workspace"/>
                     <Item id="3123" name="Open Workspace"/>
                     <Item id="3124" name="Reload Workspace"/>
-                    <Item id="3125" name="Save"/>
-                    <Item id="3126" name="Save As..."/>
-                    <Item id="3127" name="Save a Copy As..."/>
-                    <Item id="3121" name="Add New Project"/>
+                    <Item id="3125" name="پاشەكەوتكردن"/>
+                    <Item id="3126" name="پاشەكەوتكردن لە..."/>
+                    <Item id="3127" name="پاشەكەوتكردنی لەبەرگرتنەوە لە..."/>
+                    <Item id="3121" name="زیادكردنی پڕۆژەیەكی نوێ"/>
                 </WorkspaceMenu>
                 <ProjectMenu>
-                    <Item id="3111" name="Rename"/>
-                    <Item id="3112" name="Add Folder"/>
-                    <Item id="3113" name="Add Files..."/>
-                    <Item id="3117" name="Add Files from Directory..."/>
-                    <Item id="3114" name="Remove"/>
-                    <Item id="3118" name="Move Up"/>
-                    <Item id="3119" name="Move Down"/>
+                    <Item id="3111" name="ناونانه‌وه‌"/>
+                    <Item id="3112" name="زیادكردنی بوخچە"/>
+                    <Item id="3113" name="زیادكردنی پەڕگە..."/>
+                    <Item id="3117" name="زیادكردنی پەڕگە لە پێرست..."/>
+                    <Item id="3114" name="لابردن"/>
+                    <Item id="3118" name="بۆ سەرەوە"/>
+                    <Item id="3119" name="بۆ خوارەوە"/>
                 </ProjectMenu>
                 <FolderMenu>
-                    <Item id="3111" name="Rename"/>
-                    <Item id="3112" name="Add Folder"/>
-                    <Item id="3113" name="Add Files..."/>
-                    <Item id="3117" name="Add Files from Directory..."/>
-                    <Item id="3114" name="Remove"/>
-                    <Item id="3118" name="Move Up"/>
-                    <Item id="3119" name="Move Down"/>
+                    <Item id="3111" name="ناونانه‌وه‌"/>
+                    <Item id="3112" name="زیادكردنی بوخچە"/>
+                    <Item id="3113" name="زیادكردنی پەڕگە..."/>
+                    <Item id="3117" name="زیادكردنی پەڕگە لە پێرست..."/>
+                    <Item id="3114" name="لابردن"/>
+                    <Item id="3118" name="بۆ سەرەوە"/>
+                    <Item id="3119" name="بۆ خوارەوە"/>
                 </FolderMenu>
                 <FileMenu>
-                    <Item id="3111" name="Rename"/>
-                    <Item id="3115" name="Remove"/>
+                    <Item id="3111" name="ناونانه‌وه‌"/>
+                    <Item id="3115" name="لابردن"/>
                     <Item id="3116" name="Modify File Path"/>
-                    <Item id="3118" name="Move Up"/>
-                    <Item id="3119" name="Move Down"/>
+                    <Item id="3118" name="بۆ سەرەوە"/>
+                    <Item id="3119" name="بۆ خوارەوە"/>
                 </FileMenu>
             </Menus>
         </ProjectManager>
         <MiscStrings>
-            <word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
+			<word-chars-list-tip value="This allows you to include additional character into current word characters while double clicking for selection or searching with &quot;Match whole word only&quot; option checked."/>
             <word-chars-list-warning-begin value="Be aware: "/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB(s)"/>
-            <word-chars-list-warning-end value="  in your character list."/>
-            <cloud-invalid-warning value="Invalid path."/>
-            <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
-            <cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/>
-            <shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
-            <two-find-buttons-tip value="2 find buttons mode"/>
-            <find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
-            <find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
-            <find-status-replaceinfiles-1-replaced value="Replace in Files: 1 occurrence was replaced"/>
-            <find-status-replaceinfiles-nb-replaced value="Replace in Files: $INT_REPLACE$ occurrences were replaced"/>
-            <find-status-replaceinfiles-re-malformed value="Replace in Opened Files: The regular expression is malformed"/>
-            <find-status-replaceinopenedfiles-1-replaced value="Replace in Opened Files: 1 occurrence was replaced"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Replace in Opened Files: $INT_REPLACE$ occurrences were replaced"/>
-            <find-status-mark-re-malformed value="Mark: The regular expression to search is malformed"/>
-            <find-status-invalid-re value="Find: Invalid regular expression"/>
-            <find-status-mark-1-match value="1 match"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ matches"/>
-            <find-status-count-re-malformed value="Count: The regular expression to search is malformed"/>
-            <find-status-count-1-match value="Count: 1 match"/>
-            <find-status-count-nb-matches value="Count: $INT_REPLACE$ matches"/>
-            <find-status-replaceall-re-malformed value="Replace All: The regular expression is malformed"/>
-            <find-status-replaceall-1-replaced value="Replace All: 1 occurrence was replaced"/>
-            <find-status-replaceall-nb-replaced value="Replace All: $INT_REPLACE$ occurrences were replaced"/>
-            <find-status-replaceall-readonly value="Replace All: Cannot replace text. The current document is read only"/>
-            <find-status-replace-end-reached value="Replace: Replaced the 1st occurrence from the top. The end of document has been reached"/>
-            <find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
-            <find-status-relaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found"/>
-            <find-status-relaced-next-not-found value="Replace: 1 occurrence was replaced. The next occurrence not found"/>
-            <find-status-replace-not-found value="Replace: no occurrence was found"/>
-            <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
-            <find-status-cannot-find value="Find: Can't find the text &quot;$STR_REPLACE$&quot;"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ matches"/>
+			<word-chars-list-warning-end value="  in your character list."/>
+			<cloud-invalid-warning value="Invalid path."/>
+			<cloud-restart-warning value="Please restart Notepad++ to take effect."/>
+			<shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

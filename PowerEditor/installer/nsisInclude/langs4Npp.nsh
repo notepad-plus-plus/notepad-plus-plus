@@ -280,6 +280,9 @@ SectionGroup "Localization" localization
 	${MementoUnselectedSection} "Welsh" welsh
 		CopyFiles "$PLUGINSDIR\nppLocalization\welsh.xml" "$INSTDIR\localization\welsh.xml"
 	${MementoSectionEnd}
+	${MementoUnselectedSection} "Kurdish" kurdish
+		CopyFiles "$PLUGINSDIR\nppLocalization\kurdish.xml" "$INSTDIR\localization\kurdish.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 SectionGroup un.localization
@@ -534,5 +537,8 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.welsh
 		Delete "$INSTDIR\localization\welsh.xml"
+	SectionEnd
+	Section un.kurdish
+		Delete "$INSTDIR\localization\kurdish.xml"
 	SectionEnd
 SectionGroupEnd

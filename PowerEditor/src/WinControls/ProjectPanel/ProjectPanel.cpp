@@ -176,7 +176,7 @@ void ProjectPanel::checkIfNeedSave(const TCHAR *title)
 			if (!saveWorkSpace())
 				pNativeSpeaker->messageBox("ProjectPanelChangedSaveError",
 					_hSelf,
-					TEXT("Your workspace was not saved."),
+					TEXT("Your workspace has not been saved."),
 					TEXT("$STR_REPLACE$"),
 					MB_OK | MB_ICONERROR,
 					0,

@@ -267,13 +267,13 @@
                     <Item id="45002" name="Convertir en Format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en Format Mac (CR)"/>
                     <Item id="45004" name="Encoder en ANSI"/>
-                    <Item id="45005" name="Encoder en UTF-8"/>
+                    <Item id="45005" name="Encoder en UTF-8(avec BOM)"/>
                     <Item id="45006" name="Encoder en UTF-16BE"/>
                     <Item id="45007" name="Encoder en UTF-16LE"/>
-                    <Item id="45008" name="Encoder en UTF-8 (sans BOM)"/>
+                    <Item id="45008" name="Encoder en UTF-8"/>
                     <Item id="45009" name="Convertir en ANSI"/>
-                    <Item id="45010" name="Convertir en UTF-8 (sans BOM)"/>
-                    <Item id="45011" name="Convertir en UTF-8"/>
+                    <Item id="45010" name="Convertir en UTF-8"/>
+                    <Item id="45011" name="Convertir en UTF-8-BOM"/>
                     <Item id="45012" name="Convertir en UTF-16BE"/>
                     <Item id="45013" name="Convertir en UTF-16LE"/>
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
@@ -443,7 +443,34 @@
                     <Item id="2232" name="Appliquer le style souligné global"/>
                 </SubDialog>
             </StyleConfig>
-
+            <ShortcutMapper title="Gestionnaire de Raccourcis clavier">
+                <Item id="2602" name="Modifier"/>
+                <Item id="2603" name="Supprimer"/>
+                <Item id="2606" name="Effacer"/>
+                <Item id="2607" name="Filtre: "/>
+                <Item id="1" name="Fermer"/>
+                <ColumnName name="Nom"/>
+                <ColumnShortcut name="Raccourcis clavier"/>
+                <ColumnCategory name="Catégorie"/>
+                <ColumnPlugin name="Plugin"/>
+                <MainMenuTab name="Menu principal"/>
+                <MacrosTab name="Macros"/>
+                <RunCommandsTab name="Excécution"/>
+                <PluginCommandsTab name="Commandes de Plugin"/>
+                <ScintillaCommandsTab name="Commandes de Scintilla "/>
+                <ConflictInfoOk name="Pas de conflit pour cet item."/>
+                <ConflictInfoEditing name="Pas de conflit . . ."/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="Raccourcis clavier">
+                <Item id="1" name="OK"/>
+                <Item id="2" name="Annuler"/>
+                <Item id="5006" name="Nom"/>
+                <Item id="5008" name="Ajouter"/>
+                <Item id="5009" name="Supprimer"/>
+                <Item id="5010" name="Appliquer"/>
+                <Item id="5007" name="Cela supprimera le raccourcis depuis cette commande"/>
+                <Item id="5012" name="CONFLIT TROUVÉ!"/>
+            </ShortcutMapperSubDialg>
     <UserDefine title="Langage utilisateur">
         <Item id="20001" name="Ancrer"/>
         <Item id="20005" name="Enregistrer sous"/>
@@ -904,6 +931,64 @@
             <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. Veuillez le télécharger sur le site de Notepad++."/>
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
             <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
+            <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
+            <DroppingFolderAsProjetModeWarning title="Invalid action" message="You can drop only files or folders but not both, because you're in dropping Folder as Project mode.
+you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+            <SortingError title="Sorting Error" message="Unable to perform numeric sort due to line $INT_REPLACE$."/>
+            <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
+            <DoSaveOrNot title="Save" message="Save file &quot;$STR_REPLACE$&quot; ?"/>
+            <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
+Keep this file in editor?"/>
+            <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
+will be moved to your Recycle Bin and this document will be closed.
+Continue?"/>
+            <NoBackupDoSaveFile title="Save" message="Your backup file cannot be found (deleted from outside).
+Save it otherwise your data will be lost
+Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
+            <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
+
+This file has been modified by another program.
+Do you want to reload it?"/>
+            <DoReloadOrNotAndLooseChange title="Reload" message="&quot;$STR_REPLACE$&quot;
+
+This file has been modified by another program.
+Do you want to reload it and lose the changes made in Notepad++?"/>
+            <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system, This feature works only on a modern system, sorry."/>
+            <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
+Do you want to go to Notepad++ page to download the latest version?"/>
+            <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
+            <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
+            <FileTooBigToOpene title="File size problem" message="File is too big to be opened by Notepad++"/>
+            <CreateNewFileOrNot title="Create new file" message="&quot;$INT_REPLACE$&quot; doesn't exist. Create it?."/>
+            <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$INT_REPLACE$&quot;."/>
+            <OpenFileError title="ERROR" message="Can not open file &quot;$INT_REPLACE$&quot;."/>
+            <FileBackupFailed title="File Backup Failed" message="The previous version of the file could not be saved into the backup directory at &quot;$INT_REPLACE$&quot;.
+
+Do you want to save the current file anyways?"/>
+            <LoadStylersFailed title="Load stylers.xml failed" message="Load &quot;$INT_REPLACE$&quot; failed!"/>
+            <LoadLangsFailed title="Configurator" message="Load langs.xml failed!
+Do you want to recover your langs.xml?"/>
+            <LoadLangsFailedFinal title="Configurator" message="Load langs.xml failed!"/>
+            <FolderAsWorspaceSubfolderExists title="Folder as Workspace adding folder problem" message="A sub-folder of the folder you want to add exists.
+Please remove its root from the panel before you add folder &quot;$STR_REPLACE$&quot;."/>
+
+            <ProjectPanelChanged title="$STR_REPLACE$" message="The workspace was modified. Do you want to save it?"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Your workspace has not been saved."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Open Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="New Workspace" message="The current workspace was modified. Do you want to save the current project?"/>
+            <ProjectPanelOpenFailed title="Open Workspace" message="The workspace could not be opened.
+It seems the file to open is not a valid project file."/>
+            <ProjectPanelRemoveFolderFromProject title="Remove folder from project" message="All the sub-items will be removed.
+Are you sure you want to remove this folder from the project?"/>
+            <ProjectPanelRemoveFileFromProject title="Remove file from project" message="Are you sure you want to remove this file from the project?"/>
+            <ProjectPanelReloadError title="Reload Workspace" message="Cannot find the file to reload."/>
+            <ProjectPanelReloadDirty title="Reload Workspace" message="The current workspace was modified. Reloading will discard all modifications.
+Do you want to continue?"/>
+            <UDLNewNameError title="UDL Error" message="This name is used by another language,
+please give another one."/>
+            <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
+            <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
+            <FindCharRangeValueError title="Range Value problem" message="You should type between from 0 to 255."/>
         </MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historique du presse-papiers"/>
@@ -927,6 +1012,21 @@
             <SortTip name="Trier" />
             <ReloadTip name="Recharger" />
         </FunctionList>
+        <FolderAsWorkspace>
+            <PanelTitle name="Dossier en tant qu'Espace de travail"/>
+            <SelectFolderFromBrowserString name="Sélectioner un dossier pour ajouter dans Dossier en tant qu'Espace de travail"/>
+            <Menus>
+                <Item id="3511" name="Effacer"/>
+                <Item id="3512" name="Effacer Tout"/>
+                <Item id="3513" name="Ajouter"/>
+                <Item id="3514" name="Excécuter par le système"/>
+                <Item id="3515" name="Ouvrir"/>
+                <Item id="3516" name="Copier le chemin d'accès"/>
+                <Item id="3517" name="Rechercher dans les fichiers..."/>
+                <Item id="3518" name="Explorer depuis ici"/>
+                <Item id="3519" name="CMD depuis ici"/>
+            </Menus>
+        </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Projet"/>
             <WorkspaceRootName name="Espace de travail"/>
@@ -984,7 +1084,31 @@
 			<cloud-invalid-warning value="Chemin invalide."/>
 			<cloud-restart-warning value="Veuillez redémarrer Notepad++ afin que le changement prenne effet."/>
 			<shift-change-direction-tip value="Utilisez Shift + Entrée pour rechercher dans le sens inverse"/>
-			<1-to-2-buttons-tip value="2 boutons Recherche"/>
+			<two-find-buttons-tip value="2 boutons Recherche"/>
+            <cloud-select-folder value="Sélectionner un répertoire où Notepad++ lit ou écrit ses paramètres"/>
+            <find-status-top-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le bas. Le début du document a été atteinte"/>
+            <find-status-end-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le haut. La fin du document a été atteinte"/>
+            <find-status-replaceinfiles-1-replaced value="Remplacer dans les fichierss : 1 occurrence a été remplacée"/>
+            <find-status-replaceinfiles-nb-replaced value="Remplacer dans les fichierss : $INT_REPLACE$ occurrences ont été remplacées"/>
+            <find-status-replaceinfiles-re-malformed value="Remplacer dans les fichierss ouverts : l'expression régulière est malformée"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Remplacer dans les fichierss ouverts : 1 occurrence a été remplacée"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Remplacer dans les fichierss ouverts : $INT_REPLACE$ occurrences ont été remplacées"/>
+            <find-status-mark-re-malformed value="Marquer : l'expression régulière est malformée"/>
+            <find-status-invalid-re value="Rechercher : Invalid regular expression"/>
+            <find-status-mark-1-match value="1 match"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ matches"/>
+            <find-status-count-re-malformed value="Compter : l'expression régulière est malformée"/>
+            <find-status-count-1-match value="Compter : 1 match"/>
+            <find-status-count-nb-matches value="Compter : $INT_REPLACE$ matches"/>
+            <find-status-replaceall-re-malformed value="Remplacer tout : l'expression régulière est malformée"/>
+            <find-status-replaceall-1-replaced value="Remplacer tout : 1 occurrence a été remplacée"/>
+            <find-status-replaceall-nb-replaced value="Remplacer tout : $INT_REPLACE$ occurrences ont été remplacées"/>
+            <find-status-replaceall-readonly value="Remplacer tout : l'opération échouée. Le fichier est en lecture seule"/>
+            <find-status-replace-end-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
+            <find-status-replace-top-reached value="Remplacer : La 1ère occurrence a été remplcée depuis le bas. Le début du document a été atteinte"/>
+            <find-status-replace-not-found value="Remplacer : aucune occurrence a été trouvéé"/>
+            <find-status-replace-readonly value="Remplacer : l'opération échouée. Le fichier est en lecture seule"/>
+            <find-status-cannot-find value="Rechercher : &quot;$STR_REPLACE$&quot; n'a pas été trouvé"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

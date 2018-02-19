@@ -3270,7 +3270,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			// display error & do nothing
 			_nativeLangSpeaker.messageBox("DroppingFolderAsProjetModeWarning",
 				_pPublicInterface->getHSelf(),
-				TEXT("You can drop only files or folders but not both, because you're in dropping Folder as Projet mode.\ryou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work."),
+				TEXT("You can drop only files or folders but not both, because you're in dropping Folder as Project mode.\ryou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work."),
 				TEXT("Invalid action"),
 				MB_OK | MB_APPLMODAL);
 		}

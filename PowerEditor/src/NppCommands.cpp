@@ -628,14 +628,15 @@ void Notepad_plus::command(int id)
 			}
 			catch (size_t& failedLineIndex)
 			{
-				generic_string lineNo = std::to_wstring(1 + fromLine + failedLineIndex);
+				size_t lineNo = 1 + fromLine + failedLineIndex;
+
 				_nativeLangSpeaker.messageBox("SortingError",
 					_pPublicInterface->getHSelf(),
-					TEXT("Unable to perform numeric sort due to line $STR_REPLACE$."),
+					TEXT("Unable to perform numeric sort due to line $INT_REPLACE$."),
 					TEXT("Sorting Error"),
 					MB_OK | MB_ICONINFORMATION | MB_APPLMODAL,
-					0,
-					lineNo.c_str()); // We don't use intInfo since it would require casting size_t -> int.
+					static_cast<int>(lineNo),
+					0);
 			}
 			_pEditView->execute(SCI_ENDUNDOACTION);
 
@@ -1015,12 +1016,12 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.processFindNext(s.c_str(), &op, &status);
 			if (status == FSEndReached)
 			{
-				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-top-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."));
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."));
 				_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
 			}
 			else if (status == FSTopReached)
 			{
-				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-bottom-begin-reached", TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."));
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."));
 				_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
 			}
 		}
@@ -1049,12 +1050,12 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.processFindNext(str, &op, &status);
 			if (status == FSEndReached)
 			{
-				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-top-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."));
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."));
 				_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
 			}
 			else if (status == FSTopReached)
 			{
-				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-bottom-begin-reached", TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."));
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."));
 				_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
 			}
         }
@@ -1096,12 +1097,12 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.processFindNext(text2Find, &op, &status);
 			if (status == FSEndReached)
 			{
-				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-top-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."));
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-end-reached", TEXT("Find: Found the 1st occurrence from the top. The end of the document has been reached."));
 				_findReplaceDlg.setStatusbarMessage(msg, FSEndReached);
 			}
 			else if (status == FSTopReached)
 			{
-				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-find-from-bottom-begin-reached", TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."));
+				generic_string msg = _nativeLangSpeaker.getLocalizedStrFromID("find-status-top-reached", TEXT("Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."));
 				_findReplaceDlg.setStatusbarMessage(msg, FSTopReached);
 			}
 		}

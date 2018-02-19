@@ -476,7 +476,7 @@
                 <Item id="5008" name="Ekle"/>
                 <Item id="5009" name="Kaldır"/>
                 <Item id="5010" name="Uygula"/>
-                <Item id="5007" name="Bu hızlandırıcıyı kaldıracaktır"/>
+                <Item id="5007" name="Bu işlem bu komuttan kısayolu kaldıracaktır"/>
                 <Item id="5012" name="ÇAKIŞMA BULUNDU!"/>
 			</ShortcutMapperSubDialg>
 			<UserDefine title="Kullanıcı Tanımlı Dil">
@@ -672,7 +672,7 @@
 					<Item id="6120" name="Dikey"/>
 					<Item id="6121" name="Kapatılan son sekmeden çık"/>
 
-					<Item id="6122" name="Gizle (Alt veya F10 tuşlarıyla göster/gizle)"/>
+					<Item id="6122" name="Menü çubuğunu gizle (Alt veya F10 tuşlarıyla göster/gizle)"/>
 					<Item id="6123" name="Yerelleştir"/>
 
 					<Item id="6125" name="Belge Listesi Paneli"/>
@@ -964,7 +964,7 @@ Buluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum aya
             <DroppingFolderAsProjetModeWarning title="Geçersiz İşlem" message="Sadece klasör ya da dosyaları bırakabilirsiniz fakat ikisini birden yapamazsınız, çünkü Klasörü Proje modu olarak bırakıyorsunuz.
 Bu işlemin çalışması için, klasör bırakmada, klasörü Çalışma alanı olarak başlatmak yerine &quot; Ayarlar içindeki&quot; &quot;Varsayılan Dizin&quot; bölümünde &quot;Klasördeki tüm dosyaları aç&quot; seçeneği etkinleştirmelisiniz."/>
 
-            <SortingError title="Sıralama Hatası" message="$STR_REPLACE$ satırındaki hatadan dolayı Numerik sıralanamadı."/>
+            <SortingError title="Sıralama Hatası" message="$INT_REPLACE$ satırındaki hatadan dolayı Numerik sıralanamadı."/>
             <ColumnModeTip title="Sütun Modu İpucu" message="Lütfen &quot;ALT+Fare Seçimi&quot; ya da &quot;Alt+Shift+Ok tuşu&quot; kullanarak sütun moduna geçiş yapın."/>
             <BufferInvalidWarning title="Kayıt Başarısız" message="Kaydedilemiyor: Arabellek geçersiz."/>		
 			<DoSaveOrNot title="Kaydet" message="&quot;$STR_REPLACE$&quot; dosyası kaydedilsin mi?"/>
@@ -998,10 +998,10 @@ Notepad++ sayfasına giderek en son sürümü indirmek ister misiniz?"/>
 Kendi langs.xml dosyanızı kurtarmak ister misiniz?"/>
 			<LoadLangsFailedFinal title="Yapılandırıcı" message="langs.xml yükleme başarısız!"/>
             <FolderAsWorspaceSubfolderExists title="Çalışma Alanı Olarak Klasör Ekleme Sorunu" message="Eklemek istediğiniz klasörün alt klasörü mevcut.
-&quot;$STR_REPLACE$&quot; klasörünü eklemeden önce Panelden kaldırın."/>
+&quot;$STR_REPLACE$&quot; klasörünü eklemeden önce Panelden ana klasörü kaldırın."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Çalışma alanı değiştirildi. Kaydetmek istiyor musunuz?"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Çalışma alanınız kaydedilmedi."/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Çalışma alanınız kaydedilemedi."/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="Çalışma Alanı Aç" message="Şu anki çalışma alanı değiştirildi. Şu anki projeyi kaydetmek istiyor musunuz?"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="Yeni Çalışma Alanı" message="Şu anki çalışma alanı değiştirildi. Şu anki projeyi kaydetmek istiyor musunuz?"/>
             <ProjectPanelOpenFailed title="Çalışma Alanı Aç" message="Çalışma alanı açılamadı.
@@ -1116,8 +1116,6 @@ lütfen yeni bir isim verin."/>
 			<two-find-buttons-tip value="İkili Bulma Düğmesi Modu"/>
 			<find-status-top-reached value="Bulma: Sondan 1. eşleşme bulundu. Dosyanın başına ulaşıldı."/>
 			<find-status-end-reached value="Bulma: Baştan 1. eşleşme bulundu. Dosyanın sonuna ulaşıldı."/>
-			<find-status-find-from-top-end-reached value="Bulma: Baştan 1. eşleşme bulundu. Dosyanın sonuna ulaşıldı."/>
-			<find-status-find-from-bottom-begin-reached value="Bulma: Sondan 1. eşleşme bulundu. Dosyanın başına ulaşıldı."/>
 			<find-status-replaceinfiles-1-replaced value="Dosyalarda Değiştir: 1 eşleşme değiştirildi"/>
 			<find-status-replaceinfiles-nb-replaced value="Dosyalarda Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
 			<find-status-replaceinfiles-re-malformed value="Açılmış Dosyalarda Değiştir: Düzenli ifade kötü biçimlendirilmiş"/>
@@ -1133,7 +1131,7 @@ lütfen yeni bir isim verin."/>
 			<find-status-replaceall-re-malformed value="Tümünü Değiştir: Düzenli ifade kötü biçimlemdirilmiş"/>
 			<find-status-replaceall-1-replaced value="Tümünü Değiştir: 1 eşleşme değiştirildi"/>
 			<find-status-replaceall-nb-replaced value="Tümünü Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
-			<ind-status-replaceall-readonly value="Tümünü Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
+			<find-status-replaceall-readonly value="Tümünü Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-replace-end-reached value="Değiştir: Baştan 1. eşleşme değiştirildi. Dosyanın sonuna ulaşıldı"/>
 			<find-status-replace-top-reached value="Değiştir: Sondan 1. eşleşme değiştirildi. Dosyanın başına ulaşıldı"/>
 			<find-status-relaced-next-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulundu"/>
@@ -1141,7 +1139,6 @@ lütfen yeni bir isim verin."/>
 			<find-status-replace-not-found value="DEğiştir: hiçbir eşleşme bulunamadı"/>
 			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>
-			<find-status-mark-re-malformed value="İşaretle: Aramak için kullanılan düzenli ifade kötü biçimlendirilmiş"/>
 			<find-status-mark-nb-matches value="$INT_REPLACE$ eşleşmeler"/>
 		</MiscStrings>
 	</Native-Langue>

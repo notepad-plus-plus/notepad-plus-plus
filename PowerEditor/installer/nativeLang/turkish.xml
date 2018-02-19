@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.3.1">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.5.5">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -260,13 +260,13 @@
 					<Item id="45002" name="UNIX Biçimine Dönüştür"/>
 					<Item id="45003" name="Mac OS Biçimine Dönüştür"/>
 					<Item id="45004" name="ANSI Olarak Kodla"/>
-					<Item id="45005" name="UTF-8 Olarak Kodla"/>
+					<Item id="45005" name="UTF-8 BOM Olarak Kodla"/>
 					<Item id="45006" name="UCS-2 Big-Endian Olarak Kodla"/>
 					<Item id="45007" name="UCS-2 Little-Endian Olarak Kodla"/>
-					<Item id="45008" name="BOM Olmadan UTF-8 Olarak Kodla"/>
+					<Item id="45008" name="UTF-8 Olarak Kodla"/>
 					<Item id="45009" name="ANSI'ye Dönüştür"/>
-					<Item id="45010" name="BOM Olmadan UTF-8'e Dönüştür"/>
-					<Item id="45011" name="UTF-8'e Dönüştür"/>
+					<Item id="45010" name="UTF-8'e Dönüştür"/>
+					<Item id="45011" name="UTF-8 BOM'a Dönüştür"/>
 					<Item id="45012" name="UCS-2 Big-Endian'a Dönüştür"/>
 					<Item id="45013" name="UCS-2 Little-Endian'a Dönüştür"/>
 
@@ -348,10 +348,13 @@
 				<Item id="1604" name="Büyük/küçük harf &amp;eşleştir"/>
 				<Item id="1605" name="Dü&amp;zenli ifade"/>
 				<Item id="1606" name="Aramayı sür&amp;dür"/>
+				
+				
 				<Item id="1614" name="Say"/>
 				<Item id="1615" name="Tümünü &amp;Bul"/>
 				<Item id="1616" name="Satırı işaretle"/>
 				<Item id="1618" name="Her arama için temizle"/>
+				
 				<Item id="1611" name="De&amp;ğiştir:"/>
 				<Item id="1608" name="&amp;Değiştir"/>
 				<Item id="1609" name="Tü&amp;münü Değiştir"/>
@@ -448,7 +451,34 @@
 				</SubDialog>
 
 			</StyleConfig>
-
+			<ShortcutMapper title="Kısayol Düzenleyici">
+                <Item id="2602" name="Düzenle"/>
+                <Item id="2603" name="Sil"/>
+                <Item id="2606" name="Temizle"/>
+				<Item id="2607" name="Filtre: "/>
+                <Item id="1" name="Kapat"/>
+                <ColumnName name="İsim"/>
+                <ColumnShortcut name="Kısayol"/>
+                <ColumnCategory name="Kategori"/>
+                <ColumnPlugin name="Eklenti"/>
+                <MainMenuTab name="Ana Menü"/>
+                <MacrosTab name="Makrolar"/>
+                <RunCommandsTab name="Komut Çalıştır"/>
+                <PluginCommandsTab name="Eklenti Komutları"/>
+                <ScintillaCommandsTab name="Scintilla Komutları"/>
+				<ConflictInfoOk name="Bu içerik için hiçbir kısayol çakışması yok."/>
+                <ConflictInfoEditing name="Hiçbir çakışma yok . . ."/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="Kısayol">
+                <Item id="1" name=Tamam"/>
+                <Item id="2" name="İptal"/>
+                <Item id="5006" name="İsim"/>
+                <Item id="5008" name="Ekle"/>
+                <Item id="5009" name="Kaldır"/>
+                <Item id="5010" name="Uygula"/>
+                <Item id="5007" name="Bu işlem bu komuttan kısayolu kaldıracaktır"/>
+                <Item id="5012" name="ÇAKIŞMA BULUNDU!"/>
+			</ShortcutMapperSubDialg>
 			<UserDefine title="Kullanıcı Tanımlı Dil">
 				<Item id="20001" name="Yerleştir"/>
 				<Item id="20002" name="Yeniden adlandır"/>
@@ -642,7 +672,7 @@
 					<Item id="6120" name="Dikey"/>
 					<Item id="6121" name="Kapatılan son sekmeden çık"/>
 
-					<Item id="6122" name="Gizle (Alt veya F10 tuşlarıyla göster/gizle)"/>
+					<Item id="6122" name="Menü çubuğunu gizle (Alt veya F10 tuşlarıyla göster/gizle)"/>
 					<Item id="6123" name="Yerelleştir"/>
 
 					<Item id="6125" name="Belge Listesi Paneli"/>
@@ -905,7 +935,7 @@
 				<Item id="2" name="İptal"/>
 			</ColumnEditor>
 		</Dialog>
-		<MessageBox>
+		<MessageBox><!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
 			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek Notepad++ sağ tık bağlam menüsü değiştirilebilir.
 Değişikliklerin etkin olması için Notepad++ yeniden başlatılmalıdır."/>
 			<NppHelpAbsentWarning title="Dosya Bulunamadı" message=" 
@@ -924,14 +954,69 @@ Devam etmek istiyor musunuz?"/>
 			<FileAlreadyOpenedInNpp title="Dosya Aç" message="Dosya zaten Notepad++ içinde açık."/>
 			<DeleteFileFailed title="Dosya Sil" message="Dosya silinemedi"/>
 
-			<!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
 			<NbFileToOpenImportantWarning title="Çok Fazla Sayıda Dosya Açıldı" message="$INT_REPLACE$ dosyası açılmak üzere. 
 Devam etmek istiyor musunuz?"/>
 			<SettingsOnCloudError title="Bulut Ayarları" message="Buluta yedekleme konumu salt okunur olarak ayarlanmış 
 veya klasöre yazma erişimi için ayrıcalık tanınmamış.
 Buluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum ayarlayın."/>
 			<FilePathNotFoundWarning title="Dosya Aç" message="Açmaya çalıştığınız dosya mevcut değil."/>
-	    <SessionFileInvalidError title="Oturum Yüklenemedi" message="Oturum dosyası bozuk ya da geçersiz."/>		
+			<SessionFileInvalidError title="Oturum Yüklenemedi" message="Oturum dosyası bozuk ya da geçersiz."/>	
+            <DroppingFolderAsProjetModeWarning title="Geçersiz İşlem" message="Sadece klasör ya da dosyaları bırakabilirsiniz fakat ikisini birden yapamazsınız, çünkü Klasörü Proje modu olarak bırakıyorsunuz.
+Bu işlemin çalışması için, klasör bırakmada, klasörü Çalışma alanı olarak başlatmak yerine &quot; Ayarlar içindeki&quot; &quot;Varsayılan Dizin&quot; bölümünde &quot;Klasördeki tüm dosyaları aç&quot; seçeneği etkinleştirmelisiniz."/>
+
+            <SortingError title="Sıralama Hatası" message="$INT_REPLACE$ satırındaki hatadan dolayı Numerik sıralanamadı."/>
+            <ColumnModeTip title="Sütun Modu İpucu" message="Lütfen &quot;ALT+Fare Seçimi&quot; ya da &quot;Alt+Shift+Ok tuşu&quot; kullanarak sütun moduna geçiş yapın."/>
+            <BufferInvalidWarning title="Kayıt Başarısız" message="Kaydedilemiyor: Arabellek geçersiz."/>		
+			<DoSaveOrNot title="Kaydet" message="&quot;$STR_REPLACE$&quot; dosyası kaydedilsin mi?"/>
+            <DoCloseOrNot title="Mevcut Olmayan Dosyayı Sakla" message="&quot;$STR_REPLACE$&quot; dosyası artık mevcut değil.
+Editörde saklansın mı?"/>
+            <DoDeleteOrNot title="Dosyayı Sil" message="&quot;$STR_REPLACE$&quot; dosyası
+Çöp Kutunuza taşınacak ve bu dosya kapatılacak.
+Devam edilsin mi"/>
+            <NoBackupDoSaveFile title="Kaydet" message="Yedek dosyanız bulunamıyor (dışarıdan silinmiş).
+Kaydedin yoksa veriniz kaybolacak.
+&quot;$STR_REPLACE$&quot; dosyasını kaydetmek istiyor musunuz?"/>
+            <DoReloadOrNot title="Tekrar Yükle" message="&quot;$STR_REPLACE$&quot;
+Bu dosya başka bir program tarafından değiştirildi.
+Tekrar yüklemek ister misiniz?"/>
+            <DoReloadOrNotAndLooseChange title="Tekrar Yükle" message="&quot;$STR_REPLACE$&quot;
+Bu dosya başka bir program tarafından değiştirildi.
+Tekrar yükleyerek Notepad++ içindeki değişiklerin kaybolmasını istiyor musunuz?"/>
+            <PrehistoricSystemDetected title="Antik Sistem Bulundu" message="Görünüşe göre, halen antik bir sistem kullanıyorsunuz, Bu özellik sadece modern bir sistemde kullanılabilir, üzgünüm."/>
+            <XpUpdaterProblem title="Notepad++ Güncelleyici" message="Notepad++ güncelleyici XP ile uyumlu değil, çünkü XP güvenlik yapısı oldukça eski.
+Notepad++ sayfasına giderek en son sürümü indirmek ister misiniz?"/>
+            <DocTooDirtyToMonitor title="İzleme Sorunu" message="Belge kirli. İzlemeden önce lütfen değişikliği kaydedin."/>
+            <DocNoExistToMonitor title="İzleme Sorunu" message="İzlenmesi için dosyanın mevcut olması gerekir."/>
+            <FileTooBigToOpene title="Dosya Boyutu Sorunu" message="Dosya, Notepad++ tarafından açılamayacak kadar büyük."/>
+            <CreateNewFileOrNot title="Yeni Dosya Oluştur" message="&quot;$INT_REPLACE$&quot; mevcut değil. Oluşturulsun mu?."/>
+            <CreateNewFileError title="Yeni Dosya Oluştur" message="&quot;$INT_REPLACE$&quot; dosyası oluşturulamıyor."/>
+            <OpenFileError title="HATA" message="&quot;$INT_REPLACE$&quot; dosyası açılamıyor."/>
+            <FileBackupFailed title="Dosya Yedekleme Başarısız" message="&quot;$INT_REPLACE$&quot; yolundaki yedekleme dizinine dosya kaydedilemedi.
+Şimdiki dosyayı her şekilde kaydetmek istiyor musunuz?"/>
+            <LoadStylersFailed title="stylers.xml Yükleme Başarısız" message="&quot;$INT_REPLACE$&quot; yükleme başarısız!"/>
+            <LoadLangsFailed title="Yapılandırıcı" message="langs.xml yükleme başarısız!
+Kendi langs.xml dosyanızı kurtarmak ister misiniz?"/>
+			<LoadLangsFailedFinal title="Yapılandırıcı" message="langs.xml yükleme başarısız!"/>
+            <FolderAsWorspaceSubfolderExists title="Çalışma Alanı Olarak Klasör Ekleme Sorunu" message="Eklemek istediğiniz klasörün alt klasörü mevcut.
+&quot;$STR_REPLACE$&quot; klasörünü eklemeden önce Panelden ana klasörü kaldırın."/>
+
+            <ProjectPanelChanged title="$STR_REPLACE$" message="Çalışma alanı değiştirildi. Kaydetmek istiyor musunuz?"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Çalışma alanınız kaydedilemedi."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Çalışma Alanı Aç" message="Şu anki çalışma alanı değiştirildi. Şu anki projeyi kaydetmek istiyor musunuz?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="Yeni Çalışma Alanı" message="Şu anki çalışma alanı değiştirildi. Şu anki projeyi kaydetmek istiyor musunuz?"/>
+            <ProjectPanelOpenFailed title="Çalışma Alanı Aç" message="Çalışma alanı açılamadı.
+Açılacak dosya görünüşe göre geçerli bir proje dosyası değil."/>
+            <ProjectPanelRemoveFolderFromProject title="Projeden Klasörü Kaldır" message="Tüm altmaddeler kaldırılacak.
+Projeden bu klasörü kaldırmak istediğinize emin misiniz?"/>
+            <ProjectPanelRemoveFileFromProject title="Projeden Dosyayı Kaldır" message="Projeden bu dosyayı kaldırmak istediğinize emin misiniz?"/>
+            <ProjectPanelReloadError title="Çalışma Alanını Yeniden Yükle" message="Yeniden yüklemek için dosya bulunamadı."/>
+            <ProjectPanelReloadDirty title="Çalışma Alanını Yeniden Yükle" message="Şu anki çalışma alanı değiştirildi.Yeniden yüklemek tüm değişimleri iptal edecektir.
+Devam etmek istiyor musunuz?"/>
+			<UDLNewNameError title="UDL Hatası" message="Bu isim başka bir dil tarafından kullanılıyor,
+lütfen yeni bir isim verin."/>
+            <UDLRemoveCurrentLang title="Şu Anki Dili Kaldır" message="Emin misiniz?"/>
+			<SCMapperDoDeleteOrNot title="Emin misiniz?" message="Bu kısayolu silmek istediğinize emin misiniz?"/>
+			<FindCharRangeValueError title="Aralık Değeri Problemi" message="0 ile 255 arasında bir giriş yapmalısınız."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -955,6 +1040,21 @@ Buluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum aya
 			<SortTip name="Sırala"/>
 			<ReloadTip name="Yeniden Yükle"/>
 		</FunctionList>
+		<FolderAsWorkspace>
+            <PanelTitle name="Çalışma Alanı Olarak Klasör"/>
+            <SelectFolderFromBrowserString name="Çalışma Alanı Olarak Klasör paneline eklemek için bir klasör seçin."/>
+            <Menus>
+                <Item id="3511" name="Kaldır"/>
+                <Item id="3512" name="Tümünü Kaldır"/>
+                <Item id="3513" name="Ekle"/>
+                <Item id="3514" name="Sistem Tarafından Çalıştır"/>
+                <Item id="3515" name="Aç"/>
+                <Item id="3516" name="Yolu kopyala"/>
+                <Item id="3517" name="Dosyalarda bul..."/>
+                <Item id="3518" name="Explorer buraya"/>
+                <Item id="3519" name="CMD buraya"/>
+            </Menus>
+		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Proje"/>
 			<WorkspaceRootName name="Çalışma Alanı"/>
@@ -1004,14 +1104,42 @@ Buluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum aya
 		<MiscStrings>
 			<word-chars-list-tip value="Bu, şu anki karakterlere yeni karakter eklemenizi sağlar. Bunun için seçime çift tıklayabilir ya da &quot;Sadece tam sözcükleri eşleştir&quot; seçili olarak arama yaparken kullanabilirsiniz."/>
             <word-chars-list-warning-begin value="Dikkat et: "/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
             <word-chars-list-space-warning value="$INT_REPLACE$ boşluk(lar)"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ SEKME(ler)"/>
 			<word-chars-list-warning-end value="  karakter listenizde."/>
 			<cloud-invalid-warning value="Geçersiz yol."/>
 			<cloud-restart-warning value="Etkin olması için Notepad++'yı tekrar başlat."/>
+			<cloud-select-folder value="Notepad++'ın ayarlarını yazıp okuyabileceği bir klasör seçin"/>
 			<shift-change-direction-tip value="Shift + Enter ile diğer yönde arama yapın."/>
+			<two-find-buttons-tip value="İkili Bulma Düğmesi Modu"/>
+			<find-status-top-reached value="Bulma: Sondan 1. eşleşme bulundu. Dosyanın başına ulaşıldı."/>
+			<find-status-end-reached value="Bulma: Baştan 1. eşleşme bulundu. Dosyanın sonuna ulaşıldı."/>
+			<find-status-replaceinfiles-1-replaced value="Dosyalarda Değiştir: 1 eşleşme değiştirildi"/>
+			<find-status-replaceinfiles-nb-replaced value="Dosyalarda Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
+			<find-status-replaceinfiles-re-malformed value="Açılmış Dosyalarda Değiştir: Düzenli ifade kötü biçimlendirilmiş"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Açılmış Dosyalarda Değiştir: 1 eşleşme değiştirildi"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Açılmış Dosyalarda Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
+			<find-status-mark-re-malformed value="İşaretle: Aramak için kullanılan düzenli ifade kötü biçimlendirilmiş"/>
+			<find-status-invalid-re value="Bulma: Geçersiz düzenli ifade"/>
+			<find-status-mark-1-match value="1 eşleşme"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ eşleşme"/>
+			<find-status-count-re-malformed value="Hesapla: Aramak için düzenli ifade kötü biçimlemdirilmiş"/>
+			<find-status-count-1-match value="Hesapla: 1 eşleşme"/>
+			<find-status-count-nb-matches value="Hesapla: $INT_REPLACE$ eşleşme"/>
+			<find-status-replaceall-re-malformed value="Tümünü Değiştir: Düzenli ifade kötü biçimlemdirilmiş"/>
+			<find-status-replaceall-1-replaced value="Tümünü Değiştir: 1 eşleşme değiştirildi"/>
+			<find-status-replaceall-nb-replaced value="Tümünü Değiştir: $INT_REPLACE$ eşleşme değiştirildi"/>
+			<find-status-replaceall-readonly value="Tümünü Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
+			<find-status-replace-end-reached value="Değiştir: Baştan 1. eşleşme değiştirildi. Dosyanın sonuna ulaşıldı"/>
+			<find-status-replace-top-reached value="Değiştir: Sondan 1. eşleşme değiştirildi. Dosyanın başına ulaşıldı"/>
+			<find-status-relaced-next-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulundu"/>
+			<find-status-relaced-next-not-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulunamadı"/>
+			<find-status-replace-not-found value="DEğiştir: hiçbir eşleşme bulunamadı"/>
+			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
+			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ eşleşmeler"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

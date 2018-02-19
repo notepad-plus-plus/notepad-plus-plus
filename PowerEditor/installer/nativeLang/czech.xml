@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.5.5  15/Feb/2018  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.5.5  19/Feb/2018  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
@@ -749,7 +749,7 @@
 					<Item id = "6119" name = "Více řad"/>
 					<Item id = "6120" name = "Vertikální"/>
 					<Item id = "6121" name = "Ukončit při uzavření poslední karty"/>
-					<Item id = "6122" name = "Skrýt (klávesa Alt nebo F10 slouží k přepínání)"/>
+					<Item id = "6122" name = "Skrýt hl. menu (klávesa Alt nebo F10 slouží k přepínání)"/>
 					<Item id = "6123" name = "Lokalizace"/>
 					<Item id = "6125" name = "Přepínač dokumentů"/>
 					<Item id = "6126" name = "Zobrazit"/>
@@ -1020,7 +1020,6 @@
 			<FilePathNotFoundWarning title = "Otevření souboru" message = "Soubor, který se pokoušíte otevřít, neexistuje."/>
 			<SessionFileInvalidError title = "Relace nemohla být zavedena" message = "Soubor relace je buďto poškozen nebo je neplatný."/>
 			<DroppingFolderAsProjetModeWarning title = "Neplatná akce" message = "Můžete přetáhovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit 'Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)'."/>
-			
 			<SortingError title = "Chyba třídění" message = "Nebylo možné provést numerické setřídění kvůli řádku $STR_REPLACE$."/>
 			<ColumnModeTip title = "Tip k sloupcovému režimu" message = "Použijte prosím &quot;výběr ALT+Myš&quot; nebo &quot;Alt+Shift+KurzorováŠipka&quot; k zapnutí sloupcového režimu."/>
 			<BufferInvalidWarning title = "Ukládání selhalo" message = "Nelze uložit: Neplatná vyrovnávací paměť."/>
@@ -1160,7 +1159,7 @@
 			<cloud-restart-warning value = "Pro aktivaci změn prosím restartujte Notepad++."/>
 			<cloud-select-folder value = "Vyberte složku, ze/do které Notepad++ načítá/zapisuje svoje nastavení"/>
 			<shift-change-direction-tip value = "Pro změnu směru vyhledávání použijte Shift + Enter."/>
-			<1-to-2-buttons-tip value = "Mód s dvěma vyhledávacími tlačítky"/>
+			<two-find-buttons-tip value = "Mód s dvěma vyhledávacími tlačítky"/>
 			<find-status-top-reached value = "Vyhledávání: Nalezen první výskyt od konce. Bylo dosaženo začátku tohoto dokumentu"/>
 			<find-status-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce tohoto dokumentu"/>
 			<find-status-find-from-top-end-reached value = "Vyhledávání: Nalezen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
@@ -1180,7 +1179,7 @@
 			<find-status-replaceall-re-malformed value = "Nahradit vše: Regulární výraz je vadný"/>
 			<find-status-replaceall-1-replaced value = "Nahrazování všeho: 1 výskyt nahrazen"/>
 			<find-status-replaceall-nb-replaced value = "Nahrazování všeho: $INT_REPLACE$ výskytů nahrazeno"/>
-			<ind-status-replaceall-readonly value = "Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
+			<find-status-replaceall-readonly value = "Nahrazování všeho: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-replace-end-reached value = "Nahrazování: Nahrazen první výskyt od začátku. Bylo dosaženo konce dokumentu"/>
 			<find-status-replace-top-reached value = "Nahrazování: Nahrazen první výskyt od konce. Bylo dosaženo začátku dokumentu"/>
 			<find-status-relaced-next-found value = "Nahrazování: 1 výskyt byl nahrazen. Další výskyt nalezen"/>

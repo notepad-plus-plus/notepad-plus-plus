@@ -473,7 +473,7 @@
                 <Item id="5008" name="Додати"/>
                 <Item id="5009" name="Вилучити"/>
                 <Item id="5010" name="Застосувати"/>
-                <Item id="5007" name="Це спричинить вилучення прискорювача"/>
+                <Item id="5007" name="Ця дія спричинить вилучення комбінації клавіш для цієї команди"/>
                 <Item id="5012" name="ВИЯВЛЕНО КОНФЛІКТ!"/>
             </ShortcutMapperSubDialg>
             <UserDefine title="Визначення користувача">
@@ -669,7 +669,7 @@
                     <Item id="6120" name="Вертикальна"/>
                     <Item id="6121" name="Вихід при закритті останньої вкладки"/>
 
-                    <Item id="6122" name="Приховати (Alt або F10 для повернення)"/>
+                    <Item id="6122" name="Приховати панель меню (викор. Alt чи F10 для перемикання)"/>
                     <Item id="6123" name="Локалізація"/>
 
                     <Item id="6125" name="Панель списку документів"/>
@@ -958,7 +958,7 @@
             <FilePathNotFoundWarning title="Відкриття файла" message="Файл, який ви намагаєтесь відкрити, не існує."/>
             <SessionFileInvalidError title="Не вдалося завантажити сеанс" message="Файл сеансу пошкоджений, або недійсний."/>
             <DroppingFolderAsProjetModeWarning title="Неприпустима дія" message="Ви можете виключити лише файли або лише теки, але не разом, оскільки ви відвідуєте в режимі &quot;Тека як проект&quot;. Щоб запрацювала ця операція вам необхідно включити &quot;Відкривати всі файли теки, замість відкриття теки в якості робочого простору&quot; в &quot;Налаштування - Типова тека&amp;quot."/>
-            <SortingError title="Впорядкування помилки" message="Не вдається виконати впорядкування за числами, через рядок $STR_REPLACE$."/>
+            <SortingError title="Впорядкування помилки" message="Не вдається виконати впорядкування за числами, через рядок $INT_REPLACE$."/>
             <ColumnModeTip title="Порада для режиму стовпців" message="Використовуйте &quot;ALT+Вибір мишею&quot; або &quot;Alt+Shift+Клавіша стрілки&quot;, щоб перемкнутися в режим стовпців."/>
             <BufferInvalidWarning title="Не вдалося зберегти" message="Неможливо зберегти: Неправильний буфер."/>
             <DoSaveOrNot title="Зберегти" message="Зберегти файл &quot;$STR_REPLACE$&quot; ?"/>
@@ -995,7 +995,7 @@
 Хочете відновити langs.xml?"/>
             <LoadLangsFailedFinal title="Конфігуратор" message="Збій завантаження langs.xml!"/>
             <FolderAsWorspaceSubfolderExists title="Проблема з додаванням теки в &quot; Тека як Робочий простір&amp;quot" message="Підтека, яку ви хочете додати, вже існує.
-Вилучіть її з панелі перш, ніж додавати теку &quot;$STR_REPLACE$&quot;."/>
+Вилучіть її корінь з панелі перш, ніж додавати теку &quot;$STR_REPLACE$&quot;."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Робоча область була змінена. Хочете зберегти її?"/>
             <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Ваша робоча область не була збережена."/>
@@ -1040,8 +1040,8 @@
             <PanelTitle name="Тека як робоча область"/>
             <SelectFolderFromBrowserString name="Виберіть теку, щоб додати її в якості панелі робочої області"/>
             <Menus>
-                <Item id="3511" name="Видалити"/>
-                <Item id="3512" name="Видалити всі"/>
+                <Item id="3511" name="Вилучити"/>
+                <Item id="3512" name="Вилучити все"/>
                 <Item id="3513" name="Додати"/>
                 <Item id="3514" name="Виконується системою"/>
                 <Item id="3515" name="Відкрити"/>
@@ -1110,36 +1110,32 @@
             <cloud-select-folder value="Виберіть теку, звідки/куди в Notepad++ читати/записувати свої параметри"/>
             <shift-change-direction-tip value="Використовуйте Shift + Enter для пошуку в зворотному напрямку"/>
             <two-find-buttons-tip value="2-кнопковий режим пошуку"/>
-            
             <find-status-top-reached value="Знайти: Знайдено 1-й збіг знизу. Було досягнуто початку документа."/>
             <find-status-end-reached value="Знайти: Знайдено 1-й збіг згори. Було досягнуто кінця документа."/>
-            <find-status-find-from-top-end-reached value="Знайти: Знайдено 1-й збіг згори. Було досягнуто кінця документа"/>
-            <find-status-find-from-bottom-begin-reached value="Знайти: Знайдено 1-й збіг знизу. Було досягнуто початку документа"/>
-            <find-status-replaceinfiles-1-replaced value="Замінити у файлах: виконана 1 заміна"/>
-            <find-status-replaceinfiles-nb-replaced value="Замінити у файлах: виконано $INT_REPLACE$ замін"/>
-            <find-status-replaceinfiles-re-malformed value="Замінити у Відкритих файлах: неправильний регулярний вираз"/>
-            <find-status-replaceinopenedfiles-1-replaced value="Замінити у Відкритих файлах: виконана 1 заміна"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Замінити у Відкритих файлах: було виконано $INT_REPLACE$ замін"/>
-            <find-status-mark-re-malformed value="Позначити: неправильний регулярний вираз для пошуку"/>
-            <find-status-invalid-re value="Знайти: неправильний регулярний вираз"/>
+            <find-status-replaceinfiles-1-replaced value="Замінити у файлах: Виконано 1 заміну"/>
+            <find-status-replaceinfiles-nb-replaced value="Замінити у файлах: Виконано $INT_REPLACE$ замін"/>
+            <find-status-replaceinfiles-re-malformed value="Замінити у Відкритих файлах: Неправильний регулярний вираз"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Замінити у Відкритих файлах: Виконано 1 заміну"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Замінити у Відкритих файлах: Виконано $INT_REPLACE$ замін"/>
+            <find-status-mark-re-malformed value="Позначити: Неправильний регулярний вираз для пошуку"/>
+            <find-status-invalid-re value="Знайти: Неправильний регулярний вираз"/>
             <find-status-mark-1-match value="1 збіг"/>
-            <find-status-mark-nb-matches value="збігів: $INT_REPLACE$"/>
-            <find-status-count-re-malformed value="Підрахунок: неправильний регулярний вираз для пошуку"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ збігів"/>
+            <find-status-count-re-malformed value="Підрахунок: Неправильний регулярний вираз для пошуку"/>
             <find-status-count-1-match value="Підрахунок: 1 збіг"/>
-            <find-status-count-nb-matches value="Підрахунок: збігів $INT_REPLACE$"/>
-            <find-status-replaceall-re-malformed value="Замінити все: неправильний регулярний вираз"/>
-            <find-status-replaceall-1-replaced value="Замінити все: 1 випадок був замінений"/>
-            <find-status-replaceall-nb-replaced value="Замінити все: $INT_REPLACE$ випадків було замінено"/>
-            <ind-status-replaceall-readonly value="Замінити все: не можу замінити текст. Цей документ призначений тільки для читання"/>
+            <find-status-count-nb-matches value="Підрахунок: $INT_REPLACE$ збігів"/>
+            <find-status-replaceall-re-malformed value="Замінити все: Неправильний регулярний вираз"/>
+            <find-status-replaceall-1-replaced value="Замінити все: Замінено 1 випадок"/>
+            <find-status-replaceall-nb-replaced value="Замінити все: Замінено $INT_REPLACE$ випадків"/>
+            <find-status-replaceall-readonly value="Замінити все: Неможливо замінити текст. Цей документ призначений тільки для читання"/>
             <find-status-replace-end-reached value="Замінити: Замінено 1-й збіг згори. Було досягнуто кінця документа"/>
             <find-status-replace-top-reached value="Замінити: Замінено 1-й збіг знизу. Було досягнуто початку документа"/>
-            <find-status-relaced-next-found value="Замінити: виконана 1 заміна. Знайдено наступний збіг"/>
-            <find-status-relaced-next-not-found value="Замінити: виконана 1 заміна. Наступного збігу не знайдено"/>
-            <find-status-replace-not-found value="Замінити: наступного збігу не знайдено"/>
-            <find-status-replace-readonly value="Замінити: не можу замінити текст. Цей документ призначений тільки для читання"/>
-            <find-status-cannot-find value="Знайти: не можу знайти текст &quot;$STR_REPLACE$&quot;"/>
-            <find-status-mark-re-malformed value="Позначити: регулярний вираз для пошуку неправильний"/>
-            <find-status-mark-nb-matches value="збігів: $INT_REPLACE$"/>
+            <find-status-relaced-next-found value="Замінити: Виконано 1 заміну. Знайдено наступний збіг"/>
+            <find-status-relaced-next-not-found value="Замінити: Виконано 1 заміну. Наступного збігу не знайдено"/>
+            <find-status-replace-not-found value="Замінити: Жодного збігу не знайдено"/>
+            <find-status-replace-readonly value="Замінити: Неможливо замінити текст. Цей документ призначений тільки для читання"/>
+            <find-status-cannot-find value="Знайти: Неможливо знайти текст &quot;$STR_REPLACE$&quot;"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ збігів"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

@@ -140,8 +140,11 @@ public:
 		if (_keyCombo._key == 0)
 			return true;	//disabled _keyCombo always valid, just disabled
 
+		if (_keyCombo._key == VK_SPACE || _keyCombo._key == VK_CAPITAL || _keyCombo._key == VK_BACK || _keyCombo._key == VK_RETURN) {
+			return ((_keyCombo._isCtrl) || (_keyCombo._isAlt) || (_keyCombo._isShift));
+		}
 		//These keys need a modifier, else invalid
-		if ( ((_keyCombo._key >= 'A') && (_keyCombo._key <= 'Z')) || ((_keyCombo._key >= '0') && (_keyCombo._key <= '9')) || _keyCombo._key == VK_SPACE || _keyCombo._key == VK_CAPITAL || _keyCombo._key == VK_BACK || _keyCombo._key == VK_RETURN) {
+		if ( ((_keyCombo._key >= 'A') && (_keyCombo._key <= 'Z')) || ((_keyCombo._key >= '0') && (_keyCombo._key <= '9'))) {
 			return ((_keyCombo._isCtrl) || (_keyCombo._isAlt));
 		}
 		// the remaining keys are always valid

@@ -634,7 +634,13 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 		{
 			if (_mightBeDragging && !_isDragging)
 			{
-				if (++_dragCount > 2)
+				// Grrr! Who has stolen focus and eaten the WM_LBUTTONUP?!
+				if (GetKeyState(VK_LBUTTON) >= 0)
+				{
+					_mightBeDragging = false;
+					_dragCount = 0;
+				}
+				else if (++_dragCount > 2)
 				{
 					int tabFocused = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURFOCUS, 0, 0));
 					int tabSelected = static_cast<int32_t>(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));

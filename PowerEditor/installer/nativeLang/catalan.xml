@@ -483,7 +483,7 @@ By Hiro5 <groccat at gmail>
 				<Item id="5008" name="Afegeix"/>
 				<Item id="5009" name="Esborra"/>
 				<Item id="5010" name="Aplica"/>
-				<Item id="5007" name="Això esborrarà l'accelerador"/>
+				<Item id="5007" name="Això esborrarà la drecera d'aquesta ordre"/>
 				<Item id="5012" name="CONFLICTE TROBAT!"/>
 			</ShortcutMapperSubDialg>
 			<UserDefine title="Llenguatge definit per l'usuari">
@@ -681,7 +681,7 @@ By Hiro5 <groccat at gmail>
 					<Item id="6112" name="Botó de tancar a cada pestanya"/>
 					<Item id="6113" name="Doble clic per tancar el document"/>
 					<Item id="6121" name="Surt en tancar l'última pestanya"/>
-					<Item id="6122" name="Amaga barra de menú (pitgeu Alt o F10 per accedir)"/>
+					<Item id="6122" name="Amaga la barra de menú (prem Alt o F10 per accedir)"/>
 				</Global>
 				<Scintillas title="Opcions visuals">
 					<Item id="6216" name="Configuració del cursor"/>
@@ -936,7 +936,7 @@ By Hiro5 <groccat at gmail>
 			<FilePathNotFoundWarning title="Obre fitxer" message="El fitxer que intenteu obrir no existeix."/>
 			<SessionFileInvalidError title="No s'ha pogut carregar la sessió" message="El fitxer de sessió està malmès o no és vàlid."/>
 			<DroppingFolderAsProjetModeWarning title="Acció no vàlida" message="Podeu arrossegar fitxers o carpetes però no ambdues, perquè s'està arrossegant en mode de Carpeta com a projecte.&#xD;Heu d'activar &quot;Obre els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball&quot; a la secció &quot;Directoris&quot; del diàleg de Preferències per fer que aquesta operació funcioni."/>
-			<SortingError title="Error d'ordenació" message="No s'ha pogut realitzar l'ordenació numèrica degut a la línia $STR_REPLACE$."/>
+			<SortingError title="Error d'ordenació" message="No s'ha pogut realitzar l'ordenació numèrica degut a la línia $INT_REPLACE$."/>
 			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu &quot;ALT+Selecció ratolí&quot; o &quot;Alt+Maj+Fletxes&quot; per canviar al mode de columna."/>
 			<BufferInvalidWarning title="El desat ha fallat" message="No es pot desar: El buffer no es vàlid."/>
 			<DoSaveOrNot title="Desa" message="Voleu desar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
@@ -957,9 +957,9 @@ By Hiro5 <groccat at gmail>
 			<LoadStylersFailed title="Error en carregar stylers.xml" message="La càrrega de &quot;$INT_REPLACE$&quot; ha fallat!"/>
 			<LoadLangsFailed title="Configurador" message="Ha fallat la càrrega de langs.xml!&#xD;Voleu recuperar el vostre langs.xml?"/>
 			<LoadLangsFailedFinal title="Configurador" message="Ha fallat la càrrega de langs.xml!"/>
-			<FolderAsWorspaceSubfolderExists title="Problema d'afegir carpeta en Carpeta de treball" message="Existeix una subcarpeta de la carpeta que voleu afegir.&#xD;Esborreu-la del panell abans d'afegir la carpeta &quot;$STR_REPLACE$&quot;."/>
+			<FolderAsWorspaceSubfolderExists title="Problema d'afegir carpeta en Carpeta de treball" message="Existeix una subcarpeta de la carpeta que voleu afegir.&#xD;Esborreu la seva arrel del panell abans d'afegir la carpeta &quot;$STR_REPLACE$&quot;."/>
 			<ProjectPanelChanged title="$STR_REPLACE$" message="L'espai de treball s'ha modificat. Voleu desar-lo?"/>
-			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="El teu espai de treball no s'ha desat."/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="L'espai de treball no s'ha desat."/>
 			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Obre espai de treball" message="L'espai de treball actual s'ha modificat. Voleu desar el projecte actual?"/>
 			<ProjectPanelNewDoSaveDirtyWsOrNot title="Nou espai de treball" message="L'espai de treball actual s'ha modificat. Voleu desar el projecte actual?"/>
 			<ProjectPanelOpenFailed title="Obre espai de treball" message="No s'ha pogut obrir l'espai de treball.&#xD;Sembla que el fitxer a obrir no és un fitxer de projecte vàlid."/>
@@ -1071,8 +1071,6 @@ By Hiro5 <groccat at gmail>
 			<two-find-buttons-tip value="Mode de cerca amb 2 botons"/>
 			<find-status-top-reached value="Cerca: Trobat el 1ª resultat des de baix. S'ha arribat al principi del document."/>
 			<find-status-end-reached value="Cerca: Trobat el 1ª resultat des de dalt. S'ha arribat al final del document."/>
-			<find-status-find-from-top-end-reached value="Cerca: Trobat el 1ª resultat des de dalt. S'ha arribat al final del document"/>
-			<find-status-find-from-bottom-begin-reached value="Cerca: Trobat el 1ª resultat des de baix. S'ha arribat al principi del document"/>
 			<find-status-replaceinfiles-1-replaced value="Reemplaça en fitxers: 1 resultat reemplaçat"/>
 			<find-status-replaceinfiles-nb-replaced value="Reemplaça en fitxers: $INT_REPLACE$ resultats reemplaçats"/>
 			<find-status-replaceinfiles-re-malformed value="Reemplaça en fitxers oberts: L'expressió regular està mal formada"/>

@@ -3,11 +3,11 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 25.08.2017 by RDD
+	Last revision:...: 20.02.2018 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
-	<Native-Langue name="Български" filename="bulgarian.xml" >
+	<Native-Langue name="Български" filename="bulgarian.xml">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -86,7 +86,7 @@
 					<Item id="41002" name="&amp;Отваряне"/>
 						<!-- Подменю "Местоположение на файла" -->
 					<Item id="41019" name="Отваряне на папката"/>
-					<Item id="41020" name="Отваряне в конзола cmd"/>
+					<Item id="41020" name="Отваряне в cmd конзола"/>
 					<!-- Меню "Файл" -->
 					<Item id="41023" name="Отваряне по подразбиране"/>
 					<Item id="41022" name="Отваряне на &amp;директория"/>
@@ -257,7 +257,7 @@
 					<Item id="43051" name="Премахване на неотметнати редове"/>
 					<Item id="43050" name="Обръщане на отметките"/>
 					<!-- Меню "Търсене" -->
-					<Item id="43052" name="Търсене на знаци в диапазон..."/>
+					<Item id="43052" name="Търсене на знаци в обхват..."/>
 				<!-- Меню "Търсене" край -->
 				<!-- Меню "Изглед" начало -->
 					<Item id="44034" name="Винаги на преден план"/>
@@ -473,11 +473,11 @@
 				<Item id="1"	name="&amp;Отиване"/>
 				<Item id="2"	name="Никъде не отивам"/>
 			</GoToLine>
-				<!-- "Търсене на знаци в диапазон..." -->
-			<FindCharsInRange title="Търсене на знаци в диапазон...">
+				<!-- "Търсене на знаци в обхват..." -->
+			<FindCharsInRange title="Търсене на знаци в обхват...">
 				<Item id="2901" name="Не-ASCII знаци (128-255)"/>
 				<Item id="2902" name="ASCII знаци (0 - 127)"/>
-				<Item id="2903" name="Диапазон:"/>
+				<Item id="2903" name="Обхват:"/>
 				<Item id="2908" name="Посока"/>
 				<Item id="2906" name="Нагоре"/>
 				<Item id="2907" name="Надолу"/>
@@ -606,7 +606,7 @@
 					<Item id="23236" name="Допълн. 2"/>
 					<Item id="23238" name="Суфикс 1"/>
 					<Item id="23240" name="Суфикс 2"/>
-					<Item id="23242" name="Диапазон"/>
+					<Item id="23242" name="Обхват"/>
 					<Item id="23244" name="Десетичен разделител"/>
 					<Item id="23245" name="Точка"/>
 					<Item id="23246" name="Запетая"/>
@@ -891,7 +891,7 @@
 				</SearchEngine>
 					<!-- Разни -->
 				<MISC title="Разни">
-					<Item id="6324" name="Превключване между раздели (Ctrl+Tab)"/>
+					<Item id="6324" name="Превключване между раздели (Ctrl + Tab)"/>
 					<Item id="6114" name="Включено"/>
 					<Item id="6117" name="Приоритет на последно използваните"/>
 					<Item id="6344" name="Надникване в документи"/>
@@ -945,6 +945,36 @@
 					<Item id="2221" name="Потребителски ключови думи"/>
 				</SubDialog>
 			</StyleConfig>
+				<!-- "Бързи клавиши..." -->
+			<ShortcutMapper title="Бързи клавиши">
+				<Item id="2602" name="Промяна"/>
+				<Item id="2603" name="Изтриване"/>
+				<Item id="2606" name="Изчистване"/>
+				<Item id="2607" name="Филтър: "/>
+				<Item id="1" name="Затваряне"/>
+				<ColumnName name="Име"/>
+				<ColumnShortcut name="Бърз клавиш"/>
+				<ColumnCategory name="Категория"/>
+				<ColumnPlugin name="Добавка"/>
+				<MainMenuTab name="Основно меню"/>
+				<MacrosTab name="Макроси"/>
+				<RunCommandsTab name="Стартиране на команди"/>
+				<PluginCommandsTab name="Команди от добавки"/>
+				<ScintillaCommandsTab name="Scintilla команди"/>
+				<ConflictInfoOk name="Няма конфликти с бързи клавиши за този елемент."/>
+				<ConflictInfoEditing name="Няма конфликти . . ."/>
+			</ShortcutMapper>
+				<!-- "Бързи клавиши" - "Промяна" -->
+			<ShortcutMapperSubDialg title="Бърз клавиш">
+				<Item id="1" name="Добре"/>
+				<Item id="2" name="Отказ"/>
+				<Item id="5006" name="Име"/>
+				<Item id="5008" name="Добавяне"/>
+				<Item id="5009" name="Премахване"/>
+				<Item id="5010" name="Прилагане"/>
+				<Item id="5007" name="Това ще премахне бързия клавиш от тази команда"/>
+				<Item id="5012" name="ОТКРИТ Е КОНФЛИКТ!"/>
+			</ShortcutMapperSubDialg>
 			<!-- Меню "Инструменти" - "MD5" -->
 				<!-- Генериране... -->
 			<MD5FromTextDlg title="Генериране на MD5 извлечение от текст">
@@ -1027,7 +1057,7 @@
 				<FolderMenu>
 					<Item id="3118" name="Преместване нагоре"/>
 					<Item id="3119" name="Преместване надолу"/>
-					<Item id="3111" name="Премахване"/>
+					<Item id="3111" name="Преименуване"/>
 					<Item id="3112" name="Добавяне на папка"/>
 					<Item id="3113" name="Добавяне на файлове..."/>
 					<Item id="3117" name="Добавяне на файлове от папка..."/>
@@ -1042,17 +1072,59 @@
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+		<FolderAsWorkspace>
+		    <PanelTitle name="Директория като работно място"/>
+		    <SelectFolderFromBrowserString name="Избор на папка за добавяне в панела &quot;Директория като работно място&quot;"/>
+		    <Menus>
+		        <Item id="3511" name="Премахване"/>
+		        <Item id="3512" name="Премахване на всички"/>
+		        <Item id="3513" name="Добавяне"/>
+		        <Item id="3514" name="Изпълнение от системата"/>
+		        <Item id="3515" name="Отваряне"/>
+		        <Item id="3516" name="Копиране на пътя"/>
+		        <Item id="3517" name="Търсене във файлове..."/>
+		        <Item id="3518" name="Отваряне папката до тук"/>
+		        <Item id="3519" name="Отваряне папката в cmd"/>
+		    </Menus>
+		</FolderAsWorkspace>
 		<MiscStrings>
+				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
+				<!-- $STR_REPLACE$ е контейнер, не се превежда -->
 			<word-chars-list-tip value="Позволява добавяне на допълнителни символи към дума, чрез двойно щракане върху нея или при включена опция за търсене на &quot;Само цели думи&quot;."/>
 			<word-chars-list-warning-begin value="Бъдете внимателни: "/>
-				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
 			<word-chars-list-space-warning value="$INT_REPLACE$ интервал(а)"/>
-				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
 			<word-chars-list-tab-warning value="$INT_REPLACE$ отстъп(а)"/>
 			<word-chars-list-warning-end value="  във вашият списък със символи."/>
 			<cloud-invalid-warning value="Невалиден път."/>
 			<cloud-restart-warning value="Промените влизат в сила след рестартиране на Notepad++."/>
+			<cloud-select-folder value="Избор на папка от/в която Notepad++ ще чете/пише настройките си"/>
 			<shift-change-direction-tip value="Търсене в обратна посока чрез Shift+Enter."/>
+			<two-find-buttons-tip value="Режим за търсене с два бутона"/>
+			<find-status-top-reached value="Търсене: Намерено е първото съвпадение от краят. Началото на документа е достигнато."/>
+			<find-status-end-reached value="Търсене: Намерено е първото съвпадение от началото. Краят на документа е достигнат."/>
+			<find-status-replaceinfiles-1-replaced value="Замяна във Файлове: беше заменено 1 съвпадение"/>
+			<find-status-replaceinfiles-nb-replaced value="Замяна във Файлове: бяха заменени $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceinfiles-re-malformed value="Замяна в отворените файлове: Регулярният израз е неправилно  формиран"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Замяна в отворените файлове: беше заменено 1 съвпадение"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Замяна в отворените файлове: бяха заменени $INT_REPLACE$ съвпадения"/>
+			<find-status-mark-re-malformed value="Маркиране: Регулярният израз за търсене е неправилно формиран"/>
+			<find-status-invalid-re value="Търсене: Невалиден регулярен израз"/>
+			<find-status-mark-1-match value="1 съвпадение"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ съвпадения"/>
+			<find-status-count-re-malformed value="Брой: Регулярният израз за търсене е неправилно формиран"/>
+			<find-status-count-1-match value="Брой съвпадения: 1"/>
+			<find-status-count-nb-matches value="Брой съвпадения: $INT_REPLACE$"/>
+			<find-status-replaceall-re-malformed value="Замяна на всичко: Регулярният израз е неправилно  формиран"/>
+			<find-status-replaceall-1-replaced value="Замяна на всичко: беше заменено 1 съвпадение"/>
+			<find-status-replaceall-nb-replaced value="Замяна на всичко: бяха заменени $INT_REPLACE$ съвпадения"/>
+			<find-status-replaceall-readonly value="Замяна на всичко: Текста не може да се замени. Текущият документ е само за четене"/>
+			<find-status-replace-end-reached value="Замяна: Заменено е първото съвпадение от началото. Краят на документа е достигнат"/>
+			<find-status-replace-top-reached value="Замяна: Заменено е първото съвпадение от краят. Началото на документа е достигнато"/>
+			<find-status-relaced-next-found value="Замяна: беше заменено 1 съвпадение. Намерено е следващото съвпадение"/>
+			<find-status-relaced-next-not-found value="Замяна: беше заменено 1 съвпадение. Следващото съвпадение не е намерено"/>
+			<find-status-replace-not-found value="Замяна: не беше намерено съвпадение"/>
+			<find-status-replace-readonly value="Замяна: Текста не може да се замени. Текущият документ е само за четене"/>
+			<find-status-cannot-find value="Търсене: Текстът &quot;$STR_REPLACE$&quot; не може да се намери"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>
@@ -1072,29 +1144,34 @@
 		</DocSwitcher>
 			<!-- Прозорци със съобщения -->
 		<MessageBox>
+				<!-- $INT_REPLACE$ е контейнер, не се превежда -->
+				<!-- $STR_REPLACE$ е контейнер, не се превежда -->
 			<ContextMenuXmlEditWarning title="Редактиране на контекстното меню" message="Редактирането на файла contextMenu.xml позволява да се промени контекстното меню на Notepad++
 
 Промените влизат в сила, след рестартиране на Notepad++"/>
 			<NppHelpAbsentWarning title="Несъществуващ файл" message="
-не съществува. Моля, изтеглете го от сайта на Notepad++"/>
+не съществува.
+
+Моля, изтеглете го от сайта на Notepad++"/>
 			<SaveCurrentModifWarning title="Запис на текущите промени" message="Текущите промени трябва да бъдат записани.
-Записаните промени не могат да бъдат отменяни
+Записаните промени не могат да бъдат отменяни.
 
 Продължаване?"/>
 			<LoseUndoAbilityWarning title="Загуба на възможността за отмяна" message="Текущите промени трябва да бъдат записани.
-Записаните промени не могат да бъдат отменяни
+Записаните промени не могат да бъдат отменяни.
 
 Продължаване?"/>
-			<CannotMoveDoc title="Преместване в нов прозорец на Notepad++" message="Документа е променен, запишете го и опитайте отново."/>
-			<DocReloadWarning title="Презареждане" message="Сигурни ли сте, че искате да презаредите текущя документ и да загубите промените, направени с Notepad++?"/>
+			<CannotMoveDoc title="Преместване в нов прозорец на Notepad++" message="Документът е променен, запишете го и опитайте отново."/>
+			<DocReloadWarning title="Презареждане" message="Сигурни ли сте, че искате да презаредите текущия документ и да загубите промените, направени с Notepad++?"/>
 			<FileLockedWarning title="Неуспешно записване" message="Моля, проверете дали този файл не е отворен от друга програма"/>
 			<FileAlreadyOpenedInNpp title="" message="Файлът вече е отворен в Notepad++"/>
 			<DeleteFileFailed title="Изтриване на файл" message="Изтриването на файла е неуспешно"/>
-				<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Твърде много файлове" message="Ще бъдат отворени $INT_REPLACE$ файла.
+
 Продължаване?"/>
 			<SettingsOnCloudError title="Настройки за облачно синхронизирана папка" message="Изглежда, че пътят на настройките за облака е зададен на устройство &quot;само за четене&quot; или на папка, изискваща права за запис.
 Вашите настройки ще бъдат отменени.
+
 Моля, върнете в първоначално състояние стойността им чрез опциите в &quot;Предпочитания...&quot;"/>
 			<FilePathNotFoundWarning title="Отваряне на файл" message="Файлът, който се опитвате да отворите не съществува."/>
 			<SessionFileInvalidError title="Неуспешно зареждане на сесия" message="Невалиден или повреден файл за сесия."/>
@@ -1105,8 +1182,7 @@
 &quot;Alt + Shift + клавиш стрелка&quot;
 
 Не забравяйте, че първо трябва да натиснете клавиш Alt."/>
-				<!-- $STR_REPLACE$ is a place holder, don't translate it -->
-			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $STR_REPLACE$."/>
+			<SortingError title="Грешка при сортиране" message="Сортирането на числа не може да се изпълни заради ред $INT_REPLACE$."/>
 			<BufferInvalidWarning title="Неуспешен запис" message="Не може да се запази: Невалиден буфер."/>
 			<OpenInAdminMode title="Неуспешен запис" message="Файлът може би е защитен и не може да се запази.
 Искате ли да стартирате Notepad++ с администраторски права?"/>
@@ -1116,6 +1192,75 @@
 			<DroppingFolderAsProjetModeWarning title="Невалидно действие" message="Тъй като сте в режим &quot;Директория като работно място&quot;, можете да влачите само файлове или само папки, но не и двете.
 
 За да разрешите това действие, трябва да включите опцията &quot;Отваряне на всички файлове от папката при влаченето ѝ в прозореца&quot; в секция &quot;Път по подразбиране&quot; на предпочитаните настройки."/>
+			<DoSaveOrNot title="Запис" message="Запис на файл &quot;$STR_REPLACE$&quot; ?"/>
+			<DoCloseOrNot title="Задържане на несъществуващ файл" message="Файлът &quot;$STR_REPLACE$&quot; вече не съществува.
+
+Задържане на файла в редактора?"/>
+			<DoDeleteOrNot title="Изтриване на файл" message="Файлът &quot;$STR_REPLACE$&quot;
+ще бъде преместен в кошчето и този документ ще се затвори.
+
+Продължаване?"/>
+			<NoBackupDoSaveFile title="Запис" message="Резервното копие на файла не може да бъде намерено (изтрито е отвън).
+Запазете го или в противен случай данните ви ще бъдат загубени.
+
+Искате ли да запазите файла &quot;$STR_REPLACE$&quot; ?"/>
+			<DoReloadOrNot title="Презареждане" message="&quot;$STR_REPLACE$&quot;
+
+Този файл е бил променен от друга програма.
+
+Искате ли да го презаредите?"/>
+			<DoReloadOrNotAndLooseChange title="Презареждане" message="&quot;$STR_REPLACE$&quot;
+
+Този файл е бил променен от друга програма.
+
+Искате ли да го презаредите и да загубите направените в Notepad++ промени?"/>
+			<PrehistoricSystemDetected title="Открита праисторическа система" message="Изглежда, че все още използвате праисторическа система. Тази функция работи само на модерна система, съжалявам."/>
+			<XpUpdaterProblem title="Notepad++ обновяване" message="Обновяването на Notepad++ е несъвместимо с XP заради остарелият му слой за сигурност.
+
+Искате ли да посетите страницата на Notepad++ за да изтеглите последната версия?"/>
+			<DocTooDirtyToMonitor title="Проблем с наблюдение" message="Документът е мръсен. Моля, запишете промените преди да го наблюдавате."/>
+			<DocNoExistToMonitor title="Проблем с наблюдение" message="Файлът трябва да съществува, за да бъде наблюдаван."/>
+			<FileTooBigToOpene title="Проблем с размер на файл" message="Файлът е твърде голям за да се отвори от Notepad++"/>
+			<CreateNewFileOrNot title="Създаване на нов файл" message="&quot;$STR_REPLACE$&quot; не съществува.
+
+Създаване?"/>
+			<CreateNewFileError title="Създаване на нов файл" message="Файлът &quot;$STR_REPLACE$&quot; не може да се създаде."/>
+			<OpenFileError title="ГРЕШКА" message="Файлът &quot;$STR_REPLACE$&quot; не може да се отвори."/>
+			<FileBackupFailed title="Неуспешно резервно копие" message="Предишната версия на файла не може да бъде запазена в директорията за резервни копия на &quot;$STR_REPLACE$&quot;.
+
+Искате ли да запазите текущият файл така или иначе?"/>
+			<LoadStylersFailed title="Неуспешно зареждане на stylers.xml" message="Неуспешно зареждане на &quot;$STR_REPLACE$&quot; !"/>
+			<LoadLangsFailed title="Конфигуриране" message="Неуспешно зареждане на langs.xml!
+
+Искате ли да възстановите вашият langs.xml?"/>
+			<LoadLangsFailedFinal title="Конфигуриране" message="Неуспешно зареждане на langs.xml!"/>
+			<FolderAsWorspaceSubfolderExists title="Проблем с добавяне на директория като работно място" message="Съществува под-директория на директорията, която искате да добавите.
+
+Моля, премахнете я от панела преди да добавите директория &quot;$STR_REPLACE$&quot;."/>
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Работната област бе променена. Искате ли да я запазите?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Работната ви област не е запазена."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Отваряне на работна област" message="Текущата работна област бе променена.
+
+Искате ли да запазите текущият проект?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Нова работна област" message="Текущата работна област бе променена.
+
+Искате ли да запазите текущият проект?"/>
+			<ProjectPanelOpenFailed title="Отваряне на работна област" message="Работната област не можа да се отвори.
+Изглежда, че файлът за отваряне не е валиден файл на проекта."/>
+			<ProjectPanelRemoveFolderFromProject title="Премахване на папка от проект" message="Всички под-елементи ще бъдат премахнати.
+
+Сигурни ли сте, че искате да премахнете тази папка от проекта?"/>
+			<ProjectPanelRemoveFileFromProject title="Премахване на файл от проект" message="Сигурни ли сте, че искате премахнете този файл от проекта?"/>
+			<ProjectPanelReloadError title="Презареждане на работна област" message="Файлът не може да бъде намерен за презареждане."/>
+			<ProjectPanelReloadDirty title="Презареждане на работна област" message="Текущата работна област бе променена.
+Презареждането ще премахне всички промени.
+
+Искате ли да продължите?"/>
+			<UDLNewNameError title="UDL грешка" message="Това име вече се използва,
+моля, задайте друго."/>
+			<UDLRemoveCurrentLang title="Премахване на синтаксис" message="Сигурни ли сте?"/>
+			<FindCharRangeValueError title="Проблем със стойност на обхвата" message="Трябва да въведете между 0 и 255."/>
+			<SCMapperDoDeleteOrNot title="Сигурни ли сте?" message="Сигурни ли сте, че искате да изтриете този бърз клавиш?"/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

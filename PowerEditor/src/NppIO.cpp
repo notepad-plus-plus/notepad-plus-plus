@@ -224,7 +224,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
 			{
 				int res = _nativeLangSpeaker.messageBox("CreateNewFileOrNot",
 					_pPublicInterface->getHSelf(),
-					TEXT("\"$STR_REPLACE$\" doesn't exist. Create it?."),
+					TEXT("\"$STR_REPLACE$\" doesn't exist. Create it?"),
 					TEXT("Create new file"),
 					MB_YESNO,
 					0,

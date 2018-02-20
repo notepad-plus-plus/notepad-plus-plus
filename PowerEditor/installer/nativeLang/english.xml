@@ -464,7 +464,7 @@
                 <PluginCommandsTab name="Plugin commands"/>
                 <ScintillaCommandsTab name="Scintilla commands"/>
                 <ConflictInfoOk name="No shortcut conflicts for this item."/>
-                <ConflictInfoEditing name="No conflicts . . ."/>
+                <ConflictInfoEditing name="No conflicts..."/>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Shortcut">
                 <Item id="1" name="OK"/>
@@ -850,7 +850,7 @@
                 </MultiInstance>
 
                 <Delimiter title="Delimiter">
-                    <Item id="6251" name="Delimiter selection settings (Ctrl + Mouse double click)"/>
+                    <Item id="6251" name="Delimiter selection settings (Ctrl+Mouse double click)"/>
                     <Item id="6252" name="Open"/>
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>
@@ -865,7 +865,7 @@
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
                 </Cloud>
-                
+
                 <SearchEngine title="Search Engine">
                     <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>
@@ -958,12 +958,12 @@ or on a folder needed privilege right for writing access.
 Your settings on cloud will be canceled. Please reset a coherent value via Preference dialog."/>
             <FilePathNotFoundWarning title="File Open" message="The file you're trying to open doesn't exist."/>
             <SessionFileInvalidError title="Could not Load Session" message="Session file is either corrupted or not valid."/>
-            <DroppingFolderAsProjetModeWarning title="Invalid action" message="You can drop only files or folders but not both, because you're in dropping Folder as Project mode.
-you have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
-            <SortingError title="Sorting Error" message="Unable to perform numeric sort due to line $INT_REPLACE$."/>
+            <DroppingFolderAsProjetModeWarning title="Invalid action" message="You can only drop files or folders but not both, because you're in Folder as Project mode.
+You have to enable &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
+            <SortingError title="Sorting Error" message="Unable to perform numeric sorting due to line $INT_REPLACE$."/>
             <ColumnModeTip title="Column Mode Tip" message="Please use &quot;ALT+Mouse Selection&quot; or &quot;Alt+Shift+Arrow key&quot; to switch to column mode."/>
             <BufferInvalidWarning title="Save failed" message="Cannot save: Buffer is invalid."/>
-            <DoSaveOrNot title="Save" message="Save file &quot;$STR_REPLACE$&quot; ?"/>
+            <DoSaveOrNot title="Save" message="Save file &quot;$STR_REPLACE$&quot;?"/>
             <DoCloseOrNot title="Keep non existing file" message="The file &quot;$STR_REPLACE$&quot; doesn't exist anymore.
 Keep this file in editor?"/>
             <DoDeleteOrNot title="Delete file" message="The file &quot;$STR_REPLACE$&quot;
@@ -971,7 +971,7 @@ will be moved to your Recycle Bin and this document will be closed.
 Continue?"/>
             <NoBackupDoSaveFile title="Save" message="Your backup file cannot be found (deleted from outside).
 Save it otherwise your data will be lost
-Do you want to save file &quot;$STR_REPLACE$&quot; ?"/>
+Do you want to save file &quot;$STR_REPLACE$&quot;?"/>
             <DoReloadOrNot title="Reload" message="&quot;$STR_REPLACE$&quot;
 
 This file has been modified by another program.
@@ -980,7 +980,7 @@ Do you want to reload it?"/>
 
 This file has been modified by another program.
 Do you want to reload it and lose the changes made in Notepad++?"/>
-            <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system, This feature works only on a modern system, sorry."/>
+            <PrehistoricSystemDetected title="Prehistoric system detected" message="It seems you still use a prehistoric system. This feature works only on a modern system, sorry."/>
             <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
 Do you want to go to Notepad++ page to download the latest version?"/>
             <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
@@ -1011,11 +1011,10 @@ Are you sure you want to remove this folder from the project?"/>
             <ProjectPanelReloadError title="Reload Workspace" message="Cannot find the file to reload."/>
             <ProjectPanelReloadDirty title="Reload Workspace" message="The current workspace was modified. Reloading will discard all modifications.
 Do you want to continue?"/>
-            <UDLNewNameError title="UDL Error" message="This name is used by another language,
-please give another one."/>
+            <UDLNewNameError title="UDL Error" message="This name is used by another language, please give another one."/>
             <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
             <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
-            <FindCharRangeValueError title="Range Value problem" message="You should type between from 0 to 255."/>
+            <FindCharRangeValueError title="Range Value problem" message="You should type a value between 0 and 255."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Clipboard History"/>
@@ -1036,8 +1035,8 @@ please give another one."/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Function List"/>
-            <SortTip name="Sort" />
-            <ReloadTip name="Reload" />
+            <SortTip name="Sort"/>
+            <ReloadTip name="Reload"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Folder as Workspace"/>
@@ -1051,7 +1050,7 @@ please give another one."/>
                 <Item id="3516" name="Copy path"/>
                 <Item id="3517" name="Find in Files..."/>
                 <Item id="3518" name="Explorer here"/>
-                <Item id="3519" name="CMD here"/>
+                <Item id="3519" name="Cmd here"/>
             </Menus>
         </FolderAsWorkspace>
         <ProjectManager>
@@ -1111,7 +1110,7 @@ please give another one."/>
             <cloud-invalid-warning value="Invalid path."/>
             <cloud-restart-warning value="Please restart Notepad++ to take effect."/>
             <cloud-select-folder value="Select a folder from/to where Notepad++ reads/writes its settings"/>
-            <shift-change-direction-tip value="Use Shift + Enter to search in the opposite direction"/>
+            <shift-change-direction-tip value="Use Shift+Enter to search in the opposite direction"/>
             <two-find-buttons-tip value="2 find buttons mode"/>
             <find-status-top-reached value="Find: Found the 1st occurrence from the bottom. The beginning of the document has been reached."/>
             <find-status-end-reached value="Find: Found the 1st occurrence from the top. The end of the document has been reached."/>
@@ -1135,7 +1134,7 @@ please give another one."/>
             <find-status-replace-top-reached value="Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached"/>
             <find-status-relaced-next-found value="Replace: 1 occurrence was replaced. The next occurrence found"/>
             <find-status-relaced-next-not-found value="Replace: 1 occurrence was replaced. The next occurrence not found"/>
-            <find-status-replace-not-found value="Replace: no occurrence was found"/>
+            <find-status-replace-not-found value="Replace: No occurrence was found"/>
             <find-status-replace-readonly value="Replace: Cannot replace text. The current document is read only"/>
             <find-status-cannot-find value="Find: Can't find the text &quot;$STR_REPLACE$&quot;"/>
             <find-status-mark-nb-matches value="$INT_REPLACE$ matches"/>

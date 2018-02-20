@@ -20,7 +20,7 @@
 #include "GoToLineDlg.h"
 #include <windows.h>
 #include <iostream>
-#include "../Dragbase/dragbase/dragbase/dragbase.h"
+#include "dragbase.h"
 extern FuncItem funcItem[nbFunc];
 extern NppData nppData;
 extern bool doCloseTag;
@@ -46,33 +46,23 @@ const unsigned MAX_TEXT_SIZE = 1000000;
 // *** Our save procecure which is also used by dragbase
 BOOL __stdcall Save(const char * const filename, const char * const directory, void * param)
 {
-	CallbackParam * cp = (CallbackParam*)param;
+	HWND hNotepad_plus = FindWindow(TEXT("Notepad++"), NULL);
+	int which = -1;
+	::SendMessage(hNotepad_plus, NPPM_GETCURRENTSCINTILLA, 0, (LPARAM)&which);
+	if (which == -1)
+		return false;
+	HWND curScintilla = (which == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
+	int text_len = ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0);
+	char *text_buf = (char *)malloc(text_len + 1);
+	::SendMessage(curScintilla, SCI_GETTEXT, text_len + 1, (LPARAM)text_buf);
 
-	// Pointer to the real file name (including path)
-	const char * filename_real = filename;
-
-	// Only show the dialog to enter a file name if there is a new document
-	// (with no document name yet)
-	if (*cp->new_document)
-	{
-		char filename_tmp[4096];
-			SetFilename(filename_tmp);
-			*cp->new_document = false;
-			// Create new path with file name (because filename_tmp is only the file name!)
-			char new_filename[4096];
-			strcpy(new_filename, directory);
-			strcat(new_filename, filename_tmp);
-			filename_real = filename_tmp;
-	}
-
-
-	char *txt_content = new char[MAX_TEXT_SIZE + 1];
-	GetWindowText(cp->hwnd, txt_content, MAX_TEXT_SIZE);
-
-
-
-	delete[] txt_content;
-
+	DWORD num_of_bytes_written;
+	TCHAR wFilename[MAX_PATH];
+	mbstowcs(wFilename, filename, strlen(filename) + 1);
+	HANDLE tmp_file = CreateFile(wFilename, GENERIC_WRITE, FILE_SHARE_WRITE,
+		NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	WriteFile(tmp_file, text_buf, text_len, &num_of_bytes_written, NULL);
+	CloseHandle(tmp_file);
 	return true;
 }
 

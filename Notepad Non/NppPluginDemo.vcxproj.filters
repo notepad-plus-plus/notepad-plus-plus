@@ -59,6 +59,9 @@
     <ClInclude Include="DockingFeature\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dragbase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DockingFeature\goLine.rc">

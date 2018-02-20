@@ -3693,6 +3693,8 @@ generic_string NppParameters::getLocPathFromStr(const generic_string & localizat
 		return TEXT("kazakh.xml");
 	if (localizationCode == TEXT("ko") || localizationCode == TEXT("ko-kp") || localizationCode == TEXT("ko-kr"))
 		return TEXT("korean.xml");
+	if (localizationCode == TEXT("ku"))
+		return TEXT("kurdish.xml");
 	if (localizationCode == TEXT("ky"))
 		return TEXT("kyrgyz.xml");
 	if (localizationCode == TEXT("lv"))

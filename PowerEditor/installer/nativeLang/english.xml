@@ -865,7 +865,7 @@
                     <Item id="6263" name="No Cloud"/>
                     <Item id="6267" name="Set your cloud location path here:"/>
                 </Cloud>
-                
+
                 <SearchEngine title="Search Engine">
                     <Item id="6271" name="Search Engine (for command &quot;Search on Internet&quot;)"/>
                     <Item id="6272" name="DuckDuckGo"/>

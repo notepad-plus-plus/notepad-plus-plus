@@ -70,7 +70,7 @@ BEGIN
     LTEXT           "+",IDC_STATIC,198,39,8,8
     EDITTEXT        IDC_NAME_EDIT,158,6,118,14,ES_AUTOHSCROLL | ES_READONLY
     LTEXT           "Name :",IDC_NAME_STATIC,117,9,34,8,0,WS_EX_RIGHT
-    LTEXT           "This will remove shorcut from this command",IDC_WARNING_STATIC,6,101,162,8
+    LTEXT           "This will remove shortcut from this command",IDC_WARNING_STATIC,6,101,162,8
     LTEXT           "CONFLICT FOUND!",IDC_CONFLICT_STATIC,6,101,162,8
     LISTBOX         IDC_LIST_KEYS,6,6,90,72,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Add",IDC_BUTTON_ADD,6,84,42,14

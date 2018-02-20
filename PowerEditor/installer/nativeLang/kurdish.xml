@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <Native-Langue name="كوردی" filename="kurdish.xml" version="7.5">
+    <Native-Langue name="كوردی" RTL="yes" filename="kurdish.xml" version="7.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -547,7 +547,7 @@
                     <Item id="23003" name="Line comment position"/>
                     <Item id="23004" name="Allow anywhere"/>
                     <Item id="23005" name="Force at beginning of line"/>
-                    <Item id="23006" name="Allow preceeding whitespace"/>
+                    <Item id="23006" name="Allow preceding whitespace"/>
                     <Item id="23001" name="Allow folding of comments"/>
                     <Item id="23326" name="Styler"/>
                     <Item id="23323" name="Open"/>
@@ -642,7 +642,7 @@
                     <Item id="6120" name="Vertical"/>
                     <Item id="6121" name="Exit on close the last tab"/>
 
-                    <Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
+                    <Item id="6122" name="Hide menu bar (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="Localization"/>
 
                     <Item id="6125" name="Document List Panel"/>
@@ -823,7 +823,7 @@
                 </MultiInstance>
 
                 <Delimiter title="Delimiter">
-                    <Item id="6251" name="Delimiter selection settings (Ctrl + Mouse double click)"/>
+                    <Item id="6251" name="Delimiter selection settings (Ctrl+Mouse double click)"/>
                     <Item id="6252" name="Open"/>
                     <Item id="6255" name="Close"/>
                     <Item id="6256" name="Allow on several lines"/>

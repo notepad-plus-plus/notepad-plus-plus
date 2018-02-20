@@ -892,7 +892,7 @@ bool NppParameters::reloadStylers(TCHAR* stylePath)
 	{
 		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
 			NULL,
-			TEXT("Load \"$INT_REPLACE$\" failed!"),
+			TEXT("Load \"$STR_REPLACE$\" failed!"),
 			TEXT("Load stylers.xml failed"),
 			MB_OK,
 			0,
@@ -1165,7 +1165,7 @@ bool NppParameters::load()
 	{
 		_pNativeLangSpeaker->messageBox("LoadStylersFailed",
 			NULL,
-			TEXT("Load \"$INT_REPLACE$\" failed!"),
+			TEXT("Load \"$STR_REPLACE$\" failed!"),
 			TEXT("Load stylers.xml failed"),
 			MB_OK,
 			0,

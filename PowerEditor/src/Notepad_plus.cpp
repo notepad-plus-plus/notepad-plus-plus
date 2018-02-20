@@ -3270,7 +3270,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 			// display error & do nothing
 			_nativeLangSpeaker.messageBox("DroppingFolderAsProjetModeWarning",
 				_pPublicInterface->getHSelf(),
-				TEXT("You can drop only files or folders but not both, because you're in dropping Folder as Project mode.\ryou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work."),
+				TEXT("You can only drop files or folders but not both, because you're in dropping Folder as Project mode.\ryou have to enable \"Open all files of folder instead of launching Folder as Workspace on folder dropping\" in \"Default Directory\" section of Preferences dialog to make this operation work."),
 				TEXT("Invalid action"),
 				MB_OK | MB_APPLMODAL);
 		}
@@ -5909,7 +5909,7 @@ void Notepad_plus::launchDocMap()
 	{
 		_nativeLangSpeaker.messageBox("PrehistoricSystemDetected",
 			_pPublicInterface->getHSelf(),
-			TEXT("It seems you still use a prehistoric system, This feature works only on a modern system, sorry."),
+			TEXT("It seems you still use a prehistoric system. This feature works only on a modern system, sorry."),
 			TEXT("Prehistoric system detected"),
 			MB_OK);
 

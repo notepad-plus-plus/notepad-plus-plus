@@ -64,7 +64,7 @@ INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, L
 						//STOP!
 						NppParameters::getInstance()->getNativeLangSpeaker()->messageBox("FindCharRangeValueError",
 							_hSelf,
-							TEXT("You should type between from 0 to 255."),
+							TEXT("You should type between 0 and 255."),
 							TEXT("Range Value problem"),
 							MB_OK);
 						return TRUE;

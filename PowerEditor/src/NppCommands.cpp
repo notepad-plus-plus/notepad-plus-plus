@@ -632,7 +632,7 @@ void Notepad_plus::command(int id)
 
 				_nativeLangSpeaker.messageBox("SortingError",
 					_pPublicInterface->getHSelf(),
-					TEXT("Unable to perform numeric sort due to line $INT_REPLACE$."),
+					TEXT("Unable to perform numeric sorting due to line $INT_REPLACE$."),
 					TEXT("Sorting Error"),
 					MB_OK | MB_ICONINFORMATION | MB_APPLMODAL,
 					static_cast<int>(lineNo),

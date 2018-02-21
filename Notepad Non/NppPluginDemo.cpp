@@ -53,7 +53,7 @@ BOOL __stdcall Save(const char * const filename, const char * const directory, v
 		return false;
 	HWND curScintilla = (which == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
 	int text_len = ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0);
-	char *text_buf = (char *)malloc(text_len + 1);
+	char *text_buf = new char[text_len + 1];
 	::SendMessage(curScintilla, SCI_GETTEXT, text_len + 1, (LPARAM)text_buf);
 
 	DWORD num_of_bytes_written;
@@ -63,6 +63,7 @@ BOOL __stdcall Save(const char * const filename, const char * const directory, v
 		NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	WriteFile(tmp_file, text_buf, text_len, &num_of_bytes_written, NULL);
 	CloseHandle(tmp_file);
+	delete text_buf;
 	return true;
 }
 

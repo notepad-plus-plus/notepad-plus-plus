@@ -999,13 +999,13 @@ Notepad++ のダウンロードページを開きますか？"/>
             <DocTooDirtyToMonitor title="ファイル監視" message="この文書は変更されています。監視を始める前に保存をして下さい。"/>
             <DocNoExistToMonitor title="ファイル監視" message="監視対象のファイルが存在しません。"/>
             <FileTooBigToOpene title="ファイルサイズ" message="ファイルサイズが大きいため Notepad++ で開けません。"/>
-            <CreateNewFileOrNot title="新しいファイルを作成" message="&quot;$INT_REPLACE$&quot; は存在しません。作成しますか？"/>
-            <CreateNewFileError title="新しいファイルを作成" message="ファイルを作成できませんでした：&quot;$INT_REPLACE$&quot;"/>
-            <OpenFileError title="エラー" message="ファイルを開けませんでした：&quot;$INT_REPLACE$&quot;"/>
-            <FileBackupFailed title="バックアップに失敗" message="前の版のファイルをバックアップディレクトリーに保存できませんでした：&quot;$INT_REPLACE$&quot;
+            <CreateNewFileOrNot title="新しいファイルを作成" message="&quot;$STR_REPLACE$&quot; は存在しません。作成しますか？"/>
+            <CreateNewFileError title="新しいファイルを作成" message="ファイルを作成できませんでした：&quot;$STR_REPLACE$&quot;"/>
+            <OpenFileError title="エラー" message="ファイルを開けませんでした：&quot;$STR_REPLACE$&quot;"/>
+            <FileBackupFailed title="バックアップに失敗" message="前の版のファイルをバックアップディレクトリーに保存できませんでした：&quot;$STR_REPLACE$&quot;
 
 現在のファイルを保存してもよろしいですか？"/>
-            <LoadStylersFailed title="stylers.xml の読み込みに失敗" message="&quot;$INT_REPLACE$&quot; の読み込みに失敗しました。"/>
+            <LoadStylersFailed title="stylers.xml の読み込みに失敗" message="&quot;$STR_REPLACE$&quot; の読み込みに失敗しました。"/>
             <LoadLangsFailed title="ユーザー定義" message="langs.xml の読み込みに失敗しました。
 langs.xml を復元しますか？"/>
             <LoadLangsFailedFinal title="ユーザー定義" message="langs.xml の読み込みに失敗しました。"/>

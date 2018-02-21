@@ -166,7 +166,7 @@
                     <Item id="42035" name="Comentare linie"/>
                     <Item id="42036" name="Eliminare comentariu linie"/>
                     <Item id="42055" name="Eliminare linii goale"/>
-                    <Item id="42056" name="Eliminare linii goale (ce conțin caractere goale)"/>
+                    <Item id="42056" name="Eliminare linii goale (ce conțin spații goale)"/>
                     <Item id="42057" name="Inserare linie goală deasupra"/>
                     <Item id="42058" name="Inserare linie goală dedesubt"/>
                     <Item id="43001" name="Cău&amp;tare..."/>

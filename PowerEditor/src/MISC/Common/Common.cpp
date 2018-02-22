@@ -1193,3 +1193,49 @@ bool isAssoCommandExisting(LPCTSTR FullPathName)
 	}
 	return isAssoCommandExisting;
 }
+
+#ifndef _WIN64
+static ULONGLONG filetime_to_time_ull(const FILETIME* ft)
+{
+    ULARGE_INTEGER ull;
+    ull.LowPart = ft->dwLowDateTime;
+    ull.HighPart = ft->dwHighDateTime;
+    return (ull.QuadPart / 10000000ULL - 11644473600ULL);
+}
+
+int winapi_wstat(wchar_t const* _FileName, struct _stat* _Stat)
+{
+    // Starting from Visual Studio 2015, _wstat always returns -1 in Windows XP.
+    // So here is a WinAPI-based implementation of _wstat.
+    int nResult = -1;
+    DWORD dwAttr = ::GetFileAttributes(_FileName);
+    if (dwAttr != INVALID_FILE_ATTRIBUTES)
+    {
+        HANDLE hFile = ::CreateFile(_FileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+        if (hFile != INVALID_HANDLE_VALUE)
+        {
+            LARGE_INTEGER fileSize;
+            FILETIME creationTime, accessTime, writeTime;
+            if (::GetFileSizeEx(hFile, &fileSize) &&
+                ::GetFileTime(hFile, &creationTime, &accessTime, &writeTime))
+            {
+                ::ZeroMemory(_Stat, sizeof(struct _stat));
+                _Stat->st_atime = static_cast<decltype(_Stat->st_atime)>(filetime_to_time_ull(&accessTime));
+                _Stat->st_ctime = static_cast<decltype(_Stat->st_ctime)>(filetime_to_time_ull(&creationTime));
+                _Stat->st_mtime = static_cast<decltype(_Stat->st_mtime)>(filetime_to_time_ull(&writeTime));
+                _Stat->st_size = static_cast<decltype(_Stat->st_size)>(fileSize.QuadPart);
+                _Stat->st_mode = _S_IREAD | _S_IEXEC;
+                if ((dwAttr & FILE_ATTRIBUTE_READONLY) == 0)
+                    _Stat->st_mode |= _S_IWRITE;
+                if ((dwAttr & FILE_ATTRIBUTE_DIRECTORY) != 0)
+                    _Stat->st_mode |= _S_IFDIR;
+                else
+                    _Stat->st_mode |= _S_IFREG;
+                nResult = 0;
+            }
+            ::CloseHandle(hFile);
+        }
+    }
+    return nResult;
+}
+#endif

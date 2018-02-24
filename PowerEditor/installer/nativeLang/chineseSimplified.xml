@@ -450,6 +450,7 @@
                 <Item id="2602" name="修改"/>
                 <Item id="2603" name="删除"/>
                 <Item id="2606" name="清空"/>
+                <Item id="2607" name="过滤: "/>
                 <Item id="1" name="关闭"/>
                 <ColumnName name="名称"/>
                 <ColumnShortcut name="快捷键"/>
@@ -460,6 +461,8 @@
                 <RunCommandsTab name="运行命令"/>
                 <PluginCommandsTab name="插件命令"/>
                 <ScintillaCommandsTab name="Scintilla命令"/>
+                <ConflictInfoOk name="此条无快捷键冲突。"/>
+                <ConflictInfoEditing name="无冲突……"/>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="快捷键设置">
                 <Item id="1" name="确定"/>
@@ -468,7 +471,7 @@
                 <Item id="5008" name="添加"/>
                 <Item id="5009" name="删除"/>
                 <Item id="5010" name="应用"/>
-                <Item id="5007" name="此操作将移除快捷键"/>
+                <Item id="5007" name="此命令将移除快捷键"/>
                 <Item id="5012" name="快捷键定义重复！"/>
             </ShortcutMapperSubDialg>
             <UserDefine title="自定义语言格式">
@@ -665,7 +668,7 @@
                     <Item id="6120" name="垂直显示" />
 
                     <Item id="6121" name="关闭最后一个标签时退出" />
-                    <Item id="6122" name="隐藏 (按下 Alt 或 F10 显示)" />
+                    <Item id="6122" name="隐藏菜单栏 (按下 Alt 或 F10 显示)" />
                     <Item id="6123" name="界面语言" />
 
                     <Item id="6125" name="文件列表面板" />
@@ -731,7 +734,7 @@
                     <Item id="6413" name="文件打开/保存路径" />
                     <Item id="6414" name="与当前文件一致" />
                     <Item id="6415" name="记住最后的操作路径" />
-                    <Item id="6430" name="使用新样式保存对话框(无文件扩展名功能)"/>
+                    <Item id="6430" name="使用新样式保存对话框(无文件扩展名和UNIX路径支持功能)"/>
                     <Item id="6431" name="拖放文件夹时开启文件夹中所有文件，而不开启文件夹工作区"/>
                 </DefaultDir>
 
@@ -957,7 +960,7 @@
             <SessionFileInvalidError title="无法加载会话" message="会话文件出现损坏/无效。"/>
             <DroppingFolderAsProjetModeWarning title="无效操作" message="您只能在拖放文件或文件夹中二选一，由于您正在将文件夹拖放为项目模式。
 您必须到“首选项”对话框的“默认目录”部分，启用“拖放文件夹时开启文件夹中所有文件，而不开启文件夹工作区”，才能完成此操作。"/>
-            <SortingError title="排序错误" message="由于第$STR_REPLACE$行的问题，无法执行数字排序。"/>
+            <SortingError title="排序错误" message="由于第$INT_REPLACE$行的问题，无法执行数字排序。"/>
             <ColumnModeTip title="列块模式提示" message="请使用“ALT+鼠标点选” or “Alt+Shift+箭头键”切换列块模式。"/>
             <BufferInvalidWarning title="保存失败" message="无法保存：缓冲区无效。"/>
             <DoSaveOrNot title="保存" message="是否保存文件“$STR_REPLACE$”？"/>
@@ -982,20 +985,20 @@
             <DocTooDirtyToMonitor title="监视问题" message="文档没有保存，请先保存修改再监视它。"/>
             <DocNoExistToMonitor title="监视问题" message="文件需要存在才能监视。"/>
             <FileTooBigToOpene title="文件大小问题" message="文件太大，Notepad++打不开。"/>
-            <CreateNewFileOrNot title="创建新文件" message="“$INT_REPLACE$”不存在。新建一个？"/>
-            <CreateNewFileError title="创建新文件" message="无法创建文件“$INT_REPLACE$”。"/>
-            <OpenFileError title="出错" message="无法打开文件“$INT_REPLACE$”。"/>
-            <FileBackupFailed title="文件备份失败" message="此文件的先前版本无法保存到备份目录“$INT_REPLACE”。
+            <CreateNewFileOrNot title="创建新文件" message="“$STR_REPLACE$”不存在。新建一个？"/>
+            <CreateNewFileError title="创建新文件" message="无法创建文件“$STR_REPLACE$”。"/>
+            <OpenFileError title="出错" message="无法打开文件“$STR_REPLACE$”。"/>
+            <FileBackupFailed title="文件备份失败" message="此文件的先前版本无法保存到备份目录“$STR_REPLACE$”。
 
 是否继续保存当前文件？"/>
-            <LoadStylersFailed title="加载stylers.xml失败" message="加载“$INT_REPLACE$”失败！"/>
+            <LoadStylersFailed title="加载stylers.xml失败" message="加载“$STR_REPLACE$”失败！"/>
             <LoadLangsFailed title="配置" message="加载langs.xml失败！
 您是否要恢复您的langs.xml？"/>
             <LoadLangsFailedFinal title="配置" message="加载langs.xml失败！"/>
             <FolderAsWorspaceSubfolderExists title="文件夹工作区添加文件夹问题" message="您想要添加的文件夹中的一个子文件夹已存在。
-请您在添加文件夹“$STR_REPLACE$”之前从面板移除此文件夹。"/>
+请您在添加文件夹“$STR_REPLACE$”之前从面板移除此根文件夹。"/>
             <ProjectPanelChanged title="$STR_REPLACE$" message="工作区已修改，是否保存？"/>
-            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="您的工作区未保存。"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="您的工作区尚未保存。"/>
             <ProjectPanelOpenDoSaveDirtyWsOrNot title="打开工作区" message="当前工作区已修改。您是否要保存当前项目？"/>
             <ProjectPanelNewDoSaveDirtyWsOrNot title="新工作区" message="当前工作区已修改。您是否要保存当前项目？"/>
             <ProjectPanelOpenFailed title="打开工作区" message="工作区无法打开。
@@ -1096,17 +1099,44 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="这允许您在双击选择或选中“全词匹配”选项的情况下,在当前单词字符列表中附加字符。"/>
             <word-chars-list-warning-begin value="警告："/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ 空格"/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
             <word-chars-list-warning-end value="  在你的字符列表中。"/>
             <cloud-invalid-warning value="无效路径"/>
             <cloud-restart-warning value="请重启Notepad++以生效"/>
+            <cloud-select-folder value="请选择一个供Notepad++读写设置的文件夹"/>
             <shift-change-direction-tip value="使用Shift+Enter反向查找"/>
             <two-find-buttons-tip value="双按钮查找模式"/>
+            <find-status-top-reached value="查找：查找到从下到上的首个匹配项。已查找至文档最顶部。"/>
+            <find-status-end-reached value="查找：查找到从上到下的首个匹配项。已查找至文档最底部。"/>
+            <find-status-find-from-top-end-reached value="查找：查找到从上到下的首个匹配项。已查找至文档最底部。"/>
+            <find-status-find-from-bottom-begin-reached value="查找：查找到从下到上的首个匹配项。已查找至文档最顶部。"/>
+            <find-status-replaceinfiles-1-replaced value="在文件中替换：已替换1个匹配项。"/>
+            <find-status-replaceinfiles-nb-replaced value="在文件中替换：已替换$INT_REPLACE$个匹配项。"/>
+            <find-status-replaceinfiles-re-malformed value="替换所有打开文件：正则表达式格式不正确。"/>
+            <find-status-replaceinopenedfiles-1-replaced value="替换所有打开文件：已替换1个匹配项。"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="替换所有打开文件：已替换$INT_REPLACE$个匹配项。"/>
+            <find-status-mark-re-malformed value="标记：搜索的正则表达式格式不正确。"/>
+            <find-status-invalid-re value="查找：无效的正则表达式。"/>
+            <find-status-mark-1-match value="1次匹配"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$次匹配"/>
+            <find-status-count-re-malformed value="计数：搜索的正则表达式格式不正确。"/>
+            <find-status-count-1-match value="计数：1次匹配"/>
+            <find-status-count-nb-matches value="计数：$INT_REPLACE$次匹配"/>
+            <find-status-replaceall-re-malformed value="全部替换：正则表达式格式不正确。"/>
+            <find-status-replaceall-1-replaced value="全部替换：已替换1个匹配项。"/>
+            <find-status-replaceall-nb-replaced value="全部替换：已替换$INT_REPLACE$个匹配项。"/>
+            <ind-status-replaceall-readonly value="全部替换：无法替换文本，当前文件只读。"/>
+            <find-status-replace-end-reached value="替换：替换到从上到下的首个匹配项。已查找至文档最底部。"/>
+            <find-status-replace-top-reached value="替换：替换到从下到上的首个匹配项。已查找至文档最顶部。"/>
+            <find-status-relaced-next-found value="替换：已替换1个匹配项，并找到了下一个。"/>
+            <find-status-relaced-next-not-found value="替换：已替换1个匹配项，没有找到下一个。"/>
+            <find-status-replace-not-found value="替换：没有找到匹配项。"/>
+            <find-status-replace-readonly value="替换：无法替换文本，当前文件只读。"/>
+            <find-status-cannot-find value="查找：无法找到文本“$STR_REPLACE$”"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

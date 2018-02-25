@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.5
-	last modified: 2018-02-22 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-02-25 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -1042,10 +1042,15 @@
 			<ColumnName name="Name"/>
 			<ColumnExt name="Erw."/>
 		</DocSwitcher>
+		<WindowsDlg>
+			<ColumnName name="Name"/>
+			<ColumnPath name="Pfad"/>
+			<ColumnType name="Typ"/>
+		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="Zeichentabelle"/>
 			<ColumnVal name="Dezimal"/>
-            <ColumnHex name="Hexadezimal"/>
+			<ColumnHex name="Hexadezimal"/>
 			<ColumnChar name="Zeichen"/>
 		</AsciiInsertion>
 		<DocumentMap>

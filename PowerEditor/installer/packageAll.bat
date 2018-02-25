@@ -195,6 +195,8 @@ copy /Y "..\bin\plugins\DSpellCheck.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 goto End
 mkdir .\zipped.package.release\plugins\Config\Hunspell
 If ErrorLevel 1 goto End
+copy /Y "..\bin\plugins\Config\DSpellCheckDefaultDisabled\DSpellCheck.ini" .\zipped.package.release\plugins\Config\
+If ErrorLevel 1 goto End
 copy /Y "..\bin\plugins\Config\Hunspell\en_US.aff" .\zipped.package.release\plugins\Config\Hunspell\
 If ErrorLevel 1 goto End
 copy /Y "..\bin\plugins\Config\Hunspell\en_US.dic" .\zipped.package.release\plugins\Config\Hunspell\
@@ -207,6 +209,8 @@ If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\DSpellCheck.dll" .\zipped.package.release64\plugins\
 If ErrorLevel 1 goto End
 mkdir .\zipped.package.release64\plugins\Config\Hunspell
+If ErrorLevel 1 goto End
+copy /Y "..\bin\plugins\Config\DSpellCheckDefaultDisabled\DSpellCheck.ini" .\zipped.package.release64\plugins\Config\
 If ErrorLevel 1 goto End
 copy /Y "..\bin64\plugins\Config\Hunspell\en_US.aff" .\zipped.package.release64\plugins\Config\Hunspell\
 If ErrorLevel 1 goto End

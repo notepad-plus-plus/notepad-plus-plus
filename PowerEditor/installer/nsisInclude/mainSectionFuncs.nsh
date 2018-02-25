@@ -27,6 +27,14 @@
 
 Var UPDATE_PATH
 Function setPathAndOptions
+    ${If} $UPDATE_PATH == ""
+        Goto initUpdatePath
+	${ELSE}
+        Goto alreadyDone
+	${EndIf}
+    
+initUpdatePath:
+    
 	; Set Section properties
 	SetOverwrite on
 	StrCpy $UPDATE_PATH $INSTDIR
@@ -48,6 +56,8 @@ Function setPathAndOptions
 		IfFileExists $INSTDIR\allowAppDataPlugins.xml 0 +2
 		Delete $INSTDIR\allowAppDataPlugins.xml
 	${EndIf}
+    
+alreadyDone:
 FunctionEnd
 	
 Function copyCommonFiles

@@ -105,7 +105,6 @@ page Custom ExtraOptions
 
 !include "nsisInclude\binariesComponents.nsh"
 
-
 InstType "Minimalist"
 
 
@@ -187,9 +186,8 @@ FunctionEnd
 
 
 Section -"Notepad++" mainSection
-
-	Call setPathAndOptions
-	
+    Call setPathAndOptions
+    
 	${If} $diffArchDir2Remove != ""
 		!insertmacro uninstallRegKey
 		!insertmacro uninstallDir $diffArchDir2Remove 

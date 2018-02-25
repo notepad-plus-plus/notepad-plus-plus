@@ -25,6 +25,7 @@
 ; along with this program; if not, write to the Free Software
 ; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+
 SectionGroup "Plugins" Plugins
 	SetOverwrite on
 !ifndef ARCH64
@@ -57,6 +58,8 @@ SectionGroup "Plugins" Plugins
 	${MementoSectionEnd}
 
 	${MementoSection} "Decent Spell-Checking" DSpellCheck
+        Call setPathAndOptions
+        
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 		SetOutPath "$INSTDIR\plugins"
 !ifdef ARCH64
@@ -70,6 +73,9 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\Config\Hunspell\en_US.aff"
 		File "..\bin\plugins\Config\Hunspell\en_US.dic"
 !endif
+        SetOverwrite off
+        SetOutPath "$UPDATE_PATH\plugins\Config"
+        File "..\bin\plugins\Config\DSpellCheckDefaultDisabled\DSpellCheck.ini"
 	${MementoSectionEnd}
 
 SectionGroupEnd

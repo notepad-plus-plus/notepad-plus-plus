@@ -340,7 +340,7 @@
   <Item id="1603" name="단어 완전 일치(&amp;W)"/> 
   <Item id="1604" name="대소문자 구분(&amp;C)"/> 
   <Item id="1605" name="정규 표현식(&amp;E)"/> 
-  <Item id="1606" name="되돌이 검색(&amp;A)"/> 
+  <Item id="1606" name="되돌이 검색(&amp;D)"/> 
   <Item id="1612" name="위로(&amp;U)"/> 
   <Item id="1613" name="아래로(&amp;D)"/> 
   <Item id="1614" name="일치하는 개수"/> 
@@ -369,7 +369,8 @@
   <Item id="1661" name="현재와 같은 폴더"/> 
   <Item id="1641" name="현재에서 모두 찾기"/> 
   <Item id="1686" name="투명도"/> 
-  <Item id="1703" name="새 줄과 일치(&amp;.)"/> 
+  <Item id="1703" name="새 줄과 일치(&amp;.)"/>
+  <Item id="1722" name="역순으로 검색"/>
   </Find>
 <FindCharsInRange title="다음 범위에서 문자 찾기">
   <Item id="2" name="닫기"/>

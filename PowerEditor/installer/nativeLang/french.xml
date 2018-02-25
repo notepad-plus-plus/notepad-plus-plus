@@ -998,6 +998,11 @@ please give another one."/>
 			<ColumnName name="Nom"/>
 			<ColumnExt name="Ext."/>
         </DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="Nom"/>
+            <ColumnPath name="Chemin"/>
+            <ColumnType name="Type"/>
+        </WindowsDlg>
         <AsciiInsertion>
 			<PanelTitle name="Panneau des caractères ASCII"/>
 			<ColumnVal name="Valeur"/>

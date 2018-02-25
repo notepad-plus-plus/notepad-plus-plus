@@ -1023,6 +1023,11 @@
             <ColumnName name="名稱"/>
 			<ColumnExt name="副檔名"/>
         </DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="名稱"/>
+            <ColumnPath name="路徑"/>
+            <ColumnType name="類型"/>
+        </WindowsDlg>
         <AsciiInsertion>
 			<PanelTitle name="ASCII 插入面板"/>
 			<ColumnVal name="數值"/>

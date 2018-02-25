@@ -200,7 +200,7 @@
 					<Item id="45008" name="เข้ารหัสข้อมูลแบบ UTF-8 without BOM"/>
 					<Item id="45009" name="เข้ารหัสข้อมูลแบบ ANSI"/>
 					<Item id="45010" name="เข้ารหัสข้อมูลแบบ UTF-8"/>					
-					<Item id="45011" name="เข้ารหัสข้อมูลแบบ UTF-8 without BOM"/>
+					<Item id="45011" name="เข้ารหัสข้อมูลแบบ UTF-8-BOM"/>
 					<Item id="45012" name="เข้ารหัสข้อมูลแบบ UCS-2 Big Endian"/>
 					<Item id="45013" name="เข้ารหัสข้อมูลแบบ UCS-2 Little Endian"/>
 

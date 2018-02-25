@@ -1025,6 +1025,11 @@ please give another one."/>
             <ColumnName name="Name"/>
             <ColumnExt name="Ext."/>
         </DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="Name"/>
+            <ColumnPath name="Path"/>
+            <ColumnType name="Type"/>
+        </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII Insertion Panel"/>
             <ColumnVal name="Value"/>

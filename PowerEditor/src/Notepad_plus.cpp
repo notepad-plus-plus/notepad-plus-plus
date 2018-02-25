@@ -3985,7 +3985,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	//The NORMAL MODE is used for all Lexers which have a commentLineSymbol defined.
 	//The ADVANCED MODE is only available for Lexers which do not have a commentLineSymbol but commentStreamSymbols (start/end) defined.
 	//The ADVANCED MODE behaves the same way as the NORMAL MODE (comment/uncomment every single line in the selection range separately)
-	//but uses two smbols to accomplish this.
+	//but uses two symbols to accomplish this.
 	bool isSingleLineAdvancedMode = false;
 
 	if (buf->getLangType() == L_USER)
@@ -4107,7 +4107,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		if (avoidIndent)
 			lineIndent = lineStart;
 
-		size_t linebufferSize = lineEnd - lineIndent + comment_length;
+		size_t linebufferSize = lineEnd - lineIndent + 1;
 		TCHAR* linebuf = new TCHAR[linebufferSize];
 
 		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);

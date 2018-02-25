@@ -3703,7 +3703,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 		monitoringWasOn = buf->isMonitoringOn();
 
 		//just close the activate document, since thats the one we moved (no search)
-		doClose(_pEditView->getCurrentBufferID(), currentView());
+		doClose(_pEditView->getCurrentBufferID(), currentView(), false, false);
 	} // else it was cone, so leave it
 
 	//Activate the other view since thats where the document went

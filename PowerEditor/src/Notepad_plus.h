@@ -152,7 +152,7 @@ public:
 	BufferID doOpen(const generic_string& fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1, const TCHAR *backupFileName = NULL, time_t fileNameTimestamp = 0);
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
-	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
+	void doClose(BufferID, int whichOne, bool doDeleteBackup = false, bool notify = true);
 	//bool doDelete(const TCHAR *fileName) const {return ::DeleteFile(fileName) != 0;};
 
 	void fileOpen();

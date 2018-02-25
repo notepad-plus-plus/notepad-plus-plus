@@ -194,10 +194,10 @@
 					<Item id="45002" name="แปลงเป็นรูปแบบ UNIX"/>
 					<Item id="45003" name="แปลงเป็นรูปแบบ MAC"/>
 					<Item id="45004" name="เข้ารหัสข้อมูลแบบ ANSI"/>
-					<Item id="45005" name="เข้ารหัสข้อมูลแบบ UTF-8"/>
+					<Item id="45005" name="เข้ารหัสข้อมูลแบบ UTF-8-BOM"/>
 					<Item id="45006" name="เข้ารหัสข้อมูลแบบ UCS-2 Big Endian"/>
 					<Item id="45007" name="เข้ารหัสข้อมูลแบบ UCS-2 Little Endian"/>
-					<Item id="45008" name="เข้ารหัสข้อมูลแบบ UTF-8 without BOM"/>
+					<Item id="45008" name="เข้ารหัสข้อมูลแบบ UTF-8"/>
 					<Item id="45009" name="เข้ารหัสข้อมูลแบบ ANSI"/>
 					<Item id="45010" name="เข้ารหัสข้อมูลแบบ UTF-8"/>					
 					<Item id="45011" name="เข้ารหัสข้อมูลแบบ UTF-8-BOM"/>

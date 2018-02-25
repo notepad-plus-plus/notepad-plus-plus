@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.5
-	last modified: 2018-02-19 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-02-25 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -501,7 +501,7 @@
 				<RunCommandsTab name="Kommandos ausführen"/>
 				<PluginCommandsTab name="Plugin-Kommandos"/>
 				<ScintillaCommandsTab name="Scintilla-Kommandos"/>
-				<ConflictInfoOk name="Keine Konflikte mit diese Tastenkürzel."/>
+				<ConflictInfoOk name="Keine Konflikte mit diesem Tastenkürzel."/>
 				<ConflictInfoEditing name="Keine Konflikte …"/>
 			</ShortcutMapper>
 			<ShortcutMapperSubDialg title="Kürzel">
@@ -771,7 +771,7 @@
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6430" name="Neuen Stilspeicherungsdialog benutzen (ohne Dateierweiterungen)"/>	
+					<Item id="6430" name="Neuen Stildialog benutzen (ohne Dateierweiterungen &amp; Unix-Stil Pfadkapazität)"/>	
 					<Item id="6431" name="Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses"/>
 					<Item id="6418" name="…"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>
@@ -1003,11 +1003,11 @@
 			<DocTooDirtyToMonitor title="Überwachungsproblem" message="Die Datei ist unsauber. Bitte vor der Überwachung die Änderungen speichern."/>
 			<DocNoExistToMonitor title="Überwachungsproblem" message="Die Datei muss existieren um übewacht werden zu können."/>
 			<FileTooBigToOpene title="Problem mit Dateigröße" message="Die Datei ist zu groß um mit Notepad++ geöffnet zu werden."/>
-			<CreateNewFileOrNot title="Neue Datei erstellen" message="&quot;$INT_REPLACE$&quot; existiert nicht. Soll die Datei erstellt werden?"/>
-			<CreateNewFileError title="Neue Datei erstellen" message="Kann Datei &quot;$INT_REPLACE$&quot; nicht erstellen."/>
-			<OpenFileError title="Fehler" message="Kann Datei &quot;$INT_REPLACE$&quot; nicht öffnen."/>
-			<FileBackupFailed title="Sicherung fehlgeschlagen" message="Die vorherige Version der Datei konnte nicht in das Sicherungsverzeichnis &quot;$INT_REPLACE$&quot; gespeichert werden.&#x0A;&#x0A;Soll die Datei trotzdem gespeichert werden?"/>
-			<LoadStylersFailed title="Laden von 'stylers.xml' fehlgeschlagen" message="Das Laden der Datei &quot;$INT_REPLACE$&quot; ist fehlgeschlagen!"/>
+			<CreateNewFileOrNot title="Neue Datei erstellen" message="&quot;$STR_REPLACE$&quot; existiert nicht. Soll die Datei erstellt werden?"/>
+			<CreateNewFileError title="Neue Datei erstellen" message="Kann Datei &quot;$STR_REPLACE$&quot; nicht erstellen."/>
+			<OpenFileError title="Fehler" message="Kann Datei &quot;$STR_REPLACE$&quot; nicht öffnen."/>
+			<FileBackupFailed title="Sicherung fehlgeschlagen" message="Die vorherige Version der Datei konnte nicht in das Sicherungsverzeichnis &quot;$STR_REPLACE$&quot; gespeichert werden.&#x0A;&#x0A;Soll die Datei trotzdem gespeichert werden?"/>
+			<LoadStylersFailed title="Laden von 'stylers.xml' fehlgeschlagen" message="Das Laden der Datei &quot;$STR_REPLACE$&quot; ist fehlgeschlagen!"/>
 			<LoadLangsFailed title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!&#x0A;Soll die Datei 'langs.xml' wieder hergestellt werden?"/>
 			<LoadLangsFailedFinal title="Konfigurator" message="Laden der Datei 'langs.xml' ist fehlgeschlagen!"/>
 			<FolderAsWorspaceSubfolderExists title="'Verzeichnis als Arbeitsbereich'-Problem" message="Ein Unterverzeichnis existiert im Verzeichnis das hinzugefügt werden soll.&#x0A;Bitte diese Verzeichnis vorher entfernen bevor das Verzeichnis &quot;$STR_REPLACE$&quot; hinzugefügt wird."/>
@@ -1042,10 +1042,15 @@
 			<ColumnName name="Name"/>
 			<ColumnExt name="Erw."/>
 		</DocSwitcher>
+		<WindowsDlg>
+			<ColumnName name="Name"/>
+			<ColumnPath name="Pfad"/>
+			<ColumnType name="Typ"/>
+		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="Zeichentabelle"/>
 			<ColumnVal name="Dezimal"/>
-            <ColumnHex name="Hexadezimal"/>
+			<ColumnHex name="Hexadezimal"/>
 			<ColumnChar name="Zeichen"/>
 		</AsciiInsertion>
 		<DocumentMap>
@@ -1155,7 +1160,6 @@
 			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
 			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ Übereinstimmungen"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

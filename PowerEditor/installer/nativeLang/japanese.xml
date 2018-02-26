@@ -9,14 +9,14 @@
                     <Item menuId="edit" name="編集(&amp;E)"/>
                     <Item menuId="search" name="検索(&amp;S)"/>
                     <Item menuId="view" name="表示(&amp;V)"/>
-                    <Item menuId="encoding" name="エンコード(&amp;M)"/>
+                    <Item menuId="encoding" name="エンコード(&amp;N)"/>
                     <Item menuId="language" name="言語(&amp;L)"/>
                     <Item menuId="settings" name="設定(&amp;T)"/>
                     <Item menuId="tools" name="ツール(&amp;O)"/>
-                    <Item menuId="macro" name="マクロ"/>
-                    <Item menuId="run" name="実行"/>
-                    <Item idName="Plugins" name="プラグイン"/>
-                    <Item idName="Window" name="ウィンドウ管理"/>
+                    <Item menuId="macro" name="マクロ(&amp;M)"/>
+                    <Item menuId="run" name="実行(&amp;R)"/>
+                    <Item idName="Plugins" name="プラグイン(&amp;P)"/>
+                    <Item idName="Window" name="ウィンドウ管理(&amp;W)"/>
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>

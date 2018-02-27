@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.5.5  20/Feb/2018  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.5.5  27/Feb/2018  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
@@ -807,7 +807,7 @@
 					<Item id = "6413" name = "Implicitní adresář pro otevírání/ukládání souborů"/>
 					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
 					<Item id = "6415" name = "Zapamatovat si poslední používaný adresář"/>
-					<Item id = "6430" name = "Použít nový styl dialogu pro ukládání (bez zvýraznění typu souboru)"/>
+					<Item id = "6430" name = "Použít nový styl dialogu (bez zvýraznění typu souboru a cest v Unix-stylu)"/>
 					<Item id = "6431" name = "Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)"/>
 				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">
@@ -1067,9 +1067,15 @@
 			<ColumnExt name="Příp."/>
 		</DocSwitcher>
 		
+		<WindowsDlg>
+			<ColumnName name="Jméno"/>
+			<ColumnPath name="Cesta"/>
+			<ColumnType name="Typ"/>
+		</WindowsDlg>
+		
 		<AsciiInsertion>
 			<PanelTitle name="Panel ASCII znaků"/>
-			<ColumnVal name="Hodnota"/>
+			<ColumnVal name="Dec"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Znak"/>
 		</AsciiInsertion>

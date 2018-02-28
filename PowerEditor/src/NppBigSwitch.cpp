@@ -500,6 +500,60 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_GETREADONLYFROMPOS:
+		{
+			DocTabView* pView = nullptr;
+
+			if (lParam == MAIN_VIEW)
+				pView = &_mainDocTab;
+			else if (lParam == SUB_VIEW)
+				pView = &_subDocTab;
+			else
+				return 0;
+
+			if ((size_t)wParam < pView->nbItem())
+			{
+				return (pView->getBufferByIndex(wParam))->isReadOnly();
+			}
+			return 0;
+		}
+
+		case NPPM_GETMODIFYFROMPOS:
+		{
+			DocTabView* pView = nullptr;
+
+			if (lParam == MAIN_VIEW)
+				pView = &_mainDocTab;
+			else if (lParam == SUB_VIEW)
+				pView = &_subDocTab;
+			else
+				return 0;
+
+			if ((size_t)wParam < pView->nbItem())
+			{
+				return (pView->getBufferByIndex(wParam))->isModified();
+			}
+			return 0;
+		}
+
+		case NPPM_GETDIRTYROMPOS:
+		{
+			DocTabView* pView = nullptr;
+
+			if (lParam == MAIN_VIEW)
+				pView = &_mainDocTab;
+			else if (lParam == SUB_VIEW)
+				pView = &_subDocTab;
+			else
+				return 0;
+
+			if ((size_t)wParam < pView->nbItem())
+			{
+				return (pView->getBufferByIndex(wParam))->isDirty();
+			}
+			return 0;
+		}
+
 		case WM_SIZE:
 		{
 			RECT rc;

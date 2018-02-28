@@ -414,6 +414,24 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	#define NPPM_DISABLEAUTOUPDATE (NPPMSG + 95) // 2119 in decimal
 	// VOID NPPM_DISABLEAUTOUPDATE(0, 0)
 
+	#define NPPM_GETREADONLYFROMPOS (NPPMSG + 96)
+	// LRESULT NPPM_GETREADONLYFROMPOS(INT index, INT iView)
+	// wParam: Position of document
+	// lParam: View to use, 0 = Main, 1 = Secondary
+	// Returns BOOL ReadOnly
+
+	#define NPPM_GETMODIFYFROMPOS (NPPMSG + 97)
+	// LRESULT NPPM_GETMODIFYFROMPOS(INT index, INT iView)
+	// wParam: Position of document
+	// lParam: View to use, 0 = Main, 1 = Secondary
+	// Returns BOOL Modify
+
+	#define NPPM_GETDIRTYROMPOS (NPPMSG + 98)
+	// LRESULT NPPM_GETDIRTYROMPOS(INT index, INT iView)
+	// wParam: Position of document
+	// lParam: View to use, 0 = Main, 1 = Secondary
+	// Returns BOOL Dirty
+
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)

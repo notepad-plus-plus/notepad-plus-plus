@@ -57,8 +57,21 @@ BOOL __stdcall Save(const char * const filename, const char * const directory, v
 	::SendMessage(curScintilla, SCI_GETTEXT, text_len + 1, (LPARAM)text_buf);
 
 	DWORD num_of_bytes_written;
+	TCHAR new_filename[MAX_PATH];
 	TCHAR wFilename[MAX_PATH];
-	mbstowcs(wFilename, filename, strlen(filename) + 1);
+	TCHAR file_extension[MAX_PATH];
+	char new_filename_in_chars[MAX_PATH];
+	char file_ext_in_chars[MAX_PATH];
+	char final_save_path[MAX_PATH];
+	::SendMessage(hNotepad_plus, NPPM_GETFILENAME, MAX_PATH, (LPARAM)new_filename);
+	::SendMessage(hNotepad_plus, NPPM_GETEXTPART, MAX_PATH, (LPARAM)file_extension);
+	wcstombs(new_filename_in_chars, new_filename, MAX_PATH);
+	wcstombs(file_ext_in_chars, file_extension, MAX_PATH);
+	strcat(new_filename_in_chars, file_ext_in_chars);
+	SetFilename(new_filename_in_chars);
+	strcpy(final_save_path, directory);
+	strcat(final_save_path, new_filename_in_chars);
+	mbstowcs(wFilename, final_save_path, strlen(final_save_path) + 1);
 	HANDLE tmp_file = CreateFile(wFilename, GENERIC_WRITE, FILE_SHARE_WRITE,
 		NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	WriteFile(tmp_file, text_buf, text_len, &num_of_bytes_written, NULL);

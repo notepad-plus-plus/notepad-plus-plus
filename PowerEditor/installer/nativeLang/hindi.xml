@@ -4,7 +4,7 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 04/02/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 11/03/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
   <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5.5">
@@ -741,7 +741,7 @@
           <Item id="6413" name="डिफ़ॉल्ट डायरेक्टरी (खोलें/सेव करें)"/>
           <Item id="6414" name="वर्तमान दस्तावेज़ का अनुसरण करें"/>
           <Item id="6415" name="पिछली इस्तेमाल डायरेक्टरी याद रखें"/>
-          <Item id="6430" name="नई स्टाइल के सेव डायलॉग का प्रयॉग करें (बिना फाइल ext के)"/>
+          <Item id="6430" name="नए स्टाइल डायलॉग का प्रयोग करें (बिना फाइल ext के; Unix स्टाइल पाथ कैपेसिटी)"/>
           <Item id="6431" name="फोल्डर ड्रैग करने पर, फोल्डर एज वर्कस्पेस की बजाय फोल्डर की सभी फाइलें खोलें "/>
         </DefaultDir>
 
@@ -939,6 +939,19 @@
         <Item id="1" name="ओके"/>
         <Item id="2" name="रद्द करें"/>
       </ColumnEditor>
+      <FindInFinder title="फाइंडर में खोजें">
+        <Item id="1"    name="सभी ढूंढें"/>
+        <Item id="2"    name="बंद करे"/>
+        <Item id="1711" name="क्या खोजना है:"/>
+        <Item id="1713" name="केवल उपलब्ध लाइनों में खोजें"/>
+        <Item id="1714" name="केवल पूर्ण शब्द मिलाएं"/>
+        <Item id="1715" name="केस मिलाएँ"/>
+        <Item id="1716" name="खोज मोड"/>
+        <Item id="1717" name="नॉर्मल"/>
+        <Item id="1719" name="रेगुलर एक्सप्रेशन"/>
+        <Item id="1718" name="विस्तृत (\n, \r, \t, \0, \x...)"/>
+        <Item id="1720" name="्यूलाइन मैच करें"/>
+      </FindInFinder>
     </Dialog>
     <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
       <ContextMenuXmlEditWarning title="Context Menu एडिटिंग" message="ContextMenu.xml एडिट करके आप Notepad++ के पॉपअप कॉन्टेक्स्ट मेनू बदल सकतें हैं| ContextMenu.xml एडिट करने के बाद, बदलाव देखने के लिए Notepad++ को बंद करके पुनः खोलें|"/>
@@ -1010,6 +1023,11 @@
       <UDLRemoveCurrentLang title="वर्तमान भाषा निकालें" message="क्या आप वाकई हटाना चाहते हैं?"/>
       <SCMapperDoDeleteOrNot title="क्या आप वाकई हटाना चाहते हैं?" message="क्या आप वाकई इस शॉर्टकट को हटाना चाहते हैं?"/>
       <FindCharRangeValueError title="रेंज वैल्यू प्रॉब्लम" message="आपको 0 से 255 के बीच टाइप करना चाहिए।"/>
+      <OpenInAdminMode title="सेविंग फैल" message="फाइल को सेव नहीं कर सकते हैं और फाइल प्रोटेक्टेड हो सकती है।
+क्या आप Notepad ++ को एडमिन मोड में लॉन्च करना चाहते हैं?"/>
+      <OpenInAdminModeWithoutCloseCurrent title="सेविंग फैल" message="फाइल को सेव नहीं कर सकते हैं और फाइल प्रोटेक्टेड हो सकती है।
+क्या आप Notepad ++ को एडमिन मोड में लॉन्च करना चाहते हैं?"/>
+      <OpenInAdminModeFailed title="एडमिन मोड में खोलना विफल हुआ" message="Notepad ++ को एडमिन मोड में नहीं खोला जा सकता।"/>
     </MessageBox>
     <ClipboardHistory>
       <PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>
@@ -1019,6 +1037,11 @@
       <ColumnName name="नाम"/>
       <ColumnExt name="Ext."/>
     </DocSwitcher>
+    <WindowsDlg>
+      <ColumnName name="नाम"/>
+      <ColumnPath name="पाथ"/>
+      <ColumnType name="प्रकार"/>
+    </WindowsDlg>
     <AsciiInsertion>
       <PanelTitle name="ASCII इंसर्शन पैनल"/>
       <ColumnVal name="वैल्यू"/>
@@ -1131,6 +1154,14 @@
 		<find-status-replace-not-found value="बदलें: कोई मिलान नहीं मिला।"/>
 		<find-status-replace-readonly value="बदलें: Text नहीं बदल सके। वर्तमान डॉक्यूमेंट रीड-ओनली है।"/>
 		<find-status-cannot-find value="खोज: Text नहीं ढूंढ सके &quot;$STR_REPLACE$&quot;।"/>
+		<finder-find-in-finder value="इस खोज के परिणामों में खोजें..."/>
+		<finder-close-this value="इस फाइंडर को बंद करें"/>
+		<finder-collapse-all value="सभी को संकुचित (collapse) करें"/>
+		<finder-uncollapse-all value="सभी को विस्तृत (uncollapse) करें"/>
+		<finder-copy value="कॉपी करें"/>
+		<finder-select-all value="सब सेलेक्ट करें"/>
+		<finder-clear-all value="सब क्लियर करें"/>
+		<finder-open-all value="सब ओपन करें"/>
 	</MiscStrings>
   </Native-Langue>
 </NotepadPlus>

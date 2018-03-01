@@ -331,6 +331,7 @@
                 <Item CMID="18" name="关闭右边所有" />
                 <Item CMID="19" name="打开所在文件夹"/>
                 <Item CMID="20" name="打开所在文件夹(命令行)"/>
+                <Item CMID="21" name="使用默认查看器打开"/>
             </TabBar>
         </Menu>
 
@@ -1014,6 +1015,11 @@
             <UDLRemoveCurrentLang title="移除当前语言" message="您确定么？"/>
             <SCMapperDoDeleteOrNot title="您确定么？" message="您确定要删除此快捷键么？"/>
             <FindCharRangeValueError title="阈值问题" message="您应当输入0-255之间的数字。"/>
+            <OpenInAdminMode title="保存失败" message="文件无法保存，它可能受到保护。
+是否要用管理员模式启动Notepad++？"/>
+            <OpenInAdminModeWithoutCloseCurrent title="保存失败" message="文件无法保存，它可能受到保护。
+是否要用管理员模式启动Notepad++？"/>
+            <OpenInAdminModeFailed title="管理员模式开启失败" message="Notepad++不能用管理员模式打开。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>

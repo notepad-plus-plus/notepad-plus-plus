@@ -2960,7 +2960,7 @@ void Notepad_plus::command(int id)
 				if (dlgNode)
 					dlgNode = _nativeLangSpeaker.searchDlgNode(dlgNode, "Window");
 			}
-			_windowsDlg.doDialog(dlgNode);
+			_windowsDlg.doDialog();
 		}
 		break;
 

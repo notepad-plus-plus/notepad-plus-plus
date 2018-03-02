@@ -238,7 +238,8 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 	{
 		case WM_INITDIALOG :
 		{
-			changeDlgLang();
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			pNativeSpeaker->changeDlgLang(_hSelf, "Window");
 			return MyBaseClass::run_dlgProc(message, wParam, lParam);
 		}
 
@@ -461,55 +462,10 @@ void WindowsDlg::updateButtonState()
 	EnableWindow(GetDlgItem(_hSelf, IDC_WINDOWS_SORT), TRUE);
 }
 
-int WindowsDlg::doDialog(TiXmlNodeA *dlgNode)
+int WindowsDlg::doDialog()
 {
-	_dlgNode = dlgNode;
 	return static_cast<int>(DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
 };
-
-bool WindowsDlg::changeDlgLang()
-{
-	if (!_dlgNode) return false;
-
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	int nativeLangEncoding = CP_ACP;
-	TiXmlDeclarationA *declaration =  _dlgNode->GetDocument()->FirstChild()->ToDeclaration();
-	if (declaration)
-	{
-		const char * encodingStr = declaration->Encoding();
-		EncodingMapper *em = EncodingMapper::getInstance();
-		nativeLangEncoding = em->getEncodingFromString(encodingStr);
-	}
-
-	// Set Title
-	const char *titre = (_dlgNode->ToElement())->Attribute("title");
-	if (titre && titre[0])
-	{
-		const wchar_t *nameW = wmc->char2wchar(titre, nativeLangEncoding);
-		::SetWindowText(_hSelf, nameW);
-	}
-
-	// Set the text of child control
-	for (TiXmlNodeA *childNode = _dlgNode->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
-	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
-		if (sentinel && (name && name[0]))
-		{
-			HWND hItem = ::GetDlgItem(_hSelf, id);
-			if (hItem)
-			{
-				const wchar_t *nameW = wmc->char2wchar(name, nativeLangEncoding);
-				::SetWindowText(hItem, nameW);
-			}
-		}
-	}
-	return true;
-}
 
 BOOL WindowsDlg::onInitDialog()
 {

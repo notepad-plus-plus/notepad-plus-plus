@@ -12,7 +12,7 @@
                     <Item menuId="encoding" name="編碼(&amp;N)"/>
                     <Item menuId="language" name="語言(&amp;L)"/>
                     <Item menuId="settings" name="設定(&amp;T)"/>
-					<Item menuId="tools" name="工具(&amp;O)"/>
+                    <Item menuId="tools" name="工具(&amp;O)"/>
                     <Item menuId="macro" name="巨集(&amp;M)"/>
                     <Item menuId="run" name="執行(&amp;R)"/>
                     <Item idName="Plugins" name="外掛(&amp;P)"/>
@@ -32,7 +32,7 @@
                     <Item subMenuId="edit-eolConversion" name="換行格式"/>
                     <Item subMenuId="edit-blankOperations" name="空格處理"/>
                     <Item subMenuId="edit-pasteSpecial" name="特殊貼上"/>
-					<Item subMenuId="edit-onSelection" name="選取字元"/>
+                    <Item subMenuId="edit-onSelection" name="選取字元"/>
                     <Item subMenuId="search-markAll" name="全部標記"/>
                     <Item subMenuId="search-unmarkAll" name="去除標記"/>
                     <Item subMenuId="search-jumpUp" name="上個標記"/>
@@ -110,16 +110,16 @@
                     <Item id="42015" name="向下移動現行行列"/>
                     <Item id="42016" name="轉成大寫"/>
                     <Item id="42017" name="轉成小寫"/>
-					<Item id="42067" name="每字第一字母大寫，其他皆小寫"/>
+                    <Item id="42067" name="每字第一字母大寫，其他皆小寫"/>
                     <Item id="42068" name="每字第一字母大寫"/>
                     <Item id="42069" name="句子第一字母大寫，其他皆小寫"/>
                     <Item id="42070" name="句子第一字母大寫"/>
                     <Item id="42071" name="大小寫互換"/>
                     <Item id="42072" name="隨機大小寫"/>
-					<Item id="42073" name="開啟檔案"/>
-					<Item id="42074" name="開啟此資料夾於檔案總管"/>
-					<Item id="42075" name="上網搜尋"/>
-					<Item id="42076" name="更改搜索引擎..."/>
+                    <Item id="42073" name="開啟檔案"/>
+                    <Item id="42074" name="開啟此資料夾於檔案總管"/>
+                    <Item id="42075" name="上網搜尋"/>
+                    <Item id="42076" name="更改搜索引擎..."/>
                     <Item id="42018" name="開始錄製巨集"/>
                     <Item id="42019" name="停止錄製巨集"/>
                     <Item id="42021" name="播放巨集(&amp;P)"/>
@@ -165,7 +165,7 @@
                     <Item id="42063" name="升冪排序小數 (,)"/>
                     <Item id="42064" name="降冪排序小數 (,)"/>
                     <Item id="42065" name="升冪排序小數 (.)"/>
-					<Item id="42066" name="降冪排序小數 (.)"/>
+                    <Item id="42066" name="降冪排序小數 (.)"/>
                     <Item id="43001" name="尋找(&amp;F)..."/>
                     <Item id="43002" name="向下尋找(&amp;N)"/>
                     <Item id="43003" name="取代..."/>
@@ -215,7 +215,7 @@
                     <Item id="43047" name="上一個搜尋結果"/>
                     <Item id="43048" name="選取並搜尋下一個"/>
                     <Item id="43049" name="選取並搜尋上一個"/>
-					<Item id="43054" name="標記..."/>
+                    <Item id="43054" name="標記..."/>
                     <Item id="43050" name="反向標記書籤"/>
                     <Item id="44009" name="便條紙"/>
                     <Item id="44010" name="折疊所有層次"/>
@@ -245,8 +245,8 @@
                     <Item id="44094" name="欄標九"/>
                     <Item id="44095" name="下一個欄標"/>
                     <Item id="44096" name="上一個欄標"/>
-					<Item id="44097" name="監視日誌 (tail -f)"/>
-					<Item id="44098" name="前移欄標"/>
+                    <Item id="44097" name="監視日誌 (tail -f)"/>
+                    <Item id="44098" name="前移欄標"/>
                     <Item id="44099" name="後移欄標"/>
                     <Item id="44032" name="全螢幕"/>
                     <Item id="44033" name="復原字體大小"/>
@@ -289,9 +289,9 @@
                     <Item id="47006" name="升級 Notepad++"/>
                     <Item id="47008" name="全攻略秘籍"/>
                     <Item id="47009" name="設定更新程式代理伺服器..."/>
-					<Item id="47010" name="指令列參數..."/>
-					<Item id="47011" name="技術支援熱線"/>
-					<Item id="47012" name="除錯資訊..."/>
+                    <Item id="47010" name="指令列參數..."/>
+                    <Item id="47011" name="技術支援熱線"/>
+                    <Item id="47012" name="除錯資訊..."/>
                     <Item id="48005" name="匯入外掛模組..."/>
                     <Item id="48006" name="匯入主題面板..."/>
                     <Item id="48018" name="編輯彈跳選單"/>
@@ -378,14 +378,14 @@
                 <Item id="1703" name="「.」包含換行"/>
             </Find>
             <FindCharsInRange title="在範圍內搜尋字元">
-				<Item id="2" name="關閉"/>
-				<Item id="2901" name="非 ASCII 字元 (128-255)"/>
-				<Item id="2902" name="ASCII 字元 (0-127)"/>
+                <Item id="2" name="關閉"/>
+                <Item id="2901" name="非 ASCII 字元 (128-255)"/>
+                <Item id="2902" name="ASCII 字元 (0-127)"/>
                 <Item id="2903" name="自定範圍:"/>
-				<Item id="2906" name="上(&amp;U)"/>
-				<Item id="2907" name="下(&amp;D)"/>
+                <Item id="2906" name="上(&amp;U)"/>
+                <Item id="2907" name="下(&amp;D)"/>
                 <Item id="2908" name="方向"/>
-				<Item id="2909" name="循環(&amp;D)"/>
+                <Item id="2909" name="循環(&amp;D)"/>
                 <Item id="2910" name="尋找"/>
             </FindCharsInRange>
             <GoToLine title="到那兒去溜搭溜搭">
@@ -404,7 +404,7 @@
                 <Item id="2" name="取消"/>
                 <Item id="1904" name="儲存"/>
             </Run>
-			
+            
             <MD5FromFilesDlg title="從檔案計算生成 MD5">
                 <Item id="1922" name="從檔案生成 MD5..."/>
                 <Item id="1924" name="複製到剪貼簿"/>
@@ -527,7 +527,7 @@
                     <Item id="25026" name="運算元1"/>
                     <Item id="25027" name="運算元2"/>
                     <Item id="25028" name="數字"/>
-					<Item id="1" name="儲存"/>
+                    <Item id="1" name="儲存"/>
                     <Item id="2" name="取消"/>
                 </StylerDialog>
                 <Folder title="層次設定與內定格式">
@@ -673,7 +673,7 @@
                     <Item id="6118" name="隱藏"/>
                     <Item id="6119" name="多行"/>
                     <Item id="6120" name="直式"/>
-					<Item id="6121" name="關閉最後一個文件時關閉程式"/>
+                    <Item id="6121" name="關閉最後一個文件時關閉程式"/>
                     <Item id="6122" name="隱藏 (用 Alt 或 F10 切換)"/>
                     <Item id="6123" name="界面語言​​"/>
                     <Item id="6125" name="文件清單面板"/>
@@ -710,10 +710,10 @@
                     <Item id="6212" name="垂直線模式"/>
                     <Item id="6213" name="背景色模式"/>
                     <Item id="6214" name="啟動現行行列背景顏色"/>
-					<Item id="6215" name="啟用 smooth font"/>
+                    <Item id="6215" name="啟用 smooth font"/>
                     <Item id="6231" name="邊框寬度"/>
-					<Item id="6235" name="無邊框"/>
-					<Item id="6236" name="啟用超出了最後一行捲動功能"/>
+                    <Item id="6235" name="無邊框"/>
+                    <Item id="6236" name="啟用超出了最後一行捲動功能"/>
                 </Scintillas>
                 <NewDoc title="開新文件">
                     <Item id="6401" name="格式"/>
@@ -735,8 +735,8 @@
                     <Item id="6413" name="預設資料夾 (開啟/儲存)"/>
                     <Item id="6414" name="依照目前文件"/>
                     <Item id="6415" name="記住上次使用的資料夾"/>
-					<Item id="6430" name="使用新式對話框（不含副檔名功能及 UNIX 路徑支援）"/>
-					<Item id="6431" name="拖放文件夾開啟文件夾中所有文件，而不啟動文件夾工作區"/>
+                    <Item id="6430" name="使用新式對話框（不含副檔名功能及 UNIX 路徑支援）"/>
+                    <Item id="6431" name="拖放文件夾開啟文件夾中所有文件，而不啟動文件夾工作區"/>
                 </DefaultDir>
 
                 <FileAssoc title="副檔名連結設定">
@@ -748,7 +748,7 @@
                     <Item id="6506" name="停用項目"/>
                     <Item id="6507" name="簡化程式語言選單"/>
                     <Item id="6508" name="程式語言選單"/>
-					<Item id="6301" name="跳格設定"/>
+                    <Item id="6301" name="跳格設定"/>
                     <Item id="6302" name="以空格取代"/>
                     <Item id="6303" name="跳格大小： "/>
                     <Item id="6510" name="使用預設值"/>
@@ -758,8 +758,8 @@
                     <Item id="6333" name="字慧高亮度顯示"/>
                     <Item id="6326" name="啟動【字慧】高亮度顯示"/>
                     <Item id="6332" name="區別大小寫"/>
-					<Item id="6338" name="僅符合整個單字"/>
-					<Item id="6339" name="使用搜尋對話框的設定"/>
+                    <Item id="6338" name="僅符合整個單字"/>
+                    <Item id="6339" name="使用搜尋對話框的設定"/>
                     <Item id="6340" name="高亮度延伸至另一視窗"/>
                     <Item id="6329" name="高亮度顯示相契合的 xml/html 標示 (tag)"/>
                     <Item id="6327" name="啟動"/>
@@ -808,10 +808,10 @@
                 </RecentFilesHistory>
 
                 <Backup title="備份">
-					<Item id="6817" name="檔案組群快照和定期備份"/>
+                    <Item id="6817" name="檔案組群快照和定期備份"/>
                     <Item id="6818" name="啟用開檔狀態及定期備份"/>
-					<Item id="6819" name="每"/>
-					<Item id="6821" name="秒"/>
+                    <Item id="6819" name="每"/>
+                    <Item id="6821" name="秒"/>
                     <Item id="6822" name="備份路徑:"/>
                     <Item id="6309" name="為下次開啟程式記住開檔狀態"/>
                     <Item id="6801" name="備份"/>
@@ -828,7 +828,7 @@
                     <Item id="6809" name="函式"/>
                     <Item id="6810" name="字詞"/>
                     <Item id="6816" name="函式與字詞"/>
-					<Item id="6824" name="忽略數字"/>
+                    <Item id="6824" name="忽略數字"/>
                     <Item id="6811" name="從第"/>
                     <Item id="6813" name="個字元開始"/>
                     <Item id="6814" name="有效值：1 - 9"/>
@@ -854,12 +854,12 @@
                     <Item id="6252" name="起"/>
                     <Item id="6255" name="迄"/>
                     <Item id="6256" name="容許多行選取"/>
-					<Item id="6161" name="定義單字的字符 (Word character list)"/>
+                    <Item id="6161" name="定義單字的字符 (Word character list)"/>
                     <Item id="6162" name="使用原始的單字字符集（建議使用）"/>
                     <Item id="6163" name="添加你的字符集（不建議選取如果你不了解這選項）"/>
                 </Delimiter>
 
-				<Cloud title="雲端">
+                <Cloud title="雲端">
                     <Item id="6262" name="雲端上儲存讀取設定"/>
                     <Item id="6263" name="晴朗無雲"/>
                     <Item id="6267" name="在此設定雲端路徑:"/>
@@ -889,10 +889,10 @@
                     <Item id="6322" name="開檔狀態檔副檔名:"/>
                     <Item id="6323" name="啟用 Notepad++ 自動更新"/>
                     <Item id="6324" name="文件切換器 (Ctrl+TAB)"/>
-					<Item id="6331" name="在標題列僅顯示檔案名稱〈無路徑〉"/>
-					<Item id="6334" name="自動檢測字符編碼"/>
-					<Item id="6335" name="視反斜標號為 SQL 轉義字符"/>
-					<Item id="6337" name="文件夾工作區檔案副檔名:"/>
+                    <Item id="6331" name="在標題列僅顯示檔案名稱〈無路徑〉"/>
+                    <Item id="6334" name="自動檢測字符編碼"/>
+                    <Item id="6335" name="視反斜標號為 SQL 轉義字符"/>
+                    <Item id="6337" name="文件夾工作區檔案副檔名:"/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6115" name="自動縮排"/>
                     <Item id="6117" name="開啟 MRU (Most Recently Used) 功能"/>
@@ -928,6 +928,19 @@
                 <Item id="1" name="編輯"/>
                 <Item id="2" name="取消"/>
             </ColumnEditor>
+            <FindInFinder title="在搜尋結果中尋找">
+                <Item id="1"    name="尋找全部"/>
+                <Item id="2"    name="關閉"/>
+                <Item id="1711" name="尋找內容："/>
+                <Item id="1713" name="僅在找到的行中進行搜索"/>
+                <Item id="1714" name="僅符合整個單字(&amp;W)"/>
+                <Item id="1715" name="區分大小寫(&amp;C)"/>
+                <Item id="1716" name="搜尋模式"/>
+                <Item id="1717" name="一般"/>
+                <Item id="1719" name="規則運算式(&amp;E) "/>
+                <Item id="1718" name="延伸 (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="「.」包含換行"/>
+            </FindInFinder>
         </Dialog>
         <MessageBox>
             <ContextMenuXmlEditWarning title="編輯快顯功能表" message="編輯 contextMenu.xml 可以變更 Notepad++ 快顯功能表。
@@ -954,7 +967,7 @@
             <SettingsOnCloudError title="雲端設定" message="雲端路徑似乎設成唯讀磁碟，或是資料夾需要寫入權限。
 你的雲端設定將被取消。
 請在「喜好設定」對話框重設相關設定值。"/>
-			<FilePathNotFoundWarning title="開啟檔案" message="你試圖開啟的文件不存在。"/>
+            <FilePathNotFoundWarning title="開啟檔案" message="你試圖開啟的文件不存在。"/>
             <SessionFileInvalidError title="無法開啟檔案組群" message="組群檔無效。"/>
             <DroppingFolderAsProjetModeWarning title="操作無效" message="你只能單獨拖放文件或目錄，但不能同時拖放，因為你目前的模式是『拖放目錄為文件夾工作區』。
 你必須在喜好設定對話框的「預設資料夾」中啟用『拖放文件夾開啟文件夾中所有文件，而不啟動文件夾工作區』才能使此操作成功。"/>
@@ -1015,13 +1028,13 @@
             <SCMapperDoDeleteOrNot title="你確定？" message="你確定要刪除這個快速鍵嗎？"/>
             <FindCharRangeValueError title="輸入值範圍錯誤" message="你的輸入值應該在 0 到 255 之間。"/>
         </MessageBox>
-		<ClipboardHistory>
+        <ClipboardHistory>
             <PanelTitle name="剪貼簿記錄"/>
         </ClipboardHistory>
         <DocSwitcher>
             <PanelTitle name="文件切換器"/>
             <ColumnName name="名稱"/>
-			<ColumnExt name="副檔名"/>
+            <ColumnExt name="副檔名"/>
         </DocSwitcher>
         <WindowsDlg>
             <ColumnName name="名稱"/>
@@ -1029,13 +1042,13 @@
             <ColumnType name="類型"/>
         </WindowsDlg>
         <AsciiInsertion>
-			<PanelTitle name="ASCII 插入面板"/>
-			<ColumnVal name="數值"/>
-			<ColumnHex name="十六進位碼"/>
-			<ColumnChar name="字元"/>
+            <PanelTitle name="ASCII 插入面板"/>
+            <ColumnVal name="數值"/>
+            <ColumnHex name="十六進位碼"/>
+            <ColumnChar name="字元"/>
         </AsciiInsertion>
-		<DocumentMap>
-			<PanelTitle name="文件縮圖"/>
+        <DocumentMap>
+            <PanelTitle name="文件縮圖"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="函式清單"/>
@@ -1101,19 +1114,19 @@
                 </FileMenu>
             </Menus>
         </ProjectManager>
-		<MiscStrings>
-			<word-chars-list-tip value="這允許你附加字符在當前單字字符集中，當滑鼠雙擊以進行選擇或以『僅符合整個單字』選項進行搜索。"/>
-			<word-chars-list-warning-begin value="警告："/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+        <MiscStrings>
+            <word-chars-list-tip value="這允許你附加字符在當前單字字符集中，當滑鼠雙擊以進行選擇或以『僅符合整個單字』選項進行搜索。"/>
+            <word-chars-list-warning-begin value="警告："/>
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ 空白字元(space)"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ 空白字元(TAB)"/>
-			<word-chars-list-warning-end value="  在你的單字字符集中。"/>
-			<cloud-invalid-warning value="無效路徑"/>
-			<cloud-restart-warning value="請重新啟動 Notepad++ 以讓改變生效"/>
+            <word-chars-list-warning-end value="  在你的單字字符集中。"/>
+            <cloud-invalid-warning value="無效路徑"/>
+            <cloud-restart-warning value="請重新啟動 Notepad++ 以讓改變生效"/>
             <cloud-select-folder value="選擇一個文件夾，以便 Notepad++ 從中讀取/寫入其設定"/>
-			<shift-change-direction-tip value="使用 Shift + Enter 以相反方向進行搜索"/>
-			<two-find-buttons-tip value="2個按鈕模式"/>
+            <shift-change-direction-tip value="使用 Shift + Enter 以相反方向進行搜索"/>
+            <two-find-buttons-tip value="2個按鈕模式"/>
             <find-status-top-reached value="搜尋： 從底部找到了相符的字串。搜尋已抵達文件初"/>
             <find-status-end-reached value="搜尋： 從上端找到了相符的字串。搜尋已抵達文件末"/>
             <find-status-replaceinfiles-1-replaced value="在檔案中取代： 取代了 1 個字串"/>
@@ -1139,6 +1152,14 @@
             <find-status-replace-not-found value="取代： 找不到搜尋字串"/>
             <find-status-replace-readonly value="取代：檔案唯讀，無法取代字串"/>
             <find-status-cannot-find value="搜尋： 找不到搜尋字串 &quot;$STR_REPLACE$&quot;"/>
+            <finder-find-in-finder value="在這搜尋結果中尋找..."/>
+            <finder-close-this value="關閉這個搜尋結果"/>
+            <finder-collapse-all value="層數全部收折"/>
+            <finder-uncollapse-all value="層數全部展開"/>
+            <finder-copy value="複製"/>
+            <finder-select-all value="全部選取"/>
+            <finder-clear-all value="全部清除"/>
+            <finder-open-all value="全部開啟"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

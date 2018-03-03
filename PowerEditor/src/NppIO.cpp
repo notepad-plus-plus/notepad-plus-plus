@@ -77,12 +77,12 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 			case WAIT_OBJECT_0 + 1:
 				// We've received a notification in the queue.
 			{
-				DWORD dwAction;
-				CStringW wstrFilename;
 				if (changes.CheckOverflow())
 					printStr(L"Queue overflowed.");
 				else
 				{
+					DWORD dwAction;
+					CStringW wstrFilename;
 					changes.Pop(dwAction, wstrFilename);
 					generic_string fn = wstrFilename.GetString();
 

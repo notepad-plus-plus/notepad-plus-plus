@@ -950,7 +950,8 @@
 				<Item id="1711" name="Finde das:"/>
 				<Item id="1713" name="Finde nur in gesuchten Zeilen"/>
 				<Item id="1714" name="Nur ganzes &amp;Wort"/>
-				<Item id="1715" name="Nur Ausdru&amp;ck"/><Item id="1716" name="Suchmodus"/>
+				<Item id="1715" name="Nur Ausdru&amp;ck"/>
+				<Item id="1716" name="Suchmodus"/>
 				<Item id="1717" name="Normal"/>
 				<Item id="1719" name="Ganz&amp;r Ausdruck"/>
 				<Item id="1718" name="Erweitert (\n, \r, \t, \0, \x...)"/>

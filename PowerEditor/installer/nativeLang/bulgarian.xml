@@ -3,7 +3,7 @@
 	## Bulgarian localization for Notepad++ ##
 
 	Translators:.....: 2007-2012 - Milen Metev (Tragedy); 2014-yyyy - RDD
-	Last revision:...: 25.02.2018 by RDD <astral_86[at]mail[dot]bg>
+	Last revision:...: 04.03.2018 by RDD <astral_86[at]mail[dot]bg>
 	Download:........: https://gist.github.com/rddim/bd37264898c3a17363e7437bcf1b4803
 -->
 <NotepadPlus>
@@ -462,6 +462,20 @@
 				<Item id="1658" name="Във всички подпапки"/>
 				<Item id="1686" name="Прозрачност"/>
 			</Find>
+			<!-- Прозорец за "Търсене в намерените резултати" -->
+			<FindInFinder title="Търсене в намерените резултати">
+                <Item id="1"    name="Намиране на всички"/>
+                <Item id="2"    name="Затваряне"/>
+                <Item id="1711" name="Търсене на:"/>
+                <Item id="1713" name="Търсене само в намерените редове"/>
+                <Item id="1714" name="Само &amp;цели думи"/>
+                <Item id="1715" name="Главни / малки букви"/>
+                <Item id="1716" name="Режим на търсене"/>
+                <Item id="1717" name="Нормален"/>
+                <Item id="1719" name="Регулярен &amp;израз"/>
+                <Item id="1718" name="Разширен (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name=". и &amp;нов ред"/>
+            </FindInFinder>
 			<!-- Меню "Търсене" начало -->
 				<!-- "Отиване на..." -->
 			<GoToLine title="Отиване на...">
@@ -1126,6 +1140,14 @@
 			<find-status-replace-not-found value="Замяна: не беше намерено съвпадение"/>
 			<find-status-replace-readonly value="Замяна: Текста не може да се замени. Текущият документ е само за четене"/>
 			<find-status-cannot-find value="Търсене: Текстът &quot;$STR_REPLACE$&quot; не може да се намери"/>
+            <finder-find-in-finder value="Търсене в намерените резултати..."/>
+            <finder-close-this value="Затваряне на това търсене"/>
+            <finder-collapse-all value="Свиване на всички"/>
+            <finder-uncollapse-all value="Разгъване на всички"/>
+            <finder-copy value="Копиране"/>
+            <finder-select-all value="Избиране на всичко"/>
+            <finder-clear-all value="Изчистване на всичко"/>
+            <finder-open-all value="Отваряне на всички"/>
 		</MiscStrings>
 			<!-- Меню "Изглед" - "Карта на документа" -->
 		<DocumentMap>

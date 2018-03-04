@@ -1001,18 +1001,18 @@
 				<Item id = "2" name = "Storno"/>
 			</ColumnEditor>
 
-			<FindInFinder title="Find in finder">
-				<Item id = "1" name = "Find All"/>
-				<Item id = "2" name = "Close"/>
-				<Item id = "1711" name = "Find what:"/>
-				<Item id = "1713" name = "Search only in found lines"/>
-				<Item id = "1714" name = "Match &amp;whole word only"/>
-				<Item id = "1715" name = "Match &amp;case"/>
-				<Item id = "1716" name = "Search mode"/>
-				<Item id = "1717" name = "Normal"/>
-				<Item id = "1719" name = "Regular &amp;expression"/>
-				<Item id = "1718" name = "Extended (\n, \r, \t, \0, \x...)"/>
-				<Item id = "1720" name = "&amp;. matches newline"/>
+			<FindInFinder title="Najít ve vyhledávání">
+				<Item id = "1" name = "Najít vše"/>
+				<Item id = "2" name = "Zavřít"/>
+				<Item id = "1711" name = "Najít co:"/>
+				<Item id = "1713" name = "Vyhledat pouze v nalezených řádcích"/>
+				<Item id = "1714" name = "Rozlišovat &amp;pouze celá slova"/>
+				<Item id = "1715" name = "Rozlišovat &amp;velká a malá písmena"/>
+				<Item id = "1716" name = "Vyhledávací mód"/>
+				<Item id = "1717" name = "Normální"/>
+				<Item id = "1719" name = "Regulární &amp;výrazy"/>
+				<Item id = "1718" name = "Rozšířený (\n, \r, \t, \0, \x...)"/>
+				<Item id = "1720" name = "&amp;. označuje nový řádek"/>
 			</FindInFinder>
 
 		</Dialog>

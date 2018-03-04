@@ -2530,186 +2530,214 @@ void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus 
 
 void FindReplaceDlg::execSavedCommand(int cmd, uptr_t intValue, generic_string stringValue)
 {
-	switch(cmd)
+	try
 	{
-		case IDC_FRCOMMAND_INIT:
-			_env = new FindOption;
-			break;
-		case IDFINDWHAT:
-			_env->_str2Search = stringValue;
-			break;
-		case IDC_FRCOMMAND_BOOLEANS:
-			_env->_isWholeWord = ((intValue & IDF_WHOLEWORD)> 0);
-			_env->_isMatchCase = ((intValue & IDF_MATCHCASE)> 0);
-			_env->_isRecursive = ((intValue & IDF_FINDINFILES_RECURSIVE_CHECK)> 0);
-			_env->_isInHiddenDir = ((intValue & IDF_FINDINFILES_INHIDDENDIR_CHECK)> 0);
-			_env->_doPurge = ((intValue & IDF_PURGE_CHECK)> 0);
-			_env->_doMarkLine = ((intValue & IDF_MARKLINE_CHECK)> 0);
-			_env->_isInSelection = ((intValue & IDF_IN_SELECTION_CHECK)> 0);
-			_env->_isWrapAround = ((intValue & IDF_WRAP)> 0);
-			_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION)> 0);
-			_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL)> 0);
-			break;
-		case IDNORMAL:
-			_env->_searchType = static_cast<SearchType>(intValue);
-			break;
-		case IDREPLACEWITH:
-			_env->_str4Replace = stringValue;
-			break;
-		case IDD_FINDINFILES_DIR_COMBO:
-			_env->_directory = stringValue;
-			break;
-		case IDD_FINDINFILES_FILTERS_COMBO:
-			_env->_filters = stringValue;
-			break;
-		case IDC_FRCOMMAND_EXEC:
+		switch (cmd)
 		{
-			NppParameters *nppParamInst = NppParameters::getInstance();
-			switch(intValue)
+			case IDC_FRCOMMAND_INIT:
+				_env = new FindOption;
+				break;
+			case IDFINDWHAT:
+				_env->_str2Search = stringValue;
+				break;
+			case IDC_FRCOMMAND_BOOLEANS:
+				_env->_isWholeWord = ((intValue & IDF_WHOLEWORD) > 0);
+				_env->_isMatchCase = ((intValue & IDF_MATCHCASE) > 0);
+				_env->_isRecursive = ((intValue & IDF_FINDINFILES_RECURSIVE_CHECK) > 0);
+				_env->_isInHiddenDir = ((intValue & IDF_FINDINFILES_INHIDDENDIR_CHECK) > 0);
+				_env->_doPurge = ((intValue & IDF_PURGE_CHECK) > 0);
+				_env->_doMarkLine = ((intValue & IDF_MARKLINE_CHECK) > 0);
+				_env->_isInSelection = ((intValue & IDF_IN_SELECTION_CHECK) > 0);
+				_env->_isWrapAround = ((intValue & IDF_WRAP) > 0);
+				_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION) > 0);
+				_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL) > 0);
+				break;
+			case IDNORMAL:
+				_env->_searchType = static_cast<SearchType>(intValue);
+				break;
+			case IDREPLACEWITH:
+				_env->_str4Replace = stringValue;
+				break;
+			case IDD_FINDINFILES_DIR_COMBO:
+				_env->_directory = stringValue;
+				break;
+			case IDD_FINDINFILES_FILTERS_COMBO:
+				_env->_filters = stringValue;
+				break;
+			case IDC_FRCOMMAND_EXEC:
 			{
-				case IDOK:
-					nppParamInst->_isFindReplacing = true;
-					processFindNext(_env->_str2Search.c_str());
-					nppParamInst->_isFindReplacing = false;
-					break;
-				case IDREPLACE:
-					nppParamInst->_isFindReplacing = true;
-					processReplace(_env->_str2Search.c_str(), _env->_str4Replace.c_str(), _env);
-					nppParamInst->_isFindReplacing = false;
-					break;
-				case IDC_FINDALL_OPENEDFILES:
-					nppParamInst->_isFindReplacing = true;
-					findAllIn(ALL_OPEN_DOCS);
-					nppParamInst->_isFindReplacing = false;
-					break;
-				case IDC_FINDALL_CURRENTFILE:
-					nppParamInst->_isFindReplacing = true;
-					findAllIn(FILES_IN_DIR);
-					nppParamInst->_isFindReplacing = false;
-					break;
-				case IDC_REPLACE_OPENEDFILES :
-					nppParamInst->_isFindReplacing = true;
-					replaceAllInOpenedDocs();
-					nppParamInst->_isFindReplacing = false;
-					break;
-				case IDD_FINDINFILES_FIND_BUTTON :
-					nppParamInst->_isFindReplacing = true;
-					findAllIn(FILES_IN_DIR);
-					nppParamInst->_isFindReplacing = false;
-					break;
-
-				case IDD_FINDINFILES_REPLACEINFILES :
+				NppParameters *nppParamInst = NppParameters::getInstance();
+				switch (intValue)
 				{
-					generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");
-					msg += _env->_directory;
-					msg += TEXT("\rfor file type : ");
-					msg += (_env->_filters[0])?_env->_filters:TEXT("*.*");
-					
-					if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL|MB_DEFBUTTON2) == IDOK)
+					case IDOK:
+						nppParamInst->_isFindReplacing = true;
+						processFindNext(_env->_str2Search.c_str());
+						nppParamInst->_isFindReplacing = false;
+						break;
+
+					case IDC_FINDNEXT:
 					{
 						nppParamInst->_isFindReplacing = true;
-						::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
+						_options._whichDirection = DIR_DOWN;
+						processFindNext(_env->_str2Search.c_str());
 						nppParamInst->_isFindReplacing = false;
 					}
 					break;
-				}
-				case IDREPLACEALL :
-				{
-					nppParamInst->_isFindReplacing = true;
-					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
-					int nbReplaced = processAll(ProcessReplaceAll, _env);
-					(*_ppEditView)->execute(SCI_ENDUNDOACTION);
-					nppParamInst->_isFindReplacing = false;
-
-					generic_string result;
-					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-					if (nbReplaced < 0)
-					{
-						result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-re-malformed", TEXT("Replace All: The regular expression is malformed."));
-					}
-					else
-					{
-						if (nbReplaced == 1)
-						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-1-replaced", TEXT("Replace All: 1 occurrence was replaced."));
-						}
-						else
-						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-nb-replaced", TEXT("Replace All: $INT_REPLACE$ occurrences were replaced."));
-							result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbReplaced));
-						}
-					}
 					
-					setStatusbarMessage(result, FSMessage);
+					case IDC_FINDPREV:
+					{
+						nppParamInst->_isFindReplacing = true;
+						_env->_whichDirection = DIR_UP;
+						processFindNext(_env->_str2Search.c_str());
+						nppParamInst->_isFindReplacing = false;
+					}
 					break;
-				}
 
-				case IDCCOUNTALL :
-				{
-					int nbCounted = processAll(ProcessCountAll, _env);
-					generic_string result;
-					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-					if (nbCounted < 0)
+					case IDREPLACE:
+						nppParamInst->_isFindReplacing = true;
+						processReplace(_env->_str2Search.c_str(), _env->_str4Replace.c_str(), _env);
+						nppParamInst->_isFindReplacing = false;
+						break;
+					case IDC_FINDALL_OPENEDFILES:
+						nppParamInst->_isFindReplacing = true;
+						findAllIn(ALL_OPEN_DOCS);
+						nppParamInst->_isFindReplacing = false;
+						break;
+					case IDC_FINDALL_CURRENTFILE:
+						nppParamInst->_isFindReplacing = true;
+						findAllIn(FILES_IN_DIR);
+						nppParamInst->_isFindReplacing = false;
+						break;
+					case IDC_REPLACE_OPENEDFILES:
+						nppParamInst->_isFindReplacing = true;
+						replaceAllInOpenedDocs();
+						nppParamInst->_isFindReplacing = false;
+						break;
+					case IDD_FINDINFILES_FIND_BUTTON:
+						nppParamInst->_isFindReplacing = true;
+						findAllIn(FILES_IN_DIR);
+						nppParamInst->_isFindReplacing = false;
+						break;
+
+					case IDD_FINDINFILES_REPLACEINFILES:
 					{
-						result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-re-malformed", TEXT("Count: The regular expression to search is malformed."));
-					}
-					else
-					{
-						if (nbCounted == 1)
+						generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");
+						msg += _env->_directory;
+						msg += TEXT("\rfor file type : ");
+						msg += (_env->_filters[0]) ? _env->_filters : TEXT("*.*");
+
+						if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL | MB_DEFBUTTON2) == IDOK)
 						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-1-match", TEXT("Count: 1 match."));
+							nppParamInst->_isFindReplacing = true;
+							::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
+							nppParamInst->_isFindReplacing = false;
 						}
-						else
-						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-nb-matches", TEXT("Count: $INT_REPLACE$ matches."));
-							result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbCounted));
-						}
+						break;
 					}
-					setStatusbarMessage(result, FSMessage);
-					break;
-				}
-
-				case IDCMARKALL:
-				{
-					nppParamInst->_isFindReplacing = true;
-					int nbMarked = processAll(ProcessMarkAll, _env);
-					nppParamInst->_isFindReplacing = false;
-					generic_string result;
-
-					NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-					if (nbMarked < 0)
+					case IDREPLACEALL:
 					{
-						result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-re-malformed", TEXT("Mark: The regular expression to search is malformed."));
-					}
-					else
-					{
-						TCHAR moreInfo[128];
+						nppParamInst->_isFindReplacing = true;
+						(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
+						int nbReplaced = processAll(ProcessReplaceAll, _env);
+						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
+						nppParamInst->_isFindReplacing = false;
+
+						generic_string result;
 						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-						generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
-						if (nbMarked <= 1)
+						if (nbReplaced < 0)
 						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("1 match."));
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-re-malformed", TEXT("Replace All: The regular expression is malformed."));
 						}
 						else
 						{
-							result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("$INT_REPLACE$ matches."));
-							result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
+							if (nbReplaced == 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-1-replaced", TEXT("Replace All: 1 occurrence was replaced."));
+							}
+							else
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-replaceall-nb-replaced", TEXT("Replace All: $INT_REPLACE$ occurrences were replaced."));
+								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbReplaced));
+							}
 						}
-						result = moreInfo;
+
+						setStatusbarMessage(result, FSMessage);
+						break;
 					}
 
-					setStatusbarMessage(result, FSMessage);
-					break;
+					case IDCCOUNTALL:
+					{
+						int nbCounted = processAll(ProcessCountAll, _env);
+						generic_string result;
+						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+						if (nbCounted < 0)
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-re-malformed", TEXT("Count: The regular expression to search is malformed."));
+						}
+						else
+						{
+							if (nbCounted == 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-1-match", TEXT("Count: 1 match."));
+							}
+							else
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-count-nb-matches", TEXT("Count: $INT_REPLACE$ matches."));
+								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbCounted));
+							}
+						}
+						setStatusbarMessage(result, FSMessage);
+						break;
+					}
+
+					case IDCMARKALL:
+					{
+						nppParamInst->_isFindReplacing = true;
+						int nbMarked = processAll(ProcessMarkAll, _env);
+						nppParamInst->_isFindReplacing = false;
+						generic_string result;
+
+						NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+						if (nbMarked < 0)
+						{
+							result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-re-malformed", TEXT("Mark: The regular expression to search is malformed."));
+						}
+						else
+						{
+							TCHAR moreInfo[128];
+							NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+							generic_string msg = pNativeSpeaker->getLocalizedStrFromID("find-status-invalid-re", TEXT("Find: Invalid regular expression"));
+							if (nbMarked <= 1)
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-1-match", TEXT("1 match."));
+							}
+							else
+							{
+								result = pNativeSpeaker->getLocalizedStrFromID("find-status-mark-nb-matches", TEXT("$INT_REPLACE$ matches."));
+								result = stringReplace(result, TEXT("$INT_REPLACE$"), std::to_wstring(nbMarked));
+							}
+							result = moreInfo;
+						}
+
+						setStatusbarMessage(result, FSMessage);
+						break;
+					}
+
+					default:
+						throw std::runtime_error("Internal error: unknown saved command!");
 				}
-				default:
-					throw std::runtime_error("Internal error: unknown saved command!");
+
+				delete _env;
+				_env = &_options;
+				break;
 			}
-			delete _env;
-			_env = &_options;
-			break;
+			default:
+				throw std::runtime_error("Internal error: unknown SnR command!");
 		}
-		default:
-			throw std::runtime_error("Internal error: unknown SnR command!");
+	}
+	catch (std::runtime_error err)
+	{
+		MessageBoxA(NULL, err.what(), "Play Macro Exception", MB_OK);
 	}
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.5.5  27/Feb/2018  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.5.5  4/Mar/2018  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
@@ -497,7 +497,7 @@
 				<Item id = "2602" name = "Změnit"/>
 				<Item id = "2603" name = "Odstranit"/>
 				<Item id = "2606" name = "Vypnout"/>
-				<Item id = "2607" name = "Filtrovat: "/>
+				<Item id = "2607" name = "Filtr: "/>
 				<Item id = "1" name = "Zavřít"/>
 				<ColumnName name = "Název"/>
 				<ColumnShortcut name = "Zkratka"/>
@@ -948,8 +948,7 @@
 					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
 					<Item id = "6161" name = "Seznam znaků pro Slova"/>
 					<Item id = "6162" name = "Použít implicitní seznam znaků pro Slova tak, jak je"/>
-					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást slova
-(nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
+					<Item id = "6163" name = "Přidat Váš vlastní znak jako součást slova (nepoužívejte tuto volbu, pokud si nejste jisti tím, co děláte)"/>
 				</Delimiter>
 				<Cloud title = "Cloud (i-úložišťě)">
 					<Item id = "6261" name = "Pro aktivaci změn prosím restartujte Notepad++."/>
@@ -1002,9 +1001,24 @@
 				<Item id = "2" name = "Storno"/>
 			</ColumnEditor>
 
+			<FindInFinder title="Find in finder">
+				<Item id = "1" name = "Find All"/>
+				<Item id = "2" name = "Close"/>
+				<Item id = "1711" name = "Find what:"/>
+				<Item id = "1713" name = "Search only in found lines"/>
+				<Item id = "1714" name = "Match &amp;whole word only"/>
+				<Item id = "1715" name = "Match &amp;case"/>
+				<Item id = "1716" name = "Search mode"/>
+				<Item id = "1717" name = "Normal"/>
+				<Item id = "1719" name = "Regular &amp;expression"/>
+				<Item id = "1718" name = "Extended (\n, \r, \t, \0, \x...)"/>
+				<Item id = "1720" name = "&amp;. matches newline"/>
+			</FindInFinder>
+
 		</Dialog>
 
 		<MessageBox>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title = "Úprava kontextové nabídky" message = "Úpravou souboru contextMenu.xml můžete modifikovat chování vyskakovacího kontextového menu Notepadu++. Po případné změně musíte restartovat Notepad++, aby se změny projevily."/>
 			<NppHelpAbsentWarning title = "Soubor neexistuje" message = " neexistuje. Stáhněte si jej prosím z domovské stránky Notepadu++."/>
 			<SaveCurrentModifWarning title = "Uložit změny" message = "Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
@@ -1014,7 +1028,6 @@
 			<FileLockedWarning title = "Uložení selhalo" message = "Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
 			<FileAlreadyOpenedInNpp title = "" message = "Tento soubor je již otevřen v Notepadu++."/>
 			<DeleteFileFailed title = "Odstranit Soubor" message = "Odstranění souboru selhalo"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title = "Velmi mnoho souborů k otevření" message = "$INT_REPLACE$ souborů má být otevřeno.\rJste si tím jisti?"/>
 			<SettingsOnCloudError title = "Nastavení cloudu" message = "Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
 			<FilePathNotFoundWarning title = "Otevření souboru" message = "Soubor, který se pokoušíte otevřít, neexistuje."/>
@@ -1154,11 +1167,10 @@
 		</ProjectManager>
 		
 		<MiscStrings>
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<word-chars-list-tip value = "Toto nastavení Vám dovolí začlenit další znak ke stávajícím znakům slova při výběru dvojklikem nebo při vyhledávání se zaškrtnutou možností &quot;Hledat pouze celá slova&quot;."/>
 			<word-chars-list-warning-begin value = "Berte na vědomí: "/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<word-chars-list-space-warning value = "$INT_REPLACE$ mezeru(y)"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<word-chars-list-tab-warning value = "$INT_REPLACE$ tabulátor(y)"/>
 			<word-chars-list-warning-end value = "  ve Vašem seznamu znaků."/>
 			<cloud-invalid-warning value = "Neplatná cesta."/>
@@ -1191,6 +1203,17 @@
 			<find-status-replace-not-found value = "Nahrazování: žádný výskyt nebyl nalezen"/>
 			<find-status-replace-readonly value = "Nahrazování: Nemohu nahradit text. Současný dokument je pouze pro čtení"/>
 			<find-status-cannot-find value = "Vyhledávání: Nemohu nalézt text &quot;$STR_REPLACE$&quot;"/>
+			<finder-find-in-finder value = "Nalézt v těchto nalezených výsledcích..."/>
+			<finder-close-this value = "Zavřít tento vyhledávač"/>
+			<finder-collapse-all value = "Sbalit vše"/>
+			<finder-uncollapse-all value = "Rozbalit vše"/>
+			<finder-copy value = "Kopírovat"/>
+			<finder-select-all value = "Vybrat vše"/>
+			<finder-clear-all value = "Smazat vše"/>
+			<finder-open-all value = "Otevřít vše"/>
+			<OpenInAdminMode title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
+			<OpenInAdminModeWithoutCloseCurrent title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
+			<OpenInAdminModeFailed title = "Otevření s právy administrátora selhalo" message = "Notepad++ nemůže být spuštěn s administrátorskými právy."/>
 		</MiscStrings>
 
 	</Native-Langue>

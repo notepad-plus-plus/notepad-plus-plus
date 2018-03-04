@@ -953,7 +953,7 @@
 				<Item id="1715" name="Nur Ausdru&amp;ck"/>
 				<Item id="1716" name="Suchmodus"/>
 				<Item id="1717" name="Normal"/>
-				<Item id="1719" name="Ganz&amp;r Ausdruck"/>
+				<Item id="1719" name="Ganz&amp;er Ausdruck"/>
 				<Item id="1718" name="Erweitert (\n, \r, \t, \0, \x...)"/>
 				<Item id="1720" name="&amp;. entspricht neuer Zeile"/>
 			</FindInFinder>

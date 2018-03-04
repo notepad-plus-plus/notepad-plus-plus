@@ -2548,7 +2548,7 @@ int Notepad_plus::findMachedBracePos(size_t startPos, size_t endPos, char target
 			}
 		}
 	}
-	else // forward - TODO
+	else // forward
 	{
 	}
 	return -1;

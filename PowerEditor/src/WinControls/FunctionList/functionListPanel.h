@@ -125,10 +125,10 @@ private:
 	TreeView _treeView;
 	TreeView _treeViewSearchResult;
 
-	LONG _findLine = -1;
-	LONG _findEndLine = -1;
+	long _findLine = -1;
+	long _findEndLine = -1;
 	HTREEITEM _findItem;
-	
+
 	generic_string _sortTipStr;
 	generic_string _reloadTipStr;
 

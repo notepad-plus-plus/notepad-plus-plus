@@ -5960,13 +5960,6 @@ void Notepad_plus::launchFunctionList()
 	_pEditView->getFocus();
 }
 
-void Notepad_plus::updateFunctionList()
-{
-	if (_pFuncList)
-	{
-		_pFuncList->markEntry();
-	}
-}
 
 
 

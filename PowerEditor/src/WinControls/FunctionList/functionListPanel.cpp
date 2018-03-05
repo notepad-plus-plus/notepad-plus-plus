@@ -397,19 +397,14 @@ void FunctionListPanel::markEntry()
 {
 	LONG lineNr = static_cast<LONG>((*_ppEditView)->getCurrentLineNumber());
 	HTREEITEM root = _treeView.getRoot();
-	if (_findLine != -1)
-	{
-		if (lineNr >= _findLine && lineNr < _findEndLine)
-		{
-			return;
-		}
-	}
+	if (_findLine != -1 && _findEndLine != -1 && lineNr >= _findLine && lineNr < _findEndLine)
+		return;
 	_findLine = -1;
 	_findEndLine = -1;
 	findMarkEntry(root, lineNr);
 	if (_findLine != -1)
 	{
-			_treeView.selectItem(_findItem);
+		_treeView.selectItem(_findItem);
 	}
 	else
 	{

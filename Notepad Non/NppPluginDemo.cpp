@@ -43,7 +43,8 @@ struct CallbackParam
 };
 
 const unsigned MAX_TEXT_SIZE = 1000000;
-// *** Our save procecure which is also used by dragbase
+
+// *** Our save function which is also used by dragbase
 BOOL __stdcall Save(const char * const filename, const char * const directory, void * param)
 {
 	HWND hNotepad_plus = FindWindow(TEXT("Notepad++"), NULL);

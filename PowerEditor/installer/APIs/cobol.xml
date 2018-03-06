@@ -840,7 +840,7 @@
 		<KeyWord name="RAISE" />
 		<KeyWord name="RAISING" />
 		<KeyWord name="RANDOM" func="yes">
-			<Overload retVal="Numeric" descr="pseudo-random number from a rectangular distribution with optional &lt;seed&gt;">
+			<Overload retVal="Numeric" descr="pseudo-random number 0&gt;=n&lt;1 from a rectangular distribution with optional &lt;seed&gt;">
 				<Param name="[seed]" />
 			</Overload>
 		</KeyWord>

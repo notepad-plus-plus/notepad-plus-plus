@@ -718,9 +718,9 @@
 							\s+
 							[A-Za-z_]\w*
 							\s*
-							\(
+							\(?
 							[^()]*
-							\)
+							\)?
 							\s*\{                                               # start of class body
 						"
 				>

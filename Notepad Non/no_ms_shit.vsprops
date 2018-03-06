@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="no ms shit"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		PreprocessorDefinitions="__STDC_WANT_SECURE_LIB__=0;_CRT_NONSTDC_NO_DEPRECATE"
+	/>
+</VisualStudioPropertySheet>

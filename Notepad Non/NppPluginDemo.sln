@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NppPluginDemo", "NppPluginDemo.vcxproj", "{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ANSI Debug|x86 = ANSI Debug|x86
+		ANSI Release|x86 = ANSI Release|x86
+		Unicode Debug|x86 = Unicode Debug|x86
+		Unicode Realeas|x86 = Unicode Realeas|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}.ANSI Debug|x86.ActiveCfg = ANSI Debug|Win32
+		{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}.ANSI Debug|x86.Build.0 = ANSI Debug|Win32
+		{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}.ANSI Release|x86.ActiveCfg = ANSI Release|Win32
+		{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}.ANSI Release|x86.Build.0 = ANSI Release|Win32
+		{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}.Unicode Debug|x86.ActiveCfg = Unicode Debug|Win32
+		{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}.Unicode Debug|x86.Build.0 = Unicode Debug|Win32
+		{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}.Unicode Realeas|x86.ActiveCfg = Unicode Realeas|Win32
+		{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}.Unicode Realeas|x86.Build.0 = Unicode Realeas|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10A8CD3E-641A-4C12-9B4F-E61296DBEF34}
+	EndGlobalSection
+EndGlobal

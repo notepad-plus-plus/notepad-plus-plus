@@ -1,0 +1,12 @@
+﻿  NppPluginDemo.cpp
+NppPluginDemo.cpp(68): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+NppPluginDemo.cpp(69): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt\string.h(89): note: see declaration of 'strcat'
+NppPluginDemo.cpp(66): warning C4996: 'wcstombs': This function or variable may be unsafe. Consider using wcstombs_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt\stdlib.h(1014): note: see declaration of 'wcstombs'
+NppPluginDemo.cpp(70): warning C4996: 'mbstowcs': This function or variable may be unsafe. Consider using mbstowcs_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt\stdlib.h(926): note: see declaration of 'mbstowcs'
+NppPluginDemo.cpp(62): warning C4101: 'file_extension': unreferenced local variable
+     Creating library .\bin\NppPluginDemo.lib and object .\bin\NppPluginDemo.exp
+  NppPluginDemo.vcxproj -> C:\CS2013\Notepad Non\.\bin\NppPluginDemo.dll

@@ -1,0 +1,33 @@
+/*
+this file is part of notepad++
+Copyright (C)2003 Don HO ( donho@altern.org )
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+#include <windows.h>
+#include "resource.h"
+
+IDD_PLUGINGOLINE_DEMO DIALOGEX 26, 41, 223, 67
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+CAPTION "Go To Line #"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "Go to line :", ID_UGO_STATIC,5,21,95,8
+    EDITTEXT        ID_GOLINE_EDIT, 55,20,30,12,ES_NUMBER
+    DEFPUSHBUTTON   "&Go",IDOK,100,21,70,14,BS_NOTIFY
+END
+

@@ -1,0 +1,7 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1198,5): warning MSB8012: TargetPath(C:\CS2013\Notepad Non\ANSI Debug\NppPluginDemo.dll) does not match the Linker's OutputFile property value (C:\CS2013\Notepad Non\ANSI Debug\NppPluginDemo_DebugA.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1200,5): warning MSB8012: TargetName(NppPluginDemo) does not match the Linker's OutputFile property value (NppPluginDemo_DebugA). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+GoToLineDlg.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+     Creating library ANSI Debug\NppPluginDemo.lib and object ANSI Debug\NppPluginDemo.exp
+NppPluginDemo.obj : error LNK2019: unresolved external symbol _Create@16 referenced in function _DllMain@12
+NppPluginDemo.obj : error LNK2019: unresolved external symbol _SetFilename@4 referenced in function "int __stdcall Save(char const * const,char const * const,void *)" (?Save@@YGHQBD0PAX@Z)
+ANSI Debug\NppPluginDemo_DebugA.dll : fatal error LNK1120: 2 unresolved externals

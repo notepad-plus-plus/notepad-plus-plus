@@ -717,10 +717,8 @@
 							sub
 							\s+
 							[A-Za-z_]\w*
-							\s*
-							\(?
-							[^()]*
-							\)?
+							(\s*\([^()]*\))?                                    # prototype or signature
+						  	(\s*\:\s*[^{]+)?                                    # attributes
 							\s*\{                                               # start of class body
 						"
 				>

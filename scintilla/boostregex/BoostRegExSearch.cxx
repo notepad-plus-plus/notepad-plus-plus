@@ -445,7 +445,7 @@ const char *BoostRegexSearch::SubstituteByPosition(Document* doc, const char *te
 
 template <class CharT, class CharacterIterator>
 char *BoostRegexSearch::EncodingDependent<CharT, CharacterIterator>::SubstituteByPosition(const char *text, int *length) {
-	char *substituted = stringToCharPtr(_match.format((const CharT*)CharTPtr(text), boost::format_all));
+	char *substituted = stringToCharPtr(_match.format((const CharT*)CharTPtr(text), boost::format_sed | boost::format_all));
 	*length = static_cast<int>(strlen(substituted));
 	return substituted;
 }

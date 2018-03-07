@@ -111,5 +111,5 @@ private:
 	static const TCHAR _className[32];
 	bool _isPrelaunch = false;
 	bool _disablePluginsManager = false;
-	std::string _userQuote; // keep the availability of this string for thread using
+	std::wstring _userQuote; // keep the availability of this string for thread using
 };

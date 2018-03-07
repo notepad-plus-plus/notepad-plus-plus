@@ -224,9 +224,9 @@ public:
 		return _pEditView->getCurrentBuffer();
 	}
 	void launchDocumentBackupTask();
-	int getQuoteIndexFrom(const char *quoter) const;
+	int getQuoteIndexFrom(const wchar_t* quoter) const;
 	void showQuoteFromIndex(int index) const;
-	void showQuote(const char *quote, const char *quoter, bool doTrolling) const;
+	void showQuote(const wchar_t* quote, const wchar_t* quoter, bool doTrolling) const;
 
 
 private:

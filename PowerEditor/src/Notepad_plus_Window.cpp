@@ -246,13 +246,10 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	if (not cmdLineParams->_easterEggName.empty())
 	{
-		char dest[MAX_PATH];
-		wcstombs(dest, (cmdLineParams->_easterEggName).c_str(), sizeof(dest));
-
 		//::MessageBoxA(NULL, destStr.c_str(), "", MB_OK);
 		if (cmdLineParams->_quoteType == 0) // Easter Egg Name
 		{
-			int iQuote = _notepad_plus_plus_core.getQuoteIndexFrom(dest);
+			int iQuote = _notepad_plus_plus_core.getQuoteIndexFrom(cmdLineParams->_easterEggName.c_str());
 			if (iQuote != -1)
 			{
 				_notepad_plus_plus_core.showQuoteFromIndex(iQuote);
@@ -260,19 +257,18 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		}
 		else if (cmdLineParams->_quoteType == 1) // command line quote
 		{
-			_userQuote = dest;
-			_notepad_plus_plus_core.showQuote(_userQuote.c_str(), "Anonymous #999", false);
+			_userQuote = cmdLineParams->_easterEggName;
+			_notepad_plus_plus_core.showQuote(_userQuote.c_str(), TEXT("Anonymous #999"), false);
 		}
 		else if (cmdLineParams->_quoteType == 2) // content drom file
 		{
-			std::string destStr = dest;
-			generic_string fileName(destStr.begin(), destStr.end());
-
-			if (::PathFileExists(fileName.c_str()))
+			if (::PathFileExists(cmdLineParams->_easterEggName.c_str()))
 			{
-				_userQuote = getFileContent(fileName.c_str());
-				if (_userQuote != "")
-					_notepad_plus_plus_core.showQuote(_userQuote.c_str(), "Anonymous #999", false);
+				std::string content = getFileContent(cmdLineParams->_easterEggName.c_str());
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				_userQuote = wmc->char2wchar(content.c_str(), SC_CP_UTF8);
+				if (!_userQuote.empty())
+					_notepad_plus_plus_core.showQuote(_userQuote.c_str(), TEXT("Anonymous #999"), false);
 			}
 		}
 	}

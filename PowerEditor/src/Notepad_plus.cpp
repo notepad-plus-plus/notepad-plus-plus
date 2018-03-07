@@ -6003,249 +6003,248 @@ void Notepad_plus::launchFunctionList()
 struct TextPlayerParams
 {
 	HWND _nppHandle;
-	ScintillaEditView *_pCurrentView;
-	const char *_text2display;
-	const char *_quoter;
+	ScintillaEditView* _pCurrentView;
+	const wchar_t* _text2display;
+	const wchar_t* _quoter;
 	bool _shouldBeTrolling;
 };
 
 struct TextTrollerParams
 {
 	ScintillaEditView *_pCurrentView;
-	const char *_text2display;
+	const wchar_t*_text2display;
 	BufferID _targetBufID;
 	HANDLE _mutex;
 };
 
 struct Quote
 {
-	const char *_quoter;
-	const char *_quote;
+	const wchar_t* _quoter;
+	const wchar_t* _quote;
 };
 
 const int nbQuote = 203;
 Quote quotes[nbQuote] =
 {
-	{"Notepad++", "I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer."},
-	{"Notepad++ #2", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
-	{"Notepad++ #3", "The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n"},
-	{"Richard Stallman", "If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent."},
-	{"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
-	{"L. Peter Deutsch", "To iterate is human, to recurse divine."},
-	{"Seymour Cray", "The trouble with programmers is that you can never tell what a programmer is doing until it's too late."},
-	{"Brian Kernighan", "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it."},
-	{"Alan Kay", "Most software today is very much like an Egyptian pyramid with millions of bricks piled on top of each other, with no structural integrity, but just done by brute force and thousands of slaves."},
-	{"Bill Gates", "Measuring programming progress by lines of code is like measuring aircraft building progress by weight."},
-	{"Christopher Thompson", "Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday's code."},
-	{"Vidiu Platon", "I don't care if it works on your machine! We are not shipping your machine!"},
-	{"Edward V Berard", "Walking on water and developing software from a specification are easy if both are frozen."},
-	{"pixadel", "Fine, Java MIGHT be a good example of what a programming language should be like. But Java applications are good examples of what applications SHOULDN'T be like."},
-	{"Oktal", "I think Microsoft named .Net so it wouldn't show up in a Unix directory listing."},
-	{"Bjarne Stroustrup", "In C++ it's harder to shoot yourself in the foot, but when you do, you blow off your whole leg."},
-	{"Mosher's Law of Software Engineering", "Don't worry if it doesn't work right. If everything did, you'd be out of a job."},
-	{"Bob Gray", "Writing in C or C++ is like running a chain saw with all the safety guards removed."},
-	{"Roberto Waltman", "In the one and only true way. The object-oriented version of \"Spaghetti code\" is, of course, \"Lasagna code\". (Too many layers)"},
-	{"Gavin Russell Baker", "C++ : Where friends have access to your private members."},
-	{"Linus Torvalds", "Software is like sex: It's better when it's free."},
-	{"Cult of vi", "Emacs is a great operating system, lacking only a decent editor."},
-	{"Church of Emacs", "vi has two modes - \"beep repeatedly\" and \"break everything\"."},
-	{"Steve Jobs", "Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas."},
-	{"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
-	{"Robin Williams", "God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time."},
-	{"Darth Vader", "Strong people don't put others down.\nThey lift them up." },
-	{"Darth Vader #2", "You don't get to 500 million star systems without making a few enemies."},
-	{"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
-	{"Jean-Claude van Damme", "A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life."},
-	{"Michael Feldman", "Java is, in many ways, C++--."},
-	{"Don Ho", "Je mange donc je chie."},
-	{"Don Ho #2", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
-	{"Don Ho #3", "Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street."},
-	{"Don Ho #4", "Poor countries' museums vs. rich countries' museums:\nThe first show what they have left.\nThe second show what they have stolen."},
-	{"Anonymous #1", "An opinion without 3.14 is just an onion."},
-	{"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
-	{"Anonymous #3", "I'm not totally useless. I can be used as a bad example."},
-	{"Anonymous #4", "Life is too short to remove USB safely."},
-	{"Anonymous #5", "\"SEX\" is not the answer.\nSex is the question, \"YES\" is the answer."},
-	{"Anonymous #6", "Going to Mc Donald's for a salad is like going to a whore for a hug."},
-	{"Anonymous #7", "I need a six month holiday, TWICE A YEAR!"},
-	{"Anonymous #8", "Everything is a knife if you're strong enough."},
-	{"Anonymous #9", "I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala."},
-	{"Anonymous #10", "Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!"},
-	{"Anonymous #11", "We stopped checking for monsters under our bed, when we realized they were inside us."},
-	{"Anonymous #12", "I would rather check my facebook than face my checkbook."},
-	{"Anonymous #13", "Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper."},
-	{"Anonymous #14", "A better world is where chickens can cross the road without having their motives questioned."},
-	{"Anonymous #15", "If I didn't drink, how would my friends know I love them at 2 AM?"},
-	{"Anonymous #16", "Q: How do you generate a random string?\nA: Put a Windows user in front of vi, and tell him to exit."},
-	{"Anonymous #17", "Pros and cons of making food.\nPros: food\nCons : making\n"},
-	{"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
-	{"Anonymous #19", "People who say they give 110%\ndon't really understand how percentages work."},
-	{"Anonymous #20", "Never make eye contact while eating a banana."},
-	{"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
-	{"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},
-	//{"Anonymous #23", ""},
-	{"Anonymous #24", "An Architect's dream is an Engineer's nightmare."},
-	{"Anonymous #25", "In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
-	{"Anonymous #26", "I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one."},
-	{"Anonymous #27", "I don't have a problem with caffeine.\nI have a problem without caffeine."},
-	{"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 while 6 and 9 were flirting."},
-	{"Anonymous #30", "Why do Java developers wear glasses?\nBecause they don't C#."},
-	{"Anonymous #31", "A baby's laughter is one of the most beautiful sounds you will ever hear. Unless it's 3 AM. And you're home alone. And you don't have a baby."},
-	{"Anonymous #32", "Two bytes meet. The first byte asks, \"You look terrible. Are you OK?\"\nThe second byte replies, \"No, just feeling a bit off.\""},
-	{"Anonymous #33", "Programmer - an organism that turns coffee into software."},
-	{"Anonymous #34", "It's not a bug - it's an undocumented feature."},
-	{"Anonymous #35", "Should array index start at 0 or 1?\nMy compromised solution is 0.5"},
-	{"Anonymous #36", "Every single time when I'm about to hug someone extremely sexy, I hit the mirror."},
-	{"Anonymous #37", "My software never has bugs. It just develops random features."},
-	{"Anonymous #38", "LISP = Lots of Irritating Silly Parentheses."},
-	{"Anonymous #39", "Perl, the only language that looks the same before and after RSA encryption."},
-	{"Anonymous #40", "People ask me why, as an atheist, I still say: OH MY GOD.\nIt makes perfect sense: We say \"Oh my God\" when something is UNBELIEVABLE."},
-	{"Anonymous #41", "1. Dig a hole.\n2. Name it love.\n3. Watch people falling in love.\n"},
-	{"Anonymous #42", "Don't think of yourself as an ugly person.\nThink of yourself as a beautiful monkey."},
-	{"Anonymous #43", "Afraid to die alone?\nBecome a bus driver."},
-	{"Anonymous #44", "The first 5 days after the weekend are always the hardest."},
-	{"Anonymous #45", "Rhinos are just fat unicorns."},
-	{"Anonymous #46", "Sometimes when I'm writing Javascript I want to throw up my hands and say \"this is bullshit!\"\nbut I can never remember what \"this\" refers to."},
-	{"Anonymous #47", "Kids are like farts.\nYou can only stand yours."},
-	{"Anonymous #48", "If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography."},
-	{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars."},
-	{"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in Britain and try to get a bunch of gold... it's like history but opposite."},
-	{"Anonymous #51", "I don't need a stable relationship,\nI just need a stable Internet connection."},
-	{"Anonymous #52", "What's the difference between religion and bullshit?\nThe bull."},
-	{"Anonymous #53", "Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML"},
-	{"Anonymous #54", "Today, I finally got my hands on the new iPhone 5, after I pulled it out of a patient's rectum. FML"},
-	{"Anonymous #55", "Violent video games won't change our behaviour.\nIf people were influenced by video games, then the majority of Facebook users would be farmers right now."},
-	{"Anonymous #56", "Religion is like circumcision.\nIf you wait until someone is 21 to tell them about it they probably won't be interested."},
-	{"Anonymous #57", "No, no, no, I'm not insulting you.\nI'm describing you."},
-	{"Anonymous #58", "I bought a dog once. Named him \"Stay\".\n\"Come here, Stay.\"\nHe's insane now."},
-	{"Anonymous #60", "Yesterday I named my Wifi network \"hack me if you can\"\nToday when I woke up it was changed to \"challenge accepted\"."},
-	{"Anonymous #61", "Your mother is so fat,\nthe recursive function computing her mass causes a stack overflow."},
-	{"Anonymous #62", "Oral sex makes my day, but anal sex makes my hole weak."},
-	{"Anonymous #63", "I'm not saying I am Batman, I am just saying no one has ever seen me and Batman in the same room together."},
-	{"Anonymous #64", "I took a taxi today.\nThe driver told me \"I love my job, I own this car, I've got my own business, I'm my own boss, NO ONE tells me what to do!\"\nI said \"TURN LEFT HERE\".\n"},
-	{"Anonymous #65", "A man without God is like a fish without a bicycle."},
-	{"Anonymous #66", "I hate how spiders just sit there on the walls and act like they pay rent!"},
-	{"Anonymous #67", "Whenever someone starts a sentence by saying \"I'm not racist...\",they are about to say something super racist."},
-	{"Anonymous #68", "I'm not laughing at you, I'm laughing with you, you're just not laughing."},
-	{"Anonymous #69", "Women need a reason to have sex. Men just need a place."},
-	{"Anonymous #70", "If abortion is murder then are condoms kidnapping?"},
-	{"Anonymous #71", "Men also have feelings.\nFor example, they can feel hungry."},
-	{"Anonymous #72", "Project Manager:\nA person who thinks 9 women can deliver a baby in 1 month."},
-	{"Anonymous #73", "If you try and don't succeed, cheat. Repeat until caught. Then lie."},
-	{"Anonymous #74", "Olympics is the stupidest thing.\nPeople are so proud to be competing for their country.\nThey play their stupid song and raise some dumb flags.\nI'd love to see no flags raised, no song, no mention of country.\nOnly people."},
-	{"Anonymous #75", "I think therefore I am\nnot religious."},
-	{"Anonymous #76", "Even if being gay were a choice, so what?\nPeople choose to be assholes and they can get married."},
-	{"Anonymous #77", "Governments are like diapers.\nThey should be changed often, and for the same reason."},
-	{"Anonymous #78", "If you expect the world to be fair with you because you are fair, you're fooling yourself.\nThat's like expecting the lion not to eat you because you didn't eat him."},
-	{"Anonymous #79", "I'm a creationist.\nI believe man create God."},
-	{"Anonymous #80", "Let's eat kids.\nLet's eat, kids.\n\nUse a comma.\nSave lives."},
-	{"Anonymous #81", "A male engineering student was crossing a road one day when a frog called out to him and said, \"If you kiss me, I'll turn into a beautiful princess.\" He bent over, picked up the frog, and put it in his pocket.\n\nThe frog spoke up again and said, \"If you kiss me and turn me back into a beautiful princess, I will stay with you for one week.\" The engineering student took the frog out of his pocket, smiled at it; and returned it to his pocket.\n\nThe frog then cried out, \"If you kiss me and turn me back into a princess, I'll stay with you and do ANYTHING you want.\" Again the boy took the frog out, smiled at it, and put it back into his pocket.\n\nFinally, the frog asked, \"What is the matter? I've told you I'm a beautiful princess, that I'll stay with you for a week and do anything you want. Why won't you kiss me?\" The boy said, \"Look I'm an engineer. I don't have time for a girlfriend, but a talking frog is cool.\"\n"},
-	{"Anonymous #82", "Programmers never die.\nThey just go offline."},
-	{"Anonymous #83", "Copy from one, it's plagiarism.\nCopy from two, it's research."},
-	{"Anonymous #84", "Saying that Java is nice because it works on all OSes is like saying that anal sex is nice because it works on all genders."},
-	{"Anonymous #85", "Race, religion, ethnic pride and nationalism etc... does nothing but teach you how to hate people that you've never met."},
-	{"Anonymous #86", "Farts are just the ghosts of the things we eat."},
-	{"Anonymous #87", "I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word."},
-	{"Anonymous #88", "A foo walks into a bar,\ntakes a look around and\nsays \"Hello World!\"."},
-	{"Anonymous #90", "Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments."},
-	{"Anonymous #91", "CV: ctrl-C, ctrl-V"},
-	{"Anonymous #92", "Mondays are not so bad.\nIt's your job that sucks."},
-	{"Anonymous #93", "[In a job interview]\nInterviewer: What's your greatest weakness?\nCandidate: Honesty.\nInterviewer: I don't think honesty is a weakness.\nCandidate: I don't give a fuck what you think."},
-	{"Anonymous #94", "Hey, I just met you\nAnd this is crazy\nHere's my number 127.0.0.1\nPing me maybe?"},
-	//{"Anonymous #95", ""},
-	{"Anonymous #96", "Code for 6 minutes, debug for 6 hours."},
-	{"Anonymous #97", "Real Programmers don't comment their code.\nIf it was hard to write, it should be hard to read."},
-	{"Anonymous #98", "My neighbours listen to good music.\nWhether they like it or not."},
-	{"Anonymous #99", "I've been using Vim for about 2 years now,\nmostly because I can't figure out how to exit it."},
-	{"Anonymous #100", "Dear YouTube,\nI can deal with Ads.\nI can deal with Buffer.\nBut when Ads buffer, I suffer."},
-	{"Anonymous #101", "It's always sad when a man and his dick share only one brain...\nand it turns out to be the dick's."},
-	{"Anonymous #102", "If IE is brave enough to ask you to set it as your default browser,\ndon't tell me you dare not ask a girl out."},
-	{"Anonymous #104", "The main idea of \"Inception\":\nif you run a VM inside a VM inside a VM inside a VM inside a VM,\neverything will be very slow."},
-	{"Anonymous #105", "Q: What's the object-oriented way to become wealthy?\nA: Inheritance."},
-	{"Anonymous #106", "When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car."},
-	{"Anonymous #107", "Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is."},
-	{"Anonymous #108", "I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard"},
-	{"Anonymous #109", "What's the best thing about UDP jokes?\nI don't care if you get them."},
-	{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems"},
-	{"Anonymous #111", "I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul."},
-	{"Anonymous #112", "#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}"},
-	{"Anonymous #113", "Open source is communism.\nAt least it is what communism was meant to be."},
-	{"Anonymous #114", "How can you face your problem if your problem is your face?"},
-	{"Anonymous #115", "YOLOLO:\nYou Only LOL Once."},
-	{"Anonymous #116", "Every exit is an entrance to new experiences."},
-	{"Anonymous #117", "A Native American was asked:\n\"Do you celebrate Columbus day?\"\nHe replied:\n\"I don't know, do Jews celebrate Hitler's birthday?\""},
-	{"Anonymous #118", "I love necrophilia, but i can't stand the awkward silences."},
-	{"Anonymous #119", "\"I'm gonna Google that. BING that, Bing that, sorry.\"\n- The CEO of Bing (many times per day still)"},
-	{"Anonymous #120", "Life is what happens to you while you're looking at your smartphone."},
-	//{"Anonymous #121", ""},
-	{"Anonymous #122", "Nerd?\nI prefer the term \"Intellectual badass\"."},
-	//{"Anonymous #123", ""},
-	{"Anonymous #124", "You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion."},
-	{"Anonymous #125", "Pooping with the door opened is the meaning of true freedom."},
-	{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},
-	{"Anonymous #127", "Don't give up your dreams.\nKeep sleeping."},
-	{"Anonymous #128", "I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life."},
-	{"Anonymous #129", "What is the most used language in programming?\n\nProfanity\n"},
-	{"Anonymous #130", "Common sense is so rare, it's kinda like a superpower..."},
-	{"Anonymous #131", "The best thing about a boolean is even if you are wrong, you are only off by a bit."},
-	{"Anonymous #132", "Benchmarks don't lie, but liars do benchmarks."},
-	{"Anonymous #133", "Multitasking: Screwing up several things at once."},
-	{"Anonymous #134", "Linux is user friendly.\nIt's just picky about its friends."},
-	{"Anonymous #135", "Theory is when you know something, but it doesn't work.\nPractice is when something works, but you don't know why.\nProgrammers combine theory and practice: nothing works and they don't know why."},
-	{"Anonymous #136", "Documentation is like sex:\nwhen it's good, it's very, very good;\nwhen it's bad, it's better than nothing."},
-	{"Anonymous #137", "Home is where you poop most comfortably."},
-	{"Anonymous #138", "Laptop Speakers problem: too quiet for music, too loud for porn."},
-	{"Anonymous #139", "Chinese food to go: $16\nGas to go get the food: $2\nDrove home just to realize they forgot one of your containers: RICELESS"},
-	{"Anonymous #140", "MS Windows is like religion to most people: they are born into it, accept it as default, never consider switching to another."},
-	{"Anonymous #141", "To most religious people, the holy books are like a software license (EULA).\nNobody actually reads it. They just scroll to the bottom and click \"I agree\"."},
-	{"Anonymous #142", "You are nothing but a number of days,\nwhenever each day passes then part of you has gone."},
-	{"Anonymous #143", "If 666 is evil, does that make 25.8069758011 the root of all evil?"},
-	{"Anonymous #144", "I don't want to sound like a badass but...\nI eject my USB drive without removing it safely."},
-	{"Anonymous #145", "feet  (noun)\na device used for finding legos in the dark"},
-	{"Anonymous #146", "Buy a sheep\nName it \"Relation\"\nNow you have a Relationsheep\n"},
-	{"Anonymous #147", "I dig, you dig, we dig,\nhe dig, she dig, they dig...\n\nIt's not a beautiful poem,\nbut it's very deep."},
-	{"Anonymous #148", "UNIX command line Russian roulette:\n[ $[ $RANDOM % 6 ] == 0 ] && rm -rf /* || echo *Click*"},
-	{"Anonymous #149", "unzip, strip, top, less, touch, finger, grep, mount, fsck, more, yes, fsck, fsck, fsck, umount, sleep.\n\nNo, it's not porn. It's Unix."},
-	{"Anonymous #150", "To understand what recursion is, you must first understand recursion."},
-	{"Anonymous #151", "Q: What's the object-oriented way to become wealthy?\nA: Inheritance."},
-	{"Anonymous #152", "A SQL query goes into a bar, walks up to two tables and asks, \"Can I join you?\""},
-	{"Anonymous #153", "You are not fat, you are just more visible."},
-	{"Anonymous #154", "Minimalist\n (.   .)\n  )   (\n (  Y  )\nASCII Art"},
-	{"Internet #1", "If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing." },
-	{"Mary Oliver", "Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift."},
-	{"Floor", "If you fall, I will be there."},
-	{"Simon Amstell", "If you have some problem in your life and need to deal with it, then use religion, that's fine.\nI use Google."},
-	{"Albert Einstein", "Only 3 things are infinite:\n1. Universe.\n2. Human Stupidity.\n3. Winrar's free trial."},
-	{"Terry Pratchett", "Artificial Intelligence is no match for natural stupidity."},
-	{"Stewart Brand", "Once a new technology starts rolling, if you're not part of the steamroller,\nyou're part of the road."},
-	{"Sam Redwine", "Software and cathedrals are much the same - first we build them, then we pray."},
-	{"Jan L. A. van de Snepscheut", "In theory, there is no difference between theory and practice. But, in practice, there is."},
-	{"Jessica Gaston", "One man's crappy software is another man's full time job."},
-	{"Barack Obama", "Yes, we scan!"},
-	{"xkcd.com", "int getRandomNumber()\n{\n    return 4; //chosen by fair dice roll, guaranteed to be random.\n}\n"},
-	{"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
-	{"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
-	{"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
-	{"Mark Twain", "Censorship is telling a man he can't have a steak just because a baby can't chew it."},
-	{"Friedrich Nietzsche", "There is not enough love and goodness in the world to permit giving any of it away to imaginary beings."},
-	{"Dhalsim", "Pain is a state of mind and I don't mind your pain."},
-	{"Elie Wiesel", "Human beings can be beautiful or more beautiful,\nthey can be fat or skinny, they can be right or wrong,\nbut illegal? How can a human being be illegal?"},
-	{"Dennis Ritchie", "Empty your memory, with a free(), like a pointer.\nIf you cast a pointer to a integer, it becomes the integer.\nIf you cast a pointer to a struct, it becomes the struct.\nThe pointer can crash, and can overflow.\nBe a pointer my friend."},
-	{"Chewbacca", "Uuuuuuuuuur Ahhhhrrrrrr\nUhrrrr Ahhhhrrrrrr\nAaaarhg..."},
-	{"#JeSuisCharlie", "Freedom of expression is like the air we breathe, we don't feel it, until people take it away from us.\n\nFor this reason, Je suis Charlie, not because I endorse everything they published, but because I cherish the right to speak out freely without risk even when it offends others.\nAnd no, you cannot just take someone's life for whatever he/she expressed.\n\nHence this \"Je suis Charlie\" edition.\n" }
+	{TEXT("Notepad++"), TEXT("I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer.")},
+	{TEXT("Notepad++ #2"), TEXT("Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned.")},
+	{TEXT("Notepad++ #3"), TEXT("The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n")},
+	{TEXT("Richard Stallman"), TEXT("If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent.")},
+	{TEXT("Martin Golding"), TEXT("Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.")},
+	{TEXT("L. Peter Deutsch"), TEXT("To iterate is human, to recurse divine.")},
+	{TEXT("Seymour Cray"), TEXT("The trouble with programmers is that you can never tell what a programmer is doing until it's too late.")},
+	{TEXT("Brian Kernighan"), TEXT("Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.")},
+	{TEXT("Alan Kay"), TEXT("Most software today is very much like an Egyptian pyramid with millions of bricks piled on top of each other, with no structural integrity, but just done by brute force and thousands of slaves.")},
+	{TEXT("Bill Gates"), TEXT("Measuring programming progress by lines of code is like measuring aircraft building progress by weight.")},
+	{TEXT("Christopher Thompson"), TEXT("Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday's code.")},
+	{TEXT("Vidiu Platon"), TEXT("I don't care if it works on your machine! We are not shipping your machine!")},
+	{TEXT("Edward V Berard"), TEXT("Walking on water and developing software from a specification are easy if both are frozen.")},
+	{TEXT("pixadel"), TEXT("Fine, Java MIGHT be a good example of what a programming language should be like. But Java applications are good examples of what applications SHOULDN'T be like.")},
+	{TEXT("Oktal"), TEXT("I think Microsoft named .Net so it wouldn't show up in a Unix directory listing.")},
+	{TEXT("Bjarne Stroustrup"), TEXT("In C++ it's harder to shoot yourself in the foot, but when you do, you blow off your whole leg.")},
+	{TEXT("Mosher's Law of Software Engineering"), TEXT("Don't worry if it doesn't work right. If everything did, you'd be out of a job.")},
+	{TEXT("Bob Gray"), TEXT("Writing in C or C++ is like running a chain saw with all the safety guards removed.")},
+	{TEXT("Roberto Waltman"), TEXT("In the one and only true way. The object-oriented version of \"Spaghetti code\" is, of course, \"Lasagna code\". (Too many layers)")},
+	{TEXT("Gavin Russell Baker"), TEXT("C++ : Where friends have access to your private members.")},
+	{TEXT("Linus Torvalds"), TEXT("Software is like sex: It's better when it's free.")},
+	{TEXT("Cult of vi"), TEXT("Emacs is a great operating system, lacking only a decent editor.")},
+	{TEXT("Church of Emacs"), TEXT("vi has two modes - \"beep repeatedly\" and \"break everything\".")},
+	{TEXT("Steve Jobs"), TEXT("Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas.")},
+	{TEXT("brotips #1001"), TEXT("Do everything for greatness, not money. Money follows greatness.")},
+	{TEXT("Robin Williams"), TEXT("God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time.")},
+	{TEXT("Darth Vader"), TEXT("Strong people don't put others down.\nThey lift them up.")},
+	{TEXT("Darth Vader #2"), TEXT("You don't get to 500 million star systems without making a few enemies.")},
+	{TEXT("Doug Linder"), TEXT("A good programmer is someone who always looks both ways before crossing a one-way street.")},
+	{TEXT("Jean-Claude van Damme"), TEXT("A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life.")},
+	{TEXT("Michael Feldman"), TEXT("Java is, in many ways, C++--.")},
+	{TEXT("Don Ho"), TEXT("Je mange donc je chie.")},
+	{TEXT("Don Ho #2"), TEXT("RTFM is the true path of every developer.\nBut it would happen only if there's no way out.")},
+	{TEXT("Don Ho #3"), TEXT("Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street.")},
+	{TEXT("Don Ho #4"), TEXT("Poor countries' museums vs. rich countries' museums:\nThe first show what they have left.\nThe second show what they have stolen.")},
+	{TEXT("Anonymous #1"), TEXT("An opinion without 3.14 is just an onion.")},
+	{TEXT("Anonymous #2"), TEXT("Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked.")},
+	{TEXT("Anonymous #3"), TEXT("I'm not totally useless. I can be used as a bad example.")},
+	{TEXT("Anonymous #4"), TEXT("Life is too short to remove USB safely.")},
+	{TEXT("Anonymous #5"), TEXT("\"SEX\" is not the answer.\nSex is the question, \"YES\" is the answer.")},
+	{TEXT("Anonymous #6"), TEXT("Going to Mc Donald's for a salad is like going to a whore for a hug.")},
+	{TEXT("Anonymous #7"), TEXT("I need a six month holiday, TWICE A YEAR!")},
+	{TEXT("Anonymous #8"), TEXT("Everything is a knife if you're strong enough.")},
+	{TEXT("Anonymous #9"), TEXT("I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala.")},
+	{TEXT("Anonymous #10"), TEXT("Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!")},
+	{TEXT("Anonymous #11"), TEXT("We stopped checking for monsters under our bed, when we realized they were inside us.")},
+	{TEXT("Anonymous #12"), TEXT("I would rather check my facebook than face my checkbook.")},
+	{TEXT("Anonymous #13"), TEXT("Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper.")},
+	{TEXT("Anonymous #14"), TEXT("A better world is where chickens can cross the road without having their motives questioned.")},
+	{TEXT("Anonymous #15"), TEXT("If I didn't drink, how would my friends know I love them at 2 AM?")},
+	{TEXT("Anonymous #16"), TEXT("Q: How do you generate a random string?\nA: Put a Windows user in front of vi, and tell him to exit.")},
+	{TEXT("Anonymous #17"), TEXT("Pros and cons of making food.\nPros: food\nCons : making\n")},
+	{TEXT("Anonymous #18"), TEXT("Never get into fights with ugly people, they have nothing to lose.")},
+	{TEXT("Anonymous #19"), TEXT("People who say they give 110%\ndon't really understand how percentages work.")},
+	{TEXT("Anonymous #20"), TEXT("Never make eye contact while eating a banana.")},
+	{TEXT("Anonymous #21"), TEXT("I love my sixpack so much, I protect it with a layer of fat.")},
+	{TEXT("Anonymous #22"), TEXT("\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later.")},
+	//{"Anonymous #23"), TEXT("")},
+	{TEXT("Anonymous #24"), TEXT("An Architect's dream is an Engineer's nightmare.")},
+	{TEXT("Anonymous #25"), TEXT("In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history.")},
+	{TEXT("Anonymous #26"), TEXT("I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one.")},
+	{TEXT("Anonymous #27"), TEXT("I don't have a problem with caffeine.\nI have a problem without caffeine.")},
+	{TEXT("Anonymous #28"), TEXT("Why 6 afraid of 7?\nBecause 7 8 9 while 6 and 9 were flirting.")},
+	{TEXT("Anonymous #30"), TEXT("Why do Java developers wear glasses?\nBecause they don't C#.")},
+	{TEXT("Anonymous #31"), TEXT("A baby's laughter is one of the most beautiful sounds you will ever hear. Unless it's 3 AM. And you're home alone. And you don't have a baby.")},
+	{TEXT("Anonymous #32"), TEXT("Two bytes meet. The first byte asks, \"You look terrible. Are you OK?\"\nThe second byte replies, \"No, just feeling a bit off.\"")},
+	{TEXT("Anonymous #33"), TEXT("Programmer - an organism that turns coffee into software.")},
+	{TEXT("Anonymous #34"), TEXT("It's not a bug - it's an undocumented feature.")},
+	{TEXT("Anonymous #35"), TEXT("Should array index start at 0 or 1?\nMy compromised solution is 0.5")},
+	{TEXT("Anonymous #36"), TEXT("Every single time when I'm about to hug someone extremely sexy, I hit the mirror.")},
+	{TEXT("Anonymous #37"), TEXT("My software never has bugs. It just develops random features.")},
+	{TEXT("Anonymous #38"), TEXT("LISP = Lots of Irritating Silly Parentheses.")},
+	{TEXT("Anonymous #39"), TEXT("Perl, the only language that looks the same before and after RSA encryption.")},
+	{TEXT("Anonymous #40"), TEXT("People ask me why, as an atheist, I still say: OH MY GOD.\nIt makes perfect sense: We say \"Oh my God\" when something is UNBELIEVABLE.")},
+	{TEXT("Anonymous #41"), TEXT("1. Dig a hole.\n2. Name it love.\n3. Watch people falling in love.\n")},
+	{TEXT("Anonymous #42"), TEXT("Don't think of yourself as an ugly person.\nThink of yourself as a beautiful monkey.")},
+	{TEXT("Anonymous #43"), TEXT("Afraid to die alone?\nBecome a bus driver.")},
+	{TEXT("Anonymous #44"), TEXT("The first 5 days after the weekend are always the hardest.")},
+	{TEXT("Anonymous #45"), TEXT("Rhinos are just fat unicorns.")},
+	{TEXT("Anonymous #46"), TEXT("Sometimes when I'm writing Javascript I want to throw up my hands and say \"this is bullshit!\"\nbut I can never remember what \"this\" refers to.")},
+	{TEXT("Anonymous #47"), TEXT("Kids are like farts.\nYou can only stand yours.")},
+	{TEXT("Anonymous #48"), TEXT("If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography.")},
+	{TEXT("Anonymous #49"), TEXT("There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars.")},
+	{TEXT("Anonymous #50"), TEXT("London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in Britain and try to get a bunch of gold... it's like history but opposite.")},
+	{TEXT("Anonymous #51"), TEXT("I don't need a stable relationship,\nI just need a stable Internet connection.")},
+	{TEXT("Anonymous #52"), TEXT("What's the difference between religion and bullshit?\nThe bull.")},
+	{TEXT("Anonymous #53"), TEXT("Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML")},
+	{TEXT("Anonymous #54"), TEXT("Today, I finally got my hands on the new iPhone 5, after I pulled it out of a patient's rectum. FML")},
+	{TEXT("Anonymous #55"), TEXT("Violent video games won't change our behaviour.\nIf people were influenced by video games, then the majority of Facebook users would be farmers right now.")},
+	{TEXT("Anonymous #56"), TEXT("Religion is like circumcision.\nIf you wait until someone is 21 to tell them about it they probably won't be interested.")},
+	{TEXT("Anonymous #57"), TEXT("No, no, no, I'm not insulting you.\nI'm describing you.")},
+	{TEXT("Anonymous #58"), TEXT("I bought a dog once. Named him \"Stay\".\n\"Come here, Stay.\"\nHe's insane now.")},
+	{TEXT("Anonymous #60"), TEXT("Yesterday I named my Wifi network \"hack me if you can\"\nToday when I woke up it was changed to \"challenge accepted\".")},
+	{TEXT("Anonymous #61"), TEXT("Your mother is so fat,\nthe recursive function computing her mass causes a stack overflow.")},
+	{TEXT("Anonymous #62"), TEXT("Oral sex makes my day, but anal sex makes my hole weak.")},
+	{TEXT("Anonymous #63"), TEXT("I'm not saying I am Batman, I am just saying no one has ever seen me and Batman in the same room together.")},
+	{TEXT("Anonymous #64"), TEXT("I took a taxi today.\nThe driver told me \"I love my job, I own this car, I've got my own business, I'm my own boss, NO ONE tells me what to do!\"\nI said \"TURN LEFT HERE\".\n")},
+	{TEXT("Anonymous #65"), TEXT("A man without God is like a fish without a bicycle.")},
+	{TEXT("Anonymous #66"), TEXT("I hate how spiders just sit there on the walls and act like they pay rent!")},
+	{TEXT("Anonymous #67"), TEXT("Whenever someone starts a sentence by saying \"I'm not racist...\"),they are about to say something super racist.")},
+	{TEXT("Anonymous #68"), TEXT("I'm not laughing at you, I'm laughing with you, you're just not laughing.")},
+	{TEXT("Anonymous #69"), TEXT("Women need a reason to have sex. Men just need a place.")},
+	{TEXT("Anonymous #70"), TEXT("If abortion is murder then are condoms kidnapping?")},
+	{TEXT("Anonymous #71"), TEXT("Men also have feelings.\nFor example, they can feel hungry.")},
+	{TEXT("Anonymous #72"), TEXT("Project Manager:\nA person who thinks 9 women can deliver a baby in 1 month.")},
+	{TEXT("Anonymous #73"), TEXT("If you try and don't succeed, cheat. Repeat until caught. Then lie.")},
+	{TEXT("Anonymous #74"), TEXT("Olympics is the stupidest thing.\nPeople are so proud to be competing for their country.\nThey play their stupid song and raise some dumb flags.\nI'd love to see no flags raised, no song, no mention of country.\nOnly people.")},
+	{TEXT("Anonymous #75"), TEXT("I think therefore I am\nnot religious.")},
+	{TEXT("Anonymous #76"), TEXT("Even if being gay were a choice, so what?\nPeople choose to be assholes and they can get married.")},
+	{TEXT("Anonymous #77"), TEXT("Governments are like diapers.\nThey should be changed often, and for the same reason.")},
+	{TEXT("Anonymous #78"), TEXT("If you expect the world to be fair with you because you are fair, you're fooling yourself.\nThat's like expecting the lion not to eat you because you didn't eat him.")},
+	{TEXT("Anonymous #79"), TEXT("I'm a creationist.\nI believe man create God.")},
+	{TEXT("Anonymous #80"), TEXT("Let's eat kids.\nLet's eat, kids.\n\nUse a comma.\nSave lives.")},
+	{TEXT("Anonymous #81"), TEXT("A male engineering student was crossing a road one day when a frog called out to him and said, \"If you kiss me, I'll turn into a beautiful princess.\" He bent over, picked up the frog, and put it in his pocket.\n\nThe frog spoke up again and said, \"If you kiss me and turn me back into a beautiful princess, I will stay with you for one week.\" The engineering student took the frog out of his pocket, smiled at it; and returned it to his pocket.\n\nThe frog then cried out, \"If you kiss me and turn me back into a princess, I'll stay with you and do ANYTHING you want.\" Again the boy took the frog out, smiled at it, and put it back into his pocket.\n\nFinally, the frog asked, \"What is the matter? I've told you I'm a beautiful princess, that I'll stay with you for a week and do anything you want. Why won't you kiss me?\" The boy said, \"Look I'm an engineer. I don't have time for a girlfriend, but a talking frog is cool.\"\n")},
+	{TEXT("Anonymous #82"), TEXT("Programmers never die.\nThey just go offline.")},
+	{TEXT("Anonymous #83"), TEXT("Copy from one, it's plagiarism.\nCopy from two, it's research.")},
+	{TEXT("Anonymous #84"), TEXT("Saying that Java is nice because it works on all OSes is like saying that anal sex is nice because it works on all genders.")},
+	{TEXT("Anonymous #85"), TEXT("Race, religion, ethnic pride and nationalism etc... does nothing but teach you how to hate people that you've never met.")},
+	{TEXT("Anonymous #86"), TEXT("Farts are just the ghosts of the things we eat.")},
+	{TEXT("Anonymous #87"), TEXT("I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word.")},
+	{TEXT("Anonymous #88"), TEXT("A foo walks into a bar,\ntakes a look around and\nsays \"Hello World!\".")},
+	{TEXT("Anonymous #90"), TEXT("Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments.")},
+	{TEXT("Anonymous #91"), TEXT("CV: ctrl-C, ctrl-V")},
+	{TEXT("Anonymous #92"), TEXT("Mondays are not so bad.\nIt's your job that sucks.")},
+	{TEXT("Anonymous #93"), TEXT("[In a job interview]\nInterviewer: What's your greatest weakness?\nCandidate: Honesty.\nInterviewer: I don't think honesty is a weakness.\nCandidate: I don't give a fuck what you think.")},
+	{TEXT("Anonymous #94"), TEXT("Hey, I just met you\nAnd this is crazy\nHere's my number 127.0.0.1\nPing me maybe?")},
+	//{"Anonymous #95"), TEXT("")},
+	{TEXT("Anonymous #96"), TEXT("Code for 6 minutes, debug for 6 hours.")},
+	{TEXT("Anonymous #97"), TEXT("Real Programmers don't comment their code.\nIf it was hard to write, it should be hard to read.")},
+	{TEXT("Anonymous #98"), TEXT("My neighbours listen to good music.\nWhether they like it or not.")},
+	{TEXT("Anonymous #99"), TEXT("I've been using Vim for about 2 years now,\nmostly because I can't figure out how to exit it.")},
+	{TEXT("Anonymous #100"), TEXT("Dear YouTube,\nI can deal with Ads.\nI can deal with Buffer.\nBut when Ads buffer, I suffer.")},
+	{TEXT("Anonymous #101"), TEXT("It's always sad when a man and his dick share only one brain...\nand it turns out to be the dick's.")},
+	{TEXT("Anonymous #102"), TEXT("If IE is brave enough to ask you to set it as your default browser,\ndon't tell me you dare not ask a girl out.")},
+	{TEXT("Anonymous #104"), TEXT("The main idea of \"Inception\":\nif you run a VM inside a VM inside a VM inside a VM inside a VM,\neverything will be very slow.")},
+	{TEXT("Anonymous #105"), TEXT("Q: What's the object-oriented way to become wealthy?\nA: Inheritance.")},
+	{TEXT("Anonymous #106"), TEXT("When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car.")},
+	{TEXT("Anonymous #107"), TEXT("Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is.")},
+	{TEXT("Anonymous #108"), TEXT("I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard")},
+	{TEXT("Anonymous #109"), TEXT("What's the best thing about UDP jokes?\nI don't care if you get them.")},
+	{TEXT("Anonymous #110"), TEXT("A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems")},
+	{TEXT("Anonymous #111"), TEXT("I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul.")},
+	{TEXT("Anonymous #112"), TEXT("#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}")},
+	{TEXT("Anonymous #113"), TEXT("Open source is communism.\nAt least it is what communism was meant to be.")},
+	{TEXT("Anonymous #114"), TEXT("How can you face your problem if your problem is your face?")},
+	{TEXT("Anonymous #115"), TEXT("YOLOLO:\nYou Only LOL Once.")},
+	{TEXT("Anonymous #116"), TEXT("Every exit is an entrance to new experiences.")},
+	{TEXT("Anonymous #117"), TEXT("A Native American was asked:\n\"Do you celebrate Columbus day?\"\nHe replied:\n\"I don't know, do Jews celebrate Hitler's birthday?\"")},
+	{TEXT("Anonymous #118"), TEXT("I love necrophilia, but i can't stand the awkward silences.")},
+	{TEXT("Anonymous #119"), TEXT("\"I'm gonna Google that. BING that, Bing that, sorry.\"\n- The CEO of Bing (many times per day still)")},
+	{TEXT("Anonymous #120"), TEXT("Life is what happens to you while you're looking at your smartphone.")},
+	//{"Anonymous #121"), TEXT("")},
+	{TEXT("Anonymous #122"), TEXT("Nerd?\nI prefer the term \"Intellectual badass\".")},
+	//{"Anonymous #123"), TEXT("")},
+	{TEXT("Anonymous #124"), TEXT("You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion.")},
+	{TEXT("Anonymous #125"), TEXT("Pooping with the door opened is the meaning of true freedom.")},
+	{TEXT("Anonymous #126"), TEXT("Social media does not make people stupid.\nIt just makes stupid people more visible.")},
+	{TEXT("Anonymous #127"), TEXT("Don't give up your dreams.\nKeep sleeping.")},
+	{TEXT("Anonymous #128"), TEXT("I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life.")},
+	{TEXT("Anonymous #129"), TEXT("What is the most used language in programming?\n\nProfanity\n")},
+	{TEXT("Anonymous #130"), TEXT("Common sense is so rare, it's kinda like a superpower...")},
+	{TEXT("Anonymous #131"), TEXT("The best thing about a boolean is even if you are wrong, you are only off by a bit.")},
+	{TEXT("Anonymous #132"), TEXT("Benchmarks don't lie, but liars do benchmarks.")},
+	{TEXT("Anonymous #133"), TEXT("Multitasking: Screwing up several things at once.")},
+	{TEXT("Anonymous #134"), TEXT("Linux is user friendly.\nIt's just picky about its friends.")},
+	{TEXT("Anonymous #135"), TEXT("Theory is when you know something, but it doesn't work.\nPractice is when something works, but you don't know why.\nProgrammers combine theory and practice: nothing works and they don't know why.")},
+	{TEXT("Anonymous #136"), TEXT("Documentation is like sex:\nwhen it's good, it's very, very good;\nwhen it's bad, it's better than nothing.")},
+	{TEXT("Anonymous #137"), TEXT("Home is where you poop most comfortably.")},
+	{TEXT("Anonymous #138"), TEXT("Laptop Speakers problem: too quiet for music, too loud for porn.")},
+	{TEXT("Anonymous #139"), TEXT("Chinese food to go: $16\nGas to go get the food: $2\nDrove home just to realize they forgot one of your containers: RICELESS")},
+	{TEXT("Anonymous #140"), TEXT("MS Windows is like religion to most people: they are born into it, accept it as default, never consider switching to another.")},
+	{TEXT("Anonymous #141"), TEXT("To most religious people, the holy books are like a software license (EULA).\nNobody actually reads it. They just scroll to the bottom and click \"I agree\".")},
+	{TEXT("Anonymous #142"), TEXT("You are nothing but a number of days,\nwhenever each day passes then part of you has gone.")},
+	{TEXT("Anonymous #143"), TEXT("If 666 is evil, does that make 25.8069758011 the root of all evil?")},
+	{TEXT("Anonymous #144"), TEXT("I don't want to sound like a badass but...\nI eject my USB drive without removing it safely.")},
+	{TEXT("Anonymous #145"), TEXT("feet  (noun)\na device used for finding legos in the dark")},
+	{TEXT("Anonymous #146"), TEXT("Buy a sheep\nName it \"Relation\"\nNow you have a Relationsheep\n")},
+	{TEXT("Anonymous #147"), TEXT("I dig, you dig, we dig,\nhe dig, she dig, they dig...\n\nIt's not a beautiful poem,\nbut it's very deep.")},
+	{TEXT("Anonymous #148"), TEXT("UNIX command line Russian roulette:\n[ $[ $RANDOM % 6 ] == 0 ] && rm -rf /* || echo *Click*")},
+	{TEXT("Anonymous #149"), TEXT("unzip, strip, top, less, touch, finger, grep, mount, fsck, more, yes, fsck, fsck, fsck, umount, sleep.\n\nNo, it's not porn. It's Unix.")},
+	{TEXT("Anonymous #150"), TEXT("To understand what recursion is, you must first understand recursion.")},
+	{TEXT("Anonymous #151"), TEXT("Q: What's the object-oriented way to become wealthy?\nA: Inheritance.")},
+	{TEXT("Anonymous #152"), TEXT("A SQL query goes into a bar, walks up to two tables and asks, \"Can I join you?\"")},
+	{TEXT("Anonymous #153"), TEXT("You are not fat, you are just more visible.")},
+	{TEXT("Anonymous #154"), TEXT("Minimalist\n (.   .)\n  )   (\n (  Y  )\nASCII Art")},
+	{TEXT("Internet #1"), TEXT("If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing.")},
+	{TEXT("Mary Oliver"), TEXT("Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift.")},
+	{TEXT("Floor"), TEXT("If you fall, I will be there.")},
+	{TEXT("Simon Amstell"), TEXT("If you have some problem in your life and need to deal with it, then use religion, that's fine.\nI use Google.")},
+	{TEXT("Albert Einstein"), TEXT("Only 3 things are infinite:\n1. Universe.\n2. Human Stupidity.\n3. Winrar's free trial.")},
+	{TEXT("Terry Pratchett"), TEXT("Artificial Intelligence is no match for natural stupidity.")},
+	{TEXT("Stewart Brand"), TEXT("Once a new technology starts rolling, if you're not part of the steamroller,\nyou're part of the road.")},
+	{TEXT("Sam Redwine"), TEXT("Software and cathedrals are much the same - first we build them, then we pray.")},
+	{TEXT("Jan L. A. van de Snepscheut"), TEXT("In theory, there is no difference between theory and practice. But, in practice, there is.")},
+	{TEXT("Jessica Gaston"), TEXT("One man's crappy software is another man's full time job.")},
+	{TEXT("Barack Obama"), TEXT("Yes, we scan!")},
+	{TEXT("xkcd.com"), TEXT("int getRandomNumber()\n{\n    return 4; //chosen by fair dice roll, guaranteed to be random.\n}\n")},
+	{TEXT("Gandhi"), TEXT("Earth provides enough to satisfy every man's need, but not every man's greed.")},
+	{TEXT("R. D. Laing"), TEXT("Life is a sexually transmitted disease and the mortality rate is one hundred percent.")},
+	{TEXT("Hustle Man"), TEXT("Politicians are like sperm.\nOne in a million turn out to be an actual human being.")},
+	{TEXT("Mark Twain"), TEXT("Censorship is telling a man he can't have a steak just because a baby can't chew it.")},
+	{TEXT("Friedrich Nietzsche"), TEXT("There is not enough love and goodness in the world to permit giving any of it away to imaginary beings.")},
+	{TEXT("Dhalsim"), TEXT("Pain is a state of mind and I don't mind your pain.")},
+	{TEXT("Elie Wiesel"), TEXT("Human beings can be beautiful or more beautiful,\nthey can be fat or skinny, they can be right or wrong,\nbut illegal? How can a human being be illegal?")},
+	{TEXT("Dennis Ritchie"), TEXT("Empty your memory, with a free(), like a pointer.\nIf you cast a pointer to a integer, it becomes the integer.\nIf you cast a pointer to a struct, it becomes the struct.\nThe pointer can crash, and can overflow.\nBe a pointer my friend.")},
+	{TEXT("Chewbacca"), TEXT("Uuuuuuuuuur Ahhhhrrrrrr\nUhrrrr Ahhhhrrrrrr\nAaaarhg...")},
+	{TEXT("#JeSuisCharlie"), TEXT("Freedom of expression is like the air we breathe, we don't feel it, until people take it away from us.\n\nFor this reason, Je suis Charlie, not because I endorse everything they published, but because I cherish the right to speak out freely without risk even when it offends others.\nAnd no, you cannot just take someone's life for whatever he/she expressed.\n\nHence this \"Je suis Charlie\" edition.\n")}
 };
 
 
 
-const int nbWtf = 6;
-char* wtf[nbWtf] =
+const int nbWtf = 5;
+wchar_t* wtf[nbWtf] =
 {
-	"WTF?!",
-	"lol",
-	"FAP FAP FAP",
-	"ROFL",
-	"OMFG",
-	"Husband is not an ATM machine!!!"
+	TEXT("WTF?!"),
+	TEXT("lol"),
+	TEXT("ROFL"),
+	TEXT("OMFG"),
+	TEXT("Husband is not an ATM machine!!!")
 };
 
 const int nbIntervalTime = 5;
@@ -6285,7 +6284,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 	TextPlayerParams* textPlayerParams = static_cast<TextPlayerParams*>(params);
 	HWND hNpp = textPlayerParams->_nppHandle;
 	ScintillaEditView *pCurrentView = textPlayerParams->_pCurrentView;
-	const char *text2display = textPlayerParams->_text2display;
+	const wchar_t* text2display = textPlayerParams->_text2display;
 	bool shouldBeTrolling = textPlayerParams->_shouldBeTrolling;
 
 	// Open a new document
@@ -6303,9 +6302,9 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 	const int nbMaxTrolling = 1;
 	int nbTrolling = 0;
 	vector<int> generatedRans;
-	char previousChar = '\0';
+	wchar_t previousChar = '\0';
 
-	for (size_t i = 0, len = strlen(text2display); i < len ; ++i)
+	for (size_t i = 0, len = lstrlen(text2display); i < len ; ++i)
     {
 		int ranNum = getRandomNumber(maxRange);
 		int action = act_doNothing;
@@ -6340,8 +6339,6 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 			}
 		}
 
-		char charToShow[2] = {text2display[i], '\0'};
-
 		if (text2display[i] == ' ' || text2display[i] == '.')
 			Sleep(ranNum + pauseTimeArray[ranNum%nbPauseTime]);
 		else
@@ -6351,7 +6348,9 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 		if (currentBufID != targetBufID)
 			return TRUE;
 
-		::SendMessage(curScintilla, SCI_APPENDTEXT, 1, reinterpret_cast<LPARAM>(charToShow));
+		char charToShow[4] = { '\0' };
+		::WideCharToMultiByte(CP_UTF8, 0, text2display + i, 1, charToShow, sizeof(charToShow), NULL, NULL);
+		::SendMessage(curScintilla, SCI_APPENDTEXT, strlen(charToShow), reinterpret_cast<LPARAM>(charToShow));
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
 
 		previousChar = text2display[i];
@@ -6361,26 +6360,27 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
     }
 
 	//writeLog(TEXT("c:\\tmp\\log.txt"), "\n\n\n\n");
-	const char * quoter = textPlayerParams->_quoter;
-	string quoter_str = quoter;
-	size_t pos = quoter_str.find("Anonymous");
+	const wchar_t* quoter = textPlayerParams->_quoter;
+	wstring quoter_str = quoter;
+	size_t pos = quoter_str.find(TEXT("Anonymous"));
 	if (pos == string::npos)
 	{
 		::SendMessage(curScintilla, SCI_APPENDTEXT, 3, reinterpret_cast<LPARAM>("\n- "));
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
 
 		// Display quoter
-		for (size_t i = 0, len = strlen(quoter); i < len; ++i)
+		for (size_t i = 0, len = lstrlen(quoter); i < len; ++i)
 		{
 			int ranNum = getRandomNumber(maxRange);
-
-			char charToShow[2] = {quoter[i], '\0'};
 
 			Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);
 
 			BufferID currentBufID = pCurrentView->getCurrentBufferID();
 			if (currentBufID != targetBufID)
 				return TRUE;
+
+			char charToShow[4] = { '\0' };
+			::WideCharToMultiByte(CP_UTF8, 0, quoter + i, 1, charToShow, sizeof(charToShow), NULL, NULL);
 
 			::SendMessage(curScintilla, SCI_APPENDTEXT, 1, reinterpret_cast<LPARAM>(charToShow));
 			::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
@@ -6401,13 +6401,12 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	srand(static_cast<UINT>(time(NULL)));
 
 	ScintillaEditView *pCurrentView = textTrollerParams->_pCurrentView;
-	const char *text2display = textTrollerParams->_text2display;
+	const wchar_t* text2display = textTrollerParams->_text2display;
 	HWND curScintilla = pCurrentView->getHSelf();
 	BufferID targetBufID = textTrollerParams->_targetBufID;
 
-	for (size_t i = 0, len = strlen(text2display); i < len; ++i)
+	for (size_t i = 0, len = lstrlen(text2display); i < len; ++i)
     {
-		char charToShow[2] = {text2display[i], '\0'};
         int ranNum = getRandomNumber(maxRange);
 		if (text2display[i] == ' ' || text2display[i] == '.')
 			Sleep(ranNum + pauseTimeArray[ranNum%nbPauseTime]);
@@ -6420,6 +6419,9 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 			ReleaseMutex(textTrollerParams->_mutex);
 			return TRUE;
 		}
+
+		char charToShow[64] = { '\0' };
+		::WideCharToMultiByte(CP_UTF8, 0, text2display + i, 1, charToShow, sizeof(charToShow), NULL, NULL);
 		::SendMessage(curScintilla, SCI_APPENDTEXT, 1, reinterpret_cast<LPARAM>(charToShow));
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
     }
@@ -6428,7 +6430,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	int delMethod = n%4;
 	if (delMethod == 0)
 	{
-		size_t len = strlen(text2display);
+		size_t len = lstrlen(text2display);
 		for (size_t j = 0; j < len; ++j)
 		{
 			if (!deleteBack(pCurrentView, targetBufID))
@@ -6437,7 +6439,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	}
 	else if (delMethod == 1)
 	{
-		size_t len = strlen(text2display);
+		size_t len = lstrlen(text2display);
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0) - len, 0);
 		for (size_t j = 0; j < len; ++j)
 		{
@@ -6447,7 +6449,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	}
 	else if (delMethod == 2)
 	{
-		for (size_t j = 0, len = strlen(text2display); j < len; ++j)
+		for (size_t j = 0, len = lstrlen(text2display); j < len; ++j)
 		{
 			if (!selectBack(pCurrentView, targetBufID))
 				break;
@@ -6459,7 +6461,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	else
 	{
 		auto currentPos = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONSTART, 0, 0);
-		::SendMessage(pCurrentView->getHSelf(), SCI_SETSELECTION, currentPos, currentPos - strlen(text2display));
+		::SendMessage(pCurrentView->getHSelf(), SCI_SETSELECTION, currentPos, currentPos - lstrlen(text2display));
 		BufferID currentBufID = pCurrentView->getCurrentBufferID();
 		if (currentBufID != targetBufID)
 			return TRUE;
@@ -6513,15 +6515,15 @@ bool Notepad_plus::selectBack(ScintillaEditView *pCurrentView, BufferID targetBu
 }
 
 
-int Notepad_plus::getQuoteIndexFrom(const char *quoter) const
+int Notepad_plus::getQuoteIndexFrom(const wchar_t* quoter) const
 {
 	if (!quoter)
 		return -1;
 
-	if (stricmp(quoter, "Get them all!!!") == 0)
+	if (wcsicmp(quoter, TEXT("Get them all!!!")) == 0)
 		return -2;
 
-	if (stricmp(quoter, "random") == 0)
+	if (wcsicmp(quoter, TEXT("random")) == 0)
 	{
 		srand(static_cast<UINT>(time(NULL)));
 		return getRandomNumber(nbQuote);
@@ -6529,7 +6531,7 @@ int Notepad_plus::getQuoteIndexFrom(const char *quoter) const
 
 	for (int i = 0; i < nbQuote; ++i)
 	{
-		if (stricmp(quotes[i]._quoter, quoter) == 0)
+		if (wcsicmp(quotes[i]._quoter, quoter) == 0)
 			return i;
 	}
 	return -1;
@@ -6548,7 +6550,7 @@ void Notepad_plus::showQuoteFromIndex(int index) const
 }
 
 
-void Notepad_plus::showQuote(const char *quote, const char *quoter, bool doTrolling) const
+void Notepad_plus::showQuote(const wchar_t *quote, const wchar_t* quoter, bool doTrolling) const
 {
 	static TextPlayerParams params;
 	params._nppHandle = Notepad_plus::_pPublicInterface->getHSelf();

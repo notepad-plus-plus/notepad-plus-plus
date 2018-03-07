@@ -39,22 +39,22 @@
 					<Item subMenuId="view-collapseLevel" name="ย่อชั้นนี้"/>
 					<Item subMenuId="view-uncollapseLevel" name="ยืดชั้นนี้"/>
 					<Item subMenuId="encoding-characterSets"  name="ชุดอักขระ"/>
-					<Item subMenuId="encoding-arabic"  name="Arabic"/>
-					<Item subMenuId="encoding-baltic"  name="Baltic"/>
-					<Item subMenuId="encoding-celtic"  name="Celtic"/>
-					<Item subMenuId="encoding-cyrillic"  name="Cyrillic"/>
-					<Item subMenuId="encoding-centralEuropean"  name="Central European"/>
-					<Item subMenuId="encoding-chinese"  name="Chinese"/>
-					<Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
-					<Item subMenuId="encoding-greek"  name="Greek"/>
+					<Item subMenuId="encoding-arabic"  name="อารบิก"/>
+					<Item subMenuId="encoding-baltic"  name="บอลติก"/>
+					<Item subMenuId="encoding-celtic"  name="เคลติก"/>
+					<Item subMenuId="encoding-cyrillic"  name="ซีริลลิก"/>
+					<Item subMenuId="encoding-centralEuropean"  name="ยุโรปกลาง"/>
+					<Item subMenuId="encoding-chinese"  name="จีน"/>
+					<Item subMenuId="encoding-easternEuropean"  name="ยุโรปตะวันออก"/>
+					<Item subMenuId="encoding-greek"  name="กรีก"/>
 					<Item subMenuId="encoding-hebrew"  name="Hebrew"/>
-					<Item subMenuId="encoding-japanese"  name="Japanese"/>
-					<Item subMenuId="encoding-korean" name="Korean"/>
-					<Item subMenuId="encoding-northEuropean" name="North European"/>
+					<Item subMenuId="encoding-japanese"  name="ญี่ปุ่น"/>
+					<Item subMenuId="encoding-korean" name="เกาหลี"/>
+					<Item subMenuId="encoding-northEuropean" name="ยุโรปเหนือ"/>
 					<Item subMenuId="encoding-thai" name="ไทย"/>
-					<Item subMenuId="encoding-turkish" name="Turkish"/>
-					<Item subMenuId="encoding-westernEuropean" name="Western European"/>
-					<Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
+					<Item subMenuId="encoding-turkish" name="ตุรกี"/>
+					<Item subMenuId="encoding-westernEuropean" name="ยุโรปตะวันตก"/>
+					<Item subMenuId="encoding-vietnamese" name="เวียดนาม"/>
 					<Item subMenuId="settings-import"  name="นำเข้า"/>
 				</SubEntries>
 
@@ -469,10 +469,10 @@
 				</Scintillas>
 				<NewDoc title="สร้างเอกสารใหม่ / ไดเรกทอรีปริยาย">
 					<Item id="6401" name="รูปแบบ"/>
-					<Item id="6402" name="Windows"/>
-					<Item id="6403" name="Unix"/>
-					<Item id="6404" name="Mac"/>
-					<Item id="6405" name="Encoding"/>
+					<Item id="6402" name="วินโดวส์"/>
+					<Item id="6403" name="ยูนิกซ์"/>
+					<Item id="6404" name="แมค"/>
+					<Item id="6405" name="การเข้ารหัส"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8 without BOM"/>
 					<Item id="6408" name="UTF-8"/>
@@ -483,7 +483,7 @@
 					<Item id="6414" name="ตามเอกสารปัจจุบัน"/>
 					<Item id="6415" name="จดจำไดเรกทอรีที่ใช้ครั้งสุดท้าย"/>
 					<Item id="6419" name="เอกสารใหม่"/>
-					<Item id="6420" name="Apply to opened ANSI files"/>
+					<Item id="6420" name="นำไปใช้กับไฟล์ ANSI ที่เปิดไว้"/>
 				</NewDoc>
 				<FileAssoc title="การทำงานร่วมกับไฟล์">
 					<Item id="4009" name="นามสกุลที่รองรับ:"/>

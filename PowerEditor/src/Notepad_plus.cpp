@@ -1,4 +1,4 @@
-// This file is part of Notepad++ project
+﻿// This file is part of Notepad++ project
 // Copyright (C)2003 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
@@ -6002,11 +6002,9 @@ void Notepad_plus::launchFunctionList()
 
 struct TextPlayerParams
 {
-	HWND _nppHandle;
-	ScintillaEditView* _pCurrentView;
-	const wchar_t* _text2display;
-	const wchar_t* _quoter;
-	bool _shouldBeTrolling;
+	HWND _nppHandle = nullptr;
+	ScintillaEditView* _pCurrentView = nullptr;
+	QuoteParams* _quotParams = nullptr;
 };
 
 struct TextTrollerParams
@@ -6017,222 +6015,216 @@ struct TextTrollerParams
 	HANDLE _mutex;
 };
 
-struct Quote
-{
-	const wchar_t* _quoter;
-	const wchar_t* _quote;
-};
 
-const int nbQuote = 203;
-Quote quotes[nbQuote] =
+static const QuoteParams quotes[] =
 {
-	{TEXT("Notepad++"), TEXT("I hate reading other people's code.\nSo I wrote mine, made it as open source project, and see others suffer.")},
-	{TEXT("Notepad++ #2"), TEXT("Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned.")},
-	{TEXT("Notepad++ #3"), TEXT("The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n")},
-	{TEXT("Richard Stallman"), TEXT("If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent.")},
-	{TEXT("Martin Golding"), TEXT("Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.")},
-	{TEXT("L. Peter Deutsch"), TEXT("To iterate is human, to recurse divine.")},
-	{TEXT("Seymour Cray"), TEXT("The trouble with programmers is that you can never tell what a programmer is doing until it's too late.")},
-	{TEXT("Brian Kernighan"), TEXT("Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.")},
-	{TEXT("Alan Kay"), TEXT("Most software today is very much like an Egyptian pyramid with millions of bricks piled on top of each other, with no structural integrity, but just done by brute force and thousands of slaves.")},
-	{TEXT("Bill Gates"), TEXT("Measuring programming progress by lines of code is like measuring aircraft building progress by weight.")},
-	{TEXT("Christopher Thompson"), TEXT("Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday's code.")},
-	{TEXT("Vidiu Platon"), TEXT("I don't care if it works on your machine! We are not shipping your machine!")},
-	{TEXT("Edward V Berard"), TEXT("Walking on water and developing software from a specification are easy if both are frozen.")},
-	{TEXT("pixadel"), TEXT("Fine, Java MIGHT be a good example of what a programming language should be like. But Java applications are good examples of what applications SHOULDN'T be like.")},
-	{TEXT("Oktal"), TEXT("I think Microsoft named .Net so it wouldn't show up in a Unix directory listing.")},
-	{TEXT("Bjarne Stroustrup"), TEXT("In C++ it's harder to shoot yourself in the foot, but when you do, you blow off your whole leg.")},
-	{TEXT("Mosher's Law of Software Engineering"), TEXT("Don't worry if it doesn't work right. If everything did, you'd be out of a job.")},
-	{TEXT("Bob Gray"), TEXT("Writing in C or C++ is like running a chain saw with all the safety guards removed.")},
-	{TEXT("Roberto Waltman"), TEXT("In the one and only true way. The object-oriented version of \"Spaghetti code\" is, of course, \"Lasagna code\". (Too many layers)")},
-	{TEXT("Gavin Russell Baker"), TEXT("C++ : Where friends have access to your private members.")},
-	{TEXT("Linus Torvalds"), TEXT("Software is like sex: It's better when it's free.")},
-	{TEXT("Cult of vi"), TEXT("Emacs is a great operating system, lacking only a decent editor.")},
-	{TEXT("Church of Emacs"), TEXT("vi has two modes - \"beep repeatedly\" and \"break everything\".")},
-	{TEXT("Steve Jobs"), TEXT("Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas.")},
-	{TEXT("brotips #1001"), TEXT("Do everything for greatness, not money. Money follows greatness.")},
-	{TEXT("Robin Williams"), TEXT("God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time.")},
-	{TEXT("Darth Vader"), TEXT("Strong people don't put others down.\nThey lift them up.")},
-	{TEXT("Darth Vader #2"), TEXT("You don't get to 500 million star systems without making a few enemies.")},
-	{TEXT("Doug Linder"), TEXT("A good programmer is someone who always looks both ways before crossing a one-way street.")},
-	{TEXT("Jean-Claude van Damme"), TEXT("A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life.")},
-	{TEXT("Michael Feldman"), TEXT("Java is, in many ways, C++--.")},
-	{TEXT("Don Ho"), TEXT("Je mange donc je chie.")},
-	{TEXT("Don Ho #2"), TEXT("RTFM is the true path of every developer.\nBut it would happen only if there's no way out.")},
-	{TEXT("Don Ho #3"), TEXT("Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street.")},
-	{TEXT("Don Ho #4"), TEXT("Poor countries' museums vs. rich countries' museums:\nThe first show what they have left.\nThe second show what they have stolen.")},
-	{TEXT("Anonymous #1"), TEXT("An opinion without 3.14 is just an onion.")},
-	{TEXT("Anonymous #2"), TEXT("Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked.")},
-	{TEXT("Anonymous #3"), TEXT("I'm not totally useless. I can be used as a bad example.")},
-	{TEXT("Anonymous #4"), TEXT("Life is too short to remove USB safely.")},
-	{TEXT("Anonymous #5"), TEXT("\"SEX\" is not the answer.\nSex is the question, \"YES\" is the answer.")},
-	{TEXT("Anonymous #6"), TEXT("Going to Mc Donald's for a salad is like going to a whore for a hug.")},
-	{TEXT("Anonymous #7"), TEXT("I need a six month holiday, TWICE A YEAR!")},
-	{TEXT("Anonymous #8"), TEXT("Everything is a knife if you're strong enough.")},
-	{TEXT("Anonymous #9"), TEXT("I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala.")},
-	{TEXT("Anonymous #10"), TEXT("Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!")},
-	{TEXT("Anonymous #11"), TEXT("We stopped checking for monsters under our bed, when we realized they were inside us.")},
-	{TEXT("Anonymous #12"), TEXT("I would rather check my facebook than face my checkbook.")},
-	{TEXT("Anonymous #13"), TEXT("Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper.")},
-	{TEXT("Anonymous #14"), TEXT("A better world is where chickens can cross the road without having their motives questioned.")},
-	{TEXT("Anonymous #15"), TEXT("If I didn't drink, how would my friends know I love them at 2 AM?")},
-	{TEXT("Anonymous #16"), TEXT("Q: How do you generate a random string?\nA: Put a Windows user in front of vi, and tell him to exit.")},
-	{TEXT("Anonymous #17"), TEXT("Pros and cons of making food.\nPros: food\nCons : making\n")},
-	{TEXT("Anonymous #18"), TEXT("Never get into fights with ugly people, they have nothing to lose.")},
-	{TEXT("Anonymous #19"), TEXT("People who say they give 110%\ndon't really understand how percentages work.")},
-	{TEXT("Anonymous #20"), TEXT("Never make eye contact while eating a banana.")},
-	{TEXT("Anonymous #21"), TEXT("I love my sixpack so much, I protect it with a layer of fat.")},
-	{TEXT("Anonymous #22"), TEXT("\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later.")},
-	//{"Anonymous #23"), TEXT("")},
-	{TEXT("Anonymous #24"), TEXT("An Architect's dream is an Engineer's nightmare.")},
-	{TEXT("Anonymous #25"), TEXT("In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history.")},
-	{TEXT("Anonymous #26"), TEXT("I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one.")},
-	{TEXT("Anonymous #27"), TEXT("I don't have a problem with caffeine.\nI have a problem without caffeine.")},
-	{TEXT("Anonymous #28"), TEXT("Why 6 afraid of 7?\nBecause 7 8 9 while 6 and 9 were flirting.")},
-	{TEXT("Anonymous #30"), TEXT("Why do Java developers wear glasses?\nBecause they don't C#.")},
-	{TEXT("Anonymous #31"), TEXT("A baby's laughter is one of the most beautiful sounds you will ever hear. Unless it's 3 AM. And you're home alone. And you don't have a baby.")},
-	{TEXT("Anonymous #32"), TEXT("Two bytes meet. The first byte asks, \"You look terrible. Are you OK?\"\nThe second byte replies, \"No, just feeling a bit off.\"")},
-	{TEXT("Anonymous #33"), TEXT("Programmer - an organism that turns coffee into software.")},
-	{TEXT("Anonymous #34"), TEXT("It's not a bug - it's an undocumented feature.")},
-	{TEXT("Anonymous #35"), TEXT("Should array index start at 0 or 1?\nMy compromised solution is 0.5")},
-	{TEXT("Anonymous #36"), TEXT("Every single time when I'm about to hug someone extremely sexy, I hit the mirror.")},
-	{TEXT("Anonymous #37"), TEXT("My software never has bugs. It just develops random features.")},
-	{TEXT("Anonymous #38"), TEXT("LISP = Lots of Irritating Silly Parentheses.")},
-	{TEXT("Anonymous #39"), TEXT("Perl, the only language that looks the same before and after RSA encryption.")},
-	{TEXT("Anonymous #40"), TEXT("People ask me why, as an atheist, I still say: OH MY GOD.\nIt makes perfect sense: We say \"Oh my God\" when something is UNBELIEVABLE.")},
-	{TEXT("Anonymous #41"), TEXT("1. Dig a hole.\n2. Name it love.\n3. Watch people falling in love.\n")},
-	{TEXT("Anonymous #42"), TEXT("Don't think of yourself as an ugly person.\nThink of yourself as a beautiful monkey.")},
-	{TEXT("Anonymous #43"), TEXT("Afraid to die alone?\nBecome a bus driver.")},
-	{TEXT("Anonymous #44"), TEXT("The first 5 days after the weekend are always the hardest.")},
-	{TEXT("Anonymous #45"), TEXT("Rhinos are just fat unicorns.")},
-	{TEXT("Anonymous #46"), TEXT("Sometimes when I'm writing Javascript I want to throw up my hands and say \"this is bullshit!\"\nbut I can never remember what \"this\" refers to.")},
-	{TEXT("Anonymous #47"), TEXT("Kids are like farts.\nYou can only stand yours.")},
-	{TEXT("Anonymous #48"), TEXT("If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography.")},
-	{TEXT("Anonymous #49"), TEXT("There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars.")},
-	{TEXT("Anonymous #50"), TEXT("London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in Britain and try to get a bunch of gold... it's like history but opposite.")},
-	{TEXT("Anonymous #51"), TEXT("I don't need a stable relationship,\nI just need a stable Internet connection.")},
-	{TEXT("Anonymous #52"), TEXT("What's the difference between religion and bullshit?\nThe bull.")},
-	{TEXT("Anonymous #53"), TEXT("Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML")},
-	{TEXT("Anonymous #54"), TEXT("Today, I finally got my hands on the new iPhone 5, after I pulled it out of a patient's rectum. FML")},
-	{TEXT("Anonymous #55"), TEXT("Violent video games won't change our behaviour.\nIf people were influenced by video games, then the majority of Facebook users would be farmers right now.")},
-	{TEXT("Anonymous #56"), TEXT("Religion is like circumcision.\nIf you wait until someone is 21 to tell them about it they probably won't be interested.")},
-	{TEXT("Anonymous #57"), TEXT("No, no, no, I'm not insulting you.\nI'm describing you.")},
-	{TEXT("Anonymous #58"), TEXT("I bought a dog once. Named him \"Stay\".\n\"Come here, Stay.\"\nHe's insane now.")},
-	{TEXT("Anonymous #60"), TEXT("Yesterday I named my Wifi network \"hack me if you can\"\nToday when I woke up it was changed to \"challenge accepted\".")},
-	{TEXT("Anonymous #61"), TEXT("Your mother is so fat,\nthe recursive function computing her mass causes a stack overflow.")},
-	{TEXT("Anonymous #62"), TEXT("Oral sex makes my day, but anal sex makes my hole weak.")},
-	{TEXT("Anonymous #63"), TEXT("I'm not saying I am Batman, I am just saying no one has ever seen me and Batman in the same room together.")},
-	{TEXT("Anonymous #64"), TEXT("I took a taxi today.\nThe driver told me \"I love my job, I own this car, I've got my own business, I'm my own boss, NO ONE tells me what to do!\"\nI said \"TURN LEFT HERE\".\n")},
-	{TEXT("Anonymous #65"), TEXT("A man without God is like a fish without a bicycle.")},
-	{TEXT("Anonymous #66"), TEXT("I hate how spiders just sit there on the walls and act like they pay rent!")},
-	{TEXT("Anonymous #67"), TEXT("Whenever someone starts a sentence by saying \"I'm not racist...\"),they are about to say something super racist.")},
-	{TEXT("Anonymous #68"), TEXT("I'm not laughing at you, I'm laughing with you, you're just not laughing.")},
-	{TEXT("Anonymous #69"), TEXT("Women need a reason to have sex. Men just need a place.")},
-	{TEXT("Anonymous #70"), TEXT("If abortion is murder then are condoms kidnapping?")},
-	{TEXT("Anonymous #71"), TEXT("Men also have feelings.\nFor example, they can feel hungry.")},
-	{TEXT("Anonymous #72"), TEXT("Project Manager:\nA person who thinks 9 women can deliver a baby in 1 month.")},
-	{TEXT("Anonymous #73"), TEXT("If you try and don't succeed, cheat. Repeat until caught. Then lie.")},
-	{TEXT("Anonymous #74"), TEXT("Olympics is the stupidest thing.\nPeople are so proud to be competing for their country.\nThey play their stupid song and raise some dumb flags.\nI'd love to see no flags raised, no song, no mention of country.\nOnly people.")},
-	{TEXT("Anonymous #75"), TEXT("I think therefore I am\nnot religious.")},
-	{TEXT("Anonymous #76"), TEXT("Even if being gay were a choice, so what?\nPeople choose to be assholes and they can get married.")},
-	{TEXT("Anonymous #77"), TEXT("Governments are like diapers.\nThey should be changed often, and for the same reason.")},
-	{TEXT("Anonymous #78"), TEXT("If you expect the world to be fair with you because you are fair, you're fooling yourself.\nThat's like expecting the lion not to eat you because you didn't eat him.")},
-	{TEXT("Anonymous #79"), TEXT("I'm a creationist.\nI believe man create God.")},
-	{TEXT("Anonymous #80"), TEXT("Let's eat kids.\nLet's eat, kids.\n\nUse a comma.\nSave lives.")},
-	{TEXT("Anonymous #81"), TEXT("A male engineering student was crossing a road one day when a frog called out to him and said, \"If you kiss me, I'll turn into a beautiful princess.\" He bent over, picked up the frog, and put it in his pocket.\n\nThe frog spoke up again and said, \"If you kiss me and turn me back into a beautiful princess, I will stay with you for one week.\" The engineering student took the frog out of his pocket, smiled at it; and returned it to his pocket.\n\nThe frog then cried out, \"If you kiss me and turn me back into a princess, I'll stay with you and do ANYTHING you want.\" Again the boy took the frog out, smiled at it, and put it back into his pocket.\n\nFinally, the frog asked, \"What is the matter? I've told you I'm a beautiful princess, that I'll stay with you for a week and do anything you want. Why won't you kiss me?\" The boy said, \"Look I'm an engineer. I don't have time for a girlfriend, but a talking frog is cool.\"\n")},
-	{TEXT("Anonymous #82"), TEXT("Programmers never die.\nThey just go offline.")},
-	{TEXT("Anonymous #83"), TEXT("Copy from one, it's plagiarism.\nCopy from two, it's research.")},
-	{TEXT("Anonymous #84"), TEXT("Saying that Java is nice because it works on all OSes is like saying that anal sex is nice because it works on all genders.")},
-	{TEXT("Anonymous #85"), TEXT("Race, religion, ethnic pride and nationalism etc... does nothing but teach you how to hate people that you've never met.")},
-	{TEXT("Anonymous #86"), TEXT("Farts are just the ghosts of the things we eat.")},
-	{TEXT("Anonymous #87"), TEXT("I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word.")},
-	{TEXT("Anonymous #88"), TEXT("A foo walks into a bar,\ntakes a look around and\nsays \"Hello World!\".")},
-	{TEXT("Anonymous #90"), TEXT("Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments.")},
-	{TEXT("Anonymous #91"), TEXT("CV: ctrl-C, ctrl-V")},
-	{TEXT("Anonymous #92"), TEXT("Mondays are not so bad.\nIt's your job that sucks.")},
-	{TEXT("Anonymous #93"), TEXT("[In a job interview]\nInterviewer: What's your greatest weakness?\nCandidate: Honesty.\nInterviewer: I don't think honesty is a weakness.\nCandidate: I don't give a fuck what you think.")},
-	{TEXT("Anonymous #94"), TEXT("Hey, I just met you\nAnd this is crazy\nHere's my number 127.0.0.1\nPing me maybe?")},
-	//{"Anonymous #95"), TEXT("")},
-	{TEXT("Anonymous #96"), TEXT("Code for 6 minutes, debug for 6 hours.")},
-	{TEXT("Anonymous #97"), TEXT("Real Programmers don't comment their code.\nIf it was hard to write, it should be hard to read.")},
-	{TEXT("Anonymous #98"), TEXT("My neighbours listen to good music.\nWhether they like it or not.")},
-	{TEXT("Anonymous #99"), TEXT("I've been using Vim for about 2 years now,\nmostly because I can't figure out how to exit it.")},
-	{TEXT("Anonymous #100"), TEXT("Dear YouTube,\nI can deal with Ads.\nI can deal with Buffer.\nBut when Ads buffer, I suffer.")},
-	{TEXT("Anonymous #101"), TEXT("It's always sad when a man and his dick share only one brain...\nand it turns out to be the dick's.")},
-	{TEXT("Anonymous #102"), TEXT("If IE is brave enough to ask you to set it as your default browser,\ndon't tell me you dare not ask a girl out.")},
-	{TEXT("Anonymous #104"), TEXT("The main idea of \"Inception\":\nif you run a VM inside a VM inside a VM inside a VM inside a VM,\neverything will be very slow.")},
-	{TEXT("Anonymous #105"), TEXT("Q: What's the object-oriented way to become wealthy?\nA: Inheritance.")},
-	{TEXT("Anonymous #106"), TEXT("When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car.")},
-	{TEXT("Anonymous #107"), TEXT("Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is.")},
-	{TEXT("Anonymous #108"), TEXT("I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard")},
-	{TEXT("Anonymous #109"), TEXT("What's the best thing about UDP jokes?\nI don't care if you get them.")},
-	{TEXT("Anonymous #110"), TEXT("A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems")},
-	{TEXT("Anonymous #111"), TEXT("I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul.")},
-	{TEXT("Anonymous #112"), TEXT("#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}")},
-	{TEXT("Anonymous #113"), TEXT("Open source is communism.\nAt least it is what communism was meant to be.")},
-	{TEXT("Anonymous #114"), TEXT("How can you face your problem if your problem is your face?")},
-	{TEXT("Anonymous #115"), TEXT("YOLOLO:\nYou Only LOL Once.")},
-	{TEXT("Anonymous #116"), TEXT("Every exit is an entrance to new experiences.")},
-	{TEXT("Anonymous #117"), TEXT("A Native American was asked:\n\"Do you celebrate Columbus day?\"\nHe replied:\n\"I don't know, do Jews celebrate Hitler's birthday?\"")},
-	{TEXT("Anonymous #118"), TEXT("I love necrophilia, but i can't stand the awkward silences.")},
-	{TEXT("Anonymous #119"), TEXT("\"I'm gonna Google that. BING that, Bing that, sorry.\"\n- The CEO of Bing (many times per day still)")},
-	{TEXT("Anonymous #120"), TEXT("Life is what happens to you while you're looking at your smartphone.")},
-	//{"Anonymous #121"), TEXT("")},
-	{TEXT("Anonymous #122"), TEXT("Nerd?\nI prefer the term \"Intellectual badass\".")},
-	//{"Anonymous #123"), TEXT("")},
-	{TEXT("Anonymous #124"), TEXT("You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion.")},
-	{TEXT("Anonymous #125"), TEXT("Pooping with the door opened is the meaning of true freedom.")},
-	{TEXT("Anonymous #126"), TEXT("Social media does not make people stupid.\nIt just makes stupid people more visible.")},
-	{TEXT("Anonymous #127"), TEXT("Don't give up your dreams.\nKeep sleeping.")},
-	{TEXT("Anonymous #128"), TEXT("I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life.")},
-	{TEXT("Anonymous #129"), TEXT("What is the most used language in programming?\n\nProfanity\n")},
-	{TEXT("Anonymous #130"), TEXT("Common sense is so rare, it's kinda like a superpower...")},
-	{TEXT("Anonymous #131"), TEXT("The best thing about a boolean is even if you are wrong, you are only off by a bit.")},
-	{TEXT("Anonymous #132"), TEXT("Benchmarks don't lie, but liars do benchmarks.")},
-	{TEXT("Anonymous #133"), TEXT("Multitasking: Screwing up several things at once.")},
-	{TEXT("Anonymous #134"), TEXT("Linux is user friendly.\nIt's just picky about its friends.")},
-	{TEXT("Anonymous #135"), TEXT("Theory is when you know something, but it doesn't work.\nPractice is when something works, but you don't know why.\nProgrammers combine theory and practice: nothing works and they don't know why.")},
-	{TEXT("Anonymous #136"), TEXT("Documentation is like sex:\nwhen it's good, it's very, very good;\nwhen it's bad, it's better than nothing.")},
-	{TEXT("Anonymous #137"), TEXT("Home is where you poop most comfortably.")},
-	{TEXT("Anonymous #138"), TEXT("Laptop Speakers problem: too quiet for music, too loud for porn.")},
-	{TEXT("Anonymous #139"), TEXT("Chinese food to go: $16\nGas to go get the food: $2\nDrove home just to realize they forgot one of your containers: RICELESS")},
-	{TEXT("Anonymous #140"), TEXT("MS Windows is like religion to most people: they are born into it, accept it as default, never consider switching to another.")},
-	{TEXT("Anonymous #141"), TEXT("To most religious people, the holy books are like a software license (EULA).\nNobody actually reads it. They just scroll to the bottom and click \"I agree\".")},
-	{TEXT("Anonymous #142"), TEXT("You are nothing but a number of days,\nwhenever each day passes then part of you has gone.")},
-	{TEXT("Anonymous #143"), TEXT("If 666 is evil, does that make 25.8069758011 the root of all evil?")},
-	{TEXT("Anonymous #144"), TEXT("I don't want to sound like a badass but...\nI eject my USB drive without removing it safely.")},
-	{TEXT("Anonymous #145"), TEXT("feet  (noun)\na device used for finding legos in the dark")},
-	{TEXT("Anonymous #146"), TEXT("Buy a sheep\nName it \"Relation\"\nNow you have a Relationsheep\n")},
-	{TEXT("Anonymous #147"), TEXT("I dig, you dig, we dig,\nhe dig, she dig, they dig...\n\nIt's not a beautiful poem,\nbut it's very deep.")},
-	{TEXT("Anonymous #148"), TEXT("UNIX command line Russian roulette:\n[ $[ $RANDOM % 6 ] == 0 ] && rm -rf /* || echo *Click*")},
-	{TEXT("Anonymous #149"), TEXT("unzip, strip, top, less, touch, finger, grep, mount, fsck, more, yes, fsck, fsck, fsck, umount, sleep.\n\nNo, it's not porn. It's Unix.")},
-	{TEXT("Anonymous #150"), TEXT("To understand what recursion is, you must first understand recursion.")},
-	{TEXT("Anonymous #151"), TEXT("Q: What's the object-oriented way to become wealthy?\nA: Inheritance.")},
-	{TEXT("Anonymous #152"), TEXT("A SQL query goes into a bar, walks up to two tables and asks, \"Can I join you?\"")},
-	{TEXT("Anonymous #153"), TEXT("You are not fat, you are just more visible.")},
-	{TEXT("Anonymous #154"), TEXT("Minimalist\n (.   .)\n  )   (\n (  Y  )\nASCII Art")},
-	{TEXT("Internet #1"), TEXT("If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing.")},
-	{TEXT("Mary Oliver"), TEXT("Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift.")},
-	{TEXT("Floor"), TEXT("If you fall, I will be there.")},
-	{TEXT("Simon Amstell"), TEXT("If you have some problem in your life and need to deal with it, then use religion, that's fine.\nI use Google.")},
-	{TEXT("Albert Einstein"), TEXT("Only 3 things are infinite:\n1. Universe.\n2. Human Stupidity.\n3. Winrar's free trial.")},
-	{TEXT("Terry Pratchett"), TEXT("Artificial Intelligence is no match for natural stupidity.")},
-	{TEXT("Stewart Brand"), TEXT("Once a new technology starts rolling, if you're not part of the steamroller,\nyou're part of the road.")},
-	{TEXT("Sam Redwine"), TEXT("Software and cathedrals are much the same - first we build them, then we pray.")},
-	{TEXT("Jan L. A. van de Snepscheut"), TEXT("In theory, there is no difference between theory and practice. But, in practice, there is.")},
-	{TEXT("Jessica Gaston"), TEXT("One man's crappy software is another man's full time job.")},
-	{TEXT("Barack Obama"), TEXT("Yes, we scan!")},
-	{TEXT("xkcd.com"), TEXT("int getRandomNumber()\n{\n    return 4; //chosen by fair dice roll, guaranteed to be random.\n}\n")},
-	{TEXT("Gandhi"), TEXT("Earth provides enough to satisfy every man's need, but not every man's greed.")},
-	{TEXT("R. D. Laing"), TEXT("Life is a sexually transmitted disease and the mortality rate is one hundred percent.")},
-	{TEXT("Hustle Man"), TEXT("Politicians are like sperm.\nOne in a million turn out to be an actual human being.")},
-	{TEXT("Mark Twain"), TEXT("Censorship is telling a man he can't have a steak just because a baby can't chew it.")},
-	{TEXT("Friedrich Nietzsche"), TEXT("There is not enough love and goodness in the world to permit giving any of it away to imaginary beings.")},
-	{TEXT("Dhalsim"), TEXT("Pain is a state of mind and I don't mind your pain.")},
-	{TEXT("Elie Wiesel"), TEXT("Human beings can be beautiful or more beautiful,\nthey can be fat or skinny, they can be right or wrong,\nbut illegal? How can a human being be illegal?")},
-	{TEXT("Dennis Ritchie"), TEXT("Empty your memory, with a free(), like a pointer.\nIf you cast a pointer to a integer, it becomes the integer.\nIf you cast a pointer to a struct, it becomes the struct.\nThe pointer can crash, and can overflow.\nBe a pointer my friend.")},
-	{TEXT("Chewbacca"), TEXT("Uuuuuuuuuur Ahhhhrrrrrr\nUhrrrr Ahhhhrrrrrr\nAaaarhg...")},
-	{TEXT("#JeSuisCharlie"), TEXT("Freedom of expression is like the air we breathe, we don't feel it, until people take it away from us.\n\nFor this reason, Je suis Charlie, not because I endorse everything they published, but because I cherish the right to speak out freely without risk even when it offends others.\nAnd no, you cannot just take someone's life for whatever he/she expressed.\n\nHence this \"Je suis Charlie\" edition.\n")}
+	{TEXT("Notepad++"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I hate reading other people's code.\nSo I wrote mine, made it as open source project, and watch others suffer.")},
+	{TEXT("Notepad++ #2"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned.")},
+	{TEXT("Notepad++ #3"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("The best things in life are free.\nNotepad++ is free.\nSo Notepad++ is the best.\n")},
+	{TEXT("Richard Stallman"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If I'm the Father of Open Source, it was conceived through artificial insemination using stolen sperm without my knowledge or consent.")},
+	{TEXT("Martin Golding"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.")},
+	{TEXT("L. Peter Deutsch"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("To iterate is human, to recurse divine.")},
+	{TEXT("Seymour Cray"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("The trouble with programmers is that you can never tell what a programmer is doing until it's too late.")},
+	{TEXT("Brian Kernighan"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.")},
+	{TEXT("Alan Kay"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Most software today is very much like an Egyptian pyramid with millions of bricks piled on top of each other, with no structural integrity, but just done by brute force and thousands of slaves.")},
+	{TEXT("Bill Gates"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Measuring programming progress by lines of code is like measuring aircraft building progress by weight.")},
+	{TEXT("Christopher Thompson"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday's code.")},
+	{TEXT("Vidiu Platon"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I don't care if it works on your machine! We are not shipping your machine!")},
+	{TEXT("Edward V Berard"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Walking on water and developing software from a specification are easy if both are frozen.")},
+	{TEXT("pixadel"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Fine, Java MIGHT be a good example of what a programming language should be like. But Java applications are good examples of what applications SHOULDN'T be like.")},
+	{TEXT("Oktal"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I think Microsoft named .Net so it wouldn't show up in a Unix directory listing.")},
+	{TEXT("Bjarne Stroustrup"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("In C++ it's harder to shoot yourself in the foot, but when you do, you blow off your whole leg.")},
+	{TEXT("Mosher's Law of Software Engineering"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Don't worry if it doesn't work right. If everything did, you'd be out of a job.")},
+	{TEXT("Bob Gray"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Writing in C or C++ is like running a chain saw with all the safety guards removed.")},
+	{TEXT("Roberto Waltman"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("In the one and only true way. The object-oriented version of \"Spaghetti code\" is, of course, \"Lasagna code\". (Too many layers)")},
+	{TEXT("Gavin Russell Baker"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("C++ : Where friends have access to your private members.")},
+	{TEXT("Linus Torvalds"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Software is like sex: It's better when it's free.")},
+	{TEXT("Cult of vi"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Emacs is a great operating system, lacking only a decent editor.")},
+	{TEXT("Church of Emacs"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("vi has two modes - \"beep repeatedly\" and \"break everything\".")},
+	{TEXT("Steve Jobs"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas.")},
+	{TEXT("brotips #1001"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Do everything for greatness, not money. Money follows greatness.")},
+	{TEXT("Robin Williams"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time.")},
+	{TEXT("Darth Vader"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Strong people don't put others down.\nThey lift them up.")},
+	{TEXT("Darth Vader #2"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("You don't get to 500 million star systems without making a few enemies.")},
+	{TEXT("Doug Linder"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A good programmer is someone who always looks both ways before crossing a one-way street.")},
+	{TEXT("Jean-Claude van Damme"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life.")},
+	{TEXT("Michael Feldman"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Java is, in many ways, C++--.")},
+	{TEXT("Don Ho"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("Je mange donc je chie.")},
+	{TEXT("Don Ho #2"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("RTFM is the true path of every developer.\nBut it would happen only if there's no way out.")},
+	{TEXT("Don Ho #3"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street.")},
+	{TEXT("Don Ho #4"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Poor countries' museums vs. rich countries' museums:\nThe first show what they have left.\nThe second show what they have stolen.")},
+	{TEXT("Anonymous #1"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("An opinion without 3.14 is just an onion.")},
+	{TEXT("Anonymous #2"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked.")},
+	{TEXT("Anonymous #3"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I'm not totally useless. I can be used as a bad example.")},
+	{TEXT("Anonymous #4"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Life is too short to remove USB safely.")},
+	{TEXT("Anonymous #5"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("\"SEX\" is not the answer.\nSex is the question, \"YES\" is the answer.")},
+	{TEXT("Anonymous #6"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Going to Mc Donald's for a salad is like going to a whore for a hug.")},
+	{TEXT("Anonymous #7"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("I need a six month holiday, TWICE A YEAR!")},
+	{TEXT("Anonymous #8"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Everything is a knife if you're strong enough.")},
+	{TEXT("Anonymous #9"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I'M A FUCKING ANIMAL IN BED.\nMore specifically a koala.")},
+	{TEXT("Anonymous #10"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!")},
+	{TEXT("Anonymous #11"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("We stopped checking for monsters under our bed, when we realized they were inside us.")},
+	{TEXT("Anonymous #12"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I would rather check my facebook than face my checkbook.")},
+	{TEXT("Anonymous #13"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper.")},
+	{TEXT("Anonymous #14"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A better world is where chickens can cross the road without having their motives questioned.")},
+	{TEXT("Anonymous #15"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If I didn't drink, how would my friends know I love them at 2 AM?")},
+	{TEXT("Anonymous #16"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Q: How do you generate a random string?\nA: Put a Windows user in front of vi, and tell him to exit.")},
+	{TEXT("Anonymous #17"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Pros and cons of making food.\nPros: food\nCons : making\n")},
+	{TEXT("Anonymous #18"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Never get into fights with ugly people, they have nothing to lose.")},
+	{TEXT("Anonymous #19"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("People who say they give 110%\ndon't really understand how percentages work.")},
+	{TEXT("Anonymous #20"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Never make eye contact while eating a banana.")},
+	{TEXT("Anonymous #21"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I love my sixpack so much, I protect it with a layer of fat.")},
+	{TEXT("Anonymous #22"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later.")},
+	//{"Anonymous #23"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("")},
+	{TEXT("Anonymous #24"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("An Architect's dream is an Engineer's nightmare.")},
+	{TEXT("Anonymous #25"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history.")},
+	{TEXT("Anonymous #26"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one.")},
+	{TEXT("Anonymous #27"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I don't have a problem with caffeine.\nI have a problem without caffeine.")},
+	{TEXT("Anonymous #28"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Why 6 afraid of 7?\nBecause 7 8 9 while 6 and 9 were flirting.")},
+	{TEXT("Anonymous #30"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Why do Java developers wear glasses?\nBecause they don't C#.")},
+	{TEXT("Anonymous #31"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A baby's laughter is one of the most beautiful sounds you will ever hear. Unless it's 3 AM. And you're home alone. And you don't have a baby.")},
+	{TEXT("Anonymous #32"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Two bytes meet. The first byte asks, \"You look terrible. Are you OK?\"\nThe second byte replies, \"No, just feeling a bit off.\"")},
+	{TEXT("Anonymous #33"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Programmer - an organism that turns coffee into software.")},
+	{TEXT("Anonymous #34"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("It's not a bug - it's an undocumented feature.")},
+	{TEXT("Anonymous #35"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Should array index start at 0 or 1?\nMy compromised solution is 0.5")},
+	{TEXT("Anonymous #36"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Every single time when I'm about to hug someone extremely sexy, I hit the mirror.")},
+	{TEXT("Anonymous #37"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("My software never has bugs. It just develops random features.")},
+	{TEXT("Anonymous #38"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("LISP = Lots of Irritating Silly Parentheses.")},
+	{TEXT("Anonymous #39"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Perl, the only language that looks the same before and after RSA encryption.")},
+	{TEXT("Anonymous #40"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("People ask me why, as an atheist, I still say: OH MY GOD.\nIt makes perfect sense: We say \"Oh my God\" when something is UNBELIEVABLE.")},
+	{TEXT("Anonymous #41"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("1. Dig a hole.\n2. Name it love.\n3. Watch people falling in love.\n")},
+	{TEXT("Anonymous #42"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Don't think of yourself as an ugly person.\nThink of yourself as a beautiful monkey.")},
+	{TEXT("Anonymous #43"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Afraid to die alone?\nBecome a bus driver.")},
+	{TEXT("Anonymous #44"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("The first 5 days after the weekend are always the hardest.")},
+	{TEXT("Anonymous #45"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Rhinos are just fat unicorns.")},
+	{TEXT("Anonymous #46"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Sometimes when I'm writing Javascript I want to throw up my hands and say \"this is bullshit!\"\nbut I can never remember what \"this\" refers to.")},
+	{TEXT("Anonymous #47"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Kids are like farts.\nYou can only stand yours.")},
+	{TEXT("Anonymous #48"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography.")},
+	{TEXT("Anonymous #49"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars.")},
+	{TEXT("Anonymous #50"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in Britain and try to get a bunch of gold... it's like history but opposite.")},
+	{TEXT("Anonymous #51"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I don't need a stable relationship,\nI just need a stable Internet connection.")},
+	{TEXT("Anonymous #52"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("What's the difference between religion and bullshit?\nThe bull.")},
+	{TEXT("Anonymous #53"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML")},
+	{TEXT("Anonymous #54"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Today, I finally got my hands on the new iPhone 5, after I pulled it out of a patient's rectum. FML")},
+	{TEXT("Anonymous #55"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Violent video games won't change our behaviour.\nIf people were influenced by video games, then the majority of Facebook users would be farmers right now.")},
+	{TEXT("Anonymous #56"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Religion is like circumcision.\nIf you wait until someone is 21 to tell them about it they probably won't be interested.")},
+	{TEXT("Anonymous #57"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("No, no, no, I'm not insulting you.\nI'm describing you.")},
+	{TEXT("Anonymous #58"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I bought a dog once. Named him \"Stay\".\n\"Come here, Stay.\"\nHe's insane now.")},
+	{TEXT("Anonymous #60"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Yesterday I named my Wifi network \"hack me if you can\"\nToday when I woke up it was changed to \"challenge accepted\".")},
+	{TEXT("Anonymous #61"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Your mother is so fat,\nthe recursive function computing her mass causes a stack overflow.")},
+	{TEXT("Anonymous #62"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Oral sex makes my day, but anal sex makes my hole weak.")},
+	{TEXT("Anonymous #63"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I'm not saying I am Batman, I am just saying no one has ever seen me and Batman in the same room together.")},
+	{TEXT("Anonymous #64"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I took a taxi today.\nThe driver told me \"I love my job, I own this car, I've got my own business, I'm my own boss, NO ONE tells me what to do!\"\nI said \"TURN LEFT HERE\".\n")},
+	{TEXT("Anonymous #65"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("A man without God is like a fish without a bicycle.")},
+	{TEXT("Anonymous #66"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I hate how spiders just sit there on the walls and act like they pay rent!")},
+	{TEXT("Anonymous #67"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Whenever someone starts a sentence by saying \"I'm not racist...\"),they are about to say something super racist.")},
+	{TEXT("Anonymous #68"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I'm not laughing at you, I'm laughing with you, you're just not laughing.")},
+	{TEXT("Anonymous #69"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Women need a reason to have sex. Men just need a place.")},
+	{TEXT("Anonymous #70"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("If abortion is murder then are condoms kidnapping?")},
+	{TEXT("Anonymous #71"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Men also have feelings.\nFor example, they can feel hungry.")},
+	{TEXT("Anonymous #72"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Project Manager:\nA person who thinks 9 women can deliver a baby in 1 month.")},
+	{TEXT("Anonymous #73"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If you try and don't succeed, cheat. Repeat until caught. Then lie.")},
+	{TEXT("Anonymous #74"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Olympics is the stupidest thing.\nPeople are so proud to be competing for their country.\nThey play their stupid song and raise some dumb flags.\nI'd love to see no flags raised, no song, no mention of country.\nOnly people.")},
+	{TEXT("Anonymous #75"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("I think therefore I am\nnot religious.")},
+	{TEXT("Anonymous #76"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Even if being gay were a choice, so what?\nPeople choose to be assholes and they can get married.")},
+	{TEXT("Anonymous #77"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Governments are like diapers.\nThey should be changed often, and for the same reason.")},
+	{TEXT("Anonymous #78"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If you expect the world to be fair with you because you are fair, you're fooling yourself.\nThat's like expecting the lion not to eat you because you didn't eat him.")},
+	{TEXT("Anonymous #79"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("I'm a creationist.\nI believe man create God.")},
+	{TEXT("Anonymous #80"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Let's eat kids.\nLet's eat, kids.\n\nUse a comma.\nSave lives.")},
+	{TEXT("Anonymous #81"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A male engineering student was crossing a road one day when a frog called out to him and said, \"If you kiss me, I'll turn into a beautiful princess.\" He bent over, picked up the frog, and put it in his pocket.\n\nThe frog spoke up again and said, \"If you kiss me and turn me back into a beautiful princess, I will stay with you for one week.\" The engineering student took the frog out of his pocket, smiled at it; and returned it to his pocket.\n\nThe frog then cried out, \"If you kiss me and turn me back into a princess, I'll stay with you and do ANYTHING you want.\" Again the boy took the frog out, smiled at it, and put it back into his pocket.\n\nFinally, the frog asked, \"What is the matter? I've told you I'm a beautiful princess, that I'll stay with you for a week and do anything you want. Why won't you kiss me?\" The boy said, \"Look I'm an engineer. I don't have time for a girlfriend, but a talking frog is cool.\"\n")},
+	{TEXT("Anonymous #82"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Gamers never die.\nThey just go offline.")},
+	{TEXT("Anonymous #83"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Copy from one, it's plagiarism.\nCopy from two, it's research.")},
+	{TEXT("Anonymous #84"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Saying that Java is nice because it works on all OSes is like saying that anal sex is nice because it works on all genders.")},
+	{TEXT("Anonymous #85"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Race, religion, ethnic pride and nationalism etc... does nothing but teach you how to hate people that you've never met.")},
+	{TEXT("Anonymous #86"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Farts are just the ghosts of the things we eat.")},
+	{TEXT("Anonymous #87"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word.")},
+	{TEXT("Anonymous #88"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A foo walks into a bar,\ntakes a look around and\nsays \"Hello World!\".")},
+	{TEXT("Anonymous #90"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments.")},
+	{TEXT("Anonymous #91"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("CV: ctrl-C, ctrl-V")},
+	{TEXT("Anonymous #92"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Mondays are not so bad.\nIt's your job that sucks.")},
+	{TEXT("Anonymous #93"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("[In a job interview]\nInterviewer: What's your greatest weakness?\nCandidate: Honesty.\nInterviewer: I don't think honesty is a weakness.\nCandidate: I don't give a fuck what you think.")},
+	{TEXT("Anonymous #94"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Hey, I just met you\nAnd this is crazy\nHere's my number 127.0.0.1\nPing me maybe?")},
+	//{"Anonymous #95"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("")},
+	{TEXT("Anonymous #96"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Code for 6 minutes, debug for 6 hours.")},
+	{TEXT("Anonymous #97"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Real Programmers don't comment their code.\nIf it was hard to write, it should be hard to read.")},
+	{TEXT("Anonymous #98"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("My neighbours listen to good music.\nWhether they like it or not.")},
+	{TEXT("Anonymous #99"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I've been using Vim for about 2 years now,\nmostly because I can't figure out how to exit it.")},
+	{TEXT("Anonymous #100"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Dear YouTube,\nI can deal with Ads.\nI can deal with Buffer.\nBut when Ads buffer, I suffer.")},
+	{TEXT("Anonymous #101"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("It's always sad when a man and his dick share only one brain...\nand it turns out to be the dick's.")},
+	{TEXT("Anonymous #102"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If IE is brave enough to ask you to set it as your default browser,\ndon't tell me you dare not ask a girl out.")},
+	{TEXT("Anonymous #104"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("The main idea of \"Inception\":\nif you run a VM inside a VM inside a VM inside a VM inside a VM,\neverything will be very slow.")},
+	{TEXT("Anonymous #105"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Q: What's the object-oriented way to become wealthy?\nA: Inheritance.")},
+	{TEXT("Anonymous #106"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car.")},
+	{TEXT("Anonymous #107"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is.")},
+	{TEXT("Anonymous #108"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard")},
+	{TEXT("Anonymous #109"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("What's the best thing about UDP jokes?\nI don't care if you get them.")},
+	{TEXT("Anonymous #110"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems")},
+	{TEXT("Anonymous #111"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul.")},
+	{TEXT("Anonymous #112"), QuoteParams::rapid, true, SC_CP_UTF8, L_CSS, TEXT("#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}\n")},
+	{TEXT("Anonymous #113"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Open source is communism.\nAt least it is what communism was meant to be.")},
+	{TEXT("Anonymous #114"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("How can you face your problem if your problem is your face?")},
+	{TEXT("Anonymous #115"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("YOLOLO:\nYou Only LOL Once.")},
+	{TEXT("Anonymous #116"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Every exit is an entrance to new experiences.")},
+	{TEXT("Anonymous #117"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A Native American was asked:\n\"Do you celebrate Columbus day?\"\nHe replied:\n\"I don't know, do Jews celebrate Hitler's birthday?\"")},
+	{TEXT("Anonymous #118"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I love necrophilia, but i can't stand the awkward silences.")},
+	{TEXT("Anonymous #119"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("\"I'm gonna Google that. BING that, Bing that, sorry.\"\n- The CEO of Bing (many times per day still)")},
+	{TEXT("Anonymous #120"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Life is what happens to you while you're looking at your smartphone.")},
+	//{"Anonymous #121"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("")},
+	{TEXT("Anonymous #122"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Nerd?\nI prefer the term \"Intellectual badass\".")},
+	//{"Anonymous #123"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("")},
+	{TEXT("Anonymous #124"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion.")},
+	{TEXT("Anonymous #125"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Pooping with the door opened is the meaning of true freedom.")},
+	{TEXT("Anonymous #126"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Social media does not make people stupid.\nIt just makes stupid people more visible.")},
+	{TEXT("Anonymous #127"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Don't give up your dreams.\nKeep sleeping.")},
+	{TEXT("Anonymous #128"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life.")},
+	{TEXT("Anonymous #129"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("What is the most used language in programming?\n\nProfanity\n")},
+	{TEXT("Anonymous #130"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Common sense is so rare, it's kinda like a superpower...")},
+	{TEXT("Anonymous #131"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("The best thing about a boolean is even if you are wrong, you are only off by a bit.")},
+	{TEXT("Anonymous #132"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Benchmarks don't lie, but liars do benchmarks.")},
+	{TEXT("Anonymous #133"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Multitasking: Screwing up several things at once.")},
+	{TEXT("Anonymous #134"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Linux is user friendly.\nIt's just picky about its friends.")},
+	{TEXT("Anonymous #135"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Theory is when you know something, but it doesn't work.\nPractice is when something works, but you don't know why.\nProgrammers combine theory and practice: nothing works and they don't know why.")},
+	{TEXT("Anonymous #136"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Documentation is like sex:\nwhen it's good, it's very, very good;\nwhen it's bad, it's better than nothing.")},
+	{TEXT("Anonymous #137"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Home is where you poop most comfortably.")},
+	{TEXT("Anonymous #138"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Laptop Speakers problem: too quiet for music, too loud for porn.")},
+	{TEXT("Anonymous #139"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Chinese food to go: $16\nGas to go get the food: $2\nDrove home just to realize they forgot one of your containers: RICELESS")},
+	{TEXT("Anonymous #140"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("MS Windows is like religion to most people: they are born into it, accept it as default, never consider switching to another.")},
+	{TEXT("Anonymous #141"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("To most religious people, the holy books are like a software license (EULA).\nNobody actually reads it. They just scroll to the bottom and click \"I agree\".")},
+	{TEXT("Anonymous #142"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("You are nothing but a number of days,\nwhenever each day passes then part of you has gone.")},
+	{TEXT("Anonymous #143"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If 666 is evil, does that make 25.8069758011 the root of all evil?")},
+	{TEXT("Anonymous #144"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I don't want to sound like a badass but...\nI eject my USB drive without removing it safely.")},
+	{TEXT("Anonymous #145"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("feet  (noun)\na device used for finding legos in the dark")},
+	{TEXT("Anonymous #146"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Buy a sheep\nName it \"Relation\"\nNow you have a Relationsheep\n")},
+	{TEXT("Anonymous #147"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("I dig, you dig, we dig,\nhe dig, she dig, they dig...\n\nIt's not a beautiful poem,\nbut it's very deep.")},
+	{TEXT("Anonymous #148"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("UNIX command line Russian roulette:\n[ $[ $RANDOM % 6 ] == 0 ] && rm -rf /* || echo *Click*")},
+	{TEXT("Anonymous #149"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("unzip, strip, top, less, touch, finger, grep, mount, fsck, more, yes, fsck, fsck, fsck, umount, sleep.\n\nNo, it's not porn. It's Unix.")},
+	{TEXT("Anonymous #150"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("To understand what recursion is, you must first understand recursion.")},
+	{TEXT("Anonymous #151"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Q: What's the object-oriented way to become wealthy?\nA: Inheritance.")},
+	{TEXT("Anonymous #152"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("A SQL query goes into a bar, walks up to two tables and asks, \"Can I join you?\"")},
+	{TEXT("Anonymous #153"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("You are not fat, you are just more visible.")},
+	{TEXT("Anonymous #154"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Minimalist\n (.   .)\n  )   (\n (  Y  )\nASCII Art")},
+	{TEXT("Internet #1"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If you spell \"Nothing\" backwards, it becomes \"Gnihton\" which also means nothing.")},
+	{TEXT("Mary Oliver"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Someone I loved once gave me a box full of darkness.\nIt took me years to understand that this, too, was a gift.")},
+	{TEXT("Floor"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("If you fall, I will be there.")},
+	{TEXT("Simon Amstell"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("If you have some problem in your life and need to deal with it, then use religion, that's fine.\nI use Google.")},
+	{TEXT("Albert Einstein"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Only 3 things are infinite:\n1. Universe.\n2. Human Stupidity.\n3. Winrar's free trial.")},
+	{TEXT("Terry Pratchett"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Artificial Intelligence is no match for natural stupidity.")},
+	{TEXT("Stewart Brand"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Once a new technology starts rolling, if you're not part of the steamroller,\nyou're part of the road.")},
+	{TEXT("Sam Redwine"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Software and cathedrals are much the same - first we build them, then we pray.")},
+	{TEXT("Jan L. A. van de Snepscheut"),  QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("In theory, there is no difference between theory and practice. But, in practice, there is.")},
+	{TEXT("Jessica Gaston"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("One man's crappy software is another man's full time job.")},
+	{TEXT("Barack Obama"), QuoteParams::slow, true, SC_CP_UTF8, L_TEXT, TEXT("Yes, we scan!")},
+	{TEXT("xkcd.com"), QuoteParams::rapid, true, SC_CP_UTF8, L_C, TEXT("int getRandomNumber()\n{\n    return 4; //chosen by fair dice roll, guaranteed to be random.\n}\n")},
+	{TEXT("Gandhi"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Earth provides enough to satisfy every man's need, but not every man's greed.")},
+	{TEXT("R. D. Laing"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Life is a sexually transmitted disease and the mortality rate is one hundred percent.")},
+	{TEXT("Hustle Man"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Politicians are like sperm.\nOne in a million turn out to be an actual human being.")},
+	{TEXT("Mark Twain"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Censorship is telling a man he can't have a steak just because a baby can't chew it.")},
+	{TEXT("Friedrich Nietzsche"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("There is not enough love and goodness in the world to permit giving any of it away to imaginary beings.")},
+	{TEXT("Dhalsim"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Pain is a state of mind and I don't mind your pain.")},
+	{TEXT("Elie Wiesel"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Human beings can be beautiful or more beautiful,\nthey can be fat or skinny, they can be right or wrong,\nbut illegal? How can a human being be illegal?")},
+	{TEXT("Dennis Ritchie"), QuoteParams::rapid, true, SC_CP_UTF8, L_TEXT, TEXT("Empty your memory, with a free(), like a pointer.\nIf you cast a pointer to a integer, it becomes the integer.\nIf you cast a pointer to a struct, it becomes the struct.\nThe pointer can crash, and can overflow.\nBe a pointer my friend.")},
+	{TEXT("Chewbacca"), QuoteParams::slow, false, SC_CP_UTF8, L_TEXT, TEXT("Uuuuuuuuuur Ahhhhrrrrrr\nUhrrrr Ahhhhrrrrrr\nAaaarhg...")},
+	{TEXT("#JeSuisCharlie"), QuoteParams::rapid, false, SC_CP_UTF8, L_TEXT, TEXT("Freedom of expression is like the air we breathe, we don't feel it, until people take it away from us.\n\nFor this reason, Je suis Charlie, not because I endorse everything they published, but because I cherish the right to speak out freely without risk even when it offends others.\nAnd no, you cannot just take someone's life for whatever he/she expressed.\n\nHence this \"Je suis Charlie\" edition.\n")}
 };
 
 
@@ -6284,11 +6276,37 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 	TextPlayerParams* textPlayerParams = static_cast<TextPlayerParams*>(params);
 	HWND hNpp = textPlayerParams->_nppHandle;
 	ScintillaEditView *pCurrentView = textPlayerParams->_pCurrentView;
-	const wchar_t* text2display = textPlayerParams->_text2display;
-	bool shouldBeTrolling = textPlayerParams->_shouldBeTrolling;
+	QuoteParams* qParams = textPlayerParams->_quotParams;
+	const wchar_t* text2display = qParams->_quote;
+	bool shouldBeTrolling = qParams->_shouldBeTrolling;
 
 	// Open a new document
     ::SendMessage(hNpp, NPPM_MENUCOMMAND, 0, IDM_FILE_NEW);
+
+	if (qParams->_encoding == SC_CP_UTF8)
+		::SendMessage(hNpp, NPPM_MENUCOMMAND, 0, IDM_FORMAT_AS_UTF_8);
+	else if (qParams->_encoding >= 0)
+		pCurrentView->execute(SCI_SETCODEPAGE, qParams->_encoding);
+
+	int langMenuId = (NppParameters::getInstance())->langTypeToCommandID(qParams->_lang);
+	::SendMessage(hNpp, NPPM_MENUCOMMAND, 0, langMenuId);
+
+	int x = 2, y = 1;
+	if (qParams->_speed == QuoteParams::slow)
+	{
+		x = 1;
+		y = 1;
+	}
+	else if (qParams->_speed == QuoteParams::rapid)
+	{
+		x = 2;
+		y = 1;
+	}
+	else if (qParams->_speed == QuoteParams::speedOfLight)
+	{
+		x = 1;
+		y = 0;
+	}
 
 	static TextTrollerParams trollerParams;
 	trollerParams._pCurrentView = pCurrentView;
@@ -6331,7 +6349,9 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 
 				HANDLE hThread = ::CreateThread(NULL, 0, threadTextTroller, &trollerParams, 0, NULL);
 
-				::Sleep(1000);
+				int sleepTime = 1000 / x * y;
+				::Sleep(sleepTime);
+
 				WaitForSingleObject(mutex, INFINITE);
 
 				::CloseHandle(hThread);
@@ -6339,10 +6359,17 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 			}
 		}
 
+
 		if (text2display[i] == ' ' || text2display[i] == '.')
-			Sleep(ranNum + pauseTimeArray[ranNum%nbPauseTime]);
+		{
+			int sleepTime = (ranNum + pauseTimeArray[ranNum%nbPauseTime]) / x * y;
+			Sleep(sleepTime);
+		}
 		else
-			Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);
+		{
+			int sleepTime = (ranNum + intervalTimeArray[ranNum%nbIntervalTime]) / x * y;
+			Sleep(sleepTime);
+		}
 
 		BufferID currentBufID = pCurrentView->getCurrentBufferID();
 		if (currentBufID != targetBufID)
@@ -6360,7 +6387,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
     }
 
 	//writeLog(TEXT("c:\\tmp\\log.txt"), "\n\n\n\n");
-	const wchar_t* quoter = textPlayerParams->_quoter;
+	const wchar_t* quoter = qParams->_quoter;
 	wstring quoter_str = quoter;
 	size_t pos = quoter_str.find(TEXT("Anonymous"));
 	if (pos == string::npos)
@@ -6373,7 +6400,8 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 		{
 			int ranNum = getRandomNumber(maxRange);
 
-			Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);
+			int sleepTime = (ranNum + intervalTimeArray[ranNum%nbIntervalTime]) / x * y;
+			Sleep(sleepTime);
 
 			BufferID currentBufID = pCurrentView->getCurrentBufferID();
 			if (currentBufID != targetBufID)
@@ -6523,6 +6551,7 @@ int Notepad_plus::getQuoteIndexFrom(const wchar_t* quoter) const
 	if (wcsicmp(quoter, TEXT("Get them all!!!")) == 0)
 		return -2;
 
+	int nbQuote = sizeof(quotes) / sizeof(QuoteParams);
 	if (wcsicmp(quoter, TEXT("random")) == 0)
 	{
 		srand(static_cast<UINT>(time(NULL)));
@@ -6545,23 +6574,21 @@ void Notepad_plus::showAllQuotes() const
 
 void Notepad_plus::showQuoteFromIndex(int index) const
 {
+	int nbQuote = sizeof(quotes) / sizeof(QuoteParams);
 	if (index < 0 || index >= nbQuote) return;
-	showQuote(quotes[index]._quote, quotes[index]._quoter, index < 20);
+	showQuote(&quotes[index]);
 }
 
-
-void Notepad_plus::showQuote(const wchar_t *quote, const wchar_t* quoter, bool doTrolling) const
+void Notepad_plus::showQuote(const QuoteParams* quote) const
 {
 	static TextPlayerParams params;
+	params._quotParams = const_cast<QuoteParams*>(quote);
 	params._nppHandle = Notepad_plus::_pPublicInterface->getHSelf();
-	params._text2display = quote;
-	params._quoter = quoter;
 	params._pCurrentView = _pEditView;
-	params._shouldBeTrolling = doTrolling;
+
 	HANDLE hThread = ::CreateThread(NULL, 0, threadTextPlayer, &params, 0, NULL);
 	::CloseHandle(hThread);
 }
-
 
 void Notepad_plus::launchDocumentBackupTask()
 {

@@ -244,7 +244,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	scnN.nmhdr.idFrom = 0;
 	_notepad_plus_plus_core._pluginsManager.notify(&scnN);
 
-	if (not cmdLineParams->_easterEggName.empty())
+	if (!cmdLineParams->_easterEggName.empty())
 	{
 		//::MessageBoxA(NULL, destStr.c_str(), "", MB_OK);
 		if (cmdLineParams->_quoteType == 0) // Easter Egg Name
@@ -258,7 +258,19 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		else if (cmdLineParams->_quoteType == 1) // command line quote
 		{
 			_userQuote = cmdLineParams->_easterEggName;
-			_notepad_plus_plus_core.showQuote(_userQuote.c_str(), TEXT("Anonymous #999"), false);
+			_quoteParams.reset();
+			_quoteParams._quote = _userQuote.c_str();
+			_quoteParams._quoter = TEXT("Anonymous #999");
+			_quoteParams._shouldBeTrolling = false;
+			_quoteParams._lang = cmdLineParams->_langType;
+			if (cmdLineParams->_ghostTypingSpeed == 1)
+				_quoteParams._speed = QuoteParams::slow;
+			else if (cmdLineParams->_ghostTypingSpeed == 2)
+				_quoteParams._speed = QuoteParams::rapid;
+			else if (cmdLineParams->_ghostTypingSpeed == 3)
+				_quoteParams._speed = QuoteParams::speedOfLight;
+
+			_notepad_plus_plus_core.showQuote(&_quoteParams);
 		}
 		else if (cmdLineParams->_quoteType == 2) // content drom file
 		{
@@ -268,7 +280,21 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 				_userQuote = wmc->char2wchar(content.c_str(), SC_CP_UTF8);
 				if (!_userQuote.empty())
-					_notepad_plus_plus_core.showQuote(_userQuote.c_str(), TEXT("Anonymous #999"), false);
+				{
+					_quoteParams.reset();
+					_quoteParams._quote = _userQuote.c_str();
+					_quoteParams._quoter = TEXT("Anonymous #999");
+					_quoteParams._shouldBeTrolling = false;
+					_quoteParams._lang = cmdLineParams->_langType;
+					if (cmdLineParams->_ghostTypingSpeed == 1)
+						_quoteParams._speed = QuoteParams::slow;
+					else if (cmdLineParams->_ghostTypingSpeed == 2)
+						_quoteParams._speed = QuoteParams::rapid;
+					else if (cmdLineParams->_ghostTypingSpeed == 3)
+						_quoteParams._speed = QuoteParams::speedOfLight;
+
+					_notepad_plus_plus_core.showQuote(&_quoteParams);
+				}
 			}
 		}
 	}

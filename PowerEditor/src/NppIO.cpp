@@ -542,7 +542,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 			}
 			else // rememberSession && backup mode are not both enabled
 			{    // open only the file to save in Notepad++ of Administrator mode by keeping the current instance.
-				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminModeWithoutCloseCurrent",
+				int openInAdminModeRes = _nativeLangSpeaker.messageBox("OpenInAdminMode",
 				_pPublicInterface->getHSelf(),
 				TEXT("The file cannot be saved and it may be protected.\rDo you want to launch Notepad++ in Administrator mode?"),
 				TEXT("Save failed"),

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- last change:  Notepad++ 7.5.5  4/Mar/2018  by Ondřej Müller (mullero@email.cz)
+	- last change:  Notepad++ 7.5.6  11/Mar/2018  by Ondřej Müller (mullero@email.cz)
 	- N++ Community:  https://notepad-plus-plus.org/community/topic/87/czech-translations
 	- contributors:  Ondřej Müller (mullero@email.cz), Tomáš Hrouda (gobbet@centrum.cz)
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="7.5.5">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="7.5.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -1068,6 +1068,9 @@
 			<UDLRemoveCurrentLang title = "Odstranění aktuální syntaxe" message = "Jste si jisti?"/>
 			<SCMapperDoDeleteOrNot title = "Jste si jisti?" message = "Jste si jisti, že chcete smazat tuto klávesovou zkratku?"/>
 			<FindCharRangeValueError title = "Problém s rozsahem hodnoty" message = "Měli byste napsat hodnotu z rozsahu 0 až 255."/>
+			<OpenInAdminMode title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
+			<OpenInAdminModeWithoutCloseCurrent title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
+			<OpenInAdminModeFailed title = "Otevření s administrátorskými právy selhalo" message = "Notepad++ nemůže být spuštěn s právy administrátora."/>
 		</MessageBox>
 		
 		<ClipboardHistory>
@@ -1211,9 +1214,6 @@
 			<finder-select-all value = "Vybrat vše"/>
 			<finder-clear-all value = "Smazat vše"/>
 			<finder-open-all value = "Otevřít vše"/>
-			<OpenInAdminMode title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
-			<OpenInAdminModeWithoutCloseCurrent title = "Uložení selhalo" message = "Soubor nemůže být uložen a může být chráněn proti zápisu. Chcete zkusit spustit Notepad++ s právy administrátora?"/>
-			<OpenInAdminModeFailed title = "Otevření s právy administrátora selhalo" message = "Notepad++ nemůže být spuštěn s administrátorskými právy."/>
 		</MiscStrings>
 
 	</Native-Langue>

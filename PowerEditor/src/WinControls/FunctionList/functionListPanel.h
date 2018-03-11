@@ -108,6 +108,7 @@ public:
 	// functionalities
 	void sortOrUnsort();
 	void reload();
+	void markEntry();
 	bool serialize(const generic_string & outputFilename = TEXT(""));
 	void addEntry(const TCHAR *node, const TCHAR *displayText, size_t pos);
 	void removeAllEntries();
@@ -123,6 +124,10 @@ private:
 	TreeView *_pTreeView;
 	TreeView _treeView;
 	TreeView _treeViewSearchResult;
+
+	long _findLine = -1;
+	long _findEndLine = -1;
+	HTREEITEM _findItem;
 
 	generic_string _sortTipStr;
 	generic_string _reloadTipStr;
@@ -143,5 +148,6 @@ private:
 	bool openSelection(const TreeView &treeView);
 	bool shouldSort();
 	void setSort(bool isEnabled);
+	void findMarkEntry(HTREEITEM htItem, LONG line);
 };
 

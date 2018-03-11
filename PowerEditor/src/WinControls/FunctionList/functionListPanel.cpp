@@ -304,6 +304,8 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 void FunctionListPanel::reload()
 {
 	// clean up
+	_findLine = -1;
+	_findEndLine = -1;
 	TreeStateNode currentTree;
 	bool isOK = _treeView.retrieveFoldingStateTo(currentTree, _treeView.getRoot());
 	if (isOK)
@@ -393,6 +395,68 @@ void FunctionListPanel::reload()
 	::InvalidateRect(_hSearchEdit, NULL, TRUE);
 }
 
+void FunctionListPanel::markEntry()
+{
+	LONG lineNr = static_cast<LONG>((*_ppEditView)->getCurrentLineNumber());
+	HTREEITEM root = _treeView.getRoot();
+	if (_findLine != -1 && _findEndLine != -1 && lineNr >= _findLine && lineNr < _findEndLine)
+		return;
+	_findLine = -1;
+	_findEndLine = -1;
+	findMarkEntry(root, lineNr);
+	if (_findLine != -1)
+	{
+		_treeView.selectItem(_findItem);
+	}
+	else
+	{
+		_treeView.selectItem(root);
+	}
+
+}
+
+void FunctionListPanel::findMarkEntry(HTREEITEM htItem, LONG line)
+{
+	HTREEITEM cItem;
+	TVITEM tvItem;
+	for (; htItem != NULL; htItem = _treeView.getNextSibling(htItem))
+	{
+		cItem = _treeView.getChildFrom(htItem);
+		if (cItem != NULL)
+		{
+			findMarkEntry(cItem, line);
+		}
+		else
+		{
+			tvItem.hItem = htItem;
+			tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
+			::SendMessage(_treeViewSearchResult.getHSelf(), TVM_GETITEM, 0, reinterpret_cast<LPARAM>(&tvItem));
+
+			generic_string *posStr = reinterpret_cast<generic_string *>(tvItem.lParam);
+			if (posStr)
+			{
+				int pos = generic_atoi(posStr->c_str());
+				if (pos != -1)
+				{
+					LONG sci_line = static_cast<LONG>((*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos));
+					if (line >= sci_line)
+					{
+						if (sci_line > _findLine || _findLine == -1)
+						{
+							_findLine = sci_line;
+							_findItem = htItem;
+						}
+					}
+					else
+					{
+						if (sci_line < _findEndLine)
+							_findEndLine = sci_line;
+					}
+				}
+			}
+		}
+	}
+}
 
 void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
 {
@@ -710,6 +774,7 @@ INT_PTR CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 			_treeViewSearchResult.init(_hInst, _hSelf, IDC_LIST_FUNCLIST_AUX);
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
+			_treeView.makeLabelEditable(false);
 			setTreeViewImageList(IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
 
 			_treeView.display();

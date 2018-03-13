@@ -931,19 +931,19 @@
                 <Item id="1" name="OK"/>
                 <Item id="2" name="キャンセル"/>
             </ColumnEditor>
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- untranslated!            <FindInFinder title="Find in finder">
+                <Item id="1"    name="Find All"/>
+                <Item id="2"    name="Close"/>
+                <Item id="1711" name="&amp;Find what :"/>
+                <Item id="1713" name="Search only in found lines"/>
+                <Item id="1714" name="Match &amp;whole word only"/>
+                <Item id="1715" name="Match &amp;case"/>
+                <Item id="1716" name="Search Mode"/>
+                <Item id="1717" name="&amp;Normal"/>
+                <Item id="1719" name="Re&amp;gular expression"/>
+                <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. matches newline"/>
+            </FindInFinder> -->
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
@@ -1029,11 +1029,11 @@ langs.xml を復元しますか？"/>
             <UDLRemoveCurrentLang title="現在の言語を削除" message="よろしいですか？"/>
             <SCMapperDoDeleteOrNot title="よろしいですか？" message="このショートカットを削除してよろしいですか？"/>
             <FindCharRangeValueError title="数値範囲" message="0 から 255 の値を入力して下さい。"/>
-
-
-
-
-
+<!-- untranslated!            <OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.
+Do you want to launch Notepad++ in Administrator mode?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
+Do you want to launch Notepad++ in Administrator mode?"/>
+            <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/> -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -1043,11 +1043,11 @@ langs.xml を復元しますか？"/>
             <ColumnName name="名前"/>
             <ColumnExt name="拡張子"/>
         </DocSwitcher>
-
-
-
-
-
+<!-- untranslated!        <WindowsDlg>
+            <ColumnName name="Name"/>
+            <ColumnPath name="Path"/>
+            <ColumnType name="Type"/>
+        </WindowsDlg> -->
         <AsciiInsertion>
             <PanelTitle name="ASCII文字挿入パネル"/>
             <ColumnVal name="10進数"/>
@@ -1160,13 +1160,14 @@ langs.xml を復元しますか？"/>
             <find-status-replace-not-found value="置換：一致するものはありません"/>
             <find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
             <find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
-
-
-
-
-
-
-
+<!-- untranslated!            <finder-find-in-finder value="Find in this found results..."/>
+            <finder-close-this value="Close this finder"/>
+            <finder-collapse-all value="Collapse all"/>
+            <finder-uncollapse-all value="Uncollapse all"/>
+            <finder-copy value="Copy"/>
+            <finder-select-all value="Select all"/>
+            <finder-clear-all value="Clear all"/>
+            <finder-open-all value="Open all"/> -->
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

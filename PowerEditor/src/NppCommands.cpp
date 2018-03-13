@@ -2603,7 +2603,9 @@ void Notepad_plus::command(int id)
 			{
 				char author[maxSelLen+1] = "";
 				_pEditView->getSelectedText(author, maxSelLen + 1);
-				int iQuote = getQuoteIndexFrom(author);
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				const wchar_t * authorW = wmc->char2wchar(author, _nativeLangSpeaker.getLangEncoding());
+				int iQuote = getQuoteIndexFrom(authorW);
 
 				if (iQuote == -1)
 				{
@@ -2960,7 +2962,7 @@ void Notepad_plus::command(int id)
 				if (dlgNode)
 					dlgNode = _nativeLangSpeaker.searchDlgNode(dlgNode, "Window");
 			}
-			_windowsDlg.doDialog(dlgNode);
+			_windowsDlg.doDialog();
 		}
 		break;
 

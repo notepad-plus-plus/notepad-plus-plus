@@ -1,11 +1,17 @@
-Notepad++ 7.5.4 enhancements & bug-fixes:
+Notepad++ 7.5.5 enhancements & bug-fixes:
 
-1.  Fix a crash bug due to disordered notifications sent to plugins.
-2.  Fix encoding broken regression.
-3.  Improve smart highlighting performance.
-4.  Auto-completion enhancement: remove unwanted symbols {} for variable names.
-5.  Add auto-completion for BaanC & CoffeeScript.
-6.  Fix localization copy regression in Installer.
+1.  Restore 2 buttons "<< Find Previous" & "Find Next >>" in Find dialog (optional).
+2.  Fix monitored (tail -f) file not always updated issue.
+3.  Keep Doc Switcher's ordering in sync with Tab bar.
+4.  Shortcut Mapper enhancements: Add filter capacity and make dialog resizable and maximizable.
+5.  Fix for "Toggle Single Line Comment" malfunctioning with HTML/XML.
+6.  Make Unix style path (slashes) work in open file dialog (optional).
+7.  Fix tab sticks to mouse pointer problem after external update of a opened file.
+8.  Fix encoding not sync (on status bar) after reloading.
+9.  Fix menu items' state is not maintained due to save macro command.
+10. Fix line ending changes are not detected in reloaded changed files issue.
+11. Fix highlighting of <script> tags in XML files issue.
+12. Fix Unicode file name comparison to match Windows behaviour (as opposed to doing a linguistic filename comparison).
 
 
 Included plugins:

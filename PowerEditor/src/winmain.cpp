@@ -295,6 +295,19 @@ generic_string getEasterEggNameFromParam(ParamVector & params, unsigned char & t
 	return EasterEggName;
 }
 
+int getGhostTypingSpeedFromParam(ParamVector & params)
+{
+	generic_string speedStr;
+	if (!getParamValFromString(TEXT("-qSpeed"), params, speedStr))
+		return -1;
+	
+	int speed = std::stoi(speedStr, 0);
+	if (speed <= 0 || speed > 3)
+		return -1;
+
+	return speed;
+}
+
 const TCHAR FLAG_MULTI_INSTANCE[] = TEXT("-multiInst");
 const TCHAR FLAG_NO_PLUGIN[] = TEXT("-noPlugin");
 const TCHAR FLAG_READONLY[] = TEXT("-ro");
@@ -370,6 +383,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);
 	cmdLineParams._easterEggName = getEasterEggNameFromParam(params, cmdLineParams._quoteType);
+	cmdLineParams._ghostTypingSpeed = getGhostTypingSpeedFromParam(params);
 
 	// getNumberFromParam should be run at the end, to not consuming the other params
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);

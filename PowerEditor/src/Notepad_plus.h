@@ -115,6 +115,31 @@ struct VisibleGUIConf final
 	}
 };
 
+struct QuoteParams
+{
+	enum Speed { slow = 0, rapid, speedOfLight };
+
+	QuoteParams() {};
+	QuoteParams(const wchar_t* quoter, Speed speed, bool shouldBeTrolling, int encoding, LangType lang, const wchar_t* quote) :
+		_quoter(quoter), _speed(speed), _shouldBeTrolling(shouldBeTrolling), _encoding(encoding), _lang(lang), _quote(quote) {}
+
+	void reset() {
+		_quoter = nullptr;
+		_speed = rapid;
+		_shouldBeTrolling = false;
+		_encoding = SC_CP_UTF8;
+		_lang = L_TEXT;
+		_quote = nullptr;
+	};
+
+	const wchar_t* _quoter = nullptr;
+	Speed _speed = rapid;
+	bool _shouldBeTrolling = false;
+	int _encoding = SC_CP_UTF8;
+	LangType _lang = L_TEXT;
+	const wchar_t* _quote = nullptr;
+};
+
 class FileDialog;
 class Notepad_plus_Window;
 class AnsiCharPanel;
@@ -124,7 +149,7 @@ class ProjectPanel;
 class DocumentMap;
 class FunctionListPanel;
 class FileBrowser;
-
+struct QuoteParams;
 
 class Notepad_plus final
 {
@@ -224,9 +249,9 @@ public:
 		return _pEditView->getCurrentBuffer();
 	}
 	void launchDocumentBackupTask();
-	int getQuoteIndexFrom(const char *quoter) const;
+	int getQuoteIndexFrom(const wchar_t* quoter) const;
 	void showQuoteFromIndex(int index) const;
-	void showQuote(const char *quote, const char *quoter, bool doTrolling) const;
+	void showQuote(const QuoteParams* quote) const;
 
 
 private:

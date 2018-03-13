@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.5
-	last modified: 2018-02-25 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-03-11 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -282,29 +282,11 @@
 					<Item id="45011" name="Konv&amp;ertiere zu UTF-8-BOM"/>
 					<Item id="45012" name="Konve&amp;rtiere zu UCS-2 Big Endian"/>
 					<Item id="45013" name="Konver&amp;tiere zu UCS-2 Little Endian"/>
-					<Item id="44011" name="Benutzerdefinierte Spra&amp;che …"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="44012" name="Zeilennummernrand ausb&amp;lenden"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="44013" name="Lesezeichenrand ausb&amp;lenden"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="44014" name="Codefaltung ausb&amp;lenden"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="47008" name="In&amp;halt …"/>					<!-- kommt im englischen nicht oder nicht mehr vor -->
 
 					<Item id="10001" name="In zweite Ansicht &amp;verschieben"/>
 					<Item id="10002" name="In zweite Ansicht &amp;duplizieren"/>
 					<Item id="10003" name="In &amp;neue Instanz verschieben"/>
 					<Item id="10004" name="In neue Instan&amp;z duplizieren"/>
-
-					<Item id="45060" name="Big5 (Traditionell)"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="45061" name="GB2312 (Vereinfacht)"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="45054" name="OEM 861: Isländisch"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="45057" name="OEM 865: Nordisch"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="45053" name="OEM 860: Portugiesisch"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="45056" name="OEM 863: Französisch"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-
-                    <Item id="46033" name="Assembler"/>						<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="46019" name="MS-INI-Datei"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="46015" name="MS-DOS-Stil"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="46016" name="Normaler Text"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="46017" name="Ressourcen-Datei"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 
 					<Item id="46001" name="&amp;Stile …"/>
 					<Item id="46250" name="Eigene Sprache &amp;definieren …"/>
@@ -407,13 +389,9 @@
 				<Item id="1641" name="Alle in aktiver &amp;Datei suchen"/>
 				<Item id="1686" name="Transparenz"/>
 				<Item id="1703" name="&amp;. findet \r und \n"/>
-				<Item id="1627" name="Unten"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
-				<Item id="1637" name="In Dateien suchen"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
-				<Item id="1640" name="Umschaltdialog"/>			<!-- kommt im englischen nicht oder nicht mehr vor -->
 			</Find>
 
 			<FindCharsInRange title="Suche nach Zeichencodes">
-				<Item id="-1"   name="–"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 				<Item id="2"    name="S&amp;chließen"/>
 				<Item id="2901" name="&amp;Nicht-ASCII-Zeichen (128–255)"/>
 				<Item id="2902" name="&amp;ASCII-Zeichen (0–127)"/>
@@ -440,7 +418,6 @@
 				<Item id="1"    name="&amp;Ausführen"/>
 				<Item id="2"    name="A&amp;bbrechen"/>
 				<Item id="1904" name="&amp;Speichern"/>
-				<Item id="1901" name=".&amp;.."/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 			</Run>
 
 			<MD5FromFilesDlg title="Erstelle MD5-Hashwert aus Dateien">
@@ -456,7 +433,6 @@
 			</MD5FromTextDlg>
 
 			<StyleConfig title="Stile">
-				<Item id="1"    name="Übernehmen"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
 				<Item id="2"    name="Abbrechen"/>
 				<Item id="2301" name="Speichern &amp;&amp; Schließen"/>
 				<Item id="2303" name="Transparenz"/>
@@ -609,7 +585,6 @@
 					<Item id="22622" name="Stil"/>
 				</Keywords>
 				<Comment title="Kommentare &amp;&amp; Zahlen">
-					<Item id="23002" name="Am Zeilenanfang Zeilenkommentar erzwingen"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="23003" name="Position von Zeilenkommentaren"/>
 					<Item id="23004" name="Überall erlauben"/>
 					<Item id="23005" name="Nur am Zeilenanfang"/>
@@ -773,7 +748,6 @@
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
 					<Item id="6430" name="Neuen Stildialog benutzen (ohne Dateierweiterungen &amp; Unix-Stil Pfadkapazität)"/>	
 					<Item id="6431" name="Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses"/>
-					<Item id="6418" name="…"/>		<!-- kommt im englischen nicht oder nicht mehr vor -->
 				</DefaultDir>
 
 				<FileAssoc title="Dateiverknüpfungen">
@@ -894,8 +868,6 @@
 					<Item id="6252" name="Anfang"/>
 					<Item id="6255" name="Ende"/>
 					<Item id="6256" name="Über mehrere Zeilen"/>
-					<Item id="6257" name="bla bla bla bla bla bla"/>				<!-- kommt im englischen nicht oder nicht mehr vor -->
-					<Item id="6258" name="bla bla bla bla bla bla bla bla bla bla bla bla"/>	<!-- kommt im englischen nicht oder nicht mehr vor -->
 					<Item id="6161" name="Liste der Wortzeichen (Word character list)"/>
 					<Item id="6162" name="Verwende die ursprüngliche Liste der Wortzeichen"/>
 					<Item id="6163" name="Füge Zeichen als Teil der Wortzeichen hinzu&#x0a;(nicht verwenden wenn man nicht sicher ist)"/>
@@ -972,6 +944,20 @@
 				<Item id="1"    name="Ausfüh&amp;ren"/>
 				<Item id="2"    name="Abbre&amp;chen"/>
 			</ColumnEditor>
+			<FindInFinder title="Finde in der Suche">
+				<Item id="1"    name="Finde alle"/>
+				<Item id="2"    name="Schliessen"/>
+				<Item id="1711" name="Finde das:"/>
+				<Item id="1713" name="Finde nur in gesuchten Zeilen"/>
+				<Item id="1714" name="Nur ganzes &amp;Wort"/>
+				<Item id="1715" name="Nur Ausdru&amp;ck"/>
+				<Item id="1716" name="Suchmodus"/>
+				<Item id="1717" name="Normal"/>
+				<Item id="1719" name="Ganz&amp;er Ausdruck"/>
+				<Item id="1718" name="Erweitert (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. entspricht neuer Zeile"/>
+			</FindInFinder>
+
 		</Dialog>
 		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie&#x0A;das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu&#x0A;starten, damit die Änderungen wirksam werden."/>
@@ -1024,6 +1010,9 @@
 			<UDLRemoveCurrentLang title="Aktuelle Sprache löschen" message="Wirklich löschen?"/>
 			<SCMapperDoDeleteOrNot title="Wirklich?" message="Soll das Tastenkürzel wirklich gelöscht werden?"/>
 			<FindCharRangeValueError title="Problem mit Wertebereich" message="Der Wert muss zwischen 0 und 255 liegen."/>
+			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.&#x0A;Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei konnte nicht gespeichert werden, eventuell wegen vorhandenem Schreibschutz.&#x0A;Soll dazu Notepad++ im Administrator-Modus gestartet werden?"/>
+			<OpenInAdminModeFailed title="Öffnen im Administrator-Modus fehlgeschlagen" message="Notepad++ konnte nicht im Administrator-Modus gestartet werden."/>
 			<ColumnModeTip title="Tip für Spalten-Modus" message="Verwende &quot;ALT+Maus Auswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot;&#x0A;um in den Spalten-Modus zu wechseln."/>
 
 			<!-- $STR_REPLACE$ is a place holder, don't translate it -->
@@ -1127,7 +1116,6 @@
 			<word-chars-list-warning-begin value="Achtung: "/>
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<word-chars-list-space-warning value="$INT_REPLACE$ Leerzeichen"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<word-chars-list-tab-warning value="$INT_REPLACE$ Tab(s)"/>
 			<word-chars-list-warning-end value=" in der Liste der Wortzeichen."/>
 			<cloud-invalid-warning value="Ungültiger Pfad."/>
@@ -1160,6 +1148,14 @@
 			<find-status-replace-not-found value="Ersetzen: Kein Vorkommen gefunden"/>
 			<find-status-replace-readonly value="Ersetzen: Konnte Text wegen schreibgeschützter Datei nicht ersetzen"/>
 			<find-status-cannot-find value="Suche: Konnte Text &quot;$STR_REPLACE$&quot; nicht finden"/>
+			<finder-find-in-finder value="Finde in diesen Suchergebnissen …"/>
+			<finder-close-this value="Schliesse diese Suche"/>
+			<finder-collapse-all value="Alles einklappen"/>
+			<finder-uncollapse-all value="Alles aufmachen"/>
+			<finder-copy value="Kopiere"/>
+			<finder-select-all value="Wähle alles"/>
+			<finder-clear-all value="Alles löschen"/>
+			<finder-open-all value="Alles öffnen"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

@@ -165,7 +165,7 @@
                     <Item id="42056" name="空行をすべて削除(空白だけの行も含む)"/>
                     <Item id="42057" name="現在行の上に空行を挿入"/>
                     <Item id="42058" name="現在行の下に空行を挿入"/>
-                    <Item id="43001" name="検索(&amp;F)"/>
+                    <Item id="43001" name="検索(&amp;F)..."/>
                     <Item id="43002" name="次を検索(&amp;N)"/>
                     <Item id="43003" name="置換(&amp;R)..."/>
                     <Item id="43004" name="指定位置へジャンプ(&amp;G)..."/>
@@ -339,7 +339,7 @@
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="検索" titleReplace="置換" titleFindInFiles="ファイル内検索" titleMark="マーキング">
+            <Find title="" titleFind="検索" titleReplace="置換" titleFindInFiles="ファイル内検索" titleMark="マーク">
                 <Item id="1"    name="次を検索"/>
                 <Item id="1722" name="逆方向に検索する"/>
                 <Item id="2"    name="閉じる"/>
@@ -358,7 +358,7 @@
                 <Item id="1687" name="非選択時"/>
                 <Item id="1688" name="常に"/>
                 <Item id="1632" name="選択範囲のみ(&amp;I)"/>
-                <Item id="1633" name="クリア"/>
+                <Item id="1633" name="すべて解除"/>
                 <Item id="1635" name="すべての文書で置換(&amp;O)"/>
                 <Item id="1636" name="すべての文書から検索(&amp;O)"/>
                 <Item id="1654" name="フィルタ(&amp;S):"/>
@@ -657,7 +657,7 @@
 
                     <Item id="6106" name="タブバー"/>
                     <Item id="6107" name="小さく表示"/>
-                    <Item id="6108" name="固定(ドラッグ&amp;&amp;ドロップを許可しない)"/>
+                    <Item id="6108" name="固定(ドラッグ&amp;ドロップを許可しない)"/>
                     <Item id="6109" name="非アクティブのタブを暗くする"/>
                     <Item id="6110" name="アクティブタブにオレンジの線を表示"/>
 
@@ -683,7 +683,7 @@
                     <Item id="6221" name="速く"/>
                     <Item id="6222" name="遅く"/>
                     <Item id="6224" name="一括編集"/>
-                    <Item id="6225" name="有効にする(Ctrl+クリック/選択)"/>
+                    <Item id="6225" name="有効(Ctrl+クリック/選択)"/>
                     <Item id="6201" name="折り畳み表示スタイル"/>
                     <Item id="6202" name="シンプル"/>
                     <Item id="6203" name="矢印"/>

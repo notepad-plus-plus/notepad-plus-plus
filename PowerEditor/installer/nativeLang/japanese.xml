@@ -357,7 +357,7 @@
                 <Item id="1609" name="すべて置換(&amp;A)"/>
                 <Item id="1687" name="非選択時"/>
                 <Item id="1688" name="常に"/>
-                <Item id="1632" name="選択範囲のみ(&amp;I)"/>
+                <Item id="1632" name="選択内のみ(&amp;I)"/>
                 <Item id="1633" name="すべて解除"/>
                 <Item id="1635" name="すべての文書で置換(&amp;O)"/>
                 <Item id="1636" name="すべての文書から検索(&amp;O)"/>
@@ -910,10 +910,10 @@
                 <Item id="8002" name="ファイル終端まで実行する(&amp;E)"/>
             </MultiMacro>
             <Window title="ウィンドウ管理">
-                <Item id="1" name="アクティブにする(&amp;A)"/>
+                <Item id="1" name="アクティブ化(&amp;A)"/>
                 <Item id="2" name="OK(&amp;O)"/>
                 <Item id="7002" name="保存(&amp;S)"/>
-                <Item id="7003" name="ウィンドウを閉じる(&amp;C)"/>
+                <Item id="7003" name="閉じる(&amp;C)"/>
                 <Item id="7004" name="タブをソート(&amp;T)"/>
             </Window>
             <ColumnEditor title="矩形編集">

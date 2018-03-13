@@ -243,7 +243,7 @@
                     <Item id="44094" name="タブ9"/>
                     <Item id="44095" name="次のタブ"/>
                     <Item id="44096" name="前のタブ"/>
-                    <Item id="44097" name="ファイル監視 (tail -f)"/>
+                    <Item id="44097" name="ファイル監視(tail -f)"/>
                     <Item id="44098" name="タブを右へ移動"/>
                     <Item id="44099" name="タブを左へ移動"/>
                     <Item id="44032" name="全画面表示"/>
@@ -406,7 +406,7 @@
             </Run>
 
             <MD5FromFilesDlg title="MD5値をファイルから生成">
-                <Item id="1922" name="ファイルを選択（複数可）..."/>
+                <Item id="1922" name="ファイルを選択(複数可)..."/>
                 <Item id="1924" name="クリップボードへコピー"/>
                 <Item id="2"    name="閉じる"/>
             </MD5FromFilesDlg>
@@ -669,7 +669,7 @@
                     <Item id="6120" name="縦に表示する"/>
                     <Item id="6121" name="最後のタブを閉じると終了する"/>
 
-                    <Item id="6122" name="メインメニューを隠す（表示するには Alt か F10 を押す）"/>
+                    <Item id="6122" name="メインメニューを隠す(表示するには Alt か F10 を押す)"/>
                     <Item id="6123" name="言語"/>
 
                     <Item id="6125" name="文書一覧"/>
@@ -733,7 +733,7 @@
                     <Item id="6413" name="既定ディレクトリ(開く/保存)"/>
                     <Item id="6414" name="現在の文書に従う"/>
                     <Item id="6415" name="最後に使ったディレクトリ"/>
-                    <Item id="6430" name="新しいファイルダイアログ（拡張子なしでも保存。Unix 式のパス区切りも開く）(&amp;&amp;)"/>
+                    <Item id="6430" name="新しいファイルダイアログ(拡張子なしでも保存。Unix 式のパス区切りも開く)(&amp;&amp;)"/>
                     <Item id="6431" name="フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く"/>
                 </DefaultDir>
 
@@ -857,7 +857,7 @@
                     <Item id="6161" name="単語を構成する文字"/>
                     <Item id="6162" name="標準の 単語を構成する文字 を使う"/>
                     <Item id="6163" name="単語の一部と見なす文字を追加する
-（意味がわからないならば、標準のままにすべきです）"/>
+(意味がわからないならば、標準のままにすべきです)"/>
                 </Delimiter>
 
                 <Cloud title="クラウド">
@@ -867,7 +867,7 @@
                 </Cloud>
 
                 <SearchEngine title="検索エンジン">
-                    <Item id="6271" name="検索エンジン (「インターネットで検索する」コマンド用)"/>
+                    <Item id="6271" name="検索エンジン(「インターネットで検索する」コマンド用)"/>
                     <Item id="6272" name="DuckDuckGo"/>
                     <Item id="6273" name="Google"/>
                     <Item id="6274" name="Bing"/>
@@ -982,7 +982,7 @@
             <DoDeleteOrNot title="ファイルを削除" message="&quot;$STR_REPLACE$&quot;
 は ごみ箱 に移動され、この文書も閉じられます。
 処理を続けてもよろしいですか？"/>
-            <NoBackupDoSaveFile title="保存" message="ファイルのバックアップが見つかりません（外部で削除されました）。
+            <NoBackupDoSaveFile title="保存" message="ファイルのバックアップが見つかりません(外部で削除されました)。
 保存しない場合、この文書は失われます。
 &quot;$STR_REPLACE$&quot; を保存しますか？"/>
             <DoReloadOrNot title="再読み込み" message="&quot;$STR_REPLACE$&quot;

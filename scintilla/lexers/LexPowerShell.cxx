@@ -77,11 +77,15 @@ static void ColourisePowerShellDoc(unsigned int startPos, int length, int initSt
 			// This is a doubles quotes string
 			if (sc.ch == '\"') {
 				sc.ForwardSetState(SCE_POWERSHELL_DEFAULT);
+			} else if (sc.ch == '`') {
+				sc.Forward(); // skip next escaped character
 			}
 		} else if (sc.state == SCE_POWERSHELL_CHARACTER) {
 			// This is a single quote string
 			if (sc.ch == '\'') {
 				sc.ForwardSetState(SCE_POWERSHELL_DEFAULT);
+			} else if (sc.ch == '`') {
+				sc.Forward(); // skip next escaped character
 			}
 		} else if (sc.state == SCE_POWERSHELL_HERE_STRING) {
 			// This is a doubles quotes here-string
@@ -149,6 +153,8 @@ static void ColourisePowerShellDoc(unsigned int startPos, int length, int initSt
 				sc.SetState(SCE_POWERSHELL_OPERATOR);
 			} else if (IsAWordChar(sc.ch)) {
 				sc.SetState(SCE_POWERSHELL_IDENTIFIER);
+			} else if (sc.ch == '`') {
+				sc.Forward(); // skip next escaped character
 			}
 		}
 	}

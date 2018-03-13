@@ -90,7 +90,7 @@
                     <Item id="41016" name="Move to Recycle Bin"/>
                     <Item id="41017" name="Rename..."/>
                     <Item id="41021" name="Restore Recent Closed File"/>
-                    <Item id="41022" name="Open Folder as Workspace"/>
+                    <Item id="41022" name="Open Folder as Workspace..."/>
                     <Item id="41023" name="Open in Default Viewer"/>
                     <Item id="42001" name="Cu&amp;t"/>
                     <Item id="42002" name="&amp;Copy"/>
@@ -150,7 +150,7 @@
                     <Item id="42034" name="Column Editor..."/>
                     <Item id="42051" name="Character Panel"/>
                     <Item id="42052" name="Clipboard History"/>
-                    <Item id="42025" name="&amp;Save Currently Recorded Macro"/>
+                    <Item id="42025" name="&amp;Save Currently Recorded Macro..."/>
                     <Item id="42026" name="Text Direction RTL"/>
                     <Item id="42027" name="Text Direction LTR"/>
                     <Item id="42028" name="Set Read-Only"/>
@@ -257,7 +257,7 @@
                     <Item id="44082" name="Project Panel 2"/>
                     <Item id="44083" name="Project Panel 3"/>
                     <Item id="45001" name="Windows (CR LF)"/>
-                    <Item id="45002" name="UNIX (LF)"/>
+                    <Item id="45002" name="Unix (LF)"/>
                     <Item id="45003" name="Macintosh (CR)"/>
                     <Item id="45004" name="Encode in ANSI"/>
                     <Item id="45005" name="Encode in UTF-8-BOM"/>
@@ -391,7 +391,7 @@
             <GoToLine title="Go to...">
                 <Item id="2007" name="&amp;Line"/>
                 <Item id="2008" name="&amp;Offset"/>
-                <Item id="1"    name="&amp;Go"/>
+                <Item id="1"    name="Go"/>
                 <Item id="2"    name="I'm going nowhere"/>
                 <Item id="2004" name="You are here:"/>
                 <Item id="2005" name="You want to go to:"/>
@@ -911,7 +911,7 @@
             </MultiMacro>
             <Window title="Windows">
                 <Item id="1" name="&amp;Activate"/>
-                <Item id="2" name="OK"/>
+                <Item id="2" name="&amp;OK"/>
                 <Item id="7002" name="&amp;Save"/>
                 <Item id="7003" name="&amp;Close window(s)"/>
                 <Item id="7004" name="Sort &amp;tabs"/>

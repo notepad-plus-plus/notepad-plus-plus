@@ -350,7 +350,7 @@
                 <Item id="1606" name="先頭/末尾から再検索(&amp;P)"/>
                 <Item id="1614" name="数える(&amp;T)"/>
                 <Item id="1615" name="すべてマーク"/>
-                <Item id="1616" name="行をブックマーク"/>
+                <Item id="1616" name="行をブックマーク(&amp;M)"/>
                 <Item id="1618" name="前回の検索結果をクリア"/>
                 <Item id="1611" name="置換文字列(&amp;L):"/>
                 <Item id="1608" name="置換(&amp;R)"/>
@@ -452,7 +452,7 @@
                 <Item id="2602" name="変更"/>
                 <Item id="2603" name="行を削除"/>
                 <Item id="2606" name="解除"/>
-                <Item id="2607" name="フィルタ："/>
+                <Item id="2607" name="フィルタ:"/>
                 <Item id="1" name="閉じる"/>
                 <ColumnName name="項目"/>
                 <ColumnShortcut name="ショートカット"/>

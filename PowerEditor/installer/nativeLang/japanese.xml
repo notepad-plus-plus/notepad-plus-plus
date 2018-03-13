@@ -806,17 +806,17 @@
                     <Item id="6427" name="最大長を指定:"/>
                 </RecentFilesHistory>
 
-                <Backup title="自動保存">
+                <Backup title="自動バックアップ">
                     <Item id="6817" name="セッションスナップショットと定期的なバックアップ"/>
                     <Item id="6818" name="セッションスナップショットと定期的なバックアップを有効にする"/>
                     <Item id="6819" name="バックアップを"/>
                     <Item id="6821" name="秒ごとに行う"/>
                     <Item id="6822" name="バックアップパス:"/>
                     <Item id="6309" name="現在のセッションを次回起動時に復元"/>
-                    <Item id="6801" name="保存時の自動保存"/>
+                    <Item id="6801" name="保存時のバックアップ"/>
                     <Item id="6315" name="なし"/>
-                    <Item id="6316" name="シンプル"/>
-                    <Item id="6317" name="履歴保存"/>
+                    <Item id="6316" name="単純バックアップ"/>
+                    <Item id="6317" name="日時バックアップ"/>
                     <Item id="6804" name="バックアップディレクトリを指定"/>
                     <Item id="6803" name="ディレクトリ:"/>
                 </Backup>

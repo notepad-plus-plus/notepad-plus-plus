@@ -87,7 +87,7 @@
                     <Item id="41013" name="セッションを保存..."/>
                     <Item id="41014" name="再読み込み(&amp;L)"/>
                     <Item id="41015" name="複製を別名で保存..."/>
-                    <Item id="41016" name="ゴミ箱に移動"/>
+                    <Item id="41016" name="ごみ箱に移動"/>
                     <Item id="41017" name="名前の変更..."/>
                     <Item id="41021" name="直前に閉じたファイルを開く"/>
                     <Item id="41022" name="フォルダーをワークスペースとして開く..."/>
@@ -275,6 +275,19 @@
                     <Item id="10003" name="新しいウィンドウへ移動"/>
                     <Item id="10004" name="新しいウィンドウで開く"/>
 
+                    <Item id="45060" name="Big5(繁体字)"/>
+                    <Item id="45061" name="GB2312(簡体字)"/>
+                    <Item id="45054" name="OEM 861: アイスランド語"/>
+                    <Item id="45057" name="OEM 865: ノルウェー語"/>
+                    <Item id="45053" name="OEM 860: ポルトガル語"/>
+                    <Item id="45056" name="OEM 863: フランス語"/>
+
+                    <Item id="46033" name="アセンブリ"/>
+                    <Item id="46019" name="MS INIファイル"/>
+                    <Item id="46015" name="MS-DOSスタイル"/>
+                    <Item id="46016" name="標準テキスト"/>
+                    <Item id="46017" name="リソースファイル"/>
+
                     <Item id="46001" name="スタイル設定..."/>
                     <Item id="46250" name="言語を定義..."/>
                     <Item id="46180" name="ユーザー定義"/>
@@ -324,7 +337,7 @@
                     <Item CMID="8" name="ファイル名をコピー"/>
                     <Item CMID="9" name="ディレクトリをコピー"/>
                     <Item CMID="10" name="名前の変更"/>
-                    <Item CMID="11" name="ゴミ箱に移動"/>
+                    <Item CMID="11" name="ごみ箱に移動"/>
                     <Item CMID="12" name="読み取り専用モード"/>
                     <Item CMID="13" name="ファイルの読み取り専用を解除"/>
                     <Item CMID="14" name="新しいウィンドウへ移動"/>
@@ -362,13 +375,13 @@
                 <Item id="1635" name="すべての文書で置換(&amp;O)"/>
                 <Item id="1636" name="すべての文書から検索(&amp;O)"/>
                 <Item id="1654" name="フィルタ(&amp;S):"/>
-                <Item id="1655" name="ディレクトリ(&amp;E):"/>
+                <Item id="1655" name="ﾃﾞｨﾚｸﾄﾘ(&amp;E):"/>
                 <Item id="1656" name="すべて検索"/>
                 <Item id="1658" name="サブフォルダも検索(&amp;B)"/>
                 <Item id="1659" name="隠しフォルダも検索(&amp;H)"/>
                 <Item id="1624" name="検索モード"/>
                 <Item id="1625" name="標準(&amp;N)"/>
-                <Item id="1626" name="拡張(¥n, ¥r, ¥t, ¥0, ¥x...)(&amp;X)"/>
+                <Item id="1626" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
                 <Item id="1660" name="ファイル内置換(&amp;R)"/>
                 <Item id="1661" name="現在のフォルダ"/>
                 <Item id="1641" name="現在の文書内で検索"/>
@@ -657,7 +670,7 @@
 
                     <Item id="6106" name="タブバー"/>
                     <Item id="6107" name="小さく表示"/>
-                    <Item id="6108" name="固定(ドラッグ&amp;ドロップを許可しない)"/>
+                    <Item id="6108" name="固定(ドラッグ&amp;&amp;ドロップを許可しない)"/>
                     <Item id="6109" name="非アクティブのタブを暗くする"/>
                     <Item id="6110" name="アクティブタブにオレンジの線を表示"/>
 
@@ -733,7 +746,7 @@
                     <Item id="6413" name="既定ディレクトリ(開く/保存)"/>
                     <Item id="6414" name="現在の文書に従う"/>
                     <Item id="6415" name="最後に使ったディレクトリ"/>
-                    <Item id="6430" name="新しいファイルダイアログ(拡張子なしでも保存。Unix 式のパス区切りも開く)(&amp;&amp;)"/>
+                    <Item id="6430" name="新しいファイルダイアログ(拡張子なしでも保存。Unix 式のパス区切りも開く)"/>
                     <Item id="6431" name="フォルダーをドロップした時、ワークスペースとせずに すべてのファイルを開く"/>
                 </DefaultDir>
 
@@ -931,19 +944,19 @@
                 <Item id="1" name="OK"/>
                 <Item id="2" name="キャンセル"/>
             </ColumnEditor>
-<!-- untranslated!            <FindInFinder title="Find in finder">
-                <Item id="1"    name="Find All"/>
-                <Item id="2"    name="Close"/>
-                <Item id="1711" name="&amp;Find what :"/>
-                <Item id="1713" name="Search only in found lines"/>
-                <Item id="1714" name="Match &amp;whole word only"/>
-                <Item id="1715" name="Match &amp;case"/>
-                <Item id="1716" name="Search Mode"/>
-                <Item id="1717" name="&amp;Normal"/>
-                <Item id="1719" name="Re&amp;gular expression"/>
-                <Item id="1718" name="E&amp;xtended (\n, \r, \t, \0, \x...)"/>
-                <Item id="1720" name="&amp;. matches newline"/>
-            </FindInFinder> -->
+            <FindInFinder title="検索結果から検索">
+                <Item id="1"    name="すべて検索"/>
+                <Item id="2"    name="閉じる"/>
+                <Item id="1711" name="検索文字列(&amp;F):"/>
+                <Item id="1713" name="ヒットした行の中から検索する"/>
+                <Item id="1714" name="単語単位(&amp;W)"/>
+                <Item id="1715" name="大/小文字を区別(&amp;C)"/>
+                <Item id="1716" name="検索モード"/>
+                <Item id="1717" name="標準(&amp;N)"/>
+                <Item id="1719" name="正規表現(&amp;G)"/>
+                <Item id="1718" name="拡張(\n, \r, \t, \0, \x...) (&amp;X)"/>
+                <Item id="1720" name="&amp;.は改行と一致"/>
+            </FindInFinder>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="コンテキストメニューの編集" message="これから開く contextMenu.xml を編集することで、Notepad++のポップアップメニューを変更できます。
@@ -1029,11 +1042,11 @@ langs.xml を復元しますか？"/>
             <UDLRemoveCurrentLang title="現在の言語を削除" message="よろしいですか？"/>
             <SCMapperDoDeleteOrNot title="よろしいですか？" message="このショートカットを削除してよろしいですか？"/>
             <FindCharRangeValueError title="数値範囲" message="0 から 255 の値を入力して下さい。"/>
-<!-- untranslated!            <OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.
-Do you want to launch Notepad++ in Administrator mode?"/>
-            <OpenInAdminModeWithoutCloseCurrent title="Save failed" message="The file cannot be saved and it may be protected.
-Do you want to launch Notepad++ in Administrator mode?"/>
-            <OpenInAdminModeFailed title="Open in Administrator mode failed" message="Notepad++ cannot be opened in Administrator mode."/> -->
+            <OpenInAdminMode title="保存に失敗" message="ファイルを保存できませんでした。保護されたファイルのようです。
+Notepad++ を管理者権限で立ち上げますか？"/>
+            <OpenInAdminModeWithoutCloseCurrent title="保存に失敗" message="ファイルを保存できませんでした。保護されたファイルのようです。
+Notepad++ を管理者権限で立ち上げますか？"/>
+            <OpenInAdminModeFailed title="管理者権限で立ち上げることに失敗" message="Notepad++ を管理者権限で立ち上げられませんでした。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="クリップボード履歴"/>
@@ -1043,11 +1056,11 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <ColumnName name="名前"/>
             <ColumnExt name="拡張子"/>
         </DocSwitcher>
-<!-- untranslated!        <WindowsDlg>
-            <ColumnName name="Name"/>
-            <ColumnPath name="Path"/>
-            <ColumnType name="Type"/>
-        </WindowsDlg> -->
+        <WindowsDlg>
+            <ColumnName name="ファイル名"/>
+            <ColumnPath name="パス"/>
+            <ColumnType name="種類"/>
+        </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="ASCII文字挿入パネル"/>
             <ColumnVal name="10進数"/>
@@ -1160,14 +1173,14 @@ Do you want to launch Notepad++ in Administrator mode?"/>
             <find-status-replace-not-found value="置換：一致するものはありません"/>
             <find-status-replace-readonly value="置換：置換できません。この文書は読み取り専用です"/>
             <find-status-cannot-find value="検索：見つかりません。&quot;$STR_REPLACE$&quot;"/>
-<!-- untranslated!            <finder-find-in-finder value="Find in this found results..."/>
-            <finder-close-this value="Close this finder"/>
-            <finder-collapse-all value="Collapse all"/>
-            <finder-uncollapse-all value="Uncollapse all"/>
-            <finder-copy value="Copy"/>
-            <finder-select-all value="Select all"/>
-            <finder-clear-all value="Clear all"/>
-            <finder-open-all value="Open all"/> -->
+            <finder-find-in-finder value="この検索結果から検索..."/>
+            <finder-close-this value="この検索結果を閉じる"/>
+            <finder-collapse-all value="すべて折りたたむ"/>
+            <finder-uncollapse-all value="すべて展開する"/>
+            <finder-copy value="コピー"/>
+            <finder-select-all value="すべて選択"/>
+            <finder-clear-all value="すべてクリア"/>
+            <finder-open-all value="すべて開く"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

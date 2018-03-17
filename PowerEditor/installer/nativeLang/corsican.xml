@@ -983,7 +983,7 @@ lettura sola, o in un cartulare chì richiede diritti d'accessu di scrittura.
 E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un valore accetevule via u dialogu di Preferenze."/>
             <FilePathNotFoundWarning title="Apertura di Schedariu" message="U schedariu chì voi pruvate d'apre ùn esiste micca."/>
             <SessionFileInvalidError title="Ùn pò micca Caricà una Sessione" message="U schedariu di sessione hè sia alteratu, sia micca accettevule."/>
-            <DroppingFolderAsProjetModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum'è Spaziu di Travagliu.
+            <DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum'è Spaziu di Travagliu.
 Ci vole à attivà &quot;À u depone d'un cartulare, apre tutti i schedarii invece d'impiegallu cum'è Spaziu di Tr.&quot; in a sezzione &quot;Cartulare Predefinitu&quot; di e Preferenze per fà quessu."/>
             <SortingError title="Sbagliu di Classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/>
             <ColumnModeTip title="Minichichja di Modu Culonna" message="Ci vole à impiegà &quot;ALT+Selez. cù Topu&quot; o &quot;Alt+Maiusc+Fleccia&quot; per permutà ver di u modu culonna."/>
@@ -1010,7 +1010,7 @@ Vulete ricaricallu è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
 Vulete andà nant'à a pagina di Notepad++ per scaricà l'ultima versione ?"/>
             <DocTooDirtyToMonitor title="Penseru d'appustamentu" message="U ducumentu hè brutu. Ci vole à arregistrà a mudificazione nanzu à appustallu."/>
             <DocNoExistToMonitor title="Penseru d'appustamentu" message="U schedariu deve esiste per esse appustatu."/>
-            <FileTooBigToOpene title="Penseru di dimensione di schedariu" message="U schedariu hè troppu maiò per esse apertu da Notepad++"/>
+            <FileTooBigToOpen title="Penseru di dimensione di schedariu" message="U schedariu hè troppu maiò per esse apertu da Notepad++"/>
             <CreateNewFileOrNot title="Creà un novu schedariu" message="&quot;$STR_REPLACE$&quot; ùn esiste. Creallu ?"/>
             <CreateNewFileError title="Creà un novu schedariu" message="Ùn pò micca creà u schedariu &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="SBAGLIU" message="Ùn pò micca apre u schedariu &quot;$STR_REPLACE$&quot;."/>

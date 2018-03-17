@@ -983,7 +983,7 @@ vagy pedig a megadott mappa módosításához nincs megfelelő írási jog.
 A felhő beállítások törlődtek. Adja meg a megfelelő értéket a Beállításokban."/>
             <FilePathNotFoundWarning title="Fájl megnyitás" message="A megnyitni kívánt fájl nem létezik."/>
             <SessionFileInvalidError title="Munkamenet nem betölthető" message="A munkamenet fájl korrupt vagy nem érvényes."/>
-            <DroppingFolderAsProjetModeWarning title="Érvénytelen művelet" message="Projekt panelre fájlok és mappák is húzhatók, de nem a kettő egyszerre.
+            <DroppingFolderAsProjectModeWarning title="Érvénytelen művelet" message="Projekt panelre fájlok és mappák is húzhatók, de nem a kettő egyszerre.
 A művelethez az &quot;Alapértelmezett mappa&quot; beállításokban a &quot;Mappa behúzásakor minden ottlévő fájl megnyitása, a Mappa mint Munkaterület helyett&quot; opciót kell engedélyezni."/>
             <SortingError title="Rendezési hiba" message="A numerikus rendezés nem hajtható végre a következő sor miatt: $INT_REPLACE$."/>
             <ColumnModeTip title="Blokk szerkesztés tipp" message="Az &quot;ALT+Egér kijelölés&quot; vagy &quot;Alt+Shift+Jobbra/Balra/Fel/Le&quot; billentyűkkel lehet Blokk szerkesztést használni."/>
@@ -1010,7 +1010,7 @@ Kívánja újból betölteni, és eldobni a Notepad++-ban végzett változtatás
 A Notepad++ oldalra kíván menni a legújabb verzió letöltéséhez?"/>
             <DocTooDirtyToMonitor title="Követési probléma" message="A dokumentum módosult. Mentse a módosításokat, mielőtt követi azt."/>
             <DocNoExistToMonitor title="Követési probléma" message="A követéshez a fájlnak léteznie kell."/>
-            <FileTooBigToOpene title="Méret probléma" message="A fájl túl nagy méretű a megnyitáshoz."/>
+            <FileTooBigToOpen title="Méret probléma" message="A fájl túl nagy méretű a megnyitáshoz."/>
             <CreateNewFileOrNot title="Fájl létrehozás" message="&quot;$STR_REPLACE$&quot; nem létezik. Létrehozza?"/>
             <CreateNewFileError title="Fájl létrehozás" message="Ez a fájl nem hozható létre: &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="Hiba" message="Ez a fájl nem nyitható meg: &quot;$STR_REPLACE$&quot;."/>

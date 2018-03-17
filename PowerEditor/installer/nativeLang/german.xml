@@ -974,7 +974,7 @@
 			<SettingsOnCloudError title="Cloud-Einstellungen" message="Der Pfad zu den Einstellungen in der Cloud dürfte&#x0A;auf ein Laufwerk nur mit Leserechten oder auf ein Verzeichnis&#x0A;ohne die erforderlichen Schreibrechte zeigen.&#x0A;Die Einstellungen in der Cloud werden abgebrochen.&#x0A;Bitte stellen Sie auf einen schlüssigen Wert in den Einstellungen um."/>
 			<FilePathNotFoundWarning title="Datei öffnen" message="Die Datei zum Öffnen existiert nicht."/>
 			<SessionFileInvalidError title="Konnte Sitzung nicht laden" message="Sitzungsdatei ist entweder beschädigt oder ungültig."/>
-			<DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Mann kann entweder Dateien oder Verzeichnisse ablegen aber nicht beides zugleich,&#x0A;weil das Programm im 'Ablegen als Projekt' -Modus ist.&#x0A;Dazu muss man &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot;&#x0A;im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs aktivieren."/>
+			<DroppingFolderAsProjectModeWarning title="Ungültige Aktion" message="Mann kann entweder Dateien oder Verzeichnisse ablegen aber nicht beides zugleich,&#x0A;weil das Programm im 'Ablegen als Projekt' -Modus ist.&#x0A;Dazu muss man &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot;&#x0A;im &quot;Standardverzeichnis&quot; Bereich des Optionen-Dialogs aktivieren."/>
 			<SortingError title="Sortier-Fehler" message="Konnte nicht nummerisch sortieren wegen Zeile $INT_REPLACE$."/>
 			<ColumnModeTip title="Tip zum Spalten-Modus" message="Bitte &quot;ALT+Mauswahl&quot; oder &quot;Alt+Shift+Pfeiltaste&quot; verwenden um in den Spalten-Modus zu wechseln."/>
 			<BufferInvalidWarning title="Speichern fehlgeschlagen" message="Konnte nicht speichern: Ungültiger Puffer."/>
@@ -988,7 +988,7 @@
 			<XpUpdaterProblem title="Automatisches Update" message="Die Update-Funktion von Notepad++ ist mit Windows XP wegen fehlender Sicherheitsebene nicht kompatibel.&#x0A;Soll auf die Homepage von Notepad++ gewechselt werden um die aktuellste Version herunterzuladen?"/>
 			<DocTooDirtyToMonitor title="Überwachungsproblem" message="Die Datei ist unsauber. Bitte vor der Überwachung die Änderungen speichern."/>
 			<DocNoExistToMonitor title="Überwachungsproblem" message="Die Datei muss existieren um übewacht werden zu können."/>
-			<FileTooBigToOpene title="Problem mit Dateigröße" message="Die Datei ist zu groß um mit Notepad++ geöffnet zu werden."/>
+			<FileTooBigToOpen title="Problem mit Dateigröße" message="Die Datei ist zu groß um mit Notepad++ geöffnet zu werden."/>
 			<CreateNewFileOrNot title="Neue Datei erstellen" message="&quot;$STR_REPLACE$&quot; existiert nicht. Soll die Datei erstellt werden?"/>
 			<CreateNewFileError title="Neue Datei erstellen" message="Kann Datei &quot;$STR_REPLACE$&quot; nicht erstellen."/>
 			<OpenFileError title="Fehler" message="Kann Datei &quot;$STR_REPLACE$&quot; nicht öffnen."/>
@@ -1021,7 +1021,7 @@
 			<OpenInAdminMode title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0A;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
 			<OpenInAdminModeFailed title="Starten im Administrator-Modus fehlgeschlagen" message="Notepad++ kann nicht im Administrator-Modus gestartet werden."/>
 			<OpenInAdminModeWithoutCloseCurrent title="Speichern fehlgeschlagen" message="Die Datei kann nicht gespeichert werden weil sie vielleicht geschützt ist.&#x0A;Soll Notepad++ im Administrator-Modus gestartet werden?"/>
-			<DroppingFolderAsProjetModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&#x0A;Dafür muss &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im Bereich &quot;Standardverzeichnis&quot; der Einstellungen ausgewählt werden."/>
+			<DroppingFolderAsProjectModeWarning title="Ungültige Aktion" message="Es können entweder Dateien oder Verzeichnisse verschoben werden, aber nicht beides zugleich.&#x0A;Dafür muss &quot;Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses&quot; im Bereich &quot;Standardverzeichnis&quot; der Einstellungen ausgewählt werden."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Zwischenablage"/>

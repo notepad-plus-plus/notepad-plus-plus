@@ -960,7 +960,7 @@ sau într-un folder ce are nevoie de drepturi de acces pentru scriere.
 Setările pentru cloud vor fi anulate. Reintroduceți o cale validă în panoul [Preferințe]."/>
              <FilePathNotFoundWarning title="Deschidere fișier" message="Fișierul pe care doriți să-l deschideți nu există."/>
              <SessionFileInvalidError title="Nu s-a putut încărca sesiunea" message="Sesiunea fișierului este fie coruptă, fie nevalidă."/>
-            <DroppingFolderAsProjetModeWarning title="Invalid action" message="Puteți plasa doar fișiere sau doar foldere, dar nu ambele deodată, deoarece sunteți în modul folder ca proiect.
+            <DroppingFolderAsProjectModeWarning title="Invalid action" message="Puteți plasa doar fișiere sau doar foldere, dar nu ambele deodată, deoarece sunteți în modul folder ca proiect.
 Pentru a putea efectua această operație, trebuie să activați opțiunea &quot;La plasarea unui folder, se deschid fișierele din el, fără a-l stabili ca spațiu de lucru&quot; din secțiunea &quot;Folder implicit&quot; din panoul [Preferințe]."/>
             <SortingError title="Eroare sortare" message="Nu se poate executa sortarea numerică datorită liniei $INT_REPLACE$."/>
             <ColumnModeTip title="Pont mod coloană" message="Folosiți &quot;ALT+selectare cu maus&quot; sau &quot;Alt+Shift+săgeată&quot; pentru comutare în mod coloană."/>
@@ -985,7 +985,7 @@ Doriți să-l reîncărcați și să anulați modificările efectuate în Notepa
 Doriți să vizitați pagina de descărcare a Notepad++ pentru a descărca ultima versiune?"/>
             <DocTooDirtyToMonitor title="Problemă monitorizare" message="Documentul este necorespunzător. Salvați modificările înainte de a-l monitoriza."/>
             <DocNoExistToMonitor title="Problemă monitorizare" message="Pentru a putea fi monitorizat fișierul trebuie să existe."/>
-            <FileTooBigToOpene title="Problemă dimensiune fișier" message="Fișierul este prea mare pentru a fi deschis cu Notepad++"/>
+            <FileTooBigToOpen title="Problemă dimensiune fișier" message="Fișierul este prea mare pentru a fi deschis cu Notepad++"/>
             <CreateNewFileOrNot title="Creare fișier nou" message="Fișierul &quot;$INT_REPLACE$&quot; nu există. Îl creați?."/>
             <CreateNewFileError title="Creare fișier nou" message="Nu se poate crea fișierul &quot;$INT_REPLACE$&quot;."/>
             <OpenFileError title="EROARE" message="Nu se poate deschide fișierul &quot;$INT_REPLACE$&quot;."/>

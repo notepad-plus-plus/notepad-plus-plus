@@ -958,7 +958,7 @@ eller på en mappe som kræver priviligerede rettigheder for at få skriveadgang
 Dine indstillinger på sky annulleres. Nulstil venligst en relateret værdi i dialogen Præferencer."/>
 			<FilePathNotFoundWarning title="Åbning af fil" message="Filen du prøver at åbne findes ikke."/>
             <SessionFileInvalidError title="Kunne ikke indlæse session" message="Sessionsfilen er enten ødelagt eller ugyldig."/>
-            <DroppingFolderAsProjetModeWarning title="Ugyldig handling" message="Du kan kun slippe filer eller mapper men ikke begge dele, da du er i slippe mappe som projekt-tilstand.
+            <DroppingFolderAsProjectModeWarning title="Ugyldig handling" message="Du kan kun slippe filer eller mapper men ikke begge dele, da du er i slippe mappe som projekt-tilstand.
 skal du aktivere &quot;Åbn alle mappens filer ved slip af mappe, fremfor at starte mappe som arbejdsområde&quot; i &quot;Standardmappe&quot;-afsnittet i Præferencer-dialogen for at få handlingen til at virke."/>
             <SortingError title="Fejl ved sortering" message="Kan ikke udføre numerisk sortering pga. linje $INT_REPLACE$."/>
             <ColumnModeTip title="Tip til kolonne-tilstand" message="Brug venligst &quot;ALT+Musemarking&quot; eller &quot;Alt+Skift+Piletast&quot; til at skifte kolonne-tilstand."/>
@@ -985,7 +985,7 @@ Vil du genindlæse den og miste ændringerne som er foretaget i Notepad++?"/>
 Vil du gå til Notepad++-siden for at downloade den seneste version?"/>
             <DocTooDirtyToMonitor title="Problem med overvågning" message="Dokumentet er beskidt. Gem venligst ændringen inden det overvåges."/>
             <DocNoExistToMonitor title="Problem med overvågning" message="Filen skal findes for at kunne overvåges."/>
-            <FileTooBigToOpene title="Problem med filstørrelse" message="Filen er for stor til at blive åbnet af Notepad++"/>
+            <FileTooBigToOpen title="Problem med filstørrelse" message="Filen er for stor til at blive åbnet af Notepad++"/>
             <CreateNewFileOrNot title="Opret ny fil" message="&quot;$INT_REPLACE$&quot; findes ikke. Skal den oprettes?."/>
             <CreateNewFileError title="Opret ny fil" message="Kan ikke oprette filen &quot;$INT_REPLACE$&quot;."/>
             <OpenFileError title="FEJL" message="Kan ikke åbne filen &quot;$INT_REPLACE$&quot;."/>

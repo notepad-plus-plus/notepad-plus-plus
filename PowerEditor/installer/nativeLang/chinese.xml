@@ -969,7 +969,7 @@
 請在「喜好設定」對話框重設相關設定值。"/>
             <FilePathNotFoundWarning title="開啟檔案" message="你試圖開啟的文件不存在。"/>
             <SessionFileInvalidError title="無法開啟檔案組群" message="組群檔無效。"/>
-            <DroppingFolderAsProjetModeWarning title="操作無效" message="你只能單獨拖放文件或目錄，但不能同時拖放，因為你目前的模式是『拖放目錄為文件夾工作區』。
+            <DroppingFolderAsProjectModeWarning title="操作無效" message="你只能單獨拖放文件或目錄，但不能同時拖放，因為你目前的模式是『拖放目錄為文件夾工作區』。
 你必須在喜好設定對話框的「預設資料夾」中啟用『拖放文件夾開啟文件夾中所有文件，而不啟動文件夾工作區』才能使此操作成功。"/>
             <SortingError title="排序錯誤" message="由於第 $INT_REPLACE$ 行無法執行數字排序。"/>
             <ColumnModeTip title="列模式選取提示" message="請使用『ALT +鼠標選擇』或『Alt + Shift +箭頭鍵』切換到列模式選取。"/>
@@ -996,7 +996,7 @@
 你要直接到 Notepad++ 網頁下載最新版本嗎？"/>
             <DocTooDirtyToMonitor title="監控錯誤" message="文件已修改而尚未儲存。 在監視之前請儲存修改。"/>
             <DocNoExistToMonitor title="監控錯誤" message="該文件必須存在以進行監視。"/>
-            <FileTooBigToOpene title="文件太大" message="文件太大，無法用 Notepad++ 打開。"/>
+            <FileTooBigToOpen title="文件太大" message="文件太大，無法用 Notepad++ 打開。"/>
             <CreateNewFileOrNot title="開新檔案" message="&quot;$INT_REPLACE$&quot; 不存在。 開新檔案？"/>
             <CreateNewFileError title="開新檔案" message="無法創建新檔 &quot;$INT_REPLACE$&quot;."/>
             <OpenFileError title="錯誤" message="無法開啟 &quot;$INT_REPLACE$&quot;"/>

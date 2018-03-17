@@ -1032,7 +1032,7 @@
 			<SettingsOnCloudError title = "Nastavení cloudu" message = "Zdá se, že nastavená cesta k i-úložišti ukazuje na jednotku, která je určena pouze ke čtení\r nebo na složku bez oprávnění k zápisu.\rVaše nastavení i-úložiště bude zrušeno. Prosím nastavte znovu odpovídající hodnotu v dialogu Volby..."/>
 			<FilePathNotFoundWarning title = "Otevření souboru" message = "Soubor, který se pokoušíte otevřít, neexistuje."/>
 			<SessionFileInvalidError title = "Relace nemohla být zavedena" message = "Soubor relace je buďto poškozen nebo je neplatný."/>
-			<DroppingFolderAsProjetModeWarning title = "Neplatná akce" message = "Můžete přetahovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit 'Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)'."/>
+			<DroppingFolderAsProjectModeWarning title = "Neplatná akce" message = "Můžete přetahovat soubory nebo složky, ale ne obojí zároveň, jelikož máte zapnutý mód pro otevírání složek souborů jako projektů. Pro změnu nastavení musíte v Nastavení->Volby...->ImplicitníAdresář povolit 'Otevírat všechny soubory ve složce při přetažení myší (místo zdroje pro pracovní plochu)'."/>
 			<SortingError title = "Chyba třídění" message = "Nebylo možné provést numerické setřídění kvůli řádku $INT_REPLACE$."/>
 			<ColumnModeTip title = "Tip k sloupcovému režimu" message = "Použijte prosím &quot;výběr ALT+Myš&quot; nebo &quot;Alt+Shift+KurzorováŠipka&quot; k zapnutí sloupcového režimu."/>
 			<BufferInvalidWarning title = "Ukládání selhalo" message = "Nelze uložit: Neplatná vyrovnávací paměť."/>
@@ -1046,7 +1046,7 @@
 			<XpUpdaterProblem title = "Aktualizační program Notepadu++" message = "Aktualizační program Notepadu++ není kompatibilní s Windows XP vzhledem k zastaralé bezpečnostní vrstvě tohoto systému. Chcete místo toho přejít na webové stránky Notepadu++, odkud si můžete sami stáhnout poslední verzi Notepadu++?"/>
 			<DocTooDirtyToMonitor title = "Chyba sledování stavu" message = "Dokument je v nekonzistentním stavu. Uložte prosím změny v dokumentu před zapnutím sledování jeho stavu."/>
 			<DocNoExistToMonitor title = "Problém se sledováním stavu" message = "Soubor musí existovat, aby jej bylo možné sledovat."/>
-			<FileTooBigToOpene title = "Problém s velikostí souboru" message = "Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>
+			<FileTooBigToOpen title = "Problém s velikostí souboru" message = "Soubor je příliš velký na to, aby mohl být otevřen v Notepadu++."/>
 			<CreateNewFileOrNot title = "Vytvoření nového souboru" message = "&quot;$STR_REPLACE$&quot; neexistuje. Chcete jej vytvořit?"/>
 			<CreateNewFileError title = "Vytvoření nového souboru" message = "Není možné vytvořit soubor &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title = "CHYBA" message = "Není možné otevřít soubor &quot;$STR_REPLACE$&quot;."/>

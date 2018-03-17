@@ -945,7 +945,7 @@
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer ?"/>
             <FilePathNotFoundWarning title="Ouvrir" message="Le fichier que vous essayez d'ouvrir n'existe pas."/>
             <SessionFileInvalidError title="Impossible de charger la session" message="Le fichier de session est endommagé ou non valide."/>
-            <DroppingFolderAsProjetModeWarning title="Action invalide" message="Vous ne pouvez déposer que des fichiers ou des dossiers mais pas les deux, car vous êtes en mode Projet.
+            <DroppingFolderAsProjectModeWarning title="Action invalide" message="Vous ne pouvez déposer que des fichiers ou des dossiers mais pas les deux, car vous êtes en mode Projet.
 vous devez activer &quot;Open all files of folder instead of launching Folder as Workspace on folder dropping&quot; in &quot;Default Directory&quot; section of Preferences dialog to make this operation work."/>
             <SortingError title="Erreur de tri" message="Impossible d'effectuer le tri numérique à cause de la ligne $INT_REPLACE$."/>
             <BufferInvalidWarning title="Échec de sauvegarde" message="Cannot save: Buffer is invalid."/>
@@ -971,7 +971,7 @@ Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++?
 Do you want to go to Notepad++ page to download the latest version?"/>
             <DocTooDirtyToMonitor title="Monitoring problem" message="The document is dirty. Please save the modification before monitoring it."/>
             <DocNoExistToMonitor title="Monitoring problem" message="The file should exist to be monitored."/>
-            <FileTooBigToOpene title="File size problem" message="File is too big to be opened by Notepad++"/>
+            <FileTooBigToOpen title="File size problem" message="File is too big to be opened by Notepad++"/>
             <CreateNewFileOrNot title="Create new file" message="&quot;$INT_REPLACE$&quot; doesn't exist. Create it?."/>
             <CreateNewFileError title="Create new file" message="Cannot create the file &quot;$INT_REPLACE$&quot;."/>
             <OpenFileError title="ERREUR" message="Can not open file &quot;$INT_REPLACE$&quot;."/>

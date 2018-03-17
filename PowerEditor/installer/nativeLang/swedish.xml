@@ -935,7 +935,7 @@ eller så krävs det större rättigheter för att skriva.
 Dina inställningar för molnet kommer att avbrytas. Återställ värdet i inställningarna."/>
 			<FilePathNotFoundWarning title="Öppna fil" message="Filen du försöker öppna existerar ej."/>
 			<SessionFileInvalidError title="Kunde inte ladda session" message="Sessionsfil är antingen skadad eller ogiltig."/>
-			<DroppingFolderAsProjetModeWarning title="Felaktig åtgärd" message="Du kan enbart släppa filer eller mappar men inte båda, eftersom du är i &quot;släpp mappar som projekt&quot;-läge.
+			<DroppingFolderAsProjectModeWarning title="Felaktig åtgärd" message="Du kan enbart släppa filer eller mappar men inte båda, eftersom du är i &quot;släpp mappar som projekt&quot;-läge.
 Du måste aktivera &quot;Öppna alla filer i mapp istället för att starta en mapp som en arbetsyta när en mapp dras in&quot; i sektionen &quot;Standardmapp&quot; i inställningarna för att få denna åtgärd att fungera."/>
 			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/>
 			<ColumnModeTip title="Tips för kolumnläge" message="Använd &quot;Alt+musmarkering&quot; eller &quot;Alt+Shift+Piltangent&quot; för att växla till kolumnläge."/>
@@ -962,7 +962,7 @@ Vill du ladda om den och förlora ändringarna i Notepad++?"/>
 Vill du gå till hemsidan för Notepad++ för att ladda ned den senaste versionen?"/>
 			<DocTooDirtyToMonitor title="Övervakningsproblem" message="Dokumentet är ändrat. Spara ändringarna innan du övervakar den."/>
 			<DocNoExistToMonitor title="Övervakningsproblem" message="Filen måste finnas för att kunna övervakas."/>
-			<FileTooBigToOpene title="Problem med filstorlek" message="Filen är för stor för att öpnnas med Notepad++"/>
+			<FileTooBigToOpen title="Problem med filstorlek" message="Filen är för stor för att öpnnas med Notepad++"/>
 			<CreateNewFileOrNot title="Skapa ny fil" message="&quot;$STR_REPLACE$&quot; existerar ej. Skapa den?"/>
 			<CreateNewFileError title="Skapa ny fil" message="Kan inte skapa filen &quot;$STR_REPLACE$&quot;."/>
 			<OpenFileError title="FEL" message="Kan inte öppna filen &quot;$STR_REPLACE$&quot;."/>

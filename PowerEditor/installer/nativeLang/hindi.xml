@@ -968,7 +968,7 @@
       <SettingsOnCloudError title="क्लाउड (cloud) की सेटिंग्स" message="ऐसा लगता है कि क्लाउड (cloud) का सेटिंग पाथ रीड ओनली है या फिर आवश्यक फोल्डर पर राइट एक्सेस (write access) चाहिए। आपकी क्लाउड (cloud) की सेटिंग्स को रद्द कर दिया जायेगा। कृप्या प्रैफरेंसेज डायलॉग (preferences dialog) से एक सुसंगत (coherent) मूल्य रीसेट करें।"/>
       <FilePathNotFoundWarning title="फाइल खोलें" message="आप जिस फ़ाइल को खोलने की कोशिश कर रहे हैं, वह मौजूद नहीं है।"/>
       <SessionFileInvalidError title="सत्र लोड नहीं किया जा सका" message="सत्र फ़ाइल या तो अनुपयोगी है या मान्य नहीं है।"/>
-      <DroppingFolderAsProjetModeWarning title="इनवैलिड एक्शन" message="आप केवल फ़ाइलों या फ़ोल्डरों को ही ड्रोप सकते हैं लेकिन दोनों नहीं, क्योंकि आप फोल्डर एज प्रोजेक्ट मोड में ड्रोप कर रहे हैं।
+      <DroppingFolderAsProjectModeWarning title="इनवैलिड एक्शन" message="आप केवल फ़ाइलों या फ़ोल्डरों को ही ड्रोप सकते हैं लेकिन दोनों नहीं, क्योंकि आप फोल्डर एज प्रोजेक्ट मोड में ड्रोप कर रहे हैं।
 अगर आप ऐसा करना चाहतें हैं तो प्रिफेरन्स डायलॉग पर डिफ़ॉल्ट डायरेक्टरी में &quot;फोल्डर ड्रैग करने पर, फोल्डर एज वर्कस्पेस की बजाय फोल्डर की सभी फाइलें खोलें&quot; को इनेबल करें।"/>
       <SortingError title="सॉर्टिंग एरर" message="लाइन $INT_REPLACE$ के कारण न्यूमेरिक सॉर्ट नहीं कर सकते।"/>
       <ColumnModeTip title="कॉलम मोड टिप" message="कॉलम मोड के लिए कृपया &quot;ALT+Mouse Selection&quot; या &quot;Alt+Shift+Arrow key&quot; का प्रयोग करें।"/>
@@ -993,7 +993,7 @@
 क्या आप Notepad++ पेज से लेटेस्ट वर्जन डाउनलोड करना चाहते हैं?"/>
       <DocTooDirtyToMonitor title="मॉनिटरिंग समस्या" message="दस्तावेज़ सेव नहीं है। मॉनिटर करने से पहले सेव करें।"/>
       <DocNoExistToMonitor title="मॉनिटरिंग समस्या" message="मॉनिटरिंग के लिए फाइल मौज़ूद होनी चाहिए।"/>
-      <FileTooBigToOpene title="फाइल साइज प्रॉब्लम" message="फाइल बहुत बड़ी होने के कारण Notepad++ में नहीं खोली जा सकती है।"/>
+      <FileTooBigToOpen title="फाइल साइज प्रॉब्लम" message="फाइल बहुत बड़ी होने के कारण Notepad++ में नहीं खोली जा सकती है।"/>
       <CreateNewFileOrNot title="नई फ़ाइल बनाएं" message="फाइल &quot;$STR_REPLACE$&quot; मौजूद नहीं है, इसे बनायें?"/>
       <CreateNewFileError title="नई फ़ाइल बनाएं" message="फ़ाइल नहीं बन सकी &quot;$STR_REPLACE$&quot;।"/>
       <OpenFileError title="त्रुटि" message="फाइल नहीं खुल सकी &quot;$STR_REPLACE$&quot;।"/>

@@ -935,7 +935,7 @@ By Hiro5 <groccat at gmail>
 			<SettingsOnCloudError title="Opcions al núvol" message="Sembla que el directori indicat a les opcions del núvol es troba en una unitat de només lectura,&#xD;o en una carpeta que demana drets d'accés d'escriptura.&#xD;Els vostres paràmetres del núvol es cancel·laran. Reinicieu a un valor coherent a través del diàleg de Preferències."/>
 			<FilePathNotFoundWarning title="Obre fitxer" message="El fitxer que intenteu obrir no existeix."/>
 			<SessionFileInvalidError title="No s'ha pogut carregar la sessió" message="El fitxer de sessió està malmès o no és vàlid."/>
-			<DroppingFolderAsProjetModeWarning title="Acció no vàlida" message="Podeu arrossegar fitxers o carpetes però no ambdues, perquè s'està arrossegant en mode de Carpeta com a projecte.&#xD;Heu d'activar &quot;Obre els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball&quot; a la secció &quot;Directoris&quot; del diàleg de Preferències per fer que aquesta operació funcioni."/>
+			<DroppingFolderAsProjectModeWarning title="Acció no vàlida" message="Podeu arrossegar fitxers o carpetes però no ambdues, perquè s'està arrossegant en mode de Carpeta com a projecte.&#xD;Heu d'activar &quot;Obre els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball&quot; a la secció &quot;Directoris&quot; del diàleg de Preferències per fer que aquesta operació funcioni."/>
 			<SortingError title="Error d'ordenació" message="No s'ha pogut realitzar l'ordenació numèrica degut a la línia $INT_REPLACE$."/>
 			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu &quot;ALT+Selecció ratolí&quot; o &quot;Alt+Maj+Fletxes&quot; per canviar al mode de columna."/>
 			<BufferInvalidWarning title="El desat ha fallat" message="No es pot desar: El buffer no es vàlid."/>
@@ -949,7 +949,7 @@ By Hiro5 <groccat at gmail>
 			<XpUpdaterProblem title="Actualitzador de Notepad++" message="L'actualitzador de Notepad++ no és compatible amb XP per una capa de seguretat obsoleta sota XP.&#xD;Voleu anar a la web de Notepad++ per baixar l'última versió?"/>
 			<DocTooDirtyToMonitor title="Problema de monitoratge" message="El document està en brut. Deseu la modificació abans de monitorar-lo."/>
 			<DocNoExistToMonitor title="Problema de monitoratge" message="El fitxer hauria d'existir per monitorar-lo."/>
-			<FileTooBigToOpene title="Problema amb mida de fitxer" message="El fitxer és massa gran per obrir-lo amb Notepad++"/>
+			<FileTooBigToOpen title="Problema amb mida de fitxer" message="El fitxer és massa gran per obrir-lo amb Notepad++"/>
 			<CreateNewFileOrNot title="Crea nou fitxer" message="&quot;$INT_REPLACE$&quot; no existeix. El voleu crear?."/>
 			<CreateNewFileError title="Crea nou fitxer" message="No es pot crear el fitxer &quot;$INT_REPLACE$&quot;."/>
 			<OpenFileError title="ERROR" message="No es pot obrir el fitxer &quot;$INT_REPLACE$&quot;."/>

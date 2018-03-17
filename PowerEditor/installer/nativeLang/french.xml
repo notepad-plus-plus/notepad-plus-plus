@@ -113,12 +113,12 @@
                     <Item id="42015" name="Déplacer la ligne actuelle vers le bas"/>
                     <Item id="42016" name="EN MAJUSCULE"/>
                     <Item id="42017" name="en minuscule"/>
-                    <Item id="42067" name="Majuscules dans les titres"/>
-                    <Item id="42068" name="Majuscules dans les titres (moins strict)"/>
+                    <Item id="42067" name="Majuscules Dans Les Titres"/>
+                    <Item id="42068" name="Majuscules Dans Les Titres (moins strict)"/>
                     <Item id="42069" name="Majuscule en début de phrase"/>
                     <Item id="42070" name="Majuscule en début de phrase (moins strict)"/>
                     <Item id="42071" name="à L'ENVERS"/>
-                    <Item id="42072" name="ALÉATOiRE"/>
+                    <Item id="42072" name="aLÉATOirE"/>
                     <Item id="42073" name="Ouverture du fichier"/>
                     <Item id="42074" name="Ouvrir le répertoire dans l'explorateur"/>
                     <Item id="42075" name="Rechercher sur Internet"/>
@@ -1002,6 +1002,11 @@ veuillez en donner une autre."/>
             <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
             <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
             <FindCharRangeValueError title="Range Value problem" message="You should type between from 0 to 255."/>
+			<OpenInAdminMode title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
+Veux-tu lancer Notepad++ en mode Administrateur?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
+Veux-tu lancer Notepad++ en mode Administrateur?"/>
+            <OpenInAdminModeFailed title="L'ouverture en mode Administrateur a échoué" message="Notepad++ ne peut pas être lancé en mode Administrateur."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Historique du presse-papiers"/>

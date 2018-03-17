@@ -2,7 +2,7 @@
 
 <!--
 	German localization for Notepad++ 7.5.5
-	last modified: 2018-03-11 by schnurlos (schnurlos@gmail.com)
+	last modified: 2018-03-17 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -85,9 +85,9 @@
 					<Item id="41002" name="&amp;Öffnen …"/>
 					<Item id="41019" name="E&amp;xplorer"/>
 					<Item id="41020" name="&amp;Eingabeaufforderung"/>
-					<Item id="41003" name="Schlie&amp;ßen"/>
-					<Item id="41004" name="Alle s&amp;chließen"/>
-					<Item id="41005" name="Alle s&amp;chließen bis auf aktuelle Datei"/>
+					<Item id="41003" name="S&amp;chließen"/>
+					<Item id="41004" name="All&amp;e schließen"/>
+					<Item id="41005" name="Alle schließen bis auf &amp;aktuelle Datei"/>
 					<Item id="41009" name="Dateien &amp;links schließen"/>
 					<Item id="41018" name="Dateien &amp;rechts schließen"/>
 					<Item id="41006" name="&amp;Speichern"/>
@@ -100,7 +100,7 @@
 					<Item id="41013" name="Sitzung speiche&amp;rn …"/>
 					<Item id="41014" name="Neu &amp;laden"/>
 					<Item id="41015" name="&amp;Kopie speichern unter …"/>
-					<Item id="41016" name="Von Datentr&amp;äger löschen"/>
+					<Item id="41016" name="In P&amp;apierkorb verschieben"/>
 					<Item id="41017" name="Um&amp;benennen …"/>
 					<Item id="41021" name="Zuletzt geschlossene Datei wieder öffnen"/>
 					<Item id="41022" name="Verzeichnis als Arbeitsbereich öffnen"/>
@@ -130,18 +130,18 @@
 					<Item id="42066" name="Zeilen als Dezimalzahlen (Punkt) absteigend sortieren"/>
 					<Item id="42016" name="In &amp;GROSSBUCHSTABEN umwandeln"/>
 					<Item id="42017" name="In &amp;kleinbuchstaben umwandeln"/>
-					<Item id="42067" name="Überschriftenstil"/>
-					<Item id="42068" name="Gemischter Überschriftenstil"/>
-					<Item id="42069" name="Normaler Wortstil"/>
-					<Item id="42070" name="Gemischter Wortstil"/>
+					<Item id="42067" name="&amp;Überschriftenstil"/>
+					<Item id="42068" name="&amp;Gemischter Überschriftenstil"/>
+					<Item id="42069" name="&amp;Normaler Wortstil"/>
+					<Item id="42070" name="Gemischter &amp;Wortstil"/>
 					<Item id="42071" name="iNVERTIERTER wORTSTIL"/>
 					<Item id="42072" name="zUFäLlIGeR WortSTiL"/>
 					<Item id="42073" name="Datei Öffnen"/>
 					<Item id="42074" name="Ordner im Explorer öffnen"/>
 					<Item id="42075" name="Suche im Internet"/>
 					<Item id="42076" name="Andere Suchmaschine wählen …"/>
-					<Item id="42018" name="Aufzeichnung s&amp;tarten"/>
-					<Item id="42019" name="Aufzeichnung st&amp;oppen"/>
+					<Item id="42018" name="Aufzei&amp;chnung starten"/>
+					<Item id="42019" name="Aufzeichnung s&amp;toppen"/>
 					<Item id="42021" name="Makro ausfüh&amp;ren"/>
 					<Item id="42022" name="&amp;Zeilenweise Auskommentierung umschalten"/>
 					<Item id="42023" name="Auswahl &amp;auskommentieren"/>
@@ -234,8 +234,8 @@
 					<Item id="44019" name="&amp;Alle Zeichen anzeigen"/>
 					<Item id="44020" name="&amp;Einrückung anzeigen"/>
 					<Item id="44022" name="Automatischer Zeilen&amp;umbruch"/>
-					<Item id="44023" name="Schrift ver&amp;größern"/>
-					<Item id="44024" name="Schrift ver&amp;kleinern"/>
+					<Item id="44023" name="Schrift ver&amp;größern (STRG + Mausrad nach oben)"/>
+					<Item id="44024" name="Schrift ver&amp;kleinern (STRG + Mausrad nach unten)"/>
 					<Item id="44025" name="&amp;Leerzeichen und Tabulatoren anzeigen"/>
 					<Item id="44026" name="Zeilenende anze&amp;igen"/>
 					<Item id="44029" name="Alle Textblöcke &amp;öffnen"/>
@@ -269,19 +269,19 @@
 					<Item id="44081" name="Projektfenster &amp;1"/>
 					<Item id="44082" name="Projektfenster &amp;2"/>
 					<Item id="44083" name="Projektfenster &amp;3"/>
-					<Item id="45001" name="Konvertiere zu &amp;Windows (CR+LF)"/>
-					<Item id="45002" name="Konvertiere zu &amp;UNIX (LF)"/>
-					<Item id="45003" name="Konvertiere zu &amp;Mac (CR)"/>
+					<Item id="45001" name="&amp;Windows (CR+LF)"/>
+					<Item id="45002" name="&amp;UNIX (LF)"/>
+					<Item id="45003" name="&amp;Macintosh (CR)"/>
 					<Item id="45004" name="&amp;ANSI"/>
 					<Item id="45005" name="UTF-&amp;8-BOM"/>
-					<Item id="45006" name="UCS-2 &amp;Big Endian"/>
-					<Item id="45007" name="UCS-2 &amp;Little Endian"/>
+					<Item id="45006" name="UCS-2 &amp;BE-BOM"/>
+					<Item id="45007" name="UCS-2 &amp;LE-BOM"/>
 					<Item id="45008" name="UT&amp;F-8"/>
 					<Item id="45009" name="Ko&amp;nvertiere zu ANSI"/>
 					<Item id="45010" name="Kon&amp;vertiere zu UTF-8"/>
 					<Item id="45011" name="Konv&amp;ertiere zu UTF-8-BOM"/>
-					<Item id="45012" name="Konve&amp;rtiere zu UCS-2 Big Endian"/>
-					<Item id="45013" name="Konver&amp;tiere zu UCS-2 Little Endian"/>
+					<Item id="45012" name="Konve&amp;rtiere zu UCS-2 BE-BOM"/>
+					<Item id="45013" name="Konver&amp;tiere zu UCS-2 LE-BOM"/>
 
 					<Item id="10001" name="In zweite Ansicht &amp;verschieben"/>
 					<Item id="10002" name="In zweite Ansicht &amp;duplizieren"/>
@@ -303,7 +303,7 @@
 					<Item id="47006" name="Notepad++ &amp;aktualisieren"/>
 					<Item id="47009" name="&amp;Proxy für Updater einstellen …"/>
 					<Item id="48005" name="&amp;Plugin(s) importieren …"/>
-					<Item id="48006" name="&amp;Design(s) importieren …"/>
+					<Item id="48006" name="Stil-&amp;Design(s) importieren …"/>
 					<Item id="48018" name="&amp;Kontextmenü anpassen …"/>
 					<Item id="48009" name="&amp;Tastatur …"/>
 					<Item id="48011" name="&amp;Optionen …"/>
@@ -364,7 +364,7 @@
 				<Item id="1605" name="&amp;Reguläre Ausdrücke"/>
 				<Item id="1606" name="Am Ende von vorne &amp;beginnen"/>
 				<Item id="1614" name="Z&amp;ählen"/>
-				<Item id="1615" name="&amp;Alle suchen"/>
+				<Item id="1615" name="&amp;Alle markieren"/>
 				<Item id="1616" name="&amp;Lesezeichen setzen"/>
 				<Item id="1618" name="Für &amp;jede Suche löschen"/>
 				<Item id="1611" name="Erset&amp;zen durch:"/>
@@ -373,7 +373,7 @@
 				<Item id="1687" name="Wenn inaktiv"/>
 				<Item id="1688" name="Immer"/>
 				<Item id="1632" name="In &amp;Auswahl"/>
-				<Item id="1633" name="Zurücksetzen"/>
+				<Item id="1633" name="Markierungen zurücksetzen"/>
 				<Item id="1635" name="Alle Funde in allen offenen Dateien ersetzen"/>
 				<Item id="1636" name="In &amp;offenen Dateien suchen"/>
 				<Item id="1654" name="Filter:"/>
@@ -728,9 +728,9 @@
 
 				<NewDoc title="Neue Dateien">
 					<Item id="6401" name="Zeilenenden"/>
-					<Item id="6402" name="Windows"/>
-					<Item id="6403" name="UNIX"/>
-					<Item id="6404" name="Mac"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="UNIX (LF)"/>
+					<Item id="6404" name="Macintosh (CR)"/>
 					<Item id="6405" name="Kodierung"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8 ohne BOM"/>
@@ -746,7 +746,7 @@
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6430" name="Neuen Stildialog benutzen (ohne Dateierweiterungen &amp; Unix-Stil Pfadkapazität)"/>	
+					<Item id="6430" name="Benutze Dialog im neuen Stil (ohne Dateierweiterungen &amp; Pfade im Unix-Stil)"/>	
 					<Item id="6431" name="Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses"/>
 				</DefaultDir>
 

@@ -262,17 +262,17 @@
 					<Item id="44212" name="Спрятать Нумерацию Строк"/>
 					<Item id="44213" name="Спрятать поле Закладок"/>
 					<Item id="44214" name="Спрятать поле Границ Блоков"/>
-					<Item id="45001" name="Преобразовать в Win-формат (CRLF)"/>
+					<Item id="45001" name="Преобразовать в Win-формат (CR LF)"/>
 					<Item id="45002" name="Преобразовать в UNIX-формат (LF)"/>
 					<Item id="45003" name="Преобразовать в MAC-формат (CR)"/>
 					<Item id="45004" name="Кодировка в ANSI"/>
-					<Item id="45005" name="Кодировка в UTF-8"/>
+					<Item id="45005" name="Кодировка в UTF-8 с BOM"/>
 					<Item id="45006" name="Кодировка в UCS-2 Big Endian"/>
 					<Item id="45007" name="Кодировка в UCS-2 Little Endian"/>
-					<Item id="45008" name="Кодировка в UTF-8 без BOM"/>
+					<Item id="45008" name="Кодировка в UTF-8"/>
 					<Item id="45009" name="Преобразовать в ANSI"/>
-					<Item id="45010" name="Преобразовать в UTF-8 без BOM"/>
-					<Item id="45011" name="Преобразовать в UTF-8"/>
+					<Item id="45010" name="Преобразовать в UTF-8"/>
+					<Item id="45011" name="Преобразовать в UTF-8 с BOM"/>
 					<Item id="45012" name="Преобразовать в UCS-2 Big Endian"/>
 					<Item id="45013" name="Преобразовать в UCS-2 Little Endian"/>
 					<Item id="46001" name="Определение стилей..."/>
@@ -688,9 +688,9 @@
 				</Scintillas>
 				<NewDoc title = "Новый Документ">
 					<Item id="6401" name="Формат"/>
-					<Item id="6402" name="Windows"/>
-					<Item id="6403" name="Unix"/>
-					<Item id="6404" name="Mac"/>
+					<Item id="6402" name="Windows (CR LF)"/>
+					<Item id="6403" name="Unix (LF)"/>
+					<Item id="6404" name="Mac (CR)"/>
 					<Item id="6405" name="Кодировка"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8"/>

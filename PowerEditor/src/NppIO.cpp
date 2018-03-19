@@ -82,9 +82,9 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 				else
 				{
 					DWORD dwAction;
-					CStringW wstrFilename;
+					std::wstring wstrFilename;
 					changes.Pop(dwAction, wstrFilename);
-					generic_string fn = wstrFilename.GetString();
+					generic_string fn = wstrFilename;
 
 					// Fix monitoring files which are under root problem
 					size_t pos = fn.find(TEXT("\\\\"));

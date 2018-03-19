@@ -29,6 +29,8 @@
 #include "ReadDirectoryChanges.h"
 #include "ReadDirectoryChangesPrivate.h"
 
+#include <Shlwapi.h> // PathFindFileNameW
+
 
 // The namespace is a convenience to emphasize that these are internals
 // interfaces.  The namespace can be safely removed if you need to.
@@ -71,7 +73,7 @@ bool CReadChangesRequest::OpenDirectory()
 		return true;
 
 	m_hDirectory = ::CreateFileW(
-		m_wstrDirectory,					// pointer to the file name
+		m_wstrDirectory.c_str(),			// pointer to the file name
 		FILE_LIST_DIRECTORY,                // access (read/write) mode
 		FILE_SHARE_READ						// share mode
 		 | FILE_SHARE_WRITE
@@ -147,15 +149,15 @@ void CReadChangesRequest::ProcessNotification()
 	{
 		FILE_NOTIFY_INFORMATION& fni = (FILE_NOTIFY_INFORMATION&)*pBase;
 
-		CStringW wstrFilename(fni.FileName, fni.FileNameLength/sizeof(wchar_t));
+		std::wstring wstrFilename(fni.FileName, fni.FileNameLength/sizeof(wchar_t));
 		// Handle a trailing backslash, such as for a root directory.
-		if (m_wstrDirectory.Right(1) != L"\\")
+		if (!m_wstrDirectory.empty() && m_wstrDirectory.back() != L'\\')
 			wstrFilename = m_wstrDirectory + L"\\" + wstrFilename;
 		else
 			wstrFilename = m_wstrDirectory + wstrFilename;
 
 		// If it could be a short filename, expand it.
-		LPCWSTR wszFilename = PathFindFileNameW(wstrFilename);
+		LPCWSTR wszFilename = PathFindFileNameW(wstrFilename.c_str());
 		int len = lstrlenW(wszFilename);
 		// The maximum length of an 8.3 filename is twelve, including the dot.
 		if (len <= 12 && wcschr(wszFilename, L'~'))
@@ -163,7 +165,7 @@ void CReadChangesRequest::ProcessNotification()
 			// Convert to the long filename form. Unfortunately, this
 			// does not work for deletions, so it's an imperfect fix.
 			wchar_t wbuf[MAX_PATH];
-			if (::GetLongPathNameW(wstrFilename, wbuf, _countof(wbuf)) > 0)
+			if (::GetLongPathNameW(wstrFilename.c_str(), wbuf, _countof(wbuf)) > 0)
 				wstrFilename = wbuf;
 		}
 

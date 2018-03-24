@@ -470,7 +470,7 @@
                 <ConflictInfoEditing name="Hiçbir çakışma yok . . ."/>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Kısayol">
-                <Item id="1" name=Tamam"/>
+                <Item id="1" name="Tamam"/>
                 <Item id="2" name="İptal"/>
                 <Item id="5006" name="İsim"/>
                 <Item id="5008" name="Ekle"/>

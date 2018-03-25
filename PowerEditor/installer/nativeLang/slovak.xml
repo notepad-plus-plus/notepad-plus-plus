@@ -318,8 +318,10 @@
 					<Item id="48017" name="Upraviť klávesovú skratku/Odstrániť príkaz..."/>
                 </Commands>
             </Main>
+			
             <Splitter>
             </Splitter>
+			
             <TabBar>
                     <Item CMID="0"  name="Zatvoriť"/>
                     <Item CMID="1"  name="Zatvoriť všetko OKREM tohto"/>
@@ -903,7 +905,7 @@
                     <Item id="6344" name="Náhľad neaktívnych dokumentov"/>
                     <Item id="6345" name="Náhľad na karte dokumentu"/>
                     <Item id="6346" name="Náhľad na mape dokumentu"/>
-					</MISC>
+				</MISC>
             </Preference>
 
 			<MultiMacro title="Spustiť makro viacnásobne">
@@ -1068,40 +1070,40 @@
 					<Item id="0" name="Pracovný priestor"/>
 					<Item id="1" name="Upraviť"/>
 				</Entries>
-			<WorkspaceMenu>
-				<Item id="3122" name="Nový pracovný priestor"/>
-				<Item id="3123" name="Otvoriť pracovný priestor"/>
-				<Item id="3124" name="Obnoviť pracovný priestor"/>
-				<Item id="3125" name="Uložiť"/>
-				<Item id="3126" name="Uložiť ako..."/>
-				<Item id="3127" name="Uložiť kópiu ako..."/>
-				<Item id="3121" name="Pridať nový projekt"/>
-			</WorkspaceMenu>
-			<ProjectMenu>
-				<Item id="3111" name="Premenovať"/>
-				<Item id="3112" name="Pridať priečinok"/>
-				<Item id="3113" name="Pridať súbory..."/>
-				<Item id="3117" name="Pridať súbory z priečinka..."/>
-				<Item id="3114" name="Odstrániť"/>
-				<Item id="3118" name="Posunúť nahor"/>
-				<Item id="3119" name="Posunúť nadol"/>
-			</ProjectMenu>
-			<FolderMenu>
-				<Item id="3111" name="Premenvoať"/>
-				<Item id="3112" name="Pridať priečinok"/>
-				<Item id="3113" name="Pridať súbory..."/>
-				<Item id="3117" name="Pridať súbory z priečinka..."/>
-				<Item id="3114" name="Odstrániť"/>
-				<Item id="3118" name="Posunúť nahor"/>
-				<Item id="3119" name="Posunúť nadol"/>
-			</FolderMenu>
-			<FileMenu>
-				<Item id="3111" name="Premenovať"/>
-				<Item id="3115" name="Odstrániť"/>
-				<Item id="3116" name="Upraviť cestu k súboru"/>
-				<Item id="3118" name="Posunúť nahor"/>
-				<Item id="3119" name="Posunúť nadol"/>
-			</FileMenu>
+				<WorkspaceMenu>
+					<Item id="3122" name="Nový pracovný priestor"/>
+					<Item id="3123" name="Otvoriť pracovný priestor"/>
+					<Item id="3124" name="Obnoviť pracovný priestor"/>
+					<Item id="3125" name="Uložiť"/>
+					<Item id="3126" name="Uložiť ako..."/>
+					<Item id="3127" name="Uložiť kópiu ako..."/>
+					<Item id="3121" name="Pridať nový projekt"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Premenovať"/>
+					<Item id="3112" name="Pridať priečinok"/>
+					<Item id="3113" name="Pridať súbory..."/>
+					<Item id="3117" name="Pridať súbory z priečinka..."/>
+					<Item id="3114" name="Odstrániť"/>
+					<Item id="3118" name="Posunúť nahor"/>
+					<Item id="3119" name="Posunúť nadol"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Premenvoať"/>
+					<Item id="3112" name="Pridať priečinok"/>
+					<Item id="3113" name="Pridať súbory..."/>
+					<Item id="3117" name="Pridať súbory z priečinka..."/>
+					<Item id="3114" name="Odstrániť"/>
+					<Item id="3118" name="Posunúť nahor"/>
+					<Item id="3119" name="Posunúť nadol"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Premenovať"/>
+					<Item id="3115" name="Odstrániť"/>
+					<Item id="3116" name="Upraviť cestu k súboru"/>
+					<Item id="3118" name="Posunúť nahor"/>
+					<Item id="3119" name="Posunúť nadol"/>
+				</FileMenu>
 			</Menus>
 		</ProjectManager>
 

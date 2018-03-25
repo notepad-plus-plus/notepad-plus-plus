@@ -24,31 +24,31 @@
 					<Item subMenuId="file-openFolder" name="Otvoriť priečinok súboru"/>
 					<Item subMenuId="file-closeMore" name="Zatvoriť viacero súborov"/>
 					<Item subMenuId="file-recentFiles" name="Nedávno otvorené súbory"/>
-				    <Item subMenuId="edit-copyToClipboard"  name="Skopírovať do schránky"/>
-                    <Item subMenuId="edit-indent" name="Odsadiť"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Konverzia znakov"/>
-                    <Item subMenuId="edit-lineOperations" name="Operácie s riadkom"/>
-                    <Item subMenuId="edit-comment" name="Zakomentovať/Odkomentovať"/>
-                    <Item subMenuId="edit-autoCompletion" name="Automatické dokončovanie"/>
+					<Item subMenuId="edit-copyToClipboard"  name="Skopírovať do schránky"/>
+					<Item subMenuId="edit-indent" name="Odsadiť"/>
+					<Item subMenuId="edit-convertCaseTo" name="Konverzia znakov"/>
+					<Item subMenuId="edit-lineOperations" name="Operácie s riadkom"/>
+					<Item subMenuId="edit-comment" name="Zakomentovať/Odkomentovať"/>
+					<Item subMenuId="edit-autoCompletion" name="Automatické dokončovanie"/>
 					<Item subMenuId="edit-eolConversion" name="EOL konverzia"/>
 					<Item subMenuId="edit-blankOperations" name="Operácie s prázdnym znakom"/>
 					<Item subMenuId="edit-pasteSpecial" name="Prilepiť špeciálne"/>
 					<Item subMenuId="edit-onSelection" name="Vybraný text"/>
-                    <Item subMenuId="search-markAll" name="Označiť všetko"/>
-                    <Item subMenuId="search-unmarkAll" name="Odznačiť všetko"/>
+					<Item subMenuId="search-markAll" name="Označiť všetko"/>
+					<Item subMenuId="search-unmarkAll" name="Odznačiť všetko"/>
 					<Item subMenuId="search-jumpUp" name="Skok nahor"/>
-                    <Item subMenuId="search-jumpDown" name="Skok nadol"/>
+					<Item subMenuId="search-jumpDown" name="Skok nadol"/>
 					<Item subMenuId="search-bookmark" name="Záložka"/>
-                    <Item subMenuId="view-showSymbol"  name="Zobraziť znak"/>
-                    <Item subMenuId="view-zoom"  name="Lupa"/>
-                    <Item subMenuId="view-moveCloneDocument"  name="Presunúť/Klonovať aktuálny dokument"/>
+					<Item subMenuId="view-showSymbol"  name="Zobraziť znak"/>
+					<Item subMenuId="view-zoom"  name="Lupa"/>
+					<Item subMenuId="view-moveCloneDocument"  name="Presunúť/Klonovať aktuálny dokument"/>
 					<Item subMenuId="view-tab"  name="Karta dokumentu"/>
 					<Item subMenuId="view-collapseLevel" name="Zbaliť úroveň"/>
-                    <Item subMenuId="view-uncollapseLevel" name="Rozbaliť úroveň"/>
+					<Item subMenuId="view-uncollapseLevel" name="Rozbaliť úroveň"/>
 					<Item subMenuId="view-project" name="Projekt"/>
-                    <Item subMenuId="encoding-characterSets"  name="Znaková sada"/>
-                    <Item subMenuId="encoding-arabic"  name="Arabčina"/>
-                    <Item subMenuId="encoding-baltic"  name="Pobaltské jazyky"/>
+					<Item subMenuId="encoding-characterSets"  name="Znaková sada"/>
+					<Item subMenuId="encoding-arabic"  name="Arabčina"/>
+					<Item subMenuId="encoding-baltic"  name="Pobaltské jazyky"/>
 					<Item subMenuId="encoding-celtic"  name="Keltština"/>
 					<Item subMenuId="encoding-cyrillic"  name="Cyrilika"/>
 					<Item subMenuId="encoding-centralEuropean"  name="Stredoeurópske jazyky"/>
@@ -63,7 +63,7 @@
 					<Item subMenuId="encoding-turkish" name="Turečtina"/>
 					<Item subMenuId="encoding-westernEuropean" name="Západoeurópske jazyky"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamčina"/>
-                    <Item subMenuId="settings-import"  name="Import"/>
+					<Item subMenuId="settings-import"  name="Import"/>
 					<Item subMenuId="tools-md5"  name="MD5"/>
                 </SubEntries>
 
@@ -111,7 +111,7 @@
                     <Item id="42059" name="Usporiadať riadky vzostupne"/>
                     <Item id="42060" name="Usporiadať riadky zostupne"/>
                     <Item id="42061" name="Usporiadať riadky ako celé čísla vzostupne"/>
-                    <Item id="42062" name="Usporiadať riadky ako celé čísla zostupne"/>
+					<Item id="42062" name="Usporiadať riadky ako celé čísla zostupne"/>
 					<Item id="42063" name="Usporiadať riadky ako desatinné čísla (s čiarkou) vzostupne"/>
                     <Item id="42064" name="Usporiadať riadky ako desatinné čísla (s čiarkou) zostupne"/>
                     <Item id="42065" name="Usporiadať riadky ako desatinné čísla (s bodkou) vzostupne"/>
@@ -254,7 +254,7 @@
                     <Item id="44034" name="Vždy navrchu"/>
                     <Item id="44035" name="Synchronizovať vertikálny posun"/>
                     <Item id="44036" name="Synchronizovať horizontálny posun"/>
-                    <Item id="44041" name="Zobraziť symbol zalomenia"/>
+                    <Item id="44041" name="Zobraziť symboly zalomenia"/>
 					<Item id="44042" name="Skryť riadky"/>
 					<Item id="44072" name="Prepnúť na ďalšie zobrazenie"/>
 					<Item id="44081" name="Panel projektu 1"/>

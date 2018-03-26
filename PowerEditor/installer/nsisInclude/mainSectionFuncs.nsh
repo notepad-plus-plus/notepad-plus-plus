@@ -258,6 +258,7 @@ FunctionEnd
 Function shortcutLinkManagement
 	; remove all the npp shortcuts from current user
 	Delete "$DESKTOP\Notepad++.lnk"
+	Delete "$SMPROGRAMS\Notepad++.lnk"
 	Delete "$SMPROGRAMS\${APPNAME}\Notepad++.lnk"
 	Delete "$SMPROGRAMS\${APPNAME}\readme.lnk"
 	Delete "$SMPROGRAMS\${APPNAME}\Uninstall.lnk"
@@ -274,8 +275,7 @@ Function shortcutLinkManagement
 	SetOutPath "$INSTDIR\"
 	
 	; add all the npp shortcuts for all user or current user
-	CreateDirectory "$SMPROGRAMS\${APPNAME}"
-	CreateShortCut "$SMPROGRAMS\${APPNAME}\Notepad++.lnk" "$INSTDIR\notepad++.exe"
+	CreateShortCut "$SMPROGRAMS\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	${If} $createShortcutChecked == ${BST_CHECKED}
 		CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	${EndIf}

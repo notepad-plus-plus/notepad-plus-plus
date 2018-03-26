@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Dutch localization for Notepad++ 6.8
-	Last modified Thu, Jul 23 2015 by Klaas Nekeman.
-	Please e-mail errors, suggestions etc. to knekeman(at)hotmail.com.
+	Dutch localization for Notepad++ 7.5.6
+	Last modified Mon, Mar 26 2018 by Klaas Nekeman.
+	Please e-mail errors, suggestions etc. to knekeman(at)gmail.com.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.5.5">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="7.5.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Titles -->
@@ -49,7 +49,7 @@
 					<Item subMenuId="view-tab"                  name="Documenten"/>
 					<Item subMenuId="view-collapseLevel"        name="Sectie samenvouwen"/>
 					<Item subMenuId="view-uncollapseLevel"      name="Sectie uitvouwen"/>
-					<Item subMenuId="view-project"              name="Projekt"/>
+					<Item subMenuId="view-project"              name="Project"/>
 					<Item subMenuId="encoding-characterSets"    name="Meer"/>
 					<Item subMenuId="encoding-arabic"           name="Arabisch"/>
 					<Item subMenuId="encoding-baltic"           name="Baltisch"/>
@@ -235,7 +235,7 @@
 					<Item id="44031" name="Huidige sectie uitvouwen"/>
 					<Item id="44049" name="Samenvatting..."/>
 					<Item id="44080" name="Documentstructuur"/>
-					<Item id="44084" name="Funktielijst"/>
+					<Item id="44084" name="Functielijst"/>
 					<Item id="44085" name="Map als &amp;werkomgeving"/>
 					<Item id="44086" name="1e document"/>
 					<Item id="44087" name="2e document"/>
@@ -258,9 +258,9 @@
 					<Item id="44036" name="Horizontaal scrollen koppelen"/>
 					<Item id="44041" name="Terugloopmarkering weergeven"/>
 					<Item id="44072" name="Actieve deelvenster wisselen"/>
-					<Item id="44081" name="Projekt 1"/>
-					<Item id="44082" name="Projekt 2"/>
-					<Item id="44083" name="Projekt 3"/>
+					<Item id="44081" name="Project 1"/>
+					<Item id="44082" name="Project 2"/>
+					<Item id="44083" name="Project 3"/>
 					<Item id="45001" name="Windows-indeling"/>
 					<Item id="45002" name="Unix-indeling"/>
 					<Item id="45003" name="Mac-indeling"/>
@@ -286,7 +286,7 @@
 					<Item id="47000" name="Over..."/>
 					<Item id="47010" name="Opdrachtregelargumenten..."/>
 					<Item id="47001" name="Notepad++ website bezoeken"/>
-					<Item id="47002" name=" » Projekt"/>
+					<Item id="47002" name=" » Project"/>
 					<Item id="47003" name=" » Documentatie"/>
 					<Item id="47004" name=" » Forum"/>
 					<Item id="47011" name=" » Live ondersteuning"/>
@@ -304,9 +304,9 @@
 					<Item id="48503" name="Genereren naar klembord"/>
 					<Item id="49000" name="&amp;Uitvoeren..."/>
 
-					<Item id="50000" name="Funktie aanvullen"/>
+					<Item id="50000" name="Functie aanvullen"/>
 					<Item id="50001" name="Woord aanvullen"/>
-					<Item id="50002" name="Funktie-argumenten weergeven"/>
+					<Item id="50002" name="Functie-argumenten weergeven"/>
 					<Item id="50006" name="Bestandspad aanvullen"/>
 					<Item id="44042" name="Regels verbergen"/>
 					<Item id="42040" name="Alle recentelijk geopende bestanden openen"/>
@@ -434,7 +434,7 @@
 					<Item id="2207" name="Achtergrond"/>
 					<Item id="2208" name="Lettertype:"/>
 					<Item id="2209" name="Lettergrootte:"/>
-					<Item id="2211" name="Funktie:"/>
+					<Item id="2211" name="Functie:"/>
 					<Item id="2212" name="Kleur"/>
 					<Item id="2213" name="Tekenstijl"/>
 					<Item id="2214" name="Std. extensies"/>
@@ -829,14 +829,14 @@
 				<AutoCompletion title="Automatisch aanvullen">
 					<Item id="6807" name="Automatisch aanvullen"/>
 					<Item id="6808" name="Activeren"/>
-					<Item id="6809" name="Funkties aanvullen"/>
+					<Item id="6809" name="Functies aanvullen"/>
 					<Item id="6810" name="Woorden aanvullen"/>
-					<Item id="6816" name="Funkties en woorden aanvullen"/>
+					<Item id="6816" name="Functies en woorden aanvullen"/>
 					<Item id="6824" name="Negeer nummers"/>
 					<Item id="6811" name="Vanaf"/>
 					<Item id="6813" name="tekens"/>
 					<Item id="6814" name="Geldige invoer: 1 - 9"/>
-					<Item id="6815" name="Funktie-argumenten weergeven tijdens typen"/>
+					<Item id="6815" name="Functie-argumenten weergeven tijdens typen"/>
 					<Item id="6851" name="Automatisch invoegen"/>
 					<Item id="6857" name="HTML/XML sluit-tag"/>
 					<Item id="6858" name="Begin"/>
@@ -1185,7 +1185,7 @@
 			<PanelTitle name="Documentstructuur"/>
 		</DocumentMap>
 		<FunctionList>
-			<PanelTitle name="Funktielijst"/>
+			<PanelTitle name="Functielijst"/>
 			<SortTip    name="Sorteren"/>
 			<ReloadTip  name="Opnieuw laden"/>
 		</FunctionList>
@@ -1205,7 +1205,7 @@
 			</Menus>
 		</FolderAsWorkspace>
 		<ProjectManager>
-			<PanelTitle        name="Projekt"/>
+			<PanelTitle        name="Project"/>
 			<WorkspaceRootName name="Werkmap"/>
 			<NewProjectName    name="Nieuw projekt"/>
 			<NewFolderName     name="Nieuwe map"/>
@@ -1221,7 +1221,7 @@
 					<Item id="3125" name="Opslaan"/>
 					<Item id="3126" name="Opslaan als..."/>
 					<Item id="3127" name="Kopie opslaan..."/>
-					<Item id="3121" name="Projekt toevoegen"/>
+					<Item id="3121" name="Project toevoegen"/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Naam wijzigen"/>

@@ -49,7 +49,7 @@ private :
 
 	void getRegisteredExts();
 	void getDefSupportedExts();
-	void addExt(TCHAR *ext);
+	bool addExt(TCHAR *ext);
 	bool deleteExts(const TCHAR *ext2Delete);
 	void writeNppPath();
 

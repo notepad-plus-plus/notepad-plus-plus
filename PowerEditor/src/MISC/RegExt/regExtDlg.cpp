@@ -146,11 +146,12 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					writeNppPath();
 
 					TCHAR ext2Add[extNameMax] = TEXT("");
+					bool addExt_successful = false;
 					if (!_isCustomize)
 					{
 						auto index2Add = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_GETCURSEL, 0, 0);
 						::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_GETTEXT, index2Add, reinterpret_cast<LPARAM>(ext2Add));
-						addExt(ext2Add);
+						addExt_successful = addExt(ext2Add);
 						::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_DELETESTRING, index2Add, 0);
 					}
 					else
@@ -159,10 +160,13 @@ INT_PTR CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						auto i = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_FINDSTRINGEXACT, 0, reinterpret_cast<LPARAM>(ext2Add));
 						if (i != LB_ERR)
 							return TRUE;
-						addExt(ext2Add);
+						addExt_successful = addExt(ext2Add);
 						::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(TEXT("")));
 					}
-					::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(ext2Add));
+					if (addExt_successful)
+					{
+						::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(ext2Add));
+					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_ADDFROMLANGEXT_BUTTON), false);
 					return TRUE;
 				}
@@ -288,13 +292,13 @@ void RegExtDlg::getRegisteredExts()
 		TCHAR extName[extNameLen];
 		//FILETIME fileTime;
 		int extNameActualLen = extNameLen;
-		int res = ::RegEnumKeyEx(HKEY_CLASSES_ROOT, i, extName, reinterpret_cast<LPDWORD>(&extNameActualLen), nullptr, nullptr, nullptr, nullptr);
+		long res = ::RegEnumKeyEx(HKEY_CLASSES_ROOT, i, extName, reinterpret_cast<LPDWORD>(&extNameActualLen), nullptr, nullptr, nullptr, nullptr);
 		if ((res == ERROR_SUCCESS) && (extName[0] == '.'))
 		{
 			//TCHAR valName[extNameLen];
-			TCHAR valData[extNameLen];
+			TCHAR valData[extNameLen]{'\0'};
 			int valDataLen = extNameLen * sizeof(TCHAR);
-			int valType;
+			int valType = 0;
 			HKEY hKey2Check;
 			extNameActualLen = extNameLen;
 			::RegOpenKeyEx(HKEY_CLASSES_ROOT, extName, 0, KEY_ALL_ACCESS, &hKey2Check);
@@ -315,7 +319,7 @@ void RegExtDlg::getDefSupportedExts()
 }
 
 
-void RegExtDlg::addExt(TCHAR *ext)
+bool RegExtDlg::addExt(TCHAR *ext)
 {
 	HKEY  hKey;
 	DWORD dwDisp;
@@ -330,7 +334,7 @@ void RegExtDlg::addExt(TCHAR *ext)
 
 		if (dwDisp == REG_OPENED_EXISTING_KEY)
 		{
-			int res = ::RegQueryValueEx(hKey, TEXT(""), nullptr, nullptr, reinterpret_cast<LPBYTE>(valData), reinterpret_cast<LPDWORD>(&valDataLen));
+			long res = ::RegQueryValueEx(hKey, TEXT(""), nullptr, nullptr, reinterpret_cast<LPBYTE>(valData), reinterpret_cast<LPDWORD>(&valDataLen));
 			if (res == ERROR_SUCCESS)
 				::RegSetValueEx(hKey, nppBackup, 0, REG_SZ, reinterpret_cast<LPBYTE>(valData), valDataLen);
 		}
@@ -338,39 +342,58 @@ void RegExtDlg::addExt(TCHAR *ext)
 
 		::RegCloseKey(hKey);
 	}
+	else
+	{
+		generic_string error_msg = TEXT("Registring extension failed\r\n\r\n");
+		error_msg += GetLastErrorAsString(nRet);
+		MessageBox(NULL, error_msg.c_str(), NULL, MB_OK | MB_ICONERROR);
+		return false;
+	}
+	return true;
 }
 
 
 bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
 {
 	HKEY hKey;
-	::RegOpenKeyEx(HKEY_CLASSES_ROOT, ext2Delete, 0, KEY_ALL_ACCESS, &hKey);
+	long  nRet;
 
-	int nbValue = getNbSubValue(hKey);
-	int nbSubkey = getNbSubKey(hKey);
+	nRet = ::RegOpenKeyEx(HKEY_CLASSES_ROOT, ext2Delete, 0, KEY_ALL_ACCESS, &hKey);
 
-	if ((nbValue <= 1) && (!nbSubkey))
+	if (nRet == ERROR_SUCCESS)
 	{
-		TCHAR subKey[32] = TEXT("\\");
-		lstrcat(subKey, ext2Delete);
-		::RegDeleteKey(HKEY_CLASSES_ROOT, subKey);
+		int nbValue = getNbSubValue(hKey);
+		int nbSubkey = getNbSubKey(hKey);
+
+		if ((nbValue <= 1) && (!nbSubkey))
+		{
+			TCHAR subKey[32] = TEXT("\\");
+			lstrcat(subKey, ext2Delete);
+			::RegDeleteKey(HKEY_CLASSES_ROOT, subKey);
+		}
+		else
+		{
+			TCHAR valData[extNameLen];
+			int valDataLen = extNameLen * sizeof(TCHAR);
+			int valType;
+			long res = ::RegQueryValueEx(hKey, nppBackup, nullptr, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
+
+			if (res == ERROR_SUCCESS)
+			{
+				::RegSetValueEx(hKey, nullptr, 0, valType, (LPBYTE)valData, valDataLen);
+				::RegDeleteValue(hKey, nppBackup);
+			}
+			else
+				::RegDeleteValue(hKey, nullptr);
+		}
 	}
 	else
 	{
-		TCHAR valData[extNameLen];
-		int valDataLen = extNameLen*sizeof(TCHAR);
-		int valType;
-		int res = ::RegQueryValueEx(hKey, nppBackup, nullptr, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
-
-		if (res == ERROR_SUCCESS)
-		{
-			::RegSetValueEx(hKey, nullptr, 0, valType, (LPBYTE)valData, valDataLen);
-			::RegDeleteValue(hKey, nppBackup);
-		}
-		else
-			::RegDeleteValue(hKey, nullptr);
+		generic_string error_msg = TEXT("Unregistring extension failed\r\n\r\n");
+		error_msg += GetLastErrorAsString(nRet);
+		MessageBox(NULL, error_msg.c_str(), NULL, MB_OK | MB_ICONERROR);
+		return false;
 	}
-
 	return true;
 }
 

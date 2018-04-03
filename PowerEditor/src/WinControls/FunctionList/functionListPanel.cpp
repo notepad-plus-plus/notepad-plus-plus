@@ -255,7 +255,7 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 	}
 
 	const char* rootLabel = "root";
-	const char* branchesLabel = "branches";
+	const char* nodesLabel = "nodes";
 	const char* leavesLabel = "leaves";
 	const char* nameLabel = "name";
 
@@ -272,7 +272,7 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 			bool isFound = false;
 			std::string nodeName = wmc->wchar2char(info._data2.c_str(), CP_ACP);
 
-			for (auto & i : j[branchesLabel])
+			for (auto & i : j[nodesLabel])
 			{
 				if (nodeName == i[nameLabel])
 				{
@@ -286,7 +286,7 @@ bool FunctionListPanel::serialize(const generic_string & outputFilename)
 			{
 				json aNode = { { leavesLabel, json::array() },{ nameLabel, nodeName.c_str() } };
 				aNode[leavesLabel].push_back(leafName.c_str());
-				j[branchesLabel].push_back(aNode);
+				j[nodesLabel].push_back(aNode);
 			}
 		}
 		else // leaf

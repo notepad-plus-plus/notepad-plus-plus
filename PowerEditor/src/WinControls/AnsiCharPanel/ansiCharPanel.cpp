@@ -73,7 +73,7 @@ INT_PTR CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
 					LVHITTESTINFO pInfo;
 					pInfo.pt = lpnmitem->ptAction;
-					int lResult = ListView_SubItemHitTest(_listView.getHSelf(), &pInfo);
+					ListView_SubItemHitTest(_listView.getHSelf(), &pInfo);
 
 					int i = pInfo.iItem;
 					int j = pInfo.iSubItem;
@@ -172,7 +172,6 @@ void AnsiCharPanel::insertChar(unsigned char char2insert) const
 
 void AnsiCharPanel::insertString(LPWSTR string2insert) const
 {
-	wchar_t wCharStr[10];
 	char multiByteStr[10];
 	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 	if (codepage == -1)

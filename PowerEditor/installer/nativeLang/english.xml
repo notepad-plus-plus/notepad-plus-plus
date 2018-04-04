@@ -1098,10 +1098,12 @@ Continue?"/>
             <ColumnType name="Type"/>
         </WindowsDlg>
         <AsciiInsertion>
-            <PanelTitle name="ASCII Insertion Panel"/>
+            <PanelTitle name="ASCII/HTML Codes (ANSI or Windows-1252 character sets) Insertion Panel"/>
             <ColumnVal name="Value"/>
             <ColumnHex name="Hex"/>
             <ColumnChar name="Character"/>
+            <ColumnHtmlNumber name="HTML Number"/>
+            <ColumnHtmlName name="HTML Code"/>
         </AsciiInsertion>
         <DocumentMap>
             <PanelTitle name="Document Map"/>

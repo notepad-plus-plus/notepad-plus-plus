@@ -5913,8 +5913,8 @@ void Notepad_plus::launchAnsiCharPanel()
 
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 		generic_string title_temp = pNativeSpeaker->getAttrNameStr(AI_PROJECTPANELTITLE, "AsciiInsertion", "PanelTitle");
-		static TCHAR title[32];
-		if (title_temp.length() < 32)
+		static TCHAR title[85];
+		if (title_temp.length() < 85)
 		{
 			wcscpy_s(title, title_temp.c_str());
 			data.pszName = title;

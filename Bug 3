@@ -1,0 +1,29 @@
+Boost build fails #1228
+the bug link is https://github.com/notepad-plus-plus/notepad-plus-plus/issues/1228
+
+Description of the bug:
+
+I have started to follow the build instructions and downloaded the latest version of boost (1.59), extracted it and ran scintilla\boostregex\BuildBoost.bat with the path to it. Here's what I've got instead of a build:
+
+C:\Source\Apps\notepad-plus-plus\scintilla\boostregex>BuildBoost.bat C:\Source\Apps\boost
+Building BJAM, the boost build tool
+Das System kann den angegebenen Pfad nicht finden.
+Der Befehl "bootstrap.bat" ist entweder falsch geschrieben oder
+konnte nicht gefunden werden.
+Das System kann den angegebenen Pfad nicht finden.
+
+***************************************************************
+Building tool to check boost version
+***************************************************************
+Der Befehl "nmake" ist entweder falsch geschrieben oder
+konnte nicht gefunden werden.
+******************************
+** ERROR building getboostver.exe
+** Please see the error messages above, and post as much as you can to the
+** Notepad++ Open Discussion forum
+** http://sourceforge.net/projects/notepad-plus/forums/forum/331753
+I have installed Visual Studio 2015 with C++ support and nothing else. This is Windows 7 x64 SP1.
+
+Do I need to make some adjustments to the build script to make it work or is it supposed to run unmodified?
+
+Sourceforge doesn't like me and I don't like Sourceforge so I can't post there.

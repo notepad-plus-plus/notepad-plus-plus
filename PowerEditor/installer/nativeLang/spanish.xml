@@ -903,10 +903,12 @@
 			<ColumnExt name="Ext."/>
 		</DocSwitcher>
 		<AsciiInsertion>
-			<PanelTitle name="Panel de entrada ASCII"/>
+			<PanelTitle name="Panel de entrada ASCII/Códigos HTML (juego de caracteres ANSI o Windows-1252)"/>
 			<ColumnVal name="Valor"/>
 			<ColumnHex name="Hex"/>
 			<ColumnChar name="Carácter"/>
+			<ColumnHtmlNumber name="Número HTML"/>
+			<ColumnHtmlName name="Código HTML"/>
 		</AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="Mapa de documento"/>

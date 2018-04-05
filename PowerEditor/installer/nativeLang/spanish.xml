@@ -892,7 +892,7 @@
 			<OpenInAdminMode title="Save failed" message="El archivo no puede ser guardado y puede estar protegido.&#x0A;Desea lanzar Notepad++ en modo administrador?"/>
 			<OpenInAdminModeFailed title="Abrir en modo administrador falló" message="Notepad++ no puede abrirse en modo Administrador."/>
 			<OpenInAdminModeWithoutCloseCurrent title="Falló guardado" message="El archivo no puede ser guardado y puede estar protegido.&#x0A;Desea lanzar Notepad++ en modo administrador?"/>
-			<DroppingFolderAsProjetModeWarning title="Acción inválida" message="Puede soltar archivos o carpetas pero no ambos, ya que está en modo de soltar Carpeta como área de trabajo&#x0A;Tiene que habilitar la opción &quot;Abrir todos los archivos de la carpeta en lugar de usar carpeta como área de trabajo&quot; en la sección &quot;Carpeta por defecto&quot; de la ventana de Preferencias para que esta operación funcione."/>
+			<DroppingFolderAsProjectModeWarning title="Acción inválida" message="Puede soltar archivos o carpetas pero no ambos, ya que está en modo de soltar Carpeta como área de trabajo&#x0A;Tiene que habilitar la opción &quot;Abrir todos los archivos de la carpeta en lugar de usar carpeta como área de trabajo&quot; en la sección &quot;Carpeta por defecto&quot; de la ventana de Preferencias para que esta operación funcione."/>
         </MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial de portapapeles"/>

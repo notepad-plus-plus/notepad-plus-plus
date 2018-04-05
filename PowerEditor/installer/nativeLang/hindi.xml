@@ -4,7 +4,7 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 04/02/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 11/03/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
   <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5.5">
@@ -741,7 +741,7 @@
           <Item id="6413" name="डिफ़ॉल्ट डायरेक्टरी (खोलें/सेव करें)"/>
           <Item id="6414" name="वर्तमान दस्तावेज़ का अनुसरण करें"/>
           <Item id="6415" name="पिछली इस्तेमाल डायरेक्टरी याद रखें"/>
-          <Item id="6430" name="नई स्टाइल के सेव डायलॉग का प्रयॉग करें (बिना फाइल ext के)"/>
+          <Item id="6430" name="नए स्टाइल डायलॉग का प्रयोग करें (बिना फाइल ext के; Unix स्टाइल पाथ कैपेसिटी)"/>
           <Item id="6431" name="फोल्डर ड्रैग करने पर, फोल्डर एज वर्कस्पेस की बजाय फोल्डर की सभी फाइलें खोलें "/>
         </DefaultDir>
 
@@ -939,6 +939,19 @@
         <Item id="1" name="ओके"/>
         <Item id="2" name="रद्द करें"/>
       </ColumnEditor>
+      <FindInFinder title="फाइंडर में खोजें">
+        <Item id="1"    name="सभी ढूंढें"/>
+        <Item id="2"    name="बंद करे"/>
+        <Item id="1711" name="क्या खोजना है:"/>
+        <Item id="1713" name="केवल उपलब्ध लाइनों में खोजें"/>
+        <Item id="1714" name="केवल पूर्ण शब्द मिलाएं"/>
+        <Item id="1715" name="केस मिलाएँ"/>
+        <Item id="1716" name="खोज मोड"/>
+        <Item id="1717" name="नॉर्मल"/>
+        <Item id="1719" name="रेगुलर एक्सप्रेशन"/>
+        <Item id="1718" name="विस्तृत (\n, \r, \t, \0, \x...)"/>
+        <Item id="1720" name="्यूलाइन मैच करें"/>
+      </FindInFinder>
     </Dialog>
     <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
       <ContextMenuXmlEditWarning title="Context Menu एडिटिंग" message="ContextMenu.xml एडिट करके आप Notepad++ के पॉपअप कॉन्टेक्स्ट मेनू बदल सकतें हैं| ContextMenu.xml एडिट करने के बाद, बदलाव देखने के लिए Notepad++ को बंद करके पुनः खोलें|"/>
@@ -955,7 +968,7 @@
       <SettingsOnCloudError title="क्लाउड (cloud) की सेटिंग्स" message="ऐसा लगता है कि क्लाउड (cloud) का सेटिंग पाथ रीड ओनली है या फिर आवश्यक फोल्डर पर राइट एक्सेस (write access) चाहिए। आपकी क्लाउड (cloud) की सेटिंग्स को रद्द कर दिया जायेगा। कृप्या प्रैफरेंसेज डायलॉग (preferences dialog) से एक सुसंगत (coherent) मूल्य रीसेट करें।"/>
       <FilePathNotFoundWarning title="फाइल खोलें" message="आप जिस फ़ाइल को खोलने की कोशिश कर रहे हैं, वह मौजूद नहीं है।"/>
       <SessionFileInvalidError title="सत्र लोड नहीं किया जा सका" message="सत्र फ़ाइल या तो अनुपयोगी है या मान्य नहीं है।"/>
-      <DroppingFolderAsProjetModeWarning title="इनवैलिड एक्शन" message="आप केवल फ़ाइलों या फ़ोल्डरों को ही ड्रोप सकते हैं लेकिन दोनों नहीं, क्योंकि आप फोल्डर एज प्रोजेक्ट मोड में ड्रोप कर रहे हैं।
+      <DroppingFolderAsProjectModeWarning title="इनवैलिड एक्शन" message="आप केवल फ़ाइलों या फ़ोल्डरों को ही ड्रोप सकते हैं लेकिन दोनों नहीं, क्योंकि आप फोल्डर एज प्रोजेक्ट मोड में ड्रोप कर रहे हैं।
 अगर आप ऐसा करना चाहतें हैं तो प्रिफेरन्स डायलॉग पर डिफ़ॉल्ट डायरेक्टरी में &quot;फोल्डर ड्रैग करने पर, फोल्डर एज वर्कस्पेस की बजाय फोल्डर की सभी फाइलें खोलें&quot; को इनेबल करें।"/>
       <SortingError title="सॉर्टिंग एरर" message="लाइन $INT_REPLACE$ के कारण न्यूमेरिक सॉर्ट नहीं कर सकते।"/>
       <ColumnModeTip title="कॉलम मोड टिप" message="कॉलम मोड के लिए कृपया &quot;ALT+Mouse Selection&quot; या &quot;Alt+Shift+Arrow key&quot; का प्रयोग करें।"/>
@@ -980,7 +993,7 @@
 क्या आप Notepad++ पेज से लेटेस्ट वर्जन डाउनलोड करना चाहते हैं?"/>
       <DocTooDirtyToMonitor title="मॉनिटरिंग समस्या" message="दस्तावेज़ सेव नहीं है। मॉनिटर करने से पहले सेव करें।"/>
       <DocNoExistToMonitor title="मॉनिटरिंग समस्या" message="मॉनिटरिंग के लिए फाइल मौज़ूद होनी चाहिए।"/>
-      <FileTooBigToOpene title="फाइल साइज प्रॉब्लम" message="फाइल बहुत बड़ी होने के कारण Notepad++ में नहीं खोली जा सकती है।"/>
+      <FileTooBigToOpen title="फाइल साइज प्रॉब्लम" message="फाइल बहुत बड़ी होने के कारण Notepad++ में नहीं खोली जा सकती है।"/>
       <CreateNewFileOrNot title="नई फ़ाइल बनाएं" message="फाइल &quot;$STR_REPLACE$&quot; मौजूद नहीं है, इसे बनायें?"/>
       <CreateNewFileError title="नई फ़ाइल बनाएं" message="फ़ाइल नहीं बन सकी &quot;$STR_REPLACE$&quot;।"/>
       <OpenFileError title="त्रुटि" message="फाइल नहीं खुल सकी &quot;$STR_REPLACE$&quot;।"/>
@@ -1010,6 +1023,11 @@
       <UDLRemoveCurrentLang title="वर्तमान भाषा निकालें" message="क्या आप वाकई हटाना चाहते हैं?"/>
       <SCMapperDoDeleteOrNot title="क्या आप वाकई हटाना चाहते हैं?" message="क्या आप वाकई इस शॉर्टकट को हटाना चाहते हैं?"/>
       <FindCharRangeValueError title="रेंज वैल्यू प्रॉब्लम" message="आपको 0 से 255 के बीच टाइप करना चाहिए।"/>
+      <OpenInAdminMode title="सेविंग फैल" message="फाइल को सेव नहीं कर सकते हैं और फाइल प्रोटेक्टेड हो सकती है।
+क्या आप Notepad ++ को एडमिन मोड में लॉन्च करना चाहते हैं?"/>
+      <OpenInAdminModeWithoutCloseCurrent title="सेविंग फैल" message="फाइल को सेव नहीं कर सकते हैं और फाइल प्रोटेक्टेड हो सकती है।
+क्या आप Notepad ++ को एडमिन मोड में लॉन्च करना चाहते हैं?"/>
+      <OpenInAdminModeFailed title="एडमिन मोड में खोलना विफल हुआ" message="Notepad ++ को एडमिन मोड में नहीं खोला जा सकता।"/>
     </MessageBox>
     <ClipboardHistory>
       <PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>
@@ -1019,6 +1037,11 @@
       <ColumnName name="नाम"/>
       <ColumnExt name="Ext."/>
     </DocSwitcher>
+    <WindowsDlg>
+      <ColumnName name="नाम"/>
+      <ColumnPath name="पाथ"/>
+      <ColumnType name="प्रकार"/>
+    </WindowsDlg>
     <AsciiInsertion>
       <PanelTitle name="ASCII इंसर्शन पैनल"/>
       <ColumnVal name="वैल्यू"/>
@@ -1131,6 +1154,14 @@
 		<find-status-replace-not-found value="बदलें: कोई मिलान नहीं मिला।"/>
 		<find-status-replace-readonly value="बदलें: Text नहीं बदल सके। वर्तमान डॉक्यूमेंट रीड-ओनली है।"/>
 		<find-status-cannot-find value="खोज: Text नहीं ढूंढ सके &quot;$STR_REPLACE$&quot;।"/>
+		<finder-find-in-finder value="इस खोज के परिणामों में खोजें..."/>
+		<finder-close-this value="इस फाइंडर को बंद करें"/>
+		<finder-collapse-all value="सभी को संकुचित (collapse) करें"/>
+		<finder-uncollapse-all value="सभी को विस्तृत (uncollapse) करें"/>
+		<finder-copy value="कॉपी करें"/>
+		<finder-select-all value="सब सेलेक्ट करें"/>
+		<finder-clear-all value="सब क्लियर करें"/>
+		<finder-open-all value="सब ओपन करें"/>
 	</MiscStrings>
   </Native-Langue>
 </NotepadPlus>

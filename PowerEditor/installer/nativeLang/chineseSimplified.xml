@@ -331,6 +331,7 @@
                 <Item CMID="18" name="关闭右边所有" />
                 <Item CMID="19" name="打开所在文件夹"/>
                 <Item CMID="20" name="打开所在文件夹(命令行)"/>
+                <Item CMID="21" name="使用默认查看器打开"/>
             </TabBar>
         </Menu>
 
@@ -958,7 +959,7 @@
 请在首选项中重设相应值。"/>        
             <FilePathNotFoundWarning title="文件打开" message="您尝试打开的文件并不存在。"/>
             <SessionFileInvalidError title="无法加载会话" message="会话文件出现损坏/无效。"/>
-            <DroppingFolderAsProjetModeWarning title="无效操作" message="您只能在拖放文件或文件夹中二选一，由于您正在将文件夹拖放为项目模式。
+            <DroppingFolderAsProjectModeWarning title="无效操作" message="您只能在拖放文件或文件夹中二选一，由于您正在将文件夹拖放为项目模式。
 您必须到“首选项”对话框的“默认目录”部分，启用“拖放文件夹时开启文件夹中所有文件，而不开启文件夹工作区”，才能完成此操作。"/>
             <SortingError title="排序错误" message="由于第$INT_REPLACE$行的问题，无法执行数字排序。"/>
             <ColumnModeTip title="列块模式提示" message="请使用“ALT+鼠标点选” or “Alt+Shift+箭头键”切换列块模式。"/>
@@ -984,7 +985,7 @@
 是否前往Notepad++官网下载最新版？"/>
             <DocTooDirtyToMonitor title="监视问题" message="文档没有保存，请先保存修改再监视它。"/>
             <DocNoExistToMonitor title="监视问题" message="文件需要存在才能监视。"/>
-            <FileTooBigToOpene title="文件大小问题" message="文件太大，Notepad++打不开。"/>
+            <FileTooBigToOpen title="文件大小问题" message="文件太大，Notepad++打不开。"/>
             <CreateNewFileOrNot title="创建新文件" message="“$STR_REPLACE$”不存在。新建一个？"/>
             <CreateNewFileError title="创建新文件" message="无法创建文件“$STR_REPLACE$”。"/>
             <OpenFileError title="出错" message="无法打开文件“$STR_REPLACE$”。"/>
@@ -1014,6 +1015,11 @@
             <UDLRemoveCurrentLang title="移除当前语言" message="您确定么？"/>
             <SCMapperDoDeleteOrNot title="您确定么？" message="您确定要删除此快捷键么？"/>
             <FindCharRangeValueError title="阈值问题" message="您应当输入0-255之间的数字。"/>
+            <OpenInAdminMode title="保存失败" message="文件无法保存，它可能受到保护。
+是否要用管理员模式启动Notepad++？"/>
+            <OpenInAdminModeWithoutCloseCurrent title="保存失败" message="文件无法保存，它可能受到保护。
+是否要用管理员模式启动Notepad++？"/>
+            <OpenInAdminModeFailed title="管理员模式开启失败" message="Notepad++不能用管理员模式打开。"/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="剪贴板历史记录"/>

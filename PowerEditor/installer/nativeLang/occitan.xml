@@ -968,7 +968,7 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			Los vòstres paramètres de Cloud van èsser reïnicializats. Mercés de tornar metre una valor coerenta per la fenèstra Preferéncias."/>
 			<FilePathNotFoundWarning title="Dobertura de fichièr" message="Lo fichièr qu'ensajatz de dobrir exista pas."/>
 			<SessionFileInvalidError title="Impossible de cargar la session" message="Lo fichièr de session es siá compromés, siá invalid."/>
-			<DroppingFolderAsProjetModeWarning title="Accion invalida" message="Podètz depausar sonque de fichièrs o de dorsièrs, mas pas los dos perqué sètz dins lo mòde Dorsièr coma espaci de trabalh.
+			<DroppingFolderAsProjectModeWarning title="Accion invalida" message="Podètz depausar sonque de fichièrs o de dorsièrs, mas pas los dos perqué sètz dins lo mòde Dorsièr coma espaci de trabalh.
 			devètz activar &quot;Dobrir totes los fichièrs del dorsièr al moment del rebalar-depausar&quot; dins la seccion &quot;Dorsièr per defaut&quot; de la fenèstra Preferéncias per que fonccione."/>
 			<SortingError title="Error de triada" message="Impossible d'ordenar numericament a causa de la linha $INT_REPLACE$."/>
 			<ColumnModeTip title="Astúcias per mòde colomna" message="Utilisatz &quot;ALT + Seleccion&quot; o &quot;Alt+Maj.+Sageta&quot; per passar en mòde colomna."/>
@@ -993,7 +993,7 @@ Deuretz tornar lançar Notepad++ per que siá efectiu."/>
 			Volètz anar a la pagina d'acuèlh de Notepad++ per descargar la darrièra version ?"/>
 			<DocTooDirtyToMonitor title="Problèma de susvelhança" message="Aqueste document a pas estat salvat. Mercés de salvar las modificacions abans de lo susvelhar."/>
 			<DocNoExistToMonitor title="Problèma de susvelhança" message="Lo fichièr deu existar per èsser susvelhat."/>
-			<FileTooBigToOpene title="Problèma de talha de fichièr" message="Lo fichièr es tròp voluminós per èsser dobèrt amb Notepad++"/>
+			<FileTooBigToOpen title="Problèma de talha de fichièr" message="Lo fichièr es tròp voluminós per èsser dobèrt amb Notepad++"/>
 			<CreateNewFileOrNot title="Crear un fichièr novèl" message="&quot;$INT_REPLACE$&quot; exista pas. Lo volètz crear ?"/>
 			<CreateNewFileError title="Crear un fichièr novèl" message="Impossible de crear lo fichièr &quot;$INT_REPLACE$&quot;."/>
 			<OpenFileError title="ERROR" message="Impossible de dobrir lo fichièr &quot;$INT_REPLACE$&quot;."/>

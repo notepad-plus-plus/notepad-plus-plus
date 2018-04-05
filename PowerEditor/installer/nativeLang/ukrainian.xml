@@ -165,7 +165,7 @@
                     <Item id="42056" name="Прибрати порожні рядки (включаючи порожні символи)"/>
                     <Item id="42057" name="Додати порожній рядок над поточним"/>
                     <Item id="42058" name="Додати порожній рядок під поточним"/>
-                    <Item id="43001" name="Пошук..."/>
+                    <Item id="43001" name="Знайти..."/>
                     <Item id="43002" name="Знайти далі"/>
                     <Item id="43003" name="Замінити..."/>
                     <Item id="43004" name="Перехід до..."/>
@@ -182,7 +182,7 @@
                     <Item id="43052" name="Знайти символи в діапазоні..."/>
                     <Item id="43053" name="Вибрати все у відповідному діапазоні"/>
                     <Item id="43009" name="Перейти до парної дужки"/>
-                    <Item id="43010" name="Пошук перед"/>
+                    <Item id="43010" name="Знайти перед"/>
                     <Item id="43011" name="&amp;Покроковий пошук"/>
                     <Item id="43013" name="Знайти у файлах"/>
                     <Item id="43014" name="Знайти таке ж далі"/>
@@ -213,8 +213,8 @@
                     <Item id="43045" name="Вікно результатів пошуку"/>
                     <Item id="43046" name="Наступний результат пошуку"/>
                     <Item id="43047" name="Попередній результат пошуку"/>
-                    <Item id="43048" name="Вибрати й шукати далі"/>
-                    <Item id="43049" name="Вибрати й шукати перед"/>
+                    <Item id="43048" name="Обрати й знайти далі"/>
+                    <Item id="43049" name="Обрати й знайти перед"/>
                     <Item id="43054" name="Знак..."/>
                     <Item id="44009" name="Текст на все вікно"/>
                     <Item id="44010" name="Згорнути все"/>
@@ -360,10 +360,10 @@
                 <Item id="1632" name="У вибраному"/>
                 <Item id="1633" name="Очистити"/>
                 <Item id="1635" name="Замінити все в активних документах"/>
-                <Item id="1636" name="Знайти все в активних документах"/>
+                <Item id="1636" name="Знайти все у відкритих документах"/>
                 <Item id="1654" name="Фільтри:"/>
                 <Item id="1655" name="Директорія:"/>
-                <Item id="1656" name="Знайти все!"/>
+                <Item id="1656" name="Знайти все"/>
                 <Item id="1658" name="У всіх підтеках"/>
                 <Item id="1659" name="У прихованих теках"/>
                 <Item id="1624" name="Режим пошуку"/>
@@ -376,7 +376,7 @@
                 <Item id="1703" name="&amp;. новий рядок"/>
             </Find>
 
-            <FindCharsInRange title="Знайти символи на сторінці...">
+            <FindCharsInRange title="Знайти символи в діапазоні...">
                 <Item id="2" name="Закрити"/>
                 <Item id="2901" name="Не ASCII символи (128-255)"/>
                 <Item id="2902" name="ASCII символи (0-127)"/>
@@ -669,7 +669,7 @@
                     <Item id="6120" name="Вертикальна"/>
                     <Item id="6121" name="Вихід при закритті останньої вкладки"/>
 
-                    <Item id="6122" name="Приховати панель меню (викор. Alt чи F10 для перемикання)"/>
+                    <Item id="6122" name="Приховати панель меню (Alt чи F10)"/>
                     <Item id="6123" name="Локалізація"/>
 
                     <Item id="6125" name="Панель списку документів"/>
@@ -731,9 +731,9 @@
 
                 <DefaultDir title="Типова тека">
                     <Item id="6413" name="Типова тека (Відкриття/Збереження)"/>
-                    <Item id="6414" name="Пройти за поточним документом"/>
+                    <Item id="6414" name="Наслідувати поточний документ"/>
                     <Item id="6415" name="Пам'ятати останню теку"/>
-                    <Item id="6430" name="Викор. діалог збереження нового стилю (без функції розширення файлу)"/>
+                    <Item id="6430" name="Використовуйте новий діалог стилів (без функції розширення файлів &amp; Unix style path capacity)"/>
                     <Item id="6431" name="Відкривати всі файли теки, замість відкриття теки в якості робочого простору"/>
                 </DefaultDir>
 
@@ -757,7 +757,7 @@
                     <Item id="6326" name="Інтелектуальне підсвічування"/>
                     <Item id="6332" name="Враховувати регістр"/>
                     <Item id="6338" name="Лише цілі слова"/>
-                    <Item id="6339" name="Використовувати налаштування діалогового вікна Пошук"/>
+                    <Item id="6339" name="Викор. налаштув. вікна Знайти"/>
                     <Item id="6340" name="Підсвічувати інший вигляд"/>
                     <Item id="6329" name="Підсвічувати парні теги"/>
                     <Item id="6327" name="Увімкнути"/>
@@ -834,8 +834,8 @@
                     <Item id="6815" name="Підказка параметрів функції при введенні"/>
                     <Item id="6851" name="Автовставлення"/>
                     <Item id="6857" name=" закр. теґ html/xml"/>
-                    <Item id="6858" name="Відкрити"/>
-                    <Item id="6859" name="Закрити"/>
+                    <Item id="6858" name="Відкр."/>
+                    <Item id="6859" name="Закр."/>
                     <Item id="6860" name="Пара збігів 1:"/>
                     <Item id="6863" name="Пара збігів 2:"/>
                     <Item id="6866" name="Пара збігів 3:"/>
@@ -850,7 +850,7 @@
                 </MultiInstance>
 
                 <Delimiter title="Розділювач">
-                    <Item id="6251" name="Параметри розділювача (Ctrl + подвійний клік миші)"/>
+                    <Item id="6251" name="Параметри вибору розділювача (Ctrl+подвійний клік миші)"/>
                     <Item id="6252" name="Відкрити"/>
                     <Item id="6255" name="Закрити"/>
                     <Item id="6256" name="Дозволити захоплення кількох рядків"/>
@@ -930,6 +930,19 @@
                 <Item id="1" name="Гаразд"/>
                 <Item id="2" name="Скасувати"/>
             </ColumnEditor>
+            <FindInFinder title="Знайти у пошуковику">
+                <Item id="1"    name="Знайти все"/>
+                <Item id="2"    name="Закрити"/>
+                <Item id="1711" name="Що шукати:"/>
+                <Item id="1713" name="Шукати лише в знайдених рядках"/>
+                <Item id="1714" name="Лише &amp;цілі слова"/>
+                <Item id="1715" name="Враховувати &amp;регістр"/>
+                <Item id="1716" name="Режим пошуку"/>
+                <Item id="1717" name="Звичайний"/>
+                <Item id="1719" name="Регулярний &amp;вираз"/>
+                <Item id="1718" name="Розширений (\n \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. відповідає новому рядку"/>
+            </FindInFinder>
         </Dialog>
         <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <ContextMenuXmlEditWarning title="Зміна contextMenu" message="Зміна contextMenu.xml дозволяє вам змінювати випадаюче меню Notepad++.
@@ -957,8 +970,8 @@
 Ваші налаштування в хмарі будуть скасовані. Будь ласка, скиньте відповідні значення через діалог Налаштування."/>
             <FilePathNotFoundWarning title="Відкриття файла" message="Файл, який ви намагаєтесь відкрити, не існує."/>
             <SessionFileInvalidError title="Не вдалося завантажити сеанс" message="Файл сеансу пошкоджений, або недійсний."/>
-            <DroppingFolderAsProjetModeWarning title="Неприпустима дія" message="Ви можете виключити лише файли або лише теки, але не разом, оскільки ви відвідуєте в режимі &quot;Тека як проект&quot;. Щоб запрацювала ця операція вам необхідно включити &quot;Відкривати всі файли теки, замість відкриття теки в якості робочого простору&quot; в &quot;Налаштування - Типова тека&amp;quot."/>
-            <SortingError title="Впорядкування помилки" message="Не вдається виконати впорядкування за числами, через рядок $INT_REPLACE$."/>
+            <DroppingFolderAsProjectModeWarning title="Неприпустима дія" message="Ви можете виключити лише файли або лише теки, але не разом, оскільки ви відвідуєте в режимі &quot;Тека як проект&quot;. Щоб запрацювала ця операція вам необхідно включити &quot;Відкривати всі файли теки, замість відкриття теки в якості робочого простору&quot; в &quot;Налаштування - Типова тека&quot;."/>
+            <SortingError title="Помилка впорядкування" message="Не вдається виконати впорядкування за числами, через рядок $INT_REPLACE$."/>
             <ColumnModeTip title="Порада для режиму стовпців" message="Використовуйте &quot;ALT+Вибір мишею&quot; або &quot;Alt+Shift+Клавіша стрілки&quot;, щоб перемкнутися в режим стовпців."/>
             <BufferInvalidWarning title="Не вдалося зберегти" message="Неможливо зберегти: Неправильний буфер."/>
             <DoSaveOrNot title="Зберегти" message="Зберегти файл &quot;$STR_REPLACE$&quot; ?"/>
@@ -983,18 +996,16 @@
 Хочете перейти на веб-сторінку Notepad++ для завантаження найновішої версії?"/>
             <DocTooDirtyToMonitor title="Проблема моніторингу" message="Документ змінено. Будь ласка, збережіть зміни перед його моніторингом."/>
             <DocNoExistToMonitor title="Проблема моніторингу" message="Файл повинен існувати для його моніторингу."/>
-            <FileTooBigToOpene title="Проблема розміру файлу" message="Файл завеликий для відкриття в Notepad++"/>
-            <CreateNewFileOrNot title="Створити новий файл" message="&quot;$INT_REPLACE$&quot; не існує. Створити його?."/>
-            <CreateNewFileError title="Створити новий файл" message="Не вдається створити файл &quot;$INT_REPLACE$&quot;."/>
-            <OpenFileError title="ПОМИЛКА" message="Не вдається відкрити файл &quot;$INT_REPLACE$&quot;."/>
-            <FileBackupFailed title="Збій резервного копіювання файлу" message="Попередня версія файлу могла бути не збережена в каталог для резервного копіювання &quot;$INT_REPLACE$&quot;.
-
-Ви все ще хочете зберегти поточний файл?"/>
-            <LoadStylersFailed title="Збій завантаження stylers.xml" message="Збій завантаження &quot;$INT_REPLACE$&quot;!"/>
+            <FileTooBigToOpen title="Проблема розміру файлу" message="Файл завеликий для відкриття в Notepad++"/>
+            <CreateNewFileOrNot title="Створити новий файл" message="&quot;$STR_REPLACE$&quot; не існує. Створити його?"/>
+            <CreateNewFileError title="Створити новий файл" message="Не вдалося створить файл &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileError title="ПОМИЛКА" message="Не вдалося відкрити файл &quot;$STR_REPLACE$&quot;."/>
+            <FileBackupFailed title="Збій резервного копіювання файлу" message="Попередня версія файлу може бути не збережена в каталозі для резервного копіювання &quot;$STR_REPLACE$&quot;. Ви все ще хочете зберегти поточний файл?"/>
+            <LoadStylersFailed title="Збій завантаження stylers.xml" message="Не вдалося завантажити &quot;$STR_REPLACE$&amp;quot!"/>
             <LoadLangsFailed title="Конфігуратор" message="Збій завантаження langs.xml!
 Хочете відновити langs.xml?"/>
             <LoadLangsFailedFinal title="Конфігуратор" message="Збій завантаження langs.xml!"/>
-            <FolderAsWorspaceSubfolderExists title="Проблема з додаванням теки в &quot; Тека як Робочий простір&amp;quot" message="Підтека, яку ви хочете додати, вже існує.
+            <FolderAsWorspaceSubfolderExists title="Проблема з додаванням теки в якості Робочого простору" message="Підтека, яку ви хочете додати, вже існує.
 Вилучіть її корінь з панелі перш, ніж додавати теку &quot;$STR_REPLACE$&quot;."/>
 
             <ProjectPanelChanged title="$STR_REPLACE$" message="Робоча область була змінена. Хочете зберегти її?"/>
@@ -1012,7 +1023,12 @@
             <UDLNewNameError title="Помилка UDL" message="Це ім'я використовується іншою мовою, будь ласка, виберіть інше."/>
             <UDLRemoveCurrentLang title="Видалити поточну мову" message="Ви впевнені?"/>
             <SCMapperDoDeleteOrNot title="Ви впевнені?" message="Ви дійсно бажаєте видалити цю комбінацію клавіш?"/>
-            <FindCharRangeValueError title="Проблема з діапазоном значень" message="Слід ввести значення від 0 до 255."/>
+            <FindCharRangeValueError title="Проблема з діапазоном значень" message="Необхідно ввести значення від 0 до 255."/>
+            <OpenInAdminMode title="Не вдалося зберегти" message="Не вдається зберегти файл, він може бути захищеним.
+Хочете запустити Notepad++ в режимі адміністратора?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="Не вдалося зберегти" message="Не вдається зберегти файл, він може бути захищеним.
+Хочете запустити Notepad++ в режимі адміністратора?"/>
+            <OpenInAdminModeFailed title="Не вдалося запустити в режимі адміністратора" message="Notepad++ не може бути відкритий в режимі адміністратора."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Історія буфера"/>
@@ -1022,6 +1038,11 @@
             <ColumnName name="Назва"/>
             <ColumnExt name="Розш."/>
         </DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="Назва"/>
+            <ColumnPath name="Шлях"/>
+            <ColumnType name="Тип"/>
+        </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Панель символів ASCII"/>
             <ColumnVal name="Значення"/>
@@ -1098,17 +1119,16 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Це дозволяє вам включати додатковий символ у поточні символи слова при подвійному натисканні для вибору, або пошуку за допомогою параметру „Лише цілі слова“."/>
             <word-chars-list-warning-begin value="Майте на увазі: "/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ пробіл(и)"/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
             <word-chars-list-warning-end value="  у вашому списку символів."/>
             <cloud-invalid-warning value="Неправильний шлях."/>
             <cloud-restart-warning value="Перезапустіть Notepad++ для застосування змін."/>
             <cloud-select-folder value="Виберіть теку, звідки/куди в Notepad++ читати/записувати свої параметри"/>
-            <shift-change-direction-tip value="Використовуйте Shift + Enter для пошуку в зворотному напрямку"/>
+            <shift-change-direction-tip value="Використовуйте Shift+Enter для пошуку у зворотному напрямку"/>
             <two-find-buttons-tip value="2-кнопковий режим пошуку"/>
             <find-status-top-reached value="Знайти: Знайдено 1-й збіг знизу. Було досягнуто початку документа."/>
             <find-status-end-reached value="Знайти: Знайдено 1-й збіг згори. Було досягнуто кінця документа."/>
@@ -1135,7 +1155,14 @@
             <find-status-replace-not-found value="Замінити: Жодного збігу не знайдено"/>
             <find-status-replace-readonly value="Замінити: Неможливо замінити текст. Цей документ призначений тільки для читання"/>
             <find-status-cannot-find value="Знайти: Неможливо знайти текст &quot;$STR_REPLACE$&quot;"/>
-            <find-status-mark-nb-matches value="$INT_REPLACE$ збігів"/>
+            <finder-find-in-finder value="Знайти у цих знайдених результатах..."/>
+            <finder-close-this value="Закрити цей пошуковик"/>
+            <finder-collapse-all value="Згорнути все"/>
+            <finder-uncollapse-all value="Розгорнути все"/>
+            <finder-copy value="Копіювати"/>
+            <finder-select-all value="Вибрати все"/>
+            <finder-clear-all value="Очистити все"/>
+            <finder-open-all value="Відкрити все"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

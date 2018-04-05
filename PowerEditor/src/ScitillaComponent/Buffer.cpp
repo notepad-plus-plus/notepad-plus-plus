@@ -1338,7 +1338,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	if (bufferSizeRequested > INT_MAX)
 	{
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		pNativeSpeaker->messageBox("FileTooBigToOpene",
+		pNativeSpeaker->messageBox("FileTooBigToOpen",
 										NULL,
 										TEXT("File is too big to be opened by Notepad++"),
 										TEXT("File size problem"),
@@ -1459,7 +1459,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		pNativeSpeaker->messageBox("FileTooBigToOpene",
+		pNativeSpeaker->messageBox("FileTooBigToOpen",
 			NULL,
 			TEXT("File is too big to be opened by Notepad++"),
 			TEXT("File size problem"),

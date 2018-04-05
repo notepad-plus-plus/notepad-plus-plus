@@ -736,7 +736,7 @@
 					<Item id="6413" name="Varsayılan Dizin (Aç/Kaydet)"/>
 					<Item id="6414" name="Geçerli belgeyi takip et"/>
 					<Item id="6415" name="Son kullanılan dizini hatırla"/>
-					<Item id="6430" name="Yeni stil kayıt diyalogunu kullan (dosya uzantısı özelliği olmadan)"/>
+					<Item id="6430" name="Yeni stil diyalogunu kullan (&amp; Unix tarzı yol kapasitesi)"/>
                     <Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
 				</DefaultDir>
 
@@ -853,7 +853,7 @@
 				</MultiInstance>
 
 				<Delimiter title="Sınırlayıcı">
-					<Item id="6251" name="Sınırlayıcı Seçme Ayarları (Ctrl + Fareyle Çift Tıkla)"/>
+					<Item id="6251" name="Sınırlayıcı Seçme Ayarları (Ctrl+Fareyle Çift Tıkla)"/>
 					<Item id="6252" name="Aç"/>
 					<Item id="6255" name="Kapat"/>
 					<Item id="6256" name="Birden çok satıra izin ver"/>
@@ -934,6 +934,19 @@
 				<Item id="1" name="Tamam"/>
 				<Item id="2" name="İptal"/>
 			</ColumnEditor>
+            <FindInFinder title="Bulucuda Bul">
+                <Item id="1"    name="Tümünü Bul"/>
+                <Item id="2"    name="Kapat"/>
+                <Item id="1711" name="Ne Bulunsun:"/>
+                <Item id="1713" name="Sadece Bulunmuş Satırlarda Ara"/>
+                <Item id="1714" name="Sadece &amp;Tüm Kelimeyi Eşleştir"/>
+                <Item id="1715" name="&amp;Harf Eşleştir"/>
+                <Item id="1716" name="Arama Modu"/>
+                <Item id="1717" name="Normal"/>
+                <Item id="1719" name="Düzenli &amp;İfadeler"/>
+                <Item id="1718" name="Geliştirilmiş (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. Yeni Satır Eşleşiyor"/>
+            </FindInFinder
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
 			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek Notepad++ sağ tık bağlam menüsü değiştirilebilir.
@@ -961,7 +974,7 @@ veya klasöre yazma erişimi için ayrıcalık tanınmamış.
 Buluta yedekleme iptal edilecektir. Lütfen Tercihler'den tutarlı bir konum ayarlayın."/>
 			<FilePathNotFoundWarning title="Dosya Aç" message="Açmaya çalıştığınız dosya mevcut değil."/>
 			<SessionFileInvalidError title="Oturum Yüklenemedi" message="Oturum dosyası bozuk ya da geçersiz."/>	
-            <DroppingFolderAsProjetModeWarning title="Geçersiz İşlem" message="Sadece klasör ya da dosyaları bırakabilirsiniz fakat ikisini birden yapamazsınız, çünkü Klasörü Proje modu olarak bırakıyorsunuz.
+            <DroppingFolderAsProjectModeWarning title="Geçersiz İşlem" message="Sadece klasör ya da dosyaları bırakabilirsiniz fakat ikisini birden yapamazsınız, çünkü Klasörü Proje modu olarak bırakıyorsunuz.
 Bu işlemin çalışması için, klasör bırakmada, klasörü Çalışma alanı olarak başlatmak yerine &quot; Ayarlar içindeki&quot; &quot;Varsayılan Dizin&quot; bölümünde &quot;Klasördeki tüm dosyaları aç&quot; seçeneği etkinleştirmelisiniz."/>
 
             <SortingError title="Sıralama Hatası" message="$INT_REPLACE$ satırındaki hatadan dolayı Numerik sıralanamadı."/>
@@ -982,12 +995,12 @@ Tekrar yüklemek ister misiniz?"/>
             <DoReloadOrNotAndLooseChange title="Tekrar Yükle" message="&quot;$STR_REPLACE$&quot;
 Bu dosya başka bir program tarafından değiştirildi.
 Tekrar yükleyerek Notepad++ içindeki değişiklerin kaybolmasını istiyor musunuz?"/>
-            <PrehistoricSystemDetected title="Antik Sistem Bulundu" message="Görünüşe göre, halen antik bir sistem kullanıyorsunuz, Bu özellik sadece modern bir sistemde kullanılabilir, üzgünüm."/>
+            <PrehistoricSystemDetected title="Antik Sistem Bulundu" message="Görünüşe göre, halen antik bir sistem kullanıyorsunuz. Bu özellik sadece modern bir sistemde kullanılabilir, üzgünüm."/>
             <XpUpdaterProblem title="Notepad++ Güncelleyici" message="Notepad++ güncelleyici XP ile uyumlu değil, çünkü XP güvenlik yapısı oldukça eski.
 Notepad++ sayfasına giderek en son sürümü indirmek ister misiniz?"/>
             <DocTooDirtyToMonitor title="İzleme Sorunu" message="Belge kirli. İzlemeden önce lütfen değişikliği kaydedin."/>
             <DocNoExistToMonitor title="İzleme Sorunu" message="İzlenmesi için dosyanın mevcut olması gerekir."/>
-            <FileTooBigToOpene title="Dosya Boyutu Sorunu" message="Dosya, Notepad++ tarafından açılamayacak kadar büyük."/>
+            <FileTooBigToOpen title="Dosya Boyutu Sorunu" message="Dosya, Notepad++ tarafından açılamayacak kadar büyük."/>
             <CreateNewFileOrNot title="Yeni Dosya Oluştur" message="&quot;$INT_REPLACE$&quot; mevcut değil. Oluşturulsun mu?."/>
             <CreateNewFileError title="Yeni Dosya Oluştur" message="&quot;$INT_REPLACE$&quot; dosyası oluşturulamıyor."/>
             <OpenFileError title="HATA" message="&quot;$INT_REPLACE$&quot; dosyası açılamıyor."/>
@@ -1017,6 +1030,11 @@ lütfen yeni bir isim verin."/>
             <UDLRemoveCurrentLang title="Şu Anki Dili Kaldır" message="Emin misiniz?"/>
 			<SCMapperDoDeleteOrNot title="Emin misiniz?" message="Bu kısayolu silmek istediğinize emin misiniz?"/>
 			<FindCharRangeValueError title="Aralık Değeri Problemi" message="0 ile 255 arasında bir giriş yapmalısınız."/>
+            <ÇevirOpenInAdminMode title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
+Notepad++&apos;ı Yönetici olarak başlatmak ister misiniz?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
+Notepad++&apos;ı Yönetici olarak başlatmak ister misiniz?"/>
+            <OpenInAdminModeFailed title="Yönetici Olarak Başlatma Başarısız" message="Notepad++ Yönetici olarak başlatılamaz."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Pano Geçmişi"/>
@@ -1026,6 +1044,11 @@ lütfen yeni bir isim verin."/>
 			<ColumnName name="İsim"/>
 			<ColumnExt name="Uzantı"/>
 		</DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="İsim"/>
+            <ColumnPath name="Yol"/>
+            <ColumnType name="Tür"/>
+        </WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII Ekleme Paneli"/>
 			<ColumnVal name="Değer"/>
@@ -1112,7 +1135,7 @@ lütfen yeni bir isim verin."/>
 			<cloud-invalid-warning value="Geçersiz yol."/>
 			<cloud-restart-warning value="Etkin olması için Notepad++'yı tekrar başlat."/>
 			<cloud-select-folder value="Notepad++'ın ayarlarını yazıp okuyabileceği bir klasör seçin"/>
-			<shift-change-direction-tip value="Shift + Enter ile diğer yönde arama yapın."/>
+			<shift-change-direction-tip value="Shift+Enter ile diğer yönde arama yapın."/>
 			<two-find-buttons-tip value="İkili Bulma Düğmesi Modu"/>
 			<find-status-top-reached value="Bulma: Sondan 1. eşleşme bulundu. Dosyanın başına ulaşıldı."/>
 			<find-status-end-reached value="Bulma: Baştan 1. eşleşme bulundu. Dosyanın sonuna ulaşıldı."/>
@@ -1139,7 +1162,14 @@ lütfen yeni bir isim verin."/>
 			<find-status-replace-not-found value="DEğiştir: hiçbir eşleşme bulunamadı"/>
 			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ eşleşmeler"/>
+            <Çevirfinder-find-in-finder value="Bulunmuş sonuçlar arasında bul..."/>
+            <finder-close-this value="Bu bulucuyu kapat"/>
+            <finder-collapse-all value="Tümünü Daralt"/>
+            <finder-uncollapse-all value="Tümünü Genişlet"/>
+            <finder-copy value="Kopyala"/>
+            <finder-select-all value="Tümünü Seç"/>
+            <finder-clear-all value="Tümünü temizle"/>
+            <finder-open-all value="Tümünü Aç"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

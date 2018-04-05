@@ -222,6 +222,7 @@ struct CmdLineParams
 	generic_string _localizationPath;
 	generic_string _easterEggName;
 	unsigned char _quoteType = '\0';
+	int _ghostTypingSpeed = -1; // -1: initial value  1: slow  2: fast  3: speed of light
 
 	CmdLineParams()
 	{

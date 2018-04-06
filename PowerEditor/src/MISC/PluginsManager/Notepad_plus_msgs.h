@@ -414,23 +414,20 @@ enum Platform { PF_UNKNOWN, PF_X86, PF_X64, PF_IA64 };
 	#define NPPM_DISABLEAUTOUPDATE (NPPMSG + 95) // 2119 in decimal
 	// VOID NPPM_DISABLEAUTOUPDATE(0, 0)
 
-	#define NPPM_GETREADONLYFROMPOS (NPPMSG + 96)
-	// LRESULT NPPM_GETREADONLYFROMPOS(INT index, INT iView)
-	// wParam: Position of document
-	// lParam: View to use, 0 = Main, 1 = Secondary
-	// Returns BOOL ReadOnly
 
-	#define NPPM_GETMODIFYFROMPOS (NPPMSG + 97)
-	// LRESULT NPPM_GETMODIFYFROMPOS(INT index, INT iView)
-	// wParam: Position of document
-	// lParam: View to use, 0 = Main, 1 = Secondary
-	// Returns BOOL Modify
+	#define BUFSTAT_READONLY     0x01
+	#define BUFSTAT_MODIFIED     0x02
+	#define BUFSTAT_LOADEDDIRTY  0x04
+	#define NPPM_GETBUFFERSTATUS (NPPMSG + 96)
+	// LRESULT NPPM_GETBUFFERSTATUS(UINT_PTR bufferID, 0)
+	// wParam: BufferID to get Status
+	// lParam: 0
+	// Return value is a LRESULT with bit flags
+	// BUFSTAT_READONLY    = 0x01 (Bit 0) set when Buffer is readonly
+	// BUFSTAT_MODIFIED    = 0x02 (Bit 1) set when Buffer is modified
+	// BUFSTAT_LOADEDDIRTY = 0x04 (Bit 2) set when Buffer is dirty
+	// or -1 when bufferId is illegally 
 
-	#define NPPM_GETDIRTYROMPOS (NPPMSG + 98)
-	// LRESULT NPPM_GETDIRTYROMPOS(INT index, INT iView)
-	// wParam: Position of document
-	// lParam: View to use, 0 = Main, 1 = Secondary
-	// Returns BOOL Dirty
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)

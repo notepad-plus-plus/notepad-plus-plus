@@ -500,58 +500,24 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_GETREADONLYFROMPOS:
+		case NPPM_GETBUFFERSTATUS:
 		{
-			DocTabView* pView = nullptr;
+			BufferID id = (BufferID)wParam;
+			Buffer * b = MainFileManager->getBufferByID(id);
+			result = 0;
 
-			if (lParam == MAIN_VIEW)
-				pView = &_mainDocTab;
-			else if (lParam == SUB_VIEW)
-				pView = &_subDocTab;
-			else
-				return 0;
-
-			if ((size_t)wParam < pView->nbItem())
-			{
-				return (pView->getBufferByIndex(wParam))->isReadOnly();
+			if (b == NULL) {
+				result = -1;
 			}
-			return 0;
-		}
-
-		case NPPM_GETMODIFYFROMPOS:
-		{
-			DocTabView* pView = nullptr;
-
-			if (lParam == MAIN_VIEW)
-				pView = &_mainDocTab;
-			else if (lParam == SUB_VIEW)
-				pView = &_subDocTab;
-			else
-				return 0;
-
-			if ((size_t)wParam < pView->nbItem())
-			{
-				return (pView->getBufferByIndex(wParam))->isModified();
+			else { 
+				if (b->isReadOnly() == true)
+					result |= BUFSTAT_READONLY;
+				if (b->isModified() == true)
+					result |= BUFSTAT_MODIFIED;
+				if (b->isDirty() == true)
+					result |= BUFSTAT_LOADEDDIRTY;
 			}
-			return 0;
-		}
-
-		case NPPM_GETDIRTYROMPOS:
-		{
-			DocTabView* pView = nullptr;
-
-			if (lParam == MAIN_VIEW)
-				pView = &_mainDocTab;
-			else if (lParam == SUB_VIEW)
-				pView = &_subDocTab;
-			else
-				return 0;
-
-			if ((size_t)wParam < pView->nbItem())
-			{
-				return (pView->getBufferByIndex(wParam))->isDirty();
-			}
-			return 0;
+			return result;
 		}
 
 		case WM_SIZE:

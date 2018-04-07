@@ -1,0 +1,23 @@
+Crash when searching and opening a file #3970
+the issue link https://github.com/notepad-plus-plus/notepad-plus-plus/issues/3970
+Description of the Issue
+Noticed while doing a file search that opening a file in explorer by double clicking on it will crash notepad++.
+
+Steps to Reproduce the Issue
+Use CTRL+SHIFT+F to search in files
+While the search is processing, open a file by double clicking on it
+Notepad++ should crash
+Expected Behavior
+File should open normally. Either during or after the search is finished
+
+Actual Behavior
+Crash
+
+Debug Information
+Notepad++ v7.5.1 (32-bit)
+Build time : Aug 29 2017 - 02:35:41
+Path : E:\Programs\Notepad++\notepad++.exe
+Admin mode : ON
+Local Conf mode : OFF
+OS : Windows 10 (64-bit)
+Plugins : HexEditor.dll mimeTools.dll NppConverter.dll NppExport.dll NppFTP.dll PluginManager.dll XMLTools.dll

@@ -324,8 +324,8 @@ void FunctionListPanel::reload()
 	Buffer* currentBuf = (*_ppEditView)->getCurrentBuffer();
 	const TCHAR *fn = currentBuf->getFileName();
 	LangType langID = currentBuf->getLangType();
-	if (langID == L_JAVASCRIPT)
-		langID = L_JS;
+	if (langID == L_JS)
+		langID = L_JAVASCRIPT;
 
 	const TCHAR *udln = NULL;
 	if (langID == L_USER)
@@ -343,25 +343,7 @@ void FunctionListPanel::reload()
 
 	for (size_t i = 0, len = _foundFuncInfos.size(); i < len; ++i)
 	{
-		// no 2 levels
-		/*
-		bool b = false;
-		if (b)
-		{
-			generic_string entryName = TEXT("");
-			if (!_foundFuncInfos[i]._data2.empty())
-			{
-				entryName = _foundFuncInfos[i]._data2;
-				entryName += TEXT("=>");
-			}
-			entryName += _foundFuncInfos[i]._data;
-			addEntry(NULL, entryName.c_str(), _foundFuncInfos[i]._pos);
-		}
-		else
-		*/
-		{
-			addEntry(_foundFuncInfos[i]._data2.c_str(), _foundFuncInfos[i]._data.c_str(), _foundFuncInfos[i]._pos);
-		}
+		addEntry(_foundFuncInfos[i]._data2.c_str(), _foundFuncInfos[i]._data.c_str(), _foundFuncInfos[i]._pos);
 	}
 
 	HTREEITEM root = _treeView.getRoot();

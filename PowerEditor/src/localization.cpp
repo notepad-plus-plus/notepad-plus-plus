@@ -369,27 +369,28 @@ static const int tabContextMenuItemPos[] =
 //  |       +------ Number in english.xml (<language>.xml) : <TabBar>
 //  |       |
 	0,   // 0 : Close
-	1,   // 1 : Close ALL BUT This
-	4,   // 2 : Save
-	5,   // 3 : Save As
-	9,   // 4 : Print
-	23,  // 5 : Move to Other View
-	24,  // 6 : Clone to Other View
-	19,  // 7 : Full File Path to Clipboard
-	20,  // 8 : Filename to Clipboard
-	21,  // 9 : Current Dir. Path to Clipboard
-	6,   // 10: Rename
-	7,   // 11: Move to Recycle Bin
-	16,  // 12: Read-Only
-	17,  // 13: Clear Read-Only Flag
-	25,  // 14: Move to New Instance
-	26,  // 15: Open to New Instance
-	8,   // 16: Reload
-	2,   // 17: Close ALL to the Left
-	3,   // 18: Close ALL to the Right
-	11,  // 19: Open Containing Folder in Explorer
-	12,  // 20: Open Containing Folder in cmd
-    14,  // 21: Open in Default Viewer
+	27,	 // 1 : Close ALL
+	1,   // 2 : Close ALL BUT This
+	4,   // 3 : Save
+	5,   // 4 : Save As
+	9,   // 5 : Print
+	23,  // 6 : Move to Other View
+	24,  // 7 : Clone to Other View
+	19,  // 8 : Full File Path to Clipboard
+	20,  // 9 : Filename to Clipboard
+	21,  // 10 : Current Dir. Path to Clipboard
+	6,   // 11: Rename
+	7,   // 12: Move to Recycle Bin
+	16,  // 13: Read-Only
+	17,  // 14: Clear Read-Only Flag
+	25,  // 1: Move to New Instance
+	26,  // 16: Open to New Instance
+	8,   // 17: Reload
+	2,   // 18: Close ALL to the Left
+	3,   // 19: Close ALL to the Right
+	11,  // 20: Open Containing Folder in Explorer
+	12,  // 21: Open Containing Folder in cmd
+    14,  // 22: Open in Default Viewer
 	-1   //-------End
 };
 

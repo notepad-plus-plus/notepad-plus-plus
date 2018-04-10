@@ -189,6 +189,7 @@ public:
 	bool fileCloseAllGiven(const std::vector<int>& krvecBufferIndexes);
 	bool fileCloseAllToLeft();
 	bool fileCloseAllToRight();
+	bool fileCloseAllWithoutSaving();
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
 	bool fileSaveSpecific(const generic_string& fileNameToSave);

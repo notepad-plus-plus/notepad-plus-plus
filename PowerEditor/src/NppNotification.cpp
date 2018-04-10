@@ -522,6 +522,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TOLEFT, TEXT("Close All to the Left")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_TORIGHT, TEXT("Close All to the Right")));
+				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_NO_SAVE, TEXT("Close All without saving")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save As...")));
 				itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename")));

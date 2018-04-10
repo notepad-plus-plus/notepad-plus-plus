@@ -1097,6 +1097,19 @@ bool Notepad_plus::fileCloseAllToRight()
 	return fileCloseAllGiven(vecIndexesToClose);
 }
 
+bool Notepad_plus::fileCloseAllWithoutSaving()
+{
+	// Indexes must go from high to low to deal with the fact that when one index is closed, any remaining
+	// indexes (smaller than the one just closed) will point to the wrong tab.
+	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI().isSnapshotMode();
+
+	for (int32_t i = static_cast<int32_t>(_pDocTab->nbItem() - 1); i >= 0; i--) {
+		doClose(_pDocTab->getBufferByIndex(i), currentView(), isSnapshotMode);
+	}
+
+	return true;
+}
+
 bool Notepad_plus::fileCloseAllButCurrent()
 {
 	BufferID current = _pEditView->getCurrentBufferID();

@@ -396,7 +396,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         {
 			_nativeLangSpeaker.messageBox("OpenFileError",
 				_pPublicInterface->getHSelf(),
-				TEXT("Can not open file \"$STRT_REPLACE$\"."),
+				TEXT("Can not open file \"$STR_REPLACE$\"."),
 				TEXT("ERROR"),
 				MB_OK,
 				0,

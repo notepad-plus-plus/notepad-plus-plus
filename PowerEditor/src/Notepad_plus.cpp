@@ -3592,7 +3592,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 {
 	BufferID bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager->getBufferByID(bufferID);
-	bool isUntitledOrDirty = buf->isUntitled() || buf->isDirty();
+	bool isUntitledOrDirty = (buf->isUntitled() || buf->isDirty());
 	if (isUntitledOrDirty)
 	{
 		buf->setBackupFileName(buf->getFileName());

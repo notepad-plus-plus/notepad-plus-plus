@@ -76,7 +76,6 @@
 			<association id=      "csharp_class"      langID= "4"                          />
 			<association id=        "java_syntax"     langID= "6"                          />
 			<association id=         "xml_node"       langID= "9"                          />
-<!--		<association id="functionlist_syntax"     langID= "9"                          /> -->
 			<association id=       "batch_label"      langID="12"                          />
 			<association id=         "ini_section"    langID="13"                          />
 			<association id=        "perl_function"   langID="21"                          />
@@ -89,6 +88,7 @@
 			<association id=   "innosetup_syntax"     langID="46"                          />
 			<association id=  "powershell_function"   langID="53"                          />
 			<association id=  "javascript_function"   langID="58"                          />
+			<!-- ======================================================================== -->
 			<association id=       "baanc_section"    langID="60"                          />
 			<!-- ======================================================================== -->
 			<association id=         "krl_function"   userDefinedLangName="KRL"            />
@@ -572,93 +572,7 @@
 					</functionName>
 				</function>
 			</parser>
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			|   Show each FunctionList `association`-node as a leaf in an
-			|   `assiociationMap` branch and each `parser`-node as a leaf in a
-			|   `parsers` branch of the FunctionList tree
-			\-->
-			<parser
-				displayName="XML of Function List"
-				id         ="functionlist_syntax"
-				commentExpr="(?x)                                               # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								(?:\x3C!--(?:[^\-]|-(?!-\x3E))*--\x3E)          # Multi Line Comment
-							"
-			>
-				<classRange
-					mainExpr    ="(?xs)                                         # can span multiple lines
-							\x3C(?'COMPOUND'associationMap|parsers)\x3E         # begin of a `associationMap` or `parsers`-node
-							.*?                                                 # include anything between the node`s tags
-							\x3C/\k'COMPOUND'\x3E                               # end of the applicable node
-						"
-				>
-					<!--
-					|   Use the node's name as label for the branch
-					\-->
-					<className>
-						<nameExpr expr="\x3C\w+\x3E" />
-						<nameExpr expr="\w+" />
-					</className>
-					<function
-						mainExpr="(?x)                                          # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-								\x3C(?:association|parser)                      # begin of a `association` or `parser`-node
-								(?:                                             # match attributes
-									\s+\w+                                      # at least one whitespace before attribute-name
-									\h*=\h*                                     # name-value separator can be surrounded by blanks
-									(?:                                         # quoted attribute value, embedded escaped quotes allowed...
-										\x22(?:[^\x22\x5C]|\x5C.)*?\x22         # ...double quoted...
-									|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27         # ...single quoted
-									)
-								)+                                              # only match nodes with at least one attribute
-								\s*/?\x3E                                       # end of the node or node-tag resp.
-							"
-					>
-						<!--
-						|   For `association`-nodes use its `id`-attribute value as its leaf
-						|   name and for `parser`-nodes use its `displayName`-attribute value.
-						|   NOTE: to be able to use the node's `displayName`-attribute,
-						|         make sure it's defined before the `id`-attribute.
-						\-->
-						<functionName>
-							<funcNameExpr expr="(?x)                            # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-									(?:displayName|\bid)
-									\h*=\h*
-									(?:
-										\x22(?:[^\x22\x5C]|\x5C.)*?\x22
-									|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27
-									)
-								"
-							/>
-							<funcNameExpr expr="(?&lt;=[\x22\x27])(?:[^\x22\x27\x5C]|\x5C.)*?(?=[\x22\x27])" />
-						</functionName>
-					</function>
-				</classRange>
-				<!--
-				|   Fallback: show each `parser`-node as a leaf of the root in the FunctionList tree
-				\-->
-				<function
-					mainExpr="(?x)                                              # Utilize inline comments (see `RegEx - Pattern Modifiers`)
-							\x3Cparser                                          # begin of a `parser`-node
-							(?:                                                 # match attributes
-								\s+\w+                                          # at least one whitespace before attribute-name
-								\h*=\h*                                         # name-value separator can be surrounded by blanks
-								(?:                                             # quoted attribute value, embedded escaped quotes allowed..
-									\x22(?:[^\x22\x5C]|\x5C.)*?\x22             # ...double quoted...
-								|	\x27(?:[^\x27\x5C]|\x5C.)*?\x27             # ...single quoted
-								)
-							)+                                                  # only match nodes with at least one attribute
-							\s*/?\x3E                                           # end of the `parser`-node-tag
-						"
-				>
-					<!--
-					|   Use the `displayName`-attribute value as leaf name.
-					\-->
-					<functionName>
-						<nameExpr expr="displayName\h*=\h*(?:\x22(?:[^\x22\x5C]|\x5C.)*?\x22|\x27(?:[^\x27\x5C]|\x5C.)*?\x27)" />
-						<nameExpr expr="(?&lt;=[\x22\x27])(?:[^\x22\x27\x5C]|\x5C.)*?(?=[\x22\x27])" />
-					</functionName>
-				</function>
-			</parser>
-
+			
 			<!-- ================================ [ Batch / Command Shell Script ] -->
 
 			<parser

@@ -144,6 +144,11 @@
 				<Param name="uint value" />
 			</Overload>
 		</KeyWord>
+		<KeyWord name="Console.ResetColor" func="yes">
+			<Overload retVal="void" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
 		<KeyWord name="Console.Read" func="yes">
 			<Overload retVal="int" >
 				<Param name="..."/>
@@ -297,6 +302,74 @@
 		<KeyWord name="Microsoft.VisualBasic" />
 		<KeyWord name="Microsoft.Vsa" />
 		<KeyWord name="Microsoft.Win32" />
+		<KeyWord name="MessageBox.Show" func="yes" >
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+				<Param name="MessageBoxOptions options" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+				<Param name="MessageBoxOptions options" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+				<Param name="MessageBoxOptions options" />
+				<Param name="string helpFilePath" />
+			</Overload>
+			<Overload retVal="DialogResult" >
+				<Param name="string text" />
+				<Param name="string caption" />
+				<Param name="MessageBoxButtons buttons" />
+				<Param name="MessageBoxIcons icons" />
+				<Param name="MessageBoxDefaultButtons defaultButtons" />
+				<Param name="MessageBoxOptions options" />
+				<Param name="string helpFilePath" />
+				<Param name="string keyword" />
+			</Overload>
+		</KeyWord>
 		<KeyWord name="namespace" />
 		<KeyWord name="new" />
 		<KeyWord name="null" />
@@ -439,6 +512,19 @@
 				<Param name="TimeSpan timeout" />
 			</Overload>
 		</KeyWord>
+		<KeyWord name="Thread.AllocateDataSlot" func="yes">
+			<Overload retVal="LocalDataStoreSlot" >
+				<Param name="..."/>
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Thread.AllocateNamedDataSlot" func="yes">
+			<Overload retVal="LocalDataStoreSlot" >
+				<Param name="string name"/>
+			</Overload>
+		</KeyWord>
+
+
+
 		<KeyWord name="true" />
 		<KeyWord name="try" />
 		<KeyWord name="typeof" />

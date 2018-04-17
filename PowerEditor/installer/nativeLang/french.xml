@@ -11,7 +11,7 @@
                     <Item menuId="view" name="&amp;Affichage"/>
                     <Item menuId="encoding" name="E&amp;ncodage"/>
                     <Item menuId="language" name="&amp;Langage"/>
-                    <Item menuId="settings" name="&amp;Paramétres"/>
+                    <Item menuId="settings" name="&amp;Paramètres"/>
                     <Item menuId="tools" name="&amp;Outils"/>
                     <Item menuId="macro" name="&amp;Macro"/>
                     <Item menuId="run" name="E&amp;xécution"/>

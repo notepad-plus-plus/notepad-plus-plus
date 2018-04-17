@@ -14,13 +14,13 @@
                 <Entries>
                     <Item menuId="file" name="&amp;फाईल"/>
                     <Item menuId="edit" name="&amp;एडिट"/>
-                    <Item menuId="search" name="&amp;सर्च"/>
+                    <Item menuId="search" name="&amp;शोधा"/>
                     <Item menuId="view" name="&amp;व्यू"/>
                     <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
                     <Item menuId="language" name="&amp;भाषा"/>
                     <Item menuId="settings" name="&amp;सेटिंग"/>
                     <Item menuId="macro" name="मेक्रो"/>
-                    <Item menuId="run" name="चलाये"/>
+                    <Item menuId="run" name="चालवा"/>
                     <Item idName="Plugins" name="प्लगइन्स"/>
                     <Item idName="Window" name="विन्डों"/>
                 </Entries>

@@ -1082,6 +1082,7 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					TCHAR filters[filterSize+1];
 					filters[filterSize] = '\0';
 					TCHAR directory[MAX_PATH];
+					TCHAR excludeDirectory[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 					_options._filters = filters;
@@ -1089,7 +1090,11 @@ INT_PTR CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
 					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
 					_options._directory = directory;
-					
+
+					::GetDlgItemText(_hSelf, IDD_EXCLUDE_DIR_COMBO, excludeDirectory, filterSize);
+					addText2Combo(excludeDirectory, ::GetDlgItem(_hSelf, IDD_EXCLUDE_DIR_COMBO));
+					_options._excludeDirectory = excludeDirectory;
+
 					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
 						_options._directory += TEXT("\\");
 
@@ -1854,8 +1859,15 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 
 	if (findReplaceInfo._startRange == findReplaceInfo._endRange)
 		return nbProcessed;
-
+	if (!FindReplaceDlg::_options._excludeDirectory.empty()) {
+		generic_string fullfilepath(pFindersInfo->_pFileName);
+		generic_string::size_type at = fullfilepath.find(FindReplaceDlg::_options._excludeDirectory);
+		if (at != generic_string::npos) {
+			return nbProcessed;
+		}
+	}
 	const FindOption *pOptions = opt?opt:_env;
+
 
 	LRESULT stringSizeFind = 0;
 	LRESULT stringSizeReplace = 0;
@@ -2155,6 +2167,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, FindReplaceInfo & findRepl
 		if (pFinder != nullptr)
 			pFinder->addFileHitCount(nbProcessed);
 	}
+
 	return nbProcessed;
 }
 
@@ -2453,6 +2466,8 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);
     ::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), isEnable?SW_SHOW:SW_HIDE);
+    ::ShowWindow(::GetDlgItem(_hSelf, IDD_EXCLUDE_DIR_COMBO), isEnable?SW_SHOW:SW_HIDE);
+    ::ShowWindow(::GetDlgItem(_hSelf, IDD_EXCLUDE_DIR_STATIC), isEnable?SW_SHOW:SW_HIDE);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
@@ -2834,6 +2849,10 @@ void FindReplaceDlg::enableFindInFilesFunc()
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
 	setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
+	HWND hLabel = ::GetDlgItem(_hSelf, IDD_EXCLUDE_DIR_STATIC);
+	MoveWindow(hLabel, 40, 190, 80, 50, TRUE);
+	HWND hText = ::GetDlgItem(_hSelf, IDD_EXCLUDE_DIR_COMBO);
+	MoveWindow(hText, 125, 188, 270, 48, TRUE);
 }
 
 void FindReplaceDlg::enableMarkFunc()

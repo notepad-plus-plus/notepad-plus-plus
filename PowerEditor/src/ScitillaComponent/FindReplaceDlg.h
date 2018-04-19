@@ -81,6 +81,7 @@ struct FindOption
 	generic_string _str4Replace;
 	generic_string _filters;
 	generic_string _directory;
+	generic_string _excludeDirectory;
 	bool _isRecursive = true;
 	bool _isInHiddenDir = false;
 	bool _dotMatchesNewline = false;

@@ -782,7 +782,7 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_TAB8:
 		case IDM_VIEW_TAB9:
 		{
-			_isFolding = true; // Ignore SCN_FOLDINGSTATECHANGED events when switching tabs
+			_isFolding = true;
 			const int index = id - IDM_VIEW_TAB1;
 			BufferID buf = _pDocTab->getBufferByIndex(index);
 			if(buf == BUFFER_INVALID)
@@ -803,7 +803,7 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_TAB_NEXT:
 		case IDM_VIEW_TAB_PREV:
 		{
-			_isFolding = true; // Ignore SCN_FOLDINGSTATECHANGED events when switching tabs
+			_isFolding = true;
 			const int current = _pDocTab->getCurrentTabIndex();
 			const int direction = (id == IDM_VIEW_TAB_NEXT) ? +1 : -1;
 			const int count = _pDocTab->getItemCount();
@@ -2878,7 +2878,7 @@ void Notepad_plus::command(int id)
         case IDC_PREV_DOC :
         case IDC_NEXT_DOC :
         {
-			_isFolding = true; // Ignore SCN_FOLDINGSTATECHANGED events when switching tabs
+			_isFolding = true;
 			size_t nbDoc = viewVisible(MAIN_VIEW) ? _mainDocTab.nbItem() : 0;
 			nbDoc += viewVisible(SUB_VIEW)?_subDocTab.nbItem():0;
 

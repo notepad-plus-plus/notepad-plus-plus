@@ -267,7 +267,7 @@
                     <Item id="45002" name="Convertir en format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en format Mac (CR)"/>
                     <Item id="45004" name="Encoder en ANSI"/>
-                    <Item id="45005" name="Encoder en UTF-8(avec BOM)"/>
+                    <Item id="45005" name="Encoder en UTF-8 (avec BOM)"/>
                     <Item id="45006" name="Encoder en UTF-16BE"/>
                     <Item id="45007" name="Encoder en UTF-16LE"/>
                     <Item id="45008" name="Encoder en UTF-8"/>
@@ -331,7 +331,7 @@
                     <Item CMID="17" name="Fermer les onglets sur la gauche"/>
                     <Item CMID="18" name="Fermer les onglets sur la droite"/>
                     <Item CMID="19" name="Ouvrir le répertoire du fichier en cours dans l'explorateur"/>
-                    <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans l'invite ce commande"/>
+                    <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans l'invite de commande"/>
                     <Item CMID="21" name="Ouvrir dans l'application par défaut"/>
             </TabBar>
         </Menu>
@@ -447,7 +447,7 @@
                 <Item id="2602" name="Modifier"/>
                 <Item id="2603" name="Supprimer"/>
                 <Item id="2606" name="Effacer"/>
-                <Item id="2607" name="Filtre: "/>
+                <Item id="2607" name="Filtre : "/>
                 <Item id="1" name="Fermer"/>
                 <ColumnName name="Nom"/>
                 <ColumnShortcut name="Raccourcis clavier"/>
@@ -469,7 +469,7 @@
                 <Item id="5009" name="Supprimer"/>
                 <Item id="5010" name="Appliquer"/>
                 <Item id="5007" name="Cela supprimera le raccourci depuis cette commande"/>
-                <Item id="5012" name="CONFLIT TROUVÉ!"/>
+                <Item id="5012" name="CONFLIT TROUVÉ !"/>
             </ShortcutMapperSubDialg>
     <UserDefine title="Langage utilisateur">
         <Item id="20001" name="Ancrer"/>
@@ -541,13 +541,13 @@
         </StylerDialog>
         <Keywords title="Mots-clés">
             <Item id="22101" name="1er Groupe"/>
-            <Item id="22201" name="2è Groupe"/>
-            <Item id="22301" name="3è Groupe"/>
-            <Item id="22401" name="4è Groupe"/>
-            <Item id="22451" name="5è Groupe"/>
-            <Item id="22501" name="6è Groupe"/>
-            <Item id="22551" name="7è Groupe"/>
-            <Item id="22601" name="8è Groupe"/>
+            <Item id="22201" name="2e Groupe"/>
+            <Item id="22301" name="3e Groupe"/>
+            <Item id="22401" name="4e Groupe"/>
+            <Item id="22451" name="5e Groupe"/>
+            <Item id="22501" name="6e Groupe"/>
+            <Item id="22551" name="7e Groupe"/>
+            <Item id="22601" name="8e Groupe"/>
             <Item id="22121" name="Mode préfixe"/>
             <Item id="22221" name="Mode préfixe"/>
             <Item id="22321" name="Mode préfixe"/>
@@ -951,7 +951,7 @@ vous devez activer &quot;Open all files of folder instead of launching Folder as
             <BufferInvalidWarning title="Échec de sauvegarde" message="Cannot save: Buffer is invalid."/>
             <DoSaveOrNot title="Sauvegarder" message="Sauvegarder le fichier &quot;$STR_REPLACE$&quot; ?"/>
             <DoCloseOrNot title="Conserver un fichier non existant" message="Le fichier &quot;$STR_REPLACE$&quot; n'existe plus.
-Conserver ce fichier dans l'éditeur?"/>
+Conserver ce fichier dans l'éditeur ?"/>
             <DoDeleteOrNot title="Supprimer fichier" message="Le fichier &quot;$STR_REPLACE$&quot;
 sera déplacé dans votre corbeille et ce document sera fermé.
 Continue?"/>
@@ -961,11 +961,11 @@ Voulez-vous enregistrer le fichier &quot;$STR_REPLACE$&quot; ?"/>
             <DoReloadOrNot title="Recharger" message="&quot;$STR_REPLACE$&quot;
 
 Ce fichier a été modifié par un autre programme.
-Voulez-vous le recharger?"/>
+Voulez-vous le recharger ?"/>
             <DoReloadOrNotAndLooseChange title="Recharger" message="&quot;$STR_REPLACE$&quot;
 
 Ce fichier a été modifié par un autre programme.
-Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++?"/>
+Voulez-vous le recharger et perdre les modifications effectuées dans Notepad++ ?"/>
             <PrehistoricSystemDetected title="Système préhistorique détecté" message="Il semble que vous utilisez toujours un système préhistorique, cette fonctionnalité ne fonctionne que sur un système moderne, désolé."/>
             <XpUpdaterProblem title="Notepad++ Updater" message="Notepad++ updater is not compatible with XP due to the obsolete security layer under XP.
 Do you want to go to Notepad++ page to download the latest version?"/>
@@ -996,16 +996,16 @@ Are you sure you want to remove this folder from the project?"/>
             <ProjectPanelRemoveFileFromProject title="Remove file from project" message="Are you sure you want to remove this file from the project?"/>
             <ProjectPanelReloadError title="Recharger l'espace de travail" message="Impossible de trouver le fichier à recharger."/>
             <ProjectPanelReloadDirty title="Recharger l'espace de travail" message="L'espace de travail actuel a été modifié. Le rechargement éliminera toutes les modifications.
-Voulez-vous continuer?"/>
+Voulez-vous continuer ?"/>
             <UDLNewNameError title="Erreur UDL" message="Ce nom est utilisé par un autre langage,
-veuillez en donner une autre."/>
+veuillez en donner un autre."/>
             <UDLRemoveCurrentLang title="Remove the current language" message="Are you sure?"/>
             <SCMapperDoDeleteOrNot title="Are you sure?" message="Are you sure you want to delete this shortcut?"/>
             <FindCharRangeValueError title="Range Value problem" message="You should type between from 0 to 255."/>
 			<OpenInAdminMode title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
-Veux-tu lancer Notepad++ en mode Administrateur?"/>
+Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeWithoutCloseCurrent title="L'enregistrement a échoué" message="Le fichier ne peut pas être enregistré et il est peut-être protégé.
-Veux-tu lancer Notepad++ en mode Administrateur?"/>
+Voulez-vous lancer Notepad++ en mode Administrateur ?"/>
             <OpenInAdminModeFailed title="L'ouverture en mode Administrateur a échoué" message="Notepad++ ne peut pas être lancé en mode Administrateur."/>
         </MessageBox>
         <ClipboardHistory>
@@ -1037,12 +1037,12 @@ Veux-tu lancer Notepad++ en mode Administrateur?"/>
         </FunctionList>
         <FolderAsWorkspace>
             <PanelTitle name="Dossier en tant qu'Espace de travail"/>
-            <SelectFolderFromBrowserString name="Sélectioner un dossier pour ajouter dans Dossier en tant qu'Espace de travail"/>
+            <SelectFolderFromBrowserString name="Sélectionner un dossier pour ajouter dans Dossier en tant qu'Espace de travail"/>
             <Menus>
                 <Item id="3511" name="Effacer"/>
                 <Item id="3512" name="Effacer Tout"/>
                 <Item id="3513" name="Ajouter"/>
-                <Item id="3514" name="Excécuter par le système"/>
+                <Item id="3514" name="Exécuter par le système"/>
                 <Item id="3515" name="Ouvrir"/>
                 <Item id="3516" name="Copier le chemin d'accès"/>
                 <Item id="3517" name="Rechercher dans les fichiers..."/>
@@ -1111,11 +1111,11 @@ Veux-tu lancer Notepad++ en mode Administrateur?"/>
             <cloud-select-folder value="Sélectionner un répertoire où Notepad++ lit ou écrit ses paramètres"/>
             <find-status-top-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le bas. Le début du document a été atteint"/>
             <find-status-end-reached value="Rechercher : La 1ère occurrence a été trouvée depuis le haut. La fin du document a été atteinte"/>
-            <find-status-replaceinfiles-1-replaced value="Remplacer dans les fichierss : 1 occurrence a été remplacée"/>
-            <find-status-replaceinfiles-nb-replaced value="Remplacer dans les fichierss : $INT_REPLACE$ occurrences ont été remplacées"/>
-            <find-status-replaceinfiles-re-malformed value="Remplacer dans les fichierss ouverts : l'expression régulière est malformée"/>
-            <find-status-replaceinopenedfiles-1-replaced value="Remplacer dans les fichierss ouverts : 1 occurrence a été remplacée"/>
-            <find-status-replaceinopenedfiles-nb-replaced value="Remplacer dans les fichierss ouverts : $INT_REPLACE$ occurrences ont été remplacées"/>
+            <find-status-replaceinfiles-1-replaced value="Remplacer dans les fichiers : 1 occurrence a été remplacée"/>
+            <find-status-replaceinfiles-nb-replaced value="Remplacer dans les fichiers : $INT_REPLACE$ occurrences ont été remplacées"/>
+            <find-status-replaceinfiles-re-malformed value="Remplacer dans les fichiers ouverts : l'expression régulière est malformée"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Remplacer dans les fichiers ouverts : 1 occurrence a été remplacée"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Remplacer dans les fichiers ouverts : $INT_REPLACE$ occurrences ont été remplacées"/>
             <find-status-mark-re-malformed value="Marquer : l'expression régulière est malformée"/>
             <find-status-invalid-re value="Rechercher : Expression régulière invalide"/>
             <find-status-mark-1-match value="1 résultat"/>
@@ -1126,11 +1126,11 @@ Veux-tu lancer Notepad++ en mode Administrateur?"/>
             <find-status-replaceall-re-malformed value="Remplacer tout : l'expression régulière est malformée"/>
             <find-status-replaceall-1-replaced value="Remplacer tout : 1 occurrence a été remplacée"/>
             <find-status-replaceall-nb-replaced value="Remplacer tout : $INT_REPLACE$ occurrences ont été remplacées"/>
-            <find-status-replaceall-readonly value="Remplacer tout : l'opération échouée. Le fichier est en lecture seule"/>
+            <find-status-replaceall-readonly value="Remplacer tout : l'opération a échoué. Le fichier est en lecture seule"/>
             <find-status-replace-end-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le haut. La fin du document a été atteinte"/>
-            <find-status-replace-top-reached value="Remplacer : La 1ère occurrence a été remplcée depuis le bas. Le début du document a été atteint"/>
-            <find-status-replace-not-found value="Remplacer : aucune occurrence a été trouvéé"/>
-            <find-status-replace-readonly value="Remplacer : l'opération échouée. Le fichier est en lecture seule"/>
+            <find-status-replace-top-reached value="Remplacer : La 1ère occurrence a été remplacée depuis le bas. Le début du document a été atteint"/>
+            <find-status-replace-not-found value="Remplacer : aucune occurrence n'a été trouvée"/>
+            <find-status-replace-readonly value="Remplacer : l'opération a échoué. Le fichier est en lecture seule"/>
             <find-status-cannot-find value="Rechercher : &quot;$STR_REPLACE$&quot; n'a pas été trouvé"/>
             <finder-find-in-finder value="Rechercher dans les résultats..."/>
             <finder-close-this value="Fermer le dialogue des résultats"/>

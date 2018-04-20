@@ -149,7 +149,7 @@ void CReadChangesRequest::ProcessNotification()
 
 		CStringW wstrFilename(fni.FileName, fni.FileNameLength/sizeof(wchar_t));
 		// Handle a trailing backslash, such as for a root directory.
-		if (wstrFilename.Right(1) != L"\\")
+		if (m_wstrDirectory.Right(1) != L"\\")
 			wstrFilename = m_wstrDirectory + L"\\" + wstrFilename;
 		else
 			wstrFilename = m_wstrDirectory + wstrFilename;

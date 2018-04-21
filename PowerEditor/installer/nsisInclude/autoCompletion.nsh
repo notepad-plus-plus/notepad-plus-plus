@@ -143,6 +143,11 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\baanc.xml"
 	${MementoSectionEnd}
+
+	${MementoSection} "AutoIt" AutoIt
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File ".\APIs\autoit.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 
@@ -240,4 +245,8 @@ SectionGroup un.autoCompletionComponent
 		Delete "$INSTDIR\plugins\APIs\baanc.xml"
 	SectionEnd
 	
+	Section un.AutoIt
+		Delete "$INSTDIR\plugins\APIs\autoit.xml"
+	SectionEnd
+
 SectionGroupEnd

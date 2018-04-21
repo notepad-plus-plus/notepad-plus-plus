@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Русский" filename="russian.xml" version="7.5.5">
+	<Native-Langue name="Русский" filename="russian.xml" version="7.5.6">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -904,13 +904,12 @@
             <FileLockedWarning title="Сохранение не удалось" message="Пожалуйста, проверьте открыт ли этот файл в другом приложении."/>
             <FileAlreadyOpenedInNpp title="" message="Файл уже открыт в Notepad++."/>
             <DeleteFileFailed title="Удаление файла" message="Не удалось удалить файл"/>
-            
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+
             <NbFileToOpenImportantWarning title="Очень большое количество файлов" message="$INT_REPLACE$ файла(ов) будут открыты.&#x0A;Продолжить?"/>
             <SettingsOnCloudError title="Параметры Облака" message="Похоже, что путь для облака указан на диск или папку с пометкой только для чтения.&#x0A;Вам необходимо открыть доступ или получить права на запись.&#x0A;Ваши параметры облака будут отменены. Пожалуйста сбросьте значение в окне Настройки..."/>
             <FilePathNotFoundWarning title="Открытие Файла" message="Файл, который вы пытаетесь открыть, не существует."/>
             <SessionFileInvalidError title="Не удалось загрузить Сессию" message="Файл сессии поврежден или недействителен."/>
-            <DroppingFolderAsProjetModeWarning title="Неправильное действие" message="Вы можете применить только файлы или папки, но не обе, потому что вы перетаскиваете в режиме Папка как Проект.&#x0A;вы должны включить &quot;Открыть все файлы папки при перетаскивании, вместо запуска Папка как Рабочая Область&quot; в &quot;Директорию По Умолчанию&quot;, чтобы эта операция работала зайдите в Настройки."/>
+            <DroppingFolderAsProjectModeWarning title="Неправильное действие" message="Вы можете применить только файлы или папки, но не обе, потому что вы перетаскиваете в режиме Папка как Проект.&#x0A;вы должны включить &quot;Открыть все файлы папки при перетаскивании, вместо запуска Папка как Рабочая Область&quot; в &quot;Директорию По Умолчанию&quot;, чтобы эта операция работала зайдите в Настройки."/>
             <SortingError title="Ошибка сортировки" message="Невозможно выполнить числовую сортировку из-за строки $INT_REPLACE$."/>
             <ColumnModeTip title="Режим Столбца" message="Пожалуйста, используйте &quot;ALT+Выделение Мышкой&quot; или &quot;Alt+Shift+Клавиши Стрелок&quot; для переключения в режим столбца."/>
             <BufferInvalidWarning title="Ошибка Сохранения" message="Не удается сохранить: Недопустимый буфер."/>
@@ -924,7 +923,7 @@
             <XpUpdaterProblem title="Обновление Notepad++" message="Обновление Notepad++ не совместимо с XP из-за устаревшего уровня безопасности.&#x0A;Хотите перейти на страницу Notepad++, чтобы загрузить последнюю версию?"/>
             <DocTooDirtyToMonitor title="Проблема Мониторинга" message="Документ в работе. Сохраните внесённые изменения перед его мониторингом."/>
             <DocNoExistToMonitor title="Проблема Мониторинга" message="Для мониторинга файл должен существовать."/>
-            <FileTooBigToOpene title="Проблема с размером файла" message="Файл слишком велик, чтобы открыть его в Notepad++"/>
+            <FileTooBigToOpen title="Проблема с размером файла" message="Файл слишком велик, чтобы открыть его в Notepad++"/>
             <CreateNewFileOrNot title="Создание нового файла" message="&quot;$STR_REPLACE$&quot; не существует. Создать его?"/>
             <CreateNewFileError title="Создание нового файла" message="Не удается создать файл &quot;$STR_REPLACE$&quot;."/>
             <OpenFileError title="ОШИБКА" message="Невозможно открыть файл &quot;$STR_REPLACE$&quot;."/>
@@ -943,10 +942,13 @@
             <ProjectPanelRemoveFileFromProject title="Удаление файла из проекта" message="Вы действительно хотите удалить этот файл из проекта?"/>
             <ProjectPanelReloadError title="Перезагрузка Рабочей Области" message="Не удается найти файл для перезагрузки."/>
             <ProjectPanelReloadDirty title="Перезагрузка Рабочей Области" message="Текущее рабочая область была изменена. Перезагрузка отменит все изменения.&#x0A;Вы хотите продолжить?"/>
-            <UDLNewNameError title="Ошибка Польз. Имени" message="Это имя используется другим языком,&#x0A;пожалуйста, дайте ему другое имя."/>
+            <UDLNewNameError title="Ошибка Польз. Имени" message="Это имя используется другим языком.&#x0A;Пожалуйста, дайте ему другое имя."/>
             <UDLRemoveCurrentLang title="Удаление текущего языка" message="Вы уверены?"/>
             <SCMapperDoDeleteOrNot title="Вы уверены?" message="Вы действительно хотите удалить эту горячую клавишу?"/>
             <FindCharRangeValueError title="Проблема со значением диапазона" message="Вы должны ввести от 0 и до 255."/>
+            <OpenInAdminMode title="Ошибка сохранения" message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить Notepad++ в режиме администратора?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="Ошибка сохранения" message="Файл не может быть сохранен и может быть защищён.&#x0A;Хотите запустить Notepad++ в режиме администратора?"/>
+            <OpenInAdminModeFailed title="Не удалось открыть в режиме Администратора" message="Notepad++ не может быть открыто в режиме Администратора."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="История Буфера"/>
@@ -1053,6 +1055,14 @@
             <find-status-replace-not-found value="Замена: ничего не найдено"/>
             <find-status-replace-readonly value="Замена: Невозможно заменить текст. Текущий документ доступен только для чтения"/>
             <find-status-cannot-find value="Поиск: Не удается найти текст &quot;$STR_REPLACE$&quot;"/>
+            <finder-find-in-finder value="Поиск в найденных результатах..."/>
+            <finder-close-this value="Закрыть этот поиск"/>
+            <finder-collapse-all value="Свернуть всё"/>
+            <finder-uncollapse-all value="Развернуть всё"/>
+            <finder-copy value="Копировать"/>
+            <finder-select-all value="Выделить всё"/>
+            <finder-clear-all value="Очистить всё"/>
+            <finder-open-all value="Открыть всё"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

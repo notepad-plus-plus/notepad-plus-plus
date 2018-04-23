@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name = "Indonesian" filename="indonesian.xml" version="7.5.5">
-		<Menu>
-			<Main>
+    <Native-Langue name = "Indonesian" filename="indonesian.xml" version="7.5.5">
+        <Menu>
+            <Main>
                 <!-- Main Menu Entries -->
                  <Entries>
                    <Item menuId="file" name="Berkas"/>
@@ -23,7 +23,7 @@
                 <SubEntries>
                     <Item subMenuId="file-openFolder" name="Buka Folder Terkait"/>
                     <Item subMenuId="file-closeMore" name="Tutup Lagi"/>
-                    <Item subMenuId="file-recentFiles" name="&amp;File Terbaru"/>
+                    <Item subMenuId="file-recentFiles" name="File Terbaru"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Salin ke Klipbor"/>
                     <Item subMenuId="edit-indent" name="Indentasi"/>
                     <Item subMenuId="edit-convertCaseTo" name="Ganti Kapitalisasi"/>

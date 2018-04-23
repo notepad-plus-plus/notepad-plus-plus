@@ -745,7 +745,7 @@
                     <Item id="4009" name="Ekst. didukung:"/>
                     <Item id="4010" name="Ekst. terdaftar:"/>
                 </FileAssoc>
-                <LangMenu title="Bahasa">
+                <Language title="Bahasa">
                     <Item id="6505" name="Butir tersedia"/>
                     <Item id="6506" name="Butir nonaktif"/>
                     <Item id="6507" name="Menu bahasa ringkas"/>

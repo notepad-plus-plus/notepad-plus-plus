@@ -174,14 +174,6 @@
                     <Item id="43006" name="Tanda Selanjutnya"/>
                     <Item id="43007" name="Tanda Sebelumnya"/>
                     <Item id="43008" name="Hapus Semua Tanda"/>
-                    <Item id="43009" name="Pergi ke Kurung Cocokan"/>
-                    <Item id="43010" name="Cari Sebelumnya"/>
-                    <Item id="43011" name="Cari Meningkat"/>
-                    <Item id="43013" name="Cari dalam Berkas"/>
-                    <Item id="43014" name="Cari (Volatil) Selanjutnya"/>
-                    <Item id="43015" name="Cari (Volatil) Sebelumnya"/>
-                    <Item id="43016" name="Tandai Semua"/>
-                    <Item id="43017" name="Hapus Semua Tanda"/>
                     <Item id="43018" name="Potong Baris Bertanda"/>
                     <Item id="43019" name="Salin Baris Bertanda"/>
                     <Item id="43020" name="Rekatkan kepada (Ganti) Baris Bertanda"/>
@@ -190,6 +182,12 @@
                     <Item id="43050" name="Balikkan Tanda"/>
                     <Item id="43052" name="Cari karakter dalam rentang..."/>
                     <Item id="43053" name="Pilih Semua Di Antara Kurung Cocokan"/>
+                    <Item id="43009" name="Pergi ke Kurung Cocokan"/>
+                    <Item id="43010" name="Cari Sebelumnya"/>
+                    <Item id="43011" name="Cari Meningkat"/>
+                    <Item id="43013" name="Cari dalam Berkas"/>
+                    <Item id="43014" name="Cari (Volatil) Selanjutnya"/>
+                    <Item id="43015" name="Cari (Volatil) Sebelumnya"/>
                     <Item id="43022" name="Gunakan Gaya 1"/>
                     <Item id="43023" name="Hapus Gaya 1"/>
                     <Item id="43024" name="Gunakan Gaya 3"/>
@@ -305,7 +303,7 @@
                     <Item id="50000" name="Pelengkapan Fungsi"/>
                     <Item id="50001" name="Pelengkapan Kata"/>
                     <Item id="50002" name="Bantuan Parameter Fungsi"/>
-                    <Item id="42034" name="Editor Kolom..."/>
+                    <Item id="50006" name="Pelengkapan Jalur"/>
                     <Item id="44042" name="Sembunyikan Baris"/>
                     <Item id="42040" name="Buka Semua Berkas Terbaru"/>
                     <Item id="42041" name="Kosongkan Daftar Berkas Terbaru"/>
@@ -365,7 +363,6 @@
                 <Item id="1633" name="Hapus"/>
                 <Item id="1635" name="Ganti Semua dalam Semua Dokumen Terbuka"/>
                 <Item id="1636" name="Cari Semua dalam Semua Dokumen Terbuka"/>
-                <Item id="1637" name="Cari dalam Berkas"/>
                 <Item id="1654" name="Filter:"/>
                 <Item id="1655" name="Direktori:"/>
                 <Item id="1656" name="Cari Semua"/>
@@ -483,6 +480,7 @@
                 <Item id="5012" name="KONFLIK DITEMUKAN!"/>
             </ShortcutMapperSubDialg>
             <UserDefine title="Definisi-Pengguna">
+                <Item id="20001" name="Sematkan"/>
                 <Item id="20002" name="Ganti Nama"/>
                 <Item id="20003" name="Buat Baru..."/>
                 <Item id="20004" name="Hapus"/>
@@ -491,8 +489,8 @@
                 <Item id="20009" name="Ekst.:"/>
                 <Item id="20012" name="Abaikan kapitalisasi"/>
                 <Item id="20011" name="Transparansi"/>
-                <Item id="20016" name="Impor..."/>
-                <Item id="20015" name="Ekspor..."/>
+                <Item id="20015" name="Impor..."/>
+                <Item id="20016" name="Ekspor..."/>
                 <StylerDialog title="Dialog Gaya">
                     <Item id="25030" name="Opsi huruf"/>
                     <Item id="25006" name="Warna depan"/>
@@ -730,6 +728,7 @@
                     <Item id="6408" name="UTF-8"/>
                     <Item id="6409" name="UCS-2 Big Endian"/>
                     <Item id="6410" name="UCS-2 Little Endian"/>
+                    <Item id="6411" name="Bahasa bawaan :"/>
                     <Item id="6419" name="Dokumen Baru"/>
                     <Item id="6420" name="Terapkan untuk berkas ANSI"/>
                 </NewDoc>

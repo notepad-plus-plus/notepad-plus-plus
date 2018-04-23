@@ -755,7 +755,7 @@
                     <Item id="6302" name="Ganti dengan spasi"/>
                     <Item id="6303" name="Besar tab: "/>
                     <Item id="6510" name="Gunakan nilai baku"/>
-                </LangMenu>
+                </Language>
 
                 <Highlighting title="Penyorotan">
                     <Item id="6333" name="Penyorotan Cerdas"/>

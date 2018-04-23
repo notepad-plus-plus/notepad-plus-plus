@@ -1042,7 +1042,50 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
-<!-- Sengaja dikosongkan. Penerjemah: "Pusing kepala!!!!" ;Nicedward; -->
+            <!-- $INT_REPLACE$ dan $STR_REPLACE$ adalah tempat dudukan, jangan diterjemahkan. -->
+            <word-chars-list-tip value="Mengizinkan Anda memasukkan karakter tambahan ke dalam karakter kata saat ini sambil mengklik ganda untuk memilih atau mencari dengan &quot;Hanya cocokkan seluruh kata&quot; opsi dicentang."/>
+            <word-chars-list-warning-begin value="Waspada: "/>
+            <word-chars-list-space-warning value="$INT_REPLACE$ spasi"/>
+            <word-chars-list-tab-warning value="$INT_REPLACE$ TAB"/>
+            <word-chars-list-warning-end value="  dalam daftar karakter anda."/>
+            <cloud-invalid-warning value="Jalur tidak valid."/>
+            <cloud-restart-warning value="Silakan mulai ulang Notepad++ agar diterapkan."/>
+            <cloud-select-folder value="Pilih folder dari/ke tempat Notepad++ membaca/menulis pengaturannya"/>
+            <shift-change-direction-tip value="Gunakan Shift+Enter untuk mencari dalam arah berlawanan"/>
+            <two-find-buttons-tip value="mode 2 tombol cari"/>
+            <find-status-top-reached value="Cari: Menemukan kejadian pertama dari bawah. Awal dokumen telah tercapai."/>
+            <find-status-end-reached value="Cari: Menemukan kejadian pertama dari atas. Akhir dokumen telah tercapai."/>
+            <find-status-replaceinfiles-1-replaced value="Ganti dalam Berkas: 1 kejadian diganti"/>
+            <find-status-replaceinfiles-nb-replaced value="Ganti dalam Berkas: $INT_REPLACE$ kejadian diganti"/>
+            <find-status-replaceinfiles-re-malformed value="Ganti dalam Berkas Terbuka: The regular expression is malformed"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Ganti dalam Berkas Terbuka: 1 kejadian diganti"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Ganti dalam Berkas Terbuka: $INT_REPLACE$ kejadian diganti"/>
+            <find-status-mark-re-malformed value="Tanda: Ekspresi reguler yang dicaari salah format"/>
+            <find-status-invalid-re value="Cari: Ekspresi reguler salah format"/>
+            <find-status-mark-1-match value="1 cocok"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ cocok"/>
+            <find-status-count-re-malformed value="Jumlah: Ekspresi reguler yang dicari salah format"/>
+            <find-status-count-1-match value="Jumlah: 1 cocok"/>
+            <find-status-count-nb-matches value="Jumlah: $INT_REPLACE$ cocok"/>
+            <find-status-replaceall-re-malformed value="Ganti Semua: Ekspresi reguler salah format"/>
+            <find-status-replaceall-1-replaced value="Ganti Semua: 1 kejadian diganti"/>
+            <find-status-replaceall-nb-replaced value="Ganti Semua: $INT_REPLACE$ kejadian diganti"/>
+            <find-status-replaceall-readonly value="Ganti Semua: Tidak dapat mengganti teks. Dokumen ini hanya bisa dibaca"/>
+            <find-status-replace-end-reached value="Ganti: Mengganti kejadian pertama dari atas. Akhir dokumen telah tercapai"/>
+            <find-status-replace-top-reached value="Ganti: Mengganti kejadian pertama dari bawah. Awal dokumen telah tercapai"/>
+            <find-status-relaced-next-found value="Ganti: 1 kejadian diganti. Kejadian selanjutnya ditemukan"/>
+            <find-status-relaced-next-not-found value="Ganti: 1 kejadian diganti. Kejadian selanjutnya tidak ditemukan"/>
+            <find-status-replace-not-found value="Ganti: tidak ada kejadian yang ditemukan"/>
+            <find-status-replace-readonly value="Ganti: Tidak dapat mengganti teks. Dokumen ini hanya bisa dibaca"/>
+            <find-status-cannot-find value="Cari: Tidak dapat menemukan teks &quot;$STR_REPLACE$&quot;"/>
+            <finder-find-in-finder value="Cari di hasil yang ditemukan ini..."/>
+            <finder-close-this value="Tutup pencari ini"/>
+            <finder-collapse-all value="Bentangkan semua"/>
+            <finder-uncollapse-all value="Ciutkan semua"/>
+            <finder-copy value="Salin"/>
+            <finder-select-all value="Pilih semua"/>
+            <finder-clear-all value="Bersihkan semua"/>
+            <finder-open-all value="Buka semua"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

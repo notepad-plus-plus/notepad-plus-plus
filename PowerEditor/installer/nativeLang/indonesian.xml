@@ -951,7 +951,8 @@
             </FindInFinder>
 		</Dialog>
         <MessageBox> <!-- $INT_REPLACE$ adalah tempat dudukan, jangan diterjemahkan -->
-<!-- Sengaja dikosongkan. Penerjemah: "Pusing kepala!!!!" ;Nicedward; -->
+		<!-- Dari bagian ini -->
+		<!-- Sengaja dikosongkan. Penerjemah: "I am human not robot." ;Nicedward; -->
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Riwayat Papan klip"/>

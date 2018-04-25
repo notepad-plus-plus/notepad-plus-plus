@@ -1,0 +1,13 @@
+Shortcut for Save As is not normal (Ctrl + Shift + S) #3957
+the issue link :
+https://github.com/notepad-plus-plus/notepad-plus-plus/issues/3957
+Description of the Issue
+Save as shortcut is Ctrl + Alt + S in Notepad++ but in most programs it's Ctrl + Shift + S.
+
+Expected Behavior
+Expect Ctrl + Shift + S to trigger save as function.
+
+Actual Behavior
+Nothing appears to happen.
+
+Most programs use Ctrl + Shift + S as the shortcut for Save As. Why would Notepad++ use something different? Consistency in user interfaces allows me to pick up new programs more quickly and inconsistency slows me down.

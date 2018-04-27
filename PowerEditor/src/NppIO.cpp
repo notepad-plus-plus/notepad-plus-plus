@@ -77,12 +77,12 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 			case WAIT_OBJECT_0 + 1:
 				// We've received a notification in the queue.
 			{
-				DWORD dwAction;
-				CStringW wstrFilename;
 				if (changes.CheckOverflow())
 					printStr(L"Queue overflowed.");
 				else
 				{
+					DWORD dwAction;
+					CStringW wstrFilename;
 					changes.Pop(dwAction, wstrFilename);
 					generic_string fn = wstrFilename.GetString();
 
@@ -396,7 +396,7 @@ BufferID Notepad_plus::doOpen(const generic_string& fileName, bool isRecursive, 
         {
 			_nativeLangSpeaker.messageBox("OpenFileError",
 				_pPublicInterface->getHSelf(),
-				TEXT("Can not open file \"$STRT_REPLACE$\"."),
+				TEXT("Can not open file \"$STR_REPLACE$\"."),
 				TEXT("ERROR"),
 				MB_OK,
 				0,
@@ -1913,7 +1913,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 			sessionExt += TEXT(".");
 		sessionExt += ext;
 		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
-		fDlg.setExtIndex(0);		// 0 index for "custom extention types"
+		fDlg.setExtIndex(0);		// 0 index for "custom extension types"
 	}
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 	sessionFileName = fDlg.doSaveDlg();

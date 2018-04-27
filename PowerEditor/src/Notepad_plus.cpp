@@ -415,6 +415,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Load plugins from its installation directory.
 	// All loaded dll will be ignored
 	_pluginsManager.loadPlugins();
+	_pluginsManager.loadPluginsV2();
 
 
     _restoreButton.init(_pPublicInterface->getHinst(), hwnd);

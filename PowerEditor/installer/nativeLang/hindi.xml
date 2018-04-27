@@ -4,10 +4,10 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Last Updated on 11/03/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
+	** Last Updated on 05/04/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5.5">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5.6">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -95,7 +95,7 @@
           <Item id="41013" name="सत्र सेव करें..."/>
           <Item id="41014" name="डिस्क से पुनः लोड करें"/>
           <Item id="41015" name="कॉपी सेव करें..."/>
-          <Item id="41016" name="डिस्क से मिटायें "/>
+          <Item id="41016" name="रीसायकल बिन में मूव करें"/>
           <Item id="41017" name="पुनःनामांकन..."/>
           <Item id="41021" name="हाल ही में बंद फाइल को पुनः खोलें"/>
           <Item id="41022" name="फोल्डर वर्कस्पेस की तरह खोलें "/>
@@ -125,8 +125,8 @@
           <Item id="42066" name="लाइनों को दशमलव (Dot) अवरोही क्रम में व्यवस्थित करें"/>
           <Item id="42016" name="अपर केस"/>
           <Item id="42017" name="लोअर केस"/>
-          <Item id="42067" name="टाइटल  केस"/>
-          <Item id="42068" name="टाइटल  केस (blend)"/>
+          <Item id="42067" name="प्रॉपर  केस"/>
+          <Item id="42068" name="प्रॉपर  केस (blend)"/>
           <Item id="42069" name="सेंटेंस  केस "/>
           <Item id="42070" name="सेंटेंस  केस (blend)"/>
           <Item id="42071" name="इन्वर्ट  केस(iNVERT cASE)"/>
@@ -224,13 +224,13 @@
           <Item id="43048" name="चयनित करे और अगला खोजें"/>
           <Item id="43049" name="चयनित करें और पिछला ख़ोजें"/>
           <Item id="43054" name="चिन्ह लगाएं (Mark)..."/>
-          <Item id="44009" name="ईसे-डाले (post-it)"/>
+          <Item id="44009" name="इसे-डाले (post-it)"/>
           <Item id="44010" name="सभी गड़ी करें"/>
-	  <Item id="44019" name="सभी कैरक्टर्स दिखायें"/>
+          <Item id="44019" name="सभी कैरक्टर्स दिखायें"/>
           <Item id="44020" name="ईन्डेन्ट मार्ग दर्शक दिखायें"/>
-          <Item id="44022" name="लपेटें (Wrap)"/>
-          <Item id="44023" name="&amp;बड़ा करें Ctrl+Mouse Wheel Up"/>
-          <Item id="44024" name="&amp;छोटा करें Ctrl+Mouse Wheel Down"/>
+          <Item id="44022" name="वर्ड रैप (Word Wrap)"/>
+          <Item id="44023" name="&amp;बड़ा करें (Ctrl+Mouse Wheel Up)"/>
+          <Item id="44024" name="&amp;छोटा करें (Ctrl+Mouse Wheel Down)"/>
           <Item id="44025" name="रिक्त जगह और टैब दिखायें"/>
           <Item id="44026" name="लाईन का अंत दिखायें"/>
           <Item id="44029" name="सभी गड़ी खोल दें"/>
@@ -264,19 +264,19 @@
           <Item id="44081" name="प्रोजेक्ट पैनल 1"/>
           <Item id="44082" name="प्रोजेक्ट पैनल 2"/>
           <Item id="44083" name="प्रोजेक्ट पैनल 3"/>
-          <Item id="45001" name="WINDOWS फॉर्मेट में रूपांतरित करें"/>
-          <Item id="45002" name="UNIX फॉर्मेट में रूपांतरित करें"/>
-          <Item id="45003" name="MAC फॉर्मेट में रूपांतरित करें"/>
+          <Item id="45001" name="Windows (CR LF)"/>
+          <Item id="45002" name="Unix (LF)"/>
+          <Item id="45003" name="Macintosh (CR)"/>
           <Item id="45004" name="ANSI में एन्कोड करें"/>
           <Item id="45005" name="UTF-8-BOM में एन्कोड करें"/>
-          <Item id="45006" name="UCS-2 Big Endian में एन्कोड करें"/>
-          <Item id="45007" name="UCS-2 Little Endian में एन्कोड करें"/>
+          <Item id="45006" name="UCS-2 BE BOM में एन्कोड करें"/>
+          <Item id="45007" name="UCS-2 LE BOM में एन्कोड करें"/>
           <Item id="45008" name="UTF-8 में एन्कोड करें"/>
           <Item id="45009" name="ANSI में रूपांतरित करें"/>
           <Item id="45010" name="UTF-8 में रूपांतरित करें"/>
           <Item id="45011" name="UTF-8-BOM में रूपांतरित करें"/>
-          <Item id="45012" name="UCS-2 Big Endian में रूपांतरित करें"/>
-          <Item id="45013" name="UCS-2 Little Endian में रूपांतरित करें"/>
+          <Item id="45012" name="UCS-2 BE BOM में रूपांतरित करें"/>
+          <Item id="45013" name="UCS-2 LE BOM में रूपांतरित करें"/>
 
           <Item id="10001" name="दूसरे व्यू में जायें"/>
           <Item id="10002" name="दूसरे व्यू में क्लोन करें"/>
@@ -284,9 +284,9 @@
           <Item id="10004" name="नया इंस्टैंस खोलें"/>
 
           <Item id="46001" name="स्टाइल कॉन्फिगुरेटर..."/>
-          <Item id="46250" name="अपनी भासा बनायें..."/>
+          <Item id="46250" name="अपनी भाषा बनायें..."/>
           <Item id="46180" name="उपयोगकर्ता निर्दीष्ट"/>
-          <Item id="47000" name="Notepad++ के बारे में..."/>
+          <Item id="47000" name="Notepad++ के बारे में"/>
           <Item id="47010" name="कमांड लाइन आर्ग्यूमेंट्स..."/>
           <Item id="47001" name="Notepad++ होम"/>
           <Item id="47002" name="Notepad++ प्रोजेक्ट पेज"/>
@@ -297,14 +297,14 @@
           <Item id="47005" name="और प्लग-इन पायें"/>
           <Item id="47006" name="Notepad++ अपडेट करें"/>
           <Item id="47009" name="Set Updater Proxy..."/>
-          <Item id="48005" name="Plugin(s) आयात करें..."/>
-          <Item id="48006" name="Theme(s) आयात करें..."/>
-	  <Item id="48018" name="एडिट पॉपअप कॉन्टेक्स्ट मेनू"/>
+          <Item id="48005" name="प्लग इन (Plugin) इम्पोर्ट करें..."/>
+          <Item id="48006" name="स्टाइल थीम (Theme) इम्पोर्ट करें..."/>
+          <Item id="48018" name="एडिट पॉपअप कॉन्टेक्स्ट मेनू"/>
           <Item id="48009" name="शॉर्टकट मेपर..."/>
           <Item id="48011" name="पसंदगी (Preferences)..."/>
-	  <Item id="48501" name="जनरेट करें..."/>
-	  <Item id="48502" name="फाइल्स से जनरेट करें..."/>
-	  <Item id="48503" name="क्लिपबोर्ड पर जनरेट करें"/>
+          <Item id="48501" name="जनरेट करें..."/>
+          <Item id="48502" name="फाइल्स से जनरेट करें..."/>
+          <Item id="48503" name="क्लिपबोर्ड पर जनरेट करें"/>
           <Item id="49000" name="&amp;चलायें (Run)..."/>
 
           <Item id="50000" name="फंक्शन समापन"/>
@@ -357,8 +357,8 @@
         <Item id="1605" name="&amp;रेग्युलर एक्स्प्रेशन"/>
         <Item id="1606" name="&amp;आजुबाजु लपेटें"/>
         <Item id="1614" name="गिनती"/>
-        <Item id="1615" name="सब ख़ोजें"/>
-        <Item id="1616" name="लाईन चिन्हित करें"/>
+        <Item id="1615" name="सब मार्क करो"/>
+        <Item id="1616" name="लाईन मार्क करें"/>
         <Item id="1618" name="हरेक खोज साफ़ (Purge) करें"/>
         <Item id="1611" name="&amp;के साथ बदलें:"/>
         <Item id="1608" name="&amp;बदलें"/>
@@ -366,7 +366,7 @@
         <Item id="1687" name="फोकस गँवाने पर"/>
         <Item id="1688" name="हमेशा"/>
         <Item id="1632" name="चयन में"/>
-        <Item id="1633" name="साफ़"/>
+        <Item id="1633" name="सभी मार्क्स हटाएं"/>
         <Item id="1635" name="सभी खुले दस्तावेजों में सब बदलें"/>
         <Item id="1636" name="सभी खुले दस्तावेज़ों में सब ख़ोजें"/>
         <Item id="1654" name="फिल्टर्स"/>
@@ -707,7 +707,7 @@
           <Item id="6206" name="लाईन नंबर दिखायें"/>
           <Item id="6207" name="बूकमार्क दिखायें"/>
           <Item id="6208" name="खड़ी किनार दिखायें"/>
-          <Item id="6209" name="कॉलम की संख्या: "/>
+          <Item id="6209" name="कॉलम की संख्या : "/>
           <Item id="6234" name="एडवांस स्क्रॉलिंग फीचर निष्क्रिय करें
 (यदि आपको touchpad की समस्या है)"/>
 
@@ -722,17 +722,17 @@
         </Scintillas>
 
         <NewDoc title="नया दस्तावेज़">
-          <Item id="6401" name="फॉर्मेट"/>
-          <Item id="6402" name="Windows"/>
-          <Item id="6403" name="Unix"/>
-          <Item id="6404" name="Mac"/>
+          <Item id="6401" name="फॉर्मेट (लाइन एन्डिंग)"/>
+          <Item id="6402" name="Windows (CR LF)"/>
+          <Item id="6403" name="Unix (LF)"/>
+          <Item id="6404" name="Macintosh (CR)"/>
           <Item id="6405" name="एन्कोडिंग (Encoding)"/>
           <Item id="6406" name="ANSI"/>
           <Item id="6407" name="UTF-8"/>
           <Item id="6408" name="UTF-8 with BOM"/>
           <Item id="6409" name="UCS-2 Big Endian with BOM"/>
           <Item id="6410" name="UCS-2 Little Endian with BOM"/>
-          <Item id="6411" name="डिफ़ाल्ट भाषा:"/>
+          <Item id="6411" name="डिफ़ाल्ट भाषा :"/>
           <Item id="6419" name="नया दस्तावेज़"/>
           <Item id="6420" name="खुली हुयी ANSI फाइलों पर अप्लाई करें "/>
         </NewDoc>
@@ -762,7 +762,7 @@
 	
 	<Highlighting title="हाईलाईटिंग">
           <Item id="6333" name="स्मार्ट हाइलाइटिंग"/>
-	  <Item id="6326" name="स्मार्ट हाइलाइटिंग सक्रिय करें"/>
+	  <Item id="6326" name="सक्रिय करें"/>
 	  <Item id="6332" name="केस मिलाएं (Match case)"/>
 	  <Item id="6338" name="केवल संपूर्ण शब्द मिलाएं"/>
 	  <Item id="6339" name="Find dialog की सेटिंग्स का प्रयोग करें"/>
@@ -780,7 +780,7 @@
           <Item id="6604" name="उल्टा"/>
           <Item id="6605" name="सफ़ेद पर काला"/>
           <Item id="6606" name="रंगहिन पृस्ठभुमि"/>
-          <Item id="6607" name="मर्ज सेटिंग्स (Unit:mm)"/>
+          <Item id="6607" name="मार्जिन सेटिंग्स (Unit:mm)"/>
           <Item id="6612" name="बाएं"/>
           <Item id="6613" name="टॉप"/>
           <Item id="6614" name="दाएं"/>
@@ -821,7 +821,7 @@
           <Item id="6821" name="सेकंड"/>
           <Item id="6822" name="बैकअप पाथ:"/>
           <Item id="6309" name="अगले लांच के लिए वर्तमान सत्र याद रखें"/>
-          <Item id="6801" name="बैकअप"/>
+          <Item id="6801" name="सेव करने पर बैकअप"/>
           <Item id="6315" name="कुछ नहीं (None)"/>
           <Item id="6316" name="सामान्य बैकअप"/>
           <Item id="6317" name="वर्बोस (Verbose) बैकअप"/>

@@ -369,7 +369,6 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 	PathAppend(pluginsFolderFilter, TEXT("*.*"));
 	
 	WIN32_FIND_DATA foundData;
-	printStr(pluginsFolder.c_str());
 	HANDLE hFindFolder = ::FindFirstFile(pluginsFolderFilter.c_str(), &foundData);
 	HANDLE hFindDll = INVALID_HANDLE_VALUE;
 
@@ -382,7 +381,6 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 		generic_string  dllName = foundData.cFileName;
 		dllName += TEXT(".dll");
 		PathAppend(pluginsFullPathFilter, dllName);
-		printStr(pluginsFullPathFilter.c_str());
 
 		// get plugin
 		hFindDll = ::FindFirstFile(pluginsFullPathFilter.c_str(), &foundData);
@@ -403,7 +401,6 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 			generic_string  dllName2 = foundData.cFileName;
 			dllName2 += TEXT(".dll");
 			PathAppend(pluginsFullPathFilter2, dllName2);
-			printStr(pluginsFullPathFilter2.c_str());
 			// get plugin
 			hFindDll = ::FindFirstFile(pluginsFullPathFilter2.c_str(), &foundData);
 			if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
@@ -418,7 +415,6 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 	}
 	::FindClose(hFindFolder);
 	::FindClose(hFindDll);
-
 
 	for (size_t i = 0, len = dllNames.size(); i < len; ++i)
 	{

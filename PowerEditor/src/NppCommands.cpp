@@ -2197,6 +2197,8 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_UCS_2BE :
 		case IDM_FORMAT_UCS_2LE :
 		case IDM_FORMAT_AS_UTF_8 :
+		case IDM_FORMAT_AS_UCS_2BE :
+		case IDM_FORMAT_AS_UCS_2LE :
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 
@@ -2220,6 +2222,17 @@ void Notepad_plus::command(int id)
 				case IDM_FORMAT_UCS_2LE:
 					um = uni16LE;
 					break;
+
+				case IDM_FORMAT_AS_UCS_2BE :
+					um = uni16BE_NoBOM;
+					break;
+
+
+				case IDM_FORMAT_AS_UCS_2LE :
+					um = uni16LE_NoBOM;
+					break;
+
+
 
 				default : // IDM_FORMAT_ANSI
 					shoulBeDirty = buf->getUnicodeMode() != uniCookie;
@@ -2379,6 +2392,8 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_CONV2_UTF_8:
 		case IDM_FORMAT_CONV2_UCS_2BE:
 		case IDM_FORMAT_CONV2_UCS_2LE:
+		case IDM_FORMAT_CONV2_AS_UCS_2BE:
+		case IDM_FORMAT_CONV2_AS_UCS_2LE:
 		{
 			int idEncoding = -1;
 			Buffer *buf = _pEditView->getCurrentBuffer();
@@ -2500,6 +2515,52 @@ void Notepad_plus::command(int id)
 					}
 					break;
 				}
+				case IDM_FORMAT_CONV2_AS_UCS_2BE:
+				{
+                    if (encoding != -1)
+                    {
+                        buf->setDirty(true);
+                        buf->setUnicodeMode(uni16BE_NoBOM);
+                        buf->setEncoding(-1);
+                        return;
+                    }
+
+					idEncoding = IDM_FORMAT_AS_UCS_2BE;
+					if (um == uni16BE_NoBOM)
+						return;
+
+					if (um != uni8Bit)
+					{
+                        buf->setUnicodeMode(uni16BE_NoBOM);
+                        buf->setDirty(true);
+						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+						return;
+					}
+					break;
+				}
+
+				case IDM_FORMAT_CONV2_AS_UCS_2LE:
+				{
+                    if (encoding != -1)
+                    {
+                        buf->setDirty(true);
+                        buf->setUnicodeMode(uni16LE_NoBOM);
+                        buf->setEncoding(-1);
+                        return;
+                    }
+
+					idEncoding = IDM_FORMAT_AS_UCS_2LE;
+					if (um == uni16LE_NoBOM)
+						return;
+					if (um != uni8Bit)
+					{
+                        buf->setUnicodeMode(uni16LE_NoBOM);
+                        buf->setDirty(true);
+						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+						return;
+					}
+					break;
+				}
 			}
 
 			if (idEncoding != -1) // "Encode in ANSI" or "Encode From ANSI"
@@ -2549,7 +2610,17 @@ void Notepad_plus::command(int id)
                         newUm = uni16LE;
                         break;
 
-                    default : // IDM_FORMAT_ANSI
+                    case IDM_FORMAT_AS_UCS_2BE:
+                        shoulBeDirty = true;
+                        newUm = uni16BE_NoBOM;
+                        break;
+
+                    case IDM_FORMAT_AS_UCS_2LE:
+                        shoulBeDirty = true;
+                        newUm = uni16LE_NoBOM;
+                        break;
+
+                  default : // IDM_FORMAT_ANSI
                         shoulBeDirty = um != uniCookie;
                         newUm = uni8Bit;
                 }

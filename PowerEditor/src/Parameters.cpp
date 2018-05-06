@@ -308,10 +308,12 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_VIEW_MONITORING,                          false, false, false, nullptr },
 
 	{ VK_NULL,    IDM_FORMAT_ANSI,                              false, false, false, nullptr },
-	{ VK_NULL,    IDM_FORMAT_AS_UTF_8,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_UTF_8,                             false, false, false, nullptr },
+	{ VK_NULL,    IDM_FORMAT_AS_UTF_8,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_UCS_2BE,                           false, false, false, nullptr },
+	{ VK_NULL,    IDM_FORMAT_AS_UCS_2BE,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_UCS_2LE,                           false, false, false, nullptr },
+	{ VK_NULL,    IDM_FORMAT_AS_UCS_2LE,                        false, false, false, nullptr },
 
 	{ VK_NULL,    IDM_FORMAT_ISO_8859_6,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_WIN_1256,                          false, false, false, nullptr },
@@ -362,10 +364,12 @@ static const WinMenuKeyDefinition winKeyDefs[] =
 	{ VK_NULL,    IDM_FORMAT_ISO_8859_1,                        false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_WIN_1258,                          false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_CONV2_ANSI,                        false, false, false, nullptr },
-	{ VK_NULL,    IDM_FORMAT_CONV2_AS_UTF_8,                    false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_CONV2_UTF_8,                       false, false, false, nullptr },
+	{ VK_NULL,    IDM_FORMAT_CONV2_AS_UTF_8,                    false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_CONV2_UCS_2BE,                     false, false, false, nullptr },
+	{ VK_NULL,    IDM_FORMAT_CONV2_AS_UCS_2BE,                  false, false, false, nullptr },
 	{ VK_NULL,    IDM_FORMAT_CONV2_UCS_2LE,                     false, false, false, nullptr },
+	{ VK_NULL,    IDM_FORMAT_CONV2_AS_UCS_2LE,                  false, false, false, nullptr },
 
 	{ VK_NULL,    IDM_LANG_USER_DLG,                            false, false, false, nullptr },
 	{ VK_NULL,    IDM_LANG_USER,                                false, false, false, nullptr },

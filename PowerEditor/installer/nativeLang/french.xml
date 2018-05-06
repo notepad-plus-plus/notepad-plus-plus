@@ -272,25 +272,31 @@
                     <Item id="45002" name="Convertir en format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en format Mac (CR)"/>
                     <Item id="45004" name="ANSI"/>
-                    <Item id="45005" name="UTF-8-BOM"/>
+                    <Item id="45005" name="UTF-8 BOM"/>
                     <Item id="45006" name="UCS-2 BE BOM"/>
                     <Item id="45007" name="UCS-2 LE BOM"/>
                     <Item id="45008" name="UTF-8"/>
-                    <Item id="45009" name="Convertir en ANSI"/>
-                    <Item id="45010" name="Convertir en UTF-8"/>
-                    <Item id="45011" name="Convertir en UTF-8-BOM"/>
-                    <Item id="45012" name="Convertir en UCS-2 BE BOM"/>
-                    <Item id="45013" name="Convertir en UCS-2 LE BOM"/>
+                    <Item id="45014" name="UCS-2 BE"/>
+                    <Item id="45015" name="UCS-2 LE"/>
                     <Item id="45060" name="Big5 (traditionnel)"/>
                     <Item id="45061" name="GB2312 (simplifié)"/>
                     <Item id="45054" name="OEM 861: islandais"/>
                     <Item id="45057" name="OEM 865: danois &amp;&amp; norvégien"/>
                     <Item id="45053" name="OEM 860: portugais"/>
                     <Item id="45056" name="OEM 863: français"/>
+                    <Item id="45900" name="Convertir en ANSI"/>
+                    <Item id="45901" name="Convertir en UTF-8"/>
+                    <Item id="45902" name="Convertir en UTF-8 BOM"/>
+                    <Item id="45903" name="Convertir en UCS-2 BE BOM"/>
+                    <Item id="45904" name="Convertir en UCS-2 LE BOM"/>
+                    <Item id="45905" name="Convertir en UCS-2 BE"/>
+                    <Item id="45906" name="Convertir en UCS-2 LE"/>
+
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
                     <Item id="46250" name="Définir votre langage..."/>
                     <Item id="46300" name="Ovrir le dossier des Langages utilisateur..."/>
                     <Item id="46180" name="Langage utilisateur"/>
+
                     <Item id="47000" name="À propos de Notepad++..."/>
                     <Item id="47001" name="Site officiel Notepad++"/>
                     <Item id="47002" name="Projet de développement de Notepad++"/>

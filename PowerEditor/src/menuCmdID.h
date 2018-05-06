@@ -371,11 +371,20 @@
     #define    IDM_FORMAT_UCS_2BE           (IDM_FORMAT + 6)
     #define    IDM_FORMAT_UCS_2LE           (IDM_FORMAT + 7)
     #define    IDM_FORMAT_AS_UTF_8          (IDM_FORMAT + 8)
-    #define    IDM_FORMAT_CONV2_ANSI        (IDM_FORMAT + 9)
-    #define    IDM_FORMAT_CONV2_AS_UTF_8    (IDM_FORMAT + 10)
-    #define    IDM_FORMAT_CONV2_UTF_8       (IDM_FORMAT + 11)
-    #define    IDM_FORMAT_CONV2_UCS_2BE     (IDM_FORMAT + 12)
-    #define    IDM_FORMAT_CONV2_UCS_2LE     (IDM_FORMAT + 13)
+    #define    IDM_FORMAT_AS_UCS_2BE        (IDM_FORMAT + 14)
+    #define    IDM_FORMAT_AS_UCS_2LE        (IDM_FORMAT + 15)
+    #define    IDM_FORMAT_END               IDM_FORMAT_AS_UCS_2LE
+
+
+    #define    IDM_FORMAT_CONV2             (IDM_FORMAT + 900)
+    #define    IDM_FORMAT_CONV2_ANSI        (IDM_FORMAT_CONV2 + 0)
+    #define    IDM_FORMAT_CONV2_AS_UTF_8    (IDM_FORMAT_CONV2 + 1)
+    #define    IDM_FORMAT_CONV2_UTF_8       (IDM_FORMAT_CONV2 + 2)
+    #define    IDM_FORMAT_CONV2_UCS_2BE     (IDM_FORMAT_CONV2 + 3)
+    #define    IDM_FORMAT_CONV2_UCS_2LE     (IDM_FORMAT_CONV2 + 4)
+    #define    IDM_FORMAT_CONV2_AS_UCS_2BE  (IDM_FORMAT_CONV2 + 5)
+    #define    IDM_FORMAT_CONV2_AS_UCS_2LE  (IDM_FORMAT_CONV2 + 6)
+    #define    IDM_FORMAT_CONV2_END         IDM_FORMAT_CONV2_AS_UCS_2LE
 
     #define    IDM_FORMAT_ENCODE            (IDM_FORMAT + 20)
     #define    IDM_FORMAT_WIN_1250          (IDM_FORMAT_ENCODE + 0)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <!--
-	German localization for Notepad++ 7.5.5
-	last modified: 2018-03-17 by schnurlos (schnurlos@gmail.com)
+	German localization for Notepad++ 7.5.6
+	last modified: 2018-04-26 by schnurlos (schnurlos@gmail.com)
 
 	Please e-mail errors, suggestions etc. to schnurlos(at)gmail.com or janschreiber(at)users.sf.net
 
@@ -746,7 +746,7 @@
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
-					<Item id="6430" name="Benutze Dialog im neuen Stil (ohne Dateierweiterungen &amp; Pfade im Unix-Stil)"/>	
+					<Item id="6430" name="Benutze Dialog im neuen Stil (ohne Dateierweiterungen &amp;&amp; Pfade im Unix-Stil)"/>	
 					<Item id="6431" name="Alle Dateien im jeweiligen Verzeichnis öffnen anstelle des Start-Verzeichnisses"/>
 				</DefaultDir>
 

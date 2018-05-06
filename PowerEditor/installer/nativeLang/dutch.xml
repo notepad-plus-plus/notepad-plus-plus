@@ -269,11 +269,11 @@
 					<Item id="45006" name="UCS-2 Big Endian"/>
 					<Item id="45007" name="UCS-2 Little Endian"/>
 					<Item id="45008" name="UTF-8 (zonder BOM)"/>
-					<Item id="45009" name="Naar ANSI converteren"/>
-					<Item id="45010" name="Naar UTF-8 (zonder BOM) converteren"/>
-					<Item id="45011" name="Naar UTF-8 converteren"/>
-					<Item id="45012" name="Naar UCS-2 Big Endian converteren"/>
-					<Item id="45013" name="Naar UCS-2 Little Endian converteren"/>
+					<Item id="45012" name="Naar ANSI converteren"/>
+					<Item id="45013" name="Naar UTF-8 (zonder BOM) converteren"/>
+					<Item id="45014" name="Naar UTF-8 converteren"/>
+					<Item id="45015" name="Naar UCS-2 Big Endian converteren"/>
+					<Item id="45016" name="Naar UCS-2 Little Endian converteren"/>
 
 					<Item id="10001" name="Naar deelvenster verplaatsen"/>
 					<Item id="10002" name="Naar deelvenster kopiëren"/>

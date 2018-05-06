@@ -247,11 +247,11 @@
                     <Item id="45006" name="UCS-2 Big Endian માં એન્કોડ"/>
                     <Item id="45007" name="UCS-2 Little Endian માં એન્કોડ"/>
                     <Item id="45008" name="UTF-8 માં એન્કોડ  BOM વગર "/>
-                    <Item id="45009" name="ANSI માં કન્વર્ટ"/>
-                    <Item id="45010" name="UTF-8 માં કન્વર્ટ BOM વગર"/>
-                    <Item id="45011" name="UTF-8 માં કન્વર્ટ"/>
-                    <Item id="45012" name="UCS-2 Big Endian માં કન્વર્ટ"/>
-                    <Item id="45013" name="UCS-2 Little Endian માં કન્વર્ટ"/>
+                    <Item id="45012" name="ANSI માં કન્વર્ટ"/>
+                    <Item id="45013" name="UTF-8 માં કન્વર્ટ BOM વગર"/>
+                    <Item id="45014" name="UTF-8 માં કન્વર્ટ"/>
+                    <Item id="45015" name="UCS-2 Big Endian માં કન્વર્ટ"/>
+                    <Item id="45016" name="UCS-2 Little Endian માં કન્વર્ટ"/>
 
                     <Item id="10001" name="બીજા વ્યુ પર જાઓ"/>
                     <Item id="10002" name="બીજા વ્યુ પર ક્લોન"/>

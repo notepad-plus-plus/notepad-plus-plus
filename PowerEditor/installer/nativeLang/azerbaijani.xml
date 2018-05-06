@@ -193,11 +193,11 @@
                     <Item id="45006" name="Kodla (UCS-2 Big Endian)"/>
                     <Item id="45007" name="Kodla (UCS-2 Little Endian)"/>
                     <Item id="45008" name="Kodla (UTF-8 without BOM)"/>
-                    <Item id="45009" name="Çevir (ANSI)"/>
-                    <Item id="45010" name="Çevir (UTF-8 without BOM)"/>
-                    <Item id="45011" name="Çevir (UTF-8)"/>
-                    <Item id="45012" name="Çevir (UCS-2 Big Endian)"/>
-                    <Item id="45013" name="Çevir (UCS-2 Little Endian)"/>
+                    <Item id="45012" name="Çevir (ANSI)"/>
+                    <Item id="45013" name="Çevir (UTF-8 without BOM)"/>
+                    <Item id="45014" name="Çevir (UTF-8)"/>
+                    <Item id="45015" name="Çevir (UCS-2 Big Endian)"/>
+                    <Item id="45016" name="Çevir (UCS-2 Little Endian)"/>
 
                     <Item id="10001" name="Digər pəncərəyə keç"/>
                     <Item id="10002" name="Digər pəncərəyə kopiya et"/>

@@ -119,11 +119,11 @@
                     <Item id = "45006" name = "Coifical en UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Coifical en UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Coifical en UTF-8 sin BOM"/>
-			<Item id = "45009" name = "Convertil a ANSI"/>
-			<Item id = "45010" name = "Convertil a UTF-8 sin BOM"/>
-			<Item id = "45011" name = "Convertil a UTF-8"/>
-			<Item id = "45012" name = "Convertil a UCS-2 Big Endian"/>
-			<Item id = "45013" name = "Convertil a UCS-2 Little Endian"/>
+			<Item id = "45012" name = "Convertil a ANSI"/>
+			<Item id = "45013" name = "Convertil a UTF-8 sin BOM"/>
+			<Item id = "45014" name = "Convertil a UTF-8"/>
+			<Item id = "45015" name = "Convertil a UCS-2 Big Endian"/>
+			<Item id = "45016" name = "Convertil a UCS-2 Little Endian"/>
 
                     <Item id = "10001" name = "Dil pa otra vista"/>
                     <Item id = "10002" name = "Clonal n'otra vista"/>

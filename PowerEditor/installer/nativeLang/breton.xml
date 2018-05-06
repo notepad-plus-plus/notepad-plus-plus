@@ -252,11 +252,11 @@
                     <Item id="45006" name="Enkadañ en UTF-16BE"/>
                     <Item id="45007" name="Enkadañ en UTF-16LE"/>
                     <Item id="45008" name="Enkadañ en UTF-8 (hep BOM)"/>
-                    <Item id="45009" name="Emdreiñ en ANSI"/>
-                    <Item id="45010" name="Emdreiñ en UTF-8 (hep BOM)"/>
-                    <Item id="45011" name="Emdreiñ en UTF-8"/>
-                    <Item id="45012" name="Emdreiñ en UTF-16BE"/>
-                    <Item id="45013" name="Emdreiñ en UTF-16LE"/>
+                    <Item id="45012" name="Emdreiñ en ANSI"/>
+                    <Item id="45013" name="Emdreiñ en UTF-8 (hep BOM)"/>
+                    <Item id="45014" name="Emdreiñ en UTF-8"/>
+                    <Item id="45015" name="Emdreiñ en UTF-16BE"/>
+                    <Item id="45016" name="Emdreiñ en UTF-16LE"/>
                     <Item id="45053" name="OEM 860: Portugaleg"/>
                     <Item id="45054" name="OEM 861: Islandeg"/>
                     <Item id="45056" name="OEM 863: Galleg"/>

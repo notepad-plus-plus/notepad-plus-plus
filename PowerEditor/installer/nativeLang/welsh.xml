@@ -246,11 +246,11 @@ gan/by Aled Powell
                     <Item id="45006" name="Amgodio yn UCS-2 Endian Fach"/>
                     <Item id="45007" name="Amgodio yn UCS-2 Endian Fawr"/>
                     <Item id="45008" name="Amgodio yn UTF-8 heb BOM"/>
-                    <Item id="45009" name="Trawsnewid i ANSI"/>
-                    <Item id="45010" name="Trawsnewid i UTF-8 heb BOM"/>
-                    <Item id="45011" name="Trawsnewid i UTF-8"/>
-                    <Item id="45012" name="Trawsnewid i UCS-2 Endian Fawr"/>
-                    <Item id="45013" name="Trawsnewid i UCS-2 Endian Fach"/>
+                    <Item id="45012" name="Trawsnewid i ANSI"/>
+                    <Item id="45013" name="Trawsnewid i UTF-8 heb BOM"/>
+                    <Item id="45014" name="Trawsnewid i UTF-8"/>
+                    <Item id="45015" name="Trawsnewid i UCS-2 Endian Fawr"/>
+                    <Item id="45016" name="Trawsnewid i UCS-2 Endian Fach"/>
 
                     <Item id="10001" name="Symud i Olwg Arall"/>
                     <Item id="10002" name="Clonio i Olwg Arall"/>

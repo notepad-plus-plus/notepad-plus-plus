@@ -240,11 +240,11 @@
                     <Item id="45006" name="UCS-2 Big Endian-р кодчилсон"/>
                     <Item id="45007" name="UCS-2 Little Endian-р кодчилсон"/>
                     <Item id="45008" name="UTF-8 without BOM-р кодчилсон"/>
-                    <Item id="45009" name="ANSI-руу хөрвүүлэх"/>
-                    <Item id="45010" name="UTF-8 without BOM-руу хөрвүүлэх"/>
-                    <Item id="45011" name="UTF-8-руу хөрвүүлэх"/>
-                    <Item id="45012" name="UCS-2 Big Endian-руу хөрвүүлэх"/>
-                    <Item id="45013" name="UCS-2 Little Endian-руу хөрвүүлэх"/>
+                    <Item id="45012" name="ANSI-руу хөрвүүлэх"/>
+                    <Item id="45013" name="UTF-8 without BOM-руу хөрвүүлэх"/>
+                    <Item id="45014" name="UTF-8-руу хөрвүүлэх"/>
+                    <Item id="45015" name="UCS-2 Big Endian-руу хөрвүүлэх"/>
+                    <Item id="45016" name="UCS-2 Little Endian-руу хөрвүүлэх"/>
 
                     <Item id="10001" name="Харах цонхыг тусгаарлах"/>
                     <Item id="10002" name="Нөгөө цонхруу хуулах"/>

@@ -283,11 +283,11 @@ By Hiro5 <groccat at gmail>
 					<Item id="45048" name="OEM 850: DOS Llatí 1"/>
 					<Item id="45053" name="OEM 860: Portuguès"/>
 					<Item id="45056" name="OEM 863: Francès"/>
-					<Item id="45009" name="Converteix a &amp;ANSI"/>
-					<Item id="45010" name="Converteix a &amp;UTF-8"/>
-					<Item id="45011" name="Converteix a U&amp;TF-8 amb BOM"/>
-					<Item id="45012" name="Converteix a UCS-2 &amp;Big Endian amb BOM"/>
-					<Item id="45013" name="Converteix a UCS-2 &amp;Little Endian amb BOM"/>
+					<Item id="45012" name="Converteix a &amp;ANSI"/>
+					<Item id="45013" name="Converteix a &amp;UTF-8"/>
+					<Item id="45014" name="Converteix a U&amp;TF-8 amb BOM"/>
+					<Item id="45015" name="Converteix a UCS-2 &amp;Big Endian amb BOM"/>
+					<Item id="45016" name="Converteix a UCS-2 &amp;Little Endian amb BOM"/>
 					<Item id="46033" name="Assemblador"/>
 					<Item id="46019" name="MS INI (fitxer)"/>
 					<Item id="46015" name="MS-DOS (estil)"/>

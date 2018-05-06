@@ -256,11 +256,11 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="45006" name="Koodaus: UCS-2 Big Endian"/>
 					<Item id="45007" name="Koodaus: UCS-2 Little Endian"/>
 					<Item id="45008" name="Koodaus: UTF-8 (ei BOM)"/>
-					<Item id="45009" name="Muunna koodaukseen ANSI"/>
-					<Item id="45010" name="Muunna koodaukseen UTF-8 (ei BOM)"/>
-					<Item id="45011" name="Muunna koodaukseen UTF-8"/>
-					<Item id="45012" name="Muunna koodaukseen UCS-2 Big Endian"/>
-					<Item id="45013" name="Muunna koodaukseen UCS-2 Little Endian"/>
+					<Item id="45012" name="Muunna koodaukseen ANSI"/>
+					<Item id="45013" name="Muunna koodaukseen UTF-8 (ei BOM)"/>
+					<Item id="45014" name="Muunna koodaukseen UTF-8"/>
+					<Item id="45015" name="Muunna koodaukseen UCS-2 Big Endian"/>
+					<Item id="45016" name="Muunna koodaukseen UCS-2 Little Endian"/>
 					<Item id="46001" name="Mukauta tyyliä..." />
 					<Item id="46180" name="Mukautettu" />
 					<Item id="46250" name="Määrittele oma koodikieli..." />

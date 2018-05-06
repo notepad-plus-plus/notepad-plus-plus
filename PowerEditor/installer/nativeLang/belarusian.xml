@@ -264,11 +264,11 @@
                     <Item id="45006" name="Кадаваць у UCS-2 Big Endian"/>
                     <Item id="45007" name="Кадаваць у UCS-2 Little Endian"/>
                     <Item id="45008" name="Кадаваць у UTF-8"/>
-                    <Item id="45009" name="Пераўтварыць у ANSI"/>
-                    <Item id="45010" name="Пераўтварыць у UTF-8"/>
-                    <Item id="45011" name="Пераўтварыць у UTF-8 BOM"/>
-                    <Item id="45012" name="Пераўтварыць у UCS-2 Big Endian"/>
-                    <Item id="45013" name="Пераўтварыць у UCS-2 Little Endian"/>
+                    <Item id="45012" name="Пераўтварыць у ANSI"/>
+                    <Item id="45013" name="Пераўтварыць у UTF-8"/>
+                    <Item id="45014" name="Пераўтварыць у UTF-8 BOM"/>
+                    <Item id="45015" name="Пераўтварыць у UCS-2 Big Endian"/>
+                    <Item id="45016" name="Пераўтварыць у UCS-2 Little Endian"/>
 
                     <Item id="10001" name="Перамясціць у іншую вобласць"/>
                     <Item id="10002" name="Кланаваць у іншую вобласць"/>

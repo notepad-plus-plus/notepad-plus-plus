@@ -272,11 +272,11 @@
                     <Item id="45006" name="UCS-2 Big Endian"/>
                     <Item id="45007" name="UCS-2 Little Endian"/>
                     <Item id="45008" name="UTF-8"/>
-                    <Item id="45009" name="Átalakítás ANSI kódolásra"/>
-                    <Item id="45010" name="Átalakítás UTF-8"/>
-                    <Item id="45011" name="Átalakítás UTF-8 BOM kódolásra"/>
-                    <Item id="45012" name="Átalakítás UCS-2 Big Endian kódolásra"/>
-                    <Item id="45013" name="Átalakítás UCS-2 Little Endian kódolásra"/>
+                    <Item id="45012" name="Átalakítás ANSI kódolásra"/>
+                    <Item id="45013" name="Átalakítás UTF-8"/>
+                    <Item id="45014" name="Átalakítás UTF-8 BOM kódolásra"/>
+                    <Item id="45015" name="Átalakítás UCS-2 Big Endian kódolásra"/>
+                    <Item id="45016" name="Átalakítás UCS-2 Little Endian kódolásra"/>
 
                     <Item id="10001" name="Mozgatás a másik nézetbe"/>
                     <Item id="10002" name="Megnyitás a másik nézetben is"/>

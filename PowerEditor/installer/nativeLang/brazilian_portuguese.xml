@@ -245,11 +245,11 @@
                     <Item id="45006" name="Codificação em UCS-2 Big Endian" />
                     <Item id="45007" name="Codificação em UCS-2 Little Endian" />
                     <Item id="45008" name="Codificação em UTF-8 (sem BOM)" />
-                    <Item id="45009" name="Converter para ANSI" />
-                    <Item id="45010" name="Converter para UTF-8 (sem BOM)" />
-                    <Item id="45011" name="Converter para UTF-8" />
-                    <Item id="45012" name="Converter para UCS-2 Big Endian" />
-                    <Item id="45013" name="Converter para UCS-2 Little Endian" />
+                    <Item id="45012" name="Converter para ANSI" />
+                    <Item id="45013" name="Converter para UTF-8 (sem BOM)" />
+                    <Item id="45014" name="Converter para UTF-8" />
+                    <Item id="45015" name="Converter para UCS-2 Big Endian" />
+                    <Item id="45016" name="Converter para UCS-2 Little Endian" />
 
                     <Item id="10001" name="Mover para outra tela" />
                     <Item id="10002" name="Duplicar tela (clonar)" />

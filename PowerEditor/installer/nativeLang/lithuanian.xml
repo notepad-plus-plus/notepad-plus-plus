@@ -206,11 +206,11 @@
                     <Item id="45006" name="Šifruoti Į UCS-2 Big Endian"/>
                     <Item id="45007" name="Šifruoti Į UCS-2 Little Endian"/>
                     <Item id="45008" name="Šifruoti Į UTF-8 Be BOM"/>
-                    <Item id="45009" name="Konvertuoti Į ANSI"/>
-                    <Item id="45010" name="Konvertuoti Į UTF-8 Be BOM"/>
-                    <Item id="45011" name="Konvertuoti Į UTF-8"/>
-                    <Item id="45012" name="Konvertuoti Į UCS-2 Big Endian"/>
-                    <Item id="45013" name="Konvertuoti Į UCS-2 Little Endian"/>
+                    <Item id="45012" name="Konvertuoti Į ANSI"/>
+                    <Item id="45013" name="Konvertuoti Į UTF-8 Be BOM"/>
+                    <Item id="45014" name="Konvertuoti Į UTF-8"/>
+                    <Item id="45015" name="Konvertuoti Į UCS-2 Big Endian"/>
+                    <Item id="45016" name="Konvertuoti Į UCS-2 Little Endian"/>
 
                     <Item id="10001" name="Perkelti Į Kitą Vaizdą"/>
                     <Item id="10002" name="Klonuoti Į Kitą Vaizdą"/>

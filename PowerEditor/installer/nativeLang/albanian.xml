@@ -245,11 +245,11 @@
                     <Item id="45006" name="Kodo në UCS-2 Endian e madhe"/>
                     <Item id="45007" name="Kodo në UCS-2 Endiane e vogël"/>
                     <Item id="45008" name="Kodo në UTF-8 pa BOM"/>
-                    <Item id="45009" name="Konverto në ANSI"/>
-                    <Item id="45010" name="Konverto në UTF-8 pa BOM"/>
-                    <Item id="45011" name="Konverto në UTF-8"/>
-                    <Item id="45012" name="Konverto në UCS-2 Endiane e madhe"/>
-                    <Item id="45013" name="Konverto në UCS-2 Endiane e vogël"/>
+                    <Item id="45012" name="Konverto në ANSI"/>
+                    <Item id="45013" name="Konverto në UTF-8 pa BOM"/>
+                    <Item id="45014" name="Konverto në UTF-8"/>
+                    <Item id="45015" name="Konverto në UCS-2 Endiane e madhe"/>
+                    <Item id="45016" name="Konverto në UCS-2 Endiane e vogël"/>
 
                     <Item id="10001" name="Lëviz te pamja tjetër"/>
                     <Item id="10002" name="Klono te pamja tjetër"/>

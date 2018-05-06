@@ -206,11 +206,11 @@
                     <Item id="45006" name="UCS-2 Big Endian-ში კოდირება"/>
                     <Item id="45007" name="UCS-2 Little Endian-ში კოდირება"/>
                     <Item id="45008" name="UTF-8 without BOM-ში კოდირება"/>
-                    <Item id="45009" name="ANSI-ში გადაყვანა"/>
-                    <Item id="45010" name="UTF-8 without BOM-ში გადაყვანა"/>
-                    <Item id="45011" name="UTF-8-ში გადაყვანა"/>
-                    <Item id="45012" name="UCS-2 Big Endian-ში გადაყვანა"/>
-                    <Item id="45013" name="UCS-2 Little Endian-ში გადაყვანა"/>
+                    <Item id="45012" name="ANSI-ში გადაყვანა"/>
+                    <Item id="45013" name="UTF-8 without BOM-ში გადაყვანა"/>
+                    <Item id="45014" name="UTF-8-ში გადაყვანა"/>
+                    <Item id="45015" name="UCS-2 Big Endian-ში გადაყვანა"/>
+                    <Item id="45016" name="UCS-2 Little Endian-ში გადაყვანა"/>
 
                     <Item id="10001" name="სხვა ხედში გადატანა"/>
                     <Item id="10002" name="სხვა ხედში კლონირება"/>

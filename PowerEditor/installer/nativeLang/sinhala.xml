@@ -212,11 +212,11 @@
                    <Item id="45006" name="UCS-2 Big Endian කේතාංකනය"/>
                    <Item id="45007" name="UCS-2 Little Endian කේතාංකනය"/>
                    <Item id="45008" name="UTF-8 කේතාංකනය BOM නොමැතිව"/>
-                   <Item id="45009" name="ANSI වලට පරිවර්තනය කරන්න"/>
-                   <Item id="45010" name="UTF-8 වලට පරිවර්තනය කරන්න BOM නොමැතිව"/>
-                   <Item id="45011" name="UTF-8 වලට පරිවර්තනය කරන්න"/>
-                   <Item id="45012" name="UCS-2 වලට පරිවර්තනය කරන්න(Big Endian)"/>
-                   <Item id="45013" name="UCS-2 වලට පරිවර්තනය කරන්න(Little Endian)"/>
+                   <Item id="45012" name="ANSI වලට පරිවර්තනය කරන්න"/>
+                   <Item id="45013" name="UTF-8 වලට පරිවර්තනය කරන්න BOM නොමැතිව"/>
+                   <Item id="45014" name="UTF-8 වලට පරිවර්තනය කරන්න"/>
+                   <Item id="45015" name="UCS-2 වලට පරිවර්තනය කරන්න(Big Endian)"/>
+                   <Item id="45016" name="UCS-2 වලට පරිවර්තනය කරන්න(Little Endian)"/>
                    <Item id="10001" name="වෙනත් පෙනුමක් සදහා යොමුවන්න"/>
                    <Item id="10002" name="පෙනුම ක්ලෝන් කරන්න"/>
                    <Item id="10003" name="නව ප්‍රස්තාවක් සඳහා යොමු වන්න"/>

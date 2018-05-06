@@ -243,11 +243,11 @@
 					<Item id="45006" name="Kodēt UCS-2 Big Endian kodējumā"/>
 					<Item id="45007" name="Kodēt UCS-2 Little Endian kodējumā"/>
 					<Item id="45008" name="Kodēt UTF-8 kodējumā bez BOM (baitu secības marķiera)"/>
-					<Item id="45009" name="Pārveidot ANSI kodējumā"/>
-					<Item id="45010" name="Pārveidot UTF-8 kodējumā bez BOM"/>
-					<Item id="45011" name="Pārveidot UTF-8 kodējumā"/>
-					<Item id="45012" name="Pārveidot UCS-2 Big Endian kodējumā"/>
-					<Item id="45013" name="Pārveidot UCS-2 Little Endian kodējumā"/>
+					<Item id="45012" name="Pārveidot ANSI kodējumā"/>
+					<Item id="45013" name="Pārveidot UTF-8 kodējumā bez BOM"/>
+					<Item id="45014" name="Pārveidot UTF-8 kodējumā"/>
+					<Item id="45015" name="Pārveidot UCS-2 Big Endian kodējumā"/>
+					<Item id="45016" name="Pārveidot UCS-2 Little Endian kodējumā"/>
 
 					<Item id="10001" name="Pārvietot citā skatā"/>
 					<Item id="10002" name="Klonēt citā skatā"/>

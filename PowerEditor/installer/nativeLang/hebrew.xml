@@ -161,11 +161,11 @@
                     <Item id="45006" name="קודד ב UCS-2 אינדיאני גדול"/>
                     <Item id="45007" name="קודד ב UCS-2 אינדיאני קטן"/>
                     <Item id="45008" name="הצג כ UTF-8"/>
-					<Item id="45009" name="המר ל-ANSI"/>
-					<Item id="45010" name="המר לUTF-8 ללא BOM"/>
-					<Item id="45011" name="המר לUTF-8"/>
-					<Item id="45012" name="המר לUCS-2 אינדיאני גדול"/>
-					<Item id="45013" name="המר לUCS-2 אינדיאני קטן"/>
+					<Item id="45012" name="המר ל-ANSI"/>
+					<Item id="45013" name="המר לUTF-8 ללא BOM"/>
+					<Item id="45014" name="המר לUTF-8"/>
+					<Item id="45015" name="המר לUCS-2 אינדיאני גדול"/>
+					<Item id="45016" name="המר לUCS-2 אינדיאני קטן"/>
 					<Item id="10001" name="עבור לתצוגה אחרת"/>
                     <Item id="10002" name="העתק לתצוגה אחרת"/>
 					<Item id="10003" name="העבר לחלון חדש"/>

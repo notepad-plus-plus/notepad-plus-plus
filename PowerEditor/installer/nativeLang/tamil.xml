@@ -201,11 +201,11 @@
                     <Item id="45006" name="UCS-2 Big Endian குறிமுறைபடுத்து "/>
                     <Item id="45007" name="UCS-2 Little Endian குறிமுறைபடுத்து "/>
                     <Item id="45008" name="UTF-8 without BOM குறிமுறைபடுத்து "/>
-                    <Item id="45009" name="ANSI க்கு மாற்று"/>
-                    <Item id="45010" name="UTF-8 without BOM க்கு மாற்று"/>
-                    <Item id="45011" name="UTF-8 க்கு மாற்று"/>
-                    <Item id="45012" name="UCS-2 Big Endian க்கு மாற்று"/>
-                    <Item id="45013" name="UCS-2 Little Endian க்கு மாற்று"/>
+                    <Item id="45012" name="ANSI க்கு மாற்று"/>
+                    <Item id="45013" name="UTF-8 without BOM க்கு மாற்று"/>
+                    <Item id="45014" name="UTF-8 க்கு மாற்று"/>
+                    <Item id="45015" name="UCS-2 Big Endian க்கு மாற்று"/>
+                    <Item id="45016" name="UCS-2 Little Endian க்கு மாற்று"/>
 
                     <Item id="10001" name="மற்ற காட்சிக்கு நகர்த்து"/>
                     <Item id="10002" name="மற்ற காட்சியில் நகலெடு"/>

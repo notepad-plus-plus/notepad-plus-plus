@@ -202,11 +202,11 @@
                     <Item id = "45006" name = "Codifica inte UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Codifica inte UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Codifica inte UTF-8 (sensa BOM)"/>
-					<Item id = "45009" name = "Converti inte ANSI"/>
-					<Item id = "45010" name = "Converti inte UTF-8 sensa BOM"/>
-					<Item id = "45011" name = "Converti inte UTF-8"/>
-					<Item id = "45012" name = "Converti inte UCS-2 Big Endian"/>
-					<Item id = "45013" name = "Converti inte UCS-2 Little Endian"/>
+					<Item id = "45012" name = "Converti inte ANSI"/>
+					<Item id = "45013" name = "Converti inte UTF-8 sensa BOM"/>
+					<Item id = "45014" name = "Converti inte UTF-8"/>
+					<Item id = "45015" name = "Converti inte UCS-2 Big Endian"/>
+					<Item id = "45016" name = "Converti inte UCS-2 Little Endian"/>
 					<Item id = "10001" name = "Spòsta inte l&apos;atra vista"/>
                     <Item id = "10002" name = "Còpia inte l&apos;atra vista"/>
 					<Item id = "10003" name = "Spòsta inte 'n neuvo barcon"/>

@@ -125,11 +125,11 @@
                     <Item id = "45006" name = "Codificar en UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Codificar en UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Codificar en UTF-8 sen BOM"/>
-			<Item id = "45009" name = "Converter en ANSI"/>
-			<Item id = "45010" name = "Converter en UTF-8 sen BOM"/>
-			<Item id = "45011" name = "Converter en UTF-8"/>
-			<Item id = "45012" name = "Converter en UCS-2 Big Endian"/>
-			<Item id = "45013" name = "Converter en UCS-2 Little Endian"/>
+			<Item id = "45012" name = "Converter en ANSI"/>
+			<Item id = "45013" name = "Converter en UTF-8 sen BOM"/>
+			<Item id = "45014" name = "Converter en UTF-8"/>
+			<Item id = "45015" name = "Converter en UCS-2 Big Endian"/>
+			<Item id = "45016" name = "Converter en UCS-2 Little Endian"/>
 
                     <Item id = "10001" name = "Ir a outra vista"/>
                     <Item id = "10002" name = "Clonar noutra vista"/>

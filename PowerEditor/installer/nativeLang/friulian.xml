@@ -197,11 +197,11 @@
                     <Item id = "45006" name = "Codifiche in UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Codifiche in UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Codifiche in UTF-8 cence BOM"/>
-					<Item id = "45009" name = "Convertìs in ANSI"/>
-					<Item id = "45010" name = "Convertìs in UTF-8 cence BOM"/>
-					<Item id = "45011" name = "Convertìs in UTF-8"/>
-					<Item id = "45012" name = "Convertìs in UCS-2 Big Endian"/>
-					<Item id = "45013" name = "Convertìs in UCS-2 Little Endian"/>
+					<Item id = "45012" name = "Convertìs in ANSI"/>
+					<Item id = "45013" name = "Convertìs in UTF-8 cence BOM"/>
+					<Item id = "45014" name = "Convertìs in UTF-8"/>
+					<Item id = "45015" name = "Convertìs in UCS-2 Big Endian"/>
+					<Item id = "45016" name = "Convertìs in UCS-2 Little Endian"/>
 
                     <Item id = "10001" name = "Va a une altre viodude"/>
                     <Item id = "10002" name = "Clone intune altre viodude"/>

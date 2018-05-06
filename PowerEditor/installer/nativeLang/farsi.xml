@@ -262,11 +262,11 @@
                     <Item id="45006" name="UCS-2 Big Endian کُد گذاری در"/>
                     <Item id="45007" name="UCS-2 Little Endian کُد گذاری در"/>
                     <Item id="45008" name="BOM بدون UTF-8 کُد گذاری در"/>
-                    <Item id="45009" name="ANSI تبدیل به"/>
-                    <Item id="45010" name="BOM بدون UTF-8 تبدیل به"/>
-                    <Item id="45011" name="UTF-8 تبدیل به"/>
-                    <Item id="45012" name="UCS-2 Big Endian تبدیل به"/>
-                    <Item id="45013" name="UCS-2 Little Endian تبدیل به"/>
+                    <Item id="45012" name="ANSI تبدیل به"/>
+                    <Item id="45013" name="BOM بدون UTF-8 تبدیل به"/>
+                    <Item id="45014" name="UTF-8 تبدیل به"/>
+                    <Item id="45015" name="UCS-2 Big Endian تبدیل به"/>
+                    <Item id="45016" name="UCS-2 Little Endian تبدیل به"/>
 
                     <Item id="10001" name="انتقال به نمای دیگر"/>
                     <Item id="10002" name="شبیه سازی در نمای دیگر"/>

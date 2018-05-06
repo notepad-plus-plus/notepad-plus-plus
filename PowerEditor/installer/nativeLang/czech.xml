@@ -276,11 +276,11 @@
 					<Item id = "45006" name = "Změnit kódování na UCS-2 Big Endian"/>
 					<Item id = "45007" name = "Změnit kódování na UCS-2 Little Endian"/>
 					<Item id = "45008" name = "Změnit kódování na UTF-8 bez BOM"/>
-					<Item id = "45009" name = "Konvertovat do ANSI"/>
-					<Item id = "45010" name = "Konvertovat do UTF-8 bez BOM"/>
-					<Item id = "45011" name = "Konvertovat do UTF-8 s BOM"/>
-					<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
-					<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
+					<Item id = "45012" name = "Konvertovat do ANSI"/>
+					<Item id = "45013" name = "Konvertovat do UTF-8 bez BOM"/>
+					<Item id = "45014" name = "Konvertovat do UTF-8 s BOM"/>
+					<Item id = "45015" name = "Konvertovat do UCS-2 Big Endian"/>
+					<Item id = "45016" name = "Konvertovat do UCS-2 Little Endian"/>
 					<Item id = "45060" name = "Big5 (tradiční)"/>
 					<Item id = "45061" name = "GB2312 (zjednodušená)"/>
 					<Item id = "45054" name = "OEM 861: Islandština"/>

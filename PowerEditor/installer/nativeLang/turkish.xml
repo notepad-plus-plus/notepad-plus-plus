@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-	<Native-Langue name="Turkish" filename="turkish.xml" version="7.5.5">
+	<Native-Langue name="Turkish" filename="turkish.xml" version="7.5.6">
 		<Menu>
 			<Main>
 				<!-- Ana Menü Girişleri -->
@@ -470,7 +470,7 @@
                 <ConflictInfoEditing name="Hiçbir çakışma yok . . ."/>
             </ShortcutMapper>
             <ShortcutMapperSubDialg title="Kısayol">
-                <Item id="1" name=Tamam"/>
+                <Item id="1" name="Tamam"/>
                 <Item id="2" name="İptal"/>
                 <Item id="5006" name="İsim"/>
                 <Item id="5008" name="Ekle"/>
@@ -736,7 +736,7 @@
 					<Item id="6413" name="Varsayılan Dizin (Aç/Kaydet)"/>
 					<Item id="6414" name="Geçerli belgeyi takip et"/>
 					<Item id="6415" name="Son kullanılan dizini hatırla"/>
-					<Item id="6430" name="Yeni stil diyalogunu kullan (&amp; Unix tarzı yol kapasitesi)"/>
+					<Item id="6430" name="Yeni stil diyalogunu kullan (&amp;Unix tarzı yol kapasitesi)"/>
                     <Item id="6431" name="Klasör taşıyarak Çalışma Alanı Klasörleri başlatıldığında klasörün tüm dosyalarını aç"/>
 				</DefaultDir>
 
@@ -946,7 +946,7 @@
                 <Item id="1719" name="Düzenli &amp;İfadeler"/>
                 <Item id="1718" name="Geliştirilmiş (\n, \r, \t, \0, \x...)"/>
                 <Item id="1720" name="&amp;. Yeni Satır Eşleşiyor"/>
-            </FindInFinder
+            </FindInFinder>
 		</Dialog>
 		<MessageBox><!-- $INT_REPLACE$ bir yer tutucudur, çevirmeyin -->
 			<ContextMenuXmlEditWarning title="contextMenu.xml Dosyasını Düzenle" message="contextMenu.xml dosyasını düzenleyerek Notepad++ sağ tık bağlam menüsü değiştirilebilir.
@@ -1030,10 +1030,10 @@ lütfen yeni bir isim verin."/>
             <UDLRemoveCurrentLang title="Şu Anki Dili Kaldır" message="Emin misiniz?"/>
 			<SCMapperDoDeleteOrNot title="Emin misiniz?" message="Bu kısayolu silmek istediğinize emin misiniz?"/>
 			<FindCharRangeValueError title="Aralık Değeri Problemi" message="0 ile 255 arasında bir giriş yapmalısınız."/>
-            <ÇevirOpenInAdminMode title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
-Notepad++&apos;ı Yönetici olarak başlatmak ister misiniz?"/>
+            <OpenInAdminMode title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
+Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
             <OpenInAdminModeWithoutCloseCurrent title="Kayıt Başarısız" message="Dosya kaydedilemedi, korumalı olabilir.
-Notepad++&apos;ı Yönetici olarak başlatmak ister misiniz?"/>
+Notepad++ı Yönetici olarak başlatmak ister misiniz?"/>
             <OpenInAdminModeFailed title="Yönetici Olarak Başlatma Başarısız" message="Notepad++ Yönetici olarak başlatılamaz."/>
 		</MessageBox>
 		<ClipboardHistory>
@@ -1159,10 +1159,10 @@ Notepad++&apos;ı Yönetici olarak başlatmak ister misiniz?"/>
 			<find-status-replace-top-reached value="Değiştir: Sondan 1. eşleşme değiştirildi. Dosyanın başına ulaşıldı"/>
 			<find-status-relaced-next-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulundu"/>
 			<find-status-relaced-next-not-found value="Değiştir: 1 eşleşme değiştirildi. Sonraki eşleşme bulunamadı"/>
-			<find-status-replace-not-found value="DEğiştir: hiçbir eşleşme bulunamadı"/>
+			<find-status-replace-not-found value="Değiştir: hiçbir eşleşme bulunamadı"/>
 			<find-status-replace-readonly value="Değiştir: Yazı değiştirilemez. Şu anki dosya yalnızca okunabilir"/>
 			<find-status-cannot-find value="Bulma: &quot;$STR_REPLACE$&quot; yazısı bulunamadı"/>
-            <Çevirfinder-find-in-finder value="Bulunmuş sonuçlar arasında bul..."/>
+            <finder-find-in-finder value="Bulunmuş sonuçlar arasında bul..."/>
             <finder-close-this value="Bu bulucuyu kapat"/>
             <finder-collapse-all value="Tümünü Daralt"/>
             <finder-uncollapse-all value="Tümünü Genişlet"/>

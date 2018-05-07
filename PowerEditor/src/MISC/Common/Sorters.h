@@ -331,24 +331,6 @@ protected:
 	_locale_t _usLocale;
 };
 
-// Converts lines to long long before sorting.
-class IntegerSorter : public NumericSorter<long long>
-{
-public:
-	IntegerSorter(bool isDescending, size_t fromColumn, size_t toColumn) : NumericSorter<long long>(isDescending, fromColumn, toColumn) { };
-
-protected:
-	virtual generic_string prepareStringForConversion(const generic_string& input)
-	{
-		return stringTakeWhileAdmissable(getSortKey(input), TEXT(" \t\r\n0123456789-"));
-	}
-
-	long long convertStringToNumber(const generic_string& input) override
-	{
-		return std::stoll(input);
-	}
-};
-
 // Converts lines to double before sorting (assumes decimal comma).
 class DecimalCommaSorter : public NumericSorter<double>
 {

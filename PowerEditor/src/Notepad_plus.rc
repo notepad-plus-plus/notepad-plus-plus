@@ -63,7 +63,6 @@ END
 // remains consistent on all systems.
 IDI_M30ICON                     ICON      "icons/npp.ico"
 IDI_CHAMELEON                   ICON      "icons/chameleon.ico"
-//IDI_JESUISCHARLIE               ICON      "icons/Je_suis_Charlie.ico"
 IDI_NEW_OFF_ICON                ICON      "icons/new_off.ico"
 IDI_OPEN_OFF_ICON               ICON      "icons/open_off.ico"
 IDI_SAVE_OFF_ICON               ICON      "icons/save_off.ico"

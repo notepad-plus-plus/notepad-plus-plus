@@ -211,6 +211,17 @@ IDI_FUNCLIST_LEAF               BITMAP      "icons/funcList_leaf.bmp"
 IDI_FUNCLIST_SORTBUTTON         BITMAP      "icons/funclstSort.bmp"
 IDI_FUNCLIST_RELOADBUTTON       BITMAP      "icons/funclstReload.bmp"
 
+
+IDI_VIEW_DOC_MAP_ON_ICON        ICON        "icons/docMap_on.ico"
+IDI_VIEW_DOC_MAP_OFF_ICON       ICON        "icons/docMap_off.ico" 
+IDI_VIEW_FUNCLIST_ON_ICON       ICON        "icons/funcList_on.ico" 
+IDI_VIEW_FUNCLIST_OFF_ICON      ICON        "icons/funcList_off.ico" 
+IDI_VIEW_FILEBROWSER_ON_ICON    ICON        "icons/fileBrowser_on.ico" 
+IDI_VIEW_FILEBROWSER_OFF_ICON   ICON        "icons/fileBrowser_off.ico" 
+IDI_VIEW_MONITORING_ON_ICON     ICON        "icons/monitoring_on.ico"
+IDI_VIEW_MONITORING_OFF_ICON    ICON        "icons/monitoring_off.ico"
+
+
 IDR_M30_MENU MENU
 BEGIN
     POPUP "&File"

@@ -32,6 +32,7 @@
 #include "WindowsDlgRc.h"
 #include "DocTabView.h"
 #include "EncodingMapper.h"
+#include "localization.h"
 
 using namespace std;
 
@@ -42,6 +43,11 @@ using namespace std;
 #ifndef LVS_EX_DOUBLEBUFFER
 #define LVS_EX_DOUBLEBUFFER     0x00010000
 #endif
+
+#define WD_ROOTNODE					"WindowsDlg"
+#define WD_CLMNNAME					"ColumnName"
+#define WD_CLMNPATH					"ColumnPath"
+#define WD_CLMNTYPE					"ColumnType"
 
 static const TCHAR *readonlyString = TEXT(" [Read Only]");
 const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
@@ -232,7 +238,8 @@ INT_PTR CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 	{
 		case WM_INITDIALOG :
 		{
-			changeDlgLang();
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			pNativeSpeaker->changeDlgLang(_hSelf, "Window");
 			return MyBaseClass::run_dlgProc(message, wParam, lParam);
 		}
 
@@ -455,55 +462,10 @@ void WindowsDlg::updateButtonState()
 	EnableWindow(GetDlgItem(_hSelf, IDC_WINDOWS_SORT), TRUE);
 }
 
-int WindowsDlg::doDialog(TiXmlNodeA *dlgNode)
+int WindowsDlg::doDialog()
 {
-	_dlgNode = dlgNode;
 	return static_cast<int>(DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent, dlgProc, reinterpret_cast<LPARAM>(this)));
 };
-
-bool WindowsDlg::changeDlgLang()
-{
-	if (!_dlgNode) return false;
-
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	int nativeLangEncoding = CP_ACP;
-	TiXmlDeclarationA *declaration =  _dlgNode->GetDocument()->FirstChild()->ToDeclaration();
-	if (declaration)
-	{
-		const char * encodingStr = declaration->Encoding();
-		EncodingMapper *em = EncodingMapper::getInstance();
-		nativeLangEncoding = em->getEncodingFromString(encodingStr);
-	}
-
-	// Set Title
-	const char *titre = (_dlgNode->ToElement())->Attribute("title");
-	if (titre && titre[0])
-	{
-		const wchar_t *nameW = wmc->char2wchar(titre, nativeLangEncoding);
-		::SetWindowText(_hSelf, nameW);
-	}
-
-	// Set the text of child control
-	for (TiXmlNodeA *childNode = _dlgNode->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
-	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
-		if (sentinel && (name && name[0]))
-		{
-			HWND hItem = ::GetDlgItem(_hSelf, id);
-			if (hItem)
-			{
-				const wchar_t *nameW = wmc->char2wchar(name, nativeLangEncoding);
-				::SetWindowText(hItem, nameW);
-			}
-		}
-	}
-	return true;
-}
 
 BOOL WindowsDlg::onInitDialog()
 {
@@ -533,17 +495,23 @@ BOOL WindowsDlg::onInitDialog()
 	memset(&lvColumn, 0, sizeof(lvColumn));
 	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
 	lvColumn.fmt = LVCFMT_LEFT;
+	
+	generic_string columnText;
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 
-	lvColumn.pszText = TEXT("\u21F5 Name");
+	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = width / 4;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
 
-	lvColumn.pszText = TEXT("\u21F5 Path");
+	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = 300;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
-	lvColumn.pszText = TEXT("\u21F5 Type");
+	columnText = TEXT("\u21F5 ") + pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = 50;
 	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
 
@@ -570,49 +538,58 @@ void WindowsDlg::updateColumnNames()
 	lvColumn.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT;
 	lvColumn.fmt = LVCFMT_LEFT;
 
+	generic_string columnText;
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Name"), WD_ROOTNODE, WD_CLMNNAME);
 	if (_currentColumn != 0)
 	{
-		lvColumn.pszText = TEXT("\u21F5 Name");
+		columnText = TEXT("\u21F5 ") + columnText;
 	}
 	else if (_reverseSort)
 	{
-		lvColumn.pszText = TEXT("\u25B3 Name");
+		columnText = TEXT("\u25B3 ") + columnText;
 	}
 	else
 	{
-		lvColumn.pszText = TEXT("\u25BD Name");
+		columnText = TEXT("\u25BD ") + columnText;
 	}
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 0, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 0, LPARAM(&lvColumn));
 
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Path"), WD_ROOTNODE, WD_CLMNPATH);
 	if (_currentColumn != 1)
 	{
-		lvColumn.pszText = TEXT("\u21F5 Path");
+		columnText = TEXT("\u21F5 ") + columnText;
 	}
 	else if (_reverseSort)
 	{
-		lvColumn.pszText = TEXT("\u25B3 Path");
+		columnText = TEXT("\u25B3 ") + columnText;
 	}
 	else
 	{
-		lvColumn.pszText = TEXT("\u25BD Path");
+		columnText = TEXT("\u25BD ") + columnText;
 	}
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 1, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 1, LPARAM(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
+	columnText = pNativeSpeaker->getAttrNameStr(TEXT("Type"), WD_ROOTNODE, WD_CLMNTYPE);
 	if (_currentColumn != 2)
 	{
-		lvColumn.pszText = TEXT("\u21F5 Type");
+		columnText = TEXT("\u21F5 ") + columnText;
 	}
 	else if (_reverseSort)
 	{
-		lvColumn.pszText = TEXT("\u25B3 Type");
+		columnText = TEXT("\u25B3 ") + columnText;
 	}
 	else
 	{
-		lvColumn.pszText = TEXT("\u25BD Type");
+		columnText = TEXT("\u25BD ") + columnText;
 	}
+	lvColumn.pszText = const_cast<TCHAR *>(columnText.c_str());
 	lvColumn.cx = static_cast<int>(SendMessage(_hList, LVM_GETCOLUMNWIDTH, 2, 0));
 	SendMessage(_hList, LVM_SETCOLUMN, 2, LPARAM(&lvColumn));
 }

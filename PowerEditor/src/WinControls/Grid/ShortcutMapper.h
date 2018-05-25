@@ -38,11 +38,8 @@ enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTIL
 class ShortcutMapper : public StaticDialog {
 public:
 	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {
-		generic_strncpy(tabNames[0], TEXT("Main menu"), maxTabName);
-		generic_strncpy(tabNames[1], TEXT("Macros"), maxTabName);
-		generic_strncpy(tabNames[2], TEXT("Run commands"), maxTabName);
-		generic_strncpy(tabNames[3], TEXT("Plugin commands"), maxTabName);
-		generic_strncpy(tabNames[4], TEXT("Scintilla commands"), maxTabName);
+		_shortcutFilter = TEXT("");
+		_dialogInitDone = false;
 	};
 	~ShortcutMapper() {};
 
@@ -64,30 +61,35 @@ public:
 			::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTMAPPER_DLG), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 	};
 	void getClientRect(RECT & rc) const;
-	void translateTab(int index, const TCHAR * newname);
 
 	bool findKeyConflicts(__inout_opt generic_string * const keyConflictLocation,
 							const KeyCombo & itemKeyCombo, const size_t & itemIndex) const;
+
+	generic_string ShortcutMapper::getTextFromCombo(HWND hCombo);
+	bool ShortcutMapper::isFilterValid(Shortcut);
+	bool ShortcutMapper::isFilterValid(PluginCmdShortcut sc);
 
 protected :
 	INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	static const int maxTabName = 64;
 	BabyGridWrapper _babygrid;
 	ContextMenu _rightClickMenu;
 
 	GridState _currentState;
 	HWND _hTabCtrl = nullptr;
 
-	TCHAR tabNames[5][maxTabName];
+	const static int _nbTab = 5;
+	generic_string _tabNames[_nbTab];
+	generic_string _shortcutFilter;
+	std::vector<size_t> _shortcutIndex;
 
 	//save/restore the last view
 	std::vector<size_t> _lastHomeRow;
 	std::vector<size_t> _lastCursorRow;
 
-	const generic_string _defaultInfo = TEXT("No shortcut conflicts for this item.");
-	const generic_string _assignInfo  = TEXT("No conflicts . . .");
+	generic_string _conflictInfoOk;
+	generic_string _conflictInfoEditing;
 
 	std::vector<HFONT> _hGridFonts;
 
@@ -97,10 +99,16 @@ private:
 		GFONT_ROWS,
 		MAX_GRID_FONTS
 	};
+	LONG _clientWidth;
+	LONG _clientHeight;
+	LONG _initClientWidth;
+	LONG _initClientHeight;
+	bool _dialogInitDone;
 
 	void initTabs();
 	void initBabyGrid();
 	void fillOutBabyGrid();
+	generic_string getTabString(size_t i) const;
 
 	bool isConflict(const KeyCombo & lhs, const KeyCombo & rhs) const
 	{

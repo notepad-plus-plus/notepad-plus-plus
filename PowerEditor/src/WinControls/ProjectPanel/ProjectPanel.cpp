@@ -161,11 +161,26 @@ void ProjectPanel::checkIfNeedSave(const TCHAR *title)
 	if (_isDirty)
 	{
 		display();
-		int res = ::MessageBox(_hSelf, TEXT("The workspace was modified. Do you want to save it?"), title, MB_YESNO | MB_ICONQUESTION);
+		
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		int res = pNativeSpeaker->messageBox("ProjectPanelChanged",
+			_hSelf,
+			TEXT("The workspace was modified. Do you want to save it?"),
+			TEXT("$STR_REPLACE$"),
+			MB_YESNO | MB_ICONQUESTION,
+			0,
+			title);
+
 		if (res == IDYES)
 		{
 			if (!saveWorkSpace())
-				::MessageBox(_hSelf, TEXT("Your workspace was not saved."), title, MB_OK | MB_ICONERROR);
+				pNativeSpeaker->messageBox("ProjectPanelChangedSaveError",
+					_hSelf,
+					TEXT("Your workspace has not been saved."),
+					TEXT("$STR_REPLACE$"),
+					MB_OK | MB_ICONERROR,
+					0,
+					title);
 		}
 		//else if (res == IDNO)
 			// Don't save so do nothing here
@@ -843,7 +858,12 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Do you want to save the current project?"), TEXT("New Workspace"), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+				int res = pNativeSpeaker->messageBox("ProjectPanelNewDoSaveDirtyWsOrNot",
+					_hSelf,
+					TEXT("The current workspace was modified. Do you want to save the current project?"),
+					TEXT("New Workspace"),
+					MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
 				{
 					if (!saveWorkSpace())
@@ -909,9 +929,16 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_OPENWS:
 		{
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			if (_isDirty)
 			{
-				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Do you want to save the current project?"), TEXT("Open Workspace"), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				
+				int res = pNativeSpeaker->messageBox("ProjectPanelOpenDoSaveDirtyWsOrNot",
+					_hSelf,
+					TEXT("The current workspace was modified. Do you want to save the current project?"),
+					TEXT("Open Workspace"),
+					MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				
 				if (res == IDYES)
 				{
 					if (!saveWorkSpace())
@@ -934,7 +961,11 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			{
 				if (!openWorkSpace(fn))
 				{
-					::MessageBox(_hSelf, TEXT("The workspace could not be opened.\rIt seems the file to open is not a valid project file."), TEXT("Open Workspace"), MB_OK);
+					pNativeSpeaker->messageBox("ProjectPanelOpenFailed",
+						_hSelf,
+						TEXT("The workspace could not be opened.\rIt seems the file to open is not a valid project file."),
+						TEXT("Open Workspace"),
+						MB_OK);
 					return;
 				}
 			}
@@ -943,9 +974,15 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_RELOADWS:
 		{
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 			if (_isDirty)
 			{
-				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Reloading will discard all modifications.\rDo you want to continue?"), TEXT("Reload Workspace"), MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+				int res = pNativeSpeaker->messageBox("ProjectPanelReloadDirty",
+					_hSelf,
+					TEXT("The current workspace was modified. Reloading will discard all modifications.\rDo you want to continue?"),
+					TEXT("Reload Workspace"),
+					MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+
 				if (res == IDYES)
 				{
 					// Do nothing
@@ -962,7 +999,11 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			}
 			else
 			{
-				::MessageBox(_hSelf, TEXT("Cannot find the file to reload."), TEXT("Reload Workspace"), MB_OK | MB_ICONEXCLAMATION | MB_APPLMODAL);
+				pNativeSpeaker->messageBox("ProjectPanelReloadError",
+					_hSelf,
+					TEXT("Cannot find the file to reload."),
+					TEXT("Reload Workspace"),
+					MB_OK);
 			}
 		}
 		break;
@@ -984,8 +1025,13 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 			if (_treeView.getChildFrom(hTreeItem) != NULL)
 			{
-				TCHAR str2display[MAX_PATH] = TEXT("All the sub-items will be removed.\rAre you sure you want to remove this folder from the project?");
-				if (::MessageBox(_hSelf, str2display, TEXT("Remove folder from project"), MB_YESNO) == IDYES)
+				NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+				int res = pNativeSpeaker->messageBox("ProjectPanelRemoveFolderFromProject",
+					_hSelf,
+					TEXT("All the sub-items will be removed.\rAre you sure you want to remove this folder from the project?"),
+					TEXT("Remove folder from project"),
+					MB_YESNO);
+				if (res == IDYES)
 				{
 					_treeView.removeItem(hTreeItem);
 					setWorkSpaceDirty(true);
@@ -1004,9 +1050,14 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		case IDM_PROJECT_DELETEFILE :
 		{
 			HTREEITEM parent = _treeView.getParent(hTreeItem);
-
-			TCHAR str2display[MAX_PATH] = TEXT("Are you sure you want to remove this file from the project?");
-			if (::MessageBox(_hSelf, str2display, TEXT("Remove file from project"), MB_YESNO) == IDYES)
+			
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			int res = pNativeSpeaker->messageBox("ProjectPanelRemoveFileFromProject",
+				_hSelf,
+				TEXT("Are you sure you want to remove this file from the project?"),
+				TEXT("Remove file from project"),
+				MB_YESNO);
+			if (res == IDYES)
 			{
 				_treeView.removeItem(hTreeItem);
 				setWorkSpaceDirty(true);
@@ -1129,7 +1180,7 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 			}
 			else if (isRecursive)
 			{
-				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
+				if ((OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT(".")) != 0) && (OrdinalIgnoreCaseCompareStrings(foundData.cFileName, TEXT("..")) != 0))
 				{
 					generic_string pathDir(folderPath);
 					if (folderPath[lstrlen(folderPath)-1] != '\\')

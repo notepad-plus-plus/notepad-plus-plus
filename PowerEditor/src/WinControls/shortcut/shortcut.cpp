@@ -27,6 +27,7 @@
 
 
 #include <algorithm>
+#include <array>
 #include "shortcut.h"
 #include "Parameters.h"
 #include "ScintillaEditView.h"
@@ -389,8 +390,13 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 
 			if (iFound != -1)
 				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_SETCURSEL, iFound, 0);
-			::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled()?SW_HIDE:SW_SHOW);
+			
+			// Hide this warning on startup
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), SW_HIDE);
+			
 			updateConflictState();
+			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance()->getNativeLangSpeaker();
+			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
 			goToCenter();
 			return TRUE;
 		}
@@ -467,10 +473,7 @@ INT_PTR CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 // return true if one of CommandShortcuts is deleted. Otherwise false.
 void Accelerator::updateShortcuts() 
 {
-	vector<int> incrFindAccIds;
-	incrFindAccIds.push_back(IDM_SEARCH_FINDNEXT);
-	incrFindAccIds.push_back(IDM_SEARCH_FINDPREV);
-	incrFindAccIds.push_back(IDM_SEARCH_FINDINCREMENT);
+	const array<unsigned long, 3> incrFindAccIds = { IDM_SEARCH_FINDNEXT, IDM_SEARCH_FINDPREV, IDM_SEARCH_FINDINCREMENT };
 
 	NppParameters *pNppParam = NppParameters::getInstance();
 
@@ -612,9 +615,10 @@ void Accelerator::updateMenuItemByCommand(CommandShortcut csc)
 {
 	int cmdID = csc.getID();
 	
-	//  Ensure that the menu item checks set prior to this update remain in affect.
+	// Ensure that the menu item checks set prior to this update remain in affect.
+	// Ensure that the menu item state is also maintained
 	UINT cmdFlags = GetMenuState(_hAccelMenu, cmdID, MF_BYCOMMAND );
-	cmdFlags = MF_BYCOMMAND | ((cmdFlags&MF_CHECKED) ? MF_CHECKED : MF_UNCHECKED);
+	cmdFlags = MF_BYCOMMAND | ((cmdFlags&MF_CHECKED) ? MF_CHECKED : MF_UNCHECKED) | ((cmdFlags&MF_DISABLED) ? MF_DISABLED : MF_ENABLED);
 	::ModifyMenu(_hAccelMenu, cmdID, cmdFlags, cmdID, csc.toMenuItemString().c_str());
 }
 
@@ -777,7 +781,8 @@ void ScintillaKeyMap::applyToCurrentIndex()
 
 }
 
-void ScintillaKeyMap::validateDialog() {
+void ScintillaKeyMap::validateDialog()
+{
 	bool valid = isValid();	//current combo valid?
 	bool isDisabling = _keyCombo._key == 0;	//true if this keycombo were to disable the shortcut
 	bool isDisabled = !isEnabled();	//true if this shortcut already is 
@@ -845,6 +850,11 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			showCurrentSettings();
 			validateDialog();
 
+			// Hide this warning on startup
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), SW_HIDE);
+
+			NativeLangSpeaker* nativeLangSpeaker = NppParameters::getInstance()->getNativeLangSpeaker();
+			nativeLangSpeaker->changeDlgLang(_hSelf, "ShortcutMapperSubDialg");
 			goToCenter();
 			return TRUE;
 		}
@@ -855,19 +865,16 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			{
 				case IDC_CTRL_CHECK :
 					_keyCombo._isCtrl = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
-					//applyToCurrentIndex();
 					validateDialog();
 					return TRUE;
 
 				case IDC_ALT_CHECK :
 					_keyCombo._isAlt = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
-					//applyToCurrentIndex();
 					validateDialog();
 					return TRUE;
 
 				case IDC_SHIFT_CHECK :
 					_keyCombo._isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, static_cast<int32_t>(wParam), BM_GETCHECK, 0, 0);
-					//applyToCurrentIndex();
 					validateDialog();
 					return TRUE;
 
@@ -934,7 +941,7 @@ INT_PTR CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 							{
 								auto i = ::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_GETCURSEL, 0, 0);
 								_keyCombo._key = namedKeyArray[i].id;
-								//applyToCurrentIndex();
+								::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled() ? SW_HIDE : SW_SHOW);
 								validateDialog();
 								return TRUE;
 							}

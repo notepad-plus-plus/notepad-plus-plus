@@ -86,7 +86,7 @@
             <Keywords name="instre2">sr kr ar ksmps nchnls</Keywords>
             <Keywords name="type1"></Keywords>
         </Language>
-        <Language name="coffeescript" ext="litcoffee" commentLine="#" commentStart="" commentEnd="">
+        <Language name="coffeescript" ext="coffee litcoffee" commentLine="#" commentStart="" commentEnd="">
             <Keywords name="instre1">new instanceof do return break continue throw for while until loop if else unless switch when then in of by typeof delete where try catch finally prototype jQuery case default function var void with const let enum export import native __hasProp __extends __slice __bind __indexOf</Keywords>
             <Keywords name="instre2">Object Number Boolean Array String RegExp Function Date Math eval setInterval clearInterval setTimeout clearTimeout isFinite isNaN parseFloat parseInt escape unescape console encodeURI encodeURIComponent decodeURI decodeURIComponent window document navigator location history screen alert prompt process GLOBAL require exports</Keywords>
             <Keywords name="type2">false true yes no on off undefined null NaN Infinity</Keywords>

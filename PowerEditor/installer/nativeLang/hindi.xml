@@ -4,22 +4,10 @@
 
 	** created By:- Rathin A. Dholakia **
 		Email- rathin2j@gmail.com
-	** Updated on 20/08/2016 by Rajendra Singh (singh.rajen15@gmail.com) **
-		- Corrected few translation
-	** Updated on 20/08/2016 by Rajendra Singh (singh.rajen15@gmail.com) **
-		- Corrected/updated whole translation (used user friendly words)
-		- Synced with english.xml (easy to compare with diff tool such as Beyond compare)
-		- Update for v7.0 (added missing strings)
-		- Added/updated translation in such a way so that it should not run out of space for the control which has limited width
-	** Updated on 25/01/2017 by Rajendra Singh (singh.rajen15@gmail.com) **
-		- Added translation for new strings as per V7.3.1
-	** Updated on 25/02/2017 by Rajendra Singh (singh.rajen15@gmail.com) **
-		- Added translation for new strings as per V7.3.2
-	** Updated on 14/05/2017 by Rajendra Singh (singh.rajen15@gmail.com) **
-		- Added translation for new strings as per V7.4
+	** Last Updated on 05/04/2018 by Rajendra Singh (singh.rajen15@gmail.com) **
 -->
 <NotepadPlus>
-  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5">
+  <Native-Langue name="हिन्दी" filename="hindi.xml" version="7.5.6">
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
@@ -107,7 +95,7 @@
           <Item id="41013" name="सत्र सेव करें..."/>
           <Item id="41014" name="डिस्क से पुनः लोड करें"/>
           <Item id="41015" name="कॉपी सेव करें..."/>
-          <Item id="41016" name="डिस्क से मिटायें "/>
+          <Item id="41016" name="रीसायकल बिन में मूव करें"/>
           <Item id="41017" name="पुनःनामांकन..."/>
           <Item id="41021" name="हाल ही में बंद फाइल को पुनः खोलें"/>
           <Item id="41022" name="फोल्डर वर्कस्पेस की तरह खोलें "/>
@@ -137,8 +125,8 @@
           <Item id="42066" name="लाइनों को दशमलव (Dot) अवरोही क्रम में व्यवस्थित करें"/>
           <Item id="42016" name="अपर केस"/>
           <Item id="42017" name="लोअर केस"/>
-          <Item id="42067" name="टाइटल  केस"/>
-          <Item id="42068" name="टाइटल  केस (blend)"/>
+          <Item id="42067" name="प्रॉपर  केस"/>
+          <Item id="42068" name="प्रॉपर  केस (blend)"/>
           <Item id="42069" name="सेंटेंस  केस "/>
           <Item id="42070" name="सेंटेंस  केस (blend)"/>
           <Item id="42071" name="इन्वर्ट  केस(iNVERT cASE)"/>
@@ -236,13 +224,13 @@
           <Item id="43048" name="चयनित करे और अगला खोजें"/>
           <Item id="43049" name="चयनित करें और पिछला ख़ोजें"/>
           <Item id="43054" name="चिन्ह लगाएं (Mark)..."/>
-          <Item id="44009" name="ईसे-डाले (post-it)"/>
+          <Item id="44009" name="इसे-डाले (post-it)"/>
           <Item id="44010" name="सभी गड़ी करें"/>
-	  <Item id="44019" name="सभी कैरक्टर्स दिखायें"/>
+          <Item id="44019" name="सभी कैरक्टर्स दिखायें"/>
           <Item id="44020" name="ईन्डेन्ट मार्ग दर्शक दिखायें"/>
-          <Item id="44022" name="लपेटें (Wrap)"/>
-          <Item id="44023" name="&amp;बड़ा करें Ctrl+Mouse Wheel Up"/>
-          <Item id="44024" name="&amp;छोटा करें Ctrl+Mouse Wheel Down"/>
+          <Item id="44022" name="वर्ड रैप (Word Wrap)"/>
+          <Item id="44023" name="&amp;बड़ा करें (Ctrl+Mouse Wheel Up)"/>
+          <Item id="44024" name="&amp;छोटा करें (Ctrl+Mouse Wheel Down)"/>
           <Item id="44025" name="रिक्त जगह और टैब दिखायें"/>
           <Item id="44026" name="लाईन का अंत दिखायें"/>
           <Item id="44029" name="सभी गड़ी खोल दें"/>
@@ -276,19 +264,19 @@
           <Item id="44081" name="प्रोजेक्ट पैनल 1"/>
           <Item id="44082" name="प्रोजेक्ट पैनल 2"/>
           <Item id="44083" name="प्रोजेक्ट पैनल 3"/>
-          <Item id="45001" name="WINDOWS फॉर्मेट में रूपांतरित करें"/>
-          <Item id="45002" name="UNIX फॉर्मेट में रूपांतरित करें"/>
-          <Item id="45003" name="MAC फॉर्मेट में रूपांतरित करें"/>
+          <Item id="45001" name="Windows (CR LF)"/>
+          <Item id="45002" name="Unix (LF)"/>
+          <Item id="45003" name="Macintosh (CR)"/>
           <Item id="45004" name="ANSI में एन्कोड करें"/>
-          <Item id="45005" name="UTF-8 में एन्कोड करें"/>
-          <Item id="45006" name="UCS-2 Big Endian में एन्कोड करें"/>
-          <Item id="45007" name="UCS-2 Little Endian में एन्कोड करें"/>
-          <Item id="45008" name="UTF-8 without BOM में एन्कोड करें"/>
+          <Item id="45005" name="UTF-8-BOM में एन्कोड करें"/>
+          <Item id="45006" name="UCS-2 BE BOM में एन्कोड करें"/>
+          <Item id="45007" name="UCS-2 LE BOM में एन्कोड करें"/>
+          <Item id="45008" name="UTF-8 में एन्कोड करें"/>
           <Item id="45009" name="ANSI में रूपांतरित करें"/>
-          <Item id="45010" name="UTF-8 without BOM में रूपांतरित करें"/>
-          <Item id="45011" name="UTF-8 में रूपांतरित करें"/>
-          <Item id="45012" name="UCS-2 Big Endian में रूपांतरित करें"/>
-          <Item id="45013" name="UCS-2 Little Endian में रूपांतरित करें"/>
+          <Item id="45010" name="UTF-8 में रूपांतरित करें"/>
+          <Item id="45011" name="UTF-8-BOM में रूपांतरित करें"/>
+          <Item id="45012" name="UCS-2 BE BOM में रूपांतरित करें"/>
+          <Item id="45013" name="UCS-2 LE BOM में रूपांतरित करें"/>
 
           <Item id="10001" name="दूसरे व्यू में जायें"/>
           <Item id="10002" name="दूसरे व्यू में क्लोन करें"/>
@@ -296,9 +284,9 @@
           <Item id="10004" name="नया इंस्टैंस खोलें"/>
 
           <Item id="46001" name="स्टाइल कॉन्फिगुरेटर..."/>
-          <Item id="46250" name="अपनी भासा बनायें..."/>
+          <Item id="46250" name="अपनी भाषा बनायें..."/>
           <Item id="46180" name="उपयोगकर्ता निर्दीष्ट"/>
-          <Item id="47000" name="Notepad++ के बारे में..."/>
+          <Item id="47000" name="Notepad++ के बारे में"/>
           <Item id="47010" name="कमांड लाइन आर्ग्यूमेंट्स..."/>
           <Item id="47001" name="Notepad++ होम"/>
           <Item id="47002" name="Notepad++ प्रोजेक्ट पेज"/>
@@ -309,14 +297,14 @@
           <Item id="47005" name="और प्लग-इन पायें"/>
           <Item id="47006" name="Notepad++ अपडेट करें"/>
           <Item id="47009" name="Set Updater Proxy..."/>
-          <Item id="48005" name="Plugin(s) आयात करें..."/>
-          <Item id="48006" name="Theme(s) आयात करें..."/>
-	  <Item id="48018" name="एडिट पॉपअप कॉन्टेक्स्ट मेनू"/>
+          <Item id="48005" name="प्लग इन (Plugin) इम्पोर्ट करें..."/>
+          <Item id="48006" name="स्टाइल थीम (Theme) इम्पोर्ट करें..."/>
+          <Item id="48018" name="एडिट पॉपअप कॉन्टेक्स्ट मेनू"/>
           <Item id="48009" name="शॉर्टकट मेपर..."/>
           <Item id="48011" name="पसंदगी (Preferences)..."/>
-	  <Item id="48501" name="जनरेट करें..."/>
-	  <Item id="48502" name="फाइल्स से जनरेट करें..."/>
-	  <Item id="48503" name="क्लिपबोर्ड पर जनरेट करें"/>
+          <Item id="48501" name="जनरेट करें..."/>
+          <Item id="48502" name="फाइल्स से जनरेट करें..."/>
+          <Item id="48503" name="क्लिपबोर्ड पर जनरेट करें"/>
           <Item id="49000" name="&amp;चलायें (Run)..."/>
 
           <Item id="50000" name="फंक्शन समापन"/>
@@ -369,8 +357,8 @@
         <Item id="1605" name="&amp;रेग्युलर एक्स्प्रेशन"/>
         <Item id="1606" name="&amp;आजुबाजु लपेटें"/>
         <Item id="1614" name="गिनती"/>
-        <Item id="1615" name="सब ख़ोजें"/>
-        <Item id="1616" name="लाईन चिन्हित करें"/>
+        <Item id="1615" name="सब मार्क करो"/>
+        <Item id="1616" name="लाईन मार्क करें"/>
         <Item id="1618" name="हरेक खोज साफ़ (Purge) करें"/>
         <Item id="1611" name="&amp;के साथ बदलें:"/>
         <Item id="1608" name="&amp;बदलें"/>
@@ -378,7 +366,7 @@
         <Item id="1687" name="फोकस गँवाने पर"/>
         <Item id="1688" name="हमेशा"/>
         <Item id="1632" name="चयन में"/>
-        <Item id="1633" name="साफ़"/>
+        <Item id="1633" name="सभी मार्क्स हटाएं"/>
         <Item id="1635" name="सभी खुले दस्तावेजों में सब बदलें"/>
         <Item id="1636" name="सभी खुले दस्तावेज़ों में सब ख़ोजें"/>
         <Item id="1654" name="फिल्टर्स"/>
@@ -468,6 +456,34 @@
 
       </StyleConfig>
 
+      <ShortcutMapper title="शॉर्टकट मैपर">
+          <Item id="2602" name="मॉडिफाई करें"/>
+          <Item id="2603" name="डिलीट करें"/>
+          <Item id="2606" name="क्लियर करें"/>
+          <Item id="2607" name="फ़िल्टर: "/>
+          <Item id="1" name="बंद करें"/>
+          <ColumnName name="नाम"/>
+          <ColumnShortcut name="शॉर्टकट"/>
+          <ColumnCategory name="वर्ग (कैटेगरी)"/>
+          <ColumnPlugin name="प्लगिन"/>
+          <MainMenuTab name="मुख्य मेनू"/>
+          <MacrosTab name="मैक्रोज"/>
+          <RunCommandsTab name="रन कमांडस"/>
+          <PluginCommandsTab name="प्लगिन कमांडस"/>
+          <ScintillaCommandsTab name="स्किनटिला कमांडस"/>
+          <ConflictInfoOk name="इस आइटम के लिए कोई शॉर्टकट conflict नहीं है।"/>
+          <ConflictInfoEditing name="कोई conflict नहीं . . ."/>
+      </ShortcutMapper>
+      <ShortcutMapperSubDialg title="शॉर्टकट">
+          <Item id="1" name="ओके"/>
+          <Item id="2" name="रद्द करें"/>
+          <Item id="5006" name="नाम"/>
+          <Item id="5008" name="जोड़ें"/>
+          <Item id="5009" name="हटायें"/>
+          <Item id="5010" name="अप्लाई करें"/>
+          <Item id="5007" name="यह इस कमांड से शॉर्टकट को निकाल देगा"/>
+          <Item id="5012" name="CONFLICT मिला!"/>
+      </ShortcutMapperSubDialg>
       <UserDefine title="यूजर-डिफ़ाईन्ड">
         <Item id="20001" name="डॉक"/>
         <Item id="20002" name="पुनः नामांकन"/>
@@ -581,10 +597,10 @@
           <Item id="23220" name="स्टाइलर"/>
           <Item id="23230" name="उपसर्ग (Prefix) 1"/>
           <Item id="23232" name="उपसर्ग (Prefix) 2"/>
-          <Item id="23234" name="उपसर्ग (Prefix) 1"/>
-          <Item id="23236" name="उपसर्ग (Prefix) 2"/>
-          <Item id="23238" name="उपसर्ग (Prefix) 1"/>
-          <Item id="23240" name="उपसर्ग (Prefix) 2"/>
+          <Item id="23234" name="अतिरिक्त (Extras) 1"/>
+          <Item id="23236" name="अतिरिक्त (Extras) 2"/>
+          <Item id="23238" name="प्रत्यय (Suffix) 1"/>
+          <Item id="23240" name="प्रत्यय (Suffix) 2"/>
           <Item id="23242" name="रेंज:"/>
           <Item id="23244" name="दशमलव विभाजक"/>
           <Item id="23245" name="डॉट (Dot)"/>
@@ -661,7 +677,7 @@
           <Item id="6120" name="लंबरूप (Vertical)"/>
           <Item id="6121" name="आखिरी टैब बंद करने पर बाहर निकलें"/>
 
-          <Item id="6122" name="छिपायें (टॉगल के लिए Alt या F10 का प्रयोग करें)"/>
+          <Item id="6122" name="मेनू बार को छिपायें (टॉगल के लिए Alt या F10 का प्रयोग करें)"/>
           <Item id="6123" name="लोकलाइजेशन (Localization)"/>
 
           <Item id="6125" name="दस्तावेज़ सूची पैनल"/>
@@ -691,7 +707,7 @@
           <Item id="6206" name="लाईन नंबर दिखायें"/>
           <Item id="6207" name="बूकमार्क दिखायें"/>
           <Item id="6208" name="खड़ी किनार दिखायें"/>
-          <Item id="6209" name="कॉलम की संख्या: "/>
+          <Item id="6209" name="कॉलम की संख्या : "/>
           <Item id="6234" name="एडवांस स्क्रॉलिंग फीचर निष्क्रिय करें
 (यदि आपको touchpad की समस्या है)"/>
 
@@ -706,17 +722,17 @@
         </Scintillas>
 
         <NewDoc title="नया दस्तावेज़">
-          <Item id="6401" name="फॉर्मेट"/>
-          <Item id="6402" name="Windows"/>
-          <Item id="6403" name="Unix"/>
-          <Item id="6404" name="Mac"/>
+          <Item id="6401" name="फॉर्मेट (लाइन एन्डिंग)"/>
+          <Item id="6402" name="Windows (CR LF)"/>
+          <Item id="6403" name="Unix (LF)"/>
+          <Item id="6404" name="Macintosh (CR)"/>
           <Item id="6405" name="एन्कोडिंग (Encoding)"/>
           <Item id="6406" name="ANSI"/>
           <Item id="6407" name="UTF-8"/>
           <Item id="6408" name="UTF-8 with BOM"/>
           <Item id="6409" name="UCS-2 Big Endian with BOM"/>
           <Item id="6410" name="UCS-2 Little Endian with BOM"/>
-          <Item id="6411" name="डिफ़ाल्ट भाषा:"/>
+          <Item id="6411" name="डिफ़ाल्ट भाषा :"/>
           <Item id="6419" name="नया दस्तावेज़"/>
           <Item id="6420" name="खुली हुयी ANSI फाइलों पर अप्लाई करें "/>
         </NewDoc>
@@ -725,7 +741,7 @@
           <Item id="6413" name="डिफ़ॉल्ट डायरेक्टरी (खोलें/सेव करें)"/>
           <Item id="6414" name="वर्तमान दस्तावेज़ का अनुसरण करें"/>
           <Item id="6415" name="पिछली इस्तेमाल डायरेक्टरी याद रखें"/>
-          <Item id="6430" name="नई स्टाइल के सेव डायलॉग का प्रयॉग करें (बिना फाइल ext के)"/>
+          <Item id="6430" name="नए स्टाइल डायलॉग का प्रयोग करें (बिना फाइल ext के; Unix स्टाइल पाथ कैपेसिटी)"/>
           <Item id="6431" name="फोल्डर ड्रैग करने पर, फोल्डर एज वर्कस्पेस की बजाय फोल्डर की सभी फाइलें खोलें "/>
         </DefaultDir>
 
@@ -746,7 +762,7 @@
 	
 	<Highlighting title="हाईलाईटिंग">
           <Item id="6333" name="स्मार्ट हाइलाइटिंग"/>
-	  <Item id="6326" name="स्मार्ट हाइलाइटिंग सक्रिय करें"/>
+	  <Item id="6326" name="सक्रिय करें"/>
 	  <Item id="6332" name="केस मिलाएं (Match case)"/>
 	  <Item id="6338" name="केवल संपूर्ण शब्द मिलाएं"/>
 	  <Item id="6339" name="Find dialog की सेटिंग्स का प्रयोग करें"/>
@@ -764,7 +780,7 @@
           <Item id="6604" name="उल्टा"/>
           <Item id="6605" name="सफ़ेद पर काला"/>
           <Item id="6606" name="रंगहिन पृस्ठभुमि"/>
-          <Item id="6607" name="मर्ज सेटिंग्स (Unit:mm)"/>
+          <Item id="6607" name="मार्जिन सेटिंग्स (Unit:mm)"/>
           <Item id="6612" name="बाएं"/>
           <Item id="6613" name="टॉप"/>
           <Item id="6614" name="दाएं"/>
@@ -802,10 +818,10 @@
           <Item id="6817" name="सत्र स्नैपशॉट और समय-समय पर बैकअप"/>
           <Item id="6818" name="सत्र स्नैपशॉट और समय-समय पर बैकअप सक्रिय करें"/>
           <Item id="6819" name="बैकअप हरैक"/>
-          <Item id="6821" name="seconds"/>
+          <Item id="6821" name="सेकंड"/>
           <Item id="6822" name="बैकअप पाथ:"/>
           <Item id="6309" name="अगले लांच के लिए वर्तमान सत्र याद रखें"/>
-          <Item id="6801" name="बैकअप"/>
+          <Item id="6801" name="सेव करने पर बैकअप"/>
           <Item id="6315" name="कुछ नहीं (None)"/>
           <Item id="6316" name="सामान्य बैकअप"/>
           <Item id="6317" name="वर्बोस (Verbose) बैकअप"/>
@@ -842,7 +858,7 @@
         </MultiInstance>
 
         <Delimiter title="डिलिमिटर">
-          <Item id="6251" name="डिलिमिटर चयन सेटिंग्स (Ctrl + माउस डबल क्लिक)"/>
+          <Item id="6251" name="डिलिमिटर चयन सेटिंग्स (Ctrl+माउस डबल क्लिक)"/>
           <Item id="6252" name="खोलें"/>
           <Item id="6255" name="बंद करें"/>
           <Item id="6256" name="कई लाइनों पर अनुमति दें"/>
@@ -923,23 +939,95 @@
         <Item id="1" name="ओके"/>
         <Item id="2" name="रद्द करें"/>
       </ColumnEditor>
+      <FindInFinder title="फाइंडर में खोजें">
+        <Item id="1"    name="सभी ढूंढें"/>
+        <Item id="2"    name="बंद करे"/>
+        <Item id="1711" name="क्या खोजना है:"/>
+        <Item id="1713" name="केवल उपलब्ध लाइनों में खोजें"/>
+        <Item id="1714" name="केवल पूर्ण शब्द मिलाएं"/>
+        <Item id="1715" name="केस मिलाएँ"/>
+        <Item id="1716" name="खोज मोड"/>
+        <Item id="1717" name="नॉर्मल"/>
+        <Item id="1719" name="रेगुलर एक्सप्रेशन"/>
+        <Item id="1718" name="विस्तृत (\n, \r, \t, \0, \x...)"/>
+        <Item id="1720" name="्यूलाइन मैच करें"/>
+      </FindInFinder>
     </Dialog>
-    <MessageBox>
+    <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
       <ContextMenuXmlEditWarning title="Context Menu एडिटिंग" message="ContextMenu.xml एडिट करके आप Notepad++ के पॉपअप कॉन्टेक्स्ट मेनू बदल सकतें हैं| ContextMenu.xml एडिट करने के बाद, बदलाव देखने के लिए Notepad++ को बंद करके पुनः खोलें|"/>
       <NppHelpAbsentWarning title="फाइल मौजूद नहीं है" message="\rमौजूद नहीं है| कृपया इसे Notepad ++ साइट से डाउनलोड करें।"/>
-      <SaveCurrentModifWarning title="वर्तमान बदलाव सेव करें" message="आपको वर्तमान संशोधन रक्षित करना चाहिए| सभी रक्षित संशोधन वापिस नहीं बदले जा सकते हैं|     Continue?"/>
-      <LoseUndoAbilityWarning title="पूर्ववत करने की क्षमता के खोने की चेतावनी" message="आपको वर्तमान संशोधन रक्षित करना चाहिए| सभी रक्षित संशोधन वापिस नहीं बदले जा सकते हैं|    Continue?"/>
+      <SaveCurrentModifWarning title="वर्तमान बदलाव सेव करें" message="आपको वर्तमान संशोधन रक्षित करना चाहिए| सभी रक्षित संशोधन वापिस नहीं बदले जा सकते हैं|     जारी रखें?"/>
+      <LoseUndoAbilityWarning title="पूर्ववत करने की क्षमता के खोने की चेतावनी" message="आपको वर्तमान संशोधन रक्षित करना चाहिए| सभी रक्षित संशोधन वापिस नहीं बदले जा सकते हैं|    जारी रखें?"/>
       <CannotMoveDoc title="नए Notepad++ इंस्टैंस में मूव करें" message="दस्तावेज़ संशोधित किया गया है, इसे सेव करें, उसके बाद फिर से प्रयास करें।"/>
       <DocReloadWarning title="रीलोड (Reload)" message="क्या आप मौजूदा फ़ाइल में Notepad++ में किए गए परिवर्तनों को भूल कर इसे फिर से लोड करना चाहते हैं?"/>
       <FileLockedWarning title="सेव फेल हुआ (Save failed)" message="जाँच करें कि क्या किसी अन्य कार्यक्रम ने इस फाइल को खोल रखा है!"/>
       <FileAlreadyOpenedInNpp title="" message="यह फाइल पहले से ही Notepad++ में खुली हुयी है।"/>
       <DeleteFileFailed title="फ़ाइल नष्ट करें" message="फ़ाइल को नष्ट करना विफल रहा है।"/>
 
-      <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-      <NbFileToOpenImportantWarning title="खोलने के लिए फ़ाइलों की राशि बहुत बड़ी है" message="$INT_REPLACE$ फ़ाइलों खुलने ही वाली हैं। आप उन्हें खोलने के लिए सुनिश्चित कर रहे हैं?"/>
-      <SettingsOnCloudError title="क्लाउड (cloud) की सेटिंग्स" message="ऐसा लगता है कि क्लाउड (cloud) का सेटिंग पाथ रीड ओनली है या फिर आवश्यक फोल्डर पर राइट एक्सेस (write access) चाहिए। आपकी क्लाउड (cloud) की सेटिंग्स को रद्द कर दिया जायेगा। कृप्या प्रैफरेंसेज डायलॉग (preferences dialog) से एक सुसंगत (coherent ) मूल्य रीसेट करें।"/>
+      <NbFileToOpenImportantWarning title="खोलने के लिए फ़ाइलों की राशि बहुत बड़ी है" message="$INT_REPLACE$ फ़ाइलें खुलने ही वाली हैं। आप उन्हें खोलने के लिए सुनिश्चित कर रहे हैं?"/>
+      <SettingsOnCloudError title="क्लाउड (cloud) की सेटिंग्स" message="ऐसा लगता है कि क्लाउड (cloud) का सेटिंग पाथ रीड ओनली है या फिर आवश्यक फोल्डर पर राइट एक्सेस (write access) चाहिए। आपकी क्लाउड (cloud) की सेटिंग्स को रद्द कर दिया जायेगा। कृप्या प्रैफरेंसेज डायलॉग (preferences dialog) से एक सुसंगत (coherent) मूल्य रीसेट करें।"/>
       <FilePathNotFoundWarning title="फाइल खोलें" message="आप जिस फ़ाइल को खोलने की कोशिश कर रहे हैं, वह मौजूद नहीं है।"/>
       <SessionFileInvalidError title="सत्र लोड नहीं किया जा सका" message="सत्र फ़ाइल या तो अनुपयोगी है या मान्य नहीं है।"/>
+      <DroppingFolderAsProjectModeWarning title="इनवैलिड एक्शन" message="आप केवल फ़ाइलों या फ़ोल्डरों को ही ड्रोप सकते हैं लेकिन दोनों नहीं, क्योंकि आप फोल्डर एज प्रोजेक्ट मोड में ड्रोप कर रहे हैं।
+अगर आप ऐसा करना चाहतें हैं तो प्रिफेरन्स डायलॉग पर डिफ़ॉल्ट डायरेक्टरी में &quot;फोल्डर ड्रैग करने पर, फोल्डर एज वर्कस्पेस की बजाय फोल्डर की सभी फाइलें खोलें&quot; को इनेबल करें।"/>
+      <SortingError title="सॉर्टिंग एरर" message="लाइन $INT_REPLACE$ के कारण न्यूमेरिक सॉर्ट नहीं कर सकते।"/>
+      <ColumnModeTip title="कॉलम मोड टिप" message="कॉलम मोड के लिए कृपया &quot;ALT+Mouse Selection&quot; या &quot;Alt+Shift+Arrow key&quot; का प्रयोग करें।"/>
+      <BufferInvalidWarning title="सेव फेल्ड" message="सेव नहीं कर सके। बफर इनवैलिड है।"/>
+      <DoSaveOrNot title="सेव" message="फाइल &quot;$STR_REPLACE$&quot; सेव करें?"/>
+      <DoCloseOrNot title="गैर मौजूदा फ़ाइल रखें" message="फाइल &quot;$STR_REPLACE$&quot; अब और मौजूद नहीं है।
+इस फाइल को एडिटर में रखें?"/>
+      <DoDeleteOrNot title="फाइल डिलीट करें" message="फाइल &quot;$STR_REPLACE$&quot;
+को रीसायकल बिन में ले जाया जाएगा और यह दस्तावेज बंद कर दिया जाएगा।
+जारी रखें?"/>
+      <NoBackupDoSaveFile title="सेव" message="आपकी बैकअप फ़ाइल नहीं मिल सकती (बाहर से हटाई गई)।
+इसे सेव करें अन्यथा आपका डेटा खो जाएगा।
+क्या आप फाइल को सेव करना चाहते हैं &quot;$STR_REPLACE$&quot;?"/>
+      <DoReloadOrNot title="रीलोड " message="&quot;$STR_REPLACE$&quot;
+इस फाइल को दूसरे प्रोग्राम द्वारा बदला गया है।
+क्या आप इसे रीलोड करना चाहते हैं?"/>
+      <DoReloadOrNotAndLooseChange title="रीलोड " message="&quot;$STR_REPLACE$&quot;
+इस फाइल को दूसरे प्रोग्राम द्वारा बदला गया है।
+क्या आप Notepad++ में किये गए बदलावों को खो कर इसे पुनः लोड करना चाहते हैं?"/>
+      <PrehistoricSystemDetected title="प्रागैतिहासिक सिस्टम डेटेक्टेड" message="ऐसा लगता है कि आप अभी भी प्रागैतिहासिक सिस्टम का उपयोग करते हैं। यह सुविधा केवल आधुनिक सिस्टम पर काम करती है, असुविधा के लिए खेद है।"/>
+      <XpUpdaterProblem title="Notepad++ अपडेटर" message="XP के अंतर्गत अप्रचलित सुरक्षा परत के कारण Notepad++ अपडेटर XP के मुताबिक नहीं है।
+क्या आप Notepad++ पेज से लेटेस्ट वर्जन डाउनलोड करना चाहते हैं?"/>
+      <DocTooDirtyToMonitor title="मॉनिटरिंग समस्या" message="दस्तावेज़ सेव नहीं है। मॉनिटर करने से पहले सेव करें।"/>
+      <DocNoExistToMonitor title="मॉनिटरिंग समस्या" message="मॉनिटरिंग के लिए फाइल मौज़ूद होनी चाहिए।"/>
+      <FileTooBigToOpen title="फाइल साइज प्रॉब्लम" message="फाइल बहुत बड़ी होने के कारण Notepad++ में नहीं खोली जा सकती है।"/>
+      <CreateNewFileOrNot title="नई फ़ाइल बनाएं" message="फाइल &quot;$STR_REPLACE$&quot; मौजूद नहीं है, इसे बनायें?"/>
+      <CreateNewFileError title="नई फ़ाइल बनाएं" message="फ़ाइल नहीं बन सकी &quot;$STR_REPLACE$&quot;।"/>
+      <OpenFileError title="त्रुटि" message="फाइल नहीं खुल सकी &quot;$STR_REPLACE$&quot;।"/>
+      <FileBackupFailed title="फ़ाइल बैकअप विफल" message="फ़ाइल के पिछले संस्करण को दी गयी बैकअप डायरेक्टरी में सेव नहीं किया जा सका &quot;$STR_REPLACE$&quot;।
+क्या आप फिर भी वर्तमान फाइल को सेव करना चाहते हैं?"/>
+      <LoadStylersFailed title="stylers.xml लोड नहीं हुयी।" message="&quot;$STR_REPLACE$&quot; लोड नहीं हुयी।!"/>
+      <LoadLangsFailed title="कॉन्फ़िगरेटर" message="langs.xml लोड नहीं हुयी।!
+क्या आप langs.xml को रिकवर करना चाहते हैं?"/>
+      <LoadLangsFailedFinal title="कॉन्फ़िगरेटर" message="langs.xml लोड नहीं हुयी।!"/>
+      <FolderAsWorspaceSubfolderExists title="फोल्डर एज वर्कस्पेस : फोल्डर जोड़ने में समस्या" message="आप जो फ़ोल्डर जोड़ना चाहते हैं उसका सब-फोल्डर पहले से ही मौजूद है।
+फ़ोल्डर  &quot;$STR_REPLACE$&quot; जोड़ने से पहले कृपया इसे पैनल से हटा दें।"/>
+
+      <ProjectPanelChanged title="$STR_REPLACE$" message="वर्कस्पेस को मॉडिफाई किया गया था। क्या आप इसे सेव करना चाहते हैं?"/>
+      <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="आपका वर्कस्पेस सेव नहीं किया गया था।"/>
+      <ProjectPanelOpenDoSaveDirtyWsOrNot title="वर्कस्पेस खोलें" message="वर्तमान वर्कस्पेस संशोधित किया गया। क्या आप वर्तमान प्रोजेक्ट को सेव करना चाहते हैं?"/>
+      <ProjectPanelNewDoSaveDirtyWsOrNot title="नया वर्कस्पेस" message="वर्तमान वर्कस्पेस संशोधित किया गया। क्या आप वर्तमान प्रोजेक्ट को सेव करना चाहते हैं?"/>
+      <ProjectPanelOpenFailed title="वर्कस्पेस खोलें" message="वर्कस्पेस को खोला नहीं जा सका।
+ऐसा प्रतीत होता है कि यह वैलिड प्रोजेक्ट फाइल नहीं है।"/>
+      <ProjectPanelRemoveFolderFromProject title="प्रोजेक्ट से फोल्डर निकालें" message="सभी सब-आइटम्स हटा दिए जाएंगे।
+क्या आप वाकई इस फ़ोल्डर को प्रोजेक्ट से निकालना चाहते हैं?"/>
+      <ProjectPanelRemoveFileFromProject title="प्रोजेक्ट से फाइल निकालें" message="क्या आप वाकई इस फाइल को प्रोजेक्ट से निकालना चाहते हैं?"/>
+      <ProjectPanelReloadError title="वर्कस्पेस रीलोड करें" message="रीलोड करने के लिए फ़ाइल नहीं मिली।"/>
+      <ProjectPanelReloadDirty title="वर्कस्पेस रीलोड करें" message="वर्तमान वर्कस्पेस संशोधित किया गया। रेलोडिंग से सारे मॉडिफिकेशन निरस्त हो जायेंगे।
+क्या आप जारी रखना चाहते हैं?"/>
+      <UDLNewNameError title="UDL त्रुटि (Error)" message="इस नाम का किसी अन्य भाषा में प्रयोग किया गया है।,
+कृप्या दूसरा नाम दें।"/>
+      <UDLRemoveCurrentLang title="वर्तमान भाषा निकालें" message="क्या आप वाकई हटाना चाहते हैं?"/>
+      <SCMapperDoDeleteOrNot title="क्या आप वाकई हटाना चाहते हैं?" message="क्या आप वाकई इस शॉर्टकट को हटाना चाहते हैं?"/>
+      <FindCharRangeValueError title="रेंज वैल्यू प्रॉब्लम" message="आपको 0 से 255 के बीच टाइप करना चाहिए।"/>
+      <OpenInAdminMode title="सेविंग फैल" message="फाइल को सेव नहीं कर सकते हैं और फाइल प्रोटेक्टेड हो सकती है।
+क्या आप Notepad ++ को एडमिन मोड में लॉन्च करना चाहते हैं?"/>
+      <OpenInAdminModeWithoutCloseCurrent title="सेविंग फैल" message="फाइल को सेव नहीं कर सकते हैं और फाइल प्रोटेक्टेड हो सकती है।
+क्या आप Notepad ++ को एडमिन मोड में लॉन्च करना चाहते हैं?"/>
+      <OpenInAdminModeFailed title="एडमिन मोड में खोलना विफल हुआ" message="Notepad ++ को एडमिन मोड में नहीं खोला जा सकता।"/>
     </MessageBox>
     <ClipboardHistory>
       <PanelTitle name="क्लिपबोर्ड हिस्ट्री"/>
@@ -949,6 +1037,11 @@
       <ColumnName name="नाम"/>
       <ColumnExt name="Ext."/>
     </DocSwitcher>
+    <WindowsDlg>
+      <ColumnName name="नाम"/>
+      <ColumnPath name="पाथ"/>
+      <ColumnType name="प्रकार"/>
+    </WindowsDlg>
     <AsciiInsertion>
       <PanelTitle name="ASCII इंसर्शन पैनल"/>
       <ColumnVal name="वैल्यू"/>
@@ -963,6 +1056,21 @@
       <SortTip name="सॉर्ट (sort) करें" />
       <ReloadTip name="रीलोड (Reload)" />
     </FunctionList>
+    <FolderAsWorkspace>
+      <PanelTitle name="फोल्डर एज वर्कस्पेस"/>
+      <SelectFolderFromBrowserString name="फोल्डर अज वर्कस्पेस पैनल में जोड़ने के लिए एक फोल्डर चुनें"/>
+      <Menus>
+        <Item id="3511" name="हटायें"/>
+        <Item id="3512" name="सभी हटायें"/>
+        <Item id="3513" name="जोड़ें"/>
+        <Item id="3514" name="सिस्टम द्वारा संचालित"/>
+        <Item id="3515" name="खोलें"/>
+        <Item id="3516" name="पाथ कॉपी करें"/>
+        <Item id="3517" name="फाइल्स में खोजें..."/>
+        <Item id="3518" name="यहाँ Explorer खोलें"/>
+        <Item id="3519" name="यहाँ CMD खोलें"/>
+      </Menus>
+    </FolderAsWorkspace>
     <ProjectManager>
       <PanelTitle name="प्रोजेक्ट"/>
       <WorkspaceRootName name="वर्कस्पेस"/>
@@ -1010,16 +1118,50 @@
       </Menus>
     </ProjectManager>
 	<MiscStrings>
+		<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate it -->
 		<word-chars-list-tip value="यह आपको वर्तमान शब्द अक्षरों में अतिरिक्त अक्षर जोड़ने देता है, जब चयन के लिए डबल क्लिक या ढूंढने के लिए &quot;Match whole word only&quot; ऑप्शन सिलेक्टेड है।"/>
 		<word-chars-list-warning-begin value="अवगत रहें: "/>
-		<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 		<word-chars-list-space-warning value="$INT_REPLACE$ space(s)"/>
-		<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 		<word-chars-list-tab-warning value="$INT_REPLACE$ टैब(स)"/>
 		<word-chars-list-warning-end value="  आपके अक्षर सूची में।"/>
-		<cloud-invalid-warning value="इनवैलिड पाथ."/>
+		<cloud-invalid-warning value="इनवैलिड पाथ।"/>
 		<cloud-restart-warning value="प्रभावी करने के लिए Notepad++ पुनः प्रारंभ करें।"/>
+		<cloud-select-folder value="फोल्डर चुनें जहाँ से/को Notepad++ अपनी सेटिंग्स पढता/लिखता है "/>
 		<shift-change-direction-tip value="विपरीत दिशा में खोजने के लिए Shift+Enter का प्रयोग करें।"/>
+		<two-find-buttons-tip value="2 फाइंड बटन मोड"/>	
+		<find-status-top-reached value="खोज: नीचे से 1st मिलान मिला। डॉक्यूमेंट की शुरुआत पर पहुँच चुकें हैं।"/>
+		<find-status-end-reached value="खोज: ऊपर से 1st मिलान मिला। डॉक्यूमेंट के अंत पर पहुँच चुकें हैं।"/>
+		<find-status-replaceinfiles-1-replaced value="फ़ाइलों में बदलें: 1 मिलान को बदल दिया गया है।"/>
+		<find-status-replaceinfiles-nb-replaced value="फ़ाइलों में बदलें: $INT_REPLACE$ मिलानों को बदल दिया गया है।"/>
+		<find-status-replaceinfiles-re-malformed value="खुली फ़ाइलों में बदलें: रेगुलर एक्सप्रेशन गलत है।"/>
+		<find-status-replaceinopenedfiles-1-replaced value="खुली फ़ाइलों में बदलें: 1 मिलान को बदल दिया गया है।"/>
+		<find-status-replaceinopenedfiles-nb-replaced value="खुली फ़ाइलों में बदलें: $INT_REPLACE$ मिलानों को बदल दिया गया है।"/>
+		<find-status-mark-re-malformed value="निशान: ढूंढने के लिए रेगुलर एक्सप्रेशन गलत है।"/>
+		<find-status-invalid-re value="खोज: अवैध रेगुलर एक्सप्रेशन"/>
+		<find-status-mark-1-match value="1 मिलान"/>
+		<find-status-mark-nb-matches value="$INT_REPLACE$ मिलान"/>
+		<find-status-count-re-malformed value="गणना: ढूंढने के लिए रेगुलर एक्सप्रेशन गलत है ।"/>
+		<find-status-count-1-match value="गणना: 1 मिलान"/>
+		<find-status-count-nb-matches value="गणना: $INT_REPLACE$ मिलान"/>
+		<find-status-replaceall-re-malformed value="सभी बदलें: रेगुलर एक्सप्रेशन गलत है।"/>
+		<find-status-replaceall-1-replaced value="सभी बदलें: 1 मिलान को बदल दिया गया है।"/>
+		<find-status-replaceall-nb-replaced value="सभी बदलें: $INT_REPLACE$ मिलानों को बदल दिया गया है।"/>
+		<find-status-replaceall-readonly value="सभी बदलें: टेक्स्ट नहीं बदल सके। वर्तमान डॉक्यूमेंट रीड-ओनली है।"/>
+		<find-status-replace-end-reached value="बदलें: ऊपर से 1st मिलान बदल दिया गया है। डॉक्यूमेंट के अंत पर पहुँच चुकें हैं।"/>
+		<find-status-replace-top-reached value="बदलें: नीचे से 1st मिलान बदल दिया गया है। डॉक्यूमेंट की शुरुआत पर पहुँच चुकें हैं।"/>
+		<find-status-relaced-next-found value="बदलें: 1 मिलान को बदल दिया गया है। अगला मिलान मिला।"/>
+		<find-status-relaced-next-not-found value="बदलें: 1 मिलान को बदल दिया गया है। अगला मिलान नहीं मिला  ।"/>
+		<find-status-replace-not-found value="बदलें: कोई मिलान नहीं मिला।"/>
+		<find-status-replace-readonly value="बदलें: Text नहीं बदल सके। वर्तमान डॉक्यूमेंट रीड-ओनली है।"/>
+		<find-status-cannot-find value="खोज: Text नहीं ढूंढ सके &quot;$STR_REPLACE$&quot;।"/>
+		<finder-find-in-finder value="इस खोज के परिणामों में खोजें..."/>
+		<finder-close-this value="इस फाइंडर को बंद करें"/>
+		<finder-collapse-all value="सभी को संकुचित (collapse) करें"/>
+		<finder-uncollapse-all value="सभी को विस्तृत (uncollapse) करें"/>
+		<finder-copy value="कॉपी करें"/>
+		<finder-select-all value="सब सेलेक्ट करें"/>
+		<finder-clear-all value="सब क्लियर करें"/>
+		<finder-open-all value="सब ओपन करें"/>
 	</MiscStrings>
   </Native-Langue>
 </NotepadPlus>

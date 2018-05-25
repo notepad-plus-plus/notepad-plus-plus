@@ -69,7 +69,7 @@
 				<Commands>
 					<Item id="41001" name="&amp;Nuevo"/>
 					<Item id="41002" name="&amp;Abrir"/>
-					<Item id="41019" name="Explorer"/>
+					<Item id="41019" name="Explorador de archivos"/>
 					<Item id="41020" name="cmd"/>
 					<Item id="41003" name="Cerrar"/>
 					<Item id="41004" name="C&amp;errar todas"/>
@@ -122,7 +122,7 @@
 					<Item id="42071" name="iNVERTIR mayúsculas/MINÚSCULAS"/>
 					<Item id="42072" name="mAyúsculas/mInÚscuLAs ALeatoriO"/>
 					<Item id="42073" name="Abrir archivo"/>
-					<Item id="42074" name="Abrir carpeta contenedora en Explorer"/>
+					<Item id="42074" name="Abrir carpeta contenedora en explorador de archivos"/>
 					<Item id="42075" name="Buscar en Internet"/>
 					<Item id="42076" name="Cambiar motor de búsqueda..."/>
 					<Item id="42018" name="&amp;Inicio de grabación"/>
@@ -241,7 +241,7 @@
 					<Item id="44094" name="Pestaña 9"/>
 					<Item id="44095" name="Pestaña siguiente"/>
 					<Item id="44096" name="Pestaña anterior"/>
-					<Item id="44097" name="Monitorizando (cola -f)"/>
+					<Item id="44097" name="Monitorizando (tail -f)"/>
 					<Item id="44098" name="Mover pestaña adelante"/>
 					<Item id="44099" name="Mover pestaña atrás"/>
 					<Item id="44032" name="Pantalla completa o no"/>
@@ -889,10 +889,10 @@
 			<!-- $STR_REPLACE$ is a place holder, don't translate it -->
 			<SortingError title="Sorting Error" message="No se puede realizar ordenado numérico debido a la línea $STR_REPLACE$."/>
 			<BufferInvalidWarning title="Save failed" message="No se puede guardar: Buffer es inválido."/>
-			<OpenInAdminMode title="Save failed" message="The file cannot be saved and it may be protected.&#x0A;Do you want to launch Notepad++ in Administrator mode?"/>
+			<OpenInAdminMode title="Save failed" message="El archivo no puede ser guardado y puede estar protegido.&#x0A;Desea lanzar Notepad++ en modo administrador?"/>
 			<OpenInAdminModeFailed title="Abrir en modo administrador falló" message="Notepad++ no puede abrirse en modo Administrador."/>
-			<OpenInAdminModeWithoutCloseCurrent title="Falló guardado" message="The file cannot be saved and it may be protected.&#x0A;Do you want to launch Notepad++ in Administrator mode?"/>
-			<DroppingFolderAsProjetModeWarning title="Acción inválida" message="Puede soltar archivos o carpetas pero no ambos, ya que está en modo de soltar Carpeta como área de trabajo&#x0A;Tiene que habilitar la opción &quot;Abrir todos los archivos de la carpeta en lugar de usar carpeta como área de trabajo&quot; en la sección &quot;Carpeta por defecto&quot; de la ventana de Preferencias para que esta operación funcione."/>
+			<OpenInAdminModeWithoutCloseCurrent title="Falló guardado" message="El archivo no puede ser guardado y puede estar protegido.&#x0A;Desea lanzar Notepad++ en modo administrador?"/>
+			<DroppingFolderAsProjectModeWarning title="Acción inválida" message="Puede soltar archivos o carpetas pero no ambos, ya que está en modo de soltar Carpeta como área de trabajo&#x0A;Tiene que habilitar la opción &quot;Abrir todos los archivos de la carpeta en lugar de usar carpeta como área de trabajo&quot; en la sección &quot;Carpeta por defecto&quot; de la ventana de Preferencias para que esta operación funcione."/>
         </MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial de portapapeles"/>

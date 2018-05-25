@@ -977,7 +977,7 @@ void UserDefineDialog::reloadLangCombo()
 {
     NppParameters *pNppParam = NppParameters::getInstance();
     ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_RESETCONTENT, 0, 0);
-	::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("User Define Language")));
+	::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(TEXT("User Defined Language")));
     for (int i = 0, nb = pNppParam->getNbUserLang(); i < nb ; ++i)
     {
         UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
@@ -1049,7 +1049,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
             _pUserLang = _pCurrentUserLang;
 
             _ctrlTab.init(_hInst, _hSelf, false);
-			int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(13);
+			int tabDpiDynamicalHeight = pNppParam->_dpiManager.scaleY(13);
             _ctrlTab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
             _folderStyleDlg.init(_hInst, _hSelf);
@@ -1223,7 +1223,12 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                     case IDC_REMOVELANG_BUTTON :
                     {
-                        int result = ::MessageBox(_hSelf, TEXT("Are you sure?"), TEXT("Remove the current language"), MB_YESNO);
+                        int result = pNppParam->getNativeLangSpeaker()->messageBox("UDLRemoveCurrentLang",
+							_hSelf,
+							TEXT("Are you sure?"),
+							TEXT("Remove the current language"),
+							MB_YESNO);
+
                         if (result == IDYES)
                         {
                             auto i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
@@ -1263,7 +1268,11 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
                         {
                             if (pNppParam->isExistingUserLangName(newName))
                             {
-                                ::MessageBox(_hSelf, TEXT("This name is used by another language,\rplease give another one."), TEXT("Err"), MB_OK);
+								pNppParam->getNativeLangSpeaker()->messageBox("UDLNewNameError",
+									_hSelf,
+									TEXT("This name is used by another language,\rplease give another one."),
+									TEXT("UDL Error"),
+									MB_OK);
                                 ::PostMessage(_hSelf, WM_COMMAND, IDC_RENAME_BUTTON, 0);
                                 return TRUE;
                             }
@@ -1310,7 +1319,11 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                             if (pNppParam->isExistingUserLangName(newName))
                             {
-                                ::MessageBox(_hSelf, TEXT("This name is used by another language,\rplease give another one."), TEXT("Err"), MB_OK);
+								pNppParam->getNativeLangSpeaker()->messageBox("UDLNewNameError",
+									_hSelf,
+									TEXT("This name is used by another language,\rplease give another one."),
+									TEXT("UDL Error"),
+									MB_OK);
                                 ::PostMessage(_hSelf, WM_COMMAND, IDC_RENAME_BUTTON, 0);
                                 return TRUE;
                             }
@@ -1368,6 +1381,7 @@ INT_PTR CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPAR
 
                         FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
                         fDlg.setExtFilter(TEXT("UDL"), TEXT(".xml"), NULL);
+						fDlg.setExtIndex(0);		// 0 Default index else file will be saved without extension
                         TCHAR *fn = fDlg.doSaveDlg();
                         if (!fn) break;
                         generic_string fileName2save = fn;
@@ -1654,6 +1668,9 @@ INT_PTR CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 
         case WM_COMMAND :
         {
+			if (dlg == nullptr)
+				return FALSE;
+
             Style & style = SharedParametersDialog::_pUserLang->_styleArray.getStyler(dlg->_stylerIndex);
             if (HIWORD(wParam) == CBN_SELCHANGE)
             {

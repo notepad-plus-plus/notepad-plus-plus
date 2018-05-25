@@ -177,7 +177,7 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 			if (hookMouse)
 			{
 				::UnhookWindowsHookEx(hookMouse);
-				::SetCapture(NULL);
+				::ReleaseCapture();
 				hookMouse = NULL;
 			}
 			_isLeftButtonDown = FALSE;

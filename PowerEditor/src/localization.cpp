@@ -207,24 +207,24 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) const
 	return TEXT("");
 }
 
-generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID) const
+generic_string NativeLangSpeaker::getLocalizedStrFromID(const char *strID, const generic_string& defaultString) const
 {
 	if (not _nativeLangA)
-		return TEXT("");
+		return defaultString;
 
 	if (not strID)
-		return TEXT("");
+		return defaultString;
 
 	TiXmlNodeA *node = _nativeLangA->FirstChild("MiscStrings");
-	if (not node) return TEXT("");
+	if (not node) return defaultString;
 
 	node = node->FirstChild(strID);
-	if (not node) return TEXT("");
+	if (not node) return defaultString;
 
 	TiXmlElementA *element = node->ToElement();
 
 	const char *value = element->Attribute("value");
-	if (not value) return TEXT("");
+	if (not value) return defaultString;
 
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	return wmc->char2wchar(value, _nativeLangEncoding);
@@ -944,34 +944,27 @@ void NativeLangSpeaker::changeShortcutLang()
 
 }
 
-void NativeLangSpeaker::changeShortcutmapperLang(ShortcutMapper * sm)
+generic_string NativeLangSpeaker::getShortcutMapperLangStr(const char *nodeName, const TCHAR *defaultStr) const
 {
-	if (!_nativeLangA) return;
+	if (!_nativeLangA) return defaultStr;
 
-	TiXmlNodeA *shortcuts = _nativeLangA->FirstChild("Dialog");
-	if (!shortcuts) return;
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("Dialog");
+	if (!targetNode) return defaultStr;
 
-	shortcuts = shortcuts->FirstChild("ShortcutMapper");
-	if (!shortcuts) return;
+	targetNode = targetNode->FirstChild("ShortcutMapper");
+	if (!targetNode) return defaultStr;
 
-	for (TiXmlNodeA *childNode = shortcuts->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
+	targetNode = targetNode->FirstChild(nodeName);
+	if (!targetNode) return defaultStr;
+
+	const char *name = (targetNode->ToElement())->Attribute("name");
+	if (name && name[0])
 	{
-		TiXmlElementA *element = childNode->ToElement();
-		int index;
-		if (element->Attribute("index", &index))
-		{
-			if (index > -1 && index < 5)  //valid index only
-			{
-				const char *name = element->Attribute("name");
-
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				const wchar_t * nameW = wmc->char2wchar(name, _nativeLangEncoding);
-				sm->translateTab(index, nameW);
-			}
-		}
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		return wmc->char2wchar(name, _nativeLangEncoding);
 	}
+
+	return defaultStr;
 }
 
 
@@ -1064,6 +1057,40 @@ bool NativeLangSpeaker::getMsgBoxLang(const char *msgBoxTagName, generic_string 
 	return false;
 }
 
+generic_string NativeLangSpeaker::getFileBrowserLangMenuStr(int cmdID, const TCHAR *defaultStr) const
+{
+	if (!_nativeLangA) return defaultStr;
+
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("FolderAsWorkspace");
+	if (!targetNode) return defaultStr;
+
+	targetNode = targetNode->FirstChild("Menus");
+	if (!targetNode) return defaultStr;
+
+	const char *name = NULL;
+	for (TiXmlNodeA *childNode = targetNode->FirstChildElement("Item");
+		childNode;
+		childNode = childNode->NextSibling("Item"))
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		const char *idStr = element->Attribute("id", &id);
+
+		if (idStr && id == cmdID)
+		{
+			name = element->Attribute("name");
+			break;
+		}
+	}
+
+	if (name && name[0])
+	{
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		return wmc->char2wchar(name, _nativeLangEncoding);
+	}
+	return defaultStr;
+}
+
 generic_string NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const
 {
 	if (!_nativeLangA) return defaultStr;
@@ -1100,44 +1127,6 @@ generic_string NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeNa
 	}
 	return defaultStr;
 }
-/*
-generic_string NativeLangSpeaker::getFileBrowserLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const
-{
-	if (!_nativeLangA) return defaultStr;
-
-	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("FileBrowser");
-	if (!targetNode) return defaultStr;
-
-	targetNode = targetNode->FirstChild("Menus");
-	if (!targetNode) return defaultStr;
-
-	targetNode = targetNode->FirstChild(nodeName);
-	if (!targetNode) return defaultStr;
-
-	const char *name = NULL;
-	for (TiXmlNodeA *childNode = targetNode->FirstChildElement("Item");
-		childNode;
-		childNode = childNode->NextSibling("Item"))
-	{
-		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		const char *idStr = element->Attribute("id", &id);
-
-		if (idStr && id == cmdID)
-		{
-			name = element->Attribute("name");
-			break;
-		}
-	}
-
-	if (name && name[0])
-	{
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		return wmc->char2wchar(name, _nativeLangEncoding);
-	}
-	return defaultStr;
-}
-*/
 
 generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name) const
 {

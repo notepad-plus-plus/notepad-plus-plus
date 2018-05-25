@@ -244,15 +244,12 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	scnN.nmhdr.idFrom = 0;
 	_notepad_plus_plus_core._pluginsManager.notify(&scnN);
 
-	if (not cmdLineParams->_easterEggName.empty())
+	if (!cmdLineParams->_easterEggName.empty())
 	{
-		char dest[MAX_PATH];
-		wcstombs(dest, (cmdLineParams->_easterEggName).c_str(), sizeof(dest));
-
 		//::MessageBoxA(NULL, destStr.c_str(), "", MB_OK);
 		if (cmdLineParams->_quoteType == 0) // Easter Egg Name
 		{
-			int iQuote = _notepad_plus_plus_core.getQuoteIndexFrom(dest);
+			int iQuote = _notepad_plus_plus_core.getQuoteIndexFrom(cmdLineParams->_easterEggName.c_str());
 			if (iQuote != -1)
 			{
 				_notepad_plus_plus_core.showQuoteFromIndex(iQuote);
@@ -260,19 +257,44 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		}
 		else if (cmdLineParams->_quoteType == 1) // command line quote
 		{
-			_userQuote = dest;
-			_notepad_plus_plus_core.showQuote(_userQuote.c_str(), "Anonymous #999", false);
+			_userQuote = cmdLineParams->_easterEggName;
+			_quoteParams.reset();
+			_quoteParams._quote = _userQuote.c_str();
+			_quoteParams._quoter = TEXT("Anonymous #999");
+			_quoteParams._shouldBeTrolling = false;
+			_quoteParams._lang = cmdLineParams->_langType;
+			if (cmdLineParams->_ghostTypingSpeed == 1)
+				_quoteParams._speed = QuoteParams::slow;
+			else if (cmdLineParams->_ghostTypingSpeed == 2)
+				_quoteParams._speed = QuoteParams::rapid;
+			else if (cmdLineParams->_ghostTypingSpeed == 3)
+				_quoteParams._speed = QuoteParams::speedOfLight;
+
+			_notepad_plus_plus_core.showQuote(&_quoteParams);
 		}
 		else if (cmdLineParams->_quoteType == 2) // content drom file
 		{
-			std::string destStr = dest;
-			generic_string fileName(destStr.begin(), destStr.end());
-
-			if (::PathFileExists(fileName.c_str()))
+			if (::PathFileExists(cmdLineParams->_easterEggName.c_str()))
 			{
-				_userQuote = getFileContent(fileName.c_str());
-				if (_userQuote != "")
-					_notepad_plus_plus_core.showQuote(_userQuote.c_str(), "Anonymous #999", false);
+				std::string content = getFileContent(cmdLineParams->_easterEggName.c_str());
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				_userQuote = wmc->char2wchar(content.c_str(), SC_CP_UTF8);
+				if (!_userQuote.empty())
+				{
+					_quoteParams.reset();
+					_quoteParams._quote = _userQuote.c_str();
+					_quoteParams._quoter = TEXT("Anonymous #999");
+					_quoteParams._shouldBeTrolling = false;
+					_quoteParams._lang = cmdLineParams->_langType;
+					if (cmdLineParams->_ghostTypingSpeed == 1)
+						_quoteParams._speed = QuoteParams::slow;
+					else if (cmdLineParams->_ghostTypingSpeed == 2)
+						_quoteParams._speed = QuoteParams::rapid;
+					else if (cmdLineParams->_ghostTypingSpeed == 3)
+						_quoteParams._speed = QuoteParams::speedOfLight;
+
+					_notepad_plus_plus_core.showQuote(&_quoteParams);
+				}
 			}
 		}
 	}

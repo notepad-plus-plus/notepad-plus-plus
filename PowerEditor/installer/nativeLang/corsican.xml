@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Corsican translation for Notepad++
+		- Updated on March 11th, 2018 by Patriccollu di Santa Maria è Sichè for version 7.5.5
 		- Updated on August 19th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.5
 		- Updated on April 30th, 2017 by Patriccollu di Santa Maria è Sichè for version 7.3.3
 		- Created on September 14th, 2016 by Patriccollu di Santa Maria è Sichè for version 6.9.2
     For updates, see https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/installer/nativeLang/corsican.xml
 -->
 <NotepadPlus>
-    <Native-Langue name="Corsu" filename="corsican.xml" version="7.5">
+    <Native-Langue name="Corsu" filename="corsican.xml" version="7.5.5">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -65,7 +66,7 @@
                     <Item subMenuId="encoding-japanese"  name="Giappunese"/>
                     <Item subMenuId="encoding-korean" name="Cureanu"/>
                     <Item subMenuId="encoding-northEuropean" name="Europeanu di u Nordu"/>
-                    <Item subMenuId="encoding-thai" name="Thai"/>
+                    <Item subMenuId="encoding-thai" name="Tailandese"/>
                     <Item subMenuId="encoding-turkish" name="Turcu"/>
                     <Item subMenuId="encoding-westernEuropean" name="Europeanu di u Punente"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
@@ -267,13 +268,13 @@
                     <Item id="45002" name="Cunvertisce ver di a Forma UNIX"/>
                     <Item id="45003" name="Cunvertisce ver di a Forma MAC"/>
                     <Item id="45004" name="Cudificà in ANSI"/>
-                    <Item id="45005" name="Cudificà in UTF-8"/>
+                    <Item id="45005" name="Cudificà in UTF-8-BOM"/>
                     <Item id="45006" name="Cudificà in UCS-2 Big Endian"/>
                     <Item id="45007" name="Cudificà in UCS-2 Little Endian"/>
-                    <Item id="45008" name="Cudificà in UTF-8 senza BOM"/>
+                    <Item id="45008" name="Cudificà in UTF-8"/>
                     <Item id="45009" name="Cunvertisce ver di ANSI"/>
-                    <Item id="45010" name="Cunvertisce ver di UTF-8 senza BOM"/>
-                    <Item id="45011" name="Cunvertisce ver di UTF-8"/>
+                    <Item id="45010" name="Cunvertisce ver di UTF-8"/>
+                    <Item id="45011" name="Cunvertisce ver di UTF-8-BOM"/>
                     <Item id="45012" name="Cunvertisce ver di UCS-2 Big Endian"/>
                     <Item id="45013" name="Cunvertisce ver di UCS-2 Little Endian"/>
 
@@ -284,8 +285,6 @@
 
                     <Item id="46001" name="&amp;Cunfiguratore di Stilu..."/>
                     <Item id="46250" name="Definisce u vostru linguaghju..."/>
-                    <Item id="46250" name="Definisce u vostru linguaghju..."/>
-                    <Item id="46180" name="Definitu da l'Utilizatore"/>
                     <Item id="46180" name="Definitu da l'Utilizatore"/>
                     <Item id="47000" name="Apprupositu di Notepad++..."/>
                     <Item id="47010" name="Argumenti di Linea di Cummanda..."/>
@@ -352,7 +351,7 @@
                 <Item id="1"    name="Circà Seguente"/>
                 <Item id="1722" name="Circà à l'Arritrosa"/>
                 <Item id="2"    name="Chjode"/>
-                <Item id="1620" name="Cosa circà :"/>
+                <Item id="1620" name="Cosa à circà :"/>
                 <Item id="1603" name="&amp;Parolla sana deve currisponde"/>
                 <Item id="1604" name="&amp;Rispettà Maiuscule è minuscule"/>
                 <Item id="1605" name="&amp;Spressione regulare"/>
@@ -458,9 +457,35 @@
                     <Item id="2231" name="Permette stilu di grafia glub. italicu"/>
                     <Item id="2232" name="Permette stilu di gra. gl. sottulineatu"/>
                 </SubDialog>
-
             </StyleConfig>
 
+            <ShortcutMapper title="Definizione di l'Accurtatoghji di Tastera">
+                <Item id="2602" name="Mudificà"/>
+                <Item id="2603" name="Squassà"/>
+                <Item id="2606" name="Viutà"/>
+                <Item id="2607" name="Filtru : "/>
+                <Item id="1" name="Chjode"/>
+                <ColumnName name="Nome"/>
+                <ColumnShortcut name="Accurtatoghju"/>
+                <ColumnCategory name="Categuria"/>
+                <ColumnPlugin name="Estensione"/>
+                <MainMenuTab name="Listinu principale"/>
+                <MacrosTab name="Macro"/>
+                <RunCommandsTab name="Cumande d'esecuzione"/>
+                <PluginCommandsTab name="Cumande d'estensione"/>
+                <ScintillaCommandsTab name="Cumande Scintilla"/>
+                <ConflictInfoOk name="Alcunu cunflittu d'accurtatoghju per st'elementu."/>
+                <ConflictInfoEditing name="Alcunu cunflittu . . ."/>
+            </ShortcutMapper>
+            <ShortcutMapperSubDialg title="Accurtatoghju">
+                <Item id="1" name="Vai"/>
+                <Item id="2" name="Abbandunà"/>
+                <Item id="5006" name="Nome"/>
+                <Item id="5008" name="Aghjunghje"/>
+                <Item id="5009" name="Caccià"/>
+                <Item id="5007" name="Quessu caccierà l'accurtatoghju per sta cumanda"/>
+                <Item id="5012" name="CUNFLITTU TROVU !"/>
+            </ShortcutMapperSubDialg>
             <UserDefine title="Definitu da l'Utilizatore">
                 <Item id="20001" name="Ancurà"/>
                 <Item id="20002" name="Rinumà"/>
@@ -654,7 +679,7 @@
                     <Item id="6120" name="Verticale"/>
                     <Item id="6121" name="Esce quandu l'ultima unghjetta si chjode"/>
 
-                    <Item id="6122" name="Piattà (impiegà Alt o F10 per attivà/disattivà)"/>
+                    <Item id="6122" name="Piattà a barra di listinu (impiegà Alt o F10 per attivà/disattivà)"/>
                     <Item id="6123" name="Lucalisazione"/>
 
                     <Item id="6125" name="Pannellu di Lista di Ducumentu"/>
@@ -686,7 +711,7 @@
                     <Item id="6208" name="Affissà un bordu verticale"/>
                     <Item id="6209" name="Numeru di culonne : "/>
                     <Item id="6234" name="Disattivà u modu espertu d'affissu
-(in casu di penseru cù touchpad)"/>
+					(in casu di penseru cù touchpad)"/>
 
                     <Item id="6211" name="Preferenze di Cunfine Verticale"/>
                     <Item id="6212" name="Modu di linea"/>
@@ -718,8 +743,8 @@
                     <Item id="6413" name="Cartulare Predefinitu (Apre/Arregistrà)"/>
                     <Item id="6414" name="Seguità u ducumentu attuale"/>
                     <Item id="6415" name="Arricurdassi di l'ultimu cartulare impiegatu"/>
-                    <Item id="6430" name="Impiegà u novu stilu d'arregistramentu (senza estensione di schedariu)"/>
-                    <Item id="6431" name="Quandu si depone un cartulare, apre tutti i schedarii invece d'impiegallu cum'è Spaziu di Tr."/>
+                    <Item id="6430" name="Impiegà u dialogu di novu stilu (senza estensione di schedariu) &amp; capacità di passeghju di stilu Unix)"/>
+                    <Item id="6431" name="À u depone d'un cartulare, apre tutti i schedarii invece d'impiegallu cum'è Spaziu di Tr."/>
                 </DefaultDir>
 
                 <FileAssoc title="Associu di Schedariu">
@@ -742,7 +767,7 @@
                     <Item id="6326" name="Attivà u sopralineamentu astutu"/>
                     <Item id="6332" name="Rispettà Maiuscule è minuscule"/>
                     <Item id="6338" name="Parolla sana deve currisponde"/>
-                    <Item id="6339" name="Impiegà preferenze dialogu di Ricerca"/>
+                    <Item id="6339" name="Impiegà e preferenze di dialogu di Ricerca"/>
                     <Item id="6340" name="Sopralineà dinù l'altra vista"/>
                     <Item id="6329" name="Sopralineà l'Etichette chì Currispondenu"/>
                     <Item id="6327" name="Attivà"/>
@@ -835,7 +860,7 @@
                 </MultiInstance>
 
                 <Delimiter title="Delimitatore">
-                    <Item id="6251" name="Preferenze di selezzione di delimitatore (Ctrl + Topu doppiu cliccu)"/>
+                    <Item id="6251" name="Preferenze di selezzione di delimitatore (Ctrl+Topu doppiu cliccu)"/>
                     <Item id="6252" name="Principiu"/>
                     <Item id="6255" name="Fine"/>
                     <Item id="6256" name="Permette nant'à parechje linee"/>
@@ -843,7 +868,7 @@
                     <Item id="6258" name="è avà ùn hè più sola, ci sò duie linee ;-)"/>
                     <Item id="6161" name="Lista di caratteri delimitatori di parolla"/>
                     <Item id="6162" name="Impiegà a lista predefinita di caratteri delimitatori di parolla tale è quale"/>
-                    <Item id="6163" name="Aghjunghje u vostru caratteru cum'è una parte di a parolla
+                    <Item id="6163" name="Aghjunghje u vostru caratteru cum'è una parte di parolla
 (solu s'è voi site sicuru di ciò chì voi fate)"/>
                 </Delimiter>
 
@@ -883,6 +908,9 @@
                     <Item id="6114" name="Attivà"/>
                     <Item id="6115" name="Indentazione autumatica"/>
                     <Item id="6117" name="Impiegà a lista MRU recente di schedarii"/>
+                    <Item id="6344" name="Fighjata di Ducumentu"/>
+                    <Item id="6345" name="Fighjata da l'unghjetta"/>
+                    <Item id="6346" name="Fighjata da a cartugrafia di ducumentu"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Eseguisce Parechje Volte">
@@ -915,23 +943,109 @@
                 <Item id="1" name="Vai"/>
                 <Item id="2" name="Abbandunà"/>
             </ColumnEditor>
+            <FindInFinder title="Circà in i risultati trovi">
+                <Item id="1"    name="Circà Tutti"/>
+                <Item id="2"    name="Chjode"/>
+                <Item id="1711" name="Cosa à circà :"/>
+                <Item id="1713" name="Circà solu in e linee truvate"/>
+                <Item id="1714" name="&amp;Parolla sana deve currisponde"/>
+                <Item id="1715" name="Rispettà &amp;Maiuscule è minuscule"/>
+                <Item id="1716" name="Modu di ricerca"/>
+                <Item id="1717" name="Nurmale"/>
+                <Item id="1719" name="&amp;Spressione regulare"/>
+                <Item id="1718" name="Allungatu (\n, \r, \t, \0, \x...)"/>
+                <Item id="1720" name="&amp;. cum'è nova linea"/>
+            </FindInFinder>
         </Dialog>
-        <MessageBox>
-            <ContextMenuXmlEditWarning title="Mudificazione di contextMenu" message="Mudificà contextMenu permette di cambià u vostru listinu cuntestuale di Notepad++.\rCi vole à riavvià Notepad++ per piglià in contu e mudificazioni di contextMenu.xml."/>
-            <NppHelpAbsentWarning title="U schedariu ùn esiste micca" message="\rùn esiste micca. Ci vole à telecaricallu da u situ Notepad++."/>
-            <SaveCurrentModifWarning title="Arregistrà a Mudificazione Currente" message="Ci vuleria à arregistrà e mudificazioni currente.\rTutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.\r\rCuntinuà ?"/>
-            <LoseUndoAbilityWarning title="Perdita di a Pussibilità di Disfà" message="Ci vuleria à arregistrà e mudificazioni currente.\rTutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.\r\rCuntinuà ?"/>
+        <MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <ContextMenuXmlEditWarning title="Mudificazione di contextMenu" message="Mudificà contextMenu.xml permette di cambià u vostru listinu cuntestuale di Notepad++.
+Ci vole à riavvià Notepad++ per piglià in contu e mudificazioni di contextMenu.xml."/>
+            <NppHelpAbsentWarning title="U schedariu ùn esiste micca" message="
+ùn esiste micca. Ci vole à scaricallu da u situ Notepad++."/>
+            <SaveCurrentModifWarning title="Arregistrà a Mudificazione Currente" message="Ci vuleria à arregistrà e mudificazioni currente.
+Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
+
+Cuntinuà ?"/>
+            <LoseUndoAbilityWarning title="Perdita di a Pussibilità di Disfà" message="Ci vuleria à arregistrà e mudificazioni currente.
+Tutte e mudificazioni arregistrate ùn pudenu micca esse disfatte.
+
+Cuntinuà ?"/>
             <CannotMoveDoc title="Dispiazzà ver di una nova Finestra Notepad++" message="U ducumentu hè mudificatu, arregistratellu è pruvate torna."/>
             <DocReloadWarning title="Ricaricà" message="Site sicuru di vulè ricaricà u schedariu currente è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
             <FileLockedWarning title="Arregistramentu fiascu" message="Ci vole à verificà s'è stu schedariu hè dighjà apertu in un altru prugramma"/>
             <FileAlreadyOpenedInNpp title="" message="U schedariu hè dighjà apertu in Notepad++."/>
             <DeleteFileFailed title="Squassatura di Schedariu" message="Fiascu di a squassatura di u schedariu"/>
 
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
-            <NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii devenu esse aperti.\rSite sicuru di aprelli ?"/>
-            <SettingsOnCloudError title="Preferenze di Nivulu" message="Pare chì u passeghju di e preferenze di nivulu hè definitu nant'à un lettore in\rlettura sola, o in un cartulare chì richiede diritti d'accessu di scrittura.\rE vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un valore accetevule da u dialogu di Preferenze."/>
+            <NbFileToOpenImportantWarning title="A quantità di schedarii à apre hè troppu maiò" message="$INT_REPLACE$ schedarii devenu esse aperti.
+Site sicuru di aprelli ?"/>
+            <SettingsOnCloudError title="Preferenze di Nivulu" message="Pare chì u passeghju di e preferenze di nivulu hè definitu nant'à un lettore in
+lettura sola, o in un cartulare chì richiede diritti d'accessu di scrittura.
+E vostre preferenze di nivulu anu da esse abbandunate. Ci vole à rimette un valore accetevule via u dialogu di Preferenze."/>
             <FilePathNotFoundWarning title="Apertura di Schedariu" message="U schedariu chì voi pruvate d'apre ùn esiste micca."/>
             <SessionFileInvalidError title="Ùn pò micca Caricà una Sessione" message="U schedariu di sessione hè sia alteratu, sia micca accettevule."/>
+            <DroppingFolderAsProjectModeWarning title="Azzione inaccetevule" message="Pudete depone solu schedarii o cartulari ma micca tremindui, perchè site in u modu di dipositu Cartulare cum'è Spaziu di Travagliu.
+Ci vole à attivà &quot;À u depone d'un cartulare, apre tutti i schedarii invece d'impiegallu cum'è Spaziu di Tr.&quot; in a sezzione &quot;Cartulare Predefinitu&quot; di e Preferenze per fà quessu."/>
+            <SortingError title="Sbagliu di Classificazione" message="Impussibule di fà una classificazione numerica per via di a linea $INT_REPLACE$."/>
+            <ColumnModeTip title="Minichichja di Modu Culonna" message="Ci vole à impiegà &quot;ALT+Selez. cù Topu&quot; o &quot;Alt+Maiusc+Fleccia&quot; per permutà ver di u modu culonna."/>
+            <BufferInvalidWarning title="Arregistramentu fiascu" message="Ùn pò micca arregistrà : U stampone hè inaccetevule."/>
+            <DoSaveOrNot title="Arregistrà" message="Arregistrà u schedariu &quot;$STR_REPLACE$&quot; ?"/>
+            <DoCloseOrNot title="Cunservà u schedariu inesistente" message="U schedariu &quot;$STR_REPLACE$&quot; ùn esiste più.
+Cunservà stu schedariu in l'editore ?"/>
+            <DoDeleteOrNot title="Squassà u schedariu" message="U schedariu &quot;$STR_REPLACE$&quot;
+serà dispiazzatu ver di a vostra Rumenzula è stu ducumentu serà chjosu.
+Cuntinuà ?"/>
+            <NoBackupDoSaveFile title="Arregistrà" message="U vostru schedariu di salvaguardia ùn si trova più (squassatu da fora).
+Arregistratellu osinnò i vostri dati seranu persi
+Vulete arregistrà u schedariu &quot;$STR_REPLACE$&quot; ?"/>
+            <DoReloadOrNot title="Ricaricà" message="&quot;$STR_REPLACE$&quot;
+
+Stu schedariu hè statu mudificatu da un'altru prugramma.
+Vulete ricaricallu ?"/>
+            <DoReloadOrNotAndLooseChange title="Ricaricà" message="&quot;$STR_REPLACE$&quot;
+
+Stu schedariu hè statu mudificatu da un'altru prugramma.
+Vulete ricaricallu è perde cusì i cambiamenti fatti cù Notepad++ ?"/>
+            <PrehistoricSystemDetected title="Sistema prestoricu identificatu" message="Pare chì voi impiegate sempre un sistema prestoricu. Per disgrazia, sta funzione funziuneghja solu cù un sistema mudernu."/>
+            <XpUpdaterProblem title="Rinnovu di Notepad++" message="U rinnovu di Notepad++ ùn funziuneghja micca cù XP per via di u so livellu di sicurità à l'anticogna.
+Vulete andà nant'à a pagina di Notepad++ per scaricà l'ultima versione ?"/>
+            <DocTooDirtyToMonitor title="Penseru d'appustamentu" message="U ducumentu hè brutu. Ci vole à arregistrà a mudificazione nanzu à appustallu."/>
+            <DocNoExistToMonitor title="Penseru d'appustamentu" message="U schedariu deve esiste per esse appustatu."/>
+            <FileTooBigToOpen title="Penseru di dimensione di schedariu" message="U schedariu hè troppu maiò per esse apertu da Notepad++"/>
+            <CreateNewFileOrNot title="Creà un novu schedariu" message="&quot;$STR_REPLACE$&quot; ùn esiste. Creallu ?"/>
+            <CreateNewFileError title="Creà un novu schedariu" message="Ùn pò micca creà u schedariu &quot;$STR_REPLACE$&quot;."/>
+            <OpenFileError title="SBAGLIU" message="Ùn pò micca apre u schedariu &quot;$STR_REPLACE$&quot;."/>
+            <FileBackupFailed title="Fiascu di Salvaguardia di Schedariu" message="A versione precedente di u schedariu ùn pò micca esse arregistrata in u cartulare di salvaguardia : &quot;$STR_REPLACE$&quot;.
+
+Vulete arregistrà u schedariu attuale quantunque ?"/>
+            <LoadStylersFailed title="Caricamentu fiascu di stylers.xml" message="Caricamentu fiascu di &quot;$STR_REPLACE$&quot; !"/>
+            <LoadLangsFailed title="Cunfiguratore" message="Caricamentu fiascu di langs.xml !
+Vulete ricuperà u vostru langs.xml ?"/>
+            <LoadLangsFailedFinal title="Cunfiguratore" message="Caricamentu fiascu di langs.xml !"/>
+            <FolderAsWorspaceSubfolderExists title="Penseru à l'aghjuntu di Cartulare cum'è Spaziu di Travagliu" message="Un sottu-cartulare di u cartulare chì voi vulete aghjunghje esiste dighjà.
+Ci vole à caccià a so radica da u pannellu nanzu d'aghjunghje u cartulare &quot;$STR_REPLACE$&quot;."/>
+
+            <ProjectPanelChanged title="$STR_REPLACE$" message="U spaziu di travagliu hè statu mudificatu. Vulete arregistrallu ?"/>
+            <ProjectPanelChangedSaveError title="$STR_REPLACE$" message="U vostru spaziu di travagliu ùn hè micca statu arregistratu."/>
+            <ProjectPanelOpenDoSaveDirtyWsOrNot title="Apre u Spaziu di Travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
+            <ProjectPanelNewDoSaveDirtyWsOrNot title="Novu Spaziu di Travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Vulete arregistrà u prughjettu attuale ?"/>
+            <ProjectPanelOpenFailed title="Apre u Spaziu di Travagliu" message="U spaziu di travagliu ùn pò micca esse apertu.
+Pare chì u schedariu à apre ùn hè micca un schedariu di prughjettu accettevule."/>
+            <ProjectPanelRemoveFolderFromProject title="Caccià u cartulare da u prughjettu" message="Tutti i sottu-elementi seranu cacciati.
+Site sicuru di vulè caccià stu cartulare da u prughjettu ?"/>
+            <ProjectPanelRemoveFileFromProject title="Caccià u schedariu da u prughjettu" message="Site sicuru di vulè caccià stu schedariu da u prughjettu ?"/>
+            <ProjectPanelReloadError title="Ricaricà u Spaziu di Travagliu" message="Ùn pò micca truvà u schedariu à ricaricà."/>
+            <ProjectPanelReloadDirty title="Ricaricà u Spaziu di Travagliu" message="U spaziu di travagliu attuale hè statu mudificatu. Un ricaricamentu scaccierà tutte e mudificazioni.
+Vulete cuntinuà ?"/>
+            <UDLNewNameError title="Sbagliu UDL" message="Stu nome hè impiegatu da un altru linguaghju,
+ci vole à dà un altru."/>
+            <UDLRemoveCurrentLang title="Caccià u linguaghju attuale" message="Site sicuru ?"/>
+            <SCMapperDoDeleteOrNot title="Site sicuru ?" message="Site sicuru di vulè squassà st'accurtatoghju ?"/>
+            <FindCharRangeValueError title="Penseru di Valore di Stesa" message="Duveria scrive trà 0 è 255."/>
+            <OpenInAdminMode title="Arregistramentu fiascu" message="U schedariu ùn pò micca esse arregistratu, podasse hè prutettu.
+Vulete dimarrà Notepad++ in modu Amministratore ?"/>
+            <OpenInAdminModeWithoutCloseCurrent title="Arregistramentu fiascu" message="U schedariu ùn pò micca esse arregistratu, podasse hè prutettu.
+Vulete dimarrà Notepad++ in modu Amministratore ?"/>
+            <OpenInAdminModeFailed title="Apertura fiasca in modu Amministratore" message="Notepad++ ùn pò micca esse apertu in modu Amministratore."/>
         </MessageBox>
         <ClipboardHistory>
             <PanelTitle name="Crunulugia di u Preme'papei"/>
@@ -941,6 +1055,11 @@
             <ColumnName name="Nome"/>
             <ColumnExt name="Est."/>
         </DocSwitcher>
+        <WindowsDlg>
+            <ColumnName name="Nome"/>
+            <ColumnPath name="Passeghju"/>
+            <ColumnType name="Tipu"/>
+        </WindowsDlg>
         <AsciiInsertion>
             <PanelTitle name="Pannellu d'Inserzione ASCII"/>
             <ColumnVal name="Valore"/>
@@ -955,6 +1074,21 @@
             <SortTip name="Classificà" />
             <ReloadTip name="Ricaricà" />
         </FunctionList>
+        <FolderAsWorkspace>
+            <PanelTitle name="Cartulare cum'è Spaziu di Travagliu"/>
+            <SelectFolderFromBrowserString name="Selezziunà un cartulare à aghjunghje à u pannellu Cartulare cum'è Spaziu di Travagliu"/>
+            <Menus>
+                <Item id="3511" name="Caccià"/>
+                <Item id="3512" name="Caccià Tuttu"/>
+                <Item id="3513" name="Aghjunghje"/>
+                <Item id="3514" name="Eseguitu da u sistema"/>
+                <Item id="3515" name="Apre"/>
+                <Item id="3516" name="Cupià u passeghju"/>
+                <Item id="3517" name="Circà in Schedarii..."/>
+                <Item id="3518" name="Espluratore quì"/>
+                <Item id="3519" name="CMD quì"/>
+            </Menus>
+        </FolderAsWorkspace>
         <ProjectManager>
             <PanelTitle name="Prughjettu"/>
             <WorkspaceRootName name="Spaziu di Travagliu"/>
@@ -1002,16 +1136,50 @@
             </Menus>
         </ProjectManager>
         <MiscStrings>
+            <!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
             <word-chars-list-tip value="Quessu permette d'include caratteri addiziunali in i caratteri di parolle currente quandu ci hè un doppiu cliccu per selezziunà o una ricerca cù l'ozzione &quot;Parolla sana deve currisponde&quot; selezziunata."/>
             <word-chars-list-warning-begin value="Fate casu : "/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-space-warning value="$INT_REPLACE$ spaziu(i)"/>
-            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <word-chars-list-tab-warning value="$INT_REPLACE$ tabulazione(i)"/>
             <word-chars-list-warning-end value="  in a vostra lista di caratteri."/>
-            <cloud-invalid-warning value="Passeghju micca accettevule."/>
+            <cloud-invalid-warning value="Passeghju inaccettevule."/>
             <cloud-restart-warning value="Ci vole à rilancià Notepad++ per piglià in contu stu cambiamentu."/>
+            <cloud-select-folder value="Selezziunà un cartulare da/ver di induve Notepad++ leghje/scrive e so preferenze"/>
             <shift-change-direction-tip value="Impiegà Maiusc+Entre per circà in a direzzione opposta."/>
+            <two-find-buttons-tip value="Modu di 2 buttoni per circà"/>
+            <find-status-top-reached value="Circà : 1a occurrenza trova da a fine. U principiu di u ducumentu hè statu toccu."/>
+            <find-status-end-reached value="Circà : 1a occurrenza trova da u principiu. A fine di u ducumentu hè stata tocca."/>
+            <find-status-replaceinfiles-1-replaced value="Rimpiazzà in Schedarii : 1 occurrenza hè stata rimpiazzata"/>
+            <find-status-replaceinfiles-nb-replaced value="Rimpiazzà in Schedarii : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
+            <find-status-replaceinfiles-re-malformed value="Rimpiazzà in Schedarii Aperti : A spressione regulare hè mal'cuncilia"/>
+            <find-status-replaceinopenedfiles-1-replaced value="Rimpiazzà in Schedarii Aperti : 1 occurrenza hè stata rimpiazzata"/>
+            <find-status-replaceinopenedfiles-nb-replaced value="Rimpiazzà in Schedarii Aperti : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
+            <find-status-mark-re-malformed value="Marcà : A spressione regulare per ricercà hè mal'cuncilia"/>
+            <find-status-invalid-re value="Circà : Espressione regulare inaccettevule"/>
+            <find-status-mark-1-match value="1 cuncurdanza"/>
+            <find-status-mark-nb-matches value="$INT_REPLACE$ cuncurdanze"/>
+            <find-status-count-re-malformed value="Cuntà : A spressione regulare per ricercà hè mal'cuncilia"/>
+            <find-status-count-1-match value="Cuntà : 1 cuncurdanza"/>
+            <find-status-count-nb-matches value="Cuntà : $INT_REPLACE$ cuncurdanze"/>
+            <find-status-replaceall-re-malformed value="Rimpiazzà Tutti : A spressione regulare hè mal'cuncilia"/>
+            <find-status-replaceall-1-replaced value="Rimpiazzà Tutti : 1 occurrenza hè stata rimpiazzata"/>
+            <find-status-replaceall-nb-replaced value="Rimpiazzà Tutti : $INT_REPLACE$ occurrenze sò state rimpiazzate"/>
+            <find-status-replaceall-readonly value="Rimpiazzà Tutti : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
+            <find-status-replace-end-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da u principiu. A fine di u ducumentu hè stata tocca"/>
+            <find-status-replace-top-reached value="Rimpiazzà : 1a occurrenza rimpiazzata da a fine. U principiu di u ducumentu hè statu toccu"/>
+            <find-status-relaced-next-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza trova"/>
+            <find-status-relaced-next-not-found value="Rimpiazzà : 1 occurrenza hè stata rimpiazzata. A prossima occurrenza micca trova"/>
+            <find-status-replace-not-found value="Rimpiazzà : alcuna occurrenza trova"/>
+            <find-status-replace-readonly value="Rimpiazzà : Ùn si pò rimpiazzà u testu. U ducumentu attuale pò solu si leghje"/>
+            <find-status-cannot-find value="Circà : Ùn si pò truvà u testu &quot;$STR_REPLACE$&quot;"/>
+            <finder-find-in-finder value="Circà in sti risultati trovi..."/>
+            <finder-close-this value="Chjode stu circatore"/>
+            <finder-collapse-all value="Ripiegà tuttu"/>
+            <finder-uncollapse-all value="Spiegà tuttu"/>
+            <finder-copy value="Cupià"/>
+            <finder-select-all value="Selezziunà tuttu"/>
+            <finder-clear-all value="Viutà tuttu"/>
+            <finder-open-all value="Apre tuttu"/>
         </MiscStrings>
     </Native-Langue>
 </NotepadPlus>

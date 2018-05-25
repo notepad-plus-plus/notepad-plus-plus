@@ -194,13 +194,13 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 
 	if (newLang == defaultLang || newLang == L_TEXT)	//language can probably be refined
 	{
-		if ((!generic_stricmp(_fileName, TEXT("makefile"))) || (!generic_stricmp(_fileName, TEXT("GNUmakefile"))))
+		if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("makefile")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("GNUmakefile")) == 0))
 			newLang = L_MAKEFILE;
-		else if (!generic_stricmp(_fileName, TEXT("CmakeLists.txt")))
+		else if (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("CmakeLists.txt")) == 0)
 			newLang = L_CMAKE;
-		else if ((!generic_stricmp(_fileName, TEXT("SConstruct"))) || (!generic_stricmp(_fileName, TEXT("SConscript"))) || (!generic_stricmp(_fileName, TEXT("wscript"))))
+		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("SConstruct")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("SConscript")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("wscript")) == 0))
 			newLang = L_PYTHON;
-		else if ((!generic_stricmp(_fileName, TEXT("Rakefile"))) || (!generic_stricmp(_fileName, TEXT("Vagrantfile"))))
+		else if ((OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Rakefile")) == 0) || (OrdinalIgnoreCaseCompareStrings(_fileName, TEXT("Vagrantfile")) == 0))
 			newLang = L_RUBY;
 	}
 
@@ -601,31 +601,13 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		Buffer* buf = _buffers.at(_nbBufs - 1);
 
 		// restore the encoding (ANSI based) while opening the existing file
-		NppParameters *pNppParamInst = NppParameters::getInstance();
-		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
-		buf->setUnicodeMode(ndds._unicodeMode);
 		buf->setEncoding(-1);
 
 		// if no file extension, and the language has been detected,  we use the detected value
 		if ((buf->getLangType() == L_TEXT) && (detectedLang != L_TEXT))
 			buf->setLangType(detectedLang);
 
-		if (encoding == -1)
-		{
-			UniMode um = UnicodeConvertor.getEncoding();
-			if (um == uni7Bit)
-				um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
-
-			buf->setUnicodeMode(um);
-		}
-		else // encoding != -1
-		{
-            // Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
-            buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
-            buf->setUnicodeMode(uniCookie);
-		}
-
-		buf->setEolFormat(bkformat);
+		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, encoding, bkformat);
 
 		//determine buffer properties
 		++_nextBufferID;
@@ -648,7 +630,7 @@ bool FileManager::reloadBuffer(BufferID id)
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
 	int encoding = buf->getEncoding();
 	char data[blockSize + 8]; // +8 for incomplete multibyte char
-	EolType bkformat;
+	EolType bkformat = EolType::unknown;
 	LangType lang = buf->getLangType();
 
 
@@ -660,17 +642,35 @@ bool FileManager::reloadBuffer(BufferID id)
 
 	if (res)
 	{
-		if (encoding == -1)
-		{
-			buf->setUnicodeMode(UnicodeConvertor.getEncoding());
-		}
-		else
-		{
-			buf->setEncoding(encoding);
-			buf->setUnicodeMode(uniCookie);
-		}
+		setLoadedBufferEncodingAndEol(buf, UnicodeConvertor, encoding, bkformat);
 	}
 	return res;
+}
+
+
+void FileManager::setLoadedBufferEncodingAndEol(Buffer* buf, const Utf8_16_Read& UnicodeConvertor, int encoding, EolType bkformat)
+{
+	if (encoding == -1)
+	{
+		NppParameters *pNppParamInst = NppParameters::getInstance();
+		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+
+		UniMode um = UnicodeConvertor.getEncoding();
+		if (um == uni7Bit)
+			um = (ndds._openAnsiAsUtf8) ? uniCookie : uni8Bit;
+
+		buf->setUnicodeMode(um);
+	}
+	else
+	{
+		// Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
+		buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
+		buf->setUnicodeMode(uniCookie);
+	}
+
+	// Since the buffer will be reloaded from the disk, EOL might have been changed
+	if (bkformat != EolType::unknown)
+		buf->setEolFormat(bkformat);
 }
 
 
@@ -691,7 +691,6 @@ bool FileManager::deleteFile(BufferID id)
 
 	if (!PathFileExists(fileNamePath.c_str()))
 		return false;
-	//return ::DeleteFile(fileNamePath) != 0;
 
 	SHFILEOPSTRUCT fileOpStruct = {0};
 	fileOpStruct.hwnd = NULL;
@@ -1338,14 +1337,13 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
 	if (bufferSizeRequested > INT_MAX)
 	{
-		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File size problem"), MB_OK|MB_APPLMODAL);
-		/*
-		_nativeLangSpeaker.messageBox("NbFileToOpenImportantWarning",
-										_pPublicInterface->getHSelf(),
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		pNativeSpeaker->messageBox("FileTooBigToOpen",
+										NULL,
 										TEXT("File is too big to be opened by Notepad++"),
-										TEXT("File open problem"),
+										TEXT("File size problem"),
 										MB_OK|MB_APPLMODAL);
-		*/
+
 		fclose(fp);
 		return false;
 	}
@@ -1460,7 +1458,12 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, char* data,
 	}
 	__except(EXCEPTION_EXECUTE_HANDLER) //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
 	{
-		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		pNativeSpeaker->messageBox("FileTooBigToOpen",
+			NULL,
+			TEXT("File is too big to be opened by Notepad++"),
+			TEXT("File size problem"),
+			MB_OK | MB_APPLMODAL);
 		success = false;
 	}
 
@@ -1508,7 +1511,7 @@ BufferID FileManager::getBufferFromName(const TCHAR* name)
 
 	for(size_t i = 0; i < _buffers.size(); i++)
 	{
-		if (!lstrcmpi(name, _buffers.at(i)->getFullPathName()))
+		if (OrdinalIgnoreCaseCompareStrings(name, _buffers.at(i)->getFullPathName()) == 0)
 			return _buffers.at(i)->getID();
 	}
 	return BUFFER_INVALID;

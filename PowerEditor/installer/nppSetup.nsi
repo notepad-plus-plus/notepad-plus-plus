@@ -49,6 +49,17 @@ OutFile ".\build\npp.${APPVERSION}.Installer.x64.exe"
 !else
 OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 !endif
+
+; ------------------------------------------------------------------------
+; Version Information
+   VIProductVersion	"${Version}"
+   VIAddVersionKey	"ProductName"		"${APPNAME}"
+   VIAddVersionKey	"CompanyName"		"${CompanyName}"
+   VIAddVersionKey	"LegalCopyright"	"${LegalCopyright}"
+   VIAddVersionKey	"FileDescription"	"${Description}"
+   VIAddVersionKey	"FileVersion"		"${Version}"
+   VIAddVersionKey	"ProductVersion"	"${ProdVer}"
+; ------------------------------------------------------------------------
  
 ; Insert CheckIfRunning function as an installer and uninstaller function.
 !insertmacro CheckIfRunning ""
@@ -63,6 +74,7 @@ OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP ".\images\headerLeft.bmp" ; optional
+!define MUI_HEADERIMAGE_BITMAP_RTL ".\images\headerLeft_RTL.bmp" ; Header for RTL languages
 !define MUI_ABORTWARNING
 !define MUI_COMPONENTSPAGE_SMALLDESC ;Show components page with a small description and big box for components
 
@@ -87,36 +99,13 @@ page Custom ExtraOptions
 
 !include "nsisInclude\langs4Installer.nsh"
 
-
-
-
 !include "nsisInclude\mainSectionFuncs.nsh"
 
-
-!include "nsisInclude\langs4Npp.nsh"
 !include "nsisInclude\autoCompletion.nsh"
-!include "nsisInclude\themes.nsh"
+
 !include "nsisInclude\binariesComponents.nsh"
 
-
 InstType "Minimalist"
-
-${MementoSectionDone}
-
-;--------------------------------
-  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
-    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
-  !insertmacro MUI_FUNCTION_DESCRIPTION_END
-;--------------------------------
-
-Section -FinishSection
-  Call writeInstallInfoInRegistry
-SectionEnd
 
 
 Var diffArchDir2Remove
@@ -147,7 +136,7 @@ ${If} $noUpdater == "true"
     SectionSetText ${AutoUpdater} ""
 ${EndIf}
 
-	SectionSetSize ${mainSection} 4500		; This is rough estimation of files present in function copyCommonFiles
+	Call SetRoughEstimation		; This is rough estimation of files present in function copyCommonFiles
 	InitPluginsDir			; Initializes the plug-ins dir ($PLUGINSDIR) if not already initialized.
 	Call preventInstallInWin9x
 		
@@ -197,9 +186,8 @@ FunctionEnd
 
 
 Section -"Notepad++" mainSection
-
-	Call setPathAndOptions
-	
+    Call setPathAndOptions
+    
 	${If} $diffArchDir2Remove != ""
 		!insertmacro uninstallRegKey
 		!insertmacro uninstallDir $diffArchDir2Remove 
@@ -215,11 +203,67 @@ Section -"Notepad++" mainSection
 	
 SectionEnd
 
+; Please **DONOT** move this function (SetRoughEstimation) anywhere else
+; Just keep it right after the "mainSection" section
+; Otherwise rough estimation for copyCommonFiles will not be set
+; which will become reason for showing 0.0KB size on components section page
+
+Function SetRoughEstimation
+	SectionSetSize ${mainSection} 4500		; This is rough estimation of files present in function copyCommonFiles
+FunctionEnd
+
+
+!include "nsisInclude\langs4Npp.nsh"
+
+!include "nsisInclude\themes.nsh"
+
+${MementoSection} "Context Menu Entry" explorerContextMenu
+	SetOverwrite try
+	SetOutPath "$INSTDIR\"
+	
+	; There is no need to keep x86 NppShell_06.dll in 64 bit installer
+	; But in 32bit installer both the Dlls are required
+	; 	As user can install 32bit npp version on x64 bit machine, that time x64 bit NppShell is required.
+	
+	!ifdef ARCH64
+		File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+	!else
+		${If} ${RunningX64}
+			File /oname=$INSTDIR\NppShell_06.dll "..\bin\NppShell64_06.dll"
+		${Else}
+			File "..\bin\NppShell_06.dll"
+		${EndIf}
+	!endif
+	Exec 'regsvr32 /s "$INSTDIR\NppShell_06.dll"'
+${MementoSectionEnd}
+
+${MementoSectionDone}
+
+;--------------------------------
+  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+    !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need these plugins to extend the capabilities of Notepad++.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${localization} 'To use Notepad++ in your favorite language(s), install all/desired language(s).'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep Notepad++ updated: Automatically download and install the latest updates.'
+  !insertmacro MUI_FUNCTION_DESCRIPTION_END
+;--------------------------------
+
 
 Function .onInstSuccess
 	${MementoSectionSave}
 FunctionEnd
 
+
+; Keep "FinishSection" section in the last so that
+; writing installation info happens in the last
+; Specially for writing registry "EstimatedSize"
+; which is visible in control panel in column named "size"
+
+Section -FinishSection
+  Call writeInstallInfoInRegistry
+SectionEnd
 
 BrandingText "Je code donc je suis"
 

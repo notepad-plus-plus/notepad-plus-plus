@@ -27,12 +27,12 @@
 
 #pragma once
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.5.1")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v7.5.6")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("7.51\0")
-#define VERSION_DIGITALVALUE 7, 5, 1, 0
+#define VERSION_VALUE TEXT("7.56\0")
+#define VERSION_DIGITALVALUE 7, 5, 6, 0
 
 
 
@@ -149,6 +149,18 @@
 
 #define IDI_FUNCLIST_SORTBUTTON        631
 #define IDI_FUNCLIST_RELOADBUTTON    632
+
+
+#define IDI_VIEW_DOC_MAP_ON_ICON       633
+#define IDI_VIEW_DOC_MAP_OFF_ICON      634
+#define IDI_VIEW_FILEBROWSER_ON_ICON   635
+#define IDI_VIEW_FILEBROWSER_OFF_ICON  636
+#define IDI_VIEW_FUNCLIST_ON_ICON      637
+#define IDI_VIEW_FUNCLIST_OFF_ICON     638
+#define IDI_VIEW_MONITORING_ON_ICON    639
+#define IDI_VIEW_MONITORING_OFF_ICON   640
+
+
 
 #define IDC_MY_CUR     1402
 #define IDC_UP_ARROW  1403

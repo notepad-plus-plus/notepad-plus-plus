@@ -28,6 +28,7 @@
 
 
 #include "Notepad_plus_Window.h"
+#include "functionListPanel.h"
 #include "xmlMatchedTagsHighlighter.h"
 #include "VerticalFileSwitcher.h"
 #include "ProjectPanel.h"
@@ -847,6 +848,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 
 			updateStatusBar();
+			if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
+				_pFuncList->markEntry();
 			AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 			autoC->update(0);
 

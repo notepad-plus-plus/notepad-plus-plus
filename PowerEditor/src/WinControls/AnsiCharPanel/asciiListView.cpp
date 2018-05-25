@@ -119,7 +119,7 @@ generic_string AsciiListView::getAscii(unsigned char value)
 			char ascii[2];
 			ascii[0] = value;
 			ascii[1] = '\0';
-			MultiByteToWideChar(_codepage, 0, ascii, -1, charStr, sizeof(charStr));
+			MultiByteToWideChar(_codepage, 0, ascii, -1, charStr, _countof(charStr));
 			return charStr;
 		}
 

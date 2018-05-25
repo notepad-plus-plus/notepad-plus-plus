@@ -222,6 +222,7 @@ struct CmdLineParams
 	generic_string _localizationPath;
 	generic_string _easterEggName;
 	unsigned char _quoteType = '\0';
+	int _ghostTypingSpeed = -1; // -1: initial value  1: slow  2: fast  3: speed of light
 
 	CmdLineParams()
 	{
@@ -1090,6 +1091,8 @@ struct FindHistory final
 {
 	enum searchMode{normal, extended, regExpr};
 	enum transparencyMode{none, onLossingFocus, persistant};
+
+	bool _isSearch2ButtonsMode = false;
 
 	int _nbMaxFindHistoryPath    = 10;
 	int _nbMaxFindHistoryFilter  = 10;

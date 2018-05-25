@@ -15,6 +15,7 @@
 		<KeyWord name="anchors" />
 		<KeyWord name="appCodeName" />
 		<KeyWord name="appCore" />
+		<KeyWord name="appendChild" />
 		<KeyWord name="Applet" />
 		<KeyWord name="applets" />
 		<KeyWord name="apply" />
@@ -46,6 +47,7 @@
 		<KeyWord name="bgColor" />
 		<KeyWord name="big" />
 		<KeyWord name="blink" />
+		<KeyWord name="blob" />
 		<KeyWord name="blur" />
 		<KeyWord name="body" />
 		<KeyWord name="bold" />
@@ -79,6 +81,7 @@
 		<KeyWord name="childElementCount" />
 		<KeyWord name="childNodes" />
 		<KeyWord name="class" />
+		<KeyWord name="classList" />
 		<KeyWord name="classes" />
 		<KeyWord name="className" />
 		<KeyWord name="clear" />
@@ -90,14 +93,17 @@
 		<KeyWord name="clipboardData" />
 		<KeyWord name="close" />
 		<KeyWord name="closed" />
+		<KeyWord name="codePointAt" />
 		<KeyWord name="colorDepth" />
 		<KeyWord name="compile" />
 		<KeyWord name="complete" />
 		<KeyWord name="components" />
 		<KeyWord name="concat" />
 		<KeyWord name="confirm" />
+		<KeyWord name="console" />
 		<KeyWord name="const" />
 		<KeyWord name="constructor" />
+		<KeyWord name="contains" />
 		<KeyWord name="contextual" />
 		<KeyWord name="continue" />
 		<KeyWord name="controllers" />
@@ -107,6 +113,7 @@
 		<KeyWord name="cpuClass" />
 		<KeyWord name="createElement" />
 		<KeyWord name="createEventObject" />
+		<KeyWord name="createObjectURL" />
 		<KeyWord name="createPopup" />
 		<KeyWord name="createStyleSheet" />
 		<KeyWord name="createTextNode" />
@@ -162,6 +169,7 @@
 		<KeyWord name="extends" />
 		<KeyWord name="external" />
 		<KeyWord name="false" />
+		<KeyWord name="fetch" />
 		<KeyWord name="fgColor" />
 		<KeyWord name="fileCreatedDate" />
 		<KeyWord name="fileModifiedDate" />
@@ -203,6 +211,7 @@
 		<KeyWord name="getAttributeNodeNS" />
 		<KeyWord name="getBoundingClientRect" />
 		<KeyWord name="getClientRects" />
+		<KeyWord name="getComputedStyle" />
 		<KeyWord name="getDate" />
 		<KeyWord name="getDay" />
 		<KeyWord name="getElementById" />
@@ -260,6 +269,7 @@
 		<KeyWord name="Infinity" />
 		<KeyWord name="innerHTML" />
 		<KeyWord name="innerHeight" />
+		<KeyWord name="innerText" />
 		<KeyWord name="innerWidth" />
 		<KeyWord name="input" />
 		<KeyWord name="instanceof" />
@@ -500,9 +510,12 @@
 		<KeyWord name="reset" />
 		<KeyWord name="resizeBy" />
 		<KeyWord name="resizeTo" />
+		<KeyWord name="response" />
+		<KeyWord name="responseType" />
 		<KeyWord name="return" />
 		<KeyWord name="returnValue" />
 		<KeyWord name="reverse" />
+		<KeyWord name="revokeObjectURL" />
 		<KeyWord name="right" />
 		<KeyWord name="rightContext" />
 		<KeyWord name="round" />
@@ -535,6 +548,7 @@
 		<KeyWord name="selectedIndex" />
 		<KeyWord name="selection" />
 		<KeyWord name="self" />
+		<KeyWord name="Set" />
 		<KeyWord name="setActive" />
 		<KeyWord name="setAttribute" />
 		<KeyWord name="setAttributeNS" />
@@ -616,6 +630,7 @@
 		<KeyWord name="textDecoration" />
 		<KeyWord name="textIndent" />
 		<KeyWord name="textTransform" />
+		<KeyWord name="then" />
 		<KeyWord name="this" />
 		<KeyWord name="throw" />
 		<KeyWord name="throws" />
@@ -668,6 +683,7 @@
 		<KeyWord name="writeln" />
 		<KeyWord name="x" />
 		<KeyWord name="XMLDocument" />
+		<KeyWord name="XMLHttpRequest" />
 		<KeyWord name="XSLDocument" />
 		<KeyWord name="y" />
 		<KeyWord name="zIndex" />

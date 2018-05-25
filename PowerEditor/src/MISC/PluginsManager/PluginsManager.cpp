@@ -345,17 +345,29 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 
 bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 {
-	if (_isDisabled || !dir || !dir[0])
+	if (_isDisabled)
 		return false;
 
-	NppParameters * nppParams = NppParameters::getInstance();
 
 	vector<generic_string> dllNames;
 	vector<generic_string> dll2Remove;
 
-	generic_string pluginsFolderFilter = dir;
+	NppParameters * nppParams = NppParameters::getInstance();
+	generic_string nppPath = nppParams->getNppPath();
+	
+	generic_string pluginsFolder;
+	if (dir && dir[0])
+	{
+		pluginsFolder = dir;
+	}
+	else
+	{
+		pluginsFolder = nppPath;
+		PathAppend(pluginsFolder, TEXT("plugins"));
+	}
+	generic_string pluginsFolderFilter = pluginsFolder;
 	PathAppend(pluginsFolderFilter, TEXT("*.*"));
-
+	
 	WIN32_FIND_DATA foundData;
 	HANDLE hFindFolder = ::FindFirstFile(pluginsFolderFilter.c_str(), &foundData);
 	HANDLE hFindDll = INVALID_HANDLE_VALUE;
@@ -363,7 +375,7 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 	// get plugin folder
 	if (hFindFolder != INVALID_HANDLE_VALUE && (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 	{
-		generic_string pluginsFullPathFilter = dir;
+		generic_string pluginsFullPathFilter = pluginsFolder;
 		PathAppend(pluginsFullPathFilter, foundData.cFileName);
 		generic_string pluginsFolderPath = pluginsFullPathFilter;
 		generic_string  dllName = foundData.cFileName;
@@ -383,13 +395,12 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 		// get plugin folder
 		while (::FindNextFile(hFindFolder, &foundData))
 		{
-			generic_string pluginsFullPathFilter2 = dir;
+			generic_string pluginsFullPathFilter2 = pluginsFolder;
 			PathAppend(pluginsFullPathFilter2, foundData.cFileName);
 			generic_string pluginsFolderPath2 = pluginsFullPathFilter2;
 			generic_string  dllName2 = foundData.cFileName;
 			dllName2 += TEXT(".dll");
 			PathAppend(pluginsFullPathFilter2, dllName2);
-
 			// get plugin
 			hFindDll = ::FindFirstFile(pluginsFullPathFilter2.c_str(), &foundData);
 			if (hFindDll != INVALID_HANDLE_VALUE && !(foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
@@ -404,7 +415,6 @@ bool PluginsManager::loadPluginsV2(const TCHAR* dir)
 	}
 	::FindClose(hFindFolder);
 	::FindClose(hFindDll);
-
 
 	for (size_t i = 0, len = dllNames.size(); i < len; ++i)
 	{
@@ -564,6 +574,10 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 
 void PluginsManager::notify(const SCNotification *notification)
 {
+	if (_noMoreNotification) // this boolean should be enabled after NPPN_SHUTDOWN has been sent
+		return;
+	_noMoreNotification = notification->nmhdr.code == NPPN_SHUTDOWN;
+
 	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 	{
         if (_pluginInfos[i]->_hLib)

@@ -28,6 +28,8 @@
 
 #include "FindCharsInRange.h"
 #include "findCharsInRange_rc.h"
+#include "Parameters.h"
+#include "localization.h"
 
 INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
@@ -60,7 +62,11 @@ INT_PTR CALLBACK FindCharsInRangeDlg::run_dlgProc(UINT message, WPARAM wParam, L
 					if (!getRangeFromUI(startRange, endRange))
 					{
 						//STOP!
-						::MessageBox(_hSelf, TEXT("You should type between from 0 to 255."), TEXT("Range Value problem"), MB_OK);
+						NppParameters::getInstance()->getNativeLangSpeaker()->messageBox("FindCharRangeValueError",
+							_hSelf,
+							TEXT("You should type between 0 and 255."),
+							TEXT("Range Value problem"),
+							MB_OK);
 						return TRUE;
 					}
 					getDirectionFromUI(direction, isWrap);

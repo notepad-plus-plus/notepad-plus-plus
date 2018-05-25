@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml" version="7.4.2">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="7.5.5">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -16,7 +16,7 @@
 					<Item menuId="macro" name="&amp;Makro" />
 					<Item menuId="run" name="&amp;Kör" />
 					<Item idName="Plugins" name="&amp;Tillägg" />
-					<Item idName="Window" name="Fö&amp;nster" />
+					<Item idName="Window" name="F&amp;önster" />
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
@@ -87,13 +87,14 @@
 					<Item id="41013" name="Spara session..." />
 					<Item id="41014" name="Återställ från disk" />
 					<Item id="41015" name="Spara en kopia som..." />
-					<Item id="41016" name="Ta bort från disk" />
+					<Item id="41016" name="Flytta till Papperskorgen" />
 					<Item id="41017" name="Byt namn..." />
 					<Item id="41021" name="Återställ stängd fil"/>
 					<Item id="41018" name="Stäng alla till höger"/>
 					<Item id="41019" name="Utforskaren"/>
 					<Item id="41020" name="Kommandotolken"/>
-					<Item id="41022" name="Öppna mapp som arbetsyta"/>
+					<Item id="41022" name="Öppna mapp som arbetsyta..."/>
+					<Item id="41023" name="Öppna i standardprogram"/>
 					<Item id="42001" name="&amp;Klipp ut" />
 					<Item id="42002" name="K&amp;opiera" />
 					<Item id="42003" name="&amp;Ångra" />
@@ -118,8 +119,8 @@
 					<Item id="42066" name="Sortera rader som decimaltal (punkt) fallande"/>
 					<Item id="42016" name="VERSALER" />
 					<Item id="42017" name="gemener" />
-					<Item id="42067" name="Versal Enbart Första Bokstav I Varje Ord - Title Case"/>
-					<Item id="42068" name="VERSAL Första Bokstav I Varje Ord - Title Case (blandad)"/>
+					<Item id="42067" name="Versal Enbart Första Bokstav I Varje Ord - Proper Case"/>
+					<Item id="42068" name="VERSAL Första Bokstav I Varje Ord - Proper Case (blandad)"/>
 					<Item id="42069" name="Versal enbart första bokstav i varje mening - Sentence case"/>
 					<Item id="42070" name="VERSAL första bokstav i varje mening - Sentence case (blandad)"/>
 					<Item id="42071" name="iNVERTERAD sTOR bOKSTAV"/>
@@ -135,7 +136,7 @@
 					<Item id="42022" name="Växla kommentar textavsnitt" />
 					<Item id="42023" name="Kommentera block" />
 					<Item id="42024" name="Beskär avslutande blanksteg" />
-					<Item id="42025" name="Spara inspelat makro" />
+					<Item id="42025" name="Spara inspelat makro..." />
 					<Item id="42026" name="Textriktning höger till vänster" />
 					<Item id="42027" name="Textriktning vänster till höger" />
 					<Item id="42028" name="Gör skrivskyddad" />
@@ -225,8 +226,8 @@
 					<Item id="44019" name="Visa alla tecken" />
 					<Item id="44020" name="Visa hjälplinjer för indrag" />
 					<Item id="44022" name="Radbrytning" />
-					<Item id="44023" name="Zooma &amp;in    Ctrl+Mushjul upp" />
-					<Item id="44024" name="Zooma &amp;ut    Ctrl+Mushjul ned" />
+					<Item id="44023" name="Zooma &amp;in (Ctrl+Mushjul upp)" />
+					<Item id="44024" name="Zooma &amp;ut (Ctrl+Mushjul ned)" />
 					<Item id="44025" name="Visa mellanslag och TAB" />
 					<Item id="44026" name="Visa radslut" />
 					<Item id="44029" name="Expandera alla" />
@@ -261,23 +262,23 @@
 					<Item id="44097" name="Övervakning (tail -f)"/>
 					<Item id="44098" name="Flytta flik framåt"/>
 					<Item id="44099" name="Flytta flik bakåt"/>
-					<Item id="45001" name="Konvertera till Windows-format" />
-					<Item id="45002" name="Konvertera till UNIX-format" />
-					<Item id="45003" name="Konvertera till MAC-format" />
+					<Item id="45001" name="Windows (CR LF)" />
+					<Item id="45002" name="Unix (LF)" />
+					<Item id="45003" name="Macintosh (CR)" />
 					<Item id="45004" name="Koda i ANSI" />
-					<Item id="45005" name="Koda i UTF-8" />
-					<Item id="45006" name="Koda i UCS-2 Big Endian" />
-					<Item id="45007" name="Koda i UCS-2 Little Endian" />
-					<Item id="45008" name="Koda i UTF-8 (utan BOM)" />
+					<Item id="45005" name="Koda i UTF-8-BOM" />
+					<Item id="45006" name="Koda i UCS-2 BE BOM" />
+					<Item id="45007" name="Koda i UCS-2 LE BOM" />
+					<Item id="45008" name="Koda i UTF-8" />
 					<Item id="45009" name="Konvertera till ANSI" />
-					<Item id="45010" name="Konvertera till UTF-8 (utan BOM)" />
-					<Item id="45011" name="Konvertera till UTF-8" />
-					<Item id="45012" name="Konvertera till Big Endian" />
-					<Item id="45013" name="Konvertera till Little Endian" />
+					<Item id="45010" name="Konvertera till UTF-8" />
+					<Item id="45011" name="Konvertera till UTF-8-BOM" />
+					<Item id="45012" name="Konvertera till UCS-2 BE BOM" />
+					<Item id="45013" name="Konvertera till UCS-2 LE BOM" />
 					<Item id="46001" name="Konfigurera programspråk" />
 					<Item id="46180" name="Användardefinierad" />
 					<Item id="46250" name="Definiera ditt språk..." />
-					<Item id="47000" name="Om Notepad++..." />
+					<Item id="47000" name="Om Notepad++" />
 					<Item id="47010" name="Kommandoradsargument"/>
 					<Item id="47001" name="Notepad++, officiell hemsida" />
 					<Item id="47002" name="Notepad++, projekthemsida" />
@@ -328,12 +329,13 @@
 				<Item CMID="18" name="Stäng alla till höger"/>
 				<Item CMID="19" name="Öppna objektets mapp i utforskaren"/>
 				<Item CMID="20" name="Öppna objektets mapp i kommandotolken"/>
+				<Item CMID="21" name="Öppna i standardprogram"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleMark="Markera">
-				<Item id="1" name="Sök  >>" />
-				<Item id="1721" name="<<  Sök" />
+				<Item id="1" name="Sök nästa" />
+				<Item id="1722" name="Sök föregående" />
 				<Item id="2" name="Stäng" />
 				<Item id="1603" name="Sök &amp;hela ord" />
 				<Item id="1604" name="&amp;Matcha små/STORA bokstäver" />
@@ -341,25 +343,22 @@
 				<Item id="1606" name="&amp;Loopa" />
 				<Item id="1608" name="&amp;Ersätt" />
 				<Item id="1609" name="Ersätt &amp;alla" />
-				<Item id="1611" name="Ersätt med:" />
-				<Item id="1612" name="Upp" />
-				<Item id="1613" name="Ned" />
+				<Item id="1611" name="Ersätt med :" />
 				<Item id="1614" name="Antal sökträffar" />
 				<Item id="1615" name="Hitta alla" />
-				<Item id="1616" name="Markera rad" />
+				<Item id="1616" name="Bokmärk rad" />
 				<Item id="1618" name="Rensa tidigare markering vid varje sökning" />
-				<Item id="1620" name="Sök efter:" />
-				<Item id="1621" name="Riktning" />
+				<Item id="1620" name="Sök efter :" />
 				<Item id="1624" name="Sökläge" />
-				<Item id="1625" name="N&amp;ormal" />
+				<Item id="1625" name="&amp;Normal" />
 				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)" />
 				<Item id="1632" name="I mar&amp;kering" />
-				<Item id="1633" name="Rensa" />
+				<Item id="1633" name="Rensa alla markeringar" />
 				<Item id="1635" name="Ersätt allt i alla öppna dokument" />
 				<Item id="1636" name="Sök allt i alla öppna dokument" />
 				<Item id="1641" name="Sök alla i aktivt dokument" />
-				<Item id="1654" name="Filter:" />
-				<Item id="1655" name="Mapp:" />
+				<Item id="1654" name="Filter :" />
+				<Item id="1655" name="Mapp :" />
 				<Item id="1656" name="Sök alla" />
 				<Item id="1658" name="I alla undermappar" />
 				<Item id="1659" name="I dolda mappar" />
@@ -392,8 +391,8 @@
 				<Item id="2004" name="Du är på rad:" />
 				<Item id="2005" name="Du vill gå till:" />
 				<Item id="2006" name="Du kan inte gå längre än till:" />
-				<Item id="2007" name="Rad" />
-				<Item id="2008" name="Kolumn" />
+				<Item id="2007" name="&amp;Rad" />
+				<Item id="2008" name="&amp;Kolumn" />
 			</GoToLine>
 			<StyleConfig title="Stilinställningar för programspråk">
 				<Item id="2" name="Stäng" />
@@ -425,6 +424,34 @@
 					<Item id="2232" name="Aktivera global understruken teckenstil" />
 				</SubDialog>
 			</StyleConfig>
+			<ShortcutMapper title="Snabbkommandon">
+				<Item id="2602" name="Ändra"/>
+				<Item id="2603" name="Ta bort"/>
+				<Item id="2606" name="Rensa"/>
+				<Item id="2607" name="Filter: "/>
+				<Item id="1" name="Stäng"/>
+				<ColumnName name="Namn"/>
+				<ColumnShortcut name="Snabbkommando"/>
+				<ColumnCategory name="Kategori"/>
+				<ColumnPlugin name="Tillägg"/>
+				<MainMenuTab name="Huvudmeny"/>
+				<MacrosTab name="Makron"/>
+				<RunCommandsTab name="Kör-kommandon"/>
+				<PluginCommandsTab name="Kommandon från tillägg"/>
+				<ScintillaCommandsTab name="Scintilla-kommandon"/>
+				<ConflictInfoOk name="Inga snabbkommandokonflikter hittades för denna rad."/>
+				<ConflictInfoEditing name="Inga konflikter . . ."/>
+			</ShortcutMapper>
+			<ShortcutMapperSubDialg title="Snabbkommando">
+				<Item id="1" name="OK"/>
+				<Item id="2" name="Avbryt"/>
+				<Item id="5006" name="Namn"/>
+				<Item id="5008" name="Lägg till"/>
+				<Item id="5009" name="Ta bort"/>
+				<Item id="5010" name="Verkställ"/>
+				<Item id="5007" name="Detta kommer att radera snabbkommando från detta kommando"/>
+				<Item id="5012" name="KONFLIKT HITTADES!"/>
+			</ShortcutMapperSubDialg>
 			<FindCharsInRange title="Hitta tecken i intervall...">
 				<Item id="2" name="Stäng" />
 				<Item id="2901" name="Icke ASCII-tecken (128-255)" />
@@ -626,7 +653,7 @@
 					<Item id="6119" name="Flerradig" />
 					<Item id="6120" name="Vertikal" />
 					<Item id="6121" name="Avsluta när sista fliken stängs"/>
-					<Item id="6122" name="Dölj (använd Alt eller F10 för att växla mellan dold och synlig)" />
+					<Item id="6122" name="Dölj menyrad (använd Alt eller F10 för att växla mellan dold och synlig)" />
 					<Item id="6123" name="Språk" />
 					<Item id="6125" name="Dokumentbläddrare" />
 					<Item id="6126" name="Visa" />
@@ -639,16 +666,16 @@
 					<Item id="6204" name="Träd med cirklar" />
 					<Item id="6205" name="Träd med fyrkanter" />
 					<Item id="6206" name="Visa radnummer" />
-					<Item id="6207" name="Visa bokmärken" />
+					<Item id="6207" name="Visa bokmärke" />
 					<Item id="6208" name="Visa vertikal kant" />
-					<Item id="6209" name="Antal kolumner: " />
+					<Item id="6209" name="Antal kolumner : " />
 					<Item id="6211" name="Inställning för vertikal gräns" />
 					<Item id="6212" name="Radläge" />
 					<Item id="6213" name="Bakgrundsläge" />
 					<Item id="6214" name="Aktiv markering av aktuell rad" />
 					<Item id="6216" name="Inställningar för markör" />
-					<Item id="6217" name="Bredd:" />
-					<Item id="6219" name="Blinkhastighet:" />
+					<Item id="6217" name="Bredd :" />
+					<Item id="6219" name="Blinkhastighet :" />
 					<Item id="6221" name="Hög" />
 					<Item id="6222" name="Låg" />
 					<Item id="6224" name="Inställningar för multiredigering" />
@@ -666,17 +693,17 @@
 					<Item id="6215" name="Aktivera utjämnade tecken"/>
 				</Scintillas>
 				<NewDoc title="Nytt dokument">
-					<Item id="6401" name="Format" />
-					<Item id="6402" name="Windows" />
-					<Item id="6403" name="Unix" />
-					<Item id="6404" name="Mac" />
+					<Item id="6401" name="Format (radslut)" />
+					<Item id="6402" name="Windows (CR LF)" />
+					<Item id="6403" name="Unix (LF)" />
+					<Item id="6404" name="Macintosh (CR)" />
 					<Item id="6405" name="Kodning" />
 					<Item id="6406" name="ANSI" />
 					<Item id="6407" name="UTF-8" />
 					<Item id="6408" name="UTF-8 med BOM" />
 					<Item id="6409" name="UCS-2 Big endian med BOM" />
 					<Item id="6410" name="UCS-2 Little Endian med BOM" />
-					<Item id="6411" name="Standardspråk:" />
+					<Item id="6411" name="Standardspråk :" />
 					<Item id="6419" name="Nytt dokument" />
 					<Item id="6420" name="Tillämpa på öppna ANSI-filer" />
 				</NewDoc>
@@ -684,7 +711,7 @@
 					<Item id="6413" name="Standardmapp (öppna/spara)"/>
 					<Item id="6414" name="Använd det aktuella dokumentet"/>
 					<Item id="6415" name="Kom ihåg den senast använda mappen"/>
-					<Item id="6430" name="Använd modern stil på sparadialogen (utan funktion för filtillägg)"/>
+					<Item id="6430" name="Använd modern stil på dialogrutor (utan funktion för filtillägg &amp;&amp; möjlighet för sökvägar i Unix-stil)"/>
 					<Item id="6431" name="Öppna alla filer i mapp istället för att starta en mapp som en arbetsyta när en mapp dras in"/> 
 				</DefaultDir>
 				<FileAssoc title="Filassociering">
@@ -703,7 +730,7 @@
 				</Language>
 				<Highlighting title="Markering"> 
 					<Item id="6333" name="Smarta markeringar"/>
-					<Item id="6326" name="Aktivera smart markering"/>
+					<Item id="6326" name="Aktivera"/>
 					<Item id="6332" name="Matcha skiftläge"/>
 					<Item id="6338" name="Matcha enbart hela ord"/> 
 					<Item id="6339" name="Använd inställningar från sökfönstret"/>
@@ -745,7 +772,7 @@
 				<RecentFilesHistory title="Senast öppnade filer">
 					<Item id="6304" name="Senast öppnade filer"/>
 					<Item id="6305" name="Kontrollera inte vid start"/>
-					<Item id="6306" name="Maximalt antal poster:"/>
+					<Item id="6306" name="Maximalt antal poster :"/>
 					<Item id="6429" name="Visa"/>
 					<Item id="6424" name="I undermeny" />
 					<Item id="6425" name="Endast filnamn" />
@@ -780,14 +807,14 @@
 					<Item id="6315" name="Inget" />
 					<Item id="6316" name="Enkel" />
 					<Item id="6317" name="Detaljerad" />
-					<Item id="6801" name="Säkerhetskopiering" />
+					<Item id="6801" name="Säkerhetskopiering vid sparning" />
 					<Item id="6803" name="Mapp:" />
 					<Item id="6804" name="Egen mapp för säkerhetskopiering" />
 					<Item id="6817" name="Sessioner och säkerhetskopiering" />
 					<Item id="6818" name="Ta ögonblicksbilder av sessioner och säkerhetskopiera regelbunder" />
 					<Item id="6819" name="Säkerhetskopiera var" />
 					<Item id="6821" name="sekund" />
-					<Item id="6822" name="Sökväg:" />
+					<Item id="6822" name="Sökväg :" />
 				</Backup>
 				<AutoCompletion title="Auto-komplettering">
 					<Item id="6807" name="Automatisk komplettering" />
@@ -796,7 +823,7 @@
 					<Item id="6810" name="Ordkomplettering" />
 					<Item id="6811" name="Från" />
 					<Item id="6813" name="tecknet" />
-					<Item id="6814" name="Giltigt värde: 1-9" />
+					<Item id="6814" name="Giltigt värde : 1-9" />
 					<Item id="6815" name="Funktionsparameterhjälp vid inmatning" />
 					<Item id="6816" name="Funktion- och ordkomplettering"/>
 					<Item id="6824" name="Ignorera siffror"/>
@@ -842,19 +869,19 @@
 				</SearchEngine> 
 			</Preference>
 			<MultiMacro title="Kör ett makro flera gånger">
-				<Item id="1" name="Kör" />
-				<Item id="2" name="Stäng" />
+				<Item id="1" name="&amp;Kör" />
+				<Item id="2" name="&amp;Stäng" />
 				<Item id="8001" name="Kör" />
-				<Item id="8002" name="Kör till filens slut" />
+				<Item id="8002" name="Kör &amp;till filens slut" />
 				<Item id="8005" name="gånger" />
-				<Item id="8006" name="Makro att köra:" />
+				<Item id="8006" name="Makro att köra :" />
 			</MultiMacro>
 			<Window title="Fönster">
-				<Item id="1" name="Aktivera" />
-				<Item id="2" name="Stäng" />
-				<Item id="7002" name="Spara" />
-				<Item id="7003" name="Stäng fönster" />
-				<Item id="7004" name="Sortera flikar" />
+				<Item id="1" name="&amp;Aktivera" />
+				<Item id="2" name="&amp;Stäng" />
+				<Item id="7002" name="&amp;Spara" />
+				<Item id="7003" name="S&amp;täng fönster" />
+				<Item id="7004" name="Sortera &amp;flikar" />
 			</Window>
 			<ColumnEditor title="Kolumnredigerare">
 				<Item id="1" name="OK" />
@@ -864,29 +891,113 @@
 				<Item id="2025" name="Oct" />
 				<Item id="2026" name="Hex" />
 				<Item id="2027" name="Bin" />
-				<Item id="2030" name="Första siffra:" />
-				<Item id="2031" name="Öka med:" />
+				<Item id="2030" name="Första siffra :" />
+				<Item id="2031" name="Öka med :" />
 				<Item id="2032" name="Format" />
 				<Item id="2033" name="Siffra att infoga" />
 				<Item id="2035" name="Inledande nollor" />
 				<Item id="2036" name="Upprepa:"/> 
 			</ColumnEditor>
+			<FindInFinder title="Sök i sökresultat">
+				<Item id="1"    name="Hitta alla"/>
+				<Item id="2"    name="Stäng"/>
+				<Item id="1711" name="Hitta vad :"/>
+				<Item id="1713" name="Sök bara i hittade rader"/>
+				<Item id="1714" name="Matcha bara &amp;hela ord"/>
+				<Item id="1715" name="Matcha &amp;STOR/liten bokstav"/>
+				<Item id="1716" name="Sökläge"/>
+				<Item id="1717" name="&amp;Normalt"/>
+				<Item id="1719" name="&amp;Reguljärt uttryck"/>
+				<Item id="1718" name="&amp;Utökat (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. matchar ny rad"/>
+			</FindInFinder>
 		</Dialog>
-		<MessageBox>
-			<ContextMenuXmlEditWarning title="Redigera snabbmenyn" message="Genom att redigera contextMenu.xml kan du anpassa snabbmenyn i Notepad++.&#x0A;Du måste starta om Notepad++ för att ändringarna i contextMenu.xml ska aktiveras." />
-			<NppHelpAbsentWarning title="Filen finns inte" message="&#x0A;finns inte. Ladda ned den från hemsidan för Notepad++." />
-			<SaveCurrentModifWarning title="Spara ändringar" message="Du bör spara ändringen.&#x0A;Inga sparade ändringar kan ångras.&#x0A;&#x0A;Fortsätt?" />
+		<MessageBox> <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<ContextMenuXmlEditWarning title="Redigera snabbmenyn" message="Genom att redigera contextMenu.xml kan du anpassa snabbmenyn i Notepad++.
+Du måste starta om Notepad++ för att ändringarna i contextMenu.xml ska aktiveras." />
+			<NppHelpAbsentWarning title="Filen finns inte" message="
+finns inte. Ladda ned den från hemsidan för Notepad++." />
+			<SaveCurrentModifWarning title="Spara ändringar" message="Du bör spara ändringen.
+Inga sparade ändringar kan ångras.
+
+Fortsätt?" />
 			<LoseUndoAbilityWarning title="Varning, förlorad förmåga att ångra" message="Du bör spara ändringarna.&#x0A;Inga sparade ändringar kan ångras.&#x0A;&#x0A;Fortsätt?" />
 			<CannotMoveDoc title="Flytta till en ny instans av Notepad++" message="Dokumentet är ändrat, spara det och försök igen." />
 			<DocReloadWarning title="Ladda om" message="Är du säker på att du vill ladda om den aktuella filen och förlora de ändringar som gjorts i Notepad++?" />
 			<FileLockedWarning title="Kunde inte spara" message="Kontrollera om filen är öppnad i ett annat program" />
 			<FileAlreadyOpenedInNpp title="" message="Filen är redan öppnad i Notepad++." />
 			<DeleteFileFailed title="Ta bort fil" message="Kunde inte ta bort fil" />
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<NbFileToOpenImportantWarning title="Det är för många filer att öppna" message="$INT_REPLACE$ filer är på väg att öppnas.\rÄr du säker på att du vill öppna dem?"/>
-			<SettingsOnCloudError title="Inställningar för moln" message="Det ser ut som att den inställda sökvägen till molnet är skrivskyddat, \reller krävs större rättigheter för att skriva. \rDina inställningar för molnet kommer att avbrytas. Återställ värdet i inställningarna."/>
+			
+			<NbFileToOpenImportantWarning title="Det är för många filer att öppna" message="$INT_REPLACE$ filer är på väg att öppnas.
+Är du säker på att du vill öppna dem?"/>
+			<SettingsOnCloudError title="Inställningar för molnet" message="Det ser ut som att den angivna sökvägen för molnet är skrivskyddad,
+eller så krävs det större rättigheter för att skriva.
+Dina inställningar för molnet kommer att avbrytas. Återställ värdet i inställningarna."/>
 			<FilePathNotFoundWarning title="Öppna fil" message="Filen du försöker öppna existerar ej."/>
 			<SessionFileInvalidError title="Kunde inte ladda session" message="Sessionsfil är antingen skadad eller ogiltig."/>
+			<DroppingFolderAsProjectModeWarning title="Felaktig åtgärd" message="Du kan enbart släppa filer eller mappar men inte båda, eftersom du är i &quot;släpp mappar som projekt&quot;-läge.
+Du måste aktivera &quot;Öppna alla filer i mapp istället för att starta en mapp som en arbetsyta när en mapp dras in&quot; i sektionen &quot;Standardmapp&quot; i inställningarna för att få denna åtgärd att fungera."/>
+			<SortingError title="Sorteringsfel" message="Kan inte utföra numerisk sortering på grund av rad $INT_REPLACE$."/>
+			<ColumnModeTip title="Tips för kolumnläge" message="Använd &quot;Alt+musmarkering&quot; eller &quot;Alt+Shift+Piltangent&quot; för att växla till kolumnläge."/>
+			<BufferInvalidWarning title="Sparning misslyckades" message="Kan inte spara: Bufferten är felaktig."/>
+			<DoSaveOrNot title="Spara" message="Spara fil &quot;$STR_REPLACE$&quot;?"/>
+			<DoCloseOrNot title="Behålla icke existerande fil" message="Filen &quot;$STR_REPLACE$&quot; existerar inte längre.
+Ska filen behållas i Notepad++?"/>
+			<DoDeleteOrNot title="Ta bort fil" message="Filen &quot;$STR_REPLACE$&quot;
+kommer att flyttas till din Papperskorg och detta dokument kommer att stängas.
+Fortsätt?"/>
+			<NoBackupDoSaveFile title="Spara" message="Din backup-fil kan inte hittas (borttagen externt).
+Om du spara den ändå komer din data gå förlorad.
+Vill du spara filen &quot;$STR_REPLACE$&quot;?"/>
+			<DoReloadOrNot title="Ladda om" message="&quot;$STR_REPLACE$&quot;
+
+Denna fil har modifierats av ett annat program.
+Vill du ladda om den?"/>
+			<DoReloadOrNotAndLooseChange title="Ladda om" message="&quot;$STR_REPLACE$&quot;
+
+Denna fil har modifierats av ett annat program.
+Vill du ladda om den och förlora ändringarna i Notepad++?"/>
+			<PrehistoricSystemDetected title="Förhistoriskt system noterades" message="Det verkar som om du fortfarande använder ett förhistoriskt system. Vi är ledsn, men den här funktionen fungerar endast på ett modernt system."/>
+			<XpUpdaterProblem title="Uppdaterare för Notepad++" message="Uppdateraren för Notepad++ är inte kompatibel med XP på grund av ett föråldrat säkerhetslager i XP.
+Vill du gå till hemsidan för Notepad++ för att ladda ned den senaste versionen?"/>
+			<DocTooDirtyToMonitor title="Övervakningsproblem" message="Dokumentet är ändrat. Spara ändringarna innan du övervakar den."/>
+			<DocNoExistToMonitor title="Övervakningsproblem" message="Filen måste finnas för att kunna övervakas."/>
+			<FileTooBigToOpen title="Problem med filstorlek" message="Filen är för stor för att öpnnas med Notepad++"/>
+			<CreateNewFileOrNot title="Skapa ny fil" message="&quot;$STR_REPLACE$&quot; existerar ej. Skapa den?"/>
+			<CreateNewFileError title="Skapa ny fil" message="Kan inte skapa filen &quot;$STR_REPLACE$&quot;."/>
+			<OpenFileError title="FEL" message="Kan inte öppna filen &quot;$STR_REPLACE$&quot;."/>
+			<FileBackupFailed title="Misslyckad filbackup" message="Föregående version av filen kunde inte spara i backup-mappen &quot;$STR_REPLACE$&quot;.
+
+Vill du spara aktuell fil ändå?"/>
+			<LoadStylersFailed title="Laddning av stylers.xml misslyckades" message="Laddning av &quot;$STR_REPLACE$&quot; misslyckades!"/>
+			<LoadLangsFailed title="Konfigurering" message="Laddning av langs.xml misslyckades!
+Vill du återskapa din langs.xml?"/>
+			<LoadLangsFailedFinal title="Konfigurering" message="Laddning av langs.xml misslyckades!"/>
+			<FolderAsWorspaceSubfolderExists title="Problem lägga till mapp till mapp som arbetsyta" message="En undermapp av mappen du vill lägga till existerar.
+Ta bort dess rot från panelen innan du lägger till mappen &quot;$STR_REPLACE$&quot;."/>
+
+			<ProjectPanelChanged title="$STR_REPLACE$" message="Arbetsytan ändrades. Vill du spara den?"/>
+			<ProjectPanelChangedSaveError title="$STR_REPLACE$" message="Din arbetsyta har inte sparats."/>
+			<ProjectPanelOpenDoSaveDirtyWsOrNot title="Öppna arbetsyta" message="Aktuell arbetsyta har ändrats. Vill du spara aktuellt projekt?"/>
+			<ProjectPanelNewDoSaveDirtyWsOrNot title="Ny arbetsyta" message="Aktuell arbetsyta har ändrats. Vill du spara aktuellt projekt?"/>
+			<ProjectPanelOpenFailed title="Öppna arbetsyta" message="Arbetsytan kunde inte öppnas.
+Det ser ut som att filen inte är en giltlig projektfil."/>
+			<ProjectPanelRemoveFolderFromProject title="Radera mapp från projekt" message="Alla undermappar kommer att raderas.
+Är du säker på att du vill radera denna mapp från projektet?"/>
+			<ProjectPanelRemoveFileFromProject title="Radera fil från projekt" message="Är du säker på att du vill radera denna fil från projektet?"/>
+			<ProjectPanelReloadError title="Ladda om arbetsyta" message="Kan inte hitta filen att ladda om."/>
+			<ProjectPanelReloadDirty title="Ladda om arbetsyta" message="Aktuell arbetsyta har modifierats. Genom att ladda om försvinner alla ändringar.
+Vill du fortsätta?"/>
+			<UDLNewNameError title="UDL-fel" message="Detta namn används av ett annat språk,
+vänligen använd ett annat namn."/>
+			<UDLRemoveCurrentLang title="Radera aktuellt språk" message="Är du säker?"/>
+			<SCMapperDoDeleteOrNot title="Är du säker?" message="Är du säker på att du vill radera detta snabbkommando?"/>
+			<FindCharRangeValueError title="Felaktigt interval" message="Du måste ange ett värde mellan 0 och 255."/>
+			<OpenInAdminMode title="Kunde inte spara" message="Filen kunde inte sparas och den kan vara skyddad.
+Vill du starta Notepad++ i administratörsläge?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Kunde inte spara" message="Filen kunde inte sparas och den kan vara skyddad.
+Vill du starta Notepad++ i administratörsläge?"/>
+			<OpenInAdminModeFailed title="Kunde inte starta i administratörsläge" message="Notepad++ kan inte öppnas i administratörsläge."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Urklippshistorik"/>
@@ -896,6 +1007,11 @@
 			<ColumnName name="Namn"/>
 			<ColumnExt name="Ext."/>
 		</DocSwitcher>
+		<WindowsDlg>
+			<ColumnName name="Namn"/>
+			<ColumnPath name="Sökväg"/>
+			<ColumnType name="Typ"/>
+		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="ASCII-panel"/>
 			<ColumnVal name="Värde"/>
@@ -910,6 +1026,21 @@
 			<SortTip name="Sortera" />
 			<ReloadTip name="Ladda om" />
 		</FunctionList>
+		<FolderAsWorkspace>
+			<PanelTitle name="Mapp som arbetsyta"/>
+			<SelectFolderFromBrowserString name="Välj en mapp att lägga till i panelen &quot;Mapp som arbetsyta&quot;"/>
+			<Menus>
+				<Item id="3511" name="Ta bort"/>
+				<Item id="3512" name="Ta bort alla"/>
+				<Item id="3513" name="Lägg till"/>
+				<Item id="3514" name="Kör av systemet"/>
+				<Item id="3515" name="Öppna"/>
+				<Item id="3516" name="Kopier sökväg"/>
+				<Item id="3517" name="Sök i filer..."/>
+				<Item id="3518" name="Utforska här"/>
+				<Item id="3519" name="CMD här"/>
+			</Menus>
+		</FolderAsWorkspace>
 		<ProjectManager>
 			<PanelTitle name="Projekt" />
 			<WorkspaceRootName name="Arbetsyta" />
@@ -957,17 +1088,50 @@
 			</Menus>
 		</ProjectManager>
 		<MiscStrings>
+			<!-- $INT_REPLACE$  and $STR_REPLACE$ are a place holders, don't translate these place holders -->
 			<word-chars-list-tip value="Detta gör det möjligt att inkludera ytterligare tecken i aktuella ordtecken när du dubbelklickar för att välja eller söker med alternativet &quot;Matcha enbart hela ord&quot; valt."/>
 			<word-chars-list-warning-begin value="Observera: "/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<word-chars-list-space-warning value="$INT_REPLACE$ mellanslag"/>
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<word-chars-list-tab-warning value="$INT_REPLACE$ tabb(ar)"/>
 			<word-chars-list-warning-end value="  i din teckenlista."/>
 			<cloud-invalid-warning value="Felaktig sökväg."/>
 			<cloud-restart-warning value="Starta om Notepad++ för att ändringarna ska träda i kraft."/>
-			<shift-change-direction-tip value="Enter: Hitta nästa
-Shift+Enter: Hitta föregående"/>
+			<cloud-select-folder value="Välj en mapp från/till vilken Notepad++ ska läsa/skriva dess inställningar"/>
+			<shift-change-direction-tip value="Använd Shift+Enter för att söka i omvänd riktning"/>
+			<two-find-buttons-tip value="Sök med två knappar"/>
+			<find-status-top-reached value="Sök: Hittade första förekomsten från slutet. Början av dokumentet har passerats."/>
+			<find-status-end-reached value="Sök: Hittade första förekomsten från början. Slutet av dokumentet har passerats."/>
+			<find-status-replaceinfiles-1-replaced value="Ersätt i filer: 1 förekomst ersattes"/>
+			<find-status-replaceinfiles-nb-replaced value="Ersätt i filer: $INT_REPLACE$ förekomster ersattes"/>
+			<find-status-replaceinfiles-re-malformed value="Ersätt i öppna filer: Det reguljära uttrycket är felaktigt"/>
+			<find-status-replaceinopenedfiles-1-replaced value="Ersätt i öppna filer: 1 förekomst ersattes"/>
+			<find-status-replaceinopenedfiles-nb-replaced value="Ersätt i öppna filer: $INT_REPLACE$ förekomster ersattes"/>
+			<find-status-mark-re-malformed value="Markering: Det reguljära uttrycket är felaktigt"/>
+			<find-status-invalid-re value="Sök: Felaktigt reguljärt uttryck"/>
+			<find-status-mark-1-match value="1 match"/>
+			<find-status-mark-nb-matches value="$INT_REPLACE$ matchningar"/>
+			<find-status-count-re-malformed value="Antal: Det reguljära uttrycket för sökning är felatigt"/>
+			<find-status-count-1-match value="Antal: 1 match"/>
+			<find-status-count-nb-matches value="Antal: $INT_REPLACE$ matchningar"/>
+			<find-status-replaceall-re-malformed value="Ersätt alla: Det reguljära uttrycket är felaktigt"/>
+			<find-status-replaceall-1-replaced value="Ersätt alla: 1 förekomst ersattes"/>
+			<find-status-replaceall-nb-replaced value="Ersätt alla: $INT_REPLACE$ förekomster ersattes"/>
+			<find-status-replaceall-readonly value="Ersätt alla: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
+			<find-status-replace-end-reached value="Ersätt: Ersatte första förekomsten från början. Slutet av dokumentet har passerats"/>
+			<find-status-replace-top-reached value="Ersätt: Ersatte första förekomsten från slutet. Början av dokumentet har passerats"/>
+			<find-status-relaced-next-found value="Ersätt: 1 förekomst har ersatts. Nästa förekomst har hittats"/>
+			<find-status-relaced-next-not-found value="Ersätt: 1 förekomst har ersatts. Hittade inte nästa förekomst"/>
+			<find-status-replace-not-found value="Ersätt: Inga förekomster hittades"/>
+			<find-status-replace-readonly value="Ersätt: Kan inte ersätta text. Aktuellt dokument är skrivskyddat"/>
+			<find-status-cannot-find value="Sök: Kan inte hitta texten &quot;$STR_REPLACE$&quot;"/>
+			<finder-find-in-finder value="Sök i detta sökresultat..."/>
+			<finder-close-this value="Stäng denna sökning"/>
+			<finder-collapse-all value="Minimera alla"/>
+			<finder-uncollapse-all value="Expandera alla"/>
+			<finder-copy value="Kopiera"/>
+			<finder-select-all value="Välj alla"/>
+			<finder-clear-all value="Rensa alla"/>
+			<finder-open-all value="Öppna alla"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

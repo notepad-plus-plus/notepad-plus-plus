@@ -1,17 +1,28 @@
-Notepad++ 7.5.1 new featurs/enhancements & bug-fixes:
+Notepad++ v7.5.6 enhancements & bug-fixes:
 
-1.  Fix some excluded language cannot be remembered bug.
-2.  Fix a localization regression bug.
-3.  Fix the bug that Notepad++ create "%APPDATA%\local\notepad++" folder in local conf mode.
-4.  Add Visual Prolog language support.
-5.  Add auto-completion support for batch file (*.bat).
-6.  Enhance Function List for PHP and JavaScript.
-7.  Enhance Shortcut Mapper by adding category column.
-8.  Make double click work for language menu disabling/enabling in preferences dialog.
-9.  Make double click work to improve file extension movement in Preferences dialog.
-10. Fix bug: language menu item is restored back on the wrong zone.
-11. Add a spiritual quote.
+1.  Fix macro playing back crash issue on new added "find previous" and "find next" buttons.
+2.  Function List enhancement: Highlight the current function based on cursor position.
+3.  Fix crash on styler dialog of User Defined Language dialog.
+4.  Fix file status detection issue under Windows XP.
+5.  Ghost typing enhancement: Unicode, syntax highlighting and speed support.
+    (check the url for the usage of ghost typing on command line: https://notepad-plus-plus.org/features/ghost-typing.html )
+6.  Add a message from outer space.
 
+
+Notepad++ 7.5.5 enhancements & bug-fixes:
+
+1.  Restore 2 buttons "<< Find Previous" & "Find Next >>" in Find dialog (optional).
+2.  Fix monitored (tail -f) file not always updated issue.
+3.  Keep Doc Switcher's ordering in sync with Tab bar.
+4.  Shortcut Mapper enhancements: Add filter capacity and make dialog resizable and maximizable.
+5.  Fix for "Toggle Single Line Comment" malfunctioning with HTML/XML.
+6.  Make Unix style path (slashes) work in open file dialog (optional).
+7.  Fix tab sticks to mouse pointer problem after external update of a opened file.
+8.  Fix encoding not sync (on status bar) after reloading.
+9.  Fix menu items' state is not maintained due to save macro command.
+10. Fix line ending changes are not detected in reloaded changed files issue.
+11. Fix highlighting of <script> tags in XML files issue.
+12. Fix Unicode file name comparison to match Windows behaviour (as opposed to doing a linguistic filename comparison).
 
 
 Included plugins:
@@ -19,8 +30,9 @@ Included plugins:
 1.  NppExport v0.2.8 (32-bit x86 only)
 2.  Converter 4.2.1
 3.  Mime Tool 2.1
+4.  DSpellCheck 1.3.5
 
 
 Updater (Installer only):
 
-* WinGup v4.1
+* WinGup v4.2

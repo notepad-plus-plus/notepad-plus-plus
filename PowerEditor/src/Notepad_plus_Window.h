@@ -31,32 +31,33 @@
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEasterEggName | -qtText | -qfCntentFileName] [-quickPrint] [filePath]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-pPosition] [-xLeftPos] [-yTopPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [-qnEasterEggName | -qtText | -qfCntentFileName] [-qSpeed1|2|3] [-quickPrint] [filePath]\r\
 \r\
-    --help : This help message\r\
-    -multiInst : Launch another Notepad++ instance\r\
-    -noPlugin : Launch Notepad++ without loading any plugin\r\
-    -l : Open filePath by applying indicated programming language\r\
-    -L : Apply indicated localization, langCode is browser language code\r\
-    -n : Scroll to indicated line on filePath\r\
-    -c : Scroll to indicated column on filePath\r\
-    -p : Scroll to indicated position on filePath\r\
-    -x : Move Notepad++ to indicated left side position on the screen\r\
-    -y : Move Notepad++ to indicated top position on the screen\r\
-    -nosession : Launch Notepad++ without previous session\r\
-    -notabbar : Launch Notepad++ without tabbar\r\
-    -ro : Make the filePath read only\r\
-    -systemtray : Launch Notepad++ directly in system tray\r\
-    -loadingTime : Display Notepad++ loading time\r\
-    -alwaysOnTop : Make Notepad++ always on top\r\
-    -openSession : Open a session. filePath must be a session file\r\
-    -r : Open files recursively. This argument will be ignored\r\
-         if filePath contain no wildcard character\r\
-    -qn : Launch ghost typing to display easter egg via its name\r\
-    -qt : Launch ghost typing to display a text via the given text\r\
-    -qf : Launch ghost typing to display a file content via the file path\r\
-    -quickPrint : Print the file given as argument then quit Notepad++\r\
-    filePath : file or folder name to open (absolute or relative path name)\r\
+--help : This help message\r\
+-multiInst : Launch another Notepad++ instance\r\
+-noPlugin : Launch Notepad++ without loading any plugin\r\
+-l : Open file or display ghost typing with syntax highlighting of choice\r\
+-L : Apply indicated localization, langCode is browser language code\r\
+-n : Scroll to indicated line on filePath\r\
+-c : Scroll to indicated column on filePath\r\
+-p : Scroll to indicated position on filePath\r\
+-x : Move Notepad++ to indicated left side position on the screen\r\
+-y : Move Notepad++ to indicated top position on the screen\r\
+-nosession : Launch Notepad++ without previous session\r\
+-notabbar : Launch Notepad++ without tabbar\r\
+-ro : Make the filePath read only\r\
+-systemtray : Launch Notepad++ directly in system tray\r\
+-loadingTime : Display Notepad++ loading time\r\
+-alwaysOnTop : Make Notepad++ always on top\r\
+-openSession : Open a session. filePath must be a session file\r\
+-r : Open files recursively. This argument will be ignored\r\
+     if filePath contain no wildcard character\r\
+-qn : Launch ghost typing to display easter egg via its name\r\
+-qt : Launch ghost typing to display a text via the given text\r\
+-qf : Launch ghost typing to display a file content via the file path\r\
+-qSpeed : Ghost typing speed. Value from 1 to 3 for slow, fast and fastest\r\
+-quickPrint : Print the file given as argument then quit Notepad++\r\
+filePath : file or folder name to open (absolute or relative path name)\r\
 ");
 
 
@@ -111,5 +112,7 @@ private:
 	static const TCHAR _className[32];
 	bool _isPrelaunch = false;
 	bool _disablePluginsManager = false;
-	std::string _userQuote; // keep the availability of this string for thread using
+
+	QuoteParams _quoteParams; // keep the availability of quote parameters for thread using
+	std::wstring _userQuote; // keep the availability of this string for thread using
 };

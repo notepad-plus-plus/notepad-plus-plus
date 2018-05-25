@@ -133,6 +133,16 @@ SectionGroup "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\batch.xml"
 	${MementoSectionEnd}
+	
+	${MementoSection} "CoffeeScript" CoffeeScript
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File ".\APIs\coffee.xml"
+	${MementoSectionEnd}
+
+	${MementoSection} "BaanC" BaanC
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File ".\APIs\baanc.xml"
+	${MementoSectionEnd}
 SectionGroupEnd
 
 
@@ -221,4 +231,13 @@ SectionGroup un.autoCompletionComponent
 	Section un.BATCH
 		Delete "$INSTDIR\plugins\APIs\batch.xml"
 	SectionEnd
+	
+	Section un.CoffeeScript
+		Delete "$INSTDIR\plugins\APIs\coffee.xml"
+	SectionEnd
+
+	Section un.BaanC
+		Delete "$INSTDIR\plugins\APIs\baanc.xml"
+	SectionEnd
+	
 SectionGroupEnd

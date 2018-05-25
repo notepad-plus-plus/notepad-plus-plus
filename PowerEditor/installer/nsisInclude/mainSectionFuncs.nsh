@@ -27,6 +27,14 @@
 
 Var UPDATE_PATH
 Function setPathAndOptions
+    ${If} $UPDATE_PATH == ""
+        Goto initUpdatePath
+	${ELSE}
+        Goto alreadyDone
+	${EndIf}
+    
+initUpdatePath:
+    
 	; Set Section properties
 	SetOverwrite on
 	StrCpy $UPDATE_PATH $INSTDIR
@@ -48,6 +56,8 @@ Function setPathAndOptions
 		IfFileExists $INSTDIR\allowAppDataPlugins.xml 0 +2
 		Delete $INSTDIR\allowAppDataPlugins.xml
 	${EndIf}
+    
+alreadyDone:
 FunctionEnd
 	
 Function copyCommonFiles
@@ -201,7 +211,7 @@ Function removeUnstablePlugins
 		MessageBox MB_OK "Due to the stability issue,$\nNppQCP.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\NppQCP.dll" "$INSTDIR\plugins\disabled\NppQCP.dll"
 		Delete "$INSTDIR\plugins\NppQCP.dll"
-		
+	/*
 	IfFileExists "$INSTDIR\plugins\DSpellCheck.dll" 0 +11
 		MessageBox MB_YESNOCANCEL "Due to the stability issue, DSpellCheck.dll will be moved to the directory $\"disabled$\".$\nChoose Cancel to keep it for this installation.$\nChoose No to keep it forever." /SD IDYES IDNO never IDCANCEL donothing ;IDYES remove
 		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\disabled\DSpellCheck.dll"
@@ -211,6 +221,7 @@ Function removeUnstablePlugins
 		Rename "$INSTDIR\plugins\DSpellCheck.dll" "$INSTDIR\plugins\DSpellCheck2.dll"
 		Goto donothing
 	donothing:
+	*/
 FunctionEnd
 
 Function removeOldContextMenu

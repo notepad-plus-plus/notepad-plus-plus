@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 Catalan translation for Notepad++
-Updated 18.02.2018, v7.5.5
+Updated 29.05.2018, v7.5.5
 By Hiro5 <groccat at gmail>
 -->
 <NotepadPlus>
@@ -919,6 +919,19 @@ By Hiro5 <groccat at gmail>
 				<Item id="2026" name="Hexadecimal"/>
 				<Item id="2027" name="Binari"/>
 			</ColumnEditor>
+			<FindInFinder title="Cerca al cercador">
+				<Item id="1"    name="Cerca-ho tot"/>
+				<Item id="2"    name="Tanca"/>
+				<Item id="1711" name="Cerca:"/>
+				<Item id="1713" name="Cerca només en línies trobades"/>
+				<Item id="1714" name="Cerca només &amp;paraula sencera"/>
+				<Item id="1715" name="&amp;Coincideix majúscules"/>
+				<Item id="1716" name="Mode de cerca"/>
+				<Item id="1717" name="Normal"/>
+				<Item id="1719" name="&amp;Expressió regular"/>
+				<Item id="1718" name="Estès (\n, \r, \t, \0, \x...)"/>
+				<Item id="1720" name="&amp;. cerca nova línia"/>
+			</FindInFinder>
 		</Dialog>
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.&#xD;Reinicieu Notepad++ després de modificar contextMenu.xml perquè faci efecte."/>
@@ -931,13 +944,12 @@ By Hiro5 <groccat at gmail>
 			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
 			<NbFileToOpenImportantWarning title="Massa fitxers per obrir" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.&#xD;Segur que voleu obrir-los?"/>
-			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»&#xD;o «Alt+Maj.+Fletxes del teclat»&#xD;per canviar al mode de columna." />
 			<SettingsOnCloudError title="Opcions al núvol" message="Sembla que el directori indicat a les opcions del núvol es troba en una unitat de només lectura,&#xD;o en una carpeta que demana drets d'accés d'escriptura.&#xD;Els vostres paràmetres del núvol es cancel·laran. Reinicieu a un valor coherent a través del diàleg de Preferències."/>
 			<FilePathNotFoundWarning title="Obre fitxer" message="El fitxer que intenteu obrir no existeix."/>
 			<SessionFileInvalidError title="No s'ha pogut carregar la sessió" message="El fitxer de sessió està malmès o no és vàlid."/>
 			<DroppingFolderAsProjectModeWarning title="Acció no vàlida" message="Podeu arrossegar fitxers o carpetes però no ambdues, perquè s'està arrossegant en mode de Carpeta com a projecte.&#xD;Heu d'activar &quot;Obre els fitxers d'una carpeta arrossegada en comptes d'obrir a Carpetes de treball&quot; a la secció &quot;Directoris&quot; del diàleg de Preferències per fer que aquesta operació funcioni."/>
 			<SortingError title="Error d'ordenació" message="No s'ha pogut realitzar l'ordenació numèrica degut a la línia $INT_REPLACE$."/>
-			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu &quot;ALT+Selecció ratolí&quot; o &quot;Alt+Maj+Fletxes&quot; per canviar al mode de columna."/>
+			<ColumnModeTip title="Consell del mode de columna" message="Utilitzeu «Alt+Selecció amb ratolí»&#xD;o «Alt+Maj.+Fletxes del teclat»&#xD;per canviar al mode de columna." />
 			<BufferInvalidWarning title="El desat ha fallat" message="No es pot desar: El buffer no es vàlid."/>
 			<DoSaveOrNot title="Desa" message="Voleu desar el fitxer &quot;$STR_REPLACE$&quot; ?"/>
 			<DoCloseOrNot title="Manté el fitxer inexistent" message="El fitxer &quot;$STR_REPLACE$&quot; ja no existeix.&#xD;El voleu mantenir en l'editor?"/>
@@ -971,6 +983,9 @@ By Hiro5 <groccat at gmail>
 			<UDLRemoveCurrentLang title="Esborra el llenguatge actual" message="Esteu segur?"/>
 			<SCMapperDoDeleteOrNot title="Supressió de drecera" message="Segur que voleu suprimir aquesta drecera?"/>
 			<FindCharRangeValueError title="Valor fora de rang" message="Hauríeu d'escriure un valor de 0 a 255."/>
+			<OpenInAdminMode title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar Notepad++ en mode d'administrador?"/>
+			<OpenInAdminModeWithoutCloseCurrent title="Error en desar" message="El fitxer no es pot desar i pot estar protegit.&#xD;Voleu iniciar Notepad++ en mode d'administrador?"/>
+			<OpenInAdminModeFailed title="Error en obrir en mode d'administrador" message="No es pot obrir Notepad++ en mode d'administrador."/>
 		</MessageBox>
 		<ClipboardHistory>
 			<PanelTitle name="Historial del porta-retalls"/>
@@ -980,6 +995,11 @@ By Hiro5 <groccat at gmail>
 			<ColumnName name="Nom"/>
 			<ColumnExt name="Ext."/>
 		</DocSwitcher>
+		<WindowsDlg>
+			<ColumnName name="Nom"/>
+			<ColumnPath name="Camí"/>
+			<ColumnType name="Tipus"/>
+		</WindowsDlg>
 		<AsciiInsertion>
 			<PanelTitle name="Panell d'inserció ASCII"/>
 			<ColumnVal name="Valor"/>
@@ -1094,7 +1114,14 @@ By Hiro5 <groccat at gmail>
 			<find-status-replace-not-found value="Reemplaça: cap resultat trobat"/>
 			<find-status-replace-readonly value="Reemplaça: No es pot reemplaçar el text. El document actual és de només lectura"/>
 			<find-status-cannot-find value="Cerca: No s'ha trobat el text &quot;$STR_REPLACE$&quot;"/>
-			<find-status-mark-nb-matches value="$INT_REPLACE$ coincidències"/>
+			<finder-find-in-finder value="Cerca en aquests resultats..."/>
+			<finder-close-this value="Tanca aquest cercador"/>
+			<finder-collapse-all value="Plega-ho tot"/>
+			<finder-uncollapse-all value="Desplega-ho tot"/>
+			<finder-copy value="Copia"/>
+			<finder-select-all value="Selecciona-ho tot"/>
+			<finder-clear-all value="Neteja-ho tot"/>
+			<finder-open-all value="Obre-ho tot"/>
 		</MiscStrings>
 	</Native-Langue>
 </NotepadPlus>

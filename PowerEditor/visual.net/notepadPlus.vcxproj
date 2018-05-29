@@ -287,6 +287,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClCompile Include="..\src\MISC\Common\Common.cpp" />
     <ClCompile Include="..\src\WinControls\ContextMenu\ContextMenu.cpp" />
     <ClCompile Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.cpp" />
+    <ClCompile Include="..\src\WinControls\ReadDirectoryChanges\ReadFileChanges.cpp" />
     <ClCompile Include="..\src\WinControls\TabBar\ControlsTab.cpp" />
     <ClCompile Include="..\src\WinControls\DockingWnd\DockingCont.cpp" />
     <ClCompile Include="..\src\WinControls\DockingWnd\DockingManager.cpp" />
@@ -559,6 +560,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\WinControls\ContextMenu\ContextMenu.h" />
     <ClInclude Include="..\src\WinControls\PluginsAdmin\pluginsAdmin.h" />
     <ClInclude Include="..\src\WinControls\PluginsAdmin\pluginsAdminRes.h" />
+    <ClInclude Include="..\src\WinControls\ReadDirectoryChanges\ReadFileChanges.h" />
     <ClInclude Include="..\src\WinControls\TabBar\ControlsTab.h" />
     <ClInclude Include="..\src\WinControls\DockingWnd\Docking.h" />
     <ClInclude Include="..\src\WinControls\DockingWnd\DockingCont.h" />

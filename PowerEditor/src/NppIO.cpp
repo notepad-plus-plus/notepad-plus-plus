@@ -35,6 +35,7 @@
 #include "VerticalFileSwitcher.h"
 #include "functionListPanel.h"
 #include "ReadDirectoryChanges.h"
+#include "ReadFileChanges.h"
 #include <tchar.h>
 
 using namespace std;
@@ -60,13 +61,17 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	CReadDirectoryChanges changes;
 	changes.AddDirectory(folderToMonitor, true, dwNotificationFlags);
 
+	CReadFileChanges fChanges;
+	fChanges.AddFile(fullFileName, FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_SIZE);
+
+
 	HANDLE changeHandles[] = { buf->getMonitoringEvent(), changes.GetWaitHandle() };
 
 	bool toBeContinued = true;
 
 	while (toBeContinued)
 	{
-		DWORD waitStatus = ::WaitForMultipleObjects(_countof(changeHandles), changeHandles, FALSE, INFINITE);
+		DWORD waitStatus = ::WaitForMultipleObjects(_countof(changeHandles), changeHandles, FALSE, 250);
 		switch (waitStatus)
 		{
 			case WAIT_OBJECT_0 + 0:
@@ -107,6 +112,11 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 				}
 			}
 			break;
+			case WAIT_TIMEOUT:
+				if (fChanges.DetectChanges()) {
+					::PostMessage(h, NPPM_INTERNAL_RELOADSCROLLTOEND, reinterpret_cast<WPARAM>(buf), 0);
+				}
+				break;
 
 			case WAIT_IO_COMPLETION:
 				// Nothing to do.
@@ -117,6 +127,8 @@ DWORD WINAPI Notepad_plus::monitorFileOnChange(void * params)
 	// Just for sample purposes. The destructor will
 	// call Terminate() automatically.
 	changes.Terminate();
+	fChanges.Terminate();
+
 	delete monitorInfo;
 	return EXIT_SUCCESS;
 }

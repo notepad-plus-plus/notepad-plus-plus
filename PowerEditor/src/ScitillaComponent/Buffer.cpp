@@ -144,10 +144,14 @@ void Buffer::setLangType(LangType lang, const TCHAR* userLangName)
 
 void Buffer::updateTimeStamp()
 {
-	struct _stat buf;
-	time_t timeStamp = (generic_stat(_fullPathName.c_str(), &buf)==0)?buf.st_mtime:0;
+	FILETIME timeStamp = {};
+	WIN32_FILE_ATTRIBUTE_DATA attributes;
+	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
+	{
+		timeStamp = attributes.ftLastWriteTime;
+	}
 
-	if (timeStamp != _timeStamp)
+	if (CompareFileTime(&_timeStamp, &timeStamp) != 0)
 	{
 		_timeStamp = timeStamp;
 		doNotify(BufferChangeTimestamp);
@@ -222,7 +226,7 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
  	if (_currentStatus == DOC_UNNAMED)	//unsaved document cannot change by environment
 		return false;
 
-	struct _stat buf;
+	WIN32_FILE_ATTRIBUTE_DATA attributes;
 	bool isWow64Off = false;
 	NppParameters *pNppParam = NppParameters::getInstance();
 
@@ -238,18 +242,18 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
 		_isDirty = true;	//dirty sicne no match with filesystem
-		_timeStamp = 0;
+		_timeStamp = {};
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		isOK = true;
 	}
 	else if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName.c_str()))
 	{	//document has returned from its grave
-		if (not generic_stat(_fullPathName.c_str(), &buf))
+		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 		{
-			_isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
+			_isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
 
 			_currentStatus = DOC_MODIFIED;
-			_timeStamp = buf.st_mtime;
+			_timeStamp = attributes.ftLastWriteTime;
 
 			if (_reloadFromDiskRequestGuard.try_lock())
 			{
@@ -259,18 +263,18 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 			isOK = true;
 		}
 	}
-	else if (not generic_stat(_fullPathName.c_str(), &buf))
+	else if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
-		bool isFileReadOnly = (bool)(not(buf.st_mode & _S_IWRITE));
+		bool isFileReadOnly = attributes.dwFileAttributes & FILE_ATTRIBUTE_READONLY;
 		if (isFileReadOnly != _isFileReadOnly)
 		{
 			_isFileReadOnly = isFileReadOnly;
 			mask |= BufferChangeReadonly;
 		}
-		if (_timeStamp != buf.st_mtime)
+		if (CompareFileTime(&_timeStamp, &attributes.ftLastWriteTime) != 0)
 		{
-			_timeStamp = buf.st_mtime;
+			_timeStamp = attributes.ftLastWriteTime;
 			mask |= BufferChangeTimestamp;
 			_currentStatus = DOC_MODIFIED;
 			mask |= BufferChangeStatus;	//status always 'changes', even if from modified to modified
@@ -300,10 +304,10 @@ bool Buffer::checkFileState() //eturns true if the status has been changed (it c
 
 void Buffer::reload()
 {
-	struct _stat buf;
-	if (PathFileExists(_fullPathName.c_str()) && not generic_stat(_fullPathName.c_str(), &buf))
+	WIN32_FILE_ATTRIBUTE_DATA attributes;
+	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
-		_timeStamp = buf.st_mtime;
+		_timeStamp = attributes.ftLastWriteTime;
 		_currentStatus = DOC_NEEDRELOAD;
 		doNotify(BufferChangeTimestamp | BufferChangeStatus);
 	}
@@ -552,7 +556,7 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier)
 
 
 // backupFileName is sentinel of backup mode: if it's not NULL, then we use it (load it). Otherwise we use filename
-BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
+BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, FILETIME fileNameTimestamp)
 {
 	bool ownDoc = false;
 	if (doc == NULL)
@@ -593,7 +597,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 				newBuf->_currentStatus = DOC_UNNAMED;
 		}
 
-		if (fileNameTimestamp != 0)
+		const FILETIME zeroTime = {};
+		if (CompareFileTime(&fileNameTimestamp, &zeroTime) != 0)
 			newBuf->_timeStamp = fileNameTimestamp;
 
 		_buffers.push_back(newBuf);

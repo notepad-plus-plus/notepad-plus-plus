@@ -2050,8 +2050,9 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					const TCHAR *encStr = (childNode->ToElement())->Attribute(TEXT("encoding"), &encoding);
 					const TCHAR *backupFilePath = (childNode->ToElement())->Attribute(TEXT("backupFilePath"));
 
-					int fileModifiedTimestamp = 0;
-					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestamp"), &fileModifiedTimestamp);
+					FILETIME fileModifiedTimestamp;
+					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestamp"), reinterpret_cast<int32_t*>(&fileModifiedTimestamp.dwLowDateTime));
+					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestampHigh"), reinterpret_cast<int32_t*>(&fileModifiedTimestamp.dwHighDateTime));
 
 					sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position, backupFilePath, fileModifiedTimestamp, mapPosition);
 
@@ -2985,7 +2986,8 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), viewSessionFiles[i]._encoding);
 				(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), viewSessionFiles[i]._fileName.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
-				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwLowDateTime));
+				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestampHigh"), static_cast<int32_t>(viewSessionFiles[i]._originalFileLastModifTimestamp.dwHighDateTime));
 				
 				// docMap 
 				(fileNameNode->ToElement())->SetAttribute(TEXT("mapFirstVisibleDisplayLine"), viewSessionFiles[i]._mapPos._firstVisibleDisplayLine);

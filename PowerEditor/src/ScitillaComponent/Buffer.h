@@ -310,7 +310,7 @@ public:
 		return _pManager->docLength(_id);
 	}
 
-	int getFileLength() const; // return file length. -1 if file is not existing.
+	int64_t getFileLength() const; // return file length. -1 if file is not existing.
 
 	enum fileTimeType { ft_created, ft_modified, ft_accessed };
 	generic_string getFileTime(fileTimeType ftt) const;

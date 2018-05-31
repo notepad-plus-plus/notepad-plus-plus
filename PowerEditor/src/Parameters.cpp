@@ -1076,10 +1076,10 @@ bool NppParameters::load()
 	BOOL doRecover = FALSE;
 	if (::PathFileExists(langs_xml_path.c_str()))
 	{
-		struct _stat buf;
+		WIN32_FILE_ATTRIBUTE_DATA attributes;
 
-		if (generic_stat(langs_xml_path.c_str(), &buf)==0)
-			if (buf.st_size == 0)
+		if (GetFileAttributesEx(langs_xml_path.c_str(), GetFileExInfoStandard, &attributes) != 0)
+			if (attributes.nFileSizeLow == 0 && attributes.nFileSizeHigh == 0)
 				doRecover = _pNativeLangSpeaker->messageBox("LoadLangsFailed",
 					NULL,
 					TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"),

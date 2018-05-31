@@ -313,17 +313,18 @@ void Buffer::reload()
 	}
 }
 
-int Buffer::getFileLength() const
+int64_t Buffer::getFileLength() const
 {
 	if (_currentStatus == DOC_UNNAMED)
 		return -1;
 
-	struct _stat buf;
-
-	if (PathFileExists(_fullPathName.c_str()))
+	WIN32_FILE_ATTRIBUTE_DATA attributes;
+	if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 	{
-		if (!generic_stat(_fullPathName.c_str(), &buf))
-			return buf.st_size;
+		LARGE_INTEGER size;
+		size.LowPart = attributes.nFileSizeLow;
+		size.HighPart = attributes.nFileSizeHigh;
+		return size.QuadPart;
 	}
 	return -1;
 }
@@ -331,26 +332,53 @@ int Buffer::getFileLength() const
 
 generic_string Buffer::getFileTime(fileTimeType ftt) const
 {
-	if (_currentStatus == DOC_UNNAMED)
-		return generic_string();
+	generic_string result;
 
-	struct _stat buf;
-
-	if (PathFileExists(_fullPathName.c_str()))
+	if (_currentStatus != DOC_UNNAMED)
 	{
-		if (!generic_stat(_fullPathName.c_str(), &buf))
+		WIN32_FILE_ATTRIBUTE_DATA attributes;
+		if (GetFileAttributesEx(_fullPathName.c_str(), GetFileExInfoStandard, &attributes) != 0)
 		{
-			time_t rawtime = (ftt == ft_created ? buf.st_ctime : (ftt == ft_modified ? buf.st_mtime : buf.st_atime));
-			tm *timeinfo = localtime(&rawtime);
-			const int temBufLen = 64;
-			TCHAR tmpbuf[temBufLen];
+			FILETIME rawtime;
+			switch (ftt)
+			{
+			case ft_created:
+				rawtime = attributes.ftCreationTime;
+				break;
+			case ft_modified:
+				rawtime = attributes.ftLastWriteTime;
+				break;
+			default:
+				rawtime = attributes.ftLastAccessTime;
+				break;
+			}
 
-			generic_strftime(tmpbuf, temBufLen, TEXT("%Y-%m-%d %H:%M:%S"), timeinfo);
-			return tmpbuf;
+			SYSTEMTIME utcSystemTime, localSystemTime;
+			FileTimeToSystemTime(&rawtime, &utcSystemTime);
+			SystemTimeToTzSpecificLocalTime(nullptr, &utcSystemTime, &localSystemTime);
+
+			int cbSize = GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, nullptr, 0);
+			if (cbSize != 0)
+			{
+				TCHAR* buf = new TCHAR[cbSize];
+				GetDateFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, buf, cbSize);
+				result += buf;
+				delete[] buf;
+			}
+
+			result += ' ';
+
+			cbSize = GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, nullptr, 0);
+			if (cbSize != 0)
+			{
+				TCHAR* buf = new TCHAR[cbSize];
+				GetTimeFormat(LOCALE_USER_DEFAULT, 0, &localSystemTime, nullptr, buf, cbSize);
+				result += buf;
+				delete[] buf;
+			}
 		}
 	}
-
-	return generic_string();
+	return result;
 }
 
 

@@ -114,7 +114,7 @@ void Notepad_plus::command(int id)
 			// As per MSDN (https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx)
 			// If the function succeeds, it returns a value greater than 32.
 			// If the function fails, it returns an error value that indicates the cause of the failure.
-			int retResult = reinterpret_cast<int>(res);
+			int retResult = static_cast<int>(reinterpret_cast<INT_PTR>(res));
 			if (retResult <= 32)
 			{
 				generic_string errorMsg;

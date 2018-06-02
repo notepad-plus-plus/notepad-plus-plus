@@ -27,6 +27,7 @@
 
 #include <memory>
 #include <shlwapi.h>
+#include <cinttypes>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 #include "Sorters.h"
@@ -844,20 +845,19 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 		}
 	}
 
- 	char intBuffer[15];
-	char nestingBuffer[] = "userDefine.nesting.00";
+ 	char intBuffer[32];
 
-    itoa(userLangContainer->_forcePureLC, intBuffer, 10);
+	sprintf(intBuffer, "%d", userLangContainer->_forcePureLC);
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.forcePureLC"), reinterpret_cast<LPARAM>(intBuffer));
 
-    itoa(userLangContainer->_decimalSeparator, intBuffer, 10);
+	sprintf(intBuffer, "%d", userLangContainer->_decimalSeparator);
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.decimalSeparator"), reinterpret_cast<LPARAM>(intBuffer));
 
 	// at the end (position SCE_USER_KWLIST_TOTAL) send id values
-	itoa(reinterpret_cast<int>(userLangContainer->getName()), intBuffer, 10); // use numeric value of TCHAR pointer
+	sprintf(intBuffer, "%" PRIuPTR, reinterpret_cast<uintptr_t>(userLangContainer->getName())); // use numeric value of TCHAR pointer
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.udlName"), reinterpret_cast<LPARAM>(intBuffer));
 
-    itoa(reinterpret_cast<int>(_currentBufferID), intBuffer, 10); // use numeric value of BufferID pointer
+	sprintf(intBuffer, "%" PRIuPTR, reinterpret_cast<uintptr_t>(_currentBufferID)); // use numeric value of BufferID pointer
     execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("userDefine.currentBufferID"), reinterpret_cast<LPARAM>(intBuffer));
 
 	for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
@@ -867,9 +867,10 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 		if (style._styleID == STYLE_NOT_USED)
 			continue;
 
-		if (i < 10)	itoa(i, (nestingBuffer+20), 10);
-		else		itoa(i, (nestingBuffer+19), 10);
-		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>(nestingBuffer), reinterpret_cast<LPARAM>(itoa(style._nesting, intBuffer, 10)));
+		char nestingBuffer[32];
+		sprintf(nestingBuffer, "userDefine.nesting.%02d", i );
+		sprintf(intBuffer, "%d", style._nesting);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>(nestingBuffer), reinterpret_cast<LPARAM>(intBuffer));
 
 		setStyle(style);
 	}

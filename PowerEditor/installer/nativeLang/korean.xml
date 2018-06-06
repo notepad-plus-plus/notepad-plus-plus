@@ -879,8 +879,8 @@
 <MessageBox>
   <ContextMenuXmlEditWarning title="컨텍스트 메뉴 편집" message="contextMenu.xml 파일을 수정하면 Noetpad++의 팝업 컨텍스트 메뉴를 바꿀 수 있습니다.  변경사항을 적용하려면 Notepad++을 다시 시작해야 합니다."/> 
   <NppHelpAbsentWarning title="파일이 없습니다!" message="파일 없음! - Notepad++ 사이트에서 다운로드 받으시기 바랍니다."/> 
-  <SaveCurrentModifWarning title="변경사항 저장" message="현재 변경된 사항을 저장해야 합니다. 저장된 모든 변경사항은 되돌릴 수 없습니다.  그래도 계속 하시겠습니까?"/> 
-  <LoseUndoAbilityWarning title="복원 불가!" message="현재 변경된 사항을 저장해야 합니다. 저장된 모든 변경사항은 되돌릴 수 없습니다.  그래도 계속 하시겠습니까?"/> 
+  <SaveCurrentModifWarning title="변경사항 저장" message="현재 변경된 사항을 저장해야 합니다. 저장된 모든 변경사항은 되돌릴 수 없습니다.  그래도 계속하시겠습니까?"/> 
+  <LoseUndoAbilityWarning title="복원 불가!" message="현재 변경된 사항을 저장해야 합니다. 저장된 모든 변경사항은 되돌릴 수 없습니다.  그래도 계속하시겠습니까?"/> 
   <CannotMoveDoc title="새로운 Notepad++ 인스턴스로 이동" message="문서가 수정되었습니다. 저장 후 다시 시도해 주십시오."/> 
   <DocReloadWarning title="다시 불러오기" message="변경 사항을 무시하고 현재 파일을 다시 불러오시겠습니까?"/> 
   <FileLockedWarning title="저장 실패" message="다른 프로그램에서 파일을 사용하는지 확인하십시오."/> 
@@ -893,11 +893,11 @@
   <SessionFileInvalidError title="세션을 로드할 수 없습니다." message="세션 파일이 손상되었거나 유효하지 않습니다."/>
    <!-- -->
   <DoSaveOrNot title="저장" message="&quot;$STR_REPLACE$&quot;을 저장할까요?"/>
-  <DoCloseOrNot title="존재하지 않는 파일 유지" message="&quot;$STR_REPLACE$&quot;파일이 더이상 존재하지 않습니다. \r이 파일을 notepad++에서 계속 유지하시겠습니까?"/>
+  <DoCloseOrNot title="존재하지 않는 파일 유지" message="&quot;$STR_REPLACE$&quot;파일이 더 이상 존재하지 않습니다. \r이 파일을 Notepad++에서 계속 유지하시겠습니까?"/>
   <DoDeleteOrNot title="파일 삭제" message="&quot;$STR_REPLACE$&quot;을 휴지통으로 이동하고 파일을 닫습니다. 계속하시겠습니까?"/>
   <NoBackupDoSaveFile title="저장" message="백업 파일을 열수 없습니다(외부에서 삭제됨). \r저장하지 않으면 데이터를 잃게 됩니다.\r&quot;$STR_REPLACE$&quot;을 저장하시겠습니까?"/>
   <DoReloadOrNot title="다시 불러오기" message="&quot;$STR_REPLACE$&quot;\r\r이 파일은 다른 프로그램에 의해 수정되었습니다.\r다시 불러오시겠습니까?"/>
-  <DoReloadOrNotAndLooseChange title="다시 불러오기" message="&quot;$STR_REPLACE$&quot;\r\r이 파일은 다른 프로그램에 의해 수정되었습니다.\rnotepad++에서 변경 한 내용을 잃고 수정된 파일을 다시 불러오시겠습니까?"/>    
+  <DoReloadOrNotAndLooseChange title="다시 불러오기" message="&quot;$STR_REPLACE$&quot;\r\r이 파일은 다른 프로그램에 의해 수정되었습니다.\rNotepad++에서 변경 한 내용을 잃고 수정된 파일을 다시 불러오시겠습니까?"/>    
 </MessageBox>
 <ClipboardHistory>
   <PanelTitle name="클립보드 사용 기록"/> 

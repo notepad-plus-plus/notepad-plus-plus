@@ -1,13 +1,13 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 <NotepadPlus>
-<!--  <localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
-<Native-Langue name="한국어" filename="korean.xml" version="7.4">
+<!--  <localization work version=7.5.6 nick="jiyoung211" name="Jiyoung Choi" mail= "kch1120@kw.ac.kr"/><localization work version=6.5.3~7.4.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com"/> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com"/> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com"/> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com"/> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com"/> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com"/> --> 
+<Native-Langue name="한국어" filename="korean.xml" version="7.5.6">
 <Menu>
 <Main>
 <!--  Main Menu Entries --> 
 <Entries>
   <Item menuId="file" name="파일(&amp;F)"/> 
-  <Item menuId="edit" name="편집(&amp;E)"/> 
+  <Item menuId="edit" name="편집(&amp;E)  "/> 
   <Item menuId="search" name="찾기(&amp;S)"/> 
   <Item menuId="view" name="보기(&amp;V)"/> 
   <Item menuId="encoding" name="인코딩(&amp;N)"/> 
@@ -891,6 +891,16 @@
 <SettingsOnCloudError title="클라우드 설정" message="클라우드 설정 경로가 읽기 전용 드라이브로 설정되어 있거나,\r쓰기에 대한 액세스 권한이 필요한 폴더인 것 같습니다.\r클라우드 설정은 취소될 것입니다. 기본 설정에서 일관된 값으로 재설정하십시오."/>
 <FilePathNotFoundWarning title="파일 열기" message="열려는 파일이 존재하지 않습니다."/>
 <SessionFileInvalidError title="세션을 로드할 수 없습니다." message="세션 파일이 손상되었거나 유효하지 않습니다."/>
+    
+    <!-- my add-->
+<DoSaveOrNot title="저장" message="&quot;$STR_REPLACE$&quot;을 저장할까요?"/>
+<DoCloseOrNot title="Keep non existing file" message="&quot;$STR_REPLACE$&quot;파일이 더이상 존재하지 않습니다. \r이 파일을 notepad++에서 계속 유지하시겠습니까?"/>
+<DoDeleteOrNot title="파일 삭제" message="&quot;$STR_REPLACE$&quot;을 휴지통으로 이동하고 파일을 닫습니다. 계속하시겠습니까?"/>
+<NoBackupDoSaveFile title="저장" message="백업 파일을 열수 없습니다(외부에서 삭제됨). \r저장하지 않으면 데이터를 잃게 됩니다.\r&quot;$STR_REPLACE$&quot;을 저장하시겠습니까?"/>
+<DoReloadOrNot title="다시 불러오기" message="&quot;$STR_REPLACE$&quot;\r\r이 파일은 다른 프로그램에 의해 수정되었습니다.\r다시 불러오시겠습니까?"/>
+<DoReloadOrNotAndLooseChange title="다시 불러오기" message="&quot;$STR_REPLACE$&quot;\r\r이 파일은 다른 프로그램에 의해 수정되었습니다.\rnotepad++에서 변경 한 내용을 잃고 수정된 파일을 다시 불러오시겠습니까?"/>    
+    <!-- my add-->
+    
   </MessageBox>
 <ClipboardHistory>
   <PanelTitle name="클립보드 사용 기록"/> 

@@ -50,15 +50,15 @@ struct PluginUpdateInfo
 {
 	generic_string _fullFilePath;
 
-	generic_string _id;
-	generic_string _name;
+	generic_string _folderName;
+	generic_string _displayName;
 	Version _version;
 	generic_string _homepage;
 	generic_string _sourceUrl;
 	generic_string _description;
 	generic_string _author;
 	generic_string _md5;
-	generic_string _alias;
+	generic_string _id;
 	generic_string _repository;
 
 	generic_string describe();
@@ -84,15 +84,41 @@ struct NppCurrentStatus
 	bool shouldLaunchInAdmMode() { return _isInProgramFiles; };
 };
 
+class PluginViewList
+{
+public:
+	PluginViewList() {};
+	~PluginViewList() {
+		_ui.destroy();
+		for (auto i : _list)
+		{
+			delete i;
+		}
+	};
+
+	void pushBack(PluginUpdateInfo* pi);
+	HWND getViewHwnd() { return _ui.getHSelf(); };
+	void displayView(bool doShow) const { _ui.display(doShow); };
+	std::vector<size_t> getCheckedIndexes() const { return _ui.getCheckedIndexes(); };
+	long getSelectedIndex() const { return _ui.getSelectedIndex(); };
+	void setSelection(int index) const { _ui.setSelection(index); };
+	void initView(HINSTANCE hInst, HWND parent) { _ui.init(hInst, parent); };
+	void addColumn(const columnInfo & column2Add) { _ui.addColumn(column2Add); };
+	void reSizeView(RECT & rc) { _ui.reSizeTo(rc); }
+	void setViewStyleOption(int32_t extraStyle) { _ui.setStyleOption(extraStyle); };
+	size_t nbItem() const { return _ui.nbItem(); };
+	PluginUpdateInfo* getPluginInfoFromIndex(int index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(index)); };
+
+private:
+	std::vector<PluginUpdateInfo*> _list;
+	ListView _ui;
+};
+
 class PluginsAdminDlg final : public StaticDialog
 {
 public :
 	PluginsAdminDlg() {};
-	~PluginsAdminDlg() {
-		_availableListView.destroy();
-		_updateListView.destroy();
-		_installedListView.destroy();
-	}
+	~PluginsAdminDlg() {}
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
 	};
@@ -113,13 +139,9 @@ public :
     };
 
 	void switchDialog(int indexToSwitch);
-
-	bool updateListAndLoadFromJson(); // call GitUup for the 1st time
-	void updateAvailableListView();
-	void updateInstalledListView();
-	void updateUpdateListView();
-
 	void setPluginsManager(PluginsManager *pluginsManager) { _pPluginsManager = pluginsManager; };
+
+	bool updateListAndLoadFromJson();
 	void setAdminMode(bool isAdm) { _nppCurrentStatus._isAdminMode = isAdm; };
 
 	bool installPlugins();
@@ -132,27 +154,25 @@ protected:
 private :
 	TabBar _tab;
 
-	ListView _availableListView;
-	ListView _updateListView;
-	ListView _installedListView;
-	std::vector<PluginUpdateInfo> _availablePluginList; // All plugins (pluginList.json) - installed plugins 
-	std::vector<PluginUpdateInfo> _updatePluginList;    // A list returned by gitup.exe
-	std::vector<PluginUpdateInfo> _installedPluginList; // for each installed plugin, check its json file
+	PluginViewList _availableList; // All plugins (pluginList.json) - installed plugins 
+	PluginViewList _updateList;    // A list returned by gitup.exe
+	PluginViewList _installedList; // for each installed plugin, check its json file
 
 	PluginsManager *_pPluginsManager = nullptr;
 	NppCurrentStatus _nppCurrentStatus;
 
 	void collectNppCurrentStatusInfos();
 	bool searchInPlugins(bool isNextMode) const;
-	const bool inNames = true;
-	const bool inDescs = false;
+	const bool _inNames = true;
+	const bool _inDescs = false;
+	bool isFoundInAvailableListFromIndex(int index, generic_string str2search, bool inWhichPart) const;
 	long searchFromCurrentSel(generic_string str2search, bool inWhichPart, bool isNextMode) const;
 	long searchInNamesFromCurrentSel(generic_string str2search, bool isNextMode) const {
-		return searchFromCurrentSel(str2search, inNames, isNextMode);
+		return searchFromCurrentSel(str2search, _inNames, isNextMode);
 	};
 
 	long searchInDescsFromCurrentSel(generic_string str2search, bool isNextMode) const {
-		return searchFromCurrentSel(str2search, inDescs, isNextMode);
+		return searchFromCurrentSel(str2search, _inDescs, isNextMode);
 	};
 
 	bool loadFromPluginInfos();

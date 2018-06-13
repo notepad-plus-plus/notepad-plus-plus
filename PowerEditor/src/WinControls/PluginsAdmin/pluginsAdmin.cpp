@@ -488,7 +488,22 @@ bool loadFromJson(PluginViewList & pl, const json& j)
 	return true;
 }
 
+PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const generic_string& filename)
+{
+	if (!::PathFileExists(fullFilePath.c_str()))
+		return;
 
+	_fullFilePath = fullFilePath;
+	_displayName = filename;
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	const char *path = wmc->wchar2char(fullFilePath.c_str(), CP_ACP);
+	MD5 md5;
+	_id = wmc->char2wchar(md5.digestFile(path), CP_ACP);
+
+	_version.setVersionFrom(fullFilePath);
+
+}
 
 bool PluginsAdminDlg::updateListAndLoadFromJson()
 {
@@ -529,23 +544,6 @@ bool PluginsAdminDlg::updateListAndLoadFromJson()
 }
 
 
-PluginUpdateInfo::PluginUpdateInfo(const generic_string& fullFilePath, const generic_string& filename)
-{
-	if (!::PathFileExists(fullFilePath.c_str()))
-		return;
-
-	_fullFilePath = fullFilePath;
-	_displayName = filename;
-
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	const char *path = wmc->wchar2char(fullFilePath.c_str(), CP_ACP);
-	MD5 md5;
-	_id = wmc->char2wchar(md5.digestFile(path), CP_ACP);
-
-	_version.setVersionFrom(fullFilePath);
-
-}
-
 bool PluginsAdminDlg::loadFromPluginInfos()
 {
 	if (!_pPluginsManager)
@@ -553,9 +551,65 @@ bool PluginsAdminDlg::loadFromPluginInfos()
 
 	for (const auto& i : _pPluginsManager->_loadedDlls)
 	{
-		PluginUpdateInfo* pui = new PluginUpdateInfo(i._fullFilePath, i._fileName);
-		_installedList.pushBack(pui);
+		if (i._fileName.length() >= MAX_PATH)
+			continue;
+
+		// user file name (without ext. to find whole info in available list
+		TCHAR fnNoExt[MAX_PATH];
+		lstrcpy(fnNoExt, i._fileName.c_str());
+		::PathRemoveExtension(fnNoExt);
+
+		int index;
+		PluginUpdateInfo* foundInfo = _availableList.findPluginInfoFromFolderName(fnNoExt, index);
+		if (!foundInfo)
+		{
+			PluginUpdateInfo* pui = new PluginUpdateInfo(i._fullFilePath, i._fileName);
+			_installedList.pushBack(pui);
+		}
+		else
+		{
+			// add new updated info to installed list
+			PluginUpdateInfo* pui = new PluginUpdateInfo(*foundInfo);
+			pui->_fullFilePath = i._fullFilePath;
+			pui->_version.setVersionFrom(i._fullFilePath);
+			_installedList.pushBack(pui);
+
+			// remove it from the available list
+			_availableList.removeFromIndex(index);
+		}
 	}
+
+	return true;
+}
+
+PluginUpdateInfo* PluginViewList::findPluginInfoFromFolderName(const generic_string& folderName, int& index) const
+{
+	index = 0;
+	for (const auto& i : _list)
+	{
+		if (lstrcmpi(i->_folderName.c_str(), folderName.c_str()) == 0)
+			return i;
+		++index;
+	}
+	index = -1;
+	return nullptr;
+}
+
+bool PluginViewList::removeFromIndex(size_t index2remove)
+{
+	if (index2remove >= _list.size())
+		return false;
+
+	for (size_t i = 0; i < _ui.nbItem(); ++i)
+	{
+		if (_ui.getLParamFromIndex(i) == reinterpret_cast<LPARAM>(_list[index2remove]))
+		{
+			if (!_ui.removeFromIndex(i))
+				return false;
+		}
+	}
+	
+	_list.erase(_list.begin() + index2remove);
 
 	return true;
 }

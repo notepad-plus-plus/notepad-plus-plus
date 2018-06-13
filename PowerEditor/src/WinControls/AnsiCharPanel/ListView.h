@@ -74,6 +74,13 @@ public:
 
 	LPARAM getLParamFromIndex(int itemIndex) const;
 
+	bool removeFromIndex(size_t i)	{
+		if (i >= nbItem())
+			return false;
+
+		return (ListView_DeleteItem(_hSelf, i) == TRUE);
+	}
+
 	std::vector<size_t> getCheckedIndexes() const;
 
 	virtual void init(HINSTANCE hInst, HWND hwnd);

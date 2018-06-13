@@ -48,10 +48,10 @@ struct Version
 
 struct PluginUpdateInfo
 {
-	generic_string _fullFilePath;
+	generic_string _fullFilePath; // only for the installed Plugin
 
-	generic_string _folderName;
-	generic_string _displayName;
+	generic_string _folderName;   // plugin folder name - should be the same name with plugin and should be uniq among the plugins
+	generic_string _displayName;  // plugin description name
 	Version _version;
 	generic_string _homepage;
 	generic_string _sourceUrl;
@@ -108,6 +108,8 @@ public:
 	void setViewStyleOption(int32_t extraStyle) { _ui.setStyleOption(extraStyle); };
 	size_t nbItem() const { return _ui.nbItem(); };
 	PluginUpdateInfo* getPluginInfoFromIndex(int index) const { return reinterpret_cast<PluginUpdateInfo*>(_ui.getLParamFromIndex(index)); };
+	PluginUpdateInfo* findPluginInfoFromFolderName(const generic_string& folderName, int& index) const;
+	bool removeFromIndex(size_t index2remove);
 
 private:
 	std::vector<PluginUpdateInfo*> _list;

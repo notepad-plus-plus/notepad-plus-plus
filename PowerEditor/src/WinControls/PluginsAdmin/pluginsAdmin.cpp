@@ -339,15 +339,14 @@ void PluginsAdminDlg::collectNppCurrentStatusInfos()
 
 bool PluginsAdminDlg::installPlugins()
 {
-	/*
-	vector<size_t> indexes = _availableListView.getCheckedIndexes();
+	vector<size_t> indexes = _availableList.getCheckedIndexes();
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");
 
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
-	generic_string updaterParams = TEXT("-unzipTo -clean ");
+	generic_string updaterParams = TEXT("-unzipTo ");
 
 	for (auto i : indexes)
 	{
@@ -355,56 +354,54 @@ bool PluginsAdminDlg::installPlugins()
 
 		// add folder to operate
 		generic_string destFolder = pNppParameters->getAppDataNppDir();
-		PathAppend(destFolder, _availablePluginList[i]._name);
+		PathAppend(destFolder, _availableList.getPluginInfoFromIndex(i)->_folderName);
 		
 		updaterParams += destFolder;
 
 		// add zipFile's url
 		updaterParams += TEXT(" ");
-		updaterParams += _availablePluginList[i]._repository;
+		updaterParams += _availableList.getPluginInfoFromIndex(i)->_repository;
 
 		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 		updater.run();
 	}
-	*/
+
 	return true;
 }
 
 bool PluginsAdminDlg::updatePlugins()
 {
-	/*
-	vector<size_t> indexes = _updateListView.getCheckedIndexes();
+	vector<size_t> indexes = _updateList.getCheckedIndexes();
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");
 
 	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
-	generic_string updaterParams = TEXT("-unzipTo -clean ");
+	generic_string updaterParams = TEXT("-unzipTo ");
 
 	for (auto i : indexes)
 	{
 		// add folder to operate
 		generic_string destFolder = pNppParameters->getAppDataNppDir();
-		PathAppend(destFolder, _availablePluginList[i]._name);
+		PathAppend(destFolder, _availableList.getPluginInfoFromIndex(i)->_folderName);
 
 		updaterParams += destFolder;
 
 		// add zipFile's url
 		updaterParams += TEXT(" ");
-		updaterParams += _availablePluginList[i]._repository;
+		updaterParams += _availableList.getPluginInfoFromIndex(i)->_repository;
 
 		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 		updater.run();
 	}
-	*/
+
 	return true;
 }
 
 bool PluginsAdminDlg::removePlugins()
 {
-	/*
-	vector<size_t> indexes = _installedListView.getCheckedIndexes();
+	vector<size_t> indexes = _installedList.getCheckedIndexes();
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	generic_string updaterDir = pNppParameters->getNppPath();
@@ -419,14 +416,14 @@ bool PluginsAdminDlg::removePlugins()
 
 		// add folder to operate
 		generic_string destFolder = pNppParameters->getAppDataNppDir();
-		PathAppend(destFolder, _availablePluginList[i]._name);
+		PathAppend(destFolder, _availableList.getPluginInfoFromIndex(i)->_folderName); 
 
 		updaterParams += destFolder;
 
 		Process updater(updaterFullPath.c_str(), updaterParams.c_str(), updaterDir.c_str());
 		updater.run();
 	}
-	*/
+
 	return true;
 }
 

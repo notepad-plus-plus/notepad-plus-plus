@@ -31,29 +31,32 @@ SectionGroup "Plugins" Plugins
 !ifndef ARCH64
 	${MementoSection} "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppExport.dll"
+		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
+		SetOutPath "$INSTDIR\plugins\NppExport"
+		File "..\bin\plugins\NppExport\NppExport.dll"
 	${MementoSectionEnd}
 
 !endif
 
 	${MementoSection} "Mime Tools" MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"
-		SetOutPath "$INSTDIR\plugins"
+		Delete "$INSTDIR\plugins\mimeTools\mimeTools.dll"
+		SetOutPath "$INSTDIR\plugins\mimeTools"
 !ifdef ARCH64
-		File "..\bin64\plugins\mimeTools.dll"
+		File "..\bin64\plugins\mimeTools\mimeTools.dll"
 !else
-		File "..\bin\plugins\mimeTools.dll"
+		File "..\bin\plugins\mimeTools\mimeTools.dll"
 !endif
 	${MementoSectionEnd}
 	
 	${MementoSection} "Converter" Converter
 		Delete "$INSTDIR\plugins\NppConverter.dll"
-		SetOutPath "$INSTDIR\plugins"
+		Delete "$INSTDIR\plugins\NppConverter\NppConverter.dll"
+		SetOutPath "$INSTDIR\plugins\NppConverter"
 !ifdef ARCH64
-		File "..\bin64\plugins\NppConverter.dll"
+		File "..\bin64\plugins\NppConverter\NppConverter.dll"
 !else
-		File "..\bin\plugins\NppConverter.dll"
+		File "..\bin\plugins\NppConverter\NppConverter.dll"
 !endif
 	${MementoSectionEnd}
 
@@ -61,14 +64,15 @@ SectionGroup "Plugins" Plugins
         Call setPathAndOptions
         
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
-		SetOutPath "$INSTDIR\plugins"
+		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
+		SetOutPath "$INSTDIR\plugins\DSpellCheck"
 !ifdef ARCH64
-		File "..\bin64\plugins\DSpellCheck.dll"
+		File "..\bin64\plugins\DSpellCheck\DSpellCheck.dll"
 		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
 		File "..\bin64\plugins\Config\Hunspell\en_US.aff"
 		File "..\bin64\plugins\Config\Hunspell\en_US.dic"
 !else
-		File "..\bin\plugins\DSpellCheck.dll"
+		File "..\bin\plugins\DSpellCheck\DSpellCheck.dll"
 		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
 		File "..\bin\plugins\Config\Hunspell\en_US.aff"
 		File "..\bin\plugins\Config\Hunspell\en_US.dic"
@@ -102,14 +106,17 @@ ${MementoSectionEnd}
 SectionGroup un.Plugins
 	Section un.NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
+		Delete "$INSTDIR\plugins\NppExport\NppExport.dll"
 	SectionEnd
 	
 	Section un.Converter
 		Delete "$INSTDIR\plugins\NppConverter.dll"
+		Delete "$INSTDIR\plugins\NppConverter\NppConverter.dll"
 	SectionEnd
 	
 	Section un.MimeTools
 		Delete "$INSTDIR\plugins\mimeTools.dll"
+		Delete "$INSTDIR\plugins\mimeTools\mimeTools.dll"
 	SectionEnd
 
 	Section un.PluginManager
@@ -121,6 +128,7 @@ SectionGroup un.Plugins
 	
  	Section un.DSpellCheck
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+		Delete "$INSTDIR\plugins\DSpellCheck\DSpellCheck.dll"
 		Delete "$UPDATE_PATH\plugins\Config\DSpellCheck.ini"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.aff"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.dic"

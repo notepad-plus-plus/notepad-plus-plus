@@ -17,8 +17,19 @@ rem along with this program; if not, write to the Free Software
 rem Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 echo on
-
 if %SIGN% == 0 goto NoSign
+
+rem retrieve GUP release from website while doing Notepad++ release
+set WINGUP_VER=5.0.1
+IF EXIST ".\bin\wingup\GUP.exe" (
+	cd .\bin\wingup
+	GUP.exe -unzipTo %~dp0\..\bin\updater https://github.com/notepad-plus-plus/wingup/releases/download/v%WINGUP_VER%/wingup.v%WINGUP_VER%.bin.zip
+	GUP.exe -unzipTo %~dp0\..\bin64\updater https://github.com/notepad-plus-plus/wingup/releases/download/v%WINGUP_VER%/wingup.v%WINGUP_VER%.bin.x64.zip
+	cd ..\..
+) ELSE (
+	echo .\wingup\GUP.exe is absent.
+)
+
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\notepad++.exe
 If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\notepad++.exe
@@ -43,17 +54,17 @@ If ErrorLevel 1 goto End
 signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\updater\libcurl.dll
 If ErrorLevel 1 goto End
 
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\NppExport.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\NppExport\NppExport.dll
 If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\mimeTools.dll
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\mimeTools.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\mimeTools\mimeTools.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\mimeTools\mimeTools.dll
 If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\NppConverter.dll
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\NppConverter.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\NppConverter\NppConverter.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\NppConverter\NppConverter.dll
 If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\DSpellCheck.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin\plugins\DSpellCheck\DSpellCheck.dll
 If ErrorLevel 1 goto End
-signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\DSpellCheck.dll
+signtool.exe sign /f %NPP_CERT% /p %NPP_CERT_PWD% /d "Notepad++" /du https://notepad-plus-plus.org/ /t http://timestamp.digicert.com/ ..\bin64\plugins\DSpellCheck\DSpellCheck.dll
 If ErrorLevel 1 goto End
 
 :NoSign
@@ -120,6 +131,10 @@ mkdir .\zipped.package.release\updater
 mkdir .\zipped.package.release\localization
 mkdir .\zipped.package.release\themes
 mkdir .\zipped.package.release\plugins
+mkdir .\zipped.package.release\plugins\NppExport
+mkdir .\zipped.package.release\plugins\mimeTools
+mkdir .\zipped.package.release\plugins\NppConverter
+mkdir .\zipped.package.release\plugins\DSpellCheck
 mkdir .\zipped.package.release\plugins\APIs
 mkdir .\zipped.package.release\plugins\Config
 mkdir .\zipped.package.release\plugins\doc
@@ -131,6 +146,9 @@ mkdir .\zipped.package.release64\updater
 mkdir .\zipped.package.release64\localization
 mkdir .\zipped.package.release64\themes
 mkdir .\zipped.package.release64\plugins
+mkdir .\zipped.package.release64\plugins\mimeTools
+mkdir .\zipped.package.release64\plugins\NppConverter
+mkdir .\zipped.package.release64\plugins\DSpellCheck
 mkdir .\zipped.package.release64\plugins\APIs
 mkdir .\zipped.package.release64\plugins\Config
 mkdir .\zipped.package.release64\plugins\doc
@@ -185,13 +203,13 @@ If ErrorLevel 1 goto End
 
 
 rem Plugins
-copy /Y "..\bin\plugins\NppExport.dll" .\zipped.package.release\plugins\
+copy /Y "..\bin\plugins\NppExport\NppExport.dll" .\zipped.package.release\plugins\NppExport\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\plugins\mimeTools.dll" .\zipped.package.release\plugins\
+copy /Y "..\bin\plugins\mimeTools\mimeTools.dll" .\zipped.package.release\plugins\mimeTools\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\plugins\NppConverter.dll" .\zipped.package.release\plugins\
+copy /Y "..\bin\plugins\NppConverter\NppConverter.dll" .\zipped.package.release\plugins\NppConverter\
 If ErrorLevel 1 goto End
-copy /Y "..\bin\plugins\DSpellCheck.dll" .\zipped.package.release\plugins\
+copy /Y "..\bin\plugins\DSpellCheck\DSpellCheck.dll" .\zipped.package.release\plugins\DSpellCheck\
 If ErrorLevel 1 goto End
 mkdir .\zipped.package.release\plugins\Config\Hunspell
 If ErrorLevel 1 goto End
@@ -202,11 +220,11 @@ If ErrorLevel 1 goto End
 copy /Y "..\bin\plugins\Config\Hunspell\en_US.dic" .\zipped.package.release\plugins\Config\Hunspell\
 If ErrorLevel 1 goto End
 
-copy /Y "..\bin64\plugins\mimeTools.dll" .\zipped.package.release64\plugins\
+copy /Y "..\bin64\plugins\mimeTools\mimeTools.dll" .\zipped.package.release64\plugins\mimeTools\
 If ErrorLevel 1 goto End
-copy /Y "..\bin64\plugins\NppConverter.dll" .\zipped.package.release64\plugins\
+copy /Y "..\bin64\plugins\NppConverter\NppConverter.dll" .\zipped.package.release64\plugins\NppConverter\
 If ErrorLevel 1 goto End
-copy /Y "..\bin64\plugins\DSpellCheck.dll" .\zipped.package.release64\plugins\
+copy /Y "..\bin64\plugins\DSpellCheck\DSpellCheck.dll" .\zipped.package.release64\plugins\DSpellCheck\
 If ErrorLevel 1 goto End
 mkdir .\zipped.package.release64\plugins\Config\Hunspell
 If ErrorLevel 1 goto End
